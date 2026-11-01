@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571163;
-	b=N+6NW77q5g7ylreB5UR4GoWJdbWsdkk56yDBJXM9RZnU+PbmeZR1u7EF1l/CBByTwhrd
-	 4qIgsz2yxwNpKc1BqHndr8+5oQLETG4UpiyL7nbzFVyUNSDixFP9ZMlGTTbraFcRO+2Jn
-	 YFtWpr4h4wejzi/8kJCouyKR0bp/9++CzJdJzx8Iw0XSNgUBkPy5sHjkejANVT9Y84bGB
-	 +VvXtbOhOMyWmGbTgzQBbiO1ZM2nO/jaU7py46qvK+GttaI0Wzyz8fZnXIpuEatVehO15
-	 /kHvD17/gSdW+vHQUZHBCfxxBTlxVUkAfU+U5O88915v9qzMSkyoGxigmxuaPsuOtww==
+	t=1793571186;
+	b=a+lA/ldrJYeNYAaIqJpzshQuTP0Br+gk1AWwoxTnp63Frs7pBSyaBWJsbJFzgHOwk/9m
+	 zyWcTiWvu4I/7+IAfe55fcVZFu/D++v32pwsM5HvSJongwA69I/4TfMxMJx6fTQEz2SO/
+	 j/V9nLnL8yg46p1pQw/y9hC/WLyX8rH+QnY/1TrqFEFi7xI5rE0zg8t2UwNcxyyT28fX9
+	 CSaSqec8svwmdwT7zif8tzjBIylDTN6qeBbR8s6PObiEN1zG2CBmNnd9GfegC9W4dFXPN
+	 4SvUb9EQDZg2mtJ6YLyKtoOs0Cav5Ge3s4HyZbRbqJRz1YEdPQQ2bWeOGpgEmpMZ8Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571163;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571186;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=p/9fa9bV3ZcCfTLaoelFVuKfAoX2NF9q4J5ymFDkaHE=;
-	b=XF1Ov/Z0wQ7udp1guEplR8dTob7NTUVmgN0fHXtYz3hEUAGBwGWkpqLbiQjOdXS7nnxm
-	 msUyn23bQ1ZX9oYVwc4+lu7T9AV4Zj7ZvCxzf+qvPAHOc7F5fKhaszlzw5lQBP5rQz4eE
-	 Y7pfCt/KIOUmifK11TaYvCmm2Oqd9QU1X66fdEYE5BU8uEmh7hWXpkFLGaH4RwOmDg/ab
-	 wbi/ZAl8vblmzw4FVdok3hVQa9MXW0CpM6ySD+pUnsR31OGHR5CvuNIKtUYSg75vf0uQJ
-	 wHEX9uGcvPog5dJIbE9TVZRTCMRGcWczwHjqeXCn9CiCivjq9KVJVS5hg968qPuEx8Q==
+	bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
+	b=vR7F6adTRbkGhOTdd180ZroLBBKpM4pcy4IMMI1/memZh7W9cEMf7cGlJT46lugDhM7O
+	 oAvU1xKyKf8s8v9scWg4g+tIEZH422jIAb1cW313zCe+Iy6+ws0Rxf4bV1s/8LwZiqSzd
+	 rrn+telzfCEVdKSo713wr3fdQoVzRk20Hx+5SLdA7iLIgXSSB4yaU4eyLMlw779Eqo8Z4
+	 KSH/GIhKwg96Wxd7iBYtQYk/4iEtp5goNqNCMALqpjc36NO4UFIXN/OU21fsN8BkLcyNK
+	 k3gnQcpeqkkp+DjmzqZJvb1m8MddN9dLD0stuNCAjljpcWMzu5pnYnTvbDyrvqmRbmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IccJ1Jqq;
-	arc=none smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S++BokSY;
+	arc=none smtp.remote-ip=209.85.208.172
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5F1606A326
-	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:12:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C5F1606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED30B606A324
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED30B606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IccJ1Jqq
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be4fea434bso2920216e87.1
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:12:43 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S++BokSY
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab01c46697so25068191fa.1
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:13:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793571161; x=1794175961; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793571184; x=1794175984; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=p/9fa9bV3ZcCfTLaoelFVuKfAoX2NF9q4J5ymFDkaHE=;
-        b=IccJ1JqqXSD4DHYgpBEZF8oT+cZwh48zf0zH0E7bty/1BEtE0FFzix/5grpT13TvHD
-         jX+vvcuV54XBCawHuBr051I7gN1uOWLXamHGME2xZezmDSq40fAQ9B6W1Li5LgQcpVms
-         YnQitLpIf2kkKRve1zS46hX75gpCfbb3EeQAA=
+        bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
+        b=S++BokSYk9NR96QvjjnSR20U6inK1EYslKh/LZ288SM6gnh2aLsUnwNdP+YIiwyRrQ
+         QuuuhrJdichebY/SSlGY52DckHaFiyGXm+/I70zns+zyHduMHkhB+auo1vNAfjAKC4RI
+         I8+/qkobT8lN6eXBbF4zJNBVmgQLOXCfC79vQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571161; x=1794175961;
+        d=1e100.net; s=20260707; t=1793571184; x=1794175984;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p/9fa9bV3ZcCfTLaoelFVuKfAoX2NF9q4J5ymFDkaHE=;
-        b=GdCgk/tLD7V7XkUI8+ppTX2eobinbQZYu6Y6a6HSgwbeeOfphzYSYmVK2zXeVwNbq2
-         LUUK6/M+B35FNOjw+TE4TU+UDwod2nETDQx855Gg6wjlGWXUQEM1fxcudumyHsVoZ061
-         DhBNOZ1ArwQjTPI4aoxvQBWzK3c1iRKNGiwyKvwfCqqRCJKcQYVw1nspfmHDg05dFsj6
-         V+oJgslHJziku8tx2SWrBedNG+muyyY7ChMQa6U+9PC/y2oURxbNzoO2IL2OC5bzgkJ7
-         hbP6PG7kf+1/ThEkAgaG4dgQDIcFOZeSr/Sx0Smx29opvB2X+NLadUEP6iv9LxrCDu6f
-         jnEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSRAbQ+VIYZL9n2i9cYxGRmicgvtuUi3DqUCasiG8mfnjYH8YON8rOWhQXjtk6CKqTwb32W81qAsz8@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7Hc5AjL777Iss18msqQIP9Cx57VoKrBO+SdNf1Dv5zxBNAh6u
-	VSPuEdcW6sHj5fkrWKgMckY/Bgu5g4TdlCaLYZMZPOMWzad3rDodXqkEKIZnFoa6SOb0//pybR3
-	GdkgIz+O+
-X-Gm-Gg: AYBFou1/VRvxJwGhSUAL6E2q3vFnCdfkJoD9TR5HrfeiV5vksKpj9OQm95KenfMulgl
-	PwzjkQijbS6ccQJY24Fm1sGYMAN5bO8FOl6aKiByQgAz2qxwuDlB9mYcu9+r6ZqYghZsv9W934w
-	52C8j1clOXRufqxSSMylcx41lw4IC3In1kma7Bye0XZR3VP4HvcV7X8a4Slsw6oAIP86UjqxQlI
-	Fnv5EwjYDZQ3zAyNXcMbrE/TpyQg3yGHeFWUEWVl4vV5NAwrCMmF1gtyH904bdOQg4rhC4H1MrN
-	OnYZVQ87nP+KSDt80BvK8WMgJ7meZBQ/rHbDQ6G6B0m0tsJg9SYtmjLEts/7DTRPFac/v6gGpCp
-	zZyQql4ohfJS72MBRbOsBqXVH+WHOrUVr/L9B9sdqpCSFhGWBZZHe4tZutf8ybkSLcrInhfAJYU
-	yiX7RxmQ/pynY+R0HB+nulbbUkL3k8lnN6r5/Na4dQW+ZbVCw2JKfuaBRIai9yJYGLf5NvhWdAK
-	X+SMxyVzViOvXORfHdogKHyWYUIy8y1mzieus970R9yvtmzITKAOZ0Wkqumvo71iAD6oNhEwHcJ
-	6aaoCol78YHNoiUsSUwAMUuB05c2pZcPRzO4hW4NUIwqvgEDDTqgZT/ZL7CAkVOvuGk=
-X-Received: by 2002:a05:6512:2383:b0:5bf:c94d:4b49 with SMTP id 2adb3069b0e04-5bfd11ea1e0mr3113764e87.12.1793571161566;
-        Sun, 01 Nov 2026 14:12:41 -0800 (PST)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com. [209.85.167.52])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe04a4c16sm1424116e87.0.2026.11.01.14.12.41
+        bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
+        b=DNTdihKmu+acfFcaAbBrEa79U9PR5Stj2N8PT8sDe/PIxgxeW/0+rGIedt3V5wgex7
+         +LmxAXvLcS3YzUfbyAFSbA6ofjHmNveoFFSPR+VLyh66Q14P6G2sxLG80FSC5Iie5qgl
+         VWzDBQezodAQgtCeHn0rTQKhol3d+Ycz2IUtLtnAiW+BLmZZA9vZo+QYm7fpUeLmdD7t
+         PWR0y89gXJ0xNy2gudzYxsVGuoL1puliurKjMuJreWMIySWedmg4FIfTSqnvtIalG4RV
+         i362JHAEoAKwHe5ykwCVit/vV2aQHoiZji2SOrLHgefJOVMZsqa5unAyv674xYy9RVl3
+         lgLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNuGN+5y3OyLDZd2WiacKUT3YDPgxIzvEXdwbCrt470pBl3a/IhCScFAWmePvK18+WitrnwxduHDJR@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SkNnPg0/BcOej4bTQ5syewBvCXxumuFktmxnnTuhiGogGFsGF
+	OFwF7A2DztO0muoOc8/rwP7SiMNOz0KuyOY54Ue98trjLoVnqTKSJlx4lbL2LzgP9SO4E2QBRwq
+	NxQHAyije
+X-Gm-Gg: AYBFou0d0kFH1SAgCp8tn6ndy/vaDEnz4V/LPUm7xVdecAHKXzEux6D5bl+7YaJtr0X
+	ObHfd8gTOadVFXfnUCw06nqWUnj19bf1OTsNey3FOWgIOEDgsU0t0GarTr+RKdmEbGmvVRc/Dsw
+	cjgecsn7QUmnl/8UusPvgMnmOgMgB8XZm93bd/L6QIyuPMnf53ROj+YzuBpxjB2zxfrfWPwA/vY
+	A9A4XXYYrN9NL8NjlDDeozNnnUx/Rk78q/1pcRX5lhTaQrVuIvdJ/MxUPQJLuM2Ep1mUkOGx7hD
+	kyGTWOwXag6Aimb8e4T/ug5uhX/KRvpoBtjwNw8D+HlYDatbq+UBwwXGWxurGYBrGpQIsinhsS/
+	Sta7QKU3a9U9uzXU4KC08089MAhPya0ScVJB33L3wi1GB9My/BYTqViQ+EjEB0wT9PZPWO2XhiR
+	J3NWJ12epSnMDw2//CSzMOzlRmzFor195Hyy5hJ9MghUeYUbCDthzWwNeSmUGFOiotYIsUSg3oC
+	1ndGwWFW43eQHeRY4tHEuedhdCNqdarsbYl0HKvLRVG+OerZE3tuS2qmp6//FBmyqXy1gBI3B0d
+	0mDYfAn4hujKomTow1QDq5ypYGrJo6QYGAeXExLENZbHPerEfLwjY2m7Esb8oEC6jLbQHmo=
+X-Received: by 2002:a2e:bea2:0:b0:3ab:2d74:720 with SMTP id 38308e7fff4ca-3acb7a8c495mr20477421fa.19.1793571184080;
+        Sun, 01 Nov 2026 14:13:04 -0800 (PST)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com. [209.85.208.172])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acbbebe9f7sm17213631fa.11.2026.11.01.14.13.03
         for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 14:12:41 -0800 (PST)
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso3699172e87.0
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:12:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxt+cIb1B/swDb2uT/cMEOPI03Y44RPYGiqItQBBJhgK7q3fimSMSi/HFUM80tstFrm1nnR+j6+wmmU@vger.kernel.org
-X-Received: by 2002:a05:6000:4910:b0:48c:69b3:6114 with SMTP id
- ffacd0b85a97d-48e6494c24fmr30421734f8f.3.1793570681174; Sun, 01 Nov 2026
- 14:04:41 -0800 (PST)
+        Sun, 01 Nov 2026 14:13:03 -0800 (PST)
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab01c46697so25068131fa.1
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:13:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByxis0ice2JWKIYJDCRS7TfOKjxiVS6jWNTt9oIhdH6BOKSfxNxiZphFmq0qZCLSAWyzVSFR8DzjVhl@vger.kernel.org
+X-Received: by 2002:a05:6000:2c0f:b0:48b:68:594a with SMTP id
+ ffacd0b85a97d-48e6e2e7798mr18180529f8f.12.1793570721533; Sun, 01 Nov 2026
+ 14:05:21 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,92 +95,184 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-3-dianders@chromium.org> <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
-In-Reply-To: <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
+ <20261028215600.1713475-7-dianders@chromium.org> <auR-OXOpim7dVTpH@gractus.seuss>
+In-Reply-To: <auR-OXOpim7dVTpH@gractus.seuss>
 From: Doug Anderson <dianders@chromium.org>
-Date: Sun, 1 Nov 2026 14:04:28 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=UZahH27Rb+JrGpuPxxmnOAt3-DvZ1u32TzN9jJftOoeA@mail.gmail.com>
-X-Gm-Features: AclHuK-0PMyh2gGf_SdepdjlMGJUnYCAlvxR2gqZjB6i5LECjAnzzbSqRkU6NPI
-Message-ID: <CAD=FV=UZahH27Rb+JrGpuPxxmnOAt3-DvZ1u32TzN9jJftOoeA@mail.gmail.com>
-Subject: Re: [PATCH v2 02/10] pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
-To: Simon Glass <sjg@chromium.org>
+Date: Sun, 1 Nov 2026 14:05:09 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
+X-Gm-Features: AclHuK9b_8waCxraHHPdtbLhS5x_dJgluJUdAHgQfu4VL-m5sl2trg3HRikQmXo
+Message-ID: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
+Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
+ on apply
+To: David Gibson <david@gibson.dropbear.id.au>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
 	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Devicetree@vger.kernel.org, David Gibson <david@gibson.dropbear.id.au>, 
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>, 
 	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-kernel@vger.kernel.org, 
 	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
 	Peter Griffin <peter.griffin@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Simon,
+Hi David,
 
-On Fri, Oct 30, 2026 at 5:22=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
-e:
+On Fri, Oct 30, 2026 at 3:24=E2=80=AFAM David Gibson
+<david@gibson.dropbear.id.au> wrote:
 >
-> > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> > @@ -204,6 +204,23 @@ class FdtRo(object):
-> > +    def subnodes(self, nodeoffset):
-> > +        """Iterate over the subnodes of a node
-> > +
-> > +        Args:
-> > +            nodeoffset: Offset of parent node to check
-> > +
-> > +        Yields:
-> > +            Node offset of each direct subnode in order
-> > +
-> > +        Raises:
-> > +            FdtException on error (e.g. invalid nodeoffset)
-> > +        """
-> > +        soff =3D self.first_subnode(nodeoffset, quiet=3DQUIET_NOTFOUND=
-)
-> > +        while soff >=3D 0:
-> > +            yield soff
-> > +            soff =3D self.next_subnode(soff, quiet=3DQUIET_NOTFOUND)
+> On Wed, Oct 28, 2026 at 02:55:56PM -0700, Douglas Anderson wrote:
+> > When `fdt_overlay_apply()` merges an overlay into a base device tree, i=
+t
+> > updates `/__symbols__` in the base tree if present, but previously left
+> > the base tree's `/__local_fixups__` node untouched.
+> >
+> > Add `overlay_local_fixups_update()` so that when the base tree contains
+> > a `/__local_fixups__` node, `fdt_overlay_apply()` updates it to reflect
+> > the applied overlay:
+> > - For each fragment in application order, any local fixup properties in
+> >   the base tree's `/__local_fixups__` that correspond to properties
+> >   overwritten by that fragment are cleared first.
+> > - Local phandle references from that fragment's subtree under the
+> >   overlay's `/__local_fixups__/<fragment>/__overlay__` are merged into
+> >   the corresponding target path under the base tree's
+> >   `/__local_fixups__`.
+> > - External phandle references for that fragment from the overlay's
+> >   `/__fixups__` (which are now resolved to local phandles in the merged
+> >   base tree) are added in sorted order to the base tree's
+> >   `/__local_fixups__`.
+> > - Any subnodes under the base tree's `/__local_fixups__` that become
+> >   empty after clearing overwritten properties are pruned.
+> >
+> > If the base tree does not have a `/__local_fixups__` node, nothing is
+> > added.
 >
-> Since Fdt inherits this generator, a caller can easily write 'for off
-> in fdt.subnodes(0): fdt.del_node(off)' and get garbage, because the
-> offsets move under it. Since David has applied this, please can you
-> send a follow-up noting in the docstring (here and in properties())
-> that the tree must not be modified while iterating, as with
-> fdt_for_each_subnode() in C?
+> So, this turned out to be substantially more involved than I realised.
+> I wonder if it might be better to make --strip-locals the default, and
+> only add support for preserving the local fixups as a later extension.
 
-Done. Added a patch in v3 ("pylibfdt: Clarify iterator docstrings and test
-negative offsets") noting in both `subnodes()` and `properties()` that the
-tree must not be modified while iterating.
+In v3 I went ahead and addressed all of your and Simon's review comments on
+this patch (which also trimmed ~80 lines of C from `fdt_overlay.c`).
+
+To address Simon's point about code size in constrained environments like
+U-Boot SPL, I also gated `/__local_fixups__` handling in
+`fdt_overlay_apply()` behind a 3-state compile-time
+`FDT_OVERLAY_LOCAL_FIXUPS` option in `libfdt/libfdt_internal.h`:
+
+- `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
+  untouched. I made this the `#ifndef` fallback in `libfdt_internal.h` so
+  that embedded projects that vendor `libfdt` directly get zero code-size
+  increase and zero behavior change unless they opt in.
+- `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__` from
+  the base DTB if present (~50 bytes of code), so a stale/half-working
+  `/__local_fixups__` node isn't left behind in the merged tree.
+- `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update `/__local_fixups__`
+  in the base DTB. This is enabled by default in `dtc`'s Meson
+  (`-Doverlay-local-fixups=3D2`) and Make (`OVERLAY_LOCAL_FIXUPS=3D2`) buil=
+ds
+  for desktop tools and tests.
+
+Even when `fdtfactor -S` is used, we actually do need `fdtoverlay` to
+update `/__local_fixups__` for two reasons:
+
+1. **Kernel composite DTBs (`foo-dtbs :=3D base.dtb bar.dtbo`)**: In the
+   Linux kernel build (`scripts/Makefile.dtbs`), many upstream boards are
+   built as composite DTBs using `cmd_fdtoverlay` (`fdtoverlay -i base.dtb
+   -o foo.dtb bar.dtbo`) *before* `fdtfactor` runs on them. As Simon
+   pointed out on the kernel series [1], if `fdtoverlay` left
+   `/__local_fixups__` untouched (`IGNORE`), `foo.dtb` would still have
+   `base.dtb`'s `/__local_fixups__` node (missing all phandle references
+   from `bar.dtbo` and retaining stale offsets for any overwritten
+   properties), causing `fdtfactor` to silently miss or corrupt phandle
+   references when factoring `foo.dtb`. And if `fdtoverlay` stripped
+   `/__local_fixups__`, `foo.dtb` wouldn't have `/__local_fixups__` at all
+   and `fdtfactor` wouldn't be able to factor any composite DTB.
+2. **`fdtfactor` self-tests**: Since `fdtfactor` inputs are compiled with
+   `dtc -@ -L`, having `fdtoverlay` update `/__local_fixups__` lets the
+   test suite directly verify with `dtbs_equal_unordered` that recombining
+   `base.dtb` + `board.dtbo` produces an exact match for the original input
+   `.dtb` (including all phandle fixup metadata).
+
+Let me know if you're happy with this approach (or if you'd prefer a
+different `FDT_OVERLAY_LOCAL_FIXUPS` default)!
+
+[1] https://lore.kernel.org/all/CAFLszTiVvuaMUsRHjhRTFxFf8Q2hbN1a1K-G=3DQFv=
+4DyXNpWY6w@mail.gmail.com/
 
 
-> > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> > @@ -243,6 +243,21 @@ class PyLibfdtBasicTests(unittest.TestCase):
-> > +        self.assertEqual(
-> > +            [self.fdt.get_name(n) for n in self.fdt.subnodes(0)],
-> > +            ['subnode@1', 'subnode@2'],
-> > +        )
-> > +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
-> > +        self.assertEqual(list(self.fdt.subnodes(leaf)), [])
+> > diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> > index a19eb1bc4bd8..bf1b9044ff2a 100644
+> > --- a/libfdt/fdt_overlay.c
+> > +++ b/libfdt/fdt_overlay.c
+> > @@ -804,7 +804,7 @@ static int overlay_prevent_phandle_overwrite(void *=
+fdt, void *fdto)
+> >   *      Negative error code on failure
+> >   */
+> >  static int overlay_apply_node(void *fdt, int target,
+> > -                           void *fdto, int node)
+> > +                           const void *fdto, int node)
+> >  {
+> >       int property;
+> >       int subnode;
 >
-> The docstrings say both iterators raise FdtException for a bad offset,
-> but nothing tests that. A test that list(self.fdt.subnodes(-1)) and
-> list(self.fdt.properties(-1)) raise, perhaps alongside
-> testFirstNextSubnodeOffsetExceptions, would be good, perhaps in the
-> same follow-up. Since these are generators, the exception only appears
-> on the first next(), not when the method is called.
+> This change is unrelated to the rest of the patch.
 
-Added the test for `list(self.fdt.properties(-1))` raising `FdtException`
-(`-libfdt.BADOFFSET`) in `testPropertyOffsetExceptions`.
+Split into its own standalone preparatory patch ("libfdt: overlay: Make
+fdto const in overlay_apply_node()").
 
-For `subnodes()`, it turns out `fdt_first_subnode()` and `fdt_next_subnode(=
-)`
-in `libfdt/fdt.c` map all negative returns from `fdt_next_node()` to
-`-FDT_ERR_NOTFOUND` (`if (offset < 0 || depth !=3D 1) return -FDT_ERR_NOTFO=
-UND;`,
-and `fdt_next_node()` treats `offset < 0` as starting before the root node)=
+
+> > +static int overlay_create_path(void *fdt, int parent, const char *path=
 ,
-so `subnodes()` never raises `FdtException` on a bad offset. I removed the
-inaccurate `Raises:` section from `subnodes()`'s docstring in the same
-follow-up patch.
+> > +                            int path_len)
+> > +{
+> > +     const char *sep;
+> > +     int node =3D parent;
+> > +
+> > +     while (path_len > 0 && *path =3D=3D '/') {
+> > +             path++;
+> > +             path_len--;
+> > +     }
+>
+> In Python, I'm pretty happy to have the code to optionally allow extra
+> slashes to make the functions more widely useful.  In C - especially
+> since this is code that may be run in limited environments - I'd
+> prefer to pin down exactly what the expected format is and require
+> that.  So, I'd suggest this function only take a relative path, and
+> make sure that's the case from the callers.
+>
+> > +     while (path_len > 0) {
+> > +             int comp_len;
+> > +             int next;
+> > +
+> > +             sep =3D memchr(path, '/', path_len);
+> > +             comp_len =3D sep ? (sep - path) : path_len;
+> > +
+> > +             if (comp_len > 0) {
+>
+> Similarly, in C I'd treat comp_len =3D=3D 0 as an error condition, rather
+> than trying to handle it.
+>
+> > +                     next =3D fdt_subnode_offset_namelen(fdt, node, pa=
+th,
+> > +                                                       comp_len);
+> > +                     if (next =3D=3D -FDT_ERR_NOTFOUND)
+> > +                             next =3D fdt_add_subnode_namelen(fdt, nod=
+e, path,
+> > +                                                            comp_len);
+> > +                     if (next < 0)
+> > +                             return next;
+> > +                     node =3D next;
+> > +             }
+> > +
+> > +             path +=3D comp_len;
+> > +             path_len -=3D comp_len;
+> > +             while (path_len > 0 && *path =3D=3D '/') {
+>
+> Same thoughts here.
+
+Done. `overlay_create_path()` now requires a strict relative path and
+returns `-FDT_ERR_BADOVERLAY` if `comp_len =3D=3D 0` (leading `/`, repeated
+`//`) or if `@path` has a trailing `/`.
 
 
 -Doug
