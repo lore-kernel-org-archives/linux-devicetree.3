@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571395;
-	b=bHR+e27z50ZmkKxmOG1NERUmYkSsENx6+CPLrIuY6ZPw/40JYHdqFQN9kGyUlnCGnPKp
-	 uayP19Qz/UnmewtvJT6UqoWp0bcCmivN/tmHpGuYQzkU4n5ftq0C4KT2Qg+E6o42PNG9s
-	 aB/zezGlAxGtKaeF49/YSsCxKXkdFzlBwbaxdVgoIJc3GiT/e6nrV/BFg+J/fgv685NEA
-	 Va8Q2N4eGD/aQ+2tYfxho/sErHumoUMgZvkt842FA4ApLVCDsKfEYo+A11TnLWKCjmFZt
-	 zUk0ncX/zgrOhGdqdXKM+wcEhvRCsmsbviKH52aIqsDdmU/O/9D1Vxm0DDEb2+DhVcQ==
+	t=1793571406;
+	b=u5InmVy7hs0/x+NT0Lf6kqv8sga8w3+pNPKHp3GcFYj+azawGkMQ8UPWwRLi+XbhXSq0
+	 YYQKVTE70PDTUTJTd/ajcG+6UBfYoQvd4THQehMUJakWG9M2fRs6o31b99QtfM/AgVya8
+	 BNf3LBsYKgOEGW05ebVjvx5/pBxl4Ng/MONlrA0BaBKcrnNfTtil0ya0lEbytIjW4oRvF
+	 1xsU5FaMLprrFePCCIDD2/t34RbSTXhqHzL+0+q9bpjUYdsYodtmDXVylPhmHxehfBoSz
+	 zgHEzt1yWn69hdfRsQAKqmiwuYHRr8xYcw51Qbr8xwZ8k30EsiP2dYp0vp9rQtpDnoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571406;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=jNvebCA3UqtmaXBwksfo8idH4tYB1vvNqeOjeRCYRLI=;
-	b=JC8CtMOGvePwVFbQEY59FKq66NsaKZsG+NCigtQWPJvoco37+/xdC/RU5hdcNEhzAxkH
-	 Y2GFddNHbhqKHbOZlwr+WN8WykQh0hHKwECgXwA6PB0pg7TGtgTyTwtHXgaMXboQVhAKp
-	 ZVf69C/hqPvfas0Db0RhbrSh0paS5xPyZTUfT6UI3kOxIpw1WLIpcUYBxk9JauR3ka4hF
-	 lS8ulgcc0iDohohWh3h+lwWtNBJPPzspmYlVg1Y8pnPOEPNb1WLD48t8oP6FSw+5eiDK8
-	 HZ3S80CZJfTMKxuo0RWBm5jXsZH9QVKe4phgLH36E7yrDlLJ4UGlr2UYzHSFbCtig1g==
+	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=;
+	b=A5mXDglRERla6JSYTYR4LPI3Iy0Q+MZ6gnLH+VkfnwMDK8CHnBLmL8lfHqBaF9d8nGv3
+	 ot8dsqA/0S/WdizcfPrys445iHJNvvlkD5ntLmjz3HdEzcumWj2S4mfLsjomdCYrlkDTb
+	 B03SSqBwonURAaaHCOp7HKNskn4N+t5XM/m0Db0ZK7rTBHmXBmioudtWHuXrmg4BzAFbJ
+	 PHv387zaGchHHfEr1zoPlLTcVTe3omkw81fniBy478MfVVje7hpH0YTygGKoU4uZTTWzS
+	 6TGTiK27voPZxlA/yoS9VQx3Iw1Yjs53gdiVkK3nbr/AvUV3eKyp1YHr5D6Afn0X3jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=uEV+UsRF;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3C5606E530;
-	Sun,  1 Nov 2026 22:16:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A3C5606E530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2016606ECCD;
+	Sun,  1 Nov 2026 22:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2016606ECCD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=uEV+UsRF
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=jNvebCA3UqtmaXBwksfo8idH4tYB1vvNqeOjeRCYRLI=; b=uEV+UsRFNWzPJQZRmavo5i76In
-	igSrs0bex1SvT62OPJ1IMUCWBWhTpjvsA5S7TQT88E6RhmTnAS0uY/x/8/j5wUDeZZqEUChNaPuCs
-	P0CyF4WStwddXCr2k56WyZqINmDrJnzdekvMMJAFAVWwhH06V1gYy2ppolsZ80LA+RdjfVsZw5KWh
-	BW3WtwCM2JcxdYqTC4TJp6KWyz8TUDLWtKpNOV14EqNglguptmAzvb50mFjlKZn41siQwx9DtqZj5
-	ogF650wsbfNJR+A9GfCCY34iQXdU5Xli7M6Y0UeS26B3eIo9ycbb+ypfrCBnCMd6uNMWW85PXMWsi
-	yCW3HNpg==;
+	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=; b=p3eIOyeNLwKdvGgs0DrdVSQ8AN
+	pIrjanYCEEVzJtZkLgPuQekvVXx/BUa0ZfyE+6Z9T5DGD+P1gkPZoLHl/7w8blOWDd0HAiHdrSbKA
+	C07nlsh2JRBJ6gwFymecy1OJIpZVJLHwnV6Ov78hzlianq2McrvIBDlR7oazvu20VMT7esI7ZOYip
+	YYwScpE5Tf5tf4L/fcgXcMkGFcQ3q+0p2ea/DGT3NZyjGCxItglsSMJEYtNPkNScw2OEqIKyzE0+R
+	eNqyM5/iJGS/8dLRjMKoDfeTZBMxJih72F47iHoaJ95WOQ9Cuf8ppbd/IZK4Bag1wC3t+/plqYb7N
+	ZjnAyqyA==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Miguel Jesus Seron Gonzalez <info@gluon.es>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dongjin Kim <tobetter@gmail.com>,
+	Dennis Gilmore <dennis@ausil.us>,
+	Alexey Charkov <alchark@gmail.com>,
+	Kel Modderman <kelvmod@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: odroid-m1: keep vcc3v3_pcie enabled from boot
-Date: Sun,  1 Nov 2026 23:16:09 +0100
-Message-ID: <179357136501.4108155.9270952989405440142.b4-ty@b4>
+Subject: Re: [PATCH 0/2] arm64: dts: rockchip: Fix Orange Pi 5 Pro headphone output
+Date: Sun,  1 Nov 2026 23:16:32 +0100
+Message-ID: <179357139327.4108484.4012953822270877213.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019132458.855-1-info@gluon.es>
-References: <20261019132458.855-1-info@gluon.es>
+In-Reply-To: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
+References: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -72,21 +73,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 19 Oct 2026 15:24:58 +0200, Miguel Jesus Seron Gonzalez wrote:
-> The 3.3V supply of the M.2 slot is a GPIO-controlled fixed regulator
-> without regulator-boot-on. When the regulator driver probes, it
-> requests the enable GPIO as low, cutting power to an NVMe drive that
-> the bootloader has already powered up and used. When the PCIe
-> controller is built in, it probes a few milliseconds later and
-> re-enables the supply. The drive therefore sees a brief power glitch
-> without enough time to fully discharge.
+On Sun, 18 Oct 2026 16:35:29 +1000, Kel Modderman wrote:
+> The Orange Pi 5 Pro inherits vcc_3v3_sd_s0 from the shared
+> rk3588s-orangepi-5.dtsi, but on the Pro GPIO4_B5 does not switch SD card
+> power: it enables the headphone amplifier. With the regulator claiming
+> the pin, the amplifier stays off and the headphone jack is silent.
+> 
+> Patch 1 moves the regulator and the sdmmc vmmc-supply into
+> rk3588s-orangepi-5-5b.dtsi, which only the 5 and 5B include. The
+> compiled 5 and 5B DTBs have the same nodes and properties as before.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: odroid-m1: keep vcc3v3_pcie enabled from boot
-      commit: ff9ff0e5e40dde8e7d769c86d8314b37b323cac7
+[1/2] arm64: dts: rockchip: Move SD card regulator to Orange Pi 5/5B
+      commit: 7fad20ae8bf8e289cb6423d68ef4f0d67f4a33c5
+[2/2] arm64: dts: rockchip: Add headphone amplifier to Orange Pi 5 Pro
+      commit: f21e9ddb7415eb60a404297e2a44fa23243fd2d4
 
 Best regards,
 -- 
