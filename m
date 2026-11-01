@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571186;
-	b=a+lA/ldrJYeNYAaIqJpzshQuTP0Br+gk1AWwoxTnp63Frs7pBSyaBWJsbJFzgHOwk/9m
-	 zyWcTiWvu4I/7+IAfe55fcVZFu/D++v32pwsM5HvSJongwA69I/4TfMxMJx6fTQEz2SO/
-	 j/V9nLnL8yg46p1pQw/y9hC/WLyX8rH+QnY/1TrqFEFi7xI5rE0zg8t2UwNcxyyT28fX9
-	 CSaSqec8svwmdwT7zif8tzjBIylDTN6qeBbR8s6PObiEN1zG2CBmNnd9GfegC9W4dFXPN
-	 4SvUb9EQDZg2mtJ6YLyKtoOs0Cav5Ge3s4HyZbRbqJRz1YEdPQQ2bWeOGpgEmpMZ8Fw==
+	t=1793571192;
+	b=gOUV+np+oi7JZY7NJZxFWsOCu+S+RIsuxlcXpKcfHVmAAtzdcd1SOEw4KOMMy6/k5SAO
+	 /zlNOUbqYmjjo0ARDSUfwPZy2UihSv2MtZggE5SOEHLw1x+kkVHjieXlHobbXhV2/LCEq
+	 0V/nvuSBp6eOFHSTSqXSUjgdKZAM7GYSS+GdxDzc6FIVcs2TZuiKh0TFEUDuQDWofAlcG
+	 A8j+zZYoAHTkq7xoufj1sXuWvnU8+Ie+x0MPzvIor0R//726nc8ihLRs9WMfT6OMQXvxW
+	 LHILh9lI9KE0Ppjye3U21PCveHNzs1IOwbwUhe8ilZcIp8wTJ7h2BMUPB9e/FFZUwew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571192;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
-	b=vR7F6adTRbkGhOTdd180ZroLBBKpM4pcy4IMMI1/memZh7W9cEMf7cGlJT46lugDhM7O
-	 oAvU1xKyKf8s8v9scWg4g+tIEZH422jIAb1cW313zCe+Iy6+ws0Rxf4bV1s/8LwZiqSzd
-	 rrn+telzfCEVdKSo713wr3fdQoVzRk20Hx+5SLdA7iLIgXSSB4yaU4eyLMlw779Eqo8Z4
-	 KSH/GIhKwg96Wxd7iBYtQYk/4iEtp5goNqNCMALqpjc36NO4UFIXN/OU21fsN8BkLcyNK
-	 k3gnQcpeqkkp+DjmzqZJvb1m8MddN9dLD0stuNCAjljpcWMzu5pnYnTvbDyrvqmRbmA==
+	bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
+	b=nSSgmnuC4AE2qlmq1lXA8u6Idmbg3/SdbBFU+q7yharyP4XgqhyZCWxb9ViatluL2W5q
+	 vjUAuET28WC93tyDZ7rqXLZAb8mnGI0ro5hKPQwvTF3JmTiGrnevD3SFYaQGb13QAR6nB
+	 k9WlTcJQ19ZBYA0dTsQRcW0BgEp/hXIO5fKS0P77pQqPnxd81q70cAfrdYg6qxuqtE4CM
+	 BNDatB4bpdbySoY0awad2F2BZ7LWOmGej+4e12hkDLvDGgucmhYkbwF1Ai+4X5mSM7MFO
+	 spyvwGxsvoM2dUyAvxQguOoj6QYxES1rcbzJfxxR71jOlcyxprBID0DNkp0viihHn2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S++BokSY;
-	arc=none smtp.remote-ip=209.85.208.172
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Wf/aDDQe";
+	arc=none smtp.remote-ip=209.85.208.179
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED30B606A324
-	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED30B606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F23606A324
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:13:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6F23606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S++BokSY
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab01c46697so25068191fa.1
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:13:05 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Wf/aDDQe
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ab3b29a298so18657251fa.3
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:13:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793571184; x=1794175984; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793571190; x=1794175990; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
-        b=S++BokSYk9NR96QvjjnSR20U6inK1EYslKh/LZ288SM6gnh2aLsUnwNdP+YIiwyRrQ
-         QuuuhrJdichebY/SSlGY52DckHaFiyGXm+/I70zns+zyHduMHkhB+auo1vNAfjAKC4RI
-         I8+/qkobT8lN6eXBbF4zJNBVmgQLOXCfC79vQ=
+        bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
+        b=Wf/aDDQevLju08zKiDXdwoHJrG1e131ViFtawh4/JM92LGMHeBv9EHOhZhku2MarXn
+         uu+XejU4TRvlsket2nzzcyeHF/1g8wnWJHIn88t7lUwk6yFnLx5uJ++7g4W/RTRXavws
+         oZSMjXkuSxxej5p1n0MvyYwQ75KCKaXozlOhA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571184; x=1794175984;
+        d=1e100.net; s=20260707; t=1793571190; x=1794175990;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
-        b=DNTdihKmu+acfFcaAbBrEa79U9PR5Stj2N8PT8sDe/PIxgxeW/0+rGIedt3V5wgex7
-         +LmxAXvLcS3YzUfbyAFSbA6ofjHmNveoFFSPR+VLyh66Q14P6G2sxLG80FSC5Iie5qgl
-         VWzDBQezodAQgtCeHn0rTQKhol3d+Ycz2IUtLtnAiW+BLmZZA9vZo+QYm7fpUeLmdD7t
-         PWR0y89gXJ0xNy2gudzYxsVGuoL1puliurKjMuJreWMIySWedmg4FIfTSqnvtIalG4RV
-         i362JHAEoAKwHe5ykwCVit/vV2aQHoiZji2SOrLHgefJOVMZsqa5unAyv674xYy9RVl3
-         lgLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNuGN+5y3OyLDZd2WiacKUT3YDPgxIzvEXdwbCrt470pBl3a/IhCScFAWmePvK18+WitrnwxduHDJR@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SkNnPg0/BcOej4bTQ5syewBvCXxumuFktmxnnTuhiGogGFsGF
-	OFwF7A2DztO0muoOc8/rwP7SiMNOz0KuyOY54Ue98trjLoVnqTKSJlx4lbL2LzgP9SO4E2QBRwq
-	NxQHAyije
-X-Gm-Gg: AYBFou0d0kFH1SAgCp8tn6ndy/vaDEnz4V/LPUm7xVdecAHKXzEux6D5bl+7YaJtr0X
-	ObHfd8gTOadVFXfnUCw06nqWUnj19bf1OTsNey3FOWgIOEDgsU0t0GarTr+RKdmEbGmvVRc/Dsw
-	cjgecsn7QUmnl/8UusPvgMnmOgMgB8XZm93bd/L6QIyuPMnf53ROj+YzuBpxjB2zxfrfWPwA/vY
-	A9A4XXYYrN9NL8NjlDDeozNnnUx/Rk78q/1pcRX5lhTaQrVuIvdJ/MxUPQJLuM2Ep1mUkOGx7hD
-	kyGTWOwXag6Aimb8e4T/ug5uhX/KRvpoBtjwNw8D+HlYDatbq+UBwwXGWxurGYBrGpQIsinhsS/
-	Sta7QKU3a9U9uzXU4KC08089MAhPya0ScVJB33L3wi1GB9My/BYTqViQ+EjEB0wT9PZPWO2XhiR
-	J3NWJ12epSnMDw2//CSzMOzlRmzFor195Hyy5hJ9MghUeYUbCDthzWwNeSmUGFOiotYIsUSg3oC
-	1ndGwWFW43eQHeRY4tHEuedhdCNqdarsbYl0HKvLRVG+OerZE3tuS2qmp6//FBmyqXy1gBI3B0d
-	0mDYfAn4hujKomTow1QDq5ypYGrJo6QYGAeXExLENZbHPerEfLwjY2m7Esb8oEC6jLbQHmo=
-X-Received: by 2002:a2e:bea2:0:b0:3ab:2d74:720 with SMTP id 38308e7fff4ca-3acb7a8c495mr20477421fa.19.1793571184080;
-        Sun, 01 Nov 2026 14:13:04 -0800 (PST)
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com. [209.85.208.172])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acbbebe9f7sm17213631fa.11.2026.11.01.14.13.03
+        bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
+        b=AQKhRAB1Q5ttlV2HTcskZDGgbheo4AKdNXRUSeTn0fp0wp6sX2czZR4TjUn9kxCddq
+         d+D1aVNNHPXtCMFqaxLX7p+Y339GIvzwy7hYTKDkZxcnlhrJA7QmAtacgDKu+S+YyYFe
+         zuDQx/5UyjXb3txew2IufE3cZtWwLd6zgbt9T+Tlmwuf/LJ9dV3xYjhQ7uVGCuVw5+4y
+         5RH0JKuR4Z7kihxSuVUmlvx5Dh5EdOQwP0blh5IcVvpC/6/RE2N5GZdA5rev786trwWN
+         3ONryVdMW1uVM8D8oaKSavHQeYKGtOmxGmA7qZ/N/McBv6e2vVPjH1xHBFvbtrdCxfbW
+         XRHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwU5MtJUqkzGV8czmyRndJsgI6VLrd30ESTkzxKNMbtArp2nWk4KkzBk9MQ3TDTMBcyTQ+8IZfmlS6V@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JQPj3Bo09uHO+HYKB89QPh/+1wDHRKWdaqxGs2FegAobeDsDK
+	V94gg4XQeLzgc8HzqWiGwVl1m9EJkH44E9IaWR8i4WHLlhdWZNoppiaWN1TDZL4Qn3jPcGEqJAV
+	06SiCxcvy
+X-Gm-Gg: AYBFou1scnAxGn4MlC+c5C0xhAXmeEoMkf5wSVl1WKakSOVHibv/Tcm56oV+5IBNS7a
+	STvl2H4Tv7B3HeR9q3e3KSep/htBC5dL4PKSUPQrJqN6E48hcU4jQPo/6PVjpWjUBOdr5XCNBJL
+	zEXoXLBbw7l5nThAlZEOphL1HQhCm8tpnhyrSGALYWIhoAlaeh6JxKF1CyFg7Whq4v1jc6Aixpo
+	8p9bB8XlpbBEUhAnVI59u2LEsYd3/BwwdLL5DfP4M9f35/OokMD1XqdEMSy6r+3Q1kk1c7YS2zJ
+	tHH1hbrJe/oCFB07pXUlPMuWUjyssqdLBAXw+5/P+zXBSbBuroz0/gyBzDMGc9H5AlwczFnlrw9
+	HFayWP25Yqr9QDFklLB4tfalr2ZYhgcWz938WzAHqPu5t9qA9/SUIM9D1T/SKjJ4hhdJCSfRzx3
+	UZqXIac+BVbFwxxJAOV3DREy93pGoylVr+BDCeAVRaGEeDGTCrPpqzUkOgM6ODOl1Ystu0rSk/w
+	2cBmSel1dUd8WYZz6Q2s0h+5tbNrSazZf+mRCUTVafXyM0a6vpTDok1tlKm3RQqsmqrkAXcfSR5
+	PQhsS9buw8rTRIgy4oMxLSwlnNNK/Ir8uWMVjFSD4B9UTU5vtMtgxrgOjwfIsEi6IoI=
+X-Received: by 2002:a05:651c:1473:b0:3a2:f233:5c6e with SMTP id 38308e7fff4ca-3acb7a4d797mr21933811fa.6.1793571190194;
+        Sun, 01 Nov 2026 14:13:10 -0800 (PST)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com. [209.85.167.44])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acbbedfac7sm18302191fa.18.2026.11.01.14.13.10
         for <Devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 14:13:03 -0800 (PST)
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ab01c46697so25068131fa.1
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:13:03 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByxis0ice2JWKIYJDCRS7TfOKjxiVS6jWNTt9oIhdH6BOKSfxNxiZphFmq0qZCLSAWyzVSFR8DzjVhl@vger.kernel.org
-X-Received: by 2002:a05:6000:2c0f:b0:48b:68:594a with SMTP id
- ffacd0b85a97d-48e6e2e7798mr18180529f8f.12.1793570721533; Sun, 01 Nov 2026
- 14:05:21 -0800 (PST)
+        Sun, 01 Nov 2026 14:13:10 -0800 (PST)
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso2088872e87.2
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:13:10 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByDqPvG9TYM0NRUrfEklNasdhStDBZpc0e0DWjKHCkMDT2c3h5UCDj1CQ1Zm53coU5fR/cJzGUJFDAq@vger.kernel.org
+X-Received: by 2002:a05:6000:46da:b0:48e:73dd:855a with SMTP id
+ ffacd0b85a97d-48e73dd874bmr11427269f8f.51.1793570749483; Sun, 01 Nov 2026
+ 14:05:49 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,184 +95,73 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-7-dianders@chromium.org> <auR-OXOpim7dVTpH@gractus.seuss>
-In-Reply-To: <auR-OXOpim7dVTpH@gractus.seuss>
+ <20261028215600.1713475-11-dianders@chromium.org> <CAFLszTgXZ8fcHuMbMAorsDaebj43gU47bS48pO8dKtnL0JF+Fw@mail.gmail.com>
+In-Reply-To: <CAFLszTgXZ8fcHuMbMAorsDaebj43gU47bS48pO8dKtnL0JF+Fw@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Sun, 1 Nov 2026 14:05:09 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
-X-Gm-Features: AclHuK9b_8waCxraHHPdtbLhS5x_dJgluJUdAHgQfu4VL-m5sl2trg3HRikQmXo
-Message-ID: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
-Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
- on apply
-To: David Gibson <david@gibson.dropbear.id.au>
+Date: Sun, 1 Nov 2026 14:05:37 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XG-YHW2__uxUdJr4vC3e_mW=P==F0JUvkeepXqmKMSNQ@mail.gmail.com>
+X-Gm-Features: AclHuK_naoI8TgiOEvg2nlmaOCNYlC5UGiEf6u-6ngKNFsppEgRdoP0YA4HjfTs
+Message-ID: <CAD=FV=XG-YHW2__uxUdJr4vC3e_mW=P==F0JUvkeepXqmKMSNQ@mail.gmail.com>
+Subject: Re: [PATCH v2 10/10] fdtfactor: Add compiled FIT image factoring support
+To: Simon Glass <sjg@chromium.org>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
 	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>, 
+	Devicetree@vger.kernel.org, David Gibson <david@gibson.dropbear.id.au>, 
 	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-kernel@vger.kernel.org, 
 	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
 	Peter Griffin <peter.griffin@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+Hi Simon,
 
-On Fri, Oct 30, 2026 at 3:24=E2=80=AFAM David Gibson
-<david@gibson.dropbear.id.au> wrote:
+On Fri, Oct 30, 2026 at 5:23=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
+e:
 >
-> On Wed, Oct 28, 2026 at 02:55:56PM -0700, Douglas Anderson wrote:
-> > When `fdt_overlay_apply()` merges an overlay into a base device tree, i=
-t
-> > updates `/__symbols__` in the base tree if present, but previously left
-> > the base tree's `/__local_fixups__` node untouched.
+> On Wed, 28 Oct 2026 at 15:56, Douglas Anderson <dianders@chromium.org> wr=
+ote:
 > >
-> > Add `overlay_local_fixups_update()` so that when the base tree contains
-> > a `/__local_fixups__` node, `fdt_overlay_apply()` updates it to reflect
-> > the applied overlay:
-> > - For each fragment in application order, any local fixup properties in
-> >   the base tree's `/__local_fixups__` that correspond to properties
-> >   overwritten by that fragment are cleared first.
-> > - Local phandle references from that fragment's subtree under the
-> >   overlay's `/__local_fixups__/<fragment>/__overlay__` are merged into
-> >   the corresponding target path under the base tree's
-> >   `/__local_fixups__`.
-> > - External phandle references for that fragment from the overlay's
-> >   `/__fixups__` (which are now resolved to local phandles in the merged
-> >   base tree) are added in sorted order to the base tree's
-> >   `/__local_fixups__`.
-> > - Any subnodes under the base tree's `/__local_fixups__` that become
-> >   empty after clearing overwritten properties are pruned.
+> > Add `-F`/`--fit`, `--outfile`, and `--single-base-dtb` to `fdtfactor` s=
+o
+> > it can directly factor `/images/fdt-*` blobs inside a compiled U-Boot /
+> > ChromeOS Flattened Image Tree (FIT) image.
+> ...
+> > Assisted-by: Gemini:gemini-3-pro [edid_decode] [gerrit_and_build_artifa=
+cts] [gsheets_gdocs_cli]
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
 > >
-> > If the base tree does not have a `/__local_fixups__` node, nothing is
-> > added.
+> > Changes in v2:
+> > - Moved FIT image factoring into its own patch.
+> > - Replaced external `fdtget`/`fdtput` subprocess calls with `NodeTree`.
+> > - Added FIT `hash*` recalculation (`crc32`, `sha1`, `sha256`, etc.) and
+> >   rejected signed FIT images (`signature*` subnodes) and external-data
+> >   FIT images (`data-offset` / `data-position`).
+> > - Preserved per-group compression (`lz4`, `lzma`, `xz`, `gzip`) on
+> >   factored FIT `fdt-base-*` and `fdt-*` nodes.
+> >
+> >  README.md                 |  19 +++
+> >  fdtfactor                 | 408 +++++++++++++++++++++++++++++++++++++-
+> >  tests/fdtfactor_lz4.its   |  83 ++++++++
+> >  tests/fdtfactor_other1.dts|  21 ++
+> >  tests/fdtfactor_other2.dts|  21 ++
+> >  tests/fdtfactor_test.its  |  83 ++++++++
+> >  tests/run_tests.sh        | 156 +++++++++++++++
+> >  7 files changed, 789 insertions(+), 2 deletions(-)
+> >  create mode 100644 tests/fdtfactor_lz4.its
+> >  create mode 100644 tests/fdtfactor_other1.dts
+> >  create mode 100644 tests/fdtfactor_other2.dts
+> >  create mode 100644 tests/fdtfactor_test.its
 >
-> So, this turned out to be substantially more involved than I realised.
-> I wonder if it might be better to make --strip-locals the default, and
-> only add support for preserving the local fixups as a later extension.
-
-In v3 I went ahead and addressed all of your and Simon's review comments on
-this patch (which also trimmed ~80 lines of C from `fdt_overlay.c`).
-
-To address Simon's point about code size in constrained environments like
-U-Boot SPL, I also gated `/__local_fixups__` handling in
-`fdt_overlay_apply()` behind a 3-state compile-time
-`FDT_OVERLAY_LOCAL_FIXUPS` option in `libfdt/libfdt_internal.h`:
-
-- `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
-  untouched. I made this the `#ifndef` fallback in `libfdt_internal.h` so
-  that embedded projects that vendor `libfdt` directly get zero code-size
-  increase and zero behavior change unless they opt in.
-- `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__` from
-  the base DTB if present (~50 bytes of code), so a stale/half-working
-  `/__local_fixups__` node isn't left behind in the merged tree.
-- `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update `/__local_fixups__`
-  in the base DTB. This is enabled by default in `dtc`'s Meson
-  (`-Doverlay-local-fixups=3D2`) and Make (`OVERLAY_LOCAL_FIXUPS=3D2`) buil=
-ds
-  for desktop tools and tests.
-
-Even when `fdtfactor -S` is used, we actually do need `fdtoverlay` to
-update `/__local_fixups__` for two reasons:
-
-1. **Kernel composite DTBs (`foo-dtbs :=3D base.dtb bar.dtbo`)**: In the
-   Linux kernel build (`scripts/Makefile.dtbs`), many upstream boards are
-   built as composite DTBs using `cmd_fdtoverlay` (`fdtoverlay -i base.dtb
-   -o foo.dtb bar.dtbo`) *before* `fdtfactor` runs on them. As Simon
-   pointed out on the kernel series [1], if `fdtoverlay` left
-   `/__local_fixups__` untouched (`IGNORE`), `foo.dtb` would still have
-   `base.dtb`'s `/__local_fixups__` node (missing all phandle references
-   from `bar.dtbo` and retaining stale offsets for any overwritten
-   properties), causing `fdtfactor` to silently miss or corrupt phandle
-   references when factoring `foo.dtb`. And if `fdtoverlay` stripped
-   `/__local_fixups__`, `foo.dtb` wouldn't have `/__local_fixups__` at all
-   and `fdtfactor` wouldn't be able to factor any composite DTB.
-2. **`fdtfactor` self-tests**: Since `fdtfactor` inputs are compiled with
-   `dtc -@ -L`, having `fdtoverlay` update `/__local_fixups__` lets the
-   test suite directly verify with `dtbs_equal_unordered` that recombining
-   `base.dtb` + `board.dtbo` produces an exact match for the original input
-   `.dtb` (including all phandle fixup metadata).
-
-Let me know if you're happy with this approach (or if you'd prefer a
-different `FDT_OVERLAY_LOCAL_FIXUPS` default)!
-
-[1] https://lore.kernel.org/all/CAFLszTiVvuaMUsRHjhRTFxFf8Q2hbN1a1K-G=3DQFv=
-4DyXNpWY6w@mail.gmail.com/
-
-
-> > diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
-> > index a19eb1bc4bd8..bf1b9044ff2a 100644
-> > --- a/libfdt/fdt_overlay.c
-> > +++ b/libfdt/fdt_overlay.c
-> > @@ -804,7 +804,7 @@ static int overlay_prevent_phandle_overwrite(void *=
-fdt, void *fdto)
-> >   *      Negative error code on failure
-> >   */
-> >  static int overlay_apply_node(void *fdt, int target,
-> > -                           void *fdto, int node)
-> > +                           const void *fdto, int node)
-> >  {
-> >       int property;
-> >       int subnode;
+> Reviewed-by: Simon Glass <sjg@chromium.org>
 >
-> This change is unrelated to the rest of the patch.
+> BTW, 'FIT image' actually means an image in a FIT, so I think you
+> should try to call the whole thing a 'FIT' instead.
 
-Split into its own standalone preparatory patch ("libfdt: overlay: Make
-fdto const in overlay_apply_node()").
-
-
-> > +static int overlay_create_path(void *fdt, int parent, const char *path=
-,
-> > +                            int path_len)
-> > +{
-> > +     const char *sep;
-> > +     int node =3D parent;
-> > +
-> > +     while (path_len > 0 && *path =3D=3D '/') {
-> > +             path++;
-> > +             path_len--;
-> > +     }
->
-> In Python, I'm pretty happy to have the code to optionally allow extra
-> slashes to make the functions more widely useful.  In C - especially
-> since this is code that may be run in limited environments - I'd
-> prefer to pin down exactly what the expected format is and require
-> that.  So, I'd suggest this function only take a relative path, and
-> make sure that's the case from the callers.
->
-> > +     while (path_len > 0) {
-> > +             int comp_len;
-> > +             int next;
-> > +
-> > +             sep =3D memchr(path, '/', path_len);
-> > +             comp_len =3D sep ? (sep - path) : path_len;
-> > +
-> > +             if (comp_len > 0) {
->
-> Similarly, in C I'd treat comp_len =3D=3D 0 as an error condition, rather
-> than trying to handle it.
->
-> > +                     next =3D fdt_subnode_offset_namelen(fdt, node, pa=
-th,
-> > +                                                       comp_len);
-> > +                     if (next =3D=3D -FDT_ERR_NOTFOUND)
-> > +                             next =3D fdt_add_subnode_namelen(fdt, nod=
-e, path,
-> > +                                                            comp_len);
-> > +                     if (next < 0)
-> > +                             return next;
-> > +                     node =3D next;
-> > +             }
-> > +
-> > +             path +=3D comp_len;
-> > +             path_len -=3D comp_len;
-> > +             while (path_len > 0 && *path =3D=3D '/') {
->
-> Same thoughts here.
-
-Done. `overlay_create_path()` now requires a strict relative path and
-returns `-FDT_ERR_BADOVERLAY` if `comp_len =3D=3D 0` (leading `/`, repeated
-`//`) or if `@path` has a trailing `/`.
+Done. Updated the commit message, `README.md`, `fdtfactor`, and tests to
+refer to the container as a "FIT" rather than a "FIT image".
 
 
 -Doug
