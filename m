@@ -1,57 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571884;
-	b=1HN2yv1m7t1telkxvy2K5Sw25SQN2kjZcn24LOj4WK/aAxjjWhQ8DLltKMH3MZqjF+ZW
-	 kuuOaw/wjo1AM1Pv3S5zJib27Fc/pnZhBpcnHAhSXgrlnG/LHvq2x00eVr7Msq7xhFNJ0
-	 2Cs5ZKiKatvKRsCNIXSvbZrCr/bVwYYnamnA5h7T9yvRHYHdhoDTH2BN+QdWYUxYn0AwC
-	 23qcDIhxmwqP7LXhE6iiuhCOhGdF+EcnSF2MmGUg6Anq/Fny62x0axrOZQv6t8C97x76s
-	 avOhI59NU3J6wYlWLufHWavkloFczGtHJLoiygN9cJOqLyL4yMjIF0x4xZCpWKL/w9w==
+	t=1793571934;
+	b=Oz4HLMHDNQ+BvJSuXzkHxehyK+4GKBRKSqIKmVtWigZeA+XlUMwhDaHKpn+uSAuQ6BQH
+	 bSJcKgzvDxVdx8sO805AJRepd7q7FaPp/MVIgyd2OhS5bo8sr0DCIJHHqtonqBFb273Ta
+	 ENcHLSiy4ZdVIGn9fHxkedouv0GlTSC0flYRlDWoD+A7FHaATICc5x3biIfRl5RlIEUeO
+	 cHW20HHtId2Jgs3z1dQDKd+AKkqIPQVT5Jrf4mOPotIVL9yRZHZWrNiYhSSgEwUlhmUEQ
+	 IMtBf4/ARNz8zAJLHZBbW1fYkD3An2djdeYV4LCxJ2njWz1pH8gR+FSNy7ETpE+mxdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571884;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EKbi8jrqoQwFGPzDmvjh8kIwRvTdotgtU7HnVsX5eis=;
-	b=0+eTL6+s+86dTWmI0Pca6Cp1uBNWf4ltMUb3n0RaAlAQK+EJqqHMzojS8ZKMkGnqXsQR
-	 Er3XTW/lNf2AeHHctlBVYtzdepBt8AfY6jVqi877iRSHUT+76a8Qf6Wt+hkoFltO0xZeA
-	 AqLvkAivCPE1YdYrGD2Zxp5GZ6KuZaKd5C3SiA6KoGAWc1EGXXlOFFJC6U7J+5aQnbc8E
-	 /T1wg90Urylu5093AjLkvqgSZzAPObbmMU3wHJqGGzPj7a9oiMLlq2vxBz5Fab4ozYxi6
-	 gVyo4qZLJoG93NBox2hl2ylYWUeUE7wqu65lh8eVznMgGUjMKt3kckHSvjpNpTifDeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571934;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8sOoVCRcZN/x0LMY6dgWZjebg2CSDJGW78WD2Rp9JOk=;
+	b=N+PtyQnTs9UoV5pFk0e0DesmKIjuCP1ovD5Ou+UDuHG8gzhB632Z0tawLpPod1DG+9gC
+	 3qOghmha/lcPwkVzQivGljWnM++i8KZXZFDMeP6KBlGGzLoUgHK94ovdiATqp09h15w1w
+	 jsKUhi4YvMgdf6nPacE0o8987ZCoyAqPkwWffrOWQfcvWebVyTA2syGy+4Fk1Og646G1I
+	 G4cxl3zElc+2IEJibnSdPUIala69XJpsaoIlkkyIiTnklYXgVB4G2yJ0ojYVV3p9XJXtG
+	 pZJWBFyCWdcJn5BAQcYN1zGaQINzXrCZev1mRs/l8vbm9ilOSLOu3ON3QozdrXeOUxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLBkpnPg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8rmNcVY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D548D606A333;
-	Sun,  1 Nov 2026 22:24:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2063F606E527;
+	Sun,  1 Nov 2026 22:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLBkpnPg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515401F000C1;
-	Sun,  1 Nov 2026 22:24:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8rmNcVY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3915E1F000C1;
+	Sun,  1 Nov 2026 22:25:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571883;
-	bh=EKbi8jrqoQwFGPzDmvjh8kIwRvTdotgtU7HnVsX5eis=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MLBkpnPgsryNbyoi3DU9f6Y3JhcTDJxTH9wO8OVj1wP//C0B/Cg9AcKrrC/thAERz
-	 2hTpJ1tfclZv25YjIo/GOj/Sj8hK+TOtcc0rewYaTsdt7YUdxRDOTrj8/DuWOGZ8tB
-	 nTiZT3JVmoU0AOkfPkn38N9qgKradfd5r1DAzKdr6LVUFogszNYwkpHOLBScevmD4C
-	 ZSeEL/U+OW6egnxgKkkYn/vbaGxoUpwgiSvxpwCvcQOB7OZ2vnXvZwGZh65P+0hci+
-	 ZT+Jfm2zm4Dd3jUbChQEt2RA54HfGTJwAOUejzCE4askhsKLYuGsdlaWNjpj7ASRZ8
-	 1mU4v4NHxFgoQ==
-Message-ID: <sashiko-outbox-192711@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/7] dt-bindings: mfd: Describe the BCM6846 PMC
- complex
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261101-xg6846b-bcmbca-xrdp-reset-v2-1-455fe9eed5ee@kernel.org>
-References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
- <20261101-xg6846b-bcmbca-xrdp-reset-v2-1-455fe9eed5ee@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 22:24:42 +0000
+	s=k20260515; t=1793571933;
+	bh=8sOoVCRcZN/x0LMY6dgWZjebg2CSDJGW78WD2Rp9JOk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=V8rmNcVYviQJAu7eXwfrG/iy4DFzgdzimOFhPCKd3jsOWvGYdXk0J4xxkhSesTnvv
+	 C5tXKm85R6al635JtY3Me14qQlMBoOS1B9N1BCKd+23ppkJMGogryE4wbmoxF/K9Mj
+	 nNb0mRZ+2hAW6NfWQTQXtU2UPrmcgGKRoDReGE5V1A5yklvDW+YYMDog2CMnk0W+Ju
+	 /25jRTtShkYlWY8E05dlkU7xnjTO62ZSe/lkp9i383NI/KNkod7MIF383PnTeXROjJ
+	 26B0C7kcYuWcBrtg06s+yOZqqaBTK/NKr8Q1MNfkI2nniE3Y6+FBvUFu2+bMkqajzg
+	 //56bQgv/+1pQ==
+Date: Sun, 1 Nov 2026 22:25:28 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 7/7] iio: imu: inv_icm42607: Add accelerometer
+ calibbias support
+Message-ID: <20261101222528.4ee16a59@jic23-hlaptop>
+In-Reply-To: <20261026-b4-inv_icm42370p-v7-7-222e296ac1e0@axis.com>
+References: <20261026-b4-inv_icm42370p-v7-0-222e296ac1e0@axis.com>
+	<20261026-b4-inv_icm42370p-v7-7-222e296ac1e0@axis.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,126 +69,161 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] dt-bindings: mfd: brcm,bcm6846-pmc references files added in next p=
-atch
-- [Low] dt-bindings: mfd: brcm,bcm6846-pmc example child nodes out of name =
-order
-- [Low] MAINTAINERS: missing S: status field in BROADCOM BCMBCA PMC3 PMB DR=
-IVER
---
+On Mon, 26 Oct 2026 12:02:55 +0100
+Kanak Shilledar <kanak.shilledar@axis.com> wrote:
 
-commit 39aa42d4e944629fc1763b294af564d34ce88b86
-Author: Linus Walleij <linusw@kernel.org>
+> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
+> registers are stored in MREG1. The calibration bias is written to
+> OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
+> limit calibbias values instead of clamping it.
+>=20
+> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370=
+-p
+> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
+> Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+Minor thing inline given you are going to be doing a v8
 
-dt-bindings: mfd: Describe the BCM6846 PMC complex
+Thanks,
 
-This commit adds the Device Tree binding schema for the Broadcom BCM6846
-Power Management Controller (PMC3) complex and adds a corresponding
-entry in MAINTAINERS.
+Jonathan
 
-> diff --git a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml =
-b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
-> new file mode 100644
-> index 0000000000000..78aef68bc3183
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
-> @@ -0,0 +1,82 @@
-
-[ ... ]
-
-> +patternProperties:
-> +  '^bus@[0-9a-f]+$':
-> +    $ref: /schemas/soc/bcm/brcm,bcm6846-pmb.yaml#
-> +    description: PMB configuration, keyhole and address mapping registers
-> +
-> +required:
-> +  - compatible
-> +  - ranges
-> +  - '#address-cells'
-> +  - '#size-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/brcm,bcm6846-pmb.h>
-> +    #include <dt-bindings/reset/brcm,bcm6846-pmb.h>
-
-[Severity: Low]
-As reported by Krzysztof Kozlowski on RFC [1], does running
-make dt_binding_check fail at this commit because patternProperties
-references /schemas/soc/bcm/brcm,bcm6846-pmb.yaml# and the example
-includes dt-bindings/clock/brcm,bcm6846-pmb.h and
-dt-bindings/reset/brcm,bcm6846-pmb.h before they exist in the tree?
-
-Those headers, the referenced schema, and the child compatibles
-(brcm,bcm6846-pmb, brcm,bcm6846-pmb-clock, brcm,bcm6846-pmb-reset, and
-brcm,bcm6846-pmb-pvtmon) are only introduced in the subsequent patch,
-commit 44e16c21f8b2 ("dt-bindings: soc: Describe the BCM6846 Processor
-Monitor Bus"). Should that patch be ordered before this one so that
-schema validation and example compilation succeed at every commit in the
-series?
-
-> +
-> +    system-controller@ffb00000 {
-> +        /* Broadcom BCM6846 Power Management Controller complex */
-> +        compatible =3D "brcm,bcm6846-pmc", "simple-mfd";
-> +        ranges =3D <0x0 0xffb00000 0x21000>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
-> +
-> +        /* Called PMB Processor Monitor Bus in vendor tree */
-> +        bus@20100 {
-> +            compatible =3D "brcm,bcm6846-pmb";
-> +            reg =3D <0x20100 0x200>;
-> +
-> +            pmb_clk: clock-controller {
-> +                compatible =3D "brcm,bcm6846-pmb-clock";
-> +                clocks =3D <&osc50m>;
-> +                clock-names =3D "ref";
-> +                #clock-cells =3D <1>;
-> +            };
-> +
-> +            pmb_reset: reset-controller {
-> +                compatible =3D "brcm,bcm6846-pmb-reset";
-> +                #reset-cells =3D <1>;
-> +            };
-> +
-> +            hwmon {
-> +                compatible =3D "brcm,bcm6846-pmb-pvtmon";
-
-[Severity: Low]
-Should the hwmon node be placed before pmb_reset: reset-controller in
-the bus@20100 example node?
-
-For child nodes without unit addresses, DTS coding style requires
-alpha-numerical ordering by node name, and check_child_name_order() in
-scripts/dtc/dt-check-style --mode=3Dstrict warns when hwmon appears after
-reset-controller.
-
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065d..eb4b3b631e82c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -5444,6 +5444,10 @@ N:	bcm[9]?6856
->  N:	bcm[9]?6858
->  N:	bcm[9]?6878
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
+iio/imu/inv_icm42607/inv_icm42607_accel.c
+> index 9a3ace3e7fcf9..2878e35d655d0 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+> @@ -4,6 +4,7 @@
+>   */
 > =20
-> +BROADCOM BCMBCA PMC3 PMB DRIVER
-> +M:	Linus Walleij <linusw@kernel.org>
-> +F:	Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+>  #include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+>  #include <linux/bits.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/device/devres.h>
+> @@ -13,6 +14,7 @@
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+>  #include <linux/types.h>
+> +#include <linux/units.h>
+> =20
+>  #include "inv_icm42607.h"
+>  #include "inv_icm42607_temp.h"
+> @@ -22,9 +24,11 @@
+>  	.type =3D IIO_ACCEL,							\
+>  	.modified =3D 1,								\
+>  	.channel2 =3D _modifier,							\
+> -	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),				\
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |				\
+> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
++			      BIT(IIO_CHAN_INFO_CALIBBIAS),			\
+Is my preference for aligning the blocks of a load of bits.
 
-[Severity: Low]
-Is this new MAINTAINERS entry missing an S: status line (such as
-S: Maintained)? Without it, scripts/get_maintainer.pl
---self-test=3Dsections reports a section without status warning.
+>  	.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),			\
+> -	.info_mask_shared_by_type_available =3D BIT(IIO_CHAN_INFO_SCALE),		\
+> +	.info_mask_shared_by_type_available =3D BIT(IIO_CHAN_INFO_SCALE) |	\
+> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
+>  	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
+>  	.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
+>  	.scan_index =3D _index,							\
+> @@ -56,6 +60,16 @@ static const struct iio_chan_spec inv_icm42607_accel_c=
+hannels[] =3D {
+>  	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
+>  };
 
-[1] https://lore.kernel.org/r/ddfe83b7-d4b8-4d56-a295-fde63519bdde@kernel.o=
-rg
+> +
+> +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
+> +					   struct iio_chan_spec const *chan,
+> +					   int val, int val2)
+> +{
+> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
+> +	struct device *dev =3D regmap_get_device(st->map);
+> +	s32 min, max;
+> +	u8 msb, lsb;
+> +	s16 offset;
+> +	s64 val64;
+> +	int ret;
+> +
+> +	if (chan->type !=3D IIO_ACCEL)
+> +		return -EINVAL;
+> +
+> +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
+> +	min =3D inv_icm42607_accel_calibbias[0] * (long)MEGA -
+> +	      inv_icm42607_accel_calibbias[1];
+> +	max =3D inv_icm42607_accel_calibbias[4] * (long)MEGA +
+> +	      inv_icm42607_accel_calibbias[5];
+> +
+> +	val64 =3D val * (s64)MEGA;
+> +	if (val >=3D 0)
+> +		val64 +=3D val2;
+> +	else
+> +		val64 -=3D val2;
+> +
+> +	if (val64 < min || val64 > max)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Convert m/s=C2=B2 to g then to raw value
+> +	 * m/s=C2=B2 to g: 1 / 9.806650
+> +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
+> +	 * val in micro (1000000)
+> +	 * val * 10000 / (9.806650 * 1000000 * 5)
+> +	 */
+> +	val64 *=3D 10000LL;
+> +	offset =3D DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5);
+> +
+> +	/* Value is limited to 12 bits signed, return -EINVAL if out of range */
+> +	if (offset < -2048 || offset > 2047)
+> +		return -EINVAL;
+> +
+> +	msb =3D FIELD_GET(INV_ICM42607_OFFSET_MSB, offset);
+> +	lsb =3D FIELD_GET(INV_ICM42607_OFFSET_LSB, offset);
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	switch (chan->channel2) {
+> +	case IIO_MOD_X:
+> +		/* OFFSET_USER4 upper nibble is shared. */
+> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER4,
+> +				INV_ICM42607_OFFSET_USER_NIBBLE_HI,
+Align after (
+Don't worry about slightly long lines.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101-xg6846b-bc=
-mbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org?part=3D1
+> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER5, lsb);
+> +	case IIO_MOD_Y:
+> +		/* OFFSET_USER7 lower nibble is shared. */
+> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
+> +				INV_ICM42607_OFFSET_USER_NIBBLE_LO,
+> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_LO, msb));
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER6, lsb);
+> +	case IIO_MOD_Z:
+> +		/* OFFSET_USER7 upper nibble is shared. */
+> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
+> +				INV_ICM42607_OFFSET_USER_NIBBLE_HI,
+> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER8, lsb);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+
