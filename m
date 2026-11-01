@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793542673;
-	b=d2qGDeDXFPNr1AQHZqrpfPt4ClFFtsgIfUYepNv/NhikJakoMjs5SG6BYpY5uKDlroSL
-	 eECyOStcZ/YgSNMS1YRNvHfIFwhSeXdPNo3jW8kdjK28VEhW+XO/It0/8ZvYs9Rp7YVL1
-	 UUxzqkTBW2ZzmG2uepMpQX7Zpg8F761Gr7PmMFMFck/aJifk3VVcSF9hKGgDecd3c5SY7
-	 8675YBYTh9PAqZi2MYGQLozxQSXikAPK7EouDX3xfhRR3glIKoW4MAFCyaZ8cvjtOFJSV
-	 GDSVU/sawTP9ZE+0dfb9GBqJNE5rSSAWHI22usWaffn+0Wl/klGEzm3qxmBQtJWR7zQ==
+	t=1793543047;
+	b=GKGBoFCeLLOkUbJ8L5ouXFX01IP2M0AhwbcJmO1Luw1el8l2Xt6v491b41MJEMzE6zQe
+	 je4Gi9066D65ecNacFXGg7GIWzWphZR07dUIfJzqfgADhBm9nRYCVQdbB4MA0U+lGptTG
+	 r0JHv8Sl7ihFZr3fovmTsgJZe0cEduoDA2fmYGJFshi/jm1K2j0OUfaVk4lVXGTBI0FA1
+	 N9Sdgusuqg9RBzMkPxiPkTCiGBabKtxjrPZLWKdtkZFGjU/BB37XBEjc2fYnLVHX9im+3
+	 ez1vObBbSnCY/Hvn2Qns2Q/fFjxJezu1ed69qPSAiBYfhWFLwU8cksqffEKFR8MZ8gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793542673;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=QOWCpj5xocO9r4ovITstA0AQSfIrmgmI9TwBqylnJ5Q=;
-	b=ED2qsf8hsncS5pUc9lgAJRTFCB934ou68tS/pOYzlRC8kEFuwSruh7x1zHaj/2rEeIvP
-	 B9NqOnGx/lf1lEmg4+fqVuCjtfULLzakAZeA7E05BjzKh6yeVGpyvF5GX8CADrQK8X1zM
-	 /i31CJE7roz8OhSfcDIXP8tntoqokEdGXbJ6fJYv9q1eQPaNPOxbHlVK2xdxlxl+VTA8c
-	 Yg0PnShYUZGTD3is64ptbcE8L/T9Pv50mGzL9XKrTym2W+JxqvP5BF0t24a6eSbOKoMME
-	 I1UQgRhQ1nz+P4p0f/A9xg/ETt7o3d525LiBqT1ZL+ltxUL4+4Q19cIZZEvyGYXf07A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793543047;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=N3ZziCSifm9zfTJgDFlF/rZ371T2KLzvwFUrfN4eMo4=;
+	b=yjF/FCobObLwEwYGCT47iAL4eFgy8QXYpng9+cCvrshsq3aaEiYgvSadomLOpvlzaoWL
+	 3viKbOuaRZyWQTghB+pweR+M8+N+dwDbFj1hP9sxoZQCFEFNAMMvwEQW+9nyk5cuyZg4W
+	 aBQSTsMKT54R5vGn4SFbrAAjrtDVZCJOSXYz8RTHRvewWF6/m41Wud2+I6hMsxlxc+raG
+	 TRSXpgVcsTKqpMmteKTpxF7DbUBaQpuVZLo0IoCkHtW6/3paBrFYFiPX+Wk+segjVBwHe
+	 3uZKTEUiX+TYHEoX51Jht+caoCkrjHHEE41q68PnQxq3LW452rWGFWROI584rWVemcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ek1s6Hkx;
-	arc=none smtp.remote-ip=91.218.175.16
-Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgbV+9iX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D3D606A325
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 14:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8D3D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254AD606A324
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 14:24:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ek1s6Hkx
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fw1iLfF3jVbpvumv35xApp+yxHDwlvLUfs297heBAlk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793542670; v=1; x=1794147470;
- b=Ek1s6HkxlK+V27Bb2Ov+HW/BnK7OzFsz+5APl0d+9wOmjo0ggIgXOuaxGDiZbc8GCRRoXtCn
- UtRT51AMrkRDUW1UMtMC6HpzHF69KSPalvYIB0EJSRwR6I3fyT1P4x1kyLTrRgiTa+MngHcJCp6
- uYhpQ74AyM/evRmzRDPyZiZo=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bac851f887adadfe;
-	Sun, 01 Nov 2026 14:17:50 +0000
-X-Mizu-Trace-ID: bac851f887adadfe
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b7cb1cad-07de-4ba2-9158-de8de43236fa@linux.dev>
-Date: Sun, 1 Nov 2026 14:17:45 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IgbV+9iX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 673741F000C1;
+	Sun,  1 Nov 2026 14:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793543046;
+	bh=N3ZziCSifm9zfTJgDFlF/rZ371T2KLzvwFUrfN4eMo4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IgbV+9iXxe/kdMNyd7HWd/B0xtGa2QFakEJXkdVoMm5VtIkBWr+QSJ0VwWXn42B3R
+	 da0yIViJ9y0TehztEFe3DMuM9QLVDWhC7f6DGGO5OD233xKIxU6MTVvXUbaqAr5fKC
+	 AQ89UhoZVE1qyV/lUKxMm2BTKDBKuVopMqqMJa8bPK1HUhE3vy367/t7cTTXOoU/Ji
+	 BYEkQkpAgdoxanUwp4jo3dhoiQ6tl2fUjG0vRuizQlZHI+s78QUpzM6utR4PEqcy6O
+	 dFKG9IZTdIJuCvFU6Gaufn4ORFS5xhhqahvrmNpWIrytuxq3pvuNBiuwRrFcwvJZWV
+	 j3ye3XdI2XgxA==
+Message-ID: <sashiko-outbox-192447@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/2] iio: light: ltr501: Add support for the
+ LTR-659PS-01 proximity sensor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261101141507.119186-3-clamor95@gmail.com>
+References: <20261101141507.119186-1-clamor95@gmail.com>
+ <20261101141507.119186-3-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 01 Nov 2026 14:24:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,43 +60,160 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/14] drm/tidss: oldi: Fix serial clock reference leak
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-8-dc7f2b532478@ideasonboard.com>
-Content-Language: en-US
-From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261029-beagley-ai-display-v4-8-dc7f2b532478@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] iio: light: ltr501: scan_index mismatch breaks ltr501_trigger_hand=
+ler()
+- [Medium] iio: light: ltr501: missing IIO_CHAN_INFO_SAMP_FREQ in ltr659_ch=
+annels
+- [Medium] iio: light: ltr501: unconditional ALS register accesses in ltr50=
+1_init()
+--
 
+commit c2f0d77abdcaeb0f7ea57d758703f90ae8398569
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-On 29/10/26 10:18, Tomi Valkeinen wrote:
-> tidss_oldi_init() gets the OLDI serial clock with of_clk_get_by_name()
-> and never puts it. A clock reference leaks each time tidss unbinds, and
-> each time its probe fails or defers after the OLDI setup.
-> 
-> Get the clock with devm_get_clk_from_child() instead.
-> 
-> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
 
-Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+This commit adds support for the Lite-On LTR-659PS-01 proximity-only sensor
+to the ltr501 IIO driver.
 
--- 
-Regards
-Aradhya
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 302be2fc314c5..5cc1141322ad5 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
 
+[ ... ]
+
+> @@ -649,6 +650,26 @@ static const struct iio_chan_spec ltr301_channels[] =
+=3D {
+>  	IIO_CHAN_SOFT_TIMESTAMP(2),
+>  };
+> =20
+> +static const struct iio_chan_spec ltr659_channels[] =3D {
+> +	{
+> +		.type =3D IIO_PROXIMITY,
+> +		.address =3D LTR501_PS_DATA,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index =3D 0,
+
+[Severity: High]
+Does assigning scan_index 0 here break triggered buffer capture for ltr659?
+
+In ltr501_trigger_handler(), active_scan_mask bits 0 and 1 are hardcoded for
+the ALS channels, while only bit 2 is treated as the proximity channel:
+
+	if (test_bit(0, indio_dev->active_scan_mask) ||
+	    test_bit(1, indio_dev->active_scan_mask))
+		mask |=3D LTR501_STATUS_ALS_RDY;
+	if (test_bit(2, indio_dev->active_scan_mask))
+		mask |=3D LTR501_STATUS_PS_RDY;
+
+	ret =3D ltr501_drdy(data, mask);
+	if (ret < 0)
+		goto done;
+
+	if (mask & LTR501_STATUS_ALS_RDY) {
+		ret =3D regmap_bulk_read(data->regmap, LTR501_ALS_DATA1,
+				       als_buf, sizeof(als_buf));
+		if (ret < 0)
+			goto done;
+		if (test_bit(0, indio_dev->active_scan_mask))
+			scan.channels[j++] =3D le16_to_cpu(als_buf[1]);
+
+When buffered capture is enabled on ltr659, bit 0 is set in active_scan_mask
+and bit 2 is never set, so ltr501_trigger_handler() waits on
+LTR501_STATUS_ALS_RDY and reads LTR501_ALS_DATA1 instead of reading
+LTR501_PS_DATA.
+
+> +		.scan_type =3D {
+> +			.sign =3D 'u',
+> +			.realbits =3D 11,
+> +			.storagebits =3D 16,
+> +			.endianness =3D IIO_CPU,
+> +		},
+> +		.event_spec =3D ltr501_pxs_event_spec,
+> +		.num_event_specs =3D ARRAY_SIZE(ltr501_pxs_event_spec),
+> +		.ext_info =3D ltr501_ext_info,
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+> +
+>  static int ltr501_read_info_raw(struct ltr501_data *data,
+>  				struct iio_chan_spec const *chan,
+>  				int *val)
+> @@ -1178,6 +1199,12 @@ static struct attribute *ltr301_attributes[] =3D {
+>  	NULL
+>  };
+> =20
+> +static struct attribute *ltr659_attributes[] =3D {
+> +	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+> +	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+> +	NULL
+> +};
+
+[Severity: Medium]
+Should ltr659_channels also set BIT(IIO_CHAN_INFO_SAMP_FREQ) on the
+IIO_PROXIMITY channel?
+
+ltr659_attributes exposes sampling_frequency_available in sysfs, and
+ltr501_read_raw() and __ltr501_write_raw() support IIO_CHAN_INFO_SAMP_FREQ =
+for
+IIO_PROXIMITY, but ltr659_channels only sets BIT(IIO_CHAN_INFO_RAW) and
+BIT(IIO_CHAN_INFO_SCALE). Without BIT(IIO_CHAN_INFO_SAMP_FREQ) in the chann=
+el
+spec, no sampling_frequency sysfs attribute is created for ltr659.
+
+[ ... ]
+
+> @@ -1283,6 +1330,15 @@ static const struct ltr501_chip_info ltr501_chip_i=
+nfo_tbl[] =3D {
+>  		.channels =3D ltr501_channels,
+>  		.no_channels =3D ARRAY_SIZE(ltr501_channels),
+>  	},
+> +	[ltr659] =3D {
+> +		.partid =3D 0x09,
+> +		.ps_gain =3D ltr559_ps_gain_tbl,
+> +		.ps_gain_tbl_size =3D ARRAY_SIZE(ltr559_ps_gain_tbl),
+> +		.info =3D &ltr659_info,
+> +		.info_no_irq =3D &ltr659_info_no_irq,
+> +		.channels =3D ltr659_channels,
+> +		.no_channels =3D ARRAY_SIZE(ltr659_channels),
+> +	},
+>  };
+> =20
+>  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 p=
+s_val)
+
+[Severity: Medium]
+The commit message notes that ALS registers are marked as reserved on the
+LTR-659PS-01 and interactions with them are discouraged, but won't
+ltr501_init() and ltr501_write_contr() still read and write those registers?
+
+During probe, ltr501_init() unconditionally reads LTR501_ALS_CONTR, calls
+ltr501_read_intr_prst(data, IIO_INTENSITY, &data->als_period) which reads t=
+he
+ALS persistence field and LTR501_ALS_MEAS_RATE, and then calls
+ltr501_write_contr():
+
+static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_v=
+al)
+{
+	int ret;
+
+	ret =3D regmap_write(data->regmap, LTR501_ALS_CONTR, als_val);
+	if (ret < 0)
+		return ret;
+
+	return regmap_write(data->regmap, LTR501_PS_CONTR, ps_val);
+}
+
+ltr501_write_contr() also writes LTR501_ALS_CONTR during ltr501_powerdown()
+and ltr501_resume(). Should these ALS register accesses be skipped when
+chip_info->als_gain is NULL?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101141507.1191=
+86-1-clamor95@gmail.com?part=3D2
