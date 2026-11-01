@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793528434;
-	b=XqZoxU7rcaJ9KbY71LnrRRCYj9xw8AOkWXSEjDkwH8/9MerUFYu3a7CHHhAS7DAqT5oS
-	 m63jmfeAKXzr+7VSi0vTTdA0UR1HpCCkSFKhD4qtRcGv5chbQzQ0dLZKHiD+C6NTqVts/
-	 K3qGp4VS3+ZFmFsrp0KEF/eYGg4CPt/8cszxezTon+V51m51L+2JTGd1FhP2Sncjiy7na
-	 h6JVUhXevgRyGz1tWOCbr4aBNDsr0crLfmicxZKHo7M/8KOd/cuequgoX7X61SgkBb86T
-	 b5Thc4LnN2xBimhe2Wn4SFwfxAiEpi1uzd2MBPgEgspuqvRRbtpW5nuPQJezqn5MPCA==
+	t=1793528886;
+	b=dnjCQxLFwVftViUWJBBrS0XNFDWkSdFn1ivtHxGlkz7zdBzZz0rxWmYx2A0n0+qBDLjh
+	 QZuRipKVeGLx1Dosjd8lQBkydI01T2TZWuGBNZ3uNmuw/Dq0M5hFD/ojyh2SVSbgYcBk2
+	 0CXv/Xkwfr293q9XwbuTc+g/sdHbjKDRM1Rx1tqdg8B3rhSUX85Edbvmfo+f8nWZz8c8Z
+	 f+yLsp3dGpi0IHS0qF5o0x9KjbtpR72FYfx0E6C3RhWfKZ5dgX3SnHtoFc5nQoJni+LGA
+	 Id3M4S4ycCwOtoqQyPjD5TiiMK9cs+xar0Zf/cVqIv3Ls+RkYGDjSwzi06CIcc2E/3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793528434;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528886;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=TkstfqMwLVi3O9Geq9Sw8ekLhOvsr3GA+4QG8GJigxk=;
-	b=Eck2fKXltsZ3QqnwcuvaiYtCyFSOC61tOFGtki7rDGpE8c6Z7qa5a/4ghsvPZEAPv6X5
-	 W7c1iujtml14/nigWomINJCkEvuL4bM1u5v4lgasI4+9Lyl5xwTG2SBq6pv+n111wzSX0
-	 eWVMrys59hfxp40X7W74cUqW33TFq4KCuFGl/mtUb+sTMY5gWtQGJZ8dQ4Up9he4bPM1+
-	 hCkCJbGagfcGu4qVygLAw8DYwarU7qk279M+ZMPQLnLdHEX35ZnYOvCyFbX7XMrVlh++E
-	 jcppaYOBd8uy3301PMfb5BMh3/pd2Ozf/WeC6Eb+GKqoSuJw6OFd3s+QIAfTWMMQZwQ==
+	bh=HLYIqwxJ5WYlJPpWkXyQBNJeKHSfq/1+H4q2iamRMWQ=;
+	b=fTqR2vs3DUbYhhm/xSuzmCNBDtgRSsDHJyVv8GSdRBeLRNULyZBIchi+XYYSYiMuLENA
+	 FH0cVMCIP1Lr9etiDFSWB19QiYRw6RsceEu0f4BwKHaLMQ4TdXoRtwNiHZu3j8seO3czO
+	 +AnsGxYSNtKnlQUGGgrTPT/LwHbpfynpuFgp51eCsciqyBdSSbbAh2xFb5e2yJ9OfaxLC
+	 QkXdAW5hjMbSj7RHEdUHcgPxapcx5X4p3deB8sjQiaJ96UOvSn/BVx3cx9shh0lc6gKh2
+	 jyDUaEVCdAIkX9pn+XnendlZrTiYuSZXex3+Rb6vakQ5BKRotSmttAlCYgKc8dpWZWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+nHu0+b;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXO0MNtU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DAE606A324;
-	Sun,  1 Nov 2026 10:20:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A872606A324;
+	Sun,  1 Nov 2026 10:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+nHu0+b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F161F000C1;
-	Sun,  1 Nov 2026 10:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jXO0MNtU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26531F000C1;
+	Sun,  1 Nov 2026 10:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793528433;
-	bh=TkstfqMwLVi3O9Geq9Sw8ekLhOvsr3GA+4QG8GJigxk=;
+	s=k20260515; t=1793528886;
+	bh=HLYIqwxJ5WYlJPpWkXyQBNJeKHSfq/1+H4q2iamRMWQ=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=P+nHu0+b5rfK+aXhEmjWLD8w8GrD3O3uu18WH0lMRQ4sUXSIdqTNP9iyJ4GuAkxUh
-	 OKppBIwkP5yaYkwup61QUAjbSRjAMdhnenQgRgWsuJiR1aVU4LO4Dvy2nevN6kSeIG
-	 1XAY+SExgSVwzuL6Xkr5HF1msUj9+Q1xUCdw1TKVCPfa23YqGqSVMpuMZVc9bPv+O5
-	 1ERct4siCLQ0LN4Byw825y83ABAnHVSCDOiUbrhEotRJ3e5weoovsQ05jWmnCrk3uf
-	 f6zXV6ZyTRm4AAGnXNfbEhQOhCmH2xe68DRySVRK2+/kJLyGnDw1U9SCg9S14pydmd
-	 mlZU1AD5kDDCw==
+	b=jXO0MNtUe65SEoyghzmFa/MdwUxIwKj9CveDEeif3oDJNQ+OX+ITWVsT3Tk7FDUDg
+	 ujipNkc7UZWU0WAQwTIEn32yFh7m76ZJtVk5AItxgH3k0dXwmJO49//LA4UrdLm59g
+	 ZDzpHj3CTv5JydpMPrsI0wQYMR8TjZJPU8YH7/5wabRMdjmDnXhKOFtj3/2LQVSO4G
+	 M+8ARwkdiaE6xrFUQW+wlde0e0YOmkR0lud97G8HPjxR2J+K2Iyfp5WMeCEVOBndic
+	 +4nizcWdv9CyiApCxHZ0HUYppezrTHKjEMG+p8bAXeoK6MQiwQ/yqS/tGP7dQHLkp6
+	 foA1XxUPPT79Q==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,43 +51,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/2] phy: airoha: add support for AN7583 Gen3 PCIe
- PHY driver
+Subject: Re: [PATCH v9 1/6] phy: realtek: usb2: introduce phy_reg_desc
+ struct to the driver
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
+To: Rustam Adilov <adilov@disroot.org>
 Cc: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261016071225.2092-3-ansuelsmth@gmail.com>
-References: <20261016071225.2092-1-ansuelsmth@gmail.com>
- <20261016071225.2092-3-ansuelsmth@gmail.com>
-Date: Sun, 01 Nov 2026 15:50:23 +0530
-Message-Id: <179352842351.2955.1473721252992943972.b4-reply@b4>
+ Conor Dooley <conor+dt@kernel.org>, 
+ Stanley Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Michael Zavertkin <misha.zavertkin@mail.ru>
+In-Reply-To: <20261016180314.31760-2-adilov@disroot.org>
+References: <20261016180314.31760-1-adilov@disroot.org>
+ <20261016180314.31760-2-adilov@disroot.org>
+Date: Sun, 01 Nov 2026 15:58:00 +0530
+Message-Id: <179352888089.2955.16034514830661487022.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=476; i=mani@kernel.org;
- h=from:subject:message-id; bh=QM9ES64G5eMGECElOm5ezgzKCyheAyccn8+aOEbI0Fg=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xJuJhIJL80l+IydUaS6U2TPqyRHet4HuM9ew
- Y8yUhlL8CyJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucSbgAKCRBVnxHm/pHO
- 9cm3B/4lSOxWPTXOja4ew2u8cVg06zJcuAYJtyd1F8s+DgKJYRb/B1bbKu46J6EBaFvhD8dkusG
- pcCDP0OrFyTRKlw+FiuRDAMAgLJNCcm++Wl/D5OwNZc8AV2u4FBl0ODdi2Q3AmcA0Fg2bL+jHRT
- aqfRlc9I7f/RIp9Y/EA2vjkpNSQhwwBV7oKkUIZHM7+4AOx6z/btmXejbTjP+489QOMsQX/h8wb
- zRTi3PsLctWQXlGFphkM/6sxo69nFcwSxtLyYtGKa81zp/QBkNrXkFU57WcNLtSwsDFltQ5/bFo
- QvqNmaZFUdzw09RtlMFijjORR3sArnDcZMpHn7SSgJV2pxoq
+X-Developer-Signature: v=1; a=openpgp-sha256; l=778; i=mani@kernel.org;
+ h=from:subject:message-id; bh=YhsgLzpm5B4kL+Ankc4Htk9KGAusE+s3+PIjBAX7d1M=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xQyKootva6MMYJMdrwgKMExBJDsNC9UePDCM
+ pzr2QMBm1GJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucUMgAKCRBVnxHm/pHO
+ 9QUtB/wL/oOxO69Gco7DrLvUW5JXpedgSTfYEBgXIrhy7Ch08zsI4B7rvIziAqcudMKQOrSHjdR
+ ZkV3ANEylVV1OX9x5up3sjwRXh2sSx4CqhFYsa4AhZYa+Q1Ti+wWItEjuiBw2ghn9Siv+wB10QU
+ xrHZ4OsA4eeN0pMa9MfRZ+IKcVEKdPVqC8k02M20MsnOattzz/3exu26r15sF+YMcaXv5clcijH
+ Djb5f2tDbbf9YuuII28PquiFuKas3QzKM+Kc21C7u736s5T2SHjKRpW4RMwslB5hejJ+s55WiRb
+ 9OOPYFez9IHRYJHXDcBT/fxzzlYBGx00jUdKfvdjCGSBWGEM
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-16 09:12 +0200, Christian Marangi wrote:
-> Add support for AN7583 PCIe PHY driver. This is required to make the
-> Gen3 PCIe port present on the Airoha AN7583 SoC correctly work.
+On 2026-10-16 23:03 +0500, Rustam Adilov wrote:
+> In RTL9607C SoC, there are a few differences in usb2 phy compared
+> to existing RTD SoCs, like vstatus register is at certain offset
+> from the base, busy bit and new_reg_req bit are at different bits
+> of the register.
 > 
-> A different setup is needed compared to Airoha EN7581 where the
-> calibration process and the register map greatly changed.
+> To avoid duplicating these variables across phy cfg and driver data,
+> create a per-SoC struct that would hold them and with that add the
+> default rtd_phy_reg_desc to which all RTD SoCs driver data will
+> point towards.
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+> Signed-off-by: Rustam Adilov <adilov@disroot.org>
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
