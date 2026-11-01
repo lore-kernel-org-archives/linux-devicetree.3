@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570640;
-	b=bzzD68E7c1rgTpmoesLEPU+bVTK8dfFctr08cXvg2nzfS48aRk1/dSlIwiYX3sQM0E7/
-	 QTmuqcRXXRnZ+KCAMdGLYK3AtGyrqeVgEzSUC8uTbivV2eG3ImgRB5x0ivs8rubjQv/mF
-	 n+HZkIM9QY2EpjhUMBG3dEVmi/Kx4vs5KSXgfrygGf6djWybfnPOT7EAAaunyfqAsrWJ1
-	 IDFT3OlwT7hivfWgtH3cpuQ2MJVt9/LMFyPzm/vn3KNMpEIrLgPpMDzOY1Q70J25Tee6p
-	 GqoQ4/BCVNvvMWedO/EESjRz1l9xTuiVVocxIWXW3XusjnKFUxhoFBg4I17k7rj9YAg==
+	t=1793570631;
+	b=PJ+sh9hMe9MHsAaBGCFH1rRntQZSUOm6Uz2rOBmDF80v+Js3EJaP1iTJRlJDgmuU9hjn
+	 ybxO3jha8u/d4ut9okTIR+Js0LClFGIgripBpuhQjXd1kb6iWGs6XMT4Pl77A2tF6OHpp
+	 YoXh7PVljhnSbN7py4874ABq7LR1ZBdTCqs2dRKaPsjgpuKQGz0lRJiWxXbMN+WdD+hdU
+	 wRMG5DdXDF/8giz8Fz8BkAJkn8d85LtEZDFxgvsmL8swkZbcdUyTstvk8ivKt+RuvackI
+	 UGmt8CTtwGcc0z3HqPS5B0pv+uwKeh//mhKWbmZGaTw7COO5PEZbcDzDtQxFHh/DoLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793570631;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fzegkleVmuMQ4fps3Dp0r88bes9LdIWh107kbcl/v3I=;
-	b=SzhGvrGcwUDYJnk+7FfmpebRSb3OiObzBt9wogcwZjycfFlbJl3lnG94sc1/7PsB8BQT
-	 ZWPV3nvZ/RSznMLNBdrxlQJ8VLbpYnbhWoCJS07XhsnEBo697vGGgAHnZXP7Z5ghRE9+f
-	 FkiNZIHXeErocH90H3KRY4go6aUgHfbxVk3yZwSLyJ3Dffo18ED5M/2zQxu3FIriucu04
-	 LIB7HhaigkfTi0oEMKSvtFBMo99Un3z9rGyhRuGBnsaxADhocWUi9GogWSIgxZSGtVG43
-	 VfcLTHLb+UCgOswbCXc8R79IJKwaNSPRvgVc+gKzVdail137LAdxLy/9s+jOeFTse4Q==
+	bh=bD/vlkPqinAapl5RMxcxWzjL0Xw5ibaSxR6emJ/L0iM=;
+	b=EWMDCrNXeFTn59NtDi35DttsNbCzWPnWacx7LVe7RU2FAWAils0H2gjhW6EK2Ttvlwa5
+	 wFbKxBGutz9DcOVU5T2dy+u5GjfU4Bi617v/R4AYnhl6P24HGo8BBB6mi2TDs+acrT0WC
+	 sf41cezLLG4qaZ/a+QVS8FJ5eTd/Hk/a+3hCwsQChggj2W/BIUuU2EHT5iz3Gsc4Vbp22
+	 qs/nvvvFpVN7aG8gtED6kavjHA5Wo2z1oBtPJm/SYU84VrS/eHk01pF9KZ1+ZNRb0j7Qk
+	 rnY89Ke+pwSSZ22/h+Ur1stjMIxtIndL698gR1WEmTPYf9tpeAW2oFLAhD73D/+ru/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aS0fbQdW;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=K2AlmytZ;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C327606A339
-	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C327606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D45F606A337
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D45F606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aS0fbQdW
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3463884eec.0
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:03:59 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=K2AlmytZ
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36661f953e4so3774332eec.1
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:03:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793570639; x=1794175439; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793570630; x=1794175430; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fzegkleVmuMQ4fps3Dp0r88bes9LdIWh107kbcl/v3I=;
-        b=aS0fbQdW1S98Tp2Psc9Q3LN4PaEeN9itQ9VTkpOk8HG5kZLtBKlpMJZg0IUPQL8Ieh
-         GP/msMAY9Da/tKeo1GVg/TWm69+/mquVrnkzqD4ojMT2Ge1/BgRIUP4lkvQSgXkpYdDK
-         VwTuhl4VUnzbFkRDPUNJI8JjKz5hKkUVSaOU8=
+        bh=bD/vlkPqinAapl5RMxcxWzjL0Xw5ibaSxR6emJ/L0iM=;
+        b=K2AlmytZVl73vvxOMdBztOeX5764uPGxvghGjFtcc6avSP+EC0orerWN8YiL6C3a6Z
+         drxHn8/qSi0b957X6JH8qaOAyxsY6DNKLuls1sYp2R+YZqfbJBE5uNpd9FuV/djhX3ez
+         9mYcb0FSWwnu1A6NHEbLjYyGFnZ3CZuaWW6Eg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793570639; x=1794175439;
+        d=1e100.net; s=20260707; t=1793570630; x=1794175430;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fzegkleVmuMQ4fps3Dp0r88bes9LdIWh107kbcl/v3I=;
-        b=mUdNfelvhE+kD2Bu7koGuw+t6qjqlJ1W2eA/QPx21SZWusrd5PaE7zjcga9w420+Kz
-         Citxd8eHgRcQSMY3VEXNTgt58XY+9ohIQzrCPRjQaA/8PgVlHa9X6IUZaG6SuhUVbH6o
-         LhrnftihL2L1XlC+JnFz8+fFJmvRmDl9ISWubWB2flfbZ1zgCPMmUIJaZn5B1+V9Mho8
-         YgVSVmVFt1TkiGdVBMmSZCqLgOtOo0Qp/ooFlvcSiueYpBsUT02xO6s+0xtMDDwtTFXM
-         QzJoexLPmX9bfoSwKbNrSnQ014Wi+1XTdrCftBHCk4ccY61ZF9PEotVUmFcjy2D7OS2M
-         S/Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBxSPeVqUg4iPoxd3VXrXAZGJZT2cn9iZbezVq1LCc1tCLZ9yVtue3mQa2WqFBM1KDbpvdPFGm/RYdy9@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2nJKo4IigoHDZIWD+HcXGFKGbW3DAQTlwMV986iHklGXPELN5
-	xDaq+GZ2XOKQViWFtlo76ekeFtOFKSb2J9sdK8cUN3BEJOoCP67KAReW6OA1h4mhpQ==
-X-Gm-Gg: AYBFou3KxuVYGgCE2VaNwq1sGDfGcZiTrrFUhrp3p78wBfEWTVh7FFSxj3nMnCMImQK
-	F32FPpz2cJ43n0SOmNYylI93MdOzyDJqs0ftetMo3PaKhpoEmZPaZCSSWzwV5PMeXhEwb5XB/w0
-	eXjcvitWiuHmRjYcMGHN1+AnBTKH327ttWmjwOxEGzEe3iSHZeg0vJrrR2RwjXbt9HeSchTq60i
-	LMPHgOak1uakdGWr6vDtRHdYEJ9jPWR0RxJ3vZSbAA1VDPg4rb8OFX1Z8W2QZGzh4Z5Z4zrYcr2
-	FasYkGG4Avh25edOlgTWbgI53zZvkS+XtiPF7LT5cDWjm39E/ETZGTYRvBHbd9/Vk3VquBdgME3
-	wkohQiIMBbtQhqeZFqYhqRWfr5emsJtbHVwy0b06VY4/DBgJkhdfVmSGeRJEQRvVVbUomUjJkWm
-	HsyNfw7QQ8MM5/C0B7LgrDaetggeINZL0Xqg0UhKe0k7UFk3GBkZeTFSWj/0+lJ/mo9TogKYA0W
-	TgnE1JvKkWoqpHd9czHxZtBgYkkyk19/GTWhkqU5uGG6NLzqGZSIRR713Yt9tI1DSzU9QRn0whh
-	ksdi/8m3uHdmmB8Oy9fcIHCFeFXPjLQCV3FgMnFd4qqluUUBba6DEe21hCrTbqdcTgVwLbdVEJ+
-	Tt5piVJ6Mbev5zQ==
-X-Received: by 2002:a05:7022:158a:b0:185:869a:8c64 with SMTP id a92af1059eb24-1ac56ca0239mr13833813c88.1.1793570638420;
-        Sun, 01 Nov 2026 14:03:58 -0800 (PST)
+        bh=bD/vlkPqinAapl5RMxcxWzjL0Xw5ibaSxR6emJ/L0iM=;
+        b=Qb+f+Zstxh+3I1/w52oBDEnhkBavuq4bC2HTo30ZtozGKf/yofdzoqVO/D+oVGDdl2
+         JAz27OSOFlM6DkknTQkqOQWir5tpkFTmUDOOtlysMb3oSAQaR88C586rXQasZsWq2I0O
+         l5qoSfjzdqqwkWKW6683OsN3axmjziPjv2SkSE7S29zvZKhhy4TKPNVpj/fpTOKC8K1V
+         QZY+Anw0YwGNrGdoTKXreizerzhGr9VdRoj+NVZTHEXl0ETmXxEPIGwAB1h/Gwlx9drQ
+         Eix9Gm3HLtdDMxJJadT/DLJUriyYLA48VV8MNG6Vmt4iJGLkcbYzmRxJr7IheANZJU+X
+         15EQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmvyKXTiU/yX1wPcGHR7d8BjeDmfv2x8KlEY+sEEPEOs4CEJmJn5WqH7oGcd6yYf5Jyv97GYQAYXE+@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvQDlZZyzDWKEkKaK+vfrDekHAhE2xGeTlbvGK23kOryHrsVhB
+	466hlv8HPaszksoFszTu5vqnKey4au7+K1b8QBTHqD9BheaJtYVJa5jeWv3SkoqdpA==
+X-Gm-Gg: AYBFou3wDNw35V3Z4Nwy0zYl+hd+ACj2xyQrWWtFHQK34n3WqPv+aS8XDtVFqPpBjRl
+	fU4rjBShjsU56bVY2Z9SFGYrgRYXj9BptGByljvOBEGptxUtShK4PwGGg9ioqQBnlU0p6eScMUR
+	TvlN3BAZTHiRIq9fwKlcoNqLG/9fkK7XiuvsX7aoAL19MClKXjGdv9wkP1TLsaF7w8VMdOLWLgF
+	I9DYP2Tg7o54FBxWgEjjiYOK49LcY4Tf0IlO+c9lFWWL+sxWSOlxTM3I7PthMNeW2lvZ1o4TTpz
+	qSJf+dvhY6qfKUQcOUhxd3cHL6qF+jQoxhCDjNv+k5K+NuambBZ+kB74tFgWhhMkspWNUlVTpMr
+	vL/mc0/jCBLRzE65EScf9uti71L6/P3KGKkXnypuShnJjW0fSl4T60cvFyet69ALXfo6nRPo5SY
+	UU5nJIe5VPIw+XGD7uYomaIFqfSp+VpStwN3rfM4Up9X7e98nq7sPpP86WkxZzHw859bwFT+1Ew
+	yFv84MjSpi7M5T2w2vWO2pGB2923fY7fhIfCYMcchpEYnGuWleUYoNoovPAPed19qpkYom6HqSm
+	cY0+WzqbKEi9QFHtIEpyujf3iPsu/ZjqY0dQIaYCS8NyxjWC/JsoovioK7qgmiF9HvJmFb3+1WU
+	U4AzOYw/CEnpu6A==
+X-Received: by 2002:a05:7022:3b81:b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1ae59d694e9mr10086805c88.38.1793570629449;
+        Sun, 01 Nov 2026 14:03:49 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:cbd8:5ca8:653a:11f9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.03.56
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.03.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:03:57 -0800 (PST)
+        Sun, 01 Nov 2026 14:03:48 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -94,9 +94,9 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
 	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
 	David Gibson <david@gibson.dropbear.id.au>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v3 11/15] libfdt: overlay: Update base /__local_fixups__ on apply
-Date: Sun,  1 Nov 2026 14:01:18 -0800
-Message-ID: <20261101220224.1436242-12-dianders@chromium.org>
+Subject: [PATCH v3 07/15] devicetree: Add DeviceTree live tree representation
+Date: Sun,  1 Nov 2026 14:01:14 -0800
+Message-ID: <20261101220224.1436242-8-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261101220224.1436242-1-dianders@chromium.org>
 References: <20261101220224.1436242-1-dianders@chromium.org>
@@ -111,870 +111,451 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a base device tree is compiled with `dtc -L` (`--local-fixups`), it
-contains a root `/__local_fixups__` node recording the byte offsets of
-all phandle references in its properties (for example, so an OS kernel
-can identify phandle cells at runtime, so a composite `.dtb` built by
-`fdtoverlay` such as Linux's `foo-dtbs := base.dtb bar.dtbo` retains
-complete phandle metadata for tools like `fdtfactor`, or so a merged
-tree matches what `dtc -L` produces).
+Add `devicetree.py` providing `DeviceTree`, a non-flattened in-memory
+representation of a devicetree node and its subtree:
 
-`fdt_overlay_apply()` updates the base tree's `/__symbols__` via
-`overlay_symbol_update()`, but leaves the base tree's
-`/__local_fixups__` untouched. As a result, applying an overlay to a
-base tree with `/__local_fixups__` leaves `/__local_fixups__` missing
-the phandle references introduced by the overlay (both from the
-overlay's `/__local_fixups__` and from its resolved `/__fixups__`), and
-leaves stale offsets if the overlay overwrites a base property that
-previously had phandle references.
+- `DeviceTree.unflatten(fdt, offset=0)` builds a `DeviceTree` hierarchy
+  from an `FdtRo` instance, storing `libfdt.Property` instances in
+  `self.props` and raising `ValueError` if duplicate property or sibling
+  subnode names are encountered.
+- `DeviceTree.flatten(mem_rsv=(), boot_cpuid_phys=0)` serializes a root
+  `DeviceTree` back into a packed `libfdt.Fdt` object via `FdtSw`.
+- `get_node()`, `create_path()`, and `walk()` provide path lookup,
+  intermediate node creation, and pre-order traversal.
+- `get_str()`, `set_str()`, `get_stringlist()`, `set_stringlist()`,
+  `get_u32()`, `set_u32()`, `get_u32_list()`, and `set_u32_list()`
+  provide typed property access and mutation.
 
-Add `overlay_local_fixups_update()`, controlled by a 3-state
-compile-time `FDT_OVERLAY_LOCAL_FIXUPS` setting in
-`libfdt/libfdt_internal.h`:
-
-- `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
-  untouched. This is the `#ifndef` fallback in `libfdt_internal.h` so
-  that size-sensitive embedded environments (such as U-Boot SPL) that
-  vendor `libfdt` directly get zero code-size increase and no behavior
-  change unless they opt in.
-- `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__`
-  from the base tree if present (~50 bytes of code), avoiding leaving a
-  stale/incomplete `/__local_fixups__` node in the merged tree.
-- `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update the base tree's
-  `/__local_fixups__` node when present (clearing entries for
-  overwritten properties, merging offsets from the overlay's
-  `/__local_fixups__` and `/__fixups__` in sorted ascending order, and
-  pruning any subnodes that become empty). This is enabled by default in
-  `dtc`'s Meson (`-Doverlay-local-fixups=2`) and Make
-  (`OVERLAY_LOCAL_FIXUPS=2`) builds for desktop tools and tests.
+Add unit tests in `tests/pylibfdt_tests.py` covering `DeviceTree`
+unflatten/flatten round-tripping, duplicate name rejection, and helper
+methods.
 
 Assisted-by: Gemini:gemini-pro-prerelease
 Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
 
 Changes in v3:
-- Move constifying fdto in overlay_apply_node() into a standalone
-  preparatory patch (David Gibson)
-- Gate `/__local_fixups__` handling behind a 3-state compile-time
-  `FDT_OVERLAY_LOCAL_FIXUPS` flag (`0=ignore`, `1=strip`, `2=update`),
-  defaulting to `0` (`IGNORE`) in `libfdt_internal.h` for embedded
-  builds and `2` (`UPDATE`) in Meson/Make desktop builds (Simon Glass,
-  David Gibson)
-- Rewrite commit message in the present tense with motivation up front,
-  and update `fdt_overlay_apply()` documentation in `libfdt/libfdt.h`
-  (Simon Glass)
-- Require a strict relative path in `overlay_create_path()` and return
-  `-FDT_ERR_BADOVERLAY` on empty path components or trailing `'/'`
+- Move NodeTree out of pylibfdt/libfdt.i into a new devicetree.py module
+  and rename it to DeviceTree (David Gibson)
+- Store libfdt.Property objects in self.props instead of raw bytes
   (David Gibson)
-- Eliminate the 256-byte `namebuf` limit in
-  `overlay_fragment_local_fixups()` by re-reading the node name from the
-  shifted ancestor offset after `fdt_add_subnode_namelen()` (David
-  Gibson, Simon Glass)
-- Return `-FDT_ERR_BADVALUE` instead of `-FDT_ERR_BADSTRUCTURE` in
-  `overlay_add_local_fixup_offset()` when an existing
-  `/__local_fixups__` property length is not a multiple of 4 (David
-  Gibson, Simon Glass)
-- Drop redundant `overlay_validate_local_fixups()` pre-pass and inline
-  single-use helpers (Simon Glass)
+- Return a packed libfdt.Fdt object from flatten() instead of raw bytes
+  and use fdt.set_boot_cpuid_phys() (David Gibson, Simon Glass)
+- Raise ValueError in unflatten() on duplicate property or sibling
+  subnode names (Simon Glass)
 
 Changes in v2:
-- New patch updating base /__local_fixups__ in libfdt
-  fdt_overlay_apply() instead of stripping /__local_fixups__ by default
-  (David Gibson)
+- Split live tree representation out of fdtfactor (David Gibson)
 
- Makefile                 |   6 +-
- libfdt/fdt_overlay.c     | 527 ++++++++++++++++++++++++++++++++++++++-
- libfdt/libfdt.h          |   7 +
- libfdt/libfdt_internal.h |  21 ++
- meson.build              |   5 +
- meson_options.txt        |   2 +
- tests/overlay.c          |  80 ++++++
- tests/run_tests.sh       |  19 ++
- 8 files changed, 663 insertions(+), 4 deletions(-)
+ devicetree.py           | 276 ++++++++++++++++++++++++++++++++++++++++
+ meson.build             |   1 +
+ tests/meson.build       |   2 +-
+ tests/pylibfdt_tests.py |  77 +++++++++++
+ 4 files changed, 355 insertions(+), 1 deletion(-)
+ create mode 100644 devicetree.py
 
-diff --git a/Makefile b/Makefile
-index 9110d17796b0..1560a5609fea 100644
---- a/Makefile
-+++ b/Makefile
-@@ -21,7 +21,11 @@ CONFIG_LOCALVERSION =
- # See libfdt_internal.h for details
- ASSUME_MASK ?= 0
- 
--CPPFLAGS = -I libfdt -I . -DFDT_ASSUME_MASK=$(ASSUME_MASK)
-+# Control how fdt_overlay_apply() handles base /__local_fixups__ (0=ignore, 1=strip, 2=update)
-+# See libfdt_internal.h for details
-+OVERLAY_LOCAL_FIXUPS ?= 2
-+
-+CPPFLAGS = -I libfdt -I . -DFDT_ASSUME_MASK=$(ASSUME_MASK) -DFDT_OVERLAY_LOCAL_FIXUPS=$(OVERLAY_LOCAL_FIXUPS)
- WARNINGS = -Wall -Wpointer-arith -Wcast-qual -Wnested-externs -Wsign-compare \
- 	-Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Wshadow \
- 	-Wwrite-strings
-diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
-index 4b3e17bd087e..c22ac588fcb8 100644
---- a/libfdt/fdt_overlay.c
-+++ b/libfdt/fdt_overlay.c
-@@ -1019,9 +1019,8 @@ static int overlay_split_fragment_path(const char *path, int path_len,
-  * overlay_symbol_update() updates the symbols of the base tree with the
-  * symbols of the applied overlay
-  *
-- * This is the last step in the device tree overlay application
-- * process, allowing the reference of overlay symbols by subsequent
-- * overlay operations.
-+ * This step in the device tree overlay application process allows
-+ * the reference of overlay symbols by subsequent overlay operations.
-  *
-  * returns:
-  *      0 on success
-@@ -1135,6 +1134,524 @@ static int overlay_symbol_update(void *fdt, void *fdto)
- 	return 0;
- }
- 
-+#if FDT_OVERLAY_LOCAL_FIXUPS == FDT_OVERLAY_LOCAL_FIXUPS_UPDATE
-+/**
-+ * overlay_create_path - Create a relative path under a parent node
-+ * @fdt: Base Device Tree blob
-+ * @parent: Node offset of the starting parent node
-+ * @path: Relative path to traverse (must not start or end with '/' or contain "//")
-+ * @path_len: Length of @path in bytes
-+ *
-+ * overlay_create_path() walks the slash-separated path components in @path
-+ * starting at @parent, creating any missing intermediate subnodes along the
-+ * way.
-+ *
-+ * returns:
-+ *      Node offset of the resolved or created subnode on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_create_path(void *fdt, int parent, const char *path,
-+			       int path_len)
-+{
-+	int node = parent;
-+
-+	while (path_len > 0) {
-+		const char *sep = memchr(path, '/', path_len);
-+		int comp_len = sep ? (sep - path) : path_len;
-+		int next;
-+
-+		if (!comp_len)
-+			return -FDT_ERR_BADOVERLAY;
-+
-+		next = fdt_subnode_offset_namelen(fdt, node, path, comp_len);
-+		if (next == -FDT_ERR_NOTFOUND)
-+			next = fdt_add_subnode_namelen(fdt, node, path,
-+						       comp_len);
-+		if (next < 0)
-+			return next;
-+		node = next;
-+
-+		if (!sep)
-+			break;
-+		path += comp_len + 1;
-+		path_len -= comp_len + 1;
-+		if (!path_len)
-+			return -FDT_ERR_BADOVERLAY;
-+	}
-+
-+	return node;
-+}
-+
-+/**
-+ * overlay_fragment_local_fixups - Find or create a fragment's target under /__local_fixups__
-+ * @fdt: Base Device Tree blob
-+ * @fdto: Device tree overlay blob
-+ * @fragment: Node offset of the fragment in @fdto
-+ * @create: Whether to create missing subnodes under /__local_fixups__
-+ *
-+ * overlay_fragment_local_fixups() resolves the target of @fragment in @fdt and
-+ * locates (or creates, when @create is true) the corresponding node at the
-+ * same path under @fdt's /__local_fixups__ subtree.
-+ *
-+ * returns:
-+ *      Node offset of the corresponding /__local_fixups__ node on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_fragment_local_fixups(void *fdt, const void *fdto,
-+					 int fragment, bool create)
-+{
-+	int root_lf, target, cur_fdt, node;
-+
-+	root_lf = fdt_subnode_offset(fdt, 0, "__local_fixups__");
-+	if (root_lf < 0)
-+		return root_lf;
-+
-+	target = fdt_overlay_target_offset(fdt, fdto, fragment, NULL);
-+	if (target < 0)
-+		return target;
-+
-+	cur_fdt = 0;
-+	node = root_lf;
-+	while (cur_fdt != target) {
-+		int subnode, ancestor = -FDT_ERR_INTERNAL;
-+		const char *name;
-+		int namelen, next_lf;
-+
-+		fdt_for_each_subnode(subnode, fdt, cur_fdt) {
-+			if (subnode <= target)
-+				ancestor = subnode;
-+			else
-+				break;
-+		}
-+		if (ancestor < 0)
-+			return ancestor;
-+
-+		name = fdt_get_name(fdt, ancestor, &namelen);
-+		if (!name)
-+			return namelen;
-+
-+		next_lf = fdt_subnode_offset_namelen(fdt, node, name, namelen);
-+		if (next_lf == -FDT_ERR_NOTFOUND && create) {
-+			int old_struct_size = fdt_size_dt_struct(fdt);
-+
-+			next_lf = fdt_add_subnode_namelen(fdt, node, name,
-+							  namelen);
-+			if (next_lf < 0)
-+				return next_lf;
-+			if (next_lf <= ancestor) {
-+				int delta = fdt_size_dt_struct(fdt) -
-+					    old_struct_size;
-+				char *new_name;
-+
-+				target += delta;
-+				ancestor += delta;
-+				name = fdt_get_name(fdt, ancestor, NULL);
-+				new_name = (char *)(uintptr_t)fdt_get_name(
-+					fdt, next_lf, NULL);
-+				memcpy(new_name, name, namelen + 1);
-+			}
-+		} else if (next_lf < 0) {
-+			return next_lf;
-+		}
-+
-+		cur_fdt = ancestor;
-+		node = next_lf;
-+	}
-+
-+	return node;
-+}
-+
-+/**
-+ * overlay_clear_overwritten_local_fixups - Remove local fixups for overwritten properties
-+ * @fdt: Base Device Tree blob
-+ * @target_lf: Node offset in @fdt's /__local_fixups__ subtree
-+ * @fdto: Device tree overlay blob
-+ * @overlay: Node offset in @fdto's __overlay__ subtree
-+ *
-+ * overlay_clear_overwritten_local_fixups() recursively deletes properties under
-+ * @target_lf that correspond to properties overwritten by @overlay in @fdto.
-+ *
-+ * returns:
-+ *      0 on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_clear_overwritten_local_fixups(void *fdt, int target_lf,
-+						  const void *fdto, int overlay)
-+{
-+	int prop, subnode;
-+
-+	fdt_for_each_property_offset(prop, fdto, overlay) {
-+		const char *name;
-+		const void *val;
-+		int len, ret;
-+
-+		val = fdt_getprop_by_offset(fdto, prop, &name, &len);
-+		if (!val)
-+			return len;
-+
-+		ret = fdt_delprop(fdt, target_lf, name);
-+		if (ret && ret != -FDT_ERR_NOTFOUND)
-+			return ret;
-+	}
-+
-+	fdt_for_each_subnode(subnode, fdto, overlay) {
-+		const char *name;
-+		int namelen, sub_lf, ret;
-+
-+		name = fdt_get_name(fdto, subnode, &namelen);
-+		if (!name)
-+			return namelen;
-+
-+		sub_lf = fdt_subnode_offset_namelen(fdt, target_lf, name,
-+						    namelen);
-+		if (sub_lf == -FDT_ERR_NOTFOUND)
-+			continue;
-+		if (sub_lf < 0)
-+			return sub_lf;
-+
-+		ret = overlay_clear_overwritten_local_fixups(fdt, sub_lf,
-+							     fdto, subnode);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * overlay_add_local_fixup_offset - Insert a sorted u32 offset into a local fixup property
-+ * @fdt: Base Device Tree blob
-+ * @lf_node: Node offset in @fdt's /__local_fixups__ subtree
-+ * @name: Property name to update
-+ * @name_len: Length of @name in bytes
-+ * @poffset: Byte offset of the phandle reference within the target property
-+ *
-+ * overlay_add_local_fixup_offset() inserts @poffset in ascending sorted order
-+ * (ignoring duplicates) into the u32 array property @name on @lf_node.
-+ *
-+ * returns:
-+ *      0 on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_add_local_fixup_offset(void *fdt, int lf_node,
-+					  const char *name, int name_len,
-+					  uint32_t poffset)
-+{
-+	const fdt32_t *old_val;
-+	fdt32_t *vals;
-+	void *prop_data;
-+	int old_len, count, i, idx, ret;
-+
-+	old_val = fdt_getprop_namelen(fdt, lf_node, name, name_len, &old_len);
-+	if (!old_val && old_len != -FDT_ERR_NOTFOUND)
-+		return old_len;
-+
-+	if (!old_val) {
-+		old_len = 0;
-+		count = 0;
-+		idx = 0;
-+	} else {
-+		if (old_len % sizeof(uint32_t))
-+			return -FDT_ERR_BADVALUE;
-+		count = old_len / sizeof(uint32_t);
-+		idx = count;
-+		for (i = 0; i < count; i++) {
-+			uint32_t cur = fdt32_ld(old_val + i);
-+
-+			if (cur == poffset)
-+				return 0;
-+			if (cur > poffset) {
-+				idx = i;
-+				break;
-+			}
-+		}
-+	}
-+
-+	ret = fdt_setprop_placeholder_namelen(fdt, lf_node, name, name_len,
-+					      old_len + sizeof(uint32_t),
-+					      &prop_data);
-+	if (ret)
-+		return ret;
-+
-+	vals = prop_data;
-+	if (idx < count)
-+		memmove(vals + idx + 1, vals + idx,
-+			(count - idx) * sizeof(uint32_t));
-+	fdt32_st(vals + idx, poffset);
-+
-+	return 0;
-+}
-+
-+/**
-+ * overlay_merge_fixups_into_local_fixups - Record resolved /__fixups__ for a fragment
-+ * @fdt: Base Device Tree blob
-+ * @fdto: Device tree overlay blob
-+ * @fragment: Node offset of the current fragment in @fdto
-+ * @target_frag_name: Name of @fragment
-+ * @target_frag_len: Length of @target_frag_name in bytes
-+ * @target_lfp: In/out cached node offset of @fragment under @fdt's /__local_fixups__
-+ *
-+ * overlay_merge_fixups_into_local_fixups() parses external phandle references
-+ * belonging to @fragment in @fdto's /__fixups__ node and records their resolved
-+ * property byte offsets in @fdt's /__local_fixups__ subtree.
-+ *
-+ * returns:
-+ *      0 on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_merge_fixups_into_local_fixups(void *fdt, const void *fdto,
-+						  int fragment,
-+						  const char *target_frag_name,
-+						  int target_frag_len,
-+						  int *target_lfp)
-+{
-+	int fixups_off, prop;
-+
-+	fixups_off = fdt_subnode_offset(fdto, 0, "__fixups__");
-+	if (fixups_off == -FDT_ERR_NOTFOUND)
-+		return 0;
-+	if (fixups_off < 0)
-+		return fixups_off;
-+
-+	fdt_for_each_property_offset(prop, fdto, fixups_off) {
-+		const char *value, *label;
-+		int len;
-+
-+		value = fdt_getprop_by_offset(fdto, prop, &label, &len);
-+		if (!value)
-+			return len;
-+
-+		do {
-+			const char *path, *name, *frag_name, *rel_path;
-+			uint32_t path_len, name_len, poffset;
-+			int frag_name_len, rel_path_len, lf_node, ret;
-+
-+			ret = overlay_parse_fixup_entry(&value, &len, &path,
-+							&path_len, &name,
-+							&name_len, &poffset);
-+			if (ret)
-+				return ret;
-+
-+			ret = overlay_split_fragment_path(path, path_len,
-+							  &frag_name,
-+							  &frag_name_len,
-+							  &rel_path,
-+							  &rel_path_len);
-+			if (ret < 0)
-+				return ret;
-+			if (!ret)
-+				continue;
-+
-+			if (frag_name_len != target_frag_len ||
-+			    memcmp(frag_name, target_frag_name,
-+				   frag_name_len) != 0)
-+				continue;
-+
-+			if (*target_lfp < 0) {
-+				*target_lfp = overlay_fragment_local_fixups(
-+					fdt, fdto, fragment, true);
-+				if (*target_lfp < 0)
-+					return *target_lfp;
-+			}
-+
-+			lf_node = overlay_create_path(fdt, *target_lfp,
-+						      rel_path, rel_path_len);
-+			if (lf_node < 0)
-+				return lf_node;
-+
-+			ret = overlay_add_local_fixup_offset(fdt, lf_node,
-+							     name, name_len,
-+							     poffset);
-+			if (ret)
-+				return ret;
-+		} while (len > 0);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * overlay_prune_empty_local_fixups - Remove empty subnodes from /__local_fixups__
-+ * @fdt: Base Device Tree blob
-+ * @lf_node: Node offset in @fdt's /__local_fixups__ subtree
-+ *
-+ * overlay_prune_empty_local_fixups() recursively deletes any child subnodes
-+ * under @lf_node that have neither properties nor subnodes remaining.
-+ *
-+ * returns:
-+ *      0 on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_prune_empty_local_fixups(void *fdt, int lf_node)
-+{
-+	int subnode = fdt_first_subnode(fdt, lf_node);
-+
-+	while (subnode >= 0) {
-+		int next, ret;
-+
-+		ret = overlay_prune_empty_local_fixups(fdt, subnode);
-+		if (ret < 0)
-+			return ret;
-+
-+		next = fdt_next_subnode(fdt, subnode);
-+		if (fdt_first_property_offset(fdt, subnode) == -FDT_ERR_NOTFOUND &&
-+		    fdt_first_subnode(fdt, subnode) == -FDT_ERR_NOTFOUND) {
-+			int old_struct_size = fdt_size_dt_struct(fdt);
-+
-+			ret = fdt_del_node(fdt, subnode);
-+			if (ret < 0)
-+				return ret;
-+			if (next >= 0)
-+				next += fdt_size_dt_struct(fdt) -
-+					old_struct_size;
-+		}
-+		subnode = next;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * overlay_fragment_update_local_fixups - Update base /__local_fixups__ for one fragment
-+ * @fdt: Base Device Tree blob
-+ * @fdto: Device tree overlay blob
-+ * @fragment: Node offset of the fragment in @fdto
-+ * @ov_lf_root: Node offset of /__local_fixups__ in @fdto (or -FDT_ERR_NOTFOUND)
-+ *
-+ * overlay_fragment_update_local_fixups() clears any base /__local_fixups__
-+ * entries overwritten by @fragment, then merges phandle offsets for @fragment
-+ * from @fdto's /__local_fixups__ and /__fixups__ subtrees.
-+ *
-+ * returns:
-+ *      0 on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_fragment_update_local_fixups(void *fdt, const void *fdto,
-+						int fragment, int ov_lf_root)
-+{
-+	const char *frag_name;
-+	int frag_name_len, overlay, target_lf, lf_frag, lf_overlay, ret;
-+
-+	overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
-+	if (overlay == -FDT_ERR_NOTFOUND)
-+		return 0;
-+	if (overlay < 0)
-+		return overlay;
-+
-+	frag_name = fdt_get_name(fdto, fragment, &frag_name_len);
-+	if (!frag_name)
-+		return frag_name_len;
-+
-+	target_lf = overlay_fragment_local_fixups(fdt, fdto, fragment, false);
-+	if (target_lf < 0 && target_lf != -FDT_ERR_NOTFOUND)
-+		return target_lf;
-+
-+	if (target_lf >= 0) {
-+		ret = overlay_clear_overwritten_local_fixups(fdt, target_lf,
-+							     fdto, overlay);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	lf_overlay = -FDT_ERR_NOTFOUND;
-+	if (ov_lf_root >= 0) {
-+		lf_frag = fdt_subnode_offset_namelen(fdto, ov_lf_root,
-+						     frag_name, frag_name_len);
-+		if (lf_frag >= 0)
-+			lf_overlay = fdt_subnode_offset(fdto, lf_frag,
-+							"__overlay__");
-+		else if (lf_frag != -FDT_ERR_NOTFOUND)
-+			return lf_frag;
-+	}
-+	if (lf_overlay < 0 && lf_overlay != -FDT_ERR_NOTFOUND)
-+		return lf_overlay;
-+
-+	if (lf_overlay >= 0) {
-+		if (target_lf < 0)
-+			target_lf = overlay_fragment_local_fixups(fdt, fdto,
-+								  fragment,
-+								  true);
-+		if (target_lf < 0)
-+			return target_lf;
-+
-+		ret = overlay_apply_node(fdt, target_lf, fdto, lf_overlay);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return overlay_merge_fixups_into_local_fixups(
-+		fdt, fdto, fragment, frag_name, frag_name_len, &target_lf);
-+}
-+
-+/**
-+ * overlay_local_fixups_update - Update base /__local_fixups__ with overlay fixups
-+ * @fdt: Base Device Tree blob
-+ * @fdto: Device tree overlay blob
-+ *
-+ * overlay_local_fixups_update() updates the base device tree's
-+ * /__local_fixups__ subtree (when present) by walking each overlay fragment in
-+ * application order, clearing entries for properties overwritten by that
-+ * fragment, and merging phandle reference offsets from @fdto's
-+ * /__local_fixups__ and /__fixups__ subtrees.
-+ *
-+ * This is part of the device tree overlay application process, when you want
-+ * the merged device tree to retain complete local phandle fixup metadata.
-+ *
-+ * returns:
-+ *      0 on success
-+ *      Negative error code on failure
-+ */
-+static int overlay_local_fixups_update(void *fdt, const void *fdto)
-+{
-+	int root_lf, ov_lf_root, fragment, ret;
-+
-+	root_lf = fdt_subnode_offset(fdt, 0, "__local_fixups__");
-+	if (root_lf == -FDT_ERR_NOTFOUND)
-+		return 0;
-+	if (root_lf < 0)
-+		return root_lf;
-+
-+	ov_lf_root = fdt_subnode_offset(fdto, 0, "__local_fixups__");
-+	if (ov_lf_root < 0 && ov_lf_root != -FDT_ERR_NOTFOUND)
-+		return ov_lf_root;
-+
-+	/*
-+	 * Process fragments in application order so that if a later fragment in
-+	 * fdto overwrites a property modified by an earlier fragment, the
-+	 * earlier fragment's local fixups for that property are cleared first.
-+	 */
-+	fdt_for_each_subnode(fragment, fdto, 0) {
-+		ret = overlay_fragment_update_local_fixups(fdt, fdto, fragment,
-+							   ov_lf_root);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	root_lf = fdt_subnode_offset(fdt, 0, "__local_fixups__");
-+	if (root_lf < 0)
-+		return root_lf;
-+
-+	return overlay_prune_empty_local_fixups(fdt, root_lf);
-+}
-+#elif FDT_OVERLAY_LOCAL_FIXUPS == FDT_OVERLAY_LOCAL_FIXUPS_STRIP
-+static int overlay_local_fixups_update(void *fdt, const void *fdto)
-+{
-+	int root_lf = fdt_subnode_offset(fdt, 0, "__local_fixups__");
-+
-+	if (root_lf == -FDT_ERR_NOTFOUND)
-+		return 0;
-+	if (root_lf < 0)
-+		return root_lf;
-+
-+	return fdt_del_node(fdt, root_lf);
-+}
-+#else
-+static int overlay_local_fixups_update(void *fdt, const void *fdto)
-+{
-+	return 0;
-+}
-+#endif
-+
- int fdt_overlay_apply(void *fdt, void *fdto)
- {
- 	uint32_t delta;
-@@ -1175,6 +1692,10 @@ int fdt_overlay_apply(void *fdt, void *fdto)
- 	if (ret)
- 		goto err;
- 
-+	ret = overlay_local_fixups_update(fdt, fdto);
-+	if (ret)
-+		goto err;
-+
- 	/*
- 	 * The overlay has been damaged, erase its magic.
- 	 */
-diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-index c69a18edf09f..c2f47a7d3e87 100644
---- a/libfdt/libfdt.h
-+++ b/libfdt/libfdt.h
-@@ -2472,6 +2472,13 @@ int fdt_del_node(void *fdt, int nodeoffset);
-  * fdt_overlay_apply() will apply the given device tree overlay on the
-  * given base device tree.
-  *
-+ * If the base device tree contains a /__symbols__ node, it is updated with
-+ * any symbols from the overlay. If the base device tree contains a
-+ * /__local_fixups__ node, how it is handled depends on the build-time
-+ * FDT_OVERLAY_LOCAL_FIXUPS setting (see libfdt_internal.h): left untouched
-+ * (IGNORE), deleted (STRIP), or updated to reflect phandle references in the
-+ * merged tree (UPDATE, the default when built via dtc's build system).
-+ *
-  * Expect the base device tree to be modified, even if the function
-  * returns an error.
-  *
-diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
-index eefea2a3ccf3..4e9cf2e1dc5d 100644
---- a/libfdt/libfdt_internal.h
-+++ b/libfdt/libfdt_internal.h
-@@ -99,6 +99,27 @@ static inline uint64_t fdt64_ld_(const fdt64_t *p)
- #define FDT_PARENT_MAX_DEPTH 32
- #endif
- 
-+/*
-+ * Controls how fdt_overlay_apply() handles a /__local_fixups__ node in the
-+ * base device tree:
-+ *   0 (FDT_OVERLAY_LOCAL_FIXUPS_IGNORE): Leave /__local_fixups__ untouched
-+ *     (zero extra code size and preserves historical behavior; default when
-+ *     building libfdt standalone without dtc's build system).
-+ *   1 (FDT_OVERLAY_LOCAL_FIXUPS_STRIP): Delete /__local_fixups__ from the
-+ *     base device tree so a stale/incomplete /__local_fixups__ node is not
-+ *     left behind (~50 bytes of code).
-+ *   2 (FDT_OVERLAY_LOCAL_FIXUPS_UPDATE): Fully update /__local_fixups__ in
-+ *     the base device tree with the overlay's local and resolved external
-+ *     phandle fixups (default when building via dtc's Meson/Make build).
-+ */
-+#define FDT_OVERLAY_LOCAL_FIXUPS_IGNORE	0
-+#define FDT_OVERLAY_LOCAL_FIXUPS_STRIP	1
-+#define FDT_OVERLAY_LOCAL_FIXUPS_UPDATE	2
-+
-+#ifndef FDT_OVERLAY_LOCAL_FIXUPS
-+#define FDT_OVERLAY_LOCAL_FIXUPS	FDT_OVERLAY_LOCAL_FIXUPS_IGNORE
-+#endif
-+
- /*
-  * Defines assumptions which can be enabled. Each of these can be enabled
-  * individually. For maximum safety, don't enable any assumptions!
+diff --git a/devicetree.py b/devicetree.py
+new file mode 100644
+index 000000000000..198ab73eda88
+--- /dev/null
++++ b/devicetree.py
+@@ -0,0 +1,276 @@
++# SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause)
++"""devicetree - Non-flattened in-memory device tree representation in Python."""
++
++import struct
++
++import libfdt
++
++
++class DeviceTree:
++    """In-memory live tree representation of a devicetree node and its subtree.
++
++    Attributes:
++        props: Dict mapping property name (str) to `libfdt.Property`.
++        children: Dict mapping child node name (str) to child `DeviceTree`.
++    """
++
++    def __init__(self):
++        self.props = {}
++        self.children = {}
++
++    @classmethod
++    def unflatten(cls, fdt, offset=0):
++        """Unflatten an FdtRo subtree starting at `offset` into a DeviceTree.
++
++        Args:
++            fdt: An `FdtRo` (or `Fdt`) instance.
++            offset: Starting node offset (default 0 for the root node).
++
++        Returns:
++            A `DeviceTree` representing the node at `offset` and its
++            descendants.
++
++        Raises:
++            ValueError: If a node contains duplicate property names or
++                duplicate sibling subnode names.
++        """
++        node = cls()
++        for prop in fdt.properties(offset):
++            if prop.name in node.props:
++                raise ValueError(f'Duplicate property {prop.name!r}')
++            node.props[prop.name] = prop
++        for suboff in fdt.subnodes(offset):
++            subname = fdt.get_name(suboff)
++            if subname in node.children:
++                raise ValueError(f'Duplicate subnode {subname!r}')
++            node.children[subname] = cls.unflatten(fdt, suboff)
++        return node
++
++    def _flatten_subtree(self, sw, name):
++        """Recursively write this DeviceTree and its children into an FdtSw.
++
++        Args:
++            sw: An `FdtSw` sequential-write instance.
++            name: Node name for this subtree (empty string `''` for root).
++        """
++        with sw.add_node(name):
++            for prop_name, val in self.props.items():
++                sw.property(prop_name, bytes(val))
++            for child_name, child_node in self.children.items():
++                child_node._flatten_subtree(sw, child_name)
++
++    def flatten(self, mem_rsv=(), boot_cpuid_phys=0):
++        """Serialize this root DeviceTree into a packed `libfdt.Fdt` object.
++
++        Args:
++            mem_rsv: Iterable of (address, size) tuples for the FDT memory
++                reservation block.
++            boot_cpuid_phys: Physical boot CPU ID for the FDT header.
++
++        Returns:
++            Packed `libfdt.Fdt` instance.
++        """
++        sw = libfdt.FdtSw()
++        for addr, size in mem_rsv:
++            sw.add_reservemap_entry(addr, size)
++        sw.finish_reservemap()
++        self._flatten_subtree(sw, '')
++        fdt = sw.as_fdt()
++        fdt.set_boot_cpuid_phys(boot_cpuid_phys)
++        fdt.pack()
++        return fdt
++
++    def get_node(self, path):
++        """Look up a descendant DeviceTree by path without modifying the tree.
++
++        Follows the slash-separated node names in `path` starting from `self`
++        (leading, trailing, and repeated `'/'` characters are ignored, so
++        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically, and `''` or
++        `'/'` returns `self`). If any component along `path` is not present in
++        `children`, returns `None`.
++
++        Args:
++            path: Slash-separated node path starting from `self` (e.g.
++                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
++
++        Returns:
++            The `DeviceTree` at `path`, or `None` if not found.
++        """
++        node = self
++        for part in path.split('/'):
++            if not part:
++                continue
++            node = node.children.get(part)
++            if node is None:
++                return None
++        return node
++
++    def create_path(self, path):
++        """Return the descendant DeviceTree at `path`, creating missing nodes.
++
++        Looks up a child or deeper descendant `DeviceTree` by following the
++        slash-separated node names in `path` starting from `self` (leading,
++        trailing, and repeated `'/'` characters are ignored, so
++        `'/soc/i2c@4000'` and `'soc/i2c@4000'` behave identically). If any
++        node along `path` does not exist yet in `children`, a new empty
++        `DeviceTree` is created for it automatically (similar to `mkdir -p`).
++        Passing `''` or `'/'` returns `self`.
++
++        Example:
++            root = DeviceTree()
++            # Automatically creates root.children['soc'] and
++            # root.children['soc'].children['i2c@4000'], and returns the
++            # 'i2c@4000' DeviceTree.
++            i2c = root.create_path('/soc/i2c@4000')
++            i2c.set_str('status', 'okay')
++
++        Args:
++            path: Slash-separated node path starting from `self` (e.g.
++                `'/soc/i2c@4000'` or `'soc/i2c@4000'`).
++
++        Returns:
++            The `DeviceTree` instance at `path`.
++        """
++        node = self
++        for part in path.split('/'):
++            if not part:
++                continue
++            if part not in node.children:
++                node.children[part] = type(self)()
++            node = node.children[part]
++        return node
++
++    def walk(self, path=''):
++        """Yield `(path, node)` pairs for this subtree in pre-order.
++
++        Args:
++            path: Path prefix for `self` (defaults to `''` for the root node,
++                producing paths like `''`, `'/soc'`, `'/soc/i2c@4000'`).
++
++        Yields:
++            Tuple of `(path, node)` for `self` followed recursively by each
++            descendant `DeviceTree`.
++        """
++        prefix = path.rstrip('/')
++        yield path, self
++        for name, child in self.children.items():
++            yield from child.walk(f'{prefix}/{name}')
++
++    def get_str(self, name):
++        """Return property `name` decoded as a NUL-terminated UTF-8 string.
++
++        Args:
++            name: Property name to look up in `self.props`.
++
++        Returns:
++            Decoded string value (without the trailing NUL byte).
++
++        Raises:
++            KeyError: If `name` is not in `self.props`.
++            ValueError: If the property value is not a single NUL-terminated
++                UTF-8 string.
++        """
++        return self.props[name].as_str()
++
++    def set_str(self, name, val):
++        """Set property `name` to a NUL-terminated UTF-8 string.
++
++        Args:
++            name: Property name to set in `self.props`.
++            val: String value to encode as UTF-8 with a trailing NUL byte.
++
++        Raises:
++            ValueError: If `val` contains embedded NUL characters.
++        """
++        if '\x00' in val:
++            raise ValueError('String value contains embedded nul characters')
++        self.props[name] = libfdt.Property(name, val.encode('utf-8') + b'\x00')
++
++    def get_stringlist(self, name):
++        """Return property `name` decoded as a list of NUL-separated strings.
++
++        Args:
++            name: Property name to look up in `self.props`.
++
++        Returns:
++            List of decoded UTF-8 strings (`[]` if the property is empty).
++
++        Raises:
++            KeyError: If `name` is not in `self.props`.
++            ValueError: If a non-empty property lacks NUL termination.
++        """
++        return self.props[name].as_stringlist()
++
++    def set_stringlist(self, name, vals):
++        """Set property `name` to a NUL-separated list of UTF-8 strings.
++
++        Args:
++            name: Property name to set in `self.props`.
++            vals: Iterable of strings to encode as NUL-terminated UTF-8.
++
++        Raises:
++            ValueError: If any string in `vals` contains embedded NUL
++                characters.
++        """
++        vals = list(vals)
++        if any('\x00' in v for v in vals):
++            raise ValueError('String value contains embedded nul characters')
++        raw = b''.join(v.encode('utf-8') + b'\x00' for v in vals)
++        self.props[name] = libfdt.Property(name, raw)
++
++    def get_u32(self, name):
++        """Return property `name` decoded as a single big-endian uint32 cell.
++
++        Args:
++            name: Property name to look up in `self.props`.
++
++        Returns:
++            Integer value of the 32-bit cell.
++
++        Raises:
++            KeyError: If `name` is not in `self.props`.
++            ValueError: If the property length is not 4 bytes.
++        """
++        prop = self.props[name]
++        if len(prop) != 4:
++            raise ValueError(f'Property {name!r} length {len(prop)} != 4')
++        return prop.as_uint32()
++
++    def set_u32(self, name, val):
++        """Set property `name` to a single big-endian uint32 cell.
++
++        Args:
++            name: Property name to set in `self.props`.
++            val: Unsigned 32-bit integer value.
++        """
++        self.props[name] = libfdt.Property(name, struct.pack('>I', val))
++
++    def get_u32_list(self, name):
++        """Return property `name` decoded as a list of big-endian uint32 cells.
++
++        Args:
++            name: Property name to look up in `self.props`.
++
++        Returns:
++            List of 32-bit unsigned integers.
++
++        Raises:
++            KeyError: If `name` is not in `self.props`.
++            ValueError: If the property length is not a multiple of 4 bytes.
++        """
++        prop = self.props[name]
++        if len(prop) % 4 != 0:
++            raise ValueError(
++                f'Property {name!r} length {len(prop)} is not a multiple of 4'
++            )
++        return prop.as_uint32_list()
++
++    def set_u32_list(self, name, vals):
++        """Set property `name` to a sequence of big-endian uint32 cells.
++
++        Args:
++            name: Property name to set in `self.props`.
++            vals: Sequence of unsigned 32-bit integer values.
++        """
++        raw = struct.pack(f'>{len(vals)}I', *vals)
++        self.props[name] = libfdt.Property(name, raw)
 diff --git a/meson.build b/meson.build
-index 963d8f59b209..15a421e1296a 100644
+index 520cd35f9075..963d8f59b209 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -28,6 +28,11 @@ add_project_arguments(
-   language: 'c'
- )
+@@ -125,6 +125,7 @@ endforeach
  
-+add_project_arguments(
-+  '-DFDT_OVERLAY_LOCAL_FIXUPS=' + get_option('overlay-local-fixups').to_string(),
-+  language: 'c'
-+)
-+
- yamltree = 'yamltree.c'
- yaml = dependency('yaml-0.1', version: '>=0.2.3', required: get_option('yaml'))
- if not yaml.found()
-diff --git a/meson_options.txt b/meson_options.txt
-index a866b172e802..ac8ea4aa2a9f 100644
---- a/meson_options.txt
-+++ b/meson_options.txt
-@@ -2,6 +2,8 @@ option('tools', type: 'boolean', value: true,
-        description: 'Build tools')
- option('assume-mask', type: 'integer', value: 0,
-        description: 'Control the assumptions made (e.g. risking security issues) in the code.')
-+option('overlay-local-fixups', type: 'integer', value: 2,
-+       description: 'Control how fdt_overlay_apply() handles base /__local_fixups__ (0=ignore, 1=strip, 2=update)')
- option('yaml', type: 'feature', value: 'auto',
-        description: 'YAML support')
- option('valgrind', type: 'feature', value: 'auto',
-diff --git a/tests/overlay.c b/tests/overlay.c
-index 2d27918a3369..a7987680e587 100644
---- a/tests/overlay.c
-+++ b/tests/overlay.c
-@@ -9,6 +9,7 @@
- #include <stdio.h>
+ if pylibfdt_enabled
+   subdir('pylibfdt')
++  py.install_sources('devicetree.py')
+ endif
  
- #include <libfdt.h>
-+#include "libfdt_internal.h"
+ if get_option('tests')
+diff --git a/tests/meson.build b/tests/meson.build
+index c25500606059..8dbfc3f9e8e2 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -119,7 +119,7 @@ if not pylibfdt_enabled
+ else
+   env += [
+     'PYTHON=' + py.full_path(),
+-    'PYTHONPATH=' + meson.project_build_root() / 'pylibfdt',
++    'PYTHONPATH=' + meson.project_build_root() / 'pylibfdt' + ':' + meson.project_source_root(),
+     'NO_PYTHON=0',
+   ]
+ endif
+diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+index ae46b29a8f5c..cfdb8f5749b6 100644
+--- a/tests/pylibfdt_tests.py
++++ b/tests/pylibfdt_tests.py
+@@ -11,6 +11,8 @@ import types
+ import unittest
  
- #include "tests.h"
+ sys.path.insert(0, '../pylibfdt')
++sys.path.insert(0, '..')
++import devicetree
+ import libfdt
+ from libfdt import Fdt, FdtSw, FdtException, QUIET_NOTFOUND, QUIET_ALL
  
-@@ -191,6 +192,84 @@ static void *open_dt(char *path)
- 	return copy;
- }
+@@ -717,6 +719,81 @@ class PyLibfdtRoTests(unittest.TestCase):
+         self.assertEqual(b'this is a placeholder string\0string2\0',
+                          self.fdt.getprop(node, 'placeholder'))
  
-+static void fdt_overlay_local_fixups(char *base_path, char *overlay_path)
-+{
-+	void *fdt_base = open_dt(base_path);
-+	void *fdt_overlay = open_dt(overlay_path);
-+	int lf, tn, stn;
++    def testDeviceTreeRoundTrip(self):
++        """Test unflattening and flattening a tree via DeviceTree"""
++        tree = copy.deepcopy(devicetree.DeviceTree.unflatten(self.fdt))
++        self.assertIsInstance(tree.props['compatible'], libfdt.Property)
++        rsvmap = self.fdt.get_mem_rsv_list()
++        cpuid = self.fdt.boot_cpuid_phys()
++        fdt2 = tree.flatten(rsvmap, cpuid)
++        self.assertIsInstance(fdt2, libfdt.Fdt)
++        self.assertEqual(rsvmap, fdt2.get_mem_rsv_list())
++        self.assertEqual(cpuid, fdt2.boot_cpuid_phys())
 +
-+	/*
-+	 * Add a /__local_fixups__ subtree to the base tree before applying
-+	 * the overlay:
-+	 * - /__local_fixups__/test-node: test-int-property = <0> (overwritten
-+	 *   by the overlay with a non-phandle value)
-+	 * - /__local_fixups__/test-node/sub-test-node:
-+	 *   new-sub-test-property = <0> (overwritten by the overlay, leaving
-+	 *   sub-test-node empty so it should be pruned in UPDATE mode)
-+	 */
-+	lf = fdt_add_subnode(fdt_base, 0, "__local_fixups__");
-+	CHECK(lf < 0);
-+	tn = fdt_add_subnode(fdt_base, lf, "test-node");
-+	CHECK(tn < 0);
-+	CHECK(fdt_setprop_u32(fdt_base, tn, "test-int-property", 0));
-+	stn = fdt_add_subnode(fdt_base, tn, "sub-test-node");
-+	CHECK(stn < 0);
-+	CHECK(fdt_setprop_u32(fdt_base, stn, "new-sub-test-property", 0));
++        tree2 = devicetree.DeviceTree.unflatten(fdt2)
++        nodes1 = [(path, n.props, list(n.children.keys()))
++                  for path, n in tree.walk()]
++        nodes2 = [(path, n.props, list(n.children.keys()))
++                  for path, n in tree2.walk()]
++        self.assertEqual(nodes1, nodes2)
 +
-+	CHECK(fdt_overlay_apply(fdt_base, fdt_overlay));
++    def testDeviceTreeDuplicates(self):
++        """Test that DeviceTree.unflatten() rejects duplicate names"""
++        sw_prop = FdtSw()
++        sw_prop.finish_reservemap()
++        with sw_prop.add_node(''):
++            sw_prop.property_u32('dup', 1)
++            sw_prop.property_u32('dup', 2)
++        with self.assertRaises(ValueError):
++            devicetree.DeviceTree.unflatten(sw_prop.as_fdt())
 +
-+#if FDT_OVERLAY_LOCAL_FIXUPS == FDT_OVERLAY_LOCAL_FIXUPS_UPDATE
-+	{
-+		unsigned long val = 0;
++        sw_node = FdtSw()
++        sw_node.finish_reservemap()
++        with sw_node.add_node(''):
++            with sw_node.add_node('dup'):
++                pass
++            with sw_node.add_node('dup'):
++                pass
++        with self.assertRaises(ValueError):
++            devicetree.DeviceTree.unflatten(sw_node.as_fdt())
 +
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-int-property", 0, &val) !=
-+		      -FDT_ERR_NOTFOUND);
-+		CHECK(fdt_path_offset(
-+			      fdt_base,
-+			      "/__local_fixups__/test-node/sub-test-node") !=
-+		      -FDT_ERR_NOTFOUND);
++    def testDeviceTreeHelpers(self):
++        """Test DeviceTree navigation and typed property helpers"""
++        root = devicetree.DeviceTree()
++        self.assertIs(root, root.get_node(''))
++        self.assertIs(root, root.get_node('/'))
++        self.assertIsNone(root.get_node('/soc/i2c@4000'))
 +
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-phandle", 0, &val));
-+		CHECK(val != 0);
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-phandle", 1, &val));
-+		CHECK(val != 4);
++        i2c = root.create_path('/soc/i2c@4000')
++        self.assertIs(i2c, root.get_node('/soc/i2c@4000'))
++        self.assertIs(i2c, root.get_node('soc/i2c@4000'))
++        self.assertEqual(['', '/soc', '/soc/i2c@4000'],
++                         [path for path, _ in root.walk()])
++        self.assertEqual(['/', '/soc', '/soc/i2c@4000'],
++                         [path for path, _ in root.walk('/')])
 +
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-several-phandle", 0, &val));
-+		CHECK(val != 0);
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-several-phandle", 1, &val));
-+		CHECK(val != 4);
-+	}
-+#elif FDT_OVERLAY_LOCAL_FIXUPS == FDT_OVERLAY_LOCAL_FIXUPS_STRIP
-+	CHECK(fdt_path_offset(fdt_base, "/__local_fixups__") !=
-+	      -FDT_ERR_NOTFOUND);
-+#else
-+	{
-+		unsigned long val = 0;
++        i2c.set_str('status', 'okay')
++        self.assertIsInstance(i2c.props['status'], libfdt.Property)
++        self.assertEqual('okay', i2c.get_str('status'))
++        with self.assertRaises(ValueError):
++            i2c.set_str('status', 'ok\x00ay')
 +
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-int-property", 0, &val));
-+		CHECK(val != 0);
-+		CHECK(fdt_getprop_u32_by_poffset(
-+			      fdt_base, "/__local_fixups__/test-node",
-+			      "test-phandle", 0, &val) != -FDT_ERR_NOTFOUND);
-+	}
-+#endif
++        i2c.set_stringlist('compatible', ['vendor,i2c', 'generic,i2c'])
++        self.assertEqual(['vendor,i2c', 'generic,i2c'],
++                         i2c.get_stringlist('compatible'))
++        with self.assertRaises(ValueError):
++            i2c.set_stringlist('compatible', ['vendor\x00,i2c'])
++        i2c.set_stringlist('empty-list', [])
++        self.assertEqual([], i2c.get_stringlist('empty-list'))
++        with self.assertRaises(ValueError):
++            i2c.get_str('empty-list')
 +
-+	free(fdt_base);
-+	free(fdt_overlay);
-+}
++        i2c.set_u32('#address-cells', 1)
++        self.assertEqual(1, i2c.get_u32('#address-cells'))
 +
- int main(int argc, char *argv[])
- {
- 	void *fdt_base, *fdt_overlay;
-@@ -219,6 +298,7 @@ int main(int argc, char *argv[])
- 	if (fdt_path_offset(fdt_base, "/__symbols__") >= 0) {
- 		fdt_overlay_local_phandle(fdt_base);
- 		fdt_overlay_local_phandles(fdt_base);
-+		fdt_overlay_local_fixups(argv[1], argv[2]);
- 	}
++        i2c.set_u32_list('reg', [0x4000, 0x100])
++        self.assertEqual([0x4000, 0x100], i2c.get_u32_list('reg'))
++
  
- 	PASS();
-diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-index 0d815e307909..d51a111c7819 100755
---- a/tests/run_tests.sh
-+++ b/tests/run_tests.sh
-@@ -1141,6 +1141,25 @@ fdtoverlay_tests() {
- 
-     shorten_echo "check phandle to noda d wasn't overwritten:	"
-     run_wrap_test test "$bd" = "$pd"
-+
-+    # verify that /__local_fixups__ in a -L base blob is updated when applying an overlay
-+    run_dtc_test -@ -L -I dts -O dtb -o overlay_base_phandle_lf.test.dtb "$SRCDIR/overlay_base_phandle.dts"
-+    run_wrap_test $FDTOVERLAY -i overlay_base_phandle_lf.test.dtb -o overlay_base_phandle_lfO.test.dtb overlay_overlay_phandle.test.dtb
-+    run_fdtget_test 0 overlay_base_phandle_lfO.test.dtb /__local_fixups__/b a
-+    run_fdtget_test 0 overlay_base_phandle_lfO.test.dtb /__local_fixups__/b d
-+    run_fdtget_test 0 overlay_base_phandle_lfO.test.dtb /__local_fixups__/c b
-+    run_fdtget_test 0 overlay_base_phandle_lfO.test.dtb /__local_fixups__/d a
-+    run_fdtget_test 0 overlay_base_phandle_lfO.test.dtb /__local_fixups__/d b
-+    run_fdtget_test 0 overlay_base_phandle_lfO.test.dtb /__local_fixups__/d c
-+
-+    run_dtc_test -@ -L -I dts -O dtb -o overlay_base_lf.test.dtb "$SRCDIR/overlay_base.dts"
-+    run_wrap_test $DTPUT overlay_base_lf.test.dtb -cp /__local_fixups__/test-node/sub-test-node
-+    run_wrap_test $DTPUT overlay_base_lf.test.dtb /__local_fixups__/test-node/sub-test-node new-sub-test-property -tu 0
-+    run_dtc_test -@ -I dts -O dtb -o overlay_overlay.fdtoverlay.test.dtb "$SRCDIR/overlay_overlay.dts"
-+    run_wrap_test $FDTOVERLAY -i overlay_base_lf.test.dtb -o overlay_base_lfO.test.dtb overlay_overlay.fdtoverlay.test.dtb
-+    run_fdtget_test "0 4" overlay_base_lfO.test.dtb /__local_fixups__/test-node test-phandle
-+    run_fdtget_test "0 4" overlay_base_lfO.test.dtb /__local_fixups__/test-node test-several-phandle
-+    run_test check_path overlay_base_lfO.test.dtb not-exists "/__local_fixups__/test-node/sub-test-node"
- }
- 
- pylibfdt_tests () {
+ if __name__ == "__main__":
+     unittest.main()
 -- 
 2.56.0.317.g454f8302e1-goog
 
