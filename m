@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571356;
-	b=Gw37NJn7xbtZvzE9Ej9UW8yF5+m9mebow1aFQvDGx07MTDlt3peVkP00xpTF0t9QeSnI
-	 9aFqnqF7GPgPsW7N7Z8pwG3KR151l6PgLJ09o1Vd4C85KPQSLIybEYuAgvol7jQ+rnI1p
-	 2eA1bbRFVbsqXf7oHu0UWw/78HJOG5RlypSPtweBkgI25W59k/YvrVJIJuzTyp0yygkZ2
-	 SRzwOPYVmbeQdyXrOGZMt7+OTpHAaCUyplCYWM8D9N9WD87UKsILwSOs/JspSV3AAQCzf
-	 MYTaL0Z4zYFK3++kvNeN8jBUSyJdwxYqqm0ctYHTNO/RGhxZzz7zCt8RkL5XKZU1mZw==
+	t=1793571351;
+	b=4DzdbZIinWppBae1PSAmlOdwjWKpptFD1heQgJtFl2hQZwXN7imowAS9JkY3ZpJz/fuD
+	 5lH/WC81Pq8kXmBqJ/sMUDQQ5j8ptrHXuLJkMKhxnofzo0UGh5ChT/oBRWrOvW+8PpTUq
+	 l35pjk3Sj6YntwXvtsVEi6yHRKwx5SKrHS6yWpHxwdIVPWXy7orUrHyknuzgPxvSLpfP3
+	 WLlhvrYt2i2UGVvz8skdMfHyxW8w6EtddHsJEjva/DGFIGQNSKWj0mw/ZSaQFabPrQLN3
+	 Gx+YdVHR0pRPbvx97JijuvhYV6cr8pVstmEsMyrrrMD5xdVWn/OVfnPLOaSFMa5C75Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571356;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571351;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=0Ksm3b1KyTjB0vWXpeTrEa3XgjkfnjwTkmMUnW6CK3U=;
-	b=z9XkUbHmA0u9FzX46dMB7Q4xZsvxe8fGsx3emIh/lcSgOhvBFJR+f1Gx6lt1OSeuDecf
-	 PBTbHbbrkLMvcDlZyrvl1xnxigHYO4u7hZ4LZLZsVBiNLQe3T2IogAWG2cJk6uzeMqu/f
-	 NNOaUYGDeda7aisFnksXtVsnFI6yxZnNT8XrdV0UNIWXniI9IDasIgAMC9aWBgxSnlcCu
-	 huUTTYdQGLWXu4CBXnSkHZbtX+Nf23AS+37WZ0th5KdT84M8v2YSoxk1qDLA5qpynPYaL
-	 d8IFVbE3SMx9JFGrLjxah9aAR+nRdcvpAsoWQOPF8BfhVlylKfwXEuxoDVabEaEa97Q==
+	bh=wv1ABuR7Ob1gLZHZ2qpyHBZVXGvor+J+W/F07nCfMhU=;
+	b=RXxeNVpA20vLh95nHMMU2VOOCrj39p/RFXZkZQcxQSD+957TBu2TZ30egThlVpO/8UUO
+	 Zr/r76r/P0JMu5COUaka+mFuqhd5yEdyieWJo4BghyaQ52ISguwZy9EJp+EQIqe5lzv8N
+	 6YY60mBzyW57Frfnyam+UqwmQPiv3Z5AuM9sJg8tFSeGJbiq62DapwMVFeTMiQpqCuA5m
+	 O1UWmdGI55YL1xtA5sHXWgYoWDKDMl2C6AgAUMpdX8FduIYQyrv0xk1FEs0ZI4a/3fWBz
+	 oDMBf6qyv+L28hyIM/xjsB+aujpXGbxbtrlVTZ97t0CqRdymMkFZ0Uz0YrTwm1eYrWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
@@ -25,36 +25,37 @@ Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF395606A339;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2FC606A32C;
 	Sun,  1 Nov 2026 22:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF395606A339
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF2FC606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=0Ksm3b1KyTjB0vWXpeTrEa3XgjkfnjwTkmMUnW6CK3U=; b=P2n/NivLQ4gQLjSQ+ENADKpxfy
-	+ahd6N903OIwRWIkgrCcqE3QtjnYl+1mJBGeYGLYPo0thnvWijddU/jivqzPd+4nbByjqeaDWra7m
-	2bTtnKasxF/PaNCgrZTEyNWVOLpcAOG1j5quo2dIL99u2BseviunqoU/xhd6dxdNTMt/XUI/YsPdA
-	xw4BvcezZCeorxYO0F0/3287SbTFT6vPAHn7vxF0BfyGutAlHstq3DLtlYwOLTwVfG0Fi4oEmStHy
-	MfY4puZzqDfm9cEqEO/OgLuiddmSDlMPF9KicZm/4R2eyM189VhShib31Go7pTlNpGynJ1DKYXrF5
-	q0iJ+dgg==;
+	bh=wv1ABuR7Ob1gLZHZ2qpyHBZVXGvor+J+W/F07nCfMhU=; b=J7kQ17dyQsTsAEHG6ajo+xgzCO
+	CAaNzQK8q+FqqOxfFCRVLMxqVh8dfcyNgha8Ma+cvRRBkZvFVTnx33fcIjA1ULi9aodpNX5yYrZUG
+	Su3u7GDWgBLF5dJdSME3kryro7FPb93nBPkGJP588b5otHQkNxSQxAdmJVh5TUFgg3dbyZIHxH4HM
+	KUz+znBW3GKmQHpJvfWOibYLRa/A/JUzY1ZJ6xXRaI1lLUuk83Q0jSbnRS/hrhkl/N5xUOj2OsOzU
+	rVhknn3WovtpDtWH3paOls/PrZvs70uCXo6ARaaWTahdX7WIKWmtsKJH65XMBKB12G8i6gxaMLzT8
+	ecb0JEIw==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	Pufan Jin <2254650260@qq.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Jimmy Hon <honyuenkwun@gmail.com>,
 	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] arm64: dts: rockchip: let TCPM own the USB-C VBUS on CM5-IO
-Date: Sun,  1 Nov 2026 23:15:22 +0100
-Message-ID: <179357131399.4107717.10715553647759854309.b4-ty@b4>
+Subject: Re: [PATCH v2] arm64: dts: rockchip: Enable the NPU on LubanCat 4
+Date: Sun,  1 Nov 2026 23:15:20 +0100
+Message-ID: <179357131388.4107717.16646264299235456794.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261024083942.148860-1-gahing@gahingwoo.com>
-References: <20261024083942.148860-1-gahing@gahingwoo.com>
+In-Reply-To: <tencent_9C3151C59C077D547095ACDC1F08B481A50A@qq.com>
+References: <tencent_9C3151C59C077D547095ACDC1F08B481A50A@qq.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,21 +69,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 24 Oct 2026 21:39:42 +1300, Jiaxing Hu wrote:
-> vcc_5v0_typec0 is the switched VBUS of the USB-C port. It is the
-> vbus-supply of the FUSB302, but also the phy-supply of u2phy0_otg.
-> The PHY enables it at boot and keeps it on, so TCPM never sees
-> vSafe0V and a sink partner stays in SRC_ATTACH_WAIT. A USB-C dock is
-> not detected.
+On Thu, 06 Aug 2026 00:57:06 +0800, Pufan Jin wrote:
+> The three RKNN cores and their IOMMUs are disabled by default in the SoC
+> dtsi, so the board has to describe the NPU supply before they can be
+> enabled.
 > 
-> Drop the phy-supply and leave VBUS to TCPM.
+> This board feeds both the NPU logic and its SRAM from a single RK8602
+> output on i2c1. The vendor DTS makes that explicit by giving the same
+> regulator node two labels, vdd_npu_s0 and vdd_npu_mem_s0, and then
+> handing one to rknpu-supply and the other to mem-supply. There is no
+> separate memory rail to describe, so npu-supply and sram-supply both
+> point at vdd_npu_s0. The binding requires both properties.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: let TCPM own the USB-C VBUS on CM5-IO
-      commit: 1b0bcdaa4de9725870c9b0216acbd373b5faebb7
+[1/1] arm64: dts: rockchip: Enable the NPU on LubanCat 4
+      commit: 77026e98dce776dc45ca7bc77c3d2ba95c39f6ca
 
 Best regards,
 -- 
