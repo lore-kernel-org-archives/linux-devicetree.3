@@ -1,57 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576892;
-	b=W6XdHDFU3LXYK0Baojsm5U6z/lmvChYWI83sDyRURd7iet3cja0fuFrxjhWsFEjXaRcD
-	 PKFQCaOVfGM5qgI03T8B6wSuMqtR7jtiKhLtOvxbU0bJCgI6WEUBAEYtuQlq3kKb6n84j
-	 ETsBpR+dET3uytlBWV6+fpHwG0TL0cINXnLLT6kTCe/+VLFbxt2Rfxpcc6iXouEiKrB7M
-	 /P4HpmPJBCT7ZequAUJcpkovCvDaf8dhqzozpz11vAxNC2UozKntlvZAhJpGtUwhBSWn0
-	 LdY5VRL+ZTCx3hhWRdqoF6LvtTaM+2a9hqf55KG53IPhso+gBp06cVrGE8d9NkkeV2g==
+	t=1793577021;
+	b=kBIj+TCAD6Rf3UbIpqa7tOwTNxpWc1A9dmvYGPRhSb7jM8y33/QDkVQPKasBG47IDPd6
+	 8QHF4uvX3imuegc3fNgxp+eAimu1MYkrD22Szlt4P7ZR56wrbSIq0+aEB6qXSHr5fWwbP
+	 nITeeNfma6I0s8hPRTX7tK9GW45L8EA63CnsO49OCqbTj0AU+gq4yoJ3Y1KVdHhx9cf1n
+	 Wlacqk7v3OjqYAIa41z3bBrdW9xgBaVz2M0wpha6QR0Ht6zB+VHb7zvL28pEf8u6N92du
+	 t7IrFLPe4n8h/eVkNUH2PFo6U6yW5Kn3p3hnAmEZZDuGIMV6f2haCIOEznCIxmCkzZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576892;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=y8MYRhICvulHBlM0GysD+FdE3lutZrcN44qg6ngQ+z0=;
-	b=u5rzzHgngOwRNJdpLoJ0XEr9IkJ3EhBicJdkz/I143F+QHE7au+omtDQNLNEFeLCYtuI
-	 ihVt1QvatXKzSnLmehjNQEfCVyX7VH1E3XPTZwSaXOkN10e8lIaFdhwWjQX2Fktp8OyoZ
-	 uVdApCBA6Uo0A4JPU92L6n5wGlh8KGRl4L21mf5R3A6uHBjqA95bLQHhPo8yObwW5ls/X
-	 7MphX7DU5xjSUawSrmKVyehgZCd+ETZ6k+dZKzDn2GEEhhx4Pvj1OScdj7Pz9Yx14H9NL
-	 wO6QX4KBp2r65c9cYWlSZ/V19IBWmTggj3bhYbemddQaqllHQulC7vRs/6rBJXq1c9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577021;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GtkyqXjaNZUhp+wtMvVWU33nxLUpc8+32fesBBYhb8w=;
+	b=Jui8+Q+0DVF9eCiHWOAOlQrmCrF6uwHuZtLPKUrigv8gQ1ZO/EjK3Nk7Qj0heEjIsaUf
+	 uJTLwBGLKym4+eG+2dFuG0E+v2Dz467TKChWwkLbV7zwDW1ZLj2Z//6NlCWfPtaVGldUZ
+	 M0lSwE7kAP/dlP9g1XjnBWmP2tT4PdaSIxmZPQnKWkxaVeTjAM7nTP6nfdzYr8BQ9Rfij
+	 8aWIu7OcrefuIjxiiCKT+cERbpsQ0R/hle3dSE3tP2ZUX5ZmNE1ThHmksUSTuU4Rg0OCR
+	 oHzBncwo2bf8R+GIrbItkmxB2i8YGMtDhVrsFg6scPEbkapE4j/OMOCAXTYsrv1L/uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JzO912Hw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1mOGOEa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E084606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 23:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9A4606A324;
+	Sun,  1 Nov 2026 23:50:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JzO912Hw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DAA1F00A02;
-	Sun,  1 Nov 2026 23:48:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1mOGOEa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5131F000C1;
+	Sun,  1 Nov 2026 23:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793576891;
-	bh=y8MYRhICvulHBlM0GysD+FdE3lutZrcN44qg6ngQ+z0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JzO912Hwkc/DUN3TWQUpBsNU1zzT7DJVZ6dEbKTdVZYzcl7kDW9WaX955NWe/W8Ar
-	 IG3o5ivLbE8CwTv/KZx6fbSyoRUv1GtzCD5gaS4JHwOyEOBRN+nIxLS//+Zsc2rnow
-	 9qbHGT3u2OVrGsOuO4Itn9P4Si5eQb/W7TamRhomb2HbBYW7s8YE+V2DtbSQYrZBd2
-	 laGVjICcAmqti6Y6kr2RefhuFN4gy/7Ae69+7L6Tfo5GFjLySfKhJgKn6yr4s167ng
-	 UHs2MWaDhdfzOTXZNqHr9UXI0WiAM1/9X2HSBkKD857Ym239jITPiuiogEnc1/i0BE
-	 rB72dfX4qwy1Q==
-Message-ID: <sashiko-outbox-192773@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable
- remaining i2c busses
-Reply-To: sashiko-reviews@lists.linux.dev
-To: erebion <erebion@erebion.eu>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 23:48:11 +0000
+	s=k20260515; t=1793577020;
+	bh=GtkyqXjaNZUhp+wtMvVWU33nxLUpc8+32fesBBYhb8w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=i1mOGOEaTLeFmzOBlUQPAipM3JBBEAnnb8FPetvslzNbDTb6qpgLHSXbJ5/6K+XYp
+	 Vxzcv05w+wIcpMMbJHxghkLCTN4kiZWPTrxnY01jkZNmM6FNk2nXJxXmzHNkXujkI3
+	 YM1Z6EKcixm75tmxi3B/Kqt0KAQMDWPFHWL4AMmsAwXd00DveNDZa4hKDlakL65nrB
+	 a/SomYiUTTQrTbFdeC8ivQPr+v/I+sXilm2dP3ZtpH0sQCfnlDyVvI8gUdtTg6JPoV
+	 T2kpvDdgJqRJjPQBCBmrIoC+doiFRsStkDDoA4dHB73vBWBXSD6eRYTVdvvnKuLUVb
+	 NXfjgbWYCOO8Q==
+Date: Sun, 1 Nov 2026 23:50:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, linux <linux@analog.com>
+Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261101235010.79416e15@jic23-hlaptop>
+In-Reply-To: <LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+	<20261026000910.328f6cd8@jic23-hlaptop>
+	<LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,190 +70,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: sm6350-lena: unrelated and incomplete GPU enab=
-lement
-- [Medium] arm64: dts: qcom: sm6350-lena: wrong ADC channel in rear_cam_sen=
-sor
-- [Medium] arm64: dts: qcom: sm6350-lena: invalid led-max-microamp in pm615=
-0l_flash
-- [Low] arm64: dts: qcom: sm6350-lena: undocumented unused lcdb_dummy regul=
-ator
---
+On Tue, 27 Oct 2026 09:36:47 +0000
+"Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
 
-commit dab0552e769e72745a887b1b9b15ebbca1b4c037
-Author: erebion <erebion@erebion.eu>
+> > -----Original Message-----
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Monday, October 26, 2026 2:09 AM  
+> 
+> ...
+> 
+> > > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> > > +				       u8 *fifo_data, s64 timestamp)
+> > > +{
+> > > +	struct adis16607 *st = iio_priv(indio_dev);
+> > > +	u16 msw, lsw;
+> > > +	s32 val24;
+> > > +	int bit, offset = 0;
+> > > +
+> > > +	memset(st->data, 0, sizeof(st->data));
+> > > +
+> > > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
+> > >masklength) {  
+> > iio_for_each_active_channel()
+> > 
+> > As sashiko notes, masklength is private.
+> > 
+> > There are a load of places we need to update to stop accessing these
+> > directly but please don't add another one.
+> > 
+> > It's on my list to throw some LLM tokens ago once I get out from
+> > under review backlog.
+> > 
+> > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
+> > adis16607-v4-0-
+> > a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
+> > ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
+> > Check everything else reported.
+> > 
+> > FWIW there are also some nasty race conditions around active_scan_mask
+> > being available when the buffer is being torn down. You might
+> > want to close those off by claiming buffered mode to prevent
+> > such a transition.
+> >   
+> 
+> Agreed, I'll switch to iio_for_each_active_channel() and I'll go through the
+> rest of the Sashiko findings for v5.
+> 
+> On the active_scan_mask races, I'd like to check which path you mean.
+> In this driver the only reader of the mask is the trigger handler
+> (fifo_push_sample()), which runs as the pollfunc.
+> As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for it
+> to finish before iio_disable_buffers() frees the mask, so I couldn't find a
+> window where the handler sees a stale or NULL mask today.
 
-arm64: dts: qcom: sm6350-lena: enable remaining i2c busses
+Ah. I may have failed to distinguish between cases with a trigger involved
+and those without.  The bug reports are probably on the ones without.
+Unfortunately I haven't found time to look at the overall issue
+in enough detail yet.
 
-This series enables peripheral, PMIC, thermal, LED, regulator, and bus node=
-s in the device tree for the Sony Xperia 10 III (sm6350-sony-xperia-lena-pd=
-x213).
+> Even so, I'd like to close this off for good, so that a later change to the
+> driver or to adislib can't introduce the race.
+> 
+> Claiming buffer mode inside the handler looks like it would deadlock
+> against iio_disable_buffers(), which holds mlock while waiting for the
+> handler in free_irq().
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
-b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> index 6e2bbf4f060ac..d2b3aa6e61ab6 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-[ ... ]
-> @@ -44,7 +63,30 @@ key-volume-down {
->  		};
->  	};
-> =20
-> -	touch_en_vreg: touch-en-regulator {
-> +	lcdb_dummy: regulator-lcdb-dummy {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "lcdb_dummy";
-> +		regulator-min-microvolt =3D <5500000>;
-> +		regulator-max-microvolt =3D <5500000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
+We'd use a conditional claim in here - only the core code driving the state
+transitions should take a claim unconditionally (they can just grab the lock).
+If mlock is held it should fail and we just drop out of the handler having
+done nothing.  So either disable buffer wins and we drop through the handler
+quickly or it looses and the attempt to take mlock blocks in
+iio_disable_buffers()
 
-[Severity: Low]
-This isn't a bug, but commit e7731bb19fd5 ("arm64: dts: qcom: sm6350-lena:
-rename touch-en-regulator") states that it only renames touch-en-regulator
-to regulator-touch-en for sorting, while also adding this lcdb_dummy
-regulator node.
+Or am I missing something worse?
 
-Nothing in sm6350-sony-xperia-lena-pdx213.dts or sm6350.dtsi references
-&lcdb_dummy. Was this node added by mistake, or should it be dropped until a
-consumer uses it?
+> 
+> Would snapshotting the active-channel layout in update_scan_mode()
+> (called before the pollfunc is attached) and having the handler read
+> only that copy be an acceptable way to close it?
+It would but that feels like we are just papering over a lifetime issue
+by creating another object rather than fixing it if necessary.
 
-> +
-> +	msm_therm_sensor: thermal-sensor-msm {
-> +		compatible =3D "generic-adc-thermal";
-> +		#thermal-sensor-cells =3D <0>;
-> +		io-channels =3D <&pm6150l_adc ADC5_AMUX_THM2_100K_PU>;
-> +		io-channel-names =3D "sensor-channel";
-> +	};
-> +
-> +	rear_cam_sensor: thermal-sensor-rear-cam {
-> +		compatible =3D "generic-adc-thermal";
-> +		#thermal-sensor-cells =3D <0>;
-> +		io-channels =3D <&pm6150l_adc ADC5_GPIO6_100K_PU>;
-> +		io-channel-names =3D "sensor-channel";
-> +	};
+Anyhow, from your first comment this may all be irrelevant anyway.
 
-[Severity: Medium]
-Does rear_cam_sensor fail to probe with -EINVAL here?
+Jonathan
 
-Under &pm6150l_adc below, the rear_cam_therm channel is defined on
-channel@53 with reg =3D <ADC5_GPIO2_100K_PU> (since GPIO6 on PM6150L routes=
- to
-ADC5_GPIO2_100K_PU):
+> 
 
-	channel@53 {
-		reg =3D <ADC5_GPIO2_100K_PU>;
-		label =3D "rear_cam_therm";
-		qcom,hw-settle-time =3D <200>;
-		qcom,pre-scaling =3D <1 1>;
-		qcom,ratiometric;
-	};
-
-However, rear_cam_sensor requests io-channels =3D <&pm6150l_adc
-ADC5_GPIO6_100K_PU>. When gadc_thermal_probe() requests the channel,
-adc5_fwnode_xlate() in drivers/iio/adc/qcom-spmi-adc5.c searches the
-configured channels on &pm6150l_adc:
-
-	for (i =3D 0; i < adc->nchannels; i++)
-		if (adc->chan_props[i].channel =3D=3D iiospec->args[0])
-			return i;
-
-	return -EINVAL;
-
-Because no channel is registered for ADC5_GPIO6_100K_PU (and
-adc5_chans_pmic[] only defines ADC5_GPIO1_100K_PU through
-ADC5_GPIO4_100K_PU), adc5_fwnode_xlate() returns -EINVAL and leaves
-rear-cam-thermal without a working sensor.
-
-Should rear_cam_sensor use ADC5_GPIO2_100K_PU instead of ADC5_GPIO6_100K_PU?
-
-[ ... ]
-> @@ -285,6 +470,21 @@ &gpi_dma1 {
->  	status =3D "okay";
->  };
-> =20
-> +&gpu {
-> +	status =3D "okay";
-> +};
-> +
-> +&gpu_zap_shader {
-> +	firmware-name =3D "qcom/sm6350/sony/pdx213/a615_zap.mbn";
-> +};
-
-[Severity: Medium]
-Was enabling &gpu and &gpu_zap_shader intended to be part of commit
-dab0552e769e ("arm64: dts: qcom: sm6350-lena: enable remaining i2c busses")?
-
-In addition to not matching the commit description, &mdss in sm6350.dtsi
-remains disabled:
-
-		mdss: display-subsystem@ae00000 {
-			...
-			status =3D "disabled";
-
-			mdss_mdp: display-controller@ae01000 {
-				compatible =3D "qcom,sm6350-dpu";
-
-With the default drm/msm configuration (separate_gpu_kms =3D false),
-adreno_probe() in drivers/gpu/drm/msm/adreno/adreno_device.c registers a
-component and waits for the KMS master on mdss_mdp:
-
-static int adreno_probe(struct platform_device *pdev)
-{
-	if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon") ||
-	    msm_gpu_no_components())
-		return msm_gpu_probe(pdev, &a3xx_ops);
-
-	return component_add(&pdev->dev, &a3xx_ops);
-}
-
-Because &mdss is disabled, the component master never probes and the GPU
-component never binds (and if adreno_remove() runs while unbound,
-platform_get_drvdata(pdev) is NULL and dereferencing priv->kms_init crashes=
-).
-
-Should the &gpu and &gpu_zap_shader changes be dropped from this I2C patch?
-
-[ ... ]
-> +&pm6150l_flash {
-> +	status =3D "okay";
-> +
-> +	led-0 {
-> +		function =3D LED_FUNCTION_FLASH;
-> +		color =3D <LED_COLOR_ID_WHITE>;
-> +		led-sources =3D <1>;
-> +		led-max-microamp =3D <1500000>;
-> +		flash-max-microamp =3D <1000000>;
-> +		flash-max-timeout-us =3D <1280000>;
-> +	};
-> +};
-
-[Severity: Medium]
-Is led-max-microamp =3D <1500000> valid for a single flash channel here?
-
-In Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml,
-led-max-microamp (continuous torch current) is limited to 500000 uA for a
-single channel or 1000000 uA for dual ganged channels, matching
-TORCH_CURRENT_MAX_UA (500000) in drivers/leds/flash/leds-qcom-flash.c:
-
-      led-max-microamp:
-        anyOf:
-          - minimum: 5000
-            maximum: 500000
-            multipleOf: 5000
-          - minimum: 10000
-            maximum: 1000000
-            multipleOf: 10000
-
-Setting led-max-microamp to 1500000 uA with led-sources =3D <1> fails
-dtbs_check validation and sets the continuous torch current higher than both
-the 500 mA hardware limit and the 1000000 uA flash-max-microamp strobe
-current.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-pdx213-ups=
-tream-3-v3-0-cdc3be96d257@erebion.eu?part=3D12
