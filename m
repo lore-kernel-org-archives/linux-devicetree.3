@@ -1,49 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571381;
-	b=MbFrqDptL1eKJ7j5Z4PEKzApptJWfoAS9qAWEKc6KCJj8ptzXlzbLNeiVCKT5kXbwfRV
-	 OSQPC2b+hQYVG/N4o8zWAh3aBGuMRRBcoLxuDg3nz4sWd+nQR7DNMRvZoadc5s55h4Fzl
-	 qnVTfp8iiXOBqwxxRjnEpVeyHmjMvnz4AP16ZpsF5CQ3KQkUIENaCBgZdWmxfK7wMy2sV
-	 +oiqWB2XKFk74hgaZUR0EXjPTNnb0WQO9Q5TnG7m83PYy4KoIhL1CHbrESFE/8bWf2KbF
-	 AP/GESnbdwzLdQnTT7ivQSM4HGPDp2mzOonH7prxbtz2knOxO7FnrKqlZbINkixXtPg==
+	t=1793571392;
+	b=FoRkPkJYlcGSYi+VZFPuzekRlaLwWLvKLYgnMMVnA6x3TjTfplkPT2j4CzV7eITjxnyV
+	 ciZ6krGCKjD/kiB18N8gek9jC3B5hN0fKtxPvf8YletKFmB4ZWKYZuiw1NZGanAdYJYLu
+	 OSGqP8SEb65xEQJQif98ob5wiUGqJdk5S0aKWf4gNYbGuw/q23RTs11e0VuyinfsdNVOJ
+	 cCVWNWavsNLs2QVJ9IDd7eKkB2cvVRLKW41PTilfJjYTRUM3DObmFVADzG6YlVYR6YZLN
+	 xVe33ht82Xqja7mxA2A6KS39fN2JJo1C97ElzbCZ95Op7Zehii/T+xReLP2Z+hk8Plg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571381;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=dO8IDvnKbQ89guABqKeHsYCIoKDAIsVkhl3ddA1wtcc=;
-	b=eVJ+9IZLGuNwuDR7VWBq8Ud9nbndtiATsdIBxwjA88EnIm/AARilWnYM0KRzw8QNi1TK
-	 Kd98WZ9S1PNeSQGkNvZe8N3zOOFkOwpuSHOUux3iPoH+WAXUemW3dC1sDn4eYBSuwSYiU
-	 CKXzFdaZBZk7YQcZ6bDi4g5VOqVxSho4U0cEYvPQ6Xy6FdAihAJqNyTZkf5x7P5nT/Fda
-	 QOn/yng9eQkwhON68tfCYglfLMP+T5CnmoO63AUD3kEdPQEuuUjNT8Lwa0cdxXzsw5qk2
-	 6aMtg1EbwCPDUubftXUtOyUfEOhmppXKnZqK2PsrhHVOK7CPmDQFV6nCj2hRCJFUUyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571392;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LKx3D3L8i20KkgdM053WRZoZcyEWptAt+bunmlcQ35w=;
+	b=ZaBQqFtxZKRj26k/OjRc/lbbRYQ1oncndx038JsNK0VswzznGvEwfbe/irQ/RAGK+4UZ
+	 1AZBcZ6CrNRWNRCwkdXdcmuDc8aU82n64fgSYL0rQTiESn1Fa+bF6OzM1SXA3k4rh5z7z
+	 1ue0Ex8HXcIBRhewRQzsRcYeiSYqAVFezf2+NKA3xLZlKXtNZ+N/df5ge1Nr/PTA8UBKp
+	 tkJRNdd/yd90WU7LbJyJiRwvUVv0BwBGhg5nFkIuKohO4eGZW52cb/F3g1EYyVJBXImbu
+	 y2gXW0ChmoZH1cWejcAR6VafurTgLVZcUAikWeCmIHGM6fVu0WfPfr48jPpXVJ7iYWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKfbTIwU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=waKZaezF;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91559606B075;
-	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD73606DB64;
+	Sun,  1 Nov 2026 22:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD73606DB64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKfbTIwU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48F151F00A1F;
-	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571381;
-	bh=dO8IDvnKbQ89guABqKeHsYCIoKDAIsVkhl3ddA1wtcc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=PKfbTIwUwRg7utef2I61K+61rzrtDd/F/7eBveR00naBoqdh8F3uPt9bannBILkUq
-	 FQXvy8Z0s5mkEUdeNhZmZVKFkBmt/LUE+5D1CvzgeMepBxoKf1PdLKC8RwoCB40Mf5
-	 OdkcjsQ690c2MU+DctNOxnLmgdhbGaelLNRiN/qixigRpPtaiG2ijQmAVgt/H9pdCb
-	 FiOvUSJsvaZ7CtN4srqpYrX5YQCsqj7N4Wxx4hnjOnXfuL07C7Ow54npn+WdSZ8oPe
-	 Plja86Te6UpKeeKPM7LXj3NXO5VI//NBfrJ+Uv+0AsJVqmhPK+HaK/XHSo8YOL1C3I
-	 iVVMD5YkVeKPA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4025738003B8;
-	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=waKZaezF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=LKx3D3L8i20KkgdM053WRZoZcyEWptAt+bunmlcQ35w=; b=waKZaezFft+W4+DVAkBekptegW
+	UnVtPxS4CWRmPMUfT3usNMXRPi8pgRhKiYrCC2qldwTF6kvbPud9Rv7dp711s66/Cn4JMTgHi4jE/
+	Dan6sZi23Dgp9BRiTCR7QsGIrt1bO0O/kbzrt5213L9azRmU/aVc4z29eJoGXc9mYP/AOEd2P5Hti
+	8HVpHlQ8NcnOSef9F2acRL0TLvgmxMqtbSeCZ2Nw5bKT7LAO1hk036BgG7raWsIcnEKJJVWnIefEE
+	cagbA2Zxzi5h0KO962bVDJQPnzq6Vpv5qsRfmX0xor0slj/x1u/uwVDKKkJaw262eKa9Xvs0FTML2
+	lMCkZ8Yw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Jean Delvare <jdelvare@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Igor Velkov <iav@iav.lv>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH 0/2] Label the fans on Kobol Helios64
+Date: Sun,  1 Nov 2026 23:16:05 +0100
+Message-ID: <179357136496.4108155.6955639670454082907.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
+References: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,86 +70,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357137979.2624073.5964699004424197111.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:19 +0000
-References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: linux-riscv@lists.infradead.org, linusw@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, kernel@esmil.dk, pjw@kernel.org,
- aou@eecs.berkeley.edu, palmer@dabbelt.com, alex@ghiti.fr,
- p.zabel@pengutronix.de, brgl@kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- lianfeng.ouyang@starfivetech.com
 
-Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Linus Walleij <linusw@kernel.org>:
-
-On Thu, 10 Sep 2026 03:03:35 -0700 you wrote:
-> The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-> per2, per2pok, per3, adc0, adc1, emmc, and vga.
+On Sun, 18 Oct 2026 07:54:58 +0300, Igor Velkov wrote:
+> Helios64 has two identical PWM fans, and userspace can tell them apart
+> only by their platform device names. Patch 1 makes pwm-fan.yaml
+> reference fan-common.yaml, as Rob suggested, which also allows label;
+> the hwmon core already exposes it as the label attribute. Patch 2 names
+> the fans after their headers, P6 and P7.
 > 
-> In the current series, we will only add the following pinctrl:
->  - sys0, sys0h, sys1, sys2
->  - per0, per1, per2, per2pok, per3
+> To: Guenter Roeck <linux@roeck-us.net>
+> To: Jean Delvare <jdelvare@suse.com>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Heiko Stuebner <heiko@sntech.de>
+> Cc: linux-hwmon@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-rockchip@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
 > 
 > [...]
 
-Here is the summary with links:
-  - [v8,01/22] dt-bindings: pincfg-node: Add property 'input-debounce-ns'
-    https://git.kernel.org/riscv/c/5dde08ea70b9
-  - [v8,02/22] pinctrl: pinconf-generic: Add property 'input-debounce-ns'
-    (no matching commit)
-  - [v8,03/22] dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
-    https://git.kernel.org/riscv/c/9d3dc8decb60
-  - [v8,04/22] pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
-    (no matching commit)
-  - [v8,05/22] dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
-    https://git.kernel.org/riscv/c/6701c1c00891
-  - [v8,06/22] pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
-    (no matching commit)
-  - [v8,07/22] dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
-    https://git.kernel.org/riscv/c/bf8241062c79
-  - [v8,08/22] pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
-    https://git.kernel.org/riscv/c/1d5c13990916
-  - [v8,09/22] dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
-    https://git.kernel.org/riscv/c/941cc8022c21
-  - [v8,10/22] pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
-    https://git.kernel.org/riscv/c/594deb7f74f4
-  - [v8,11/22] dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
-    https://git.kernel.org/riscv/c/402323de0c04
-  - [v8,12/22] pinctrl: starfive: Add StarFive JHB100 per0 controller driver
-    (no matching commit)
-  - [v8,13/22] dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
-    https://git.kernel.org/riscv/c/d6001140c2e8
-  - [v8,14/22] pinctrl: starfive: Add StarFive JHB100 per1 controller driver
-    (no matching commit)
-  - [v8,15/22] dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
-    https://git.kernel.org/riscv/c/b598855cc302
-  - [v8,16/22] pinctrl: starfive: Add StarFive JHB100 per2 controller driver
-    (no matching commit)
-  - [v8,17/22] dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
-    https://git.kernel.org/riscv/c/c9ed9daba98a
-  - [v8,18/22] pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
-    (no matching commit)
-  - [v8,19/22] dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
-    https://git.kernel.org/riscv/c/340588f9b94c
-  - [v8,20/22] pinctrl: starfive: Add StarFive JHB100 per3 controller driver
-    (no matching commit)
-  - [v8,21/22] riscv: dts: starfive: Add JHB100 pinctrl pad number header
-    (no matching commit)
-  - [v8,22/22] riscv: dts: starfive: jhb100: Add pinctrl nodes
-    (no matching commit)
+Applied, thanks!
 
-You are awesome, thank you!
+[2/2] arm64: dts: rockchip: Label the fans on Kobol Helios64
+      commit: f80a26e10a39dd51061513db96fb525244e5e890
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
