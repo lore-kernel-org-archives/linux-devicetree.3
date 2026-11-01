@@ -1,100 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793561696;
-	b=zmH4pl4PKtJiikjlc6ntVxrKGBo60DMD6IwvKQmEoZCDK3WSam16bQqtf5HPhuGLQWyK
-	 QTegRfeYH8C7o/ofcPE+M39WQy2rkUIBCGEsZ72Ga949+u9w11+HFEYeS2zgH7LB+M13M
-	 RNoDXm0n3eKN2wIST0jAzRkEGTkidq2Qh0dsbrb9Hoyo8eRtfJ5HNUJCvxxnq4Ybo0zEz
-	 v13IBInV3lmiamUijMX9MlMJ7x1c7NUPSxt3VlcWrjVpld1Lt10G9kvyhFgu4Hd5kK6lc
-	 TJlXqVT9eslCzmRFeG+B6o5YZvmQw2Q8gRNcda09p9mAMFYyBrA4uHBE65lfF9hy0Pg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:from:In-Reply-To:References:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-	b=EK9b7M0odex7C+VQyM6yziCRp7jUU296OxtDFy4vQV+Fi2R4yIJGXVS0I+foEBBJAGtP
-	 xYTG45LXat410UNAZh3IC4KKkms//pD76L85grU2hlc32Owrkz9PG5daocqCXDXz0Pw2m
-	 xkWd4CbJ9ZNpTeF4bN/jE6ty71Wp7UXcd8+IJTengMRlGFVaPzxaPYWvK/+//0r9MJ6lo
-	 hMgm39lWTqkT1q9CmacsswIkP8nJGz2neWud06N/Vuv64w/ZdcSsptLHTotE3+M7BAklE
-	 o6KpBwAuMgDk1bNx6YbqKSbKyagcMzsv7QJnXgxikSxaT10WGkHXieD2//UCXSlg7Aw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Lfqcc5GG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793562273;
+	b=eReD996CjNtitjzFtfyqB8evzDipmym5vY9CeS7nqTTYzJgjRO73VCp1XfM4FS3Sv0v+
+	 afsfYN+0CNeakvime+mKCN4iwVn+yG6Fj2tHNnTEw0uyynMtrFDmA3WsMNZdy6e93v17m
+	 yq+mqHNHafy/7XYOPMcufuq9oaJ59rYg5X11wfhJLUatq7LSybNQsAhmQrfLAj7vBKMnH
+	 rw/crURQkKSpCZkZHPcZAm+w+I8+ggGQOUiG2OVMCLpNcqw+jGLE5IPVUFjKBPRnUGZeA
+	 C8D36ptKQSzmUW0rrzHY9TZmRe9ypasc52fTlZiOeeqUlXAzIV3ET+we3EBwCEZq3QA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793562273;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:MIME-Version:Date:From:To:
+	 Cc:Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vZQyTpU9Icu2HSISAcfZwpsG6IToGvLeX9PW7kPGqag=;
+	b=VpmtoWiMn4AIH/wJa6pYysDxOcLgnEyT0DUv856/DRa4DJbcgMEnugPUoxTbcWKPbMdt
+	 4/XNvDORVbyKj//QCqL3qkQSVuwfga14yEDO4EyOgyygu1UUPCkSUuFtZhmAB8ZUBeJhU
+	 leHA+mI6MfoYN27sg4wkuyQGCpW71XYR4ugIlJZ4v1JB1d/BM62sr+vMLmQRhpJZI9gni
+	 qAEpXxEEUbCOhE15hi5xlECZOToY5MOZ05/t4RyO4iqKBVtoFK04AY1j2OBF0U0G032eN
+	 tefo2M0eA5JbhgD4z/1wfIKWm2w6sWxkm4x+IrVGsXMbiI9yn/7OQ9xrCxPOJqSIOGQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=MneB7DBc;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=U442302s;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51A3606A32C
-	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 19:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C51A3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2822E606A324;
+	Sun,  1 Nov 2026 19:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2822E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Lfqcc5GG
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b4a13789b0so3192935a12.0
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 11:34:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793561694; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rwWpwWaB4EL96wOiWu+Fi8t/cudCaYe441+sqavJ5yCGn4HWc7kFNlgwtfbmqcMqz8
-         Cer2A5ikhCkZfH5C6t7eobwAw7kfc8H8XBC5AEwPH9rs+DIEzW1av5cftO2v39+7hitK
-         ZH+7YOlnrXzTNB4HIJcGCzTps6kPudChsp0DBQZfRpU/zjIdTtJZnE6ZIffTVDnc0Zyj
-         rPFLirglwMlfXIrgVpbQoIlXb5DY6apZLSiIQqWE38NenscesrovoEwb4Ffwg3sC6ljL
-         +JZPJY482BlI/UI2Klud2aTYGOF/fvM9kyiURGP8N7Uxwec1Ew64WiPVqAwozzp0aEkd
-         vj9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-        fh=1jJrNje79qcSAKqUW6Jn4HA7BNc9XdPuiyap//1wJV0=;
-        b=MTrb2YTJlQtcYhQ6miQIid2XRkm9wZXiWai+FdPKlRK42IVSrRnIdKI8GhtWGBYvjs
-         w6ZPgRwpQR+DJDDmBQCP4iJ6pJKrqK8wS5bUz8/IS4nkXYQ4ciMoJ9uFFTXAVGrkDkGD
-         C+/rLKgXzog1y1W9vpVPRFnm/YyR8m1T9fg4OnyKOUuEDHqDt3hpPgoUw59PxSVMnWvN
-         F8tIvlHaHJ12x7epKOJokcsl+tnoESSLT14zut+ooT2pcWVjT3g7EFBAweAl5oVERkZX
-         OZkrigOkRz33FZjYLGy0kkmyePWa7cqWn+YKJNdBU7/ZRv2n/P/vlMpsUsHeYKLxsb2x
-         1gdA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793561694; x=1794166494; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-        b=Lfqcc5GG/SwjR7rhF6i9wN+51zewpGS58ukrmB9LGRdbbpKdip3M+YroJNl6U5AaZ4
-         rF//L/DV6VSxmy/1UQsFeJhmoDWwkPFReDLBiC+oRpU55av1FrMnZVBw20fY7l4UynL3
-         HVfRKiNvpd9FUkbDQyR76hW+g1Owj32N3MUEU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793561694; x=1794166494;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-        b=uNDJO9B2SJQFAR8FDOQyXQyf4zbdgd61joH4uenO1EEyI24Gtb4in1YqfD0s4QtMWN
-         PWWnEzLclV1OSaeboezr4v4c9EUnvmOiq5e1UzXVd0mQMrsVIRh4Ea/hG7B20UeIgagG
-         j+yrIE+Xv2oFeAMJMROpYz/bLOWTTLUAgr4YXa3/V/u6LO99IvCUPY+cyHCPWBL+G+/0
-         KZFLXcieivVxVcvxCsOLwRxsajLVXLnbB3whlLA2JbtKJ+v93XkqCaYGIQVX0CduZbe4
-         dspJyxTXs/WY4qyVpIJI3uANuC1k/9jq8nv+2kRbPJf9jIygXSxTqinAIMd7YO6qwZxS
-         5bEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxykyS9EdtpYD69rbBi1Qfi62iEiRBhftQxACZIZSj7zUWYUPOR6LpjTQxCNl3QantKhRsATx4T6TIu@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wXu3J4CWPPjgP5B9dY5NwzQm+9OMGBp6d+ziIlpPnSzRiaj8u
-	Y39eqnp3Ovo1ytn1vOxY7V0fsr1lzKfRENPUw6h9aARGhAh970OalDfaOM7b4nTsg1EL6ooi/x4
-	dfX5SFwSYAPXxTJ3LsjHK8Z6RrYmQEqgxOySnf0nm
-X-Gm-Gg: AYBFou0fSFcIbNsljTzsvsrJ3PxqpPrIww+bMfh3i5BsqqAtuW4WFK6x0Goqh+754qQ
-	29ZI/+WFr8sJ0zv/V+5IfnVoQJB2BLy4k/yyWZo+Rs21KtAei6hNlFHhIljJpFl5fv+ZKoPwaJV
-	s5SSyRGEP5qBvxRKJcTeSBLUla+uAGVDJI2r3fTAVGhDTYjG085wgM3NeC0dMiAfIDxERI3IV+Q
-	xufzk6PZV7mxMLGdPEsno7o7wX+sPaLZTpGzgtN0zr+DmMDkSKPrG5TmvAZJ+oEqcIg6I0vn2C5
-	DM0P1AsTWSIoP3DvYHYes2rHh/JMi2GWUrZvwIy4cTQ6tI25EWFgih6dGXMEpnfZGJmVP4zolYW
-	xy1qzyFMAgcmb3CZ6itjcHrDleh0f/t82o9mxHdk8RNxBwDgM/i+ygpPhc0bYkouIiPMZNiDL
-X-Received: by 2002:aa7:da45:0:b0:6b3:e89b:128f with SMTP id
- 4fb4d7f45d1cf-6b4d4d6d938mr4052419a12.9.1793561694122; Sun, 01 Nov 2026
- 11:34:54 -0800 (PST)
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 1 Nov 2026 11:34:51 -0800
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 1 Nov 2026 11:34:38 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=MneB7DBc;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=U442302s
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793562269; bh=vZQyTpU9Icu2HSISAcfZwps
+	G6IToGvLeX9PW7kPGqag=; b=MneB7DBcjOrpLrDeCLkagxtkg0LXEDxeuUwUz23SkC0O2bsCY6
+	3lNucIelaIZLJWGhd7h7uPVMZiV0A6u4p1E4CeXMka0USUVeY1v0b3sBlJTQoYfXF9PszdcFHCV
+	s9Qv+/O/5ekctZ4DcAbdFxN+fsI3grc5jEuylEW+wF021q+A0zdQ8DcxxHYq1e6inAlrVJ6dWJ6
+	ZvdrppkJPu8YDmql2LeaErGKar8LxilxQxmFZHzFT3+ihSZD5icplZynm/OLS5d6eShxAqxcIUp
+	dgioMaHRfGydF1Qs7CGTYCXADZnwzHW+R2iqiVeBxrHA7GF82qOBWId96KYFNLrzgxw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793562269; bh=vZQyTpU9Icu2HSISAcfZwps
+	G6IToGvLeX9PW7kPGqag=; b=U442302spwE5+eArYoQIsrdcxkr36Dtfm+ZVoG+QSXt9wedX1A
+	jZY7rMGTwtbUmTEKXaV9mvXpXnDb57Z9kOAg==;
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,92 +55,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-from: Simon Glass <sjg@chromium.org>
-In-Reply-To: <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
-References: <20261020153652.2907186-1-dianders@chromium.org>
- <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com> <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
-Date: Sun, 1 Nov 2026 11:34:51 -0800
-X-Gm-Features: AclHuK-OENc2MfogrHTK6nr_VXdYPKQaHTgRVjZY6Us3vAfjaHxM1Qejmm0CbCs
-Message-ID: <CAFLszTh8geCqamVZwO00fx6t8SDfVHCFP1Fx9PnA2x9TosDKqg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
-To: Doug Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
-	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
-	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
-	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Sun, 01 Nov 2026 20:44:29 +0100
+From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+To: Amir Hanip <killdeath104@gmail.com>
+Cc: abelvesa@kernel.org, andersson@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robh@kernel.org, a39skl@gmail.com
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
+In-Reply-To: <20261101164930.17976-1-killdeath104@gmail.com>
+References: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
+ <20261101164930.17976-1-killdeath104@gmail.com>
+Message-ID: <9304e75396496855881251cac2edb0a5@mainlining.org>
+X-Sender: barnabas.czeman@mainlining.org
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Doug,
+On 2026-11-01 17:49, Amir Hanip wrote:
+> On Fri, 30 Oct 2026 13:30:28 +0100, Barnabas Czeman wrote:
+>> Poco M3 (citrus) is same HW like Redmi 9T (lime) and Remi 9T NFC
+>> (lemon) basically is a lime with NFC.
+>> So i think it would be better make a common base from lemon's
+>> devicetree instead of making the same devicetree again for the
+>> different variants where only the compatible and the model property
+>> will be the difference.
+>> Check sm6115-xiaomi-gingkgo-common for example, it was the same case
+>> for Redmi Note 8 (ginkgo) and 8T (willow).
+> 
+> Hi Barnabas, Adam,
+> 
+> Thanks for the review, that makes sense. I am preparing a v3 that
+> moves the shared parts of lemon into sm6115-xiaomi-lime-common.dtsi
+> and has both lemon and citrus include it. I used the name lime-common
+> following your naming. Happy to rename it.
+> 
+> Plan for v3:
+> 1. dt-bindings (unchanged)
+> 2. lemon: move the shared nodes into the common dtsi, no functional
+>    change intended
+> 3. citrus on top of the common dtsi
+> 
+> I can only test citrus. I do not own a Redmi 9T, so lemon is untested
+> on hardware. Instead, I compared the lemon DTS before and after the
+> split, normalized with dtc (dtc -I dts -O dts -s). The only
+> difference is the numbering of two auto-generated phandles. I will
+> describe the check in the cover letter. Adam,
+> would you be able to test lemon once v3 is posted, or look at the
+> split beforehand?
+> 
+> The IPA carve-outs (pil_ipa_fw_mem and pil_ipa_gsi_mem) are identical
+> on both, so they now live in the common dtsi.
+> 
+> I kept the following per variant because I cannot tell whether they
+> are real hardware differences or just differences between the stock
+> firmware images:
+> 
+> - ADSP carve-out: 0x53800000/0x2200000 on citrus, 0x53400000/0x2600000
+>   on lemon. Both regions end at 0x55a00000, so only the start and
+>   size differ. I can only confirm that the citrus value works on my
+>   device.
+If there are no overlaps the bigger range could work for both of them.
+> - GPU carve-out: 0x55a15000 on citrus (right after pil_ipa_gsi_mem,
+>   like the SoC dtsi defaults), 0xfa400000 on lemon. The citrus value
+>   works: the GPU runs with a full DT that includes the display
+>   pipeline, which is not part of this series. I cannot verify
+>   lemon's value. Adam, is 0xfa400000 intentional?
+> - PM6125 regulators: seven have different voltage ranges (s7, l5,
+>   l7, l11, l17, l18, l22). l24 has the same range, but only citrus
+>   sets regulator-allow-set-load. lemon also marks l5, l7 and l22 as
+>   always-on, citrus does not.
+You should check where the regulators are used, at downstream many times
+driver bindings are overriding the ranges. You should check properties
+like these:
+		-min-voltage = <1800000 0>;
+		-max-voltage = <1800000 0>;
+		-load-current = <180000 0>;
+For the always-on it could be a bad habit from downstream
+where they are not leave to the driver to set the regulator on/off,
+keeping always-on properties not always necessary with the upstream 
+drivers.
 
-Doug Anderson <dianders@chromium.org> wrote:
-
-> Putting the metadata in the configuration's `description` property came
-> out of discussions with Michal Simek at LPC 2026 (where Xilinx/AMD
-> already uses configuration descriptions for similar board matching).
-
-Thanks for the background. The Xilinx case is a bit different, though:
-the same project writes the string (the binman .dts) and parses it
-(board.c), so it can change both sides together. Here the kernel would
-write the string and the Pixel bootloader and outside packaging tools
-would parse it. That makes it a cross-project ABI, and I'd rather that
-ABI were typed properties than an unwritten string format.
-
-> The proposal I've tried to push a few times is that it's OK that
-> different loaders have different types of information available
-> to them, but people don't like that. They want a universal standard,
-> which nobody can come up with.
-
-I agree with you here. We don't need a universal set. I've sent a
-proposed spec change [1] which lets a configuration node hold one or
-more match sub-nodes. Each one names its scheme with a vendor-prefixed
-compatible string and carries the properties that scheme defines, for
-example:
-
-    conf-1 {
-        compatible = "google,lga-...";
-        ...
-        match-1 {
-            compatible = "google,board-id";
-            board-id = <...>;
-            board-rev = <...>;
-            soc-id = <...>;
-            soc-rev = <...>;
-        };
-    };
-
-Trogdor would use its own scheme (board name as a string, rev and SKU
-as u32), and Michal's loader could do the same. Each loader still gets
-what it needs, the types are explicit, and nobody has to parse
-'description'. Please can you take a look and comment there? If it
-works for you, you can point to it in v2.
-
-> Should I give it a shot for v2?
-
-Yes please. The DTB list already reaches make_fit.py from the Makefile
-through the @file argument, so the new file only has to say which DTBs
-to include and what metadata each one gets. We'll need a simple
-per-platform file next to the .dts files, passed with a new option
-through FIT_EXTRA_ARGS
-
-Running fdtfactor can then be another make_fit.py option, like --decompose-dtbs
-
-[1] https://github.com/open-source-firmware/flat-image-tree/pull/66
-
-Regards,
-Simon
+> - citrus deletes cdsp_sec_mem and the orientation-switch property of
+>   usb_qmpphy, lemon does not.
+I think it could be just left over from the reference design since
+these devices are not supporting DP.
+> 
+> Barnabas, Adam: do you know whether these differences are real, or
+> whether they only come from the firmware of each model?
+> 
+> Thanks,
+> Amir
