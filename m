@@ -1,102 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551814;
-	b=ppnv0PkpOrWkoywD64vFAOmE2qMpWWPl16ZMugejgCyevxNeMna7QAFACQexuihvR66a
-	 /sr5XkkOEpx7vnf2mbfTbjbU/lySg8ft0ZaRpDMRspZezIrP+eVmS/HBPScmZ9T/+mD+t
-	 y2QNlfTEikYNx9JQ8P9WWp98zQEoHPfH1tUKbVMZiBZWgcoQxkbHUuDTb+V9Y3hcSRhrQ
-	 JjL9oMlBrbycHEC7x3smWB5WNzuozUeDOs2zZBMIWiQn05JUj2Sz82wnwyyDhUjGI2+Yn
-	 nXE24shdIlGWQYH/GOYymZN1naHlSzCydDTzcURIdbiss1IpYA4X4mnWvOpwHF1HdlA==
+	t=1793554904;
+	b=SFcwy2jEsARiNLPLxYlP3Rg2gFTsbbdyspw62F6RhqmUcpFadizBpYRRTeMtMkwN/xxk
+	 CLMuCn0n2K67u0zCOlEuJ9DvrVkg6w7s/dWLDdNFIks7Kq/5U06rx9BxLRMciho6soBzD
+	 hZ6cpoD4DkKkjBV10VfRFOcj5qhg8Se2nH8wn9gDFBvtk2oJIUaSNEbi5rIIvDQI+xIue
+	 8HGW9i67XAYPdoVJWHo6xhQxacfda6mJv2dpWcdrG1rJLa9Go4BZPs6Z58KgKG2VJn/h8
+	 XIliGcTNSs+cF9uiWhC66SIqIXFaYzfzVhr+A6EinDpa4IoI65kIMR3eqsUxeGfRGSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551814;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mZZe4bKEcD5TSYKYkVMyAQ6dVStKsxhjunUD6f+PU+0=;
-	b=yuOeAB4vmn3U/s9xbO2+cWmh3wSMGVy/vHJgHdR2ERcKoNofuvZns9V4tsVdBr2KKUQU
-	 D71D7ZSOsrFbw8cCa+Q12qHNVYVAY4PdHpeAXMGZclnXqzhtTDl7HW0yB38LZyyhhL2w3
-	 jKox28NWfMqdlgLKJe28lSlFqaNjjgwz6AO/LN2FK4AxOCBW7I4BRtm4XQ/01L1ctWzfu
-	 dFDimxH+z6BG+MVq19zhFl5jkcBCAq8ObNKjdIAJ7YkpNjJewF0qKHzYDQe0RUYjnEf0c
-	 N9FA6M3jklaj3QlNVXbBhGrkiDdvQRxeN4OnT0Un85JitWaJqlvmQ9ebqDbXRxNNvqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793554904;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZSWxv+vsV3OMpY3UoOnjoLymmnb2qgFdGAgFrnTm7wA=;
+	b=Eyw4mGTtswy/zrClQGxgdABNragC/b2R1eatdgIDp7gV+z7rjUwQS/6x1oKZJ5KPuvKG
+	 jdDLJEUiIGQBmdvI5qWrffjhUWfe1lrl0hvb+A63I1N7CZWylqRqgUQYLwkBHSX3DdaQ+
+	 qoZokFHAX9HzwIYrwHIn+WwbOJyBVjrduYV7z7SwGyDveeVd3MZvEjwIAr5mm2oY7xAMT
+	 IPGiF5uohXUlInJoENRGQoES6wX4vBgqupP68RuqQOnr961G2989eq+s4J53YbPzyafwd
+	 G7TZnjHur01jZAwsav/WPWBsjVIw6CI5Gd6LtNaIEsKi3SeFtPvzwKwTb7Q/MpblIcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0jq2OaOv;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJYf1Zmh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24161606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 16:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24161606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3ED606A32C;
+	Sun,  1 Nov 2026 17:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0jq2OaOv
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3964284eec.0
-        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 08:50:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793551813; x=1794156613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mZZe4bKEcD5TSYKYkVMyAQ6dVStKsxhjunUD6f+PU+0=;
-        b=0jq2OaOv/VB8alV10OIyFhzRgwYGwdbak1sNcvg1B4TViZnUcpBAp2z38SSNRYDRFm
-         iWL4NL6qgRA55EC9Nok9ZP8gNMVq53QnCspXz1P64Zkgy+AWhvqcouMzwsduyTkZ5012
-         f4nQrmaIrmukypuridQE1Rqc2bQO2XtKr1wXs4gKemRM6oXqppdY9DKk6ZwU1tpgVLRs
-         Yht0Pcfho/JnMuEIPOp4Ns3v2a6FQiGqn6Zq8Z9d2cYZdwoU6NVPn///Vpb2mGCsXGpG
-         nHarEKEXX6wypiLqRLeopMvysMA2SEdZjNx/LDGITkRP6YXHoQfCv2vaKmKvnjsp/MVq
-         5idw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793551813; x=1794156613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mZZe4bKEcD5TSYKYkVMyAQ6dVStKsxhjunUD6f+PU+0=;
-        b=oNC2flfimui78Y3AfHwzAy7iAAlq373qzQap9/XeQASZUo6rB5eB0QkXyQsqkdsBaP
-         /YTNPMohtsJpTBQiwH6gLXVPiKMjce2B5KDW7233YRTad+jS1oEwA4Csdt/Sfx5XtWjh
-         Lso4vs/eEA7L1aEsVwK2jqfOaVH6IR0vaz8aZi7fT8MxE41+qY+Fmvv8bbVRiKaslXO8
-         PSt41lYiUgvs3LBDvmvX+nujeNm5ixmXRdgwQ4mZbrkZF+pxV/byKoRAGq5FkteBI1CQ
-         68L/NyrMThbiUy9tdvnygQ/leY9tInYPBQKnO2+9ptCHmCwzppE90G8Tq4XPDx8ty8bN
-         1XUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDSkNxWCwPV8/F5aPZCqBjn8nu2S5Gg57ZVOPiB93gEhXWQDmnzKfoMdP+OLLv1fKxnAwIBO25Mprb@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5b9yarnqyO80sUUSdLr4DkwiU90V6iI7uwZ18ZQak6iN1ksOY
-	mF0/7Ap/vdd5BuW06Hwp1MK6oE51Ic3fvFsGKqR1uDwYBbfoSysRbTii
-X-Gm-Gg: AYBFou0IbbxHvhdfSpVhLTmpvrIhHs6IFzZthttztgxnaajh9WLvItWvptB/KaKNFAb
-	dusXn/fyTaXOPA2XBRVDa7cULE1CJ0gFxeGy2k4Dn4ekXXTTASt466xLH1TJE5+gZxAtXJ1EzJh
-	7hAx5Eyi63TMPO5Bo/US7BPEWeEoduLUJBFLkStwWIfPapJGMaD06xlDbCDStjLYlXNzJSeftNv
-	uXVgGn5+4+XaZO27aozyY7sPiW6ppPphemDz2elZdixkkdSSkjlUS5fj72seJwI7dat+VGtpn/e
-	gWkd4eySKBFldbp1cz+kVOeMnhJe1fDIIVC7aF6Si596bnu1gi632DdtxdZqigdIuq5rb0DN5yA
-	fd6n9TZMdM/H7fZUO5nSerDYFFWtwqDLQbtxn0hr1PUnExtdMsdn6WRP/zZLD4fbOYcrYE3OOhN
-	9ZWyzUcb7KvynSJCyA5xhDpGqZ3SFhSYQdyRn80PKHBr5qj5s2lF3s0HOsnu7Tx9yuD+dhA4q7X
-	5WsA0p0Ba7NjA6+urdFWzWjhtbRNHNBU1nZdAd+sBOwmAsCi8vLx+t2PUUPM08NryHRMRpUIi+D
-	e70LonjvYCsF3hX02Xm771U0fihjA+CxtQNCIeDDWWVZ0XC0au+LyQG0B1lBHbRj+aTn
-X-Received: by 2002:a05:693c:87cd:20b0:36a:32de:a239 with SMTP id 5a478bee46e88-36a420643f1mr11900427eec.0.1793551813029;
-        Sun, 01 Nov 2026 08:50:13 -0800 (PST)
-Received: from localhost.localdomain ([121.101.131.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm39444940eec.16.2026.11.01.08.50.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:50:12 -0800 (PST)
-From: Amir Hanip <killdeath104@gmail.com>
-To: barnabas.czeman@mainlining.org
-Cc: abelvesa@kernel.org,
-	andersson@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	killdeath104@gmail.com,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	a39skl@gmail.com
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
-Date: Sun,  1 Nov 2026 23:49:30 +0700
-Message-ID: <20261101164930.17976-1-killdeath104@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
-References: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJYf1Zmh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3961F000C1;
+	Sun,  1 Nov 2026 17:41:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793554903;
+	bh=ZSWxv+vsV3OMpY3UoOnjoLymmnb2qgFdGAgFrnTm7wA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hJYf1Zmh2Yx9+qETVYUi6n/ZBYeFIK+4QJnS6Yn2Q23NGW/MPESWC54jo5Qhioi75
+	 MUZ8ia1LeX5PcscI6EVBgWu6xB0lxUn4sJWDCBuFrF6rAZXzX6uVI+OQMp9xKZl1a7
+	 1OePawjs35W9cDvd3BoBLEg9CBB99xp/FHEtSMfS0qgcqSoZrQGFn3EA8UmhU8yUGf
+	 7uUNVXsuZUAiXu05o5VLCGqPFaJCMkW0YkpIBHVvv4XOyJ0ZOQERDfqw3qiBcVCCdM
+	 O9SsPRB4aZ5MrJ2trR2gfUgDyhEp+rGAK3kehDgRLYeZniN6LkFz7SB9G/MLGwMvjN
+	 ixQGjVXexQeNw==
+Date: Sun, 1 Nov 2026 17:41:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
+ Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
+ Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] iio: light: ltr501: Add support for the
+ LTR-659PS-01 proximity sensor
+Message-ID: <20261101174140.4d11fdfc@jic23-hlaptop>
+In-Reply-To: <20261101141507.119186-3-clamor95@gmail.com>
+References: <20261101141507.119186-1-clamor95@gmail.com>
+	<20261101141507.119186-3-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,64 +70,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 30 Oct 2026 13:30:28 +0100, Barnabas Czeman wrote:
-> Poco M3 (citrus) is same HW like Redmi 9T (lime) and Remi 9T NFC
-> (lemon) basically is a lime with NFC.
-> So i think it would be better make a common base from lemon's
-> devicetree instead of making the same devicetree again for the
-> different variants where only the compatible and the model property
-> will be the difference.
-> Check sm6115-xiaomi-gingkgo-common for example, it was the same case
-> for Redmi Note 8 (ginkgo) and 8T (willow).
+On Sun,  1 Nov 2026 16:15:07 +0200
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-Hi Barnabas, Adam,
+> Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+> nearly identical to the LTR-559ALS-01, but omits all elements related to
+> ambient light sensing (Even the regmap is identical, but ALS registers are
+> marked as reserved and interactions with them are discouraged).
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Hi Svyatoslav,
 
-Thanks for the review, that makes sense. I am preparing a v3 that
-moves the shared parts of lemon into sm6115-xiaomi-lime-common.dtsi
-and has both lemon and citrus include it. I used the name lime-common
-following your naming. Happy to rename it.
+Various more general comments on the driver in here. Only real request
+is to not copy the rather ugly existing indentation for new code.
 
-Plan for v3:
-1. dt-bindings (unchanged)
-2. lemon: move the shared nodes into the common dtsi, no functional
-   change intended
-3. citrus on top of the common dtsi
-
-I can only test citrus. I do not own a Redmi 9T, so lemon is untested
-on hardware. Instead, I compared the lemon DTS before and after the
-split, normalized with dtc (dtc -I dts -O dts -s). The only
-difference is the numbering of two auto-generated phandles. I will
-describe the check in the cover letter. Adam,
-would you be able to test lemon once v3 is posted, or look at the
-split beforehand?
-
-The IPA carve-outs (pil_ipa_fw_mem and pil_ipa_gsi_mem) are identical
-on both, so they now live in the common dtsi.
-
-I kept the following per variant because I cannot tell whether they
-are real hardware differences or just differences between the stock
-firmware images:
-
-- ADSP carve-out: 0x53800000/0x2200000 on citrus, 0x53400000/0x2600000
-  on lemon. Both regions end at 0x55a00000, so only the start and
-  size differ. I can only confirm that the citrus value works on my
-  device.
-- GPU carve-out: 0x55a15000 on citrus (right after pil_ipa_gsi_mem,
-  like the SoC dtsi defaults), 0xfa400000 on lemon. The citrus value
-  works: the GPU runs with a full DT that includes the display
-  pipeline, which is not part of this series. I cannot verify
-  lemon's value. Adam, is 0xfa400000 intentional?
-- PM6125 regulators: seven have different voltage ranges (s7, l5,
-  l7, l11, l17, l18, l22). l24 has the same range, but only citrus
-  sets regulator-allow-set-load. lemon also marks l5, l7 and l22 as
-  always-on, citrus does not.
-- citrus deletes cdsp_sec_mem and the orientation-switch property of
-  usb_qmpphy, lemon does not.
-
-Barnabas, Adam: do you know whether these differences are real, or
-whether they only come from the firmware of each model?
+If nothing else comes up in review, I can just tidy that up whilst applying.
+For now I'm going to leave this on list to give others time to take a
+look.
 
 Thanks,
-Amir
+
+Jonathan
+
+> ---
+>  drivers/iio/light/ltr501.c | 58 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+> 
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 302be2fc314c5..5cc1141322ad5 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -96,6 +96,7 @@ enum {
+>  	ltr329,
+>  	ltr501,
+>  	ltr559,
+> +	ltr659,
+>  };
+>  
+>  struct ltr501_gain {
+> @@ -649,6 +650,26 @@ static const struct iio_chan_spec ltr301_channels[] = {
+>  	IIO_CHAN_SOFT_TIMESTAMP(2),
+>  };
+>  
+> +static const struct iio_chan_spec ltr659_channels[] = {
+> +	{
+> +		.type = IIO_PROXIMITY,
+> +		.address = LTR501_PS_DATA,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index = 0,
+> +		.scan_type = {
+> +			.sign = 'u',
+> +			.realbits = 11,
+> +			.storagebits = 16,
+> +			.endianness = IIO_CPU,
+> +		},
+> +		.event_spec = ltr501_pxs_event_spec,
+> +		.num_event_specs = ARRAY_SIZE(ltr501_pxs_event_spec),
+> +		.ext_info = ltr501_ext_info,
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+> +
+>  static int ltr501_read_info_raw(struct ltr501_data *data,
+>  				struct iio_chan_spec const *chan,
+>  				int *val)
+> @@ -1178,6 +1199,12 @@ static struct attribute *ltr301_attributes[] = {
+>  	NULL
+>  };
+>  
+> +static struct attribute *ltr659_attributes[] = {
+> +	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+> +	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+> +	NULL
+> +};
+Not something I'm going to ask for as part of this series, but
+if anyone working with this driver has time it would be good to
+move the available handling over to the read_avail() callback
+and masks.  This is an old driver and so far not been converted
+to that newer infrastructure.
+
+> +
+>  static const struct attribute_group ltr501_attribute_group = {
+>  	.attrs = ltr501_attributes,
+>  };
+> @@ -1186,6 +1213,10 @@ static const struct attribute_group ltr301_attribute_group = {
+>  	.attrs = ltr301_attributes,
+>  };
+>  
+> +static const struct attribute_group ltr659_attribute_group = {
+> +	.attrs = ltr659_attributes,
+> +};
+> +
+>  static const struct iio_info ltr501_info_no_irq = {
+>  	.read_raw = ltr501_read_raw,
+>  	.write_raw = ltr501_write_raw,
+> @@ -1218,6 +1249,22 @@ static const struct iio_info ltr301_info = {
+>  	.write_event_config	= &ltr501_write_event_config,
+>  };
+>  
+> +static const struct iio_info ltr659_info_no_irq = {
+> +	.read_raw = ltr501_read_raw,
+> +	.write_raw = ltr501_write_raw,
+> +	.attrs = &ltr659_attribute_group,
+> +};
+> +
+> +static const struct iio_info ltr659_info = {
+> +	.read_raw = ltr501_read_raw,
+> +	.write_raw = ltr501_write_raw,
+> +	.attrs = &ltr659_attribute_group,
+> +	.read_event_value	= &ltr501_read_event,
+> +	.write_event_value	= &ltr501_write_event,
+> +	.read_event_config	= &ltr501_read_event_config,
+> +	.write_event_config	= &ltr501_write_event_config,
+
+The indenting of the existing structure is weird and could do with a tidy up.
+I'd suggest just dropping any attempt to force alignment.  As is shown
+here, doing that tends to lead to inconsistency over time as a driver
+evolves.
+
+> +};
+> +
+>  static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+>  	[ltr301] = {
+>  		.partid = 0x08,
+> @@ -1283,6 +1330,15 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+>  		.channels = ltr501_channels,
+>  		.no_channels = ARRAY_SIZE(ltr501_channels),
+>  	},
+
+Another nice to have but not a request for this series.
+Would be good to move away from handling these as an array with the enum
+value in the firmware tables. That scales badly and runs into NULL check
+problems when we use the generic firmware accessors (which we should really
+be using here). i2c_get_match_data().  The standard way to do this
+today is to use separate named structures and put pointers to those in the
+tables.
+
+> +	[ltr659] = {
+> +		.partid = 0x09,
+> +		.ps_gain = ltr559_ps_gain_tbl,
+> +		.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
+> +		.info = &ltr659_info,
+> +		.info_no_irq = &ltr659_info_no_irq,
+> +		.channels = ltr659_channels,
+> +		.no_channels = ARRAY_SIZE(ltr659_channels),
+> +	},
+>  };
+>  
+>  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
+> @@ -1635,6 +1691,7 @@ static const struct i2c_device_id ltr501_id[] = {
+>  	{ .name = "ltr329", .driver_data = ltr329 },
+>  	{ .name = "ltr501", .driver_data = ltr501 },
+>  	{ .name = "ltr559", .driver_data = ltr559 },
+> +	{ .name = "ltr659", .driver_data = ltr659 },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(i2c, ltr501_id);
+> @@ -1645,6 +1702,7 @@ static const struct of_device_id ltr501_of_match[] = {
+>  	{ .compatible = "liteon,ltr329", },
+>  	{ .compatible = "liteon,ltr501", },
+>  	{ .compatible = "liteon,ltr559", },
+> +	{ .compatible = "liteon,ltr659", },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, ltr501_of_match);
+
