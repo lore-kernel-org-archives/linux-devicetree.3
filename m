@@ -1,54 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793527218;
-	b=fCPGNxCe65TX1vP5Iko+UWHozy7oUXO30m8M2zSE+cU8txtfwrG0KJcxiZ2wsTsi1ojl
-	 d1IuSL8YiXNhVYo2HOwX6cabxzrFPDO7oQQ+iN5dtoa6HKbh4WOysJkR2oezfur5i2oys
-	 NaZ6BPXz/cjrDpdWAL9Bm/yCzZ6aHkDYm8irtmWrKZ/dELyifYeisAr04dL2ZiGtGFYcZ
-	 JEeCTXb3P8cijTThVsgMVmgD6xA7Mdp6yKUdypMqU0pxC+3LrHdOTEKGdaD5Q0X1IcMQF
-	 OzxawZXuY7GK6uLbCB5Oi4N+4RiIbXdIS75iCUknwALdQjmY1G8EJ1JeVlCzDyg+a6Q==
+	t=1793528434;
+	b=XqZoxU7rcaJ9KbY71LnrRRCYj9xw8AOkWXSEjDkwH8/9MerUFYu3a7CHHhAS7DAqT5oS
+	 m63jmfeAKXzr+7VSi0vTTdA0UR1HpCCkSFKhD4qtRcGv5chbQzQ0dLZKHiD+C6NTqVts/
+	 K3qGp4VS3+ZFmFsrp0KEF/eYGg4CPt/8cszxezTon+V51m51L+2JTGd1FhP2Sncjiy7na
+	 h6JVUhXevgRyGz1tWOCbr4aBNDsr0crLfmicxZKHo7M/8KOd/cuequgoX7X61SgkBb86T
+	 b5Thc4LnN2xBimhe2Wn4SFwfxAiEpi1uzd2MBPgEgspuqvRRbtpW5nuPQJezqn5MPCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793527218;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status;
-	bh=qkfPS8hofwtnNm0CXa6ZP95vc5TkVzOTDVJ6YjTfRpo=;
-	b=OiOkFQNK7lnB6PiLMp+9WEZLOXSx9AW1A8eSo5xvVWxM8QJlFCdA0YqDIV0pCCSkqgfC
-	 JjYUY2p3/3PpYXOIUO4PRx2II4OExyUk5z6/RLZgqa8omPLzgsEA+k3AP45KhEn/SZDOI
-	 rVB4uW0ZLIMOCYaFxRi+3kqq6X2mMT6OsKg2VnsZF71IjzQDkxZp+0BP9Hjc9CitQnJUz
-	 EZbm29Th7lH3wnwNxwGPHOL1K5l9gctLmj1hr1my00JiujMQnLkMUZvtEoM7c/I/xdjJA
-	 RnopRlYLw/dmMtQ3seoTTwypFcjQKvgU2LwaLoAU33jz0yl0BaWr+6tiz7KsuMuIwKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528434;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TkstfqMwLVi3O9Geq9Sw8ekLhOvsr3GA+4QG8GJigxk=;
+	b=Eck2fKXltsZ3QqnwcuvaiYtCyFSOC61tOFGtki7rDGpE8c6Z7qa5a/4ghsvPZEAPv6X5
+	 W7c1iujtml14/nigWomINJCkEvuL4bM1u5v4lgasI4+9Lyl5xwTG2SBq6pv+n111wzSX0
+	 eWVMrys59hfxp40X7W74cUqW33TFq4KCuFGl/mtUb+sTMY5gWtQGJZ8dQ4Up9he4bPM1+
+	 hCkCJbGagfcGu4qVygLAw8DYwarU7qk279M+ZMPQLnLdHEX35ZnYOvCyFbX7XMrVlh++E
+	 jcppaYOBd8uy3301PMfb5BMh3/pd2Ozf/WeC6Eb+GKqoSuJw6OFd3s+QIAfTWMMQZwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jmu.edu.cn;
-	spf=pass smtp.mailfrom=jmu.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+nHu0+b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5F7606A325;
-	Sun,  1 Nov 2026 10:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB5F7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.lan (unknown [IPV6:240e:3bc:2e87:4e80:2a7b:821a:ffcf:549e])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 531059d45;
-	Sun, 1 Nov 2026 18:00:04 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: [PATCH v2 1/1] arm64: dts: allwinner: a523: drop redundant status=okay
-Date: Sun,  1 Nov 2026 18:00:00 +0800
-Message-Id: <20261101100000.725282-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DAE606A324;
+	Sun,  1 Nov 2026 10:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+nHu0+b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F161F000C1;
+	Sun,  1 Nov 2026 10:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793528433;
+	bh=TkstfqMwLVi3O9Geq9Sw8ekLhOvsr3GA+4QG8GJigxk=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=P+nHu0+b5rfK+aXhEmjWLD8w8GrD3O3uu18WH0lMRQ4sUXSIdqTNP9iyJ4GuAkxUh
+	 OKppBIwkP5yaYkwup61QUAjbSRjAMdhnenQgRgWsuJiR1aVU4LO4Dvy2nevN6kSeIG
+	 1XAY+SExgSVwzuL6Xkr5HF1msUj9+Q1xUCdw1TKVCPfa23YqGqSVMpuMZVc9bPv+O5
+	 1ERct4siCLQ0LN4Byw825y83ABAnHVSCDOiUbrhEotRJ3e5weoovsQ05jWmnCrk3uf
+	 f6zXV6ZyTRm4AAGnXNfbEhQOhCmH2xe68DRySVRK2+/kJLyGnDw1U9SCg9S14pydmd
+	 mlZU1AD5kDDCw==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,90 +49,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1968d4b0703a2kunm959b05f2a51c2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkwYVkwaHk8aH00eHUpNQ1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUgZGEFJHkNMQU8eQ0tBSRpMGUFDSUoaQR0dGB1BTk
-	9CHllXWRYaDxIVHRRZQVlPS0hVSktJQkNDTFVKS0tVS1kG
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/2] phy: airoha: add support for AN7583 Gen3 PCIe
+ PHY driver
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261016071225.2092-3-ansuelsmth@gmail.com>
+References: <20261016071225.2092-1-ansuelsmth@gmail.com>
+ <20261016071225.2092-3-ansuelsmth@gmail.com>
+Date: Sun, 01 Nov 2026 15:50:23 +0530
+Message-Id: <179352842351.2955.1473721252992943972.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=476; i=mani@kernel.org;
+ h=from:subject:message-id; bh=QM9ES64G5eMGECElOm5ezgzKCyheAyccn8+aOEbI0Fg=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xJuJhIJL80l+IydUaS6U2TPqyRHet4HuM9ew
+ Y8yUhlL8CyJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucSbgAKCRBVnxHm/pHO
+ 9cm3B/4lSOxWPTXOja4ew2u8cVg06zJcuAYJtyd1F8s+DgKJYRb/B1bbKu46J6EBaFvhD8dkusG
+ pcCDP0OrFyTRKlw+FiuRDAMAgLJNCcm++Wl/D5OwNZc8AV2u4FBl0ODdi2Q3AmcA0Fg2bL+jHRT
+ aqfRlc9I7f/RIp9Y/EA2vjkpNSQhwwBV7oKkUIZHM7+4AOx6z/btmXejbTjP+489QOMsQX/h8wb
+ zRTi3PsLctWQXlGFphkM/6sxo69nFcwSxtLyYtGKa81zp/QBkNrXkFU57WcNLtSwsDFltQ5/bFo
+ QvqNmaZFUdzw09RtlMFijjORR3sArnDcZMpHn7SSgJV2pxoq
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Device nodes are enabled by default, so no need for
-status="okay" property.
+On 2026-10-16 09:12 +0200, Christian Marangi wrote:
+> Add support for AN7583 PCIe PHY driver. This is required to make the
+> Gen3 PCIe port present on the Airoha AN7583 SoC correctly work.
+> 
+> A different setup is needed compared to Airoha EN7581 where the
+> calibration process and the register map greatly changed.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
----
-Changes in v2:
-  Remove `status = "okay"` from the pmic node.
-  Link to v1: https://lore.kernel.org/lkml/20250901120020.181414-1-amadeus@jmu.edu.cn/
----
- arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi            | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts   | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts    | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts   | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts | 1 -
- 5 files changed, 5 deletions(-)
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index 85ef492ffeae..aa23d9062a3d 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -386,7 +386,6 @@ wdt: watchdog@2050000 {
- 			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&osc24M>, <&rtc CLK_OSC32K>;
- 			clock-names = "hosc", "losc";
--			status = "okay";
- 		};
- 
- 		uart0: serial@2500000 {
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-index bfdf1728cd14..384a6174de3a 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-@@ -297,7 +297,6 @@ axp323: pmic@36 {
- 		interrupt-controller;
- 		interrupt-parent = <&nmi_intc>;
- 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-index eb9fd0a65b41..ff772dfd5c92 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-@@ -249,7 +249,6 @@ axp323: pmic@36 {
- 		interrupt-controller;
- 		interrupt-parent = <&nmi_intc>;
- 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
-index 85247186461d..e6c24e925a54 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
-@@ -356,7 +356,6 @@ axp323: pmic@36 {
- 		interrupt-controller;
- 		interrupt-parent = <&nmi_intc>;
- 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-index 26ce579b42bf..7d056d555e36 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-@@ -341,7 +341,6 @@ axp323: pmic@36 {
- 		reg = <0x36>;
- 		#interrupt-cells = <1>;
- 		interrupt-controller;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
--- 
-2.34.1
+- Mani
+
 
