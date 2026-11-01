@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571355;
-	b=iE61wQ8tnB2oWEOAAkAmE/B+CuSIp3aMy5ugC3e7Dz8sPmKEUXgJR7lq3tApQ96KEbFZ
-	 3Uvyx0Sr7xmJ1NfZ2Q5g4ghAAMqChSmPnjg4gDElu6Ghi6ednniae4OWHjya9YhArIAtf
-	 KXeFOxlwj/4Ntr2YBGaXnEXNUMO7xidGRU3+tCRX1VW8vfH6yh03S7rZzMGhtLkINwqf9
-	 Ro5PNhR+UFANtIGjOCHrbDmhPK5pyzd4XPXNuc0nSkIw7xlVpT7fOxb22edSsJONBJhQV
-	 L6D8rVaCFeT3veCxd4sqh6UaBMFQwlV92zOKDR14lecG6B/XyE6pqyobQ6Tmd9zholA==
+	t=1793571356;
+	b=0oL3r30Y4NzRmJJdREHrR39IVJHdwFdO3k9vEUaGi4rZw6gT2X0JhW+Mel/8l0lq2OFm
+	 KTrxjBSaF7N+jMqjSTqdNEnQmp/Ahp4xm8/1zn88RptQjx86Y+MRTYBoA7M481wRdWtsA
+	 vJ+v5KPIjKtoyUtBMlaUORtyyN/hAaojijTXpOInH+Rz/Vx1qnd/EiG7wysg7lOWT3GOC
+	 27HA8QiRNlraSloHGWJeK0l3ndl9oYpMep2+OC+EFWEZ1TebTJje5PvmJNNXnPIyoI+J0
+	 9Y1ttTk4PrIj+9njH9yXfrErVKm0wlMK3rflYg5WfUJ/yvwWltXUklI3VXo6p/vW8mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571355;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571356;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=cX02P8ZnTabknV6WIxatZgPYI8Lrd5opy+28EBBQ4Ww=;
-	b=vkn+b2aOPAEyxVYN7NXeLbs57p6SJdAdCGJZxU24cOVKw7uBGYCllDBOg3O2OFd+M9rG
-	 O2yu68YTV9XhT+dgcW5OsyAuj1OhzmtRrZDGGQRcjB+3MDEN6PkgXlElDFd5zeRCwUE3B
-	 hwYJ6PTpMI1qoD9PtzGVS405frap7dmOLyQDQQyfdWwB+t9W48FrOEhIIS7UsMU+vw4A9
-	 XK0vMDYRkIO33sdmcNgNOOBuHdSEk11fw/zP6fSlar5+9U07Hc1qLuHVn7QNWhWYEpwpl
-	 QN+JWVTuXrsQ3U6Gcq0U9gK2UfeTVuTmL5QlAU8E6ittdVLJAVwgHHtmKhbxbQT9XgA==
+	bh=/rAbfbo0sbqC0IaBa1BlKo2l+kbF0qrFhj597CNVJsw=;
+	b=Lv3M/zpyCU3ppzc9x8eNGThN66THldbsYb77q0qJZzDBqoZdxW6OdSZGnueeOD6yJTSE
+	 OE4o4+tQm2i/s8v7tA0yl0EE4Mz3r9CXLszq2NQBMuErEJWYRfbUvOvvYBbtPV2wCpeil
+	 xnBACAJyEqjaE44GsHnH6djAG2UFrxouFz6E4F3No1xN/6IiD4eKpC2rn+shgscvSrqc5
+	 q4B6LoKEk3l+m254aIPQtlkL9MWMpCdrOrHstmevF9oxrfh5/WC1azDOLofMrEK1v4DI3
+	 PrxgkNRKOLwfDVz5zlP/YQ+dQse5J+scq3GhhBqaTDAcobpb78kFRqKWSKnTwtYOG3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jGdv0HbM;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=TuQNWuUN;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4ABC606A329;
-	Sun,  1 Nov 2026 22:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4ABC606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52451606A33E;
+	Sun,  1 Nov 2026 22:15:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52451606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jGdv0HbM
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=TuQNWuUN
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=cX02P8ZnTabknV6WIxatZgPYI8Lrd5opy+28EBBQ4Ww=; b=jGdv0HbMp5Ar1mmZcemj62b3Bz
-	IqfKVoQq3Y7uOoh4nesoe0YPrEQ8KHBKnCfNpSVz5ieRPsZtJptJdEV4h2VGYfxtO9Edkz+xcmyfU
-	+M6Om0aXubmbUPOtvsbCcGt4ljvkq2uC0kMN2DDwCrJ67/kyV2jzBr6cs3116CJfvJJtrqrkrPD5i
-	lHt5grw/apXIEJQOOD3NmupJs3IetHJnXvhm8kVxsGsN7/EWtu/8CVAaE5xEFSLlpk4F3+0PFrOi+
-	3/Jq6G2F+7NeTrymp7vJggcYEC6MD5MVuc9O5FZBe3aJOA7FICmeTc5Aa8E+dQQn6CWwvNUdeQ8yf
-	R49CAPSA==;
+	bh=/rAbfbo0sbqC0IaBa1BlKo2l+kbF0qrFhj597CNVJsw=; b=TuQNWuUNzCW8lMfyzUY6T/5Ggu
+	P85UjS1z5Ss/B5adnOY+BkFcLgtqEkuf7HHZMLWTX4y2P/WbcaPxvsemvwkdaP53jYKdu/QfWEouM
+	JX8hgVJWbC+Fw1rNnUav7G0IDtgcuNxOPcOQGr6+sCckggx0fIhFNBA0kxioK+rQRMX4wVvaf8apn
+	9mn7nDlVEOo6mZAznz/mCwVrjsJ6WaRTDFLBpDVmXUJfAC0kyCdE/M2rBMw52ZA/RXNtUFEWbFfEr
+	ZXHE785PZrk5SQszDTEgChlVfv9F46qFMnZ5O8xD83qEb2KvwqUeX4puFoKY9ndsTYj3C4Uf38zAe
+	JKwnlxcw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Igor Velkov <iav@iav.lv>
 Cc: Heiko Stuebner <heiko@sntech.de>,
@@ -52,12 +52,12 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
-Date: Sun,  1 Nov 2026 23:15:24 +0100
-Message-ID: <179357131398.4107717.5871351415650721805.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the buzzer to Kobol Helios64
+Date: Sun,  1 Nov 2026 23:15:23 +0100
+Message-ID: <179357131397.4107717.15989067428088831380.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
-References: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+In-Reply-To: <20261010-b4-helios64-beeper-v1-1-6235643158cf@iav.lv>
+References: <20261010-b4-helios64-beeper-v1-1-6235643158cf@iav.lv>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,22 +71,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 09 Oct 2026 03:40:48 +0300, Igor Velkov wrote:
-> Besides the system LEDs, the front panel of Helios64 has a network, a
-> USB and five SATA error LEDs. Each is switched by a MOSFET from a GPIO,
-> active high: NETW_ACT_LED_ON on GPIO0_A4, USB3_ACT_LED_ON on GPIO0_B3
-> and SATA_ERR0 to SATA_ERR4 on GPIO2_A2 to GPIO2_A6. The Kobol wiki
-> gives the colours: activity LEDs are blue, error LEDs are red.
-> 
-> Describe them next to the system LEDs. The panel labels the disks
-> HDD 1 to HDD 5, so the error LEDs are numbered from 1.
-> 
-> [...]
+On Sat, 10 Oct 2026 23:00:16 +0300, Igor Velkov wrote:
+> Helios64 has a 2-pin header, P4, for an external buzzer: pin 1 is 5 V,
+> pin 2 is switched to ground by a MOSFET driven from GPIO4_D3
+> (BUZZER_ON), active high. Describe it as a gpio-beeper.
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
-      commit: f78fc7aca073241b9d477bc0190ac02f3242e45d
+[1/1] arm64: dts: rockchip: Add the buzzer to Kobol Helios64
+      commit: 1f8c17240e23a37072793267cbb64587f24d4f2f
 
 Best regards,
 -- 
