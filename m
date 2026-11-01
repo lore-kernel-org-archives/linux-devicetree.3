@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571415;
-	b=2PQGZuyVL0gNItwxQIK6CTXYw0+MryyPL+YGOPBAGNmewga9BEr7ndLWgi+ij0+O2SCR
-	 eJSx2CJ9UfShBqLLs6WyLJcftHRnCXq3BEXuhjBg5uposw+/J6gPdcjI05xb7KrB2nHnt
-	 uAQ350rlSQBJCEzVxBoPIFsOurHwnRHm0CkD/m5P5eHpHJyALgA/SGAdhBNbOUlV4upVQ
-	 nPrvfl3g1llxRdlTWNjrSQwJ2CFVXZIX52JqxwqPsaZkngkGQrkzhG/wVpJgjC0VW14xh
-	 Ppjqp+SgisfxVf8PlDaFQMrmsWaIHDYJSz8xV5cE2pULJjNvwkRT9xyvlMGe8YwtExw==
+	t=1793571437;
+	b=UfqzCGMarXV1qhzK/6afm2YhcA14JEma5T3W6lj73EJpIh395k6pSGKrkvHMOsJECab3
+	 YPtQfNaA4DejtwymwQdlNDlBnSw5efFNW2Vgw82LLrJTvfcvjTc9+NlxcTPMOLI4e95VL
+	 YPcvKnZbZLGOwI1RPiQwuQKPt092Be1JKRQQslBQXTLYqScy3OvEdGZcJ896bBi2rJ/X3
+	 X34drF1hT12duqGbn1uag1ZkkY5xJixXZW51uDBYfOu+WknX/oTGszkFo1Lr2bbNcEDWF
+	 0x0JVVRe6/hQ7IatFnuTi+hNVMhd2LawYwSbJVcR/q8PzF4BvLuz2L0TVt/7owaTs3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571415;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571437;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=HltbMUNV2mL7CmzUNbC48/jDW0dqtweL2/SgQbNH2V0=;
-	b=Cmt5OoIthRbEx7XnF+GpVJx+77kjPMSilsyAqBvhiEUCfUsx7KWyQx9rPiv8IpkDSC3D
-	 oGZbS5Q2yMRMbeBp7BfNGuj3qKwJJJgo0vKPu5ywiWXRlMhIWKzfSEyBaTlU+NxX+AXLt
-	 TN6O1mxSR5gTwQbEgsoX18CH2eqoBqdd5I8aAVtD3EPpMrZbx2VJkQptVfK46mVU/p5bk
-	 +Hhnw1fGZ6SpiUSIHh9xP7tsXZkF4Q5ab/izdN95gDKUcOsPIojsROGp4M8Hy74k0iIbA
-	 gl0mHEdWcRlQ/99MroKi2Q6YQUoaVPfGPcGf34rsD2OwdL4RcHxI5VtLmzLTa45fkHQ==
+	bh=V96lGwQwQmY9ownZq1Q75CdhNhmGv+8yLE3JYgrASiM=;
+	b=q8yFGFcJvrm5twyQ4QfpaZ7glKWtpNPGIC/Vxxh70RBplLVl69whZNZixDmEELpEBzzw
+	 iglGGKCQitGHa04SuF2Ed529w9496Ryd4n/KUfWH9vZ4psVCrtezEpu3pUEkt2k7EE7ny
+	 jvaFEZX81bcRs/6Tyq+WW5A0Xhh+aOzW1R4L0+4YRb7jUCa7HEZCIrFmNZEYOWP2U8nmn
+	 yLxAWQcINIZVW/o5+CcEIbYamMJ2gndnCwYqApRK7tSbJWnyEfci4lux2a4E9M4eBXYd7
+	 da6YTOIjleCl+v1xWfuxET1PPZvxNQ9PoCORdk1xK/exLN7dp/gpH+G+1NLsT9Og+Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sw2wvSa9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlwVJc2S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D406072B07;
-	Sun,  1 Nov 2026 22:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAE46075772;
+	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sw2wvSa9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BBD1F00A1A;
-	Sun,  1 Nov 2026 22:16:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlwVJc2S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159F41F00A16;
+	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571414;
-	bh=HltbMUNV2mL7CmzUNbC48/jDW0dqtweL2/SgQbNH2V0=;
+	s=k20260515; t=1793571437;
+	bh=V96lGwQwQmY9ownZq1Q75CdhNhmGv+8yLE3JYgrASiM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Sw2wvSa9SHk+5nIAcZtroRIwKn3V8PzpfgbTLlVEV2B7Xsn//R4odyY0lpJuvkfxl
-	 NUZRIwvOhsHBhiPm4aKwcK/KKj3SJoyTiRkThQXKWOCyMxiNH0czjnItiMBrcqFga7
-	 uuczREcVU5lBB+gyieVoJQUbYjoYHae2v3rLcILiOpCvWoFXuRaWQn0K5Q/kHvzBTZ
-	 7pABNP2hcIomqaTsjurf04sAXjbEbAJtS5ik2OrgzBtbk8OsoUZ/jXIyzmR7cCJIyQ
-	 383vUSbItJnXYvFwIhgBanuA94ScjhOdY/FSt2V66ReLpmbDYJ9lM4+t4c4cA36L5q
-	 FvbztgSLAHKsQ==
+	b=MlwVJc2SRLjk+rxKbOxp9tf4nzhdr9onLCTP2HLl5zTBQOiHXXA+GFydsaVMi5W2P
+	 JBZ9w3HOiskfEd0RqvW648TC4LTAeoRnr0gN4lhW7JYZeWbfVgixO8rsWkmt0+uR0S
+	 42G/D31sR+AI/6oma4rKjzuzBBq7YlpMKLd+zsNWQOpTXInxWl7KUOocRV68W4z5Fj
+	 Wc8Qmp1gzoTlRBHnlRH4v7Yz8t/h83QJ0jDrpStFmCn7YAiNBOjP9GLbBBLQlVHpzx
+	 ySzfZvJMC/w9DkTPvDwFbRM3Om4djHzgDuXhzm+inIjR+kpvU3S9cawnQfclA3HsdR
+	 yHNmymPDOy74g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA53838003B8;
-	Sun,  1 Nov 2026 22:16:54 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0B96A38003B8;
+	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,63 +54,42 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 00/10] riscv: Add device tree support for UltraRISC
- DP1000
+Subject: Re: [PATCH v2] riscv: dts: spacemit: set console baud rate on
+ OrangePi
+ RV2
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357141329.2624073.10814218023350815293.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:53 +0000
-References: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
-In-Reply-To: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
-To: Jia Wang <wangjia@ultrarisc.com>
+ <179357143579.2624073.15759180385936074030.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:17:15 +0000
+References: <20260929120227.1791356-1-jberring@redhat.com>
+In-Reply-To: <20260929120227.1791356-1-jberring@redhat.com>
+To: Jennifer Berringer <jberring@redhat.com>
 Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, daniel.lezcano@kernel.org,
- tglx@kernel.org, samuel.holland@sifive.com, anup@brainfault.org,
- broonie@kernel.org, andi.shyti@kernel.org, mika.westerberg@linux.intel.com,
- Eugeniy.Paltsev@synopsys.com, vkoul@kernel.org, Frank.Li@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- paul.walmsley@sifive.com, palmer@sifive.com, conor@kernel.org,
- linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org,
- dmaengine@vger.kernel.org, conor.dooley@microchip.com
+ conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, hendrik.hamerlinck@hammernet.be,
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, legoll@online.fr
 
 Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Vinod Koul <vkoul@kernel.org>:
+This patch was applied to riscv/linux.git (fixes)
+by Yixun Lan <dlan@kernel.org>:
 
-On Mon, 07 Sep 2026 17:54:39 +0800 you wrote:
-> Add Devicetree support for the UltraRISC DP1000 RISC-V SoC and two
-> DP1000-based motherboards: Shenzhen Rongda M0 and Milk-V Titan.
+On Tue, 29 Sep 2026 08:02:27 -0400 you wrote:
+> Set the baud rate to 115200, matching what is used by U-Boot on this
+> platform so that the console is usable even when console options are not
+> specified in cmdline.
 > 
-> DP1000 integrates eight UltraRISC CP100 CPU cores.  The SoC description
-> includes the CPU and cache topology, CLINT, PLIC, clock controller,
-> pinctrl, GPIO, four UARTs, two SPI controllers, four I2C controllers,
-> three PCIe root complexes, GMAC, and the DMA controller.
+> Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board device tree")
+> Tested-by: Vincent Legoll <legoll@online.fr>
+> Reviewed-by: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: Jennifer Berringer <jberring@redhat.com>
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2,01/10] dt-bindings: vendor-prefixes: Add shenrongda
-    (no matching commit)
-  - [v2,02/10] dt-bindings: riscv: cpus: Add UltraRISC CP100 compatible
-    (no matching commit)
-  - [v2,03/10] dt-bindings: riscv: Add UltraRISC DP1000 board compatibles
-    (no matching commit)
-  - [v2,04/10] dt-bindings: timer: Add UltraRISC DP1000 CLINT
-    (no matching commit)
-  - [v2,05/10] spi: dt-bindings: snps,dw-apb-ssi: Add compatible for UltraRISC DP1000 SoC
-    (no matching commit)
-  - [v2,06/10] dt-bindings: i2c: dw: Add compatible for UltraRISC DP1000 SoC
-    https://git.kernel.org/riscv/c/3d067add1281
-  - [v2,07/10] dt-bindings: dma: snps,dw-axi-dmac: Add UltraRISC DP1000 compatible
-    https://git.kernel.org/riscv/c/58a66a560aa1
-  - [v2,08/10] riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
-    (no matching commit)
-  - [v2,09/10] riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board device tree
-    (no matching commit)
-  - [v2,10/10] riscv: dts: ultrarisc: Add Milk-V Titan board device tree
-    (no matching commit)
+  - [v2] riscv: dts: spacemit: set console baud rate on OrangePi RV2
+    https://git.kernel.org/riscv/c/789eed2d8bfa
 
 You are awesome, thank you!
 -- 
