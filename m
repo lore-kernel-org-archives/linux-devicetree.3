@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571370;
-	b=wwvtjfNGgpqhxjxIGnw3RugFlRbaLa4S2bRFsn860x1eg0D3ymB4TlU2g3jjZPp7rPXz
-	 1EiSvDUmuUJ5Ne6M+yu0rgi3uZie7ej9LfLHWf/mg5Qxdn0E/YE0aHASo92fP/zv83ysA
-	 oc9b5S1jEDvL9P7xWt4N0eAFQ3YQvvgqtXUYGJy4j/n0s9d5LwFMPzqmQBXG5+SGQhsuz
-	 vjfRy4wnJ3B1SA47nEbb/xKFnmsmlvA4Q/v0e15jBIVtDJJYAHj9iBsFu67xz34lTfmjf
-	 n1+2NnjJuHCoXrwkLjfcD/fUmiu/xmXMMr0h8sOkR2/x+FR457qEotIBhjLZCVL9F0g==
+	t=1793571376;
+	b=WJyEdeA8/oc9mzbuYY9NuGNvGWLcawR6xVZuYBlGTHCUWcK1EuxJ1x5x2/djiNnPlfEO
+	 EH6JMG8+OptuLutObuyT7oaVs0cnlkU/R4v+vl5etQ+twHkIYXahmfiL/HmyIX5Ydi1u7
+	 UelFCQnf0QEEIN8tqDycuRycvNlRNk84aO+M4Emt3mES2aabG2SnazHyIUYXTOYZuI5Pk
+	 kXjnpUwdnvAbglnyqHNuHUxNm3piXqAUv2e3E9CEtUBLqBt/6mlqQDp7qM7rHOFyUpI6w
+	 eHOLiAk6aLX9DGsskqdeH0pfFYl1A5rAvT2C+TuMbU3Kfkowq92TMqS9DIHDfC8ls7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571376;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=FrrB0roc1oSA1dp/45kSSfoFg28Ifiyl/SVkMu1uAs8=;
-	b=hZJDu89CXUlbcDO/f5B8mx6pEymLg0uTIYgMlnoMDh63AwQvXTUpMK+utyiwTrjEK0cM
-	 9beettLsRCN/6B4t11hWL//W09ytlHQDcxhAE9T9XwMDexOP8YLVzEkWxV2/BL6eP+pzK
-	 7ZVlMDCtNrtdDKHp2PgZTYI0n3L/YXYo31nzOiqsaC7l4Hrq8StCIh7alAz83xVt8Ko2d
-	 Qh3z6OvOuHUi9+3W8XFmnHLVjASej9q5AAKNhLIjSFJb8SD1DORMsRskp8xs/CFioHxoo
-	 vXJXuWs4mo+xBkdIu7g707ejKSblzI+pUNvY7wkT4WKIdgqJIs0+uPFSMiAyHkTfFLQ==
+	bh=pqV79QmChFOf3bbPGI4+7921MVE85dKKWV9jL57f3sM=;
+	b=obeYWEINmYD/ogNxPzrWPKxscJzMt/B9tERFaQWT6t5g0s9OgOmW4lvW1++jLTiEmWDI
+	 MMCe2LVMj4rku7zv/WJQziaq/5XT1IfvLiC/vxRjIpBEVYW7q8I7jObodaivpfYqg54LU
+	 RtetPHliaxy9oLj8iL3WNbQViRq8GS2dxYQlkk10tOrq6Qypv8l0W/Ve4Ya2iEr9fGkWQ
+	 gAXEqJh3L4xImKdJIWDVuqBHMql6oNsEFndtJhv3ggS6xSDZFe68LG2oNgpdun0uO/S2a
+	 3qbbF+LtyHyvQjwevqngxCt4/CUJYci5JVio/IMfIydPQGPJbI0oTd26H1YUdqC01kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVS0HPuC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0LOEbRv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CA860A2630;
-	Sun,  1 Nov 2026 22:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAD360A6F77;
+	Sun,  1 Nov 2026 22:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVS0HPuC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85AE61F0093A;
-	Sun,  1 Nov 2026 22:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0LOEbRv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8632D1F00A1D;
+	Sun,  1 Nov 2026 22:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571369;
-	bh=FrrB0roc1oSA1dp/45kSSfoFg28Ifiyl/SVkMu1uAs8=;
+	s=k20260515; t=1793571375;
+	bh=pqV79QmChFOf3bbPGI4+7921MVE85dKKWV9jL57f3sM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lVS0HPuChtOSonktA1xifZwoIv4if9F4XQhhuGT/g4YMUcn+hrR2WWlPxIDRD5LAa
-	 3Xax/qmzqJ0HxPHRgNhzpCgYKZvNpoE0u1R/Ea8OEJltF8fUoGN5ov9nYh7Gq5VyJI
-	 Zq2e5PL+kio75M2BKkIigt77eWzy/TpjITkkdc3N1ImA9Y9rdNFpgRlVVoVcU9hTc6
-	 uGg98+0CjOGI1iuhaWBVd9E4WMHR5sDAoJgBue+Vx585LLkSVSpgQxNwB5mTObGYR6
-	 GMLWyll+JB8/ygVe6KBDhjjAVCv6HT80dnGvjBnr9Xp+RCL8K0jQap6yRgCQosYn4w
-	 tbOpC9WxvqZ+A==
+	b=P0LOEbRvwTcNBUSW901O5u0IbTsFAS0u7tlHAilX4zpQhlj7rov3kTzRYxOrtXJkq
+	 +kLlB6UyHSdCxIZGfBJQPBLWPHsIw97WryXY4R57r+FehjA0yUzJg9yHCqGZu5/j7u
+	 qF/Ye8qIspqZju8mEmIBaczCeiWVktuLMbCu4tTlypu/S5LEtFoYvRsLOGiwJOxDK2
+	 fhKyBYx4IL+DOEPxJrlBKp6SmfV9nsobQTiRrZDMrgZQPiFYfY0ahvxyOCsHSIIgxn
+	 7zGTWtOhm+EOfESSKUksCnsHptg+CLBeRTvGHiV3Lmw6GrMNWHipG3V8ozR5jeBUhV
+	 pcMZBgzINShfQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D33C38003B8;
-	Sun,  1 Nov 2026 22:16:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D49838003B8;
+	Sun,  1 Nov 2026 22:16:15 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,43 +54,42 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 0/3] Add RISC-V RPMI device power service support
+Subject: Re: [PATCH 0/2] Do not reserve memory for coprocessor FW
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357136804.2624073.16073798637775674384.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:08 +0000
-References: <20260903092347.620060-1-joshua.yeong@starfivetech.com>
-In-Reply-To: <20260903092347.620060-1-joshua.yeong@starfivetech.com>
-To: Joshua Yeong <Joshua.Yeong@starfivetech.com>
-Cc: linux-riscv@lists.infradead.org, rahul@summations.net,
- anup@brainfault.org, lftan.linux@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- joshua.yeong@starfivetech.com, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ <179357137404.2624073.6489638020939885844.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:14 +0000
+References: 
+ <20260921-sophgo-remove-coprocessor-node-v1-0-ace29446b327@gmail.com>
+In-Reply-To: 
+ <20260921-sophgo-remove-coprocessor-node-v1-0-ace29446b327@gmail.com>
+To: Andrei Lalaev <andrey.lalaev@gmail.com>
+Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, chen.wang@linux.dev, inochiama@gmail.com,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ me@ziyao.cc, devicetree@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
 This series was applied to riscv/linux.git (fixes)
-by Ulf Hansson <ulfh@kernel.org>:
+by Inochi Amaoto <inochiama@gmail.com>:
 
-On Thu,  3 Sep 2026 17:23:44 +0800 you wrote:
-> The RISC-V Platform Management Interface (RPMI) specification defines a
-> modular and extensible messaging protocol between the supervisor software
-> and a platform microcontroller (PuC). Among the service groups it defines
-> is the device power service group (service group ID 0x00009), which allows
-> the supervisor to enumerate the power domains of platform devices managed
-> by the PuC, query their attributes, and get/set their power state.
+On Mon, 21 Sep 2026 17:08:58 +0200 you wrote:
+> Milk-V Duo and Duo-256M reserve a region for coprocessor FW at
+> the end of RAM. It is not correct because:
+>   - FSBL can be configured to load FW into a different region
+>   - if no firmware is loaded, the reserved memory is wasted
+> 
+> As explained in [1, 2], FSBL should reserve the region at runtime.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v3,1/3] dt-bindings: power: Add RPMI device power service
-    https://git.kernel.org/riscv/c/53d17430e0ef
-  - [v3,2/3] pmdomain: riscv: Add RPMI device power service
-    https://git.kernel.org/riscv/c/f94fe707c5b7
-  - [v3,3/3] MAINTAINERS: Add RISC-V RPMI device power driver
-    https://git.kernel.org/riscv/c/396a18344d12
+  - [1/2] riscv: dts: sophgo: cv1800b-milkv-duo: drop reserved memory node
+    https://git.kernel.org/riscv/c/6645398c4621
+  - [2/2] riscv: dts: sophgo: sg2002-milkv-duo256m: drop reserved memory node
+    https://git.kernel.org/riscv/c/60e4cafd3090
 
 You are awesome, thank you!
 -- 
