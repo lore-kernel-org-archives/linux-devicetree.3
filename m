@@ -1,105 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570655;
-	b=AQaEDFdCMZI9MYrqK7HjF1GZrkSLSZni++uJtSCGFMspaTyRqNr4wN9lfMyyCIgWw0yY
-	 jdrmOLuxdrRNSRYtmN9SEGJLr5LriamHr+41Y8W/7wA0aATgHgLoGgeHpOyPhZm2yqndr
-	 JPIXqZ5CY8RiW2phsGfqWeJke1J9XIFn/ARd5/wM/wjaC57oJW1o3Xad+zPiC0SHtslvV
-	 A3zvbW5v0WShej4gdwPBO6bYsJgSmKfyyObtu8wCW8K+xUnhk5YaSdAvRfSBgImnhSXbs
-	 yRQfWsHpJzZLiQVnNAEZ9Xe5ibGFpRH6EOdnPR9o7sk4FUwdllZShbDSgDM8bN2AuCw==
+	t=1793570696;
+	b=fvGNNKRnOBrx3cfJWKIXOrq+it2FiADV3M0tXSe+LyHCXv4mEF2PW5eU4y0HHCH6Az0D
+	 lrY2U3amXh7uo4lZGn1FEA6WuZEEkBWC2NqTnubuiXP39imdGm7ZK3bu84nKnUgASHbld
+	 QvauIBL204Qoi8yjYUHgnCEiJKt8098m43biZAqzKmEqfdJ1TnIqAz5nwtOavDXb7t0EF
+	 AF2hwvQtsK7kGff8TvUUkOuwyQDzmRX+cBTqtjNc2FamuEANpgfe+LYwqIvZvq1vF/thL
+	 Qr3mJ63ULJFAsoIhNBtJKVbqolSzkjel4iLP36hP6xNjwLAoNvkaj7gI7zxvAxcx41g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793570696;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=u/145CDVWnSJfN35X0zXnJT74cKgFPtu8mDao0tz02g=;
-	b=tuq/UDKwf5kFErDuhWx3gctVHHxqNHFiP5bDQo05ILmAqxTgJrRpeFP5O8zhelMWjg54
-	 gAq1Oil7jKbOWQqFXi1h7iOLfwiWKCW1OpWvmdfhq81jTsyk0Pq0vLuHLMi6v/jsDvTl6
-	 0ifgpMo9ebOhXpwLYaS006ddcHtVIhf3rPWQ6/kg/UHqq3b3arTCPMcSkw8PEeZH+800n
-	 YAkS8r7pA4ke64Bdn8INIYf1j84s64757JOBOmVvEuXCuH6Hv6JzUdoUhC8EhWpVXuAqh
-	 GJxQq1Wn0JE5zQirJt/+yXITuqECDArdh1vOS3N4D87zDJGNUVEhgw621gNh2ibmPKw==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GfITPaw+ci0cbhGP7Wv2b7wNe84LbJlDz+5I1hOer3Q=;
+	b=CG4LtW98kRgPG0aFi2nrmFqwBToWmO8y/rgxTY+aWJaLI4bUP4CooVrhPL3Bhncg3A7n
+	 mRCNwbyuqdyHUn9tXlfvrXKRF2+I4qukrTY1CjfQsPnyp47pU8Ad6zAxPPLPd/68lj1J2
+	 BqG/aqoajjIP1qH7LPOF91R5Gbr0A7+bHUCy38jYWmMeIoRuCTADpuoYQs2Hj0FmSE+dn
+	 ns4wa0RqW/Kn0d68rJPBLzhKNl8IhXbh+oYaVmGAua7df0bQN9WguJYzlB+sTIwoSFbMo
+	 06TyRIzjtcav5a4hrsuaz08i7d7BS69LjbuM9lciy0ZfyBVPeFSZKs6hhp5qxIFDaew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="P/DA+njm";
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Yd3huhSl;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D679606A336
-	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:04:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D679606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5593606A327
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:04:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5593606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=P/DA+njm
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1adbf62dd31so2377508c88.0
-        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:04:05 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Yd3huhSl
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4395d31228so362426366b.1
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:04:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793570645; x=1794175445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u/145CDVWnSJfN35X0zXnJT74cKgFPtu8mDao0tz02g=;
-        b=P/DA+njmpiKJpxZfnJ0Rd/BmzXli8q/vgz64+53jD0j9VxErVOZyOQE+B1Hblky13U
-         o4BRKTVyAFdHi+FKemHAa2rEUEkfrk92RO9TZ7+JvuF04lD3QOAlAeFzpNn5DfDtRJbf
-         MjSv40RHu9RhIz6syUL0jqzilgb9ycS3guVdU=
+        d=chromium.org; s=google; t=1793570694; x=1794175494; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GfITPaw+ci0cbhGP7Wv2b7wNe84LbJlDz+5I1hOer3Q=;
+        b=Yd3huhSlSrbDKLcIy7yrALQ9CIa07BTK5t0USLjcsXeiris5wjP4WzWFOL3o6Fr/UB
+         ADcf5s1CRO2zpFn2R4LQpkOa9yZEPURcyc0bfRlPdsbdcEHWbAUpOoFUcHIJTu/icUTE
+         +8vTUomaGxZIlaAkKvVckE6Di2U/UVXIzHDKo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793570645; x=1794175445;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u/145CDVWnSJfN35X0zXnJT74cKgFPtu8mDao0tz02g=;
-        b=RbWvQSqf7tMShRpy4iDZk0pjOuAEGXUybASDNn6e+AiQtMgrZsR0Mfjt7FP86vRZCM
-         zSHOlH4NjqUE47B7CWJsYZbRZMqUTcmCFX9/r2uU2WO3TEQHlQlH5FPzghJydYlgMOkf
-         67VDHTbq1Pt49ZXwvXVIZ0F65MNWGiBzpd6DoJVDyaqDOwT3o1WyAFh8xNO5l2YsYHPa
-         9lbinLXePI2YifvJ/mQ82M1gq/6c3aOC7KY7u2QXeOrFn/Ad9JvAsW2GwRAdhBG/XWpR
-         8JYcNUosLt6wHpzFe+g2LEl7ic2TVwAg7sMT5aAVYmxk12zmxDhx9+ko1BdOQ1RDzV3K
-         5/Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBzacxE7kCYbOXaJg8rzrJb3MwSW6BfoCSzva6YoJEaRCKZPzaPucAI8r4PkHUuU+4VR//0NBwBTcn4V@vger.kernel.org
-X-Gm-Message-State: AFq9FYLK+b8TytkMSdOaNXVYcP+wLfCGvXobzqhyxf6rR9IAySvK3z63
-	+16Q3jSW0b4GlAtdom8zTZLYqXghFlxsza3AIidRQFP+pAYJwxtII/1B/5aTFJzokg==
-X-Gm-Gg: AYBFou1rRrdbYd1Iy5qXcYZEXaKCsT/Y+yU19VXvl9XMPAIFKR6q2ZcW7wfHOrYmjsD
-	IMw2ibFw0sPoi7cWtRxWmHE2piaMeXP+E+75ACHj/QQp1neMUn60TWl3BQCnewCwrQI8GcFqpEw
-	0DH9y4lOzvC/teInenoui+ziA1je0uOiMBUlTXtZR7JxUP1R/zrKaCjK8oIJJ5nGgpsfj/IO5tE
-	UUAvZlQUnuP92kgUlMdBmxa1kwtq5gXBPBZvzrRc0stP+X3Xj08Ci2+dyvAt5NfcFQX/OLH2LIw
-	FR2gV2AXarhiNklElg/Q3XQSFts4NFDy1r1CjVDhjPZeW312Qyai6cEh1hkei5KDzvJTzKh3kWg
-	uATK3oMikovAohtqrVEqzBC4ikMNOAx+CY3+P3A5NZ2YiOFduQExIH2unzm7/Xdqn/Fywsy4lGb
-	Sw61TNJo85FCPRFcN0YjS+LFFqOOvpf0wrsNVqA5ZSsHf41dCtR9y1qFs0gMEhVhN10MTSB6jPX
-	+rkcf+0PM8rg0T0IfI1J8Ju5zW+2xUVOPKfLOaD8ky82cWPvxxx8vG47IGsIKXHVWXZ3AZUnmD0
-	uCUdYGD//2W4zTktBZVIsPgzL9aiUZVHif1S5kN+BBt5W4uup6xdHrczHB2XUx28Ctc5oftQk3g
-	OyQLTUI2vRtXZTKg=
-X-Received: by 2002:a05:7022:ed09:b0:159:aa67:28c1 with SMTP id a92af1059eb24-1ac5c92da58mr12112109c88.20.1793570644771;
-        Sun, 01 Nov 2026 14:04:04 -0800 (PST)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:cbd8:5ca8:653a:11f9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.04.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:04:04 -0800 (PST)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Devicetree@vger.kernel.org,
-	Simon Glass <sjg@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Brian Norris <briannorris@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v3 14/15] fdtfactor: Support compressed DTB inputs and outputs
-Date: Sun,  1 Nov 2026 14:01:21 -0800
-Message-ID: <20261101220224.1436242-15-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-In-Reply-To: <20261101220224.1436242-1-dianders@chromium.org>
-References: <20261101220224.1436242-1-dianders@chromium.org>
+        d=1e100.net; s=20260707; t=1793570694; x=1794175494;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GfITPaw+ci0cbhGP7Wv2b7wNe84LbJlDz+5I1hOer3Q=;
+        b=0a2gx39odazC1U3VZX4V1yxiwJUXDVPbcgZ5RMGGtuDqDNVhCaSPjKHCdsdbbj5P2t
+         tYWZmXjzn0t2n2yu/CxSidE9fN0TkFmXKrmjuHqBO587cp5Xah5xpuQOD24vUW1ZYlld
+         /+GvUXWvUtuiTUHaIWf/Nh8JzMjzdjM7D75yB4Q1HiliA4AXZV+hB8jMKdwAo9IwBEdh
+         xZ2wu3g/zmd3KT4XZusUOf0q31fnOuoLi//MToKKLhGeaxTOHoFvVn16UTZpIcIIQnT9
+         +t8bAuo+Hr3s44ERsGX9n7VUwoq0GED8sZwmtrASO/Mi+OTHnUSNLWFizFWO5pIbEMd8
+         +zXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSFzQzC+il3Poh+sL9Yhn/RvDeYO1LPescF1CKpTxpfZr6DrVxa77tNZxQP1Qll904k5cGJOgbOArX@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhPs5qM/K3R6BsFiwAIV+su51MnbkYI3FOT8KQg42dphg+6RWv
+	VEAq/ANYrf9wgPsGquHtht/47b4cRBw72h7hy8zmLq6wHCW/u3dPp95g0mNhlSN1qeMu7wVW0GW
+	/VggdJ0VO
+X-Gm-Gg: AYBFou0SaGXkTfG/yT2JkdV4fSj4EoSwnMmoTYNRnQVFmn+m+xso0Q04mef97ddvioz
+	e/xuqvCOQScehxFPNMDIY2jKfRDx7m337H3gTdV3n17UyZfkpXZWyob3UEjsp/saTLpc4Ig9EQm
+	wvW4KepLfBgdVTWLjYJp5NS5aSJyeRh3HFaxExO4D9z5zHgOSz1U0lloNpBo60Ikehd/U2qokvO
+	3iakBO3/gOzOEQID4+1a9mj2BbUcqCV5ri49jcbwVyyOoJVJm5iKbykJeszg+dmgQrmEZO6yAb1
+	mtZ/zzaAjOJYy6hQPpjKuZZqK/boPZz8E77S/nciixLhTKqTsrfqJm2kLfthjAkvlQgFSCO3fpr
+	3/UpaXNElLMbFdIwQEHYrucgP6knUa0VMS9mSAgaTPVe0fywUt6lAeLZfGRdMYCGHEQjXD9h3Ct
+	8wgSnUVZbb2eVWcYMptGuP7BBdk31x9fnXGZ4kv/mCM5cOGpfZxOqRTx2uCUSdGKv8SM7OIpD7D
+	ykWUNmMl/KtDZ9prAN3dj9Ptww/U2rnQdb41PxDFCyzsal7UQIqjscJT1ndoRFchTVzd+NSxcV8
+	KqvviuSZLKJTwm38xOYxr9FW4rgimjKWj3ETV2oA3Nv8lDMdckeeajleIu93EgC3BJlXK65IxeA
+	QrI/5yaass+kD
+X-Received: by 2002:a17:907:6d21:b0:c2a:fcb7:62f2 with SMTP id a640c23a62f3a-c4ca7a4e848mr705961166b.19.1793570694091;
+        Sun, 01 Nov 2026 14:04:54 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com. [209.85.128.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe4aa12sm313286866b.52.2026.11.01.14.04.52
+        for <Devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 14:04:52 -0800 (PST)
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso15439085e9.1
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:04:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwvUChPSdnOjfg+VXs2jpVW97TIsQ3UMDTsqEL26e1/9A6pRnAJlKwDy6Q1uKV2I88+RoybTmHMR5Kl@vger.kernel.org
+X-Received: by 2002:a05:600c:848c:b0:4a5:dc5d:20f7 with SMTP id
+ 5b1f17b1804b1-4ac175669d8mr216663905e9.14.1793570692011; Sun, 01 Nov 2026
+ 14:04:52 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,647 +95,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-4-dianders@chromium.org> <auQjnZ6rd4wqoORz@gractus.seuss>
+In-Reply-To: <auQjnZ6rd4wqoORz@gractus.seuss>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sun, 1 Nov 2026 14:04:39 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=VnZH+bBom69RSVT8kfuP-XO_6mVArUQ=ORJagN3m9QTw@mail.gmail.com>
+X-Gm-Features: AclHuK_fDlaJvBpebQfnxbn9UYLGLnZlO-sk2Sumr6YeHeQumNhOKE78u883L_8
+Message-ID: <CAD=FV=VnZH+bBom69RSVT8kfuP-XO_6mVArUQ=ORJagN3m9QTw@mail.gmail.com>
+Subject: Re: [PATCH v2 03/10] pylibfdt: Add NodeTree live tree representation
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-kernel@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Firmware and FIT build pipelines frequently store device tree blobs
-compressed with LZ4, LZMA/XZ, or gzip (e.g., `.dtb.lz4`).
+Hi David,
 
-Extend `fdtfactor` to detect compressed input blobs by magic bytes or
-file extension, transparently decompress them before factoring, and
-compress the resulting `.dtbo` and `base.dtb` outputs when appropriate:
+On Thu, Oct 29, 2026 at 8:55=E2=80=AFPM David Gibson
+<david@gibson.dropbear.id.au> wrote:
+>
+> On Wed, Oct 28, 2026 at 02:55:53PM -0700, Douglas Anderson wrote:
+> > Add a `NodeTree` class to `pylibfdt` to provide an in-memory live tree
+> > representation of a devicetree node and its subtree.
+> >
+> > While `FdtRo` / `Fdt` / `FdtSw` operate on flat binary blobs by node an=
+d
+> > property offsets, tools that inspect, compare, or transform whole devic=
+e
+> > trees are much simpler when manipulating a Python tree of nodes and
+> > properties.
+> >
+> > `NodeTree` provides:
+> > - `NodeTree.unflatten(fdt, offset=3D0)` and `tree.flatten(...)` to conv=
+ert
+> >   between `FdtRo` blobs and `NodeTree` hierarchies.
+> > - `get_node(path)`, `create_path(path)`, and `walk(path=3D'')` for path
+> >   navigation and pre-order traversal.
+> > - Typed property getters and setters (`get_str()`, `set_str()`,
+> >   `get_stringlist()`, `set_stringlist()`, `get_u32()`, `set_u32()`,
+> >   `get_u32_list()`, `set_u32_list()`).
+> >
+> > Also fix `Property.as_str()` and `Property.as_stringlist()` when called
+> > on an empty `b''` property so `as_str()` raises `ValueError` instead of
+> > `IndexError` and `as_stringlist()` returns `[]`.
+>
+> Thanks for splitting this out as suggested.  However, on
+> consideration, I don't think it really belongs in pylibfdt: the "f" in
+> there refers to "flattened" and this is, explicitly, a non-flattened
+> data structure.  I have sometimes thought about adding a library for
+> handling non-flattened trees, although I wasn't thinking something
+> Python specific.  I think for now let's move this to its own Python
+> file / module.
 
-- Support `.lz4` (including legacy `-l` frames via the `lz4` CLI),
-  `.lzma`/`.xz` (via Python's `lzma` module, using `CHECK_CRC32` for XZ
-  compatibility with kernel/bootloader decompressors), and `.gz` (via
-  Python's `gzip` module).
-- Preserve the input compression format on generated `.dtbo` files and
-  compress `base.dtb` according to `--base-compression` (which defaults
-  to `auto`, auto-detecting from `--output-base-dtb`'s filename
-  extension such as `--output-base-dtb base.dtb.lz4`).
-- Report compressed size savings alongside uncompressed savings when
-  `-s`/`--stats` is specified.
+Done. I've moved it out of `pylibfdt/libfdt.i` into its own `devicetree.py`
+module.
 
-On the 47 Qualcomm SC7180 Trogdor Chromebook `.dtb.lz4` files,
-`fdtfactor -S` reduces total LZ4-compressed size from 1.71 MB to 213 KB
-(87.5% savings).
 
-Reviewed-by: Simon Glass <sjg@chromium.org>
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
+> > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+> > index 09fa5fb9ef3c..874a03a3c749 100644
+> > --- a/pylibfdt/libfdt.i
+> > +++ b/pylibfdt/libfdt.i
+> > @@ -929,14 +929,16 @@ class Property(bytearray):
+> >
+> >      def as_str(self):
+> >          """Unicode is supported by decoding from UTF-8"""
+> > -        if self[-1] !=3D 0:
+> > +        if not self or self[-1] !=3D 0:
+> >              raise ValueError('Property lacks nul termination')
+> >          if 0 in self[:-1]:
+> >              raise ValueError('Property contains embedded nul character=
+s')
+> >          return self[:-1].decode('utf-8')
+> >
+> >      def as_stringlist(self):
+> >          """Unicode is supported by decoding from UTF-8"""
+> > +        if not self:
+> > +            return []
+> >          if self[-1] !=3D 0:
+> >              raise ValueError('Property lacks nul termination')
+> >          parts =3D self[:-1].split(b'\x00')
+>
+> The two hunks above are good fixes, but unrelated to the bulk of the
+> patch.
 
-Changes in v3:
-- Update for -b/--base-dtb rename to --output-base-dtb (David Gibson)
+Split out into a separate patch ("pylibfdt: Handle empty properties in
+as_str() and as_stringlist()") with direct unit tests for `Property`.
 
-Changes in v2:
-- Add --base-compression to explicitly control base.dtb compression
-  while documenting auto-detection from --base-dtb's filename suffix
-  (David Gibson)
-- Support legacy LZ4 frames (lz4 -l) and use CRC32 check for XZ outputs
-  (Simon Glass)
 
- README.md            |  17 ++-
- fdtfactor            | 318 +++++++++++++++++++++++++++++++++++++++----
- tests/Makefile.tests |   5 +-
- tests/run_tests.sh   |  82 ++++++++++-
- 4 files changed, 391 insertions(+), 31 deletions(-)
+> > @@ -1214,6 +1216,261 @@ class NodeAdder():
+> >          self._fdt.end_node()
+> >
+> >
+> > +class NodeTree:
+>
+> Maybe class DeviceTree?  The "node" doesn't really add any useful
+> information.
 
-diff --git a/README.md b/README.md
-index bb6f041e1e78..a3d1ad8c58f3 100644
---- a/README.md
-+++ b/README.md
-@@ -115,10 +115,10 @@ values.
- ## fdtfactor
- 
- `fdtfactor` is a Python tool built on `pylibfdt` that takes a set of
--compiled device tree blobs (`.dtb`) and splits them into a single common
--`base.dtb` and per-board `.dtbo` overlays so that applying a board's
--`.dtbo` to `base.dtb` recreates the original board device tree while
--reducing total storage size.
-+compiled device tree blobs (`.dtb`, or compressed `.dtb.lz4`, `.dtb.xz`,
-+`.dtb.lzma`, `.dtb.gz`) and splits them into a single common `base.dtb` and
-+per-board `.dtbo` overlays so that applying a board's `.dtbo` to `base.dtb`
-+recreates the original board device tree while reducing total storage size.
- 
- Input `.dtb` files must be compiled with `dtc -@ -L` so that both
- `/__symbols__` (used to resolve overlay `/__fixups__` against `base.dtb`)
-@@ -135,7 +135,12 @@ Options:
- 
- * `--output-base-dtb`: Output filename for the common base `.dtb`
-   (default: `base.dtb`; placed in `--outdir` if specified, or the current
--  directory otherwise).
-+  directory otherwise). By default (`--base-compression=auto`), `base.dtb`
-+  is compressed if its filename carries a `.lz4`, `.xz`, `.lzma`, or `.gz`
-+  suffix, whereas each `.dtbo` preserves its input `.dtb`'s compression.
-+* `--base-compression`: Compression format for `--output-base-dtb`: `auto`,
-+  `none`, `lz4`, `lz4_legacy`, `lzma`, `xz`, or `gzip` (default: `auto`,
-+  which auto-detects from the `--output-base-dtb` filename suffix).
- * `-o`, `--outdir`: Output directory for generated `.dtbo` files and
-   `--output-base-dtb` (default: alongside each input `.dtb` for `.dtbo` files,
-   current directory for `--output-base-dtb`).
-@@ -148,7 +153,7 @@ Options:
-   passed to `dtc` solely to help `fdtfactor` locate phandles at build time
-   and `/__local_fixups__` is not needed at runtime, passing `-S` strips it
-   from `base.dtb` to save space.
--* `-s`, `--stats`: Print size savings summary.
-+* `-s`, `--stats`: Print uncompressed and compressed size savings.
- 
- ### TODO
- 
-diff --git a/fdtfactor b/fdtfactor
-index 7442a2597399..9bc8bfde2038 100755
---- a/fdtfactor
-+++ b/fdtfactor
-@@ -12,14 +12,223 @@ original board DTB.
- 
- import argparse
- from collections import Counter
-+import gzip
-+import lzma
- import os
- import struct
-+import subprocess
- import sys
- 
- import devicetree
- import libfdt
- 
- 
-+FDT_MAGIC = b'\xd0\x0d\xfe\xed'
-+LZ4_MAGIC = b'\x04\x22\x4d\x18'
-+LZ4_LEGACY_MAGIC = b'\x02\x21\x4c\x18'
-+GZIP_MAGIC = b'\x1f\x8b'
-+XZ_MAGIC = b'\xfd7zXZ\x00'
-+# Matches raw LZMA_ALONE headers with default lc=3, lp=0, pb=2 (0x5d) and
-+# power-of-two dictionary sizes >= 64 KiB; .lzma extension handles any
-+# non-default LZMA headers.
-+LZMA_ALONE_MAGIC = b'\x5d\x00\x00'
-+
-+COMP_TO_EXT = {
-+    'none': '',
-+    'lz4': '.lz4',
-+    'lz4_legacy': '.lz4',
-+    'lzma': '.lzma',
-+    'xz': '.xz',
-+    'gzip': '.gz',
-+}
-+
-+EXT_TO_COMP = {
-+    '.lz4': 'lz4',
-+    '.lzma': 'lzma',
-+    '.xz': 'xz',
-+    '.gz': 'gzip',
-+}
-+
-+
-+def detect_compression(raw_bytes, filename=''):
-+    """Detect compression algorithm from magic bytes or filename extension.
-+
-+    Args:
-+        raw_bytes: Raw file bytes to inspect for magic headers.
-+        filename: Optional filename string used as a fallback if `raw_bytes`
-+            does not match a known magic header.
-+
-+    Returns:
-+        Compression format string (`'none'`, `'lz4'`, `'lz4_legacy'`, `'lzma'`,
-+        `'xz'`, or `'gzip'`).
-+    """
-+    if raw_bytes.startswith(FDT_MAGIC):
-+        return 'none'
-+    if raw_bytes.startswith(LZ4_MAGIC):
-+        return 'lz4'
-+    if raw_bytes.startswith(LZ4_LEGACY_MAGIC):
-+        return 'lz4_legacy'
-+    if raw_bytes.startswith(GZIP_MAGIC):
-+        return 'gzip'
-+    if raw_bytes.startswith(XZ_MAGIC):
-+        return 'xz'
-+    if raw_bytes.startswith(LZMA_ALONE_MAGIC):
-+        return 'lzma'
-+    _, ext = os.path.splitext(filename)
-+    if ext in EXT_TO_COMP:
-+        return EXT_TO_COMP[ext]
-+    return 'none'
-+
-+
-+def _run_lz4(args, input_bytes, action):
-+    """Run the `lz4` CLI with `args` on `input_bytes` and return stdout.
-+
-+    Args:
-+        args: List of command-line arguments to pass to `lz4`.
-+        input_bytes: Bytes to feed to `lz4` standard input.
-+        action: Human-readable action description for error messages.
-+
-+    Returns:
-+        Output `bytes` written to `lz4` standard output.
-+    """
-+    try:
-+        res = subprocess.run(
-+            ['lz4', *args],
-+            input=input_bytes,
-+            capture_output=True,
-+            check=False,
-+        )
-+    except FileNotFoundError as exc:
-+        raise RuntimeError(
-+            'lz4 command not found; install lz4 to process .lz4 files'
-+        ) from exc
-+    if res.returncode != 0:
-+        err = res.stderr.decode('utf-8', errors='replace').strip()
-+        raise RuntimeError(f'Failed to {action} with lz4: {err}')
-+    return res.stdout
-+
-+
-+def decompress_blob(raw_bytes, filename='', comp=None):
-+    """Decompress a DTB blob if compressed, returning `(raw_bytes, comp)`.
-+
-+    Args:
-+        raw_bytes: Input file or property `bytes` (compressed or uncompressed).
-+        filename: Optional filename or node description for error reporting and
-+            extension fallback.
-+        comp: Optional explicit compression type (`'none'`, `'lz4'`,
-+            `'lz4_legacy'`, `'lzma'`, `'xz'`, `'gzip'`), or `None` to
-+            auto-detect via `detect_compression()`.
-+
-+    Returns:
-+        Tuple of `(uncompressed_bytes, resolved_compression_type)`.
-+    """
-+    if not comp:
-+        comp = detect_compression(raw_bytes, filename)
-+    elif comp == 'lz4' and raw_bytes.startswith(LZ4_LEGACY_MAGIC):
-+        comp = 'lz4_legacy'
-+    if comp == 'none':
-+        return raw_bytes, 'none'
-+    if comp in ('lz4', 'lz4_legacy'):
-+        return _run_lz4(['-d', '-q', '-c'], raw_bytes, f'decompress {filename}'), comp
-+    if comp == 'gzip':
-+        try:
-+            return gzip.decompress(raw_bytes), 'gzip'
-+        except Exception as exc:
-+            raise RuntimeError(
-+                f'Failed to decompress {filename} with gzip: {exc}'
-+            ) from exc
-+    if comp in ('lzma', 'xz'):
-+        try:
-+            return lzma.decompress(raw_bytes), comp
-+        except Exception as exc:
-+            raise RuntimeError(
-+                f'Failed to decompress {filename} with {comp}: {exc}'
-+            ) from exc
-+    prefix = f'{filename}: ' if filename else ''
-+    raise ValueError(f'{prefix}Unsupported compression type: {comp}')
-+
-+
-+def compress_blob(raw_bytes, comp, filename=''):
-+    """Compress an FDT blob using the specified compression algorithm.
-+
-+    Args:
-+        raw_bytes: Uncompressed FDT `bytes`.
-+        comp: Compression format (`'none'`, `'lz4'`, `'lz4_legacy'`, `'lzma'`,
-+            `'xz'`, or `'gzip'`).
-+        filename: Optional filename for error messages.
-+
-+    Returns:
-+        Compressed (or uncompressed if `comp` is `'none'`) `bytes`.
-+    """
-+    if comp in ('none', '', None):
-+        return raw_bytes
-+    target = filename or 'blob'
-+    if comp == 'lz4':
-+        return _run_lz4(
-+            ['-12', '-z', '-q', '-c'], raw_bytes, f'compress {target}'
-+        )
-+    if comp == 'lz4_legacy':
-+        return _run_lz4(
-+            ['-l', '-12', '-q', '-c'], raw_bytes, f'compress {target}'
-+        )
-+    if comp == 'gzip':
-+        return gzip.compress(raw_bytes, mtime=0)
-+    if comp == 'lzma':
-+        return lzma.compress(raw_bytes, format=lzma.FORMAT_ALONE)
-+    if comp == 'xz':
-+        return lzma.compress(
-+            raw_bytes, format=lzma.FORMAT_XZ, check=lzma.CHECK_CRC32
-+        )
-+    prefix = f'{filename}: ' if filename else ''
-+    raise ValueError(f'{prefix}Unsupported compression type: {comp}')
-+
-+
-+def split_dtb_filename(path):
-+    """Split a DTB path into `(directory, stem, compression_type)`.
-+
-+    Strips a recognized compression suffix (`.lz4`, `.lzma`, `.xz`, `.gz`), if
-+    present, followed by a `.dtb` or `.dtbo` suffix, if present. Note that for
-+    input files, `ParsedDtb` detects the actual compression format from the
-+    file's magic bytes via `decompress_blob()` rather than relying on the
-+    filename extension; `split_dtb_filename()` is used to derive the output
-+    `.dtbo` filename stem and (when `--base-compression=auto`) to infer the
-+    default compression format for `--output-base-dtb` from its output
-+    filename.
-+
-+    Examples:
-+        >>> split_dtb_filename('/path/to/board.dtb')
-+        ('/path/to', 'board', 'none')
-+        >>> split_dtb_filename('board.dtbo')
-+        ('', 'board', 'none')
-+        >>> split_dtb_filename('/path/to/board.dtb.lz4')
-+        ('/path/to', 'board', 'lz4')
-+        >>> split_dtb_filename('base.dtb.xz')
-+        ('', 'base', 'xz')
-+        >>> split_dtb_filename('/path/to/board.rev2.dtb.gz')
-+        ('/path/to', 'board.rev2', 'gzip')
-+        >>> split_dtb_filename('/path/to/board.custom.lzma')
-+        ('/path/to', 'board.custom', 'lzma')
-+        >>> split_dtb_filename('my_blob')
-+        ('', 'my_blob', 'none')
-+
-+    Args:
-+        path: Input or output DTB file path string.
-+
-+    Returns:
-+        Tuple of `(directory, stem, compression_type)`.
-+    """
-+    directory, filename = os.path.split(path)
-+    comp = 'none'
-+    prefix, sep, ext = filename.rpartition('.')
-+    if prefix and sep and f'.{ext}' in EXT_TO_COMP:
-+        comp = EXT_TO_COMP[f'.{ext}']
-+        filename = prefix
-+    stem, sep, ext = filename.rpartition('.')
-+    if not stem or not sep or ext not in ('dtb', 'dtbo'):
-+        stem = filename
-+    return directory, stem, comp
-+
-+
- def _is_dtbo_overlay(fdt):
-     """Return True if `fdt` is a `.dtbo` overlay rather than a base DTB.
- 
-@@ -78,11 +287,13 @@ class ParsedDtb:
-         """Parse an input FDT file into a normalized FactoredTree.
- 
-         Args:
--            filename: File path of the `.dtb` file to read.
-+            filename: File path of the `.dtb` (or compressed `.dtb.*`) file.
-         """
-         self.filename = filename
-         with open(filename, 'rb') as f:
--            raw_bytes = f.read()
-+            file_bytes = f.read()
-+        self.compressed_size = len(file_bytes)
-+        raw_bytes, self.compression = decompress_blob(file_bytes, filename)
-         self.raw_bytes = raw_bytes
- 
-         try:
-@@ -674,21 +885,23 @@ def create_base_dtb_and_overlays(dtbs, strip_local_fixups=False):
-     return base_dtb_blob, dtbo_blobs
- 
- 
--def get_dtbo_output_path(dtb_path, outdir):
--    """Determine the output `.dtbo` file path for an input `.dtb` path.
-+def get_dtbo_output_path(dtb_path, outdir, comp='none'):
-+    """Determine the output `.dtbo[.comp]` file path for an input `.dtb` path.
- 
-     Args:
--        dtb_path: Path to the input `.dtb` file.
-+        dtb_path: Path to the input `.dtb` (or `.dtb.*`) file.
-         outdir: Output directory path, or `None` to place the `.dtbo` alongside
-             `dtb_path`.
-+        comp: Compression format string for the output `.dtbo` (default:
-+            `'none'`).
- 
-     Returns:
--        Output `.dtbo` file path string.
-+        Output `.dtbo` (or compressed `.dtbo.*`) file path string.
-     """
--    dtb_dir, filename = os.path.split(dtb_path)
--    stem = filename[:-4] if filename.endswith('.dtb') else filename
-+    dtb_dir, stem, _ = split_dtb_filename(dtb_path)
-+    dtbo_name = f'{stem}.dtbo{COMP_TO_EXT[comp]}'
-     target_dir = outdir if outdir is not None else dtb_dir
--    return os.path.join(target_dir, f'{stem}.dtbo')
-+    return os.path.join(target_dir, dtbo_name)
- 
- 
- def parse_args(argv=None):
-@@ -703,8 +916,9 @@ def parse_args(argv=None):
-     """
-     parser = argparse.ArgumentParser(
-         description=(
--            'Split a set of compiled device tree blobs (.dtb) into a single '
--            'common base .dtb and per-board overlay blobs (.dtbo).'
-+            'Split a set of compiled device tree blobs (.dtb, or compressed '
-+            '.dtb.lz4/.xz/.lzma/.gz) into a single common base .dtb and '
-+            'per-board overlay blobs (.dtbo).'
-         )
-     )
-     parser.add_argument(
-@@ -712,8 +926,18 @@ def parse_args(argv=None):
-         default='base.dtb',
-         metavar='FILENAME',
-         help=(
--            'Output common base .dtb filename (default: base.dtb; placed in '
--            '--outdir if specified, or current directory otherwise)'
-+            'Output common base .dtb (or .dtb.lz4/.xz/.lzma/.gz) filename '
-+            '(default: base.dtb; placed in --outdir if specified, or current '
-+            'directory otherwise)'
-+        ),
-+    )
-+    parser.add_argument(
-+        '--base-compression',
-+        choices=('auto', 'none', 'lz4', 'lz4_legacy', 'lzma', 'xz', 'gzip'),
-+        default='auto',
-+        help=(
-+            'Compression format for --output-base-dtb (default: auto, which '
-+            'auto-detects from the --output-base-dtb filename extension)'
-         ),
-     )
-     parser.add_argument(
-@@ -737,13 +961,16 @@ def parse_args(argv=None):
-     parser.add_argument(
-         '-s', '--stats',
-         action='store_true',
--        help='Print size statistics summary',
-+        help='Print size statistics and compression summary',
-     )
-     parser.add_argument(
-         'dtbs',
-         nargs='+',
-         metavar='DTB',
--        help='Input .dtb files (at least two required)',
-+        help=(
-+            'Input .dtb (or compressed .dtb.lz4/.xz/.lzma/.gz) files '
-+            '(at least two required)'
-+        ),
-     )
-     args = parser.parse_args(argv)
-     if os.path.dirname(args.output_base_dtb):
-@@ -756,13 +983,17 @@ def parse_args(argv=None):
-     return args
- 
- 
--def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs):
--    """Print uncompressed size savings summary.
-+def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs, base_dtb_comp='none',
-+                     base_dtb_csize=None, dtbo_csizes=None):
-+    """Print uncompressed and compressed size savings summary.
- 
-     Args:
-         dtbs: Sequence of input `ParsedDtb` instances.
-         base_dtb_blob: Uncompressed base DTB `bytes`.
-         dtbo_blobs: Sequence of uncompressed `.dtbo` overlay `bytes`.
-+        base_dtb_comp: Compression format of the base DTB output.
-+        base_dtb_csize: Byte size of the compressed base DTB output.
-+        dtbo_csizes: Sequence of byte sizes of the compressed `.dtbo` outputs.
-     """
-     orig_uncomp = sum(len(d.raw_bytes) for d in dtbs)
-     base_dtb_uncomp = len(base_dtb_blob)
-@@ -776,6 +1007,25 @@ def _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs):
-         f'{dtbo_uncomp:,} B = {new_uncomp:,} B '
-         f'(saved {saved_uncomp:,} B / {pct_uncomp:.1f}%)'
-     )
-+    all_comps = {base_dtb_comp, *(d.compression for d in dtbs)}
-+    if any(c != 'none' for c in all_comps):
-+        comp_label = '/'.join(sorted(all_comps))
-+        hdr = (
-+            f'Compressed ({comp_label}):'
-+            if len(all_comps) == 1
-+            else f'On-disk ({comp_label}):   '
-+        )
-+        orig_comp = sum(d.compressed_size for d in dtbs)
-+        dtbo_csize = sum(dtbo_csizes)
-+        new_comp = base_dtb_csize + dtbo_csize
-+        saved_comp = orig_comp - new_comp
-+        pct_comp = (saved_comp / orig_comp * 100.0) if orig_comp else 0.0
-+        print(
-+            f'{hdr} {len(dtbs)} files ({orig_comp:,} B) -> '
-+            f'base {base_dtb_csize:,} B + {len(dtbo_blobs)} overlays '
-+            f'{dtbo_csize:,} B (avg {dtbo_csize // len(dtbo_blobs):,} B) = '
-+            f'{new_comp:,} B (saved {saved_comp:,} B / {pct_comp:.1f}%)'
-+        )
- 
- 
- def factor_dtb_files(args):
-@@ -792,6 +1042,13 @@ def factor_dtb_files(args):
-         if args.outdir is not None
-         else args.output_base_dtb
-     )
-+    if args.base_compression == 'auto':
-+        _, _, base_dtb_comp = split_dtb_filename(base_dtb_path)
-+        if (base_dtb_comp == 'lz4' and
-+                all(d.compression == 'lz4_legacy' for d in dtbs)):
-+            base_dtb_comp = 'lz4_legacy'
-+    else:
-+        base_dtb_comp = args.base_compression
- 
-     input_abs_paths = {os.path.abspath(p) for p in input_dtb_paths}
-     base_abs_path = os.path.abspath(base_dtb_path)
-@@ -803,8 +1060,10 @@ def factor_dtb_files(args):
- 
-     dtbo_paths = []
-     seen_paths = {base_abs_path}
--    for dtb_path in input_dtb_paths:
--        out_path = get_dtbo_output_path(dtb_path, args.outdir)
-+    for dtb_path, d in zip(input_dtb_paths, dtbs):
-+        out_path = get_dtbo_output_path(
-+            dtb_path, args.outdir, comp=d.compression
-+        )
-         abs_out = os.path.abspath(out_path)
-         if abs_out in input_abs_paths:
-             raise ValueError(
-@@ -823,20 +1082,33 @@ def factor_dtb_files(args):
-         strip_local_fixups=args.strip_local_fixups,
-     )
- 
-+    base_dtb_file_bytes = compress_blob(
-+        base_dtb_blob, base_dtb_comp, filename=base_dtb_path
-+    )
-     if args.outdir:
-         os.makedirs(args.outdir, exist_ok=True)
-     with open(base_dtb_path, 'wb') as f:
--        f.write(base_dtb_blob)
-+        f.write(base_dtb_file_bytes)
- 
--    for out_path, dtbo_blob in zip(dtbo_paths, dtbo_blobs):
-+    dtbo_file_sizes = []
-+    for out_path, dtbo_blob, d in zip(dtbo_paths, dtbo_blobs, dtbs):
-         out_dir = os.path.dirname(out_path)
-         if out_dir:
-             os.makedirs(out_dir, exist_ok=True)
-+        out_bytes = compress_blob(
-+            dtbo_blob, d.compression, filename=out_path
-+        )
-+        dtbo_file_sizes.append(len(out_bytes))
-         with open(out_path, 'wb') as f:
--            f.write(dtbo_blob)
-+            f.write(out_bytes)
- 
-     if args.stats:
--        _print_dtb_stats(dtbs, base_dtb_blob, dtbo_blobs)
-+        _print_dtb_stats(
-+            dtbs, base_dtb_blob, dtbo_blobs,
-+            base_dtb_comp=base_dtb_comp,
-+            base_dtb_csize=len(base_dtb_file_bytes),
-+            dtbo_csizes=dtbo_file_sizes,
-+        )
- 
- 
- def main(argv=None):
-diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-index ea1d35cd8e4e..300f244f41c5 100644
---- a/tests/Makefile.tests
-+++ b/tests/Makefile.tests
-@@ -53,7 +53,10 @@ TESTS_DEPFILES = $(TESTS:%=%.d) \
- 	$(addprefix $(TESTS_PREFIX),testutils.d)
- 
- TESTS_CLEANFILES_L = $(STD_CLEANFILES) \
--	*.dtb *.test.dtbo *.test.dts *.test.dt.yaml *.dtsv1 tmp.* *.bak \
-+	*.dtb *.test.dtbo *.test.dts *.test.dt.yaml *.dtsv1 \
-+	*.test.dtb.gz *.test.dtbo.gz *.test.dtb.xz *.test.dtbo.xz \
-+	*.test.dtb.lzma *.test.dtbo.lzma *.test.dtb.lz4 *.test.dtbo.lz4 \
-+	tmp.* *.bak \
- 	treegen
- TESTS_CLEANFILES = $(TESTS) $(TESTS_CLEANFILES_L:%=$(TESTS_PREFIX)%)
- TESTS_CLEANDIRS_L = fs *.test.dir
-diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-index e5ac38dd2bab..c18d824c7bc7 100755
---- a/tests/run_tests.sh
-+++ b/tests/run_tests.sh
-@@ -1261,6 +1261,84 @@ fdtfactor_tests () {
- 	run_test dtbs_equal_unordered fdtfactor_board${i}.nolf.test.dtb \
- 	    fdtfactor_strip.test.dir/merged${i}.test.dtb
-     done
-+
-+    # Compressed (.dtb.gz / .dtb.xz / .dtb.lzma / .dtb.lz4) modes
-+    for comp_spec in "gz:gzip -9 -k -f:gzip -d -f" \
-+		     "xz:xz -k -f:xz -d -f" \
-+		     "lzma:xz --format=lzma -k -f:xz -d -f" \
-+		     "lz4:lz4 -12 -q -f -m:lz4 -d -q -f --rm" \
-+		     "lz4:lz4 -l -12 -q -f -m:lz4 -d -q -f --rm"; do
-+	ext="${comp_spec%%:*}"
-+	rest="${comp_spec#*:}"
-+	comp_cmd="${rest%%:*}"
-+	decomp_cmd="${rest#*:}"
-+	if ! command -v "${comp_cmd%% *}" >/dev/null 2>&1; then
-+	    continue
-+	fi
-+	run_wrap_test $comp_cmd \
-+	    fdtfactor_board1.test.dtb fdtfactor_board2.test.dtb \
-+	    fdtfactor_board3.test.dtb
-+	rm -rf fdtfactor_comp.test.dir
-+	run_wrap_test $PYTHON $FDTFACTOR -s \
-+	    --output-base-dtb "base.test.dtb.$ext" \
-+	    -o fdtfactor_comp.test.dir \
-+	    "fdtfactor_board1.test.dtb.$ext" \
-+	    "fdtfactor_board2.test.dtb.$ext" \
-+	    "fdtfactor_board3.test.dtb.$ext"
-+	run_wrap_test $decomp_cmd "fdtfactor_comp.test.dir/base.test.dtb.$ext"
-+	run_wrap_test $decomp_cmd \
-+	    "fdtfactor_comp.test.dir/fdtfactor_board1.test.dtbo.$ext"
-+	run_wrap_test $FDTOVERLAY \
-+	    -i fdtfactor_comp.test.dir/base.test.dtb \
-+	    -o fdtfactor_comp.test.dir/merged1.test.dtb \
-+	    fdtfactor_comp.test.dir/fdtfactor_board1.test.dtbo
-+	run_test dtbs_equal_unordered fdtfactor_board1.test.dtb \
-+	    fdtfactor_comp.test.dir/merged1.test.dtb
-+    done
-+
-+    # Test magic-byte detection on a compressed blob with a plain .dtb
-+    # extension and an uncompressed --output-base-dtb alongside compressed
-+    # inputs.
-+    if command -v gzip >/dev/null 2>&1; then
-+	run_wrap_test gzip -9 -k -f \
-+	    fdtfactor_board1.test.dtb fdtfactor_board2.test.dtb \
-+	    fdtfactor_board3.test.dtb
-+	cp fdtfactor_board1.test.dtb.gz fdtfactor_board1_magic.test.dtb
-+	rm -rf fdtfactor_comp_mixed.test.dir
-+	run_wrap_test $PYTHON $FDTFACTOR -s \
-+	    --output-base-dtb base_uncomp.test.dtb \
-+	    -o fdtfactor_comp_mixed.test.dir \
-+	    fdtfactor_board1_magic.test.dtb \
-+	    fdtfactor_board2.test.dtb.gz \
-+	    fdtfactor_board3.test.dtb.gz
-+	run_wrap_test gzip -d -f \
-+	    fdtfactor_comp_mixed.test.dir/fdtfactor_board1_magic.test.dtbo.gz
-+	run_wrap_test $FDTOVERLAY \
-+	    -i fdtfactor_comp_mixed.test.dir/base_uncomp.test.dtb \
-+	    -o fdtfactor_comp_mixed.test.dir/merged1.test.dtb \
-+	    fdtfactor_comp_mixed.test.dir/fdtfactor_board1_magic.test.dtbo
-+	run_test dtbs_equal_unordered fdtfactor_board1.test.dtb \
-+	    fdtfactor_comp_mixed.test.dir/merged1.test.dtb
-+
-+	# Explicit --base-compression overriding the --output-base-dtb filename
-+	# extension
-+	rm -rf fdtfactor_base_comp.test.dir
-+	run_wrap_test $PYTHON $FDTFACTOR --base-compression=gzip \
-+	    --output-base-dtb base_custom.test.dtb \
-+	    -o fdtfactor_base_comp.test.dir \
-+	    fdtfactor_board1.test.dtb fdtfactor_board2.test.dtb \
-+	    fdtfactor_board3.test.dtb
-+	mv fdtfactor_base_comp.test.dir/base_custom.test.dtb \
-+	    fdtfactor_base_comp.test.dir/base_custom.test.dtb.gz
-+	run_wrap_test gzip -d -f \
-+	    fdtfactor_base_comp.test.dir/base_custom.test.dtb.gz
-+	run_wrap_test $FDTOVERLAY \
-+	    -i fdtfactor_base_comp.test.dir/base_custom.test.dtb \
-+	    -o fdtfactor_base_comp.test.dir/merged1.test.dtb \
-+	    fdtfactor_base_comp.test.dir/fdtfactor_board1.test.dtbo
-+	run_test dtbs_equal_unordered fdtfactor_board1.test.dtb \
-+	    fdtfactor_base_comp.test.dir/merged1.test.dtb
-+    fi
- }
- 
- while getopts "vt:me" ARG ; do
-@@ -1290,7 +1368,9 @@ if [ -z "$TESTSETS" ]; then
- fi
- 
- # Make sure we don't have stale blobs lying around
--rm -f *.test.dtb *.test.dtbo *.test.dts
-+rm -f *.test.dtb *.test.dtbo *.test.dts *.test.dtb.gz *.test.dtbo.gz \
-+    *.test.dtb.xz *.test.dtbo.xz *.test.dtb.lzma *.test.dtbo.lzma \
-+    *.test.dtb.lz4 *.test.dtbo.lz4
- rm -rf *.test.dir
- 
- for set in $TESTSETS; do
--- 
-2.56.0.317.g454f8302e1-goog
+Done. Renamed to `DeviceTree` (in `devicetree.py`).
 
+
+> > +    @classmethod
+> > +    def unflatten(cls, fdt, offset=3D0):
+> > +        """Unflatten an FdtRo subtree starting at `offset` into a Node=
+Tree.
+> > +
+> > +        Args:
+> > +            fdt: An `FdtRo` (or `Fdt`) instance.
+> > +            offset: Starting node offset (default 0 for the root node)=
+.
+> > +
+> > +        Returns:
+> > +            A `NodeTree` representing the node at `offset` and its des=
+cendants.
+> > +        """
+> > +        node =3D cls()
+> > +        for prop in fdt.properties(offset):
+> > +            node.props[prop.name] =3D bytes(prop)
+>
+> Since we already rely on class Property from libfdt.i, it seems like
+> it would be a little more natural to have the dictionary values be
+> class Property instances.  Yes, that technically has some redundant
+> storage of the property names, but we're not particularly concerned
+> about optimisation for this Python library.  Plus, Python's
+> assign-by-reference should mean it's generally just a duplicated
+> pointer, not a whole duplicated string.
+
+Done. `node.props` now maps property names to `libfdt.Property` instances,
+which also simplifies `get_str()`, `get_stringlist()`, `get_u32()`, and
+`get_u32_list()`.
+
+
+> > +        fdt =3D sw.as_fdt()
+> > +        fdt_set_boot_cpuid_phys(fdt._fdt, boot_cpuid_phys)
+> > +        fdt.pack()
+> > +        return bytes(fdt.as_bytearray())
+>
+> For better symmetry with unflatten(), I'd suggest returning the Fdt
+
+Done. `flatten()` now returns the packed `libfdt.Fdt` instance.
+
+
+-Doug
