@@ -1,57 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570908;
-	b=KSrWbwuZSE0yPWlWKZnS4bm+xUKjHdrbXjljQx3Zkf1p6HsmxVoyHDyUBt+tbkipmBS6
-	 dNorX20GbBabVJ21k3YwHUFxO3twSjbNfqhB4fDLehEjiARMSjdOLQa3+X8eDWb3G5Be6
-	 mZsON3GFU4jGIPFkslGIwHeQz7LO707ztancF6th2yozXE+FtUsq0DoN0RbbAdjcvfXUS
-	 Q6gz/Gp5uN3LnLpIjo/F7vRSqgsIpwI0lGO6xbfX33eE7Eo4PvPDm5iKjG+AGTuwN3oUi
-	 sQ9O6nNpcRHC3GxWnIXwtv2iuBPtTNEsQPtPoWtlDc0HpF1zOxIahHLKjarucpqS1uw==
+	t=1793571081;
+	b=TxPOpfsMkn6qb9yyMEEPNVfL2eWdKEeq/+90lcrQqqG8XsUsULj2qU6s1rAn0ZY9iJNP
+	 5ueOvjX/0Z/lOVJ4OWofoETgdYOaS1lNvL62UO0PIf55mbx+5ZH6vZyP9DLPPEVNCyU6+
+	 kHNwAqn9bikRoE9/0ri+WU/rzelaV1KmwStsdTsTOnRQRd9xuAW20ubCYBPIHuOZ99Don
+	 3WHxOObDsZnUN+Po6wyAx3PijVJo6jpmLlrfjiGtYd033C5hzUgbKysl0wBuHNCBL5sSq
+	 VVEpE/Bhdp56sXIO/rqDxRXPD0mbeJCvNQPyg0lG6z546uhn4qFbi148/BSkP8lBdFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570908;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Z5ITduMJUGkmT+QAS7EEqOJyZGewDGPTKk6Ow0R+TV0=;
-	b=pbBzskX/KOK1h6BtXFhfVjFmL2eNu7d0OJ7xlVXL3nzZ+72dyZD2xANqf6Ua3Z2blbnN
-	 X4maFUrPOFY3SqUXRi8Z/zX9u00YmWvDpdzQYHjQ7r3Kuy46WYkkFJFo6i4XF3S0C7qzj
-	 X/6ZSyHq6BI8/nGqyylI/RmKmoBAH7Dw3Xfq4CDWsUjE0p13EeMG+g37LcDE0keZxKPVv
-	 +RnHrZv4f9C98DvOjFKCPJOnoFGELL7FLNFJLr6ecSk0ZUuixn6zhMehcErCuMVrZFKD7
-	 zA3RaqtAU2ByFOAKzLcNtqQUrOhaHWsWeS6FK/enurn5JgMnJKEuj+4WJulHNA46Tgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571081;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Buc1QDeYtaFDuNaaLime3LTMfQGnM03bKEX58bfBjs4=;
+	b=t6XxmFMcIKcw5n+FVh+c5qNu9Wno4OulzvoQ03kkiGQEBuG/HSW0Nu8v0MwSSQW/EDXy
+	 43+BpE076xGTgXJDq6DyhIHiKhe0KpFsXvlLkz/NgTccEvcssyihc7kT5f/2EO8Z+lU0q
+	 nMsAeCSyIimA5bTtRJ/vIRcFyZRwEh52Jn50a56Dqhqczxj6xsdZhwo8pVHJSP+m8XMWc
+	 mTV2wbWFU9kb6qnDRo4Pyx7wxeOC7KYqmta8E/AMdB+geP4oX7GauLNwiYGGeBQH18z8x
+	 TqeSs4pN9fJAXOJIXXzez0mzPPcYidv/CMJwvdpI2sw0gSgnAdybzQ9JkliY7d3iUsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQY9h0Tc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZCh0l1wk;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7072A606A336
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC9B606A324
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CC9B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQY9h0Tc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1BF1F00A15;
-	Sun,  1 Nov 2026 22:08:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793570907;
-	bh=Z5ITduMJUGkmT+QAS7EEqOJyZGewDGPTKk6Ow0R+TV0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AQY9h0Tc/0ZOZk8I/obtXWZn0PrRoP45j5We1EGkHlF0VD6S8A9mmx0pNKy0rtL8w
-	 Btg9SPE/CEphLoYv7Qy/VlR7FFsa0OE31sP2Bz21ya9jTPDbHkWkFE09cEiES9zyhO
-	 8fh7l2T+TyGdSpXDrx2DcAT8zuC167iMkS4FLvXM6RpZeiLe2Y5+13Yj9OfiLehhbw
-	 neA8ryjWo1YEg5RYoji9mR8GkrEmlFvMgc4TxhT7diwQJBFHVhBEkDUKJJ0qAws3K0
-	 Iw5YrbI5xe93CF+bI8hKCGhdpJog1ZTvUDOdRee4YX8L/Q4f90kvSsHLGAq7ErXbkN
-	 2npymL1BLhuow==
-Message-ID: <sashiko-outbox-192700@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: rockchip: add support for NanoPi M6
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joachim Eastwood" <joachim.eastwood@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261101-nanopi-m6v2-v1-3-e401ea64b394@gmail.com>
-References: <20261101-nanopi-m6v2-v1-0-e401ea64b394@gmail.com>
- <20261101-nanopi-m6v2-v1-3-e401ea64b394@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 22:08:26 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZCh0l1wk
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c49b431f022so338755766b.1
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:11:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793571079; x=1794175879; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Buc1QDeYtaFDuNaaLime3LTMfQGnM03bKEX58bfBjs4=;
+        b=ZCh0l1wk4NeMsAyYkEI/6+SVF42d/1gDVinYWRAQHq2klMEWIQ5vczvlwM+8oRAC67
+         Q/RIE7ZD5vNPk4kmtqddzBorOOVtam7yqe3k/y6Ijn0PKOa8FFqbWqWA5GRPlnoPHRzP
+         v+4LCMvX8p9TERD+YbN3+U3Ky68ffZTcWQYpY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793571079; x=1794175879;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Buc1QDeYtaFDuNaaLime3LTMfQGnM03bKEX58bfBjs4=;
+        b=WzTF3vFZc6kUDSL7S8DFYLL9bReGVZnURimyp1N1Bty+ds9PeHxsTAWgKEmCS6V66Y
+         dBUpel5MqptM7oeQE4cJMvPKX127sG8OuY9CseAXMbweqZXLT5ACEjoKwNSAZhURC9th
+         Q6pX9bWF8LO2iTSZfS0kCGgl9+XzBa42Q0YK+9rRuxyPkoK1e5xNlHuLqReMBmhGdZPY
+         eCaqiEPAONu9ebeWVWMwUHbyseqfcpEjV0YTBr8Rb1X1PAVeuWK2gZ1lZdIiHtdBGaVA
+         ik4VDFtkvNuQHgMBmLn+R6jBmsj75aE/II1n3Eri/YZsYK7iRuTxNiAFLekK5IyDJCen
+         6fQw==
+X-Forwarded-Encrypted: i=1; AKwUvBw3fwVCYJW2g99pfq0EmEj6SR+slVrpi1IuYouYQBB17gSO5S3AbOtcyTv6WQWPmitZ4uRxH9xiXnBQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpyKYEemTvvqhIG1AVGQuh/T3psogSwt8yIUX46Di3T5cWc72T
+	l6WbqS3iLMhEINKUTHkBEo3lisKGbXjlg0hOe3aUvftM8n+zHWgrDBO9hNc11PW05qn3BuhQcRv
+	auY8M3Zwo
+X-Gm-Gg: AYBFou3ipeJ9n8f9X2O69DezgMv1chATM65m+VYkZyRBkVmqzhJ9SONdhLDLlIrBDO0
+	Gvuom4JgeMwU1Hgxu5mjTB6iS4hvqPXLH1pVUWAR0l9D9+g13pWDaNEkJmysdcSwKaZ8MqSkxzt
+	eLNj2hmY7imGnlLfpCUuRHBeirw+5DA0B3XJOdcbmR0JmNlFBFEey+55lf2Fo5CLK1jkOwcoV3y
+	/oMrm5Pi+Gy8EJoyMjx1dFlQIMgqlqxiXxy11zNq/lG8m5kjczReH0FZMHO60FyQaNPit2isuUI
+	7y+YjmwFBkH1kbRAfZuJcucTMgDVjEu/Z+2O+4ji6r5DpLjuofafJQ3or0Gd0Qbzi9XO2J0hcMg
+	VRggwdoOZVOpwaPz8kUJexXa2oIFwFumjHcTG7OoVqiQPfxAEqedVXLEQ/YQj8CQbtn/keVp2vi
+	2JUjMunXag21GRU/XAUeaN3cyT7ppfKNSof5X1Xc7DqugQIZux1VDzTgRaBCtsJgFLvi/W8ZDi1
+	MDteK9yGFgWl2XFQYelpo9RbvVqvG2wkzCWrLxm8wRSMHrCW/kymWpDMe9XzEClJP2yZ42K76zY
+	sUu2hAdQBeq0/Hq5GOSlC58VguOrq/TIgcf6ejyYQV/soS1e3LgqLfMbNVtwgu0u3K4=
+X-Received: by 2002:a17:907:72cb:b0:c3e:e677:563a with SMTP id a640c23a62f3a-c4ca7aee0famr660006566b.47.1793571079523;
+        Sun, 01 Nov 2026 14:11:19 -0800 (PST)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9a767esm2523651a12.5.2026.11.01.14.11.18
+        for <Devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 14:11:19 -0800 (PST)
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso3723825a12.0
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 14:11:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByNIwAMmbl3MSeGFYX39JLvTfwV1TTsp3kuj2JkclyuJXS5psVI3KmYySiOiG8Ro1S2uEyird7+wwzY@vger.kernel.org
+X-Received: by 2002:a05:600c:4708:b0:4a2:167a:c93b with SMTP id
+ 5b1f17b1804b1-4ac19234ad8mr193309575e9.30.1793570740977; Sun, 01 Nov 2026
+ 14:05:40 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,122 +93,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-9-dianders@chromium.org> <CAFLszThZs9Qx6c_qff4LUXPNpncUAO7LGygkyv6FRtGcxU88xg@mail.gmail.com>
+In-Reply-To: <CAFLszThZs9Qx6c_qff4LUXPNpncUAO7LGygkyv6FRtGcxU88xg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sun, 1 Nov 2026 14:05:29 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WeMHHTZ5v0tWLhqRivAMogbqVQ-cuF9HRb6sfO+9TVkw@mail.gmail.com>
+X-Gm-Features: AclHuK87KLmJoI8xKOrvWWlX0UnZ0z4ES-P-CBsehd7HFous4pSW5-SGmdATFXc
+Message-ID: <CAD=FV=WeMHHTZ5v0tWLhqRivAMogbqVQ-cuF9HRb6sfO+9TVkw@mail.gmail.com>
+Subject: Re: [PATCH v2 08/10] fdtfactor: Add -S/--strip-local-fixups option
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Devicetree@vger.kernel.org, David Gibson <david@gibson.dropbear.id.au>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-kernel@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: rockchip: wrong MCLK clock in rk3588s-nanopi-m6v2 au=
-dio-codec
-- [Low] arm64: dts: rockchip: commit subject names NanoPi M6 instead of Nan=
-oPi M6V2
---
+Hi Simon,
 
-commit b98c017b6747ab0aa87e4af9234cbf5396581d64
-Author: Joachim Eastwood <joachim.eastwood@gmail.com>
+On Fri, Oct 30, 2026 at 5:23=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
+e:
+>
+> > On a set of 47 Qualcomm SC7180 Trogdor Chromebook board DTBs,
+> > `fdtfactor -S` reduces total uncompressed size from 7.69 MB to 634 KB
+> > (91.8% savings).
+>
+> This compares against the unfactored DTBs, so it doesn't show what -S
+> itself saves. Please can you also give the size without -S, so it is
+> clear what the /__local_fixups__ in base.dtb costs?
 
-arm64: dts: rockchip: add support for NanoPi M6 board
+Done. Updated the commit message to show both numbers: without `-S` the
+47 Trogdor DTBs factor down from 7.69 MB to 932 KB (88.2% savings), and
+with `-S` they factor down to 634 KB (91.8% savings, saving an additional
+298 KB by omitting `/__local_fixups__` from `base.dtb`).
 
-This commit adds the device tree for the FriendlyElec NanoPi M6V2 board,
-including support for its Everest ES8389 audio codec, regulator, and user
-button.
 
->     arm64: dts: rockchip: add support for NanoPi M6 board
->    =20
->     The NanoPi M6V2 board is an updated version of the original M6 board
->     with the following changes.
->     * New audio CODEC (Everest ES8389)
->     * New Ethernet PHY (MotorComm YT8531C)
->     * 1 extra user button
->     * Misc connector changes on the board
->    =20
->     The codec_es_3v3 regulator enable pin is hardwired to the 5V input ra=
-il.
->    =20
->     See link below for detailed information:
->     https://wiki.friendlyelec.com/wiki/index.php/NanoPi_M6V2
->    =20
->     Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+> > @@ -1238,6 +1238,28 @@ fdtfactor_tests () {
+> > +    # Strip local fixups (-S): verify that merged DTBs match DTBs comp=
+iled
+> > +    # with -@ (without -L), and that inputs lacking /__local_fixups__ =
+are
+> > +    # rejected.
+> > +    for i in 1 2 3; do
+> > +     run_dtc_test -b 2 -@ -I dts -O dtb -o fdtfactor_board${i}.nolf.te=
+st.dtb \
+> > +         "$SRCDIR/fdtfactor_board${i}.dts"
+> > +    done
+> > +    run_wrap_error_test $PYTHON $FDTFACTOR -o fdtfactor_strip.test.dir=
+ \
+> > +     fdtfactor_board1.nolf.test.dtb fdtfactor_board2.test.dtb
+>
+> This rejection test has no -S, so it checks the -L requirement from
+> the previous patch rather than anything added here. Since -S could
+> easily be read as 'my inputs don't need -L', I think it is more useful
+> to pass -S here, to show that it does not relax that requirement. The
+> plain no-S case could then go into the previous patch with the other
+> rejection tests.
 
-[Severity: Low]
-This isn't a bug, but commit 2640aea473b4 ("arm64: dts: rockchip: add suppo=
-rt
-for NanoPi M6 board") already used this exact subject line when adding
-rk3588s-nanopi-m6.dtsi and rk3588s-nanopi-m6v1.dts. Since this commit adds
-rk3588s-nanopi-m6v2.dts for the FriendlyElec NanoPi M6V2, should the commit
-subject say NanoPi M6V2 instead of NanoPi M6?
+Done. Moved the no-`-S` `.nolf.test.dtb` rejection test into the main
+`fdtfactor` patch and updated this test to pass `-S`.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts b/arch/=
-arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts
-> new file mode 100644
-> index 0000000000000..2ac00f2de6844
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts
-> @@ -0,0 +1,90 @@
 
-[ ... ]
-
-> +&i2c7 {
-> +	audio-codec@10 {
-> +		compatible =3D "everest,es8389";
-> +		reg =3D <0x10>;
-> +		assigned-clocks =3D <&cru I2S1_8CH_MCLKOUT>;
-> +		assigned-clock-rates =3D <12288000>;
-> +		clocks =3D <&cru I2S1_8CH_MCLKOUT>;
-> +		clock-names =3D "mclk";
-> +		vddd-supply =3D <&vcc_1v8_s3>;
-> +		vdda-supply =3D <&codec_es_3v3>;
-> +		#sound-dai-cells =3D <0>;
-> +
-> +		port {
-> +			es8389_p0: endpoint {
-> +				remote-endpoint =3D <&i2s0_8ch_p0_0>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&i2s0_8ch {
-> +	i2s0_8ch_p0: port {
-> +		i2s0_8ch_p0_0: endpoint {
-> +			dai-format =3D "i2s";
-> +			mclk-fs =3D <256>;
-> +			remote-endpoint =3D <&es8389_p0>;
-> +		};
-> +	};
-> +};
-
-[Severity: Medium]
-Should audio-codec@10 under i2c7 use <&cru I2S0_8CH_MCLKOUT_TO_IO> (or
-I2S0_8CH_MCLKOUT) instead of <&cru I2S1_8CH_MCLKOUT> for assigned-clocks and
-clocks?
-
-In arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts, the codec endpoint
-es8389_p0 is connected to i2s0_8ch_p0_0 under i2s0_8ch, and the included
-arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi enables i2s0_8ch with t=
-he
-i2s0_mclk pin muxed:
-
-&i2s0_8ch {
-	pinctrl-names =3D "default";
-	pinctrl-0 =3D <&i2s0_lrck
-		     &i2s0_mclk
-		     &i2s0_sclk
-		     &i2s0_sdi0
-		     &i2s0_sdo0>;
-	status =3D "okay";
-};
-
-For comparison, audio-codec@1b in
-arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v1.dts uses:
-
-		assigned-clocks =3D <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-		assigned-clock-rates =3D <12288000>;
-		clocks =3D <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-
-With I2S1_8CH_MCLKOUT specified here, of_clk_set_defaults(),
-simple_util_parse_clk(), es8389_probe(), and es8389_set_bias_level() will
-configure and gate the unused I2S1 MCLK clock branch rather than the I2S0
-MCLK output driving the codec.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101-nanopi-m6v=
-2-v1-0-e401ea64b394@gmail.com?part=3D3
+-Doug
