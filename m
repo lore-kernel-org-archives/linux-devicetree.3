@@ -1,49 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571413;
-	b=cJPAGDYjUH4c07YBMp0DN1q/ojiasoRfOZrLUWWPuh4tZukwHQ/6DOtrDy8wuwYPttdD
-	 F0qbvwWikO8ibilOxrdTNIdsGairSv1zEF1lsPgREUoYvoTzPkwrUYz0d3ysNbUbJNrnk
-	 pcsRqEF7QIfdZ5+wrYoWUuU0kAHHw1lJ0NuiqqFOdDWgsYoOnaKDa7R65KnK9lG/c+XEA
-	 eiiRGffrolsYGH/8ES4liB3IauzXkLt9H4zb1HDtP+ZZ61eTUUiQ7Xjjuxpky2OP+qLBz
-	 0JBNkXfOeue0Q7wIPH5IOxLYPnsS3z0WxieThUplJcFuwQYrcn3PAKKJ9VuvroMo2Aw==
+	t=1793571409;
+	b=fo+AERO8S63cVTkZh45WccHwZx/nMvlu5w4fFLlgAnB40wMMIqBed6Bm7v+5kA+kw9tn
+	 3RiJpdC8yeVq/48eKHYeJOze5+8HQjfw6n+8yUVag23O0SD4icUlYiTyr0ae+/alPbCDo
+	 9vp+GI8g8YH90OkFeZlvMvCfQqkZVsLwJYByzxHuSlKCZcRuBzsMpACzjAfCyavY3sL+n
+	 Dr4yc+NilX7fqYDCRogQK0W8QPlrDiMCPb/Z5NCa/xmRz7yorZODSWrXegFthrUpgP4L4
+	 OKxDfRRMEHss0fb3DCYa/GwGDcTdN+0T8PWE9CfWh3KZIbs089KmfipLvZHJhcqel+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571413;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
-	b=IB4MAXBiR8FZLnTWT74oxcqdFffLdHisVk64rJZPzITvlq+ErT1YNoTVWDBG59FLK+Xg
-	 ymHdw72JcBr3NxhDvgHuWw68TlyTFXim+zj8lqhj9kXJOB4Ojbg9ocrdKlCbRJysqmAc5
-	 TOtw6E08FcV/10k8Gg76Ijzd0KQTMizA01ckh3FM6uf+o99MEhM2aSLbO2ncDntACgcC1
-	 iWeOKQfMB1ZnYf0sRUDoowwzvyxnayYHQxnXaOqueFbfev3Til0WO/wd3RbBD9bDVH3dL
-	 lJmQBfSR068Sty/39RzImkTHQXTZrkqN6be4GQKMMyuSyKiN1p/tBYcojzIgAUjjZPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571409;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4Y2ehFsf8JtC09DAQpeBxOgfpmb9qhwVfrzl5WBa4dQ=;
+	b=svXbuv2SLiieo61BJqE/wSrfIIllC9qQlUBPENwBjAscXQtc7kbOAEgFrvMzbmoNHM3N
+	 37wlZ6Ts0KmD3kPLlg2Ns5PJmYaxZCh4SAxc/Uzmi1FZ9ddkumxo1lP+wANyXoeptTUCP
+	 voet8L9jEel2anw33PRel22oheL4QWHwx9HNerUKDZTPXI2SatOX4V8/0LQgf9rhOnP5S
+	 eVPE22Lr/mwneG/vexSeY/Av5dtKy+7V1lx4gPoLCsMEM3MMgEHOjE3X/CVtMvxH+ViQX
+	 agxFaNjCpYNf3nFWkr1bm3k43Izw7N6Wv9UnLfbUybTMkgwyJRu1QJ0g9jX380trfvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=bZfTDG1T;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EB6072170;
-	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4156260A5BD5;
+	Sun,  1 Nov 2026 22:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4156260A5BD5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499EC1F00919;
-	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571413;
-	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=e7A8CvgsLR+P85In/cqf5teG1i56/z+xxZn3GQOfofjUdlB2fVQynrtbr2W1/1aqe
-	 +4KwOpykFZFbAMOaM2gd0eUFvVGzdZY7aoLUiuVvDUu6K7o5K8USTQ2HqAAFzrsFrr
-	 DPtQmC7Yg02AxB2O9kokMig4jAaS+86VYzru+qxDqTWNMOSwJQzaLkdk0YMWA6tKYm
-	 ++ViQCAvb7sEJHHdUuce9ru34+IY9z5wFevuJnHNlmu/3GQKuNXnqg1yF8GEE8JRVA
-	 MwJYfEpe7fXfDWwyzFoGuRZNcKwUbIW2Xx9lsxy7wL5JanRHWBJckgHxMcV5blV7BQ
-	 Y72Cn2H9f5T5Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401C038003B8;
-	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=bZfTDG1T
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=4Y2ehFsf8JtC09DAQpeBxOgfpmb9qhwVfrzl5WBa4dQ=; b=bZfTDG1TIuH4RtSeNhHbvI+f2q
+	bWfpC0UGXpnu61J5kXm/zJzoq6nOwcILzFBTeeOhtm+DKRTn3/i573jMJyi36j9PVaDDTBykiaDR1
+	r5AzCTorKsE4NvQrQo/S1jiyHxG+4rHQCHPCIvhtVJnvH1Zc8VvrD9Q99OYN8RVlWHM868Jjqk1m+
+	iLFZjS74H4W0ZFGKy1MnJyvHBUpDrBJaWtEC5LgjeH5gQ8EON8h2H0Bupwdsah59TXS+pV2JWdwaz
+	tmzAPpH6pCfeDyOa8xo2I45LXYk4jLBugE+C3DA76kI3r6l5gnGoVOjkkPA87+XXMNaMf8aiffAtF
+	0QQIzTrw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryan Leung <untilscour@protonmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: add maskrom ADC button to NanoPi R76S
+Date: Sun,  1 Nov 2026 23:16:37 +0100
+Message-ID: <179357139348.4108484.16587959620452778547.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261011-nanopi-r76s-adc-v1-1-392993e7a36e@protonmail.com>
+References: <20261011-nanopi-r76s-adc-v1-1-392993e7a36e@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,52 +67,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:51 +0000
-References: <20260810030714.48100-1-hal.feng@starfivetech.com>
-In-Reply-To: <20260810030714.48100-1-hal.feng@starfivetech.com>
-To: Hal Feng <hal.feng@starfivetech.com>
-Cc: linux-riscv@lists.infradead.org, ukleinek@kernel.org,
- p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
- conor@kernel.org, emil.renner.berthing@canonical.com, palmer@dabbelt.com,
- pjw@kernel.org, aou@eecs.berkeley.edu, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Conor Dooley <conor.dooley@microchip.com>:
-
-On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
-> Add OpenCores PTC PWM driver which is used in StarFive
-> JH7100/JH7110/JHB100 SoC.
+On Sun, 11 Oct 2026 06:54:47 +0000, Ryan Leung wrote:
+> The FriendlyELEC Nanopi R76S has a MASKROM button connected via SARADC
+> (sheets 5, 19 of the schematic [1]). Add the button to the device tree.
 > 
-> I will maintain this pwm module in place of William.
-> 
-> Changes since v21:
-> - Allow non-zero duty cycles shorter than one clock tick to round down to
->   zero.
-> - Drop the .free() callback to preserve the PWM hardware state after
->   pwm_put().
-> - Update the comment.
-> 
-> [...]
+> [1]: https://wiki.friendlyelec.com/wiki/images/6/60/NanoPi_R76S_LP4X_2411_SCH.pdf
 
-Here is the summary with links:
-  - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
-    (no matching commit)
-  - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
-    https://git.kernel.org/riscv/c/2186ec5f59c2
-  - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
-    (no matching commit)
+Applied, thanks!
 
-You are awesome, thank you!
+[1/1] arm64: dts: rockchip: add maskrom ADC button to NanoPi R76S
+      commit: 1f624b3b44ec1b0bba0bf219c1d63e127cfa8591
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
