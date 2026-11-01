@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793542032;
-	b=OgIDU8wKQIdIGJUuZAgJv3Npqz7uyOEVngFVsxSzbaLuoTf70o9XNqlkWOoMJ7eLrYS2
-	 urRQJJw/7CKLA5qXasNt43yxvvlm+vUCv0izlfu9K0RqNbKiR45tEQMWYYFI7ZTPaR+Bu
-	 ravoGDohRyI8TQv/VrMc9grE3bXR6gzrfPdzo/8vT8Ur/eUzWUCSYM8bkTOkfc0y16WJH
-	 sLVPziGvTcztdjgDx6ig0zZOUAsgOHdaBcqIV6B1vnMBOddRlN/9BYihSZYnlocA8Pq5Y
-	 ArROJNYSBFdCu0AzMWa+DzDyKQPpkosRs3i1oGOoWbuIMayoVK50viw8cXjL7ShQZrA==
+	t=1793542057;
+	b=U0zR5dEFMwqvRqhyMLuWVgwd09vS5LjtykrOqZ/tlWt+F1C1uYGjghO4qVZXh6jeFgoa
+	 SMZzlpYNdP8iXhs6XQtBF2CR9kJU2zvsLY3Z1Z2wxIs3jeA2OSbaRqNVZObxX3SOMWVya
+	 WJdRrSc7YM+2SDbX1iuwD7aIH5pvbBh+tL6dgqYac9/DLrpz0bap+weQSinbqybfTw7Ay
+	 1PVZOE14Yr4cEF5HnpvbY+dOimBYNwOwW5ZZpa2paD1sn8iSi3MnyHB4dxd9st4CSzXER
+	 OpgKgUgNaMtbG7Vy8/9tR5STMxe3cqAkxk2LYA5RoY+1SU1V5LpE9YXI67LuKzyjoYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793542032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793542057;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=nKvUoZJ6cM4Q3+vdfnWBj8KC+NLhl6GuVHJjIA6JQ0o=;
-	b=ya5o4bFU25ZVNqSOzoBTXoeibv+srjhv+d2tGP2bJtdCtgm/bOATBwUdLJg4d7iC17t9
-	 yo2KaLsvr3Q4bgwXz6+5fXKbdux5lPbWzQdbg1CBwJhNYZrtlDv3r9SN57lZa8jU4L9jT
-	 /eyWHJBt8uEpMZlp5TddQT3WO8mDIzu4p3mdOOLByf+zW5qPFeFsUb06B1AAzX7DBl1CX
-	 O++TpZisWbumCScbEbXP1qERrUTAJJ+5Zl9tA2FOWHqhXarwaEy2pDWT+jmSfoXn95+wT
-	 KYJYoP5+g3A4Bi3lnPb8w3oZBaLT+RCGgN59tx/gd/tweyt4qindSNFsswvTy5tEwjg==
+	bh=5F77cYEZGtdp//DOKdgD2RKyC5vHfZcmQ0ZLgGs8sZA=;
+	b=4tm1Lyw3PslT2MXnr+av2LKLhle3UtEtesqzRDwvFZKCyFUKlSNIb+yemxcxmfis6X4b
+	 Y/Gzr6gpTNqXFkHdPnxoRMdP6E1qm2XsIQbZTN6PHkjg7Yenh8Ws/D+LzVi3j65No9lRM
+	 aBA1dVPndWoJfmww2rThsrKkYkgBkBejAoctpoag0MoIQBGItdI9Gj109j8m8OuKIJ2kI
+	 qyt2ARzWZjJkvH2/SgL0rdSJAm8FGq30MIaXafpIZp1IJXcHsOcHSv7p1ZELz1qHkowDm
+	 65r3gc6CVWXo78akojVMwue7wIt7I5Ua4jO45bHi6l7UxLl2q3g11o/9Z9XqVQZ0NaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VEieXkss;
-	arc=none smtp.remote-ip=95.215.58.172
-Received: from mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wu9sGuYy;
+	arc=none smtp.remote-ip=91.218.175.126
+Received: from mta0.migadu.com (out-126.mta0.migadu.com [91.218.175.126])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B3C606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 14:07:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B3C606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17C4606A327
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 14:07:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D17C4606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VEieXkss
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wu9sGuYy
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hnDwTwzHH35o8706gMWEB6t9gGfKl1uCTO/DK8frRFY=;
+DKIM-Signature: a=rsa-sha256; bh=buDOHrSxqP03PrEBlJ3QvBxrpymco82p9buINaigu+U=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793542028; v=1; x=1794146828;
- b=VEieXkssPAfYpr6PQ9tN2RZkcLJ3FyyWKFnGjG5v/V6eYLH2QxYSvsRLgrblyOaiEBXFFw6M
- htqzzv5UijwTqObZZkU93z9MgMmE1rKj6b0Em3hqlc0pMrkBEbPuiIRhA10HoU+Mmtv8FRTaCqg
- 4kcOiK2c7w/eQ6wBdGMROTfc=
+ t=1793542054; v=1; x=1794146854;
+ b=wu9sGuYyauHwOVlcipOLT61Je4cynxjdW82i6y3V4UxlixG7EssqybwJ9i0PqE0rFVPqfq8A
+ uFYzh7dKBjeBVw4ol833fo06ELwRrH9NFCetAob2HmyRtJH7b7LmojgUDXkUzw2suGmDRUp3IBs
+ oTkHvO+TrCYb3JiHd7cPMEHg=
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 628719066510015c;
-	Sun, 01 Nov 2026 14:07:08 +0000
-X-Mizu-Trace-ID: 628719066510015c
+Received: by smtp.migadu.com with ESMTPS id 5e03d0b85d5e79d6;
+	Sun, 01 Nov 2026 14:07:34 +0000
+X-Mizu-Trace-ID: 5e03d0b85d5e79d6
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <2375f4a7-eec6-473f-9795-5ed55c245208@linux.dev>
-Date: Sun, 1 Nov 2026 14:07:05 +0000
+Message-ID: <1b44d01d-e3d6-4ce3-ae0f-9d76b8139487@linux.dev>
+Date: Sun, 1 Nov 2026 14:07:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,8 +59,8 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/14] drm/tidss: Stop using vp_bus_type for directly
- connected panels
+Subject: Re: [PATCH v4 04/14] drm/tidss: Drop the tied off video port check
+ from mode validation
 To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -73,24 +73,23 @@ To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-3-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-4-dc7f2b532478@ideasonboard.com>
 Content-Language: en-US
 From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261029-beagley-ai-display-v4-3-dc7f2b532478@ideasonboard.com>
+In-Reply-To: <20261029-beagley-ai-display-v4-4-dc7f2b532478@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 
 
 On 29/10/26 10:18, Tomi Valkeinen wrote:
-> When a panel is connected directly to a video port,
-> tidss_dispc_modeset_init() sets the encoder and connector types using
-> the 'vp_bus_type' feat. DISPC_VP_DPI selects DPI and DISPC_VP_OLDI_AM65X
-> selects LVDS. Any other type triggers a WARN and fails the probe.
+> dispc_vp_mode_valid() WARNs and rejects every mode on a video port that
+> is marked as DISPC_VP_TIED_OFF in the 'vp_bus_type' feat.
 > 
-> vp_bus_type is problematic and is going to be removed. Change
-> tidss_dispc_modeset_init() to use dispc_vp_is_am65x_oldi() for detecting
-> the OLDI case, and default to DPI.
+> The check is redundant, as nothing in the DT will be connected to the
+> tied off VP, and thus the driver can never do a mode_valid call for it.
+> 
+> Remove the check, and rely on the DT to be correct.
 > 
 > Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
