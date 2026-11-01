@@ -1,66 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571760;
-	b=CKRPIlEtvAavr8gDywFfMql6tsxPdkFnYhW0fU2UHgOK2NdDLeQnJw40eqmgQrUjyYG6
-	 mr45tp/uvT4wSIbkYyHCCKQ6YlZnQrrRtqJy7k61l19dmXptlO9oJm7TtxYT8rQlOE3/b
-	 JsuCFXe+KIA/WE+/t55X3dukEPGY97L4JT+1eAD0nf4NHr+R15tKJtflfTkGoEbVryPXq
-	 Apj5uTX/RRFjuIh814HLPtksNLd0O0LsEXUhqkjDiUZcbFHAKz1+Xr7BuAq2Q+J4vEVhj
-	 ie7ymW2RPb0dVf6LxaD6G1RvXfTY4MYOFZEJ2RRAQEwE5D6rAEmyDGIo9vvJ7h3JupA==
+	t=1793571884;
+	b=1HN2yv1m7t1telkxvy2K5Sw25SQN2kjZcn24LOj4WK/aAxjjWhQ8DLltKMH3MZqjF+ZW
+	 kuuOaw/wjo1AM1Pv3S5zJib27Fc/pnZhBpcnHAhSXgrlnG/LHvq2x00eVr7Msq7xhFNJ0
+	 2Cs5ZKiKatvKRsCNIXSvbZrCr/bVwYYnamnA5h7T9yvRHYHdhoDTH2BN+QdWYUxYn0AwC
+	 23qcDIhxmwqP7LXhE6iiuhCOhGdF+EcnSF2MmGUg6Anq/Fny62x0axrOZQv6t8C97x76s
+	 avOhI59NU3J6wYlWLufHWavkloFczGtHJLoiygN9cJOqLyL4yMjIF0x4xZCpWKL/w9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571760;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Mv6Yvyb3o++b8fZoh1Htp11ocQGypTu1H88aSpWkzgo=;
-	b=3poGTtd5uteMWuZEZY83hIrIJCI6B9cvW6e4ygumzP2JylC2dv044NeFPJarZXIaNSLr
-	 zhqSqohe+bZFIb0d7NY4Kn0QfU2AawlXTCyf2+XfqJ3nadf8whp+txKUuFEbEt48dLi0k
-	 eKkyB9fEpTkCRt03QGte8jkDv7LZbAbjvJ2S/RrrtV4jsXyl20RBf75QYTCFQ3znHbQzX
-	 YROfAFVEMu1b5LKdsWH6E5RRp+zrCCGJLQxwMgEghpsEvsdVBMsvSY4eiBZXlbSCuCbb9
-	 2726D4mHciS7vBidYzieHjXOKIglvISYKXIRfI4zeLwBwzz9FNxqUZ8FQCsbvIU4W/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571884;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=EKbi8jrqoQwFGPzDmvjh8kIwRvTdotgtU7HnVsX5eis=;
+	b=0+eTL6+s+86dTWmI0Pca6Cp1uBNWf4ltMUb3n0RaAlAQK+EJqqHMzojS8ZKMkGnqXsQR
+	 Er3XTW/lNf2AeHHctlBVYtzdepBt8AfY6jVqi877iRSHUT+76a8Qf6Wt+hkoFltO0xZeA
+	 AqLvkAivCPE1YdYrGD2Zxp5GZ6KuZaKd5C3SiA6KoGAWc1EGXXlOFFJC6U7J+5aQnbc8E
+	 /T1wg90Urylu5093AjLkvqgSZzAPObbmMU3wHJqGGzPj7a9oiMLlq2vxBz5Fab4ozYxi6
+	 gVyo4qZLJoG93NBox2hl2ylYWUeUE7wqu65lh8eVznMgGUjMKt3kckHSvjpNpTifDeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZd5foMj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLBkpnPg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2085360701CA;
-	Sun,  1 Nov 2026 22:22:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D548D606A333;
+	Sun,  1 Nov 2026 22:24:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZd5foMj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FA21F000C1;
-	Sun,  1 Nov 2026 22:22:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLBkpnPg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515401F000C1;
+	Sun,  1 Nov 2026 22:24:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571759;
-	bh=Mv6Yvyb3o++b8fZoh1Htp11ocQGypTu1H88aSpWkzgo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XZd5foMjVBkJ/7MBgbpDRFvOnYQEFOC8IJtihhFIxA6k3WX93NwNjINFTdG89cxnF
-	 fe8yECbSClebrIt5L7ppeJWR6ZS5Hvo64HainRWXwx9U+bPL0BJMJAy3z258DcW1HB
-	 TcFRssJdUzTp4ZVppY5ojfAOu8tVg3ESf/dcXJf7UIqZ1nvnuC7jhqQyE99P7O2Ju0
-	 6b+4Fi6yv5GXAtvxMMtVDTG4KpRC8U7ymPcYA1WVinx3oLm1p+vJbgioXu1PhPXSY+
-	 9py6dMJBRht3yot0O/Q8u0oki3eGGvUNwUVuZVV/qfOjkyH/tzQV9Mj5fkIbE7eJYg
-	 ZDGpa91IzdGXw==
-Date: Sun, 1 Nov 2026 22:22:30 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 6/7] iio: imu: inv_icm42607: Implement MREGx register
- access
-Message-ID: <20261101222230.2ce697cf@jic23-hlaptop>
-In-Reply-To: <20261026-b4-inv_icm42370p-v7-6-222e296ac1e0@axis.com>
-References: <20261026-b4-inv_icm42370p-v7-0-222e296ac1e0@axis.com>
-	<20261026-b4-inv_icm42370p-v7-6-222e296ac1e0@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793571883;
+	bh=EKbi8jrqoQwFGPzDmvjh8kIwRvTdotgtU7HnVsX5eis=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MLBkpnPgsryNbyoi3DU9f6Y3JhcTDJxTH9wO8OVj1wP//C0B/Cg9AcKrrC/thAERz
+	 2hTpJ1tfclZv25YjIo/GOj/Sj8hK+TOtcc0rewYaTsdt7YUdxRDOTrj8/DuWOGZ8tB
+	 nTiZT3JVmoU0AOkfPkn38N9qgKradfd5r1DAzKdr6LVUFogszNYwkpHOLBScevmD4C
+	 ZSeEL/U+OW6egnxgKkkYn/vbaGxoUpwgiSvxpwCvcQOB7OZ2vnXvZwGZh65P+0hci+
+	 ZT+Jfm2zm4Dd3jUbChQEt2RA54HfGTJwAOUejzCE4askhsKLYuGsdlaWNjpj7ASRZ8
+	 1mU4v4NHxFgoQ==
+Message-ID: <sashiko-outbox-192711@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/7] dt-bindings: mfd: Describe the BCM6846 PMC
+ complex
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261101-xg6846b-bcmbca-xrdp-reset-v2-1-455fe9eed5ee@kernel.org>
+References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
+ <20261101-xg6846b-bcmbca-xrdp-reset-v2-1-455fe9eed5ee@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 01 Nov 2026 22:24:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,195 +60,126 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 26 Oct 2026 12:02:54 +0100
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] dt-bindings: mfd: brcm,bcm6846-pmc references files added in next p=
+atch
+- [Low] dt-bindings: mfd: brcm,bcm6846-pmc example child nodes out of name =
+order
+- [Low] MAINTAINERS: missing S: status field in BROADCOM BCMBCA PMC3 PMB DR=
+IVER
+--
 
-> The device supports indirect register access to different banks. A
-> specific routine needs to be followed when accessing the registers in
-> another bank as documented in the datasheet (section 13). This is
-> required for accessing registers configured via the user and
-> implementing buffer support. The implementation is inspired from the
-> icm45600 driver.
->=20
-> The banks are defined based on their initial bank access code which are
-> written to the BLK_SEL_* regs. However, there is a variation for MREG1
-> as User Bank 0 and MREG1 both share the same 0x00, so User Bank 1 has
-> 0x00 and MREG1 has 0x01. When MREG1 register is accessed, then BLK_SEL_*
-> is written with 0x00 instead of 0x01. All the register access goes
-> through the 16 bit virtual regmap layered on top of the 8bit bus regmap.
-> Bank id in the upper byte and the register address in the lower byte.
-> Bank 0 accesses are forwarded to the bus regmap with the bank field
-> stripped, while MREG accesses are forwarded to bank switching sequence.
->=20
-> Due to the specific bank switching routine, it is not possible to use
-> regmap-ranges. Only User Bank 0 supports bulk read/writes whereas other
-> banks can only be accessed serially. Each time some data in the other
-> bank needs to be accessed, it should go through the complete bank
-> switching sequence.
->=20
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370=
--p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Assisted-by: LLM
+commit 39aa42d4e944629fc1763b294af564d34ce88b86
+Author: Linus Walleij <linusw@kernel.org>
 
-Drop this assisted by. The rules changes again :(  Now the plan is
-just to have the LLM usage bit you have below the --- and
-keep nothing in the git log.
+dt-bindings: mfd: Describe the BCM6846 PMC complex
 
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
-> LLM was used to implement the mreg back switching support.
-> ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607.h      | 166 ++++++++++------
->  drivers/iio/imu/inv_icm42607/inv_icm42607_core.c | 242 +++++++++++++++++=
-++++--
->  2 files changed, 329 insertions(+), 79 deletions(-)
->=20
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/im=
-u/inv_icm42607/inv_icm42607.h
-> index 674a9896fabb3..eecf4c46cbdb0 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+This commit adds the Device Tree binding schema for the Broadcom BCM6846
+Power Management Controller (PMC3) complex and adds a corresponding
+entry in MAINTAINERS.
 
+> diff --git a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml =
+b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> new file mode 100644
+> index 0000000000000..78aef68bc3183
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> @@ -0,0 +1,82 @@
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index 018a7506ad50c..414642f8ec930 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+[ ... ]
 
-> -	return false;
-> +static int inv_icm42607_mreg_read(struct regmap *map, unsigned int reg,
-> +				  u8 *data, size_t count)
-> +{
-> +	int ret, ret2, ret3;
-> +	unsigned int val;
-> +	bool idle_set;
-> +	u8 blk_sel;
+> +patternProperties:
+> +  '^bus@[0-9a-f]+$':
+> +    $ref: /schemas/soc/bcm/brcm,bcm6846-pmb.yaml#
+> +    description: PMB configuration, keyhole and address mapping registers
 > +
-> +	/* MREG access is one byte per transaction, no burst support. */
-> +	if (count !=3D 1)
-> +		return -EINVAL;
+> +required:
+> +  - compatible
+> +  - ranges
+> +  - '#address-cells'
+> +  - '#size-cells'
 > +
-> +	ret =3D inv_icm42607_blk_sel(reg, &blk_sel);
-> +	if (ret)
-> +		return ret;
+> +additionalProperties: false
 > +
-> +	ret =3D inv_icm42607_mclk_get(map, &idle_set);
-> +	if (ret)
-If this fails, why don't we need to undo the blk select?
-> +		return ret;
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/brcm,bcm6846-pmb.h>
+> +    #include <dt-bindings/reset/brcm,bcm6846-pmb.h>
+
+[Severity: Low]
+As reported by Krzysztof Kozlowski on RFC [1], does running
+make dt_binding_check fail at this commit because patternProperties
+references /schemas/soc/bcm/brcm,bcm6846-pmb.yaml# and the example
+includes dt-bindings/clock/brcm,bcm6846-pmb.h and
+dt-bindings/reset/brcm,bcm6846-pmb.h before they exist in the tree?
+
+Those headers, the referenced schema, and the child compatibles
+(brcm,bcm6846-pmb, brcm,bcm6846-pmb-clock, brcm,bcm6846-pmb-reset, and
+brcm,bcm6846-pmb-pvtmon) are only introduced in the subsequent patch,
+commit 44e16c21f8b2 ("dt-bindings: soc: Describe the BCM6846 Processor
+Monitor Bus"). Should that patch be ordered before this one so that
+schema validation and example compilation succeed at every commit in the
+series?
+
 > +
-> +	ret =3D regmap_write(map, INV_ICM42607_REG_BLK_SEL_R, blk_sel);
-> +	if (ret)
-> +		goto out;
+> +    system-controller@ffb00000 {
+> +        /* Broadcom BCM6846 Power Management Controller complex */
+> +        compatible =3D "brcm,bcm6846-pmc", "simple-mfd";
+> +        ranges =3D <0x0 0xffb00000 0x21000>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
 > +
-> +	ret =3D regmap_write(map, INV_ICM42607_REG_MADDR_R,
-> +			   FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg));
-> +	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
-> +	if (ret)
-> +		goto out;
+> +        /* Called PMB Processor Monitor Bus in vendor tree */
+> +        bus@20100 {
+> +            compatible =3D "brcm,bcm6846-pmb";
+> +            reg =3D <0x20100 0x200>;
 > +
-> +	ret =3D regmap_read(map, INV_ICM42607_REG_M_R, &val);
-> +	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
-> +	if (ret)
-> +		goto out;
+> +            pmb_clk: clock-controller {
+> +                compatible =3D "brcm,bcm6846-pmb-clock";
+> +                clocks =3D <&osc50m>;
+> +                clock-names =3D "ref";
+> +                #clock-cells =3D <1>;
+> +            };
 > +
-> +	*data =3D val;
-> +out:
-> +	/* Restore direct access. */
-> +	ret2 =3D regmap_write(map, INV_ICM42607_REG_BLK_SEL_R, 0);
-> +	ret3 =3D inv_icm42607_mclk_put(map, idle_set);
+> +            pmb_reset: reset-controller {
+> +                compatible =3D "brcm,bcm6846-pmb-reset";
+> +                #reset-cells =3D <1>;
+> +            };
 > +
-> +	return ret ?: ret2 ?: ret3;
-=46rom a readability point of view, this is getting a bit too creative.
-I think I'd just separate the good and bad paths and burn a few more
-lines to do it.  The lack of balance between get and release also
-concerns me.
+> +            hwmon {
+> +                compatible =3D "brcm,bcm6846-pmb-pvtmon";
 
-If we to do blk select then mclk manipulation in the same order for
-both, then break it out to helpers where you can easily document why.
+[Severity: Low]
+Should the hwmon node be placed before pmb_reset: reset-controller in
+the bus@20100 example node?
 
-static int inv_icm42607_switch_to_mreg()
-{
-	int ret;
+For child nodes without unit addresses, DTS coding style requires
+alpha-numerical ordering by node name, and check_child_name_order() in
+scripts/dtc/dt-check-style --mode=3Dstrict warns when hwmon appears after
+reset-controller.
 
-	ret =3D inv_icm42607_blk_sel(reg, &blk_sel);
-	if (ret)
-		return ret;
-
-	ret =3D inv_icm42607_mclk_get(map, &idle_set);
-	if (ret)
-		//Can't undo the blk select?   Add comment here.
-		return ret;
-
-	return 0;
-}
-
-static int inv_icm42607_switch_from_mreg()
-{
-	int ret;
-
-	/* Restore direct access - Say why ordering */
-	ret =3D regmap_write(map, INV_ICM42607_REG_BLK_SEL_R, 0);
-	if (ret) {
-		inv_icm42607_mclk_put(map, idle_set);
-		return ret;
-	}
-	return inv_icm42607_mclk_put(map, idle_set);
-}
-
-Even with this, split the inv_icm42607_mreg_read()
-ending into a good path and error path to avoid the ret2 type
-dance.
-
-
-
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065d..eb4b3b631e82c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5444,6 +5444,10 @@ N:	bcm[9]?6856
+>  N:	bcm[9]?6858
+>  N:	bcm[9]?6878
 > =20
-> +static int inv_icm42607_mreg_write(struct regmap *map, unsigned int reg,
-> +				   const u8 *data, size_t count)
-> +{
-> +	int ret, ret2, ret3;
-> +	bool idle_set;
-> +	u8 blk_sel;
-> +
-> +	/* MREG access is one byte per transaction, no burst support. */
-> +	if (count !=3D 1)
-> +		return -EINVAL;
-> +
-> +	ret =3D inv_icm42607_blk_sel(reg, &blk_sel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D inv_icm42607_mclk_get(map, &idle_set);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_write(map, INV_ICM42607_REG_BLK_SEL_W, blk_sel);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D regmap_write(map, INV_ICM42607_REG_MADDR_W,
-> +			   FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg));
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D regmap_write(map, INV_ICM42607_REG_M_W, *data);
-> +	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
-> +
-> +out:
-> +	/* Restore direct access. */
-> +	ret2 =3D regmap_write(map, INV_ICM42607_REG_BLK_SEL_W, 0);
-> +	ret3 =3D inv_icm42607_mclk_put(map, idle_set);
-> +
-> +	return ret ?: ret2 ?: ret3;
+> +BROADCOM BCMBCA PMC3 PMB DRIVER
+> +M:	Linus Walleij <linusw@kernel.org>
+> +F:	Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
 
-As above.
+[Severity: Low]
+Is this new MAINTAINERS entry missing an S: status line (such as
+S: Maintained)? Without it, scripts/get_maintainer.pl
+--self-test=3Dsections reports a section without status warning.
 
-> +}
-> +
+[1] https://lore.kernel.org/r/ddfe83b7-d4b8-4d56-a295-fde63519bdde@kernel.o=
+rg
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101-xg6846b-bc=
+mbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org?part=3D1
