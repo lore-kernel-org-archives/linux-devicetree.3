@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571406;
-	b=u5InmVy7hs0/x+NT0Lf6kqv8sga8w3+pNPKHp3GcFYj+azawGkMQ8UPWwRLi+XbhXSq0
-	 YYQKVTE70PDTUTJTd/ajcG+6UBfYoQvd4THQehMUJakWG9M2fRs6o31b99QtfM/AgVya8
-	 BNf3LBsYKgOEGW05ebVjvx5/pBxl4Ng/MONlrA0BaBKcrnNfTtil0ya0lEbytIjW4oRvF
-	 1xsU5FaMLprrFePCCIDD2/t34RbSTXhqHzL+0+q9bpjUYdsYodtmDXVylPhmHxehfBoSz
-	 zgHEzt1yWn69hdfRsQAKqmiwuYHRr8xYcw51Qbr8xwZ8k30EsiP2dYp0vp9rQtpDnoQ==
+	t=1793571413;
+	b=cJPAGDYjUH4c07YBMp0DN1q/ojiasoRfOZrLUWWPuh4tZukwHQ/6DOtrDy8wuwYPttdD
+	 F0qbvwWikO8ibilOxrdTNIdsGairSv1zEF1lsPgREUoYvoTzPkwrUYz0d3ysNbUbJNrnk
+	 pcsRqEF7QIfdZ5+wrYoWUuU0kAHHw1lJ0NuiqqFOdDWgsYoOnaKDa7R65KnK9lG/c+XEA
+	 eiiRGffrolsYGH/8ES4liB3IauzXkLt9H4zb1HDtP+ZZ61eTUUiQ7Xjjuxpky2OP+qLBz
+	 0JBNkXfOeue0Q7wIPH5IOxLYPnsS3z0WxieThUplJcFuwQYrcn3PAKKJ9VuvroMo2Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571406;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=;
-	b=A5mXDglRERla6JSYTYR4LPI3Iy0Q+MZ6gnLH+VkfnwMDK8CHnBLmL8lfHqBaF9d8nGv3
-	 ot8dsqA/0S/WdizcfPrys445iHJNvvlkD5ntLmjz3HdEzcumWj2S4mfLsjomdCYrlkDTb
-	 B03SSqBwonURAaaHCOp7HKNskn4N+t5XM/m0Db0ZK7rTBHmXBmioudtWHuXrmg4BzAFbJ
-	 PHv387zaGchHHfEr1zoPlLTcVTe3omkw81fniBy478MfVVje7hpH0YTygGKoU4uZTTWzS
-	 6TGTiK27voPZxlA/yoS9VQx3Iw1Yjs53gdiVkK3nbr/AvUV3eKyp1YHr5D6Afn0X3jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571413;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
+	b=IB4MAXBiR8FZLnTWT74oxcqdFffLdHisVk64rJZPzITvlq+ErT1YNoTVWDBG59FLK+Xg
+	 ymHdw72JcBr3NxhDvgHuWw68TlyTFXim+zj8lqhj9kXJOB4Ojbg9ocrdKlCbRJysqmAc5
+	 TOtw6E08FcV/10k8Gg76Ijzd0KQTMizA01ckh3FM6uf+o99MEhM2aSLbO2ncDntACgcC1
+	 iWeOKQfMB1ZnYf0sRUDoowwzvyxnayYHQxnXaOqueFbfev3Til0WO/wd3RbBD9bDVH3dL
+	 lJmQBfSR068Sty/39RzImkTHQXTZrkqN6be4GQKMMyuSyKiN1p/tBYcojzIgAUjjZPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2016606ECCD;
-	Sun,  1 Nov 2026 22:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2016606ECCD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EB6072170;
+	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=; b=p3eIOyeNLwKdvGgs0DrdVSQ8AN
-	pIrjanYCEEVzJtZkLgPuQekvVXx/BUa0ZfyE+6Z9T5DGD+P1gkPZoLHl/7w8blOWDd0HAiHdrSbKA
-	C07nlsh2JRBJ6gwFymecy1OJIpZVJLHwnV6Ov78hzlianq2McrvIBDlR7oazvu20VMT7esI7ZOYip
-	YYwScpE5Tf5tf4L/fcgXcMkGFcQ3q+0p2ea/DGT3NZyjGCxItglsSMJEYtNPkNScw2OEqIKyzE0+R
-	eNqyM5/iJGS/8dLRjMKoDfeTZBMxJih72F47iHoaJ95WOQ9Cuf8ppbd/IZK4Bag1wC3t+/plqYb7N
-	ZjnAyqyA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dennis Gilmore <dennis@ausil.us>,
-	Alexey Charkov <alchark@gmail.com>,
-	Kel Modderman <kelvmod@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: rockchip: Fix Orange Pi 5 Pro headphone output
-Date: Sun,  1 Nov 2026 23:16:32 +0100
-Message-ID: <179357139327.4108484.4012953822270877213.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
-References: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499EC1F00919;
+	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571413;
+	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=e7A8CvgsLR+P85In/cqf5teG1i56/z+xxZn3GQOfofjUdlB2fVQynrtbr2W1/1aqe
+	 +4KwOpykFZFbAMOaM2gd0eUFvVGzdZY7aoLUiuVvDUu6K7o5K8USTQ2HqAAFzrsFrr
+	 DPtQmC7Yg02AxB2O9kokMig4jAaS+86VYzru+qxDqTWNMOSwJQzaLkdk0YMWA6tKYm
+	 ++ViQCAvb7sEJHHdUuce9ru34+IY9z5wFevuJnHNlmu/3GQKuNXnqg1yF8GEE8JRVA
+	 MwJYfEpe7fXfDWwyzFoGuRZNcKwUbIW2Xx9lsxy7wL5JanRHWBJckgHxMcV5blV7BQ
+	 Y72Cn2H9f5T5Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401C038003B8;
+	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,29 +53,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:51 +0000
+References: <20260810030714.48100-1-hal.feng@starfivetech.com>
+In-Reply-To: <20260810030714.48100-1-hal.feng@starfivetech.com>
+To: Hal Feng <hal.feng@starfivetech.com>
+Cc: linux-riscv@lists.infradead.org, ukleinek@kernel.org,
+ p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor@kernel.org, emil.renner.berthing@canonical.com, palmer@dabbelt.com,
+ pjw@kernel.org, aou@eecs.berkeley.edu, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
+Hello:
 
-On Sun, 18 Oct 2026 16:35:29 +1000, Kel Modderman wrote:
-> The Orange Pi 5 Pro inherits vcc_3v3_sd_s0 from the shared
-> rk3588s-orangepi-5.dtsi, but on the Pro GPIO4_B5 does not switch SD card
-> power: it enables the headphone amplifier. With the regulator claiming
-> the pin, the amplifier stays off and the headphone jack is silent.
+This series was applied to riscv/linux.git (fixes)
+by Conor Dooley <conor.dooley@microchip.com>:
+
+On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
+> Add OpenCores PTC PWM driver which is used in StarFive
+> JH7100/JH7110/JHB100 SoC.
 > 
-> Patch 1 moves the regulator and the sdmmc vmmc-supply into
-> rk3588s-orangepi-5-5b.dtsi, which only the 5 and 5B include. The
-> compiled 5 and 5B DTBs have the same nodes and properties as before.
+> I will maintain this pwm module in place of William.
+> 
+> Changes since v21:
+> - Allow non-zero duty cycles shorter than one clock tick to round down to
+>   zero.
+> - Drop the .free() callback to preserve the PWM hardware state after
+>   pwm_put().
+> - Update the comment.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
+    (no matching commit)
+  - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
+    https://git.kernel.org/riscv/c/2186ec5f59c2
+  - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
+    (no matching commit)
 
-[1/2] arm64: dts: rockchip: Move SD card regulator to Orange Pi 5/5B
-      commit: 7fad20ae8bf8e289cb6423d68ef4f0d67f4a33c5
-[2/2] arm64: dts: rockchip: Add headphone amplifier to Orange Pi 5 Pro
-      commit: f21e9ddb7415eb60a404297e2a44fa23243fd2d4
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
