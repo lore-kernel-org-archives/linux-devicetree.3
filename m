@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571325;
-	b=4WB78IzWghTBls6LSfd9E+t61qv8MWH2zBDP/VAU3XFu6v3qwb/Wenh1rJiLb//0xrf9
-	 iQ50lJ0bCeCryROTRabJT2uMEmfxUYO1jqbjn8cvOpcXhvFEIsMNJ7Z/JSn89MtkGslEN
-	 gD5AWrCiU2jr+oQIEn7s/ivWiIJ1UeiyJwdSaOV6tocLugjq8t9lqQB3JdWBt1PIVJtxM
-	 aPGE11BoxEIhI2eORj4X5sLwse1z8Qi2CM7+LhYLHJOtRkJNepQj8yghXI16mARagdKeQ
-	 q82+RvSoAWzEktRVo0hx1nlAVfCB1/encf+ZPh2bSw6l2BAW+655lb7UGmit6dyz6/w==
+	t=1793571348;
+	b=5pYlQaheKFytzw2S0EmLh1+PKhfCd7J37LWzORcmMtu4BOEklj8vXObsL1Jpt6kEVcjn
+	 TmlrvDJxc6jmVaWGVTAlMhm1KR/iClIrAXmgjNDKC6BlId0/Iv1t3wb/8K2Fpketab0XO
+	 n5LOt0kM/S2Hke6sQ7qtvPNGuHOTwtM/i1SRTXmgQ6qMwZC8hDK6J1NBUsmBbGghY1gwj
+	 vm+Tgo6oUaVm6CXYlV+iiEaJQs0yhvLdbDU0wW11BiR6Tno4IxOyNZ0goRHTvEXZkBDEC
+	 5rezJDmG92KlJYNE6V3io6bHoFfyaz2KP8gdo5t+zHmU+CIk8/1NPs+nwyJyiZDYG3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571325;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=S3lcyIX5M+D9oaMxMnqcLepq9hdIlj33lYjarpJr4ic=;
-	b=uCTHT5LB2nRdQMSMxb9lZdlOvFmKZD+OV6FlG/2kGgi4+hNOM3bksYfcSCvt1UTUgXmC
-	 9xSyFsRcTtN1kc57Q1XN4uG1hqdCjOBZMVgKPqgl0Yjt5y9q/Lg+zF3dYgaRklb6wBhrc
-	 w/aB1JQBTMGzzL3SKuDFy+t6es78Uqzlee9KcjDgtKetihm7Hb5rUgi71NPqOzJzsnkpg
-	 XcqfWi4yjCKXVMty3QZKZA68oG72iy0BrQ8pzNZpNgIfapUPjCo4wfvQqZsuiaU/NLOFW
-	 0oEjd/gGrtkWNuyv48sWWZIubhAEYUq26K54KcjmApRnhHAHWKFu8z0ZOlb1raSncBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571348;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=JvZMrkFAj4cuxDxTXvU7TjTIfCCUoa7HG949wcMrARU=;
+	b=vSlbz2KhGW2KFuHgjN3/CWgq8p/pFWTcwFJZfKU6rHCKSRzitJA2zbng6pw4o4DE1u3D
+	 UJhHNvgjfn9YP9owdkyvTHyBq2QtHXbDV67ju3zQ3f+3+gqso2hxlsERxhk6MUBDRvgXU
+	 FLdEmZKawiLEnMgbxIgIOQCc36mkizLg+Ok69OU0Zs6kcZl/7Ty4S9gmBsO58FmZHrcXQ
+	 JIjuH0CAMK1o6J8zPeS7hKduSZPo0umHtHNH5q6zg4O+V2ojHqzGpoxUN8onfKA9TYj5P
+	 S/h1F4xZwX/wCEIqtY8lAF1T9RAxSuSLXtn/ScrfbxtGNdPQgi7+8QnFpKTF4YPFiWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHaOgXuE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsgCfXK1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F7B606A326;
-	Sun,  1 Nov 2026 22:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CF3606A324;
+	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHaOgXuE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780C31F000C1;
-	Sun,  1 Nov 2026 22:15:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsgCfXK1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9391F00A17;
+	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571324;
-	bh=S3lcyIX5M+D9oaMxMnqcLepq9hdIlj33lYjarpJr4ic=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CHaOgXuEOszpcFCzgxWhOugudfo85K2qYm/UkvJds7hTV31/NTxkpEvX5k0lgLQlE
-	 8IvflPjJkW7U6ZILo5XVKFue4NzP8sMsGDZgLmpYpPc1lUdZWRrxk6M6i+5slC1rck
-	 EuteLDR0ogjJq+Zb4I1ODq1VKMZ/oQ1mq3KZb+kUNyh6J3BoR+UeUWUC5I4B5upvyl
-	 YRAQzoDExynaG9vB9bfXdzNEjN8IfqH+sEwmcDXGFfbAutlrtkjSQT4eXa6WE0WYqj
-	 P/P7vgeh2cGPCr+4UM45Sr7DGfq0sGnfy+uOBn4D60xD7f3tj3hGVHqS1zaKriBP1l
-	 XFOoJuwtrAfXw==
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 01 Nov 2026 23:14:40 +0100
-Subject: [PATCH v2 7/7] ARM: dts: broadcom: Add BCM6846 PMB clocks and
- hardware monitoring
+	s=k20260515; t=1793571347;
+	bh=JvZMrkFAj4cuxDxTXvU7TjTIfCCUoa7HG949wcMrARU=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=lsgCfXK18Oengq3LRjoYkZPO+6SC8jlVqgMOxGhbYf6DhhJ7gJLlBe7Y6Ani1CP1q
+	 YTl8YzcQmWJpIiYoIDW7/60MUvIeQoGBoRLzYrHbzc/ybAqIrb8JDl5cW4++mQVvJP
+	 rRl0pi4jare82zWO8nIdn4//CFelRizT0b2aO6WZojStQm+YFdDbl43GlRLD7vdnWz
+	 Lc/MQ2ywPVXyfom7ekn/7yiwaRBvBIOk3IjqGYO5XX1ai9sAcfjDz/mHemiW88S92d
+	 3tCwt2f3YzCmtXLFF3ypGGLgnusjSEhmEIowD33VhD/raZLHOZaZkap2soMP0zEtvC
+	 17MpR+vLbQXIw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0318238003B8;
+	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,125 +53,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-xg6846b-bcmbca-xrdp-reset-v2-7-455fe9eed5ee@kernel.org>
-References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
-In-Reply-To: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- William Zhang <william.zhang@broadcom.com>, 
- Anand Gore <anand.gore@broadcom.com>, 
- Kursad Oney <kursad.oney@broadcom.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Benjamin Larsson <benjamin.larsson@genexis.eu>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-hwmon@vger.kernel.org
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/4] riscv: dts: thead: Add Milk-V Meles support
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357134580.2624073.9566786925548319371.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:15:45 +0000
+References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
+In-Reply-To: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, jszhang@kernel.org, fustini@kernel.org,
+ guoren@kernel.org, wefu@redhat.com, rabenda.cn@gmail.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Describe the PMC complex and its PMB interface, including clock, reset
-and hwmon child nodes. Supply the PMB clock controller with
-its 50 MHz reference and connect PVTMON to its clock and reset
-resources. Add a SoC thermal zone referencing the sensor child with a
-one-second polling interval.
+Hello:
 
-Leave trip points and cooling maps unspecified because the available
-BCM6846 documentation does not establish suitable temperature limits.
+This series was applied to riscv/linux.git (fixes)
+by Drew Fustini <fustini@kernel.org>:
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm/boot/dts/broadcom/bcm6846.dtsi | 47 +++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+On Thu, 01 Oct 2026 15:44:09 +0800 you wrote:
+> Milk-V Meles is a single-board computer powered by T-HEAD's TH1520
+> SoC with four C910 RISC-V cores. Add the board compatible and device
+> tree for the Milk-V Meles.
+> 
+> Enable UART0, eMMC, microSD, Gigabit Ethernet and the PWM fan, and
+> name the GPIO lines exposed on the 40-pin header. Add AP6256 Wi-Fi
+> support over SDIO and enable HDMI output through the DC8200 display
+> controller and DW-HDMI transmitter.
+> 
+> [...]
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm6846.dtsi b/arch/arm/boot/dts/broadcom/bcm6846.dtsi
-index 47f177323c18..e9775dfc5d1b 100644
---- a/arch/arm/boot/dts/broadcom/bcm6846.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm6846.dtsi
-@@ -3,8 +3,10 @@
-  * Copyright 2022 Broadcom Ltd.
-  */
- 
-+#include <dt-bindings/clock/brcm,bcm6846-pmb.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/reset/brcm,bcm6846-pmb.h>
- 
- / {
- 	compatible = "brcm,bcm6846", "brcm,bcmbca";
-@@ -57,6 +59,12 @@ pmu: pmu {
- 	};
- 
- 	clocks: clocks {
-+		osc50m: clock-50mhz {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <50000000>;
-+		};
-+
- 		periph_clk: periph-clk {
- 			compatible = "fixed-clock";
- 			#clock-cells = <0>;
-@@ -75,6 +83,14 @@ psci {
- 		method = "smc";
- 	};
- 
-+	thermal-zones {
-+		soc_thermal: soc-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <1000>;
-+			thermal-sensors = <&pvtmon>;
-+		};
-+	};
-+
- 	axi@81000000 {
- 		compatible = "simple-bus";
- 		#address-cells = <1>;
-@@ -263,5 +279,36 @@ pl081_dma: dma-controller@59000 {
- 			clock-names = "apb_pclk";
- 			#dma-cells = <2>;
- 		};
-+
-+		pmc: system-controller@300000 {
-+			compatible = "brcm,bcm6846-pmc", "simple-mfd";
-+			ranges = <0x0 0x300000 0x21000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			pmb: bus@20100 {
-+				compatible = "brcm,bcm6846-pmb";
-+				reg = <0x20100 0x200>;
-+
-+				pmb_clk: clock-controller {
-+					compatible = "brcm,bcm6846-pmb-clock";
-+					clocks = <&osc50m>;
-+					clock-names = "ref";
-+					#clock-cells = <1>;
-+				};
-+
-+				pmb_reset: reset-controller {
-+					compatible = "brcm,bcm6846-pmb-reset";
-+					#reset-cells = <1>;
-+				};
-+
-+				pvtmon: hwmon {
-+					compatible = "brcm,bcm6846-pmb-pvtmon";
-+					clocks = <&pmb_clk BCM6846_CLK_PVTMON>;
-+					resets = <&pmb_reset BCM6846_RESET_PVTMON>;
-+					#thermal-sensor-cells = <0>;
-+				};
-+			};
-+		};
- 	};
- };
+Here is the summary with links:
+  - [v2,1/4] dt-bindings: riscv: thead: add Milk-V Meles
+    https://git.kernel.org/riscv/c/2c8613ec65f4
+  - [v2,2/4] riscv: dts: thead: add Milk-V Meles
+    https://git.kernel.org/riscv/c/8360e1bcc246
+  - [v2,3/4] riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
+    https://git.kernel.org/riscv/c/a7f2539005c4
+  - [v2,4/4] riscv: dts: thead: enable HDMI on Milk-V Meles
+    https://git.kernel.org/riscv/c/d43b33e0253c
 
+You are awesome, thank you!
 -- 
-2.56.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
