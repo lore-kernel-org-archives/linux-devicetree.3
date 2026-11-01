@@ -1,96 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793490877;
-	b=sWND3ttHibqpKy4AMju8lnOE/ev1yuVD5++atR+cUms3InR7Zyz8xK2UlOoN/BNDG9+w
-	 mE1VLXD7VoczL04fQJNd1hiVdWZyFLXBduVlmF3Bvtsw5zlLIMjZkaM2dLnDBnkkhmgWL
-	 4tgBqVLSjM46nLoYjzR1cGOS4aiFEwS5KuOTJ2BY+8qeQLNQUwaGfFTeYoHBJ0FuWA/9X
-	 E65Omlzzvy6756xY/yAYIOYW2bxR9XsLOSkoMIUHzg2FO/RZMn3BF1bqcIv7vU1d0E0+u
-	 8KXKMaiHqMqZBymZzZsFoqg53g1mMZYkyyfqTlHproFVZuYlFORWz6PtqToie1Xgeag==
+	t=1793492383;
+	b=1EkGF2Q6pdx66kOx3EzbQ094uwBv3bGqRoxkE/mbJ0tFEkA6maxKIuwP21tQt7sqAuDp
+	 viYwcIF+jXOL5K/8uFrRPI26kz6hOjqjQoncxHK9MZkqKOZko2pzc8lGc1zqHFijMnsG8
+	 xvzOHL9wa+6RTAlNq6i9lzAVNJpX2GMMuZpO1WXRYaRLTYF63mOICnuBkJ4KjaTS/x7CP
+	 zFo+rZnL8JZY+s+rOqs+nDnkO7xJzF17wKM80M+pTEI2oJXjNlivsJLvqSJYppnGBIAMd
+	 nK/kGA/Nc/IOEGVXcu4QgJ/DdX9dt/YPOkDUvOsXmgHYAR1esoC71YwGjm/c0UEX8lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793490877;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/O1QuS7+tRKjJCe36mLJ5Gs9QsE8OnsKMAzsZ8ju5JA=;
-	b=jGBvnFmwEkVI04bQRcvCiILzC+P52mRWxN1ql//cNkFJ5DSwIk1eEmv/3/Jlx1v8i4jF
-	 iBobuqk2Njke0qm3tesTLEIXP51T7xnFqIVkKi12OHiLOUqzJw6ZIpe0cwUBtdx+gK2Np
-	 XDdTWdsEyQ/6cX6c/Ixl+mNxeocQwY/PIz1QQMJK0xOdYG5mew4Zx3vCs7tJi+H8jLnuB
-	 dsrDzE8K6nHVtJ0No+m2IYQJIjA1YRgDpt/NlN5bMUlyryDGayAkX95j9yn2H4SqzYAFz
-	 OJ0LkT9mPK19YBpapV0/l+VP39c+09CMgnEAx0xB/giBbL7tBuei9nGzuWw8HI4DDRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793492383;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Znj4jYqdJ9TOsG6jdqegXoGfsLpk9Em2KLPQH94MS8c=;
+	b=4KvFjbCgqDupgRfxvM2tQn+PprLIz++8U1rIZgm8FNaZ0gePC94RUIg06tW7KDcjb/j9
+	 6Pz9f5v2xHiLizzotypzUyk2bAmro/hjKlYCb42p6qh6ls0ZxUjNTS8guZryouC5iJwMj
+	 cIQNZboeFQTQJQ8YskCnhklDHfi1vJzrR33xtRZYDBmEl+svxJITUX3Z/KLbuOAdqYugJ
+	 uNGhAMifsty3hMKEcz69+O/9m69BGkL1orN0nVVyt72jCNzMzuuqt2EK7MaIt5id3i8k6
+	 miXAekU5K/tyA5CzK3PbrN8LVRV32YOW87+FAkiRckvMfG9UTwTKR5c5KdOQUvduLPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eTom9iFn;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sujhbtek;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EED0606A31A;
-	Sat, 31 Oct 2026 23:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EED0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDEA606A31A;
+	Sun,  1 Nov 2026 00:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eTom9iFn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793490875; x=1825026875;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=onCPx45jawKu9ge3zeP6P/yMp8qkq874YfzuNRUh1dE=;
-  b=eTom9iFnz2ns+8WlvHLW97FS3h32Kz49d3YGXAlmGS10WvlgOm3fphZi
-   y2R6umxjS3aL0j4Yfcr+4FVTzr5lXJ8EFpo/FyJzDvWuq5UMib48KZ2TR
-   M0vC2PkdBdmAaZMWaZOQ/xana45ieNsk55rWElMDsY1pcOpnFbP0OPPXv
-   h3uTug49/4CnqucSph33IWWaX6zH6B+cTH88suQxzJEH6tXlJeW9+tXFc
-   OPCDlD42Fn/I+hpBdr3+COVFeBHvrCzwsCUMcSRT+T0OdywaT6d/+ZZmj
-   Srd1Ek1tJ/AfTWYbqNgrlYd/GfmFW6jX3yyDY1Uj5Z3aFhT6jr66832P0
-   g==;
-X-CSE-ConnectionGUID: /FCaWxYKSMmeduEKc8Tdxw==
-X-CSE-MsgGUID: fUhshoPWQSyixsMlsg+w5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2220647"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2220647"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 16:54:34 -0700
-X-CSE-ConnectionGUID: V2rALCjrSseDfEOys8L50Q==
-X-CSE-MsgGUID: OZonhpcURWKtmmbCBaLWUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="6079165"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 31 Oct 2026 16:54:29 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNIu2-00000000dH6-35cm;
-	Sat, 31 Oct 2026 23:54:26 +0000
-Date: Sun, 1 Nov 2026 07:53:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: Re: [PATCH v2 03/12] clk: qcom: Add a driver for PDM GP_MN
- fractional clock divider
-Message-ID: <202611010752.aU8NDTD1-lkp@intel.com>
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-3-ff8e4bc8d567@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sujhbtek
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6870E1F000C1;
+	Sun,  1 Nov 2026 00:19:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793492382;
+	bh=Znj4jYqdJ9TOsG6jdqegXoGfsLpk9Em2KLPQH94MS8c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SujhbteklN8J8n7KtZn+OdZ+vm3vIdeK1fl4/KNetrtd4nXnYsp1e/jeSHLyHWvHF
+	 8iq1xQraBiRTSJFWRFsY4ZcKjnWYonENVURBHz96FfmWgOkgS2M5Pxdf8c+53U/wab
+	 k2omhJwJd5Op1q5F0wI43bdSJX1mQ6IlJ7XaX/JemCtaREyauLRN8GS8M3A26ERbPn
+	 MVDqIJo5z/r/u2dZVKoTLJIcO3bo/Y1yi6Y0x7dX1+y1l7RTkoNHglVCJaBMspn7D8
+	 QUSye+dI7XoGO+evQCcOM+V65BuWI+2Q85mrwru6HrLtaNUnxYg8aUuDEYAaxn68bQ
+	 RsGnS3lJjEYIA==
+Date: Sun, 1 Nov 2026 00:19:34 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cwweng@nuvoton.com
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
+Message-ID: <20261101001934.23588aa2@jic23-hlaptop>
+In-Reply-To: <20261030031501.130290-2-cwweng.linux@gmail.com>
+References: <20261030031501.130290-1-cwweng.linux@gmail.com>
+	<20261030031501.130290-2-cwweng.linux@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,33 +63,199 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-3-ff8e4bc8d567@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Taniya,
+On Fri, 30 Oct 2026 11:15:00 +0800
+Chi-Wen Weng <cwweng.linux@gmail.com> wrote:
 
-kernel test robot noticed the following build errors:
+> From: Chi-Wen Weng <cwweng@nuvoton.com>
+> 
+> Add a devicetree binding for the Enhanced Analog-to-Digital Converter
+> (EADC) found on Nuvoton MA35D1 SoCs.
+> 
+> The controller provides eight external analog inputs which can be used
+> as single-ended channels or as four fixed differential pairs: 0-4,
+> 1-5, 2-6 and 3-7.
+> 
+> Describe the four hardware interrupt outputs, ADINT0 through ADINT3.
+> ADINT0 through ADINT2 are associated with the corresponding conversion
+> interrupt flags, while ADINT3 is shared by the ADIF3 conversion
+> interrupt and the ADCMPF0 through ADCMPF3 result-compare interrupt
+> sources.
+> 
+> Also describe the functional clock, optional reset, optional external
+> reference supply and optional DMA request.
+> 
+> Expose the controller as an IIO channel provider through the
+> DT #io-channel-cells property. The cell identifies the logical EADC
+> channel selected by the reg value of the corresponding channel child
+> node.
+> 
+> Restrict the channel binding to features supported by the MA35D1 EADC
+> hardware and use the common single-channel representation for
+> single-ended inputs.
+This description seems a little verbose.  Maybe only talk about the
+stuff we can't tell from the patch. 
 
-[auto build test ERROR on 4eb2586bd40db27d77cc5b724ca9386ed0c71d53]
+1. Why it needs a new binding and isn't similar enough to existing
+   ones for reuse.
+2. Any unusual aspects.  Calling out the stuff that I note below on
+   the per channel binding oddity more clearly would have been helpful.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Taniya-Das/dt-bindings-clock-qcom-Add-bindings-for-PDM-GP_MN-clock-divider/20261026-165927
-base:   4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-patch link:    https://lore.kernel.org/r/20261026-b4-pdm_clk_gp_mnd_v2-v2-3-ff8e4bc8d567%40oss.qualcomm.com
-patch subject: [PATCH v2 03/12] clk: qcom: Add a driver for PDM GP_MN fractional clock divider
-config: i386-allmodconfig (https://download.01.org/0day-ci/archive/20261101/202611010752.aU8NDTD1-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261101/202611010752.aU8NDTD1-lkp@intel.com/reproduce)
+For the other stuff the reader can just look at the patch,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611010752.aU8NDTD1-lkp@intel.com/
+Thanks,
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+Jonathan
 
->> ERROR: modpost: drivers/clk/qcom/clk-gp-mnd.ko: symbol '__udivdi3' undefined!
+> 
+> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+> ---
+>  .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 175 ++++++++++++++++++
+>  1 file changed, 175 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+> new file mode 100644
+> index 000000000000..97144a8eeb5c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+> @@ -0,0 +1,175 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/nuvoton,ma35d1-eadc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nuvoton MA35D1 Enhanced Analog-to-Digital Converter
+> +
+> +maintainers:
+> +  - Chi-Wen Weng <cwweng@nuvoton.com>
+> +
+> +description: |
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I think you only want to keep paragraphs. In which case > rather than |
+
+> +  The Nuvoton MA35D1 Enhanced Analog-to-Digital Converter (EADC) is a
+> +  12-bit successive approximation converter with eight external analog
+> +  inputs and one internally connected VBAT input.
+> +
+> +  The external inputs can be used as eight single-ended channels or as
+> +  four fixed differential pairs: 0-4, 1-5, 2-6 and 3-7. The internally
+> +  connected VBAT input is not described by a channel child node.
+
+How would you have a consumer of VBAT given the io-channel-cells
+comment about using the channel reg values for xlate?
+
+
+> +
+> +  The controller provides four interrupt outputs, ADINT0 through ADINT3.
+> +  ADINT0, ADINT1 and ADINT2 are generated by the corresponding ADIF0,
+> +  ADIF1 and ADIF2 conversion interrupt flags. ADINT3 is shared by the
+> +  ADIF3 conversion interrupt flag and the ADCMPF0 through ADCMPF3 result
+> +  compare flags.
+
+> +
+> +patternProperties:
+> +  '^channel@[0-7]$':
+> +    type: object
+> +    $ref: /schemas/iio/adc/adc.yaml#
+> +    unevaluatedProperties: false
+> +    description: |
+> +      External EADC channel description.
+> +
+> +      For a single-ended channel, single-channel specifies the external
+> +      analog input number (0 through 7), while reg provides the logical IIO
+> +      channel index.
+> +
+> +      For a differential channel, omit single-channel. The reg value selects
+> +      one of the four fixed hardware differential pairs: reg 0 selects 0-4,
+> +      reg 1 selects 1-5, reg 2 selects 2-6 and reg 3 selects 3-7.
+
+Sorry, I wasn't paying attention on earlier versions.  This is a very
+unintuitive binding particularly as we may want to have a single channel
+before a differential one.  Better I think to use the differential
+channel bindings and restrict which ones are allowed to this fixed set.
+
+
+> +
+> +    properties:
+> +      reg:
+> +        maximum: 7
+> +
+> +      single-channel:
+> +        maximum: 7
+> +
+> +      # Differential pairs are fixed in hardware and are selected by reg.
+> +      diff-channels: false
+> +
+> +      bipolar: false
+> +
+> +      common-mode-channel: false
+> +
+> +      settling-time-us: false
+> +
+> +      oversampling-ratio: false
+> +
+> +    allOf:
+> +      - if:
+> +          not:
+> +            required:
+> +              - single-channel
+> +        then:
+> +          properties:
+> +            reg:
+> +              maximum: 3
+> +
+> +    required:
+> +      - reg
+> +
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        adc@40430000 {
+> +            compatible = "nuvoton,ma35d1-eadc";
+> +            reg = <0x0 0x40430000 0x0 0x10000>;
+> +            interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
+> +                         <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>;
+> +            interrupt-names = "adint0", "adint1", "adint2", "adint3";
+> +            clocks = <&clk EADC_GATE>;
+> +            resets = <&reset MA35D1_RESET_EADC0>;
+> +
+> +            #io-channel-cells = <1>;
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            channel@0 {
+> +                reg = <0>;
+> +                single-channel = <0>;
+> +            };
+> +
+> +            channel@1 {
+> +                reg = <1>;
+
+This looked very odd and is why I had a closer read of the docs
+above.  To make this a reasonable binding to read this
+needs to do the full differential channel binding from adc.yaml
+with reg just being an index and not specifying channels at all
+(same as for the single channel case).
+
+> +            };
+> +        };
+> +    };
+> +
+> +...
+
