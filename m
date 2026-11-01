@@ -1,45 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793531678;
-	b=BTYcTEGL5MMruCt+kcUdHllQr9XjTW2TrJXWJf50fqD4JRd6GvedH4d+qmseCId3BI7Y
-	 LBW85LbZN2PGZYLZf/JHWS8wxNDDlUn3ymRBpU5aWizj7pqVOj+ipj2J1iDyuMFXg3+79
-	 vHr4hUleWj54K5QRCxatsI0LPTptI7vpeZnsJRHgi/Ze/Jgv/YfXdLubQG6H1Q0jy7X+b
-	 C05r+34RMy/8ng3PGhDyKHSax3LmtGCC0vJYKxcs3J6cMfdppUVekOWH4u5FwhAitXBfu
-	 rrM12Vhv+eTxDVPQpFKHcyPYJrHQo7mLtBcBCcU+vKv0kT1NK3PDd6hiNXxLFElefeA==
+	t=1793532709;
+	b=mNacLWKUwF65WcaPnwkNtwjjyVV9sgOtGEg3MSEM24TVh0/WQQVSxJiyu8IFa9lfo4q9
+	 iT1mkpfcfBPxSDSWapfGyPnCMJ6lAQCSud46m8TKjnSIpZoeqL+lNWyvY46YmWD1hLK0p
+	 EotShNq234iwtbZIr3x9v04HTb5g1rkNdBFVjrMan2p2EnBLrYej/mERBN535nu+6xl+F
+	 EQjju24K3LkSuSlcNLletWtC9J/pqFsnaSOkt/sNER7bVxjVoStmYmnEGkxxMhXJPGz7q
+	 t+DG8844kb0XKGe44vovx8OQTWoNKG3YEPH00rFPzoG+E2YJqzcoeNcVc8uXfoMtAxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793531678;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/oQHUhKqn5eQp3yIY2zRct0sepeY5dK7XRobzhwN+qE=;
-	b=n8AtkMaqA0zt3W04DoFbgOlo6ilXT3cB8eVzddrR5JV279V76bh7+XBH+xNFtMRDeQpL
-	 vhfrEmkFSkPnkuMMzEBeHNZJoT50znnARC0BgWLs/SgV5AoZVww0FuzE0hU3x3dxBNsn0
-	 56LQvqYdMAJPe5PBEfvAziqMH71rKp8SDbmy/ax6yWvnYw1J5GimTKykRccJTyQ/baElw
-	 ahPl2O7Jl3uY2D1/1wNUN1s2p5tXIl4AhddQrk3XKv+bVixlUog5Q1SZkvWdctPbtJtkM
-	 JFcIfnM3+J0/YeBMmPIR/QZXKTLao8PLWXy00GPMOGtT0ZV9r3dsC46tSkMaiGVJ0NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793532709;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=4PXzGc2Rw2fCXjkklglmjwOBpwPL/t0RkrO1+a8BwTs=;
+	b=eWpxdfLbN7f2BEIJMUTaqRLXlSjuvsv/IH8cV2pl7w/e5zz+W9s4TUnFSKWF7xmyciSE
+	 G7D3Ti5kul4N8itOYOy3pvWLYgkrM4PGKvJvk2kVLbASAGe/tqf/O0JmYAkfR93uLLDUl
+	 v0jEBVChDFCLafMTekyLh034W395nmQ11V3wIGJelJHk9EGg/r82ltjnzYjRnDAM16dPS
+	 UAsC2HZqsp6QVjakqnT/GY0fHWSbinoPW7A1oxu6A3PsLplY/oMAkSKo3VJ1YfWgFWYSt
+	 eeSG9p6SYwGhvGPCgqD1Dqt2kA62rrh2xBENRJurakI0FiFKY9Iis/0+NxWruHutYMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8AOBRHI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=zuHVTW5t;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4B6606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 11:14:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4CA9606A324;
+	Sun,  1 Nov 2026 11:31:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4CA9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8AOBRHI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50271F000C1;
-	Sun,  1 Nov 2026 11:14:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793531677;
-	bh=/oQHUhKqn5eQp3yIY2zRct0sepeY5dK7XRobzhwN+qE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=c8AOBRHI95zbbWRnGxzczWrXNtkUqVhRp7M9+ERH/EusyP/bwwtKZNCtPBHmgm7S6
-	 2eklhdy33Sc48qLwbJGhlumF5+lnsoK6aczkGG2wps0XMymZS6c9G2plTCQ/RCKj+d
-	 dNH2v0zf+Wgrb2mgDOFmqM+GWRrJ6HpzwxKC6/COBq5K2HDiJvPIW0mJx2eAf/JKep
-	 4woTjwrQZrCCmRZ31cjW0wQm5aP/1I/kZTx3U+fnJcqs26zzRXjx/v04+vhxzxhWGF
-	 ZjuYn1F1GuW2+kK9cANsCMDHTzWv7wRHzt1Mpr2jVLqWSxHSscIr6P/5yn6DU+9j9d
-	 Veu47Gm1a+iAA==
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=zuHVTW5t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793532694; bh=4PXzGc2Rw2fCXjkklglmjwOBpwPL/t0RkrO1+a8BwTs=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=zuHVTW5traxZzn7gUPJQzknvG+nR+QwyXrFO3v5WEaqzbrVbjLyfuHkhh46TEzDZD
+	 9w07+o/XwWCYXC+BFh021ps/ZUDKzZM6kbsTbPEsJADmRVRn3E2KfsSfodVAMBNL3B
+	 1/UnuvVzzFFVwL9ap+Go3dS1sz3JMr/wkGaEt3RQ=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: N55iztL8edgQybSWYxuz+O1+9mOuF4a6o9IlPHWQBhRVZDIrch1h77KPomNJ/B
+	 Nw0cRyirxwQuJC/Zmd9tvtdVZv9PIkx4G8zIqW3WkKGx3+cz5H6hAW0nO2abi4WxCICewmrkz24Y5
+	 4gDCn5unlZ9E3H60lTVIBbeedRLttniY1vF6P9OkMwhsxezC6F/Wdf7dIRvfr+YD+120vBhn/EVBX
+	 Z0N4RXfibxF4cTfeJfIO9XgA7m9H/qNUUUk8L/7XCfIxNeszcTEPCGxFw6cbzvCR8bK0urlao9GMp
+	 b37eQJj1TNDomNLU4TlauNG2MLLe/m6YT/3/daLN4faXMG9c3Xv8RaIs6t2zXF5M9/eeO1kd6UZ2b
+	 qRRMx99oge2xpz0V8EtCD10Y5P1nGdSQfF2s8jOzNVqJGx6NJyHBDk0jc+rhHR9yR/SPYT8f6qrW1
+	 4AH8rJhciGcs722AuzpnWmRIZU+HlMtmSespSzXPb/TB+bLm4QWrGZ43zbe9ossVbsrsjxrneGKmS
+	 iJ3OANCDWjL62o2EH5AQxN87S9cp0sdIgWeXC2gkMiPbP52LwlhXkgqI13Wp61sJdjNESXD/tYMw/
+	 FDqhNQEC/MuXxCKLRbfplE+7AKq2OIADHhXFBVNHxB+rPvcsspfezSH0BGT51y7K47ikmjMehRln2
+	 XWXJ1TbdnuKbJHEt16Itz/HLx9CBfKekPE8HES17zLT+hFZ35ZGBKcUbidyOyFfPbkvr1ptXCJ5vi
+	 jCfJJRhxeq4WHq0tXZBSqCzc2y6d7t/BOfI7Gb0ixJuT8p+VxWRBzVmqtHW85fHoTA37+dT4zoSOY
+	 w8K/yEhg2nELVC6UMYix9sTVhxJsTDFQTbuITdWsJ9n0meTHwLdzzhm1rdiJobHe0SUzQm5WxIxta
+	 3wh2swzy6RCJswD+r8vpyXjztAdk2Mk9f5zgSuLLHtAAiUwfAyvc0pBoQQRWitDOALiwngHR9cfSh
+	 9+4rckDH+rQFDCSdGXFPIvdjjpbNrKpevfwBSE9Msw10Uq7yxuPAgGU2didtugTq2H4sFXiiObg9Q
+	 bIM9UM6CLnA2PE5SoggXwT3z2442zqIKO00Li2FJRLYqZppzIxLq1grqXRclociJt+SPB
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?QmFydG9zeiBHb2xhc3pld3NraQ==?=" <brgl@kernel.org>
+Cc: "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 09/27] gpio: rockchip: Add RK3572 GPIO support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,236 +67,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/2] phy: rockchip: snps-pcie3: Load updated PHY
- firmware on RK3568
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
- linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org, 
- Samuel Holland <samuel@sholland.org>, Coia Prant <coiaprant@gmail.com>
-In-Reply-To: <20261026074003.1169669-3-shawn.lin@rock-chips.com>
-References: <20261026074003.1169669-1-shawn.lin@rock-chips.com>
- <20261026074003.1169669-3-shawn.lin@rock-chips.com>
-Date: Sun, 01 Nov 2026 16:44:31 +0530
-Message-Id: <179353167177.2955.5136050090949662870.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6933; i=mani@kernel.org;
- h=from:subject:message-id; bh=YLwhTn6zY6k4kfxPCGjJou8tWFFsXTkuFCVMxPYn9jA=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5x8ZayTKqaOaCCp5aOmP3eBH7roz8dXFh8i8m
- nH8/W0prwSJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucfGQAKCRBVnxHm/pHO
- 9fLFB/9STZDwuas+EDZP1tqT5so4eHQrdSoCdrja16oyWDA/q9Utjcg6+/4J6UcmQb6k5pbcpOf
- WRmdh76jmcAnEYI/p3G7E/RoMjbryPn+JNOsz6tVqjsqkYf6pQrVEWcNme32TNFVXOpciNX36mQ
- OiTHtg9rcb3RIhD1nhH/Vf1WD++cUAjevzUi51JnID3ygIrxdYZWtgiE52zjGScotFEFu0QRgva
- rn0x71iRS/Q2l6+3i6xz6GDMH7PRqf4Jgv3gidVbWWMx5vHYuM82E+qmIkfrGbx7ntbVl7NPac6
- 0jK/txyxdEAYmSkMKzOFR0y+kzVVX0xsybmqDKs2FmZwv/iU
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sun, 1 Nov 2026 19:31:33 +0800
+X-Priority: 3
+Message-ID: <tencent_82A28995065FC62D017F243F201551C14F05@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com> <20261022-add-board-ok3572-c-v1-9-0b0fd85a31ee@qq.com>
+	<CAMRc=MeNF_=T2Yb6wzsQFFcpO+w7sLgaKR=sZhZRzRDFcpgumw@mail.gmail.com>
+In-Reply-To: <CAMRc=MeNF_=T2Yb6wzsQFFcpO+w7sLgaKR=sZhZRzRDFcpgumw@mail.gmail.com>
+X-QQ-mid: xmsezb41-0t1793532693thpegsapc
 
-On 2026-10-26 15:40 +0800, Shawn Lin wrote:
-> The RK3568 PCIe3 PHY can load an updated firmware into its internal
-> SRAM during initialization. Without it the PHY may come up with a stale
-> microcode and fail to establish a stable link.
-> 
-> Load the firmware named by the optional firmware-name DT property during
-> probe, so that it is available in the phy_init() context and is not read
-> from the filesystem on every init. During initialization, clear SDRAM
-> load done and bypass, wait for the SRAM to lock, map the SRAM into the
-> register window, write the firmware and finally signal SDRAM load done.
-> 
-> The firmware is optional: when firmware-name is absent (older DTBs) or
-> the file cannot be loaded, the driver keeps the behaviour unchanged and
-> uses the microcode already present in the PHY.
-> 
-> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
-> ---
-> Changes-in-v2: None
-> 
->  .../phy/rockchip/phy-rockchip-snps-pcie3.c    | 101 +++++++++++++++++-
->  1 file changed, 99 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c b/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
-> index ce7d8db2a7c5..bc1b4d0adaff 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
-> @@ -7,6 +7,7 @@
->  
->  #include <linux/clk.h>
->  #include <linux/delay.h>
-> +#include <linux/firmware.h>
->  #include <linux/io.h>
->  #include <linux/iopoll.h>
->  #include <linux/kernel.h>
-> @@ -19,11 +20,13 @@
->  #include <linux/regmap.h>
->  #include <linux/reset.h>
->  #include <linux/units.h>
-> +#include <linux/unaligned.h>
->  
->  #define RK_PCIE_SRAM_INIT_TIMEOUT_US		(20 * USEC_PER_MSEC)
->  
->  /* Register for RK3568 */
->  #define GRF_PCIE30PHY_CON1			0x4
-> +#define GRF_PCIE30PHY_CON4			0x10
->  #define GRF_PCIE30PHY_CON6			0x18
->  #define GRF_PCIE30PHY_CON9			0x24
->  #define GRF_PCIE30PHY_DA_OCM			(BIT(15) | BIT(31))
-> @@ -31,6 +34,11 @@
->  #define GRF_PCIE30PHY_WR_EN			(0xf << 16)
->  #define SRAM_INIT_DONE(reg)			(reg & BIT(14))
->  
-> +#define GRF_PCIE30PHY_CON4_SDRAM_LD_DONE	BIT(14)
-> +#define GRF_PCIE30PHY_CON4_SDRAM_BYPASS		BIT(13)
-> +#define GRF_PCIE30PHY_CON9_SRAM_MAP		(0x3 << 8)
-> +#define GRF_PCIE30PHY_CON9_SRAM_MAP_WE		(0x3 << 24)
-> +
->  #define RK3568_BIFURCATION_LANE_0_1		BIT(0)
->  
->  /* Register for RK3588 */
-> @@ -56,6 +64,7 @@ struct rockchip_p3phy_ops;
->  
->  struct rockchip_p3phy_priv {
->  	const struct rockchip_p3phy_ops *ops;
-> +	struct device *dev;
->  	void __iomem *mmio;
->  	/* mode: RC, EP */
->  	int mode;
-> @@ -70,6 +79,8 @@ struct rockchip_p3phy_priv {
->  	int num_lanes;
->  	u32 lanes[4];
->  	u32 rx_cmn_refclk_mode[4];
-> +	const struct firmware *fw;
-> +	const char *fw_name;
->  };
->  
->  struct rockchip_p3phy_ops {
-> @@ -96,6 +107,34 @@ static int rockchip_p3phy_set_mode(struct phy *phy, enum phy_mode mode, int subm
->  	return 0;
->  }
->  
-> +static void rockchip_p3phy_release_fw(void *data)
-> +{
-> +	struct rockchip_p3phy_priv *priv = data;
-> +
-> +	release_firmware(priv->fw);
-> +	priv->fw = NULL;
-> +}
-> +
-> +static void rockchip_p3phy_rk3568_load_fw(struct rockchip_p3phy_priv *priv)
-> +{
-> +	const struct firmware *fw = priv->fw;
-> +	int i;
-> +
-> +	/* Map the PHY SRAM into the register window to write the firmware. */
-> +	regmap_write(priv->phy_grf, GRF_PCIE30PHY_CON9,
-> +		     GRF_PCIE30PHY_CON9_SRAM_MAP | GRF_PCIE30PHY_CON9_SRAM_MAP_WE);
-> +
-> +	for (i = 0; i < fw->size / sizeof(u16); i++)
-> +		writel(get_unaligned_le16(fw->data + i * sizeof(u16)),
-> +		       priv->mmio + (i << 2));
-> +
-> +	dev_dbg(priv->dev, "loaded PHY firmware %s, size %zu\n",
-> +		priv->fw_name, fw->size);
-
-Doesn't request_firmware() already print this debug log?
-
-Check fw_log_firmware_info()
-
-> +
-> +	/* Unmap: field back to 0 with the write-enable for bits[9:8] */
-> +	regmap_write(priv->phy_grf, GRF_PCIE30PHY_CON9, GRF_PCIE30PHY_CON9_SRAM_MAP_WE);
-> +}
-> +
->  static int rockchip_p3phy_rk3568_init(struct rockchip_p3phy_priv *priv)
->  {
->  	struct phy *phy = priv->phy;
-> @@ -125,16 +164,41 @@ static int rockchip_p3phy_rk3568_init(struct rockchip_p3phy_priv *priv)
->  			     GRF_PCIE30PHY_WR_EN & ~RK3568_BIFURCATION_LANE_0_1);
->  	}
->  
-> +	/* Clear SDRAM load done and bypass before loading the new firmware. */
-> +	if (priv->fw) {
-> +		regmap_write(priv->phy_grf, GRF_PCIE30PHY_CON4,
-> +			     GRF_PCIE30PHY_CON4_SDRAM_LD_DONE << 16);
-> +		regmap_write(priv->phy_grf, GRF_PCIE30PHY_CON4,
-> +			     GRF_PCIE30PHY_CON4_SDRAM_BYPASS << 16);
-> +	}
-> +
->  	reset_control_deassert(priv->p30phy);
->  
->  	ret = regmap_read_poll_timeout(priv->phy_grf,
->  				       GRF_PCIE30PHY_STATUS0,
->  				       reg, SRAM_INIT_DONE(reg),
->  				       1000, RK_PCIE_SRAM_INIT_TIMEOUT_US);
-> -	if (ret)
-> +	if (ret) {
->  		dev_err(&priv->phy->dev, "%s: lock failed 0x%x, check input refclk and power supply\n",
->  		       __func__, reg);
-> -	return ret;
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Load the updated PHY firmware into the internal SRAM and signal
-> +	 * SDRAM load done once it has been written. The firmware update is
-> +	 * optional: when no firmware-name is described in DT (older DTBs)
-> +	 * the microcode already present in the PHY is used as-is.
-
-Make use of 80 columns please.
-
-> +	 */
-> +	if (priv->fw) {
-> +		rockchip_p3phy_rk3568_load_fw(priv);
-> +
-> +		regmap_write(priv->phy_grf, GRF_PCIE30PHY_CON4,
-> +			     (GRF_PCIE30PHY_CON4_SDRAM_LD_DONE << 16) |
-> +			     GRF_PCIE30PHY_CON4_SDRAM_LD_DONE);
-> +	}
-> +
-> +	return 0;
->  }
->  
->  static const struct rockchip_p3phy_ops rk3568_ops = {
-> @@ -250,12 +314,14 @@ static int rockchip_p3phy_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct rockchip_p3phy_priv *priv;
->  	struct device_node *np = dev->of_node;
-> +	const char *fw_name;
->  	int ret;
->  
->  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->  	if (!priv)
->  		return -ENOMEM;
->  
-> +	priv->dev = dev;
->  	priv->mmio = devm_platform_get_and_ioremap_resource(pdev, 0, NULL);
->  	if (IS_ERR(priv->mmio)) {
->  		ret = PTR_ERR(priv->mmio);
-> @@ -268,6 +334,37 @@ static int rockchip_p3phy_probe(struct platform_device *pdev)
->  		return -EINVAL;
->  	}
->  
-> +	/*
-> +	 * RK3568 can load an updated PHY firmware into its internal SRAM. The
-> +	 * firmware file is named by the optional firmware-name property; when
-> +	 * it is not described (older DTBs) or cannot be loaded, keep using the
-> +	 * microcode already present in the PHY.
-> +	 */
-> +	if (priv->ops == &rk3568_ops && !of_property_read_string(np, "firmware-name",
-> +								 &fw_name)) {
-> +		ret = request_firmware(&priv->fw, fw_name, dev);
-> +		if (ret) {
-> +			dev_warn(dev, "PHY firmware %s not available: %d\n",
-> +				 fw_name, ret);
-
-Again, this is not needed.
-
-- Mani
-
+SGksCgo+PiAgIHBlbmRpbmcgPSByZWFkbF9yZWxheGVkKGJhbmstPnJlZ19iYXNlICsgYmFu
+ay0+Z3Bpb19yZWdzLT5pbnRfc3RhdHVzKTsKPgo+IFBsZWFzZSBzcHJpbmtsZSBpbiBzb21l
+IG5ld2xpbmVzIGZvciByZWFkYWJpbGl0eSBoZXJlLi4uCj4KPj4gKyBmb3IgKHVuc2lnbmVk
+IGludCBpID0gMDsgaSA8IGJhbmstPm5yX2lycXM7IGkrKykgewo+PiArIGlmIChiYW5rLT5p
+cnFzW2ldID09IGlycV9kZXNjX2dldF9pcnEoZGVzYykpIHsKPj4gKyBwZW5kaW5nICY9IGJh
+bmstPmlycV9tYXNrc1tpXTsKPj4gKyBicmVhazsKPj4gKyB9Cj4+ICsgfQo+Cj4gLi4uIGhl
+cmUgLi4uCj4KPj4gICBmb3JfZWFjaF9zZXRfYml0KGlycSwgJnBlbmRpbmcsIDMyKSB7Cj4+
+IC4uLgo+PiArIGFzc2lnbmVkIHw9IGJhbmstPmlycV9tYXNrc1tpXTsKPj4gKyB9Cj4KPiAu
+Li4gaGVyZSwgZXRjLgo+Cj4+ICsgYmFuay0+aXJxX21hc2tzWzBdID0gfmFzc2lnbmVkOwoK
+SSB3aWxsIGFkZCBibGFuayBsaW5lcyBhdCB0aGVzZSBwbGFjZXMgdG8gaW1wcm92ZSByZWFk
+YWJpbGl0eSBpbiB0aGUKbmV4dCB2ZXJzaW9uLgoKPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUv
+c29jL3JvY2tjaGlwL3JvY2tjaGlwX3NpcC5oIGIvaW5jbHVkZS9zb2Mvcm9ja2NoaXAvcm9j
+a2NoaXBfc2lwLmgKPgo+IFRoZSBjaGFuZ2VzIGluIGhlYWRlcnMgaW4gb3RoZXIgc3Vic3lz
+dGVtcyBzaG91bGQgYmUgaW4gc2VwYXJhdGUgcGF0Y2hlcy4KCkkgYW0gYWxyZWFkeSB3b3Jr
+aW5nIG9uIHNwbGl0dGluZyB0aGUgcGF0Y2hlcyBieSBzdWJzeXN0ZW0sIGFuZCBJIHdpbGwK
+cHV0IHRoZXNlIGhlYWRlciBjaGFuZ2VzIGludG8gc2VwYXJhdGUgcGF0Y2hlcy4gSSB3aWxs
+IHJlc3VibWl0IHRoZSBHUElPCnBhcnQgbGF0ZXIgd2l0aCB0aGVzZSBjaGFuZ2VzIGFkZHJl
+c3NlZC4KClRoYW5rIHlvdSBmb3IgdGFraW5nIHRoZSB0aW1lIHRvIHJldmlldyBteSBwYXRj
+aCEKCkJlc3QgcmVnYXJkcywKQ3VuaGFvIEx1Cg==
 
