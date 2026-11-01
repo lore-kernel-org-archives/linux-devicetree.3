@@ -1,64 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793575638;
-	b=hKIKHs0Uvx10/Z5+/t05aMl+RCECo8zVuBV4Lxew6rYSnzgcg6BDg0gjuK1ZGEwyn9Tn
-	 xwPFYeH2W0YbOnAIE0ACDcQ+eQHVRDwzsoLyVZGBXgZaYDIxxkAOTJg+eKhR21bAmyFAX
-	 RXXvJsDRFW5f75uQNPHDBMHJ5I33pWjxuq/6TEK52NGUKzWSPVOGvacHO0Qpf8QLVjtr1
-	 mav6tpQHSzJ7ySEaVSZa4vcUv8aCGh+/sLQPiKTVVeGEqGMJXbTCUn7FfhskJqAOkNg9q
-	 IOUzp4KFYohSTH38eF0GMtif3/iJhIT0TGcZypUeFtrMJrFCG4f0yIVEE63OcOmYZ0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575638;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Cm3uXWgrh+92bQkz7qUT8W8VdHKB20HvDylJRJySF3o=;
-	b=lHCJgyo4QkYmvPLzgtPrFB7WqyVYz4IxqU/WjkPgeqVnZGP2hWkOqgYY/Nb8XeRxG/0C
-	 6tvSV1H22EV2qn5XlIxqErtxU7U2d5ZhnR46y6SgCZS7UmtPto85ROdQTkYE0iPEfV09N
-	 5xkWQRAbBbyzI9a0wNcMvsJHT/iLadP+6aJebl6KuDUaUNk2OmYuGVR+SiJsC/dkMqOMm
-	 evPWX8uE8EIBANDWlLWCd+1pv1KDR6rbnrEvBTTYiWFfJm49ZskjLOsxo3kW8miEhCxId
-	 1lzW2CawHOeJtt2clWBILTaV/tlz2uNK4QjFoLB0sdsv0FFax4HwlHQEzBbjHmqO7Kw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jvo7KyGD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793575629;
+	b=i6dVOOkj36Z0m/SR9sse3hbbv3HLxPBWc+dXRy9Q10MzzeV9U+VEuPTfGyFWQlmmdBNU
+	 40RenGrKmmdLxaJMPu2WgcJ6moC/XyfV3RgAphHwcDNTK0JDyCyoxt3OdLVLyBL/fZUrW
+	 EONWWlYhkiOm+j0X/0L/rXCZH1IRxQj0X+LSnhmQAXQ5ReZRviQQUQpGwYv40INstwGGE
+	 sPBxbAPYLGJlWoyFIMkJ4yfRe9HBF1u4dZzZ+YZQctwR158xC1+GcipYgmJ4wQnyntEHE
+	 o2bJjjRH7iLrI92LX/vr1pPKnXocQKiCGIjp9odhrGVQM9LnZH7FLFgLADLPZ43ht7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575629;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
+	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
+	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=hQEY2J2hT546u3uGtTNrs7am++RTs0ZtPTD1ZhWioiw=;
+	b=YknJWZy8WL2J2srRhXlL01u4BPmaz3C0hJ4K2ujgt/K+LR4oT8w0cPKodEJHDRnOV0Al
+	 KClr3ZFKZ2cLGWpZyXJ9aUljCmiThLlxUkK2MDJY4I9UOzJkwgmpgM5Uyv6ti5q0r+zgb
+	 6PA5ByFdzSi+sjTJF0eE+qc9sVMbcoPFkgKlN/ark50JOTFxEZGYHiLUQa6oerl7kqK6j
+	 ZWCOQpXqcS5s++Vlxw6jR+PO8bHrhGkYHOpk3KlBCq79RTEU2rpzuGOR8EhQOPgwsd4Q0
+	 rKUdgrHVrjmvyrhLGEPcDKRlA8Fw6ASpodNi+lUMccbPi50TXrl4pcRZjs6oA9VVEGg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=b+KAPFvU;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=eJ9zH0v6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.11
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0DC606A334;
-	Sun,  1 Nov 2026 23:27:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C8A606A327;
+	Sun,  1 Nov 2026 23:27:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39C8A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jvo7KyGD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F1FC1F00A15;
-	Sun,  1 Nov 2026 23:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793575637;
-	bh=Cm3uXWgrh+92bQkz7qUT8W8VdHKB20HvDylJRJySF3o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Jvo7KyGDT+AEXA8d5RM/RWgHWIlzVEloK5ubaBai/CVET2r75W4/riaahHjEUPjPS
-	 VQqC+vqnNwUuRcQjcdDW/bzGtQaGgQ9HrgZ2JdIaKYHJpVUL0S1ob1W80456/4vydp
-	 qrn7gSKcdZx75mjK/qPzlqOvLWuruIzH0TGuodEukzr0rxmeVcaHm5z1gvGzI0PCX8
-	 H+XQoybSAa9LLyB1IPdEPVLHOY0Qc4woQANA023Qn1ggaGpX8D6ZZrbdK/MI+ckDe6
-	 kffjeABhiHeHKn9Qm1F7UWRJKoZ6eDeXTKWl9msNCkLTZCqxjvR6jIRk9z9+0CLe2v
-	 XQ8MdEv3XeFgQ==
-Date: Sun, 1 Nov 2026 23:27:07 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jonathan Santos <jonath4nns@gmail.com>
-Cc: Conor Dooley <conor@kernel.org>, Jonathan Santos
- <Jonathan.Santos@analog.com>, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux@analog.com, broonie@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- Michael.Hennerich@analog.com, nuno.sa@analog.com, dlechner@baylibre.com,
- andriy.shevchenko@intel.com
-Subject: Re: [PATCH v4 1/9] spi: dt-bindings: Add spi-cs-composite property
-Message-ID: <20261101232707.4c08cc7a@jic23-hlaptop>
-In-Reply-To: <auWIqpIaegH+AWV4@JSANTO12-L01.ad.analog.com>
-References: <cover.1792435248.git.Jonathan.Santos@analog.com>
-	<e9308680e7b45ecf9ef2b6b2a752ffdd4d23b80c.1792435248.git.Jonathan.Santos@analog.com>
-	<20261026020003.3f3fbe86@jic23-hlaptop>
-	<20261027-colonize-primer-f994b88171a6@spud>
-	<auWIqpIaegH+AWV4@JSANTO12-L01.ad.analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=b+KAPFvU;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=eJ9zH0v6
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com; s=arckey; t=1793575628;
+	 b=NU/WzvHXT+gdhmH91shcF8yPZE+Jg84rypXtbNrLBQ53t6+Mqf+juYuH3qBP5VGEYtwEQK5Rzc
+	  bPzOjtNiHiLL+psGfhn73VtKjnuK0pbeQRLAk3aJeC9v0W6lQfDlGz7dQMEiUd7WWU5PQ9rqK8
+	  kJD9jW7XAXXq8MHJeBVlnhOscLEkjcR/HHb43WfSfbN/nfdbiqxKtV3vyb3uW6JxPCJZOyKLC6
+	  6BM6Rcicmt0NY7kdZ3i+kHcemY110LUStoWoCBq/7M2UZh65Pb13qCiRClQn/qzHuUaLkPij46
+	  rhYVsRqGmusRzgxyrM1kBhZP+t6X2PjlB3C4YuRdVsPcnw==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com; s=arckey; t=1793575628;
+	bh=ODOj//n2T758yDrWXGaWs7F0B4AN5rXXzzLWY/66aRk=;
+	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=bQLscU0Jq9tMDT56DnRsPboNqHusZZehrIxhbl5NB4vZmFc5HSBfhlreMjSB51EwwUxSwqbuDt
+	  805DbNjvo4XQrKQigL1QAYKR1j5mkRWcoNdItM72SZA2M+ooFaNIo4YRwUm6YzhogdjO+m9bB1
+	  iEM/YLj9ZoM+tXpQx0+kaTEyQrqCn+pwHb0yHjMCBZR6nADKzkVeXyPEUyxenMDV5D83n+JJ3Y
+	  D7l/RUKBCGbo/MROCG0vXzPVPpEnG1juvPWMung6m9b7Gy0HIvmJ/NW/91ZT1+geAisnkk2XGA
+	  iixXt0yIOYWGzSWLFA2gxqt/bWeNukAcuU46nwyC0zTg2A==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=hQEY2J2hT546u3uGtTNrs7am++RTs0ZtPTD1ZhWioiw=; b=b+KAPFvUfy8FWDcvA/5NNUUBMK
+	+dF9Y9RpSiLK2rSVbwd4UzcLjrsR8oSJ3uIBcxtN9j4p3TVWI+79ioD15iXENJTaeuBqAaNgt6MSl
+	dqFKVHEtImREnT6mnQujOKCzmhnVRsSj9PhN56OCZpYeug6g/DnDbiY7dbV6YlSJVMwo=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xNex7-00000005hvY-3uT6;
+	Sun, 01 Nov 2026 23:27:06 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=hQEY2J2hT546u3uGtTNrs7am++RTs0ZtPTD1ZhWioiw=; b=eJ9zH0v6RMRtrVmBcNB+rjJ85R
+	WfRGrfeEQcV8s8qiFS/tbBW+cGct13dmQTmTuyGRqQB0AVKi4XOM1B/FDZpa2K4GPGJW/Re+z0xwB
+	Kmt2WYCtRz7HJO+et8vnZXnP98Ey6HwvfHEo91XuwK++n0NZGUfk6AoiXdmjRwN2WxcE=;
+Received: from [79.17.15.196] (port=60226 helo=[192.168.178.175])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xNex1-000000002I5-3ibe;
+	Sun, 01 Nov 2026 23:26:59 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Mon, 02 Nov 2026 00:26:44 +0100
+Subject: [PATCH RFC v2 07/11] remoteproc: assign fwnode during vdev
+ registration
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,169 +97,244 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-remoteproc_virtio_map-v2-7-26b300e01c62@valla.it>
+References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
+In-Reply-To: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Francesco Valla <francesco@valla.it>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, linux-remoteproc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6102; i=francesco@valla.it;
+ h=from:subject:message-id; bh=ODOj//n2T758yDrWXGaWs7F0B4AN5rXXzzLWY/66aRk=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFnPT+15rSTVEFgiLMzn9Mzak+Hq3Vs1dQ7ibVw/1t5by
+ XLbMNWqo5SFQYyLQVZMkSVk3Y17e+aaf0vbwPgIZg4rE8gQBi5OAZjIijUMv9ni3nXNW7z0nmN2
+ IpeOzeKpS4XyjOd2aTEpy/VzH99wfAkjQ0fAlaP8O7zbORMr7z+zcrwTkvhsYX2fQsbV+yeFahb
+ t4gYA
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: d3bbf12b23d60eb0fabacb9c3efbe201
+X-AntiAbuse: ID - d3bbf12b23d60eb0fabacb9c3efbe201
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xNex7-00000005hvY-3uT6-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-xdd7.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On Sat, 31 Oct 2026 03:20:26 -0300
-Jonathan Santos <jonath4nns@gmail.com> wrote:
+The virtio subsystem already supports a fwnode describing a vdev; search
+for a specific node during vdev registration and supply it to the
+rproc-virtio platform device that is being registered.
 
-> On 10/27, Conor Dooley wrote:
-> > On Mon, Oct 26, 2026 at 02:00:03AM +0000, Jonathan Cameron wrote:  
-> > > On Tue, 20 Oct 2026 22:56:41 -0300
-> > > Jonathan Santos <Jonathan.Santos@analog.com> wrote:
-> > >   
-> > > > Some setups combine several SPI devices into one logical device, with
-> > > > each chip on its own CS line. All of those CS lines must be asserted at
-> > > > the same time, so that one transfer reaches every chip.
-> > > > 
-> > > > Add the 'spi-cs-composite' boolean property. When it is set, every chip
-> > > > select listed in 'reg' is asserted together on each transfer.  
-> > > 
-> > > To me it feels inevitable that we will see a device / combination of
-> > > devices that want groups of CS lines together and others independent.
-> > > 
-> > > Seems less likely we'll see more than one set of composite entrees.
-> > > Maybe this should be an array of values that match with specific
-> > > entrees in reg?
-> > > 
-> > > I'm not sure though.  Conor, Kryzsztof or Rob, any thoughts on this
-> > > or similar things that have arisen elsewhere?  
-> > 
-> > Why does the property actually exist in the first place? Does the device
-> > driver not know how each CS should be treated?
-> >  
-> 
-> Hi Conor, Jonathan,
-> 
-> Thanks for the feedback.
-> 
-> The problem we are addressing now: today the SPI core gives a driver very 
-> little control over chip selects. The main spi_device only drives the first
-> 'reg' entry and the only way a driver can use the other CS lines is through
-> ancillary devices, but for individual access only. For aggregated chips 
-> (AD7768-1 in this case) we need all CS lines asserted at the same time, and 
-> nothing in the core lets the driver ask for that AFAIK.
-> 
-> In v1 I added a CS mask to struct spi_transfer, but that also needed a
-> lane mask to work, and after the feedback we agreed it was too flexible
-> and too easy to get wrong. In v2 and v3 I switched to ancillary devices
-> (each with a lane attached) for single-CS access. That covered
-> individual access, but there was still no way to assert all the CS lines
-> at once. The spi-cs-composite property in v4 was my way around that, 
-> letting the main device be the aggregator and using the ancillaries for
-> single access.
-> 
-> David also suggested two alternatives before that don't need any DT changes:
-> 
->  a) Add a CS description to struct spi_transfer or spi_message, e.g.
->     passing the ancillary devices whose CS should be asserted. This also
->     allows dynamic CS selection within the main device. And since the
->     ancillary devices are already bound to a lane, this is less prone to
->     errors than the approach on v1.
-> 
->  b) Add a new "composite" spi device, so a driver would have the main
->     device, ancillaries for individual access, and a composite device
->     for simultaneous access. The issue I saw is that the ancillary and
->     composite devices are siblings and their CS lines would conflict in
->     the core's CS check, so only one kind could exist for a given
->     device, not both (without some more complex logic in the spi cs check).
-> 
-> I like the (b) approach, but we would have to bypass that sibling problem.
-> The (a) looks less harmful to existing projects, if everyone agrees I can
-> implement it on v5. Also with (a) I think we can drop the spi device
-> name for now (or not?).
+A memory-region specified inside that node is also used for the virtio
+device if a carveout was not supplied for it through the parent device's
+node.
 
-I don't have a strong opinion on the way forward here.
-Mark, any thoughts on what is going to work best long term for SPI?
+Signed-off-by: Francesco Valla <francesco@valla.it>
+---
+ drivers/remoteproc/remoteproc_core.c   | 48 +++++++++++++++++++++++++++++++---
+ drivers/remoteproc/remoteproc_virtio.c | 41 +++++++++++++++++++++++++++++
+ 2 files changed, 85 insertions(+), 4 deletions(-)
 
-I'm nervous that we might wall ourselves into a corner if not
-careful about bindings. That is less of a concern for in kernel
-interfaces which probably won't be that widely used.
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index c946ecd980a5..e833853ae7f6 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -440,6 +440,33 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
+ 	if (rvdev)
+ 		list_del(&rvdev->node);
+ }
++
++static struct fwnode_handle *rproc_get_vdev_fwnode(struct device *dev, u32 idx)
++{
++	struct fwnode_handle *group, *child;
++	u32 reg;
++	int ret;
++
++	group = device_get_named_child_node(dev, "virtio");
++	if (!fwnode_device_is_available(group)) {
++		fwnode_handle_put(group);
++		return NULL;
++	}
++
++	fwnode_for_each_available_child_node(group, child) {
++		ret = fwnode_property_read_u32(child, "reg", &reg);
++		if (ret)
++			continue;
++
++		if (idx == reg)
++			break;
++	}
++
++	fwnode_handle_put(group);
++
++	return child;
++}
++
+ /**
+  * rproc_handle_vdev() - handle a vdev fw resource
+  * @rproc: the remote processor
+@@ -475,7 +502,16 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+ 	struct device *dev = &rproc->dev;
+ 	size_t rsc_size;
+ 	struct rproc_vdev_data rvdev_data;
++	struct platform_device_info pdev_info = {
++		.parent = dev,
++		.name = "rproc-virtio",
++		.id = PLATFORM_DEVID_AUTO,
++		.data = &rvdev_data,
++		.size_data = sizeof(rvdev_data),
++	};
+ 	struct platform_device *pdev;
++	struct fwnode_handle *fwnode;
++	int ret = 0;
+ 
+ 	/* make sure resource isn't truncated */
+ 	rsc_size = struct_size(rsc, vring, rsc->num_of_vrings);
+@@ -498,20 +534,24 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+ 	rvdev_data.rsc_offset = offset;
+ 	rvdev_data.rsc = rsc;
+ 
++	fwnode = rproc_get_vdev_fwnode(dev->parent, rvdev_data.index);
++	pdev_info.fwnode = fwnode;
++
+ 	/*
+ 	 * When there is more than one remote processor, rproc->nb_vdev number is
+ 	 * same for each separate instances of "rproc". If rvdev_data.index is used
+ 	 * as device id, then we get duplication in sysfs, so need to use
+ 	 * PLATFORM_DEVID_AUTO to auto select device id.
+ 	 */
+-	pdev = platform_device_register_data(dev, "rproc-virtio", PLATFORM_DEVID_AUTO, &rvdev_data,
+-					     sizeof(rvdev_data));
++	pdev = platform_device_register_full(&pdev_info);
+ 	if (IS_ERR(pdev)) {
+ 		dev_err(dev, "failed to create rproc-virtio device\n");
+-		return PTR_ERR(pdev);
++		ret = PTR_ERR(pdev);
+ 	}
+ 
+-	return 0;
++	fwnode_handle_put(fwnode);
++
++	return ret;
+ }
+ 
+ /**
+diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+index 1496659ddff9..950d65480be5 100644
+--- a/drivers/remoteproc/remoteproc_virtio.c
++++ b/drivers/remoteproc/remoteproc_virtio.c
+@@ -13,10 +13,12 @@
+ #include <linux/dma-map-ops.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/export.h>
++#include <linux/of.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/platform_device.h>
+ #include <linux/remoteproc.h>
+ #include <linux/rsc_table.h>
++#include <linux/swiotlb.h>
+ #include <linux/virtio.h>
+ #include <linux/virtio_config.h>
+ #include <linux/virtio_ids.h>
+@@ -394,6 +396,23 @@ static void rproc_virtio_dev_release(struct device *dev)
+ 	put_device(&rvdev->pdev->dev);
+ }
+ 
++/*
++ * Attach the memory region declared inside the vdev's own devicetree node.
++ *
++ * A restricted-dma-pool region is attached by of_dma_configure() when the
++ * platform device is probed, but it is released together with the virtio
++ * device (see rproc_virtio_dev_release()); attach it again if needed, e.g.
++ * when the remote processor is restarted during a crash recovery.
++ * Any other kind of region (e.g., shared-dma-pool) is attached only here.
++ */
++static int rproc_virtio_init_vdev_mem(struct device *dev)
++{
++	if (is_swiotlb_for_alloc(dev))
++		return 0;
++
++	return of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
++}
++
+ /**
+  * rproc_add_virtio_dev() - register an rproc-induced virtio device
+  * @rvdev: the remote vdev
+@@ -410,6 +429,7 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+ 	struct device *dev = &rvdev->pdev->dev;
+ 	struct virtio_device *vdev;
+ 	struct rproc_mem_entry *mem;
++	bool has_mem_region;
+ 	int ret;
+ 
+ 	if (rproc->ops->kick == NULL) {
+@@ -417,11 +437,24 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+ 		return -EINVAL;
+ 	}
+ 
++	has_mem_region = of_property_present(dev->of_node, "memory-region");
++
+ 	/* Try to find dedicated vdev buffer carveout */
+ 	mem = rproc_find_carveout_by_name(rproc, "vdev%dbuffer", rvdev->index);
+ 	if (mem) {
+ 		phys_addr_t pa;
+ 
++		if (has_mem_region) {
++			/*
++			 * The carveout takes precedence: drop the region that
++			 * of_dma_configure() might have attached at probe time.
++			 */
++			dev_warn(dev,
++				 "vdev%dbuffer carveout found, ignoring memory-region\n",
++				 rvdev->index);
++			of_reserved_mem_device_release(dev);
++		}
++
+ 		if (mem->of_resm_idx != -1) {
+ 			struct device_node *np = rproc->dev.parent->of_node;
+ 
+@@ -451,6 +484,14 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+ 				return ret;
+ 			}
+ 		}
++	} else if (has_mem_region) {
++		/* Use the memory region declared in the vdev's own node */
++		ret = rproc_virtio_init_vdev_mem(dev);
++		if (ret) {
++			dev_err(dev, "Can't associate vdev memory-region: %d\n",
++				ret);
++			return ret;
++		}
+ 	} else {
+ 		struct device_node *np = rproc->dev.parent->of_node;
+ 
 
-Jonathan
-
-> 
-> Best regards,
-> Jonathan Santos
-> 
-> > > 
-> > > The most general case would (subject to it not working) smell like
-> > > 
-> > > reg = < <0x1 0x4 0x5> <0x2> >
-> > > 
-> > > Where intent is that 1 4 and 5 are meant to switch together and
-> > > 2 is separate.  
-> > 
-> > I would expect that for this kind of device, the driver should know that
-> > the first 3 CS are switched together and the 4th is not. I'm not really
-> > sure what the internal representation should be, because if someone can
-> > make a device like this, they could surely also make a device where (to
-> > borrow your format) it behaves like
-> > 
-> > | reg = < <0x1 0x4> <0x5 0x2> >
-> > 
-> > and so on. But if those devices don't actually exist at the moment, and
-> > everything is either all together or all seperate, the API for this
-> > stuff in the SPI core doesn't have to solve that until a device actually
-> > shows up.
-> >   
-> 
-> Yes, this is a bit out of the scope and kind of complex.
-> 
-> > Worst case is something where there's a variable grouping of chip
-> > selects, e.g.
-> > 
-> > | reg = < <0x1 0x4 0x5> <0x2> >
-> > 
-> > or
-> > 
-> > | reg = < <0x1 0x4> <0x2> >
-> > 
-> > but maybe if that happens the thing to do is permit reg-names for that
-> > device, and again store the relationships in the driver rather than
-> > try to convey it via DT.
-> > 
-> > Cheers,
-> > Conor.
-> >   
-> > > 
-> > > How to do lookup on something like this is another question.
-> > > 
-> > > Jonathan
-> > > 
-> > >   
-> > > > 
-> > > > Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
-> > > > ---
-> > > > Changes in v4:
-> > > > * New patch. This has been included because without an explicit property,
-> > > >   every device with more than one 'reg' entry would have all its chip
-> > > >   selects asserted together. That breaks devices that use ancillary
-> > > >   devices for the extra CS lines, so the composite behavior is now opt-in.
-> > > > ---
-> > > >  .../devicetree/bindings/spi/spi-peripheral-props.yaml     | 8 ++++++++
-> > > >  1 file changed, 8 insertions(+)
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > > > index 4894196c8f9c..456cb9095632 100644
-> > > > --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > > > +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > > > @@ -60,6 +60,14 @@ properties:
-> > > >        Delay in nanoseconds to be introduced by the controller after CS is
-> > > >        de-asserted.
-> > > >  
-> > > > +  spi-cs-composite:
-> > > > +    description: Some SPI devices can be aggregated into a single logical
-> > > > +      device by asserting all their chip selects simultaneously. When this
-> > > > +      property is present, all chip selects listed in the 'reg' property are
-> > > > +      asserted together on every transfer, treating the group as one composite
-> > > > +      device.
-> > > > +    type: boolean
-> > > > +
-> > > >    spi-rx-bus-width:
-> > > >      description:
-> > > >        Bus width to the SPI bus used for read transfers.  
-> > >   
-> 
-> 
+-- 
+2.56.0
 
