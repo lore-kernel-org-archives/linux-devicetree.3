@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793567989;
-	b=CLnyXXAjWfZR+2IAHjH4Sf/B7SS3Bvrfhdqp5TGlN6NrgKvI0gNSMIp6BePKorZppAHh
-	 dUdG+5LjQKCAkEKneSlOExLuUKaIB1OWlZGrPNBXNTq1wH4k+bwLsp7LLohPoFdJr9XsC
-	 oDxfmNMELuoODe98IW6DXoM8wDlZwojzYjC1fQjyLrV2GJkGZLag6OkwNjAl5FmuJL3U5
-	 kFlzDOKBaZ5PfGjFmMfuDwPT/V7UVd/jGDYr1KMb5H9pQcugJ0MOrSGZEDby+mEYzS15Z
-	 HnvpJzjZ8JyklZbfDyV3uEWjw2dR7X3GHJ+XSFeS38IXaZLjKWcCqGfGxcO4artl0AA==
+	t=1793568070;
+	b=XtNmXV2PUdC5u0De6ZAmPc7fGyX/1sUbDj+phX8AErLkM9aVDgNFbffmiNgDrBWQzVQR
+	 CHaD0jlYg9y+qrCiQNnjpwh+iTN2c88qVc/yfEKdOYz+DvFx1ft5IM2OsbrE+W1andPWK
+	 l19ULN/Lfqb9MNkXkP6gikZzO2f6Bm8Yr9eVmth7wVsIu7IABELqswVEj6OMFKqeQSl5P
+	 0spFOhBdZuoBR4TFOw8CcJp6EWQ3unqliuW1QVwF+D6+vNisTXgihFeoZUJ/Wmy4sjcnM
+	 vSaUbVlDv/wpnpSapQXE75XJhuUo4AL/WBJ388CDa6mSPUT9y0Nzp2GamM4QnF1PqGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793567989;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=og55u5n1Gdmul4ausS8JyuamV2xgkOuH347fjM0yp7w=;
-	b=dBoCLgzQkNBpm07gHYCXwSgyiav/+AHUQzgtjFqipWsdx2NniasVQ9u5GO15SPKihT2z
-	 X1P7APy4suANUbJhoqDwKcmT38JY4D2OBu0L1OLx/X92a96Qmyf/v3dw4+w7+muWfUWJb
-	 q3UGVgqVtnm4QygmD3fssTPiDCZS72iTDbAwOLoQL4J4lAqnd/fKUsPdm0tlESzrKDIk1
-	 WA81ONmlWH35Uqd+qokke1er3DxkCqQpTaXOtOjqEIufqLaf4ayGnm9cv2OmaaUuw8FxC
-	 pHYB/6syXZs8GaGyz3SrQQoeguoUwYFMbsaaI6qORPcNjG6cujx0UX33CGDuTnfiO/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793568070;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iA4nPd0I6kv/auIuMoh3730KHkV9NOXvNkpunrQQ30I=;
+	b=DZpLqEdXMN4LmVSNrVcIb4Orlrb6Ban/ZBxMD602uAj9gFGboFHasXIMtUU0/rriJ9FL
+	 U9ugazp55LDYQIAmDf4L4sj9j/jprdu5gHEEPtNITcVwjRG9Qx7iLxfaaRI0BI6j9TKh/
+	 wSRfFcuS6WVGEn08Luvg0QtboHzfbPdaAlHsG0AsfOxDe1MTbjW1AeN+HhLBjCX75tEKj
+	 zB96cGu8J7g8MfPT4UXTfcVSB15eElw1/RWXn27hJnOc7nXwokaIN5R/b2LudNERG7Bdd
+	 JkASShDYIshHYFupqBhtFVU3fTbCyx6e1DGtW9CAhPlNXlLcOY7IILRIOIOcwfqZC4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YywL5wq7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JhogpMEk;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DE9606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 21:19:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB1D606A324
+	for <Devicetree@vger.kernel.org>; Sun,  1 Nov 2026 21:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB1D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YywL5wq7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EE41F00A16
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 21:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793567988;
-	bh=og55u5n1Gdmul4ausS8JyuamV2xgkOuH347fjM0yp7w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YywL5wq7YoRgBo0wqKFw5cxBW9i7ZWpgqdFhBBeh3ttths0AddZtuwFw6zHS2KNmj
-	 r+8qOvUt8UqhKgoX7TijG9rSW8jKSMsSqhAINGtRy48wgj9aeZvV2tXiX9OEAGamoB
-	 8+ibqcGfJvRzuS2FW8yb/ezHbrJitsDSbVz6eYgdpr9OlmJU4otkylCuUwe9NFSYpX
-	 gGxZqyWjNdi74GiWdGVtZyM46GzOAsaBvcMBUliBQx23ypdldJMdg6wSBwMZY/pyMF
-	 OseIRvv8hKno+pMVugCipuaV/AVxP9mR+vvi/91lOsFj3DJNK/gNL72t/xIsqe098q
-	 JxybrAyuDCG2Q==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab35e31f6dso28295521fa.1
-        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 13:19:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByqe/OAH4yg7ifwz7Jz9s/5y+HuyCqIBd0xPEl29+qluPRqTSmwzqvXpZO2tkbHvuiLlV1DkFI5QpTj@vger.kernel.org
-X-Gm-Message-State: APuU4Z8skAHk4NH9OOHoi0k2kmeYTw6TC4X2WcRUawIn09bUtU60vIk8
-	AqnouCjYO2M2ZzFgNM9EckxBtsp2BWjdmHa/wgfBMM7vrfDEIYkVJlXnrUiAxuDxDdwRriwpvc8
-	05ALxidsfm0INi/R2yIlNB7E9uf28Dks=
-X-Received: by 2002:a05:651c:1b8c:b0:3a9:d111:6520 with SMTP id
- 38308e7fff4ca-3aca55f2846mr26417331fa.0.1793567987240; Sun, 01 Nov 2026
- 13:19:47 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JhogpMEk
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c40e30c26a4so679589866b.0
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 13:21:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793568068; x=1794172868; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iA4nPd0I6kv/auIuMoh3730KHkV9NOXvNkpunrQQ30I=;
+        b=JhogpMEkv+FoWvK7Coc0H4rZVOFmpCkZJ6gDJNKshnvRSv1rbQtk4NClEqtecJL6w+
+         J+aT7FhozqDtuaggqdpy9YIUBUpU5rrdac7tx4LAkTfdQkzrHpKG3RWv+ubW4lwMcF+f
+         8/zvPsk5eesxT9Zaqn7OTli2zMCPBSjd0fy6A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793568068; x=1794172868;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iA4nPd0I6kv/auIuMoh3730KHkV9NOXvNkpunrQQ30I=;
+        b=FS4arZy/87O9nEqiOpFM92V4P5eJRG1eR4JKaX7NzbZiSkUfSLpXbWJeMDgUxsJJal
+         b0MwDUNI9kd0Cdw4GDStHFrtOiiKBhiczz8IzSWB+rElWGiJIr+6APe6yxzyN5IvjSik
+         OaSh10KsGrUnjcgtH2R17/pALUXePXSvHGt6fOaCskeAM0JGahV7i57AxUfLgEIVsrHG
+         6K/IQEAJo89GkzKY81TjmwZ16U8pvEYWyAO6Sx5wQzWOGyH5qrGviWbE9kXqJuInQmdk
+         BDnN+CjFaP+dhCI1Cxl0CPx5pub+nrl/ZlzjQIqiszulY0Rv9bjkDczZq2n8a/TOoGyF
+         20mg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ2uy5Yt0sbEl92ilnYbvLCuX15EvZ19QUFGTSD0+A/uhipmlvcgj8jtNyGqWszg82xXJpH50GgX90@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UTXMNLhppgC/LowGk2rJ6r38LN7s/S0dRNrsRM04eztoveVvz
+	kk2cf8RvUqaRFxNMkDhimqgTeCUhyI6pv1Xy5BDV6iYSu8mtcf259uNxkKRceZh+iUVhXLXHvTB
+	lDhc=
+X-Gm-Gg: AYBFou22gycpT587Vp7upGaeUC6vWOKixoXST4cdiKAjUQSayEvR0M661H56uFQSpe9
+	bb4g3x6ot5cKfuEMnGmQvpHwSUIejIhaBXGldTGBTeiNXmk2SFirkBlDt5BQE/6QXGU8NcSpiXH
+	QqJEhM16Adb29JnBPupmsXZ8bUIpLdKlfcswTt43XssT75qO7nbumjPnJpJSey42nFHwcqPHPqa
+	bBAsINsLfwBlXoh5O7Orlu2xXwHEciJjd4dB1VjI+pvm09qGUDPIIYlNxRI85ph+Cgd28LLlIrk
+	X1Ar6W1j7y76pi+VkcKK47PZhVTUIHgFX0Yi4pKyl4i5YoR4RSQbftJO8bAUzuR45f1fD3F2Xx6
+	iT9hfnGeg4CUHPpqFA/TZkme/TYRFHwpqebVrfEHbQtHWwS8byYO5Cn0ccDZLiV0hg2ZcxoONCg
+	r1IiImW88QlPzGma4zpylEoSkiOMj3bHvAnXe2C93K3JYUxvG2LKJkag0GIBtfp3spFJXlX0z10
+	OT6eRIfvgNc+wPyFjBgeFP42HUxvXE0yRNQkcTdrMWc1BCkw+VTD/rmksZUf9D9ul044YdpRrrQ
+	ZnzN295MOhZPz6pQbZFo5zzRD7qTWdjkhkMEF69TdL9OQP7pA8tQBXaTpySsyje7ags=
+X-Received: by 2002:a17:907:9410:b0:c2d:c6e7:9e9a with SMTP id a640c23a62f3a-c4ca7a6aa13mr676400066b.11.1793568068586;
+        Sun, 01 Nov 2026 13:21:08 -0800 (PST)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com. [209.85.221.52])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfd249sm314473166b.20.2026.11.01.13.21.05
+        for <Devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 13:21:07 -0800 (PST)
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1254778f8f.0
+        for <Devicetree@vger.kernel.org>; Sun, 01 Nov 2026 13:21:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxr0XfAFPCh7QM/B8dwCahFSe7lI0FCzOOoXFy9QnaGmfR+mt6Iyn8eZ1tKyq+sch7GrJgxgaQc6baV@vger.kernel.org
+X-Received: by 2002:a5d:64c9:0:b0:48c:585b:8825 with SMTP id
+ ffacd0b85a97d-48e6e2db4a1mr23331343f8f.18.1793568064814; Sun, 01 Nov 2026
+ 13:21:04 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,223 +94,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-xg6846b-bcmbca-xrdp-reset-v1-0-daf5d177e113@kernel.org>
- <20261014-xg6846b-bcmbca-xrdp-reset-v1-5-daf5d177e113@kernel.org> <90c5efa22600044657e67b9e1297bda2fb53f60c.camel@pengutronix.de>
-In-Reply-To: <90c5efa22600044657e67b9e1297bda2fb53f60c.camel@pengutronix.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 1 Nov 2026 22:19:34 +0100
-X-Gmail-Original-Message-ID: <CAD++jL==hUSGDryCDuoQrfh=s+ZnRojVcuhneMGWFvkSNePbMw@mail.gmail.com>
-X-Gm-Features: AclHuK9qYHSbdW0qFPKPlvZIS7KY8pzu0qIZa_AZ9GRrGb6SLD_bdgD5vQv0EP0
-Message-ID: <CAD++jL==hUSGDryCDuoQrfh=s+ZnRojVcuhneMGWFvkSNePbMw@mail.gmail.com>
-Subject: Re: [PATCH RFC 5/5] reset: Add BCMBCA block resets through the PMB
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+References: <20261020153652.2907186-1-dianders@chromium.org>
+ <20261020083501.RFC.5.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid>
+ <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
+ <CAD=FV=V7neyofHdv-LdAtFaEhAcWEHHNRYAKrr5f2EHXWmKAuA@mail.gmail.com> <CAFLszTiVvuaMUsRHjhRTFxFf8Q2hbN1a1K-G=QFv4DyXNpWY6w@mail.gmail.com>
+In-Reply-To: <CAFLszTiVvuaMUsRHjhRTFxFf8Q2hbN1a1K-G=QFv4DyXNpWY6w@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sun, 1 Nov 2026 13:20:52 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XAj0f7vm89eCor2Ea7_nHaZmE-6VC+vsQ4vXido7Kj0A@mail.gmail.com>
+X-Gm-Features: AclHuK8iDQf3Hi4FgB3rVtlO2TSTt5l2todvm4T0h7_4dZ5xTXqg7HY4PS9Cbco
+Message-ID: <CAD=FV=XAj0f7vm89eCor2Ea7_nHaZmE-6VC+vsQ4vXido7Kj0A@mail.gmail.com>
+Subject: Re: [RFC PATCH 5/7] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support
+ using fdtfactor
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	William Zhang <william.zhang@broadcom.com>, Anand Gore <anand.gore@broadcom.com>, 
-	Kursad Oney <kursad.oney@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Marco Elver <elver@google.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Philipp,
+Hi,
 
-addressing comments before reposting the patches.
-
-On Wed, Oct 14, 2026 at 1:14=E2=80=AFPM Philipp Zabel <p.zabel@pengutronix.=
-de> wrote:
-
-> > +struct bcmbca_pmb_reset_group {
-> > +     const char *name;
-> > +     int (*reset)(struct bcmbca_pmb_reset *rst,
-> > +                  const struct bcmbca_pmb_reset_group *group);
+On Sun, Nov 1, 2026 at 12:55=E2=80=AFPM Simon Glass <sjg@chromium.org> wrot=
+e:
 >
-> What is the point of this indirection?
+> Hi Doug,
 >
-> There is only a single array of struct bcmbca_pmb_reset_group and all
-> entries use the same bcmbca_pmb_reset_sequence().
-
-No... one of them use bcm6846_xrdp_reset() instead?
-
-> > +static int bcmbca_pmb_reset_sequence(struct bcmbca_pmb_reset *rst,
-> > +                                  const struct bcmbca_pmb_reset_group =
-*group);
-> > +
-> > +static const struct bcmbca_pmb_reset_block bcm6846_xrdp_resets[] =3D {
-> > +     /* Keep the XRDP bus interfaces out of reset. */
+> Doug Anderson <dianders@chromium.org> wrote:
+> > I think that was in the the "after the cut" part, where I said:
+> >
+> > You can see the fdtfactor post at:
+> >  http://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.or=
+g
 >
-> What does this comment refer to? assert_value being GENMASK(2, 0)
-> instead of 0?
+> OK, that covers where the tool comes from, and the question goes away
+> once fdtfactor is imported. Text below the cut doesn't reach the git
+> log, though, so a sentence or two in the commit message on why this is
+> wanted would still help.
 
-Indeed. I fixed up the comment so it's clear what is going on.
+Sounds good. I'll plan this for v2.
 
 
 
-> > +     {
-> > +             .bus =3D 1,
-> > +             .device =3D 12,
-> > +             .offset =3D 5,
-> > +             .mask =3D GENMASK(27, 0),
-> > +             .assert_value =3D GENMASK(2, 0),
-> > +             .deassert_value =3D GENMASK(27, 0),
+> > The goal was to make sure that we could fully reconstruct
+> > __local_fixups__ after applying the overlay to the base. v2 of the
+> > fdtfactor series handled this more properly, and I'm planning to see
+> > this through and land it unless there are major objections.
+> >
+> > By default here, I'm running fdtfactor with "-S" to strip the
+> > __local_fixups__ out with the assumption that today people don't
+> > really need them. However, someone could easily override that locally.
+> >
+> > I'm a little unclear how things would silently produce a bad overlay, t=
+hough.
 >
-> Are the four different devices the packet engine and the tree runner
-> cores mentioned in the dt-bindings patch?
-
-Yes.
-
-> Do the 28 bits refer to 28 different resets?
-
-The only driver I have writes 0x0fffffff to all four registers
-to release the resets, and this being Broadcom that means
-that is also the only documentation.(I don't work for them,
-my mission here is to have a working platform.) I could of course
-experiment with different values but that turns out to
-be more of a hardware safari, I made it like this because
-I don't want to fix something that's not broken.
-
-> > +/* Bits 6 and 7 select the lane configuration and must remain unchange=
-d. */
-> > +static const struct bcmbca_pmb_reset_block bcm6846_pcie_resets[] =3D {
-> > +     {
-> > +             .bus =3D 0,
-> > +             .device =3D 18,
-> > +             .offset =3D 5,
-> > +             .mask =3D GENMASK(5, 0),
-> > +             .assert_value =3D GENMASK(5, 0),
+> Sorry, I should have been clearer. This is about overlays which kbuild
+> applies at build time, not runtime ones like Beaglebone capes. An
+> entry such as:
 >
-> Same here, are these 6 different resets? Does the hardware require them
-> to be asserted/deasserted at the same time?
-
-Same here, this is what the Broadcom driver does. If you insist,
-we can do hardware safari, but there are no docs or other examples.
-
-When I look closer at the PCIe support it has some more weird
-sequencing going on, so I'll drop PCIe support from the patch
-series for now.
-
-> > +     },
-> > +     {
-> > +             .bus =3D 0,
-> > +             .device =3D 19,
-> > +             .offset =3D 5,
-> > +             .mask =3D GENMASK(5, 0),
-> > +             .assert_value =3D GENMASK(5, 0),
-> > +     },
-> > +};
+>     lemans-evk-camera-dtbs :=3D lemans-evk.dtb lemans-evk-camera.dtbo
 >
-> Why put these in an array?
-
-Right there is just two of them. Individual taste I assume,
-I dropped these anyway.
-
-> > +/* Best effort with both locks held; never restart a partially reset g=
-roup. */
-> > +static void bcmbca_pmb_reset_cleanup(struct bcmbca_pmb_reset *rst,
-> > +                                  const struct bcmbca_pmb_reset_group =
-*group)
-> > +{
-> > +     const struct bcmbca_pmb_reset_block *block;
-> > +     unsigned int i;
-> > +     u32 value;
-> > +     int ret;
-> > +
-> > +     for (i =3D 0; i < group->num_blocks; i++) {
-> > +             block =3D &group->blocks[i];
-> > +             ret =3D bcmbca_pmb_read(rst->pmb, block->bus, block->devi=
-ce,
-> > +                                   block->offset, &value);
-> > +             if (!ret) {
-> > +                     value &=3D ~block->mask;
-> > +                     value |=3D block->assert_value;
-> > +                     ret =3D bcmbca_pmb_write(rst->pmb, block->bus, bl=
-ock->device,
-> > +                                            block->offset, value);
-> > +             }
+> is merged by fdtoverlay into a plain lemans-evk-camera.dtb, which the
+> make_fit.py path then puts in the FIT like any other DTB. There are
+> several hundred of these on arm64.
 >
-> Could the PMB bus driver provide an _update_bits() function for these
-> read-modify-write sequences? It is the one handling the locking anyway.
+> My concern is the input to fdtfactor, not its output. In the in-tree
+> libfdt, fdt_overlay_apply() uses the .dtbo's __local_fixups__ and
+> __fixups__ to resolve its phandles, then overlay_merge() copies only
+> the __overlay__ contents into the base. Only __symbols__ is merged, so
+> the __local_fixups__ in lemans-evk-camera.dtb cover just the
+> lemans-evk.dtb part. Cells from the .dtso such as:
 >
-> This whole driver feels a bit like if PMB could just export a regmap,
-> it would collapse into a few regmap_multi_reg_write()s.
-
-You're damn right about that.
-
-I will rinse and repeat.
-
+>     avdd-supply =3D <&vreg_cam1_1p8>;
+>     remote-endpoint =3D <&imx577_ep1>;
 >
-> > +             if (ret)
-> > +                     dev_err(rst->rcdev.dev,
-> > +                             "failed to hold PMB bus %u device %u in r=
-eset: %d\n",
-> > +                             block->bus, block->device, ret);
-> > +     }
-> > +}
-> > +
-> > +/* Called with both PMB locks held, including during error cleanup. */
+> end up as plain numbers, with nothing marking them as phandles. If
+> fdtfactor needs to renumber them, or puts those nodes in a per-board
+> overlay, it cannot tell they are phandles, so the overlay applies
+> cleanly but the links are wrong. Stripping the fixups from the output
+> with -S doesn't change that, since the information is already gone
+> from the input.
 >
-> Which two locks are "both"? pmb->lock mutex and the PMB_MUTEX hardware
-> lock?
+> Does v2 make fdt_overlay_apply() keep the overlay's __local_fixups__?
+> If so, composite DTBs would be fine once that is synced into
+> scripts/dtc, and my concern goes away. If not, one option is for
+> FIT_FACTOR_DTBS to imply FIT_DECOMPOSE_DTBS, so that make_fit.py puts
+> the original .dtb and .dtbo files in the FIT separately and the .dtbo
+> keeps its own fixups. Leaving composite DTBs out would be a simpler
+> fallback. What do you think?
 
-Fixed with regmap abstraction!
+I think your concern just goes away. ;-) The fdtfactor v2 series (and
+soon to be sent v3 series) includes a bunch of patches to the overlay
+code, and this code produces a fully valid __local_fixups__ in the
+final dtb after an overlay is merged in (assuming the original dtb
+already had a valid __local_fixups__).
 
-> > +static int bcmbca_pmb_reset_sequence(struct bcmbca_pmb_reset *rst,
-> > +                                  const struct bcmbca_pmb_reset_group =
-*group)
-> > +{
-> > +     const struct bcmbca_pmb_reset_block *block;
-> > +     unsigned int i;
-> > +     u32 value;
-> > +     int ret, pass;
-> > +
-> > +     if (!group->num_blocks)
-> > +             return -EINVAL;
-> > +
-> > +     /* Assert every block before releasing any of them. */
-> > +     for (pass =3D 0; pass < 2; pass++) {
->
-> Maybe   for (pass =3D PASS_ASSERT; pass <=3D PASS_DEASSERT
+The idea is that fdtfactor and the overlay fixes will all land in the
+upstream dtc project. Then as part of this series we will bring both
+in, so we should be all good.
 
-OK I'll take a stab and see how it looks.
-
-> > +             for (i =3D 0; i < group->num_blocks; i++) {
-> > +                     block =3D &group->blocks[i];
-> > +                     ret =3D bcmbca_pmb_read(rst->pmb, block->bus, blo=
-ck->device,
-> > +                                           block->offset, &value);
-> > +                     if (ret)
-> > +                             goto release;
-> > +                     value &=3D ~block->mask;
-> > +                     value |=3D pass ? block->deassert_value : block->=
-assert_value;
-> > +                     ret =3D bcmbca_pmb_write(rst->pmb, block->bus, bl=
-ock->device,
-> > +                                            block->offset, value);
-> > +                     if (ret)
-> > +                             goto release;
-> > +             }
-> > +             if (!pass && group->assert_us)
-> > +                     usleep_range(group->assert_us, group->assert_us *=
- 2);
->
-> Is that assertion delay the time the reset needs to stay asserted or is
-> this really a delay that needs to be observed between successive
-> assertions in a group?
-
-The former. I will rename the variable and add a comment so
-this is clear.
-
-> > +release:
-> > +     if (ret) {
-> > +             dev_err(rst->rcdev.dev, "%s %s failed at PMB bus %u devic=
-e %u: %d\n",
-> > +                     group->name, pass ? "release" : "assert",
->
-> Please use "deassert" to avoid possible confusion with the
-> reset_control_release() meaning of "release".
-
-OK
-
-Yours,
-Linus Walleij
+-Doug
