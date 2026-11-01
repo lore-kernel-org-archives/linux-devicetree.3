@@ -1,49 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571410;
-	b=0W0S+S/CyIrk3kCd/BKbbWURskfFyjHloGIl949SRCWO2EB/YgYafKTDZu+gkIIxPyp7
-	 BwYbq7tAI+A1QbX4Vl253oIyGLNNzxeJ1uKFqIgbm5zbDX9AWTM5NBEJ+IOLyRF0zmalI
-	 m6hBRjxpyCMfQ8RkiSJpPQsjt9SyGiTf4w40sHr4Wx/d05sY4CBE9V19DZg4qH7AhKfRg
-	 EZqbnpr0VrXbPO3aVEBerJNxRVzJS9BD2aflvydXYX4AwQ7+GXVXIdbueLglpFm59z3xR
-	 BKXLqiPmqFJZAHkf02n3rjI1PK4L9MC28AH7W7X+i4RWZfXeTbKgninR/fOKb+8Rp5g==
+	t=1793571405;
+	b=Ceck/yzY5IkvxBWUSoZPRtR6V/lkfiIbe1Is5Zbs+PPjcp3AH4fTELl5DDbky0E8aKus
+	 lEVWfzoYzK8KBEZdBPS5/Y3HibsGRfSiseq0dmvy69EpaarRYnfz8O00RSdTBZ3cwuKzQ
+	 ocqvfzePCilP9+AFxEsvEbR7JVU+jmyWL6pZ+k8fd5ugb6ywQyc6x3p5KDosABoOehZgS
+	 toO5sqbG2YaMGtU/+zf+hpwlxMW4kHuy0UhgA2q2vl0+d1xRsoVU4+0W85Iri/UuS2+jw
+	 38I4exQZfmDgoqI+h7vVNFhP7N6344+KqnDKu0RbEVfL9UyGN5tkRwk9RgICn6I92/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571410;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=qT2GUUvMsvsdxjeGOlN5O8jOvRC8RtpY6AMZ++u4SV4=;
-	b=QE+kc7OM0yJdZOd3+u9HRKh09+j7sShrYThFVQjBmscmQO6mvXCKKzZ/mFK5/g2ndbdc
-	 FHWVES26RkAFVzYpca564y0BCM+nF8HK8UiDx61NPul/k9OhjgcBU1EV1h2qJZlCxnUAa
-	 IITb82hZipIiEArIg2+uszh2VBvOuyJ0mdCWEIdaAO5Ho3RisGE9Fb36KwD/cmImDPVn+
-	 CdxPDqMVs+LmiWKDGtCs1OwtlawPUfjKH4i0flMpqNJGXKLgiD04mwFohjPuDaX2Rf68Q
-	 gKE0SK+DGFkM7zG3d817SorW7pg0ilgBgdjkupKvCwXbF6U754WrS46m050SQpZnvXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571405;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=P0/aAmuW0CyqaK3PactR+FND9DgMw/5CGgOfekT7jEU=;
+	b=lL+kMnls9Xi67Ts7RGKP9nam6fmuS+Xzm9E9RxU0HjmAUOuan2ljH6yIPlkBUX2jnIQc
+	 g/3iogNCMtBf5zNV98GEqpHCfCnJgXe8+75zgNW1ZJ/umPVhmrIbe8LXIuKg4wD+dpFGk
+	 4Rhz1Ka2ExpJY+w5Uwm+8OdAnJAoMFTwnFG9WeH4gndvUseQ9iQdHsSsCdIl9s/0i4qML
+	 ws8VECju6VHPwgP1zwvp8xImL8YLAfe8s7dMkiydsRRZcembz+SW/DqT7VVPswmIbsVCr
+	 5KXG/TJd5WaHBqeqPl5p7FjhB6X4wtL8K/g/vNubfmnxaLG1sY5nBgthX/k6HoQcLMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/3BEpcj";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b="jQ/cLWVw";
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AD9607184F;
-	Sun,  1 Nov 2026 22:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45CA606D103;
+	Sun,  1 Nov 2026 22:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45CA606D103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/3BEpcj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1C81F000C1;
-	Sun,  1 Nov 2026 22:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571409;
-	bh=qT2GUUvMsvsdxjeGOlN5O8jOvRC8RtpY6AMZ++u4SV4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=a/3BEpcjERRS1qf1ykCRoCBxX8UxmcohB0yzmRvJnU2+gY5IhSpHZmpTJX7wZsWZx
-	 zNBg6DhehxxNhO40NOIsNPit4E75mWQMiEKi0py+NsH8Q7orlj2SbdYEJ7e8BuDQ2X
-	 2cB642WkEvvWfUEs8DYYeb2CIQawi2EDq+2UOAlDTFqFxZgGAqiHvAYf4efzlAoYQm
-	 3fHE42xKId9UvA1/Nb2UhG2VAg4/UPvGOYqLITZc7MqlWTAvP2xk87F35Zstthi/d5
-	 7Eg4txIqXtU/k2xtW1/pP9mPw1G8TyDhFGzXJd7A4EtREYqtpO6+0+2eiTXeTre+WZ
-	 GbhPPxXET+0Ag==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401AD38003B8;
-	Sun,  1 Nov 2026 22:16:49 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jQ/cLWVw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=P0/aAmuW0CyqaK3PactR+FND9DgMw/5CGgOfekT7jEU=; b=jQ/cLWVw1VGy7cg3FZP6Dt2sPa
+	fuCq8FAq+WocEnRYcK4eM0adoCG4B+ClDnApOIxd9sxhSgQH7p6nzuo9FavcnaYpXbQQuLuRgtXl5
+	t2LuOfUptrsgiwVK5Ed9yYhxYGrjfxy2a6ev7RQf0ZcVT/FDBO+aZJWoaKn72uBbyCcIxNvakD7Dh
+	xFiuIqkKVvjR/LcJjOgpOx6o0SrrQWWAXv/gR9Gyy9DDfY3yIVv2e/2YBEe74pDiDWF1G5LlVxsDY
+	PDhqR8H7CIpnAi+HS3JTGVqZCUQfXaY/MlpIQ/jZA/Z5yp2XhKkEDxnawWOPt86jbFbmbI6KS+klM
+	GCvTYdIA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Igor Velkov <iav@iav.lv>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the battery charger to Kobol Helios64
+Date: Sun,  1 Nov 2026 23:16:30 +0100
+Message-ID: <179357139334.4108484.16394732199796045492.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261004-helios64-dc-charger-v1-1-0eabf0274d47@iav.lv>
+References: <20261004-helios64-dc-charger-v1-1-0eabf0274d47@iav.lv>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,51 +67,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] dt-bindings: gpu: img,powervr-rogue: add spacemit,k1-gpu
- and spacemit,k3-gpu
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357140787.2624073.18323938412420431030.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:47 +0000
-References: 
- <20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com>
-In-Reply-To: 
- <20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com>
-To: Baihui Liang <liangbaihui@linux.spacemit.com>
-Cc: linux-riscv@lists.infradead.org, alessio.belle@imgtec.com,
- luigi.santivetti@imgtec.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dlan@kernel.org,
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- spacemit@lists.linux.dev
 
-Hello:
 
-This patch was applied to riscv/linux.git (fixes)
-by Rob Herring (Arm) <robh@kernel.org>:
-
-On Thu, 15 Oct 2026 15:00:48 +0800 you wrote:
-> Add compatible strings for the IMG GPUs in SpacemiT K1 and K3 SoCs:
-> - K1: IMG BXE-2-32 (adds a dedicated entry for a single core
->   clock and power domain).
-> - K3: IMG BXM-4-64 (shares the same configuration and entry as
->   the T-Head TH1520).
+On Sun, 04 Oct 2026 22:39:58 +0000, Igor Velkov wrote:
+> Helios64 has a battery backup built around a BQ24133 charger. The
+> charger works on its own; the SoC only sees two status lines:
 > 
-> Both SoCs require a single power domain provided by the APMU driver
-> (currently pending mainline):
-> Link: https://lore.kernel.org/all/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
+> - VCC12V_DCIN_GOOD on GPIO0_A2, a divider from the 12 V input, high
+>   while the mains adapter powers the board;
+> - CHARGER_STATUS# on GPIO2_D3, the inverted STAT output of the charger,
+>   high while the battery is charging.
 > 
 > [...]
 
-Here is the summary with links:
-  - dt-bindings: gpu: img,powervr-rogue: add spacemit,k1-gpu and spacemit,k3-gpu
-    https://git.kernel.org/riscv/c/16f30811a935
+Applied, thanks!
 
-You are awesome, thank you!
+[1/1] arm64: dts: rockchip: Add the battery charger to Kobol Helios64
+      commit: 5a4ee10520cd66f294b86645423885c1845ccdd6
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
