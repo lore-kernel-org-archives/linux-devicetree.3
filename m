@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793498869;
-	b=LoJpj9gzEe5LN9fxDd4Co74K+MFgDvuWVMIUEWw8mrz1WAxlj5NR5K7wZyWIl3Vftwga
-	 FwW6smsPM51s/T46mg3cNrBIApeXA+oX1OZ49lUREUGpFMSylVNt0mU4apxaEKTkJXz6/
-	 5UpedJSjBtcNOJO12GUKTovUdyM7+Ij3Swm/AbTTXLIR7rRBr/h7afXPl46TUIjzaZzlo
-	 no5LsPb/ttYhILTESd/CGYf4RZCMvqCo9eedcA3dwSSuZJvu/Tizm2A9Bd449DAF5Uqtz
-	 axnUYzBF2oOymtvB+y6f4xMAenBa4dQrEFPvbC95uTK9i5s8Xuu0ASUXYjNrkq1wsgg==
+	t=1793503948;
+	b=eD5p8UoDYSPkXxMinBskVw1u1RMH4lLy/W7+Ah6dvJnP6rhUMV6KQ88l8Y//f37Xb7om
+	 tQ+QqsJRM8oRzYY01RwzVFhL1XCSKaJJ6yxtZRXeUnfq/eHEweq29ddoXLYbgtvZhrKHl
+	 gNeI9ul7dMWYFzl2swnKoCexHlxBI19qUejDY7HDDqUFM+ulM6yDdWwSqGgF87apE/oO3
+	 Jy69MQi8yprffbJ5DJxUuipzmFCsZOeey7jt9maxfS/hlRm+esQf5wOFPmJcSh3Lxi8Iq
+	 vkHhs9bqp+l3vkzyfPqSTGxjaPJWTiYAdISGQErdHFxVfiGlpYqQ4HbiMT4LgRvA1xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793498869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793503948;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=7FqCNCiJJeh+jYJp8CROnWa4/dpV2I+dALOUk6aQY+g=;
-	b=eA4Xw8dPDeDZ7ybKygXcGOvzZDWcTDLkZ6qWL0gAYdjAgoTtb4gUeV2MtAJ/hx26KBfl
-	 KSDyZwRcqcixRUwExatPH0r+SZWVvg839kmvhg1+6KTUxmpiOsEsIs9K6UN+LhCcItJBy
-	 9w9Gsu49gBvEdSAWghTRMEOTz/GceKvtuiZGTOaaTcNh2ClVEEB5P7wr62+NXYbH1ChYc
-	 Vimw+AtwchGVVPsQT183K625l5iGfnYxgAig1eKm4/Ya98uaw3Dc7t3gqhEeDcoXCItWu
-	 c5YgkOV1dD0q/dCLq0K5uCSSmi+3p13hGZj/dGj2l6L8UwDmOEvt2enkSW0DBuFDgzg==
+	bh=D9kj5Dm9+ryU73BM0Hu1CqoHmwpHuXGCrVhVWrv+Z24=;
+	b=weiySbXeKfKyJNRRfNZMn7s5gSiZuElD2QIa3wSPgi1q7gJd3UX+TGb3eL8EaI/Mal/p
+	 QyVC9EQdiQh8QoBFOJ201Up1/WawUj+GHs1nM0zHegVdrKQNGX3l5KkgvvhWEq4kvHgFZ
+	 ShCKfUgRiMEPpsFSF5kI7L4KtSpThFXRKhASQKfxLhzrjFc6d+hToiOlZb0GEUJQ2CLZM
+	 aW2+Av3aQw2Fne7sHJxrUhI8DkufSGtsLe3/geZUwBsq3gYME4eHbrNm+wZb0mgGAfzwR
+	 j0HnopctjcY2QtnYrcagBMYTzeqZLwb7ewOTh3mp5wJEZVuF0Nax1bTbJj/YGi9NzbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KvEsr0DD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr8i4UKs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18839606A324;
-	Sun,  1 Nov 2026 02:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B522606A324;
+	Sun,  1 Nov 2026 03:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KvEsr0DD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D1C81F000C1;
-	Sun,  1 Nov 2026 02:07:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr8i4UKs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD051F00919;
+	Sun,  1 Nov 2026 03:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793498868;
-	bh=7FqCNCiJJeh+jYJp8CROnWa4/dpV2I+dALOUk6aQY+g=;
+	s=k20260515; t=1793503947;
+	bh=D9kj5Dm9+ryU73BM0Hu1CqoHmwpHuXGCrVhVWrv+Z24=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KvEsr0DD62nEK2cv6iq5kFw0KXPC6JIU2zNzRJgkKe78Gi+S5p3NEu98fdm5VX/Xq
-	 uDpkMHwK8RJ4Mn5ZqlGE8rCEyC7fW/ZVUsy3vcjnHqy7lcTUYWrJKiTBLbsc2lyBpg
-	 9pfWwvuxxGKa5swlpfh+hv7D1l2PeXmuaKR5IOYkkWUjpnoWV19mrRWmxmlivBE1YA
-	 fvrSgrLHLjZkqVorjc3g6RvUohgkkjD6WuzoKZVoBmIDKR/SwMbZiiN1ZWhGJIxOQF
-	 OQWd+FXxki2er7XxYcj74s4wQKgLrylkIerf6Gd/yrAt6qrYmkewg7dlzCpucHQIfX
-	 FbbUmTsk6UioA==
-Date: Sun, 1 Nov 2026 02:07:40 +0000
+	b=gr8i4UKsYE4YTOkaq/SIu3w3gh61/AwmmGJP3zYi/Map3n9Sy2t1CUkvq9OS8vUvF
+	 eGp9vos2tj8xvdzvaNQ+6ZIGf73PuxDb4+oo3MBAxR6kBM5CwIfqmf16paithlU6gc
+	 SZ81pR454Sv0Pz5QiRDpsWMkzJt0ac4822/Nrzvc2B81YdV9GVrw4nbgDkwfRwIy+s
+	 0LQGLeFsIuiB97ViK1uSe4lMr6+bDGzU5NgaQaD3+tiOUw+2wCIQk2uughetD4+PRJ
+	 bNtNwdDcSiSHy6grFrSPrrQ6XK6kkqLqGsxbz00DnfnJcvBTpGPo74NFIGgujtZwB/
+	 FoZZPU2ON/giA==
+Date: Sun, 1 Nov 2026 03:32:20 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Joshua Crofts <crofts@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
  <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
  <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20261101020740.4fbd4522@jic23-hlaptop>
-In-Reply-To: <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
-References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
-	<20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] iio: update email for Joshua Crofts
+Message-ID: <20261101033220.1e966e0d@jic23-hlaptop>
+In-Reply-To: <20261027124602.1533-1-crofts@kernel.org>
+References: <20261027124602.1533-1-crofts@kernel.org>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,35 +65,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 28 Oct 2026 14:19:06 +0100
-Neil Armstrong <neil.armstrong@linaro.org> wrote:
+On Tue, 27 Oct 2026 12:46:02 +0000
+Joshua Crofts <crofts@kernel.org> wrote:
 
-> The MAX34417 is a specialized current and voltage monitor used to
-> determine power consumption of portable systems. The driver support
-> getting the channels voltage, average power, accumulated average
-> power and energy over an I2C/SMBUS serial interface.
+> I'd like to use my kernel.org email going forward.
 > 
-> The MAX34417 datasheet only specified on how to calculate the
-> accumulated average power, but with the Sample Per Second rate
-> we can easily get accumulated Energy in mJ.
-> 
-> By default the IIO driver only supports single-shot Voltage
-> and Power sensing, but the accumulation can be enabled by
-> enabling the Energy IIO channel which then enables the
-> Continuous Accumulation Mode.
-> 
-> The counter is common to all channels, so when reading a single
-> channel we will copy all accumulators to registers, so in order
-> to permit reading individual channels we must accumulate the
-> other channels in the driver when Continuous Accumulation Mode
-> is enabled.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+Applied.
 
-FWIW I took another look and don't have anything to add to the
-comments of others.  With those tidied up hopefully this will
-be ready to merge.
-
-thanks,
-
-Jonathan
