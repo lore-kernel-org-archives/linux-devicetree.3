@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793535696;
-	b=puizY6mRAb/4UdFx20slomgMuzwuhiK4RNV9D53kJETJJsr4po5Yvms5mhUhZxaBdg72
-	 dC5SOv6B/F1r5q7oGXi0FSSyof8UoaXC2N+nvaAs4CajtR8oArhq7CCOWcdgZ8k5lItd8
-	 NzULPjqBAn4NS/Z0xttZ4kuOqDlCCu6kSoXkrzX+P3Z/s/8tzRyLs+yFSvOLGPRldVlCN
-	 Y12fz3F5cCLixl0sI8Q02u3JzOi4TUqNu0TlhCUObG9cR3FU57F8vH+4yp1flyp8X9bfW
-	 aZ/+hulGLd4PlkLFg+6MjgZYNRlBk0TIicR0iujca//g9TTMW1cyoguOPHtP75pnL8A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793535696;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=17cJmiuUCova0Iydm9bRMkHrls1dA/n7JgpWCE9LeH4=;
-	b=vTJnI0hkUsXlZvLtEtUREAedGd75wb0zGGR95O8TnuiBEZXF6IBqPljgHAXNkLWPQ187
-	 47FzLX/EwGAHklrwF7Tg3npCl2wNc+jVrPSi+9v4odsS8Ck98lBeoiHnFfTdeHIKE7xwf
-	 GLgy1fyoCU+juLoIjBQXzB+0H9NndS+KVvR3ydVPhGHHmdRgC0jGemwN6MRkWGxfWQXZr
-	 MeCcvhIZMgF1aVOxYsvRzNOu7xjhXdSeg4JNgsFgl4bmklrkuoWq/xrb3C+T+3gvKsQKC
-	 vWnNG6N+JYHuEbagoqna2GUbcCnLR7dEiheWiUZ6Ja//XNjWv7Evnzj+5CAc4gOFY6g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q6VaBw/x";
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793540135;
+	b=gM4VuN9pl3cSFN26ga4QXw+hQK0R4YBpJp8DMF2ldepRp40Iv9nzeGlEfFbZ6AESfgJB
+	 iApk4cxKRUg/h6qYE9sRCxM/VfFYu0F/G6u3xliKIhhQbVI7UT5b5CmjevjdiK9NUQN3u
+	 JY5bDd1Plo+XLk9ww07SHm9460jmZM+tLcdFL54IbRZlmsb6pZMcclcrGNa0SVlqklgGl
+	 ENZJLLvNiNGiGlTk+RIiG0JPM52yO2Esnw2vYcRGPtlf1d+wEvpRKzV9xrmwz7gduPHdg
+	 wOSDD5ebRXRs7DdQUL8JiwRDBAPvsxnd8QwUs6etqQf1GwBan2Ct7TXUR5iB0JzObUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793540135;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=2j0aw3/fwYjSaUMy9PnObd47hX5Q/nwFx1rM+QDf2+8=;
+	b=HxlGi1woyc7+wfFALHerxuKdSsxf6qMYJAGqJvjjGw0KBAgp1Du98d5hkNGYXmSHcg89
+	 tBZrQHIChiCdquwbYtsKWvtIUhHJWgQsnOnIfYSJbSwJL4W81UvdmILQDgZP1WT+uGsp2
+	 QCznegb1Tr8OnZWRvKG0lAvPPmqO9HxuXN/YXknmoby59sazdgU7hxtJCS4RJyEJUL/9z
+	 c1x0Ohtwc9s6nk1S5IX65aJNVigaZKHK0idlxAO4iIifCfmQVPZdI0Q38dz22HZbfE0Pg
+	 COGipM3I9W7SV+td7yW2E9ViT4+prYksYNZkUV6w6uG4Bd4N7tBvl8uN926ZLSzXNAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JCYwvM+A;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D92C606A324;
-	Sun,  1 Nov 2026 12:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A036606A32F;
+	Sun,  1 Nov 2026 13:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6VaBw/x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14B11F000C1;
-	Sun,  1 Nov 2026 12:21:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JCYwvM+A
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793540135;
+	b=g+N8uNK4pW2uEsDKruX9CgdrnilbDpfUYvqNDEnjh1NKcCsMHUn5k0x85H1bovMW+sX7
+	 EbrmfAI7+fK1VMwoaD5/HHwXR8c2qh6LlvYR2tMMEQjsT+lCShnV7gQZuLKV0+rejv75l
+	 /drE90Z8dcTL3MrKOWI/D2qcrB0+0/MyRzmNXE8PPOr37+IqphmA9NQPXQNPF6tbtUN8O
+	 WQKbEx4IAgdlwLbpA8X0EFKDeRzK7oWXr34cUDBPPUfxKaOMXdZMgM7Ht5Ws1HDSR0Xqu
+	 10/nBIdQjWZ6ZSDk/xIzTvLTg0QEg8Kn2xNDNarqNKBke6/imVrdzIo1HUXOMHZ6Qeg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793540135;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=2j0aw3/fwYjSaUMy9PnObd47hX5Q/nwFx1rM+QDf2+8=;
+	b=mRtji1W0ELRncsyerfOhI0KlgdcmUhGwcMNzwILxhNhywD+8eA6qEPrCpBqaF7geM0zc
+	 m0a5Kx9uyVbF3klrAT+FXgGk5tyC9EmOVAIqtEZWQRyrEKQcXM3sMLA7lOLcEWzZPzdEZ
+	 q8vtjnK+JgHurq5aJxlaVuIzqngngdBYJ94AuClQcMpV1/YSoA9n4/hiB1usNc7CyV97X
+	 nR6oNw46q4a/SLeJhUhnMX1gNQpPzOctJJ3sNLC2mxZDZmFkJ2gdCZgMfB33RuW2eLVL9
+	 llBlvz9pPsE47mo3kD6/z8tdptw/saeuU+MWYCBYsUXWcv/ubI6w7mHp1tYiANLYiSg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8ECA51F000C1;
+	Sun,  1 Nov 2026 13:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793535695;
-	bh=17cJmiuUCova0Iydm9bRMkHrls1dA/n7JgpWCE9LeH4=;
-	h=From:To:Cc:Subject:Date;
-	b=Q6VaBw/xwt3xjJKiOpVuAXS/HZYicUcZ9H9vsya1+Lus391pN5d+STWxoXdmnWaxp
-	 FlMYGMIQlds8dXjXjKgZfai04vxCe+tryERfYXX61dArhe6rIDhAXKAbADRtLwQ4Rh
-	 jSiXkHoP+/05wp8sjGbVI1cOUiMHvefjWJHeVLi3jE/2ySAs4KOmmesMP7rswti4yL
-	 MrFDPtW1sAnHaYX5jLQcT4PlDYqx9mQr+2oDBY44Dwf0BZXytQlTPrnYOMncNdiaKq
-	 BRNGhjsq9iPcQ6pll4HpcEtsPlj7PsLnW7CqBR43PqAH8w0w7DI1t2jtgs66CJqS10
-	 ETs+PQZQq1Oiw==
-From: Danilo Krummrich <dakr@kernel.org>
-To: robh@kernel.org,
-	saravanak@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH] of: unittest: Remove refcount underflow tests
-Date: Sun,  1 Nov 2026 13:19:29 +0100
-Message-ID: <20261101122128.2124348-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793540135;
+	bh=2j0aw3/fwYjSaUMy9PnObd47hX5Q/nwFx1rM+QDf2+8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=JCYwvM+AD0MYSuKs1MXKPTSh7etkftipl4iZ4IRRh1sIoUTpk9teFcPWj/3hBQz6j
+	 bSZNTCuNT+6nVESMe1stUW0mlPyYhQi9tsg14znp8R3IQvrZ1BIPFKzHtXd3cNCZ32
+	 glBrj4uz8kKoIJxsW6ncnGEuJM/mvhHD/dsSWRBgd2XlB8g23v0l5lxvFmW/8dBY86
+	 hVxMrwAcqmDNQysG87pmcg+y5vGivhGkor9MfoceSI6UI/s2vRk4+uaSDyh8AG69bc
+	 m1MV5N2Ga0TgBQHqcjvnsw0HM6PLKf2hv6JM6CBGfAobixRK9c7fTO7GCQuwb0LiqD
+	 bJ12VT6/DAl1A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E1CF84617F;
+	Sun,  1 Nov 2026 13:35:32 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Subject: [PATCH 0/2] riscv: dts: sifive: Add the missing FU740 CLINT
+Date: Sun, 01 Nov 2026 21:35:30 +0800
+Message-Id: <20261101-b4-sifive-fu740-clint-v1-0-b4821199a733@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,104 +83,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACNA52oC/x3MwQrCMAyA4VcZORtoarHOV5EdZk00IJ00WxHK3
+ n3F43f4/wbGRdngNjQoXNV0yR10GiC95/xi1Gc3eOcvRI7wEdBUtDLKFoPD9NG8Yhqj52uQM0W
+ C3n4Li/7+3/u07wddh7XwZwAAAA==
+X-Change-ID: 20261101-b4-sifive-fu740-clint-c972e84f3171
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>, 
+ Conor Dooley <conor@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: Yao Zi <me@ziyao.cc>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Han Gao <rabenda.cn@gmail.com>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793540132; l=659;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=zbiSOQWLdGE5tt0JW6MLdKrOIrFoJPTWAw/TL/wVUds=;
+ b=HiUmzTmHTD+hCzm1soKt+gVyAuz6OzLSGaBME2Y8KVey3oK63FqARxKpGB4WVNO4kQgONpIw/
+ g6yZvvpQZPXAnV4tdPN6zzPRMc/F2GB0hcJjkJ6stm1a9txHQFvLPij
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
 
-With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
-machine no longer boots after commit 5b5224220747 ("refcount: Use
-CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
+coreboot and U-Boot already describe the FU740 CLINT for OpenSBI.
+Add the missing node to the Linux device tree and document its
+compatible.
 
-of_unittest_lifecycle() deliberately calls of_node_put() after the
-node's reference count has reached zero. The test expects a warning and
-continues to check that a subsequent put does not produce another
-warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
-triggers BUG() instead. This panics the kernel during boot:
-
-	kernel BUG at lib/refcount.c:37!
-	Oops: invalid opcode: 0000 [#1] SMP NOPTI
-	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
-	RIP: 0010:refcount_warn_saturate+0x89/0x90
-	Call Trace:
-	 of_unittest_lifecycle+0x158/0x310
-	 of_unittest+0x105/0x130
-	 do_one_initcall+0x127/0x350
-	 do_initcall_level+0x7c/0xe0
-	 do_initcalls+0x59/0xa0
-	 kernel_init_freeable+0x118/0x1a0
-	 kernel_init+0x1f/0x140
-	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
-
-Remove the refcount underflow tests, which exercise the refcount
-implementation rather than OF-specific behavior.
-
-Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- drivers/of/unittest.c | 43 -------------------------------------------
- 1 file changed, 43 deletions(-)
+Han Gao (2):
+      dt-bindings: timer: add the FU740 CLINT
+      riscv: dts: sifive: describe the FU740 CLINT
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index e255f54f4d76..03fc941c0995 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -3678,9 +3678,6 @@ static void __init of_unittest_lifecycle(void)
- 	 * - Decrementing refcount to zero via of_node_put() should cause the
- 	 *   attempt to free the node memory by of_node_release() to fail
- 	 *   because the node is not a dynamic node.
--	 *
--	 * - Decrementing refcount past zero should result in additional
--	 *   errors reported.
- 	 */
- 
- 	np = of_find_node_by_path(refcount_path);
-@@ -3714,46 +3711,6 @@ static void __init of_unittest_lifecycle(void)
- 
- 	EXPECT_END(KERN_INFO, "OF: ERROR: of_node_release() detected bad of_node_put() on /testcase-data/refcount-node");
- 
--
--	/*
--	 * expect stack trace for subsequent of_node_put():
--	 *   __refcount_sub_and_test() calls:
--	 *   refcount_warn_saturate(r, REFCOUNT_SUB_UAF)
--	 *
--	 * Not capturing entire WARN_ONCE() trace with EXPECT_*(), just
--	 * the first three lines, and the last line.
--	 */
--	EXPECT_BEGIN(KERN_INFO, "------------[ cut here ]------------");
--	EXPECT_BEGIN(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_BEGIN(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_BEGIN(KERN_INFO, "---[ end trace <<int>> ]---");
--
--	/* refcount is now zero, this should fail */
--	unittest(1, "/testcase-data/refcount-node is zero");
--	of_node_put(np);
--
--	EXPECT_END(KERN_INFO, "---[ end trace <<int>> ]---");
--	EXPECT_END(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_END(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_END(KERN_INFO, "------------[ cut here ]------------");
--
--	/*
--	 * Q. do we expect to get yet another warning?
--	 * A. no, the WARNING is from WARN_ONCE()
--	 */
--	EXPECT_NOT_BEGIN(KERN_INFO, "------------[ cut here ]------------");
--	EXPECT_NOT_BEGIN(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_NOT_BEGIN(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_NOT_BEGIN(KERN_INFO, "---[ end trace <<int>> ]---");
--
--	unittest(1, "/testcase-data/refcount-node is zero, second time");
--	of_node_put(np);
--
--	EXPECT_NOT_END(KERN_INFO, "---[ end trace <<int>> ]---");
--	EXPECT_NOT_END(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_NOT_END(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_NOT_END(KERN_INFO, "------------[ cut here ]------------");
--
- 	/*
- 	 * refcount of zero will trigger stack traces from any further
- 	 * attempt to of_node_get() node "refcount-node". One example of
+ Documentation/devicetree/bindings/timer/sifive,clint.yaml |  1 +
+ arch/riscv/boot/dts/sifive/fu740-c000.dtsi                | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
+---
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+change-id: 20261101-b4-sifive-fu740-clint-c972e84f3171
 
-base-commit: a287f97d4256b5f5527f5b5a54f8ada55e1482c7
+Best regards,
 -- 
-2.56.0
+Han Gao <gaohan@iscas.ac.cn>
+
 
