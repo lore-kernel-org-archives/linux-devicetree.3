@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571384;
-	b=Aow9Q90PLIwamOmUouhnslMHkkyKn90O1Lgxx5ngmAxmCPecp6028GvAFpHxihpTWqFr
-	 kTxkmi0Bq6hYSve62a52usAmlXfEoyeZAsy3CYDDjHdmYA/2MgR7EQrMR2fmwsxxTdhK1
-	 V83Axy6iO+4WEv2ITyGJ4O10EX6Wa5ZVA3+K/BW6AlGXT3J14dmlN1COHaQoq6VVt2kCp
-	 zrip+/mMj6JalgwK4yTL4AcbOZFY5C/SO47KVr2PSAG8EB8H85N+MUwPoqpq3wwX8oZUO
-	 5KGL23wH70MS1VZ9WasJgtUnqoDtrz/csYpPbNspYdTIl6ilcjTYI735oJfM0Ct7tjw==
+	t=1793571381;
+	b=MbFrqDptL1eKJ7j5Z4PEKzApptJWfoAS9qAWEKc6KCJj8ptzXlzbLNeiVCKT5kXbwfRV
+	 OSQPC2b+hQYVG/N4o8zWAh3aBGuMRRBcoLxuDg3nz4sWd+nQR7DNMRvZoadc5s55h4Fzl
+	 qnVTfp8iiXOBqwxxRjnEpVeyHmjMvnz4AP16ZpsF5CQ3KQkUIENaCBgZdWmxfK7wMy2sV
+	 +oiqWB2XKFk74hgaZUR0EXjPTNnb0WQO9Q5TnG7m83PYy4KoIhL1CHbrESFE/8bWf2KbF
+	 AP/GESnbdwzLdQnTT7ivQSM4HGPDp2mzOonH7prxbtz2knOxO7FnrKqlZbINkixXtPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571384;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gmi5uewuXMed4CloBbecG8Sst+u3j+UWzS8NSli01pM=;
-	b=czskDJuZ370M+g6A9dLKFIXYuyoCJUidynEoTiTCklvQdgEf/K/JNfzcBBLl+ytEqc77
-	 hqGChtwX1D7dFSTLgIZOlbtemYjJZQnhckb0k6xc9HHtH62no/gmCI+4G0eZou9l7ViND
-	 c/W4e0HM4VBKP8bdUyDLBMboB4s5tD3LJMuN15vjSJ0uOB4je28P9uZvs9bxkF3/iEvS7
-	 ihT/N23IIKU/vtfUlJINhvezqT54Ig55sCOt489srOiEwluy+FFCdriPbVsf36c2tL/2H
-	 7PPpc/ZCWs0Y/hi5Tloi35t9tEhX3Wz4VRrCrWSF5pW4pmJEfpinY02RVqhgqjharfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571381;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=dO8IDvnKbQ89guABqKeHsYCIoKDAIsVkhl3ddA1wtcc=;
+	b=eVJ+9IZLGuNwuDR7VWBq8Ud9nbndtiATsdIBxwjA88EnIm/AARilWnYM0KRzw8QNi1TK
+	 Kd98WZ9S1PNeSQGkNvZe8N3zOOFkOwpuSHOUux3iPoH+WAXUemW3dC1sDn4eYBSuwSYiU
+	 CKXzFdaZBZk7YQcZ6bDi4g5VOqVxSho4U0cEYvPQ6Xy6FdAihAJqNyTZkf5x7P5nT/Fda
+	 QOn/yng9eQkwhON68tfCYglfLMP+T5CnmoO63AUD3kEdPQEuuUjNT8Lwa0cdxXzsw5qk2
+	 6aMtg1EbwCPDUubftXUtOyUfEOhmppXKnZqK2PsrhHVOK7CPmDQFV6nCj2hRCJFUUyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nf3L9ctJ;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKfbTIwU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF3E606B9F3;
-	Sun,  1 Nov 2026 22:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF3E606B9F3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91559606B075;
+	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nf3L9ctJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=gmi5uewuXMed4CloBbecG8Sst+u3j+UWzS8NSli01pM=; b=nf3L9ctJZheEiENewBWgF4O7d4
-	w0woJPQP2GTmpWl74VRcox9MjZ2Deb0eqUSRtStoHXGL9DhHxYq/zlQ0L1r4t9itNO+dCC0ZdsZ8n
-	W+9LJEcSSTVgssUnhNQiuK0NPTpjWQ4Nbv3mOzBC/MVuPYSf+pJvnH3bjamx7eHC6ePCrl6WXPiic
-	+lj8Zub9f/PBFK9xwwmUasaTIwJhyjq4gviI/ZIo2RtaslKRJ/ANY3i8hKlbIV47ivDGORK6jO5XC
-	ys8iroOQVCQIM2Wvc1Yj/kQFog6AZUqcQjtAQ623egtCoMp0dq8k7xjmlKYynPNJqpmIm3gT6/YAQ
-	OsCudwrA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Igor Velkov <iav@iav.lv>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the GPU to Kobol Helios64
-Date: Sun,  1 Nov 2026 23:16:06 +0100
-Message-ID: <179357136494.4108155.12651749876898512929.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
-References: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKfbTIwU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48F151F00A1F;
+	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571381;
+	bh=dO8IDvnKbQ89guABqKeHsYCIoKDAIsVkhl3ddA1wtcc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=PKfbTIwUwRg7utef2I61K+61rzrtDd/F/7eBveR00naBoqdh8F3uPt9bannBILkUq
+	 FQXvy8Z0s5mkEUdeNhZmZVKFkBmt/LUE+5D1CvzgeMepBxoKf1PdLKC8RwoCB40Mf5
+	 OdkcjsQ690c2MU+DctNOxnLmgdhbGaelLNRiN/qixigRpPtaiG2ijQmAVgt/H9pdCb
+	 FiOvUSJsvaZ7CtN4srqpYrX5YQCsqj7N4Wxx4hnjOnXfuL07C7Ow54npn+WdSZ8oPe
+	 Plja86Te6UpKeeKPM7LXj3NXO5VI//NBfrJ+Uv+0AsJVqmhPK+HaK/XHSo8YOL1C3I
+	 iVVMD5YkVeKPA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4025738003B8;
+	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,21 +53,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357137979.2624073.5964699004424197111.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:19 +0000
+References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: linux-riscv@lists.infradead.org, linusw@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, kernel@esmil.dk, pjw@kernel.org,
+ aou@eecs.berkeley.edu, palmer@dabbelt.com, alex@ghiti.fr,
+ p.zabel@pengutronix.de, brgl@kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ lianfeng.ouyang@starfivetech.com
 
+Hello:
 
-On Sun, 11 Oct 2026 00:53:01 +0300, Igor Velkov wrote:
-> The GPU core of Helios64 is supplied by U12, a Silergy SYR838 on i2c0
-> at 0x41, with its VSEL pin on GPU_SLEEP_H (GPIO1_B6). Describe it as
-> silergy,syr828, the way vdd_cpu_b (a SYR837) is described as
-> silergy,syr827, and enable the GPU.
+This series was applied to riscv/linux.git (fixes)
+by Linus Walleij <linusw@kernel.org>:
 
-Applied, thanks!
+On Thu, 10 Sep 2026 03:03:35 -0700 you wrote:
+> The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
+> per2, per2pok, per3, adc0, adc1, emmc, and vga.
+> 
+> In the current series, we will only add the following pinctrl:
+>  - sys0, sys0h, sys1, sys2
+>  - per0, per1, per2, per2pok, per3
+> 
+> [...]
 
-[1/1] arm64: dts: rockchip: Add the GPU to Kobol Helios64
-      commit: fb33952897e8a998bf026fee7f184b474a8381f1
+Here is the summary with links:
+  - [v8,01/22] dt-bindings: pincfg-node: Add property 'input-debounce-ns'
+    https://git.kernel.org/riscv/c/5dde08ea70b9
+  - [v8,02/22] pinctrl: pinconf-generic: Add property 'input-debounce-ns'
+    (no matching commit)
+  - [v8,03/22] dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
+    https://git.kernel.org/riscv/c/9d3dc8decb60
+  - [v8,04/22] pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
+    (no matching commit)
+  - [v8,05/22] dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
+    https://git.kernel.org/riscv/c/6701c1c00891
+  - [v8,06/22] pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
+    (no matching commit)
+  - [v8,07/22] dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
+    https://git.kernel.org/riscv/c/bf8241062c79
+  - [v8,08/22] pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
+    https://git.kernel.org/riscv/c/1d5c13990916
+  - [v8,09/22] dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
+    https://git.kernel.org/riscv/c/941cc8022c21
+  - [v8,10/22] pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
+    https://git.kernel.org/riscv/c/594deb7f74f4
+  - [v8,11/22] dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
+    https://git.kernel.org/riscv/c/402323de0c04
+  - [v8,12/22] pinctrl: starfive: Add StarFive JHB100 per0 controller driver
+    (no matching commit)
+  - [v8,13/22] dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
+    https://git.kernel.org/riscv/c/d6001140c2e8
+  - [v8,14/22] pinctrl: starfive: Add StarFive JHB100 per1 controller driver
+    (no matching commit)
+  - [v8,15/22] dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
+    https://git.kernel.org/riscv/c/b598855cc302
+  - [v8,16/22] pinctrl: starfive: Add StarFive JHB100 per2 controller driver
+    (no matching commit)
+  - [v8,17/22] dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
+    https://git.kernel.org/riscv/c/c9ed9daba98a
+  - [v8,18/22] pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
+    (no matching commit)
+  - [v8,19/22] dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
+    https://git.kernel.org/riscv/c/340588f9b94c
+  - [v8,20/22] pinctrl: starfive: Add StarFive JHB100 per3 controller driver
+    (no matching commit)
+  - [v8,21/22] riscv: dts: starfive: Add JHB100 pinctrl pad number header
+    (no matching commit)
+  - [v8,22/22] riscv: dts: starfive: jhb100: Add pinctrl nodes
+    (no matching commit)
 
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
