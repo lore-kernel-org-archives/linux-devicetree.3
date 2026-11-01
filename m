@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793575953;
-	b=mcGN2OfB2OfAd80oIZxz/+2Sc6PIDyY6trFEbls7A4XIWHCmkDR6dx6SxRA6DJLo99GV
-	 CigPYRbirPGnaKrF6XKx5HZzNPT0hnPYK0nfu3+SUd3hQVMaqvrH7dDYTTy29+NSO8a03
-	 JaodehTguMkAqdmVHINCAPEbQ3uC3zy4UxsH3+s1/n6wghrGseLaBxTLKjwMp8NZlcoF4
-	 svLUyIaCwDrzkGRRmZ9nWOLXJEq7WYRmP+JvMYEIloubQtmzfkNwfA9WAPYSBbC1RrL56
-	 2elMOtBr9v1Nlwup86j17sZBawkn7fiFdw/JDWkKXwtB0Z7dQPmj3qhSzXiAuWfKB3Q==
+	t=1793575954;
+	b=nhRnPWxJhRH9E2RNbYjnhW+pMjnRIhsDqbKmwspFafQDee/oC2wfotuBPzL0EvuGIkEx
+	 RuHCe2yV6RHEpbrLGoV8bdK+ECtphG7eSysKXLZwq+zj43AgUg0xdAOxVVmu0Cq61yXQI
+	 uFQRXk9vgl18tOuzvqq2GupXwa0okcirIwMbIy7XSvzroAFnGOtAoHHtdeXuTF924KqNJ
+	 sgaFEHcT8n5ZTN3apAPpugXuPmEwuLDmAgwIGvXcmGQdDqQBLwikJuzZVyKLGU0pXAyIy
+	 tQBpYsVxvlxuTu9sTM/MmhOOfbOZ0jnyHMzQE+q1KihI5vMoe0drzJDRD8evdZu+SPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575953;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575954;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=iz/yeK2fOPP8+jQttB1dzqiW2pcugn1b23xJp6HtfRM=;
-	b=S2hY42S9C1SnyuoHy+lGZg35JHqNbXf5VJ4FbVPHgg7d1VUCXCdfPIUMn8YPULoNnnXR
-	 YsZqkcA6idGiAJO7X4H/1rxJJD2U+83uS6GvE9RgCgn9/RG67dfa8Zi7IEnUeltvReR82
-	 OtSvsArFKzFdtPxyHYWLBdJYuaj0nZ6pNXMBAOzgEQ+NrE/4MtGK1XU+hQU8yayA0qLdN
-	 HlU3d09Wm2QE6X9UzPFGeShtYMYy+fAx9dVx3SZkwYYB7RfqJbMf2LSn3BfzUaiZ95OdH
-	 0354EI0uUEl60JoWkSMZmbRCE5GIH5SIUrpwEkB6h3ua3FSPC8rca19sn57Mm+WErrQ==
+	bh=jbA84etbBKalUUE2Wld4P0tYZPV8fMyIYLIQyDnt3ko=;
+	b=YMs1AsXpNgLyDjJrpuDXL5zNxgIbkrela2/SUB+h/ZHFhM5tsI32DwugjVPCtM/U57Wu
+	 cOvgIaX5FLiJbDcu6rN3bGj3BjuBTulf9cJvrB2QI4zhu487DjXN7iTeJ+dpe6KwpPUoH
+	 mIi57Hbz7mVZcD+Dp7OscA2H1d+yAAX33BOct8u4sgwiB9KFjCKCGHvr47BxXQ4SOHFqS
+	 +fuPOZYYBsyHp9+TJpExhJmEI3rCZxupSh8z1aPeff2eY/DtRu2uz66+pT/EQJvXoKZMn
+	 2OS1GyzntstY6LXwy5ANWfbx6Nh5li9ndFnj8WJ6ebZa6MgtER6mS2igfaofw5k/UjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=erebion.eu;
 	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=G1zr4VMZ;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ILCOhLUU;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=cc9YN9jG;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OHRF7uDv;
 	arc=none smtp.remote-ip=142.132.183.134
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAB060A2627;
-	Sun,  1 Nov 2026 23:32:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EAB060A2627
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBCC60A2636;
+	Sun,  1 Nov 2026 23:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EBCC60A2636
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=G1zr4VMZ;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ILCOhLUU
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=cc9YN9jG;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OHRF7uDv
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1793575936; bh=iz/yeK2fOPP8+jQttB1dzqi
-	W2pcugn1b23xJp6HtfRM=; b=G1zr4VMZOQ/A29VXEPHd4Ut9KCzIIojtzKypEYhaeHld02Sw+L
-	lvZ4YN/XRqVpmcHn+k68ggdAv5U4aRMdRoBg==;
+	h=To:Message-Id:Subject:Date:From; t=1793575934; bh=jbA84etbBKalUUE2Wld4P0t
+	YZPV8fMyIYLIQyDnt3ko=; b=cc9YN9jGB1qAl/SWs3ys5vBR7nyL8VpEfrWlhw/WtQHLNg/P6R
+	7uQ6k+fXU4kKiDC94jxuX9WfsUI/GJEzi5Cg==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1793575936; bh=iz/yeK2fOPP8+jQttB1dzqi
-	W2pcugn1b23xJp6HtfRM=; b=ILCOhLUUgOPKpdmblSjTYWDCgA1/PeaZBg3XIcWm8DuIfT9ukL
-	PWEbPBnUn2FoIVJ4w+kaJsvnEX1qr5wLg8mtJJA/dpp7kiNBs0DxoVjmVLIouLUcfAM60q0PNZB
-	X4TUN8CsH4oBlZwDp+YZgB9+MVHryGphzUTEz9T05WEjb5xaaBLk/Zwt5m9fCNwAPxfSf6jJwTQ
-	+OR7M1XuGpuXkbReHMk6fUQBfykLWeQC2KRWgIf8OC3tKELSzxJ4xPApZvmsd/tF6SbuVs8Rd/8
-	AL1dK6Xn6aKN8fTHyeNd/g1L1aufez41DfRiFs4nzjkim4qYDJRJyYLbwva7fORV/nw==;
+	h=To:Message-Id:Subject:Date:From; t=1793575934; bh=jbA84etbBKalUUE2Wld4P0t
+	YZPV8fMyIYLIQyDnt3ko=; b=OHRF7uDvV5SFICjy4QUDH6rwTSFcdTjQ6HNXfVG7HgS89x6RvY
+	w4/HD3WzVDqsqHL7fYau/srvteOIc7DO+ZdsfJurR8vjmS+SlvrZXZ0/eQS4oxthlWJL+lQ3mM0
+	1BkGeZ/cBWcIJZS5wOXhsEYsRKx6lwB2jQ7u3NEepT22E9VBlvkF9FQIbw5XrNf4zQ7k+BI0Nv4
+	f8+uqPWXVYDhqO2mRyO+4pe6eUe3hlgzGWI7FU9zZCVzi4GCMTb4Q0nvYDEQ4N/X3TSqvjQ07N0
+	dZ76edn1gQl5myjmvjTr7bmnDmwqJRrDzvFG7l+O0ZvseutA3kgpgH4QodXRS5olVYg==;
 From: erebion <erebion@erebion.eu>
-Date: Mon, 02 Nov 2026 00:32:16 +0100
-Subject: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
+Date: Mon, 02 Nov 2026 00:32:11 +0100
+Subject: [PATCH v3 07/12] arm64: dts: qcom: sm6350-lena: Enable PM7250B
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
+Message-Id: <20261102-pdx213-upstream-3-v3-7-cdc3be96d257@erebion.eu>
 References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
 In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -78,66 +77,94 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1388;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1972;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=ymLKUXMTdBOYqzoQQuAQGR3AHNoKiUIhl/PVXRBCxns=;
- b=+/iLs3UKxuAi3slpEDtBfrzmi3YqszAfU7d+UkIHAV6zraCpBC/6iD8zyhe6qSLx29UX3XCuu
- DRdUQEHpZNTDgDiiKa5RtDKll06+XBi7zucpWClDD3vCHIifkDImkfd
+ bh=WcyUIFeFahnXsTx4eTBNQrS1+nOI72s2eNJVDez+n7w=;
+ b=bFyeMGZOdDouSYyi4MY1OzGYE81t9wjYvot1nHyoj7tEu7+lO3cztiGfvt7zX8Nk1kwN2GPM7
+ 1jKGR7DX09GB2X6LkCSv4S/eh0eT6R64szfLxY4kuFKzDyM5m60MTth
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Enable all i2c busses where something is connected on this phone. Add
-comments as placeholders for which components are still missing.
+Enable PM7250B and some components on it for the Xperia 10 III.
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 26 ++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 48 ++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 487ef75f2f1de..d2b3aa6e61ab6 100644
+index 1b54d9869855e..61e191133cb4f 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -470,6 +470,21 @@ &gpi_dma1 {
+@@ -4,6 +4,10 @@
+  */
+ /dts-v1/;
+ 
++/* PM7250B is configured to use SID2/3 */
++#define PM7250B_SID 2
++#define PM7250B_SID1 3
++
+ #include <dt-bindings/firmware/qcom,scm.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+@@ -11,6 +15,7 @@
+ #include "sm6350.dtsi"
+ #include "pm6150l.dtsi"
+ #include "pm6350.dtsi"
++#include "pm7250b.dtsi"
+ 
+ / {
+ 	model = "Sony Xperia 10 III";
+@@ -383,6 +388,49 @@ &pm6350_resin {
  	status = "okay";
  };
  
-+&gpu {
++&pm7250b_adc {
++	channel@4d {
++		reg = <ADC5_AMUX_THM1_100K_PU>;
++		label = "charger_skin_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@4f {
++		reg = <ADC5_AMUX_THM3_100K_PU>;
++		label = "conn_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++};
++
++&pm7250b_adc_tm {
++	status = "okay";
++
++	charger-skin-therm@0 {
++		reg = <0>;
++		io-channels = <&pm7250b_adc ADC5_AMUX_THM1_100K_PU>;
++		qcom,ratiometric;
++		qcom,hw-settle-time-us = <200>;
++	};
++
++	conn-therm@1 {
++		reg = <1>;
++		io-channels = <&pm7250b_adc ADC5_AMUX_THM3_100K_PU>;
++		qcom,ratiometric;
++		qcom,hw-settle-time-us = <200>;
++	};
++};
++
++&pm7250b_vbus {
++	regulator-min-microamp = <500000>;
++	regulator-max-microamp = <1000000>;
++
 +	status = "okay";
 +};
 +
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sm6350/sony/pdx213/a615_zap.mbn";
-+};
-+
-+&i2c0 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	/* PN553 NFC @ 28 */
-+};
-+
- &i2c8 {
- 	clock-frequency = <400000>;
+ &qupv3_id_0 {
  	status = "okay";
-@@ -487,6 +502,17 @@ touchscreen@48 {
- 	};
  };
- 
-+&i2c10 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	/* PM8008 PMIC @ 8 and 9 */
-+	/* SMB1395 PMIC @ 34 and 35 */
-+	/* AW882xx amplifier @ 34 */
-+	/* Foursemi FS16xx amplifier @ 35 */
-+	/* FSA4480 Analog Audio Switch @ 42 */
-+};
-+
- &ipa {
- 	firmware-name = "qcom/sm6350/sony/pdx213/ipa_fws.mbn";
- 	memory-region = <&pil_ipa_fw_mem>;
 
 -- 
 2.53.0
