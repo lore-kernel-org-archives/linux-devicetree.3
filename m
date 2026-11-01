@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793520583;
-	b=KoOPlT3tzWi61EMTgSIqJ9HLswAaQVLbkyfy9CfGzMwcSdgBbm0ACSyrftGyplG1s5c+
-	 x0gruQaoTZsunlFYl2i5MrzFSMO6AnC1ANJYKvl4m/cSDUDqYkM0zGFDebyGBcs9uBq9R
-	 ENo4CmIuYJed5NSg+ErrjY4rlWlQDHglu1OJBDlx8M/VfPxtyN1pB5AL/Q8/ddPFroUcr
-	 fSg3r9RdABIhHIsyTgekZGsnkDHAA3WwgPzpb7QRzqIRa5id1CgYXDfISEkiud86J8yqs
-	 ISIqet2xaj2/oRbgKBZkbaTR1ZTIzGHFs3E7AsBR3pSTrEfHVtznPZxZs7yWcbgZY2A==
+	t=1793520578;
+	b=R9fBtkivaOeb4UfmpS89qjhTYJNFRRI9Wq+gkiPwinmK3hDhKFgAJZfwHxUm1Mh5IgDa
+	 /MvxjYIEZuK+icf4oMS4Bf3iXpU/RLF+KeouIYB1o31d0/mmucnqLIRDWxggNYTNj3Vdv
+	 7B5h17nc0FKplfXfVthqBPihIA4VEf7i8Ge1IDNAFVACBwqxPOat8KsJ6m93+dhmdp6Sv
+	 fqYL0B6tNnV+2nMsQpSZIfflvN6GaiTPBmTK87Yx3oHtvtUoisDZ5c8oDOv0M5AW6wjcC
+	 Mkl019PB4OP/KcOJZyxZj+eG7syuQj9ZfHJallMJD9sIePQ0VbEVi33vJNcKGRYIETg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793520583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793520578;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=lVRiNu3CfSkNvXBK4ERxHrAsBNy8xruX8jtIU1B7VOM=;
-	b=auyS4OwxWDXuuqO45MK1lJb50EbQe2gwALJcncvKK2P86HIBbsQjugK+LKML/j/Gj60h
-	 NMaLLO2AgW0/g2noXOT6feL60zZOqlvR94zzaqKmFP7dx5/i/b0Y8GDbEJfvu+wb7o0h8
-	 rW1V6C9fns5B0LAGZkMvjrNAMLGDKF9wdlZFoK5Ps+GXVi0p2erxLoMArq9N92/QNW/Zl
-	 9/f8pRlliULR0exwWKtC2+MW4v7qShmXM3D3o/Nqe8fii4XBqybvUTIU3rEUbVDr21OfY
-	 ISOKMPglGXBT3rvcN7sWqJy8e/UrmFNxVxKGuYdiGqtViGQRyYtiN0xeY1kJ5gpnuhg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=U40/ZwQIGB99gEwVGvIAqyV6gYrXisGSQoDqHe7yhd0=;
+	b=ORvSzxeTWmV1VmgSf6aS2XA596qu2yfQOK1vMipdUskVXl3RFUvmFigCiJojTfSZJIo9
+	 m6iHkEhb78J5BEO0Z10f7JLJHEmyCKB9nXm+S0twE0vh4Q17ybgjUBckQvTT4wh7CslUZ
+	 pqwEM/Nc37u4Tml1xcmP0vvCZi0I6dxfbI0HlGLa1OT6GTfizfPqrfeH6xScykJqYmFfK
+	 ZxqIbA1CN22x59tUEhyexC3ognjO7LLrqdo2RkDViipHmuPEn1CCxTkMKTY/cIlTOr2Df
+	 Hbwi8B5WAocoA5NkoF3re8FAqO77+ZOEO1ysiDa+HpzYTYlbDHRSBpI3UHpV0VOMBLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wp6k7NjO;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rP23xyf0;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C550606A32F
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 08:09:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C550606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD48606A324
+	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 08:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD48606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wp6k7NjO
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a2551d7b5so4015258eec.1
-        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 01:09:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rP23xyf0
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so3714177eec.1
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 01:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793520582; x=1794125382; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lVRiNu3CfSkNvXBK4ERxHrAsBNy8xruX8jtIU1B7VOM=;
-        b=wp6k7NjO7CvhnB9nj/3d/3iVOtHiuOC7juvPoVeBZzvXJDmftA6/TLI4zWL8Dld//0
-         wA8cHBigcXtZ4Kz4r1wdWExQsZhcveWPx2P71RdqfYdnMhnVmaNTTMgrXVV7LKRMhOJN
-         XBneBxGqmDus+d7xflLQ2CiXhsg9Zey1hmbzT/0xxbNjgoYy28qLFtsXKnwo8PdhDKmk
-         wDVtYqwgQIREWraLUSTzjnGyMOkuxDLZj1eV5JJuvgcinAtMjEuqkagKmu0sCNGXWGes
-         CY0ezDue5rCO4+AHKFA+3Lea7B5ZxS/l7Qa7kpt5zK2J2MqlKuc2vjq/rsey1xb1/9/X
-         taEg==
+        d=gmail.com; s=20260707; t=1793520576; x=1794125376; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U40/ZwQIGB99gEwVGvIAqyV6gYrXisGSQoDqHe7yhd0=;
+        b=rP23xyf0arPyjxxhA0OpvCazKXpj/6elzvriPCYljf4aeeqTiu/VmGC/6e8LMJlm3S
+         APmcQqI8eYuDlAR+lHMGiPG63ZirJ7KoXkMTBmDmRBQjXr4lkA0bYN4CylbyAyr8cMug
+         oH6t98/g3WUnMwiNYGa86xW6+7syOqhkXv4/LxKfuMqyayWy8Nj6i23YmbavCB6N/VMO
+         Kuc+ZOLXdcWNCE5/zPyN3C65/jH4rQ9lZJyWeTsPzIKZawXZpfuZmKZVFQ4jJwqc8XOt
+         ZUS3NCuGknSCXUH3YQ+E+NZOvH+ttJXYoSFAdJqIDmqNl+FSPekxUKEIEg+hIci3lRhy
+         xMnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793520582; x=1794125382;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lVRiNu3CfSkNvXBK4ERxHrAsBNy8xruX8jtIU1B7VOM=;
-        b=IpOLFH7hRloi/YkA8LuKwoq14Tan1I7UhJsEzKL4zda+MXfnbbJ9x47HMftp5Nvvqd
-         UyoGjBNVHIPsLGGMLPSbLXnIXQJLjv0CA8gODbcXc3ck3LZfV7cDqoDHX/815Zq2qjM5
-         JdH/1CsYDPYjgdlDRVYXMrioFunHupLRLLhiPQReykf1hfyBeYLcS8tKC+6riGOGIOYE
-         32LZvbx9ItmSQhiP3zPSBthqP8AWoB4tSQEs/n2t2AXV1HU5cWbqsx+vIVvhaMleP6Yn
-         Y2ZGN4FxPICQ2L78ShgmZb4EkogI2v4otMTmyOgfqVjyHBxvH/6g2YSV/XAN7z74Bkho
-         +weQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFzGfV4/DedGPW5iJ2p9tdOEK+ZoHFGGeKumKTPvuk15tptASCyj8c9SoTPHrmf7C3wAwF3B+yM7UT@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8M4qaJnKhCz2k3uhnH5Vsr0XKOYDlwmuJYnHyq50cfHKyfptL
-	THlgwUZQgWMHL8BRNGKAbmxbNvYqREj4IK1vavWOWfnFO6ssFT8c2Jfm
-X-Gm-Gg: AYBFou3YtRE78zOSJ4jBxzIuQ5QyzZ6Unpm/9P6dDUD8+bK1DRrVPme5SI5rBVKDjlb
-	IroHm/jw37oaxk18RnGETUJgP6/Sl88dFBsgKw+QeShPyAfwVWcFx+UtgO0p5flT9WMpy6wHNUp
-	vsb5jqosgJhGsZa1N96CUADPqHmLR8J9bAfHB+KC/MKYQ7RIZJoFZgLPMG+VhQFvhvvxt6Pn6QZ
-	DcOjEzmfR0UYMuOQ9cA08sEW+wAILn74YeLqpZ5C5ef4dpsq0lAAWmN6dT7BZmmkyDACMzh7PKw
-	gToEaBHlbckR8OmTAinsJ0jQTLSJV+HHkbuvhEGBhH/nuTiq5jX5LqJE8vwxU8Nbt34sXDWhgfm
-	DlChPcRLKBw2+ffJZqMaIt9HZsgwlkkmS852NVmwbf22jpxsvrWUtdj+zz3mgp04E1sK0Fni4jV
-	+5Q7aL+QydPX47iUg4v2GolBoufq8N35viqbmG/ADxz/mqa50jnZwzPfcMbZR+ZXVOyxpBKYJHI
-	8z3oXib+MlwW6XK9dmaQoEXdDPgD3xhaJCJ4owScF2jzs+pRVC2iUnUS6Du6nVH5IHvpeVA07S0
-	1QH1V3mupuaIWxlWgG+jvmfA9YBudMyuVP67JsI9
-X-Received: by 2002:a05:693c:6304:b0:36a:60f:3e9c with SMTP id 5a478bee46e88-36a420595aemr10215792eec.0.1793520582159;
-        Sun, 01 Nov 2026 01:09:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793520576; x=1794125376;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U40/ZwQIGB99gEwVGvIAqyV6gYrXisGSQoDqHe7yhd0=;
+        b=tcQ07SvHBBOV7U0o+kJNQQMqom4fESH5MWTMb7yRyfeoE5BCPofZ/65eO2g8gxWzAP
+         cINt4Bwiwg9VXP/vn3RCt1c1opG4RGULrpxGfpl2vbWck8UdzguBhtTq3UGAoRqXvumU
+         MyDoOj4nlrLygRbP8zXDnMV9I5h8gZJ2jJ+UkI2vhvLRuR4m+EMakNc/piz0Ts5/SrA8
+         v2ip9LUq8UxMcSfMJy1lqq20LglQQinxqpomeMDyZoBn+GwH8e+bsUC8Hk3WTqBBfNTD
+         OktlQKrjo4RarVy6i2uj9iHPshzEkhCitcw+pKan6FRFGsk5QJsYz8TXJCtbFVdh/JiQ
+         9LZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHj1NimBrlBuiv7WUG6EmaqWtVEuFvaEyHNeEVLKB2CEC0B5EsUpIcxM6sKtXjQ1m3d28NcDfTxyMr@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KlHqiadGph7PYZNRxEiRhEckLSFJ2FnhfR63fGbVN5XUUnPKd
+	RuJZl2mp2tItztu7AJlOVkiRxFrXZqJu/9nAtkvfS74WSOVqNpNqVrY45v8Aid0AaoM=
+X-Gm-Gg: AYBFou3xwDBepu2vgn0R47UIB01Myt2a5Ngn8D5v73gYEsaTAX81dgK8RRMhmQ9HJua
+	O1znjap0w6N4fILbClRH6g5B0tpOdJ2bWw535SxuICI8K2feKIS9BjWaZkoa8OJdRdbIMWN0JLC
+	5kizeHZwqaWykIKGvzyYzJcc6AMjVCRr4j+0JAJ0ZLQdagoh6EC6xqykwxoLCNeS+9rCFiZ3F4f
+	Z7UBrCebwcQkBgHHUYMqAg1kNntrgW67nkXP6R7n9cyRj1zAqN6ARX2yDGN4yuRhk8WgZufL0Qp
+	NKtNM7RtXMl/7f79B+MR7eqqXyerk1UKkNJEdl9wKVNUNWCujaC1BSOCivqGGc+R93RoCXHdi5o
+	5xb4DYFrdZKnGGKYY27tZMc9fYcEMkOX+6xU5R0q1XZLAUrspntNFMeat7iaAuZohbNGnQOcIo8
+	s9LiSHkMtJGo1i1Mye6PtYx02p7AxY64KVSTdWzmpTRmE6L8i7yohuGEuWSlurg7sCIYSBfg9lI
+	Ws8jj/nPDhK8uanfUZTfH88Mi4/XSTzdm1NEHQmPET49JRTgaeAkEe0vr/Sowhs3sAzgKBlQ+A5
+	dbl/SAeWyL+mWy0PwtAwWyzoAw6Eu8sgbuv8U4yO
+X-Received: by 2002:a05:693c:69cf:b0:369:daea:812a with SMTP id 5a478bee46e88-36a423fae73mr9966452eec.30.1793520576167;
+        Sun, 01 Nov 2026 01:09:36 -0700 (PDT)
 Received: from arch.localdomain ([152.175.67.103])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm27611719eec.29.2026.11.01.01.09.36
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm27611719eec.29.2026.11.01.01.09.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 01:09:41 -0700 (PDT)
+        Sun, 01 Nov 2026 01:09:35 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -93,12 +92,10 @@ Cc: linux-sound@vger.kernel.org,
 	jerrysteve1101@gmail.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org
-Subject: [PATCH v3 1/2] dt-bindings: sound: add Everest ES7202
-Date: Sun,  1 Nov 2026 16:09:25 +0800
-Message-ID: <20261101080926.267041-2-jerrysteve1101@gmail.com>
+Subject: [PATCH v3 0/2] ASoC: codecs: Add Everest ES7202 support
+Date: Sun,  1 Nov 2026 16:09:24 +0800
+Message-ID: <20261101080926.267041-1-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261101080926.267041-1-jerrysteve1101@gmail.com>
-References: <20261101080926.267041-1-jerrysteve1101@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,78 +107,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the device-tree bindings for the Everest ES7202, a 2-channel PDM
-analog-to-digital converter controlled over I2C.
+This series adds support for the Everest ES7202, a 2-channel PDM
+analog-to-digital converter controlled over I2C.  Patch 1 adds the DT
+bindings and patch 2 the ASoC codec driver.
 
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/sound/everest,es7202.yaml        | 56 +++++++++++++++++++
- 1 file changed, 56 insertions(+)
+The driver is based on the Rockchip BSP driver, reworked for mainline to
+use regmap and devm_ helpers, probe the device ID, and report the actual
+per-step PGA gain.
+
+Changes in v3:
+- Add SND_SOC_ES7202 to SND_SOC_ALL_CODECS, convert the copyright block
+  to C++ comments and drop two unneeded includes.
+- Turn the volatile check into a switch: the ID registers are now cached
+  after the first read and marked read-only via writeable_reg, so a
+  regcache sync never writes them back; ES7202_RESET stays volatile.
+- Set use_single_read/use_single_write so a regcache sync cannot become a
+  multi-register write.
+- Use devm_regulator_get() instead of devm_regulator_get_optional().
+
+Changes in v2:
+- Drop the hard-coded 30.75 dB PGA gain from the power-up sequence; the
+  PGA keeps its power-on default and the capture volume controls apply
+  the requested gain.
+- Keep the PDM outputs muted until a capture stream starts, instead of
+  unmuting at the end of the init sequence.
+- Re-run the power-up sequence on resume before syncing the regmap cache.
+- Handle the regulator_get_voltage() error return as an int.
+- Drop the unnecessary of_match_ptr().
+- Fix the copyright header.
+
+Link to v2: https://lore.kernel.org/linux-sound/20261021124552.767218-1-jerrysteve1101@gmail.com
+Link to v1: https://lore.kernel.org/linux-sound/20261020143135.623897-1-jerrysteve1101@gmail.com
+
+Jun Yan (2):
+  dt-bindings: sound: add Everest ES7202
+  ASoC: codecs: add support for Everest ES7202 PDM ADC
+
+ .../bindings/sound/everest,es7202.yaml        |  56 +++
+ sound/soc/codecs/Kconfig                      |  11 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/es7202.c                     | 373 ++++++++++++++++++
+ sound/soc/codecs/es7202.h                     | 131 ++++++
+ 5 files changed, 573 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/everest,es7202.yaml
+ create mode 100644 sound/soc/codecs/es7202.c
+ create mode 100644 sound/soc/codecs/es7202.h
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es7202.yaml b/Documentation/devicetree/bindings/sound/everest,es7202.yaml
-new file mode 100644
-index 000000000000..ce98d2d600d4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/everest,es7202.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/everest,es7202.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Everest ES7202 2 channel PDM analog to digital converter
-+
-+maintainers:
-+  - Jun Yan <jerrysteve1101@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - everest,es7202
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO connected to the reset pin (active low)
-+
-+  vdd-supply:
-+    description: Main power supply, 1.8 V or 3.3 V. Optional; defaults to 3.3 V
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#sound-dai-cells"
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        es7202: codec@30 {
-+            compatible = "everest,es7202";
-+            reg = <0x30>;
-+            #sound-dai-cells = <0>;
-+            reset-gpios = <&gpio0 0 GPIO_ACTIVE_LOW>;
-+            vdd-supply = <&vcc3v3_sys>;
-+        };
-+    };
-+...
 -- 
 2.56.0
 
