@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556408;
-	b=htwGCe7DuwwObu47lEpNVPjj71XagpLDepDhVCF7GasdlcXa6OxsGhps4MGX8JGlAHg8
-	 cbNzCAlYCZF0wRtgk6w+eBvckqfoR5LqjUwRAhJOupL+Rjc5ZtEXZOb4o28gjBQ8Lh5sv
-	 nvRvWpRUG8euadbloFjA5P9nlqOCgqDynSIvdC/SdjHqM+2NL6FwcGeIzIvPuHJw2IJM4
-	 1YABsz06bP8PlSJ0shtcspRR1Lbe9UH9kXKdJvHomeKCDAONATLeor9STlngov9dGgzCK
-	 /NRvBxZ8FAlITV+ONaL74gxm0+qpugr891gneyqrfHABeHmZghf/xANTvIu+K8S75gg==
+	t=1793557383;
+	b=ljI8bDvfNEgxsXeS+Xd+4gD6GAm/NQqgYMOOlnLrcLs65y4KMsUyQ5h1Cio/0S5qq6KF
+	 m+/iQTfk0YsVFGlYs8hMOpLeld5/zDjihz8z0YDEdK1TSGqOe3AE7MzLxvxl1ATXFyaJj
+	 2t0rrkklooETiR7CEEX0cwY6R7MynFMdagbkkVU4kC1BB2twrEN87yG12hL/yLgh3Jly4
+	 smBlHMusKeCXZO9vM34XK15b4TP8mTzBeEPGpj1JjI6pPgzv05R7V4ujo6a7ogjcEsOIF
+	 pvbnKv5+oEnhZX6KZPvxiOEk5CS+UxgTODVhi62uKVlj2XzZ+DTK/of3RcDCkqTwZTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556408;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HxzxY68LFgsEqhESPA9sAtt7IItE63uFTt9H+9KAsqY=;
-	b=z0SdfiVaX5TqPtThS8hSddjruqfypxizo8g8rnPm/6D5DxoM9A6Ws6B5oTwkBphQlN9Y
-	 0EosLe2Ql9qcCuPrvjWtx3/7/Yo6XslyMT+Fhe4141FvWy+BavA68rCB5GXzyApHy7tOj
-	 Xejqdbw0xCIGEi2tmbDpiurj+bQ8ydd+dm78yFICHVA1AXOWujHaoFDQVJEFJArM/lqS4
-	 RItGBtP+g/0GVRgI8Zp7BryvHOeXSOg7CH+WZHJdGIYIUVJSRyqvQ/S7yolXIqeDNSEDr
-	 2ZTXqkwjELhzyQDVgxatyfOanTrIQWElmm8XwLaCKrxzIO/htgHH+59w4BKHEhDsU7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793557383;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=tFhldmzZtrcUIX+IHzur5sfIp07vN9tRvmim7V5lDx4=;
+	b=gkAYY/ktUsCP+hE5kMWLU5e1UzBvOn5+GCKAs55hcdSmbClTYfTW1Y5gDqBiOX9rg/rv
+	 oTT3M9izrN/J/dFhX1S/0yQlE4DX+WMIV9TmJaTGTKX9pC2e3nHMVAlfvywBoIgbpwddA
+	 dBzv9qUYRAB9aDS16Uy+V1Nz6AecL5chB023YIEHFOTF8LcPXTNokUgNdiwRnzu91RORN
+	 +CCGEQVGTVA+43Eo7yIkF0AxPBM1Rm896fQQJg2TcIE3QQG1RiZD4ILsvvQseCehj0Agd
+	 fCKOf5dRjapHWpYnsIyxDJtPFhHjaahea832yyHAtz84+SnBGDbFQIUoJ6Vpi9XoWhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87YTrAl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R79qgKyT;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9F2606A324;
-	Sun,  1 Nov 2026 18:06:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E015606A324;
+	Sun,  1 Nov 2026 18:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E015606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87YTrAl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114FE1F00919;
-	Sun,  1 Nov 2026 18:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793556407;
-	bh=HxzxY68LFgsEqhESPA9sAtt7IItE63uFTt9H+9KAsqY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P87YTrAlXtY6yTL6IVaei3/kaOV+qmy3YbWBNzzuWpy6WjTbgurONXks1pqV4mNXE
-	 sjx+eMH2lRrqVYZ3Qey6G/C2wLfO0ioCJT1AB6p9lfed1xj8TuR5exgKhAS34ch0DQ
-	 7ZeOyfroZovcW2qm7NL284hQ0fA9Dk8ZvfaThRbuetPVLL47299bI/PRTcyp+YpRXy
-	 hoDmoM1ZYfLiuJxS2JLxvOWieRcYZd8nDP3siIJvITvLQm1HSbHbFEJwIQOUei5CtQ
-	 iJ6LnvDsJn7n/zsjHQBQALkhshFdyERjBQEZgyz+yHA3R82UEVDQx6BGLRd64Bd/qP
-	 mQpNUJyNXD1eA==
-Date: Sun, 1 Nov 2026 18:06:42 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Patrick Fischer via B4 Relay
- <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Cc: admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Kevin Tsai
- <ktsai@capellamicro.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: light: Add Capella CM3217 ambient light sensor
- driver
-Message-ID: <20261101180642.1768c3f2@jic23-hlaptop>
-In-Reply-To: <20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
-References: <20261101-upstream-iio-cm3217-v1-0-5e1724cae7b7@tsv-stahl-riesa.de>
-	<20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R79qgKyT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=tFhldmzZtrcUIX+IHzur5sfIp07vN9tRvmim7V5lDx4=; b=R79qgKyTpWDh/2r+KkK2V4mheb
+	qOSlYOoAbkSjs5lkPygzmKzgBr3ZVxFRQVQHZopx+84lD7lZXRQYF97a0ZdLv349IjUfFbMvo3+Tu
+	C6i5G9suQZDFGz60r9mkj7CPTnE/Bp8V52PaE6bAukRcWXjPEQYFqbSF5zYoMYLCqSyD8kwMR6ywu
+	UVRvi9up5Usq0r33eZFd864U5BzOClIIIf+E23mLfS0QaDYIQ//6lc9917fD7oODkzB9SuXLUhKgy
+	cq25YB9e7V7bUTTcnjoq9YF+Phjry/avVreKgoYD4JMQmT60DNa3ewLOII60tk6WyZzjCygmrEaBO
+	gLem3wmA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bob Hui <bg9oxa@163.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Bob Hui <bg9oxa@163.com>
+Subject: Re: [PATCH v10 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+Date: Sun, 01 Nov 2026 19:22:54 +0100
+Message-ID: <2372620.HovnAMPojK@phil>
+In-Reply-To: <20261023-quarkpi-ca2-v10-2-9db904194e03@163.com>
+References:
+ <20261023-quarkpi-ca2-v10-0-9db904194e03@163.com>
+ <20261023-quarkpi-ca2-v10-2-9db904194e03@163.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,185 +64,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Sun, 01 Nov 2026 15:46:07 +0100
-Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
+Am Donnerstag, 22. Oktober 2026, 18:26:21 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Bob Hui:
+> Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based card
+> computer. The board comes in 4, 8 and 16 GiB LPDDR4X variants with
+> 32 GB, 64 GB or 128 GB of eMMC; this was tested on the 16 GiB/128 GB
+> one.
+>=20
+> Supported peripherals:
+>   - 2x LPDDR4X SDRAM and eMMC, plus the microSD card slot
+>   - RK806-1 PMIC with the full regulator tree
+>   - HDMI output up to 4K60, through hdptxphy0 and VOP2
+>   - Gigabit Ethernet with the YT8531 RGMII PHY on MDIO1
+>   - four USB Type-A ports (1x USB 3.0, 3x USB 2.0)
+>   - USB Type-C port with USB 3.0 and DP output, described through the
+>     USBDP PHY and DP0, with role switch and DP altmode
+>   - 3.5 mm headset jack (headphones + microphone) with the ES8388
+>     codec, the headphone amplifier and jack detection
+>   - three function keys (volume down, volume up and PWR_ON from the
+>     PMIC) and the headset hook button
+>   - IR receiver, 4-pin PWM fan connector and two LEDs
+>   - 3-wire debug UART (UART2)
+>   - 40-pin expansion header with UART5, I2C3, I2C5, SPI0 and PWM14
+>   - two 26-pin MIPI DSI and three 22-pin MIPI CSI connectors, with the
+>     connector I2C buses enabled (i2c4, i2c7); panels and cameras are
+>     described by overlays
+>   - M.2 E-key socket for a WiFi/BT module, with the PCIe 2.0 x1 link
+>     enabled (pcie2x1l2, combphy0_ps)
+>   - Mali GPU and the three NPU cores
 
-> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-> 
-> The CM3217 has no registers and no ID. Writing a byte to address 0x10
-> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
-> returns the high or low byte of the 16-bit light count.
-> 
-> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
-> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
-> count scales linearly with both. The driver exposes FD_IT as the
-> integration time and IT_T through the scale, so the scale list offers
-> four ranges for each integration time.
-> 
-> The datasheet is not public. The bit fields, the reserved bits that are
-> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
-> downstream drivers for the Tegra Note 7 (drivers/staging/iio/light/
-> cm3217.c in the 3.4 and 3.10 kernels). For the resolution, Capella
-> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
-> per count at 4 T and 800 ms. This matches both the upper end (65535
-> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
-> 3.4 driver uses at 2 T and 100 ms.
-> 
-> The sensor has no data-ready flag, and a new setting only takes effect
-> when the conversion in progress ends. A conversion takes IT_T times
-> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
-> driver passes through shutdown on every change and waits one conversion
-> period plus a margin before it reads the count. The timing was measured
-> on a Tegra Note 7.
+Please trim your commit message down a lot, this should definitly
+not be this long and contain stuff nobody cares about ;-)
+So I guess the above should be enough.
 
-I don't think we have a current active Capella Micro developer on the
-list as it's been a while since I heard from Kevin Tsai who contributed
-drivers for them, so your approach of using the vendor driver as a
-guide is probably the best we can do.
 
-> 
-> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
-A few comments inline.
+> Assisted-by: Hermes:deepseek-v4-flash
 
-If it is really hard to precompute all the available values, then
-we can probably get away with not doing so.  I don't think it is
-though and picking between precomputed sets is both cleaner and avoids
-a race if we ever get light driver inkernel consumers.
+Assisted-by got removed again from the process documentation with 7.4-rc1
+so is not necessary anymore.
 
-Thanks
 
-Jonathan
+> Signed-off-by: Bob Hui <bg9oxa@163.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-> diff --git a/drivers/iio/light/cm3217.c b/drivers/iio/light/cm3217.c
-> new file mode 100644
-> index 000000000000..9e0e9afee092
-> --- /dev/null
-> +++ b/drivers/iio/light/cm3217.c
-> @@ -0,0 +1,383 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Capella CM3217 ambient light sensor driver
-> + *
-> + * The CM3217 has no registers. It answers on two fixed I2C addresses:
-> + * writing a byte to 0x10 or 0x11 sets command byte 1 or 2, reading a byte
-> + * from 0x10 or 0x11 returns the MSB or LSB of the 16-bit light count.
-> + *
-> + * Copyright (C) 2026 Patrick Fischer <admin@tsv-stahl-riesa.de>
-> + */
+Andrew always just reviews part of the board, namely the gmac and mdio
+nodes - and states that in his review mail, so I guess a nice way to
+do this would be:
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch> #gmac1 + mdio1
+
+
+> +	aliases {
+> +		mmc0 =3D &sdhci;
+> +		mmc1 =3D &sdmmc;
+> +		ethernet0 =3D &gmac1;
+
+please sort properties according to the devicetree writing guide,
+namely here, properties alphabetically, "e" comes before "m".
+
+> +		button-vol-up {
+> +			label =3D "volume up";
+> +			linux,code =3D <KEY_VOLUMEUP>;
+> +			press-threshold-microvolt =3D <17000>;
+> +		};
 > +
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/ktime.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-> +#define CM3217_ADDR_CMD2_LSB	0x11
-> +
-> +#define CM3217_CMD1_RSVD	BIT(5)		/* reserved, set to 1 */
-> +#define CM3217_CMD1_IT_T	GENMASK(3, 2)	/* 1/2 T, 1 T, 2 T, 4 T */
-> +#define CM3217_CMD1_WDM		BIT(1)		/* set to 1 like the vendor driver */
-> +#define CM3217_CMD1_SD		BIT(0)		/* shutdown when set */
-> +
-> +#define CM3217_CMD2_FD_IT	GENMASK(7, 5)
-> +
-> +#define CM3217_IT_T_2T		2
-> +#define CM3217_FD_IT_100MS	5
-> +
-> +/* 0.01875 lux per count at 4 T and 800 ms, the finest resolution */
-> +#define CM3217_NLUX_MS		15000000000ULL
+> +		button-vol-down {
+> +			label =3D "volume down";
+> +			linux,code =3D <KEY_VOLUMEDOWN>;
+> +			press-threshold-microvolt =3D <417000>;
+> +		};
 
-Use a muiltiplier for that definition. Various ones in units.h.
-I haven't figured out what makes sense, but that is too many 
-zeros to eyeball!
-
-> +
-> +#define CM3217_MARGIN_MS	10
+similarly please sort nodes without addresses alphabetically,
+"down" before "up"
 
 
+> +	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
+[...]
+> +	};
 > +
-> +static unsigned int cm3217_conv_ms(struct cm3217_data *data)
-> +	__must_hold(&data->lock)
-> +{
-> +	unsigned int fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
-> +	unsigned int it_t = FIELD_GET(CM3217_CMD1_IT_T, data->cmd1);
+> +	combophy_avdd0v85: regulator-combophy-avdd0v85 {
+[...]
+> +	};
 > +
-> +	return (cm3217_fd_it_ms[fd_it] << it_t) / 2;
-> +}
-> +
-> +static void cm3217_update_scale_avail(struct cm3217_data *data)
-There are some unfortunately complex race conditions around
-read_avail where a consumer driver (iio/inkern.c) can hold a pointer to the
-array and there is no visibility in the consumer of the fact the
-data might be changing under it. The concern isn't so much getting
-wrong values as getting torn ones as the writes are occuring. 
-There have been a few goes at solving the race generically but none
-have landed yet.  Generally avoiding that sort of handoff of
-dynamic data is a nice to have and often easy enough to do.
+> +	combophy_avdd1v8: regulator-combophy-avdd1v8 {
+[...]
+> +	};
 
-I'm not that concerned for a light sensor as we have no consumers
-in upstream anyway, but how bad would it be to precompute all possible
-tables at probe time or even at compile time, and then just pick between them?
+another example of the sorting issue.
+The parts I highlight are not exhaustive, please make sure all are
+sorted correctly.
 
-> +	__must_hold(&data->lock)
-> +{
-> +	unsigned int fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
-> +	unsigned int i;
-> +	u32 rem;
-> +	u64 nlux;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(data->scale_avail); i++) {
-Might as well do
+[...]
 
-	for (unsigned int i = 0; .. {
-	
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt =3D <750000>;
 
-> +		nlux = div_u64(CM3217_NLUX_MS << (3 - i), cm3217_fd_it_ms[fd_it]);
-> +		data->scale_avail[i][0] = div_u64_rem(nlux, NANO, &rem);
-> +		data->scale_avail[i][1] = rem;
-> +	}
-> +}
+regulator-suspend-microvolt is deprecated in the binding, please don't
+introduce new instances of it. (applicable to all cases)
 
 
+> +&i2c2 {
+[...]
+> +};
+> +
+> +&cpu_l0 {
 
-> +
-> +static int cm3217_suspend(struct device *dev)
-> +{
-> +	struct cm3217_data *data = iio_priv(dev_get_drvdata(dev));
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	return i2c_smbus_write_byte(data->client, data->cmd1 | CM3217_CMD1_SD);
+please sort phandle references alphabetically, &cpu... before &i2c
+same for all other places in the file.
 
-Given this lines up with the power off callback above and the start of
-the write_cmd() sequence, maybe have a little helper to put this write
-command in just one place?
+> +/ {
 
-> +}
-> +
-> +static int cm3217_resume(struct device *dev)
-> +{
-> +	struct cm3217_data *data = iio_priv(dev_get_drvdata(dev));
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	return cm3217_write_cmd(data, data->cmd1, data->cmd2);
-> +}
+you have one root block at the top, you should definitly not need another
+one here.
 
-> 
+
+> +/ {
+
+or here
+
+> +	analog_sound: analog-sound {
+> +		compatible =3D "simple-audio-card";
+
+
+> +&{/} {
+
+this is geting crazy now
+
+> +	ir_receiver: ir-receiver {
+> +		compatible =3D "gpio-ir-receiver";
+> +		gpios =3D <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&ir_receiver_pin>;
+> +	};
+> +};
+> +
+
+
+Heiko
+
 
