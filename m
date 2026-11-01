@@ -1,57 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571199;
-	b=lxekDPJ8TpZcSJnnVWWLQhQbByjqGywmgbtl/O/D2CpSBqmQZFx2bAf377jiK8zHPwbI
-	 IMN2cGqEXuhMCPcJuljCZ4POhZdN5KUd2Ryr8IpF/aniZvJ+dIn2AKNZWak3GOGXhZeD0
-	 B7lcTUjXB6ovPaetmfn9Z8vrHm5WPlQ6LuACi7JmwO4ovPG8w2CEXna0A6CfCwsDbk2yF
-	 Rzd8oS65IkBu6d/zlEphjUutnZ9lk8cxBNy+STcZ6Rkxqu4pfb4wj+VBH3FjxHtN9GUvB
-	 AQ/ANOm0eiZDxMnUHxHEarKd28mWKbv7cQURQBomIiZ/kBKgWkpaW6qWZUiBlLBvTnQ==
+	t=1793571290;
+	b=2rk0CkxiqAaUH/i3RqNEJ6WUIsWPBgzQ5P6sOkZeuRpcOEAUghxcrVqU/A3ghBtRlctf
+	 98lwEe0eU5Sz2uGIXEvKbAayDSAYl7zQW8Pu20zmWwr9BTflz9AsB0YcWpd9qDi5zwAWC
+	 n5lzvKGm8gKfHr/5GjFABZQpUeis0LitqDrUQYYCs6wN+BYDLYDkOvEdNVF21ktf6UNLp
+	 X/JpAL511D6AJqP8HkAQmeTEsTfljyaVlbmIglhMpxlnzDInUyjGm6iRk9oqC+sYDXqjw
+	 ewegau9PJD8Nt47cdN+3UvT9BXYSCJA5Y2ksIwxixuAE02DtLWUIuYKE1nmsf1cJA7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571199;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=oseZBgCFKNkhD5VFwPu5kwuitDJLghzMpRfeHEI1Vjs=;
-	b=jZ/mvUZvwTvB0feVBOTvlbQsUJu/hCp/wt6Zmsx8VdqXobKEuXvoF9ottOyzDOHLqgCV
-	 GE9E/cDqsQAT0Mo8fQimuYHmv5+dSF/8UUWbNX8vbqFHOfPMhRQAIyGDV0qT/cTbUQci5
-	 +HTf39ToyWuy3xH1XoDYjlVvtyXr3HXewV10tCs4M21a+QqFDa0XPqBSsLviKIg1o4FDG
-	 MDnkFNacXxX6AC5YValRqcKp4d2W+c3jAQJwaeXfLUiY4hVtOFjSqQDzxsVVj1ofzEIXY
-	 /h2PXK24VNTTJcWgg0XcLkOM2M7PB6MzI2b7ZK4GAW0uPOyYphenQfNpANh7pbmqaZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571290;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=vVRN7WkiE3t1C9Cy29wA4wdbqE5m1RqnHkizzxaNbNc=;
+	b=WI9wV3wqpoSkEnsbzpint4F0FWZpsCIEzS7FOs8GqE/jxhUxry4VCaOwylETi3fVD/v+
+	 NDzACV8xdrArKkQ6hauPUlR9iRUya1jEKwcoHU8IeK6sAkQKyKzcuqocsB/Z8en34DAox
+	 XXA9lSG+7SYpjRg5ay4CD1FOYJAkfD4sJk61bqWChWVLh39gHwszC50VbhejfXdOlIlmc
+	 uUQ5km6Z2JOi29ngoGWpftD707VeTF4IlHMeWp4vbJ9u4lte/SPb+xG73IpPk9XgA8zqu
+	 z+IkEsl7Voxw6+lYVHy2B6yHIND7dPLrqRMr+CB3qKruadGn9gK0kja0WYPxc3j+q+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMsU1DIg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fWH/9YQK";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED42C606A324
-	for <devicetree@vger.kernel.org>; Sun,  1 Nov 2026 22:13:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8643D606A326;
+	Sun,  1 Nov 2026 22:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMsU1DIg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 537161F000C1;
-	Sun,  1 Nov 2026 22:13:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWH/9YQK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B51A1F00919;
+	Sun,  1 Nov 2026 22:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571198;
-	bh=oseZBgCFKNkhD5VFwPu5kwuitDJLghzMpRfeHEI1Vjs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BMsU1DIgjNPznExi4S8RQWqwQugSheCZE3KS6tgd6CYKzNAM7clinECeYxxP9Cv+9
-	 nF3kEMTrubEoEBJocw4cXYqvPkIOEz0swMBJd8CJU3DQ9OIlp1L/uXiz0dyiLO6jMw
-	 WF8cUcMZY1fvPT2dC2Vo6SBa8GpyOEORqN7EUNfRTOrPCImnr5y9fO6uQUqEaxUXbS
-	 p0KDz0ym31olcCIuO6V5TKzspqRsaDQFquxAwnYHOHQRcqG50TlsgbQesVhdbLIEhc
-	 tnFzZbd0U9ccoIPEiHq4Me5AAT7nLJrW2uaeLH++bKVN8V+jWAd51vdst7QmDUzqjD
-	 6Zs246hZgd+zw==
-Message-ID: <sashiko-outbox-192704@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: rockchip: rk3588s-nanopi: switch to
- generic eth phy compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joachim Eastwood" <joachim.eastwood@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261101-nanopi-m6v2-v1-2-e401ea64b394@gmail.com>
-References: <20261101-nanopi-m6v2-v1-0-e401ea64b394@gmail.com>
- <20261101-nanopi-m6v2-v1-2-e401ea64b394@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 22:13:15 +0000
+	s=k20260515; t=1793571290;
+	bh=vVRN7WkiE3t1C9Cy29wA4wdbqE5m1RqnHkizzxaNbNc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=fWH/9YQKh4UAf8iCZOoLLGonECfuH/KWclkzI8SxSfq1jLlr+arXH4ItINRDRHYHm
+	 Rlo2mv/N++BNh7yoMc1Nw8U039kvS03cFkNnMXpPxrufxf+sQIz0ZhzUhPJPD+eZ2y
+	 6rTZ8k1QkRJeKglMo7+rfwT0Pt3Azf7XbzaA6EqzYv7D6Mcz80wDgJjCSRhJJmyvOR
+	 BSjacTt3ZvDeKfEhLf1JpCHxU9pkieJiKRNRzceJhGZGLp8VAEyAz3zYxGYBreC5ZP
+	 /DDiP7xx3wryp5zWuxiu2o9r4fApdc5GuNbO3c6/qUHFDJJLMQpT9ZzzDLhPNQ7wHs
+	 rXCoWx6OgqRjw==
+From: Linus Walleij <linusw@kernel.org>
+Date: Sun, 01 Nov 2026 23:14:34 +0100
+Subject: [PATCH v2 1/7] dt-bindings: mfd: Describe the BCM6846 PMC complex
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,103 +51,151 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261101-xg6846b-bcmbca-xrdp-reset-v2-1-455fe9eed5ee@kernel.org>
+References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
+In-Reply-To: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
+To: Linus Walleij <linusw@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ William Zhang <william.zhang@broadcom.com>, 
+ Anand Gore <anand.gore@broadcom.com>, 
+ Kursad Oney <kursad.oney@broadcom.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Benjamin Larsson <benjamin.larsson@genexis.eu>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: rockchip: per-PHY reset-gpios not deasserted before C2=
-2 ID read
---
+The third generation Power Management Controller (PMC3) has
+different subdevices.
 
-commit 743d7222bfed74bfab2871d223949437c61ab32b
-Author: Joachim Eastwood <joachim.eastwood@gmail.com>
+Identify the parent with the BCM6846-specific "brcm,bcm6846-pmc"
+compatible.
 
-arm64: dts: rockchip: rk3588s-nanopi: switch to generic eth phy compatible
+Describe the complex as a simple-mfd with a PMB bus child owning its
+register resource. Include the PMB clock and reset controllers and
+PVTMON, with its acquisition clock and reset resources.
 
-This commit switches the rgmii_phy1 Ethernet PHY node in
-rk3588s-nanopi.dtsi from the explicit RTL8211F PHY ID compatible
-("ethernet-phy-id001c.c916") to the generic Clause 22 compatible
-("ethernet-phy-ieee802.3-c22") to support the MotorComm YT8531C PHY on
-NanoPi M6V2.
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+ .../devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml  | 82 ++++++++++++++++++++++
+ MAINTAINERS                                        |  4 ++
+ 2 files changed, 86 insertions(+)
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi b/arch/arm6=
-4/boot/dts/rockchip/rk3588s-nanopi.dtsi
-> index 22b0cdee22b40..4977ccb668f39 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
-> @@ -269,7 +269,7 @@ &i2s5_8ch {
-> =20
->  &mdio1 {
->  	rgmii_phy1: ethernet-phy@1 {
-> -		compatible =3D "ethernet-phy-id001c.c916";
-> +		compatible =3D "ethernet-phy-ieee802.3-c22";
+diff --git a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+new file mode 100644
+index 000000000000..78aef68bc318
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/brcm,bcm6846-pmc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom BCM6846 Power Management Controller
++
++maintainers:
++  - Linus Walleij <linusw@kernel.org>
++
++description:
++  The third generation Power Management Controller (PMC3) contains several
++  register banks. This binding describes the Processor Monitor Bus (PMB)
++  interface within Procmon. The PMB child owns its register bank. The parent
++  provides address translation and does not own a register bank.
++
++properties:
++  compatible:
++    items:
++      - const: brcm,bcm6846-pmc
++      - const: simple-mfd
++
++  ranges:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++patternProperties:
++  '^bus@[0-9a-f]+$':
++    $ref: /schemas/soc/bcm/brcm,bcm6846-pmb.yaml#
++    description: PMB configuration, keyhole and address mapping registers
++
++required:
++  - compatible
++  - ranges
++  - '#address-cells'
++  - '#size-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/brcm,bcm6846-pmb.h>
++    #include <dt-bindings/reset/brcm,bcm6846-pmb.h>
++
++    system-controller@ffb00000 {
++        /* Broadcom BCM6846 Power Management Controller complex */
++        compatible = "brcm,bcm6846-pmc", "simple-mfd";
++        ranges = <0x0 0xffb00000 0x21000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        /* Called PMB Processor Monitor Bus in vendor tree */
++        bus@20100 {
++            compatible = "brcm,bcm6846-pmb";
++            reg = <0x20100 0x200>;
++
++            pmb_clk: clock-controller {
++                compatible = "brcm,bcm6846-pmb-clock";
++                clocks = <&osc50m>;
++                clock-names = "ref";
++                #clock-cells = <1>;
++            };
++
++            pmb_reset: reset-controller {
++                compatible = "brcm,bcm6846-pmb-reset";
++                #reset-cells = <1>;
++            };
++
++            hwmon {
++                compatible = "brcm,bcm6846-pmb-pvtmon";
++                clocks = <&pmb_clk BCM6846_CLK_PVTMON>;
++                resets = <&pmb_reset BCM6846_RESET_PVTMON>;
++                #thermal-sensor-cells = <0>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..eb4b3b631e82 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5444,6 +5444,10 @@ N:	bcm[9]?6856
+ N:	bcm[9]?6858
+ N:	bcm[9]?6878
+ 
++BROADCOM BCMBCA PMC3 PMB DRIVER
++M:	Linus Walleij <linusw@kernel.org>
++F:	Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
++
+ BROADCOM BDC DRIVER
+ M:	Justin Chen <justin.chen@broadcom.com>
+ M:	Al Cooper <alcooperx@gmail.com>
 
-[Severity: High]
-Will this cause PHY registration to fail with -ENODEV when the reset GPIO is
-still asserted during MDIO probe?
+-- 
+2.56.0
 
-In arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi, rgmii_phy1 defines
-per-PHY reset properties on the ethernet-phy@1 child node:
-
-	rgmii_phy1: ethernet-phy@1 {
-		compatible =3D "ethernet-phy-ieee802.3-c22";
-		reg =3D <0x1>;
-		pinctrl-names =3D "default";
-		pinctrl-0 =3D <&rtl8211f_rst>;
-		reset-assert-us =3D <20000>;
-		reset-deassert-us =3D <100000>;
-		reset-gpios =3D <&gpio3 RK_PB7 GPIO_ACTIVE_LOW>;
-	};
-
-With "ethernet-phy-ieee802.3-c22", fwnode_get_phy_id() returns -EINVAL, so
-fwnode_mdiobus_register_phy() in drivers/net/mdio/fwnode_mdio.c calls
-get_phy_device() -> get_phy_c22_id() to read MII_PHYSID1 and MII_PHYSID2 ov=
-er
-MDIO before fwnode_mdiobus_phy_device_register() associates the DT node:
-
-	is_c45 =3D fwnode_device_is_compatible(child, "ethernet-phy-ieee802.3-c45"=
-);
-	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
-		phy =3D get_phy_device(bus, addr, is_c45);
-	else
-		phy =3D phy_device_create(bus, addr, phy_id, 0, NULL);
-	if (IS_ERR(phy)) {
-		rc =3D PTR_ERR(phy);
-		goto clean_mii_ts;
-	}
-	...
-	} else if (is_of_node(child)) {
-		rc =3D fwnode_mdiobus_phy_device_register(bus, phy, child, addr);
-
-Per-PHY reset-gpios and pinctrl-0 are only acquired and deasserted later via
-fwnode_mdiobus_phy_device_register() -> phy_device_register() in
-drivers/net/phy/phy_device.c:
-
-	err =3D mdiobus_register_device(&phydev->mdio);
-	if (err)
-		return err;
-
-	/* Deassert the reset signal */
-	phy_device_reset(phydev, 0);
-
-If the bootloader leaves gpio3 RK_PB7 asserted at boot, or if the driver is
-unbound and rebound (since phy_device_remove() calls phy_device_reset(phyde=
-v,
-1) to assert the reset line), get_phy_c22_id() reads the PHY ID registers
-while the PHY is held in hardware reset and fails with -ENODEV before
-reset-gpios can ever be deasserted.
-
-Note that the Rockchip vendor DTS only works with "ethernet-phy-ieee802.3-c=
-22"
-because it places legacy snps,reset-gpio on the gmac node, which
-stmmac_mdio_reset() deasserts before scanning the MDIO bus.
-
-As documented in Documentation/devicetree/bindings/net/ethernet-phy.yaml,
-when a PHY requires a reset to be deasserted before its ID registers can be
-read, shouldn't the compatible string keep the explicit "ethernet-phy-id..."
-form (or be overridden in the M6V2 board DTS), or should the reset properti=
-es
-be moved to the mdio1 bus node?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101-nanopi-m6v=
-2-v1-0-e401ea64b394@gmail.com?part=3D2
