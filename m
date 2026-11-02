@@ -1,53 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609279;
-	b=XtAD4ei21j3PgKtPHsgwpaxwmpkkRliMjLQkxr1pEcK2dg4bYySBcH7/vrsnpKVaKkcq
-	 K0k+qsUwZ0oBTpnN4VbiYV7SeRtFv5Ua6kjZ4OMSuf+ghWFkdzo72m2FGEVzmtwbtTtuU
-	 44iNyfp1wSAqWPz4RgKeIkxhcgxGZGq4RLwEtzyUKSE8bvU83kkwKnGt86FujUkq8Ef+B
-	 iRQwLewPVgWINRNwJLBXtEhTT7GLF8tgiG7aXB0E77AGHyWl9WDGobZPSxBShYkMcnnvs
-	 o1rRkd6c8gRXuqz0lm2HvqlhLUoe6GB/wQfpfHSgmRdh8i3DcnnU3v6jSUq5O82LI1Q==
+	t=1793609382;
+	b=vMPv1JNLTsLX8r/V/l2kK3JpNd7mF5Wdccf5nBAM9ossTX3sfMejup828NRtTS6y1+LN
+	 z6CfO5dIcpgx7kmoS/mln7tPB3Yu4RNEOSkzELQ/QbdCZEXQTuj0pBEATyNCTxP5I0uyz
+	 QtnGdQXtPojh6vFE3HAj+LtSpZeFy3d0yCJp9PS8aY26DXfrLqRBXYpga8/z9xCi4xdgW
+	 yS0gGH8o+2OK1GT0Skv3e0boEAtb3+ab5sio0k5r9Netq0eyK5w27l7k0R2h61hO8TI0D
+	 5N6Rd/lRrF3YtFl+DtXBH4Srjp473cB52cXjM6MxKL3K3TnfIjg6Rg2KMLX8pGqP4Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609279;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=hZHtVE4qd9DYb5N/5XOjcgGSd6FAQlcmL56vir1tLWY=;
-	b=2wQ6Ro6OlGTppeESJtTv/LNXLLs2k4eUZkdIy+jEPike/nK8AsQNyRZpUH9rJPuBoyar
-	 qRvJVatXWJXHB7vprGlfK9u2lJYC556zIxDMkTtfIZN7KQwADslqf/vskgy1Oof5u00e2
-	 oksEsy1xxIUm92Jm82mcClOEf9uA274x9SDAlt2aqIowVXaChpjPkfTjzUfoIEbFUbIls
-	 GV3/O086/B1fbyNCEZ/fT2kGP/r97WTX++73cGA1sd5CJS4eZijvXOlEFW0tCU7Rqbxew
-	 zVkh5csJ9OSgTjQuCPE1Z2vqOn5XOPdcDUUtAPKM4hen2pzAmpNNLJGvZdeC97N1IqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609382;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=+YEAseZvXPy4rzi3ilmBCswmMdSrruj82r2UTnccKOw=;
+	b=shYnLhxaRMpVN1mOzoKXAyUD2kJ+qZZnr/KZmPgDFFOm2MlZLRjYGXSbq7MCb19+T4gX
+	 c8OWyqlZ2MK7HKqhpIPOyRiytl0w0Jdrl+LdtFxxboVHlSiJ701E1N9cTcq/8zlMNx1xK
+	 NEAGfeH/HMOu9KzwSiiHum9wFf6Hj3XyZCzejhD5GEKQw8bmBXelXUjjxdTrgI0x04BZt
+	 mVcHcAiU3EYw5a8y0/40quGsX294mvcVDYjCnPXu32/fY+sWss/2RKs5sG+SA6x/+EoMm
+	 gv1hBORRl+ONCB8mjkz1BQoYEEiEQ63WNOt8VQFMR8oHOc0MXYEl7ZjXEDCLj1xCVOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=dVhnM4tl;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=n0FbTmzK;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.217.48
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE257606A329
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:47:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE257606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=dVhnM4tl;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=n0FbTmzK
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1793609264; bh=hZHtVE4qd9DYb5N/5XOjcgG
-	Sd6FAQlcmL56vir1tLWY=; b=dVhnM4tl0n13m5KRxhifmUIJth2R1QHle+gJGVpjlztRHML4vA
-	XX0UpbVrXJLoLuM+FpX6f3nqJhAtDUGtJFDg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1793609264; bh=hZHtVE4qd9DYb5N/5XOjcgG
-	Sd6FAQlcmL56vir1tLWY=; b=n0FbTmzKMJxuOhj7K/KtxAR31klclch4CevL7wvJfdTJDg+W1W
-	PTSeW8CFu2Bm8x13WKB37bbO0kWUx0CCdnoPOXfJjQoMDqeWYEZIl5YmyuLeFFNJqFWbLtKw/M9
-	uWL8wa5SxUzfYiLRkriGW8EtLgDvQeb5ImZ/61QQx8PD0m8deOdGFm4tobsA7g2B4ADgksJA5fB
-	mZw2zkZfaIrsTecReK9tBN4hCkJXf5tsvbuNXFw20S6rErH+MQX1p2WV3jRRWovqh+2BeJ5h3HR
-	Yiv1UziwZ84kNTy3l9R/5DtxeOkZ0Q8eGcDabFODak+P223xw3sFWsQpdbIY83QBiyQ==;
-Message-ID: <e43cf8cb-2bd5-48ba-9ba5-cc81c46bbc8a@erebion.eu>
-Date: Mon, 2 Nov 2026 09:47:45 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9567606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9567606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7777fa8f1ccso557419137.3
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 00:49:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793609381; x=1794214181;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+YEAseZvXPy4rzi3ilmBCswmMdSrruj82r2UTnccKOw=;
+        b=m3ZRsXDU0ZU5NYpo+L/hB8D9g1FedK/p2DsT+w41ulYtVOQcsm1Vhh1Q+cjw7yo+3m
+         YoziRtjK7U/Q5gmGFhEn9kLM1Ipb7oZg1eevhQLg+5ooKBnR1betHwB4AKCI8bnzWYEt
+         /IQP6k5/e4s///uedeVYKTO2FtcdXfkfOQAhn/z6NcSAVLT78xMcwdZPFL8tA9xPDEHA
+         uGZ7OHvOGe4p7bwQ53Ral+OJezjIgP+QIGeJlkgY5yn3KG0jvvUcAq/nXmwtuoz4l0Jx
+         irMLBEp9MWEpGJDyJA2oQpmnBkznAkgkyxptfuxygxj9qQ3ylHzEto3xOxsyQbiZx4vn
+         iuTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwerlfgJWa2lZPfHlrmQhaQnN5tMNOd8b88ILBmF87Mj6yYwkO1PDZ3dkoVajuw97YgODSAsQbeWhoH@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Cw3hLTq+h0sU5RwLFz2JTv9GVUeU4r3oaS6il4BJmZ6AvOyQa
+	hL4rG8FyDPxUHhtm327GjG9pdrGiXTRAKI9TPHJLDoVlxOiWQ2CcvI8JzdH/Y7NH
+X-Gm-Gg: AYBFou1pw+xD1CUF0HGIgL7nKLF0b0h+4c8plE9vNKLJc/PrGW66SeZyk9lB8Gq4Ujn
+	ROo+s2cV7nfeDpiKokpbNTFZfBwHkAPdrG0Anf7WlJmC8zc6OowOcN5PBlUV2CoY7ijLGBpsOfa
+	kN1/p/hozRPQ0lyKdrm7PpaUhdUpnFHNJrznJs6fDyDQvXGTNttr4A6Sjh95lIaEXn5lBhtc9Eq
+	cCzu0YOd12IfTAhq7hS6hm/4LT+RCMnfq6blk1aVQHjTsZ8r44BZSGA4EoErnjVcS+WfTbQlaup
+	QuX4ZsfBaxFDA+K2ThQmie8W2b7E1kmUWIwIC8kfomJx3xN2qGgdq2uihQARAZZGlH5Rn917wQ1
+	YAKObpgQkgOhM9gym8udgJDBc1Uy+PSKH+B7LZ6zk9hZdMFvqUIBJK7E2YPI/sSFAc1L1GsLwCO
+	QtdEJLbpzOeTEZmpP3F7P1kwkNXRhvbS5M8aX096//k3jPaHPjhwVe8F5M/GDJfIfSSLuR/pMGB
+	5o3lYUzJqauLLjbMzJRuaW7aiUivxiCs3CHQUctUPMNiyAPbTopBPkdQkCsnBpahuHxcgHnApIY
+	q2STwQEo5iDekgbJAOdfQ4DuPnaF2wNl7+/9Vg1xXtKZHv8FVnjVEhMtm2jMt0uGfhBDQKU=
+X-Received: by 2002:a05:6102:148c:b0:7c3:9464:efaa with SMTP id ada2fe7eead31-7d07223f482mr4008426137.2.1793609380761;
+        Mon, 02 Nov 2026 00:49:40 -0800 (PST)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d077393404sm9417772137.2.2026.11.02.00.49.39
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 00:49:40 -0800 (PST)
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso711848e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 00:49:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzQyKtySKanSYKwgK6Yv1nbNn5BIG7rhiOpCG5RqVUzfb5nBgtuu15RTqUciYwND8YoL2IqtlqiteLB@vger.kernel.org
+X-Received: by 2002:a67:e10d:0:b0:7b2:b159:98c3 with SMTP id
+ ada2fe7eead31-7d072640147mr3163529137.28.1793609379443; Mon, 02 Nov 2026
+ 00:49:39 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,87 +80,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192760@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192760@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wnHmBNF31cfelGivPGPUGxTl"
+References: <20261030230646.709687-1-artem122novak@gmail.com>
+In-Reply-To: <20261030230646.709687-1-artem122novak@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 2 Nov 2026 09:49:27 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUacwihjpfJiGY486PT=tu2-jrSQX+ZTGAqk-iaLUzffw@mail.gmail.com>
+X-Gm-Features: AclHuK_7cktGh1g2g1V-jYGT89r8njgV4UvXrWAUVy37X6WOtxJHbkDtb7srpgY
+Message-ID: <CAMuHMdUacwihjpfJiGY486PT=tu2-jrSQX+ZTGAqk-iaLUzffw@mail.gmail.com>
+Subject: Re: [PATCH v2] sh: sh7305: add TMU0 clock support
+To: Artem Novak <artem122novak@gmail.com>
+Cc: glaubitz@physik.fu-berlin.de, dalias@libc.org, geert+renesas@glider.be, 
+	magnus.damm@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-sh@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wnHmBNF31cfelGivPGPUGxTl
-Content-Type: multipart/mixed; boundary="------------cbp6GNSF4M5YcfinY67Dm0aM";
- protected-headers="v1"; hp="clear"
-Message-ID: <e43cf8cb-2bd5-48ba-9ba5-cc81c46bbc8a@erebion.eu>
-Date: Mon, 2 Nov 2026 09:47:45 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192760@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192760@kernel.org>
+Hi Artem,
 
---------------cbp6GNSF4M5YcfinY67Dm0aM
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Sat, 31 Oct 2026 at 00:07, Artem Novak <artem122novak@gmail.com> wrote:
+> Register the SH7305 master, peripheral, bus and CPU clocks using
+> the SuperH clock framework. Add the TMU0 module clock gate using
+> MSTPCR0 bit 15.
+>
+> Keeping SH7305 clock initialization independent of the legacy CPG
+> initialization framework, which relies on arch_init_clk_ops().
+> Disable SH_CLK_CPG_LEGACY for SH7305.
 
-T24gMTEvMi8yNiAwMDozOCwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4gW1Nl
-dmVyaXR5OiBNZWRpdW1dDQo+IElzIGxlZC1tYXgtbWljcm9hbXAgPSA8MTUwMDAwMD4gaW4g
-cG02MTUwbF9mbGFzaCBpbnRlbmRlZCBoZXJlLCBvciB3YXMgYSBsb3dlcg0KPiBjb250aW51
-b3VzIHRvcmNoIGN1cnJlbnQgbGltaXQgc3VjaCBhcyAxNTAwMDAgdUEgbWVhbnQgaW5zdGVh
-ZD8NCk9oLCB0aGF0J3MgYSB6ZXJvIHRoYXQgc2hvdWxkIG5vdCBiZSB0aGVyZSBhbmQgc2V0
-IHRoZSB2YWx1ZSAxMHggaGlnaGVyIA0KdGhhbiBpdCBzaG91bGQgYmUuIFdpbGwgZml4IGlu
-IHY0IG9mIHRoaXMgcGF0Y2ggc2VyaWVzLg0KDQotLSANCmVyZWJpb24NCg0KWE1QUDogZXJl
-YmlvbkBlcmViaW9uLmV1DQoNCk15IGxhbmd1YWdlczogR2VybWFuLCBFbmdsaXNoLCBTd2Vk
-aXNoLCBOb3J3ZWdpYW4sIERhbmlzaA0KWWVzLCBJJ20gYSBsYW5ndWFnZSBuZXJkLiBGZWVs
-IGZyZWUgdG8gd3JpdGUgdG8gbWUgaW4gYW55IG9mIHRoZSANCmFmb3JlbWVudGlvbmVkIGxh
-bmd1YWdlcy4NCg0K
+Thanks for your patch!
 
---------------cbp6GNSF4M5YcfinY67Dm0aM--
+> update: SH7305 TMU device tree node will use the
+> renesas,tmu-sh7305 compatible.
 
---------------wnHmBNF31cfelGivPGPUGxTl
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+I don't think this correction should be part of this patch?
 
------BEGIN PGP SIGNATURE-----
+> Signed-off-by: Artem Novak <artem122novak@gmail.com>
+> ---
+>  arch/sh/Kconfig                        |  2 +-
+>  arch/sh/boot/dts/sh7305.dtsi           |  2 +-
+>  arch/sh/kernel/cpu/sh4a/clock-sh7305.c | 78 +++++++++++++++++++-------
+>  3 files changed, 60 insertions(+), 22 deletions(-)
+>
+> diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
+> index 5ce7df11c3ec..315a1d6ee452 100644
+> --- a/arch/sh/Kconfig
+> +++ b/arch/sh/Kconfig
+> @@ -532,7 +532,7 @@ config SH_CLK_CPG
+>         def_bool y
+>
+>  config SH_CLK_CPG_LEGACY
+> -       depends on SH_CLK_CPG
+> +       depends on SH_CLK_CPG && !CPU_SUBTYPE_SH7305
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCauhOMQUDAAAAAAAKCRCOr0AybgKufXbr
-AQDf35KRbSht2jD16GFLEj3tNhDwyd9vVuQlg6ENEIf+ygD+Ps+SyrK27L48NK/lEEKkr/TokFbd
-wWFCjwBGVf1OGg0=
-=mluI
------END PGP SIGNATURE-----
+Why not add !CPU_SUBTYPE_SH7305 to the existing list below?
 
---------------wnHmBNF31cfelGivPGPUGxTl--
+>         def_bool y if !CPU_SUBTYPE_SH7785 && !ARCH_SHMOBILE && \
+>                       !CPU_SHX3 && !CPU_SUBTYPE_SH7757 && \
+>                       !CPU_SUBTYPE_SH7734 && !CPU_SUBTYPE_SH7264 && \
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
