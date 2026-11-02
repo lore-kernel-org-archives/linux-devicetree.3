@@ -1,107 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.111
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793588741;
-	b=nu2mY5+mJau69BHKa9c75usRZCK34uJd1sgNP/6UMmiiKh1D2KSUjokwTh1Qn7pHRiSD
-	 RYCYs4lQv4mBRu5CPqYqf/EA93a+PKWS+d5BNu/biTib55qziw8tfhk6YF7zJbhmwlgEc
-	 kwjRYYs+3Th+a9AnoXSs2Jld1CGGBjJPa1kYNWVoMH6Q0kfGvdtSEPB7oD6+5nP9tM2EE
-	 3wCfgaV9uiHcw3oi5iG5K9O4an//ANbZ3mP6f2QHUnQ4UHZ9LSvBmeUUpA3vN6N+Fo4bZ
-	 qryx85JcbIIo71pjx5oz5pL3RMDz9yA1NHJsvW8t8h7YEvRXRJU3Eu7VZ2H44xqj8xw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793588741;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LtsKc7KXaATIVKQpjyr0TxYQNT8L0FtH5n+3f+ib01M=;
-	b=ZxQuOiO2VNjzxYdeXjvGTMSVTEhiKEdHvgx27rZwDtZa5EFpcurVJZEG1LyryUL7+wCj
-	 469rlXokMgf70ATvhoa/R//E++WxA0WssNn1WSzbEgkQZCl6pmBd5w33gnGR61RWT5gce
-	 u7EJ5n9w2r3tNrJLzsmxgwWf0u7Ceims2DrXazNjcfJ2NYpliuqHsJJURa62kYhrk5/hs
-	 qcYDDpvMkW24su8rffnYylKiXfrL146k7a89kBqOecQvT1NXVFgpNBLi0MAZYitIuHYl5
-	 C2xTq6LQSwsal2fzj2SlmOXYyWccvZc74aZ1HwmijkkifF97UOJp0+H/UTjbSM9UdCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.111
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022111.outbound.protection.outlook.com [40.107.75.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793588765;
+	b=oGRrXZoZhvMKhfKYoia/mcFjtU/CbjrkW6f5EN9ErjXeG8ZrxflX2p4nhUZ2iWBAH6FQ
+	 NAcjWD/4pWqXpfa1F4S+JrSvfHkb2i2p5fmokeD1ASpo/caqJJuxyWp2XqRrmUycyk9Qc
+	 5BsjoZfosSjQww8ZcLdvLdGlStDq0ek1G9M6ucH7cmmxMqsTNitJMdABpvQgpudTHwsXA
+	 HRBnQkvsH9glZJWUZGUQnL3Q7v+5ZHrjIpB5q0rLt9NBb2cMI909owB8HG2qwtyKQ50ab
+	 n7j0676knWhjfUCniNYI5aXaTFbd2aJCKYg3qE0EtOoBBgVthY3qL99fR/pNi4Km2Vw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793588765;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=OyjZ+N4a9qefmJo7byV/+mRX+hSQfs4A6Vsng69VtNY=;
+	b=cuDPy2vgcDM38AI4z19O6Rns6wnUBzP/Y+d8oqGO6t2R382v0KK4vVMiOE2MADs2QNkt
+	 hY8V1kP152pkEpwqaeJb4QymjBDlBTLCncEjXmbcWiQqRdFx9gTCQuu7L1NB14LI5x8Eq
+	 nVFpa3svhYJ5RwJB0rjzKEP8dQaYzWMRnruh/ugwL5UiOBxUErS0hvnGEREZipdnDjCX2
+	 QWOrJWEzcWdeMHdiCHeQwqZwxZ5YdkUvuUmAGETHge9kgY+OQh4fzBxZ4G7xysBtYiR+v
+	 zEcdr7rJGDGQMiQDTB8ElKzdzcjOYo9zSFe5yz1/h6vEWffQ8v674ks71AIq5kIYDSw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Jj0McUwA;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34471606A324;
-	Mon,  2 Nov 2026 03:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34471606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fTdfw8Tt3EIYBqzcv2O6he1FbRRUwIU5o2J3IC9fLq7W5UsSw6USFKp7mghjGSxsGcb5sqQUjJwx3RSWJ/DXBeMlb4LD+x9Zsf4uNTAWladjARkXBOm1gszTwnT3Jv9SeeE3ddp5BaSkxI2vcp5gQjWESKPePN13LBVQIiQx68P0DZjMRseIgK9VVwYASlSV4M7ZDQAo07EcGi5kvYw/765wUmIRQoybFdMothmREo4qcTmSmwAeUcqee3M8tAEvViGHo1VtbuNbSBD+x82HXkMA66ER14JEStGaZH62Un06bSaXLpD+hjcItbf5beLAw3Eh3O9Kpy6QEOXhxeLTMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LtsKc7KXaATIVKQpjyr0TxYQNT8L0FtH5n+3f+ib01M=;
- b=tap8ZUeap9UYUclh3ScCUOtsOq+Qmt71aHn79vpCDnqvPdVRHm7bgXVkwYg1/czqugKIaoD7IvnrqzlU/V028kheSbOcMwKnqK3VT+6GBLIgSjwfIEE4Y8TvK5Ape/rysPTjt/1rd6L2OmYmkue40BIumulT+EtbiJAV634zffKbjRObkVZCE5ntZ4PTuxahIwojMUqNn3YPNXz7UQR0cpm+0Sh7MZnZmr/D38hsZfSsVAJWF7GKHGZFh+aZPjHI/35kN/4gT9LHyMmGyDGMDpEFx2C/exgGzXMu3Py8/3f8FNae2k3qZHgqFilvIQ9ncTiXtm/AG8HV2PH37XktGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TYCP286CA0045.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:29d::19)
- by SEZPR06MB5643.apcprd06.prod.outlook.com (2603:1096:101:a7::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
- 03:04:27 +0000
-Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
- (2603:1096:400:29d:cafe::18) by TYCP286CA0045.outlook.office365.com
- (2603:1096:400:29d::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 03:04:27 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 03:04:26 +0000
-Received: from localhost.localdomain (unknown [172.16.64.56])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id C483940920E1;
-	Mon,  2 Nov 2026 11:04:25 +0800 (CST)
-From: Luo Liu <Luo.Liu@cixtech.com>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gary.yang@cixtech.com,
-	fugang.duan@cixtech.com,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: cix-kernel-upstream@cixtech.com,
-	p.zabel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Luo.Liu@cixtech.com,
-	Wuyi.Shen@cixtech.com,
-	EastLake.Yang@cixtech.com
-Subject: [PATCH v4 2/3] phy: cix: Add Sky1 DP PHY driver
-Date: Mon,  2 Nov 2026 11:04:24 +0800
-Message-Id: <20261102030425.1957585-3-Luo.Liu@cixtech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261102030425.1957585-1-Luo.Liu@cixtech.com>
-References: <20261102030425.1957585-1-Luo.Liu@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595AE606A329
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 03:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 595AE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Jj0McUwA
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id NW6PxNLCNMylkNiN1xu5G2; Mon, 02 Nov 2026 03:06:03 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id NiN0x1WWO1xnwNiN0xV4cx; Mon, 02 Nov 2026 03:06:02 +0000
+X-Authority-Analysis: v=2.4 cv=OsxPyz/t c=1 sm=1 tr=0 ts=6ae7fe1a
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=_jlGtV7tAAAA:8 a=BA9JajvoVav3SfIcZTsA:9 a=QEXdDO2ut3YA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=OyjZ+N4a9qefmJo7byV/+mRX+hSQfs4A6Vsng69VtNY=; b=Jj0McUwAXo72
+	pfdTEsKRTiyHHnfMuY0EpKvuuYzwKf1wBSkOWqxJTrWG+5+XSfwlEPykzWGNjCsI/0G/ChziK2DVr
+	WWoZUjT9g53xKRG4Yss2N+Q9IF9wcRSGxQlRXtIIspcLiVMod3WoqtzJ5I6Ws5Tvb4pl4MgYuq4C8
+	0GO0QC9yqCtN3nkk99CalXkv5j4Rp9WuxWl36IIfZsuhXxNldTaaVkPr9sHR1wBB0zogdUl3gXFq+
+	f4csWBgI+74/0LSNhDRps/fgtIlCknx/PNkzfTQ/rQMlXD/T+SMkdSzSYlZwh2xKoKGjLp5bgBLft
+	AKvPH0T3+3KmgyHM+NKGtA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:39052)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xNiMy-000000012bx-0sK1;
+	Mon, 02 Nov 2026 08:36:00 +0530
+Message-ID: <b65ef6c6-cbcf-4793-9ba1-7c5cb270f574@roeck-us.net>
+Date: Sun, 1 Nov 2026 19:05:56 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,1119 +76,490 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|SEZPR06MB5643:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: e0fdad97-343b-48d0-0263-08df388e014d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|7416014|376014|23010399003|42112799006|6133799003|3023799007|22082099003|18002099003|10067099003|56012099006|261009223027099003|921020|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261028144727099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	OSnYJocMrGQnFGniy3xLbyvgGYWrEfc6zDmpKKPZ40RvzBiDJbLIBjjONlAG2kSjRvgnx1eLFs4x1SUAxgzZXCusVvnaIgHcYGckVRUNRQY2p6AxLOMiBKMRAoSJO5IFhJ+bFCcEBSeLAlt7NS4ORwymp42LS8o+qhiOkTjTIGq8D9BT10Xmvl9Hitx3ysM7xtZr4RCU2tzvrTh5wjSB8CiJ5nBVjsnG+ZcP0naEiOXX0PBAsP6NvvAlM8lPboe/8tpGfFF1tvdlr49vIZ8QicKTJN/wDiIBZXxlANayZG3xfe0tD1WRcS+UZRlMHBwRHn4Hegl9eCDib0bdhJz9GnmtfXq113YZWVmAAiaVL59ydtAjUc0CvkaogV7TarucJj8+sjaQrsTDxXbhXogEMOyvrKR+O8YuxUJKSaKCxFSoOV6qoyBczuOJSbPNxFJ+LiPOCeGixep5IHT6hAhmNQ7SL1GQQSYP2WwaEhKf6QZJ9wFxCbNP9MOMU2pIGEyyWAyE5bQiXwWBkBTB8273FkB9ppPOam4pSXKhBZxkqMkbpN9EyVzgb4aCi0/pK9JakJVbpJoLKgYkEE8sjz5+YOb9xevmLpN0pjUb1SghrCa32l5vDb/EsDR94IJ0950kJIcR/c5v/MAlo7j+V1ZQoV9xJHBnXCdV4wWv4GE3qR++1eCHUY17Q5EpBk846BApEVy4akgFc3K0yF9A0jWHJxJT9TtYy02+Yq87UevV9m8lqx8Le/2g/M6ke4C94i3i
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(7416014)(376014)(23010399003)(42112799006)(6133799003)(3023799007)(22082099003)(18002099003)(10067099003)(56012099006)(261009223027099003)(921020)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HUgo0ki15SdkYfyoym92Mho6Bf6If5su9aBlTVAw7770q8I9dBpaU6pzCNJJZ1b4bbCPWLek263nm3pq9iLJgBe9AxySlHI6g4A4Dk7VU+9tSblK1lGI3bkCRlMrR26aQpOIl8oTlx+IW4i6hpCkOrjmTZqLbuuto99Cik20Ll3c+V2ozNPtU3E5JZzmWAEPtm+1bfz5N52W+7ZjT6coU5+fDMmQ22GhFM8vn+LHt61JQBT8XKME4RBPIzX4qEOmQOaLup7b6n1TMlZ5oqIoDE3GrI5+2ptPEDwSZAT3xCyOYVkk5nkj16KG+ZpZunFB05aF2i/nnyfG6nl4lquu5GRtNVPH4ourX8UOZ0kQXexRE5hKI2A/0HEeQk5Y6rNhcIMmF/YKcf9ZZh6wwQzr1ZJnULp6Zova63qS//wdBjefZxr60OxoSWZTyjXHllN1
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 03:04:26.5300
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0fdad97-343b-48d0-0263-08df388e014d
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB83.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5643
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] hwmon: Add Broadcom PMB PVTMON monitoring
+To: Linus Walleij <linusw@kernel.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ William Zhang <william.zhang@broadcom.com>,
+ Anand Gore <anand.gore@broadcom.com>, Kursad Oney
+ <kursad.oney@broadcom.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
+ <rafal@milecki.pl>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Benjamin Larsson <benjamin.larsson@genexis.eu>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-hwmon@vger.kernel.org
+References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
+ <20261101-xg6846b-bcmbca-xrdp-reset-v2-6-455fe9eed5ee@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261101-xg6846b-bcmbca-xrdp-reset-v2-6-455fe9eed5ee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xNiMy-000000012bx-0sK1
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:39052
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 23
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFfg6tpXr7xZQBZKLXBKXlP25ryvhJa2QgwSauDjS6yvTF93Mh9FIsYm3Z9t7/9AZWHJlvz20HqfwizFNjh9AyB55Oz+ZKfNx03xsUy58L5CCkox1Nda
+ iN7b4WY7kljR9haK0w2XAhpMMAAANSd3/TaqKkOoRVbLWAoZRsnSM3jKyRJyYDYekXwJGEF74JlrmPX9r79L2TRqzbjVB+v5WJSJkWd30vj2a2/FlUV3vRXw
 
-Add a PHY driver for the CIX Sky1 dedicated DisplayPort PMA. Support
-link rate, lane count, SSC and voltage swing via the generic PHY DP
-ops. Enable the shared APB clock and toggle reset in phy_init, load
-PMA tables there, and enable the analog path in phy_power_on so
-configure can run before power-on.
+On 11/1/26 14:14, Linus Walleij wrote:
+> Expose the BCM6846 die temperature and seven voltage inputs through
+> hwmon using the shared Processor Monitor Bus (PMB) regmap.
+> 
+> Register the temperature channel with the thermal framework so
+> existing zero-cell device-tree thermal sensor references work.
+> 
+> Poll for valid samples with a bounded timeout, releasing the PMB lock
+> between reads. Report temperature in millidegrees Celsius, including
+> negative values, and voltages in millivolts.
+> 
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
----
- drivers/phy/Kconfig          |    1 +
- drivers/phy/Makefile         |    1 +
- drivers/phy/cix/Kconfig      |   18 +
- drivers/phy/cix/Makefile     |    2 +
- drivers/phy/cix/phy-cix-dp.c | 1004 ++++++++++++++++++++++++++++++++++
- 5 files changed, 1026 insertions(+)
- create mode 100644 drivers/phy/cix/Kconfig
- create mode 100644 drivers/phy/cix/Makefile
- create mode 100644 drivers/phy/cix/phy-cix-dp.c
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 19f3b7d12b7d..cb0d4be47628 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -175,6 +175,7 @@ source "drivers/phy/axiado/Kconfig"
- source "drivers/phy/broadcom/Kconfig"
- source "drivers/phy/cadence/Kconfig"
- source "drivers/phy/canaan/Kconfig"
-+source "drivers/phy/cix/Kconfig"
- source "drivers/phy/eswin/Kconfig"
- source "drivers/phy/freescale/Kconfig"
- source "drivers/phy/hisilicon/Kconfig"
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index d7aa516bcc49..6fd0f3910018 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -27,6 +27,7 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
- 					   broadcom/	\
- 					   cadence/	\
- 					   canaan/	\
-+					   cix/		\
- 					   eswin/	\
- 					   freescale/	\
- 					   hisilicon/	\
-diff --git a/drivers/phy/cix/Kconfig b/drivers/phy/cix/Kconfig
-new file mode 100644
-index 000000000000..fd3becae2b23
---- /dev/null
-+++ b/drivers/phy/cix/Kconfig
-@@ -0,0 +1,18 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Phy drivers for CIX PHYs
-+#
-+
-+config PHY_CIX_DP
-+	tristate "CIX Sky1 DP PHY driver"
-+	depends on OF && HAS_IOMEM && COMMON_CLK
-+	depends on ARCH_CIX || COMPILE_TEST
-+	select GENERIC_PHY
-+	help
-+	  Say Y here to enable the dedicated DisplayPort PHY used by the CIX
-+	  Sky1 DisplayPort controller. The PHY provides the physical layer
-+	  used by the dedicated DisplayPort output and supports link rates
-+	  up to HBR3.
-+
-+	  To compile this driver as a module, choose M here. The module will
-+	  be called phy-cix-dp.
-diff --git a/drivers/phy/cix/Makefile b/drivers/phy/cix/Makefile
-new file mode 100644
-index 000000000000..cc56c7586ec5
---- /dev/null
-+++ b/drivers/phy/cix/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_PHY_CIX_DP) += phy-cix-dp.o
-diff --git a/drivers/phy/cix/phy-cix-dp.c b/drivers/phy/cix/phy-cix-dp.c
-new file mode 100644
-index 000000000000..8e52d10d2595
---- /dev/null
-+++ b/drivers/phy/cix/phy-cix-dp.c
-@@ -0,0 +1,1004 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * CIX DP PHY driver
-+ *
-+ * Copyright (C) 2026 Trilinear Technologies
-+ * Copyright 2026 Cix Technology Group Co., Ltd.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/reset.h>
-+
-+#define CIX_DP_PHY_ID_REV_REG			0xfc
-+#define CIX_DP_PHY_ID				0x4d
-+#define CIX_DP_PHY_PWR_STATE_IDLE		0x0000
-+#define CIX_DP_PHY_PWR_STATE_A0_TXRX_ACTIVE	0x0001
-+#define CIX_DP_PHY_PWR_STATE_A2_POWERDOWN2	0x0004
-+#define CIX_DP_PHY_PWR_STATE_A3_POWERDOWN3	0x0008
-+
-+#define CIX_DP_CDB_ADDR				0x0000
-+#define CIX_DP_CDB_WDATA			0x0004
-+#define CIX_DP_CDB_SEL_WR			0x0008
-+#define CIX_DP_CDB_READY			0x000c
-+#define CIX_DP_CDB_RDATA			0x0010
-+#define CIX_DP_CDB_RSTN				0x0014
-+#define CIX_DP_CDB_ENABLE			0x0018
-+#define CIX_DP_CDB_ENABLE_BIT			BIT(0)
-+#define CIX_DP_CDB_SEL_READ			0x2
-+#define CIX_DP_CDB_SEL_WRITE			0x3
-+
-+#define CIX_DP_PHY_CONFIG_RSTN			0x0040
-+#define CIX_DP_PHY_CMN_READY			0x0044
-+#define CIX_DP_PHY_LANE_EN_BITS			0x0048
-+#define CIX_DP_PHY_LANE_RSTN_BITS		0x004c
-+#define CIX_DP_PHY_DATA_ENABLE			0x0050
-+#define CIX_DP_AUXHPD_ENABLE_BITS		0x0054
-+#define CIX_DP_TX_ELEC_IDLE_BITS		0x0058
-+#define CIX_DP_PHY_LANE_PWR_STATE_REQ		0x0060
-+#define CIX_DP_PHY_LANE_PWR_STATE_ACK		0x0064
-+#define CIX_DP_PHY_LANE_PLLCLK_ENABLE		0x0068
-+#define CIX_DP_PHY_LANE_PLLCLK_EN_ACK		0x006c
-+
-+#define CIX_DP_PHY_PLL_CFG			0xc00e
-+#define CIX_DP_PHY_PMA_CMN_CTRL2		0xe001
-+#define CIX_DP_PHY_PMA_PLL_RAW_CTRL		0xe003
-+
-+/* Common (CMN) registers */
-+#define CIX_DP_CMN_SSM_BIAS_TMR			0x0022
-+#define CIX_DP_CMN_PLLSM0_PLLPRE_TMR		0x002a
-+#define CIX_DP_CMN_PLLSM0_PLLLOCK_TMR		0x002c
-+#define CIX_DP_CMN_PLLSM1_PLLPRE_TMR		0x0032
-+#define CIX_DP_CMN_PLLSM1_PLLLOCK_TMR		0x0034
-+#define CIX_DP_CMN_BGCAL_INIT_TMR		0x0064
-+#define CIX_DP_CMN_BGCAL_ITER_TMR		0x0065
-+#define CIX_DP_CMN_IBCAL_INIT_TMR		0x0074
-+#define CIX_DP_CMN_PLL0_VCOCAL_TCTRL		0x0082
-+#define CIX_DP_CMN_PLL0_VCOCAL_INIT_TMR		0x0084
-+#define CIX_DP_CMN_PLL0_VCOCAL_ITER_TMR		0x0085
-+#define CIX_DP_CMN_PLL0_VCOCAL_REFTIM_START	0x0086
-+#define CIX_DP_CMN_PLL0_VCOCAL_PLLCNT_START	0x0088
-+#define CIX_DP_CMN_PLL0_LOCK_REFCNT_START	0x009c
-+#define CIX_DP_CMN_PLL0_LOCK_PLLCNT_START	0x009e
-+#define CIX_DP_CMN_PLL0_LOCK_PLLCNT_THR		0x009f
-+#define CIX_DP_CMN_PLL0_INTDIV_M0		0x0090
-+#define CIX_DP_CMN_PLL0_FRACDIVL_M0		0x0091
-+#define CIX_DP_CMN_PLL0_FRACDIVH_M0		0x0092
-+#define CIX_DP_CMN_PLL0_HIGH_THR_M0		0x0093
-+#define CIX_DP_CMN_PLL0_DSM_DIAG_M0		0x0094
-+#define CIX_DP_CMN_PLL0_SS_CTRL1_M0		0x0098
-+#define CIX_DP_CMN_PLL0_SS_CTRL2_M0		0x0099
-+#define CIX_DP_CMN_PLL0_SS_CTRL3_M0		0x009a
-+#define CIX_DP_CMN_PLL0_SS_CTRL4_M0		0x009b
-+#define CIX_DP_CMN_PLL1_VCOCAL_TCTRL		0x00c2
-+#define CIX_DP_CMN_PLL1_VCOCAL_INIT_TMR		0x00c4
-+#define CIX_DP_CMN_PLL1_VCOCAL_ITER_TMR		0x00c5
-+#define CIX_DP_CMN_PLL1_VCOCAL_REFTIM_START	0x00c6
-+#define CIX_DP_CMN_PLL1_VCOCAL_PLLCNT_START	0x00c8
-+#define CIX_DP_CMN_PLL1_LOCK_REFCNT_START	0x00dc
-+#define CIX_DP_CMN_PLL1_LOCK_PLLCNT_START	0x00de
-+#define CIX_DP_CMN_PLL1_LOCK_PLLCNT_THR		0x00df
-+#define CIX_DP_CMN_PLL1_INTDIV_M0		0x00d0
-+#define CIX_DP_CMN_PLL1_FRACDIVL_M0		0x00d1
-+#define CIX_DP_CMN_PLL1_FRACDIVH_M0		0x00d2
-+#define CIX_DP_CMN_PLL1_HIGH_THR_M0		0x00d3
-+#define CIX_DP_CMN_PLL1_DSM_DIAG_M0		0x00d4
-+#define CIX_DP_CMN_PLL1_SS_CTRL1_M0		0x00d8
-+#define CIX_DP_CMN_PLL1_SS_CTRL2_M0		0x00d9
-+#define CIX_DP_CMN_PLL1_SS_CTRL3_M0		0x00da
-+#define CIX_DP_CMN_PLL1_SS_CTRL4_M0		0x00db
-+#define CIX_DP_CMN_TXPUCAL_INIT_TMR		0x0104
-+#define CIX_DP_CMN_TXPDCAL_INIT_TMR		0x010c
-+#define CIX_DP_CMN_RXCAL_INIT_TMR		0x0114
-+#define CIX_DP_CMN_SD_CAL_PLLCNT_START		0x0128
-+#define CIX_DP_CMN_PDIAG_PLL0_CTRL_M0		0x01a0
-+#define CIX_DP_CMN_PDIAG_PLL0_CLK_SEL_M0	0x01a1
-+#define CIX_DP_CMN_PDIAG_PLL0_CP_PADJ_M0	0x01a4
-+#define CIX_DP_CMN_PDIAG_PLL0_CP_IADJ_M0	0x01a5
-+#define CIX_DP_CMN_PDIAG_PLL0_FILT_PADJ_M0	0x01a6
-+#define CIX_DP_CMN_PDIAG_PLL1_CTRL_M0		0x01c0
-+#define CIX_DP_CMN_PDIAG_PLL1_CP_PADJ_M0	0x01c4
-+#define CIX_DP_CMN_PDIAG_PLL1_CP_IADJ_M0	0x01c5
-+#define CIX_DP_CMN_PDIAG_PLL1_FILT_PADJ_M0	0x01c6
-+
-+/* Lane / TX / RX / XCVR registers */
-+#define CIX_DP_TX_TXCC_CTRL			0x4040
-+#define CIX_DP_TX_TXCC_CPOST_MULT_00		0x404c
-+#define CIX_DP_TX_TXCC_MGNFS_MULT_000		0x4050
-+#define CIX_DP_XCVR_DIAG_PLLDRC_CTRL		0x40e5
-+#define CIX_DP_XCVR_DIAG_HSCLK_DIV		0x40e7
-+#define CIX_DP_XCVR_DIAG_BIDI_CTRL		0x40ea
-+#define CIX_DP_DRV_DIAG_TX_DRV			0x40c6
-+#define CIX_DP_TX_PSC_A0			0x4100
-+#define CIX_DP_TX_PSC_A2			0x4102
-+#define CIX_DP_TX_PSC_A3			0x4103
-+#define CIX_DP_RX_ST_TMR			0x4123
-+#define CIX_DP_TX_DIAG_ACYA			0x41e7
-+#define CIX_DP_RX_PSC_A0			0x8000
-+#define CIX_DP_RX_PSC_A2			0x8002
-+#define CIX_DP_RX_PSC_A3			0x8003
-+#define CIX_DP_RX_PSC_CAL			0x8006
-+#define CIX_DP_RX_SDCAL0_INIT_TMR		0x8044
-+#define CIX_DP_RX_SDCAL0_ITER_TMR		0x8045
-+#define CIX_DP_RX_SDCAL1_INIT_TMR		0x804c
-+#define CIX_DP_RX_SDCAL1_ITER_TMR		0x804d
-+#define CIX_DP_RX_REE_GCSM1_CTRL		0x8108
-+#define CIX_DP_RX_REE_GCSM2_CTRL		0x8110
-+#define CIX_DP_RX_REE_PERGCSM_CTRL		0x8118
-+
-+/* PMA bit defines */
-+#define CIX_DP_PMA_CMN_CTRL2_PLL0_READY_BIT	BIT(0)
-+#define CIX_DP_PMA_CMN_CTRL2_PLL0_DISABLED_BIT	BIT(2)
-+#define CIX_DP_PMA_PLL_RAW_CTRL_PLL0_FORCE_RSTN	BIT(0)
-+
-+#define CIX_DP_LANE_OFFSET(x) \
-+	((x) * 0x0200)
-+#define CIX_DP_XCVR_DIAG_HSCLK_DIV_LANE(x) \
-+	(CIX_DP_XCVR_DIAG_HSCLK_DIV + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_DIAG_ACYA_LANE(x) \
-+	(CIX_DP_TX_DIAG_ACYA + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_TXCC_CTRL_LANE(x) \
-+	(CIX_DP_TX_TXCC_CTRL + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_DRV_DIAG_TX_DRV_LANE(x) \
-+	(CIX_DP_DRV_DIAG_TX_DRV + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_TXCC_MGNFS_MULT_000_LANE(x) \
-+	(CIX_DP_TX_TXCC_MGNFS_MULT_000 + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_TXCC_CPOST_MULT_00_LANE(x) \
-+	(CIX_DP_TX_TXCC_CPOST_MULT_00 + CIX_DP_LANE_OFFSET(x))
-+
-+#define CIX_DP_NUM_LANES			4
-+#define CIX_DP_POLL_SLEEP_US			10
-+#define CIX_DP_POLL_TIMEOUT_US			100000
-+#define CIX_DP_PWR_TIMEOUT_US			10000
-+
-+enum cix_dp_pwr {
-+	CIX_DP_PWR_A0,
-+	CIX_DP_PWR_A2,
-+	CIX_DP_PWR_A3,
-+};
-+
-+struct cix_dp {
-+	void __iomem *base;
-+	struct clk *apb_clk;
-+	struct reset_control *reset;
-+	struct phy *phy;
-+	unsigned int num_lanes;
-+	bool is_edp;
-+	bool powered;
-+};
-+
-+struct cix_dp_link_cfg {
-+	u32 link_rate;
-+	u32 hsclk_div;
-+	u32 clk_sel;
-+	u32 pll_intdiv;
-+	u32 pll_fracdivl;
-+	u32 pll_high_thr;
-+};
-+
-+struct cix_dp_reg {
-+	u32 reg;
-+	u32 val;
-+	bool per_lane;
-+};
-+
-+struct cix_dp_voltage_conf {
-+	u32 tx_txcc_ctrl;
-+	u32 drv_diag_tx_drv;
-+	u32 tx_txcc_mgnfs_mult_000;
-+	u32 tx_txcc_cpost_mult_00;
-+};
-+
-+static const struct cix_dp_voltage_conf cix_dp_volt_cfg[] = {
-+	{ 0x08a4, 0x0003, 0x002a, 0x0000 }, /* swing level == 0 */
-+	{ 0x08a4, 0x0003, 0x001f, 0x0014 },
-+	{ 0x08a4, 0x0003, 0x0013, 0x0020 },
-+	{ 0x08a4, 0x0003, 0x000a, 0x002a },
-+	{ 0x08a4, 0x0003, 0x001f, 0x0000 }, /* swing level == 1 */
-+	{ 0x08a4, 0x0003, 0x0013, 0x0012 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x001f },
-+	{ 0x08a4, 0x0003, 0x0000, 0x001f },
-+	{ 0x08a4, 0x0003, 0x0013, 0x0000 }, /* swing level == 2 */
-+	{ 0x08a4, 0x0003, 0x0000, 0x0013 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0013 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0013 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 }, /* swing level == 3 */
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+};
-+
-+static const struct cix_dp_voltage_conf cix_dp_volt_low_cfg[] = {
-+	{ 0x08a4, 0x0003, 0x002f, 0x0000 }, /* swing level == 0 */
-+	{ 0x08a4, 0x0003, 0x002a, 0x000d },
-+	{ 0x08a4, 0x0003, 0x0026, 0x0015 },
-+	{ 0x08a4, 0x0003, 0x0022, 0x001b },
-+	{ 0x08a4, 0x0003, 0x002b, 0x0000 }, /* swing level == 1 */
-+	{ 0x08a4, 0x0003, 0x0027, 0x000b },
-+	{ 0x08a4, 0x0003, 0x0023, 0x0012 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0027, 0x0000 }, /* swing level == 2 */
-+	{ 0x08a4, 0x0003, 0x0023, 0x0009 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0023, 0x0000 }, /* swing level == 3 */
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+};
-+
-+/* Default PHY programming, including SSC enabled (SS_CTRL1 = 0x1). */
-+static const struct cix_dp_reg cix_dp_reg_conf[] = {
-+	{ CIX_DP_CMN_SSM_BIAS_TMR, 0x0018 },
-+	{ CIX_DP_CMN_PLLSM0_PLLPRE_TMR, 0x0030 },
-+	{ CIX_DP_CMN_PLLSM0_PLLLOCK_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_PLLSM1_PLLPRE_TMR, 0x0030 },
-+	{ CIX_DP_CMN_PLLSM1_PLLLOCK_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_BGCAL_INIT_TMR, 0x0078 },
-+	{ CIX_DP_CMN_BGCAL_ITER_TMR, 0x0078 },
-+	{ CIX_DP_CMN_IBCAL_INIT_TMR, 0x0018 },
-+	{ CIX_DP_CMN_TXPUCAL_INIT_TMR, 0x001d },
-+	{ CIX_DP_CMN_TXPDCAL_INIT_TMR, 0x001d },
-+	{ CIX_DP_CMN_RXCAL_INIT_TMR, 0x02d0 },
-+	{ CIX_DP_CMN_SD_CAL_PLLCNT_START, 0x0137 },
-+	{ CIX_DP_RX_SDCAL0_INIT_TMR, 0x0018, true },
-+	{ CIX_DP_RX_SDCAL0_ITER_TMR, 0x0078, true },
-+	{ CIX_DP_RX_SDCAL1_INIT_TMR, 0x0018, true },
-+	{ CIX_DP_RX_SDCAL1_ITER_TMR, 0x0078, true },
-+	{ CIX_DP_RX_ST_TMR, 0x0960, true },
-+	{ CIX_DP_PHY_PLL_CFG, 0x0000 },
-+	{ CIX_DP_XCVR_DIAG_HSCLK_DIV, 0x0000, true },
-+	{ CIX_DP_XCVR_DIAG_PLLDRC_CTRL, 0x0011, true },
-+	{ CIX_DP_CMN_PLL0_DSM_DIAG_M0, 0x8004 },
-+	{ CIX_DP_CMN_PLL1_DSM_DIAG_M0, 0x0004 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_CP_PADJ_M0, 0x0b17 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_CP_PADJ_M0, 0x0b17 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_CP_IADJ_M0, 0x0e01 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_CP_IADJ_M0, 0x0e01 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_FILT_PADJ_M0, 0x0d05 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_FILT_PADJ_M0, 0x0d05 },
-+	{ CIX_DP_CMN_PLL0_INTDIV_M0, 0x01c2 },
-+	{ CIX_DP_CMN_PLL1_INTDIV_M0, 0x014d },
-+	{ CIX_DP_CMN_PLL1_FRACDIVL_M0, 0x5555 },
-+	{ CIX_DP_CMN_PLL0_FRACDIVH_M0, 0x0002 },
-+	{ CIX_DP_CMN_PLL1_FRACDIVH_M0, 0x0002 },
-+	{ CIX_DP_CMN_PLL0_HIGH_THR_M0, 0x012c },
-+	{ CIX_DP_CMN_PLL1_HIGH_THR_M0, 0x00e0 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_CTRL_M0, 0x1002 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_CTRL_M0, 0x1002 },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL1_M0, 0x0001 },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL1_M0, 0x0001 },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL2_M0, 0x044f },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL2_M0, 0x03c7 },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL3_M0, 0x007f },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL3_M0, 0x007f },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL4_M0, 0x0003 },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL4_M0, 0x0003 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_INIT_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_INIT_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_ITER_TMR, 0x0004 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_ITER_TMR, 0x0004 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_REFTIM_START, 0x02f8 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_REFTIM_START, 0x02f8 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_PLLCNT_START, 0x02f6 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_PLLCNT_START, 0x02f6 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_TCTRL, 0x0003 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_TCTRL, 0x0003 },
-+	{ CIX_DP_CMN_PLL0_LOCK_REFCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL1_LOCK_REFCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL0_LOCK_PLLCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL1_LOCK_PLLCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL0_LOCK_PLLCNT_THR, 0x0005 },
-+	{ CIX_DP_CMN_PLL1_LOCK_PLLCNT_THR, 0x0005 },
-+	{ CIX_DP_TX_PSC_A0, 0x00fb, true },
-+	{ CIX_DP_TX_PSC_A2, 0x04aa, true },
-+	{ CIX_DP_TX_PSC_A3, 0x04aa, true },
-+	{ CIX_DP_RX_PSC_A0, 0x0000, true },
-+	{ CIX_DP_RX_PSC_A2, 0x0000, true },
-+	{ CIX_DP_RX_PSC_A3, 0x0000, true },
-+	{ CIX_DP_RX_PSC_CAL, 0x0000, true },
-+	{ CIX_DP_XCVR_DIAG_BIDI_CTRL, 0x000f, true },
-+	{ CIX_DP_RX_REE_GCSM1_CTRL, 0x0000, true },
-+	{ CIX_DP_RX_REE_GCSM2_CTRL, 0x0000, true },
-+	{ CIX_DP_RX_REE_PERGCSM_CTRL, 0x0000, true },
-+};
-+
-+/*
-+ * Supported DisplayPort link rates in Mb/s. 2160 and 4320 listed by
-+ * phy-dp.h are not implemented on this PHY.
-+ */
-+static const struct cix_dp_link_cfg cix_dp_link_cfg[] = {
-+	{ 1620, 0x0002, 0x0f01, 0x0195, 0x0000, 0x010e },
-+	{ 2430, 0x0001, 0x0701, 0x0195, 0x0000, 0x010e },
-+	{ 2700, 0x0001, 0x0701, 0x01c2, 0x0000, 0x012c },
-+	{ 3240, 0x0002, 0x0b00, 0x0195, 0x0000, 0x010e },
-+	{ 5400, 0x0000, 0x0301, 0x01c2, 0x0000, 0x012c },
-+	{ 8100, 0x0000, 0x0200, 0x0151, 0x8000, 0x00e2 },
-+};
-+
-+/*
-+ * Sky1 routes 1- and 2-lane DP through physical lanes 2/3, not 0/1.
-+ * phy-dp.h describes logical lanes starting from lane 0; map them with
-+ * +2 so enable/reset masks and voltage programming hit the wired pads.
-+ */
-+static u32 cix_dp_phy_lane_bits(unsigned int lanes)
-+{
-+	switch (lanes) {
-+	case 1:
-+		return BIT(2);
-+	case 2:
-+		return BIT(2) | BIT(3);
-+	case 4:
-+		return GENMASK(3, 0);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static void cix_dp_phy_write(struct cix_dp *dp, u32 offset, u32 value)
-+{
-+	writel(value, dp->base + offset);
-+}
-+
-+static int cix_dp_phy_cdb_ready(struct cix_dp *dp)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_CDB_READY, value,
-+				  value & BIT(0), CIX_DP_POLL_SLEEP_US,
-+				  CIX_DP_POLL_TIMEOUT_US);
-+}
-+
-+/*
-+ * After kicking CDB_ENABLE, READY may stay high for a few clocks before the
-+ * IP drops it. Poll tightly for busy so a stale READY=1 is not taken as
-+ * completion. The busy pulse can be shorter than a sleeping poll, so ignore
-+ * a missed busy and still wait for idle.
-+ */
-+static int cix_dp_phy_cdb_complete(struct cix_dp *dp)
-+{
-+	u32 value;
-+
-+	readl_poll_timeout_atomic(dp->base + CIX_DP_CDB_READY, value,
-+				  !(value & BIT(0)), 0, 1);
-+
-+	return cix_dp_phy_cdb_ready(dp);
-+}
-+
-+static int cix_dp_phy_cdb_write(struct cix_dp *dp, u32 offset, u32 data)
-+{
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_ready(dp);
-+	if (ret)
-+		return ret;
-+
-+	writel(offset, dp->base + CIX_DP_CDB_ADDR);
-+	writel(data, dp->base + CIX_DP_CDB_WDATA);
-+	writel(CIX_DP_CDB_SEL_WRITE, dp->base + CIX_DP_CDB_SEL_WR);
-+	writel(CIX_DP_CDB_ENABLE_BIT, dp->base + CIX_DP_CDB_ENABLE);
-+
-+	return cix_dp_phy_cdb_complete(dp);
-+}
-+
-+static int cix_dp_phy_cdb_read(struct cix_dp *dp, u32 offset)
-+{
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_ready(dp);
-+	if (ret)
-+		return ret;
-+
-+	writel(offset, dp->base + CIX_DP_CDB_ADDR);
-+	writel(CIX_DP_CDB_SEL_READ, dp->base + CIX_DP_CDB_SEL_WR);
-+	writel(CIX_DP_CDB_ENABLE_BIT, dp->base + CIX_DP_CDB_ENABLE);
-+
-+	ret = cix_dp_phy_cdb_complete(dp);
-+	if (ret)
-+		return ret;
-+
-+	return readl(dp->base + CIX_DP_CDB_RDATA) & GENMASK(15, 0);
-+}
-+
-+static int cix_dp_phy_apply_reg(struct cix_dp *dp, const struct cix_dp_reg *r)
-+{
-+	unsigned int i;
-+	int ret;
-+
-+	if (!r->per_lane)
-+		return cix_dp_phy_cdb_write(dp, r->reg, r->val);
-+
-+	for (i = 0; i < CIX_DP_NUM_LANES; i++) {
-+		ret = cix_dp_phy_cdb_write(dp, r->reg + CIX_DP_LANE_OFFSET(i),
-+					   r->val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int cix_dp_common_ready_ack(struct cix_dp *dp)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_PHY_CMN_READY, value,
-+				  value & BIT(0), CIX_DP_POLL_SLEEP_US,
-+				  CIX_DP_POLL_TIMEOUT_US);
-+}
-+
-+static int cix_dp_pll_raw_ctrl_ack(struct cix_dp *dp, u32 mask)
-+{
-+	int value;
-+	int ret;
-+
-+	ret = read_poll_timeout(cix_dp_phy_cdb_read, value,
-+				value < 0 || value & mask,
-+				CIX_DP_POLL_SLEEP_US, CIX_DP_POLL_TIMEOUT_US,
-+				false, dp, CIX_DP_PHY_PMA_CMN_CTRL2);
-+	if (ret)
-+		return ret;
-+
-+	return value < 0 ? value : 0;
-+}
-+
-+static int cix_dp_lane_pll_ack(struct cix_dp *dp, bool enabled)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_PHY_LANE_PLLCLK_EN_ACK,
-+				  value, !!(value & BIT(0)) == enabled,
-+				  CIX_DP_POLL_SLEEP_US, CIX_DP_POLL_TIMEOUT_US);
-+}
-+
-+static int cix_dp_pwr_state_ack(struct cix_dp *dp, u32 pwr_state)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_PHY_LANE_PWR_STATE_ACK,
-+				  value, (value & GENMASK(4, 0)) == pwr_state,
-+				  CIX_DP_POLL_SLEEP_US, CIX_DP_PWR_TIMEOUT_US);
-+}
-+
-+static int cix_dp_phy_pwr_req(struct cix_dp *dp, u32 pwr_state)
-+{
-+	int ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PWR_STATE_REQ, pwr_state);
-+	ret = cix_dp_pwr_state_ack(dp, pwr_state);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PWR_STATE_REQ,
-+			 CIX_DP_PHY_PWR_STATE_IDLE);
-+
-+	return ret;
-+}
-+
-+static int cix_dp_hw_power(struct cix_dp *dp, enum cix_dp_pwr pwr_state)
-+{
-+	switch (pwr_state) {
-+	case CIX_DP_PWR_A0:
-+		return cix_dp_phy_pwr_req(dp,
-+					  CIX_DP_PHY_PWR_STATE_A0_TXRX_ACTIVE);
-+	case CIX_DP_PWR_A2:
-+		return cix_dp_phy_pwr_req(dp,
-+					  CIX_DP_PHY_PWR_STATE_A2_POWERDOWN2);
-+	case CIX_DP_PWR_A3:
-+		return cix_dp_phy_pwr_req(dp,
-+					  CIX_DP_PHY_PWR_STATE_A3_POWERDOWN3);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int cix_dp_pll_disable(struct cix_dp *dp)
-+{
-+	u32 mask = CIX_DP_PMA_CMN_CTRL2_PLL0_DISABLED_BIT;
-+	int ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 0);
-+	ret = cix_dp_hw_power(dp, CIX_DP_PWR_A3);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PLLCLK_ENABLE, 0);
-+	ret = cix_dp_lane_pll_ack(dp, false);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_PHY_PMA_PLL_RAW_CTRL, 0);
-+	if (ret)
-+		return ret;
-+
-+	return cix_dp_pll_raw_ctrl_ack(dp, mask);
-+}
-+
-+static int cix_dp_pll_enable(struct cix_dp *dp)
-+{
-+	u32 mask = CIX_DP_PMA_CMN_CTRL2_PLL0_READY_BIT;
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_PHY_PMA_PLL_RAW_CTRL, 1);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_pll_raw_ctrl_ack(dp, mask);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PLLCLK_ENABLE, 1);
-+	ret = cix_dp_lane_pll_ack(dp, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_hw_power(dp, CIX_DP_PWR_A2);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_hw_power(dp, CIX_DP_PWR_A0);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 1);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_phy_set_ssc(struct cix_dp *dp, bool enable)
-+{
-+	u32 val = enable ? 0x0001 : 0x0000;
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_SS_CTRL1_M0, val);
-+	if (ret)
-+		return ret;
-+
-+	return cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL1_SS_CTRL1_M0, val);
-+}
-+
-+static int cix_dp_phy_set_lanes(struct cix_dp *dp, unsigned int lanes)
-+{
-+	u32 mask;
-+
-+	mask = cix_dp_phy_lane_bits(lanes);
-+	if (!mask)
-+		return -EINVAL;
-+
-+	dp->num_lanes = lanes;
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_RSTN_BITS, mask);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_EN_BITS, mask);
-+	cix_dp_phy_write(dp, CIX_DP_TX_ELEC_IDLE_BITS,
-+			 (~mask) & GENMASK(CIX_DP_NUM_LANES - 1, 0));
-+
-+	return 0;
-+}
-+
-+static int cix_dp_phy_set_link_rate(struct cix_dp *dp,
-+				    const struct phy_configure_opts_dp *opts)
-+{
-+	const struct cix_dp_link_cfg *cfg = NULL;
-+	unsigned int i;
-+	u32 reg;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(cix_dp_link_cfg); i++) {
-+		if (cix_dp_link_cfg[i].link_rate == opts->link_rate) {
-+			cfg = &cix_dp_link_cfg[i];
-+			break;
-+		}
-+	}
-+
-+	if (!cfg)
-+		return -EINVAL;
-+
-+	if (dp->powered) {
-+		ret = cix_dp_pll_disable(dp);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	for (i = 0; i < CIX_DP_NUM_LANES; i++) {
-+		reg = CIX_DP_XCVR_DIAG_HSCLK_DIV_LANE(i);
-+		ret = cix_dp_phy_cdb_write(dp, reg, cfg->hsclk_div);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_INTDIV_M0,
-+				   cfg->pll_intdiv);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_FRACDIVL_M0,
-+				   cfg->pll_fracdivl);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_HIGH_THR_M0,
-+				   cfg->pll_high_thr);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PDIAG_PLL0_CLK_SEL_M0,
-+				   cfg->clk_sel);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_set_ssc(dp, opts->ssc);
-+	if (ret)
-+		return ret;
-+
-+	if (dp->powered)
-+		return cix_dp_pll_enable(dp);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_phy_set_lane_voltage(struct cix_dp *dp, u32 lane,
-+				       const struct cix_dp_voltage_conf *cfg)
-+{
-+	int value;
-+	int ret, err;
-+
-+	value = cix_dp_phy_cdb_read(dp, CIX_DP_TX_DIAG_ACYA_LANE(lane));
-+	if (value < 0)
-+		return value;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_TX_DIAG_ACYA_LANE(lane),
-+				   value | BIT(0));
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_TX_TXCC_CTRL_LANE(lane),
-+				   cfg->tx_txcc_ctrl);
-+	if (ret)
-+		goto out_restore;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_DRV_DIAG_TX_DRV_LANE(lane),
-+				   cfg->drv_diag_tx_drv);
-+	if (ret)
-+		goto out_restore;
-+
-+	ret = cix_dp_phy_cdb_write(dp,
-+				   CIX_DP_TX_TXCC_MGNFS_MULT_000_LANE(lane),
-+				   cfg->tx_txcc_mgnfs_mult_000);
-+	if (ret)
-+		goto out_restore;
-+
-+	ret = cix_dp_phy_cdb_write(dp,
-+				   CIX_DP_TX_TXCC_CPOST_MULT_00_LANE(lane),
-+				   cfg->tx_txcc_cpost_mult_00);
-+
-+out_restore:
-+	err = cix_dp_phy_cdb_write(dp, CIX_DP_TX_DIAG_ACYA_LANE(lane),
-+				   value & ~BIT(0));
-+	if (err && !ret)
-+		ret = err;
-+
-+	return ret;
-+}
-+
-+static int cix_dp_phy_set_voltages(struct cix_dp *dp,
-+				   const struct phy_configure_opts_dp *opts)
-+{
-+	const struct cix_dp_voltage_conf *table;
-+	const struct cix_dp_voltage_conf *cfg;
-+	unsigned int lane;
-+	unsigned int phy_lane;
-+	unsigned int index;
-+	int ret;
-+
-+	if (opts->lanes != 1 && opts->lanes != 2 && opts->lanes != 4)
-+		return -EINVAL;
-+
-+	table = dp->is_edp ? cix_dp_volt_cfg : cix_dp_volt_low_cfg;
-+
-+	for (lane = 0; lane < opts->lanes; lane++) {
-+		if (opts->voltage[lane] > 3 || opts->pre[lane] > 3 ||
-+		    opts->voltage[lane] + opts->pre[lane] > 3)
-+			return -EINVAL;
-+
-+		index = opts->voltage[lane] * 4 + opts->pre[lane];
-+		cfg = &table[index];
-+
-+		/* One- and two-lane modes use the upper physical lanes. */
-+		phy_lane = opts->lanes == 4 ? lane : lane + 2;
-+		ret = cix_dp_phy_set_lane_voltage(dp, phy_lane, cfg);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int cix_dp_toggle_reset(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	ret = reset_control_assert(dp->reset);
-+	if (ret)
-+		return ret;
-+	usleep_range(10, 20);
-+
-+	ret = reset_control_deassert(dp->reset);
-+	if (ret)
-+		return ret;
-+	usleep_range(10, 20);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_prepare(struct cix_dp *dp)
-+{
-+	struct device *dev = &dp->phy->dev;
-+	u32 id;
-+
-+	id = readl(dp->base + CIX_DP_PHY_ID_REV_REG) >> 16;
-+	if (id != CIX_DP_PHY_ID) {
-+		dev_err(dev, "unsupported PHY id 0x%x\n", id);
-+		return -ENODEV;
-+	}
-+
-+	/* enable PHY's local configuration bus */
-+	cix_dp_phy_write(dp, CIX_DP_CDB_RSTN, 1);
-+
-+	/* reset AUXHPD block */
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_TX_ELEC_IDLE_BITS, 0xf);
-+
-+	/* reset PHY */
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_RSTN_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_EN_BITS, 0);
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_CONFIG_RSTN, 0);
-+	udelay(1);
-+
-+	/* enable Cadence AUXHPD block */
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 1);
-+	udelay(1);
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 3);
-+	udelay(1);
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 7);
-+	udelay(5);
-+
-+	/* aux lines enabled for TX and RX */
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 0xf);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_load_regs(struct cix_dp *dp)
-+{
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(cix_dp_reg_conf); i++) {
-+		ret = cix_dp_phy_apply_reg(dp, &cix_dp_reg_conf[i]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return cix_dp_phy_cdb_write(dp, CIX_DP_PHY_PMA_PLL_RAW_CTRL,
-+				    CIX_DP_PMA_PLL_RAW_CTRL_PLL0_FORCE_RSTN);
-+}
-+
-+static int cix_dp_hw_power_on(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	ret = cix_dp_phy_set_lanes(dp, dp->num_lanes);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_CONFIG_RSTN, 0x0001);
-+	ret = cix_dp_common_ready_ack(dp);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_pll_enable(dp);
-+	if (ret)
-+		return ret;
-+
-+	dp->powered = true;
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_power_off(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	ret = cix_dp_pll_disable(dp);
-+	if (ret)
-+		return ret;
-+
-+	dp->powered = false;
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_reset(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	ret = cix_dp_toggle_reset(dp);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_RSTN_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_EN_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_CONFIG_RSTN, 0);
-+	dp->powered = false;
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_configure(struct cix_dp *dp,
-+			       union phy_configure_opts *opts)
-+{
-+	struct phy_configure_opts_dp *dp_opts = &opts->dp;
-+	int ret;
-+
-+	if (dp_opts->set_lanes) {
-+		ret = cix_dp_phy_set_lanes(dp, dp_opts->lanes);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (dp_opts->set_rate) {
-+		ret = cix_dp_phy_set_link_rate(dp, dp_opts);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (dp_opts->set_voltages)
-+		return cix_dp_phy_set_voltages(dp, dp_opts);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_init(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = clk_prepare_enable(dp->apb_clk);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_toggle_reset(dp);
-+	if (ret)
-+		goto disable_clk;
-+
-+	ret = cix_dp_hw_prepare(dp);
-+	if (ret)
-+		goto disable_clk;
-+
-+	ret = cix_dp_hw_load_regs(dp);
-+	if (ret)
-+		goto disable_clk;
-+
-+	return 0;
-+
-+disable_clk:
-+	clk_disable_unprepare(dp->apb_clk);
-+	return ret;
-+}
-+
-+static int cix_dp_exit(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	cix_dp_hw_reset(dp);
-+	clk_disable_unprepare(dp->apb_clk);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_power_on(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_power_on(dp);
-+}
-+
-+static int cix_dp_power_off(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_power_off(dp);
-+}
-+
-+static int cix_dp_reset(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_reset(dp);
-+}
-+
-+static int cix_dp_configure(struct phy *phy,
-+			    union phy_configure_opts *opts)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_configure(dp, opts);
-+}
-+
-+static const struct phy_ops cix_dp_ops = {
-+	.init		= cix_dp_init,
-+	.exit		= cix_dp_exit,
-+	.power_on	= cix_dp_power_on,
-+	.power_off	= cix_dp_power_off,
-+	.configure	= cix_dp_configure,
-+	.reset		= cix_dp_reset,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static int cix_dp_probe(struct platform_device *pdev)
-+{
-+	struct phy_provider *phy_provider;
-+	struct device *dev = &pdev->dev;
-+	struct cix_dp *dp;
-+
-+	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
-+	if (!dp)
-+		return -ENOMEM;
-+
-+	dp->num_lanes = CIX_DP_NUM_LANES;
-+	dp->is_edp = device_property_read_bool(dev, "cix,external-dp");
-+
-+	dp->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(dp->base))
-+		return PTR_ERR(dp->base);
-+
-+	dp->apb_clk = devm_clk_get(dev, "apb");
-+	if (IS_ERR(dp->apb_clk))
-+		return dev_err_probe(dev, PTR_ERR(dp->apb_clk),
-+				     "failed to get apb clock\n");
-+
-+	dp->reset = devm_reset_control_get_exclusive(dev, NULL);
-+	if (IS_ERR(dp->reset))
-+		return dev_err_probe(dev, PTR_ERR(dp->reset),
-+				     "failed to get reset\n");
-+
-+	dp->phy = devm_phy_create(dev, dev->of_node, &cix_dp_ops);
-+	if (IS_ERR(dp->phy))
-+		return dev_err_probe(dev, PTR_ERR(dp->phy),
-+				     "failed to create PHY\n");
-+
-+	phy_set_drvdata(dp->phy, dp);
-+	phy_set_bus_width(dp->phy, CIX_DP_NUM_LANES);
-+	platform_set_drvdata(pdev, dp);
-+
-+	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(phy_provider))
-+		return dev_err_probe(dev, PTR_ERR(phy_provider),
-+				     "failed to register PHY provider\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id cix_dp_of_match[] = {
-+	{ .compatible = "cix,sky1-dp-phy" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, cix_dp_of_match);
-+
-+static struct platform_driver cix_dp_driver = {
-+	.probe	= cix_dp_probe,
-+	.driver	= {
-+		.name = "cix-dp-phy",
-+		.of_match_table = cix_dp_of_match,
-+	},
-+};
-+module_platform_driver(cix_dp_driver);
-+
-+MODULE_AUTHOR("Luo Liu <Luo.Liu@cixtech.com>");
-+MODULE_AUTHOR("Eastlake Yang <Eastlake.Yang@cixtech.com>");
-+MODULE_DESCRIPTION("CIX DP PHY driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+Please let me know if you want me to take this patch through
+the hwmon subsystem.
+
+Thanks,
+Guenter
+
+> ---
+>   Documentation/hwmon/bcm_pmb_pvtmon.rst |  53 ++++++++
+>   Documentation/hwmon/index.rst          |   1 +
+>   MAINTAINERS                            |   2 +
+>   drivers/hwmon/Kconfig                  |  18 +++
+>   drivers/hwmon/Makefile                 |   1 +
+>   drivers/hwmon/bcm_pmb_pvtmon.c         | 232 +++++++++++++++++++++++++++++++++
+>   6 files changed, 307 insertions(+)
+> 
+> diff --git a/Documentation/hwmon/bcm_pmb_pvtmon.rst b/Documentation/hwmon/bcm_pmb_pvtmon.rst
+> new file mode 100644
+> index 000000000000..7dba658bdc76
+> --- /dev/null
+> +++ b/Documentation/hwmon/bcm_pmb_pvtmon.rst
+> @@ -0,0 +1,53 @@
+> +.. SPDX-License-Identifier: GPL-2.0-only
+> +
+> +Kernel driver bcm_pmb_pvtmon
+> +============================
+> +
+> +Supported chips:
+> +
+> +  * Broadcom BCM6846 PVTMON
+> +
+> +    Access: Processor Monitor Bus (PMB), bus 1, device 6
+> +
+> +Author: Linus Walleij <linusw@kernel.org>
+> +
+> +Description
+> +-----------
+> +
+> +The process, voltage and temperature monitor (PVTMON) measures die
+> +temperature and seven voltage inputs. The driver uses the shared PMB MFD
+> +transport and obtains its clock and reset from the sibling providers.
+> +
+> +With CONFIG_THERMAL_OF enabled, the temperature channel also supplies
+> +device-tree thermal zones. The PVTMON node uses #thermal-sensor-cells = <0>;
+> +voltage inputs do not have thermal sensor indices.
+> +
+> +Sysfs attributes
+> +----------------
+> +
+> +All attributes are read-only. Temperature is reported in millidegrees
+> +Celsius and voltages in millivolts, using the BCM6846 vendor conversion
+> +formulas and input-divider ratios.
+> +
+> +================ ================================
+> +Attribute        Description
+> +================ ================================
+> +temp1_input      Die temperature
+> +in0_input        First 0.85 V input
+> +in1_input        Second 0.85 V input
+> +in2_input        VIN input
+> +in3_input        1.0 V input
+> +in4_input        1.8 V input
+> +in5_input        3.3 V input
+> +in6_input        Diagnostic test input
+> +in0_label        V0.85_1
+> +in1_label        V0.85_2
+> +in2_label        VIN
+> +in3_label        V1.0
+> +in4_label        V1.8
+> +in5_label        V3.3
+> +in6_label        Vtest
+> +================ ================================
+> +
+> +Labels follow the vendor channel names. Vtest is a diagnostic ADC input,
+> +not a supply rail. The driver does not change the analog test routing.
+> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+> index 199ca79621e9..5a579391cf9e 100644
+> --- a/Documentation/hwmon/index.rst
+> +++ b/Documentation/hwmon/index.rst
+> @@ -54,6 +54,7 @@ Hardware Monitoring Kernel Drivers
+>      axiado-pwm-fan
+>      axiado-tsadc
+>      bcm54140
+> +   bcm_pmb_pvtmon
+>      bel-pfe
+>      bpa-rs600
+>      cgbc-hwmon
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 74f0783d512f..124d67ea1582 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -5451,7 +5451,9 @@ F:	Documentation/devicetree/bindings/hwmon/brcm,bcm6846-pmb-pvtmon.yaml
+>   F:	Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+>   F:	Documentation/devicetree/bindings/reset/brcm,bcm6846-pmb-reset.yaml
+>   F:	Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
+> +F:	Documentation/hwmon/bcm_pmb_pvtmon.rst
+>   F:	drivers/clk/bcm/clk-bcmbca-pmb.c
+> +F:	drivers/hwmon/bcm_pmb_pvtmon.c
+>   F:	drivers/mfd/bcmbca_pmc3_pmb.c
+>   F:	drivers/reset/reset-bcmbca-pmb.c
+>   F:	include/dt-bindings/clock/brcm,bcm6846-pmb.h
+> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+> index 18c682e1a475..7e2bc32628d4 100644
+> --- a/drivers/hwmon/Kconfig
+> +++ b/drivers/hwmon/Kconfig
+> @@ -334,6 +334,24 @@ config SENSORS_AXIADO_TSADC
+>   	  This driver can also be built as a module. If so, the module
+>   	  will be called axiado-tsadc.
+>   
+> +config SENSORS_BCM_PMB_PVTMON
+> +	tristate "Broadcom PMB PVTMON hardware monitoring"
+> +	depends on ARCH_BCMBCA || COMPILE_TEST
+> +	depends on MFD_BCMBCA_PMB
+> +	depends on COMMON_CLK
+> +	depends on RESET_CONTROLLER
+> +	select CLK_BCMBCA_PMB
+> +	select RESET_BCMBCA_PMB
+> +	select REGMAP
+> +	default MFD_BCMBCA_PMB
+> +	help
+> +	  Enable temperature and voltage monitoring through the Processor
+> +	  Monitor Bus on Broadcom BCM6846. With THERMAL_OF enabled, the
+> +	  temperature channel also supplies the thermal zones described in
+> +	  the device tree.
+> +
+> +	  This driver can also be built as a module called bcm_pmb_pvtmon.
+> +
+>   config SENSORS_K8TEMP
+>   	tristate "AMD Athlon64/FX or Opteron temperature sensor"
+>   	depends on X86 && PCI
+> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+> index d4c345ed7261..edf8e8d2f345 100644
+> --- a/drivers/hwmon/Makefile
+> +++ b/drivers/hwmon/Makefile
+> @@ -62,6 +62,7 @@ obj-$(CONFIG_SENSORS_ATXP1)	+= atxp1.o
+>   obj-$(CONFIG_SENSORS_AXI_FAN_CONTROL) += axi-fan-control.o
+>   obj-$(CONFIG_SENSORS_AXIADO_PWM_FAN) += axiado-pwm-fan.o
+>   obj-$(CONFIG_SENSORS_AXIADO_TSADC)	+= axiado-tsadc.o
+> +obj-$(CONFIG_SENSORS_BCM_PMB_PVTMON) += bcm_pmb_pvtmon.o
+>   obj-$(CONFIG_SENSORS_CGBC)	+= cgbc-hwmon.o
+>   obj-$(CONFIG_SENSORS_CHIPCAP2) += chipcap2.o
+>   obj-$(CONFIG_SENSORS_CORETEMP)	+= coretemp.o
+> diff --git a/drivers/hwmon/bcm_pmb_pvtmon.c b/drivers/hwmon/bcm_pmb_pvtmon.c
+> new file mode 100644
+> index 000000000000..8b95dac83994
+> --- /dev/null
+> +++ b/drivers/hwmon/bcm_pmb_pvtmon.c
+> @@ -0,0 +1,232 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Broadcom BCM6846 process, voltage and temperature monitor (PVTMON).
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/hwmon.h>
+> +#include <linux/mfd/bcmbca-pmb.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +
+> +#define PVTMON_BUS		1
+> +#define PVTMON_DEVICE		6
+> +
+> +/* PMB register offsets are in 32-bit words. */
+> +#define PVTMON_CONFIG		17
+> +#define PVTMON_RESET_N		BIT(0)
+> +#define PVTMON_POWER_DOWN		BIT(1)
+> +
+> +#define PVTMON_ACQ_CONFIG		20
+> +#define PVTMON_ACCUM_ENABLE	BIT(0)
+> +#define PVTMON_SKIP_LENGTH	GENMASK(11, 8)
+> +
+> +#define PVTMON_CHANNEL_BASE	24
+> +#define PVTMON_NUM_CHANNELS	8
+> +#define PVTMON_VALUE		GENMASK(9, 0)
+> +#define PVTMON_VALID		BIT(18)
+> +#define PVTMON_SAMPLES		GENMASK(26, 24)
+> +#define PVTMON_CHANNEL_ENABLE	BIT(31)
+> +
+> +/* Voltage labels and divider ratios follow the BCM6846 vendor definitions. */
+> +static const struct {
+> +	const char *label;
+> +	unsigned int divisor;
+> +} bcm6846_pvtmon_voltages[] = {
+> +	{ "V0.85_1", 10 },
+> +	{ "V0.85_2", 10 },
+> +	{ "VIN", 7 },
+> +	{ "V1.0", 7 },
+> +	{ "V1.8", 4 },
+> +	{ "V3.3", 2 },
+> +	{ "Vtest", 10 },
+> +};
+> +
+> +static int bcm_pmb_pvtmon_init(struct regmap *regmap,
+> +			       struct reset_control *reset)
+> +{
+> +	unsigned int reg = BCMBCA_PMB_REG(PVTMON_BUS, PVTMON_DEVICE, PVTMON_CONFIG);
+> +	u32 config, acq, channel;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	ret = regmap_read(regmap, reg, &config);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Do not reset acquisition already running for the PMC firmware. */
+> +	if ((config & (PVTMON_RESET_N | PVTMON_POWER_DOWN)) != PVTMON_RESET_N) {
+> +		ret = regmap_update_bits(regmap, reg, PVTMON_POWER_DOWN, 0);
+> +		if (ret)
+> +			return ret;
+> +		ret = reset_control_reset(reset);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret = regmap_read(regmap, BCMBCA_PMB_REG(PVTMON_BUS, PVTMON_DEVICE,
+> +						 PVTMON_ACQ_CONFIG), &acq);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < PVTMON_NUM_CHANNELS; i++) {
+> +		reg = BCMBCA_PMB_REG(PVTMON_BUS, PVTMON_DEVICE, PVTMON_CHANNEL_BASE + i);
+> +		ret = regmap_read(regmap, reg, &channel);
+> +		if (ret)
+> +			return ret;
+> +
+> +		if (channel & PVTMON_CHANNEL_ENABLE)
+> +			continue;
+> +
+> +		/* Average 32 samples, matching the vendor acquisition setup. */
+> +		ret = regmap_update_bits(regmap, reg, PVTMON_CHANNEL_ENABLE | PVTMON_SAMPLES,
+> +					 PVTMON_CHANNEL_ENABLE | FIELD_PREP(PVTMON_SAMPLES, 5));
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!(acq & PVTMON_ACCUM_ENABLE))
+> +		return regmap_update_bits(regmap,
+> +					  BCMBCA_PMB_REG(PVTMON_BUS, PVTMON_DEVICE,
+> +							 PVTMON_ACQ_CONFIG),
+> +					  PVTMON_SKIP_LENGTH | PVTMON_ACCUM_ENABLE,
+> +					  PVTMON_ACCUM_ENABLE | FIELD_PREP(PVTMON_SKIP_LENGTH, 8));
+> +
+> +	return 0;
+> +}
+> +
+> +static int bcm_pmb_pvtmon_read(struct device *dev, enum hwmon_sensor_types type,
+> +			       u32 attr, int channel, long *val)
+> +{
+> +	struct regmap *map = dev_get_drvdata(dev);
+> +	unsigned int index;
+> +	u32 value;
+> +	int ret;
+> +
+> +	switch (type) {
+> +	case hwmon_temp:
+> +		if (attr != hwmon_temp_input)
+> +			return -EOPNOTSUPP;
+> +		index = 0;
+> +		break;
+> +	case hwmon_in:
+> +		if (attr != hwmon_in_input)
+> +			return -EOPNOTSUPP;
+> +		index = channel + 1;
+> +		break;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	/* Release the PMB between samples so other clients can make progress. */
+> +	ret = regmap_read_poll_timeout(map,
+> +				       BCMBCA_PMB_REG(PVTMON_BUS, PVTMON_DEVICE,
+> +						      PVTMON_CHANNEL_BASE + index),
+> +				       value, value & PVTMON_VALID, 1000, 100000);
+> +	if (ret)
+> +		return ret;
+> +
+> +	value = FIELD_GET(PVTMON_VALUE, value);
+> +	if (type == hwmon_temp) {
+> +		/* Signed arithmetic allows temperatures below zero Celsius. */
+> +		*val = (41335000 - 49055 * (int)value) / 100;
+> +	} else {
+> +		/* 880 mV ADC reference, accounting for each input divider. */
+> +		*val = 880 * value * 10 /
+> +			(bcm6846_pvtmon_voltages[channel].divisor * 1024);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int bcm_pmb_pvtmon_read_string(struct device *dev,
+> +				      enum hwmon_sensor_types type, u32 attr,
+> +				      int channel, const char **str)
+> +{
+> +	if (type != hwmon_in || attr != hwmon_in_label)
+> +		return -EOPNOTSUPP;
+> +
+> +	*str = bcm6846_pvtmon_voltages[channel].label;
+> +	return 0;
+> +}
+> +
+> +static const struct hwmon_ops bcm_pmb_pvtmon_ops = {
+> +	.visible = 0444,
+> +	.read = bcm_pmb_pvtmon_read,
+> +	.read_string = bcm_pmb_pvtmon_read_string,
+> +};
+> +
+> +static const struct hwmon_channel_info * const bcm_pmb_pvtmon_info[] = {
+> +	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
+> +	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
+> +	HWMON_CHANNEL_INFO(in,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL,
+> +			   HWMON_I_INPUT | HWMON_I_LABEL),
+> +	NULL
+> +};
+> +
+> +static const struct hwmon_chip_info bcm_pmb_pvtmon_chip_info = {
+> +	.ops = &bcm_pmb_pvtmon_ops,
+> +	.info = bcm_pmb_pvtmon_info,
+> +};
+> +
+> +static int bcm_pmb_pvtmon_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct regmap *regmap = dev_get_regmap(dev->parent, NULL);
+> +	struct device *hwmon;
+> +	struct reset_control *reset;
+> +	struct clk *clk;
+> +	int ret;
+> +
+> +	if (!regmap)
+> +		return -ENODEV;
+> +
+> +	reset = devm_reset_control_get_exclusive(dev, NULL);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset), "failed to get PVTMON reset\n");
+> +
+> +	clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable PVTMON clock\n");
+> +
+> +	ret = bcm_pmb_pvtmon_init(regmap, reset);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to initialize PVTMON\n");
+> +
+> +	hwmon = devm_hwmon_device_register_with_info(dev, "bcm6846_pvtmon", regmap,
+> +						     &bcm_pmb_pvtmon_chip_info, NULL);
+> +	if (IS_ERR(hwmon))
+> +		return dev_err_probe(dev, PTR_ERR(hwmon), "failed to register hwmon device\n");
+> +
+> +	/* Acquisition remains enabled for the PMC firmware after unbinding. */
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id bcm_pmb_pvtmon_of_match[] = {
+> +	{ .compatible = "brcm,bcm6846-pmb-pvtmon" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, bcm_pmb_pvtmon_of_match);
+> +
+> +static struct platform_driver bcm_pmb_pvtmon_driver = {
+> +	.probe = bcm_pmb_pvtmon_probe,
+> +	.driver = {
+> +		.name = "bcm6846-pmb-pvtmon",
+> +		.of_match_table = bcm_pmb_pvtmon_of_match,
+> +	},
+> +};
+> +module_platform_driver(bcm_pmb_pvtmon_driver);
+> +
+> +MODULE_AUTHOR("Linus Walleij <linusw@kernel.org>");
+> +MODULE_DESCRIPTION("Broadcom PMB PVTMON hardware monitoring driver");
+> +MODULE_LICENSE("GPL");
+> 
 
