@@ -1,117 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600301;
-	b=pqFPYdfqgE2YtwylcVUMLb6HivBxO4GNVXlt8WKYuVxOot9g5GvKBV/jKcMtRfPWMYG7
-	 w4dqWyu4lw54FBG1SjSEqd1XXH0aDnJavFEeeO/6U1A2PZ+1NLfbJf1OW++JXiDhW2a5N
-	 8KDA0GccJcV32bnzhSqWFtYp5CHNoNS1T9KvXLybiDXrifNXgAwo2uENHc5HAJTf/DmX8
-	 8BVf/vxMEcMXRz3a8qM4RRVEKVV6++k7nlJjKyQBfL5u8LY+PXPlGtb0iCRWvn+YBVTSz
-	 HxrD/9bDYrxKwAQIOfz6t85iVN2I2W19h6/UvCIvE/metH6QrDNG/jChGTQvkTKDuxg==
+	t=1793600396;
+	b=MnZpCICw37gadDqbaJaW2MJZCxvNsGpNruSyCcRMP0kSt7Aak+vEZJh8GSPAZmQvUMp9
+	 KjwrdhlqKjbuB0xdmykDmNqK8tAGiu8Cs80yA6eRFQmjicu4/71nKXKjtBJArQM3rS/48
+	 k0ZFNXdfptY8ekZEHN1nQEAeX3Fl5RFVEjiSuhq7S3NjezvgDRV9zrZedpdIy16jc8vDo
+	 PCdIIbs6g9PNL/tDiWxhhyhTx12gnzHcPfx5Nnca2uV3Z/woz80Ujr1fxi6cfWMM4rq4m
+	 pvied49QjGoKZ1QtUWT4ZCHM9u/TnrhI/cKnjWNL0ffHh791TxMUL9kBzlPY4q7P0EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600301;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=zdEZtuUjS8y1Tb3uKWqUvcb4x2mh1O+qRQPxC8ckET8=;
-	b=VuJWaeQtk1Ps9CcgTQdJapvuc9aOjRoyuDtkO/ri3lsL10slm1ibaP0+w3Nf1LAO/dbS
-	 0kyYjMCahmG+CmXT4M3UbNLeJOGvCG+rjELtZBuF5Mj6ONdVdTNhbIgJQwupYn5Xlily1
-	 6Ss9rsPWper/CfaFNwVfUquIFoXYnoj04VRd53L8wFlJXJ7nlT0Kk/dB297jmfzzLj56x
-	 CBfHRVRqB1HYx0S8j3EWtMN00HE+Z1OdNDPtHGGBKahzXXMa/R7ZqsV8946PCUVC/g5Vj
-	 O8XkxPzi9towpyHxfELDzNhgRCdgXrEllX9j0k18mB+wcDlEoCoSJry242ShXDn8Ehw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600396;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ob6vUEf/hO7i9kTlFIOxCsDT2lOSQdX4na8C6dHFkRM=;
+	b=RaMtiYwTs3ocNLB1CfSFdadIANhySH4HbNdYaiSkNb8NfYxCuWu4yqJV6zY1g3jCuZD+
+	 whZgMfT+DAsSPGzK9CL8A2Gfa9h99YSlNBSP5+LlE7E86qHnJ2DwyzCNTj4fZdGWK3evr
+	 fYxvUogj4gj2DDKLeZjp3/iSwA4wFQ4spVoRtVTPft6lqIjRDp7I6LlffKNzLogauSvT5
+	 RG1fP8SI2qNX6Jz8cn4jtAJBEJ8PsBQnBKCC/wClZx2IknTyQv2vnm3mpPpxqLcKn+pZR
+	 qDjlgfdEmFUgqDPmKBvMLCSA9u2mYJe0T/CXuEgBa9tOAaS/YRL+VVKnjNNykcDD7AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PgQNqmsf;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g+Eo4twy;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EZ3Iw/tC";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDB8606A326
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 06:18:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBDB8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88338606A333
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 06:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PgQNqmsf;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g+Eo4twy
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vUR62192524
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 06:18:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zdEZtuUjS8y1Tb3uKWqUvcb4x2mh1O+qRQPxC8ckET8=; b=PgQNqmsfPonVZmec
-	n80aPct4TSGXGn28OH/qivlPXGnNMZF0baYme5WPQ4IZFswJ2l4tJlfHA1figs2B
-	FPUXEM91nnVMBi5ICHrLnYRCuicttZOLPKwicBHAA/l2spK+t3ykjfjcdjYCh1dX
-	FGnHLXr8PaJaf2FPzpTzErD/fKWlN64i4RPo53kONk6xBPal7vQqr0DQu2g7FB7g
-	i16HTQBeLuu4IF3+IGYimPLpbuM5NKKRopKczY7wZJIAXHAHrgrmWGz/JVrGZRUm
-	+wUeaQKro3zcao8VY7DGqq8fKL9b0TbwF+xxfAIUciMZm2Rkx6JiShnBaiybLw9e
-	RjAXPA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn93en9gk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 06:18:19 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e987ec84afso22951925ad.3
-        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 22:18:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793600299; x=1794205099; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zdEZtuUjS8y1Tb3uKWqUvcb4x2mh1O+qRQPxC8ckET8=;
-        b=g+Eo4twyYUXALWDkEOdEYgjhac1uiMoBQLCjfWcTl1DcbIjzJuApXu9ZiH2wLDhXV5
-         5kz5QTplIe/+RjM4JnHIuv59wtd8MZURafqK2B1zsz+q48kaoMlqhe5k16BOwkzYQ6mT
-         JxEo7rjF4kZ62exVNxNSQduhODP3vohJkgrM8bz+4gs6JWopBbtiiDmhKR8M+kmfxmqm
-         /rytTEbd6G9bk8k814E97aFeN51qfqxUqqppRwYQxcKHAN+c5+4c8S4UWg6FpYGIL8c2
-         xzV3kDL3pWhe6c3AT5/wzVbeHkPcIja5tKKXuaT6SsaIOXeFKs+0BflWU5bdAIRagHsv
-         bSZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793600299; x=1794205099;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zdEZtuUjS8y1Tb3uKWqUvcb4x2mh1O+qRQPxC8ckET8=;
-        b=BMSimjQlQu3tKc5TKTPsUderou0bGjQoNS9lxffZF+3zEBmLXJwFvcs1B3zviIb1eu
-         tmVjxmsyCNVcWpupGM8AEr3EkZfO1YpsPZjLbYspZbvMDpu0GvSyMgdhxL+SWOAgvx1V
-         ySVGU65cacGATEc5RMjf7AcScGUaLh5bTdIBwI664vvA2+OpJ6+R5apshqrHsWBzeM1l
-         7PuSM3XsbYOGYKN6vE6MfpW87nPkPCQjEkFs+aRSkUbQ/cCId8Sc+oxoTCIbw09IrBD9
-         PklLz6TrKgrj1N29z6+55btSlnTeVPJd6CsPaV39lH093+YyfKC/E5uJ/rQS/qRqyOTU
-         OLwA==
-X-Gm-Message-State: APuU4Z9mLq3EYPMHHJhCs5h+rNXyOvpguN/SgnFvWgC8UDk+Raxfx4Ig
-	IPXjfcFuxMV/OEW2afkM15DBKCun7SJs3TMUOUuqav+t4BPSEoFguR6iPbYNDkaWu9yAsex1SpB
-	wWccV5rqsLM7snezbvrjYv9Cg9hnVMLrc+BAweJlvt1cPxLEL8UTHeqtAprleCELz
-X-Gm-Gg: AYBFou2D5/7kREYt9mK0LQhVuOUlDAScCmgrBBj3H8XVl6tqdW5wnWs5HL3bnIg4djE
-	J4wanysjtqMJ9cItUP36LfQqiIF+mzZe4r2v8PbQD74wTbsgj4GM584+tggVr+6TpM2Ffsx5IFS
-	EbvpAeyIzhKpjQlRYNz3wRtyAXHuIFSQTQasWqWgZMA2qqoeJtqb3wZF8bvGeE+c8XYHMGtQ75t
-	hwUXWakY3c4OX5v2ehaPy1eqeumJi12hRH4V2nPR6JwOrU+UXjjCz3737zwc2f7NP+Q/3Zmlkb7
-	v2nsOmzc8eZARo/hDpbVX/cZV61Wc5nx8dmq7XQRC+jFDwuFble4NavWBGdk1X+6RP+TwzfPjf/
-	QhfP1cGA+gqVhErcJIfkB7Uy8TPtwwONrXjYcEwGeT8hXxEJXWT7EP6wsqMe6KcLYiJ9L7KM7s/
-	PuX3NJ
-X-Received: by 2002:a17:903:2a87:b0:2e9:8535:5141 with SMTP id d9443c01a7336-2eb3647fd42mr89867605ad.50.1793600298968;
-        Sun, 01 Nov 2026 22:18:18 -0800 (PST)
-X-Received: by 2002:a17:903:2a87:b0:2e9:8535:5141 with SMTP id d9443c01a7336-2eb3647fd42mr89867365ad.50.1793600298326;
-        Sun, 01 Nov 2026 22:18:18 -0800 (PST)
-Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39230bbfsm22535525ad.19.2026.11.01.22.18.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:18:18 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:48:14 +0530
-From: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/6] arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD
- HDMI bridge support
-Message-ID: <augrJqAg0jwM/Yuy@hu-anantiwa-hyd.qualcomm.com>
-References: <20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com>
- <20261030-lyra-display-upstream-post-v2-1-906302159392@oss.qualcomm.com>
- <sashiko-outbox-190777@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZ3Iw/tC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB881F000C1;
+	Mon,  2 Nov 2026 06:19:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793600396;
+	bh=ob6vUEf/hO7i9kTlFIOxCsDT2lOSQdX4na8C6dHFkRM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EZ3Iw/tCqsIekaQNsYuIRZKVX5hlo2M177TgZVruwiZSvenjVf6wNHJCpEMx6pDoQ
+	 RqqqJRBzATqnCQiYThMJFrWcRnChy7x9g+cn+WRvspV3pdOURHHGGIaY9dtP/fmWNm
+	 pmyMycMwSxs0Zs0cT3WQRT+w2ajps94DbVrQlJv/oiOGWAqWSyaygV459mPDBnZs4D
+	 YbD2EJlXdNK9jG6CyEaT/tIz1O6LKMtp+F2dqpiBzhoYPIJj+e744yMekSrurjbnUH
+	 BrdKqpTI6vZL1yb7+7FREz8PK4IoXoWC6of8U2iYigxXhpY87CljneXcDBgPWAnF2R
+	 JmVUeN05grCiQ==
+Message-ID: <sashiko-outbox-192949@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: sm8750-lenovo-elden: describe
+ the WL2868C regulators
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102060458.461372-5-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261102060458.461372-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261102060458.461372-5-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 06:19:55 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -120,176 +60,195 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-190777@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAyNCBTYWx0ZWRfX8Gsei+Fwap29
- UxanOYaMsYA1PK/YW7e9e6SHcJ9eO3PmT8oso3X/rOK4F1dsZ1RIFbCo1Jz/Ao7c1M+ZNzHVR4J
- JNx6ELvWIUKL9dG4BEtGSVb8MFZpvcFwBB7GMsU/X4yp5B8ErV/vRL3kGK0mQp3536aJqiNYRxb
- pDcVD1BVlkOwe35bbzvr2WGgxcUPzbnwk5AQ6Kxd47nP+Bxttlf87ZJBp2n7ykDonyP9v3NY93c
- XeFF475DKN+mbU2OuQhEcKW1vCcjjMw9Ghu48CtdDslnza9mlMwTEe1md8H4PG7rM84gIE42Fmy
- 0jDH9tGX7GiV0sOBDddhysYJyJolbJm7gX5zpk8uUkcqe0l5RY38xs6V4t8B6xZq/7FHObpgm9o
- UQHcewK/46K+FY6/a7LJcnyuv38qe4UT7O1gSDZf9CcfsPd4xhI0Iw32BVzK2vzJd2N6At3Y6zE
- NEP4c7BZQv12VtdSIWg==
-X-Authority-Analysis: v=2.4 cv=FciiV5+6 c=1 sm=1 tr=0 ts=6ae82b2b cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=DfhYv1hxhrLySWN8tNYA:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=uG9DUKGECoFWVXl0Dc02:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: ZYu_94Ns2uzSQoBRFVFxhbvuIhwmpvfO
-X-Proofpoint-GUID: ZYu_94Ns2uzSQoBRFVFxhbvuIhwmpvfO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAyNCBTYWx0ZWRfX8Yu3YjQ4WesG
- 8r8XuPoHuUgDyT4+oseIXt5w+7XnC6HwfJVbcTHorKkHMLpatFe6vZmbBkZ67SSSnDcaq3+NSEI
- uOssCtjsXo20W+AHv/9UV0WaarJOlAY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020024
 
-On Fri, Oct 30, 2026 at 09:49:28AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] arm64: dts: qcom: talos-lyra-evk: swapped DSI supplies and invalid vdds-supply
-> - [Low] arm64: dts: qcom: talos-lyra-evk: duplicate tlmm node and unused header
-> --
-> 
-> commit 22e8de3b84d3ac4983c9f5f3821155bfe2321465
-> Author: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
-> 
-> This commit adds device tree support for the Lontium LT9611UXD DSI-to-HDMI
-> bridge on the Talos Lyra EVK carrier board, connected via I2C2 and MDSS
-> DSI0.
-> 
-> > diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> > index d4468e6099112..eeb8e903b03b1 100644
-> > --- a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> > +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-> > @@ -4,6 +4,8 @@
-> >   */
-> >  /dts-v1/;
-> >  
-> > +#include <dt-bindings/gpio/gpio.h>
-> > +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> >  #include "talos-lyra-evk-som.dtsi"
-> 
-> [ ... ]
-> 
-> > @@ -74,6 +139,23 @@ &mdss_dp0_out {
-> >  	remote-endpoint = <&dp0_connector_in>;
-> >  };
-> >  
-> > +&mdss_dsi0 {
-> > +	vdda-supply = <&vreg_l5a>;
-> > +
-> > +	status = "okay";
-> > +};
-> > +
-> > +&mdss_dsi0_out {
-> > +	remote-endpoint = <&hdmi_bridge_in>;
-> > +	data-lanes = <0 1 2 3>;
-> > +};
-> > +
-> > +&mdss_dsi0_phy {
-> > +	vdds-supply = <&vreg_l11a>;
-> > +
-> > +	status = "okay";
-> > +};
-> 
-> [Severity: Medium]
-> Are the regulator supplies for mdss_dsi0 and mdss_dsi0_phy swapped here, and
-> should mdss_dsi0_phy use vcca-supply instead of vdds-supply?
-> 
-> In arch/arm64/boot/dts/qcom/talos.dtsi, mdss_dsi0_phy uses compatible
-> qcom,sm6150-dsi-phy-14nm. The schema in
-> Documentation/devicetree/bindings/phy/qcom,dsi-phy-14nm.yaml sets
-> unevaluatedProperties: false and only defines vcca-supply, not vdds-supply:
-> 
->   vcca-supply:
->     description: Phandle to vcca regulator device node.
-> 
-> In drivers/gpu/drm/msm/dsi/phy/dsi_phy_14nm.c, the 14nm PHY driver never
-> requests vdds, so devm_regulator_bulk_get_const() in dsi_phy_driver_probe()
-> ignores vdds-supply and falls back to a dummy regulator, leaving vreg_l11a
-> with no consumers.
-> 
-> Furthermore, in arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi, vreg_l5a
-> is the 0.88V LDO5 rail and vreg_l11a is the 1.2V LDO11 rail. In
-> drivers/gpu/drm/msm/dsi/dsi_cfg.c (dsi_v2_4_regulators), the DSI controller
-> expects vdda to be the 1.2V rail, and other QCS615/Talos boards such as
-> arch/arm64/boot/dts/qcom/talos-evk-som.dtsi and
-> arch/arm64/boot/dts/qcom/qcs615-ride.dts wire these as:
-> 
-> &mdss_dsi0 {
-> 	vdda-supply = <&vreg_l11a>;
-> 	status = "okay";
-> };
-> 
-> &mdss_dsi0_phy {
-> 	vcca-supply = <&vreg_l5a>;
-> 	status = "okay";
-> };
-> 
-> >  
-> >  &pon_pwrkey {
-> >  	status = "okay";
-> >  };
-> > @@ -113,3 +195,26 @@ &usb_2 {
-> >  
-> >  	status = "okay";
-> >  };
-> > +
-> > +&tlmm {
-> > +	lcd_bias_en: lcd-bias-en-state {
-> > +		pins = "gpio3";
-> > +		function = "gpio";
-> > +		drive-strength = <8>;
-> > +		bias-disable;
-> > +	};
-> > +
-> > +	bridge_irq_pin: bridge-irq-state {
-> > +		pins = "gpio60";
-> > +		function = "gpio";
-> > +		drive-strength = <2>;
-> > +		bias-disable;
-> > +	};
-> > +
-> > +	bridge_rst_pin: bridge-rst-state {
-> > +		pins = "gpio61";
-> > +		function = "gpio";
-> > +		drive-strength = <8>;
-> > +		bias-disable;
-> > +	};
-> > +};
-> 
-> [Severity: Low]
-> This isn't a bug, but arch/arm64/boot/dts/qcom/talos-lyra-evk.dts already
-> has a &tlmm node ordered alphabetically between &spi6 and &usb_1:
-> 
-> &tlmm {
-> 	dp_hot_plug_det: dp-hot-plug-det-state {
-> 		pins = "gpio104";
-> 		function = "dp_hot";
-> 		bias-disable;
-> 	};
-> };
-> 
-> Could lcd_bias_en, bridge_irq_pin, and bridge_rst_pin be merged into the
-> existing &tlmm node rather than adding a second &tlmm block at the end of
-> the file?
-> 
-> Also, the newly added dt-bindings/pinctrl/qcom,pmic-gpio.h include at the
-> top of the file appears to be unused (and dt-bindings/gpio/gpio.h is already
-> included via talos-lyra-evk-som.dtsi). Could the unused header be dropped?
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com?part=1
-We will handle this.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: undocumented camera/lens compatibles and unlin=
+ked endpoint
+- [Medium] arm64: dts: qcom: new sm8750-lenovo-elden board DT lacks boot in=
+frastructure
+- [Low] arm64: dts: qcom: mix of DT binding schema change and board DTS in =
+one commit
+--
+
+commit 247a3e361ec98ef920ebf8c9ec415c99b8590dce
+Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+
+arm64: dts: qcom: sm8750-lenovo-elden: describe the WL2868C regulators
+
+This commit adds the lenovo,elden compatible to the Qualcomm ARM board
+bindings and introduces a device tree for the Lenovo Legion Y700 Gen4
+(SM8750) describing its board clocks, WL2868C camera PMIC regulators, and
+rear camera sensor and lens.
+
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
+ion/devicetree/bindings/arm/qcom.yaml
+> index ff8a35df7862d..41d5e65c4eea5 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -1168,6 +1168,7 @@ properties:
+> =20
+>        - items:
+>            - enum:
+> +              - lenovo,elden
+>                - qcom,sm8750-mtp
+>                - qcom,sm8750-qrd
+>            - const: qcom,sm8750
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 1c86e7e98f55d..a18fea7bebaf7 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -406,6 +406,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-hdk-rear-camera-c=
+ard.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-hdk.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-mtp.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-qrd.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8750-lenovo-elden.dtb
+
+[Severity: Low]
+Should the Documentation/devicetree/bindings/arm/qcom.yaml schema change be
+split into a separate prerequisite patch with a dt-bindings: subject prefix
+rather than combined in the same commit as the arch/arm64/boot/dts/qcom/
+changes, per Documentation/devicetree/bindings/submitting-patches.rst?
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
+4/boot/dts/qcom/sm8750-lenovo-elden.dts
+> new file mode 100644
+> index 0000000000000..de186b447725d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+> @@ -0,0 +1,175 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include "sm8750.dtsi"
+> +
+> +/ {
+> +	model =3D "Lenovo Legion Y700 Gen4";
+> +	compatible =3D "lenovo,elden", "qcom,sm8750";
+> +	chassis-type =3D "tablet";
+
+[ ... ]
+
+> +&cci0_i2c0 {
+> +	clock-frequency =3D <400000>;
+> +
+> +	rear_lens: lens@c {
+> +		compatible =3D "giantec,gt9764";
+> +		reg =3D <0x0c>;
+> +		vddio-supply =3D <&camera_ldo7>;
+> +		vdd-supply =3D <&camera_ldo5>;
+> +		giantec,aac-mode =3D <0x40>;
+> +		giantec,aac-timing =3D <0x7c>;
+> +		settling-time-us =3D <7000>;
+> +	};
+> +
+> +	rear_camera: camera@56 {
+> +		compatible =3D "samsung,s5kjns";
+> +		reg =3D <0x56>;
+> +		clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
+> +		assigned-clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
+> +		assigned-clock-rates =3D <19200000>;
+> +		reset-gpios =3D <&tlmm 11 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&rear_camera_default>;
+> +		dovdd-supply =3D <&camera_ldo7>;
+> +		dvdd-supply =3D <&camera_ldo1>;
+> +		avdd-supply =3D <&camera_ldo4>;
+> +		lens-focus =3D <&rear_lens>;
+> +		orientation =3D <1>;
+> +		rotation =3D <90>;
+> +
+> +		port {
+> +			rear_camera_ep: endpoint {
+> +				data-lanes =3D <1 2 3 4>;
+> +				link-frequencies =3D /bits/ 64 <672000000>;
+> +			};
+> +		};
+> +	};
+> +};
+
+[Severity: Medium]
+As reported by Sashiko on v4 [1], does adding rear_lens (lens@c) and
+rear_camera (camera@56) under &cci0_i2c0 in
+arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts cause make dtbs_check and
+scripts/checkpatch.pl regressions because their bindings are not in the tre=
+e?
+
+Specifically, rear_lens uses compatible =3D "giantec,gt9764" with properties
+vddio-supply, giantec,aac-mode, giantec,aac-timing, and settling-time-us,
+while Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml only
+documents dongwoon,dw9768 and giantec,gt9769 with vin-supply, vdd-supply,
+dongwoon,aac-mode, and dongwoon,aac-timing.
+
+Similarly, rear_camera uses compatible =3D "samsung,s5kjns" with dovdd-supp=
+ly,
+dvdd-supply, and avdd-supply, which are not documented in any in-tree schema
+(Documentation/devicetree/bindings/media/i2c/samsung,s5kjn1.yaml only
+documents samsung,s5kjn1 with vdda-supply, vddd-supply, vddio-supply, and
+afvdd-supply).
+
+In addition, rear_camera_ep defines a port endpoint without a remote-endpoi=
+nt
+property because sm8750.dtsi does not yet have a CAMSS or CSIPHY receiver
+node. Should rear_lens and rear_camera be deferred until their DT bindings
+and the SM8750 CAMSS receiver nodes are present in the tree, just as was do=
+ne
+for the front sensor?
+
+> +
+> +&gpi_dma2 {
+> +	status =3D "okay";
+> +};
+> +
+> +&qupv3_2 {
+> +	status =3D "okay";
+> +};
+> +
+> +&i2c10 {
+> +	status =3D "okay";
+> +
+> +	pmic@2f {
+> +		compatible =3D "willsemi,wl2868c";
+> +		reg =3D <0x2f>;
+> +		reset-gpios =3D <&tlmm 126 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&camera_pmic_default>;
+
+[Severity: Medium]
+As reported by Sashiko on v4 [2], is it expected to introduce
+arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts as a new top-level board D=
+TB
+containing only clocks and camera I2C/PMIC nodes without the foundational
+board infrastructure?
+
+Unlike sm8750-mtp.dts and sm8750-qrd.dts, this file omits the SPMI PMICs,
+RPMh regulators (&apps_rsc, including the vin12-supply, vin34-supply,
+vin5-supply, and vin7-supply parent supplies for pmic@2f itself), chosen
+stdout-path console, and boot storage peripherals, leaving a non-bootable
+board DTB where the WL2868C regulator driver binds against dummy parent
+supplies.
+
+Also, in sm8750-lenovo-elden.dts, &qupv3_2 is placed before &i2c10 rather
+than in alphabetical label order, and rear_lens places the standard property
+settling-time-us after the vendor-specific giantec,aac-mode and
+giantec,aac-timing properties. Should this patch wait for the base board
+enablement series and follow the ordering rules in
+Documentation/devicetree/bindings/dts-coding-style.rst?
+
+[1] https://lore.kernel.org/r/9ef48d26aa4480b2dc1e20ad7af55f51aa22fec7.1793=
+427041.git.xiaqinghuan@mail.ustc.edu.cn
+[2] https://lore.kernel.org/r/9ef48d26aa4480b2dc1e20ad7af55f51aa22fec7.1793=
+427041.git.xiaqinghuan@mail.ustc.edu.cn
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102060458.4613=
+72-1-xiaqinghuan@mail.ustc.edu.cn?part=3D4
