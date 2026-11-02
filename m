@@ -1,56 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793651754;
-	b=EdxtSwcpDh/9gSBqWb63B6FHxcB4EIvmbaFewV4hPShKrR1EvuTBJFWhf2KUMP6DKzC1
-	 ClQR7stOgOxf8qU8wo6qbGomLanqksIMM5SdQtApIwIkRNJ1PUvJg2r4KHt0XTNN1Dx2j
-	 lZ5oG4s0G+CgNMthNDbzwOEU9Lk83DUIClYGFyBBOpYd+qswxMfg8rk0jGBkc4IqYMX6e
-	 AkkkGTkv3DRzPkCABMoxCBJgE0u97rzng8Wgj3FG63dTzkrnOaN7Zn5MrJ5x8opjK6IPS
-	 DcFiI21jIdERtOLlY4iX6lIrth7a6We8+C1EBeAHAJTx1FnRqC6MYErGxuu6qirUZUg==
+	t=1793651903;
+	b=fy/+chBP5VJ4MnYhbZlWbM4jKWtsbIGuYYlZ/5pp1iY34GVRDu8UZfDlAErsw0FEE7Ek
+	 ov//zFRNUyXS99wTlonFWU3EwKtGeBXnXyczOAXUuADfTDKbj/5dD/dXdEYZUhFydYG/n
+	 v3Uz9yP8srGtRkFuNN2B2D8hKi3/O50/Kk32P3n731QsnP1wUvCVbx9rJv4i+QJJVvgzv
+	 bQzRV0rFoOvRupDgOweSoczxh9p8SRz4Sy+03KVrWPnyEjn/G83V9xTILa8RNBB5xU9xY
+	 Bgl0uZZ/+IXMwIrY7VlbFkDkAXmWSlVaW3IsrVw+nzhOqS6yxGDAHVIdafrLYTna5Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651754;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dvVO2rNpJvTNuu02lcc9yj9nd8ebw6GqxP0aGvMJCMc=;
-	b=o3kuTa8j8IxvNIyTCV9o/vyMYclA6uGD0UVAnF1Cg+HE+C1tjapu8nzxvinDa+UeDhYA
-	 m2eCJWbgJ0ljhnzAZvqDtButlo7dNR/IHxHqjLDH5w7dfIXWLX0mHxm5KBakU73aNi0T7
-	 E4dwQT31H4heB5zKP0zmCoSQaZvjnQXhWhYLoPS6k9iQXlr0QiwdFpYf3DHHzj24xAW9g
-	 xV+6o1BlGpAdoos2CEJYC2AL1lBXWc6Ssi+gGiTEcFWOUY/QaNmF1NJ74HvVuleqxEnN7
-	 zu/qb4aMh0cHyaHj+TcRDSPUSc8C+ewUqdTSIAc/PVEoXyzpS4uP/FqeFXDiotUYZXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651903;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JqOfHGfqq8y0jqDTq9u5axpAxahHuV8gA44EpfAxrF0=;
+	b=5Uq30DFgeKIxqlcx8X7T969vVk7f9hZqlmgPY5Qu9zDUiD7LXoarbYlg2gxzJ1xPd5b6
+	 qDcVeE4K8F9LTEbMd/VUfCFnmaRJhueglalgyGYSg5YlFdjphlY85Xp0l0PspZoYuKxSA
+	 bLuyBk1NcFhCMJ56nTT3+tKzvmUBP1g7hctJ3L196thFlGsdtrZhhyjgael4oxYmvOCbI
+	 3tLFfUNYUpoeSP6wSnpLX18Mqw5qZ4kXToHKY96gEKDf+gMI3Ke6egpghwtzkfsOK2hXZ
+	 nSFrWpCxfiCZnALsuxZ6pjy1tcAfvHZ4cqrqM5hH1IJzvFTETBYKQeDzN8E8UraX0hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdfZspls;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RR0lW1VF;
+	arc=none smtp.remote-ip=209.85.219.41
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE45C606A326;
-	Mon,  2 Nov 2026 20:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86069606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86069606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdfZspls
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA13A1F00A16;
-	Mon,  2 Nov 2026 20:35:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793651753;
-	bh=dvVO2rNpJvTNuu02lcc9yj9nd8ebw6GqxP0aGvMJCMc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hdfZsplsPzWIBETGNzE+dm1RLl33QZCz1ghJ6tDoX7zt6yOYKwwO6E9RAvfbxsSHE
-	 WgHS42fPuH3ls3qLWGbiYhXVPGx3zFtkd0DdnqaMjLSVGg5uqgb4I38CfM3t4kGiN1
-	 ipKt36zcPi8DRGOaXVA0CikoClsoDEeVs/C1CUpdK4TsmxhEVs5rl3HSdMxiTcRjQu
-	 xoIVKpJ85AvU4gxWydUL8y+6v2fb3LY1aCnSS0kCma/8XO/1AXANoHowGID4qXsC4f
-	 t6FOKOH8zBc+T9vWJyLMN4agBmP2MDGSJnwtk7ADmjzdm4nQNIUPkFM19OQvelfs+D
-	 mp7nOinjfSjag==
-Date: Mon, 2 Nov 2026 20:35:48 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
-Message-ID: <20261102-pursuant-collide-4246c955efef@spud>
-References: <20261030-scientist-puzzle-ab2c668b6e27@spud>
- <20261102081110.63080-1-Nicolae-daniel.Deaconescu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RR0lW1VF
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91c162febb9so41371206d6.3
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 12:38:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793651901; x=1794256701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JqOfHGfqq8y0jqDTq9u5axpAxahHuV8gA44EpfAxrF0=;
+        b=RR0lW1VFKizrAZ287W1z5EGkksIw6Qk9fnOOVuPipp5gYg8D3KBYAQBS5R6sPJVLfa
+         mk05b5NHBPOkX4xozdkvRe87h06j0eFQpgzL9HakSjRx5wirQ1OUegry5AIGBeoEPUCU
+         QqJ511y3CgLuCw4oljTBoj2B1SI/+xBpKBJ2/imJH2RN01EwAmRhaEa0uj7e03J4ZFVR
+         34FeNhTm6dgLfIZFYhsyRSgCLDs/PmMghZjDz+QBl3dL2gdbQkaxtPSpWrgW0X4Tmhar
+         /Ejwnjxii8kgC/nO4JvSbqgUWn30yhJUmSJfhOcMfqt6pvP28OKSNI4ebkNyFzRgXih8
+         W2kQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793651901; x=1794256701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JqOfHGfqq8y0jqDTq9u5axpAxahHuV8gA44EpfAxrF0=;
+        b=J9L1IU3NCsy1prZvXt8w9KNXX5KRYtoOuxUE2KgAJ7Dmq9vaQSxboBG4vrBY6D22nq
+         us5B4U/lBCYT4J3Iu8jKX+lt8bXEU6szUZGJfnRSgigC5O7Q/z7s46COnSU/PjdmwoK4
+         TiPGkgYJUTRKeeIVdVDTmN5MjB3/QzSiFu1OkQwsk5xQSBAWIjDiuakBv7JE6+wBzeni
+         5j8amj/yK8gZXPYSOvslj3WUuaweOer7x2EL9RtHT1Zpfsl+EUnpDOgWVUFZa50C/bXl
+         FJENgihR5j/cWsCXkaRUsuXCp4RMVHqHTkxiGvwyG2hXsYYC6v01p6cHvk/KwRLJSt4g
+         nyHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWFGVQlHAewetBbhQ1kr/AGycHCz/GHNZzRisYTX6OpRDwgmzugCikb6ph5ufiUL/LSvE/mOBxoNK3@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gLXo4zWoYtxHxLWsvAw3H+s5iQYWLMnGr/MTx+K1eeISAlVKx
+	i9hEaxciAwLgNeoGBPPJIOWvIhIvQ1jzOWcIwJr0jAruyrAQ3AhPYuug
+X-Gm-Gg: AYBFou2gDfsFhLa86VCbgdLJN0bTq2NOGHp6vvvw/C0oG4zWfS0yMzMZKHgjSHqygWj
+	pJPmZJNkerqGzgOGUsCv8HNRaVqL2OTh+13jvDaZ5ATsEVod9QGRyACXLOL8veK/xOs2ZpOt/cV
+	/1Ao1WATvMQl0iZdwGf4cmfn5kGLXS5YM2RbfoPKVOC6OJo5RJWG0sO8r3ohff8zI36Bc41Ts3h
+	q5te8OxqU0iPOVikOHx6hZCFwn08sbqwEBfjVIzJ/ZhFpDbENkQSsrwFZo6oaf6zcCVzdYxl1ao
+	p8llPjOCeVrIfkq+87ThIyEsPZxXzr0IhZZy/uvTVm2DC/Rbv+Zch3yFSlwZUYKbG9rhOz3T9Ni
+	P4OP5k8mz2QQ0dGZfgnD1Sek7Nr18G+sbJqmmAZOtkWIQmIvdqBHbM+JhrIavuDelShw2SWRAcB
+	z+LPn7+GJcL9OFVKO4H25DwUVul/q8vRrbvYMHYstRvRAW/zjT1npNy2/nswPQesi5T2L9begoT
+	XYI8uujQvXoltISxVaAACFf5qe1gZzMtvpkd6UntINyM/b7w0erb61RCvSGtsWe6yo89XLU8c+s
+	YF2/bMApxo30hJdUc0FfV4Uk1oIovNxLFl46jidbg33O77yMEwB2qt4=
+X-Received: by 2002:a05:6214:21e5:b0:91b:5d3a:f136 with SMTP id 6a1803df08f44-91ca4b8303emr172551426d6.53.1793651901295;
+        Mon, 02 Nov 2026 12:38:21 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f26f1esm100674086d6.13.2026.11.02.12.38.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 12:38:20 -0800 (PST)
+Message-ID: <5bd67c8d-41ee-40e7-ab75-031e1520758f@gmail.com>
+Date: Mon, 2 Nov 2026 12:38:15 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,199 +92,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RY2oGnwwwn5GkflT"
-Content-Disposition: inline
-In-Reply-To: <20261102081110.63080-1-Nicolae-daniel.Deaconescu@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] dt-bindings: dma: brcm,bcm2835-dma: Add BCM2711 and
+ BCM2712
+To: Peter Robinson <pbrobinson@gmail.com>, Conor Dooley <conor@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, Ray Jui
+ <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ bcm-kernel-feedback-list@broadcom.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261102090713.896324-1-pbrobinson@gmail.com>
+ <20261102090713.896324-2-pbrobinson@gmail.com>
+ <20261102-email-target-d3191584d234@spud>
+ <CALeDE9Ncz=6jo_1VxdCJgSVV+fCTgkUvci-=e4MQYFYo_O9M0Q@mail.gmail.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <CALeDE9Ncz=6jo_1VxdCJgSVV+fCTgkUvci-=e4MQYFYo_O9M0Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---RY2oGnwwwn5GkflT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 11/2/26 12:18, Peter Robinson wrote:
+> On Mon, 2 Nov 2026 at 19:39, Conor Dooley <conor@kernel.org> wrote:
+>>
+>> On Mon, Nov 02, 2026 at 09:06:51AM +0000, Peter Robinson wrote:
+>>> Add compatibles for the BCM2711 40-bit DMA4 channels, which are
+>>> described by a separate node covering channels 11-14, and for the
+>>> BCM2712 DMA controllers. The register address of a node identifies its
+>>> first channel, allowing a controller to be split across nodes.
+>>>
+>>> Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+>>> Cc: Rob Herring <robh@kernel.org>
+>>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>>> Cc: Conor Dooley <conor+dt@kernel.org>
+>>>
+>>> ---
+>>>   .../bindings/dma/brcm,bcm2835-dma.yaml        | 31 +++++++++++++++++--
+>>>   1 file changed, 29 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+>>> index c9b9a5490826c..31d97a10a0ea9 100644
+>>> --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+>>> +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+>>> @@ -9,18 +9,27 @@ title: BCM2835 DMA controller
+>>>   maintainers:
+>>>     - Nicolas Saenz Julienne <nsaenz@kernel.org>
+>>>
+>>> -description:
+>>> +description: |
+>>>     The BCM2835 DMA controller has 16 channels in total. Only the lower
+>>>     13 channels have an associated IRQ. Some arbitrary channels are used by the
+>>>     VideoCore firmware (1,3,6,7 in the current firmware version). The channels
+>>>     0, 2 and 3 have special functionality and should not be used by the driver.
+>>>
+>>> +  BCM2711 channels 11 to 14 are 40-bit capable DMA4 channels, described by a
+>>> +  separate brcm,bcm2711-dma node. BCM2712 has 40-bit addressing on all
+>>> +  channels, with channels 6 to 11 being DMA4 channels. A controller may be
+>>> +  split across several nodes, the register address identifies the first
+>>> +  channel of a node.
+>>
+>> Uh no, a device should not be split across different nodes. This should
+>> not be needed, why can't your driver handle the upper channels having
+>> different capabilities?
+> 
+> This is the way it's done in the downstream kernel, unfortunately
+> Broadcom doesn't publish the HW details so either they'd need to
+> contribute the support (which they've not done since the RPi4 was
+> available) or I'm not sure what the other options would be. Open to
+> suggestions.
 
-On Mon, Nov 02, 2026 at 10:11:10AM +0200, Nicolae-Daniel Deaconescu wrote:
-> On Fri, 30 Oct 2026 20:50:11 +0000, Conor Dooley wrote:
-> > On Fri, Oct 30, 2026 at 02:02:05PM +0200, Nicolae-Daniel Deaconescu wro=
-te:
-> > > On Tue, Oct 27, 2026 at 18:28:34 +0000, Conor Dooley wrote:
-> > > > Why are we getting new devices with linear vendor prefixes?
-> > >
-> > > I'll fix this in v2. The binding file will be adi,ltc2387.yaml.
-> > > The -x4 compatibles will also be dropped, because they described
-> > > four devices sharing one AXI ADC.
-> >
-> > Please retain more context than this, it's not enough to just have what
-> > you're replying to. I see so many patches that I will have completely
-> > forgotten what you're doing by the time I get to the next day.
->=20
-> My bad, I'll keep more relevant info in my responses from now on.
->=20
-> > > > Hmm, ltc2387-16 does not appear to have these signals?
-> > > > Well, it has "cnv" but "cnv" has "sample clock" as the input name s=
-o is
-> > > > the clocks property above and pwm-clock can be used if the provider=
- is a
-> > > > pwm?
-> > >
-> > > The LTC2387-16 datasheet has these pins: CNV+/CNV- (pins 27/28), which
-> > > is the conversion-start input; CLK+/CLK- (pins 23/24), which is an
-> > > externally applied clock that shifts out the result; and DCO+/DCO-,
-> > > the echoed clock. There is no clk_gate pin.
-> >
-> > Then there should not be a clk_gate pwm for this device.
-> >
-> > > The part needs a burst of 8 CLK pulses per conversion in one-lane mode
-> > > (4 in two-lane), starting t_FIRSTCLK =3D 65 ns after CNV and ending
-> > > within t_LASTCLK =3D 49 ns of the next CNV. So the CLK input cannot r=
-un
-> > > freely: the clk_gate PWM gates the host clock into that burst. [...]
-> > > The clocks property is the reference clock the PWM generator runs
-> > > from, and the driver needs its rate to compute the waveforms.
-> >
-> > Then you've got a "layering" violation of some kind here. If this clock
-> > is consumed by the PWM generator, it should be an input to the pwm
-> > generator not this adc.
->=20
-> It IS an input to the PWM generator, The ADC node references the same
-> clock only because the driver has to know its rate to compute the CNV
-> and CLK waveforms in clock cycles. adi,ad7625.yaml does the same.
+Neither here nor there, IMHO, yes it would be nice if documentation was 
+published (and a customer like Raspberry Pi is probably one of the few 
+that can get the needle to move there).
 
-Then modify the PWM API to get the information that you need, you should
-not be constructing fake relationships in your devicetree to work around
-limitations of some subsystem's interface. If you need the information
-=66rom a PWM provider for what the minimum period or duty cycle step it can
-provide is so that you can use the waveform API correctly, then add that.
-I took a quick look at the code you've added and it looks like it'd just
-fall over as soon as someone used a PWM provider with a mandatory
-divider?
-
-Trevor got lucky that I didn't ask these questions about the ad7625, you
-did not.
-
-> > The second pwm should then just be called "clk", because that's the
-> > input(s) that it represents.
->=20
-> I'll rename it to "clk" in v2 and reword the pwms description. ad7625
-> uses the name clk_gate for the same signal.
->=20
-> > I want to see what the dts you have for a complete setup of this device
-> > looks like, including the backend and pwm generator.
->=20
-> This is an ADAQ23878 on a Zedboard, two-lane, with the AXI ADC backend,
-> the DMA it uses, and the AXI PWM generator. The 120 MHz ext_clk is what
-> the HDL provides to the PWM generator. Supplies are fixed regulators here;
-> VS- is 0 V.
->=20
-> / {
-> 	vdd_5v: regulator-vdd-5v {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vdd-5v";
-> 		regulator-min-microvolt =3D <5000000>;
-> 		regulator-max-microvolt =3D <5000000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vio_2v5: regulator-vio-2v5 {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vio-2v5";
-> 		regulator-min-microvolt =3D <2500000>;
-> 		regulator-max-microvolt =3D <2500000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vs_p: regulator-vs-p {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vs-p";
-> 		regulator-min-microvolt =3D <5000000>;
-> 		regulator-max-microvolt =3D <5000000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vs_n: regulator-vs-n {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vs-n";
-> 		regulator-min-microvolt =3D <0>;
-> 		regulator-max-microvolt =3D <0>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vref: regulator-vref {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vref-4v096";
-> 		regulator-min-microvolt =3D <4096000>;
-> 		regulator-max-microvolt =3D <4096000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	clocks {
-> 		ext_clk: clock@0 {
-> 			#clock-cells =3D <0>;
-> 			compatible =3D "fixed-clock";
-> 			clock-frequency =3D <120000000>;
-> 		};
-> 	};
-> };
->=20
-> &fpga_axi {
-> 	rx_dma: dma-controller@44a30000 {
-> 		compatible =3D "adi,axi-dmac-1.00.a";
-> 		reg =3D <0x44a30000 0x1000>;
-> 		#dma-cells =3D <1>;
-> 		interrupts =3D <0 57 IRQ_TYPE_LEVEL_HIGH>;
-> 		clocks =3D <&clkc 15>;
-> 	};
->=20
-> 	axi_adc: adc@44a00000 {
-> 		compatible =3D "adi,axi-adc-10.0.a";
-> 		reg =3D <0x44a00000 0x10000>;
-> 		dmas =3D <&rx_dma 0>;
-> 		dma-names =3D "rx";
-> 		clocks =3D <&clkc 15>;
-> 		#io-backend-cells =3D <0>;
-> 	};
->=20
-> 	axi_pwm_gen: pwm@44a60000 {
-> 		compatible =3D "adi,axi-pwmgen-2.00.a";
-> 		reg =3D <0x44a60000 0x1000>;
-> 		#pwm-cells =3D <3>;
-> 		clocks =3D <&clkc 15>, <&ext_clk>;
-> 		clock-names =3D "axi", "ext";
-> 	};
->=20
-> 	adc@0 {
-> 		compatible =3D "adi,adaq23878";
-> 		clocks =3D <&ext_clk>;
-> 		io-backends =3D <&axi_adc>;
-> 		pwms =3D <&axi_pwm_gen 0 0 0>, <&axi_pwm_gen 1 0 0>;
-> 		pwm-names =3D "cnv", "clk";
-> 		vdd-supply =3D <&vdd_5v>;
-> 		vio-supply =3D <&vio_2v5>;
-> 		vref-supply =3D <&vref>;
-> 		vs-n-supply =3D <&vs_n>;
-> 		vs-p-supply =3D <&vs_p>;
->=20
-> 		adi,gain-milli =3D /bits/ 16 <870>;
-> 		adi,use-two-lanes;
-> 	};
-> };
->=20
-> One more thing, on the cover letter Andy asked whether this should be
-> done in an existing driver with per-compatible chip data instead.
-
-Dunno, don't care. How the drivers are written has nothing to with me :)
-
-Cheers,
-Conor.
-
---RY2oGnwwwn5GkflT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauj0JAAKCRB4tDGHoIJi
-0luKAQCR7NOOLzEZxK+88wBVi3I3guik+ZdYa1djbktQp85UlQEAqPRERobzPurB
-BYQdqJLzZj8eUCOik998InmtwzMqbgs=
-=kvR3
------END PGP SIGNATURE-----
-
---RY2oGnwwwn5GkflT--
+You have the bcm2711 and bcm2712 compatible strings which should be 
+enough for you to know which channels are 40-bit capable and which are 
+not, yet keep the same Device Tree node.
+-- 
+Florian
