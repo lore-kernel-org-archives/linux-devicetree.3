@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638273;
-	b=Sjj64gICCXLFSi3DIQnAHq+ZzTsf6TIMQUPbEvduCNUKPPgPzeauU1oKkwZEUtkNK4P/
-	 0kCIYt6dc1gqgysBiNns3/q5CgkE24sbSuIFbUWPQQstY1IKx/SLF670GbnbBrAKxrDha
-	 neKtMDO6/zU3s4rCjUk/zBdWhNSwREGPS5w6ztQjRqVQpsgqpHrBHkqsr4ZCHinwllQbd
-	 lxv1Cm/vA8bXlcJKCryrP5E+w89ltFs9J2wNRlylXUw2jsQkWPE4NoOPG74NsLLJ1LKuv
-	 jIzBRpeUFbS+uYrzds+Tozukr3RFFhPZrJkML9vJXEUMCaQv/x8kKZFX2O+53J07ciA==
+	t=1793638386;
+	b=vseZj3kKO53CNWRnsUloQR4rLmw+O0Np4cfeCG9VxM8jul+3mZnScWxCUbzpbaY0xzfS
+	 rtookwHmYtMviyk36bRTJUuggHNEmG5H3OZycu6eQc+3zBE7QsNy56F3tG/2ohmVMC+bv
+	 CbRlV3O62QcLojSP9nqPeUiNtIBo9JmKhzPGauFwwLfDzd7m7EE9gFM4yfFkZBkyrdAKq
+	 YFWmLVGtHVqCukeVBDN5AyByJtUMM+wGAy1VcKGneWuwB1865hujP3I3xlDYOKl5KRd5s
+	 4JEk3/I9GXtRPRRP7wJqY57C2aB8BJHjz1qZnD+L1OFH9jhBZGbvFMK4N8YVaLVv7Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638273;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=7f2hzo/dOBTufspJmPFdaPlSMDROy4acygZbmp25eMQ=;
-	b=Lv/oFxFHgy4DT5lO5KPex8QeZn95HfPyxejuIFQ7OJM1bRcJ1S3BJZOINOs8WCPxjftQ
-	 /cjiLUu5nCIVYDpqHHaZOqLvfUP1bCXjLGZIczawlpVIImlKYTQ1LuuUMvUvlCUrovM50
-	 Re2fr9tZS2yOUqUirIGBBTSx4HhaYJlAUfwZrXDzZazJVmJHjdA0ucITF3KW6qbiEMGpA
-	 Ht7j3ip5GDc8a723gnv/IYnQTMNySeFaZdfILrYPKm+aLyIpjHM0Vv3+3ZNKIRPP80tHs
-	 wZDJ67G19C5VWH2HYBfwOYT34SFyQ0fNI/kX6om29Nvc6aXi3YPGQVRVdBgctHE385A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638386;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4hSSmxRQOYQLc9X1LIBh+NOmGHv/RzthQxE33huemtQ=;
+	b=fKoDSZAwAUd3VIfgw1Nz1gFtpc7sBJNe5aW9P9/P7KbUgGlTbbw4HmYjMHCGpy2G53gC
+	 0tNiGMy3+f2Ne5uVQtsZc7+NpproHOUAX+K7lRRj18phq6vPRKj+tbwGKr1sXohb1T5eE
+	 6+nS5mhGfFY6xnaDU4Ct/wj0hosLxwgwNU78htLPcQHHRaviy+q5YaaOeZefSIhRlnu7N
+	 JHM29tiYphAeeIUlnBLi56pHIiXDM+FYOWvCz2I50YF47vmEEnI3+ASYeyF6nv32Y6acv
+	 /mCC/5/YhVA7rI9BKe7yHIkxfD/pBfhRt1JHHV3Q7w2aR7ZJk9Zuqo9RN8nJeDsudMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=In9z5Xug;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hd1iJO17;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E761060771EC;
-	Mon,  2 Nov 2026 16:51:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E761060771EC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2914F6078267;
+	Mon,  2 Nov 2026 16:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=In9z5Xug
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C7C161A1406;
-	Mon,  2 Nov 2026 16:51:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9D72E603D7;
-	Mon,  2 Nov 2026 16:51:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9CFA0103291A1;
-	Mon,  2 Nov 2026 17:51:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793638270; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7f2hzo/dOBTufspJmPFdaPlSMDROy4acygZbmp25eMQ=;
-	b=In9z5Xugfco9oqHHldbFtah5xTShazdz/fRl83+bTGwvEOrjAGRqIsI307ZRDWNLXGSvUV
-	XOvjHjsYFU4Z5mKTdvtZYyW7okryon9JM7AcipX1zn/+zzMOC7wiYDjvjQjqNT2eDBd4dL
-	tezldPa2WKvc3uMI05pj39DUou8AKsjrmer7RAmOuL4OzgkW0d3+xp4ushu++bb1MWV4Xw
-	0GF07NZ3fWwXaQZKGt/h/PR+qCs8XOow7HKIoUPaZgwMFDQaoRFXz9QISh4QFC//7IS4jG
-	O8oclGM46kVY4iLnUHWn3/9gT740JDMS2C+CUTvXkoFhLpYkEqkeU5YC0eywIA==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-Date: Mon, 02 Nov 2026 17:50:41 +0100
-Subject: [PATCH v2 4/4] MAINTAINERS: add EyeQ5 MSI controller entry
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hd1iJO17
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2421F00A1D;
+	Mon,  2 Nov 2026 16:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793638385;
+	bh=4hSSmxRQOYQLc9X1LIBh+NOmGHv/RzthQxE33huemtQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hd1iJO17zYx5UbfD1AhdqZ0MOToj3xpVgH9dJStKut9idV8JWyc1ZpdH0d8UtMuD3
+	 8mjxtC+Wq5QGHqs/r1p2+7cFiFoWTNXb0nNE3Lh/FYOZ98Z/hfCC9lFRgSpgMyqLF3
+	 t9Oyvu70FzchK/LPHyEmXnhjQqa/MyDp8OOx79xK4NZVyTE6YykGqVeyLisI2VrlfK
+	 Vr5danEHRYbxmSDW1IUajEX5QjqRCoW0SQzXMNtD3r87C4jbVzJRWXX5KfPBDQQQgW
+	 QDMreyeCPukHqU0TXae1qzbsoLU+2vwFEiCBes8iWrL+ePfuyLaVc1LBJz2lvbRf9Q
+	 0M8cieXD54jEA==
+Date: Mon, 2 Nov 2026 17:52:59 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: linux-kernel@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
+	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"moderated list:BROADCOM IPROC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	"open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>
+Subject: Re: [PATCH v4 0/6] Fix SATA support for NSP SoCs
+Message-ID: <aui_68Kxlpr7zdyn@ryzen>
+References: <20261029212513.4126083-1-florian.fainelli@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,51 +70,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261102-eyeq5_msi-v2-4-4aa3d3608064@bootlin.com>
-References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
-In-Reply-To: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029212513.4126083-1-florian.fainelli@broadcom.com>
 
-Add the EyeQ5 MSI controller binding document and driver.
+Hello Florian,
 
-Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
+On Thu, Oct 29, 2026 at 02:25:07PM -0700, Florian Fainelli wrote:
+> This patch series fixes SATA on the Northstar Plus (BCM58xxx/8831x)
+> which was broken due to a number of things:
+> 
+> - the SATA PHY assumed separate PCB windows when a shared one is used
+>   for this generation of SoCs
+> - the clock/reset (IDM) was not being configured by the driver which
+>   meant that depending upon what the boot loader did, or did not, we
+>   could have had the AHCI controller still in reset by then
+> - on some reference boards, the AHCI controller is not DMA coherent,
+>   assuming so leads to all sorts of timeouts, data corruption, etc.
+> 
+> Since this touches several subsystems: DT, PHY, AHCI and DTS, I would be
+> keen on having Damien merge all of those via his tree if acceptable by
+> the DT and PHY maintainers, I am OK either way for Broadcom SoC.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065d..ca3a32790261d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18769,12 +18769,14 @@ M:	Gregory CLEMENT <gregory.clement@bootlin.com>
- M:	Théo Lebrun <theo.lebrun@bootlin.com>
- L:	linux-mips@vger.kernel.org
- S:	Maintained
-+F:	Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
- F:	Documentation/devicetree/bindings/mips/mobileye.yaml
- F:	Documentation/devicetree/bindings/soc/mobileye/
- F:	arch/mips/boot/dts/mobileye/
- F:	arch/mips/configs/eyeq*_defconfig
- F:	arch/mips/mobileye/board-epm5.its.S
- F:	drivers/clk/clk-eyeq.c
-+F:	drivers/irqchip/irq-eyeq5-msi.c
- F:	drivers/phy/phy-eyeq5-eth.c
- F:	drivers/pinctrl/pinctrl-eyeq5.c
- F:	drivers/reset/reset-eyeq.c
+Patch 2 (after we get an R-b from DT maintainers) and patch 3 can go via
+libata tree, but the normal way would be for phy changes to go via PHY
+tree and device tree changes usually go via arm-soc (and lately it seems
+to go via a broadcom specific tree first).
 
--- 
-2.53.0
 
+Kind regards,
+Niklas
