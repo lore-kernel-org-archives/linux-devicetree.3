@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632273;
-	b=ss1cfsRuzOyul8Kx7c/uv+mbI3OtklFbLtUuTikChGm4gQsNv826hzvzWGhNsJZ0W+aK
-	 JKbFb2QW/hsd4n4LZYjgJSYL5BTnL+pUNocUY94Zd2b2ODmk1QHoeZWQa8o7qnYgzUhlz
-	 8mTrdsaZdefCvx1YAmtHdmo6vxwEhV1MOR092/Z8gwX+UG6gNDASZxXBXErjtwIwjT5cg
-	 R/ODCsGAcQ183tWR7qt2zWSQZ5EnQn98c+L4XK1diw9JEgZfS3vpFtgOy1oOLoAQf6gRB
-	 5cJiyQ2EkAwuxMPCwSG0Ub4J17WOgO806DzAcSAgQxgmcHZWUqhVL7qiywb3IsI8oRw==
+	t=1793632293;
+	b=l6IVD/eAH8TaPoKp5he7JVDAdqwNhC+uBLlPDhWI7DBT01ifbMDrCW6xDtZrFVyjIiac
+	 0ZKB0Jqe83rb4TBuS+Mf38uBdkcE0ONIx5g9j4zEUrG1zsTcEaAUk7yuMYtvbpXsj5sOl
+	 4bR8yt5/bNVoV6t+dHb0n+ebjcHQ+qOJlVfNTgwYbw0LObGh95XAzuUlK9h6uGHyglr2t
+	 j19WSDKhI4fTXBRI3kf+iBywMZuZjqpr5oDeUVThzizLnbxxMMBMNjsgcaTreFhUp5LGX
+	 yKw5WyWDDWFhb7AjiOYI99LMPPX4pWkQIMKYQOkV7UrxWp/K+K1Z124NkVNuZqqOegw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632273;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ttlx1S4g0qJqX23tQAeg+M/sK6IAj7cChCsv1kdsaJU=;
-	b=39GQlK9JDrRy0UUNCySHZCFW8pmq1X1UhsYQriF90rf9iM6yieORidHb1+FzZkGG6iau
-	 VwkB2UnY8Yuh6+Ms+1Oj4xA21WJNinaXA2slpMZP1o8Q+sPajK7cjz3jjbgCtSPXek3fj
-	 3NFvDovs4q4UrO+XTkciZS1Gwn6zAFxeVIoP9xO0Gtdc3e4qApD3X66sq9H/GvBoY6ru+
-	 vUQxStamdJ2L+E2tcbzZ5dVzr3hVv7MGCWa/5fkD/6+floUX4NACgDKFyg3wFXHHvGnfH
-	 3UkRjFLedBxgEbrJb+PGz4u4Dcqx3O8MdiCSpi/WYzVps3I1yflRoxTZ23KGMOvxBgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632293;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=FZiomICv6/OF+OnXrNCXeEhHc5Dr231L7EIS0MH/Itg=;
+	b=Nv9PEr0E8dwmlpmO2JItCBHlnzWO6LyOAXtZdfCAV9Zh/hlEJcbHDtQrDJJz/DGlXKrX
+	 /KCAWJCZmo3T6b6oWW4dH5CudD3f01q9V7AMKblmvVjv9b7YoPs37JZSEhSoI2lr7If4H
+	 aSLm1sG/AJWIyyagOj+ggkil+fxQooEt3s4eCY8K7cqjgiVkC+40GZYfTwLHuYllaWcjR
+	 WA9nQnucswt48ALLs0kznCsIbUQMDi9hFOsXfLPxR29XSi4IrwDk+TpU85SdlZyLKv2eF
+	 9SlODCJ7L35cP6wj1KKSL9X2ttQhXN17McFOjPPg3C4UQ18aTKWgL6XsyEEBxVFP2mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hMdHzEM2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TBfs3lE2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A09NWiOz;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4C86076D82;
-	Mon,  2 Nov 2026 15:11:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF186091546
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 15:11:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF186091546
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hMdHzEM2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B111F00A1C;
-	Mon,  2 Nov 2026 15:11:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632272;
-	bh=ttlx1S4g0qJqX23tQAeg+M/sK6IAj7cChCsv1kdsaJU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hMdHzEM2Ne9oC7GEP8asCtIFedtLZlI3L9cav9FsvL1BCTRp4lQStfqhgLyQilr+D
-	 U9ebUai7tH2x/RMMMVLE7NOsvMuPPiMlHIiPYiSK0ii/PGbIuLNW1LxsDEpS6HMuxg
-	 Tq23LoAJpgYu30xGND7LmFH4mS7VkHAUwelebmnWvXx3p3ouHsZdvESeXnf3LYbnkG
-	 4v9H6mU/3IoAgPxBli59I65aeyw5HeAmJoTAhpYAEGJ/5WkVgS7P2LwQ7XZFRddX+e
-	 YxOK9dQHELDt51xjFI5lGV1GIC9nUYCg4NoySWO9zSnLN8RggbTpcPoLK/zgPRuw/m
-	 A3pRXaiSDsYTQ==
-Message-ID: <sashiko-outbox-193640@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org>
-References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
- <20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 15:11:11 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TBfs3lE2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A09NWiOz
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DpXeR452694
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 15:11:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FZiomICv6/OF+OnXrNCXeEhHc5Dr231L7EIS0MH/Itg=; b=TBfs3lE2P90N+Km1
+	czkS7Ppdxyazmbpd8rBJm8hVRNzXd97F9kKDAAhOf/T3UiaMV2bfSRscnwsCGO90
+	qKdjJ8KrGqvR9c4aT3t/9Rcw4ynUDSw8uB7nIj05qgoOuWlij3vE0MOEk9FZRaXL
+	/6FL0V6zCj7bUeqpZviAX0TOWrtBGIbcaIr7kf/RIXZQbudaR8JR2N0aX6RUF1BD
+	ZTtjiJoX5n55myL1S1XCEWKetJnk3WJQv9q1Zm3Ze9KV2f3T/EKOytfLGdN7zw/J
+	nuffWBFwVxGq5uJE448Sqhj6qd/ECF6J1oL5VpVMtRlxT9VE8aohpRcxHdZ6b6l3
+	HZkkFQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsa6rwmb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 15:11:30 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36a1e2485fdso8166719eec.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 07:11:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793632290; x=1794237090; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FZiomICv6/OF+OnXrNCXeEhHc5Dr231L7EIS0MH/Itg=;
+        b=A09NWiOzLAm4AndA+KA2rVrCJvIdXKS02rfCvnkuGHDUi2CCYHJ6Apnqoyn+TVmPRD
+         B09jUWYtEuU0zEAn3auwt3ED5mY2zZ1BdSTaM1lRMDWGH0b+wWAmXK5C/oP7/sw+UgK0
+         VCix8kYLLDc3vrS7OKyUDZrt+rq8eeyjEZje+V0oEUJWgQ1IKru2nNVsv5zjts/lmglV
+         diu8C9hJ1/0Ci281Ibtldh2nlpnZuOu+9CMsopB/ie+x0dcCYBDKwg1ujXXpLIlw2rym
+         u0ArxFoSh81pJv664aSvmwjrqnCuhQS93W/sYIEyYaqJ/owSiOfsI5GS2jb3FF/t6u4d
+         QgGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793632290; x=1794237090;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FZiomICv6/OF+OnXrNCXeEhHc5Dr231L7EIS0MH/Itg=;
+        b=IdpiT73c6QYmCN/ROX+km78YgbDwq/ZnSiTOToZTLnquNE1+aM4JQI5hncd2NdVIzZ
+         sR7D1mFarQsV+w/Dyebo1vfATfHjuUTcSh9Etujp9z/QUQ3CJTnAjC6AxahDezGzQwnL
+         uyeg5mzuJKVabw2zyaBYDGvzhQSzC8MnRX1zGcm5JqxKl+Id0eMu8399UWc+wvvQ3p79
+         PSrN0O1eXc1AQnk4Mdov0QCNSBMQkvuLY6v8+vsz+WiG01gDelCGYiuya6FB6mSbwYFb
+         l5SZERuWW9fc/FsNMD43iWwpGiH2FgRkvRubqvzE48XVtOYtpFsL2+HEuUDOPIc0cOfe
+         zsFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwKUsCMB1spTEF3evjJr480MC3P94Thm+KHAomYSDcVadluoqXTL5QMBR8R+ujwzpMa06C9TmO2gzfI@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nfltNBsg9TZB6kOssmPvMwDhUhaQsxMctlg0hUHbF5ZLVykjl
+	Mv5x712UVqap0iLVRvAdxfUdR16lfuk5pD8Yz11JsJSm81klj7ZBSjlBa0glWiMuOcrw1iJXq/R
+	M89hUlSAMqmmKPjrBinctcUNpwMIKreWEfFoKAFgNOq7i2EfQTigVvG3Imv1oLjYH
+X-Gm-Gg: AYBFou1g3KfbwynHahfIicgba21FB0mMcavEX9/GSto1qzxxY8TH3nKxxEW71mOvSrJ
+	EaiwJ+q4JMBo9Q40lf6gtBbmhPUOItjy0SkDzBq2Kz++3pNXpjXuDf1MFYJTDndGoS3qjD76qqo
+	lLl3OPz/6w0/FPIITck4V4m6ZqnDb1pfkSQe5n2pW73m8WVcPGx9CSRPvtdEflEjHD9gUyQEHOk
+	CW80RfqTE/C4R0onmW7NNiPEWJd+viDEg9tx732V6+TlysRMQQGo9pPx+R9wfzyAQrkQhELrF8J
+	i4cU2A0wxBZxtVP7KESyXtsjadsj3DFVffd23+ctOb3bAfMc+/Q8Bhqh6hVCVJwIHUhikPynlqE
+	b752b40LS88Of/IxhAd/8bTuFxmB3gucjSTxpeWaGEspiaS39fYuM2egwlbXsISMi9s5UkA==
+X-Received: by 2002:a05:693c:87cd:20b0:366:fbdb:2070 with SMTP id 5a478bee46e88-36a424de53amr17249106eec.34.1793632289684;
+        Mon, 02 Nov 2026 07:11:29 -0800 (PST)
+X-Received: by 2002:a05:693c:87cd:20b0:366:fbdb:2070 with SMTP id 5a478bee46e88-36a424de53amr17249058eec.34.1793632289035;
+        Mon, 02 Nov 2026 07:11:29 -0800 (PST)
+Received: from [192.168.1.7] ([106.222.229.43])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a504c6sm38816044eec.21.2026.11.02.07.11.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 07:11:28 -0800 (PST)
+Message-ID: <a11e2565-3885-4476-b399-2f62c390b483@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 20:41:23 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,490 +114,102 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: mahua-t14s: Enable GPU and GMU
+To: =?UTF-8?Q?Lukas_M=C3=A4rdian?= <lukas.maerdian@oss.qualcomm.com>,
+        andersson@kernel.org, konradybcio@kernel.org
+Cc: abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, srinivas.kandagatla@oss.qualcomm.com,
+        jie.zhang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102142812.1353199-1-lukas.maerdian@oss.qualcomm.com>
+Content-Language: en-US
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+In-Reply-To: <20261102142812.1353199-1-lukas.maerdian@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX/fskvOCX/sxu
+ 3UvYTaC8v6zavxQ0mBPyVexEIkg6MejpP+/XiToTdC+Rp2opNN0aCEraayOhOJ38aKMWsNPxGtb
+ t457HcDA+XopLJXYZXmButh1baIFzR/+ZE9GpG2+YXAUz8xf9F+c/rW4ywSFufCN9T/TSZe4j1D
+ iNB1IU+AHzIOfLOgYBQ793qCvRGUGakNBhHlc42y324W/4e+Tx2ANivgxC/nRET6jfzqD6jTctc
+ K0HfC77N+nzcRQmpFF+/rDG98SP9hh6DpZTfz0W9gICnMEo1jihhWm5Z3ndcLu3f/lUa4BH9ST7
+ zNe3S3Srwf50egDRH+8DumN5WsqEAs4RiR8b0VquBqApMVfBfW+AAP0mbNv6Je+LTK4vLa7+dEY
+ S2AvRvrKkUYCDOphBfC+Z2W8ATnScNS/8wxooUN0ICD1sSR1rBmzIxRoWIH2l024Kp6qV5ycFAF
+ rT8IWsQPLVAkf4jlWXw==
+X-Proofpoint-GUID: Vvc3S8YFFNl0UJRQNXCi_iVYRO5iSkVB
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX0ZDQEoibAWWb
+ iIrZOUfPAvKEktjt4zRzxr5DiinZppDEIcICLPj0o/XwnTeVUXWF76qteQhdQjDs0b0gYfv0tUG
+ T54nc/HEDiBLUVIl99GQw1l3qbunNZE=
+X-Proofpoint-ORIG-GUID: Vvc3S8YFFNl0UJRQNXCi_iVYRO5iSkVB
+X-Authority-Analysis: v=2.4 cv=I9fw19gg c=1 sm=1 tr=0 ts=6ae8a822 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=+m4bPbj4bahp+20XAXQLFw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tpWDcApjDx3U_qUmb_gA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020060
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/e=
-nergy read
-- [Medium] iio: adc: max34417: missing 1 ms delay between UPDATE commands
-- [Medium] iio: adc: max34417: scale truncation and mJ unit in max34417_rea=
-d_raw()
-- [Medium] iio: adc: max34417: missing UPDATE before CAM in max34417_setup_=
-cam_mode()
-- [Low] iio: adc: max34417: reuse max34417_reset_smm() in max34417_trigger_=
-smm()
---
 
-commit e5d0251e2d5be0cc82051f421a62b0919d01161f
-Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power=
- Accumulator
+On 11/2/2026 7:58 PM, Lukas Märdian wrote:
+> The GPU and GMU were disabled when the ThinkPad T14s Gen 7 device tree
+> was introduced, as the Adreno X2-85 found in the Mahua SoC was not
+> supported yet. Until then, mahua.dtsi inherited the GPU and GMU nodes
+> from glymur.dtsi unchanged, describing them as Glymur's larger Adreno
+> X2-90, which is not what the Mahua hardware is.
+> 
+> Mahua's own GPU is now described: mahua.dtsi overrides the compatibles
+> with "qcom,adreno-44060000" and "qcom,adreno-gmu-x285.0", and the msm
+> driver carries a matching Adreno X2-85 entry. With that, the nodes
+> work as-is on this laptop, so drop the board-level overrides and let
+> them inherit the default enabled status.
+> 
+> Tested on a ThinkPad T14s Gen 7 (LCD): the GPU and GMU bind, the
+> gen80100 SQE/AQE/GMU firmware loads (GMU firmware v5.2.38), and Mesa
+> 26.3.0-rc2 reports "Adreno (TM) X2-85" for both OpenGL 4.6 (freedreno)
+> and Vulkan (turnip).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lukas Märdian <lukas.maerdian@oss.qualcomm.com>
+> ---
+> This depends on the Mahua GPU support series, specifically
+> "drm/msm/a8xx: Add Mahua GPU support" and "arm64: dts: qcom: mahua:
+> Support GPU and GMU", which are not merged yet:
+> https://lore.kernel.org/all/20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com/
+> 
+>  .../dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts     | 9 ---------
+>  1 file changed, 9 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+> index 255857cda9b..189dc3fe542 100644
+> --- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+> +++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+> @@ -693,15 +693,6 @@ vreg_l4h_e0_1p2: ldo4 {
+>  	};
+>  };
+>  
+> -/* GPU/GMU not fully functional yet on this platform. */
+> -&gmu {
+> -	status = "disabled";
+> -};
+> -
+> -&gpu {
+> -	status = "disabled";
+> -};
+> -
+>  &i2c0 {
+>  	clock-frequency = <400000>;
+>  
 
-This commit adds an IIO ADC driver for the Analog Devices MAX34417
-four-channel current and voltage monitor, supporting single-shot and
-continuous accumulation measurements of voltage, average power, and energy
-over I2C/SMBus.
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
-> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-> new file mode 100644
-> index 0000000000000..e679cf142141b
-> --- /dev/null
-> +++ b/drivers/iio/adc/max34417.c
+-Akhil.
 
-[ ... ]
-
-> +static int max34417_reset_smm(struct max34417_data *max34417)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	int rc;
-> +
-> +	/* Set SMM=3D0 to re-init the SMM mode */
-> +	rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_SM=
-M);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Reset accumulators after setting SMM=3D0 */
-> +	return regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +}
-> +
-> +static int max34417_trigger_smm(struct max34417_data *max34417)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	u32 control;
-> +	int rc;
-> +
-> +	rc =3D regmap_read(map, MAX34417_CONTROL_REG, &control);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (control & MAX34417_CONTROL_SMM) {
-> +		/* Set SMM=3D0 to re-init the SMM mode */
-> +		rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
-> +				       MAX34417_CONTROL_SMM);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/* Reset accumulators after setting SMM=3D0 */
-> +		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +		if (rc)
-> +			return rc;
-> +	}
-
-[Severity: Low]
-This isn't a bug, but could max34417_trigger_smm() call
-max34417_reset_smm(max34417) here instead of duplicating the
-regmap_clear_bits() and regmap_write() sequence?
-
-> +
-> +	/* Enable SMM to do a single accumulation */
-> +	rc =3D regmap_set_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_SMM);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/*
-> +	 * After the SMM bit is changed, the UPDATE command should be sent
-> +	 * to reset the accumulators and perform the selected scan operation.
-> +	 */
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +	/*
-> +	 * UPDATE commands should be no less than 1msec apart for reliable
-> +	 * measurements, since in Manual mode the SPS is 1kHz, we need wait
-> +	 * for the measurement to finish before moving the data in the SMbus
-> +	 * registers.
-> +	 */
-> +	fsleep(1 * USEC_PER_MSEC);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int max34417_check_ovf(struct max34417_data *max34417)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	u32 control;
-> +	int rc;
-> +
-> +	rc =3D regmap_read(map, MAX34417_CONTROL_REG, &control);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!(control & MAX34417_CONTROL_OVF))
-> +		return 0;
-> +
-> +	rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
-> +			       MAX34417_CONTROL_OVF);
-> +	if (rc)
-> +		return rc;
-> +
-> +	return regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +}
-> +
-> +/*
-> + * Save all power accumulators and counter after each UPDATE command
-> + * since it will reset the internal registers for ALL channels,
-> + * so in order to not loose any captured data we retrieve all registers
-> + * and accumulate them in the context variables.
-> + * When user gets either power or energy, those variables content
-> + * will be returned and zero-ed to return the power accumulated
-> + * since last read for each separate channel.
-> + */
-> +static int max34417_save_accumulators(struct max34417_data *max34417)
-> +{
-> +	u64 acc_power;
-> +	u32 acc_count;
-> +	int rc;
-> +
-> +	rc =3D max34417_read_acc_count(max34417, &acc_count);
-> +	if (rc)
-> +		return rc;
-> +
-> +	for (int i =3D 0; i < MAX34417_CHANNEL_COUNT; i++) {
-> +		rc =3D max34417_read_acc_power(max34417, MAX34417_PWR_ACC_1_REG + i,
-> +					     &acc_power);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/* TODO sanitize accumulators in case of overflow */
-> +		max34417->acc_power[i] +=3D acc_power;
-> +		max34417->acc_count[i] +=3D acc_count;
-> +	}
-> +
-> +	/* Check for overflow */
-> +	return max34417_check_ovf(max34417);
-> +}
-> +
-> +static int max34417_read_voltage(struct max34417_data *max34417,
-> +				 const struct iio_chan_spec *chan, int *val)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
-> +	int rc;
-> +
-> +	/* In SMM mode, trigger a measurement cycle manually */
-> +	if (!max34417->cam_mode) {
-> +		rc =3D max34417_trigger_smm(max34417);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	/* Move the new UPDATE data into the SMBus read registers */
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (max34417->cam_mode) {
-> +		/* Retrieve all channels to avoid missing data for other channels */
-> +		rc =3D max34417_save_accumulators(max34417);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	rc =3D regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!max34417->cam_mode) {
-> +		rc =3D max34417_reset_smm(max34417);
-> +		if (rc)
-> +			return rc;
-> +	}
-
-[Severity: Medium]
-As reported by Sashiko on v3 [1], writes to MAX34417_UPDATE_REG must be at
-least 1 ms apart because a 4-channel scan takes roughly 976 us at 1024
-samples per second in single-shot mode and 651 us at 1536 samples per
-second in continuous accumulation mode, yet fsleep(1 * USEC_PER_MSEC) is
-only called once at the end of max34417_trigger_smm().
-
-In continuous accumulation mode, max34417_setup_cam_mode(),
-max34417_read_voltage(), max34417_read_power(), and max34417_read_energy()
-write MAX34417_UPDATE_REG without enforcing a minimum interval since the
-previous update. If userspace reads in_powerY_mean_raw within 1 ms of
-enabling in_energy_en, or reads the same channel twice within one scan
-period, MAX34417_UPDATE_REG is written before a single sample is
-accumulated, causing MAX34417_ACC_COUNT_REG to read as 0, triggering the
-"unexpected zero accumulator count" warning, and resetting the in-progress
-hardware scan.
-
-Similarly, in max34417_save_accumulators() -> max34417_check_ovf(), if
-MAX34417_CONTROL_OVF is set, it clears the flag and immediately writes
-MAX34417_UPDATE_REG a second time without waiting 1 ms or saving samples
-accumulated during the readout; in max34417_read_voltage(), this also
-happens before chan->address is read.
-
-In single-shot mode, max34417_read_voltage() and max34417_read_power()
-write MAX34417_UPDATE_REG, perform one read, and immediately call
-max34417_reset_smm(), which writes MAX34417_UPDATE_REG again without a 1 ms
-delay (and max34417_trigger_smm() can also issue two back-to-back writes to
-MAX34417_UPDATE_REG when MAX34417_CONTROL_SMM is already set).
-
-Should the driver track the timestamp of the last MAX34417_UPDATE_REG write
-or enforce the minimum delay across all paths that issue an update command?
-
-> +
-> +	*val =3D get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
-> +
-> +	return IIO_VAL_INT;
-> +}
-> +
-> +static int max34417_read_power(struct max34417_data *max34417,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	u64 power;
-> +	int rc;
-> +
-> +	/* In SMM mode, trigger a measurement cycle manually */
-> +	if (!max34417->cam_mode) {
-> +		rc =3D max34417_trigger_smm(max34417);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	/*
-> +	 * Move the new UPDATE data into the SMBus read registers.
-> +	 * In CAM mode this will also reset the accumulators, returning
-> +	 * the power accumulated since the last UPDATE.
-> +	 */
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/*
-> +	 * Only get the accumulator counter in CAM mode, in SMM mode
-> +	 * we only accumulate once, so the counter is 1
-> +	 */
-> +	if (max34417->cam_mode) {
-> +		u64 acc_count;
-> +		u64 acc_power;
-> +
-> +		/* Retrieve all channels to avoid missing data for other channels */
-> +		rc =3D max34417_save_accumulators(max34417);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/* Get current channel power, counter and reset them */
-> +		acc_power =3D max34417->acc_power[chan->channel];
-> +		acc_count =3D max34417->acc_count[chan->channel];
-> +		max34417->acc_power[chan->channel] =3D 0;
-> +		max34417->acc_count[chan->channel] =3D 0;
-> +
-> +		if (acc_count =3D=3D 0) {
-> +			dev_warn_ratelimited(&max34417->indio_dev->dev,
-> +					     "unexpected zero accumulator count\n");
-> +			power =3D 0;
-> +		} else {
-> +			power =3D div64_u64(acc_power, acc_count);
-> +		}
-> +	} else {
-> +		rc =3D max34417_read_acc_power(max34417, chan->address, &power);
-> +		if (rc)
-> +			return rc;
-> +
-> +		rc =3D max34417_reset_smm(max34417);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	iio_val_s64_decompose(power, val, val2);
-> +
-> +	return IIO_VAL_INT_64;
-> +}
-> +
-> +static int max34417_read_energy(struct max34417_data *max34417,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	u64 acc_power;
-> +	int rc;
-> +
-> +	/* Move the data to the SMBus registers */
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Retrieve all channels to avoid missing data for other channels */
-> +	rc =3D max34417_save_accumulators(max34417);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Get current channel power and reset them */
-> +	acc_power =3D max34417->acc_power[chan->channel];
-> +	max34417->acc_power[chan->channel] =3D 0;
-> +	max34417->acc_count[chan->channel] =3D 0;
-
-[Severity: Medium]
-When continuous accumulation mode is enabled, both max34417_read_power()
-(via IIO_CHAN_INFO_AVERAGE_RAW) and max34417_read_energy() (via
-IIO_CHAN_INFO_RAW) accumulate hardware readings into the same per-channel
-arrays max34417->acc_power[chan->channel] and
-max34417->acc_count[chan->channel], and both functions zero those entries on
-read.
-
-Doesn't reading in_powerY_mean_raw discard all energy accumulated on that
-channel since the last in_energyY_raw read, and conversely doesn't reading
-in_energyY_raw wipe out the accumulated power and sample count for
-in_powerY_mean_raw (causing an immediate subsequent read of
-in_powerY_mean_raw to see acc_count =3D=3D 0 and warn)? Also, shouldn't
-in_energyY_raw report monotonically accumulated energy while enabled rather
-than resetting max34417->acc_power[chan->channel] to 0 on every read?
-
-> +
-> +	iio_val_s64_decompose(acc_power, val, val2);
-> +
-> +	return IIO_VAL_INT_64;
-> +}
-> +
-> +static int max34417_setup_cam_mode(struct max34417_data *max34417, int v=
-al)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	int rc;
-> +
-> +	if (max34417->cam_mode && !val) {
-> +		rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
-> +				       MAX34417_CONTROL_CAM | MAX34417_CONTROL_SMM);
-> +		if (rc)
-> +			return rc;
-> +
-> +		/*
-> +		 * If CAM mode must be set, the Control byte must be set to
-> +		 * desired values with CAM =3D 0, then followed by an UPDATE
-> +		 */
-> +		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +		if (rc)
-> +			return rc;
-> +	} else if (!max34417->cam_mode && val) {
-> +		/*
-> +		 * After this, the CAM mode bit can be set and another
-> +		 * UPDATE must be sent.
-> +		 */
-> +		rc =3D regmap_update_bits(map, MAX34417_CONTROL_REG,
-> +					MAX34417_CONTROL_SMM | MAX34417_CONTROL_CAM,
-> +					MAX34417_CONTROL_CAM);
-> +		if (rc)
-> +			return rc;
-> +
-> +		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +		if (rc)
-> +			return rc;
-
-[Severity: Medium]
-As reported by Sashiko on v4 [2], the comment split across the two branches
-of max34417_setup_cam_mode() notes that to enable continuous accumulation
-mode, MAX34417_CONTROL_REG must first be written with MAX34417_CONTROL_CAM
-cleared and latched with a write to MAX34417_UPDATE_REG before setting
-MAX34417_CONTROL_CAM and sending a second MAX34417_UPDATE_REG write.
-
-If a previous single-shot read failed after max34417_trigger_smm() set
-MAX34417_CONTROL_SMM (before max34417_reset_smm() could clear it),
-MAX34417_CONTROL_SMM remains set in hardware while max34417->cam_mode is
-false. When max34417_setup_cam_mode() is then called with val !=3D 0,
-regmap_update_bits() clears MAX34417_CONTROL_SMM and sets
-MAX34417_CONTROL_CAM in a single transaction without first latching the
-CAM =3D 0, SMM =3D 0 state via MAX34417_UPDATE_REG.
-
-Should the enable path in max34417_setup_cam_mode() clear
-MAX34417_CONTROL_SMM (with MAX34417_CONTROL_CAM =3D 0) and write
-MAX34417_UPDATE_REG before setting MAX34417_CONTROL_CAM?
-
-> +
-> +		/* Reset counters and accumulators */
-> +		for (int i =3D 0; i < MAX34417_CHANNEL_COUNT; i++) {
-> +			max34417->acc_power[i] =3D 0;
-> +			max34417->acc_count[i] =3D 0;
-> +		}
-> +	}
-> +
-> +	max34417->cam_mode =3D val;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (chan->type) {
-> +		case IIO_VOLTAGE:
-> +			/* Scale to mV */
-> +			*val =3D MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
-> +			*val2 =3D MAX34417_VOLTAGE_FULL_SCALE_BITS;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		case IIO_POWER:
-> +			/*
-> +			 * Scale to mW
-> +			 * (1000 * (Power Accumulation / Counter) * Correction) / 2^30
-> +			 */
-> +			*val =3D max34417->input_correction[chan->channel] * MILLIWATT_PER_WA=
-TT;
-> +			*val2 =3D MAX34417_PWR_AVG_FULL_SCALE_BITS;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		case IIO_ENERGY:
-> +			/*
-> +			 * Scale to mJ
-> +			 * P=3D(1000 * (Power Accumulation / Counter) * Correction) / 2^30
-> +			 * t=3D(Counter / Samples per Second)
-> +			 * E=3D(P * t)
-> +			 * Can be simplified to:
-> +			 * (1000 * Power Accumulation * Correction) / (2^30 * SPS)
-> +			 * The denominator doesn't fit in 32bit so scale down both terms.
-> +			 */
-> +			*val =3D max34417->input_correction[chan->channel];
-> +			*val2 =3D div_u64(BIT_ULL(MAX34417_PWR_AVG_FULL_SCALE_BITS) *
-> +					MAX34417_FAST_SPS_CAM, MILLI);
-> +
-> +			return IIO_VAL_FRACTIONAL;
-> +		default:
-> +			return -EINVAL;
-> +		}
-
-[ ... ]
-
-> +static u32 max34417_calc_input_correction(u32 rsense_uOhm)
-> +{
-> +	/* Derived from Table 14. Correction Factors for Various Current-Sense =
-Resistor Values */
-> +	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_u=
-Ohm;
-> +}
-
-[Severity: Medium]
-Does the scale calculation in max34417_read_raw() and
-max34417_calc_input_correction() lose significant precision and use the
-wrong unit for IIO_ENERGY?
-
-1. For IIO_ENERGY, max34417_read_raw() sets *val to input_correction (which
-   is 24 when rsense_uOhm is 100000 uOhm) and *val2 to
-   div_u64(BIT_ULL(30) * 1536, 1000) =3D 1649267441 with IIO_VAL_FRACTIONAL.
-   Because iio_format_value() formats IIO_VAL_FRACTIONAL as
-   div_s64((s64)vals[0] * 1000000000LL, vals[1]) with 9 decimal places,
-   24 * 10^9 / 1649267441 truncates to 14 (0.000000014 instead of
-   0.000000014551915), losing about 3.8% precision.
-
-2. In max34417_calc_input_correction(),
-   (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_uOhm
-   divides 2400000 by rsense_uOhm using integer arithmetic before
-   max34417_read_raw() scales by MILLIWATT_PER_WATT, truncating non-integer
-   correction factors (for instance, rsense_uOhm =3D 90000 yields 26 instead
-   of 26.667, a 2.5% error).
-
-3. Documentation/ABI/testing/sysfs-bus-iio specifies that in_energy_raw and
-   in_energy_scale produce values in Joules after applying the scale,
-   whereas max34417_read_raw() scales IIO_ENERGY to millijoules.
-
-[1] https://lore.kernel.org/r/sashiko-outbox-169896@kernel.org
-[2] https://lore.kernel.org/r/20261028-topic-sm8x50-iio-max34417-adc-v4-3-d=
-4baaf3ee903@linaro.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-topic-sm8x=
-50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org?part=3D3
