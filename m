@@ -1,57 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793651473;
-	b=igdwDsX3TCOdjKdJPRZMCFGrzWCitvierXOdMCFi01cvXqPxS6a3P4s6ZIYCaRqBp8oE
-	 P9zt/gk+YKJvQfZgRa3FtBfbRQwGRDEN3a+MuuJVLfVphKPkalNrGOcVVAiAnDNehF5fM
-	 SRvJ58dwz6GeLVe7B7RN9w+SlNOU8PkxppAh7yEZetczdRinwdz1ZcbpggnAG/WKTnH25
-	 IvXZ43vKWCfbYy+L4PaZVtTRdnpGfqgaXyCWcF/gwnUth/ROD1mj2oRNI+wDZTh4Rg09K
-	 Uq0KxFGRy/9z0NA/L8UaSpZhw1Ye51pDVapL0o0OGZvjC9oibW/+TAU0bB1yOQbjk5Q==
+	t=1793651649;
+	b=PzabUkB51xLreLpbEq9vpidoKMK9/GkYZTdj7qoXZNijf16R67/5TLPLK28du9/+N1q+
+	 KTBvmdsse3h0QfbR8kiJIVU/qnSRobNvLDiL9+/2znxnTiFsvkf6pgmbinno4kf80W4GA
+	 uoa97qL79CYWTeQbBIU4CkQFCvsAXuHMOt7LN+ba2cix7MDVfQIBNiLOHbyPm5WI0tTaX
+	 kTm5pwUmxgEPJScbSOUVDXqDTtWO8BvdZwynEa3VLAn2EtPBgKZnFu01Y0BWs27s0wRCI
+	 zuDtOY94jSurPi6GwsXdp83CfI7JgdtNYVPNDNBNMEKx6uB6BNtiSfupzuNzXuLdGzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651473;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Infomaniak-Routing;
-	bh=VG6hicc+0VfqQQZx1rVXD/wUDBIyLNCpFPB73SSluZs=;
-	b=vBiQWQmyqedIB/GKfvzuUvoBW84jrli2Vr6+zx5tahx6ZkbPJb2RkN+TDJG7jNG5C+O/
-	 tyqmj8o22I/WH9F5WCcvxLM2Cshoq/oe0Hn8h23S6B2/nQojcQ8UAsYiEIpHpYU/mTg8m
-	 Kr7rVt4Bnf7Xzfl+wgbL7KSamia57HVw2ihNbhiwAJ87ykLsPub7d3j0CcPcF75Ul+mN9
-	 btU+6chQr7eA51dllnt/sNLD44DBHAPQiwAqSbr+YswFWMMuZfqvnpUuRWyD1k5lAf9p8
-	 V6owxSHQs8DtTj/8Z7/XD1BEH15fk9FjDsRrkR8BEoDo1g5kfcAHqssJivUIg/7Dtag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651649;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3PSUijTUw6iX8c0lN+QnpSmSK0z2YWVF8UoIrBp4Y20=;
+	b=zWuVAIWggKRNkZ5z64VchFfrC1egJQpEXBt7okZUfHyeIj8idZU1pUJuSu1Z3DckvQgy
+	 7lJRosrS7ToCLhKG20zx/l+9gk8bzBMtt2Ui2x7v/0J5yR7NvRDQiJf4KpxWWdS9PvX+R
+	 GnKhGzuptspIsHAlZwjt9oiP7mQFYkRYwiDJ2R1VC7PO8K/xIVEtHwbd2VrEL/hyCmJEm
+	 f1aC3reqx/6Wd1DpRXzzjJEmsu23cEaq8bxgjDdeG4SeRZRw7f2Mw4zoW83zDE0OFw1yG
+	 VhUD2No2jtrcFGBuK2TpB/+vpka4rMeU+cTY5qMtZlWuq3Ow/NnG9yP9nclOv0cKihg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=0leil.net;
-	spf=pass smtp.mailfrom=0leil.net;
-	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=faaHP7cK;
-	arc=none smtp.remote-ip=84.16.66.173
-Received: from smtp-42ad.mail.infomaniak.ch (smtp-42ad.mail.infomaniak.ch [84.16.66.173])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYRKrlJs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCFA606A326
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FCFA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267B0606A326;
+	Mon,  2 Nov 2026 20:34:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=faaHP7cK
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNdT4PrPzqh1;
-	Mon,  2 Nov 2026 21:31:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1793651469;
-	bh=VG6hicc+0VfqQQZx1rVXD/wUDBIyLNCpFPB73SSluZs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=faaHP7cKbmxJySGJcI9JMDPl5NdFj2+L+Ngn9AhDGXYibxGr0UgPEYNLMRrAsi29a
-	 YSglPwNaoSFC58ymOUrJacZxOXYhhek5xipoNU1Qf63vGnx00G0S4tX126MOAh+TlY
-	 H82ZRQW80ys+b6Ky21sndFvmHaHLSv+R4D36YhVu4c1L+u1zF7eAfGpEuAVr00JI9x
-	 y92tGalUuyY03sMESvnwk+cZ3FLBT0re1uAEaLusBa0L/EgPl1QurFYU8P3nHUN5pd
-	 TgLznOQJvSp3QtKH1PxQcgRQDoSCuC3E42DD1R0v8FatSgITfSxX/U4M5g6MmS7b8p
-	 SbSfT1PZ07lMQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNdS5y1nzwN;
-	Mon,  2 Nov 2026 21:31:08 +0100 (CET)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Mon, 02 Nov 2026 21:30:50 +0100
-Subject: [PATCH 1/2] arm64: dts: rockchip: enable OV9281 CAM0 P14 on RK3588
- Jaguar
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYRKrlJs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC45C1F00A16;
+	Mon,  2 Nov 2026 20:34:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793651648;
+	bh=3PSUijTUw6iX8c0lN+QnpSmSK0z2YWVF8UoIrBp4Y20=;
+	h=From:To:Cc:Subject:Date;
+	b=GYRKrlJsTvuIm47HV36H5EA1UiUxVdZDBdpFigbXI2c0NGJRt4a4zHX6kr+qN+wxF
+	 pROygEnsvcTiYkQ0DlOaoAoZhE2UdPTgOsG2EPVYfhU/AFUa8Lvf8bEAJEQ+2hgfAL
+	 IrkQKpWDyIcn2XBuCgOni3f22YxZXszBJsyeugrmWNhX90ltQWMbSgrS9SoBnQ/6Al
+	 mi1GKLd/E64d8UJM9kwiBScBFnTDxhmf4U+MPlyEbOHVscex9V+JBRw+VdRLS5QDVo
+	 01il3SN1k3C5CPfQE+scU97y09WtgMoUxrMRNCQ2ZJzpff0aXQ+c/jFGAN+4WJ/vSD
+	 47UMpdn72Ts2A==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Thierry Reding <treding@nvidia.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] dt-bindings: net: Convert snps,dwc-qos-ethernet to DT schema
+Date: Mon,  2 Nov 2026 14:33:50 -0600
+Message-ID: <20261102203353.1384705-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,239 +69,501 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-jaguar-cam0-cam1-v1-1-c3aafcdab5dd@cherry.de>
-References: <20261102-jaguar-cam0-cam1-v1-0-c3aafcdab5dd@cherry.de>
-In-Reply-To: <20261102-jaguar-cam0-cam1-v1-0-c3aafcdab5dd@cherry.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.17-dev
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: 8bit
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+Convert the "snps,dwc-qos-ethernet-4.10" binding to DT schema format.
+The binding uses several common snps,dwmac properties, so move them to
+the snps,dwmac-common.yaml schema.
 
-RK3588 Jaguar has two proprietary camera connectors, P14 and P15. This
-adds support for the only camera module we currently have for this
-connector, on P14.
+Drop support for standalone "snps,dwc-qos-ethernet-4.10" compatible
+and "axis,artpec6-eqos" as there are no users. Also drop the
+"snps,dwc-qos-ethernet-mdio" as it is also unused. Add the interconnects
+and iommus properties. Replaced the example with one from Tegra186.
 
-The camera module has a 2-lane OV9281 camera sensor, an IMU, a
-magnetometer and an EEPROM.
-
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/rockchip/Makefile              |   5 +
- .../dts/rockchip/rk3588-jaguar-p14-ov9281.dtso     | 113 +++++++++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     |  36 ++++++-
- 3 files changed, 153 insertions(+), 1 deletion(-)
+ .../net/snps,dwc-qos-ethernet-4.10.yaml       | 225 ++++++++++++++++++
+ .../bindings/net/snps,dwc-qos-ethernet.txt    | 168 -------------
+ .../bindings/net/snps,dwmac-common.yaml       |  20 ++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  20 --
+ 4 files changed, 245 insertions(+), 188 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 442d322a20cf7..cf977e883c374 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -204,6 +204,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-h96-max-v58.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtbo
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-pre-ict-tester.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-lubancat-5io.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform2.dtb
-@@ -336,6 +337,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtb
- rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
- 	rk3588-jaguar-can1-can2-uart4.dtbo
- 
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281-p15-ov9281.dtb
-+rk3588-jaguar-p14-ov9281-p15-ov9281-dtbs := rk3588-jaguar.dtb \
-+	rk3588-jaguar-p14-ov9281.dtbo
-+
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtb
- rk3588-jaguar-ethernet-switch-dtbs := rk3588-jaguar.dtb \
- 	rk3588-jaguar-ethernet-switch.dtbo
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso
+diff --git a/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml b/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml
 new file mode 100644
-index 0000000000000..155101c8497de
+index 000000000000..65de926af2a2
 --- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso
-@@ -0,0 +1,113 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2026 Cherry Embedded Solutions GmbH
-+ */
++++ b/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml
+@@ -0,0 +1,225 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/snps,dwc-qos-ethernet-4.10.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/dts-v1/;
-+/plugin/;
++title: Synopsys DWC Ethernet QoS IP version 4.10 (GMAC)
 +
-+#include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
++maintainers:
++  - Thierry Reding <treding@nvidia.com>
++  - Jon Hunter <jonathanh@nvidia.com>
 +
-+&csi_dphy0 {
-+	status = "okay";
-+};
++description: >
++  The IP supports multiple options for bus type, clocking and reset structure,
++  and feature list. Consequently, a number of properties and list entries in
++  properties are marked as optional, or only required in specific HW
++  configurations.
 +
-+&csi2 {
-+	status = "okay";
-+};
++  This binding is deprecated, but it continues to be supported, but new features
++  should be preferably added to the stmmac binding document.
 +
-+&csi2_in {
-+	csi2_input: endpoint {
-+		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+		data-lanes = <1 2>;
-+		link-frequencies = /bits/ 64 <400000000>;
-+		remote-endpoint = <&cam0_output>;
-+	};
-+};
++deprecated: true
 +
-+&i2c2 {
-+	#address-cells = <1>;
-+	clock-frequency = <400000>;
-+	#size-cells = <0>;
-+	status = "okay";
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: nvidia,tegra186-eqos
++          - const: snps,dwc-qos-ethernet-4.10
++      - items:
++          - const: nvidia,tegra194-eqos
++          - const: nvidia,tegra186-eqos
++          - const: snps,dwc-qos-ethernet-4.10
 +
-+	magnetometer@1e {
-+		compatible = "st,lis2mdl";
-+		reg = <0x1e>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <RK_PC7 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-0 = <&cam0_imu_int3>;
-+		pinctrl-names = "default";
-+		vdd-supply = <&vcc_2v8_imu>;
-+		vddio-supply = <&vcc_1v8_s3>;
-+	};
++  reg:
++    maxItems: 1
 +
-+	eeprom@50 {
-+		compatible = "st,24c64", "atmel,24c64";
-+		reg = <0x50>;
-+		pagesize = <32>;
-+		vcc-supply = <&vcc_1v8_s3>;
-+	};
++  clocks:
++    maxItems: 5
++    items:
++      - description:
++          The master bus interface clock. Only required in configurations that
++          use a separate clock for the master and slave bus interfaces. The HW
++          signal name is hclk_i (AHB) or aclk_i (AXI).
++      - description:
++          The CPU/slave-bus (CSR) interface clock. This applies to any bus type;
++          APB, AHB, AXI, etc. The HW signal name is hclk_i (AHB) or clk_csr_i
++          (other buses).
++      - description: >
++          The EQOS receive path clock. The HW signal name is clk_rx_i. In some
++          configurations (e.g. GMII/RGMII), this clock is derived from the PHY's
++          RX clock output. In other configurations, other clocks (such as
++          rx_125, rmii) may drive the EQOS RX path.
 +
-+	camera@60 {
-+		compatible = "ovti,ov9281";
-+		reg = <0x60>;
-+		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
-+		assigned-clock-rates = <24000000>;
-+		avdd-supply = <&vcc_2v8_cam>;
-+		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
-+		dovdd-supply = <&vcc_1v8_s3>;
-+		dvdd-supply = <&cam_vcc_1v2>;
-+		pinctrl-0 = <&cam0_rst &mipim0_camera1_clk>;
-+		pinctrl-names = "default";
-+		reset-gpios = <&gpio0 RK_PB0 GPIO_ACTIVE_HIGH>;
++          In cases where the PHY clock is directly fed into the EQOS receive
++          path without intervening logic, the DT need not represent this clock,
++          since it is assumed to be fully under the control of the PHY
++          device/driver. In cases where SoC integration adds additional logic to
++          this path, such as a SW-controlled clock gate, this clock should be
++          represented in DT.
++      - description: >
++          The EQOS transmit path clock. The HW signal name is clk_tx_i.
 +
-+		port {
-+			cam0_output: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csi2_input>;
-+			};
-+		};
-+	};
++          In some configurations (e.g. GMII/RGMII), this clock also drives the
++          PHY TX path. In other configurations, other clocks (such as tx_125,
++          rmii) may drive the PHY TX path.
++      - description:
++          The PTP reference clock. The HW signal name is clk_ptp_ref_i.
++    description: >
++      Support for additional IP configurations may require adding the following
++      clocks to this list in the future: clk_rx_125_i, clk_tx_125_i,
++      clk_pmarx_0_i, clk_pmarx1_i, clk_rmii_i, clk_revmii_rx_i, clk_revmii_tx_i.
++      Configurations exist where multiple similar clocks are used at once, e.g.
++      all of clk_rx_125_i, clk_pmarx_0_i, clk_pmarx1_i. For this reason it is
++      best to extend the binding with a separate clock-names entry for each of
++      those RX clocks, rather than repurposing the existing "rx" clock-names
++      entry as a generic/logical clock in a similar fashion to "master_bus" and
++      "slave_bus". This will allow easy support for configurations that support
++      multiple PHY interfaces using a mux, and hence need to have explicit
++      control over specific RX clocks.
 +
-+	imu@6a {
-+		compatible = "st,lsm6dsr";
-+		reg = <0x6a>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <RK_PC0 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-0 = <&csi0_imu_int1>;
-+		pinctrl-names = "default";
-+		vdd-supply = <&vcc_2v8_imu>;
-+		vddio-supply = <&vcc_1v8_s3>;
-+	};
-+};
++  clock-names:
++    items:
++      - const: master_bus
++      - const: slave_bus
++      - const: rx
++      - const: tx
++      - const: ptp_ref
 +
-+&pinctrl {
-+	cam0_p14 {
-+		cam0_imu_int3: cam0-imu-int3 {
-+			rockchip,pins = <1 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
++  interrupts:
++    minItems: 1
++    items:
++      - description: common
++      - description: power
++      - description: rx0
++      - description: tx0
++      - description: rx1
++      - description: tx1
++      - description: rx2
++      - description: tx2
++      - description: rx3
++      - description: tx3
 +
-+		cam0_rst: cam0-reset {
-+			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
++  resets:
++    maxItems: 1
 +
-+		csi0_imu_int1: csi0-imu-int1 {
-+			rockchip,pins = <1 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
++  reset-names:
++    items:
++      - const: eqos
 +
-+&vicap {
-+	status = "okay";
-+};
++  dma-coherent: true
 +
-+&vicap_mmu {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-index 0446834e84d5d..99baf89167d35 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
-@@ -40,6 +40,16 @@ aliases {
- 		rtc0 = &rtc_twi;
- 	};
++  interconnects:
++    maxItems: 2
++
++  interconnect-names:
++    items:
++      - const: dma-mem
++      - const: write
++
++  iommus:
++    maxItems: 1
++
++  phy-reset-gpios:
++    description: Phandle and specifier for any GPIO used to reset the PHY
++    maxItems: 1
++
++  snps,en-lpi:
++    description: If present it enables use of the AXI low-power interface
++    type: boolean
++
++  snps,write-requests:
++    description: Number of write requests that the AXI port can issue
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  snps,read-requests:
++    description: Number of read requests that the AXI port can issue
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  snps,burst-map:
++    description:
++      Bitmap of allowed AXI burst lengths, with the LSB representing 4, then
++      8 etc.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  mdio:
++    $ref: /schemas/net/mdio.yaml#
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - resets
++  - reset-names
++  - phy-mode
++
++unevaluatedProperties: false
++
++allOf:
++  - $ref: /schemas/net/ethernet-controller.yaml#
++  - $ref: /schemas/net/snps,dwmac-common.yaml#
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/gpio/tegra186-gpio.h>
++    #include <dt-bindings/clock/tegra186-clock.h>
++    #include <dt-bindings/reset/tegra186-reset.h>
++    #include <dt-bindings/memory/tegra186-mc.h>
++
++    ethernet@2490000 {
++        compatible = "nvidia,tegra186-eqos",
++                     "snps,dwc-qos-ethernet-4.10";
++        reg = <0x02490000 0x10000>;
++        interrupts = <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>, /* common */
++                     <GIC_SPI 195 IRQ_TYPE_LEVEL_HIGH>, /* power */
++                     <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>, /* rx0 */
++                     <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>, /* tx0 */
++                     <GIC_SPI 191 IRQ_TYPE_LEVEL_HIGH>, /* rx1 */
++                     <GIC_SPI 187 IRQ_TYPE_LEVEL_HIGH>, /* tx1 */
++                     <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>, /* rx2 */
++                     <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH>, /* tx2 */
++                     <GIC_SPI 193 IRQ_TYPE_LEVEL_HIGH>, /* rx3 */
++                     <GIC_SPI 189 IRQ_TYPE_LEVEL_HIGH>; /* tx3 */
++        clocks = <&bpmp TEGRA186_CLK_AXI_CBB>,
++                 <&bpmp TEGRA186_CLK_EQOS_AXI>,
++                 <&bpmp TEGRA186_CLK_EQOS_RX>,
++                 <&bpmp TEGRA186_CLK_EQOS_TX>,
++                 <&bpmp TEGRA186_CLK_EQOS_PTP_REF>;
++        clock-names = "master_bus", "slave_bus", "rx", "tx", "ptp_ref";
++        resets = <&bpmp TEGRA186_RESET_EQOS>;
++        reset-names = "eqos";
++        interconnects = <&mc TEGRA186_MEMORY_CLIENT_EQOSR &emc>,
++                        <&mc TEGRA186_MEMORY_CLIENT_EQOSW &emc>;
++        interconnect-names = "dma-mem", "write";
++        iommus = <&smmu TEGRA186_SID_EQOS>;
++
++        snps,write-requests = <1>;
++        snps,read-requests = <3>;
++        snps,burst-map = <0x7>;
++        snps,txpbl = <32>;
++        snps,rxpbl = <8>;
++
++        phy-reset-gpios = <&gpio_aon TEGRA186_AON_GPIO(AA, 6) GPIO_ACTIVE_LOW>;
++        phy-handle = <&phy>;
++        phy-mode = "rgmii-id";
++
++        mdio {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            phy: ethernet-phy@0 {
++                compatible = "ethernet-phy-ieee802.3-c22";
++                reg = <0x0>;
++                interrupt-parent = <&gpio_aon>;
++                interrupts = <TEGRA186_AON_GPIO(AA, 7) IRQ_TYPE_LEVEL_LOW>;
++                #phy-cells = <0>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt b/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt
+deleted file mode 100644
+index bb0224a3e826..000000000000
+--- a/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt
++++ /dev/null
+@@ -1,168 +0,0 @@
+-* Synopsys DWC Ethernet QoS IP version 4.10 driver (GMAC)
+-
+-This binding is deprecated, but it continues to be supported, but new
+-features should be preferably added to the stmmac binding document.
+-
+-This binding supports the Synopsys Designware Ethernet QoS (Quality Of Service)
+-IP block. The IP supports multiple options for bus type, clocking and reset
+-structure, and feature list. Consequently, a number of properties and list
+-entries in properties are marked as optional, or only required in specific HW
+-configurations.
+-
+-Required properties:
+-- compatible: One of:
+-  - "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10"
+-    Represents the IP core when integrated into the Axis ARTPEC-6 SoC.
+-  - "nvidia,tegra186-eqos", "snps,dwc-qos-ethernet-4.10"
+-    Represents the IP core when integrated into the NVIDIA Tegra186 SoC.
+-  - "snps,dwc-qos-ethernet-4.10"
+-    This combination is deprecated. It should be treated as equivalent to
+-    "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10". It is supported to be
+-    compatible with earlier revisions of this binding.
+-- reg: Address and length of the register set for the device
+-- clocks: Phandle and clock specifiers for each entry in clock-names, in the
+-  same order. See ../clock/clock-bindings.txt.
+-- clock-names: May contain any/all of the following depending on the IP
+-  configuration, in any order:
+-  - "tx"
+-    The EQOS transmit path clock. The HW signal name is clk_tx_i.
+-    In some configurations (e.g. GMII/RGMII), this clock also drives the PHY TX
+-    path. In other configurations, other clocks (such as tx_125, rmii) may
+-    drive the PHY TX path.
+-  - "rx"
+-    The EQOS receive path clock. The HW signal name is clk_rx_i.
+-    In some configurations (e.g. GMII/RGMII), this clock is derived from the
+-    PHY's RX clock output. In other configurations, other clocks (such as
+-    rx_125, rmii) may drive the EQOS RX path.
+-    In cases where the PHY clock is directly fed into the EQOS receive path
+-    without intervening logic, the DT need not represent this clock, since it
+-    is assumed to be fully under the control of the PHY device/driver. In
+-    cases where SoC integration adds additional logic to this path, such as a
+-    SW-controlled clock gate, this clock should be represented in DT.
+-  - "slave_bus"
+-    The CPU/slave-bus (CSR) interface clock. This applies to any bus type;
+-    APB, AHB, AXI, etc. The HW signal name is hclk_i (AHB) or clk_csr_i (other
+-    buses).
+-  - "master_bus"
+-    The master bus interface clock. Only required in configurations that use a
+-    separate clock for the master and slave bus interfaces. The HW signal name
+-    is hclk_i (AHB) or aclk_i (AXI).
+-  - "ptp_ref"
+-    The PTP reference clock. The HW signal name is clk_ptp_ref_i.
+-  - "phy_ref_clk"
+-    This clock is deprecated and should not be used by new compatible values.
+-    It is equivalent to "tx".
+-  - "apb_pclk"
+-    This clock is deprecated and should not be used by new compatible values.
+-    It is equivalent to "slave_bus".
+-
+-  Note: Support for additional IP configurations may require adding the
+-  following clocks to this list in the future: clk_rx_125_i, clk_tx_125_i,
+-  clk_pmarx_0_i, clk_pmarx1_i, clk_rmii_i, clk_revmii_rx_i, clk_revmii_tx_i.
+-  Configurations exist where multiple similar clocks are used at once, e.g. all
+-  of clk_rx_125_i, clk_pmarx_0_i, clk_pmarx1_i. For this reason it is best to
+-  extend the binding with a separate clock-names entry for each of those RX
+-  clocks, rather than repurposing the existing "rx" clock-names entry as a
+-  generic/logical clock in a similar fashion to "master_bus" and "slave_bus".
+-  This will allow easy support for configurations that support multiple PHY
+-  interfaces using a mux, and hence need to have explicit control over
+-  specific RX clocks.
+-
+-  The following compatible values require the following set of clocks:
+-  - "nvidia,tegra186-eqos", "snps,dwc-qos-ethernet-4.10":
+-    - "slave_bus"
+-    - "master_bus"
+-    - "rx"
+-    - "tx"
+-    - "ptp_ref"
+-  - "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10":
+-    - "slave_bus"
+-    - "master_bus"
+-    - "tx"
+-    - "ptp_ref"
+-  - "snps,dwc-qos-ethernet-4.10" (deprecated):
+-    - "phy_ref_clk"
+-    - "apb_clk"
+-- interrupts: Should contain the core's combined interrupt signal
+-- phy-mode: See ethernet.txt file in the same directory
+-- resets: Phandle and reset specifiers for each entry in reset-names, in the
+-  same order. See ../reset/reset.txt.
+-- reset-names: May contain any/all of the following depending on the IP
+-  configuration, in any order:
+-  - "eqos". The reset to the entire module. The HW signal name is hreset_n
+-    (AHB) or aresetn_i (AXI).
+-
+-  The following compatible values require the following set of resets:
+-  (the reset properties may be omitted if empty)
+-  - "nvidia,tegra186-eqos", "snps,dwc-qos-ethernet-4.10":
+-    - "eqos".
+-  - "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10":
+-    - None.
+-  - "snps,dwc-qos-ethernet-4.10" (deprecated):
+-    - None.
+-
+-Optional properties:
+-- dma-coherent: Present if dma operations are coherent
+-- phy-reset-gpios: Phandle and specifier for any GPIO used to reset the PHY.
+-  See ../gpio/gpio.txt.
+-- snps,en-lpi: If present it enables use of the AXI low-power interface
+-- snps,write-requests: Number of write requests that the AXI port can issue.
+-  It depends on the SoC configuration.
+-- snps,read-requests: Number of read requests that the AXI port can issue.
+-  It depends on the SoC configuration.
+-- snps,burst-map: Bitmap of allowed AXI burst lengths, with the LSB
+-  representing 4, then 8 etc.
+-- snps,txpbl: DMA Programmable burst length for the TX DMA
+-- snps,rxpbl: DMA Programmable burst length for the RX DMA
+-- snps,en-tx-lpi-clockgating: Enable gating of the MAC TX clock during
+-  TX low-power mode.
+-- phy-handle: See ethernet.txt file in the same directory
+-- mdio device tree subnode: When the GMAC has a phy connected to its local
+-    mdio, there must be device tree subnode with the following
+-    required properties:
+-    - compatible: Must be "snps,dwc-qos-ethernet-mdio".
+-    - #address-cells: Must be <1>.
+-    - #size-cells: Must be <0>.
+-
+-    For each phy on the mdio bus, there must be a node with the following
+-    fields:
+-
+-    - reg: phy id used to communicate to phy.
+-    - device_type: Must be "ethernet-phy".
+-    - fixed-mode device tree subnode: see fixed-link.txt in the same directory
+-
+-The MAC address will be determined using the optional properties
+-defined in ethernet.txt.
+-
+-Examples:
+-ethernet2@40010000 {
+-	clock-names = "phy_ref_clk", "apb_pclk";
+-	clocks = <&clkc 17>, <&clkc 15>;
+-	compatible = "snps,dwc-qos-ethernet-4.10";
+-	interrupt-parent = <&intc>;
+-	interrupts = <0x0 0x1e 0x4>;
+-	reg = <0x40010000 0x4000>;
+-	phy-handle = <&phy2>;
+-	phy-mode = "gmii";
+-	phy-reset-gpios = <&gpioctlr 43 GPIO_ACTIVE_LOW>;
+-
+-	snps,en-tx-lpi-clockgating;
+-	snps,en-lpi;
+-	snps,write-requests = <2>;
+-	snps,read-requests = <16>;
+-	snps,burst-map = <0x7>;
+-	snps,txpbl = <8>;
+-	snps,rxpbl = <2>;
+-
+-	dma-coherent;
+-
+-	mdio {
+-		#address-cells = <0x1>;
+-		#size-cells = <0x0>;
+-		phy2: phy@1 {
+-			compatible = "ethernet-phy-ieee802.3-c22";
+-			device_type = "ethernet-phy";
+-			reg = <0x1>;
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+index a38ff314b3cd..90e5560b6b68 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+@@ -12,6 +12,26 @@ maintainers:
+   - Jose Abreu <joabreu@synopsys.com>
  
-+	cam_vcc_1v2: regulator-cam-vcc-1v2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_vcc_1v2";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		vin-supply = <&vcc_1v2_s3>;
-+	};
+ properties:
++  snps,en-tx-lpi-clockgating:
++    $ref: /schemas/types.yaml#/definitions/flag
++    deprecated: true
++    description:
++      Enable gating of the MAC TX clock during TX low-power mode
 +
- 	chosen {
- 		stdout-path = "serial2:115200n8";
- 	};
-@@ -123,7 +133,26 @@ vcc_1v2_s3: regulator-vcc-1v2-s3 {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
++  snps,txpbl:
++    description:
++      Tx Programmable Burst Length. If set, DMA tx will use this
++      value rather than snps,pbl.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2, 4, 8, 16, 32]
++
++  snps,rxpbl:
++    description:
++      Rx Programmable Burst Length. If set, DMA rx will use this
++      value rather than snps,pbl.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [1, 2, 4, 8, 16, 32]
++
+   stmmac-axi-config:
+     type: object
+     unevaluatedProperties: false
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 2c4842404bf6..ddfc32ba29cb 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -460,20 +460,6 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     enum: [1, 2, 4, 8, 16, 32]
  
--	/* Exposed on P14 and P15 */
-+	vcc_2v8_cam: regulator-vcc-2v8-cam {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_2v8_cam";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&vcc_2v8_s3>;
-+	};
-+
-+	vcc_2v8_imu: regulator-vcc-2v8-imu {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_2v8_imu";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&vcc_2v8_s3>;
-+	};
-+
- 	vcc_2v8_s3: regulator-vcc-2v8-s3 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc_2v8_s3";
-@@ -437,6 +466,11 @@ &i2c1 {
- 	pinctrl-names = "default";
- };
+-  snps,txpbl:
+-    description:
+-      Tx Programmable Burst Length. If set, DMA tx will use this
+-      value rather than snps,pbl.
+-    $ref: /schemas/types.yaml#/definitions/uint32
+-    enum: [1, 2, 4, 8, 16, 32]
+-
+-  snps,rxpbl:
+-    description:
+-      Rx Programmable Burst Length. If set, DMA rx will use this
+-      value rather than snps,pbl.
+-    $ref: /schemas/types.yaml#/definitions/uint32
+-    enum: [1, 2, 4, 8, 16, 32]
+-
+   snps,no-pbl-x8:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description:
+@@ -501,12 +487,6 @@ properties:
+       Force DMA to use the Store and Forward mode for both tx and
+       rx. This flag is ignored if force_thresh_dma_mode is set.
  
-+&i2c2 {
-+	pinctrl-0 = <&i2c2m3_xfer>;
-+	pinctrl-names = "default";
-+};
-+
- &i2c6 {
- 	pinctrl-0 = <&i2c6m4_xfer>;
- 	pinctrl-names = "default";
-
+-  snps,en-tx-lpi-clockgating:
+-    $ref: /schemas/types.yaml#/definitions/flag
+-    deprecated: true
+-    description:
+-      Enable gating of the MAC TX clock during TX low-power mode
+-
+   snps,multicast-filter-bins:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
 -- 
-2.56.0
+2.53.0
 
