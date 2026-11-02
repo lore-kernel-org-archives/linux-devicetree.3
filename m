@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622897;
-	b=FHa7xZHhT+WGaRcg/Eq71XrwBwvDC2TzunNgAjO38W76o9wkduAjVT782FEnDM05CzVR
-	 DRj1LJrKvakHEfC/a8KTutrMaBGsLg8OBQ9A0m0QYVyA2FU6iezDemofZPyWXZmUJ8UiZ
-	 R3V1cMqyq54tSee4+shGzFUQ9cbJscqPK2EntKYCgJG7J5tycFUSFErUk+a/DEuKZRpGK
-	 nlviKbi9vEn5vcFiZ3HzVpgJIJ3R0/GtnbQO2dPw1QhHKFcQ9SRDPG6Mwhl07IwglUAMl
-	 5FouRpO9H/joDP4bGpr5G/5C78RtZE4fYWqVeUj/NJ+oi1OeaZwkTOKrP+/WrsOCXkg==
+	t=1793623005;
+	b=thVn+ERNZpODwTClAJTGCcFMkLB81RWegUfJ7WT3iFZrGqvEyTByrxNZGSiUnxzi2m7P
+	 KWM466wPmwsxoBixHJjYHdkX23GFH2x0mxXfLN0/CW0T7UpF+9KdaLu8f74RipEQHT7XG
+	 lOQvhAMBRcwbEhWeqKv9DQkU1ss9hSdydTCPbmWDlIzpdVrfMUBVyuZqocXANBIvmTrg5
+	 GVFIwmwo3Wodh88J7YYOt2x6b+0dzftxvnlG8UyLAnyjU/YOejGVac4fcqqfY12wPfSJd
+	 ogaZlFcyLHu2VSQI7XZamwzylIhiqAGnJXPRAklrnh+PsXTCjXTBjIIwbk7skc1Ycug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622897;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=RzVoRzg9xe4PHgIpm+qEezcjZDbm/lhClesTNi1L61Q=;
-	b=b3QhXnll90J+4DRb4z5Ak8TluB9PeFc2hPJZfyFm2Oztwj51cS/wPq/Ty1LuRydgGQsD
-	 K3eKH02h13J8FQUua26Dh2FNfkI4WOSobMiKn6tm54+bNZPpHn79+MM223GrI0e9iyzdy
-	 ESLjVtMK3Tt39n1V/OSiMk0aw5Hq9zxcGzdeqvsy551w2dySOT3GW5vFpgifmBmWDXaEm
-	 Wn/18AOw0IiM8GVxSbv9EMk952yUKpacpdUGL6yOcX1e+kslTNHMS583hnquJwc5DFVkF
-	 tkZPt3FLw6hjS3jLsxeDLIFj4F8fwIPeUhpbxSaRZjyqXSx03JzZVnXhPJECtITMmUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623005;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=kYoEHv1yJWT5CYnv9W1t01akAHdAj5zwmImIgwGqYBU=;
+	b=gOfRwD0u/3k+N4bVr/B5h1kWE5Lk8s9CZ51/O9n5T38F41tNZYkusPm3jSjkhDZBRYLO
+	 ZwDTuHFAJCAXyU+53SZGoOuCWY7L6rkO40jzyOyrXfLLSiibOYpXxEpJ84+aksTCvY8xt
+	 e+jzZA/HWuDW1o6sFw4yViWfzh1/dN+wFQwE+TdLYbEsGSpCA4H+Robx3OPA9OctTKufK
+	 S3X/7BG1+uq7pYxW3ptsUkw03C1oAQkDWKjYvBcK5MIjnAwCT+6mp7K2tdB9MRNTulkT/
+	 iyViZygdNKbmY6K+AD67KZ2l41g8bYux86b1cj+x/Ti/tkd1w/o7SDbjEMBYn/bFaUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yg28mQrp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=CjrtUWhV;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC7260A2626;
-	Mon,  2 Nov 2026 12:34:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43542606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 12:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43542606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yg28mQrp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2A31F00A17;
-	Mon,  2 Nov 2026 12:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793622896;
-	bh=RzVoRzg9xe4PHgIpm+qEezcjZDbm/lhClesTNi1L61Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yg28mQrpwDmuTMuJ+UgdYXOZ+dvc8Ebni/8dbFPNPslIaBxVdejVKto8c+TPsWCDe
-	 hvS/GxsNJSluYIryH69FWRSv0ShsB+egJeQLn1/HlpApu4Gj//s+3rmmOZgUvZdoBH
-	 Cbm4SuiDPcty9IN6wl+7e/icJD46sf9rjhgOwQ2XXeSFqho35T+z0mZHfqNpJ0xkKF
-	 /Tn74maVWVZFTMCHEL6zZ6hyh+ShYNqlILevG60Tfz05Uv5pfY+Lcn0BB73BvAcKtX
-	 eOqK0C+jwh5gysfprcKFc9putRFr2fvzDTRWKRPFqUE0ksXwFDQxjUtTG+jZUArQ10
-	 Yoil6Md2cv3Cw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Artem Utkin <thesame.personal@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	stable@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ARM: dts: samsung: exynos4412-p4note: allow powering off the wifi card
-Date: Mon,  2 Nov 2026 13:34:12 +0100
-Message-ID: <179362278567.150793.8365404184056648906.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026-exynos4412-p4note-brcmfmac-v2-1-14b372972163@gmail.com>
-References: <20261026-exynos4412-p4note-brcmfmac-v2-1-14b372972163@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=CjrtUWhV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793622990;
+	bh=kYoEHv1yJWT5CYnv9W1t01akAHdAj5zwmImIgwGqYBU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To;
+	b=CjrtUWhVaj5/yQ3ZrffhUf3Bwz4ZRwPxkwqR1GGCMIxjiiJlLkKfIuct5GI+/7o5c
+	 f7YFwpXAAb/OZ8WRaQPmpJKbkgYLLW9bSZKh5L8jzRgauCs/DMAiOs3SwLQ3mBwxJu
+	 Zf0q8iDrTiWauVqUIK3fKcloE2ChtWvT/T3dSSbM=
+X-QQ-mid: zesmtpgz9t1793622987t8aac8631
+X-QQ-Originating-IP: VRQSXQNMmseZ1WJB/8l1Atpep7t+qRk3QMq+5jKqoT0=
+Received: from mail-ua1-f49.google.com ( [209.85.222.49])
+	by bizesmtp.qq.com (ESMTP) with SMTP id 0
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 20:36:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8229586968361777039
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9909e82513fso2662310241.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 04:36:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByUJlfRWwE1Gayv/aRPb8djPOk1h0laNWnJ+jDmDFqOW8TD5OKOCTuBOvhvgPOOqjYVcGAffUKIYINl@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IrNyscf8a+/Xh5yYwghiYXYva9rxOxGH/Is747q9vLS4NMUBW
+	j0oBsM31aVmga9QgPU6L6RUFv2H9mLRxc3/74u5ZJYfZxlvBP+urfmqRPf2Xb1zmItqiDzXi/0+
+	12Dpko6bB/+CvyncPvZguCnsU87SHQOw=
+X-Received: by 2002:a17:903:1212:b0:2e9:fd49:64a with SMTP id
+ d9443c01a7336-2eb3640f012mr65226725ad.1.1793622366169; Mon, 02 Nov 2026
+ 04:26:06 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,28 +68,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=666; i=krzk@kernel.org; h=from:subject:message-id; bh=etaCVO/+UgYS7WSwutu5o7cRUm5LN13s38rYuQKONgE=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6INES3aj/pbzo71zEV6fwLpMh5E6nbYpHinso OZsrqDuuAKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauiDRAAKCRDBN2bmhouD 12HID/9lN6oLnGgySgl9mJeJssysWKx24Jq0f5lwe5NUKNe4At4gIJRrjFQkyCCm/ifblAyWhaV JAYy/NAr2K5MB29iS0HX9n2TL3Q+gqAxcqSOEvp2axGrCno/IWYuYb0dwJpIraXPk0XbUB69Hhn vojCCoMlhTHgpVJIOVSsGpmSIG/4+Xv1aIvdMPCuRk2GYgX1n1f1XFY7NKBX2A3Tz3/xfEx6uTt lRZn+c036BfGvDKLwl/N7ueQh+fISnnfPuUxsnmcO71mExrq+RBEcX881rl/C6YK3eYq5dQi2S7 3IzbbHoiR4NvftY6wVmPO6w6SHHKvwneJNd3EVQstmOAHBrsvftsiusgYJBctcEB8r6r8WnEKVn V6W4kL5luk2nzkmMw69cU5S2pMVl4CNfHS36ZOGuTH4Wl7U1JNIIpaKSk9ApGQ7QF0pUsTnyKEf ym1y0Hdbu34vJjL/GDEyatn+c6g5ONHJiBx+zn8e/P2CQThRjptfixD+d1O5Afw5xGtPXL6S1p9 Ky3iePsCFEtI51mn/ka8SFVE8LcvJqukHBoTxxN95Y6cJMs3B2dBFcYXSgTtZVRTnjzArrni5vy 4oCeTQkrRYoCCPgK0a1FLa6o52/E/JQvZKaYoKeSVmEvdkIiTPWgnXkgCFpxmK54lFi0mMCWEz/ rjzgsFOUBnLMJu
- g==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
+References: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
+ <auYxFRtKWbGAlRTL@aurel32.net> <CAAfSe-shesRwmdKhZojqbZjJejVEtA47NXBwNmrpAsTsk6m5rA@mail.gmail.com>
+ <DMKIFFUY4T1C.TTDVVD0FOSF1@kernel.org>
+In-Reply-To: <DMKIFFUY4T1C.TTDVVD0FOSF1@kernel.org>
+From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
+Date: Mon, 2 Nov 2026 20:25:29 +0800
+X-Gmail-Original-Message-ID: <648788BF6233AD63+CAAfSe-uMrrX2Y_mzt5-Hhr+ssfwLVhs094PBb-ZTgKFLPwVjgA@mail.gmail.com>
+X-Gm-Features: AclHuK8Nf_Wjx0Fs3iSP6YTyXDr4sshL9mP7vgixNBtorqmmqEdGoXFlzXEdNkY
+Message-ID: <CAAfSe-uMrrX2Y_mzt5-Hhr+ssfwLVhs094PBb-ZTgKFLPwVjgA@mail.gmail.com>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
+To: Troy Mitchell <troy@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Aurelien Jarno <aurelien@aurel32.net>, linux-kernel@vger.kernel.org, 
+	spacemit@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, devicetree@vger.kernel.org, 
+	linux-riscv <linux-riscv-bounces@lists.infradead.org>, 
+	Troy Mitchell <troy.mitchell@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NNwl29PiX6fKF0sFcmLrzBfMhlnUAYlJ0iQ4NCU2+0Ew99rQBmZ46y12
+	bUcm20YmPIyayzcMMA5ytCRlqbLS2BXpjERCtbStrw81BQR8t3t0igNVEUA7S4OxdjGnUZa
+	pU26WAkxmDPITa1vQv7DqZiAPlMQJefAmUt50ImqABZ5Np8NQbV51/eYTkeQjJdhpYLP228
+	G/O6i0eRvgYiajDu1qt1kwmI8hW4jwKLh8WJa5mAtB+hb+0iQL3roGZmIPQRia6CrxWpuLI
+	FULhvrmp6CFpZQZvADtvj8tCAiRSY7VFzBeqhxxmrh9FZPZHsWg3zqIgXiHOer16KZTQcyv
+	VhRSYd6mwQuRkpIKhsfwDNGdojoB1FR9R48YDLLcuoSZDzG8tayEubdLx1aBnw/T0AeMmNP
+	/EyDyxCyzamY9mzreyPWUxaA8drK8Ik7U4hQdc8glJr0WxAdNbFZNZeue1NziHHI+E3erP8
+	dFDvenlYFw8viKCO54DkcZYk3Bzzy7bPC6HCg2CWmIQUen3FatJFzVjm50foun8Bq9c/u8G
+	Vk92EuOml4ho2XPckUH7uwP9ozOzt+HNS8KZz2y42zUSJZSK1ZpK/xfFlglHztbEZ6QVDxH
+	D76MumznzUC8GBnyDy41Tjzl7VEiEQYiTYhV5Tdzov/f3r2Ymz9VZ9oOM7Ca7Rip1upU3zF
+	1RCfLH9a9fb9160gXdC81kTDHX77UZSR54sxXeA1lmbGMbUicP8PUt0qOWDs4+GYASbEyWm
+	PjDGaXIg0KojIz4POan5mWHn5gUwCFkqiPRyHoFfrQ203zH7lITn8yPu7SGp29Fp9UsHC6G
+	Ru0pr4qCCiQ68Ijagbmxi2hRQmdAOO3C4BR0xNawM8c6tBHLeGLbZPMLkFBsLDCdNDdtdn0
+	+Uma+SsBuXQZPALTO2lzlwq2U4M0bUweoP5T8WWNEbs3j8+AwQ6gYS3Pc0p5edc+id5JvgM
+	lJTAD/rCanQT3qtwjwKbpnHlnslT6wpWM4Ejt6JS7p50uuMreifP13f9SEvUQ3TlYnASSqv
+	+D8T9GQcAuNpLesaYw0ednUr5m0V/bbyupNpibxeruHs4AB+xmd78pI+MXnB9zmKmCz7vu7
+	FecL5wdzJQJGAl8fOG/7DxWO7U6NAJXZA==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
+Hi Troy,
 
-On Mon, 26 Oct 2026 17:09:14 +0100, Artem Utkin wrote:
-> sdhci_3 serving BCM4334 was missing cap-power-off-card.
-> On my N8000 this resulted in the following messages after sleeping:
-> [305.759883] PM: suspend entry (deep)
-> [306.514698] brcmfmac: brcmf_ops_sdio_suspend: Failed to set pm_flags 1
-> [306.671504] brcmfmac: brcmf_sdio_htclk: HT Avail request error: -110
-> [307.127267] PM: suspend exit
-> 
-> [...]
+On Mon, 2 Nov 2026 at 14:27, Troy Mitchell <troy@kernel.org> wrote:
+>
+> Hi Chunyan,
+>
+> On Fri Oct 30, 2026 at 5:40 PM +0800, Chunyan Zhang wrote:
+> > Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
+> > of the K3 SoC.
+> >
+> > Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
+> > yet, so the port runs at high-speed (maximum-speed =3D "high-speed").
+> >
+> > Enable USB3 port A with dr_mode =3D "peripheral", so it can be used as
+> > a USB device.
+>
+> Port A is a Type-C port behind a FUSB301, so please note in the commit
+> message that it's device-only until the CC controller is described.
+>
+> Was this tested with a C-to-C cable? That depends on the FUSB301's
+> power-on CC mode, since nothing configures it yet.
 
-Applied, thanks!
+Just tested,
 
-[1/1] ARM: dts: samsung: exynos4412-p4note: allow powering off the wifi card
-      https://git.kernel.org/krzk/linux/c/41fb0e8f340f5b883b67786549a48ff60bcecca0
+On K3:
+~ # ls /sys/class/udc
+cad00000.usb
+~ # cat /sys/class/udc/cad00000.usb/state; echo
+configured
+~ # cat /sys/class/udc/cad00000.usb/current_speed; echo
+high-speed
+~ # cat /sys/kernel/config/usb_gadget/g1/idVendor; echo
+0x1d6b
+~ # cat /sys/kernel/config/usb_gadget/g1/idProduct; echo
+0x0104
+~ # ls /sys/kernel/config/usb_gadget/g1/functions
+acm.usb0           ecm.usb0           mass_storage.usb0
+~ #
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+And the host side sees VID_1D6B:0104 with no error. This is not
+guaranteed across all C-to-C host/cable combinations =E2=80=94 will note in
+the commit message that Port A is device-only until the CC controller
+is described, and that C-to-C behavior depends on the FUSB301 power-on
+default.
+
+Thanks,
+Chunyan
