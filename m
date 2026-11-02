@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793640432;
-	b=FHB80NmzWEOZgQf/YpN0fKJ/+oBlEpR6UJl31VoQts5M3WoQxWT2KSGg4/8GM28iZ3Ps
-	 BuzF9CUxf6ABB00Sr85Sdj7FbrDWgyVgig2zD7w1LUwHfBSMS6tgRNosuSvsIkfySL4UI
-	 Y/0Pl0IGmvlPDmaK8LEBsedGTr0yz8243uvY/Px+5DWnbdfUhlditAtiPQ9ABHqR6KO+7
-	 p/wiixxbCmu/L5lGNGaI2PGszJiaa0fzEsmZg42P/g+gKupJJvYjwE2zI00qC2F687MZC
-	 vKTNNEsCALzNEjlgprWu6SBgebLkfQcFrYDYKP277Ba1G9YUlXJxzyqgA0el9qpmKrA==
+	t=1793640742;
+	b=zWUxh6I9u/AsNn6o9QgMRP+lbKFQWfleL0zmvyCig3Y3R0qTeIAC9VjjRXEDRL1k8zpP
+	 h1pXbvX67K4vWymrCHzlgkoeNiE8CZo3pfkKNJ2rJNMq6xUa+5KlZg+U3OiNhexveJ0TG
+	 636u3uhaI1U15zTDYDrmBOT/jtQBzk9GVHduwL1IEJJ2YSzV5PZL7XAY3hLH0R0wyt35V
+	 bRu4fkHHuwLEEMuWcTrl7pTM399xAiZHlh5LPsgWU7xcXEeRTCCzuqiIrP1NErPiHOeDn
+	 F/ZV04Yk2sXr+g1Ulf0B7fnIu5WdvPqH94t3IOMCARGz0UZpeA0Cn8FmavcAx4KTW+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793640432;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qlCgdw1FzWVxqLEptyoj+bZOGe9LHNmAy3XOjufRRVY=;
-	b=q4n3LG1Jbjo018drpZJ7/ToTsx3vlV66qQbCNpRKWg+EEHIuaUPxjR5Z7F3a12gpi2yO
-	 OqHqJ4HNexf/jEHlCk9CLNfxZcPTb3nlT7xsZDG2BnQcD4WFZV+K1Vv0riizd4OqoptXu
-	 sX7nMIHmbAsMbjJZt3S3GTE8OJNijA2xw4VHUDM6wf7TZWtjpLNhraxC02ywreIZNh7FF
-	 a40LqrMj2OeEdJbI6PjxKQa+P5/b9gNxK4dIKogxjMlHpLHqjHftiHfkXwDR/y4aTA1Dk
-	 dFW+OnEFVgBzfUmQ+1QCHWwWPsSqraYhRB8kqa/h63MhEzB3xihQijE0g8+rV/5furg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793640742;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kq9Yzc8kYPuDZCKpCPFJzDuGUxfrJXPPIpmBSRkumE8=;
+	b=FihfDbYwby3qdbvbWxHToHsATYFfjhSwa2vrcGatQQ6WWwZAQjOXEB8EFDcOQfTF9pAq
+	 hDtDjJhDZBWD9Sslp6mGlOA4EU5QGeSGOjnnGxd1P7mTSedP4Nv7fJTWp7O/sQXreMFUO
+	 F77tdretsfF8LcdW7lNYAkV0rRRLpEgtvbG0iI5Irri5/st1T4LOKV1tsacdkOs0NInd1
+	 b4TZDpGTAcPgXlw/DCleBKRuxMJhn62N2TsDeCx3/eyu7Ux418dGUNS1+Mi+Hr/SidZ3W
+	 1XZmkVBCKH2YqDQpFEMO6ZLmv+dbZlVJJkWdWdCwBF/oLhxxTNbozs3BhLV3uwzBgNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODtf7BCP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xZTRVERe;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8560606D805
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B0B606A5B2
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:32:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25B0B606A5B2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ODtf7BCP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A381F00A16;
-	Mon,  2 Nov 2026 17:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793640431;
-	bh=qlCgdw1FzWVxqLEptyoj+bZOGe9LHNmAy3XOjufRRVY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ODtf7BCPfv6nk1LR1MeyoDw9FDA065Ak1zdmKwRQ71mFb+5Xr9+VnNPVr/il8dpRx
-	 jhz+rUsrXKqtUYVRcBZDOiggRROqTwoyUVWLwao/KLR61wjh3ZvACnW8mGtscuFAe2
-	 h+YYXFXuzUyjQhfjr4U5vd0GwCK1lODNtg4o+HipFwhzToW8mirxzQbwt0mh1GBBlH
-	 848KmKt9RH0cJPCUOUGVC82NBW1JpEfsiuAA8n+Q/7BpG+nfWqKNeiOzp2T5riFP6B
-	 sDWQgFglDCQ2PxxwKd96rYIqa39uXUKvgpo5GJugUToGmqnVEbOlBc7o+AD4hAksmi
-	 J8gH0r5q0cF/w==
-Message-ID: <sashiko-outbox-193833@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/6] arm64: dts: rockchip: fix USB OTG power on
- Photonicat in battery mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Coia Prant" <coiaprant@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102171838.2958552-6-coiaprant@gmail.com>
-References: <20261102171838.2958552-1-coiaprant@gmail.com>
- <20261102171838.2958552-6-coiaprant@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 17:27:10 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xZTRVERe
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a208d93758so35173395e9.3
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:32:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793640740; x=1794245540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kq9Yzc8kYPuDZCKpCPFJzDuGUxfrJXPPIpmBSRkumE8=;
+        b=xZTRVERevsFJ3xOw27hdUmvVIrOKf8/xegLOt20ndNBgY1FA2N/K+i1jMiIkTbtzJX
+         /iAFOs8kecCX04xqw4maWngu2LYcnb9CkJ3mTQ7MzhlRalm90WHgD4UMa+piTWU4lZwP
+         uw64O4yb21Pk6GSg3moxJn8+HWhqaLxyGTN9ZyBdHKfXBx0eT1tEqgbOENFoZ2TxW1Ag
+         BMKp4QUXhSyW3h/BMOsBJvHeZcguid6DOK0A5AIcwMovmCedvO1NcLDSic4EcnumPPTX
+         FmScxIniK2nVIzNm3mBoxkjP18kp3mkRniyCRvh6xE6VVMep9DVEqKxpiluCIGfRCWUJ
+         kZmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793640740; x=1794245540;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kq9Yzc8kYPuDZCKpCPFJzDuGUxfrJXPPIpmBSRkumE8=;
+        b=oiIV8KvqRoWp07P3K7WWgTQMDtDYUIpZE08uhtdej3RlCl9RZBdNeU9T5mSKn0jCie
+         We0uhXKW+CqwyqMdVsrS9UlfTVGDyrTcvCYqOd5sh6SvwrCnAkVX13ruYk3S4VrkpUEI
+         cJXL2iL63fjvPCTWSshuEbOzQP5oR1bwXWyk/u8IF2m1B9y92T4L1RaQNao6XGFQPL24
+         FzFnvjOICqWnaKoXFWHaXnoyfteje+OK3PZPGxGBlX9YRdXpPLfVrdVgi9TBFSgLhHf3
+         hQhCpPgYQFk4+NfRwTVbCQCmnFh5b3BTpAhR/NZpTYdIol9E1jckn180Wd8DZ8qRoxmx
+         WoGg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUTG/REFSCcqp5Iz1nyYC9UlOHo50hrJYaud74IBHj7MnLQ369iDNOASu15E7TwS6p2HEdFVYvEbkx@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrsEFXgB4o+ZOOOxQb/+hDSFK4bDkW3Fu+oBnQ7gHkMFEI/xnE
+	RKBG139DiRyjxssi5DeORskKhxJe13tdE3VipHxzjNAtn9Q5t78NalW/U8psmzJ9+nXbbg==
+X-Gm-Gg: AYBFou1Vo3gX69Z/CRSj/5T/sNjDnEEiJZnnHi9bkAqiGRWbVWJppFqcSIvEFENx/fq
+	phlgDChqzZj0KKXOuU9aqetD2cQluXl8L2ILvR4ZRGmfFGjuvbfkrwYvFjQnkMR3Kl7Q6Btk+Cy
+	XdFCqftoaEEp2MR/esjzM807MppNbZaEoj0bS+CzIOgSlBaMzMiMpXXQOpLxFHGfMJ3Ppucxn8n
+	IbMRFZnKzZLP7ZIeqlpvdSSUs824T80Fiuf2/jC2CRW0YunkRWYvOIk0o4CTn8/cT4fWgO+zuvl
+	BXJZhW/WAjAzAE7f+ktFPSlNJ1epylTxJyQQNEzKguze2WI7la5+5aFI72jJWz5CU4U4ukFhUpl
+	EQDUIg5sGwyu+2ITOwZYVxKFzCqkyAyds/jSysqCmhJl+KQJgMuevuzCWjFbRJD+5m3PGBd8D8R
+	q9/8cM9cC63Ul5/ROwmgDqcnGskUNGbRYjFbcDhAvxgBDXnyD7DiNrEUfrKZ1Nle4MgH1mtZd4P
+	tYXtC5JKmeQcSREb48woDd89dTvbkv0WelprQff2g3Xb2MGLdkNNqYjNGwR+vLDRW+abvVRxmsi
+	4ri4ZpGz9uAuQR0cz7a76XVCMt0n2OmFZhOqMgF/hte1UH7bF5s2OnyHMc//pofXYx79awWvAok
+	h1BnYWWXpfS57dd1j09Pg
+X-Received: by 2002:a05:600c:1385:b0:4a3:5991:718 with SMTP id 5b1f17b1804b1-4ac182dc0a1mr263780855e9.16.1793640740359;
+        Mon, 02 Nov 2026 09:32:20 -0800 (PST)
+Received: from [10.0.1.67] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab3ea6a9sm2039345e9.15.2026.11.02.09.32.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 09:32:19 -0800 (PST)
+Message-ID: <8abc611c-525e-4450-b924-87dcad57a578@gmail.com>
+Date: Mon, 2 Nov 2026 18:32:18 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,124 +92,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: add usbotg3 iommu
+ information
+To: Frank Li <Frank.li@oss.nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
+ Frank Li <Frank.Li@nxp.com>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>
+References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
+ <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
+ <b911ff91-ce7b-462e-a7fb-f8c6d682c85b@gmail.com>
+ <auJWI1bqt4kX70pZ@lizhi-Precision-Tower-5810>
+ <auJjlYWf2JCa22Ai@lizhi-Precision-Tower-5810>
+ <2a1eb85c-8a30-4594-bdad-8a1dec17b141@gmail.com> <auTPTxt5ioBJrr27@SMW015318>
+Content-Language: en-US
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+In-Reply-To: <auTPTxt5ioBJrr27@SMW015318>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] arm64: dts: rockchip: unequal min/max microvolt on fixed regulator=
- vbat
-- [Medium] arm64: dts: rockchip: vcc5v0_usb30_otg0 bypasses unused regulato=
-r_5v_out
---
 
-commit cf017fdefcec389cc0bb2c84974cfce9207e4762
-Author: Coia Prant <coiaprant@gmail.com>
 
-arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
+On 10/30/26 18:09, Frank Li wrote:
+> On Thu, Oct 29, 2026 at 07:55:41AM +0100, Emanuele Ghidoli wrote:
+>>
+>>
+>> On 10/28/26 22:05, Frank Li wrote:
+>>> Does it only impact superspeed? High speed work?
+>>
+>> No, it's not even enumerated, on the Dev board.
+>>
+>>>
+>>> Thank you report this problem. Suppose below patch should fix this problem.
+>>>
+>>> I have not time to test it today.
+>>>
+>>>
+>>> Frank
+>>
+>> Tested, it doesn't help.
+>>
+>> xhci-hcd.1.auto has no fwnode, so platform_dma_configure() never calls
+>> of_dma_configure() and the new code in of_iommu_configure() is never
+>> reached.
+> 
+> Finially, it is hack at uboot.
+> 
+> 592: static int config_smmu_fdt_device_sid(void *blob, int device_offset, int sid)
+> 601:     prop = fdt_getprop(blob, device_offset, "fsl,sc_rsrc_id", &proplen);
+> 618:     ret = fdtdec_parse_phandle_with_args(blob, device_offset,
+> 620:                                          "power-domains", ...
+> 578:     err = sc_rm_set_master_sid(-1, rsrc, sid);
+> 681:     prop = fdt_getprop(blob, offset, "iommus", &proplen);
+> 848:     if (is_imx8qm()) { ret = config_smmu_fdt(blob);
+> 
+> 
+> Need combine power-domains with iommus.
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-conn.dtsi b/arch/arm64/boot/dts/freescale/imx8-ss-conn.dtsi
+> index 176e2e332f87c..cc2b9a212780f 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8-ss-conn.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8-ss-conn.dtsi
+> @@ -189,6 +189,7 @@ usbotg3_cdns3: usb@5b120000 {
+>                         phys = <&usb3_phy>;
+>                         phy-names = "cdns3,usb3-phy";
+>                         cdns,on-chip-buff-size = /bits/ 16 <18>;
+> +                       power-domains = <&pd IMX_SC_R_USB_2>;
+>                         status = "disabled";
+>                 };
+>         };
+> 
+> Frank
+> 
+>>
+>> Emanuele
 
-This commit adds fixed regulator nodes for the VBAT supply, the 5V boost
-converter, and the 5V_OUT rail on the Ariaboard Photonicat RK3568, and
-updates the USB OTG VBUS regulator input supply so USB host power works on
-battery.
+Hi Frank,
 
-Link: https://github.com/immortalwrt/immortalwrt/issues/1534
-Link: https://github.com/photonicat/photonicat-hardware/blob/main/Photonica=
-t_rk3568_sch_20221116.pdf (Page 15,18)
+this works. xHCI comes up fine and SuperSpeed devices enumerate again, with no
+Host System Error and no SMMU faults. Tested on Apalis iMX8QM and iMX8QP on
+Ixora carrier board.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/ar=
-m64/boot/dts/rockchip/rk3568-photonicat.dts
-> index e69f5e28e9e64..4d362f665031c 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> @@ -51,6 +51,47 @@ hdmi_con_in: endpoint {
->  		};
->  	};
-> =20
-> +	regulator_5v_boost: regulator-5v-boost {
-> +		compatible =3D "regulator-fixed";
-> +		enable-active-high;
-> +		gpio =3D <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&boost_en>;
-> +		regulator-name =3D "5v_boost";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		vin-supply =3D <&vbat>;
-> +	};
-> +
-> +	/*
-> +	 * 5V_OUT is the OR-ed combination of the VBAT boost (via D5002)
-> +	 * and VCCIN_5V (via D16).
-> +	 * It has no enable pin of its own.
-> +	 * Model it as a fixed regulator depending on the boost converter,
-> +	 * so that VBAT is boosted when running on battery.
-> +	 *
-> +	 * 5V_OUT supplies:
-> +	 * - VCC5V0_USB30_OTG0 (USB VBUS via U12 load switch)
-> +	 * - VCC5V_HDMI (HDMI 5V via D5000)
-> +	 * - J53 expansion header (Pin 1)
-> +	 */
-> +	regulator_5v_out: regulator-5v-out {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "5v_out";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		vin-supply =3D <&regulator_5v_boost>;
-> +	};
-> +
-> +	vbat: regulator-vbat {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vbat";
-> +		regulator-min-microvolt =3D <3400000>;
-> +		regulator-max-microvolt =3D <4200000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
+A comment: imx8-ss-conn.dtsi is also included by i.MX8QXP and i.MX8DXL, which
+have no SMMU. I get if we should put the property in imx8qm-ss-conn.dtsi, next
+to the iommus property it goes with.
 
-[Severity: High]
-Will the vbat regulator fail to probe here because regulator-min-microvolt
-and regulator-max-microvolt do not match?
+Thanks,
+Emanuele
 
-In drivers/regulator/fixed.c, reg_fixed_voltage_probe() calls
-of_get_fixed_voltage_config(), which requires min_uV and max_uV to be equal
-for a fixed regulator:
-
-	if (init_data->constraints.min_uV =3D=3D init_data->constraints.max_uV) {
-		config->microvolts =3D init_data->constraints.min_uV;
-	} else {
-		dev_err(dev,
-			 "Fixed regulator specified with variable voltages\n");
-		return ERR_PTR(-EINVAL);
-	}
-
-When vbat fails with -EINVAL, regulator_resolve_supply() ->
-of_regulator_dev_lookup() sees the regulator-vbat node present in the Device
-Tree without a registered regulator device and permanently returns
--EPROBE_DEFER when resolving vin-supply =3D <&vbat> on regulator_5v_boost,
-which cascades to vcc5v0_usb30_otg0 and the USB2 OTG PHYs (usb2phy0_otg and
-usb2phy1_otg).
-
-> +
->  	vcc_1v8: regulator-vcc-1v8 {
->  		compatible =3D "regulator-fixed";
->  		regulator-name =3D "vcc_1v8";
-> @@ -140,7 +181,7 @@ vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
->  		regulator-name =3D "vcc5v0_usb30_otg0";
->  		regulator-min-microvolt =3D <5000000>;
->  		regulator-max-microvolt =3D <5000000>;
-> -		vin-supply =3D <&vccin_5v>;
-> +		vin-supply =3D <&regulator_5v_boost>;
->  	};
-
-[Severity: Medium]
-Should vcc5v0_usb30_otg0 reference <&regulator_5v_out> for its vin-supply
-instead of <&regulator_5v_boost>, or is regulator_5v_out unnecessary?
-
-Both the commit message and the comment above regulator_5v_out state that
-5V_OUT supplies vcc5v0_usb30_otg0, but vcc5v0_usb30_otg0 points directly to
-regulator_5v_boost, leaving regulator_5v_out without any consumers in
-rk3568-photonicat.dts. (The commit message also refers to the nodes as
-v5v_boost and v5v_out rather than regulator_5v_boost and regulator_5v_out.)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102171838.2958=
-552-1-coiaprant@gmail.com?part=3D5
