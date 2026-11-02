@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793578452;
-	b=rMAPdkks9ONzoHzsT/6jhUbowRH3vOMvWRpd5fYumefj3IEDrIhe4f0pVkKtADXelHdl
-	 eOY7DZ1quXuu//6jlwqA1j4IWE0KESophCppPei+wpoZ+eei3eTOsR6QleKpsGnBoSAwq
-	 VLDx8qPk0pqqth9AsLymAR3Gab8ojnb3Durm3BmwzHxCEXWg6gW5XlqMPiyG/F5nY2ceZ
-	 W1Vw5kaJ/mBCZ88NlHA5oRH/aWeSd5g7NdnS2fP8AiARQvv49XZtOo0RzxG68KA297Xyv
-	 3HDUu1O831MECvQiMKsrGPXoeRrAPCudlVTmKOy78tcQ6PmhR2jw/DQ7M9KCdI+ORPg==
+	t=1793578580;
+	b=G/2pBMYrNghknRBoAFzOCWH74369E9qW7a9PthfOK3bpgcBcooYDd7SpkMwgpct/sBmI
+	 lpaQT2F5toK7ZnOfBRrviG388B1Cty4uhVRqa6sragnRI05Kmh1AYhHR4FOsyO+PdjdZI
+	 s3w+Nj9VYALjjfvcv4H5Agb6lvlWwRC8A3HP7vt+EW+lIyCxW6r4NGsznqLNSN1Eiqn8d
+	 /LeOQPbG3C8Z0YiDgK7ohSBwv1H3uHYPtw6TzfTTDw3dXs5t425h44AO1j9Q5ZjdO1MYP
+	 Tp6m1prtYvfLAI088UuuJyykdbc4zfIzdM4/8A1BbdGyFgdlZ1Qj9Ddgez42ZFGvYLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793578452;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=txeTBM5DNYw87/QZmQaWisxC446w2wy1hoG7oJJBzos=;
-	b=Axv3VXNJd3Jcoh67tks4xpNE83KgFiUgFSimCS75v+kyqJPedpv0iN2wU21ypvHtZETY
-	 9P1ZkG07AR8rPa/xY1SFz4bm029Kq/1iqoT1mscPreNo6k7jI1rGgtuOTcOY6Dx2pm/8n
-	 QWwywPvvWeO4gAr5ISK8vBDchGRvd/yxmjsAMaeDnfSKxdCoRfsr8UjDGkJQVl/adAKQH
-	 J180WduO/GwhA18veV9e3zobEsbYupropvWxdY43ejaZM8dxXh9Pwwr7LZw528N9oqVxh
-	 0A+VF/gzkAPQi95YUvkRbd/Ld/XyKxaV17+USfKwxaqbOjsFMMyUEBmgWelitJGHFXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793578580;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=CFTQ8i5kvLroXvvGM2N06o5LjB0QVRIRg4MJYZWDvE4=;
+	b=yDykSMgho9wPJcmsAoNL1gwwa/BXXAxBsRUG/hj1hVCPpDhelmKq9SI2JVafRUS2Nsg3
+	 q61SKp6AAWFg8HqTTarkzQEVPZwJ7rjPPedex3Dp0uTYQzVuESwSqSHwrFEisDBEhAeH5
+	 MkVd4TqT1eJlzuM/p56r0iKN/QDdaegM4SqWKkvPWYJREAMtWkhCBtZpj5udjHNNDn1B1
+	 /dHAJh1J2jcDjLXfKNLOg1Y751qetQce6v3jlZx/Heg5KEMm5P3jxeNYwzYpu07N1dS5o
+	 +EEAx8dVP0Amew4HQx0M0yrG+xzhWk+hvHLE0oy7Q8BYVUvRKPPOA57200VqIF+8Z4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX68vSiL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xb0c4kJi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDA5606A324;
-	Mon,  2 Nov 2026 00:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A1A606A324;
+	Mon,  2 Nov 2026 00:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX68vSiL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCDF1F000C1;
-	Mon,  2 Nov 2026 00:14:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xb0c4kJi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283CA1F000C1;
+	Mon,  2 Nov 2026 00:16:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793578451;
-	bh=txeTBM5DNYw87/QZmQaWisxC446w2wy1hoG7oJJBzos=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LX68vSiLQI5taqCAPofyzh068CAZcRz/6kB78FNnDwla6ujrgxkTcU34cXGeoLMt2
-	 jX2of1Q/3Ek+iAapCy+27jCbWOBs+/D/HQbcjDP+s0ov6wjXmcHIa+ntj87nkO2NKb
-	 PVVTxBEf2PIRujJiNZjUpKbqDFOhUcC3fsYQdO1QLrQSZWawdEGMbJWf5B0XCsPDSn
-	 WCLuyTYDTtAaczj3PoR+1z+Ii0Iuv+E1IRtSDct4XCtyAqCabzbuKkOh2OVNgTgIGU
-	 /L+XBuPvoIm/SOqiiYxXyR7ZfYHo4BvXhsGSopsxe2NM4bOQIvPMuhDLHT0MImZa0h
-	 3+dkvZ5KCtBTQ==
-Date: Mon, 2 Nov 2026 00:14:05 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mike Looijmans <mike.looijmans@topic.nl>, Andy
- Shevchenko <andriy.shevchenko@intel.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5p?=
- =?UTF-8?B?Zw==?= <u.kleine-koenig@baylibre.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] iio: adc: ti-ads1298: add ADS1299 support
-Message-ID: <20261102001405.5798b110@jic23-hlaptop>
-In-Reply-To: <20261028022652.31121-1-stephanbrrs8@gmail.com>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
-	<20261024231335.280955-7-stephanbrrs8@gmail.com>
-	<20261025233429.23b02702@jic23-hlaptop>
-	<20261028022652.31121-1-stephanbrrs8@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793578579;
+	bh=CFTQ8i5kvLroXvvGM2N06o5LjB0QVRIRg4MJYZWDvE4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xb0c4kJi455KvrjSvErmDTORlon/LPBWd1IyQCzYT+YNG+o4QQUhwTxuArugsKm20
+	 mh3qXwzq+kzRs/IgBzDgY5dUfBxbmw7lYShsc66vj4hIweu6HQMS6xIZMqvw0Z8MIy
+	 uDzblAU38JXA98na7CbZqOQscxKlsPpGHEmQ7/tWSicULp7AVMQLiS1QeupC9Grrty
+	 AUN57A28FR1Kxp0/J1JrrDSzBs5eP5UgLy8z9iG19RJKeWOjUOiatQwiHaGIdbQXP6
+	 Epnsa6CH1hEpeBKl41e9sGh51fRDgk2SFRgwxCOlpKBbM684OsDu+abeKa4D08fpJ2
+	 ZvgQmX/83VX/w==
+Message-ID: <sashiko-outbox-192792@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 11/11] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Francesco Valla" <francesco@valla.it>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261102-remoteproc_virtio_map-v2-11-26b300e01c62@valla.it>
+References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
+ <20261102-remoteproc_virtio_map-v2-11-26b300e01c62@valla.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 00:16:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,68 +60,237 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 23:26:52 -0300
-Stephan Costa Barros <stephanbrrs8@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] remoteproc: virtio: unreleased reserved memory and dangling dev ptr
+- [Medium] arm64: dts: imx93-11x11-frdm: PoC multi-vdev changes not meant f=
+or integration
+- [Medium] remoteproc: missing dma_mask and dma_range_map leak on DT vdevs
+- [Medium] arm64: dts: imx93-11x11-frdm: fw_devlink moves v_gpio consumers =
+to cm33
+--
 
-> On Sun, 25 Oct 2026 23:34:29 +0000, Jonathan Cameron wrote:
-> > A few things in here feel like they should be in precursor
-> > patches because the implication is they apply just as much
-> > to improving support for the ads1298 as they do for the
-> > new device.  
-> 
-> Agreed. DVDD and PWDN become ADS129x patches, binding and driver, before
-> the ADS1299 ones.
-> 
-> > > +	if (FIELD_GET(ADS1299_MASK_ID_DEVICE, id) != ADS1299_ID_DEVICE ||
-> > > +	    nu_ch > 2)
-> > > +		return dev_err_probe(dev, -ENODEV, "Unknown ID: 0x%x\n", id);  
-> > How do backwards compatible parts with fallback compatible of ads1299 work?
-> >
-> > Generally we don't reject on simply an who am I value mismatch.
-> > Note the existing driver may need relaxing on that point - we used
-> > to do this before DT maitainers pointed out what it broke!  
-> 
-> Today that works only within a family: the channel count comes from the
-> ID, so ti,ads1299 serves the -4 and -6, and ti,ads1298 the ADS1294/6
-> and the R parts. A part with a new ID is refused, as the existing driver
-> does too.
-> 
-> For v3 I'd do, in a precursor patch for the existing driver: the
-> compatible's chip info is what the driver trusts. If the ID is a known
-> part of that family, it still gives the channel count and the name; if
-> not (another family, or a reserved channel code), the driver warns and
-> goes on with the compatible's chip info. The channel count from the ID
-> has to stay, since ti,ads1298 has been the only compatible and existing
-> boards with an ADS1294 or ADS1296 depend on it.
-> 
-> Does that match what you have in mind?
+commit 36664d55421d235cfeb718886d0f002fe5e55c01
+Author: Francesco Valla <francesco@valla.it>
 
-Yes. That sounds like the best way to handle this mix of
-discoverable and not.
+PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
 
-> 
-> > > +	/* The ADS1299 comes out of reset with its inputs shorted */  
-> >
-> > What is the case for the ADS1298 - is this just harmless or does
-> > that have similar behavior?  
-> 
-> Harmless. On the ADS129x CHnSET resets to 00h, normal electrode input,
-> so the write changes nothing. On the ADS1299 it resets to 61h, input
-> shorted, and without the write each channel reads its own shorted input.
-> I'll make it ADS1299 only, through chip info, unless you prefer it
-> unconditional.
-> 
-> > > +	for (i = 0; i < indio_dev->num_channels; i++) {  
-> >
-> > 	for (unsigned int i = 0;...  
-> 
-> Will do.
-> 
-> Thanks,
-> Stephan
-> 
+This commit adds reserved-memory regions and devicetree nodes to
+imx93-11x11-frdm.dts for a proof-of-concept multi-vdev Cortex-M33 firmware
+configuration exposing rpmsg, entropy, GPIO, I2C, SPI, and CAN virtio
+devices.
 
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/ar=
+m64/boot/dts/freescale/imx93-11x11-frdm.dts
+> index 6e8351d120160..84324b02c45dc 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> @@ -137,3 +137,191 @@ MX93_PAD_SD3_DATA3__GPIO3_IO25		0x31e
+>  		>;
+>  	};
+>  };
+> +
+> +/* Multi-vdev PoC */
+> +
+> +#include <dt-bindings/input/linux-event-codes.h>
+> +
+> +/ {
+> +	reserved-memory {
+> +		rsc_table: rsc-table@2021e000 {
+> +			reg =3D <0 0x2021e000 0 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		/* vdev0: rpmsg */
+> +		vdev0vring0: vdev0vring0@a4000000 {
+> +			reg =3D <0 0xa4000000 0 0x8000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev0vring1: vdev0vring1@a4008000 {
+> +			reg =3D <0 0xa4008000 0 0x8000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev0buffer: vdev0buffer@a4020000 {
+> +			compatible =3D "shared-dma-pool";
+> +			reg =3D <0 0xa4020000 0 0x100000>;
+> +			no-map;
+> +		};
+> +
+> +		/* vdev1: entropy */
+> +		vdev1vring0: vdev1vring0@a4010000 {
+> +			reg =3D <0 0xa4010000 0 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		/delete-node/ vdev1vring1@a4018000;
+> +
+> +		vdev1buffer: vdev1buffer@a4120000 {
+> +			compatible =3D "restricted-dma-pool";
+> +			reg =3D <0 0xa4120000 0 0x10000>;
+> +		};
+
+[Severity: Medium]
+As reported by Sashiko on RFC [1], the commit message notes that this is a
+proof-of-concept not meant to be integrated, and applying it directly to
+arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts (which is also included =
+by
+imx93-11x11-frdm-pixpaper.dts) modifies the production board devicetree.
+
+In particular, this shrinks vdev1vring0@a4010000 from 0x8000 to 0x1000,
+deletes vdev1vring1@a4018000, repurposes 0xa4011000..0xa4020000 for
+vdev2..vdev5 vrings, duplicates rsc_table, vdev0vring0, vdev0vring1, and
+vdev0buffer from imx93-11x11-frdm-common.dtsi, carves out an extra 1.375 MiB
+of RAM (0xa4120000..0xa4280000) as non-reusable restricted-dma-pool regions,
+and adds board-level gpio-keys-virtio, leds, and eeprom@50 nodes tied to a
+specific Cortex-M33 firmware image.
+
+Would this break backwards compatibility with standard NXP MCUXpresso SDK
+Cortex-M33 RPMSG firmware if merged into the main board DTS?
+
+[ ... ]
+
+> +&cm33 {
+> +	memory-region =3D <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
+> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> +			<&vdev3vring0>, <&vdev4vring0>, <&vdev5vring0>,
+> +			<&vdev5vring1>, <&vdev5vring2>, <&rsc_table>;
+> +
+> +	virtio {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		/* vdev1: entropy */
+> +		vdev@1 {
+> +			reg =3D <1>;
+> +			memory-region =3D <&vdev1buffer>;
+> +		};
+
+[Severity: Medium]
+When vdev@1..vdev@5 are registered in rproc_handle_vdev(), pdev_info.fwnode
+is populated while pdev_info.dma_mask is left as 0:
+
+drivers/remoteproc/remoteproc_core.c:rproc_handle_vdev() {
+	struct platform_device_info pdev_info =3D {
+		.parent =3D dev,
+		.name =3D "rproc-virtio",
+		.id =3D PLATFORM_DEVID_AUTO,
+		.data =3D &rvdev_data,
+		.size_data =3D sizeof(rvdev_data),
+	};
+	...
+	fwnode =3D rproc_get_vdev_fwnode(dev->parent, rvdev_data.index);
+	pdev_info.fwnode =3D fwnode;
+	...
+	pdev =3D platform_device_register_full(&pdev_info);
+}
+
+Because pdev_info.dma_mask is 0, pdev->dev.dma_mask remains NULL when
+really_probe() -> platform_dma_configure() -> of_dma_configure() ->
+of_dma_configure_id() runs before rproc_virtio_probe(). In
+of_dma_configure_id(), !dev->dma_mask triggers dev_warn(dev, "DMA mask not
+set\n") for every vdev with a matching DT node.
+
+In addition, if an ancestor DT node defines dma-ranges, of_dma_configure_id=
+()
+allocates a struct bus_dma_region array via of_dma_get_range() and assigns =
+it
+to dev->dma_range_map, which rproc_virtio_probe() -> copy_dma_range_map()
+then overwrites without freeing:
+
+drivers/remoteproc/remoteproc_virtio.c:copy_dma_range_map() {
+	new_map =3D kmemdup_array(map, num_ranges + 1, sizeof(*map), GFP_KERNEL);
+	if (!new_map)
+		return -ENOMEM;
+
+	to->dma_range_map =3D new_map;
+}
+
+Does probing these DT-described vdevs trigger the "DMA mask not set" warning
+and leak the dev->dma_range_map array allocated by of_dma_configure_id()?
+
+[Severity: High]
+Because vdev@1..vdev@5 have an OF fwnode whose memory-region points to a
+restricted-dma-pool, really_probe() calls:
+
+  platform_dma_configure()
+    -> of_dma_configure_id()
+      -> of_dma_set_restricted_buffer()
+        -> of_reserved_mem_device_init_by_idx(&pdev->dev, of_node, i)
+
+before rproc_virtio_probe() runs, adding a struct rmem_assigned_device entry
+with rd->dev =3D &pdev->dev to the global of_rmem_assigned_device_list.
+
+However, of_reserved_mem_device_release(&rvdev->pdev->dev) and
+dma_release_coherent_memory(&rvdev->pdev->dev) are only called in
+rproc_virtio_dev_release() when the child struct virtio_device is released:
+
+drivers/remoteproc/remoteproc_virtio.c:rproc_virtio_dev_release() {
+	of_reserved_mem_device_release(&rvdev->pdev->dev);
+	dma_release_coherent_memory(&rvdev->pdev->dev);
+}
+
+Neither rproc_virtio_remove() nor the error paths in rproc_virtio_probe() a=
+nd
+rproc_add_virtio_dev() release the memory region attached to &pdev->dev.
+
+If rproc_virtio_probe() fails after platform_dma_configure(), if
+rproc_fw_boot() or rproc_attach() fails before rproc_start_subdevices()
+reaches this rvdev and cleans up via rproc_resource_cleanup() ->
+platform_device_unregister(rvdev->pdev) -> rproc_virtio_remove(), or if
+kzalloc_obj(*vdev) in rproc_add_virtio_dev() returns -ENOMEM after
+rproc_virtio_init_vdev_mem(), won't rvdev->pdev be freed while its
+rmem_assigned_device entry remains on of_rmem_assigned_device_list with a
+dangling rd->dev pointer?
+
+> +
+> +		/* vdev2: GPIO */
+> +		vdev@2 {
+> +			reg =3D <2>;
+> +			memory-region =3D <&vdev2buffer>;
+> +
+> +			v_gpio: gpio {
+> +				compatible =3D "virtio,device29";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <2>;
+> +			};
+> +		};
+
+[Severity: Medium]
+Here v_gpio is placed under &cm33/virtio/vdev@2 and referenced by the
+top-level gpio-keys-virtio and leds consumer nodes.
+
+When imx_rproc_probe() finishes probing &cm33, devm_rproc_add() ->
+rproc_add() either schedules rproc->boot_work asynchronously or leaves the
+remoteproc offline if auto_boot is false, returning 0 before
+rproc_handle_vdev() or register_virtio_device() creates any child devices.
+
+When imx_rproc_probe() returns 0, really_probe() -> driver_bound() ->
+device_links_driver_bound(&pdev->dev) runs
+fw_devlink_pickup_dangling_consumers(&pdev->dev) on &cm33. Because the
+descendant fwnodes virtio, vdev@2, and gpio (v_gpio) all have
+fwnode->dev =3D=3D NULL at that point, __fw_devlink_pickup_dangling_consume=
+rs()
+marks them with FWNODE_FLAG_NOT_DEVICE and moves v_gpio's consumer links
+(gpio-keys-virtio and leds) onto &cm33.
+
+When the remote processor is later stopped via rproc_shutdown() or undergoes
+crash recovery via rproc_trigger_recovery(), &cm33 stays bound while
+rproc_vdev_do_stop() unregisters the virtio-gpio device and gpiochip_remove=
+()
+tears down the gpio_chip and frees active GPIO IRQs. Because gpio-keys-virt=
+io
+and leds only have a managed device_link to &cm33 rather than to the GPIO
+device, won't they remain bound to a dead gpio_device across remoteproc
+stop/restart cycles?
+
+[1] https://lore.kernel.org/r/20260916-remoteproc_virtio_map-v1-12-dac8c5eb=
+4aa9@valla.it
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-remoteproc=
+_virtio_map-v2-0-26b300e01c62@valla.it?part=3D11
