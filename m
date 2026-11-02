@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608740;
-	b=3nE3zz2ZzjZyuXLM7x5rjMHLXA/nOhw4fPlKj4uKZ8f6na7pq4X3vqM+WHPthnfXjSfA
-	 m/QXagAuxRN48PnBcQEzBHdXoVER6qxtN4bpVUWgg0ZUvauq7G8Iw8gWRo5N4OTqpxnQT
-	 0XfXAy3wXeF9FKE8XUITY3JwvAC2oBVjNLOkFhCTLkmfcNIu35RWRPLtJ8qsFzHKyFUOY
-	 SBIfx57zVgEcCkxCR+obMF5gCZ2gmLu9C+k9O2bno4YgNbthbVKtdWGzSf3N2fvh84cbd
-	 iVtmlay4KKgO2LfDEim9xxn8Z4KnJ0b0fCfLLoH4c9xzFXfkQATup1gUnLFGrOoMh6A==
+	t=1793608866;
+	b=S6AqKhHWs6xENyqP8dlyYSYYHxvZxZog77qahhpPVJDtKBkMMLqNC+FmK0oS/Gpm8J5f
+	 TVr5dahIWn0PksfixqIVqQt/R9T4xIr5vSkmoKcteKTIM/VkknTzxOptHkO/rVX4gJmXh
+	 pYpvkfj9u7pQf7ST6GLa+psYl7JLUXLtWIXWZVmow577frLuSXYym3Rsx0GgJLwsjpern
+	 fEvx+I33hLPkMjeX8kngZZNIwG+kpuhFvQrhbwrBx7RRsIwhPqL79+HX4jSaUTJjw7SZZ
+	 C5jfNBGJhpj0D1QEoqyWC2EYxllA12Rzs/EPM4dwBNoKO92hxfxuZ/xdS8P9YD6Odig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608740;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608866;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+ujXPh5DWImCZX0JZvrqR6XdNCQ9pQMh1AAs5cuycDw=;
-	b=1/ti5gcWkpFIXalD090ZGE/MQhN2kBNaEvUzTjliF9J3CJPFksNM8xuq8u3eaTIIRUnq
-	 GJLmiOG7VsNPeDPIsgr0/LdcdXdBUBTce0/MSf1XAndD+hi6bvKJDqO+NepeFk+O5NDVg
-	 dsaLyGqVRgqh7VZYVdN5RoNPKnvm3hlKISiKT+7TJtWHi1YOhYmEugFe1OBIqkDO7ARkn
-	 Ne3pUg/MRlCpSda7cGfrYlba8HwcWayo3zmDLiKCFksI6BI9UJu3McXobbgA4tKvNnJRk
-	 v0vydK+bwx4QVnSgiK0PqAuiyfZ134RVcodId28YptrvyLjCKJlp1KYlZgPpLpZZxAA==
+	bh=8xk9NE7yU6h/BG4sLZsv3lVUn6Wzx/1vjie+frptZo4=;
+	b=X+ixO7YeuGjb1FInKPt5fibGB81qw5MMyPYISQemex/1+wT7V22ppIcA2kk04VzPPY47
+	 6Tgu9hUn1wnv+lhcTFO+zhf/nQkF4Hjvo7I5PsbvtlSgv/nOdYxEUtYFOHtUYJB7jt0oz
+	 TNRNB6JxX779l2z2dmRZpyqTWB8XX7mK/jPLTUMmhze34W07dlD6H6r40AOZfcQ/SJ+VA
+	 2vh1pBqa2BpS37yayvc4fZ5E9webWj36AqpBtFu9iBiGbLfB0Kmv5oOvqQMeGN4P42/KX
+	 fAnCKRUB3bpUhidOetyTFXbzpIaCLhpwr+o5KG+5PFJJ7SzL9Jw1OFxBFJtIpTZPdxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIUlEg6q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhrOOeK0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7432606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E3F606A330
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIUlEg6q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F8E1F00A18;
-	Mon,  2 Nov 2026 08:38:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhrOOeK0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B7B31F000C1;
+	Mon,  2 Nov 2026 08:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608739;
-	bh=+ujXPh5DWImCZX0JZvrqR6XdNCQ9pQMh1AAs5cuycDw=;
+	s=k20260515; t=1793608865;
+	bh=8xk9NE7yU6h/BG4sLZsv3lVUn6Wzx/1vjie+frptZo4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LIUlEg6qDTYcydeff3YbsDqdkgXDQNAYrO2VdNd68YqcYI76REarYWvHpdKAd7zEu
-	 RUW1CzLuol4ymEUOkmAPONi9kywNAdix6xuHeKyfvjcY5oFfn3NciXMArVG41hLF4U
-	 6BbZzFnJjFdDXZ2UmjVctL6uqNpQC7vT6OLz6HSOTrtaaZwxrU2l43m6CrENlzOjPV
-	 WWNTEqFK2J+tXVkvmBaOj0HTNBw/HJw7zGotsV6rMh0+AGCWODJZSca2NojR9rgB/D
-	 MID6RjyFxgstbSuXZ5PZrOluop7PH4wTyBffQscrDYY3JdU1TKi8mWgbxhsWOmJAMD
-	 LO4DPi40v6UgQ==
-Message-ID: <sashiko-outbox-193127@kernel.org>
+	b=EhrOOeK0W0TMTiG3585u8HuMXygjFqSdzPEqCXRsagC17YlZq9Qf2w0cTM56D8ojh
+	 cr/QqTNiCxvbUcXiQyG1Z2U0b+0pxYU/ABNZFSjy1pBXS/NSDpGm1zjahL5UPYCbUn
+	 Bo5qZuYiZK0Gywe51OShMkWvwnpJ7z/J4XwnLFM0/Vk3vVU5VQEnTLMMtxr6cGHUpV
+	 rQ2ZhNT00R202I3RzloYmIFjDOPDULSuUpGnHgY8fxTvF0JF5dsx86t8OJxV6Tvw0f
+	 F8ptpp4lfCDi4t1jhs6tsgGA1qTdIJY0FE1xovqg+XdJXYmrPhDv0yxdjcPLGzydDe
+	 XhcRbv6bbkuQw==
+Message-ID: <sashiko-outbox-193129@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] phy: cix: add Sky1 USB/DP combo PHY driver
+Subject: Re: [PATCH 3/3] arm64: dts: cix: add Sky1 USB/DP combo PHY
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gary Yang" <gary.yang@cixtech.com>
 Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261102082112.2306326-3-gary.yang@cixtech.com>
-References: <20261102082112.2306326-1-gary.yang@cixtech.com>
- <20261102082112.2306326-3-gary.yang@cixtech.com>
+In-Reply-To: <20261102081532.2305142-4-gary.yang@cixtech.com>
+References: <20261102081532.2305142-1-gary.yang@cixtech.com>
+ <20261102081532.2305142-4-gary.yang@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 08:38:58 +0000
+Date: Mon, 02 Nov 2026 08:41:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,446 +60,226 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] phy: cix: udphy_dp_phy_set_rate() checks DPCD codes instead of Mb/=
-s link_rate
-- [High] phy: cix: udphy_dp_phy_set_voltages() applies lane 0 settings to a=
-ll lanes
-- [High] phy: cix: mode tracking in cix_usbdp_phy_power_on() leaks clk and =
-skips init
-- [High] phy: cix: udphy_dp_phy_configure() accesses MMIO when DP PHY is un=
-powered
-- [High] phy: cix: udphy_dp_phy_verify_config() mishandles dp->lanes and dp=
-->set_lanes
-- [High] phy: cix: cix_u3phy_ops omits .init/.power_on and misuses .set_mode
-- [Medium] phy: cix: cix_udphy_probe() resets PHY despite bootloader handov=
-er claim
+- [High] arm64: dts: cix: enabling usbc_phy0..3 asserts PHY resets at boot
+- [High] phy: cix: broken mode transitions, clock leak, and phy_ops in cix_=
+udphy
+- [Medium] arm64: dts: cix: missing OF graph ports for usbc_phy Type-C swit=
+ches
 --
 
-commit d4e0ce4573b0a846fb24af3d6c745c7798d8f7a9
+commit d16228024f6482f816de21fc474d6f5027baff41
 Author: Gary Yang <gary.yang@cixtech.com>
 
-phy: cix: add Sky1 USB/DP combo PHY driver
+arm64: dts: cix: add Sky1 USB/DP combo PHY
 
-This commit adds a driver for the CIX Sky1 USB/DP combo PHY, exposing
-separate child PHYs for the SuperSpeedPlus USB lane and DisplayPort lane
-while registering a Type-C orientation switch and mode mux.
+This commit adds the four USB/DP combo PHY device tree nodes to the CIX Sky1
+SoC dtsi and enables them with Type-C orientation-switch and mode-switch
+properties on the Radxa Orion O6 board.
 
-> diff --git a/drivers/phy/cix/phy-cix-usbdp.c b/drivers/phy/cix/phy-cix-us=
-bdp.c
-> new file mode 100644
-> index 0000000000000..d596e89c74f76
-> --- /dev/null
-> +++ b/drivers/phy/cix/phy-cix-usbdp.c
+> diff --git a/arch/arm64/boot/dts/cix/sky1-orion-o6.dts b/arch/arm64/boot/=
+dts/cix/sky1-orion-o6.dts
+> index e39c87774c128..76f75185b6a8e 100644
+> --- a/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
+> +++ b/arch/arm64/boot/dts/cix/sky1-orion-o6.dts
+> @@ -117,3 +117,31 @@ &s5_gpio2 {
+>  &uart2 {
+>  	status =3D "okay";
+>  };
+> +
+> +&usbc_phy0 {
+> +	orientation-switch;
+> +	mode-switch;
 
-[ ... ]
+[Severity: Medium]
+How are Type-C connector nodes expected to link to the orientation-switch
+and mode-switch registered by usbc_phy0 through usbc_phy3?
 
-> +static int sky1_udphy_exit(struct cix_udphy *udphy)
-> +{
-> +	reset_control_assert(udphy->reset);
-> +	reset_control_assert(udphy->preset);
-> +	clk_disable_unprepare(udphy->apb_clk);
-> +	return 0;
-> +}
-> +
-> +static int sky1_udphy_init(struct cix_udphy *udphy)
-> +{
-> +	int ret;
-> +	u32 value;
-> +	const struct cix_udphy_con_dir *con_dir =3D &udphy->cfg->con_dir[udphy-=
->id];
-> +
-> +	regmap_update_bits(udphy->usbphy_syscon, con_dir->offset,
-> +			   GENMASK(con_dir->bit, con_dir->bit),
-> +			   udphy->flip << con_dir->bit);
-> +
-> +	usleep_range(10, 20);
-> +
-> +	regmap_read(udphy->usbphy_syscon, con_dir->offset, &value);
-> +
-> +	/* usb rcsu reset is default deassert */
-> +	reset_control_assert(udphy->reset);
-> +	reset_control_assert(udphy->preset);
-> +
-> +	ret =3D sky1_udphy_clk_enable(udphy->apb_clk);
-> +	if (ret) {
-> +		dev_err(udphy->dev, "Failed to prepare_enable udphy apb clock\n");
-> +		return ret;
-> +	}
+In drivers/phy/cix/phy-cix-usbdp.c, cix_udphy_probe() checks for these
+boolean properties and registers a Type-C switch and mux on the PHY device
+fwnode via udphy_setup_orien_switch() and udphy_setup_typec_mux():
 
-[ ... ]
+drivers/phy/cix/phy-cix-usbdp.c:cix_udphy_probe() {
+	...
+	if (device_property_present(dev, "orientation-switch")) {
+		ret =3D udphy_setup_orien_switch(udphy);
+		...
+	}
 
-> +static int udphy_orien_sw_set(struct typec_switch_dev *sw,
-> +			      enum typec_orientation orien)
-> +{
-> +	struct cix_udphy *udphy =3D typec_switch_get_drvdata(sw);
-> +
-> +	mutex_lock(&udphy->mutex);
-> +
-> +	if (orien =3D=3D TYPEC_ORIENTATION_NONE)
-> +		goto unlock_ret;
-> +
-> +	udphy->flip =3D (orien =3D=3D TYPEC_ORIENTATION_REVERSE) ? true : false;
-> +
-> +unlock_ret:
-> +	mutex_unlock(&udphy->mutex);
-> +	return 0;
-> +}
+	if (device_property_present(dev, "mode-switch")) {
+		ret =3D udphy_setup_typec_mux(udphy);
+		...
+	}
+}
 
-[ ... ]
+When a Type-C connector driver looks up its switch or mux through
+fwnode_typec_switch_get() or fwnode_typec_mux_get(),
+fwnode_connection_find_matches() -> fwnode_graph_devcon_matches() resolves
+boolean orientation-switch and mode-switch providers by walking OF graph
+endpoints (port or ports with remote-endpoint) from the connector node to
+the provider node.
 
-> +static int cix_usbdp_phy_power_on(struct cix_udphy *udphy)
-> +{
-> +	const struct cix_udphy_cfg *phy_cfgs =3D udphy->cfg;
-> +	int ret;
-> +
-> +	if (udphy->cur_mode =3D=3D udphy->next_mode)
-> +		return 0;
-> +
-> +	if ((udphy->cur_mode =3D=3D UDPHY_MODE_USB || udphy->cur_mode =3D=3D UD=
-PHY_MODE_DP) &&
-> +	    udphy->next_mode =3D=3D UDPHY_MODE_DP_USB)
-> +		return 0;
-> +
-> +	if (phy_cfgs->udphy_init) {
-> +		ret =3D phy_cfgs->udphy_init(udphy);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "failed to init udphy\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cix_usbdp_phy_power_off(struct cix_udphy *udphy)
-> +{
-> +	const struct cix_udphy_cfg *phy_cfgs =3D udphy->cfg;
-> +	int ret;
-> +
-> +	if (phy_cfgs->udphy_exit) {
-> +		ret =3D phy_cfgs->udphy_exit(udphy);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "failed to exit udphy\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	udphy->cur_mode =3D UDPHY_MODE_NONE;
-> +	return 0;
-> +}
-> +
-> +static int udphy_dp_phy_power_on(struct phy *phy)
-> +{
-> +	struct cix_udphy *udphy =3D phy_get_drvdata(phy);
-> +	int ret =3D 0;
-> +
-> +	mutex_lock(&udphy->mutex);
-> +	if (!(udphy->next_mode & UDPHY_MODE_DP))
-> +		goto unlock;
-> +
-> +	ret =3D cix_usbdp_phy_power_on(udphy);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	phy_set_bus_width(phy, udphy_dplane_get(udphy));
-> +	if (udphy->next_mode =3D=3D UDPHY_MODE_DP)
-> +		udphy->cur_mode =3D UDPHY_MODE_DP;
-> +	else
-> +		udphy->cur_mode |=3D UDPHY_MODE_DP;
-> +
-> +unlock:
-> +	mutex_unlock(&udphy->mutex);
-> +	return ret;
-> +}
+However, neither sky1.dtsi nor sky1-orion-o6.dts defines any port or ports
+nodes on usbc_phy0..3, and
+Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml sets
+additionalProperties: false while only allowing usb-port@[0-9a-f]+ and
+dp-port@[0-9a-f]+ child nodes:
 
-[Severity: High]
-Can the mode tracking in cix_usbdp_phy_power_on() and udphy_dp_phy_power_on=
-()
-leak theudphy->apb_clk enable count or skip needed hardware re-initializati=
-on?
+  patternProperties:
+    "^usb-port@[0-9a-f]+$":
+      ...
+    "^dp-port@[0-9a-f]+$":
+      ...
+  additionalProperties: false
 
-First, sky1_udphy_init() unconditionally calls
-sky1_udphy_clk_enable(udphy->apb_clk), whereas sky1_udphy_exit() only calls
-clk_disable_unprepare(udphy->apb_clk) once when udphy->cur_mode reaches
-UDPHY_MODE_NONE in cix_usbdp_phy_power_off(). If one child PHY is already
-active (udphy->cur_mode !=3D UDPHY_MODE_NONE) and udphy->next_mode changes =
-such
-that cix_usbdp_phy_power_on() invokes sky1_udphy_init() a second time,
-udphy->apb_clk is prepared and enabled again without a matching disable.
+Without OF graph port definitions in the binding and device tree nodes,
+won't any usb-c-connector node be unable to bind to these switches or fail
+DT schema validation?
 
-In addition, when udphy->next_mode =3D=3D UDPHY_MODE_DP, udphy_dp_phy_power=
-_on()
-overwrites udphy->cur_mode =3D UDPHY_MODE_DP instead of setting the bit with
-|=3D UDPHY_MODE_DP. If UDPHY_MODE_USB was already set in udphy->cur_mode, t=
-hat
-bit is lost and a subsequent cix_u3phy_exit() returns early without powering
-off the PHY or disabling udphy->apb_clk.
-
-Second, cix_usbdp_phy_power_on() returns 0 without calling sky1_udphy_init()
-when udphy->cur_mode =3D=3D UDPHY_MODE_DP and udphy->next_mode =3D=3D
-UDPHY_MODE_DP_USB. If the PHY was initialized in 4-lane DP-only mode using
-sky1_udphy_dp_conf (where PHY_PMA_LANE_MAP is 0x51D9 and no USB3 lane
-registers are programmed) and then transitions to UDPHY_MODE_DP_USB, calling
-cix_u3phy_init() skips sky1_udphy_init() and leaves the USB3 lanes
-unconfigured.
-
-Similarly, udphy_orien_sw_set() updates udphy->flip without updating
-udphy->usbphy_syscon or forcing re-initialization, so if udphy->flip changes
-while cix_usbdp_phy_power_on() takes one of the early return paths, the
-syscon orientation bit and PMA lane configuration remain in the previous
-orientation.
-
-[ ... ]
-
-> +static int udphy_dp_phy_verify_config(struct cix_udphy *udphy,
-> +				      struct phy_configure_opts_dp *dp)
-> +{
-> +	int i;
-> +
-> +	switch (dp->lanes) {
-> +	case 1:
-> +	case 2:
-> +	case 4:
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-What happens in udphy_dp_phy_verify_config() when a DisplayPort consumer
-calls phy_configure() with dp->lanes =3D=3D 4 while the PHY is in 2-lane co=
-mbo
-mode (UDPHY_MODE_DP_USB), or calls phy_configure() with dp->set_lanes =3D=
-=3D 0?
-
-Because udphy_dp_phy_verify_config() does not check that dp->lanes is within
-udphy_dplane_get(udphy), passing dp->lanes =3D=3D 4 while in UDPHY_MODE_DP_=
-USB
-is accepted and causes udphy_dp_phy_set_rate() and
-udphy_dp_phy_set_voltages() to overwrite the PMA registers for all 4 lanes,
-clobbering the 2 lanes assigned to USB3.
-
-Also, struct phy_configure_opts_dp gates lane reconfiguration on
-dp->set_lanes, so callers updating only link rate or voltage levels with
-dp->set_lanes =3D=3D 0 may leave dp->lanes unset and fail this check with
--EINVAL.
-
-> +
-> +	/*
-> +	 * If changing voltages is required, check swing and pre-emphasis
-> +	 * levels, per-lane.
-> +	 */
-> +	if (dp->set_voltages) {
-> +		for (i =3D 0; i < dp->lanes; i++) {
-> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
-> +				return -EINVAL;
-> +
-> +			/*
-> +			 * Sum of voltage swing and pre-emphasis levels cannot
-> +			 * exceed 3.
-> +			 */
-> +			if (dp->voltage[i] + dp->pre[i] > 3)
-> +				return -EINVAL;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int udphy_dp_phy_set_rate(struct cix_udphy *udphy,
-> +				 struct phy_configure_opts_dp *dp)
-> +{
-> +	int ret;
-> +	const struct phy_link_cfg *conf =3D NULL;
-> +
-> +	dev_dbg(udphy->dev, "lane %d, rate %x\n", dp->lanes, dp->link_rate);
-> +
-> +	regmap_update_bits(udphy->phy_regmap, PHY_PMA_PLL_CTRL, BIT(1), 0x0);
-> +	usleep_range(10, 20);
-> +
-> +	switch (dp->link_rate) {
-> +	case 0x6:
-> +		conf =3D &link_cfg[0];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_partia=
-l_conf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_partial_conf));
-> +		break;
-> +	case 0xa:
-> +		conf =3D &link_cfg[1];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_partia=
-l_conf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_partial_conf));
-> +		break;
-> +	case 0x14:
-> +		conf =3D &link_cfg[2];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_partia=
-l_conf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_partial_conf));
-> +		break;
-> +	case 0x1e:
-> +		conf =3D &link_cfg[3];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_8p1_co=
-nf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_8p1_conf));
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-Should udphy_dp_phy_set_rate() match dp->link_rate against link rates in Mb=
-/s
-(1620, 2700, 5400, 8100) rather than raw DPCD link bandwidth codes (0x6,
-0xa, 0x14, 0x1e)?
-
-In include/linux/phy/phy-dp.h, struct phy_configure_opts_dp specifies
-link_rate in Mb/s. Standard DisplayPort controller drivers passing 1620,
-2700, 5400, or 8100 Mb/s will hit the default case and fail with -EINVAL.
-
-Additionally, because udphy_dp_phy_verify_config() does not validate
-dp->link_rate before udphy_dp_phy_set_rate() clears BIT(1) in
-PHY_PMA_PLL_CTRL, returning -EINVAL here (or on a regmap_multi_reg_write()
-failure) leaves PLL1 disabled in hardware.
-
-[ ... ]
-
-> +static int udphy_dp_phy_set_voltages(struct cix_udphy *udphy,
-> +				     struct phy_configure_opts_dp *dp)
-> +{
-> +	u32 index =3D dp->voltage[0] * 4 + dp->pre[0];
-> +	const struct phy_voltage_conf *cfg =3D volt_cfg;
-
-[Severity: High]
-Why does udphy_dp_phy_set_voltages() compute index only from dp->voltage[0]
-and dp->pre[0] and apply it to all lanes?
-
-In udphy_dp_phy_verify_config(), dp->voltage[i] and dp->pre[i] are validated
-for each lane i up to dp->lanes, but udphy_dp_phy_set_voltages() ignores
-dp->voltage[1..3] and dp->pre[1..3] and programs lane 0's swing and
-pre-emphasis settings into every active lane in the 2-lane and 4-lane cases.
-
-[ ... ]
-
-> +static int udphy_dp_phy_configure(struct phy *phy,
-> +				  union phy_configure_opts *opts)
-> +{
-> +	struct cix_udphy *udphy =3D phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	mutex_lock(&udphy->mutex);
-> +	ret =3D udphy_dp_phy_verify_config(udphy, &opts->dp);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	if (opts->dp.set_rate) {
-> +		ret =3D udphy_dp_phy_set_rate(udphy, &opts->dp);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "failed to set DP link rate\n");
-> +			goto unlock;
-> +		}
-> +	}
-> +
-> +	if (opts->dp.set_voltages) {
-> +		ret =3D udphy_dp_phy_set_voltages(udphy, &opts->dp);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "dp_phy_set_voltages failed\n");
-> +			goto unlock;
-> +		}
-> +	}
-> +	mutex_unlock(&udphy->mutex);
-> +	return 0;
-> +
-> +unlock:
-> +	mutex_unlock(&udphy->mutex);
-> +	return ret;
-> +}
-
-[Severity: High]
-Can udphy_dp_phy_configure() access PHY MMIO registers while udphy->apb_clk
-is disabled and udphy->preset is asserted?
-
-In cix_udphy_probe() and sky1_udphy_exit(), udphy->reset and udphy->preset
-are asserted and udphy->apb_clk is disabled. If udphy_dp_phy_power_on() is
-called when UDPHY_MODE_DP is not set in udphy->next_mode (for example, when
-usbdp_typec_mux_set() sets udphy->next_mode =3D UDPHY_MODE_USB for
-TYPEC_STATE_SAFE or USB-only mode), udphy_dp_phy_power_on() returns 0 witho=
-ut
-enabling udphy->apb_clk or deasserting udphy->preset.
-
-If the DisplayPort controller then calls phy_configure() (or calls
-phy_configure() before phy_power_on()), udphy_dp_phy_configure() does not
-check whether udphy->cur_mode & UDPHY_MODE_DP is active before accessing
-udphy->phy_regmap in udphy_dp_phy_set_rate() and udphy_dp_phy_set_voltages(=
-).
-
-[ ... ]
-
-> +static int cix_u3phy_set_mode(struct phy *phy, enum phy_mode mode, int s=
-ubmode)
-> +{
-> +	if (mode =3D=3D PHY_MODE_INVALID)
-> +		return cix_u3phy_exit(phy);
-> +
-> +	return cix_u3phy_init(phy);
-> +}
-> +
-> +static const struct phy_ops cix_u3phy_ops =3D {
-> +	.set_mode       =3D cix_u3phy_set_mode,
-> +	.exit		=3D cix_u3phy_exit,
-> +	.owner		=3D THIS_MODULE,
+> +	cix,default-conf =3D /bits/ 8 <0x03>;
+> +	status =3D "okay";
 > +};
 
 [Severity: High]
-Is it intentional that cix_u3phy_ops defines .exit =3D cix_u3phy_exit witho=
-ut
-.init, .power_on, or .power_off, and instead wires cix_u3phy_init() and
-cix_u3phy_exit() into .set_mode?
+Does enabling usbc_phy0 through usbc_phy3 here before any USB or DisplayPort
+consumer nodes are present in the device tree break bootloader-initialized
+USB or DisplayPort connections at boot?
 
-Standard USB controller drivers (such as cdns3, dwc3, and xhci-plat) manage
-the PHY lifecycle through phy_init(), phy_power_on(), phy_power_off(), and
-phy_exit(). During system resume (for example in cdns3_controller_resume()),
-calling phy_exit() followed by phy_init() and phy_power_on() without calling
-phy_set_mode() will run cix_u3phy_exit() and leave the USB3 PHY powered off
-because .init and .power_on are NULL.
+Neither arch/arm64/boot/dts/cix/sky1.dtsi nor
+arch/arm64/boot/dts/cix/sky1-orion-o6.dts currently has any consumer nodes
+referencing usb3_phy0..3 or usbc0..3_dp_phy. When cix_udphy_probe() runs for
+each enabled PHY node, it unconditionally asserts both the core and APB
+resets and sets cur_mode to UDPHY_MODE_NONE:
+
+drivers/phy/cix/phy-cix-usbdp.c:cix_udphy_probe() {
+	...
+	reset_control_assert(udphy->reset);
+	reset_control_assert(udphy->preset);
+	...
+	udphy_set_default_mode(udphy);
+}
+
+drivers/phy/cix/phy-cix-usbdp.c:udphy_set_default_mode() {
+	udphy->cur_mode =3D UDPHY_MODE_NONE;
+}
+
+Although commit ba3650ed160e ("phy: cix: add USB/DP combo PHY driver for
+Sky1") states that the bootloader may hand over the port already initialize=
+d,
+asserting reset and preset in cix_udphy_probe() while no consumers exist to
+power the PHYs back on leaves all four PHYs permanently held in reset after
+probe. Wouldn't this tear down any active bootloader-initialized DisplayPort
+(such as an EFI framebuffer output) or USB link on Radxa Orion O6?
 
 [ ... ]
 
-> +static void udphy_set_default_mode(struct cix_udphy *udphy)
-> +{
-> +	udphy->cur_mode =3D UDPHY_MODE_NONE;
-> +}
+> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/=
+sky1.dtsi
+> index 0a820f45feb96..672aade42d6f8 100644
+> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
+> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+> @@ -606,6 +606,102 @@ mbox_ap2sfh: mailbox@80a0000 {
+>  			cix,mbox-dir =3D "tx";
+>  		};
+> =20
+> +		usbc_phy0: usb-phy@9030000 {
+> +			compatible =3D "cix,sky1-usbdp-phy";
+> +			reg =3D <0x00 0x9030000 0x00 0x40000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			clocks =3D <&scmi_clk CLK_TREE_USB3C_DRD_PHY3_GATE>;
+> +			resets =3D <&s5_syscon SKY1_USB_DP_PHY0_RST_N>,
+> +				 <&s5_syscon SKY1_USB_DP_PHY0_PRST_N>;
+> +			reset-names =3D "core", "apb";
+> +			cix,usbphy-syscon =3D <&s5_syscon 0>;
 > +
-> +static int cix_udphy_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D device_property_read_u8(dev, "cix,default-conf", &udphy->next_m=
-ode);
-> +	if (ret)
-> +		udphy->next_mode =3D UDPHY_MODE_DP_USB;
+> +			status =3D "disabled";
 > +
-> +	reset_control_assert(udphy->reset);
-> +	reset_control_assert(udphy->preset);
+> +			usb3_phy0: usb-port@0 {
+> +				reg =3D <0x0>;
+> +				#phy-cells =3D <0>;
+> +			};
+> +
+> +			usbc0_dp_phy: dp-port@1 {
+> +				reg =3D <0x1>;
+> +				#phy-cells =3D <0>;
+> +			};
+> +		};
 
-[ ... ]
+[Severity: High]
+When these PHY nodes are enabled on Radxa Orion O6, can the cix,sky1-usbdp-=
+phy
+driver handle USB3 PHY initialization and Type-C mode transitions without
+skipping lane reconfiguration or leaking udphy->apb_clk enable references?
 
-> +	udphy_set_default_mode(udphy);
+First, in drivers/phy/cix/phy-cix-usbdp.c, cix_usbdp_phy_power_on() checks
+udphy->cur_mode against udphy->next_mode:
 
-[Severity: Medium]
-The commit message states:
+drivers/phy/cix/phy-cix-usbdp.c:cix_usbdp_phy_power_on() {
+	if (udphy->cur_mode =3D=3D udphy->next_mode)
+		return 0;
 
-  The bootloader may hand over the port already initialized; in that
-  case the first power_on calls skip the re-initialization.
+	if ((udphy->cur_mode =3D=3D UDPHY_MODE_USB || udphy->cur_mode =3D=3D UDPHY=
+_MODE_DP) &&
+	    udphy->next_mode =3D=3D UDPHY_MODE_DP_USB)
+		return 0;
 
-However, cix_udphy_probe() unconditionally asserts both udphy->reset and
-udphy->preset, and udphy_set_default_mode() sets udphy->cur_mode =3D
-UDPHY_MODE_NONE, so the first call to cix_usbdp_phy_power_on() will always
-re-initialize the PHY. Does the probe path or commit message need to be
-updated to match the intended bootloader handover behavior?
+	if (phy_cfgs->udphy_init) {
+		ret =3D phy_cfgs->udphy_init(udphy);
+		...
+	}
+}
+
+If the PHY is brought up in 4-lane DP-only mode (udphy->cur_mode =3D=3D
+UDPHY_MODE_DP, which programs sky1_udphy_dp_conf in sky1_udphy_init()) and
+usbdp_typec_mux_set() later switches udphy->next_mode to UDPHY_MODE_DP_USB,=
+ a
+subsequent call to cix_u3phy_init() -> cix_usbdp_phy_power_on() hits the ea=
+rly
+return above and skips sky1_udphy_init(). Doesn't that leave the hardware in
+4-lane DP-only configuration with USB3 non-functional?
+
+Second, if USB is active (udphy->cur_mode =3D=3D UDPHY_MODE_USB, with
+udphy->apb_clk already enabled by sky1_udphy_init()) and udphy->next_mode
+changes to UDPHY_MODE_DP, udphy_dp_phy_power_on() calls
+cix_usbdp_phy_power_on() -> sky1_udphy_init(), which calls
+sky1_udphy_clk_enable() -> clk_prepare_enable(udphy->apb_clk) a second time
+without a preceding disable, and then overwrites udphy->cur_mode:
+
+drivers/phy/cix/phy-cix-usbdp.c:udphy_dp_phy_power_on() {
+	...
+	ret =3D cix_usbdp_phy_power_on(udphy);
+	if (ret)
+		goto unlock;
+
+	phy_set_bus_width(phy, udphy_dplane_get(udphy));
+	if (udphy->next_mode =3D=3D UDPHY_MODE_DP)
+		udphy->cur_mode =3D UDPHY_MODE_DP;
+	else
+		udphy->cur_mode |=3D UDPHY_MODE_DP;
+}
+
+Because overwriting udphy->cur_mode clears the UDPHY_MODE_USB bit,
+cix_u3phy_exit() becomes a no-op and cix_usbdp_phy_power_off() ->
+sky1_udphy_exit() only calls clk_disable_unprepare(udphy->apb_clk) once. Do=
+es
+this leak a prepare/enable reference on udphy->apb_clk?
+
+Third, cix_u3phy_ops only wires up .set_mode and .exit, omitting .init and
+.power_on:
+
+drivers/phy/cix/phy-cix-usbdp.c:cix_u3phy_ops {
+	.set_mode       =3D cix_u3phy_set_mode,
+	.exit		=3D cix_u3phy_exit,
+	.owner		=3D THIS_MODULE,
+};
+
+Won't standard USB controller drivers that call phy_init() and phy_power_on=
+()
+before accessing controller registers or before calling phy_set_mode()
+operate while usb3_phy0..3 are still held in reset?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102082112.2306=
-326-1-gary.yang@cixtech.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102081532.2305=
+142-1-gary.yang@cixtech.com?part=3D3
