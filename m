@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619441;
-	b=rWoYnvV8Q4qecqL7ujGsjhAe9rkjCoJ+iC0XvTlxd/nMSi6/lUFC38vY/oYgH7jfJ9in
-	 b3jHseakPm+C/QF0P53geSkVOojwEcq/UNZ3h7zNOjRLpr4Duwv590RsvtrDCvrIdFthc
-	 kQNUHIKYO+W/TTYEv+hCL0i4BHy2/5m+UTxQA6Dg616VG8Mz31Q7BuVQtdRQ7EpO+09ZV
-	 erFQxsXkVpAL9q1/hjh7eX0yMWxQ7fxQZh4PRmagB+4xEl1hpmOYFkDTnKpTslzt1sMP1
-	 GUHymoYhXxLPjL8Q68l/K7OS3p6PcY/B1Hv/LFrFUu82eKDE66VHGhCXKkyNI0Fk1ZA==
+	t=1793619607;
+	b=iYRDm/kiam3z9KP2rFSflrxO4/4G1GA1FrNoba4iO4GsCAEvgLwXBe82/HKDJIworVT6
+	 7cY0UoEn5I+BJiV0q9/4EFD1A9lZ7FQX+3E5HLP+U3nVn8dgYoo9FBJTvCwPcS1zxBVgk
+	 0+czyandXCHwEPWRGlNUarIRryAi6nwpsb9OzxNb1X22e+mwOFRw1bIqXKRPHRjpDmYzp
+	 R3Kpbd33U9ehNnfAVDWS6F8nJgD5Xc0MqRcpir8WDyPDVX0mfpA9/jA78gNKxU0/rHnFz
+	 ZmwJ68X0xVTr3cyJLtkELN0FPzPrRsP4eaLpkQUbeMRBUanvSZYePy2jNcnD9TOVHyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619441;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619607;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MNiGsrHToyaVJ/zYmtsH9eEes+/+LeMLhdggw3eFzDs=;
-	b=uAzbeAt6WLO3aZ5FwPxcLOcF/LOWIdrbYqVQC+BZMh5EeLXiPlgeXRSHKKoUlB6EPTYJ
-	 8Wk5G7xLAjmh4WaRWWbQbe//FXRp8Fk1L1WSz+rgA0Gj4PvC83HKX2DM5AUvZt7clpvr0
-	 051Yhzq4f0cyah1mPaCUNBWHZd21zKlxmlTRDQcOaCd+F13baM3nJeD3a7LxnQOXYJ8DZ
-	 D7MKhPNQsFUArpoKGSFjnpmznszS/qLYehWzELW9fXiZM6XQECisR7DyD0XAPfBPvUv0A
-	 REOeJ8Yb2+WE5GNhawz26ShG3Sfox9zzd717UMC4+uzDweFrcbz4xYIViRAqDt02Xyg==
+	bh=PGaY0Pa3HUYVclQJqjBeSI20mWGTsICDiHVjhHNeV1I=;
+	b=HfgtmnE+M9/3CYrdLn13wXflmdSAWUewclmceu2wfSmnVk1DVzYPZNd4IdriTjNigjz1
+	 BG1tbcXed7l5nuvIkn29N+OMFk9UMwC6zIOv6SBl/0Bgw2NScg9u2z5qKnUt3QKq4Sepg
+	 95nz3K+A5XGWmcnhov8QPKmzyu5r/L+4OxzgdDiipaPnqSf+rTFC1rLMIvOQwu9lW6Piv
+	 Lzg15vtYcDe1EAnRKH+rPMFQ3PmqR5b7lgTsg3PGFgiVaurGUMvmX4iga8cOSgRhIwmGr
+	 DT/H840qJbRxnXUO1LDbKb8dDiFcU7hu6OGaMIdlPlLUCwIzucDCiNYfaDe2rXCjgRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHlkzm0F;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxhzywtJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF8606A326;
-	Mon,  2 Nov 2026 11:37:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B2B606A326;
+	Mon,  2 Nov 2026 11:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHlkzm0F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 336461F00A16;
-	Mon,  2 Nov 2026 11:37:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxhzywtJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8761F00A21;
+	Mon,  2 Nov 2026 11:40:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619441;
-	bh=MNiGsrHToyaVJ/zYmtsH9eEes+/+LeMLhdggw3eFzDs=;
+	s=k20260515; t=1793619606;
+	bh=PGaY0Pa3HUYVclQJqjBeSI20mWGTsICDiHVjhHNeV1I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EHlkzm0F7/JaL2mUzUGHFgDZVibnUgMdixKA/V3u1vAHt0hY7J218j5xyIr4QCLKA
-	 drBt4KuOCz5qWA709Tp4lr9PTBvr7cbHNrRyea7z7zt/BDzMGKOW6s/qxmOWHo7h/m
-	 FHP4W3BHeTTxo0bgaR22v3c2+AQn5/0DIho0ZW9K7gKEaLPz86N44smHRLRgJZB4U0
-	 ycpJXhkTkX5LeXyeGymvOspy7bXOE9gsiIcVxuSKTqlBw71j1tErStVNOvm8Ne6CXd
-	 y9C3g9/80RVbtDLQO05h37sRLGM32WoiupsaxTRVANzaDzQGHhXp9LwFO5+V5VhhEX
-	 fORlUS0+J/I/Q==
-Date: Mon, 2 Nov 2026 12:37:17 +0100
+	b=MxhzywtJBHiisWhAANnkA8vgHE9oI5DEKKmoc/nAm5eLjve7s+fjBjbY3sJi+iMVk
+	 513dCavz/UvlAVM+dYF87jXDBwrmV4AY9r/xfuDry/43mW11avQyQtaUBN/mNachnL
+	 VUj1BE2lmHejeUaAfvF8cRfwsnq0HtAxRQtXnPrqJm9g6RD3TibbGg5Nsft22QIOcw
+	 By7RHFA807z9xRshcCcKZEiIe660/h9MLluJp4ekrksYbR2q9XZfztahkzBZxAggW7
+	 DBeJdb4EEPNJYJ8wFDp9UkUxaTo/0EzB+XzzDDbc/kxOaQP35dADO1Kkpfa4HfxTgQ
+	 gOPxz4D5mcCBg==
+Date: Mon, 2 Nov 2026 12:40:02 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jun Yan <jerrysteve1101@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Akhila Kavi <akavi@axiado.com>
+Cc: Sammai Chakravarthy <schakravarthy@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chris Morgan <macromorgan@hotmail.com>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: mfd: bq25703a: fix input current limit
- default
-Message-ID: <20261102-thankful-spiked-agama-fa2deb@quoll>
-References: <20261101085754.277830-1-jerrysteve1101@gmail.com>
+	Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>, 
+	Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Axiado AX3005 IRoT
+ MCTP transport
+Message-ID: <20261102-nightingale-of-legal-superiority-fda313@quoll>
+References: <20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
+ <20261101-mctp-transport-irot-ax3005-v1-1-36ceb822f01e@axiado.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,22 +67,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261101085754.277830-1-jerrysteve1101@gmail.com>
+In-Reply-To: <20261101-mctp-transport-irot-ax3005-v1-1-36ceb822f01e@axiado.com>
 
-On Sun, Nov 01, 2026 at 04:57:52PM +0800, Jun Yan wrote:
-> Section 8.6.6.1 "Input Current Registers" of the BQ25703A datasheet
-> states that "The default current limit is 3.3 A", while the binding
-> documents 3.25 A.
+On Sun, Nov 01, 2026 at 06:00:57AM -0800, Akhila Kavi wrote:
+> The Axiado AX3005 SoC has an integrated root-of-trust (IRoT)
+> co-processor next to the application processor. The two exchange MCTP
+> packets through a no-map carve-out in DRAM, and use one channel in each
+> direction of the AX3005 mailbox controller as doorbells.
 > 
-> Use the documented value.  It also matches BQ25703_IINDPM_DEFAULT_UA,
-> which the driver falls back to when input-current-limit-microamp is
-> absent, so the binding and the driver now agree.
+> Add a binding for this link. The node has no registers of its own. It
+> describes the fixed pairing of a TX and an RX mailbox channel with the
+> reserved-memory carve-out that the IRoT places its packet windows in.
+> The IRoT firmware chooses the window addresses inside the carve-out and
+> reports them at runtime, so they are not described in the devicetree.
 > 
-> Fixes: 76bc2203a46e ("dt-bindings: mfd: ti,bq25703a: Add TI BQ25703A Charger")
-> Link: https://www.ti.com/lit/ds/symlink/bq25703a.pdf
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> Also add a MAINTAINERS entry covering the binding.
+> 
+> Signed-off-by: Akhila Kavi <akavi@axiado.com>
+> ---
+>  .../bindings/net/axiado,ax3005-mctp-irot.yaml      | 60 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  8 +++
+>  2 files changed, 68 insertions(+)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
