@@ -1,149 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.117
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793585519;
-	b=cti/Fns6+tOQYUOBwJGmM1Watazdgtkd2qVFT2xqWY6a61jpZ1lQoSwev56127t7DQAz
-	 nV9C8vQ3aU3tPRCqCUODf7teqqnjIkl6K/DahIcLqlL7U5SEc3YV9o4ofLkUTMSPY7Eps
-	 v/Koc9K/3ywywiFUnLk1rS308fvupDJGagzCBluUhZBQKnz7PRZBnb8o/I0xv4DvvjkGb
-	 K3QTILA0ucVnVC1V9nUQZZ2MTPMFCfQpkjxgxgSvKkjCaQui92qrISC4q/Eji0bZKpc8S
-	 +v4MQ9pJX+0VR6Ia3XGyyAzDsU2Y8Zz7FowHkGbwRAjTmlNFyAJ4VfzCYqKtIu3K50Q==
+	t=1793585583;
+	b=KssHU03/isxi0DmHQYJLaimQrYPNm8YddWXo56XgUSrNlCrO9VcT+Nheip5a2f+Nxnvv
+	 OSWGyCVh+CixDYK3G+ep6ECZ9jZPBU+Ai3c5lWSXAuvfdBoyksgLdPMXp8I4tFtxRIy6t
+	 qBemiXrYbr3RCfii75cgHyxVNk8hvlc69s3URApAgruYp0qC1CuPdmgzu4GWVZupxOX/4
+	 hrVxiV/q/Qa9e18hOoBZtdwd5sJFoZQYp/rI4UxuQE8IQsIxMv0KjLwKTYkiPxAQ/zPbe
+	 LaBJY0SQqOBKB1jYWXpmqpfB5RGGLCWXMVXLNeVwGXwuMBwJy2hqpjydDE37n1GuAAQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585519;
-	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=MB56xPcMHiBrdSd6zT9wNeOvso0rPW7msyfvCfwp3ug=;
-	b=r3OKrETDqdSWhYjwD4J2Q3BjZTn/nxMObFoG6WiU/sNJJk9ofOA7UPhddhJbP5qBO37c
-	 1MpAPXhRzqy9S99+skJtucLF4vjH3Pv40eRPo8gDEKJW8OWietrwT0iOAHE7hw6/erdOU
-	 s1AiBr4BuhL4ltm9Ad4UCHB5+O9Lg07JXKwh5EbTt9TZZ0qvic5a14U7Jn22vEk8bS6Fw
-	 fEDpy6+0zhw9iKsH4UFHq+XwvclEuTNpJlLZ3LxDiszscaSHftCrY7axIMPYRvp0NUdya
-	 iRkvFA6Bushc4OTs0cNdf7TCOLHEYmR+O8JzM+/o8wX8lYD3vdxawlkr+ajQH4VfoSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585583;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=e7faZ4zHoj+LWmeEHc89fWpnoDlQ1eH9taJo6V1MAGE=;
+	b=ntQhVSLv4LmzWFi3xShrUmq21/cx2uSg9FTq5SvHopFX0+VZF6f95x6NiKUofD7VQUpk
+	 SSF0areBVtDuwoNsGh4RWqTHJ5O7+HtwPIx+Io60VAwVaX2YBO1kJiA7snRN9bgKC1H7d
+	 Zira3JJPows1j/Vqzai8CrhZPbXaa7zWTOK0kVqYz1e3V61+HYuscyFiveEqmJPxYB9e5
+	 vtAThFgnDBf18Htl1THOUGL6F1EHL+8OcRWFNF4qdQie7iIE9jIt8dNyI0yvtvF7Inxlo
+	 ILlI483j9jPPKUwwHl8lbYpfVZ/37ocQqcT2/dD9Kwn0XSaoBO5KBshI828U3kLFTRA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.117
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2117.outbound.protection.partner.outlook.cn [139.219.146.117])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9G91mHk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C1A606A324;
-	Mon,  2 Nov 2026 02:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68C1A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n+Gwe+BnlNo93GbyXbtvk3AMqufMsMnhQJbqjqc8xHbpznDjga9i7+wYsxe/PJ6RJVL4pNetriujOQWkKv2MI2Z45jpbuxKplZBwb4QDGMh2kCohicc+tcd+axiLrzNN2i2IP3Eo5poKboN7iih1sbL5U6RD9N8dMNBTc4D8v1/6xuNAQ8hxD/NB2gxdOwf3WVDAHX0ysrbsEckrbJ/ZsUa9GSmzg44nEeWV+TxzvPTWHQeqCmKQiCg9mSIdIUvIC/LMz0IgqTvLfpHVi251oh4VH0Ld5dif5+9aFf/Zd89Gwxqd+s0Tz2ugZkfQ6lCuQadVorxb3ibdKpXGakf81g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MB56xPcMHiBrdSd6zT9wNeOvso0rPW7msyfvCfwp3ug=;
- b=Zvlcz/8oUpf97WuIMHCV6OZ0JyL+lfH1GsZhvVFEmAE30hYq0/I0TVziW0JCOh/k0k+O/W7egI8JaJC0oYygimFaeVVv/6qQJU7OkcTyU+ehnTFQ0BCJD4DtFN/9QdANw9pnp/hVHqyS+eK99p4zj9SzzLONQOv/MgLGsJ/7wzv8n5zPcQbpO53oNA4iHgGt4O0k+Pztrvem81dedfz02R5v4uclh9//5fhNhuz9gpM9Q+IFgsoBpu0ZI2yShhhz/oTBEheD966/NtcDirKk8jb0c9LaSQjwuibTaHmH3g3vvispM/TCvsHLZ6hRR6jK+YXBVoy/Vj+7DQ/og+3NXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:7::10) by NT0PR01MB1120.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:d::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 02:11:46 +0000
-Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
- ([fe80::be4a:d29e:5188:b37e]) by
- NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
- with mapi id 15.21.0569.011; Mon, 2 Nov 2026 02:11:46 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: "patchwork-bot+linux-riscv@kernel.org"
-	<patchwork-bot+linux-riscv@kernel.org>, "conor@kernel.org" <conor@kernel.org>
-CC: "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"ukleinek@kernel.org" <ukleinek@kernel.org>, "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"emil.renner.berthing@canonical.com" <emil.renner.berthing@canonical.com>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>, "pjw@kernel.org" <pjw@kernel.org>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>, "linux-pwm@vger.kernel.org"
-	<linux-pwm@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [RESEND v22 0/3] Add OpenCores PTC PWM support
-Thread-Topic: [RESEND v22 0/3] Add OpenCores PTC PWM support
-Thread-Index: AQHdKHVcUHYiMwEYKEiLBGQTFfpjtLcaTHiAgAA6KyA=
-Date: Mon, 2 Nov 2026 02:11:46 +0000
-Message-ID:
- <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
-References: <20260810030714.48100-1-hal.feng@starfivetech.com>
- <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
-In-Reply-To:
- <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB1120:EE_
-x-ms-office365-filtering-correlation-id: 1a86316e-d988-4ee4-0c34-08df3886a592
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|38070700021|4143699003|56012099006|261009223027099003|261028144727099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- fojYtCq1weEuVke97FitqTqrf/fbUdZ4L+PNHhcOonGHS0TPh2ximwm29hpbMA7wTIVaweoPQtQsdxW+DnU6yAWvQR2S6pMOxqfA7VkfC4P/uviGKpiSq1o4WebPQZSYyFTx6MkyKJllF1xr3BQ0ASSUdmxJ4lsm0a5R3qGqa/nyaIXpJHRY+3ulS+qpYneIO+Pe2vmzuRlmM/CSVJ+O99i9i/68QkgSF0l7nFFKtaXpyDTCl2b2b8rSWBitLAqjbnJEO1zMB5PZLVkxDZKU6+BzIEG94P6tDB8mFpuMRV7/Ctf0DCBD/gJHwPv4WmvG+OazqbMO903DnKnO9BEFGbvsCl3AiFXIqwU2qaj5f4GPGNdk0rb5XkzcU4i4fJRvvHMPF6No6hNKfuzCFX0PdqfQ7D1wCaLgcN7HDN5ltaZElFNY1Z5MMGUS4121dyxwyHHmEzi29KpRGls3Vyf3sHVx8V1smoXc2EPY/xfdEXCSB/1MP5XaUoqnN+hNVjtAym7qn2N3I/ZTC7pu+rvB74dMTSE/7hzZz7vnMDXm3+fQSyL0kkrsDBIPXU66vZWF
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(38070700021)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?d1NiL2tja09oOGxxbjV1WXVTcXNCWitZR0JocnZLWTJCVjJCcHBaR0Y3a1Mr?=
- =?utf-8?B?L1N1MjQ3VjZobXFTQnlUL0VUWUJCYVN4bEFxYmZqUmV2UzFyaUNhYUc1ejl3?=
- =?utf-8?B?eG9vK0hadVlHR0hwOFlxQ1hTSmp3a3NRbG5RRUp4U2sram9DQ1dVd0FkTVJ5?=
- =?utf-8?B?NE1TSDdiNWhYbnQ0WnlGTHEvRFVJaGoyeFMyZTc4MVhwUEFtSElha0F0ZzBP?=
- =?utf-8?B?ZWVSTFBWV1FtZFVCUzJoQmxENmhReU53R2lMeUJ6UWlXSDNjOGxwQk1MbjVO?=
- =?utf-8?B?T3o0SG01V2hmQTNYUzgyWk1yazgraHVMdzNLdXRYUUFNOGRKVWxSR2dUZ2tW?=
- =?utf-8?B?bW1FTXpOVkg3MEQxUXNoMGdDUGR3cHNqRXJsWkhkbFFTYU9qZGNCNWtPMlJj?=
- =?utf-8?B?eVZGL2c3bE1xbm9GRmVlZUxlMG44dkwzMXc3ZzVZYmcwMkdHaFZoRGxUQVpv?=
- =?utf-8?B?NGo3cWlPcUYwSEJsNVh5NG5rTmdFTnZ2ZlJWSnYwVFJxazhVdmVmVDNZcFN5?=
- =?utf-8?B?MU9PbTlQbVdLQVVHdWtqcUlHaWZ0OWFnRkZjUjliR29pTVVXdkhMVmdlRG5q?=
- =?utf-8?B?SFBjanFBMFdtVEp5L0pROGlwSXArcVpxRlZ1dTFaaS9MSXN6ZStkVFlFZFZ1?=
- =?utf-8?B?TXlFQ2ttejBLczB5aHRzbzhicVBibmVCUXlpTlZyb3Y4QzMyWkVqbXlhbGxn?=
- =?utf-8?B?OFFiUjEwMkJucUgzNWlKMVZoV3c0VDBCakQrSUg2cmdhWFRSTkZURnlDdUVT?=
- =?utf-8?B?c2FhdThoNDhaSVNObHNpMGRYc2tKTFJiWWVWMkNuUS9GdDVCc2h5M0pqTnRF?=
- =?utf-8?B?NG9tdDRhQXljcHlwU0E5cEUyUktTQ0oyemg5QXlYZHFXOFp1bVdvb2pGMitM?=
- =?utf-8?B?V1FNK0MvUmRvM0hYSjlSM1J4QTlwSmVnanpqVVZRMm0rcEdmNTBTaC8wNDNa?=
- =?utf-8?B?cTAxZjRvVEo4VEp6RzBoc3dBRlFidWhCM09ZVmJMMm5EejkzZXdpcXd5bEl6?=
- =?utf-8?B?enE2NHZSMGlYSDhLUWNPV0dFVjkxdTZySmJFcVFMWXZJVVA2aVJMaHNLQ2Jh?=
- =?utf-8?B?a0IxNWRXKzk4azE5VEJRQk84eGtwWGNHWm9LRk1sOXNGSEpvYkM1TS95Qmkz?=
- =?utf-8?B?TU9Ga3IwM3M4SUZtNnpwamlLbmw2S3gyeWMycXlCVko2Z01TajE5aGdyM2VW?=
- =?utf-8?B?WjdSV09nZi95NWVENkxMemdrVE16Z3F3ZVI2WlNLWDRGcys5Myt5ME9TNkNa?=
- =?utf-8?B?dTRQWGdXcUp0dXNMQ0xkUVo1R1JMYWpHZkhnTXhBQURObTlERlIwRHpIYUlx?=
- =?utf-8?B?MzNJSzVockVHRVBHVWJVRVBLb2RDeUJwOVVzVnZucWtDRWdmQmUzcVBTRjlI?=
- =?utf-8?B?dFo5NE9YMEFoT21COHljN1dxQVhodG5IZUY3czBhN2s3MzdVanp3T3dCS1NT?=
- =?utf-8?B?QWxzVTJLMC9FNkRObmlxRFVLcS9oMGQ0NlNRWG9RUzRyN0tZWExWZGN1U0E1?=
- =?utf-8?B?SXN2K2xycTUxQVRnREhmVDFCdnB5YXlkbVlwNEtGOGRSSnI3YzhsVTc2TGtw?=
- =?utf-8?B?K0pYeG9XTi8rRlhrNGg1ZHNlOG5DYlNqODU5QWlUdzZkWndVQ1cyeXBSOTZp?=
- =?utf-8?B?L3pESGxITHFkYkQvemYvM0pKM3pONlFudWhDcm45aUtNMkVSNGZNK3UzWUlp?=
- =?utf-8?B?OXRxWDlrZUNDVSttTnAvZHJJZXBEZnJBdFZ2NWNXbGpscTZLT1U4Q0lrZFg3?=
- =?utf-8?B?NHNCRGt6Q1hYR0x4enhuelM1bnpyek5iVEFIQ0RyV2VQcXRmOFVMclB5ZWZw?=
- =?utf-8?B?aTJMdzFrNFZCYkQ0YnZsU0NaRlV0TXFuY3VTMjJMN3ZXV1lNQVZMdzhpMWx4?=
- =?utf-8?B?RkpMN0FnZmVmVGMwV0xpM1JqOXVnc1dCa1pxNG5Oa0wzbUlnNWJ0Z3RuaUtn?=
- =?utf-8?B?cEtZNjFTekFDam1vVm5lUkdPTFF2YTl5VC94ZVBPNzVjYVVKbHY0S0FqZFlo?=
- =?utf-8?B?THdzbUNaZ09TN25YMnNJZ01TTmpUZkN6UWZhUUZiT3B6TVpQd05teitBNk5v?=
- =?utf-8?B?Yjl6aDNWWmJDbzY0bFdaaWNTZVF4WVVldVpnbEg0NUVIVStZL3M1SWFSRXhx?=
- =?utf-8?B?MGZrSkJTRW1PQkFCZ2U1WmhudzNFT1lZTTMzaUkvMzRZTm83MC80V05CYmcy?=
- =?utf-8?B?VEZ3K1NEMktJejk5a1VsQlVoS3dRR3NxVW50UUpncTNUeVVzQzd0aGFaenVr?=
- =?utf-8?B?MnhUN3pDMjllN29ManExL2owcXNvWXVkS3A4QVhNTFg0TitvSHdMU1RtVGpN?=
- =?utf-8?B?TGNSWnczU0x0a1ZUK0FVcndwakpuQjNlOVBSZWlJZEthZDhPNnlpZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA4B606A32C;
+	Mon,  2 Nov 2026 02:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9G91mHk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793585582;
+	b=VQRzFtNPUljv1YzEqK9TyUgyG/1VY8qW/lraXOtjF8KkW7SAv6sOjC3e2v7nej6GI2Zq
+	 5HZRtQqBO1W2Ulygc20ws98rjgaeOfoT9lqN4KqrAX53SuaLk7kjaHSVlv2ZyrzZU6BrR
+	 a1dJXwsujeHiDhZnl/pmLxJFQKttxcyChMOPt7L0KiPxW2FIF7xZDDo6E9PD424Ue+bFQ
+	 Zzd/5XNX1LOqx+0AiCbik+LfPhq3Ze6KK9AjmMkmcG2gt8cTya6GQXU92YO0KnimkRyJ9
+	 3AmLj7TWIIbBg9r5el90ex/UpeCV/uWinyWAhfB+9rGmkpAy0+qUHWhAKL6cX6D2gfA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793585582;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=e7faZ4zHoj+LWmeEHc89fWpnoDlQ1eH9taJo6V1MAGE=;
+	b=E6KSYKJzzx2a3xNF8C0C/INfSpYg7oxnE+dtJKMLRx2eEUp2touUEdvBnZKjmOLRFsO5
+	 lPJWl8/lWi//1ltLnyuP+Bzw4nmvOxwx3gOLG7bh0tnb4xFLfNifja0rviEE5edcum7jP
+	 Ut2Kb7Ofgqzi4rmZGA8dI7hUCrKK4edpoWjmWNwWi0/9zbMI/uJ6gYpPZ1xvJHjq1fE3c
+	 0UwhAwrlHsE2fNZlqNu9EDU+VDby0jttO/0uVrr5bkv3Zot1LmxOXvYyswm4bqgoVq76I
+	 sf+AODKXiVB9sSSvK2FsJ3QMwfBZ52xk+3idrTV+SdKo5+PSDFf7JFfwrs9gA7KoV1Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8097E1F00A28;
+	Mon,  2 Nov 2026 02:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793585582;
+	bh=e7faZ4zHoj+LWmeEHc89fWpnoDlQ1eH9taJo6V1MAGE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=I9G91mHkf8klDoG6oW9AL/ocsuk6HnhuuM0sjwIZOm82agbfDgbbixpfw+zpeiGRi
+	 rJSzWScBeiE7MZeaXQ+UpGIGMN7Zf/O7YdXkSsLd1WZ/onMSl3s726S3eAAQcUuP/Q
+	 f4WIpGiovpuv3QYZfroABW8mp/tSh/T3VwZDTKxEvGFMc6xo1fhoZHZkFU9zGXOcBa
+	 SYjc2p1p3Iej5w0lRlC1y2ANaKQ/km5p7emAO3KDxd4inJGZHh+C5ArqWwHy3PGV4E
+	 TQg4ggQ6A68DHtQY8fEbGxLEkyj2Emegd34L5v3JiGaONO2IL4rJzCiRIEnXjQfuas
+	 4mpuYPlXed6lQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F0CC54631A;
+	Mon,  2 Nov 2026 02:13:00 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Sun, 01 Nov 2026 21:12:28 -0500
+Subject: [PATCH 04/10] leds: rgb: ktd202x: Fix a division by zero with long
+ blinks
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -153,43 +83,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a86316e-d988-4ee4-0c34-08df3886a592
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 02:11:46.3947
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GjqHCxl2Ylp1fgyJVhYNCETL+01pcNhZEh7/hTYc7HINuT2WMtdbM0mUYNUBOtXpHvTcyJLb3vvkoP+z/OtFMrXDSwQxEjTxqNm/+gcs4W0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1120
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261101-ktd202x-et6326-v1-4-eb51eddad08c@telaak.dev>
+References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+In-Reply-To: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, stable@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793585580; l=2525;
+ i=joseph@telaak.dev; s=20261102; h=from:subject:message-id;
+ bh=9khUpnVIznb+BmjNA8t95846XXlyL+YUn/unSSiwMvA=;
+ b=+v/pi1hd59t8tQZRnI+2mCmQeAbFBuA4fP+f05pYeOYX35rBONWO9BfO+TzygzG61YjMRx5qw
+ 2+r+z3S4ynQDpkf7kxMOjNTDAuCkGCN3BieP/OhjzVP0Wbyj4QrhG7R
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=OmwSusdK4grZpiuZVfCZAvYyqz9FBkNemsV1EnHyVr4=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261102 with
+ auth_id=1382
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-PiBPbiAyNi4xMS4yIDA2OjE3LCBwYXRjaHdvcmstYm90K2xpbnV4LXJpc2N2IHdyb3RlOg0KPiBI
-ZWxsbzoNCj4gDQo+IFRoaXMgc2VyaWVzIHdhcyBhcHBsaWVkIHRvIHJpc2N2L2xpbnV4LmdpdCAo
-Zml4ZXMpIGJ5IENvbm9yIERvb2xleQ0KPiA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+Og0K
-PiANCj4gT24gTW9uLCAxMCBBdWcgMjAyNiAxMTowNzoxMSArMDgwMCB5b3Ugd3JvdGU6DQo+ID4g
-QWRkIE9wZW5Db3JlcyBQVEMgUFdNIGRyaXZlciB3aGljaCBpcyB1c2VkIGluIFN0YXJGaXZlDQo+
-ID4gSkg3MTAwL0pINzExMC9KSEIxMDAgU29DLg0KPiA+DQo+ID4gSSB3aWxsIG1haW50YWluIHRo
-aXMgcHdtIG1vZHVsZSBpbiBwbGFjZSBvZiBXaWxsaWFtLg0KPiA+DQo+ID4gQ2hhbmdlcyBzaW5j
-ZSB2MjE6DQo+ID4gLSBBbGxvdyBub24temVybyBkdXR5IGN5Y2xlcyBzaG9ydGVyIHRoYW4gb25l
-IGNsb2NrIHRpY2sgdG8gcm91bmQgZG93biB0bw0KPiA+ICAgemVyby4NCj4gPiAtIERyb3AgdGhl
-IC5mcmVlKCkgY2FsbGJhY2sgdG8gcHJlc2VydmUgdGhlIFBXTSBoYXJkd2FyZSBzdGF0ZSBhZnRl
-cg0KPiA+ICAgcHdtX3B1dCgpLg0KPiA+IC0gVXBkYXRlIHRoZSBjb21tZW50Lg0KPiA+DQo+ID4g
-Wy4uLl0NCj4gDQo+IEhlcmUgaXMgdGhlIHN1bW1hcnkgd2l0aCBsaW5rczoNCj4gICAtIFtSRVNF
-TkQsdjIyLDEvM10gZHQtYmluZGluZ3M6IHB3bTogb3BlbmNvcmVzOiBVcGRhdGUgY29tcGF0aWJs
-ZXMsDQo+IGV4YW1wbGVzIGFuZCBtYWludGFpbmVycw0KPiAgICAgKG5vIG1hdGNoaW5nIGNvbW1p
-dCkNCj4gICAtIFtSRVNFTkQsdjIyLDIvM10gcmlzY3Y6IGR0czogc3RhcmZpdmU6IENvcnJlY3Qg
-cHdtIG5vZGVzDQo+ICAgICBodHRwczovL2dpdC5rZXJuZWwub3JnL3Jpc2N2L2MvMjE4NmVjNWY1
-OWMyDQo+ICAgLSBbUkVTRU5ELHYyMiwzLzNdIHB3bTogQWRkIE9wZW5Db3JlcyBQVEMgUFdNIGRy
-aXZlcg0KPiAgICAgKG5vIG1hdGNoaW5nIGNvbW1pdCkNCj4gDQo+IFlvdSBhcmUgYXdlc29tZSwg
-dGhhbmsgeW91IQ0KPiAtLQ0KPiBEZWV0LWRvb3QtZG90LCBJIGFtIGEgYm90Lg0KPiBodHRwczov
-L2tvcmcuZG9jcy5rZXJuZWwub3JnL3BhdGNod29yay9wd2JvdC5odG1sDQoNCkhpLCBDb25vciwN
-Cg0KSGFzIHRoaXMgcGF0Y2ggc2VyaWVzIGJlZW4gYXBwbGllZD8gSSd2ZSBzZW50IG91dCB0aGUg
-dXBkYXRlZCB2MjMgcGF0Y2ggc2VyaWVzLCBidXQNCktyenlzenRvZiBwb2ludGVkIG91dCB0aGUg
-VGVzdGVkLWJ5IHRhZyBzaG91bGQgbm90IGJlIGFkZGVkIGluIHRoZSBkdC1iaW5kaW5ncyBwYXRj
-aC4NClNob3VsZCBJIHNlbmQgYSB2MjQgdG8gZHJvcCB0aGUgVGVzdGVkLWJ5IHRhZyB0YWcsIG9y
-IHNob3VsZCBJIG1ha2UgdGhlIGNoYW5nZXMgb24gdG9wDQpvZiB2MjIgaWYgaXQgaGFzIGFscmVh
-ZHkgYmVlbiBhcHBsaWVkPw0KDQp2MjM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2
-MTAxNDExMDQyOS41Mjc2Mi0xLWhhbC5mZW5nQHN0YXJmaXZldGVjaC5jb20vDQoNCkJlc3QgcmVn
-YXJkcywNCkhhbA0K
+From: Joseph Telaak <joseph@telaak.dev>
+
+blink_set() works out the on time as delay_on * 256 / (delay_on +
+delay_off) in unsigned long, with delays straight from the timer
+trigger's sysfs files:
+
+- when the two delays add up to exactly 2^32 on 32 bit, or 2^64 on
+  64 bit, the sum wraps to 0 and the kernel divides by zero, for
+  example with "echo 2147483648" into both delay_on and delay_off.
+  That oopses on x86 and gives an arbitrary result on MIPS and arm64.
+- on 32 bit the product already overflows once delay_on is above about
+  4.6 hours, and a sum that wraps sets the wrong period, so long blinks
+  get an arbitrary duty cycle
+
+Saturate the sum, and compute the on time with mul_u64_u64_div_u64().
+
+Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ drivers/leds/rgb/leds-ktd202x.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
+index 8c890ea5a..feea33b7e 100644
+--- a/drivers/leds/rgb/leds-ktd202x.c
++++ b/drivers/leds/rgb/leds-ktd202x.c
+@@ -9,10 +9,12 @@
+ 
+ #include <linux/i2c.h>
+ #include <linux/led-class-multicolor.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
++#include <linux/overflow.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ 
+@@ -296,7 +298,8 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
+ 	/* Convert into values the HW will understand. */
+ 
+ 	/* Integer representation of time of flash period */
+-	delay_total_ms = *delay_on + *delay_off;
++	if (check_add_overflow(*delay_on, *delay_off, &delay_total_ms))
++		delay_total_ms = ULONG_MAX;
+ 	if (delay_total_ms < KTD202X_FLASH_PERIOD_MIN_MS)
+ 		num_steps = 0;
+ 	else
+@@ -308,8 +311,8 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
+ 	 * Integer representation of percentage of LED ON time. A value of 0
+ 	 * keeps the LED dark, so use the shortest on time instead.
+ 	 */
+-	on = (*delay_on * KTD202X_FLASH_ON_MAX) / (*delay_on + *delay_off);
+-	on = max(on, 1);
++	on = mul_u64_u64_div_u64(*delay_on, KTD202X_FLASH_ON_MAX, delay_total_ms);
++	on = clamp(on, 1, KTD202X_FLASH_ON_MAX - 1);
+ 
+ 	/* Actually used delay_{on,off} values */
+ 	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + KTD202X_FLASH_PERIOD_MIN_MS;
+
+-- 
+Git-155)
+
+
