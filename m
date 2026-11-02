@@ -1,65 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793598642;
-	b=0IFrgY49+dmfyNTaDL/N2AU8GFw984g6D+eMB9efWcPTvbbuicbGcMvk9mxLgFxGHWhu
-	 OsmqR18DXURQhqEfNJo6XCC/lfs46e0Ch7B053TDlSjzV5VYtGe21yiV3x0Obix+iWKGs
-	 luvVQEDRfnVKnqQx9eLlY+Gz5ptH8Fsj3nXL7nMIdHAha2/ybFA/PPD/wwtijmwd8NYg1
-	 pGHLdfLMr1s4V+ZxETBvpAkoL0HkPGAstRjoEPus9Re0+sEmLwS9xehCVSAPa8nmxWv39
-	 z1Kp6kXDCVzGWKFIqWend+LJKtFW/7f5f/7Np+OAJD5Hi+H34k38Uo7jzmfEHg/8Xfg==
+	t=1793598962;
+	b=YavxbU5EMo1ezAd4Cj3l8VBm4jRbc+w+2nJCDUqF7BApcpVMNppvjcDvKpAzBb++nwsq
+	 mvjJxwP7e/4xrt1U4luzeAZYrYzB9eSNnlMGKmP8krumpu8sW/DU548stjQNUX5rz9hrh
+	 fbadN7rbs9zW7nyU+zDORh6K6ryHrOFAFteAvE7i2W5XPny9JwF6c103OlRFwIO514rIe
+	 zE0Jl0+00iYELKUbxHgJAISJuIRKFeCYEuJQiJtwMJzkZeDX+brt6LfAElaL3bsVKw292
+	 ITomeniGyHb+1veNHQtPWWQeSRrDwWRicjVQ4tfzaCM0WMaMZNWIYL2fCAkh37M/wVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793598642;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=essLqwzEoNtV95IkKs+aOj/xFoD0x8dpazOkHhZwxBY=;
-	b=FSi+8kurRPVLqA36fnzHbzrEOL07tolyVj/n2N5otMqIq8a2O0UjJxE1E2aow2LI4LBi
-	 cfM6WX7lG0LWtS5MrXaaeAw6N1AibOAUsaC8AmViloQK5DdT4cUqRgvCMrUR15aYI5itA
-	 b5MPCSpsAaSNw1CcuZ5hmOuXkIF5f5bB6t5jiZW04y2t0158TP6Il5sKjtTi4+Gxr22pL
-	 Ot9OlPv5jp1vOOBqF/OVOakko1hxZurbWUXkvhw2Q7QYewadv4ZB6Q5v+Spr5O2QdNr+n
-	 WytVpaKOk4bMfrhcFay5jgUIFNhCv9e3FGctHpFCWp9+o/ZBj79w1JvWZ3/IDp885zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793598962;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=galmyEn4LbKSLuawhs4ZGQeiueItg3W/HcKq5KP6Bgs=;
+	b=vzkMZdVvmgQyjU5YcZ01n0KmtEVBlLrTtZxF/afaprf07O57UsshoN1T6bqH2ts4/O8T
+	 8W/ZYio3AKMohrNDA0hYdgrNeMaUEiwYpugTCmrsR+q2YWnGSIPwD9Rnh2SGhncQCskjA
+	 srrm+R+RgmsBCnYDpRHJwnzUhavayJH7fB7tiHBOrYyplbILYR9neHQ/3dmi3gIWsTXXr
+	 i+VO1Uxq6+j9mP5hGNo5sWhjGLU15L6acyRnoypPfAWoetXc3Gz0Y63n5b57j3nu5cGNy
+	 royho+hP6GnIcuF3apjkTT+ddD4DzsQ7RalOC7qu6KgBGmp14uYqsTF+3A6oWypWcYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=uqb7Oi8b;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0A28606A327;
-	Mon,  2 Nov 2026 05:50:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A28606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=joEgN+t6;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCA3606A326;
+	Mon,  2 Nov 2026 05:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BCA3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=uqb7Oi8b
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=joEgN+t6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=essLqwzEoNtV95IkKs+aOj/xFoD0x8dpaz
-	OkHhZwxBY=; b=uqb7Oi8bimXpRvNYe7yHoncfA1mhLtvi/JD4kz6SOc11DUcdv+
-	SOoVrMFnnXpr76P/X0nIbuS8AGERQ28oVg96o45EoTnPnP9uHXvE1IH53JS/2fT4
-	scbGJa277DG6VoLKKIlA0u8JIxybRRfZDtV+df9/tnaDoVznVV/ewSdts=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.182.90])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3vECiJOhqkOR1AA--.392S3;
-	Mon, 02 Nov 2026 13:50:32 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v3 1/3] dt-bindings: display: msm: mdss-common: describe additional block resets
-Date: Mon,  2 Nov 2026 13:50:24 +0800
-Message-ID: <20261102055026.438521-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102055026.438521-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261102055026.438521-1-xiaqinghuan@mail.ustc.edu.cn>
+	d=codeconstruct.com.au; s=2022a; t=1793598959;
+	bh=galmyEn4LbKSLuawhs4ZGQeiueItg3W/HcKq5KP6Bgs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=joEgN+t6NvoovW7oKCyZDr2eqdix+/duqp4PMFPCW3+RRwMNBkk04YEGTrQqXFBfa
+	 tCJu2UBAyLCb6xV2/OxjkIAgqYEwt8p4FKq7NIXZ8waf1xyRvl97ugJ8Az60PQtVde
+	 NvMCCJ2xvX1Y80yfKQIMFQPgliXk6vJBrQiVp8GlhsxUBGqyqXyFYipUEdra2x9jW6
+	 7tbTiIxaXd9V6tZX11NmuzG84SPnnozNpGRH4UM+InMJfNnB/aLnlIf/7VxlhdH9xn
+	 720JtOYjZ6d7n7DjPBBG7Dva9h3DRuPJgRgoxCI6V889anGcx67nbuYl1n0zXg5WFV
+	 FmmJo+qfQ9KKA==
+Received: from [192.168.72.161] (210-10-213-150.per.static-ipl.aapt.com.au [210.10.213.150])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 6A55B648DC;
+	Mon,  2 Nov 2026 13:55:57 +0800 (AWST)
+Message-ID: <06e25064f8a5455c12b47033a1a62b94100e7590.camel@codeconstruct.com.au>
+Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>, Donald Shannon	
+ <donalds@nvidia.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Linus Walleij	
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Lee Jones	
+ <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Andi Shyti	
+ <andi.shyti@kernel.org>, Mark Brown <broonie@kernel.org>, Jiri Slaby	
+ <jirislaby@kernel.org>, Corey Minyard <corey@minyard.net>, "Rafael J.
+ Wysocki"	 <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>,  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>,  Hans de Goede <hansg@kernel.org>, Lixu
+ Zhang <lixu.zhang@intel.com>, Danilo Krummrich <dakr@kernel.org>,  Johan
+ Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>, Quan Nguyen
+ <quan@os.amperecomputing.com>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-gpio@vger.kernel.org,
+ linux-leds@vger.kernel.org, 	linux-i2c@vger.kernel.org,
+ linux-spi@vger.kernel.org, 	linux-serial@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, 	linux-acpi@vger.kernel.org,
+ linux-doc@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Bart Van Assche	 <bvanassche@google.com>
+Date: Mon, 02 Nov 2026 13:55:56 +0800
+In-Reply-To: <2026103015-stained-shudder-1582@gregkh>
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+	 <2026101310-scuttle-unison-d4c3@gregkh>
+	 <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
+	 <f3f305a0f3195948bd25ca7eea4348113f998ee2.camel@codeconstruct.com.au>
+	 <2026103015-stained-shudder-1582@gregkh>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,71 +90,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3vECiJOhqkOR1AA--.392S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFyDAw1fWw1DJF1fAw15twb_yoW8CF4Upa
-	s7CFsrX3W0gFyag3ykWa48urW3XF9Yy3W5uFsIvw17ta1UAw4Fqw43Kr1qqF4UAFWxZayr
-	uF4xuayYvFyvyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmvb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
-	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
-	cSsGvfC2KfnxnUUI43ZEXa7IU00dgtUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARESB2rnk1cDXgBNsc
 
-Some platforms provide more than one reset for the MDSS hardware block:
-beside the MDSS core reset, the SM8750 display clock controller also
-exposes a block reset for the MDSS core INT2 interrupt controller.
+Hi Greg,
 
-Allow the resets property to list one or two resets, keeping the MDSS
-core reset as the first entry so that existing device trees describing
-a single reset remain valid.
+> I haven't read all of OBMF, as obviously that isn't what is being
+> proposed here, I was just complaining about the madness of attempting to
+> create a device tree representation for a single USB device that wanted
+> to be carved up into different virtual devices because no one decided to
+> learn from history.
+>=20
+> I have other objections about OBMF-ICP, but that's not what this thread
+> is about, sorry.=C2=A0 Please propose your own patch series for that and =
+I'll
+> be glad to criticize it there.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../devicetree/bindings/display/msm/mdss-common.yaml          | 4 +++-
- .../devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml     | 3 ++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+OK, fair enough - I'll defer this for an OBMF-ICP submission, rather
+than piling it on to this LSTP thread.
+=20
+> > With OBMF-ICP's super-minimal core protocol, and the use-case
+> > appropriate channels, seems like a suitable approach to me.
+> >=20
+> > The USB-IF has a class ID allocated for OBMF-ICP interface descriptors,
+> > with the intention that we have multiple vendor implementations of the
+> > common protocol; we would like Linux to be one of those.
+>=20
+> It's always fun to make a new spec and protocol,
 
-diff --git a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-index c6305a6e03..51ef4cc74e 100644
---- a/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/mdss-common.yaml
-@@ -84,8 +84,10 @@ properties:
-           - const: cpu-cfg
- 
-   resets:
-+    minItems: 1
-     items:
--      - description: MDSS_CORE reset
-+      - description: MDSS core reset
-+      - description: MDSS core INT2 interrupt controller reset
- 
-   memory-region:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
-index 46dc0d28da..729de45ec8 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
-@@ -101,7 +101,8 @@ examples:
-             interconnect-names = "mdp0-mem",
-                                  "cpu-cfg";
- 
--            resets = <&disp_cc_mdss_core_bcr>;
-+            resets = <&disp_cc_mdss_core_bcr>,
-+                     <&disp_cc_mdss_core_int2_bcr>;
- 
-             power-domains = <&mdss_gdsc>;
- 
--- 
-2.53.0
+We seem to have different definitions of "fun" :D
 
+Thanks for the discussion so far, I'll follow up again when we have a
+series to propose. That shouldn't be too long.
+
+Cheers,
+
+
+Jeremy
