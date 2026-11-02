@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613885;
-	b=4HGEqehVmw6sUd5tG2RY4oqXktrLy0jT2SXawWMebMSwyvxGQl+lDU3/eEiHJjQoqvRv
-	 tWkOIyuF7s0Uz/zJByA7DsjM4AAEJzZAE8Av1Pj4iT2GoU62QDFzEoKcGH0UetMhd19qT
-	 YAGNLuSm+AR+ySUZ5H7bQabRssgfISyuaXrBG+rVI0D5Fqx+11C/vKNYC1+vfcDh9Kl6g
-	 GxZri5HLwPZMUjC8/6jvi8CCrhoLTPF4szpe0E51nRbdGwIq2i9UnlLKjJLN61Qmk4OKx
-	 awE65W77AemAy9HsiBVU1MntRiPuy318K3NFsduEeQFuz/lUhH9N+5kTANAn59UKRRw==
+	t=1793613933;
+	b=ZHp1qe2GKlwHkDkc6Z+T+n48qIhs2jcm/3tXVAkAEikLjCNxrONXhg67qHSChgBnaLyp
+	 R1oF40+bKzD28MWRvrtxKEAJ5GJlobs31IcGZKMhNmYhWqDUD0cTaXFOOhQ5nQ+yMSmpR
+	 +tdr3ZWpEp16Z2LA/RZE4UPz7pVOaj2bLBmh2s8UJ8jHIN/qj7kMcxBEzEVKNnJYaGM08
+	 PmpPVMDa4k4M87F/uqyDJNfqcvb/CRT/A7kHs/4oP54MCjLvaDSflZf/vFNkUF8/U0sKc
+	 FkNG9C3qmvyi+Ok3F8z6QgcYBZDlnvu0NDkzH0QneYceEsx9GPW3dQAKyGvGTdci4Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613885;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=OsEBXEI4GMrMmFHXvv5g87UqMLYAhz1lCuWv0BhMKV0=;
-	b=XFRc/5U4ItlWbzEZ1kGoVt6Yaw7tc11U0Zm4qLRHSkvu/MnQcGHXzWGLckmcCZUVWBUs
-	 QOZn0fmVWk80ZQuH0WJIQzK9AP8E4FQeMglDwdINu+Vg3MTjUYQCtXjUwq9eKlr4LEqws
-	 My67lV/dwOF/fczQeQJrZI4k0Fu+YqK42QNVldtVBi/DKK8rV1XqtlW12Kz4hxnyUQj5F
-	 70EqIV2Jr7HuUBkunDcy5H5iBsHUY6UJVr+bR7B4gzF8dof8B96U8cJRoJA7ZV1YnXsPa
-	 59CCm3pTq7P/Q+oI1v2L6xo4RGEkYdQzQMalyUcNzmlvg7nP96iGakA4Yc48VJZztiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613933;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hraIj5eFlOlhzKylQQ8/efz7x5fIFgzaCgbnxap7ESQ=;
+	b=ivCtJx/JB0s6Qw4forF/5wSTbgEz/jprI4tUpkFZG5Uek1kCWfjbzkz9lrbeeZWBaCaG
+	 ISorg7zwvj3dTsPphabqwpJcKiD35jKGm6I1t72XcfqdTqLdOJbzRTUuyQsNiFqABB8vw
+	 O3/rzZffqrPN1DrU7us1CHt/Ij7VxYWEjBsV6TLRs5C4upMzLHsucjhiTssYguyYKCFpt
+	 qTiRNwlnzMOVKc8yshtPn/cAdi3AOUJeBO5X53Cx3ekd3eYHsHIVU5vIlhecaj6kP4KR2
+	 k/y5J59xwZzgiubYtqpoxZW6HSbbUGVjUd3MU9oN5JWmM7afZKWyUkjbQBaTkbZO+uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b="n/nx7pLs";
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFJBS1+u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB89606A324;
-	Mon,  2 Nov 2026 10:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DB89606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795E4606A326;
+	Mon,  2 Nov 2026 10:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=n/nx7pLs
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id EE18D5340AC2;
-	Mon, 02 Nov 2026 11:04:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1793613882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OsEBXEI4GMrMmFHXvv5g87UqMLYAhz1lCuWv0BhMKV0=;
-	b=n/nx7pLs6cDprvbdHekw5VDPDC6i/B8Rr5XqZZOLBIlghDja86UYf6h/yU9xtDv0X6T0qI
-	/8wBnjSIVJX33Zj2IlhidCUBTw6qAqHaBux+OB0up2U+m3FNJkDueSSL/rwIhIvvHusATl
-	l9gbhJbf4aruZX9diC8fIdSW2C0MU8w=
-Message-ID: <3c21a85e-4aa4-4c95-808e-a73a6e4f43ab@ixit.cz>
-Date: Mon, 2 Nov 2026 11:04:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFJBS1+u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285091F000C1;
+	Mon,  2 Nov 2026 10:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793613933;
+	bh=hraIj5eFlOlhzKylQQ8/efz7x5fIFgzaCgbnxap7ESQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mFJBS1+u1VM91TZWQ5lKgMiqtNJFvAKkHKz0EUpEUbIF5zNnl4OE9WgauZBV2fCCf
+	 Ih0/F6Fh1mQW+ieJ5r+rkXSxxW7BQPm1xSi/gc0C6YJ5/8Nguu1EVxoe3LhJQLumxt
+	 nEnC4PabPxa3vnaQAVnUEMT6u40t9aD0dA81GIEENYiE8P4lo9M8Ek04ecfo2QX++L
+	 QGwgXX1d90QBPfrdJvN8F9B0ZYFwFSYtPjO00Yn6V08xAgP8Yc3F2HsysHFR4AL62W
+	 Bg4tTmNc2Nlxdd5kFX5pAsg91vfpofRlH1nKXa9mf2kOGsIqfk7zPqZm9uN6NUHyR9
+	 hya0S08K57Zjw==
+Date: Mon, 2 Nov 2026 11:05:29 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>, 
+	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: i2c: qcom,i2c-cci: Add Hawi
+ compatible
+Message-ID: <20261102-macaw-of-exotic-justice-8c11fe@quoll>
+References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
+ <20261030-hawi-maili-camss-v3-1-9742bca8cef2@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,98 +66,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/11] dt-bindings: regulator: qcom,usb-vbus-regulator:
- Add pmi8998 and pm660
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Alexey Minnekhanov <alexeymin@minlexx.ru>, Robin Snyders
- <robin@snyders.xyz>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- Sebastian Reichel <sre@kernel.org>
-Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- linux-pm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20261031-pmi8998-vbus-v1-0-4d805e5a0f27@ixit.cz>
- <20261031-pmi8998-vbus-v1-3-4d805e5a0f27@ixit.cz>
- <8433ec2e-0f0e-4816-b3a5-6cdd7a6d1040@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <8433ec2e-0f0e-4816-b3a5-6cdd7a6d1040@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030-hawi-maili-camss-v3-1-9742bca8cef2@oss.qualcomm.com>
 
-On 02/11/2026 10:58, Konrad Dybcio wrote:
-> On 10/31/26 4:05 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> The VBUS register block on the PMI8998 and PM660 PMIC shares the design
->> with the PM8150B one. Define corresponding compatible string, having the
->> qcom,pm8150b-vbus-reg as a fallback.
->>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
+On Fri, Oct 30, 2026 at 06:13:01PM +0530, Nihal Kumar Gupta wrote:
+> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 > 
-> This is absolutely not true. They both have a similar CMD_OTG
-> register at +0x40 which makes the driver seem like it's working
-> for you, but otherwise the register layout diverges a lot.
-
-In that case, since current skeleton and implemented features are common, I 
-would add separate pmi8998/pm660 compatible to the driver, without functional 
-changes AND without the compatible fallback to 8150b?
-
-Looking into docs, do you consider it good enough?
-
-David
-
+> Document the Camera Control Interface (CCI) compatible for the Qualcomm
+> Hawi platform. Like other recent platforms it requires two clocks, so
+> add it to the corresponding clocks constraint as well.
 > 
-> Konrad
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
