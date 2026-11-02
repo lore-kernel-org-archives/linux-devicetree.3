@@ -1,53 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793583210;
-	b=m/XMOH3+mJMIYugCEGqUne86Sz/qaU6c4qfJzA5ZDTuExSt6Q3qgogjVFqqyq+p+dMLU
-	 Ckb/i/ioGzWxcnU9qZE5xUh+fBQH295O0bRcYsNvyWNmx8Ucw0WcNlqWHLLUqkz1Tr9ic
-	 md8jxnRD4N+bR/w/gGrH8cnf7NZsgzX/UJtK4moOfD16Ja1XQUtx8TFU/rE54jUYnAYhX
-	 tCAJ+MuTbbw87F1Oxc1rv9i9ipnGFMRQgQFO2Cvwgx8vKHsiDqjC16cfghD++YaL2nPi+
-	 ooTlOcwJCCdPitBKPr3FQ+FMueusjHAXd+9Fv+46hzfcu6Rqij/YouHOOjZjx8etGEQ==
+	t=1793584157;
+	b=1zs//SsPYETJv26QklJNK9UhZcz+8LbePJ2KGGs1daO5GmoYudT8JyChM6zkUhSbJMax
+	 Hnvzmn3Jd/sX2RZf6T80B5lT4fawBBMLi45C0zKeSMelwygFWuKJu8Xzc3QxCnTnSE1PK
+	 gAvQXf338w+gCH9y+eCQERM0Rolq7P/7/n15/5XS80/Lj9VkwyYlBuuYtWDEHhPIA/5PI
+	 1KO6vjEdjK1gIc9X+l/0CpvQHQox/lRYQoDnJRuqPw/guQG8tsoSL76cB9K2+ngh56y5x
+	 y7ndTCcq3mTivaZcpEhuWXfICCUnrh2onIpt7VFtualx5W2am8dCmezm4yIV03YfGbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793583210;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:From:To:Cc:
-	 References:Autocrypt:In-Reply-To:Content-Type;
-	bh=CpinM/IpytUfD9vGKaPrjPRQBHB3wnZR9UZpr2lYAok=;
-	b=Sa/90wW6cwmRbo+YkyBW84OsWYJ/eyoM85HqY5mJujWkWMfozyGIUIpxW8DhLYAnjctV
-	 SnZTOn9gGWaJhDFnPaRPkEbbYO3O77rdID/3IpYNIX/NQYjjQeaQrGOxoycy9+8DcT6VG
-	 CVV/XjMUWH5cs5t13gbqG/yil4F7QL0RZx/swr6uaLZOzYRXX2xXk6Astu9B+9UJ7ae8O
-	 61Ui7Vvgjaa8uQenHTkNbhhWMDd4qOMRj0/y6JOM7jmsv2UiGzWdzhlyCDnZV+Z8TrKmc
-	 OjkJ89dziQWtYNZZUbsgJ4RnFlkGokbry/2jsIo9sIbZ6ZqxriLumPZPZ/cXVVgjSyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584157;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=18SqGK/PIQXaam5T+y8Kux6aYcZDlE1mP3zDFN7i6l8=;
+	b=JgbXqsj5wg73Pwi7oQd+/wEkKghZ68Y6EXknWmL8ibvtZctMh7tF3LukdhkdnYyjqN6E
+	 aa3keNTYb/ZZb2nRRqSKhZlqbqtT2KAdITMwRDrStTleCRcE5IjNBisuWZ6kpd7OoXS1+
+	 NtemDeyGWkdn7YEJByDO9PhIsuXq3MiAsVVGU1/+uuE4Rce/2nwbHOsBtfshE0yK1VE9N
+	 mS5aZmh2gBU3ZshlUd6sS5EyfnZ2uBlxJNWtjSByvkegiCqxdxzgYxx8FxqKTZws6T+mN
+	 xrZt2k7LgopYUcjExJp3Xu6/tysEhU3RuxH8ulj2pfD4nTfvtWULWSd+91bk5Sy3l7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=sidspAq7;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ahT0ov6n;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=MJLF3vp0;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D83606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 01:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1D83606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E23E606A327;
+	Mon,  2 Nov 2026 01:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E23E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=sidspAq7;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ahT0ov6n
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:From:Subject:Date:Message-ID; t=1793583195; bh=CpinM/IpytUfD9vGKaPrjPR
-	QBHB3wnZR9UZpr2lYAok=; b=sidspAq7Ua9LmBj8CwRrD1M4QFrIWGJ53YFr+29KmQzfeYKdkV
-	hbC0Vf/icpSpgk4xax26C3CjToVIB080dCCQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:From:Subject:Date:Message-ID; t=1793583195; bh=CpinM/IpytUfD9vGKaPrjPR
-	QBHB3wnZR9UZpr2lYAok=; b=ahT0ov6nqjyLUKHAef1k8x0sRIU/i+lGhXll4QNocx8+NrNfiV
-	GTMEaQHFHpHpau6iFy4ulg3/xe87k1T4074qLY2hIg32ftWwcOyd04rKQHbI/LaWVHKeDD0IDAG
-	2fQVu+53HEwhtNoHBKcq5fBVLjPlpPmcic1xTrxuhwq9KrNkZ2aAzXIXs9dmMHsn7V8/propmbC
-	vMdbhCbVVbU9gWTdo2RuGwiXpRkfCXSZ2d4mQtxoZAlF8d/alam8T0uUhuEvFRPiM3Q55g9XwUz
-	J30n2xgNQjaa1PR6T2eb4Gh9z1VGVwawn31elkndpC2fcmR8EoodCo2uwfvlC7t+kxA==;
-Message-ID: <c539ae6d-8018-49ba-b4fe-8e52306c93bd@erebion.eu>
-Date: Mon, 2 Nov 2026 02:33:14 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=MJLF3vp0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793584153;
+	bh=18SqGK/PIQXaam5T+y8Kux6aYcZDlE1mP3zDFN7i6l8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MJLF3vp0vIACySlOMz9ZDVRXF7L1A6gX2FoLicBiDyk/4oUZb54QEA7ECmrTIFVD2
+	 xMY9mhwafz9UE29JXIjqmSrkWixwFjzVbZmIyb2LE8+4Pdlhdy7EGFYcQ7JIPzlAYU
+	 8VmWeNxva3gNJ9usy/XboMfpSUSNmB+rgUAl6ZBv3vaqqihTKLJAFWEWVtlbFDii+i
+	 16ab+SqlRm/pwBfhAhMFX5HrckPNQjCXAj1nrecmXpRTMHbq7Zl2ARt+0q/qAw4uO7
+	 L5RC2X2Agm6TqA3cm+pnIsfoOnEyI3l8kmiYGsaE8QuYsKyny1d50tv1eXA8wrTUk3
+	 SI6AwK2dgTdMg==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jHvkx4tBRz4wC6; Mon, 02 Nov 2026 12:49:13 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 12:48:47 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Simon Glass <sjg@chromium.org>
+Cc: dianders@chromium.org, Devicetree-compiler@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>
+Subject: Re: [PATCH v2 02/10] pylibfdt: Add subnode/property iterators and
+ get_mem_rsv_list()
+Message-ID: <aufr7SA1BO7zDQws@gractus.seuss>
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-3-dianders@chromium.org>
+ <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,103 +76,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
- thermals
-Content-Language: en-GB
-From: erebion <erebion@erebion.eu>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192768@kernel.org>
- <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------WErBOJk7ZUz3nYwJ3r0a4wP7"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="x6ApwphbQFNCmrOS"
+Content-Disposition: inline
+In-Reply-To: <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------WErBOJk7ZUz3nYwJ3r0a4wP7
-Content-Type: multipart/mixed; boundary="------------Ys9oJY5YtjJo4H0mWezlvqzT";
- protected-headers="v1"; hp="clear"
-Message-ID: <c539ae6d-8018-49ba-b4fe-8e52306c93bd@erebion.eu>
-Date: Mon, 2 Nov 2026 02:33:14 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
- thermals
-Content-Language: en-GB
-From: erebion <erebion@erebion.eu>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192768@kernel.org>
- <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
+--x6ApwphbQFNCmrOS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---------------Ys9oJY5YtjJo4H0mWezlvqzT
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Fri, Oct 30, 2026 at 07:50:17AM -0500, Simon Glass wrote:
+> Hi Doug,
+>=20
+> On 2026-10-28T21:46:49, Douglas Anderson <dianders@chromium.org> wrote:
+> > pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
+> >
+> > Add Pythonic iterator helpers on `FdtRo` to simplify walking nodes,
+> > properties, and memory reservation entries without manual offset loops
+> > or `-FDT_ERR_NOTFOUND` sentinel handling:
+> >
+> > - `subnodes(nodeoffset)`: yields the offset of each direct child subnode
+> >   of `nodeoffset`.
+> > - `properties(nodeoffset)`: yields a `Property` object for each property
+> >   of `nodeoffset`.
+> > - `get_mem_rsv_list()`: returns a list of `(address, size)` tuples for
+> >   all entries in the memory reservation block.
+> >
+> > Assisted-by: Gemini:gemini-pro-prerelease
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> >
+> >  pylibfdt/libfdt.i       | 45 +++++++++++++++++++++++++++++++++++++++++=
+++++
+> >  tests/pylibfdt_tests.py | 18 ++++++++++++++++++
+> >  2 files changed, 63 insertions(+)
+>=20
+> > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
+> > @@ -201,6 +201,23 @@ class FdtRo(object):
+> > +        soff =3D self.first_subnode(nodeoffset, quiet=3DQUIET_NOTFOUND)
+> > +        while soff >=3D 0:
+> > +            yield soff
+> > +            soff =3D self.next_subnode(soff, quiet=3DQUIET_NOTFOUND)
+>=20
+> Since Fdt inherits this generator, a caller can easily write 'for off
+> in fdt.subnodes(0): fdt.del_node(off)' and get garbage, because the
+> offsets move under it.
 
-T24gMTEvMi8yNiAwMTozNSwgZXJlYmlvbiB3cm90ZToNCj4gT24gMTEvMi8yNiAwMDo0NCwg
-c2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4+IFtTZXZlcml0eTogTWVkaXVtXQ0K
-Pj4gU2hvdWxkIHJlYXJfY2FtX3NlbnNvciByZWZlcmVuY2UgQURDNV9HUElPMl8xMDBLX1BV
-IGluc3RlYWQgb2YNCj4+IEFEQzVfR1BJTzZfMTAwS19QVSBoZXJlPw0KPj4NCj4+IE9uIFBN
-NjE1MEwsIHBoeXNpY2FsIHBpbiBncGlvNiBpcyByb3V0ZWQgdG8gQURDNV9HUElPMl8xMDBL
-X1BVICgweDUzKSwgDQo+PiBhbmQNCj4+IHVuZGVyICZwbTYxNTBsX2FkYyBiZWxvdyB0aGUg
-cmVhciBjYW1lcmEgdGhlcm1pc3RvciBjaGFubmVsIGlzIGRlZmluZWQgDQo+PiBhczoNCj4g
-DQo+IEFoIHllcywgbG9va3MgbGlrZSBJIGNvbmZ1c2VkIGdwaW82IGZyb20gZG93bnN0cmVh
-bSBEVCBhbmQgZ3BpbzIgZnJvbSANCj4gaW5jbHVkZS9kdC1iaW5kaW5ncy9paW8vcWNvbSxz
-cG1pLXZhZGMuaA0KPiANCj4gV2lsbCBmaXggd2l0aCB2NC4uLg0Kcm9vdEBtb2JpYW46fiMg
-Y2F0IC9zeXMvY2xhc3MvdGhlcm1hbC90aGVybWFsX3pvbmUzOC90ZW1wDQotNDAwMDANCnJv
-b3RAbW9iaWFuOn4jIGNhdCAvc3lzL2NsYXNzL3RoZXJtYWwvdGhlcm1hbF96b25lMzgvdHlw
-ZQ0KcmVhci1jYW0tdGhlcm1hbA0KDQpXZWxsLCB0aGlzIGRvZXMgbm90IGxvb2sgcmlnaHQg
-ZWl0aGVyLiBJIHN3ZWFyIEkgZG9uJ3QgbGl2ZSBpbiBBbnRhcmN0aWNhLg0KDQoNCiA+PiBT
-aG91bGQgcmVhcl9jYW1fc2Vuc29yIHJlZmVyZW5jZSBBREM1X0dQSU8yXzEwMEtfUFUgaW5z
-dGVhZCBvZg0KID4+IEFEQzVfR1BJTzZfMTAwS19QVSBoZXJlPw0KDQpHUElPNjogVmFsdWUg
-bG9va3Mgc2Vuc2libGUgYXQganVzdCBvdmVyIDMwIMKwQw0KR1BJTzI6IC00MCDCsEMNCg0K
-UGVyaGFwcyBHUElPNiB3YXMgcmlnaHQgYWZ0ZXIgYWxsIG9yIGl0IGlzIHdyb25nIHdoaWxl
-IEdQSU8yIGlzIHdyb25nIGFzIA0Kd2VsbC4NCg0KLS0gDQplcmViaW9uDQoNClhNUFA6IGVy
-ZWJpb25AZXJlYmlvbi5ldQ0KDQpNeSBsYW5ndWFnZXM6IEdlcm1hbiwgRW5nbGlzaCwgU3dl
-ZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNClllcywgSSdtIGEgbGFuZ3VhZ2UgbmVyZC4gRmVl
-bCBmcmVlIHRvIHdyaXRlIHRvIG1lIGluIGFueSBvZiB0aGUgDQphZm9yZW1lbnRpb25lZCBs
-YW5ndWFnZXMuDQoNCg==
+Right.  I noticed that, but merged anyway, since you can basically do
+the same thing with the existing interfaces.  By abstracting it
+further, this interface does arguably make the problem worse.  This is
+kind of a perennial problem with the Python bindings.  The libfdt
+interface is shaped by what is and isn't possible with the flattened
+format - the reason we insistently name "offsets" everywhere, rather
+than just "nodes" or "properties" is an attempt to inculcate the right
+mental model.  By abstracting things more, the Python bindings make it
+easier to miss that.
 
---------------Ys9oJY5YtjJo4H0mWezlvqzT--
+[Aside: one of the many projects I'll probably never find time for is
+ to write a Rust-native libfdt, where the ownership model could be
+ harnessed to enforce many of the required invariants]
 
---------------WErBOJk7ZUz3nYwJ3r0a4wP7
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> Since David has applied this, please can you
+> send a follow-up noting in the docstring (here and in properties())
+> that the tree must not be modified while iterating, as with
+> fdt_for_each_subnode() in C?
+
+Right, adding a comment is probably a good idea.
+
+> > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
+> > @@ -243,6 +243,22 @@ class PyLibfdtBasicTests(unittest.TestCase):
+> > +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
+> > +        self.assertEqual(list(self.fdt.subnodes(leaf)), [])
+>=20
+> The docstrings say both iterators raise FdtException for a bad offset,
+> but nothing tests that. A test that list(self.fdt.subnodes(-1)) and
+> list(self.fdt.properties(-1)) raise, perhaps alongside
+> testFirstNextSubnodeOffsetExceptions, would be good, perhaps in the
+> same follow-up. Since these are generators, the exception only appears
+> on the first next(), not when the method is called.
+>=20
+> Reviewed-by: Simon Glass <sjg@chromium.org>
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--x6ApwphbQFNCmrOS
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCaufoWgUDAAAAAAAKCRCOr0AybgKufVGu
-AQCz0f0jMK0GnWAFp/H6WK+5cNCyhV2Lyb4MlysN7OAt9gD/erL2RUUqAkh027+zxA/9XyZhsYk6
-U2Yy8LfTYaOONwk=
-=QVpB
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrn6+0ACgkQzQJF27ox
+2Gctew/+OiJ2e5xrfpdrmfiambPg91RD6NR/oOZLdGELob8d0s4Uo0KpXNGlqZXs
+SjEddpJ0srIMlNlABTVawtwPC/L9fS3yATYKkTyudX9jA/Z2krP/hW6/qfdTaDIy
+h9wyz4tDV06kZb2/ho9664QhSATXa7Lbex37kXcI27QqYN3FXjkDGonYKcynEbzI
+KA8AwGPJvNDnepI0L9KgHDKVNNwL4lG70j9dg5IIaq1Y9TIkthgAZMLsl3mkPuwo
+R318c8YnzpIMuiXRatjAZIbZi1zZSvHQP5MxZJ+bA+O5SFpBgzxluBTTBp70tTHF
+7ODNxitnHFceBVPZb2AT07UG8yLaNGX6m1tHoRpjWyGM65FwRD1mTxZu48sMc+ws
+jdcQCd2REAmMRXfHQvaZ7ZUYepdF5kqaC4vtRK5y+dDuXeS+dKS4TwO+ikXzzB7u
+GUi1uYGsEmwWGw0lHfCc9YD8sDw4dktErUewHUnBhL+m6bxkpoehrGxHMus2ko7e
+K4hnjfheJitfqecLXoh9FS8oRyJ/WLJZ5lkAdL2cYgu7pk/4Y0ACqfJqmkSEUL13
+boJtEGC/TjZWJSjgv5JkV+fg6qSzu2vCDoBAGJ+c0RmhDQ8AEhIQ4soLDFSW6xRs
+fm903uGYemqahkeS/2iD/ViyhQtRIm1fu8otQ6VyguoEaPJKpoU=
+=H1eg
 -----END PGP SIGNATURE-----
 
---------------WErBOJk7ZUz3nYwJ3r0a4wP7--
+--x6ApwphbQFNCmrOS--
