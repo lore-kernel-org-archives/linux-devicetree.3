@@ -1,56 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586681;
-	b=ieVJ72/e4ICI0hQNeowFZnMSL5bWR93+LlmT3uH2/wYj5vDaMpQaKlUs8PwlgnZPkMEc
-	 v3RvYMsSj3ZAXnQGcKHHLJqgrmTbssdDtoGMK17FotWYD2n3sNqHbdzjpwiPK+n7zdLDI
-	 1Jq61Hs/dlWrvX5bskp3QFyP54ef0vl0pky0gVGhecgXqkUimd42pGbAUxGNNTSGPIiRE
-	 GDKdRpM1eLxz4SojkymqtwRMxCok/jw6EdkYPr04E/jfq/47WfBPkgXrlF8jF3BYZeils
-	 ncwovhQMZB1D5yKeFJY1Qhlyx8NUXiVgHcW6fM3CfI+4bdkv8UCkDJ1k4Sqy/ROYWjg==
+	t=1793586724;
+	b=AIQzVFF7bs1prg1N6wieBw0yzKfimEcQMmimVruID0KK+3/ZjwhrCeoZUxpLF6dye/an
+	 GA1/slnfpoIEz6+6I7s5GRAX4bF3oXePLdp9YVSJGJhDd7S3MTgjHd38VgdMvGVKEwUIE
+	 zzFcVbQKtEZvYsDjSiSyA2dFxP5UMo4UdVW8lSYRkpYhAxujh1Swy/B1REh4P8kkRz2k3
+	 eWSs724ByS39DdLaDS6f2WywBzt0BXmwPp33Qh2kkuX7OwiwjwhDVGN0EJtQTRJU49oPS
+	 bVX7fEasdf4FFSUzJF14G7Wjh+fDoCvZ77CO0JgCWeNcGROdDDlFhtDibfBltkW4GiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586681;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=u5MNJlEIQfQn127qhQo2IR1UqQtyiCSnhtJ4iQCGshc=;
-	b=paaK2F/9QUGA+oh6+G3djjcLiMRMxKBnPmAaQyhs2x37W2RTesyLxmaDp/DnKzWJ7CBm
-	 LcokwWBUdOU/2SZyxZFHiT8KCYdyAUgMda8186Go5J0MfxLK4ZSG6eN65b1QYPXxBjIU+
-	 gu5fvPfKYrcVA+s6Vv4nD0Y5z9FIi5atZ6yV7u8ruBu4vNON6LbL2FgNZ93PhQI1fXMPN
-	 v9xTT6WqauAEyMV6jsQ0WhBVVSjndUXRVNf757drdpyWJ3+UXnbbKW6YTLiEhNbbAEwmm
-	 5ko3OXAvS6qAMAb9GTbK6TPe+b8askm1gft3vORReJGt/xkracZFwS+KDZND9eGEZDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586724;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ON33HfWPDSeusn2fBuQTwDOHkQdzOEPipmglvQYmFTg=;
+	b=eirjLOPSm+w9x2dkF2yj+ACZVAAThHpK+XoawGOOG00Of576YWVUVw2FE+k9Bwu5raBw
+	 4RwQdJLe66q3uFe2UKAiqh7WrS6ojvPibWEYC09MNy9TN9zfbsjR9oXwUurxAJK+djK+Q
+	 1I8ZHRgcnn+FGWcaljFuFnqiKA6YcELlHWR3qgYa8Bwy0stfB17qATjJhdAXDO6/cIi5A
+	 7gpkOjRhHypytIPqyy2TSr5zue+ijvzq8BFPay91uIZmxhbxHRhryVuBGOcHP+uxzieE0
+	 6vkDG4u66eqg0F/gzTOSIYr/nVPtLYBJ4dethbR7kv9qC2aJhp0nondNl0uQf+lfKhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVnBXWhi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A5kZ1bE9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UNhIOhdU;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B598606A324;
-	Mon,  2 Nov 2026 02:31:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D26A606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 02:32:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D26A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jVnBXWhi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FBCD1F000C1;
-	Mon,  2 Nov 2026 02:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793586680;
-	bh=u5MNJlEIQfQn127qhQo2IR1UqQtyiCSnhtJ4iQCGshc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jVnBXWhiu5Grrz0NOfawNKyJCNaldJXjXhoSqJwmcZs3fiT2hy3vKmpBQXnif9pWP
-	 EOgq59A3O9BwzV6v1OkRX72+FPGy4okTUEvNGAr5RBbaeqXthcl1mdgaPL1Yrz50Db
-	 7vJWt9e8D9LfodW2zKqIubebG1GkV01N16uLM02LccBrf9wdxdioJwTatP2YDak6WN
-	 CsxkltmA0lu4IeO/a9YVtkVOZkdY4TvyhSQJTQunyBHz09J7loohmK2L7TNh8EqyOp
-	 /O6dFaxyUyBywZb/ziS0EugEQbCXWoe4V7ldj6VTm4ikbvkh60PyT/UTlNR5Y7BFso
-	 zYYJZrdqVc1ig==
-Message-ID: <sashiko-outbox-192836@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/10] leds: rgb: ktd202x: Add hardware pattern support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joseph Telaak" <joseph@telaak.dev>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
-In-Reply-To: <20261101-ktd202x-et6326-v1-7-eb51eddad08c@telaak.dev>
-References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
- <20261101-ktd202x-et6326-v1-7-eb51eddad08c@telaak.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 02:31:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A5kZ1bE9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UNhIOhdU
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20LsEB2867699
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 02:32:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ON33HfWPDSeusn2fBuQTwDOH
+	kQdzOEPipmglvQYmFTg=; b=A5kZ1bE9RodCEQBCSQF2L7ee8xvo5K9EKwKOx0ba
+	EGTkdB960RyLZXXNsHPwCRfJSbBRfUlkkgXZQUBoDoHQvWnLpQW/obcorIY9T7le
+	+zcY0cbbohByBiftlw4GbMm4QNOszsPVI9ml+x4Yv+YvUGkzRoWwowEgeiNwKPjH
+	xoZ93fwyPfWMv3ZynDKPHvglyT94OaYeB6sn5APBe+RmKfPbZh8m5gQDZrSua97n
+	1PgTbRMZOMnt++4SPuLpaRY/xD1NGmS0/XWf47HsCysFWu7EPfCyiYUe7pi/rnVp
+	w/dB/9loTfd8Urrdaa4ZVnMZ4Qb0+R9jv0zuCihRlu4KiQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6mxa9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 02:32:02 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-359b81ad4e8so3554214eec.0
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 18:32:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793586717; x=1794191517; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ON33HfWPDSeusn2fBuQTwDOHkQdzOEPipmglvQYmFTg=;
+        b=UNhIOhdUZQ46PJUQtSFVP0QxK4qFPDT7LqEXQAEyJSCzv2GwjUEHa6U7cDW6D3lAbF
+         oiewoYprib1LKaHY6KlLd0dXyMqKzQALjIFj+y1lDQGXb8mrcfrWOSbCx/Dh0DgSBADJ
+         xCX5CmI7IiaZwfM3NxGZsg7p4qLGEpnSAICwzRWnzBqYzkCRMPS4DUjgR2R9jVLU63Hw
+         oTFv8vwGLK6Ds/9KmuP99jxUuvxQ868BTVOmEgT+lS75C5DMyKvS/9xVDgoL8Lc88knj
+         +UIKVPHQcNcnqtspzpo70NeXtz9Uvh0N/qqkri14EHHoYVfEyPMpKIwSL9G0TNOynxxg
+         JNHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793586717; x=1794191517;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ON33HfWPDSeusn2fBuQTwDOHkQdzOEPipmglvQYmFTg=;
+        b=IRJfNMpuRafECi0py13DCEX0WM0YAh62canEo2lhM8idDWf3h55e7Unqj0QTQgXkxR
+         mHMnW8EzLzg0S74J/FPCyn8rCtP/94MlmhN6d0KgVZl1Vzr6m+VM/AvnJ+K4zDcIfk/U
+         JRRtUxg3VlV2ygJexUvut4VbBmmwgrk4f4NzePcazgqwUfQnxSwwApvEZGztb3nwCVs5
+         KQDoHfKdvyqBWkN9EkXMtm3/u10gmqawywZFJZvrC1Qh+nl7V/lf00u60xJcONq2BSaN
+         cRKUozknJ+/fwCHIcD3ueD8XDT/3PJcETV7ZZUYbD/lYk8Tr5TmUhaPJMawV7rBSK+R6
+         YlgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzG0eEi2pBd19EKWmEaC2Cu4MM6ZG98SYG2lEPUnEkdE8WpinW/SgDyF+0SZepTmdhJnPr4cw/IT+6z@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDmAu9NQm3c7ilen0GXlnfWvtzmEaBacGv1cavVRzpzQ6gPMgz
+	VyAw0q97Q9ioPoPa7FFDWe+ObB3NWOfxFCrV3xJCHaXfQcWyNZ5aHStgtfioP2gsukU26MAJBRA
+	cGiN4xPoh5Cy1DQYIHG3gPMXGaVRrJqvKtLP6R5Lyru7XdAU0BxGapHznPq/o9CLA
+X-Gm-Gg: AYBFou2Fta8WSweZpEFcXoeJxCl02j0QPKHw5TRuadqltJnm3Cv7oGjpoDlmrBQEwSb
+	5UlzV/e0FTD7vntTJUFWzA5qLhwS9LBZYctn+hiT0p1aQ/7fsTMssuPYCarg/IKQhQ88YfVAoJP
+	FiCsKG4SaIemJtk0W6EDwSbb279cPLaPlrXCWku8bcAelE9IMmAi5ive9a8qLaeHN7i3ZLOmnNu
+	m/+qjtVYheRfyuzh0xe4+tfr4Ml4GebP36BGNKrSzlNjGBb4DH9UJto3JEaIPE1NuhzuvnBdBlU
+	+qVRdJEoX43a5RIoMlOiGIIv3luRTBRic0fu2yjBZ9+EfyGtmgBovEoOyi0uKe+5qeF23u/SvSY
+	U2BT7TQAhJ0glv3FjAbM/fPYi2N3BgsxOI0FkW29w3G89rIo1H2GjmVx7UvgjY+/PV5jICw0L4C
+	rgRS8EiyjyaDto4g==
+X-Received: by 2002:a05:701b:271a:b0:187:c940:21b7 with SMTP id a92af1059eb24-1ac5c55491bmr10957223c88.9.1793586716820;
+        Sun, 01 Nov 2026 18:31:56 -0800 (PST)
+X-Received: by 2002:a05:701b:271a:b0:187:c940:21b7 with SMTP id a92af1059eb24-1ac5c55491bmr10957199c88.9.1793586716340;
+        Sun, 01 Nov 2026 18:31:56 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm26876256c88.12.2026.11.01.18.31.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 18:31:55 -0800 (PST)
+Date: Mon, 2 Nov 2026 10:31:48 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 5/6] dt-bindings: arm: qcom: add SA8255p Ride board
+Message-ID: <auf2FHHbto8lAf47@QCOM-aGQu4IUr3Y>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+ <20261031131042.1200862-6-shengchao.guo@oss.qualcomm.com>
+ <e5b53ac2-87f4-45cd-9667-91cbb45fbcb0@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,195 +129,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e5b53ac2-87f4-45cd-9667-91cbb45fbcb0@kernel.org>
+X-Proofpoint-ORIG-GUID: fxyiyWpYeF-6D8YpO2fWRs4jmnkexJk_
+X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae7f622 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=COk6AnOGAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=eYKOoy56NPTa7UcXW_kA:9
+ a=CjuIK1q_8ugA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=TjNXssC_j7lpFel5tvFf:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: fxyiyWpYeF-6D8YpO2fWRs4jmnkexJk_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAwOSBTYWx0ZWRfX+jNcDnVPFZLz
+ GZ+/1Q0a/qjuGHMkJJ9X49ubBBPf1FYuU8aONTaxhS0TorVfuUtqnGb0gnYepYD69Y9anXT1qll
+ AWisw4mC1jNSvz/Y+3xKMuq2Iat5QFg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAwOSBTYWx0ZWRfX/Ji2APB8NtXO
+ JBCQLOHvafVX91O6c0WGYPgG8tnpWwu98HkGO37z1EH+9K5u1e7HIfGwBqKSNmdcsySpevbrv4K
+ e2HLOMj3QN+5S5swje2G4A1VWWKR1hIsVnM8ZB0iW1xOTGZkBmwe4rpJIAi9BLJwjHbLthQOsAb
+ ERgLHGqlx+efKP07J7oJmO7ayNcILgegDOcN90uCGagM9EAIno4XAMfSwxkJqEvaGD5Qnhv+MO2
+ ZY3nSXfVy/YS4fYDz7UpMRS+ZrF4IPIFJIcJcThcHwA28XDCqncC5XL+DtEJzIIa40xbAbcoGyU
+ AJ9XNgJlnXvESaEPdhKCNZdld95YtCnls6Lbtco9Q93MHJP9qNGuKtSix60RL1UihZiZnj36Kwr
+ 5t3Rv3qZjU7e6nqC32o+zroUDIa6/3o02ygdy+qJddDfsQgJkr3K3loDW+AKr6tVgwBdJ10y5Kb
+ nG9AAqEtZF0bSUImwOQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020009
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] leds: ktd202x: ktd202x_pattern_program() enables PWM1 on 0-brigh=
-tness channels
---
+On Sun, Nov 01, 2026 at 09:28:41PM +0100, Krzysztof Kozlowski wrote:
+> On 31/10/2026 14:10, Shawn Guo wrote:
+> > From: Nikunj Kela <quic_nkela@quicinc.com>
+> > 
+> > Document the SA8255p SoC and its reference board: sa8255p-ride.
+> > 
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
+> > Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> Drop. Binding cannot be tested other than build process.
 
-commit cb2ed015f23bfa814b09df784ba07474c986d4de
-Author: Joseph Telaak <joseph@telaak.dev>
+Ok, will do. I thought dt_binding_check could be part of the test.
 
-leds: rgb: ktd202x: Add hardware pattern support
-
-This commit adds hardware pattern support to the ktd202x LED driver by
-implementing the pattern_set and pattern_clear callbacks using the chip's
-hardware flash timer and rise/fall ramp registers.
-
-> diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd2=
-02x.c
-> index 67e65c1fcb5fb..ed0e8e74c9eab 100644
-> --- a/drivers/leds/rgb/leds-ktd202x.c
-> +++ b/drivers/leds/rgb/leds-ktd202x.c
-[ ... ]
-> @@ -420,6 +446,148 @@ static int ktd202x_blink_mc_set(struct led_classdev=
- *cdev,
-[ ... ]
-> +static int ktd202x_pattern_program(struct ktd202x_led *led,
-> +				   struct led_pattern *pattern,
-> +				   struct mc_subled *subleds,
-> +				   unsigned int num_channels)
-> +{
-> +	const struct ktd202x_info *info =3D led->chip->info;
-> +	unsigned int t[KTD202X_PATTERN_LEN];
-> +	unsigned int rise, fall, num_steps, on;
-> +	unsigned long period_ms, ton_ms;
-> +	u8 ctrl_mask =3D 0;
-> +	u8 ctrl_pwm1 =3D 0;
-> +	int ret;
-> +	int i;
-> +
-> +	for (i =3D 0; i < num_channels; i++) {
-> +		int channel =3D subleds[i].channel;
-> +
-> +		ctrl_mask |=3D KTD202X_CHANNEL_CTRL_MASK(channel);
-> +		ctrl_pwm1 |=3D KTD202X_CHANNEL_CTRL_PWM1(channel);
-> +	}
-> +
-> +	for (i =3D 0; i < KTD202X_PATTERN_LEN; i++)
-> +		t[i] =3D min_t(u32, pattern[i].delta_t, KTD202X_PATTERN_MAX_MS);
-> +
-> +	rise =3D min_t(unsigned int, KTD202X_RAMP_MAX_STEPS,
-> +		     DIV_ROUND_CLOSEST(t[0], KTD202X_RAMP_STEP_MS));
-> +	fall =3D min_t(unsigned int, KTD202X_RAMP_MAX_STEPS,
-> +		     DIV_ROUND_CLOSEST(t[2], KTD202X_RAMP_STEP_MS));
-> +
-> +	/* Round the period up so that the fall ramp is not cut short */
-> +	period_ms =3D t[0] + t[1] + t[2] + t[3];
-> +	num_steps =3D ktd202x_flash_period_steps(info, period_ms +
-> +					       KTD202X_FLASH_PERIOD_STEP_MS - 1);
-> +	period_ms =3D ktd202x_flash_period_ms(info, num_steps);
-> +
-> +	/* The on time includes the rise time */
-> +	ton_ms =3D t[0] + t[1];
-> +	on =3D clamp_t(unsigned long,
-> +		     DIV_ROUND_CLOSEST(ton_ms * KTD202X_FLASH_ON_MAX, period_ms),
-> +		     1, KTD202X_FLASH_ON_MAX - 1);
-> +
-> +	mutex_lock(&led->chip->mutex);
-> +
-> +	ret =3D regmap_write(led->chip->regmap, KTD202X_REG_FLASH_PERIOD, num_s=
-teps);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D regmap_write(led->chip->regmap, KTD202X_REG_PWM1_TIMER, on);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D regmap_write(led->chip->regmap, KTD202X_REG_TRISE_FALL,
-> +			   KTD202X_RAMP_TFALL(fall) | KTD202X_RAMP_TRISE(rise));
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D regmap_update_bits(led->chip->regmap, KTD202X_REG_CHANNEL_CTRL,
-> +				 ctrl_mask, ctrl_pwm1);
-> +out:
-> +	mutex_unlock(&led->chip->mutex);
-> +	return ret;
-> +}
-> +
-> +static int ktd202x_pattern_single_set(struct led_classdev *cdev,
-> +				      struct led_pattern *pattern, u32 len,
-> +				      int repeat)
-> +{
-> +	struct ktd202x_led *led =3D container_of(cdev, struct ktd202x_led, cdev=
-);
-> +	struct mc_subled info;
-> +	int ret;
-> +
-> +	ret =3D ktd202x_pattern_check(cdev, pattern, len, repeat);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ktd202x_brightness_single_set(cdev, pattern[1].brightness);
-> +	if (ret)
-> +		return ret;
-> +
-> +	info.channel =3D led->index;
-> +
-> +	return ktd202x_pattern_program(led, pattern, &info, 1);
-> +}
-> +
-> +static int ktd202x_pattern_single_clear(struct led_classdev *cdev)
-> +{
-> +	return ktd202x_brightness_single_set(cdev, LED_OFF);
-> +}
-> +
-> +static int ktd202x_pattern_mc_set(struct led_classdev *cdev,
-> +				  struct led_pattern *pattern, u32 len,
-> +				  int repeat)
-> +{
-> +	struct led_classdev_mc *mc =3D lcdev_to_mccdev(cdev);
-> +	struct ktd202x_led *led =3D container_of(mc, struct ktd202x_led, mcdev);
-> +	int ret;
-> +
-> +	ret =3D ktd202x_pattern_check(cdev, pattern, len, repeat);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ktd202x_brightness_mc_set(cdev, pattern[1].brightness);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return ktd202x_pattern_program(led, pattern, mc->subled_info,
-> +				       mc->num_colors);
-> +}
-
-[Severity: Medium]
-When a hardware pattern is set on a multicolor LED where one or more color
-channels have a computed brightness of 0 (for example, via multi_intensity),
-won't ktd202x_pattern_program() turn those 0-brightness channels on at their
-previous or reset-default (10 mA) current?
-
-In ktd202x_pattern_mc_set(), the call to ktd202x_brightness_mc_set() comput=
-es
-per-channel brightness into mc->subled_info[i].brightness and calls
-ktd202x_brightness_set():
-
-drivers/leds/rgb/leds-ktd202x.c:ktd202x_brightness_set() {
-	...
-	for (i =3D 0; i < num_channels; i++) {
-		enum led_brightness brightness;
-		int mode;
-
-		brightness =3D subleds[i].brightness;
-		channel =3D subleds[i].channel;
-
-		if (brightness) {
-			/* Register expects brightness between 0 and MAX_BRIGHTNESS - 1 */
-			ret =3D regmap_write(led->chip->regmap, KTD202X_REG_LED_IOUT(channel),
-					   brightness - 1);
-			...
-		} else {
-			mode =3D KTD202X_CHANNEL_CTRL_OFF;
-		}
-		ret =3D regmap_update_bits(led->chip->regmap, KTD202X_REG_CHANNEL_CTRL,
-					 KTD202X_CHANNEL_CTRL_MASK(channel), mode);
-		...
-	}
-}
-
-Because KTD202X_REG_LED_IOUT(channel) encodes currents starting at 0.125 mA
-(brightness - 1) and cannot encode 0 mA, channels with brightness =3D=3D 0 =
-do not
-update KTD202X_REG_LED_IOUT(channel) and instead rely on
-KTD202X_CHANNEL_CTRL_OFF in KTD202X_REG_CHANNEL_CTRL to remain off.
-
-However, ktd202x_pattern_program() then loops over all num_channels and
-unconditionally sets KTD202X_CHANNEL_CTRL_PWM1(channel) in ctrl_pwm1 for ev=
-ery
-channel regardless of subleds[i].brightness, overwriting
-KTD202X_REG_CHANNEL_CTRL so that the 0-brightness channels also breathe on
-PWM1.
-
-Also note that ktd202x_pattern_single_set() leaves info.brightness
-uninitialized on the stack before passing &info to ktd202x_pattern_program(=
-),
-and ktd202x_pattern_program() builds ctrl_pwm1 before acquiring
-led->chip->mutex (after ktd202x_brightness_mc_set() has already dropped it).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101-ktd202x-et=
-6326-v1-0-eb51eddad08c@telaak.dev?part=3D7
+Shawn
