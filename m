@@ -1,52 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605033;
-	b=x+yXGiYy8zBk3INXE/qLwnT39GeJ18T+f+0uIc0qHiKesJpc54eNINcAXJ9V2Y15TSr+
-	 REyWTEUlvFslat4bH9HzS0yP7WgPdqJ8gleqI9PLnSgmzTGMkh1uqOOJ7f5tSNCGTyZsb
-	 Xp8zvfAUVBweMaj1cVFZmyKR0U7VrInFu1ZH9QOilanytXzX9g2MqbVg69G8R5sI+SPFh
-	 0bKyMMc8idn07kfpTvEKQgo+VvrENDsdKp3b/1ukMEIrhgdt1/IErFdGJobgVDyiOWEwj
-	 Am/1n7wEW+Z4Anj74nH60wHxrLCsqnGGkBKQ2eL9ymsa1PCqZcciaFs7+sP2IjEBZ3w==
+	t=1793605302;
+	b=UXNTYOdleBrjTf3wk8biSo/11X0e2s/R49i135fKyPxhr0XFfT5s8wVeGW9oowS0ObFK
+	 qCV1NrOyj8Qxr5Z9cRjIRbnEsd3lVyDJdOq+lgqceJV9dk8W7o1ODz01z5xtg9PdbxRS4
+	 zVZ/LOWWKn2J6pZwmH5c9r++GHhIGrxTlWLVdaVlvt1iJWYQm/7B5hEePgep/8klzLxcb
+	 icCHS3E9tKayXU+AsebbW6nDI8W4jrcvCXNcts4qrc8eI29g/OMMb3RPhRbHAHuYFJrb/
+	 8yjqRb57zlhENa51rsr3Um+FUtHHvjUCHsCJwNX01xCK1EivvYN7jsowq6aX9NgK9tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605033;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=xhcWkyQWUr5o7YPJr3rKBTz0NjHWa8qVQZWLF+KmEeE=;
-	b=g2Wq+oh3o+Xf/WQCsIceHRdtJ+7nmsjDSbeKCkZ06TH3pMv8Dq78kEd+3cfCiAmVhYVR
-	 8r0TKwSED4hdRij2hHz7IYvRjigDcZcHszEMvSthniPnWyppEZDdNpX+34uOw9Tku5Vo3
-	 aMECmBHJEYk3dgMG/vMVGS9oTrBk4a0yl8NjT6HtgG4u0GiuVA9cCMicgUHKwmvLfRJDP
-	 Rgcm0dmfpiYmasOaQBtYMigjg94wGSJiV8UsLMHxI2BB+HujAHZeS4y6QXOEsbOe1rg41
-	 p1GEwvA2ZlW5wex76rGuCBJ2ozyrQOnHobbw9sPcyq3gJ9dsOPnz7eE1yGlKRAQ8sTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605302;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=o3CXiVBXl+lfNC5fS2tE1jGGqJWXPOGLe9G07hWwZY0=;
+	b=GTGwQNHSB+qf0Vi/AKo6sDq2aWEVZACnmBl2XuYSnkejbBNKzfMANwHXX8wAgqN9fba1
+	 2B8cHRAnZReALQHcaBaIA/wLdzpllFVSNWWClytNDx8GtCe7X2Y4t0CUzYQygluyjQjiE
+	 HeUkILcN40UQDm7d0gLQ29Q7UkeQBP/Ty8MBqFs8oCcIHNkOj3cIHs1ckUeYMRw0nTLr+
+	 CNrIneCOpUfjGyNvX/nGz5c/qt6fUXcmLUYCGVDo91cYRItHnaT3EHOj+8F6y8zOTgDzd
+	 nBWfkiEOgR8s3TlRcUEbgYJez09KfsQa2kOzCEaKPvMwtB25IcdKFk6RKN7g/BM2NZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=enneenne.com;
-	spf=pass smtp.mailfrom=enneenne.com;
-	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=AnylbI18;
-	arc=none smtp.remote-ip=62.149.156.131
-Received: from smtpcmd12131.aruba.it (smtpcmd12131.aruba.it [62.149.156.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U09q1VwK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2564606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 07:37:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2564606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4875606A329;
+	Mon,  2 Nov 2026 07:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=AnylbI18
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id NmbHxkfRaV5J9NmbHxJSzH; Mon, 02 Nov 2026 08:37:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1793605024; bh=saVY7wfWjYqhW6bPBGHo/DEe3cjEs9f8BoRfe+c4DAs=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=AnylbI18PEyfQBh1G4nG42CzN5Q/eHvSIDHP7sHKmuTf08UtHGv3O5/RZp1fEsQYb
-	 wircYXtMCJpIUlOPBRYinkZD6HbriBpDahkM1PxB1PC/zspqI+egxAnKUqZcbyzN10
-	 LkGOfz30VcoxtKHSUmsmCQitIDZvmNCtJujmpL6MYSt6I/LjxbZHWWAW/FpKKx0HdF
-	 DXa9i46c4WwU4UB4FeksFNyzw5X5+MWIOp5MCurihv2xBLrLyjC11TwrECQGkus/vV
-	 iFW3HClAt847UU19NvmIEqawCyAfEef6iYM585aGKhuTQDj9P8pmgKoDUmTZXrULEi
-	 xeiUsQ5UWN8vw==
-Message-ID: <e858ddf4-4710-4908-b2e7-d26a68d06fbb@enneenne.com>
-Date: Mon, 2 Nov 2026 08:37:02 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U09q1VwK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1551D1F0093A;
+	Mon,  2 Nov 2026 07:41:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793605301;
+	bh=o3CXiVBXl+lfNC5fS2tE1jGGqJWXPOGLe9G07hWwZY0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U09q1VwKKQhxiFlFh4imcH5lh7tFP1PJSEcx2sYF1V7QHYdI79yVOWJB5UCJv0A/Y
+	 W1H0wyRvoMTPkpxSdnW15glyu/xbXyjN4z8tbyPOqCrdfUJujO0CzQfaXAJWeCr1z3
+	 TvArFDAy/3M49foDCkQ2fKc13C4gCFGKdZ4LlvbJumVeKcwRbFnjGfDPC912vbI4/u
+	 ApsqFi4xafQl2Z1dGwP7W3+D6EzsStDEK54NjkpJCdg7Hhx+8ZuAgSgrqWSh5dhQAw
+	 nHVvkDwcfHHXAU/Y6an6hjlTOGPEkeyHKFTXjbAr9eawijtr6kn3M/whdfQVcPy5rf
+	 J1YhDQcI4keFw==
+Date: Mon, 2 Nov 2026 08:41:37 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Rajendra Nayak <quic_rjendra@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+	linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v7 04/11] dt-bindings: sram: qcom,imem: Document MSM8952
+ compatible
+Message-ID: <20261102-gleaming-aromatic-loris-e0dda4@quoll>
+References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+ <20261030-msm8952-initial-support-v7-4-ad748ace375d@mainlining.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,66 +77,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments TLA2528
- adc
-Content-Language: en-US, it, it-IT
-To: Jonathan Cameron <jic23@kernel.org>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Matti Vaittinen <mazziesaccount@gmail.com>,
- Marcelo Schmitt <marcelo.schmitt@analog.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Angelo Dureghello <adureghello@baylibre.com>,
- Tobias Sperling <tobias.sperling@softing.com>,
- Eason Yang <j2anfernee@gmail.com>,
- Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
- duje@dujemihanovic.xyz, herve.codina@bootlin.com,
- thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
- <20261030164705.297354-3-maxime.chevallier@bootlin.com>
- <20261031234848.00248ddd@jic23-hlaptop>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20261031234848.00248ddd@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfCHbwW499DCRrn78XsmTi21/wd2BGqm+Vq/lCd1YFZH1tK5d4fTKjVrtFW3ZyX7hk379owkLKK5isgmB0qKkuQoJUJz6A28x5gAWarp02MF9HOq67B/B
- cJWCdwmcOx7R8yjFFM8bOdOK5lx3rV/4PqeOtkiUTOsAndhMcFJgnmB3nbZkoVUyNIlW7TXJ7wns4yyB2gT3jbvKLh//5CXWftv1URmlv7KQ+rXOesAECWEp
- /D4UgiOwZ2Z+kKSdaeAyahsuTuS8buL5rahbE1JGTFsriUjbfcZ+FchfmtXX3osll8QlXCwEQAyGQvFl9bSV2uaebWpIvyRRKqMYNdIQY6tUucQpz2IQ/OI0
- k0RF8slHcQGA/UtinpVVb5bBCf2rd5zWfI4DNS20pWkWl0JSQUsiTZ+3wdVmqjD5juD+jVJ1Ca81gu4GMANeq1NJJwXU5rpR1C4s3tG/bbzTzdODET+G7v64
- GKGMgNFLdTJ3bcMQB5nRm0Eak+6I5uoDR1GfJKQ/6Xudmz4UHC6LtuXs8HWxKdSnmrHTJfjzJGozJt6HmqFvf5OTVHA2lY2iuVIH2/UgpLoRdBSOQ0zHoF4Q
- PSKdWeh6/y848DaleDR5H911o5ssviYVgmW83cE6oOljoUNTMvUT8nN9RZPBRRg+dkqcWRe+QA6v38Cv/9LfdchtqAoALMjLMinVZvbloYHH29FAlz8WR0h6
- dmEMPpd59qvOJQ54UDezUUJQN2gpsdhHaboUVMOFP7MKfaKfN703o7OMAlWWVSbnNWMT5Oj9QtrAGKztbK3jBSrJswxBKLljDNV1ZSKPAosDJM3s9b9/Pi4E
- +5lRJd32LERW+y0ZT6Y8Wv1gYrIbDV5zZt+XOaJQFL3Z0YPk8rVyuLXTAkMAQMlfVyoC+KaUx4Aa/pQNbAs8EMKkyk+YiQ3Jo8L2Hsn1ki39xBh86tVL1XBG
- 6zLrxlmikdrTUeabnbr5QgXo5SU=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030-msm8952-initial-support-v7-4-ad748ace375d@mainlining.org>
 
-On 01/11/2026 00:48, Jonathan Cameron wrote:
-> I'd also like to avoid propagating the fallback to all channels
-> if none are specified. In this particular case it is problematic
-> because if you add the GPIO mode, for chips like this, we tend
-> to expose all pins that aren't in use for anything else as GPIOs.
-> With the fallback scheme you have no way to tell if you want all
-> pins as GPIOs.
+On Fri, Oct 30, 2026 at 12:02:35AM +0300, Muzaffer Kadir wrote:
+> Document the IMEM block found on the MSM8952.
+> 
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> ---
+>  Documentation/devicetree/bindings/sram/qcom,imem.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Agreed. With only 8 pins, listing the channels explicitly in the DT
-costs little, and it keeps the door open for the GPIO support.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Maxime, if you drop the fallback, I think the commit message of patch
-1/2 should lose its last sentence too ("If no ADC chan description is
-represented, all channels will be exposed as analog inputs."), since
-it would no longer describe what the driver does.
+Best regards,
+Krzysztof
 
-Thanks,
-
-Rodolfo
-
--- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
