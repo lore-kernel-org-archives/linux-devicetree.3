@@ -1,54 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646772;
-	b=CqGH/zFlkmr1LvUqqZm8tLINU2LnwU7CUSPed7YaQtynCMEUsm6+capOXt0ITtD2vb6p
-	 s7HrgmuRJTuyxPz2JqVCWwpRrmHDfAuMt2JRxh5cBtPviRSlPtF1FghhTrzEgFmKD2ITR
-	 l+wNsXJQ9gPPZZylqscGqiTxppPcZn9NiYv382LQhxyx7SeUdXphKcSRFc4aVBpIJwgLQ
-	 umIIbGPZ/7pmL/bXOoc70QdTlZhAUNGNGkiEcLh2Uy1b8PFWyquTPaJV3Oo8c6rLx/DnO
-	 wdQXCFE4DZ6bBoQwIPPI0uhf1IUnJEm4NSqwcubU9P0WbJVr6oaskacO2RONRf31kSg==
+	t=1793646798;
+	b=zb1qM2BZyXlRk1AVy4upNPSVEni0rm5SOw4PjAS5TmXty1q1rJWobh+ssapPWjwqu5df
+	 HiVTSVk69ot5iEx714Yt7G6qBInJSg9Nvnw7MBDhdqZdDSQfmRu8fimt2x9VNCnrUz/iH
+	 jGisSXKvf6SoheIBJfzKhnPwHpgzK438tFhmVLGVas4ZL3RBM0Y1QnbUrF+q71zkAc6md
+	 DybwmhfQCneCmoGaY6PHQ2galaI9/o5CvnoJ6jlYj6Q3Isob2W9ul/QPr3qsS9fBW+zZS
+	 Ix6oYmqquhtwoeS6UJTLmVE++81jFvGNezgBR6/swzIqHeGCLKJnBliJ3+VrZkq7MiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646772;
-	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jiTkIxHuhAkziw0ro13jvW8WYMk3a+CT3sljb5fNVfs=;
-	b=NKj41YOg0Tx81T91v/52V9w0l/Sjb6Ok/W6HTVC6NMMH8y+Z0lRiRH5bZLe9CidxjB1m
-	 Gpw6ai5rv0h+56o69n5mGQPcpa/CKHZDtBm982eyBm5PIzM8GP3CnE/4hheg/Eak3uiLk
-	 TPlPZNxM/oCO/S4t93wBdgXbvE2gxDQZA8CA2k+F1BOZu/8RUMTa9m1s2EM7PGAmKrVix
-	 /5aOLOZRAzxOyzeewacK/81wpXmSW49LjszgvricCSdbcbiYQTziCKlWKb3gTw2D/QqpL
-	 tyAQD7UoE3LuMeWQGMgLfJ1NWwMUgekaUGqnrLKpaqQ9Lx76sMwxnqs8hx3rkYlGAqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646798;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=U/h1dd9RoS+VuRtmXiCs9roaZurmiqV74QqfDLQStI4=;
+	b=DD3p8ZLnTU+JLuMwC0qKCvVxBC3zlrX7ysW6gO1WAKZ+QRXaK3zoTlH9DVnaNy6t89Wk
+	 3yKI4n0q5zwg7dIwg+OmHHd1VF32eYdlcjhXoxkUf2FHfgWbyOs38DP9sW7+9ezlDJf+/
+	 QRWdZWBdBUnKbYz2BpKNX3R5D4jauGLXoMQus1w4jWw9rIh0IkELSHLXFdBQBVw9rThWi
+	 PPn9s6Fp7BNp7fJMOh67xpkjwop7fZImj/xCnTn2n39aEc/hM3kIZ9xQJ2z8LYPa9e179
+	 i389azEaIBPXL4/R5Q0fnwdMWNwkNMkGSu6iW3Ut0b3TJSPxapMBmmqDjY5wKrFpQyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ggir4WL2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbV9vlqP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C13606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:12:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A710606A327;
+	Mon,  2 Nov 2026 19:13:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ggir4WL2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C7F1F00A17
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:12:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbV9vlqP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDF71F00A16;
+	Mon,  2 Nov 2026 19:13:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793646771;
-	bh=jiTkIxHuhAkziw0ro13jvW8WYMk3a+CT3sljb5fNVfs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ggir4WL2ENvsjGBc0Dunfrx15FRVSzPAYHhJCAnJccJhU5tldMV9gI8IqcAdNUZiR
-	 2UA+zEf/4YNXOFqguwEvBo6Ycdv1LFLGR67utf391GnrSh3fWG1npEeRL22FdtWBGU
-	 dRORbuEHJ0QdCHKiKtc59NNFow9sUVjPjPsuGhS3KcdBBxbjucmAwbooedJWPoERm8
-	 HBOXPWruv3GhbnqPxO1C+D1nmA5y3Mi9nWo4sv9E4sNreP3D4oxJg0qJ5+O2a9YYnX
-	 710mvIJV1YnfILddxx7kxqov+tp9VwVjaZUpMKd/GGrIWqckR2216ZSYt6UquMKCqf
-	 8zxg1czW6VuBg==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c247f6687dcso590006666b.2
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 11:12:51 -0800 (PST)
-X-Gm-Message-State: AFq9FYIVf6KasmFjFkFN4YGrfXfd3WP1tZEW/fSMP9areOQVmISYQKvq
-	b4lyZ2dJ1w9mzL7APRI1oNzxyTRKy4H0H+Yo4aO/KXTVKHBjmYgo4RgrWL3TRuGtokQJ0i97Vf3
-	VOLTQDNyrTYAigkNSqKhi+6qFk5wldQ==
-X-Received: by 2002:a17:906:eec9:b0:c26:1648:a076 with SMTP id
- a640c23a62f3a-c4ca7abf2aemr893729966b.49.1793646769977; Mon, 02 Nov 2026
- 11:12:49 -0800 (PST)
+	s=k20260515; t=1793646797;
+	bh=U/h1dd9RoS+VuRtmXiCs9roaZurmiqV74QqfDLQStI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BbV9vlqPwHUPdm3kW82aAIDSi8ejiJRNqBag8HwRiWmVd4S91ELHY7pDEr/S0c+99
+	 YNrEOOKQCsyjJ6cml804uLD62Yi0QhWRV/TYNOT7yYxJGSUAz3ZzL1JdLdTrKAq6kd
+	 U0WNSqzovG8M0bFQJW1cFlcx2J8rSfsWiH1V/sbXfsb3brf7r1T16eCvA3DZki/2HC
+	 teKYbdm8OeofGO3BH22uE9TAdy6p01Ggqq4VPXDH0QI2IFpos3+0M8seWuO4xlesfB
+	 lKloEkNVdz0k/rzlFbI6PDHoeI/Xcyyq8HWziUkxi5X+342G+rzItranW4v4bx7P92
+	 q/XoB7ZOstFbA==
+Date: Mon, 2 Nov 2026 19:13:12 +0000
+From: Conor Dooley <conor@kernel.org>
+To: marouene.boubakri@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Anup Patel <anup@brainfault.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Radu Rendec <radu@rendec.net>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: vendor-prefixes: add OpenHW Group
+Message-ID: <20261102-imprint-kindred-1c2d1a636a15@spud>
+References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
+ <20261102141727.640769-2-marouene.boubakri@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,51 +64,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026102658.968138-1-m.szyprowski@samsung.com> <179362278569.150793.16322788098732007689.b4-ty@b4>
-In-Reply-To: <179362278569.150793.16322788098732007689.b4-ty@b4>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 2 Nov 2026 13:12:38 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqJ7mkOL6kBwjDV=-A99zpmHWTFdc+8TunXG5EfueiFDrQ@mail.gmail.com>
-X-Gm-Features: AclHuK8yGh3NSN4CvPkoAvulZs_KXn319zDDRWAbtCSGLwxtYjAagwVTktYpSvU
-Message-ID: <CAL_JsqJ7mkOL6kBwjDV=-A99zpmHWTFdc+8TunXG5EfueiFDrQ@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO properties
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1nuoCU+yS2icvDHP"
+Content-Disposition: inline
+In-Reply-To: <20261102141727.640769-2-marouene.boubakri@oss.nxp.com>
+
+--1nuoCU+yS2icvDHP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 6:34=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.org=
-> wrote:
->
->
-> On Mon, 26 Oct 2026 11:26:56 +0100, Marek Szyprowski wrote:
-> > The wm5110 audio-codec node uses the legacy "wlf,reset" and
-> > "wlf,ldoena" property names without the standard "-gpios" suffix.
-> > gpiolib-of.c only recognizes these bare names as aliases for the
-> > correct "wlf,reset-gpios"/"wlf,ldoena-gpios" properties, and that
-> > alias support is compiled in only when CONFIG_MFD_ARIZONA and
-> > CONFIG_REGULATOR_ARIZONA_LDO1 are enabled. When those options are
-> > disabled, devm_gpiod_get() fails to find the GPIOs, leaving the
-> > codec without a working reset/LDO enable line.
-> >
-> > [...]
->
-> Applied, thanks!
->
-> [1/1] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO properties
->       https://git.kernel.org/krzk/linux/c/76ef3ed714ac178cda84ef39733d4f7=
-12e682081
+On Mon, Nov 02, 2026 at 03:17:20PM +0100, marouene.boubakri@oss.nxp.com wro=
+te:
+> From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+>=20
+> The OpenHW Group (https://www.openhwgroup.org) maintains the CORE-V
+> family of open source RISC-V cores, including the CVA6 application
+> class core and the CVA6 APU FPGA platform built around it.
+>=20
+> Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
-Now in next:
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-arch/arm64/boot/dts/exynos:2:1
-   Schema warnings:1
-      2 audio-codec@0 (wlf,wm5110): Unevaluated properties are not
-allowed ('wlf,ldoena-gpios', 'wlf,reset-gpios' were unexpected)
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index ba20029693..82440d498d 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1263,6 +1263,8 @@ patternProperties:
+>      description: OpenCores.org
+>    "^openembed,.*":
+>      description: OpenEmbed
+> +  "^openhwgroup,.*":
+> +    description: OpenHW Group
+>    "^openpandora,.*":
+>      description: OpenPandora GmbH
+>    "^openrisc,.*":
+> --=20
+> 2.43.0
+>=20
 
-sashiko pointed this out.
+--1nuoCU+yS2icvDHP
+Content-Type: application/pgp-signature; name=signature.asc
 
-Rob
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujgyAAKCRB4tDGHoIJi
+0vdPAP9HJoZqHVETh6lvXFfQoqSezjaYtfGhm7AC26W3DnTZcwD/cOaOSLOxduk6
+7uPL0h7O5luDzGQha9AH9mL4jd0jRwg=
+=jKds
+-----END PGP SIGNATURE-----
+
+--1nuoCU+yS2icvDHP--
