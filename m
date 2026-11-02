@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793650483;
-	b=u2QYHGa9gS5BnP67mbX4qAZsho37XIGxC6GfcNOP6+ExdL5x0oUqGBwxLQCBAuWLqrCO
-	 ihhBrKVAqPV/4rw7e3/+scu0sny90+s7IKMU13AMh8NRwjFoGzwZbnmuZkSPqOWsRfgLB
-	 Wcrn7kNbY9s1TkKM6Ex82+p3ZTO+g5VaXex6kGrS4qnPZ/Km+EYrgObinQ3Z6nxOZbZy9
-	 D1qFYerWSub5Q1EJ/1+z4cJO2kAymecMqr1AJatqQZj2BKlVwr14Ia7nYE1lXt9udq6sr
-	 nwe85JU1nM9zPIEc/Kr7BFQd1i2EfPShWeMGxAds5tFQl4a1ZzdKJbJopDmu1htkLzA==
+	t=1793650484;
+	b=C4mXj4GaKqP9qYFcTxL7CnkgNK8bSv5Hx01AIBVe5ZdsOd2Up26qKVqjAgKZPUORxV9i
+	 2zJtrcYS/DFYfC7+yflQm96BrkZwMLKoJnEdeIt7ETEPRLBjnnUoLlb7UKiZzfRIPsiM7
+	 reB3slVVnDss20nWleEt3uZjErhPwQn4CFvL0PG1EYj9cB4idUIyzqjIY0ycCh0MpaDBO
+	 7URhpkCf4RBKLXmIcbkQkoyVvZefv+nNI9fM3i2kiHboDs7W3jPQdPvMFu0wUKx8JPUzO
+	 oUPxxfqlsTKOC9G0ZC64E6qjlqy0bKalxwdb+v8k10vtojtOve8iEge+QepMtQYDIsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793650484;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F0qZYx4u9TnnDtbB9BjrJLHvlePNA0vWLxRrEccaJmo=;
-	b=uZhExTpUK+wJix6k6lleXhNi05RaQnjukfb6ztxU8h24f7F36en0zJ13w12gTUgyjhh3
-	 OSSQqteFkmyL9omXCqeOIgdBx8rWZe3/w1Uvt1hGFD6rhNWJLob26+Gd5YiCNmHCTwGJq
-	 2DM6LNLrwMAjhY3b3o7nPfcX3ZaVPCeitCu1QyF6O+1LawYY1GvPOo8jcN6DNv/EHA2Wt
-	 T8AaGsXnLLNqE0lU3IwGqB1ebNofx7x+ASa1nl39WrkQuSFoS/Nw8zLM+SHVO8jWJO7XS
-	 UxzJAzWR89HQm6CaUHPx7Z9qIzDMG1C7dsmjzUE2jg9aprsp+f6dGjxKeU8QKw0Ynag==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VJpG0KekBa/NY2yha/o6EWqyLiVRn3sfx78mJkKNt7k=;
+	b=wyU3BZ4cw//RNeWNDl/gbDd3mDbI2T0u3+loRGzq/JlAuk5hy5c9Nda3qpgBHx9n0lA7
+	 HrZIyDES7h8dT7oqU+V0pwlAqtCv3xLABF2q078AQ43Btf7U0nfkfolSz5u3c2mPTV8LY
+	 FPNUZa0GASamxqNQmHdUh8I7YuqQf0JoE2Ga8jqE1PGranQAoJq6Do8X4WESB2OR32Tv5
+	 stjlEOr0k1+EzZKFbreTG031RGvUhnLoQ1YmYekwIAetY7aPG3nnMTPieAD2gONordqoW
+	 Wh6M7bIo4Qa93pIu50PcHvSZOME9rgHUtIMRU08+9JPpTHzxzSwpgITZ2tSKiK6iJ5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IjKNJDCO;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JdfJlGfz;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E64606A330
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5E64606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FD6606A333
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:14:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83FD6606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IjKNJDCO
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so38942545e9.2
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 12:14:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JdfJlGfz
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso22788665e9.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 12:14:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793650481; x=1794255281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F0qZYx4u9TnnDtbB9BjrJLHvlePNA0vWLxRrEccaJmo=;
-        b=IjKNJDCON19xI91iHAVMwQ8G7AwpxC0FK6cKznlFx6cWtYq7fTjlvk3Ke7zCyx8kUH
-         9QHFxgj+D8pmwYFdgq6ony1+OhXTDeKl/mRabgy8cpmzqWcylwrTUzbuRHVJXAlx2G0F
-         ymtUebS4VY0isduE6A1dQ0cmjQW5/8YKDwUBdm0JakV+tRu1GKzDZMbO2HjCHPbrZZBg
-         dhUSHov+FkHN20xnyvQYLY2v0aPDcOe1LwCiXf7RkRQ1ikWreKJbKDiajhjWh9SgVhIZ
-         QjoNdcXmZiVnu5EGKPhLM7yXA6hr8f4xmvG+IkZKmW/JQM6H2XbCzOVBRTtG1ArfHN7A
-         W0rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793650481; x=1794255281;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793650482; x=1794255282; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=F0qZYx4u9TnnDtbB9BjrJLHvlePNA0vWLxRrEccaJmo=;
-        b=kmGFf+ByUgC1Tun7+PheTDcoGd9IvMpbcKIJz3b/LkxmojFK/KTJPGfX9hgekzeuia
-         jJg0KEccJnNUy67YEgWm8BfSYdNSSagdSsgbvrmcZmql2zp62YflhbinprIb9+zAR8CP
-         efDwBTLsqIm7JasuxkkY65pDDYs4ms+ltYjJ8hxoDud3kyuJwmVTKF+i47sPlTxc6L8d
-         YDMxZGdW30ovVvKlvxUQTdHbIyfLRKBSK6sX9zGlhBee0tkP+5+ez+CyWzuiwwsoNyKF
-         zy+1AnK6uu7e5uL8UB43ky8M46+gsDHFmiRqazoeUwrGFxEeZUTkywP/fWEm8vHAsoMN
-         raww==
-X-Forwarded-Encrypted: i=1; AKwUvBwobaHghSOi6wME2soIT2RHLekrXJc5fYNdMguLErP6ReM5OKNE3D7dx1NimVnrA7UaMZTr5nonLBA9@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVbxz519Zx4nwlQzUMfYAlJbP5oK68zg4Rx8Iy4rH/caV3usrj
-	wrF4aqjTpqhggLTHxQ1tWbb5Yh6jkU0sODPD/0jkx57P6kyIdpz+8xW5CT5ubtzSP2I=
-X-Gm-Gg: AYBFou2ByD/oRYpAj6q3D5u7yEvOOl3qgxQUcUyCXQWlZ1SJd9A+fhwKuNiR6fx9iyf
-	ri0JsbVuQJ72+VN0u+uNIAU0CTESv1O1LpQzTGo+WMGe2saujm3l3NOKwsfKXsShe7+CPPJPchS
-	Stutec/0a9DeIswbtUSLnTVSenQ6YoRewN0kiYZUbrCsEaCslDWYR2Y4LxY23ExnXRXrymUSBJ4
-	qUzuuWKAc8KiTck+pLKQcMEeSHnfofUzCh8l8f4LY9q9HwgMBorML6/L32y5RYvz2edr7NkYv9V
-	E7KI9Llejou7phrsQ7QVxXy/WSjuo9YtYySNmjqiGR9AYwl9OYKBn66rFdmncj2SQH38KUZ2vop
-	4GeABpYAuuSA4bws1A2A9CIM/3EOXQskwGrOe3ZhJ9h9nJTHVOSy3qdQ8c2/8k1shgaXqzDv/uC
-	Ldbv6cAcX2bAz+YTMU8RfgNxWPioKp7b4lkVD+mP9v6J2nPIID0xFwQL7YumaoOHPkqvNSYFTLr
-	Sp5gr6wgRev2lzyqKnnvCzsDlVJCH3hQsMN1lazMdVAfl+Vn/1O9Csnn9OT9vIee8eZJGqSazfR
-	vHY61UZRSTTU83En0dbR6RBRRkjpIfjvFY86gjBhjZn3sL6YF6ct3w1zGcvi
-X-Received: by 2002:a05:600c:3b09:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b14017c507mr79134615e9.20.1793650481373;
+        bh=VJpG0KekBa/NY2yha/o6EWqyLiVRn3sfx78mJkKNt7k=;
+        b=JdfJlGfze7wgCvUiIjxkJp5J7LkEQXr9SCfaD7lCrcEwTnSqiV6V/Fgu59HmJ7yPs0
+         LmHn1MKW+31ahNi6cQvICo99kKjjHD7tkTlbGtAyiuIRxhYyghB4bco7AjcWD4lg5O7F
+         OEos0sTuRA9Xpe0Qu8B31IXVmPg4mV7SsZYGNQyZxGk7zDu7zffAcSkfy45wpJSypm+x
+         mi62d4hyhN5nL6F2byc36z2JH6KJuEnBFmSvppDy/Eg9D3X1SwFQHjLfrlaXAQpQ+Uii
+         RlF0Lj+LsDJc6WiBAH4tKGn340mb1qs3j8ZYC3QqGO7htcb2oUhdbtjwqUuZmSC/AsXK
+         9beA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793650482; x=1794255282;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VJpG0KekBa/NY2yha/o6EWqyLiVRn3sfx78mJkKNt7k=;
+        b=ubpHJwULElTThMpR2aQ6zWYZzThHsQ5daoFTGKBrl5MyEFMEzfG1ZWYlRaxDKtms1O
+         +E400zqQf8XcajcRRx7g5cgrWbk4DSfFo0/uYOvDQz0bsVgPcttwG0LkB75daK/4Tt60
+         7uxvCnDh1ts+8je0VMmgkJTrLuMqYKXbjkc+43LHOwTT411OV4FRATvdMdzTt9DhA1V7
+         KBb+3/3CNkDpHGE9l/S8dqPUa/X3IIbq1jFRoVTbIs+Iu2nAYDehXSJlD5vktfMt1Biy
+         rfGy5YZTfe8k/BRat/ZgtX9cjmyv4bcs9JM69rKZA7rwMmlXo9OtqxB1KXjELCT5zijZ
+         WKng==
+X-Forwarded-Encrypted: i=1; AKwUvBxGylFj8UEDwOWTQJ0ewXrVPrsS+02iDp02Qm93pz2iu8zDY6ltt2u5mIYGX/aSHmg4LgkVQv8c2kFj@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFD3dvBC9wGpxX1CWpG2U86TY83hHnef3zX9DO61YGJFXpXgEi
+	VsblVQEJjNMIgmEsSp4+PlRmYdVKIXUvbIUk0ChGtp/3S7qnKl0eK+hKLHhujz5xc80=
+X-Gm-Gg: AYBFou10KdJG2YqDS/4kq9bNQ7xZddNPVQ3zrxubLkm7s2nrPwthPh1KfYvLKQb3AXu
+	H3SJVTSIIBKfOH9KuW6mpg6/IfUVD9wTeOEaFmLOSCPgo09dQrFOwdJWKXzimjKNz6DiTKGABZ1
+	KVbwnR1gK3HqJzOi5HbRkpXL08JZxnSqo98+5x0HRf3Mw4nzIaMlYTP8BQUDRjAPd8oLYcGi0/M
+	nHXfmJeN7PSp4mQSEpOlym69E+EDckPF97y5BL7CtavSo2BiYPebqTNEEUJrbvHzTkV8NcU2ndi
+	ZFyKqRicqBj8/MAhFddUBAuG4DEyPAAe1WflQvKjsWIEXW3BXGdiEV/xaEFM2WLp7Z8oU38HtJp
+	db6sZw9l2d4ghlopyTmEYsbcsxn5bG1jDpJ7QqnHH0R+HDRHXRvWwwBr+SRCk5F0M91Conly5ZK
+	uGxjQ2K2vDDE3xvN711tRXPwMD+3rVWUpKcy8GRZfOiTMLgcZGyZf/S4PV2GTuAUX9NzZO4siRZ
+	gRqsYRmdSVRclBjcTHCPhoprJXWFhL3DY2Kkscit9edQ17MDPoivk4Jbe8SynJkdysBNnn/Hze+
+	B3fNReZsvVA1Rea7VI6f6Z5OV+alUSscxj/qRWLWXW4keGfDpvyoxiE+cLNx
+X-Received: by 2002:a05:600c:8b46:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4ac18c73238mr261757445e9.33.1793650481932;
         Mon, 02 Nov 2026 12:14:41 -0800 (PST)
 Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6412:7406:ded:3229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8d60bc5sm9559305e9.8.2026.11.02.12.14.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8d60bc5sm9559305e9.8.2026.11.02.12.14.41
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 12:14:40 -0800 (PST)
+        Mon, 02 Nov 2026 12:14:41 -0800 (PST)
 From: Olivier Louvignes <olivier@mgcrea.io>
 To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
 Cc: Rob Herring <robh@kernel.org>,
@@ -88,11 +89,14 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v3 0/2] pwm: Add the Ingenic X1600 PWM controller
-Date: Mon,  2 Nov 2026 21:13:23 +0100
-Message-ID: <20261102201325.29507-1-olivier@mgcrea.io>
+	Olivier Louvignes <olivier@mgcrea.io>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/2] dt-bindings: pwm: Add the Ingenic X1600 PWM controller
+Date: Mon,  2 Nov 2026 21:13:24 +0100
+Message-ID: <20261102201325.29507-2-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261102201325.29507-1-olivier@mgcrea.io>
+References: <20261102201325.29507-1-olivier@mgcrea.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,84 +108,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Ingenic X1600 has a PWM controller of its own, separate from the TCU
-timers that pwm-jz4740 drives on the earlier Ingenic SoCs. This adds its
-binding and a driver built on the waveform callbacks.
+The X1600 has an eight-channel PWM controller of its own, separate from
+the TCU timers that drive the PWMs of earlier Ingenic SoCs
+(ingenic,tcu.yaml), so it gets a binding of its own.
 
-Changes in v3, after Uwe's review of v2 (thanks):
-- Krzysztof's Reviewed-by on the binding, unchanged since v2.
-- Kconfig and Makefile entries in alphabetical order.
-- The programming manual's link in the driver's header.
-- The limitations comment says what 0 and 100% do: the channel is
-  switched off, its output held at its idle level.
-- No mod_devicetable.h include; bitops.h for fls64().
-- X1600_PWM_MAX_COUNT from FIELD_MAX(). PRESCALE is four bits wide, but
-  the manual reserves its values from 8 up (section 13.4.7), as a
-  comment now says.
-- A comment on why x1600_pwm_ns() cannot overflow.
-- The prescaler computed without a loop; it matches v2's loop on 300,000
-  random waveforms.
-- A channel that is off reads back as 0 or 100% by its idle level, over
-  the period its counts give, and as disabled only with both counts
-  zero. Its initial level plays no part then.
-- .write_waveform() no longer waits for BUSY, the clock rate is taken
-  exclusively and cached at probe, and the chip is atomic.
-- Fixed: v2 changed the divider or the initial level of a running
-  channel by switching it off and on again. A channel switched off
-  finishes its period, though, and switched on again before that, it
-  keeps its old word, so the new waveform was lost. v3 writes the
-  divider, then loads the initial level and the word through the update
-  register, running or not.
-
-Uwe's questions about the registers, measured on the R1's channel 0
-through /dev/mem, with its pin sampled through the GPIO port about every
-microsecond and the clock divided by 128 (a 10 ms period):
-- IDL is the level while off, and nothing else: set on a running
-  channel, it changes nothing; on a channel that is off, the output
-  follows it at once. So it does not depend on the offset, and every
-  write now sets it.
-- INL is loaded with the word: written alone it changes nothing, and
-  with an update the new level starts with the next period.
-- A word written without an update changes nothing. After an update,
-  BUSY stays set until the period ends (8.7 ms in one run), and a second
-  word written while BUSY is set replaces the first, which never shows.
-- The divider takes effect as soon as it is written, in the middle of a
-  period.
-- ENC clears EN at once, but the output finishes its period before it
-  goes to the idle level.
-- An update on a channel that is off keeps BUSY set; ENS then loads the
-  word, and BUSY clears at the end of the first period.
-
-v3 itself was tested on the R1 with PWM_DEBUG, sampling the pin the same
-way. Through pwm-backlight, 30, 60 and 99% measured 30.8, 59.8 and 99.0%
-high, and 0 and 100% switched the channel off with its output held low
-and high. Through sysfs on channel 0, with the backlight unbound, all on
-a running channel: a new duty cycle; a period from 100 us to 1 ms, so a
-new divider, after which it ran at 1 ms and 25%; the polarity inversed,
-so a new initial level, after which it was high 75% of the time; then
-0 and 100% inversed, and off. PWM_DEBUG reported nothing.
-
-The X1600 has no device tree upstream yet; its support is being posted
-one subsystem at a time.
-
-v2: https://lore.kernel.org/r/20261025191624.9219-1-olivier@mgcrea.io
-v1: https://lore.kernel.org/r/20261025084643.93167-1-olivier@mgcrea.io
-
-Olivier Louvignes (2):
-  dt-bindings: pwm: Add the Ingenic X1600 PWM controller
-  pwm: Add a driver for the Ingenic X1600 PWM controller
-
- .../bindings/pwm/ingenic,x1600-pwm.yaml       |  47 +++
- MAINTAINERS                                   |   6 +
- drivers/pwm/Kconfig                           |  11 +
- drivers/pwm/Makefile                          |   1 +
- drivers/pwm/pwm-ingenic-x1600.c               | 289 ++++++++++++++++++
- 5 files changed, 354 insertions(+)
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/pwm/ingenic,x1600-pwm.yaml       | 47 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 52 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml
- create mode 100644 drivers/pwm/pwm-ingenic-x1600.c
 
-
-base-commit: 9ad5602d4943635ea2b3b73d1a720161f88da1a1
+diff --git a/Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml b/Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml
+new file mode 100644
+index 000000000000..3ecaa92a5ca2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml
+@@ -0,0 +1,47 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/ingenic,x1600-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ingenic X1600 PWM controller
++
++maintainers:
++  - Olivier Louvignes <olivier@mgcrea.io>
++
++description:
++  The eight-channel PWM controller of the Ingenic X1600 SoC, separate from
++  the TCU timers that drive the PWMs of earlier Ingenic SoCs.
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    const: ingenic,x1600-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 3
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#pwm-cells"
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    pwm@134c0000 {
++        compatible = "ingenic,x1600-pwm";
++        reg = <0x134c0000 0x200>;
++        clocks = <&cgu 21>;
++        #pwm-cells = <3>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..c905aa13bcbc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12878,6 +12878,11 @@ F:	include/linux/mfd/ingenic-tcu.h
+ F:	sound/soc/codecs/jz47*
+ F:	sound/soc/jz4740/
+ 
++INGENIC X1600 PWM DRIVER
++M:	Olivier Louvignes <olivier@mgcrea.io>
++S:	Maintained
++F:	Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml
++
+ INJOINIC IP5xxx POWER BANK IC DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+ S:	Maintained
 -- 
 2.54.0
 
