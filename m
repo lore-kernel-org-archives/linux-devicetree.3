@@ -1,114 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793619187;
-	b=O93hT7buFn9cC3+cH8XcPACwrjdtAkRtN+ZxllK8M+uwgF9FDZvIxN/hYUKQuB7RdqwT
-	 tJwer1zCR3Et/QZK3dzZXZRyMK+LiHPPv+t6LkLAle+7AeHkTZfdCTSCevczxvzVk6/Fc
-	 EadyEVREmTl8NwdctsixFGOl+e3ClH/Wsx+/FtLqUEvVqy0xoOlT3YcCPmjYqhs6KetY3
-	 wmG8pRwp9AtNSLDvVvZWRfsfyRqFf4rB2xTneMxn4kmIuI/spHeTGlT4wVerUgjuqudnm
-	 wONIF0x244bOmZv/+WDB/Kd67SGcDwuy4p8IqwIhZ4tXQWSyk2iQioFFhZKFYAdcUrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619187;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3IeRbfQM1ag7ogsMYYuYfavYun8p+ZM7wP90Ei+O8ho=;
-	b=UQnLT+YqKji7riwngCeIGKuPNA/i6D4CBxFG+AQZYodieTca9YWd/Zf59GxYfHicmePK
-	 1ia1cwEb7E/eeyI4O+a7Rkayjc/6wW9T3nJPvf3dxUHavUt739GobKRkLSiPiviQd3COl
-	 V6hSN0A7Bpl8FjkhEqBxn+A1IJbLQsRtHQsgOAqrRbp/NdwxzWB7TP3A05SiKktl9PzDY
-	 iV2Uqii87ndZi96Ijek0jOfdMl/CJUpeW9JDb1x5EP9QX2XpeXAuP3h3+ZQKGBs94AQ7E
-	 2IF9w8rqSKwCtEj1RrNNKFQNx3yyetMstV9NfF+q0BQPJ6FqoMKZrHLE8pw9AxAACZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GcUu6iO3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.19
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012019.outbound.protection.outlook.com [52.101.48.19])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793619323;
+	b=i1CHKTL+b0g0oB88lDiC1vfA28mvWS3+KXo0eRKQfJrIs3tfFpMvI6OTvZBCj0icexYD
+	 3EgsRDl+H8/IWsqwDhUaMyP1GyvbDOZ90Ju8PYdvOO6mtKQumvCqxVgSuZKjbyPqng9ZN
+	 2IqO8MgvvRH77NASWtLdjemWamKiX0hJwmyRgv+vX/QV0k/u+dzuIes+b2/rGA91thQwp
+	 76kJy3wVeaeUzE/OZZ7Xn9VZEeoYy5QJGg8OsCOdopj7+8TOAUwigfUtIo4v1JzXSyk1L
+	 iU9LJw+cC5tc5EWWW7oVAgZAieQBdppuJtqm/KrOBly23htaSXu58IhprInPQZrPq8A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619323;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CF1jr6GRQSNTpKRllk67ZQnHtv9gh0KtJu4qQ45Jgew=;
+	b=cdPwGmkazNZP+CQPiv8v9GhfPMV6UgORuEA6MoK4+6yLaZAzEpMNYfXhKiSPY0dcq3uH
+	 Pi0M4KqmckBD8oo4Gr2fF1GHOdKEP5FgueALgXEiTBGYUPP+N46I2nz/6lXLoTGnBQ54K
+	 YyQ/w1yh8IDAUolflfw/XQovNk1vvdfv3GUnaQzaLSDT2tD9rl5Yvab7wsch+uk99I5jl
+	 FvklwUG6tFsEO+2e7coumC21tqySnP5zXU032r/0nOFQ+iZkTeR65MWlnkqNDuRksZHBJ
+	 zuXsAX9w7EuWcXfiMKXAZtEKb8yuB1UP1LSrOsnBfSCw2nkhJQUDoe8anYhQypOuGKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doLdGfuG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F5B606A32C;
-	Mon,  2 Nov 2026 11:33:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5F5B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB9B606A333;
+	Mon,  2 Nov 2026 11:35:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=GcUu6iO3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GPSQGOKCrJbSZ5kyzVRwYyG29wuix55lur8PcnVdVNxf+4ZqIYX0rehMnw8eIB1ujW9yC7xjUT70/nJcWvGJivthXHeTUl6k1sFcowLiPZ2lXH+RaXtApVDYPy4jNeLRU7MVrtb9wzShZpuOV3Q3kqFmU81CV3NqQ4UzDYj1rwENUTRuuFlEG1MQusk9DEhmDs2LX8xZSpPPFcR5AnQWTrwg8uUdPXfdD0DLYpphfMRX6EMYVYFIeuV4wwzYuVX0F/Iw4ldodLgxoFdSrilMqAv9cxGB+gY0M2eY1fdHw/bXc3LoHRt67tBO2P/3sd2DWIKNloGhmzi8vUkDkgDF/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3IeRbfQM1ag7ogsMYYuYfavYun8p+ZM7wP90Ei+O8ho=;
- b=IjiVojKeDsSKTYzjLZP1XC2InDvGnPAIRNIDnrLQ7fHQATBIqiyt/dFb+lSAeCNBbbhmutC2YC5aYFzDqZpyFEfKzDP+SLMiSt3IW2JHipEjVeK5Kbup72MUh+GwDTC708RnjjhPY+Jx8jF29EM/9NqjH8jgBxr3RnXxDQ5zDdSc5d393YiD8NWs0AGfRc/scWLdnDIXCsJwZtgcQAlZDMtFsO0WQYolZ+sJaabMdMmm4dySeZeof/VMzpEHsWFySNCf/Ww8UWnisi3NEZsciyRtBOSmcRqQS9teDxYba9yE8iomsmW1WG0n1KncaiiPId4PAjUCpvj9f9A/GPfnYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3IeRbfQM1ag7ogsMYYuYfavYun8p+ZM7wP90Ei+O8ho=;
- b=GcUu6iO3l3U0p7vO45PgIiAjHSNDU5TovXwZKbBxXn63+BwXfF5cXwtJCruBxazuQGsszxkU1x+GkqoEhPQmik1R2MmBEq6FKnDZIZ4oSTwmyXahQST3MA2MZNfDdKdUWsB9hO0z/fPAPKYt3OtYJAhH95d6A5v3DfwsBzUe8ZduZ99UkX0Zb2rpRRbbkj6ah/fsUUxRDiMKQwprmLQQYeMSE9PHidhVKwFa7VC1r7OOCUtL+8VvT6G8Iplz2ZUZz0YudibShMT+f6EaY9k6OIaaQJGzJzeyx2sF/S8MvaXEGr730G8L/Iy4aLy3JtkcyuHIBPX/tkDKWQ0u9NYxMA==
-Received: from BN0PR02CA0002.namprd02.prod.outlook.com (2603:10b6:408:e4::7)
- by SA0PR12MB4480.namprd12.prod.outlook.com (2603:10b6:806:99::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 11:33:00 +0000
-Received: from LV8PEPF0000006C.namprd03.prod.outlook.com
- (2603:10b6:408:e4:cafe::55) by BN0PR02CA0002.outlook.office365.com
- (2603:10b6:408:e4::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 11:32:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- LV8PEPF0000006C.mail.protection.outlook.com (10.167.248.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 11:32:59 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 03:32:44 -0800
-Received: from build-johnliu-noble-20261009.internal (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 03:32:43 -0800
-From: Johnny Liu <johnliu@nvidia.com>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
-	"Prashant Gaikwad" <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
-	<jbrunet+clk@baylibre.com>, "Douglas Anderson" <dianders@chromium.org>,
-	Aniruddha Rao <anrao@nvidia.com>, <devicetree@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-clk@vger.kernel.org>, Johnny Liu <johnliu@nvidia.com>
-Subject: Re: [PATCH v2 2/4] firmware: tegra: bpmp: Add Tegra238 support
-Date: Mon, 2 Nov 2026 11:32:08 +0000
-Message-ID: <20261102113224.2404743-1-johnliu@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2Hw2_7rkSLKRLbLEfioCFA@nvidia.com>
-References:
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doLdGfuG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698091F00A16;
+	Mon,  2 Nov 2026 11:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793619323;
+	bh=CF1jr6GRQSNTpKRllk67ZQnHtv9gh0KtJu4qQ45Jgew=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=doLdGfuGVrltouJIqgBGR0f7CCDjfsFAj+eIlt24pk4LQawQW1n68UZPnruEk1d2u
+	 3AYSMzTUomXjXFUqu9VevcQRdHmFDPipwW+NG023TtSP/ez+U3bgm7RKY808xqUUKO
+	 FOqlAzE9Ub6yV81JP2gmYiBEktl4AzeNtvxwyh2NQRPvruE5RioBSAyyPEz581/7H6
+	 k5E6Z7EliagEjOktRITBeWr52CskEs3O6gQbUw+NFq+O9/Wz+NW8DDhFIXMm9/tbDw
+	 3tyy4CcEbzXD3fSc02+xN9ucdBIUwBn8aijOj9VsOQ6ls6ODzlPZXAUCdNuPfqQzVa
+	 ma3z3CvCY29bw==
+Date: Mon, 2 Nov 2026 12:35:19 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] dt-bindings: display/msm: Add SM7250 MDSS
+Message-ID: <20261102-wandering-peach-lemur-0c57fc@quoll>
+References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
+ <20261031-dpu-sm7250-v1-3-159f403ec405@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,169 +65,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000006C:EE_|SA0PR12MB4480:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71fc960d-4238-47b5-f0fc-08df38d50c6b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|36860700016|82310400026|11063799006|56012099006|261009223027099003|261021123027099003|261021121427099003|261022075727099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	nldwTojiW3yW23NYa7jHcdT5EVYHxQQV+ZaiVYfE1isAtFoeWoyTgyOtt1w5SMv1VmVwA3xh79rolnMqhRgDWf+MlPDJezsn/8htnOdcVcrOZEGg0tW7VfNC32+qNNuS4nwVtCtZl9W1zjJTxa+PO0IM4ZhdWGO633jmNmd+L2JDulpjOXNlVMV/Y1DFkipZ+xbHGl9ce9QQ4f9bs2waTQl0KbRbVnFi/rM9rSp/ujAVNw99ZVh0X/nnmwaBwUGTaus4k+hObcAS176Wgk8fcpX7JH6oEhvY4CzKBt8nMDCFX9NfCqOMqt0V337JNit9j9SlG5uItECq315SWPyBh17dV4gKCcrZRYDtx837aOqF1MlWm69ZmwvgFCvNthtQPlkDUddcM8HWbfKMoTEFZdQ73+gJN8r91KkM4dVJq01WPVa9QCdVjcn4DgZPD5GTXUf4y929qvX/8Xg147s6oeNRg+ssos8OlKsFCVJdnATW0u9uKirnYilPMNOGzY7g58OEdUBrbKl2FOUqxKnTH/af5JrZzIsST69r5k1EFp9Kp0cNzt4EA2BQfv6wPpuX0F9Mvyi9ImSJoVsvD2+ppXEJlV5skUbxUtLCidSWDt9I3Q8G9iugIVGnSDD2y7eXJrVepDgXA72Bo9jLcrzYXzLPx0VEv2tPzN5kHn+GcUm9bCXvQTrCCua8jOk2QphZCQdSUYemoKBRdapLUEcxXg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(11063799006)(56012099006)(261009223027099003)(261021123027099003)(261021121427099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Ksfe3GfFNALqKsqYP1wEIkQAoOKbw9aow2rEa+xOP5bP+fsR+qpE4ZWfIXYaT1CSTW+dt+lXBQrkGqsEC4Y6DSCHSYDukkXTMlslsJ3HXloQ3yukDYxQZcHsFaxxZcBUPfnVT8e1IS5VLhqYms3cWQF7rbBu3wY1vDaSYcy62rWUTh6HZofv0ASLI3hi9Z9nFrUIrikHAxfcP4KZsZh0aMoszg6TZ5g9tBG2llvpDhIjx137+eDWSe0dc/BjppNCmyIs+I8sMvPiMqj5JjGBjxZmsCLHm4D+42ySYhgqelWSYDFxb66nv0jwfMy6RdA7uhHL3EtioWahIu9FymBqb0CLz6TJE7+mA6+nSDOPCDjspY80gzYNfsfl3VbQJR2zvbhC5Sqh9j6lxWR0uVkg0U96qcEx7z3Ei78NvRbRTKbqwaPVe7LtJTn7LKjLA8Xu
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:32:59.5804
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71fc960d-4238-47b5-f0fc-08df38d50c6b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000006C.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4480
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031-dpu-sm7250-v1-3-159f403ec405@brar.si>
 
-On 2026/11/02 08:48, Mikko Perttunen wrote:
+On Sat, Oct 31, 2026 at 01:23:39PM +0530, Ishu Brar wrote:
+> Add the binding for the SM7250 Mobile Display Subsystem. It has the
+> same clocks and children as the SM8250 one, so it is modeled on
+> qcom,sm8250-mdss.yaml. The example uses the SM8250 clock and
 
-> On Thursday, October 29, 2026 12:49 AM Johnny Liu wrote:
-> > The "nvidia,tegra186-bpmp" compatible and tegra186_soc data are shared by
-> > Tegra186, Tegra194, Tegra234 and Tegra264. Tegra238 has its own BPMP
-> > compatible, so give Tegra234, Tegra238 and Tegra264 dedicated SoC data
-> > selected through their specific compatibles, built on top of a common
-> > TEGRA186_BPMP_SOC_COMMON initializer. This allows chip specific
-> > properties to be described in the SoC data. Tegra186 and Tegra194 keep
-> > using tegra186_soc.
-> > 
-> > Also build bpmp-tegra186.o and the shared match table for
-> > CONFIG_ARCH_TEGRA_238_SOC, so that a Tegra238-only configuration binds
-> > the driver.
-> > 
-> > Signed-off-by: Johnny Liu <johnliu@nvidia.com>
-> > ---
-> >  drivers/firmware/tegra/Makefile |  1 +
-> >  drivers/firmware/tegra/bpmp.c   | 54 ++++++++++++++++++++++-----------
-> >  2 files changed, 38 insertions(+), 17 deletions(-)
->
-> This refactoring in this patch makes no sense unless you first read the 
-> next patch, plus it has the unrelated factor of adding Tegra238 support, 
-> which makes it quite confusing.
+No DisplayPort?
 
-Yes, I agree with you. This patch makes sense only after reading the next
-patch in the patch series.
+> interconnect headers, as the SM7250 ones are not upstream yet.
+> 
+> Signed-off-by: Ishu Brar <patches@brar.si>
+> ---
+>  .../bindings/display/msm/qcom,sm7250-mdss.yaml     | 351 +++++++++++++++++++++
+>  1 file changed, 351 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
+> new file mode 100644
+> index 000000000000..aada943e0cf3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
+> @@ -0,0 +1,351 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/msm/qcom,sm7250-mdss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM7250 Display MDSS
+> +
+> +maintainers:
+> +  - Ishu Brar <patches@brar.si>
+> +
+> +description:
+> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
 
-> Can you move the TEGRA186_BPMP_SOC_COMMON refactoring into the 'per-SoC 
-> EMC clock ID' patch, and have the Tegra238 addition as a separate patch 
-> before or after it?
+s/Device tree bindings for MSM Mobile/SM7250 MSM Mobile/
 
-Ack, I will move this refactor in the 'per-SoC EMC clock ID' patch.
+> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
+> +  bindings of MDSS are mentioned for SM7250 target.
+> +
+> +$ref: /schemas/display/msm/mdss-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm7250-mdss
+> +
+> +  clocks:
+> +    items:
+> +      - description: Display AHB clock from gcc
+> +      - description: Display hf axi clock
+> +      - description: Display sf axi clock
+> +      - description: Display core clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: bus
+> +      - const: nrt_bus
+> +      - const: core
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +  interconnects:
+> +    items:
+> +      - description: Interconnect path from mdp0 port to the data bus
+> +      - description: Interconnect path from mdp1 port to the data bus
+> +      - description: Interconnect path from CPU to the reg bus
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: mdp0-mem
+> +      - const: mdp1-mem
+> +      - const: cpu-cfg
+> +
+> +patternProperties:
+> +  "^display-controller@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
 
-[...]
+Drop blank line
 
-Best Regards,
-Johnny Liu
+> +    properties:
+> +      compatible:
+> +        const: qcom,sm7250-dpu
+> +
+> +  "^dsi@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
 
-> > diff --git a/drivers/firmware/tegra/Makefile b/drivers/firmware/tegra/Makefile
-> > index 97f7a5db9d0a..21e87f3afffe 100644
-> > --- a/drivers/firmware/tegra/Makefile
-> > +++ b/drivers/firmware/tegra/Makefile
-> > @@ -4,6 +4,7 @@ tegra-bpmp-$(CONFIG_ARCH_TEGRA_210_SOC)	+= bpmp-tegra210.o
-> >  tegra-bpmp-$(CONFIG_ARCH_TEGRA_186_SOC)	+= bpmp-tegra186.o
-> >  tegra-bpmp-$(CONFIG_ARCH_TEGRA_194_SOC)	+= bpmp-tegra186.o
-> >  tegra-bpmp-$(CONFIG_ARCH_TEGRA_234_SOC)	+= bpmp-tegra186.o
-> > +tegra-bpmp-$(CONFIG_ARCH_TEGRA_238_SOC)	+= bpmp-tegra186.o
-> >  tegra-bpmp-$(CONFIG_ARCH_TEGRA_264_SOC)	+= bpmp-tegra186.o
-> >  tegra-bpmp-$(CONFIG_DEBUG_FS)	+= bpmp-debugfs.o
-> >  tegra-bpmp-$(CONFIG_SYSFS)	+= bpmp-sysfs.o
-> > diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpmp.c
-> > index d3508e98e338..beeb385870f5 100644
-> > --- a/drivers/firmware/tegra/bpmp.c
-> > +++ b/drivers/firmware/tegra/bpmp.c
-> > @@ -1131,25 +1131,41 @@ static const struct dev_pm_ops tegra_bpmp_pm_ops = {
-> >  #if IS_ENABLED(CONFIG_ARCH_TEGRA_186_SOC) || \
-> >      IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
-> >      IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
-> > +    IS_ENABLED(CONFIG_ARCH_TEGRA_238_SOC) || \
-> >      IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
-> > +#define TEGRA186_BPMP_SOC_COMMON					\
-> > +	.channels = {							\
-> > +		.cpu_tx = {						\
-> > +			.offset = 3,					\
-> > +			.timeout = 60 * USEC_PER_SEC,			\
-> > +		},							\
-> > +		.thread = {						\
-> > +			.offset = 0,					\
-> > +			.count = 3,					\
-> > +			.timeout = 600 * USEC_PER_SEC,			\
-> > +		},							\
-> > +		.cpu_rx = {						\
-> > +			.offset = 13,					\
-> > +			.timeout = 0,					\
-> > +		},							\
-> > +	},								\
-> > +	.ops = &tegra186_bpmp_ops,					\
-> > +	.num_resets = 193
-> > +
-> >  static const struct tegra_bpmp_soc tegra186_soc = {
-> > -	.channels = {
-> > -		.cpu_tx = {
-> > -			.offset = 3,
-> > -			.timeout = 60 * USEC_PER_SEC,
-> > -		},
-> > -		.thread = {
-> > -			.offset = 0,
-> > -			.count = 3,
-> > -			.timeout = 600 * USEC_PER_SEC,
-> > -		},
-> > -		.cpu_rx = {
-> > -			.offset = 13,
-> > -			.timeout = 0,
-> > -		},
-> > -	},
-> > -	.ops = &tegra186_bpmp_ops,
-> > -	.num_resets = 193,
-> > +	TEGRA186_BPMP_SOC_COMMON,
-> > +};
-> > +
-> > +static const struct tegra_bpmp_soc tegra234_soc = {
-> > +	TEGRA186_BPMP_SOC_COMMON,
-> > +};
-> > +
-> > +static const struct tegra_bpmp_soc tegra238_soc = {
-> > +	TEGRA186_BPMP_SOC_COMMON,
-> > +};
-> > +
-> > +static const struct tegra_bpmp_soc tegra264_soc = {
-> > +	TEGRA186_BPMP_SOC_COMMON,
-> >  };
-> >  #endif
-> >  
-> > @@ -1180,8 +1196,12 @@ static const struct of_device_id tegra_bpmp_match[] = {
-> >  #if IS_ENABLED(CONFIG_ARCH_TEGRA_186_SOC) || \
-> >      IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
-> >      IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
-> > +    IS_ENABLED(CONFIG_ARCH_TEGRA_238_SOC) || \
-> >      IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
-> >  	{ .compatible = "nvidia,tegra186-bpmp", .data = &tegra186_soc },
-> > +	{ .compatible = "nvidia,tegra234-bpmp", .data = &tegra234_soc },
-> > +	{ .compatible = "nvidia,tegra238-bpmp", .data = &tegra238_soc },
-> > +	{ .compatible = "nvidia,tegra264-bpmp", .data = &tegra264_soc },
-> >  #endif
-> >  #if IS_ENABLED(CONFIG_ARCH_TEGRA_210_SOC)
-> >  	{ .compatible = "nvidia,tegra210-bpmp", .data = &tegra210_soc },
-> > -- 
-> > 2.43.0
-> > 
-> > 
->
->
->
->
+Drop blank line
+
+> +    properties:
+> +      compatible:
+> +        items:
+> +          - const: qcom,sm7250-dsi-ctrl
+> +          - const: qcom,mdss-dsi-ctrl
+> +
+> +  "^phy@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: true
+> +
+
+Drop blank line
+
+> +    properties:
+> +      compatible:
+> +        const: qcom,dsi-phy-7nm
+
+Best regards,
+Krzysztof
+
