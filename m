@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577804;
-	b=4e++MhQ2KTmlrRQavFiyeuwQaY9kEZyel5vYpoNj4ZIgzZYeQgqCRTx0KoojBcGe2XIN
-	 YoMiVr+2fzrtc7bnHXk6xyNFysK6NbGYxyZRga6pQtWeLIcGN/zIYNYlmYGDLJI7oZXMT
-	 Vcp99E//ZV+AeGkmIqs7V1mA2pEz9ox90vKMfC0oNf2LgDYULcY5iCV0uehJNt7YbQ0XD
-	 8DTR/FF6NpA/r4/yY9CgHxPkldlv0mCiA++AcdBCQus/VCwkCmHcJAb5A3ISwUTscYgg8
-	 A9HlEB/K8E4CqFhuTKa5qy0W+dKLc+LcDiq40WrMPPIZiEK/naQklEuhF01utkoTblQ==
+	t=1793577853;
+	b=CNsxpCoGEBB9lIabJfvHLuG2KvbmSEGiwkA2qCN8wxB4Iohc4TpQYG6HF22XpLLWzH5A
+	 zUJPwP52MspuH7yS45lnoj7UOhVymMxQ5tuw6TNWdakofFFerDEDJoI0W1k/X5NV+8rBa
+	 aSw3eO3tfVArNbmSyZDIzc4++flxr92zXgxVVovmNty3Z+mgmhjihMOaUpimzxLaAW9Xl
+	 b+X/TerIvLVyfwFqXoTGZgDiyWyr10cRbzR3JT25W2AKyX2jxd+KBKSzfet1107TqjQ8o
+	 5AtvTN1L0fHFgMiR942ZIDym96g/VFi99NkXqskM+nUQ4hIS3Y1uul0VgvStaM62mRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577804;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XCeJHCdfxtlL4kCbtL9cMT179tZ2PTlgxVA3o7V9peo=;
-	b=5G7QG4RkPAmTOCUUK0EcagGERplwsN5rUXi9qILqZOzMhzMoKZSw93+k1daYmJStAfEB
-	 BoRvqE+baGqCaec3P4rP0w+gjM462uI/zty2VHWA8UVuvgyBqzXorBIZfAD+i+S/5E7e8
-	 l8GonIeKNsbwgn3BkAhZikYc+HdwUjG8eg3KsTd31hTrTcctQ++UWfWhpHRKUtHwHC+Wn
-	 i7x2H3ECfFIxcJbgvwMGuPM7tgLWR7l6RcvcAflrrO2JXf3Gn8jsa9PQ1+OAVn+vrhFKP
-	 pQRyCs3AYrHU/5nc53OnqKgKL1Y7qO1/ssUcmk471tUmiL8EJzcQsVZlFz3yU44Ln+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577853;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KBin+VBb1gehkdGJoG2mdgFia04vBVa3nhreBJaAphI=;
+	b=XRpZfIikv8WrP/BRKjwJiwqc0WqdoCFGwfAC2+3Lvpcm0PMpqfQvQS+i7or6GvQAJ9kc
+	 q+PyD/PuryKwTxX9vEtRhnrsPMIQgucsDN7A3GwH+HjasJnCAuij6W7bnc2K9Kg9QE0/H
+	 wKyv4qX+0WMm8hD4TnwW6jxW5LDsVNFPn9bemVTXmiWobhuATGLzCyA7+FzvZfm0B8l6T
+	 jhyLjCrapFmu0hOb0x4Apx0T0SVY+5fPB4eT8EQ271Mu+2mRh+ymgEPaI1Cwj5UuvMSl7
+	 RKSD0ImTU3ClWMdmUatG/ciq79I9ty4KeFJjX+kdi7k2LHtTcaCPbNRZaiwKik/Hh0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2dNbGCw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1rgjWhg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84841606A324;
-	Mon,  2 Nov 2026 00:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52739606A33C;
+	Mon,  2 Nov 2026 00:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G2dNbGCw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7931F000C1;
-	Mon,  2 Nov 2026 00:03:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1rgjWhg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7B01F00919;
+	Mon,  2 Nov 2026 00:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793577804;
-	bh=XCeJHCdfxtlL4kCbtL9cMT179tZ2PTlgxVA3o7V9peo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G2dNbGCwFLUQzHFaAMyueWPh2IvW7CMWjVBWdQxwMjzegcLCmqTY5K4BpiA5hPU3l
-	 QsmudHhLGAkN0PWckSVtyOiNCGpqSUxiw2gOf4/b6Vr+57GToFeD1SKDuXWhHlca7v
-	 PXNVIyR4o8w03nVHXnJ6GHhzwQyH+BV9aiGEX/fHttdQ8Xg675uwW8rzazutnN8FyV
-	 wS0yQx5pjzzfLhs9r2RTfXkPt79ZzPdpyaWwthYPCNit1kkICdy/YeiBrWu479vQp9
-	 GRv8VPl7xMk372jsaflLkUrdLhUW2t8fiGvb/7DMXHy2vKR6ee80FfrZd/1b2wMUH5
-	 J1YymAPZbh0Sw==
-Message-ID: <sashiko-outbox-192789@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 09/11] remoteproc: imx_rproc: always use
- non-blocking mailboxes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Francesco Valla" <francesco@valla.it>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261102-remoteproc_virtio_map-v2-9-26b300e01c62@valla.it>
-References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
- <20261102-remoteproc_virtio_map-v2-9-26b300e01c62@valla.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 00:03:23 +0000
+	s=k20260515; t=1793577852;
+	bh=KBin+VBb1gehkdGJoG2mdgFia04vBVa3nhreBJaAphI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=R1rgjWhggpddPfEwOMveGnQqrUll52v6MaouClMm7/QQ5Gox51xe+oVsjnERB3eap
+	 UZ03fkZRvzQMh56tRlNTBmmHLd/1YuzSaqB5khHFWYRZz0Yqj62rKsuH+KcSCY6fKa
+	 1fPLw5qZS9ynrhA/9ZKrdy8K+OoojoD0nPFoHuGYKxEkQTOX08gUOH0cdoPz3/wOB2
+	 hXRetKTyJMbzxNB3AxLtQML08iakUJMW6OfTsQatrmqPBzTqixlI0AisKtoIOzeAON
+	 cWFhHsG6Ol1br0LpOwuFnVwyQPFqzKj2wFLngX6N1VG8+upU70wb2tFcc/K+iejB+v
+	 hiJjMI6vy0qpQ==
+Date: Mon, 2 Nov 2026 00:04:06 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, linux <linux@analog.com>
+Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261102000406.342657af@jic23-hlaptop>
+In-Reply-To: <20261101235010.79416e15@jic23-hlaptop>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+	<20261026000910.328f6cd8@jic23-hlaptop>
+	<LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
+	<20261101235010.79416e15@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,126 +71,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] remoteproc: imx_rproc: memory leak of mmsg in imx_rproc_kick() on =
-mbox abort
---
+On Sun, 1 Nov 2026 23:50:10 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-commit 059fe2437ad2cd1bd7152b14297e2a685bc5d803
-Author: Francesco Valla <francesco@valla.it>
+> On Tue, 27 Oct 2026 09:36:47 +0000
+> "Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
+> 
+> > > -----Original Message-----
+> > > From: Jonathan Cameron <jic23@kernel.org>
+> > > Sent: Monday, October 26, 2026 2:09 AM    
+> > 
+> > ...
+> >   
+> > > > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> > > > +				       u8 *fifo_data, s64 timestamp)
+> > > > +{
+> > > > +	struct adis16607 *st = iio_priv(indio_dev);
+> > > > +	u16 msw, lsw;
+> > > > +	s32 val24;
+> > > > +	int bit, offset = 0;
+> > > > +
+> > > > +	memset(st->data, 0, sizeof(st->data));
+> > > > +
+> > > > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
+> > > >masklength) {    
+> > > iio_for_each_active_channel()
+> > > 
+> > > As sashiko notes, masklength is private.
+> > > 
+> > > There are a load of places we need to update to stop accessing these
+> > > directly but please don't add another one.
+> > > 
+> > > It's on my list to throw some LLM tokens ago once I get out from
+> > > under review backlog.
+> > > 
+> > > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
+> > > adis16607-v4-0-
+> > > a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
+> > > ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
+> > > Check everything else reported.
+> > > 
+> > > FWIW there are also some nasty race conditions around active_scan_mask
+> > > being available when the buffer is being torn down. You might
+> > > want to close those off by claiming buffered mode to prevent
+> > > such a transition.
+> > >     
+> > 
+> > Agreed, I'll switch to iio_for_each_active_channel() and I'll go through the
+> > rest of the Sashiko findings for v5.
+> > 
+> > On the active_scan_mask races, I'd like to check which path you mean.
+> > In this driver the only reader of the mask is the trigger handler
+> > (fifo_push_sample()), which runs as the pollfunc.
+> > As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for it
+> > to finish before iio_disable_buffers() frees the mask, so I couldn't find a
+> > window where the handler sees a stale or NULL mask today.  
+> 
+> Ah. I may have failed to distinguish between cases with a trigger involved
+> and those without.  The bug reports are probably on the ones without.
+> Unfortunately I haven't found time to look at the overall issue
+> in enough detail yet.
+> 
+> > Even so, I'd like to close this off for good, so that a later change to the
+> > driver or to adislib can't introduce the race.
+> > 
+> > Claiming buffer mode inside the handler looks like it would deadlock
+> > against iio_disable_buffers(), which holds mlock while waiting for the
+> > handler in free_irq().  
+> 
+> We'd use a conditional claim in here - only the core code driving the state
+> transitions should take a claim unconditionally (they can just grab the lock).
+> If mlock is held it should fail and we just drop out of the handler having
+> done nothing.  So either disable buffer wins and we drop through the handler
+> quickly or it looses and the attempt to take mlock blocks in
+> iio_disable_buffers()
+> 
+> Or am I missing something worse?
 
-remoteproc: imx_rproc: always use non-blocking mailboxes
+I'm indeed being dopey today.  Whilst it is a conditional claim we grab the lock
+unconditionally as part of that.  Which makes sense because we want
+multiple simple read the state calls to block behind each other.
 
-This commit switches the i.MX remoteproc mailbox client to non-blocking
-mode, dynamically allocating and freeing kick messages via the tx_done
-callback, and removes the sys_off handler that previously reopened the
-mailbox in non-blocking mode during system shutdown and restart.
+> 
+> > 
+> > Would snapshotting the active-channel layout in update_scan_mode()
+> > (called before the pollfunc is attached) and having the handler read
+> > only that copy be an acceptable way to close it?  
+> It would but that feels like we are just papering over a lifetime issue
+> by creating another object rather than fixing it if necessary.
+> 
+> Anyhow, from your first comment this may all be irrelevant anyway.
+> 
+> Jonathan
+> 
+> >   
+> 
+> 
 
-> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rpro=
-c.c
-> index 581bb07f5893f..a792b9ca5edd1 100644
-> --- a/drivers/remoteproc/imx_rproc.c
-> +++ b/drivers/remoteproc/imx_rproc.c
-
-[ ... ]
-
-> @@ -696,28 +696,45 @@ static void imx_rproc_kick(struct rproc *rproc, int=
- vqid)
->  {
->  	struct imx_rproc *priv =3D rproc->priv;
->  	int err;
-> -	__u32 mmsg;
-> +	__u32 *mmsg;
-> =20
->  	if (!priv->tx_ch) {
->  		dev_err(priv->dev, "No initialized mbox tx channel\n");
->  		return;
->  	}
-> =20
-> +	mmsg =3D kzalloc_obj(*mmsg, GFP_ATOMIC);
-> +	if (!mmsg) {
-> +		dev_err_ratelimited(priv->dev, "cannot allocate kick message\n");
-> +		return;
-> +	}
-> +
->  	/*
->  	 * Send the index of the triggered virtqueue as the mu payload.
->  	 * Let remote processor know which virtqueue is used.
->  	 */
-> -	mmsg =3D vqid << 16;
-> +	*mmsg =3D vqid << 16;
-> =20
-> -	err =3D mbox_send_message(priv->tx_ch, (void *)&mmsg);
-> -	if (err < 0)
-> +	err =3D mbox_send_message(priv->tx_ch, (void *)mmsg);
-> +	if (err < 0) {
->  		dev_err(priv->dev, "%s: failed (%d, err:%d)\n",
->  			__func__, vqid, err);
-> +		kfree(mmsg);
-> +	}
-> +}
-> +
-> +static void imx_rproc_kick_tx_done(struct mbox_client *cl, void *mmsg, i=
-nt r)
-> +{
-> +	if (r !=3D 0)
-> +		dev_err_ratelimited(cl->dev, "failed to kick vqid %u: %d\n",
-> +				    *(__u32 *)mmsg >> 16, r);
-> +
-> +	kfree(mmsg);
->  }
-
-[Severity: High]
-Does this leak mmsg when the mailbox channel is freed or when transmission
-does not complete with a tx_done callback?
-
-In imx_rproc_kick(), once mbox_send_message() returns a non-negative ring
-buffer index, freeing mmsg relies solely on imx_rproc_kick_tx_done() being
-called from tx_tick().
-
-However, there are several paths where imx_rproc_kick_tx_done() is never
-invoked for a queued or active mmsg:
-
-1. When imx_rproc_free_mbox() calls mbox_free_channel(priv->tx_ch) during
-stop, detach, crash recovery, or driver teardown,
-mbox_free_channel()->mbox_clean_and_put_channel() aborts the active request
-and all queued requests without invoking cl->tx_done:
-
-drivers/mailbox/mailbox.c:mbox_clean_and_put_channel() {
-	/* The queued TX requests are simply aborted, no callbacks are made */
-	scoped_guard(spinlock_irqsave, &chan->lock) {
-		chan->cl =3D NULL;
-		chan->active_req =3D MBOX_NO_MSG;
-		if (chan->txdone_method =3D=3D MBOX_TXDONE_BY_ACK)
-			chan->txdone_method =3D MBOX_TXDONE_BY_POLL;
-	}
-...
-}
-
-Any in-flight kick in chan->active_req (such as kicks sent by virtio
-subdevices during rproc_stop_subdevices() right before imx_rproc_stop()) or
-queued kicks in chan->msg_data[] (for example, when the remote processor
-crashes or stops reading the MU register) will be leaked.
-
-2. In mbox_send_message()->msg_submit(), if chan->mbox->ops->send_data()
-returns an error, chan->active_req is not set and mmsg remains in
-chan->msg_data[] without tx_done being called, while mbox_send_message()
-still returns the non-negative slot index t to imx_rproc_kick().
-
-3. For IMX_MU_TYPE_TXDB_V2 channels, imx_mu_xlate() configures
-txdone_method as MBOX_TXDONE_BY_ACK, while imx_rproc_xtr_mbox_init() sets
-cl->knows_txdone =3D false and never calls mbox_client_txdone(), so tx_tick=
-()
-and imx_rproc_kick_tx_done() are never called.
-
-Since mbox_send_message() only stores the void * pointer in
-chan->msg_data[] and passes it to send_data(), could vqid (or vqid << 16)
-be encoded directly in the pointer via uintptr_t or stored in a preallocated
-per-vq/per-device array instead of dynamically allocating mmsg on every
-kick?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-remoteproc=
-_virtio_map-v2-0-26b300e01c62@valla.it?part=3D9
