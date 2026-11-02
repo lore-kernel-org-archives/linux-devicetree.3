@@ -1,60 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793579286;
-	b=uQ1HRFuQ+B7qv3Iviizdjp8Y8G6rJpFY5QL40aPKU6gFjvc0N0kXo/qqlT6P/ApWA0w/
-	 Aq5ucalcMQf8hZB7xWi/6ZJGw37MzuynumiemKaHKQbygRHoYq0xt1qTaADn7ljR0M3Jp
-	 /J4BhnRD1+z0UnZFnAE/dmTECE2+8F18DfDaMuPbKqZ6jNlUITzKhCbX6vMiEv+799Jkx
-	 FFiSfS2kMnhr1y1aeZ7mQXKjHnk2ADZVCWRkTY/V9HWtLIfeujKTbxAJKHVg1CwjSWsp+
-	 4YNZPJJ1dRkVGlw50Ln15xTR5DwuR8qjdw2wPQ4YZUzeJdspR54YtEPtdkEYkpQtKyA==
+	t=1793579733;
+	b=W8G99+deCG3Pwh3Iegos2sx/qFY1wjY5p68nCC4W0sHGfxDyazaV2L4WvXBzqOsMgrez
+	 0C0YT1nClccvaXSwtAyW/PglpED/wfRBJpL+yrI4CzQvTEIQ/dv6MLaAogdIrpTExhcD8
+	 dofaK+R6HCyWeVaq0glxWn7KXtkh0GOFUqhUHUqMlaMFt9yKdk//fT9v3SeHuPaQ+CYzy
+	 seMtAip7z3vyfkMBWYipfMRC1DO+IAGREn/2qN/PT47tkGjGUsulwWh4QuV5HW1dwf/Mn
+	 /FqNjOeNoArEaZNuSUjmNgW4YummD+S9T8WZH1wZANnnhsJkxcIgsSBtZ5ltjgWxZlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793579286;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bdwDl6M8HEFuMP6JuRDefHyTG2RwyEVFFLdnE2+FDnQ=;
-	b=kODjlvVHXfcBsx9B07wMu0iZ0JGnIO21kFBNYRv7dAyloTHDogcMlAJsxk3yOp7SQ+B4
-	 OjOOgZyb9zp9xyH3+8X1AaQwyAY8SCUQHL/tWyhWtEGXfSWxkK2tMxiT0LpZB17KYiwTm
-	 nFiIyzFfdO1sS8QWVNRW9nKs2f4yl0YAwFIM4ni66vnBXaWW/o4jxBlFYkmgyg4TJhHTL
-	 RmRxK36XHrlepgEh0mOPRPWJPm+Jw0ozcbZpt1gZU1oRWEGhggQ9u+5Vi3SnrWrGdiHBr
-	 QlG6CpLpk61TqfIjLmP1wCn8hbcDo0XkCVSeg+eV134/NhW7ZUZQ3WvLmQDZ6S85yng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793579733;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type;
+	bh=ZG8EMWhctAf4hBlhV4nBt03pkj0jTyEdzET8AMrZ19I=;
+	b=imZuPM5ye6LQNidN+GIWvC9W71PHjtlfI+bE1Sw45Gr0i7aZ4TEDlxMRXo8AOrmTHsd2
+	 OkGE1KWxnSbpOLT99L2ibiFPLh3+I0fvXc9Jm/5Kb/Wib7YBSp7xXDAUZo6Mn4MQtyU4X
+	 IYfZfo6YAghBWmqbth5AkqHtVjLTiFipqr6Xz68VBsEWMOACpEVp1tmrcDX7VPSFRuH6f
+	 hwEZLmLNFn/lsHv0hiogHYvgqfvidU2jB2S/BRDB/fwb/eBSIjNzjDrdm/HWun85LxLzh
+	 4onznxIxEV0yPaLRoWoGdLzknbWDNJjk619bL4SDJX6Wr4Pt3Sq9yfuk+HUfFHNu07w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VWzPIUWz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=erebion.eu;
+	spf=pass smtp.mailfrom=erebion.eu;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b="49306/x1";
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=DvOzqtUy;
+	arc=none smtp.remote-ip=142.132.183.134
+Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2EE606A324;
-	Mon,  2 Nov 2026 00:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2131C606A32C
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 00:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2131C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VWzPIUWz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419291F000C1;
-	Mon,  2 Nov 2026 00:28:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793579285;
-	bh=bdwDl6M8HEFuMP6JuRDefHyTG2RwyEVFFLdnE2+FDnQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VWzPIUWz3S7oErit9QLDUxRjgiGZuxXVo/8r0OlX6RZz7RnFapcebksP/Xs+J7Xpb
-	 lsZXSfMFP/mT2wqMZNmUAYe4kGp8I6UPkzsAKn5nEUuVSCaB8NrP0h+StZqjVz6uiY
-	 H+g6BZ5579A7/mmLhQw8jAqKeHwqG36WF3lrhoMjWTQEAFGtq0ebbCV2X7ULI4bLKS
-	 m1TYv8TQirHQPbdcBO27VNGE3+NGg4x0tAUNL7fAVIFEuj0LsJ9Q+BppxjP3DJBUSi
-	 wgAWjRNasMhF+MjEwO3fHaXgN25tYtkpYrk5Y+j2ctSwvXHzUa9eHWgsl6Y0y80i9A
-	 tB2i0bkXbDVtg==
-Date: Mon, 2 Nov 2026 00:27:59 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux@analog.com>, <nuno.sa@analog.com>,
- <dlechner@baylibre.com>, <andy@kernel.org>, <Michael.Hennerich@analog.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <corbet@lwn.net>, <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
-Subject: Re: [PATCH v6 00/16] iio: adc: ad4134: Enable greater sample rate
- data capture
-Message-ID: <20261102002759.7be64317@jic23-hlaptop>
-In-Reply-To: <20261024025421.5c612c54@jic23-hlaptop>
-References: <cover.1792792325.git.marcelo.schmitt@analog.com>
-	<20261024025421.5c612c54@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=49306/x1;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=DvOzqtUy
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1793579729; bh=ZG8EMWhctAf4hBlhV4nBt03
+	pkj0jTyEdzET8AMrZ19I=; b=49306/x10UCRUR6jExCEMbRyFc0aZorRTnSx/7F2SHJFTnYFe2
+	eff4owSHoiTbbDs8RWJcIi8fLRv3kxeCrnBA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
+	h=From:To:Subject:Date:Message-ID; t=1793579729; bh=ZG8EMWhctAf4hBlhV4nBt03
+	pkj0jTyEdzET8AMrZ19I=; b=DvOzqtUyJ0Y/RW7BF/va6FjWFjZ9fn2RxA02B6zMaRVxk5I97K
+	Y8X9To2AnHFM4hAzxK+iaFTwgf3D/5mtrPric68Tp0rs6KClDQGnD+F0ZguMs1dUVj3XU5KgENJ
+	3EZ4jGTT8/H9ALxUOLs+SCM27lyXX36bk17vdAEFU2CN7E1HLWYcYN/Rux4jo3LmXkxBHQxvSHp
+	/xiKuQHJa3uZrY0Y1kWID2eIOoZhcBjqg+eOsJnVnV9sippNuqjUV6vbrPGhBv7T19XBTnBOpum
+	etxh5kAXH/wbweBOfiReW2Ti14G+MlfQHI95bMwnuHNq6eJcNZWbw86AP4hTOjam+jQ==;
+Message-ID: <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
+Date: Mon, 2 Nov 2026 01:35:29 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,39 +57,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
+ thermals
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
+ <sashiko-outbox-192768@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-192768@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------cC6AXiopkwI7HiSSjolv8bnl"
 
-On Sat, 24 Oct 2026 02:54:21 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------cC6AXiopkwI7HiSSjolv8bnl
+Content-Type: multipart/mixed; boundary="------------07k0mmuG0N6riQ0TbvE0P278";
+ protected-headers="v1"; hp="clear"
+Message-ID: <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
+Date: Mon, 2 Nov 2026 01:35:29 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
+ thermals
+Content-Language: en-GB
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
+ <sashiko-outbox-192768@kernel.org>
+From: erebion <erebion@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <sashiko-outbox-192768@kernel.org>
 
-> On Fri, 23 Oct 2026 19:32:58 -0300
-> Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
-> 
-> > Extend AD4134 support to enable greater sample rate data capture. To achieve
-> > that, provide control of digital filter type selection. The default filter
-> > type on device power up only supports sample rates up to 374 kSPS. In addition
-> > to that, enable interfacing with AD4134 in SPI 4-wire mode that can support
-> > reading ADC sample data through multiple wires. Finally, use SPI offloading
-> > to speed up data transfers at up to 1.49 MSPS.
-> >   
-> 
-> Hi Marcelo,
-> 
-> Series looks fine to me. I'll not pick it up just yet though
-> as want to give some time for others to take a look.
+--------------07k0mmuG0N6riQ0TbvE0P278
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Applied. Still a narrow window for last minute feedback if
-anyone is looking at this given I need to rebase on rc1 anyway
-and then let 0-day have a few days of fun with it.
+T24gMTEvMi8yNiAwMDo0NCwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4gW1Nl
+dmVyaXR5OiBNZWRpdW1dDQo+IFNob3VsZCByZWFyX2NhbV9zZW5zb3IgcmVmZXJlbmNlIEFE
+QzVfR1BJTzJfMTAwS19QVSBpbnN0ZWFkIG9mDQo+IEFEQzVfR1BJTzZfMTAwS19QVSBoZXJl
+Pw0KPiANCj4gT24gUE02MTUwTCwgcGh5c2ljYWwgcGluIGdwaW82IGlzIHJvdXRlZCB0byBB
+REM1X0dQSU8yXzEwMEtfUFUgKDB4NTMpLCBhbmQNCj4gdW5kZXIgJnBtNjE1MGxfYWRjIGJl
+bG93IHRoZSByZWFyIGNhbWVyYSB0aGVybWlzdG9yIGNoYW5uZWwgaXMgZGVmaW5lZCBhczoN
+Cg0KQWggeWVzLCBsb29rcyBsaWtlIEkgY29uZnVzZWQgZ3BpbzYgZnJvbSBkb3duc3RyZWFt
+IERUIGFuZCBncGlvMiBmcm9tIA0KaW5jbHVkZS9kdC1iaW5kaW5ncy9paW8vcWNvbSxzcG1p
+LXZhZGMuaA0KDQpXaWxsIGZpeCB3aXRoIHY0Li4uDQoNCj4gW1NldmVyaXR5OiBMb3ddDQo+
+IFRoaXMgaXNuJ3QgYSBydW50aW1lIGJ1ZywgYnV0IHRoZXJlIGFyZSBhIGZldyBwYXRjaCBz
+cGxpdCBhbmQgc3R5bGUgaXNzdWVzDQo+IGFjcm9zcyB0aGlzIGNoYW5nZToNCj4gDQo+IDEu
+IEVhcmxpZXIgaW4gdGhlIHNlcmllcywgY29tbWl0IGZmMjQxMjBhMDhkNiAoImFybTY0OiBk
+dHM6IHFjb206IHNtNjM1MC1sZW5hOg0KPiBBZGQgUE1LODM1MCB0aGVybWFscyIpIGFkZGVk
+IHhvLXRoZXJtYWwsIGFuZCB0aGUgbmV4dCBjb21taXQgZjE3YmM0OWY2OTNkDQo+ICgiYXJt
+NjQ6IGR0czogcWNvbTogc202MzUwLWxlbmE6IEFkZCBQTTcyNTBCIHRoZXJtYWxzIikgYWNj
+aWRlbnRhbGx5IHJlbW92ZWQNCj4gaXQuIFJlLWFkZGluZyB4by10aGVybWFsIGhlcmUgcHV0
+cyBhIFBNSzgzNTAgdGhlcm1hbCB6b25lIGludG8gdGhlIFBNNjE1MEwNCj4gdGhlcm1hbCBw
+YXRjaC4gQ291bGQgeG8tdGhlcm1hbCBiZSBrZXB0IGluIHRoZSBQTUs4MzUwIHBhdGNoIGlu
+c3RlYWQ/DQoNClRoZSBib3QgYWxyZWFkeSBjb21tZW50ZWQgdGhpcyBvbiB0aGUgb3RoZXIg
+cGF0Y2guLi4gSSBrbm93LCByZWJhc2UgDQptaXNoYXAsIGZpeGVkLi4uDQoNCj4gMi4gVGhl
+IG5ld2x5IGFkZGVkIGR0LWJpbmRpbmdzL2dwaW8vZ3Bpby5oIGFuZCBkdC1iaW5kaW5ncy9p
+bnB1dC9pbnB1dC5oDQo+IGluY2x1ZGVzIGF0IHRoZSB0b3Agb2YgdGhlIGZpbGUgZG8gbm90
+IGFwcGVhciB0byBiZSB1c2VkIGJ5IHRoaXMgcGF0Y2guDQoNCk9oIHllcywgd2lsbCByZW1v
+dmUuDQoNCj4gMy4gTGFiZWwgcmVmZXJlbmNlcyBhdCB0aGUgYm90dG9tIG9mIHRoZSBmaWxl
+IGFyZSBzb3J0ZWQgYWxwaGFiZXRpY2FsbHksIHNvDQo+IHNob3VsZCAmcG02MTUwbF9ncGlv
+cyBiZSBwbGFjZWQgYWZ0ZXIgJnBtNjE1MGxfZmxhc2ggcmF0aGVyIHRoYW4gYmVmb3JlDQo+
+ICZwbTYxNTBsX2FkYz8NCg0KT2ggeWVzLCB3aWxsIHJlLXRyYWluIHRoZSBhbHBoYWJldCBh
+bmQgZml4IHRoYXQgYXMgd2VsbC4uLiA6KQ0KDQo+IDQuIFRoZSBjbG9zaW5nIGJyYWNlIG9m
+IHJlYXItY2FtLWZsYXNoLXRoZXJtQDIgaGFzIGFuIGV4dHJhIHRhYiBvZg0KPiBpbmRlbnRh
+dGlvbi4NCj4gDQoNCmFsc28gZml4ZWQgaW4gdjQuLi4NCg0KLS0gDQplcmViaW9uDQoNClhN
+UFA6IGVyZWJpb25AZXJlYmlvbi5ldQ0KDQpNeSBsYW5ndWFnZXM6IEdlcm1hbiwgRW5nbGlz
+aCwgU3dlZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNClllcywgSSdtIGEgbGFuZ3VhZ2UgbmVy
+ZC4gRmVlbCBmcmVlIHRvIHdyaXRlIHRvIG1lIGluIGFueSBvZiB0aGUgDQphZm9yZW1lbnRp
+b25lZCBsYW5ndWFnZXMuDQoNCg==
 
-thanks,
+--------------07k0mmuG0N6riQ0TbvE0P278--
 
-Jonathan
+--------------cC6AXiopkwI7HiSSjolv8bnl
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-> 
-> Thanks
-> 
-> Jonathan
-> 
+-----BEGIN PGP SIGNATURE-----
 
+wnoEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCaufa0QUDAAAAAAAKCRCOr0AybgKufWVq
+AQDj0uqQ9RHnWCiwFufyZ23NXdaH1uKck1ATaJo4EB+6/QD3dgNEXf3W3KPQ/RF7KjnWzKkF+twU
+rYm1kRAJY8dZCw==
+=kb7m
+-----END PGP SIGNATURE-----
+
+--------------cC6AXiopkwI7HiSSjolv8bnl--
