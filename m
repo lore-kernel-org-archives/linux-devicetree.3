@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793650733;
-	b=Fw7Og0RQhq6u1l5dMvUe1sac8/sT3oX7Po4vnB2/9S9xlcPiIQHpXGqE+r/zCJv64w5b
-	 7VYfxn1N9mJ1Tz54i1xOxbX5emEld0PjXRWN62aY71k5LAvBktrAOjUegRnI+G2VBY9HM
-	 FOo/Qs9qFQg1zOl1hMK8yPe2RY1cf3t1sKXnksg57QvtGSwJi0nNMaVK9r2V3jUIf65hG
-	 0CAcHiOsDTLKrHr6zk0Ci7IPfnQTEd29WIrXHzMMkkrpcFVWvyPNK6AZChhObcAWN/ZVv
-	 YTzzxhV+NlfvsWF7Xndh23qaYFMott5tbGikbq4n1cY3UFcoI4JvSWyfjdC+KqMPCJg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=hDWK+Q0RgQULL2IquEpArVAHCBy27pTWj8B5yBS/mvg=;
-	b=biy1Y1CIiX0fzkqgTttMZIWqRkKpfnLJb3OK5wFYWJcTefdUKrfGJILjUYsVtumLtgjj
-	 tGK2nbF5OdJnqirE2gf6ZJy5c/qT403ergiSTTOYvoCPsx3cX609hW0HPt4J/fH7pMDxN
-	 ux7oUltVTiIrP6oQwNTb9PSNa2WGG7vEVoL+uhh4Z1jfxzU4zUGLhHOicxqzUdPEG+FgF
-	 M1E6nvtrHzkU6bLexiEN+zuwwIqzNLJegSs9Lhg9dT68RCPxvNrjcRF+CkGOEjHtufOsB
-	 ICPyr0wrjPi+ZLhKZruMmmcxqVY51hZzfzbUg6xsrOk/Mdz5fRScyeFgn/KECPU6BUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qR7u5LvF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.25.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793651472;
+	b=aYSAVIHkMFchfybbfseHCiL4USH7xh2Mm9UcmNKhGNb44tnLLVfvQwSc7b1JY379eSot
+	 HKurAyCPl7jzC5U64HSKX2DgoZQzpVDtjRFzV6vfw73nsQFWR+GaN34NJGfBCaQSzfHeR
+	 AxFxxgxH3jxeKHF223ZrDqnwDl7pqlksClR0wsAEFyEifCL9S7ouyKT2VzlVb4ju4s1wL
+	 nkKnIQhMhttxxkyz9gIYJ8bKcRw6EWHH7UGNqC0so228xUAZSSnqRcsn4M6rj0urVEsTH
+	 LgdCOQmTMrMvqvITN53dMlhkcwxJJnkbS3IXOpHRFwQpiNqv+uZ0Ms60+HdocLB75Lg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651472;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=A3grsg9PFvVcz9pL89ShJ0xeD6pAEsARr5XSaT9G+aA=;
+	b=N8fUxEad+7kCPW8DwT19QdXkM9iRBg2DEJzTyk+Nsn/ctw3qqZjvSalVbmgVsIxPr/FH
+	 3ZanMlj2jVd63OSCo70JMyLl7LCqu91m/i09uYCMPiSB90b+KXMfLS2diDu3O4msoiLG3
+	 3QhUQNmKttAF/fSNBMUewypURgTvBeCPkqtn7c8V9w4roqFOtKQ6PPqMZEeGyBL6Bmc9b
+	 auc8NQw2qgm+Fvih49sc1ZlqdxND3vj6AwEtAFq+JMTvV/sMWbZN4tpcfSSjE9vulT35v
+	 M2sI6HagsHyNdCNtS/p1+l9YqVUKc0mbqBTYYC9xZfGvAEuQuMWww/43Trz7rnhLJYQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=hydPq1D8;
+	arc=none smtp.remote-ip=185.125.25.14
+Received: from smtp-190e.mail.infomaniak.ch (smtp-190e.mail.infomaniak.ch [185.125.25.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B7B606A32C
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:18:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76B7B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75C6606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D75C6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qR7u5LvF
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53644b28706so55098521cf.3
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 12:18:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793650731; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nh4P2Zz/di1WDd/ihfcqwJfHCGOsJxu/Iwg8Q/N47vdCmGPuZLyRyzd+Ms12B00UF+
-         BlcMv91iLDAF6NLjaYlh16MmEGl8kms2tLcNn3zJWji2iiAa6AqPHnvZuMudXbJpGpas
-         qhtg695In4k7U671AVGBztuKLSMI5d/GJ45rd3INyv0ANKPlS+mwaO1udK4GJT0/7J2M
-         XEU9yCtLED/+4s16rMLoSv3mtGQHXky2Fx1ZRyqdC0gCvaZAEkAp0Fiw98i1CGZWuaUE
-         O1GnntopxxfcZ5ioEw+aF6tvUIyjHNUiLuW9xeoKD3fkLKqBdWEbhRHWDwcSjz8zKSb2
-         Ju8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=hDWK+Q0RgQULL2IquEpArVAHCBy27pTWj8B5yBS/mvg=;
-        fh=efT+5X2L7ULRxg2GOqri2+Pj+fIp27VMPZnRuxABurc=;
-        b=XZYakDJ+fUyH9+YX59zG2crptHlUSW/FN3OqrnYlqJZlT0ChfcBtWeReGsDeEQrFSz
-         nHWrnyRc6XMnY5cSef7W6riTbPk7OSyF7XuizHz23vXlnz2VqOJJHyU677a+RLUs99hb
-         RWhDVsTQnk7d6tnQACYJW30tAl18780LlDwNgzMIfyt8/3fBw7E3iMA3oTMFdLhjabjZ
-         5ZDIZRlZALKH3wLrNCxZdYKLieew8+TwFcRvoh8cUtTGi5DjcqDSsGRZN2OoH/lEAdzs
-         9PtOegGgL+3JA7ANZtWMVDZ/eKDQUWRKR6P+uzGSkquqI/jt2lMaFV1ZkL0kUTxNJmN5
-         bBBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793650731; x=1794255531; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hDWK+Q0RgQULL2IquEpArVAHCBy27pTWj8B5yBS/mvg=;
-        b=qR7u5LvF+BmZ6p/A2VqUeOsFcv/wzEN9CWzDu5fT/Xg4LUIINw3waXbPipr/mfIF8L
-         EzsbmKEy+uqevJtgzcUvbF0FXwRIGJnSIgBY7LJUW60YfDqKw2dq27MOXrMlCs/5vhBd
-         mONFhIxNgyp70fCUpJMgOeJFRK6+YxvpTrRBE08bwQnBfIh4fxw8OWTASVxjTW3VYsVR
-         PfHfVMXacR4kudnJXbxlebn9o5spjfNrLge7MX+/mXNE0YHC2hAYFPCXxG85deL15xGK
-         0/YnUgkztKIgI0RGOemPYht9y5S13RMFHxa1FME48jjwla+rnAzNl/ynjmVlck/jGKBL
-         VRdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793650731; x=1794255531;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hDWK+Q0RgQULL2IquEpArVAHCBy27pTWj8B5yBS/mvg=;
-        b=jzsmtyk/Z332AnupYYC7wNN5/0uyPrjoZYCv7IUTr4PHN8rjB4qvZzxHOUBBhABW49
-         49Qe2R1KSVEXiS8RPKRAdUPfjfEePktqXDcjE5cqVGRl5xbWpx0NSENntEuY7iS5iTw7
-         QxpH8L90C1udwwkxyhbjM7KWJEwtw/bZMf2IE7oTNVr+cUlsFpsz4d1TTx6aHU4CRiu2
-         QtjvsgmCP9Vv9vYqp6x616jVot5Z/3DtrNo0qbvrvQ+QTPBrECBVEgBgkepJwIr1DItr
-         Kl2JUJcrEOObEg3ygvTqarwNRtnbXZFb4mDmAYLotS2kkpu0Z2giMjj6FEfa1/ezVlB1
-         Q1qw==
-X-Forwarded-Encrypted: i=1; AKwUvBx/2WhDQvvTjGPZCMF6DPEPuAbc006meXSp+qnYQqyADJ5BM/K30OUpGHk7SYRCkqz7HIofqCQDnhp7@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqiSjexED1BU+71uWRP3lAHKfPZo6uz3Y2+Fat/jlNISeBV3Fb
-	5AUptIsUO/Prjl/YXSy8bEEH540dxCGCkCOzJpFFz8y0bvK4Es5z+vIrweLas2/VXUB63Mm5zqZ
-	s3iC2CbjbyssMzwRzYrCzg7afyO0Mlv4=
-X-Gm-Gg: AYBFou1hyXAFqazlsPTFTL4UaISzYDD9e1P0u44p6A6foR9MMbmhSQ3wtYq95InWNxr
-	8Ttja+pPc1pvJ6Uf6YJ2n6/DpZ3pXLruyLxpHCZroqJHape5pjNDDV8qZSqdiouMRftU+VLRRwG
-	EC1bAEvYWRRfMd06woy9zNDQleNiU2Fj+f0Cf27SCGHYFK6MEmGP0ko8z5JeOECxrh2MYhzdIcp
-	JKUK5SL21gnki0Bal/drNZJfD5VS1+52gcEdeVfNpqVeWkFmHoWT44m1f/lCeDnAvQjKpuNf/ro
-	uF1V6cgWTUfvbsXSPP7cmRcze3MDvjOhXIdV/j44oS35B1m05G1hjwYQ+pNodTESsmOF+cPX+6+
-	9Q5GVJ+KBQjggyiDVR64J8NRHksd+99HsTGlrPkaVDIg2jd7W6TInsdOQH0L/yW4Y3XCaTdbztj
-	sCHQMvQIqxPJJyScqNUdKwp+GFCb/CH0H4/RavPbcAMh5JR56HnO8fLo52RCyFWnX5d9jq7E7ZX
-	Ch0sAPdN/b2QNPVf4lMIyRZDLiOnHgbG1Y=
-X-Received: by 2002:a05:622a:2510:b0:536:72b4:b835 with SMTP id
- d75a77b69052e-542b7141e17mr189658521cf.46.1793650731219; Mon, 02 Nov 2026
- 12:18:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=hydPq1D8
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNdT08fhz3Vn;
+	Mon,  2 Nov 2026 21:31:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1793651468;
+	bh=A3grsg9PFvVcz9pL89ShJ0xeD6pAEsARr5XSaT9G+aA=;
+	h=From:Subject:Date:To:Cc:From;
+	b=hydPq1D8DbuLmbGmRF8fhT9z+ziYQzpVIyXSrvJmNE8AbD6ryn26vpdGel80xushU
+	 eboJqW55oFb9zvz7+oMpingejD1eb4LiOx7SuqSeErVBFq259/dFEy3+didaHgvvhd
+	 3uM4sPnZQsIN1K7pu206PcHLCB/9S9IDbhx9IhloRXiXVZE7gd3P64n6tX3XfS9ZpA
+	 Q/d7NrESQxQlbwt0PJII9zKvy1zNLNeBAhwS3CKSIlZ3VffLpJrmjYGmW2v9wO96Qf
+	 f0OXjU+RL8J0DzOUT+tMgMkhVIzPY4twdzLyTaqoPNUjChsYE6hca9LEUG1q6IKTEF
+	 OsQ7+Ij0GqW6w==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNdR72jmz1bS;
+	Mon,  2 Nov 2026 21:31:07 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Subject: [PATCH 0/2] arm64: dts: rockchip: enable OV9281 CAM0 and CAM1 on
+ RK3588 Jaguar
+Date: Mon, 02 Nov 2026 21:30:49 +0100
+Message-Id: <20261102-jaguar-cam0-cam1-v1-0-c3aafcdab5dd@cherry.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,112 +62,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102090713.896324-1-pbrobinson@gmail.com> <20261102090713.896324-2-pbrobinson@gmail.com>
- <20261102-email-target-d3191584d234@spud>
-In-Reply-To: <20261102-email-target-d3191584d234@spud>
-From: Peter Robinson <pbrobinson@gmail.com>
-Date: Mon, 2 Nov 2026 20:18:38 +0000
-X-Gm-Features: AclHuK9-yjv7ad1RizN3tUZLE_u9kHWCoEZqwdsahJwce9NtT6g6vb4WuuUHq4E
-Message-ID: <CALeDE9Ncz=6jo_1VxdCJgSVV+fCTgkUvci-=e4MQYFYo_O9M0Q@mail.gmail.com>
-Subject: Re: [PATCH 1/9] dt-bindings: dma: brcm,bcm2835-dma: Add BCM2711 and BCM2712
-To: Conor Dooley <conor@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	bcm-kernel-feedback-list@broadcom.com, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2N2wqDMBBEf0X22UASMEJ/pfRhXVddodZuTCmI/
+ 268vAwcmDmzQmQVjvAoVlD+SZTPlMGVBdCAU89G2szgrQ/OusqM2CdUQ/i2RzjTElnfVaEOASH
+ PZuVO/qfy+bo4pmZkWg7P3VD+pvy13LVt2wEWFiC1iQAAAA==
+X-Change-ID: 20261015-jaguar-cam0-cam1-dcc02f56766a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-On Mon, 2 Nov 2026 at 19:39, Conor Dooley <conor@kernel.org> wrote:
->
-> On Mon, Nov 02, 2026 at 09:06:51AM +0000, Peter Robinson wrote:
-> > Add compatibles for the BCM2711 40-bit DMA4 channels, which are
-> > described by a separate node covering channels 11-14, and for the
-> > BCM2712 DMA controllers. The register address of a node identifies its
-> > first channel, allowing a controller to be split across nodes.
-> >
-> > Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-> > Cc: Rob Herring <robh@kernel.org>
-> > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > Cc: Conor Dooley <conor+dt@kernel.org>
-> >
-> > ---
-> >  .../bindings/dma/brcm,bcm2835-dma.yaml        | 31 +++++++++++++++++--
-> >  1 file changed, 29 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > index c9b9a5490826c..31d97a10a0ea9 100644
-> > --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> > @@ -9,18 +9,27 @@ title: BCM2835 DMA controller
-> >  maintainers:
-> >    - Nicolas Saenz Julienne <nsaenz@kernel.org>
-> >
-> > -description:
-> > +description: |
-> >    The BCM2835 DMA controller has 16 channels in total. Only the lower
-> >    13 channels have an associated IRQ. Some arbitrary channels are used by the
-> >    VideoCore firmware (1,3,6,7 in the current firmware version). The channels
-> >    0, 2 and 3 have special functionality and should not be used by the driver.
-> >
-> > +  BCM2711 channels 11 to 14 are 40-bit capable DMA4 channels, described by a
-> > +  separate brcm,bcm2711-dma node. BCM2712 has 40-bit addressing on all
-> > +  channels, with channels 6 to 11 being DMA4 channels. A controller may be
-> > +  split across several nodes, the register address identifies the first
-> > +  channel of a node.
->
-> Uh no, a device should not be split across different nodes. This should
-> not be needed, why can't your driver handle the upper channels having
-> different capabilities?
+RK3588 Jaguar has two proprietary camera connectors, P14 and P15. This
+adds support for the only camera module we currently have for this
+connector.
 
-This is the way it's done in the downstream kernel, unfortunately
-Broadcom doesn't publish the HW details so either they'd need to
-contribute the support (which they've not done since the RPi4 was
-available) or I'm not sure what the other options would be. Open to
-suggestions.
+The camera module has a 2-lane OV9281 camera sensor, an IMU, a
+magnetometer and an EEPROM.
 
-> Thanks,
-> Conor.
->
-> > +
-> >  allOf:
-> >    - $ref: dma-controller.yaml#
-> >
-> >  properties:
-> >    compatible:
-> > -    const: brcm,bcm2835-dma
-> > +    enum:
-> > +      - brcm,bcm2835-dma
-> > +      - brcm,bcm2711-dma
-> > +      - brcm,bcm2712-dma
-> >
-> >    reg:
-> >      maxItems: 1
-> > @@ -99,4 +108,22 @@ examples:
-> >          brcm,dma-channel-mask = <0x7f35>;
-> >      };
-> >
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > +
-> > +    dma-controller@7e007b00 {
-> > +      compatible = "brcm,bcm2711-dma";
-> > +      reg = <0x7e007b00 0x400>;
-> > +      interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>,
-> > +                   <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>,
-> > +                   <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>,
-> > +                   <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
-> > +      interrupt-names = "dma11",
-> > +                        "dma12",
-> > +                        "dma13",
-> > +                        "dma14";
-> > +      #dma-cells = <1>;
-> > +      brcm,dma-channel-mask = <0x7000>;
-> > +    };
-> > +
-> >  ...
-> > --
-> > 2.56.0
-> >
+We have new camera modules based on an OV13850 that should be coming up
+soon, hence why I made the support into their own separate DTSO instead
+of directly integrating them in the main DTS.
+
+Known issues:
+- lis2mdl driver currently doesn't support being instantiated twice, so
+  only one magnetometer will show up, if the two cameras modules are
+  connected,
+- OV9281 test patterns (no upstream support) returns broken patterns,
+  see discussion on IRC
+  https://libera.catirclogs.org/linux-rockchip/2026-11-02, the image I
+  get without the test pattern *looks* okay to my non-expert eyes. In
+  any case, it's unlikely to be an issue in the Device Tree,
+
+Image capture test:
+  #!/usr/bin/env bash
+
+  set -o pipefail
+  set -eux
+
+  CAM=$1
+  COLORFMT=$2
+  SIZE=$3
+
+  if [ "$COLORFMT" = "GREY" ] || [ "$COLORFMT" = "Y8" ]; then
+  	MEDIACTLFMT="fmt:Y8_1X8/$SIZE field:none colorspace:raw xfer:none"
+  	BITDEPTH=8
+  else
+  	MEDIACTLFMT="fmt:Y10_1X10/$SIZE field:none colorspace:raw xfer:none"
+  	BITDEPTH=10
+  fi
+
+  if [ "$CAM" = "P14" ]; then
+  	MEDIACTL_SENSOR="ov9281 2-0060"
+  	MEDIACTL_RKCIF="rkcif-mipi2"
+  	MEDIACTL_CSIRX="dw-mipi-csi2rx fdd30000.csi"
+  else
+  	MEDIACTL_SENSOR="ov9281 7-0060"
+  	MEDIACTL_RKCIF="rkcif-mipi4"
+  	MEDIACTL_CSIRX="dw-mipi-csi2rx fdd50000.csi"
+  fi
+
+  for dev in /sys/class/video4linux/video*/; do
+  	if [ "$(cat "$dev/name")" != "$MEDIACTL_RKCIF-id0" ]; then
+  		continue
+  	fi
+  
+  	VIDEODEV=$(basename "$dev")
+  	break
+  done
+
+  media-ctl -d 0 --set-v4l2 "'$MEDIACTL_SENSOR':0 [$MEDIACTLFMT]"
+  media-ctl -d 0 --set-v4l2 "'$MEDIACTL_RKCIF':0 [$MEDIACTLFMT]"
+  media-ctl -d 0 --set-v4l2 "'$MEDIACTL_CSIRX':0 [$MEDIACTLFMT]"
+  # Name the file a format YUView can recognize automatically
+  /root/yavta/build/yavta -f"$COLORFMT" -s$SIZE -c1 -n1 /dev/$VIDEODEV -Fframe-#_${SIZE}_${BITDEPTH}b_yuv400.yuv
+
+With yavta[1] and checked with YUView[2] as gstreamer doesn't seem[3] to
+have support for Y10.
+
+Ran:
+ - ./test-cam.sh P14 Y8 1280x800
+ - ./test-cam.sh P15 Y8 1280x800
+ - ./test-cam.sh P14 Y10 1280x800
+ - ./test-cam.sh P15 Y10 1280x800
+
+Pictures look decent to me.
+
+Wrote random data to the EEPROMs and read it back identical.
+
+Moved the cameras, accel and gyro raw sysfs values changed.
+
+Magnetometers tested individually, with small magnet, raw values
+changed.
+
+I've not tested IIO buffers and/or the various interrupts.
+
+[1] https://git.ideasonboard.com/camera/yavta
+[2] https://github.com/IENT/YUView
+[3] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/work_items/3738
+
+Light dependency on
+https://lore.kernel.org/linux-media/20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de/
+for it to actually work (no impact on binding or device tree).
+
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+Quentin Schulz (2):
+      arm64: dts: rockchip: enable OV9281 CAM0 P14 on RK3588 Jaguar
+      arm64: dts: rockchip: enable OV9281 CAM1 P15 on RK3588 Jaguar
+
+ arch/arm64/boot/dts/rockchip/Makefile              |   7 ++
+ .../dts/rockchip/rk3588-jaguar-p14-ov9281.dtso     | 113 +++++++++++++++++++++
+ .../dts/rockchip/rk3588-jaguar-p15-ov9281.dtso     | 112 ++++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     |  36 ++++++-
+ 4 files changed, 267 insertions(+), 1 deletion(-)
+---
+base-commit: 233ebf31c98e1d7185d12d1ff332f3354f4950f5
+change-id: 20261015-jaguar-cam0-cam1-dcc02f56766a
+
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
+
