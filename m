@@ -1,76 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610960;
-	b=fOKGaRezlgS8KJx8UHaVEjYmD+vGGjFthgvoP+EU4sVaZLjB9T0go9K3PQyDBuAIkxRH
-	 eq+5nZ08W5TCrUYhKBElT5hwZNeK8ckWxt1ZYGwq2G2g2HIfYZN9hvDHFnW33jiAhGPGV
-	 uqtxKFWQ5wMQgym8TY2baJWvSCLiKGLRdwOtqyxCo0ITh2eDSIUJC1eDfQlCNiVFtk8cI
-	 ln5wHMgskfG768vFWAV4bztBBTxesyxRG4Sz3WDtskMnMVYLe/jZOvlaOls7CNTWYpMoZ
-	 8hqDb96h/d0tcRMQ6aoESgPK991iFJJcuOtSjwhzGg97mADqOiVKkpBPFoUXVc+Bmcw==
+	t=1793611096;
+	b=drWAQLQdm22IuPMF7nETYJkCagl3GyC8207Y3Rr9o3TgzKCaUY736e/vWXyG9fgQNgVi
+	 Qs3uS7srqP8buaUYlHzU7is1f9tJFp2fsjUwjgkHqanK/YgYerfDl/XG5esQ/Xa+A6eJy
+	 U6sR7xspafgdo6yoDULc+QL//aDlY7+2J805rJx7RgesUzwxSXeVpKuVMfAMDTCWek2iZ
+	 YLGysLxPTckrnxgo0pElkO3Mm2C/xRYT2PGUkaQF4v47B1zptRQgOw0uQmx5YAmPpafXc
+	 wn497klpVEwbamgaOxM7I+TCr1xylXuAE92Oh6oQl4/FI0NwzJm0f8DgacZsKc8SV/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610960;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=ac+xpJrvd6zfAE97WIurl+pYtHzF00Lzr1WG7VTrgAw=;
-	b=frZjUS7EFWZNZYSiQnroOfAoLu2jSByg2sE5E14w9fgMGo5Zl3WIfqGovhZ1lXPTCDto
-	 5UyNIhfHlHNAJ0yXnjzz1QONZX3bHRNKe0ZtkJXBsoGs73w1TBkRyU6GbFRtMooj1X1Xu
-	 4FZYmXflLU/RYKMb/DyfSHpHxz4RMuJDYX/DutkEAKmBq6QOZ6Ys6CUmMsw2+h6MaJ9XP
-	 afE0ZVSF4Cryflhnu+ge4YEd0S5mm8Qey6oeSJFyUJgO/YOzEoeMZwdvcJ/G5OfMKfIQI
-	 OJ0zdY30ZhmHosrNPI5UEr5fOfKOcoRFs9IUovGTs8aB1g8a7+BQlXKBBkpyqq62fyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793611096;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=GNaiykJMZ9ZERRTHFCTAR23L25CCvCxxrRhl73XmV5I=;
+	b=AcptDjhon2fhphXR0PSF+7KarhgHpQplfBaZYakhiL87BlQKneKdaypCA6R6aDRtJtBD
+	 k/X4uDUEjSmAH6WBt9ZrD4URv4DEwMITknW5zTqDubbqjsa6zscI7ncug3+rNZKjsYLZ/
+	 RPYvbLM/PQAGLqZay2KSJQvhPzruDDZXPjpc6hb71diMFv08j2UuC4s4tSxmvwkTNDkUg
+	 CX79j9WOc5JnqhWaPPPQgKGjRGUzZJN3BV1tE8VfoZuicSzncejJ//c4CwgMHI5WP5VPa
+	 2xjrOgaIn4HSC7GG+JLWxs55LPaPac+d3qKlFaMMgvOe1WzSRm2wwnDvpGtgnqRZI0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AovAE3VJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hPjNl+UW;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BA7606A33D
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 09:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5BA7606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53653e30353so50708311cf.2
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 01:15:59 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977ED606A326
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 09:18:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 977ED606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AovAE3VJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hPjNl+UW
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A299xXB3430281
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 09:18:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GNaiykJMZ9ZERRTHFCTAR23L25CCvCxxrRhl73XmV5I=; b=AovAE3VJ0TaYsNYn
+	E8ywr9B8rjHa+QUP8TmYW8aHcBvsbeuh2XY1xazLqOGY+xlaMqEUplRCreqXFK/B
+	OBjhsXe2oLzzPMWky29RuuosI5rG316XsZr1a1b6CaSwRM5XF6mV7/3VPnB7zYR5
+	UY+v/dIK/3ZMDBrMzEoqDjT8pVmnaoToHSniHV+yWvBTKxPPB3msreKL97Hifo0j
+	89SRUrJNag8HTKqqDx0CEhSYjs3ngWM7TATCJp27neThcncbecNcr41Z7aozcnd5
+	zzr2Rdup4LX5uFw+ALyU8Hmhrvz2BY1SZxm9nQMqJbtDj1WNZQQrPHbN2uQRGeRT
+	sPlKrA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpnmerjd5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:18:14 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a065d0e9deso2704514b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 01:18:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793611094; x=1794215894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GNaiykJMZ9ZERRTHFCTAR23L25CCvCxxrRhl73XmV5I=;
+        b=hPjNl+UWJKoGYTcPwPca0O/aTMnILFQdY0zJvnvPIW2wwNfdhq0H0l4ihIMI5eqFdh
+         Vo2KVL/BYI/42CuYzZ8i9r2HT9pTj4vwUBn7aeT6SzmvfxaiquTyDrQ73/+APHtJfcmB
+         j8IjSaeKBTT8NiSs6s8o/LUtAGJLrNPmd0YQTiOTrPKxYIQN7RIbFdrBwOKmkkrVC3uD
+         Tg7hEHHvuNqpGz8IcknHKX6V0Gu8bGnTnSw02qC+TVz1eP7Vn3QAy5MjnKITf8gF8BO5
+         tWXtMaAz0F+0kBPM1hty4tHAU9WvTjzFkazQRj1upaZzrFZCUgKUNsFksqdvRDFEnuMy
+         8PWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793610959; x=1794215759;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ac+xpJrvd6zfAE97WIurl+pYtHzF00Lzr1WG7VTrgAw=;
-        b=iMN4aTgAKLDMQfA+g/DCiRDGTLW1ugNM3L0RvBhiKZGOJekXB/LX9d/+meppmMt3KT
-         tSudJIrZEZIUATKXzOK/6OmoT68XXJwcffa0ZWJheH4obE00jh/0dEb6h872NN0C/GFt
-         7oqjF8tvdX6UnPCrIfb2wuCfHdks66b+pFFw7X/0AkZDrTbMpsnWXhCNFnJkWEna353d
-         2e2CU8B8foKawLeB2gMld8REWzMZY8orCpmk8aR/aon1i5ZvtVNFpHh5KzBUmrwjOdRu
-         grB3x/uGCNbOVrj2Jhv3Bekr3yZfDidGjaIAGxVktclzz2l15MxC3F1L4L8uo7/oD0TT
-         dtFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyZVvJJosou65wqhYyk3Udr/vs3ClErmYy0jxaZpTKZmKius8QDOjuvIu6NCwgiJM3hRuO6FmefGKu@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xW8GThOXLxERWffJDxc+JHAde4O4WqlRWILvnMMbC+7laFNTL
-	B0E9YVtbDxz4OWxmiC0/SKZaTLV3ZuD+YFuFdn9MuT4fXVfCs3kejDVUT7ICZWrH
-X-Gm-Gg: AYBFou1ITdWbmkQcIAiZ51pfjxI0chUSBfR4OXNpEQMSc1cSjAdfNLIyqBXZyVRMfMd
-	f1er6ZKKx91p1CiKS++4EwgXlLk93a/RSL/coPTLGNENxqH5g9vvU3eBFVKkObdQDiwG1ZlUFbT
-	kazDvBPq680NzWB0KHVSnibPF3vL3v5n7MUI2L/AyoFDtLJB71Fkl9AiSErqPbNY1LsE+Y4Jc7J
-	Gyx9noOfXuAuojQ5KCMLBs3hALFUOH/5phJhStJ036GDxHlfbXY+0EUcx5osJKx66dzObUWVjnM
-	4PV6oifQnPfTaXOYj7sUXOQ+TT5pOJvCzmDpAyX7xSUF6N6llcYFNR3hsq93YOhEAmXDxZjYGyO
-	eEEdZstgIx8ZoU4Y2AKgWwiAYgUdHtwh8jHb0lsXMhxj9KZ+fdwDLzVkj6r1Hxt/S9m2SaXFOdc
-	2LZOMgnScm8ojnAxwtLlvWTc5lZeoUfC2Iv/6h2gmI+b7A7FDaZevIayk1N1T4elLnU1+hx8Z57
-	jcnMm5mG2Hohl3UcU45o3A0bMazjHA1j4cbitE6wxDMhf1V+wwK9mIBfIiFXhGIVE76iZmxpUFP
-	V3haxWxmsSddOaKo30R0yzuyX5mTRBxcpkgfxyftVsZWRU2G/wivINTOH6aSg/0nf4/7CQ==
-X-Received: by 2002:a05:622a:950:10b0:537:8403:3a80 with SMTP id d75a77b69052e-542b3a7904bmr106780961cf.5.1793610958805;
-        Mon, 02 Nov 2026 01:15:58 -0800 (PST)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com. [209.85.160.177])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5430cb79c85sm80457921cf.0.2026.11.02.01.15.58
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1793611094; x=1794215894;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GNaiykJMZ9ZERRTHFCTAR23L25CCvCxxrRhl73XmV5I=;
+        b=lzCUF5XekCdTEJ/097lIWkc7oHhSaq8nD5TdREdG3crfUnV4CKu2yMN1OX+AZVG9rr
+         hPpNYH/8dhALpkxc/k4Rluap2FWg7v355kGpWapQjmHDYFcWSVpiPkRzt8avMNCxAvJR
+         qnr/F9wZdzT+x4td5GZC823dx5Fcntwz69i+rWT2VNcDBvnrtw42W4xTp0vgZsIbrN8I
+         z+a7PqDEa8dsZlx+XSVPQqVkPvjdn1ao2AKO8SNce6YA7fJlYU8VsdkxxxCtJBplrYAO
+         Vl7pMIYMk0/WihcuyH/Oa1S92tEZ0jg7RHXbuzcqe2aRcr25KPCLY22c7/sQppMJVzgl
+         kY7w==
+X-Forwarded-Encrypted: i=1; AKwUvBym6WpHnS4r3QnsmMA4ZZm7E0lISVeyd0GQ1Yo/TUQbXEMvHm13k0SnE1n/sAD2RIYSu32UTDH3CJg0@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vga20ajCdHLELXqMD7H8lNguCIQO7BXInJQnHH/xll1oAzKth
+	1A2V9qApbJbuNZWsyc0dzO5snXy37lPtwVRds3Z2pLw0L+Zca8JGzGa9rC+ma/6o1omzmApQtgE
+	ZwUiL0Fgx7FIywRxWJT00g2mVEh2m444q6HZOgScApHeiNBJDeKKwT5XL+Ke+lrAK
+X-Gm-Gg: AYBFou09dXoy4/rbV1jIbO1BI7g1Rl2CTbZMVsMiAqC51f/mav9h+78icA6oQyQDq3T
+	y/8CqEeAJvc6Cdzi7ZBrW3q40usawM+qfvLh3kcNXmf6VBDZgvrNhd1Q2l7GCNyqix/cZ+EmInL
+	fEJsffYHrgchesLWuyY413axhxWI/Fo145s+ZHi/pBy2Rwq0A/3iW8iOuJnU8m77QK/cP/9ADrE
+	E0MvcgQfemU9ZndsTNvFC8/CsSfvfN8YCZAE2XCryReZEoXovJLs/uBkFTBcFvEEVbb1THOuex6
+	VRNNfAbiJLibeHR3dyXbxTzlyEBVWFJwn7GqgmB/p1Ut518WbshrSEu0MN7832gEkxtZNGJ74O/
+	7GKkZigtnD/n+5r7zvaTHRemPS1+EeB1wQPamKd3FwMtUzZ9p8uokkKrgEMpUwGtfxAbcP+lBpI
+	5flOY2yGqGpTNDR46W42rb7PAsLp18AHRv
+X-Received: by 2002:a05:6a00:4b56:b0:88b:8701:b869 with SMTP id d2e1a72fcca58-8a9bf2406bemr5756701b3a.24.1793611093430;
+        Mon, 02 Nov 2026 01:18:13 -0800 (PST)
+X-Received: by 2002:a05:6a00:4b56:b0:88b:8701:b869 with SMTP id d2e1a72fcca58-8a9bf2406bemr5756686b3a.24.1793611092908;
+        Mon, 02 Nov 2026 01:18:12 -0800 (PST)
+Received: from [10.239.96.176] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadad94a8esm1710055b3a.55.2026.11.02.01.18.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 01:15:58 -0800 (PST)
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53653e30353so50708061cf.2
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 01:15:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzKLrd4l35IKYfyf4jnLyVFuugW1kKeIdhqExmuT7DI0cXusmlDWgMY9NyyS7EGgxKutbY0mQ2kYGVa@vger.kernel.org
-X-Received: by 2002:a67:f403:0:b0:7d0:9587:1b90 with SMTP id
- ada2fe7eead31-7d0958732b2mr1205111137.13.1793610463593; Mon, 02 Nov 2026
- 01:07:43 -0800 (PST)
+        Mon, 02 Nov 2026 01:18:12 -0800 (PST)
+Message-ID: <65de0201-eab7-4d03-8b00-af17e2907856@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 17:18:06 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,47 +116,219 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-3-e052903a3832@ideasonboard.com> <20261030220549.GH3178046@killaraus.ideasonboard.com>
-In-Reply-To: <20261030220549.GH3178046@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 2 Nov 2026 10:07:31 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdX1czCW_KTW8Z+_jb3egLxqBu7bOUmqyXy3PqYhmUfLNg@mail.gmail.com>
-X-Gm-Features: AclHuK-1v1dRSgyK1HeeK29l-3g4aKIGNPop6k2nHA1eLryORdmauRDpRhHjRsM
-Message-ID: <CAMuHMdX1czCW_KTW8Z+_jb3egLxqBu7bOUmqyXy3PqYhmUfLNg@mail.gmail.com>
-Subject: Re: [PATCH DNI v3 03/15] pmdomain: renesas: r8a78000: Add maps for
- VIO for SCP FW SDKv4.36
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Paul Elder <paul.elder+renesas@ideasonboard.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v23 11/15] media: qcom: camss: tpg: Add support for v2.4.0
+ TPG
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
+ <20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com>
+ <7c7cd421-81de-4c5f-9e37-0bb3b7bc5974@linaro.org>
+Content-Language: en-US
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+In-Reply-To: <7c7cd421-81de-4c5f-9e37-0bb3b7bc5974@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=KZ1HIgYD c=1 sm=1 tr=0 ts=6ae85556 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=J83HQVenGjWz2Msjj4QA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzNiBTYWx0ZWRfXz6lkef4GBf+q
+ lGg5q6wSVUeWtV6wJsyntwUHQrVecXg+rrtiKGRcBXnothGfFS/huTMy4d9vCJISOGbuOsWAYim
+ 6gKABw19AfthAZGjZwsbXYaBZrRbbodQmUDI5KPvnE4Iw3eKPRGhzkTpD/dRsliZxW9YU8lL9Rx
+ AnOevviZU1vVLWPQTEOk7hXjMXVcitvV+YGIQxoTZESYeFaYp8vyylNXv4Xi65mjGLBr+nZfWF9
+ fd2t+cdnmAs6ubAvRge8xtnCwCU+nWTzdAtciv+0pgXIsfmzsCiNg6pDQIGKTBH7mgrmq4tA/Xm
+ PIPG8L4JKsGPBIyo33070YmLTsMsD/NMqXJfl8LV/XRkOvi9hGuC8xu+xCBBLsOZC02KHH/RLRe
+ B/mIiJ+uSpS0/9E1Z9xhf7EPLWFymQjYpmJYP6srGSsLXexSuyabAxV4ex5sbrDwuwgiMwJbb00
+ a2PkOT+/Flj/8/HA9zw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzNiBTYWx0ZWRfX0H7dM3uHMH0C
+ YiW6HGT/huWiWqlaWSG8rYa6VpdQD7N0Xp2D06/5wtQUL+BfBKzfiQEtO+bB+l1uEufiooefkMs
+ aJjMhQBADhUrbz9EQUMmcWYwShLLZ4c=
+X-Proofpoint-ORIG-GUID: HwWWwfn01-NMI5kp47ClrK235S1OjsRa
+X-Proofpoint-GUID: HwWWwfn01-NMI5kp47ClrK235S1OjsRa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020036
 
-On Fri, 30 Oct 2026 at 23:05, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Thu, Oct 15, 2026 at 04:51:43PM +0900, Paul Elder wrote:
-> > Add maps for VIO for the VSP and FCP power domains and reset domains.
->
-> s/reset domains/module control/ as its not just reset (and there's no
-> "reset domain") but also module control clock ?
+On 10/31/2026 7:38 PM, Vladimir Zapolskiy wrote:
+> On 10/28/26 17:20, Hangxiang Ma wrote:
+>> Add support for the TPG found on Kaanapali. This TPG uses hardware
+>> version 2.4.0, which drives test-enable and reset through the
+>> TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
+>> TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
+>> CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
+>> the data source when a test pattern is selected.
+>>
+>> Add the TPG resources to the Kaanapali camss resources so that the TPG
+>> subdevices are created on this SoC.
+>>
+>> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+>> ---
+>>   .../media/platform/qcom/camss/camss-csid-1080.c    | 15 ++++++++++++--
+>>   drivers/media/platform/qcom/camss/camss-tpg-gen1.c | 23 ++++++++++++ 
+>> ++++------
+>>   drivers/media/platform/qcom/camss/camss.c          |  2 ++
+>>   3 files changed, 32 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/ 
+>> drivers/media/platform/qcom/camss/camss-csid-1080.c
+>> index 3d90d31201fa..ec56ba85a0fa 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-csid-1080.c
+>> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+>> @@ -64,6 +64,8 @@
+>>   #define        CSI2_RX_CFG0_NUM_ACTIVE_LANES        0
+>>   #define        CSI2_RX_CFG0_DL0_INPUT_SEL        4
+>>   #define        CSI2_RX_CFG0_PHY_NUM_SEL        20
+>> +#define        CSI2_RX_CFG0_TPG_MUX_EN            BIT(27)
+>> +#define        CSI2_RX_CFG0_TPG_MUX_SEL        GENMASK(29, 28)
+>>   #define        CSI2_RX_CFG0_PHY_SEL_BASE_IDX        1
+>>   #define CSID_CSI2_RX_CFG1            0x884
+>>   #define        CSI2_RX_CFG1_ECC_CORRECTION_EN        BIT(0)
+>> @@ -148,6 +150,7 @@ static void __csid_reg_update_clear(struct 
+>> csid_device *csid, int port_id)
+>>   static void __csid_configure_rx(struct csid_device *csid,
+>>                   struct csid_phy_config *phy)
+>>   {
+>> +    struct camss *camss = csid->camss;
+>>       u8 lane_cnt = phy->lane_cnt;
+>>       int val;
+>> @@ -156,8 +159,16 @@ static void __csid_configure_rx(struct 
+>> csid_device *csid,
+>>       val = (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
+>>       val |= phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
+>> -    val |= (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
+>> -           << CSI2_RX_CFG0_PHY_NUM_SEL;
+>> +
+>> +    if (camss->tpg && csid->tpg_linked &&
+>> +        camss->tpg[phy->csiphy_id].testgen.mode != 
+>> TPG_PAYLOAD_MODE_DISABLED) {
+>> +        val |= FIELD_PREP(CSI2_RX_CFG0_TPG_MUX_SEL, phy->csiphy_id + 1);
+>> +        val |= CSI2_RX_CFG0_TPG_MUX_EN;
+>> +    } else {
+>> +        val |= (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
+>> +            << CSI2_RX_CFG0_PHY_NUM_SEL;
+>> +    }
+>> +
+>>       writel(val, csid->base + CSID_CSI2_RX_CFG0);
+>>       val = CSI2_RX_CFG1_ECC_CORRECTION_EN;
+>> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/ 
+>> drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+>> index d29de5f93c18..cabbb2638cf3 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+>> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+>> @@ -22,6 +22,7 @@
+>>   #define TPG_HW_VER_2_0_0                TPG_HW_VER(2, 0, 0)
+>>   #define TPG_HW_VER_2_1_0                TPG_HW_VER(2, 1, 0)
+>> +#define TPG_HW_VER_2_4_0                TPG_HW_VER(2, 4, 0)
+>>   #define TPG_HW_STATUS        0x4
+>> @@ -33,7 +34,9 @@
+>>   # define TPG_CTRL_OVERLAP_SHDR_EN    BIT(10)
+>>   # define TPG_CTRL_NUM_ACTIVE_VC        GENMASK(31, 30)
+>> -#define TPG_CLEAR        0x1F4
+>> +#define TPG_CTRL_CMD        0x1F4
+>> +# define TPG_CTRL_CMD_TEST_EN        BIT(4)
+>> +# define TPG_CTRL_CMD_HW_RESET        BIT(0)
+>>   /* TPG VC-based registers */
+>>   #define TPG_VC_n_GAIN_CFG(n)        (0x60 + (n) * 0x60)
+>> @@ -164,18 +167,26 @@ static int tpg_stream_on(struct tpg_device *tpg)
+>>       }
+>>       /* Global TPG control */
+>> -    val = FIELD_PREP(TPG_CTRL_TEST_EN, 1) |
+>> -          FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
+>> +    val = FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
+>>             FIELD_PREP(TPG_CTRL_NUM_ACTIVE_VC, last_vc);
+>> -    writel(val, tpg->base + TPG_CTRL);
+>> +
+>> +    if (tpg->hw_version < TPG_HW_VER_2_4_0) {
+>> +        val |= FIELD_PREP(TPG_CTRL_TEST_EN, 1);
+>> +        writel(val, tpg->base + TPG_CTRL);
+>> +    } else {
+>> +        writel(val, tpg->base + TPG_CTRL);
+>> +        writel(TPG_CTRL_CMD_TEST_EN, tpg->base + TPG_CTRL_CMD);
+>> +    }
+>>       return 0;
+>>   }
+>>   static int tpg_reset(struct tpg_device *tpg)
+>>   {
+>> -    writel(0, tpg->base + TPG_CTRL);
+>> -    writel(1, tpg->base + TPG_CLEAR);
+>> +    if (tpg->hw_version < TPG_HW_VER_2_4_0)
+>> +        writel(0, tpg->base + TPG_CTRL);
+>> +
+>> +    writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
+>>       return 0;
+>>   }
+> 
+> It is necessary to split this change into two for the next run:
+> 
+> 1) the generic TPG subdevice change to support a new hardware interface, 
+> equal to
+> 
+>    https://lore.kernel.org/linux-arm-msm/20261031112203.545319-4- 
+> vladimir.zapolskiy@linaro.org/
+> 
 
-FTR, SCMI calls it "reset domain", but I agree "module controle" fits
-better here.
+ACK
 
-Gr{oetje,eeting}s,
+> this new interface is for a range of hardware including SM8650 and SM8750,
+> 
+> 2) the rest of Kaanapali specific changes from below this comment.
+> 
+>> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/ 
+>> media/platform/qcom/camss/camss.c
+>> index 6ff82dd2aeaf..df4b4cf30711 100644
+>> --- a/drivers/media/platform/qcom/camss/camss.c
+>> +++ b/drivers/media/platform/qcom/camss/camss.c
+>> @@ -5850,11 +5850,13 @@ static const struct camss_resources 
+>> kaanapali_resources = {
+>>       .pd_name = "top",
+>>       .pm_clks = { "cpas_fast_ahb", "cpas_ahb", "gcc_axi_hf" },
+>>       .csiphy_res = csiphy_res_kaanapali,
+>> +    .tpg_res = tpg_res_x1e80100,
+> 
+> It is closer to 'tpg_res_8775p', at least the proper name for I/O regions
+> is expected to be "tpgX" rather than "csitpgX".
+> 
 
-                        Geert
+ACK
 
+>>       .csid_res = csid_res_kaanapali,
+>>       .vfe_res = vfe_res_kaanapali,
+>>       .icc_res = icc_res_kaanapali,
+>>       .icc_path_num = ARRAY_SIZE(icc_res_kaanapali),
+>>       .csiphy_num = ARRAY_SIZE(csiphy_res_kaanapali),
+>> +    .tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
+>>       .csid_num = ARRAY_SIZE(csid_res_kaanapali),
+>>       .vfe_num = ARRAY_SIZE(vfe_res_kaanapali),
+>>   };
+>>
+> 
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+---
+Best Regards,
+Hangxiang
