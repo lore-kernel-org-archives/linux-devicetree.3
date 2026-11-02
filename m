@@ -1,56 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706630;
-	b=GpClQgLeVcs3l/r9nO6LQLURjDemv0g30UBs5eE2BUXeVOEr0YDVsNQRNhg88szRlmSQ
-	 Wfz/2WyQz1/SjIarCoWjUv4C+Bc4FeBz2aApVJWaHq8+WwnQzYkFNqJwd8sdbWjTlFSvY
-	 dXscNIfmezbqaLUUtNg4mGdcvr46DmKQ4FdhAZ1LU9FsjrRQWfvVhKBcvIBVK45MTAc2Y
-	 hCquSwklWf1k8HBGxnqWkTQ1uOEOOv9cxzs2og+qJqsm1iz1M2ndM5WtJsE9rHU4Isg5h
-	 egJmR6qsw6YQ7pXvwrxcuoWIwxvvEvdnzmmwcIzf8L676kHb9UD1B34S4qk8L3jzodw==
+	t=1793706843;
+	b=NIUxckRA7sDfPHTwW9JsrQ7M3y0MNFBAhmcR3EDxhA7v4H8EjI/YVhX00iKQXXc6HurC
+	 8PUwh2H0hl8Oc7lWge9rXCBMHQ/lBRryNDFk7cHXPZZjwecGgkiP8qC6Or+vpyJ9+z7Ra
+	 MnWHin+9a1+ragjqAHPpybsZ9Y2V6+Y2uj0MciYvjt9Gm9hzKGNlWSKnCtwb9+6hm5s9K
+	 BeQNlFfJMAeHMLKbhoTyNVv6ytFB73JKnqAxz/j8byQe0/PrD3+FJCg5Ci5atWq+JcP/T
+	 QJVVQsrI8TaRg0sOgccGtryJeeQ79Z3D8QP0WfXc5J9cHAcsxqdpBi3i/q2aK6TFsjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706630;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LqR1b5J6w92hH2zvBzfSXeLaHn5lEGsC8JSiRXUiMj8=;
-	b=gKza0A9W0vSqRWIPI26bNJj63e6r7r3JoQB/2MlB1e0bAuX86RZfN7eDx7GmR0IYIXg+
-	 XcqsxnmddG2e4Gk2P84SCzO4HFqWsfiPi3a3RUJYAUrtZ5D79c0q5nF7IcgqVphPeRYZr
-	 fspOrgNKF6XQeLdMpxiKQqhksX4wPfE/vO3U59K//NhjH5cZsKB9Q9j9T8S2LHc9nOSgo
-	 J8TdeCgOEjnbBrldvVcm3l6qlQEDiRnV3CzK2rvqrgX7r+A2Y7piD+Xgv/YJ5PVWLhrTW
-	 AV93d2uMTIGTok1sh/06pLdVRyGf/yM8+t5EDJQQ5yw9SumFCjhcNgLiiHWA+Kb1ivg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706843;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=G1wnrmAx6UKYvtzrJ7pGlQnyDEoN4L09wwQrnXzgcqk=;
+	b=BMw33rQiwnMrBIKN7a/WGRYb1bntHHrWexUQJ14UPR8c6mKNcVY7JdrSCn1Mgyt6Aat7
+	 u+BcmkDDLEnqJs49SQvA+Tcv384HhgUJAVr8Fcbr3Mw0n4SEeC47RyA79lvnhweL/IDmm
+	 lDF22GXKNVGJN4ftyAxYKs4dmJERH5a446aZT3cM3WYz2AmagdNSxZ+hWt7HiqQiRIkb+
+	 xjjrTnfjWo7JY4F4YlBj+AzQxi/AAor6Y+ONAo6DbE25QxBWPNIpnoeCX4UAXtIJPTnfq
+	 f2hIdPu1XUPAAhn1f2hCEKteMahsIaj97GZJxhFNcD0on7zH16Uwcdt7vavAAgqRkxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1G4aGNi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYajrT6U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C44A606A327;
-	Tue,  3 Nov 2026 11:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B2B606D805;
+	Tue,  3 Nov 2026 11:54:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1G4aGNi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692E01F00919;
-	Tue,  3 Nov 2026 11:50:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DYajrT6U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD761F00A02;
+	Tue,  3 Nov 2026 11:54:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706630;
-	bh=LqR1b5J6w92hH2zvBzfSXeLaHn5lEGsC8JSiRXUiMj8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S1G4aGNioEuXcLfUwytqxat2t881PHjyHaxZsYd947uNTe+U/XHz1ySVA2VPIVHhw
-	 eKe2SGyPw6TEt4MQ3/vZy/Tw5eWM4QkIArQ0pi5N9PMjzpSYsVZjstudZgSJKoz/iJ
-	 yWs5HQBm+Pa7IFOK5SoPf5Y9XGjKLsb0yndWEpuNFFZBlmfN9q7VY2xT1TCK1+IH4S
-	 eXKkP6PKRtBAYN7pLEKOTM2AgxglxUPL1hxlvxnBnl3ew6R7bOry3NhkjmpolAOwGA
-	 xYljUQB+dC6ZHmRY8tEYFPCItNtF1TFpanZuYg4KiDzY+/qreKyBm33POCOauTGK7M
-	 uA6K5c2aBjYMQ==
-Date: Tue, 3 Nov 2026 12:50:26 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: starfive,jhb100-dwc3: Add clock
- number limit
-Message-ID: <20261103-aspiring-spotted-loris-fab3df@quoll>
-References: <20261103064836.71059-1-minda.chen@starfivetech.com>
- <20261103064836.71059-3-minda.chen@starfivetech.com>
+	s=k20260515; t=1793706842;
+	bh=G1wnrmAx6UKYvtzrJ7pGlQnyDEoN4L09wwQrnXzgcqk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DYajrT6UnCaA2QaHVM6Oq6Ej8fHn/k+mNdjVnvuE2HH2MIfgeZpcFPRCTr7VFMFoF
+	 axET584bGA77w57DX5sgiDR1LABwuFTVb/byivkS4Zlko4yqMRpbsM1fYnH3BcU16l
+	 NMHcGkH2yT+wgEU2IXwVSCvKjea1lK0Gc1bNPBTXVwBqka5nUAIDv1LTCsAFoc7nGA
+	 Eo93yXlNeQxgBS+ZRCuogUb5/MWbEpinwteL4sLWqdkNBomEa+QJsgvSi+VxDVmfOf
+	 5Ge12PoxPGmwfFu0rOHod4zwmnJmMGvR0sCxX/iyq1jvm1n3KecYx7Vh+o88tR8vb5
+	 vASUaAK2j8eRg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id D84A6253A672;
+	Tue, 03 Nov 2026 11:54:00 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, mfd@lists.linux.dev, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
+References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/8] arm64: qcom: enable display card
+ support on SM8150 HDK
+Message-Id: <179365864580.2186205.7754433993357235376.b4-ty@b4>
+Date: Mon, 02 Nov 2026 22:30:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,27 +76,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103064836.71059-3-minda.chen@starfivetech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1677; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=33J6wCN/4BjmBIY6abHmDR1XKIu9W+IsNR/tzfBzFHE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeno7Qr2TfX7wqVGcWo6bhS+29a94UL7U5GvFksuvDh
+ WvmJAos6yhlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBELjxn+J/j4m/sGFbi9aem
+ tL3T6bnPMZPa5H4OSaebQs+827nPf2dk6NrPNnmRaXH2t8PZzitlLRllLp86oVJzz9xY3H16UUA
+ 8DwA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Nov 03, 2026 at 02:48:35PM +0800, Minda Chen wrote:
-> StarFive JHB100 device controller do not connect with PHY
-> but connect with digital adapter module. So it do not
+On Mon, 19 Oct 2026 14:25:36 +0300, Dmitry Baryshkov wrote:
+> arm64: qcom: enable display card support on SM8150 HDK
+> 
+> The Qualcomm SM8150 HDK can be equipped with an optional display card
+> having the same panel as the display card for SDM845 HDK. Reuse the
+> driver submitted at [1] and enable display card support on this HDK.
+> 
+> Unlike SDM845, this also requires a new LCDB driver, providing voltage
+> for the panel and several fixes in the WLED driver. The FSA4480 address
+> fix is independent and can be applied earlier.
+> 
+> [...]
 
-Please use any grammar check tool.
+Applied to
 
-> contain core reference clock. So the minimal clock number is 2
-> (glue layer main enable clock and dwc3 core bus clk). So Add
-> minItem 2 to clock and clock-names items.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.5
 
-So the binding is completely wrong? I see no logic in this explanation.
-You claim device DOES NOT connect with a phy, which would imply some
-removal, but you did not remove anything but made it optional. So it
-does connect with a phy?
+Thanks!
 
-Impossible to parse/understand.
+[2/8] regulator: dt-bindings: add Qualcomm LCDB regulator
+      https://git.kernel.org/broonie/regulator/c/487f55870c60
+[4/8] regulator: add Qualcomm LCDB driver
+      https://git.kernel.org/broonie/regulator/c/be8c26474857
 
-Best regards,
-Krzysztof
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
