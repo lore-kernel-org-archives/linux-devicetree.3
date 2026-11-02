@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577021;
-	b=kBIj+TCAD6Rf3UbIpqa7tOwTNxpWc1A9dmvYGPRhSb7jM8y33/QDkVQPKasBG47IDPd6
-	 8QHF4uvX3imuegc3fNgxp+eAimu1MYkrD22Szlt4P7ZR56wrbSIq0+aEB6qXSHr5fWwbP
-	 nITeeNfma6I0s8hPRTX7tK9GW45L8EA63CnsO49OCqbTj0AU+gq4yoJ3Y1KVdHhx9cf1n
-	 Wlacqk7v3OjqYAIa41z3bBrdW9xgBaVz2M0wpha6QR0Ht6zB+VHb7zvL28pEf8u6N92du
-	 t7IrFLPe4n8h/eVkNUH2PFo6U6yW5Kn3p3hnAmEZZDuGIMV6f2haCIOEznCIxmCkzZw==
+	t=1793577778;
+	b=b6TC1ozFTJat+6rykIJ5JUlgbwZMwtlKFc564YFqlUywN5zfpOSxxJ3b8m6zoQdfE5v0
+	 j4icFbRZYPKUPc9EJCHQdjV8aABeNLZgaIUrncYdtEVsHFIeEBTRUD/d4IAdjMAks4NTj
+	 c13oze9xgxAgOum0aNBr2fb9DJHx7PXfzdjJhrX6C/hretwLPkykoc4M7MB39kXHy+NdD
+	 8bh0u5M2O7l8gHxrivgMjwLVjhK0hOL7rHvQNBDXOyff5AypNt+TPrZBRhyspyTM5g6pP
+	 rLh4esb0gOOQISxUP5v5kv0We271knwDuEGq0CDCvvZrVczNufSzOzS60+xlxqfiHkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577021;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GtkyqXjaNZUhp+wtMvVWU33nxLUpc8+32fesBBYhb8w=;
-	b=Jui8+Q+0DVF9eCiHWOAOlQrmCrF6uwHuZtLPKUrigv8gQ1ZO/EjK3Nk7Qj0heEjIsaUf
-	 uJTLwBGLKym4+eG+2dFuG0E+v2Dz467TKChWwkLbV7zwDW1ZLj2Z//6NlCWfPtaVGldUZ
-	 M0lSwE7kAP/dlP9g1XjnBWmP2tT4PdaSIxmZPQnKWkxaVeTjAM7nTP6nfdzYr8BQ9Rfij
-	 8aWIu7OcrefuIjxiiCKT+cERbpsQ0R/hle3dSE3tP2ZUX5ZmNE1ThHmksUSTuU4Rg0OCR
-	 oHzBncwo2bf8R+GIrbItkmxB2i8YGMtDhVrsFg6scPEbkapE4j/OMOCAXTYsrv1L/uA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577778;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=4qIby5wrhy/8mg9ZF5x0rKsJeZTzsj6O9jhH1+m5l/4=;
+	b=gClvtrXmP65sgRSAEzLUp2RkB+xKwsZOq8iwYCNmA5e/q13twT9PYwZVgaWuzQFKnFDN
+	 xypJGvcT8s668A5VLqtBPW6FUf+tn0sqmUIcw+lqGHOKl7UWuOmhwln83jNi4evGMnv0C
+	 WFizPHzH8keireecBOpE6hHO1dKmZqBRuVEEnvJ7AUC9CjHz5Xtd8EfSJVSbXXgMcxtqN
+	 DuuCtq6VLkXokRIDeS8E561dKeoLidGSgCcCFuJMezXpFBuE0yXX0q0bvHboFoDrns3h3
+	 IwI29OZrzsi4w/V51B55xKCmvJf/aigtl5MbBoAHx2Vn59Z4ar7FQgfkCN2hOja6cSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1mOGOEa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qn172Msh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9A4606A324;
-	Sun,  1 Nov 2026 23:50:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2A7606A324;
+	Mon,  2 Nov 2026 00:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1mOGOEa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5131F000C1;
-	Sun,  1 Nov 2026 23:50:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qn172Msh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB2C1F000C1;
+	Mon,  2 Nov 2026 00:02:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793577020;
-	bh=GtkyqXjaNZUhp+wtMvVWU33nxLUpc8+32fesBBYhb8w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=i1mOGOEaTLeFmzOBlUQPAipM3JBBEAnnb8FPetvslzNbDTb6qpgLHSXbJ5/6K+XYp
-	 Vxzcv05w+wIcpMMbJHxghkLCTN4kiZWPTrxnY01jkZNmM6FNk2nXJxXmzHNkXujkI3
-	 YM1Z6EKcixm75tmxi3B/Kqt0KAQMDWPFHWL4AMmsAwXd00DveNDZa4hKDlakL65nrB
-	 a/SomYiUTTQrTbFdeC8ivQPr+v/I+sXilm2dP3ZtpH0sQCfnlDyVvI8gUdtTg6JPoV
-	 T2kpvDdgJqRJjPQBCBmrIoC+doiFRsStkDDoA4dHB73vBWBXSD6eRYTVdvvnKuLUVb
-	 NXfjgbWYCOO8Q==
-Date: Sun, 1 Nov 2026 23:50:10 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
-Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, linux <linux@analog.com>
-Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
- buffered/triggered capture
-Message-ID: <20261101235010.79416e15@jic23-hlaptop>
-In-Reply-To: <LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
-	<20261026000910.328f6cd8@jic23-hlaptop>
-	<LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793577778;
+	bh=4qIby5wrhy/8mg9ZF5x0rKsJeZTzsj6O9jhH1+m5l/4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Qn172MshRXn7NI03V33Y1dIQNDEnOrhuRGwH94rFrTciqbFDNDDTiPO0pn58Owx52
+	 Vc5GeGEVLcXM0fi6MC7onN6QzMmHpEqhlXddyiUARWYnDm9rvCcRb7JJf8X1kLWkCY
+	 EV3cfaVk/d7nw7pfHKSnxrhGSy8eMolIOTuxHYQVsCyg+ATOV1bfkHtPlh9eGRMH+b
+	 NPyezxJLVoxPGQMs5wDltL7QYS3gb/thSCYZWdwnl/6dODDFdM8T2Jx9s8CAaP4KcK
+	 fYj9oKxqD872bAbV4LjWz2iA2c9TEQdToAnpE4t3k2Gv/81dTPF02JjYuO2XcqGDXF
+	 b0W/YqrwGHrzA==
+Message-ID: <sashiko-outbox-192788@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 07/11] remoteproc: assign fwnode during vdev
+ registration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Francesco Valla" <francesco@valla.it>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261102-remoteproc_virtio_map-v2-7-26b300e01c62@valla.it>
+References: <20261102-remoteproc_virtio_map-v2-0-26b300e01c62@valla.it>
+ <20261102-remoteproc_virtio_map-v2-7-26b300e01c62@valla.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 00:02:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,94 +60,158 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 09:36:47 +0000
-"Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] remoteproc: unreleased reserved memory before register_virtio_devi=
+ce()
+--
 
-> > -----Original Message-----
-> > From: Jonathan Cameron <jic23@kernel.org>
-> > Sent: Monday, October 26, 2026 2:09 AM  
-> 
-> ...
-> 
-> > > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
-> > > +				       u8 *fifo_data, s64 timestamp)
-> > > +{
-> > > +	struct adis16607 *st = iio_priv(indio_dev);
-> > > +	u16 msw, lsw;
-> > > +	s32 val24;
-> > > +	int bit, offset = 0;
-> > > +
-> > > +	memset(st->data, 0, sizeof(st->data));
-> > > +
-> > > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
-> > >masklength) {  
-> > iio_for_each_active_channel()
-> > 
-> > As sashiko notes, masklength is private.
-> > 
-> > There are a load of places we need to update to stop accessing these
-> > directly but please don't add another one.
-> > 
-> > It's on my list to throw some LLM tokens ago once I get out from
-> > under review backlog.
-> > 
-> > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
-> > adis16607-v4-0-
-> > a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
-> > ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
-> > Check everything else reported.
-> > 
-> > FWIW there are also some nasty race conditions around active_scan_mask
-> > being available when the buffer is being torn down. You might
-> > want to close those off by claiming buffered mode to prevent
-> > such a transition.
-> >   
-> 
-> Agreed, I'll switch to iio_for_each_active_channel() and I'll go through the
-> rest of the Sashiko findings for v5.
-> 
-> On the active_scan_mask races, I'd like to check which path you mean.
-> In this driver the only reader of the mask is the trigger handler
-> (fifo_push_sample()), which runs as the pollfunc.
-> As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for it
-> to finish before iio_disable_buffers() frees the mask, so I couldn't find a
-> window where the handler sees a stale or NULL mask today.
+commit 3f46613846e39fe7244229a8a47044d9f38bc9cb
+Author: Francesco Valla <francesco@valla.it>
 
-Ah. I may have failed to distinguish between cases with a trigger involved
-and those without.  The bug reports are probably on the ones without.
-Unfortunately I haven't found time to look at the overall issue
-in enough detail yet.
+remoteproc: assign fwnode during vdev registration
 
-> Even so, I'd like to close this off for good, so that a later change to the
-> driver or to adislib can't introduce the race.
-> 
-> Claiming buffer mode inside the handler looks like it would deadlock
-> against iio_disable_buffers(), which holds mlock while waiting for the
-> handler in free_irq().
+This commit looks up a child firmware node describing a virtio device
+during vdev registration and assigns it to the rproc-virtio platform
+device, using its memory-region when no parent carveout is provided.
 
-We'd use a conditional claim in here - only the core code driving the state
-transitions should take a claim unconditionally (they can just grab the lock).
-If mlock is held it should fail and we just drop out of the handler having
-done nothing.  So either disable buffer wins and we drop through the handler
-quickly or it looses and the attempt to take mlock blocks in
-iio_disable_buffers()
+> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/=
+remoteproc_virtio.c
+> index 1496659ddff9e..950d65480be59 100644
+> --- a/drivers/remoteproc/remoteproc_virtio.c
+> +++ b/drivers/remoteproc/remoteproc_virtio.c
+[ ... ]
+> @@ -394,6 +396,23 @@ static void rproc_virtio_dev_release(struct device *=
+dev)
+>  	put_device(&rvdev->pdev->dev);
+>  }
+> =20
+> +/*
+> + * Attach the memory region declared inside the vdev's own devicetree no=
+de.
+> + *
+> + * A restricted-dma-pool region is attached by of_dma_configure() when t=
+he
+> + * platform device is probed, but it is released together with the virtio
+> + * device (see rproc_virtio_dev_release()); attach it again if needed, e=
+.g.
+> + * when the remote processor is restarted during a crash recovery.
+> + * Any other kind of region (e.g., shared-dma-pool) is attached only her=
+e.
+> + */
+> +static int rproc_virtio_init_vdev_mem(struct device *dev)
+> +{
+> +	if (is_swiotlb_for_alloc(dev))
+> +		return 0;
+> +
+> +	return of_reserved_mem_device_init_by_idx(dev, dev->of_node, 0);
+> +}
+> +
+>  /**
+>   * rproc_add_virtio_dev() - register an rproc-induced virtio device
+>   * @rvdev: the remote vdev
+> @@ -410,6 +429,7 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rv=
+dev, int id)
+>  	struct device *dev =3D &rvdev->pdev->dev;
+>  	struct virtio_device *vdev;
+>  	struct rproc_mem_entry *mem;
+> +	bool has_mem_region;
+>  	int ret;
+> =20
+>  	if (rproc->ops->kick =3D=3D NULL) {
+> @@ -417,11 +437,24 @@ static int rproc_add_virtio_dev(struct rproc_vdev *=
+rvdev, int id)
+>  		return -EINVAL;
+>  	}
+> =20
+> +	has_mem_region =3D of_property_present(dev->of_node, "memory-region");
+> +
+>  	/* Try to find dedicated vdev buffer carveout */
+>  	mem =3D rproc_find_carveout_by_name(rproc, "vdev%dbuffer", rvdev->index=
+);
+>  	if (mem) {
+>  		phys_addr_t pa;
+> =20
+> +		if (has_mem_region) {
+> +			/*
+> +			 * The carveout takes precedence: drop the region that
+> +			 * of_dma_configure() might have attached at probe time.
+> +			 */
+> +			dev_warn(dev,
+> +				 "vdev%dbuffer carveout found, ignoring memory-region\n",
+> +				 rvdev->index);
+> +			of_reserved_mem_device_release(dev);
+> +		}
+> +
+>  		if (mem->of_resm_idx !=3D -1) {
+>  			struct device_node *np =3D rproc->dev.parent->of_node;
+> =20
+> @@ -451,6 +484,14 @@ static int rproc_add_virtio_dev(struct rproc_vdev *r=
+vdev, int id)
+>  				return ret;
+>  			}
+>  		}
+> +	} else if (has_mem_region) {
+> +		/* Use the memory region declared in the vdev's own node */
+> +		ret =3D rproc_virtio_init_vdev_mem(dev);
+> +		if (ret) {
+> +			dev_err(dev, "Can't associate vdev memory-region: %d\n",
+> +				ret);
+> +			return ret;
+> +		}
 
-Or am I missing something worse?
+[Severity: High]
+What happens to the reserved memory attached to &rvdev->pdev->dev if the
+virtio device is never registered?
 
-> 
-> Would snapshotting the active-channel layout in update_scan_mode()
-> (called before the pollfunc is attached) and having the handler read
-> only that copy be an acceptable way to close it?
-It would but that feels like we are just papering over a lifetime issue
-by creating another object rather than fixing it if necessary.
+When rproc_handle_vdev() sets pdev_info.fwnode and registers the platform
+device via platform_device_register_full(), a restricted-dma-pool region
+in the vdev node is attached during probe by:
 
-Anyhow, from your first comment this may all be irrelevant anyway.
+  really_probe()
+    -> platform_dma_configure()
+      -> of_dma_configure()
+        -> of_dma_configure_id()
+          -> of_dma_set_restricted_buffer()
+            -> of_reserved_mem_device_init_by_idx()
 
-Jonathan
+This allocates a struct rmem_assigned_device entry pointing to &pdev->dev
+and links it into the global of_rmem_assigned_device_list.
 
-> 
+Similarly, in rproc_add_virtio_dev(), rproc_virtio_init_vdev_mem() (or the
+carveout / parent fallback paths) attaches reserved or coherent memory to
+&rvdev->pdev->dev before vdev =3D kzalloc_obj(*vdev) is called:
 
+  rproc_add_virtio_dev() {
+      ...
+      } else if (has_mem_region) {
+          ret =3D rproc_virtio_init_vdev_mem(dev);
+          ...
+      }
+      vdev =3D kzalloc_obj(*vdev);
+      if (!vdev)
+          return -ENOMEM;
+  }
+
+However, of_reserved_mem_device_release(&rvdev->pdev->dev) and
+dma_release_coherent_memory(&rvdev->pdev->dev) are only called in
+rproc_virtio_dev_release(), not in rproc_virtio_remove() or in the error
+paths of rproc_virtio_probe() and rproc_add_virtio_dev().
+
+If rproc_virtio_probe() fails, if rproc_fw_boot() or rproc_attach() fails
+after rproc_handle_vdev() (for example in rproc_alloc_registered_carveouts(=
+),
+rproc_load_segments(), rproc_prepare_subdevices(), or rproc->ops->start()),
+or if rproc_add_virtio_dev() fails when rproc->ops->kick is NULL or when
+kzalloc_obj(*vdev) returns NULL, rproc_virtio_dev_release() never runs.
+
+When rproc_resource_cleanup() then unregisters and frees rvdev->pdev,
+doesn't that leak the struct rmem_assigned_device entry on
+of_rmem_assigned_device_list with a dangling rd->dev pointer to the freed
+platform device (and leave the memory region attached across crash
+recovery attempts so dma_assign_coherent_memory() fails with -EBUSY)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-remoteproc=
+_virtio_map-v2-0-26b300e01c62@valla.it?part=3D7
