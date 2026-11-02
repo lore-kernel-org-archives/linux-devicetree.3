@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639358;
-	b=c7YoSHeCvqCgkUYeT+qwwYHCfiqjxSj4FSwpe512NxUL6dVfcHrmmqnzr423eDSJBGjH
-	 5rO7rWAoX5CDU9SIh8z1cXC8gZmJDoxf/FNuslIZkQ9K3qC0fx0rwbgYaLPXX9I0y6yMV
-	 W1+4M9UgE2kurqXqARl2QAzPYlmR83rHWd4NtihGXCdOhDxeqoUVARg3awstA+zsLODbL
-	 qx+38OgvPRp4pEstkTAA1EGWf9teCTJz72fnV72GA269b8GNWy22wUXrEaFrlg1zEnBd+
-	 DoTw1IbglcGzhByYrlRiz/TFCd4ZCCKH+kcDITUKyjrS7EJ9M0EDbubUJJpZQ88gXMg==
+	t=1793639383;
+	b=yuXJBU39d/o00rq8CO4zm3Kyax+yCNTFGDegUwYgJWzb0gRAdN/3bgrTmRzmoGwB/UKo
+	 R0mB2GVu0yVh+nBSqEoz+eM2LPeCD+3uVnBhWDfdBCs2ZS4+bpI7NTIJtj0yJCWT06Rpc
+	 /ZuJRwQROP2+P8mg9pE6yA20sv97BX/olTJ4B3RMsgD0tqh1ELS1o5hL7ZHmj4pWxYAQX
+	 NZKwUqQMv5SdITfvqqjTFdP3adohcEpx+9G/Gl+ZJ5QVaLlH2Aesfw9HWupRzk0kvabzq
+	 zWsqkq0GHFwiQg8GIJ7RoJpCHwz05R/10uUFfus2NJrN5QgYaSXlMBZ2WIVzcZGobAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639358;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=vwwoXcGv7Q4czy54HAWIf1KDS8/4RsjzxuKe3zfZc4I=;
-	b=yZkA0FmnjJea4M3lxdY/o5AJAVi3XazVVml172AUDya+G+LyzKyPbN+ZDDLEQT7uU0a9
-	 20pREZJjJXf+WXhXI+oy2TSr1e7/sOH2yDTQg1gL23aiVdYaOTAC+/J0OexnSHTuxVo0+
-	 M4fqLgGRjpTDCK1VBKWtb71h2KGeTCz5QYouplFffI8IMXRlDGx9KtJgsQzcPfZyQKDxV
-	 /JnQh9VLs3HlfKIZBw8WO+aWrN2Qdc2CvqvA2nxjQBoJnSkJLyiNvOtIP3PdJOIOshCfN
-	 Cm/fNt3Ly1fn1r3dYi8piZzSDgkttCTgXBg3a0rTKvnBRo1WbZTDsNmJ9lNCPcra3mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639383;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=otKF2cYYxM+h7FWoF9erA+DgzqIPCnvETxdH+ON+xN0=;
+	b=44P6Dy4UXaljutbgG+bpM16p2Ts5WSjCf2t01Tbewjq4dwEzpnrHQf50PpdTodBo4H3q
+	 Afy5yy21EvBGoSJinOjcG0swA4Hf2Bgl8EY1WzZK28oK1Qlhs5POS8ZpTCc3j2wrUdmWr
+	 cp1g/Tq0oIIwRuIfqZLz0ugBIwQyaAWrnjkQWkmvqoM+kGyIn5jJeUzUbYx4v7gPSzQxK
+	 PRvQrXovlgokNc+udkd7IbuzCeiZ6hKTBHj6vlqE+iPcuyA5ZX26oVC7KKhyli/eHN+0Y
+	 kgWfqu6OdEhY6wzsG5ik09YXRhJDiuOH0L4G1ZAQcbr8V7vOcIcBCx/fvjCFnZ525dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC8JpBno;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXDhpczS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54522606A905;
-	Mon,  2 Nov 2026 17:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72104606A90F
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:09:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AC8JpBno
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E281F00A16;
-	Mon,  2 Nov 2026 17:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXDhpczS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18F21F00A16;
+	Mon,  2 Nov 2026 17:09:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793639357;
-	bh=vwwoXcGv7Q4czy54HAWIf1KDS8/4RsjzxuKe3zfZc4I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AC8JpBno9gvHL7OmgcmJuSOSXKViixIhoaxpRMVoAT874hFRXWQKy/fYWk1Sv0C+K
-	 IlEnLAM0DEbIpJggDHSg7XeysdGw5iH+3u/QYW3K9inToAdZYKqnFgN1t0h4viXwKs
-	 IMn1tp/lmd8HnO3f6nFpH/MehCJJavfaZrIq5i4WJzixGI3VN/XkIAT+6apAKC8Jrx
-	 1ou++oiw9XF1xG9FlsljPgcjQ8b+FKXZIyo4wwQZPLj98/PncJ0RMZs3/reGDIDkV3
-	 4LBANtIQBl3jfiigLl6ldSXDGeq61z7Ozw15z648l2NvP2lnYB9Wi5yagooZ84zi95
-	 QvguspnIWytiA==
-Date: Mon, 2 Nov 2026 17:09:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH v3 3/3] regulator: Add TI LM51772 support
-Message-ID: <a5c78238-7c5b-47dd-81b3-3a2650a08288@sirena.org.uk>
-References: <20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com>
- <20261030-paul-lm51772-v3-3-0de62c22f342@bootlin.com>
- <179337726255.87968.9906404525377602371.b4-review@b4>
- <DMKPZZNSDY1O.3DILD6GVHK3RO@bootlin.com>
+	s=k20260515; t=1793639383;
+	bh=otKF2cYYxM+h7FWoF9erA+DgzqIPCnvETxdH+ON+xN0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MXDhpczS3HY6bFawU/cvd3XBRkH2LquvZr3Cq8lErllriCKeREEOjhNAqpIQexXEI
+	 0l/FCpFKx1ehVEyovp9WivET1jwayZMfmV7beabo+RWZqoCEIQS22jeOowsHBuhLWN
+	 4GzW3lY6Fb5mnOe0CrvrrjmD0rxOyUgjLBOWQPvMrc6q/KY9QOhtrCs/Ca+r/6nHZ5
+	 c197UWXGXXYsLwfIZrS7Qh4OUaoLjDhfwFZkufWLvEYAJ1pBW+8b3UIJSU4qvg1g47
+	 iv2pobtA3m6+e957P6gv6r0HambavjSDgicbheqUvR/NcxTPx/4XbEGkD0yu1DylyP
+	 +c63VFVviB43A==
+Message-ID: <sashiko-outbox-193804@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: interrupt-controller: add Mobileye
+ EyeQ5 PCIe MSI controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gregory CLEMENT" <gregory.clement@bootlin.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-eyeq5_msi-v2-1-4aa3d3608064@bootlin.com>
+References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
+ <20261102-eyeq5_msi-v2-1-4aa3d3608064@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 17:09:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,52 +60,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="itKKA5CoZ5P1qvi9"
-Content-Disposition: inline
-In-Reply-To: <DMKPZZNSDY1O.3DILD6GVHK3RO@bootlin.com>
-X-Cookie: Used with permission.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: interrupt-controller: eyeq5-msi: drop bogus #interr=
+upt-cells
+- [Low] dt-bindings: interrupt-controller: eyeq5-msi: drop software label p=
+roperty
+--
 
---itKKA5CoZ5P1qvi9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 9aaa3be0c94345e12c3b93b0a3ada8acf3fb0a25
+Author: Gregory CLEMENT <gregory.clement@bootlin.com>
 
-On Mon, Nov 02, 2026 at 01:23:02PM +0100, Paul Louvel wrote:
-> On Fri Oct 30, 2026 at 5:21 PM CET, Mark Brown wrote:
+dt-bindings: interrupt-controller: add Mobileye EyeQ5 PCIe MSI controller
 
-> > It looks like this is an always on load on the output rather than
-> > something only enabled when the regulator has been disabled so we'll end
-> > up with an extra power drain for no reason.  Possibly we should have
-> > core support for hardware that needs such manual management, though the
-> > datasheet suggests DICHARG_CONFIG0/1 might be more appropriate for what
-> > the API is looking for here?
+This commit adds the devicetree binding schema for the Mobileye EyeQ5
+PCIe MSI controller.
 
-> Yes indeed. I see no reason for the DISCHARGE_CONFIG0/1 to be disabled. At
-> first, I thought that the FORCE_DISH was necessary to get the discharge on DVS
-> ramp down.
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/mobil=
+eye,eyeq5-msi.yaml b/Documentation/devicetree/bindings/interrupt-controller=
+/mobileye,eyeq5-msi.yaml
+> new file mode 100644
+> index 0000000000000..b86698e4f82c7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eye=
+q5-msi.yaml
+> @@ -0,0 +1,90 @@
 
-> By manual management, do you mean selecting between those three configuration
-> (force discharge, discharge only when disabled, disacharge only when disabled
-> and until a certain threshold) ?
+[ ... ]
 
-I mean hardware that only has force discharge so needs it to be enabled
-only when the regulator is off.
+> +properties:
+> +  compatible:
+> +    const: mobileye,eyeq5-msi
+> +
+> +  reg:
+> +    items:
+> +      - description: GCSR block of the PCIe port
+> +      - description: MSI vector control block
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 1
 
---itKKA5CoZ5P1qvi9
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Medium]
+Should interrupt-controller and '#interrupt-cells' be dropped from
+properties and required in mobileye,eyeq5-msi.yaml?
 
------BEGIN PGP SIGNATURE-----
+According to the description, this hardware block only snoops message
+signaled interrupt write transactions from a peripheral port and signals
+its parent interrupt controller when a vector is pending. Consumers
+reference this node exclusively via msi-parent with '#msi-cells' set to 0,
+and it has no wired interrupt inputs.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrow7gACgkQJNaLcl1U
-h9D+qQf/WHFgZSHnAewKuw9/hWmRi3oEx9aPlzK3F6vRIJ4TydOsyRQNpQ4fuGnR
-afA7DJhrgi526FirCjKhz79t5SFgrVbyd/H3IuMab5SfuBS2aooTloHGiAXZ+vJ8
-Jb/YcWjydCnz+6HRkt8+SEgoXw+p+jOBqb7sloZS4Fz4OVKVLkcQdZgVLHz42Sz7
-/JgRIGym+7QgnBoO2EMj6rpVrJ5TJkNA3le6Gqb6RjbVbbxoG+nN0N/oFYjq4jHW
-3Hnc6uYkrD7xrq8LyJyJSYCbfZWG4SBoNfbqgmWJxkrqjshs3fKIc4jjFPqZ024L
-cnEXr264z8VtKgutbYHs4KsYNhGbVg==
-=ngJZ
------END PGP SIGNATURE-----
+Consistently, the driver in drivers/irqchip/irq-eyeq5-msi.c only registers
+a parent domain via msi_create_parent_irq_domain() using
+eyeq_msi_domain_ops (.alloc, .free, and .select =3D
+msi_lib_irq_domain_select) and implements no .translate or .xlate callback
+for wired interrupt specifiers.
 
---itKKA5CoZ5P1qvi9--
+Requiring interrupt-controller and '#interrupt-cells' set to 1 exposes an
+undocumented 1-cell interrupt specifier for a controller that cannot serve
+as an interrupt-parent, whereas chaining to a parent interrupt is an
+operating system driver detail (compare with altr,msi-controller.yaml,
+fsl,ls-msi.yaml, and fsl,mu-msi.yaml).
+
+> +
+> +  msi-controller: true
+> +
+> +  '#msi-cells':
+> +    const: 0
+> +
+> +  label:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Name of the MSI domain. If omitted, the node name is us=
+ed.
+
+[Severity: Low]
+Is the label property appropriate for mobileye,eyeq5-msi.yaml?
+
+In devicetree bindings, label is intended for human-identifiable physical
+labels on a board or enclosure (such as external ports, leds, or buttons),
+whereas an irqdomain name and driver fallback behavior are kernel software
+concepts. In drivers/irqchip/irq-eyeq5-msi.c, this property is only used
+to print a boot message in pr_info(), and no other binding under
+Documentation/devicetree/bindings/interrupt-controller/ defines label.
+
+Additionally, if label were ever kept, its string type is already defined
+by core dtschema common properties, making the explicit $ref to
+/schemas/types.yaml#/definitions/string redundant.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-eyeq5_msi-=
+v2-0-4aa3d3608064@bootlin.com?part=3D1
