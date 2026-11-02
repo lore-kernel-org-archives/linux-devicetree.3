@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619323;
-	b=i1CHKTL+b0g0oB88lDiC1vfA28mvWS3+KXo0eRKQfJrIs3tfFpMvI6OTvZBCj0icexYD
-	 3EgsRDl+H8/IWsqwDhUaMyP1GyvbDOZ90Ju8PYdvOO6mtKQumvCqxVgSuZKjbyPqng9ZN
-	 2IqO8MgvvRH77NASWtLdjemWamKiX0hJwmyRgv+vX/QV0k/u+dzuIes+b2/rGA91thQwp
-	 76kJy3wVeaeUzE/OZZ7Xn9VZEeoYy5QJGg8OsCOdopj7+8TOAUwigfUtIo4v1JzXSyk1L
-	 iU9LJw+cC5tc5EWWW7oVAgZAieQBdppuJtqm/KrOBly23htaSXu58IhprInPQZrPq8A==
+	t=1793619394;
+	b=u8o2iXf4dpXmVncLMTe+oG/kuPIU1uJ67C295uVyWI3M3k8KBCZR0rm+YhmjfsvEcy1C
+	 B5BU1Gk66YQWm7hdtxU2WfH9rnJjRG+sPzrF7Xkgu5xF1W1fmsKKr3iOCKwYYqvvzZAtv
+	 z/E5SCGPuzC49LQvrzJfbsTX+carpUnTEfA3KRxYe6l9F3Qe4ejC22LsDQAYbR0a14b5v
+	 uYcQjEbBavIwGlSO4YLx5nr+2cMZ0l2y1+S8RHYhz/zk8tj8JgATdO1op5EjF+8+gHz+s
+	 DxT4X1KpCdCC8ShqPt9efQG16TclBTZ/OG8FEzUI+4QVAezrqPUoCnzIeXDbq4xJ9sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619394;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CF1jr6GRQSNTpKRllk67ZQnHtv9gh0KtJu4qQ45Jgew=;
-	b=cdPwGmkazNZP+CQPiv8v9GhfPMV6UgORuEA6MoK4+6yLaZAzEpMNYfXhKiSPY0dcq3uH
-	 Pi0M4KqmckBD8oo4Gr2fF1GHOdKEP5FgueALgXEiTBGYUPP+N46I2nz/6lXLoTGnBQ54K
-	 YyQ/w1yh8IDAUolflfw/XQovNk1vvdfv3GUnaQzaLSDT2tD9rl5Yvab7wsch+uk99I5jl
-	 FvklwUG6tFsEO+2e7coumC21tqySnP5zXU032r/0nOFQ+iZkTeR65MWlnkqNDuRksZHBJ
-	 zuXsAX9w7EuWcXfiMKXAZtEKb8yuB1UP1LSrOsnBfSCw2nkhJQUDoe8anYhQypOuGKA==
+	bh=Q7yr2pjyVHcaYoQn+v7ayfwqL+qFJkC864TRHPRSDZQ=;
+	b=w+BHqtLUTvvGUkERPzZD6WxQD+6k2N4f/hMlcUSySTxbfIXapV1flCQ0DMwDVL146fn8
+	 ZGpDONbTIGFCbrG4VZ1ziDpADblxG9RPBvmmsgIqsvGIn+Ib6b0LisBIhwDvq7BGq2X0q
+	 8lrcwPp4ReBRLFw0vKlV4YLuMaShOVegYU5kWyJF3zJ6xGatm+XsnHf/l1cHTBfvx9KY7
+	 +sSBDQd5uyb30LGGkxfVDY9CD4kiW9dxEZ7nLyrZR5aEnLCZNcT3bVbOapu+PMH1zSYoF
+	 lLMbV56fVMPiwb+ymclH8EhNPUpsycobjTirKDGJ3eX00G2K5DuW74ZiKg6+vxTmQ+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doLdGfuG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRmcwiY1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB9B606A333;
-	Mon,  2 Nov 2026 11:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072CB606A327;
+	Mon,  2 Nov 2026 11:36:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doLdGfuG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698091F00A16;
-	Mon,  2 Nov 2026 11:35:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRmcwiY1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62EF1F00A16;
+	Mon,  2 Nov 2026 11:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619323;
-	bh=CF1jr6GRQSNTpKRllk67ZQnHtv9gh0KtJu4qQ45Jgew=;
+	s=k20260515; t=1793619393;
+	bh=Q7yr2pjyVHcaYoQn+v7ayfwqL+qFJkC864TRHPRSDZQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=doLdGfuGVrltouJIqgBGR0f7CCDjfsFAj+eIlt24pk4LQawQW1n68UZPnruEk1d2u
-	 3AYSMzTUomXjXFUqu9VevcQRdHmFDPipwW+NG023TtSP/ez+U3bgm7RKY808xqUUKO
-	 FOqlAzE9Ub6yV81JP2gmYiBEktl4AzeNtvxwyh2NQRPvruE5RioBSAyyPEz581/7H6
-	 k5E6Z7EliagEjOktRITBeWr52CskEs3O6gQbUw+NFq+O9/Wz+NW8DDhFIXMm9/tbDw
-	 3tyy4CcEbzXD3fSc02+xN9ucdBIUwBn8aijOj9VsOQ6ls6ODzlPZXAUCdNuPfqQzVa
-	 ma3z3CvCY29bw==
-Date: Mon, 2 Nov 2026 12:35:19 +0100
+	b=hRmcwiY1SLbm4fFTYsqLIuH7sac5tFchyISgNsdlizLMnEkg9/Ih82hOZeeH427yS
+	 aww3Hqxd1Gwshsnnue01ZtvH8gG+hQQRUfTTc8LOL4VCsqvFBeJ7nkqWWpdnSi7xQw
+	 p7gOnCAfHML3Q3jqZJzbte20c5sA6Vja9EMYWQ+Txa+9LI/O3waL0cUXHjR3mZnPJa
+	 Qr/0EHe7CR/fZsAtI6/shNtVn7XV8Qty6q/eUS1x29KPNazoELk4sT3Ek44b8lvbGz
+	 p207mESNX7QhLuNy4vw420FQPblfNr2kkyoBFIEe58hHAcgSLLbLxMsFvEmGoALbHO
+	 h9pqLz8Lw8utw==
+Date: Mon, 2 Nov 2026 12:36:29 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: display/msm: Add SM7250 MDSS
-Message-ID: <20261102-wandering-peach-lemur-0c57fc@quoll>
-References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
- <20261031-dpu-sm7250-v1-3-159f403ec405@brar.si>
+To: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Cc: daniel.lezcano@kernel.org, rafael@kernel.org, rui.zhang@intel.com, 
+	lukasz.luba@arm.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	ansuelsmth@gmail.com, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: thermal: airoha: Allow sensor indices
+ for EN7581
+Message-ID: <20261102-beagle-of-optimal-fantasy-a1ebe7@quoll>
+References: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
+ <20261031141912.1664575-2-sochnev.v.74@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,117 +62,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261031-dpu-sm7250-v1-3-159f403ec405@brar.si>
+In-Reply-To: <20261031141912.1664575-2-sochnev.v.74@gmail.com>
 
-On Sat, Oct 31, 2026 at 01:23:39PM +0530, Ishu Brar wrote:
-> Add the binding for the SM7250 Mobile Display Subsystem. It has the
-> same clocks and children as the SM8250 one, so it is modeled on
-> qcom,sm8250-mdss.yaml. The example uses the SM8250 clock and
-
-No DisplayPort?
-
-> interconnect headers, as the SM7250 ones are not upstream yet.
+On Sat, Oct 31, 2026 at 04:19:11PM +0200, Vitaliy Sochnev wrote:
+> Allow either the existing zero-cell form or a sensor index that
+> selects the main or CPU ADC.
 > 
-> Signed-off-by: Ishu Brar <patches@brar.si>
+> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 > ---
->  .../bindings/display/msm/qcom,sm7250-mdss.yaml     | 351 +++++++++++++++++++++
->  1 file changed, 351 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
-> new file mode 100644
-> index 000000000000..aada943e0cf3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
-> @@ -0,0 +1,351 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/msm/qcom,sm7250-mdss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SM7250 Display MDSS
-> +
-> +maintainers:
-> +  - Ishu Brar <patches@brar.si>
-> +
-> +description:
-> +  Device tree bindings for MSM Mobile Display Subsystem(MDSS) that encapsulates
+>  .../devicetree/bindings/thermal/airoha,en7581-thermal.yaml  | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 
-s/Device tree bindings for MSM Mobile/SM7250 MSM Mobile/
-
-> +  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-> +  bindings of MDSS are mentioned for SM7250 target.
-> +
-> +$ref: /schemas/display/msm/mdss-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sm7250-mdss
-> +
-> +  clocks:
-> +    items:
-> +      - description: Display AHB clock from gcc
-> +      - description: Display hf axi clock
-> +      - description: Display sf axi clock
-> +      - description: Display core clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: iface
-> +      - const: bus
-> +      - const: nrt_bus
-> +      - const: core
-> +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  interconnects:
-> +    items:
-> +      - description: Interconnect path from mdp0 port to the data bus
-> +      - description: Interconnect path from mdp1 port to the data bus
-> +      - description: Interconnect path from CPU to the reg bus
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: mdp0-mem
-> +      - const: mdp1-mem
-> +      - const: cpu-cfg
-> +
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +
-
-Drop blank line
-
-> +    properties:
-> +      compatible:
-> +        const: qcom,sm7250-dpu
-> +
-> +  "^dsi@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +
-
-Drop blank line
-
-> +    properties:
-> +      compatible:
-> +        items:
-> +          - const: qcom,sm7250-dsi-ctrl
-> +          - const: qcom,mdss-dsi-ctrl
-> +
-> +  "^phy@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +
-
-Drop blank line
-
-> +    properties:
-> +      compatible:
-> +        const: qcom,dsi-phy-7nm
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
