@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616998;
-	b=Iha9nVb773RDn1EsGO4JqXB8WOpZMzhPep3rjO72ziPxlndN67g2tkq2IuSXH0a99+oe
-	 nMi0OlP0HQzlxP2/WqG6UAeqxAPUbBH88JD/jcr3By6H4FwHaJb9QiDShKns3jikzIPm0
-	 H6vLGoSnqgQk9uNbJVKluyx+R7aaz+Lt9Bk2M6+kDZj7gob2avKtQfEWBIfjGnnnDPTt/
-	 UXnI4+DXUTZsDsyU/rzDMvpngmvvI5Wvn47dkMfPyyGuXHdp7LKLAYWTfXROo0KZ4Rwdi
-	 PQODF0qE/o3ZuXSdrCBPX0T84+Zk00n8ROESXk1WJfJr2vnuQqNfJNF8HGgK0jW4HNg==
+	t=1793617074;
+	b=dksXvlIN5T5Hhd0sAn3KZiXCEqLc9vQO4mIKuFqCTZkH7qpRvhJ2A2VhniW2P0Rhg8Lh
+	 +Dgydb2mJnI1YE8V/+TdzS4SAZ+B9qkXjyjk4wbpI4hgSgwYgqUq3CNfInvbo97dXfdIV
+	 IAGbp8cj9yZjTaDu4Nn/P1zDHOduinswmKF8AZpazvBFr+4NUdr9f+uxdE9RHG/jLwnSt
+	 oRXQdgZ3XyLpUuTYrEn28FTf/sZqgMLKzsuUYB3leDNzHijsGhH5nPEHOPdv5PurG4LCf
+	 0Owgv0JkYFR6UpIY2O7GpwTpMgtQdxSpf8wZRfHxjL8Xd+YhUuWdYz/OODGr13qJGhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617074;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=cDT1Bs08+9jkqNwANs+D7G9F4Db9tAFvcdQ40nj/kgc=;
-	b=dOGrn1bqBtIszfEKIILlhW2Sb75zxi2cV2yRqb8dboQtVSV1iV8Yx2qkTUih8NpQEwUQ
-	 nfA2wtyk/dnIKHIn5f15w14aae4bJmNdv0CfliOUzDfYHKehtyLTeJHEB+lCw37bmDZSI
-	 TtDWCiBW2aP0KspiIguuhOMD94nbPqGnMypHKmr59JJdpYVsnS7/1oSEkZU7cybCkowwo
-	 3P7VBVAMaoMs99jB9FPXVVtpv9i62BnPPClY+NgiY+NlYQehsZ5C3W/kLzRero598ij7e
-	 UzSaqH88GVPjNBX7pIlbiW/TlW7dx7TcUbJ1Af/9JKJX/syB72vZ4jJh8A6j62iktcA==
+	bh=Qt69dui3vM1hwfTQp40iWXN67/TizZiz9/GxVsOWtr0=;
+	b=ZY/JGtndcMgeTHsf0UbYLepJ6hl2NW8eXYyGTN+pfnh093ed/aUfyOGBgjE75ukYdIbm
+	 rJQBh6FcSqiWwfheERJSNDRukEHVmDR0tFvw9RgIWZ/aH1QXql04JBGN18yTcJW9xJwYH
+	 Cqk1NNpiIsTYzL3NxhTxtxL2Mt4TdHkFDZF91Kyj73Ad4Z6L02CmGUcwfNRMNegY7VBAx
+	 lGBOPvRs6DjpcU/+W+dV2wSN9CH0SVNe7CcsLwBoLp02JY5W5zfMuZE41GHxbdJAnS9Z2
+	 3P25miwh2N0dYmrukB7RfjS8aVuI/XS3Hir3zG6iSO7smpVDaa750tVHaIXuQv0CEjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zelz7x9n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMbdkBFf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30A3606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:56:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6887660A2601
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:57:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zelz7x9n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A77A1F00A17;
-	Mon,  2 Nov 2026 10:56:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMbdkBFf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD831F00A17;
+	Mon,  2 Nov 2026 10:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793616997;
-	bh=cDT1Bs08+9jkqNwANs+D7G9F4Db9tAFvcdQ40nj/kgc=;
+	s=k20260515; t=1793617074;
+	bh=Qt69dui3vM1hwfTQp40iWXN67/TizZiz9/GxVsOWtr0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zelz7x9nG50un+AFoLr1zRjvPR2Y/CVhmM9MsDpexrJwgX0htRHS2utcGYRP9k73X
-	 hVKD00meFI+qd4hdqc+EizmlvUeYIr/XhapFweY3p4uv9ZDdUI+ORexVI1E/aSHGyi
-	 cwZpTFbPuSl8hVjHbUJyqJdMPMlZVt3eD0iPqyelDrJW174vT18ZCbPsSnOc5h+p71
-	 WR387DO4U6tpjhd5PI0tyxOez21fYmyxwyX5R5XKuqFyA4pvbU8meXh+NvKGsv9Wi6
-	 YGoIrIzLQwaGedCqDmM1gB4dIDn6sXSONi2vlmWA6BrEX1SOVNmqBaiNDvej/l5NsF
-	 t5uZ+hoLwzLtQ==
-Message-ID: <sashiko-outbox-193299@kernel.org>
+	b=fMbdkBFf2z4tPwm/mjEERGxtwXgw1RXkhFJM+BoORC16ZP+vyV9CYKP4yCPy3yoZN
+	 S5k+GuvR13ysPsQiaCTCub9eEKa6CZkrDjWxboTbE/D74hlbA/ZVfgPWRFwyUEHhQD
+	 AF5aW+yvAcyk9gh1k1rDyLY+1T8s0zU2hkmAjlLHuSWazTe74WIigYKbWchBOiSW+G
+	 KOLF2obC//1bosiv5+8PWCVjanPF9mwa765MNJpb6yQumwnvDvdRsXJ4AEE/W4ByWh
+	 tZUxkclBCls47yRde14Y/4AFVP0Knz0z4FSKI+D+cbXsKPxATOzvhW02JruFpk8P6j
+	 /U26gRwn9MyZQ==
+Message-ID: <sashiko-outbox-193302@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v24 10/15] media: qcom: camss: vfe: Add support for VFE
- 1080
+Subject: Re: [PATCH v24 12/15] arm64: dts: qcom: kaanapali: Add CAMSS and
+ CSIPHY block definitions
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
 Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261102-kaanapali-camss-v24-10-d6b8f3f6f66f@oss.qualcomm.com>
+In-Reply-To: <20261102-kaanapali-camss-v24-12-d6b8f3f6f66f@oss.qualcomm.com>
 References: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
- <20261102-kaanapali-camss-v24-10-d6b8f3f6f66f@oss.qualcomm.com>
+ <20261102-kaanapali-camss-v24-12-d6b8f3f6f66f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 10:56:36 +0000
+Date: Mon, 02 Nov 2026 10:57:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,106 +61,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] media: qcom: camss: unsynchronized CSID RUP/AUP updates in vfe_ops=
-_1080
+- [High] arm64: dts: qcom: kaanapali: csiphy_mxc_opp_table uses invalid 300=
+ MHz OPP
+- [Low] arm64: dts: qcom: kaanapali: unused include of dt-bindings/phy/phy.h
 --
 
-commit fa6d43fd7f6f3cf7fc60f961a5b80cfe5e9e3b1c
+commit e55da6889b7174ae815f4ae6f06a71a14f566861
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-media: qcom: camss: vfe: Add support for VFE 1080
+arm64: dts: qcom: kaanapali: Add CAMSS and CSIPHY block definitions
 
-This commit adds support for the VFE 1080 (TFE) hardware block found on the
-Qualcomm Kaanapali SoC, including register configuration and subdevice
-resource definitions.
+This commit adds device tree nodes for the CAMSS camera subsystem, six CSIP=
+HY
+instances, and the CSIPHY OPP table on the Qualcomm Kaanapali SoC.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers=
-/media/platform/qcom/camss/camss-vfe-1080.c
-> new file mode 100644
-> index 0000000000000..68798f13fbea8
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
-> @@ -0,0 +1,213 @@
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> index e48a179d07220..e107bcdf0f8ef 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -20,6 +20,7 @@
+>  #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +#include <dt-bindings/phy/phy.h>
+
+[Severity: Low]
+This isn't a bug, but is the dt-bindings/phy/phy.h include needed here? None
+of the macros from that header appear to be used in kaanapali.dtsi.
 
 [ ... ]
 
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
-_id)
-> +{
-> +	int port_id =3D line_id;
+> @@ -6548,6 +6925,28 @@ pdp_tx: scp-sram-section@100 {
+>  		};
+>  	};
+> =20
+> +	csiphy_mxc_opp_table: opp-table-mxc {
+> +		compatible =3D "operating-points-v2";
 > +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-> +}
-> +
-> +static void vfe_reg_update_clear(struct vfe_device *vfe,
-> +				 enum vfe_line_id line_id)
-> +{
-> +	int port_id =3D line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, true);
-> +}
-> +
-> +static void vfe_addr_update(struct vfe_device *vfe, enum vfe_line_id lin=
-e_id)
-> +{
-> +	int port_id =3D line_id;
-> +
-> +	camss_addr_update(vfe->camss, vfe->id, port_id, false);
-> +}
-> +
-> +static void vfe_addr_update_clear(struct vfe_device *vfe, enum vfe_line_=
-id line_id)
-> +{
-> +	int port_id =3D line_id;
-> +
-> +	camss_addr_update(vfe->camss, vfe->id, port_id, true);
-> +}
+> +		opp-300000000 {
+> +			opp-hz =3D /bits/ 64 <300000000>;
+> +			required-opps =3D <&rpmhpd_opp_low_svs_d1>,
+> +					<&rpmhpd_opp_low_svs_d1>;
+> +		};
 
 [Severity: High]
-As reported by Sashiko on v14 [1], can vfe_reg_update() and vfe_addr_update=
-()
-race with csid_isr() in drivers/media/platform/qcom/camss/camss-csid-1080.c
-when updating csid->reg_update and csid->addr_update?
+As reported by Sashiko on v23 [1], should this lowest OPP in
+csiphy_mxc_opp_table be 266666667 Hz (opp-266666667) instead of 300000000 H=
+z?
 
-In drivers/media/platform/qcom/camss/camss-vfe.c, vfe_enable_output_v2(),
-vfe_queue_buffer_v2(), and vfe_buf_done() invoke vfe_reg_update() and
-vfe_addr_update() while holding vfe->output_lock. These forward through
-camss_reg_update() and camss_addr_update() to __csid_reg_update() and
-__csid_addr_update() in drivers/media/platform/qcom/camss/camss-csid-1080.c:
+The CSIPHY core clocks (CAM_CC_CSIPHY0_CLK through CAM_CC_CSIPHY5_CLK) on
+Kaanapali are sourced from cam_cc_cphy_rx_clk_src, which only supports
+266666667 Hz, 400000000 Hz, and 480000000 Hz and uses clk_rcg2_shared_ops:
 
-    static void __csid_addr_update(struct csid_device *csid, int port_id)
-    {
-            csid->addr_update |=3D CSID_RUP_AUP_RDI(port_id);
-            writel(csid->addr_update, csid->base + CSID_AUP_CMD);
+drivers/clk/qcom/camcc-kaanapali.c:
+static const struct freq_tbl ftbl_cam_cc_cphy_rx_clk_src[] =3D {
+	F(266666667, P_CAM_CC_PLL0_OUT_MAIN, 4.5, 0, 0),
+	F(400000000, P_CAM_CC_PLL0_OUT_MAIN, 3, 0, 0),
+	F(480000000, P_CAM_CC_PLL0_OUT_MAIN, 2.5, 0, 0),
+	{ }
+};
 
-            __csid_aup_rup_trigger(csid);
-    }
+When phy_qcom_mipi_csi2_power_on() -> phy_qcom_mipi_csi2_set_clock_rates() =
+is
+called with a link frequency where link_freq / 4 <=3D 300000000 Hz,
+dev_pm_opp_find_freq_ceil() selects opp-300000000 and sets the RPMHPD_MMCX =
+and
+RPMHPD_MXC power domains to rpmhpd_opp_low_svs_d1:
 
-Concurrently, when an end-of-frame interrupt fires with INFO_RUP_DONE set,
-csid_isr() in drivers/media/platform/qcom/camss/camss-csid-1080.c clears
-those fields without holding vfe->output_lock or any CSID lock before calli=
-ng
-camss_buf_done():
+drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c:phy_qcom_mipi_csi2_set_clock=
+_rates() {
+	...
+	opp =3D dev_pm_opp_find_freq_ceil(dev, &opp_rate);
+	...
+	for (i =3D 0; i < csi2phy->pd_list->num_pds; i++) {
+		...
+		perf =3D dev_pm_opp_get_required_pstate(opp, pstate);
+		pstate +=3D 1;
 
-    if (val & INFO_RUP_DONE) {
-            __csid_addr_update_clear(csid, i);
-            __csid_reg_update_clear(csid, i);
-    }
+		ret =3D dev_pm_genpd_set_performance_state(csi2phy->pd_list->pd_devs[i], =
+perf);
+		...
+	}
+	dev_pm_opp_put(opp);
 
-If userspace queues a buffer via VIDIOC_QBUF -> vfe_queue_buffer_v2() when
-output->gen2.active_num =3D=3D 1 (or enables another RDI port on the same C=
-SID
-via VIDIOC_STREAMON -> vfe_enable_output_v2()) on one CPU while csid_isr()
-processes INFO_RUP_DONE on another CPU, the unsynchronized read-modify-write
-operations on csid->addr_update and csid->reg_update can clear a newly set
-bit before writel() writes CSID_AUP_CMD or CSID_RUP_CMD, or clobber bits
-across RDI ports. Would this cause the hardware to miss a buffer address
-update while output->gen2.active_num is incremented, stalling capture?
+	ret =3D dev_pm_opp_set_rate(dev, opp_rate);
+}
 
-[1] https://lore.kernel.org/r/20260601164403.8CE831F00893@smtp.kernel.org
+Because clk_rcg2_shared_ops rounds up via qcom_find_freq(..., CEIL), calling
+dev_pm_opp_set_rate() with opp_rate =3D 300000000 skips 266666667 Hz and ro=
+unds
+the CSIPHY core clock up to 400000000 Hz. Does this leave the 266.67 MHz ra=
+te
+unreachable and run the CSIPHY core clock at 400 MHz while MMCX and MXC rem=
+ain
+at rpmhpd_opp_low_svs_d1 instead of rpmhpd_opp_low_svs?
+
+[1] https://lore.kernel.org/r/20261028-kaanapali-camss-v23-12-95f250b18612@=
+oss.qualcomm.com
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-kaanapali-=
-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com?part=3D10
+camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com?part=3D12
