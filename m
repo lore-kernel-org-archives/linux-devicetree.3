@@ -1,56 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608271;
-	b=aMY+hmevd1oqxNX9fF3gW1Yj/wpFpnrY/kgZ0UAIvU7KBwPWqaH2BuaUdZghbbveOPat
-	 ecDhswgKxglK9zr/76aKpBVEwtKuNRXKspbQjZ0xiceU6jqJmqSss0+clMsjhwKmA01ib
-	 SMGiuYeRBLkVfE9lxGbVjW0xIM6oPxJQq8cPIY5M23clmxmMrkfrbbL+eqV/FpE14kvm+
-	 UPYGauhQl+eTnpHFWawLWD2dIZSn6GQGFySiY/MLvwXbWIqtRvJxqeVQo3UCk8o66lHXO
-	 RVWpyGim3QhXjwyJpv+mWrF/H1quBt/AjV/s00oBs9082fFzLbH75DGwz6mRr0aFMiQ==
+	t=1793608282;
+	b=gY/QyuDLXYoyYJmUFkwWd/Jr2lJMxdD1fWWt6AgCgFW5v+GR6N4WeXZ9j/WsFFmQzHLc
+	 RTnevpKCW8ig8zRveBGIZDQ2CLMf/BBky3oHRxhjbJ8Ow/7Tdje0l1SDiNZ5SLwTxCzi+
+	 azWC3i5Tyk+rHmMNBDcHB+b09zrPZcHyW3wsmRBShEE1ATAIm4fQwRE+1KCeG4XWn1B6g
+	 WwAn2EMTCFWyqlQnKZ978t475whurlk30WnhqrAH3KRQZ5lwD7Gkec0nG1P1DBoN2+PcF
+	 nl+z5N6p9SaSFqRu2g+xPfRiY8HzY1uu0g7RwyrpIxuKLoXldjuUEGNdogKxba4rcog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608271;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QAzV5TO72cGFZEXPcWWzIfJualQR1RjeQFeYLg+uSyg=;
-	b=neP01UKSdJX9RqMjiSsiXm4CrMD/90IR90ivV4ImD2QCvf/Zo4P4tjoc94UCznsb5zlI
-	 syD/6QmjnHdUKyCy5vKvCy4a6ksdZsHnLLkTZfdWg+Fu9uu2kuzdCrHQ/tmaOeo3KPF++
-	 TWdKRDqZF1Jh3U5ymq2Kt6Lz6VKNCHhgf5DEPZOByJ9lPr9PmgeXVA9Xfk3YCZFNR+t5t
-	 OaNsmmEc+Z5qkeAB1ROW+qBLE5pKkTOgWDHrVgfISn4xHU6QXY6gHxbM97VXg2Os5Voec
-	 JsDa3P6XAknlL81ElMUrIM54H8AsJpzsraGmRLCq4gXPdelHd9TWv/nTPVybXbjkfXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608282;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=uMYB9Ukf7PZSRlLsRb/17nPBPI78tPEvnCpbI25t39o=;
+	b=G66yy92R5MtglQV3msXWlMakO7BHUycH0FulnwcUWN/HZAJjRSVySo24e/w0Vo3tFPWg
+	 3gGT1CY4zo4UMSbcEwS4YeQBI2CYLBwezY/itKnl/YI1aY/VCCdCwlIyNW8H1Z/MwN7Zz
+	 9pUwSnhAxiajw+JUEwUYHIico+kq/dD42C/jtCeiZbrAVaGbhCro8PtfxfkcEveOrmEy7
+	 mRO+R2Uui8jwSvcTqn4rXq0O4vZiwMSRm/iUFSdufxR3xz1ru1xwKJOOJRmra6P93jo5i
+	 7JAHnwp/tYPT7s3jwHPW2hxDzd4ofTvjDuTuMa9oeK7nwhfD2Nnl6AHOt0xMC9gtB+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=crxT+tjy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=W1vi71yW;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=goY8BwUG;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64325606A33A
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:31:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA4E606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:31:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CA4E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=crxT+tjy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ADDF1F000C1;
-	Mon,  2 Nov 2026 08:31:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608271;
-	bh=QAzV5TO72cGFZEXPcWWzIfJualQR1RjeQFeYLg+uSyg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=crxT+tjyN6SuqtN2/vaGLbDYFdOOxtdZwAxuYePJSdbEv6wrcH654ks3SiKVRhaJe
-	 i1IUeW3vDX316RPNflgDXOQXcN8CIbj113j7gt4oeWioTjJvKEPsfLU5Nhm2nxnPH1
-	 o2477smMU4i79ng7Jvvehzxz1eGHRTuRWaNw4inXw8FLtYLf5HJ1XihLggegxrD5i3
-	 IiWYpBofrwsGfOEGzmhZTil/EFP3eV7RRkHtKfeyMuAEPj6yMec59lRm4x6VoH9gkv
-	 ARcHTfplKPa9Nm9jC8D//F0P1MHv9JfIP9I813xoMzoFr1mBP61kNEeoDJAp5KYX3T
-	 WlmNQ4ZXcpSXw==
-Message-ID: <sashiko-outbox-193112@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] phy: cix: add Sky1 USB/DP combo PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gary Yang" <gary.yang@cixtech.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261102081532.2305142-3-gary.yang@cixtech.com>
-References: <20261102081532.2305142-1-gary.yang@cixtech.com>
- <20261102081532.2305142-3-gary.yang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 08:31:10 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=W1vi71yW;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=goY8BwUG
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vPEv3324795
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 08:31:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=uMYB9Ukf7PZSRlLsRb/17n
+	PBPI78tPEvnCpbI25t39o=; b=W1vi71yWuacj7PkulWZKjD4qLBxdffHsFSFJKe
+	hLlMwV+nqExr1gnYwwK3meM8tIPUgkDPJTIKXHjDpz89/0KfAZY3rWxkFuc3LU23
+	FOUn19PgzjWU6b2rGBwnCAxQ5M8MmOcZDRgT+P8iixwTN5NwaUCwJzUMtPuzjTZ6
+	MOSy+8xQOlu562EXpiCxu0hgaZ2jzF4zR/z6C/wgU3vLb8kfdPnVwsRR265oe0Pa
+	Nl/LSyytuVcoHIQFZTlnGxoivegh5kvq049IwXTKZjMj6oFBpsBJvqk78FNXZi1n
+	9HeZRk76BRa1Peqglwk39HLiFAXPEg5U3mHcB6V2iaEBRIOA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6p2ua-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 08:31:20 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89e05d31e54so1838362b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 00:31:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793608279; x=1794213079; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uMYB9Ukf7PZSRlLsRb/17nPBPI78tPEvnCpbI25t39o=;
+        b=goY8BwUGZyqdLM1m1qiwoDmdd6J1eqRmx9qRBZjiTdyoruv7IGUsDTrz3VCP8MpX8e
+         qmxB6dBEWAC+QBLJ8wJZlRw1tSOU+fqBBrvoYpGb63/avIj5U5SL0AjeTaUQD88zfIZ5
+         WD7QrN5yvPf7ib7pflpCf9exHZVOSOViLSzXV1RbNYwAVgCOwhIlzSi4Rcvzm564tpF8
+         mOuAayKzH9qBNm9U5NrCPqJUpmTv83DYwDszkb90Vl+cHIxfVZhrgviia/peXXDR2MHP
+         juUUQB2fWqnogYao8ncPRrQ54S4BVfOVuAehovtPlJa+ZJG8fg0D6uUm2ecjJZPVKu3l
+         inWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793608279; x=1794213079;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uMYB9Ukf7PZSRlLsRb/17nPBPI78tPEvnCpbI25t39o=;
+        b=N0o/oimHE8DKzzOzM5HlREHoz6Vwxl/RLTF1H7BKkpk7y5LNt0nM8LwVyXTb5CZ6b3
+         eolv2/s17Hy95nB/9hK2C2E/ZOAbKCPFkJuXuFZurfsawDNoON6rxsVsYnRKf5+ZPBXK
+         XUXJUNFSarHsSeFliOS/t+qbwhy+Mpzb157FdMDOyPvU2JeCOsDnbAh5evcZhqSsT9yU
+         g7YyETAtpo/ty4CzGh8necLUCHcyoueR8S8vgQ+RYtcFbq03blojyqIp+Mld6hWfLaJz
+         L5CsI3Ljx0VUuPrRVCFT++xFnhXdwNbpKac/7jwb30SMLaPx0LtLJoj1S62ag8lsvT70
+         u4tw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJJWXIHCJmWWNVETdHINmAIL8kvjk7HOTr9qtOkv1rfzOxIR/mU4KA7tYNELoL7DGPZWp18ckCVHGs@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrWAoxHXPeqE69HCCbvndBP70ur5m2Q40ygGhr/oySRxtleW0p
+	s3324D2htQjzFVSzUjNz+teHbJTHtJ4AkpxuoeBAqBptC4qAvOzOJYp0bxirRdV4IlNv5AQEoUk
+	DQuyeWrDPXDXniRmMjxs9X64Op3CZd0B8g8Lltkyg73pV1bY8yPTosb0NGKvsllN6
+X-Gm-Gg: AYBFou3jucQLrGE2vgXFjl+qCI5DZ/RjKI9NJB6+Bn82HnHTEUoR58M5hz+qeiT/CE8
+	MHVihjc3XJu24mYrPtkwXOeyoruy8tTUu8JAofrpwWV9EHAJOeTaNcHl49qvtAUeUwupd/v1nAV
+	0NeDv7tYaC582hubMW+e4Z9rXVpxBnS0E0UJvoDh92/czQfwXIaUn/yH/50w6vg1Ewo/XknVUKF
+	9sFgD1RjVGe5MIAd6VowDYDunOeugg5ucPb7VQn0CLolWACS/nDsHqKKktz9HsZDNjUSh3HG9Em
+	KVTZ+4i0G/prKA3ICykIKh4cjMcKAflU4pMmbvDj1zgP/0fRX6xSRtusepsG1kPi6UglumSKd4A
+	ITUEXCSFNHyX+7GGz11Un2kG02kcEBRtxQ1UEXkOQNaU58Pl/8CHY+xJGniaQ1pS0bd6MuZgUeD
+	q1dK8mlg==
+X-Received: by 2002:a05:6a21:828c:b0:3e2:200b:dc24 with SMTP id adf61e73a8af0-3e928b1a148mr6877472637.90.1793608279268;
+        Mon, 02 Nov 2026 00:31:19 -0800 (PST)
+X-Received: by 2002:a05:6a21:828c:b0:3e2:200b:dc24 with SMTP id adf61e73a8af0-3e928b1a148mr6877443637.90.1793608278752;
+        Mon, 02 Nov 2026 00:31:18 -0800 (PST)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d03be0sm1674680b3a.27.2026.11.02.00.31.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 00:31:18 -0800 (PST)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH v7 0/3] misc: fastrpc: fix ADSP duplicate session creation
+Date: Mon, 02 Nov 2026 14:01:01 +0530
+Message-Id: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,559 +114,136 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEVK6GoC/3XMTW7DIBAF4KtErEsEw48hq94j6mKAoUFq4tQkV
+ qvIdy/Ooq6sehYjvaeZ78EqDYUqO+webKCx1NJfWuhediye8PJOvKSWGQiwwgrP0/3KK9X5rnJ
+ CwIgYpfeatZfrQLl8PbnjW8unUm/98P3URzm3G9AoueRgvdIYgs+oXvta9593/Ij9+bxvi83eC
+ IvRCbcygAueUIvso3cIYcNQi+FArwzVDB2E9ImyJrFl6L+GXRm6Gcq0SRAyJb1hmMXwoFaGaQZ
+ 5o6RSKB10G4b9NaQAuTJsM0znMBgIaG38x5im6Qf/rFDPAwIAAA==
+X-Change-ID: 20260609-dup-sessions-ea2acaac1994
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        devicetree@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793608273; l=3324;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=G5NPjxUkQvJJP+CDo3Xybd8QTltubPZ+eNMbx/UPZDA=;
+ b=HZJhg9wSGdENOnWDyj+uqK8+1TjvNtFK6AlbEJkorfTODKGPHr6t3xi3NJdFiZR697dZXNTrO
+ aiK/AGrwAqsCYwr1OnZ/B6sEMuuRtR1VUBXoZR+d1gb5v5oD/iPtX1l
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-ORIG-GUID: PFzkKgrvKAJr5xJKxQpN4sSoDieR5C_z
+X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae84a58 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rtvGdRlZkeXjFHPAfbIA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: PFzkKgrvKAJr5xJKxQpN4sSoDieR5C_z
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzMyBTYWx0ZWRfX3XbbrNhBZ80n
+ ulj/cpBVdXypV6S5us6KMTkyJsGbxbtjvTtVR/N228rHKCPhXwzMwb0q72EAwMgt+vZt3saFahm
+ 0hUl6o567fMn4Cm+qIyQc8PRwRr2VqI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzMyBTYWx0ZWRfX9ixp4XrygFLZ
+ tSin6T7ek5Xde5/lolsNZUcPN9ggWJpoxVHyWeDb3ojUGBSGBuYQVqvgkZAcKbujk4MnjG7Td2B
+ rLgBU/9vFbo0bPAQA56WhIjbV3PP+Ec2omhE/cGKsgqhxcIfSHl7nXH+YL19z6sxaXCvxueVmz6
+ rMMjepc4phqqI+dYClfFVJyzAVDqluANRTrXUXaXwpA/GCEs4iLtpmGI4NkoCH60jmGv/Ohhwut
+ LAkX3CGQ32S5c0V6g44en+XWX1t8eXzUVnmKgh2mYzDalcC/XbQlAa2o73nLj/wmacOk/8wcBrq
+ Ozjqn5oj1tglVJYXxCsrtKKy11yCBXJEeUpDDRz8ux2dTiBKj7BnkIqR3rPjlmQ/ZIf4oKGAZU8
+ 4jUd+GlSF72RZ6fbeBV1wuDShnp2Wt8GEEDDmvCn0OlsFJCZZBN4o4tomJsbSz0VkLJ0uBl8Zd5
+ 87YdIcg2c4tvHcrnugA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020033
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] phy: cix: wrong link_rate units and early PLL disable in udphy_dp_=
-phy_set_rate()
-- [High] phy: cix: lane 0 voltage and pre-emphasis applied to all lanes in =
-udphy_dp_phy_set_voltages()
-- [High] phy: cix: missing .init callback in cix_u3phy_ops alongside .exit
-- [High] phy: cix: clock enable leak and broken mode/orientation state in c=
-ix_usbdp_phy_power_on()
-- [High] phy: cix: unclocked MMIO access and missing lane bound in udphy_dp=
-_phy_configure()
-- [Medium] phy: cix: missing SVID check for DisplayPort states in usbdp_typ=
-ec_mux_set()
-- [Medium] phy: cix: probe resets PHY despite bootloader handover claim and=
- dead macros
---
+For ADSP, only a limited number of FastRPC context banks (CBs) are
+available. Each CB supports a single session, which means only a few
+processes can run on ADSP simultaneously. If all sessions are consumed
+by fastrpc daemons, no session remains available when a user application
+starts, causing the application to fail.
 
-commit ba3650ed160ebad8a4d82ef366b4d21f8c1a0ce7
-Author: Gary Yang <gary.yang@cixtech.com>
+To work around this, some DT set:
+  qcom,nsessions = <5>;
+which duplicated sessions inline during context bank initialisation.
+Upstream feedback indicated that this policy does not belong in DT and
+should be handled at the driver level instead.
 
-phy: cix: add Sky1 USB/DP combo PHY driver
+This series iterates over CB child nodes directly and synchronously,
+replacing of_platform_populate() and of_platform_depopulate(), and
+configures DMA/IOMMU for each CB itself since no driver binds to them
+any more. It also moves the ADSP session duplication to the driver.
+The qcom,nsessions binding is deprecated in the same series.
 
-This commit adds a Generic PHY driver for the CIX Sky1 USB3/DisplayPort com=
-bo
-PHY, exposing separate USB and DP child PHYs and registering a Type-C
-orientation switch and mode mux.
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Changes in v7:
+- Call of_dma_configure() for each CB device, as no driver binds to
+  them any more
+- Skip and destroy a CB whose DMA/IOMMU setup fails; defer on
+  -EPROBE_DEFER
+- Drop extra of_node_put() in fastrpc_cb_devices_create()
+- Link to v6: https://lore.kernel.org/r/20261021-dup-sessions-v6-0-578ab52ba66c@oss.qualcomm.com
 
-> diff --git a/drivers/phy/cix/phy-cix-usbdp.c b/drivers/phy/cix/phy-cix-us=
-bdp.c
-> new file mode 100644
-> index 0000000000000..d596e89c74f76
-> --- /dev/null
-> +++ b/drivers/phy/cix/phy-cix-usbdp.c
-> @@ -0,0 +1,1477 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * phy driver for cdn_sd0804_t7g_typec
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/io.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <linux/usb/typec_dp.h>
-> +#include <linux/usb/typec_mux.h>
-> +
-> +#include "phy-cix-usbdp.h"
-> +
-> +enum {
-> +	UDPHY_MODE_NONE		=3D 0,
-> +	UDPHY_MODE_USB		=3D BIT(0),
-> +	UDPHY_MODE_DP		=3D BIT(1),
-> +	UDPHY_MODE_DP_USB	=3D BIT(1) | BIT(0),
-> +};
-> +
-> +#define PHY_LANE_MUX_USB			0
-> +#define PHY_LANE_MUX_DP				1
+Changes in v6:
+- Drop unused dev_set_drvdata() from fastrpc_cb_init()
+- Use device_for_each_child_reverse() to destroy CB devices
+- Return -ENODEV when of_platform_device_create() fails
+- Add a comment for FASTRPC_DUP_SESSIONS
+- Link to v5: https://lore.kernel.org/r/20260923-dup-sessions-v5-0-e953133a1827@oss.qualcomm.com
 
-[ ... ]
+Changes in v5:
+- Introduce fastrpc_cb_devices_create() and fastrpc_cb_devices_destroy()
+  for symmetric CB device lifecycle management in probe and remove.
+- Replace module_init/exit pair with module_rpmsg_driver().
+- Link to v4: https://lore.kernel.org/r/20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com
 
-> +static int sky1_udphy_exit(struct cix_udphy *udphy)
-> +{
-> +	reset_control_assert(udphy->reset);
-> +	reset_control_assert(udphy->preset);
-> +	clk_disable_unprepare(udphy->apb_clk);
-> +	return 0;
-> +}
-> +
-> +static int sky1_udphy_init(struct cix_udphy *udphy)
-> +{
-> +	int ret;
-> +	u32 value;
-> +	const struct cix_udphy_con_dir *con_dir =3D &udphy->cfg->con_dir[udphy-=
->id];
-> +
-> +	regmap_update_bits(udphy->usbphy_syscon, con_dir->offset,
-> +			   GENMASK(con_dir->bit, con_dir->bit),
-> +			   udphy->flip << con_dir->bit);
-> +
-> +	usleep_range(10, 20);
-> +
-> +	regmap_read(udphy->usbphy_syscon, con_dir->offset, &value);
-> +
-> +	/* usb rcsu reset is default deassert */
-> +	reset_control_assert(udphy->reset);
-> +	reset_control_assert(udphy->preset);
-> +
-> +	ret =3D sky1_udphy_clk_enable(udphy->apb_clk);
-> +	if (ret) {
-> +		dev_err(udphy->dev, "Failed to prepare_enable udphy apb clock\n");
-> +		return ret;
-> +	}
+Changes in v4:
+- Rebased on latest linux-next (a8406e6c0b79, 2026-08-25)
+- Link to v3: https://lore.kernel.org/r/20260824-dup-sessions-v3-0-4b019def4e0b@oss.qualcomm.com
 
-[ ... ]
+Changes in v3:
+- Add patch to fix async probe race with of_platform_populate().
+- Rename fastrpc_cb_probe() to fastrpc_cb_init().
+- Reorder series: sync fix, nsessions, binding.
+- Collect Reviewed-by tags.
+- Link to v2: https://lore.kernel.org/r/20260708-dup-sessions-v2-0-da40f9c98a2b@oss.qualcomm.com
 
-> +static int udphy_orien_sw_set(struct typec_switch_dev *sw,
-> +			      enum typec_orientation orien)
-> +{
-> +	struct cix_udphy *udphy =3D typec_switch_get_drvdata(sw);
-> +
-> +	mutex_lock(&udphy->mutex);
-> +
-> +	if (orien =3D=3D TYPEC_ORIENTATION_NONE)
-> +		goto unlock_ret;
-> +
-> +	udphy->flip =3D (orien =3D=3D TYPEC_ORIENTATION_REVERSE) ? true : false;
-> +
-> +unlock_ret:
-> +	mutex_unlock(&udphy->mutex);
-> +	return 0;
-> +}
+Changes in v2:
+- Added patch to deprecate the qcom,nsessions dt-binding.
+- Kept the logic unchanged; only split into two patches.
+- Link to v1: https://lore.kernel.org/r/20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com
 
-[ ... ]
+---
+Vinayak Katoch (3):
+      misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+      misc: fastrpc: move ADSP duplicate session creation to the driver
+      dt-bindings: misc: qcom,fastrpc: deprecate qcom,nsessions
 
-> +static int usbdp_typec_mux_set(struct typec_mux_dev *mux,
-> +			       struct typec_mux_state *state)
-> +{
-> +	struct cix_udphy *udphy =3D typec_mux_get_drvdata(mux);
-> +
-> +	mutex_lock(&udphy->mutex);
-> +
-> +	switch (state->mode) {
-> +	case TYPEC_DP_STATE_C:
-> +		fallthrough;
-> +	case TYPEC_DP_STATE_E:
-> +		udphy->next_mode =3D UDPHY_MODE_DP;
-> +		break;
-> +	case TYPEC_DP_STATE_D:
-> +		udphy->next_mode =3D UDPHY_MODE_DP_USB;
-> +		break;
-> +	case TYPEC_STATE_SAFE:
-> +		udphy->next_mode =3D UDPHY_MODE_USB;
-> +		break;
-> +	default:
-> +		/* usb only handle as usb+dp mode */
-> +		udphy->next_mode =3D UDPHY_MODE_USB;
-> +		break;
-> +	}
-> +
-> +	/* TODO: check whether the HPD state needs software */
-> +	mutex_unlock(&udphy->mutex);
-> +
-> +	return 0;
-> +}
+ .../devicetree/bindings/misc/qcom,fastrpc.yaml     |   2 +
+ drivers/misc/fastrpc.c                             | 153 ++++++++++++---------
+ 2 files changed, 89 insertions(+), 66 deletions(-)
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+change-id: 20260609-dup-sessions-ea2acaac1994
 
-[Severity: Medium]
-In drivers/phy/cix/phy-cix-usbdp.c, usbdp_typec_mux_set() switches directly
-on state->mode without checking state->alt.
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-In include/linux/usb/typec_altmode.h and include/linux/usb/typec_dp.h, both
-connector modal states (TYPEC_MODE_USB2 =3D 2, TYPEC_MODE_USB3 =3D 3,
-TYPEC_MODE_USB4 =3D 4, TYPEC_MODE_AUDIO =3D 5, TYPEC_MODE_DEBUG =3D 6) and
-DisplayPort pin assignment states (TYPEC_DP_STATE_A =3D 2 through
-TYPEC_DP_STATE_F =3D 7) start at TYPEC_STATE_MODAL.
-
-If the Type-C mux is called with a non-DisplayPort modal state such as
-TYPEC_MODE_USB4, TYPEC_MODE_AUDIO, TYPEC_MODE_DEBUG, or another alternate
-mode SVID, won't usbdp_typec_mux_set() match TYPEC_DP_STATE_C,
-TYPEC_DP_STATE_D, or TYPEC_DP_STATE_E and misconfigure udphy->next_mode for
-DisplayPort unless it first verifies state->alt && state->alt->svid =3D=3D
-USB_TYPEC_DP_SID?
-
-[ ... ]
-
-> +static int cix_usbdp_phy_power_on(struct cix_udphy *udphy)
-> +{
-> +	const struct cix_udphy_cfg *phy_cfgs =3D udphy->cfg;
-> +	int ret;
-> +
-> +	if (udphy->cur_mode =3D=3D udphy->next_mode)
-> +		return 0;
-> +
-> +	if ((udphy->cur_mode =3D=3D UDPHY_MODE_USB || udphy->cur_mode =3D=3D UD=
-PHY_MODE_DP) &&
-> +	    udphy->next_mode =3D=3D UDPHY_MODE_DP_USB)
-> +		return 0;
-> +
-> +	if (phy_cfgs->udphy_init) {
-> +		ret =3D phy_cfgs->udphy_init(udphy);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "failed to init udphy\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cix_usbdp_phy_power_off(struct cix_udphy *udphy)
-> +{
-> +	const struct cix_udphy_cfg *phy_cfgs =3D udphy->cfg;
-> +	int ret;
-> +
-> +	if (phy_cfgs->udphy_exit) {
-> +		ret =3D phy_cfgs->udphy_exit(udphy);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "failed to exit udphy\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	udphy->cur_mode =3D UDPHY_MODE_NONE;
-> +	return 0;
-> +}
-> +
-> +static int udphy_dp_phy_power_on(struct phy *phy)
-> +{
-> +	struct cix_udphy *udphy =3D phy_get_drvdata(phy);
-> +	int ret =3D 0;
-> +
-> +	mutex_lock(&udphy->mutex);
-> +	if (!(udphy->next_mode & UDPHY_MODE_DP))
-> +		goto unlock;
-> +
-> +	ret =3D cix_usbdp_phy_power_on(udphy);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	phy_set_bus_width(phy, udphy_dplane_get(udphy));
-> +	if (udphy->next_mode =3D=3D UDPHY_MODE_DP)
-> +		udphy->cur_mode =3D UDPHY_MODE_DP;
-> +	else
-> +		udphy->cur_mode |=3D UDPHY_MODE_DP;
-> +
-> +unlock:
-> +	mutex_unlock(&udphy->mutex);
-> +	return ret;
-> +}
-
-[Severity: High]
-How does udphy->cur_mode track both the active sub-PHYs and the programmed
-hardware configuration in drivers/phy/cix/phy-cix-usbdp.c?
-
-First, sky1_udphy_init() unconditionally calls
-sky1_udphy_clk_enable(udphy->apb_clk), which calls clk_prepare_enable(), wh=
-ile
-sky1_udphy_exit() calls clk_disable_unprepare(udphy->apb_clk) only once when
-udphy->cur_mode reaches UDPHY_MODE_NONE. If one child PHY is already active
-(for example, cix_u3phy_init() set udphy->cur_mode =3D UDPHY_MODE_USB) and =
-the
-mux switches to udphy->next_mode =3D UDPHY_MODE_DP before
-udphy_dp_phy_power_on() runs, cix_usbdp_phy_power_on() calls sky1_udphy_ini=
-t()
-a second time and leaks an enable reference on udphy->apb_clk. In that same
-path, udphy_dp_phy_power_on() then assigns udphy->cur_mode =3D UDPHY_MODE_D=
-P,
-clearing UDPHY_MODE_USB so that a later cix_u3phy_exit() becomes a no-op.
-
-Second, if udphy_dp_phy_power_on() initializes the PHY with udphy->next_mode
-=3D=3D UDPHY_MODE_DP, sky1_udphy_init() programs sky1_udphy_dp_conf (4-lane
-DP-only mode) and sets udphy->cur_mode =3D UDPHY_MODE_DP. If the mux later
-switches udphy->next_mode to UDPHY_MODE_DP_USB and cix_u3phy_init() calls
-cix_usbdp_phy_power_on(), the check:
-
-	if ((udphy->cur_mode =3D=3D UDPHY_MODE_USB || udphy->cur_mode =3D=3D UDPHY=
-_MODE_DP) &&
-	    udphy->next_mode =3D=3D UDPHY_MODE_DP_USB)
-		return 0;
-
-returns early without calling sky1_udphy_init(), leaving the hardware in
-4-lane DP-only mode with the USB3 lanes unconfigured.
-
-Third, udphy_orien_sw_set() updates udphy->flip without marking the PHY as
-needing re-initialization. If udphy->flip changes after one sub-PHY has
-already initialized in UDPHY_MODE_DP_USB, won't cix_usbdp_phy_power_on() sk=
-ip
-sky1_udphy_init(), leaving the syscon orientation bit and lane configuration
-tables in the old orientation while udphy_dp_phy_set_rate() and
-udphy_dp_phy_set_voltages() program the flipped PMA lanes?
-
-[ ... ]
-
-> +static int udphy_dp_phy_verify_config(struct cix_udphy *udphy,
-> +				      struct phy_configure_opts_dp *dp)
-> +{
-> +	int i;
-> +
-> +	switch (dp->lanes) {
-> +	case 1:
-> +	case 2:
-> +	case 4:
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * If changing voltages is required, check swing and pre-emphasis
-> +	 * levels, per-lane.
-> +	 */
-> +	if (dp->set_voltages) {
-> +		for (i =3D 0; i < dp->lanes; i++) {
-> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
-> +				return -EINVAL;
-> +
-> +			/*
-> +			 * Sum of voltage swing and pre-emphasis levels cannot
-> +			 * exceed 3.
-> +			 */
-> +			if (dp->voltage[i] + dp->pre[i] > 3)
-> +				return -EINVAL;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int udphy_dp_phy_set_rate(struct cix_udphy *udphy,
-> +				 struct phy_configure_opts_dp *dp)
-> +{
-> +	int ret;
-> +	const struct phy_link_cfg *conf =3D NULL;
-> +
-> +	dev_dbg(udphy->dev, "lane %d, rate %x\n", dp->lanes, dp->link_rate);
-> +
-> +	regmap_update_bits(udphy->phy_regmap, PHY_PMA_PLL_CTRL, BIT(1), 0x0);
-> +	usleep_range(10, 20);
-> +
-> +	switch (dp->link_rate) {
-> +	case 0x6:
-> +		conf =3D &link_cfg[0];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_partia=
-l_conf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_partial_conf));
-> +		break;
-> +	case 0xa:
-> +		conf =3D &link_cfg[1];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_partia=
-l_conf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_partial_conf));
-> +		break;
-> +	case 0x14:
-> +		conf =3D &link_cfg[2];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_partia=
-l_conf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_partial_conf));
-> +		break;
-> +	case 0x1e:
-> +		conf =3D &link_cfg[3];
-> +		ret =3D regmap_multi_reg_write(udphy->phy_regmap, sky1_udphy_dp_8p1_co=
-nf,
-> +					     ARRAY_SIZE(sky1_udphy_dp_8p1_conf));
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-In drivers/phy/cix/phy-cix-usbdp.c, udphy_dp_phy_set_rate() switches on
-dp->link_rate using DPCD bandwidth code values (0x6, 0xa, 0x14, 0x1e).
-
-According to include/linux/phy/phy-dp.h, struct phy_configure_opts_dp
-defines link_rate in Mb/s (1620, 2700, 5400, 8100). When a standard
-DisplayPort bridge or controller driver calls phy_configure() ->
-udphy_dp_phy_configure() -> udphy_dp_phy_set_rate() with dp->set_rate =3D 1=
- and
-dp->link_rate in Mb/s, won't it always hit the default case and fail with
--EINVAL?
-
-Also, because udphy_dp_phy_verify_config() does not validate dp->link_rate =
-and
-udphy_dp_phy_set_rate() clears BIT(1) of PHY_PMA_PLL_CTRL before the switch
-statement, returning -EINVAL on an unsupported rate leaves PLL1 disabled.
-
-[ ... ]
-
-> +static int udphy_dp_phy_set_voltages(struct cix_udphy *udphy,
-> +				     struct phy_configure_opts_dp *dp)
-> +{
-> +	u32 index =3D dp->voltage[0] * 4 + dp->pre[0];
-> +	const struct phy_voltage_conf *cfg =3D volt_cfg;
-> +
-> +	dev_dbg(udphy->dev, "lane %d, vs %d, pe %d\n", dp->lanes, dp->voltage[0=
-],
-> +		dp->pre[0]);
-> +
-> +	switch (dp->lanes) {
-> +	case 1:
-> +		if (!udphy->flip) { /* lane 2 */
-> +			regmap_update_bits(udphy->phy_regmap, TX_DIAG_ACYA_LANE2,
-> +					   BIT(0), 0x1);
-> +			regmap_write(udphy->phy_regmap, TX_TXCC_CTRL_LANE2,
-> +				     cfg[index].tx_txcc_ctrl);
-> +			regmap_write(udphy->phy_regmap, DRV_DIAG_TX_DRV_LANE2,
-> +				     cfg[index].drv_diag_tx_drv);
-> +			regmap_write(udphy->phy_regmap, TX_TXCC_MGNFS_MULT_000_LANE2,
-> +				     cfg[index].tx_txcc_mgnfc_mult_000);
-> +			regmap_write(udphy->phy_regmap, TX_TXCC_CPOST_MULT_00_LANE2,
-> +				     cfg[index].tx_txcc_cpost_mult_00);
-> +			regmap_update_bits(udphy->phy_regmap, TX_DIAG_ACYA_LANE2,
-> +					   BIT(0), 0x0);
-
-[Severity: High]
-In drivers/phy/cix/phy-cix-usbdp.c, udphy_dp_phy_verify_config() validates
-dp->voltage[i] and dp->pre[i] for each lane up to dp->lanes, but
-udphy_dp_phy_set_voltages() computes index solely from dp->voltage[0] and
-dp->pre[0] and writes cfg[index] to all active lanes in the 2-lane and 4-la=
-ne
-cases.
-
-During DisplayPort link training on a 2-lane or 4-lane link, if the sink
-requests different voltage swing or pre-emphasis levels across lanes, won't
-lanes 1..3 be programmed with lane 0's settings instead of dp->voltage[i] a=
-nd
-dp->pre[i]?
-
-Could this also use a per-lane helper instead of duplicating the 6-register
-programming sequence across all branches?
-
-[ ... ]
-
-> +static int udphy_dp_phy_configure(struct phy *phy,
-> +				  union phy_configure_opts *opts)
-> +{
-> +	struct cix_udphy *udphy =3D phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	mutex_lock(&udphy->mutex);
-> +	ret =3D udphy_dp_phy_verify_config(udphy, &opts->dp);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	if (opts->dp.set_rate) {
-> +		ret =3D udphy_dp_phy_set_rate(udphy, &opts->dp);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "failed to set DP link rate\n");
-> +			goto unlock;
-> +		}
-> +	}
-> +
-> +	if (opts->dp.set_voltages) {
-> +		ret =3D udphy_dp_phy_set_voltages(udphy, &opts->dp);
-> +		if (ret) {
-> +			dev_err(udphy->dev, "dp_phy_set_voltages failed\n");
-> +			goto unlock;
-> +		}
-> +	}
-> +	mutex_unlock(&udphy->mutex);
-> +	return 0;
-> +
-> +unlock:
-> +	mutex_unlock(&udphy->mutex);
-> +	return ret;
-> +}
-
-[Severity: High]
-What happens if udphy_dp_phy_configure() in drivers/phy/cix/phy-cix-usbdp.c=
- is
-called before udphy_dp_phy_power_on(), or after udphy_dp_phy_power_on()
-returned 0 early because !(udphy->next_mode & UDPHY_MODE_DP)?
-
-In both cases, udphy->apb_clk is disabled and udphy->preset is asserted (fr=
-om
-cix_udphy_probe() or sky1_udphy_exit()), yet udphy_dp_phy_configure() proce=
-eds
-to call udphy_dp_phy_set_rate() and udphy_dp_phy_set_voltages(), performing
-MMIO reads and writes on udphy->base without checking (udphy->cur_mode &
-UDPHY_MODE_DP). Won't accessing those registers with the APB clock gated and
-reset asserted cause a bus abort or hang?
-
-Additionally, udphy_dp_phy_verify_config() allows dp->lanes =3D=3D 4 even w=
-hen
-udphy->next_mode is UDPHY_MODE_DP_USB (where udphy_dplane_get(udphy) is 2),
-which causes udphy_dp_phy_set_rate() and udphy_dp_phy_set_voltages() to
-overwrite the PMA registers of the active USB3 lanes.
-
-[ ... ]
-
-> +static int cix_u3phy_set_mode(struct phy *phy, enum phy_mode mode, int s=
-ubmode)
-> +{
-> +	if (mode =3D=3D PHY_MODE_INVALID)
-> +		return cix_u3phy_exit(phy);
-> +
-> +	return cix_u3phy_init(phy);
-> +}
-> +
-> +static const struct phy_ops cix_u3phy_ops =3D {
-> +	.set_mode       =3D cix_u3phy_set_mode,
-> +	.exit		=3D cix_u3phy_exit,
-> +	.owner		=3D THIS_MODULE,
-> +};
-
-[Severity: High]
-In drivers/phy/cix/phy-cix-usbdp.c, cix_u3phy_ops defines .exit =3D
-cix_u3phy_exit, but omits .init =3D cix_u3phy_init and only invokes
-cix_u3phy_init() from cix_u3phy_set_mode().
-
-When a USB controller driver calls phy_init() during probe before
-phy_set_mode(), or calls phy_exit() followed by phy_init() across suspend a=
-nd
-resume without calling phy_set_mode(), won't phy_init() be a no-op that lea=
-ves
-the USB3 PHY uninitialized and in reset?
-
-[ ... ]
-
-> +static void udphy_set_default_mode(struct cix_udphy *udphy)
-> +{
-> +	udphy->cur_mode =3D UDPHY_MODE_NONE;
-> +}
-> +
-> +static int cix_udphy_probe(struct platform_device *pdev)
-> +{
-> +	struct cix_udphy *udphy;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct phy_provider *phy_provider;
-> +	struct device_node *np =3D dev->of_node;
-> +	u32 id;
-> +	int ret =3D 0;
-
-[ ... ]
-
-> +	ret =3D device_property_read_u8(dev, "cix,default-conf", &udphy->next_m=
-ode);
-> +	if (ret)
-> +		udphy->next_mode =3D UDPHY_MODE_DP_USB;
-> +
-> +	reset_control_assert(udphy->reset);
-> +	reset_control_assert(udphy->preset);
-
-[ ... ]
-
-> +	udphy_set_default_mode(udphy);
-
-[Severity: Medium]
-The commit message states:
-
-  The bootloader may hand over the port already initialized; in that
-  case the first power_on calls skip the re-initialization.
-
-However, in drivers/phy/cix/phy-cix-usbdp.c, cix_udphy_probe() unconditiona=
-lly
-calls reset_control_assert() on udphy->reset and udphy->preset, and
-udphy_set_default_mode() unconditionally sets udphy->cur_mode =3D
-UDPHY_MODE_NONE. As a result, any bootloader initialization is wiped out in
-probe and the first power_on call never skips re-initialization. Should
-cix_udphy_probe() and udphy_set_default_mode() be updated to match the comm=
-it
-description, or should the commit message be updated to match the code?
-
-Also, PHY_LANE_MUX_USB and PHY_LANE_MUX_DP at the top of
-drivers/phy/cix/phy-cix-usbdp.c are unused and can be removed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102081532.2305=
-142-1-gary.yang@cixtech.com?part=3D2
