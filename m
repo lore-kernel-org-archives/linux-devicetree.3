@@ -1,67 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646991;
-	b=jQOedbi10Wt/DjOYSDE4LI2H4mZEHMzgBHmf2uA1EcCUmFkkcFoVA0P+0ls5JK1oUr0r
-	 yaOzhV8FqLOhe5MYzFVN0eGZEk0Z38996QfQobox/6pHf33FMtsUUaH0RJQpbzBtS7kio
-	 rLHgfiT1AoHd3bp7lzsOkWGpyLW/g5p+w8YyqYPPvVH7PXT2khdSmEeGo7ahImuSGMUwN
-	 wXUuI3dsu0oRbgMZnBSKj2iIqf6y53j4OkW0KainCi9iVlQ2lbSg6PSw19gWiJ08n3tBJ
-	 S+T38MbI1A1WV1uLhhcUBF4vrtBKMBOFjXFd/k6FzO+EejGGptgucej+HpodrisYhSQ==
+	t=1793647118;
+	b=rNm8aly9+o3HJMLhCvgM9kDzXXn4Gll3pfouUAwem/iFRwFrUxDuaJwRxSoXkpO4pVpu
+	 aILWEH+3vR1PbuLEEYxINoMYN55bliYtKNJENJdb2BhH2r5PWbxwFBy4qkkdLTkRyMEM7
+	 TFiZRFOf1x7Zyu3wYHBASQDVxKnuPLdZHohYza2fVlrCQigH4CSy2fZt3mBZfYHEE9CHW
+	 ael/K4hABe6KK3pFw5g6+yJrY+df8Y80HdQYP4u62VaRo3nG1s83TiUVjeRf+FF0ybqJz
+	 YNMwO6kVnNvKAhVzKO3ErnTpHpjAngBTX0y5dc/DI8yTlV9YGLeBwYiyOE2Z+mIx/Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647118;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VbAaauU+tOjWUhy13M+E36i6rI1cWNNx68RKW+3FocQ=;
-	b=NJA3nUZdHO7t93UVAqzU0z8m4TAe4b84UeKlMD3XfLRWF3PlViJFpGKUEJNi1cq8z55T
-	 lsLIMRQhnfdkxk1ClTcIBE3lPwn7DsGaHoKXxv+XMk5yTsQu1CGGBWoUGtgHKqXNOGq+w
-	 IW6SG3+yyxRLNhxwCWL66VdPAeywqPblxwdXe9auDEoJhRSRyCF5G951cZ8hdyCgduydq
-	 xfC42Dzqzu06oAfs1xW6r66VtQt+erDl5I89rEZjF9hoYyXF5Xdckywo/gkEcflAWy4Hk
-	 CLCPUgB29meEBZ5crOkjzSkO0Gavp3WV4Uq1XfY8aqWWO8CeznBUZ/0VQ/Kn5JsaIZA==
+	bh=WFJM7Bezg8OF7GxEtGbM8u9hxpi3HX/5YjbCfaLYPUM=;
+	b=gHRhKUGaV4BrrJI7oVRIAXQMG9R7Xjgi2YswdoPodEDxKJ6P77x4O+u5/r1mSK2x6m66
+	 bpHd4yoncR6lH26Iks/7zcMDCqLqPEjKs30SUsFbvOlAzLA9ZY5uxvzN2vGZ0zcnaZPdq
+	 VKDyWSWKCWSfW9gxZ3l4WWnGC2GLPdkcaBBhojUn465rDRAVsdBQrm0mfdo27mNaS6IMI
+	 /0uY7adusVyGti0TGFot47N2+V3z06g+JFl3Jr9cNvQFV37W6ame1t3z/8/Ia1n9UZm/8
+	 p0zcDwVDWTekwh3X4ugM25quk8LiZq0IifqYd4DLgQzTMnTAvvYlZaqAJ5o8T+o/plA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDu0+tIg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SuxwWPkM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D476F606D812;
-	Mon,  2 Nov 2026 19:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937CA606A324;
+	Mon,  2 Nov 2026 19:18:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDu0+tIg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC061F0157E;
-	Mon,  2 Nov 2026 19:16:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SuxwWPkM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773761F00A16;
+	Mon,  2 Nov 2026 19:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793646990;
-	bh=VbAaauU+tOjWUhy13M+E36i6rI1cWNNx68RKW+3FocQ=;
+	s=k20260515; t=1793647118;
+	bh=WFJM7Bezg8OF7GxEtGbM8u9hxpi3HX/5YjbCfaLYPUM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UDu0+tIg0nx+V6+xDSJs8thduUykWOL2F2oShDpZKNBFu1NUv9poV+V23KMDTFNvk
-	 wSEvWtETln2mAVoevNNBpPXIG0rLKOq8Q+msXIYOolYSekNQHHcN+IqASL4u3kk+TV
-	 7tlZl+PxJOYfsrcKSt7wX1DqdS14Rx1oil8CYcQcf77AmXxJNGYgzryHxBM/mmH06Q
-	 i7WLkUJZSdV+8HG44KhkiB+17Gzf+Z/1wiM1y203VZF4Q/iR7VM9HR+Dx3dt9gvwM+
-	 KIu4jSJ5sCgb238PRJIotWYq2DyqEs3VrxllHDTTi4rf916nwVtKBdyNo2H0/FHjFo
-	 CrvbqItaIBEWw==
-Date: Mon, 2 Nov 2026 13:16:28 -0600
-From: Rob Herring <robh@kernel.org>
-To: Josua Mayer <josua@solid-run.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Benjamin Bara <benjamin.bara@skidata.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Jon Nettleton <jon@solid-run.com>,
-	Mikhail Anikin <mikhail.anikin@solid-run.com>,
-	Yazan Shhady <yazan.shhady@solid-run.com>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v10 03/11] dt-bindings: usb: cypress,hx3: make peer-hub
- property optional
-Message-ID: <20261102191628.GA834063-robh@kernel.org>
-References: <20260928-rzg2-sr-boards-v10-0-91752ea39cbc@solid-run.com>
- <20260928-rzg2-sr-boards-v10-3-91752ea39cbc@solid-run.com>
+	b=SuxwWPkM5EUmuq9/N3/8AyNZuMM1hhNrapR0quEl59l2K8ykPQSkgJCyfRtnQ3duE
+	 1O5b8jrSAJlnKPMJMV+hGSNjvJ1YZ1b7UOjbDrtpDGJeoNldrckyIkxpbevE6RVvXz
+	 dN9KwlnlTqOOUoAOjR1nssKbQSRdc7gkFOi0jvGOpQF9L90LJT4iBnWhtaFiMXU179
+	 ZG83Jgk70NgOZOWGdKz3VAJdXo8w/kym2H7VJVMrq3EoIDFD8sz7Fw6+/4Qk+J+E3A
+	 cNRN293lW8ZZ5UIcfpRxUEt1QBR4np8MyZ3hGqIMv99akXb89GGq+oFA8XDlsue0qg
+	 evyoKKjvQYsrg==
+Date: Mon, 2 Nov 2026 19:18:33 +0000
+From: Conor Dooley <conor@kernel.org>
+To: marouene.boubakri@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Anup Patel <anup@brainfault.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Radu Rendec <radu@rendec.net>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/8] dt-bindings: interrupt-controller: sifive,plic: add
+ OpenHW Group CVA6 APU
+Message-ID: <20261102-camisole-spotty-ab44d620ca87@spud>
+References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
+ <20261102141727.640769-5-marouene.boubakri@oss.nxp.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,26 +65,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="foRJlODssOE16KBF"
+Content-Disposition: inline
+In-Reply-To: <20261102141727.640769-5-marouene.boubakri@oss.nxp.com>
+
+--foRJlODssOE16KBF
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928-rzg2-sr-boards-v10-3-91752ea39cbc@solid-run.com>
 
-On Mon, Sep 28, 2026 at 07:33:54PM +0200, Josua Mayer wrote:
-> Cypress HX3 Hubs are combined USB-2.0 and USB-3.0 devices, and should be
-> described by one node per speed and linked by peer-hub property.
-> 
-> It is however possible to install this Hub to a USB-2.0-only host, in
-> which case the USB-3.0 peer has no place in device-tree.
-> 
-> Remove peer-hub from required properties.
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
-> ---
->  Documentation/devicetree/bindings/usb/cypress,hx3.yaml | 1 -
->  1 file changed, 1 deletion(-)
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Applied for 7.4-rc as the .dts change has already been applied, and 
-Greg seems a bit behind.
+--foRJlODssOE16KBF
+Content-Type: application/pgp-signature; name=signature.asc
 
-Rob
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujiCQAKCRB4tDGHoIJi
+0m0JAP9ssPe1+vgE7h0PM+HcbZEpi4oY0JfxJDRlg9kMd5sQCgEA7Yn6718Xw3Ap
+ixUcG4e1O8Nw53l0n5swatGg4QxDzwQ=
+=KOL/
+-----END PGP SIGNATURE-----
+
+--foRJlODssOE16KBF--
