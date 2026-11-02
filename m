@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603408;
-	b=4NhF9kV6458yDLH7T0p/PGd3VMz2uvjnLRhb6L/BnQO0kBKel1kJXRu16H7fSpJNdSlA
-	 D9Uo/3y7JytkTxiGZDsOvy2D9knLmsG9IyRez8o2mho04fpzQ8EhPVVcFtdzqqFeD1x9Q
-	 GRFSeovvrKtRHp/7R1+ksmt5KjBBjg0cEr31MgXrQjYa1EzhT+GQ97AYk82UQ1F60wEz5
-	 P2cuEk655y9rf5I/Gag4b7z0Pi06H8cMnVoYzlwI4Y713Xtmewklp9zBbTBca9q5voTeJ
-	 yIG0TjWhmF4aj0lwy50fRh/HUfAeDoytwnhMwkFhRtShlh9KgVka6TeBgwdtNNZO9yQ==
+	t=1793603424;
+	b=QBEqJkQrkAqwuSAS8l19pM+rqkdBrBCRNQ5b6BX9u1zAo9AlgO6Dy0Uu5tUmMt0XyQEI
+	 aF1aiIQh9Nx0Dp7CETFOpSYuAySvCymXn8J7oY/9s2eAExDI/nQLoV9XxCDQ8H4xThmfX
+	 JXHrOqUIttYdh0YXCSUQdzO7m+5D7pTalWdPqwDYUJhskG3IDpGZVeh5P1H8QNX4CFmYv
+	 uzn9sv5LpchMOTiya9cYOk1ns3SPYEYRPunwjuWjIljmZXNI2li+a2KCo5W0xwWVOvWo5
+	 m/eXMhGzyCs1eHkQu5WiG9ZZjEhlis4yYzj1dvt9zMPgQoP0M8feClEDTaLkw+89lkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603408;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603424;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=aQiC2ZyARkAEx1wtC84bg+n6W25xkOC7EF7hGKPvRPE=;
-	b=mhAwKwyk0JTvtYpY1jj47t1c+bXKgwhRRVozLhBmbWr41Iy4ApTzsImFYiXIbTiCRo/s
-	 OdrZCmkCprJYqwyo91QSpAbHZNIN9cvJgxN36zx0nCNDMJyQc/K965GbwF3gTklZgrU7g
-	 R1L+seVhfTI8bcZ+lzpRH7k1kB6kJAIba4p9e2hWwL48sjKg/XyQwF17C9HbCcDqsk+9b
-	 A/rnpMIpVF8sl8bjAHPcpZOLscecVQrui8kT3Mh1QQ4u3l992bxXPQSTyRiPI0vVo/D9s
-	 NsvDMMLveKjVdlGqpCn9VU0XzBJ2HS0Ad1MEQvZSFZveIcqqYIgpIJt09oXgI312G+g==
+	bh=71FZePZh0SfpCwU5gyU0mbWl8GFXJo1phIqc8eWVSCE=;
+	b=LrY8UbIlxVbljY/nkQzrOzmZm2Xj5exNxcKnqxnT99sOqX04daTkKQt2E4Qlg1CCZ+dz
+	 qJN1aGNG1ho3+NsybX0yxZsk8hjYMnWuFTFarVzoUXeuBxgaRUsMIYJpUZA08X4GDiOGe
+	 jgRYlkcP3/lypLud92uHdCnIGGW6nT90VkdfIxSXgOliRJWRwc3c/elsQvHCAuK88RCli
+	 a9FNZGEtSAzrG3BQu35FHYt7ZgTjT54wVH9pzU6qQcOS2r3x0zpIN+wTm8thI8oiZqxYI
+	 v2bCLi1j6IGwKgRedfSy9EhgKWmaY+3NPeRmhnyh175g8s3EHdJHkRJs5axUFT9uSBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPfmeLpn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N//0Kuz7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D524C606A324;
-	Mon,  2 Nov 2026 07:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4384C606A324;
+	Mon,  2 Nov 2026 07:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPfmeLpn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62801F000C1;
-	Mon,  2 Nov 2026 07:10:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N//0Kuz7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC911F000C1;
+	Mon,  2 Nov 2026 07:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793603407;
-	bh=aQiC2ZyARkAEx1wtC84bg+n6W25xkOC7EF7hGKPvRPE=;
+	s=k20260515; t=1793603423;
+	bh=71FZePZh0SfpCwU5gyU0mbWl8GFXJo1phIqc8eWVSCE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IPfmeLpndtBXDtqjHcmfRha8aXMq6JWSVkp5aM7RLvV1Dvy9besW5d8npB4jl54sb
-	 PXHH8ZUaa8n/UsT+J8P1ctKgvgPQEVjNwNENaM55g2+0CGASj/IiPjtQZkatIUGrN7
-	 AvpsazjVNfnj+NNROlut42PwamV6XFdkhV7F/pNrmuK/n9c3G7OkKKhy5fTavGowDp
-	 m97aqzyFGT7QnefT3X3JE7LNWgIVtY/rrwMrc9e7c065UC7YZWt3rQGbE5VhBuSHm2
-	 IJTUN+w7c64meXx3V3pU+j8fGrllwqKhRsj6b9tJv+ssiY8wD4jla2HSzO5wrI9H1r
-	 3CVFxuSQCS9XQ==
-Message-ID: <sashiko-outbox-193000@kernel.org>
+	b=N//0Kuz7v4UXomZCj47VB+G/UZA9rMVBxPkCih4uIryvrQ+OEOf4JN/zN1I7Ef9NI
+	 TDnwsnX7SaT0G2+o56wEnNTM4XvMaGu3LctY0VgY87ccFOrHw1Gq2cLiqfLTssNcFo
+	 s7Do+Hv9T+3Zwa+cLG1z5c1lFV6pPfWb+pMhKUXDXJKCnyxYHR9XVk8MQFVz5KoQEs
+	 Jx9wJSddmkg8kQuKAPRx7IDzmXHF7SeOa4QAVyyooD0CoVKqbtwpsqEYrUets9HL7G
+	 RoDOHfGr6m5YIT/w5bIv4UIlKWRG6V3YgGS063AAymu0HMXFd5nzrCg42OpCJiFEHS
+	 TKRlhfpKJkwLQ==
+Message-ID: <sashiko-outbox-193002@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/7] dmaengine: fsl-edma: support per-channel DT
- child nodes
+Subject: Re: [PATCH v13 10/13] gpio: pl061: switch data path to gpio-regmap
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: imx@lists.linux.dev, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261102-edma-iommu-v3-v3-6-9d0e62a954eb@Example.Com>
-References: <20261102-edma-iommu-v3-v3-0-9d0e62a954eb@Example.Com>
- <20261102-edma-iommu-v3-v3-6-9d0e62a954eb@Example.Com>
+To: "Long Zhao" <longzhao@ambarella.com>, linux-gpio@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-cv75-gpio-v13-10-4f93114ea204@ambarella.com>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+ <20261102-cv75-gpio-v13-10-4f93114ea204@ambarella.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 07:10:06 +0000
+Date: Mon, 02 Nov 2026 07:10:23 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,294 +60,158 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] dmaengine: fsl-edma: missing dma_parms on chdev in fsl_edma_config=
-ure_chan_iommu()
-- [Medium] dmaengine: fsl-edma: 64-bit division and missing bounds check in=
- fsl_edma_child_to_chan_id()
-- [Medium] dmaengine: fsl-edma: 32-bit BIT() used on u64 chan_masked in DT =
-channel helpers
-- [Medium] dmaengine: fsl-edma: probe failure and errirq lookup in fsl_edma=
-3_irq_init() with child IRQs
-- [Medium] dmaengine: fsl-edma: unimplemented child power-domains support c=
-laimed in commit message
-- [Medium] dmaengine: fsl-edma: silent non-deferral IOMMU errors in fsl_edm=
-a_configure_chan_iommu()
+- [High] gpio: pl061: dropping IRQ resource helpers breaks IRQ locking and =
+unbind
 --
 
-commit 6337712c7d2219f406bdb1b2711aad20264a4f74
-Author: Peng Fan <peng.fan@nxp.com>
+commit 074c89211872cf47652e8bf1f251d42902b7bc3b
+Author: Long Zhao <longzhao@ambarella.com>
 
-dmaengine: fsl-edma: support per-channel DT child nodes
+gpio: pl061: switch data path to gpio-regmap
 
-This commit adds support for parsing per-channel devicetree child nodes in =
-the
-fsl-edma driver to configure per-channel interrupts and IOMMU mappings.
+This commit switches the PL061 GPIO data path callbacks (get, set, and
+direction) to use the gpio-regmap helper library while keeping a custom
+irq_chip and instantiating an external irq_domain for gpio-regmap to attach.
 
->     dmaengine: fsl-edma: support per-channel DT child nodes
->    =20
->     Add support for parsing per-channel child nodes from devicetree.
->     Each child node can carry its own interrupts, iommus, and
->     power-domains properties.
->    =20
->     The implementation is split into three functions:
->    =20
->     - fsl_edma_child_to_chan_id(): derives the channel index from the
->       child MMIO address relative to the parent base.
->    =20
->     - fsl_edma_configure_chan_from_dt(): called before setup_irq() to
->       populate per-channel txirq from child interrupt properties.
->       fsl_edma3_irq_init() is updated to skip platform_get_irq() for
->       channels that already have an IRQ assigned from their child node.
->    =20
->     - fsl_edma_configure_chan_iommu(): called after
->       dmaenginem_async_device_register() to configure per-channel IOMMU
->       by calling of_dma_configure() on each dma_chan_dev and setting
->       chan_dma_dev so dmaengine_get_dma_device() returns the per-channel
->       device.
->    =20
->     Existing DTS without child nodes continues to work unchanged.
->    =20
->     Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+> index 27ed759486caf..cb1ef0f3774c1 100644
+> --- a/drivers/gpio/gpio-pl061.c
+> +++ b/drivers/gpio/gpio-pl061.c
 
-[Severity: Medium]
-The commit message states that each child node can carry its own interrupts,
-iommus, and power-domains properties, and that support is added for parsing
-per-channel child nodes from devicetree.
-
-However, fsl_edma_configure_chan_from_dt() only parses reg and interrupts, =
-and
-fsl_edma_configure_chan_iommu() only parses iommus. In fsl_edma3_attach_pd(=
-),
-power domains are still attached by index from the parent platform_device n=
-ode
-via dev_pm_domain_attach_by_id(dev, i), so any power-domains properties pla=
-ced
-on child nodes are ignored.
-
-Should per-channel child power-domains be attached here, or should the comm=
-it
-message be updated to reflect that child power-domains are not handled by t=
-his
-patch?
-
-> diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-> index 30d548a723462..795744e67837d 100644
-> --- a/drivers/dma/fsl-edma-main.c
-> +++ b/drivers/dma/fsl-edma-main.c
 [ ... ]
-> @@ -400,12 +403,13 @@ static int fsl_edma3_irq_init(struct platform_devic=
-e *pdev, struct fsl_edma_engi
->  		if (fsl_edma->chan_masked & BIT(i))
->  			continue;
+
+> @@ -229,54 +198,47 @@ static int pl061_irq_type(struct irq_data *d, unsig=
+ned trigger)
+
+[ ... ]
+
+>  static void pl061_irq_mask(struct irq_data *d)
+>  {
+> -	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
+> -	struct pl061 *pl061 =3D gpiochip_get_data(gc);
+> -	u8 mask =3D BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
+> +	struct pl061 *pl061 =3D irq_data_get_irq_chip_data(d);
+> +	unsigned int mask =3D pl061_line_mask(pl061, irqd_to_hwirq(d));
 > =20
-> -		/* request channel irq */
-> -		fsl_chan->txirq =3D platform_get_irq(pdev, i);
-> -		if (fsl_chan->txirq < 0)
-> -			return  -EINVAL;
-> +		if (fsl_chan->txirq <=3D 0) {
-> +			fsl_chan->txirq =3D platform_get_irq(pdev, i);
-> +			if (fsl_chan->txirq < 0)
-> +				return fsl_chan->txirq;
-> =20
-> -		fsl_chan->irq_handler =3D fsl_edma3_tx_handler;
-> +			fsl_chan->irq_handler =3D fsl_edma3_tx_handler;
-> +		}
-
-[Severity: Medium]
-What happens in fsl_edma3_irq_init() when a devicetree omits parent interru=
-pts
-and only defines available child nodes for a subset of channels (or marks s=
-ome
-child nodes as status =3D "disabled") without a matching dma-channel-mask?
-
-In fsl_edma_configure_chan_from_dt(), fsl_chan->txirq is only populated for
-available child nodes, leaving fsl_chan->txirq =3D=3D 0 and the channel unm=
-asked
-in fsl_edma->chan_masked for any remaining channels. When fsl_edma3_irq_ini=
-t()
-then runs, it falls back to platform_get_irq(pdev, i) on the parent device =
-for
-the first channel without an available child node, which fails with -ENXIO =
-and
-aborts fsl_edma_probe().
-
-Also, further down in fsl_edma3_irq_init(), when FSL_EDMA_DRV_ERRIRQ_SHARE =
-is
-set:
-
-	if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_ERRIRQ_SHARE) {
-		/* last one is error irq */
-		fsl_edma->errirq =3D platform_get_irq_optional(pdev, fsl_edma->n_chans);
-
-When per-channel interrupts are moved into child nodes, can the shared error
-IRQ still be found at index fsl_edma->n_chans on the parent node?
-
-> @@ -703,6 +707,136 @@ static int fsl_edma3_attach_pd(struct platform_devi=
-ce *pdev, struct fsl_edma_eng
->  	return -EINVAL;
+> -	scoped_guard(raw_spinlock, &pl061->lock)
+> -		regmap_clear_bits(pl061->regmap, GPIOIE, mask);
+> -
+> -	gpiochip_disable_irq(gc, d->hwirq);
+> +	regmap_clear_bits(pl061->regmap, pl061->data->regs->ie, mask);
 >  }
 > =20
-> +static int fsl_edma_child_to_chan_id(struct platform_device *pdev,
-> +				     struct fsl_edma_engine *fsl_edma,
-> +				     struct device_node *child,
-> +				     struct resource *parent_res)
-> +{
-> +	const struct fsl_edma_drvdata *drvdata =3D fsl_edma->drvdata;
-> +	struct resource child_res;
-> +	u32 ch_id;
-> +	int ret;
-> +
-> +	ret =3D of_address_to_resource(child, 0, &child_res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (child_res.start < parent_res->start + drvdata->chreg_off)
-> +		return -EINVAL;
-> +
-> +	ch_id =3D (child_res.start - parent_res->start - drvdata->chreg_off)
-> +		/ drvdata->chreg_space_sz;
-> +
-> +	if (ch_id >=3D fsl_edma->n_chans)
-> +		return -EINVAL;
-> +
-> +	return ch_id;
-> +}
-
-[Severity: Medium]
-Can the division in fsl_edma_child_to_chan_id() cause a link failure on 32-=
-bit
-architectures with CONFIG_PHYS_ADDR_T_64BIT=3Dy (such as 32-bit ARM with LP=
-AE or
-32-bit PowerPC with CONFIG_PHYS_64BIT=3Dy)?
-
-Because child_res.start and parent_res->start have type resource_size_t, the
-expression
-
-	(child_res.start - parent_res->start - drvdata->chreg_off)
-		/ drvdata->chreg_space_sz
-
-performs a 64-bit division by the non-constant u32 drvdata->chreg_space_sz
-using the plain / operator, which emits an unresolved __aeabi_uldivmod or
-__udivdi3 call on 32-bit builds.
-
-In addition, before computing ch_id, only the lower bound is checked. If
-child_res is not verified to be contained within parent_res (for example via
-resource_contains(parent_res, &child_res)) and aligned to
-drvdata->chreg_space_sz, could a large or unaligned child reg address trunc=
-ate
-when assigned to u32 ch_id or alias a valid channel index?
-
-> +
-> +static int fsl_edma_configure_chan_from_dt(struct platform_device *pdev,
-> +					   struct fsl_edma_engine *fsl_edma)
-> +{
-> +	struct device_node *np =3D pdev->dev.of_node;
-> +	struct resource parent_res;
-> +	struct device_node *child;
-> +	int ret;
-> +
-> +	ret =3D of_address_to_resource(np, 0, &parent_res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for_each_available_child_of_node(np, child) {
-> +		struct fsl_edma_chan *fsl_chan;
-> +		int ch_id, irq;
-> +
-> +		ch_id =3D fsl_edma_child_to_chan_id(pdev, fsl_edma, child,
-> +						  &parent_res);
-> +		if (ch_id < 0) {
-> +			dev_err(&pdev->dev, "invalid channel in %pOFn\n", child);
-> +			of_node_put(child);
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (fsl_edma->chan_masked & BIT(ch_id))
-> +			continue;
-
-[Severity: Medium]
-Should this check in fsl_edma_configure_chan_from_dt() (and the identical
-check in fsl_edma_configure_chan_iommu() below) use BIT_ULL(ch_id) instead =
-of
-BIT(ch_id)?
-
-fsl_edma->chan_masked is a u64 bitmask supporting up to 64 channels (for
-example on fsl,imx95-edma5 where dma-channels is 64 and ch_id can be 0..63),
-whereas BIT(ch_id) uses unsigned long and overflows on 32-bit architectures
-when ch_id >=3D 32.
+>  static void pl061_irq_unmask(struct irq_data *d)
+>  {
+> -	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
+> -	struct pl061 *pl061 =3D gpiochip_get_data(gc);
+> -	u8 mask =3D BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
+> -
+> -	gpiochip_enable_irq(gc, d->hwirq);
+> +	struct pl061 *pl061 =3D irq_data_get_irq_chip_data(d);
+> +	unsigned int mask =3D pl061_line_mask(pl061, irqd_to_hwirq(d));
+> =20
+> -	scoped_guard(raw_spinlock, &pl061->lock)
+> -		regmap_set_bits(pl061->regmap, GPIOIE, mask);
+> +	regmap_set_bits(pl061->regmap, pl061->data->regs->ie, mask);
+>  }
 
 [ ... ]
-> +static int fsl_edma_configure_chan_iommu(struct platform_device *pdev,
-> +					struct fsl_edma_engine *fsl_edma)
-> +{
+
+> @@ -320,67 +280,169 @@ static const struct irq_chip pl061_irq_chip =3D {
+>  	.irq_set_wake		=3D pl061_irq_set_wake,
+>  	.irq_print_chip		=3D pl061_irq_print_chip,
+>  	.flags			=3D IRQCHIP_IMMUTABLE,
+> -	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+> +};
+
 [ ... ]
-> +		list_for_each_entry(chan, &fsl_edma->dma_dev.channels,
-> +				    device_node) {
-> +			struct device *chdev;
-> +
-> +			if (to_fsl_edma_chan(chan) !=3D fsl_chan)
-> +				continue;
-> +
-> +			chdev =3D dmaengine_chan_dev(chan);
-> +			if (fsl_edma->drvdata->flags & FSL_EDMA_DRV_TCD64)
-> +				dma_coerce_mask_and_coherent(chdev,
-> +					DMA_BIT_MASK(64));
-> +			else
-> +				dma_coerce_mask_and_coherent(chdev,
-> +					DMA_BIT_MASK(32));
-> +			ret =3D of_dma_configure(chdev, child, true);
-> +			if (ret) {
-> +				dev_err(&pdev->dev,
-> +					"IOMMU config failed for channel %d: %d\n",
-> +					ch_id, ret);
-> +				of_node_put(child);
-> +				return ret;
-> +			}
 
-[Severity: Medium]
-As reported by Frank Li on v1 [1], should dev_err_probe() be used here when
-of_dma_configure() fails so that -EPROBE_DEFER does not log an error messag=
-e?
-
-Also, in drivers/of/device.c, of_dma_configure_id() ignores all errors from
-of_iommu_configure() other than -EPROBE_DEFER (for example when duplicate
-StreamIDs across channels cause arm_smmu_insert_master() to return -ENODEV)
-and returns 0 after falling back to non-IOMMU DMA ops. If that happens, will
-fsl_edma_configure_chan_iommu() silently set chan_dma_dev =3D true on a cha=
-nnel
-device that failed to attach to the IOMMU?
-
+> +	if (irq) {
+> +		const struct irq_domain_info info =3D {
+> +			.fwnode		=3D dev_fwnode(dev),
+> +			.size		=3D data->ngpio,
+> +			.hwirq_max	=3D data->ngpio,
+> +			.ops		=3D &pl061_irq_domain_ops,
+> +			.host_data	=3D pl061,
+> +		};
 > +
-> +			chan->chan_dev->chan_dma_dev =3D true;
+> +		pl061->irq_domain =3D devm_irq_domain_instantiate(dev, &info);
+> +		if (IS_ERR(pl061->irq_domain))
+> +			return PTR_ERR(pl061->irq_domain);
+> +
+> +		/*
+> +		 * Registered before the gpiochip so unbind runs it after
+> +		 * gpiochip_free_remaining_irqs(), while the domain is still
+> +		 * alive. devm removes the domain after this action.
+> +		 */
+> +		ret =3D devm_add_action_or_reset(dev, pl061_dispose_irq_mappings, pl06=
+1);
+> +		if (ret)
+> +			return ret;
+> +	}
 
 [Severity: High]
-When chan->chan_dev->chan_dma_dev is set to true in
-fsl_edma_configure_chan_iommu(), dmaengine_get_dma_device(chan) returns chd=
-ev
-instead of fsl_edma->dma_dev.dev (&pdev->dev).
+As reported by Sashiko on v11 [1], does dropping GPIOCHIP_IRQ_RESOURCE_HELP=
+ERS
+from pl061_irq_chip and removing gpiochip_disable_irq() and
+gpiochip_enable_irq() from pl061_irq_mask() and pl061_irq_unmask() introduce
+regressions during device unbind and GPIO direction changes?
 
-In fsl_edma_probe(), max_seg_size is configured on fsl_edma->dma_dev.dev:
+Without gpiochip_reqres_irq() and gpiochip_relres_irq(),
+GPIOD_FLAG_USED_AS_IRQ and GPIOD_FLAG_IRQ_IS_ENABLED are never set on the G=
+PIO
+descriptors.
 
-	/* Per worst case 'nbytes =3D 1' take CITER as the max_seg_size */
-	dma_set_max_seg_size(fsl_edma->dma_dev.dev,
-			     FIELD_GET(EDMA_TCD_ITER_MASK, EDMA_TCD_ITER_MASK));
+On device unbind while an interrupt is requested (for example via userspace
+cdev edge detection in edge_detector_setup() -> request_threaded_irq() or an
+in-kernel consumer), devm_gpio_regmap_unregister() -> gpiochip_remove() ->
+gpiochip_free_remaining_irqs() only frees descriptors that have
+GPIOD_FLAG_USED_AS_IRQ set:
 
-However, chdev->dma_parms is left as NULL on the per-channel device. Doesn't
-that cause dma_get_max_seg_size(dmaengine_get_dma_device(chan)) to return t=
-he
-64 KiB default (SZ_64K) instead of 0x7fff (32767), allowing iommu_dma_map_s=
-g()
-and DMAengine clients to coalesce scatterlist segments up to 64 KiB and
-overflow the 15-bit CITER/BITER iteration count in fsl_edma_prep_slave_sg()
-and fsl_edma_prep_dma_cyclic()?
+drivers/gpio/gpiolib.c:gpiochip_free_remaining_irqs() {
+	for_each_gpio_desc_with_flag(gc, desc, GPIOD_FLAG_USED_AS_IRQ) {
+		...
+	}
+}
 
-Should chdev->dma_parms be set to pdev->dev.dma_parms in
-fsl_edma_configure_chan_iommu()?
+Because that flag is never set, gpiochip_free_remaining_irqs() becomes a no=
+-op
+despite the comment in pl061_probe() above devm_add_action_or_reset(). Next,
+pl061_dispose_irq_mappings() calls irq_dispose_mapping() -> irq_free_desc()
+while desc->action and any threaded handler are still active. This triggers=
+ a
+warning in remove_proc_entry() on /proc/irq/<virq> and frees the irq_desc.
+When the consumer later calls free_irq() (such as on closing the GPIO chara=
+cter
+device file descriptor), irq_to_desc(virq) returns NULL, leaking the irqact=
+ion
+and leaving the edge_irq_thread kthread running with a dangling dev_id poin=
+ter
+to the freed struct line.
 
-[1] https://lore.kernel.org/r/aqrem_EkcQM2t0IE@SMW015318
+In addition, without these helpers:
+- gpiochip_lock_as_irq() is not called when an interrupt is requested, so
+  requesting an IRQ on a line configured as a push-pull output is no longer
+  rejected.
+- gpiod_direction_output() no longer prevents switching a line with an acti=
+ve
+  interrupt to output mode.
+- Module reference counting in gpiochip_reqres_irq() and gpiochip_relres_ir=
+q()
+  is bypassed.
+
+Although the commit message compares this with gpio-idio-16,
+gpio-pcie-idio-24, and gpio-104-idi-48, those drivers use fixed-direction
+inputs for their interrupt-capable lines and did not previously use
+GPIOCHIP_IRQ_RESOURCE_HELPERS, whereas PL061 lines have software-configurab=
+le
+direction.
+
+[1] https://lore.kernel.org/r/20261020-cv75-gpio-v11-8-e058bae19571@ambarel=
+la.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-edma-iommu=
--v3-v3-0-9d0e62a954eb@Example.Com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-cv75-gpio-=
+v13-0-4f93114ea204@ambarella.com?part=3D10
