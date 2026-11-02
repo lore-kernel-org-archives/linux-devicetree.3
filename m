@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618954;
-	b=2wTdUrqK3eqglCtbx0AkwvXNRchSNVXf7Ktu74J2h1l4wcYm0CCgvtwQDgZiD8q14693
-	 Wc+jsEffy9dcaqA1rMpK2QoYhXbled5D6vR7AKNc3FVLxkrLwM2ZE1NxAurl9CW0gFV7A
-	 A2UnpS1xg7115OEc6//m78epHrcc6oy/tU2mUh6aDO4JnkTiGAARjexUPcimZksXSAHG8
-	 FEFIU3gQkv5PXfZOcMgaIyJ+wSECueaEyX5IfHThydcju1pBoCHdyUiTFggtFdvzy76jo
-	 u2l8EwuNdfj4AJQTktUXaLVSJfBgvwhyIcCnEbh8tCgA2LgB5noHVrCejuZgQiqFzWg==
+	t=1793619065;
+	b=hnnxiMEjvUZzRtVH6gCHBsZ5BY5VVdLOxlUkx2rCxASP8maFy3L9JgSZ7y5SetQ+ZAWv
+	 +xI4aojajCwBET/EhY8hu2MLxZYjSFu8YZO4F8M+aMQZb5l4NKQIH8MqV53u7J1xkre7K
+	 RwG/GJBodSokHLx2two3TKblGpacwviE3e46yP5zbUS2s+QduGZ+H6J3Cm53Pdq8aqSLd
+	 aU29j0jz+Ek6xax6S/e8ApIHlciMeNMuZgAk1qjKooeO6Jun1nToE/Msj6KzWRjGXTDq9
+	 rQ6o4dl7dQ6+15QkctkPFLsm7uD+np9UyRthQXytprOrjmbktijQH/yZBD8yfj702VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618954;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619065;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=66uriXcNtXR0yHVDrtRaOlgokO4TMcgzsk3HlRENtas=;
-	b=EFWbv9o8GDEiQ0dAbIr88ltDclRbdjHhsSDg/NjS0VaWGa89L84cArGes57CuY+mFEeG
-	 RZ1NJ02OtbgjnwCjPe0zbYscyxT17E+80OmsD41WPtwFcCVF1PbFaV9ISy6+doU3JDcDM
-	 VpEJUEzoFC4/KsKl2cna/aDJGStWBNf+/zL+zSXGLPVcA/XqiJDSc6mlwC1ElYwnOHI6j
-	 RDxfHMj9bM2+VyF0Xc8BBvc+IprBltP2fSXZBtFBCmj+R2ZdNO5Ghn8SrSbXEFBkYdBjq
-	 GFCZGpkItfM/akKnYYWR8q60dsOIVcMARUTV4BvLywYcKi6seBOvAzarHSQOW6ceNSQ==
+	bh=pHJ56RnFLnpgXfSoo5jo4wX0a6zG9uJGmXOIIH5bpRQ=;
+	b=FOUkKoOvT+uMv4/4pYik7tBava1S2wA8ceh944DzV1JBoUScVDZaiBccMTWcv9XBWXBh
+	 sfuPiuIxomx04/RD+Eppx+mrjjLNRY1x+6rL6q5CGt0FT+t1pn1j/HxzpfniV/6/037rr
+	 hwJ/7+TS/3diOfpUNZeUhvA73gGxF/u8PtKjUQrVoSi0Yn2mNZQa5aykcjmthy4Me96x6
+	 pHw9CgEtwhaq+lXEhqMM9GGcFPXr7aEFvziS5h6TcXwKogoWSN/gokFZM0fanBMtxeQN0
+	 qCq/iHeR6XlTddshf8Fn4myoaxBpo1IMi12hiQOgF/IQswvb0kRJE0f/Aqg6S+a7h5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlDYjULt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J5X/dzGf";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE2360A2602;
-	Mon,  2 Nov 2026 11:29:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C13606A32C;
+	Mon,  2 Nov 2026 11:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlDYjULt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885C01F00A17;
-	Mon,  2 Nov 2026 11:29:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J5X/dzGf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246A91F00A16;
+	Mon,  2 Nov 2026 11:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793618953;
-	bh=66uriXcNtXR0yHVDrtRaOlgokO4TMcgzsk3HlRENtas=;
+	s=k20260515; t=1793619064;
+	bh=pHJ56RnFLnpgXfSoo5jo4wX0a6zG9uJGmXOIIH5bpRQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HlDYjULtExUlN0+L3V66eobRYjM7Jgr6YEKa4TAReNHzpwoAAbhKKVb0ENaXcInzL
-	 mRuKd5X/vphnTIbAaFYhYNGTJRnnxi16XYxkDgvd0ZZGpRaMc3vl6TZm+5DDUPLtpC
-	 MWCw7MQmMBbymCEa25y6oJ29Tg3UHaXtrt4OXSQQh9/F9VM2jetEKgRWF95WWS7pHp
-	 IX3XWtO3tOTqwdd1wsDeaLj0uconYEpjKXTOu8hd7IoETwSYI0RdBn+dtUxHY9bZe6
-	 0B7m2kSdKHbb8uwpQMgkOng4dUO0D56Bau+ziPVSGJIV1u8SB8NYFUX+xkuofwET7s
-	 PrH9t/DqGR4Aw==
-Date: Mon, 2 Nov 2026 12:29:10 +0100
+	b=J5X/dzGfuS2FKLfcnlW1xSHtV+QUyLYtJAHFPDv+cTlG6OQUMKIduiMmFScw1w10z
+	 cvNOstcpgaNmkKurBd7StaGTl+YpSpxNy10yaAN+VPwHzFxqkvbojjIye2yXcq4Egk
+	 Lil5lqwUx9q4QlMSsGSry6G70o8sWSCuRKPKWmegnIydjw8gn5rYRWmKg3Qx/LSyut
+	 Z0tV6P/pJvcsd0C1lwXo4itlN8FG3k5ifhiIm9VWdxEw2FTuKb/P97Z9TRzrAwIWH3
+	 oN8yZMF3ON9V5o+QgIqdwgQRMYQrmVpruClMPOnGu+ESbQHhvnCAOfnLuTR8P+6hYE
+	 ohuAibsQOA/Pw==
+Date: Mon, 2 Nov 2026 12:31:01 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: spi: qcom,spi-geni-qcom: Document QSPI
- support
-Message-ID: <20261102-crafty-beautiful-lizard-36db2b@quoll>
-References: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
- <f71369ca-5963-41c7-9103-dd39a7369e38@kernel.org>
- <53640a9c-395f-4faf-bbac-20c47013cec4@oss.qualcomm.com>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: linux-kernel@vger.kernel.org, michael@amarulasolutions.com, 
+	linux-amarula@amarulasolutions.com, Conor Dooley <conor+dt@kernel.org>, 
+	Daniel Baluta <daniel.baluta@nxp.com>, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, Frank Li <Frank.Li@nxp.com>, 
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>, Joseph Guo <qijian.guo@nxp.com>, 
+	Josua Mayer <josua@solid-run.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>, Maud Spierings <maudspierings@gocontroll.com>, 
+	Mehmet Fide <mehmet.fide@screeningeagle.com>, Rob Herring <robh@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Stefano Radaelli <stefano.r@variscite.com>, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: arm: fsl: support Engicam i.Core MX8M
+ Plus FE C.TOUCH 2.0 board
+Message-ID: <20261102-rational-sociable-lemur-4fbd19@quoll>
+References: <20261030163547.2682583-1-dario.binacchi@amarulasolutions.com>
+ <20261030163547.2682583-3-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,33 +67,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <53640a9c-395f-4faf-bbac-20c47013cec4@oss.qualcomm.com>
+In-Reply-To: <20261030163547.2682583-3-dario.binacchi@amarulasolutions.com>
 
-On Fri, Oct 30, 2026 at 07:28:57PM +0530, Jyothi Kumar Seerapu wrote:
+On Fri, Oct 30, 2026 at 05:35:41PM +0100, Dario Binacchi wrote:
+> Add devicetree bindings for Engicam i.Core MX8M Plus Fast Ethernet
+> C.TOUCH 2.0 board based on the Engicam i.Core MX8M Plus Fast Ethernet
+> SoM (System-on-Module).
 > 
+> Unlike the i.Core MX8M Plus SoM, the Fast Ethernet variant embeds an
+> RMII 10/100 Ethernet PHY, so a dedicated SoM compatible is added.
 > 
-> On 10/30/2026 7:06 PM, Krzysztof Kozlowski wrote:
-> > On 30/10/2026 14:30, Jyothi Kumar Seerapu wrote:
-> > > Add the "qcom,geni-qspi" compatible to identify GENI Serial Engine
-> > > instances configured for QSPI operation.
-> > > 
-> > > The compatible also allows the driver to select the appropriate protocol
-> > > firmware when the Serial Engine is unconfigured (GENI_SE_INVALID_PROTO),
-> > > distinguishing between SPI and QSPI firmware.
-> > > 
-> > > Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-> > 
-> > Where is any user of this? You speak about driver, but there is no driver.
-> > 
-> Thanks for the review. This patch only adds the QSPI binding change. The
+> The use of an enum for a single element is justified by the future
+> addition of other boards based on the same SoM.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> ---
+> 
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
-Please avoid stating obvious. I can read the patch.
-
-> corresponding driver changes to add QSPI support will be submitted in an
-> upcoming separate patch.
-
-So no point for this submission. Please read submitting patches
-documents (both).
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
