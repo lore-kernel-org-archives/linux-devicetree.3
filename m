@@ -1,112 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616922;
-	b=zJGxx3OV9SC8FkBPxUzCB1vggjQTqCpVgEK3Ee3R/vqg3mWICAHMV00kcdfhimHmIk5c
-	 siR/piR+2fYDnk8aCErRWzf+H3SKSwvscxQki36kFvvW8k9PWddzZUN7X0UGPibF2wPVL
-	 m+V/TxUKBykek7Om9d2yIEHU+9s8empPwr23a20rSP4bqE2/43eDdj8N/KIik4g/4xUfk
-	 1CF1nVt0uwrV96RPdRDYwIQc1kmNqHEJsCtldBju3k6gHSX3q50NOe0Um+G1T7bhVjXvk
-	 kCrLqC0CwLId4XSVqiq2Ay2MbVcxpgEDnObvi2TtnvKLiWALAndX59dIo/VJLCL7GNw==
+	t=1793616998;
+	b=Iha9nVb773RDn1EsGO4JqXB8WOpZMzhPep3rjO72ziPxlndN67g2tkq2IuSXH0a99+oe
+	 nMi0OlP0HQzlxP2/WqG6UAeqxAPUbBH88JD/jcr3By6H4FwHaJb9QiDShKns3jikzIPm0
+	 H6vLGoSnqgQk9uNbJVKluyx+R7aaz+Lt9Bk2M6+kDZj7gob2avKtQfEWBIfjGnnnDPTt/
+	 UXnI4+DXUTZsDsyU/rzDMvpngmvvI5Wvn47dkMfPyyGuXHdp7LKLAYWTfXROo0KZ4Rwdi
+	 PQODF0qE/o3ZuXSdrCBPX0T84+Zk00n8ROESXk1WJfJr2vnuQqNfJNF8HGgK0jW4HNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616922;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=+g4RtcpsbOEJna1NU7oN7OB6+C78U6kIVa5NdLfGLYE=;
-	b=iBJzbwnlu76kK7H+irKxCTvRMkxXqYSR3bgTOHhwIW3Os/84Otr96BRdHBX41804SbI+
-	 XDzbuGCzegcycYTGzKXC4RTZ0VOZVugU3gGEuQJdBlfHEFPIxFhDnFRoBQT+lxatCb4No
-	 H+gAud7X2xzJweU8CvLQCOm1IkeQk8J0n15KXI31ltdW3euiOuDV3HGOY3BBry93O+xKm
-	 WzCfvm3lclt3ARbTxyMEx19M6c0uIFgYd9sYEY80djq6j77Kxqir6DdVSh1LqOlaz/Mga
-	 UxePLi+TRr2vIEK2o9KSkllkrUBhnxYa1+8BCuebS2xcez1evEjSkwW6y22oK0y1a2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616998;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=cDT1Bs08+9jkqNwANs+D7G9F4Db9tAFvcdQ40nj/kgc=;
+	b=dOGrn1bqBtIszfEKIILlhW2Sb75zxi2cV2yRqb8dboQtVSV1iV8Yx2qkTUih8NpQEwUQ
+	 nfA2wtyk/dnIKHIn5f15w14aae4bJmNdv0CfliOUzDfYHKehtyLTeJHEB+lCw37bmDZSI
+	 TtDWCiBW2aP0KspiIguuhOMD94nbPqGnMypHKmr59JJdpYVsnS7/1oSEkZU7cybCkowwo
+	 3P7VBVAMaoMs99jB9FPXVVtpv9i62BnPPClY+NgiY+NlYQehsZ5C3W/kLzRero598ij7e
+	 UzSaqH88GVPjNBX7pIlbiW/TlW7dx7TcUbJ1Af/9JKJX/syB72vZ4jJh8A6j62iktcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AogXHSbm;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GR1njt3C;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zelz7x9n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39074606A32D
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39074606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30A3606A327
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AogXHSbm;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GR1njt3C
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A6gL213997
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 10:55:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+g4RtcpsbOEJna1NU7oN7OB6+C78U6kIVa5NdLfGLYE=; b=AogXHSbmMq6jzD4G
-	FpC2vT9N2l2ssJoU2GTqwwA6aVKt62y/VCLyquDPzKg+ACVhTJxeGPX363wT4SK6
-	wuvN3/6EORHDsXpoMFz8MNcDyjmIsPPFQEqwJ7n9SCZisyk0qsQNxKpZzqtcq21Z
-	2neDglkb2wDs7pGwa50igsGCLJjv84KQanQhD2hqrJ/dqxyLhdbIQ2/S/pcO3WID
-	gMcoTgBxB8KfvnNXmfnmoOPGkMZREyO4O7qB6KtZ60xdxLtIOWUqysW0F8HestKJ
-	dw9o35jvJAE1YC+Dbel+RMWVzYexXlIokLqD06JOanCK39gjfkhvi/O7SCCkzynd
-	63K05g==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpmf1s814-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 10:55:21 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a3451ea93so4778308eec.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 02:55:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793616921; x=1794221721; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+g4RtcpsbOEJna1NU7oN7OB6+C78U6kIVa5NdLfGLYE=;
-        b=GR1njt3Cv+wv29tAVmps+evmm76ytzvisPXju1cA43Wak7qyuDnY9shnOS3FoqD2Fg
-         GmNsbxq3sFSE0GDDuJIinoZHXzvuBJBXvy0OHUT2FbWsTis3JfH0ZCWWIyFB5P3nxzdm
-         04pgLjRYN6UxSSHd+rEu3tXlkGpEHA1qJ+Sp9hEvOm3LyBcCL0Ma1yXY9LJpwhEBZsCt
-         0/Dv5CFabJN2RaYDlgus+dCZiWRO5xX7ZVRE6E5RnUdBd3DFsyIcaSpZxMZPN27PCmej
-         YfgqTloFb2Bya4WEpqzLJcJPP1O6P9WmISWWjicE3OQ+6JOR/AYCE7ITpT9JLNz2h0Vt
-         Poaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616921; x=1794221721;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+g4RtcpsbOEJna1NU7oN7OB6+C78U6kIVa5NdLfGLYE=;
-        b=r37kX076ktCozRpTCGboIh58ZCBioEG+wosWrgRl8NG5yhaOzRRwwlRI6yBRtWabYm
-         ayIYIgIl1dxU4CCZrZPXZhUYQVxnf1A+mZdHsqdp7Pg7vqr3aSlyQO4Iwy8ZVPtFFAon
-         kqoj8PErJCiWTskZ1vwoUeg7E0HnF/cs1nMfoy9BjBNc4OVTD1PUjW0HUSBWuXZUQ1Zi
-         tnqNous1AcjrY4gUhvSmP8ioso2FRIXNiHEeODoME8gvH1aXx1YxekAWHEgUK/kLiPSm
-         XFLjai6FbWB/xWIRORdguLpbfuZccHrKtjR32LOOPyHFRfrGyNZwwj89h9cP2oEOMQc3
-         YyNw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+RewyMGViNT18pbOcuAMpPWl8fnCB1sKMQaPYuE1VhkS79TIga2F9rqsi4gD4rYoAUR6DHdOIbmeb@vger.kernel.org
-X-Gm-Message-State: APuU4Z+m+LPHzOb6O5HnIfoKejISaFTWzY0VEiqiklt9/rZhUH5RMlLJ
-	ezqmOnrkM655y7X1xAKTnnWTFU+2gsshJSFXX18jidgF5kwKWt7ymL6xPBc9QJbNx9Fc1zQahUB
-	SUWZv/utlbpagpepjuS0DEp5CmYRUikF3+vdfKaNKvTTkuwbt8fXst9glfa3xnkh6
-X-Gm-Gg: AYBFou2MHALuHMB6Lm2DIkX82eVeWPlHFp5LfbqLrh2fECtzlPd7O9V7OsZ10v+0PGe
-	AHBZJawn9FTM9dz5kYZMyOEdxJTedEZYl5SCWFlr/T2DsMn8lpXb1p25FxNBipjKfFmA9FJkYMI
-	GYr0VpZp8E6MYuHfu9bhoUI8XjtlbRVXAdqJKowkzEFbc6jrFknsDCrWmTzG8xPBVjHNhSUdcCU
-	i3ec89Vut2g8ONe8JZKOZtp8YaQpvHAC40/Z82eVEisl43/HnS4etloD6PWkahjQn0MVoeHpuqs
-	WzC5oMDb0tQM616/mB5AyiCJmjTrx9HHAXs9JgHfYrtK1cFih4qq6MI8OalGKc45YClPfiWBRfV
-	CaeG0GI+VVsQb3QmxQWWQMZSj6tJx1rt9X96NvHRdiOit1PO6tXryQsRRB67U9C2hB/k4KPe30M
-	qoIKI6CrnXXA==
-X-Received: by 2002:a05:7300:c00c:20b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-36a422039cdmr17301668eec.1.1793616920540;
-        Mon, 02 Nov 2026 02:55:20 -0800 (PST)
-X-Received: by 2002:a05:7300:c00c:20b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-36a422039cdmr17301615eec.1.1793616919790;
-        Mon, 02 Nov 2026 02:55:19 -0800 (PST)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428aed76sm38286105eec.9.2026.11.02.02.55.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:55:19 -0800 (PST)
-Message-ID: <fa8bb99c-6f85-4a83-a920-227991303d57@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 16:25:13 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zelz7x9n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A77A1F00A17;
+	Mon,  2 Nov 2026 10:56:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793616997;
+	bh=cDT1Bs08+9jkqNwANs+D7G9F4Db9tAFvcdQ40nj/kgc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Zelz7x9nG50un+AFoLr1zRjvPR2Y/CVhmM9MsDpexrJwgX0htRHS2utcGYRP9k73X
+	 hVKD00meFI+qd4hdqc+EizmlvUeYIr/XhapFweY3p4uv9ZDdUI+ORexVI1E/aSHGyi
+	 cwZpTFbPuSl8hVjHbUJyqJdMPMlZVt3eD0iPqyelDrJW174vT18ZCbPsSnOc5h+p71
+	 WR387DO4U6tpjhd5PI0tyxOez21fYmyxwyX5R5XKuqFyA4pvbU8meXh+NvKGsv9Wi6
+	 YGoIrIzLQwaGedCqDmM1gB4dIDn6sXSONi2vlmWA6BrEX1SOVNmqBaiNDvej/l5NsF
+	 t5uZ+hoLwzLtQ==
+Message-ID: <sashiko-outbox-193299@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v24 10/15] media: qcom: camss: vfe: Add support for VFE
+ 1080
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261102-kaanapali-camss-v24-10-d6b8f3f6f66f@oss.qualcomm.com>
+References: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
+ <20261102-kaanapali-camss-v24-10-d6b8f3f6f66f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 10:56:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,93 +60,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] ASoC: codecs: pm4125: Keep the micbias reference
- count balanced
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
- <20261015-pm4125_mbhc_support-v1-3-8bc1212db6f7@oss.qualcomm.com>
- <a3df845a-ab58-4945-9221-ff671c3dc378@sirena.org.uk>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <a3df845a-ab58-4945-9221-ff671c3dc378@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: pZYB-TH2pcoOOgWM4XHFal5j44BQ4u4J
-X-Authority-Analysis: v=2.4 cv=bNaDs/+Z c=1 sm=1 tr=0 ts=6ae86c19 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=cy-uCPSrX33jWG4tK70A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MyBTYWx0ZWRfX7GJVs3NHSjnY
- nhX6ONLNAgQSARPmWaHwYOif0UpXIT9OOQNNDyv175CGEG6sejsncUJxOXVEaWP1qa4nDKUVkAX
- w3PiLFTWDgVnGJ3bkPVXw0pY3KXZmz6qzHPBf8klcaJ76UVqcX7kE9oDFwRFyOrZNbbXhtn14ZC
- yac1Ar9huMeXcTLN8qfMOa9AZ056AvDo7K4rbdZcBFi3eEMf1pSA3ty98N5mWP0ccfiRt6B0I/u
- kDsohs2WWRYlm6ZX3R+6TwMSU3VNYfe2hFSyWYEpNP+e0sKXLt2eAz+0rIrPQKCNdrd37dnE29e
- 21DQTjpA27BwARjQpbZ+SrK3di9u2BrcRPQ6mDPheURwSyC5HxZgljDAHwvKBqDbwehejIjaJRz
- fWbkZriuXc9LbQkuTgw4luXwMDOAReh3ZCHrx02fO0hflUpzT3rGDECNalPXHFvxIqcKapcpacb
- LJwSF2etm7WxKNbAI8Q==
-X-Proofpoint-GUID: pZYB-TH2pcoOOgWM4XHFal5j44BQ4u4J
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MyBTYWx0ZWRfX6ymiaQ0iMQbB
- yeUzoBRUDXoGFt3k+MGTHzhUyxUzM3GwEHMBEhJ6CwWNKxe/2MDmktY+NVYlKQ6Rog5690CAXI5
- m1ut+48/wngeOQecYaaQDcxha9M74mA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020043
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] media: qcom: camss: unsynchronized CSID RUP/AUP updates in vfe_ops=
+_1080
+--
 
+commit fa6d43fd7f6f3cf7fc60f961a5b80cfe5e9e3b1c
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-On 10/16/2026 12:33 AM, Mark Brown wrote:
-> On Thu, Oct 15, 2026 at 07:43:11PM +0530, Mohammad Rafi Shaik wrote:
-> 
->> The analog master bias is shared between the microphone bias supplies
->> and the playback and capture paths, so pm4125_global_mbias_enable() and
->> pm4125_global_mbias_disable() reference count it and only touch
->> PM4125_ANA_MBIAS_EN for the first user and the last one.
-> 
->> MICB_DISABLE clamps the per-supply reference count at zero but then
->> evaluates the enable and pull-up counts regardless, so a release that
->> has no matching request still reaches pm4125_global_mbias_disable() and
->> drops a reference it never took. The MBHC framework issues exactly such
->> a release: it takes MIC_BIAS_2 once when it starts detecting a plug
->> type and releases it both at the end of the correction work and again
->> from wcd_micbias_disable(). Inserting a jack while a stream is running
->> therefore switches the analog master bias off underneath it, leaving
->> the path up but silent, and it stays silent until another stream takes
->> the first reference again.
->>
->> Return early when there is nothing to release, so the hardware is only
->> touched for a request that was actually made.
-> 
-> This feels like a bodge for poor reference counting elsewhere - in
-> particular the MBHC seems to be fairly clearly double freeing.  The fix
-> here just silently eats double frees AFAICT?
+media: qcom: camss: vfe: Add support for VFE 1080
 
-Hi Mark,
+This commit adds support for the VFE 1080 (TFE) hardware block found on the
+Qualcomm Kaanapali SoC, including register configuration and subdevice
+resource definitions.
 
-Good catch. I’ll check this and fix it in the next revision.
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers=
+/media/platform/qcom/camss/camss-vfe-1080.c
+> new file mode 100644
+> index 0000000000000..68798f13fbea8
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
+> @@ -0,0 +1,213 @@
 
-Sorry for the delayed response. I was away for a few days.
+[ ... ]
 
-Best Regards.
-Rafi.
+> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
+_id)
+> +{
+> +	int port_id =3D line_id;
+> +
+> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
+> +}
+> +
+> +static void vfe_reg_update_clear(struct vfe_device *vfe,
+> +				 enum vfe_line_id line_id)
+> +{
+> +	int port_id =3D line_id;
+> +
+> +	camss_reg_update(vfe->camss, vfe->id, port_id, true);
+> +}
+> +
+> +static void vfe_addr_update(struct vfe_device *vfe, enum vfe_line_id lin=
+e_id)
+> +{
+> +	int port_id =3D line_id;
+> +
+> +	camss_addr_update(vfe->camss, vfe->id, port_id, false);
+> +}
+> +
+> +static void vfe_addr_update_clear(struct vfe_device *vfe, enum vfe_line_=
+id line_id)
+> +{
+> +	int port_id =3D line_id;
+> +
+> +	camss_addr_update(vfe->camss, vfe->id, port_id, true);
+> +}
 
+[Severity: High]
+As reported by Sashiko on v14 [1], can vfe_reg_update() and vfe_addr_update=
+()
+race with csid_isr() in drivers/media/platform/qcom/camss/camss-csid-1080.c
+when updating csid->reg_update and csid->addr_update?
 
+In drivers/media/platform/qcom/camss/camss-vfe.c, vfe_enable_output_v2(),
+vfe_queue_buffer_v2(), and vfe_buf_done() invoke vfe_reg_update() and
+vfe_addr_update() while holding vfe->output_lock. These forward through
+camss_reg_update() and camss_addr_update() to __csid_reg_update() and
+__csid_addr_update() in drivers/media/platform/qcom/camss/camss-csid-1080.c:
 
+    static void __csid_addr_update(struct csid_device *csid, int port_id)
+    {
+            csid->addr_update |=3D CSID_RUP_AUP_RDI(port_id);
+            writel(csid->addr_update, csid->base + CSID_AUP_CMD);
 
+            __csid_aup_rup_trigger(csid);
+    }
+
+Concurrently, when an end-of-frame interrupt fires with INFO_RUP_DONE set,
+csid_isr() in drivers/media/platform/qcom/camss/camss-csid-1080.c clears
+those fields without holding vfe->output_lock or any CSID lock before calli=
+ng
+camss_buf_done():
+
+    if (val & INFO_RUP_DONE) {
+            __csid_addr_update_clear(csid, i);
+            __csid_reg_update_clear(csid, i);
+    }
+
+If userspace queues a buffer via VIDIOC_QBUF -> vfe_queue_buffer_v2() when
+output->gen2.active_num =3D=3D 1 (or enables another RDI port on the same C=
+SID
+via VIDIOC_STREAMON -> vfe_enable_output_v2()) on one CPU while csid_isr()
+processes INFO_RUP_DONE on another CPU, the unsynchronized read-modify-write
+operations on csid->addr_update and csid->reg_update can clear a newly set
+bit before writel() writes CSID_AUP_CMD or CSID_RUP_CMD, or clobber bits
+across RDI ports. Would this cause the hardware to miss a buffer address
+update while output->gen2.active_num is incremented, stalling capture?
+
+[1] https://lore.kernel.org/r/20260601164403.8CE831F00893@smtp.kernel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-kaanapali-=
+camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com?part=3D10
