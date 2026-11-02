@@ -1,57 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649320;
-	b=XhCDaVEMMMhMZDbA5MhgeKJRFR5s173lF6FVAhamDrt95C18fhMsXLf3WSXGT0b8eAeA
-	 M+7R6on34XYqmkA6+sZAnKQslXGYQENx/vq8tYkSMtGuoUND30/5lrWU+5bRA+G+tQnOl
-	 9ALAsmVJxs5cbUES0MKS6a8Gu2MgPSzluYkm/naz6KfxrxTIZ9aWC2KT5mqkkM7X8dSAX
-	 BoM8sff7BKqcVwHOS5gOT3Sk3REvGMIM7u59iqP+M4va809FPnX+SKquE+kEnFmrFRvgy
-	 GcsJkjDZ0YG2DFRIpHqTiovU7QFFyluGxQHHrJHM7z9B7z6nkb0bf8d4oSZXgEBXFJQ==
+	t=1793649331;
+	b=Piqk4Z6xYsiOWSemO2JgNORpMzLzW24K/toGhFnbNaj4UbvFqdmcQ4tNzYsYKXq3VtUX
+	 wJh3xv/ESPu/PwEKUs1dEopvDoUlDqNIf0XOuJmncy62ld2lj0LtE3ud/aI6mGhZD4cOP
+	 wg7dOg6FyiHBBS7KcC7hmjv8iFuRXGBIXjmgXOjopFcbTTQew3Y1e4T24bofnm+b72oDz
+	 f3Ufst3N4NpVfCfe0sWiY10R8qxvvmu+N/nHV/+PUpxO3gZgCjXjLAf9FJnCdt+WmdZ8O
+	 4oQjqCc8/iciEM66Gmz/rgPyypwG6NUrq4Ik8Pw/Q+4hVK/iZ61KVqsUL552/GT1G9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649320;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Yj7bPL/QcxOBshuuFMXdKPv3GiZzj25CYGfkuOZEJwQ=;
-	b=0Yzq7dWXJD77t+WzNRFx6X3o9YKH2xmtkYwx4oLYVCqIbVNkkgzuJCwZj4B42amVHU3J
-	 5QRz9gSzMfxgEuFk6bEYXnf/dbnYY8zr7f0cUHSgJzVshm9IkXH/3z7BFqEkW4vCYPyOG
-	 2VsZFR+HhRTVDYhCtTzYJ9lW6nZ5D+AjxA5Xpr0PNef2ca8YmTJyltyWQM7KPVaUl+Owf
-	 LdQq0Wz0Obhk76kPJWzomI037FEGApbUZy3/XME+e1OM6l/pGk2RSPmbUyvikXupg+BmO
-	 +QFTByFtHd1QH3YXD24xkQUbAtEd0nKGTTLXWpRTq7vvnNaRd1mIOt3j/UTYRUHNnsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649331;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=DRBWX4J/Ak94TbpMM7HoAnpLEmSCyB3p+1+fdXZAg3w=;
+	b=ePIFZETRxcU9y4BvaqV4k72y+6woQuianlOWEwD/S9yT6C2SIr05CWbw2cuwajWDA6Vj
+	 1/gcEf2obw6GPPFSBxhl/CBMnRVxCQsBdei80kkXLRdPxnVFXRuE4bxswNZP+U7Pxr3Eg
+	 iHB2ilQlhSIcOimZfwdhowETEawq29onJ2dg7n9SXMU4eHmBnoRXhIIrs5jpOCkKzHn/S
+	 aiL3S25G+UDpS2UXWj4wzlNECk/K8c6xayg5oU47s4X8ZmcpaGybRikCsKYEwyI00/8sX
+	 LyAVm6AgUeUsYH9E2dqxqeZvw1mffd263+aFrBcaF9rmuZEt3OiyNc2WKymFwn7vCPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DlBY/S1W";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="W/VHu2Zp";
+	arc=none smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4F2606D82D;
-	Mon,  2 Nov 2026 19:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA276082BD8
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:55:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DA276082BD8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlBY/S1W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1705A1F00A1D;
-	Mon,  2 Nov 2026 19:55:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793649319;
-	bh=Yj7bPL/QcxOBshuuFMXdKPv3GiZzj25CYGfkuOZEJwQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DlBY/S1WdPUIq7DR2DUQKwqIURI5DL643tNoktvg2qhfsmYFgFSPIvCuDs3xGf2Nx
-	 0r9WJBo6cflZZLN/OH+IkGJxkuo8Uvf+dUJrMUTwBv01CYUhBf0rgPdHsnQdmLpDqT
-	 cL4R7qVaVdxBlgdEobvzytkhz2/e5hYR5ETsZeHM3tdz24flC7PI6oF+JuB+IH7PgP
-	 eb0+us0iTvKWIAhNgz8O5WyLBmC+0XHkEAp5ZWehuuuwd8AutMM2vXT2WniKFsiji3
-	 KgcTpEzssV72y8jEP0XE7dTWrR3am+t2Yq5JXU1yITVTWGtEzD6D7IYF25sQ2jxX5j
-	 w4EkJtddx8RMg==
-Message-ID: <sashiko-outbox-194037@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v3 01/17] firmware: arm_scmi: Drop the ARM
- architecture dependency
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Han Gao" <gaohan@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-a210-scmi-v3-1-ee6b31580808@iscas.ac.cn>
-References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
- <20261103-a210-scmi-v3-1-ee6b31580808@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 19:55:18 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W/VHu2Zp
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-43bf9548df4so3294314fac.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 11:55:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793649330; x=1794254130; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DRBWX4J/Ak94TbpMM7HoAnpLEmSCyB3p+1+fdXZAg3w=;
+        b=W/VHu2ZpXW2zipVHX/rXepXOiugOQtCaQnYvpUHnQkWjuFZfbFX0eq42B5jR6wADzc
+         h4YjznTb2sYaRbl5uNBwLJgB4U9u3WReakR5px2gq0M3QEqxD/svXvEs5Mf9uvy57UYj
+         H+LHqnhM3vq5WsVC2aUXbXX0dBeTAzRHCRxOuEdyQAYMdesUNkn3EZfYgAJhdHEsMaTn
+         LJA82YROAkMOcidx5K75HK2IR0HUUsj/8aPck/+3giSmxK3oMKYmJTwjYo7/x5Wx6YUj
+         DAGa+SiPKyMyxb3zgroXYtOYgayiHnZnrDCBWKLwFFLOnb/5yeoidrd1fMzXm8FfRxgh
+         KB7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793649330; x=1794254130;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DRBWX4J/Ak94TbpMM7HoAnpLEmSCyB3p+1+fdXZAg3w=;
+        b=yMYhG2TtAY+coclN+xUmrtNB1N+pU25QldMVmcjogfHd9HZGWPmRUzpzCuaS3425wj
+         0rAy0N//NVZDnc9ZZmJO48pCM4NVbyMSV65EN86/PE9Br4nx/Qu9ezYh0Xr3VELFJdAP
+         /v/ZQAlnjNdoDGpz4ZgIZa73MtfhrxV8ODSP689A9BDIij9+lerGXtyVZWyii7t+2C9r
+         8p6R5hz17rM8I+w6W2kEzvShLw1qzJ/c1rioefsmEhLB/C8GcrtfhYmpLlJXHbp+2nCw
+         l6ZnjpcZMcliZaGICnQMg/mcbzJMYYBlpNnYfwcpAxQzrq9FWUy5wIvZVccMv3J5opfB
+         fZoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnFQ1O2JlMB9DYZxtzlh02QcvyN//vTJAN0Gs+tjPHtb291sEGCqFbkUJY8YmxJ3JdYkAUPBdTPrDS@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kyiR6xgczwhJ1862jY872cQhLBEBn5HnIQkGJZviAMrxDIQZs
+	KiOcQxH+1kv5ghSJ+3fBDqVhRXbElnSL0XNoGLz91d4dpNEcNjQ4MtL0
+X-Gm-Gg: AYBFou109RQbmDesySnVhVD34KZZ4gWghoJDRnKxDj4yu5ZENHtEN8RvuCvPe6ytpbh
+	y/yl+RhySHvDj4eVNga4ibePfkycg+NOjxHntveqngF/8NQfKIp/a5YsyvtyhPPUd7Sjske6Ee6
+	CpHk7zgpQTSAUUypQ9P+ccb7snWzy5PqYC2Pp9dAcH9JW6WbnOHC0+okF+/HXgvyt1EkGdy9Rds
+	7HNTqObCxs3Yfb0dLAD4GNUJwndlZllAPbG2rLcQeS0ewlNjlLDW5duG/UZoPHGDYAT9kwEIp/+
+	z/lzCSrIyA9BZDZsCrAc7fRZEY2/wMeCg80kFDLV67oAL3ll+5ryjqlDc872hYraP3sAQAaRvjQ
+	9bx521bhkemSJYy1CiciqQdtHLh8paaOyHk5j1wIVU+GbG6xzM5OHzaNToYjTwMSLXSsue9EU8U
+	SJAKznYDxtjn2cTpBCijHVIgcZ1yQiPNei65RgdzgzloF7wUqkP2GZXBLukWpbTDiJ/xmyUqs+g
+	Kry1veAhoxqQBDr9842vqTjmuc9YxmRqqirXgD1X9fsTZ2JOwaTtIPaJW/Tjb2SXuMA2icruFKO
+	JyHs4KUvYgcg2B5S/kZ2n/cjh2TsNb1m98vusmAJsjN9017UR95kKeKUOB7V4aYGLHMksTWSRxZ
+	zZD9ZFcjeP2pSo40IUJP1Vz6VwI2QKSTiQoA7H4m2yJqMvIsRmrGTY3zxkHUW4MF1iX0BHay0qZ
+	zDrucWTzi633jsvh/AsYCENmk05GVfpE80PXKvZLdE4D3Ev80se+MdbJJ/mI9Hkgdw3hgO4sXc
+X-Received: by 2002:a05:6870:3d86:b0:4a7:4cd1:6f37 with SMTP id 586e51a60fabf-4a90764ba69mr6695598fac.19.1793649330169;
+        Mon, 02 Nov 2026 11:55:30 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a921353dcfsm7809249fac.0.2026.11.02.11.55.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 11:55:29 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 02 Nov 2026 12:55:20 -0700
+Subject: [PATCH v6 5/8] arm64: dts: allwinner: h616: describe the UART
+ integration
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,67 +93,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-submit-h616-uart-fifo-v1-v6-5-25afcb346b0c@gmail.com>
+References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
+In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] firmware: arm_scmi: missing HAS_IOMEM dependency on ARM_SCMI_PROTOC=
-OL
---
+Identify the H616 UART integration on each of the six controllers. The
+specific compatible describes the fixed FIFO capacity, register layout
+and receive-trigger mapping.
 
-commit 2b45f4669350cda60b185c5a0c439cbdd7f35cc9
-Author: Han Gao <gaohan@iscas.ac.cn>
+Retain snps,dw-apb-uart as the generic fallback. H618 includes this DTSI
+and uses the same UART integration.
 
-firmware: arm_scmi: Drop the ARM architecture dependency
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-This commit removes the ARM, ARM64, and COMPILE_TEST dependency from
-ARM_SCMI_PROTOCOL in Kconfig so that other architectures can build and use
-the SCMI protocol driver.
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index c6b3a3f8359a..b4b2f85726e0 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -550,7 +550,7 @@ mmc2: mmc@4022000 {
+ 		};
+ 
+ 		uart0: serial@5000000 {
+-			compatible = "snps,dw-apb-uart";
++			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
+ 			reg = <0x05000000 0x400>;
+ 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg-shift = <2>;
+@@ -563,7 +563,7 @@ uart0: serial@5000000 {
+ 		};
+ 
+ 		uart1: serial@5000400 {
+-			compatible = "snps,dw-apb-uart";
++			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
+ 			reg = <0x05000400 0x400>;
+ 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg-shift = <2>;
+@@ -576,7 +576,7 @@ uart1: serial@5000400 {
+ 		};
+ 
+ 		uart2: serial@5000800 {
+-			compatible = "snps,dw-apb-uart";
++			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
+ 			reg = <0x05000800 0x400>;
+ 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg-shift = <2>;
+@@ -589,7 +589,7 @@ uart2: serial@5000800 {
+ 		};
+ 
+ 		uart3: serial@5000c00 {
+-			compatible = "snps,dw-apb-uart";
++			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
+ 			reg = <0x05000c00 0x400>;
+ 			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg-shift = <2>;
+@@ -602,7 +602,7 @@ uart3: serial@5000c00 {
+ 		};
+ 
+ 		uart4: serial@5001000 {
+-			compatible = "snps,dw-apb-uart";
++			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
+ 			reg = <0x05001000 0x400>;
+ 			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg-shift = <2>;
+@@ -615,7 +615,7 @@ uart4: serial@5001000 {
+ 		};
+ 
+ 		uart5: serial@5001400 {
+-			compatible = "snps,dw-apb-uart";
++			compatible = "allwinner,sun50i-h616-uart", "snps,dw-apb-uart";
+ 			reg = <0x05001400 0x400>;
+ 			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg-shift = <2>;
 
-> diff --git a/drivers/firmware/arm_scmi/Kconfig b/drivers/firmware/arm_scm=
-i/Kconfig
-> index 783c24a20e291..b56aed46a3870 100644
-> --- a/drivers/firmware/arm_scmi/Kconfig
-> +++ b/drivers/firmware/arm_scmi/Kconfig
-> @@ -3,7 +3,6 @@ menu "ARM System Control and Management Interface Protoco=
-l"
-> =20
->  config ARM_SCMI_PROTOCOL
->  	tristate "ARM System Control and Management Interface (SCMI) Message Pr=
-otocol"
-> -	depends on ARM || ARM64 || COMPILE_TEST
+-- 
+2.53.0
 
-[Severity: Low]
-Should ARM_SCMI_PROTOCOL retain a dependency on HAS_IOMEM?
-
-Previously, ARM and ARM64 selected HAS_IOMEM, and COMPILE_TEST in
-init/Kconfig depends on HAS_IOMEM, which guaranteed that CONFIG_HAS_IOMEM
-was enabled whenever ARM_SCMI_PROTOCOL was selectable. Dropping this line
-leaves ARM_SCMI_PROTOCOL with no dependencies, allowing it to be enabled on
-targets where CONFIG_HAS_IOMEM is disabled (such as ARCH=3Dum).
-
-When CONFIG_ARM_SCMI_PROTOCOL is enabled, the core driver in
-drivers/firmware/arm_scmi/driver.c unconditionally compiles
-scmi_common_fastchannel_init(), which calls devm_ioremap():
-
-    addr =3D devm_ioremap(ph->dev, phys_addr, size);
-
-In addition, when CONFIG_MAILBOX or CONFIG_OPTEE is enabled,
-ARM_SCMI_TRANSPORT_MAILBOX or ARM_SCMI_TRANSPORT_OPTEE selects
-ARM_SCMI_HAVE_SHMEM, which compiles drivers/firmware/arm_scmi/shmem.c
-(calling __ioread32_copy() in shmem_memcpy_fromio32(), __iowrite32_copy()
-in shmem_memcpy_toio32(), and devm_ioremap() in shmem_setup_iomap()) and
-drivers/firmware/arm_scmi/transports/mailbox.c (calling devm_iounmap() in
-mailbox_chan_setup()).
-
-Because lib/Makefile only builds iomap_copy.o and devres.o when
-CONFIG_HAS_IOMEM is enabled:
-
-    obj-$(CONFIG_HAS_IOMEM) +=3D iomap_copy.o devres.o
-
-won't building ARM_SCMI_PROTOCOL with CONFIG_HAS_IOMEM disabled fail at link
-time with undefined references to devm_ioremap(), devm_iounmap(),
-__ioread32_copy(), and __iowrite32_copy()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-a210-scmi-=
-v3-0-ee6b31580808@iscas.ac.cn?part=3D1
