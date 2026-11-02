@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602844;
-	b=xCY+ZD7i3CrWENAKxrm6pisgzYqJWa1OS0vasL0ENZNlgU7/eATKoykDN0AJ2jaJOHMO
-	 iy1wnTYXAIco9qmezdlPf1BMQTBcyqnB17KEJf960LB6z2fFH7QFB86nhA1hIsibrFZ8p
-	 +ROpbkkiH6ec+EbJoY5kiPSmAb4QOh02kNDC2al4UoO2LGfwu3oUuJH9f6EPqeutJktrZ
-	 0cZ10pfPpiBrbhsD08S2njMgoXX/Rc8UtiVJCMXWhkYdlC50Lyb1vQPaA7MBRfiJo93BE
-	 LQDyrf3HUZ/vVW0/AZ46Rs9v/+hlRPu4IAWWT6ctALhglOE0MQ9gk6Vuc/AMVGeMR7w==
+	t=1793602895;
+	b=PMilshOyPpsWdk8mNyayXrCsEhAiIqK1SD4wxHoWShpnW8W8Oqqhc3ppuaD5RYhjs970
+	 AzfcKOPTRWfoYPPzyREqPs4wftHEYKsCAn67m+PPkUWi7uSDn9JsEXXw58inP6jnjDF1C
+	 NGmUOzRYN58iEDdxVXVlA7QkBsjrn0UVb+zxMCwLn6tg4NxzAHjAtoD9Q+QMebrv9I7j7
+	 IoAGc53TzwiUkq5ZmNVNDErWqMjJF1PZ3Geks8XjG061jeWVnvqU5/HJsmFlaUTbyno0B
+	 eGI6JnW9wOBnoMOQvy31YCr3V77N6e6uVrh922Q4BiosrpRHipTDI+mGmbviBNWZi+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602895;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=drddJG0sj3gAdPwkvwI/bq+BjhbH5qeTOg1nM6CQf4o=;
-	b=RCiJaCWrYBjFPd51kyG7hNRrPCFDtDssVoF2EzsgNONs7pBKELg2yMBiV1YASSLRzu0K
-	 1lf3eD2W1kaxrL1Sz0KBKGGypclqlFQ4hSoxNMF4FsT3ZhMiQcA7hxP8whFJG9Hh7nx63
-	 htbovlD78ynzSpOsl19vkx+g8lIDhnAeEaPDo/AA0CQCyGwwaVGsCnamYmNp+2D+T+5Rk
-	 ESH1sFMpS7PXZuGrabLvTyWUVXeuLWOh4OXAnmMrMewU0CBqOUsGrrWWXF1mvanYMh/8r
-	 pNUfB6dog0GJRHRmuHc2hiIIclu2dxDVc/Jxy+xrytL3lIsqcPNbqAvvr+qvAgIMpQg==
+	bh=TJGEwD7jtGT63TbiJfLrr9nTlLTqan3nl9lRwUMu14U=;
+	b=BN2R7pQOoSZJ93A6aWC2qkQrhbB5MuAsWqp0KfNeVmRDxan8o5zMGAVkBj2Y6rDA+yLi
+	 h8i1TKg8EYR9WWJ+CYtrT8BkaxEcE8CspHhN7LPuvyPiOG3Em4kS7dDiA6Yg1pvoD5dBI
+	 ZSHSP7VIAF2V/qMMWx46A50scVWOoJCVqGKlwkhru70D58cVDJd57Mq/psjR5dyvQPrJW
+	 MZYXHaFnQ3aCCOBiYznHqJdNVzOnx1xMko3M7vaxy9M82YM3WRWj6LC7wnBWO6ikcjTqE
+	 e6Ie+lCMcwp+mdCnBJIJKVmTy9gl5N8+si9jTQNIgx5J5//cFbCmxgRI7XFhv2MwRnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F58qm/N3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgGNusFI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D647606A32D;
-	Mon,  2 Nov 2026 07:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F67A606A324;
+	Mon,  2 Nov 2026 07:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F58qm/N3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8C01F00919;
-	Mon,  2 Nov 2026 07:00:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgGNusFI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74511F000C1;
+	Mon,  2 Nov 2026 07:01:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793602844;
-	bh=drddJG0sj3gAdPwkvwI/bq+BjhbH5qeTOg1nM6CQf4o=;
+	s=k20260515; t=1793602895;
+	bh=TJGEwD7jtGT63TbiJfLrr9nTlLTqan3nl9lRwUMu14U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F58qm/N3coRjks5+CJFgOjjJDM4V0zANSCKNnLZ5+uL82sa9nQ5VvzjJLEa3klQ9e
-	 V03RmzZUwaLq9CXeV4fHmGonyI5FMJfv691QYvFj42c8bjJE/QsM7Ny0rAkHdaDjPW
-	 CFUomsgqA0RKFXHEmm2zdAEWfhArjmOsCndwfXgtp4+xYJXNvFps01s1alWAhGAhyJ
-	 sj8S1AJuDLHTcY89SrhcQxwt4KBPEKvv+cr+vT4zBTj5s8RwmDlJrbfj7vm7I6bEel
-	 EYKy0XxZP754zgC/FRFwFJ3qD223Ml5RaH2QQKDOA5VKqaiBjlZB2FSbXH+0R5IzTD
-	 lI7VCKiK238Ng==
-Message-ID: <sashiko-outbox-192991@kernel.org>
+	b=VgGNusFIqU5OJfaX7Sgme2nXQMQpcygau96KKJ6JI8iSO8wET+rf1g9IT4sjvw2p4
+	 y0Ze1r4/N+odiYp6nRhncnJgfvPPUC4FqUL0Nt/rLc9ffcW9pdFEFb9vKebECsKVDm
+	 LwpnAgduTVv8L73BlkxaRK3RFLW8sHxzoQTlEqRBF8anzVMG67BZQnRHy5ZKeGws0O
+	 MsVz2vXiyiL2a8iN8AmAnJUwedPNyMqoyWdYgt7szO65fQk/yW/opb6fi9vOfLD/5J
+	 0N1JuyTEk8AcpVxS4VNGuGkug7LXjnYTUbh/+Wa6IoAyObAv4qSn7SX0IF1gWT6kXL
+	 dfWRUHOphM+HQ==
+Message-ID: <sashiko-outbox-192993@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/7] arm64: dts: imx95: convert eDMA to per-channel
- child nodes
+Subject: Re: [PATCH v13 02/13] gpiolib: regmap: add
+ GPIO_REGMAP_QUIRK_SET_AFTER_DIR
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: imx@lists.linux.dev, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261102-edma-iommu-v3-v3-7-9d0e62a954eb@Example.Com>
-References: <20261102-edma-iommu-v3-v3-0-9d0e62a954eb@Example.Com>
- <20261102-edma-iommu-v3-v3-7-9d0e62a954eb@Example.Com>
+To: "Long Zhao" <longzhao@ambarella.com>, linux-gpio@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-cv75-gpio-v13-2-4f93114ea204@ambarella.com>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+ <20261102-cv75-gpio-v13-2-4f93114ea204@ambarella.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 07:00:43 +0000
+Date: Mon, 02 Nov 2026 07:01:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,91 +63,77 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] arm64: dts: imx95: edma2 child nodes break fsl_edma_probe() on imx=
-95-navq
+- [Medium] gpio: regmap: unchecked gpio_regmap_set() in gpio_regmap_directi=
+on_output()
 --
 
-commit 4788f1a45cc4009b4772c28b9de4641ae62aa052
-Author: Peng Fan <peng.fan@nxp.com>
+commit eae7ad18ef30360e98f853dbc86b39ea56d2da3f
+Author: Long Zhao <longzhao@ambarella.com>
 
-arm64: dts: imx95: convert eDMA to per-channel child nodes
+gpiolib: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
 
-This commit converts the edma2 and edma3 nodes in imx95.dtsi from flat
-interrupt arrays on the parent node to 64 per-channel child nodes with
-individual reg and interrupts properties.
+This commit adds a quirk flag to struct gpio_regmap_config and struct
+gpio_regmap so that gpio_regmap_direction_output() writes the output value
+after switching the line direction to output for controllers that ignore
+output writes while a line is configured as an input.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
-ts/freescale/imx95.dtsi
-> index d20c2498b9aa2..64570703ce6cb 100644
-> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
-> @@ -635,148 +635,666 @@ edma2: dma-controller@42000000 {
->  				compatible =3D "fsl,imx95-edma5";
->  				reg =3D <0x42000000 0x210000>;
->  				#dma-cells =3D <3>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <1>;
-> +				ranges;
->  				dma-channels =3D <64>;
->  				/* channels 0 and 1 reserved for V2X fast hash */
->  				dma-channel-mask =3D <0x3>;
+> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
+> index 51b4d69b87403..0a44deae3d01e 100644
+> --- a/drivers/gpio/gpio-regmap.c
+> +++ b/drivers/gpio/gpio-regmap.c
 
 [ ... ]
 
-> +				dma-channel@42100000 {
-> +					reg =3D <0x42100000 0x8000>;
-> +					interrupts =3D <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
-> +				};
+> @@ -271,9 +272,17 @@ static int gpio_regmap_direction_output(struct gpio_=
+chip *chip,
+>  			return ret;
+>  	}
+> =20
+> -	gpio_regmap_set(chip, offset, value);
+> +	if (!(gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR))
+> +		gpio_regmap_set(chip, offset, value);
+> =20
+> -	return gpio_regmap_set_direction(chip, offset, true);
+> +	ret =3D gpio_regmap_set_direction(chip, offset, true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR)
+> +		gpio_regmap_set(chip, offset, value);
+> +
+> +	return 0;
+>  }
 
-[Severity: High]
-Will adding all 64 enabled dma-channel child nodes under edma2 cause
-fsl_edma_probe() to fail on arch/arm64/boot/dts/freescale/imx95-navq.dts?
+[Severity: Medium]
+As reported by Sashiko on v11 [1], should gpio_regmap_direction_output()
+check and propagate the return value of gpio_regmap_set()?
 
-In arch/arm64/boot/dts/freescale/imx95-navq.dts, &edma2 overrides
-dma-channels to 30 while inheriting all 64 enabled child nodes from
-imx95.dtsi:
+In drivers/gpio/gpio-regmap.c, gpio_regmap_set() returns a negative error
+code if gpio->reg_mask_xlate() fails or if regmap_write_bits() or
+regmap_update_bits() fails:
 
-    &edma2 {
-        /* channels 30-63 owned by M7 */
-        dma-channels =3D <30>;
-    };
+drivers/gpio/gpio-regmap.c:gpio_regmap_set() {
+	ret =3D gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
+	if (ret)
+		return ret;
+	...
+	if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
+		ret =3D regmap_write_bits(gpio->regmap, reg, mask, mask_val);
+	else
+		ret =3D regmap_update_bits(gpio->regmap, reg, mask, mask_val);
 
-Previously, with a flat interrupts array on the parent node,
-fsl_edma3_irq_init() only iterated up to fsl_edma->n_chans (30) and ignored
-the remaining entries.
-
-With child nodes present, fsl_edma_probe() sets fsl_edma->n_chans =3D 30 and
-calls fsl_edma_configure_chan_from_dt(), which iterates over every available
-child node via for_each_available_child_of_node(). When it reaches
-dma-channel@42100000 (channel 30), fsl_edma_child_to_chan_id() rejects it:
-
-drivers/dma/fsl-edma-main.c:fsl_edma_child_to_chan_id() {
-    ...
-    ch_id =3D div64_u64(child_res.start - chan_base, chan_size);
-    if (ch_id >=3D fsl_edma->n_chans)
-        return -EINVAL;
-    ...
+	return ret;
 }
 
-fsl_edma_configure_chan_from_dt() then returns -EINVAL and aborts probing
-edma2 altogether:
+When the quirk is not set, a failure in gpio_regmap_set() is ignored and
+gpio_regmap_direction_output() still proceeds to call
+gpio_regmap_set_direction(), enabling the output with a stale value. When
+the quirk is set, a failure in gpio_regmap_set() after changing the
+direction is also discarded and 0 is returned to the caller.
 
-drivers/dma/fsl-edma-main.c:fsl_edma_configure_chan_from_dt() {
-    ...
-    for_each_available_child_of_node(np, child) {
-        ch_id =3D fsl_edma_child_to_chan_id(pdev, fsl_edma, child,
-                          &parent_res);
-        if (ch_id < 0) {
-            dev_err(&pdev->dev, "invalid channel in %pOFn\n", child);
-            of_node_put(child);
-            return -EINVAL;
-        }
-    ...
-}
-
-Should imx95-navq.dts reserve channels 30-63 via dma-channel-mask (or
-disable those child nodes) so that edma2 still probes?
+[1] https://lore.kernel.org/r/20261020-cv75-gpio-v11-2-e058bae19571@ambarel=
+la.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-edma-iommu=
--v3-v3-0-9d0e62a954eb@Example.Com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-cv75-gpio-=
+v13-0-4f93114ea204@ambarella.com?part=3D2
