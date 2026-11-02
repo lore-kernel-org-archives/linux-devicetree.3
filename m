@@ -1,112 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629212;
-	b=0fM8KjaeekTrh1OA60MMKBIv5pB6z99fTYJsthKeC+6alLdh9wnh6oQYq4u6wn+VCQjY
-	 6we3Q0qafqiWV6SdO2+CfrUrZzhRMkFzJbS2rVKNqREBWwKMo3vajhQ7e0TPfbLa2P7Im
-	 gu/B5PZwVLv3RaLxDGgXzW9BHPyJzsToadbFYuz9zh0vHYJL8CoFrjSfwWKsRFY/G0OqS
-	 yffzl8DWEFz1iJZIUCGELDpSb2Hy4x1K/I9vRRVRKYa3u9IXribU8NyHEU7oW8xo6yK1m
-	 8JldFx0BppbUXRGOYRrGLoNhfLH1EITuhE+5sqHxNR8OtknPAe9kxmwmCdqvI8+iOFw==
+	t=1793629360;
+	b=VgXX0QtOirKQPxEdoxPae9gFxc9x1WIaU/kSIS2ynyBCKlfAifcs4Xtp372O0MKBIY9R
+	 tWazjBfvxLAWD1ZEZefYDiu9k5QYnqEqnRUf4sBjK10TLQGpCjZDIXdw5b8g1CqyKQOBV
+	 pI14KMLdG8ba7JfbilL0nUlPDLq+v5TvNEyQXSn5pfU7hC2Y2SeAyaYTg5Klg5RvX2075
+	 fFpbloAWCHZ8s+EDi4xb2Qomh7PGqxC76lrHc0C6Sb7iICytQ26TYM0fMG9APGdP4EGiD
+	 KsHPahyQVXVhrmePrmtFzMPe9mKlN/EcwCH7gVzX83GttC84+IagZqxvXKFp1VoMYJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629212;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pB104KqZBTaUKN7vmPS1EN7/2xD2Vu8oCe8VJpr+yas=;
-	b=ZK5xhB0454LVG5iIRDRXRCVDpTA38P7G7dfvXhWvFlcZZgWXs0k7nUTnb2ddiQVlKPkx
-	 AKJKQHrgEFBjFfNulZxV6FPC8Yq0Na59yHxRAf1RCZjajjZEDiM4WffvPH8sqJ17hRI6q
-	 wW3wKrSg+EwmNE3C7OhPx9blSax409t0pwXYNBJWcxDEK7MSNTfU9/zizyUNjLYqhhkgG
-	 ofydkzmjZ4xvIbHkYAB0Lf1bgd5h7p5ghlwqp5DJg6PqQFXXYRPT51AY9V2k31daPjJAB
-	 /0VH7Gw8CakbDi2QAQnxS7rPQr8ZnLi8kso46I1NyMsiFHrydlcrktExNrRSLdL/+cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629360;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:To:From:Subject:X-Mailer:References:In-Reply-To;
+	bh=ul5zAT5XA1IgDpSrbBJ3ibIOhSt8X7JWBFKnGAIgGGo=;
+	b=unxlZamkh3i9Iq0eWPeXm1bhacz44JoaNNg8o50A0aWZfGpdyly3HXmB/hm6hxF0JFNz
+	 kaExbrh9N1oIfpgq4BzJGiXUhPNnQXOr5GYtg9oOup2CkJQgzp+XWWAtX5S/tzkDiboRs
+	 wFOIKLvm+1S2Gke2XUDb8Zn44ZwTP5TvSuB25qUTogBeDHyj3m6fZrc7klFkznLLJgDU8
+	 QuMBQdxdMXe/bIbDDDopqsQ2XEb35OF2JJm1R8v3Hx83UhwtR+QyuWNRvkYoWehvoyxjA
+	 dJPPmIIl/pcNO0ZW9wXdHjr4H2ubRTJLGiu1q3Oyo0VUTqWFsWbSe9Cl2nchInt/ReA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=biKAKHmg;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="a9G/cKrw";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fKr+ZQdS;
+	arc=none smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A42E606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 14:20:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A42E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCB960A6F50
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 14:22:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CCB960A6F50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=biKAKHmg;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a9G/cKrw
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DpRHJ477106
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 14:20:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pB104KqZBTaUKN7vmPS1EN7/2xD2Vu8oCe8VJpr+yas=; b=biKAKHmgJPbtOesS
-	VIHTIvQNfOcIFSdHRQFV6umd4p1Iu7/i+cPSG4/LpJAPTkoDQs+8H70NKarRvtKP
-	WycNWus8JJ/n7Fl4J0EBmMHEgDzpBRFx4Sm6bcYOMCGHo46K/N32qzmPj6oB/79i
-	zUl1K7rVlJre37xjRWTGqIpepdXXix3Sr0FIyADrKErJ8mqUEJlfvHjhkFvsndJp
-	wfUViHEcAI+PQr5gs00ga9MtM1/xGn+Sv7emn8Lii4o9GfyF17eebPctMGoMoZ8M
-	lTxjWb+bcIP8VPFdjAYIJLm3FmbTsdp/HQ4Buv0TE0oN9UpE7Br0ymQ1lHaM5WAb
-	iwGDgg==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpph19g53-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 14:20:11 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eaabe26601so165944e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 06:20:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fKr+ZQdS
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-70bf1671c21so1803215eaf.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 06:22:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793629210; x=1794234010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pB104KqZBTaUKN7vmPS1EN7/2xD2Vu8oCe8VJpr+yas=;
-        b=a9G/cKrwj2bENTxUkn0UfWgID8aDu23GrA9QWXqccWHea72I4oW+hOWWN76cPL/stM
-         XEatI8+rQP43eVJJl75FDL9PuPY55ymZkcqPCOhbCAFCCphamn/os3WoOnKZg1/f+FpL
-         LmizJ3P8iJWBBKNV6v1YsZN9Zfv0spmNLXP6TyVh3PiSUdJkilkrnbC48YHT/1JtbYno
-         6JKehWoQUP8dkI04RM21fOEs0JkHGlWX1MtYN28V9FbLVHmaXqUxps8Zzt9uHp83ElM2
-         7asUwM5hxuybm+QfdE8N4fqo0xhBWgsmKQ+nFZUWIhSHtDitkJqlwxc8ooCAzvGVMZc0
-         Jpfw==
+        d=baylibre.com; s=google; t=1793629357; x=1794234157; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:from:to:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ul5zAT5XA1IgDpSrbBJ3ibIOhSt8X7JWBFKnGAIgGGo=;
+        b=fKr+ZQdSLvPlOvCWzLZZBFmYTu99yddRuL2A22+BUihTi90kl2blAO70ByWhPVMgWo
+         JJzVR95aDJ8P/Hj5aQZ0alBDZWfoqzFoWE8pXt2rvnPhtj12ED+M1BmZWMEZv79qzqwv
+         6IEsPfxqcqQVBhFMfp52DQ3+Db/oPhN+0QgbIVlJHhEmuST1J4mRUPbrUJsRr3fgQ2DW
+         3z7US7iP1R+pEkGDaOBD7No2Iy4glls1TZ0ADvxwmc3CfJd5bZmsOT8Iioc3XOxAG+7t
+         z1SeERe5EGuJUQ9/R2cCC28KVXaBUb3/rCJYhjxDqXw1ElbtkqrBIb0Orx/zLK2MsgaQ
+         OXyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793629210; x=1794234010;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pB104KqZBTaUKN7vmPS1EN7/2xD2Vu8oCe8VJpr+yas=;
-        b=vwKQLWDVGCFx1WaJKugW4bxgsXa8NshCzpVajZovDnaE9AqinhRAu+ksNXrJUHzzNo
-         l0wMLPEaE3eI15p8CL7z+YqdUsMEhm828sXK57xSu//4XdVzDUxefZuOEC5WxFkzQcoX
-         VEHgQHU8tzIQ240xMsuXwslmWDPSloE+26VKwqHQ5kM1ytcsZu5bf4ALTU1/KHueoOU8
-         pHW7LqxuKC84pUkenxWxW+bUZSd+MEzcfj54hJaydAOaAECRtoUXfMSghhL3uPv5IwOw
-         DyViwBpmhvh1H5POetC/jG2qWai6ypmg/Esp0tsTOCw3W2XdZDiKO/wf/iC65GONcIVb
-         k6cA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8ePR3DVeVfwpzQs+oKuqWGRTpfqefzxPVKhJLcuX3gq9NUAaXF5+Le90mzwGVrEJchq3k3JbjyVnZ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bsyXVZinuHTH4Zb/I8v6qqEt/RFgFLdgIe1Tlk5hi7lWzAbpD
-	lQHKr02PrrTut2CqlC5pNc7c2xeKymExxf2P+1bf22x2ttxCFa/thCJHOLHIc20CS2Boqc+QdXZ
-	7NeCf1XK9g7c8p1j+MDXBrqX3eazCgiPYd8TMy8cpuww+aKXe+XDlBnhTLeQ9ujXA
-X-Gm-Gg: AYBFou1VW/BFwOZE7DJWCv6ze0P1DENcpHGN9f3tNzT0gp1+Cy+stMhFS0zsZg693qI
-	K/5YhMpXEfkuIDDdh4O5LS7GB8YpTKsRbCVurCDbMTEQFiesKPmjIXvQSQ/PC8sOkmkK3Wg6C8c
-	f69P3Q20CV2HqoQsBsRiVcZuaa/451cCz35n1dBOxXOO9mHurPzXx9l9JUIf4rocZSH9zKeEFP7
-	njB+emJ7D8KJ02kY6V8fJ//+OppoSeLvWGfmz8T/fsWfa5dlzAj2TeezcURre7kVHFHltgOncBl
-	JLythx38iDm1oIZJaLUbUPWdXap1abxjimDL5Xi9VHL3nb+vyMLZ49Nz9C9zEVJNDDobB0m/X5w
-	4yAeptBebicsptit5+PtPzwvpa5IzFMgPwFeKGhBFvrap6TWREIqj2t85ry3hwhwu/B/AHSwlHK
-	nVJwZ/wO5LR3hpkjERg4iAOKcKF7acZg==
-X-Received: by 2002:a05:6122:11ae:b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec689382bcmr4385895e0c.4.1793629210408;
-        Mon, 02 Nov 2026 06:20:10 -0800 (PST)
-X-Received: by 2002:a05:6122:11ae:b0:5ea:af6f:16e7 with SMTP id 71dfb90a1353d-5ec689382bcmr4385606e0c.4.1793629205094;
-        Mon, 02 Nov 2026 06:20:05 -0800 (PST)
-Received: from ?IPV6:2a00:f44:e0:8d11:8079:3a24:c57d:745c? ([2a00:f44:e0:8d11:8079:3a24:c57d:745c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfdc3csm398767166b.17.2026.11.02.06.20.03
+        d=1e100.net; s=20260707; t=1793629357; x=1794234157;
+        h=in-reply-to:references:subject:from:to:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ul5zAT5XA1IgDpSrbBJ3ibIOhSt8X7JWBFKnGAIgGGo=;
+        b=AKQ2YUVAu40yf2K9pqX4QmViR311QzVY0ODIE8QXjSHBBYBv4anF6Wqpd07Fw7cI17
+         XsDdqsaxlPIx4tbC1Kj+6Iwz0PYq6ifDMBCXLvPLO4P1sn3L573qeHPTPcC8AOrw5M3U
+         VELmZgr/8E2w2rA55CGL5faJkiBFDgDtn2hyIMedSuFtGpEM/Ht0aXZIj7GOi0FEmO/W
+         RsWLARwWZKwE7pkdjRlafi4a7HgkSxa+Q1Wv2s5lMio+vYeHoMEACIFs5rtWLVDPpOoW
+         oxPXPV3uAyxtNuKKEBifVkgBhHKt1k1LbEagf7czi1tA931ZBW1OqUwt6K9z6qIA6TMC
+         yqiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCXc0/YPuTP6YfZxZsgLH/XqxJr5c3qgZdjob3oUU9fFDJaKf44WIyjHFc06j1XizoVx0JPAz479Zg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKby/66Fs08R/YoXzAAx+CfcEzpThCZ4xrt4kaF3NjvKYu/U7oG
+	Rzbfe/5gf6dPluhCWqOIb7epnNTisyHQCpWRzAV6TWMxjTn0nnb27YOEYATaZ3zGql0=
+X-Gm-Gg: AYBFou1sHXx8SF6V7AQ18D2EAnlO4jmpFWyCktl4r1CNjp5bcG8Ryb8ov0pS1fOmnUx
+	0pywSEL15P80hXg8aqFsSWNLryR9Aulb63f0VKcl4MN904apJiRksKARIxbNJjVCxd2RSUONv22
+	Ar67+DMETYWzc1+UrLuCr44/Hve8aPWFD2zZMmWiWO/47qRWgWeP9cpjEDwCI+vxgtcGceMqI9m
+	TR6Hw/0PUz7ROvACqQVGgBofSUnPl2piAPya9QNON6OGxuLc+TzkuKYfwwuFDBQTCRY5kPN2LNd
+	QbXnvdZw19vXXXuPJxo2O+12tFiP6N6FhTaedb2js6fefE6GLmxfYc8H/iXHmbpzKE30xoZ0qv/
+	UQYMiIv04GVDiCBFyM96cp9LAHJEW3zTXJqcEFawmoND5il/2eHcFYQksftRORKZmnf8UCQQmNz
+	i+1eG0G/YLQqr2n8WNpfzPKjHti3yFjK1AsrfcOYu+Wgeh4w8oQoIxBsKCuwJctE4MNfEG7q7di
+	9m4TWbMpqP2trxowh2wUcyT5e9/yMRLCrE5KpkL4v0unPtvJ2gBGdujAMA/cY3F6NNVAT4qmxg/
+	HdIMExXnuMQIPucaDj0i4DaUf4qeWD6aLqLPaJwAsg8l9aoNWnvubN154gjlQXPj
+X-Received: by 2002:a05:6820:858a:20b0:6f4:5794:bf8c with SMTP id 006d021491bc7-714f290e6c8mr3860949eaf.17.1793629356802;
+        Mon, 02 Nov 2026 06:22:36 -0800 (PST)
+Received: from localhost ([2001:1970:3847:e000:1977:be2f:4a71:2892])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2e500d0sm8367464eaf.10.2026.11.02.06.22.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 06:20:04 -0800 (PST)
-Message-ID: <bde94c6c-1119-4bb7-be7c-a4772c6d0a6d@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 15:20:02 +0100
+        Mon, 02 Nov 2026 06:22:35 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,84 +87,862 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: Add dmic45 support to rb3gen2 vision
- mezzanine overlay
-To: Kumar Anurag <kumar.singh@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        quic_mohanull@quicinc.com, quic_hbandi@quicinc.com
-References: <20261027115115.1822423-1-kumar.singh@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261027115115.1822423-1-kumar.singh@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: NzUE-Q1bbNimf7D9pupp8GbKy3BgBI36
-X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6ae89c1b cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=0PPGIIIRtHnt8ZtJf3AA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: NzUE-Q1bbNimf7D9pupp8GbKy3BgBI36
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NyBTYWx0ZWRfX86TeU5LGNXPF
- nAAP7thpkZO57Wpmjlv7pEy1H7oK06eS6kT1VfUwdkcXkiakAM/kViItDk455ZLXL/05J///CN+
- GJod8GkZYymSvKJwjr93naeLCJwNRw7cuh72q0jfIb7KKjCYluemRUe6JOF2n12FSCTefsZUkbw
- 704PIYpvGbWWFQ6OwD1gaCkYAMg5xK6R2+1x9U36cZRCuq2EQuTmsaCAIknCKaXvqcYawDR4tbf
- 6AoRyudUxI25m0ExlQE8r748ASPX4rONzncp8rc9CSG6Pbqyo1daIBb9nZSCrgL+C2zcNK2BpOB
- SxZfX4X2HurjRUAWnazzqheEB+2mzWTtw5bDg/EV5I61dhPVNe9IymkcyRxyl50Rmz6Ln9HkQoD
- DKAfHjI4ay9wc10Ou5ExO58Eb8i3P9d9DAl9f6Dk3UBSHRy2YXEck+X72j1nOd4Wv7fWbYwHG08
- CRm6l2lQkDVPdKgSfjg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NyBTYWx0ZWRfX1nxPJUwJ5jyY
- uMEx77yeZkMW/kBcBwtt+vqXs2QURF5p8RszWrWtaNl8/WzZF7wGKZtMaxJPGcxhAPSMRyJVGIP
- Xupv+gjOV0M1w5H1oCEC0YWiMKaCdm8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 impostorscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020057
+Date: Mon, 02 Nov 2026 09:22:31 -0500
+Message-Id: <DMKSJGTLCYII.3IM8GY1R9M653@baylibre.com>
+Cc: "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Aurelien Jarno"
+ <aurelien@aurel32.net>, "Jennifer Berringer" <jberring@redhat.com>,
+ <linux-scsi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "linux-riscv"
+ <linux-riscv-bounces@lists.infradead.org>
+To: "Yixun Lan" <dlan@kernel.org>, "Alim Akhtar" <alim.akhtar@samsung.com>,
+ "Avri Altman" <avri.altman@sandisk.com>, "Bart Van Assche"
+ <bvanassche@acm.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
+From: "Trevor Gamblin" <tgamblin@baylibre.com>
+Subject: Re: [PATCH v7 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+X-Mailer: aerc 0.22.0
+References: <20261002-08-k3-ufs-support-v7-0-bb39007ff9ae@kernel.org>
+ <20261002-08-k3-ufs-support-v7-2-bb39007ff9ae@kernel.org>
+In-Reply-To: <20261002-08-k3-ufs-support-v7-2-bb39007ff9ae@kernel.org>
 
-On 10/27/26 12:51 PM, Kumar Anurag wrote:
-> Add pinctrl states and VA macro routing for two additional digital
-> microphones (DMIC4/DMIC5) that are present on the vision mezzanine
-> add-on board, mirroring the dmic01/dmic23 pattern already used for
-> the on-board microphones.
-> 
-> Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+On Thu Oct 1, 2026 at 11:10 PM EDT, Yixun Lan wrote:
+> SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
+> which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
+> M-PHY v3.0 standard.
+
+Hi,
+
+I've been testing this using a v7.3 kernel in Yocto's meta-riscv layer. It'=
+s
+been working well on a K3 Pico-ITX with fastboot flash in our nightly CI. A=
+n
+example:
+
+https://forgejo.baylibre.com/tgamblin/boardgarden/actions/runs/827/jobs/9/a=
+ttempt/1
+
+Tested-by: Trevor Gamblin <tgamblin@baylibre.com>
+
+> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+> Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 > ---
->  .../qcs6490-rb3gen2-vision-mezzanine.dtso     | 39 +++++++++++++++++++
->  1 file changed, 39 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
-> index aceafea45343..0a4e6080a2b2 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
-> @@ -80,3 +80,42 @@ cam_mclk3_suspend: cam-mclk3-suspend-state {
->  		bias-pull-down;
->  	};
->  };
+>  drivers/ufs/host/Kconfig        |  12 +
+>  drivers/ufs/host/Makefile       |   1 +
+>  drivers/ufs/host/ufs-spacemit.c | 652 ++++++++++++++++++++++++++++++++++=
+++++++
+>  drivers/ufs/host/ufs-spacemit.h |  77 +++++
+>  4 files changed, 742 insertions(+)
+>
+> diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> index ff170c0b6da0..6146872fcecc 100644
+> --- a/drivers/ufs/host/Kconfig
+> +++ b/drivers/ufs/host/Kconfig
+> @@ -132,6 +132,18 @@ config SCSI_UFS_VARIABLE_SG_ENTRY_SIZE
+>  	bool
+>  	default y if SCSI_UFS_EXYNOS && SCSI_UFS_CRYPTO
+> =20
+> +config SCSI_UFS_SPACEMIT
+> +	tristate "SpacemiT UFS controller driver"
+> +	depends on SCSI_UFSHCD_PLATFORM && (ARCH_SPACEMIT || COMPILE_TEST)
+> +	help
+> +	  This selects the SpacemiT specific additions to UFSHCD platform drive=
+r.
+> +	  UFS host on SpacemiT needs some vendor specific configuration before
+> +	  accessing the hardware which includes PHY configuration and vendor
+> +	  specific registers.
 > +
-> +&lpass_tlmm {
-> +	lpass_dmic45_clk: dmic45-clk-state {
-> +		pins = "gpio12";
-> +		function = "dmic3_clk";
+> +	  Select this if you have UFS controller on SpacemiT chipset.
+> +	  If unsure, say N.
+> +
+>  config SCSI_UFS_SPRD
+>  	tristate "Unisoc specific hooks to UFS controller platform driver"
+>  	depends on SCSI_UFSHCD_PLATFORM && (ARCH_SPRD || COMPILE_TEST)
+> diff --git a/drivers/ufs/host/Makefile b/drivers/ufs/host/Makefile
+> index 7d8db67eb23c..a3c447b8fc21 100644
+> --- a/drivers/ufs/host/Makefile
+> +++ b/drivers/ufs/host/Makefile
+> @@ -13,6 +13,7 @@ obj-$(CONFIG_SCSI_UFS_HISI) +=3D ufs-hisi.o
+>  obj-$(CONFIG_SCSI_UFS_MEDIATEK) +=3D ufs-mediatek.o
+>  obj-$(CONFIG_SCSI_UFS_RENESAS) +=3D ufs-renesas.o
+>  obj-$(CONFIG_SCSI_UFS_ROCKCHIP) +=3D ufs-rockchip.o
+> +obj-$(CONFIG_SCSI_UFS_SPACEMIT) +=3D ufs-spacemit.o
+>  obj-$(CONFIG_SCSI_UFS_SPRD) +=3D ufs-sprd.o
+>  obj-$(CONFIG_SCSI_UFS_TI_J721E) +=3D ti-j721e-ufs.o
+>  obj-$(CONFIG_SCSI_UFS_AMD_VERSAL2) +=3D ufs-amd-versal2.o ufshcd-dwc.o
+> diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-space=
+mit.c
+> new file mode 100644
+> index 000000000000..65aeba393b0f
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-spacemit.c
+> @@ -0,0 +1,652 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/reset.h>
+> +#include <linux/slab.h>
+> +
+> +#include <ufs/ufshcd.h>
+> +#include <ufs/ufshci.h>
+> +#include <ufs/ufs_quirks.h>
+> +#include <ufs/unipro.h>
+> +
+> +#include "ufshcd-pltfrm.h"
+> +#include "ufs-spacemit.h"
+> +
+> +/* Special analog register */
+> +#define ANA_EQ_CTRL_REG_ATTR		0x00CD
+> +#define ANA_HSGEAR_CTRL_ATTR		0x00C1
+> +
+> +#define UFS_AXI_CLK_LOW_FREQ_HZ		409600000UL
+> +
+> +/* PHY register magic values */
+> +#define MPHY_PU_ALL			0x87f
+> +#define MPHY_PU_WITH_HB8_RESET		0xb7f
+> +#define MPHY_DEVICE_REFCLK_OE		BIT(8)
+> +#define MPHY_DEVICE_HW_RESET		BIT(0)
+> +
+> +#define MPHY_PLL_LOCK_BIT		BIT(31)
+> +#define MPHY_PLL_LOCK_TIMEOUT_US	10000
+> +
+> +/* M-PHY FSM states */
+> +#define MPHY_RX_FSM_STATE	0xC1
+> +#define MPHY_TX_FSM_STATE	0x41
+> +
+> +static int ufs_spacemit_dme_set(struct ufs_hba *hba,
+> +				const struct ufshcd_dme_attr_val *v, int n)
+> +{
+> +	int ret =3D 0;
+> +	int attr_node =3D 0;
+> +
+> +	for (attr_node =3D 0; attr_node < n; attr_node++) {
+> +		ret =3D ufshcd_dme_set(hba, v[attr_node].attr_sel,
+> +				     v[attr_node].mib_val);
+> +
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ufs_spacemit_check_hibern8(struct ufs_hba *hba)
+> +{
+> +	u32 tx_fsm_val_0 =3D 0;
+> +	u32 tx_fsm_val_1 =3D 0;
+> +	int retries =3D DIV_ROUND_UP(HBRN8_POLL_TOUT_MS * 1000, 100);
+> +	int err =3D 0;
+> +
+> +	do {
+> +		err =3D ufshcd_dme_get(hba,
+> +				     UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
+> +						     UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+> +				     &tx_fsm_val_0);
+> +		if (err)
+> +			break;
+> +
+> +		err =3D ufshcd_dme_get(hba,
+> +				     UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
+> +						     UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)),
+> +				     &tx_fsm_val_1);
+> +		if (err || (tx_fsm_val_0 =3D=3D TX_FSM_HIBERN8 &&
+> +			    tx_fsm_val_1 =3D=3D TX_FSM_HIBERN8))
+> +			break;
+> +
+> +		usleep_range(100, 200);
+> +	} while (--retries > 0);
+> +
+> +	if (err) {
+> +		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+> +			__func__, err);
+> +	} else if (tx_fsm_val_0 !=3D TX_FSM_HIBERN8 ||
+> +		   tx_fsm_val_1 !=3D TX_FSM_HIBERN8) {
+> +		err =3D -ETIMEDOUT;
+> +		dev_err(hba->dev,
+> +			"%s: invalid TX_FSM_STATE, lane0 =3D %u, lane1 =3D %u\n",
+> +			__func__, tx_fsm_val_0, tx_fsm_val_1);
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
+> +{
+> +	struct ufs_clk_info *clki, *clka =3D NULL;
+> +	struct list_head *head =3D &hba->clk_list_head;
+> +	unsigned long rate_hz =3D 0;
+> +
+> +	if (!list_empty(head)) {
+> +		list_for_each_entry(clki, head, list) {
+> +			if (clki->name && !strcmp(clki->name, "axi") && clki->clk) {
+> +				clka =3D clki;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	if (clka && clka->clk)
+> +		rate_hz =3D clk_get_rate(clka->clk);
+> +
+> +	if (!rate_hz)
+> +		return 0;
+> +
+> +	return DIV_ROUND_CLOSEST(rate_hz, 1000000);
+> +}
+> +
+> +static int ufs_spacemit_wait_mphy_pll_lock(struct ufs_hba *hba)
+> +{
+> +	u32 val;
+> +	int err;
+> +
+> +	err =3D read_poll_timeout(ufshcd_readl, val, val & MPHY_PLL_LOCK_BIT,
+> +				10, MPHY_PLL_LOCK_TIMEOUT_US, false, hba,
+> +				UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +	if (err)
+> +		dev_err(hba->dev, "M-PHY PLL lock timeout\n");
+> +
+> +	return err;
+> +}
+> +
+> +/**
+> + * ufs_spacemit_mphy_init
+> + * @hba: host controller instance
+> + */
+> +static int ufs_spacemit_mphy_init(struct ufs_hba *hba)
+> +{
+> +	int ret;
+> +
+> +	/* reset all mphy logical */
+> +	ufshcd_writel(hba, 0x003, UFS_PHY_MNG_BASE + UFS_MPHY_RST_CTRL);
+> +
+> +	/* power up all */
+> +	ufshcd_writel(hba, MPHY_PU_ALL, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +	/* asserted ana_rx_hb8_reset */
+> +	ufshcd_writel(hba, 0xb7f, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +	fsleep(500);
+> +
+> +	/* deasserted ana_rx_hb8_reset */
+> +	ufshcd_writel(hba, MPHY_PU_ALL, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +	/* Enable reference clock & deassert ufs device reset */
+> +	ufshcd_writel(hba, MPHY_DEVICE_REFCLK_OE | MPHY_DEVICE_HW_RESET,
+> +		      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +
+> +	fsleep(1000);
+> +
+> +	ret =3D ufs_spacemit_wait_mphy_pll_lock(hba);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dev_dbg(hba->dev, "M-PHY PLL locked successfully\n");
+> +
+> +	ufshcd_writel(hba, 0x1, UFS_PHY_MNG_BASE + UFS_MPHY_BKDR_CTRL);
+> +
+> +	ufshcd_writel(hba, 0x40, UFS_ATOP_BASE + (0xC2 << 2));
+> +
+> +	ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_BKDR_CTRL);
+> +
+> +	fsleep(2000);
+> +
+> +	dev_dbg(hba->dev, "M-PHY init completed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int ufs_spacemit_uniprov1p6_init(struct ufs_hba *hba)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB(PA_TXHSG1SYNCLENGTH), 0x4f },
+> +		{ UIC_ARG_MIB(0x1553), 0xf }, /* PA_TXHSG1PREPARELENGTH */
+> +		{ UIC_ARG_MIB(PA_TXHSG2SYNCLENGTH), 0x4f },
+> +		{ UIC_ARG_MIB(0x1555), 0xf }, /* PA_TXHSG2PREPARELENGTH */
+> +		{ UIC_ARG_MIB(PA_TXHSG3SYNCLENGTH), 0x4f },
+> +		{ UIC_ARG_MIB(0x1557), 0xf }, /* PA_TXHSG3PREPARELENGTH */
+> +		{ UIC_ARG_MIB(0x155A), 0x0 }, /* PA_TXMK2EXTENSION */
+> +		{ UIC_ARG_MIB(0x155B), 0x1}, /* PA_PEERSCRAMBLING */
+> +		{ UIC_ARG_MIB(0x155C), 0x1 }, /* PA_TXSKIP */
+> +		{ UIC_ARG_MIB(0x155D), 250 }, /* PA_TXSKIPPERIOD */
+> +		{ UIC_ARG_MIB(PA_LOCAL_TX_LCC_ENABLE), 0x0 },
+> +		{ UIC_ARG_MIB(0x155F), 0x0 }, /* PA_PEER_TX_LCC_ENABLE */
+> +		{ UIC_ARG_MIB(0x1585), 0x1 }, /* PA_SCRAMBLING */
+> +		{ UIC_ARG_MIB(PA_GRANULARITY), 0x1 },
+> +		{ UIC_ARG_MIB(0x15AB), 0x0 }, /* PA_MK2EXTENSIONGUARDBAND */
+> +		{ UIC_ARG_MIB(PA_STALLNOCONFIGTIME), 15 },
+> +		{ UIC_ARG_MIB(0x15A8), 0x64 }, /* PA_TACTIVATE */
+> +		{ UIC_ARG_MIB(0x1564), 0x64 },	/* PA_TXTRAILINGCLOCKS */
+> +		{ UIC_ARG_MIB_SEL(0x008D, 4), 0x0B }, /* RX_LS_PREPARELEN_TIME RX0 */
+> +		{ UIC_ARG_MIB_SEL(0x008D, 5), 0x0B }, /* RX_LS_PREPARELEN_TIME RX1 */
+> +
+> +		/* RX_HIBERNATE_BKEN RX0 */
+> +		{ UIC_ARG_MIB_SEL(0x00F4, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x9F },
+> +		/* RX_HIBERNATE_BKEN RX1 */
+> +		{ UIC_ARG_MIB_SEL(0x00F4, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x9F },
+> +		/* PWM_BURST_closure_length */
+> +		{ UIC_ARG_MIB_SEL(0x008E, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)),   15 },
+> +		{ UIC_ARG_MIB_SEL(0x008E, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)),   15 },
+> +		/* min_stall_not_config_time */
+> +		{ UIC_ARG_MIB_SEL(0x0088, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0xFF },
+> +		{ UIC_ARG_MIB_SEL(0x0088, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0xFF },
+> +		/* TX HB8_TIME CAP */
+> +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x64 },
+> +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0x64 },
+> +		/* RX HB8_TIME CAP */
+> +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x64 },
+> +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x64 },
+> +		/* TX EQ 3DB */
+> +		{ UIC_ARG_MIB_SEL(0x00CD, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),  0x5 },
+> +		/* RX garbage cnt =3D 32 SI */
+> +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x9F },
+> +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x9F },
 > +	};
 > +
-> +	lpass_dmic45_data: dmic45-data-state {
-> +		pins = "gpio13";
-> +		function = "dmic3_data";
+> +	return ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +}
+> +
+> +static void ufs_spacemit_set_dev_cap(struct ufs_host_params *host_params=
+, u32 pwr_hs)
+> +{
+> +	if (!host_params)
+> +		return;
+> +
+> +	memset(host_params, 0, sizeof(struct ufs_host_params));
+> +	host_params->tx_lanes =3D UFS_SPACEMIT_K3_LIMIT_NUM_LANES_TX;
+> +	host_params->rx_lanes =3D UFS_SPACEMIT_K3_LIMIT_NUM_LANES_RX;
+> +	host_params->hs_rx_gear =3D UFS_SPACEMIT_K3_LIMIT_HSGEAR_RX;
+> +	host_params->hs_tx_gear =3D UFS_SPACEMIT_K3_LIMIT_HSGEAR_TX;
+> +	host_params->pwm_rx_gear =3D UFS_SPACEMIT_K3_LIMIT_PWMGEAR_RX;
+> +	host_params->pwm_tx_gear =3D UFS_SPACEMIT_K3_LIMIT_PWMGEAR_TX;
+> +	host_params->rx_pwr_pwm =3D UFS_SPACEMIT_K3_LIMIT_RX_PWR_PWM;
+> +	host_params->tx_pwr_pwm =3D UFS_SPACEMIT_K3_LIMIT_TX_PWR_PWM;
+> +	host_params->rx_pwr_hs =3D pwr_hs;
+> +	host_params->tx_pwr_hs =3D pwr_hs;
+> +	host_params->hs_rate =3D UFS_SPACEMIT_K3_LIMIT_HS_RATE;
+> +	host_params->desired_working_mode =3D UFS_HS_MODE;
+> +}
+> +
+> +static int ufs_spacemit_link_startup_pre_change(struct ufs_hba *hba)
+> +{
+> +	u32 value, sys1clk_1us;
+> +	int err;
+> +
+> +	err =3D ufs_spacemit_mphy_init(hba);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	err =3D ufs_spacemit_uniprov1p6_init(hba);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	/* config sysclk and tx symbol clk before link startup */
+> +	value =3D UFS_MAX_LINKSTARTUP_TIMER;
+> +
+> +	/* clear bit0~bit3, select b0 design */
+> +	value &=3D ~0xf;
+> +
+> +	ufshcd_writel(hba, value, UFS_PA_LINK_STARTUP_TIMER);
+> +
+> +	sys1clk_1us =3D ufs_spacemit_get_sys1clk_1us(hba);
+> +	if (!sys1clk_1us)
+> +		sys1clk_1us =3D DIV_ROUND_CLOSEST(UFS_AXI_CLK_LOW_FREQ_HZ, 1000000);
+> +	ufshcd_writel(hba, sys1clk_1us, UFS_SYS1CLK_1US);
+> +	ufshcd_writel(hba, UFS_TX_SYMBO_CLK, UFS_TX_SYMBOL_CLK_NS_US);
+> +
+> +	dev_dbg(hba->dev, "REG_UFS_SYS1CLK_1US: 0x%x\n",
+> +		ufshcd_readl(hba, UFS_SYS1CLK_1US));
+> +	dev_dbg(hba->dev, "REG_UFS_TX_SYMBOL_CLK_NS_US: 0x%x\n",
+> +		ufshcd_readl(hba, UFS_TX_SYMBOL_CLK_NS_US));
+> +
+> +	return 0;
+> +}
+> +
+> +static int ufs_spacemit_link_startup_post_change(struct ufs_hba *hba)
+> +{
+> +	/* Add 0xe8 make UFS2.1 run GEAR3 + 2Lane@409M */
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x97 },
+> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0xd7 },
+> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x17 },
+> +		{ UIC_ARG_MIB(DL_AFC0REQTIMEOUTVAL), UFS_DL_AFC0REQTIMEOUTVAL_MAX },
 > +	};
+> +
+> +	return ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +}
+> +
+> +static int ufs_spacemit_link_startup_notify(struct ufs_hba *hba,
+> +					    enum ufs_notify_change_status status)
+> +{
+> +	int err =3D 0;
+> +
+> +	switch (status) {
+> +	case PRE_CHANGE:
+> +		err =3D ufs_spacemit_link_startup_pre_change(hba);
+> +		break;
+> +	case POST_CHANGE:
+> +		err =3D ufs_spacemit_link_startup_post_change(hba);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +static int ufs_spacemit_negotiate_pwr_mode(struct ufs_hba *hba,
+> +					   const struct ufs_pa_layer_attr *dev_max_params,
+> +					   struct ufs_pa_layer_attr *dev_req_params)
+> +{
+> +	struct ufs_host_params host_params;
+> +	int ret;
+> +
+> +	ufs_spacemit_set_dev_cap(&host_params, FAST_MODE);
+> +	ret =3D ufshcd_negotiate_pwr_params(&host_params, dev_max_params,
+> +					  dev_req_params);
+> +	if (ret) {
+> +		dev_err(hba->dev, "Failed to negotiate power params: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	dev_dbg(hba->dev,
+> +		"Power mode config - gear_rx:%d, gear_tx:%d, lane_rx:%d, lane_tx:%d, p=
+wr_rx:%d, pwr_tx:%d, hs_rate:%d\n",
+> +		dev_req_params->gear_rx, dev_req_params->gear_tx, dev_req_params->lane=
+_rx,
+> +		dev_req_params->lane_tx, dev_req_params->pwr_rx, dev_req_params->pwr_t=
+x,
+> +		dev_req_params->hs_rate);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ufs_spacemit_pwr_change_notify(struct ufs_hba *hba,
+> +					  enum ufs_notify_change_status status,
+> +					  struct ufs_pa_layer_attr *dev_req_params)
+> +{
+> +	int ret =3D 0;
+> +
+> +	if (!dev_req_params) {
+> +		dev_err(hba->dev, "Invalid Parameters\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (status) {
+> +	case PRE_CHANGE:
+> +		break;
+> +	case POST_CHANGE:
+> +		ret =3D ufs_spacemit_wait_mphy_pll_lock(hba);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		dev_dbg(hba->dev, "M-PHY PLL locked after power mode change\n");
+> +		/* Set ANA_HSGEAR_CTRL_ATTR back to default value */
+> +		ufshcd_dme_set(hba, UIC_ARG_MIB(ANA_HSGEAR_CTRL_ATTR), 0x00);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int ufs_spacemit_quirk_host_pa_saveconfigtime(struct ufs_hba *hba=
+)
+> +{
+> +	int err;
+> +	u32 pa_vs_config_reg1;
+> +
+> +	err =3D ufshcd_dme_get(hba, UIC_ARG_MIB(UFS_PA_VS_CONFIG_REG1), &pa_vs_=
+config_reg1);
+> +	if (err)
+> +		return err;
+> +
+> +	/* Allow extension of MSB bits of PA_SaveConfigTime attribute */
+> +	return ufshcd_dme_set(hba, UIC_ARG_MIB(UFS_PA_VS_CONFIG_REG1),
+> +			      (pa_vs_config_reg1 | (1 << 12)));
+> +}
+> +
+> +static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		/* LCC_DISABLE */
+> +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0 =
+},
+> +		{ UIC_ARG_MIB_SEL(TX_LCC_ENABLE, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0 =
+},
+> +		/* TX_Min_ActivateTime */
+> +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0=
+)), 0x0 },
+> +		{ UIC_ARG_MIB_SEL(TX_MIN_ACTIVATETIME, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1=
+)), 0x0 },
+> +		{ UIC_ARG_MIB(ANA_HSGEAR_CTRL_ATTR), 0x25 },
+> +	};
+> +	int err;
+> +
+> +	if (hba->dev_quirks & UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME) {
+> +		err =3D ufs_spacemit_quirk_host_pa_saveconfigtime(hba);
+> +		if (err < 0)
+> +			return err;
+> +	}
+> +
+> +	if (hba->dev_info.wmanufacturerid =3D=3D UFS_VENDOR_WDC)
+> +		hba->dev_quirks |=3D UFS_DEVICE_QUIRK_HOST_PA_TACTIVATE;
+> +
+> +	err =3D ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs))=
+;
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return ufs_spacemit_wait_mphy_pll_lock(hba);
+> +}
+> +
+> +/**
+> + * ufs_spacemit_advertise_quirks - advertise the known Spacemit UFS cont=
+roller quirks
+> + * @hba: host controller instance
+> + *
+> + * Spacemit UFS host controller might have some non standard behaviours =
+(quirks)
+> + * than what is specified by UFSHCI specification. Advertise all such
+> + * quirks to standard UFS host controller driver so standard takes them =
+into
+> + * account.
+> + */
+> +static void ufs_spacemit_advertise_quirks(struct ufs_hba *hba)
+> +{
+> +	hba->quirks |=3D UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8;
+> +}
+> +
+> +/**
+> + * ufs_spacemit_init - init phy and prepare clk
+> + * @hba: host controller instance
+> + */
+> +static int ufs_spacemit_init(struct ufs_hba *hba)
+> +{
+> +	struct device *dev =3D hba->dev;
+> +	struct ufs_spacemit_host *host;
+> +	struct reset_control *rst;
+> +
+> +	host =3D devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
+> +	if (!host)
+> +		return -ENOMEM;
+> +
+> +	rst =3D devm_reset_control_get_exclusive_deasserted(dev, NULL);
+> +	if (IS_ERR(rst))
+> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset control\n=
+");
+> +
+> +	host->hba =3D hba;
+> +	ufshcd_set_variant(hba, host);
+> +	ufs_spacemit_advertise_quirks(hba);
+> +
+> +	hba->caps |=3D UFSHCD_CAP_RPM_AUTOSUSPEND;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * ufs_spacemit_device_reset - Toggle device reset line
+> + * @hba: per-adapter instance
+> + *
+> + * Toggles the reset line to reset the attached UFS device.
+> + *
+> + * Returns: 0 on success
+> + */
+> +static int ufs_spacemit_device_reset(struct ufs_hba *hba)
+> +{
+> +	/* Disable reference clock & asserted ufs device reset */
+> +	ufshcd_writel(hba, 0x000, UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +	usleep_range(10, 15);
+> +
+> +	/* Enable reference clock & deassert ufs device reset */
+> +	ufshcd_writel(hba, MPHY_DEVICE_REFCLK_OE | MPHY_DEVICE_HW_RESET,
+> +		      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +	usleep_range(10, 15);
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * ufs_spacemit_event_notify - Handle UFS error events
+> + * @hba: host controller instance
+> + * @evt: event type
+> + * @data: event-specific data
+> + *
+> + * Handles error events from UFS core, print warning messages
+> + */
+> +static void ufs_spacemit_event_notify(struct ufs_hba *hba, enum ufs_even=
+t_type evt, void *data)
+> +{
+> +	switch (evt) {
+> +	case UFS_EVT_PA_ERR:
+> +		if (data)
+> +			dev_warn(hba->dev, "PA error event, INT errors:0x%x, PA_ERR_CODE:0x%x=
+\n",
+> +				 hba->errors, *(u32 *)data);
+> +
+> +		break;
+> +	case UFS_EVT_DL_ERR:
+> +		if (data)
+> +			dev_warn(hba->dev, "DL error event, INT errors:0x%x, DL_ERR:0x%x\n",
+> +				 hba->errors, *(u32 *)data);
+> +
+> +		break;
+> +	case UFS_EVT_ABORT:
+> +		dev_warn(hba->dev, "Abort event, INT errors:0x%x\n", hba->errors);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +}
+> +
+> +static void ufs_spacemit_pre_hibern8(struct ufs_hba *hba, enum uic_cmd_d=
+me cmd)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x85 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x85 },
+> +	};
+> +	int ret;
+> +
+> +	if (cmd =3D=3D UIC_CMD_DME_HIBER_EXIT) {
+> +		/* Enable reference clock & deassert ufs device reset */
+> +		ufshcd_writel(hba, MPHY_DEVICE_REFCLK_OE | MPHY_DEVICE_HW_RESET,
+> +			      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +
+> +		/* Power up all */
+> +		ufshcd_writel(hba, MPHY_PU_ALL, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +		/* Assert ana_rx_hb8_reset */
+> +		ufshcd_writel(hba, MPHY_PU_WITH_HB8_RESET,
+> +			      UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +		fsleep(500);
+> +
+> +		/* Deassert ana_rx_hb8_reset */
+> +		ufshcd_writel(hba, MPHY_PU_ALL, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +		ret =3D ufs_spacemit_wait_mphy_pll_lock(hba);
+> +		if (ret < 0)
+> +			return;
+> +
+> +		ufshcd_dme_set(hba, UIC_ARG_MIB(0xdd), 0x57);
+> +		ufshcd_dme_set(hba, UIC_ARG_MIB(0xe8), 0x57);
+> +	}
+> +
+> +	if (cmd =3D=3D UIC_CMD_DME_HIBER_ENTER)
+> +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +}
+> +
+> +static void ufs_spacemit_post_hibern8(struct ufs_hba *hba, enum uic_cmd_=
+dme cmd)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x80 },
+> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x80 },
+> +		{ UIC_ARG_MIB(0xdd), 0x57 },
+> +		{ UIC_ARG_MIB(0xdd), 0xd7 },
+> +		{ UIC_ARG_MIB(0xe8), 0x57 },
+> +		{ UIC_ARG_MIB(0xe8), 0xd7 },
+> +	};
+> +	int err;
+> +
+> +	if (cmd =3D=3D UIC_CMD_DME_HIBER_ENTER) {
+> +		err =3D ufs_spacemit_check_hibern8(hba);
+> +		if (err)
+> +			dev_err(hba->dev, "ufs_spacemit_check_hibern8 error\n");
+> +
+> +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +
+> +		/* Power down M-PHY */
+> +		ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
+> +
+> +		/* Disable reference clock, keep device reset deasserted */
+> +		ufshcd_writel(hba, MPHY_DEVICE_HW_RESET,
+> +			      UFS_PHY_MNG_BASE + UFS_DEVICE_IO_CTRL);
+> +	}
+> +}
+> +
+> +/**
+> + * ufs_spacemit_hibern8_notify - Handle hibernate enter/exit
+> + * @hba: host controller instance
+> + * @cmd: UIC command (HIBER_ENTER or HIBER_EXIT)
+> + * @status: notification status
+> + *
+> + * Manages M-PHY power state during hibernate transitions.
+> + */
+> +static void ufs_spacemit_hibern8_notify(struct ufs_hba *hba, enum uic_cm=
+d_dme cmd,
+> +					enum ufs_notify_change_status status)
+> +{
+> +	if (status =3D=3D PRE_CHANGE)
+> +		ufs_spacemit_pre_hibern8(hba, cmd);
+> +
+> +	if (status =3D=3D POST_CHANGE)
+> +		ufs_spacemit_post_hibern8(hba, cmd);
+> +}
+> +
+> +/**
+> + * struct ufs_hba_spacemit_vops - UFS Spacemit specific variant operatio=
+ns
+> + *
+> + * The variant operations configure the necessary controller and PHY
+> + * handshake during initialization.
+> + */
+> +static const struct ufs_hba_variant_ops ufs_hba_spacemit_vops =3D {
+> +	.name =3D "ufshcd-spacemit",
+> +	.init =3D ufs_spacemit_init,
+> +	.link_startup_notify =3D ufs_spacemit_link_startup_notify,
+> +	.negotiate_pwr_mode =3D ufs_spacemit_negotiate_pwr_mode,
+> +	.pwr_change_notify =3D ufs_spacemit_pwr_change_notify,
+> +	.device_reset =3D ufs_spacemit_device_reset,
+> +	.event_notify =3D ufs_spacemit_event_notify,
+> +	.apply_dev_quirks =3D ufs_spacemit_apply_dev_quirks,
+> +	.hibern8_notify =3D ufs_spacemit_hibern8_notify,
 > +};
+> +
+> +static const struct of_device_id __maybe_unused ufs_spacemit_of_match[] =
+=3D {
+> +	{ .compatible =3D "spacemit,k3-ufshc" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ufs_spacemit_of_match);
+> +
+> +static int ufs_spacemit_probe(struct platform_device *pdev)
+> +{
+> +	return ufshcd_pltfrm_init(pdev, &ufs_hba_spacemit_vops);
+> +}
+> +
+> +static void ufs_spacemit_remove(struct platform_device *pdev)
+> +{
+> +	ufshcd_pltfrm_remove(pdev);
+> +}
+> +
+> +static const struct dev_pm_ops ufs_spacemit_pm_ops =3D {
+> +	SET_SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
+> +	SET_RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
+> +	.prepare	 =3D ufshcd_suspend_prepare,
+> +	.complete	 =3D ufshcd_resume_complete,
+> +};
+> +
+> +static struct platform_driver ufs_spacemit_pltform =3D {
+> +	.probe	=3D ufs_spacemit_probe,
+> +	.remove	=3D ufs_spacemit_remove,
+> +	.driver	=3D {
+> +		.name	=3D "ufshcd-spacemit",
+> +		.of_match_table =3D of_match_ptr(ufs_spacemit_of_match),
+> +		.pm	=3D &ufs_spacemit_pm_ops,
+> +	},
+> +};
+> +module_platform_driver(ufs_spacemit_pltform);
+> +
+> +MODULE_DESCRIPTION("SpacemiT UFS Host Driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/ufs/host/ufs-spacemit.h b/drivers/ufs/host/ufs-space=
+mit.h
+> new file mode 100644
+> index 000000000000..1415db85edd5
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-spacemit.h
+> @@ -0,0 +1,77 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * SpacemiT UFS Host Controller driver
+> + *
+> + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+> + */
+> +
+> +#ifndef _UFS_SPACEMIT_H_
+> +#define _UFS_SPACEMIT_H_
+> +
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/pm_qos.h>
+> +#include <linux/workqueue.h>
+> +
+> +/* Spacemit K3 UFS host controller vendor specific registers */
+> +#define UFS_SYS1CLK_1US			0xC0
+> +#define UFS_TX_SYMBOL_CLK_NS_US		0xC4
+> +#define UFS_LOCAL_PORT_ID_REG		0xC8
+> +#define UFS_PA_ERR_CODE			0xCC
+> +#define UFS_RETRY_TIMER_REG		0xD0
+> +#define UFS_PA_LINK_STARTUP_TIMER	0xD8
+> +#define UFS_CFG1			0xDC
+> +
+> +/* MPHY control registers */
+> +#define UFS_PHY_MNG_BASE		0x1B00
+> +#define UFS_MPHY_RST_CTRL		0x0
+> +#define UFS_MPHY_PU_CTRL		0x4
+> +#define UFS_MPHY_BKDR_CTRL		0x8
+> +#define UFS_DEVICE_IO_CTRL		0xC
+> +
+> +/* ATOP base*/
+> +#define UFS_ATOP_BASE			0x1C00
+> +
+> +#define UFS_TX_SYMBO_CLK		0x800
+> +#define UFS_MAX_LINKSTARTUP_TIMER	0xFFFFFFFF
+> +#define UFS_DL_AFC0REQTIMEOUTVAL_MAX	0xFFFF
+> +
+> +#define MPHY_TX_FSM_STATE		0x41
+> +#define TX_FSM_HIBERN8			0x1
+> +#define HBRN8_POLL_TOUT_MS		100
+> +#define DEFAULT_CLK_RATE_HZ		1000000
+> +#define BUS_VECTOR_NAME_LEN		32
+> +
+> +#define UFS_HW_VER_MAJOR_SHFT		28
+> +#define UFS_HW_VER_MAJOR_MASK		(0x000F << UFS_HW_VER_MAJOR_SHFT)
+> +#define UFS_HW_VER_MINOR_SHFT		16
+> +#define UFS_HW_VER_MINOR_MASK		(0x0FFF << UFS_HW_VER_MINOR_SHFT)
+> +#define UFS_HW_VER_STEP_SHFT		0
+> +#define UFS_HW_VER_STEP_MASK		(0xFFFF << UFS_HW_VER_STEP_SHFT)
+> +
+> +#define UFS_SPACEMIT_K3_LIMIT_NUM_LANES_RX	2
+> +#define UFS_SPACEMIT_K3_LIMIT_NUM_LANES_TX	2
+> +#define UFS_SPACEMIT_K3_LIMIT_HSGEAR_RX		UFS_HS_G3
+> +#define UFS_SPACEMIT_K3_LIMIT_HSGEAR_TX		UFS_HS_G3
+> +#define UFS_SPACEMIT_K3_LIMIT_PWMGEAR_RX	UFS_PWM_G4
+> +#define UFS_SPACEMIT_K3_LIMIT_PWMGEAR_TX	UFS_PWM_G4
+> +#define UFS_SPACEMIT_K3_LIMIT_RX_PWR_PWM	SLOW_MODE
+> +#define UFS_SPACEMIT_K3_LIMIT_TX_PWR_PWM	SLOW_MODE
+> +#define UFS_SPACEMIT_K3_LIMIT_RX_PWR_HS		FAST_MODE
+> +#define UFS_SPACEMIT_K3_LIMIT_TX_PWR_HS		FAST_MODE
+> +#define UFS_SPACEMIT_K3_LIMIT_HS_RATE		PA_HS_MODE_B
+> +#define UFS_SPACEMIT_K3_LIMIT_DESIRED_MODE	2
+> +
+> +#define UFS_PA_VS_CONFIG_REG1			0x9000
+> +#define UFS_DME_VS_CORE_CLK_CTRL		0xD002
+> +
+> +#define UFS_HCLKDIV_REG 0xFC
+> +
+> +struct ufs_spacemit_host {
+> +	struct ufs_hba *hba;
+> +};
+> +
+> +struct ufshcd_dme_attr_val {
+> +	u32 attr_sel;
+> +	u32 mib_val;
+> +};
+> +#endif /* _UFS_SPACEMIT_H_ */
 
-This should go to kodiak.dtsi
-
-Konrad
 
