@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793585585;
-	b=vICJ+2PQkgJ/EQq4QVLPEwshNt7Ja7UphIlEa2ao+DKE9dC5KhabrmWmDqtcqNRY9KX/
-	 VCn1sQ0QUC1p7sPWLczTBNUobXe25E7YILMgJwNbYyy25BmBnmjmqP6ZeoOvx/AZHspxc
-	 A3x4kQ7qRR5dyVkS+F85WjrtT4KtDEV0AC+lvok/507GLrZOjOd4Q+T+QH9tLg+bc+Sa4
-	 ml+8ZVqxN/5lsRoyrA0bV4+ajuQtEakTqstds38qWmgb4kzEBMeizJIz+W+vFy/h4oBeJ
-	 ltpbqjefs4pAlZQREcyZBzdn791QrSATAKbVLB3zWCb8a9T3qfA1jaMbGJNAzlx4MuA==
+	b=URcY2/VJFJIBSTWBXao7Wv0dKMZ21Jlc2aM8Ll3CRlTxH4I1J/ia9/kignI9kFkfWtJE
+	 Qk2tpTUt6K/46scehQ/A3QG1KTZOEt6KFu7iGrM7N50MZIS4+FUwX4BjLonKpH9Xlgs58
+	 7p2thfX+9JtGL31p9n/AJAv8ynjh4vCZEILDCnEZ40XjI299OVOSPzCDcCAnFgpsWsfQ1
+	 rLeF2xIZLNV5gYIUL66MpZU4Zk0YDOpj23YjnIAH9OrA3NfaF0XvMiysYrM0wnPPC+UW8
+	 003xTB8Nzvl/tIv8/Sc3t/SFlb4hHzXeZjAlgprRGJY0W10QRIMpHpjz5RRUF5NG2Dg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793585585;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6bqpBbNSGdthdXl2Tpc/InHxlB9EAyD3/Swpm+69qmQ=;
-	b=piG2zyGTCUdpQLmrc/exQoh063tdHJXGh6fHiR1oKftXbdHgtwccr7EytGvv3yUWUGMf
-	 iY1TYI9GQIWgImSZ9NvszhVdw8+rJqCJNDOJOt+t+/AsKsrelBMq2syJdg3Gt/+gfWVr6
-	 GWlA7E+NrCX0VPRt9fgX0i/BDQ+EbyAf1maHVOnxFzNQ9c9zZsvLHrYwoxgZdvwdCXEkv
-	 lcsIIxbr41u3oBnFANiF+ZVukcYEVDSJXabMakYs1tuC7NflF/t1/Ex8LXx276VLCwSXA
-	 EIokncwo7fSfRR6JU7zVDRZ7+Ioi9qAFF3RxqPbKsCF4tks3VAa/wHfYV1s7EH7kCTg==
+	bh=jElxAp0dA4eNZGZcWkB1ulI8aR6d8P3Xv4bNYfxLcoc=;
+	b=GwHeF10mVPeRLcp8rIuaKZ4ggssnL4SCEJtueC9B5f4UO/kwvlz/jl3fIlISwb3KZBlg
+	 zRgMwav8uAKO6gZNRepMyZ7EtcLfffOVm1guBZxeQo8vwIfsrkriHQT0JdVXO/4rPs+09
+	 hbsFCR6MChajAexTCh1+uMGokl2tzNMf3l3DqrYWSrt8jbBMlHlPezHQIGJ+zYKw7bRbv
+	 PjhIcxrwtwI/m8Myf0itNLdo7pdNmBtLNW7A9/U5deJqxlWuux7HOeLZjUX9Lq8VVz49E
+	 4Z9bMJ+tm5BQQQ5gK6VfedAEKUcA3T55JaJFLRzdmyWBmXb6W//QisioqX3febk2Gtw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMrKYzFg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnCVdW92;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6026560A3825;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919C9606A32D;
 	Mon,  2 Nov 2026 02:13:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMrKYzFg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnCVdW92
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793585585;
-	b=2hopybUJv9hMD6ehkrbrn5ZwdY2i6YkFPyHRtK83O/4hwlNyLSwwWIZee2+WD2OwGzqc
-	 n7aisg4CaVY2qhJ0PdBpaxLLSjB4nYi7XQH84bK0LB3X9qvqc+UVDMYG8mvzJz/4s9Zf1
-	 zz0WcIqcItC1s6leLrbrwS7qhFts4QSduPC8ivO/Br3tnc1Kstxs4EyybC9YAz/cgqvX2
-	 bZODCmZuJ8WBQbHbOZy0P8ZQeCTksncMvKV3Cb3bb8hEvE1x3Q2SWg719LvfgtE2tTJSo
-	 4PfeyI+TYct0wAu3Wi6BFudPXhf62ZWfxH9aMhMAj1ToANayMlBdWbavUSI6ZsSc+MA==
+	b=wzdMxMCa+mr/9GV4qVycYN/oIMBgd+qWSz3XitrYslb+/likLciEz9gCEH9Y/+FNDwwH
+	 vuDfhLwEwbVQtLM8DLFHo0nnUlXliuJh6IVNupC/UNmrma11YUBjtiq00LM1kUVIvhcmY
+	 sJ9+x29yVHQnPJyIZweI6OdvZF2hvrkJmusHNTkIZW7/MAPzTSW+AIs52ZOc6SmbxlVnj
+	 W8UoYrE85dYb3Rf78kk8zIrswuo2V25dBsA4i1os1PCcDhUzdZwray9W4/lBCefA4EYCf
+	 2dJtAByjLyaQke2KO7RoknOW1aS7lPsJsF2LE/6Lp+JPsyHtcXf9Cx+0XbjPdADW2MA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793585585;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6bqpBbNSGdthdXl2Tpc/InHxlB9EAyD3/Swpm+69qmQ=;
-	b=TdRT7xP4VPrMq9I/GOreW3CTa96XCM8FgS7iUgJtaCsoaj0xxv3ANnQtIYUdyoN1dMC1
-	 b/mK3yM34Xp21n1m3uIdILZD+soex5dlUm//VuwxCM3Q3oGotTb1euSAsMiREOjDYHoCb
-	 Ifubb6xyy/mO3sQAC/ZZ4Ab9Smx+aQjDh9j+P5YzOGXdxJnO32c/nWhLAeUF7ynpXEJ99
-	 o9X/oHPlGwrsJwgXpQsKiJuaANdWmbMpzxWLSsNIL1Tlj6nDkTNwnyPNZnnUvOagiBG8y
-	 bktEHOpcjpjp/uB8+J0Rolh8TASwYIlPNO2o4x50Cb/olFh+5S1Nvtv2eKB3sHVEfnA==
+	bh=jElxAp0dA4eNZGZcWkB1ulI8aR6d8P3Xv4bNYfxLcoc=;
+	b=GFV5uOOxW81vOdJHuw7JN7uLbBi2Bi4QuakCxOtr0wIVSggytexA8QEMXyVj+2GFJh9g
+	 GmRu8DinDUv7IgTNXv1mzcUJI2Wd7CI01qdznzsJ5rqixzLGRFkDKDNqJktRpJufk2RFx
+	 AnGu68aqi5MCsyDiOMQyKO2PKHcxd9cTN9iR7vc9wZ9niHJS651isOHQ19oVGPAYRkNW2
+	 r+O8z+NBZ0B3j2pzZxjD8T+eGarTAvEYItj77tYA5ap/vhV8vqtZNYVP5ENz1CLCGkzme
+	 ZGln3SlOcJuwByDDOgMX/88oFlOaiooNA4P8VZbrp1KK5RKSbvLRB4GsIta4jYCh+EQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6E0AC1F00A27;
+	by smtp.kernel.org (Postfix) with ESMTPS id 52AE21F00A15;
 	Mon,  2 Nov 2026 02:13:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793585585;
-	bh=6bqpBbNSGdthdXl2Tpc/InHxlB9EAyD3/Swpm+69qmQ=;
+	bh=jElxAp0dA4eNZGZcWkB1ulI8aR6d8P3Xv4bNYfxLcoc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FMrKYzFgxcZi7Rc8T7+CLRM8nqaaNpAXYKqXCPIvrbOrOWdKqJIfylCu8HJU4huYO
-	 CCIeynNSVQHtLI7g6r1NPC+t2UD+zB8Fjnu5QcY2u96ep7RjMoosqPxHq3pjRZZe7A
-	 CWluNEn/clPEs19SdWI83VH04KhjBpp5CCHbsIclLslaCqIDopkxW5DS+enRRIN4If
-	 qRCPA2imsQX9RmkAV6foNlkzoEymI6AsgwrLkfgua8deXzxjwj55My9fJyAcgZOdWl
-	 SoIS8jCsObEn5nB5YExOftllmLxdlLxeHsy+z6yuyZIkmPcnLxE/bLl7J3aCRlMEhJ
-	 dcGrqEgF8KrJA==
+	b=BnCVdW92QXm00ldXfo+qOJAfrSlLHBtufuYf0m52DzdgpBvbe6uIVuJjvnJ9Pxf3i
+	 THeujWQkohHRR6FnUzMKwDHIR5T7W9IV3J2tEkCJJEcAKosJzE8waTqqAT3xB+O+Pu
+	 PrNTjNouOAOSaPiKZTS5ytbJw1+6jUmbbHI3Ti5uYH/hPJ2yS6dYVPcvBewTISucHj
+	 XhaSVQBIl/+oS2tx+WkfkLxuBVEDhJGIodrPGEUN3DruE6rziqJyRlbzS7A7FzBZOU
+	 ntiP6gaUy+w6y/g/yZTtsPnrkQ+NKDoymFwrh1XpqKxTv6ppoiPw7U78sIr6nxKKkM
+	 JjJIvqTf1Jceg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 406914632E;
+	by lkml.kernel.org (Postfix) with ESMTP id 3385A4632A;
 	Mon,  2 Nov 2026 02:13:01 +0000 (UTC)
 From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Sun, 01 Nov 2026 21:12:33 -0500
-Subject: [PATCH 09/10] leds: rgb: ktd202x: Fail the probe when the chip
- does not answer
+Date: Sun, 01 Nov 2026 21:12:32 -0500
+Subject: [PATCH 08/10] leds: rgb: ktd202x: Limit the LED current to
+ led-max-microamp
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-ktd202x-et6326-v1-9-eb51eddad08c@telaak.dev>
+Message-Id: <20261101-ktd202x-et6326-v1-8-eb51eddad08c@telaak.dev>
 References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
 In-Reply-To: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
@@ -99,11 +99,11 @@ Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-doc@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793585580; l=1553;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793585580; l=3297;
  i=joseph@telaak.dev; s=20261102; h=from:subject:message-id;
- bh=tN2wy7OwuZC0ZumxoxtwXiUEmKmdwIanlrzcYbKhu94=;
- b=B5/78ifNW7ry1PcQYzxETIahBk8GLO1o+ue5ywcwKav5Gtrggl4xKBOZBukvmN+R81hSB9rhc
- euOF2vgJxfnD2qhCC/hoVhjX+TIZrWLj5VbnpSWbKuLQciDJWZnx98r
+ bh=bJVCBymLVZomp3//HashN1Tl2FKEJXGEWkQVbD7FcHw=;
+ b=Ug8b6aLw0kyjUK7y0zyWl1VcaJ12U6+WG3NrndldaoVN86LAdHH/6/ZN16W7uRe1kZrdHyIVX
+ Q+XKBv/fTmMCsjvPlrcWKMEhhXLAxES1O1OD2E1e41JJj5TndnFthKp
 X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
  pk=OmwSusdK4grZpiuZVfCZAvYyqz9FBkNemsV1EnHyVr4=
 X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261102 with
@@ -114,49 +114,90 @@ Content-Transfer-Encoding: 7bit
 
 From: Joseph Telaak <joseph@telaak.dev>
 
-The driver never reads from the chip: the register cache starts from the
-defaults. So with a wrong address, or no chip at all, the reset write at
-probe NAKs, the error is ignored and the LEDs get registered anyway. Every
-later write then fails.
+The full brightness of 192 is 24 mA, which is more than many indicator
+LEDs are made for, and a channel may drive several LEDs in parallel. The
+GL.iNet GL-SFT1200 firmware, for example, runs each of its two channels,
+three LEDs each, at 1.375 mA.
 
-Fail the probe when the reset write fails.
+Honor the common led-max-microamp property for single color LEDs by
+lowering max_brightness, since each brightness step adds 0.125 mA. Set
+max_brightness before the LED is registered, and blink at max_brightness
+rather than at the chip maximum.
+
+Multicolor LEDs are left as they are: the LED core already bounds each
+color intensity, and the hardware this was tested on has none.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/leds/rgb/leds-ktd202x.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/leds/rgb/leds-ktd202x.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-index 48521f1e5..5f51df993 100644
+index ed0e8e74c..48521f1e5 100644
 --- a/drivers/leds/rgb/leds-ktd202x.c
 +++ b/drivers/leds/rgb/leds-ktd202x.c
-@@ -722,20 +722,23 @@ static int ktd202x_probe_fw(struct ktd202x *chip)
- {
- 	struct device *dev = chip->dev;
- 	int count;
-+	int ret;
- 	int i = 0;
+@@ -78,6 +78,7 @@
+ #define KTD202X_PATTERN_MAX_MS 16384
  
- 	count = device_get_child_node_count(dev);
- 	if (!count || count > chip->num_leds)
- 		return -EINVAL;
+ #define KTD202X_MAX_BRIGHTNESS 192
++#define KTD202X_LED_CURRENT_STEP_uA 125
  
--	regmap_write(chip->regmap, KTD202X_REG_RESET_CONTROL, KTD202X_RSTR_RESET);
-+	/* Nothing is read back, so a failed reset is the only sign of a missing chip */
-+	ret = regmap_write(chip->regmap, KTD202X_REG_RESET_CONTROL, KTD202X_RSTR_RESET);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to reset the chip\n");
+ static const struct reg_default ktd202x_reg_defaults[] = {
+ 	{ KTD202X_REG_RESET_CONTROL, KTD202X_TIMER_SLOT_CONTROL_TSLOT1 |
+@@ -398,7 +399,7 @@ static int ktd202x_blink_single_set(struct led_classdev *cdev,
+ 	int ret;
  
- 	/* Allow the device to execute the complete reset */
- 	usleep_range(200, 300);
- 
- 	device_for_each_child_node_scoped(dev, child) {
--		int ret = ktd202x_add_led(chip, child, i);
--
-+		ret = ktd202x_add_led(chip, child, i);
+ 	if (!cdev->brightness) {
+-		ret = ktd202x_brightness_single_set(cdev, KTD202X_MAX_BRIGHTNESS);
++		ret = ktd202x_brightness_single_set(cdev, cdev->max_brightness);
  		if (ret)
  			return ret;
+ 	}
+@@ -588,6 +589,18 @@ static int ktd202x_pattern_mc_clear(struct led_classdev *cdev)
+ 	return ktd202x_brightness_mc_set(cdev, LED_OFF);
+ }
+ 
++/* The current limit of a LED in brightness steps, each of which adds 0.125 mA */
++static unsigned int ktd202x_max_brightness(struct fwnode_handle *fwnode)
++{
++	u32 max_microamp;
++
++	if (fwnode_property_read_u32(fwnode, "led-max-microamp", &max_microamp))
++		return KTD202X_MAX_BRIGHTNESS;
++
++	return clamp_t(u32, max_microamp / KTD202X_LED_CURRENT_STEP_uA, 1,
++		       KTD202X_MAX_BRIGHTNESS);
++}
++
+ static int ktd202x_setup_led_rgb(struct ktd202x *chip, struct fwnode_handle *fwnode,
+ 				 struct ktd202x_led *led, struct led_init_data *init_data)
+ {
+@@ -637,6 +650,7 @@ static int ktd202x_setup_led_rgb(struct ktd202x *chip, struct fwnode_handle *fwn
+ 	led->mcdev.num_colors = num_channels;
+ 
+ 	cdev = &led->mcdev.led_cdev;
++	cdev->max_brightness = KTD202X_MAX_BRIGHTNESS;
+ 	cdev->brightness_set_blocking = ktd202x_brightness_mc_set;
+ 	cdev->blink_set = ktd202x_blink_mc_set;
+ 	cdev->pattern_set = ktd202x_pattern_mc_set;
+@@ -660,6 +674,8 @@ static int ktd202x_setup_led_single(struct ktd202x *chip, struct fwnode_handle *
+ 	led->index = reg;
+ 
+ 	cdev = &led->cdev;
++	cdev->max_brightness = ktd202x_max_brightness(fwnode);
++
+ 	cdev->brightness_set_blocking = ktd202x_brightness_single_set;
+ 	cdev->blink_set = ktd202x_blink_single_set;
+ 	cdev->pattern_set = ktd202x_pattern_single_set;
+@@ -699,8 +715,6 @@ static int ktd202x_add_led(struct ktd202x *chip, struct fwnode_handle *fwnode, u
+ 		return ret;
+ 	}
+ 
+-	cdev->max_brightness = KTD202X_MAX_BRIGHTNESS;
+-
+ 	return 0;
+ }
  
 
 -- 
