@@ -1,85 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793648682;
-	b=bLHj4ocSFb7DiE6xzsqmFEBoO/61SwLlDCdTcBHWcZE6NCcwVd8qnIHfVLqCOChVd5pN
-	 3fr47GmchEtO/w4VCXWc/60JCwCRyjwLfwY5E2WnhLg0noqHbaRvT83ZzF9ARI55MTND/
-	 hIB/Gi2/RasewcCgJRR07NRwyhx/d0PRjcHkZmjS14iwoyhONeu73AkgsMxZ+IT7F4ES4
-	 rBT+WdRCm+KeFocI2dnjx1d0M/VvqF4X5JbBuK5IVxpn+dfdWSJ7zOdHAVNH/eY6qJjKm
-	 YLixx4rfPq4RG2BzBJTkxSErPgrQnyASO2yeH5rsFjYSAhOpktUUvX5Jiy1NgeO9cpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648682;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=Weu5Zca/hPX7MdlI7TVErZ4xT18FxVN+YlEWkEZPcA8=;
-	b=Pkb5trlAXBYRF5Pb1QuwXj/bISDZZkNwN4Hz+wLj8MsW5wg8zjrKjMf/1whrDfV5c0wd
-	 RhMQkeOe3jPhQ03r1zOkro/8/xBaAUsBq6T1f5/eOYTllSI6KJ+SEzSNVWqysSXX5kWUg
-	 n6Wags3fRq6/63OG7I8ZPcpJf592A6pSCOA3o20/7ntaVNVia3/NPcIDfRcmGM0T/52o9
-	 FZLm7xeKFUTmDxjljvZgKIzLoVJfaSKkNI7A6WBwGAUqkbKBrymxIGDk43KICxUphKf2n
-	 SjSl7R8eTtsRW/nLmRelcQmWuYcwJ4Z6SkFAxG0SVBfiO4g0RAN9MoUaBzJVT8Y+9Ow==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=v2zabGsB;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793648711;
+	b=LA0anuUqAzfg7jYP55efX3Moj4+8qIqyMlLauv7tjBN4sPN6hrJg/qeO6lIds0CiHsDc
+	 AOqF3Ar8AJjUhCXodjrAmhIXKPDU14amBTdjpxLfDSwkJmDqPgDeKonGgeLEV5T9MKHRH
+	 wAzgYdykgm49VYsqvRBiLHpt+jMkkWeXI4WBo+xJZ6hQgVE5wK4A3bqrhxa/vdzz0unoJ
+	 aKT2RVls67vtsGKA8FZP1+XcrA4PQO8NGRnD6wvff8C2MomC67g/9QwwkZh3oExFaoD+W
+	 X042J5S8msRbiVy0IL4BSlcXWZwgl30vEVFTgosAfhScYsGUu/NpYng7dzV0osguDsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648711;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=HaDvqqM1aHY770KYqszI2Ek8CtfQ6a2OxvtP+NU3+wQ=;
+	b=yt/cSR1PnrB7a4O/U9t8w22wL9/7nTLsuS/i8r2xlksCk8/dBWXSAT0fWD56eEVNhxws
+	 DARS39neQG5TZPrGfS0DODzUvcMPmxbMCdszTFklDf9gTi54l5mfiQ8a/YUvwHycGgO9K
+	 B7rqohrJUI5uM+YWAczpkpDYcfFrTNqg/iGspX0t8A8uv5OLI0Dq++/UScrr3aAJPs5ep
+	 Bw3GPkd/HyGWi4qmO5Wf382vhPcXmyYbCxv7kGKezjN0lHrYRHD98mEi20SgLsszQ68D0
+	 ko7szTTXTEL+wQXFwhoW9oE4miAoZfyiVpZRJ0ROMaw3Am5P3ZNrgYPuJZ8zUai+VMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YolLX4Ue;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8152D606D809;
+	Mon,  2 Nov 2026 19:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YolLX4Ue
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793648711;
+	b=gCY9Sw5infX66iayivlWj57SK3ohKDlFeDQvALk9kQfkiS3nA953VszldQrVzMm5cXMT
+	 J8Ix5aEaCbkYWb8L/vd3AMCIWjxi7wlALue3/qJi9wp9kUnmO8GbABn/1by00GCHpXDH5
+	 Yt+eCytFTRKw1up+WpkMODIlh17RaCKVajiNPEfG02/M0g9y9tCuib7+006mMJ8kuPf90
+	 q9UfVotCIrXVp/EgOTGcXMA/0kB1Drv+GL5itLmrp3ZOC4taSweS482Li/L0mdj1+ro6R
+	 RvWSFDx+ZfhkoYn3zrnSscpn+0Jz4L7gyZTRB2nkPMPH+gEYPEiI6J+O4NhngzQoAwg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793648711;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=HaDvqqM1aHY770KYqszI2Ek8CtfQ6a2OxvtP+NU3+wQ=;
+	b=b8IZhwtqK8ZQjXH5oZN//g6gInBohGkdNB+tMsuQlIT46nukOods6OA8U0cf/pXpzW+y
+	 Vgq3gSAji8VW4XB1rzKzNgkUYLs/N8nmlRMMN7nPDcZKTzmJSuhiAYIOOaHOorI9WjiWM
+	 rH5OPdUxj1BTXPOEEOWxLzoB80BiY6ouOwkFjqrx2K+mR6DPDY2deR/0cwKZnArHdiZ35
+	 BrE0ZHmkZJtCFGfOxh40EksrPjPiYuAMSm9tU2xXeU7bLMumcgKvj8BS9h42QbgK6qlP5
+	 mUzHCZhW/SwXkQ1CWQzw3makRauH22fe95uQv59TZQxqnU09Up0PGjiPTTmxdU4DVsg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C440606A329
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C440606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=v2zabGsB
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2748246f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 11:44:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793648680; x=1794253480; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Weu5Zca/hPX7MdlI7TVErZ4xT18FxVN+YlEWkEZPcA8=;
-        b=v2zabGsBMccgcYnOKyyoJfrpcS6FC2kf1CeYjOep7ud5b84amOVeXc4O9Bn7QHljxM
-         kleSVMzmTjk8J7500JVzYCCNljyqjHHUgpYpYmKtuYqxR+860A49+oGL6efFuH9uJKH1
-         o9WuQnPigNB98hrxPxhmFhmrpcNTrCxsVh1HPM0+aBBM7CmTzECx01VZlas2N3sB+xpw
-         zevN2gyXBQ+fCAZi91gsLVJTORdB0l3CzBB2NdQQ+kiJy6PW+JWVNwpb7SMh0QACuPNL
-         7Wc16yRYdIpVtUDoiOkiPrknjvJYA8VEUTpxyooGhTNXENUS3pjVefS32oOjaz8C0bfv
-         g86A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793648680; x=1794253480;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Weu5Zca/hPX7MdlI7TVErZ4xT18FxVN+YlEWkEZPcA8=;
-        b=1HzhSheb6hyDTecTjPEieUqireev52mhmWiHdgJiLH9n+5hx2FlQiBhAhk5pXligF9
-         A5yeI9y/RB097pXWgvYfqi30Tf2pYEM+aXY+M7Ca7vLXeLC5h9wzPtI0sM+ij4LmTpd1
-         ag3bWY/YPROXbD6txXUB2skohNLbHMgt23/u4W/EXYvUEGrMYq53DfaS1xX+qPf8H2R1
-         JAogbAwyCAq9EsgjJ16s72h9ze84QWycjsbqpLJPQQg7eF5aeBdTRK6WLPJKYOaMUc63
-         7Ovne9L+t1aWN4u/vn12c4SAUYscxe8F5UcwAOlw1nggskyk7GyQstCAHIktCQch3fwR
-         GTpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxNVCcOJmqcXhPowxO3py34qSi7lL3zuUrsVaxO/4kcY1+9A7sOHfQwrGOH7PmwL9lBzYgB1vavu0mo@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qjCKyWGIo6f7x7LSLOhYPrqpVbaXwCuayRyQKJqd649oq2A6D
-	cgvES1dZI6X23RyEzCKPIHgs8zH4EsM+bw1WjVCIqawtNPlcVmd+/2+USk/5oaygq44=
-X-Gm-Gg: AYBFou1qX7Okh8R8OjQu1CRbtnrYcnkPIBEiuE0a/m2Afc8C8MPuGnyAyXy6nMoPyj6
-	FFBaK5ToL5YQq3gA3zNTxBHS/+T2/l1oDIfiXWJwvPPUBx6hKcUR4JmzsdQ7JVAP2a16caoJRxD
-	rLcfS9T2azVE/psdvdFI7bDvJEbBfHwoDcor4oea4dfRaAUxZyQytaHndSnDXjK+2wQFHVhQILg
-	qa0KolPVyIPKnLM/ANH49E4XhGcCVZWYbhK/WYzI9/lLwbJh7kHVgoukgTAzx3+SnWA16SLuZ0W
-	UofUQZmMumXXaQbFJW2O3LPa5k/aigVFH0PY6iFyorPDL2Y9s6BC7rEBII/0y5lnm23JJYTfqQm
-	xewRch6Zt36areRN/9kTH7zfxYAmY1+9R8Wnn7986rt5DJSf1LO0YdO8z03Ypbazsb5Mv+eA8OP
-	yGGQiLzTBx57t2OKFVqtsj2WXVPnkv16E3ek1pknBbx401OspFkUJqgl7r5Nt+aspzltlDln8ib
-	gULQXWIh4Ni56Azv/TH5tuxT9+qiJ8q8N59ZTD/aJQ1lllYh9jTYQ+3c2QDRieOiRDQYR25G1/7
-	jWALZ5CV/F84YeV1aWgasFgz3lIUb3mFXQ4cWnrufT/2qZPJFs/HQGxSdT9hhnyq4QECC/Zbytn
-	oKzN+C4VBAes4NOiHsmiRLrX2g6h50wNaSmSVNtWx8Q==
-X-Received: by 2002:a05:6000:2611:b0:48e:4e00:b72f with SMTP id ffacd0b85a97d-48e6e50c8ecmr23807080f8f.32.1793648679554;
-        Mon, 02 Nov 2026 11:44:39 -0800 (PST)
-Received: from localhost ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80333sm23147608f8f.32.2026.11.02.11.44.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 11:44:39 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4F49C1F00A16;
+	Mon,  2 Nov 2026 19:45:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793648711;
+	bh=HaDvqqM1aHY770KYqszI2Ek8CtfQ6a2OxvtP+NU3+wQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=YolLX4UeIWcinCTZMwcPOnHtbpLUJ1Sm4h2+pNBInaieR6ih/ZVy9jAtHUx4qOqSo
+	 19hfnbV+PYuSnNzMFqhv53h1+xFsy9ORpomMeoc1PrZqP0aXwKkQ8jfYZ7fl9T30i8
+	 BPFHdJ4Wd2Dxg0jy+KJ2VkevebmZ3p4NgqKlxFXod1W+UBIxha5wJ7zLwus5uv5/DL
+	 akbPKN8VVTYXBlYTPjtjWcDptgQnVrGwqHjqkVdW9yUQ0ar2KS7+9hdfQJ/OnZG9hh
+	 tUShvoIYgDByp3L7Q1Qa8KNsx2fElveGas3qNSWswe8+h55hh9rutOpxXTk2oWbAE2
+	 WEV3yWDUkhpCw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C064B4660A;
+	Mon,  2 Nov 2026 19:45:08 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Date: Tue, 03 Nov 2026 03:45:05 +0800
+Subject: [PATCH RFC v3 02/17] dt-bindings: vendor-prefixes: add Zhihe
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,85 +81,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 20:44:38 +0100
-Message-Id: <DMKZE3GQVDLB.18QYA9ULAH75I@linaro.org>
-Cc: "Aaro Koskinen" <aaro.koskinen@iki.fi>, "Kevin Hilman"
- <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>, "Tony
- Lindgren" <tony@atomide.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Christopher Obbard" <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
- <andrew.goodbody@linaro.org>, "Paul Walmsley" <paul@pwsan.com>, "Russell
- King" <linux@armlinux.org.uk>, "Rouven Czerwinski"
- <rouven.czerwinski@linaro.org>, <linux-omap@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v2 5/9] ARM: dts: omap: dm816x: Correct speed for
- sysclk5
-From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
-To: "Andreas Kemnade" <andreas@kemnade.info>, "Ettore Chimenti"
- <ettore.chimenti@linaro.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
- <20261028-patch-ektor5-dm8168-dts-v2-5-4544429251e2@linaro.org>
- <20261101222942.1a78c6fb@kemnade.info>
-In-Reply-To: <20261101222942.1a78c6fb@kemnade.info>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-a210-scmi-v3-2-ee6b31580808@iscas.ac.cn>
+References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
+In-Reply-To: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
+To: Sudeep Holla <sudeep.holla@kernel.org>, 
+ Cristian Marussi <cristian.marussi@arm.com>, 
+ Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>, 
+ Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
+ Jiaxun Yang <jiaxun.yang@flygoat.com>
+Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org, 
+ linux-serial@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>, 
+ Han Gao <gaohan@iscas.ac.cn>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793648705; l=895;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=NfTLhXrzvQ5lJQxz8O7S6dCaG/HAPcHpRM6wkHRi+5Q=;
+ b=EkHFLciIZZch9iuzOgwnaOmlBKnGOxBB8HE+LG+jczcEBL90Piz0He2kOn+rtz71Xo+GEU838
+ hwzMmb+9JLiDM5aTAdDBvaE/0wPenle5w5E4JW3Kx4+wybSBOWepjx7
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
 
-Hi Andreas,
+From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 
-On Sun Nov 1, 2026 at 10:29 PM CET, Andreas Kemnade wrote:
-> On Wed, 28 Oct 2026 17:06:06 +0100
-> Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
->
->> From: Andrew Goodbody <andrew.goodbody@linaro.org>
->>=20
->> The default code for setting up the clocks results in sysclk5 running at
->> 1.6GHz whereas it is expected to run at half that ie 813MHz. Force the
->> divider to be /2 to achieve the 813MHz speed.
->>=20
->> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
->> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
->> ---
->>  arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>=20
->> diff --git a/arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi b/arch/arm/boo=
-t/dts/ti/omap/dm816x-clocks.dtsi
->> index 76ebc6c3c3e5..cb990773b098 100644
->> --- a/arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi
->> +++ b/arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi
->> @@ -144,7 +144,7 @@ sysclk5_ck: sysclk5_ck@310 {
->>  		#clock-cells =3D <0>;
->>  		compatible =3D "ti,divider-clock";
->>  		clocks =3D <&sysclk4_ck>;
->> -		ti,max-div =3D <1>;
->> +		ti,dividers =3D <2>;
->
-> so this changes register value  0 is intepreted as divider 1
-> to divider 2. Sounds strange. It just changes the interpretation of the
-> register values, not the setting. Maybe checkout the register value from
-> user space with tools like devmem. The original interpretation was right.
-> So this change does not make any sense. I think sysclk5 still runs at
-> 1.6Ghz, but it is displayed as 813Mhz.
->
-> I would expect some assigned-clocks / assigned-clock-rates pair somewhere
-> in this patch instead.
->
+Add the vendor prefix for Zhihe Computing.
 
-We tested on EVM with devmem and this patch correctly sets bit 0 to 1
-(which is /2 in the manual).
+Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-However, should ti,max-div in this case be <2> (and all the other clocks
-that supports two dividers)?=20
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..e6db332510bc 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1995,6 +1995,8 @@ patternProperties:
+     description: Zealz
+   "^zeitec,.*":
+     description: ZEITEC Semiconductor Co., LTD.
++  "^zhihe,.*":
++    description: Zhihe Computing Limited
+   "^zidoo,.*":
+     description: Shenzhen Zidoo Technology Co., Ltd.
+   "^zii,.*":
 
-I tested to set `ti,max-div =3D <2>;` and it seems to correctly set the /2
-divider as well, but without specifying any assigned-clock{s,-rates}, so
-I'm missing the rationale of how the divider is selected.
+-- 
+2.55.0
 
-I'll drop this patch from the series for now, I think it needs more
-investigation to figure out why it behaves like this.
 
-Thanks,
-Ettore
