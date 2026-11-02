@@ -1,102 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642562;
-	b=iFDgP6hSeg1bTMgvkAioKnFC2+jgctN2t6JWI2zvORYwYsXqlwYc+2papsmt2AF8hPkh
-	 nM34AMQ343zkjOtDLOFEy4ncBZYoH0w16iPjh0F77//PGIH7/27OfuUmlwjtKBxf6IW5r
-	 HBVptgQzAkeJdNMLzRd5mgme3COvrszsIWW0Wjr7jg3TDiFjxjnHNvG2nvQa93rVOo5Nc
-	 WXOdzbu3Q5GeTnGqVezReeORRgrh37qfHYB6StMXrjkZY/hOoPBrX6Y5Lh7D3IRF6VWFY
-	 qjHgS6X8FrUXYaG0nUfgXD4isbIEfbt2w7vcK6xl0EavsDcScTNdH/0ohpLtijkVPBQ==
+	t=1793643552;
+	b=HcIK8Qj/od/5JZ0v/mLtORKURJBBXN/xrR/3keRT/1qk0srQ8nb6fUDQdHXkzDrmAzhZ
+	 SaWSlv8DrnxZfpQkQBVSEkKd/PL9M8BzEJR+ilgmGecb7pwctHWyD+0I9E/2Wz+WcNosV
+	 2ESYgKwZ5Y+sZSNCL0fWDRCQHOZKJcYp3n9CpMgwX3RGVHo4GBzIcu2fvMfefEWjFyxNu
+	 bru6wc13kFjBHSJi6jOkw97+jE8b1WdKS4P+R9/kEIvJAmyUpiQgInHRQMAHddz4DqRd+
+	 7Vb7nuX0Fobapgd+XPLStsXz0wVogoLJtmi7wPn+Gv/ggmZJ1EnwMyGDD5RkLmM3NOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642562;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=wjUwlJYpmWg4mChaZqQtsUzChcNIv0kOIN66bk7+k2A=;
-	b=4oHI9uwRUvu1GD+6J6/dUCV/LZxLP0mpm+cNK5qxvPL2MNVKx4Iqhcm7JtLhLy6/r2rT
-	 SCU51A9IJWg9SYW4dd0vzlhKab18bZxreHsxSbU09MjZuHguJdZ9RwjZmRCGdEKw4BYzZ
-	 63rvJh6BCZ05XgUNuXRfjSrpuD770vcRQEerxnQK9UpB7tSDz45tge+k/+Wrz1TrynEd8
-	 mhiLbj/Q/gd3RvdDru4Fv3FD+1GCkKzh6n46Vk+xkFxdp3cO7hC7NnsVaGUOEeoub3h0H
-	 343WShPaWw0MgGgaAj+Y6SUfDuG1lbojCAavYDH/vkjWnCq6umBMRAz5Fh06z/ZK27w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643552;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KRAZu3JCVy3K/N5J6Xu/hsBjf5fNF/+1FwKA7rCYiX4=;
+	b=o/7rg1sNbjLRvQ+BBaxBJVMMqJrqSdtdvkAkalhr0ajZbZQte37mjki+fb/wAcMG1zp9
+	 0ttOFI4c2vELID28ZwFQdbKSBzGmKSbfYmT9FCTNggzVRvv4oPBD7EdzB76c+snqJdpZW
+	 44uUBXKzTg0SlC4J2orJ0kpgyyeefdfkaSjlPSmnWFsUMeOsvLqgJa+8FSTa5+7DyfcmV
+	 HmvZ440K93lViZEOHrz8UBMAlZzSl4WUtoPnkXl6VXiduxfy6hViDuMWbR54TlrP18x1d
+	 zfQh3it6tGaYD6SVVXUtIE1jmODIjYroL+C2b01un2ii5KtqYLmvRzVwMHT7E0DLnWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a5fU4Xwv;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjhtO+aB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174A9606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 18:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 174A9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E344606A326;
+	Mon,  2 Nov 2026 18:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a5fU4Xwv
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so1886403a91.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 10:02:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793642560; x=1794247360; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wjUwlJYpmWg4mChaZqQtsUzChcNIv0kOIN66bk7+k2A=;
-        b=a5fU4XwvqBLEQVWzBtl7sWweokwZDlqumDIzuIDOPqp/EpN8QxsLcw/2stAEbMJHoM
-         9m/31vH3SXCIvnf/jEUORyKJC0mA/Q+8tl0gNL9YahNEbTzgqkK4Qvo/JCdvl0klmt6q
-         o+Rab2FxonaCOuLjgcCS9uK2ZoSFW/sjZ2ylCE7Y/dwkqar0ITzSYpF7BdRiXZl4sTrk
-         x2RAekBWDLY/Ku69bIdlTsovVoZYOMxYkMEMqcO3s4FI8xocnu3DenkAoEzg4ptGNlO/
-         xgfo+VafHlh0bNsBYEorT6CrATOOmmtxeXISLe82bCIfcA7aSQ5tazSl88sbvy9cVVMR
-         K22Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793642560; x=1794247360;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wjUwlJYpmWg4mChaZqQtsUzChcNIv0kOIN66bk7+k2A=;
-        b=RPTjow7tkWqYDPDrupUp+d9wjDePXddMz3n1apfF3wvVsROThp5Zj8qAdXwpSIdfYp
-         ec+DUTzGz8m5V8qwwFlEGyth/0ERu9DB2444lkltMDdwxszMzdYktj78VeYj1EGlasrL
-         voqOAN8Iv+8HH0sFiNBq1xRxWaqYvQXNG7jKEhw22mTo3uaBus75HALu6Bn0ZGRQxXZf
-         WGAS5CT6zFrW7RgyXXSkYek3Q5M3E/k/mszHzHM4PesSG2lN3oPBNTwNNUf4LJLUR//o
-         ep9ZC95oqyHAGaIcXzackNIqtKfVrqYYLZ+OmIN6Jt9doHx55c/9nEKfdU4LF/Al2Zg3
-         EOqQ==
-X-Forwarded-Encrypted: i=1; AKwUvByM/UEIuqF85NFmopyIv59yIxtD8uYSDEuvJDEn54wgGILjPLLDc1xvhF0yh9HWxIp0OMDoEJ+mjktn@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zfEfRsfzQvUkBKQmOm6iV8BGtIy+pRGj2KlvapClShhBbu7DE
-	jnc2ivnpYgLCoch2JRqqI7yMxGXiy9qEmrHFHY0X6cLVlYonGEVbUkE8YhyDa3YzQTc=
-X-Gm-Gg: AYBFou1I/f18KCMkKYrJhGET9lDI4FyyJlS2nmQf5elEFUO2PwTv+PAR0pAANGrcJeP
-	VtKP82qzOnLKlyiiZSejoKQcDUAqLOca4zD76ziMBYEBhv8SsDQgAGrdUa98N5YasntylpjlvZ8
-	UifrWV+ooQwmfdrfmTN/y9gBcfflo133Y8SgniSR2N4Tanv4gqZPYHpqjijL0SYYwD9e3USj6YL
-	O1gm9L7iuI1eO+PEfek0mwtePFzBLNEeGN+qWjGuSGjdMUsuumTavagpXl0UIsErvjpC9DrZhDw
-	q+7FO9SEYb2GdXXerFsaBNx9MTIoeQOO32dgufIfkjiyvJkGD5JvHv8oK1dp+vT5vOK7tgKscv3
-	0/0OhLvX8eIinvo7oZcpAFtfSuk0Avpx3ga5X1Tm5NAhDQjBqv3SWepf27thCClskd6uavHniRM
-	+ye8gbaXA1kgkCI2BxBvplHSVO12kxyy4HcUTLaJtt1LEq1s4ibWi2HJsvWPORz+JHjV7DLu7qC
-	kmhC90X/FsOoDyRn7uVpbaOWePOjyYaQc/e/uiiCVt0PD9BKyr+NKwgNef77erK2tS83rvVl5kz
-	SyppWAayyGFE/obUndEoViY6zxYC++o=
-X-Received: by 2002:a17:90b:53c7:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3ae89559e5emr5539384a91.5.1793642558875;
-        Mon, 02 Nov 2026 10:02:38 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:810a:982d:b93e:e497])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f37e7esm8969537a91.1.2026.11.02.10.02.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 10:02:38 -0800 (PST)
-Date: Mon, 2 Nov 2026 12:02:35 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Frank.Li@oss.nxp.com
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Francesco Valla <francesco@valla.it>
-Subject: Re: [PATCH v9 0/2] remoteproc: imx_rpoc: use memory-region-names to
- avoid implicit ABI.
-Message-ID: <aujQO2gXhYx8NTwK@p14s>
-References: <20261023-memory-region-name-v9-0-ad597887dfe9@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjhtO+aB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADB51F00A16;
+	Mon,  2 Nov 2026 18:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793643552;
+	bh=KRAZu3JCVy3K/N5J6Xu/hsBjf5fNF/+1FwKA7rCYiX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kjhtO+aBK0SVFpbcZMuaTFZTd0zHhYTniqeS7XOPHfDpPnM8HZOsBv1RjJrUYNfc/
+	 subTsdh9zgbo0OFwCoeDB4A2xVIbsQq0EWsTvhayDloqIviWI/NgZROLJ5wm3Bmjur
+	 PPWzbAzXd1jsIz/e+yvoA//9j4KAUQLiB4CUoFXRQRsdspD5c7EyGmcax28n5E7r6p
+	 /4A/4IYfn1wGeCrlvnFOulYLebnRntR9wLN4mECPZUIoUo45P/wbT74rzfY8AfGQWq
+	 kkNa8YN2xcMzYxM2FJd+Oc8OEsDgD4a0Y4XrDQLW8Ty7Ov5f+LdQOHqhGRJWOIrNEd
+	 upejaDxbbdltw==
+Date: Mon, 2 Nov 2026 12:19:10 -0600
+From: Rob Herring <robh@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: saravanak@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: Remove refcount underflow tests
+Message-ID: <20261102181910.GF1232511-robh@kernel.org>
+References: <20261101122128.2124348-1-dakr@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,106 +58,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023-memory-region-name-v9-0-ad597887dfe9@nxp.com>
+In-Reply-To: <20261101122128.2124348-1-dakr@kernel.org>
 
-On Fri, Oct 23, 2026 at 03:52:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> The driver currently derives the memory region type from the referenced
-> memory node name, creating a implicit DT ABI.
+On Sun, Nov 01, 2026 at 01:19:29PM +0100, Danilo Krummrich wrote:
+> With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
+> machine no longer boots after commit 5b5224220747 ("refcount: Use
+> CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
 > 
-> rsc_table: rsc-table@90000000
->            ^^^^^^^^
-> {	ret  = <0x90000000>;
-> 	no-map;
-> }
+> of_unittest_lifecycle() deliberately calls of_node_put() after the
+> node's reference count has reached zero. The test expects a warning and
+> continues to check that a subsequent put does not produce another
+> warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
+> triggers BUG() instead. This panics the kernel during boot:
 > 
-> m4 {
-> 	...
-> 	memory-region = <&rsc_table>;
-> }
+> 	kernel BUG at lib/refcount.c:37!
+> 	Oops: invalid opcode: 0000 [#1] SMP NOPTI
+> 	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
+> 	RIP: 0010:refcount_warn_saturate+0x89/0x90
+> 	Call Trace:
+> 	 of_unittest_lifecycle+0x158/0x310
+> 	 of_unittest+0x105/0x130
+> 	 do_one_initcall+0x127/0x350
+> 	 do_initcall_level+0x7c/0xe0
+> 	 do_initcalls+0x59/0xa0
+> 	 kernel_init_freeable+0x118/0x1a0
+> 	 kernel_init+0x1f/0x140
+> 	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
 > 
-> Current require node name have to be rsc-table, but no any binding doc
-> to restrict it.
+> Remove the refcount underflow tests, which exercise the refcount
+> implementation rather than OF-specific behavior.
 > 
-> Since memory node names are not constrained by the binding, incorrect names
-> can silently pass DT validation, as seen in examples using "vdevbuffer"
-> instead of "vdev0buffer" ([1] and [2]).
-> 
-> Add optional memory-region-names property to define such ABI. To keep
-> back compactiblity, use "optional".
->
+> Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/of/unittest.c | 43 -------------------------------------------
+>  1 file changed, 43 deletions(-)
 
-Applied.
+Applied, thanks.
 
-Thanks,
-Mathieu
- 
-> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-> 
-> Prevous version
-> https://lore.kernel.org/imx/ail0sH1UhnQBPRkr@SMW015318/
-> 
-> ---
-> Changes in v9:
-> - s/hidden/implicit/g, sorry, missed at v8
-> - Link to v8: https://patch.msgid.link/20261022-memory-region-name-v8-0-ce5ce514a550@nxp.com
-> 
-> Changes in v8:
-> - remove dev_warning
-> - remove dts patches
-> - Link to v7: https://patch.msgid.link/20261020-memory-region-name-v7-0-1413d5928340@nxp.com
-> 
-> Changes in v7:
-> - move imx_rproc_rmem_to_resource() close to caller
-> - collect Francesco and peng fan's review tag
-> - Link to v6: https://patch.msgid.link/20261019-memory-region-name-v6-0-2e46b2e7d667@nxp.com
-> 
-> Changes in v6:
-> - collect rob's review-by tags for binding
-> - move imx_rproc_rmem_to_resource to c file
-> - dts move related memory region node into overlay file
-> - Link to v5: https://patch.msgid.link/20261015-memory-region-name-v5-0-abc358b39a96@nxp.com
-> 
-> Changes in v5:
-> - fix binding region-memory-names's pattern
-> - add vdev1vring0 and vdev1vring1 at dts
-> - collect pan peng's review by tags
-> - Link to v4: https://patch.msgid.link/20260917-memory-region-name-v4-0-260755920ebf@nxp.com
-> 
-> Change in v3
-> - rephrase commit message and cover letter to correct descritpion and
-> reasons.
-> 
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Mathieu Poirier <mathieu.poirier@linaro.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Sascha Hauer <s.hauer@pengutronix.de>
-> To: Pengutronix Kernel Team <kernel@pengutronix.de>
-> To: Fabio Estevam <festevam@gmail.com>
-> To: Peng Fan <peng.fan@nxp.com>
-> Cc: linux-remoteproc@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> 
-> ---
-> Laurentiu Mihalcea (2):
->       dt-bindings: remoteproc: imx_rproc: document memory-region-names to avoid implicit ABI
->       remoteproc: imx_rpoc: use memory-region-names to avoid implicit ABI
-> 
->  .../bindings/remoteproc/fsl,imx-rproc.yaml         | 11 ++++++++
->  drivers/remoteproc/imx_rproc.c                     | 29 ++++++++++++++++++++--
->  2 files changed, 38 insertions(+), 2 deletions(-)
-> ---
-> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-> change-id: 20260915-memory-region-name-f950eea2b78d
-> 
-> Best regards,
-> --  
-> Frank Li <Frank.Li@nxp.com>
-> 
+Rob
