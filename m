@@ -1,56 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632495;
-	b=unJxf0Psp8Yj+odNeUEuBcvXnGVCbdYDDWtS18/rNAWASJkU1N/pPEnsVZW9L2jy0Knn
-	 Wn1gDp4qk7JH0zWhziV0dqu8L9BTBiQPoxgj3oEc5DSO7n2BLDs9AxjCGJ//Lb6FGTWfL
-	 HM9HMXV7O0l9xbsKGnMOv9sgw/aejlUVqbfi0jmsjPHlQLiFSJG/xM6FM3JS5iKWM2TY5
-	 jC5yKCERh4g3+k4ETLGlKNADHJ23ZBzuD8LuICckqV+Dgsy15khW3w7VQpQc2lGWV4d09
-	 DfI2iFDW7xZarkiZ1q/yGbGo05Jk/QI3itigLqfXPXQuYqnN9hAbN1oJkd64GJQIvyQ==
+	t=1793632901;
+	b=0VBP1f/OT98JO/NimG5T8VtbjeO49bp1IdJVyVXcr/cxHkmSIszatDsnWpgt8C0xU8GN
+	 d7ea8VwliDRkyJHUPtTsYEIoZSCqjhtvWZYXTnj1V7qSEDNJD0VuX7DA7sPmXjEMvuCFK
+	 qmuWaSo2K6SP/ELpGe5k3KKttk8b5t86bML9M6Lol00Oq8+aHzXHV2TJd9HpjH9cQVIL4
+	 2NjDAZixkr+xt2pIEvlMtu46o4OjmvkTGgK6keu16wjxTlMtzBH9yXmMzL5HWmdQPNAWL
+	 hQZsVHhHxeGg2P+lbyCDw3P9gXjSUjeC2O8RO7V2HCGd4dBvL3tmFKOM8yCt2iwEzMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632495;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=k4O0io8dJgP8AKHU+idYb7uuBzceudvaBdwtE6m6ReI=;
-	b=Lpjz4GWZ7MM7AeHN9Xxc5YIa/ZSAKApasSD5H3za3p/GkVNMK8wdUpOjP+6wOJsNrhtT
-	 mzwNWDe5AQlYgE3kiSrxqc/SUGDQ8C2emnp1HaCInAyAF4MjhcwBO7DsDc30IO3rM1RRM
-	 3N8Zq2O4IUspFL2ULjX5tBF7DduiX+Wve381tH1x+rL1M4Dv/zXcmP2WhtaHIC1Fp13q/
-	 FvUm7S+sCdmWw1Cr7qYt837W5fPaqWeXh5tp9M7qq+uNgoUU0teX9Az3OXUYGqDEwxHU2
-	 xqZa1ZC7iwSruVPtzaGn7lols369pGDzUGkUN+7RYZBW2LR0iaicM/h/Hu5GuduTpoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632901;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=oPKZdFeFL57f1TYzik5gLu6fyy7lP0pCyy5vLRZzH0Y=;
+	b=hkAA1kD5oeWUQ1FSXAZ4hYmt0xQlDzftxDu/JDJB96UrQrej5TnGuIIc9aMz3i+CdLuU
+	 wvplxEDj8o5SYUudloew49syRJsjny5YSE+YBLEKe6JWDdL7yTy6bGSm7EOq57HW6X1gm
+	 /c7oTCHCAyomLtSombkm8ggPQiG9Oh28HlBc7gi76Ib+KjTHXX5iCaRFlVUtE5XKJPnky
+	 IKkkiZzYJyVXj/XuKDbCpNBoR7EcOTUEWl/2cI70ZJjL5ySunxLMGIjOP0L6bj+m2jg8S
+	 5wtJGW+xvUdvjpmL0CDFcZx+JFOq0EFje/kBmftU1s2vWxfecueP2iFA1C25XjWIInA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PLPzbRl0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uEVFVyOG;
+	arc=none smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A286079043
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 15:14:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D67660C310A
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 15:21:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D67660C310A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PLPzbRl0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A891F00A17;
-	Mon,  2 Nov 2026 15:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632495;
-	bh=k4O0io8dJgP8AKHU+idYb7uuBzceudvaBdwtE6m6ReI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PLPzbRl0MkNsjEvPMWfZpuzz58HQZtr6KnSmvCXg88Rs+j2JghcxOnnk18YDlkgkr
-	 TNhRpKFvxnGTMOxsfzr9YWNwaBNizQ13kjcXnCmDpz/ms/VvP5TCnlfzdeXYgHzCoX
-	 hFI1dtxBKRV4AegzTjuY/nQx2J5HQj6sLEKXhN6a8R/QASSt7/RE/dsgIIaLxHCH3r
-	 bOZ6ioaaUWzBhQQaze2xC/BLxNfSFT56T/oEXM9ebY+9IfVrcFsqmOlLO/NIyeT3Ze
-	 Xw0TQuL+NNPB0DnLCAhbXHuUjWxqtt3fnqHE3kGhR04aACGeS1dKusGq2Atuj1vWOw
-	 kZWPYscQy95GA==
-Message-ID: <sashiko-outbox-193645@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bob Hui" <bg9oxa@163.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-quarkpi-ca2-v11-2-eb246076a82f@163.com>
-References: <20261102-quarkpi-ca2-v11-0-eb246076a82f@163.com>
- <20261102-quarkpi-ca2-v11-2-eb246076a82f@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 15:14:54 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uEVFVyOG
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3acd3105debso1858701fa.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 07:21:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793632899; x=1794237699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oPKZdFeFL57f1TYzik5gLu6fyy7lP0pCyy5vLRZzH0Y=;
+        b=uEVFVyOGIk0RY/9ot+HcRUWU+sMnWpraEVUWLacZqldj9h3U0yqpgZ8kfQ7KPPueqf
+         aCOCbp1q9sXfE2ihFbP+tNydspojLemsi9rcrLRaqR9a4jKZTMsB7E1/nhUoQDghuXlv
+         wJJv+wMQk+3a079G6WDqsoCPRPPQTf+bn7k+Xfj5LMRGo3yk3EPjJabwILude8er/7DA
+         jJslthkiqcG4HH9l7AsQlttGor2TcJby6XW0y42sIYkkewlrLryHR3S7EFAQwNJ8iNBX
+         /NuaRtuPTXDHQNJDiLUL2q5ilk0ruaESjpUoXU2c+1rzsm8Hz7dxao7XUsl7f6knc9GH
+         gJuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793632899; x=1794237699;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oPKZdFeFL57f1TYzik5gLu6fyy7lP0pCyy5vLRZzH0Y=;
+        b=wB4TvHPsfpKmbVgZXCsvgS2n1Jjgd9uxQ0jCFs4g1tFEMEhiCpsKT4APiIRvQEZfOk
+         FrhXc2pH/ZZoJUkp8PlJROLxWWGD4VSr9HO95vY7J/u43Gi9bC/Rv1oUAiOiVjNIWc2R
+         EfwKBF8SkM/aSNyapbgx6Y6OmjsH3r7vEVd9UYqhAa3aSyCok4UTeJJWX1ZkYWejVCfq
+         KDu/pOzGv4uRWPJNjhA8FViS6uX3PkBzehubkPisagg7yJ1QeWJbZl4rKL20OLTUUQJd
+         IVaqSm92PZGdQ+11YqnNPYvJfuKjNjKAg7qPo2ZBJBoi46MT3YPP6V7InshHrhtcLXqc
+         m8Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVHgZB6we+A+rRByG+XGCyB4Xjoq3YRKeelIiLoqjjUczXL4gv/ABq0+20NndmP8bEoLe55YtKQ/kX@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qd+5LSxzMJyfIZl/mm5LN4kMsrlUV3zrnf+Nag9c/bWQlpFSf
+	6iJ7ZjVP9Df63uDnzV9E994Fv80SCGIBY+s5XiqzA38EMsdJas6NYuVxyp3Skg/WamI=
+X-Gm-Gg: AYBFou1J5ApYJ3LRR10xwfLB6DZY3MCX0iQ9rpV6yk507BjJB329EOco1P7PQWC0BtV
+	OxJh9lTUZ1WGZJms+wG7uWguoEgIHEIqMMmw3DKpskkTji72tC59anUJxZi3r7WOeXRNeYulQoL
+	g64NTa6NOcxYEp4x39xf3lwPU561bn4immGjMgqmHhdpwGUHZsRbXc/560vYv3Cu51WY1BLFTDX
+	OBy6TcjmC3Y/6okrU7jfGqsPv+ZmU637Xd2qlpq7I3x5QsNjD6RLuPxx8rdk3gtG0HnMLaHkILq
+	DBO/I0DQDFysqQqBq3tONbFrtkCtfh5BZnmU7ZCcIvRR53vd07NK33Cqrg946r8rIMVlP36M2kC
+	d11o9ONWgaTRldXG2HjPKvIKkxqZgsGNuJjYAbR5qujQxj3zoelkwdPrKIJIYxyEuzD5lBf61bA
+	cqSTgs2Scfug53nv0wGkfebVrtIvRj/NfAAnXVHgFsvZw0ZKk3Hz3PCgjUHFVDrrAc6MWUHkuWc
+	dyeoVUm5Pjj8LxZ41zA72icIwelQao+yGPF1tzQSUjrl3KBDNSM/E2obZ8tM1SRihlrym22N/d2
+	wN0sUA8eLdjcRLLqY2qsSU1pVXqeOhUu7smZmv+dRVn4+Yu7zReebWJHEj7L3jP1wdS4vmgpnzu
+	ltz7pyA==
+X-Received: by 2002:a05:6512:4041:b0:5bf:ce24:38c8 with SMTP id 2adb3069b0e04-5bfd95add38mr3190968e87.4.1793632898656;
+        Mon, 02 Nov 2026 07:21:38 -0800 (PST)
+Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe072c0ccsm1724070e87.30.2026.11.02.07.21.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 07:21:38 -0800 (PST)
+Message-ID: <7523d9ae-85ff-4e4e-ba52-dbe04c943534@linaro.org>
+Date: Mon, 2 Nov 2026 17:21:37 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,215 +90,124 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] media: qcom: camss: Add SM8650 TPG support
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
+ <20261031112203.545319-6-vladimir.zapolskiy@linaro.org>
+ <cb4fbc79-d72b-48d4-962c-479e4ebc7e51@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <cb4fbc79-d72b-48d4-962c-479e4ebc7e51@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] arm64: dts: rockchip: unsorted nodes and missing blank lines in qua=
-rkpi-ca2
---
+On 11/2/26 14:22, Bryan O'Donoghue wrote:
+> On 31/10/2026 11:22, Vladimir Zapolskiy wrote:
+>> Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks
+>> of hardware version 2.2.0, add their resources.
+>>
+>> CAMSS TPG on SM8650 needs the non-real time CAMNOC AXI clock to be enabled,
+>> otherwise VFE receives the frame start event, but no data is written.
+>>
+>> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+>> ---
+>>    drivers/media/platform/qcom/camss/camss.c | 53 +++++++++++++++++++++++
+>>    1 file changed, 53 insertions(+)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+>> index cf4687a20dba..9eeb7e4a7315 100644
+>> --- a/drivers/media/platform/qcom/camss/camss.c
+>> +++ b/drivers/media/platform/qcom/camss/camss.c
+>> @@ -3423,6 +3423,57 @@ static const struct camss_subdev_resources csiphy_res_sm8650[] = {
+>>    	},
+>>    };
+>>    
+>> +static const struct camss_subdev_resources tpg_res_sm8650[] = {
+>> +	/* TPG0 */
+>> +	{
+>> +		.regulators = {},
+>> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
+>> +		.clock_rate = {
+>> +			{ 0 },
+>> +			{ 400000000 },
+>> +			{ 0 },
+>> +		},
+>> +		.reg = { "tpg0" },
+>> +		.tpg = {
+>> +			.lane_cnt = 4,
+>> +			.formats = &tpg_formats_gen1,
+>> +			.hw_ops = &tpg_ops_gen1
+>> +		}
+>> +	},
+>> +	/* TPG1 */
+>> +	{
+>> +		.regulators = {},
+>> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
+>> +		.clock_rate = {
+>> +			{ 0 },
+>> +			{ 400000000 },
+>> +			{ 0 },
+>> +		},
+>> +		.reg = { "tpg1" },
+>> +		.tpg = {
+>> +			.lane_cnt = 4,
+>> +			.formats = &tpg_formats_gen1,
+>> +			.hw_ops = &tpg_ops_gen1
+>> +		}
+>> +	},
+>> +	/* TPG2 */
+>> +	{
+>> +		.regulators = {},
+>> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
+>> +		.clock_rate = {
+>> +			{ 0 },
+>> +			{ 400000000 },
+>> +			{ 0 },
+>> +		},
+>> +		.reg = { "tpg2" },
+>> +		.tpg = {
+>> +			.lane_cnt = 4,
+>> +			.formats = &tpg_formats_gen1,
+>> +			.hw_ops = &tpg_ops_gen1
+>> +		}
+>> +	},
+>> +};
+>> +
+>>    static const struct camss_subdev_resources csid_res_sm8650[] = {
+>>    	/* CSID0 */
+>>    	{
+>> @@ -5786,12 +5837,14 @@ static const struct camss_resources sm8650_resources = {
+>>    	.version = CAMSS_8650,
+>>    	.pd_name = "top",
+>>    	.csiphy_res = csiphy_res_sm8650,
+>> +	.tpg_res = tpg_res_sm8650,
+>>    	.csid_res = csid_res_sm8650,
+>>    	.csid_wrapper_res = &csid_wrapper_res_sm8550,
+>>    	.vfe_res = vfe_res_sm8650,
+>>    	.icc_res = icc_res_sm8650,
+>>    	.icc_path_num = ARRAY_SIZE(icc_res_sm8650),
+>>    	.csiphy_num = ARRAY_SIZE(csiphy_res_sm8650),
+>> +	.tpg_num = ARRAY_SIZE(tpg_res_sm8650),
+>>    	.csid_num = ARRAY_SIZE(csid_res_sm8650),
+>>    	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
+>>    };
+> 
+> What happens if we apply patches 1-5 but not patch #6 i.e. if we have an
+> old DTB ?
 
-commit 994e70f88ca26a3876389bdd486ca82fe1479b19
-Author: Bob Hui <bg9oxa@163.com>
+It's expected that nothing terrible will happen in runtime, and TPG registration
+is skipped, since patch 2 from the series is on the list of the applied changes.
 
-arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-
-This commit adds the device tree for the ALIENTEK QuarkPi-CA2, an RK3588S
-based card computer.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
-arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-> new file mode 100644
-> index 0000000000000..c7889f729191d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-
-[ ... ]
-
-> +	aliases {
-> +		ethernet0 =3D &gmac1;
-> +		mmc0 =3D &sdhci;
-> +		mmc1 =3D &sdmmc;
-> +	};
-> +	analog_sound: analog-sound {
-> +		compatible =3D "simple-audio-card";
-
-[ ... ]
-
-> +		simple-audio-card,routing =3D
-> +			"Headphones", "LOUT1",
-> +			"Headphones", "ROUT1",
-> +			"Headphones", "Headphone Power OUTL",
-> +			"Headphones", "Headphone Power OUTR",
-> +			"Headphone Power INL", "LOUT1",
-> +			"Headphone Power INR", "ROUT1",
-> +			"LINPUT1", "Headset Mic",
-> +			"RINPUT1", "Headset Mic";
-> +		sound_cpu: simple-audio-card,cpu {
-> +			sound-dai =3D <&i2s0_8ch>;
-> +		};
-> +
-> +		sound_codec: simple-audio-card,codec {
-> +			sound-dai =3D <&es8388>;
-> +			system-clock-frequency =3D <12288000>;
-> +		};
-> +	};
-> +
-> +	hp_amp: audio-amplifier {
-> +		compatible =3D "simple-audio-amplifier";
-> +		sound-name-prefix =3D "Headphone Power";
-> +		enable-gpios =3D <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path =3D "serial2:1500000n8";
-> +	};
-> +	hdmi0-con {
-> +		compatible =3D "hdmi-connector";
-
-[ ... ]
-
-> +	headset_keys: headset-keys {
-> +		compatible =3D "adc-keys";
-> +		io-channels =3D <&saradc 3>;
-> +		io-channel-names =3D "buttons";
-> +		keyup-threshold-microvolt =3D <1800000>;
-> +		poll-interval =3D <100>;
-> +
-> +		button-play-pause {
-> +			label =3D "play pause";
-> +			linux,code =3D <KEY_PLAYPAUSE>;
-> +			press-threshold-microvolt =3D <2000>;
-> +		};
-> +	};
-> +	ir_receiver: ir-receiver {
-> +		compatible =3D "gpio-ir-receiver";
-
-[ ... ]
-
-> +&pinctrl {
-> +	headphone {
-> +		hp_con: hp-con {
-> +			rockchip,pins =3D <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_down>;
-> +		};
-> +		hp_det: hp-det {
-> +			rockchip,pins =3D <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
-> +	ir {
-> +		ir_receiver_pin: ir-receiver-pin {
-> +			rockchip,pins =3D <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_up>;
-> +		};
-> +	};
-> +
-> +	leds {
-> +		work_led_pin: work-led-pin {
-> +			rockchip,pins =3D <1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_down>;
-> +		};
-> +	};
-> +
-> +	pcie {
-> +		pcie2x1l2_perstn: pcie2x1l2-perstn {
-> +			rockchip,pins =3D <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
-> +	sdmmc {
-> +		sd_s0_pwr: sd-s0-pwr {
-> +			rockchip,pins =3D <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>;
-> +		};
-> +	};
-
-[ ... ]
-
-> +&pwm14 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pwm14m1_pins>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pwm7 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pwm7m0_pins>;
-> +	status =3D "okay";
-> +};
-
-[ ... ]
-
-> +		regulators {
-> +			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
-> +				regulator-name =3D "vdd_cpu_lit_s0";
-> +				regulator-always-on;
-> +				regulator-boot-on;
-> +				regulator-min-microvolt =3D <550000>;
-> +				regulator-max-microvolt =3D <950000>;
-> +				regulator-ramp-delay =3D <12500>;
-> +
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +				};
-> +			};
-> +
-> +			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
-> +				regulator-name =3D "vdd_vdenc_s0";
-> +				regulator-always-on;
-> +				regulator-boot-on;
-> +				regulator-min-microvolt =3D <550000>;
-> +				regulator-max-microvolt =3D <950000>;
-> +				regulator-ramp-delay =3D <12500>;
-> +
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +				};
-> +			};
-> +
-> +			vdd_gpu_s0: dcdc-reg1 {
-> +				regulator-name =3D "vdd_gpu_s0";
-> +				regulator-boot-on;
-> +				regulator-min-microvolt =3D <550000>;
-> +				regulator-max-microvolt =3D <950000>;
-> +				regulator-ramp-delay =3D <12500>;
-> +				regulator-enable-ramp-delay =3D <400>;
-> +
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +				};
-> +			};
-> +
-> +			vcc_1v8_s3: dcdc-reg10 {
-> +				regulator-name =3D "vcc_1v8_s3";
-> +				regulator-always-on;
-> +				regulator-boot-on;
-> +				regulator-min-microvolt =3D <1800000>;
-> +				regulator-max-microvolt =3D <1800000>;
-> +
-> +				regulator-state-mem {
-> +					regulator-on-in-suspend;
-> +				};
-> +			};
-> +
-> +			vdd_log_s0: dcdc-reg3 {
-
-[Severity: Low]
-As reported by Heiko Stuebner on v10 [1], should all nodes without unit
-addresses and phandle references in arch/arm64/boot/dts/rockchip/rk3588s-qu=
-arkpi-ca2.dts
-be sorted in natural alpha-numeric order, with blank lines separating
-sibling nodes?
-
-Specifically:
-- Under &spi2/pmic@0/regulators, dcdc-reg2 and dcdc-reg4 are placed before
-  dcdc-reg1, and dcdc-reg10 is placed before dcdc-reg3 instead of natural
-  alpha-numeric order dcdc-reg1 through dcdc-reg10.
-- Phandle reference &pwm14 is placed before &pwm7 instead of &pwm7 before
-  &pwm14.
-- Inside analog-sound, simple-audio-card,cpu is placed before
-  simple-audio-card,codec.
-- Blank lines are missing between aliases and analog-sound, after
-  simple-audio-card,routing in analog-sound, between chosen and hdmi0-con,
-  between headset-keys and ir-receiver, and between hp-con and hp-det,
-  headphone and ir, and pcie and sdmmc in &pinctrl.
-
-[1] https://lore.kernel.org/r/2372620.HovnAMPojK@phil
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-quarkpi-ca=
-2-v11-0-eb246076a82f@163.com?part=3D2
+-- 
+Best wishes,
+Vladimir
