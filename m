@@ -1,159 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793595841;
-	b=ak/qqVzQ0yaiX582/207Nm8X9J5BzTVyPAnc+nVqrdeIBU+sUmhyn9h5hyMmQkcbiCGe
-	 te22ZTEcqeQSzxb/rXLWk9/wmxHyO/kVd7pgnYvVpxxJG7m7GFqb5N7yMvY6hKNCBfTvd
-	 LwVTqD34Rq8odHjFmogakYDaDG4TbWZo98KsBVgGy4i6td+tWwmL49mQKUvFlWeLMS+Yb
-	 QF3Dju3JQIxlX6uqNgbkcpoqQDVIYAOcrH2jJAkjtQOEkr/9yoXflUyUTGADO7QdaMeVH
-	 mciE44DRnsuA4egCQeBfgUXOQ5WS9HHmZ+zY+HWYBSgY0GLS+Wqqu+n/+N3HKwi24dQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793595841;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ZYBKdNqyDAZZF47WXVb8lmAeXlZrbvPomd6LuzErdEM=;
-	b=0WBF9VEx3SEbZx9Ey4z2p13AU63d0aKlTMZ27AtLur1J3UiKseJ6UKGXlE4GYeDVPEK+
-	 EebJh5lahIg9DlXy896S+Fb2S4yugT/VAj451q5DPXb9Pbn4KcyNNa52GPyeSPPWc//xP
-	 PInoDKGh6LMv5RXFzM0QvYu3MXGWFnZHOYBqS4GZ4yw8GozBtBmYUFdinXXlbJ86Zxml6
-	 uDBDGM2ikUso26Lm88qEs5/q3WoEg4Vn9qQFxJXXJAvliLae7MroTRDnLn70Y8fGSqKol
-	 aDKKJMBndrPKzk042gk9peW3VOqosjQmSca6wLiM9WMLLNMvouSTdI4hDL9icXEupwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=selector1 header.b="gQY31u/p";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.59
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010059.outbound.protection.outlook.com [52.101.61.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793596309;
+	b=oMSEqqvWyJvA4R+CkdYoFl+jUbYIYM4BgcDl+oZdGSI02NqaFqHFtxJWP2TByNnOlNJc
+	 QYHdrB6o9uI1YwLEHlUPjS6y5zVqnuScfG5QpwbfnpGKldhPhQWdNN7PIjxBR/BQaLVoZ
+	 JEj4hkq2i5BeSLrzrH7qt1u5PPtC+gpzT/U/RWeBC4ypbm3YyOiO10+L+jRuBov7qJRLT
+	 h3k90+rA73+xCfidkwdq8mSL84VnVFvgAyEE0WHoi9FJ2QVb8jqHqkBxThCeKbs9dwvtv
+	 M3lz8zTRO8fEhrzDnFyHzPgDJD9WtuGBQqjqswgIrx3+mNWUgbb4Hpk+wlvf7P/HSrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793596309;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=viwpEca7wJ9qzgawnffjQX4LAK42jrtmu3SV2jw4xK8=;
+	b=joJE3I9t6F+Vgde4mXjyQzJPhZsvswzyr2l8awB2sb/hNlJF15/dr1id9lDW/oP/V3rx
+	 HpJj6JI3xkt47MxNP4u7p5z79wJNVJ644nmRzbPmDlYQG2lfjOYxbQzAUQnZlFatVp0Ye
+	 4c6vQmrJvYbHkVAUyO4RNE9JfaFgukJSIKj3czxb0XTbrdH1AMf3WisPhh2X7HnrwbQGY
+	 AfFUaZTvdgT+RX5ynD0tk5HPWUlqDr79TVmMKjSOOqG0TCmT6UBtZ4OLe36o5z9GaG1uk
+	 aLIdSiKT92GHXgcxrpdQAIxIsJWmYxkOd0WjQPkOpkh+LHZkPQr4+bcqe32QFxUfQOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71686606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 05:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71686606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=selector1 header.b=gQY31u/p
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GvhqJ7Uoj5MtEJEUMmwbfTdtRUZy3AWFWix7t2fTfXehifPzL/xws3weDgKur+FpZKD1S/AlWjqvlRXsVOFCOBMzwIvdRr4kKSPr+JS+POGjcQRSYpap93CkrLfZGi6tRp0luus8QDGV4uAK+xWEVhtWY75O7Zg+SUk8kz4T+TM/TJw80yKk21huZ0VaIW76stkNQYsq41Cm1QRluQagQ/T4YRalFf7MIrluoMt0x/RRjbdwrUb+kEJwKJkF9PSiUv2jZqyqxreV5tlkTO1jfhbQnWGLbKdj86gEz02l1UcpxErRo3qmO6HiAahwNdzv9ByDMFAz+1y71Hw5PD609Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZYBKdNqyDAZZF47WXVb8lmAeXlZrbvPomd6LuzErdEM=;
- b=dS0N4y5fROexh0w+ODZZnqrZJBf1KwmXFKDhtbKk5DrGjpowNq7QV2zTB+uijisKZZ5en7UsSMx3a3ormTWCxsh8gpHZMbVkyffqGwclX5LX9T+mL/g2fHEw7pEdJlc31Y08IigYNO4tR8nmTs0U4ctL0jD6HepYbq/mZuy3jfoUz4B67yg3NpaRlqxeSPfnLB6Bm4F8NzJHoIWuzoJX9OwMCwDW2h1eS8ISeISynj7cFbgWR7iLF5WqIRKqvWszYH/j144OQ//otO5b3yz92n9/RaAXYWGab8u3gWsE2xl0rtVzGP2mJ1Pd02mSi/IZU8OTXYE2tvCFxL9K+bsx+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZYBKdNqyDAZZF47WXVb8lmAeXlZrbvPomd6LuzErdEM=;
- b=gQY31u/pVagkamEqtS0y/WIJVIzqF30mNffSsdXcj4GWApZjbzb3bkdbpiwycVU8d4rxIUgbzl4RAcfZhlY4Qs8FYJsR9NhUoPRkM5+9hbZT8IEsYuO1ntHudqqIdiT5wuws1DT/f+mK0PFSrPVqpzSm8QWiIPGt1oOcSKlSSUan7pMJO5XqL88hrqpMBlsri7ja8Hrk5ojvEv+nDocyoBYhRMz/88hOHlh45Ajwk/s9v+tnT5+OahsfvQiPEh6qWfl9Eex3cyqlqVM9K75EwrjZNjiJUKsUdWbG91ibMuxsWxA1weQxIXMXkwDfiJIqJ7JyIJqiDoDX7lmjg9MQeg==
-Received: from DS6PR11MB523643.namprd11.prod.outlook.com (2603:10b6:8:468::12)
- by EAYPR11MB115281.namprd11.prod.outlook.com (2603:10b6:303:2fa::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 05:03:22 +0000
-Received: from DS6PR11MB523643.namprd11.prod.outlook.com
- ([fe80::1cc0:e019:a70b:f954]) by DS6PR11MB523643.namprd11.prod.outlook.com
- ([fe80::1cc0:e019:a70b:f954%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 05:03:22 +0000
-From: <Manikandan.M@microchip.com>
-To: <sashiko-reviews@lists.linux.dev>, <pratyush@kernel.org>,
-	<mwalle@kernel.org>, <takahiro.kuwano@infineon.com>,
-	<miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<srini@kernel.org>, <Nicolas.Ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<linux@armlinux.org.uk>, <richardcochran@gmail.com>, <linusw@kernel.org>,
-	<arnd@arndb.de>, <pengpeng@iscas.ac.cn>, <gregkh@linuxfoundation.org>,
-	<mathieu.dubois-briand@bootlin.com>, <michael@walle.cc>,
-	<linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v9 4/8] mtd: spi-nor: sfdp: expose the SFDP as a read-only
- NVMEM device
-Thread-Topic: [PATCH v9 4/8] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-Thread-Index: AQHdXVql4Kqh32JHyEicX8VyYnR6M7cBjRuAgBjHJYA=
-Date: Mon, 2 Nov 2026 05:03:21 +0000
-Message-ID: <ba131ca0-c659-419e-9ff7-26c7c6de1028@microchip.com>
-References: <cover.1792145382.git.manikandan.m@microchip.com>
- <889d6d5b7c608fd6553f38e4a34b050dcf70317f.1792145382.git.manikandan.m@microchip.com>
- <sashiko-outbox-175470@kernel.org>
-In-Reply-To: <sashiko-outbox-175470@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS6PR11MB523643:EE_|EAYPR11MB115281:EE_
-x-ms-office365-filtering-correlation-id: 99af80ff-1052-484f-b177-08df389e9e3a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|921020|38070700021|260925022911599003|260925021311599003|260925021911599003|4143699003|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- vuD+IGdZzCqW5sRukdQo6xKtwAx+cDu20PuMBziPcHGyMO0OWrSTz458dpi0CaSIhkqSTtIbFOcXg3EZLF52ThwOsRVv2l5lngI921rD7yP4ZqKScVRu/uJy+un+arHA4Z0eFAl7Zjbmd5c+nU/0vLV2SSzRZudXMsuAPYz72dNZmhyDLKDu68w3psjJ9T/8ev6bl556w+xWFO6TJmRsQr8zWerd91wshX5eiK8B8NZEXogHxUQKjbidZy/f+wbHXWp+JBhK5oH79Iw5qDe0Xmqrz7XCwRV9X9URe4S1cONzjFY8M1RUC0BU6IB7fLLv/ygxXf68ZMhPiK/xkLhQ6C0Aqk5nmgKx90VtiO4dGGLGtXfHwpsfTMuPyy/P8RKboKfVORGXkJTFvw5UsyukTBSyepVMZQUT8kggNsHrmBOUgZv0THUOG+E/XYnwFQbhMFv8R7Fd27FZkL1MRg1GMJ0VnluzCQe5stQfeDzKxu7tJ406gOfSjsed+HhRAMQNTJlv9Kwm/nclTY4Rv2Uc0amE84KAotQaU9dH/pwlkzLJOAchygwkrCmlExp/P3p2JOtuNS4MyDYYk6BXH2Ike5PrbXf/NBW0oukBq4Jn43a9ujwgxeXnuSVj3vgFZs6rXbuOyehf3uqkUpIry0e7wBnGdCrClbSloaRwfMN771TyI8ad6Bn2cAPUkahtK+Uv
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS6PR11MB523643.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(921020)(38070700021)(260925022911599003)(260925021311599003)(260925021911599003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SExiN285RWYwZ21LR1NxS0Q3cmdZUDNoZVBEekx6bURzOG1ZMmphS1h4TVYy?=
- =?utf-8?B?ZUd5dHV6bC9EeWxFdjBnbHNnZW1MODFWeDU2OVNueng0TVl3NkE1RTFOK2ha?=
- =?utf-8?B?enR0eDI5RDBpUG1OYzFHZ3pBVkhOWXdsYm01SVM0dXVEazF0MHNxZDNpR2dn?=
- =?utf-8?B?QmdvS0M2WUhBQjhKWmNrTTdkOFZva3g1S3VKa0E2NlYrTVZJb29LRnhYNjla?=
- =?utf-8?B?eCs3NXZ1Y0lwNXRTZzcrVS9MczV1OS8wS09rUXgxTFNRbkZaUXVPQnk2dTN4?=
- =?utf-8?B?ZHExREV4RkdTRGl1UDdYYS9aeXNJM1VkSnk5N2VYM2tHbnJoa0RUMXNXMGJl?=
- =?utf-8?B?Y1VhZG11QVNMcldjclhtbU9Xekt4YWwrOGhqU0dEODBySXdtRndDUkx4SEt3?=
- =?utf-8?B?TEF5WlFFRGN4TU1qRGtHNG1JQVVpS09OekJBNjBwcXErTkNucFJUZzNQYzlE?=
- =?utf-8?B?b2x3VVJjaTZ5OVdiWkI3UmpWbVpBZExHaVhMdlVuRTUyZ0NpamdHd1RuQS9V?=
- =?utf-8?B?T0t2VjBUcnFmUWRYUHNFM0YrQytlU3NuZWhyR2R5L2hvTk9JK0NmalFhVStE?=
- =?utf-8?B?UXdrOEVWdGpsSVVEcDRTOUNMKzliNExFZUNic1luV0tmay9rT2lLR1VkREg3?=
- =?utf-8?B?OGFBSlNsL0NlamJRU0tFZ2l3dGkyeFpMc3NxR2c4MnV6MzFSK2Vta3RRSnAx?=
- =?utf-8?B?K1prd2FJdmFoZWdZUWR4UStmbUhzZ3NhNk1seGtUWUVkNW9CUFVJR2hLZGp1?=
- =?utf-8?B?VVRmaS9oTWRnMjNPMm42em53WEl3NkhiTVRpNzZ3UlNXZVpjWmZuZ1VqSGZa?=
- =?utf-8?B?Wk1HUzVremRtQ2FQb1FoU3Rtb0JhTVU5Yk1scndhUEFhL3djNXM3OURMVWwx?=
- =?utf-8?B?SGk4cVNLQVJVQUtOV1lDaG9UWTdHTWI3WjZlRlhKK2d6cnV6Sm43T0NZTVVK?=
- =?utf-8?B?bmRpYjE2RGkveWdLeUFuYk5qUHcwQklmY3JtenRidGtpdEd1Tnhqc1drOG9Z?=
- =?utf-8?B?b20zTTR4em5xNGRxK3Zlam0reGJPdUNEZi95ZlRGSmZsMXIrOVk2SUM0TlJT?=
- =?utf-8?B?VjlkL3ZKdXFuR3VMbjFyYjczSjhoYnZFa0d5QVd5Y2ZBM1RsR1d1L1QrcFU3?=
- =?utf-8?B?V3E1cGVXMmNOblN5bmkzNEtTazg1SC9OaktTUnZJVmpRZCsreko5ODZkSjhO?=
- =?utf-8?B?R3h6VVF1OXNnc1hJc2FiUEpwQzZrRTVWeGtXaHh2L1FzN1Q4TS9rYzgySWox?=
- =?utf-8?B?Vmt2eGFMV3RiNm1EVisrZHdhLzFCcjVUN21HRndibHQ4ZmI3Zm1wNzFQK1A4?=
- =?utf-8?B?ejVTdGxZTk8wVzE1S2lReGlGbTc4N1RzVURPRGxxczB3Z2pGanVaVExxVmpa?=
- =?utf-8?B?bENnVzh3YVRac1Q1V3A2WWU3M3BlK3AyeWJ6M2lHdGlMeWZJUnZLS0pyU2Mr?=
- =?utf-8?B?UW15c2poeGlta2lQUVIxL0tETGwzSHhTTjdwWXdNNmZaWS9BYTlDblp3RnJk?=
- =?utf-8?B?TDYrWGQ0T3UvU0RrZHZJRzdzeDRxT1N4NTgvaUpqcURqOG84ajBMLzVKb01H?=
- =?utf-8?B?ZUdGSGxnWHBnSUE0NG9ReFZIcnk2dFgzK2ZNYUp1b1NZWEE1a2ljekw0YjVy?=
- =?utf-8?B?L3RlN3VUdUp5RUxOZlFIb0FQNk1wVU1KRTcvU1dqYndnTFVhQmFhSHdMajhv?=
- =?utf-8?B?ZU96SDVYSWovTGxDVGlGbkFsekVTRVg0MWVKbzVOWHgrVmN6VThOZFlLWGR2?=
- =?utf-8?B?dmxQaU5tY0pUd290MzJQdnNYWDN3WkdsSCsrTEVnQlpWVmFzMG00QlBzVjlx?=
- =?utf-8?B?bmpQcUZ4VXV4Y0JqTWdQb2tSTy95a2g4NDYwaTlOUmhtNld6czU1VHpwMUh2?=
- =?utf-8?B?MnhxdmFUb3ltM3FYeEJWSWwzUTlZN0RsVkNqYk1mOWw3SExvdkZIR2NBc3dQ?=
- =?utf-8?B?a1dVb1BVa3pxS25qM21JdUFrd29XR24rZG11SjgzTEFXc2dBTHdyQVkvMytJ?=
- =?utf-8?B?SkhLWlo2b1dveWpzRm5lU3QyazJnZG5rYm5vZERiamtmamkzYnN1UU5TQldO?=
- =?utf-8?B?bVF1ckc1eFFCM2QxNjROQjNmU1FPRWVhZmFyazQyQ2ROY2x5MUtYN084MHZ4?=
- =?utf-8?B?R1plaWNjMkJjdVZubnZ5dnp3OUVzbTB2N25MeEt0RUtLRVcyRTVQcElOcFlo?=
- =?utf-8?B?OXcrVWt4RFJERDBuQWNVNEh2b2dDOWgyN0hNTW1raFo0LzNYanNjTzBMdWVK?=
- =?utf-8?B?ZFAyVXA4UExqOVZHc3JuMS9NNFZoNmJoT2tuZXg2bjg4cy8xMlhXVGp1eUY5?=
- =?utf-8?B?VmhYVEQ5OWNKMTk3OUlhSCt2bVlySGRlbkh1WmtCUWRhaEpRcmJMZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <905D9321EAB0234BBF5268ECBD32F61A@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E85606A326;
+	Mon,  2 Nov 2026 05:11:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E85606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793596296;
+	bh=viwpEca7wJ9qzgawnffjQX4LAK42jrtmu3SV2jw4xK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NpzPDrs9qSp9ZUNMs72mjbHr/x9BQcZIv02tAgRVvUC5MWxaYjN43jnaaYxlYlxAM
+	 biyxEWLAbn2MwpXiC6pV3RddmpckKtbDaIrfWCcN4DR1dqqBiSGnQ6haMOrfXKB23j
+	 NN1Je965XQ/x/9qFhQG7kAx3ZZrPe/uOoaT4CzosWMNHOinh6DglYVR1LjHXVCH5bI
+	 IS6RwmWWQG+4C8PWJ78kuHp+mkGR5/wNnrXDkr+0CRgvmUlspK4RVKJhHJYeh8KNQx
+	 z4q8j52S2+fVBhljc77X2m4xHlzOU0N9R3Uc18H0j9/s3poEoxR3SaxX65IcoLmdJJ
+	 tnOsZChfo6Dug==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jJ0DS2Zjmz4wCh; Mon, 02 Nov 2026 16:11:36 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 16:11:23 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>
+Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
+ on apply
+Message-ID: <augbYtWXhj5YfFOZ@gractus.seuss>
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-7-dianders@chromium.org>
+ <auR-OXOpim7dVTpH@gractus.seuss>
+ <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -163,78 +73,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: microchip.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS6PR11MB523643.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99af80ff-1052-484f-b177-08df389e9e3a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 05:03:21.9931
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HzzVBXV7elwDHVoVbRyhrGnmevSi+gP2i6mqr4WfcyH0aiECNEsX1MTWtTdwdXjxwwgjuN1sOeIoSz+QCJL1YcMVFdxDybWGcyHC223J1Rc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR11MB115281
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZDUkX/BKqX2zEUMG"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
 
-T24gMTAvMTcvMjYgNDoxMCBQTSwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4gRVhU
-RVJOQUwgRU1BSUw6IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVz
-cyB5b3Uga25vdyB0aGUgY29udGVudCBpcyBzYWZlDQo+IA0KPiBUaGFuayB5b3UgZm9yIHlvdXIg
-Y29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3VuZCAxIHBvdGVudGlhbCBpc3N1ZShz
-KSB0byBjb25zaWRlcjoNCj4gLSBbSGlnaF0gbXRkOiBzcGktbm9yOiBzZmRwOiBzdGVhbHMgcGFy
-ZW50J3MgbnZtZW0tbGF5b3V0IHdoZW4gJ2plZGVjLHNmZHAnIG5vZGUgaXMgbWlzc2luZw0KPiAt
-LQ0KPiANCj4gY29tbWl0IGU0MTExZmVhN2EzYzcwYjBiYjFmNWNkMTUzYTI1OWU0ZmRiNjJjOTMN
-Cj4gQXV0aG9yOiBNYW5pa2FuZGFuIE11cmFsaWRoYXJhbiA8bWFuaWthbmRhbi5tQG1pY3JvY2hp
-cC5jb20+DQo+IA0KPiBtdGQ6IHNwaS1ub3I6IHNmZHA6IGV4cG9zZSB0aGUgU0ZEUCBhcyBhIHJl
-YWQtb25seSBOVk1FTSBkZXZpY2UNCj4gDQo+IFRoaXMgY29tbWl0IGV4cG9zZXMgdGhlIGNhY2hl
-ZCBTRkRQIHRhYmxlIGFzIGEgcmVhZC1vbmx5IE5WTUVNIGRldmljZSwNCj4gcm9vdGVkIGF0IHRo
-ZSBmbGFzaCdzIFNGRFAgY2hpbGQgbm9kZSBpZiBhdmFpbGFibGUuIFRoaXMgYWxsb3dzIGdlbmVy
-aWMNCj4gYW5kIHZlbmRvciBOVk1FTSBjZWxscyB0byByZWZlcmVuY2UgU0ZEUCBkYXRhLg0KPiAN
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL210ZC9zcGktbm9yL2NvcmUuYyBiL2RyaXZlcnMvbXRk
-L3NwaS1ub3IvY29yZS5jDQo+PiBpbmRleCA4YmMxMTdiNDZlMDI4Li5lZDQ3OGU0OGNhMTE2IDEw
-MDY0NA0KPj4gLS0tIGEvZHJpdmVycy9tdGQvc3BpLW5vci9jb3JlLmMNCj4+ICsrKyBiL2RyaXZl
-cnMvbXRkL3NwaS1ub3IvY29yZS5jDQo+IA0KPiBbIC4uLiBdDQo+IA0KPj4gQEAgLTMwMDEsNiAr
-MzAwMiw3MiBAQCBzdGF0aWMgdm9pZCBzcGlfbm9yX2luaXRfZml4dXBfZmxhZ3Moc3RydWN0IHNw
-aV9ub3IgKm5vcikNCj4gDQo+IFsgLi4uIF0NCj4gDQo+PiArc3RhdGljIGludCBzcGlfbm9yX3Jl
-Z2lzdGVyX3NmZHBfbnZtZW0oc3RydWN0IHNwaV9ub3IgKm5vcikNCj4+ICt7DQo+PiArICAgICBz
-dHJ1Y3QgZGV2aWNlICpkZXYgPSBub3ItPmRldjsNCj4+ICsgICAgIHN0cnVjdCBudm1lbV9jb25m
-aWcgY29uZmlnID0geyB9Ow0KPj4gKyAgICAgc3RydWN0IG52bWVtX2RldmljZSAqbnZtZW07DQo+
-PiArICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wOw0KPj4gKw0KPj4gKyAgICAgaWYgKCFub3It
-PnNmZHApDQo+PiArICAgICAgICAgICAgIHJldHVybiAwOw0KPj4gKw0KPj4gKyAgICAgbnAgPSBv
-Zl9nZXRfY29tcGF0aWJsZV9jaGlsZChkZXZfb2Zfbm9kZShkZXYpLCAiamVkZWMsc2ZkcCIpOw0K
-Pj4gKw0KPj4gKyAgICAgY29uZmlnLmRldiA9IGRldjsNCj4+ICsgICAgIGNvbmZpZy5vZl9ub2Rl
-ID0gbnA7DQo+IA0KPiBbU2V2ZXJpdHk6IEhpZ2hdDQo+IElmIHRoZSBqZWRlYyxzZmRwIGNoaWxk
-IG5vZGUgaXMgbWlzc2luZyBmcm9tIHRoZSBkZXZpY2UgdHJlZSwgbnAgd2lsbA0KPiBiZSBOVUxM
-IGFuZCBhc3NpZ25lZCB0byBjb25maWcub2Zfbm9kZS4gRG9lcyB0aGlzIGluYWR2ZXJ0ZW50bHkg
-dHJpZ2dlciB0aGUNCj4gTlZNRU0gY29yZSdzIGZhbGxiYWNrIGJlaGF2aW9yPw0KPiANCj4gTG9v
-a2luZyBhdCBudm1lbV9yZWdpc3RlcigpIGluIGRyaXZlcnMvbnZtZW0vY29yZS5jLCB0aGVyZSBp
-cyBhIGZhbGxiYWNrDQo+IG1lY2hhbmlzbSBmb3IgbWlzc2luZyBub2RlczoNCj4gDQo+ICAgICAg
-aWYgKGNvbmZpZy0+b2Zfbm9kZSkNCj4gICAgICAgICAgICAgIG52bWVtLT5kZXYub2Zfbm9kZSA9
-IG9mX25vZGVfZ2V0KGNvbmZpZy0+b2Zfbm9kZSk7DQo+ICAgICAgZWxzZQ0KPiAgICAgICAgICAg
-ICAgbnZtZW0tPmRldi5vZl9ub2RlID0gb2Zfbm9kZV9nZXQoY29uZmlnLT5kZXYtPm9mX25vZGUp
-Ow0KPiANCj4gSWYgY29uZmlnLm9mX25vZGUgaXMgTlVMTCwgdGhlIFNGRFAgTlZNRU0gZGV2aWNl
-IHdpbGwgaW5jb3JyZWN0bHkgaW5oZXJpdA0KPiB0aGUgU1BJIE5PUiBmbGFzaCdzIG1haW4gZGV2
-aWNlIG5vZGUuDQo+IA0KPiBUaGUgTlZNRU0gY29yZSB0aGVuIHNlYXJjaGVzIGZvciBhbiBudm1l
-bS1sYXlvdXQgY2hpbGQgbm9kZSBhbmQgd2lsbA0KPiBmaW5kIHRoZSBsYXlvdXQgaW50ZW5kZWQg
-Zm9yIHRoZSBtYWluIGZsYXNoIG1lbW9yeSwgYXR0YWNoaW5nIGFsbCBOVk1FTQ0KPiBjZWxscyB0
-byB0aGUgc21hbGwgU0ZEUCBOVk1FTSBkZXZpY2UgYW5kIG1hcmtpbmcgdGhlIGxheW91dCBub2Rl
-IHBvcHVsYXRlZC4NCj4gDQo+IExhdGVyLCB3aGVuIHRoZSBNVEQgc3Vic3lzdGVtIHJlZ2lzdGVy
-cyB0aGUgcHJpbWFyeSBOVk1FTSBkZXZpY2UgZm9yIHRoZQ0KPiBhY3R1YWwgZmxhc2ggY29udGVu
-dHMsIGl0IHdpbGwgc2tpcCB0aGUgbGF5b3V0IG5vZGUgYmVjYXVzZSBpdCBpcyBhbHJlYWR5DQo+
-IG1hcmtlZCBwb3B1bGF0ZWQuDQo+IA0KPiBDb3VsZCBhbnkgY29uc3VtZXIgYXR0ZW1wdGluZyB0
-byByZWFkIGFuIE5WTUVNIGNlbGwgdGhlbiBiZSBtaXNkaXJlY3RlZA0KPiB0byB0aGUgc21hbGwg
-U0ZEUCBOVk1FTSBkZXZpY2UncyByZWFkIGNhbGxiYWNrIGluc3RlYWQgb2YgdGhlIG1haW4gZmxh
-c2gsDQo+IHJlc3VsdGluZyBpbiAtRUlOVkFMIGJvdW5kcyBjaGVjayBlcnJvcnMgb3IgY29ycnVw
-dGVkIGRhdGE/DQoNClllcywgdGhpcyBpcyBhIHZhbGlkIGlzc3VlLiBXaXRoIG5vICJqZWRlYyxz
-ZmRwIiBub2RlLCBudm1lbV9yZWdpc3RlcigpIA0KZmFsbHMgYmFjayB0byB0aGUgZmxhc2gncyBv
-d24gbm9kZSwgc28gdGhlIFNGRFAgTlZNRU0gZGV2aWNlIHdvdWxkIGNsYWltIA0KYW4gIm52bWVt
-LWxheW91dCIgbWVhbnQgZm9yIHRoZSB3aG9sZSBmbGFzaC4NCg0KTWljaGFlbCwNCnRoaXMgY29t
-ZXMgZnJvbSBkcm9wcGluZyB0aGUgImlmICghbnApIHJldHVybiAwOyIgY2hlY2sgaW4gdjkuIEkn
-bGwgDQpicmluZyBpdCBiYWNrIGluIHYxMDogd2l0aG91dCBhICJqZWRlYyxzZmRwIiBub2RlIHRo
-ZXJlIGlzIG5vd2hlcmUgdG8gDQpkZXNjcmliZSBTRkRQIGNlbGxzLCBzbyB0aGUgU0ZEUCBOVk1F
-TSBkZXZpY2Ugd291bGQgaGF2ZSBubyBjb25zdW1lcnMsIA0Kd2hpbGUgcmVnaXN0ZXJpbmcgaXQg
-Y2FuIHRha2Ugb3ZlciB0aGUgZmxhc2gncyBsYXlvdXQuDQpEbyB5b3UgaGF2ZSBhbnkgb3RoZXIg
-c3VnZ2VzdGlvbnM/DQoNCj4gDQo+PiArICAgICBjb25maWcubmFtZSA9ICJzZmRwIjsNCj4+ICsg
-ICAgIGNvbmZpZy5pZCA9IE5WTUVNX0RFVklEX0FVVE87DQo+PiArICAgICBjb25maWcub3duZXIg
-PSBUSElTX01PRFVMRTsNCj4gDQo+IFsgLi4uIF0NCj4gDQo+IC0tDQo+IFNhc2hpa28gQUkgcmV2
-aWV3IMK3IGh0dHBzOi8vc2FzaGlrby5kZXYvIy9wYXRjaHNldC9jb3Zlci4xNzkyMTQ1MzgyLmdp
-dC5tYW5pa2FuZGFuLm1AbWljcm9jaGlwLmNvbT9wYXJ0PTQNCg0KDQotLSANClRoYW5rcyBhbmQg
-UmVnYXJkcywNCk1hbmlrYW5kYW4gTS4NCg==
+--ZDUkX/BKqX2zEUMG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Nov 01, 2026 at 02:05:09PM -0800, Doug Anderson wrote:
+> Hi David,
+>=20
+> On Fri, Oct 30, 2026 at 3:24=E2=80=AFAM David Gibson
+> <david@gibson.dropbear.id.au> wrote:
+> >
+> > On Wed, Oct 28, 2026 at 02:55:56PM -0700, Douglas Anderson wrote:
+> > > When `fdt_overlay_apply()` merges an overlay into a base device tree,=
+ it
+> > > updates `/__symbols__` in the base tree if present, but previously le=
+ft
+> > > the base tree's `/__local_fixups__` node untouched.
+> > >
+> > > Add `overlay_local_fixups_update()` so that when the base tree contai=
+ns
+> > > a `/__local_fixups__` node, `fdt_overlay_apply()` updates it to refle=
+ct
+> > > the applied overlay:
+> > > - For each fragment in application order, any local fixup properties =
+in
+> > >   the base tree's `/__local_fixups__` that correspond to properties
+> > >   overwritten by that fragment are cleared first.
+> > > - Local phandle references from that fragment's subtree under the
+> > >   overlay's `/__local_fixups__/<fragment>/__overlay__` are merged into
+> > >   the corresponding target path under the base tree's
+> > >   `/__local_fixups__`.
+> > > - External phandle references for that fragment from the overlay's
+> > >   `/__fixups__` (which are now resolved to local phandles in the merg=
+ed
+> > >   base tree) are added in sorted order to the base tree's
+> > >   `/__local_fixups__`.
+> > > - Any subnodes under the base tree's `/__local_fixups__` that become
+> > >   empty after clearing overwritten properties are pruned.
+> > >
+> > > If the base tree does not have a `/__local_fixups__` node, nothing is
+> > > added.
+> >
+> > So, this turned out to be substantially more involved than I realised.
+> > I wonder if it might be better to make --strip-locals the default, and
+> > only add support for preserving the local fixups as a later extension.
+>=20
+> In v3 I went ahead and addressed all of your and Simon's review comments =
+on
+> this patch (which also trimmed ~80 lines of C from `fdt_overlay.c`).
+
+Oh good :).
+
+> To address Simon's point about code size in constrained environments like
+> U-Boot SPL, I also gated `/__local_fixups__` handling in
+> `fdt_overlay_apply()` behind a 3-state compile-time
+> `FDT_OVERLAY_LOCAL_FIXUPS` option in `libfdt/libfdt_internal.h`:
+>=20
+> - `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
+>   untouched. I made this the `#ifndef` fallback in `libfdt_internal.h` so
+>   that embedded projects that vendor `libfdt` directly get zero code-size
+>   increase and zero behavior change unless they opt in.
+> - `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__` from
+>   the base DTB if present (~50 bytes of code), so a stale/half-working
+>   `/__local_fixups__` node isn't left behind in the merged tree.
+> - `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update `/__local_fixups_=
+_`
+>   in the base DTB. This is enabled by default in `dtc`'s Meson
+>   (`-Doverlay-local-fixups=3D2`) and Make (`OVERLAY_LOCAL_FIXUPS=3D2`) bu=
+ilds
+>   for desktop tools and tests.
+>=20
+> Even when `fdtfactor -S` is used, we actually do need `fdtoverlay` to
+> update `/__local_fixups__` for two reasons:
+>=20
+> 1. **Kernel composite DTBs (`foo-dtbs :=3D base.dtb bar.dtbo`)**: In the
+>    Linux kernel build (`scripts/Makefile.dtbs`), many upstream boards are
+>    built as composite DTBs using `cmd_fdtoverlay` (`fdtoverlay -i base.dtb
+>    -o foo.dtb bar.dtbo`) *before* `fdtfactor` runs on them. As Simon
+>    pointed out on the kernel series [1], if `fdtoverlay` left
+>    `/__local_fixups__` untouched (`IGNORE`), `foo.dtb` would still have
+>    `base.dtb`'s `/__local_fixups__` node (missing all phandle references
+>    from `bar.dtbo` and retaining stale offsets for any overwritten
+>    properties), causing `fdtfactor` to silently miss or corrupt phandle
+>    references when factoring `foo.dtb`. And if `fdtoverlay` stripped
+>    `/__local_fixups__`, `foo.dtb` wouldn't have `/__local_fixups__` at all
+>    and `fdtfactor` wouldn't be able to factor any composite DTB.
+
+Ah, right.
+
+> 2. **`fdtfactor` self-tests**: Since `fdtfactor` inputs are compiled with
+>    `dtc -@ -L`, having `fdtoverlay` update `/__local_fixups__` lets the
+>    test suite directly verify with `dtbs_equal_unordered` that recombining
+>    `base.dtb` + `board.dtbo` produces an exact match for the original inp=
+ut
+>    `.dtb` (including all phandle fixup metadata).
+>=20
+> Let me know if you're happy with this approach (or if you'd prefer a
+> different `FDT_OVERLAY_LOCAL_FIXUPS` default)!
+
+I'll bear this in mind when I look at v3 and see what I think.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--ZDUkX/BKqX2zEUMG
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroG3QACgkQzQJF27ox
+2GfcVBAAlAx8A72SK9Taiid0lOE2BM3qn7A7WYaUWluSVuaqbjwlloG9YQJ2HsaW
+CR1hIYgDCEbXr/INzNDNkkcGYvMlLKE92fpvG+LvWOeFMgm/klZUEIjbMIaZSXoK
+4zlCYpyYP6UDAF3yf2BqM7txWaJG2GLp6uf3L5lsxSla/3A8N6OmkWDnxQIx8B0t
+UZQrc2V/HgdXctm8SR9Vux2zBwBAE/yQaYZ82817M92ac9gaJxoHfGxbXVqKXADC
+Vbcf8/OUNXv5e4WYEVCD5oWiZX3Buw6m+xqPqcyfT9YhfvouFpFkRsC0u9lJLSC1
+Ud64LQ0aKY1PSpilHEqgAoc3aA+wOVuL9kKdKOSKI8OcBNQVQbhO7zcnnqJfX66v
+iBy5qPwCvFvw94HisODc2h0xsXNj2U7oPF7C8Yzc/QB8k32oXePPOqxfXSTjTEyz
+goQviPU9GuwBfxGzrQpkSxePNVg5pS9q301ZH/ePvsYy+taOOhN4eiSWu3QDpjaW
+HYDcUdLCfGq9IfJZHI/RoNk18uRb6GIxivDGdtsUkZEyC0bDiNQ+tJxj8GJoETAp
+s9PTW8KdYNr73fh96ARzszFTkzDYLQUjDwsswBuOa9IMk1LJ+D6AS7QvxxlLZLbM
+mcV3TwRyIFGQLfhhbBBHKXu9Si7+QmzmEwiYbvanHktbFsiOFUw=
+=eKUp
+-----END PGP SIGNATURE-----
+
+--ZDUkX/BKqX2zEUMG--
