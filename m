@@ -1,71 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630779;
-	b=VnCMu+JuoK/hv5ITbZKjajZInrRuha3M0i+ooQJ4KOgp4M+Hr1Mp/7KTEsnBqlEo2ee3
-	 XVO3fYE8rVq7Y2nw1b+7olgbqiqlWSnI7xI2sze17XikXZqvj6gBvEmVg+eFA+8CHI1H6
-	 sVVmMQGm+P4eNB10lIIVFztFc19cJIbWHT26klnPFzB+EpffNaeEs5Zz2KkeV7n7F2S2c
-	 cx3kmmRVTceVWXXVxne7ZopI9muf6wkF1W9xwL57EjJkB6xh2wNSh7yD8H9okG7+MnX8t
-	 k76REODZO33kMzd61w8ZzBnXZLTskGKMsaoD9grLs/Tsxz91lEcDGNyty6xxrW86g0Q==
+	t=1793630956;
+	b=aaA6iJ8WIuuvRtYveZdUY0W5rQ/jsTRPfUOWaeomDcMqSwJjR+xDdN7VAkB8R8i3yyEd
+	 HucykqE9oe1aB3zdOCE59SL/7NC5WoBRrSv+xnpgKLtyFS2Ck+pUBCPANfJF9uZKwZHfy
+	 u96acsfh0YSclUoeRsCkW+C8IperGSmPztbXT4LtnyvF2KXGhoLAAnGRvdM02A8KbqIV6
+	 etNAmAg2wd9NpeS5CR7XTIsG4cD0WaGoEMVTfDNBsxu0HwKi5SyTsUqjNW62eb8y+95re
+	 25M2aEPu1QeGGphlMpvxDCRW64Rz+jT8+wzvSrGrnFo5IfO5qozM9rdI6ZpbzDGrrug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630779;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=1ed4ABVb5WuZx7ievrj1cvm+vrmzhLmj5yV4zTMhJQg=;
-	b=H7anFyJhF1AfUIB7kK3FEYrboJ6ZaXDrBoukqHlBIzUg0EacplifF5Az6C++EbWf4uN8
-	 pr84sSiFR8icjzNrWiRQrLpeTVOllK48t0TIdvhBYRy4cEobT5xdGrL+PbTI3JlOci72J
-	 t53m4CNVWKNb1+32aaj120/D2wrRCMzdacxd2kS6vhjLm7Ffl+KtA+VPwlO4daDQEIXf1
-	 18Af+W1s31h6pYn0r3Yq620lKA/QJhFuNai41mBkhNoeLqKh2bEhZXTNRqYX7iioSSlui
-	 c2Nr1sztLxSNhNxUU8fLrJLyMSMUaDU2FDL2aSeWKlLNPd0KOrn2WAW7a/8/o9vAh7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630956;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=0qUp81D/2Ci0HUHkZPw66TOq85Lgn8fgQoyIUETqHdI=;
+	b=njRyH9ZnhpZar+z0UjCvBWqqzpm6efAlZbdP4NIhmsef7VYKusHOwFL8xkEkUzg7PLYV
+	 zu+KgC7vmBofLHx7gVrGVJWnJBM3qyrjEpCMelk1o5jpXQz1weSzXCNU053EXO85nunBu
+	 BEJ3phywlAvzEy5RgPbiUOux24t6WjhZN8en4by6GA0/y9WpArDvwSZZN46NvXgJra48u
+	 GXjxv83THuyWyO9E3oE1R7UhacT+/HLeNLgeyg51vR7CP4SmH0p6FpVXwxihXQeJ5qxkl
+	 3ci78T988+h+S21t2001915AFadH2A6iq0+gTMCBVldvBJLK57P7mKOrOAlNNEvQ0LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTIJkYx9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyXgvT9R;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A283E606A901;
-	Mon,  2 Nov 2026 14:46:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F59606A920
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 14:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F59606A920
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTIJkYx9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E231F00A17;
-	Mon,  2 Nov 2026 14:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630779;
-	bh=1ed4ABVb5WuZx7ievrj1cvm+vrmzhLmj5yV4zTMhJQg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kTIJkYx932KW0rEFWbZ55+lbTtsZKF+4aG6/wsWGYG04/dedotlgN7zujoh8O2jQf
-	 z+v8UjodVuo6CFRkW679nsHC4p/DPLC4jCFE523SoM4wk8cUzXSXbnZVaUMoCJZXuW
-	 H7iYQvsi75Ucn/GauIsg7HpX1mHcJ3IuY+tXkV7YDSJu67E7yGUYsr0Ucvq2KDygtH
-	 1ZYEkQ7mdXkmN3HmICVak/FMRLN+Vy77pVLZFXMKyUiGTLR2X60Yuk+8uWN/N3swsi
-	 c+MBOCgIpfmjr3DeQn+wDTIRHm+vegoCu+ll1N4Ajue1ZEef9SKd6+TFT5wGzqqYYc
-	 +SCxPpRiNg7XA==
-Date: Mon, 2 Nov 2026 08:46:16 -0600
-From: Rob Herring <robh@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	"open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 2/9] dt-bindings: phy: bcm-ns-usb3-phy: Describe the NSP
- variant
-Message-ID: <20261102144616.GE1232511-robh@kernel.org>
-References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
- <20261021172819.668120-3-florian.fainelli@broadcom.com>
- <20261030182151.GA1206797-robh@kernel.org>
- <e25714a5-98b3-4a0e-ad9a-a644b5485749@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyXgvT9R
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso27536505e9.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 06:49:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793630954; x=1794235754; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0qUp81D/2Ci0HUHkZPw66TOq85Lgn8fgQoyIUETqHdI=;
+        b=hyXgvT9Ra57UmHv1LWPVx6d11ZdCUUrZGkiHQEtM+lNQNR+3jew2yiCqK3QH8JpLWN
+         SBYBxK/QCcdXR/qWV7k5W6i8bXaF4oH30hq+xv2wKjCQ8moRJJCPCuCOdLqkAp83saOU
+         ctdKQ95u/D4LodRDbK7qBJ7ZmUL7a4BrDbEyOf4wn5roPO7CuAiKbdYhkGFj+R/kZvd9
+         puliQdCzx+iErkpdKK6aNxGEXHrllYVH/jsPAqkvc9ZlLDGCPXr5Aw3vaNpHKy4WQbZa
+         nXUwKiXGge2PqQMFeAJVqyX/5j5YrGMzxVg1t2xCVJBKMh49T/IDg5e/G5dRrGamIwPk
+         22yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793630954; x=1794235754;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0qUp81D/2Ci0HUHkZPw66TOq85Lgn8fgQoyIUETqHdI=;
+        b=MOlHQwiGyBCrTXJdKRGdMcjbky39NCcTmgKJf4hcV6mVOCaqNsaLmRiiL4/v5tIQd5
+         vauwIG0++d3qJt5ft9lAqt7EG1p6DiGPh8eZZVsybqRazW6Zgj2Zo6zB4KSrCJXg7gge
+         FbZcQaWl5WtY4mbd+Hlsad8YB9tnQK3MrojTOLgjzLauvaYBePfmptYqbEWe3CoPN0LQ
+         Ie07nI6DxWPjvk+UsA8JyL7dq9KWqc28O/tVmmJEWM7L5EGwy6P//LcOSTN0yUcQ0BQY
+         /aQt5Jqm1o0yTIyZdWrrwhFLF3UXCrh1VDrA1U2gE8eo8smV2mo7vzqH/SGmLsZL+QK8
+         MqBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcStcphUBS070gYfmPoU5moTVIWEDDfpd9NgysoiU5YR2OE0hAd70XAGuxCrXy5TAmNEABSHgaPWoM@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1Hx3pAI9W4t9CUeJO4qWJTL8dvcCDPp934oS7/830rZmcy+gH
+	fnei4qjEN/u8jVJ5v+GLS+Fg5QUYV9Y/Z1TjcBUEF58hcD74hOoYQrMETzdDluMD0uM=
+X-Gm-Gg: AYBFou3FEg29tXG1e7r3lksMBwDU7o0CqQ/aAoNdmmga4Jz6LwopqUlSw4TCP+O8GRF
+	6eoq8uuDWIHK76hpEc6AevTUXg0FFwNf+nvQR3iaKIfCn7jvrcJndhXJ0za8YC8YUaRKSYG6Htf
+	MrR/YLLlgGLeMPXyMR2VkNmFJQfD90TL5bkhtqjnFKIRe7SIa2YPbQhEPnOlLXxymMVndIcst+T
+	bvgCDegxwK8A5xGBBc4hFJmE16ea3e9G+WW+lXZSEBc3tBUu7q61+L5WUERZE7spULXmXVfLxjY
+	zkSWpIZt7soX8hYFsMp3khMmiIgbeP5pRPiU/MmSnygPUJr561kSuHUArGa9pCykkpBLA+Zcjkh
+	gxOolIyLXzNh750/TsIIIOUK27cIS2TxFR4hzMfCzBDNtbXpEFuAwY16zlzW0E65wFF9j/6BMeI
+	QAC+xSa+ICLjLU0afIcrql5g6MGp0j2aZMbgYAo55Smk6wR3pgLLfzLlaZN0ivLstv7pbLcZRA9
+	KKawyyyHG7HYQAapncKIRGiZhsrDiCCUBxhOFdQr1kyyLVXNU2AZzRoh1o48S59VE1x8qbTwAX7
+	kcVkxz/ZrJNXNUGVQRw2NqdRJM0Mz0wbAt125ldmatE2kNk4GD4=
+X-Received: by 2002:a05:600c:e547:10b0:4ad:5e09:ae43 with SMTP id 5b1f17b1804b1-4ad5e09ae61mr100166455e9.29.1793630953516;
+        Mon, 02 Nov 2026 06:49:13 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm447287005e9.3.2026.11.02.06.49.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 06:49:13 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v5 0/3] iio: adc: add support for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+Date: Mon, 02 Nov 2026 15:49:03 +0100
+Message-Id: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,56 +93,197 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e25714a5-98b3-4a0e-ad9a-a644b5485749@broadcom.com>
+X-B4-Tracking: v=1; b=H4sIAN+i6GoC/43PQWrDMBAF0KsErasijcaJlVXvUbKQ5VEypbGC5
+ BiX4LtXSqGkZOEuP3zen7mJTIkpi/3mJhJNnDkOJTQvG+FPbjiS5L5kAQq2yoKRY7ywl/nczo2
+ SzFGe3WwQ9U663ktQltpWNcaEThTjkijwfPffDz85X7sP8mNFa+PEeYzp637ApGvvv1uTlkqi7
+ rFzugse9dsnDy7F15iOoo5N8MjhGgeFs06VLu0gNP6JM7+cVnr1OlO43mwVOkIHYJ84fOCgXeO
+ wcuVVFwyRVeYPtyzLNzfepX3KAQAA
+X-Change-ID: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Marius Cristea <marius.cristea@microchip.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6416;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=6jaJPoTGUqrFyROlTBDlWU3tE0Y8ZPvq2MUTpZFqPk4=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq6KLmjwwnX/WWUJfNGu8V5y/j2BDi/bEowI2Puoqv
+ 0kyKipyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCauii5gAKCRB33NvayMhJ0QnED/
+ 4xBlLDicDGu2mvg4XKvsrgwqPhS54tZTnleRQKXLkvZoNN5iRyYq9YkfPnr2Zoo6diRW1SZE8cABby
+ GO7fgHiXzU/IFLnlYD6qatrjFQKBM2srs9NWIHdzqmGiV/MTcIYkHeRzvLg9JurZeOgOF/aFl4Mho4
+ Ai/zmVmCbogObPri/o25/HHT6m57ugte5DreusGZeWASA8c6H72hRsoo+4GQcddExo0cP3c8JwCynt
+ ZsGW4DIUtXu9m5zAWlXdRtcHyM4cK+9N9Qr55cIST/vOGSNPMNuXi1qSs5QRTEtq3adLxyaoYsG27A
+ k88A4Dde+Lcq7bWBZ24v+wDQx1wtSTdbPKE4w9SJ9C/6IO2m3GNx8It2JxgZTOF7wjnegofW0uT8QS
+ PZmHj0kZJCp1jnJhA2VNZM+rzog5NtXeR/XaYZxweM6B07v34abQNTKteE4b8AC5o5kcX721a9Dgyq
+ FojBvE0bOGyYvbKqrl1Gg9e1MpP0KVN1Ox/PlRo5mBrnPV6+vNJ4V4Q+i0Yfwt8g1vZzssx3roQAFp
+ FJbLc/wfu9gux5hMCF93PE+XQh2ALK66mCjTcHzDxSl8pWNsyOIIb/Uv+vNCSWrusrylp1nBT6bU4r
+ pwuLlrm4mLVfroT7PK08GYqq3cY+3yIJEEywOQYvfCQpSEtFB0cH+vN8sTKg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Fri, Oct 30, 2026 at 12:14:52PM -0700, Florian Fainelli wrote:
-> On 10/30/26 11:21, Rob Herring wrote:
-> > On Wed, Oct 21, 2026 at 10:28:11AM -0700, Florian Fainelli wrote:
-> > > Northstar Plus uses the Northstar Bx PHY register sequence but also
-> > > requires coordinated USB2 and USB3 core resets and a USB2 IDM interface
-> > > clock enable.
-> > > 
-> > > Add an NSP compatible with a required USB2 DMP phandle. Describe the
-> > > shared PHY relationship with EHCI, OHCI and xHCI so initialization
-> > > finishes before any host starts operating.
-> > > 
-> > > Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> > > ---
-> > >   .../bindings/phy/bcm-ns-usb3-phy.yaml         | 23 +++++++++++++++++++
-> > >   1 file changed, 23 insertions(+)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-> > > index 7fd419db45d0..00d69b86cbff 100644
-> > > --- a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-> > > +++ b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-> > > @@ -14,6 +14,9 @@ description: |
-> > >     Known B1: BCM4707 rev 6
-> > >     Known C0: BCM47094 rev 0
-> > > +  Northstar Plus uses the Bx programming sequence, with coordinated USB2 and
-> > > +  USB3 resets. Its PHY is shared by the EHCI, OHCI and xHCI controllers.
-> > > +
-> > >   maintainers:
-> > >     - Rafał Miłecki <rafal@milecki.pl>
-> > > @@ -22,6 +25,7 @@ properties:
-> > >       enum:
-> > >         - brcm,ns-ax-usb3-phy
-> > >         - brcm,ns-bx-usb3-phy
-> > > +      - brcm,nsp-usb3-phy
-> > >     reg:
-> > >       description: address of MDIO bus device
-> > > @@ -32,6 +36,13 @@ properties:
-> > >       description:
-> > >         Phandle to the DMP (Device Management Plugin) syscon
-> > > +  usb2-dmp-syscon:
-> > 
-> > brcm,usb2-dmp
-> 
-> That would be inconsistent with the usb3-dmp-syscon property that is
-> pre-existing, hence the name chosen here.
+The MAX34417 is a specialized current and voltage monitor used to
+determine power consumption of portable systems. The driver supports
+getting the channels voltage, average power and accumulated average
+power and energy over an I2C/SMBUS serial interface.
 
-I'm not sure consistency is really better here, but okay.
+The MAX34417 datasheet only specified on how to calculate the
+accumulated average power, but with the Sample Per Second rate
+we can easily get accumulated Energy in mJ.
 
-Rob
+By default the IIO driver only supports single-shot Voltage
+and Power sensing, but the accumulation can be enabled by
+enabling the Energy IIO channel which then enables the
+Continuous Accumulation Mode.
+
+The counter is common to all channels, so when reading a single
+channel we will copy all accumulators to registers, so in order
+to permit reading individual channels we must accumulate the
+other channels in the driver when Continuous Accumulation Mode
+is enabled.
+
+The get_unaligned_be56() helper is added since we effectly
+get an unaligned 56bit value from the HW.
+
+While Analog Devices originally provided an HWMON driver for this
+IC, using IIO makes much more sense because it provides
+much more flexibility to support getting the power values
+and will make it easier to support trigger to dump all
+channels in a single shot and then support the Bulk Update
+feature to update all MAX34417 on the same bus via the
+trigger mechanism.
+
+The v3 implementation has been completely revised since
+v1/v2 to better match the capabilities of the MAX34417 and
+allow getting accumulated Energy plus provide single
+channel read without loosing other channels accumulations.
+
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v5:
+- Collected review tags
+- Fixed patch 2 commit message
+- Added sysfs.h include
+- Finished all struct max34417_data with .
+- Added explicit MAX34417_CONTROL_REG: to is_volatile callback
+- Added local *map to all functions, shortening regmap calls
+- Explicited the 1ms UPDATE delay for manual mode
+- Simplified max34417_check_ovf logic
+- Simplified acc_count == 0 logic
+- Used iio_val_s64_decompose
+- Used regmap_update_bits to compine regmap clear and set
+- Added switch instead of if/else for IIO_CHAN_INFO_SCALE
+- Changed max34417_calc_input_correction comment and return type
+- Switch to rsense_uOhm
+- Return -ECHRNG for invalide channel count
+- Link to v4: https://patch.msgid.link/20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org
+
+Changes in v4:
+- Fix bindings with Conor review on v2
+ - Rename to Analog Devices and "adi" prefix
+ - Move reg before #*-cells
+ - Remove "label: true"
+ - Make supplies required
+ - Update DT example
+- Rebase on linux-next
+- Fix RSENSE defines
+- Drop dev from max34417_data struct
+- Move acc_count to u64
+- Add regmap writeable/readable/volatile callbacks
+- Use regmap_set/clear_bits() when needed
+- Fix MAX34417_CHANNEL layout
+- Drop useless comments
+- Move i in the "for (int i...") and use i++ instead of ++i
+- Move mutex guard into iio callbacks
+- Use lower_32_bits/upper_32_bits instead of FIELD_GET()
+- Use div_u64() when returning the Power scale to make sure it runs on 32bit systems
+- Reorganize the get_label() callback
+- Use devm_mutex_init
+- Drop fwnode_property_present(node, "reg") before getting reg
+- Rename rsense variable to rsense_microOhm
+- Drop !rsense test
+- Register iio device after device init
+- Add comment about supporting MAX34407
+- Link to v3: https://patch.msgid.link/20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org
+
+Changes in v3:
+- Implement Continuous Accumulate Mode and default to single-shot mode
+- Fix includes
+- Better define Rsense and default rsensd in driver & bindings
+- Define all read length and offsets
+- Define the SPS bits
+- Fix comments first letters
+- Fix max register
+- Add ENERGY channel with shared enable for Continuous Accumulate Mode
+- By default reset the MAX34417 counters for each readout to do a single-shot measure
+- Handle zero counter
+- Add get_unaligned_be56
+- Use get_unaligned_* macros
+- Better handle the DT properties and report errors
+- Reset the MAX34417 at the end of probe
+- Link to v2: https://patch.msgid.link/20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org
+
+Changes in v2:
+- switch to shunt-resistor-micro-ohms no more required
+- removed gpio.h from example
+- Fixed max34417->MAX34417 in Kconfig and comments
+- Added missing includes and remove unneeded
+- Fixed typos in comments
+- Switched to fsleep()
+- Better aligned max34417_read_power declararation
+- Handled 0 acc_count
+- Switched to GENMASK_ULL() for 32bits systems
+- Added missing empty lines
+- Moved the input correction into a helper
+- Set default input correction for all channels
+- Switched to dev_err_probe() to return from probe
+- Switched to device_for_each_child_node_scoped()
+- Handled invalid shunt-resistor-micro-ohms value
+- Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux@analog.com
+
+---
+Marius Cristea (1):
+      unaligned: introduce be56 unaligned accessors
+
+Neil Armstrong (2):
+      dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+      iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
+
+ .../devicetree/bindings/iio/adc/adi,max34417.yaml  | 103 +++
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/max34417.c                         | 787 +++++++++++++++++++++
+ include/linux/unaligned.h                          |  27 +
+ 5 files changed, 929 insertions(+)
+---
+base-commit: 54729cd85a044e8e2ee3f73ddda2d7c2fb39e199
+change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
+
