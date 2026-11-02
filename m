@@ -1,89 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630956;
-	b=aaA6iJ8WIuuvRtYveZdUY0W5rQ/jsTRPfUOWaeomDcMqSwJjR+xDdN7VAkB8R8i3yyEd
-	 HucykqE9oe1aB3zdOCE59SL/7NC5WoBRrSv+xnpgKLtyFS2Ck+pUBCPANfJF9uZKwZHfy
-	 u96acsfh0YSclUoeRsCkW+C8IperGSmPztbXT4LtnyvF2KXGhoLAAnGRvdM02A8KbqIV6
-	 etNAmAg2wd9NpeS5CR7XTIsG4cD0WaGoEMVTfDNBsxu0HwKi5SyTsUqjNW62eb8y+95re
-	 25M2aEPu1QeGGphlMpvxDCRW64Rz+jT8+wzvSrGrnFo5IfO5qozM9rdI6ZpbzDGrrug==
+	t=1793630957;
+	b=GV7fJbFTkai4RyjlSxrYpuRa8o9EEPaJieWTvCc4FY6k1WhlrTFtewdP+G4I4Tb3/UIT
+	 Dh/IhZ/AoG2xP/W8Z5kXz3l1PVgX24ta4tqjlkv/+qFWHbZ9LkSS6OUSt2PFjuy8xhtcO
+	 97EtPcRDa/Wdi1fQOF+2ED5TCQ65FH2Dq95oZhtUFD5PkdOIL2an9YXMdLvV7PAdOfy1z
+	 6SiY7I1w5bK8UqpnNiOFF7FtiMT0RsKjBDf7tK24jGDp7tI1IkSiyh5Hs4gowc3iTiPZR
+	 wU9m690Snizjtsk9mOM8PBN4mH/6WR2di4pYlEackrL5d9GvDi79jum3rjGvL4lxlXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630956;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630957;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=0qUp81D/2Ci0HUHkZPw66TOq85Lgn8fgQoyIUETqHdI=;
-	b=njRyH9ZnhpZar+z0UjCvBWqqzpm6efAlZbdP4NIhmsef7VYKusHOwFL8xkEkUzg7PLYV
-	 zu+KgC7vmBofLHx7gVrGVJWnJBM3qyrjEpCMelk1o5jpXQz1weSzXCNU053EXO85nunBu
-	 BEJ3phywlAvzEy5RgPbiUOux24t6WjhZN8en4by6GA0/y9WpArDvwSZZN46NvXgJra48u
-	 GXjxv83THuyWyO9E3oE1R7UhacT+/HLeNLgeyg51vR7CP4SmH0p6FpVXwxihXQeJ5qxkl
-	 3ci78T988+h+S21t2001915AFadH2A6iq0+gTMCBVldvBJLK57P7mKOrOAlNNEvQ0LA==
+	bh=K/V5t+jqFiHhP0+zyx64+sk+HwdaCdpfP+GPzqrY/v0=;
+	b=XPw+u6YgNQdeBIXWb15vDPhoYi3l8lwEQkAqOPH3cM+0Tvu1EnbQtB0EEyduxBnihSaG
+	 OgKfMIFW/XXJe0FN0/jb4ezcplO07wQi/2b9hYOWYRwz+eBudoD1/ZMBu/9IInXZpI7yv
+	 u1ED0DTATp2PYNTC3bm4a8R0ov9Jr20yCiLo5VvNTDJ7uCHo5rOK44N8xPN4vNj5DM03d
+	 GBpHAj0DYHn4vF1yA8Cb8/v59ucqTwWhlIG3eXXxK6i3PYXWJ47SYm4iytN/EnEFhX0KC
+	 S7g0Y5O4HgcMT6TGzvAOMrALYpS1xoskusL3EcJrtNaL8+2M3uQ65MEdPXY4x/TyGvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyXgvT9R;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rWNWv6uH;
 	arc=none smtp.remote-ip=209.85.128.53
 Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F59606A920
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 14:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F59606A920
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8646087A26
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 14:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D8646087A26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyXgvT9R
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso27536505e9.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 06:49:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rWNWv6uH
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so18906985e9.3
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 06:49:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793630954; x=1794235754; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0qUp81D/2Ci0HUHkZPw66TOq85Lgn8fgQoyIUETqHdI=;
-        b=hyXgvT9Ra57UmHv1LWPVx6d11ZdCUUrZGkiHQEtM+lNQNR+3jew2yiCqK3QH8JpLWN
-         SBYBxK/QCcdXR/qWV7k5W6i8bXaF4oH30hq+xv2wKjCQ8moRJJCPCuCOdLqkAp83saOU
-         ctdKQ95u/D4LodRDbK7qBJ7ZmUL7a4BrDbEyOf4wn5roPO7CuAiKbdYhkGFj+R/kZvd9
-         puliQdCzx+iErkpdKK6aNxGEXHrllYVH/jsPAqkvc9ZlLDGCPXr5Aw3vaNpHKy4WQbZa
-         nXUwKiXGge2PqQMFeAJVqyX/5j5YrGMzxVg1t2xCVJBKMh49T/IDg5e/G5dRrGamIwPk
-         22yQ==
+        d=linaro.org; s=google; t=1793630956; x=1794235756; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K/V5t+jqFiHhP0+zyx64+sk+HwdaCdpfP+GPzqrY/v0=;
+        b=rWNWv6uHyaGaK6LrFg8qFru6mVZ4exHOSisVkTk6L20iqAGNIWFp/9ob8AR+oKdbj2
+         DdnHefWTPExVwIIb1bI25AgVV80vzO05vepSyXroaQIBDxLpRi0AmQV5fQLV9Kn13lID
+         F8iJ7Q3Bsq91cqz/wklKz0yhyddwGLJjNC5q2A0wxE/P+wKC6/ZFIjqXL2gujeKBQUJr
+         PESZ6LeheiBy6/CQcm6tBoRVl0ydPrxi0k0eOZeLAThX1esvXm0Ue48Tcs87q6gd0epI
+         EBGRIY/whhJvOxKBKTRcJh28zmqlkGnejYhqtD2sYz60Q0ZlyoDnteHYqJIQKvAKVzYa
+         OCOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793630954; x=1794235754;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0qUp81D/2Ci0HUHkZPw66TOq85Lgn8fgQoyIUETqHdI=;
-        b=MOlHQwiGyBCrTXJdKRGdMcjbky39NCcTmgKJf4hcV6mVOCaqNsaLmRiiL4/v5tIQd5
-         vauwIG0++d3qJt5ft9lAqt7EG1p6DiGPh8eZZVsybqRazW6Zgj2Zo6zB4KSrCJXg7gge
-         FbZcQaWl5WtY4mbd+Hlsad8YB9tnQK3MrojTOLgjzLauvaYBePfmptYqbEWe3CoPN0LQ
-         Ie07nI6DxWPjvk+UsA8JyL7dq9KWqc28O/tVmmJEWM7L5EGwy6P//LcOSTN0yUcQ0BQY
-         /aQt5Jqm1o0yTIyZdWrrwhFLF3UXCrh1VDrA1U2gE8eo8smV2mo7vzqH/SGmLsZL+QK8
-         MqBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcStcphUBS070gYfmPoU5moTVIWEDDfpd9NgysoiU5YR2OE0hAd70XAGuxCrXy5TAmNEABSHgaPWoM@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1Hx3pAI9W4t9CUeJO4qWJTL8dvcCDPp934oS7/830rZmcy+gH
-	fnei4qjEN/u8jVJ5v+GLS+Fg5QUYV9Y/Z1TjcBUEF58hcD74hOoYQrMETzdDluMD0uM=
-X-Gm-Gg: AYBFou3FEg29tXG1e7r3lksMBwDU7o0CqQ/aAoNdmmga4Jz6LwopqUlSw4TCP+O8GRF
-	6eoq8uuDWIHK76hpEc6AevTUXg0FFwNf+nvQR3iaKIfCn7jvrcJndhXJ0za8YC8YUaRKSYG6Htf
-	MrR/YLLlgGLeMPXyMR2VkNmFJQfD90TL5bkhtqjnFKIRe7SIa2YPbQhEPnOlLXxymMVndIcst+T
-	bvgCDegxwK8A5xGBBc4hFJmE16ea3e9G+WW+lXZSEBc3tBUu7q61+L5WUERZE7spULXmXVfLxjY
-	zkSWpIZt7soX8hYFsMp3khMmiIgbeP5pRPiU/MmSnygPUJr561kSuHUArGa9pCykkpBLA+Zcjkh
-	gxOolIyLXzNh750/TsIIIOUK27cIS2TxFR4hzMfCzBDNtbXpEFuAwY16zlzW0E65wFF9j/6BMeI
-	QAC+xSa+ICLjLU0afIcrql5g6MGp0j2aZMbgYAo55Smk6wR3pgLLfzLlaZN0ivLstv7pbLcZRA9
-	KKawyyyHG7HYQAapncKIRGiZhsrDiCCUBxhOFdQr1kyyLVXNU2AZzRoh1o48S59VE1x8qbTwAX7
-	kcVkxz/ZrJNXNUGVQRw2NqdRJM0Mz0wbAt125ldmatE2kNk4GD4=
-X-Received: by 2002:a05:600c:e547:10b0:4ad:5e09:ae43 with SMTP id 5b1f17b1804b1-4ad5e09ae61mr100166455e9.29.1793630953516;
-        Mon, 02 Nov 2026 06:49:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793630956; x=1794235756;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K/V5t+jqFiHhP0+zyx64+sk+HwdaCdpfP+GPzqrY/v0=;
+        b=dFSRyI5kusvYZm6f5dzoAM6s58vnWuWGzO5237DUdcy9RwSwd6n3/9Y8LFbleJOK7Y
+         Vapm4+TlZU/vXNkUqJNmkqlQQRM2pLiWOym4QcmU3QoqL3AYu4khyW9f15d062wwR8By
+         H2Gu6X3UeeVviw32fhqjbOlB5Qo9ch/9q5kcESvD8ueuPOSNPfEpqMwtYnpGEG4bpCx4
+         QphrkuN2F/BaL/n5DsDRVphFDggIuVMopokPDl2qzvbd9vnpV0V5PwjTs5zdpA5KKcEG
+         KY8mJ9/8ngZzfgrZbLRJ6YqdIgtC+5Ujz3xPzILPG8x0glEjAybLGYsz9UT3i0FEHdCP
+         hMnA==
+X-Forwarded-Encrypted: i=1; AKwUvByB6St66Q3HhOsV0taKqUAWflIMfdoV81Jp+cS8mL6BkZAGrblo2N/U1N8Y7kMMWPNjiv1+/OpRNnTq@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhVJMiKx5jsog9upsZNU18G+wGTn3ofQH2/TOU2CFLVtYEUdA8
+	TAB8bYpbE4U27FevBPYX9WtiBUdgFWODLX/k7qdT/8/oqhXVWx7iLWxpIWhPA5vADrr1fbPZLzw
+	GuvqB
+X-Gm-Gg: AYBFou3jionSrKykMpcSFMuEm6k/BuwCSzhDuUJ5Qz6R98bduO83OoLjGMpI3klF8lJ
+	TuyGEM/y/h2HqzPtF0xki/dELZ8R7fSaaRAhCC4RF7CpIfSA2ODy72z+jSXydUWlW1WGgw1TOGl
+	sccz5+goT6e27AM1G4NTJhBabHqQ9QgP5aw/Mir5Z8W7WI2ncTn2DBKK3Gj1LgTt7RVEXbEan+f
+	CF0xE9IOosaioFoV1tQjiEDClldaKuKPHeQo0e+EVdgPSwVtK8Bb9yGvts4MJlhfXUWsoNXQj25
+	BGDIZfphABt4k60SmRkC1HaL8p5R9AeyMzt54om+h7wmd7q1xTQnKRnWZT0aHRC+hJaFzsPq23X
+	ashJaj11yom8DN8te3Hf+gEiY/i5O3z3PXdwMWu55engVSrt0+NpJRZ0i27jlzHma3XMH3uUssZ
+	RvjplOiHXHvKqAaZUST5Ud4TJ+TaxxkAQKznvvsuUmVSyitukFeQ2bX0/tTYpgxAtn9eSPAscAI
+	XotZA1QlmkJb+WIGl2i12hJUhPVrpWuKeQ9qjpB3NEA5lGcU//UXZSCN0ogkOLH8IhpWWzT6pza
+	2aRiQOMkQJNr0Ta1P17rm33Q6ngv+/wmCqHE/+hOTFdZEF/Ziz0fs1LOLGlnVZq1Bo7TaIZ8
+X-Received: by 2002:a05:600c:34cf:b0:4a1:dbdf:17a8 with SMTP id 5b1f17b1804b1-4ac150b3d01mr246636885e9.2.1793630955558;
+        Mon, 02 Nov 2026 06:49:15 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm447287005e9.3.2026.11.02.06.49.12
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm447287005e9.3.2026.11.02.06.49.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:49:13 -0800 (PST)
+        Mon, 02 Nov 2026 06:49:15 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v5 0/3] iio: adc: add support for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
-Date: Mon, 02 Nov 2026 15:49:03 +0100
-Message-Id: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
+Date: Mon, 02 Nov 2026 15:49:05 +0100
+Subject: [PATCH v5 2/3] unaligned: introduce be56 unaligned accessors
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,13 +94,10 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAN+i6GoC/43PQWrDMBAF0KsErasijcaJlVXvUbKQ5VEypbGC5
- BiX4LtXSqGkZOEuP3zen7mJTIkpi/3mJhJNnDkOJTQvG+FPbjiS5L5kAQq2yoKRY7ywl/nczo2
- SzFGe3WwQ9U663ktQltpWNcaEThTjkijwfPffDz85X7sP8mNFa+PEeYzp637ApGvvv1uTlkqi7
- rFzugse9dsnDy7F15iOoo5N8MjhGgeFs06VLu0gNP6JM7+cVnr1OlO43mwVOkIHYJ84fOCgXeO
- wcuVVFwyRVeYPtyzLNzfepX3KAQAA
-X-Change-ID: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-topic-sm8x50-iio-max34417-adc-v5-2-0ffa5e5f2d5c@linaro.org>
+References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
+In-Reply-To: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -111,179 +108,76 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
  Neil Armstrong <neil.armstrong@linaro.org>, linux@analog.com, 
- Conor Dooley <conor.dooley@microchip.com>, 
  Marius Cristea <marius.cristea@microchip.com>, 
  Andy Shevchenko <andriy.shevchenko@intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6416;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1503;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=6jaJPoTGUqrFyROlTBDlWU3tE0Y8ZPvq2MUTpZFqPk4=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq6KLmjwwnX/WWUJfNGu8V5y/j2BDi/bEowI2Puoqv
- 0kyKipyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCauii5gAKCRB33NvayMhJ0QnED/
- 4xBlLDicDGu2mvg4XKvsrgwqPhS54tZTnleRQKXLkvZoNN5iRyYq9YkfPnr2Zoo6diRW1SZE8cABby
- GO7fgHiXzU/IFLnlYD6qatrjFQKBM2srs9NWIHdzqmGiV/MTcIYkHeRzvLg9JurZeOgOF/aFl4Mho4
- Ai/zmVmCbogObPri/o25/HHT6m57ugte5DreusGZeWASA8c6H72hRsoo+4GQcddExo0cP3c8JwCynt
- ZsGW4DIUtXu9m5zAWlXdRtcHyM4cK+9N9Qr55cIST/vOGSNPMNuXi1qSs5QRTEtq3adLxyaoYsG27A
- k88A4Dde+Lcq7bWBZ24v+wDQx1wtSTdbPKE4w9SJ9C/6IO2m3GNx8It2JxgZTOF7wjnegofW0uT8QS
- PZmHj0kZJCp1jnJhA2VNZM+rzog5NtXeR/XaYZxweM6B07v34abQNTKteE4b8AC5o5kcX721a9Dgyq
- FojBvE0bOGyYvbKqrl1Gg9e1MpP0KVN1Ox/PlRo5mBrnPV6+vNJ4V4Q+i0Yfwt8g1vZzssx3roQAFp
- FJbLc/wfu9gux5hMCF93PE+XQh2ALK66mCjTcHzDxSl8pWNsyOIIb/Uv+vNCSWrusrylp1nBT6bU4r
- pwuLlrm4mLVfroT7PK08GYqq3cY+3yIJEEywOQYvfCQpSEtFB0cH+vN8sTKg==
+ bh=q+s9IUw++9sNzM9FIO/G1OqBY3KuaSP0G+EMey77yQE=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq6KLn7W/XNqDRG6ymWAJYw2576T5UyM8w2QGAAVwF
+ uECyAhiJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCauii5wAKCRB33NvayMhJ0a4YEA
+ CW/ceDj2KIYJjKXvikOgSgTOTmfGfSTkfJWIgrntcIlNUe/NS2RvGYiUQWi8X/iNCYMkXiUoN9rj6Q
+ r/XJmqJROqvBB9iVvUkdZUcKQTddRZSYB2a/jFkZ9GHSHfagzxGtnupo7hJvxlhYUR6I/t9QYpOyb2
+ BWUf4gZ/rfgt5Soj+QASIoUUrNgoJyVHp33lCak6B8qP/jnb9/CHkKSmxEirZqtL9E13Pp+sZvJcZJ
+ NpJmEmVzD65Nwf2PPg9IFCDa1rteLed7G/fdckHA2JXvPf2sW3i6HhecjPAp/CdVrq3wvVhSjegmkK
+ R9JGwveX5T7kcsh+fLvMwExC72fVopUYZmQnaCowmm/AjtKtc5oBOYSerxl1iA8YIGj+HVCOLP0gXv
+ GeJjeJxjF6hlv3BPl64veIX+5f7iWQNhqKBs1v1HX/ypDyRD2NkS3jj6JsQt1/J+r7Vem3IaV4d96K
+ KLnraLKIXuzdrnONZhCu9G3/zeHetSQO8C5sOKUHJJkPfjOgwuk2jPbEFsOllQzoiS2mZuC7rePur5
+ /r/BGixeyjyqtafe2NeM4/PsvnzqZCBD6BdQ2C4ui6r+N1bsaljLxoCfyag65oeKJAisZPtMflyTM5
+ 2l+iBqJd43j6QC5BUvpqBNR7GHz5Vapmf2LC26tCDmAMZxVsYaZoP67e3csw==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The MAX34417 is a specialized current and voltage monitor used to
-determine power consumption of portable systems. The driver supports
-getting the channels voltage, average power and accumulated average
-power and energy over an I2C/SMBUS serial interface.
+From: Marius Cristea <marius.cristea@microchip.com>
 
-The MAX34417 datasheet only specified on how to calculate the
-accumulated average power, but with the Sample Per Second rate
-we can easily get accumulated Energy in mJ.
+The MAX34417, IIO driver, is using some unaligned 56-bit registers.
+Provide some helper accessors in preparation for the new driver.
 
-By default the IIO driver only supports single-shot Voltage
-and Power sensing, but the accumulation can be enabled by
-enabling the Energy IIO channel which then enables the
-Continuous Accumulation Mode.
-
-The counter is common to all channels, so when reading a single
-channel we will copy all accumulators to registers, so in order
-to permit reading individual channels we must accumulate the
-other channels in the driver when Continuous Accumulation Mode
-is enabled.
-
-The get_unaligned_be56() helper is added since we effectly
-get an unaligned 56bit value from the HW.
-
-While Analog Devices originally provided an HWMON driver for this
-IC, using IIO makes much more sense because it provides
-much more flexibility to support getting the power values
-and will make it easier to support trigger to dump all
-channels in a single shot and then support the Bulk Update
-feature to update all MAX34417 on the same bus via the
-trigger mechanism.
-
-The v3 implementation has been completely revised since
-v1/v2 to better match the capabilities of the MAX34417 and
-allow getting accumulated Energy plus provide single
-channel read without loosing other channels accumulations.
-
+Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+[narmstrong: update commit message and move to include/linux/unaligned.h]
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v5:
-- Collected review tags
-- Fixed patch 2 commit message
-- Added sysfs.h include
-- Finished all struct max34417_data with .
-- Added explicit MAX34417_CONTROL_REG: to is_volatile callback
-- Added local *map to all functions, shortening regmap calls
-- Explicited the 1ms UPDATE delay for manual mode
-- Simplified max34417_check_ovf logic
-- Simplified acc_count == 0 logic
-- Used iio_val_s64_decompose
-- Used regmap_update_bits to compine regmap clear and set
-- Added switch instead of if/else for IIO_CHAN_INFO_SCALE
-- Changed max34417_calc_input_correction comment and return type
-- Switch to rsense_uOhm
-- Return -ECHRNG for invalide channel count
-- Link to v4: https://patch.msgid.link/20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org
+ include/linux/unaligned.h | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-Changes in v4:
-- Fix bindings with Conor review on v2
- - Rename to Analog Devices and "adi" prefix
- - Move reg before #*-cells
- - Remove "label: true"
- - Make supplies required
- - Update DT example
-- Rebase on linux-next
-- Fix RSENSE defines
-- Drop dev from max34417_data struct
-- Move acc_count to u64
-- Add regmap writeable/readable/volatile callbacks
-- Use regmap_set/clear_bits() when needed
-- Fix MAX34417_CHANNEL layout
-- Drop useless comments
-- Move i in the "for (int i...") and use i++ instead of ++i
-- Move mutex guard into iio callbacks
-- Use lower_32_bits/upper_32_bits instead of FIELD_GET()
-- Use div_u64() when returning the Power scale to make sure it runs on 32bit systems
-- Reorganize the get_label() callback
-- Use devm_mutex_init
-- Drop fwnode_property_present(node, "reg") before getting reg
-- Rename rsense variable to rsense_microOhm
-- Drop !rsense test
-- Register iio device after device init
-- Add comment about supporting MAX34407
-- Link to v3: https://patch.msgid.link/20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org
+diff --git a/include/linux/unaligned.h b/include/linux/unaligned.h
+index 4a9651017e3c..2105743b1800 100644
+--- a/include/linux/unaligned.h
++++ b/include/linux/unaligned.h
+@@ -143,4 +143,31 @@ static inline u64 get_unaligned_be48(const void *p)
+ 	return __get_unaligned_be48(p);
+ }
+ 
++static inline void __put_unaligned_be56(const u64 val, u8 *p)
++{
++	*p++ = (val >> 48) & 0xff;
++	*p++ = (val >> 40) & 0xff;
++	*p++ = (val >> 32) & 0xff;
++	*p++ = (val >> 24) & 0xff;
++	*p++ = (val >> 16) & 0xff;
++	*p++ = (val >> 8) & 0xff;
++	*p++ = val & 0xff;
++}
++
++static inline void put_unaligned_be56(const u64 val, void *p)
++{
++	__put_unaligned_be56(val, p);
++}
++
++static inline u64 __get_unaligned_be56(const u8 *p)
++{
++	return (u64)p[0] << 48 | (u64)p[1] << 40 | (u64)p[2] << 32 |
++		(u64)p[3] << 24 | p[4] << 16 | p[5] << 8 | p[6];
++}
++
++static inline u64 get_unaligned_be56(const void *p)
++{
++	return __get_unaligned_be56(p);
++}
++
+ #endif /* __LINUX_UNALIGNED_H */
 
-Changes in v3:
-- Implement Continuous Accumulate Mode and default to single-shot mode
-- Fix includes
-- Better define Rsense and default rsensd in driver & bindings
-- Define all read length and offsets
-- Define the SPS bits
-- Fix comments first letters
-- Fix max register
-- Add ENERGY channel with shared enable for Continuous Accumulate Mode
-- By default reset the MAX34417 counters for each readout to do a single-shot measure
-- Handle zero counter
-- Add get_unaligned_be56
-- Use get_unaligned_* macros
-- Better handle the DT properties and report errors
-- Reset the MAX34417 at the end of probe
-- Link to v2: https://patch.msgid.link/20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org
-
-Changes in v2:
-- switch to shunt-resistor-micro-ohms no more required
-- removed gpio.h from example
-- Fixed max34417->MAX34417 in Kconfig and comments
-- Added missing includes and remove unneeded
-- Fixed typos in comments
-- Switched to fsleep()
-- Better aligned max34417_read_power declararation
-- Handled 0 acc_count
-- Switched to GENMASK_ULL() for 32bits systems
-- Added missing empty lines
-- Moved the input correction into a helper
-- Set default input correction for all channels
-- Switched to dev_err_probe() to return from probe
-- Switched to device_for_each_child_node_scoped()
-- Handled invalid shunt-resistor-micro-ohms value
-- Link to v1: https://patch.msgid.link/20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org
-
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux@analog.com
-
----
-Marius Cristea (1):
-      unaligned: introduce be56 unaligned accessors
-
-Neil Armstrong (2):
-      dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
-      iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
-
- .../devicetree/bindings/iio/adc/adi,max34417.yaml  | 103 +++
- drivers/iio/adc/Kconfig                            |  11 +
- drivers/iio/adc/Makefile                           |   1 +
- drivers/iio/adc/max34417.c                         | 787 +++++++++++++++++++++
- include/linux/unaligned.h                          |  27 +
- 5 files changed, 929 insertions(+)
----
-base-commit: 54729cd85a044e8e2ee3f73ddda2d7c2fb39e199
-change-id: 20260923-topic-sm8x50-iio-max34417-adc-209e880533fb
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+-- 
+2.34.1
 
