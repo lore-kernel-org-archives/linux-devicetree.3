@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641199;
-	b=odWK1D4bK4gj3+ze7hxM7hCZIs4aMat0w9L5N2RntiH8xRuDwEISvKiMq5RHri0HMKuE
-	 BlILb1JrUQ6onMeiIlszPVA3rfLRk61/5omEo8A4VcVtfBHD8A/jWq0CLfj+oWV0VHPI7
-	 iVl3HyqZYKfp6N8h9d2QS+N8nRc54AU+1sPx2KBQDHcuD9gmko77OgGaK9FNqP+qRutj4
-	 VGshlwIfIOCfzeiS3C/pWrZ9nJG6AeccgNlbRlm+qTQePW6Ui6sYbBxUd0gJtO6MUaRQ5
-	 vvO5fEuDPsIK7Z1l9yclnac6tbvaBBy9PbwIqTeb9kTkVQUvehp3FkLJhC8XgWfjcpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641199;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.138
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793641362;
+	b=kyUEfiXGOBDER6sisvWonNB6xZ24J+I7L596ChFjGWDMHkcRQcm6tRvk8htpzYQJe0nx
+	 vSWuoAh4EDEI9h/aaVRqtvr+aiL/QAheR4ojF3pqy2Kk8cSS10DZdwdL2oa+pL6fbdAjv
+	 kjpOedwrejH9I1h2nSjNImQeeAjYsUTe52I2KuDnnJCgpC/tuOpWV6ef30z1ePX/LLmth
+	 Z9E+DyKyuO4G3Ib6bziPZmfuRQZDtnC/AYqu8OTQeNM7BHjW6aX8R2S4ff9+SLfHV1Czb
+	 3+aqRp+SZsJz7Oo0+jbnLJT73+mYWDqkvkjClCkURuEJfDoo74ctBRT7W+6DHKA+d0Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641362;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=9J4z2p23Rp3rNkD4XaoXW1ZLMCK5QuoS2JU2MXoD8Mo=;
-	b=EtF6S7MB4S8XuqlqnC7JJ24UHeiOmpErrjlt+Ik5dH9lZJOZsajaQlRytPMQzoetly1R
-	 qgvnn75j2RsLcMDIAsIxZVo03oMNQW5VziabHGsLt5tdip1MK82u2LI3dI4iXWILcKNDO
-	 tyJXee+B+cdcn1b1yivgmhtHyZo7Q2EfsmSEiFtGPfBrqJRhONhehsZIduRQj5hQNs/CB
-	 wUzL3KWmKSDFe6U2uikAh2O7z69NSzPhePhXJkmjw1eJXU7O+59ItYCh470aQ0I/gl75l
-	 IcjMreK6u5D5522xR3qe9na1ZV5UenGuHVOUFXZ14m4rjA0mtWtBIlputsyGYdkQrpw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dfZtYrSlMFhP5ZZKCiH+D2bx/dcrqaWgLYnNi4RKbPY=;
+	b=w0FUz1H/2smac6RDshdRjKuCYoUMDuOKNqxEa2aEsZ7ZMQ2+cNUQIOCcIk7YB0QQ9As8
+	 /Suw9jBDOU1SWclWOd5LnqBOG7oevNKfCj4OMiErDZwZU/UcKeV+ANvLr31DqI+oYzOhM
+	 UjrcMS358lkDIZsjpcN07u682cOcYKJR/lfBtf0dVB4v+IthhfF5XXovK4z/JBR9pn1N9
+	 173Dy+/KgBjiwDjcnwOAf3U4EpjRN5+5YcMRa07O5Qjdh/cMUERg93W8BHfSp7s9juG0Z
+	 gh6lFJPHqlxPAS0CQL6Gm502srKFaxf62NqKlVH2cC/HgFPFdhR0ILkWVgINlbzuepA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XZjcelk9;
-	arc=none smtp.remote-ip=209.85.167.176
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mjveQ1Rn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.138
+Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D9D606A90B
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:39:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0D9D606A90B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF45606CEC9
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:42:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF45606CEC9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XZjcelk9
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-53aa0802881so1668241b6e.0
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:39:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mjveQ1Rn
+Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c40a19fb8adso143290466b.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:42:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793641361; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sCr4YOsyfF1jfdeETnVYDKA/efPzgnkXYTQ1Qz3nfAnJ6/QFIDVDTyJkGC9hmwKRKj
+         M9nKLMQ5+KvLlspR3sO9tI0NzIZlyeAlJJ0xWm5d3qZMoFPn3pSCHn+XPOPzSEXI79K1
+         WIKnyfX/vlSdZlmYjafBmJ3TnAPRKo0qBsG9IzOiDTScPOR+f2DPS8W2Be+dMs/lfigS
+         Z4S7z4PoAParRfX4NL+1kyGW/epDfP9qMHNPS4P+jIVMeppo0D9io2BP25mRyjwaYW0X
+         axjj9QHU/5NkrXJRQXTy9RVCMEiWma1kE64iAnUwYACDLldxYNiI5sNcATzlg8sWGHwd
+         WaHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dfZtYrSlMFhP5ZZKCiH+D2bx/dcrqaWgLYnNi4RKbPY=;
+        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
+        b=ZGUqq1nJ9CORVUCVtHzCwxrme0BtLb9Y+aesyihzLU+Nl4Z1TfzWZ8jzJ2JahjZ1xQ
+         p2sf5OxKe8ox05CDlSqeXVYaxlqe4bO+JkAGslS9Ej1s0r6P1/cgeYDyH2yCtsXpePKD
+         Gk1uS2opo3WZATmsaJUgbZOvHqyWYv1xUrUICKHfhKZ92LNEOzNdmfMrqwDy5FHqe0MZ
+         60CEP9NM8QAIfGYzKcTuShxXMcC5O3bN81GiJZqyu85MJZUCF3xeli65yH1b+YuZFqdU
+         DCbbIVD85bl+xYaI27htUPgA6CKBm1Vu4ZIJHsFf4S3IzyUHPnWxMv4kfyUEuY9GyLkz
+         UG8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793641198; x=1794245998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9J4z2p23Rp3rNkD4XaoXW1ZLMCK5QuoS2JU2MXoD8Mo=;
-        b=XZjcelk9gmOaDB3tZ8Asg3xSRMkwG2Gr0lKecCcnRYjKRgTE9QGj0Yt8OJkeHzQu/M
-         hCTZNhML3swPyTT6T4H/NJfQuCp3xMk0zh66kn8zasNQar3BN9aWSr2Hol0ZmDQz4/bI
-         u4iMuPliqVXlDIAFrOX+3NF7ieyMgqv/GyXSJbzSC5gyyXoMU2PxPBtWEOL7EQaLrnR3
-         5AWwXVApBA8eHSD78rBkmTFoXw26uva2kxPa8ykC/hGhY4r7Sl+DMMV6GC41xhhHffxg
-         jV3VHiuTlEL1bxt8LggeAtW+E40lMoJJDHU7y0tjauEOpF9pnfJnLzYE9GhApG1VxkH+
-         SaVA==
+        d=gmail.com; s=20260707; t=1793641361; x=1794246161; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dfZtYrSlMFhP5ZZKCiH+D2bx/dcrqaWgLYnNi4RKbPY=;
+        b=mjveQ1Rn8Ymqv0grkyo4qK6cNsdIqEFwkf5hgNsQs0KM86G2v9txlAV14tI/HHQkO/
+         Z0gNlUWdQQDP8fHFsEqAZCfTEqS3MIBr/RdC+phCnmOvO/sNx7/Y7wMTtsTDCsnwjNkp
+         rmFNBHLEEkmk5NPG1Ha8kE11gocsSBn68CEzPEO13SOmQh98Mcz3slurgYcgH95hDmeQ
+         eihi1+130p0Rtm0Jri5fHBNb7Y5Rgoj1ugFn8wZFvXIaoCYMRpY92l/S0Nte/gQEexQE
+         bWm4jM3x5elg84nTQgWt+2T/0Et5TPEsAtyei73OBWdCMCIJCnXHDf5jk3n83a4SEJSW
+         x41g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793641198; x=1794245998;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9J4z2p23Rp3rNkD4XaoXW1ZLMCK5QuoS2JU2MXoD8Mo=;
-        b=COgaHrtoK56eIGS5jv1jb0i9WxLPIo7pAfsaH4TtzbuUJ9Fbm7JB4eorLH5/t342D/
-         MJKFFd4HjXFC8YJrtiNTh3rHRQaSXtZAzAYr7I6bLNe8v+GCsQleEIuII4AQXHa9qjIe
-         PN8CEgVjN76mQ37PF7mjJGSo8wqvk4z3CMIfniLfodgUW7TH2orbiglw9VhGchwkTTYQ
-         gT7mZqVa/iygxDNaq2autTFIwhsj4QPyuhUwpIeSDBvCtIKhurDUCgu0TL+Znt+LIPCq
-         tZypfOfCKtRCOnnFYZ40tpUWDXXlSPCXIZhrUYQk3ePX4dN299dcLlOkNUt45FafOyAJ
-         JMmg==
-X-Gm-Message-State: AFq9FYLVIZ+HZLvhOKyw009ElXC3KriEHGdPq7r4Aq7x4XBd6SD7vOYg
-	FLI7/6/Xt9oZtt6goxwIJsSKCH990gMQXqLIhqOHbeMfCf/FH0iiclW9
-X-Gm-Gg: AYBFou2NRxXuCwHTqnJHxfud7EMmzNY0uByBDgq9xoK8IZnCIEBIJgfFejJr++fNOFO
-	u1WDG5Bi78ph3hYS9brou1H3Ky935pxsd03o8Ga8h3Z2k+zMkcKiiXKyrsdrWC+UgsT8TjFqU5m
-	5uTIoa0I0E+R2u7A0wzARv+LW5Iyll6e8fXtSgZkBNpmDyIty68xG08k23cB1l2QT5D0x4ByYNs
-	LosQt1mASAxgCLcsHS5iAsNyf86NAZx6e2/79X1DGgARiZE6wbWe0ZvGPoksrPK0FbW+3p2HKUZ
-	QJByEOCl7iU2qhKmThfn8c5BaiVt/uOZYSaFI1oO3v/oJH91bp+IevikB5CnnN4nejW7j+jKKL6
-	8aBecJS+xP+cAq+D07WIqO4khz3UPI48nwZ1wCnsojceUnNtE4/LziNOkwf2b0hZLUFptctMWBv
-	aBywdDUc4w+maTfI0V07RRpZ7AEsjvkYDwLRJpgpvNkjieH6h8UOT+nmvpEaf1h+o+wW9MX31SO
-	81Yd1p46LatT5zbA49k9ONJ+AlcL81fBBlNRxPmkzdaSD1DINR0fekt2cTo2WKcreoRgCz5pVhq
-	j+UAgiaKzPkbe5TDDvSoEuNzJRMA0zU=
-X-Received: by 2002:a05:6808:14d4:b0:53a:6769:c35b with SMTP id 5614622812f47-5640dc1e923mr7201227b6e.12.1793641197636;
-        Mon, 02 Nov 2026 09:39:57 -0800 (PST)
-Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd95dc0sm9237058b6e.6.2026.11.02.09.39.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:39:57 -0800 (PST)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	diederik@cknow-tech.com,
-	arseney300@gmail.com,
-	michael.riesch@collabora.com,
-	shawn.lin@rock-chips.com,
-	heiko@sntech.de,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH] arm64: dts: rockchip: Add cpu-idle-states for RK356x
-Date: Mon,  2 Nov 2026 11:39:44 -0600
-Message-ID: <20261102173944.312295-1-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793641361; x=1794246161;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dfZtYrSlMFhP5ZZKCiH+D2bx/dcrqaWgLYnNi4RKbPY=;
+        b=wtpuPhu61cJmk/O6XxQygFPoMFruwDhKR1LHeHXbRMKWJBeQFLmmr/OiJaVMV3S7mw
+         pL8NSMbneJfrytW3+adO2c43KLC4aZfhWEDwKtN1MRtnESLkRZ8b3QC27BOec2rIjXRI
+         FjhWWemPLWUicerOb1NxmYApA0Q0fJqGzF8cYs7SVw6ndCeMXqIVjymz7SQdtsUXtyai
+         lbjY8XmOknHOpmm373nUSc+tbPG0TJa4Np2hH8s6EJUYJSv6n5oRtleqKpi4fsVyEuZB
+         kcYt8YDZRQg/yplyoVxipsW1UeA0gShapC+v2JoczEV020ZP6nw4Zv+zSGQ82xsT2NZ8
+         zeFw==
+X-Gm-Message-State: AFq9FYJptu2NOoxyDhqQcSnSX5kMBipiyNbTpRHAcnewPfj52YDmWdhg
+	9E9yznxzw9HDaZyp8JgOJHmHERfdA/EfV3zE+dzlr2h7353+Zcr0d4QTbk3TgLa2F0pxRf4UAu5
+	7wNcs2NU8HeZpvJHdWPWXGbC4CnixEdOxTxfLcKY=
+X-Gm-Gg: AYBFou0H1nssbvQViXitKQ4IQBn1Gj3B4OSN0KrI0lIwBI5GPAkGwoRLv6RLDr2LkGM
+	8FGnde563ISl2EdNx+c/vih3VS0/rKDvH/Zh0f9Kye7znIp9EskQs3K/FJRYrwYYp3Wwx4fd+ah
+	8rIZOwDOQUXViXxtzx7JyLmZu3jCU0hTHSAL2JbuyIqMkDovoGSh743YssykZs8/q2kfTzCaavk
+	TiwYl5JYry8BwOl0keCzE+TRY0uR49ik0Ih70MPUDP0xBprToUrJGfvw7qR3L+7unso8WtYUxda
+	wET+5h/zrgs6BUIcq9MHiDEVeMUeA7WHylAtMbArCHK5kOFflx5Fm0fDzQASl1hzth0Dp5AXH5n
+	wy9QouTFwi98V16lMePczHSpFTjLI1auSSIf7w0Q=
+X-Received: by 2002:a17:907:2d25:b0:c2d:c739:30e1 with SMTP id
+ a640c23a62f3a-c4ca7a9fa75mr847426766b.32.1793641360498; Mon, 02 Nov 2026
+ 09:42:40 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,80 +103,207 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261102171838.2958552-1-coiaprant@gmail.com> <20261102171838.2958552-7-coiaprant@gmail.com>
+ <sashiko-outbox-193831@kernel.org>
+In-Reply-To: <sashiko-outbox-193831@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 3 Nov 2026 01:42:27 +0800
+X-Gm-Features: AclHuK-zSZVE4xA4OiTqJXnTLiSXMquw5uZzwgfkktwguiYBDSKOj8Fr7BfWLyE
+Message-ID: <CALj3r0hEMqWA6bcrzhXF-2+6KO5ytzpOfdiVgQ+_SUXy=gYUvw@mail.gmail.com>
+Subject: Re: [PATCH v2 6/6] arm64: dts: rockchip: fix modem power supply on Photonicat
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Chris Morgan <macromorgan@hotmail.com>
+<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B411=E6=9C=883=E6=97=A5=E5=91=
+=A8=E4=BA=8C 01:26=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+> - [High] arm64: dts: rockchip: vbat min/max microvolt mismatch fails prob=
+e
+> - [Medium] arm64: dts: rockchip: vcc3v4_rf vin-supply change has no runti=
+me effect
+> - [Medium] arm64: dts: rockchip: vcc5v0_usb30_otg0 leaves regulator_5v_ou=
+t unused
+> --
+>
+> commit e4c4248e8e73884f2860befcec1dafef98cd711c
+> Author: Coia Prant <coiaprant@gmail.com>
+>
+> arm64: dts: rockchip: fix modem power supply on Photonicat
+>
+> This commit changes the vin-supply of the vcc3v4_rf regulator from vccin_=
+5v
+> to vcc_syson in the Ariaboard Photonicat RK3568 device tree to match the
+> hardware schematic and keep the M.2 5G modem powered on battery.
+>
+> Link: https://github.com/photonicat/photonicat-hardware/blob/main/Photoni=
+cat_rk3568_sch_20221116.pdf (Page 18)
+>
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/=
+arm64/boot/dts/rockchip/rk3568-photonicat.dts
+> > index 4d362f665031c..6a51f97395741 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+> > @@ -169,7 +169,7 @@ vcc3v4_rf: regulator-vcc3v4-rf {
+> >               regulator-name =3D "vcc3v4_rf";
+> >               regulator-min-microvolt =3D <3400000>;
+> >               regulator-max-microvolt =3D <3400000>;
+> > -             vin-supply =3D <&vccin_5v>;
+> > +             vin-supply =3D <&vcc_syson>;
+> >       };
+>
+> [Severity: Medium]
+> Does reparenting vcc3v4_rf from vccin_5v to vcc_syson actually change the
+> hardware power state when running on battery, as described in the commit
+> message?
+>
+> In arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts, vccin_5v, vcc_sysi=
+n,
+> and vcc_syson are all regulator-fixed nodes marked regulator-always-on an=
+d
+> regulator-boot-on with no GPIO, clock, or power-domain control, and vcc_s=
+yson
+> chains directly back to vccin_5v:
+>
+>         vccin_5v: regulator-vccin-5v {
+>                 compatible =3D "regulator-fixed";
+>                 regulator-name =3D "vccin_5v";
+>                 regulator-always-on;
+>                 regulator-boot-on;
+>                 regulator-min-microvolt =3D <5000000>;
+>                 regulator-max-microvolt =3D <5000000>;
+>         };
+>
+>         vcc_sysin: regulator-vcc-sysin {
+>                 compatible =3D "regulator-fixed";
+>                 regulator-name =3D "vcc_sysin";
+>                 regulator-always-on;
+>                 regulator-boot-on;
+>                 regulator-min-microvolt =3D <5000000>;
+>                 regulator-max-microvolt =3D <5000000>;
+>                 vin-supply =3D <&vccin_5v>;
+>         };
+>
+>         vcc_syson: regulator-vcc-syson {
+>                 compatible =3D "regulator-fixed";
+>                 regulator-name =3D "vcc_syson";
+>                 regulator-always-on;
+>                 regulator-boot-on;
+>                 regulator-min-microvolt =3D <5000000>;
+>                 regulator-max-microvolt =3D <5000000>;
+>                 vin-supply =3D <&vcc_sysin>;
+>         };
+>
+> In reg_fixed_voltage_probe() in drivers/regulator/fixed.c, a fixed regula=
+tor
+> without a GPIO, clock, or PM domain uses empty fixed_voltage_ops and perf=
+orms
+> no hardware switching.
+>
+> Should the commit message clarify that this only updates the DT supply
+> hierarchy to match the schematic, or is there a controllable switch or bo=
+ost
+> regulator needed to power the modem on battery?
+>
+> >
+> >       vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
+>
+> [Severity: High]
+> In commit cf017fdefcec ("arm64: dts: rockchip: fix USB OTG power on Photo=
+nicat
+> in battery mode") earlier in this series, vcc5v0_usb30_otg0 was updated t=
+o
+> depend on regulator_5v_boost, which in turn depends on the newly added vb=
+at
+> fixed regulator:
+>
+>         regulator_5v_boost: regulator-5v-boost {
+>                 ...
+>                 vin-supply =3D <&vbat>;
+>         };
+>         ...
+>         vbat: regulator-vbat {
+>                 compatible =3D "regulator-fixed";
+>                 regulator-name =3D "vbat";
+>                 regulator-min-microvolt =3D <3400000>;
+>                 regulator-max-microvolt =3D <4200000>;
+>                 regulator-always-on;
+>                 regulator-boot-on;
+>         };
+>
+> However, reg_fixed_voltage_probe() -> of_get_fixed_voltage_config() in
+> drivers/regulator/fixed.c requires regulator-min-microvolt and
+> regulator-max-microvolt to be equal for a regulator-fixed node:
+>
+>         if (init_data->constraints.min_uV =3D=3D init_data->constraints.m=
+ax_uV) {
+>                 config->microvolts =3D init_data->constraints.min_uV;
+>         } else {
+>                 dev_err(dev,
+>                          "Fixed regulator specified with variable voltage=
+s\n");
+>                 return ERR_PTR(-EINVAL);
+>         }
+>
+> Won't vbat fail to probe with -EINVAL, causing regulator_5v_boost,
+> regulator_5v_out, vcc5v0_usb30_otg0, and the consumer USB2 OTG PHY nodes
+> (usb2phy0_otg and usb2phy1_otg) to permanently defer with -EPROBE_DEFER?
+>
+> [Severity: Medium]
+> Also in arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts, the comment a=
+bove
+> regulator_5v_out states that 5V_OUT supplies VCC5V0_USB30_OTG0:
+>
+>         /*
+>          * ...
+>          * 5V_OUT supplies:
+>          * - VCC5V0_USB30_OTG0 (USB VBUS via U12 load switch)
+>          * - VCC5V_HDMI (HDMI 5V via D5000)
+>          * - J53 expansion header (Pin 1)
+>          */
+>         regulator_5v_out: regulator-5v-out {
+>                 compatible =3D "regulator-fixed";
+>                 regulator-name =3D "5v_out";
+>                 regulator-min-microvolt =3D <5000000>;
+>                 regulator-max-microvolt =3D <5000000>;
+>                 vin-supply =3D <&regulator_5v_boost>;
+>         };
+>
+> However, vcc5v0_usb30_otg0 sets vin-supply to regulator_5v_boost directly=
+,
+> leaving regulator_5v_out completely unreferenced in the device tree:
+>
+>         vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
+>                 ...
+>                 vin-supply =3D <&regulator_5v_boost>;
+>         };
+>
+> Should vcc5v0_usb30_otg0 use vin-supply =3D <&regulator_5v_out> instead?
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102171838.29=
+58552-1-coiaprant@gmail.com?part=3D6
 
-Add cpu-idle-states for the rk356x-base to affect all rk3566 and
-rk3568 devices. With the fix implemented by upstream Arm Trusted
-Firmware [1] this now works on both mainline A-TF and the vendor
-provided binary A-TF.
+Hi,
 
-Tests on my devices show this parameter provides idle power saving
-of around 5-10%.
+Thanks for the review. All points are valid and I will address them in v3.
 
-[1] https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/55024
+For the High and Medium issues in patch 5:
+1. vbat min/max is now fixed to 3700000 to satisfy the fixed-regulator
+constraint (min =3D=3D max) and avoid the EPROBE_DEFER cascade.
+2. vcc5v0_usb30_otg0 now references <&regulator_5v_out> as its
+vin-supply, making the 5v_out node functional. The commit message node
+names are also aligned with the DTS labels.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+For patch 6:
+You are right that reparenting vcc3v4_rf has no runtime hardware
+effect since both rails are always-on fixed regulators. This patch is
+purely a DT topology fix to match the schematic (VCC3V4_RF is derived
+from VCC_SYSON via a ferrite bead). I have updated the commit message
+to clarify that it corrects the hardware description rather than
+fixing a runtime power-cutoff issue.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 1a4562df20ee..7e23f6983448 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -56,6 +56,7 @@ cpu0: cpu@0 {
- 			reg = <0x0 0x0>;
- 			clocks = <&scmi_clk SCMI_CLK_CPU>;
- 			#cooling-cells = <2>;
-+			cpu-idle-states = <&CPU_SLEEP>;
- 			enable-method = "psci";
- 			i-cache-size = <0x8000>;
- 			i-cache-line-size = <64>;
-@@ -72,6 +73,7 @@ cpu1: cpu@100 {
- 			reg = <0x0 0x100>;
- 			clocks = <&scmi_clk SCMI_CLK_CPU>;
- 			#cooling-cells = <2>;
-+			cpu-idle-states = <&CPU_SLEEP>;
- 			enable-method = "psci";
- 			i-cache-size = <0x8000>;
- 			i-cache-line-size = <64>;
-@@ -88,6 +90,7 @@ cpu2: cpu@200 {
- 			reg = <0x0 0x200>;
- 			clocks = <&scmi_clk SCMI_CLK_CPU>;
- 			#cooling-cells = <2>;
-+			cpu-idle-states = <&CPU_SLEEP>;
- 			enable-method = "psci";
- 			i-cache-size = <0x8000>;
- 			i-cache-line-size = <64>;
-@@ -104,6 +107,7 @@ cpu3: cpu@300 {
- 			reg = <0x0 0x300>;
- 			clocks = <&scmi_clk SCMI_CLK_CPU>;
- 			#cooling-cells = <2>;
-+			cpu-idle-states = <&CPU_SLEEP>;
- 			enable-method = "psci";
- 			i-cache-size = <0x8000>;
- 			i-cache-line-size = <64>;
-@@ -113,6 +117,18 @@ cpu3: cpu@300 {
- 			d-cache-sets = <128>;
- 			next-level-cache = <&l3_cache>;
- 		};
-+
-+		idle-states {
-+			entry-method = "psci";
-+			CPU_SLEEP: cpu-sleep {
-+				compatible = "arm,idle-state";
-+				arm,psci-suspend-param = <0x0010000>;
-+				entry-latency-us = <100>;
-+				exit-latency-us = <120>;
-+				local-timer-stop;
-+				min-residency-us = <1000>;
-+			};
-+		};
- 	};
- 
- 	/*
--- 
-2.53.0
-
+Coia
