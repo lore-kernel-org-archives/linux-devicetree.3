@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619127;
-	b=1kci5ogBmXdX3OU7pca6+TBoWiKEfFi2v9CZusm58sMNIV1Bgd7acN4MFtvTVRP0Cwy9
-	 XMAmBPIKKihNFyN2XfluPYfNsvufmMkxfEqM8WoxC5SayFZ1EISkKGfVWbL2Uzj3P+0lb
-	 ifKdmqqYlIK4MNrRIw9V3r8FFsEr+9rYKGxx7+0jfGGeM7RyHsndV99+sEto9nx9rYqFa
-	 sPZXcF5156xxs+Ku9SOVv6bLuODEJUbONfIHaPinqQLSW4vPVDSUOthhtXM1HwxAU32nV
-	 gVCuQeuvVVd1tb/Cd1e0AyfUreOltqVRfJ0qCDjKaLpQ9XKZrNgiPWvDg9wnZc9aEmw==
+	t=1793619177;
+	b=ahKgJbf40QrHDsKrET/HKU1w6FcSw463jrikAu14Q0BxtIqPt/UDAlDWPm4T34BcuduW
+	 XLuw8zpfnVWVksFJwg5YWyXwlMMnQvUuFJSJCN3WOQ0I/wPfL21aGQVaTT0wp5rmwOy5t
+	 Un644tzDEflomYFZ3BkT6J4ff5RyEIIrkWPJ6YN1ji+MBWDddxMsje3VzORQdmmE96zMJ
+	 KNUrKqzYHk9OHtEroCigu2+/7cb2oUGNPRlVI/uffrY7G7mnNe+189r77b0URCAFnfOxZ
+	 r2CUVtj2f5UMampbfDAVef6VMohWuo7gnizUzYYHl8QMFx1IkOztaJ+O6CVz2Vb/EZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619177;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BnnMTjL+IBBOUZBpzoaEzP/pmGlIxPAFzPCd5/LDnRc=;
-	b=06jAGZttYn7jCEwJhZqzfkFszXveYDQmroZf2HuCOtqNbWzq0x8GWuluLM8qh6LJpmKw
-	 XlKl138oLCHSmjnQbIbISLP3iBKMlS2gHsCdqGADpQPwhNqAe+yq1CmH3yWkdnoEoEhFG
-	 42ZPqc2IYmICXkOBBUBwkHem/Uegu5Yst7MiZoZ68Shi9RAcuxoVCEEm+2vpV1xCdsdCe
-	 yCgwA3qVX4fAJ9RtvOaeslYsvV2o+eA8505Pe+Oe0N5V2pnoykzn4ypXQ0quhFv9IcGAQ
-	 jRm9c827AXyi9DNOtwqcfawy4LJXI954bG5sTcDoeR9lQLmJWoet26pdwdrn2rYIJfg==
+	bh=XfJpU24NB6L3WzchK489NcFec+igVtMIzGuaUsha6Ls=;
+	b=WiN60LU76MAJr+NzWXd3T4bazlY9ho91ST5e1Rvkghsc21PYvGmoF5Sju9mbX18uhNBK
+	 T/LnqBdR/G0FZIyMFRHF3J4/kV7QxqAD6rg1XNHF8Igv5n3pdawiafq1CYHhVRiJ2pRSZ
+	 XcZbbGxxO/xKasocbkox+3zdW9ZH4h5h37bTqqINOh/qQ5B7vs2dD/75Ik5N4uXyzzMOp
+	 ERTyPdjQm7ha2EFlMntV0K/TRyglXaCB8kTiamcJ72/oaQLLIaGAyPozPyPHLOy8QVFEc
+	 d0v8lmwkZ6rLGs8RRho6n1mTSVBKpbS8iKCfOlwAy7zO0qtuFdjyk6EbIGjozwWop+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwbSMHdH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOtAbMoq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D70606A32D;
-	Mon,  2 Nov 2026 11:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2D9606A327;
+	Mon,  2 Nov 2026 11:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwbSMHdH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4F01F00A17;
-	Mon,  2 Nov 2026 11:32:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOtAbMoq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9770D1F00A16;
+	Mon,  2 Nov 2026 11:32:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619127;
-	bh=BnnMTjL+IBBOUZBpzoaEzP/pmGlIxPAFzPCd5/LDnRc=;
+	s=k20260515; t=1793619176;
+	bh=XfJpU24NB6L3WzchK489NcFec+igVtMIzGuaUsha6Ls=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZwbSMHdHTG+UhCMQHTY5QNWWyVf3VpuNYFUpeBJecKBnXhuiyDWPUsSd5S7Cz0JM5
-	 T8eealXr0El5k8WZCaImP+M9Y8rCPsatmC0j0BN/De15no70xmW2wfQiEiBkc3lGC+
-	 KVScZoQgY7SHqMxvWthTACWQKuFFH+B7Nugw1doFgKM0xG9BxpHtzGzVX3nrajwpdi
-	 0D4PlsEO17T5rruQ9jSiyWc4b8AWOGJJhccn2d4AoAM8Z+N+jrT8g6om4RndxfzNrS
-	 HQcSkxi7da5vV4iroOCATvTTVZnoHqmvgzpcvPSV/Zx+dBSTsMdOngId6R6wBk8rK2
-	 9KPzpgQwLnutw==
-Date: Mon, 2 Nov 2026 12:32:03 +0100
+	b=IOtAbMoqAvtp86YSSc7kpLmsuK28FJr7RyvWW2IF9vFgeH6EJZucGWV79+D+TpCVm
+	 OhHy0Y/V8U5fX6Y+SRAkegK4GvHbZ5wBycGsTFml0HYbMZxnWWOebr1KpS4tsiF1yQ
+	 jfJF/fODV4xEYoixBpK47NWNrzmN9RXdZe5gjZkgQa/xJSxeA2xMHCkueLYhA4yqQa
+	 gxfBkvDJQp8bcwG2H+ErDj1yctHZAIGkU+hI3kK9M05N8eoSQUMpI7hPCsM/WeDSCZ
+	 SdZ18aHK9H9jEW2CK/9YQ4GELGF5/8xrR8qEgH4u5bcL9hJtOJLS9MS1j9gLHyt7gP
+	 RYQVYhpvdE3AA==
+Date: Mon, 2 Nov 2026 12:32:53 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Ishu Brar <patches@brar.si>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -52,11 +52,10 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
 	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
 	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: display/msm: dsi-controller-main: Add
- SM7250
-Message-ID: <20261102-opalescent-pragmatic-wren-34d6bd@quoll>
+Subject: Re: [PATCH 2/5] dt-bindings: display/msm: dpu: Document SM7250
+Message-ID: <20261102-placid-soft-bee-b5b848@quoll>
 References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
- <20261031-dpu-sm7250-v1-1-159f403ec405@brar.si>
+ <20261031-dpu-sm7250-v1-2-159f403ec405@brar.si>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,21 +67,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261031-dpu-sm7250-v1-1-159f403ec405@brar.si>
+In-Reply-To: <20261031-dpu-sm7250-v1-2-159f403ec405@brar.si>
 
-On Sat, Oct 31, 2026 at 01:23:37PM +0530, Ishu Brar wrote:
-> The SM7250 DSI controller is the same 6.x hardware as the SM8250 one,
-> with the same six clocks, so add its compatible next to its SM7150 and
-> SM8250 siblings in both the compatible list and the six-clock if/then
-> block. No driver change is needed, the controller is matched through the
-> generic qcom,mdss-dsi-ctrl fallback.
+On Sat, Oct 31, 2026 at 01:23:38PM +0530, Ishu Brar wrote:
+> The SM7250 DPU node has the same register regions (mdp, vbif) and the
+> same four clocks (iface, bus, core, vsync) as the SM8150 and SM8250
+> ones, so add its compatible to the existing qcom,sm8150-dpu.yaml
+> instead of creating a new schema. qcom,sm7150-dpu.yaml is not a fit, it
+> describes six clocks including rot and lut.
 > 
 > Signed-off-by: Ishu Brar <patches@brar.si>
 > ---
->  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+>  Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
