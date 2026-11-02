@@ -1,53 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618712;
-	b=YQ9HmVQY+was0YubmFtRj22G8lk/v4Hm6R2TqtuNuSZpWRyFZneJTs3RC4nhNqtsOVz0
-	 EX2MeTHPx46yY5ubljmQTAGBkyvJRVXA+IzmMgaEkwu+QvVTW+l/bTgEbG4FLOPRIGud/
-	 KEk/YeWWgzZ16yf5bpm7NzMSgfTWl86sfzooQ6gMHOVhrQg62DvZaxnKB1IbeuvXnVHjk
-	 0A43z3i5EvqPAd3li6bgvsjZQXwczaKVYVuWHsyz+taV9qclPHdpb8kvpNYnhbbs1KQst
-	 JBolwBrKhoch1a46NO5XPebOWvJu4wHHh+7r03y0J2MUf77StSrZKXGV2PT+tK82WVA==
+	t=1793618906;
+	b=kS8SfjkcRg9sBiMREgsnC4k421PUJceZvVlWQdAi2UGvMAI7HFsfoZIbMIyk/1yHTuEK
+	 sgC15RGENDclQO2AF0z8yLrpJT6q7Bltqhv4hqhu+CwB+6ORIwm0467PTnpSpg3OEDDLr
+	 IBVcFSAFUdH/EDs7OqQ9cQ7ZqDZvmyh7Tr8NTL7lpzTFXVjV6mR4RSwNtZbwi27TTIww4
+	 IqIRKaNLffnEZcv1/cYMuE27Oebp32nVv1dEDTi54PV4GquD+XW+zhB/XR8a8/RWSYJ/C
+	 d10Gy9tgFzCvcfBl3XjV/HO3Zewcb7RCmfcbItl8xgj9eAxwFs6oCYZEeerNSU15n2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618712;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=Jl6MqUd4ByZxR5XS2vXABv/7IuldpVQ/38egYOhDAkY=;
-	b=mmmQE9ynntDt6WY6CHeKQgRegBHwUxedrZh8JqmZIJRIpDR5ewyjJBXTel8g5EbE7vCo
-	 4Hbrp2SyNVWcv5D409VAQUX0zltD98q6ipYUN+nj0Ap70wwHduCWgdpKTUCEhsCB8B8Z6
-	 WRoR5haL0A+DIGheVk0pGasKtQesqdqw0LArpOVK/t4/etub/vdT/yneMTFtzdQN4nSJj
-	 XIyykSP2/cCcctpjxpDlMt511CyNfQA9hiSU8CIb/KgiAayKu7b2bCDbcSPWIiMdG85xt
-	 Eyo+XwHsU6z0vejEXaS1cejYA/O8OsRYVxfgCaXZLiiYd+YQIBMjcU4vQdwdBbVSUGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618906;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YAj/j/4efbhabnnhYe0OawMFMjQPvNoehqB7lBM/oH4=;
+	b=eqEsZ+gdHys3MkCWdpqklPulgKVo1OgW8V1F3edJ9bQ5p+UYtGl+cggHYn5+hmwWdXeO
+	 7dabxtniaGQ3yO5grcdb86QXtAYoLHsGCVun29yYW/k8FDwrRxj/FuEJKFnh683+Ivp7l
+	 sOXdrIuEH1pd8yxm4WnVifUvEaJdYcnxmtVrStoe8Tg39lN1YooB7tcTpmlnK7n1OLZ+r
+	 PC4ktv5gnOV5lX2kVFGYDTdzGCD6lRxmxKFpsQUQ9fly8z2Bi9G4Dgr07QTX+ML/tAr+D
+	 0oAzGaHAzuX+AYT5h77yUDVvtQzh3Om4qH0fWkmTyqBEGuEFaLZrR3rfhsj4o4u1z7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=vLewcgaz;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=HmMucyiK;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Se/JwnRU";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D067C606A88C
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 11:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D067C606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA9060A2610;
+	Mon,  2 Nov 2026 11:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=vLewcgaz;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=HmMucyiK
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1793618699; bh=Jl6MqUd4ByZxR5XS2vXABv/
-	7IuldpVQ/38egYOhDAkY=; b=vLewcgazmjilFezUUQTHLwLo3daD42yq+f0Jm+1mrmVsWLgS/i
-	Iuo04dS4juwj+rbSDWn0GjngruJetKVi/BBQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1793618699; bh=Jl6MqUd4ByZxR5XS2vXABv/
-	7IuldpVQ/38egYOhDAkY=; b=HmMucyiKt+cWBeqCVhEigbAHDj+8O+wAP7c9MtlO5H8Ls5FrNv
-	1sWC/NgT5BOt4xKWmzbIf0VhExYUsCkGXCjofGFYPAhvlefRrOet/H/Ivb5+E7n0HyLG4p+NeXO
-	HRtYl2GAFUnslr7McqpBAfCRrbBitCIMu5+FWG4qexBPEswsgqE7JLO6MbIWwMnAFRVGerZItyb
-	IJ783rlW8Vt0SsUjdXjJ/qQCyVgFR8OSKdlQtdmwalbnnD8wRB/0sbffPxzrj5LT8a1ZizrQE7h
-	r5U3RfRhQQuw6QTQnZheuyBywvxL0yyT3hNUMf9SRaqIEANK951BO7NIZzZ81jZB1eg==;
-Message-ID: <d52c6018-b494-4470-aa4d-a92fcfb280e8@erebion.eu>
-Date: Mon, 2 Nov 2026 12:24:59 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Se/JwnRU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B841F00A18;
+	Mon,  2 Nov 2026 11:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793618905;
+	bh=YAj/j/4efbhabnnhYe0OawMFMjQPvNoehqB7lBM/oH4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Se/JwnRUSvAI174uNSFWm8zut3t4wPxKX5b6eyWLnlfmxFJ3gkN6dGEFZP668euNQ
+	 OvJYYgJz4nE29c3PBg8TbI/Umvjs0TK8ynMEiLVIgqDsz7l2kU9HQp+ClIUHBtpR91
+	 x5lS7QhfHyQ953vDyfEQjpGryIcog9WtJ87zbvsoRHiaM6LyQyH7p+fxlzw9wPKzKt
+	 QBp5oHWfuF1z3Wb2VPyhiBXYb9SAtKTpUFfFj+fCg3opeWkwuw4jdb7P6bJ+1SCAd+
+	 MU76NXBDYCFd3JJKikrSpY2LrsUKOOZXt/LnFpddxT7kXRQXUhVwWtpeMA2h9IXDRw
+	 BZesqZeokXJ4Q==
+Date: Mon, 2 Nov 2026 12:28:22 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sandy Huang <hjc@rock-chips.com>, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>, 
+	Han Gao <gaohan@iscas.ac.cn>
+Subject: Re: [PATCH 1/3] dt-bindings: display: bridge: document TH1520 MIPI
+ DSI controller
+Message-ID: <20261102-spry-snobbish-hound-384cae@quoll>
+References: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
+ <20261030-th1520-dw-mipi-dsi-v1-1-753f34fd304f@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,95 +69,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192773@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192773@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------8DJvsePEo8cSfZrcrIfR1weq"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-1-753f34fd304f@iscas.ac.cn>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8DJvsePEo8cSfZrcrIfR1weq
-Content-Type: multipart/mixed; boundary="------------K9q45mfxPccftvc00YuvS9l1";
- protected-headers="v1"; hp="clear"
-Message-ID: <d52c6018-b494-4470-aa4d-a92fcfb280e8@erebion.eu>
-Date: Mon, 2 Nov 2026 12:24:59 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
- i2c busses
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192773@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192773@kernel.org>
+On Fri, Oct 30, 2026 at 03:47:49PM +0800, Icenowy Zheng wrote:
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: DSI controller APB clock
+> +      - description: PHY configuration clock
+> +      - description: PHY reference clock
+> +      - description: DSI controller input pixel clock gate
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pclk
+> +      - const: phy_cfg
+> +      - const: ref
+> +      - const: pixel
+> +
+> +  syscon:
 
---------------K9q45mfxPccftvc00YuvS9l1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Such property names are not allowed. Missing vendor prefix, missing
+descriptive name.
 
-T24gMTEvMi8yNiAwMDo0OCwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4gVGhh
-bmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQg
-NCBwb3RlbnRpYWwgaXNzdWUocykgdG8gY29uc2lkZXI6DQo+IC0gW01lZGl1bV0gYXJtNjQ6
-IGR0czogcWNvbTogc202MzUwLWxlbmE6IHVucmVsYXRlZCBhbmQgaW5jb21wbGV0ZSBHUFUg
-ZW5hYmxlbWVudA0KDQpzaG91bGQgbm90IGJlIHBhcnQgb2YgdGhpcyBwYXRjaCBzZXJpZXMs
-IHdpbGwgcmVtb3ZlDQoNCj4gLSBbTWVkaXVtXSBhcm02NDogZHRzOiBxY29tOiBzbTYzNTAt
-bGVuYTogd3JvbmcgQURDIGNoYW5uZWwgaW4gcmVhcl9jYW1fc2Vuc29yDQoNCkJvdCBhbHJl
-YWR5IGNvbXBsYWluZWQgd2l0aCBhIHJlcGx5IHRvIHRoZSBQTTYxNTBsIHRoZXJtYWxzIHBh
-dGNoLi4uDQoNCj4gLSBbTWVkaXVtXSBhcm02NDogZHRzOiBxY29tOiBzbTYzNTAtbGVuYTog
-aW52YWxpZCBsZWQtbWF4LW1pY3JvYW1wIGluIHBtNjE1MGxfZmxhc2gNCj4gLSBbTG93XSBh
-cm02NDogZHRzOiBxY29tOiBzbTYzNTAtbGVuYTogdW5kb2N1bWVudGVkIHVudXNlZCBsY2Ri
-X2R1bW15IHJlZ3VsYXRvcg0KPiAtLQ0KDQpCb3QgYWxyZWFkeSBjb21wbGFpbmVkIHdpdGgg
-YSByZXBseSB0byB0aGUgZmxhc2ggTEVEIHBhdGNoLi4uDQoNCi0tIA0KZXJlYmlvbg0KDQpY
-TVBQOiBlcmViaW9uQGVyZWJpb24uZXUNCg0KTXkgbGFuZ3VhZ2VzOiBHZXJtYW4sIEVuZ2xp
-c2gsIFN3ZWRpc2gsIE5vcndlZ2lhbiwgRGFuaXNoDQpZZXMsIEknbSBhIGxhbmd1YWdlIG5l
-cmQuIEZlZWwgZnJlZSB0byB3cml0ZSB0byBtZSBpbiBhbnkgb2YgdGhlIA0KYWZvcmVtZW50
-aW9uZWQgbGFuZ3VhZ2VzLg0KDQo=
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the VO subsystem system controller.
 
---------------K9q45mfxPccftvc00YuvS9l1--
+For what purpose? How does this device use VO? What is VO subsystem
+system?
 
---------------8DJvsePEo8cSfZrcrIfR1weq
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - interrupts
+> +  - syscon
+> +  - ports
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+Krzysztof
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCauhzCwUDAAAAAAAKCRCOr0AybgKuffka
-AP4hbCOzgx1uY8aVVNWIT9coUtqqkdtjBeEPgAFcxpttQwD/T1zQTYPwO6HRlgT9N29vV7nDXT0b
-E8IECfOtMLvpiww=
-=BaN+
------END PGP SIGNATURE-----
-
---------------8DJvsePEo8cSfZrcrIfR1weq--
