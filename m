@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625460;
-	b=cWfRskdtOkLEysCQebNdcdmmTeX6M3CaD6QcUgwhp4r4Z9KicZJkcNiEnMaHN4Q0I+Wh
-	 C7jk4yflgJVg1SXki7orhlSNnKr2yf9urWwOV8LQuGmRnc8Io2Ae5FkBUgtJlv0zbhgwV
-	 +61dj3Q41c5kam1nJ6YZ/0BHt+bX7BpoEkEqxLaS408cwDdbFlw5ciJfCA8762eiVygc3
-	 Nf+qX7R+VSbRKAO8ICYalUHulMrtyhMTk9vpCc8X9pWqm89oPSVd59NrFWC89I0RU97QI
-	 YV712dknMv8hmzdNVx6YWlgfLbajFEZSzhnENiJfnQeI6qZght8wAP6Agg6WPNX6BZg==
+	t=1793625585;
+	b=kaYTzeZPzyQonzJ8ldqHhDzLNQBcXnSczR2ZFtPC/OKfgzvge/zJD2G5pN4mZZJNW0Dm
+	 8S1S69jOaQLRrCEOCk2inVfTWifjeZZWR4Bvs0pS3JawNXDiapI1ZSMTKdNmKc72oNw/L
+	 np1b8o8EGo8wh8Hnzx47l28N3gETEA/7nDdfx8iaQRsxtp5dFiFCRbuMc4CZTMkyUYWzU
+	 TS+OKjtR5e2jtEppyw/IWZYbEmTEh3apzIP9B8yn9ajPYewj88/3Lm0HOZgNRc2u8viRu
+	 BrJx4D4g1DRtfRdtjwD3u/2NU3zZJkSBoUMWPTRdok+qytQlYBtolQKLC5MIoKFN/4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625585;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
 	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=5+UXT116wgM3lPiMbzxGZ42MZgEREmAm0zBk0E1R92M=;
-	b=mWwsKX6bCQaDPv33RLSqzpy+lHZOEUCnyQOTvKP60M8vTqGxLuEILWaSx0yXjnKZm2zC
-	 LH85XfvUN++hc/INKy+YZx7xCpxp2Fsmm+uiQ/xQKSbvSMam9XaCyaLeQ7BAhAJjWxGn2
-	 dTJDPqlQ5G+Gn4U4YIKrmJEolZP9yYauAqx8IjrVVT3mdi+IiM7RpQI16tpnAkfH5CSEx
-	 0AF4jYv9lEWnM7XFE7yIbIMtAUZlopmTtgRCDzY5tUzZm+vwTuOhtlVUE7o7S2KGmyDex
-	 rGVAIaRZ3oz49BxH1m8HCBdVWRYV3ZP572n/T+eIkv3E5IFAsPzXElVuObmd+5M2pFQ==
+	bh=8nLNQzeB35x5xdtfZInSPUAhxxbGqIl4i+gN+oukDPQ=;
+	b=yTDIsr+EIO5d1rJZEP3ekJXxnzwBYgp9EuHmfhtxLT7uQ2000echxx1FJs1QbRyUbRG3
+	 IHn1fmNKlTFOBoI7EIdHwFY9eo2CnLQc1/utxwSyCYBUelPzz7TPaPU0tjnbYz3v0ZF+t
+	 b62Zvi3z4zHsSeUy87xsO33STIaAnGacRcIxOHeOPfQZCOhcolUaOfeC1J+O5joB6Le6h
+	 cbkoEpGHskLG3YQAimS0OeENfqG5SPCdW1EZinbimye3J6ZkkVop0vCaTXdGK6DT4IJ1i
+	 YiOAEx+usHfOJ+tbUzBbcDMYj6TU2NcYJRPqgzST5ZHVpAa15aceLRndOpoz4F3TWJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YiJnFJGx;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rfRnl19U;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD42606A329
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:17:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD42606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB26606A326
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:19:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDB26606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YiJnFJGx
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e6eb21a8fso1152137f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:17:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rfRnl19U
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1848163f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:19:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793625457; x=1794230257; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793625582; x=1794230382; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5+UXT116wgM3lPiMbzxGZ42MZgEREmAm0zBk0E1R92M=;
-        b=YiJnFJGxmbwGLjC1XlwxSVpCU4HMx0+14O7Bp+ew8D3vnHISYp3+/QD7wo+1Vq1VKS
-         PJMOLks9M5awNSPYbMfZ3xGLgEqE13ApgyQJ0b1Uo1qaXx2+rhDB1rkrBHlDbjbr5U4f
-         xCzPUVUw2vUAWVKdpABcHrF/RMpQV2j/RIK+Oxi9ub9VsPRMcWjRQnuKMROylDspJgkn
-         k50mnC2ZTaGHDZi8I1DjNvZrvKinidFw0XWe2VRwZkpqMN4byr2cXxdHYAk15kB2hAQf
-         PCI0t/ego2n59kzRB4WSQuK4K+w2y+npYHbaI3ShH5nCr87NgjdbMqsMIEhMH/GUjNJo
-         P7xw==
+        bh=8nLNQzeB35x5xdtfZInSPUAhxxbGqIl4i+gN+oukDPQ=;
+        b=rfRnl19ULOXlnkOK1IXPxgWQCHPhmDZLSyQJtrOD+2EtwcWhpR4/AyWTlBk+Q7iP1X
+         GTl++CYTrMQ7kuk+GuJazKgo0Bc9kVRUz4N9POdys96x5r+giC21YOj8zNYSTFhUipdy
+         3QQ6WyuKzDUbUyHUrgDwHrIxjtBy/5Ss8lfbg5uyIuoRMpfPNfWkYPuAH5RFoiVZ4kPm
+         9UJHX2PjCCOM7D9YKg6aJegBH+FRH5eiNIZsL8XCaLALnirFeAt2SrNzSIfjYOMxD4eb
+         p5jjT5qP49a2201vn/uGFc9pm6kdn1IfknYRWJ9HiCVNUJTUrwKCXJTFRpjCKHt2GMxy
+         CjiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625457; x=1794230257;
+        d=1e100.net; s=20260707; t=1793625582; x=1794230382;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5+UXT116wgM3lPiMbzxGZ42MZgEREmAm0zBk0E1R92M=;
-        b=UCT7yIHGJ9gZsldVJ8llMlnoXpkfSAurCOKaUYV1/Gp5nrNULgQvEs94Rb+hHFzYoY
-         yOPrpXH6rnMsqLzxiJ3c46bf6EoXhRFTzN2gDGJt2hYsVqTeeVWTYMuxt82h8WTlVMXq
-         amGhduBPObMg3IjJJhVMc1+A+5kgNNU1wfEadJ8V6KgoIQKiBhL5zezT1Shmw58wAkbY
-         K120uUtZinIp+hmVg0s4MGgQb7AFO8iGcq9gJcAYnRs2lLJHOPHTcJ3fhQnUCy8h9rW0
-         7zRMKhAnn3CBPN3n1xhpv0LUiDVx+WAsEnUu2qYhqK00vXo6/dQz26kEOVKxW5L4XCub
-         9nLA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3KaG0sG0Moyus5rg2z0a5q8eg9FNzIdlOExUkIizBBMumTF9Z9ZpBTGAEg8ue5+AtZxcO5ybWQKIF@vger.kernel.org
-X-Gm-Message-State: APuU4Z8v+KQUTm+vdfOH1pdxAzLnSzo/fj0t+gIz8pXHevqc2UwKjcob
-	0Pp/ybA1PeX4fmybgUtOuKVIwNh7MKKfcbppN4g8sjRUXdI68/KZcOA/i04jInWRZ5E=
-X-Gm-Gg: AYBFou1OP79q+PAmZ8Z+oxavwcvuZA1+GCp1mbmpbFaQbT82a+iqxIDj7tuyXHvwks+
-	VM23ojvHZBJanAXIBopQcx1XRlDDQHGNHF51ZXiaPDdfq2+jQBTa6wlf0vm+Byk3EAhN5JdqBjA
-	4QosPSPS5spNR/p4QRxupLSKSdCZHGgdE2Q2g3ztW2KoMXkjDdZ2dX6Ba3WMWmwXirH27PePZwR
-	9YfNibhc6DEw4PBJTICCF9AJ/IVZRvNrp21gszlFoeZKUdVNlcNwpuBcrO+r809NmFAwCBLbdjg
-	yor+sZMa9UNBJXef12hRuZ9pg0Y+Hi/MV/ULMMU24pJhM4GpgK5yXbATIXfIOp4MmQZRMf4fz8h
-	ps4WEmh1wRc0E/c0n6KnS7tc1oHlnRUbxWrQc9gFh2umRmGwRpFcFAy07RbluagbGG6O85KgNNG
-	RA3T36Aymippy14kv06rNDoRjuXcSzAxzL2SdBOH6e9fPWBCiMWssTB1aDzTr6OsSoMiesmC9yf
-	YtKqquqGgu76aOHWwHV15EzGxxuMCf023a7amgTM2Fefv/0z7GbURIqz3btk9XxuFjfXUhfSUGa
-	pGSMMaovX0gMLY58oJRYz7z+hJlbxKtRcOFgVNgQl9Ys+L5wEOQjUE6bUiicGfvTV/oPUQhXUfy
-	KRPsG
-X-Received: by 2002:a05:6000:2885:b0:488:88ec:59c3 with SMTP id ffacd0b85a97d-48e6e2f2c14mr21237777f8f.14.1793625457212;
-        Mon, 02 Nov 2026 05:17:37 -0800 (PST)
+        bh=8nLNQzeB35x5xdtfZInSPUAhxxbGqIl4i+gN+oukDPQ=;
+        b=pT+zNetkpEgOSqj8dtxCDgEVHjLTMCDvm82zAxCYVoRVDFF04NJwh8NEb39ni62Eve
+         q9HUcjwOcbjTkHDkdYYE9407oEW0mR/0/G+JNDJyjvgkGAjqVo4MA5Y7aL8+tkeOAux/
+         zpy2D7c3JvQjVfiQBCCjS32UzTU8+EPkVYFlL2aIF15UeZLkGdGHGXlIpKh0eeteQDp9
+         sMjg7vRPifeTLV4GgCta39YCEdd8ad6RQoB/x1olMloEWmXCPPaCNm370mIZk4dcrdi7
+         dCV4h/K8A9E1hUlvmCQWVyab9Q8fUDLW2IBoKYosu/PODg8jOCp8+mFMqqWJIMgMNSXD
+         SzHA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTGrm+aYfda97E78lHCzaAhrEyqBbjT0tqzjz+2AY8Q3C3E9jyxMwiUuwlKlfhKxPPId470xvDXaiD@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNSNqhVXVMemg2igCijONJP7W+Y14qOFEjElJ9/kPr6XcB6ZGD
+	U2Qds/TqIpbXZ+H/n7IgzpoNWDw0xbXcZak9mSfOoCW7lVjyeCRzbhqEDVRA1UnJtKQ=
+X-Gm-Gg: AYBFou2RRGCWvCnon7bA9kViiHmJDP+o2WVCA4AoNlZWecXRXSafBMeSEMHYCZ1R80d
+	IDCIX/J5Wgq3vPV1uU7ezU9qscsbu10qn2aozwwnsZ/Fs3f1NH/GRfC3cSLS2ilgZMAY+oZVcB5
+	t7HyAC9PMN48xdjwmRfvkhjjZXo9GQCEdTE6/qWt8/C3YBRN1uQM9KOsfaqVe+dQ36jmlTj3NKh
+	50bNxCtAPrZ6tRZ2hNpbG7IbPD59za0tSIcBTRO1gOKlIihq3c/u+IWgSneRO0Y/K9g8yCC9QCx
+	bsiqmm7dOyt/E7vIi4nc+0Ux2JBlUT0UqdwolfX8SgkMuQvPsNh4xWLjyVPYuQwV0q3kHMU2Jpo
+	QZTGbIInud+zEyRx2rQMKOodjIt73w9DYtRrg8uvI+9wU10NU+GL3WbHMuPd6bxIOOgXWAaequa
+	FEg4VWDR+mOLjtNPIVzVy8e/KSQkc9hn2rs2DCRqhosZHBbx4B4Wj9Evjxh5mxyXYluY+86xFX/
+	Hmh7sKSA8d0WLBOKtQXwdQvJLKut/lMIO9r4tSk2b+M0OwM4MaFCW96WCWM2ThcQZ3uNixMmfF/
+	f390iVaeA1W54Jo1V8ZYAU8KV4LWcRcw7CTY/iEjjxoOwtXwU09rS7WHubTFPKiBYb/LDtRbY5n
+	QjCsq
+X-Received: by 2002:a05:600c:871b:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4ac14fbdd1emr212180345e9.1.1793625582011;
+        Mon, 02 Nov 2026 05:19:42 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7270asm20166279f8f.11.2026.11.02.05.17.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm350838855e9.14.2026.11.02.05.19.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:17:36 -0800 (PST)
-Message-ID: <402ef21d-84dd-42cf-89c3-748216ce2174@linaro.org>
-Date: Mon, 2 Nov 2026 14:17:35 +0100
+        Mon, 02 Nov 2026 05:19:41 -0800 (PST)
+Message-ID: <ad896489-1399-4f9c-9551-09a75e4fbcac@linaro.org>
+Date: Mon, 2 Nov 2026 14:19:40 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,17 +96,22 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] drm/panel: Add Samsung AMS644VK04 panel driver
-To: patches@brar.si, Jessica Zhang <jesszhan0024@gmail.com>,
+Subject: Re: [PATCH v4 2/7] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type
+ B panel driver
+To: Svyatoslav Ryhel <clamor95@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
- <20261026-panel-ams644vk04-v2-2-e88cafb3e577@brar.si>
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+References: <20261022132259.240717-1-clamor95@gmail.com>
+ <20261022132259.240717-3-clamor95@gmail.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -133,448 +138,362 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261026-panel-ams644vk04-v2-2-e88cafb3e577@brar.si>
+In-Reply-To: <20261022132259.240717-3-clamor95@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/26/26 17:39, Ishu Brar via B4 Relay wrote:
-> From: Ishu Brar <patches@brar.si>
+On 10/22/26 15:22, Svyatoslav Ryhel wrote:
+> Add a driver for panel used in LG Optimus 2X P990. Panel is 4" WVGA MIPI
+> DBI Type B linked to DRM encoder via RGB to DBI bridge.
 > 
-> Add a driver for the Samsung AMS644VK04, a 1080x2400 DSI command mode
-> AMOLED panel with DSC found in the OnePlus Nord (SM7250). It uses four
-> lanes and DSC 1.1 at 8 bits per pixel.
-> 
-> The initialisation sequence comes from the downstream driver. The DSC
-> picture parameter set is built with drm_dsc_pps_payload_pack() from the
-> same drm_dsc_config the DSI host uses. Only the 90 Hz mode is described
-> for now.
-> 
-> Tested on a OnePlus Nord with the msm DSI host, including suspend and
-> resume.
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->   MAINTAINERS                                      |   1 +
->   drivers/gpu/drm/panel/Kconfig                    |  17 ++
->   drivers/gpu/drm/panel/Makefile                   |   1 +
->   drivers/gpu/drm/panel/panel-samsung-ams644vk04.c | 356 +++++++++++++++++++++++
->   4 files changed, 375 insertions(+)
+>   drivers/gpu/drm/panel/Kconfig                 |  14 +
+>   drivers/gpu/drm/panel/Makefile                |   1 +
+>   .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 297 ++++++++++++++++++
+>   3 files changed, 312 insertions(+)
+>   create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 19ec9f8b522f..b409a7f3985f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8466,6 +8466,7 @@ DRM DRIVER FOR SAMSUNG AMS644VK04 PANEL
->   M:	Ishu Brar <patches@brar.si>
->   S:	Maintained
->   F:	Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
-> +F:	drivers/gpu/drm/panel/panel-samsung-ams644vk04.c
->   
->   DRM DRIVER FOR SAMSUNG DB7430 PANELS
->   M:	Linus Walleij <linusw@kernel.org>
 > diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 7a520b4d60fe..7cb0ff13c037 100644
+> index 53a1fc2913fee..5f68b78526c3e 100644
 > --- a/drivers/gpu/drm/panel/Kconfig
 > +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -956,6 +956,23 @@ config DRM_PANEL_SAMSUNG_AMS639RQ08
->   	  Say Y or M here if you want to enable support for the
->   	  Samsung AMS639RQ08 FHD Plus (2340x1080@60Hz) CMD mode panel.
+> @@ -274,6 +274,20 @@ config DRM_PANEL_HIMAX_HX8394
 >   
-> +config DRM_PANEL_SAMSUNG_AMS644VK04
-> +	tristate "Samsung AMS644VK04 panel"
+>   	  If M is selected the module will be called panel-himax-hx8394.
+>   
+> +config DRM_PANEL_HITACHI_TX10D07VM0BAA
+> +	tristate "Hitachi TX10D07VM0BAA MIPI DBI Type B panel"
 > +	depends on OF
-> +	depends on DRM_MIPI_DSI
 > +	depends on BACKLIGHT_CLASS_DEVICE
-> +	depends on GPIOLIB
-> +	depends on REGULATOR
-> +	select DRM_DISPLAY_DSC_HELPER
-> +	select DRM_DISPLAY_HELPER
+> +	select DRM_MIPI_DBI
+> +	select VIDEOMODE_HELPERS
 > +	help
-> +	  Say Y or M here if you want to enable support for the
-> +	  Samsung AMS644VK04 FHD Plus (1080x2400) DSC command mode AMOLED
-> +	  panel, found in the OnePlus Nord.
+> +	  Say Y here if you want to enable support for the HITACHI
+> +	  TX10D07VM0BAA MIPI DBI Type B panel found in the LG Optimus 2X
+> +	  P990 smartphone.
 > +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called panel-samsung-ams644vk04.
+> +	  To compile this driver as a module, choose M here: the module will
+> +	  be called panel-hitachi-tx10d07vm0baa.
 > +
->   config DRM_PANEL_SAMSUNG_S6E88A0_AMS427AP24
->   	tristate "Samsung AMS427AP24 panel with S6E88A0 controller"
->   	depends on GPIOLIB && OF && REGULATOR
+>   config DRM_PANEL_HYDIS_HV101HD1
+>   	tristate "Hydis HV101HD1 panel"
+>   	depends on OF
 > diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index da5175909d54..01c1ca740dac 100644
+> index f2c9c80a218f0..414267a49d922 100644
 > --- a/drivers/gpu/drm/panel/Makefile
 > +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -92,6 +92,7 @@ obj-$(CONFIG_DRM_PANEL_RENESAS_R69328) += panel-renesas-r69328.o
->   obj-$(CONFIG_DRM_PANEL_RONBO_RB070D30) += panel-ronbo-rb070d30.o
->   obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS581VF01) += panel-samsung-ams581vf01.o
->   obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS639RQ08) += panel-samsung-ams639rq08.o
-> +obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS644VK04) += panel-samsung-ams644vk04.o
->   obj-$(CONFIG_DRM_PANEL_SAMSUNG_ATNA33XC20) += panel-samsung-atna33xc20.o
->   obj-$(CONFIG_DRM_PANEL_SAMSUNG_DB7430) += panel-samsung-db7430.o
->   obj-$(CONFIG_DRM_PANEL_SAMSUNG_LD9040) += panel-samsung-ld9040.o
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-ams644vk04.c b/drivers/gpu/drm/panel/panel-samsung-ams644vk04.c
+> @@ -27,6 +27,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
+> +obj-$(CONFIG_DRM_PANEL_HITACHI_TX10D07VM0BAA) += panel-hitachi-tx10d07vm0baa.o
+>   obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7836A) += panel-ilitek-ili7836a.o
+> diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
 > new file mode 100644
-> index 000000000000..3cbe1fd9aa01
+> index 0000000000000..83c2af1be9755
 > --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-samsung-ams644vk04.c
-> @@ -0,0 +1,356 @@
+> +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> @@ -0,0 +1,297 @@
 > +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Samsung AMS644VK04 AMOLED DSI command mode panel driver (DSC)
-> + *
-> + * 1080x2400, 4 lanes, DSC 1.1 8 bpc -> 8 bpp, 90 Hz.
-> + * Found in the OnePlus Nord (avicii).
-> + *
-> + * The initialisation sequences were generated from the downstream panel
-> + * description ("samsung ams644vk04 fhd cmd mode dsc dsi panel").
-> + */
 > +
-> +#include <linux/backlight.h>
+> +#include <linux/array_size.h>
 > +#include <linux/delay.h>
+> +#include <linux/err.h>
 > +#include <linux/gpio/consumer.h>
+> +#include <linux/media-bus-format.h>
 > +#include <linux/module.h>
-> +#include <linux/of.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
 > +#include <linux/regulator/consumer.h>
 > +
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
-> +#include <drm/drm_mipi_dsi.h>
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/drm_mipi_dbi.h>
 > +#include <drm/drm_modes.h>
+> +#include <drm/drm_of.h>
 > +#include <drm/drm_panel.h>
 > +#include <drm/drm_probe_helper.h>
 > +
-> +#define AMS644VK04_WIDTH		1080
-> +#define AMS644VK04_HEIGHT		2400
-> +
-> +#define AMS644VK04_MAX_BRIGHTNESS	0x7ff
-> +#define AMS644VK04_DEFAULT_BRIGHTNESS	0x140
-> +
-> +/* Power-on order and expected load as given by the downstream supply entries */
-> +static const struct regulator_bulk_data ams644vk04_supplies[] = {
-> +	{ .supply = "vddio", .init_load_uA = 62000 },
-> +	{ .supply = "vout", .init_load_uA = 857000 },
-> +	{ .supply = "vdd", .init_load_uA = 857000 },
+> +static const struct regulator_bulk_data hitachi_tx10d07vm0baa_supplies[] = {
+> +	{ .supply = "avci" }, { .supply = "iovcc" },
 > +};
 > +
-> +struct ams644vk04 {
+> +struct hitachi_tx10d07vm0baa {
 > +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi;
-> +	struct drm_dsc_config dsc;
-> +	struct gpio_desc *reset_gpio;
+> +	struct mipi_dbi *dbi;
+> +
 > +	struct regulator_bulk_data *supplies;
-> +	bool prepared;
+> +	struct gpio_desc *reset_gpio;
 > +};
 > +
-> +static inline struct ams644vk04 *to_ams644vk04(struct drm_panel *panel)
+> +static inline struct hitachi_tx10d07vm0baa *to_hitachi_tx10d07vm0baa(struct drm_panel *panel)
 > +{
-> +	return container_of(panel, struct ams644vk04, panel);
+> +	return container_of(panel, struct hitachi_tx10d07vm0baa, panel);
 > +}
 > +
-> +static void ams644vk04_send_on(struct mipi_dsi_multi_context *dsi_ctx,
-> +			       const struct drm_dsc_config *dsc)
+> +#define panel_dbi_command(priv, cmd, seq...) \
+> +({ \
+> +	const u8 d[] = { seq }; \
+> +	struct drm_panel *panel = &(priv)->panel; \
+> +	struct device *dev = panel->dev; \
+> +	int ret; \
+> +	ret = mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
+> +	if (ret) \
+> +		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
+> +	ret; \
+> +})
+> +
+> +static int hitachi_tx10d07vm0baa_prepare(struct drm_panel *panel)
 > +{
-> +	struct drm_dsc_picture_parameter_set pps;
-> +
-> +	drm_dsc_pps_payload_pack(&pps, dsc);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9d, 0x01);
-> +	mipi_dsi_picture_parameter_set_multi(dsi_ctx, &pps);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_set_tear_on_multi(dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_set_column_address_multi(dsi_ctx, 0, AMS644VK04_WIDTH - 1);
-> +	mipi_dsi_dcs_set_page_address_multi(dsi_ctx, 0, AMS644VK04_HEIGHT - 1);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf5, 0x85);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf8, 0xc4);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x04);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf8, 0x41, 0x47, 0x11, 0xb8, 0xb8);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf8, 0xcc);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf2, 0x82);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf5, 0x87);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdd, 0x40);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_msleep(dsi_ctx, 110);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x06);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x05);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7, 0x01, 0x37);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x20);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbd, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0x5a, 0x5a);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xf0, 0xa5, 0xa5);
-> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +}
-> +
-> +static void ams644vk04_send_off(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 10);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
-> +}
-> +
-> +static void ams644vk04_reset(struct ams644vk04 *ctx)
-> +{
-> +	/* Same timing as downstream: 10 ms steps, the logical value 1 asserts reset */
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 10100);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	usleep_range(10000, 10100);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 10100);
-> +}
-> +
-> +static void ams644vk04_supplies_disable(struct ams644vk04 *ctx, int first)
-> +{
-> +	int i;
-> +
-> +	for (i = first; i >= 0; i--)
-> +		regulator_disable(ctx->supplies[i].consumer);
-> +}
-> +
-> +static int ams644vk04_supplies_enable(struct ams644vk04 *ctx)
-> +{
-> +	struct device *dev = &ctx->dsi->dev;
-> +	int i, ret;
-> +
-> +	/* The rails come up one after the other, vddio and vout need time to settle */
-> +	for (i = 0; i < ARRAY_SIZE(ams644vk04_supplies); i++) {
-> +		ret = regulator_enable(ctx->supplies[i].consumer);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to enable %s: %d\n",
-> +				ams644vk04_supplies[i].supply, ret);
-> +			ams644vk04_supplies_disable(ctx, i - 1);
-> +			return ret;
-> +		}
-> +
-> +		if (i < ARRAY_SIZE(ams644vk04_supplies) - 1)
-> +			msleep(20);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int ams644vk04_prepare(struct drm_panel *panel)
-> +{
-> +	struct ams644vk04 *ctx = to_ams644vk04(panel);
-> +	struct device *dev = &ctx->dsi->dev;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
+> +	struct device *dev = panel->dev;
 > +	int ret;
 > +
-> +	ret = ams644vk04_supplies_enable(ctx);
-> +	if (ret)
+> +	priv->dbi = dev_get_drvdata(dev->parent);
+> +	if (!priv->dbi)
+> +		return -ENODEV;
+> +
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies), priv->supplies);
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable power supplies: %d\n", ret);
 > +		return ret;
-> +
-> +	ams644vk04_reset(ctx);
-> +
-> +	ams644vk04_send_on(&dsi_ctx, &ctx->dsc);
-> +	if (dsi_ctx.accum_err) {
-> +		ret = dsi_ctx.accum_err;
-> +		dev_err(dev, "Failed to send on sequence: %d\n", ret);
-> +		goto err_power_down;
 > +	}
 > +
-> +	ctx->prepared = true;
+> +	usleep_range(1000, 2000);
+> +
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+> +
+> +	usleep_range(10000, 11000);
 > +
 > +	return 0;
+> +};
 > +
-> +err_power_down:
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	ams644vk04_supplies_disable(ctx, ARRAY_SIZE(ams644vk04_supplies) - 1);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ams644vk04_unprepare(struct drm_panel *panel)
+> +static int hitachi_tx10d07vm0baa_enable(struct drm_panel *panel)
 > +{
-> +	struct ams644vk04 *ctx = to_ams644vk04(panel);
-> +	struct device *dev = &ctx->dsi->dev;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
 > +
-> +	ctx->prepared = false;
+> +	panel_dbi_command(priv, MIPI_DCS_SET_PARTIAL_ROWS, 0x00, 0x00, 0x03, 0x1f);
+> +	panel_dbi_command(priv, MIPI_DCS_SET_SCROLL_AREA, 0x00, 0x00, 0x03, 0x20,
+> +			  0x00, 0x00);
 > +
-> +	ams644vk04_send_off(&dsi_ctx);
-> +	if (dsi_ctx.accum_err)
-> +		dev_err(dev, "Failed to send off sequence: %d\n", dsi_ctx.accum_err);
+> +	panel_dbi_command(priv, MIPI_DCS_SET_ADDRESS_MODE, 0x0a);
+> +	panel_dbi_command(priv, MIPI_DCS_SET_SCROLL_START, 0x00, 0x00);
 > +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	ams644vk04_supplies_disable(ctx, ARRAY_SIZE(ams644vk04_supplies) - 1);
+> +	panel_dbi_command(priv, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_24BIT);
+> +	panel_dbi_command(priv, MIPI_DCS_SET_TEAR_SCANLINE, 0x00, 0x00);
+> +
+> +	panel_dbi_command(priv, 0x71, 0x00);		/* Ex_Vsync_en */
+> +
+> +	panel_dbi_command(priv, 0xb2, 0x00);		/* VCSEL */
+> +	panel_dbi_command(priv, 0xb4, 0xaa);		/* setvgmpm */
+> +	panel_dbi_command(priv, 0xb5, 0x33);		/* rbias1 */
+> +	panel_dbi_command(priv, 0xb6, 0x03);		/* rbias2 */
+> +
+> +	panel_dbi_command(priv, 0xb7, 0x1a, 0x33, 0x03, 0x03,
+> +			  0x03, 0x00, 0x00, 0x01, 0x02, 0x00,
+> +			  0x00, 0x04, 0x00, 0x01, 0x01, 0x01);	/* set_ddvdhp */
+> +	panel_dbi_command(priv, 0xb8, 0x1c, 0x53, 0x03, 0x03,
+> +			  0x00, 0x01, 0x02, 0x00, 0x00, 0x04,
+> +			  0x00, 0x01, 0x01);			/* set_ddvdhm */
+> +
+> +	panel_dbi_command(priv, 0xb9, 0x0a, 0x01, 0x01, 0x00,
+> +			  0x00, 0x00, 0x02, 0x00, 0x02, 0x01);	/* set_vgh */
+> +	panel_dbi_command(priv, 0xba, 0x0f, 0x01, 0x01, 0x00,
+> +			  0x00, 0x00, 0x02, 0x00, 0x02, 0x01);	/* set_vgl */
+> +	panel_dbi_command(priv, 0xbb, 0x00, 0x00, 0x00, 0x00,
+> +			  0x01, 0x02, 0x01);			/* set_vcl */
+> +
+> +	panel_dbi_command(priv, 0xc1, 0x01);		/* number of lines */
+> +	panel_dbi_command(priv, 0xc2, 0x08);		/* number of fp lines */
+> +	panel_dbi_command(priv, 0xc3, 0x04);		/* gateset(1) */
+> +	panel_dbi_command(priv, 0xc4, 0x4c);		/* 1h period */
+> +	panel_dbi_command(priv, 0xc5, 0x03);		/* source precharge */
+> +	panel_dbi_command(priv, 0xc6, 0xc4, 0x04);	/* source precharge timing */
+> +	panel_dbi_command(priv, 0xc7, 0x00);		/* source level */
+> +	panel_dbi_command(priv, 0xc8, 0x02);		/* number of bp lines */
+> +	panel_dbi_command(priv, 0xc9, 0x10);		/* gateset(2) */
+> +	panel_dbi_command(priv, 0xca, 0x04, 0x04);	/* gateset(3) */
+> +	panel_dbi_command(priv, 0xcb, 0x03);		/* gateset(4) */
+> +	panel_dbi_command(priv, 0xcc, 0x12);		/* gateset(5) */
+> +	panel_dbi_command(priv, 0xcd, 0x12);		/* gateset(6) */
+> +	panel_dbi_command(priv, 0xce, 0x30);		/* gateset(7) */
+> +	panel_dbi_command(priv, 0xcf, 0x30);		/* gateset(8) */
+> +	panel_dbi_command(priv, 0xd0, 0x40);		/* gateset(9) */
+> +	panel_dbi_command(priv, 0xd1, 0x22);		/* flhw */
+> +	panel_dbi_command(priv, 0xd2, 0x22);		/* vckhw */
+> +	panel_dbi_command(priv, 0xd3, 0x04);		/* flt */
+> +	panel_dbi_command(priv, 0xd4, 0x14);		/* tctrl */
+> +	panel_dbi_command(priv, 0xd6, 0x02);		/* dotinv */
+> +	panel_dbi_command(priv, 0xd7, 0x00);		/* on/off sequence period */
+> +
+> +	panel_dbi_command(priv, 0xd8, 0x01, 0x05, 0x06, 0x0d,
+> +			  0x18, 0x09, 0x22, 0x23, 0x00);		/* ponseqa */
+> +	panel_dbi_command(priv, 0xd9, 0x24, 0x01);			/* ponseqb */
+> +	panel_dbi_command(priv, 0xde, 0x09, 0x0f, 0x21, 0x12,
+> +			  0x04);					/* ponseqc */
+> +
+> +	panel_dbi_command(priv, 0xdf, 0x02, 0x06, 0x06, 0x06,
+> +			  0x06, 0x00);					/* pofseqa */
+> +	panel_dbi_command(priv, 0xe0, 0x01);				/* pofseqb */
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_BRIGHTNESS, 0xff);
+> +	panel_dbi_command(priv, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x40);
+> +
+> +	panel_dbi_command(priv, 0xe2, 0x00, 0x00);		/* cabc pwm */
+> +	panel_dbi_command(priv, 0xe3, 0x03);			/* cabc */
+> +	panel_dbi_command(priv, 0xe4, 0x66, 0x7b, 0x90, 0xa5,
+> +			  0xbb, 0xc7, 0xe1, 0xe5);		/* cabc brightness */
+> +	panel_dbi_command(priv, 0xe5, 0xc5, 0xc5, 0xc9, 0xc9,
+> +			  0xd1, 0xe1, 0xf1, 0xfe);		/* cabc brightness */
+> +	panel_dbi_command(priv, 0xe7, 0x2a);			/* cabc */
+> +	panel_dbi_command(priv, 0xe8, 0x00);			/* brt_rev */
+> +	panel_dbi_command(priv, 0xe9, 0x00);			/* tefreq */
+> +
+> +	panel_dbi_command(priv, 0xea, 0x01);			/* high speed ram */
+> +
+> +	panel_dbi_command(priv, 0xeb, 0x00, 0x33, 0x0e, 0x15,
+> +			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting r pos */
+> +	panel_dbi_command(priv, 0xec, 0x00, 0x33, 0x0e, 0x15,
+> +			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting r neg */
+> +	panel_dbi_command(priv, 0xed, 0x00, 0x33, 0x0e, 0x15,
+> +			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting g pos */
+> +	panel_dbi_command(priv, 0xee, 0x00, 0x33, 0x0e, 0x15,
+> +			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting g neg */
+> +	panel_dbi_command(priv, 0xef, 0x00, 0x33, 0x0e, 0x15,
+> +			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting b pos */
+> +	panel_dbi_command(priv, 0xf0, 0x00, 0x33, 0x0e, 0x15,
+> +			  0xb7, 0x78, 0x88, 0x0f);		/* gamma setting b neg */
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_EXIT_SLEEP_MODE);
+> +	msleep(110);
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_ON);
 > +
 > +	return 0;
 > +}
 > +
-> +/*
-> + * Timings are the downstream ones.  The clock is htotal * vtotal * refresh:
-> + * the msm DSI host scales the pixel clock for DSC by itself, so the mode
-> + * describes the uncompressed picture.
-> + */
-> +static const struct drm_display_mode ams644vk04_mode = {
-> +	.clock = (1080 + 52 + 24 + 24) * (2400 + 4 + 4 + 8) * 90 / 1000,
-> +	.hdisplay = 1080,
-> +	.hsync_start = 1080 + 52,
-> +	.hsync_end = 1080 + 52 + 24,
-> +	.htotal = 1080 + 52 + 24 + 24,
-> +	.vdisplay = 2400,
-> +	.vsync_start = 2400 + 4,
-> +	.vsync_end = 2400 + 4 + 4,
-> +	.vtotal = 2400 + 4 + 4 + 8,
-> +	.width_mm = 67,
-> +	.height_mm = 149,
-> +	.type = DRM_MODE_TYPE_DRIVER,
-> +};
-> +
-> +static int ams644vk04_get_modes(struct drm_panel *panel,
-> +				struct drm_connector *connector)
+> +static int hitachi_tx10d07vm0baa_disable(struct drm_panel *panel)
 > +{
-> +	return drm_connector_helper_get_modes_fixed(connector, &ams644vk04_mode);
+> +	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_OFF);
+> +	msleep(35);
+> +
+> +	panel_dbi_command(priv, MIPI_DCS_ENTER_SLEEP_MODE);
+> +	msleep(50);
+> +
+> +	return 0;
 > +}
 > +
-> +static const struct drm_panel_funcs ams644vk04_panel_funcs = {
-> +	.prepare = ams644vk04_prepare,
-> +	.unprepare = ams644vk04_unprepare,
-> +	.get_modes = ams644vk04_get_modes,
-> +};
-> +
-> +static int ams644vk04_bl_update_status(struct backlight_device *bl)
+> +static int hitachi_tx10d07vm0baa_unprepare(struct drm_panel *panel)
 > +{
-> +	struct ams644vk04 *ctx = bl_get_data(bl);
+> +	struct hitachi_tx10d07vm0baa *priv = to_hitachi_tx10d07vm0baa(panel);
 > +
-> +	if (!ctx->prepared)
-> +		return 0;
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies), priv->supplies);
 > +
-> +	/* The panel takes the 11 bit level most significant byte first */
-> +	return mipi_dsi_dcs_set_display_brightness_large(ctx->dsi,
-> +							 backlight_get_brightness(bl));
+> +	msleep(50);
+> +
+> +	return 0;
 > +}
 > +
-> +static const struct backlight_ops ams644vk04_bl_ops = {
-> +	.update_status = ams644vk04_bl_update_status,
+> +static const struct drm_display_mode hitachi_tx10d07vm0baa_mode = {
+> +	.clock = (480 + 10 + 10 + 10) * (800 + 4 + 4 + 4) * 60 / 1000,
+> +	.hdisplay = 480,
+> +	.hsync_start = 480 + 10,
+> +	.hsync_end = 480 + 10 + 10,
+> +	.htotal = 480 + 10 + 10 + 10,
+> +	.vdisplay = 800,
+> +	.vsync_start = 800 + 4,
+> +	.vsync_end = 800 + 4 + 4,
+> +	.vtotal = 800 + 4 + 4 + 4,
+> +	.width_mm = 52,
+> +	.height_mm = 86,
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
 > +};
 > +
-> +static int ams644vk04_probe(struct mipi_dsi_device *dsi)
+> +static int hitachi_tx10d07vm0baa_get_modes(struct drm_panel *panel,
+> +					   struct drm_connector *connector)
 > +{
-> +	struct device *dev = &dsi->dev;
-> +	const struct backlight_properties props = {
-> +		.type = BACKLIGHT_RAW,
-> +		.brightness = AMS644VK04_DEFAULT_BRIGHTNESS,
-> +		.max_brightness = AMS644VK04_MAX_BRIGHTNESS,
-> +	};
-> +	struct backlight_device *bl;
-> +	struct ams644vk04 *ctx;
+> +	u32 bus_format = MEDIA_BUS_FMT_RGB888_1X24;
+> +
+> +	drm_display_info_set_bus_formats(&connector->display_info,
+> +					 &bus_format, 1);
+> +
+> +	connector->display_info.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
+> +					    DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
+> +					    DRM_BUS_FLAG_DE_HIGH |
+> +					    DRM_BUS_FLAG_DATA_LSB_TO_MSB;
+> +
+> +	return drm_connector_helper_get_modes_fixed(connector, &hitachi_tx10d07vm0baa_mode);
+> +}
+> +
+> +static const struct drm_panel_funcs hitachi_tx10d07vm0baa_panel_funcs = {
+> +	.prepare = hitachi_tx10d07vm0baa_prepare,
+> +	.enable = hitachi_tx10d07vm0baa_enable,
+> +	.disable = hitachi_tx10d07vm0baa_disable,
+> +	.unprepare = hitachi_tx10d07vm0baa_unprepare,
+> +	.get_modes = hitachi_tx10d07vm0baa_get_modes,
+> +};
+> +
+> +static int hitachi_tx10d07vm0baa_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct hitachi_tx10d07vm0baa *priv;
 > +	int ret;
 > +
-> +	ctx = devm_drm_panel_alloc(dev, struct ams644vk04, panel,
-> +				   &ams644vk04_panel_funcs,
-> +				   DRM_MODE_CONNECTOR_DSI);
-> +	if (IS_ERR(ctx))
-> +		return PTR_ERR(ctx);
+> +	priv = devm_drm_panel_alloc(dev, struct hitachi_tx10d07vm0baa, panel,
+> +				    &hitachi_tx10d07vm0baa_panel_funcs, DRM_MODE_CONNECTOR_DPI);
+> +	if (IS_ERR(priv))
+> +		return PTR_ERR(priv);
 > +
-> +	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ams644vk04_supplies),
-> +					    ams644vk04_supplies, &ctx->supplies);
+> +	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(hitachi_tx10d07vm0baa_supplies),
+> +					    hitachi_tx10d07vm0baa_supplies, &priv->supplies);
 > +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
+> +		return dev_err_probe(dev, ret, "Failed to get supplies\n");
 > +
-> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ctx->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> +				     "Failed to get reset-gpios\n");
+> +	priv->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(priv->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
+> +				     "Failed to get reset gpio\n");
 > +
-> +	ctx->dsi = dsi;
-> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +	ret = drm_panel_of_backlight(&priv->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
 > +
-> +	dsi->lanes = 4;
-> +	dsi->format = MIPI_DSI_FMT_RGB888;
-> +	dsi->mode_flags = MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS |
-> +			  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT;
+> +	ret = devm_drm_panel_add(dev, &priv->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add panel\n");
 > +
-> +	/*
-> +	 * DSC 1.1, 8 bpc, 8 bpp (4 fractional bits), block prediction, two
-> +	 * 540x48 slices per line, both in the same packet.  The DSI host
-> +	 * derives the remaining rate control parameters from this.
-> +	 */
-> +	ctx->dsc.dsc_version_major = 1;
-> +	ctx->dsc.dsc_version_minor = 1;
-> +	ctx->dsc.slice_width = 540;
-> +	ctx->dsc.slice_height = 48;
-> +	ctx->dsc.slice_count = AMS644VK04_WIDTH / ctx->dsc.slice_width;
-> +	ctx->dsc.bits_per_component = 8;
-> +	ctx->dsc.bits_per_pixel = 8 << 4;
-> +	ctx->dsc.block_pred_enable = true;
-> +	dsi->dsc = &ctx->dsc;
-> +
-> +	ctx->panel.prepare_prev_first = true;
-> +
-> +	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
-> +					    &ams644vk04_bl_ops, &props);
-> +	if (IS_ERR(bl))
-> +		return dev_err_probe(dev, PTR_ERR(bl), "Failed to register backlight\n");
-> +	ctx->panel.backlight = bl;
-> +
-> +	drm_panel_add(&ctx->panel);
-> +
-> +	ret = mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		drm_panel_remove(&ctx->panel);
-> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-> +	}
+> +	platform_set_drvdata(pdev, priv);
 > +
 > +	return 0;
 > +}
 > +
-> +static void ams644vk04_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct ams644vk04 *ctx = mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret = mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +}
-> +
-> +static const struct of_device_id ams644vk04_of_match[] = {
-> +	{ .compatible = "samsung,ams644vk04" },
+> +static const struct of_device_id hitachi_tx10d07vm0baa_of_match[] = {
+> +	{ .compatible = "hit,tx10d07vm0baa" },
 > +	{ /* sentinel */ }
 > +};
-> +MODULE_DEVICE_TABLE(of, ams644vk04_of_match);
+> +MODULE_DEVICE_TABLE(of, hitachi_tx10d07vm0baa_of_match);
 > +
-> +static struct mipi_dsi_driver ams644vk04_driver = {
-> +	.probe = ams644vk04_probe,
-> +	.remove = ams644vk04_remove,
+> +static struct platform_driver hitachi_tx10d07vm0baa_driver = {
 > +	.driver = {
-> +		.name = "panel-samsung-ams644vk04",
-> +		.of_match_table = ams644vk04_of_match,
+> +		.name = "panel-hitachi-tx10d07vm0baa",
+> +		.of_match_table = hitachi_tx10d07vm0baa_of_match,
 > +	},
+> +	.probe = hitachi_tx10d07vm0baa_probe,
 > +};
-> +module_mipi_dsi_driver(ams644vk04_driver);
+> +module_platform_driver(hitachi_tx10d07vm0baa_driver);
 > +
-> +MODULE_DESCRIPTION("Panel driver for the Samsung AMS644VK04 AMOLED DSI panel");
+> +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
+> +MODULE_DESCRIPTION("HITACHI TX10D07VM0BAA MIPI DBI Type B panel driver");
 > +MODULE_LICENSE("GPL");
-> 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
