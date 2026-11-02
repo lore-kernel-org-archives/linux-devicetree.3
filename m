@@ -1,61 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619607;
-	b=iYRDm/kiam3z9KP2rFSflrxO4/4G1GA1FrNoba4iO4GsCAEvgLwXBe82/HKDJIworVT6
-	 7cY0UoEn5I+BJiV0q9/4EFD1A9lZ7FQX+3E5HLP+U3nVn8dgYoo9FBJTvCwPcS1zxBVgk
-	 0+czyandXCHwEPWRGlNUarIRryAi6nwpsb9OzxNb1X22e+mwOFRw1bIqXKRPHRjpDmYzp
-	 R3Kpbd33U9ehNnfAVDWS6F8nJgD5Xc0MqRcpir8WDyPDVX0mfpA9/jA78gNKxU0/rHnFz
-	 ZmwJ68X0xVTr3cyJLtkELN0FPzPrRsP4eaLpkQUbeMRBUanvSZYePy2jNcnD9TOVHyg==
+	t=1793619686;
+	b=HHZvvzIQi8dRut98/DaY6WpNbFQvra/rzmq1shFfzAUmeUYERkujRu35+1w2pskY2iWE
+	 YyIonz1s21JtAigPxg95eQeVbZy67tjl2WAH2gPJGKEMy9j3aJM5xwAUykGHhC2HcKHRc
+	 AJorGN2wN45Pxst3LTxOYxjyMjdfu8GZHgM6xTb+9UydL7TA++wSs4k3PTiyysJDkY+s/
+	 qNV0a4PB/7ufQkgBRXBlrJLeqx48yJLUXw6C6YV864A1PgVCRmvCGTtpqmWr0KX4RVCwU
+	 p+6I2xA7nEZvVi6SGO7aaBr2PqCsP4mEfFy1Qu2uMatXmnW9vDiQj6B8IC+XchtSbzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619607;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PGaY0Pa3HUYVclQJqjBeSI20mWGTsICDiHVjhHNeV1I=;
-	b=HfgtmnE+M9/3CYrdLn13wXflmdSAWUewclmceu2wfSmnVk1DVzYPZNd4IdriTjNigjz1
-	 BG1tbcXed7l5nuvIkn29N+OMFk9UMwC6zIOv6SBl/0Bgw2NScg9u2z5qKnUt3QKq4Sepg
-	 95nz3K+A5XGWmcnhov8QPKmzyu5r/L+4OxzgdDiipaPnqSf+rTFC1rLMIvOQwu9lW6Piv
-	 Lzg15vtYcDe1EAnRKH+rPMFQ3PmqR5b7lgTsg3PGFgiVaurGUMvmX4iga8cOSgRhIwmGr
-	 DT/H840qJbRxnXUO1LDbKb8dDiFcU7hu6OGaMIdlPlLUCwIzucDCiNYfaDe2rXCjgRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619686;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hli9Pm6PyR4E1whnLP74hf5mHnZKkC5Wmy1ba4WkJhE=;
+	b=vGfV45d91vUvz/6GwLye+yP0OJy7YCluTR7bQyi3jTPQ/jvqcuhkr0iQG8xeIEY65mjn
+	 hqtnW2pYbejPnXOy8Tc4YV+e37Z/dEdmWPn2ks67f+z3+N9JQvniKcaRVv0n2M6KvLExo
+	 MMZazfFeuiQ+Hhrs4HXMYMeN9uNnnySPD3kQZCmgu1CixWql7+XWVOkP2EOsYHVDNwxqS
+	 +DVtDHdmebwe2Qvh0l/8H87/amJRWp/r6tO9bA4y0fB1+y1IuJNmzHYjNs1ADRzJ1NkKH
+	 gGttE3qDuAYiZXTCnRTQYgc8LsbGAoU3mgIRuA2p6gA+rdbzzdaO92xwpkWc3yUrdbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxhzywtJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KXIvGTeQ;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B2B606A326;
-	Mon,  2 Nov 2026 11:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5B2606A324;
+	Mon,  2 Nov 2026 11:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE5B2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxhzywtJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8761F00A21;
-	Mon,  2 Nov 2026 11:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619606;
-	bh=PGaY0Pa3HUYVclQJqjBeSI20mWGTsICDiHVjhHNeV1I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MxhzywtJBHiisWhAANnkA8vgHE9oI5DEKKmoc/nAm5eLjve7s+fjBjbY3sJi+iMVk
-	 513dCavz/UvlAVM+dYF87jXDBwrmV4AY9r/xfuDry/43mW11avQyQtaUBN/mNachnL
-	 VUj1BE2lmHejeUaAfvF8cRfwsnq0HtAxRQtXnPrqJm9g6RD3TibbGg5Nsft22QIOcw
-	 By7RHFA807z9xRshcCcKZEiIe660/h9MLluJp4ekrksYbR2q9XZfztahkzBZxAggW7
-	 DBeJdb4EEPNJYJ8wFDp9UkUxaTo/0EzB+XzzDDbc/kxOaQP35dADO1Kkpfa4HfxTgQ
-	 gOPxz4D5mcCBg==
-Date: Mon, 2 Nov 2026 12:40:02 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Akhila Kavi <akavi@axiado.com>
-Cc: Sammai Chakravarthy <schakravarthy@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>, 
-	Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Axiado AX3005 IRoT
- MCTP transport
-Message-ID: <20261102-nightingale-of-legal-superiority-fda313@quoll>
-References: <20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
- <20261101-mctp-transport-irot-ax3005-v1-1-36ceb822f01e@axiado.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KXIvGTeQ
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 75328BE;
+	Mon,  2 Nov 2026 12:39:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793619547;
+	bh=T+o17ojaeL3LXS8MEZRII4Gziximst2Yab1GxPQcvhM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KXIvGTeQ97m5HZMByM/E2aPK96z4htwSQbPZrQMzUkZbrLZoiUZPDBa1x8s/HV906
+	 rvr66VS1WTemwmFC6/KPrpMpywOuNSz8/BNKd3fSRFMNtpomPGSXe8lU6Ko7K8KeVU
+	 Zx94ahRVzU7xrC2xlIMX5hWiKAfF0T8eWNmSRigE=
+Message-ID: <02facf72-2b1e-4e31-a84a-cd18913469c2@ideasonboard.com>
+Date: Mon, 2 Nov 2026 13:41:19 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,32 +54,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261101-mctp-transport-irot-ax3005-v1-1-36ceb822f01e@axiado.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/14] drm/tidss: oldi: Drop unnecessary forward
+ declaration
+To: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-6-dc7f2b532478@ideasonboard.com>
+ <5044b7a0-5eaf-4008-9653-11027b8055b5@linux.dev>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <5044b7a0-5eaf-4008-9653-11027b8055b5@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 01, 2026 at 06:00:57AM -0800, Akhila Kavi wrote:
-> The Axiado AX3005 SoC has an integrated root-of-trust (IRoT)
-> co-processor next to the application processor. The two exchange MCTP
-> packets through a no-map carve-out in DRAM, and use one channel in each
-> direction of the AX3005 mailbox controller as doorbells.
-> 
-> Add a binding for this link. The node has no registers of its own. It
-> describes the fixed pairing of a TX and an RX mailbox channel with the
-> reserved-memory carve-out that the IRoT places its packet windows in.
-> The IRoT firmware chooses the window addresses inside the carve-out and
-> reports them at runtime, so they are not described in the devicetree.
-> 
-> Also add a MAINTAINERS entry covering the binding.
-> 
-> Signed-off-by: Akhila Kavi <akavi@axiado.com>
-> ---
->  .../bindings/net/axiado,ax3005-mctp-irot.yaml      | 60 ++++++++++++++++++++++
->  MAINTAINERS                                        |  8 +++
->  2 files changed, 68 insertions(+)
+Hi,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On 01/11/2026 16:11, Aradhya Bhatia wrote:
+> 
+> 
+> On 29/10/26 10:18, Tomi Valkeinen wrote:
+>> Nothing needs "struct tidss_oldi" in tidss_oldi.h, so drop the forward
+>> declaration.
+>>
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> 
+> Should this perhaps have a Fixes tag?
+> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
+I think this is more a cleanup than a fix. The forward declaration 
+doesn't cause any issues, so there's nothing to fix.
 
-Best regards,
-Krzysztof
+  Tomi
 
