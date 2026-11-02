@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793582061;
-	b=ZtYphaIGDpf+vXRckvtx3B7pv+iTtNZRMsvOVwcRuJJo2TO0MP3oz8Pj/CW8XdIMODWh
-	 KYOLh5m3F1J/3MP/1dNdLjD2k80C8xBZDPeNtzzfYWrB3+HzslEK3LWTghXNw11LSiAar
-	 cdZotx9ItN9iuWcpDn/5IEPW0xZWYBBpClPs1C1G8Nkt6VaYtiNyrrIh9XED0ThrzXHtg
-	 p1y6XpmyPy6kHgQGCjCfVCPzGTPHgbmG3aAHcO1M4sJNqFk87Tst9a9ZT4h0H9uktSHVj
-	 sIFpcY/dlVjZpnxzKK2IOm4E365kndmillVI/Cda9sVU+Sl2qOr2MwGyXV2+adXazAQ==
+	t=1793582328;
+	b=Vx27OwGuYaPcZOOGHyMMjFS/rpPi8hUwOP1sGdfssb6Wvu//tinecZ1veKYEXYmZliw5
+	 xeIZ9KmN+0yYyeY35FaxIwc3XeN14yJCb6AayyhQfJZYi+I3P/A535JCg9KTHdp82ET1i
+	 rNg1dreCUYjkcAA8Zzys9ixT6vqTZCTV4Cu8b4PcAV4x+u0WbM2cdZj4wfkIrg2BxHCYW
+	 JKPBbwMfocsVWn5NYGDLlOLp5vVfDSbz4d6KfG8EVp5k7AW6HJqJgP/XHpKA46bdj0In6
+	 UZQ9k8zXkmwWcnGRgpQbkeRjm95imLFRnffp0XVTyEdDvvSwhjG1cOSL43eI1z8vhsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793582061;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793582328;
 	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To;
-	bh=S0Q7MjKWFiLIKrIxH78/CGwgNug5pMrs4qMFldikjPo=;
-	b=fJlnS1rAiUQryNeZc1K+OxSxl5QNRnmZPKGQ1W98IWID/ftNqXIhVb+j4g3brluAlUs8
-	 cDZhXK6YsYZNqIe+3WFHVjwL4n1x336NjJuvP9M65XnFNGfraeEkOl5uYBnn5N4FH0M05
-	 Qr942ilNfVuU2djrVu3cHQRK3+mGljNWOV/fY1AYfw+ivcQJwV0/EXzT/mijqE5b4Bjki
-	 dMUvnBNYoOwk0iuu4VEWfqhHWsWbcllYlPM19rjbfgEPBroEocBDgsFidP/ZesSuHckDR
-	 OBq4jLy5ONbO8lC6OQou30vMtjjhRsjnshTvxQD0Xgbnz66BgoLMI48x4NlEoU5u9fA==
+	bh=D4Z9hw1h5TRJ5BsgYhWpux1ch96XJn/lw5L3zZBTE5Y=;
+	b=AmyBTl3dxUFM5WYzi+eVy1zBcj9dpfevCsHKfkNsk74AJdlhX8mwokKS7iu6evVJEqjq
+	 QE5m/MXMipl4cDpwdQbHaoZPfHsF+PaUR5FoJTa9nyv7OQfWdjr4rsb1TNVBlXvPFdRvc
+	 tHk1Q6bC6QnJu0fJN0ANOECxOByY1nN1PT5HtLTy2iDc/3zJiEZXYSvTFfBCb3iODi+oj
+	 weqwiHbcr/3Sq3eqINXJPqPacNEe931xkFF7rmKTdfG7F1v+gJRbJLfP1HrFSCcMGExBI
+	 KSa9REfk9pKlIr2rVuOOBzzMeS3pn3jeuvxwdx0oT/8QSFKpY1+e7GPmj3xM6l1t8zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=lunn.ch;
 	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="Eud/Q1dp";
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mUY2svjr;
 	arc=none smtp.remote-ip=156.67.10.101
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AD9606A32F;
-	Mon,  2 Nov 2026 01:14:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0AD9606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E745606A326;
+	Mon,  2 Nov 2026 01:18:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E745606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Eud/Q1dp
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mUY2svjr
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
 	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
 	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=S0Q7MjKWFiLIKrIxH78/CGwgNug5pMrs4qMFldikjPo=; b=Eud/Q1dpcP91kMAdhRdBGv5UiS
-	s/gb8x2fBdhir2tj9Tx5BPqErsCK1Y+JTXmepxsDTIzpt2XH2+H2lfKaJseDZRCZaUOEMbwBx/p8a
-	PjSRTQN4ISB8bzle6CE4I+c7WGT+AZmKdpETOgFNkCfPsZb15KymOM2Jjdu7uA0QnK58=;
+	bh=D4Z9hw1h5TRJ5BsgYhWpux1ch96XJn/lw5L3zZBTE5Y=; b=mUY2svjrv6cMF/GBi8xCxI+qRq
+	L51xEAsDZrS0jWjYBGThddCDMXDmosGglMmggBpSXSuE+BVnYHJ0BOsfYemACYIk/U+a2H1EJgEvi
+	8IWTvE3BWjRO0F8dIO9kFxGubxMkwbXF0KMJ8ZAg7JAsU7iVA/4nXEPqbkhrEbX9a6t8=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1xNgch-00DiT4-8m; Mon, 02 Nov 2026 02:14:07 +0100
-Date: Mon, 2 Nov 2026 02:14:07 +0100
+	id 1xNggz-00DiVZ-PE; Mon, 02 Nov 2026 02:18:33 +0100
+Date: Mon, 2 Nov 2026 02:18:33 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: Lucas Tanure <tanure@linux.com>
 Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -63,11 +63,11 @@ Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
 	netdev@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/7] net: stmmac: dwmac-meson8b: add support for the
- Amlogic T7
-Message-ID: <c7d703f1-57fa-42cc-82fc-3e0aab05b71a@lunn.ch>
+Subject: Re: [PATCH v4 2/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+Message-ID: <95418d50-a83f-47da-819b-de04eab449e2@lunn.ch>
 References: <20261022200640.3101932-1-tanure@linux.com>
- <20261022200640.3101932-4-tanure@linux.com>
+ <20261022200640.3101932-3-tanure@linux.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,12 +79,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022200640.3101932-4-tanure@linux.com>
+In-Reply-To: <20261022200640.3101932-3-tanure@linux.com>
 
-> Without that gate the controller cannot do DMA at all, so it is
-> required rather than optional: a clear probe failure beats an
-> undiagnosable hang later.
+> +        rx-internal-delay-ps:
+> +          enum: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000,
+> +                 2200, 2400, 2600, 2800, 3000]
 
-Does the DT binding mark it as required?
+Is 0 possible with the hardware? If so, i would accept it.
 
-     Andrew
+   Andrew
