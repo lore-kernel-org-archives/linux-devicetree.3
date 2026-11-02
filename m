@@ -1,111 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621685;
-	b=yK0o4INaXXbwygnSkP6Mtj02vlkmcwoTnLDdTptXEmSp4Po4w3PExg1nRAOH3FAOr243
-	 LHiwEh7pQChJq0Holxum1e5gXPYdYWaoFoHllWIOhQzT7KEGw6271DcrlqF7RlE72gIna
-	 C1BC0Ad1NXgATWH4pXPYnabAMhyLYexRK8lStcXgg7pkkw5k27qxjlMcsDIxXaYXtPMjp
-	 8sugS9xAp8WvDGYOjGalRG9Vq68ORlhUbz2z+legAFP2U9L3u44c78CShnTHio2RYqrDq
-	 5LCehpJEzCchIj+ieZSC0UIQLcNQF1Rnn7NKbRwZ6R2SMpNGwc4N5oGsHPIPsc7gYnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621685;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4pYys262BoSP9st1EWB0AAZfQAXhEMARnoA66AWBafE=;
-	b=SPIWFtEKR73aAbpbp5U6lqRcb5ZEKI7yVfBy7an+KiPLFnxZ477FuaeACEYkvYg6pCtX
-	 B9ELrruRh958cn5SsL3Z0cMkyTUyOQ5h+lyG9Ob+SlgCWfmQSElMO7FhNYqjULJ3KOf+N
-	 a7s4xhExQ3mKeT/vo9rRpTrQw87pHorsEO9biqbOnJIiirAFdO2n/dDiu9znBIqMpQPDM
-	 t2QBY7Yso569vUBSZtHFJnvUqkfAB7Aa/sQnfDvtxMZzkxmlH+UviY+TzvEqCqNIewFjT
-	 6a4tqckHM0dn0WUKQ61AiqxkUREk+saDiHYK0yAO7WIeAP0DCm6zUzLFrxh2htKVx/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=O5Qo49TV;
-	dkim=temperror header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=YhbFCFgs;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793621814;
+	b=2VYbXPTnuQEDXhFMyx64VWgo0Zh+reBnZvi5Z7f1ecN6mtK/2Grx2Sb10Po7HzKVRerc
+	 PD3bqsRS7Oj543xJLle06IlwYxPXVGBHrsD17+pCv/NXEC/SvDk6AUN9UV+0vI2K1YgA6
+	 k6uUUHRxR9hU5nOkCjzKaCvf67RYEOOFZdtxIA2VB5LwkK8BEy42F75jlgw0DFVJpRY2v
+	 ximMq5BPAdmipkEEBLYlRM+BFPcVgROOxJH8jKqqAentf8rTevx8sDeeim6aOV2qtKatb
+	 5aDx9qLqUkIuKr7PkwrHuAda9Mi64QltwvZjDn0TBqOuNkNVvqJUUFxIpHWbQjgoySQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621814;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WdbxVt6sBbh3ZVVu3wKkZjSItfhtmF4+pE1+g+q0DeE=;
+	b=tVsjcPFMDqX45FJjnVm2EBbWwQeWe1/BroGFk9z6GIdJeTgssqAYw4bwnFHPfo2Q+80r
+	 pnwtwpGjb6iTPIRn5NPgj7feYOOla3+P1JGDvLchJMosIL1pZFL3cSybcVextvqZc23SQ
+	 G3kbTrkcj0NairCfE8PkOf1yjNHBXkt1Hdxe57HWAay03I1PQhS4DSBLQiHtCrxtwqAI+
+	 bX4jxCmCXg6Ni9xsddKuXDRWpjIisP2HsI8FVxAU88RYOXLnLmXSGM9XZLAPW+dCd2sWP
+	 kQBR/Fn+HSoUph35JDzY1DYVE3yvI4b32Z0pHrjg4cgxbtKaNu7GQNcdvkyDt46eVkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZZGvQlWJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.37
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011037.outbound.protection.outlook.com [52.101.52.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9570C60A2611;
-	Mon,  2 Nov 2026 12:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9570C60A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9401606A32C;
+	Mon,  2 Nov 2026 12:16:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9401606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=O5Qo49TV;
-	dkim=temperror header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=YhbFCFgs
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29BVu51304387;
-	Mon, 2 Nov 2026 07:14:32 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=4pYys262BoSP9st1EWB0AAZfQAXhEMARnoA66AWBafE=; b=O5Qo49T
-	VDoOkzDGhP3gTSZg9CQsRcoDCZiNN70BGc4KmuPJvbLfEfYvzCs1bEOp9QJVGQTa
-	8TkEtHsXP4cEsNl+/iOlyzkrEvKTV6zrkJrdw0EG+AenpoNkeJSRhMSA1lkx1j6g
-	QMN4VDZj4MOKrFhrUJMgPhdJvwyZ5qlzNlj3KF0Qgdo8ED1/mPEgSmthYsoqBKGv
-	oixH9syL3rskUDlLOSfvmWRbWtUnOKJZLIVuT5NE3MNj4rJpp34mnh5PWK99uEZL
-	ADskQANbwsK1d/Zxx2L6qbnTsmV98mTt3RxC0CtaC5EzdlK08ez9do6xuQiR2qKC
-	rS9IQgNENqJBwYw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=4pYys
-	262BoSP9st1EWB0AAZfQAXhEMARnoA66AWBafE=; b=YhbFCFgs6cjRj79cY64Jl
-	Z9ldx9YN6PV2IRxuLt7AtviBzkE57SOr+XUJXJ0Y+FTYKxIe0capQMrP03vnwcJv
-	Od49Y/R1MOaYhgUYquAkiwAmQQQAwUEasf4ck5Q7HmDO3KEfSXBM4GHbn7Pc9v6l
-	0eRII3GlmC05JIjRtdtxWTQ8SYut3Zyfd5izfz1iSEBqpawWocFNZXtINq1rmvwG
-	jgyIsGmQIRF6EqwJxv+nTt6+CQv82ang6sPDLujmeljfGlL64NkV/TLD+UkhlQnN
-	3r3XHe+oiiH2muX1xbA2D+1+wyvxj8DDER2I72Y8dppR9lmaAAuLOtRaMXKD9NoV
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hpad3bvjf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 07:14:31 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6A2CEUTa042531
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 2 Nov 2026 07:14:30 -0500
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZZGvQlWJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h/qTTW/3uplgdZIcmPYltVOni6Pq+bvkq3SBu5tqmIrhA0OHkNyC89xxgUS6O8Hcfd2JMdGpKo0tZ1z5Qx3teSVqq4bEif09eRLjVgSl0qycbftKRjDFZEDYiPZXAWM5GoCtCI+JW4+NjdunA6aMOVvoNCLVQK+PcChhJoW9nwdHfP45N4W+DhqRxNFwuzNzpeELDW5Gd1fQ5Zw/wTBwqNx60gMOQZ8TFFNzCALWC4qLYry2utS3X1GcvWIqlmGcmQaQyQaybuqQZIBjjIJ2jq/icpO28xo2GldI8NRGFyHJH9SOyL4/T1fjwgvB3/a6uuHaqZGaXmEvt4LG7DQqgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WdbxVt6sBbh3ZVVu3wKkZjSItfhtmF4+pE1+g+q0DeE=;
+ b=nYhoKu+n7y5qCrRL5fFLL4x6FEpFnuoxecvHCM90VVUK+ejr2KLFVEYO+rLNASDMgDprQq4pnivB64I+CBh2g+KtxB0MY1RFgH3sFkqaJrwWQHX6UPYUnu3eIa48ZGljlvc5Qy2vf/ZCvUKi+zBLkRTiRp1YzHU5lJf0AJ/JKBGYMGXc3Aq3KdqVmnmAxdByYhIoi4GjjyF2Ok5N6MsBkEAYtymDdZgRzvZ58O7sSHXtaEe7sjLuZctbPQ8pgZF++B1svVVY8QHRbETDydWkwQlgpeCmgNApzh6bT8dOUQlwrIb/Fy+DeU9S/s2TjPNQKae+R/q+nC3NwfvNaKoNOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WdbxVt6sBbh3ZVVu3wKkZjSItfhtmF4+pE1+g+q0DeE=;
+ b=ZZGvQlWJ6RHpU+Irr/lMYEf2cNyXivV/ApHeKDh2X+/ja2kyUKnDw8JDToVncziCnfqp/RsyEjsiFgDiz3prvb6y3CB6w1b9hZOWt2ipJxA9cZsluNAwp7oi86HxvotU7YNXF/8DpZmpw1AsivcgL1eEVviKm7dxaXyR5svhYvCds+ZtU0t1tF0OV+3SElYXHYpsj4fsx3DsbvBUfHM0xf86cljliv8oyLmj+mm8+Tkm1/VboqF7GGxxZWEjruF8gVVEnNzfJQPjIT56uK8evGg7s4XTVV8VHN9UE2jFmLV2o7gwGVr5QRBCYT3CphchsVqRbcscfrr/egq6AhR49w==
+Received: from CH0PR03CA0271.namprd03.prod.outlook.com (2603:10b6:610:e6::6)
+ by SA1PR12MB6918.namprd12.prod.outlook.com (2603:10b6:806:24d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 12:12:44 +0000
+Received: from DM3PEPF000265C1.namprd03.prod.outlook.com
+ (2603:10b6:610:e6:cafe::34) by CH0PR03CA0271.outlook.office365.com
+ (2603:10b6:610:e6::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 12:12:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ DM3PEPF000265C1.mail.protection.outlook.com (10.167.23.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 12:12:44 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 04:12:25 -0800
+Received: from build-johnliu-noble-20261009.internal (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 2 Nov 2026 07:14:30 -0500
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 2 Nov 2026 07:14:30 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 2 Nov 2026 07:14:30 -0500
-Received: from HYB-0FPP35J6CsI.ad.analog.com ([10.135.2.44])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A2CEE0F021851;
-	Mon, 2 Nov 2026 07:14:23 -0500
-From: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-To: <jic23@kernel.org>
-CC: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        David Lechner <dlechner@baylibre.com>,
-        "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Dragos
- Bogdan" <dragos.bogdan@analog.com>, <linux@analog.com>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-Subject: [PATCH 2/2] iio: adc: ad7405: Add support for ADuM7801/7802/7811/7812
-Date: Mon, 2 Nov 2026 14:13:52 +0200
-Message-ID: <20261102121352.23741-3-pop.ioan-daniel@analog.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102121352.23741-1-pop.ioan-daniel@analog.com>
-References: <20261102121352.23741-1-pop.ioan-daniel@analog.com>
+ 15.2.2562.56; Mon, 2 Nov 2026 04:12:24 -0800
+From: Johnny Liu <johnliu@nvidia.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+	"Prashant Gaikwad" <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+	<jbrunet+clk@baylibre.com>, "Douglas Anderson" <dianders@chromium.org>,
+	Aniruddha Rao <anrao@nvidia.com>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-clk@vger.kernel.org>
+CC: Johnny Liu <johnliu@nvidia.com>
+Subject: [PATCH v3 3/4] firmware: tegra: bpmp: Add Tegra238 support
+Date: Mon, 2 Nov 2026 12:12:01 +0000
+Message-ID: <20261102121202.2431928-4-johnliu@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102121202.2431928-1-johnliu@nvidia.com>
+References: <20261102121202.2431928-1-johnliu@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,106 +119,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0OCBTYWx0ZWRfX9F4vsRtpf9qV
- sCEug5QOiHS1bPLZwykJv5BlTKsf2NwcDIQAxsF8NhGgP9oXz9SXRc+VfyvBw4+t4s0OJnaYsO4
- z1YY1N4TKflr6WCt4FcQWiwDqW8DlcFBjtL+wkN4WYcT+0/bCHGaMLiAk8dkY75socApiWD5DP/
- bjtEqeIth3fWdC0075RJ1x2aB7JhGhPuu3FBOG0ynLE17SWk+9tJC29HuyMZEi/nqCIuCg+dog8
- QtwEipFbPpSWByiscZ4llMzmW1ZokQFMoMxNlmmVs3y7xzBFUmMdiB74HdNEiPnGm4o7WNZrZjA
- NjtB1z6OmRG1yHG67QpLXo0oVfHfgHZBSAB0ZwX/SFa/DrKRr7iXrqU2fR35o5cFe8u+zqSvhlB
- BSGFnzGNq5qgbozuLq2xdcGY6nsmnKue4FqjpHkflHdtk0MTF7XMVjxYHcziew1i+Vzq+5qnl8y
- bnlDZYRe5W5l5Bkvq1g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0OCBTYWx0ZWRfXxpZPn7CQ1Dhv
- EKzCb957+BBewkbZ4/4eUu/9vUsEI8WN8xgHGnotZtb5mPKac/Y8NeggWPHG6WSu0ad0ctCKq3M
- VW4tERLrCmHRRzeyTI/mJGwBbIPHvm26+arShA4+DZHV0UdUtNOm
-X-Authority-Analysis: v=2.4 cv=YL0KWhGx c=1 sm=1 tr=0 ts=6ae87ea7 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=YT1L1IOf0YprgsJQ2eIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: GebDVp99DRRY2NWCPxh3LgTjHfR-aIQ5
-X-Proofpoint-GUID: GebDVp99DRRY2NWCPxh3LgTjHfR-aIQ5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 spamscore=0 bulkscore=0 malwarescore=0
- clxscore=1011 phishscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020048
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C1:EE_|SA1PR12MB6918:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0277265-7393-42e9-c3a0-08df38da99eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|7416014|376014|261021121427099003|261022075727099003|261009223027099003|921020|11063799006|10067099003|56012099006|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ItLohWvK0oaw5O0ZRgssQaA/xswGH1xwoJiKpMKMRWdClDl4Fhag5QzAv8iLNL7zsgM8d1axfv+g8DkxEdYXNcxKGd7Xb+m3naMI8OBVVEJ17Pbu6KSsQSv1fFszneLlfyDKckRjGgyPjnWwu5UKwYOJD9c/terq4/h7dY7YzwDRNzBEZS4r6eM5Di6jAoivrPXZe0NGr4X/O+Ku0VNjPCgODFIVrOiPQ8L20S9M6ccA4cFivtZn9GDU2OWtTwZzQ4pzh2iK6zEdSLzoTcDDK9uoWFlFlvTx5zTjSQ3KToMEK8zz9IF+FMLNb62SY1L7E43lkPPbBEtjwJN5LGxhdBcMit86VZlvzA3VplxZBjXG7pwG19fdHG7oqwsgjYNv5JElXJzMUQSBSKT/aJ71krU+KrUP9vFlGaSjqxH7CPtxyTBc8tZgi4H+vDR3n5EbkMjuaevSe4fyiCaCc8DIwvMn3r1FKrUIcFAYNiWqn0Iog7YSd1Exu8WzMMUxAPu4nCS8/W/WICEtdd0G5ieZJR/v4opLsEs7P817fQ+baoo9KqJ0tBidjp8yfb76kG3fLwv2hHCsbB+u4yAk/tHbY03RqW+/6MBiceweaTLLXonAp0Kz7uxd/ZBki8jeO4ADJ5aqP4cebhLvzfDDAXg5B+EAUNvnMrNw73UzD1zqro1VtTLAfg22wUYwhIhoPMXZ9WrZBw4sOpxVbtqkOnRq+2FfLPO5VR8JJLaHF+riyYv6e+ND8QHWiKTwENF+MAZv
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(7416014)(376014)(261021121427099003)(261022075727099003)(261009223027099003)(921020)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NoM305JRoM7wJqwL/UvAiT+mMlgX2Hk/Kfdk+z0z+E5Vjd5RSvcrSFhNAonqmoRUkvnBRvY7wh7VSXONYnCacAXAm0lsG3qdBYd4EloyFP63sBFZ7CSyOPVrdiH2B3f5yR0q1GZwU5M5vS2cgE/Y7Qozqa3T/qYOG6DcFv7cKyrjaBZmwnPop6VzaTVHeyQQ2W1sPkY7HvY2+HsJ++Ypl57Tn/QHj8wyMtmf+Mmcko9XDINpI/+6MkehvMeqNSNtPqINLs0gythjAhOb0BCCesIyUTdiU8t4IKRLaJDIIXQizCxQ/wdyiP1jPrcuZTBOyVBkryqEDKJe2eXNyklQka8w5IBDXDTKfMU7pzfoiiYvzxkzQX0QwdbSVV5QaR9jN6b+KyjDIYhrRQgfRoM5gsdaFPwpHOAc0a0RJYZALhBJDEruj+1jTxme9ymHtVdk
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:12:44.4959
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0277265-7393-42e9-c3a0-08df38da99eb
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265C1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6918
 
-Add a chip information structure and a device tree match table entry
-for each of the ADuM7801, ADuM7802, ADuM7811 and ADuM7812. These parts
-are handled the same way as the existing ADuM770x devices and differ
-only in their full-scale input range: ±320 mV for the ADuM7801 and
-ADuM7811, and ±64 mV for the ADuM7802 and ADuM7812.
+Tegra238 has its own BPMP compatible, "nvidia,tegra238-bpmp". Add
+dedicated tegra238_soc data for it, including its EMC clock ID
+(TEGRA238_CLK_EMC=43), and select it through the new compatible.
 
-Also list the new parts in the Kconfig help text.
+Also build bpmp-tegra186.o and the shared match table for
+CONFIG_ARCH_TEGRA_238_SOC, so that a Tegra238-only configuration binds
+the driver.
 
-Signed-off-by: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+Signed-off-by: Johnny Liu <johnliu@nvidia.com>
 ---
- drivers/iio/adc/Kconfig  |  3 ++-
- drivers/iio/adc/ad7405.c | 24 ++++++++++++++++++++++++
- 2 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/firmware/tegra/Makefile | 1 +
+ drivers/firmware/tegra/bpmp.c   | 9 +++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index f8456c8039883..0458b326e153b 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -359,7 +359,8 @@ config AD7405
- 	depends on IIO_BACKEND
- 	help
- 	  Say yes here to build support for Analog Devices AD7405, ADUM7701,
--	  ADUM7702, ADUM7703 analog to digital converters (ADC).
-+	  ADUM7702, ADUM7703, ADUM7801, ADUM7802, ADUM7811, ADUM7812 analog
-+	  to digital converters (ADC).
+diff --git a/drivers/firmware/tegra/Makefile b/drivers/firmware/tegra/Makefile
+index 97f7a5db9d0a..21e87f3afffe 100644
+--- a/drivers/firmware/tegra/Makefile
++++ b/drivers/firmware/tegra/Makefile
+@@ -4,6 +4,7 @@ tegra-bpmp-$(CONFIG_ARCH_TEGRA_210_SOC)	+= bpmp-tegra210.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_186_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_194_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_234_SOC)	+= bpmp-tegra186.o
++tegra-bpmp-$(CONFIG_ARCH_TEGRA_238_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_264_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_DEBUG_FS)	+= bpmp-debugfs.o
+ tegra-bpmp-$(CONFIG_SYSFS)	+= bpmp-sysfs.o
+diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpmp.c
+index 5d97a8600fd1..06da888535dc 100644
+--- a/drivers/firmware/tegra/bpmp.c
++++ b/drivers/firmware/tegra/bpmp.c
+@@ -21,6 +21,7 @@
+ #include <soc/tegra/bpmp-abi.h>
+ #include <soc/tegra/ivc.h>
  
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called ad7405.
-diff --git a/drivers/iio/adc/ad7405.c b/drivers/iio/adc/ad7405.c
-index 0996f48d76f1e..ee9873b47a84f 100644
---- a/drivers/iio/adc/ad7405.c
-+++ b/drivers/iio/adc/ad7405.c
-@@ -158,6 +158,26 @@ static const struct ad7405_chip_info adum7703_chip_info = {
- 	.full_scale_mv = 320,
++#include <dt-bindings/clock/nvidia,tegra238.h>
+ #include <dt-bindings/clock/nvidia,tegra264.h>
+ #include <dt-bindings/clock/tegra234-clock.h>
+ 
+@@ -1134,6 +1135,7 @@ static const struct dev_pm_ops tegra_bpmp_pm_ops = {
+ #if IS_ENABLED(CONFIG_ARCH_TEGRA_186_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
++    IS_ENABLED(CONFIG_ARCH_TEGRA_238_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
+ #define TEGRA186_BPMP_SOC_COMMON					\
+ 	.channels = {							\
+@@ -1163,6 +1165,11 @@ static const struct tegra_bpmp_soc tegra234_soc = {
+ 	.emc_clk_id = TEGRA234_CLK_EMC,
  };
  
-+static const struct ad7405_chip_info adum7801_chip_info = {
-+	.name = "adum7801",
-+	.full_scale_mv = 320,
++static const struct tegra_bpmp_soc tegra238_soc = {
++	TEGRA186_BPMP_SOC_COMMON,
++	.emc_clk_id = TEGRA238_CLK_EMC,
 +};
 +
-+static const struct ad7405_chip_info adum7802_chip_info = {
-+	.name = "adum7802",
-+	.full_scale_mv = 64,
-+};
-+
-+static const struct ad7405_chip_info adum7811_chip_info = {
-+	.name = "adum7811",
-+	.full_scale_mv = 320,
-+};
-+
-+static const struct ad7405_chip_info adum7812_chip_info = {
-+	.name = "adum7812",
-+	.full_scale_mv = 64,
-+};
-+
- static const char * const ad7405_power_supplies[] = {
- 	"vdd1",	"vdd2",
- };
-@@ -232,6 +252,10 @@ static const struct of_device_id ad7405_of_match[] = {
- 	{ .compatible = "adi,adum7701", .data = &adum7701_chip_info, },
- 	{ .compatible = "adi,adum7702", .data = &adum7702_chip_info, },
- 	{ .compatible = "adi,adum7703", .data = &adum7703_chip_info, },
-+	{ .compatible = "adi,adum7801", .data = &adum7801_chip_info, },
-+	{ .compatible = "adi,adum7802", .data = &adum7802_chip_info, },
-+	{ .compatible = "adi,adum7811", .data = &adum7811_chip_info, },
-+	{ .compatible = "adi,adum7812", .data = &adum7812_chip_info, },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ad7405_of_match);
+ static const struct tegra_bpmp_soc tegra264_soc = {
+ 	TEGRA186_BPMP_SOC_COMMON,
+ 	.emc_clk_id = TEGRA264_CLK_EMC,
+@@ -1196,9 +1203,11 @@ static const struct of_device_id tegra_bpmp_match[] = {
+ #if IS_ENABLED(CONFIG_ARCH_TEGRA_186_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
++    IS_ENABLED(CONFIG_ARCH_TEGRA_238_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
+ 	{ .compatible = "nvidia,tegra186-bpmp", .data = &tegra186_soc },
+ 	{ .compatible = "nvidia,tegra234-bpmp", .data = &tegra234_soc },
++	{ .compatible = "nvidia,tegra238-bpmp", .data = &tegra238_soc },
+ 	{ .compatible = "nvidia,tegra264-bpmp", .data = &tegra264_soc },
+ #endif
+ #if IS_ENABLED(CONFIG_ARCH_TEGRA_210_SOC)
 -- 
-2.34.1
+2.43.0
 
