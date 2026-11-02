@@ -1,61 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646907;
-	b=cDtUc2arVGZDfWpjcd+kLEEb6ADzX7iz9N5YNSXxxBs1bp4/L74fDcIFIbV1PHA+P9nl
-	 tHVjnL7isQlR8/XMN5LXyHsZOM3jYFipr0ZP4oanZu+azGtfe5nGTVaiC0iPxzEzyiEWb
-	 J2hQoakopFixRDzts2uttr9TosPjwRKGCIhQpgxkHpekXBsDnh3f/TCOrfcTfwQ4xNPhJ
-	 JNeP8ZrOwESL3mI1egoVoA5+JNu1Chdo7r3yOpq9knyVFj3KUKbmFQlmAgrfxJZaZUjas
-	 3qCBEW99cIe16D6eHswTmCUMbXW5offpozua9rts8oyn+uNeQSS5n0kI7fiv24QDbOQ==
+	t=1793646991;
+	b=jQOedbi10Wt/DjOYSDE4LI2H4mZEHMzgBHmf2uA1EcCUmFkkcFoVA0P+0ls5JK1oUr0r
+	 yaOzhV8FqLOhe5MYzFVN0eGZEk0Z38996QfQobox/6pHf33FMtsUUaH0RJQpbzBtS7kio
+	 rLHgfiT1AoHd3bp7lzsOkWGpyLW/g5p+w8YyqYPPvVH7PXT2khdSmEeGo7ahImuSGMUwN
+	 wXUuI3dsu0oRbgMZnBSKj2iIqf6y53j4OkW0KainCi9iVlQ2lbSg6PSw19gWiJ08n3tBJ
+	 S+T38MbI1A1WV1uLhhcUBF4vrtBKMBOFjXFd/k6FzO+EejGGptgucej+HpodrisYhSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646991;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ub7b5kzLvl9OAeW8ozCd6H/592RWGbAqWfLNRh//2/A=;
-	b=OhttVhXQpbgM//HJ/WUyQgfhHShsKBFiL65T/KF+7VT5wTwYrpwFRQ3fdANumvn/WuGr
-	 H/ryb0h14iy+l04qVHGCzwJ5i4rn8o7NhrvTWc6WutLkl3F5w0WHHzusSCH9SezjCMvYS
-	 TOhdSBXuzuObtiaeukJLpIBHwmtPSnOEINrx8812H9k24NOdXR7YkNZ/X/4vUs6ihByiC
-	 JBCNqUETJkkMQKq8HntS6VVd2tO/e6sXZXE8TltkqqlB9foLUn/XzRQkq3pxl6AaUln1P
-	 YnrKDMDhB3t7gt0ryv+IwheW198Hg1W3d+otB0P8LmtMKE6irytsiikQJCISu0uovBA==
+	bh=VbAaauU+tOjWUhy13M+E36i6rI1cWNNx68RKW+3FocQ=;
+	b=NJA3nUZdHO7t93UVAqzU0z8m4TAe4b84UeKlMD3XfLRWF3PlViJFpGKUEJNi1cq8z55T
+	 lsLIMRQhnfdkxk1ClTcIBE3lPwn7DsGaHoKXxv+XMk5yTsQu1CGGBWoUGtgHKqXNOGq+w
+	 IW6SG3+yyxRLNhxwCWL66VdPAeywqPblxwdXe9auDEoJhRSRyCF5G951cZ8hdyCgduydq
+	 xfC42Dzqzu06oAfs1xW6r66VtQt+erDl5I89rEZjF9hoYyXF5Xdckywo/gkEcflAWy4Hk
+	 CLCPUgB29meEBZ5crOkjzSkO0Gavp3WV4Uq1XfY8aqWWO8CeznBUZ/0VQ/Kn5JsaIZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hth+rPdM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDu0+tIg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36492606A33B;
-	Mon,  2 Nov 2026 19:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D476F606D812;
+	Mon,  2 Nov 2026 19:16:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hth+rPdM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132871F00A16;
-	Mon,  2 Nov 2026 19:15:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDu0+tIg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC061F0157E;
+	Mon,  2 Nov 2026 19:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793646906;
-	bh=Ub7b5kzLvl9OAeW8ozCd6H/592RWGbAqWfLNRh//2/A=;
+	s=k20260515; t=1793646990;
+	bh=VbAaauU+tOjWUhy13M+E36i6rI1cWNNx68RKW+3FocQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hth+rPdMehrl9EA1niQuNJaYSiG8QK4UJG4rx8w5Ztdq3W+R1L/UaI6/zUUkZCN7K
-	 xDyiXsp4wlh0FJCJDcFHwZcofoZr4pjikuBS2SlOck6aQiKqdbcDOc9EbVT/oeE8G0
-	 9SJlMrKd3rpvhnrldz1cIOWF6WmQ9z9mKwbt7Ge9PitOwZLM44JstbN2OfxP03NCyJ
-	 HA8EV2ZhDX+d7Sp2/aIYeLSy1ZDmsglmKsl6wJtM839v9kvTMwIesqkqeWDNnOD50Z
-	 clF9ZfT7ekH6mdC2DlAz099ceeGe12OL0RSdfav0IQJ+Sk5NRtGVo5NJDqW6i6Kvzl
-	 qrK7BS0wJSM3g==
-Date: Mon, 2 Nov 2026 19:15:02 +0000
-From: Conor Dooley <conor@kernel.org>
-To: marouene.boubakri@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Anup Patel <anup@brainfault.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Radu Rendec <radu@rendec.net>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/8] dt-bindings: timer: sifive,clint: add OpenHW Group
- CVA6 APU
-Message-ID: <20261102-coagulant-unplanned-f98c31a5a309@spud>
-References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
- <20261102141727.640769-4-marouene.boubakri@oss.nxp.com>
+	b=UDu0+tIg0nx+V6+xDSJs8thduUykWOL2F2oShDpZKNBFu1NUv9poV+V23KMDTFNvk
+	 wSEvWtETln2mAVoevNNBpPXIG0rLKOq8Q+msXIYOolYSekNQHHcN+IqASL4u3kk+TV
+	 7tlZl+PxJOYfsrcKSt7wX1DqdS14Rx1oil8CYcQcf77AmXxJNGYgzryHxBM/mmH06Q
+	 i7WLkUJZSdV+8HG44KhkiB+17Gzf+Z/1wiM1y203VZF4Q/iR7VM9HR+Dx3dt9gvwM+
+	 KIu4jSJ5sCgb238PRJIotWYq2DyqEs3VrxllHDTTi4rf916nwVtKBdyNo2H0/FHjFo
+	 CrvbqItaIBEWw==
+Date: Mon, 2 Nov 2026 13:16:28 -0600
+From: Rob Herring <robh@kernel.org>
+To: Josua Mayer <josua@solid-run.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Benjamin Bara <benjamin.bara@skidata.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Jon Nettleton <jon@solid-run.com>,
+	Mikhail Anikin <mikhail.anikin@solid-run.com>,
+	Yazan Shhady <yazan.shhady@solid-run.com>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v10 03/11] dt-bindings: usb: cypress,hx3: make peer-hub
+ property optional
+Message-ID: <20261102191628.GA834063-robh@kernel.org>
+References: <20260928-rzg2-sr-boards-v10-0-91752ea39cbc@solid-run.com>
+ <20260928-rzg2-sr-boards-v10-3-91752ea39cbc@solid-run.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,27 +71,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ck1ZkQepgggIYSGA"
-Content-Disposition: inline
-In-Reply-To: <20261102141727.640769-4-marouene.boubakri@oss.nxp.com>
-
---ck1ZkQepgggIYSGA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260928-rzg2-sr-boards-v10-3-91752ea39cbc@solid-run.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Mon, Sep 28, 2026 at 07:33:54PM +0200, Josua Mayer wrote:
+> Cypress HX3 Hubs are combined USB-2.0 and USB-3.0 devices, and should be
+> described by one node per speed and linked by peer-hub property.
+> 
+> It is however possible to install this Hub to a USB-2.0-only host, in
+> which case the USB-3.0 peer has no place in device-tree.
+> 
+> Remove peer-hub from required properties.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
+> ---
+>  Documentation/devicetree/bindings/usb/cypress,hx3.yaml | 1 -
+>  1 file changed, 1 deletion(-)
 
---ck1ZkQepgggIYSGA
-Content-Type: application/pgp-signature; name=signature.asc
+Applied for 7.4-rc as the .dts change has already been applied, and 
+Greg seems a bit behind.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujhNgAKCRB4tDGHoIJi
-0vnqAP49VXjGm7Y82Jh8vMDSzllX63VvhJSZatC/j3MzWdJm0gEA40JIqOL0/nky
-JeL86xTzQidzloCS9D260V0s7U2YHgg=
-=Ze0C
------END PGP SIGNATURE-----
-
---ck1ZkQepgggIYSGA--
+Rob
