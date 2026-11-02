@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656291;
-	b=M15BpJlc3mwfo8i4cyIN4QLF8cAo2uezV8lvGm0rqnwA8ahugLXldwq1M/6tu/CLUvVH
-	 eLU8Gq8c/LvN6UQpOUiv0/PGj97yhv3ABKsTS6sir8/mkJWZU31dEvBHKTT5g7qesjz9l
-	 mg1TkKr9vKOlPqw8n1G3ebQ3vk9Hc3VC/JCjAUgbsZmNgzbS7pu7ruiKza1t2nzibnBVA
-	 5gh2TFY+1+jkSc5TKZqlXSMdgQZpPF8cfkb88uMia8XkF4BAyMIpOwccJ3oeptWz7LNfY
-	 /qyF2cMB/b3+dDAYjH9UgdVUaCauIb2SiytEnoh0TKiHPUnWmu/6SDuqllEEvxv1B0g==
+	t=1793656295;
+	b=DOGYM2/+sdXG8RHK1UBrDDbvyzCmW+7XNov+dAf4l03T76dyjzPbDJQu+GGiOsZ70Vv+
+	 Tycs0hxEN+OtTh5224NkOVTpahBoNiqOtobggpoB5uv3h8WzKxl+pW4wLmwDFkP6nBisp
+	 CgPqF6e4c9IaraCjhQPIMOrHTqDIM0uQ3E1cJi3vSnarLkzLrz1V7Z0m2fipWKLCi5wNm
+	 H4rgIiil+gM6MxVlHS5UMMxxUy0QdMS9FPwjyZ9Sc+/pYPTElsKcwy76107c6GA/KO0EC
+	 GMVyYWli59dbbE0O+OA+dxt3vDP+TwUAnYmGgzeXJiqU41cYAPIU0a91Yh3lMXW6MWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656295;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vos1HFIVF/NJ4IuY/YpKJRZFV6pO0sGvErN9/wY0MOo=;
-	b=KZohVTlq1Vkk3j5OZ1iOChuCjxbUue5WLqmA+6m1BTZfNJvEkK7ozOrcJc4E9a8Z5nTC
-	 V7E5i4SjnT7VXR1IB+GDsmlrX9HF8g93LJw0SeC9OfElOn59dWW4BZUVKtw4ymC5Ar07A
-	 0h7o+sSseX4OI1Id8GkGWTZ0CnTRsKTlwO1oUfP+qC9hwdpBDIYb8A8XgDMkan6r7Jrel
-	 DGgNGu01/wf2nbe/IwPhy2UpqCI5PZNVFrJb3n376y5O3RZjR9YkKtLFxG2LwWqbFb4Z0
-	 1Hqn30/XKNX3/NmnmNNyacq4zeD41M5ZooYQh35kVjBVen5tBCuQG5yoTDFjhy+TbhQ==
+	bh=7jSwJK/207WO58UQjI6Ts9YDU9KElEsJfJqCrITWK3Y=;
+	b=C76soX2u5OAjWUPHrrmOzVocQAOPHNDOPoj1rXby9tu1h4Gdz4hHzVu3A8pmZt/ioVR+
+	 wlNuBUv06ZzF7/wicf1LH+oaEaPCLIKHjKfnzC90p13c4aWwwmlytJ7dng0SUilj0qScP
+	 ORzgpNlJfSW2HQ5bWSlhFb4Wh9r4AaFRrNXNPWWDBJ0QqHqbtGKc15UnOXTuPAlcwBr1U
+	 owneU6NdXR15D9uVyeewWW1KAkND4+2whPK1TAV75outzlkiaaUtFe05HVQ0ZH1DxmDz4
+	 bvRQOS3JUMKzSWB73LO2FbHHL1Lf52dH+MLLfAnmlLlicEY/QeXRQYCrjv4ImAyUPpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IUavopT0;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNTSo+Ar;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AECD606D826
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 21:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AECD606D826
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EEB606D80E
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 21:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32EEB606D80E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IUavopT0
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a3c08d6928so4273765c88.0
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:51:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dNTSo+Ar
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso6008049eec.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:51:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793656290; x=1794261090; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793656294; x=1794261094; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vos1HFIVF/NJ4IuY/YpKJRZFV6pO0sGvErN9/wY0MOo=;
-        b=IUavopT0x503NEsOkhGnGymHqDmmPgz27hNvqsdOtI3N+qGn00lRolYd2sM1+LHouW
-         LZLQOS84vA9kz4rPtRgOOOOI4jUkWQfIMZGJ3Xb+772nHh17/AYesdGZGbmZ2hrGB0WJ
-         Fy0zD24IQzvj41hMTSNZAhHnbbSUjcogehhw65h7/gN06u7Al1bCHUggNcXfGCqdkXbR
-         JgQs+kfGCML/PHFGJacckGMA/KVWTdZiQ9xCiujNa5PwiGAd4YrbzmtZ5O/GB1rhkFRW
-         FzYhatafrVYGu8X4SuHaVZJVDq1hCH6LP7cJg/eI26IJRBtzpJj6JCRXjUBuuO+dc2ZC
-         WkQA==
+        bh=7jSwJK/207WO58UQjI6Ts9YDU9KElEsJfJqCrITWK3Y=;
+        b=dNTSo+ArHEY1p8y6b1Gl1CtTGFOW2OPldm8D157toJld7B0aLlPSHWAsnx771XKWWv
+         +acgqY+siIoIZGU5HoMCJ+UxlcZ0Y9XJLQh9Ed1A1camRF1+gKook+dsdrXZpjT9BRpM
+         v62LnC8uAIBlkJ7zCyQVHZUfsepAmSfeuuhCG/p6sHcJyBDWCNi9biiNteKhCP4UQmj3
+         L/96MDWkO8t2uQjrLSjd8EnrCbd7XfVWWqvzVO2vnnE6HwU3mv5kb+Ur8wxDDXbiO5Ja
+         6dOp55l8ef5KzbOYHo6IftBbkj6JfE/Yv7LIW2wPg8vxOB9IRaY1mNFy8/wevuonr9kK
+         vJgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793656290; x=1794261090;
+        d=1e100.net; s=20260707; t=1793656294; x=1794261094;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vos1HFIVF/NJ4IuY/YpKJRZFV6pO0sGvErN9/wY0MOo=;
-        b=fFnzmutubKBdZvV7utwI36899suRQ3ENE9caV9oI1NxVAbW+Arox+FOS4rJGEfKlWn
-         baOvfJXtWAp6OjL0S2eVa6sJYWMvBrJ32Wq25DCBEdyJw00RqwvoDcvbfrp2U8N/1bCM
-         4Z4bcS1tjqwTO6eGnAHZCV5Hg5xnW3wtqBnxc+0oGcdYyqGkNz7jwwiNONBrDpGFe25/
-         yPPQKGs+0XqBmpF/tw7Xh6LydL1oRp5X012IJ3csA7120TRQuWnwpLxFsPD10gm8Fdlj
-         K+xEyUCVGh1zRdp+sby5TjTQlUTS4oNyft9/Jot0ymaPwIsPRMRDhTRzj0mXvWjYIYu8
-         dQ4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzl21pflgpXpF/gHQwwD6Nd4AZDc5RujLyeuEGKKUFXBAozPw03Un02uG0mVFgk28g73mhqmOoyHGdu@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrJPQyCJvNyqKgKPpMPAama1U056A+mv281pHOPwObogl4t9gL
-	rrIleCtZ5/EMRTd53lC5QBoKIT6wK9jC9s/4W2C9eN7FfqIAh0f48vYf
-X-Gm-Gg: AYBFou2JowsASs/olKj5ufSntK/KoAmly7ihqyGo6wMR+7TfNOiWjOPEv7hMsij1Yyh
-	6V0fILBua7GKpbNcWbxFAxu8hoFdwNEunk2Dmy2BFP8iE/z4K7WDBR437/s0VT7ZzhGnm2Ci+//
-	4XrjUIHtAmkeMHLTpyfzdsmmK0lPIOJOx6p90PAqvEbbnelleBsxcz9LzNkCUWRUCREEu22cc4r
-	SACk05f7mo3f0AlaTyANFlOLa0nJc98dABnqcnSlsaq/qQnC8Y59Buvu4p1hi0WrvU98HcEKQBf
-	0dLtyS3N5ifdTNY8QbrC6mt/jP7dNeJtvBssLfuaenGloXTGoxFM7jryGoAxl+B6OXyU/eEorAi
-	x6FhoGOI+IRxsAKTWnlu64huQZUwdzZMPxOz8ugTZz/LCgQRyKYlasx7vvAVmXf286+wflCRV3B
-	OFwe6WyTCtgZfGiKRY2SIR7ksu+PGYKUSD9YnMRxoI49jJYRPjbJwyzgafL2tm9xXyO4cP5WW/s
-	d9AWAnOHRUijaRl6bO7O/popt0ITeHmPgG9KEphTYX5oEc4kp4dCTGdFNhXSPNmZ8ML7tzqIYU4
-	Vc9PP6pq+K/2Kvwrar9rKLILD0P5kRb2X56TpPxEG7oJ0Q==
-X-Received: by 2002:a05:701a:ca8a:b0:19a:e0eb:6916 with SMTP id a92af1059eb24-1ac5de540bbmr18334909c88.42.1793656290215;
-        Mon, 02 Nov 2026 13:51:30 -0800 (PST)
+        bh=7jSwJK/207WO58UQjI6Ts9YDU9KElEsJfJqCrITWK3Y=;
+        b=ozZfymF3Guu3mjKQZucsiJAzEHiO2o4XacvgIcEgcZlWqeyGUx93wV3NNXCXLYU15r
+         P1H6oYZ1rihPZ98Bl8NvJ6CUUz/IZyuXU+3/NSZZPzQ8JQf91flnepsrCn4nAwtp25pH
+         3uf16CjpHgZ3xKzv7KGp8Y3kAorCw18icLQjeiju2ln6tvT2Mfx5w5UHBgld+Qv7Anbu
+         pEeywa5XAs7gKxc4kJ1W2qMJrWDJ6twxMkPuALHbQ9gBBTAEIz+UNolrU/j2CDVuYhUP
+         7NNPF1ptN4SmuScqPUk0z3NB6WsN1Mht2B3ikxX0ShV+Fa/n0lKyU+t3QaWjHZE+N+tJ
+         g9ww==
+X-Forwarded-Encrypted: i=1; AKwUvBy5MTYN9V1EVSFMbBej4N7w5QIN+tDub5Y+l4CGEXR0OZ7zxnJ86m3ejbzNtnJCwKeZgRFaQGDxidMj@vger.kernel.org
+X-Gm-Message-State: APuU4Z84BdG/C3rnT4OP9MYeuqX8FCo3+ozaQMRhMjYxJRWCS+E5mvib
+	EfjgbWq/1sfrf3+DOofZZB6gEPyhoM3nltWNOfj6dR6R5dlPvxFG4GjO
+X-Gm-Gg: AYBFou1TrF9YVImDPeXH+8rlB+g2NRA3muHZba9TfmjxNNaHVMnL4H0VzxdhpoWOFka
+	9efGYJ5QxDQBxzM302/lZptMZbexpDAsNj8QkLxJv+e2OpNV874N7Uq2Ae3WxteOxWFd7lUK9P/
+	k9FB8FnWFPIawj3BW95xGOMf4kiytSZFmX/O53nanu1aPUniHGunXo2mcbxjwxFGe8su4kpbG9n
+	dXjqLtgv6g0hRlzvy+RkavmEWqYHYM6+8yB2Col//Pdx2xd96bGWuL415VISmYTd0UWrheCpIz0
+	W3Bu6rxKC0vT/nUIdESHbCFQbkLR0+ISa0Tm9j9Yt0lwuRfF3o2kkltDCNqERwC/cQ9ahHg/uLe
+	aszhMI+qEJ0Vaj47Mu7vhZ+1GLqJiJi1O0ucZ/x9erSIqsM5+jcqrc1QPZu7P29VTQgagWeyOjM
+	HZixkDin2W0dDs+OIcsKWDJkUmq4faCPfFdWrSMNof/TBx3GTQmMzTrdXe2+kuN/+B0IWxhs7hD
+	Riw6l4ZSTolNhsdwex+ZYtD3sQQlzwE2GlozyNVT9h0nYKNXTtAtdh0ll5kwGgx2jshpnxEGKqq
+	hfCJjFB476aA5C6ePICbo6HHg66gpdqUdVme108q/kdf
+X-Received: by 2002:a05:693c:88d6:20b0:35f:8c5d:5928 with SMTP id 5a478bee46e88-36a4244db5emr16226283eec.30.1793656294172;
+        Mon, 02 Nov 2026 13:51:34 -0800 (PST)
 Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm54710712eec.16.2026.11.02.13.51.26
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm54710712eec.16.2026.11.02.13.51.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:51:29 -0800 (PST)
+        Mon, 02 Nov 2026 13:51:33 -0800 (PST)
 From: Joonhoe Kim <26rote@gmail.com>
 To: gregkh@linuxfoundation.org,
 	Thinh.Nguyen@synopsys.com,
@@ -99,9 +99,9 @@ Cc: abelvesa@kernel.org,
 	linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] usb: dwc3: qcom: Use the UTMI clock as PIPE clock in DisplayPort-only modes
-Date: Tue,  3 Nov 2026 06:51:19 +0900
-Message-ID: <20261102215121.738-3-26rote@gmail.com>
+Subject: [PATCH 3/3] arm64: dts: qcom: kaanapali: Mark the USB controller as a Type-C mode switch
+Date: Tue,  3 Nov 2026 06:51:20 +0900
+Message-ID: <20261102215121.738-4-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261102215121.738-1-26rote@gmail.com>
 References: <20261102215121.738-1-26rote@gmail.com>
@@ -116,212 +116,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With DisplayPort pin assignment C or E the QMP USB3-DP combo PHY gives
-all four lanes to DisplayPort and powers its USB PCS down, while the
-controller can still run USB 2.0, e.g. for the hub of a USB-C monitor.
-Keeping the pipe clock branch enabled, as commit f546912bcac6 ("phy:
-qcom: qmp-combo: Move pipe_clk on/off to common") does, is not enough on
-Kaanapali: the next xHCI reset in this mode times out ("Host halt
-failed, -110") and USB stops working until the cable is replugged.
-
-Register the glue as a Type-C mode switch when the node has the
-"mode-switch" property, and select the UTMI clock as PIPE clock in
-DP-only modes, as "qcom,select-utmi-as-pipe-clk" does statically.
-typec_mux_set() calls the switches in connector endpoint order, and the
-controller's HS endpoint precedes the PHY's SS endpoint, so the
-controller switches before the PHY powers its USB side down.
-
-Switch back to the PIPE clock only on a role change after the mux has
-gone from the safe state to a USB state: on unplug the PHY stays in
-DP-only mode while DisplayPort is powered, and the role and mux
-notifications come from different pmic_glink services in no fixed
-order.
+When the USB3-DP combo PHY is a mode switch, DisplayPort pin
+assignments C and E put it in DP-only mode, where it stops the USB3
+PIPE clock. Make the USB controller a mode switch as well, so that it
+moves to the UTMI clock first and keeps its USB 2.0 port working.
 
 Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
- drivers/usb/dwc3/dwc3-qcom.c | 94 +++++++++++++++++++++++++++++++++---
- 1 file changed, 86 insertions(+), 8 deletions(-)
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index ac68b4218b56..4919deae682d 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -19,6 +19,9 @@
- #include <linux/iopoll.h>
- #include <linux/usb/hcd.h>
- #include <linux/usb.h>
-+#include <linux/usb/typec_altmode.h>
-+#include <linux/usb/typec_dp.h>
-+#include <linux/usb/typec_mux.h>
- #include "core.h"
- #include "glue.h"
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index e48a179d0722..a06d5d867488 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -3941,6 +3941,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 			tx-fifo-resize;
+ 			dma-coherent;
  
-@@ -85,6 +88,13 @@ struct dwc3_qcom {
- 	struct icc_path		*icc_path_apps;
++			mode-switch;
+ 			usb-role-switch;
+ 			wakeup-source;
  
- 	enum usb_role		current_role;
-+	bool			ignore_pipe_clk;
-+	bool			dp_active;
-+	bool			dp_only;
-+	bool			utmi_pipe_clk;
-+	/* protects dp_active, dp_only and utmi_pipe_clk */
-+	struct mutex		pipe_clk_lock;
-+	struct typec_mux_dev	*mux;
- };
- 
- #define to_dwc3_qcom(d) container_of((d), struct dwc3_qcom, dwc)
-@@ -419,21 +429,77 @@ static irqreturn_t qcom_dwc3_resume_irq(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
--static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
-+static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom, bool utmi)
- {
--	/* Configure dwc3 to use UTMI clock as PIPE clock not present */
- 	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
- 			  PIPE_UTMI_CLK_DIS);
- 
- 	usleep_range(100, 1000);
- 
--	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
--			  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
-+	if (utmi)
-+		dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-+				  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
-+	else
-+		dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-+				  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
- 
- 	usleep_range(100, 1000);
- 
- 	dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
- 			  PIPE_UTMI_CLK_DIS);
-+
-+	qcom->utmi_pipe_clk = utmi;
-+}
-+
-+static void dwc3_qcom_update_pipe_clk(struct dwc3_qcom *qcom)
-+{
-+	if (qcom->ignore_pipe_clk || qcom->dp_only == qcom->utmi_pipe_clk)
-+		return;
-+
-+	dwc3_qcom_select_utmi_clk(qcom, qcom->dp_only);
-+}
-+
-+static int dwc3_qcom_mux_set(struct typec_mux_dev *mux,
-+			     struct typec_mux_state *state)
-+{
-+	struct dwc3_qcom *qcom = typec_mux_get_drvdata(mux);
-+
-+	guard(mutex)(&qcom->pipe_clk_lock);
-+
-+	if (state->alt && state->alt->svid == USB_TYPEC_DP_SID) {
-+		qcom->dp_active = true;
-+		qcom->dp_only = state->mode == TYPEC_DP_STATE_C ||
-+				state->mode == TYPEC_DP_STATE_E;
-+	} else if (state->mode == TYPEC_STATE_SAFE) {
-+		qcom->dp_active = false;
-+	} else if (!qcom->dp_active) {
-+		qcom->dp_only = false;
-+	}
-+
-+	/* The PHY stops the PIPE clock right after this in DP-only mode */
-+	if (!qcom->dp_only || pm_runtime_resume_and_get(qcom->dev))
-+		return 0;
-+
-+	dwc3_qcom_update_pipe_clk(qcom);
-+	pm_runtime_put_autosuspend(qcom->dev);
-+
-+	return 0;
-+}
-+
-+static int dwc3_qcom_mux_register(struct dwc3_qcom *qcom)
-+{
-+	struct typec_mux_desc desc = {};
-+
-+	if (!device_property_present(qcom->dev, "mode-switch"))
-+		return 0;
-+
-+	desc.drvdata = qcom;
-+	desc.fwnode = dev_fwnode(qcom->dev);
-+	desc.set = dwc3_qcom_mux_set;
-+
-+	qcom->mux = typec_mux_register(qcom->dev, &desc);
-+
-+	return PTR_ERR_OR_ZERO(qcom->mux);
- }
- 
- static int dwc3_qcom_request_irq(struct dwc3_qcom *qcom, int irq,
-@@ -570,6 +636,10 @@ static void dwc3_qcom_set_role_notifier(struct dwc3 *dwc, enum usb_role next_rol
- 		return;
- 	}
- 
-+	mutex_lock(&qcom->pipe_clk_lock);
-+	dwc3_qcom_update_pipe_clk(qcom);
-+	mutex_unlock(&qcom->pipe_clk_lock);
-+
- 	if (qcom->current_role == USB_ROLE_DEVICE)
- 		dwc3_qcom_vbus_override_enable(qcom, false);
- 	else if (qcom->current_role != USB_ROLE_DEVICE)
-@@ -615,7 +685,6 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	struct resource		res;
- 	struct resource		*r;
- 	int			ret;
--	bool			ignore_pipe_clk;
- 	bool			wakeup_source;
- 
- 	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
-@@ -678,10 +747,10 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	 * Disable pipe_clk requirement if specified. Used when dwc3
- 	 * operates without SSPHY and only HS/FS/LS modes are supported.
- 	 */
--	ignore_pipe_clk = device_property_read_bool(dev,
-+	qcom->ignore_pipe_clk = device_property_read_bool(dev,
- 				"qcom,select-utmi-as-pipe-clk");
--	if (ignore_pipe_clk)
--		dwc3_qcom_select_utmi_clk(qcom);
-+	if (qcom->ignore_pipe_clk)
-+		dwc3_qcom_select_utmi_clk(qcom, true);
- 
- 	qcom->mode = usb_get_dr_mode(dev);
- 
-@@ -698,6 +767,7 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 			qcom->current_role = USB_ROLE_DEVICE;
- 	}
- 
-+	mutex_init(&qcom->pipe_clk_lock);
- 	qcom->dwc.glue_ops = &dwc3_qcom_glue_ops;
- 
- 	qcom->dwc.dev = dev;
-@@ -715,6 +785,10 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto remove_core;
- 
-+	ret = dwc3_qcom_mux_register(qcom);
-+	if (ret)
-+		goto interconnect_exit;
-+
- 	wakeup_source = of_property_read_bool(dev->of_node, "wakeup-source");
- 	device_init_wakeup(&pdev->dev, wakeup_source);
- 
-@@ -722,6 +796,8 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+interconnect_exit:
-+	dwc3_qcom_interconnect_exit(qcom);
- remove_core:
- 	dwc3_core_remove(&qcom->dwc);
- clk_disable:
-@@ -738,6 +814,8 @@ static void dwc3_qcom_remove(struct platform_device *pdev)
- 	if (pm_runtime_resume_and_get(qcom->dev) < 0)
- 		return;
- 
-+	if (qcom->mux)
-+		typec_mux_unregister(qcom->mux);
- 	dwc3_core_remove(&qcom->dwc);
- 	clk_bulk_disable_unprepare(qcom->num_clocks, qcom->clks);
- 	dwc3_qcom_interconnect_exit(qcom);
 -- 
 2.43.0
 
