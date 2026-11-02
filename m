@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600396;
-	b=MnZpCICw37gadDqbaJaW2MJZCxvNsGpNruSyCcRMP0kSt7Aak+vEZJh8GSPAZmQvUMp9
-	 KjwrdhlqKjbuB0xdmykDmNqK8tAGiu8Cs80yA6eRFQmjicu4/71nKXKjtBJArQM3rS/48
-	 k0ZFNXdfptY8ekZEHN1nQEAeX3Fl5RFVEjiSuhq7S3NjezvgDRV9zrZedpdIy16jc8vDo
-	 PCdIIbs6g9PNL/tDiWxhhyhTx12gnzHcPfx5Nnca2uV3Z/woz80Ujr1fxi6cfWMM4rq4m
-	 pvied49QjGoKZ1QtUWT4ZCHM9u/TnrhI/cKnjWNL0ffHh791TxMUL9kBzlPY4q7P0EA==
+	t=1793600397;
+	b=uXBoK3DYK1Ayhe4t42k8SpMEZX1phcMFUBf+1/ABK8UPsiTGpKgC8X9FkDcIZWhRNxfC
+	 55x9l0SYbRymHncBipWr4SgNP0+a/bhegwFGBeLps9p/jc1sYvs623lDXnmDX2qos9ugt
+	 PmqLnJEAYfXDefT0D7/7xPSEteGfI0PNM3EoBQZcIjwhM1St1ChOeJQ8sUX2TsgwFnmHk
+	 AHyAMiLhv5cCdwP4/CWNQ8lR/LVrou7CQl2y+ze/WCzRN+Y/Fz8LYPzcooUPOjxMMJdB1
+	 FwszVefJX5FgCmXQ1PuWNC+47Jop/A8VCo6iKNBGt2WHLLyZdamXjuPaCyKZzxL0ghg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600396;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600397;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ob6vUEf/hO7i9kTlFIOxCsDT2lOSQdX4na8C6dHFkRM=;
-	b=RaMtiYwTs3ocNLB1CfSFdadIANhySH4HbNdYaiSkNb8NfYxCuWu4yqJV6zY1g3jCuZD+
-	 whZgMfT+DAsSPGzK9CL8A2Gfa9h99YSlNBSP5+LlE7E86qHnJ2DwyzCNTj4fZdGWK3evr
-	 fYxvUogj4gj2DDKLeZjp3/iSwA4wFQ4spVoRtVTPft6lqIjRDp7I6LlffKNzLogauSvT5
-	 RG1fP8SI2qNX6Jz8cn4jtAJBEJ8PsBQnBKCC/wClZx2IknTyQv2vnm3mpPpxqLcKn+pZR
-	 qDjlgfdEmFUgqDPmKBvMLCSA9u2mYJe0T/CXuEgBa9tOAaS/YRL+VVKnjNNykcDD7AQ==
+	bh=kZxWrWLDc4YMgAhDECYz9pDQbNRb6VbZJ3ky8AtjslU=;
+	b=J0b0CvujY5H2nuUoBrbwpsgrClztak0gYz2zmeyn9QLpNJ68ouRE11+LqiWPFaWANaz6
+	 LxHEDd4BdCLfNdcE5ZFujRl7hLrtYBWTBFruSFrbRKW0CPHnyX/oUfvxocpurR7wwr3V6
+	 4JADf/swaxVj5TXstjlMdGEhXO5hT/hycUpo0ezPKTR0EQcW79TsN6s6wmwXwmsO+ri6s
+	 5Gc5ViP2xrB06zAG8A66bxrXCUPZeaCTa5Q0QP/aUCrmdGxf28720bKhgJQxzLhCTvEQc
+	 uqwNIP9UsrY91jbLnPe9ShLlw1XdwJAphDahaHJo5HYUYJ5PLs8siZ2bJ2sqZ2LMwIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EZ3Iw/tC";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TywzDjqL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88338606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A1D606A339
 	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 06:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZ3Iw/tC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB881F000C1;
-	Mon,  2 Nov 2026 06:19:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TywzDjqL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9697A1F0093A;
+	Mon,  2 Nov 2026 06:19:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793600396;
-	bh=ob6vUEf/hO7i9kTlFIOxCsDT2lOSQdX4na8C6dHFkRM=;
+	bh=kZxWrWLDc4YMgAhDECYz9pDQbNRb6VbZJ3ky8AtjslU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EZ3Iw/tCqsIekaQNsYuIRZKVX5hlo2M177TgZVruwiZSvenjVf6wNHJCpEMx6pDoQ
-	 RqqqJRBzATqnCQiYThMJFrWcRnChy7x9g+cn+WRvspV3pdOURHHGGIaY9dtP/fmWNm
-	 pmyMycMwSxs0Zs0cT3WQRT+w2ajps94DbVrQlJv/oiOGWAqWSyaygV459mPDBnZs4D
-	 YbD2EJlXdNK9jG6CyEaT/tIz1O6LKMtp+F2dqpiBzhoYPIJj+e744yMekSrurjbnUH
-	 BrdKqpTI6vZL1yb7+7FREz8PK4IoXoWC6of8U2iYigxXhpY87CljneXcDBgPWAnF2R
-	 JmVUeN05grCiQ==
-Message-ID: <sashiko-outbox-192949@kernel.org>
+	b=TywzDjqLhU3D7PBj7vTrJK4bAC8SIeYj75McBprA3Si4p3ZIAW2ezQ8Ic1UlrjHxP
+	 IclR/SzV+DQd49/1NoW4Q8c6IYbZ1F+6toPfxSocmXFESRnvPvgpsT+jbEo7Y7jgqC
+	 sizEx72rBijDzTGVqvdskrRGBOrAPb3nrvBpsOWPUQUCR6xzfI1c2z2UDuylSjxtvF
+	 TQwHCFbSGSKE9HKorEb4PfU3iA8UtCtpx9I/0ocxi9cwjLx9Y6XPhe6kINy1gXwunU
+	 EFOnSDg/5cD+M85nZ/j7y6w6qbng41MYWSA3B/ekE8qYfc7DTfLH9xKEW33SVb1YCd
+	 XwwZ3RTfge0cA==
+Message-ID: <sashiko-outbox-192950@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: sm8750-lenovo-elden: describe
- the WL2868C regulators
+Subject: Re: [PATCH v5 3/4] arm64: dts: qcom: sm8750: describe two of the
+ three CCI I2C controllers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, devicetree@vger.kernel.org
 Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102060458.461372-5-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261102060458.461372-4-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261102060458.461372-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261102060458.461372-5-xiaqinghuan@mail.ustc.edu.cn>
+ <20261102060458.461372-4-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 06:19:55 +0000
+Date: Mon, 02 Nov 2026 06:19:56 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,194 +61,245 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: qcom: undocumented camera/lens compatibles and unlin=
-ked endpoint
-- [Medium] arm64: dts: qcom: new sm8750-lenovo-elden board DT lacks boot in=
-frastructure
-- [Low] arm64: dts: qcom: mix of DT binding schema change and board DTS in =
-one commit
+- [Medium] arm64: dts: qcom: sm8750: omission of cci2 controller and pinctr=
+l states
+- [Medium] arm64: dts: qcom: sm8750: CCI sleep pinctrl states mux pins to g=
+pio
 --
 
-commit 247a3e361ec98ef920ebf8c9ec415c99b8590dce
+commit a65c21663abcd66908e315d4a351c0c64b9975c6
 Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-arm64: dts: qcom: sm8750-lenovo-elden: describe the WL2868C regulators
+arm64: dts: qcom: sm8750: describe two of the three CCI I2C controllers
 
-This commit adds the lenovo,elden compatible to the Qualcomm ARM board
-bindings and introduces a device tree for the Lenovo Legion Y700 Gen4
-(SM8750) describing its board clocks, WL2868C camera PMIC regulators, and
-rear camera sensor and lens.
+This commit adds device tree nodes and TLMM pinctrl states for the cci0 and
+cci1 Camera Control Interface (CCI) I2C controllers on the Qualcomm SM8750
+SoC, leaving the third controller (cci2) undescribed.
 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
-ion/devicetree/bindings/arm/qcom.yaml
-> index ff8a35df7862d..41d5e65c4eea5 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -1168,6 +1168,7 @@ properties:
-> =20
->        - items:
->            - enum:
-> +              - lenovo,elden
->                - qcom,sm8750-mtp
->                - qcom,sm8750-qrd
->            - const: qcom,sm8750
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
-/Makefile
-> index 1c86e7e98f55d..a18fea7bebaf7 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -406,6 +406,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-hdk-rear-camera-c=
-ard.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-hdk.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-mtp.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8650-qrd.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+=3D sm8750-lenovo-elden.dtb
-
-[Severity: Low]
-Should the Documentation/devicetree/bindings/arm/qcom.yaml schema change be
-split into a separate prerequisite patch with a dt-bindings: subject prefix
-rather than combined in the same commit as the arch/arm64/boot/dts/qcom/
-changes, per Documentation/devicetree/bindings/submitting-patches.rst?
+>     arm64: dts: qcom: sm8750: describe two of the three CCI I2C controlle=
+rs
+>    =20
+>     The SM8750 has three CCI I2C controllers; this dtsi describes the two
+>     that the Qualcomm camera subsystem binds to on this SoC. Each control=
+ler
+>     exposes two I2C buses; both buses are described and left available, as
+>     on sm8550 and sm8650.
+>    =20
+>     The TLMM pad assignment is cci0 bus 0 on gpio113/114, cci0 bus 1 on
+>     gpio115/116, cci1 bus 0 on gpio117/118 and cci1 bus 1 on gpio111/164,
+>     the last two being the pads shared with cci_timer. The remaining CCI
+>     pads, gpio112/153 and gpio119/120, belong to cci2, which is not
+>     described here.
+>    =20
+>     The controller nodes are placed in unit-address order after
+>     videocc@aaf0000, and the pinctrl states in alphabetical order inside
+>     the TLMM node.
+>    =20
+>     Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
+com/sm8750.dtsi
+> index dd738d13df8e0..5f64912d55eac 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -3060,6 +3060,70 @@ videocc: clock-controller@aaf0000 {
 
 [ ... ]
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> new file mode 100644
-> index 0000000000000..de186b447725d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> @@ -0,0 +1,175 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> + */
+> +		cci1: cci@ac7c000 {
+> +			compatible =3D "qcom,sm8750-cci", "qcom,msm8996-cci";
+> +			reg =3D <0x0 0x0ac7c000 0x0 0x1000>;
+> +			interrupts =3D <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>;
+> +			power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +			clocks =3D <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
+> +				 <&camcc CAM_CC_CCI_1_CLK>;
+> +			clock-names =3D "ahb", "cci";
+> +			assigned-clocks =3D <&camcc CAM_CC_CCI_1_CLK>;
+> +			assigned-clock-rates =3D <37500000>;
+> +			pinctrl-0 =3D <&cci1_0_default &cci1_1_default>;
+> +			pinctrl-1 =3D <&cci1_0_sleep &cci1_1_sleep>;
+> +			pinctrl-names =3D "default", "sleep";
+> +			status =3D "disabled";
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
 > +
-> +/dts-v1/;
+> +			cci1_i2c0: i2c-bus@0 {
+> +				reg =3D <0>;
+> +				clock-frequency =3D <400000>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +			};
 > +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include "sm8750.dtsi"
-> +
-> +/ {
-> +	model =3D "Lenovo Legion Y700 Gen4";
-> +	compatible =3D "lenovo,elden", "qcom,sm8750";
-> +	chassis-type =3D "tablet";
-
-[ ... ]
-
-> +&cci0_i2c0 {
-> +	clock-frequency =3D <400000>;
-> +
-> +	rear_lens: lens@c {
-> +		compatible =3D "giantec,gt9764";
-> +		reg =3D <0x0c>;
-> +		vddio-supply =3D <&camera_ldo7>;
-> +		vdd-supply =3D <&camera_ldo5>;
-> +		giantec,aac-mode =3D <0x40>;
-> +		giantec,aac-timing =3D <0x7c>;
-> +		settling-time-us =3D <7000>;
-> +	};
-> +
-> +	rear_camera: camera@56 {
-> +		compatible =3D "samsung,s5kjns";
-> +		reg =3D <0x56>;
-> +		clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
-> +		assigned-clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
-> +		assigned-clock-rates =3D <19200000>;
-> +		reset-gpios =3D <&tlmm 11 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&rear_camera_default>;
-> +		dovdd-supply =3D <&camera_ldo7>;
-> +		dvdd-supply =3D <&camera_ldo1>;
-> +		avdd-supply =3D <&camera_ldo4>;
-> +		lens-focus =3D <&rear_lens>;
-> +		orientation =3D <1>;
-> +		rotation =3D <90>;
-> +
-> +		port {
-> +			rear_camera_ep: endpoint {
-> +				data-lanes =3D <1 2 3 4>;
-> +				link-frequencies =3D /bits/ 64 <672000000>;
+> +			cci1_i2c1: i2c-bus@1 {
+> +				reg =3D <1>;
+> +				clock-frequency =3D <400000>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
 > +			};
 > +		};
-> +	};
-> +};
 
 [Severity: Medium]
-As reported by Sashiko on v4 [1], does adding rear_lens (lens@c) and
-rear_camera (camera@56) under &cci0_i2c0 in
-arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts cause make dtbs_check and
-scripts/checkpatch.pl regressions because their bindings are not in the tre=
-e?
+Why is cci2 (along with its cci2_0 and cci2_1 pinctrl states in tlmm) omitt=
+ed
+from arch/arm64/boot/dts/qcom/sm8750.dtsi?
 
-Specifically, rear_lens uses compatible =3D "giantec,gt9764" with properties
-vddio-supply, giantec,aac-mode, giantec,aac-timing, and settling-time-us,
-while Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml only
-documents dongwoon,dw9768 and giantec,gt9769 with vin-supply, vdd-supply,
-dongwoon,aac-mode, and dongwoon,aac-timing.
+The commit message notes that this dtsi describes the two controllers that =
+the
+Qualcomm camera subsystem binds to, as on sm8550 and sm8650. However, the
+camera subsystem driver (drivers/media/platform/qcom/camss/) does not bind =
+to
+CCI controllers directly; drivers/i2c/busses/i2c-qcom-cci.c binds to each C=
+CI
+node independently, and camera sensors on any CCI bus connect to CAMSS CSIP=
+HY
+ports via OF graph endpoints.
 
-Similarly, rear_camera uses compatible =3D "samsung,s5kjns" with dovdd-supp=
-ly,
-dvdd-supply, and avdd-supply, which are not documented in any in-tree schema
-(Documentation/devicetree/bindings/media/i2c/samsung,s5kjn1.yaml only
-documents samsung,s5kjn1 with vdda-supply, vddd-supply, vddio-supply, and
-afvdd-supply).
+Furthermore, both arch/arm64/boot/dts/qcom/sm8550.dtsi and
+arch/arm64/boot/dts/qcom/sm8650.dtsi describe all three CCI controllers
+(cci0, cci1, and cci2) and their TLMM pinctrl states so that board device
+trees can enable whichever buses they route.
 
-In addition, rear_camera_ep defines a port endpoint without a remote-endpoi=
-nt
-property because sm8750.dtsi does not yet have a CAMSS or CSIPHY receiver
-node. Should rear_lens and rear_camera be deferred until their DT bindings
-and the SM8750 CAMSS receiver nodes are present in the tree, just as was do=
-ne
-for the front sensor?
+Since include/dt-bindings/clock/qcom,sm8750-camcc.h and
+drivers/clk/qcom/camcc-sm8750.c already provide CAM_CC_CCI_2_CLK, and
+drivers/pinctrl/qcom/pinctrl-sm8750.c already defines the cci_i2c_sda and
+cci_i2c_scl mux functions for gpio112/gpio153 and gpio119/gpio120, should c=
+ci2
+and its pinctrl states also be described here?
 
+>  		mdss: display-subsystem@ae00000 {
+>  			compatible =3D "qcom,sm8750-mdss";
+>  			reg =3D <0x0 0x0ae00000 0x0 0x1000>;
+> @@ -3633,6 +3697,98 @@ tlmm: pinctrl@f100000 {
+>  			gpio-ranges =3D <&tlmm 0 0 216>;
+>  			wakeup-parent =3D <&pdc>;
+> =20
+> +			cci0_0_default: cci0-0-default-state {
+> +				sda-pins {
+> +					pins =3D "gpio113";
+> +					function =3D "cci_i2c_sda";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
 > +
-> +&gpi_dma2 {
-> +	status =3D "okay";
-> +};
+> +				scl-pins {
+> +					pins =3D "gpio114";
+> +					function =3D "cci_i2c_scl";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
+> +			};
 > +
-> +&qupv3_2 {
-> +	status =3D "okay";
-> +};
+> +			cci0_0_sleep: cci0-0-sleep-state {
+> +				pins =3D "gpio113", "gpio114";
+> +				function =3D "gpio";
+> +				drive-strength =3D <2>;
+> +				bias-pull-down;
+> +			};
 > +
-> +&i2c10 {
-> +	status =3D "okay";
+> +			cci0_1_default: cci0-1-default-state {
+> +				sda-pins {
+> +					pins =3D "gpio115";
+> +					function =3D "cci_i2c_sda";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
 > +
-> +	pmic@2f {
-> +		compatible =3D "willsemi,wl2868c";
-> +		reg =3D <0x2f>;
-> +		reset-gpios =3D <&tlmm 126 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&camera_pmic_default>;
+> +				scl-pins {
+> +					pins =3D "gpio116";
+> +					function =3D "cci_i2c_scl";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
+> +			};
+> +
+> +			cci0_1_sleep: cci0-1-sleep-state {
+> +				pins =3D "gpio115", "gpio116";
+> +				function =3D "gpio";
+> +				drive-strength =3D <2>;
+> +				bias-pull-down;
+> +			};
+> +
+> +			cci1_0_default: cci1-0-default-state {
+> +				sda-pins {
+> +					pins =3D "gpio117";
+> +					function =3D "cci_i2c_sda";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
+> +
+> +				scl-pins {
+> +					pins =3D "gpio118";
+> +					function =3D "cci_i2c_scl";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
+> +			};
+> +
+> +			cci1_0_sleep: cci1-0-sleep-state {
+> +				pins =3D "gpio117", "gpio118";
+> +				function =3D "gpio";
+> +				drive-strength =3D <2>;
+> +				bias-pull-down;
+> +			};
+> +
+> +			cci1_1_default: cci1-1-default-state {
+> +				sda-pins {
+> +					pins =3D "gpio111";
+> +					function =3D "cci_i2c_sda";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
+> +
+> +				scl-pins {
+> +					pins =3D "gpio164";
+> +					function =3D "cci_i2c_scl";
+> +					drive-strength =3D <2>;
+> +					bias-pull-up;
+> +				};
+> +			};
+> +
+> +			cci1_1_sleep: cci1-1-sleep-state {
+> +				pins =3D "gpio111", "gpio164";
+> +				function =3D "gpio";
+> +				drive-strength =3D <2>;
+> +				bias-pull-down;
+> +			};
 
 [Severity: Medium]
-As reported by Sashiko on v4 [2], is it expected to introduce
-arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts as a new top-level board D=
-TB
-containing only clocks and camera I2C/PMIC nodes without the foundational
-board infrastructure?
+Should the cci0_0_sleep, cci0_1_sleep, cci1_0_sleep, and cci1_1_sleep states
+keep the cci_i2c_sda and cci_i2c_scl functions in separate sda-pins and
+scl-pins subnodes instead of switching function to "gpio"?
 
-Unlike sm8750-mtp.dts and sm8750-qrd.dts, this file omits the SPMI PMICs,
-RPMh regulators (&apps_rsc, including the vin12-supply, vin34-supply,
-vin5-supply, and vin7-supply parent supplies for pmic@2f itself), chosen
-stdout-path console, and boot storage peripherals, leaving a non-bootable
-board DTB where the WL2868C regulator driver binds against dummy parent
-supplies.
+In other Qualcomm SoC device trees using split cci_i2c_sda and cci_i2c_scl
+pinmux functions (such as arch/arm64/boot/dts/qcom/sm8550.dtsi,
+arch/arm64/boot/dts/qcom/sm8650.dtsi, arch/arm64/boot/dts/qcom/milos.dtsi,
+and arch/arm64/boot/dts/qcom/monaco.dtsi), the sleep states retain the
+cci_i2c_sda and cci_i2c_scl mux functions and only switch the bias from
+bias-pull-up to bias-pull-down:
 
-Also, in sm8750-lenovo-elden.dts, &qupv3_2 is placed before &i2c10 rather
-than in alphabetical label order, and rear_lens places the standard property
-settling-time-us after the vendor-specific giantec,aac-mode and
-giantec,aac-timing properties. Should this patch wait for the base board
-enablement series and follow the ordering rules in
-Documentation/devicetree/bindings/dts-coding-style.rst?
+arch/arm64/boot/dts/qcom/sm8650.dtsi:
+			cci0_0_sleep: cci0-0-sleep-state {
+				sda-pins {
+					pins =3D "gpio101";
+					function =3D "cci_i2c_sda";
+					drive-strength =3D <2>;
+					bias-pull-down;
+				};
 
-[1] https://lore.kernel.org/r/9ef48d26aa4480b2dc1e20ad7af55f51aa22fec7.1793=
-427041.git.xiaqinghuan@mail.ustc.edu.cn
-[2] https://lore.kernel.org/r/9ef48d26aa4480b2dc1e20ad7af55f51aa22fec7.1793=
-427041.git.xiaqinghuan@mail.ustc.edu.cn
+				scl-pins {
+					pins =3D "gpio102";
+					function =3D "cci_i2c_scl";
+					drive-strength =3D <2>;
+					bias-pull-down;
+				};
+			};
+
+Switching the pins to function =3D "gpio" during runtime PM or system suspe=
+nd
+disconnects the pads from the CCI controller hardware block.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102060458.4613=
-72-1-xiaqinghuan@mail.ustc.edu.cn?part=3D4
+72-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
