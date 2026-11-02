@@ -1,81 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793625910;
-	b=Djxn8yZC+ht/RCI1AunCG+JQ/kYXQPj5/DqeQ1WyWr/bkrwxecDdSXg7UoTib568OUdd
-	 I6OGrqiYx5KFrVhc2Q2cSe5j0ovQOSjtIecAWC00esP4tAI0rAGx/VKKSd7Z/bGqhTTGr
-	 Fyb/PNqguItSLvnFKOig1qaF5Nm5hCbs8ek+3Ig5t435vF1wquXRM4zBs3iCJ0ksjbGFv
-	 0kOQf8rLQT7JOOB0qToAnZippKm6enEh59/OxnRzaKLZqbLKh+hzfhPV52nlbY6sJZtDW
-	 oaeZc8ExKJqtRjUnnYzRE5X2SORZ0GLNKxGHwHrUXygafmWWzVVhoZRK5Hs6fat0ifA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625910;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=wxjIHAuIp6ekDhPVCcCLAmklPelRj7jgqF/+3HTKm5s=;
-	b=ZrI2MOpxI2/mdhS7NzJOKE9BLOZZ9dzjc/zqrGLpqZR7DTb4/JB9zb3BBJRHRQf0WK2t
-	 xxvpNujkmwqfQV5hTgoc1BiPKFjDULhnumnCbQZDsDk8yIN/zDtHYx+AGoH0k2KYkoXVP
-	 JMYA5oggt+fWzelYnJTj+DrgbpqGkklz8DfZRoTkYHwam8HDuWjBOygK6Cr4iwnZWsV7O
-	 cfc7GgtRPW0Gr3qBHIkNaOwbgPyXDtXrc44f/FntheAWRkSEiA1xFojMb8qfKj8Y0JQir
-	 NvhQQ+oex5y3/5Iou927nMVDzuu8sO+EMLi32muf1lNRdwYRG/1Tfkles7fMt3sjkDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b="Qu8rS3/G";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.214
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793626249;
+	b=FLqNuaEZPeZCmbc404jI2TtKh4uFaOGZfdJPFQRIh4QTB6KfPw/mLLX9ZoFnzSU4AM3/
+	 u91swDhxDrf42fqxHkpkS0lo1KAGqfuHE6f7vVAUetmQrk3+wQpW2FwcQssBimHhoLJnb
+	 ezXwM+bcNF0K8t4oNq0YRQVdskajggUuXpzlgC7j57/y5ijadPUicoxoag1b+iG7T+m4P
+	 4zYJnSNJLB/np09lzbMSMDuF/y28KUkoWS0MSa89cewMxGs1MnOfyFO+NQTKt/GJj6Zd5
+	 mwSNrk1fxaqdocM/ScsFwe4N0vsljTivKvAD4jxIuTRg/4xr+Re33f4p582/thppx3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626249;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Celi/Jf23dDYxiVlznjq1HrYLFzw7DtXkyqXcvMwU1o=;
+	b=Ywn9QhgLs9a6/w4SoOWbaqpNgCFr/9lCaUwtYOx1NdD5PhBJhzg0sTBpJCP4riE8ZgDA
+	 fRuVUqZ0UY2SM+0LGO3bnKcK4ie25+xZKaWTeQwkSzhlBTxAjA+nqa20srkJ0BSVOxQgK
+	 Tvk9pusECDHQ3ypIWlv7Woo1Rq2gk2QCgiqZjyYqBCi/V8/1Li8JV3bUFS0bQhjJsOBsi
+	 8Fio2YkeLFOYodxHGE3KqU25mNXR/ADpNfY4Mqf/7PA4L0CC47qQFSbqMr9amKq5DzbPI
+	 RadvlZ0pJsJAU2EZmHoT9S5+WHbHkpgSPA6IQFXM3ey14oHSM0z6AOraT39UehXg9eQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="AS1MX/tH";
+	arc=none smtp.remote-ip=95.215.58.214
+Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806F5606A326;
-	Mon,  2 Nov 2026 13:25:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 806F5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEABC606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEABC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Qu8rS3/G
-ARC-Seal: i=1; a=rsa-sha256; t=1793625848; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=f7Xj01KuAiYLRFZ+56umfnvwPieOTuuNKubnySrPhZLWp8JqNxCguowM6NtZlNunGTvzyEub80/7UsQoB3UHHdRgGE4E8B8YU6yGOhy7e0fYJKJmxzTxfX7w5f59SA6NfeWVybPz1QPSC5fvh4iRXGusJSAUJ3aF/XjI1oExzj0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793625848; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wxjIHAuIp6ekDhPVCcCLAmklPelRj7jgqF/+3HTKm5s=; 
-	b=jps1Uiapc+8FaK5ZxCW3Dc/dkjMP6bgPcwqaiDmdrJgffG/h6FXxNV/lJg/Gnq/mbop4tVkR0C43BTQWMNHTw9vvaLBPvIs+jTSHIQPC+uMc3m5RqyUNaHzaJsXpogybICGB6eo970cBy5VE/y0S5KEYA+zdZJXuSiDPIIwiTfE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=Qu8rS3/GfL5UlN+4BnbLjwL8zeIrFA6ZMfNA75YGjePSitq7ifCFZq3OxDx3w3zx+AUV4NRctYOeOqe5lJywNMaJGZ47MOco7+J60iLR8JYvU2UrwFvGx4+4GMhHQQ5H2MGJFeHjjLgyrpwdxLwNFnt9/peSWo0dOV/ThUSx1fcddVf2WiPabuAEX3y/TZsD0J7YFy8+araqMgJnFi4dT5Q5ildpQYBzXMxYrCRKwEwAabcp2jBOPx7XeVUXCtvXqVRCxx28ZD2PZM2Dgdsu7IdOEFwxRAnR+jcxFTYmQ81driIwfvwc76pWHgHzTtw6Q0ieNl3VaTQHI0yQKEjnHw==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=wxjIHAuIp6ekDhPVCcCLAmklPelRj7jgqF/+3HTKm5s=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793625845538857.5780358922513;
-	Mon, 2 Nov 2026 05:24:05 -0800 (PST)
-Message-ID: <df946ddae7f00aa3fcc2b2ad953392f33a94ad37.camel@icenowy.me>
-Subject: Re: [PATCH 1/3] dt-bindings: display: bridge: document TH1520 MIPI
- DSI controller
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong	
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring	 <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Sandy
- Huang <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?=	
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, 	linux-riscv@lists.infradead.org, Han
- Gao <gaohan@iscas.ac.cn>
-Date: Mon, 02 Nov 2026 21:23:56 +0800
-In-Reply-To: <20261102-spry-snobbish-hound-384cae@quoll>
-References: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
-	 <20261030-th1520-dw-mipi-dsi-v1-1-753f34fd304f@iscas.ac.cn>
-	 <20261102-spry-snobbish-hound-384cae@quoll>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AS1MX/tH
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QSwhozA28ShgXnO4vo/Y2h8mkgH1EmGlGFODbd6mOaU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793626247; v=1; x=1794231047;
+ b=AS1MX/tHy1Xh6hT5A3J7vHbxVLGdWvY/MRqsGKJmnUEkfiTxxJTch/2EYtLURPsRGTS2gsf+
+ MPcb78rGN+UfaEtv7174ACh5as6ehZa2cLAtxNCaEs/yBeLKup94iH1/CqLvKnb0oPL7eMw8B6Q
+ coGHnPnpsvuhGHnr9t8NbJk0=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 83255ff9d38ebe22;
+	Mon, 02 Nov 2026 13:30:44 +0000
+X-Mizu-Trace-ID: 83255ff9d38ebe22
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <91573b8c-d5e3-40ab-9e9b-be55e93425c5@linux.dev>
+Date: Mon, 2 Nov 2026 13:30:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,70 +58,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/14] drm/tidss: oldi: Fix cleanup on a failed init
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-9-dc7f2b532478@ideasonboard.com>
+ <c12f6a9f-983d-4704-a90b-3453ce984a2c@linux.dev>
+ <15b7bfd9-8da4-4cd0-9f8b-634c03f46c5e@ideasonboard.com>
+Content-Language: en-US
+From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+In-Reply-To: <15b7bfd9-8da4-4cd0-9f8b-634c03f46c5e@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-11-02=E4=B8=80=E7=9A=84 12:28 +0100=EF=BC=8CKrzysztof Kozlow=
-ski=E5=86=99=E9=81=93=EF=BC=9A
-> On Fri, Oct 30, 2026 at 03:47:49PM +0800, Icenowy Zheng wrote:
-> > +=C2=A0 interrupts:
-> > +=C2=A0=C2=A0=C2=A0 maxItems: 1
-> > +
-> > +=C2=A0 clocks:
-> > +=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DSI controller APB clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: PHY configuration clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: PHY reference clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DSI controller input pix=
-el clock gate
-> > +
-> > +=C2=A0 clock-names:
-> > +=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pclk
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: phy_cfg
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ref
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pixel
-> > +
-> > +=C2=A0 syscon:
->=20
-> Such property names are not allowed. Missing vendor prefix, missing
-> descriptive name.
 
-Sorry because I thought `syscon` is a generic name -- it's available as
-a compatible string (although with SoC-specific fallbacks) in
-mfd/syscon.yaml . I'm okay to name this property `thead,syscon` or
-`thead,vosys-syscon` .
 
->=20
-> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/phandle
-> > +=C2=A0=C2=A0=C2=A0 description:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Phandle to the VO subsystem system cont=
-roller.
->=20
-> For what purpose? How does this device use VO? What is VO subsystem
-> system?
+On 02/11/26 11:46, Tomi Valkeinen wrote:
+> Hi,
+> 
+> On 01/11/2026 16:14, Aradhya Bhatia wrote:
+>> Hi Tomi,
+>>
+>> On 29/10/26 10:18, Tomi Valkeinen wrote:
+>>> tidss_oldi_init() registers a bridge for each OLDI TX in turn. If a
+>>> later
+>>> OLDI TX fails, the bridges registered for the earlier ones are not
+>>> removed.
+>>>
+>>> Fix this by calling tidss_oldi_deinit() in the error path.
+>>>
+>>> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
+>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>>> ---
+>>>   drivers/gpu/drm/tidss/tidss_oldi.c | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/
+>>> tidss/tidss_oldi.c
+>>> index 506507e83112..7344d86e1f13 100644
+>>> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+>>> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+>>> @@ -638,5 +638,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
+>>>   err_put_node:
+>>>       of_node_put(child);
+>>>       of_node_put(oldi_parent);
+>>> +    tidss_oldi_deinit(tidss);
+>>>       return ret;
+>>>   }
+>>>
+>>
+>> Since tidss_probe() (in tidss_drv.c) calls tidss_oldi_init(), it also
+>> calls tidss_oldi_deinit() in its error exit path.
+> Yes, but not if tidss_oldi_init() itself fails.
+> 
+> If we have two OLDI TXes, and the loop in tidss_oldi_init() inits the
+> first one, then the second one's init fails, the code jumps to
+> err_put_node. If we don't call tidss_oldi_deinit() there, the first OLDI
+> TX will not be "deinited".
 
-VO is short for "Video Output", the name for one of the "subsystems" on
-TH1520, and this abbreviation is used in the user manual in strings as
-"VO_SUBSYS". A certain register is wired to D-PHY sideband signals and
-thus bound to the DSI controller.
+Thanks, I see what you mean.
 
-Should I add the information in the last sentence to the binding?
+Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
 
-Thanks,
-Icenowy
+-- 
+Regards
+Aradhya
 
->=20
-> > +
-> > +required:
-> > +=C2=A0 - compatible
-> > +=C2=A0 - reg
-> > +=C2=A0 - clocks
-> > +=C2=A0 - clock-names
-> > +=C2=A0 - resets
-> > +=C2=A0 - reset-names
-> > +=C2=A0 - interrupts
-> > +=C2=A0 - syscon
-> > +=C2=A0 - ports
->=20
-> Best regards,
-> Krzysztof
