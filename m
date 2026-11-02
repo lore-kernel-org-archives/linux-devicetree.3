@@ -1,115 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793622112;
-	b=IcuOV4dtJsUfDPdDR3HI91qfvdnCtm0N8mpVlIqa0LJAjPc4n7zrTtH0zRkYquetq+on
-	 D8MIj66FZwBb3TYvokekWmzsnecmc08hYRwczCN9qtYorGAv6rGeLHLQ55G/eR1kp2GZX
-	 jqOvvSePZAPDXj0MdUXruqadihEbP76GTP+hSnUEg+Zlt/H/GtaI3NX9ON4IBxKXLNpBm
-	 P1+okZhHzk4/KGzwM/nhnrvyBeEe8BdOt5r63ogrDDxs7YRtUx3MbPuzOisGp8EYExFOW
-	 mYpYzqUgx2fooVbMPgq8ZLNmchFqRhE3RdBFd1ZrwG8kRg4JY4KzCE16DVJJqgvLU3w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622112;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xVGwxQnPo8iNr+bJIVXidlAAJucJK72QQd8YYeApDKs=;
-	b=Xc+fO6fWJGVWCFNyha1oy7o/W0ka/rtjoEcA3tBzo3cqG3/CRV+vZcdzabjv/ab6LfSv
-	 bcT67D1V2aha+QQa3MsZPm21jCzruEe6HSBvJOa8bo/LUrE1eJq/eA8aCrTkxz1yuWkbC
-	 mHLT7eWj9RJfS0/y2brITPfU/p2S7T3B7ll0laRE+KoO+mCUn0GFztD4ZTuXvusQMi/2Q
-	 rPBnzcHHO2nQVmHPdeWInancT4252s6DiU7rEZ3kJvtKPnj0Ny4+zbb//sKzRpKQUtx04
-	 1p9Oh9XPppL2ttwdmh6capazAC3tuBDr72P+rU/srRYxcvnzbJ5UK5hzcMeKz00Xz7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XM26OgWD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.62
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013062.outbound.protection.outlook.com [40.93.196.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793622169;
+	b=QUprVZaSm5OU8UuFoKaunU4X7FaCBH+whXAU87k5uTZIZZ524hu0KKggtRRZ49Vx7TfO
+	 Har0W5T9nSMUwpNWmjeIq4GLP5rMDeVoWVOiTeyg+yTbstehjBkCP0DhYbvNLGhcFlLyE
+	 JZQWjUf8vito6VuokMAtKk2o8xBiKyhbPNXCAqJ7DPZ9k1prDNPv9ODH/obJNUoHSHLKC
+	 pfeTql3VRaKM62GQlVHeJqy9DGE8wjxaz3Rpt76jUomSe4ZpyqW9rJQX/vzAoknZ4KD4L
+	 PCn71os1nqBuxk2vjugTq+XhzZ+lhPtBgkibHfz3R3euUoaLQYYJ1AOEjy8VgxzOLqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622169;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=kmQzGUYJq8GyqElmnF+m9lGa7P1/BodBcOMVYUFmNvw=;
+	b=4UQ4EVV+l3xO6GkTZWCH6xxmwFbTIA/jyTB1yFaXZUbOtO5iSmE7JKauWxbflziPPtYb
+	 6vCScNR9haLs61OpSN+q4BH9PvvG8HGJAsbCswh02vJbYww3CacZLa0vftX8AMMNyzQvE
+	 tkR3wWFnQEvSVxXZ5iGTzMEZcA5ia0vTjcmF2kKrY/JP2MLOV4GT5tO6BuuE0U8IRbZ6z
+	 DcZPhvEHO1PLqpZvCl+wjCmnRd5lipSaB2Q5DbeTnPBA6grP5sEZuugmDtRXjQ/QiyWbl
+	 1SIORRFkdWmqTYp+biucl6cRFBxtpcdZcdKD3HGfVyQAQulAht94Z2NXkp6D/lKHlTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="hD/qB7WJ";
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F088960A6F6C;
-	Mon,  2 Nov 2026 12:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F088960A6F6C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38CC606A330
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 12:22:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C38CC606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XM26OgWD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ama+vbEcyIT3ZWCzBktiF2Ub9bcMPL9jggFTrjuPP6/cstT/X5lplruYa+TYzz42yXzRArcQ6d+wiq360GdxQu9be2r0CX61GciEADFFRUapoXUeRRr4DhQBWdAphJ+R2qdu2Adbz7zMahATl6O51RjCV60R7Q9it9so0pGe+UzplMxDwd9gQeSTu80dx0Vi/sLjtDG0O8fynmC2dkInLVpAlZ1C7cdBO8sPD7SzNVn0wUg8yfrkFeUkV2IzsU2g3WP7H4Rj6TIXEVxs4HX+WofLfzzvdoTc6Aaoy1ae0dhMeNK7nIgyKT2L9C967cpuV8sRvDEYMK1b/mz+uBGwaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xVGwxQnPo8iNr+bJIVXidlAAJucJK72QQd8YYeApDKs=;
- b=gplnDUDnDzwnJQdFQ9TFtTmizXMom/dOAEHJthfTf8Bye+cWJbDhi3THHJ5XWmKggspRqXz/BELeBPhuZ2z/FmCxiQYU0j//dTVu6pZonRooDxHhej/xB6YBnEY/SSDqUWpE7ATYpAzzG0SfBZF9gC2AlDvL6MvH2F/kVsFs6vgbUImrutnIjlItLnw86MGHl/EYRVmue/8hPEJonNlTI0z/y0/e1PcRBIBWTNa1DIDKuNNToua2dUdPD1cQ60TnGJtkDrR4R7eywBDqotn0/fGN8WxZI5n27ONSZC7VxnPVlS7EOWoNV+nwCOEDNvGdQ1URkd4iNAFpmGX6MkWKSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xVGwxQnPo8iNr+bJIVXidlAAJucJK72QQd8YYeApDKs=;
- b=XM26OgWD9eMJsHfLZh2uvlKPPBOVVrfqVNLAh0qQs1JR0YOA0pl+BkCfPIQQe5wurW3eI7jqfmOoh7UOJZhMDOiH8gmCma9qs1Ydz/j3hCFVndxKIkg39i0I71nvO7S0o2v6MlzPzQB5TvyCDTV0sZNUjQAJIzKBVmusnEqQEgc=
-Received: from BN9P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::12)
- by DM4PR12MB6009.namprd12.prod.outlook.com (2603:10b6:8:69::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 12:21:47 +0000
-Received: from BN3PEPF00022BC9.namprd05.prod.outlook.com
- (2603:10b6:408:10c:cafe::9) by BN9P222CA0007.outlook.office365.com
- (2603:10b6:408:10c::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.11 via Frontend Transport; Mon, 2
- Nov 2026 12:21:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BC9.mail.protection.outlook.com (10.167.248.218) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 12:21:47 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:45 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:45 -0600
-Received: from xhdakumarma40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 06:21:41 -0600
-From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<amitrkcian2002@gmail.com>, Amit Kumar Mahapatra
-	<amit.kumar-mahapatra@amd.com>
-Subject: [PATCH 6/6] MAINTAINERS: update Versal SysMon maintainers
-Date: Mon, 2 Nov 2026 17:51:12 +0530
-Message-ID: <20261102122112.1723130-7-amit.kumar-mahapatra@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hD/qB7WJ
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso428065066b.2
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 04:22:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793622167; x=1794226967; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kmQzGUYJq8GyqElmnF+m9lGa7P1/BodBcOMVYUFmNvw=;
+        b=hD/qB7WJtkPSzakBjBrg0ErLrQbefMeN50hPSmPc4DKcYcJYvddKvLdIEpAyKkA6zU
+         ZnSw79AKQKyL9hZ26uuMsJRLlRUYP7+uoRG6f0DtD/D94HWijt4yN1hxkR29rhYaG0E9
+         3HNwIij6hjEnZ6teA6Nyc+Ng1oQ0MwGwFAK2RlXjGxEJdXZeM0ubnC9b4rAlBiwTVyDh
+         ZkocKd/uKbHmcQZnb/aB19Sd3MdfyQFLktM7R1jfsRUXyq0LLPa0d1IeM20C7BJEZMA8
+         bpTRQMW9dtw9SkvGNyVFd9h2FA+D3h81o2LVSoNbGQd5pxzHE28FYlBPal1IIrFs8h0L
+         IjUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793622167; x=1794226967;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kmQzGUYJq8GyqElmnF+m9lGa7P1/BodBcOMVYUFmNvw=;
+        b=c8Omy2LGcKHL36sAVrGKaTb+JTf6vnXcbq0qNcKxujOaWP59AOG74aTjloIn9hu5lE
+         GPVAaUYdgdvoJ2QhnZk8cUEw2SNAkNiuLL7Z4kfOhs2kQulq5Pi0dG0EjimveBpD1XgZ
+         H3kLrF1A2G2iM7MYnE44A7wVzW8Mxpm062zr+N9lzkpMWgk2Fa5vXxy72hN6u6SVawyO
+         M4J7rikuVqPbfrjsR3uO9fIyzg62n4OYeMw2Puh/4eBFjaPCVYuO2vG4foEjigBuD+T+
+         5izijAVSMLGep3vlGJd5Rr6+FDxvqDDUD0mg+EpwAFwrSdjMYb5sJkJihbmsE+4p1H1v
+         e92w==
+X-Forwarded-Encrypted: i=1; AKwUvBypyV7tFj2PHI/3kerTiCeIt/rHEHocQvTpUZc4Yb/+3iQlO5vge+65BGbIvKitQSZrm5cVV3Gvbn75@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYRQ7HGNNPaMcEICmBR5JmI2o5IWLIDoc1dqeRtDlkN/zL5ppg
+	L/NotJpeU7sVZJuVoKQ057h5c8T1goo/32ldvh7cHsfBvNMR4IW06bC4YDoAqIx98S4=
+X-Gm-Gg: AYBFou2AuZjLx1VQ8kw2osup5hCYBfxCIpmMIwMF4bFbUKB1D9e+l+kzxg9/qVbUvKl
+	gPPvz1SuLX9gL1+soqmYdt//gYF1BdZd4woeCz/Io2CXkxKhAIGSmT0HGQ49Y6HEHEPW6w3FhbW
+	35HuR5InLiMG4L3BBfSq/n8jxROwvAYSrbVIfVR0KMGDAFmoywHO/DTNTYkoXnFR02MlyK6j7rg
+	WrkI/8eKa8tWDjUdyb37cHaRaQckZh9+5C9E/a/OGy7CfyRnP+EknJKqZiPXXvMZmFtZxfyDjjL
+	8qHJ8r3syvTampGMC1o7WoeHBNNqslpSAwVpygSBSl8xVC7YdlkSwSia+Lp/u/c7B5SRoq631mg
+	rH8nTI6kF+0D3C4Lpjc13oIiTjLxq7plLe74cc5ribOzMancYvYUbKqzLzY6hSC9712gnwf3F0R
+	HjPWjtGh4t1S1oBBKzdX8BEEImOBQXc1Y1B7iP0YNjMxdDo4T127UQunyFXoOVMmfHvSmsGipIn
+	BmeyHPNJXBvVr62a4Ukb2lLxhPbJh66qLhGxdwi1+zv3xHP8kkH9gg4wnRliOABOTrCnjnOEiYO
+	RElWIvy4PSSLtX5n+ofkj/g16bQK73km1S7Hvw==
+X-Received: by 2002:a17:906:9f92:b0:c29:4915:83cb with SMTP id a640c23a62f3a-c4ca7ab09dbmr821664466b.39.1793622167110;
+        Mon, 02 Nov 2026 04:22:47 -0800 (PST)
+Received: from [192.168.0.167] ([64.43.42.35])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc19167sm384387266b.10.2026.11.02.04.22.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 04:22:46 -0800 (PST)
+Message-ID: <cb4fbc79-d72b-48d4-962c-479e4ebc7e51@linaro.org>
+Date: Mon, 2 Nov 2026 12:22:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,57 +90,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC9:EE_|DM4PR12MB6009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 885ce92f-da9e-42e1-5a57-08df38dbdd52
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|261021123027099003|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0TVBxJbsLN/zDDxExUCJsq7ZO/rXtNj/ZeAi7fOMR6hsg1QUdmCtUw3aM3aK0r1B6QHFMhnt8tg2EwIknrS/gx3lvr/hUXuDF7BURs3tAYu0Zo0+JHfdIk9atXY7ae0HUTpCZT9vNG2U2jFZRH7m/ItjnXRLe+BNFEnsmdOwrR764TuZokG6hz93hTlI5/Rno8j1lHM3hP9CmmF6n4Y+bkkKC4zLlYIO6DLTCZw2wLaHvTE5LfnOrG3JlevMt+HFCYiBukTcXegB6ZXeoNuYqh8e5pF9yVE2Go38IBztIrGpT+C7o+okshPlAp/8GLhzOPlMBjvzGdCzFWn80/GuWexfDA+dBa4L7WAipHSa+WJuaHD2RbZPmYH7buASqKODGRua+JgtV541x0TPPHWZGxhcwvXk4lg+g2Hn+U22kpamJnF03sOjPJj2VG6/nQakBusR+JWfmL8m7+/5/cGZG9e0RIDYOsdArDt+sByqQXVYr/WPE0Se+A11NIYC2rbU2GGZLIW9u77VW4e1rw6Z0tZB6ZJ5t/PESPiCo8ApIG1hmZHaQKSDM4Z0edhHDMzJOonBU95yZ5MeMoKO5OHowa78WwAfqKmxY2oO1E5CBSpg0ziy3+2iDyGRCK4eTWp4wJDsLOad6G6aGJFzFWpmEWaqiZwCB4W4DDc87l//F9wSjLaQj215sGNUDLPbPa/XbQOtU1rusXt6xE7ap+THqg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	gZnwTwbPWJksg63QRaSwxrSU3Zk1gLej264wmWfTb4Z4wbGzlSO2BBiuig8+7vfZfVksX5+kPHHbvDnq/36caZ3DJEt/hiRt0fXr71jUL2CtpkWs4970P6+T6dwxWLv0iUjThNOkheX4MQaWDxOl8Dc/cnr+neIBiocOqEmi+JxGEWg2/ilCYYgjoVcqxERoFbmw+t1BdUSdpq2AwDOEc93VmjOJKkYhm9HWP1L64kXm2SkhHSxomcbLh94bkld2SbQFql8+bCUyUm6OVgWyE8EfnRlmD9twg3oqwFXgofJKcJf57VHjzO4sTEttDdx6xXoKqJAmKRqZ+B6wUoP78R4QQ+CIY0aZ9mm20U+wmRXsUiSJgj7304DoXcJqFxvRIhlsKxq3cxDDuJTwbmAPhMlWFC183Ivxe7yzgiqcWnoGTvZDH5i3kIoGYwFlnQdp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:21:47.1620
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 885ce92f-da9e-42e1-5a57-08df38dbdd52
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6009
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] media: qcom: camss: Add SM8650 TPG support
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
+ <20261031112203.545319-6-vladimir.zapolskiy@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261031112203.545319-6-vladimir.zapolskiy@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Replace Salih Erim with myself as a maintainer of the Versal SysMon
-driver.
+On 31/10/2026 11:22, Vladimir Zapolskiy wrote:
+> Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks
+> of hardware version 2.2.0, add their resources.
+> 
+> CAMSS TPG on SM8650 needs the non-real time CAMNOC AXI clock to be enabled,
+> otherwise VFE receives the frame start event, but no data is written.
+> 
+> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> ---
+>   drivers/media/platform/qcom/camss/camss.c | 53 +++++++++++++++++++++++
+>   1 file changed, 53 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index cf4687a20dba..9eeb7e4a7315 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -3423,6 +3423,57 @@ static const struct camss_subdev_resources csiphy_res_sm8650[] = {
+>   	},
+>   };
+>   
+> +static const struct camss_subdev_resources tpg_res_sm8650[] = {
+> +	/* TPG0 */
+> +	{
+> +		.regulators = {},
+> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
+> +		.clock_rate = {
+> +			{ 0 },
+> +			{ 400000000 },
+> +			{ 0 },
+> +		},
+> +		.reg = { "tpg0" },
+> +		.tpg = {
+> +			.lane_cnt = 4,
+> +			.formats = &tpg_formats_gen1,
+> +			.hw_ops = &tpg_ops_gen1
+> +		}
+> +	},
+> +	/* TPG1 */
+> +	{
+> +		.regulators = {},
+> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
+> +		.clock_rate = {
+> +			{ 0 },
+> +			{ 400000000 },
+> +			{ 0 },
+> +		},
+> +		.reg = { "tpg1" },
+> +		.tpg = {
+> +			.lane_cnt = 4,
+> +			.formats = &tpg_formats_gen1,
+> +			.hw_ops = &tpg_ops_gen1
+> +		}
+> +	},
+> +	/* TPG2 */
+> +	{
+> +		.regulators = {},
+> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
+> +		.clock_rate = {
+> +			{ 0 },
+> +			{ 400000000 },
+> +			{ 0 },
+> +		},
+> +		.reg = { "tpg2" },
+> +		.tpg = {
+> +			.lane_cnt = 4,
+> +			.formats = &tpg_formats_gen1,
+> +			.hw_ops = &tpg_ops_gen1
+> +		}
+> +	},
+> +};
+> +
+>   static const struct camss_subdev_resources csid_res_sm8650[] = {
+>   	/* CSID0 */
+>   	{
+> @@ -5786,12 +5837,14 @@ static const struct camss_resources sm8650_resources = {
+>   	.version = CAMSS_8650,
+>   	.pd_name = "top",
+>   	.csiphy_res = csiphy_res_sm8650,
+> +	.tpg_res = tpg_res_sm8650,
+>   	.csid_res = csid_res_sm8650,
+>   	.csid_wrapper_res = &csid_wrapper_res_sm8550,
+>   	.vfe_res = vfe_res_sm8650,
+>   	.icc_res = icc_res_sm8650,
+>   	.icc_path_num = ARRAY_SIZE(icc_res_sm8650),
+>   	.csiphy_num = ARRAY_SIZE(csiphy_res_sm8650),
+> +	.tpg_num = ARRAY_SIZE(tpg_res_sm8650),
+>   	.csid_num = ARRAY_SIZE(csid_res_sm8650),
+>   	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
+>   };
 
-Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+What happens if we apply patches 1-5 but not patch #6 i.e. if we have an 
+old DTB ?
+
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ecc22d1149d1..e3aca3bee13a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -30023,8 +30023,8 @@ F:	drivers/edac/versalnet_edac.c
- F:	include/linux/cdx/edac_cdx_pcol.h
- 
- XILINX VERSAL SYSMON DRIVER
--M:	Salih Erim <salih.erim@amd.com>
- M:	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-+M:	Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/xlnx,versal-sysmon.yaml
--- 
-2.34.1
-
+bod
