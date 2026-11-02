@@ -1,55 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630324;
-	b=4/GXquPOI/1nCujjydKoCSw7LChzp8oIh/1ptk48BaoB+tzZkItBLJlOeS6PzIaN+Tqu
-	 WzUvkcvDceeaUJltJ2vZi1S/9wiyUe5EC9gAG28S/1B+B/68xYCRUvkLt/4Sv49kpPXpi
-	 /vgHgMYOyagawX+vEWL0lzou/yh94jgiMkqU1vXmxtoy/uwVluLlWJW0kZGS7tqq4uKxc
-	 JxCsrcvTTtuxxqVWiJOp/ValDOrYMhfnj4tViTNtFiLOM5PKH8leSl+vgt7nqbbduvD8q
-	 ThozFzTyGGEMh5KsEtaHLJ7xFFc6Bmgaaz6xqbZgqYFGU17A5eg1r5joZjiX0RcsvYQ==
+	t=1793630730;
+	b=21QEq1uahnUCBEBsYdkniTk63mraPmvxIyD21smWKAjNNY5JhYDHD7Uf7p5UXiW54Spt
+	 v506QOWEUtkbrit1xg9P1lUIqf1Y1kxTotbW3Ta9ZYBeka0ZfcC8IGnWVNTrkOoDyujM6
+	 pK2Uz31tBNLM+80o6C5ZQi0Lb6LFyl0+payubTO14+ROuh+8gfhzmy1Xxc2UyaPbK8iqD
+	 PnTHmXTZF2bL7QqPeHC1OUt7xvkoUVnZk8YvdvaTASJ9HaBGHVNvOfOCiZEcGIPm09r3H
+	 SZhaIpsXmD3UFr/+4nimhqKKKkuaJrSR/e4A7nHO4och1lkUnKGYcq7Pm5WlB/sS5jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630324;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Cdn1KQJz6DEwlZGUJ4zBoptouNZdZ09F2O3AoVYie3g=;
-	b=L/y8R1UMEkgdJF0vWIB3yQkL+713dq7BeKYyjUmxQFFlOtCih/GRQE3oTj2vUMZ7lun0
-	 8yNgyuLsxeCGxggzpHVZNBeAUbUojCKh9m6WFFDmIyGgHx3B+I+v21XQH3X4BvqGuq/wd
-	 ZUrBW5UHWkigXbFya/nqUQ6Ue6vV7hS+srTIuNdX6Ao9ZRAGnQzrtiux2S+A1kZkTUnZK
-	 cBv/+rd6RqRs0K39GIpOGiN7CtwtHKxGUPkA8gWeaRrQMLhymWqbracp1V8qtY7xX7hOF
-	 1zCYo37iW11oDzSeFDoMjRIJgTqsSzVb5/qxM0sr5XpvdnsIcCM0zwHkWZ+FSOSiFmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630730;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7vvpFbZYF9+EatWYsfyFZjmAL4FqwomgWuTi5Yv6hUQ=;
+	b=cF83TaiCyo4nxT9lO7F57/9I7QVx5jye5GtIISQJCXrgYKVaxlzol5lQh3XVN9HeamNx
+	 UwB7iPEkqonDQDa0j/3gl5TujImwRQIFollPNbIOTZWkOJsVBLRZrC+LBwOPwCQiVvdJZ
+	 RLcVBSDchrokLUtNrJ3Fux4hfXGFYMfZISYUDAuownR0z8OKODblzG4hVXnrQIECC7L+n
+	 K7/ye+Ugin+lwuLbB7sWpAQ9f4/gYOGQdIMks+WuLlR1S2jmAGOinUEZpP3HpnLzud/jw
+	 gs7os3189QvGnMMLxKDfUBqcwHTZrtHAdEBo245C9K1qoXepXCXICupQTAvVbUYw0OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KX39Z/ql";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRc7hiqh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7CC606A32D
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 14:38:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDDF606A5BD;
+	Mon,  2 Nov 2026 14:45:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KX39Z/ql
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6181F00A16;
-	Mon,  2 Nov 2026 14:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRc7hiqh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F941F00A17;
+	Mon,  2 Nov 2026 14:45:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630323;
-	bh=Cdn1KQJz6DEwlZGUJ4zBoptouNZdZ09F2O3AoVYie3g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KX39Z/qlYRcUzMEN/S4f8j8P4y90LnpOD4gOEAw8DotHLIafOi29novQXXHEdl5OK
-	 3mtiiAtLGbRbunHWyPyjyNDd39jWcx/fHwf4HBzfEhzhPNh7K6XZPTDBviaUwk10KR
-	 m3XIrUkd16ZEGZvp8QllCXbRUAEKWI3EfjuiRvvouhybQDUVLAu/ftdHFVMh7VcD2N
-	 n30h6BvA/8nw+27FbtRLNVg6w/U0H8aCxq0zM7LxXNSrBgjQGbsbJQIqo7YAi5R3zu
-	 Gd/YIId+t+M/wdZoUdyByFsdRMBUH/Sab1ELd2NOaSSXiUqSnY5dqGtyVnqECqgbtA
-	 qGgy6jJwRfcHQ==
-Message-ID: <sashiko-outbox-193591@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: mahua-t14s: Enable GPU and GMU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?THVrYXMgTcOkcmRpYW4=?= <lukas.maerdian@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102142812.1353199-1-lukas.maerdian@oss.qualcomm.com>
-References: <20261102142812.1353199-1-lukas.maerdian@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 14:38:43 +0000
+	s=k20260515; t=1793630730;
+	bh=7vvpFbZYF9+EatWYsfyFZjmAL4FqwomgWuTi5Yv6hUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RRc7hiqh8QxgBfGnCpjQ5GfLpfJtDbKNTp+S4f+jcYs7aKQiRNt9MyudWdPg9LdF/
+	 CgK/Uf9/QQ7mQPSEuMOQXZpDnm4qmmB9cFdu9oFO9wG9Yz6h/4c9hrCW/Hm0J4wjmr
+	 kt9kt04KeskZOiY5LXXuA+Hswy+8RdLEH6NxfObkfCJ3RIv7PiTf8wz2Jpaewt3qpp
+	 XwG/JJaDdNNYTzoUyiy933ZYLCcSomZIA8Y//PfbGbjkflR7U+FtN3nY3l/4gyNhp8
+	 HHTL6fyK+sV7pO2GZ+ri+AqgqNOEN6fxlTNBnXp0gPh1N+xI/f5SA5BjHikgpMB9r0
+	 uu0DfftDuebIA==
+Date: Mon, 2 Nov 2026 08:45:26 -0600
+From: Rob Herring <robh@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
+	"open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
+Subject: Re: [PATCH 2/9] dt-bindings: phy: bcm-ns-usb3-phy: Describe the NSP
+ variant
+Message-ID: <20261102144526.GD1232511-robh@kernel.org>
+References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
+ <20261021172819.668120-3-florian.fainelli@broadcom.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,104 +71,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021172819.668120-3-florian.fainelli@broadcom.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: mahua-t14s enables GPU/GMU without mahua.dtsi ov=
-errides
---
+On Wed, Oct 21, 2026 at 10:28:11AM -0700, Florian Fainelli wrote:
+> Northstar Plus uses the Northstar Bx PHY register sequence but also
+> requires coordinated USB2 and USB3 core resets and a USB2 IDM interface
+> clock enable.
+> 
+> Add an NSP compatible with a required USB2 DMP phandle. Describe the
+> shared PHY relationship with EHCI, OHCI and xHCI so initialization
+> finishes before any host starts operating.
+> 
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+>  .../bindings/phy/bcm-ns-usb3-phy.yaml         | 23 +++++++++++++++++++
+>  1 file changed, 23 insertions(+)
 
-commit 9b4a7ddbb7e3ff673d119429fdec3506da117877
-Author: Lukas M=C3=A4rdian <lukas.maerdian@oss.qualcomm.com>
-
-arm64: dts: qcom: mahua-t14s: Enable GPU and GMU
-
-This commit removes the board-level disabled status overrides for the GPU a=
-nd
-GMU nodes in the Lenovo ThinkPad T14s Gen 7 (LCD) device tree so that they
-inherit the default enabled status from the SoC device tree.
-
-> diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd=
-.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-> index 26d6d8285e040..fb913da7343fd 100644
-> --- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-> +++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-> @@ -634,15 +634,6 @@ vreg_l4h_e0_1p2: ldo4 {
->  	};
->  };
-> =20
-> -/* GPU/GMU not fully functional yet on this platform. */
-> -&gmu {
-> -	status =3D "disabled";
-> -};
-> -
-> -&gpu {
-> -	status =3D "disabled";
-> -};
-
-[Severity: High]
-Does enabling &gpu and &gmu in
-arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts cause the
-ThinkPad T14s Gen 7 to probe the GPU with the wrong hardware configuration
-when the prerequisite arch/arm64/boot/dts/qcom/mahua.dtsi overrides are not
-yet applied?
-
-The commit message notes that mahua.dtsi overrides the compatibles with
-"qcom,adreno-44060000" and "qcom,adreno-gmu-x285.0", and the note below the
-tearline mentions a dependency on "arm64: dts: qcom: mahua: Support GPU and
-GMU" (https://lore.kernel.org/all/20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.=
-qualcomm.com/).
-
-In the current tree, drivers/gpu/drm/msm/adreno/a8xx_catalog.c already has
-the a8xx_gpus[] entry for 0x44060000, but arch/arm64/boot/dts/qcom/mahua.dt=
-si
-only includes glymur.dtsi without overriding &gpu or &gmu:
-
-arch/arm64/boot/dts/qcom/mahua.dtsi:
-    #include "glymur.dtsi"
-
-Without those overrides in mahua.dtsi, removing status =3D "disabled" here
-exposes the unchanged nodes from arch/arm64/boot/dts/qcom/glymur.dtsi:
-
-arch/arm64/boot/dts/qcom/glymur.dtsi:
-    gpu: gpu@3d00000 {
-            compatible =3D "qcom,adreno-44070001", "qcom,adreno";
-    ...
-    gmu: gmu@3d6c000 {
-            compatible =3D "qcom,adreno-gmu-x285.1", "qcom,adreno-gmu";
-
-When the drm/msm driver probes gpu@3d00000 via adreno_bind() -> find_chipid=
-(),
-it matches the 0x44070001 (Adreno X2-90) entry in a8xx_gpus[] rather than t=
-he
-0x44060000 (Adreno X2-85) entry in drivers/gpu/drm/msm/adreno/a8xx_catalog.=
-c:
-
-drivers/gpu/drm/msm/adreno/a8xx_catalog.c:
-    .chip_ids =3D ADRENO_CHIP_IDS(0x44070001),
-    .family =3D ADRENO_8XX_GEN2,
-    .fw =3D {
-            [ADRENO_FW_SQE] =3D "gen80100_sqe.fw",
-            [ADRENO_FW_GMU] =3D "gen80100_gmu.bin",
-    },
-    .gmem =3D 21 * SZ_1M,
-    ...
-    .a6xx =3D &(const struct a6xx_info) {
-            ...
-            .max_slices =3D 4,
-            .gmu_chipid =3D 0x8010100,
-
-Instead of Mahua's 15.75 MiB GMEM, max_slices =3D 3, gmu_chipid =3D 0x80a00=
-00,
-and gen80100_aqe.fw, the driver will configure 21 MiB GMEM, 4 slices, and
-write 0x8010100 to REG_A8XX_GMU_GENERAL_10 in a6xx_gmu_fw_start(), while al=
-so
-leaving the undocumented "qcom,adreno-gmu-x285.1" compatible enabled on
-gmu@3d6c000.
-
-Should the mahua.dtsi GPU and GMU overrides be applied before enabling &gpu
-and &gmu on this board?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102142812.1353=
-199-1-lukas.maerdian@oss.qualcomm.com?part=3D1
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
