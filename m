@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629698;
-	b=Jnlovjsc3MnRCuHnyUQzqJ0JDA+4IfsrMLa7DrywMRirV9UaCA5mn0NsAZqu6RL1y3gj
-	 VBVyP+YmC+o/Fho0sZgW3QN9vJctdKOkFpIfjN/u5Cfed2z5d/9SOlp+O9j25OTVFC66X
-	 VsqUI3vkC0XRqMGzvh3ELAWMo7wsNu20ROaJ5PoYi3y4d+QU6YOSgRGbiJB7+GGMY+X/J
-	 ZkZUC2QCr7nQ6v3R1+nPUwPk8iDlEJCgXpmfjZsmo+oboIOG4l0N16ifuqZ9GR2oj5u6K
-	 dYr9xjpkpMQm5oSHxAmvzv3XGuvifBp425yz42kLOoCkE91pzp/BChjioKBWrGDegoA==
+	t=1793629688;
+	b=5UWh76qRdeL05plImxGs/fM+KzvnQhpV0UMQ2XimTe93ABvnpbpwfywHX26SFox3DIwh
+	 XZ/sSSNc4ZPBoDngSi6B8CkNN91Zd2whVtSQej/5WfopI2bTBh5ag/2UGBaeoCnLAey0I
+	 rDcTlm1aJIZghZAJeSB3KlmwRTbzUS248p9FUzQxv39fxDQrPJymmwHVNZSb6atmQ/51a
+	 hLTDPpYgIyBZuVLbzRn5Ffyu13jLelRpXs82H1Leq3Xhx5MMdvBkRbXwl8n8glUd+qsXb
+	 obUpKkIOl23rnENFlnoUnYByai5T6a8aGDU2k/dEDUfYWbbwWZd5Bll+SxiWPqHOyuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629688;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4Cie1gSyrYbMTqRrUQtHSjOhd7eFIgioVLrH28tB3EY=;
-	b=mUVAC7xvPNNX+a9dBCy09duJWzaghb0bIb792YgDFcwLGZPKQNZO08YqAO1r6YHL2UG4
-	 42YOEXtxek5cHN609o9gdWlstuIymlFqjigIv2UESFO0CDtCrF24swf0K2hZWvz6nhAAa
-	 elcVkCf5M3NG7lpjJANS1/WDYYowb3Iit9XM57A4MMInpT3T1czvPk/VnfHZGUY95KbgR
-	 IH8ZNkqtrSdFw4kAfErbdgeIU/uLitfmrhgbzp9F37wqW56d//evwo8xCDElisKI+6OAI
-	 oa/yMI90JLUgL7rIrWiElwY3X2GY4rbHFp9ins0j9nlhINnuTPfkDPl+5vdE4mB/MWQ==
+	bh=uXG5ng9UK2dketrcnTT7J+p4mT8docKS72kpHf0+r7A=;
+	b=klA8diu1bKQYndm1mZmUzn0Eeg18UbVfyY7Q5IpYZ60rD08c4a9HnZ43dFlIpRkP4RfR
+	 2BJzwbGRYSiHudB2R607mL+Bk+FCkWSxLNheZPG1fJ06uY/5BMitSiTmcAUnCdMFCEZXQ
+	 eqBST+naO82JZ5hHt52YOzFphOGecLI/jPheia/Oz/Qed4r9l6+63FJGdVGQzq+gO3gqr
+	 mvnyD0jAW/NFMlPRBGl+lkAXNWTXbp51G+fdEgQvzoxrDfAARmdj/q9di6BG37Ri7/BpH
+	 KASLniAmFgjZOSVGtMyhXMqCxPcW9jmHqmnHNulJXb3NMtVQ4j2jxEavuUAqbDyIHKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6U8zPnz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilReywkt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C381D60A2617;
-	Mon,  2 Nov 2026 14:28:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C51607F6F2;
+	Mon,  2 Nov 2026 14:28:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6U8zPnz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4374A1F00A18;
-	Mon,  2 Nov 2026 14:28:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilReywkt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C661F00A1A;
+	Mon,  2 Nov 2026 14:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793629697;
-	bh=4Cie1gSyrYbMTqRrUQtHSjOhd7eFIgioVLrH28tB3EY=;
+	s=k20260515; t=1793629688;
+	bh=uXG5ng9UK2dketrcnTT7J+p4mT8docKS72kpHf0+r7A=;
 	h=From:To:Cc:Subject:Date;
-	b=C6U8zPnzG6Kk9C0WRXWL/Lt86oVNlsaKN09RWtD8XeNRWioGGKqy3qwU2Bdzg2H5d
-	 kw+BmHVxewm+dTtZA1nJ7zizeUtamf5oxcGrOBineN25XtKAEObYg+fHTayncrRYic
-	 zRnLoSyqZfQ06x74xzj2+NOwtHcI09h5Rn2YjDrk5QgH6k6IOnOD6E73ePK7WD/Wu2
-	 eBip2dQCqpYBJw5a6PIrHrLCe6en30EOKg0NcG/R61DkYaOtCEmVg0APnYpnYXLUSf
-	 urRggLadORKILDtiwYo1mh/LFjTqbf9hY+HW5v6nKk/j1dFsH8B7+1hMA4iC2XRk/O
-	 FWWpWaY7MzFeg==
+	b=ilReywktqKg7UxMpVX3VwvO+FxchoepfEWWl9xM3aIbIGYJTNC//IEhj52mE021e0
+	 u8JVf7Vm3gCL/vzJT7Jw7LzWoDnLjc2UwTc0o0wTIiGqDoivbNdKjGfKfSZ+hzG3ma
+	 rOsEb80QHYwOvBIfoqxStgdfQyuPUgcVB8TgoGGb2uDmPMWv0TruIPqA++KQfu+KeQ
+	 mSASEWsHE2DJphbsEFLqxCq8Mn4QKAzsFLonlyQ3AKTDBFJ7HKyuAdfObBlmY07KK0
+	 uBEeeGJoXGFY6uLOKOulXLEYpsnaH83vG+kwEU3mHl84605GwuYSgHyBtZaAw/6Qub
+	 V1IJawuhScecg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+To: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>
-Cc: linux-sound@vger.kernel.org,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH] ASoC: dt-bindings: mediatek: Fix MT8186 child node names
-Date: Mon,  2 Nov 2026 08:28:11 -0600
-Message-ID: <20261102142812.2743578-1-robh@kernel.org>
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: display: nvidia,tegra20-dc: Move 'rgb' node properties
+Date: Mon,  2 Nov 2026 08:28:01 -0600
+Message-ID: <20261102142802.2742565-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,43 +69,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use 'playback-codecs' instead of 'speaker-codecs' in the legacy-property
-exclusion for both MT8186 sound card bindings. This appears to be a
-copy-n-paste error as 'playback-codecs' is the name defined by these
-bindings and consumed by the driver.
+Properties are supposed to be defined in the main schema and not in
+conditional schemas. Move the properties for the 'rgb' node to the main
+schema.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../bindings/sound/mt8186-mt6366-da7219-max98357.yaml           | 2 +-
- .../devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .../display/tegra/nvidia,tegra20-dc.yaml      | 43 ++++++++++---------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-index 037f21443ad1..922dfdf55a66 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-@@ -145,7 +145,7 @@ if:
- then:
-   properties:
-     headset-codec: false
--    speaker-codecs: false
-+    playback-codecs: false
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+index 69be95afd562..a42bf7ed37a2 100644
+--- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+@@ -77,8 +77,27 @@ properties:
+     description: A list of phandles of outputs that this display controller can drive.
  
- examples:
-   - |
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-index ed93f18ef985..ddc7a0ce69be 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -144,7 +144,7 @@ if:
- then:
-   properties:
-     headset-codec: false
--    speaker-codecs: false
-+    playback-codecs: false
+   rgb:
++    description: Each display controller node has a child node that represents the
++      RGB output associated with the controller.
+     type: object
  
- examples:
-   - |
++    properties:
++      nvidia,ddc-i2c-bus:
++        $ref: /schemas/types.yaml#/definitions/phandle
++        description: phandle of an I2C controller used for DDC EDID probing
++
++      nvidia,hpd-gpio:
++        description: specifies a GPIO used for hotplug detection
++        maxItems: 1
++
++      nvidia,edid:
++        $ref: /schemas/types.yaml#/definitions/uint8-array
++        description: supplies a binary EDID blob
++
++      nvidia,panel:
++        $ref: /schemas/types.yaml#/definitions/phandle
++        description: phandle of a display panel
++
+ allOf:
+   - if:
+       properties:
+@@ -105,27 +124,9 @@ allOf:
+             - const: winb-vfilter
+             - const: winc
+             - const: cursor
+-
+-        rgb:
+-          description: Each display controller node has a child node, named "rgb", that represents
+-            the RGB output associated with the controller.
+-          type: object
+-          properties:
+-            nvidia,ddc-i2c-bus:
+-              $ref: /schemas/types.yaml#/definitions/phandle
+-              description: phandle of an I2C controller used for DDC EDID probing
+-
+-            nvidia,hpd-gpio:
+-              description: specifies a GPIO used for hotplug detection
+-              maxItems: 1
+-
+-            nvidia,edid:
+-              $ref: /schemas/types.yaml#/definitions/uint8-array
+-              description: supplies a binary EDID blob
+-
+-            nvidia,panel:
+-              $ref: /schemas/types.yaml#/definitions/phandle
+-              description: phandle of a display panel
++    else:
++      properties:
++        rgb: false
+ 
+   - if:
+       properties:
 -- 
 2.53.0
 
