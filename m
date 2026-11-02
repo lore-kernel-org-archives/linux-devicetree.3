@@ -1,125 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625725;
-	b=DcMUSMHKeaHPHjBtWjevyy4GOje4qLcEsEqBP07eTukDkJI1VD+DCAEONNHEKB0Zx5Ee
-	 whehvsyHpJ0S/7nb5ijfOASE6Mz+p9lfg2ymTQSj0Uo6C+FkBzBPPY+2s5vzocWuS8exT
-	 hcusiF4jbICqmOW69Ytl9dpyr6mPGMPiv9CsllXx7eAZnZZGl5w8JDsNJ9ePE5hAq8pYz
-	 nThkMhURzQLRIKKByjqjeV4CrAyZONjc9wGn9dMdt2RESKPJlJRMvA4S8wMHiFfma1quv
-	 /GiQEsjv4JbkxmKvQ07SfU+/58x3LLuSyS26/iT6ZoOTlxlktK1FyQlEvxRO/znKtfw==
+	t=1793625775;
+	b=GA9V28WJrVwFOHu5G3OszgkHcJ2bdPYPWFB3gx+eLRfydLVKoN4mIYWMZm3TiAiBWz5p
+	 +Ykp/CpoDZpWtPNmU6bO2zY7oNMVCrsM55ywlAXfNUtAHcv985HmxFkBX3oa0f91Q2ZHv
+	 0SvjS+X11j1nEMAIjjp3mSlpPnaustkTeLs5O36M/65oLmXSgw9WH05XOaKL3W/J0b/Os
+	 6qv0QjR7xnikXznbiAq6IYZAddWKF2pUP/9ttAYqgw8r7ZeZz7NzP/zXPfLWyXxrmEKP3
+	 Kbd6dUHc+kUceFOGECqJeDl3w60Up1aW5dwz15/fPvSMg+A0NQ4eB3OjyhSVJqIJqww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625725;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=90Ay6la8TU+IvwZUCYiWLuxyD2NB080gAWQ5QDfHdus=;
-	b=4LjIcEZcynsczsO4NXJezGwR1KfR2Oklpho6SIqAY8Z4/TE1GiXZEJy387zEb79rCt/O
-	 r9o0dTyISDzmkjQSmkvZGDXSQgayqlj2tIoZqtlB7ts2ILxYcYdW8gLgsmlIKWMxtyWeB
-	 nEUO1S4saGcLnZUT89zMJKwflYhG4Psw0CsDLNQOAMTmiRTqyJjVFo6bXKI2neSXe1Jc/
-	 yT1fKDfLPhLFRlbMBhXwB6oJ/4vsiPyAQJStKTxy9RjTWpFyYA4C1QfRIHThfgJLnZbo1
-	 YZoelJ2d2iLLgh1doP07KJXOOe+9gechZUAyjftY5d9wYwuhLtUOtgrVSGoN9vvVIpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625775;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tOUwoJJ2xHQgVFDnHDlORcv3rq2tKQISQ2U/UtTWQ6E=;
+	b=QiyFgy4qtOaQhtnR3Gn7ybOSdzYlF3A+881Cz/kge7EPSYeA7tUSPepgJKkPxMrZ33mX
+	 BvaKnu5BGwxmqQ8Wl7LkidySIdbJrwk8XGZQBElTbzzGGswPXfV+9xv2zigL9D0jVctPQ
+	 JRn5jSBuhixrwkqERoz5fHpivRQUdetwP40v7fzqzX3PjgQcQtqWnW2+dTwDZYDA9edKU
+	 4iMnXmJMdzPH/9rZ3ggf3T93CowETvxP59AXLdPP/s5LPZTaGkP4C7TOJKVbxZthDjQhJ
+	 lyOKW4Y1Z83yy1vrpsY5yvneTLAX40XxWWp7WyLOk7QA+2fqzoYW27ZiBT7XejVukUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="B/dC0XIq";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f9kD1gQe;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="A/VAmHu3";
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6143606A32E
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:22:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6143606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1052606A327
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:22:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1052606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B/dC0XIq;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f9kD1gQe
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAN5q756973
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 13:22:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=90Ay6la8TU+IvwZUCYiWLuxy
-	D2NB080gAWQ5QDfHdus=; b=B/dC0XIqpOw30TIvCbrrFaeOref0hss7IVinJ4ch
-	bFvgPMKXhVgCOWOvgGBdA++EJ6oVWV6epByqD3fWp4FqUOresDL3rpcEWJVClUKa
-	nzrYlQj2wtix9isgxcty2IAY1/rSLN7y3g1Bs599XpYzdXJ2PUfE9PxYcOWn5BhN
-	NWq8SSEtvJby3zpTxkiSfjgYQXvjUKhloOdhpIDZpIcVzYaTxFDUENQ3FvoN3LPG
-	z6OliLWDYFkiI+zFTzj0ImgVVc/OVJTiuOg7C+dLoITPmM5kpE1TT3GC770oLGSn
-	pYNYwA5VLxqrSHrQS+AWbUoPpVOibvmwql/5bg/VBDZexQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpmf1sryk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:22:03 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f33438950so578386185a.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:22:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A/VAmHu3
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e10a70540so1671348f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:22:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793625723; x=1794230523; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=90Ay6la8TU+IvwZUCYiWLuxyD2NB080gAWQ5QDfHdus=;
-        b=f9kD1gQe95fzg7MGuelyQxBZwYbuMy6lsxRiXlq5YIShefsaGo8/o+QfhZZFO6UJZB
-         rBzic0EzUI0Hn1n62zV6p9EzNmnEZJDrB+pLPHF4Fr7egzSOua1bxrEdGEhxUMqHF0ax
-         l2SaJunbpajcD0L3rH/SwUdPeMa2btwNai3v+3rVlCtIaty8TE146yarV+pym/394OpY
-         K5R4OnznBXYlCxHVnx1wkajYCgkkMb4SFFxcrHXYvFUuTJm9HqlzoNkIFiruTkX2dZR7
-         rg3MMdF/uIGXS0HifEcNgI6XmhbjwXGIHDd0KBuPniRcJkGeilnHiYUn+CbFVUeSsi16
-         N+Mw==
+        d=linaro.org; s=google; t=1793625773; x=1794230573; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tOUwoJJ2xHQgVFDnHDlORcv3rq2tKQISQ2U/UtTWQ6E=;
+        b=A/VAmHu3lU2LSY/R9EliSoPwYWs/3Rw3Zg4pL21allQ32gj3bNHbB/Ue9iVMJtEftM
+         LoEa6hyzUPUyKiWsV5tpqoPl7cq2YnDzmHyCchIC2ROEmBZUdW3lp/vvjLhJCRFqiR70
+         W+yLV/YwVUKCuoErorE10SxEvKQZ4eEI/et5177eGWxez6xroPANlZsqx19sP6hfKJeG
+         VX3l8J9y1keBAv0vdlTw3xVLwwN36rbuV7gRKuEcLQlWQmUtVRgR9ymRX36ylKoE9IcY
+         8asa2mbfDlU5Qz5EbiF60DiF9d5CxZU/HJr8MCU4Ci+aQRY+JxvA2/5ttTrFNClU57ci
+         g7vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625723; x=1794230523;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=90Ay6la8TU+IvwZUCYiWLuxyD2NB080gAWQ5QDfHdus=;
-        b=ienVCaTIiT5BEM1juYwF8UUdFms+BQePgdOZJlo3TvKMLym8UX9Q/4Ai3ECiYja5YO
-         NdUPERAY59ZfD3toMAuTbePnrVA8N63W0rtV77HEvKm1oG0JtDGRfo57JC1HMqX38V3g
-         HM7kKX4HBEEZybr4CyOFWhuHLQp/7nUi6Pg458LKJaFBfrdyt/GarDG2wGjLKXJY5ipB
-         420F8w+UwftV4LKIvXkH4iAYOV4WnBu8QwZoBATs3ZP/MhsIZ1LnZSVgBCJVEGJfXLG3
-         H9mp63AuyDFI9KBOyQI+AuLyEzoKli2Nu2ED9PKx0kYtyxYJW8kpqy9e5m/TZrSHp/Wy
-         9cVg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmPiZ1QtiW9tKdzhcOOBZCK2w3YwAN8QYXpzuSwlduQMgGwN1wBDcBRvYKMehVT1QTeS0m0adciGx2@vger.kernel.org
-X-Gm-Message-State: AFq9FYKv2+7UUoMnU5eoO0Bmw8qPt6hU0PNCLoeU1ZGlafHg4VHubxD6
-	3yXYghCUxBVt7zTB4J5aW2+gxZGQyATSB5K5SvoWrHJmf7HV4ZFGx5Hqivjqd6eqEUyeezBiVjo
-	IYyGZKM1jQwuTEAgCzv/5fr6bNk8e2Gd0DkrOVmNO5dAB2w9ZZ9kh+60Cosd4uhLg
-X-Gm-Gg: AYBFou2k02lvXYSC17z05MdCNlfj6AC+WZVJvtkWPOx8sNdMzcbzkmPw61JVapQkLL0
-	6GhXsmSyRKlaXpSe8Y1fc9wSUj7koj5KfXg6/u2SHr8TkGlwlLzeYB3OWc1shzuqzG4Z1bks0RM
-	P9RyconYtXeuzeBEftTPiLVg7aEkr/o4x4/3EbB9OH+cUDKQD9XGH4FF9mAwA5Uf1A0utQa18kq
-	TY7p+sPiOB9J7/oLNW4aLIxzvZWTAA0CuIBFgoMBl/H3UJwlHe5y2mIoo4paHggRkSUtOjAYHJF
-	uW8PotFOnocjBAO8c80IpwBCBQ3J9CraR6p8NvTw1/AnmnLhGtVHnHjz4Q4z91FhnLyv4N4KUo5
-	eV7XxU32Qmjrt8MoxJWGHcZqG3rrQvOLklGfeVpAz8Ef6J2ysYOpHsgTnYHj0MH4=
-X-Received: by 2002:a05:620a:25cf:b0:93f:3120:6c7c with SMTP id af79cd13be357-94421799b6bmr1603115885a.50.1793625722500;
-        Mon, 02 Nov 2026 05:22:02 -0800 (PST)
-X-Received: by 2002:a05:620a:25cf:b0:93f:3120:6c7c with SMTP id af79cd13be357-94421799b6bmr1603109185a.50.1793625721709;
-        Mon, 02 Nov 2026 05:22:01 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf396dfdbsm273630695e9.1.2026.11.02.05.22.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:22:00 -0800 (PST)
-Date: Mon, 2 Nov 2026 15:21:59 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: sm8650: Add CAMSS test pattern
- generators
-Message-ID: <kmijrohgr5lbkg665hnini6qhz2a7z4ee4croaxlrut4dtpdj5@xugb3sxfgmri>
-References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
- <20261031112203.545319-7-vladimir.zapolskiy@linaro.org>
+        d=1e100.net; s=20260707; t=1793625773; x=1794230573;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tOUwoJJ2xHQgVFDnHDlORcv3rq2tKQISQ2U/UtTWQ6E=;
+        b=HabVL6O4Cgdmo/BtafAL1N3RNW5i2tq8Zyx+kO3uPmcq0EBUFDRIVG0mORWor6NSZu
+         iSXoLjuhYV2ppLLTrG3C28M5IKFVZiRKo3f2VD04t6lF4oj20ri+wm/4dSQ494/7foeE
+         BQneYpZPkfsx1iruh6WL+kIjxU6ZqOE8AMA0JSJi+CxzFybf+7Ewp1L8acnGUITsRzYv
+         RYFEqN0abIdP0FfrqVSkHF0vqtF50nCiSKpPrkojzvVraUCbB94ZbQiDWi1rWSKIXptF
+         tNwbOrv7LRLcHWGJa28OrKUMh/VupA+6Gb3JvmXu6+jw6kcU/rb/EVLbAF9uwgVy8xtF
+         rnIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwfVpAdeMKpfRzEW6d2qYpfATPaolzdxYWF7BsdG68xj3aH1u0Z/ahvkJnb3iNT6oEwRvsHiLbbL+N4@vger.kernel.org
+X-Gm-Message-State: APuU4Z8eD3eD1Itm5mTE8Q1zhf2uRUqUQxcIZZamlURPEJHim6yorfTw
+	Cey4+a8dS5NHxyi/WMTdicWr22eCB/KLbBA9LEnQm0CowYaK3tdiZdYCNg4oifbF29o=
+X-Gm-Gg: AYBFou0V9ZKKKGwwCITeoMX1chqc1rYLJa549Ou6HoPRzKz181JBgk3JHpqWQjMq8f5
+	6JrdJPptafGnJZRjHBFyRClsM4cB2047Kx/2uDanaG66CN1ImEDVRlUeDh8nNQt2r8i+0xQI8xi
+	msCPVG9fm4D0yqm8InbrhIIAJgMRXx6u8q2lYVY33vUyHUwdtc0mUnrn0cz40t0ZqC6v4JFi21g
+	XWMxM/HmIcXxeuGr1jIzWxQoNhkZMMo8SjtNNEHUj+KCF1K8kHgXOliLlg7VEf8rUaefhrBiHUR
+	GHjQH8anb7K+QhJBREkWZqTvFo0YswemsyEzgSxF1l3e9OrutScBMYkI6bflVs9gQm2MKKhfFoY
+	8JYcKTB5Gh5SdcHy43rhzt8QGj7Ag2oaD3AQ+5BgqmZCVi8Hv+6XYt/ERyjQT9647KD1bvkh1vC
+	5IQyYjzMUp9VMI4AF0nHpOJjayu6cdTFAJyPqSgPNrdiWv7l8jCyB60wqLi/z1dHjiPjQHGdcmY
+	AZUHW0XLzWSwmlVOb2TUc9JpoGGV9V9e2I+yyy8dY724iPIuFUwuv1ruJpthC/ueBoXUwRVHYGh
+	w+kHHNRISUGz6U4UJ5kccFw2Lv0kUCNSZ2LSLLSdPA9dFzlhrghJyARHxJypyrWUZ0gmxI0aKDE
+	YD00T/pZkbHRtW2rf25dHzDwH3I4=
+X-Received: by 2002:a5d:6f0b:0:b0:48e:f14:61bd with SMTP id ffacd0b85a97d-48e6e2f6772mr23661360f8f.14.1793625772934;
+        Mon, 02 Nov 2026 05:22:52 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm19859094f8f.9.2026.11.02.05.22.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 05:22:52 -0800 (PST)
+Message-ID: <07adb06a-5760-40fd-9c67-b562bbd72ad6@linaro.org>
+Date: Mon, 2 Nov 2026 14:22:51 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -129,42 +93,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031112203.545319-7-vladimir.zapolskiy@linaro.org>
-X-Proofpoint-ORIG-GUID: QG5hr_A0O9TawC7ipzdx2Iw2rni9ZoDW
-X-Authority-Analysis: v=2.4 cv=bNaDs/+Z c=1 sm=1 tr=0 ts=6ae88e7b cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=ABvto48SYsrZWTe_A2YA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX2EQwLzYGXabx
- Uk7zILWRLXWFFbX6J4bcvw1S4PyrZBy6zHzWZWsh1bTb012wOyEP/76PvVp3lK8sIyx5x6HuSAu
- K30tiJg0RjvGG4p+pEz5QIkXv7hHmTeT2IWy95FIXPHTNoTffV/ANEFCnMyRPmCxrVNJ1UhI3Df
- CJPbMo29Y2QUi3dAn8wYccbbNRrHm7D2YAfywjd+/VusEAffcJS4XYzuptAavMTptSwpsqjl+Hv
- vdfJBI8eVq30HxM+gXyintnyeE5zVzNuhe2VPbfUfolcMtgDpGjeVcbb5fHbqyqqo5i73Wf5Anb
- qJueF3dPLDNpTbTg8h2+M87ADZcarulU6iJZ853rIWpix/W3JQy70mJirzCF2ON5jLhBOZ9JvM+
- bu/4oPUmxQan7fC0o4B5nf8oG8CqBr3n1BU2j3TKnqwMoMzcTT2kg+lep7dnVXx20fFWqWnayBm
- re395MaJcInE/sIEfCA==
-X-Proofpoint-GUID: QG5hr_A0O9TawC7ipzdx2Iw2rni9ZoDW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX7m3IZiCuNLDZ
- r1ntj2P2koOUYQ+hF8HNUApm9ccpoqu+J6Bm0kPuWs7OoT1iiOPr8zCvMPSLT0K3yQqC57ghJ39
- iVgsZSC3vNoxM6IZILLbDKAB5lW34kU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020053
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 4/9] drm/panel: novatek-nt36672a: Set driver name to
+ novatek for consistency
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ phone-devel@vger.kernel.org
+References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
+ <20261011-nt36672a-panels-v3-4-9ea238627f8a@minlexx.ru>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261011-nt36672a-panels-v3-4-9ea238627f8a@minlexx.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 26-10-31 13:22:03, Vladimir Zapolskiy wrote:
-> Describe register spaces of three test pattern generator (TPG) blocks
-> found in Qualcomm SM8650 CAMSS and the non-real time CAMNOC AXI clock,
-> which is needed to get TPG output written to VFE.
+On 10/11/26 13:54, Alexey Minnekhanov wrote:
+> Since this driver should represent not only devices manufactured by
+> Tianma Micro-electronics, but also from other companies, it makes more
+> sense to name it according to what driver file name already is: novatek.
 > 
-> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> This does not change neither module file name nor Kconfig symbol, only
+> driver identification in dmesg. This makes it possible to e.g. grep
+> dmesg for "novatek" and get messages from both nt36672a-based panel and
+> Novatek touchscreen.
+> 
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index 464d9ce47d87d..73bec4f47ec60 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -479,16 +479,16 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
+>   	drm_panel_remove(&pinfo->base);
+>   }
+>   
+> -static const struct of_device_id tianma_fhd_video_of_match[] = {
+> +static const struct of_device_id panel_nt36672a_match[] = {
+>   	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
+>   	{ },
+>   };
+> -MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
+> +MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
+>   
+>   static struct mipi_dsi_driver nt36672a_panel_driver = {
+>   	.driver = {
+> -		.name = "panel-tianma-nt36672a",
+> -		.of_match_table = tianma_fhd_video_of_match,
+> +		.name = "panel-novatek-nt36672a",
+> +		.of_match_table = panel_nt36672a_match,
+>   	},
+>   	.probe = nt36672a_panel_probe,
+>   	.remove = nt36672a_panel_remove,
+> 
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
