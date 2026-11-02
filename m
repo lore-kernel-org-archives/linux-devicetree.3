@@ -1,44 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608404;
-	b=Lw9A3Nn/mSTVz5wBD3EVWmZFVtHIqg0WK0KIUpakkY3TPDqwLeBB8eOXndTn2RBy64qm
-	 TwkPMWFy5ZhzGDSWPfxQ/YxnbIxzKXnjIeBnp4kauPjLycit4KvjCMfvNfUwaoLdTlRD+
-	 rahcfEoFad7aPoXIDV5LWTtRzhe5S6njzG0bNOdzgTLNLWfEQxqrFktCzBIkgWF6gxwlu
-	 oqXCkVahsArWwL00mBdURJE3pY4+WFeXjCluIsa1Dn80MOgGVSrDPUIf1FPmPpgiNRAPo
-	 hprFEYKRKemOv5PcWUneqegoAPKSnJRKwr8dOhavza79Xij3axaR1Q15wqmc9EsoK1w==
+	t=1793608425;
+	b=QDEqG0dwYAE/PTaz01TMkr5CFxewbKyUf/c0lMUjWD5pdh1itWnCh1XP/dHuFTOX2leY
+	 7dj3iOBvl84z23Js81kmfgdPuX62DbMGROn3rxq1j0JviuNSOaDIXqb/wYSxjJRnk7caa
+	 iEzwByQMAnkG4TlrzkowqrQeeS9Dkr3kY0A8qXdEONnjpIM4D22PIDkB50Wz7DliLXrfJ
+	 Jh+SKbpcw2ErTAWZYzYAehIZjkhxuFU2XfDw37jEg3qiUb84YilCBWP70b9rofXHo5/mA
+	 8/WsevQZHuvRootWU8Ew5nZmGvp4Px39wNnSo/fGEY+m5KOahxCtth31bZIaBI+8FZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608404;
-	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:
-	 Subject:Cc:From:To:X-Mailer:References:In-Reply-To;
-	bh=g+7LkYQEjLBa0pHbVfmJK2O9a1hTF9dUud4ExVAmhPo=;
-	b=sYKo5c8Va9/p8tKnwS7Ra1zx+2KhIVFvQQpHzpC8ONtHD+9m7hjf0RTTXY3ExCNAxcd1
-	 MhyyG5UToVIr78nJLdQ1rPHUwEaUF3QJI2qtGaeE9a5F5FxoMztQLEODOkWxx+ZuiGXy9
-	 w+WS1LzBzx3gmwrmQvu3rUFQvQtxg+VZYBpGKgJu53vdnYVRZcwJSnVC8OAsYIMePH8Xq
-	 TzPpxfGeShXXTG7XHAQdHizc2rx3IqOZ0N4IWwprdqIF3uxH/sICxU5XlYj4c5MKRjyH2
-	 uNwtHEeq+0RLjtgL39Wj8dBjeQXmwf7R7RCpd+E5+57Cicb/0ZfmebmFXIrMoNm02CQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608425;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XRpH/JyaxN3E335O/Hcznoa+RYw05/yjDHH419w5IFA=;
+	b=ac+DGJ0kjZoX6OUQ1uy0hH1DAEOlYSgtc9D/drS9NM+I61QAx1qi9OTzG9VOCaJQN3mG
+	 vmr4QVHdrici517/V3WWk+/hVvsjHBKluRe3nRTwwDWkpGqK7fX24kzW3gbwEs5IVQsYO
+	 9zQpHf9oNUt2fzFbKh3mpn8klld+iWGN2bCTlj1qd0iRU9SLF9oPxgUyUnxn2vPEcs38v
+	 np0F9dtN6qKN42aSdiNiqlxw8LviCVTXuXUy7Q0cL/fVxiKe9F/x02JEiIrg5AwtBrdQ3
+	 kxHcvk5eTndpn5VgwURmJ0mbbcQTsIuMPWvJ7+Ac9qvAAmWXeeWszDmWBtVQ+z3/vjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CG+t2RrK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JD6WoHw6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7D9F5606A324;
-	Mon,  2 Nov 2026 08:33:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E81606A326
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 08:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CG+t2RrK
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 890B31F000C1;
-	Mon,  2 Nov 2026 08:33:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JD6WoHw6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091341F000C1;
+	Mon,  2 Nov 2026 08:33:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608404;
-	bh=g+7LkYQEjLBa0pHbVfmJK2O9a1hTF9dUud4ExVAmhPo=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=CG+t2RrKQUSI99OOxAXkRPc6OJNgeRSvIqSnFF845GXEyQ96eeGuWiskf/h+1+UQV
-	 FCM+PCg6TkDy8vdHO+GCpry22Jyvdbpw7m0Sh6GWtrD91a+0J/L3lUNmVzQmE78x8J
-	 jQL8TwQQ0wn11+sDsSYyRDR0LloyivSHNz4oR2fgPVhiknECqrJVxMpzjhFlk8cvza
-	 fnjOJsdkOuj0PWc/TBomThVGEOIp+ioAY/tqzgFTZpVqh+Ydp4OwOTSnvjmXeouF8m
-	 Hv8phPwMEqQXEVWc+mgzSVBDaZwdwYhThmDz/7Gzh6n0rzWsoRWFuALevpMLStwP6i
-	 b4BN5PmB9KBCg==
+	s=k20260515; t=1793608424;
+	bh=XRpH/JyaxN3E335O/Hcznoa+RYw05/yjDHH419w5IFA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JD6WoHw6hGsU/3kWlN7ONNLh5EDbSHnNX2uZcOio1kRBsnJxRPER5K5FUZlXbCXqa
+	 6zzBNNFbxQq2Mprw3Km626+ddDtPvK5+pK46e7wGAdej3lvSZRQgo182t+USQdyONm
+	 MF9orXRjSkGeE5zU5V2HkkJB6BeoGuiYwuUkYH+WA+t1VFdt/PWXbszo7whQ7n80G+
+	 Cg/VcONBHI1MnxlA/QXaBtf5B9b1vrK9wfvAW2apbNl002j78tTwFPFVx/CNZzZHGM
+	 BjxGNo+Pn38nh4e8lIJAhX4qiekW7wIRrJ2+xEeT6mJR7DIYe8kClZXgjT+BVrih6w
+	 vzIBjncwpMNHQ==
+Message-ID: <sashiko-outbox-193117@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: phy: add CIX Sky1 USB/DP combo PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gary Yang" <gary.yang@cixtech.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261102082112.2306326-2-gary.yang@cixtech.com>
+References: <20261102082112.2306326-1-gary.yang@cixtech.com>
+ <20261102082112.2306326-2-gary.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 08:33:43 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -47,107 +59,145 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=e559a543ddd5736e0bc1ea0535865b80f9a388da70706e5bb56e98e2b163;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 02 Nov 2026 09:33:20 +0100
-Message-Id: <DMKL43ZCOSQ3.3TAJL8BRQ6ZTH@kernel.org>
-Subject: Re: [PATCH v13 08/13] gpio: regmap: remove gpiochip before tearing
- down irqchip
-Cc: "Linus Walleij" <linusw@kernel.org>, "Andy Shevchenko"
- <andriy.shevchenko@linux.intel.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski@oss.qualcomm.com>, "Conor Dooley"
- <conor+dt@kernel.org>, "Mika Westerberg" <westeri@kernel.org>,
- <linux-acpi@vger.kernel.org>, <devicetree@vger.kernel.org>, "Long Zhao"
- <zl020895@163.com>, <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: <longzhao@ambarella.com>, "Bartosz Golaszewski" <brgl@kernel.org>,
- <linux-gpio@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
-In-Reply-To: <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
 
---e559a543ddd5736e0bc1ea0535865b80f9a388da70706e5bb56e98e2b163
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: phy: cix,sky1-usbdp-phy: missing OF graph port for =
+usb-switch
+- [Low] dt-bindings: phy: cix,sky1-usbdp-phy: redundant usb-port and dp-por=
+t nodes
+- [Low] dt-bindings: phy: cix,sky1-usbdp-phy: software policy in cix,defaul=
+t-conf
+--
 
-On Mon Nov 2, 2026 at 7:46 AM CET, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
->
-> gpio_regmap_unregister() currently calls regmap_del_irq_chip() before
-> gpiochip_remove(). That disposes the mapped virtual IRQs and frees the
-> irq_domain while ACPI GPIO-signaled events may still be requested and
-> while gpiod_free_irqs() still needs gc->irq.domain.
+commit 04fdff6aa671993772ad90b645872bcdaa857848
+Author: Gary Yang <gary.yang@cixtech.com>
 
-Maybe Andy have an opinion here. But that deviated from the usual
-cleanup in the reverse order and at least deserves a comment in the
-code.
+dt-bindings: phy: add CIX Sky1 USB/DP combo PHY
 
-> Remove the gpio_chip first so ACPI teardown and USED_AS_IRQ cleanup run
-> against a live domain, then delete the regmap irqchip. Use the same
-> order on the registration error path, which previously leaked the
-> irqchip when gpiochip_irqchip_add_domain() failed after
-> regmap_add_irq_chip_fwnode().
+This commit adds the Device Tree binding schema for the CIX Sky1 USB/DP
+combo PHY, describing its USB and DisplayPort lane child nodes, Type-C
+switch properties, and S5 system controller phandle.
 
-This should be split into a seperate patch with a Fixes: tag.
+> diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yam=
+l b/Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
+> new file mode 100644
+> index 0000000000000..a5b6943f84ebd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
+> @@ -0,0 +1,150 @@
 
--michael
+[ ... ]
 
->
-> Cc: Michael Walle <mwalle@kernel.org>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  drivers/gpio/gpio-regmap.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-> index 0a44deae3d01..6b520bd80834 100644
-> --- a/drivers/gpio/gpio-regmap.c
-> +++ b/drivers/gpio/gpio-regmap.c
-> @@ -429,6 +429,11 @@ struct gpio_regmap *gpio_regmap_register(const struc=
-t gpio_regmap_config *config
-> =20
->  err_remove_gpiochip:
->  	gpiochip_remove(chip);
+> +  orientation-switch:
+> +    description:
+> +      The PHY handles Type-C plug orientation switching.
+> +    type: boolean
 > +
-> +#ifdef CONFIG_REGMAP_IRQ
-> +	if (gpio->irq_chip_data)
-> +		regmap_del_irq_chip(gpio->regmap_irq_line, gpio->irq_chip_data);
-> +#endif
->  err_free_bitmap_output:
->  	bitmap_free(gpio->fixed_direction_output);
->  err_free_bitmap_dirmask:
-> @@ -445,12 +450,13 @@ EXPORT_SYMBOL_GPL(gpio_regmap_register);
->   */
->  void gpio_regmap_unregister(struct gpio_regmap *gpio)
->  {
-> +	gpiochip_remove(&gpio->gpio_chip);
+> +  mode-switch:
+> +    description:
+> +      The PHY handles multiplexing of the USB and DisplayPort lanes.
+> +    type: boolean
+
+[Severity: Medium]
+How does a Type-C connector or port controller link to this PHY's
+orientation-switch and mode-switch without an OF graph port or ports node?
+
+In the Type-C mux and switch subsystem,
+fwnode_typec_switch_get()->fwnode_connection_find_matches() and
+fwnode_typec_mux_get()->fwnode_connection_find_matches() match
+orientation-switch in typec_switch_match() and mode-switch in
+typec_mux_match() by traversing OF graph endpoints via
+fwnode_graph_devcon_matches().
+
+Because this schema sets additionalProperties: false without defining a port
+or ports node, any board Device Tree that adds an OF graph connection from a
+usb-c-connector to this PHY will fail dtbs_check validation, and without the
+graph link the Type-C subsystem cannot resolve the switch or mux.
+
+Should this binding reference /schemas/usb/usb-switch.yaml# (or
+/schemas/usb/usb-switch-ports.yaml#) instead of redefining orientation-swit=
+ch
+and mode-switch locally without graph endpoints?
+
 > +
->  #ifdef CONFIG_REGMAP_IRQ
->  	if (gpio->irq_chip_data)
->  		regmap_del_irq_chip(gpio->regmap_irq_line, gpio->irq_chip_data);
->  #endif
-> =20
-> -	gpiochip_remove(&gpio->gpio_chip);
->  	bitmap_free(gpio->fixed_direction_output);
->  	bitmap_free(gpio->fixed_direction_mask);
->  	kfree(gpio);
+> +  cix,usbphy-syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: phandle to the S5 system controller
+> +          - description: PHY instance index within the system controller
+> +    description:
+> +      Phandle to the system controller used for lane muxing and
+> +      Type-C orientation control, followed by the PHY instance index.
+> +
+> +  cix,default-conf:
+> +    $ref: /schemas/types.yaml#/definitions/uint8
+> +    enum: [0, 1, 2, 3]
+> +    default: 3
+> +    description: |
+> +      Lane mode the PHY is put in until a consumer changes it through the
+> +      Type-C mux. The value is a bit mask: 0 =3D none, 1 =3D USB, 2 =3D =
+DP,
+> +      3 =3D USB and DP.
 
+[Severity: Low]
+Does cix,default-conf describe a hardware characteristic, or is it encoding
+initial driver software policy in Device Tree?
 
---e559a543ddd5736e0bc1ea0535865b80f9a388da70706e5bb56e98e2b163
-Content-Type: application/pgp-signature; name="signature.asc"
+Which lane mode the driver configures prior to receiving a Type-C mux or PHY
+consumer state update appears to be runtime driver policy rather than static
+board or SoC hardware description. Could this property be dropped from the
+binding?
 
------BEGIN PGP SIGNATURE-----
+> +
+> +patternProperties:
+> +  "^usb-port@[0-9a-f]+$":
+> +    type: object
+> +    description:
+> +      The USB lane of the combo PHY.
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      "#phy-cells":
+> +        const: 0
+> +
+> +    required:
+> +      - reg
+> +      - "#phy-cells"
+> +
+> +    additionalProperties: false
+> +
+> +  "^dp-port@[0-9a-f]+$":
+> +    type: object
+> +    description:
+> +      The DisplayPort lane of the combo PHY.
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      "#phy-cells":
+> +        const: 0
+> +
+> +    required:
+> +      - reg
+> +      - "#phy-cells"
+> +
+> +    additionalProperties: false
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCauhK0BIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/jxzwF/ZAkzKOGv9l7MDYcYh3jS3nkx5ghEgdBb
-HCu8STEFMwoP4R28mXbuZ+uJ1KYSz0FFAX97LO7hwqVWxf3PyqlhJ3hKq74WfhY6
-/5fERnbMYAZqjKeKQFXywMH5hmjOAMwDK2s=
-=Ghuv
------END PGP SIGNATURE-----
+[Severity: Low]
+Are the usb-port and dp-port child nodes necessary when neither subnode has
+any dedicated Device Tree resources?
 
---e559a543ddd5736e0bc1ea0535865b80f9a388da70706e5bb56e98e2b163--
+Each child node only contains reg and #phy-cells =3D <0>, with no per-lane
+clocks, resets, power supplies, or distinct MMIO register ranges. Could the
+parent PHY node set #phy-cells =3D <1> (for example, taking PHY_TYPE_USB3 a=
+nd
+PHY_TYPE_DP) and omit these child nodes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102082112.2306=
+326-1-gary.yang@cixtech.com?part=3D1
