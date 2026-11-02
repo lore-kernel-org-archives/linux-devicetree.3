@@ -1,89 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625693;
-	b=4e3zGyk0tGPp/XEhggU6guUgtl8pCEZfTrX5p4K5DPs+VCsLRLA7C7Q4ZMBq07hVeukx
-	 oFh+++Mrv5kQdqcmq1Zt14ulh3qzQzPl/uEYlJ81ZKOnfzbx3hRft8x9IRNV8+QE50+ts
-	 qD8389PUQz7rCTFL8ecvD+kDvQdFdE4Jy1WW/9zH8yK1m71oPMeVtp6fu3AD0HcpSgJgs
-	 q3Z5MWQkjKbpt39m1HNmrNa/YBwHFvjYEDhaiZW9sHAsF1eu5l2K1tib3nflXWsu8Czfb
-	 p2Qi3e743Dgfc6CFqR5wy5bZnhAZx/0WtiM9C9b+VN9HFAoNWbJNHD1RHf+v7ZBDgQw==
+	t=1793625725;
+	b=DcMUSMHKeaHPHjBtWjevyy4GOje4qLcEsEqBP07eTukDkJI1VD+DCAEONNHEKB0Zx5Ee
+	 whehvsyHpJ0S/7nb5ijfOASE6Mz+p9lfg2ymTQSj0Uo6C+FkBzBPPY+2s5vzocWuS8exT
+	 hcusiF4jbICqmOW69Ytl9dpyr6mPGMPiv9CsllXx7eAZnZZGl5w8JDsNJ9ePE5hAq8pYz
+	 nThkMhURzQLRIKKByjqjeV4CrAyZONjc9wGn9dMdt2RESKPJlJRMvA4S8wMHiFfma1quv
+	 /GiQEsjv4JbkxmKvQ07SfU+/58x3LLuSyS26/iT6ZoOTlxlktK1FyQlEvxRO/znKtfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625693;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yzb4FLFHNkxHewORAzgIXxT9puE5wh1HG/JpGad3oS4=;
-	b=FjD3mbc9FklVExCmY3eUhF9goTLFIJnu3Qr9oI9/Duir1m2Pq8WV6ncaNiovjHuIweQP
-	 mazvzjzi2GuYHuWyy4w73ByC7oaAd/L32vbsETpR8S3mz/jCuKyeayiDmiesQpacdUXFX
-	 giIxicGzXAct9qnQTCNPjXIfc7wZOJf99cObJWIPlAdh3Znzn36Cb5y3SIUVcp7leK8O6
-	 MpuF1hIyATVM7fn8P9gPi+8kNvKosjvruh9ciR43RKdgfqYCVK5QJJrrTcqUGIjaU79hz
-	 t8+Q2Ud8hMVL8zgAt1NXBLGYGAo4o369uwd9PgK5ydPSyeFSYMBFKEUZiDIcsbz7rjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625725;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=90Ay6la8TU+IvwZUCYiWLuxyD2NB080gAWQ5QDfHdus=;
+	b=4LjIcEZcynsczsO4NXJezGwR1KfR2Oklpho6SIqAY8Z4/TE1GiXZEJy387zEb79rCt/O
+	 r9o0dTyISDzmkjQSmkvZGDXSQgayqlj2tIoZqtlB7ts2ILxYcYdW8gLgsmlIKWMxtyWeB
+	 nEUO1S4saGcLnZUT89zMJKwflYhG4Psw0CsDLNQOAMTmiRTqyJjVFo6bXKI2neSXe1Jc/
+	 yT1fKDfLPhLFRlbMBhXwB6oJ/4vsiPyAQJStKTxy9RjTWpFyYA4C1QfRIHThfgJLnZbo1
+	 YZoelJ2d2iLLgh1doP07KJXOOe+9gechZUAyjftY5d9wYwuhLtUOtgrVSGoN9vvVIpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qcpza+pb;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="B/dC0XIq";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f9kD1gQe;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F288606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:21:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F288606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6143606A32E
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:22:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6143606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qcpza+pb
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so28503115e9.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:21:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B/dC0XIq;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f9kD1gQe
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAN5q756973
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 13:22:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=90Ay6la8TU+IvwZUCYiWLuxy
+	D2NB080gAWQ5QDfHdus=; b=B/dC0XIqpOw30TIvCbrrFaeOref0hss7IVinJ4ch
+	bFvgPMKXhVgCOWOvgGBdA++EJ6oVWV6epByqD3fWp4FqUOresDL3rpcEWJVClUKa
+	nzrYlQj2wtix9isgxcty2IAY1/rSLN7y3g1Bs599XpYzdXJ2PUfE9PxYcOWn5BhN
+	NWq8SSEtvJby3zpTxkiSfjgYQXvjUKhloOdhpIDZpIcVzYaTxFDUENQ3FvoN3LPG
+	z6OliLWDYFkiI+zFTzj0ImgVVc/OVJTiuOg7C+dLoITPmM5kpE1TT3GC770oLGSn
+	pYNYwA5VLxqrSHrQS+AWbUoPpVOibvmwql/5bg/VBDZexQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpmf1sryk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:22:03 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f33438950so578386185a.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:22:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793625691; x=1794230491; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yzb4FLFHNkxHewORAzgIXxT9puE5wh1HG/JpGad3oS4=;
-        b=qcpza+pbzaQUN6rpBFezjcIf7pFSYBAYS5RQntMgEhtnNSN8nsGmxaZrwLwh0TSm5l
-         zldSHO+LS4Y72s6k7gfwGZzLw1BBf+iVhE6UzYiJjKFeQsYIXjRIQ0t+oJiDta1x8NDn
-         aSIzEjbHgchqaKHkHECTWuHwFHnTuyw0wh0gnYitbXMQU51EAI49G5VY9Gfg9unePI+j
-         iBrFN9Nm2+OgN2DAIO/SfSYWWujBIb2MtZU1b7g+EXzyhL9rNJjnvvZIjtA81Sdom0D6
-         VDCsng6+IiSBJbSwbIHoKcK1DfTqrzjgmFPt9XpVDXpKECWJmrsLhmxXzKAUEGUVKKE5
-         YJXw==
+        d=oss.qualcomm.com; s=google; t=1793625723; x=1794230523; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=90Ay6la8TU+IvwZUCYiWLuxyD2NB080gAWQ5QDfHdus=;
+        b=f9kD1gQe95fzg7MGuelyQxBZwYbuMy6lsxRiXlq5YIShefsaGo8/o+QfhZZFO6UJZB
+         rBzic0EzUI0Hn1n62zV6p9EzNmnEZJDrB+pLPHF4Fr7egzSOua1bxrEdGEhxUMqHF0ax
+         l2SaJunbpajcD0L3rH/SwUdPeMa2btwNai3v+3rVlCtIaty8TE146yarV+pym/394OpY
+         K5R4OnznBXYlCxHVnx1wkajYCgkkMb4SFFxcrHXYvFUuTJm9HqlzoNkIFiruTkX2dZR7
+         rg3MMdF/uIGXS0HifEcNgI6XmhbjwXGIHDd0KBuPniRcJkGeilnHiYUn+CbFVUeSsi16
+         N+Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625691; x=1794230491;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yzb4FLFHNkxHewORAzgIXxT9puE5wh1HG/JpGad3oS4=;
-        b=DVSEFXX31hBwbpoeq90gmlY1XoxCeOhKdewu6/p1VZQGnPNxvTBZTciI47pJiCEmH5
-         7+9/8+4ApW3FlFvqTz0n0/3sUds4kTaxiy2VGmmIaeGbND0Pe3rLIb0/cZ8S0bkZFXZu
-         ATJGMiT2i+sU7j9gzL/TFVJlyPOwvssVFoPg0JLVbG1u++fAW07wmCBiN6uZkPyOsDMw
-         nuOAA/CAxzIzbNl0V2FKzP01/v6GwLAamNAkjWAoQnfDCS1i7NNkl3TITqMX2135FIAC
-         YkUsLZltamSFTvRcjvn6uxZJppzsJEDk4RbCp6Y/hyH5jqwKLqWczxVvj7+v/jTMyA09
-         A4oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuQXM8AjgWl/uilAgfEqDm+F6BigN0znjLQ4Ts280YDHsnrbOz0GdukHsga7NQYUmRWz4tLXX35SM/@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYLUO7zD9dthCbSIOXMVRG7pFzYSUv+fIIi39Wo3bsxdmKqt4D
-	OI2X1a2jKgmQrQ9goUAvG1la/iDI88lTPABoVApkugXQG/fUDWzBJSmh+3kPJmoPUbg=
-X-Gm-Gg: AYBFou06ptvqICSn0erDHpuyK1sP81IlAfBmbslAu+pcFiYg4YgK1j6zvoJMwcGNpJ3
-	GFHyO2aLveqdUVFAai26sx9IbE5JooQlk+fsxTsq3qRx17qG7FIJ6+XdqM/a4ZQYuTskjRuO2P+
-	0SSK8PDPTqUU9v7yR1lpPz4IchRoW7KbrHcvWOtb/0H3tnEmHWKZtVZRLCkbTVHgMtjXW8arYfv
-	1QA8/aplgHUWXue215xXaVGoJAMVtq4GKEzhD3oBk2R5wE5TVoLiLyVKfDyfvvszktXBzEVHW2e
-	GAlvTePOwU/PRnsdXvtSjnSjqs9QxUFOAAMR+nEYjzcAYSSnoeEghidVXbtBJJl2eEpniy10me8
-	f7yZQAS1/iYbjm3f+j0fWNMflopCl6U+7bc6aUYaI3hfBb2T7djPkNYsdQD0gFNdKsqLDAuuHy4
-	qzq3hAJ9+0CxDUpkCv1ifHpbZUZC3zskSOmwV/03FDqC44BcJ7G2FyUi+jrtqozy6b+J30BAAjK
-	BCG+dGBiqV8oZZ5Yh+09PwLCBpdm0Mz9KfbgG20xuwwlizZhguB/XN0flWfFt4vgZQbXk+DfEpC
-	aFrdrMLZRiZNIx0IE84Y0CZMRsNzvf8op8wScDnC50f91c4gtt5UT6oDfXLwSc+Ds4coZ1AWsOp
-	fLo1c
-X-Received: by 2002:a05:600c:a00b:b0:4a2:180b:3153 with SMTP id 5b1f17b1804b1-4ac185bcc7dmr242358135e9.14.1793625690760;
-        Mon, 02 Nov 2026 05:21:30 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm228432265e9.4.2026.11.02.05.21.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:21:30 -0800 (PST)
-Message-ID: <484889a9-97a4-48d8-b630-27141077d0b0@linaro.org>
-Date: Mon, 2 Nov 2026 14:21:29 +0100
+        d=1e100.net; s=20260707; t=1793625723; x=1794230523;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=90Ay6la8TU+IvwZUCYiWLuxyD2NB080gAWQ5QDfHdus=;
+        b=ienVCaTIiT5BEM1juYwF8UUdFms+BQePgdOZJlo3TvKMLym8UX9Q/4Ai3ECiYja5YO
+         NdUPERAY59ZfD3toMAuTbePnrVA8N63W0rtV77HEvKm1oG0JtDGRfo57JC1HMqX38V3g
+         HM7kKX4HBEEZybr4CyOFWhuHLQp/7nUi6Pg458LKJaFBfrdyt/GarDG2wGjLKXJY5ipB
+         420F8w+UwftV4LKIvXkH4iAYOV4WnBu8QwZoBATs3ZP/MhsIZ1LnZSVgBCJVEGJfXLG3
+         H9mp63AuyDFI9KBOyQI+AuLyEzoKli2Nu2ED9PKx0kYtyxYJW8kpqy9e5m/TZrSHp/Wy
+         9cVg==
+X-Forwarded-Encrypted: i=1; AKwUvBwmPiZ1QtiW9tKdzhcOOBZCK2w3YwAN8QYXpzuSwlduQMgGwN1wBDcBRvYKMehVT1QTeS0m0adciGx2@vger.kernel.org
+X-Gm-Message-State: AFq9FYKv2+7UUoMnU5eoO0Bmw8qPt6hU0PNCLoeU1ZGlafHg4VHubxD6
+	3yXYghCUxBVt7zTB4J5aW2+gxZGQyATSB5K5SvoWrHJmf7HV4ZFGx5Hqivjqd6eqEUyeezBiVjo
+	IYyGZKM1jQwuTEAgCzv/5fr6bNk8e2Gd0DkrOVmNO5dAB2w9ZZ9kh+60Cosd4uhLg
+X-Gm-Gg: AYBFou2k02lvXYSC17z05MdCNlfj6AC+WZVJvtkWPOx8sNdMzcbzkmPw61JVapQkLL0
+	6GhXsmSyRKlaXpSe8Y1fc9wSUj7koj5KfXg6/u2SHr8TkGlwlLzeYB3OWc1shzuqzG4Z1bks0RM
+	P9RyconYtXeuzeBEftTPiLVg7aEkr/o4x4/3EbB9OH+cUDKQD9XGH4FF9mAwA5Uf1A0utQa18kq
+	TY7p+sPiOB9J7/oLNW4aLIxzvZWTAA0CuIBFgoMBl/H3UJwlHe5y2mIoo4paHggRkSUtOjAYHJF
+	uW8PotFOnocjBAO8c80IpwBCBQ3J9CraR6p8NvTw1/AnmnLhGtVHnHjz4Q4z91FhnLyv4N4KUo5
+	eV7XxU32Qmjrt8MoxJWGHcZqG3rrQvOLklGfeVpAz8Ef6J2ysYOpHsgTnYHj0MH4=
+X-Received: by 2002:a05:620a:25cf:b0:93f:3120:6c7c with SMTP id af79cd13be357-94421799b6bmr1603115885a.50.1793625722500;
+        Mon, 02 Nov 2026 05:22:02 -0800 (PST)
+X-Received: by 2002:a05:620a:25cf:b0:93f:3120:6c7c with SMTP id af79cd13be357-94421799b6bmr1603109185a.50.1793625721709;
+        Mon, 02 Nov 2026 05:22:01 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf396dfdbsm273630695e9.1.2026.11.02.05.22.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:22:00 -0800 (PST)
+Date: Mon, 2 Nov 2026 15:21:59 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: sm8650: Add CAMSS test pattern
+ generators
+Message-ID: <kmijrohgr5lbkg665hnini6qhz2a7z4ee4croaxlrut4dtpdj5@xugb3sxfgmri>
+References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
+ <20261031112203.545319-7-vladimir.zapolskiy@linaro.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,113 +129,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add AUO B101UAN01 panel
-To: Asif Ikbal <asif.ikbal@amd.com>
-Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- thierry.reding@gmail.com, sam@ravnborg.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com,
- michal.simek@amd.com, naveen.gaddipati@amd.com
-References: <20261016094638.2958431-1-asif.ikbal@amd.com>
- <20261016094638.2958431-3-asif.ikbal@amd.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261016094638.2958431-3-asif.ikbal@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031112203.545319-7-vladimir.zapolskiy@linaro.org>
+X-Proofpoint-ORIG-GUID: QG5hr_A0O9TawC7ipzdx2Iw2rni9ZoDW
+X-Authority-Analysis: v=2.4 cv=bNaDs/+Z c=1 sm=1 tr=0 ts=6ae88e7b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=ABvto48SYsrZWTe_A2YA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX2EQwLzYGXabx
+ Uk7zILWRLXWFFbX6J4bcvw1S4PyrZBy6zHzWZWsh1bTb012wOyEP/76PvVp3lK8sIyx5x6HuSAu
+ K30tiJg0RjvGG4p+pEz5QIkXv7hHmTeT2IWy95FIXPHTNoTffV/ANEFCnMyRPmCxrVNJ1UhI3Df
+ CJPbMo29Y2QUi3dAn8wYccbbNRrHm7D2YAfywjd+/VusEAffcJS4XYzuptAavMTptSwpsqjl+Hv
+ vdfJBI8eVq30HxM+gXyintnyeE5zVzNuhe2VPbfUfolcMtgDpGjeVcbb5fHbqyqqo5i73Wf5Anb
+ qJueF3dPLDNpTbTg8h2+M87ADZcarulU6iJZ853rIWpix/W3JQy70mJirzCF2ON5jLhBOZ9JvM+
+ bu/4oPUmxQan7fC0o4B5nf8oG8CqBr3n1BU2j3TKnqwMoMzcTT2kg+lep7dnVXx20fFWqWnayBm
+ re395MaJcInE/sIEfCA==
+X-Proofpoint-GUID: QG5hr_A0O9TawC7ipzdx2Iw2rni9ZoDW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX7m3IZiCuNLDZ
+ r1ntj2P2koOUYQ+hF8HNUApm9ccpoqu+J6Bm0kPuWs7OoT1iiOPr8zCvMPSLT0K3yQqC57ghJ39
+ iVgsZSC3vNoxM6IZILLbDKAB5lW34kU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020053
 
-On 10/16/26 11:46, Asif Ikbal wrote:
-> Add support for the AU Optronics B101UAN01 1920x1200 10.1" WUXGA
-> MIPI-DSI TFT LCD panel.
+On 26-10-31 13:22:03, Vladimir Zapolskiy wrote:
+> Describe register spaces of three test pattern generator (TPG) blocks
+> found in Qualcomm SM8650 CAMSS and the non-real time CAMNOC AXI clock,
+> which is needed to get TPG output written to VFE.
 > 
-> The mode is taken from the MIPI interface timing section of the
-> B101UAN01.7 (H/W 1A) datasheet and gives a 60 Hz refresh rate.
-> 
-> Signed-off-by: Asif Ikbal <asif.ikbal@amd.com>
-> ---
->   drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++
->   1 file changed, 32 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index a944c34642dc..46ec17b6c365 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -6389,6 +6389,35 @@ static const struct panel_desc_dsi auo_b080uan01 = {
->   	.lanes = 4,
->   };
->   
-> +static const struct drm_display_mode auo_b101uan01_mode = {
-> +	.clock = 148350,
-> +	.hdisplay = 1920,
-> +	.hsync_start = 1920 + 40,
-> +	.hsync_end = 1920 + 40 + 40,
-> +	.htotal = 1920 + 40 + 40 + 40,
-> +	.vdisplay = 1200,
-> +	.vsync_start = 1200 + 4,
-> +	.vsync_end = 1200 + 4 + 4,
-> +	.vtotal = 1200 + 4 + 4 + 4,
-> +	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-> +};
-> +
-> +static const struct panel_desc_dsi auo_b101uan01 = {
-> +	.desc = {
-> +		.modes = &auo_b101uan01_mode,
-> +		.num_modes = 1,
-> +		.bpc = 8,
-> +		.size = {
-> +			.width = 217,
-> +			.height = 136,
-> +		},
-> +		.connector_type = DRM_MODE_CONNECTOR_DSI,
-> +	},
-> +	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +};
-> +
->   static const struct drm_display_mode boe_tv080wum_nl0_mode = {
->   	.clock = 160000,
->   	.hdisplay = 1200,
-> @@ -6572,6 +6601,9 @@ static const struct of_device_id dsi_of_match[] = {
->   	{
->   		.compatible = "auo,b080uan01",
->   		.data = &auo_b080uan01
-> +	}, {
-> +		.compatible = "auo,b101uan01",
-> +		.data = &auo_b101uan01
->   	}, {
->   		.compatible = "boe,tv080wum-nl0",
->   		.data = &boe_tv080wum_nl0
+> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Thanks,
-Neil
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
