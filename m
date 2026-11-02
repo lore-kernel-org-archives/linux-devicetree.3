@@ -1,103 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626843;
-	b=zQ+zaIKl9YnTF3jIGGCHIfj9ZoYQD2uHQp+1C/pAbejtnIt/2XIWjLE+5KoK0SHJMIEF
-	 0CP3o/xfIl39YRXdtQGuyIZ6yyOzBdntOk8IG7vvPEQ+vJ1IMvlvXX5CScpshHeVwlwkl
-	 2w+k9M7PFZXSem7EVtAL+XhNVUg1qXm64lRvLRT93XwWFT/ZE5o181/sqbHfyFX3vlmd3
-	 PW8BzfAU8Y2PSZTjt8p49wBJUw1Xx4zoAScDwGv3ivWiGyOkDQQF7neA22aZSGpK6F+UY
-	 nx4ngOK9qaXL2kRV0NA2hJ9G02W1pmlSjAW93LI62ke2DfUobc5oIo2f0UR8eks+qGg==
+	t=1793626838;
+	b=hw3lsC5qjEl8EtdOvjokJRzrl4yn8Ne6uaTPAvfQ6mEStV7GLWHJ1p05OmJkDIJy7pJp
+	 YFGXN4rp0JurGuKBr7+Yh6Othx2oI8FRyVMBPoZSjsuB8o0Ags9jg/A0ETXfQMPwV3zWV
+	 UW3dn1OGwWP9qUz3Sm16cH02qgHmKkLXt9Yzig3dCYfNbsX7sU5oJHMyKOWwxbzTOekjQ
+	 D7jSZpNYxzk6FQXXUmGuioqKiAqzBian8ZZsB+eHHg58DgRTLG0BZ2QYCUzKl0+O3tqYj
+	 FL2Z3ogLUfvab+IvVH2uOJ25VK1WZII3IXRKefaLIX5ywb4FVHOrkLhTCQzZq4mNxtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=RJboDKYLD5odXq2wMgxBJknNJQ9cln3HeP/apn+7A4Q=;
-	b=j11h+1swBCUlD1LdibapTfvM/TPilx3H/kK9hQjAitng6NTH9m8xupGFOzazkSci9Fgn
-	 1GqbCOVXXr7c1jv9zYfPgtURBJqi6HYj7aZP4+XnqBkuLs7LbuLpvWJ2ZnPYXTgkxYmY/
-	 +J93Cr0cNfneVjqlI2Fz/kxWyrL17bYqwjNwyEmlGYr+rLRt72FD3gQBc2ykKsziJKyAk
-	 E2hR/5x5B5LPOwirV2n8N5OcweX0c8oddlsUwmC0SoVyRcXC667gFazzsUNJ2rxqg0ESo
-	 vnaeZPGXhhJskd273TC0lIEaAd1llH0S/D23RUgH/ylGHlhUwX1v7lugeVhFFWqsaRQ==
+	bh=ijcQqp+PDwh0iYp+MD/r/nuQr1SB4jBOpcMmhui2GqI=;
+	b=VHyHAsQbCQbx/ei4cz+gC3yIZuD7eS1lZQiOC8bf23uIFnH4UrRvQ0AbLwyfL3IDebZQ
+	 xI71sYCzWr+JmQp5SmVDWRISEwbX55WFjMiLsM40RsX3VXIszO6A/a6WiDxmiYKmQp6dK
+	 O0hWS+dkxOdj4XX8xZyE1I+IfekrYcuAhYGSxUUqUSl0yfIfveZzJtICahR6d7aiUFBes
+	 iKCv3BCJl5ClS4IPSgr3ldzsIdKJJD0hQUxEn6mZ0lQmKUetP9XJXJTQOcYCd4JJ1iKhh
+	 no1CYlVZobk9h5NJLmGVwk+llMAsCpJA8hCxopsowjSXLrTUpoj2qjpR9JnK9I5AlkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=miet7gjH;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEAb9kZe;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B51260A263C
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:40:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B51260A263C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B5E606A334
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:40:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B5E606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=miet7gjH
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so19896175e9.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:40:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEAb9kZe
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso19164465e9.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:40:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793626841; x=1794231641; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793626837; x=1794231637; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RJboDKYLD5odXq2wMgxBJknNJQ9cln3HeP/apn+7A4Q=;
-        b=miet7gjHfQ71wOjG0yXT7GDSHAxbEnMOQ8j2w0bbLCadjcGJ2ZOOe8OmsHrQpLsveU
-         nCg6HO2+QCmV+ZcdVPpOkSElgsHmj3w9yZC/r4C3UKRrURfQa19eb0uPDDGHDZqh52Et
-         0O7mTJ5wsWn27di+rb+YRcRGzyNUKXSAA6Z4wKnhgMPdn1q8d8UQTzCnR9KkWRZtZpy2
-         ejadV4qBK1Nk9BoBmPEEiBiS029T0zxrd2TVduEBzmDrTBlo6lSaHEuDPgrACuXhoUM2
-         wbOFRB0t3HELHsWTv+ywLuidc+Gc81+Xy1EXw4ErvzHBOmM0EfULpYt0VezwV42d6Ft2
-         Hn5A==
+        bh=ijcQqp+PDwh0iYp+MD/r/nuQr1SB4jBOpcMmhui2GqI=;
+        b=vEAb9kZeP/C25ewsu5ITdxJmy7OKRRRgBo0AfsRkKR3ew1HoA9CLk6qGeh9JOHEDCL
+         ynS0Gfa2GApWXzOJBpNchtmgFhfX1TTsteJBw0I59TI0+NwJaJYCKJ8BozyQp1ENWhhI
+         akP1wqHzylHwApLzUbDz5Jmu4toyUvj/DE9KDMHTcfpWDOHRegHrgzXaDNc7sAOq8Lse
+         6w9KRpYaxYbgLVLc22PpmNa7pwt3m8/FsFcocIC6V6krmdqouUKR96jcJhbvhGysFU6B
+         1pOmbgAZcN2FYBaU4PxYRMNzTwYVD4MMdsMz7B2R7isbcq0pvn43rTMn7501rJSQYNgT
+         2jkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626841; x=1794231641;
+        d=1e100.net; s=20260707; t=1793626837; x=1794231637;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RJboDKYLD5odXq2wMgxBJknNJQ9cln3HeP/apn+7A4Q=;
-        b=Mty1uakiU+tEzbPqpLU+IG1e5SNlj9Bvg7mrg5T8gMhUMJVQLJTJUIua/VAg3Izl0D
-         aLUdvk+w+fb8H0aVdUCoQvfHOPj82cvgsMuUlwprmvVjh+lLROtEZB7g0TI92eyh0LWw
-         cctKIMssOIlIaMLy1G/7zlGjfC5VM9+d7nA3I6r7BBOX48BGk/z+YHcCN0aMyJwJh23X
-         OwWEWOjhFrNESE/1m2rHyBAFoR80Oj57biqfbGWaejOj65J5+07BTbGRPBIgqIzOfQ1x
-         igZ7qLkjY/8kPPIqtTiwctWtGYQ6olEaWOlTfPSAUVgzrUxjMFwT1y9A7HQJyMjcgFSD
-         bCiw==
-X-Forwarded-Encrypted: i=1; AKwUvByuLendoO6LEX9KTN8vkj1mrzQtlGNehQfIpgbgt2/W1l6OVxVAgSo/RIgMEvtz5q0JR4YzKPXiBuDF@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHni7aDyi5BtYlEEk34Ti4O9Ws3xNm5zksvcqTh6cJu/jIXbIG
-	tHndCEzfI/Wwx91qgzxvUI1ADFQJiUjFOP0s6gh3VM/cUkYRSZRCCIotpz7GjlrX458=
-X-Gm-Gg: AYBFou0lkD83k91T6D3IUWr8dTHOp7cF+zKmnminQpdFSO2BVWnNuACvSxl0BiQkF+m
-	ErGAEhCmhf/OvlKeFfLouv54zOg5rMPCbOK1YrY1AcGGYOma332d3CZQPDWTsgpwvmkgBASAcDJ
-	IVjyeFzuCMhSTHoz9WrcN3LFmmfRa8U3aLc4/EXc4Vni2/VQb/UH+QijsGuJaVzjH6xv0yPo8jL
-	sldQih9tqKGD+zunVPQE/vR6fs5vmherifbL4GgY8GrbQgEDunz5mQIQLXYld+nG00H0F2JFlWR
-	pZeLwO0IH8fbMID8C5whQvjDERTUI0x5+36FkWlY8DGngjKfSrHWYK8t3VhD2Mrh3/k2QnCi1s4
-	YvkfB7mpSp1D9n2vLciX2gnoG0nFNQuH0NNpLC44jRXpeRlqIJMT1Jy5IVUMvBbO0miyjV1l72+
-	x4QypC9sOCMms4sQtgoImNPNraq0qqFZkdQ7R2tzhQ0ZkpbhTTtUcksxZ8zV1SXAY7eesnbuCi+
-	5xb3cXmOJuvTCqUPpG8yRCTIhlIjJdVNWvvokEsZWbC4afr7Sx0k+mEf7iEVcfslsx3AtPTxEwV
-	20uRGG+lUF0HUz2RbdssVAkCci5kdCkPzcupnIG0wUlhPmci0Q==
-X-Received: by 2002:a05:600c:4708:b0:4a2:167a:c93b with SMTP id 5b1f17b1804b1-4ac19234ad8mr231192185e9.30.1793626841264;
-        Mon, 02 Nov 2026 05:40:41 -0800 (PST)
+        bh=ijcQqp+PDwh0iYp+MD/r/nuQr1SB4jBOpcMmhui2GqI=;
+        b=dcKf6dEIEByR89cfiQelo+2DPrau+U23JhF18ttB2YsyDY2nhsCVh/U6jxT2UVRJ7R
+         ziXp3/+cPeu0SteHGCwNxgHDteCD06OKdVpIyqGr63vkzQT9qfhnpYYSva0pMzhgpeqT
+         pugFF99nfCiG8EW1ptpPfZdSfP68i+tTxl6tRBckNDwEOYjlJ45ZdYbogZ2DdpJYAWK1
+         hQd0HzA5qRIymlDJiQZoCVKQVU/yD4RXTahlvC6cye9edhcRLfE/CEHHna1EbZ0ExRXs
+         zl1KbY4O8HiFkVdwog8/0YibmRP7+Z7EWNa89aN1XOdBf/Y3xjLFUwmkJAsMssIL/QIC
+         A1cw==
+X-Forwarded-Encrypted: i=1; AKwUvBw66d1veNMJjju8uZxFvPxujzNPV9dnaI6hmNy7e2JoQpa9wwzFrzVgn7XmAUO9BPMyCUzF6yDa3agQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaNst58fCFEj0KTDqOOAaRwSNVpZZWwIEX1MVpA47y6pvzD8HR
+	XLTwOUPJQfjYN2qfG7xd3aJARt90cSta8CSMlG3g/022Rh254OsyDnq1bwHftu/KQzA=
+X-Gm-Gg: AYBFou3YcpTBQidyigTuV4K56UtFOU8usIOcKBbH3hNMXy8/rGKOpvy7SS1d1QpWDjg
+	Cs4r59l9xFyFIlrRiItgKR/rTKM+hY2pBJX1pljUCJPUOplQJzqNw6DCAXKgdb4mG2jUjSG8CEz
+	rog5UrBh65xZLf5ed0Yorw42rL3H8C3i0Lhytds1WP4zABVZDqI5YV0yHCIs0sg2eFCUyiXGfCD
+	cu4yAHwHMIvX/d/mVQDQtZcnT19wrM0G12/hHh1g0S6o6DnjGmlier7fbv3D6BB5xkLxmHYQYFr
+	XkLORyTOiX5oxLZEB7UHD2VXDf6dYmbl/mDHq/ZDX8odTvvqbnelRPhixArti7J1MJIvjz2gEpM
+	UgEMUp01KYbzAXVgxC0aOynE8hSM8XiXGByx60Wn0/lpSURIl5Txu46xWFlw1ear8iHYPbP1oXw
+	Xd6Fyn/E3DI/3mGOFRbcUcAPWtJ25zh2ljbXP7Zpso2/+z/mbL48BdhVNJEX7tXBAHt+WFKuM2y
+	DSMD/66XG2Ig64P5tQHZlcfL+8sJxc+qekgx3TZ+JXk6iQDFa8pLYqtdg+j8zaAmNqebAJ57CdZ
+	ykQJvLG91J1x2B6ISMrmcTZBNRjXucjAloDW9feg9AduG2WTIw==
+X-Received: by 2002:a05:600c:5397:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4ac1899353bmr229794415e9.31.1793626836593;
+        Mon, 02 Nov 2026 05:40:36 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:40:40 -0800 (PST)
+        Mon, 02 Nov 2026 05:40:35 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
+To: Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
- Aboothahir U <aboothahirpkd@gmail.com>
-In-Reply-To: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
-References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
-Subject: Re: [PATCH v3 0/9] drm/panel: novatek-nt36672a: Extend with 5 new
- panels
-Message-Id: <179362684012.3310106.12925421623133714405.b4-ty@b4>
-Date: Mon, 02 Nov 2026 14:40:40 +0100
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jerome Oufella <jerome.oufella@savoirfairelinux.com>, 
+ Felix Boucher <felix.boucher@savoirfairelinux.com>, 
+ Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+In-Reply-To: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
+References: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
+Subject: Re: [PATCH 0/2] drm/panel: ilitek-ili9881c: add support for DCLTek
+ DT300249
+Message-Id: <179362683550.3310106.10835901197698489630.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:40:35 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,40 +113,26 @@ X-Mailer: b4 0.15.2
 
 Hi,
 
-On Sun, 11 Oct 2026 14:54:01 +0300, Alexey Minnekhanov wrote:
-> These series make the driver for novatek-nt36672-based panels more
-> easily extensible and add support for 5 new panels to it, used in
-> 4 different smartphones, all based on NT36672A:
+On Tue, 06 Oct 2026 14:34:53 -0400, Marc-Olivier Champagne wrote:
+> This series adds support for the DCLTek DT300249 5.5-inch MIPI DSI
+> panel based on the Ilitek ILI9881C controller.
 > 
->  * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
->   exact model string is unknown
->  * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
->  * Tianma TL063FVMC43-02 for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
->  * Tianma TL060FVXS16-00 for Xiaomi Mi A2 smartphone (xiaomi-jasmine)
->  * TXD TXDI600YANPA-43V3 Asus Zenfone Max Pro M1 (asus-x00td).
+> It documents the new compatible string in the binding and adds the
+> panel descriptor with its initialization sequence to the driver.
+> 
+> Marc-Olivier Champagne (2):
+>   dt-bindings: display: panel: add compatible for DCLTek 300249 5.5in
+>     panel
+>   drm/panel: ilitek-ili9881c: Add DCLTek 300249 5.5in display
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/9] dt-bindings: vendor-prefixes: Add Shenzhen TXD Technology Co., Ltd.
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9f6142a00d86df12120562c27e82c73cc6d30862
-[2/9] dt-bindings: vendor-prefixes: Add Shen Chao Optoelectronics
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b55dbe9011975146527b8d371f5cd9a36f03a446
-[3/9] dt-bindings: display: novatek,nt36672a: Add 5 new panels
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/1123a125fbdff4e220be9d7e1613ddac2a32f4c0
-[4/9] drm/panel: novatek-nt36672a: Set driver name to novatek for consistency
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/109516c683991707a4880ed26680c45f0ce4cce7
-[5/9] drm/panel: novatek-nt36672a: Combine two init callbacks into one
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/8a834378028bf53a7bba729681afdd350a1169a2
-[6/9] drm/panel: novatek-nt36672a: Add 3 panels used in Xiaomi phones
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/df9c727a0895f3f27d8cf8f577a32f5d4620bb63
-[7/9] drm/panel: novatek-nt36672a: Add Tianma panel for Xiaomi Mi A2
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/c13368a4f3f9206034ad89dc979935b0226c48db
-[8/9] drm/panel: novatek-nt36672a: Add panel for Asus Zenfone Max Pro M1
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b6b23fa0fa46140c56cbd3886f4c4065b6fec761
-[9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer for NT36672A panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/46c59e358a47afe5f3de9df39d37f588c5f6dab9
+[1/2] dt-bindings: display: panel: add compatible for DCLTek 300249 5.5in panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/342542e4ccabf8e768293eeab4c4b43337708a54
+[2/2] drm/panel: ilitek-ili9881c: Add DCLTek 300249 5.5in display
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/164ec23bad8e3885b7ff8b881190d162feaa32dd
 
 -- 
 Neil
