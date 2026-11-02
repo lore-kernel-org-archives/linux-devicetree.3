@@ -1,72 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646717;
-	b=ZOoRy29AeixTPYPUKDstlYXySlrXSmTmC25N8Hpw66TfdPlXnpOYdfNIWr2fMftxQwkq
-	 3iXgWYzYlp4rTeyohCJn02iz91bdCKLw+q6wzdVV/OZlpbD8zuuOu8gVcbARODIraqMxw
-	 REc8Uv1ZjGrv6vLfubY4Y2P7TxdNs3hieAwiWv2fNT1zajH4GokOFBNz1lwkXjpe72teS
-	 fsKOhVoo0Q2Iwu8r+tSeZfn/d2TqSz7Yh1eUZlPrskKJ7epQudiTwvm8/olyZEh1lIIxA
-	 uFAgTWdFgCwWaRg+vbnEYyL9zrj7VYbnU8NO/hD1X/Y6EKoSr8idcm5g66Qiu/H4/kw==
+	t=1793646772;
+	b=CqGH/zFlkmr1LvUqqZm8tLINU2LnwU7CUSPed7YaQtynCMEUsm6+capOXt0ITtD2vb6p
+	 s7HrgmuRJTuyxPz2JqVCWwpRrmHDfAuMt2JRxh5cBtPviRSlPtF1FghhTrzEgFmKD2ITR
+	 l+wNsXJQ9gPPZZylqscGqiTxppPcZn9NiYv382LQhxyx7SeUdXphKcSRFc4aVBpIJwgLQ
+	 umIIbGPZ/7pmL/bXOoc70QdTlZhAUNGNGkiEcLh2Uy1b8PFWyquTPaJV3Oo8c6rLx/DnO
+	 wdQXCFE4DZ6bBoQwIPPI0uhf1IUnJEm4NSqwcubU9P0WbJVr6oaskacO2RONRf31kSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646717;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=AgYWzVkrd0FAA36W9FOipwPtzV7qJco9n4AtSE0Qekc=;
-	b=t6pSg8PPARkG19BUx/4J75jZpwILNE57l4rCktDfAEiwFYm7TsFRJsCRP2c/7ifxv5j7
-	 Bo8lQLtJg2slsOYxw39fAGUzFXgz7oUFcmj5lkcel9WY83+/p9tLODn42F+Qb4VHeBbv8
-	 FQaFwNQqwtx6jqg7xkwhGVQN7W2KS9n/07YxHlYQKSi7knO61buspD4VKUec8uKZfUGtt
-	 IotyH1dPHPaiZ53SodaBC5lmrxsFtcuwgDABvjmn5kCU1gGTQcPfBmraHUzsUdW4vdQiQ
-	 WXQRCRkkxiLfwv0vL9UeWpCUgDrUxko/ewl0MUj2WqfzwnNpw3F37tG64r2zG9nTncw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646772;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jiTkIxHuhAkziw0ro13jvW8WYMk3a+CT3sljb5fNVfs=;
+	b=NKj41YOg0Tx81T91v/52V9w0l/Sjb6Ok/W6HTVC6NMMH8y+Z0lRiRH5bZLe9CidxjB1m
+	 Gpw6ai5rv0h+56o69n5mGQPcpa/CKHZDtBm982eyBm5PIzM8GP3CnE/4hheg/Eak3uiLk
+	 TPlPZNxM/oCO/S4t93wBdgXbvE2gxDQZA8CA2k+F1BOZu/8RUMTa9m1s2EM7PGAmKrVix
+	 /5aOLOZRAzxOyzeewacK/81wpXmSW49LjszgvricCSdbcbiYQTziCKlWKb3gTw2D/QqpL
+	 tyAQD7UoE3LuMeWQGMgLfJ1NWwMUgekaUGqnrLKpaqQ9Lx76sMwxnqs8hx3rkYlGAqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSRZODUK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ggir4WL2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242FC606A33B;
-	Mon,  2 Nov 2026 19:11:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C13606A327
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:12:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSRZODUK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A077A1F00A16;
-	Mon,  2 Nov 2026 19:11:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ggir4WL2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C7F1F00A17
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:12:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793646716;
-	bh=AgYWzVkrd0FAA36W9FOipwPtzV7qJco9n4AtSE0Qekc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CSRZODUKiphAyBEKGfeVwgnNBvUueO5U6sCBRCmxRs67dyjtWJTfBCLDQAuhqm0L5
-	 iJmYwfHwfYLIIOjFVr8YK3uMncDHOO1huqnoGMYLsfWhO4pzkbbBssdyyfiroon+fg
-	 avu6VfYlpaFzex4ztPnRoTqh6TRLTY9WkkhUZSYDSG38hIjVQW3E4L/5L9rD+mWwyK
-	 mA1Qia9mYcHjT7ikcZc+4vCuFPzcbjB1/dpLMAgCbcPJ/eV1MAJDee7kOO/44HsVvz
-	 TZeyfJH5UVInpRn5wMxZjuxayvuzK7DQ747dN32zRg5hEzGLRFz+c5dLoETU0PRQMw
-	 QD2GavBw5SSMg==
-Date: Mon, 2 Nov 2026 19:11:49 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Han Gao <rabenda.cn@gmail.com>
-Cc: gaohan@iscas.ac.cn, Drew Fustini <fustini@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Anup Patel <anup@brainfault.org>,
-	Radu Rendec <radu@rendec.net>,
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>
-Subject: Re: [PATCH 17/18] riscv: defconfig: enable A210 support
-Message-ID: <20261102-conductor-expanse-db86270fc1a6@spud>
-References: <20261022-concrete-rebound-593001f1ac18@spud>
- <20261102142300.3784622-1-rabenda.cn@gmail.com>
+	s=k20260515; t=1793646771;
+	bh=jiTkIxHuhAkziw0ro13jvW8WYMk3a+CT3sljb5fNVfs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ggir4WL2ENvsjGBc0Dunfrx15FRVSzPAYHhJCAnJccJhU5tldMV9gI8IqcAdNUZiR
+	 2UA+zEf/4YNXOFqguwEvBo6Ycdv1LFLGR67utf391GnrSh3fWG1npEeRL22FdtWBGU
+	 dRORbuEHJ0QdCHKiKtc59NNFow9sUVjPjPsuGhS3KcdBBxbjucmAwbooedJWPoERm8
+	 HBOXPWruv3GhbnqPxO1C+D1nmA5y3Mi9nWo4sv9E4sNreP3D4oxJg0qJ5+O2a9YYnX
+	 710mvIJV1YnfILddxx7kxqov+tp9VwVjaZUpMKd/GGrIWqckR2216ZSYt6UquMKCqf
+	 8zxg1czW6VuBg==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c247f6687dcso590006666b.2
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 11:12:51 -0800 (PST)
+X-Gm-Message-State: AFq9FYIVf6KasmFjFkFN4YGrfXfd3WP1tZEW/fSMP9areOQVmISYQKvq
+	b4lyZ2dJ1w9mzL7APRI1oNzxyTRKy4H0H+Yo4aO/KXTVKHBjmYgo4RgrWL3TRuGtokQJ0i97Vf3
+	VOLTQDNyrTYAigkNSqKhi+6qFk5wldQ==
+X-Received: by 2002:a17:906:eec9:b0:c26:1648:a076 with SMTP id
+ a640c23a62f3a-c4ca7abf2aemr893729966b.49.1793646769977; Mon, 02 Nov 2026
+ 11:12:49 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,88 +58,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Gquej4m2ddx2wa7L"
-Content-Disposition: inline
-In-Reply-To: <20261102142300.3784622-1-rabenda.cn@gmail.com>
-
---Gquej4m2ddx2wa7L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261026102658.968138-1-m.szyprowski@samsung.com> <179362278569.150793.16322788098732007689.b4-ty@b4>
+In-Reply-To: <179362278569.150793.16322788098732007689.b4-ty@b4>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 2 Nov 2026 13:12:38 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJ7mkOL6kBwjDV=-A99zpmHWTFdc+8TunXG5EfueiFDrQ@mail.gmail.com>
+X-Gm-Features: AclHuK8yGh3NSN4CvPkoAvulZs_KXn319zDDRWAbtCSGLwxtYjAagwVTktYpSvU
+Message-ID: <CAL_JsqJ7mkOL6kBwjDV=-A99zpmHWTFdc+8TunXG5EfueiFDrQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO properties
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 10:22:53PM +0800, Han Gao wrote:
-> On Thu, 22 Oct 2026 19:50:51 +0100 Conor Dooley <conor@kernel.org> wrote:
->=20
-> > On Thu, Oct 22, 2026 at 03:53:37AM +0800, Han Gao via B4 Relay wrote:
-> > > From: Han Gao <gaohan@iscas.ac.cn>
-> > >=20
-> > > Enable A210 platform drivers and reserve ten 8250 UART ports.
-> > >=20
-> > > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > > ---
-> > >  arch/riscv/configs/defconfig | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >=20
-> > > diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defcon=
-fig
-> > > index 04ae305d5511..b9b3bca12089 100644
-> > > --- a/arch/riscv/configs/defconfig
-> > > +++ b/arch/riscv/configs/defconfig
-> > > @@ -33,6 +33,7 @@ CONFIG_SOC_STARFIVE=3Dy
-> > >  CONFIG_ARCH_SUNXI=3Dy
-> > >  CONFIG_ARCH_TENSTORRENT=3Dy
-> > >  CONFIG_ARCH_THEAD=3Dy
-> > > +CONFIG_ARCH_ZHIHE=3Dy
-> > >  CONFIG_ARCH_ULTRARISC=3Dy
-> > >  CONFIG_ARCH_VIRT=3Dy
-> > >  CONFIG_ARCH_CANAAN=3Dy
-> > > @@ -149,6 +150,8 @@ CONFIG_KEYBOARD_GPIO=3Dy
-> > >  CONFIG_KEYBOARD_SUN4I_LRADC=3Dm
-> > >  CONFIG_SERIAL_8250=3Dy
-> > >  CONFIG_SERIAL_8250_CONSOLE=3Dy
-> > > +CONFIG_SERIAL_8250_NR_UARTS=3D10
-> > > +CONFIG_SERIAL_8250_RUNTIME_UARTS=3D10
-> >=20
-> > Why are these options needed?
->=20
-> The A210 has 10 UARTs and the TH1520 has 6. With the default of 4,
-> UARTs beyond the 4th don't get a fixed ttyS index and end up in
-> whatever slot is free. Raising both to 10 keeps the index stable.
+On Mon, Nov 2, 2026 at 6:34=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
+>
+>
+> On Mon, 26 Oct 2026 11:26:56 +0100, Marek Szyprowski wrote:
+> > The wm5110 audio-codec node uses the legacy "wlf,reset" and
+> > "wlf,ldoena" property names without the standard "-gpios" suffix.
+> > gpiolib-of.c only recognizes these bare names as aliases for the
+> > correct "wlf,reset-gpios"/"wlf,ldoena-gpios" properties, and that
+> > alias support is compiled in only when CONFIG_MFD_ARIZONA and
+> > CONFIG_REGULATOR_ARIZONA_LDO1 are enabled. When those options are
+> > disabled, devm_gpiod_get() fails to find the GPIOs, leaving the
+> > codec without a working reset/LDO enable line.
+> >
+> > [...]
+>
+> Applied, thanks!
+>
+> [1/1] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO properties
+>       https://git.kernel.org/krzk/linux/c/76ef3ed714ac178cda84ef39733d4f7=
+12e682081
 
-Put this in the commit message please.
+Now in next:
 
->=20
-> >=20
-> > >  CONFIG_SERIAL_8250_DW=3Dy
-> > >  CONFIG_SERIAL_OF_PLATFORM=3Dy
-> > >  CONFIG_SERIAL_EARLYCON_RISCV_SBI=3Dy
-> > > @@ -167,6 +170,7 @@ CONFIG_SPI_PL022=3Dm
-> > >  CONFIG_SPI_SIFIVE=3Dy
-> > >  CONFIG_SPI_SUN6I=3Dy
-> > >  # CONFIG_PTP_1588_CLOCK is not set
-> > > +CONFIG_PINCTRL_A210=3Dy
-> > >  CONFIG_PINCTRL_TH1520=3Dy
-> > >  CONFIG_PINCTRL_SOPHGO_CV1800B=3Dy
-> > >  CONFIG_PINCTRL_SOPHGO_CV1812H=3Dy
-> > >=20
-> > > --=20
-> > > 2.55.0
-> > >=20
-> > >=20
-> >=20
->=20
-> Sent using hkml (https://github.com/sjp38/hackermail)
+arch/arm64/boot/dts/exynos:2:1
+   Schema warnings:1
+      2 audio-codec@0 (wlf,wm5110): Unevaluated properties are not
+allowed ('wlf,ldoena-gpios', 'wlf,reset-gpios' were unexpected)
 
---Gquej4m2ddx2wa7L
-Content-Type: application/pgp-signature; name=signature.asc
+sashiko pointed this out.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujgdQAKCRB4tDGHoIJi
-0jPcAQDKI8weKUpx73/mvAz55ZSZJ2tWU0Rex9ydvDyirhyY6AEAgAFedfAkbkLn
-qFuD39PtQFQgsFubq8Zyvj5bZZDhNQw=
-=TAKE
------END PGP SIGNATURE-----
-
---Gquej4m2ddx2wa7L--
+Rob
