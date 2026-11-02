@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604046;
-	b=4r2V5J3gDYolQQYn3co+UBef8u0ea6NhlrcW0WI0kJHpHO8Dol/w1phH8+HmOvTb0ohz
-	 umHX5X4/nsnMjxUEpEf1sYG9AXNqGTgp0j4sREHB2S+OsvijJPfkQ0hY//Fuz5J3A/yRc
-	 qfC0R9DFPap5y7KR/0959NViVIstPGs3w6cFCz+awhvzEzNPXiBkma+7Oq1XS1Qam1SxO
-	 jXHDa+KzepyYShtLOdDOWlui04C3nKuiZ4SZHediuAUY5uJONkQvZ0iXd6RQchlqNjb5c
-	 nhiD1MYiEZA3C5+oBfEMETGjJf0QVePOweeUPt++jbqyR8BDOsIS4+rC9jPEZvcmkoA==
+	t=1793604165;
+	b=Szajb5PBbKkYBWfMf/0KcsqCX6oaAULWLZMe9VdVuWlpjusi5rlccG+IOX8DS8ScJOgN
+	 M0kEAz4ldPbQh8nXHsY3y59oLTXwo/iIgJ1PnK76iOrj7yUs24gfSe0FFvG9xGBSn7uN0
+	 pb5JHc6+L/wYt0iF9sCq6QRMIxsjKOBDlO8LXw6FjBQ0hkbbhcH9FIstaBp56/j7fZ0o5
+	 2PrSL7tsyW6Ol9rW7jRYRoigebn+b4RZf5J0XceXwGv1ei/dx20k8JIxKNH/twXXP9kf+
+	 25CYD3UJ4FI8+I0Des1S3x19evdLY1qS42X7oe86OuOq1/nnfhfPDoIXU+Lo4AA+n+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604046;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604165;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Gd+hGEGM2Vnn8hTbClRMrTy8v2VKZQsmXOh+wQ/G2aw=;
-	b=B5k6mhL2odfkP7X3cFueikiDdrMYB5TnwbAVs1PW9s5h3Svp/ep2eJX//AAexB6VngNL
-	 FDPNWJdpKs8EF1OPAyBG3H8GdJ+tM0BKmcnjew8NmRJGe9HVIlySwfuUIEsqB1piQ1xUp
-	 DONuAHGiKyWX5ggWkjp2TFlzR0eXbxIUeGoZY7hYqkz/jc0RuJmaxSgalHRTAYE0Svpi5
-	 rbxfFEHaHl1WZ4g2rDLd5PB3DM2n+wnrxRNbFvLaKPlzKlV1gl0NpAXU+EblfGzaByV1F
-	 Lrd9oGjRgu+AUao9j5UEGSvaVxi6a7Uqe33aG33LCmcce5cgcjd5YKY1a2iBq0iXh1g==
+	bh=zZvPsHrAvL0Y+kR2JA74c1k0/RF2c6JuNAyuVnG8luo=;
+	b=4AjHdc8mfVuedNTv8/5nyyhJZBFkxparoLvDpVr8eOktmd0Tm3Rm60CKj/QZgaoTNBIP
+	 dss/U9yeSiv4lNYI6ejm1DxAXs7HBYlDSml0BLLkkZiO5MVUJfsbLiBdL8WAPdknV7o/7
+	 SFihmBYnoVaINq5adxqjemVDbHBsIXvYdKpJadXAxgahIrtKmA6rYA3LCBV2agWiYKoFm
+	 VEcccHMpGjyO9bgM5KawHpt4r3UWgHamxwHEEUvgeAehsyqe2ImY1iaZcB2kJcudyAz35
+	 ORS+u0sL/XtxKjYgzXhY218Lc+KKqcwltNe4iKBJFo6AgyTPNfu2cNpdwrjYPMwKgkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oJOUgkX1;
-	arc=none smtp.remote-ip=95.215.58.30
-Received: from mta1.migadu.com (out-30.mta1.migadu.com [95.215.58.30])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o2fxX+Pq;
+	arc=none smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A9B606A329
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 07:20:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2A9B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C117F60A2601
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 07:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C117F60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oJOUgkX1
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kLN6oli0AthDvizLE+0mZtojUTfv9uqFrmrnHc7+xQM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793604043; v=1; x=1794208843;
- b=oJOUgkX1YY4tIy5pUlS9AKSxgSlTpiVK1kBfoBOGZQKppSRS243293DhYtr0o2YKj6OfcwxS
- C52K+hI8bWHjAzkR8jDDJmnQJvTvUq2dlHh8Cj4/Dsdhp1TyCPNoEXiyxMgQXYRCN3FUeZkVjOf
- awkKfMHMlz8IaKdjTaLK5I9E=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 20128cc2e629c35a;
-	Mon, 02 Nov 2026 07:20:39 +0000
-X-Mizu-Trace-ID: 20128cc2e629c35a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e27b69ed-7444-49ac-99d2-dd78f2ef8b9c@linux.dev>
-Date: Mon, 2 Nov 2026 15:20:28 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o2fxX+Pq
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so21050751fa.2
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 23:22:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793604163; x=1794208963; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zZvPsHrAvL0Y+kR2JA74c1k0/RF2c6JuNAyuVnG8luo=;
+        b=o2fxX+PqdcK09i4Com2N8RWo4SY+zeOOj5IGn+V8TP09pTPR1C3Y7GIRdLi40k/1pf
+         X6rmvBhBcoX9skcx6QG/lPsBWlrODeptAJj5F8hV7nPn7eSerLq/j8la297XRNoqhpGD
+         /QqlEtM2ZqswFEXn/+nzo5UtF47lA+pIgkWL1UcA/zWG7yQaW01n1udOK0YxSh4cWZH3
+         IBiJsYlU962f7muJOJQuB71kyqRyZVVk1rGu0ch4MqKoXsZF5gaspxzqT0vvzQh9bTWo
+         FEDGHUZdHrZRoze5Nlt0+BLIpLSX0lrvMRadvaFzK7vmdTcUt3RtUbOd+z9PJcTQuiNE
+         HYJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793604163; x=1794208963;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zZvPsHrAvL0Y+kR2JA74c1k0/RF2c6JuNAyuVnG8luo=;
+        b=zmZmNnXl8+zrRE3cGoioGMGj3ZMIWEDK2ILHanRmQmeTBBEgaUVrDIuqEuxD1rZads
+         +vPMPXBGlyPrjp8C2gtdosU18A/Q4b2JvYUSQosnvhxFc8uu5I9f5Dh9nIJI4FkrqTLT
+         5yL7LtR/qUWom/FNC1fHBMR+sYSwyFaoYG1zIBN+IEUzu9lKD26NH/Yu1aSWcuX+kEiM
+         fnmJ5BHLG8w9gT/B+yqtqCiEoeNtSID2I682agOJn6q5YPgpH5ZbGIpU0trAS63Z6bPp
+         t7mCY8k66etZbNNy2FGhaRlZY5E99HnhyGjAu6BfML9Fk2uEenBQnWOd0sbbHzkk86f8
+         q9Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBxaLbCPesjtCrdiRTLp2CImobngLc8rjyrH7pi4vxEByuuOgCKMBcOtE1WB0F5Bmz64NRxBLx/eWr8E@vger.kernel.org
+X-Gm-Message-State: APuU4Z8I8TC+rJCJigF+2zN7Tl7YywSQCiLvqZ4/eBIV8fltIMU/g2da
+	8pcJsNfm8qxLSJQSTWfSfJzu7xL50WBOJ5YxOBC7PEBWyHDPtZyyT653
+X-Gm-Gg: AYBFou3ipe8XxyKK0EmDfafL4QFYkEXn0s5Pc1ZyLTIobgonulZg1jnG+afkDJO865H
+	ySRmrNXLgECYXofMdC3wvq7WlPPAzKuWN0murRxTNDFolwnT+vXZ74fpLiSnThCpTfWrIj+h2OZ
+	CnB2jDtN3xYsTKYt1p66UbT8qy4jSZGv0xEwUAsuOEYdOnGxEJNUtg8yXcVOnf+cB2oNOG6IVtp
+	z1AR9hk0RajDkmYc3axX0fXhAV9Ct94Jbtbpno4grxBNso0uZ3YRAiH9qxF4pkemyS3+EttMBd8
+	3AvyIFPwDmmaZNM93e8s8D0HAdmtlDY9mHcrlYYFoyYRYWrcWctBhxiatPqHNJOtx2tGY0b67Xf
+	ArVKHCOWzIN0vKMdhXI1nFpVwDvOu3NkkjwaQbTgPehKsGn5wzoq3uYs5gkVnwGMf3x9cbqqICK
+	kvTicPLVaGPZzJXqGrQgktcw3ZnklY8HrwkXHtoqM7zktpvHjEoE6J+njzBNRuM+0t6OWEqNCKd
+	c/sxyIap3Vrvr5JCREgc9Gt90rpaaNsO/wPqy6DdLqrLZcF1gTM27DQvpvBmXsghiqwq1pwoEkU
+	e+mjGnP86ZptUp21xr7cVFO+jt4YJpK7Q+HqoEBN2TU43tYZgxLX27VGlR8LQ2viR0zYvZpwuBK
+	R+CzJZyGj
+X-Received: by 2002:a05:651c:1508:b0:3a9:9b74:1ba1 with SMTP id 38308e7fff4ca-3acb7a9da5bmr22751851fa.8.1793604162695;
+        Sun, 01 Nov 2026 23:22:42 -0800 (PST)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acbbebea12sm20385851fa.10.2026.11.01.23.22.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 23:22:41 -0800 (PST)
+Message-ID: <e444c08d-3891-488a-b334-09f3ddd36584@gmail.com>
+Date: Mon, 2 Nov 2026 09:22:39 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,120 +94,391 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@linux.dev, Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v11 6/6] mmc: core: Add support for resetting an eMMC at
- system resume
-To: Kamal Dasu <kamal.dasu@broadcom.com>, linux-mmc@vger.kernel.org,
- Ulf Hansson <ulfh@kernel.org>
-References: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
- <20261030181034.3811225-7-kamal.dasu@broadcom.com>
-From: Shawn Lin <shawn.lin@linux.dev>
-In-Reply-To: <20261030181034.3811225-7-kamal.dasu@broadcom.com>
+Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments TLA2528
+ adc
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Rodolfo Giometti <giometti@enneenne.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Angelo Dureghello <adureghello@baylibre.com>,
+ Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>,
+ Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+ Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+ duje@dujemihanovic.xyz, herve.codina@bootlin.com,
+ thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
+ <20261030164705.297354-3-maxime.chevallier@bootlin.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20261030164705.297354-3-maxime.chevallier@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-在 2026/10/31 星期六 2:10, Kamal Dasu 写道:
-> From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+On 30/10/2026 18:47, Maxime Chevallier wrote:
+> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
+> channels, that can also be configured as 16-bit averaging channels.
 > 
-> The DT property reset-card-at-resume specifies that we need to make a reset
-> of an eMMC card at system resume, assuming it also has stayed powered on
-> during system suspend.
+> This is a very simple driver, allowing reading raw values for each
+> channel. GPIO mode isn't supported for now, as well as buffered mode and
+> the 16-bit averaging mode.
 > 
-> To implement support for this, let's start by parsing for the new DT
-> property and set the new bit MMC_CAP2_RESET_AT_RESUME if it's found. Based
-> on the property, we must also set MMC_PM_KEEP_POWER in the pm_flags for the
-> host, to keep the eMMC powered on during system suspend.
-> 
-> Finally, to manage the actual reset during system resume, let's extend
-> mmc_resume() to support the needed behaviour.
-> 
-> The property only makes sense together with keep-power-in-suspend, as the
-> card would otherwise be powered off and system suspend is refused. Warn
-> about that while parsing the DT properties, to flag the misconfiguration
-> upfront. While at it, claim the host around the reset in mmc_resume(), as
-> it sends commands to the card.
-> 
-> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> Co-developed-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Looks very nice and clean to me. I made couple of remarks below but they 
+are very minor and I do not require them to be addressed. Nice job!
+
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+
 > ---
->   drivers/mmc/core/host.c  | 13 +++++++++++++
->   drivers/mmc/core/mmc.c   |  8 ++++++++
->   include/linux/mmc/host.h |  1 +
->   3 files changed, 22 insertions(+)
+>   MAINTAINERS                  |   1 +
+>   drivers/iio/adc/Kconfig      |  12 ++
+>   drivers/iio/adc/Makefile     |   1 +
+>   drivers/iio/adc/ti-tla2528.c | 245 +++++++++++++++++++++++++++++++++++
+>   4 files changed, 259 insertions(+)
+>   create mode 100644 drivers/iio/adc/ti-tla2528.c
 > 
-> diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-> index 8e9e61839198..8b38ff45d20f 100644
-> --- a/drivers/mmc/core/host.c
-> +++ b/drivers/mmc/core/host.c
-> @@ -48,6 +48,14 @@ static int mmc_host_class_prepare(struct device *dev)
->   	if (host->bus_ops->pre_suspend)
->   		return host->bus_ops->pre_suspend(host);
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 471585b29c19..1ebb6418ab1f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27720,6 +27720,7 @@ M:	Maxime Chevallier <maxime.chevallier@bootlin.com>
+>   L:	linux-iio@vger.kernel.org
+>   S:	Supported
+>   F:	Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
+> +F:	drivers/iio/adc/ti-tla2528.c
 >   
-> +	/*
-> +	 * If it's required to make a reset of the card at system resume, this
-> +	 * indirectly also means that we must keep the card powered on during
-> +	 * system suspend.
-> +	 */
-> +	if (host->caps2 & MMC_CAP2_RESET_AT_RESUME)
-> +		return mmc_set_host_pm_flags(host, MMC_PM_KEEP_POWER);
+>   TEXAS INSTRUMENTS' TMP117 TEMPERATURE SENSOR DRIVER
+>   M:	Puranjay Mohan <puranjay@kernel.org>
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index a802d8ee4dd9..8633267d6056 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+> @@ -2016,6 +2016,18 @@ config TI_LMP92064
+>   	  This driver can also be built as a module. If so, the module will be called
+>   	  ti-lmp92064.
+>   
+> +config TI_TLA2528
+> +	tristate "Texas Instruments TLA2528 ADC driver"
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	select IIO_ADC_HELPER
+> +	help
+> +	  Say yes here to build support for Texas Instruments TLA2528
+> +	  12-Bit 8-Channel ADC.
 > +
->   	return 0;
->   }
->   
-> @@ -375,6 +383,11 @@ int mmc_of_parse(struct mmc_host *host)
->   		host->pm_caps |= MMC_PM_KEEP_POWER;
->   	if (device_property_read_bool(dev, "wakeup-source"))
->   		host->pm_caps |= MMC_PM_WAKE_SDIO_IRQ;
-> +	if (device_property_read_bool(dev, "reset-card-at-resume")) {
-> +		host->caps2 |= MMC_CAP2_RESET_AT_RESUME;
-> +		if (!(host->pm_caps & MMC_PM_KEEP_POWER))
-> +			dev_warn(dev, "reset-card-at-resume without keep-power-in-suspend, system suspend will fail\n");
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called ti-tla2528.
 
-No strong opinion on this log, but we set MMC_PM_KEEP_POWER if
-reset-card-at-resume is present anyway, could the suspend fail?
+I deeply dislike repetitive boilerplate text, which often, in my 
+opinion, provides no real value. This last chapter (which is also 
+present in many other drivers, and which is preferred by some 
+developers) is for me an example of wasted lines. I believe writing the 
+"choose M here: ..." is guidance, specific to menuconfig tool. The 
+purpose of this file is not to explain menuconfig tool usage, but 
+explain what the configuration option enables. Perhaps we some day have 
+different config tool, with no option labeled as 'M' at all.
 
+Furthermore, I do dislike also the "module will be called "foo", which I 
+think is just unnecessary noise. You probably want to still keep it, to 
+avoid comments from other reviewers, who claim someone (if not them) has 
+once used this information for something. ;)
+
+> +
+>   config TI_TLC4541
+>   	tristate "Texas Instruments TLC4541 ADC driver"
+>   	depends on SPI
+> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> index 9e82c21dbd37..b98cded4d0c7 100644
+> --- a/drivers/iio/adc/Makefile
+> +++ b/drivers/iio/adc/Makefile
+> @@ -171,6 +171,7 @@ obj-$(CONFIG_TI_ADS8344) += ti-ads8344.o
+>   obj-$(CONFIG_TI_ADS8688) += ti-ads8688.o
+>   obj-$(CONFIG_TI_AM335X_ADC) += ti_am335x_adc.o
+>   obj-$(CONFIG_TI_LMP92064) += ti-lmp92064.o
+> +obj-$(CONFIG_TI_TLA2528) += ti-tla2528.o
+>   obj-$(CONFIG_TI_TLC4541) += ti-tlc4541.o
+>   obj-$(CONFIG_TI_TSC2046) += ti-tsc2046.o
+>   obj-$(CONFIG_TWL4030_MADC) += twl4030-madc.o
+> diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
+> new file mode 100644
+> index 000000000000..287e52dc9d6d
+> --- /dev/null
+> +++ b/drivers/iio/adc/ti-tla2528.c
+> @@ -0,0 +1,245 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Driver for Texas Instruments TLA2528 ADC
+> + *
+> + * Copyright (C) 2020-2021 Rodolfo Giometti <giometti@enneenne.com>
+> + * Copyright (C) 2025 Maxime Chevallier <maxime.chevallier@bootlin.com>
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/adc-helpers.h>
+> +#include <linux/iio/iio.h>
+> +
+> +#define TLA2528_OP_WRITE_REG		0x08
+> +#define TLA2528_OP_READ_REG		0x10
+> +
+> +#define TLA2528_SYSTEM_STATUS_ADR	0x00
+> +#define TLA2528_GENERAL_CFG_ADR		0x01
+> +#define TLA2528_GENERAL_CFG_RST		BIT(0)
+> +#define TLA2528_GPI_VALUE_ADR		0x0d
+
+Not sure having the GPI_VALUE_ADR or SYSTEM_STATUS_ADR here is worth it. 
+They seem to be unused.
+
+> +#define TLA2528_CHANNEL_SEL_ADR		0x11
+> +#define TLA2528_CHANNEL_SEL_MANUAL_CHID	GENMASK(3, 0)
+> +#define TLA2528_AUTO_SEQ_CH_SEL_ADR	0x12
+> +
+> +#define TLA2528_NUM_CHANNELS		8
+> +
+> +struct tla2528 {
+> +	struct i2c_client *client;
+> +	struct regmap *regmap;
+> +	int vref_mv;
+> +
+> +	/* Protects manual channel selection */
+> +	struct mutex lock;
+> +};
+> +
+> +static bool tla2528_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case TLA2528_SYSTEM_STATUS_ADR:
+> +	case TLA2528_GENERAL_CFG_ADR:
+> +	case TLA2528_GPI_VALUE_ADR:
+> +		return true;
+> +	default:
+> +		return false;
 > +	}
->   	if (device_property_read_bool(dev, "mmc-ddr-3_3v"))
->   		host->caps |= MMC_CAP_3_3V_DDR;
->   	if (device_property_read_bool(dev, "mmc-ddr-1_8v"))
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index 026003ba507d..a9e3cf7ae039 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
-> @@ -2320,6 +2320,14 @@ static int mmc_resume(struct mmc_host *host)
->   	}
->   
->   	pm_runtime_enable(&host->card->dev);
+> +}
+
+My personal preference for static volatile/read-only/write-only register 
+information, is to use range tables. Seeing a function makes me always 
+think there is some runtime logic involved.
+
+This is still nice and clean function, with not much room for confusion 
+so I suppose it is fine.
+
+> +static const struct regmap_config tla2528_regmap_config = {
+> +	.reg_bits = 16,
+> +	.val_bits = 8,
+> +	.read_flag_mask = TLA2528_OP_READ_REG,
+> +	.write_flag_mask = TLA2528_OP_WRITE_REG,
+> +	.max_register = TLA2528_AUTO_SEQ_CH_SEL_ADR,
+> +	.volatile_reg = tla2528_volatile_reg,
+> +	.cache_type = REGCACHE_MAPLE,
+> +};
 > +
-> +	if (mmc_card_keep_power(host) &&
-> +	    host->caps2 & MMC_CAP2_RESET_AT_RESUME) {
-> +		mmc_claim_host(host);
-> +		_mmc_hw_reset(host);
-> +		mmc_release_host(host);
+> +static int tla2528_read_sample(const struct i2c_client *client)
+> +{
+> +	__be16 data;
+> +	int ret;
+> +
+> +	ret = i2c_master_recv(client, (char *)&data, sizeof(data));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return be16_to_cpu(data) >> 4;
+> +}
+> +
+> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+> +{
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = tla2528_read_sample(tla2528->client);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*val = ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static int tla2528_read_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct tla2528 *tla2528 = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		mutex_lock(&tla2528->lock);
+> +		ret = tla2528_read(tla2528, chan->channel, val);
+> +		mutex_unlock(&tla2528->lock);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = tla2528->vref_mv;
+> +		*val2 = 12;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +#define TLA2528_CHAN(chan) {					\
+> +	.type = IIO_VOLTAGE,					\
+> +	.channel = (chan),					\
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
+> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+> +	.indexed = 1,						\
+> +}
+> +
+> +static const struct iio_chan_spec tla2528_chan_template = TLA2528_CHAN(0);
+> +
+> +static const struct iio_chan_spec tla2528_channel[] = {
+> +	TLA2528_CHAN(0),
+> +	TLA2528_CHAN(1),
+> +	TLA2528_CHAN(2),
+> +	TLA2528_CHAN(3),
+> +	TLA2528_CHAN(4),
+> +	TLA2528_CHAN(5),
+> +	TLA2528_CHAN(6),
+> +	TLA2528_CHAN(7),
+> +};
+> +
+> +static const struct iio_info tla2528_info = {
+> +	.read_raw = tla2528_read_raw,
+> +};
+> +
+> +static int tla2528_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_chan_spec *channels;
+> +	struct iio_dev *indio_dev;
+> +	struct tla2528 *tla2528;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return -EOPNOTSUPP;
+> +
+> +	if (i2c_check_quirks(client->adapter, I2C_AQ_NO_CLK_STRETCH))
+> +		return dev_err_probe(dev, -EOPNOTSUPP,
+> +				     "adapter does not support clock stretching\n");
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*tla2528));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	tla2528 = iio_priv(indio_dev);
+> +	tla2528->client = client;
+> +
+> +	tla2528->regmap = devm_regmap_init_i2c(client, &tla2528_regmap_config);
+> +	if (IS_ERR(tla2528->regmap))
+> +		return PTR_ERR(tla2528->regmap);
+> +
+> +	ret = devm_mutex_init(dev, &tla2528->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_regulator_get_enable(dev, "dvdd");
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	tla2528->vref_mv = ret / (MICRO / MILLI);
+> +
+> +	ret = devm_iio_adc_device_alloc_chaninfo_se(dev, &tla2528_chan_template,
+> +						    TLA2528_NUM_CHANNELS - 1,
+> +						    &channels);
+> +	if (ret < 0 && ret != -ENOENT)
+> +		return ret;
+> +
+> +	if (ret == -ENOENT) {
+> +		indio_dev->channels = tla2528_channel;
+> +		indio_dev->num_channels = ARRAY_SIZE(tla2528_channel);
+
+I think just requiring the channels to be there would be simpler. It's 
+only 8 chans so it's not that huge description - and this would make it 
+simpler to support "all GPIOs" -case later.
+
+> +	} else {
+> +		indio_dev->channels = channels;
+> +		indio_dev->num_channels = ret;
 > +	}
 > +
->   	host->pm_flags &= ~MMC_PM_KEEP_POWER;
->   	return 0;
->   }
-> diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
-> index 032c018650e0..3c0ea74e3e35 100644
-> --- a/include/linux/mmc/host.h
-> +++ b/include/linux/mmc/host.h
-> @@ -430,6 +430,7 @@ struct mmc_host {
->   	u32			caps2;		/* More host capabilities */
->   
->   #define MMC_CAP2_BOOTPART_NOACC	(1 << 0)	/* Boot partition no access */
-> +#define MMC_CAP2_RESET_AT_RESUME BIT(1)	/* Reset the card at system resume */
->   #define MMC_CAP2_FULL_PWR_CYCLE	(1 << 2)	/* Can do full power cycle */
->   #define MMC_CAP2_FULL_PWR_CYCLE_IN_SUSPEND (1 << 3) /* Can do full power cycle in suspend */
->   #define MMC_CAP2_HS200_1_8V_SDR	(1 << 5)        /* can support */
+> +	indio_dev->name = "tla2528";
+> +	indio_dev->info = &tla2528_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
+> +			   TLA2528_GENERAL_CFG_RST);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(5 * USEC_PER_MSEC);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id tla2528_id[] = {
+> +	{ "tla2528" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, tla2528_id);
+> +
+> +static const struct of_device_id tla2528_of_match[] = {
+> +	{ .compatible = "ti,tla2528" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, tla2528_of_match);
+> +
+> +static struct i2c_driver tla2528_driver = {
+> +	.driver = {
+> +		.name = "tla2528",
+> +		.of_match_table = tla2528_of_match,
+> +	},
+> +	.probe = tla2528_probe,
+> +	.id_table = tla2528_id,
+> +};
+> +module_i2c_driver(tla2528_driver);
+> +
+> +MODULE_AUTHOR("Maxime Chevallier <maxime.chevallier@bootlin.com>");
+> +MODULE_AUTHOR("Rodolfo Giometti <giometti@enneenne.com>");
+> +MODULE_DESCRIPTION("Texas Instruments TLA2528 ADC driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_DRIVER");
 
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
