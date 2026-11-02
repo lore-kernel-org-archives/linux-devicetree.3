@@ -1,103 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615273;
-	b=0hgoCHpxAj3XjhEIhraSY3uMZ9HH0zoBklqB4coLKcCEmkPKT75zY1ikDbLD4dtKKT3M
-	 44hteTd5W99qgb2VDK4tyo+OtutK+ib6h64hL3aqfgEdbuE3BvW1CA4jGzgLJMkxqIQ2u
-	 CZPnui4WC9aLFIH08IBFYh7H8WsMjE0Gp8JMsmeT2ESGDYnfWBbTeRxmfouCX0IQkikCj
-	 7FVYSH0+6qnXPBEYNXESR+OXYsIDEWmmPYgglmIBKR+niNen1cI0rH0pSdUtqfQ4Sp4im
-	 kBXjtHGGASbvePMGKgbvHxHb3Aqu2c20x4dtCjlXeWyI2YQSc+jxjs6dbXLEZ2pd6WQ==
+	t=1793615494;
+	b=xoCtM6cegD2Yy6ENYV/8NZ+rc5Mc7vKvWDkNnhYJp4rUmCfFVefXwnZoQLwlIpElMaSh
+	 KkEHbhqR7NMAjqo6g35uv3YllozX8wb4CDgGkvyXWSBE3QeN7NLYIgK7x7C4riI2Ivj+b
+	 iZF2Ycu9XW82aW+XTzHyFjdYhKf1yF/HFs1DuI+j56DalrV2eX7ZYYEy93/5QC3pih6UW
+	 HpAZICuiDnapWnvNE+MwUc1S92zq8xOAaFR/oaDLQPzeasMFIckWIi6fPsHpTruPMu1/k
+	 mCpNndBio/caCqp19C14sfSaTwoLDwfRExxGZz0fQaUx68hWzC+DoOs1ArIRkWhL/GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615273;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mrNq0ZRBvQ+zprkdb1UnBV4ag8e9ryaPGCvBvx+AW1Q=;
-	b=KOBKYxGWYmt2x8uDX4S8ADWAZO92DkRzdftFGPNVT4h8BcjnKyRrSh/n8dtOX87Ia4dF
-	 H0MI2tDHhVs4o2Ong5W4u1TipJsvvQqywJ5XuPAdNNWBtf5BrHbd+G9vBngGVGjMSX2do
-	 /30snVtjD4cXaTJGAMdyzJHLrYfwtgOQ2SDf6JrhZrdLz0Zwie9kwKMTFoUJLiFdKOG06
-	 7dyK3qf2iEOJKJSGpI1Zvkv3GXQ26XwKZjhS1Lmtfr2B8ZfdW/2a6+ELvpyuzmOQ7kXcs
-	 27+Ye6qTHmKG+jDBwHo+tTTeENzfko+dpdJz+zLCuOmUA4fvnpKAoOrgu/+yrjXt2VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615494;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LC4a57rGSumMejdWCZ75d2s0Usyqle9Uga0vcCXouQs=;
+	b=TdBOBqFgmEPQDNup5Xf3a12WNRYfxALLeXoOCRY6bi6hWga/18fl4Iw5Jm0SHrMWO0y5
+	 rJuonpaJLPRQnrvh1BXF9O+wPyNebA5S9qwgZ1CjurmImTb/+Wa9PJRPdT0XSgGfwbKlL
+	 rO8BufxGj+uyolT+hzoKRbPPxUCCR2lm3UR9lzLvWyRv4NeVmkRsQKrPA7qIdRQT4Jtku
+	 T6UFH62NckS7Tkxppehnz4xYnCgLbT7NMMHTIqaBtYnc39E+SLMOXuN1IL+hVNYoAzwS8
+	 Bzj4jBCNzVNKKnhXMjB6BH6w07qewrKvweFG9SNoMnigGbUEbCoc0BmU/+xeqrN9uEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejBVj8QB;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lJN3teFk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OTUe1pMm;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968D6606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:27:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 968D6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B2060A2609
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31B2060A2609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejBVj8QB
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1ae18eb9b69so1761025c88.0
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 02:27:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lJN3teFk;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OTUe1pMm
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AMpT2880852
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 10:31:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LC4a57rGSumMejdWCZ75d2s0Usyqle9Uga0vcCXouQs=; b=lJN3teFkYBW+FNUv
+	yiN9cF3LekexHZmXBEqdM5JR+WPoQnVvuYg0SZYwLcvFVjuV3SUORE8HYlnuzpc3
+	AsftJfcMYvieK6GGHuAonEfI0/T1ew4mhJy7Cb7yfRC/AnJqM3nVy1YXi4jaruUG
+	pQ2eZt6cLBCstbaFBcAafXi8ngFat4IiHvLvHfwwg2Tuq+GyQ22hR7/N2++detQc
+	8j0QNi8yDx03VOJHfQdE2tLXd9QwFEQGn5o+s+6M8pe0YCS0kvNjwe5W3Q4xWNp7
+	U0TFXTPQpD+zFV7HkIL1LTTUpq+lBgldBQjtZAqjT/QSRyDT7HZivxXvp/8o1+eF
+	mIEEOg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqfrgcnc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 10:31:33 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f20addba1so516840685a.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 02:31:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793615272; x=1794220072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1793615492; x=1794220292; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mrNq0ZRBvQ+zprkdb1UnBV4ag8e9ryaPGCvBvx+AW1Q=;
-        b=ejBVj8QBaSkUFpD/C7GMhv/yuB9JhgzY4gjl8cVuUtAbpk8FB/ItM8KCYxyXSM5JUo
-         25ocUAXsnjBaUZCaN/xu2RWL2l/VX9IsUUCgdSbPJALf4l0iOBLEXUtMppR0U6A0Aezp
-         iYBVTAg5xGi/okrS4dSl3YTtxPdAIzopFE82Lsrl7X66o+tmGJ0nkoYLK3wAbv5Up1go
-         5L0wFgW5A2xYtWF7d1m4Nmu4BFdAfC776gpqxPsjebj5F+28NwEOxqiJJm8/ofa8ReWT
-         wKqKXKybjaX9LyABEaErsudmDIpXJFkSk1kfSCVIuCzK5TZeTqAglb71RL6wowU1E2qH
-         Ei7Q==
+        bh=LC4a57rGSumMejdWCZ75d2s0Usyqle9Uga0vcCXouQs=;
+        b=OTUe1pMm45UcdS+ynZl7kPQ84QrnHPqLzzOP360kgMOcxMwEeTRXhwTSbt1UEq61dg
+         zmSZ1137ERWxlalJYFQ++YgsU+bbw0OMOFUsAOJjtTRoGbni/yXH8aU8vMqUFIIyJJbG
+         Sjm+AMFcnO/4xZu1eXq4iNQeq0P3/TY4EJrzyCD5H50YHOKX2jYLQMYbi3I0yt1JjzMu
+         cfy4xYlmAP8Ul7u5RaHjd1x/YS/1QC6kS6qv83hWzdAsOZXZK+9jMLVZc8rUMAlKyrcF
+         HKLwzFH5hzLqUxTBy171mwWLHAEvvEIoG6MrYD49VHYPCftGu3dWTOvVS6b762pWh5kz
+         dNmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793615272; x=1794220072;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mrNq0ZRBvQ+zprkdb1UnBV4ag8e9ryaPGCvBvx+AW1Q=;
-        b=cKK3OyzbNtzoDvqesZ737H+BYRXSHj5NQd5fI4v4A/PMY0xy23dVvbsYeU8mtWBk7d
-         18MIpBhd6VekgntqBwTlX1eudCmf5jwDt17bKSYkKGcNPjg5Gon75xCB5BEqT+56LTIo
-         OFPF8yTzxXhWTi55a9Su7kXDEKp39JfHU8M73zOzmbK6l7zxMgWP7xCFdmidpk74gECw
-         4OxbgK4F3nyma7zQ1A1cZWHqQElV8VK9Yf/ky4DOXZjqU/blSXpH6qpCkVQzye8PsaBK
-         bnNgqYB3arbOBlnyovE4n/u2YjV3+Lxg1wkaRyEJNiT8pPBmp5Ce0RS0HONM6H6PdCJk
-         4jUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhDCtsRFCR01objcqniHMSIIzxaS6KwhwlGtr7nZqRJBoA/1ieCsSY3m4zPdwTVN1YFrmXsun683/G@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBhf9+XMZKzv4ZLRUuutcqe+yQitJvfj/T11Uc4zqU+hs890L+
-	z6CFcLYrayPlfwaNEy3qmpxLvh/zkifwT4qafFWITEQRx7TyfA7pTHAc
-X-Gm-Gg: AYBFou0braygzGXfmzgejTN6oCFTBp1XJSJ55UWFL0+1P4V8Fhy+wEF2OmSGAZYKsyJ
-	YzouijOmVOXLzCVvHd2oJ9IOzT8kT7SLKrK+I1vs9UcvE6pNsr0uuIP+sUMbKHXS2B9eztOKb22
-	6wQSQdnk84wk5oW4Ryuw8T0hyK7KgytR61hVqBxgO8dN2geBRpbBdKhvqRmcvB3fFF7s85RO40b
-	+kDA/52gCWvv4RvKwfze8sTnxYudO+LArJf3EL/t5vUaRfDRYV4YuU7s3KoupOgZU7cN/QyWQQ3
-	bzHbhp//SLlpgQRY5vvZx3P5dWpElHLSXBJEhW2kRY94Mekcfmb8QO7k7/gg0vRsC1KOnSU4GbV
-	JzE/jhZA1qM+jmhi4fr3CMiHVGLr5kHyzAMAppOZm9swvDipH6Iqn6Dd32RfCxQAXiMCOOHrq3k
-	PsMJF6jh6Scf8fl8R2OnEAOoMZemmOFIGOkJ3aZzVjoqWblsI6XzAXPWzWXXWz/XZM/8OuEjn0C
-	epbzvMorMqi6/0UwKVM/7CKNSQOnFjKeuSlLKVPTrT3FwCGb0XOmIuEqx1ob5piu3qJ491UH0Tv
-	42tHTIF7tMWMLWy5AVs4/UpkTzPREe83UVvh8FyMg9I=
-X-Received: by 2002:a05:701a:c907:b0:16a:1fa:58cb with SMTP id a92af1059eb24-1ac56d95460mr14072256c88.1.1793615271404;
-        Mon, 02 Nov 2026 02:27:51 -0800 (PST)
-Received: from localhost.localdomain ([14.97.230.66])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854d925sm56946724c88.7.2026.11.02.02.27.46
+        d=1e100.net; s=20260707; t=1793615492; x=1794220292;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LC4a57rGSumMejdWCZ75d2s0Usyqle9Uga0vcCXouQs=;
+        b=BqSedf9yRsX7kyf9Xw2grK3nw5v/dc4yBN8A34TYi4razFFFIlB+YC7gQpcrZ2Sc7L
+         rliRYmz4bDvnIC097mTsW7R0qHFq9G1B25Onr+YIoyddip4PR49zOIsKYLFD612wP6Wl
+         4Lo5eThV0h8wnpBOAu+SlIlqdEZmDAw1SZbGC6BsXj0xPdQ6g9JaBp/UU0EpdKwyeUUA
+         ZXAuQxFaDWuALWUimppbknb6/DCRZEODxD+u0YCtb+sO5JaeNpoXTIsq5R3abZlcBTKj
+         y1D6ZTWE4ZVRe6YkDeQf1kXIijGJDCMSs3CWP7+WNP1P29oH84v9SMp0iPKjHOsLaQ2V
+         M8Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBzBGkEc7We6TWWN2NoDr2bxvQKzHTw1Zlqg+9In8xPUQVP8GbvfxlHAD+B+cp3oZkVVofnoe/b00KnZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/nHkA8d8hKjAZdH6J8jUUlY4p/qZ4kEU59fJozOxOzkPCjJdT
+	lnkkiCA2VthdFFgz6OkMIc2zaC3xS1u5Ke8WZrbsPFijRdr9fv/IX3mhjNSy2mXfqD7bhDE8u14
+	noc/iNhpqpzCD9dO4DPOk0ChgMTFWkOjR74IgpBPSES9StombUMK2/qIyu21OLD3s
+X-Gm-Gg: AYBFou1YumoVCGxcENtGUvlFqcd9ug4AR9pX37GZL9kFpLKFlNzEardBE2Szrdv2hwi
+	x+4Dnce+iC1gqAnQUe3uT5xBqjx2fFfAQOOHZlUV/kzdK5BDmpCZKr6qBwnnfO05x9gggBw0NhQ
+	JAiOKtHDQWQcdOf8Tcd/8aKhN4Zjg3OBljVFaPOz3tSuJhHBPG/m280p2tGHC61Dm2f0156ZIxY
+	LK47pMPuN9D9RhAdmVEfLRdiCmaC0xGtdfievuc/lwXYwF5RL6D9UkhXrKFniFMAujSTvgjhdtD
+	zCkobakG0jwMVW7Vf56cZ5McXOatznjqpanlVdXdGNODBgaeuA59d7IX0l1rQ1gWcN3DEzOqJCI
+	dHcqCkIpsSMeraGO8r4GfjlqZNKg4SntxR2+w6ztBcbsKs5vFCtYLxQ8xG31avQBuhJEaufrVL3
+	eBlg==
+X-Received: by 2002:a05:620a:2688:b0:93f:21de:f3da with SMTP id af79cd13be357-944216f2010mr1452048485a.15.1793615492121;
+        Mon, 02 Nov 2026 02:31:32 -0800 (PST)
+X-Received: by 2002:a05:620a:2688:b0:93f:21de:f3da with SMTP id af79cd13be357-944216f2010mr1452046785a.15.1793615491730;
+        Mon, 02 Nov 2026 02:31:31 -0800 (PST)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7c5063e3sm327847885e9.0.2026.11.02.02.31.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:27:50 -0800 (PST)
-From: Dinesh kumar v <dineshkumarv85@gmail.com>
-X-Google-Original-From: Dinesh kumar v <dinesh.v@adlinktech.com>
-To: Frank.Li@nxp.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	s.hauer@pengutronix.de
-Cc: imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	Dinesh kumar v <dinesh.v@adlinktech.com>
-Subject: [PATCH v2 3/3] arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
-Date: Mon,  2 Nov 2026 15:56:53 +0530
-Message-Id: <20261102102653.272056-4-dinesh.v@adlinktech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261102102653.272056-1-dinesh.v@adlinktech.com>
-References: <20261102065645.121046-1-dinesh.v@adlinktech.com>
- <20261102102653.272056-1-dinesh.v@adlinktech.com>
+        Mon, 02 Nov 2026 02:31:30 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Mon, 02 Nov 2026 11:31:21 +0100
+Subject: [PATCH v17 2/2] phy: qcom: add the SGMII SerDes PHY driver for
+ SCMI systems
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,698 +117,228 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-sa8255p-eth-phy-v17-2-aa138f2912a0@oss.qualcomm.com>
+References: <20261102-sa8255p-eth-phy-v17-0-aa138f2912a0@oss.qualcomm.com>
+In-Reply-To: <20261102-sa8255p-eth-phy-v17-0-aa138f2912a0@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5648;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=m0NfEAr65Ya7sSDjlBSCHwDfnH7eejsULme+UVonYRI=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq6GZ/w1HMpv6Sy2QJE3izdqIxtXyX0UCvuAUXl
+ kba++uG9V2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauhmfwAKCRAFnS7L/zaE
+ w+KHD/0YTe1K8/b0lrHfvDU6R0BXPMSzeZzJRTXQ38TN4ID2pCqTwi0La1lp7BIwKnyEU1wHhQ6
+ DpyzibBxjA3At1P82gOGIwiXsx8yMOZA5d5ZuGtJ9zWcnZAAzyPnE7NjB1dqcZpYGSHOnSZfJ7v
+ JTmsfJUMVxM5ZrwJZvXkdOyseAr4wSG0zGgy2NhjaETJifSJpk3YtGKoIhlqrEzLpJYwtn1t5Nu
+ RWxhngH9qalCedIzIPed621VhJ4AgIplPkddiAqMjYGjnsacxoEDwa6NveGWn6kATaPWy7Dssfe
+ r7PsoEZrltvp0rWxWqnFFfcURXXkgkTnRFrXA8uco3GdhL/7iM+oYTp7o5t5nAUU+VFcpCn35pd
+ 2ifwg/aiiXNXyOwL52LjOxvqM2eJatMihOeVHYW0nRuuBwMhN91yi/Z1F5UaOdmO2IzWqmtBxtg
+ H+Mua03VyoCkLr5D4VX0VwpD+O5C2GNkTgIfBerUpcvokpWWIBq+kHJj7aHUzSd/lDjxUosCNj0
+ 71L5EpkzOcWWA2eqbh28E6V03iGXy6AD1axMfhOzvR7VgmQdFREboJkGAPPuKzUzjHAaoKBQogI
+ 0jcUKaRtZIIvZJLJa2LgKMpdyJl40stwNHYDv3xJZ//P4mjdQjNSpFGNw/Pevhpxgyxe/QLAgaT
+ lkboffPFjGoFttQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=HMJWhYtv c=1 sm=1 tr=0 ts=6ae86685 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=hTw9fJJfFBl441PWpkgA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: ddlR7e1YbkHQS-OsUSNQM2X_Y3Tr6PK-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX/2c3PCmIQ6HS
+ e3juj5lSzVocttDOzvvd+IJHJ6WdYtSGmafK0Bfp/8N0OT29K2EB7axFIBGos1Iq0tgIhNg25rP
+ ZO/aBVLoauZ101Tq/X0RQwh+BXWhH6M=
+X-Proofpoint-ORIG-GUID: ddlR7e1YbkHQS-OsUSNQM2X_Y3Tr6PK-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX7lGsfFdFprwD
+ lj/lTSPX7YA1MKgGMvYDc0kBxEoLtZYH1rFyYaPdHQjDmUr+NqhdQuyK8jc5phpK/c7HdZRwReS
+ pBFB4CNVRqAGCLpJoZ6y25MUP6Sfkm2kI8IVEHrO9YukE2wznu3UdLQWkmKl1tVbZqAMPfxZH1d
+ EUE+0f5Jl51UL2O3veeiuulQytBKjuLSm3Tbu0gr9OoK3aSugcl5D5ExG6tAH+sKbBPl7Ti2wQC
+ LzAlqCCQk6/baXJNa/Og4AbpVIW+qpf5zOQEU8+B8QNgy1bj/o12OMV+8osPrsgGU80atRhYldM
+ PcCX3Nu6VmaGd/Ars31UkEXj0V4mzNZ7mgbPwEpUFRjk7b9yQW341qupdK2sPE7rbaOVawhVW/G
+ lGPkHeW8z9WvMvtyAnd9Kcs5JMnAjjjeZ9pienVEtDAC5EtSquCmDvApZX6Gy5CIZXApFZpJbuY
+ FcSbzKwfDRyafCSZg3A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ phishscore=0 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020041
 
-Add the common device tree description for the ADLINK LEC-iMX95
-module and the I-Pi SMARC Plus carrier board.
+Implement support for the firmware-managed SGMII/SerDes PHY present on
+Qualcomm platforms. Do this as a separate driver from the HLOS-managed
+variant as they don't share almost any code. The OPP table is added by
+the SCMI DVFS perf power domain driver after being fetched from the
+firmware.
 
-Describe the onboard peripherals and carrier-specific hardware
-connections.
-
-Signed-off-by: Dinesh kumar v <dinesh.v@adlinktech.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx95-lec-ipi-smarc.dts     | 237 ++++++++++
- arch/arm64/boot/dts/freescale/imx95-lec.dtsi  | 414 ++++++++++++++++++
- 3 files changed, 652 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec.dtsi
+ drivers/phy/qualcomm/Kconfig                   |  11 +++
+ drivers/phy/qualcomm/Makefile                  |   1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c | 113 +++++++++++++++++++++++++
+ 3 files changed, 125 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a80cccf34eb5..26b432127faa 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -983,6 +983,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-verdin-wifi-zinnia.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-lec-ipi-smarc.dtb
- 
- imx95-15x15-evk-pcie-dtbs += imx95-15x15-evk.dtb imx-m2-pcie.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx95-15x15-evk-pcie.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts b/arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
+diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
+index 44a805361e35d9b34b9ae0bf30b0f8201a2532b9..2486720b9ffc8e7661ca3e109aadc6971abce6c4 100644
+--- a/drivers/phy/qualcomm/Kconfig
++++ b/drivers/phy/qualcomm/Kconfig
+@@ -260,3 +260,14 @@ config PHY_QCOM_SGMII_ETH
+ 	help
+ 	  Enable this to support the internal SerDes/SGMII PHY on various
+ 	  Qualcomm chipsets.
++
++config PHY_QCOM_SGMII_ETH_SCMI
++	tristate "Qualcomm DWMAC SGMII SerDes/PHY driver (firmware managed)"
++	depends on OF && (ARCH_QCOM || COMPILE_TEST)
++	depends on PM_GENERIC_DOMAINS
++	depends on PM_OPP
++	select GENERIC_PHY
++	help
++	  Enable this to support the internal SerDes/SGMII PHY on Qualcomm
++	  chipsets where the SerDes hardware (clocks and registers) is owned
++	  by the firmware.
+diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+index 4b5e6640a6faa05715b96cc8e9512208340fb595..41f192c9f4182977573dc8755b34575b13212fd7 100644
+--- a/drivers/phy/qualcomm/Makefile
++++ b/drivers/phy/qualcomm/Makefile
+@@ -31,3 +31,4 @@ obj-$(CONFIG_PHY_QCOM_USB_SS)		+= phy-qcom-usb-ss.o
+ obj-$(CONFIG_PHY_QCOM_USB_SNPS_FEMTO_V2)+= phy-qcom-snps-femto-v2.o
+ obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)	+= phy-qcom-ipq806x-usb.o
+ obj-$(CONFIG_PHY_QCOM_SGMII_ETH)	+= phy-qcom-sgmii-eth.o
++obj-$(CONFIG_PHY_QCOM_SGMII_ETH_SCMI)	+= phy-qcom-sgmii-eth-scmi.o
+diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
 new file mode 100644
-index 000000000000..9a77bff42b22
+index 0000000000000000000000000000000000000000..81bed5702bc17d2b05513122b22dc7a5cb75fa63
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
-@@ -0,0 +1,237 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Copyright (C) 2026 ADLINK Technology Inc.
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + *
-+ * https://www.adlinktech.com/products/Computer_on_Modules/SMARC/LEC-IMX95
-+ * https://www.adlinktech.com/products/computer_on_modules/SMARCStarterKits/I-Pi_SMARC_IMX95
++ * Firmware-managed variant of the Qualcomm DWMAC SGMII SerDes/PHY driver.
 + */
 +
-+/dts-v1/;
++#include <linux/device-id/of.h>
++#include <linux/ethtool.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/phy.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/pm_opp.h>
++#include <linux/pm_runtime.h>
 +
-+#include "imx95-lec.dtsi"
++static int qcom_dwmac_sgmii_phy_scmi_validate(struct phy *phy, enum phy_mode mode,
++					      int submode,
++					      union phy_configure_opts *opts)
++{
++	if (mode != PHY_MODE_ETHERNET)
++		return -EINVAL;
 +
-+/ {
-+	model = "ADLINK LEC-iMX95 on I-Pi SMARC Plus Carrier Board";
-+	compatible = "adlink,lec-imx95-ipi-smarc",
-+		     "adlink,lec-imx95",
-+		     "fsl,imx95";
++	switch (submode) {
++	case PHY_INTERFACE_MODE_SGMII:
++	case PHY_INTERFACE_MODE_1000BASEX:
++	case PHY_INTERFACE_MODE_2500BASEX:
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int qcom_dwmac_sgmii_phy_scmi_set_mode(struct phy *phy, enum phy_mode mode,
++					      int submode)
++{
++	struct device *dev = phy->dev.parent;
++	unsigned int level;
++	int ret;
++
++	ret = qcom_dwmac_sgmii_phy_scmi_validate(phy, mode, submode, NULL);
++	if (ret)
++		return ret;
++
++	level = (submode == PHY_INTERFACE_MODE_2500BASEX) ? SPEED_2500 : SPEED_1000;
++
++	return dev_pm_opp_set_level(dev, level);
++}
++
++static const struct phy_ops qcom_dwmac_sgmii_phy_scmi_ops = {
++	.set_mode	= qcom_dwmac_sgmii_phy_scmi_set_mode,
++	.validate	= qcom_dwmac_sgmii_phy_scmi_validate,
++	.owner		= THIS_MODULE,
 +};
 +
-+/* Ethernet SMARC GBE0 */
-+&enetc_port0 {
-+	pinctrl-0 = <&pinctrl_enetc0>;
-+	phy-handle = <&ethphy0>;
-+	pinctrl-names = "default";
-+	phy-mode = "rgmii-id";
++static void qcom_dwmac_sgmii_phy_scmi_drop_level(void *data)
++{
++	struct device *dev = data;
 +
-+	status = "okay";
++	dev_pm_opp_set_opp(dev, NULL);
++}
++
++static int qcom_dwmac_sgmii_phy_scmi_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct phy_provider *provider;
++	struct phy *phy;
++	int ret;
++
++	ret = dev_pm_opp_get_opp_count(dev);
++	if (ret <= 0)
++		return dev_err_probe(dev, ret ?: -ENODEV,
++				     "no performance levels available\n");
++
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, qcom_dwmac_sgmii_phy_scmi_drop_level, dev);
++	if (ret)
++		return ret;
++
++	phy = devm_phy_create(dev, NULL, &qcom_dwmac_sgmii_phy_scmi_ops);
++	if (IS_ERR(phy))
++		return dev_err_probe(dev, PTR_ERR(phy), "failed to create the phy\n");
++
++	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++	if (IS_ERR(provider))
++		return dev_err_probe(dev, PTR_ERR(provider),
++				     "failed to register the PHY provider\n");
++
++	return 0;
++}
++
++static const struct of_device_id qcom_dwmac_sgmii_phy_scmi_of_match[] = {
++	{ .compatible = "qcom,sa8255p-dwmac-sgmii-phy" },
++	{ }
 +};
++MODULE_DEVICE_TABLE(of, qcom_dwmac_sgmii_phy_scmi_of_match);
 +
-+/* Ethernet SMARC GBE1 */
-+&enetc_port1 {
-+	pinctrl-0 = <&pinctrl_enetc1>;
-+	phy-handle = <&ethphy1>;
-+	pinctrl-names = "default";
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
++static struct platform_driver qcom_dwmac_sgmii_phy_scmi_driver = {
++	.probe	= qcom_dwmac_sgmii_phy_scmi_probe,
++	.driver = {
++		.name = "qcom-dwmac-sgmii-phy-scmi",
++		.of_match_table = qcom_dwmac_sgmii_phy_scmi_of_match,
++	},
 +};
-+
-+&lpi2c2 {
-+	clock-frequency = <100000>;
-+	pinctrl-0 = <&pinctrl_lpi2c2>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	/* U1000 SX1509BIULTRT_SEMTECH */
-+	i2c2_gpio_expander_71: pinctrl@71 {
-+		/*
-+		 * GPIO Expander Mapping:
-+		 * - 0: ENET1_RST_B_3V		=>		U2001
-+		 * - 1: ENET2_RST_B_3V		=>		U2101
-+		 * - 2: SERDES_RST#_3V		=>		SMARC S77 PCIE_C_RST
-+		 * - 3: RC210_EN_3V		=>		U1300, RC21008B001GND
-+		 * - 4: LT9611_RSTN_3V		=>		U1500
-+		 * - 5: HDMI_INT_3V		<=		U1500
-+		 * - 6: PCIEA_RST#_3V		=>		SMARC P75
-+		 * - 7: PCIEB_RST#_3V		=>		SMARC S76
-+		 * - 8: TPM_RST_N_1V8		=>		U2400
-+		 * - 9: LID#_1V8		<=	R1005	SMARC S148
-+		 * - 10: SLEEP#_1V8		<=	R1010	SMARC S149
-+		 * - 11: CHARGING#_1V8		<=	R1007	SMARC S151
-+		 * - 12: CHARGER_PRSNT#_1V8	<=	R1011	SMARC S152
-+		 * - 13: BATLOW#_1V8		<=	R1014	SMARC S156
-+		 * - 14: TEST#_1V8		<=	R1015	SMARC S157
-+		 * - 15: DSI0_TE_1V8		<=	R1087	SMARC S144
-+		 */
-+		compatible = "semtech,sx1509q";
-+		reg = <0x71>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <15 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&pinctrl_sx1509q>;
-+		pinctrl-names = "default";
-+		semtech,probe-reset;
-+
-+		status = "okay";
-+	};
-+};
-+
-+&lpi2c3 {
-+	pinctrl-0 = <&pinctrl_lpi2c3>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&lpi2c8 {
-+	pinctrl-0 = <&pinctrl_lpi2c8>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+/* SMARC SPI0 */
-+&lpspi6 {
-+	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>, <&gpio2 24 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&pinctrl_lpspi6>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+/* SMARC SER1, used as the Linux Console */
-+&lpuart1 {
-+	bootph-pre-ram;
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&lpuart2 {
-+	pinctrl-0 = <&pinctrl_uart2>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&lpuart5 {
-+	pinctrl-0 = <&pinctrl_uart5>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+/* SMARC SER2 */
-+&lpuart6 {
-+	pinctrl-0 = <&pinctrl_uart6>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+/* SMARC SER0 */
-+&lpuart7 {
-+	pinctrl-0 = <&pinctrl_uart7>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&netc_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&netc_emdio {
-+	pinctrl-0 = <&pinctrl_emdio>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@1 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <1>;
-+		eee-broken-1000t;
-+		realtek,clkout-disable;
-+	};
-+
-+	ethphy1: ethernet-phy@4 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <4>;
-+		eee-broken-1000t;
-+		realtek,clkout-disable;
-+	};
-+};
-+
-+&netc_timer {
-+	status = "okay";
-+};
-+
-+&netcmix_blk_ctrl {
-+	status = "okay";
-+};
-+
-+/* SMARC PCIE_A */
-+&pcie0 {
-+	pinctrl-0 = <&pinctrl_pcie0>;
-+	pinctrl-names = "default";
-+	supports-clkreq;
-+
-+	status = "okay";
-+};
-+
-+&pcie0_port0 {
-+	reset-gpios = <&i2c2_gpio_expander_71 6 GPIO_ACTIVE_LOW>; /* PCIEA_RST#_3V */
-+};
-+
-+/* U1900 AW-CM276NF */
-+&pcie1 {
-+	pinctrl-0 = <&pinctrl_pcie1>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie1_port0 {
-+	reset-gpios = <&i2c2_gpio_expander_71 7 GPIO_ACTIVE_LOW>; /* PCIEB_RST#_3V */
-+};
-+
-+/* SMARC USB0 */
-+&usb2 {
-+	dr_mode = "host";
-+	hnp-disable;
-+	adp-disable;
-+	srp-disable;
-+	disable-over-current;
-+
-+	status = "okay";
-+};
-+
-+&usb3 {
-+	status = "okay";
-+};
-+
-+&usb3_dwc3 {
-+	dr_mode = "host";
-+	snps,dis-u1-entry-quirk;
-+	snps,dis-u2-entry-quirk;
-+
-+	status = "okay";
-+};
-+
-+&usb3_phy {
-+	status = "okay";
-+};
-+
-+&usdhc1 {
-+	status = "okay";
-+};
-+
-+&usdhc2 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx95-lec.dtsi b/arch/arm64/boot/dts/freescale/imx95-lec.dtsi
-new file mode 100644
-index 000000000000..60d68c146ae4
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-lec.dtsi
-@@ -0,0 +1,414 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (C) 2026 ADLINK Technology Inc.
-+ * https://www.adlinktech.com/products/Computer_on_Modules/SMARC/LEC-IMX95
-+ * https://www.adlinktech.com/products/computer_on_modules/SMARCStarterKits/I-Pi_SMARC_IMX95
-+ */
-+
-+#include "imx95.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &enetc_port0;
-+		ethernet1 = &enetc_port1;
-+		gpio0 = &gpio1;
-+		gpio1 = &gpio2;
-+		gpio2 = &gpio3;
-+		gpio3 = &gpio4;
-+		gpio4 = &gpio5;
-+		i2c1 = &lpi2c2;
-+		i2c2 = &lpi2c3;
-+		i2c7 = &lpi2c8;
-+		mmc0 = &usdhc1;
-+		mmc1 = &usdhc2;
-+		serial0 = &lpuart1;
-+		serial1 = &lpuart2;
-+		serial4 = &lpuart5;
-+		serial5 = &lpuart6;
-+		serial6 = &lpuart7;
-+		spi0 = &lpspi6;
-+		usb0 = &usb3_dwc3;
-+		usb1 = &usb2;
-+	};
-+
-+	chosen {
-+		stdout-path = &lpuart1;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0x01 0x00>;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2 {
-+		compatible = "regulator-fixed";
-+		bootph-pre-ram;
-+		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
-+		enable-active-high;
-+		pinctrl-names = "default";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		gpio = <&gpio3 7 GPIO_ACTIVE_HIGH>;
-+		regulator-name = "VDD_SD2_3V3";
-+		off-on-delay-us = <12000>;
-+	};
-+
-+	reserved-memory {
-+		ranges;
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		linux_cma: linux,cma {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0 0x80000000 0 0x7f000000>;
-+			reusable;
-+			size = <0 0x3c000000>;
-+			linux,cma-default;
-+		};
-+	};
-+};
-+
-+&gpio2 {
-+	gpio-line-names =
-+		"SMARC_SPI0_CS0#",	/* 0 - GPIO_IO00 */
-+		"SMARC_SPI0_DIN",	/* 1 - GPIO_IO01 */
-+		"SMARC_SPI0_DO",	/* 2 - GPIO_IO02 */
-+		"SMARC_SPI0_CK",	/* 3 - GPIO_IO03 */
-+		"",			/* 4 - GPIO_IO04 */
-+		"",			/* 5 - GPIO_IO05 */
-+		"",			/* 6 - GPIO_IO06 */
-+		"",			/* 7 - GPIO_IO07 */
-+		"SMARC_UART0_TXD",	/* 8 - GPIO_IO08 */
-+		"SMARC_UART0_RXD",	/* 9 - GPIO_IO09 */
-+		"SMARC_UART0_CTS_B",	/* 10 - GPIO_IO10 */
-+		"SMARC_UART0_RTS_B",	/* 11 - GPIO_IO11 */
-+		"SMARC_I2C_GP_DAT",	/* 12 - GPIO_IO12 */
-+		"SMARC_I2C_GP_CK",	/* 13 - GPIO_IO13 */
-+		"UART3_TXD_1V8",	/* 14 - GPIO_IO14 */
-+		"UART3_RXD_1V8",	/* 15 - GPIO_IO15 */
-+		"SAI3_TXC_1V8",		/* 16 - GPIO_IO16 */
-+		"SAI3_MCLK_1V8",	/* 17 - GPIO_IO17 */
-+		"SMB_INT_B_1V8",	/* 18 - GPIO_IO18 */
-+		"LVDS0_BKLT_PWM_1V8",	/* 19 - GPIO_IO19 */
-+		"SAI3_RXD_1V8",		/* 20 - GPIO_IO20 */
-+		"SAI3_TXD_1V8",		/* 21 - GPIO_IO21 */
-+		"FAN_PWM_1V8",		/* 22 - GPIO_IO22 */
-+		"LVDS1_BKLT_PWM_1V8",	/* 23 - GPIO_IO23 */
-+		"SPI6_SS1_1V8",		/* 24 - GPIO_IO24 */
-+		"",			/* 25 - GPIO_IO25 */
-+		"SAI3_TXFS_1V8",	/* 26 - GPIO_IO26 */
-+		"TPM_INT_N_1V8",	/* 27 - GPIO_IO27 */
-+		"SMARC_I2C_PM_DAT",	/* 28 - GPIO_IO28 */
-+		"SMARC_I2C_PM_CK",	/* 29 - GPIO_IO29 */
-+		"SMARC_CAN1_TX",	/* 30 - GPIO_IO30 (SMARC CAN1_H via transceiver) */
-+		"SMARC_CAN1_RX";	/* 31 - GPIO_IO31 (SMARC CAN1_L via transceiver) */
-+};
-+
-+&gpio3 {
-+	gpio-line-names =
-+		"SD2_CD_B",
-+		"SD2_CLK",
-+		"SD2_CMD",
-+		"SD2_DATA0",
-+		"SD2_DATA1",
-+		"SD2_DATA2",
-+		"SD2_DATA3",
-+		"SD2_RST_B_1V8A3V",
-+		"SD1_CLK",
-+		"SD1_CMD",
-+		"SD1_DATA0",
-+		"SD1_DATA1",
-+		"SD1_DATA2",
-+		"SD1_DATA3",
-+		"SD1_DATA4",
-+		"SD1_DATA5",
-+		"SD1_DATA6",
-+		"SD1_DATA7",
-+		"SD1_STROBE",
-+		"SD2_VSEL_1V8",
-+		"SD3_CLK",
-+		"SD3_CMD",
-+		"SD3_DATA0",
-+		"SD3_DATA1",
-+		"SD3_DATA2",
-+		"SD3_DATA3",
-+		"CCM_CLKO1",
-+		"CCM_CLKO2",
-+		"DAP_TDI",
-+		"DAP_TMS_SWDIO",
-+		"DAP_TCLK_SWCLK",
-+		"DAP_TDO_TRACESWO";
-+};
-+
-+&gpio4 {
-+	gpio-line-names =
-+		"ENET1_MDC",
-+		"ENET1_MDIO",
-+		"ENET1_TD3",
-+		"ENET1_TD2",
-+		"ENET1_TD1",
-+		"ENET1_TD0",
-+		"ENET1_TX_CTL",
-+		"ENET1_TXC",
-+		"ENET1_RX_CTL",
-+		"ENET1_RXC",
-+		"ENET1_RD0",
-+		"ENET1_RD1",
-+		"ENET1_RD2",
-+		"ENET1_RD3",
-+		"RTC_INT#_1V8",
-+		"IOEXP2_INT#_1V8",
-+		"ENET2_TD3",
-+		"ENET2_TD2",
-+		"ENET2_TD1",
-+		"ENET2_TD0",
-+		"ENET2_TX_CTL",
-+		"ENET2_TXC",
-+		"ENET2_RX_CTL",
-+		"ENET2_RXC",
-+		"ENET2_RD0",
-+		"ENET2_RD1",
-+		"ENET2_RD2",
-+		"ENET2_RD3",
-+		"CCM_CLKO3",
-+		"CCM_CLKO4";
-+};
-+
-+&gpio5 {
-+	gpio-line-names =
-+		"QSPIA_DATA0",
-+		"QSPIA_DATA1",
-+		"QSPIA_DATA2",
-+		"QSPIA_DATA3",
-+		"SKU_CONFIG1_1V8",
-+		"SKU_CONFIG2_1V8",
-+		"SKU_CONFIG3_1V8",
-+		"SYS_STATUS_1V8",
-+		"SD2_WP_1V8",
-+		"QSPIA_SCLK",
-+		"QSPIA_nSS0",
-+		"SYS_RST#_1V8",
-+		"PCIE1_IMX_CLKREQ#_1V8",
-+		"MCU_INTB1_1V8",
-+		"MCU_INTB2_1V8",
-+		"PCIE2_IMX_CLKREQ#_1V8",
-+		"ENET1_INT_B_1V8",
-+		"ENET2_INT_B_1V8";
-+};
-+
-+&usdhc1 {
-+	bootph-pre-ram;
-+	pinctrl-0 = <&pinctrl_usdhc1>;
-+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc1>;
-+	bus-width = <8>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	no-sdio;
-+	no-sd;
-+	non-removable;
-+};
-+
-+&usdhc2 {
-+	bootph-pre-ram;
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-3 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	bus-width = <4>;
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+};
-+
-+&scmi_iomuxc {
-+	pinctrl_emdio: emdiogrp {
-+		fsl,pins = <IMX95_PAD_ENET1_MDC__NETCMIX_TOP_NETC_MDC		0x50e>,
-+			   <IMX95_PAD_ENET1_MDIO__NETCMIX_TOP_NETC_MDIO		0x90e>;
-+	};
-+
-+	pinctrl_enetc0: enetc0grp {
-+		fsl,pins = <IMX95_PAD_ENET1_TD3__NETCMIX_TOP_ETH0_RGMII_TD3		0x50e>,
-+			   <IMX95_PAD_ENET1_TD2__NETCMIX_TOP_ETH0_RGMII_TD2		0x50e>,
-+			   <IMX95_PAD_ENET1_TD1__NETCMIX_TOP_ETH0_RGMII_TD1		0x50e>,
-+			   <IMX95_PAD_ENET1_TD0__NETCMIX_TOP_ETH0_RGMII_TD0		0x50e>,
-+			   <IMX95_PAD_ENET1_TX_CTL__NETCMIX_TOP_ETH0_RGMII_TX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET1_TXC__NETCMIX_TOP_ETH0_RGMII_TX_CLK	        0x58e>,
-+			   <IMX95_PAD_ENET1_RX_CTL__NETCMIX_TOP_ETH0_RGMII_RX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET1_RXC__NETCMIX_TOP_ETH0_RGMII_RX_CLK	        0x58e>,
-+			   <IMX95_PAD_ENET1_RD0__NETCMIX_TOP_ETH0_RGMII_RD0		0x57e>,
-+			   <IMX95_PAD_ENET1_RD1__NETCMIX_TOP_ETH0_RGMII_RD1		0x57e>,
-+			   <IMX95_PAD_ENET1_RD2__NETCMIX_TOP_ETH0_RGMII_RD2		0x57e>,
-+			   <IMX95_PAD_ENET1_RD3__NETCMIX_TOP_ETH0_RGMII_RD3		0x57e>;
-+	};
-+
-+	pinctrl_enetc1: enetc1grp {
-+		fsl,pins = <IMX95_PAD_ENET2_TD3__NETCMIX_TOP_ETH1_RGMII_TD3		0x57e>,
-+			   <IMX95_PAD_ENET2_TD2__NETCMIX_TOP_ETH1_RGMII_TD2		0x57e>,
-+			   <IMX95_PAD_ENET2_TD1__NETCMIX_TOP_ETH1_RGMII_TD1		0x57e>,
-+			   <IMX95_PAD_ENET2_TD0__NETCMIX_TOP_ETH1_RGMII_TD0		0x57e>,
-+			   <IMX95_PAD_ENET2_TX_CTL__NETCMIX_TOP_ETH1_RGMII_TX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET2_TXC__NETCMIX_TOP_ETH1_RGMII_TX_CLK	        0x5fe>,
-+			   <IMX95_PAD_ENET2_RX_CTL__NETCMIX_TOP_ETH1_RGMII_RX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET2_RXC__NETCMIX_TOP_ETH1_RGMII_RX_CLK	        0x5fe>,
-+			   <IMX95_PAD_ENET2_RD0__NETCMIX_TOP_ETH1_RGMII_RD0		0x57e>,
-+			   <IMX95_PAD_ENET2_RD1__NETCMIX_TOP_ETH1_RGMII_RD1		0x57e>,
-+			   <IMX95_PAD_ENET2_RD2__NETCMIX_TOP_ETH1_RGMII_RD2		0x57e>,
-+			   <IMX95_PAD_ENET2_RD3__NETCMIX_TOP_ETH1_RGMII_RD3		0x57e>;
-+	};
-+
-+	pinctrl_lpi2c2: lpi2c2grp {
-+		fsl,pins = <IMX95_PAD_I2C2_SCL__AONMIX_TOP_LPI2C2_SCL		0x40000b9e>,
-+			   <IMX95_PAD_I2C2_SDA__AONMIX_TOP_LPI2C2_SDA		0x40000b9e>;
-+	};
-+
-+	pinctrl_lpi2c3: lpi2c3grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO28__LPI2C3_SDA			0x40000b9e>,
-+			   <IMX95_PAD_GPIO_IO29__LPI2C3_SCL			0x40000b9e>;
-+	};
-+
-+	pinctrl_lpi2c8: lpi2c8grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO13__LPI2C8_SCL		0x40000b9e>,
-+			   <IMX95_PAD_GPIO_IO12__LPI2C8_SDA		0x40000b9e>;
-+	};
-+
-+	pinctrl_lpspi6: lpspi6grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO00__GPIO2_IO_BIT0		0x1fe>,
-+			   <IMX95_PAD_GPIO_IO24__GPIO2_IO_BIT24		0x1fe>,
-+			   <IMX95_PAD_GPIO_IO01__LPSPI6_SIN		0x3fe>,
-+			   <IMX95_PAD_GPIO_IO02__LPSPI6_SOUT		0x3fe>,
-+			   <IMX95_PAD_GPIO_IO03__LPSPI6_SCK		0x3fe>;
-+	};
-+
-+	pinctrl_pcie0: pcie0grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO32__HSIOMIX_TOP_PCIE1_CLKREQ_B		0x4000031e>;
-+	};
-+
-+	pinctrl_pcie1: pcie1grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO35__HSIOMIX_TOP_PCIE2_CLKREQ_B		0x4000031e>;
-+	};
-+
-+	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7		0x31e>;
-+	};
-+
-+	pinctrl_sx1509q: sx1509qgrp {
-+		fsl,pins = <IMX95_PAD_ENET2_MDIO__GPIO4_IO_BIT15		0x1fe>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX	0x31e>,
-+			   <IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX	0x31e>;
-+	};
-+
-+	pinctrl_uart2: uart2grp {
-+		fsl,pins = <IMX95_PAD_UART2_RXD__AONMIX_TOP_LPUART2_RX	0x31e>,
-+			   <IMX95_PAD_UART2_TXD__AONMIX_TOP_LPUART2_TX	0x31e>;
-+	};
-+
-+	pinctrl_uart5: uart5grp {
-+		fsl,pins = <IMX95_PAD_DAP_TDO_TRACESWO__LPUART5_TX			0x31e>,
-+			   <IMX95_PAD_DAP_TDI__LPUART5_RX				0x31e>,
-+			   <IMX95_PAD_DAP_TMS_SWDIO__LPUART5_RTS_B			0x31e>,
-+			   <IMX95_PAD_DAP_TCLK_SWCLK__LPUART5_CTS_B			0x31e>;
-+	};
-+
-+	pinctrl_uart6: uart6grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO04__LPUART6_TX				0x31e>,
-+			   <IMX95_PAD_GPIO_IO05__LPUART6_RX				0x31e>,
-+			   <IMX95_PAD_GPIO_IO07__LPUART6_RTS_B				0x31e>,
-+			   <IMX95_PAD_GPIO_IO06__LPUART6_CTS_B				0x31e>;
-+	};
-+
-+	pinctrl_uart7: uart7grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO08__LPUART7_TX				0x31e>,
-+			   <IMX95_PAD_GPIO_IO09__LPUART7_RX				0x31e>,
-+			   <IMX95_PAD_GPIO_IO11__LPUART7_RTS_B				0x31e>,
-+			   <IMX95_PAD_GPIO_IO10__LPUART7_CTS_B				0x31e>;
-+	};
-+
-+	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK			0x158e>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD			0x138e>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e>;
-+	};
-+
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK			0x15fe>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK			0x158e>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD			0x138e>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e>;
-+	};
-+
-+	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CLK__USDHC2_CLK			0x158e>,
-+			   <IMX95_PAD_SD2_CMD__USDHC2_CMD			0x138e>,
-+			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e>,
-+			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e>,
-+			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e>,
-+			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e>,
-+			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT		0x51e>;
-+	};
-+
-+	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CLK__USDHC2_CLK			0x158e>,
-+			   <IMX95_PAD_SD2_CMD__USDHC2_CMD			0x138e>,
-+			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e>,
-+			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e>,
-+			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e>,
-+			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e>,
-+			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT		0x51e>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0		0x31e>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CLK__USDHC2_CLK			0x158e>,
-+			   <IMX95_PAD_SD2_CMD__USDHC2_CMD			0x138e>,
-+			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e>,
-+			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e>,
-+			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e>,
-+			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e>,
-+			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT		0x51e>;
-+	};
-+};
++module_platform_driver(qcom_dwmac_sgmii_phy_scmi_driver);
++
++MODULE_DESCRIPTION("Qualcomm DWMAC SGMII PHY driver (firmware managed)");
++MODULE_AUTHOR("Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>");
++MODULE_LICENSE("GPL");
+
 -- 
-2.25.1
+2.47.3
 
