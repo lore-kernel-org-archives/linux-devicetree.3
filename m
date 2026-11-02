@@ -1,57 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612336;
-	b=IqG/9QYh2Ief5wzij/kXfybqFgt77LY5M1OXtiTWPBob2d/9Fj0L7sFt6L7GyJpfjNMf
-	 0rAlOrb2DYAl6Dfc2Xl79l5wOT9FF+XIMaCruFWj5RejUcQEWvEfBSNPM4Uwcetf7kulX
-	 FBc7FAnlG11lGTAgqGIUE7Yf54laB4af26e87sANTsly/YijJythHSw6zRa/J2opHTjvd
-	 zPacuJMGOREwNSmcvyvxIvrZi+0LluDcPWdJKCA3PuX8hoqTI/gDE9XdAXdYzM02JLFnr
-	 +O7ROseNuJdJYMPy5V4MM+VC6fBAdx9ROA0yeRKb8vr7P3eD0pMKn7n69bSunvsHphQ==
+	t=1793612437;
+	b=w40WxqZwb79zzPGOF0GbWDvZMB5neTzEBcmhNvBOg6nQ3hS8gIGS98REl94SC++4WFdq
+	 FKvu12Xiwfibm3nhbMTy2RMK+3E5aE4dGhWB285L2NRaQJR5iGh42Wsn4/vmV5kDScIsy
+	 1TrASTBhGIGJjuQcuu1mjD0wAtDTIueP+hosJH/bY+x5Havuxl5JJzEVADxbcvpgU7RLh
+	 apPMZ1FOanILQzBxAEPAo0QjBFSsMgB9VRZFoP8ut9kqFVZz065k9U9KuADZIXu8VsBzC
+	 2+xjBmhznePY2RPhj7xK05VwPQ9vJN8j9ZqM7PM7zlcXKVz0bqFTFB6/kfeMfm3xVsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612336;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=X4ogHtFf4iUvwtQDYJ4IGS2A1m6nhCpeGhIG2dUNjk8=;
-	b=tCtrTvfVxkSWA3oluSDspO3KZcby9YIEgOBSoIy20xIQfSwtDljeubcMuMKhyAo6/7kH
-	 9nhP8o3C9VC5OzLiBcSNayqe+/4TqJ6qfYdWSByjDHNfYb6Oj1m/beL7qokLglIb48Uw+
-	 z7q5ex734IS/9IIhSkXok3ChQGiZSg4ma1V+hSmATce7siZwvn2Nllr08vzTN92om+rta
-	 0q/RDHQhfmkBrbKCOKkOftwj+RZDAnnUyAY9gbn/yNNpRbGCpO4PeGSU697fyP7Dq7FME
-	 mth3cSSMatOU1ZoWGER/lrnbNLp7DxfomQdY9yqUQb1m705sP05aPcRoHCXPVpUMU7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612437;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EzjmXrkDzsq1ea6V54eY/ckSO21R5zXaobZj8IyNVuU=;
+	b=TtP2uL/WMiX5hP9oi2Fm5e128BYVjXKfNukzh38BzbFrPKAjY399H0sJC/xLkO4PeoR0
+	 lZv+5ckwNV1UGIuLNx3Q95Ap4W6ozFtS7NChq1u53D94U0zpnBy4fWLT3jqN+37Qtfiy4
+	 fT0TOZK/03ltZvY2ENn85cG/S1zf5Hud0DgYBQFbh51XBsGuOfN2RM2GB38Wp5ISvFNd9
+	 BMAcPMtsCnJVGNs48l7zbq0KV5Kwq+/iK5n0cn+Auks1StTsSkDto/6rpMrKr3ScFRqgm
+	 Vk1n7uNWaFQo2k2b/2FV5yDXv2SjfssvWZBgljOlMPsLu6XCp7c5AMR0VOA/C5UI5Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fucHZp+c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAk6wFia;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D55606A329
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 09:38:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6538606A324;
+	Mon,  2 Nov 2026 09:40:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fucHZp+c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04271F000C1;
-	Mon,  2 Nov 2026 09:38:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAk6wFia
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33F591F000C1;
+	Mon,  2 Nov 2026 09:40:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793612336;
-	bh=X4ogHtFf4iUvwtQDYJ4IGS2A1m6nhCpeGhIG2dUNjk8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fucHZp+cjdo51KBtr00p3ZeJvRShK5uxaCbFX5MKAs1QuE1Vq7n8J9uXFDjkIsQ+A
-	 WI5C/+UO45TPstDLU9NX+uLCUPmK7tDOZlNoHBYk+6tGhMKaibu1t3zGsifkR+si/K
-	 BQA6IlLDLeM40Jg0dO3eezXwxNd6yqJa0c1BZcFuW9PPZ+Xi7k8zssm5DELYxplU70
-	 Uv3fVPjgQhTmrLDCSz5kfancCeNJ4zs6UBO9xQni0yN9qzxUNtbOZIYvHfuJuxDM4A
-	 M9l75lyVDXa2VvmYn9ZPNIIw84zBZt1bCe2AeXcKhqLw36XsITKmOj/v0MREIsZCEd
-	 nvCnk+1OD5o+Q==
-Message-ID: <sashiko-outbox-193189@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/8] iio: imu: adis: Fix custom reset dispatch in
- adislib
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Sabau" <radu.sabau@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-adis16607-v5-1-4f98b0d271ac@analog.com>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
- <20261102-adis16607-v5-1-4f98b0d271ac@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 09:38:55 +0000
+	s=k20260515; t=1793612436;
+	bh=EzjmXrkDzsq1ea6V54eY/ckSO21R5zXaobZj8IyNVuU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NAk6wFiaQgBVuToA+AZR5hxbuFmP7Yqd4fmisg6yPTwpVv4E0gYqzHB40XSwU2+Vw
+	 PBbZGi19uXHQ28XWxNU32kYBdcQYi54zKDvc2d8pAyOed6tZnbVNb7MGry8RGSrmyX
+	 MPJ3lW6tH62zVSFv86ZGKiHRrWrkcCEz24YKIANpJRHOHAI7juMKcLLW56dFPQ3sgw
+	 ktb54aU6BUy6YxDO6F02RcyqTRvgXzzYniYC9Mn7mFWRKvf2GIKGdYUcdEB9b8HOi4
+	 XNeYUZlxLxWIzpyLg2ZevqB8pPA6/PXbvv2/2pruHYoZr1vizO9FUUKIp6xhOlSSEV
+	 wNEsZF+qtUnAg==
+Date: Mon, 2 Nov 2026 10:40:22 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
+	Andre Draszik <andre.draszik@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	Srinivas Kandagatla <srini@kernel.org>
+Subject: Re: [PATCH v27 05/10] dt-bindings: arm: Document reboot mode magic
+Message-ID: <fmik4cb4dltd7uivkdiyxrjsvi6xrsy3ivecx4nnwr5cvyadnd@xzofyqlmjwqf>
+References: <20261029-arm-psci-system_reset2-vendor-reboots-v27-0-fa4b3ff1359b@oss.qualcomm.com>
+ <20261029-arm-psci-system_reset2-vendor-reboots-v27-5-fa4b3ff1359b@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,75 +71,18 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-arm-psci-system_reset2-vendor-reboots-v27-5-fa4b3ff1359b@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] iio: imu: adis: incorrect Fixes tag and stale changelog in reset di=
-spatch fix
---
+On Thu, Oct 29, 2026 at 02:30:59PM +0530, Shivendra Pratap wrote:
+> Add bindings to describe vendor-specific reboot modes. Values here
+> correspond to valid parameters to vendor-specific reset types in PSCI
+> SYSTEM_RESET2 call.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
 
-commit 5c3f86b0c40a0ca82129c2f9586aae278b0f7d2a
-Author: Radu Sabau <radu.sabau@analog.com>
-
-iio: imu: adis: Fix custom reset dispatch in adislib
-
-This commit updates __adis_initial_startup() and adis_reset() to dispatch
-software resets through adis->ops->reset() rather than calling
-__adis_reset() directly, and moves the sw_reset_ms settle delay out of
-__adis_reset() into both callers.
-
->     iio: imu: adis: Fix custom reset dispatch in adislib
->    =20
->     __adis_initial_startup()'s no-reset-gpio path called __adis_reset()
->     directly instead of adis->ops->reset(), silently ignoring any driver's
->     custom reset implementation. Invisible until now since
->     adis_default_ops.reset is __adis_reset() itself. Dispatch through
->     adis->ops->reset() instead - the same bug existed in the public
->     adis_reset() wrapper, fixed here too.
->    =20
->     Move the settle-time sleep out of __adis_reset() and into both call
->     sites instead, so every reset op (default or custom) is treated
->     uniformly: adis->ops->reset() is expected to just do the write, and
->     the library always sleeps the settle time afterwards. This removes
->     the previous asymmetric "sleep here only for custom ops" special
->     case entirely.
->    =20
->     Fixes: ecb010d44108 ("iio: imu: adis: Refactor adis_initial_startup")
->     Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
->     Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-
-[Severity: Low]
-Should the Fixes tag reference the commit that introduced the custom reset
-callback instead?
-
-Commit ecb010d44108 ("iio: imu: adis: Refactor adis_initial_startup")
-predates struct adis_ops (added in commit 3b29bcee8f6f ("iio: imu: adis:
-Add custom ops struct")). The custom reset callback adis->ops->reset was
-introduced in commit 7f15d7a7d12d ("iio: imu: adis: Add reset to custom
-ops"), which added reset to struct adis_ops without updating
-__adis_initial_startup() or adis_reset() to call adis->ops->reset(). Should
-this use:
-
-  Fixes: 7f15d7a7d12d ("iio: imu: adis: Add reset to custom ops")
-
-Also, is the commit message description accurate for the current baseline
-tree?
-
-The first paragraph mentions that the issue was invisible until now, but
-drivers/iio/imu/adis16550.c already defines a custom reset callback in
-adis16550_ops:
-
-static const struct adis_ops adis16550_ops =3D {
-	.write =3D adis16550_spi_write,
-	.read =3D adis16550_spi_read,
-	.reset =3D adis16550_reset,
-};
-
-In addition, the second paragraph states that this change removes a
-previous asymmetric "sleep here only for custom ops" special case, which
-does not exist in the baseline code prior to this patch. Could the commit
-message be updated to reflect the current tree state?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-adis16607-=
-v5-0-4f98b0d271ac@analog.com?part=3D1
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
