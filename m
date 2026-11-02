@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634946;
-	b=1NM1upXTpMemvz4BXiz23oUR7OhhUzEZ8fK60elU592NBi9r3U989lkChoCkQ6eZGuqq
-	 CDibvjyMs6PoBoU/Ok+kUG4CqbcFCTY7GU0Wyzlms0rZ4UCY+nReMnNtn8vrqfFronPvS
-	 Vxx5BZV59PnIOU7LAzKyDcz/DdKJs93oWPybJLwa7dgRr53hpnKSNKMNil5ZKSwjONeLF
-	 myUIMzkRhmNZSwGlaNzb7LGmYsjAUqEPho8joU/ZNfqc06O7EXd1cO4Tb9JHWn7OPzWjg
-	 XpCdjN6ROIfddwPrSm1/9aQApcI9s1ylHxfx2+5IgGkl/7L6gJR7nUCWC/3muL0c3xA==
+	t=1793635272;
+	b=UumRJhYakhRuFVZfO9jRiBFlRM/uzRlnljWKu6eEWGgjbSKD0xp7HXsWl4jGcOhxsnwB
+	 vpikC9hZSwVw/dE0Og/Kdj1oOhoZuOk0vcOJ1bPDv9LdxQ73vS2R/hoScM8iACsGRagtG
+	 lpTxdJjbtjbNOW/y9w7KpoHeb/lkP9epzF9a23a8HuJI3XDwwl3AYRuS5nmG3n/yeKyrq
+	 B5+m+qlLbiPup/BpzYU8RbgWoAlQhTrz9XJYLyYkSl3Rz2dt4hf/ROT/4ZVkI9+ClimhQ
+	 F4tZPzsoYam6HOyQZJd9VLBi9nLDi1wfvBExtlXY4hbxCs46kZu4utBZh+tDYY1jKBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634946;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ZsBtyqiFaBBCC9dG9FA7W+94CvmMBULM/6mxGT3R8BM=;
-	b=dMYnFH6q+szl8t6Uz/a7t5MQ0D6naWu7Yf78sWXNfoNHvZ87L9731D5D1cSmr6noG8yU
-	 fJXksVFQFlaDpJEgyZY505d+whH5Kqpu3r3nQnrf3UlqmDX6oXAFVNYUGiiN79xDS6iF1
-	 pvh6+9bf2fZA6SvTrCFRKh4WlMHZ/RN8ORz/koUJTCfinfBJOc7LPeppAyXDWUKKmS5ng
-	 8eN85zSVT1k56/lWHb9rueLCDCEzq6PjC772NJOLPfLc8unjdGtVV0wQ3/n15yehMdJqs
-	 A4HXhtPEmJP28usOD1/qfSqxYfxL01fQbWgTh6IMuBOEdE0zBxaLJ2OVP/9qwTNKyRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635272;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=f6/FHPtzu6nnH0V9kTMo4kGHTANIyP8f26/xvSo8FWY=;
+	b=sbNIp3udaNETG+5e54dsfAXA3wXz+y9b1SqZvzr80/I4E6/P+o+bKWZ/yUqbwkl8U5kj
+	 mmELYlWWum9/Y3CrD0dmx8xWuNxPGLIKWx8q1WrYetmnR8fKiGET+f2XXPLz1U2tZfyJy
+	 MnBIncEnGGMGTMiYEcsBANwKLdAD87ffLgDgG3kDI08klDixVhigfPQADNesRVM6DW0p/
+	 4AR70n8N+zB+Ybrq9NnJOWJEQzrRndJiLaAgmYJ1fiStmpAKiKMFn5l3SXkB2o36X26rd
+	 u3tLyufjziPUwkz+36enNDzdICsPELX6lG51hSKne1LvprINlU2RDg7BA0euZ0OZqNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CwvcFy+J;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhCtzrAZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC15606A58B;
-	Mon,  2 Nov 2026 15:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC15606A58B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FE1606F235
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 16:01:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CwvcFy+J
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6F57B4E413D5;
-	Mon,  2 Nov 2026 15:55:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3C14260750;
-	Mon,  2 Nov 2026 15:55:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4B71410328E6F;
-	Mon,  2 Nov 2026 16:55:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793634941; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ZsBtyqiFaBBCC9dG9FA7W+94CvmMBULM/6mxGT3R8BM=;
-	b=CwvcFy+J9S0wTdIsKcWAkHYs5ZvouQoUrRmVIw1RULGNtbrutD3neWuBZifCfDT1xy6W36
-	KDh9++9M23/rYWeQgh+LmfGEjGfEj3AKBDLwlVE7y8Ga51EEvS3ajrWe45BHPnn4YMLB8G
-	QpsBlCT3ePQ3va1B/b7XA1cOcv5H/pAUKFsi5dnzwgsP7cnJLg9HBnS9uI4fiscXatSO4r
-	6DEV9Z56hvyapq+QBaxXnrfIhKTnjWENclShIZEUxdh98I0ogvd2ofdAvlMlgU+OMOz510
-	81xq2b8OVpflPQ0QDlgn2gevr+35Cjn1xnBIE3HvP4d/LQoVqM+HpRQeFRBOtw==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno?=
- =?utf-8?Q?=C3=AEt?= Monin
- <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
- <theo.lebrun@bootlin.com>, Thomas
- Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: interrupt-controller: add Mobileye
- EyeQ5 PCIe MSI controller
-In-Reply-To: <20261029-positive-unbreakable-zebu-d4484c@quoll>
-References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
- <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
- <20261029-positive-unbreakable-zebu-d4484c@quoll>
-Date: Mon, 02 Nov 2026 16:55:37 +0100
-Message-ID: <878q3b2pom.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhCtzrAZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49AA1F00A16;
+	Mon,  2 Nov 2026 16:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793635272;
+	bh=f6/FHPtzu6nnH0V9kTMo4kGHTANIyP8f26/xvSo8FWY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JhCtzrAZZDey5D9Jyw9vYUvB7DXLVH9cW2sNYwWUOXn9srfvVtR9Mt4A6Wl9dckjW
+	 7Pgokq2I2rE/zaK/C5fTu8AvZokHCIKG9/DyS69dLxZVJ3ZTwk7HvCHgIZio6LAE0F
+	 nbSebBNPSsutaOiFnA7NjRDXBQdpqYAgkhjmq25PST6+8jUiclpWRadGrjMvXBoTb6
+	 N0pfn49RhyoTeDd0Iv5S6ABLt+Udt+lwxB92E+i5sfJe66u7nkBwWOtvJ+6ccWsyHr
+	 JchIY/mMvECNWGjZuIJlINghbVeeYROF5JvHoHnvjQ64esLYjc/w22SZCzc0/pTREL
+	 bBiLm8Sb6kqcw==
+Message-ID: <sashiko-outbox-193719@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bob Hui" <bg9oxa@163.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-quarkpi-ca2-v12-2-d749d9bb2bf9@163.com>
+References: <20261102-quarkpi-ca2-v12-0-d749d9bb2bf9@163.com>
+ <20261102-quarkpi-ca2-v12-2-d749d9bb2bf9@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 16:01:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,108 +59,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Krzysztof Kozlowski <krzk@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] arm64: dts: rockchip: misplaced hp_con pinctrl and duplicate DAPM r=
+outes
+--
 
->> +  num-vectors:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description: Number of MSI vectors that the port supports.
->> +    minimum: 1
->> +    maximum: 4
->
-> So your SoC has multiple blocks with different number of vectors?
+commit 07118101f721e520605d0c72d4bd5b261e3be1ae
+Author: Bob Hui <bg9oxa@163.com>
 
-No it has always the same number of vector, so you are right I will
-remove it.
+arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
 
->
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - interrupts
->> +  - interrupt-controller
->> +  - '#interrupt-cells'
->> +  - msi-controller
->> +  - '#msi-cells'
->> +  - memory-region
->> +  - num-vectors
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
->> +    #include <dt-bindings/interrupt-controller/irq.h>
->> +
->
-> From here...
->
->> +    / {
->> +        #address-cells =3D <2>;
->> +        #size-cells =3D <2>;
->> +
->> +        gic: interrupt-controller {
->> +            compatible =3D "mti,cpu-interrupt-controller";
->> +            interrupt-controller;
->> +            #interrupt-cells =3D <3>;
->> +        };
->> +
->> +        reserved-memory {
->> +            #address-cells =3D <2>;
->> +            #size-cells =3D <2>;
->> +            ranges;
->> +
->> +            pci0_msi_reserved: pci0-msi@806000000 {
->> +                reg =3D <0x8 0x06000000 0x0 0x100000>;
->> +            };
->> +        };
->> +
->
-> .. to here drop everything. This causes warnings.
->
->> +        soc {
->> +            #address-cells =3D <2>;
->> +            #size-cells =3D <2>;
->> +            ranges;
->> +
->> +            msi0: msi-controller@5840000 {
->
-> Drop unused DT label.
+This commit adds the device tree for the ALIENTEK QuarkPi-CA2, an RK3588S
+based card computer.
 
-OK I was too close to my DT for no real reason. I will simplify the
-example.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> new file mode 100644
+> index 0000000000000..c9cd01ba3869c
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> @@ -0,0 +1,1209 @@
 
-Thanks,
+[ ... ]
 
-Gregory
+> +	analog_sound: analog-sound {
+> +		compatible =3D "simple-audio-card";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&hp_det &hp_con>;
+> +		simple-audio-card,name =3D "QuarkPi-CA2 ES8388";
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,bitclock-master =3D <&sound_cpu>;
+> +		simple-audio-card,frame-master =3D <&sound_cpu>;
+> +		simple-audio-card,mclk-fs =3D <256>;
+> +		simple-audio-card,aux-devs =3D <&hp_amp>;
+> +		simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
+> +		simple-audio-card,pin-switches =3D "Headphones", "Headset Mic";
+> +		simple-audio-card,widgets =3D
+> +			"Headphone", "Headphones",
+> +			"Microphone", "Headset Mic";
+> +		simple-audio-card,routing =3D
+> +			"Headphones", "LOUT1",
+> +			"Headphones", "ROUT1",
+> +			"Headphones", "Headphone Power OUTL",
+> +			"Headphones", "Headphone Power OUTR",
+> +			"Headphone Power INL", "LOUT1",
+> +			"Headphone Power INR", "ROUT1",
+> +			"LINPUT1", "Headset Mic",
+> +			"RINPUT1", "Headset Mic";
+> +
+> +		sound_codec: simple-audio-card,codec {
+> +			sound-dai =3D <&es8388>;
+> +			system-clock-frequency =3D <12288000>;
+> +		};
+> +
+> +		sound_cpu: simple-audio-card,cpu {
+> +			sound-dai =3D <&i2s0_8ch>;
+> +		};
+> +	};
+> +
+> +	hp_amp: audio-amplifier {
+> +		compatible =3D "simple-audio-amplifier";
+> +		sound-name-prefix =3D "Headphone Power";
+> +		enable-gpios =3D <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
+> +	};
 
->
->> +                compatible =3D "mobileye,eyeq5-msi";
->> +                reg =3D <0x0 0x05840000 0x0 0x10>,
->> +                      <0x0 0x05840040 0x0 0x20>;
->> +                label =3D "port0-msi";
->> +                interrupt-parent =3D <&gic>;
->> +                interrupts =3D <GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>;
->> +                interrupt-controller;
->> +                #interrupt-cells =3D <1>;
->> +                msi-controller;
->> +                #msi-cells =3D <0>;
->> +                memory-region =3D <&pci0_msi_reserved>;
->> +                num-vectors =3D <4>;
->> +            };
->> +        };
->> +    };
->>=20
->> --=20
->> 2.53.0
->>=20
+[Severity: Low]
+In analog_sound and hp_amp, hp_con configures gpio1 RK_PC6 with
+pcfg_pull_down, which is the enable-gpios pin requested by hp_amp in
+simple_amp_probe().
+
+Because pinctrl_bind_pins() applies pinctrl-0 per platform device before
+probe(), if hp_amp probes before analog_sound (or while analog_sound defers
+waiting for es8388 or i2s0_8ch), hp_con is not bound to hp_amp when
+devm_gpiod_get_optional() requests gpio1 RK_PC6. Should hp_con be moved from
+analog_sound's pinctrl-0 to hp_amp instead?
+
+Also, in analog_sound's simple-audio-card,routing property, LOUT1 and ROUT1
+are routed both directly to Headphones and through the Headphone Power
+amplifier widgets (Headphone Power INL/INR -> Headphone Power OUTL/OUTR ->
+Headphones), creating parallel direct and amplified paths in the DAPM graph.
+Should the direct "Headphones", "LOUT1" and "Headphones", "ROUT1" routes be
+dropped so the signal only goes through the headphone amplifier?
 
 --=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-quarkpi-ca=
+2-v12-0-d749d9bb2bf9@163.com?part=3D2
