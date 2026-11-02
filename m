@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793651473;
-	b=Fp95+peqjhMm3wpDQMT1FKPGCIgLqAq+N0q6uRP7D8kRcO2KvDg/KzXvfHmzQC4dTqKq
-	 TMh7UX70+hWT2McHpPSBO3fNtuPxaoaIqnxmp6gWDi7IjzU+x7bRzoetOil4NTxrG3pay
-	 7/BoLLCMbO7HPdlEB64lILY8MwNeU8azIbuXPhwvyt551fi0OcHuQ0LHkNLDPrz5IWkSe
-	 539wD6NR7OqI/q9uX+2pPJ7i+H/hqETbG2cWLsJxmf9P9iDIMbui7LgELjxPrlCfX7xB1
-	 gcjOoTbXmNJJhW6fQc6B+iutagGW/uRHKt28ghKM7aswGmB4a+owAFyXRqwb/ibCuAA==
+	b=igdwDsX3TCOdjKdJPRZMCFGrzWCitvierXOdMCFi01cvXqPxS6a3P4s6ZIYCaRqBp8oE
+	 P9zt/gk+YKJvQfZgRa3FtBfbRQwGRDEN3a+MuuJVLfVphKPkalNrGOcVVAiAnDNehF5fM
+	 SRvJ58dwz6GeLVe7B7RN9w+SlNOU8PkxppAh7yEZetczdRinwdz1ZcbpggnAG/WKTnH25
+	 IvXZ43vKWCfbYy+L4PaZVtTRdnpGfqgaXyCWcF/gwnUth/ROD1mj2oRNI+wDZTh4Rg09K
+	 Uq0KxFGRy/9z0NA/L8UaSpZhw1Ye51pDVapL0o0OGZvjC9oibW/+TAU0bB1yOQbjk5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793651473;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Infomaniak-Routing;
-	bh=idKzcjTBT+XjUpCOB5lj/EsKFEpg/iNtWZ9TOL8TpKA=;
-	b=GbpPl3GAbcv9b4npGn7cfptyDGjhtOH3MUGEb+Kl9ybNQciLaDbx6zvf2vnpHVgGiUpM
-	 rg0EFZYR9YXBruhXxpwHw43y9vIgJq5hibHFIs/ln6trvLFhzFDNn4WK7RgsWR9UI+rJF
-	 bWtJcVGIdW2EnapQ5vtj4WqvT2iQFGrsYKQVwQ4TqRSAkKX48A3s+GXUJyBOdA4hDFZOI
-	 KM4/3008P7HP4i4Z0iwJC0jndohd/7CReNkuSmQyAmygADFXrCZgAyKH2K2gZeMy+lQFZ
-	 gymsLo9Ct2e1U9+x1uyNHKcGETYs05FkxpGS5UvJiL5C0eNobT68/kKKWw5n/9li7eg==
+	bh=VG6hicc+0VfqQQZx1rVXD/wUDBIyLNCpFPB73SSluZs=;
+	b=vBiQWQmyqedIB/GKfvzuUvoBW84jrli2Vr6+zx5tahx6ZkbPJb2RkN+TDJG7jNG5C+O/
+	 tyqmj8o22I/WH9F5WCcvxLM2Cshoq/oe0Hn8h23S6B2/nQojcQ8UAsYiEIpHpYU/mTg8m
+	 Kr7rVt4Bnf7Xzfl+wgbL7KSamia57HVw2ihNbhiwAJ87ykLsPub7d3j0CcPcF75Ul+mN9
+	 btU+6chQr7eA51dllnt/sNLD44DBHAPQiwAqSbr+YswFWMMuZfqvnpUuRWyD1k5lAf9p8
+	 V6owxSHQs8DtTj/8Z7/XD1BEH15fk9FjDsRrkR8BEoDo1g5kfcAHqssJivUIg/7Dtag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=0leil.net;
 	spf=pass smtp.mailfrom=0leil.net;
-	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=USbkMKoS;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=faaHP7cK;
 	arc=none smtp.remote-ip=84.16.66.173
 Received: from smtp-42ad.mail.infomaniak.ch (smtp-42ad.mail.infomaniak.ch [84.16.66.173])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6300606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCFA606A326
 	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 20:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6300606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FCFA606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=USbkMKoS
+	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=faaHP7cK
 Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNdV1gpfzqh3;
-	Mon,  2 Nov 2026 21:31:10 +0100 (CET)
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNdT4PrPzqh1;
+	Mon,  2 Nov 2026 21:31:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
 	s=20231125; t=1793651469;
-	bh=idKzcjTBT+XjUpCOB5lj/EsKFEpg/iNtWZ9TOL8TpKA=;
+	bh=VG6hicc+0VfqQQZx1rVXD/wUDBIyLNCpFPB73SSluZs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=USbkMKoSyvMY7kMIPjV89ErHeiGk0gaAllog+tCec8XEFstxLQxbESQLNWIgkjT4q
-	 NROIurzBKNzjvs6jKfMvttZ1KOwmIpi5cQRC+M6YoNoYFxnCZ/d7TlG2uRprRgbaE2
-	 Jr+UZmnZDxtOsMo5S42m/aNJUsSrBHCEOdacRQYdpIBSV1ftC+1HUB+EtcAYnsgXZF
-	 sqAQBIHbq1ffAL2tDRnmVCI3IDAcflJ4djGbxp9t+SmSxC3fEflzl8MS4uwNt1DFQ/
-	 D+5RM/QzjYJipgPh0cdPL3uYWXSY8n5P5BUjX425NdJJyZk1z+YOIULrbzYW/NfXN0
-	 0piPiaciF6V3g==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNdT3HLDzb2;
-	Mon,  2 Nov 2026 21:31:09 +0100 (CET)
+	b=faaHP7cKbmxJySGJcI9JMDPl5NdFj2+L+Ngn9AhDGXYibxGr0UgPEYNLMRrAsi29a
+	 YSglPwNaoSFC58ymOUrJacZxOXYhhek5xipoNU1Qf63vGnx00G0S4tX126MOAh+TlY
+	 H82ZRQW80ys+b6Ky21sndFvmHaHLSv+R4D36YhVu4c1L+u1zF7eAfGpEuAVr00JI9x
+	 y92tGalUuyY03sMESvnwk+cZ3FLBT0re1uAEaLusBa0L/EgPl1QurFYU8P3nHUN5pd
+	 TgLznOQJvSp3QtKH1PxQcgRQDoSCuC3E42DD1R0v8FatSgITfSxX/U4M5g6MmS7b8p
+	 SbSfT1PZ07lMQ==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNdS5y1nzwN;
+	Mon,  2 Nov 2026 21:31:08 +0100 (CET)
 From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Mon, 02 Nov 2026 21:30:51 +0100
-Subject: [PATCH 2/2] arm64: dts: rockchip: enable OV9281 CAM1 P15 on RK3588
+Date: Mon, 02 Nov 2026 21:30:50 +0100
+Subject: [PATCH 1/2] arm64: dts: rockchip: enable OV9281 CAM0 P14 on RK3588
  Jaguar
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-jaguar-cam0-cam1-v1-2-c3aafcdab5dd@cherry.de>
+Message-Id: <20261102-jaguar-cam0-cam1-v1-1-c3aafcdab5dd@cherry.de>
 References: <20261102-jaguar-cam0-cam1-v1-0-c3aafcdab5dd@cherry.de>
 In-Reply-To: <20261102-jaguar-cam0-cam1-v1-0-c3aafcdab5dd@cherry.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -78,45 +78,47 @@ From: Quentin Schulz <quentin.schulz@cherry.de>
 
 RK3588 Jaguar has two proprietary camera connectors, P14 and P15. This
 adds support for the only camera module we currently have for this
-connector, on P15.
+connector, on P14.
 
 The camera module has a 2-lane OV9281 camera sensor, an IMU, a
 magnetometer and an EEPROM.
 
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- arch/arm64/boot/dts/rockchip/Makefile              |   4 +-
- .../dts/rockchip/rk3588-jaguar-p15-ov9281.dtso     | 112 +++++++++++++++++++++
- 2 files changed, 115 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/Makefile              |   5 +
+ .../dts/rockchip/rk3588-jaguar-p14-ov9281.dtso     | 113 +++++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts     |  36 ++++++-
+ 3 files changed, 153 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index cf977e883c374..e89e3123cb719 100644
+index 442d322a20cf7..cf977e883c374 100644
 --- a/arch/arm64/boot/dts/rockchip/Makefile
 +++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -205,6 +205,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar.dtb
+@@ -204,6 +204,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-h96-max-v58.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar.dtb
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtbo
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281.dtbo
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p15-ov9281.dtbo
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281.dtbo
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-pre-ict-tester.dtbo
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-lubancat-5io.dtb
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-mnt-reform2.dtb
-@@ -339,7 +340,8 @@ rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
+@@ -336,6 +337,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-can1-can2-uart4.dtb
+ rk3588-jaguar-can1-can2-uart4-dtbs := rk3588-jaguar.dtb \
+ 	rk3588-jaguar-can1-can2-uart4.dtbo
  
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281-p15-ov9281.dtb
- rk3588-jaguar-p14-ov9281-p15-ov9281-dtbs := rk3588-jaguar.dtb \
--	rk3588-jaguar-p14-ov9281.dtbo
-+	rk3588-jaguar-p14-ov9281.dtbo \
-+	rk3588-jaguar-p15-ov9281.dtbo
- 
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-p14-ov9281-p15-ov9281.dtb
++rk3588-jaguar-p14-ov9281-p15-ov9281-dtbs := rk3588-jaguar.dtb \
++	rk3588-jaguar-p14-ov9281.dtbo
++
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-jaguar-ethernet-switch.dtb
  rk3588-jaguar-ethernet-switch-dtbs := rk3588-jaguar.dtb \
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p15-ov9281.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p15-ov9281.dtso
+ 	rk3588-jaguar-ethernet-switch.dtbo
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso
 new file mode 100644
-index 0000000000000..051a5f9a7d4e2
+index 0000000000000..155101c8497de
 --- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p15-ov9281.dtso
-@@ -0,0 +1,112 @@
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar-p14-ov9281.dtso
+@@ -0,0 +1,113 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2026 Cherry Embedded Solutions GmbH
@@ -131,34 +133,35 @@ index 0000000000000..051a5f9a7d4e2
 +#include <dt-bindings/media/video-interfaces.h>
 +#include <dt-bindings/pinctrl/rockchip.h>
 +
-+&csi_dphy1 {
++&csi_dphy0 {
 +	status = "okay";
 +};
 +
-+&csi4 {
++&csi2 {
 +	status = "okay";
 +};
 +
-+&csi4_in {
-+	csi4_input: endpoint {
++&csi2_in {
++	csi2_input: endpoint {
 +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
 +		data-lanes = <1 2>;
 +		link-frequencies = /bits/ 64 <400000000>;
-+		remote-endpoint = <&cam1_output>;
++		remote-endpoint = <&cam0_output>;
 +	};
 +};
 +
-+&i2c7 {
++&i2c2 {
 +	#address-cells = <1>;
 +	clock-frequency = <400000>;
 +	#size-cells = <0>;
++	status = "okay";
 +
 +	magnetometer@1e {
 +		compatible = "st,lis2mdl";
 +		reg = <0x1e>;
 +		interrupt-parent = <&gpio1>;
-+		interrupts = <RK_PB0 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-0 = <&cam1_imu_int3>;
++		interrupts = <RK_PC7 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&cam0_imu_int3>;
 +		pinctrl-names = "default";
 +		vdd-supply = <&vcc_2v8_imu>;
 +		vddio-supply = <&vcc_1v8_s3>;
@@ -174,22 +177,22 @@ index 0000000000000..051a5f9a7d4e2
 +	camera@60 {
 +		compatible = "ovti,ov9281";
 +		reg = <0x60>;
-+		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M2>;
++		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
 +		assigned-clock-rates = <24000000>;
 +		avdd-supply = <&vcc_2v8_cam>;
-+		clocks = <&cru CLK_MIPI_CAMARAOUT_M2>;
++		clocks = <&cru CLK_MIPI_CAMARAOUT_M1>;
 +		dovdd-supply = <&vcc_1v8_s3>;
 +		dvdd-supply = <&cam_vcc_1v2>;
-+		pinctrl-0 = <&cam1_rst &mipim0_camera2_clk>;
++		pinctrl-0 = <&cam0_rst &mipim0_camera1_clk>;
 +		pinctrl-names = "default";
-+		reset-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&gpio0 RK_PB0 GPIO_ACTIVE_HIGH>;
 +
 +		port {
-+			cam1_output: endpoint {
++			cam0_output: endpoint {
 +				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
 +				data-lanes = <1 2>;
 +				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csi4_input>;
++				remote-endpoint = <&csi2_input>;
 +			};
 +		};
 +	};
@@ -197,9 +200,9 @@ index 0000000000000..051a5f9a7d4e2
 +	imu@6a {
 +		compatible = "st,lsm6dsr";
 +		reg = <0x6a>;
-+		interrupt-parent = <&gpio2>;
-+		interrupts = <RK_PC4 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-0 = <&csi1_imu_int1>;
++		interrupt-parent = <&gpio1>;
++		interrupts = <RK_PC0 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&csi0_imu_int1>;
 +		pinctrl-names = "default";
 +		vdd-supply = <&vcc_2v8_imu>;
 +		vddio-supply = <&vcc_1v8_s3>;
@@ -207,17 +210,17 @@ index 0000000000000..051a5f9a7d4e2
 +};
 +
 +&pinctrl {
-+	cam1_p15 {
-+		cam1_imu_int3: cam1-imu-int3 {
-+			rockchip,pins = <1 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++	cam0_p14 {
++		cam0_imu_int3: cam0-imu-int3 {
++			rockchip,pins = <1 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +
-+		cam1_rst: cam1-reset {
-+			rockchip,pins = <4 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
++		cam0_rst: cam0-reset {
++			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +
-+		csi1_imu_int1: csi1-imu-int1 {
-+			rockchip,pins = <2 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
++		csi0_imu_int1: csi0-imu-int1 {
++			rockchip,pins = <1 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
 +};
@@ -229,6 +232,67 @@ index 0000000000000..051a5f9a7d4e2
 +&vicap_mmu {
 +	status = "okay";
 +};
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+index 0446834e84d5d..99baf89167d35 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-jaguar.dts
+@@ -40,6 +40,16 @@ aliases {
+ 		rtc0 = &rtc_twi;
+ 	};
+ 
++	cam_vcc_1v2: regulator-cam-vcc-1v2 {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_vcc_1v2";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++		vin-supply = <&vcc_1v2_s3>;
++	};
++
+ 	chosen {
+ 		stdout-path = "serial2:115200n8";
+ 	};
+@@ -123,7 +133,26 @@ vcc_1v2_s3: regulator-vcc-1v2-s3 {
+ 		vin-supply = <&vcc5v0_sys>;
+ 	};
+ 
+-	/* Exposed on P14 and P15 */
++	vcc_2v8_cam: regulator-vcc-2v8-cam {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_2v8_cam";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		vin-supply = <&vcc_2v8_s3>;
++	};
++
++	vcc_2v8_imu: regulator-vcc-2v8-imu {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_2v8_imu";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		vin-supply = <&vcc_2v8_s3>;
++	};
++
+ 	vcc_2v8_s3: regulator-vcc-2v8-s3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc_2v8_s3";
+@@ -437,6 +466,11 @@ &i2c1 {
+ 	pinctrl-names = "default";
+ };
+ 
++&i2c2 {
++	pinctrl-0 = <&i2c2m3_xfer>;
++	pinctrl-names = "default";
++};
++
+ &i2c6 {
+ 	pinctrl-0 = <&i2c6m4_xfer>;
+ 	pinctrl-names = "default";
 
 -- 
 2.56.0
