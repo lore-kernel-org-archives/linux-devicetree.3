@@ -1,89 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625671;
-	b=m8Vlg0aUFwHj8GUBKyyyBWvVOuwGaFUA+SDA47ZQEsy45iGppuuSnvM+TgPYrWOgXK7P
-	 wA5IP/wBeXHVTA+COzWEFfH7bl3rYFj7hvRE/on5BFnZvQ8YOTfGRH3xw28tmYpMhKC+P
-	 J1hRKVd0XMXmwa1s3fgut6sUN6jpG3YZe6fh7JbA+NY3ESp0CYxWUDa263AgL3I36zrVT
-	 nF4npn3nBN0RV/yaHwhtVCGt2eM94z4t7xNftFiiN3g2oj5GDM/4zWdHMERBUunFwrVyY
-	 Bt8h/uOJpbW49gelT6baFl+6PqP6C3S0PWMNPNKZp/+RBP/NivqUUOsPeRWzqOI4a3g==
+	t=1793625676;
+	b=gE7sXifiacOEhjzpbPQgCM2X3oJTpX8PJ1N4j2+PNJJFPHuihoDR/XuPirUe1CbY4RXt
+	 gPl2fKkOyq6a/0b7J4mDOEYmcKa44B/dcMS++/MSVim9QvXQxmRFT85ZOaMVHk5IipKg1
+	 z2EWbmtd41zMQ/eJu8XIpICyG90igmL3KgiKSHEP41pXDyDrZ703TBLXK0zkJVSQGJb32
+	 27OXdKiO6FTAXpdObx/ZTU5dSOcbtTvUGRct/A3bGA0uJ1AqOSSHJjL3Cvv+YFW0gRvZO
+	 P/FnEOjIkyaqk+Aj2Lxl6dak3c9S7ZceGTbQTK9DOSMF3HDNWbQhNL5k9DmXdbmiZ/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yBNKQ6zWjtR64RQZ+Ex2Yv8w9cs8OFNZEHPb0SbROj4=;
-	b=xGgWknEyr9PeMqAjTCUF+tzOglX6msDXFt14i/jZhtCkXx9YMR6eE9SwW9ZJdbI4fwGp
-	 v3nf8dRfXrIhjXc+6B5PhDBwvUdxAfiYfYCRkS5BO6fz3mh4wLLVZ4mj5nU78YkkO26Rh
-	 7LRbx9H0B4m/p8e/TJedB5jP7bHFLGaRtE91MZ0ZQcxp3wQYgpGm71spyhRDYwj3BV35h
-	 JCaIgP6cthSVEaj//ksq0zhlsjwBvl7CZPkotZ0pY7YCfc86gu/0G4tYTplMm8y7WE0Uy
-	 BT6qA7vpeujDXEc2gHj2YshQZdEB/SN4ajWckeuFFGC8QVUv9ft8erzCKVfGyP/SgOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625676;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ntm9sON3wZbXgSR0FsNnRT0Ebj0apKXl+cIgJKKSV2Q=;
+	b=xl/vMtNMPs+bMuqrLx7sJGfjsAvZssSVjpIGYrWwUR3RCMV4+7S4RphVCFYXsd1wLGT7
+	 FoZyJ6nGG41g7I4oBO6MlqF9wiodwL7KEWeMVdGSbYLA4ctch1KwFUx4De3A3jKKLaeo4
+	 M2diAGUXAZ7hNdRIqRwUw1Rdm4+X6Xqifu8jhxXAf4vXP/drOfi8Jfjw2EBTXY95UO4yv
+	 gzi5xCBljzepSa54XjK9A5EoziX0Jp+Me8TzM4EPDTpJ4mAUkUyYsWRxg2vIHLPn/od+l
+	 YRGmiU3/UmUjq723CxwwfhOw4j7l+Y7Cv1qPAVQGO6srLLJQs0vkT7Q4fGl8y0ABfOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XnbcgSOr;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=J0XwmSAP;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bug1BLEg;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCCD606A326
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CCCD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D11A606A327
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D11A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=XnbcgSOr
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2287052f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:21:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=J0XwmSAP;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bug1BLEg
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAJ9x3423280
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 13:21:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ntm9sON3wZbXgSR0FsNnRT0Ebj0apKXl+cIgJKKSV2Q=; b=J0XwmSAPxt7213lS
+	zEjTdYY5EPeftuAPPqXcK3rvVsgyQ2iTrxyRfuVR7SGdMEtFnbtzF+1ecPPncPG4
+	US3m9DcXbJuXpvAh7qdR/iA610ZE+6I4dxIQPsLyKx74XjQc5qtjOytUE+gqanYM
+	6mUdh3rHInYIeC1IC1MpSyJAySaTtJa2MxMTdLye1M5AeHyYMzb0eVIaXiFe51r0
+	cc3GLNZQ5mknVtpSpKg3SfH3jKmA8nKtaLhM+tFxCQ5jqrSC1SeJQAqp20W10HN1
+	uncmecfYxKC/O+6ZQFroEsORpUy+ZDOiBUv2h7/jLg17E4y1HF1uT3JnoBDgOpfu
+	bkkvgg==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqfrh02g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:21:14 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c97957d83bso160297e0c.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:21:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793625669; x=1794230469; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yBNKQ6zWjtR64RQZ+Ex2Yv8w9cs8OFNZEHPb0SbROj4=;
-        b=XnbcgSOrdb8bGCdSCamMDcguZxzc06vIkj5O+OJeGdHd7rDPcfJ5J2RTe0qk69oOow
-         U5FSU25nUe5defx44vHZ3vejWc+2fKSSKk9BxW450mSEqY6wLd0Vj5WyIEgdYXSt04Oe
-         FKkZs3n6wrafvB8yE7YBw9RRoxvGfY4aiFkGfJJFYSbcIDMsB5t6+6/CBBzqsn2Qofet
-         2P+y8xg9P/oMipnWIuq0ExZkb0fbPeYSa7I2hB1wyyCtPNO6wMKJsbPSGQdRxwu63Iwv
-         0HIDW2Lf2OykaH3XNy4M78MXadU31gjlp6jga1E0KsheW0TBMy2L6uDSolcf6yKvTszv
-         HS4g==
+        d=oss.qualcomm.com; s=google; t=1793625674; x=1794230474; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ntm9sON3wZbXgSR0FsNnRT0Ebj0apKXl+cIgJKKSV2Q=;
+        b=bug1BLEg7UIaNz7p6DbeNhk9pqG5H1h85WBCE4Exf3O7LujG9n7dZKNI/up2tHXjlh
+         C0QQisdCiPnq8bCn0gqyzF1vblxtGpgUp1fksgHt0T5DXqqBqQMxQuCSDPYpXy2shjnz
+         Zii/HXGDqMudtWsFVvxiN+KSVhZVYdFHNDeDExB4sjJo5pHVGUI6N9AAO/qkgRgHALMS
+         hcs2pilhQ24W/bHBdTfUb2TNAGtHU3ThfRbzeYdYnfvaz4/DHJph/zJ5FW6pfNzqiDXW
+         OnshkDMjL7Oikp5BauZeisRxxUIEyQxIBCfubOdZlofJk5NjVF8WZG+t/z0uBQlpQYe4
+         vTMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625669; x=1794230469;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yBNKQ6zWjtR64RQZ+Ex2Yv8w9cs8OFNZEHPb0SbROj4=;
-        b=baGZVAB49OX+0tFZ8RK6BexW6cXoAt/YPd9c1AFrwuINkqHFR8+VVVkOMwc9myUfZE
-         K2ZxCN93/OoVcsXpSlc7LsmL1dkYPLhXiYeHDMXSiyMAUboSG/KyPja6etX1Y3AKA2nq
-         UyC/giZe4BcCteiduFX2hd+t23Gwrx7w4lv6tZaGYHrgmiur9JZecdNcOw0p0oBhdqQT
-         9x8CMMVHrR+tCrynetTKItipeHThW2/Ywivg5oAzIg5VpmDSWYeRu9OChSZDMoELWvXo
-         O3OURqPS+7VONr3LXObqynG+ZSTPRNVau2YSPQsm5ZJlB0RWkGiuMdTyAsY/RUPv30zD
-         2ahQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZJhYzcL2MF06A12fv2v3UVfTNBNeC+P52nRNZjG2KwGOGmx9Xw0mxDWo/uvLuBeBcExDKWTh0qf41@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Zm4+wNt1jGM7+lfuovnZsNxkSJF0M5EnIKEZvqb2jA9SYtGSd
-	UTABNPQGCdGA5PmiOmALLG6ao0Jxdm5tOmfs/Qp9JJlERuraYVUC9N0Ar9fmMFWO3X0=
-X-Gm-Gg: AYBFou16I0vbvKoB2nMBWzAvHNDR6pQZ8CfNuUU+dZ4fxQh5HsvQHiiQLY5Y/wetaCg
-	yzNDHNIYnbnFRUYsvf3IhKwA0soh1yr4a1x4JDQzlRBOAwO5uLHz3lEIKxTspjKV67JnI+aSM92
-	IqA/jFJWbFYygZ5jcaG2cJrcJy7768zEQlxPOL8mTxfQ8IqHqJyaFpoBDB1l+seF8I3ADF+lYfJ
-	zpV5qnI41O70XDwcy9AW1FhcDXZPvQOWK5lhDtvIGCdMjuqE7SioNVTL9BLsgtvE5tW71DgSFZj
-	1oVKUQW/YB8pXgQwZTEmln5jizhMlGhTkKwNJyZxCwIK1Dra2s8UcMnA4e0CNBJGEasb5O1DJqc
-	K/vqZvwI5N8Miu3cCiUm6sB68R+BOUA2UHo3Nu+y5x5evZSICqy+qkW9yWo9Alb756zPiTEHnMX
-	DkgCxOnJWpk79jZbjlalooKbakKL9sw1ES55WlZUEM89zjfkDiCv9updbdFKRdNwy4jVi1dapk9
-	cty6igdcVzUNeGSJpkx8zdQw+8pK9TK5/jqHEIUn4ZIzeCDF8GiE9ngAJ86pA+TkfHLmHEnXMOO
-	vyo6kAxAjXGJsCmDgcMrCCA7x6+8kyJBV8nfYQEPN+Mms7nwQ28CrGz+6SqdquCNAAv0eKTWOvX
-	zXR5mUzbCGPw7ubyI9e4FRgxzguA=
-X-Received: by 2002:a5d:5e81:0:b0:48d:f852:c66b with SMTP id ffacd0b85a97d-48e64cccf13mr32855668f8f.22.1793625668325;
-        Mon, 02 Nov 2026 05:21:08 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm22312319f8f.7.2026.11.02.05.21.07
+        d=1e100.net; s=20260707; t=1793625674; x=1794230474;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ntm9sON3wZbXgSR0FsNnRT0Ebj0apKXl+cIgJKKSV2Q=;
+        b=ke9ZKPDpyt6iZGmby5KD1FRpVCJ9NtjF5XY+3jovTvBdzABMyev7mWxwt/LSd6LqOQ
+         6R/nw5V7yGC92YLJDVaajQ9rDIxcuYjVEhaVH2NpoR6cjEzaizzf+ojrXQ/UdpwVnqrv
+         wVKjOuhmobfwxAxB0pmHYoO5YWoP35VuRtZ4Iym2Vgf/BgdPPiiB+gF8DaqVqgtH5WMg
+         /d3JdK/sWQdd/yVPxt23sh2aW0ftXViiwpHRh9X7Q9wU0rXuUhLz87aiVQsAZnydleFS
+         h65NZjGSr+lQmt5AKsUbcSmPgQD6P4qhNGp6zqutwspfGgz/Qyp0SXgXRYFAUs26jnFc
+         G2rA==
+X-Forwarded-Encrypted: i=1; AKwUvByjToYJTOy2ByHOAM/3gUff8SB83oAaznp9rX8iaInu6DwKXZNLOu+F45u36ysxkNHE32gFTkB6J2hq@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qNB+RHgGITs7RNmrMFSA7Fs967s6DEPa8KtFHx4VD7QDfOV2v
+	SKwcV3ND32XoCHZBawvD3/OcO4nNDztdXFdFbaeENP6uZpNJkTOi87ESPNzoHLTAgs9iIvt6xgo
+	ZHWqSTKS7MOUP16HLnBXntlRt4rbcCHO8yjfc3zvOP+XqHbYhiC6E7l6l0xFNoGe7CSED8rFA
+X-Gm-Gg: AYBFou17v1tBHkhFz5BWSsLbTayVIig16FW0cVxp/RF3jAgkckb+aPsaYj1nRIRUJ22
+	B0aepi4p7seYBw9Ub2aqxSBcSPXvLTy6b4FNwL8e+u/q3wvOfrNrpH4qCuVilfOXFoaKS5VIiso
+	5l1wnn5SKlATY49E06ZsYNE/8Bitxf/kxQyTbZP3qx/1Z8RljcOG2Ovzh7J9hj/Z9RIt5WjAf3y
+	sOQL6lgAIlQC17YEmBOiOFD4PRwBKzQX8S/KAOLjqru7u34CHCimIR9Jiygz3RYYU2XIHXggWov
+	VAZbZjUnK+B0pYmFGORNVTCeyYBRWa/LNnk6Wj8VH1idposRybYBrlyi+S3xDxTEKFXTFFXNjpj
+	SA9bds0quzIF5mx0pzMRnF9VnsCJVf3GuUKKPGkDFwcL5iTX1IICVbrgv+b5pbVLWv7GtWkI=
+X-Received: by 2002:a05:6102:a145:b0:7cc:32ce:4c41 with SMTP id ada2fe7eead31-7d07255e419mr2961279137.2.1793625673551;
+        Mon, 02 Nov 2026 05:21:13 -0800 (PST)
+X-Received: by 2002:a05:6102:a145:b0:7cc:32ce:4c41 with SMTP id ada2fe7eead31-7d07255e419mr2961256137.2.1793625673072;
+        Mon, 02 Nov 2026 05:21:13 -0800 (PST)
+Received: from [192.168.226.248] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9fcbb0sm3395230a12.19.2026.11.02.05.21.09
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:21:07 -0800 (PST)
-Message-ID: <21769646-2e3b-4c45-9798-ea6ad9f4ea0b@linaro.org>
-Date: Mon, 2 Nov 2026 14:21:06 +0100
+        Mon, 02 Nov 2026 05:21:11 -0800 (PST)
+Message-ID: <20c50258-a5cc-433c-836e-92ed8ec1ce7d@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 14:21:08 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,460 +116,86 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 2/5] drm/panel: add Novatek NT36850 panel driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
- <20261019-sdm845-hdk-v5-2-4aa7e22cd0ed@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261019-sdm845-hdk-v5-2-4aa7e22cd0ed@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH RFC v2 4/5] arm64: dts: qcom: nord-ride-embedded: Add
+ sound support
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com>
+ <20261021073633.2163128-5-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261021073633.2163128-5-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=HMJWhYtv c=1 sm=1 tr=0 ts=6ae88e4a cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=Us665vxpbSFhsO2t51IA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-GUID: LouVOx_cgk8ynxdpb8_K-VgqfVtG2q1q
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfXwtn9aRQDDuZ4
+ 4YiZGk74oBHgwzvEFGe3qazpEprHVOYqRWXD/bYHaH0SfH/ssSJCh5QHxGqvGBMuxUowngfBNbX
+ bd0rT5BNwMoJbB/MgvexZDsaoiIDMpk=
+X-Proofpoint-ORIG-GUID: LouVOx_cgk8ynxdpb8_K-VgqfVtG2q1q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfXztT6H1O8ZvZb
+ xDO5pTylpbeFkK1tiru0cEGKMsVtbGaPqzjC4QXDMJW0O0gbqB3GYdmKIBCXKBBdMcebHPLHWOt
+ kZZUfgTaN1Jzw+jcPZYsQqGWANAM9oVt5IfdFCKLXFTCTj6y0pUdTCnmMuU3oZR0a++r3KTSijC
+ 6v47lE6m0VDXCOTjkE0Yqso9JQEnm/ZW4qBMLDsjcfee8IKsN/GDzTUlCU6afOoRCb3TYAmYf2F
+ q157fTZS7vzgY+Y+18Mv+MsLOllZOgB1iSDellBb8muTa/hpodZI0dtamZM532yL79NCAXMQGn+
+ qymf4/wucKD8nnKMk6KKfOe3sUoSVKMolvlLCbSydqz7TITmDHvYSSQW6eTNim0dOJtjLr1GF8L
+ MQexIjHGaPZa4xaRqSEm3U6PPL4wj5Ya9It/Ds/k8mybK0UqMCLNye0n7fTt3hB8EJUOKUeWl1v
+ wv228QY2MPBv7X8D9GQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ phishscore=0 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020053
 
-On 10/19/26 11:18, Dmitry Baryshkov wrote:
-> Add support for the Truly WQHD dual-DSI command mode panel built around
-> the Novatek NT36850, found on the display card for the Qualcomm SDM845
-> and SM8150 HDK. The driver is based on panel-novatek-nt36523, the power
-> and command sequences follow the vendor device tree.
+On 10/21/26 9:36 AM, Shawn Guo wrote:
+> From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > 
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/panel/Kconfig                 |  10 +
->   drivers/gpu/drm/panel/Makefile                |   1 +
->   drivers/gpu/drm/panel/panel-novatek-nt36850.c | 350 ++++++++++++++++++++++++++
->   3 files changed, 361 insertions(+)
+> Enable audio on the nord-ride-embedded board. Add a soundcard node using
+> the qcom,nord-sndcard compatible.
 > 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 53a1fc2913fe..869a5501e709 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -723,6 +723,16 @@ config DRM_PANEL_NOVATEK_NT36672E
->   	  LCD panel module. The panel has a resolution of 1080x2408 and uses 24 bit
->   	  RGB per pixel.
->   
-> +config DRM_PANEL_NOVATEK_NT36850
-> +	tristate "Novatek NT36850 panel driver"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	help
-> +	  Say Y here if you want to enable support for the panels built
-> +	  around the Novatek NT36850 display controller, such as some
-> +	  Truly panels used in Qualcomm development kits.
-> +
->   config DRM_PANEL_NOVATEK_NT37700F
->   	tristate "Novatek NT37700F DSI panel"
->   	depends on OF
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index f2c9c80a218f..8dd8eb7080cb 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -69,6 +69,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36532) += panel-novatek-nt36532.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36536) += panel-novatek-nt36536.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
-> +obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36850) += panel-novatek-nt36850.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36850.c b/drivers/gpu/drm/panel/panel-novatek-nt36850.c
-> new file mode 100644
-> index 000000000000..0d1eeba539db
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36850.c
-> @@ -0,0 +1,350 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Novatek NT36850 DriverIC panels driver
-> + *
-> + * Copyright (c) 2022, 2023 Jianhua Lu <lujianhua000@gmail.com>
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_graph.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_of.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +struct panel_info {
-> +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi[2];
-> +	const struct panel_desc *desc;
-> +	enum drm_panel_orientation orientation;
-> +
-> +	struct gpio_desc *reset_gpio;
-> +	struct regulator *vddio;
-> +	struct regulator *avdd;
-> +	struct regulator *avee;
-> +};
-> +
-> +struct panel_desc {
-> +	unsigned int bpc;
-> +	unsigned int lanes;
-> +	unsigned long mode_flags;
-> +	enum mipi_dsi_pixel_format format;
-> +
-> +	const struct drm_display_mode *mode;
-> +	int (*init_sequence)(struct panel_info *pinfo);
-> +
-> +	bool is_dual_dsi;
-> +};
-> +
-> +static inline struct panel_info *to_panel_info(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct panel_info, panel);
-> +}
-> +
-> +static int truly_wqhd_init_sequence(struct panel_info *pinfo)
-> +{
-> +	struct mipi_dsi_device *dsi0 = pinfo->dsi[0];
-> +	struct mipi_dsi_device *dsi1 = pinfo->dsi[1];
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = NULL };
-> +
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1, 0xff, 0x10);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1, 0xfb, 0x01);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
-> +					  MIPI_DCS_SET_ADDRESS_MODE, 0x00);
-> +	mipi_dsi_dual(mipi_dsi_dcs_set_tear_on_multi, &dsi_ctx, dsi0, dsi1,
-> +		      MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +	mipi_dsi_dual(mipi_dsi_dcs_set_tear_scanline_multi, &dsi_ctx, dsi0, dsi1,
-> +		      1000);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
-> +					  MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
-> +					  0xff);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
-> +					  MIPI_DCS_WRITE_CONTROL_DISPLAY,
-> +					  0x2c);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
-> +					  MIPI_DCS_WRITE_POWER_SAVE, 0x01);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1,
-> +					  MIPI_DCS_EXIT_INVERT_MODE);
-> +	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
-> +	mipi_dsi_dual_dcs_write_seq_multi(&dsi_ctx, dsi0, dsi1, 0xbb, 0x10);
-> +	mipi_dsi_dual(mipi_dsi_dcs_exit_sleep_mode_multi, &dsi_ctx, dsi0, dsi1);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dual(mipi_dsi_dcs_set_display_on_multi, &dsi_ctx, dsi0, dsi1);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static const struct drm_display_mode truly_wqhd_mode = {
-> +	.clock = (720 + 120 + 20 + 140) * 2 * (2560 + 8 + 4 + 20) * 60 / 1000,
-> +	.hdisplay = 720 * 2,
-> +	.hsync_start = (720 + 120) * 2,
-> +	.hsync_end = (720 + 120 + 20) * 2,
-> +	.htotal = (720 + 120 + 20 + 140) * 2,
-> +	.vdisplay = 2560,
-> +	.vsync_start = 2560 + 8,
-> +	.vsync_end = 2560 + 8 + 4,
-> +	.vtotal = 2560 + 8 + 4 + 20,
-> +};
-> +
-> +static const struct panel_desc truly_wqhd_desc = {
-> +	.mode = &truly_wqhd_mode,
-> +	.bpc = 8,
-> +	.lanes = 4,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-> +	.init_sequence = truly_wqhd_init_sequence,
-> +	.is_dual_dsi = true,
-> +};
-> +
-> +static void nt36850_reset(struct panel_info *pinfo)
-> +{
-> +	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-> +	msleep(50);
-> +}
-> +
-> +static int nt36850_prepare(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo = to_panel_info(panel);
-> +	int ret;
-> +
-> +	ret = regulator_enable(pinfo->vddio);
-> +	if (ret) {
-> +		dev_err(panel->dev, "failed to enable vddio regulator: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	msleep(20);
-> +
-> +	ret = regulator_enable(pinfo->avdd);
-> +	if (ret) {
-> +		dev_err(panel->dev, "failed to enable avdd regulator: %d\n", ret);
-> +		goto err_vddio;
-> +	}
-> +
-> +	ret = regulator_enable(pinfo->avee);
-> +	if (ret) {
-> +		dev_err(panel->dev, "failed to enable avee regulator: %d\n", ret);
-> +		goto err_avdd;
-> +	}
-> +
-> +	msleep(20);
-> +
-> +	nt36850_reset(pinfo);
-> +
-> +	ret = pinfo->desc->init_sequence(pinfo);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to initialize panel: %d\n", ret);
-> +		goto err_avee;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_avee:
-> +	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-> +	regulator_disable(pinfo->avee);
-> +err_avdd:
-> +	regulator_disable(pinfo->avdd);
-> +err_vddio:
-> +	regulator_disable(pinfo->vddio);
-> +
-> +	return ret;
-> +}
-> +
-> +static int nt36850_num_dsi_hosts(struct panel_info *pinfo)
-> +{
-> +	return pinfo->desc->is_dual_dsi ? 2 : 1;
-> +}
-> +
-> +static int nt36850_disable(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo = to_panel_info(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx = { };
-> +	int i;
-> +
-> +	for (i = 0; i < nt36850_num_dsi_hosts(pinfo); i++)
-> +		pinfo->dsi[i]->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	for (i = 0; i < nt36850_num_dsi_hosts(pinfo); i++) {
-> +		dsi_ctx.dsi = pinfo->dsi[i];
-> +
-> +		mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	}
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	for (i = 0; i < nt36850_num_dsi_hosts(pinfo); i++) {
-> +		dsi_ctx.dsi = pinfo->dsi[i];
-> +
-> +		mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	}
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	for (i = 0; i < nt36850_num_dsi_hosts(pinfo); i++)
-> +		pinfo->dsi[i]->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt36850_unprepare(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo = to_panel_info(panel);
-> +
-> +	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-> +	regulator_disable(pinfo->avee);
-> +	regulator_disable(pinfo->avdd);
-> +	regulator_disable(pinfo->vddio);
-> +
-> +	return 0;
-> +}
-> +
-> +static int nt36850_get_modes(struct drm_panel *panel,
-> +			       struct drm_connector *connector)
-> +{
-> +	struct panel_info *pinfo = to_panel_info(panel);
-> +
-> +	connector->display_info.bpc = pinfo->desc->bpc;
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, pinfo->desc->mode);
-> +}
-> +
-> +static enum drm_panel_orientation nt36850_get_orientation(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo = to_panel_info(panel);
-> +
-> +	return pinfo->orientation;
-> +}
-> +
-> +static const struct drm_panel_funcs nt36850_panel_funcs = {
-> +	.disable = nt36850_disable,
-> +	.prepare = nt36850_prepare,
-> +	.unprepare = nt36850_unprepare,
-> +	.get_modes = nt36850_get_modes,
-> +	.get_orientation = nt36850_get_orientation,
-> +};
-> +
-> +static int nt36850_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	struct device_node *dsi1;
-> +	struct mipi_dsi_host *dsi1_host;
-> +	struct panel_info *pinfo;
-> +	int i, ret;
-> +
-> +	pinfo = devm_drm_panel_alloc(dev, struct panel_info, panel,
-> +				     &nt36850_panel_funcs,
-> +				     DRM_MODE_CONNECTOR_DSI);
-> +	if (IS_ERR(pinfo))
-> +		return PTR_ERR(pinfo);
-> +
-> +	pinfo->vddio = devm_regulator_get(dev, "vddio");
-> +	if (IS_ERR(pinfo->vddio))
-> +		return dev_err_probe(dev, PTR_ERR(pinfo->vddio), "failed to get vddio regulator\n");
-> +
-> +	pinfo->avdd = devm_regulator_get(dev, "avdd");
-> +	if (IS_ERR(pinfo->avdd))
-> +		return dev_err_probe(dev, PTR_ERR(pinfo->avdd), "failed to get avdd regulator\n");
-> +
-> +	pinfo->avee = devm_regulator_get(dev, "avee");
-> +	if (IS_ERR(pinfo->avee))
-> +		return dev_err_probe(dev, PTR_ERR(pinfo->avee), "failed to get avee regulator\n");
-> +
-> +	pinfo->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(pinfo->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(pinfo->reset_gpio), "failed to get reset gpio\n");
-> +
-> +	pinfo->desc = of_device_get_match_data(dev);
-> +	if (!pinfo->desc)
-> +		return -ENODEV;
-> +
-> +	/* If the panel is dual dsi, register DSI1 */
-> +	if (pinfo->desc->is_dual_dsi) {
-> +		struct mipi_dsi_device_info dsi_info = {
-> +			.type = "dsi-secondary",
-> +		};
-> +
-> +		dsi1 = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-> +		if (!dsi1) {
-> +			dev_err(dev, "cannot get secondary DSI node.\n");
-> +			return -ENODEV;
-> +		}
-> +
-> +		dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
-> +		of_node_put(dsi1);
-> +		if (!dsi1_host)
-> +			return dev_err_probe(dev, -EPROBE_DEFER, "cannot get secondary DSI host\n");
-> +
-> +		pinfo->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host, &dsi_info);
-> +		if (IS_ERR(pinfo->dsi[1])) {
-> +			dev_err(dev, "cannot get secondary DSI device\n");
-> +			return PTR_ERR(pinfo->dsi[1]);
-> +		}
-> +	}
-> +
-> +	pinfo->dsi[0] = dsi;
-> +	mipi_dsi_set_drvdata(dsi, pinfo);
-> +
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &pinfo->orientation);
-> +	if (ret < 0) {
-> +		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
-> +		return ret;
-> +	}
-> +
-> +	pinfo->panel.prepare_prev_first = true;
-> +
-> +	ret = drm_panel_of_backlight(&pinfo->panel);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-> +
-> +	ret = devm_drm_panel_add(&dsi->dev, &pinfo->panel);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "can't add the panel\n");
-> +
-> +	for (i = 0; i < nt36850_num_dsi_hosts(pinfo); i++) {
-> +		pinfo->dsi[i]->lanes = pinfo->desc->lanes;
-> +		pinfo->dsi[i]->format = pinfo->desc->format;
-> +		pinfo->dsi[i]->mode_flags = pinfo->desc->mode_flags;
-> +
-> +		ret = devm_mipi_dsi_attach(dev, pinfo->dsi[i]);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "cannot attach to DSI%d host.\n", i);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id nt36850_of_match[] = {
-> +	{
-> +		.compatible = "truly,wqhd60-nt36850",
-> +		.data = &truly_wqhd_desc,
-> +	},
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, nt36850_of_match);
-> +
-> +static struct mipi_dsi_driver nt36850_driver = {
-> +	.probe = nt36850_probe,
-> +	.driver = {
-> +		.name = "panel-novatek-nt36850",
-> +		.of_match_table = nt36850_of_match,
-> +	},
-> +};
-> +module_mipi_dsi_driver(nt36850_driver);
-> +
-> +MODULE_AUTHOR("Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>");
-> +MODULE_DESCRIPTION("DRM driver for Novatek NT36850 based MIPI DSI panels");
-> +MODULE_LICENSE("GPL");
+> Add PCM1681/ADAU1979 codec nodes on I2C18, with the PCM1681 system
+> clock supplied via MCLK0. The DAC control lines come off a TCA6408 I/O
+> expander on the same bus.
 > 
+> Describe DAC_ENABLE as the enable of two regulator-fixed supplies
+> (3.3V and 5V load switches) feeding the PCM1681, and the three MAX9892
+> click-and-pop suppressors as one simple-audio-amplifier on
+> CLICK_POP_MUTE_N, routed after VOUT1..6, so DAPM controls the mute.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+[...]
 
-Thanks,
-Neil
+> +	expander0: gpio@20 {
+> +		compatible = "ti,tca6408";
+> +		reg = <0x20>;
+> +		#gpio-cells = <2>;
+> +		gpio-controller;
+> +		#interrupt-cells = <2>;
+> +		interrupt-controller;
+> +		interrupts-extended = <&pmau0102_l_gpios 6 IRQ_TYPE_LEVEL_LOW>;
+> +		reset-gpios = <&pmau0102_l_gpios 5 GPIO_ACTIVE_LOW>;
+> +		vcc-supply =<&vreg_per_3p3>;
+
+nit, missing space after assignment
+
+otherwise
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
