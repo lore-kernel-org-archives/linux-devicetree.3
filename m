@@ -1,111 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627279;
-	b=hBVZVY5jF67HR0LZQhfNjIhJzdphVstnE2qQ/EuZVh8PEvq/2ieSri4PWLmHGMfR7ga8
-	 H/Cn2B6QaKhd2pfKff3kYARqqE7mN6Pz/Hjqt5lNZdewPdAf7jKqknkPVm+VhAuGF4EvI
-	 MVaVntBnnG+oSTkxGXCahsADJrE4vEJ+cPq4Ek6M9MGvkXr2t+AA1on7ITXd0lzfpGkAi
-	 NcF4KbmRGaVUR9K2l2knW6KVr7AgrvqefBR53TrNwiLHnbufIkTviE9d4Nahs/Qm3qNbu
-	 vLGB2sVVubqnDjscDV1e2y3Kjgr27zfDJqlP43ATQPWp5EP9kh9gGOD+VcDfIUc5RSw==
+	t=1793627409;
+	b=3OVXfqQBVOR7a/JCKWwnjE+nlvgQxxFoHEXnYWChihIpzxyW3xfT3cYJtwJ3PKLjEiwo
+	 1AFmW1Ui/OzJuFBkbHGqROu/zgWmVi9sVxqYqFFJ3xT0GvuZ6VTfb6nyEflVpMWJKzPww
+	 g5Tcu4/3HKJUtn7kRu9AZW3YqetVCRC7iRt+0+dDjSqtEukggdy0GyYaEt/t5u5KGB/cM
+	 nG7ve8VQizhylqRpmxtDQ8LTeN65BVMqYaaYNFJkKuT7gzPcExKezHHUA4YxKqQqQIm2e
+	 +oE/GER7xTYEn8+325aAOgCQUcTjcGacOkN1GrugIgRAdb8aNsvJB5hatnyHzJW2MLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627279;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MkXiy7zJNKorCt+VPjjrN/hR8YEy6PfDMROpIRVksVM=;
-	b=OQVPFW5NExID7hmj6ZJrKCVnQ650SldQPfdvnUk6ktOGXaC/9w/xIPL0eXrmj/ctDWjX
-	 d9Mv1ws7sTP6YLPAGXh1fqaIYCUbcvn/v3RyeJklx+u6VNky20YgMC9HQ74qiIL30/K8D
-	 hnn1XFHmHgPGv/zAYsYSzCLsR61OXKjOff7GrbfXY1QNSiXhpMxIJ0hPlio22OJN6zqAE
-	 Moumy+IM8wOOhluhzHQoZ8kuglu1I3RoY15bvzE1lcaPbeopEM9CHDqWWxYO7NeybJKSE
-	 Sv7mE5XiWZxGqMahKCPo2D8Z7MVQ1m07KRSFcIFStmi7JK9JlX/tZkHwpEiePwAVALw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627409;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=wNStSjwISQyGeb1rd2HXoOipT3Bs+NI6BZQo3NWUbxo=;
+	b=dQeX+vgwYD7ht5+p1JTiHbN3Vf3PB25LgkxsGbTGQTZpJS5GJ9GzjyfJYfv7iWx+KRdl
+	 U4qN2mzVsBzHlEmr/q3IjgnN4Nkie3rvAdTAxHqlo49YS+e2zJHO59Hzpj9fjyPZjfYac
+	 zI7or8zocWyAiZhUNx/qAkx+0KLC3HTBoepNSSpD/2eVC/IJ1VzgYmUdymrvxVwMAShpm
+	 8h732sd8DpSsJlcZ6PcSAJF332LyyEyVHckkUEgrWGQjtw5JfPMPpK92pdOy6B9rl7rwY
+	 g+EyOgpqZavgpD1V8mCjmXBupLXv2+dFGt58RWqUWsJq/ZAjK/+HMToVv9ZQAfH4s/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fgg5wZjM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q8CNivWz;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="03/TbKoA";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62881606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62881606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6B4606A324;
+	Mon,  2 Nov 2026 13:50:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A6B4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fgg5wZjM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q8CNivWz
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAQVY757061
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 13:47:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MkXiy7zJNKorCt+VPjjrN/hR8YEy6PfDMROpIRVksVM=; b=fgg5wZjM2tsbZBkn
-	gv4uDezjS1ARS8eHK17bP4DAvYmtsQuIvfAr2tx04FElPw8Stx4FFQW5AoH4UgKl
-	dwwEgGU8l7n5dk5f1T2bZc6zkMJJHx/rqGudeOq9FjFTVIDPUgItrJUBADr8IWV5
-	MjAouwmiQ4Su7nt2UV9xABytogc8WyqYXMcD8lzpsFPmR55d3lQDOkmwiKVChmpi
-	x70nvnjr+NKdzgGmsm1bhw38QubFbm05e+/ccyDZJhkQ5pNBUBDrJ0TNUdGi0D38
-	IPuWElnFZAhsKitXnt7C7P17WYyTggfBEd2Bmv1DPlIAUnRdBKx8SQOTu1OSaFEm
-	2/6Jsw==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpmf1sv2h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:47:58 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-73a1cf1638fso52747137.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:47:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793627277; x=1794232077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MkXiy7zJNKorCt+VPjjrN/hR8YEy6PfDMROpIRVksVM=;
-        b=Q8CNivWz/OuNq4rsa0e+HGI8895kQXYwvVySlLLXGJUab7PK0ZeADc5rc4Dqjt7N/v
-         HDaAVJjgphfbOAWBijBZOJ+6mT89rJW02XgslvYIBAwjWZFqHWFd4Jzj6JCWWFlUqFzb
-         kystjtzIT60pDvujDwzi4LYPHkoFolv5iJUyHXTqYlYl5vjStOE9MnZIi52EgXUljgg/
-         CRawSGQSQBMyRqLg5G3TokTmwHBk2gcvVkwJem27VLBhX9coXdMk/aja0aerbPk4EftU
-         AfkUN0ERkRD8QGx0OBcCUgpFDJlKwBpunS7aUcSg4YkRdFQKk778/MgjAqi3aBGLuFrD
-         8J3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627277; x=1794232077;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MkXiy7zJNKorCt+VPjjrN/hR8YEy6PfDMROpIRVksVM=;
-        b=SwXVZaubHyCEd8ZBeF+cJMsSc3pHLCzdTg9EMiqsfIo8ERnGu8Kes5Vo6Yd0yWDd9H
-         HA6SA9Hu+T4MRhDhXb2YvNt6ARDYBYwY5FnCYgIQC7GeNld5tR2wJJBnAAwwdZb3bHsb
-         HKbHkxbo8JgjGXJCl6nfJoysfprxI8ZlMR+tr2ODGS6LRwNQLS0nChch6FILsOgnWWbg
-         vIIIJILMyGXqm9++CaGP0E8fzRb4efk9xpeKph95a/T7veI5jeugrz0xnWuVQ48gE9Az
-         25ZiD0Q1c9GDa16RW8YHKzESiVtJlXB2+Ps9WPIxHjBmvPzKP8Lxeut4a4l2RUI1tmjC
-         xsUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwDNW4vvOGI5aRFGvibutA6cYwt4REFqfr9BVcQyg/JpULiO8+s5mZA0uFvjMuOnhKwfEQohT06gXyk@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Dwt9xkHpn38TOr2ugGc3AtZKFW064Nbzv8P1ebQKiL90irIze
-	jIPJvdxYBOd6t/ldsuFjNv2ySsf6X5grAQQA70Jbl4nlB1356CAwPUft1L+4lizPo178/Z/CQSD
-	gbqzdgblpc0t86Sd78M2n4nU57vPfUsId4i9Kk8OXvkncBQVleb0/VG1NFkTAq4OB
-X-Gm-Gg: AYBFou3Q/xvn3hMvaCJYixGNwPVu07lnFFlLYtf33P0z5JZA/2ou/O1l2tM03kexi8W
-	jTi2J1+hVhtoqkhd1l4FOcsCHpC8qwf4BdXvCBaCw8QCZa+s4H7xSB4ji1z5qdPkxov/Q3feFDj
-	HKmoQB3EdsSC+grQmAsor6gCjT3Wmst9Ol0bq8mDumBsu8fUHseKOcx/vvvR+be0MRy5euAM9Ju
-	ojIN3INdf7UbNIsVTOKJy8sretxtSI7mkT3cXykj0jcxxEnK6QPkbGm2/t3y9q86O0Z9n4nO1b+
-	/FIgIZMfAGLOyBxuFdJeu5gfNCcqbhbctSj/e4ZUzEO61EftHZaK8zk7Sl+zuHHEGA5pEq/HVR5
-	Z/D0d6eJuQt/fmO6WB8mAJR8Mmv3aD6A7QczOgGTrSZxnTzdGK4dhULhDEMMH8gPtKywmQdc=
-X-Received: by 2002:a05:6102:a21c:10b0:7c3:99a3:314e with SMTP id ada2fe7eead31-7d071f390d7mr3263383137.0.1793627277468;
-        Mon, 02 Nov 2026 05:47:57 -0800 (PST)
-X-Received: by 2002:a05:6102:a21c:10b0:7c3:99a3:314e with SMTP id ada2fe7eead31-7d071f390d7mr3263376137.0.1793627277041;
-        Mon, 02 Nov 2026 05:47:57 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca29382sm3342417a12.37.2026.11.02.05.47.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:47:56 -0800 (PST)
-Message-ID: <e27e0fd4-c072-4d88-8e3d-107fa7a97923@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 14:47:53 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=03/TbKoA
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6F9F8C4FECD;
+	Mon,  2 Nov 2026 13:51:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4319760750;
+	Mon,  2 Nov 2026 13:50:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D9A0103290ED;
+	Mon,  2 Nov 2026 14:49:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793627400; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=wNStSjwISQyGeb1rd2HXoOipT3Bs+NI6BZQo3NWUbxo=;
+	b=03/TbKoAdRJAMXmDAbJgqxpKq26zsvDoSauRdA/MM0boV8Lnu+vLOlVk+nxkQNzOzpFYgg
+	UH7auEhvJ4laorPtdSdRLHMbavT5t3DtO0zwDWFdPJdWQfFu7lRpfOJAB4hXz0cbhmV8+8
+	QvZYewdNe7L/tL/4lTxUJDZXtt0u0WE3ioft4SC9XtE2dFyrNJviGgPY57ntkB5c0mqoYG
+	QBCiq4Q1D+mwjK+usYsFnqYKaZw7FlZKM4W7j0Jr3FkOQJ7pGtMGhTOVTiDLna/yd+uhIF
+	qJBQmzaOFq2bPHTziQamNA6vfghBhAn5KTI9fbSaXIFI+TW0EzQiHa5PE774yA==
+Date: Mon, 2 Nov 2026 14:49:56 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, linux-rtc@vger.kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH 2/3] rtc: pcf2127: Add support for the clkout clock
+Message-ID: <20261102144956.57f9bbf3@bootlin.com>
+In-Reply-To: <sashiko-outbox-193475@kernel.org>
+References: <20261102130712.25104-1-herve.codina@bootlin.com>
+	<20261102130712.25104-3-herve.codina@bootlin.com>
+	<sashiko-outbox-193475@kernel.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,86 +74,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: Add Microsoft Surface Laptop 8th
- Edition
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
- <20261027-mahua-surface-laptop-v2-3-7dd903a12d22@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261027-mahua-surface-laptop-v2-3-7dd903a12d22@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 0xA_NxMAOdojxtXC3SrEgn5XFkkde_9x
-X-Authority-Analysis: v=2.4 cv=bNaDs/+Z c=1 sm=1 tr=0 ts=6ae8948e cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=b-6vMC33NXqCuZ8Zj8gA:9 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfXz1fqYg+DXk86
- XPUcIK7a3txL/njiLqbx6Ee1T8/Zs5Z/xGpd1rBGTSJ9w1IbLHqahniqoIUVXkolDjWeECXPSyq
- aV2ZJOHHyQLagrwGJ8MUSag0DKkJBzg7NcwpNuSISbs3Bt8ZFZK6AZfMOoLHwrZ/FbNcH56YW8v
- vduAynmwi8iCQBC65t1kMiyEXMBj37lgm1yWAmI0JiyBddU2hRhfeX/Es4IrP2FU10/Pz72z9qQ
- m+8IDBu4XqKinH2ZyuG6Sye7n/6fM0LlCBuId3ofiv5ofKLQ11BAZcIgZsRzRPr7vkmvnWZuJa3
- WbIeLGL0xrBU2LA9V21lXfqN0jwDJn3cd/GBsa5ILAxBK9DDP37MeJsHK1k8U7WkmsG8vubHLzk
- Bkdgger1KHQWOjyJqBHYmj3tF5vee2p1Wgsm91xvopWW8+D6qNETjhi/I9ssIXSeRNHPATmpPDe
- 2jZr0DsEBvxoPhKvXhQ==
-X-Proofpoint-GUID: 0xA_NxMAOdojxtXC3SrEgn5XFkkde_9x
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX0R0D9Y3LYGaI
- LLRynhUb2o4+lnBQwTijl5bdlfFw0VQFx9iuqiHg46mQHeUct81NRN2SBCwAtKGg8z0/WsDEa/J
- z03pOkzrxqXENVzuMcUShw5e02CPnXY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020054
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/27/26 8:33 AM, Gopikrishna Garmidi wrote:
-> Add support for the Microsoft Surface Laptop 13.8" 8th Edition, which is
-> built on the Mahua SoC. Most of the board follows the Qualcomm reference
-> design. The keyboard, fan and platform profile sit behind the Surface
-> Aggregator Module on uart22, same as on the Surface Laptop 7.
+On Mon, 02 Nov 2026 13:13:46 +0000
+sashiko-bot@kernel.org wrote:
 
-[...]
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] rtc: pcf2127: rate 0 in pcf2127_clkout_rate2cof() sets COF to HiZ
+> --
+> 
+> commit fd3d38a37715a1ab67448b3adb80c6b0ee46a7e2
+> Author: Herve Codina <herve.codina@bootlin.com>
+> 
+> rtc: pcf2127: Add support for the clkout clock
+> 
+> This commit adds common clock framework support for the CLKOUT output clock
+> on PCF2127, PCF2129, PCA2129, and PCF2131 RTC devices, allowing configuration
+> of frequencies from 1 Hz to 32768 Hz and disabling the output into HiZ.
+> 
+> > diff --git a/drivers/rtc/rtc-pcf2127.c b/drivers/rtc/rtc-pcf2127.c
+> > index ff2023908f5a3..2c442770ebc52 100644
+> > --- a/drivers/rtc/rtc-pcf2127.c
+> > +++ b/drivers/rtc/rtc-pcf2127.c  
+> 
+> [ ... ]
+> 
+> > @@ -626,6 +634,180 @@ static int pcf2127_watchdog_init(struct device *dev, struct pcf2127 *pcf2127)
+> >  	return devm_watchdog_register_device(dev, &pcf2127->wdd);
+> >  }
+> >  
+> > +#ifdef CONFIG_COMMON_CLK
+> > +#define clkout_hw_to_pcf2127(_hw) container_of(_hw, struct pcf2127, clkout_hw)
+> > +
+> > +/* Rates indexed by COF values */
+> > +static int pcf2127_clkout_rates[] = {
+> > +	32768,
+> > +	16384,
+> > +	8192,
+> > +	4096,
+> > +	2048,
+> > +	1024,
+> > +	1,
+> > +	0, /* 0Hz (COF 0b111) will put the clockout signal to HiZ */
+> > +};
+> > +
+> > +static u32 pcf2127_clkout_rate2cof(unsigned long rate)
+> > +{
+> > +	unsigned int i;
+> > +
+> > +	for (i = 0; i < ARRAY_SIZE(pcf2127_clkout_rates); i++) {
+> > +		if (pcf2127_clkout_rates[i] <= rate)
+> > +			return i;
+> > +	}
+> > +
+> > +	return 0; /* Maximum output clock rate */
+> > +}
+> > +
+> > +static int pcf2127_clkout_cof2rate(u32 cof)
+> > +{
+> > +	return pcf2127_clkout_rates[cof];
+> > +}
+> > +
+> > +static unsigned long pcf2127_clkout_recalc_rate(struct clk_hw *hw,
+> > +						unsigned long parent_rate)
+> > +{
+> > +	struct pcf2127 *pcf2127 = clkout_hw_to_pcf2127(hw);
+> > +
+> > +	return pcf2127_clkout_cof2rate(pcf2127->clkout_cof);
+> > +}
+> > +
+> > +static int pcf2127_clkout_determine_rate(struct clk_hw *hw,
+> > +					 struct clk_rate_request *req)
+> > +{
+> > +	u32 cof;
+> > +
+> > +	cof = pcf2127_clkout_rate2cof(req->rate);
+> > +	req->rate = pcf2127_clkout_cof2rate(cof);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int pcf2127_clkout_set_rate(struct clk_hw *hw, unsigned long rate,
+> > +				   unsigned long parent_rate)
+> > +{
+> > +	struct pcf2127 *pcf2127 = clkout_hw_to_pcf2127(hw);
+> > +	u32 cof;
+> > +	int ret;
+> > +
+> > +	cof = pcf2127_clkout_rate2cof(rate);
+> > +
+> > +	/*
+> > +	 * Setting COF will enable the clock (i.e. output not in HiZ anymore)
+> > +	 * Perform the operation only if already enabled.
+> > +	 * Otherwise, do nothing. The expected COF will be set on prepare()
+> > +	 */
+> > +	if (pcf2127->clkout_enabled) {
+> > +		ret = regmap_update_bits(pcf2127->regmap, pcf2127->cfg->reg_clkout,
+> > +					 PCF2127_CLKOUT_COF,
+> > +					 FIELD_PREP(PCF2127_CLKOUT_COF, cof));
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> > +
+> > +	pcf2127->clkout_cof = cof;
+> > +	return 0;
+> > +}  
+> 
+> [Severity: Medium]
+> Since rate is an unsigned long and pcf2127_clkout_rates[7] is 0, the condition
+> pcf2127_clkout_rates[i] <= rate in pcf2127_clkout_rate2cof() will always match
+> at index 7 (PCF2127_CLKOUT_COF_HIZ) when rate is 0, making the fallback
+> return 0 unreachable.
+> 
+> If a consumer passes rate == 0 to pcf2127_clkout_determine_rate() or
+> pcf2127_clkout_set_rate(), pcf2127_clkout_rate2cof(0) returns 7
+> (PCF2127_CLKOUT_COF_HIZ). In pcf2127_clkout_set_rate(), this writes
+> PCF2127_CLKOUT_COF_HIZ to reg_clkout if pcf2127->clkout_enabled is true
+> (putting the CLKOUT pin into HiZ while pcf2127->clkout_enabled remains true),
+> and caches PCF2127_CLKOUT_COF_HIZ in pcf2127->clkout_cof so subsequent calls
+> to pcf2127_clkout_prepare() -> pcf2127_clkout_control(hw, true) will also
+> leave the pin in HiZ.
 
+This is exactly what it is expected.
 
-> +		serial0 = &uart22;
-> +		serial1 = &uart14;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
+return 0 is unreachable but pcf2127_clkout_rate2cof() returns a u32.
 
-This sends console output straight into your EC, either enable the
-debug UART and point it there or remove this hunk
+Without the last return 0 (even if unreachable) or any other u32 returned value,
+GCC obviously complied
+   error: control reaches end of non-void function
 
-[...]
+> 
+> Should the 0 entry be removed from pcf2127_clkout_rates[] (or skipped in
+> pcf2127_clkout_rate2cof()) so that pcf2127->clkout_cof only ever holds active
+> clock divider values (0..6)?
+> 
 
-> +	reserved-memory {
-> +		linux,cma {
-> +			compatible = "shared-dma-pool";
-> +			size = <0x0 0x8000000>;
-> +			reusable;
-> +			linux,cma-default;
-> +		};
-> +	};
+No.
 
-This hunk should not be necessary, it was on Hamoa laptops because we
-didn't have control over the PCIe SMMU and needed a CMA space
+All rates should be present in pcf2127_clkout_rates[]. The 0Hz rate value is
+a valid rate even if the pin will be set in HiZ in that case.
 
-Konrad
+pcf2127->clkout_cof should hold the value related to OHz rate.
+
+A user can ask a 0Hz rate and call clk_prepare(). This is a valid use case.
+
+Best regards,
+Hervé
