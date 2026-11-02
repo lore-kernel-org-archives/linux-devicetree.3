@@ -1,60 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657096;
-	b=cf/4EVVqlqYoFxKFp6LIj9p/HuTEVi3YNjL9m4dfWije+Ect7DEKesdE6inqOiJeAHsA
-	 SQM6MMjSHezJyD+3A7Q6N1FUpDUPl8GJA38f/wCIlMcvlzh+jFuOzgiQFJ/nw3MJHPJuq
-	 zY1v922I/vI4iDwzZ6FLK71JIVAFcZb8OmwnhA0ByCYQh5jOO1jjCBZtvruV7cBpL28Po
-	 fkVWqpIvsUaBYBAZUPxBs8tAbV+tff6bTr1KwRa1aJn6hkVUK2gBb7WM3T3Z3S1y52ZB2
-	 9DbmXA8StORoaAIDVqeImkPcPjKJjLF+9hsNFY9b+CCOnn1EIu+Jbahmi6Y+H1PhNdA==
+	t=1793657122;
+	b=p3ijradpLqanlAzif0i6YT84MIMXhLfxRwN/zlxcuKHRev+KlrY1jxPXEGQ7GnnJJoAT
+	 jTcz/aKTEUWcMrKuY1Dq+amkOlfK1NKbYRwW4sojKJHI1zziMEEVeT4rbX5s5tJ+hN7hj
+	 cVCe0SSgGxqvVeyDUIuA1e1SDPFjYC0B8bcp+P8QbvCAb7QY+3HMk+u9SxmZLSmvc6d0y
+	 GoSocST9PnWGFyWLz1uf5sWx3Gw0pS/SufAu32p6uV19Eae04r24nGI1DxOecnAC6HCPR
+	 vPkU3d5gpO97VL2R/lYDlvRQ7hKTS/HSqMc40+J97vkBCLKkQKDxT5iHAfhht8o5bOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657096;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rUheGWlZY0Fw99KiB4LeUAfu/tl33Y1wkijZEqrb6QE=;
-	b=SVSh4XtbHjmM8sb65qjtOm1MSFUwY8jGKxcjvlP5N3iBjlk0LZFI2A5+jisy8GETlhJe
-	 WfbsFurBx+VqVN02K829r6KeqUA8A49mg0a16Q+pZocxoihISDKS2tuL1CXOQWBhunwOD
-	 wRfpvWJlRMNRbmIucfrU/oFyQJeQNMpXmr4ZsiK55Kr+aa+uTAGh56ZQ4ZOh5dvXyPmNf
-	 YuTOdwE5s8A31Ysou+0zxPP0gbjsr2/69fCXBndN9cP7WzYfcWRvaZShzmfnbWB3/+/Bw
-	 TMSSIFHowJCuWdewC0wlRLAjUE84Vagct5YaTrbhHrgcHoM0frZBdvUlCPTrck2aCOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657122;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=1X5bXRL8qqmcC6O9ai7+IAT4c81ATWUWkhjo+536Us8=;
+	b=D2kPIi6A/AFBKaeSiVwNrNXj5VFkdOouZLRvZLOtpkNthFOLVpawuQi+teRtzcMreVSt
+	 8fPzifIpAAvrtAiVOrzCpFdB58aHX3DkfRtLgyeKrS1pEa7uLDHZUU2PqnayS8MNOOhgF
+	 vKjuuNkTI0bi0rzTSFlyU6cdnqYblccFRlaLDzy2bIZL6BoJ2R6yabHJRBJBbI2onqlp9
+	 X/RScja/D111NI5J322s+1Ox6juQPlkM0VxHqPdCJEnPVv9j4AJdSP18LFkVNmYMIxafX
+	 eaitIo1WUweCu+iCe7qs4HVnMm9N9+VABI1DU/qDG7IYCWwr2Gz6fj5tRvp0dgpF4kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=GF0+vU36;
-	arc=none smtp.remote-ip=109.224.244.29
-Received: from mail-24429.protonmail.ch (mail-24429.protonmail.ch [109.224.244.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PUs3mu89;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91ED0606D804
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 22:04:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91ED0606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1132E6082BCD
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 22:05:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1132E6082BCD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=GF0+vU36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793657093; x=1793916293;
-	bh=rUheGWlZY0Fw99KiB4LeUAfu/tl33Y1wkijZEqrb6QE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=GF0+vU36Cy5INsapQ9jEPsZ+LKrAn+Dljr84EryO7IzlckW6ZbUcTr304IS2Switg
-	 qJ2yex/DQ6gdEMX2QcwX2GU1dj4G2xMBsRjQbc7YloQDlQ6bPSDX4ARf4+LKSOdN2A
-	 OUwROGQxWeqrEfBOlG0VvMJLOvHZBPOPEI15KkYKTtWXN88Gs9ZtRZIjnL11KXwWQG
-	 uTJmZ9vQHVqbYIlftPZRe7p2Hku7tLt/+Lffe2DiOc01qlDyt2+a6N6kazgLr4uKR4
-	 clv7GX0bToQQxlYXsQ4GZ8+8RTo6DSM4AYR9Dslpip7VAVzqNuvP7tMujmBiG4FhRy
-	 pP20K++uMRriA==
-Date: Mon, 02 Nov 2026 22:04:48 +0000
-To: armandas.kvietkus@proton.me
-From: "armandas.kvietkus" <armandas.kvietkus@proton.me>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 0/2] media: i2c: Samsung S5K3T2 image sensor
-Message-ID: <XCb3u-2QvpbqsiIpiU4KXIVLSRrhUMk66AuWzyq-g_87b4PYck2zK1bM_jV0Jk3j2qVqbLqsnmXoSv1pWZ-eA3vC1sX87APNMyZoC2xS_vM=@proton.me>
-In-Reply-To: <20261011-upstream-s5k3t2-v4-0-d33b12fb3263@proton.me>
-References: <20261011-upstream-s5k3t2-v4-0-d33b12fb3263@proton.me>
-Feedback-ID: 164226125:user:proton
-X-Pm-Message-ID: d7cdf3858a387bc88c297cd533e2a85d5c875641
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PUs3mu89
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-369f33df08eso6881757eec.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 14:05:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793657121; x=1794261921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1X5bXRL8qqmcC6O9ai7+IAT4c81ATWUWkhjo+536Us8=;
+        b=PUs3mu89+syzBRQDWzZ5ixeKkYfm7Ii2ag28THP8+Pd9LkZZQOro6Z/HEuWYy7rQEf
+         6s25DD6Mt3qyvJ8QfIjMR75zutVoFrxfYCDKAftAiS4v5jL4bj0qUJfNqKmlOqq4zUlR
+         RPafHTP0eJY2vVTf9ppyCe+YK8I7tlameB6HcKJqSgVyGEbnjZHG1HK5MEawyr7VMhOX
+         8ZTHNrPpSQA5BFgYTbWPLSF/R87ic5NTl3MnIuhRRvJNwFmMfHdviPxnyVboRlWk39Mt
+         wghhoMBEaOFeFVHMYbZ2U+snwUafVNI0uu0hGUcxqhrZjFRY9hAWw13syb8TM+TuaWRF
+         N4Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793657121; x=1794261921;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1X5bXRL8qqmcC6O9ai7+IAT4c81ATWUWkhjo+536Us8=;
+        b=zEmKADFNHjyRg71era9Gc3JkV/p6Bm43eat5sZARsqLHE0h5yIWKY873an94tOYY+F
+         75kL2PzDAbcv/Nl2nyb8oeeKdb7SpjUmaIEHZNdetarkF/192VpWGGW+SOg2pZKHSYBY
+         roHTgvWV6BqIlInHdlTV+9j4HDqNerykOF7b+yYUNLEc1WSOWVZTOaeccta+kgVTnSb6
+         g1lFNpqVQ4uajUOsMl48pADBXOFJ6El6Cmz4j2HtpYkZyfffUy7OdwTKRhJGvjFPJkBA
+         bMGQQVlqCVxp0HmBUgSUCRokbkqZh1iEmc7ZJKi7NWSQvf37YHLo1uebEUzKfHCUS42r
+         uYhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwOg4ypTwWr8s6yVuxsHP62TaFC9PPhbQ2yqBiIDOiXbWVxP030EYpdf6VUJoMR/eVqUk0GJt8Rn1D7@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eEK3NPezsZYNW9y7nqPuXcT8J8I+pBYklxKToU6YCdqsBiGte
+	Pt2Jxx7oAH3Iv9NTl7Cm37CK4o3lmhwO2RT4+/A3jGP/ciBU2pF6n3sT
+X-Gm-Gg: AYBFou3c41tiT5FMIVzLXAm6M8Af4TY6/DOmJ6Nw6a7bXEzVOtY9Et/wiTFkA8hgLXV
+	c0uGWAV8C3A+l9YCn7pBHBE6dWHcl95EwdOLJjRVwx/uURDl05CaRCmWMvTNWliyCCLWH/fA6c6
+	Rm5nwPbC8NBlSrzURSLQGhQVC/spVS/+zmWZQtRlfVSRm46Ysz5qpILyvzB2nR9ABvrIiJAvkkv
+	nhkXk/3gxgmNDKq9i/PtSu6dMWfUFv0ljBxwWSihY8t4QO13DehyAXLHIsgB7kxqW3avSZfNI4L
+	wcY60dkABKbXhW65W15Bjb0AR3FPZt/lialeUDeHhA/hcbbkERoJ6JmVi9tadcplMwqwvyxbvGv
+	Cgrba3OhFh1rpfjEgs809PfddVsgN7i5wHm6vb4vNuL1ZJbJT9VvHJ9sV+9WWry5PoOXR0W36YV
+	z474wR2cZ4RJf1zSxB5+6bzF0W9j6R0lOHFKXQQVgQfeUHp104542GRJaOtQwBGkHQOdPEGUAl2
+	pWqaqq2qk91Rlq/iH3oho8qsd9O3XL0I87coqmueg4u8Tnz3p5GdNZ+NGCSPhTgGhhpdUHIeQsz
+	B4CmfodO2mygfBvw4qc4CLonUpS364hrk63UUuEkgUPz/3IkMeChLgjzQQMYsOQIVA==
+X-Received: by 2002:a05:7300:3b0c:b0:36a:238:1485 with SMTP id 5a478bee46e88-36a4244276cmr24803721eec.37.1793657120646;
+        Mon, 02 Nov 2026 14:05:20 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm42657742eec.7.2026.11.02.14.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:05:20 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	media-ci@linuxtv.org,
+	devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH v4 3/6] media: iris: add iris4 specific H265 line buffer calculation
+Date: Tue,  3 Nov 2026 07:05:19 +0900
+Message-ID: <20261102220519.1738-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261001153221.4FAC61F000FF@smtp.kernel.org>
+References: <20261001-kaanapali-iris-v4-0-642f9ac5e699@oss.qualcomm.com> <20261001-kaanapali-iris-v4-3-642f9ac5e699@oss.qualcomm.com> <20261001153221.4FAC61F000FF@smtp.kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,20 +111,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Sakari,
+On Thu, 01 Oct 2026 15:32:20 +0000, sashiko-bot@kernel.org wrote:
+> > +		dpb_obp = size_dpb_opb(frame_height, lcu_size) * num_vpp_pipes;
+[...]
+> > +	return ((ALIGN(dpb_obp, DMA_ALIGNMENT) + ALIGN(se_left_lb, DMA_ALIGNMENT) +
+> > +		ALIGN(vsp_left_lb, DMA_ALIGNMENT)) * num_vpp_pipes) +
+[...]
+> Does this code multiply dpb_obp by num_vpp_pipes twice?
+[...]
+> Is this double multiplication intentional, or should one of the
+> multipliers be removed to prevent over-allocating the line buffer?
 
-Gentle ping on this series now that v7.4-rc1 is out.
+Some data on this from a Lenovo Y700 Gen 5 (TB323FU, Kaanapali), with
+this patch on v7.3 and out-of-tree Kaanapali support. Hardware decodes
+were compared bit for bit with software decoding:
 
-v4 has all your v3 comments and Elgin's. The binding has Conor's ack.
+                             HEVC Main10      HEVC Main
+                             1080p   2160p    1080p
+  v4 3/6 as is               pass    pass     pass
+  dpb_obp multiplied once    fail    fail     pass
+  once, OPB lines doubled
+  for 10-bit output          pass    pass     pass
 
-One question from v3 is still open. Should LINK_FREQ stay read only
-and follow the mode, like imx258 and ov08x40, or should it be writable
-with the modes filtered per frequency, like ov64a40? v4 keeps it read
-only. I can change it in v5 if you want the other way.
+The failures are "session error received 0x4000005: insufficient
+resources" with no frames decoded.
+
+With num_vpp_pipes = 2, the second multiplication doubles dpb_obp.
+That is what 10-bit output needs. With one multiplication, Main10
+passes once the size_dpb_opb() part is doubled for a 10-bit capture
+format. 8-bit streams pass without that.
+
+Is the second multiplication meant to cover 10-bit output? If not, I
+can send the 10-bit sizing as a patch on top of this series.
 
 Thanks,
-Armandas
-
+Joonhoe Kim
