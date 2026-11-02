@@ -1,89 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638234;
-	b=f9OOp5QlDZEpKdU4Yp1YXBctsGJDk0Bp2Al+ESa/Tfv9SGuPlfwj9ZBa+Mq92lUxVQhj
-	 XDuj66YWCJaXLwX5+3ZbeXiLZscy+n1BwFo4BuLuv9c3Og38Sg8JG9F0XoDi/1F1kEeUh
-	 4wDwavQAZyH1QvzUooDSXPOjw7rr3vQredP17G/A/5TW9gWO2vxee8RQtS0wKfQUm6oD7
-	 0PS7k0HYFYNAxlS38k8mrmdkB6nY9/IIN7WNP7A6OPHqJTxpDJzVBnSHII6C1gkXXF7xA
-	 44BrASaLx2v614Cfn9hlPj9Ii/OYFPV+zUQL2tPmgHMPNwiBzbYvwQxHtIxxknzASxw==
+	t=1793638269;
+	b=4myCM66y+9GWr9hyQ6cgNKESu4NAGII5XEyvXT0AVl4jZuVzL4pkxEBT+emTIa10jGqX
+	 9TcIdWqzw7WVeaED7+7q7/sgLn3c9/5sH5NE4tWEsZn4hUtK42x6JMsahCYJmKCjcsCZM
+	 EuXFWt9ga+5yT1ujawEqEaSNjZw2FQ01b/psjLKsX4U+uy2JWPE4Jzkeh/K+EGmwzXx7Z
+	 ls4Zg2JMtNiVk6xLz5ppF+dwS94ckoJUvQxvqoZbWVUOHtQHRf7xFqIW0axXyMI1JmCUC
+	 GvdH33BLfjk2G635319eZQ/C2g0zUu3x+gLX3qFGHNHj6gGEUR8+Pyoy2vD1z6VWVpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638234;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638269;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=K8BYvSAD0vaRsrXFQzKVgQ9ORTXgw762XXjLlecX85Y=;
-	b=ryiAI1FJyfCsVDeHs2OXdkasqoVIpcqqfGgQI//IsrbdmNa/qx2MWaDncoRSyNxavE0X
-	 fUYFkyTy92NmC5UMoP3g20ZrTUprY6dKoRL8Vn287OLBVmk27k7xlcIBz8exbPcB0iJXU
-	 i8cmOTM/seir+ihvKbJKgvMgFWvc/BQfVcoQ4hTYTkI5AHFh5Z8Ct2U3TKPd4a+NRg3Kd
-	 iIsPgJvN1317XHYj7RgqUxNgTISd7hBVlJwUxN2oQYj2SZsBqLjFimMxKNGFi0aM1SdFj
-	 KiEr9F9fgfKOgnpWNZu4Rjmw32htz7qoGgIYY5xq7/PBVQWzlltcPb0E08b2Z7KmicQ==
+	 X-Last-TLS-Session-Version;
+	bh=ksyvQM0YZPfirf064fq0DhJ9ODJH6TCgePk0Bdfd1pA=;
+	b=ezEHVrOSM7D/ci5atuLipQRdYWZPHwpXrBd4mpDIgVhuIwIR47O1E3ZIfTY85ae5ZQHK
+	 m+UK4cl5cN3+kAmtlBPdzPZnzuM/USel9zncm8Jp/RrJ0pmcG9gAl3g898qISTwxL6qrv
+	 0KGf1bMgwSvmSoYVFwWlwJM26xRc16VqPt3OOltQBAmxFSJqgVBfDwobly1FbH+jiMiF1
+	 /ULxv04eAV+Rk+Y2XaiLydkVrOW6gXVPte3I5idOFe68c8Wsd5vA+GhGd2gcb+0tSZJVB
+	 GmMO8vmoyqLYZVdLRQUrdGbuFNyJaLdo9rrYBYhbRqRQHj2jzU/gvFsadNFibCokBdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rHfQ1jyI;
-	arc=none smtp.remote-ip=74.125.231.131
-Received: from mail-oo2-f3.google.com (mail-oo2-f3.google.com [74.125.231.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="C2u7PU/9";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03A6607466A
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 16:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03A6607466A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B2160771CF;
+	Mon,  2 Nov 2026 16:51:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21B2160771CF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rHfQ1jyI
-Received: by mail-oo2-f3.google.com with SMTP id 46e09a7af769-8459f7bc7c0so252492a34.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 08:50:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793638231; x=1794243031; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K8BYvSAD0vaRsrXFQzKVgQ9ORTXgw762XXjLlecX85Y=;
-        b=rHfQ1jyI8vgeZsIJ8/crxP6sQGfOrqxThPsEAA/+kbRZwUIEBpVbtv0fgCcZRIF23D
-         jawXtmxCraOCtUMOjgKF2+S9Ww0FRiTIgABHxilJk8/hfn/bzcoHiYI0KZHSPccxiW1I
-         1/agQFhLFa1IMgaD9Szej8Q3tnpjCpN8FCN8tOVSKSnxBziMSactzZwu7lizWLGztw7C
-         DLip1LNDcM8jd8J2A0nS64qm7jIGRLOTEvSlRagL8a/hh/ywh/oAVXto359VwJJBwv5y
-         Ik9/Ifb/YIaU/OECBjMSkLi69Zsj7Tf81u12NAT+xnj0Y+qS/2TsgMNydiWc0Ps5ACLr
-         V1HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638231; x=1794243031;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K8BYvSAD0vaRsrXFQzKVgQ9ORTXgw762XXjLlecX85Y=;
-        b=Tkb2E2XRrB1qctQ5QTUKDchO/VUc/aS52jVsK8pae7NEC+sd6k2SZkfcWKdgKqkV4c
-         bHn0OYzQQixvP49CpMaSAv9Yuh8y3T20d6qg1uEg9y/KW+uOF+Ectml3M6wBnZt/l4rw
-         JpMivhe0Hms6v7ztFOyvEi6nkihTu6r4R9AXvogAJp4g7vwCtrLGg/y2Y8hYXio1HZIE
-         LHkG3cZ2Hszp89E6PODr4+O8F9WoqyWjLJ2SoMn3iqW9CF10Z3dA7isYyImmOiDElGdv
-         oZSohZpVK7Wvsv3xr/EfROeR05GV0UDwDGhV5pe09SEgBb/f7Hj76n0FXmDHqW04tAJ3
-         Tm9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwyRHsImonBzkE6KWdYLIixkxhkFH+2i+ibaYOtpWqeofVZvrmtKYU4LKG/5Ouder+yd8OPQIlvgjy2@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlpXrqKVfSu1JSbjYt6x9SvAtsFvM1YG8xm8c3oQseRESeRySA
-	rAF7S9UpY7/ogfCp/NpR/3UsO9kbMzfRRdw5345IFRCeaJZUqcJ4ztd+
-X-Gm-Gg: AYBFou3PC2rXiShYio6RFp7oGwmXRELY7Ywg047ebnqniBx9XRT097BZpWws/g6eyQV
-	Q9D7YroQKBC0Kk4PiY25RwBXXqvZEV+Di1y8b4PK+AwPhmk30YWsEPOB3espE9dYxn5Uv5jcakc
-	G3mmxZZSN4MSufC7e/Tiau3rQvUXO0z7RXFKkXOdBB+mE4a1n++eSOnLteH/d27aIZM5OhoZgQF
-	X2ylqvM5xyWmBLB1x199pyKJDO0K1o+X2LjBPhE/UTvxGk5PWTlGlLlzvgQtu9glMFl8oGo4rYE
-	WKF/Y3vW5tsCWCrJnl9b7J2LP2JJRYYpxz8vyFzb6nlVCproyVvXjSnTVJO5T58pudzqi6TJd20
-	zzR+3mwVhE484DvdaZn83v7khukPFwvUCHr3bVUle8SlPHgQn7lwX8GBYQQdBiDdz8SkijUQQGp
-	LHoeMEXDAZxgajLTa8HFkmc5m5YFhjCFqp+RLwFOHmIfC5hnpdrjtSQXdYsve3RwrHlgN1Zp1Ol
-	N0HM7UKdbLOnHDyd0H4SdISSIntIw02wzrRIhgugTMHZ4bpGAFq8wNKrb2iy4XSboh+Ar//UfE+
-	VsK+euoUubIL+zDMxVl38/yflve5oU96B2sdtMY4iSb//Xi90+RSWSs5T2MGu0/tm+SdwqafNX0
-	gAMBUFpFdbMzX0+sSr94=
-X-Received: by 2002:a05:6830:3481:b0:844:a8bf:7dc7 with SMTP id 46e09a7af769-85d363fc570mr7336192a34.17.1793638230796;
-        Mon, 02 Nov 2026 08:50:30 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354985cdsm9936779a34.10.2026.11.02.08.50.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:50:30 -0800 (PST)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Mon, 02 Nov 2026 10:50:22 -0600
-Subject: [PATCH v2 2/2] rtc: mt6397: provide the 32 kHz output as a clock
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=C2u7PU/9
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E07861A1406;
+	Mon,  2 Nov 2026 16:51:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AF03E603D7;
+	Mon,  2 Nov 2026 16:51:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59530103291B3;
+	Mon,  2 Nov 2026 17:51:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793638265; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ksyvQM0YZPfirf064fq0DhJ9ODJH6TCgePk0Bdfd1pA=;
+	b=C2u7PU/9u35RjvW5DJ47JgfFHQulfvA3NgZIBvAqMgg6WNcihuZaglURcgOi3As3v/rPLa
+	q++S6hlNkNOBeEMm2H4WKz4VJjH0xZEJztM5Zvt+YktH+G6LMcURb4racISRgVaxsPhIaB
+	60QJDQW/Ur4Y9AfbfeXAAFpT8Qza3KrenzfmslJqYNGt/T7Y6/1Po4ga7mvpiyCdIv2yG2
+	AdbXxxYqlnnSkEXzWHZdSQLJLmV0LGYuABkX3SuFt3QSTdxfrl+0R+r3TqShHxSFKRkrA3
+	mFC9+n9oh9BzIr0pWoMixsFvJXHOIQqNugz6vElsqoLoA7+e2Q1ar+BQdueQ7w==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+Date: Mon, 02 Nov 2026 17:50:39 +0100
+Subject: [PATCH v2 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
+ controller driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -95,200 +66,525 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-2-19ca72815374@gmail.com>
-References: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-0-19ca72815374@gmail.com>
-In-Reply-To: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-0-19ca72815374@gmail.com>
-To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
- Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
+Message-Id: <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com>
+References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
+In-Reply-To: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Eddie Huang <eddie.huang@mediatek.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-rtc@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793638226; l=4890;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=amIz4+OO8bg9BY0ErwfxlJTjkYD75qjrKdIIoLGCs4c=;
- b=SddfdcmGKWyuqGOE2/GxaWQqOQ1TXoTGs5VUhTToGfp3bnPWl7+Zrz5vLWEeXxPdlsr4dE61r
- fAJ9r7/SePRCBSg2vB3thim3kLRhLfoupjQ/1z8Xsr6XCNPG6w8yuKc
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-The RTC's 32 kHz output is gated by RTC_CON.F32KOB, which the vendor
-kernel clears before it powers the Wi-Fi/Bluetooth combo chip. Mainline
-never touches it, so on a board whose bootloader leaves it set, such a
-chip has no sleep clock and does not come up.
+Each EyeQ5 PCIe port has its own MSI controller. The controller snoops the
+MSI write TLPs that the port receives. It raises an interrupt when a write
+targets the doorbell window. A port supports a maximum of 4 MSI vectors.
 
-Register the output as a clock when the RTC node has #clock-cells, so
-the chip's power sequence can enable it.
+The driver supports two roles, selected by the GCSR mode. In root complex
+mode, it registers a PCI MSI parent. In endpoint mode, it registers a
+platform MSI parent. The driver chains the snooper domain to one GIC
+interrupt.
 
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
 ---
- drivers/rtc/rtc-mt6397.c       | 85 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/mfd/mt6397/rtc.h |  6 +++
- 2 files changed, 91 insertions(+)
+ arch/mips/Kconfig               |   1 +
+ drivers/irqchip/Kconfig         |   5 +
+ drivers/irqchip/Makefile        |   1 +
+ drivers/irqchip/irq-eyeq5-msi.c | 439 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 446 insertions(+)
 
-diff --git a/drivers/rtc/rtc-mt6397.c b/drivers/rtc/rtc-mt6397.c
-index d6e156516aa6..2849beddc79d 100644
---- a/drivers/rtc/rtc-mt6397.c
-+++ b/drivers/rtc/rtc-mt6397.c
-@@ -6,6 +6,7 @@
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index ed17c9b1624ca..19dbf24684b23 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -632,6 +632,7 @@ config EYEQ
+ 	select CPU_MIPSR2_IRQ_VI
+ 	select CSRC_R4K
+ 	select DMA_NONCOHERENT
++	select EYEQ5_MSI
+ 	select HAVE_PCI
+ 	select IRQ_MIPS_CPU
+ 	select MIPS_AUTO_PFN_OFFSET
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index 136bab41f8011..3874dee5db97b 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -813,6 +813,11 @@ config APPLE_AIC
+ 	  Support for the Apple Interrupt Controller found on Apple Silicon SoCs,
+ 	  such as the M1.
  
- #include <linux/array_size.h>
- #include <linux/bitfield.h>
-+#include <linux/clk-provider.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/mt6397/core.h>
-@@ -317,6 +318,84 @@ static int mtk_rtc_nvram_write(void *priv, unsigned int offset, void *val,
- 	return ret;
- }
- 
-+#ifdef CONFIG_COMMON_CLK
-+static int mtk_rtc_clkout_set(struct clk_hw *hw, bool on)
++config EYEQ5_MSI
++	bool
++	select IRQ_DOMAIN
++	select IRQ_MSI_LIB
++
+ config MCHP_EIC
+ 	bool "Microchip External Interrupt Controller"
+ 	depends on ARCH_AT91 || COMPILE_TEST
+diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+index 16a5fd126c9a9..5bc276fd82cab 100644
+--- a/drivers/irqchip/Makefile
++++ b/drivers/irqchip/Makefile
+@@ -132,6 +132,7 @@ obj-$(CONFIG_MACH_REALTEK_RTL)		+= irq-realtek-rtl.o
+ obj-$(CONFIG_WPCM450_AIC)		+= irq-wpcm450-aic.o
+ obj-$(CONFIG_IRQ_IDT3243X)		+= irq-idt3243x.o
+ obj-$(CONFIG_APPLE_AIC)			+= irq-apple-aic.o
++obj-$(CONFIG_EYEQ5_MSI)			+= irq-eyeq5-msi.o
+ obj-$(CONFIG_MCHP_EIC)			+= irq-mchp-eic.o
+ obj-$(CONFIG_SOPHGO_SG2042_MSI)		+= irq-sg2042-msi.o
+ obj-$(CONFIG_SUNPLUS_SP7021_INTC)	+= irq-sp7021-intc.o
+diff --git a/drivers/irqchip/irq-eyeq5-msi.c b/drivers/irqchip/irq-eyeq5-msi.c
+new file mode 100644
+index 0000000000000..f56e130393cb2
+--- /dev/null
++++ b/drivers/irqchip/irq-eyeq5-msi.c
+@@ -0,0 +1,439 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Mobileye EyeQ5 MSI interrupt controller
++ *
++ * Copyright Mobileye (2026)
++ */
++
++#define pr_fmt(fmt) "eyeq5-msi: " fmt
++
++#include <linux/bitfield.h>
++#include <linux/bitmap.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/irq.h>
++#include <linux/irqchip.h>
++#include <linux/irqchip/chained_irq.h>
++#include <linux/irqchip/irq-msi-lib.h>
++#include <linux/irqdomain.h>
++#include <linux/msi.h>
++#include <linux/of_address.h>
++#include <linux/of_irq.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++
++/*
++ * The snooper decodes the vector number from TLP address bits [4:3], so a
++ * port can serve at most 4 vectors.
++ */
++#define EYEQ_MSI_MAX_VECTORS		4
++
++/*
++ * Vector n is raised by a write to the doorbell base + n * 8.
++ */
++#define EYEQ_MSI_VECTOR_STRIDE		8
++
++#define GCSR_CONFIG			0x00
++#define GCSR_CONFIG_RC			BIT(0)
++
++#define GCSR_IRQSTATUS			0x0a
++#define GCSR_IRQSTATUS_MASK		GENMASK(15, 12)
++
++#define GCSR_IRQMASK			0x0c
++#define GCSR_IRQMASK_MASK		GENMASK(15, 12)
++
++#define MSI_BASE_LO			0x00
++#define MSI_BASE_HI			0x02
++
++#define MSI_CTRL			0x04
++#define MSI_CTRL_EN_OVERRIDE		BIT(15)
++#define MSI_CTRL_BAR_MATCH_MODE		BIT(10)
++#define MSI_CTRL_BAR_COMPARE		GENMASK(9, 7)
++
++#define VECTOR_ADDR_LO			GENMASK_ULL(20, 5)
++#define VECTOR_ADDR_HI			GENMASK_ULL(36, 21)
++
++struct eyeq_msi {
++	raw_spinlock_t			lock;
++	struct irq_domain		*msi_domain;
++	DECLARE_BITMAP(used, EYEQ_MSI_MAX_VECTORS);
++
++	void __iomem			*gcsr_base;
++	void __iomem			*msi_base;
++
++	phys_addr_t			vector_phys;
++
++	const char			*label;
++	int				irq;
++};
++
++static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
 +{
-+	struct mt6397_rtc *rtc = container_of(hw, struct mt6397_rtc, clkout);
++	u16 value;
++
++	lockdep_assert_held(&msi->lock);
++
++	value = readw(msi->gcsr_base + GCSR_IRQMASK);
++	value &= ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
++	writew(value, msi->gcsr_base + GCSR_IRQMASK);
++}
++
++static void __eyeq_msi_unmask_irq(struct eyeq_msi *msi, unsigned int bit)
++{
++	u16 value;
++
++	lockdep_assert_held(&msi->lock);
++
++	value = readw(msi->gcsr_base + GCSR_IRQMASK);
++	value |= FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
++	writew(value, msi->gcsr_base + GCSR_IRQMASK);
++}
++
++static void eyeq_msi_mask_irq(struct irq_data *data)
++{
++	struct eyeq_msi *msi = irq_data_get_irq_chip_data(data);
++
++	guard(raw_spinlock_irqsave)(&msi->lock);
++	__eyeq_msi_mask_irq(msi, data->hwirq);
++}
++
++static void eyeq_msi_unmask_irq(struct irq_data *data)
++{
++	struct eyeq_msi *msi = irq_data_get_irq_chip_data(data);
++
++	guard(raw_spinlock_irqsave)(&msi->lock);
++	__eyeq_msi_unmask_irq(msi, data->hwirq);
++}
++
++static void eyeq_msi_compose_msg(struct irq_data *data, struct msi_msg *msg)
++{
++	struct eyeq_msi *msi = irq_data_get_irq_chip_data(data);
++	phys_addr_t address;
++
++	memset(msg, 0, sizeof(*msg));
++
++	address = msi->vector_phys + data->hwirq * EYEQ_MSI_VECTOR_STRIDE;
++
++	msg->address_lo = lower_32_bits(address);
++	msg->address_hi = upper_32_bits(address);
++	msg->data = data->hwirq;
++}
++
++static struct irq_chip eyeq_msi_irq_chip = {
++	.name			= "EyeQ5-MSI",
++	.irq_mask		= eyeq_msi_mask_irq,
++	.irq_unmask		= eyeq_msi_unmask_irq,
++	.irq_compose_msi_msg	= eyeq_msi_compose_msg,
++#ifdef CONFIG_SMP
++	.irq_set_affinity	= irq_chip_redirect_set_affinity,
++#endif
++};
++
++static void eyeq_msi_isr(struct irq_desc *desc)
++{
++	struct irq_chip *parent_chip = irq_desc_get_chip(desc);
++	struct eyeq_msi *msi = irq_desc_get_handler_data(desc);
++	void __iomem *status_reg;
++	unsigned long pending;
++	unsigned int bit;
++
++	chained_irq_enter(parent_chip, desc);
++
++	status_reg = msi->gcsr_base + GCSR_IRQSTATUS;
++
++	while (true) {
++		pending = FIELD_GET(GCSR_IRQSTATUS_MASK, readw(status_reg));
++		if (!pending)
++			break;
++
++		/*
++		 * Write-one-to-clear status register.
++		 */
++		writew(FIELD_PREP(GCSR_IRQSTATUS_MASK, pending), status_reg);
++
++		for_each_set_bit(bit, &pending, EYEQ_MSI_MAX_VECTORS) {
++			if (!generic_handle_demux_domain_irq(msi->msi_domain, bit))
++				pr_err_ratelimited("unmapped MSI interrupt %u\n", bit);
++		}
++	}
++
++	chained_irq_exit(parent_chip, desc);
++}
++
++static int eyeq_msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
++				 unsigned int nr_irqs, void *args)
++{
++	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
++	struct eyeq_msi *msi = domain->host_data;
++	unsigned long bit = 0;
++	unsigned int i;
++
++	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
++
++	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
++		for (i = 0; i < nr_irqs; i++) {
++			bit = find_next_zero_bit(msi->used, EYEQ_MSI_MAX_VECTORS, bit);
++			if (bit >= EYEQ_MSI_MAX_VECTORS) {
++				/*
++				 * Roll back this call's allocations: on error the
++				 * core does not call .free().
++				 */
++				for_each_set_bit(bit, reserved, EYEQ_MSI_MAX_VECTORS) {
++					clear_bit(bit, msi->used);
++					__eyeq_msi_mask_irq(msi, bit);
++				}
++
++				return -ENOSPC;
++			}
++
++			set_bit(bit, msi->used);
++			set_bit(bit, reserved);
++			bit++;
++		}
++	}
++
++	i = 0;
++	for_each_set_bit(bit, reserved, EYEQ_MSI_MAX_VECTORS) {
++		irq_domain_set_info(domain, virq + i++, bit, &eyeq_msi_irq_chip,
++				    msi, handle_simple_irq, NULL, NULL);
++	}
++
++	return 0;
++}
++
++static void eyeq_msi_domain_free(struct irq_domain *domain, unsigned int virq, unsigned int nr_irqs)
++{
++	for (unsigned int i = 0; i < nr_irqs; i++) {
++		irq_hw_number_t hwirq;
++		struct irq_data *data;
++		struct eyeq_msi *msi;
++
++		data = irq_domain_get_irq_data(domain, virq + i);
++		if (WARN_ON_ONCE(!data))
++			continue;
++
++		msi = irq_data_get_irq_chip_data(data);
++		hwirq = data->hwirq;
++
++		guard(raw_spinlock_irqsave)(&msi->lock);
++
++		if (!test_and_clear_bit(hwirq, msi->used)) {
++			pr_warn("attempt to free unused hwirq %lu\n", (unsigned long)hwirq);
++			continue;
++		}
++
++		__eyeq_msi_mask_irq(msi, hwirq);
++	}
++}
++
++/*
++ * The same callbacks serve the PCI MSI parent (root complex mode) and the
++ * platform MSI parent (endpoint mode).
++ */
++static const struct irq_domain_ops eyeq_msi_domain_ops = {
++	.alloc	= eyeq_msi_domain_alloc,
++	.free	= eyeq_msi_domain_free,
++	.select	= msi_lib_irq_domain_select,
++};
++
++#define EYEQ_MSI_FLAGS_REQUIRED			\
++	(MSI_FLAG_USE_DEF_DOM_OPS |		\
++	 MSI_FLAG_USE_DEF_CHIP_OPS |		\
++	 MSI_FLAG_PCI_MSI_MASK_PARENT)
++
++#define EYEQ_MSI_FLAGS_SUPPORTED		\
++	(MSI_FLAG_PCI_MSIX |			\
++	 MSI_GENERIC_FLAGS_MASK)
++
++static const struct msi_parent_ops eyeq_msi_parent_ops = {
++	.required_flags		= EYEQ_MSI_FLAGS_REQUIRED,
++	.supported_flags	= EYEQ_MSI_FLAGS_SUPPORTED,
++	.bus_select_token	= DOMAIN_BUS_NEXUS,
++	.bus_select_mask	= MATCH_PCI_MSI,
++	.prefix			= "EYEQ-",
++	.init_dev_msi_info	= msi_lib_init_dev_msi_info,
++};
++
++/*
++ * In endpoint mode the snooper is a platform MSI controller: the host writes
++ * the doorbell and the snooper raises a local interrupt. Expose it as a
++ * platform MSI parent so endpoint functions can allocate doorbells.
++ */
++static const struct msi_parent_ops eyeq_msi_platform_parent_ops = {
++	.required_flags		= EYEQ_MSI_FLAGS_REQUIRED,
++	.supported_flags	= EYEQ_MSI_FLAGS_SUPPORTED,
++	.bus_select_token	= DOMAIN_BUS_NEXUS,
++	.bus_select_mask	= MATCH_PLATFORM_MSI,
++	.prefix			= "EYEQ-",
++	.init_dev_msi_info	= msi_lib_init_dev_msi_info,
++};
++
++static int eyeq_msi_create_domain(struct eyeq_msi *msi, struct device_node *node, bool is_rc)
++{
++	const struct msi_parent_ops *parent_ops = is_rc ?
++		&eyeq_msi_parent_ops : &eyeq_msi_platform_parent_ops;
++	struct irq_domain_info info = {
++		.fwnode		= of_fwnode_handle(node),
++		.ops		= &eyeq_msi_domain_ops,
++		.host_data	= msi,
++		.size		= EYEQ_MSI_MAX_VECTORS,
++		/*
++		 * The composed doorbell address does not depend on affinity,
++		 * as required by platform MSI doorbell consumers.
++		 */
++		.domain_flags	= is_rc ? 0 : IRQ_DOMAIN_FLAG_MSI_IMMUTABLE,
++	};
++
++	msi->msi_domain = msi_create_parent_irq_domain(&info, parent_ops);
++	if (!msi->msi_domain)
++		return -ENOMEM;
++
++	return 0;
++}
++
++static int eyeq_msi_parse_vector_region(struct eyeq_msi *msi, struct device_node *node)
++{
++	struct device_node *memory_node;
++	struct resource resource;
 +	int ret;
 +
-+	mutex_lock(&rtc->lock);
-+	ret = regmap_update_bits(rtc->regmap, rtc->addr_base + rtc->data->con,
-+				 RTC_CON_F32KOB, on ? 0 : RTC_CON_F32KOB);
-+	if (!ret)
-+		ret = mtk_rtc_write_trigger(rtc);
-+	mutex_unlock(&rtc->lock);
++	memory_node = of_parse_phandle(node, "memory-region", 0);
++	if (!memory_node) {
++		pr_err("missing memory-region property\n");
++		return -EINVAL;
++	}
++
++	ret = of_address_to_resource(memory_node, 0, &resource);
++	of_node_put(memory_node);
++
++	if (ret) {
++		pr_err("failed to parse MSI vector memory region: %d\n", ret);
++		return ret;
++	}
++
++	msi->vector_phys = resource.start;
++
++	return 0;
++}
++
++static int eyeq_msi_parse_dt(struct eyeq_msi *msi, struct device_node *node)
++{
++	int ret = of_property_read_string(node, "label", &msi->label);
++
++	if (ret)
++		msi->label = node->name;
++
++	return eyeq_msi_parse_vector_region(msi, node);
++}
++
++static void eyeq_msi_program_hardware(struct eyeq_msi *msi, bool is_rc)
++{
++	u16 control, value;
++	u32 match_bar;
++
++	guard(raw_spinlock_irqsave)(&msi->lock);
++	value = readw(msi->gcsr_base + GCSR_IRQMASK);
++	value &= ~GCSR_IRQMASK_MASK;
++	writew(value, msi->gcsr_base + GCSR_IRQMASK);
++	writew(GCSR_IRQSTATUS_MASK, msi->gcsr_base + GCSR_IRQSTATUS);
++
++	/*
++	 * The register holds address bits 5..36.
++	 */
++	writew(FIELD_GET(VECTOR_ADDR_LO, msi->vector_phys), msi->msi_base + MSI_BASE_LO);
++
++	writew(FIELD_GET(VECTOR_ADDR_HI, msi->vector_phys), msi->msi_base + MSI_BASE_HI);
++
++	/*
++	 * RC mode uses BAR 2 as the no-translation BAR, endpoint mode uses
++	 * BAR 3 as the MSI BAR.
++	 */
++	match_bar = is_rc ? 2 : 3;
++
++	/*
++	 * MSI_ADDR_MASK is left to zero: the vector region only differs from
++	 * its base on address bits [4:3], which hardware excludes from the
++	 * comparison since they hold the vector number.
++	 */
++	control = MSI_CTRL_EN_OVERRIDE | MSI_CTRL_BAR_MATCH_MODE |
++		FIELD_PREP(MSI_CTRL_BAR_COMPARE, match_bar);
++
++	writew(control, msi->msi_base + MSI_CTRL);
++}
++
++static int __init eyeq_msi_of_init(struct device_node *node, struct device_node *parent)
++{
++	struct eyeq_msi *msi;
++	bool is_rc;
++	int ret;
++
++	msi = kzalloc_obj(struct eyeq_msi);
++	if (!msi)
++		return -ENOMEM;
++
++	raw_spin_lock_init(&msi->lock);
++	bitmap_zero(msi->used, EYEQ_MSI_MAX_VECTORS);
++	msi->irq = -1;
++
++	msi->gcsr_base = of_iomap(node, 0);
++	if (!msi->gcsr_base) {
++		pr_err("failed to map GCSR registers\n");
++		ret = -ENOMEM;
++		goto err_free;
++	}
++
++	msi->msi_base = of_iomap(node, 1);
++	if (!msi->msi_base) {
++		pr_err("failed to map MSI registers\n");
++		ret = -ENOMEM;
++		goto err_unmap_gcsr;
++	}
++
++	ret = eyeq_msi_parse_dt(msi, node);
++	if (ret)
++		goto err_unmap_msi;
++
++	msi->irq = of_irq_get(node, 0);
++	if (msi->irq <= 0) {
++		ret = msi->irq ?: -EINVAL;
++		pr_err("failed to obtain parent IRQ: %d\n", ret);
++		goto err_unmap_msi;
++	}
++
++	is_rc = FIELD_GET(GCSR_CONFIG_RC, readw(msi->gcsr_base + GCSR_CONFIG));
++
++	ret = eyeq_msi_create_domain(msi, node, is_rc);
++	if (ret) {
++		pr_err("failed to create IRQ domain: %d\n", ret);
++		goto err_dispose_irq;
++	}
++
++	eyeq_msi_program_hardware(msi, is_rc);
++
++	/*
++	 * Install the chained handler only once the domain and hardware are
++	 * ready, otherwise an interrupt could arrive unhandled.
++	 */
++	irq_set_chained_handler_and_data(msi->irq, eyeq_msi_isr, msi);
++
++	pr_info("%s: initialized in %s mode with %u vectors, parent IRQ %d\n",
++		msi->label, is_rc ? "root-complex" : "endpoint", EYEQ_MSI_MAX_VECTORS, msi->irq);
++
++	return 0;
++
++err_dispose_irq:
++	irq_dispose_mapping(msi->irq);
++
++err_unmap_msi:
++	iounmap(msi->msi_base);
++
++err_unmap_gcsr:
++	iounmap(msi->gcsr_base);
++
++err_free:
++	kfree(msi);
 +
 +	return ret;
 +}
 +
-+static int mtk_rtc_clkout_prepare(struct clk_hw *hw)
-+{
-+	return mtk_rtc_clkout_set(hw, true);
-+}
-+
-+static void mtk_rtc_clkout_unprepare(struct clk_hw *hw)
-+{
-+	mtk_rtc_clkout_set(hw, false);
-+}
-+
-+static int mtk_rtc_clkout_is_prepared(struct clk_hw *hw)
-+{
-+	struct mt6397_rtc *rtc = container_of(hw, struct mt6397_rtc, clkout);
-+	u32 con;
-+
-+	if (regmap_read(rtc->regmap, rtc->addr_base + rtc->data->con, &con))
-+		return 0;
-+
-+	return !(con & RTC_CON_F32KOB);
-+}
-+
-+static unsigned long mtk_rtc_clkout_recalc_rate(struct clk_hw *hw,
-+						unsigned long parent_rate)
-+{
-+	return 32768;
-+}
-+
-+static const struct clk_ops mtk_rtc_clkout_ops = {
-+	.prepare = mtk_rtc_clkout_prepare,
-+	.unprepare = mtk_rtc_clkout_unprepare,
-+	.is_prepared = mtk_rtc_clkout_is_prepared,
-+	.recalc_rate = mtk_rtc_clkout_recalc_rate,
-+};
-+
-+/* The 32 kHz output the PMIC drives to other chips, such as a combo chip */
-+static int mtk_rtc_register_clkout(struct device *dev, struct mt6397_rtc *rtc)
-+{
-+	struct clk_init_data init = {
-+		.name = "mt6397-rtc-32k",
-+		.ops = &mtk_rtc_clkout_ops,
-+	};
-+	int ret;
-+
-+	if (!of_property_present(dev->of_node, "#clock-cells") || !rtc->data->con)
-+		return 0;
-+
-+	rtc->clkout.init = &init;
-+
-+	ret = devm_clk_hw_register(dev, &rtc->clkout);
-+	if (ret)
-+		return ret;
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
-+					   &rtc->clkout);
-+}
-+#else
-+static int mtk_rtc_register_clkout(struct device *dev, struct mt6397_rtc *rtc)
-+{
-+	return 0;
-+}
-+#endif
-+
- static int mtk_rtc_probe(struct platform_device *pdev)
- {
- 	struct resource *res;
-@@ -380,6 +459,11 @@ static int mtk_rtc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ret = mtk_rtc_register_clkout(&pdev->dev, rtc);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to register the 32k clock\n");
-+
- 	nvmem_cfg.priv = rtc;
- 
- 	return devm_rtc_nvmem_register(rtc->rtc_dev, &nvmem_cfg);
-@@ -416,6 +500,7 @@ static const struct mtk_rtc_data mt6358_rtc_data = {
- 
- static const struct mtk_rtc_data mt6397_rtc_data = {
- 	.wrtgr = RTC_WRTGR_MT6397,
-+	.con = RTC_CON_MT6397,
- };
- 
- static const struct of_device_id mt6397_rtc_of_match[] = {
-diff --git a/include/linux/mfd/mt6397/rtc.h b/include/linux/mfd/mt6397/rtc.h
-index f4da579ec638..a8130d726c59 100644
---- a/include/linux/mfd/mt6397/rtc.h
-+++ b/include/linux/mfd/mt6397/rtc.h
-@@ -9,6 +9,7 @@
- #ifndef _LINUX_MFD_MT6397_RTC_H_
- #define _LINUX_MFD_MT6397_RTC_H_
- 
-+#include <linux/clk-provider.h>
- #include <linux/jiffies.h>
- #include <linux/mutex.h>
- #include <linux/regmap.h>
-@@ -22,6 +23,9 @@
- #define RTC_WRTGR_MT6397       0x003c
- #define RTC_WRTGR_MT6323       RTC_WRTGR_MT6397
- 
-+#define RTC_CON_MT6397         0x003e
-+#define RTC_CON_F32KOB         BIT(5)
-+
- #define RTC_IRQ_STA            0x0002
- #define RTC_IRQ_STA_AL         BIT(0)
- #define RTC_IRQ_STA_LP         BIT(3)
-@@ -72,6 +76,7 @@
- 
- struct mtk_rtc_data {
- 	u32                     wrtgr;
-+	u32                     con;
- };
- 
- struct mt6397_rtc {
-@@ -83,6 +88,7 @@ struct mt6397_rtc {
- 	int                     irq;
- 	u32                     addr_base;
- 	const struct mtk_rtc_data *data;
-+	struct clk_hw           clkout;
- };
- 
- #endif /* _LINUX_MFD_MT6397_RTC_H_ */
++IRQCHIP_DECLARE(eyeq5_msi, "mobileye,eyeq5-msi", eyeq_msi_of_init);
 
 -- 
-2.55.0
+2.53.0
 
