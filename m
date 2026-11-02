@@ -1,123 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639450;
-	b=PZXtBrSAnmWYq2LLXos+DKmtwvykCmU5Wv3lWjkBvy7E69gRpFF181urgPptMoSYF0/v
-	 23EY9Qka3zTKfE/NEJ6Zg1MHD2zh6F8Ajg61/rgDwbRq0VieoGh+5aUPwgUtwrN900qYM
-	 gbeNs3bO9DrW+aCtlsH2B+3bjwvh1Jxw8EiB0kweFbmI05ihmFOnsnnE2UE//lqCuSKtX
-	 p9fzTvIvXAPm9vvVIIPr7Rz85nDpOnlu2kXgkIXCPdozyoMK6YFQ/2qjd6g089hBVOBtE
-	 NZ23ymdqYvRNV4WvgJRMd12DcJFrOpcATW2vqGmKFeFBrnbzygIcNgdFZoFpCh2fGGA==
+	t=1793639811;
+	b=ucUEeMZLkzYZyax4CTUU99QKybWn7TZDrSH8ntUyrdrk0tyjxFIloCKJft02p2bkhNiW
+	 8sRxuOsLJ2PnUeFOjQLZgIE3v2NbJB0WY4wjaUCo+cCpiwQRr4r7/SDiIfzlybBqoWUIp
+	 kL26jBO2vhR+UkpcqN46hcq7gK+cnud6IDhOp4lQjwBHw9uZ7uIxaRYJWQ+AcBsJad9hs
+	 x/M48of04lQfRR7r8Pim2dRwbHlLxuXtHYY7Qk0sKyGt411lPhknsTHLf/+PgmMgMD9IE
+	 9gOvRMrs71SA2lamDTvmdXRzdl3duDFbO0EyhfCn5sPhxtEvwmVBv9uWHU4YZWhqJZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639450;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=1C1+XioTRX3xL6+y9qksFrookXeEiiwK+P4D7t5AbDk=;
-	b=hbxSESaQQY9QiK5buivGqRmIhaNPfht9hnFyORkP9xe5nRypdoPgCnZgaWP0BLotVJ/q
-	 wpxluOjPBYnjAG+lExuLy402xEAyj/am9/j2UkaeDk9hyuKmPWeQRav5IxFesppb32bta
-	 Ex1ao5kpCBjLtP4PsRcgyxzAcG1bDD3Vug6ZBybcDq5hQevJjOi+ujKfixyShJ8lfO/8J
-	 MMADaYa5RtvL39Yd+BiKemmMbLo7og8iAVpc1e5QLRyVW2XnJtFmeO6CyrHHZTtOn8cDR
-	 7j5JuGp9gQ4pM7tPJT0ItaP/vAUarjGnOygYNKm9cuTUkI3E3K3u+ziI/6miKA4Ox0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639811;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=DL6eWlq15EKPr/TYScc900w62Ml/3uJ7lKLaTqSBLI8=;
+	b=Yr2EJNfo6yHdOAs2T9unqEufuzK+Pws6IYUqHH+5Coq4XBKGEhb6jkl40UL9uuYhnbLt
+	 dcKyqCI5NMcPBB58Dfy8qqUMahlyyDOhlbbah+3uJlqX10NWPnmn0EhkPL89ZH07nDUq9
+	 cw/nQ/CdWAwFmOSLoS4cuMCZ/Qsw/mTXQOaej1t1GuCkKE2bU9FwOVtfLiyGpVxkxG56U
+	 XH9vyXU7VWc/mGKiZQeZ/eo2PLvoaNnyBgiLrLMezNBpMVYLV2Jg1dL+zeo4wxS85DR6W
+	 +/R6pq+qxmhLc4+HeCJH2jAiZ/b7b6yqzhpXcrPyJFC2K2+Bz6KHWwMCzECbNwpvkNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABTVoPA1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBNdxZNF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D290606ABA4;
-	Mon,  2 Nov 2026 17:10:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E8C6072C4C
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:16:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABTVoPA1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9881F00A16;
-	Mon,  2 Nov 2026 17:10:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBNdxZNF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963C61F00A16;
+	Mon,  2 Nov 2026 17:16:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793639450;
-	bh=1C1+XioTRX3xL6+y9qksFrookXeEiiwK+P4D7t5AbDk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ABTVoPA11AcLWkMt2HA3NuaCz3TJC7cnr/HC+r5G6PR6a8aG7aRLuLyUHjoos4mk/
-	 FGGhmGmyUFITYN4wcjdlul8/bi6GRsAoWVTD0LWhZh2nLhD8s0v+KJ34XdB/EcFA9p
-	 bj7h1JmDXycwqk3fffJ3Bj+ZaOtvQy3ZN+fXGwU5Mo332EP6xDRRc1j/b8QBRPO3B9
-	 oFKE/+K/1/DPAFHhIVomg/lZf/GTxFNzd0MGpxxzid2gzVdaV7sydbx6OYJHlUX2Ye
-	 XkGrWyIsnCJf7w8Ms/IJbXTD8futWINJEtUKzY+znoX4p8/Hs89T1PQcag5KOTitM8
-	 N4M1zDlFRxy0Q==
-Date: Mon, 2 Nov 2026 17:10:31 +0000
-From: Mark Brown <broonie@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
-	Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Chanh Nguyen <chanh@os.amperecomputing.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Julius Werner <jwerner@chromium.org>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Ray Jui <ray.jui@broadcom.com>,
-	Scott Branden <scott.branden@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sound@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-tegra@vger.kernel.org, mfd@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-Message-ID: <46a87ad3-5bfa-4906-8869-8eb7d0f7a82b@sirena.org.uk>
-References: <20261102135330.2493332-1-robh@kernel.org>
+	s=k20260515; t=1793639810;
+	bh=DL6eWlq15EKPr/TYScc900w62Ml/3uJ7lKLaTqSBLI8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UBNdxZNF0/nvAXDJ9wpbTR13bTPY0Z/F9Gmbo2NHORKlfj1jWSy1HzmkHaldlMYDN
+	 kYTdHgeFB4mXNLyM/ARKtKaKKPZn279QnerITZlfUkHAgK8gMxqRaEONF2tSZOuDMe
+	 TeebFujuT6CHkB9bim4naeMPWh8LZBnE/qA8MrfZRwG6onuiLjyP4WwFgc3BBrKtiO
+	 3OQ0NLnn/v3u7z2rYhS5fSdPtcsNgz1CGzZPWqDlPWUZvuzageZVZv854Rtsp/dbSj
+	 IzWbQFHK1Ck4XcnnP1x+uIqeSt4jIsc+QA4vWiJ8pA0ZQPQeFkrjy5ActgRjEvXmAL
+	 ffEjxWUxJmgSQ==
+Message-ID: <sashiko-outbox-193815@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 7/9] arm64: dts: qcom: agatti: Add OPE node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261102-camss-isp-ope-v12-7-702254689feb@oss.qualcomm.com>
+References: <20261102-camss-isp-ope-v12-0-702254689feb@oss.qualcomm.com>
+ <20261102-camss-isp-ope-v12-7-702254689feb@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 17:16:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,38 +59,181 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="II/GuXYaiAd5/THw"
-Content-Disposition: inline
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
-X-Cookie: Used with permission.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] media: qcom: camss: premature job scheduling in ope_job_ready()
+- [Medium] arm64: dts: qcom: agatti: duplicate OPE SMMU stream IDs in camss=
+ and isp_ope
+--
 
---II/GuXYaiAd5/THw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 0107815e7961692e1726c48663af675e73445331
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
+arm64: dts: qcom: agatti: Add OPE node
 
-Acked-by: Mark Brown <broonie@kernel.org>
+This commit adds and enables the Offline Processing Engine (OPE) device tree
+node (isp@5c42000) for the Agatti (QCM2290) platform, describing its regist=
+er
+regions, clocks, interrupt, interconnects, IOMMU stream IDs, power domains,
+and OPP table.
 
---II/GuXYaiAd5/THw
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
+com/agatti.dtsi
+> index d9f4cbfd2861c..8f2b451b8f6e8 100644
+> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+> @@ -1990,6 +1990,83 @@ port@1 {
+>  			};
+>  		};
+> =20
+> +		isp_ope: isp@5c42000 {
+> +			compatible =3D "qcom,qcm2290-camss-ope";
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+As reported by Sashiko on v11 [1], enabling isp_ope exposes the
+qcom,qcm2290-camss-ope driver (drivers/media/platform/qcom/camss/ope/core.c=
+),
+where ope_job_ready() only checks whether ctx->started (set by
+OPE_QUEUE_FRAME_IN) is true and the frame input and display output rdy_queue
+lists are non-empty:
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroxAcACgkQJNaLcl1U
-h9C0NAf/apisaJjoPaRQ3p+Tid6myUtq0cuOzuE2aVnPR8iumwTpFmtJ3R7zGJl/
-bKV1H2FxfvCFDPI5gEFjBhoA8fFlBhCN/Xfqa/sNMOen6rihVDXtsCJ3Aisf4ZwM
-mGBcOHHcpfbe9eVJQDGln8TNm+bohiDCmtUmzk5cavtLKRIfuYlv2ZDfsPWETWQb
-FJUx3rlX/fOteFbygcgKXryK+yfNoq6072k6WBwn8O72yJdLDky6aGU5Y517ocKd
-pBL+4J2d49+xPyb0zRTbVvVFip8kFWAIu/opdahAn7IDSZsmCzKDeEmDJgiopRm6
-W/Z5ZSJpbXDiCuqW/gEK1TSrLjxzzQ==
-=FFre
------END PGP SIGNATURE-----
+drivers/media/platform/qcom/camss/ope/core.c:ope_job_ready() {
+	struct ope_ctx *ctx =3D priv;
 
---II/GuXYaiAd5/THw--
+	guard(spinlock_irqsave)(&ctx->queues_lock);
+
+	return ctx->started &&
+	       !list_empty(&ctx->queues[OPE_QUEUE_FRAME_IN].rdy_queue) &&
+	       !list_empty(&ctx->queues[OPE_QUEUE_DISP_OUT].rdy_queue);
+}
+
+When userspace starts streaming on ope_input (OPE_QUEUE_FRAME_IN) first so
+ctx->started is true, and then pre-queues a capture buffer on
+ope_disp_output (OPE_QUEUE_DISP_OUT) and calls VIDIOC_STREAMON,
+vb2_start_streaming() passes the pre-queued buffer to ope_buf_queue() before
+calling ope_start_streaming():
+
+drivers/media/platform/qcom/camss/ope/core.c:ope_buf_queue() {
+	...
+	scoped_guard(spinlock_irqsave, &ctx->queues_lock)
+		list_add_tail(&buf->list, &ctx->queues[idx].rdy_queue);
+
+	ope_try_schedule(ctx);
+}
+
+Because ope_job_ready() does not check whether OPE_QUEUE_DISP_OUT has
+completed ope_start_streaming(), ope_try_schedule() schedules ope->run_work
+immediately and starts hardware DMA into the capture buffer before
+ope_start_streaming() runs video_device_pipeline_alloc_start() (including
+ope_disp_output_link_validate()) or pm_runtime_resume_and_get().
+
+If video_device_pipeline_alloc_start() or pm_runtime_resume_and_get() fails
+in ope_start_streaming(), the err_drain path calls ope_queue_drain() without
+calling ope_sched_cancel():
+
+drivers/media/platform/qcom/camss/ope/core.c:ope_start_streaming() {
+	ret =3D video_device_pipeline_alloc_start(vdev);
+	if (ret)
+		goto err_drain;
+
+	ret =3D pm_runtime_resume_and_get(ctx->ope->dev);
+	if (ret) {
+		dev_err(ctx->ope->dev, "resume failed (%d)\n", ret);
+		goto err_pipeline_stop;
+	}
+	...
+err_pipeline_stop:
+	video_device_pipeline_stop(vdev);
+err_drain:
+	ope_queue_drain(ctx, idx, VB2_BUF_STATE_QUEUED);
+	return ret;
+}
+
+Can this leave OPE hardware actively DMA-writing into a buffer returned to
+VB2_BUF_STATE_QUEUED, or trigger WARN_ON(!list_empty(&q->done_list)) in
+vb2_start_streaming() if ope_job_finish() has already completed the job?
+
+In addition, because all three video nodes (ope_input, ope_disp_output, and
+ope_params) share a connected media graph, starting ope_params
+(OPE_QUEUE_PARAMS) or ope_disp_output (OPE_QUEUE_DISP_OUT) first runs
+video_device_pipeline_alloc_start() -> __media_pipeline_start(), validating
+links once and setting pipe->start_count =3D 1 while leaving ctx->started
+false. While ctx->started is false, ope_state_is_busy() returns false:
+
+drivers/media/platform/qcom/camss/ope/core.c:ope_state_is_busy() {
+	...
+	scoped_guard(spinlock, &ope->ctx_lock)
+		list_for_each_entry(ctx, &ope->ctx_list, list)
+			busy |=3D ctx->started;
+
+	return busy;
+}
+
+Doesn't this allow userspace to modify active subdev formats/selections (via
+ope_proc_set_fmt(), ope_proc_set_selection(), and ope_disp_set_fmt()) and
+video node formats (via ope_s_fmt_vid_out() and ope_s_fmt_vid_cap()) after
+link validation has already completed, since subsequent VIDIOC_STREAMON cal=
+ls
+on the remaining queues see pipe->start_count > 0 in
+__media_pipeline_start() and skip re-validating links?
+
+[ ... ]
+
+> +			iommus =3D <&apps_smmu 0x800 0x0>,
+> +				 <&apps_smmu 0x820 0x0>,
+> +				 <&apps_smmu 0x840 0x0>;
+
+[Severity: Medium]
+In arch/arm64/boot/dts/qcom/agatti.dtsi, the existing camss node
+(camss@5c11000) already lists the three OPE SMMU stream IDs (0x800, 0x820,
+and 0x840) alongside VFE stream ID 0x400:
+
+		camss: camss@5c11000 {
+			compatible =3D "qcom,qcm2290-camss";
+			...
+			iommus =3D <&apps_smmu 0x400 0x0>,
+				 <&apps_smmu 0x800 0x0>,
+				 <&apps_smmu 0x820 0x0>,
+				 <&apps_smmu 0x840 0x0>;
+
+Adding isp_ope with the same 0x800, 0x820, and 0x840 stream IDs without
+removing them from camss causes both devices to claim the same stream mappi=
+ng
+entries when camss is enabled (such as via
+arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtso).
+
+In drivers/iommu/arm/arm-smmu/arm-smmu.c, arm_smmu_device_group() merges
+devices that share SMEs into a single iommu_group, and if isp_ope probes
+before camss, the loop in arm_smmu_device_group() finds isp_ope's group on
+SMEs 0x800/0x820/0x840 and returns early without assigning
+smmu->s2crs[idx].group for camss's 0x400 SME:
+
+drivers/iommu/arm/arm-smmu/arm-smmu.c:arm_smmu_device_group() {
+	for_each_cfg_sme(cfg, fwspec, i, idx) {
+		if (group && smmu->s2crs[idx].group &&
+		    group !=3D smmu->s2crs[idx].group) {
+			mutex_unlock(&smmu->stream_map_mutex);
+			return ERR_PTR(-EINVAL);
+		}
+
+		group =3D smmu->s2crs[idx].group;
+	}
+
+	if (group) {
+		mutex_unlock(&smmu->stream_map_mutex);
+		return iommu_group_ref_get(group);
+	}
+}
+
+Should the 0x800, 0x820, and 0x840 stream IDs be removed from camss@5c11000
+so that camss only claims 0x400 (as done in shikra.dtsi and allowed by
+Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml) and VFE and
+OPE remain in separate IOMMU groups and domains?
+
+[1] https://lore.kernel.org/r/20261023-camss-isp-ope-v11-7-0c2937195298@oss=
+.qualcomm.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-camss-isp-=
+ope-v12-0-702254689feb@oss.qualcomm.com?part=3D7
