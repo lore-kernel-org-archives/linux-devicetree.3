@@ -1,53 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577943;
-	b=gO2EJf7Ra0FgCz438wqOODhIDyPFw1qH3bTDrOiQRd90ruEqT3dV61PIzx5UKmeMCsRO
-	 9X4zOoYd+U/lfQBkc7arC569XvYgZWT80YWm8+h0Yycdq/aILQerC72gCb4AYX4BOrQgK
-	 3QY5wxNrLn2WrAjg9K/z6NM+X2LOANvCz3BC/+fDwIJihaLboNBa9V+yQNKmjeoW0iea7
-	 sbBSPkmOwV8gusRq0GgDutCXBUK4CJNEUsbQOHLWjiLnn9DZBO8z+cwN7p+QtG73Awbi3
-	 DliaGan0hZD74AlK+TrNO2/Q6mhUFfss9Bu39HxxcD1ImWMk9I+3Ol0tOSMssRxUBRA==
+	t=1793578092;
+	b=nJ1jYHigaU4c++U5Afgp/6wZq6K3a+nun4gyzzPO9zKJdj8YkouFiDepkQBEfke9YJKg
+	 gSKEF9CNgoYTPn/Ij4/E8gODUK0PqWu2qXLhDrLmijBn53+VRGjVolCwqr4JvBWcQ1Qb4
+	 Tc/NfyF1kpKEZWplOMqV0CfJwaDQIh3wnPKBgpCASomRK/X9m1+qr2NbBNfHBnel6Zpwt
+	 zGKSdJx176/ym6xn24hKGWrT7aowAdIPU0yeaWP/zuIG9l0NFIh+2SLgOwtqJaCrONdK4
+	 +eclqhvKNiUFZcKfekg/kBUmcwBDVPN/YE0Qz2vD9CBcYxAWXo9dH/suzP42ostfVPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577943;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:Autocrypt:In-Reply-To:Content-Type;
-	bh=Zyp6Ql5N1rWlYxuROJ0el25M0bYgmu9qE6tE4Km9PMs=;
-	b=kaasIHCUpaeucpl2pzqEU0CO6QUsXsgoquGWp/PCe4E4RrBE9YkONLZ+GIpmm4jPMXxB
-	 am5NzsTl6NTVNHjLuXE28ongePI+hRxUxokzb+eR2vDO1rRp/uczHRYRt2PS+rzBTdSPx
-	 k0sg5H7hnnnWH6Vlka62OVpUSKl43m1sGljMyGa+RxJiu0mbH6Tdm6iQ152MrI+x6F7HF
-	 f37DGTFApp8+n6gj1J36slasGA/74JFQnzxuEGjIVc8Kx47l0grQSIIPYpR4BhM6iXqvB
-	 2TnFX8D/quL5T3F/1BRDcP09V8hUCqhrJVasDoQmAjAGrd7vTsb4k98LGe4OLXmM09w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793578092;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=To2uuGbxbCF9OFD4rYrbZQc498MOdFtRXrJ5fR1WVTU=;
+	b=JcBQHCsb6BVoeSHMFMszAtcoIhD8uRLVh1mUcKzN1pp1xBxK0CLFsrOZFRO0sgtY5glY
+	 vzcz71Xu6cs1VyeT3xFDCUINxvu7BjPgKO6iJXEh2vJ/9PNB9Lc8QdCuBt+Cp1Wizc4xc
+	 wo4EMLp97vwJOntan839zgEnqz9SMY+rFhdBkSYnNIMbHPiC1u9K4NOibu6Gvzu3jp2LK
+	 LlYw2Z/wjoUg25OMDoCuOhSQ0Aswe+nnmYjyRVM41iIOcgMYpFS4Y+Bvtc5Z2YJ0jWbyf
+	 jzG9r/1svCjM3F4Gcu1f1xrBbLVhKCyiUf7oDYgPWFsKKQmzCVTs1PbqWLXPSPnMlEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=dWyAcbiJ;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=AFBbnnBT;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VsFR662W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930A9606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 00:05:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 930A9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF60606A324;
+	Mon,  2 Nov 2026 00:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=dWyAcbiJ;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=AFBbnnBT
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1793577927; bh=Zyp6Ql5N1rWlYxuROJ0el25
-	M0bYgmu9qE6tE4Km9PMs=; b=dWyAcbiJlhekDlG3AtkMUe7XDMEMVyWToIijbESJKdL3bHD3jb
-	g3WqcUhc+XMiM6Ox9WibNiqzOjVtdpmt/ZAw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=From:To:Subject:Date:Message-ID; t=1793577927; bh=Zyp6Ql5N1rWlYxuROJ0el25
-	M0bYgmu9qE6tE4Km9PMs=; b=AFBbnnBTrQNndV3stO+6iA2dZjtlSO9RS+TVPb6YTIXWPPuHfA
-	TZZTc+d16gK7NtKVw+dFB75xqDN0zahBw7zu4syOpPou7NzUBGfgZ7ON0rL9czXl4sG4Tq96elX
-	xqa7GyjnMG8cQO3eqfbfZLyTg4q172shJZbVRgj7/z7aX0LjS4ZfhWEL+jPCg0AM7agHrwMKRRh
-	YGZrgGKLgzZAi/EuEVer2OqQOSTumUtZ+XcG15cbfvBHUpPk5mo7R38wFjbua9FTb/4bHLsrJF4
-	VxfifC/zBt4975F0Ed1PMSC1jOqnzkLQWsalvdFK1fgf5uv9nuFPclFmPp1FgdhQvpQ==;
-Message-ID: <218cfd0d-30db-42e9-923c-5e6514f0836e@erebion.eu>
-Date: Mon, 2 Nov 2026 01:05:26 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VsFR662W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8521F000C1;
+	Mon,  2 Nov 2026 00:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793578092;
+	bh=To2uuGbxbCF9OFD4rYrbZQc498MOdFtRXrJ5fR1WVTU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VsFR662WK1EvXzuwd0r/uOXZxWykjrSBpVH7zElBWp1mwIMIMzKyMMuDDAAWuQGCw
+	 TYA9lDewlAC1l7pyJ//BZYFazk2a2jZBzFDG4UKncYFBvQ7pSTps1HvyRc0oBs5bJJ
+	 SnvYjnf9W7JN1gWXrk7BcCCBr+jQRujDwcZ94Q9bp6OuVGbgQesRk3BwwrpMlOGry1
+	 322Tycd37S8FiVicn+2PNUEr9bMB4Rvxi6Ggs5rIlvurRz33zc2B2ERe37FUYz5Hg2
+	 pekT1qbV5Y3oJrbwP6Z6n11cxpNT/nT+qv8Y9j+i9q0POW4B/7dZjDx0Gk15nCHEva
+	 LA9S+Ulz2nCYA==
+Date: Mon, 2 Nov 2026 00:08:02 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Stephan Costa Barros <stephanbrrs8@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mike Looijmans <mike.looijmans@topic.nl>, Andy
+ Shevchenko <andriy.shevchenko@intel.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5p?=
+ =?UTF-8?B?Zw==?= <u.kleine-koenig@baylibre.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] iio: adc: ti-ads1298: fix the data read path
+Message-ID: <20261102000802.646dfd86@jic23-hlaptop>
+In-Reply-To: <20261028021946.29877-1-stephanbrrs8@gmail.com>
+References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
+	<20261024231335.280955-2-stephanbrrs8@gmail.com>
+	<20261025230601.6a2eae34@jic23-hlaptop>
+	<20261028021946.29877-1-stephanbrrs8@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,88 +68,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/12] arm64: dts: qcom: sm6350-lena: Add PM7250B
- thermals
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-10-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192767@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192767@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------N0qJnxep6JA5K18oUsDVI0Mn"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------N0qJnxep6JA5K18oUsDVI0Mn
-Content-Type: multipart/mixed; boundary="------------5YIA4P0FAXJCX9zdLr0qUAmO";
- protected-headers="v1"; hp="clear"
-Message-ID: <218cfd0d-30db-42e9-923c-5e6514f0836e@erebion.eu>
-Date: Mon, 2 Nov 2026 01:05:26 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/12] arm64: dts: qcom: sm6350-lena: Add PM7250B
- thermals
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-10-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192767@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192767@kernel.org>
+On Tue, 27 Oct 2026 23:19:45 -0300
+Stephan Costa Barros <stephanbrrs8@gmail.com> wrote:
 
---------------5YIA4P0FAXJCX9zdLr0qUAmO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> On Sun, 25 Oct 2026 23:06:01 +0000, Jonathan Cameron wrote:
+> > This is a lot in one patch.  Can we break some of this
+> > up into smaller changes?  The whole thing is probably
+> > to complex for a stable tag, so focus on the most broken
+> > aspects.  
+> 
+> Will do: one patch per fix in v3, the most broken first.
+> 
+> > This I'd like in a patch that does just this and allows the commit
+> > message to say why simply using a single lock for the data buffers
+> > would not be cleaner.  
+> 
+> OK. To check the argument before I write it: a driver mutex around
+> write_cmd() and the regmap accessors would also stop a register access
+> from rewriting a command. It does not help with rx_buffer, which an
+> spi_async() started from the hard IRQ writes, so it cannot be under a
+> sleeping lock and still needs its own cacheline. Separate buffers fix
+> both without a new lock. If you would still rather have the mutex for
+> the command path, I'll do that.
 
-T3kgeWVzLCB0aGUgYm90IGlzIHJpZ2h0LCByZWJhc2UgbWlzaGFwLCB3aWxsIGZpeC4uLg0K
-DQpPbiAxMS8yLzI2IDAwOjQ0LCBzYXNoaWtvLWJvdEBrZXJuZWwub3JnIHdyb3RlOg0KPiBU
-aGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAxIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoNCj4gLSBbTWVkaXVtXSBhcm02
-NDogZHRzOiBxY29tOiBzbTYzNTAtbGVuYTogeG8tdGhlcm1hbCBvdmVyd3JpdHRlbiBieSBj
-aGctc2tpbi10aGVybWFsDQotLSANCmVyZWJpb24NCg0KWE1QUDogZXJlYmlvbkBlcmViaW9u
-LmV1DQoNCk15IGxhbmd1YWdlczogR2VybWFuLCBFbmdsaXNoLCBTd2VkaXNoLCBOb3J3ZWdp
-YW4sIERhbmlzaA0KWWVzLCBJJ20gYSBsYW5ndWFnZSBuZXJkLiBGZWVsIGZyZWUgdG8gd3Jp
-dGUgdG8gbWUgaW4gYW55IG9mIHRoZSANCmFmb3JlbWVudGlvbmVkIGxhbmd1YWdlcy4NCg0K
+I'm fine with the approach you have here. I just want some more reasoning
+in the description as cachelines can be quite large and so we need
+to have a clear justification for people thinking of backporting the
+change.
+
+> > > After STOP, the conversion in progress still raises DRDY, so an RDATA
+> > > transfer can be in flight when the core frees the active scan mask.
+> > > Track in the driver whether samples go to the buffer, wait in
+> > > predisable for the last DRDY and its transfer, and push the sample
+> > > before marking the transfer done. update_scan_mode reset the transfer
+> > > counter, which let a new transfer be queued over one in flight; wait
+> > > for it instead.  
+
+Too much cropping.  I had to go find what I replied to in order to
+following the discussion! Put back above, indented as if you'd left
+it there
+
+> > Complicated sounding solution. Can we claim buffered mode instead?
+> > That would ensure the update_scan_mode and this don't race and mostly
+> > would be taking an uncontended lock.  
+
+> 
+> I don't see how to do it where the race is. The sample is pushed from
+> ads1298_rdata_complete(), the completion of that spi_async(), which the
+> SPI core "invokes in a context which can't sleep".
+
+Ah.  I'd missed that complexity and was assuming this was a normal
+threaded interrupt handler.  One simplification here would be to stop using
+async spi and instead just use synchronous spi in an interrupt thread which
+is how most drivers handle similar flows.
+
+> iio_device_try_claim_buffer_mode() takes mlock, and the core holds mlock
+> while it calls predisable, so the completion would also wait on the
+> teardown it races with.
+
+yeah. I got this wrong in another reply I sent today. Indeed, the lock
+is not conditional even though it acts like a conditional lock in the
+outer call.  We need to be able to queue up multiple users of that
+state on the lock so it can't be conditional wrt to mlock.
+
+Added checking the existing places we grab the buffer claim to my todo
+list for likely bugs :(
 
 
---------------5YIA4P0FAXJCX9zdLr0qUAmO--
+Jonathan
 
---------------N0qJnxep6JA5K18oUsDVI0Mn
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCaufTxgUDAAAAAAAKCRCOr0AybgKufdPd
-AQDCUGISN4DDlHW33Y4I4F8RyaQhK11Yq5IXhEeBfGkaeQEAymafLGzzalQ5u5nJvem3t3H3xz6p
-3zeAnym8G2rEJgA=
-=xtkD
------END PGP SIGNATURE-----
-
---------------N0qJnxep6JA5K18oUsDVI0Mn--
