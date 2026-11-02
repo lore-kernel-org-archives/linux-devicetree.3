@@ -1,60 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.82.167
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584374;
-	b=VHMv5TVMWcK1Gy7ZrSZNfku0EPFutoqLeiVprlk5ALVeXsoIG5KbbE9EulP96dUBtCxu
-	 0z8r0pBMaWDXJK1O1BQFws0z1R0/KK48w0FITSu4M5Kjokyo4aHwib/JhZiD7R2iTezAd
-	 eHflLorbx3OrFKBZAxMQ+d1A/3NtB8hdGatF9FxeUsVaMOyuSYvzFqRXfdz3+DEx/o2dh
-	 jpnrZ1FjkInfFHZBOeorB/9EnHPsQO8yhnbfDE3UspSmhptiLlPpVM5Sk5kEVXplu7IVb
-	 lc1gBXP2VBCHECCQmTzshJ+bz99N709cvNHMp2A5oNSxFmV9BI43y3Wtyt6jc7Wc9IA==
+	t=1793584369;
+	b=FbxBxDK36CA4l5NDbyUOALi40a5Vhvn/Vz3350hGkvLpKEW4+atflXMsRUCdrAs3Nrhl
+	 mdehLOOhuckXpnoqHsSOFGOoDZB+dCqRkGUc8kAmD9uIz3bKG6anbaWkevmGKqZ/tiV3p
+	 /mVYW/NplHyvpLayOwQRpayd/el2v4aeF5d/yXiFr15csMd+wrqLumupFnp5TCCMUqRRg
+	 LFOdx6VryWbTefq4ef0u5k53Phc7G5MgondEeoAgg9MxzNINjJSuhyAHQtGx/m7VfLB3G
+	 RYcCbWetOmIuXcsMfNqWuJ2m/ZeO+Y7kGoJmOFjogiz/IlW/RAUC8OZL4fiNhKjLbcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584374;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584369;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=s/53fzjdKTL1p4UUbauTe1x56R+kaRU23WwKPdP7V0w=;
-	b=Pb39H7+RiSUxhFR2Ds19kkmcB8NuWl3TefpPILNe3h5uLXsvLRRDldsEq9eiOOkog8aI
-	 NYZpOd2SMe1KBSoAQ5zP2z+NKrWhve9Nk/Xzye2Wcp7R0PXaHeK4cPHEeRU9rupWWQKn3
-	 cRnvMAo5ieuUz6owcIEqJrsxb8436DfvVDOFt2/9+rBr/B7BfhW/7NDUjGXxKOt6Pulia
-	 lNBc1uYoawIr9PgOsqCXjMeqiqxJMiZu32SbVAQnGrM1a/63l0kgZKuoj2E/VAQrjA0mP
-	 z41A68ekK7RxNzOa2lMJXdo8FoCzKLw/0AnhSDdu0a6lF/l6HRh3Jz0l7DZVwYjtX7A==
+	bh=tneePjoeL2yK6qrYSwwF6fPVIhSig+zNFAIr8myvBzw=;
+	b=C9p1tI0L4wkX+X+29BgsIJsZUT8j330DgP6eJaEGSOtDBp0SEUk1kbgAjsZT/+Zltlmr
+	 8NbydZtd35GXsZwFcO3pNsr27yH3PjTY3pGT0Yj7R/iaBbRc30gK3oHSAw2Afh+7VQecg
+	 hpOaN+6tqVwmOLwS3UhpP9QlpmEAGC6994JMyZGsnEOFEa4xSKGc4R7m6RiZqYlXc+Ld1
+	 ewqpAebXcnkoPE5tK4uBYiN1kUOTzd3lZqGl0XWMHyR5515ZWxEpew6wf9r6zl0P4Kh7D
+	 Fh4B0GJBsOfwYc0nfZzdKcZPrJQULFlr5wqV0r84cYvIYhOQUTWXm9Xmp5yZUkiePdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rock-chips.com;
 	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="L8E//mnz";
-	arc=none smtp.remote-ip=156.224.81.47
-Received: from mail-m8147.xmail.ntesmail.com (mail-m8147.xmail.ntesmail.com [156.224.81.47])
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=e9003h8k;
+	arc=none smtp.remote-ip=156.224.82.167
+Received: from mail-m82167.xmail.ntesmail.com (mail-m82167.xmail.ntesmail.com [156.224.82.167])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47FE606A326
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 01:52:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C47FE606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CFE606A324;
+	Mon,  2 Nov 2026 01:52:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32CFE606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=L8E//mnz
-Received: from localhost.localdomain (unknown [61.154.14.87])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 531ad2652;
-	Mon, 2 Nov 2026 09:52:42 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Cc: linux-rockchip@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	devicetree@vger.kernel.org,
-	Samuel Holland <samuel@sholland.org>,
-	Coia Prant <coiaprant@gmail.com>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Shawn Lin <shawn.lin@rock-chips.com>
-Subject: [PATCH v3 0/2] Support updating the PCIe3 PHY firmware on RK3568
-Date: Mon,  2 Nov 2026 09:52:34 +0800
-Message-Id: <20261102015236.3844843-1-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=e9003h8k
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 531adef43;
+	Mon, 2 Nov 2026 09:52:34 +0800 (GMT+08:00)
+Message-ID: <e0244072-2ace-4971-b237-dfea5806f114@rock-chips.com>
+Date: Mon, 2 Nov 2026 09:52:32 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,72 +48,182 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa199f5736803a4kunm2334e46e3a72b4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 11/15] accel/rocket: select the per-core clock and
+ reset counts from match data
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com, royalnet026@gmail.com,
+ abel.vesa@oss.qualcomm.com, sebastian.reichel@collabora.com,
+ sidong.yang@furiosa.ai, u.kleine-koenig@baylibre.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-12-gahing@gahingwoo.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261101082307.151957-12-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa199f5564903a7kunm28e33d1690928b
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS04aVh9CThlJGU5JTB5LT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ0xZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JDQkpVSktLVUtZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSRhCVklDSx9IHkhLH0sdTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=L8E//mnz6dmP5a7E30ZtaaWC5w1UHiM6YphIilYXKz7V57ft09HkKAGZw1QqtAKZj1ZpQBwf5efcBiI3mZ2re7vObL5pQmVnVp7+4lojvsiZHbo3KiRZ/QJ1XIA/iJZI6IfMDfaGzfe9yRPu5PCe55Pu0n6WTud0I8Pjg28PGKI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=s/53fzjdKTL1p4UUbauTe1x56R+kaRU23WwKPdP7V0w=;
+	b=e9003h8knr8hseqDVAmZLDsKePFZJoUfy4L3orybLa4qb80JWSlH6QDDGnueDDOkdRJdQDJA7AR/5PI3bTwMd12iobJIxPDYCV8/N5LCZZBTGRPdrPoqnXuMAcgZq6eTy+ZmUilbvt63z+HCK4Ll2pnWDp2meOLrFBe0F/ElZA8=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=tneePjoeL2yK6qrYSwwF6fPVIhSig+zNFAIr8myvBzw=;
 	h=date:mime-version:subject:message-id:from;
 
+Hi Jiaxing,
 
-The RK3568 PCIe3 PHY contains a small controller that runs microcode
-from an internal SRAM. The microcode present in the PHY is not always
-the latest one; with a stale version the PHY may fail to establish a
-stable link or come up with other issues that are otherwise very hard
-to diagnose from the host side.
+On 11/1/2026 4:23 PM, Jiaxing Hu wrote:
+> The RK3576 has the same RKNN block with a different number of clocks and
+> resets. Take the counts from soc_data in the match data; RK3588 keeps four
+> and two. Check soc before anything is allocated, since a device bound by
+> name has no match data.
+> 
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  drivers/accel/rocket/rocket_core.c |  8 ++++----
+>  drivers/accel/rocket/rocket_core.h |  7 +++++++
+>  drivers/accel/rocket/rocket_drv.c  | 26 +++++++++++++++++++++++---
+>  3 files changed, 34 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+> index 5dd260bacbff..b202d15816a3 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
+>  
+>  	core->resets[0].id = "srst_a";
+>  	core->resets[1].id = "srst_h";
+> -	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(core->resets),
+> +	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->num_resets,
+>  						    core->resets);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+> @@ -32,7 +32,7 @@ int rocket_core_init(struct rocket_core *core)
+>  	core->clks[1].id = "hclk";
+>  	core->clks[2].id = "npu";
+>  	core->clks[3].id = "pclk";
+> -	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+> +	err = devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
+>  
+> @@ -109,9 +109,9 @@ void rocket_core_fini(struct rocket_core *core)
+>  
+>  void rocket_core_reset(struct rocket_core *core)
+>  {
+> -	reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
+> +	reset_control_bulk_assert(core->soc->num_resets, core->resets);
+>  
+>  	udelay(10);
+>  
+> -	reset_control_bulk_deassert(ARRAY_SIZE(core->resets), core->resets);
+> +	reset_control_bulk_deassert(core->soc->num_resets, core->resets);
+>  }
+> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
+> index f6d7382854ca..ba74c5339b94 100644
+> --- a/drivers/accel/rocket/rocket_core.h
+> +++ b/drivers/accel/rocket/rocket_core.h
+> @@ -27,9 +27,16 @@
+>  #define rocket_core_writel(core, reg, value) \
+>  	writel(value, (core)->core_iomem + (REG_CORE_##reg) - REG_CORE_S_STATUS)
+>  
+> +/* Per-SoC differences, selected by the of_device_id match data. */
+> +struct rocket_soc_data {
+> +	unsigned int num_clks;		/* clk_bulk count */
+> +	unsigned int num_resets;	/* reset_bulk count */
+> +};
+> +
+>  struct rocket_core {
+>  	struct device *dev;
+>  	struct rocket_device *rdev;
+> +	const struct rocket_soc_data *soc;
+>  	unsigned int index;
+>  
+>  	int irq;
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+> index 5d7805c41dc3..284af027f398 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -159,8 +159,22 @@ static const struct drm_driver rocket_drm_driver = {
+>  
+>  static int rocket_probe(struct platform_device *pdev)
+>  {
+> +	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
+>  	int ret;
+>  
+> +	/*
+> +	 * soc is dereferenced without a check by every one of its users, and
+> +	 * rocket_core_init() below is the first of them. A device that bound
+> +	 * by name rather than by compatible has no match data, so fail before
+> +	 * anything is allocated rather than at the first dereference: the
+> +	 * number of cores comes from a walk of matching DT nodes, and a device
+> +	 * with no of_node was never counted by it.
+> +	 */
 
-The firmware stays optional: when firmware-name is not described in DT
-(older DTBs) or the file cannot be requested, the driver keeps the
-existing behaviour and runs with the microcode already present in the
-PHY, so there is no new hard dependency for existing boards.
+You don't need these comments because everyone already knows that.
 
-Patch 2 for the PHY driver depends on a pending patch that fixes another
-issue if anyone wants to apply this series for test:
-
-  https://lore.kernel.org/linux-rockchip/20261102005129.3745527-1-shawn.lin@rock-chips.com/
-
-The required firmware file is available in the rockchip directory of
-the linux-firmware repository:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-
-Load firmware during kernel compilation using the extra firmware assignment for quick
-test, otherwise rebuilding initramfs or copying firmware into /lib/firmware:
-
-CONFIG_EXTRA_FIRMWARE="rockchip/pcie3-t22-c8g2-1.6.3-202a-p7.fw"
-CONFIG_EXTRA_FIRMWARE_DIR="/home/rockchip/linux-firmware"
-
-Tested on a RK3568 EVB1 with a PCIe3 x2 NVMe SSD, the firmware is loaded
-and the link comes up:
-
-  phy phy-fe8c0000.phy.0: lane number 0, val 1
-  rockchip-snps-pcie3-phy fe8c0000.phy: loaded PHY firmware rockchip/pcie3-t22-c8g2-1.6.3-202a-p7.fw, size 16384
-  rockchip-dw-pcie 3c0800000.pcie: host bridge /pcie@fe280000 ranges:
-  ...
-  pci 0002:21:00.0: [1e0f:0009] type 00 class 0x010802 PCIe Endpoint
-  pci 0002:21:00.0: BAR 0 [mem 0x00000000-0x00003fff 64bit]
-  pci 0002:21:00.0: 15.752 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x2 link at 0002:20:00.0 (capable of 31.504 Gb/s with 8.0 GT/s PCIe x4 link)
-  pci 0002:21:00.0: ASPM: default states L1
-
-Link-to-v2:
-https://lore.kernel.org/linux-rockchip/20261026074003.1169669-1-shawn.lin@rock-chips.com/
-
-Link-to-v1:
-https://lore.kernel.org/linux-rockchip/1792466206-127946-1-git-send-email-shawn.lin@rock-chips.com/
-
-Shawn Lin (2):
-  dt-bindings: phy: rockchip,pcie3-phy: Document firmware-name
-  phy: rockchip: snps-pcie3: Load updated PHY firmware on RK3568
-
- .../bindings/phy/rockchip,pcie3-phy.yaml      |  7 ++
- .../phy/rockchip/phy-rockchip-snps-pcie3.c    | 90 ++++++++++++++++++-
- 2 files changed, 95 insertions(+), 2 deletions(-)
+> +	if (!soc) {
+> +		dev_err(&pdev->dev, "no match data for this device\n");
+> +		return -ENODEV;
+> +	}
+> +
+>  	if (rdev == NULL) {
+>  		/* First core probing, initialize DRM device. */
+>  		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
+> @@ -179,6 +193,7 @@ static int rocket_probe(struct platform_device *pdev)
+>  
+>  	rdev->cores[core].rdev = rdev;
+>  	rdev->cores[core].dev = &pdev->dev;
+> +	rdev->cores[core].soc = soc;
+>  	rdev->cores[core].index = core;
+>  
+>  	rdev->num_cores++;
+> @@ -216,8 +231,13 @@ static void rocket_remove(struct platform_device *pdev)
+>  	}
+>  }
+>  
+> +static const struct rocket_soc_data rk3588_soc_data = {
+> +	.num_clks = 4,
+> +	.num_resets = 2,
+> +};
+> +
+>  static const struct of_device_id dt_match[] = {
+> -	{ .compatible = "rockchip,rk3588-rknn-core" },
+> +	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, dt_match);
+> @@ -243,7 +263,7 @@ static int rocket_device_runtime_resume(struct device *dev)
+>  	if (core < 0)
+>  		return -ENODEV;
+>  
+> -	err = clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
+> +	err = clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+>  	if (err) {
+>  		dev_err(dev, "failed to enable (%d) clocks for core %d\n", err, core);
+>  		return err;
+> @@ -263,7 +283,7 @@ static int rocket_device_runtime_suspend(struct device *dev)
+>  	if (!rocket_job_is_idle(&rdev->cores[core]))
+>  		return -EBUSY;
+>  
+> -	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
+> +	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+>  
+>  	return 0;
+>  }
 
 -- 
-2.25.1
+Best, 
+Chaoyi
 
