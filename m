@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638490;
-	b=ZNjO0aZUjoHLgRFKFSEtBSr021gmNmjovzxxqLRPw1xvTxMs8DLgoApkW36Qzn5qa5eb
-	 OsCYmau5YiRejTbnBT+gIZeFA9nxYQ5XFtsvyD4NlI9pxxLuZkcC0SQ+B37AiY/DcB7RG
-	 ZVf0AOgqCtn1SXSZMFbuYTHVcM+fuUMQ8Xv9JytuiGFB1J3Cp+WKMBw+XwlGc35E/3ktL
-	 cDTrZKI5Id3fg//DuoVTVadMgiX6x6Ft/j84WQZXA1nth0AIKst6qQetogUY/nOpSBrV4
-	 Li2rfrlEnAxzJT1KTskw/m44SLmNY9m13k6yb3d18wfM6lQsYpMYw3NACSFA0iaIhVQ==
+	t=1793638480;
+	b=kdbwLbaqqE/QpqL8NaUvkJnPxGpfCU4vHwHfAcTB4cozK88ZXpqKPsrox3J+WfhCizMa
+	 KEKgHpxc0jYl+O7O1UsO6h2E6+Lp4Ght6VnW1W2t5U93G1g9zxbSdl1ohnAB4QZB4JOvX
+	 csT1f+sqpnY22CMPGzVzzQbTlIQHm7RJ68HSANjbi+e8lqD/rP/xHm1gJgJkOEGnXwJeB
+	 HzbTsM26PpjQN4rKt3JLl5C0nffurBVHviDEjTql8jDSx1g8mq0otjxbqRKfnXmlhY9ou
+	 fdqOaW6eBhCMr9vTq+pN8ebfzF7PC4TowNJE+JtzrJHjK/FJPdcEPD0qmUwM//Mst8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638490;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638480;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ymID8oqHCFAIWyYfqk6ucVD1Jsgmc6jMBtt8WzDyRFw=;
-	b=05Ix2MUN3B0Br75CVtgmFriDbwDB9+5Eyp0PHG7n1QHYfss8+73JkHwbIXjL3EhFcQnp
-	 hqifzhtrAgJ9qp8xnRsfK7qUHvGThUO6H7A/WOxxC/AwU0ItR6CbTLqW515NO5E/tqgOk
-	 4D+oVePAr68vBc39yUeiMSLz8edVt5Xy9Gwtq2ATphdGYseR3GaU2bFkGs9fQStiKleLu
-	 mLP+joKXMgIiWRMANmiCvkYqynExKAa/PrCwQOqXX86eihluXV/hcbBmiDa1Qp7rSsUNm
-	 +6bYz2YOLUcnQFRl9dbuV15UEcq2FwErSOybdpJHcrgqUs1hxslzv05iP9UgiJSX4gg==
+	bh=+J2NYd8ay0QrXgi9qYBw+MMENP6C1nyqElknyPaZSdo=;
+	b=I/v4iPecJkjhOPWEI9SKkhNv5x96KiMM74ae8/2OZiyGyo8oRUskscWwc7r8rAt6N4gn
+	 s94OveVJ7iYqa/xa0rjf4q/3+II7ycOBnJM0wog6bse9RmWFVF0JY/2KpXmc7TDAKU3oa
+	 +BVSSJ1SVnNYzDoiR1vCvhjbFfCYg58aa+WMriwEMO47Sc4bdsC2xQn3Tn2F0wJkmHnGn
+	 ZfgReVL3wxuRzHEbMx1rV5x0XN3hxC3c1Dj2MDwXlT2q+qs2XfLGxIBme2TFRFkTFWvub
+	 WxU3qwKzChy63yMn0hdu/VmrEcDJhtXfskbo2gCZuhu2puYnB9s6jcyHtzHSLQoQ9Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CkMNFUcL;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VP01+2dU;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 113436093D6A;
-	Mon,  2 Nov 2026 16:54:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113436093D6A
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3357360913D7;
+	Mon,  2 Nov 2026 16:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3357360913D7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CkMNFUcL
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VP01+2dU
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6DC3016F3;
-	Mon,  2 Nov 2026 08:54:46 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7839416F3;
+	Mon,  2 Nov 2026 08:54:36 -0800 (PST)
 Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 98CEA3F871;
-	Mon,  2 Nov 2026 08:54:46 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A662E3F59E;
+	Mon,  2 Nov 2026 08:54:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793638489; bh=eXLo4l00IuxcldPkqFxylRH7Wps8yF41ZAkJADgaRHA=;
+	t=1793638479; bh=TTQVKzHFqone59X5Z0GG6n5IMSWDCJV3150KBk/mdwo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CkMNFUcLyKKS7hFmChYHo7hyq6fTPx4zFHYNUemvl3FwrUGKiLuSknrczYGFwkSHd
-	 kLGyZ//v5qh4KUF7Tk0KhNKCc6WK+DYHpiO73M7NIY4xy8/xDfGqXF9KlgjwQRl0EP
-	 az4/kOSU9iShP6Gn8aHHc3YvDIiPm3pPbKEukSuI=
+	b=VP01+2dUP91YuMVH+dmlvlEtYde1uJbEmlN85JBu3P2xflCk3tNBhN2iM6BsG7DA7
+	 75fhDBfs2PanvziITaqsW2jo0+7Sdo4NYRajv2ET60wviP3jn7l/aqaBWtCyACrasi
+	 mPWolg9UHYQ6MFGS9jb3jVvw30tsKKGpwm1n/LxY=
 From: Andre Przywara <andre.przywara@arm.com>
 To: Mark Rutland <mark.rutland@arm.com>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
@@ -58,9 +58,9 @@ Cc: Salman Nabi <salman.nabi@arm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH v5 RESEND 6/6] firmware: smccc: lfa: add sysfs ABI documentation
-Date: Mon,  2 Nov 2026 17:54:20 +0100
-Message-ID: <20261102165421.3651202-7-andre.przywara@arm.com>
+Subject: [PATCH v5 RESEND 3/6] firmware: smccc: lfa: Register ACPI notification
+Date: Mon,  2 Nov 2026 17:54:17 +0100
+Message-ID: <20261102165421.3651202-4-andre.przywara@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102165421.3651202-1-andre.przywara@arm.com>
 References: <20261102165421.3651202-1-andre.przywara@arm.com>
@@ -75,126 +75,233 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the sysfs attribute files as exported by the LFA driver.
+From: Vedashree Vidwans <vvidwans@nvidia.com>
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+The Arm LFA spec describes an ACPI notification mechanism, where the
+platform (firmware) can notify an LFA client about newly available
+firmware imag updates ("pending images" in LFA terms).
+
+Add a faux device after discovering the existence of an LFA agent via
+the SMCCC discovery mechnism, and use that device to check for the ACPI
+notification description. Register this when one is provided.
+
+The notification just conveys the fact that at least one firmware image
+has now a pending update, it doesn't say which, also there could be more
+than one pending. Loop through all images to find every which needs to
+be activated, and trigger the activation. We need to do this is a loop,
+since an activation might change the number and the status of available
+images.
+
+Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
+[Andre: convert from platform driver to smccc bus]
+Signed-off-by: Andre Przywara <andre.przywar@arm.com>
 ---
- Documentation/ABI/testing/sysfs-firmware-lfa | 106 +++++++++++++++++++
- 1 file changed, 106 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
+ drivers/firmware/smccc/lfa_fw.c | 154 +++++++++++++++++++++++++++++++-
+ 1 file changed, 153 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-firmware-lfa b/Documentation/ABI/testing/sysfs-firmware-lfa
-new file mode 100644
-index 0000000000000..4e93a1aea91f7
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-firmware-lfa
-@@ -0,0 +1,106 @@
-+What:		/sys/firmware/lfa
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		The Arm Live Firmware Activation (LFA) spec describes an
-+		interface between platform firmware (an agent) and any user
-+		on the non-secure side (like the Linux kernel) to activate
-+		pending firmware updates at runtime. The actual firmware
-+		update would be provided independently (out-of-band, or
-+		via any existing explicit firmware update mechanism), then,
-+		if supported, can be activated immediately, without rebooting
-+		the system.
-+		This directory contains one subdirectory for each of the LFA
-+		capable firmware components supported by the agent, identified
-+		by its UUID. Within each directory, the same set of sysfs files
-+		provides access to the properties and actions for this
-+		particular firmware component.
+diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+index db2a7fe344d5d..4b4daf79611bb 100644
+--- a/drivers/firmware/smccc/lfa_fw.c
++++ b/drivers/firmware/smccc/lfa_fw.c
+@@ -33,12 +33,14 @@
+  * skipped by setting the force_cpu_rendezvous sysfs file to false.
+  */
+ 
++#include <linux/acpi.h>
+ #include <linux/arm-smccc.h>
+ #include <linux/arm-smccc-bus.h>
+ #include <linux/array_size.h>
+ #include <linux/delay.h>
+ #include <linux/fs.h>
+ #include <linux/init.h>
++#include <linux/kernel.h>
+ #include <linux/kobject.h>
+ #include <linux/ktime.h>
+ #include <linux/list.h>
+@@ -49,11 +51,13 @@
+ #include <linux/stop_machine.h>
+ #include <linux/string.h>
+ #include <linux/sysfs.h>
++#include <linux/types.h>
+ #include <linux/uuid.h>
+ #include <linux/workqueue.h>
+ 
+ #include <uapi/linux/psci.h>
+ 
++#define DRIVER_NAME	"ARM_LFA"
+ #undef pr_fmt
+ #define pr_fmt(fmt) "Arm LFA: " fmt
+ 
+@@ -753,6 +757,135 @@ static void clean_fw_components_tree(void)
+ 	}
+ }
+ 
++/*
++ * Iterate over all FW components and trigger activation of all activatible and
++ * pending components.
++ * Since we would need to re-enumerate the list of all components after a
++ * successful activation, and this could trigger infinite loops if a firmware
++ * component still appears as pending, we create an array of update candidates
++ * first, then activate each one of them.
++ */
++static void activate_pending_components(void)
++{
++	struct fw_component **all_comps;
++	struct fw_component *comp;
++	struct kobject *kobj;
++	int nr_comps = 0;
++	int ret, i;
 +
-+What:		/sys/firmware/lfa/<UUID>/activate
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(WO) Write a boolean 'true' value to trigger the
-+		activation of that firmware component. An update must be
-+		pending for this to be successful.
++	down_read(&smc_lock);
++	spin_lock(&lfa_kset->list_lock);
++	all_comps = kmalloc_array(list_count_nodes(&lfa_kset->list),
++				  sizeof(*all_comps), GFP_NOWAIT);
++	if (!all_comps) {
++		spin_unlock(&lfa_kset->list_lock);
++		up_read(&smc_lock);
++		pr_warn("LFA: automatic activation failed: -ENOMEM\n");
++		return;
++	}
 +
-+What:		/sys/firmware/lfa/<UUID>/activation_capable
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component is
-+		capable of being activated.
++	list_for_each_entry(kobj, &lfa_kset->list, entry) {
++		comp = kobj_to_fw_component(kobj);
 +
-+What:		/sys/firmware/lfa/<UUID>/activation_pending
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component
-+		has an updated image ready to be activated.
++		if (comp->fw_seq_id == -1)
++			continue; /* Invalid FW component */
 +
-+What:		/sys/firmware/lfa/<UUID>/auto_activate
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RW) Write a boolean 'true' value to allow this firmware
-+		component to be automatically activated once a new firmware
-+		update becomes available ("pending"). This depends on a working
-+		notification scheme, for instance via an ACPI notification
-+		or an interrupt to notify the kernel.
++		_update_fw_component_pending(comp);
++		if (comp->activation_capable && comp->activation_pending) {
++			kobject_get(&comp->kobj);
++			all_comps[nr_comps++] = comp;
++		}
++	}
++	spin_unlock(&lfa_kset->list_lock);
++	up_read(&smc_lock);
 +
-+What:		/sys/firmware/lfa/<UUID>/cancel
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(WO) Write a boolean 'true' value to cancel a recently
-+		triggered activation, if that has not finished yet.
++	for (i = 0; i < nr_comps; i++) {
++		comp = all_comps[i];
 +
-+What:		/sys/firmware/lfa/<UUID>/cpu_rendezvous
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this component requires
-+		a CPU rendezvous in firmware to be activated. If true, this
-+		means all CPUs will enter the firmware during the activation
-+		process, so will not be able to execute kernel code or
-+		handle interrupts for a brief moment.
++		ret = prime_fw_component(comp);
++		if (ret) {
++			pr_warn("LFA: LFA_PRIME failed for component %s\n",
++				kobject_name(&comp->kobj));
++			kobject_put(&comp->kobj);
++			continue;
++		}
 +
-+What:		/sys/firmware/lfa/<UUID>/current_version
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) Shows the currently running version of that firmware
-+		component, as reported by the agent (if supported).
++		ret = activate_fw_component(comp);
++		if (ret) {
++			pr_warn("LFA: LFA_ACTIVATE failed for component %s\n",
++				kobject_name(&comp->kobj));
++			kobject_put(&comp->kobj);
++			continue;
++		}
 +
-+What:		/sys/firmware/lfa/<UUID>/force_cpu_rendezvous
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RW) Write a boolean 'true' value to force whether the kernel
-+		will perform a CPU rendezvous during activation. This has no
-+		effect if the firmware already *requires* a CPU rendezvous.
-+		Firmware components might provide services to the kernel, at
-+		which point is might be unsafe to continue running the kernel
-+		while the activation is performed. Sending all CPUs into
-+		firmware provides the safest option for the kernel. If you know
-+		for certain that there are no services provides by that
-+		component or the firmware component can handle requests during
-+		the activation, you can write a 0 in here to avoid the brief
-+		kernel downtime.
++		pr_info("%s: automatic activation succeeded\n",
++			kobject_name(&comp->kobj));
++		kobject_put(&comp->kobj);
++	}
 +
-+What:		/sys/firmware/lfa/<UUID>/may_reset_cpu
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component
-+		requires a CPU reset during the activation.
-+		Currently this type of firmware component is not supported by
-+		the kernel driver, as we cannot handle a CPU reset.
++	kfree(all_comps);
++}
 +
-+What:		/sys/firmware/lfa/<UUID>/pending_version
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) Shows the version number of a pending firmware update
-+		image, as reported by the LFA agent (if supported).
-+		If not update image is provided, this returns zero bytes.
++#ifdef CONFIG_ACPI
++static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, void *data)
++{
++	/* The spec explicitly mentions 0x80 only for the update event. */
++	if (event != 0x80)
++		return;
++
++	activate_pending_components();
++}
++
++static int lfa_register_acpi(struct device *dev)
++{
++	struct acpi_device *acpi_dev;
++	acpi_handle handle;
++	acpi_status status;
++
++	acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
++	if (!acpi_dev)
++		return -ENODEV;
++	handle = acpi_device_handle(acpi_dev);
++	if (!handle) {
++		acpi_dev_put(acpi_dev);
++		return -ENODEV;
++	}
++
++	/* Register notify handler that indicates LFA updates are available */
++	status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
++					     lfa_acpi_notify_handler, NULL);
++	if (ACPI_FAILURE(status)) {
++		acpi_dev_put(acpi_dev);
++		return -EIO;
++	}
++
++	ACPI_COMPANION_SET(dev, acpi_dev);
++
++	return 0;
++}
++
++static void lfa_remove_acpi(struct device *dev)
++{
++	struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
++	acpi_handle handle = acpi_device_handle(acpi_dev);
++
++	if (handle)
++		acpi_remove_notify_handler(handle,
++					   ACPI_DEVICE_NOTIFY,
++					   lfa_acpi_notify_handler);
++	acpi_dev_put(acpi_dev);
++}
++#else	/* !CONFIG_ACPI */
++static int lfa_register_acpi(struct device *dev)
++{
++	return -ENODEV;
++}
++
++static void lfa_remove_acpi(struct device *dev)
++{
++}
++#endif
++
+ static bool lfa_smccc_has_all_functions(void)
+ {
+ 	struct arm_smccc_1_2_regs regs = { 0 }, res;
+@@ -813,13 +946,32 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+ 	if (err != 0) {
+ 		kset_unregister(lfa_kset);
+ 		destroy_workqueue(fw_comps_update_wq);
++		return err;
++	}
++
++	if (!acpi_disabled) {
++		err = lfa_register_acpi(&sdev->dev);
++		if (!err)
++			pr_info("registered LFA ACPI notification\n");
++	}
++
++	/*
++	 * An ACPI notification or an interrupt are optional, but we must
++	 * handle errors that occurred during their setup.
++	 */
++	if (err != -ENODEV) {
++		kset_unregister(lfa_kset);
++		destroy_workqueue(fw_comps_update_wq);
++		return err;
+ 	}
+ 
+-	return err;
++	return 0;
+ }
+ 
+ static void lfa_smccc_remove(struct arm_smccc_device *sdev)
+ {
++	if (!acpi_disabled)
++		lfa_remove_acpi(&sdev->dev);
+ 	clean_fw_components_tree();
+ 	flush_workqueue(fw_comps_update_wq);
+ 	destroy_workqueue(fw_comps_update_wq);
 -- 
 2.43.0
 
