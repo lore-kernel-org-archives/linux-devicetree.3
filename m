@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793658061;
-	b=KQhzNInyHb/m5am2GMdZY5Jxg1ZzG2niOfoDPk85tJTX70kNIjhD5Ln5gxTf250YHFlD
-	 zpF/s+iicb2vT5FrwEkrqxRKeDMF7ssUrdzKvlbhiCiSjOpcvT3Nc/SH9zPu79MH2rx3d
-	 j1VEj6m24hyzca2bPAe0Ho5auwUgWFxahT7wH6UmGpWHffF/LjaDUC5ts2iTBwevQW7br
-	 qMuK0GOqWRGylymVES2fSuZQMKFwcWqR/P17+f+xMiDsd4fG+6vpgaJZjOL9QXAGZuvTk
-	 hcRuxcdKWYnT/rY/xOhd745u+VwUm/rB+M/8B/r/GLA7IsV4ytVHfDEqB53WWmx6m1Q==
+	t=1793659530;
+	b=OzE3C+Y9FxfSFB7zOrYL8ubZ3rgdFzyS+kwuoD5Q/E7BxQZ5i8Ogau7YY+Oh2N/BGkVJ
+	 ufRDTpQjNk+Go3jevp0JvRCpyZEEr2bdTNqO0Zu8AN8q7V0Fm6gd2q2N/PwQA8H/I59aQ
+	 +zWrP81Vk98TeULX63RgHqaJ5pACslWfnyjdENR8MRppiKbb3s9c120foAKZelNbcwVGc
+	 Ik96+mEiYCARHgfN4FkSOaN+MMwgL0npFhV2MT5k/yRenKBKkzghXSVasJzXXVii/85cG
+	 yBnr1Ez2TCevDcTq+ryFlz5QIju+rF6MnE+by+YRS/ICLBWgSxVWvj8sHJ5I6sjzCsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658061;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+Hw9sq9VaFK71g+8WnPVyOU4RYJq80Ol7r4/gNdfThU=;
-	b=qtnnhLXvPwkscrQqTozpyC01e3yheFyp0sn8la0YDqxb2nHnY+7D7IBhOGXWbEqUxqPY
-	 n3VSN/MK2ZQxoV2p6lNsbyf++dml8/E1uxlQz8a4nZrv30/jNhtSMRyQPoE5D7XQvMbI9
-	 S56YByqOEdD8Xni4/ySU8KSCbFi9dLUOhI9J3U5mD4E/INsKj0K7pbXXUhLpVqDkApKpu
-	 wSN6Wzef8kirbknCZgVarjnyyKarkToSLGYsdK72fQtExy7RZELiSY2bkq9tvUJQrDbci
-	 luCBK/8BAILJ4AsRLK0qYWESMbund2TLuBxqISc28SiKPLxtqmPGFgagRUS1MnGHUtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793659530;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8hWw5b26mqKqJp1xqnFOgseTDKqkWU7op0vhqlcFJNE=;
+	b=c/StjUD8IJav0le3IVc2AmJeErH7fRqT4GqODlrXRGJauTiKukYaBdQQ0Gk5jFxeftih
+	 jMgFe/ZlZj7VM7oxccgvJjJ9vTTyNgZg8pyeBHak/iqw6DjG2aUdhAxu9Gl9h+vu68w4X
+	 /U5oJJbPF/W1jZ5LgJN/v7om2+5o5t4vfkXq0YZ/0QBrTxnt2ha090yYM2OB+gnl/jlJb
+	 HUCn7cTyjyYmdy3LEkG5n6mXMUq4ot974WHc/4Km8mzm0/PxYodoPuxvT6eqt2alAmo6S
+	 +VV4S3bZxntNbpX2u4Po4HmuZEbXqF19Nfw/0cXs6k5kWQjzj3k7lbdo4ImVOK2dEsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEdNqHBi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEfH1e9P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A10606A324;
-	Mon,  2 Nov 2026 22:21:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EDF606A324;
+	Mon,  2 Nov 2026 22:45:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEdNqHBi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D3F1F00A16;
-	Mon,  2 Nov 2026 22:20:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NEfH1e9P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B165B1F00A1A;
+	Mon,  2 Nov 2026 22:45:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793658060;
-	bh=+Hw9sq9VaFK71g+8WnPVyOU4RYJq80Ol7r4/gNdfThU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XEdNqHBiKdOsOWdik/MVP587AiHnPUcW1lKgfFWhoWVgpKG2WIMS4yLFJvaOMP/+c
-	 d3fcSW17hfMtxIDqP4cdipsiCVuA6r2Ybz06He6i3+976/1OiWuU4MxUY8drEi5gWU
-	 bgpkQP/F9octYIYVEExDqRIrgLrGMK/LgmYDP59/hxgLB426ArkdtXJilvJ+6QO3kk
-	 OnpFNmGAyz7bC5ihp/0JvF9Tb1javi5SD5P0VsJ9CBKPQ3lPWlOE5Oq6SObJ9eLaua
-	 MG75Kb9sfere/9iLMWKHABad0I2YGpmvYP27xFI964KIyc8FJAjms6lwe+xN54PJ8F
-	 WWTAAh03whOZA==
-Date: Mon, 2 Nov 2026 22:20:56 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Vidhu Sarwal <vidhu.linux@gmail.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, Shuah Khan
- <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR
- driver
-Message-ID: <20261102222056.30f23d75@jic23-hlaptop>
-In-Reply-To: <21b771dc-e9cd-46b9-a456-0950ae1270a3@oss.qualcomm.com>
-References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
-	<20261102-massive-busy-woodlouse-8d0bbb@quoll>
-	<CAFqz8LJZQ+tw6wmLS-1FXvt6OxBESPEyz2-uK4D7B8X8epoKhg@mail.gmail.com>
-	<21b771dc-e9cd-46b9-a456-0950ae1270a3@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793659530;
+	bh=8hWw5b26mqKqJp1xqnFOgseTDKqkWU7op0vhqlcFJNE=;
+	h=From:To:Cc:Subject:Date;
+	b=NEfH1e9PbDq5+zC87ofPcexu0dLJZQorOEw31oyjUcMboCV2Zgen/+FizIa2AtUeT
+	 3zdxBlMb74pQT9EazX/51l9ldRpGPyuRyDomqj2MJVp1BYzGui097VKYErpOHsUvTV
+	 /xdaIZDmePT6DcuFV8A2zW0nZAjRBZa/OyFwLLXewS5jKWJFot6Tl2YRFb/Cp0NH7n
+	 Kd4Cz6qmbgDLFGPbvTOmiN6ePS3RbnjcMGSFaaWeU/O4PYxRHEGbCil1tsw+WihleN
+	 NNxTj+zsZQLAIoDeeuV6mJ+/K+vmiZp3kdfqItz/mF42EC9uSdREAZYicqqItskj9l
+	 ZyOLY+iXmMrLA==
+From: Sasha Levin <sashal@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	devicetree@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] of: reserved_mem: mark the early_memremap() array helpers __init
+Date: Mon,  2 Nov 2026 17:45:28 -0500
+Message-ID: <20261102224528.2495168-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,27 +61,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2 Nov 2026 13:23:56 +0100
-Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
+early_array_map() and early_array_unmap() wrap early_memremap() and
+early_memunmap(), which are __init, but the helpers themselves are only
+static inline. If the compiler decides not to inline them, the out of
+line copy ends up in .text and modpost complains. clang 21 does this for
+a riscv allnoconfig build:
 
-> On 02/11/2026 12:48, Vidhu Sarwal wrote:
-> > On Mon, Nov 02, 2026 at 11:47:56AM +0100, Krzysztof Kozlowski wrote:  
-> >> What changed exactly? b4 diff fails, the patchset cannot be applied on
-> >> any known upstream revision I tried.  
-> > 
-> > I am really sorry for that, I didn't realise it was based on Jonathan's
-> > iio.git (testing branch) instead of linux-next. Patch 3 conflicts in the  
-> 
-> That is fine in general, I'll wait for next linux-next.
-Might be a little longer. I've pushed out now. Was just waiting for
-anything nasty from the bots on after rebasing on rc1 before pushing
-out.
+  WARNING: modpost: vmlinux: section mismatch in reference: early_array_map+0x30 (section: .text) -> early_memremap (section: .init.text)
+  ERROR: modpost: Section mismatches detected.
 
-J
-> 
-> Best regards,
-> Krzysztof
+Both helpers are only called from fdt_scan_reserved_mem(), which is
+__init, so mark them __init too.
+
+Fixes: aa05faf81583 ("of: reserved_mem: allocate and map the reserved_mem array early")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+KernelCI's clang-21 riscv builds fail on this once dt/for-next is
+merged, so it will probably show up in tomorrow's linux-next as well.
+
+Tested with a riscv LLVM=1 allnoconfig build (fails at modpost before,
+links after), plus W=1 builds of of_reserved_mem.o for riscv and arm64
+defconfig with clang, and arm64 defconfig with gcc.
+
+ drivers/of/of_reserved_mem.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 0fd1683cba011..630ad65466385 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -66,11 +66,11 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
+  */
+ #if defined(CONFIG_GENERIC_EARLY_IOREMAP) && !defined(CONFIG_PPC64)
+ #include <asm/early_ioremap.h>
+-static inline void *early_array_map(void *array, size_t size)
++static inline void * __init early_array_map(void *array, size_t size)
+ {
+ 	return early_memremap(__pa(array), size);
+ }
+-static inline void early_array_unmap(void *map, size_t size)
++static inline void __init early_array_unmap(void *map, size_t size)
+ {
+ 	early_memunmap(map, size);
+ }
+-- 
+2.53.0
 
