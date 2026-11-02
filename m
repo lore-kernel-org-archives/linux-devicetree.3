@@ -1,50 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619686;
-	b=HHZvvzIQi8dRut98/DaY6WpNbFQvra/rzmq1shFfzAUmeUYERkujRu35+1w2pskY2iWE
-	 YyIonz1s21JtAigPxg95eQeVbZy67tjl2WAH2gPJGKEMy9j3aJM5xwAUykGHhC2HcKHRc
-	 AJorGN2wN45Pxst3LTxOYxjyMjdfu8GZHgM6xTb+9UydL7TA++wSs4k3PTiyysJDkY+s/
-	 qNV0a4PB/7ufQkgBRXBlrJLeqx48yJLUXw6C6YV864A1PgVCRmvCGTtpqmWr0KX4RVCwU
-	 p+6I2xA7nEZvVi6SGO7aaBr2PqCsP4mEfFy1Qu2uMatXmnW9vDiQj6B8IC+XchtSbzg==
+	t=1793619827;
+	b=Im6SfE44xk1XrHPvfuPYvkR6pHyNeyOB5yr8JlExTsT54zm4HGfEwv4XBenzVlUSVNuu
+	 rB5FJWvrOv26dLy7zoX+1rG7vAXRYynwesz80oB5DynrYOILLg8AGG2PvNhEDMmLoYvHR
+	 IV+/oaCHWdbYU9cFI46dKnkD+CWvsjmT4Y2FnAbdNZGan8f5fVMre12uyUhb7RwQn0PXU
+	 HY4hI42aeMYrMi+C9OpkKK+6UAAvyfpO8LXdZyRiBhb7l8el4xdrYI2BTKSiti7qKaFUn
+	 f2Dn3nzrMoJApqmUmyktXUMp8I/5TyJqfAtZb7gsZi/Z5FmIssLhOjfQha9ay7q/Plg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619686;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hli9Pm6PyR4E1whnLP74hf5mHnZKkC5Wmy1ba4WkJhE=;
-	b=vGfV45d91vUvz/6GwLye+yP0OJy7YCluTR7bQyi3jTPQ/jvqcuhkr0iQG8xeIEY65mjn
-	 hqtnW2pYbejPnXOy8Tc4YV+e37Z/dEdmWPn2ks67f+z3+N9JQvniKcaRVv0n2M6KvLExo
-	 MMZazfFeuiQ+Hhrs4HXMYMeN9uNnnySPD3kQZCmgu1CixWql7+XWVOkP2EOsYHVDNwxqS
-	 +DVtDHdmebwe2Qvh0l/8H87/amJRWp/r6tO9bA4y0fB1+y1IuJNmzHYjNs1ADRzJ1NkKH
-	 gGttE3qDuAYiZXTCnRTQYgc8LsbGAoU3mgIRuA2p6gA+rdbzzdaO92xwpkWc3yUrdbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619827;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=deiRugqUlG37p9Wv3fsfyPkX3UWvJLBCmJ/1+SGNcog=;
+	b=h443SiInViFZmhi0iTrZ7KrsG7HKDScButoMPm4adkGcA9jYMJwg+pAATcoN1MAxGkJl
+	 meBPVUiLxt9dNZ87TzDNIYB4ha2/x5VPJCQTpW1Wd4hF10YuAU+Ksi2AFiyBK+zxLH9cs
+	 2aIrZs01yAIMKDytTOaZfDDQ5Ruw2iNeDaMU8G9nNJNqJW6fWAMMBHtu0+rbJH7ZcgUuc
+	 IzrX3uAsGzKFeUYKByZrk6anCHjSdO5yr1qVYDgzUOuf+zTQ5h1CJFMS+cLTW0yFTOnkv
+	 1X9x4CRmsXzZYRKVTa69aURwbgc/L88nhY25r9YFPvEnnTyFdD0rYQ0AlJjISf2Zhug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KXIvGTeQ;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcUgFA8w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5B2606A324;
-	Mon,  2 Nov 2026 11:41:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE5B2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AC2606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 11:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KXIvGTeQ
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 75328BE;
-	Mon,  2 Nov 2026 12:39:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793619547;
-	bh=T+o17ojaeL3LXS8MEZRII4Gziximst2Yab1GxPQcvhM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KXIvGTeQ97m5HZMByM/E2aPK96z4htwSQbPZrQMzUkZbrLZoiUZPDBa1x8s/HV906
-	 rvr66VS1WTemwmFC6/KPrpMpywOuNSz8/BNKd3fSRFMNtpomPGSXe8lU6Ko7K8KeVU
-	 Zx94ahRVzU7xrC2xlIMX5hWiKAfF0T8eWNmSRigE=
-Message-ID: <02facf72-2b1e-4e31-a84a-cd18913469c2@ideasonboard.com>
-Date: Mon, 2 Nov 2026 13:41:19 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcUgFA8w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A15C1F00A16;
+	Mon,  2 Nov 2026 11:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793619826;
+	bh=deiRugqUlG37p9Wv3fsfyPkX3UWvJLBCmJ/1+SGNcog=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dcUgFA8wh35BSOtvCYcclVQlwghBnwx0GfFoM5RVAt3mNNYY48YZaftacMfKTw24x
+	 TFwBl2NgdC5ILeT+gED5+Mk7ub3fKYpT4fRYH1Th7UK/y1Z+yZCNo3nvMfupn7nML+
+	 CZY9EViu4HfDSpjouOmkWduYsO7wxYha1m/UbqGIfegrbiipfM6VeXshs+L+ykaRMU
+	 4UR/ahEqSfwNr+Yh04AHyIVd2S71lN9kmQ0W3uZTko9Vl/GHlnW6ZZHYzCMNUT20Fp
+	 S4B5iKYaIM/si8ISYazkCcKr4LTYBZZPBGwpd+yt1c1kyvRtwo2m7/z5OFzJzvDsEN
+	 L990q7EN/OlHA==
+Date: Mon, 2 Nov 2026 12:43:42 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joachim Eastwood <joachim.eastwood@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Shawn Lin <Shawn.lin@rock-chips.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: add FriendlyElec NanoPi
+ M6V2
+Message-ID: <20261102-annoying-vulture-of-development-9eb1a1@quoll>
+References: <20261101-nanopi-m6v2-v1-0-e401ea64b394@gmail.com>
+ <20261101-nanopi-m6v2-v1-1-e401ea64b394@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,44 +60,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/14] drm/tidss: oldi: Drop unnecessary forward
- declaration
-To: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-6-dc7f2b532478@ideasonboard.com>
- <5044b7a0-5eaf-4008-9653-11027b8055b5@linux.dev>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <5044b7a0-5eaf-4008-9653-11027b8055b5@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261101-nanopi-m6v2-v1-1-e401ea64b394@gmail.com>
 
-Hi,
+On Sun, Nov 01, 2026 at 11:00:52PM +0100, Joachim Eastwood wrote:
+> Add device tree binding documentation for FriendlyElec NanoPi M6V2,
+> a single-board computer based on the Rockchip RK3588S SoC. This board
+> is an updated version of the original M6 board with a few changes.
+> 
+> Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-On 01/11/2026 16:11, Aradhya Bhatia wrote:
-> 
-> 
-> On 29/10/26 10:18, Tomi Valkeinen wrote:
->> Nothing needs "struct tidss_oldi" in tidss_oldi.h, so drop the forward
->> declaration.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> 
-> Should this perhaps have a Fixes tag?
-> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
-I think this is more a cleanup than a fix. The forward declaration 
-doesn't cause any issues, so there's nothing to fix.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-  Tomi
+Best regards,
+Krzysztof
 
