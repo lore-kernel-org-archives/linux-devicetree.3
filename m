@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616254;
-	b=CisAp8RgqZ2DNIP7CyrMHXuhWxFMhGgps3B4pdZQaWFRZ6EFltJ/+Z5W8jJjOS3gICLp
-	 UdaZjvnIcI3lUnhWtqBXWKx6ggcXpEuk7HecA/n20/6GYzAIUIo34tUVsklMoA3FERWvW
-	 V734wj6Y0wlNE5NYlqjEu67ISm1Hq3S7Vl7gSknooH39VMPJAKOv2FMZNEU6oho6Xl/ID
-	 WC/90GCNBmipf3kT12tMyxpO/6DPJEYWRE2D80nlcGPTBdw8ZzIpQEmb9dz2++wcHNSto
-	 7Kuo9IFc39qOlSstFeN31MVBHMXqxPjq78YRrNFMnswyGYR2oRMoDMpZIk71mrPIuJQ==
+	t=1793616332;
+	b=QnrAb4jI/b4fsWpK70XXkXuJatp0/bdtQ80wDqkUFe7ymYfpdkrblcQUj5kn+Flh1qph
+	 0B8E9ru2JzCWGjrkRJJ3RiOEJ0O6rPVmnsbOVaTwLbZXY4wnPurajIRO7OHph9nPK+Py0
+	 uak4pSF7SoI97OtnFJAyIE1AhQ4MYUDGWm/2e2pGNOnD5Ux7BDjdw05H6H2WRZAo+aVRe
+	 7DaldcQoZWiMC0Rc6sHVbSj3SH6xDY7FBioAxlomGrnrVBO9Q4sereNeqid7U/5UfXhxR
+	 kvP1BNYNfJy8B+HXK1WR5KQ/pf4mByRWlmzJH2eLJsHZRZ07x4ojEVy/3Wi8w0sO5XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616254;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DagWDRZWu91tlPDx3Rb2tSyf5VLxAyyZkV9oS3j452U=;
-	b=hFjr04+3mcvIBc3L18DpJhJiEji/WbTwS7rxd0+JvQ3K5WmZ14Qvn3gfWiqAZ42Ccrc8
-	 5ZvPYCbWHLndDxMTs4njGuoHBz5+QrZj6QP/EOgNu9yzYw3blwn4YvFyrRTtT1szPfVbo
-	 cqHHn2O7zU0P40fqxy2cgGHxopciLKauvDi3fOhmNZA55EJfBmP6f+p9CqFFaW8+trz8v
-	 wqM/aAs3+NPBwFISRLH6r3l13Sol4A+YGB7zjLXQNO2ClU/yVhv/6tJqSW2SIx5WvJYK2
-	 KGD2rifdx6uIfNFc12vogFGFK9CwIc0omVneDLz8HDsGUzxZpGqztqSdJ/zQZWy3vaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616332;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=fog4LR3p+OJ/kl8N/W42B8zM5/EY7uGTOuhDml90xMw=;
+	b=A7JPJb0gY1AOxqERLljY2mDbDKHt5YCEM6HjvihRcSySZ6wM1sanmHSePOIMdVLjkJ5e
+	 NkTMKRJon+fyPgjrdvX71Fx2DNZ3tVt3fuoez6oEEUgnF2WtwwPg3ojNfWCCp3FDo15jo
+	 2GeBvCmJMzKJNtZ9OfZ0VcG1lnv4aN6Dcm6z6KT9e1MBR1sgodz5ayIjID2onEqLdbCPY
+	 UZimgvzCC+0bFSwUWcjykm1PnCqBPJi6MZi1BOZ1UrK9iMMxtPjzWK7uqJhzXQ9rkUJeK
+	 7KsSOpuERp5ZE3aPdf7f0Fguger5z6OppKor3oJP+VWdjL39hMyGnkmM61MyggIKRgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yfb6bG7J;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LIwKAWv4;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9AVhypi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C77606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 10:44:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C77606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30D1606A326;
+	Mon,  2 Nov 2026 10:45:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yfb6bG7J;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LIwKAWv4
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29Amvu2362083
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 10:44:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DagWDRZWu91tlPDx3Rb2tSyf5VLxAyyZkV9oS3j452U=; b=Yfb6bG7JJSoN0KYz
-	s9+fJb1m/gh3bdTcKqBByr79KI0B/wJLFd0eHQgzsx0m2fSdDFPX0Xzc5jFJ1LcR
-	zIUesJnAPFtg1wMy6Liyk5bMPj6NmOIPJxa5t02sNmZwSpttA7sGw5nHe/sdRzAa
-	OroPaITQK/PJgevdTFvmWwdoFlFvI+7nXoRnOoTOTkTYsq2H2+etJ8UxiXktj5hD
-	iUdatxcWjGcrQnEM3LNPoD6bq7IXZpQNl+dd0upgiIguzk+KnSA267UV3X5IWcT8
-	zB4Zl8nJZtkyiROlFm46x5GOhj7zAe4Lh5yemVN43Xa785fP1duErA4xPyg1qCU4
-	avs8cg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8q7xe8e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 10:44:12 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c83481504so5653086d6.2
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 02:44:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793616252; x=1794221052; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DagWDRZWu91tlPDx3Rb2tSyf5VLxAyyZkV9oS3j452U=;
-        b=LIwKAWv4r8dBceVa4Ij/2xQCJJ5zrSMbd1kkQsQc0ohXuaZGup21jQzLYSY3mTP3mY
-         CxMPlkcJHb/d0rEwNJrdvsONm41K6gQDVCP4C5j2dmTe5vCMIcadkmwPM7fDu0pjB1uk
-         cdbZ5xNSpi9y3p+lSuvsD+Ggk/EMzCHNl4PvFwpOwQRArq9L4etdUp6AqzuT39DvFKKx
-         fkt5hfQmjPlBXOSsN4bLRn1APr06mhG0oNADDRk/xMAXdBePIGuxAFZX851XonU3KXt1
-         SyiDSzUEx3yDFl5+uEeR+T2W4BU8tIkOQbQgcV04AQO9oXJga+ewIwEAjQcgkcmqo9Yu
-         yYjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616252; x=1794221052;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DagWDRZWu91tlPDx3Rb2tSyf5VLxAyyZkV9oS3j452U=;
-        b=Rxw7DAs1q7rW4Zyoq5cHGptIk+lLTi5sFwWtky+xecIscJwKVccFkRz4Rh1ZuaIdFP
-         ZMaLM0DXBRvn7SOTIUXVGZQPdCRyslYUwJP+6XvnTNBZFgHgn5eJ2JO8P/GqsEjZZChO
-         YvTqpKFKoh58Ud/Qbuh/GUb9S9H1LhYS4iWoAoS+F9TKP12LfmEgW5jMtjn9wnYHi5qz
-         BVqcykVq+YhaxBRWSqTRJUbahjWO8EGx5XVGfvgTQvk7vzvpi/nru4LsqGHcwNu49duX
-         0aEtE+ty9GGr6PpqciLfy76m2XURT/6vK/LZv6Imu6+86CJ3yEFExjtYw6oH+zHUZQE4
-         Vi+g==
-X-Forwarded-Encrypted: i=1; AKwUvBxlB/+V4+PZYuKILTeFcimdyx4JBRu1j4MAhpX1fSZMjKRYAPYncwdgVWT+FjuCTgIJdKnw61ma2EJi@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiz2LHOuzeBO4ukg98kLGocJQs/z8xpsiz0b5Idt1nmv4fyC3U
-	rMSOyUd8pT1qxuzRuVM88XhCpX09idYvp6neBoCkFbjjdq4ok+CmLGsQbX86zV79s+nFH1HULrM
-	sAJJmfiESzA3bOWY+O+FHkEIf9CR/vVXhX08Tv4lmAdprz6m+AxJv42aPWirNiVJJ
-X-Gm-Gg: AYBFou1Z9Dsx+/1N0y/FO9dDkgHHUAO9JHxE42frE0KYZx6lbg1ZtwB2NjvEiPY7gQq
-	Frq24FVWLKfY8OTyuEoif0jX8yhpC1wV2FqjZi3JQOk7bAIhhUBftFV/8ikpYiWZX8BAyEnUvaf
-	B0f8SM2cHU18G4v4/21PieRULlcxFv6x86HMDi7SV+P2r6afE0cV+CW55dOhFhWF9FeNrc0iutx
-	HEUD1Eu7gL9WMA4sd0hXb2knDpvHvLlBTdAr8oUUQ5PiQncQ5JDadyVKzsD0bf+1ckdaZfwY246
-	QVCgpMUiOuvy1w4jzvkOd2f0YrAzJrj7q6MXYegNFZQTv+B0fV55BVRK849kzEAZwxjT3MGWVGZ
-	RoWMOIFc/npYNMRaRa8691DDQxCkYb3SjHsnY+IyZE59BTPOHyAsHTUIjwCaLrlenfW8IzLY=
-X-Received: by 2002:a05:620a:6357:b0:93e:6d87:4f69 with SMTP id af79cd13be357-94421666fadmr1772174985a.3.1793616251670;
-        Mon, 02 Nov 2026 02:44:11 -0800 (PST)
-X-Received: by 2002:a05:620a:6357:b0:93e:6d87:4f69 with SMTP id af79cd13be357-94421666fadmr1772171985a.3.1793616250987;
-        Mon, 02 Nov 2026 02:44:10 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc174d0sm374997266b.4.2026.11.02.02.44.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:44:10 -0800 (PST)
-Message-ID: <f4c2b984-e255-457a-9b39-f797b840cac4@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 11:44:07 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9AVhypi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDAA1F00919;
+	Mon,  2 Nov 2026 10:45:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793616331;
+	bh=fog4LR3p+OJ/kl8N/W42B8zM5/EY7uGTOuhDml90xMw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I9AVhypiKJrp1d6RQIFmUXMUm4iNRNpRI6kVsA5vFyVRlyppLN0rTAPZXCBdyF4OV
+	 FtX6PsZKigfuFSO7nTiD4DIplEjM7Z+nnvLQJtNk8VQ5h49Q761oFFwYvHZhnyKyBu
+	 Ti7n9auHEbAnTvcHEq+w7JfWgJ5pWkBs2vz6mbsXo2Dat6XaEVaESE1Yj/5CFfLSS9
+	 oDGpnbAwX6+0JLFi19VZuEVrmSfhJ/DuXw9UWXje5AHu+wh0oh8HXJDTil5ZPApoEJ
+	 kBKClTQnYIfUbHgPWhYyMBDa7M3xOkw0GlDnQ7b3hS3Y1tOteFHUdVjv/8WnmOuJHI
+	 CCJVJ3gUQ6UUw==
+Message-ID: <sashiko-outbox-193273@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: imx95: Add ADLINK LEC-iMX95 board
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinesh kumar v" <dineshkumarv85@gmail.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261102102653.272056-4-dinesh.v@adlinktech.com>
+References: <20261102065645.121046-1-dinesh.v@adlinktech.com>
+ <20261102102653.272056-1-dinesh.v@adlinktech.com>
+ <20261102102653.272056-4-dinesh.v@adlinktech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 10:45:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,97 +61,330 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
-        Amir Hanip <killdeath104@gmail.com>
-Cc: abelvesa@kernel.org, andersson@kernel.org, conor+dt@kernel.org,
-        devicetree@vger.kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        robh@kernel.org, a39skl@gmail.com
-References: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
- <20261101164930.17976-1-killdeath104@gmail.com>
- <9304e75396496855881251cac2edb0a5@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <9304e75396496855881251cac2edb0a5@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 1nBZkGV9dkuB11Uq8iRmitKVdnB6H9Dw
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX6w/mEJtPZcB/
- N3QqkdCO7suazg57dtacBO2wTAL1mxCysYRR5eAL2yuExmoSVQDjJCgDZBnG2ZvfViEcJwmc5Fx
- 1zL331JRxnmsue+220kcpBXQazIcPUc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfXxYAyqeJoIWim
- AmPkKU7eTFQcGCX4tnky2gtMGbRAkdHhcl2wKnRG+vblr4isa7Q2zLWSJ78QbMGGppBkINszYgl
- aBbldU7y6kUdcGAVen3xzqAawgS6ZCEVvsQiweqpyyEaWHDv1XYBTb7sjXa/NsI4OHf/m3UInrl
- JeiLiYYm3moP16UzWMJJ6c10FqjFPoVEnJKTKtveMEZo+HQJFyGL1AwHn9+xlxgayDWkvTlc5i6
- 3FaNn0oxrFlK8Q3f158CoGiqgoppZsddv5Ns3AJJZf2KWeIEMwJqpqgDXEM4kVKZ5Yv27Efr8yB
- yTW4iUw4OSMXsvO9f2KsmxMbrWGbRa+U+KPJD0C6hYjm8HuvcoVg59Ehqpv1e72ImYpT47OIbCK
- KgeGfLqoRFeJxH0PW6Ox9Tp2PxFtLN/5JuXM1q80ZD0hkVrwCRtnMz/zJ7Dztw2svsUCRweOx2J
- 6P28o8kvQ6juafEOE8Q==
-X-Proofpoint-GUID: 1nBZkGV9dkuB11Uq8iRmitKVdnB6H9Dw
-X-Authority-Analysis: v=2.4 cv=PucG/AM3 c=1 sm=1 tr=0 ts=6ae8697c cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=NZJFGjKaqi_mDWV0rrMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020042
 
-On 11/1/26 8:44 PM, Barnabás Czémán wrote:
-> On 2026-11-01 17:49, Amir Hanip wrote:
->> On Fri, 30 Oct 2026 13:30:28 +0100, Barnabas Czeman wrote:
->>> Poco M3 (citrus) is same HW like Redmi 9T (lime) and Remi 9T NFC
->>> (lemon) basically is a lime with NFC.
->>> So i think it would be better make a common base from lemon's
->>> devicetree instead of making the same devicetree again for the
->>> different variants where only the compatible and the model property
->>> will be the difference.
->>> Check sm6115-xiaomi-gingkgo-common for example, it was the same case
->>> for Redmi Note 8 (ginkgo) and 8T (willow).
->>
->> Hi Barnabas, Adam,
->>
->> Thanks for the review, that makes sense. I am preparing a v3 that
->> moves the shared parts of lemon into sm6115-xiaomi-lime-common.dtsi
->> and has both lemon and citrus include it. I used the name lime-common
->> following your naming. Happy to rename it.
->>
->> Plan for v3:
->> 1. dt-bindings (unchanged)
->> 2. lemon: move the shared nodes into the common dtsi, no functional
->>    change intended
->> 3. citrus on top of the common dtsi
->>
->> I can only test citrus. I do not own a Redmi 9T, so lemon is untested
->> on hardware. Instead, I compared the lemon DTS before and after the
->> split, normalized with dtc (dtc -I dts -O dts -s). The only
->> difference is the numbering of two auto-generated phandles. I will
->> describe the check in the cover letter. Adam,
->> would you be able to test lemon once v3 is posted, or look at the
->> split beforehand?
->>
->> The IPA carve-outs (pil_ipa_fw_mem and pil_ipa_gsi_mem) are identical
->> on both, so they now live in the common dtsi.
->>
->> I kept the following per variant because I cannot tell whether they
->> are real hardware differences or just differences between the stock
->> firmware images:
->>
->> - ADSP carve-out: 0x53800000/0x2200000 on citrus, 0x53400000/0x2600000
->>   on lemon. Both regions end at 0x55a00000, so only the start and
->>   size differ. I can only confirm that the citrus value works on my
->>   device.
-> If there are no overlaps the bigger range could work for both of them.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Low] arm64: dts: imx95: on-module LEC-iMX95 components placed in carrier=
+ board DTS
+- [Low] arm64: dts: imx95: duplicate usb@4c100000 reference via usb3 and us=
+b3_dwc3
+- [Low] arm64: dts: imx95: imx95-lec-ipi-smarc.dtb not sorted alphabeticall=
+y in Makefile
+- [Low] arm64: dts: imx95: Author email does not match Signed-off-by email
+- [Low] arm64: dts: imx95: duplicate USDHC pinctrl groups and 200MHz pad se=
+ttings
+--
 
-Waste of precious RAM!
+commit 15a8ff538ba6c35961382a83a0abb8e1fea067e2
+Author: Dinesh kumar v <dineshkumarv85@gmail.com>
 
-Konrad
+arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
+
+This commit adds the device tree description for the ADLINK LEC-iMX95 system
+on module and the I-Pi SMARC Plus carrier board, along with the correspondi=
+ng
+Makefile entry.
+
+>     arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
+>    =20
+>     Add the common device tree description for the ADLINK LEC-iMX95
+>     module and the I-Pi SMARC Plus carrier board.
+>    =20
+>     Describe the onboard peripherals and carrier-specific hardware
+>     connections.
+>    =20
+>     Signed-off-by: Dinesh kumar v <dinesh.v@adlinktech.com>
+
+[Severity: Low]
+This isn't a bug, but the Author email address (dineshkumarv85@gmail.com) d=
+oes
+not match the Signed-off-by email address (dinesh.v@adlinktech.com). Should
+these two addresses match?
+
+> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts=
+/freescale/Makefile
+> index a80cccf34eb56..26b432127faa6 100644
+> --- a/arch/arm64/boot/dts/freescale/Makefile
+> +++ b/arch/arm64/boot/dts/freescale/Makefile
+> @@ -983,6 +983,7 @@ dtb-$(CONFIG_ARCH_MXC) +=3D imx95-verdin-wifi-ivy.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-verdin-wifi-mallow.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-verdin-wifi-yavia.dtb
+>  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-verdin-wifi-zinnia.dtb
+> +dtb-$(CONFIG_ARCH_MXC) +=3D imx95-lec-ipi-smarc.dtb
+
+[Severity: Low]
+This isn't a bug, but the imx95 targets in arch/arm64/boot/dts/freescale/Ma=
+kefile
+are sorted alphabetically. Should imx95-lec-ipi-smarc.dtb be placed between
+imx95-aquila-dev.dtb and imx95-navq.dtb instead of at the end of the list?
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts b/arch=
+/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
+> new file mode 100644
+> index 0000000000000..9a77bff42b225
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
+
+[ ... ]
+
+> +/* Ethernet SMARC GBE0 */
+> +&enetc_port0 {
+> +	pinctrl-0 =3D <&pinctrl_enetc0>;
+> +	phy-handle =3D <&ethphy0>;
+> +	pinctrl-names =3D "default";
+> +	phy-mode =3D "rgmii-id";
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +/* Ethernet SMARC GBE1 */
+> +&enetc_port1 {
+> +	pinctrl-0 =3D <&pinctrl_enetc1>;
+> +	phy-handle =3D <&ethphy1>;
+> +	pinctrl-names =3D "default";
+> +	phy-mode =3D "rgmii-id";
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&lpi2c2 {
+> +	clock-frequency =3D <100000>;
+> +	pinctrl-0 =3D <&pinctrl_lpi2c2>;
+> +	pinctrl-names =3D "default";
+> +
+> +	status =3D "okay";
+> +
+> +	/* U1000 SX1509BIULTRT_SEMTECH */
+> +	i2c2_gpio_expander_71: pinctrl@71 {
+> +		/*
+> +		 * GPIO Expander Mapping:
+> +		 * - 0: ENET1_RST_B_3V		=3D>		U2001
+> +		 * - 1: ENET2_RST_B_3V		=3D>		U2101
+> +		 * - 2: SERDES_RST#_3V		=3D>		SMARC S77 PCIE_C_RST
+> +		 * - 3: RC210_EN_3V		=3D>		U1300, RC21008B001GND
+> +		 * - 4: LT9611_RSTN_3V		=3D>		U1500
+> +		 * - 5: HDMI_INT_3V		<=3D		U1500
+> +		 * - 6: PCIEA_RST#_3V		=3D>		SMARC P75
+> +		 * - 7: PCIEB_RST#_3V		=3D>		SMARC S76
+> +		 * - 8: TPM_RST_N_1V8		=3D>		U2400
+> +		 * - 9: LID#_1V8		<=3D	R1005	SMARC S148
+> +		 * - 10: SLEEP#_1V8		<=3D	R1010	SMARC S149
+> +		 * - 11: CHARGING#_1V8		<=3D	R1007	SMARC S151
+> +		 * - 12: CHARGER_PRSNT#_1V8	<=3D	R1011	SMARC S152
+> +		 * - 13: BATLOW#_1V8		<=3D	R1014	SMARC S156
+> +		 * - 14: TEST#_1V8		<=3D	R1015	SMARC S157
+> +		 * - 15: DSI0_TE_1V8		<=3D	R1087	SMARC S144
+> +		 */
+> +		compatible =3D "semtech,sx1509q";
+> +		reg =3D <0x71>;
+> +		#gpio-cells =3D <2>;
+> +		gpio-controller;
+> +		#interrupt-cells =3D <2>;
+> +		interrupt-controller;
+> +		interrupt-parent =3D <&gpio4>;
+> +		interrupts =3D <15 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-0 =3D <&pinctrl_sx1509q>;
+> +		pinctrl-names =3D "default";
+> +		semtech,probe-reset;
+> +
+> +		status =3D "okay";
+> +	};
+> +};
+
+[ ... ]
+
+> +&netc_emdio {
+> +	pinctrl-0 =3D <&pinctrl_emdio>;
+> +	pinctrl-names =3D "default";
+> +
+> +	status =3D "okay";
+> +
+> +	ethphy0: ethernet-phy@1 {
+> +		compatible =3D "ethernet-phy-id001c.c916";
+> +		reg =3D <1>;
+> +		eee-broken-1000t;
+> +		realtek,clkout-disable;
+> +	};
+> +
+> +	ethphy1: ethernet-phy@4 {
+> +		compatible =3D "ethernet-phy-id001c.c916";
+> +		reg =3D <4>;
+> +		eee-broken-1000t;
+> +		realtek,clkout-disable;
+> +	};
+> +};
+
+[ ... ]
+
+> +&usb3 {
+> +	status =3D "okay";
+> +};
+> +
+> +&usb3_dwc3 {
+> +	dr_mode =3D "host";
+> +	snps,dis-u1-entry-quirk;
+> +	snps,dis-u2-entry-quirk;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+In arch/arm64/boot/dts/freescale/imx95.dtsi, usb3 and usb3_dwc3 are labels =
+on
+the same flattened usb@4c100000 node:
+
+    usb3: usb3_dwc3: usb@4c100000 {
+
+Should &usb3 and &usb3_dwc3 in arch/arm64/boot/dts/freescale/imx95-lec-ipi-=
+smarc.dts
+be merged into a single node reference so status =3D "okay" is not set twic=
+e on
+the same node?
+
+> +
+> +&usb3_phy {
+> +	status =3D "okay";
+> +};
+> +
+> +&usdhc1 {
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+Several on-module components and module pinmux bindings are placed here in
+arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts rather than in
+arch/arm64/boot/dts/freescale/imx95-lec.dtsi:
+
+- i2c2_gpio_expander_71 under lpi2c2 is on the module (its interrupt pin is
+  named and muxed via pinctrl_sx1509q in imx95-lec.dtsi, and its pins contr=
+ol
+  on-module devices as well as SMARC signals).
+- ethphy0 and ethphy1 under netc_emdio, along with the RGMII/MDIO pinctrl-0
+  and phy-mode properties on enetc_port0, enetc_port1, and netc_emdio, are =
+part
+  of the SMARC module's GBE0/GBE1 implementation.
+- usdhc1 is configured as the non-removable on-module storage in
+  imx95-lec.dtsi, but status =3D "okay" is only set in the carrier board fi=
+le.
+- The pinctrl-0 and pinctrl-names properties referencing the pinctrl_* grou=
+ps
+  defined in imx95-lec.dtsi are only attached to the peripheral nodes in
+  imx95-lec-ipi-smarc.dts.
+
+Should these on-module definitions and pinctrl properties be moved into
+imx95-lec.dtsi so that other carrier board device trees including
+imx95-lec.dtsi do not have to duplicate them?
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-lec.dtsi b/arch/arm64/bo=
+ot/dts/freescale/imx95-lec.dtsi
+> new file mode 100644
+> index 0000000000000..60d68c146ae46
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-lec.dtsi
+
+[ ... ]
+
+> +	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD1_CLK__USDHC1_CLK			0x158e>,
+> +			   <IMX95_PAD_SD1_CMD__USDHC1_CMD			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e>,
+> +			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e>;
+> +	};
+> +
+> +	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD1_CLK__USDHC1_CLK			0x15fe>,
+> +			   <IMX95_PAD_SD1_CMD__USDHC1_CMD			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe>,
+> +			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe>,
+> +			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe>;
+> +	};
+> +
+> +	pinctrl_usdhc1: usdhc1grp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD1_CLK__USDHC1_CLK			0x158e>,
+> +			   <IMX95_PAD_SD1_CMD__USDHC1_CMD			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e>,
+> +			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e>,
+> +			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e>;
+> +	};
+> +
+> +	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD2_CLK__USDHC2_CLK			0x158e>,
+> +			   <IMX95_PAD_SD2_CMD__USDHC2_CMD			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e>,
+> +			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT		0x51e>;
+> +	};
+> +
+> +	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD2_CLK__USDHC2_CLK			0x158e>,
+> +			   <IMX95_PAD_SD2_CMD__USDHC2_CMD			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e>,
+> +			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT		0x51e>;
+> +	};
+> +
+> +	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0		0x31e>;
+> +	};
+> +
+> +	pinctrl_usdhc2: usdhc2grp {
+> +		bootph-pre-ram;
+> +		fsl,pins =3D <IMX95_PAD_SD2_CLK__USDHC2_CLK			0x158e>,
+> +			   <IMX95_PAD_SD2_CMD__USDHC2_CMD			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e>,
+> +			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e>,
+> +			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT		0x51e>;
+> +	};
+
+[Severity: Low]
+In scmi_iomuxc in arch/arm64/boot/dts/freescale/imx95-lec.dtsi,
+pinctrl_usdhc2_200mhz uses the same 0x158e and 0x138e pad configuration val=
+ues
+as pinctrl_usdhc2_100mhz and pinctrl_usdhc2, whereas pinctrl_usdhc1_200mhz =
+uses
+0x15fe and 0x13fe. In addition, pinctrl_usdhc1_100mhz is identical to
+pinctrl_usdhc1, and pinctrl_usdhc2_100mhz is identical to pinctrl_usdhc2.
+
+Should pinctrl_usdhc2_200mhz use 0x15fe/0x13fe for 200MHz operation, or if =
+all
+states intentionally use the same pad settings, can the duplicate pinctrl
+groups be dropped in favor of reusing pinctrl_usdhc1 and pinctrl_usdhc2?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102102653.2720=
+56-1-dinesh.v@adlinktech.com?part=3D3
