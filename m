@@ -1,113 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612873;
-	b=RsZbTGgt39CN7GAsdjq2qGK7Uu9K8oAVDPlxeAAcdl2MXh4DxC8bLyfODFMXxXXUoiw7
-	 El6WQBcC0Yywv65U+Nd+QlyeC4GHdFYOr6btXtvsURUphAtxKRev+X9lE4JW1yTeo54zR
-	 cti9Q72LPsA1duXuCVIa7SSePsVpCWn/pNSMJ6qKKoRp5ed4C0btxEh0AaShEwX+IWxOg
-	 PJQ+DspUUKnZPeiMHa0bhxAuuvU0LWFqBWFFBCEf2W1l5lSKkFUhuh1u+uCmiHVY3w9nS
-	 G1L8vdn94Hc75iWKgYBu1z2kElUzubgKSOuJ1JdcMOVBKOFot1JECLYJ92JaLlgW+MA==
+	t=1793612881;
+	b=vpsr/IfkdGeCfgqQhZo/bpQv4zcW0m6R6pnnfppk/VtwmgIPlB6IOuUTr+5EL6k2WC3X
+	 HHxlxBGBRBt9xX1onc177eRowCyRxXce3krWC1daJgzPisaIbitdOu0cEkBwXYv5MmZJT
+	 JouNXiu1DUyCOoeyeFn48vrK7SJWZv7BiniHF0zxjWMmIoUSke54xv8Jo+Lz7E+hjiCdr
+	 c67GuZGTmcNFmdPFvcTb2TohuBhQa3UpZfpUU4hRlJF6mmWQhDEVSZ6oanQikDJR13O0p
+	 4EkaSBqQr8WajXpGX/F5pdTHsgQgGCytq3whIsMT8OgXRuZLyzAjbxeMlb1YZmSNp1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612881;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=tBpilLduGmKWuZIcWoFGh3oRU6G+tnaV5vhyAjtxcwA=;
-	b=sIqmnPuB4o9zOMQfwHvevrIdWOaTq7Dx31V1GSIMYGF51qlq3d9SZ+jmJ/AApyGfkrMR
-	 /9bveGLT018VP/+2emLVYppOoFey3lAukWiLjLRd14JEGnyAlrNhJjR6gqXGGHASeD13P
-	 JPnrGXkr4UAVIpA0H21OcSimk0btEE2L1eTGgpL7Krkt4a5+CAnT1Z0AsXi7f3UD8u55l
-	 UP4Z9DdBGu3JWVMMsdeIbi9WnkHheUuqtqNHGqchUNFcFxsMPV0wtVUUfB8OrQizzB54F
-	 qssVV+oGIzRdc2PzUCzSRTNvrWrPT+S1pHQ/mFA4z3EScu1Kq3tV4WdEdUNF7Vbg4jw==
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wlayQ34COyuwCVdd9ySFGiOccgyxlCLIpyflH/Wx0yg=;
+	b=XJUJBSRcp2/ta0E0qvt2aL92fJrH9Cy5A0jzm2/yR3vi8BdR8peKIIKTm8zyZ1tARxcR
+	 enDvsRBMzv+tZednV3bTjbmoo7pWZugBjKxl0/1xC8vm4Nm+495TuUmM7NVG0WjN4JNPH
+	 UAhdzdRT+vwsWUu13Cqg086M8vgHYqSQbMjXzB7tVGSFxPIc5YmR9YbWTgvhwMBtYfw3H
+	 l1s/4ivI49BhpvZcEakF+uSJLMseUZcBozoox9upi8Pm0WB34MNBvpnhoFk1h9bOAfcNH
+	 JZF7QtWxfkHQ1X3kGRa+W2MPK250eBMQ+eZ4VkTr47lsMpT3M91H9+s4PtpF7Xpwk2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c60ltpkN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZQSO5Q1l;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lfh0gGab;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QNCYaqfu;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81964606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 09:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81964606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC4F606A327
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 09:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEC4F606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=c60ltpkN;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZQSO5Q1l
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A23a2466164
-	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 09:47:52 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lfh0gGab;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QNCYaqfu
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A04V3402455
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 09:48:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tBpilLduGmKWuZIcWoFGh3oRU6G+tnaV5vhyAjtxcwA=; b=c60ltpkN2CjgXaiR
-	LE/HImbNGg1TmZ6HFXIpg06HGEsPeMxmTEnciQ6RPcaq9NZHq5O0SW5H31VDrjir
-	cnbafERiEa+nKkKhhZGqvnTS72Ie/3b1eqVH3jar5nGiUOGk3j2idwTV5s3ZwzyQ
-	6xFmMM/2KTgTUzyrn0Y3PUUZbvrgnz/NPu15AT1+R7Lk3UCaf8oJmNuUvOBOAvcm
-	hH+5XLguFWFIW0OjBeBUHfBH1xnrXTi2mFaQ9ASdWnO2XDtoErgvrjnoHXFA9tCH
-	OyrGtodN6qZAIqyfMujRxMI1QDoRvcJGRRsYeB8/hSKirlrO2hU1kn5SzQ2EpvJM
-	mVlrSA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpk9rh5xe-1
+	wlayQ34COyuwCVdd9ySFGiOccgyxlCLIpyflH/Wx0yg=; b=lfh0gGabBZwHMr4s
+	PL7VHDpS5d72vN0O3CtMndO81CH+VHTQ0ZUgRW+YE3fR3rTIb0Ozsi+iaQEm9r32
+	otpwHDYP6DZFx7B6eZ+NwRV1BWYOLYRbgFGgs4cre5KiDtYUVoasc+5mCXmUAp3U
+	HKGPYWSqFCiUb1Lrs5gwZQQEs7QsBLwfq4s50+3NxAHJLPc2lXAK/dcmAnyqkSZE
+	cbnMuo0vh/wf9NN2tnRUkRz6gXQ4DGCqxpBBBTnm66ImEd77ii0M4A2yVNMkCZI4
+	/0U8aUqHQxTL60b8hdvqwhVtS8unP55oHEJYgIy6TxGncQv8rNYRc++6tdDPf/vL
+	ao3dXw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hppfe8gf8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:47:52 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ada8bc8575so6267019a91.3
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 01:47:52 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:47:59 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab27eb38d6so2271274a91.2
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 01:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793612872; x=1794217672; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793612879; x=1794217679; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tBpilLduGmKWuZIcWoFGh3oRU6G+tnaV5vhyAjtxcwA=;
-        b=ZQSO5Q1lY0GY0T6xdQcrv03Zg43AxzQF9QV6H+FZNi9O0+hoQdVr/QxltuJ6z5Sx1h
-         SAH3xU9jHOt3LSjsG4l7Bow5lnXGBMeLvBqkHlitovauSeFyu7O+nXF5zJaw3OP3m12K
-         23qVhsJhdvN/xBfRoBiIDY5FqU3NJTAkzu5w2J1OlBHYgmufF28J/d9Ld9UgZKM4OEPe
-         EJKHgwow/xubnVYBWJBRpIaok7PeSHLaPwcxmSedbUKnOP2pAxpFNaD4G8utDgTkw8Gp
-         i2RZJABrUjblwFQcLh5NYJtKKm9zvY3XCMmnTx7qyijiAsVsIfnhaVPnG+OeP1iBVk8o
-         FCiA==
+        bh=wlayQ34COyuwCVdd9ySFGiOccgyxlCLIpyflH/Wx0yg=;
+        b=QNCYaqfuxYToNVQSsHOYMiy1OAkYzNrDJcHgNBwu9wZU2P/e8wbEAPfn4kM+/V7tdK
+         NJu+W89ucBjMxznasjxB1yhmoSuVkGRZeN/UrM65B51M4QRR2dgn7paePvufxwdZuMqD
+         IZA6uyCANTy3U2ercxGjEvm4/8nLH9zb8NSf6XIME78U706amG+SKvlTn15aV+LKdx0l
+         mD6HUrWvp8moP5p15tUdWtXn/FdQ2N3R3n8QGt8TOvQuq8YaVtDrNml5c+rRhQwsbT1m
+         ilC3O7v2ZAotpg07JgYGuQJNkgUZ4ALZqE8cxEYO+xjK+7oNHoE+NvveaF2Xw/6tiCxX
+         S1gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793612872; x=1794217672;
+        d=1e100.net; s=20260707; t=1793612879; x=1794217679;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tBpilLduGmKWuZIcWoFGh3oRU6G+tnaV5vhyAjtxcwA=;
-        b=nXE2F8CoV2226aer3WCPf6qmtV4cg8UTSUeXc++UbTr1GbcfTMNnUAr5Sg9jOGwAq6
-         m4FiW0OOKummkVgnw5wDZtk4jnYqGMG9d64L4HIkbbwafVaQiaSAMv3/EwHsSvXCDijv
-         /KI/uiGhQt2E4v8a269sdDq01vc6G/I0zRwgNsoOu+1vVvgT4lIywJz/1HZIvVSpzsiI
-         SCj4JZdQI45Y+gftP07MJGYSDuGeIr3o0jGc90ig0Lc5aW0cJ10hazxAsYxdoNm67nex
-         BYQj0ixY/TisFk1v2ZlcY+/6lcfPIzsALfO8Zrjsjc9ptSlUIku184crkfJ3HONDa32T
-         Nyng==
-X-Forwarded-Encrypted: i=1; AKwUvBwl9Oiz4e4ifNa9MByi9Ym/O8DUpKvJvoLDmhoVu3MOQbBx61CcInXMYePAZ3YBEUDUnWKZ0Lj4l6/3@vger.kernel.org
-X-Gm-Message-State: APuU4Z9jdEopHbAhyZvsmIAs3z+xVjM4sAjkK/RCCJw+WXaIaGn+L3UV
-	Ikluq02Cm8lQKiRZ6aj+jf4QoVrJwNKD/I9GpWhNGAvauCC6gHX9VgJjnYh1nwGL7zONKav8vV0
-	bkBCi7I0yJXbeMu4O/ex6fnG5XDq0YHTnJm5w4X6PF1gM69G2NIYtiJRflmU9cX/l
-X-Gm-Gg: AYBFou0Txz5b2pXqCy4KMR2QH+tVtkfFTcEZ+0aFyxJpEiUG04R4sxewfBuZ30jZa3v
-	a30xHQPtBIXCk5R4Uesc0BiDsn+inazJvo8GnzMHujtQy6vHLCPYetvZDkawGQK+lAfYqinLus2
-	3Rxr6wf4F0q+SQEX09fbkc1EFvv0tP8rvunUVhZPMvxgFiOrv3H5/0mCXeo1i7mxPsvfQ12PVrS
-	HtXXF3h1EgAmOGfCSuZxsovCcpCEMcgxlKnNK2FIXGHnhIM625zfm6t2ITJD7ZzuCPgydmdqb9i
-	84QOdbOmwtO7J1V6q48K3uCbTMsKJrtfmhtkHn8ctT+Qduu6P5/Gn4gKsdf430VTco6pLvtowdl
-	1dFBnqXGTQj1QQX+GfUTt/9LfY8hLnDGNVGBQFCGYAK1kBylJXpgXNfP32qHU3T5IS2B2kvzKhQ
-	BGfJmEoZSFcRI6CbCdpI1PEavH/kYYY7eD35s=
-X-Received: by 2002:a17:90b:3c08:b0:3a8:bd51:205b with SMTP id 98e67ed59e1d1-3ae89812f18mr8208565a91.37.1793612872033;
-        Mon, 02 Nov 2026 01:47:52 -0800 (PST)
-X-Received: by 2002:a17:90b:3c08:b0:3a8:bd51:205b with SMTP id 98e67ed59e1d1-3ae89812f18mr8208536a91.37.1793612871588;
-        Mon, 02 Nov 2026 01:47:51 -0800 (PST)
+        bh=wlayQ34COyuwCVdd9ySFGiOccgyxlCLIpyflH/Wx0yg=;
+        b=w+0gSzqC1nFseJXrbPkLtLNWkW4cHLfOy5RHJaVNqfqK+o2q1MjCNr+ErOpvov7ysl
+         JsGHj7fOj3Hb5au8429ajHDyjpGuonUwla3XuC8JoqCJ6tfACp7S9w7mpXOE1WlKh35g
+         nfwX1+Wl/by3vNoD8ZER7eiXEjAmvNdsEbPhQefSbQoA0D0DBCTr8XF3MKWgEBS09W+W
+         nWRksEOKIkFJMjH0kzQ0E+Wy2R1WaHIsWlwWXpYiRqcuDfqdWqUS2MynqW0CUYME/KPr
+         exPRq/UP1/QjgMoDKWauZPPbZMker9MxwQFpvSmdMkVCYJASmQuzST8Db/QaUa2xoY+A
+         PChw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAj5ezw/9adT1ztExKaPi2RCz94i2jjAUT9yEbjQN4ThoCzw9Wqpjsq4S+9nDxyGwRKtw2xhNtXWbY@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XYWB33Mku6JEpCL4XQHYmZb9cW50hn5znilI6OSfPYOVHHLIF
+	LsuNU+ac1t2ptzLf1glRl0Dp35BqW2uqMfRZcVrbxYVUPKIvqkZ/yZodeSea3nSnmaecsCa5/tn
+	gCc2rJfjEwCK89Q7jKX9z3J2X7EYHWucEJZF6XonUUsREFJIQ+GEFnXiBXrwmgWYX
+X-Gm-Gg: AYBFou2VU216f0Yojr3rITfdKJ/WpXLSjTx5sri544oCEQz83Ejz33wuWghIFeFBUfb
+	PxDblqe6PWRQOWXGgVQ8FX9LnSiEBbvpubE4qUZmtDmBzaxo+a5sg7rfrgU/+8IflRQTZ3s0lXq
+	ssJlQoE2J16qrLBbdmDy4Rq5PrNEMUoOJhFDTp049xQjodprON1jq+5mqG2h4dFgVxFPll6rT+H
+	0tXhi+IKH3hKmwwCAaqdblHgJerVEWrdlgkc3/2eGac7PjRQ9VReHfgl6H9A2dg5TBIRIgKzyXR
+	Ae1nxIMhyBJ2QxTtrlERuOUE8bC0uGwIhjF8oEUjDPIHxD3EfjvN8SuyDWFhLVGQ210+Si+CiWR
+	G/ZpVR+0IzerEIXf1VlvXmfwrbGNVxm0pmx9qIEsZ8Spadz8iw/DfDVknww9tXZBsRwQV5lmb05
+	VIgz5glC0QKEiSIkrONJOPpixHWCw6DHx6tjQ=
+X-Received: by 2002:a17:90b:1811:b0:3ac:9176:e836 with SMTP id 98e67ed59e1d1-3ae897ccb04mr7615466a91.21.1793612878591;
+        Mon, 02 Nov 2026 01:47:58 -0800 (PST)
+X-Received: by 2002:a17:90b:1811:b0:3ac:9176:e836 with SMTP id 98e67ed59e1d1-3ae897ccb04mr7615443a91.21.1793612877805;
+        Mon, 02 Nov 2026 01:47:57 -0800 (PST)
 Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aebaac28c9sm5053234a91.15.2026.11.02.01.47.46
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aebaac28c9sm5053234a91.15.2026.11.02.01.47.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:47:50 -0800 (PST)
+        Mon, 02 Nov 2026 01:47:57 -0800 (PST)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 17:46:34 +0800
-Subject: [PATCH v21 6/8] dt-bindings: arm: add an interrupt property for
- Coresight CTCU
+Date: Mon, 02 Nov 2026 17:46:35 +0800
+Subject: [PATCH v21 7/8] coresight: ctcu: enable byte-cntr for TMC ETR
+ devices
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-enable-byte-cntr-for-ctcu-v21-6-231e069b7853@oss.qualcomm.com>
+Message-Id: <20261102-enable-byte-cntr-for-ctcu-v21-7-231e069b7853@oss.qualcomm.com>
 References: <20261102-enable-byte-cntr-for-ctcu-v21-0-231e069b7853@oss.qualcomm.com>
 In-Reply-To: <20261102-enable-byte-cntr-for-ctcu-v21-0-231e069b7853@oss.qualcomm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
@@ -137,91 +137,1040 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
         Abel Vesa <abelvesa@kernel.org>
 Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
         linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        devicetree@vger.kernel.org
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793612830; l=1754;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793612831; l=34454;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=icbknvjFK2vf4oKtSEHbsU4cH2Y3pwIOC3H2EHr7Svw=;
- b=o45iHlSF0WsHgk3PyUkFhRrk//RjLVAmKOrTibXwQpYiryy5lYFSxxkpsFXbsQNmRGSrSi+cq
- xRm9Iigb9M6CDBxuhsa/PC45EBycsR0Aro0FtYcSqhPCkYw7xmvRxHR
+ bh=OLufkC/GfMl3G1ax7YGWiSarQKUu8LyPrFwUylu/GlM=;
+ b=GrK8ApYNlAgv8UBIc4QJO8lJAbhuy5VrhqPiZzXI05E23WkeqN4kHZYVgrPfZVnddco2BsiwR
+ zSDyU0PqcW+DBOeKVu+14XHxqiBWAwQPwqqgOsNvjtB79vzVtplqg4l
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-ORIG-GUID: PjPxQH50dJRl0dwVB5Bya2vSAF-BIA-9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX8A2E2slcGQur
- +adR3glG581uIimGUez5hY5SyBt+CWO+pa1O7s5k98peDnwVdBoWM8RvUeQcC4m1mg+tH6yqrkk
- uF9kjZ6w/L4EA9wXHLU94k321k65Yvm3yETtIewEPRq02zjhyPyDHV/329CItqIsZIimleHMGs6
- vzPB4vKhEWJeTDpaQa5L7UqP7FzjZH8iAS4sCQ5Y83MS1PIlvhbINgRJOfZgoV+vCLkCqc+wP2D
- 4M9gQVr4EiN9dAB3J3icFFEqa3oQrVVd3zQP7jGqBEDOxyYWPd4pvM/I9uVxq5F/9JkA/Bgspna
- ttt8FSz1CFuuzOL2YstKedjfv2ucbWQgnRBSlLj+mffFEcb38YEquHo+gW0S1lBHLzgfW77CaCK
- PZBlF2/b9PJaN2F10RuPKcNd4OVLCm1s0bUn42DaYMNbzXSsjzVcyfAoXPyeJ5qu/o1Yf4pcYaw
- 5B8elwBLgZNIVW1ayTw==
-X-Proofpoint-GUID: PjPxQH50dJRl0dwVB5Bya2vSAF-BIA-9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX/MRpUhb7re/J
- nDoWT9FlR8fdEpLtgexsvDzJtWxherQOaBK2JzOUZSbqGAEyoMTuRZkKX9TU6gIh9WcFG0Pn7X1
- XE+ruE2wlkXnyaKzGnR6o91wsBw52lk=
-X-Authority-Analysis: v=2.4 cv=LvwHWXdc c=1 sm=1 tr=0 ts=6ae85c48 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Authority-Analysis: v=2.4 cv=SeZi5fRu c=1 sm=1 tr=0 ts=6ae85c4f cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=gSyxy6DGYGa4b6s9XCEA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=XjKv5uM7SgSNu1ZRucMA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX11hrsf9nTtFd
+ FjzOwVEz14TllvVEIMiBH9mTl6bDW14VTkD3A9BedBad8l5oxYLojgUXSoIlvvIsi4hzn+fI2Ld
+ acSNjZE4ditRmp86IYwaACCiPWk0E6NXn/Otc7Az4U24tNT4Ikqm9CWIj2MCUDwlBfrMSRVNBcJ
+ OVCc1/Svad0aLt2qACmXbeOJribiaECaaqYT+2gc/ByLu9SXNPQmFmgt79owvLV+mccXrIc8biK
+ hlzblrSBSD0UhlaUqlk5FDdF8W8O0xca9Km2UBz0k05bhZH2WEc+qd6Oe93OFyrMxHsC0y0LcPC
+ l784x9Mcgjb8k8JJ537+TI/mJSp3ABy6m9Z8qPjT5gFkiw/xWCtI9HwvmyJoQ9TYimnNfJEiaZl
+ XMDwHBl6EbLMNV+DMJkiPpKXb4Ca54/Fe+botCvXBKpz0fkjA8pEMekTplcyrEV0RHsi20gjUQE
+ EsghkOXPqEJ7k2ibnRQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX5+E6z41PsvmB
+ amIFPrFyGiHL3mxgmibmIZ/nJPzWGk1tzeV+pll0hoZRAH2vSX+PhZV6Uwcmax7cX8YOHWXRGYS
+ 2M/aAOtUE/XqnlzUJLV19QTC+3/XDKc=
+X-Proofpoint-ORIG-GUID: DqcyxdjYNUbItkeI2jYcEkgbmwZKhyU1
+X-Proofpoint-GUID: DqcyxdjYNUbItkeI2jYcEkgbmwZKhyU1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020038
 
-Add an interrupt property to CTCU device. The interrupt will be triggered
-when the data size in the ETR buffer exceeds the threshold of the
-BYTECNTRVAL register. Programming a threshold in the BYTECNTRVAL register
-of CTCU device will enable the interrupt.
+The byte-cntr function provided by the CTCU device is used to transfer data
+from the ETR buffer to the userspace. An interrupt is triggered if the data
+size exceeds the threshold set in the BYTECNTRVAL register. The interrupt
+handler counts the number of triggered interruptions and the read function
+will read the data from the synced ETR buffer.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Mike Leach <mike.leach@arm.com>
+When the current etr_buf is nearly full or the timeout is triggered, the
+ETR is switched to the other etr_buf of the etr_buf_list and the synced
+etr_buf becomes available for reading, while the ETR keeps tracing. Once
+the trace has been stopped, the last etr_buf is read by the generic sysfs
+read of the TMC.
+
+The byte-cntr read is exclusive with the generic sysfs read of the TMC. It
+is used only when it is enabled for the ETR, otherwise the TMC falls back
+to its original read.
+
+Byte-cntr workflow:
+start -> ctcu_enable(ctcu_byte_cntr_start) -> tmc_enable_etr_sink ->
+tmc_read_prepare_etr(jump to tmc_read_prepare_byte_cntr) ->
+tmc_etr_get_sysfs_trace(jump to tmc_byte_cntr_get_data) ->
+tmc_disable_etr_sink -> ctcu_disable(ctcu_byte_cntr_stop) ->
+tmc_read_unprepare_etr(jump to tmc_read_unprepare_byte_cntr) -> finish
+
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../ABI/testing/sysfs-bus-coresight-devices-ctcu   |   9 +
+ drivers/hwtracing/coresight/Makefile               |   2 +-
+ .../hwtracing/coresight/coresight-ctcu-byte-cntr.c | 400 +++++++++++++++++++++
+ drivers/hwtracing/coresight/coresight-ctcu-core.c  | 163 ++++++++-
+ drivers/hwtracing/coresight/coresight-ctcu.h       |  88 ++++-
+ drivers/hwtracing/coresight/coresight-tmc-core.c   |   3 +-
+ drivers/hwtracing/coresight/coresight-tmc-etr.c    |  87 ++++-
+ drivers/hwtracing/coresight/coresight-tmc.h        |   5 +
+ 8 files changed, 729 insertions(+), 28 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-index 335a8e1a5a9e..decb404e2ab1 100644
---- a/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-@@ -49,6 +49,11 @@ properties:
-     items:
-       - const: apb
- 
-+  interrupts:
-+    items:
-+      - description: Interrupt for the ETR device connected to in-port0.
-+      - description: Interrupt for the ETR device connected to in-port1.
+diff --git a/Documentation/ABI/testing/sysfs-bus-coresight-devices-ctcu b/Documentation/ABI/testing/sysfs-bus-coresight-devices-ctcu
+new file mode 100644
+index 000000000000..08dbc8e6b2ec
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-bus-coresight-devices-ctcu
+@@ -0,0 +1,9 @@
++What:           /sys/bus/coresight/devices/<ctcu-name>/irq_enabled[0:1]
++Date:           October 2026
++KernelVersion:  7.5
++Contact:        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>; Jinlong Mao <jinlong.mao@oss.qualcomm.com>; Jie Gan <jie.gan@oss.qualcomm.com>
++Description:
++		(RW) Configure the flag to enable interrupt to count data during CTCU enablement.
++		An interrupt is generated when the data size exceeds the value set in the IRQ register.
++		0 : disable
++		1 : enable
+diff --git a/drivers/hwtracing/coresight/Makefile b/drivers/hwtracing/coresight/Makefile
+index ab16d06783a5..821a1b06b20c 100644
+--- a/drivers/hwtracing/coresight/Makefile
++++ b/drivers/hwtracing/coresight/Makefile
+@@ -55,5 +55,5 @@ coresight-cti-y := coresight-cti-core.o	coresight-cti-platform.o \
+ obj-$(CONFIG_ULTRASOC_SMB) += ultrasoc-smb.o
+ obj-$(CONFIG_CORESIGHT_DUMMY) += coresight-dummy.o
+ obj-$(CONFIG_CORESIGHT_CTCU) += coresight-ctcu.o
+-coresight-ctcu-y := coresight-ctcu-core.o
++coresight-ctcu-y := coresight-ctcu-core.o coresight-ctcu-byte-cntr.o
+ obj-$(CONFIG_CORESIGHT_KUNIT_TESTS) += coresight-kunit-tests.o
+diff --git a/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c b/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
+new file mode 100644
+index 000000000000..bff87e776a75
+--- /dev/null
++++ b/drivers/hwtracing/coresight/coresight-ctcu-byte-cntr.c
+@@ -0,0 +1,400 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-   label:
-     description:
-       Description of a coresight device.
-@@ -70,6 +75,8 @@ additionalProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <linux/coresight.h>
++#include <linux/device.h>
++#include <linux/fs.h>
++#include <linux/interrupt.h>
++#include <linux/mutex.h>
++#include <linux/of_irq.h>
++#include <linux/uaccess.h>
 +
-     ctcu@1001000 {
-         compatible = "qcom,sa8775p-ctcu";
-         reg = <0x1001000 0x1000>;
-@@ -77,6 +84,9 @@ examples:
-         clocks = <&aoss_qmp>;
-         clock-names = "apb";
- 
-+        interrupts = <GIC_SPI 270 IRQ_TYPE_EDGE_RISING>,
-+                     <GIC_SPI 262 IRQ_TYPE_EDGE_RISING>;
++#include "coresight-ctcu.h"
++#include "coresight-priv.h"
++#include "coresight-tmc.h"
 +
-         in-ports {
-             #address-cells = <1>;
-             #size-cells = <0>;
++/*
++ * The byte-cntr sysfs ops are shared by all the CTCU devices, so they are
++ * registered by the first CTCU with byte-cntr and removed with the last one.
++ */
++static DEFINE_MUTEX(byte_cntr_ops_lock);
++static int byte_cntr_ops_users;
++
++static void ctcu_byte_cntr_put_ops(void *data)
++{
++	guard(mutex)(&byte_cntr_ops_lock);
++	if (!--byte_cntr_ops_users)
++		tmc_etr_reset_byte_cntr_sysfs_ops();
++}
++
++static irqreturn_t byte_cntr_handler(int irq, void *data)
++{
++	struct ctcu_byte_cntr *byte_cntr_data = data;
++
++	atomic_inc(&byte_cntr_data->irq_cnt);
++	wake_up(&byte_cntr_data->wq);
++
++	return IRQ_HANDLED;
++}
++
++static void ctcu_cfg_byte_cntr_reg(struct ctcu_drvdata *drvdata, u32 val,
++				   u32 offset)
++{
++	/* A one value for IRQCTRL register represents 8 bytes */
++	ctcu_program_register(drvdata, val / 8, offset);
++}
++
++static struct ctcu_byte_cntr *ctcu_get_byte_cntr(struct coresight_device *ctcu,
++						 struct coresight_device *etr)
++{
++	struct ctcu_byte_cntr *byte_cntr_data;
++	struct ctcu_drvdata *drvdata;
++	int port;
++
++	/* The ETR may not be connected to a CTCU device */
++	if (!ctcu)
++		return NULL;
++
++	drvdata = dev_get_drvdata(ctcu->dev.parent);
++	port = coresight_get_in_port(etr, ctcu);
++	if (port < 0 || port >= ETR_MAX_NUM)
++		return NULL;
++
++	byte_cntr_data = &drvdata->byte_cntr_data[port];
++	/* The port is not initialized by ctcu_byte_cntr_init() */
++	if (!byte_cntr_data->ctcu_drvdata)
++		return NULL;
++
++	return byte_cntr_data;
++}
++
++/*
++ * ctcu_byte_cntr_get_data() - reads data from the deactivated and filled buffer.
++ * The byte-cntr reading work reads data from the deactivated and filled buffer.
++ * The read operation waits for a buffer to become available, either filled or
++ * upon timeout, and then reads trace data from the synced buffer.
++ */
++static ssize_t tmc_byte_cntr_get_data(struct tmc_drvdata *etr_drvdata, loff_t pos,
++				      size_t len, char **bufpp)
++{
++	struct coresight_device *ctcu = tmc_etr_get_ctcu_device(etr_drvdata);
++	struct device *dev = &etr_drvdata->csdev->dev;
++	struct ctcu_byte_cntr *byte_cntr_data;
++	struct etr_buf *sysfs_buf;
++	atomic_t *irq_cnt;
++	ssize_t actual;
++	int ret;
++
++	/* No byte-cntr read session, let the caller use the generic read */
++	byte_cntr_data = ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
++	if (!byte_cntr_data || !byte_cntr_data->irq_enabled ||
++	    !byte_cntr_data->reading)
++		return -EINVAL;
++
++	irq_cnt = &byte_cntr_data->irq_cnt;
++
++wait_buffer:
++	if (!byte_cntr_data->buf_node) {
++		ret = wait_event_interruptible_timeout(byte_cntr_data->wq,
++				(atomic_read(irq_cnt) >= MAX_IRQ_CNT - 1) ||
++				!byte_cntr_data->enable,
++				BYTE_CNTR_TIMEOUT);
++		if (ret < 0)
++			return ret;
++		/*
++		 * The current etr_buf is almost full or timeout is triggered,
++		 * so switch the buffer and mark the switched buffer as reading.
++		 */
++		if (byte_cntr_data->enable) {
++			byte_cntr_data->buf_node =
++				tmc_etr_switch_buf_node(etr_drvdata);
++			if (!byte_cntr_data->buf_node) {
++				/*
++				 * The sink has stopped, let the generic read
++				 * handle the last etr_buf.
++				 */
++				if (coresight_get_mode(etr_drvdata->csdev) != CS_MODE_SYSFS)
++					return 0;
++
++				dev_err(dev, "Switch buffer failed for the byte-cntr\n");
++				return -ENOMEM;
++			}
++
++			/*
++			 * Get the interrupt count of the switched out etr_buf
++			 * and reset it for the next etr_buf.
++			 */
++			if (atomic_xchg(irq_cnt, 0) >= MAX_IRQ_CNT)
++				dev_warn(dev, "Data overwrite happened\n");
++		} else {
++			/* Exit byte-cntr reading */
++			return 0;
++		}
++	}
++
++	pos = byte_cntr_data->buf_node->pos;
++	sysfs_buf = byte_cntr_data->buf_node->sysfs_buf;
++	actual = tmc_etr_read_sysfs_buf(sysfs_buf, pos, len, bufpp);
++	if (actual <= 0) {
++		/* Reset buf_node upon reading is finished or failed */
++		byte_cntr_data->buf_node->reading = false;
++		byte_cntr_data->buf_node = NULL;
++
++		/*
++		 * Nothing in the buffer, waiting for the next buffer
++		 * to be filled.
++		 */
++		if (actual == 0)
++			goto wait_buffer;
++	}
++
++	return actual;
++}
++
++static int tmc_read_prepare_byte_cntr(struct tmc_drvdata *etr_drvdata)
++{
++	struct coresight_device *ctcu = tmc_etr_get_ctcu_device(etr_drvdata);
++	struct ctcu_byte_cntr *byte_cntr_data;
++	unsigned long flags;
++	int ret = 0;
++
++	/* byte-cntr is operating with SYSFS mode being enabled only */
++	if (coresight_get_mode(etr_drvdata->csdev) != CS_MODE_SYSFS)
++		return -EINVAL;
++
++	byte_cntr_data = ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
++	if (!byte_cntr_data)
++		return -EINVAL;
++
++	raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
++	/*
++	 * irq_enabled can only be changed with the lock held and reading
++	 * cleared, so check it here to keep it stable once reading is set.
++	 */
++	if (!byte_cntr_data->irq_enabled) {
++		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++		return -EINVAL;
++	}
++
++	if (byte_cntr_data->reading) {
++		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++		return -EBUSY;
++	}
++
++	/* byte_cntr_data->enable may race with ctcu_platform_remove() */
++	if (!byte_cntr_data->enable) {
++		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++		return -ENODEV;
++	}
++
++	/*
++	 * Pin the module for the whole read session, so that rmmod fails with
++	 * -EBUSY instead of blocking in ctcu_platform_remove() until the file
++	 * is closed.
++	 */
++	if (!try_module_get(THIS_MODULE)) {
++		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++		return -ENODEV;
++	}
++
++	reinit_completion(&byte_cntr_data->session_done);
++	byte_cntr_data->reading = true;
++	raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++
++	/* Setup an available etr_buf_list for byte-cntr */
++	ret = tmc_create_etr_buf_list(etr_drvdata, 2);
++	if (ret)
++		goto err_reading;
++
++	/*
++	 * The byte-cntr register is configured and the interrupts are counted
++	 * since the path was enabled, so irq_cnt is not reset here.
++	 */
++	scoped_guard(raw_spinlock_irqsave, &byte_cntr_data->spin_lock)
++		byte_cntr_data->buf_node = NULL;
++	/* enable_irq_wake() may sleep on slow-bus irqchips, call it unlocked */
++	enable_irq_wake(byte_cntr_data->irq);
++
++	return 0;
++
++err_reading:
++	/*
++	 * reading was set before the sleeping allocations, so
++	 * ctcu_platform_remove() may be waiting for the session to end. Complete
++	 * the session with reading cleared in one critical section, so that a
++	 * new session can't start in between.
++	 */
++	scoped_guard(raw_spinlock_irqsave, &byte_cntr_data->spin_lock) {
++		byte_cntr_data->reading = false;
++		complete_all(&byte_cntr_data->session_done);
++	}
++
++	module_put(THIS_MODULE);
++	return ret;
++}
++
++static int tmc_read_unprepare_byte_cntr(struct tmc_drvdata *etr_drvdata)
++{
++	struct coresight_device *ctcu = tmc_etr_get_ctcu_device(etr_drvdata);
++	struct ctcu_byte_cntr *byte_cntr_data;
++
++	/*
++	 * Do the unprepare operation only when the byte_cntr_data->reading
++	 * is truly set
++	 */
++	byte_cntr_data = ctcu_get_byte_cntr(ctcu, etr_drvdata->csdev);
++	if (!byte_cntr_data || !byte_cntr_data->irq_enabled ||
++	    !byte_cntr_data->reading)
++		return -EINVAL;
++
++	tmc_clean_etr_buf_list(etr_drvdata);
++
++	/* disable_irq_wake() may sleep on slow-bus irqchips, call it unlocked */
++	disable_irq_wake(byte_cntr_data->irq);
++
++	/*
++	 * The byte-cntr register is not accessed here: the trace path, which
++	 * keeps the CTCU powered, may have been released already. It is reset
++	 * when the path is disabled.
++	 */
++	scoped_guard(raw_spinlock_irqsave, &byte_cntr_data->spin_lock) {
++		byte_cntr_data->buf_node = NULL;
++		byte_cntr_data->reading = false;
++		/*
++		 * Complete the session with reading cleared in one critical
++		 * section, so that a new session can't start in between.
++		 * ctcu_platform_remove() may free byte_cntr_data after this,
++		 * don't use it anymore.
++		 */
++		complete_all(&byte_cntr_data->session_done);
++	}
++
++	module_put(THIS_MODULE);
++
++	return 0;
++}
++
++static const struct tmc_sysfs_ops byte_cntr_sysfs_ops = {
++	.read_prepare	= tmc_read_prepare_byte_cntr,
++	.read_unprepare	= tmc_read_unprepare_byte_cntr,
++	.get_trace_data	= tmc_byte_cntr_get_data,
++};
++
++/* Start the byte-cntr function when the path is enabled. */
++void ctcu_byte_cntr_start(struct coresight_device *csdev, struct coresight_path *path)
++{
++	struct coresight_device *sink = coresight_get_sink(path);
++	struct tmc_drvdata *etr_drvdata;
++	struct ctcu_byte_cntr *byte_cntr_data;
++
++	byte_cntr_data = ctcu_get_byte_cntr(csdev, sink);
++	if (!byte_cntr_data)
++		return;
++
++	etr_drvdata = dev_get_drvdata(sink->dev.parent);
++	guard(raw_spinlock_irqsave)(&byte_cntr_data->spin_lock);
++	/*
++	 * Don't start byte-cntr function when irq_enabled is not set, or when
++	 * the CTCU device is being removed.
++	 */
++	if (!byte_cntr_data->irq_enabled || byte_cntr_data->removing)
++		return;
++
++	/*
++	 * A new trace starts with an empty etr_buf. Don't reset the count if
++	 * the byte-cntr is already started by another path of the same sink.
++	 */
++	if (!byte_cntr_data->enable)
++		atomic_set(&byte_cntr_data->irq_cnt, 0);
++
++	/*
++	 * Configure the byte-cntr register to enable IRQ while the path is
++	 * enabled, the CTCU is powered then. The configured size is 5% of the
++	 * buffer_size.
++	 */
++	ctcu_cfg_byte_cntr_reg(byte_cntr_data->ctcu_drvdata,
++			       etr_drvdata->size / MAX_IRQ_CNT,
++			       byte_cntr_data->irq_ctrl_offset);
++	byte_cntr_data->enable = true;
++}
++
++/* Stop the byte-cntr function when the path is disabled. */
++void ctcu_byte_cntr_stop(struct coresight_device *csdev, struct coresight_path *path)
++{
++	struct coresight_device *sink = coresight_get_sink(path);
++	struct ctcu_byte_cntr *byte_cntr_data;
++
++	if (coresight_get_mode(sink) == CS_MODE_SYSFS)
++		return;
++
++	byte_cntr_data = ctcu_get_byte_cntr(csdev, sink);
++	if (!byte_cntr_data)
++		return;
++
++	scoped_guard(raw_spinlock_irqsave, &byte_cntr_data->spin_lock) {
++		/*
++		 * Configure the byte-cntr register to disable IRQ before the
++		 * path is released, the CTCU is still powered.
++		 */
++		if (byte_cntr_data->enable)
++			ctcu_cfg_byte_cntr_reg(byte_cntr_data->ctcu_drvdata, 0,
++					       byte_cntr_data->irq_ctrl_offset);
++		byte_cntr_data->enable = false;
++	}
++
++	/* Wake up the blocked reader, which exits the byte-cntr reading */
++	wake_up(&byte_cntr_data->wq);
++}
++
++void ctcu_byte_cntr_init(struct device *dev, struct ctcu_drvdata *drvdata, int etr_num)
++{
++	struct ctcu_byte_cntr *byte_cntr_data;
++	struct device_node *nd = dev->of_node;
++	int irq_num, ret, i, irq_registered = 0;
++
++	for (i = 0; i < etr_num; i++) {
++		byte_cntr_data = &drvdata->byte_cntr_data[i];
++		/*
++		 * Initialize the lock and the waitqueue before requesting the
++		 * IRQ, and for every port as ctcu_platform_remove() uses them
++		 * even if the IRQ of the port is not registered.
++		 */
++		byte_cntr_data->ctcu_drvdata = drvdata;
++		init_waitqueue_head(&byte_cntr_data->wq);
++		raw_spin_lock_init(&byte_cntr_data->spin_lock);
++		init_completion(&byte_cntr_data->session_done);
++		/* No read session in progress */
++		complete_all(&byte_cntr_data->session_done);
++
++		irq_num = of_irq_get(nd, i);
++		if (irq_num <= 0) {
++			dev_err(dev, "Failed to get IRQ from DT for port%d\n", i);
++			continue;
++		}
++
++		ret = devm_request_irq(dev, irq_num, byte_cntr_handler,
++				       IRQF_TRIGGER_RISING,
++				       dev_name(dev), byte_cntr_data);
++		if (ret) {
++			dev_err(dev, "Failed to register IRQ for port%d\n", i);
++			continue;
++		}
++
++		byte_cntr_data->irq = irq_num;
++		irq_registered++;
++	}
++
++	if (!irq_registered)
++		return;
++
++	scoped_guard(mutex, &byte_cntr_ops_lock) {
++		tmc_etr_set_byte_cntr_sysfs_ops(&byte_cntr_sysfs_ops);
++		byte_cntr_ops_users++;
++	}
++
++	/* Drop the ops user when the CTCU device is removed or probe fails */
++	if (devm_add_action_or_reset(dev, ctcu_byte_cntr_put_ops, NULL))
++		dev_err(dev, "Failed to add the byte-cntr devm action\n");
++}
+diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
+index 739105acb0a1..cce4e4d76da0 100644
+--- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
++++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2024-2026 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
+ #include <linux/clk.h>
+@@ -18,6 +19,7 @@
+ 
+ #include "coresight-ctcu.h"
+ #include "coresight-priv.h"
++#include "coresight-tmc.h"
+ 
+ #define ctcu_writel(drvdata, val, offset)	__raw_writel((val), drvdata->base + offset)
+ #define ctcu_readl(drvdata, offset)		__raw_readl(drvdata->base + offset)
+@@ -43,17 +45,21 @@
+ 
+ #define CTCU_ATID_REG_BIT(traceid)	(traceid % 32)
+ #define CTCU_ATID_REG_SIZE		0x10
++#define CTCU_ETR0_IRQCTRL               0x6c
++#define CTCU_ETR1_IRQCTRL               0x70
+ #define CTCU_ETR0_ATID0			0xf8
+ #define CTCU_ETR1_ATID0			0x108
+ 
+ static const struct ctcu_etr_config sa8775p_etr_cfgs[] = {
+ 	{
+-		.atid_offset	= CTCU_ETR0_ATID0,
+-		.port_num	= 0,
++		.atid_offset		= CTCU_ETR0_ATID0,
++		.irq_ctrl_offset	= CTCU_ETR0_IRQCTRL,
++		.port_num		= 0,
+ 	},
+ 	{
+-		.atid_offset	= CTCU_ETR1_ATID0,
+-		.port_num	= 1,
++		.atid_offset		= CTCU_ETR1_ATID0,
++		.irq_ctrl_offset	= CTCU_ETR1_IRQCTRL,
++		.port_num		= 1,
+ 	},
+ };
+ 
+@@ -62,6 +68,93 @@ static const struct ctcu_config sa8775p_cfgs = {
+ 	.num_etr_config	= ARRAY_SIZE(sa8775p_etr_cfgs),
+ };
+ 
++/*
++ * The register access is unlocked and locked in the same way as the ATID
++ * register, so serialise them with drvdata->spin_lock. Otherwise one side may
++ * lock the registers between the unlock and the write of the other side.
++ */
++void ctcu_program_register(struct ctcu_drvdata *drvdata, u32 val, u32 offset)
++{
++	guard(raw_spinlock_irqsave)(&drvdata->spin_lock);
++	CS_UNLOCK(drvdata->base);
++	ctcu_writel(drvdata, val, offset);
++	CS_LOCK(drvdata->base);
++}
++
++static ssize_t irq_enabled_show(struct device *dev,
++				struct device_attribute *attr,
++				char *buf)
++{
++	struct ctcu_byte_cntr_irq_attribute *irq_attr =
++		container_of(attr, struct ctcu_byte_cntr_irq_attribute, attr);
++	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev->parent);
++	u8 port = irq_attr->port;
++
++	if (!drvdata->byte_cntr_data[port].irq_ctrl_offset)
++		return -EINVAL;
++
++	return sysfs_emit(buf, "%u\n",
++			(unsigned int)drvdata->byte_cntr_data[port].irq_enabled);
++}
++
++static ssize_t irq_enabled_store(struct device *dev,
++				 struct device_attribute *attr,
++				 const char *buf,
++				 size_t size)
++{
++	struct ctcu_byte_cntr_irq_attribute *irq_attr =
++		container_of(attr, struct ctcu_byte_cntr_irq_attribute, attr);
++	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev->parent);
++	u8 port = irq_attr->port;
++	unsigned long val;
++
++	if (kstrtoul(buf, 0, &val))
++		return -EINVAL;
++
++	guard(raw_spinlock_irqsave)(&drvdata->byte_cntr_data[port].spin_lock);
++	if (drvdata->byte_cntr_data[port].reading)
++		return -EBUSY;
++	else if (drvdata->byte_cntr_data[port].irq_ctrl_offset)
++		drvdata->byte_cntr_data[port].irq_enabled = !!val;
++
++	return size;
++}
++
++static umode_t irq_enabled_is_visible(struct kobject *kobj,
++				      struct attribute *attr, int n)
++{
++	struct device_attribute *dev_attr =
++		container_of(attr, struct device_attribute, attr);
++	struct ctcu_byte_cntr_irq_attribute *irq_attr =
++		container_of(dev_attr, struct ctcu_byte_cntr_irq_attribute, attr);
++	struct device *dev = kobj_to_dev(kobj);
++	struct ctcu_drvdata *drvdata = dev_get_drvdata(dev->parent);
++	u8 port = irq_attr->port;
++
++	/* Expose irq_enabled only for the ports with a registered IRQ */
++	if (drvdata && drvdata->byte_cntr_data[port].irq_ctrl_offset &&
++	    drvdata->byte_cntr_data[port].irq)
++		return attr->mode;
++
++	return 0;
++}
++
++static struct attribute *ctcu_attrs[] = {
++	ctcu_byte_cntr_irq_rw(0),
++	ctcu_byte_cntr_irq_rw(1),
++	NULL,
++};
++
++static struct attribute_group ctcu_attr_grp = {
++	.attrs = ctcu_attrs,
++	.is_visible = irq_enabled_is_visible,
++};
++
++static const struct attribute_group *ctcu_attr_grps[] = {
++	&ctcu_attr_grp,
++	NULL,
++};
++
+ static void ctcu_program_atid_register(struct ctcu_drvdata *drvdata, u32 reg_offset,
+ 				       u8 bit, bool enable)
+ {
+@@ -140,11 +233,23 @@ static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight
+ static int ctcu_enable(struct coresight_device *csdev, enum cs_mode mode,
+ 		       struct coresight_path *path)
+ {
+-	return ctcu_set_etr_traceid(csdev, path, true);
++	int ret;
++
++	ret = ctcu_set_etr_traceid(csdev, path, true);
++	/*
++	 * Byte-cntr works in sysfs mode only. Start it once the trace ID is set,
++	 * as ctcu_disable() won't be called to stop it if the enabling failed.
++	 */
++	if (!ret && mode == CS_MODE_SYSFS)
++		ctcu_byte_cntr_start(csdev, path);
++
++	return ret;
+ }
+ 
+ static int ctcu_disable(struct coresight_device *csdev, struct coresight_path *path)
+ {
++	ctcu_byte_cntr_stop(csdev, path);
++
+ 	return ctcu_set_etr_traceid(csdev, path, false);
+ }
+ 
+@@ -195,7 +300,10 @@ static int ctcu_probe(struct platform_device *pdev)
+ 			for (i = 0; i < cfgs->num_etr_config; i++) {
+ 				etr_cfg = &cfgs->etr_cfgs[i];
+ 				drvdata->atid_offset[i] = etr_cfg->atid_offset;
++				drvdata->byte_cntr_data[i].irq_ctrl_offset =
++					etr_cfg->irq_ctrl_offset;
+ 			}
++			ctcu_byte_cntr_init(dev, drvdata, cfgs->num_etr_config);
+ 		}
+ 	}
+ 
+@@ -209,6 +317,7 @@ static int ctcu_probe(struct platform_device *pdev)
+ 	desc.dev = dev;
+ 	desc.ops = &ctcu_ops;
+ 	desc.access = CSDEV_ACCESS_IOMEM(base);
++	desc.groups = ctcu_attr_grps;
+ 	raw_spin_lock_init(&drvdata->spin_lock);
+ 
+ 	drvdata->csdev = coresight_register(&desc);
+@@ -244,10 +353,52 @@ static int ctcu_platform_probe(struct platform_device *pdev)
+ static void ctcu_platform_remove(struct platform_device *pdev)
+ {
+ 	struct ctcu_drvdata *drvdata = platform_get_drvdata(pdev);
++	struct ctcu_byte_cntr *byte_cntr_data;
++	unsigned long flags;
++	int i;
+ 
+ 	if (WARN_ON(!drvdata))
+ 		return;
+ 
++	/*
++	 * Signal all active byte-cntr readers to exit, then wait for them to
++	 * finish before resetting the ops pointer and freeing driver data.
++	 * Without this, a reader blocked in wait_event_interruptible_timeout()
++	 * would access the freed ctcu_drvdata wait-queue head (use-after-free).
++	 *
++	 * The wait ends only when the userspace closes the tmc_etr file, so an
++	 * unbind with the file left open blocks until then. Unloading the module
++	 * is rejected with -EBUSY while a read session is open, so only a manual
++	 * unbind can block here.
++	 */
++	for (i = 0; i < ETR_MAX_NUM; i++) {
++		byte_cntr_data = &drvdata->byte_cntr_data[i];
++		/* The port was not initialized by ctcu_byte_cntr_init() */
++		if (!byte_cntr_data->irq)
++			continue;
++
++		raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
++		/*
++		 * Set enable=false to signal teardown to racing readers, and
++		 * removing=true to keep a new path from enabling byte-cntr again.
++		 */
++		byte_cntr_data->enable = false;
++		byte_cntr_data->removing = true;
++		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++
++		/* Wake up the blocked reader, then wait for the session to end */
++		wake_up_all(&byte_cntr_data->wq);
++		wait_for_completion(&byte_cntr_data->session_done);
++
++		/*
++		 * The ending session completes it with the lock held. Take the
++		 * lock once more, to be sure that it has released the lock
++		 * before byte_cntr_data is freed.
++		 */
++		raw_spin_lock_irqsave(&byte_cntr_data->spin_lock, flags);
++		raw_spin_unlock_irqrestore(&byte_cntr_data->spin_lock, flags);
++	}
++
+ 	ctcu_remove(pdev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+diff --git a/drivers/hwtracing/coresight/coresight-ctcu.h b/drivers/hwtracing/coresight/coresight-ctcu.h
+index e9594c38dd91..60dded125ece 100644
+--- a/drivers/hwtracing/coresight/coresight-ctcu.h
++++ b/drivers/hwtracing/coresight/coresight-ctcu.h
+@@ -1,23 +1,32 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ /*
+- * Copyright (c) 2024-2025 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2024-2026 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
+ #ifndef _CORESIGHT_CTCU_H
+ #define _CORESIGHT_CTCU_H
++
++#include <linux/completion.h>
++#include <linux/time.h>
+ #include "coresight-trace-id.h"
+ 
+ /* Maximum number of supported ETR devices for a single CTCU. */
+ #define ETR_MAX_NUM	2
+ 
++#define BYTE_CNTR_TIMEOUT	(3 * HZ)
++#define MAX_IRQ_CNT		20
++
+ /**
+- * struct ctcu_etr_config
++ * struct ctcu_etr_config - ETR specific configuration of the CTCU device
+  * @atid_offset:	offset to the ATID0 Register.
+- * @port_num:		in-port number of CTCU device that connected to ETR.
++ * @port_num:		in-port number of the CTCU device that connected to ETR.
++ * @irq_ctrl_offset:    offset to the BYTECNTRVAL register.
+  */
+ struct ctcu_etr_config {
+ 	const u32 atid_offset;
+ 	const u32 port_num;
++	const u32 irq_ctrl_offset;
+ };
+ 
+ struct ctcu_config {
+@@ -25,15 +34,72 @@ struct ctcu_config {
+ 	int num_etr_config;
+ };
+ 
+-struct ctcu_drvdata {
+-	void __iomem		*base;
+-	struct clk		*apb_clk;
+-	struct device		*dev;
+-	struct coresight_device	*csdev;
++/**
++ * struct ctcu_byte_cntr - byte-cntr data of a port of the CTCU device
++ * @enable:		indicates that byte_cntr function is enabled or not.
++ * @irq_enabled:	indicates that the interruption is enabled.
++ * @reading:		indicates that byte_cntr is reading.
++ * @removing:		indicates that the CTCU device is being removed.
++ * @irq:		allocated number of the IRQ.
++ * @irq_cnt:		IRQ count number of the triggered interruptions.
++ * @wq:			waitqueue for reading data from ETR buffer.
++ * @spin_lock:		spinlock of the byte_cntr_data.
++ * @session_done:	completed when there is no read session in progress.
++ * @irq_ctrl_offset:	offset to the BYTECNTVAL Register.
++ * @ctcu_drvdata:	drvdata of the CTCU device.
++ * @buf_node:		etr_buf_node for reading.
++ */
++struct ctcu_byte_cntr {
++	bool			enable;
++	bool			irq_enabled;
++	bool			reading;
++	bool			removing;
++	int			irq;
++	atomic_t		irq_cnt;
++	wait_queue_head_t	wq;
+ 	raw_spinlock_t		spin_lock;
+-	u32			atid_offset[ETR_MAX_NUM];
+-	/* refcnt for each traceid of each sink */
+-	u8			traceid_refcnt[ETR_MAX_NUM][CORESIGHT_TRACE_ID_RES_TOP];
++	struct completion	session_done;
++	u32			irq_ctrl_offset;
++	struct ctcu_drvdata	*ctcu_drvdata;
++	struct etr_buf_node	*buf_node;
+ };
+ 
++struct ctcu_drvdata {
++	void __iomem			*base;
++	struct clk			*apb_clk;
++	struct device			*dev;
++	struct coresight_device		*csdev;
++	struct ctcu_byte_cntr		byte_cntr_data[ETR_MAX_NUM];
++	raw_spinlock_t			spin_lock;
++	u32				atid_offset[ETR_MAX_NUM];
++	/* refcnt for each traceid of each sink */
++	u8				traceid_refcnt[ETR_MAX_NUM][CORESIGHT_TRACE_ID_RES_TOP];
++};
++
++/**
++ * struct ctcu_byte_cntr_irq_attribute - sysfs attribute of the byte-cntr IRQ
++ * @attr:	The device attribute.
++ * @port:	port number.
++ */
++struct ctcu_byte_cntr_irq_attribute {
++	struct device_attribute	attr;
++	u8			port;
++};
++
++#define ctcu_byte_cntr_irq_rw(port)					\
++	(&((struct ctcu_byte_cntr_irq_attribute[]) {			\
++	   {								\
++		__ATTR(irq_enabled##port, 0644, irq_enabled_show,	\
++		irq_enabled_store),					\
++		port,							\
++	   }								\
++	})[0].attr.attr)
++
++void ctcu_program_register(struct ctcu_drvdata *drvdata, u32 val, u32 offset);
++
++/* Byte-cntr functions */
++void ctcu_byte_cntr_start(struct coresight_device *csdev, struct coresight_path *path);
++void ctcu_byte_cntr_stop(struct coresight_device *csdev, struct coresight_path *path);
++void ctcu_byte_cntr_init(struct device *dev, struct ctcu_drvdata *drvdata, int port_num);
++
+ #endif
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+index 4b40b692be4d..6ad09995ba87 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-core.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+@@ -293,7 +293,8 @@ static ssize_t tmc_read(struct file *file, char __user *data, size_t len,
+ 		return -EFAULT;
+ 	}
+ 
+-	*ppos += actual;
++	if (!tmc_etr_update_buf_node_pos(drvdata, actual))
++		*ppos += actual;
+ 	dev_dbg(&drvdata->csdev->dev, "%zu bytes copied\n", actual);
+ 
+ 	return actual;
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+index bf4c1d8f7b2e..20d6bc60a446 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+@@ -1168,6 +1168,9 @@ static int tmc_etr_enable_hw(struct tmc_drvdata *drvdata,
+ 	return rc;
+ }
+ 
++/* Shared by the CTCU devices, set by the first one and reset by the last one. */
++static const struct tmc_sysfs_ops *byte_cntr_sysfs_ops;
++
+ /*
+  * Return the available trace data in the buffer (starts at etr_buf->offset,
+  * limited by etr_buf->len) from @pos, with a maximum limit of @len,
+@@ -1178,23 +1181,44 @@ static int tmc_etr_enable_hw(struct tmc_drvdata *drvdata,
+  * We are protected here by drvdata->reading != 0, which ensures the
+  * sysfs_buf stays alive.
+  */
+-ssize_t tmc_etr_get_sysfs_trace(struct tmc_drvdata *drvdata,
+-				loff_t pos, size_t len, char **bufpp)
++ssize_t tmc_etr_read_sysfs_buf(struct etr_buf *sysfs_buf, loff_t pos,
++			       size_t len, char **bufpp)
+ {
+ 	s64 offset;
+ 	ssize_t actual = len;
+-	struct etr_buf *etr_buf = drvdata->sysfs_buf;
+ 
+-	if (pos + actual > etr_buf->len)
+-		actual = etr_buf->len - pos;
++	if (pos + actual > sysfs_buf->len)
++		actual = sysfs_buf->len - pos;
+ 	if (actual <= 0)
+ 		return actual;
+ 
+ 	/* Compute the offset from which we read the data */
+-	offset = etr_buf->offset + pos;
+-	if (offset >= etr_buf->size)
+-		offset -= etr_buf->size;
+-	return tmc_etr_buf_get_data(etr_buf, offset, actual, bufpp);
++	offset = sysfs_buf->offset + pos;
++	if (offset >= sysfs_buf->size)
++		offset -= sysfs_buf->size;
++	return tmc_etr_buf_get_data(sysfs_buf, offset, actual, bufpp);
++}
++EXPORT_SYMBOL_GPL(tmc_etr_read_sysfs_buf);
++
++ssize_t tmc_etr_get_sysfs_trace(struct tmc_drvdata *drvdata,
++				loff_t pos, size_t len, char **bufpp)
++{
++	ssize_t ret;
++	const struct tmc_sysfs_ops *byte_cntr_ops = READ_ONCE(byte_cntr_sysfs_ops);
++
++	if (byte_cntr_ops) {
++		ret = byte_cntr_ops->get_trace_data(drvdata, pos, len, bufpp);
++		/*
++		 * -EINVAL means byte-cntr has no active read session. 0 means
++		 * byte-cntr has no more data because the sink has stopped, the
++		 * last etr_buf is read by the generic read. Anything else is
++		 * the result of the byte-cntr session.
++		 */
++		if (ret != -EINVAL && ret != 0)
++			return ret;
++	}
++
++	return tmc_etr_read_sysfs_buf(drvdata->sysfs_buf, pos, len, bufpp);
+ }
+ 
+ static struct etr_buf *
+@@ -2170,15 +2194,54 @@ int tmc_create_etr_buf_list(struct tmc_drvdata *drvdata, int num_nodes)
+ }
+ EXPORT_SYMBOL_GPL(tmc_create_etr_buf_list);
+ 
++void tmc_etr_set_byte_cntr_sysfs_ops(const struct tmc_sysfs_ops *sysfs_ops)
++{
++	WRITE_ONCE(byte_cntr_sysfs_ops, sysfs_ops);
++}
++EXPORT_SYMBOL_GPL(tmc_etr_set_byte_cntr_sysfs_ops);
++
++void tmc_etr_reset_byte_cntr_sysfs_ops(void)
++{
++	WRITE_ONCE(byte_cntr_sysfs_ops, NULL);
++}
++EXPORT_SYMBOL_GPL(tmc_etr_reset_byte_cntr_sysfs_ops);
++
++bool tmc_etr_update_buf_node_pos(struct tmc_drvdata *drvdata, ssize_t size)
++{
++	struct etr_buf_node *nd, *next;
++
++	if (drvdata->config_type != TMC_CONFIG_TYPE_ETR)
++		return false;
++
++	list_for_each_entry_safe(nd, next, &drvdata->etr_buf_list, link) {
++		if (nd && nd->reading) {
++			nd->pos += size;
++			return true;
++		}
++	}
++
++	return false;
++}
++
+ int tmc_read_prepare_etr(struct tmc_drvdata *drvdata)
+ {
+ 	int ret = 0;
+ 	unsigned long flags;
++	const struct tmc_sysfs_ops *byte_cntr_ops;
+ 
+ 	/* config types are set a boot time and never change */
+ 	if (WARN_ON_ONCE(drvdata->config_type != TMC_CONFIG_TYPE_ETR))
+ 		return -EINVAL;
+ 
++	byte_cntr_ops = READ_ONCE(byte_cntr_sysfs_ops);
++	if (byte_cntr_ops) {
++		ret = byte_cntr_ops->read_prepare(drvdata);
++		if (!ret || ret == -EBUSY)
++			return ret;
++
++		ret = 0;
++	}
++
+ 	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
+ 	/* The sysfs_buf is owned by the etr_buf_list */
+ 	if (drvdata->reading || !list_empty(&drvdata->etr_buf_list)) {
+@@ -2211,11 +2274,17 @@ int tmc_read_unprepare_etr(struct tmc_drvdata *drvdata)
+ {
+ 	unsigned long flags;
+ 	struct etr_buf *sysfs_buf = NULL;
++	const struct tmc_sysfs_ops *byte_cntr_ops;
+ 
+ 	/* config types are set a boot time and never change */
+ 	if (WARN_ON_ONCE(drvdata->config_type != TMC_CONFIG_TYPE_ETR))
+ 		return -EINVAL;
+ 
++	byte_cntr_ops = READ_ONCE(byte_cntr_sysfs_ops);
++	if (byte_cntr_ops)
++		if (!byte_cntr_ops->read_unprepare(drvdata))
++			return 0;
++
+ 	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
+ 
+ 	/* RE-enable the TMC if need be */
+diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
+index 2345bdbb0b9d..af89825ec041 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc.h
++++ b/drivers/hwtracing/coresight/coresight-tmc.h
+@@ -484,6 +484,11 @@ struct etr_buf *tmc_etr_get_buffer(struct coresight_device *csdev,
+ extern const struct attribute_group coresight_etr_group;
+ void tmc_clean_etr_buf_list(struct tmc_drvdata *drvdata);
+ int tmc_create_etr_buf_list(struct tmc_drvdata *drvdata, int num_nodes);
++void tmc_etr_set_byte_cntr_sysfs_ops(const struct tmc_sysfs_ops *sysfs_ops);
++void tmc_etr_reset_byte_cntr_sysfs_ops(void);
+ struct etr_buf_node *tmc_etr_switch_buf_node(struct tmc_drvdata *drvdata);
++bool tmc_etr_update_buf_node_pos(struct tmc_drvdata *drvdata, ssize_t size);
++ssize_t tmc_etr_read_sysfs_buf(struct etr_buf *sysfs_buf, loff_t pos,
++			       size_t len, char **bufpp);
+ 
+ #endif
 
 -- 
 2.34.1
