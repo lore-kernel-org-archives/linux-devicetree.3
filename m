@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619827;
-	b=Im6SfE44xk1XrHPvfuPYvkR6pHyNeyOB5yr8JlExTsT54zm4HGfEwv4XBenzVlUSVNuu
-	 rB5FJWvrOv26dLy7zoX+1rG7vAXRYynwesz80oB5DynrYOILLg8AGG2PvNhEDMmLoYvHR
-	 IV+/oaCHWdbYU9cFI46dKnkD+CWvsjmT4Y2FnAbdNZGan8f5fVMre12uyUhb7RwQn0PXU
-	 HY4hI42aeMYrMi+C9OpkKK+6UAAvyfpO8LXdZyRiBhb7l8el4xdrYI2BTKSiti7qKaFUn
-	 f2Dn3nzrMoJApqmUmyktXUMp8I/5TyJqfAtZb7gsZi/Z5FmIssLhOjfQha9ay7q/Plg==
+	t=1793619868;
+	b=gcCvwAx38BbYC/HiNvB4Ujm69i6jxREmNWZbxDKpE8dphn9+Et6RIjaRIjdoOPSkGjnD
+	 OufWoPJUHFqPXrQAxf04pLFcrQPH/LSVqPGITt8weoZglN0GqPPRx9aCSnvsBz0PxBFKk
+	 hxhrcwUYD8pIgL4rYPztY0rtehJueU+DfPRPP9SxiVfz/ccG74PjgIoJE7bL70EaozeL4
+	 OKx7sV+NJp/aSuaXDlkUNQVle5nPNmtS+xKuCVKLkZLbAswenRq8eFUMFtsloR6WvQpXo
+	 z9hg47fj5ZerMUrpvncB/03glRQJ1c75h30ah7uNU85cKrZcYXLWGBZWSbo3uHTZg+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619868;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=deiRugqUlG37p9Wv3fsfyPkX3UWvJLBCmJ/1+SGNcog=;
-	b=h443SiInViFZmhi0iTrZ7KrsG7HKDScButoMPm4adkGcA9jYMJwg+pAATcoN1MAxGkJl
-	 meBPVUiLxt9dNZ87TzDNIYB4ha2/x5VPJCQTpW1Wd4hF10YuAU+Ksi2AFiyBK+zxLH9cs
-	 2aIrZs01yAIMKDytTOaZfDDQ5Ruw2iNeDaMU8G9nNJNqJW6fWAMMBHtu0+rbJH7ZcgUuc
-	 IzrX3uAsGzKFeUYKByZrk6anCHjSdO5yr1qVYDgzUOuf+zTQ5h1CJFMS+cLTW0yFTOnkv
-	 1X9x4CRmsXzZYRKVTa69aURwbgc/L88nhY25r9YFPvEnnTyFdD0rYQ0AlJjISf2Zhug==
+	bh=DwNOUDx3s8aWtTDxni4gD4AvCFiiolZW9PK8Ed9xdqo=;
+	b=ZYPwGdEfRL4iEl45O3aEUibn7OJLiKlMt3ShD3ddat4kkRTR6hZ1aVZ3Ax7JYfs/LO7T
+	 WjUyPfkoVJPWLbUu54SvLZJ/xpS14werMCeNhfbPo7qgHOUlUXKtJmP6WtJzi7VOr9ApC
+	 8NMHrZADltwWDAy8JUpJCZBcjojdKymr4ApEKmHBQYceMtpd23GwMKj/p+rIKlp2uOEP1
+	 RwooC5xkBC3s/fZYd+opGVlIzf3UbFGNgadWava9NHm/48tsqmrUXY/R8F57yr8leTX+i
+	 jKZuXfyQ30y9+FAvSu2IRm2WwTuk1cz45aVuRQEnCaDrsqp996T5ML09XDS44M7hDPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcUgFA8w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SeuMbo/c";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AC2606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 11:43:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B28606A324;
+	Mon,  2 Nov 2026 11:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcUgFA8w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A15C1F00A16;
-	Mon,  2 Nov 2026 11:43:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SeuMbo/c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64A51F00A16;
+	Mon,  2 Nov 2026 11:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619826;
-	bh=deiRugqUlG37p9Wv3fsfyPkX3UWvJLBCmJ/1+SGNcog=;
+	s=k20260515; t=1793619867;
+	bh=DwNOUDx3s8aWtTDxni4gD4AvCFiiolZW9PK8Ed9xdqo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dcUgFA8wh35BSOtvCYcclVQlwghBnwx0GfFoM5RVAt3mNNYY48YZaftacMfKTw24x
-	 TFwBl2NgdC5ILeT+gED5+Mk7ub3fKYpT4fRYH1Th7UK/y1Z+yZCNo3nvMfupn7nML+
-	 CZY9EViu4HfDSpjouOmkWduYsO7wxYha1m/UbqGIfegrbiipfM6VeXshs+L+ykaRMU
-	 4UR/ahEqSfwNr+Yh04AHyIVd2S71lN9kmQ0W3uZTko9Vl/GHlnW6ZZHYzCMNUT20Fp
-	 S4B5iKYaIM/si8ISYazkCcKr4LTYBZZPBGwpd+yt1c1kyvRtwo2m7/z5OFzJzvDsEN
-	 L990q7EN/OlHA==
-Date: Mon, 2 Nov 2026 12:43:42 +0100
+	b=SeuMbo/cKza6FqQXc0v+eouBmO5lhLXVpA9ZMEUvoOtIXZnIo0XmMXnX16eD0fpLb
+	 +HazxW5slkl/F+LywE79ZY1Yv1xc3fLNL6cN1Lvdc7AFhXBUNaC3BjmEGby34L+jwx
+	 Cp8jKTSYeB2Ey1yeEdZCPVdXCn/XhwwfNK9uQwQgbQ0k/VxbqTy3Gnl3qzA+6dQfhM
+	 71D/4d72QvKfgg8CjpjgChaBt/M6TzWsQvcWB06gbkt5Uz9FJGqAu5WJtVZa2cPvAH
+	 T7qJNig1KW39sAp+N169vKELBIhHgJ30xHRwqDh2gAhfVXe7VC84AZ5FKDyAOIRvJ4
+	 S1C7ZVt2tS8rw==
+Date: Mon, 2 Nov 2026 12:44:24 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joachim Eastwood <joachim.eastwood@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Shawn Lin <Shawn.lin@rock-chips.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: add FriendlyElec NanoPi
- M6V2
-Message-ID: <20261102-annoying-vulture-of-development-9eb1a1@quoll>
-References: <20261101-nanopi-m6v2-v1-0-e401ea64b394@gmail.com>
- <20261101-nanopi-m6v2-v1-1-e401ea64b394@gmail.com>
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
+Message-ID: <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
+References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+ <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,17 +65,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261101-nanopi-m6v2-v1-1-e401ea64b394@gmail.com>
+In-Reply-To: <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
 
-On Sun, Nov 01, 2026 at 11:00:52PM +0100, Joachim Eastwood wrote:
-> Add device tree binding documentation for FriendlyElec NanoPi M6V2,
-> a single-board computer based on the Rockchip RK3588S SoC. This board
-> is an updated version of the original M6 board with a few changes.
+On Sun, Nov 01, 2026 at 09:12:29PM -0500, Joseph Telaak wrote:
+> The Etek ET6326 is a 3 channel LED driver with the register map, the I2C
+> address and the current steps of the KTD2026. It only differs in the
+> flash period, which is (Reg1 + 1) * 128 ms instead of 256 ms + Reg1 *
+> 128 ms, so a KTD2026 driver runs it with blink periods that are 128 ms
+> off. Document it with the KTD2026 as fallback.
 > 
-> Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+> The ET6326 drives the status LED of the GL.iNet GL-SFT1200 (Opal).
+> 
+> Assisted-by: Claude:claude-opus-5-5
+
+Drop.
+
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 > ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../devicetree/bindings/leds/kinetic,ktd202x.yaml         | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
