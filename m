@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627109;
-	b=kBL/zILhOdk+hDtWk3oVsmk1POWq8Tw7rFUMqBd4E2Tcw8BI6iE4LJbGG6yZxgh/UEdQ
-	 moVaKdbqqux48+yYX7E+z/mASL8uWBtprw5EdLSHWR7+UKIr78/exnnhIRqt8R4W7Iei3
-	 kqkEx3o4/6o3Z+vRvO+u36HOGmAbFRy7FrRyTIApF7Z9XtQENgCU1jPLBOWA4s4jPAwY5
-	 KNcDgI6x5khVrt1hgXtQIMgmWgQbyHYDo9T1s8kXP5Hr2j2lv8hcnUzZgt7HCkEGHxI79
-	 7t8PimQjnd9IG0CQI9y5RLpAngg5zrtdjYnt5iYRvXbc71kbR/tbWeIyQMATilmNWDg==
+	t=1793627164;
+	b=k+y4IO3p4fjOhoCWKt92/UI5ZSVNNddl1C5GGEpSVpwjl+n3M9J3NJ1BTM1z9LwnaeHp
+	 kjDDpiN2mY9JZVvzkF67HKTAB2rxlkFnQ9axZQdYG6x+1JdQY9DfXpqGK6yRXuCIRUBrO
+	 xEEqYB9e9d8t9iJTV+MVANomgfbpJRtWm5YyEFW9Ubd6POlKcVXSyENvDTbKhpZtSOZGy
+	 Rkq4WQrZ5RP0Ei4Bm/p2pUYaUBMJ40n2zkU0+AGDo5/Ydn8H1OOZER08mHYtHX7EY31Cj
+	 QLnlWLLFXlCzyhKq6QqHNlyBM3Tbx2PzHrCLsKG7uA8yw1Vctlrm6pHd6Nd//Ar+eJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627109;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=+ns7gOv8s1s9c9eZ8c9VUcseN0nnkqSVnaswDM7v3Vc=;
-	b=0+5X1a7JEnuAZxumee5UQny5Rt3za5dfpNxaz6gpiUzQxkO0xXXKylHZdVITnLEt+TE4
-	 xF5pDRp7T0eDYUXRRE1VsmWxyepZFhG7J4zmPOX93NcDui/9zHP1eDbsmPe1IR9VLjpu/
-	 gpsmW1dqRPFiqDx/V6y4adhO1MLk+dbMcBFg4/0mMf+im0nUOjmHs5k+5G8uds5+VkkVw
-	 Km9AGVKv9gjXaFxc1fAQFq3w1eYXxn70SmAjo4dd7C3D1fZuDuyaRZ/u7HqaOZWNkAtIu
-	 EMllNhCzjQ2h86s9lyuqWPlvJBsB+RpnC6sc2OWaJQn/N+WZLL3H7GehoBE9mx/Vv0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627164;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9WypQqVR2KCy8VcoQOLBuAqGcm9UfPOmgeDV5017wQg=;
+	b=Uts5znw2Xb8Pxw0rU2J1JfXc1WMfqotJehZ6ddyOYP7+nDM+Yv5vAypS1zvyVjlY0aBU
+	 GYyWhQNAt7tL9GjSt50qcn0WQkTiCJlYfPrmG8gDRuXnrT+AytpAF3MjPq/z2tDeClEe4
+	 YwacYfqgpYh+XTyvzr81NOhBgG7NOipFgfIveb6eJv+bOQdBfSGq0Yz1C7pTfQKGnQ71W
+	 5m3vM9orWIJ8e2ZQDgZZiH411ug//6a01rNqKakt+4CqwPScjCthb0EOHNaZG1OOMQf6I
+	 n2mkQYsYYJ6rJTebCMBafTHwfYWnQC59/VSDYJa07y48V/oLTUwEfy8D7qwx3jYYsJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=LLqo6zWn;
-	arc=none smtp.remote-ip=212.27.42.6
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CMRQToJ5;
+	arc=none smtp.remote-ip=91.218.175.76
+Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E35606A327
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:45:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16E35606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F41260A260E
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:46:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F41260A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=LLqo6zWn
-Received: from L20747.iliad.local (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 8258F780389;
-	Mon,  2 Nov 2026 14:45:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1793627106;
-	bh=1PQFEgtStTpOAuEf4gYmhM2SJDREscuGArCdbHnAAfU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LLqo6zWn95bB6Er28VcM9IQpjeIjlbO7afzINEKDp4zAjnh+wS1dMauSy3iDvlXGN
-	 RJvePjhIASdVTMf4A7rXdRVDVIDCdadkn/X1jMNanSpgm61hL22MkIKS7VlE1tWqmy
-	 /msrCdRpg8Ov5SrMiOQFRu13lEMDJeRQmOwvOAJNXwiuFocrBxYcMyGc54DTnG2DvF
-	 krWslHIC6+7TeGMxyrJvUyN4VlRXlOo6yjCXqwluMtfuQRqfVpd4lrwSg+S9FYZDek
-	 3kL8stmn7IiDDOMcFbEadKnfDUe6SRzJ6rxkP7bq01tFT0eANzy9V9YjrssdStqdh6
-	 /SAXs24M9nFtw==
-Date: Mon, 2 Nov 2026 14:44:59 +0100
-From: Vincent Jardin <vjardin@free.fr>
-To: sashiko-reviews@lists.linux.dev
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org,
-	conor+dt@kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH] arm64: dts: freescale: lx2160a-nbxv3: fix 1588 and id
- line names
-Message-ID: <auiT26lG5A8511gD@L20747.iliad.local>
-References: <20261101-for-upstream-nbxv3-dts-line-names-v1-1-7c8eecb2da9f@free.fr>
- <sashiko-outbox-192493@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CMRQToJ5
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=P2sBHzm3R20huYIeMHg9Un4m8wkGCVohUQK9dUiQf5I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793627160; v=1; x=1794231960;
+ b=CMRQToJ5WWbgHhT8cPeq5BmyZ8iDRsBUqePX96fI5o/NtHv1/L1wtt6HqS6cWujDqCJUnLs0
+ AkFysImjO6w5WIEjDnhoALkhiRIWkk0kYIk88OBuCF5PbMX6deq60rCe6MFo+KKpfAuwV6A2wsw
+ 1ni+WUkuq8eDBMFdAfC5a16A=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4279429b9f88ac8f;
+	Mon, 02 Nov 2026 13:46:00 +0000
+X-Mizu-Trace-ID: 4279429b9f88ac8f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4148e258-b406-4964-82b3-11ea624f974e@linux.dev>
+Date: Mon, 2 Nov 2026 13:45:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,53 +58,198 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-192493@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 11/14] drm/tidss: oldi: Add power domain support
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
+Content-Language: en-US
+From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+In-Reply-To: <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi M. Bot,
+Hi Tomi,
 
-> First, the commit message states "Let's properly support 1588 on this board
-> and fix the names", whereas the patch only updates informational
-> gpio-line-names strings in gpio3 from ptp-refclk-in and u1700-zl30733-pps-out
-> to altfn:tsec1588-clk-out and altfn:tsec1588-trig-in1 without configuring
-> clocks, pinmux, or 1588 hardware nodes.
-
-the 1588 is already into the lx2160's dtsi (see boot/dts/freescale/ ptp-timer@8b95000,
-for its fsl,dpaa2-ptp). The CPU pads are muxes at processor reset by its RCW,
-so this patch only fixes names. I'll improve v2 accordingly.
-
-> Second, the changelog does not explain why those gpio3 entries are relabeled
-> with the altfn: prefix (for instance, whether the RCW muxes those pads to
-> TSEC 1588 alternate functions rather than GPIOs), or why the TCA9539
-> expander at gpio@74 is changed from 16 board ID straps (boardid-0x0001
-> through boardid-0x8000) to an 8-bit board ID (boardid-0x01 through
-> boardid-0x80) plus test-mode-tp1500 and grounded pins gnd-p11 through
-> gnd-p17.
-
-Few topics:
-
-For timing,
-On this board, the CPU's RCW sets EC2_PMUX = 0b10,
-so GPIO4[14] and GPIO4[23] are resp. TSEC_1588_CLK_OUT and TSEC_1588_TRIG_IN1
-but not GPIOs.
-altfn: is the prefix the dtsi already uses for such cases.
-The new proposed names avoid the confusions between the DPLL's pins the CPU
-is connected with vs the real local CPU/lx2160's pad the CPU is assigned by
-its mux.
-
-For board ID, the schematic is based on 8 bits with P00..P07, for the initial
-commit I did over interpret. P10 is not a board ID
-
-> Finally, was removing the comment above pltrst-hog in gpio1 intentional, as
-> it appears unrelated to 1588 or board ID line names?
-
-No, it is not related.
-
-best regards,
-  Vincent
-
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261101-for-upstream-nbxv3-dts-line-names-v1-1-7c8eecb2da9f@free.fr?part=1
+On 29/10/26 10:18, Tomi Valkeinen wrote:
+> The OLDI TXes on AM62P and J722S have power domains of their own,
+> described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
+> real devices, so the driver core does not attach these power domains,
+> and nothing in the core turns them on.
 > 
+> Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
+> manage the power state of the returned virtual devices with runtime PM
+> functions.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
+>  drivers/gpu/drm/tidss/tidss_oldi.c | 88 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 88 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+> index 5552c1c51074..df2326db3302 100644
+> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+> @@ -10,6 +10,8 @@
+>  #include <linux/of_graph.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/media-bus-format.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+>  
+>  #include <drm/drm_atomic_helper.h>
+> @@ -35,6 +37,12 @@ struct tidss_oldi {
+>  
+>  	struct clk *serial;
+>  	struct regmap *io_ctrl;
+> +
+> +	/*
+> +	 * The power domains of this OLDI TX and, in dual-link mode, of its
+> +	 * companion. NULL for an OLDI TX without a power domain of its own.
+> +	 */
+> +	struct device *pd_devs[2];
+>  };
+>  
+>  struct oldi_bus_format {
+> @@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
+>  	return 0;
+>  }
+>  
+> +static void tidss_oldi_power_get(struct tidss_oldi *oldi)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
+> +		if (oldi->pd_devs[i])
+> +			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
+> +	}
+> +}
+> +
+> +static void tidss_oldi_power_put(struct tidss_oldi *oldi)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
+> +		if (oldi->pd_devs[i])
+> +			pm_runtime_put(oldi->pd_devs[i]);
+> +	}
+> +}
+> +
+>  static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+>  					 struct drm_atomic_commit *state)
+>  {
+> @@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+>  	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
+>  		return;
+>  
+> +	tidss_oldi_power_get(oldi);
+> +
+>  	connector = drm_atomic_get_new_connector_for_encoder(state,
+>  							     bridge->encoder);
+>  	if (WARN_ON(!connector))
+> @@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
+>  
+>  	/* Clear OLDI Config */
+>  	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
+> +
+> +	tidss_oldi_power_put(oldi);
+>  }
+>  
+>  #define MAX_INPUT_SEL_FORMATS	1
+> @@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
+>  	return -ENODEV;
+>  }
+>  
+> +static void tidss_oldi_detach_pd(void *data)
+> +{
+> +	struct device *pd_dev = data;
+> +
+> +	dev_pm_domain_detach(pd_dev, true);
+> +}
+> +
+> +static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
+> +					       struct device_node *oldi_tx)
+> +{
+> +	struct device *dev;
+> +	int ret;
+> +
+> +	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
+> +	if (IS_ERR_OR_NULL(dev))
+> +		return dev;
+> +
+> +	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return dev;
+> +}
+> +
+> +static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
+> +				     struct tidss_oldi *oldi,
+> +				     struct device_node *oldi_tx)
+> +{
+> +	struct device_node *companion;
+> +	struct device *pd_dev;
+> +
+> +	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
+> +	if (IS_ERR(pd_dev))
+> +		return PTR_ERR(pd_dev);
+> +
+> +	oldi->pd_devs[0] = pd_dev;
+> +
+> +	if (oldi->companion_instance < 0)
+> +		return 0;
+> +
+> +	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
+> +	if (!companion)
+> +		return -EINVAL;
+> +
+> +	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
+> +	of_node_put(companion);
+> +	if (IS_ERR(pd_dev))
+> +		return PTR_ERR(pd_dev);
+> +
+> +	oldi->pd_devs[1] = pd_dev;
+> +
+> +	return 0;
+> +}
+> +
+>  void tidss_oldi_deinit(struct tidss_device *tidss)
+>  {
+>  	for (int i = 0; i < tidss->num_oldis; i++) {
+> @@ -610,6 +692,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+>  		}
+>  	}
+>  
+> +	ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
+> +	if (ret)
+> +		return dev_err_probe(tidss->dev, ret,
+> +				     "OLDI%u: Failed to set up the power domains.\n",
+> +				     oldi_instance);
+> +
+
+I agree with the what this patch is trying to do, but the
+tidss_oldi_create_pd_devs() should be within the if() block above.
+
+It seems like you are giving the pd_dev of the secondary OLDI TX to the
+primary, but this path would be executed for secondary OLDI TX in clone
+mode as well, whenever it gets supported.
+Which is not ideal, because the primary OLDI TX in clone mode would
+already be taking care of the secondary's pd_dev.
+
+The conditional block above with,
+`if (link_type != OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)`, is exactly
+for things that _can_ be setup per OLDI Tx, but shouldn't, like the
+clock and the IO control.
+
+-- 
+Regards
+Aradhya
+
