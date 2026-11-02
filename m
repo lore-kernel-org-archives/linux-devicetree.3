@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602644;
-	b=bf2ztz6ZeZZ6sZ5o3YQVz43kxkdoae0dGf9RkJCLxTAWWNTYgmdnCXYmAqnaKO9es1Ia
-	 e50ydufWdRBMdTtCjMKMpDDjMT9XmKCtZEydeKxBIfesvKtKClWSQRxaSwcW+aQrWDvNe
-	 40Uzq7VZq4X+PXderV40PbFGOZk7a2TntKLCbPSJoVm0mytDli1SyfQfGJKN0Pj4Rc5Iu
-	 E1yKLLuE6hbnpV+0w5xhUj2CJoRsQbE0kHKr53UoOYwgOtvKSM8vhNcMR4Y9rKFFR2p5L
-	 eRfX8pOW+G3N3D8WWhS6KaZi9Hny6mj7fG+HnCprZ/R+KKc7rZO9sUDaIygetQyYwQg==
+	t=1793602642;
+	b=OYu9MI8OTMaTEWELzxjlgc19ivWSidw/qwU+MNt8MMIBaa23Jn5k6KSn4stOr5FEiLkd
+	 UdnzLM7y+Uzl0UV+475GxZohzvwWXM558pF1xuVDDQX4dejgMY9KgADktGNnm986EzIGc
+	 7IHFun51BKVqngi+p6MwJppmJgNff8dR2INAj8PjmrlUQy3n+/B+rRhjCWmewjUSDbXgF
+	 /SVhm5XLV2333H7MjraCsRYb359sIYGINyP8nxycVZvDnkfdNzpftYVCLK8FySDyCKw3m
+	 Zbhr19/wEoDm3Dp30nUtFEPHCsDZ4Ut2QdN+SOwqx5sP6MtbJPSkVlFBufJVTOyItnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602644;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/czB0+NxeiClWKKhtKr0SNwTuovPGhxvsx0Vin52hrY=;
-	b=iYrmzPdIO0q0etj8b0lZt0+hnLfSWN2edsHmK3SX3eB6XH7aL4RRxoWn0VRwkn35SSwV
-	 IDGfHf58urLYe5BUc8wz0W7bksyyGtKd5Mk3sjBOhwn6QQkxw3vPZ/riZ15ira8kI7cwa
-	 ntRRRiQeTBMCrUTR82Cv05qaPWoffT3WM94ZwckP6j6X8dEwarQJ9GhTTa6prmufAUoXN
-	 fQ1MSTXN8UGi053uxhC1A345go18KdWzincISiBFO/n6+gUu0oQppqFcjhiOeA7/FG3GL
-	 m5yRaXoGl6KGjabVgUp8nqVi3+7Ze1pC5b79FEcPFLY8+3AtSeIKIFJwSeGY5YjnAew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602642;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=0WXBppUmza4/JYqxNoquqcjhhNA0mSK9KkPkoaHyFwE=;
+	b=wzFyoro/2Yo0fdjyoJeUJNznRCP5RNS5cVMGK2Qw3MDb+mI9B81tPZ6ECZ+QSBYAAf7S
+	 ooMVpyfQJuEILg6G9MvWvWLsX/lqt+iIrYShf6fUOT3RZvXLt/lB11B+xYLYQ7CocTh9A
+	 QTJogCEgv3UXTiCRu+rsjpNw/MmRSFpDbxGOEZaHbaTfHXw2fGk32Y5cKuI01VZw3o4sl
+	 fTGmexgGj1vPt9a29zh/srJTWdar2GaaY6CK5PxNnmrOsn14P18EC0/DjwCNv6Ircaike
+	 KOUOy5CWRCzSiMZUZZIFWi5xkfbqSTLAp3PwOR3m75j2ifhTjBnzoYLCugcEwGFL7qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KpWv+Elp;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnk6Or7e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AAB606A329
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 06:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5AAB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8C2606A324;
+	Mon,  2 Nov 2026 06:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KpWv+Elp
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-369f33df08eso5389567eec.0
-        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 22:57:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793602643; x=1794207443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/czB0+NxeiClWKKhtKr0SNwTuovPGhxvsx0Vin52hrY=;
-        b=KpWv+Elp4YKQ7EvvbB6VKDrBo6KvMX+LXXoXj+UPBbfiC7VZ3ODTE8Gep5TtQZKhUc
-         ISdh/l9MLzple0FWLM7Q0tLoEa7iVcUk7hRJOheTD92u88pAA0bl+SzytZdVnwX/sTuK
-         LMJGt3LsljTV9rzbmqcaq/h+uFAiZBQgkJJWx1+VR/3ZHoHR38F5yj102fWl3AMoP3KD
-         NuMfWwLTW1zjG41Am4WBZzeVVg6FWMrLJ9dKFGMcW2rLUbh3W/Nie5RLAa1Y4cv/e9Py
-         /dxbiIdabIzBn1L7zsTyg8Zr3IPmLAIOUAEqK2WqHk87/MpSYbky/ZYfBPpp2Ab3u/A/
-         f+xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793602643; x=1794207443;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/czB0+NxeiClWKKhtKr0SNwTuovPGhxvsx0Vin52hrY=;
-        b=D5E3/gLMXJFH+QaFjhZboeec+0NA9fY1qNnR3p7sGtGKjsT/WeOEJSo3tAF4Mo6r3y
-         h1kumjF9Ii5jzv0dzq2fNq+egTSMSDV8z0RDa2ixcyftennsZFJGCTeRFE3O+FOXPASN
-         N7ZyZOdcHewprcBZRWyfv/OtWWqPzTNUiv6hgYDIuD7B7aDjxtwSQjbehC3Xlr+BJFho
-         AQdViu91nRmpmzRyyW05vuImaz+gygS8pgBQXd6PZxoyueP6pE6SRo/zycj4gJG0soka
-         z5ujMSyu0FPWyM6IGdKAOLH7v/W2vYGSSnpcO71vNZtqG9w5FfJ7B8xUU75+a39zTUXr
-         LXcw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+p0MPZnWbAIM1bClEqlhDtUySqFpOe+Z7AmvFW6y+fhcrSdc2uYgppvUGPeLCa6c7cq93DdUTwdqt@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Yp/HnRGxFst3GFZP8zObeuDZLwDq0UmblofDDrUvXJSjGYXue
-	K/nY6CdZhWBL2+ea52Sp+pxRgId9MJ+Qf76DHLx8erE1y7KHdb9t7fYd
-X-Gm-Gg: AYBFou37Oyuc8EZiENH9kk6wO5SuWSBO5oB0KWB12G6fl1g2Cf8739hp9uPi3057kRz
-	0k2GEtdAEMRiqJYQXfoYYGDWzjulC60RdSof/5l75i6QGbLP3vJDyV/bRO7jgi9oH6fe+iTdwgd
-	LKsu6HX0tJnzNZ79iAyNF+keht9y+SIAGHP0H9oSWLuWE6le4sfi/dp/EEo6WEaZmUgKlBtVjtb
-	6WR66U0/NwyheSAwd2B3x638oBEqM05r5xdfoFgB3Gql+9VDSZNxsmWt8IuNGVOJ3nThDRclOFG
-	ejLtgcJezz4+x5MbuuH1InkkLSAP5SDjnu8Bw/FW7tMntqNdJ4MAZBlUOCL2sR6EU2GuSEB5gE5
-	eU7Lzu5jgYLw+untq9RXwwcw3VOxBZWhVwwMrNOA1eavCSl8PUYyAlgBsXoyn027B0cgrNAu8CB
-	jdd3NuXEBql8crYJ5rMEnbeD5YPhyCDziCYHAfNDbpI7caNoO3f8/AVGr2BoNf1mvsihW8q+cNK
-	kCYBELlBzht4CEu81h2BYzZXBV7gLZmFUuLhZDdR+COhis4o+vGbJ2uga/3+fo3QQkrfOY6KaEd
-	4Hm7dXD2AR4/cXk7FmaK+ZIFeiEETmQgT7VzCbOLnOjWTATEj0snmSu5eLozXdeV7w==
-X-Received: by 2002:a05:7301:716:b0:36a:31b2:8643 with SMTP id 5a478bee46e88-36a42453282mr12430597eec.38.1793602642851;
-        Sun, 01 Nov 2026 22:57:22 -0800 (PST)
-Received: from localhost.localdomain ([14.97.230.66])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm29169317eec.4.2026.11.01.22.57.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:57:22 -0800 (PST)
-From: Dinesh kumar v <dineshkumarv85@gmail.com>
-X-Google-Original-From: Dinesh kumar v <dinesh.v@adlinktech.com>
-To: Frank.Li@nxp.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	s.hauer@pengutronix.de
-Cc: imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	Dinesh kumar v <dinesh.v@adlinktech.com>
-Subject: [PATCH 0/2] Add ADLINK LEC-iMX95 board support
-Date: Mon,  2 Nov 2026 12:26:43 +0530
-Message-Id: <20261102065645.121046-1-dinesh.v@adlinktech.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hnk6Or7e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25DEE1F000C1;
+	Mon,  2 Nov 2026 06:57:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793602641;
+	bh=0WXBppUmza4/JYqxNoquqcjhhNA0mSK9KkPkoaHyFwE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hnk6Or7e2MRVo/8o3/vWFA6aHKxbeHkmQo2P1BHEg/umcYm1Za+iMFO1unR9QpEH8
+	 FR6o8cJ6Xsw81GHII6tDBe7Vva50bzx+GOwOt+rTQ6Phn7pVnMPIiacHEo6we9FgJW
+	 eah0yaE7AtgEzY/lq8wBLJPgBqrVizSiKrseN+i20ckJSPbl9oz4eatVSmHCwoL0SZ
+	 GYHAGh9nGCrqL6umaZvo898Vq6ZJrBCJiQhAagFst0s7tOIsArkquGnkMn9IHIdqCX
+	 Wo2sTyQMmaLSAyJHhFt4PsIAaOfxKSIH9yHvE26bL7/UXxNvxFpc03lXJounUKdaqV
+	 9BxijmAhMlSiQ==
+Message-ID: <sashiko-outbox-192986@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 01/13] dt-bindings: gpio: pl061: add Ambarella CV75
+ variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Long Zhao" <longzhao@ambarella.com>, linux-gpio@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-cv75-gpio-v13-1-4f93114ea204@ambarella.com>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+ <20261102-cv75-gpio-v13-1-4f93114ea204@ambarella.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 06:57:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,47 +60,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This patch series adds device tree support for the ADLINK LEC-iMX95
-module on the I-Pi SMARC Plus carrier board.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: gpio: pl061: split incompatible ambarella,cv75-gpio=
+ schema
+- [Low] dt-bindings: gpio: pl061: undocumented ambarella vendor prefix
+--
 
-The series includes:
+commit 698f86de70b79c39ee77a80fb98df0823e4d3989
+Author: Long Zhao <longzhao@ambarella.com>
 
-- Add the ADLINK LEC-iMX95 compatible strings to the Freescale i.MX
-  device tree binding.
+dt-bindings: gpio: pl061: add Ambarella CV75 variant
 
-- Add the common device tree description for the LEC-iMX95 module.
+This commit adds the ambarella,cv75-gpio compatible string and variant
+constraints to the ARM PL061 GPIO controller Device Tree binding schema,
+requiring gpio-ranges and a fixed arm,primecell-periphid of 0x000e8061.
 
-- Add the I-Pi SMARC Plus carrier board device tree.
+> diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Doc=
+umentation/devicetree/bindings/gpio/pl061-gpio.yaml
+> index 4d970e55104bb..c22dd8a1d2c18 100644
+> --- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
+> @@ -15,7 +15,9 @@ select:
+>    properties:
+>      compatible:
+>        contains:
+> -        const: arm,pl061
+> +        enum:
+> +          - arm,pl061
+> +          - ambarella,cv75-gpio
 
-- Add the new board DTB to the Freescale device tree Makefile.
+[Severity: Low]
+As reported by Krzysztof Kozlowski on v1 [1], does the ambarella vendor
+prefix in ambarella,cv75-gpio need to be documented in
+Documentation/devicetree/bindings/vendor-prefixes.yaml first so that
+checkpatch.pl and make dt_binding_check do not report an undocumented vendor
+prefix?
 
-The module device tree describes the onboard peripherals and interfaces,
-while the carrier board device tree describes the carrier-specific
-hardware connections.
+>    required:
+>      - compatible
+> =20
+> @@ -25,7 +27,9 @@ properties:
+> =20
+>    compatible:
+>      items:
+> -      - const: arm,pl061
+> +      - enum:
+> +          - ambarella,cv75-gpio
+> +          - arm,pl061
+>        - const: arm,primecell
+> =20
+>    reg:
+> @@ -64,6 +68,21 @@ required:
+>    - "#gpio-cells"
+>    - gpio-controller
+> =20
+> -additionalProperties: false
+> +allOf:
+> +  - $ref: /schemas/arm/primecell.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ambarella,cv75-gpio
+> +    then:
+> +      properties:
+> +        arm,primecell-periphid:
+> +          const: 0x000e8061
+> +      required:
+> +        - arm,primecell-periphid
+> +        - gpio-ranges
+> +
+> +unevaluatedProperties: false
 
-The device tree has been compiled and validated using DT schema checks.
+[Severity: Medium]
+Should ambarella,cv75-gpio be split into its own binding schema document
+instead of adding conditional rules to
+Documentation/devicetree/bindings/gpio/pl061-gpio.yaml?
 
-Hardware: ADLINK LEC-iMX95
-Carrier board: I-Pi SMARC Plus
-SoC: NXP i.MX95
+As noted in the commit description, the Ambarella CV75 controller has 32-bit
+registers and 32 lines per bank, adds MASK and ENABLE registers, is not
+register-compatible with the 8-line ARM PL061, and does not implement a
+standard PrimeCell ID in its hardware ID registers.
 
-Signed-off-by: Dinesh kumar v <dinesh.v@adlinktech.com>
+In Documentation/devicetree/bindings/gpio/pl061-gpio.yaml, the existing
+properties are constrained for an 8-line PL061 block:
 
-Dinesh kumar v (2):
-  dt-bindings: arm: fsl: Add ADLINK LEC-iMX95
-  arm64: dts: imx95: Add ADLINK LEC-iMX95 board support
+  interrupts:
+    oneOf:
+      - maxItems: 1
+      - maxItems: 8
+  ...
+  gpio-ranges:
+    minItems: 1
+    maxItems: 8
 
- .../devicetree/bindings/arm/fsl.yaml          |   6 +
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- .../dts/freescale/imx95-lec-ipi-smarc.dts     | 237 ++++++++++
- arch/arm64/boot/dts/freescale/imx95-lec.dtsi  | 414 ++++++++++++++++++
- 4 files changed, 658 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec-ipi-smarc.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-lec.dtsi
+Requiring gpio-ranges for ambarella,cv75-gpio in this schema leaves the
+8-item limit in place for a 32-line bank, and arm,primecell-periphid is only
+defined inside the conditional then branch rather than top-level properties.
+Given these hardware and schema differences, would a separate schema file f=
+or
+ambarella,cv75-gpio be cleaner?
 
--- 
-2.25.1
+[1] https://lore.kernel.org/r/a8b0729c-d6ff-4fa0-955e-deb0af0e726b@kernel.o=
+rg
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-cv75-gpio-=
+v13-0-4f93114ea204@ambarella.com?part=3D1
