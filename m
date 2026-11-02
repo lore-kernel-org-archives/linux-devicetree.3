@@ -1,89 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625805;
-	b=iMbL6XcSlEYtagKsBma2e212nU8Svg94oD11NX7ZloqDxv/wX2uluV7fjGifzkMaeNSo
-	 5/NA4slG4s0MPRp1MeLkzGx7zdLwvAKvb584wnu5Hsfk7AuBcvcvyaIHmMVo6H5VF0AaR
-	 E9pha5GRJTK4FHMMp0gQnZoZRRS4E99h+5FZr7uSNka59GlrTAv3MDnCtdW84k2NpUoNL
-	 uTHkpk4IYbasmPzXJkSZ5VGR0bxu54c7qfqVq8CX8yK3109AGFdj8moEDLiIXqVKgTWxa
-	 d5re8zyfKDwk4Elbbwjn6z70iljryP4q6R0A9vvKAr6D8VuljEb4MX6xxg8s7fiORkA==
+	t=1793625823;
+	b=LGqA9M7YjImpUDuOar/FcsnJzYbrQBZTumVzi7QsFO/K7M99Vxlf2eEHOEqY8xnse5z7
+	 rLEvAI64T5Gh4TZoCiJy7djkbSF3xoxZGUKrEct9RuS6eksaWydrg2gQVa9Q+9qWA7Lyv
+	 O2AC3YLapjoERb06j2SY/VkhVeTGvAkSAarHKZIkBTlFwHq4Y1y/2hBdzcF6AsrUbESth
+	 fdZpDPSNVfiWzXmL4IypuukvFcoyLD+glf6X9nn2YNizp8DmQl1WTq65oL9kdajkZ1ao1
+	 yDJnU7Vypv/B8rFwRJU5Yf6v8sH30e11V7F4Bua5Gjw9OlJuYIzSLkqfudLRtLP//zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625805;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=iIx9bq7eJtm+GqnApG7n9pCm9nsbzo/SWmqkbsdi7fI=;
-	b=Rt5RFUhWW5OrUqiXaoLfury7DikZXXzkzZfpLAsh4n3b5yT6Id8SxPOQykotWBqvxcJb
-	 f7V+Duc/HHLGuccm9it9+e1wAUVYk86dza8l1SRW5pwWvEafpYGJuFEXsqi39+WPa08wX
-	 QDR1r4KBUsR40RXMXS/xE7nKUQUEnRQZ6fjbzqX2nDQUvJfpPUJvd78HeRvNOxxtJftKo
-	 I/oUwMpqtghlEKhN04gDSQsFct6KBY2UT/jIdVhnI/Pic2JwFVT7RWssZpCwIZd6UBwSn
-	 2SLMO71As767MU6YG5M4uBdgx219W5mjJgB3/AGOgb1Bf9dhaCf5SUQhKegtszTjvTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625823;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=g1dUytA+EdoDg+Eu6pKR+9XMzqtgSGYZ7n7ArYD1v7g=;
+	b=iPRYRV2kikKRAmhNrMYCCA9DonHNelf0rPy1BjWd1qLsbyGRKYIRvYlLkdYA/oad2fl3
+	 gKdKazASHua4eCUkDfSSpXtoHUrSApeGoyiKltkL0HjrKa0ymvu4AdS1KW89KhK6HA77E
+	 /WZTq2FyUVHAE4vi2DqL0QPP/NxkseQvscau5W1DG22SSrVFUn/XtztGFkhxsl5s7V33f
+	 QgW4jBZoCvVq3xEH9AmrYGexpobE1nRbXTmAM436qWGJKe2zEXKWFSj1ZS+cVZ0S/aK/+
+	 9iCfGOxBJvrvk/nGKe8L4xB/X7KGnRmIan7MEIKGcoLmkZn71XPibzjn+/zsMMT/lkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=grN4zMxc;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cck0U1do;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CqreRL9I;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB48606A324
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:23:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAB48606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975FF606A326
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 975FF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=grN4zMxc
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1341876f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:23:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cck0U1do;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CqreRL9I
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAK6X3944290
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 13:23:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=g1dUytA+EdoDg+Eu6pKR+9XM
+	zqtgSGYZ7n7ArYD1v7g=; b=cck0U1do+7MoT8wpb9pSYByRS1f9zyPEgQk2J/9n
+	arFVVM9W62d/4YaWORfE7gVMkb/GCjCHPX6Ex/4jCGeym7UPg3GXScng26/nY85x
+	PdBZIcB+dOexJbebuSeiTjINWgB4vKeXtVlLqdAm8GzZHQm/GCqFloIlXwTcdn0u
+	StqcqimXbXI19xfe2W/a808Otw+/kkeO4nG5MbBgOH+c2VeIdWx2Bga48ZY2Afm2
+	ZwxzW0KivTKL26iinFnCjQesZwyrHkoEDYlkpw+EwTok5q898AoB3vywz85Tswec
+	/LvJc3X4uwnoY/oI9BbSfwDFrHKjqXayb2aT9rUzb7oUAQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hppfe999e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 13:23:41 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91c0f73807eso39493766d6.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:23:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793625803; x=1794230603; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iIx9bq7eJtm+GqnApG7n9pCm9nsbzo/SWmqkbsdi7fI=;
-        b=grN4zMxc7oQlR98hYUkHCZ6Yuu01AtMNd9fxu+r0BRT4eb0ZejEnXA5JACGs2/7Qaw
-         cHX+/SbLjGcmL9T59knvnPl5nbQo7oivB8DBZFuuqi7Ryx6P699t/5uRTVH7i+o/vkKa
-         +4hUWvktNsWR75ynl9CeOQRky4Y9GQ2Dp6QX2FFpvvHwZZzBBEiw+losE3FWyMVpqioQ
-         /lUy+HIp4IMM+E5IluYwt5g03Jhpu+fmyg6lqcxv6NfA36WD8cmXr1MAw+tSUS8WxfYl
-         GvwGKkg0PyofYvOLBvUIpGLiwpGYtNKb9L96yyK38mt28tI015jVBKCejbDhk8m7Dteb
-         VmVg==
+        d=oss.qualcomm.com; s=google; t=1793625821; x=1794230621; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g1dUytA+EdoDg+Eu6pKR+9XMzqtgSGYZ7n7ArYD1v7g=;
+        b=CqreRL9I+wRCvzeX2l215BXXJfh6xbfK94yjDT/SLQBLzZiJeF9FZ+I6FEKMSdWSdb
+         Cv7lByYF3lnoK7s3dFjf5yiFPyarinQG7oEfoJRqT/fwfXctM+cd5SjUKx2ZME3jc9zf
+         PraWayYXEKA5S97c2e5rxCNzBQdhTqqwtVyTl11Yl+RBnqkmCTgd1Qomm7Ooy8bSncib
+         KYtG++APEPpJJ1TE1CtPIcR0jI6uLOqWe9poiek9Q5rbne+eU1DumBW9bod5ybTC4dVx
+         XrYO/Vyurq27w8iwGfSldsdoI0Gacv48Irq77roWVJUKJvNSedq913yOxWTcY75FUBfR
+         +V1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625803; x=1794230603;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iIx9bq7eJtm+GqnApG7n9pCm9nsbzo/SWmqkbsdi7fI=;
-        b=Y1W3tKQH8MxeVupCPt57fuYucoInmksQ3I+gL5+nhUEo5U7pJaTvoqX9Liob8fa/4f
-         XLfs8oaJUiuFmWhuEceUfdc4gsuJg25nliBy2RE35r3bFSqWVQUIjf8uQfaE4hSlVU8w
-         ldPrMsANBj45AlsuXNcH91pwyhdgJ45D6zkNXSf2oeIf4ZBnQ5JxA75UC339rKBTQiUz
-         2MRg0zuf3HwO4l0BQ6zrP80RrvT4+/2jgGT1ID9h/GkTHYu0dS1U2Jqn7iLfiBbw5xF1
-         TwgBN6OMvw1qgXoEGhOEW98X3CZNVXJQAvgf4PC3Aj2mvsBqEIkGQBuc0E/K8pri0gav
-         Pmag==
-X-Forwarded-Encrypted: i=1; AKwUvBxboh6et94QCeB9perIxK0DFQfKav1feGXO5M949ysbcU8oj8bABm6sq8J3MKfijAPqZ577mntX5U7Y@vger.kernel.org
-X-Gm-Message-State: APuU4Z91cTL1hrnLFcoizzoQ0T4df9BK8ciN2SNljThrwUZtDiN0DYRm
-	GIIKmjLRhOXG+6zPaydxHI01yw2T22+R+FAkPApXPbc7FdLTnGuhPguxtXMKhDgEe8Y=
-X-Gm-Gg: AYBFou30jNUbWJL1o2sC2hPSMeMkP1/YWppYtj7GVQZE7MHBuVYeQAYe0cb8lwreLcg
-	Igb07t1GNjk9Zygdot/QOj5YRRdNuyqreyEZFskbyC/oMm7PDuu+Hsj02Q9kJ0Ci/mvVwE66GtF
-	LFEuOPYeZ90mtdvGq17by3G9bGXw93EmXeLIrQPvn9zqbPYG5U/3UbRyzPQlfQa2rQXSSjPu+Pn
-	hNBLMI2odOkjNwFPCSsRjmP+aIT1l5a+zlvh51Qew8wfPx5xhR+tunNwu4Xz8YOeB+ymIt+6jXx
-	ubmjRnPxUKig1EICJCoaIoVflp+Kwj2DHmCpmGcpibUYJL9vzFM57YK/gHEDJ4ID/1UXJtUuUu3
-	XarImDOzJpIT0jEP59qfxYl9IPR//mlwRG+5QiN579gXAy4hPPcNM5Yjcazl6Yao4+qTkwnxgju
-	MTTCDocD4jfYaC2kmLLVpnVbWl2nILAKJ57pSzKZBQ23BQcs6WlJPvB+MDGn/Kbk8jibdQviK3J
-	Lv+v60XIZGvLa0x0rDq6KflAXz2sw1X4XIPKbSfGwgwf13Xy5AJG+JiAgyZC0PF4OIJXogfVJnA
-	l0MGg528SIOd5KJ6jaZ1meGrj7jabFpFto8pO6aAuB8h9a6zLDSsYrceQlaOm3XKvkvvlqA42eE
-	6/nvelA==
-X-Received: by 2002:a05:6000:2501:b0:488:654b:ccd8 with SMTP id ffacd0b85a97d-48e6e2bdb0dmr23565416f8f.6.1793625802634;
-        Mon, 02 Nov 2026 05:23:22 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c6e9sm19912671f8f.43.2026.11.02.05.23.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:23:22 -0800 (PST)
-Message-ID: <75fc5b39-d038-4643-b4ea-a6eb6f903650@linaro.org>
-Date: Mon, 2 Nov 2026 14:23:21 +0100
+        d=1e100.net; s=20260707; t=1793625821; x=1794230621;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g1dUytA+EdoDg+Eu6pKR+9XMzqtgSGYZ7n7ArYD1v7g=;
+        b=JeXLdQkdWurMVQD+ZXS0hOVmee2Ng7AU4ia93E83mS1ygS1iu9U7RJ0Lrv5W3MyD8x
+         GJ2czCeeDcjlTJeg+EP7t5WyYODWNtylw8bXBJTfyxXF190L5MDnS2oPk6hNCDETb9q4
+         kyEpeAD+91lHyimPfCt/iCWfOB1+49jEckmxDERaxO3DECGdfxdNl0XUt5abZQHLc4CH
+         miDE0xa4zKibzUZpXevV3bZejfmD/GWejheHwgJ2CR5c/U1aBcQFmejUYnjpTPu4Nwim
+         dTyh6XtIj0Yjn35u0TQvOQlcD+aZU/jo2SSZPunDuJp5qollZOmzKWKhoeaqz8dlo9nS
+         3GdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHVnyOlThkTKxJZzVRCmY/ijcjsJpZnOAPvvreZ4v8jXvkHwSJx/cMywIIBzvzIDkX/mEFfSB2weun@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoA1fckZGJfK1XepN/SSAy0+sSy4P7jMHHup+7foMwzDd+2vqM
+	aTViYB9O7YnJiQtdmjqVEldTOTYtq77oy1iaxz414kwyJ/+7mUTKaOMWznzn/ylagKqqJecZKY+
+	hL4hG+4YgHb0KpYLQFyYhhX00kqxGxWXTZqQxVQMG3YpgJnSpBcR1lPzhRYuiyW3/
+X-Gm-Gg: AYBFou33JmU7VU/ObtZSBr+oRSjExajcYLvBPzXzJ3gKJARJG+ZcQqqTtdv+03rjf9q
+	ljJ1NQ+6DfgxGqSK1JS8x34iXTowO1WnXS0eYi7pn4kqO7nOxhrpCWOQw+6/LApr18dlewrGM31
+	m0kFzMFjwPZio7gbW5g7RarhoBGaXpNuzGofRGYqCPrFTHbZYf9ZBBolnv559mHQRTeHEL9uOpH
+	SmZqJgKy2b0Mi/lHaSowz0+wDjL5lALfPCCrHCIpENL6ZdOGoNZP7fEYE1U5zrkjV50796zZwhd
+	+f/TPGoQUlvvKYYq4auuz6DRlEdPGtwMzaWMNCVWt+7kuC6M8AQjW/h7V/znTl2N+SadIxPj0bT
+	tETIYA+Aa5opzZNVN+2nvdGYW3gEJBeJFs7vOpycO9tmgJ37GUxlpDwZ9D9iuLjw=
+X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id af79cd13be357-9442174fc9emr1562603485a.56.1793625820698;
+        Mon, 02 Nov 2026 05:23:40 -0800 (PST)
+X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id af79cd13be357-9442174fc9emr1562597485a.56.1793625819910;
+        Mon, 02 Nov 2026 05:23:39 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0a0a3495sm217300315e9.4.2026.11.02.05.23.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:23:39 -0800 (PST)
+Date: Mon, 2 Nov 2026 15:23:38 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Jason Pettit <jason.pettit@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: add HP OmniBook Ultra 14-kg0xxx
+Message-ID: <62dacxdue7uakeqximurvi556y2d6cosaxc3prrytneggo7x52@qxvwqe53bpoc>
+References: <20260830-x2-hp-omnibook-ship-v1-0-9feada71dc79@oss.qualcomm.com>
+ <20260830-x2-hp-omnibook-ship-v1-2-9feada71dc79@oss.qualcomm.com>
+ <e4p3eycp7tmwugjdei7kyqt5rkrbd4ml3f3oiferqpfpxvnjfg@ildezttj2ka2>
+ <20261101194525.4173-1-jason.pettit@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,207 +124,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 5/9] drm/panel: novatek-nt36672a: Combine two init
- callbacks into one
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- phone-devel@vger.kernel.org
-References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
- <20261011-nt36672a-panels-v3-5-9ea238627f8a@minlexx.ru>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261011-nt36672a-panels-v3-5-9ea238627f8a@minlexx.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101194525.4173-1-jason.pettit@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=SeZi5fRu c=1 sm=1 tr=0 ts=6ae88edd cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=_gEsykP72j_chJFTmiQA:9 a=CjuIK1q_8ugA:10 a=ukwt756SXJsA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX/2rmdwe/hCkm
+ oxAriFUk2jl5m/hm+aQ/B4cn2dMzzYKBj28xm3S5oP44ubvsb+IgN+oz6XfH3FZp9Qb3ICiS8TF
+ RdYYrSCmIEU6LMBJCCIlftMtEjzaw85EHt33RMJIiL5Lam6G+nMPo5CX9IQMJ+k1uHJGdSr9aYq
+ zVWbKxRS3RzjMq/i68d6CYKxMivxugTmTFLYW/B8z7a09yQvyK8Sx+4Ys2tUfCmLd8ODEmSS/QP
+ 2ITeShH5j8sBypsOuTGZbO1vTiURgAh5Rvqjnlu6S0ThmAoGUcmgXMOkGYYaJSfspIRxfka7Yp/
+ WL4G2sIciZ/3ZbvXiOHjgndzH1jO/sgxqbzFV7dPCwmAcyUpDF5gZcofS0JnUkl4scCSYkUSR49
+ 7YVDdOGs5M8VoyZ38qSPHg1I3/u0WUlOFjHDcPUDZHFt8SaSG2Z6MHnc0KadprRu1ObcsVsiTlK
+ 3OJq/g6KvKgNZReYq2g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX7kNo9S9TapL7
+ WxBKngQDob+DTFl7bHPs5tlo/Ab0YbMfkCJwToRdkV47x95mCKbxTpu4kTPRpXy7QYGjrrH/9ZU
+ fI2IFEFn0EK4qenMaFyHVyyNgWw3vfc=
+X-Proofpoint-ORIG-GUID: udl3C20852BJpT09uwU0Ta04IsQZnwIx
+X-Proofpoint-GUID: udl3C20852BJpT09uwU0Ta04IsQZnwIx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020053
 
-On 10/11/26 13:54, Alexey Minnekhanov wrote:
-> The split between .send_init_cmds_1 and _cmds_2 is completely artificial
-> and unnecessary. Two command sets are split in between by the sequence:
->   - exit_sleep_mode
->   - delay
->   - set_display_on
+On 26-11-01 11:45:25, Jason Pettit wrote:
+> On Mon, Aug 31, 2026 at 11:30:52 +0300, Abel Vesa wrote:
+> > On 26-08-30 14:56:15, Jason Pettit wrote:
+> > > +&usb_hs_phy {
+> > > +	vdd-supply = <&vreg_l2h_e0_0p88>;
+> > > +	vdda12-supply = <&vreg_l4h_e0_1p2>;
+> > > +
+> >
+> > No redriver?
 > 
-> But not every panel driver follows this "split" in their init sequence.
-> Some may have different delay timer, or put exit_sleep_mode/display_on
-> commands into other places in the sequence.
-> 
-> In order to make this driver more extensible, combine two init functions
-> into one by puting exit_sleep_mode/delay/display_on in the middle,
-> followed by commands from cmds_2. As part of this step, also move the
-> tianma-beryllium specific deinit sequence with its delays from
-> nt36672a_panel_unprepare() to tianma_fhd_video_send_deinit_cmds(), so
-> that each panel model can have its deinit sequence with its own delays.
-> 
-> No functional change - full init sequence with all the delays for the
-> tianma_fhd_video panel is kept the same in the end.
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-> ---
-> v2: move tianma_fhd deinit commands into its own deinit function
->      (set_display_off, msleep, enter_sleep_mode, msleep)
-> ---
->   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 61 ++++++++++----------------
->   1 file changed, 23 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> index 73bec4f47ec60..a445c8067aa5f 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> @@ -51,8 +51,7 @@ struct nt36672a_panel_desc {
->   	enum mipi_dsi_pixel_format format;
->   	unsigned int lanes;
->   
-> -	void (*send_init_cmds_1)(struct mipi_dsi_multi_context *dsi_ctx);
-> -	void (*send_init_cmds_2)(struct mipi_dsi_multi_context *dsi_ctx);
-> +	void (*send_init_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
->   	void (*send_deinit_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
->   };
->   
-> @@ -92,20 +91,6 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
->   	if (pinfo->desc->send_deinit_cmds)
->   		pinfo->desc->send_deinit_cmds(&dsi_ctx);
->   
-> -	/* Reset error to continue with display off even if send_cmds failed */
-> -	dsi_ctx.accum_err = 0;
-> -	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> -	/* Reset error to continue power-down even if display off failed */
-> -	dsi_ctx.accum_err = 0;
-> -
-> -	/* 120ms delay required here as per DCS spec */
-> -	msleep(120);
-> -
-> -	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> -
-> -	/* 0x3C = 60ms delay */
-> -	msleep(60);
-> -
->   	nt36672a_panel_power_off(panel);
->   
->   	return 0;
-> @@ -140,22 +125,9 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
->   
->   	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
->   
-> -	/* send first part of init cmds */
-> -	if (pinfo->desc->send_init_cmds_1)
-> -		pinfo->desc->send_init_cmds_1(&dsi_ctx);
-> -
-> -	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> -
-> -	/* 0x46 = 70 ms delay */
-> -	mipi_dsi_msleep(&dsi_ctx, 70);
-> -
-> -	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> -
-> -	/* Send rest of the init cmds */
-> -	if (pinfo->desc->send_init_cmds_2)
-> -		pinfo->desc->send_init_cmds_2(&dsi_ctx);
-> -
-> -	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	/* send init cmds */
-> +	if (pinfo->desc->send_init_cmds)
-> +		pinfo->desc->send_init_cmds(&dsi_ctx);
->   
->   	if (dsi_ctx.accum_err < 0)
->   		gpiod_set_value(pinfo->reset_gpio, 0);
-> @@ -192,7 +164,7 @@ static const struct drm_panel_funcs panel_funcs = {
->   	.get_modes = nt36672a_panel_get_modes,
->   };
->   
-> -static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi_ctx)
-> +static void tianma_fhd_video_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
->   {
->   	u8 reg;
->   
-> @@ -352,15 +324,19 @@ static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xff);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-> -}
->   
-> -static void tianma_fhd_video_send_init_cmds_2(struct mipi_dsi_multi_context *dsi_ctx)
-> -{
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	/* 0x46 = 70 ms delay */
-> +	mipi_dsi_msleep(dsi_ctx, 70);
-> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x54);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-> +
-> +	mipi_dsi_msleep(dsi_ctx, 120);
->   }
->   
->   static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-> @@ -369,6 +345,16 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-> +
-> +	/* Reset error to continue with display off even if send_cmds failed */
-> +	dsi_ctx->accum_err = 0;
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	/* Reset error to continue power-down even if display off failed */
-> +	dsi_ctx->accum_err = 0;
-> +	/* 120ms delay required here as per DCS spec */
-> +	msleep(120);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	msleep(60); /* 0x3C = 60ms delay */
->   }
->   
->   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
-> @@ -399,8 +385,7 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
->   			| MIPI_DSI_MODE_VIDEO_BURST,
->   	.format = MIPI_DSI_FMT_RGB888,
->   	.lanes = 4,
-> -	.send_init_cmds_1 = tianma_fhd_video_send_init_cmds_1,
-> -	.send_init_cmds_2 = tianma_fhd_video_send_init_cmds_2,
-> +	.send_init_cmds = tianma_fhd_video_send_init_cmds,
->   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
->   };
->   
-> 
+> There is no redriver in this case since this USB is an internal
+> connection to the USB camera module.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Thanks,
-Neil
+OK. Thanks for clarifying this.
