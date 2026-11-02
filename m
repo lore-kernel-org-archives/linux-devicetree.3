@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625826;
-	b=bEGaFbWMKgyF3gwe9vm+jS+lKxItlWFQ6rha/UbXd2KRGezXO6llViBK23L1FRFuIaR6
-	 GRX6lE0dnjdJpzWC4ph0DYkN3AG19bJHBXmtauBSLUspo+INsplZJlCNAa2rHkXdFbykf
-	 K4qfT7dDhQYkoUdfR27mZGu5teHTti3ihrliUPnUSMHH4Zet0xsoJ506EBjtP5ro8Gp7Z
-	 iqu42wO0gU+x1drJjHVHEPI+Nx3QoX2/gZws49OgIbKRf05klh6CFzcfVWXoYUbP2yLJT
-	 lQzjqHq8YutnZgGyhM/Xx053fsi/KGXmgUv6vHMUVzH/yMKwG9I3YAZdKL/sAAQ6tBg==
+	t=1793625853;
+	b=1VQozp3JpY7YkDUftBtBKfv+y15/dRzBznRRjbQEqRmx175GRaciAWujEy3DJva4j0dB
+	 74X5IY4hTPsUnGXPyMhvdkdpOLKGExrwmzU25c7KH4cxDsLcK2LtT7J2aZN/uiKyyLt/a
+	 l1WzYJ0kVlGUT9adsznfONCLQoeE2K7UnN0BUSwM3OcPOal4Uh1KTPNuDBctjwXKmoqn2
+	 IvW0YdYxHi/vJ7QL0nuFJQAdIPo53QKBuE7sUoUL3pD94q39pSNWw2Hjo6EV0qyL2+kZD
+	 /DIgWX674gOKsgLwb0JmSmoE3/G+owvt9olGlhA1P7lzV5TTG1E5vngHcvdP+hEcwJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625853;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
 	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=cjTkavopvWP8IoUO3Tm2DHF2lem7yW434Hge7kuVhBk=;
-	b=dPhhhJNYOFGe896JFntETtpkH7UXo9n3kYxm/DTPMyl/PZuJ1K+ZQEHzqnqdcbTq3x3W
-	 J3MfEBeSv/Rm7aue9ofSw8SmLIO63faMzkvMK0wX572B93FN9URXDoq5OO3WrY2YVLIjO
-	 YIp3vohT+2/JYyaOE3fVetA1n0NMy6uKFDXYeGCVhNzRK1UztDrF1is32DLxCoqnC4Gdg
-	 D0P2/Fx2aFHwJgnr5WYSsWhyStmVwjTHgKFdyXOBBtOg6eICkvhjom1wqr4wokfYaPSNz
-	 x4y4WP4SO5+Q4iar9EI10QFFdXLbl8SvGitqBVKap7cdBAROTRQdxG4Mj9noYnd6vFw==
+	bh=wrlc0uPOpWufY4Ha9PM3YaR+47hyRCDT/vlwyZbcxAs=;
+	b=AUQbRNkF1DqSamF5mpufVBBmJeISgHRDV+9qOyXWw7aWt5VmBOv4zJF+yriZjsLqNOgC
+	 +B91Qd28Mhyk1YVK4b4lbwSWTsa/EWE39KuI74jXD3YGUMkvzic5hPi7f+XO53A+N67/c
+	 clhVYt4X7lr/eJyGvlXRy8dccPlsOBtPdt6Q7B7CIpPtU1IxEtCD/Iii/ViJiXnbKEXcO
+	 jGPGYXZvEXuY35pUdFdhEqKiDIrfHjqvIZkWIwxJDtjAaOyKqKWkPXhMW8SLyNOdNwaPX
+	 8hnA7wDiH2mY/DeeB1YKdGbN3PuhhqBhNy5djnQkoDVV+94WMV57P/r5MCc3j3CwQFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="tL/cX/OO";
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ho7ooRX2;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC89060A2602
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:23:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC89060A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E157606A327
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 13:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E157606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tL/cX/OO
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48df54150dfso1377351f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:23:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ho7ooRX2
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso26595435e9.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 05:24:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793625824; x=1794230624; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793625851; x=1794230651; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cjTkavopvWP8IoUO3Tm2DHF2lem7yW434Hge7kuVhBk=;
-        b=tL/cX/OO9kNjK9gnxW/Q92Iea7dXKSz78zXTwlrVx8nt6IYLDT784ZPogb66t87yrU
-         98rweJ3NE7j1/eQbIHs9U+gB8tCtPb66CNJI97X3pmEZhBFABfg2T68n402I6xmIw/d0
-         4j+QPjnktyaEI9/CCsfK5axsht3H2+hJyKEHiVN8Aq69a8YD+EqTUs2zrG3uLh6bsF0o
-         Lrpwi+QIpR3CdItbXUl2EiBdrk/jtGsvhRDq3Ybni9LWEEA7uF60Dreh51GKQOy1NNFd
-         l0qY9eKlWiD9TN7G2eDBKwAReYFTtM1sO3A0i0/Lo3PxpjXEWF5eouQcS/Lqi57SMmKw
-         RcSw==
+        bh=wrlc0uPOpWufY4Ha9PM3YaR+47hyRCDT/vlwyZbcxAs=;
+        b=ho7ooRX2b+ftGMMlHNxcrpTVg9BtdfxBjbgVRteQAi3eHmrF22rXICGR/rpE/i+LT9
+         J969Ox0wbROQEo2Z9qcFPgXPI2GJGGG+I+60lJaFKmCnfW+1qZ1XW2Gz2Qc+YZGBgrf3
+         E/0t9WbDqlF9jU/qNsnOUfnocCAyQfv3MOObWc5w3OHsMlvz8CuTYewbwUuPZzxW3jzf
+         TKWsqNjMdf62cazsY7GRs3P0EnoD1oStfU1HHiNUlRfE9lSYoPMcJZ6uJaODLTMx2BmP
+         lgYwc/eRwPO6dNLpMVgP05iCWlZgX6q2RCGEBKimIlS14jnKYjgPTm7dSLN46RASuzTx
+         6XoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625824; x=1794230624;
+        d=1e100.net; s=20260707; t=1793625851; x=1794230651;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cjTkavopvWP8IoUO3Tm2DHF2lem7yW434Hge7kuVhBk=;
-        b=Hy1vlGz3+MNrceIZFxeErh60Ruj1cUWZqoaURErPfZ3pyhhNk0GF6nIhpmBR9jRK9x
-         Nn+inAeH0hkRkrN3FdEmn5b7ZwB0pBK5W9onQtDN4rKW7/nz89p7p33FpmNFpJWUTZXm
-         A+kaZeDAghEi+WCWYSu0eXKqCBa8LcJqVyyDo9B9SZ0lBsq6pkQG1YI1wyXhiJkYpOmZ
-         DTHF7BmHuD04IZW+VX5SXE1hxw6RVMxkWa2zI2H6HQRlpGUbNurDfaCGrVGD4qMQhlbq
-         qSb+hOK/mxI6iZEmf5Yc7qE+lPtaKEJsaYksjfyKZYa72p4MPUUOQUK0U9IPcS4TWNBN
-         6KVw==
-X-Forwarded-Encrypted: i=1; AKwUvByzqcCzsXZoyyrpnZDvrciUbjxNyS5SF+8ISB7RqLcHDVPdzoCAMV8Nb3FJuFamCT40r5rLQjFuWwBy@vger.kernel.org
-X-Gm-Message-State: APuU4Z8piJLEiGkMa5WNargbWo1N7YACobYrXOwnCRbYvwAGIfmTDVPB
-	8jCFzx+pIbR9/bztw/IhqU3pfC+vWzRrwOCI6DT4xcyLLQMWEATGHfl/9D2g8C3edhc=
-X-Gm-Gg: AYBFou1FV5pWV0Udr/3TZ6Zo9lFYK343AFjNGCJqc9VOGZHKxN4OylMY8YGu7YbA5Vl
-	Jq6UqiV/FP91PVuHMu1Nrw1pC8Ivtx0QUQm/otv1ioHeNKNtuLj3zGVy+ViaKn66XSPf7l8brVd
-	ntABKVcVpvEJbZUEd7c0oY6eXDuSMP9vbyxxDs43ZrIfCXXp6aTEEFIutcvLoS9T2PC+PAsfP+y
-	NFgypfoX4s+K3oCtESucaAXwS2ZHd5gEBFub16c5gqQjw4D3YzeCPm5JM3FdZP5v7pYzKe+7dxm
-	O5N9hvnyIqYJe2PK5SGjc3wYwIp3+tYuitGYl8J0oQEuZgdUAzVvSpzEXeiQqakNjkLtFz9REW7
-	NDJ+MOhM4m4rBeUkT8cL1LQ8+ivpM4nzvC6qUMwRYT/O60r6C+mhUDz5Hfg0mhVU+WvFV3rfchs
-	ONvSUE8keXRXIc/FwDhacscO7rR+7fgDPLdxvBl6Q3p0UnnVWBoGml1WkQFQjtUB4GDZoLyYUMY
-	hoPZmZCaBGu83e90aTUTqICHZ0SX0/MsDhbGqjD8VbfkCLR7vTRmuMjG94eOLC2VE5NJ4aumSxC
-	x+0NReW0bO3t2Fdy1qmEm237JeaZ/vt2KQsB0h57PTYQNcH4UUI2JoETGWKTHUSsCvmBgnGeYwz
-	OfllY
-X-Received: by 2002:a05:6000:3109:b0:48d:fa9c:7838 with SMTP id ffacd0b85a97d-48e6e2bc07amr25550097f8f.2.1793625824172;
-        Mon, 02 Nov 2026 05:23:44 -0800 (PST)
+        bh=wrlc0uPOpWufY4Ha9PM3YaR+47hyRCDT/vlwyZbcxAs=;
+        b=jXuusgZdTtMiBGovPLUlF7IJSAmc63Zgy0azeEe9VrWuc2P+xc7SjV2KqVVZ7FQk0w
+         EeF86VXSoQHBBnETJV2JARCwxTYzFdHCoT41R2dEHDRWpujEILlrWmtq88PQv0BLUfQO
+         48fO3Ny+wgVv3Pct3666Hf/agy7D6kgFTkS8s0jIpnrROBj4lRG8iydUzenOYH1EL9SN
+         sYe8gQ1ep/zXRFbAlWaTgfcRI+SScgCXV9GGHPDVQQfOuNUqf3X98vlwc8He6/e7hhDd
+         RCWUcSPZBzDiPGbixO/Emg0gG/x8YA+YKOVqUNfyOrhShaxYjLv7t0FxXFhc1IaFsaHd
+         gnQw==
+X-Forwarded-Encrypted: i=1; AKwUvByNoB0xMg7IHV3vhgtn0nuAY5QXQ7ry8TIOsZ+3cZPPx263trlJ68fhsewgFOk4xFXZb1HRR1jBJ3dL@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2xkJykjSZQP0F/M1VJEW51vepcA6y08AA2gcAcSt2PzKQ/hld
+	ErNe4I6ScXduzhQx+14cSpn9qjttw1pD225EQ96KUtb/qVgOCYP5udQvxibICWWvLFM=
+X-Gm-Gg: AYBFou0xtX2uRgSyb7OLvJF39pc1ARmwj8ddnQPdbgekPYcfbAQDMiSgU2XIg34L4Zw
+	wFJjUAEZ3pR+zyR4k/TNIY8L/gBJjzj4qgwBFsyzs1YZT10TijSWW/V+huVJXrp/rMc5mAa9GeS
+	O+yX5E28ZFeWJiCdQeEBLw/6+eY4qtVNwlj7DEqYFM2MnjGm4dcbSZ8aPowpvOmN2gYZxY3Qd/x
+	zgcGJk/lQA8vx7tIrXjTiaVo7QPMq8+uP40CUggaZUwOvCOBzO1sOT2z5beG5sDjek0s0b6jsFq
+	JCHj/T8z3PUOfxJ6nze/sR9OYj/nM7wNecaFKzqcal6Vdouq0jV7ipks1ZhBgcH8ohe8kg/4U74
+	WVTFeG7Big42P1ZRX3FQz7vKsUGYB1YZljf01jsxtD/K1Ow3yt3Gl8ho/T05HkODaZHJEC2eRww
+	CnehDMCUwaAhsdmN/sNrPIhJdw+J3jY4hCAPWwB6VaT/YYswECnTRFQd+XYD7LIaxn5n95xGjH/
+	rs+GP4WFJHqv4RKEXhGoCooPxRfGyQF5SYdqE5Rf7W210363StubK2RdbBvcQW22cOYNxwbF9nC
+	SxZSicJuEY3s6VQFfaznHmrffbkc/BnWGDcLvXjQlqvBCmPZVIjnxoSEDXW2grxH7yEq8iTtq8r
+	pHwKm
+X-Received: by 2002:a05:600c:4e88:b0:4a3:59c7:f226 with SMTP id 5b1f17b1804b1-4ac16bc4713mr239062835e9.6.1793625850979;
+        Mon, 02 Nov 2026 05:24:10 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b727c6sm21994451f8f.16.2026.11.02.05.23.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm276611165e9.13.2026.11.02.05.24.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:23:43 -0800 (PST)
-Message-ID: <aa8863b1-6fc4-4c2f-88b9-c8f41247bf94@linaro.org>
-Date: Mon, 2 Nov 2026 14:23:43 +0100
+        Mon, 02 Nov 2026 05:24:10 -0800 (PST)
+Message-ID: <620eb58a-bd8a-4679-84de-0285f10e0262@linaro.org>
+Date: Mon, 2 Nov 2026 14:24:09 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,21 +96,21 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer
- for NT36672A panel
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+Subject: Re: [PATCH 2/4] drm/panel: himax-hx8279: add the VDDP supply
+To: David Lechner <dlechner@baylibre.com>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- phone-devel@vger.kernel.org
-References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
- <20261011-nt36672a-panels-v3-9-9ea238627f8a@minlexx.ru>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
+ <20261006-panel-himax-hx8279-vddp-v1-2-50d884b42aae@baylibre.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -137,31 +137,46 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261011-nt36672a-panels-v3-9-9ea238627f8a@minlexx.ru>
+In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-2-50d884b42aae@baylibre.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/11/26 13:54, Alexey Minnekhanov wrote:
-> List myself as maintainer of Novatek NT36672A panels driver
-> to keep a close eye on it.
+On 10/6/26 22:25, David Lechner wrote:
+> Get and enable the vddp-supply along with VDD and IOVCC.
 > 
-> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> The Startek KD070FHFID078 panel has a VDDP power input, which the
+> MediaTek Genio 520 and 720 EVKs switch with a regulator of its own, so
+> the driver has to enable it for the panel to be powered on those boards.
+> 
+> On boards that do not describe vddp-supply, the regulator core provides
+> a dummy regulator, so they only see a "using dummy regulator" message.
+> 
+> Signed-off-by: David Lechner <dlechner@baylibre.com>
 > ---
->   MAINTAINERS | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/panel/panel-himax-hx8279.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 252b6d7ee1638..e85fbea55ae62 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8464,6 +8464,7 @@ F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
+> diff --git a/drivers/gpu/drm/panel/panel-himax-hx8279.c b/drivers/gpu/drm/panel/panel-himax-hx8279.c
+> index 9e443c719843..fe665cd3a3d2 100644
+> --- a/drivers/gpu/drm/panel/panel-himax-hx8279.c
+> +++ b/drivers/gpu/drm/panel/panel-himax-hx8279.c
+> @@ -112,7 +112,7 @@
+>   struct hx8279 {
+>   	struct drm_panel panel;
+>   	struct mipi_dsi_device *dsi[2];
+> -	struct regulator_bulk_data vregs[2];
+> +	struct regulator_bulk_data vregs[3];
+>   	struct gpio_desc *enable_gpio;
+>   	struct gpio_desc *reset_gpio;
+>   	const struct hx8279_panel_desc *desc;
+> @@ -769,6 +769,7 @@ static int hx8279_init_vregs(struct hx8279 *hx, struct device *dev)
 >   
->   DRM DRIVER FOR NOVATEK NT36672A PANELS
->   M:	Sumit Semwal <sumit.semwal@linaro.org>
-> +M:	Alexey Minnekhanov <alexeymin@minlexx.ru>
->   S:	Maintained
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->   F:	Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+>   	hx->vregs[0].supply = "vdd";
+>   	hx->vregs[1].supply = "iovcc";
+> +	hx->vregs[2].supply = "vddp";
+>   	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(hx->vregs),
+>   				      hx->vregs);
+>   	if (ret < 0)
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
