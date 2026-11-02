@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793590838;
-	b=nGJ3549xxxgKfeECCb8WqFdH7CBzFUmxXLI1TVx7TFE3Njl41+2RUGJTL09MGnptNGj5
-	 DzJ56pdkPbcYLy6abMLMaROn0XDxW+9MCTll+5RySV1xVMYXoQINEj8OnZ9m9nx+hlfrG
-	 9nAdrEszNAx4s6vNbdSMPb5/eha4pFhotmTr7LCpy+lkvG3XVQ0hw1uaf8U1UKCZ45oH7
-	 7bp+Uudie7iwwgwmF1+SWTHHW5cDoSCEqWy7ks7OgEsJ5DAkenvlVk74fRgM3RfJSxVKI
-	 D4bPgz6OCseAeWLOo4xabkEGXuXcqDh0/F3Sg4ZWycN43tApijMIBL2suBnmSauT+Iw==
+	t=1793592267;
+	b=fax2sVT3s0PmHtrkZYK9umdL5OifpEuKFur4f0cOIB/0ZpnVvEI86SY1D9CnPKCrCo3h
+	 sIXQFtyF6+jrEQjUL79ZzxxVP76sAIwy/dLtcTRR2iLbAHsuYcJdajXTyoOL/2BqPyR5u
+	 pm1z5YX6N+lsBTBtoGeLt/6VR9f0VDSmep9FK1MRzX4/uFbYHgBVWvdpqG0omU28+1D/q
+	 qH3O/ENc5Uks5kHc/Tq3vhzawYxl0/0MCf10uYLJAgXJ/wWjWwSomKTKFmb0tSbky95rx
+	 B8SIjdKgcYK1bHRpt0VnywE+b+/Pc7wH8fjL5Pmq+ntNYmMcvqQ+uPMvyKYLm6n5/aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793590838;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=kQjzUVB0sysO2MVi8xIMwCn/4SA4FAkg6EIUj2+ZOig=;
-	b=PUZ3FRxw3l1c22H1Gia0IKmhTnSmWGOTCN9Vr8J9ZK43T/9xj78aVSz8MQU13Bm1829G
-	 rgOD+PJKPnwQC2skbboKHo6UUtKb1rZEW0fNb2IkgQLmkrZSYbeBYcbQBoGdVXEsvw9Ll
-	 rrWUjNhJo2cQ35qhnO9boz6gmzv1GKD6O5SCVymTg66RkzaEOuZypgHG9rOUIeDdPyYYy
-	 Jufd0JAeCq0PznV1xh0vdQsqVOhaARkOqKHXXJVqszzi8akKzZSD0bx3Aw3b7oDPV96ZD
-	 w+5y23Km8p8ndoSeG1aoXayjvfw6FYhPKAE1e75R03t+QQtZxOdpnNHHcjkg+GlLxwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592267;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=VoBL1fg1knaJIkUVWNPfYfv2x4Q0uTv93/Tn44/ErLk=;
+	b=dJNIKmLYhCC5ExAIKeMhnhF1SvR+V3qDoM2lDfFujpmFaH6+eONOU+D8xmFdjmKb3jRj
+	 mGr3vZfFadm5ajBis4dA8weFx8UB916F0+9DEkKIPYlHpAZK1FDbYpCdNDAaIqn39ln+n
+	 XXicJqvgheoknWvJPT89mxC4Pfy+fTLGDBKLLtQKAe2g0I3LnZZl3fvN3fixPM3Bsj/Xm
+	 Bw9UjtIqlqf3zYvRpoqqGKJQ7gzb3AL61YGstmmP6pYXfzDj45Hf22gQvU5V0nWFmSROd
+	 4di5TyN/V1bxQPOPIMAASV8Q0otip1z+PxVYKea8oSLd0rJUjDUmtom7Y4K6vmnkg2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=njgNK7Zd;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219E7606A324;
-	Mon,  2 Nov 2026 03:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 219E7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-03 (Coremail) with SMTP id rQCowABnOpscBuhqgWArAA--.36947S2;
-	Mon, 02 Nov 2026 11:40:13 +0800 (CST)
-Message-ID: <bd7b323e45af2f1e728502224f17e363303dfb74.camel@iscas.ac.cn>
-Subject: Re: [PATCH v3 2/2] phy: add a driver for T-Head TH1520 USB PHY
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,  Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Wei Fu <wefu@redhat.com>, Drew
- Fustini <dfustini@tenstorrent.com>, 	linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, Han Gao	 <rabenda.cn@gmail.com>
-Date: Mon, 02 Nov 2026 11:40:12 +0800
-In-Reply-To: <179344878055.5901.6127263477546911730.b4-reply@b4>
-References: <20261009090444.3319517-1-zhengxingda@iscas.ac.cn>
-	 <20261009090444.3319517-3-zhengxingda@iscas.ac.cn>
-	 <179344878055.5901.6127263477546911730.b4-reply@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A57606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 04:04:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A57606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=njgNK7Zd
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-170135e43c7so140657c88.0
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 20:04:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793592266; x=1794197066; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VoBL1fg1knaJIkUVWNPfYfv2x4Q0uTv93/Tn44/ErLk=;
+        b=njgNK7Zd9sPBHMbCEZOZr6eVDUWt5KBuD+VTP+s5bqmhvtslQ8ZL2sG2+HN6HyuFVC
+         /+Z5tEizHBWdkrRM0OF5q5WMfZdalD9gQNPBs9DTYP+elbCql0MeR7kzaPyPDea7kuAT
+         rwnGZvYRrJBI+Pc4kguE08MyRN2WT7+LTczIPZGGvlCNlpXvU1OhXizINJ5HswSnqv+d
+         2u4SiKplJO46unhLgZ4QD3txxVYKeGcT3nN3r4xkqMllZmAdCYg0NEnikkTh4oJX74WH
+         PzS2RMW00PUFXM6veBossspVxxZmczbNTrIwJf9qvZWkUw8Pn2s/XmyVMZsNwtZizWxV
+         EJRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793592266; x=1794197066;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VoBL1fg1knaJIkUVWNPfYfv2x4Q0uTv93/Tn44/ErLk=;
+        b=fihEnB7NUAk/46rs4YB9TyKApM1hmGMyyWhOKo2X3hJU6HA5tfZneOkmJcVTpif4xn
+         XKF1ePkdb5297JaSjJ2aiAh2A6ERVfo78VZS/gM75QNTbI0+g0dS8FAuyjVOVwP11GJm
+         bwOb1kycLvJIIKKgzCR7K9DVoDltxs4XUSfEgoJB1h7291x051MPVr168NRlSuVfnSCA
+         EhW+ZaArisfvN0etzxNUXwZzlKzu9ftgR5s3yShigkjrntQDIk14rhXJRq9qbsMNRbBn
+         UzWsvSNGEr7CQ6CwD9JtOR5B0tXw8boGNE50NidbOEMtNmCLBn9/UWl2Bwtnaq+vGjNW
+         smdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxi/NW2L7G/pWQMOdoLR7+NQUi17VDmMDjhkr/xS8VhtIsNwX/VVtkm7HDSIzY+S/Nc4gBDTK32TG28@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXfIiMte7fVciOHI0VsmYtWpR9hcEnu8EXb9YwrLTg7ZJdwdhR
+	taUhxN8x9HXJpI0ZxuRE9whYttLQqRkNOoqOB1P7Q7xuN8cNi+6G+nRO
+X-Gm-Gg: AYBFou2ZIj6O3nvhJql361Z+sOTJ2ggr0i1Y0Ym9BMxw6W/e3RlQ6zR8AtVLSdPN/eW
+	ma8pecsjy8P/ErgP6Gv3F/hVotcOYcm6GkpAS43EPOVFG0tw8lq0ICJNEVMeVMelYVfPuCbbWfE
+	Z44F9NZq8dFs3xcQqW61iZ6Lq2007VcBHfVA4Iq0c10C+u9IvOHfZFuDmkOStgVNgXHL1qqafid
+	3V5NLBHnzgF1Te/5+KMOxwUb0W04n0ZzcOhvwzcgKe1Ij9F7UwfVOPW9m//4w/0UJPBDf1QaeCA
+	zGqAFMcpp/d93yAwjQmjK4Hf5LVLjq0TwODnQIFAxJDW7q3M7SQ552rFJ9W5uJXqd44SYCUGWnn
+	GtGtSnvOIA/fSBpHiYqa1UjXeETv0Xp8daLHr9MNABs815JBwFVg4AztJtvthbFu4h1sZMIOVaJ
+	eykkBKl90nh5ISXxZ/6L64N2teRVckZR39/Pl301jb9BfgjftJYeRApsJs3nvxho0G3Sk09Y0RT
+	ctMqzSd1DusrPq1xWBN/L6870sjiNy8NK9/Cgjhhs0JlAjs6iqrETf5+3OCOXu52FKDvRsR7A/x
+	g+smUI9FTzMZEF5dMs3Ubw95Ok5PS9TQZC6jUBvw3lynWEbJjGjIZ19xyMIQ1LNj1AoyqH8=
+X-Received: by 2002:a05:7022:b043:20b0:19c:dd9b:d09e with SMTP id a92af1059eb24-1ac5cdf9b17mr14479268c88.23.1793592266054;
+        Sun, 01 Nov 2026 20:04:26 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:d75c:a9d8:6c00:c5c6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm29283682c88.5.2026.11.01.20.04.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 20:04:25 -0800 (PST)
+Date: Sun, 1 Nov 2026 20:04:22 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add the
+ MT8173 keypad
+Message-ID: <augLnMBF7Mbw9_sL@google.com>
+References: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
+ <34cec90f-b6f7-49ec-a531-72150891dbb0@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,351 +102,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowABnOpscBuhqgWArAA--.36947S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3XF13Cr4xCw17AFyDCr1xZrb_yoWDGw4Dpa
-	95JF4jyFykJF1Igw4Iqr1UCFZaqw4xt3W3Kry3Ga4rZF9Ikr95WayDWFWY9ryvvr4kZry0
-	yr98WFy29F15K3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IU56yI5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <34cec90f-b6f7-49ec-a531-72150891dbb0@gmail.com>
 
-=E5=9C=A8 2026-10-31=E5=85=AD=E7=9A=84 17:43 +0530=EF=BC=8CManivannan Sadha=
-sivam=E5=86=99=E9=81=93=EF=BC=9A
-> On 2026-10-09 17:04 +0800, Icenowy Zheng wrote:
-> > The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY,
-> > with
-> > some PHY parameters exported as another system controller along
-> > with it.
-> >=20
-> > A few PHY parameters have unusable defaults. Add a driver that
-> > programs
-> > them before releasing the PHY from reset in addition to
-> > clock/reset/regulator management.
-> >=20
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > ---
-> > Changes in v3:
-> > - Use fsleep() to replace udelay(), and add proper inclusion of
-> > =C2=A0 linux/delay.h for this function. (fsleep() suggested by Drew and
-> > =C2=A0 inclusion suggested by Sashiko)
-> > - Adapt Drew's suggestion on the wording of the commit message's
-> > 2nd
-> > =C2=A0 paragraph.
-> > Changes in v2:
-> > - Removed unreferenced register names.
-> > - Changed the behavior to leaving bus clock on instead of binding
-> > it to
-> > =C2=A0 the regmap.
-> > - Removed early return for reset deassert failure in phy exit
-> > callback.
-> > - Tweaked the Kconfig item (removed default value and added "select
-> > =C2=A0 REGMAP_MMIO).
-> >=20
-> > =C2=A0drivers/phy/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> > =C2=A0drivers/phy/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> > =C2=A0drivers/phy/thead/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 12 ++
-> > =C2=A0drivers/phy/thead/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 2 +
-> > =C2=A0drivers/phy/thead/phy-th1520-usb.c | 181
-> > +++++++++++++++++++++++++++++
-> > =C2=A05 files changed, 197 insertions(+)
-> > =C2=A0create mode 100644 drivers/phy/thead/Kconfig
-> > =C2=A0create mode 100644 drivers/phy/thead/Makefile
-> > =C2=A0create mode 100644 drivers/phy/thead/phy-th1520-usb.c
-> >=20
-> > diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-> > index 19f3b7d12b7d4..a05019020ee09 100644
-> > --- a/drivers/phy/Kconfig
-> > +++ b/drivers/phy/Kconfig
-> > @@ -200,6 +200,7 @@ source "drivers/phy/st/Kconfig"
-> > =C2=A0source "drivers/phy/starfive/Kconfig"
-> > =C2=A0source "drivers/phy/sunplus/Kconfig"
-> > =C2=A0source "drivers/phy/tegra/Kconfig"
-> > +source "drivers/phy/thead/Kconfig"
-> > =C2=A0source "drivers/phy/ti/Kconfig"
-> > =C2=A0source "drivers/phy/xilinx/Kconfig"
-> > =C2=A0
-> > diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-> > index d7aa516bcc49e..0ac5b21477619 100644
-> > --- a/drivers/phy/Makefile
-> > +++ b/drivers/phy/Makefile
-> > @@ -52,5 +52,6 @@ obj-$(CONFIG_GENERIC_PHY)		+=3D
-> > allwinner/	\
-> > =C2=A0					=C2=A0=C2=A0 starfive/	\
-> > =C2=A0					=C2=A0=C2=A0 sunplus/	\
-> > =C2=A0					=C2=A0=C2=A0 tegra/	\
-> > +					=C2=A0=C2=A0 thead/	\
-> > =C2=A0					=C2=A0=C2=A0 ti/		\
-> > =C2=A0					=C2=A0=C2=A0 xilinx/
-> > diff --git a/drivers/phy/thead/Kconfig b/drivers/phy/thead/Kconfig
-> > new file mode 100644
-> > index 0000000000000..ba0ceac54c1b0
-> > --- /dev/null
-> > +++ b/drivers/phy/thead/Kconfig
-> > @@ -0,0 +1,12 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +config PHY_TH1520_USB
->=20
-> Can you name this PHY driver based on some family or means other than
-> SoC name?
-> Naming the driver per SoC usually ends up confusing as more SoCs will
-> end up
-> reusing them.
+Hi Ryan,
 
-It looks like the next SoC, Zhihe A210 (T-Head TH1520 is
-retrospectively known as A200), refactored the USB part and switched to
-use Synopsys 10G PHY instead of USB 3.0 FemtoPHY; see the coexistence
-of dwc3-thead.c (TH1520) and dwc3-zhihe.c (A210) at [1].
+On Sun, Nov 01, 2026 at 09:24:58PM -0600, Ryan Brue wrote:
+> Hi Dmitry,
+> 
+> Gentle ping on this one. It has an ack from Rob and reviews from Mattijr and
+> AngeloGioacchino. The device tree for the Amazon Fire HD 10 (2017) that I'm
+> posting for 7.5 uses it for the volume keys. The patch should apply to
+> input/next with a three-way merge. I can resend it rebased if that's easier.
 
-So this driver is at least now specifically for TH1520. It might be
-finally reused, but even if this happens we can't predict a proper
-family name. T-Head has terminated embedded SoC business and now
-focuses on datacenter silicon, and name it A200 would wrongly indicate
-that A210 would be also using it.
+Applied, sorry for the delay.
 
-Well, maybe it would be reasonable to name the directory zhihe instead
-of thead now, but it's another story...
-
-Thanks,
-Icenowy
-
-[1]
-https://github.com/revyos/a210-linux-kernel/tree/a210-dev/drivers/usb/dwc3
-
->=20
-> > +	tristate "USB PHY driver for T-Head TH1520 SoC"
-> > +	depends on ARCH_THEAD || COMPILE_TEST
-> > +	depends on COMMON_CLK
-> > +	depends on HAS_IOMEM
-> > +	depends on OF
-> > +	depends on RESET_CONTROLLER
-> > +	select GENERIC_PHY
-> > +	select REGMAP_MMIO
-> > +	help
-> > +	=C2=A0 Enable support for the USB PHY on the T-Head TH1520 SoC.
-> > diff --git a/drivers/phy/thead/Makefile
-> > b/drivers/phy/thead/Makefile
-> > new file mode 100644
-> > index 0000000000000..5b459bc7004bd
-> > --- /dev/null
-> > +++ b/drivers/phy/thead/Makefile
-> > @@ -0,0 +1,2 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +obj-$(CONFIG_PHY_TH1520_USB) +=3D phy-th1520-usb.o
-> > diff --git a/drivers/phy/thead/phy-th1520-usb.c
-> > b/drivers/phy/thead/phy-th1520-usb.c
-> > new file mode 100644
-> > index 0000000000000..6cb0e51401374
-> > --- /dev/null
-> > +++ b/drivers/phy/thead/phy-th1520-usb.c
-> > @@ -0,0 +1,181 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +/*
-> > + * Copyright (C) 2026 Institute of Software, Chinese Academy of
-> > Sciences (ISCAS)
-> > + *
-> > + * Authors:
-> > + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > + */
-> > +
-> > +#include <linux/clk.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/module.h>
-> > +#include <linux/of.h>
-> > +#include <linux/phy/phy.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/regulator/consumer.h>
-> > +#include <linux/reset.h>
-> > +
-> > +#define USB_SYSCON_OFFSET		0xf000
-> > +
-> > +/* All the below registers are in the USB syscon region */
-> > +#define USB_SSP_EN			0x34
-> > +#define USB_SSP_EN_REF_SSP_EN		BIT(0)
-> > +
-> > +#define USB_SYS				0x3c
-> > +#define USB_SYS_COMMONONN		BIT(0)
-> > +
-> > +/* The last register according to the manual */
-> > +#define USB_TEST_REG3			0x5c
-> > +
-> > +struct th1520_usb_phy {
-> > +	struct platform_device *pdev;
-> > +	struct phy *phy;
-> > +	struct regmap *regmap;
-> > +	struct clk *ref_clk;
-> > +	struct reset_control *phy_reset;
-> > +};
-> > +
-> > +static int th1520_usb_phy_init(struct phy *phy)
-> > +{
-> > +	struct th1520_usb_phy *th1520_phy =3D phy_get_drvdata(phy);
-> > +	int ret;
-> > +
-> > +	ret =3D clk_prepare_enable(th1520_phy->ref_clk);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D reset_control_assert(th1520_phy->phy_reset);
-> > +	if (ret)
-> > +		goto err_disable_clk;
-> > +
-> > +	/*
-> > +	 * Do some initial PHY setup:
-> > +	 * - Set COMMONONN to allow the PHY to automatically power
-> > down.
-> > +	 * - Set REF_SSP_EN to enable feeding reference clock to
-> > SuperSpeed
-> > +	 *=C2=A0=C2=A0 PHY clock PLL.
-> > +	 */
-> > +	regmap_set_bits(th1520_phy->regmap, USB_SYS,
-> > USB_SYS_COMMONONN);
-> > +	regmap_set_bits(th1520_phy->regmap, USB_SSP_EN,
-> > USB_SSP_EN_REF_SSP_EN);
-> > +
-> > +	ret =3D reset_control_deassert(th1520_phy->phy_reset);
-> > +	if (ret)
-> > +		goto err_disable_clk;
-> > +
-> > +	fsleep(10);
-> > +
-> > +	return 0;
-> > +
-> > +err_disable_clk:
-> > +	clk_disable_unprepare(th1520_phy->ref_clk);
-> > +	return ret;
-> > +}
-> > +
-> > +static int th1520_usb_phy_exit(struct phy *phy)
-> > +{
-> > +	struct th1520_usb_phy *th1520_phy =3D phy_get_drvdata(phy);
-> > +	int ret;
-> > +
-> > +	ret =3D reset_control_assert(th1520_phy->phy_reset);
-> > +	clk_disable_unprepare(th1520_phy->ref_clk);
-> > +
->=20
-> Sashiko has some comment here. I believe reset_control_assert() is
-> not going to
-> fail, but still it would be better to follow proper semantics.
-
-Yes it sounds reasonable.
-
-BTW why does exit callback has an int return value anyway?
-
->=20
-> > +	return ret;
-> > +}
-> > +
-> > +static const struct phy_ops th1520_usb_phy_ops =3D {
-> > +	.init		=3D th1520_usb_phy_init,
-> > +	.exit		=3D th1520_usb_phy_exit,
-> > +	.owner		=3D THIS_MODULE,
-> > +};
-> > +
-> > +static const struct regmap_config phy_regmap_config =3D {
-> > +	.reg_bits =3D 32,
-> > +	.val_bits =3D 32,
-> > +	.reg_stride =3D 4,
-> > +	.max_register =3D USB_TEST_REG3,
-> > +};
-> > +
-> > +static int th1520_usb_phy_probe(struct platform_device *pdev)
-> > +{
-> > +	struct phy_provider *phy_provider;
-> > +	struct device *dev =3D &pdev->dev;
-> > +	struct th1520_usb_phy *th1520_phy;
-> > +	struct reset_control *bus_reset;
-> > +	struct clk *bus_clk;
-> > +	void __iomem *base;
-> > +	int ret;
-> > +
-> > +	th1520_phy =3D devm_kzalloc(dev, sizeof(*th1520_phy),
-> > GFP_KERNEL);
-> > +	if (!th1520_phy)
-> > +		return -ENOMEM;
-> > +
-> > +	th1520_phy->pdev =3D pdev;
-> > +
-> > +	base =3D devm_platform_ioremap_resource(pdev, 0);
-> > +	if (IS_ERR(base))
-> > +		return PTR_ERR(base);
-> > +
-> > +	th1520_phy->ref_clk =3D devm_clk_get(dev, "ref");
-> > +	if (IS_ERR(th1520_phy->ref_clk))
-> > +		return PTR_ERR(th1520_phy->ref_clk);
-> > +
-> > +	/* Enable the bus clock and leave it that way */
-> > +	bus_clk =3D devm_clk_get_enabled(dev, "bus");
-> > +	if (IS_ERR(bus_clk))
-> > +		return PTR_ERR(bus_clk);
-> > +
-> > +	/* De-assert the bus reset and leave it that way */
-> > +	bus_reset =3D
-> > devm_reset_control_get_exclusive_deasserted(dev, "bus");
-> > +	if (IS_ERR(bus_reset))
-> > +		return PTR_ERR(bus_reset);
-> > +
-> > +	th1520_phy->phy_reset =3D
-> > devm_reset_control_get_exclusive(dev, "phy");
-> > +	if (IS_ERR(th1520_phy->phy_reset))
-> > +		return PTR_ERR(th1520_phy->phy_reset);
-> > +
-> > +	/*
-> > +	 * Schematics of several boards (Lichee Module 4A/Milk-V
-> > Meles)
-> > +	 * describe this power rail as always-on.
->=20
-> Make use of 80 columns.
-
-Okay, I retried and with `describe` placed at the previous line, the
-width is just 80 columns; maybe this is why I folded it previously.
-
-But I will re-fold it here to make use of the full 80 columns range.
-
->=20
-> > +	 */
-> > +	ret =3D devm_regulator_get_enable(dev, "avdd33-usb3");
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	th1520_phy->regmap =3D devm_regmap_init_mmio(dev,
-> > +						=C2=A0=C2=A0 base +
-> > USB_SYSCON_OFFSET,
-> > +						=C2=A0=C2=A0
-> > &phy_regmap_config);
-> > +	if (IS_ERR(th1520_phy->regmap))
-> > +		return dev_err_probe(dev, PTR_ERR(th1520_phy-
-> > >regmap),
-> > +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to init regmap\n");
-> > +
-> > +	th1520_phy->phy =3D devm_phy_create(dev, dev->of_node,
-> > &th1520_usb_phy_ops);
-> > +	if (IS_ERR(th1520_phy->phy)) {
-> > +		dev_err(dev, "failed to create PHY\n");
->=20
-> dev_err_probe()
-
-Sounds reasonable, would use it in the next revision.
-
-Thanks,
-Icenowy
-
->=20
-> - Mani
-
+-- 
+Dmitry
