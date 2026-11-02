@@ -1,65 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793651649;
-	b=PzabUkB51xLreLpbEq9vpidoKMK9/GkYZTdj7qoXZNijf16R67/5TLPLK28du9/+N1q+
-	 KTBvmdsse3h0QfbR8kiJIVU/qnSRobNvLDiL9+/2znxnTiFsvkf6pgmbinno4kf80W4GA
-	 uoa97qL79CYWTeQbBIU4CkQFCvsAXuHMOt7LN+ba2cix7MDVfQIBNiLOHbyPm5WI0tTaX
-	 kTm5pwUmxgEPJScbSOUVDXqDTtWO8BvdZwynEa3VLAn2EtPBgKZnFu01Y0BWs27s0wRCI
-	 zuDtOY94jSurPi6GwsXdp83CfI7JgdtNYVPNDNBNMEKx6uB6BNtiSfupzuNzXuLdGzw==
+	t=1793651754;
+	b=EdxtSwcpDh/9gSBqWb63B6FHxcB4EIvmbaFewV4hPShKrR1EvuTBJFWhf2KUMP6DKzC1
+	 ClQR7stOgOxf8qU8wo6qbGomLanqksIMM5SdQtApIwIkRNJ1PUvJg2r4KHt0XTNN1Dx2j
+	 lZ5oG4s0G+CgNMthNDbzwOEU9Lk83DUIClYGFyBBOpYd+qswxMfg8rk0jGBkc4IqYMX6e
+	 AkkkGTkv3DRzPkCABMoxCBJgE0u97rzng8Wgj3FG63dTzkrnOaN7Zn5MrJ5x8opjK6IPS
+	 DcFiI21jIdERtOLlY4iX6lIrth7a6We8+C1EBeAHAJTx1FnRqC6MYErGxuu6qirUZUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651649;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3PSUijTUw6iX8c0lN+QnpSmSK0z2YWVF8UoIrBp4Y20=;
-	b=zWuVAIWggKRNkZ5z64VchFfrC1egJQpEXBt7okZUfHyeIj8idZU1pUJuSu1Z3DckvQgy
-	 7lJRosrS7ToCLhKG20zx/l+9gk8bzBMtt2Ui2x7v/0J5yR7NvRDQiJf4KpxWWdS9PvX+R
-	 GnKhGzuptspIsHAlZwjt9oiP7mQFYkRYwiDJ2R1VC7PO8K/xIVEtHwbd2VrEL/hyCmJEm
-	 f1aC3reqx/6Wd1DpRXzzjJEmsu23cEaq8bxgjDdeG4SeRZRw7f2Mw4zoW83zDE0OFw1yG
-	 VhUD2No2jtrcFGBuK2TpB/+vpka4rMeU+cTY5qMtZlWuq3Ow/NnG9yP9nclOv0cKihg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651754;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dvVO2rNpJvTNuu02lcc9yj9nd8ebw6GqxP0aGvMJCMc=;
+	b=o3kuTa8j8IxvNIyTCV9o/vyMYclA6uGD0UVAnF1Cg+HE+C1tjapu8nzxvinDa+UeDhYA
+	 m2eCJWbgJ0ljhnzAZvqDtButlo7dNR/IHxHqjLDH5w7dfIXWLX0mHxm5KBakU73aNi0T7
+	 E4dwQT31H4heB5zKP0zmCoSQaZvjnQXhWhYLoPS6k9iQXlr0QiwdFpYf3DHHzj24xAW9g
+	 xV+6o1BlGpAdoos2CEJYC2AL1lBXWc6Ssi+gGiTEcFWOUY/QaNmF1NJ74HvVuleqxEnN7
+	 zu/qb4aMh0cHyaHj+TcRDSPUSc8C+ewUqdTSIAc/PVEoXyzpS4uP/FqeFXDiotUYZXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYRKrlJs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdfZspls;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267B0606A326;
-	Mon,  2 Nov 2026 20:34:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE45C606A326;
+	Mon,  2 Nov 2026 20:35:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYRKrlJs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC45C1F00A16;
-	Mon,  2 Nov 2026 20:34:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdfZspls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA13A1F00A16;
+	Mon,  2 Nov 2026 20:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793651648;
-	bh=3PSUijTUw6iX8c0lN+QnpSmSK0z2YWVF8UoIrBp4Y20=;
-	h=From:To:Cc:Subject:Date;
-	b=GYRKrlJsTvuIm47HV36H5EA1UiUxVdZDBdpFigbXI2c0NGJRt4a4zHX6kr+qN+wxF
-	 pROygEnsvcTiYkQ0DlOaoAoZhE2UdPTgOsG2EPVYfhU/AFUa8Lvf8bEAJEQ+2hgfAL
-	 IrkQKpWDyIcn2XBuCgOni3f22YxZXszBJsyeugrmWNhX90ltQWMbSgrS9SoBnQ/6Al
-	 mi1GKLd/E64d8UJM9kwiBScBFnTDxhmf4U+MPlyEbOHVscex9V+JBRw+VdRLS5QDVo
-	 01il3SN1k3C5CPfQE+scU97y09WtgMoUxrMRNCQ2ZJzpff0aXQ+c/jFGAN+4WJ/vSD
-	 47UMpdn72Ts2A==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Thierry Reding <treding@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] dt-bindings: net: Convert snps,dwc-qos-ethernet to DT schema
-Date: Mon,  2 Nov 2026 14:33:50 -0600
-Message-ID: <20261102203353.1384705-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1793651753;
+	bh=dvVO2rNpJvTNuu02lcc9yj9nd8ebw6GqxP0aGvMJCMc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hdfZsplsPzWIBETGNzE+dm1RLl33QZCz1ghJ6tDoX7zt6yOYKwwO6E9RAvfbxsSHE
+	 WgHS42fPuH3ls3qLWGbiYhXVPGx3zFtkd0DdnqaMjLSVGg5uqgb4I38CfM3t4kGiN1
+	 ipKt36zcPi8DRGOaXVA0CikoClsoDEeVs/C1CUpdK4TsmxhEVs5rl3HSdMxiTcRjQu
+	 xoIVKpJ85AvU4gxWydUL8y+6v2fb3LY1aCnSS0kCma/8XO/1AXANoHowGID4qXsC4f
+	 t6FOKOH8zBc+T9vWJyLMN4agBmP2MDGSJnwtk7ADmjzdm4nQNIUPkFM19OQvelfs+D
+	 mp7nOinjfSjag==
+Date: Mon, 2 Nov 2026 20:35:48 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
+Message-ID: <20261102-pursuant-collide-4246c955efef@spud>
+References: <20261030-scientist-puzzle-ab2c668b6e27@spud>
+ <20261102081110.63080-1-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,501 +60,199 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="RY2oGnwwwn5GkflT"
+Content-Disposition: inline
+In-Reply-To: <20261102081110.63080-1-Nicolae-daniel.Deaconescu@analog.com>
 
-Convert the "snps,dwc-qos-ethernet-4.10" binding to DT schema format.
-The binding uses several common snps,dwmac properties, so move them to
-the snps,dwmac-common.yaml schema.
+--RY2oGnwwwn5GkflT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Drop support for standalone "snps,dwc-qos-ethernet-4.10" compatible
-and "axis,artpec6-eqos" as there are no users. Also drop the
-"snps,dwc-qos-ethernet-mdio" as it is also unused. Add the interconnects
-and iommus properties. Replaced the example with one from Tegra186.
+On Mon, Nov 02, 2026 at 10:11:10AM +0200, Nicolae-Daniel Deaconescu wrote:
+> On Fri, 30 Oct 2026 20:50:11 +0000, Conor Dooley wrote:
+> > On Fri, Oct 30, 2026 at 02:02:05PM +0200, Nicolae-Daniel Deaconescu wro=
+te:
+> > > On Tue, Oct 27, 2026 at 18:28:34 +0000, Conor Dooley wrote:
+> > > > Why are we getting new devices with linear vendor prefixes?
+> > >
+> > > I'll fix this in v2. The binding file will be adi,ltc2387.yaml.
+> > > The -x4 compatibles will also be dropped, because they described
+> > > four devices sharing one AXI ADC.
+> >
+> > Please retain more context than this, it's not enough to just have what
+> > you're replying to. I see so many patches that I will have completely
+> > forgotten what you're doing by the time I get to the next day.
+>=20
+> My bad, I'll keep more relevant info in my responses from now on.
+>=20
+> > > > Hmm, ltc2387-16 does not appear to have these signals?
+> > > > Well, it has "cnv" but "cnv" has "sample clock" as the input name s=
+o is
+> > > > the clocks property above and pwm-clock can be used if the provider=
+ is a
+> > > > pwm?
+> > >
+> > > The LTC2387-16 datasheet has these pins: CNV+/CNV- (pins 27/28), which
+> > > is the conversion-start input; CLK+/CLK- (pins 23/24), which is an
+> > > externally applied clock that shifts out the result; and DCO+/DCO-,
+> > > the echoed clock. There is no clk_gate pin.
+> >
+> > Then there should not be a clk_gate pwm for this device.
+> >
+> > > The part needs a burst of 8 CLK pulses per conversion in one-lane mode
+> > > (4 in two-lane), starting t_FIRSTCLK =3D 65 ns after CNV and ending
+> > > within t_LASTCLK =3D 49 ns of the next CNV. So the CLK input cannot r=
+un
+> > > freely: the clk_gate PWM gates the host clock into that burst. [...]
+> > > The clocks property is the reference clock the PWM generator runs
+> > > from, and the driver needs its rate to compute the waveforms.
+> >
+> > Then you've got a "layering" violation of some kind here. If this clock
+> > is consumed by the PWM generator, it should be an input to the pwm
+> > generator not this adc.
+>=20
+> It IS an input to the PWM generator, The ADC node references the same
+> clock only because the driver has to know its rate to compute the CNV
+> and CLK waveforms in clock cycles. adi,ad7625.yaml does the same.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../net/snps,dwc-qos-ethernet-4.10.yaml       | 225 ++++++++++++++++++
- .../bindings/net/snps,dwc-qos-ethernet.txt    | 168 -------------
- .../bindings/net/snps,dwmac-common.yaml       |  20 ++
- .../devicetree/bindings/net/snps,dwmac.yaml   |  20 --
- 4 files changed, 245 insertions(+), 188 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt
+Then modify the PWM API to get the information that you need, you should
+not be constructing fake relationships in your devicetree to work around
+limitations of some subsystem's interface. If you need the information
+=66rom a PWM provider for what the minimum period or duty cycle step it can
+provide is so that you can use the waveform API correctly, then add that.
+I took a quick look at the code you've added and it looks like it'd just
+fall over as soon as someone used a PWM provider with a mandatory
+divider?
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml b/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml
-new file mode 100644
-index 000000000000..65de926af2a2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml
-@@ -0,0 +1,225 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/snps,dwc-qos-ethernet-4.10.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Synopsys DWC Ethernet QoS IP version 4.10 (GMAC)
-+
-+maintainers:
-+  - Thierry Reding <treding@nvidia.com>
-+  - Jon Hunter <jonathanh@nvidia.com>
-+
-+description: >
-+  The IP supports multiple options for bus type, clocking and reset structure,
-+  and feature list. Consequently, a number of properties and list entries in
-+  properties are marked as optional, or only required in specific HW
-+  configurations.
-+
-+  This binding is deprecated, but it continues to be supported, but new features
-+  should be preferably added to the stmmac binding document.
-+
-+deprecated: true
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: nvidia,tegra186-eqos
-+          - const: snps,dwc-qos-ethernet-4.10
-+      - items:
-+          - const: nvidia,tegra194-eqos
-+          - const: nvidia,tegra186-eqos
-+          - const: snps,dwc-qos-ethernet-4.10
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 5
-+    items:
-+      - description:
-+          The master bus interface clock. Only required in configurations that
-+          use a separate clock for the master and slave bus interfaces. The HW
-+          signal name is hclk_i (AHB) or aclk_i (AXI).
-+      - description:
-+          The CPU/slave-bus (CSR) interface clock. This applies to any bus type;
-+          APB, AHB, AXI, etc. The HW signal name is hclk_i (AHB) or clk_csr_i
-+          (other buses).
-+      - description: >
-+          The EQOS receive path clock. The HW signal name is clk_rx_i. In some
-+          configurations (e.g. GMII/RGMII), this clock is derived from the PHY's
-+          RX clock output. In other configurations, other clocks (such as
-+          rx_125, rmii) may drive the EQOS RX path.
-+
-+          In cases where the PHY clock is directly fed into the EQOS receive
-+          path without intervening logic, the DT need not represent this clock,
-+          since it is assumed to be fully under the control of the PHY
-+          device/driver. In cases where SoC integration adds additional logic to
-+          this path, such as a SW-controlled clock gate, this clock should be
-+          represented in DT.
-+      - description: >
-+          The EQOS transmit path clock. The HW signal name is clk_tx_i.
-+
-+          In some configurations (e.g. GMII/RGMII), this clock also drives the
-+          PHY TX path. In other configurations, other clocks (such as tx_125,
-+          rmii) may drive the PHY TX path.
-+      - description:
-+          The PTP reference clock. The HW signal name is clk_ptp_ref_i.
-+    description: >
-+      Support for additional IP configurations may require adding the following
-+      clocks to this list in the future: clk_rx_125_i, clk_tx_125_i,
-+      clk_pmarx_0_i, clk_pmarx1_i, clk_rmii_i, clk_revmii_rx_i, clk_revmii_tx_i.
-+      Configurations exist where multiple similar clocks are used at once, e.g.
-+      all of clk_rx_125_i, clk_pmarx_0_i, clk_pmarx1_i. For this reason it is
-+      best to extend the binding with a separate clock-names entry for each of
-+      those RX clocks, rather than repurposing the existing "rx" clock-names
-+      entry as a generic/logical clock in a similar fashion to "master_bus" and
-+      "slave_bus". This will allow easy support for configurations that support
-+      multiple PHY interfaces using a mux, and hence need to have explicit
-+      control over specific RX clocks.
-+
-+  clock-names:
-+    items:
-+      - const: master_bus
-+      - const: slave_bus
-+      - const: rx
-+      - const: tx
-+      - const: ptp_ref
-+
-+  interrupts:
-+    minItems: 1
-+    items:
-+      - description: common
-+      - description: power
-+      - description: rx0
-+      - description: tx0
-+      - description: rx1
-+      - description: tx1
-+      - description: rx2
-+      - description: tx2
-+      - description: rx3
-+      - description: tx3
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    items:
-+      - const: eqos
-+
-+  dma-coherent: true
-+
-+  interconnects:
-+    maxItems: 2
-+
-+  interconnect-names:
-+    items:
-+      - const: dma-mem
-+      - const: write
-+
-+  iommus:
-+    maxItems: 1
-+
-+  phy-reset-gpios:
-+    description: Phandle and specifier for any GPIO used to reset the PHY
-+    maxItems: 1
-+
-+  snps,en-lpi:
-+    description: If present it enables use of the AXI low-power interface
-+    type: boolean
-+
-+  snps,write-requests:
-+    description: Number of write requests that the AXI port can issue
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  snps,read-requests:
-+    description: Number of read requests that the AXI port can issue
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  snps,burst-map:
-+    description:
-+      Bitmap of allowed AXI burst lengths, with the LSB representing 4, then
-+      8 etc.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  mdio:
-+    $ref: /schemas/net/mdio.yaml#
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - resets
-+  - reset-names
-+  - phy-mode
-+
-+unevaluatedProperties: false
-+
-+allOf:
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+  - $ref: /schemas/net/snps,dwmac-common.yaml#
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/gpio/tegra186-gpio.h>
-+    #include <dt-bindings/clock/tegra186-clock.h>
-+    #include <dt-bindings/reset/tegra186-reset.h>
-+    #include <dt-bindings/memory/tegra186-mc.h>
-+
-+    ethernet@2490000 {
-+        compatible = "nvidia,tegra186-eqos",
-+                     "snps,dwc-qos-ethernet-4.10";
-+        reg = <0x02490000 0x10000>;
-+        interrupts = <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>, /* common */
-+                     <GIC_SPI 195 IRQ_TYPE_LEVEL_HIGH>, /* power */
-+                     <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>, /* rx0 */
-+                     <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>, /* tx0 */
-+                     <GIC_SPI 191 IRQ_TYPE_LEVEL_HIGH>, /* rx1 */
-+                     <GIC_SPI 187 IRQ_TYPE_LEVEL_HIGH>, /* tx1 */
-+                     <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>, /* rx2 */
-+                     <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH>, /* tx2 */
-+                     <GIC_SPI 193 IRQ_TYPE_LEVEL_HIGH>, /* rx3 */
-+                     <GIC_SPI 189 IRQ_TYPE_LEVEL_HIGH>; /* tx3 */
-+        clocks = <&bpmp TEGRA186_CLK_AXI_CBB>,
-+                 <&bpmp TEGRA186_CLK_EQOS_AXI>,
-+                 <&bpmp TEGRA186_CLK_EQOS_RX>,
-+                 <&bpmp TEGRA186_CLK_EQOS_TX>,
-+                 <&bpmp TEGRA186_CLK_EQOS_PTP_REF>;
-+        clock-names = "master_bus", "slave_bus", "rx", "tx", "ptp_ref";
-+        resets = <&bpmp TEGRA186_RESET_EQOS>;
-+        reset-names = "eqos";
-+        interconnects = <&mc TEGRA186_MEMORY_CLIENT_EQOSR &emc>,
-+                        <&mc TEGRA186_MEMORY_CLIENT_EQOSW &emc>;
-+        interconnect-names = "dma-mem", "write";
-+        iommus = <&smmu TEGRA186_SID_EQOS>;
-+
-+        snps,write-requests = <1>;
-+        snps,read-requests = <3>;
-+        snps,burst-map = <0x7>;
-+        snps,txpbl = <32>;
-+        snps,rxpbl = <8>;
-+
-+        phy-reset-gpios = <&gpio_aon TEGRA186_AON_GPIO(AA, 6) GPIO_ACTIVE_LOW>;
-+        phy-handle = <&phy>;
-+        phy-mode = "rgmii-id";
-+
-+        mdio {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            phy: ethernet-phy@0 {
-+                compatible = "ethernet-phy-ieee802.3-c22";
-+                reg = <0x0>;
-+                interrupt-parent = <&gpio_aon>;
-+                interrupts = <TEGRA186_AON_GPIO(AA, 7) IRQ_TYPE_LEVEL_LOW>;
-+                #phy-cells = <0>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt b/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt
-deleted file mode 100644
-index bb0224a3e826..000000000000
---- a/Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet.txt
-+++ /dev/null
-@@ -1,168 +0,0 @@
--* Synopsys DWC Ethernet QoS IP version 4.10 driver (GMAC)
--
--This binding is deprecated, but it continues to be supported, but new
--features should be preferably added to the stmmac binding document.
--
--This binding supports the Synopsys Designware Ethernet QoS (Quality Of Service)
--IP block. The IP supports multiple options for bus type, clocking and reset
--structure, and feature list. Consequently, a number of properties and list
--entries in properties are marked as optional, or only required in specific HW
--configurations.
--
--Required properties:
--- compatible: One of:
--  - "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10"
--    Represents the IP core when integrated into the Axis ARTPEC-6 SoC.
--  - "nvidia,tegra186-eqos", "snps,dwc-qos-ethernet-4.10"
--    Represents the IP core when integrated into the NVIDIA Tegra186 SoC.
--  - "snps,dwc-qos-ethernet-4.10"
--    This combination is deprecated. It should be treated as equivalent to
--    "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10". It is supported to be
--    compatible with earlier revisions of this binding.
--- reg: Address and length of the register set for the device
--- clocks: Phandle and clock specifiers for each entry in clock-names, in the
--  same order. See ../clock/clock-bindings.txt.
--- clock-names: May contain any/all of the following depending on the IP
--  configuration, in any order:
--  - "tx"
--    The EQOS transmit path clock. The HW signal name is clk_tx_i.
--    In some configurations (e.g. GMII/RGMII), this clock also drives the PHY TX
--    path. In other configurations, other clocks (such as tx_125, rmii) may
--    drive the PHY TX path.
--  - "rx"
--    The EQOS receive path clock. The HW signal name is clk_rx_i.
--    In some configurations (e.g. GMII/RGMII), this clock is derived from the
--    PHY's RX clock output. In other configurations, other clocks (such as
--    rx_125, rmii) may drive the EQOS RX path.
--    In cases where the PHY clock is directly fed into the EQOS receive path
--    without intervening logic, the DT need not represent this clock, since it
--    is assumed to be fully under the control of the PHY device/driver. In
--    cases where SoC integration adds additional logic to this path, such as a
--    SW-controlled clock gate, this clock should be represented in DT.
--  - "slave_bus"
--    The CPU/slave-bus (CSR) interface clock. This applies to any bus type;
--    APB, AHB, AXI, etc. The HW signal name is hclk_i (AHB) or clk_csr_i (other
--    buses).
--  - "master_bus"
--    The master bus interface clock. Only required in configurations that use a
--    separate clock for the master and slave bus interfaces. The HW signal name
--    is hclk_i (AHB) or aclk_i (AXI).
--  - "ptp_ref"
--    The PTP reference clock. The HW signal name is clk_ptp_ref_i.
--  - "phy_ref_clk"
--    This clock is deprecated and should not be used by new compatible values.
--    It is equivalent to "tx".
--  - "apb_pclk"
--    This clock is deprecated and should not be used by new compatible values.
--    It is equivalent to "slave_bus".
--
--  Note: Support for additional IP configurations may require adding the
--  following clocks to this list in the future: clk_rx_125_i, clk_tx_125_i,
--  clk_pmarx_0_i, clk_pmarx1_i, clk_rmii_i, clk_revmii_rx_i, clk_revmii_tx_i.
--  Configurations exist where multiple similar clocks are used at once, e.g. all
--  of clk_rx_125_i, clk_pmarx_0_i, clk_pmarx1_i. For this reason it is best to
--  extend the binding with a separate clock-names entry for each of those RX
--  clocks, rather than repurposing the existing "rx" clock-names entry as a
--  generic/logical clock in a similar fashion to "master_bus" and "slave_bus".
--  This will allow easy support for configurations that support multiple PHY
--  interfaces using a mux, and hence need to have explicit control over
--  specific RX clocks.
--
--  The following compatible values require the following set of clocks:
--  - "nvidia,tegra186-eqos", "snps,dwc-qos-ethernet-4.10":
--    - "slave_bus"
--    - "master_bus"
--    - "rx"
--    - "tx"
--    - "ptp_ref"
--  - "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10":
--    - "slave_bus"
--    - "master_bus"
--    - "tx"
--    - "ptp_ref"
--  - "snps,dwc-qos-ethernet-4.10" (deprecated):
--    - "phy_ref_clk"
--    - "apb_clk"
--- interrupts: Should contain the core's combined interrupt signal
--- phy-mode: See ethernet.txt file in the same directory
--- resets: Phandle and reset specifiers for each entry in reset-names, in the
--  same order. See ../reset/reset.txt.
--- reset-names: May contain any/all of the following depending on the IP
--  configuration, in any order:
--  - "eqos". The reset to the entire module. The HW signal name is hreset_n
--    (AHB) or aresetn_i (AXI).
--
--  The following compatible values require the following set of resets:
--  (the reset properties may be omitted if empty)
--  - "nvidia,tegra186-eqos", "snps,dwc-qos-ethernet-4.10":
--    - "eqos".
--  - "axis,artpec6-eqos", "snps,dwc-qos-ethernet-4.10":
--    - None.
--  - "snps,dwc-qos-ethernet-4.10" (deprecated):
--    - None.
--
--Optional properties:
--- dma-coherent: Present if dma operations are coherent
--- phy-reset-gpios: Phandle and specifier for any GPIO used to reset the PHY.
--  See ../gpio/gpio.txt.
--- snps,en-lpi: If present it enables use of the AXI low-power interface
--- snps,write-requests: Number of write requests that the AXI port can issue.
--  It depends on the SoC configuration.
--- snps,read-requests: Number of read requests that the AXI port can issue.
--  It depends on the SoC configuration.
--- snps,burst-map: Bitmap of allowed AXI burst lengths, with the LSB
--  representing 4, then 8 etc.
--- snps,txpbl: DMA Programmable burst length for the TX DMA
--- snps,rxpbl: DMA Programmable burst length for the RX DMA
--- snps,en-tx-lpi-clockgating: Enable gating of the MAC TX clock during
--  TX low-power mode.
--- phy-handle: See ethernet.txt file in the same directory
--- mdio device tree subnode: When the GMAC has a phy connected to its local
--    mdio, there must be device tree subnode with the following
--    required properties:
--    - compatible: Must be "snps,dwc-qos-ethernet-mdio".
--    - #address-cells: Must be <1>.
--    - #size-cells: Must be <0>.
--
--    For each phy on the mdio bus, there must be a node with the following
--    fields:
--
--    - reg: phy id used to communicate to phy.
--    - device_type: Must be "ethernet-phy".
--    - fixed-mode device tree subnode: see fixed-link.txt in the same directory
--
--The MAC address will be determined using the optional properties
--defined in ethernet.txt.
--
--Examples:
--ethernet2@40010000 {
--	clock-names = "phy_ref_clk", "apb_pclk";
--	clocks = <&clkc 17>, <&clkc 15>;
--	compatible = "snps,dwc-qos-ethernet-4.10";
--	interrupt-parent = <&intc>;
--	interrupts = <0x0 0x1e 0x4>;
--	reg = <0x40010000 0x4000>;
--	phy-handle = <&phy2>;
--	phy-mode = "gmii";
--	phy-reset-gpios = <&gpioctlr 43 GPIO_ACTIVE_LOW>;
--
--	snps,en-tx-lpi-clockgating;
--	snps,en-lpi;
--	snps,write-requests = <2>;
--	snps,read-requests = <16>;
--	snps,burst-map = <0x7>;
--	snps,txpbl = <8>;
--	snps,rxpbl = <2>;
--
--	dma-coherent;
--
--	mdio {
--		#address-cells = <0x1>;
--		#size-cells = <0x0>;
--		phy2: phy@1 {
--			compatible = "ethernet-phy-ieee802.3-c22";
--			device_type = "ethernet-phy";
--			reg = <0x1>;
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
-index a38ff314b3cd..90e5560b6b68 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
-@@ -12,6 +12,26 @@ maintainers:
-   - Jose Abreu <joabreu@synopsys.com>
- 
- properties:
-+  snps,en-tx-lpi-clockgating:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    deprecated: true
-+    description:
-+      Enable gating of the MAC TX clock during TX low-power mode
-+
-+  snps,txpbl:
-+    description:
-+      Tx Programmable Burst Length. If set, DMA tx will use this
-+      value rather than snps,pbl.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [1, 2, 4, 8, 16, 32]
-+
-+  snps,rxpbl:
-+    description:
-+      Rx Programmable Burst Length. If set, DMA rx will use this
-+      value rather than snps,pbl.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [1, 2, 4, 8, 16, 32]
-+
-   stmmac-axi-config:
-     type: object
-     unevaluatedProperties: false
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 2c4842404bf6..ddfc32ba29cb 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -460,20 +460,6 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     enum: [1, 2, 4, 8, 16, 32]
- 
--  snps,txpbl:
--    description:
--      Tx Programmable Burst Length. If set, DMA tx will use this
--      value rather than snps,pbl.
--    $ref: /schemas/types.yaml#/definitions/uint32
--    enum: [1, 2, 4, 8, 16, 32]
--
--  snps,rxpbl:
--    description:
--      Rx Programmable Burst Length. If set, DMA rx will use this
--      value rather than snps,pbl.
--    $ref: /schemas/types.yaml#/definitions/uint32
--    enum: [1, 2, 4, 8, 16, 32]
--
-   snps,no-pbl-x8:
-     $ref: /schemas/types.yaml#/definitions/flag
-     description:
-@@ -501,12 +487,6 @@ properties:
-       Force DMA to use the Store and Forward mode for both tx and
-       rx. This flag is ignored if force_thresh_dma_mode is set.
- 
--  snps,en-tx-lpi-clockgating:
--    $ref: /schemas/types.yaml#/definitions/flag
--    deprecated: true
--    description:
--      Enable gating of the MAC TX clock during TX low-power mode
--
-   snps,multicast-filter-bins:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     description:
--- 
-2.53.0
+Trevor got lucky that I didn't ask these questions about the ad7625, you
+did not.
 
+> > The second pwm should then just be called "clk", because that's the
+> > input(s) that it represents.
+>=20
+> I'll rename it to "clk" in v2 and reword the pwms description. ad7625
+> uses the name clk_gate for the same signal.
+>=20
+> > I want to see what the dts you have for a complete setup of this device
+> > looks like, including the backend and pwm generator.
+>=20
+> This is an ADAQ23878 on a Zedboard, two-lane, with the AXI ADC backend,
+> the DMA it uses, and the AXI PWM generator. The 120 MHz ext_clk is what
+> the HDL provides to the PWM generator. Supplies are fixed regulators here;
+> VS- is 0 V.
+>=20
+> / {
+> 	vdd_5v: regulator-vdd-5v {
+> 		compatible =3D "regulator-fixed";
+> 		regulator-name =3D "vdd-5v";
+> 		regulator-min-microvolt =3D <5000000>;
+> 		regulator-max-microvolt =3D <5000000>;
+> 		regulator-always-on;
+> 	};
+>=20
+> 	vio_2v5: regulator-vio-2v5 {
+> 		compatible =3D "regulator-fixed";
+> 		regulator-name =3D "vio-2v5";
+> 		regulator-min-microvolt =3D <2500000>;
+> 		regulator-max-microvolt =3D <2500000>;
+> 		regulator-always-on;
+> 	};
+>=20
+> 	vs_p: regulator-vs-p {
+> 		compatible =3D "regulator-fixed";
+> 		regulator-name =3D "vs-p";
+> 		regulator-min-microvolt =3D <5000000>;
+> 		regulator-max-microvolt =3D <5000000>;
+> 		regulator-always-on;
+> 	};
+>=20
+> 	vs_n: regulator-vs-n {
+> 		compatible =3D "regulator-fixed";
+> 		regulator-name =3D "vs-n";
+> 		regulator-min-microvolt =3D <0>;
+> 		regulator-max-microvolt =3D <0>;
+> 		regulator-always-on;
+> 	};
+>=20
+> 	vref: regulator-vref {
+> 		compatible =3D "regulator-fixed";
+> 		regulator-name =3D "vref-4v096";
+> 		regulator-min-microvolt =3D <4096000>;
+> 		regulator-max-microvolt =3D <4096000>;
+> 		regulator-always-on;
+> 	};
+>=20
+> 	clocks {
+> 		ext_clk: clock@0 {
+> 			#clock-cells =3D <0>;
+> 			compatible =3D "fixed-clock";
+> 			clock-frequency =3D <120000000>;
+> 		};
+> 	};
+> };
+>=20
+> &fpga_axi {
+> 	rx_dma: dma-controller@44a30000 {
+> 		compatible =3D "adi,axi-dmac-1.00.a";
+> 		reg =3D <0x44a30000 0x1000>;
+> 		#dma-cells =3D <1>;
+> 		interrupts =3D <0 57 IRQ_TYPE_LEVEL_HIGH>;
+> 		clocks =3D <&clkc 15>;
+> 	};
+>=20
+> 	axi_adc: adc@44a00000 {
+> 		compatible =3D "adi,axi-adc-10.0.a";
+> 		reg =3D <0x44a00000 0x10000>;
+> 		dmas =3D <&rx_dma 0>;
+> 		dma-names =3D "rx";
+> 		clocks =3D <&clkc 15>;
+> 		#io-backend-cells =3D <0>;
+> 	};
+>=20
+> 	axi_pwm_gen: pwm@44a60000 {
+> 		compatible =3D "adi,axi-pwmgen-2.00.a";
+> 		reg =3D <0x44a60000 0x1000>;
+> 		#pwm-cells =3D <3>;
+> 		clocks =3D <&clkc 15>, <&ext_clk>;
+> 		clock-names =3D "axi", "ext";
+> 	};
+>=20
+> 	adc@0 {
+> 		compatible =3D "adi,adaq23878";
+> 		clocks =3D <&ext_clk>;
+> 		io-backends =3D <&axi_adc>;
+> 		pwms =3D <&axi_pwm_gen 0 0 0>, <&axi_pwm_gen 1 0 0>;
+> 		pwm-names =3D "cnv", "clk";
+> 		vdd-supply =3D <&vdd_5v>;
+> 		vio-supply =3D <&vio_2v5>;
+> 		vref-supply =3D <&vref>;
+> 		vs-n-supply =3D <&vs_n>;
+> 		vs-p-supply =3D <&vs_p>;
+>=20
+> 		adi,gain-milli =3D /bits/ 16 <870>;
+> 		adi,use-two-lanes;
+> 	};
+> };
+>=20
+> One more thing, on the cover letter Andy asked whether this should be
+> done in an existing driver with per-compatible chip data instead.
+
+Dunno, don't care. How the drivers are written has nothing to with me :)
+
+Cheers,
+Conor.
+
+--RY2oGnwwwn5GkflT
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauj0JAAKCRB4tDGHoIJi
+0luKAQCR7NOOLzEZxK+88wBVi3I3guik+ZdYa1djbktQp85UlQEAqPRERobzPurB
+BYQdqJLzZj8eUCOik998InmtwzMqbgs=
+=kvR3
+-----END PGP SIGNATURE-----
+
+--RY2oGnwwwn5GkflT--
