@@ -1,59 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619868;
-	b=gcCvwAx38BbYC/HiNvB4Ujm69i6jxREmNWZbxDKpE8dphn9+Et6RIjaRIjdoOPSkGjnD
-	 OufWoPJUHFqPXrQAxf04pLFcrQPH/LSVqPGITt8weoZglN0GqPPRx9aCSnvsBz0PxBFKk
-	 hxhrcwUYD8pIgL4rYPztY0rtehJueU+DfPRPP9SxiVfz/ccG74PjgIoJE7bL70EaozeL4
-	 OKx7sV+NJp/aSuaXDlkUNQVle5nPNmtS+xKuCVKLkZLbAswenRq8eFUMFtsloR6WvQpXo
-	 z9hg47fj5ZerMUrpvncB/03glRQJ1c75h30ah7uNU85cKrZcYXLWGBZWSbo3uHTZg+w==
+	t=1793619999;
+	b=05HzAlhVZWnA8mYw3+0pOw6mNdgahvaTdcS6IwkE9/7tHfcFA3Fe55JwJdocemfWu31/
+	 /phYKlYK/dMkwIN4axcFfkYpahgGI9Cwp77NHlVxPwBBu4BIc1xv3JbbG2lOpJRJjn5TC
+	 dDa/nd4caztP1AvDYnb2pdOjYiyFyXvXZxM3bRV+5qksp7F0mV6I+ttvCMlY1H3toEfPE
+	 VsMmh0Z/4suQqznRp4a6jVZuJ8PLOXBqczFZO7i9OrVxzK3fshq5n8jMUGTLliO3zkK7d
+	 oDlhW+mFIEIzcONQqc4TPDg5QsBSgIvo8s5Pql4wQVttdb4eDEVD/agz4h/Av+pW/Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619868;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DwNOUDx3s8aWtTDxni4gD4AvCFiiolZW9PK8Ed9xdqo=;
-	b=ZYPwGdEfRL4iEl45O3aEUibn7OJLiKlMt3ShD3ddat4kkRTR6hZ1aVZ3Ax7JYfs/LO7T
-	 WjUyPfkoVJPWLbUu54SvLZJ/xpS14werMCeNhfbPo7qgHOUlUXKtJmP6WtJzi7VOr9ApC
-	 8NMHrZADltwWDAy8JUpJCZBcjojdKymr4ApEKmHBQYceMtpd23GwMKj/p+rIKlp2uOEP1
-	 RwooC5xkBC3s/fZYd+opGVlIzf3UbFGNgadWava9NHm/48tsqmrUXY/R8F57yr8leTX+i
-	 jKZuXfyQ30y9+FAvSu2IRm2WwTuk1cz45aVuRQEnCaDrsqp996T5ML09XDS44M7hDPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619999;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=W+m3CHrmFQywLf6TePlg1mKGWwLKYliHCdWDTJ6aHQ8=;
+	b=W/7f6NHIqBAjueciLaMLJqI8qSxB3K89NaQhdmaE5WQrMXxZVsUSGNrQtBYYvH1TAk0O
+	 NMYVYJgVj1gu5u6/Xn7mSXdDDZFLWcgPq3Vx6JRrnMv2aEEOT6L/cZqZEv6nYdpZnGqtV
+	 MR/Vw94oG/aoXjZJa3hyK4AGRS7MmxKOc3XfuLVI+ifXzsB7ZmJeLatt9WcZ9PWasdTIy
+	 cvsRUcSK/h+gg3jIcIRj2j3f4FzcFNbxawvqfvSThiPRTizUuxF1tfI5AEUrbFs3vnEGO
+	 vgWcpOaUw6LSsP1ffwJc6fuWrsBHBanyIbGBgGyfA7+b/0dQzNjrzS+kQpfkf6xUlhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SeuMbo/c";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sJNlNoob;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B28606A324;
-	Mon,  2 Nov 2026 11:44:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C6A606A326;
+	Mon,  2 Nov 2026 11:46:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C6A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SeuMbo/c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64A51F00A16;
-	Mon,  2 Nov 2026 11:44:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619867;
-	bh=DwNOUDx3s8aWtTDxni4gD4AvCFiiolZW9PK8Ed9xdqo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SeuMbo/cKza6FqQXc0v+eouBmO5lhLXVpA9ZMEUvoOtIXZnIo0XmMXnX16eD0fpLb
-	 +HazxW5slkl/F+LywE79ZY1Yv1xc3fLNL6cN1Lvdc7AFhXBUNaC3BjmEGby34L+jwx
-	 Cp8jKTSYeB2Ey1yeEdZCPVdXCn/XhwwfNK9uQwQgbQ0k/VxbqTy3Gnl3qzA+6dQfhM
-	 71D/4d72QvKfgg8CjpjgChaBt/M6TzWsQvcWB06gbkt5Uz9FJGqAu5WJtVZa2cPvAH
-	 T7qJNig1KW39sAp+N169vKELBIhHgJ30xHRwqDh2gAhfVXe7VC84AZ5FKDyAOIRvJ4
-	 S1C7ZVt2tS8rw==
-Date: Mon, 2 Nov 2026 12:44:24 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
-Message-ID: <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
-References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
- <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sJNlNoob
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98CDEBE;
+	Mon,  2 Nov 2026 12:44:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793619859;
+	bh=Il2jawOtTACJ7zfhzEJQgLvlmZ3qfox3dZ+2zsbOxBM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sJNlNoobrLo/mTzbYvXpee1l13KmgrCl0cDspWwcvH3uWHndcG2AvJFi1Sx5O6oTN
+	 8gbZGXdzgKffXCiq5AMopa6ANUAK4qf+lAWBbRxIAzcU9YN5WiTcUr+mm8dtC3Knp2
+	 SFpekWuXXZNll1ziSKZdWc73Nb8GabUL71yCz6Uk=
+Message-ID: <15b7bfd9-8da4-4cd0-9f8b-634c03f46c5e@ideasonboard.com>
+Date: Mon, 2 Nov 2026 13:46:32 +0200
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,36 +54,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/14] drm/tidss: oldi: Fix cleanup on a failed init
+To: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-9-dc7f2b532478@ideasonboard.com>
+ <c12f6a9f-983d-4704-a90b-3453ce984a2c@linux.dev>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <c12f6a9f-983d-4704-a90b-3453ce984a2c@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 01, 2026 at 09:12:29PM -0500, Joseph Telaak wrote:
-> The Etek ET6326 is a 3 channel LED driver with the register map, the I2C
-> address and the current steps of the KTD2026. It only differs in the
-> flash period, which is (Reg1 + 1) * 128 ms instead of 256 ms + Reg1 *
-> 128 ms, so a KTD2026 driver runs it with blink periods that are 128 ms
-> off. Document it with the KTD2026 as fallback.
+Hi,
+
+On 01/11/2026 16:14, Aradhya Bhatia wrote:
+> Hi Tomi,
 > 
-> The ET6326 drives the status LED of the GL.iNet GL-SFT1200 (Opal).
+> On 29/10/26 10:18, Tomi Valkeinen wrote:
+>> tidss_oldi_init() registers a bridge for each OLDI TX in turn. If a later
+>> OLDI TX fails, the bridges registered for the earlier ones are not
+>> removed.
+>>
+>> Fix this by calling tidss_oldi_deinit() in the error path.
+>>
+>> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+>> ---
+>>   drivers/gpu/drm/tidss/tidss_oldi.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+>> index 506507e83112..7344d86e1f13 100644
+>> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+>> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+>> @@ -638,5 +638,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
+>>   err_put_node:
+>>   	of_node_put(child);
+>>   	of_node_put(oldi_parent);
+>> +	tidss_oldi_deinit(tidss);
+>>   	return ret;
+>>   }
+>>
 > 
-> Assisted-by: Claude:claude-opus-5-5
+> Since tidss_probe() (in tidss_drv.c) calls tidss_oldi_init(), it also
+> calls tidss_oldi_deinit() in its error exit path.
+Yes, but not if tidss_oldi_init() itself fails.
 
-Drop.
+If we have two OLDI TXes, and the loop in tidss_oldi_init() inits the 
+first one, then the second one's init fails, the code jumps to 
+err_put_node. If we don't call tidss_oldi_deinit() there, the first OLDI 
+TX will not be "deinited".
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
-
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  .../devicetree/bindings/leds/kinetic,ktd202x.yaml         | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+  Tomi
 
