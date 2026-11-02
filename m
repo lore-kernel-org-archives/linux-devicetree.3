@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649335;
-	b=fKMHhWiwC6pEsROpYLEah0zOJcBm32v4MkylnIDe1eLy4ofEUeTTh3YC2djhwZz+WUGl
-	 aSgAtx9BmsGFzndVe4B93oTqYu/bNXJLD6L1UkDQn+pOeCSq0sQqdCpvOrJ6A4BvGAtpt
-	 UC5zII86/yq4zXRtbsaBppyTIn0XeN9VtJ5RWeaatYKvDp+qM/9qd9UY0EuMWwAO4XY9y
-	 UpMZ3om2xfx7/ar7mZiPRjctGk6fYS2pK/ucykeFNJcYr6f92Xzed5T6FfzUgFSg0T7zL
-	 JygjoYQgHekv6wDgq3EZHbyne9UNzU+/7iHBX2OykTb+7d0v9h/sQAZHIDIYHioVjoA==
+	t=1793649384;
+	b=kNWljvkqoiMH6mAMwydlV4LEq1iXb6COLKgbVqPRWi0W7WGxSkQh73kxvchghC9Umid6
+	 48hUKNpiMbDwc2d14gPpqnrB65abY1yxAWtQghwzbFLu36y/ee5q28sYPuvtqDh4NHwYA
+	 Gg14X1Rci7vin+ZCaHa+XP0wS1ydMperpW61onfgjOwj1qPlBGG182oU18MBOgeYUZPww
+	 5Fhy6RXR1GJzhh/ZCgciColf5OdkBRQGQeZLJRZrwaTQuMaDUg8njvc0v8h4TqHkBaWBl
+	 gBJ6WVK7fIdcL49aNOBbcxAe96CZX9jqobRpU7b20lhmtPdzaaHzWyOM2JKrKcAdTQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649335;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=NCqbgiCveDVRhli2P2PmmtvKmmMz/nrumey9OJpxfP4=;
-	b=GybFzGylBPzmhkTInixLSwem1lgjCLUn602ZW0VHK8JFVMT15eEYEIhguHJ61QkuYEY/
-	 6fEsmZZkN8qI2LzMC8NjzByRDn588Cwf7FkcTJvhrll9P1BmC3v2d0Y0UWZOEBmv9tY+s
-	 +GdBy8qSXekNMZbEjmKOHp3fHg04RMyit5Eejttqwv7FsnX3r1ea7TlfH7UuqEWt8qtSn
-	 2aBiSYwx0PJTTV34MIE/T0maVlJOOZdQP9+O/3DMOrhh2SlsqnVKmRTRJWHqF8nVqSOba
-	 bbDYoohbehDEg2L5Vru3Ga43Bt2FHsLFsEmpHGa2cUmn4hf97yxoiSmCa21x7MHJ6Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649384;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vkPZCke7hJTQZvbapbGPiCbZtFfQN8ihxhANSyaamAE=;
+	b=yOGSYk7HMBX2a8BqhS0+xKYWj5NF3+bfE+va97YIeGc+bQyxhBGj3vGOmORi1CciuP3E
+	 uagUU8qPLYYbBjiVXnd2lt1nbI15SXuF4Yjxc1QrPN+h4swsftzRxy5MYm+2+eAHHsTEr
+	 rv4s0Ji4QmZ3jj1iSUbJgbeF9rH3E9Y12mRpUVkaBIlvgTS0tsGUvZSaMWjugTwGcwHnt
+	 ZitCR9VxCGh9hAa7LPzUDHotAWeH3YS4UyzAgskwRLo6o8o9E5zG9i8SZVGhEy7gDNRGe
+	 xQ4mIUUJo9D3GmZJKMEFFe0IIPezRR7qPD/G3OqZuV20Nus4/WV0KUmtq3zDVBJ0vdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n0v2zrD2;
-	arc=none smtp.remote-ip=209.85.160.43
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W18AJjqn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE88D608362B
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 19:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE88D608362B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18932606A32D;
+	Mon,  2 Nov 2026 19:56:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n0v2zrD2
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a85c656c58so2076026fac.3
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 11:55:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793649334; x=1794254134; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NCqbgiCveDVRhli2P2PmmtvKmmMz/nrumey9OJpxfP4=;
-        b=n0v2zrD2lqLetQ6g3G84j20Rrtg/R1EP9jN/aHEIfgZP25z7gO2ZiQxGvXCAE7GDlB
-         61uXlfWq0KeXatPXZrGQcxfx5KL+qjl8Ea8WM/L3qjtgjFdav0xCeQmqtuo+ejzDfhpx
-         ZOL8zs/i0qg5II8JNtCgUXbfm5Jm2IJwsRRbNHAHl90VZxkVOlJVtM8GdtM6oMynlics
-         0uFSph9+DjaLchzU0sAY4XQtKaKLVol7oUBYq5ozo6dXkvpkhMWXaTyvLOU+BTE/Ze5I
-         d7hmoEYvvJIvxp8JvzIee4YiwllP4XOaLmYYcacxwt65DI3unOeBTyBdgIMxk0iQDoht
-         vlDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793649334; x=1794254134;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NCqbgiCveDVRhli2P2PmmtvKmmMz/nrumey9OJpxfP4=;
-        b=q+hCH376o14sEYcvgrzVp4dla9xzIcIuhgid8dUhQ5YKQpw3i/4WZYnlJCcmgiMekq
-         Fiqhljns8M3P+2vfPlkZXREqaaCrkCLrbLddaPWWkqw0OVYrhtMrg7O7rsxlkPIKcfvs
-         tpfxjhq7TABrSoyuoCiJiqdfn30U1Xwx679ee/k42sZbutPv4LFvJDshppG1h34QGBxv
-         UUZgmAS+biNvePs+yRPxiBWReh4duLF8ljqpbx5Ub7ttNcJb8+ry9+sZOwU5O2F1Fx45
-         4Oggi7Vxu34SroUPNfUNTmF/7/Fkqvy7Ep9jAGNdOBZeLV/8QFseH+v1c3NeehyHDYW3
-         tBwg==
-X-Forwarded-Encrypted: i=1; AKwUvBzueiUbCX48nBwaxsVeArJS5nR6kvz6i8/RJUJKnQiyhyTY/r2sSdaR6nwHC7+20KAVuw4r522NOvOM@vger.kernel.org
-X-Gm-Message-State: APuU4Z+AHeioIiTwPx5AIo9HTJ1daVHfwiexLTPX3gTKQnoSzUwXJ6Pp
-	wWg/keOF0hPz8aE3YWZkvnTvJ68npmT8a0EhLBYBdFHJtty1+66Df8An
-X-Gm-Gg: AYBFou2Lyb3Z5NyAPLJCJUhjM1vz1IPo//hE3Fg+ZSuOsyrMSxbjBIqnK7mNV/hVvLw
-	C1RfcNenWqlB/pvvXrWY5myx8YS1VK75EOszWIue3mOD3nNT6BCoJR5tvQLwzho9hkQ2w+7hmc/
-	20nx8JFz53h9vg40Zf9yzELR91y7jsobi9TxPjncDXf+CB7WJtNF1KxNsWuj75+r31nd/2m8J2W
-	c0yFJn+Zb0N8ogrzl+TJYE9op1YyatPap0j6lSP8fLRRK+VpLhI9aRbwnfc774kySOcuKI6gjuy
-	N9Um36b2Qv1U53SJyCgv+RzIe66LIye97ya46f9kLt4RsGF0JWkZvlItm7qy2SUJcWha9txOw2a
-	TkaRptsLdncjRkdVyTtop9E5G659gzhRex3Giao3W3mC3B7GLSwxuhhb3r7fPWTtkFLWRVTvEP5
-	En8cZMHFcFtAsOymiGV/wOToW0LQfhyf2tKPZ9fI6vD2scjpG38ylt9ZKQ6NKazGNXgFT3nom5C
-	26ZaHK5aNaOEHlXDBn4i7qN2OjeId5oPdgYtUYbXLpRmih9zy23sSJjKdkMCclmREPmtGScMo+Z
-	sb1FOXhyZXpbS7CAUaBVQkljjLy4bXyWVc/qzhFDi9zIH7Mya6ir+J7/+271+jR+8342uoBZhB0
-	BU+LXSu0XvPUEnkvRkUeja9HIP99xDJH5AwVrwgRf9AeWYJnfJ4dtGlMlux80S8Oj4Gs0ggYQm4
-	qwzILN4hjW2+u+IgdHDOq/lyx9NuW8Awd3v6TS1CsRXi3heipmT9HTp3Kmga91DXCTJIo/aE/o
-X-Received: by 2002:a05:6871:6687:b0:439:a524:a29d with SMTP id 586e51a60fabf-4a9072ccffamr6663890fac.1.1793649333719;
-        Mon, 02 Nov 2026 11:55:33 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a921353dcfsm7809249fac.0.2026.11.02.11.55.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 11:55:33 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 02 Nov 2026 12:55:23 -0700
-Subject: [PATCH v6 8/8] arm64: dts: allwinner: a523: describe the UART
- integration
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W18AJjqn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6295F1F00A24;
+	Mon,  2 Nov 2026 19:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793649383;
+	bh=vkPZCke7hJTQZvbapbGPiCbZtFfQN8ihxhANSyaamAE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=W18AJjqn4zDwx3IwFZr0vMut0PvhGu9cc2jaTbjjO8tihCu2L4BNKKsRo4m2YokZE
+	 dNafS2EKeUjsfDkpcL/J6V8PyOjvzBefc5vSiUdcJyE3LreRdEm9kSJbmaQsiqFVUv
+	 F8pdYmsylQcF/dfL+E/0ETMr/9Nuf7fgrd0blq6n4/JbDH162o82qx4jUzbbIpHeje
+	 axA84wR5lSHglb58Zgd3Qij6NK/f1JHM8h+VBZCcoGdQobhkAipBAeL+WL2q9MXKUx
+	 F6d+adNM1vX+qnl2MLdIk67tkvD/3W5Kt1Z+je+2w/BZ9Ef2BtNwulOhop+cwQAAK7
+	 jel3BI83VbKBQ==
+Message-ID: <acd5e8bd-7577-42ab-89c1-6f406b3f3004@kernel.org>
+Date: Mon, 2 Nov 2026 20:56:17 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,114 +51,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-submit-h616-uart-fifo-v1-v6-8-25afcb346b0c@gmail.com>
-References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
-In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO
+ properties
+To: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+References: <20261026102658.968138-1-m.szyprowski@samsung.com>
+ <179362278569.150793.16322788098732007689.b4-ty@b4>
+ <CAL_JsqJ7mkOL6kBwjDV=-A99zpmHWTFdc+8TunXG5EfueiFDrQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <CAL_JsqJ7mkOL6kBwjDV=-A99zpmHWTFdc+8TunXG5EfueiFDrQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Identify the Allwinner UART integration on all eight CPUX controllers.
-The specific compatible selects FIFO-depth discovery through FCC and the
-Allwinner receive-trigger mapping. Each controller supplies its own depth,
-so the same compatible covers the different FIFO capacities.
+On 02/11/2026 20:12, Rob Herring wrote:
+> On Mon, Nov 2, 2026 at 6:34 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>>
+>> On Mon, 26 Oct 2026 11:26:56 +0100, Marek Szyprowski wrote:
+>>> The wm5110 audio-codec node uses the legacy "wlf,reset" and
+>>> "wlf,ldoena" property names without the standard "-gpios" suffix.
+>>> gpiolib-of.c only recognizes these bare names as aliases for the
+>>> correct "wlf,reset-gpios"/"wlf,ldoena-gpios" properties, and that
+>>> alias support is compiled in only when CONFIG_MFD_ARIZONA and
+>>> CONFIG_REGULATOR_ARIZONA_LDO1 are enabled. When those options are
+>>> disabled, devm_gpiod_get() fails to find the GPIOs, leaving the
+>>> codec without a working reset/LDO enable line.
+>>>
+>>> [...]
+>>
+>> Applied, thanks!
+>>
+>> [1/1] arm64: dts: exynos: tm2: fix wm5110 reset/ldoena GPIO properties
+>>       https://git.kernel.org/krzk/linux/c/76ef3ed714ac178cda84ef39733d4f712e682081
+> 
+> Now in next:
+> 
+> arch/arm64/boot/dts/exynos:2:1
+>    Schema warnings:1
+>       2 audio-codec@0 (wlf,wm5110): Unevaluated properties are not
+> allowed ('wlf,ldoena-gpios', 'wlf,reset-gpios' were unexpected)
+> 
 
-Retain snps,dw-apb-uart as a fallback. The common SoC description supplies
-these UART nodes to the A527 and T527 boards as well.
+So no information about binding changes, no dependency and... I have no
+clue how this passed tests, so actually never even verified against
+bindings.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+My CI is still working on this, but based on the report - dropping.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index 85ef492ffeae..23340b9f58cb 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -390,7 +390,7 @@ wdt: watchdog@2050000 {
- 		};
- 
- 		uart0: serial@2500000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02500000 0x400>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -403,7 +403,7 @@ uart0: serial@2500000 {
- 		};
- 
- 		uart1: serial@2500400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02500400 0x400>;
- 			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -416,7 +416,7 @@ uart1: serial@2500400 {
- 		};
- 
- 		uart2: serial@2500800 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02500800 0x400>;
- 			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -429,7 +429,7 @@ uart2: serial@2500800 {
- 		};
- 
- 		uart3: serial@2500c00 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02500c00 0x400>;
- 			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -442,7 +442,7 @@ uart3: serial@2500c00 {
- 		};
- 
- 		uart4: serial@2501000 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02501000 0x400>;
- 			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -455,7 +455,7 @@ uart4: serial@2501000 {
- 		};
- 
- 		uart5: serial@2501400 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02501400 0x400>;
- 			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -468,7 +468,7 @@ uart5: serial@2501400 {
- 		};
- 
- 		uart6: serial@2501800 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02501800 0x400>;
- 			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-@@ -481,7 +481,7 @@ uart6: serial@2501800 {
- 		};
- 
- 		uart7: serial@2501c00 {
--			compatible = "snps,dw-apb-uart";
-+			compatible = "allwinner,sun55i-a523-uart", "snps,dw-apb-uart";
- 			reg = <0x02501c00 0x400>;
- 			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
-
--- 
-2.53.0
-
+Best regards,
+Krzysztof
