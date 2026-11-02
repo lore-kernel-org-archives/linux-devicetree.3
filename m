@@ -1,57 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636240;
-	b=hxXzqa8SOFkLwQUxtz51kJBVe2Lf8fWDV2NSRemGpqHvJmZdOaOp+5x3/xM3LklGRapC
-	 97v+I7oHfbv0LtY9aaUtkFgPoVEJkDyxmsqnkYyH87wEwcvmBXt2uJONrfz4c6gfiQQaf
-	 5Pp/2rP3e0irB5VjqmMrCdie6ophn4561ADd8K6G9v+SnuP628fB4/4IkR3ltxshjz6Zn
-	 YklRc2+/1TkhB9eOaBNz+fLXPk8USFNfE1DiJ+LfDCtxVRnrc5IsuvSqMuCYqGzie4qvU
-	 ZQGpUYpKo6qDZ32tCW+LEOYm4Dg80sJe3sduNQmKvqQeWoOXyljBbmqC2jbJZONNNxw==
+	t=1793636276;
+	b=EYohsa0cUNwujYr/BTQVuwI8hGFghD8dQIZn7BOeyqtmFkh3bQlVObGdq2pyinIzooMf
+	 /xXfte1ZbTBCnmbENVLFH4oC3CDR7559GtC2YE7V3V55jRjxJV2oZvtia3V2mz5tGjUvD
+	 SpoE0fVlNvIQRt8TP8mfK2EvRkHoQkaw3eT6xxIoeKGuboJpWRY/dT2+JCVmOvuUgPOZ4
+	 E1tzHmLqM0KdZ0oncQRptYmIEKh5K29zPbP5MK2ROzn1Fb1n+82/+jOzZjr/h4CeH27dm
+	 Eh6wiHPTlNKfrpdRJUnUtf1+REs+dIK/3O79geKhoyUMyiSTCDj4oWyMp5epocTLqSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636240;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0uil3qZ1+L3ffcGbu+A5qDi2CDtJapmk4dus4KXxq8A=;
-	b=cnJJAHP7pdly+Ob8T4WND625/qe5d8QDdfWsT1w70lO0VjhwJK5yOhUcsTdqG4f84AK4
-	 by775uI5Nxds2uVbCK/7EpXRyflxT1cbB4gp5I385OlQotqkfbD687cps6PezbYvjczjZ
-	 nDxCjWsAScMOZlChobYzBTB9VZ44d39a2HAXzdOJUswFUYAEVQGxCNsEPEgwjYHsdyVJ1
-	 kNLLie27kaSWEx4w/IbWXHSKZEI1zlMC3sf3DO/sXFivjkL2v5Al+YQR2mWcXV4V6Dwhp
-	 VD0fUzJkh6Y3L5jRNZyt7EDjN2UJk2vJm4rRhFWD697byAi059OJ4TAvRfT3InZE2jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636276;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=XAdfmQDvmV/inPL+xb8NfptV6+ro1er5rqGPf4oZUUE=;
+	b=2JctSjKQXwZUgKf9aTeOz8nL8++nVl1FWVNC9o+1UiisKd88LKK7htwS8m6I08covQce
+	 dr7lixdf3gyIEaB18ojzPTC/hhStqewpzXJ0AFYAbrc14D83cAiHwQ1y68mJ9RfacxOE4
+	 /QSKDn5nfbt4khyuvnEyUf/j0wsUnMPuZisMhJXzuIZaFQtqW+yZDsP9am+lqxRMsdLgB
+	 GHz8Sy3uDPhq54Luz6nXzO2jL0LMneQ/0dffCdmwAD/bsLoov0+pyRh1655fhZ69J5iH4
+	 JnqXsh0Q6QmDEuRKlw4LDP12z31FAza+2kPFlTlLhbsYRbMZDK5Q3QIXyt9PlNO9+dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLG1FnfA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HlOOvPT3;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FBF6070CB2
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 16:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C256A6096233
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 16:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C256A6096233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QLG1FnfA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C86C41F00A16;
-	Mon,  2 Nov 2026 16:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793636240;
-	bh=0uil3qZ1+L3ffcGbu+A5qDi2CDtJapmk4dus4KXxq8A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QLG1FnfAmX1EjLj2mQSLhELZDZUDsJZ8F/lKJoQLtY++ab3bSMy8gHvJYueaDzAEq
-	 M7wyjW7kUMRfBaXncCgSW5o4K0vux8hNa6q203Hbi9Ms8DiDXneaxmnRcF9cJ/w/3S
-	 W41pUsqyEr8l6QcgCbJXiDzASotqC6X0lcBSQB1/HkEYBAM5ybBvHRK/bR8+DNfDBI
-	 La4bArn27AxAj1tDJwYSijTcCq4YRr6ppWy3VMXdBZi+uueHHyUKc6gc9rMBkchJFA
-	 5GFodn/g68dHivuFeTzQ+K04Io8tq8T8I/4wqOqFdR8Fky+C4O+dH44/C3cdrsxRTz
-	 uLRUPek4Fo6Jg==
-Message-ID: <sashiko-outbox-193745@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 5/9] media: Documentation: uapi: Add qcom-camss ISP
- params documentation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261102-camss-isp-ope-v12-5-702254689feb@oss.qualcomm.com>
-References: <20261102-camss-isp-ope-v12-0-702254689feb@oss.qualcomm.com>
- <20261102-camss-isp-ope-v12-5-702254689feb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 16:17:19 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=HlOOvPT3
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 0F72EC4FECD;
+	Mon,  2 Nov 2026 16:18:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D4AD3603D7;
+	Mon,  2 Nov 2026 16:17:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 07DA910329123;
+	Mon,  2 Nov 2026 17:17:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793636266; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XAdfmQDvmV/inPL+xb8NfptV6+ro1er5rqGPf4oZUUE=;
+	b=HlOOvPT3mAL1W0Dk7BKEQFSgkq4AxLs+RwoZIWI3CLWT8KzOcEERN5C+2BffrtcOUtb4MD
+	PYGOnh94Rcocnrm6+y66uEtzCWIpEABzxjqdd8RQagMFYHeFaQIuVyc22R5hoFKYWrDJJc
+	OZfyS+eFC+twNuXWYvjSO/4F04dyrCXJdkG3xrs6+MY2AXORL9nS4u54Zy6qD8utDBuB6P
+	5losyQ+nmW2P8gDRq+f55l7p7m51a5/0iNaZm/xIRxMuG5OHSm06o/j7IoDlOZejOInpjl
+	k6p6Uk619rrWK2lZ0Fnbk1LgRgZMqYHbUL6dwSPs9/dscX/cFm3FPZX4dK02Nw==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Thomas Gleixner <tglx@kernel.org>, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
+ <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
+ <theo.lebrun@bootlin.com>, Radu
+ Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
+ controller driver
+In-Reply-To: <87v76ly4jy.ffs@fw13>
+References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
+ <20261028-eyeq5_msi-v1-2-c464752fb55f@bootlin.com> <87v76ly4jy.ffs@fw13>
+Date: Mon, 02 Nov 2026 17:17:43 +0100
+Message-ID: <875wyf2ons.fsf@BLaptop.bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,94 +76,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] media: Documentation: Sphinx indentation errors via qcom-camss-conf=
-ig.h
---
+Hello Thomas,
 
-commit a20a54d2387cdb60e4b3cbece3fab3f39bdd075e
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> On Wed, Oct 28 2026 at 16:58, Gregory CLEMENT wrote:
+>> +/*
+>> + * The caller must hold msi->lock.
+>
+> Instead of a non-enforcable comment can you please put a
+> lockdep_assert_held() into the code.
 
-media: Documentation: uapi: Add qcom-camss ISP params documentation
+OK
+>
+>> + */
+>> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
+>> +{
+>> +	u16 value;
+>> +
+>> +	value =3D readw(msi->gcsr_base + GCSR_IRQMASK);
+>> +	value &=3D ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
+>> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
+>> +}
+>
+>> +static struct irq_chip eyeq_msi_irq_chip =3D {
+>> +	.name			=3D "EyeQ5-MSI",
+>> +	.irq_mask		=3D eyeq_msi_mask_irq,
+>> +	.irq_unmask		=3D eyeq_msi_unmask_irq,
+>> +	.irq_compose_msi_msg	=3D eyeq_msi_compose_msg,
+>> +};
+>> +
+>> +static void eyeq_msi_isr(struct irq_desc *desc)
+>> +{
+>> +	struct irq_chip *parent_chip =3D irq_desc_get_chip(desc);
+>> +	struct eyeq_msi *msi =3D irq_desc_get_handler_data(desc);
+>> +	void __iomem *status_reg;
+>> +	unsigned long pending;
+>> +	unsigned int bit;
+>> +	int ret;
+>> +
+>> +	chained_irq_enter(parent_chip, desc);
+>> +
+>> +	status_reg =3D msi->gcsr_base + GCSR_IRQSTATUS;
+>> +
+>> +	while (true) {
+>> +		pending =3D FIELD_GET(GCSR_IRQSTATUS_MASK,
+>> +				    readw(status_reg));
+>> +		if (!pending)
+>> +			break;
+>> +
+>> +		/*
+>> +		 * Write-one-to-clear status register.
+>> +		 */
+>> +		writew(FIELD_PREP(GCSR_IRQSTATUS_MASK, pending),
+>> +		       status_reg);
+>> +
+>> +		for_each_set_bit(bit, &pending, msi->num_vectors) {
+>> +			ret =3D generic_handle_domain_irq(msi->msi_domain, bit);
+>
+> You want to look at generic_handle_demux_domain_irq() and related
+> functionality so you can actually provide a irq_set_affinity() callback
+> for these demultiplexed interrupts.
 
-This commit adds documentation for the Qualcomm CAMSS ISP parameters metada=
-ta
-format (V4L2_META_FMT_QCOM_ISP_PARAMS) and wires
-include/uapi/linux/qcom-camss-config.h into the Sphinx documentation build =
-via
-a kernel-doc directive.
+Thanks for the pointer! Indeed, once I used
+generic_handle_demux_domain_irq(), it was possible to use affinity, I
+managed to test it on the hardware.
 
-> diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b=
-/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-> new file mode 100644
-> index 0000000000000..da0dd9b0884ea
-> --- /dev/null
-> +++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
 
-[ ... ]
+>
+>> +			if (ret)
+>> +				pr_err_ratelimited("unmapped MSI interrupt %u\n",
+>> +						   bit);
+>
+> No line break required. You have 100 characters. Otherwise this needs
+> curly brackets around the "two-liner".
+>
 
-> +	/* Identity curve (pass-through, gamma 1.0) */
-> +	for (unsigned int i =3D 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
-> +		gamma->glut[i] =3D gamma->blut[i] =3D gamma->rlut[i] =3D i;
-> +
-> +Qualcomm CAMSS ISP uAPI data types
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +.. kernel-doc:: include/uapi/linux/qcom-camss-config.h
+I took into account this remarks and all the other ones about style and
+formatting.
 
-[Severity: Low]
-Does wiring include/uapi/linux/qcom-camss-config.h into the documentation
-build via this kernel-doc directive trigger Sphinx unexpected indentation
-errors during make htmldocs?
+Thanks,
 
-In include/uapi/linux/qcom-camss-config.h, the kernel-doc comment for
-struct camss_params_wb_gain has an indented numbered list immediately
-following a two-line paragraph without a blank comment line in between:
+Gregory
 
- * Implements the CLC_WB pipeline module.  The pipeline applies three
- * sequential operations per channel:
- *   1. Subtract sub-offset (black-level subtraction)
- *   2. Multiply by gain    (colour balance)
- *   3. Add add-offset      (output pedestal)
-
-Similarly, in struct camss_params_chroma_enhan, two multi-line paragraphs
-are followed immediately by indented lines without a blank comment line:
-
- * RGB2Cb - Chroma (Cb) coefficients
- * Cb =3D a x ((B - G) + b(R - G)) + KCb
- * with:
- *   a =3D ap, when (B-G) + b(R-G) > 0; a =3D am, when (B-G) + b(R-G) =E2=
-=89=A4 0;
- *   b =3D bp when (R-G) > 0; b =3D bm when (R-G) =E2=89=A4 0
-
-and:
-
- * RGB2Cr - Chroma (Cr) coefficients:
- * Cr =3D c x ((R - G) + d(B - G)) + KCr
- * with:
- *   c =3D cp, when (R-G) + d(B-G) > 0; c =3D cm, when (R-G) + d(B-G) =E2=
-=89=A4 0
- *   d =3D dp when (B-G) > 0; d =3D dm when (B-G) =E2=89=A4 0
-
-When docutils parses the extracted reStructuredText, an indented line
-immediately following a multi-line flush-left paragraph without an
-intervening blank line raises UnexpectedIndentationError.
-
-Also in include/uapi/linux/qcom-camss-config.h, the unprefixed RGB2Y,
-RGB2Cb, and RGB2Cr paragraphs placed between member descriptions in
-struct camss_params_chroma_enhan get appended to the trailing Description
-section by kernel-doc, and the single-colon indented blocks in
-struct camss_params_color_correct and struct camss_params_gamma are parsed
-as reStructuredText definition lists rather than literal blocks because
-they use ":" instead of "::".
-
-Should the kernel-doc comments in include/uapi/linux/qcom-camss-config.h
-be adjusted so that make htmldocs builds cleanly and renders these blocks
-as intended?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-camss-isp-=
-ope-v12-0-702254689feb@oss.qualcomm.com?part=3D5
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
