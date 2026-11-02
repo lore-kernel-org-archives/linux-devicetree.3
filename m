@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641500;
-	b=4Um1fXl9CipHlg53tP23HlDPvzsVnubLZBCtA0aWJUFAMqYtRPT1bRD2cEiVQXEq/p0k
-	 FyRIiT5m6I/VCrxk6r9EjJeyrnaFeYTuq3H0wUtdXOxp+y9sRj7wNibkqT5CP0njGRTwy
-	 BGyNCtvnT4H2K40dtcuv04vAJHCy+ElpKhEfA6B+lQi3XVwlmpDF89rQmuT06Txq1Yfxv
-	 Cu6hBNlvIViFw6nDn3lF91qM0dDD+uDtWngsVDH9pIP47C/yetnp9fS6zLzsEwbh6ySEo
-	 DgyYWDjOqL8IH8ImcwmajG9YhaN/05ZgcuX1t/djeCthf4gJtEjN0CKad22FSpezXzg==
+	t=1793641504;
+	b=rbcYy3VESXsVoGdJ1u+pltg0LBfY2zwrpXPVvx5eHTSLrc65Db/qvzMxtFgwWxgv5UtO
+	 Hvy3bCqRwYreE2If73eLr3a5w8bGzTPSfZx3OMK93GiTyqWaAM0639kdtqMfc0efKZlN0
+	 oc2bU04JGXxFIw4WCJj8P5uCnEg1RMPsZKwtnLhb849qfE5ygYdJkDGjhGop0JvPXQTTf
+	 L5LzQlFpggE3NtsBfKOmHuOn4E2U+Xzp4/c2J2Wv0zOAfBtKp5irvP50x8WWAEM+pQ94m
+	 f+c9Q6sDkdKuSA46yMuEG6HF1T5UhTO7b+Y+9vNKJtYcScfVTbjFHQ/r5gP5B7cvLfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641504;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3bh0GJU6K95rJPMyXBJ2rNzUcBtGgKH7isTHX83efNg=;
-	b=ZnyArP8CJctM9fBzSi6VUpR3S/bkG63T5pC6Vvp1zH37+baYIne20oFQT/hkAGI+gKjL
-	 iOutcKYbhb5Xn0q7KULFHbLG07L3iDd5ALk6O3tTYtNuyNjmvAMEvbTgoSBoBwp1vtn60
-	 XZYon6MIbD99ebEkOgl18DnN1C36jcIf6+1lST7+phL3gVLK6Rix9jP7uIaVAi5+Z7Vxa
-	 u8I/tbpUVEdUZ1l5dMP8PRYeatB55N3ji0H6WUdM2LBjPPSyVh3WvuMw5hUoF6eDx4vv7
-	 NSPRkBxgaUvhKuuyq09BIzAXDitJVt1o8B3CkbqNn2UsH9H0fCYfCXsVIL+008fvSOA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RQgMc315r3kvQDWK2uMIX5umY8gWuldHWBME7LLziZk=;
+	b=SezV1gt5H4fJISyXiGlYi8lv/ofqPTxNbtqCBYIHal/aHtcZFJYdGzEzBFI4HyTYCO9R
+	 SD8kSSCS6KW16kUyVBkMz7y2A28ITYxy6+/WXIwslY8N5fwoqLdXdZw1yvTnjYX8iRk77
+	 zqQB8dnsdOqspohSs9/DesQQQ2sIvgKdLQNPQQwmz0cHmyZQyccg4Lh3OFpQL2SN5zJkx
+	 BWm19hSsunsc9vS58BuA4/Tx8KUdjB3dsy179sN/wJBZCnSK2159urzcJZJKldGBaKu/j
+	 mRv6dTj8mcjIXmlMYH8gv1gKT3851GceAAvCpTFfNmM5iR2ZBmwYgW4xjv7PL05GZpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vIg5cy0n;
-	arc=none smtp.remote-ip=74.125.229.2
-Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lk3eopqB;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48B7606A333
-	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:44:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C48B7606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EE0606BA6D
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 17:45:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50EE0606BA6D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vIg5cy0n
-Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-327b1d5824fso3084246eec.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:44:59 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lk3eopqB
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so1335070eec.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 09:45:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793641499; x=1794246299; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3bh0GJU6K95rJPMyXBJ2rNzUcBtGgKH7isTHX83efNg=;
-        b=vIg5cy0nFrEe1qNau4YkNVZixJQaGLrUM7tRy8LdgRHhoroN64eKsYDKXobYSjyF0k
-         LYaBdONSBFVSTLRLzSXGxYprkrlgwiWw5PaC+gf6sDAb3joRFgVOY41nKFgtEWk6h9Xb
-         QRdnoA3jezQMB9gcgkqoOBwJEfbAgCaVxqOFFflw8jRWWjx1bUEEMrAKb1xIsSHRf0Zs
-         GxF7AN70XuBOq6s/En/ES3RYbfX38qap7GZk3O1ONbp1zGUuvG1qE6a6nS542UTl2OGO
-         pkggaHps1xlNjLo7DZSnbZ2cePWxSsGLInLmiWQ79/gQodkkmEQJ9cLgXDt7eSpYqkPa
-         IDfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793641499; x=1794246299;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793641503; x=1794246303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3bh0GJU6K95rJPMyXBJ2rNzUcBtGgKH7isTHX83efNg=;
-        b=CHHmbRbAnDHhOsy8BvHcczKxfF8veavkS5Of5SkibIeTd6D6iyvzu1TgT44PwrTOQE
-         dG4ioeu0Ryfv+s6OEqrXabH7PKaqXzH2rsFlW53PkbdMVFkDVxiaXLW/QcctLnuvHQjh
-         e3wXHhx2X6XXt4TON9OIx/B9ICjMIvDVrrk0xr+LkgAyrCQmkh/xeIeyMSFp1SwKeyfI
-         HvGgzSVinkaeitp6HrohlYtNG2f3IwB4REYDv+WmJPFuU5uy/S54zHdgeK54jEZbntiF
-         p7DWQIHhJC328fQ+W/vNT6KP3aH0lUFDtuHXDHWoxn7QTn/SvPkD8cS0xaSKbEL6kM9L
-         +9ew==
-X-Forwarded-Encrypted: i=1; AKwUvByf+ZZpcyiIoRmpg/uvhSPby9equ3pkm6VKQZQAO6gmUOP+jXwZiHXI3NaYYSStW0R5nUisDEmF8YIG@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VMZXPIR2lsI59bq8i8DB84MeZBgIH6fbgZKmYs4guQUFjedfP
-	n8rgS443gqXrKzZ91OMJLl0NoWYmJm+EW1mdReMMSMKReJwvpPFjGJ+5
-X-Gm-Gg: AYBFou2+ESRZ5AoNmI0f5SuovLhHKKMaq9ucd0eP1xJUdhU/hZIFpInTwO2QJh3txIw
-	STD/1TDV8BZCk0CZnKPOiLJdJkdg1QKMZ87+MWoNF0FjAbSum548KafRPLeaaa7sE2IOO4LlDgu
-	aOS+mBEkcJAU4g+sdu0P/dbZQS2fP0fvKU/VEwEPzGDa9jPfLoSeW/b0M7ETpBvmhcM69rcQSI9
-	hhDTiysDf+F8VwvxbC1XIbTpcPsn9YKX6XejKp+xt3I3AHJdOhctCC7mvjxuQioETiyveObedkD
-	6v4/UbjQDdMJbrg+1QXCJueHjNm/0HAEhEEWR5UY38MJiQ+Shm51vQS/ijQmhEVpZyPwut41gZa
-	8OeIkBbMThvLGn5i7yCQScFAXpMFKsxkE9F/M3b3Sf6Myy4m+/UHao5PCZIgS0a5MNbdNI9HSWK
-	RIwan9sCKqi1Fg4wa/jwptShncZYxeETayCGDuKoLSf38MQbG3Xo1ViUMoiD/qAoGCL3ziiaNGV
-	GNq7JOMVAJGeqj0nJWtFaC7rqKIpusX8KMXj9TPRSDjpkIs/RmSCIvuUT7jhFiQFzsdVtcwmcut
-	lKjCDylmPCQo5Lc8maDs1II0kPk=
-X-Received: by 2002:a05:693c:895c:10b0:369:f05d:6c5c with SMTP id 5a478bee46e88-36a4240f66emr17419811eec.28.1793641498907;
-        Mon, 02 Nov 2026 09:44:58 -0800 (PST)
+        bh=RQgMc315r3kvQDWK2uMIX5umY8gWuldHWBME7LLziZk=;
+        b=Lk3eopqBg28WyHFLJDTTieCw7XdETdXHvXrK89W13ut6lyiXCcbbKpMA25Zz/c4z8y
+         h91UAmTUeCKpyi1VO6PDKcBO+JY6ool/cxNLOfaIS71OWo4/Y65kdRmmTPS4kVFlGzy4
+         2Em5u36QKr4BSQ14zXbYQT7wK7J8BTpu45U3g8u2XsmhDNQ2eJQf6c5u7u3p+ZkLzCzE
+         xsI3D/F24dulapgfOvLIh+Iv8qNgi5YOkP2/ByBL7Bc1dQNb1XJIhPK2FdsLBBx/1bSw
+         DqvyAuqf10+m342t4No701ztoWQnBKcnmkknXuig+KhEoAh/5KnHntw2/JS8nVytdGUx
+         6MqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793641503; x=1794246303;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RQgMc315r3kvQDWK2uMIX5umY8gWuldHWBME7LLziZk=;
+        b=nyXqkPqdVFYLqAliPQkEPXfsLA20RjYLsud/A5LATOyqQM+QxGS8foPlHcvyKHX9N1
+         uZLTDjCCncCZMsqJOR+eBHp/U/bfLJBoxINrGR+sqVfa3v3CwN7+zLnVfGoRRATpj03g
+         RlpJsBvUA+a0b/fCdT6tAXhImFofvEs+03sXglj2YYOsXw4EpVWYkVa42nwiihEEcfAU
+         i9Wfzlheyi0jmCklk10tnme2DIzoVDhfjqHq7bLFcYQnX2QG4XqsBL2ZEV6YCC8QLSuW
+         GA11tY7Y7PcB7jP8Eoa0li1olRiz+Rewk25LqkYSdMxh9fZtptw+6Rb/fWJEpxWtqAbu
+         9wxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdp9VEoGF9PrZZluYGXvMxvRJvtjAFRSdxipShPljDis+EVCpJWgASS9jYBcuwnh0qRmhznXRElce1@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6idbuRxh5N+Uh49Z8eQ7PBCB3Rd0+RIaBfn6QgW++VB22JJfJ
+	WtdrBjRBsU2BWqLkCbiDuk24OP7Y/3ClmRNtAlqtzuEyngwFpdFNoOwG
+X-Gm-Gg: AYBFou3TDXeV0Iz8uSswNVumGte1poo3jGnLrgxxH1sEsrmCpy1/TVtXjF5GwxNh+Ou
+	9GKZlGrB6q1nIaaGslLRwguKatu01eCVbVLD3BC2UegsnkHXt/axT0BhdyugNzhRXupJro0ypsB
+	bi80ER2LBTF7NkxObp+WAHW1Bnc5h3S1v5OlBx+DUCUiUhwR4skZeUnLSP6KpQDAvVm9eU97x8b
+	aoBPXM3UrP454w9IIzUaLYwr5UyMnDsuSjNDjgNWwwpDUl7A7DwxRczHEHZZTCQDytsjYINWvfk
+	n0/51f2ilMjTqm2Pj3VUe7mEBAw0yGgldcNkxN5yJNbPnzCEZRAe9TQUqJ8TRqufGNfKTL8mYx5
+	YAvZ6EM26sMa6K71lCU+oXXUYYh2rWuzFEUaBAtW5N3dMDc7GH02UK+RlWzYsGG+Y6nQUu5ojjG
+	81zLKHCO/5vnpPChqdqOdVCD1tVe8HPsaQw+KFtsTcefRLX8JEtQdfnACDiyCFqJiRwecJKxVVU
+	/ge6ZraH63D2g6JJGyYliJK2hejwf852U1fTtEmPik6AL6doa31MOB+7LUvK55eOK6bAJGNcOke
+	Gh9jDJE2msBwrYoOH3vJNGFGB9k=
+X-Received: by 2002:a05:693c:88cc:10b0:369:d486:457f with SMTP id 5a478bee46e88-36a422195d3mr16266651eec.2.1793641503345;
+        Mon, 02 Nov 2026 09:45:03 -0800 (PST)
 Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm53290803eec.16.2026.11.02.09.44.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm53290803eec.16.2026.11.02.09.44.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:44:58 -0800 (PST)
+        Mon, 02 Nov 2026 09:45:02 -0800 (PST)
 From: Coia Prant <coiaprant@gmail.com>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Rob Herring <robh@kernel.org>,
@@ -91,10 +92,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH v3 0/6] arm64: dts: rockchip: fix GMAC clocks and USB OTG power on RK3568 boards
-Date: Tue,  3 Nov 2026 01:44:44 +0800
-Message-ID: <20261102174450.3000397-1-coiaprant@gmail.com>
+Subject: [PATCH v3 1/6] arm64: dts: rockchip: fix GMAC clock parents on 9Tripod X3568 v4
+Date: Tue,  3 Nov 2026 01:44:45 +0800
+Message-ID: <20261102174450.3000397-2-coiaprant@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102174450.3000397-1-coiaprant@gmail.com>
+References: <20261102174450.3000397-1-coiaprant@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,66 +109,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes since v1:
-- Patch 5 (USB OTG power): Reworked the power tree based on the schematic.
-  Instead of tying usb2phy0_otg directly to the boost, model the OR-ed
-  5V_OUT rail explicitly. Add vbat, 5v_boost, and 5v_out nodes, and fix
-  the vin-supply of vcc5v0_usb30_otg0 to depend on 5v_out. Drop the
-  incorrect phy-supply change on usb2phy0_otg.
-- Patch 6 (modem power): New patch. Fix vcc3v4_rf vin-supply from
-  vccin_5v to vcc_syson so the M.2 B-Key modem does not lose power
-  when the board runs on battery.
+Both GMAC nodes list SCLK_GMACx in assigned-clocks, but only
+SCLK_GMACx_RX_TX gets a parent in assigned-clock-parents. SCLK_GMACx
+therefore keeps whatever parent the bootloader or the hardware reset
+left, which may or may not be the internal CLK_MACx_2TOP.
 
-Changes since v2:
-- Patch 5: Fixed vbat min/max mismatch (both set to 3.7V) to satisfy the
-  fixed-regulator constraints.
-- Patch 5: Fixed vcc5v0_usb30_otg0 to depend on regulator_5v_out instead
-  of bypassing it.
-- Patch 6: Updated commit message to clarify this is a topology
-  correction rather than a runtime hardware switch fix, as both rails
-  are always-on.
-- Cover letter: updated the summary for Patch 6.
+Add CLK_MACx_2TOP as the parent of SCLK_GMACx explicitly, so the GMAC
+main clock always comes from the internal clock source and does not
+depend on the bootloader state. The rate assignment is unchanged:
+SCLK_GMACx_RX_TX stays at 0 (managed at runtime by
+rk_set_clk_tx_rate()), SCLK_GMACx stays at 125 MHz.
 
-===
-
-This series fixes three classes of board-level issues found while
-bringing up several RK3568 boards.
-
-The first four patches address GMAC clock parents. On these boards the
-DTS lists SCLK_GMACx in assigned-clocks but only provides a parent for
-SCLK_GMACx_RX_TX, so SCLK_GMACx keeps whatever parent the bootloader or
-the hardware reset left. Add CLK_MACx_2TOP explicitly so the GMAC main
-clock always comes from the internal source. BPI-R2 Pro additionally
-describes clock_in_out wrongly ("input" while the port is a fixed-link
-with no external 125 MHz clock); switch it to "output" to match the
-hardware. On RK3568 clock_in_out does not change the hardware clock
-routing today, so that part is a description fix.
-
-Patch 5 fixes USB OTG power on the Ariaboard Photonicat. On battery
-power the USB port is dead because the 5V_OUT rail (which feeds the USB
-load switch) relies on a boost converter that is not enabled. Add the
-vbat, 5v_boost, and 5v_out regulator nodes to model the OR-ed power
-path from the schematic, restoring USB host functionality on battery.
-
-Patch 6 fixes the M.2 B-Key modem power supply topology on the same
-board. The vcc3v4_rf regulator was incorrectly modeled as supplied by
-vccin_5v (external DC). Correct it to vcc_syson per the schematic to
-accurately reflect the hardware power tree.
+Fixes: 156a530ed5ed ("arm64: dts: rockchip: Add devicetree for the 9Tripod X3568 v4")
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
-Coia Prant (6):
-  arm64: dts: rockchip: fix GMAC clock parents on 9Tripod X3568 v4
-  arm64: dts: rockchip: fix GMAC clock parents on Graperain G3568 v2
-  arm64: dts: rockchip: fix GMAC clock setup on BPI-R2 Pro
-  arm64: dts: rockchip: fix GMAC clock parent on Photonicat
-  arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
-  arm64: dts: rockchip: fix modem power supply topology on Photonicat
+ arch/arm64/boot/dts/rockchip/rk3568-9tripod-x3568-v4.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- .../dts/rockchip/rk3568-9tripod-x3568-v4.dts  |  4 +-
- .../boot/dts/rockchip/rk3568-bpi-r2-pro.dts   |  4 +-
- .../rockchip/rk3568-graperain-g3568-v2.dts    |  4 +-
- .../boot/dts/rockchip/rk3568-photonicat.dts   | 53 +++++++++++++++++--
- 4 files changed, 57 insertions(+), 8 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-9tripod-x3568-v4.dts b/arch/arm64/boot/dts/rockchip/rk3568-9tripod-x3568-v4.dts
+index 4903e32d0ead0..d94bc34a31e67 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-9tripod-x3568-v4.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-9tripod-x3568-v4.dts
+@@ -268,7 +268,7 @@ &cpu3 {
+ 
+ &gmac0 {
+ 	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>, <&cru SCLK_GMAC0>;
+-	assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>;
++	assigned-clock-parents = <&cru SCLK_GMAC0_RGMII_SPEED>, <&cru CLK_MAC0_2TOP>;
+ 	assigned-clock-rates = <0>, <125000000>;
+ 	clock_in_out = "output";
+ 	pinctrl-names = "default";
+@@ -284,7 +284,7 @@ &gmac0_rgmii_clk
+ 
+ &gmac1 {
+ 	assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
+-	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>;
++	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>, <&cru CLK_MAC1_2TOP>;
+ 	assigned-clock-rates = <0>, <125000000>;
+ 	clock_in_out = "output";
+ 	pinctrl-names = "default";
 -- 
 2.47.3
 
