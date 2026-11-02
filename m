@@ -1,63 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793648395;
-	b=HUiOF6oFt9dk8TVtwPgqr4QCDIVop9yr1hdu53mdzdSisa9RfF8UwJrIsdpxvZfpW0tg
-	 ZjZw0jrhQouxSTmjKe7IDEGzhbWXVayXProznn4G3qFpsB0YjU0bf07eZ8AY6Jnk+cij/
-	 YkNOGA56R7lZj3nqQGdBSA/zesiCAaNHk688s34ll5/vu7tPPpTdHaxTbl7Y3OegfW0sJ
-	 6KDPWw5vxXUjznPws8FdLdokqBPjKJMEhDdlecpLzOy6Tlx1WD1N0BTEvpCuhqH1j4M01
-	 Rnw9SGDoaGP5gfCOHIGvTIG5qbBRluByREQCxuHGIySuzfFoLGk9XxrTUL7OcuhICxw==
+	t=1793648568;
+	b=mnLoG9E7Jgo77TeokjvFxKL58bZjpRtIpmeiM/y1nHIgVIeJSjvUyvzNE62JFlGc40H2
+	 ohmXMlzW9udSdgCntMtOTS7akuflaKSPsafJUjmvzmfTEln18ZyVFGT5z0FQgsjs2XZ+a
+	 aTo5RIOVfPCnQI6gr0ROcVjouwDWIlJWVgm+hdYQy9JJ12EKV2datctGy5hLtsC+II45i
+	 5EG8wIImpzuU2VBPyZA+5BmjyJUqjnBXDbgaM/qeGGsmjnbrH4zZK7cs/aWsGR5LpxlM2
+	 DZ8Sqga3VUXTwkey0Oshs6Vp1K+jek58RA2glJSsbJ2e4g+AcxFrPXNOizyJM6DHV6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648395;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648568;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ei1PcyW2bvlCuqWOURcTSE3dLB/l5Xm1TRmGcUX2JW4=;
-	b=dcggcyL3pQSNZcd0PjmFGC4hpXymIUTUb5YlnvAyMY8cdB2RFD8QEjWIVhw9yCeCaKuj
-	 a8zueOXN5Ma8Oy+7QjR8uGR57FcczbQqJFAxgiyFGr139e9lb8tJo0b/dwazTlcCUAWtn
-	 YuHLcvaUJLgCTubrAzm+UNiemOoPUoJjL9PIAXbR+2YFOZu1xvA8BMn+Jl3HrPKayKTS8
-	 btnRIu/r4hh4tf2sPV7UL2MgRXP8/rgrpIIJ4RF8j2ggDNsbwebLWUlfF0ybj99FAET4u
-	 mC7rYKfoo54fPVeeNPeKA6jhc5gOOUEQYkOjZvbeJFGuOa/RzPLyAjKM4VsmPl0PDkQ==
+	bh=xYM2w+R+s64GsgyYN0vH9vlqjZhy326IFMYWXn8QM+c=;
+	b=kUUa4H2oU1CHb+sRFNqK6oyEWQjEngFVn4KP86RH3h4nfhb4UAix/ozCGtr0KU1V/K/o
+	 RglCQvMVPuhCd2htC5LCqS8JVnPKHmLIcxzLtODM6EAFen54WzqzGFOZmfMi7a2deM3P2
+	 ezaWtBvxVoJGv4hhCGjC1Cq+spVrC9MlR6dY05e7TouIgj2Ry2Dpf7Hr+51N0zUzot6z0
+	 OWqOVK3cvr3AWIMK0Wh+lICaYrsqW8TQdN7hS2ZhEtcjiX+RM+Aj0ngwlPH4XzDTA1IsK
+	 j8AYYAAKetkW8Fc6b5NVovTiU+69F2S36X6toBgfyo2UWKOHmMql9C58fJPxL0U/ZGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKUSJkHE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqGnCmL9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3693606A326;
-	Mon,  2 Nov 2026 19:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAD9606A327;
+	Mon,  2 Nov 2026 19:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aKUSJkHE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886AC1F00A16;
-	Mon,  2 Nov 2026 19:39:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqGnCmL9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642A71F00A16;
+	Mon,  2 Nov 2026 19:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793648394;
-	bh=ei1PcyW2bvlCuqWOURcTSE3dLB/l5Xm1TRmGcUX2JW4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aKUSJkHEjeliqo1dMG/1lWPIuVnBz8f7hQ4tTFS0ZU1ycTsBnlhsolsmLWwL/uWb2
-	 u08mtLopleSjzGsdEEe5RzYgqeAOdwbW7d/yBT8UkDk0oT5f2NFzo5l7hiI1vsXtYV
-	 +lXDxbtOkQKLT7QwPd5ylTPBZ/nak7MzgZuRMYjpYomrQ3w9hg1A4xH1KZB6jUxQ7M
-	 0QKCVIgPI7pz0yLLZyCQvzLPtDEwP4pRx14wjotbFV922AN2yaJlCMyPgaBgXjIyr3
-	 BCSuMu36L3NHPHzhcPR1XtQ+QK6jxYPktgdLoshoZnGEu5FoFqzvprNQG20wluoEJx
-	 sDW+Wp63urkOg==
-Date: Mon, 2 Nov 2026 19:39:49 +0000
+	s=k20260515; t=1793648567;
+	bh=xYM2w+R+s64GsgyYN0vH9vlqjZhy326IFMYWXn8QM+c=;
+	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
+	b=UqGnCmL91cb8o0RZa9AlcojqHd3NUoVze7hhFa8SslvzoohKM0vCByoWxY2tq2oSJ
+	 GBQ67ti/d4c7M6n/qCanFt6OgwcYM+NdcWM5eXrGKgdaeknPu9pU+e09+e6yrR3mdO
+	 mHEeyc4z7p94vZCMydTjR5bh4LZdctFYDKpySRLtsULm5Pf06LmbQcF4bkwCVJoOdI
+	 mHj6ycFAWqkwDKa6nB6lnbx8ITyvsRDcAKLBTsyc4NqiN+2puCQBCjkSA/a5NiaKu9
+	 LgsE8qcf3vMfZlydP6I7j58hmywN0qWeUQe1mpdE66XxAdD/Bau9Wc/fpYQ1y6nlK3
+	 QQHDPQbO+/kxQ==
+Date: Mon, 2 Nov 2026 19:42:42 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Peter Robinson <pbrobinson@gmail.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH 1/9] dt-bindings: dma: brcm,bcm2835-dma: Add BCM2711 and
- BCM2712
-Message-ID: <20261102-email-target-d3191584d234@spud>
-References: <20261102090713.896324-1-pbrobinson@gmail.com>
- <20261102090713.896324-2-pbrobinson@gmail.com>
+To: "ukleinek@kernel.org" <ukleinek@kernel.org>
+Cc: Hal Feng <hal.feng@starfivetech.com>,
+	"patchwork-bot+linux-riscv@kernel.org" <patchwork-bot+linux-riscv@kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"emil.renner.berthing@canonical.com" <emil.renner.berthing@canonical.com>,
+	"palmer@dabbelt.com" <palmer@dabbelt.com>,
+	"pjw@kernel.org" <pjw@kernel.org>,
+	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
+Message-ID: <20261102-tidal-quintet-3867b525d891@spud>
+References: <20260810030714.48100-1-hal.feng@starfivetech.com>
+ <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
+ <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
+ <auheO4sRs4P36jgw@monoceros>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,114 +71,79 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HziPGci4IN+2yC0c"
+	protocol="application/pgp-signature"; boundary="CrMnFs07IEUOttHU"
 Content-Disposition: inline
-In-Reply-To: <20261102090713.896324-2-pbrobinson@gmail.com>
+In-Reply-To: <auheO4sRs4P36jgw@monoceros>
 
---HziPGci4IN+2yC0c
+--CrMnFs07IEUOttHU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 09:06:51AM +0000, Peter Robinson wrote:
-> Add compatibles for the BCM2711 40-bit DMA4 channels, which are
-> described by a separate node covering channels 11-14, and for the
-> BCM2712 DMA controllers. The register address of a node identifies its
-> first channel, allowing a controller to be split across nodes.
+On Mon, Nov 02, 2026 at 10:57:10AM +0100, ukleinek@kernel.org wrote:
+> Hello,
 >=20
-> Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
+> On Mon, Nov 02, 2026 at 02:11:46AM +0000, Hal Feng wrote:
+> > > On 26.11.2 06:17, patchwork-bot+linux-riscv wrote:
+> > > This series was applied to riscv/linux.git (fixes) by Conor Dooley
+> > > <conor.dooley@microchip.com>:
+> > >=20
+> > > On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
+> > > > Add OpenCores PTC PWM driver which is used in StarFive
+> > > > JH7100/JH7110/JHB100 SoC.
+> > > >
+> > > > I will maintain this pwm module in place of William.
+> > > >
+> > > > Changes since v21:
+> > > > - Allow non-zero duty cycles shorter than one clock tick to round d=
+own to
+> > > >   zero.
+> > > > - Drop the .free() callback to preserve the PWM hardware state after
+> > > >   pwm_put().
+> > > > - Update the comment.
+> > > >
+> > > > [...]
+> > >=20
+> > > Here is the summary with links:
+> > >   - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles,
+> > > examples and maintainers
+> > >     (no matching commit)
+> > >   - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
+> > >     https://git.kernel.org/riscv/c/2186ec5f59c2
+> > >   - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
+> > >     (no matching commit)
+> > >=20
+> > > You are awesome, thank you!
+> > > --
+> > > Deet-doot-dot, I am a bot.
+> > > https://korg.docs.kernel.org/patchwork/pwbot.html
+> >=20
+> > Has this patch series been applied? I've sent out the updated v23 patch=
+ series, but
+> > Krzysztof pointed out the Tested-by tag should not be added in the dt-b=
+indings patch.
+> > Should I send a v24 to drop the Tested-by tag tag, or should I make the=
+ changes on top
+> > of v22 if it has already been applied?
 >=20
-> ---
->  .../bindings/dma/brcm,bcm2835-dma.yaml        | 31 +++++++++++++++++--
->  1 file changed, 29 insertions(+), 2 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml =
-b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> index c9b9a5490826c..31d97a10a0ea9 100644
-> --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
-> @@ -9,18 +9,27 @@ title: BCM2835 DMA controller
->  maintainers:
->    - Nicolas Saenz Julienne <nsaenz@kernel.org>
-> =20
-> -description:
-> +description: |
->    The BCM2835 DMA controller has 16 channels in total. Only the lower
->    13 channels have an associated IRQ. Some arbitrary channels are used b=
-y the
->    VideoCore firmware (1,3,6,7 in the current firmware version). The chan=
-nels
->    0, 2 and 3 have special functionality and should not be used by the dr=
-iver.
-> =20
-> +  BCM2711 channels 11 to 14 are 40-bit capable DMA4 channels, described =
-by a
-> +  separate brcm,bcm2711-dma node. BCM2712 has 40-bit addressing on all
-> +  channels, with channels 6 to 11 being DMA4 channels. A controller may =
-be
-> +  split across several nodes, the register address identifies the first
-> +  channel of a node.
+> The way I read it, only patch 2/3 "riscv: dts: starfive: Correct pwm
+> nodes" was applied.
 
-Uh no, a device should not be split across different nodes. This should
-not be needed, why can't your driver handle the upper channels having
-different capabilities?
+Yeah. And the mail is a quirk of me not removing the thread from the
+linux-riscv patchwork and pw-bot autoresponding when the series was
+"applied" by me to that tree when Paul fast-forwarded it.
+There should have been a b4-ty email from me a while ago saying that I
+had applied the dts patch.
 
-Thanks,
-Conor.
-
-> +
->  allOf:
->    - $ref: dma-controller.yaml#
-> =20
->  properties:
->    compatible:
-> -    const: brcm,bcm2835-dma
-> +    enum:
-> +      - brcm,bcm2835-dma
-> +      - brcm,bcm2711-dma
-> +      - brcm,bcm2712-dma
-> =20
->    reg:
->      maxItems: 1
-> @@ -99,4 +108,22 @@ examples:
->          brcm,dma-channel-mask =3D <0x7f35>;
->      };
-> =20
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    dma-controller@7e007b00 {
-> +      compatible =3D "brcm,bcm2711-dma";
-> +      reg =3D <0x7e007b00 0x400>;
-> +      interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>,
-> +                   <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>,
-> +                   <GIC_SPI 91 IRQ_TYPE_LEVEL_HIGH>,
-> +                   <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
-> +      interrupt-names =3D "dma11",
-> +                        "dma12",
-> +                        "dma13",
-> +                        "dma14";
-> +      #dma-cells =3D <1>;
-> +      brcm,dma-channel-mask =3D <0x7000>;
-> +    };
-> +
->  ...
-> --=20
-> 2.56.0
->=20
-
---HziPGci4IN+2yC0c
+--CrMnFs07IEUOttHU
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujnBQAKCRB4tDGHoIJi
-0hRLAP0RLHp9wKJWp9KZvKHugGEw7nv+l/NCctuBP0UpDcirAQEA5THbx5eORWZq
-KfVxUSY81BazlR4FE+rstFss+HAzyA0=
-=gXCA
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujnsgAKCRB4tDGHoIJi
+0vGgAP9gqJ8aLAjZxjxqcBKs8ePNSulSrB7JgAx+3rNCP7DK4AEA7fKaU0A4JXOu
+VrSrRZ/T+DWcsS8PHwzW9l9w/VPFPgE=
+=n+9e
 -----END PGP SIGNATURE-----
 
---HziPGci4IN+2yC0c--
+--CrMnFs07IEUOttHU--
