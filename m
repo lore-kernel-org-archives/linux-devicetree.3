@@ -1,56 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603424;
-	b=QBEqJkQrkAqwuSAS8l19pM+rqkdBrBCRNQ5b6BX9u1zAo9AlgO6Dy0Uu5tUmMt0XyQEI
-	 aF1aiIQh9Nx0Dp7CETFOpSYuAySvCymXn8J7oY/9s2eAExDI/nQLoV9XxCDQ8H4xThmfX
-	 JXHrOqUIttYdh0YXCSUQdzO7m+5D7pTalWdPqwDYUJhskG3IDpGZVeh5P1H8QNX4CFmYv
-	 uzn9sv5LpchMOTiya9cYOk1ns3SPYEYRPunwjuWjIljmZXNI2li+a2KCo5W0xwWVOvWo5
-	 m/eXMhGzyCs1eHkQu5WiG9ZZjEhlis4yYzj1dvt9zMPgQoP0M8feClEDTaLkw+89lkg==
+	t=1793603938;
+	b=reIYMtpBL9EUP60cS9k/O276ac0xcM1jGc1f5JmX584o6AvHLQHscKviOYr36e4xxIJq
+	 0/efKZTRVe2eJOqtSfVImfeHzF+YAXU8Xp1PXyoCNZ7GRAoKutAchP9KfN/z3C34yuozU
+	 sZm7Rsh5HRworrDd7Uyt38N20bxhpFkY59xnXz5W0Nu/NlPlkXsbPOrV2JgraZSG7WJZQ
+	 KpIIA9aMhuWGQIDuvPQ4pHd4LmnhLoCV9hVU1x5vos+S0/yD6OKMgAVI73gQMCB82n/mB
+	 rAEjgY/9j+Q2zFUDkGhrYCqgCgMk+vKRoq7OanWU5+BUNatRnvi5Mlu58z/7glRrTYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603424;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=71FZePZh0SfpCwU5gyU0mbWl8GFXJo1phIqc8eWVSCE=;
-	b=LrY8UbIlxVbljY/nkQzrOzmZm2Xj5exNxcKnqxnT99sOqX04daTkKQt2E4Qlg1CCZ+dz
-	 qJN1aGNG1ho3+NsybX0yxZsk8hjYMnWuFTFarVzoUXeuBxgaRUsMIYJpUZA08X4GDiOGe
-	 jgRYlkcP3/lypLud92uHdCnIGGW6nT90VkdfIxSXgOliRJWRwc3c/elsQvHCAuK88RCli
-	 a9FNZGEtSAzrG3BQu35FHYt7ZgTjT54wVH9pzU6qQcOS2r3x0zpIN+wTm8thI8oiZqxYI
-	 v2bCLi1j6IGwKgRedfSy9EhgKWmaY+3NPeRmhnyh175g8s3EHdJHkRJs5axUFT9uSBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603938;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NpIVie6xF9j8ExIQhEKGfRaZrPU75x2Pjf04bW71EhI=;
+	b=zckExhjDufBlf2AJmUhAjvx7HlgD+aqzp9vtVI+lgEyprgkm5U9GIBjT82hNTJ4Ma0Eu
+	 H88X7Pb1TseBhT5I+ajpgs84BkunvvRAn/ydJeFzNTBjrT78aoauv9hSQE+zVPhOBDdDy
+	 k6jcrsEDqQOE89/v3JeIuQf34YEauLPCHhNkQK6mHUXNdpy9xP3Ze1fQA3WU6YdQ+3RPs
+	 Pt/SStBu4Qn+mTi0gnYGINRpSBSiB1wDBNv/L0d2O5yns3yBsrLGR8FDTeKhAQAOip6fz
+	 gHF53aRYsTu3zSQMuoT60tlhKlV4etlZ/dpWTH52hGwnCVc71i0KYViTFShNOGTJNPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N//0Kuz7";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kgLoo7Nm;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j1FHtjHj;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4384C606A324;
-	Mon,  2 Nov 2026 07:10:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC8F606A324
+	for <devicetree@vger.kernel.org>; Mon,  2 Nov 2026 07:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC8F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N//0Kuz7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC911F000C1;
-	Mon,  2 Nov 2026 07:10:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793603423;
-	bh=71FZePZh0SfpCwU5gyU0mbWl8GFXJo1phIqc8eWVSCE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N//0Kuz7v4UXomZCj47VB+G/UZA9rMVBxPkCih4uIryvrQ+OEOf4JN/zN1I7Ef9NI
-	 TDnwsnX7SaT0G2+o56wEnNTM4XvMaGu3LctY0VgY87ccFOrHw1Gq2cLiqfLTssNcFo
-	 s7Do+Hv9T+3Zwa+cLG1z5c1lFV6pPfWb+pMhKUXDXJKCnyxYHR9XVk8MQFVz5KoQEs
-	 Jx9wJSddmkg8kQuKAPRx7IDzmXHF7SeOa4QAVyyooD0CoVKqbtwpsqEYrUets9HL7G
-	 RoDOHfGr6m5YIT/w5bIv4UIlKWRG6V3YgGS063AAymu0HMXFd5nzrCg42OpCJiFEHS
-	 TKRlhfpKJkwLQ==
-Message-ID: <sashiko-outbox-193002@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 10/13] gpio: pl061: switch data path to gpio-regmap
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>, linux-gpio@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-cv75-gpio-v13-10-4f93114ea204@ambarella.com>
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-10-4f93114ea204@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 07:10:23 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kgLoo7Nm;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j1FHtjHj
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A24wBYn1262340
+	for <devicetree@vger.kernel.org>; Mon, 2 Nov 2026 07:18:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=NpIVie6xF9j8ExIQhEKGfRaZ
+	rPU75x2Pjf04bW71EhI=; b=kgLoo7NmGPUMf79aclnVC7a+EIDKD553uM/du1vM
+	C8z9NHnE0PmvA7RUiIoeAoA1VN9msGaoTz3e3JI0C97bzFgV1l9efDDOJwKHs5GN
+	Wh1vHgwqEPVhr5F5O8jlzZgSVtBGzehKrIxKaXaf1Dq6IynXubHXgW3Z8N1Fc0Ga
+	y6P2BlqNcQMLMmOUM6g+EmZF2nopEf3xuSEkZmwbdAMr/8jOeKiJjMCUEPfbrGo3
+	WmfksX+LjCuKm9rMTTpFGYZgmwgQqqHL8ytDKI8YK6PQklT1XpQUH8m18s2gTpMu
+	aCfpWCdOgKJKbjptp2ehl3Munn5TBMt9KCR7TO9fATRlWQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4gert-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 07:18:56 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so4097790a91.2
+        for <devicetree@vger.kernel.org>; Sun, 01 Nov 2026 23:18:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793603936; x=1794208736; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NpIVie6xF9j8ExIQhEKGfRaZrPU75x2Pjf04bW71EhI=;
+        b=j1FHtjHjOqSNLuVzO4AR+CGjBnQFQk5OOVq7NAVmtK0hpIhIYwdStT6or/T4EtlBY1
+         jn+3xEqKoo+O9fvVXxBHwXI6fWU1jK3Wfloo91ZrViV3V0LL2HD+nELbPbdFT4JH+2Jg
+         r0dPkwWK1ywcqv4m5ivMGwzMmu7ujO0Vd2LIpDYSllKXJ3t2FJlK/1tO79JUGsh1Fwb6
+         FAGtgUKoZH0CQeFEejk7X2D+TsXb1q6tlN/fOw0OsCCikF0bs4WBF2NMc0A9IwrX0MQq
+         MOUQjDxT6P3/qR2SoqgbZecX8wbes3uyDGdri46waQ+6+O2R2eyThvaAdW67Led/llCt
+         NzvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793603936; x=1794208736;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NpIVie6xF9j8ExIQhEKGfRaZrPU75x2Pjf04bW71EhI=;
+        b=OIAey33kb/eaivAnYpTxk2lxbFXCymyVrfOyITJ2IZpykDPi9h+/ptDwwC2oiG5iZv
+         tDLl9svixxcaJuWZiM4hsJk8CmycscoyIaP1rqqKhhZLaWfVAduxb19lFZuvDbUIz02J
+         0M1WBvAlnF1uFGb6o385Z4+KWyrvG70Y/lEnQB69NcJID0j2ecke269tB7MdZtmrlDwN
+         cYRVOkdF8lmYGPm4fnwETbsnfOMtkp5UnHpE2XR8HUsIbh79wyOjvEe6KO6UlyC678+Z
+         SR4DAdWrc1RhYlXToZyH1TUbEoOrILCbXMWX34H2Ty4cu/t2i41WZImVjrVGODYFzgR6
+         ixLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzN31BbnDORiTYMGTicUfclxdmzD82XqVEcmJCzikeqkGGbZnREBpJ4ZPDEDuH/s0NbyzSNlIzhHdrN@vger.kernel.org
+X-Gm-Message-State: APuU4Z8atfzweGVagjQ5JiuUW4LyNq3Vtcixg+XFdrmJ+rN0w0YV8PTS
+	knpHAhL9HJ4S8f3t8+njpH82wm5LpzgA7d9yT7Bh52nRmWF6dgomxmxNDwLRQrLw1ckeOjQW5aj
+	dICcklR4wDUA7kv4OJmujzdMuhC1TDhYzmbdqKKe1ladPEQ62PwUrojwff7XOuRXL
+X-Gm-Gg: AYBFou0TxHe+DCGbpv2+eM6akPlWRV2zqtr0mETxPvOHvSSG9xbvqBpBTX83KR2OVKH
+	Kbl50lzo8hyxV773ZcLiDHBjkyrRb+Z1Lw/8jbKci0IPCGFXVK0HmKQ3USFYU1obZtHkuSeZr7P
+	EiO0wQEw+X2sMXylAOM+fVzlx2keDbjbYPEzGuEo+sSxIqOZXBoVl6tBUHfiu4sETFTkMI3ZlIX
+	R9LiBN+yqC2ru4RveNjBLt9JIq51ayVEzh6BfIDJ3/OTpLHZlgQu50Kk6P/lhFPyO/vvQuvcDZr
+	J73jIeJKsmX0d2FCNnhJ1tud1iJe18oz3hUfWaQqFbUPOte7S0CGB8TCmdRzZ+kbieLsyadIwLa
+	S42JzBFIf/cewOh4/0nj4nItp55vZXChE61ae3C/CqPzNAdMGAcS5qEx7RwQ/lgEnpruKEiEVtd
+	jQIMhYyn8zZO460A==
+X-Received: by 2002:a17:90a:d008:b0:3a4:b0f3:6597 with SMTP id 98e67ed59e1d1-3ae89188f68mr7619725a91.0.1793603936061;
+        Sun, 01 Nov 2026 23:18:56 -0800 (PST)
+X-Received: by 2002:a17:90a:d008:b0:3a4:b0f3:6597 with SMTP id 98e67ed59e1d1-3ae89188f68mr7619707a91.0.1793603935564;
+        Sun, 01 Nov 2026 23:18:55 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae880b1f71sm7419118a91.4.2026.11.01.23.18.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 23:18:54 -0800 (PST)
+Date: Mon, 2 Nov 2026 15:18:47 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 5/6] dt-bindings: arm: qcom: add SA8255p Ride board
+Message-ID: <aug5V-E2p5IvZIi4@QCOM-aGQu4IUr3Y>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+ <20261031131042.1200862-6-shengchao.guo@oss.qualcomm.com>
+ <e5b53ac2-87f4-45cd-9667-91cbb45fbcb0@kernel.org>
+ <auf2FHHbto8lAf47@QCOM-aGQu4IUr3Y>
+ <ada2ca7d-8759-4e30-b945-f8d0ca05b74f@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,159 +131,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ada2ca7d-8759-4e30-b945-f8d0ca05b74f@kernel.org>
+X-Proofpoint-ORIG-GUID: dBFyT5vU4E7zRnjNS9G6iKFE298KM7v-
+X-Proofpoint-GUID: dBFyT5vU4E7zRnjNS9G6iKFE298KM7v-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAyOCBTYWx0ZWRfX0C8pZO6Qgnvi
+ NjcgXZ3V016n7AE4q28NqS5qjzLgRlurRH/t0HOxz4x+7d9g4EzeuI2m8yV9hcDrckHL6N9qJpP
+ hFmsN1oOmIAmQTiuA3qXnE2UJnqPFBA=
+X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae83960 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=COk6AnOGAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=L378qgYTX3ev7UouER0A:9
+ a=CjuIK1q_8ugA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=TjNXssC_j7lpFel5tvFf:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAyOCBTYWx0ZWRfXzsphaoCb3YND
+ snzbIM+9Nt1qdrvYt7g9in/BRA8OJehGA3rnoVPDfJh8B0iuASy41BVy1rJ4mTrc7LVJ6dRy/H9
+ /K31kHGm2ynsh3DHC/kCKDy4Taj1tAgSNr/1rPjOvqh6nC2n2U+Q8CvZ84ZF3vB1zwzNch4tDHA
+ 0FP70Ta0sos7Q873hu5iXAbAiidrO3Z6j7jPrbnNBDvLqM3hJsTyNQ586dC9tz2MG2OkHuZXGXq
+ HfDPAatoFgNslDVcBiG5Wgcnwz0RqaIo31UxJ1ZT01yW+UV5C/PYWesd9QW5g2Yoz8zmZN4qLrG
+ 6vfjqwYhl5jpD+7tP6A4rkNNKlT+gdSQD3KH/Hlal7swYnlufnXYNdyXxZk5UkodJbb5KifPGPV
+ ge3GPg6WZEHRlf3uFwdA0vcMffCpxMmhBjJ2RKNV8dogHTcP2D3/IB3aSXdxxZfMKHVv9bNyyCG
+ PsnETteVNzu95QiQZqA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020028
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] gpio: pl061: dropping IRQ resource helpers breaks IRQ locking and =
-unbind
---
+On Mon, Nov 02, 2026 at 08:05:04AM +0100, Krzysztof Kozlowski wrote:
+> On 02/11/2026 03:31, Shawn Guo wrote:
+> > On Sun, Nov 01, 2026 at 09:28:41PM +0100, Krzysztof Kozlowski wrote:
+> >> On 31/10/2026 14:10, Shawn Guo wrote:
+> >>> From: Nikunj Kela <quic_nkela@quicinc.com>
+> >>>
+> >>> Document the SA8255p SoC and its reference board: sa8255p-ride.
+> >>>
+> >>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> >>> Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
+> >>> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> >>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> >>> Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> >>
+> >> Drop. Binding cannot be tested other than build process.
+> > 
+> > Ok, will do. I thought dt_binding_check could be part of the test.
+> 
+> Since when running build commands is testing? I commented on this way
+> too many times already...
 
-commit 074c89211872cf47652e8bf1f251d42902b7bc3b
-Author: Long Zhao <longzhao@ambarella.com>
+It would be nice if we can update b4 to not pick up Tested-by for
+binding patches, when the tag is given on a series.
 
-gpio: pl061: switch data path to gpio-regmap
-
-This commit switches the PL061 GPIO data path callbacks (get, set, and
-direction) to use the gpio-regmap helper library while keeping a custom
-irq_chip and instantiating an external irq_domain for gpio-regmap to attach.
-
-> diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-> index 27ed759486caf..cb1ef0f3774c1 100644
-> --- a/drivers/gpio/gpio-pl061.c
-> +++ b/drivers/gpio/gpio-pl061.c
-
-[ ... ]
-
-> @@ -229,54 +198,47 @@ static int pl061_irq_type(struct irq_data *d, unsig=
-ned trigger)
-
-[ ... ]
-
->  static void pl061_irq_mask(struct irq_data *d)
->  {
-> -	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
-> -	struct pl061 *pl061 =3D gpiochip_get_data(gc);
-> -	u8 mask =3D BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-> +	struct pl061 *pl061 =3D irq_data_get_irq_chip_data(d);
-> +	unsigned int mask =3D pl061_line_mask(pl061, irqd_to_hwirq(d));
-> =20
-> -	scoped_guard(raw_spinlock, &pl061->lock)
-> -		regmap_clear_bits(pl061->regmap, GPIOIE, mask);
-> -
-> -	gpiochip_disable_irq(gc, d->hwirq);
-> +	regmap_clear_bits(pl061->regmap, pl061->data->regs->ie, mask);
->  }
-> =20
->  static void pl061_irq_unmask(struct irq_data *d)
->  {
-> -	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
-> -	struct pl061 *pl061 =3D gpiochip_get_data(gc);
-> -	u8 mask =3D BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
-> -
-> -	gpiochip_enable_irq(gc, d->hwirq);
-> +	struct pl061 *pl061 =3D irq_data_get_irq_chip_data(d);
-> +	unsigned int mask =3D pl061_line_mask(pl061, irqd_to_hwirq(d));
-> =20
-> -	scoped_guard(raw_spinlock, &pl061->lock)
-> -		regmap_set_bits(pl061->regmap, GPIOIE, mask);
-> +	regmap_set_bits(pl061->regmap, pl061->data->regs->ie, mask);
->  }
-
-[ ... ]
-
-> @@ -320,67 +280,169 @@ static const struct irq_chip pl061_irq_chip =3D {
->  	.irq_set_wake		=3D pl061_irq_set_wake,
->  	.irq_print_chip		=3D pl061_irq_print_chip,
->  	.flags			=3D IRQCHIP_IMMUTABLE,
-> -	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-> +};
-
-[ ... ]
-
-> +	if (irq) {
-> +		const struct irq_domain_info info =3D {
-> +			.fwnode		=3D dev_fwnode(dev),
-> +			.size		=3D data->ngpio,
-> +			.hwirq_max	=3D data->ngpio,
-> +			.ops		=3D &pl061_irq_domain_ops,
-> +			.host_data	=3D pl061,
-> +		};
-> +
-> +		pl061->irq_domain =3D devm_irq_domain_instantiate(dev, &info);
-> +		if (IS_ERR(pl061->irq_domain))
-> +			return PTR_ERR(pl061->irq_domain);
-> +
-> +		/*
-> +		 * Registered before the gpiochip so unbind runs it after
-> +		 * gpiochip_free_remaining_irqs(), while the domain is still
-> +		 * alive. devm removes the domain after this action.
-> +		 */
-> +		ret =3D devm_add_action_or_reset(dev, pl061_dispose_irq_mappings, pl06=
-1);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-[Severity: High]
-As reported by Sashiko on v11 [1], does dropping GPIOCHIP_IRQ_RESOURCE_HELP=
-ERS
-from pl061_irq_chip and removing gpiochip_disable_irq() and
-gpiochip_enable_irq() from pl061_irq_mask() and pl061_irq_unmask() introduce
-regressions during device unbind and GPIO direction changes?
-
-Without gpiochip_reqres_irq() and gpiochip_relres_irq(),
-GPIOD_FLAG_USED_AS_IRQ and GPIOD_FLAG_IRQ_IS_ENABLED are never set on the G=
-PIO
-descriptors.
-
-On device unbind while an interrupt is requested (for example via userspace
-cdev edge detection in edge_detector_setup() -> request_threaded_irq() or an
-in-kernel consumer), devm_gpio_regmap_unregister() -> gpiochip_remove() ->
-gpiochip_free_remaining_irqs() only frees descriptors that have
-GPIOD_FLAG_USED_AS_IRQ set:
-
-drivers/gpio/gpiolib.c:gpiochip_free_remaining_irqs() {
-	for_each_gpio_desc_with_flag(gc, desc, GPIOD_FLAG_USED_AS_IRQ) {
-		...
-	}
-}
-
-Because that flag is never set, gpiochip_free_remaining_irqs() becomes a no=
--op
-despite the comment in pl061_probe() above devm_add_action_or_reset(). Next,
-pl061_dispose_irq_mappings() calls irq_dispose_mapping() -> irq_free_desc()
-while desc->action and any threaded handler are still active. This triggers=
- a
-warning in remove_proc_entry() on /proc/irq/<virq> and frees the irq_desc.
-When the consumer later calls free_irq() (such as on closing the GPIO chara=
-cter
-device file descriptor), irq_to_desc(virq) returns NULL, leaking the irqact=
-ion
-and leaving the edge_irq_thread kthread running with a dangling dev_id poin=
-ter
-to the freed struct line.
-
-In addition, without these helpers:
-- gpiochip_lock_as_irq() is not called when an interrupt is requested, so
-  requesting an IRQ on a line configured as a push-pull output is no longer
-  rejected.
-- gpiod_direction_output() no longer prevents switching a line with an acti=
-ve
-  interrupt to output mode.
-- Module reference counting in gpiochip_reqres_irq() and gpiochip_relres_ir=
-q()
-  is bypassed.
-
-Although the commit message compares this with gpio-idio-16,
-gpio-pcie-idio-24, and gpio-104-idi-48, those drivers use fixed-direction
-inputs for their interrupt-capable lines and did not previously use
-GPIOCHIP_IRQ_RESOURCE_HELPERS, whereas PL061 lines have software-configurab=
-le
-direction.
-
-[1] https://lore.kernel.org/r/20261020-cv75-gpio-v11-8-e058bae19571@ambarel=
-la.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-cv75-gpio-=
-v13-0-4f93114ea204@ambarella.com?part=3D10
+Shawn
