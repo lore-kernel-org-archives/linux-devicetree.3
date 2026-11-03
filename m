@@ -1,95 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714551;
-	b=WLHEOTJRgVkh3O9vKCpkWdL2mREtZ+A2mmKwDu+fU9+Xg/6WAoRDw7lOSI3icEjs/PFP
-	 9dS006DZ/mMMBYezFBtGg76/3BoJOfmHS9jpYq1S/K95ObRV4IjwQqm3zJnkxzsW6BYeE
-	 r78FqNYovUYmN4WoGDyVTjY14D0hkjAw4vY3czgpzaShtSG64cVScoMs1KFhtba6HIjP4
-	 Be9SWy9YCG3Hw6L6RHxdw7Sl6cDlHQPI1QdO6KIp9BnTLdcxduJfhqClx9yXlPUoushIX
-	 JD+Vt0e15h7k+F5r65fIEqjm5vq02bPztxlbl3jKotCFi4Zkv7wm3K0SeDjL9tq1vtg==
+	t=1793714613;
+	b=BpZui9FuCPwbF6fDgg8RD6yRg1ScGfORXaGHfDoWe+BUwks5UBw0rz4Nv1wxzCe5WQiS
+	 MTQGF3ZJXRtFc9BFNQhfvEl3116n7LacKETS8VW6yHIhQjnTjxaoBrw/JWTKDNRZcH/Kn
+	 Fd6IgfyrHx5q5RqMS1VwqIDOZQ0OZlBHRj1m1U9LJ8G2Ezt1C8ibcFJoiBiSEhUesJstg
+	 U/ViaE8D0P/4EqYzfKtUs7KVqr/XpoZtFCbFXJTdqj0c4NnP7eu0K8dMI39QrkImSiwPp
+	 cvrZw8e7bPpLkKo7Jm5QzujYCUYb9GKZQwuiSzxnS8j/rB801X+uiQEMNiKDjQNTFuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714551;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=U2kSEVRi2hxXG2GFOz4rcCNrV0dltOZ+Pl3QkTNM8Pc=;
-	b=G23sLFcwAS+JQxlUviwmGm/eyFl1DhOobPcy8+6Ksj3SFgyJ78+hkU3E4phKxYqsxtRy
-	 iHlTA3aRY7gLBbS4KLKYTsQq18pFSNFLCut3KreOUjse8ARTCtdpIaM3yKPQta41Ytek4
-	 49D8BPMmGL5Zmjy4gsLI2lzwXp63SugyqNzK45iDRHkG9KvyV53rDgIb2wM74r4b9+0/p
-	 ixZEfQ/AI9yN/0TbXtplecmS+Q+tXyP0btbI//VNtVGNeKIu44wRaW1puvA7jJyoeevtv
-	 bqsAnmbu3dAJqo/jSGJQmeuQP8kX5jgeyJB51rS6ldOUv5XaC1sFqgk6h1oh72lJjQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714613;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-AI-Review-Draft;
+	bh=3HJX18ykscvO3Ox8qDgd1rJ1bwooSHpiMGqMiZwMMMg=;
+	b=PnmCGQKNBS46peh4x0USb+IWd9yVaz9MIT9QyIYi+Jlun3IVpw5XVMUTTMVw6T+7O8Ae
+	 +rxyISGVvpUQLcLTfUmVWskpYOlYBNuEtHrvXikQKlTUXV+ApoOojSbXKcljvLdapLIk4
+	 RZg2cS0wATglNXTXNXiAqv/8GlVcMw/RsuF9Ss+OFp484djegvJStjeUet/YQcC3C4r1B
+	 YzW2iSAMnhcwXg0ew4baJmUWeQCj/trd9mtNO4Pe8SqMnAYYyG7YJ7Utd/b5zlqpYsZBi
+	 lmfVAprbqK7wJV0+tSdYb5oJR87wZ+FMdYrZrnMLCEhDxSTXM4ZGesmvkVsoyL+fIoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dIF4YyTT;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+25HXE5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FB660A2600;
-	Tue,  3 Nov 2026 14:02:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0FB660A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0933D60A5BC5;
+	Tue,  3 Nov 2026 14:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dIF4YyTT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793714550; x=1825250550;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=21/dBFytCw06WfTSnztehqTIWH3fJ3UemgDQsPHVjOg=;
-  b=dIF4YyTTboUQu6daqPnfWosES/Wzgd0ka1i2WrKovstKerg+u4FtzG4W
-   ttQS8E85prPFCELWsKszsgi09I5X3USCSH0r4zMDZSHXynHAQZEFwibTy
-   EpHSa8vFjcnNJKR1I/Soj2WxKNs6XilV1IIWKgxlNIfcgHLFpac7mnggK
-   TR+eTILL25+7ql4HtU9DCZzYKL7YAzD15JC/ya1qxfLYgbsi/8d0biyRR
-   iz/l4jYyi826GrAiGW0zCimDhckuksSKdXGcQlUJN//d+Y9BiWkgUaQgV
-   zaIafSor9ZznlTRH8+w/7F4J/B65TDKNZpffhxYETYir1R88hxnywispV
-   A==;
-X-CSE-ConnectionGUID: FEUajjFKQWGnblCjvwe6UQ==
-X-CSE-MsgGUID: 4sVGRYX/RgiZYwIxPKcagQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2329165"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2329165"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:02:29 -0800
-X-CSE-ConnectionGUID: Y42j3A5eTQ6QKttsrzyCkA==
-X-CSE-MsgGUID: 5M+a3Yp+QLeE0Ajy1Oi1EA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6755557"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 03 Nov 2026 06:02:23 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOF5g-00000000ioO-0URQ;
-	Tue, 03 Nov 2026 14:02:20 +0000
-Date: Tue, 3 Nov 2026 22:01:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H+25HXE5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1231F000C1;
+	Tue,  3 Nov 2026 14:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714612;
+	bh=3HJX18ykscvO3Ox8qDgd1rJ1bwooSHpiMGqMiZwMMMg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H+25HXE5bQpX4SO6gYb6lfNqegbOjuTEPRjDTsov3P5/8PY3O6+yCpLEnoRuWG2cM
+	 R3F3IONKnEja1N07TiEc6wZb4sxxfAXv3QJOyoahBKWyL8AT1B0J4aluBdr55LSvRH
+	 xJt10MUkc/KbiXXgzOc6meqOQUJ/Q8e8yza3gfKJKcK01aeuKZdv5AzBl0LDpqJia+
+	 uMy57b7+9YkgVs4PG20ToXl7VRPeRxdXFeXLJyV2nCgAmoAc3AEn0OBDLhfRvh+QuO
+	 rzrDuT1Q/ok87SlSTgdOHGi/J3hEIU1SJDIZf3NaxSJJmJrje95+ccNgkVzajP3lA7
+	 06lV6qUKJ+t1g==
+Date: Tue, 3 Nov 2026 14:03:26 +0000
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Larisa IIeana Grigore <larisa.grigore@nxp.com>, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-tegra@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v3 6/7] dmaengine: fsl-edma: support per-channel DT child
- nodes
-Message-ID: <202611032138.hVbEmkem-lkp@intel.com>
-References: <20261102-edma-iommu-v3-v3-6-9d0e62a954eb@Example.Com>
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+	Ion Agorria <ion@agorria.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	Florian Krischer <florian.krischer@fkr.dev>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, mfd@lists.linux.dev,
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v12 5/7] leds: Add driver for ASUS Transformer LEDs
+Message-ID: <179249575817.1833288.1089755405582445022@kernel.org>
+References: <20261019100406.103687-1-clamor95@gmail.com>
+ <20261019100406.103687-6-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,34 +66,220 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261102-edma-iommu-v3-v3-6-9d0e62a954eb@Example.Com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261019100406.103687-6-clamor95@gmail.com>
+X-AI-Review-Draft: <20261019100406.103687-6-clamor95@gmail.com>
 
-Hi Peng,
+On Mon, 19 Oct 2026, Svyatoslav Ryhel wrote:
+> From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+>
+> ASUS Transformer tablets have a green and an amber LED on both the Pad
+> and the Dock. If both LEDs are enabled simultaneously, the emitted light
+> will be yellow.
+>
+> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> ---
+>  drivers/leds/Kconfig                    |  11 +++
+>  drivers/leds/Makefile                   |   1 +
+>  drivers/leds/leds-asus-transformer-ec.c | 125 ++++++++++++++++++++++++
+>  3 files changed, 137 insertions(+)
+>  create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index 7ec2c8d785426..788e689fe875c 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -120,6 +120,17 @@ config LEDS_OSRAM_AMS_AS3668
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called leds-as3668.
+>
+> +config LEDS_ASUS_TRANSFORMER_EC
+> +	tristate "LED Support for Asus Transformer charging LED"
+> +	depends on LEDS_CLASS
+> +	depends on MFD_ASUS_TRANSFORMER_EC
+> +	help
+> +	  This option enables support for charging indicator on
+> +	  Asus Transformer's Pad and its Dock.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called leds-asus-transformer-ec.
+> +
+>  config LEDS_AW200XX
+>  	tristate "LED support for Awinic AW20036/AW20054/AW20072/AW20108"
+>  	depends on LEDS_CLASS
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 4d4b089156e24..3da746279bb81 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_LEDS_ADP5520)		+= leds-adp5520.o
+>  obj-$(CONFIG_LEDS_AN30259A)		+= leds-an30259a.o
+>  obj-$(CONFIG_LEDS_APU)			+= leds-apu.o
+>  obj-$(CONFIG_LEDS_ARIEL)		+= leds-ariel.o
+> +obj-$(CONFIG_LEDS_ASUS_TRANSFORMER_EC)	+= leds-asus-transformer-ec.o
+>  obj-$(CONFIG_LEDS_OSRAM_AMS_AS3668)	+= leds-as3668.o
+>  obj-$(CONFIG_LEDS_AW200XX)		+= leds-aw200xx.o
+>  obj-$(CONFIG_LEDS_AW2013)		+= leds-aw2013.o
+> diff --git a/drivers/leds/leds-asus-transformer-ec.c b/drivers/leds/leds-asus-transformer-ec.c
+> new file mode 100644
+> index 0000000000000..1b129247ea6c6
+> --- /dev/null
+> +++ b/drivers/leds/leds-asus-transformer-ec.c
+> @@ -0,0 +1,125 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#include <linux/err.h>
+> +#include <linux/leds.h>
+> +#include <linux/mfd/asus-transformer-ec.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/slab.h>
+> +
+> +enum {
+> +	ASUSEC_LED_AMBER,
+> +	ASUSEC_LED_GREEN,
+> +	ASUSEC_LED_MAX
+> +};
+> +
+> +struct asus_ec_led_config {
+> +	const char *name;
+> +	unsigned int color;
+> +	u64 ctrl_bit;
+> +};
+> +
+> +struct asus_ec_led {
+> +	struct asus_ec_leds_data *ddata;
 
-kernel test robot noticed the following build errors:
 
-[auto build test ERROR on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
+Why do we need 'struct asus_ec_leds_data' at all?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Peng-Fan-OSS/dmaengine-fsl-edma-unregister-channels-before-vchan-cleanup/20261102-144955
-base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-patch link:    https://lore.kernel.org/r/20261102-edma-iommu-v3-v3-6-9d0e62a954eb%40Example.Com
-patch subject: [PATCH v3 6/7] dmaengine: fsl-edma: support per-channel DT child nodes
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20261103/202611032138.hVbEmkem-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611032138.hVbEmkem-lkp@intel.com/reproduce)
+If we put 'const struct asusec_core *ec;' directly into 'struct
+asus_ec_led', we can drop the outer wrapper struct and the back-pointer
+completely.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611032138.hVbEmkem-lkp@intel.com/
+> +	struct led_classdev cdev;
+> +	u64 ctrl_bit;
+> +};
+> +
+> +struct asus_ec_leds_data {
+> +	const struct asusec_core *ec;
+> +	struct asus_ec_led leds[ASUSEC_LED_MAX];
+> +};
+> +
+> +static const struct asus_ec_led_config asus_ec_leds[] = {
+> +	[ASUSEC_LED_AMBER] = {
+> +		.name = "amber",
+> +		.color = LED_COLOR_ID_AMBER,
+> +		.ctrl_bit = ASUSEC_CTL_LED_AMBER,
+> +	},
+> +	[ASUSEC_LED_GREEN] = {
+> +		.name = "green",
+> +		.color = LED_COLOR_ID_GREEN,
+> +		.ctrl_bit = ASUSEC_CTL_LED_GREEN,
+> +	},
+> +};
+> +
+> +static enum led_brightness asus_ec_led_get_brightness(struct led_classdev *cdev)
+> +{
+> +	struct asus_ec_led *led = container_of(cdev, struct asus_ec_led, cdev);
+> +	const struct asusec_core *ec = led->ddata->ec;
+> +	u64 ctl;
+> +	int ret;
+> +
+> +	ret = asus_dockram_access_ctl(ec->dockram, &ctl, 0, 0);
 
-All errors (new ones prefixed by >>):
+As requested on v6 and v8, why are we still using this bespoke accessor instead
+of Regmap?
 
-   ld: drivers/dma/fsl-edma-main.o: in function `fsl_edma_child_to_chan_id.isra.0':
->> fsl-edma-main.c:(.text+0xa99): undefined reference to `__udivdi3'
+> +	if (ret)
+> +		return LED_OFF;
+> +
+> +	return ctl & led->ctrl_bit ? LED_ON : LED_OFF;
+> +}
+> +
+> +static int asus_ec_led_set_brightness(struct led_classdev *cdev,
+> +				      enum led_brightness brightness)
+> +{
+> +	struct asus_ec_led *led = container_of(cdev, struct asus_ec_led, cdev);
+> +	const struct asusec_core *ec = led->ddata->ec;
+> +
+> +	if (brightness)
+> +		return asus_dockram_access_ctl(ec->dockram, NULL,
+> +					       led->ctrl_bit, led->ctrl_bit);
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Use 100-chars throughout to prevent early wrapping.
+
+> +	return asus_dockram_access_ctl(ec->dockram, NULL, led->ctrl_bit, 0);
+> +}
+> +
+> +static int asus_ec_led_probe(struct platform_device *pdev)
+> +{
+> +	const struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
+> +	struct asus_ec_leds_data *ddata;
+> +	struct device *dev = &pdev->dev;
+> +	int ret;
+> +
+> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+> +	if (!ddata)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, ddata);
+
+What consumes this?
+
+> +	ddata->ec = ec;
+> +
+> +	for (int i = 0; i < ASUSEC_LED_MAX; i++) {
+
+`i` isn't just a random iterator here - maybe call it `led`?
+
+> +		const struct asus_ec_led_config *cfg = &asus_ec_leds[i];
+> +		struct asus_ec_led *led = &ddata->leds[i];
+> +
+> +		led->cdev.name = devm_kasprintf(dev, GFP_KERNEL, "%s:%s",
+> +						ddata->ec->name, cfg->name);
+> +		if (!led->cdev.name)
+> +			return -ENOMEM;
+> +
+> +		led->cdev.max_brightness = 1;
+> +		led->cdev.color = cfg->color;
+> +		led->cdev.flags = LED_CORE_SUSPENDRESUME | LED_RETAIN_AT_SHUTDOWN;
+> +		led->cdev.brightness_get = asus_ec_led_get_brightness;
+> +		led->cdev.brightness_set_blocking = asus_ec_led_set_brightness;
+> +
+> +		led->ddata = ddata;
+> +		led->ctrl_bit = cfg->ctrl_bit;
+> +
+> +		ret = devm_led_classdev_register(dev, &led->cdev);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to register %s LED\n",
+> +					     cfg->name);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct platform_driver asus_ec_led_driver = {
+> +	.driver.name = "asus-transformer-ec-led",
+
+Clever!  But, I'd prefer we still to the usual format to be honest.
+
+> +	.probe = asus_ec_led_probe,
+> +};
+> +module_platform_driver(asus_ec_led_driver);
+> +
+> +MODULE_ALIAS("platform:asus-transformer-ec-led");
+> +MODULE_AUTHOR("Michał Mirosław <mirq-linux@rere.qmqm.pl>");
+> +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
+> +MODULE_DESCRIPTION("ASUS Transformer's charging LED driver");
+> +MODULE_LICENSE("GPL");
+> -- 
+> 2.53.0
+>
+
+-- 
+Lee Jones
