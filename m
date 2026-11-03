@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701822;
-	b=tuWFuXfP8I/k4tNzThL58ZAIfNlu3i4Z82l2Gjt+z0Ue5cQSkgx8OOYd34hj5i3KjP0q
-	 7gqw7oTnVUXWcCg1X0TjyDqW32PIDLv3nR7CmlgPK//bTE1pON295LjZLzsH47aWRed18
-	 vZMADVs0vss7lNHeLvUUM2dnrbQBQrrmrjR/A0sCKWtfNXtGa0KQtEbmnffia4azjjnYt
-	 t2OM23XCIlUobUoI2DR01RwYw76rOHOvxzX/jvqegzD6FD6rQ4AY/BVaREKMXUk7WOuzF
-	 ww03LP664Ltl3aYBWn3308YJP3RqwzCt1bAAbSwShoMwpp+tQQ5hZreQXJQ5munxptA==
+	t=1793701918;
+	b=Yy7Pivv0yM3vFT6YBaLvQCAhlwshC78QYYMMWBpPJg1FCPVLNNgXF2/rN0xg8JKFAFNi
+	 FuIBYb0jUdmuy+EGBsqrZZy7ebnfXdSemwgN98Q0gpRmQFmD00N0inVE918tYi2fHgSfw
+	 004Hssn6VOm9TkCBkJ6xPUVWxQ2Q9iWM1cJqZqauOLdOke1PZSLo6NSFRoyV7calSnDeN
+	 NB/VDT1oJ5g5zapGutGLA/MY2E3u3O2zsrqLQ0hA5LsI6VQCloxSb1bQpoyO80toppwLp
+	 hoVUigTtbnW4mGwzoEBgHfU6oVvbocV9hV7Xw7DLzaRfbV4IfRV4/i6JS62/LasJtyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701822;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701918;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=cS9be5BNblTcpaFLs7pFkLhSzIti9qF+o9j0kW9uoVk=;
-	b=prDKSL3uMkwMVK4FUpO/8IRATtd34FCP+PPGx4Dk6CF2blmEM8k7Rf9ij4ATL9hQFUsE
-	 zZlD7PnTaSaNZGhkOB9Lwx4ly9U4XeCcYboZByaVB08gmAgTiBvUZLjeCCyzC1cOGJXs0
-	 q/UMoHKbY8eNpcgGnQ2FQYKRSjMz57dCZX3GHoOKPvGhR2zp/30ZiV5P1dVwJTBM7MEIX
-	 eE8riwDKdIXX4Lqony9l+CXGF9ZQS1iCpmQGGz2+o1+RShhWcoZAj8sQ/khWV7uRhD2ia
-	 V3N2Fw8o8E/fZnZPOIfY1hUaFaS+Fd0aTFWOHej2GYTZjb4v7AHDwMvAVh+RFtrLDDw==
+	bh=+YUUo+ozWrhoL04CCUSKDN6tzUMAOiODdsNzEJG8KPY=;
+	b=RKu7hKTSshtb9a9q3M3SgoYHw3CC2h9Hkr3YFZKQvffIvH7eQQWJJqDCxOJvsjdDAYas
+	 SrOZKi12JGKJbvOs6Xopngv5wd4FgMR/GPF8f7CMWnuZOKfEQHfRjBW5i2QPhGMB3fogB
+	 F0hUhjibtMZLADkrgVvK5sNryFZdBrdIGZZeU5gOiK1QgKrri485fCldv2zjV9OVx8QV9
+	 y0Stk5hz6TsQY89eACCajTavuxF/irEJsE3C6AqVOUGmWafirBAAUtp1a7xVWTe1gUMQ3
+	 Ld6wdERfOXh0u0cY5XS948iGa58PdzEDsOWutycSx6GrYzaqfmvUKX6zWtw+SsDRPLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICKHSy2y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDnv98DE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57A4606A802;
-	Tue,  3 Nov 2026 10:30:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11B7606B13A;
+	Tue,  3 Nov 2026 10:31:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ICKHSy2y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DFBD1F0093A;
-	Tue,  3 Nov 2026 10:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDnv98DE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ADF51F000C1;
+	Tue,  3 Nov 2026 10:31:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701821;
-	bh=cS9be5BNblTcpaFLs7pFkLhSzIti9qF+o9j0kW9uoVk=;
+	s=k20260515; t=1793701917;
+	bh=+YUUo+ozWrhoL04CCUSKDN6tzUMAOiODdsNzEJG8KPY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ICKHSy2yZpwKGnO5I3FAHYazCgrvmea7ZVrKynVTIaR8Z8hunL6I5ZZdMUVuCOXQJ
-	 +sZuG60cHBDKhmOtPJ0LkDXc5oGJM8ERboFwhMoBricXP0KxatwdAFD1zPFix6jfy4
-	 W8kouw8GNqgTQqKrzzTm4K7Nch954GwrWcGA1f8oy0bVB/sqfEnlajWod8XOAwvjgi
-	 nrF0OLL11LPBmabS0lTKwWDZ/jebQbzwzFVGiSC2zVJYv9P13ig7xJC0MYo38Io9Y0
-	 l4V8dsGGtXdJQExWF3yb1DVe94SQAjrZ5tZPoYXrDtd/WMvg09b7tRYEa2WJxZD8jh
-	 IcwtflQI7bnsg==
-Message-ID: <sashiko-outbox-195053@kernel.org>
+	b=jDnv98DEg9N5BzAPFCobcUYchY2ifS/BVq5Hme2oDmg+K0UUpZ+KBzasvET/IxFwL
+	 oV6EeUaeOi4ZIznBk9KtVGPkfSMdhDzr1SBf7TwTgbzeav1F8FLI+Yi+6v4dVNxjI6
+	 xnwvdTRIrnhJPgxsk/8eV+nuSaF5gvG12yFX7MoK2JhYLUfuunOfg68KsoevgTvP7x
+	 kzw8RDFdV/+T0dJyv4pXhcIS2OUzVTNF9y4Yh5gyJT7V0+AvtND2go0bcDCc+F2ooC
+	 xEVUJb/ofaaa6Dlv7fCv3iO9h83Wws3sMzUa4rYAlNE16RvDmGSCJImD+/pIVt6W6e
+	 osVpLkn1mb0bw==
+Message-ID: <sashiko-outbox-195055@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 RESEND 3/8] dt-bindings: pinctrl: Add
- starfive,jhb100-adc1-pinctrl
+Subject: Re: [PATCH 05/13] drivers/perf: apple_m1: Use macros for
+ per-implementation init functions
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103102236.96872-4-changhuang.liang@starfivetech.com>
-References: <20261103102236.96872-1-changhuang.liang@starfivetech.com>
- <20261103102236.96872-4-changhuang.liang@starfivetech.com>
+To: "Myria Sarvay" <myrialsarvay@gmail.com>
+Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103-m3-plus-pmu-events-v1-5-a8eb6c1139fe@gmail.com>
+References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
+ <20261103-m3-plus-pmu-events-v1-5-a8eb6c1139fe@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 10:30:20 +0000
+Date: Tue, 03 Nov 2026 10:31:56 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,67 +61,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] dt-bindings: pinctrl: starfive,jhb100-adc1: reset order mismatch
+- [Low] drivers/perf: apple_m1: unused macro m2_pmu_init_pmceid aliases rem=
+oved symbol
+- [Low] perf: apple_m1: redundant macro aliasing and duplication in APPLE_P=
+MU_INIT()
 --
 
-commit 4c932bf5e112630c79796db81f0b0cecf418f57b
-Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+commit b798f559facbfb19db0eef028f7f7e42ebc0042c
+Author: Myria Sarvay <myrialsarvay@gmail.com>
 
-dt-bindings: pinctrl: Add starfive,jhb100-adc1-pinctrl
+drivers/perf: apple_m1: Use macros for per-implementation init functions
 
-This commit adds the Device Tree binding schema for the StarFive JHB100
-SoC ADC-1 pin controller.
+This commit replaces the per-core-family PMU initialization functions in
+drivers/perf/apple_m1_cpu_pmu.c with an APPLE_PMU_INIT() macro and adds
+compatibility macro aliases for M2 callbacks and attribute groups.
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-ad=
-c1-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100=
--adc1-pinctrl.yaml
-> new file mode 100644
-> index 0000000000000..6f1486b4a8bdf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-adc1-pinc=
-trl.yaml
+> diff --git a/drivers/perf/apple_m1_cpu_pmu.c b/drivers/perf/apple_m1_cpu_=
+pmu.c
+> index a14864263bf1f..e7e9b51ffadcc 100644
+> --- a/drivers/perf/apple_m1_cpu_pmu.c
+> +++ b/drivers/perf/apple_m1_cpu_pmu.c
+> @@ -653,71 +653,40 @@ static int apple_pmu_init(struct arm_pmu *cpu_pmu)
+>  }
+> =20
+>  /* Device driver gunk */
+> -static int m1_pmu_ice_init(struct arm_pmu *cpu_pmu)
+> -{
+> -	cpu_pmu->name =3D "apple_icestorm_pmu";
+> -	cpu_pmu->enable		  =3D m1_pmu_enable_event;
+> -	cpu_pmu->get_event_idx	  =3D m1_pmu_get_event_idx;
+> -	cpu_pmu->map_event	  =3D m1_pmu_map_event;
+> -	cpu_pmu->set_event_filter =3D m1_pmu_set_event_filter;
+> -
+> -	cpu_pmu->map_pmuv3_event  =3D m1_pmu_map_pmuv3_event;
+> -
+> -	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_EVENTS] =3D &m1_pmu_events_attr_=
+group;
+> -	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_FORMATS] =3D &m1_pmu_format_attr=
+_group;
+> -	return apple_pmu_init(cpu_pmu);
+> -}
 
 [ ... ]
 
-> +  resets:
-> +    items:
-> +      - description: ADC1 IOMUX
-> +      - description: ADC1 core
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    soc {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        pinctrl_adc1: pinctrl@11bc2c00 {
-> +            compatible =3D "starfive,jhb100-adc1-pinctrl";
-> +            reg =3D <0x0 0x11bc2c00 0x0 0x400>;
-> +            clocks =3D <&per2crg 68>;
-> +            resets =3D <&per2crg 12>,
-> +                     <&per2crg 13>;
+> +#define APPLE_PMU_INIT(gen, family)								\
+> +static int gen ## _pmu_ ## family ## _init(struct arm_pmu *cpu_pmu)				\
+> +{												\
+> +	cpu_pmu->name			=3D "apple_" #family "_pmu";				\
+> +	cpu_pmu->enable			=3D gen ## _pmu_enable_event;				\
+> +	cpu_pmu->get_event_idx		=3D gen ## _pmu_get_event_idx;				\
+> +	cpu_pmu->map_event		=3D gen ## _pmu_map_event;				\
+> +	cpu_pmu->set_event_filter	=3D gen ## _pmu_set_event_filter;				\
+> +												\
+> +	cpu_pmu->map_pmuv3_event	=3D gen ## _pmu_map_pmuv3_event;				\
+> +												\
+> +	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_EVENTS] =3D &gen ## _pmu_events_=
+attr_group;	\
+> +	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_FORMATS] =3D &gen ## _pmu_format=
+_attr_group;	\
+> +	return apple_pmu_init(cpu_pmu);								\
+> +}
 
 [Severity: Low]
-In Documentation/devicetree/bindings/pinctrl/starfive,jhb100-adc1-pinctrl.y=
-aml,
-properties.resets defines the first entry as ADC1 IOMUX and the second entry
-as ADC1 core, whereas the example lists <&per2crg 12> followed by
-<&per2crg 13>.
+This isn't a bug, but APPLE_PMU_INIT(gen, family) expands all seven callback
+and attr_groups assignments into every per-family init function (such as
+m1_pmu_icestorm_init() and m1_pmu_firestorm_init()), even though core
+families within the same generation only differ in cpu_pmu->name.
 
-In include/dt-bindings/reset/starfive,jhb100-crg.h, those reset indices are
-defined in the opposite order:
+Because APPLE_PMU_INIT() unconditionally token-pastes gen ## _pmu_* for
+every field, any generation that shares callbacks or attribute groups with
+an earlier generation also requires a block of #define aliases to satisfy
+token pasting (including in subsequent patches for m4 and a18).
 
-    #define JHB100_PER2RST_ADC1_PRESETN			12
-    #define JHB100_PER2RST_ADC1_IOMUX_PRESETN		13
+Would it be cleaner to follow the pattern in drivers/perf/arm_pmuv3.c
+(PMUV3_INIT_SIMPLE calling armv8_pmu_init), or have per-generation init
+helpers called by a small per-family wrapper that only sets cpu_pmu->name,
+to avoid both the #define alias blocks and the repeated per-family
+assignments?
 
-Are the reset descriptions in properties.resets.items or the reset indices =
-in
-the example reversed?
+> +
+> +#define m2_pmu_enable_event		m1_pmu_enable_event
+> +#define m2_pmu_get_event_idx		m1_pmu_get_event_idx
+> +#define m2_pmu_set_event_filter		m1_pmu_set_event_filter
+> +#define m2_pmu_map_pmuv3_event		m1_pmu_map_pmuv3_event
+> +#define m2_pmu_init_pmceid		m1_pmu_init_pmceid
+
+[Severity: Low]
+Is m2_pmu_init_pmceid needed here?
+
+Earlier in the series ("drivers/perf: apple_m1: Support per-implementation
+event tables"), m1_pmu_init_pmceid() was replaced by apple_pmu_init_pmceid(=
+),
+which is called directly from apple_pmu_init():
+
+static int apple_pmu_init(struct arm_pmu *cpu_pmu)
+{
+	...
+	apple_pmu_init_pmceid(cpu_pmu);
+
+	bitmap_set(cpu_pmu->cntr_mask, 0, M1_PMU_NR_COUNTERS);
+	return 0;
+}
+
+APPLE_PMU_INIT() does not reference gen ## _pmu_init_pmceid, so
+m2_pmu_init_pmceid (and a18_pmu_init_pmceid in "drivers/perf: apple_m1: Add
+Apple A18 Support") is unused and aliases a non-existent symbol. Can this
+macro definition be dropped?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103102236.9687=
-2-1-changhuang.liang@starfivetech.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-m3-plus-pm=
+u-events-v1-0-a8eb6c1139fe@gmail.com?part=3D5
