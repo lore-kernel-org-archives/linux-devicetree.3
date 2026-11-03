@@ -1,58 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793715351;
-	b=CIMbWwnUXAWgKZ7njm7jwD5eJ9dYC9birW9lbOt8cPSV4QTm81+flxlqkVgiiDof7G5i
-	 QtHEW1GMX7qt5YIfSm8utdViSjY8Y8PVhWRjL3tXGaJTy3TrtemzzvJ3MLYCiVy/lVHsR
-	 SVqTBxVyznYx06dAW++dC0zXJSPf6sE3HKGWRDS/lrDYBTQcuL2o0/v83l0NAnpeFne3F
-	 Q9iNpihGe6Kftu0qSVgpQozi8akNzffY+1rpUQtwUl2D2tncwZcsb7pcBHVpJ6hG5oMcP
-	 WdAq06bZpxLYbGLll+ky4IomRiWsAP3ZTyAS1/ygdJwKdJ6zgdjpOhTV7STs2SUcnlQ==
+	t=1793715546;
+	b=kLGEyGd6Xf+KPr9oXVtJu3GGsx0oLeWjdDEK9bhXPamt3gJ8weSnvBpLpCpqdlSUjaJ2
+	 uXeZxZWEi/17Som0s5kxlMvU12wa2N7moeS+WsqhDcVkarHXQ2AVB3Y2MyXf6ImvDaZlY
+	 k3PhbyhQ2vBpa4dpou02FLjKKmrNE9Q0M2kCviSnaoUktPDp7RHgtgUo28LO5kwEmDwIA
+	 fnQr56CU+XyvTogeLLBhXrKIFE7t6SVos9mrPdJVYx9Fq9W0ZPsa0MZBzTD64DC1xFx+n
+	 OTCKU/HPtmdM4E0fGztAJhXXxMqutvxZnVPzFBtzEBboVUFXUkENB/DpbBHeSDzg13g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715351;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xEksWo7GlN0d12eDs55ivgjRN/CX83ariJNLMru8Xao=;
-	b=wRyC/mptsvCHt1ws3/6cRj0L+zc6ZGedQZQPqb/Y/yRl5cyjIDKz9fH1RGG3AQOqttS4
-	 1zqxbqLlpnhOP3E2TwM6NtmpAf6W0pr0Qr0r4B1+QhCT6znLTo9NWVHiZHpGRrFC0nzP8
-	 0RWGP/PKsTQ8orS4FXhg+qgHaXDAT3E1nKpawJiKrQ9SK4CunpYbjLSNkm+La49tzqBAp
-	 wScnNWeE3s6kv3ki4/tmq39Lzhwo2T/ttCtZiqcRxjgkIzG6hcr5VPUs875kHcbzoLHpp
-	 7Esg45L+Ss9z4tzEpcmrTxAZYHyjCTwuvISVUE4TSTWCZnlTiPahyD2wDpitwK5kuTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715546;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3S0r6B204EHHeKzI68P1lldrfNMyDu9t5rxXVOUyz+4=;
+	b=G4hsX+y1LiR47onnEThR5dIFR5d+r7/+HEOPlVPJoDBCjcc/7oTi8y5Kk3xCFsAJLhkX
+	 rI6LcAPozZ5Nf8uDsNjLehMlLOgMa8Dpz6UleIYts86vsiwzj8kahSTQ4dnbROmN3wqcE
+	 YNjyW9D6AxRlPqtvgu2qtE8Uoiv74RUqoO000WdjWJVvWkQBcO1n8uIz7XAmgkJzJHOEU
+	 Zk6oJUqravTW0OKL8RH0ZftCPjdhMxgMC7esgRER1LQvN1vliVoL4wgZ0wKZqzn6ovulc
+	 HrWQNofxr4Utr6xwahxLUba2zBUAZbCM8U7c/345FdXGA4ZRvb+8ddpxwHataLfn4Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yYtvK7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IbjsmXij;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LCCnl+JS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2F9606A329;
-	Tue,  3 Nov 2026 14:15:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7FD606A32C
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:19:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB7FD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7yYtvK7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73541F000C1;
-	Tue,  3 Nov 2026 14:15:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793715351;
-	bh=xEksWo7GlN0d12eDs55ivgjRN/CX83ariJNLMru8Xao=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H7yYtvK7aiFHZiEDq2B8+XBZxTL5hcX2J5E3lKDaz+oUGpAZ8w2BTdCkjxlubDD8w
-	 FQaOfbZgLqYNhAJrkNBn2y04FSKLxN6L7aZwz8sLNnnvowKwBP29B2+1PS0y4vMwru
-	 UEThurXYzWSMZL56avKMLMW9UMlLe3iTAoBOOhFCL/NcgHDg0HM1y0p+vCKyxKyhw3
-	 Tcwa1MbEWcg8oZ0a2zVIAPnxiMFL9ugNlbyQ/k7Su8tdwmFjiYKVx0fSJf/zBETIQ2
-	 1z0rTqmP00tHQ8QynWCbg9ivUr/o5kd5C/78Enu7fc6+QVhiFyoNntfTPaaoEvUu3K
-	 DVNRuTMD09Mqg==
-Date: Tue, 3 Nov 2026 14:15:46 +0000
-From: Daniel Thompson <danielt@kernel.org>
-To: rva333@protonmail.com
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 2/2] backlight: add ktd3137 support
-Message-ID: <aunskqwg_CbpBL49@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
- <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IbjsmXij;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LCCnl+JS
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EAMwS1453481
+	for <devicetree@vger.kernel.org>; Tue, 3 Nov 2026 14:19:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=3S0r6B204EHHeKzI68P1ll
+	drfNMyDu9t5rxXVOUyz+4=; b=IbjsmXijZsAVSSS5s1JovtdiZOPSJ34rLnLdvH
+	rJGeFUyCqpXuvetCm3KjWpLAv7B7FbIjPuSWdTaVABNBz3Y8Oz5eIEL/NlUawPqr
+	H2FLjF6qpBFLwFlMfKB9t8c2xuljzdiEktYDEa7z9bF64NNJWyCWZbOmc7QZMVH4
+	sfYr8eQ1wC7dCziq1f5WSBGmwBKpL/ZsYFAERxgsvW7fFsQpAgPKlKhMqNgFZYNC
+	BANtA2iAojHZWbPZjtqgqB5UTmNYnpmZrDTrzSUAuiBDc1Wp0tcXVkh+iVW/W56g
+	5QfpfJ/KbYr17n00wmMtdJyJ3aHMBMfTljUBX5WsI88oUcvw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07em4ds-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 14:19:04 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd5fd34fee0so2435502a12.3
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 06:19:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793715544; x=1794320344; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3S0r6B204EHHeKzI68P1lldrfNMyDu9t5rxXVOUyz+4=;
+        b=LCCnl+JSJQE8IKQe3S0PH4B1trnPt+2j3DidmTOHRhxfcpYzhf6lR6cs9xkIFuquVw
+         uoGlb3STLrMUekKHBm38hQX/vSwaJnaTZdiU9RptaMLcB/BGTAS2RjKLZ7OlA5oED8pO
+         3zWn7GW/S8mkzmuEmrGJ0yYMWuP5C4bTQgXk1bEyUEeGH3rUAYhHSi2JzlyLAEOC8WxH
+         HxyMtFR4VtRykwJY8jLgQxP3UfyMdiL1/Eyztv9K+gVZTza/NiPIZiNxa3xJ+iyWc4kr
+         Pu4V5lflwG9fnIc5Lm5AM0OzZ9kG1pE7egk/cCUU564HQ88RoUH6+t7ZKIekrrABDQAi
+         sI0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793715544; x=1794320344;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3S0r6B204EHHeKzI68P1lldrfNMyDu9t5rxXVOUyz+4=;
+        b=BXhjet+AJ6lU8LBcGniK6H0C6wKdXt+nodsnQF7eNCmM+KuVjqtCsIbb8F63MCWGgX
+         cLCBiVp2APUXl7DsN4opvW3PvtwPtlwl6qQXZuTmKWku/NprIG6p95n/k+L8JwsCtAzz
+         eFlwtXM5ckOQl9vpyVIbKYxiM25mj+6QMgDQeGhqRX4kC+EHa9hJgzqd9UET+rwOJGAC
+         fAkCfPR/y70ThePpV8BfLJwhOIScmKw8hDbLxAUSqiGr3aAsAeoY3XwvJO7Z7DaB/wU1
+         8N9IwXbkkhg8tCHFGb5V/CbkpZgcNWFuIVv0u1iRa5eFK23sxwTj2K/tfk8QBD8yy0IN
+         bf0w==
+X-Forwarded-Encrypted: i=1; AKwUvBw0EEj3HmHTrAY2/ioTCrLUp3LuDlwdxRbeXGcNX/9of1TJFG8ox+D+wBqR9KiMsAJI73g7zDKkE5Ny@vger.kernel.org
+X-Gm-Message-State: APuU4Z8EnSBszPL33dHWrDK+LB9ZNe+5uRz+/mKm/JjaQuNmfC9RKBn1
+	m7p69fxTzXYsDnmqNLD6uG5jov/Zn54N9gJWwyXXtHa1nTngWGRBuq1qOtnw5YRT10c0Eg1EoQ+
+	aktK924WRTpNNLGI3arMcjSOw08fqmEB7TpprBatB3TBCN2zq1oHQt56LVhY19YCc
+X-Gm-Gg: AYBFou0w151Am1xcwWXyhglov9Pga+ecfsxkXz6eYaFx455aJyku3t0btGh6JFRTfll
+	c0uR+0wjuZs/Yt1P0qktRzWCg6/bjsHbt8OP6QWXaYsWHSczSykv9zWmBuNd+ZjGs4dZz22xDWL
+	Y6YL9M1KhMH4yTp4uhelOgPQ/4KjE/xwa9k6a7uhCRgmn+7KLJcjsFUJQDEiebgC6PEleaxsYN7
+	COP0uZo4o90MafraOL38W5fY8uaW34G87JifyxXBljN97Kd48/k6ePHQNpuiv5ASNVGas3bi48p
+	q6Xpr0dl++Mm4ZxaApqbA99TYnwzwFSx3F+B/BHrRVaGQ0yGB0j62qJGvK94NZ7eHC2170+Hx9W
+	2lCIMCMHP6CBAfzqinUeZH7q7hgjV2nS+hqhhR0nuVAtA5+lg4HgHm7o5NB7AH5OvFgs7+T1UJZ
+	3gt2GbmUgX
+X-Received: by 2002:a17:90a:c2d0:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae8981bf57mr9838896a91.35.1793715543970;
+        Tue, 03 Nov 2026 06:19:03 -0800 (PST)
+X-Received: by 2002:a17:90a:c2d0:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae8981bf57mr9838876a91.35.1793715543484;
+        Tue, 03 Nov 2026 06:19:03 -0800 (PST)
+Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb36468be4sm1442126a12.12.2026.11.03.06.18.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:19:03 -0800 (PST)
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Subject: [PATCH net-next v4 0/2] net: wwan: qcom_bam_dmux: Add restricted
+ DMA pool support
+Date: Tue, 03 Nov 2026 19:48:40 +0530
+Message-Id: <20261103-qcom-bam-dmux-vmid-ext-v4-0-3690cc5ca0fd@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,194 +116,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEHt6WoC/4XNwW7CMAwG4FdBOc8odljT7rT3QBxC4kKkpaVNi
+ YpQ3x2rh+2yioulX/79+akyj5Gz+to91cgl5th3Eg4fO+WvrrswxCBZkaZKWzzA4PsEZ5cgpPs
+ MJcUAPE8QGqqbcDaoPSo5vo3cxnmFj6rjCTppqZNsrjFP/fhYPxZc9+/wgqDBtNQEZ713tvruc
+ 94Pd/cj/bSXscqF/rSG9KZGonH76R2hrY2tNzTzq6Em3NSMaJ5DwLaqUZr/aMuyvADdv3StaQE
+ AAA==
+X-Change-ID: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
+To: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Eric Dumazet <edumazet@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793715537; l=3232;
+ i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
+ bh=6Zmq60a17c0joTxpTILutxl9UiqcuO9gfe8ueBT+e0E=;
+ b=X19BQGEzJct/9OMvaulxhVdjSjIQqCoOboF9i5oQXxdSGvCZR3hw75w4JUB+/QRgxqhonFWBO
+ AkAYajxC94eA14SZXEJxZ5ABN2WRYRdfK3Sqoas7KMYmgwPtWU23vhK
+X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
+ pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1NiBTYWx0ZWRfX2E8qfXFmmTUv
+ RDX7yqz5nyhWUWSjMKTj4j2f2G5eHFCytms6aM6uUu2hWRywO9dU9ZzVHEqptBDEJVE4LOXXH2C
+ CI0lFbaQMgBjZ70+Yr/gjYSRhGt5T2XcJLvvgo5nS1w7VIFwgBbQ8opQcXGMS2wkB8AqC7HFWQV
+ anwHWk6Lv7LrHIrvo11DdMWfL5MupRRQSDvoP2OD9PKcVz2ZB89iLjKLtUxIUDSHnkKrkdHkaNU
+ MJRWDuLR9TUWnQ7wLiGQ+qZeXNUlvCzsUbyfIZ2nudE4yfZI7gUqfJYPTrxwOjf51B7pc8Tx3NU
+ yyVT9H8U0I0DXfILTcnrR3jfNSQ6shnNBnBaRgvMsBFeeyi5PWYLv8meXzIyve1pjVP8bXqPs77
+ a+XRcKtgqC0hoiROxb7czfWa48Fl4zAGaFm47bLN1c2Z9ExVOGhrwNFtuHQ9s3K9GCjX5ErkfA/
+ bRfDEqUntSDnLGQaejQ==
+X-Proofpoint-ORIG-GUID: WVxAWlBEtpnN76MCznslFZssiy5kYNzc
+X-Proofpoint-GUID: WVxAWlBEtpnN76MCznslFZssiy5kYNzc
+X-Authority-Analysis: v=2.4 cv=B/wsQ+tM c=1 sm=1 tr=0 ts=6ae9ed58 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=b6zUKPCi1xLaIh-VD8cA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1NiBTYWx0ZWRfX4FwJumDAQr5O
+ notdlCZMF0Zwq/KBh5mtB67TbjgDr7LvIFvq/MsXrACxkbJXuxaTCp5aP9w15QsGTDEq3sUqw1J
+ rPV3dJuFktZGBhlXbgbNH8yrmWyhxJ0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030056
 
-On Mon, Nov 02, 2026 at 09:58:49PM +0200, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
->
-> Add support for the KTD3137 display backlight IC. It's used in various
-> Xiaomi phones, such as Xiaomi Redmi Note 9.
->
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
->  MAINTAINERS                       |   1 +
->  drivers/video/backlight/Kconfig   |  11 ++
->  drivers/video/backlight/Makefile  |   1 +
->  drivers/video/backlight/ktd3137.c | 262 ++++++++++++++++++++++++++++++++++++++
->  4 files changed, 275 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 24dd5b43f167..23114fd09445 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
->  M:	Roman Vivchar <rva333@protonmail.com>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-> +F:	drivers/video/backlight/ktd3137.c
->
->  KTEST
->  M:	Steven Rostedt <rostedt@goodmis.org>
-> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-> index 7c66b8840d88..0196b8597367 100644
-> --- a/drivers/video/backlight/Kconfig
-> +++ b/drivers/video/backlight/Kconfig
-> @@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
->  	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
->  	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
->
-> +config BACKLIGHT_KTD3137
-> +	tristate "Backlight Driver for Kinetic KTD3137"
-> +	depends on I2C
-> +	select REGMAP_I2C
-> +	help
-> +	  Say Y to enable the backlight driver for the Kinetic KTD3137
-> +	  found in various Xiaomi smartphones.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called ktd3137.
-> +
->  config BACKLIGHT_KTZ8866
->  	tristate "Backlight Driver for Kinetic KTZ8866"
->  	depends on I2C
-> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-> index 34469711c6cd..b2d3b69e9e32 100644
-> --- a/drivers/video/backlight/Makefile
-> +++ b/drivers/video/backlight/Makefile
-> @@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
->  obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
->  obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
->  obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
-> +obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
->  obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
->  obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
->  obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
-> diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
-> new file mode 100644
-> index 000000000000..a3ff334b8d46
-> --- /dev/null
-> +++ b/drivers/video/backlight/ktd3137.c
-> @@ -0,0 +1,262 @@
-> <snip>
-> +static int ktd3137_init(struct ktd3137 *ktd)
-> +{
-> +	u32 val = KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR;
-> +	int ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL, val);
+Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+domain with restricted access to system memory. BAM-DMUX DMA mappings
+and BAM descriptor FIFOs must therefore be constrained to a designated
+memory region that can be shared with the modem. Accesses outside that
+region can trigger an XPU violation.
 
-Nitpicking but val seems a bit pointless here.
+Add memory-region and qcom,vmid properties to the BAM-DMUX binding, and
+a qcom,shikra-bam-dmux compatible that requires them. When qcom,vmid is
+present, the driver SCM-assigns the entire restricted DMA pool to the
+local and remote execution environments before requesting the DMA
+channels.
 
+The restricted pool then contains the BAM-DMUX mappings. When the BAM DMA
+controller references the same pool, its descriptor FIFOs are covered by
+the assignment as well.
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
-> +				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
-> +}
-> <snip>
-> +static int ktd3137_probe(struct i2c_client *client)
-> +{
-> +	struct backlight_device *backlight_dev;
-> +	struct backlight_properties props = { };
-> +	struct ktd3137 *ktd;
-> +	u32 val;
-> +	int ret;
-> +
-> +	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
-> +	if (!ktd)
-> +		return -ENOMEM;
-> +
-> +	ktd->dev = &client->dev;
-> +
-> +	ret = devm_regulator_get_enable(ktd->dev, "vin");
-> +	if (ret)
-> +		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
-> +
-> +	ktd->enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable",
-> +						   GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ktd->enable_gpio))
-> +		return dev_err_probe(ktd->dev, PTR_ERR(ktd->enable_gpio),
-> +				     "failed to get enable gpio\n");
-> +
-> +	/* HWEN should stay HIGH for at least 150us before I2C can be used */
-> +	fsleep(150);
-> +
-> +	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
-> +	if (IS_ERR(ktd->regmap))
-> +		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
-> +				     "failed to init regmap\n");
-> +
-> +	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
-> +	if (ret)
-> +		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
-> +
-> +	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
-> +		return dev_err_probe(ktd->dev, -ENODEV,
-> +				     "unsupported chip id: 0x%02x\n", val);
-> +
-> +	ret = ktd3137_parse_dt(ktd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ktd3137_init(ktd);
-> +	if (ret)
-> +		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
-> +
-> +	props.type = BACKLIGHT_RAW;
-> +	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
-> +	props.brightness = KTD3137_DEFAULT_BRIGHTNESS;
+A related binding change allows the BAM DMA controller to use the same
+restricted pool for descriptor FIFO allocations:
 
-No need for KTD3137_DEFAULT_BRIGHTNESS. Just use KTD3137_MAX_BRIGHTNESS.
+https://lore.kernel.org/all/20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com/
+("dt-bindings: dma: qcom,bam-dma: Allow memory-region property")
 
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+---
+Changes in v4:
+- Decide the pool reclaim on the remote power vote after disabling the
+  PC IRQ (Sashiko)
+- Link to v3: https://lore.kernel.org/r/20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102@oss.qualcomm.com
 
-> +	props.scale = BACKLIGHT_SCALE_LINEAR;
-> +	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
-> +
-> +	backlight_dev = devm_backlight_device_register(ktd->dev,
-> +						       "ktd3137-backlight",
-> +						       ktd->dev, ktd,
-> +						       &ktd3137_backlight_ops,
-> +						       &props);
-> +	if (IS_ERR(backlight_dev))
-> +		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
-> +				     "failed to register backlight device\n");
+Changes in v3:
+- dt-bindings: Add qcom,shikra-bam-dmux, with qcom,bam-dmux as fallback,
+  and require memory-region and qcom,vmid for it (Krzysztof)
+- dt-bindings: Drop minItems from qcom,vmid (Krzysztof)
+- dt-bindings: Drop the example changes (Krzysztof)
+- dt-bindings: Drop the statement about the local VMID from the
+  qcom,vmid description (Sashiko)
+- Reuse remove() on late probe failure, since the PC IRQ may already
+  have powered up the RX path (Sashiko)
+- Skip the pool reclaim when the remote did not acknowledge the
+  power-down (Sashiko)
+- Fail probe if the restricted pool is not attached to the device
+  (Sashiko)
+- Link to v2: https://lore.kernel.org/r/20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com
 
-dev_err_cast_probe()
+Changes in v2:
+- Replace the Shikra-specific compatible and coherent RX allocation with
+  memory-region and qcom,vmid properties.
+- Use a restricted DMA pool for BAM-DMUX mappings and BAM descriptor FIFOs.
+- SCM-assign the complete pool before requesting the DMA channels.
+- Validate the remote VMID and restricted DMA pool configuration.
+- Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com
 
+---
+Vishnu Santhosh (2):
+      dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
+      net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
 
-> +
-> +	i2c_set_clientdata(client, backlight_dev);
-> +	return backlight_update_status(backlight_dev);
-> +}
-> +
-> +static void ktd3137_remove(struct i2c_client *client)
-> +{
-> +	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
-> +	struct ktd3137 *ktd = bl_get_data(backlight_dev);
-> +
-> +	backlight_dev->props.brightness = 0;
-> +	backlight_update_status(backlight_dev);
-> +
-> +	gpiod_set_value_cansleep(ktd->enable_gpio, 0);
+ .../devicetree/bindings/net/qcom,bam-dmux.yaml     |  36 ++++++-
+ drivers/net/wwan/Kconfig                           |   1 +
+ drivers/net/wwan/qcom_bam_dmux.c                   | 114 ++++++++++++++++++++-
+ 3 files changed, 148 insertions(+), 3 deletions(-)
+---
+base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
 
-Is this needed?
+Best regards,
+-- 
+Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-> +}
-
-
-Daniel.
