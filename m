@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713487;
-	b=BaoU7owXwwTXqu7Wxr/b4eeaCQNYiL/LXJT8d3fiB6UjEl/JMBFFbQj8VwKrfe1+BhbI
-	 yy/ZJmFTqsrEqPlTr6GCuOm+r/juCOyO/3M6sGjpI6mOdQL3vbnS/VvEibhDRGSFEz9Im
-	 nAZ8HOIQo+6BGxLcd17QiP0Wd/BeAVMo/DlxZEf4z/XT5244NUSAiNG1qH8x7eGXncETZ
-	 +p1WnWoSlNzOrfjgRC8jN3cyvVtGod/Wr0KTUbG7LephuFM3MPVQIzfRuPnAJVIltTzAF
-	 w/P0krsbH82XXYbaf9T3yy0jjaHw665xOHT0D86rkOeK/X6rRoxfPqFYjUkcz0YpSqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713487;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=D48o7P01CJfCBkyr7CGyG66oIuPu6+7ahTAiX9ihg/o=;
-	b=443db7lRRMmmpNHtL1QoDVOsna5jHfcK4iXnIJuyViuaFWZGWXPBOMxB4TH05NWj2qXU
-	 fHVSPweewWQIykjVKR0RIJI9O5pRoAv7danqOci4hJ0TKNi8hnvkIZ4PXdpSXUVurTj5n
-	 xUIAf+D56rmh/Ig8uUNQsDuigVQ5XeP2SStxhY8f6mc4wRyF62wRDsNOg9ZcxnySxjlEM
-	 0nEJqY9hdQQN61eTytUhW/Yv+Cf+mKSW0UH7uaq7OcV4PNjTDQeazMHDLK0HnVlimC+/V
-	 GggAXtIGLCcFEie0UFyCZwEshG8NSKeHILk6d85rDialM2W7s71GlJO/tyW1ji1IMAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qVTQP7qD;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793713623;
+	b=0JNgcMXl7gPaGB5XPX8iXAQbEPStoBStX6XvoJ7uY4LOnlINQKgkAOFlVdFMXErhd7bK
+	 zua+A224nUJQxI4yo67L8l9VYHtV7nKr8kZeGLV8PC6OGwVcoJQLAb/detHl/oiXZi6c7
+	 v81VeXithjP7BTLtRpFc1a/UiOxS/ABBf93ZsGxFUW012Y9xKXpqMQ2HYThF486zQ/cIw
+	 ed9YvOGPE8zOCNyORijJPbiB+WGX1cnGu4vJAcOhc46SIQ/au/eCindCwUMuQbDOkE8Sp
+	 1f6S2EHn+k8MBrXZ2aSIIhpFEdP/H8yPPk9QI/joEjwLbawQp3RsRTVDy676FKtRbAg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713623;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+	b=XgHZZjfLgoeQID+xrPlusmJYisheK2S721oeY72/4RQT11ingax6l6dY//lDZYk5Nf3F
+	 ennOjQvQN4prZVQlmDYJUaq5rJopZ0vlGbSZg97pccW/9OHnoNxn5a1I7a+ukOMB3AP95
+	 8l0n5cDHSjoQnMgBBUjkEjy7qiDZ2WCN6IpLIf7xxsuH6VMQ7Qe5jAhEH0nhlIER2Ko5w
+	 4olXeJLPvbbKiVgm3wMnwTtBUH34db5WW8nxHzqfUQCxz1exJtP1ZE9abUbkJwj8rpIER
+	 pqjQfTQV58Ip2dCny0fINo0FFpqNdzUWgGZ3lvbba0GbEwUmXjpFMXH9UeB2cgbKGWA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lqI2hhZx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3F5606A327;
-	Tue,  3 Nov 2026 13:44:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F3F5606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0693A606A336
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 13:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0693A606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qVTQP7qD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
-	Message-Id:To; bh=D48o7P01CJfCBkyr7CGyG66oIuPu6+7ahTAiX9ihg/o=;
-	b=qVTQP7qDetkx7f5FbeLg1cx7XnHYFVTtik+u0Q05CMSIgB9ChTApG3RpBtnPCN
-	q56+LEY+PjIBP1oVDz+++rpRYDymAf66ZnS+nVPufEYXnXFPjzSbeKDKuSWlWjkL
-	mg9s9cuGiIcW5XBJH59YxXpxebNOCM8S3q3tTkG2UgUQk=
-Received: from 4F-GAME.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBHNzkg5elqJ57LEw--.46800S4;
-	Tue, 03 Nov 2026 21:44:04 +0800 (CST)
-From: Bob Hui <bg9oxa@163.com>
-Date: Tue, 03 Nov 2026 21:44:00 +0800
-Subject: [PATCH v13 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lqI2hhZx
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b060ec084so2484248f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 05:47:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793713621; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p1S2raVEpp8RtM/ZX70gyvBuKEsBd5fiMyqmY0P28crpgX5bc4tBG4Fl/TaNxQkjN1
+         uYTH70Fdc92UbCjrPi3Gaj0tnz0kq3pdwpK7xeM4s9UfZjarBB7OxrWRmvHBFPZjhz5Q
+         3szoMNc1ZFo5sZLHV06VXJYGbFDoGM9RpkBB95PyMxiASHmRbX3QWEU3hXvpz1TZRvVo
+         3yDD3wSkxOoaGI0KYMA2sE787ztabwpe6riKGYkWI6ZdT/HAea8MxbEvcsMeffPKOM3G
+         fxYrzxuVVilj6UScTkHHIa6f3ZhWR9H9ouf7Np2FzOTI+9GSyWQPFq3OWlj7W/efpgES
+         XSjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+        fh=Gdc06678DGBoZnf/n9y2yLTL4ayVY2KrNYHPN9Ui3o4=;
+        b=EzvmgAIgd0Ql8H2Uk7Vf7xz6MhqDNFQHvILEPvcokbAY4i1lx9FExhJ+z8QuMyExzZ
+         F76yUXslgVSS0HihBSfCoZxmhF+r8HHtnk942yfnh/DnDpMBKXCXR+iVUjiB0/3l2kHU
+         qseBYLarOi1AYEaLOGeYomDc2bPfdopanDxYtrBQ3aTDCIWQR+5z10LQHg2UwdFKPxFD
+         ADqRbyjhyfceARPP7jKMEIoM0Y5LvdE17NYSCO9jodk2zKOynn5G+szVO3uvfXLV2l2c
+         5kHJ/92XXvEEvxshSggrLWwfcT0wGmxYyRgiitp2VsHFC4aJyVb0Da270lAGPgdE+C9r
+         uxGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793713621; x=1794318421; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+        b=lqI2hhZxOjAyL5r3Pfj2A3k2A5QawkqpHiXRPUZAJOD0I/jRvSQK6C+lsOItFISTf/
+         sMFPMc17ZRm5yHuSaBLRkyuQ3CaS/lC56i73OUiGW8vpkqyjK3KjRQGGaKGMP5t+A6dz
+         4GvtLK8siLTaI866PLVrLnohJaOiVZtiDE/VxY4ZvP1SLlwFrsM0Ho0kkiUZGBFVv0Ee
+         K3KzOIrfOrJnuGRlDvo24CB8siaEKaHFuBrn2FEtuK+YD5dUMQyn+BvkHPp1+FgQelF+
+         HW4hxvirnsJ0RBm7qZMwiAwaKEszspX+Ejg2uP5yrtLrHDQjMKjN41FVK8XDrWMxzXcE
+         xuwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793713621; x=1794318421;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+        b=MDwyJSBuZ88WhiIE6Ufc1WMyLUBbh7X3/EzjuU+rLjlVXGFdxEx+Aevrdvh7eSEae7
+         lk54xNKjTIlWlmaGu3LXnVxz+DVsPXaVBgSth57Vz+awp3RxwBNr4kewrt684alcbbfP
+         IuiDbTnIO0p/t8Q4X6BWKbggbC5hSn9jW6eN0DWuoFUunx8HgJJakefigjZ9+6wuNHyb
+         x2fAgPBnpDNb2lVoqEwiAL7/0HkE76Rderu4fMjqewQvn1Ukh/i3IFzOHNKEDhdLCN2s
+         rM9Q7yXdau9izA1eoVs8BJjB4GE5j/f8vYb5vH9Pdhi22dukCFDduCpDcow9XWDZPTWY
+         tPmg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5vPB9uPrHShGXIT2nDfidVXIQlRCwTNme1KnFobM5vEnUJOPHR9HEnN1IhvrezFPeDii/U6/UZPWf@vger.kernel.org
+X-Gm-Message-State: APuU4Z+to1UMTlF4y0t0N3NhhZuJxi2ODr/6TdH70W1D8VQgTGD/4YcF
+	J/lh+DvbvMZLMBqAoAqXENPb6W/K+agix879M8kinciPeWAycDC19PV5Inj2YRDN97cgYFYBrNJ
+	uqGNy74w473fP6+1nZkke2wkoiWrNfbk=
+X-Gm-Gg: AYBFou3AUtfQtdNygBTT4poRbyfaTrL597/d58hioLYQeJCVWyi4hPrqe8XzDKROvYW
+	/J+fqGHDePxCuuKlg3tGZAwc0gp7JcZ2omZe1VYiUY1hSGtmF/ucrlUTYIrQi6lY2wRnIU7bV63
+	FeYs/0i99GqqmG+K4Rdq82o/cOBG5nBcg0lNSW6DGbEmYbtIPgjllMHGk6yPc/XrkzMmyB2bUjF
+	doUg1lKudWO0zsm4e5JCME1kC3dE2RPT/gDbZFpd+uHChefSFZOrwx4ee7f/BYS9J3nq/j1JmLf
+	9ElDj84kiVLGmDnjfETkcHyT/XiWlnJKJNNoz4W5pJrd2s+2tuca2D5YlbxS4zogk5R8NSWdn3M
+	8wtvajddpeYaOJr64sLuesqJ8R93wFctxTSLhCj5zY0Y4eS1jVbvUgohD6HdkRrTlQD6qMy8SZ9
+	b7SilMR3quJRegcXpfBH+FdKlHSqPOeyYfN8CHd/5H0Vuv6SePWXi3Ajpo
+X-Received: by 2002:a05:6000:2f84:b0:48e:e98:8b64 with SMTP id
+ ffacd0b85a97d-48e6e2eb232mr28145688f8f.19.1793713621222; Tue, 03 Nov 2026
+ 05:47:01 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,1293 +105,252 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-quarkpi-ca2-v13-2-ad8c30cdb67e@163.com>
-References: <20261103-quarkpi-ca2-v13-0-ad8c30cdb67e@163.com>
-In-Reply-To: <20261103-quarkpi-ca2-v13-0-ad8c30cdb67e@163.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>, Andrew Lunn <andrew@lunn.ch>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Bob Hui <bg9oxa@163.com>
-X-Mailer: b4 0.15.2
-X-CM-TRANSID:_____wBHNzkg5elqJ57LEw--.46800S4
-X-Coremail-Antispam: 1Uf129KBjvAXoWfAw43XryrKr18Xry5Zr45Awb_yoW5Wryrto
-	Z2vFW0vF4SgF1fGr1vqFWUCw1xGrWkGanakF45KF1rWr4rJ3ZFyrs0yayUWF17Gr10kryD
-	Z3WrJFy3Aw17A3s5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRGVbkUUUUU
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+QSXBWrp5SRoBgAA3D
+References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org> <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
+In-Reply-To: <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 3 Nov 2026 13:46:34 +0000
+X-Gm-Features: AclHuK_bXy2F5RYTq_Hmfm6bUMMn_NX9bzMEbVYq6-tx7g9y72NhS57yx-JuKls
+Message-ID: <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
+Subject: Re: [PATCH RFC v5 7/7] media: mali-c55: Sequence resets explicitly
+To: Linus Walleij <linusw@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based card
-computer. The board comes in 4, 8 and 16 GiB LPDDR4X variants with
-32 GB, 64 GB or 128 GB of eMMC; this was tested on the 16 GiB/128 GB
-one.
+Hi Linus,
 
-The board schematics are available at:
-https://github.com/openedv/card_computer_QuarkPi-CA2-RK3588S/blob/main/2_hardware/3_Peripheral_hardware_interface_diagram/QuarkPI-CA2%20V1.0%20Peripheral%20Hardware%20Interface%20Reference.pdf
+Thank you for the patch.
 
-Supported peripherals:
-  - 2x LPDDR4X SDRAM and eMMC, plus the microSD card slot
-  - RK806-1 PMIC with the full regulator tree
-  - HDMI output up to 4K60, through hdptxphy0 and VOP2
-  - Gigabit Ethernet with the YT8531 RGMII PHY on MDIO1
-  - four USB Type-A ports (1x USB 3.0, 3x USB 2.0)
-  - USB Type-C port with USB 3.0 and DP output, described through the
-    USBDP PHY and DP0, with role switch and DP altmode
-  - 3.5 mm headset jack (headphones + microphone) with the ES8388
-    codec, the headphone amplifier and jack detection
-  - three function keys (volume down, volume up and PWR_ON from the
-    PMIC) and the headset hook button
-  - IR receiver, 4-pin PWM fan connector and a work LED
-  - 3-wire debug UART (UART2)
-  - 40-pin expansion header with UART5, I2C3, I2C5, SPI0 and PWM14
-  - two 26-pin MIPI DSI and three 22-pin MIPI CSI connectors, with the
-    connector I2C buses enabled (i2c4, i2c7); panels and cameras are
-    described by overlays
-  - M.2 E-key socket for a WiFi/BT module, with the PCIe 2.0 x1 link
-    enabled (pcie2x1l2, combphy0_ps)
-  - Mali GPU and the three NPU cores
+On Tue, Oct 27, 2026 at 4:25=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
+>
+> Reporters avoid a register-access hang on RZ/V2H by swapping the first
+> and third clock and reset identifiers in the ISP node. Test the reset
+> ordering from that configuration without changing the DT assignments.
+>
+> Acquire vresetn, aresetn and hresetn individually by name, retaining thei=
+r
+> optional shared semantics. Deassert them in that order and assert them
+> in reverse order. With the current RZ/V2H DT, this deasserts 0xd3, 0xd1
+> and 0xd2 and asserts 0xd2, 0xd1 and 0xd3. These are the orders produced
+> by the bulk helpers with the reported working DT swap, since bulk
+> reset deassertion traverses its array backwards.
+>
+> Preserve the bulk helpers' error rollback. A shared reset increments its
+> deassert count before invoking the provider, so a failed deassertion
+> must also be balanced when unwinding.
+>
+> This RFC tests the driver's request order, not simultaneous hardware
+> reset transitions. The IVC can already hold shared resets deasserted.
+> The report changed clocks and resets together, so this ordering still
+> needs target hardware testing.
+>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  .../media/platform/arm/mali-c55/mali-c55-common.h  |  6 +-
+>  .../media/platform/arm/mali-c55/mali-c55-core.c    | 75 ++++++++++++++++=
+------
+>  2 files changed, 60 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/driv=
+ers/media/platform/arm/mali-c55/mali-c55-common.h
+> index b1ac50d6b30e..f2cd4d4ef472 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> @@ -38,8 +38,6 @@
+>
+>  #define MALI_C55_DEFAULT_MEDIA_BUS_FMT MEDIA_BUS_FMT_RGB121212_1X36
+>
+> -#define MALI_C55_NUM_RESETS            3
+> -
+>  struct device;
+>  struct mali_c55;
+>  struct mali_c55_cap_dev;
+> @@ -239,7 +237,9 @@ struct mali_c55 {
+>         struct clk *hclk;
+>         struct clk *aclk;
+>         struct clk *vclk;
+> -       struct reset_control_bulk_data resets[MALI_C55_NUM_RESETS];
+> +       struct reset_control *vresetn;
+> +       struct reset_control *aresetn;
+> +       struct reset_control *hresetn;
+>         int irqnum;
+>
+>         u16 capabilities;
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/driver=
+s/media/platform/arm/mali-c55/mali-c55-core.c
+> index 0caef871cad4..47e26d85784e 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -64,12 +64,6 @@ static const unsigned int config_space_addrs[] =3D {
+>         [MALI_C55_CONFIG_PONG] =3D 0x22b2c,
+>  };
+>
+> -static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] =3D =
+{
+> -       "vresetn",
+> -       "aresetn",
+> -       "hresetn",
+> -};
+> -
+I tested on the RZ/V2H EVK with the clocks and DT left untouched,
+changing only the reset order.
 
-Signed-off-by: Bob Hui <bg9oxa@163.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch> #gmac1 + mdio1
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
----
- arch/arm64/boot/dts/rockchip/Makefile              |    1 +
- .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts      | 1211 ++++++++++++++++++++
- 2 files changed, 1212 insertions(+)
+The hang comes from the reset assert order in __mali_c55_power_off().
+Asserting vresetn (the ISP core reset per the RZ/V2H manual) before
+hresetn/aresetn wedges the ISP. The next power-on then stalls on its
+first register access. The deassert order doesn't matter.
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index e7936a21c1185..02c2a127a9181 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -236,6 +236,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5b.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5-pro.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-cm5-base.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-quarkpi-ca2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-radxa-cm5-io.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-roc-pc.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-rock-5a.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-new file mode 100644
-index 0000000000000..df9887d5dc925
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-@@ -0,0 +1,1211 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+Asserting h->a->v (deasserting v->a->h) passes repeated runtime-PM
+cycles and also works with the IVC enabled. So 7/7 gives the right
+reset sequence, 6/7 isn't needed for this, and the existing DT mapping
+(0xd3 =3D vresetn =3D ISP core reset) is correct.
+
+A smaller alternative keeps the bulk API and only reorders the names:
+
 +/*
-+ * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
++ * The reset bulk API asserts the resets in array order and deasserts them=
+ in
++ * reverse order. The video core reset (vresetn) must be asserted last, af=
+ter
++ * the register (hresetn) and AXI (aresetn) interface resets. Otherwise th=
+e
++ * ISP can be left in a state where the first register access after the ne=
+xt
++ * power-on stalls the bus.
 + */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+#include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/thermal/thermal.h>
-+#include <dt-bindings/usb/pd.h>
-+#include "rk3588s.dtsi"
-+
-+/ {
-+	compatible = "alientek,quarkpi-ca2", "rockchip,rk3588s";
-+	model = "Alientek QuarkPi-CA2";
-+
-+	adc_keys: adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-vol-down {
-+			label = "volume down";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			press-threshold-microvolt = <417000>;
-+		};
-+
-+		button-vol-up {
-+			label = "volume up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			press-threshold-microvolt = <17000>;
-+		};
-+	};
-+
-+	aliases {
-+		ethernet0 = &gmac1;
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+	};
-+
-+	analog_sound: analog-sound {
-+		compatible = "simple-audio-card";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_det>;
-+		simple-audio-card,name = "QuarkPi-CA2 ES8388";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&sound_cpu>;
-+		simple-audio-card,frame-master = <&sound_cpu>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,aux-devs = <&hp_amp>;
-+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
-+		simple-audio-card,pin-switches = "Headphones", "Headset Mic";
-+		simple-audio-card,widgets =
-+			"Headphone", "Headphones",
-+			"Microphone", "Headset Mic";
-+		simple-audio-card,routing =
-+			"Headphones", "LOUT1",
-+			"Headphones", "ROUT1",
-+			"Headphones", "Headphone Power OUTL",
-+			"Headphones", "Headphone Power OUTR",
-+			"Headphone Power INL", "LOUT1",
-+			"Headphone Power INR", "ROUT1",
-+			"LINPUT1", "Headset Mic",
-+			"RINPUT1", "Headset Mic";
-+
-+		sound_codec: simple-audio-card,codec {
-+			sound-dai = <&es8388>;
-+			system-clock-frequency = <12288000>;
-+		};
-+
-+		sound_cpu: simple-audio-card,cpu {
-+			sound-dai = <&i2s0_8ch>;
-+		};
-+	};
-+
-+	hp_amp: audio-amplifier {
-+		compatible = "simple-audio-amplifier";
-+		enable-gpios = <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_con>;
-+		sound-name-prefix = "Headphone Power";
-+	};
-+
-+	chosen {
-+		stdout-path = "serial2:1500000n8";
-+	};
-+
-+	hdmi0-con {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi0_con_in: endpoint {
-+				remote-endpoint = <&hdmi0_out_con>;
-+			};
-+		};
-+	};
-+
-+	headset_keys: headset-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 3>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-play-pause {
-+			label = "play pause";
-+			linux,code = <KEY_PLAYPAUSE>;
-+			press-threshold-microvolt = <2000>;
-+		};
-+	};
-+
-+	ir_receiver: ir-receiver {
-+		compatible = "gpio-ir-receiver";
-+		gpios = <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ir_receiver_pin>;
-+	};
-+
-+	leds: leds {
-+		compatible = "gpio-leds";
-+
-+		work_led: led-0 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio1 RK_PD7 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&work_led_pin>;
-+		};
-+	};
-+
-+	fan: pwm-fan {
-+		compatible = "pwm-fan";
-+		#cooling-cells = <2>;
-+		pwms = <&pwm7 0 50000 0>;
-+		cooling-levels = <0 50 100 150 200 255>;
-+	};
-+
-+	combophy_avdd0v85: regulator-combophy-avdd0v85 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "combophy_avdd0v85";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <850000>;
-+		regulator-max-microvolt = <850000>;
-+		vin-supply = <&vdd_0v85_s0>;
-+	};
-+
-+	combophy_avdd1v8: regulator-combophy-avdd1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "combophy_avdd1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&avcc_1v8_s0>;
-+	};
-+
-+	vbus5v0_typec: regulator-vbus5v0-typec {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		regulator-name = "vbus5v0_typec";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		vin-supply = <&vcc5v0_usb>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&typec5v_pwren>;
-+	};
-+
-+	vcc3v3_pcie: regulator-vcc3v3-pcie {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc3v3_pcie";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+
-+	vcc5v0_sys: regulator-vcc5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+
-+	vcc5v0_usb: regulator-vcc5v0-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_usb";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc12v_dcin: regulator-vcc12v-dcin {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc12v_dcin";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v1_nldo_s3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sd_s0_pwr>;
-+		regulator-name = "vcc_3v3_sd_s0";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ramoops: ramoops@118000 {
-+			compatible = "ramoops";
-+			reg = <0 0x118000 0 0xd8000>;
-+			console-size = <0x80000>;
-+			ftrace-size = <0x00000>;
-+			pmsg-size = <0x30000>;
-+			record-size = <0x14000>;
-+		};
-+	};
-+};
-+
-+&combphy0_ps {
-+	status = "okay";
-+};
-+
-+&combphy2_psu {
-+	status = "okay";
-+};
-+
-+&cpu_b0 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b1 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b2 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&cpu_b3 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&cpu_l0 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l1 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l2 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l3 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&dp0 {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy0_dp_in>;
-+	};
-+};
-+
-+&gmac1 {
-+	phy-mode = "rgmii-id";
-+	clock_in_out = "input";
-+
-+	snps,reset-gpio = <&gpio0 RK_PD5 GPIO_ACTIVE_LOW>;
-+	snps,reset-active-low;
-+	snps,reset-delays-us = <0 20000 100000>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1_miim
-+		     &gmac1_tx_bus2
-+		     &gmac1_rx_bus2
-+		     &gmac1_rgmii_clk
-+		     &gmac1_rgmii_bus
-+		     &gmac1_clkinout>;
-+
-+	phy-handle = <&rgmii_phy1>;
-+	status = "okay";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_gpu_s0>;
-+	status = "okay";
-+};
-+
-+&hdmi0 {
-+	frl-enable-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&hdmim0_tx0_cec &hdmim0_tx0_hpd
-+		     &hdmim0_tx0_scl &hdmim0_tx0_sda>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&hdmi0_in {
-+	hdmi0_in_vp0: endpoint {
-+		remote-endpoint = <&vp0_out_hdmi0>;
-+	};
-+};
-+
-+&hdmi0_out {
-+	hdmi0_out_con: endpoint {
-+		remote-endpoint = <&hdmi0_con_in>;
-+	};
-+};
-+
-+&hdmi0_sound {
-+	status = "okay";
-+};
-+
-+&hdptxphy0 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0m2_xfer>;
-+	status = "okay";
-+
-+	vdd_cpu_big0_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_cpu_big0_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+
-+	vdd_cpu_big1_s0: regulator@43 {
-+		compatible = "rockchip,rk8603", "rockchip,rk8602";
-+		reg = <0x43>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_cpu_big1_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m4_xfer>;
-+	status = "okay";
-+
-+	es8388: audio-codec@11 {
-+		compatible = "everest,es8388", "everest,es8328";
-+		reg = <0x11>;
-+		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&i2s0_mclk>;
-+		assigned-clock-rates = <12288000>;
-+		AVDD-supply = <&vcc_3v3_s0>;
-+		DVDD-supply = <&vcc_1v8_s0>;
-+		HPVDD-supply = <&vcc_3v3_s0>;
-+		PVDD-supply = <&vcc_3v3_s0>;
-+		#sound-dai-cells = <0>;
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2m0_xfer>;
-+	status = "okay";
-+
-+	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_npu_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <950000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+
-+	husb311: typec-port@4e {
-+		compatible = "hynetek,husb311", "richtek,rt1711h";
-+		reg = <0x4e>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <RK_PA4 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus5v0_typec>;
-+
-+		usb_con: connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			power-role = "dual";
-+			data-role = "dual";
-+			try-power-role = "sink";
-+			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+			sink-pdos = <PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
-+			op-sink-microwatt = <1000000>;
-+
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0xffffffff>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					usbc0_orien_sw: endpoint {
-+						remote-endpoint = <&usbdp_phy0_orientation_switch>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					usbc0_role_sw: endpoint {
-+						remote-endpoint = <&dwc3_0_role_switch>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					dp_altmode_mux: endpoint {
-+						remote-endpoint = <&usbdp_phy0_dp_altmode_mux>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3m1_xfer>;
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c4m3_xfer>;
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c5m2_xfer>;
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c7m0_xfer>;
-+	status = "okay";
-+};
-+
-+&i2s0_8ch {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s0_lrck &i2s0_sclk &i2s0_sdi0 &i2s0_sdo0>;
-+	status = "okay";
-+};
-+
-+&i2s5_8ch {
-+	status = "okay";
-+};
-+
-+&mdio1 {
-+	rgmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+
-+		motorcomm,clk-out-frequency-hz = <125000000>;
-+		motorcomm,keep-pll-enabled;
-+	};
-+};
-+
-+&package_thermal {
-+	polling-delay = <1000>;
-+
-+	cooling-maps {
-+		map0 {
-+			trip = <&fan_trip0>;
-+			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
-+		};
-+
-+		map1 {
-+			trip = <&fan_trip1>;
-+			cooling-device = <&fan 1 2>;
-+		};
-+
-+		map2 {
-+			trip = <&fan_trip2>;
-+			cooling-device = <&fan 2 3>;
-+		};
-+
-+		map3 {
-+			trip = <&fan_trip3>;
-+			cooling-device = <&fan 3 4>;
-+		};
-+
-+		map4 {
-+			trip = <&fan_trip4>;
-+			cooling-device = <&fan 4 THERMAL_NO_LIMIT>;
-+		};
-+	};
-+
-+	trips {
-+		fan_trip0: fan-trip0 {
-+			temperature = <50000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip1: fan-trip1 {
-+			temperature = <55000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip2: fan-trip2 {
-+			temperature = <60000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip3: fan-trip3 {
-+			temperature = <65000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip4: fan-trip4 {
-+			temperature = <70000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+	};
-+};
-+
-+&pcie2x1l2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie2x1l2_perstn>;
-+	reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply = <&vcc3v3_pcie>;
-+	status = "okay";
-+};
-+
-+&pd_gpu {
-+	domain-supply = <&vdd_gpu_s0>;
-+};
-+
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
-+&pinctrl {
-+	headphone {
-+		hp_con: hp-con {
-+			rockchip,pins = <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+
-+		hp_det: hp-det {
-+			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	ir {
-+		ir_receiver_pin: ir-receiver-pin {
-+			rockchip,pins = <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	leds {
-+		work_led_pin: work-led-pin {
-+			rockchip,pins = <1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+	};
-+
-+	pcie {
-+		pcie2x1l2_perstn: pcie2x1l2-perstn {
-+			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sd_s0_pwr: sd-s0-pwr {
-+			rockchip,pins = <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	usb-typec {
-+		typec5v_pwren: typec5v-pwren {
-+			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		usbc0_int: usbc0-int {
-+			rockchip,pins = <1 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+};
-+
-+&pwm7 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm7m0_pins>;
-+	status = "okay";
-+};
-+
-+&pwm14 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm14m1_pins>;
-+	status = "okay";
-+};
-+
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_2 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
-+&rknn_mmu_1 {
-+	status = "okay";
-+};
-+
-+&rknn_mmu_2 {
-+	status = "okay";
-+};
-+
-+&saradc {
-+	status = "okay";
-+	vref-supply = <&vcc_1v8_s0>;
-+};
-+
-+&sata0 {
-+	/* shares combphy0_ps with pcie2x1l2 */
-+	status = "disabled";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	no-sdio;
-+	no-sd;
-+	non-removable;
-+	max-frequency = <200000000>;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	full-pwr-cycle-in-suspend;
-+	vmmc-supply = <&vcc_3v3_s3>;
-+	vqmmc-supply = <&vcc_1v8_s3>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	max-frequency = <150000000>;
-+	no-sdio;
-+	no-mmc;
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_3v3_sd_s0>;
-+	vqmmc-supply = <&vccio_sd_s0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det>;
-+	status = "okay";
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0m3_pins>;
-+	cs-gpios = <&gpio3 RK_PD4 GPIO_ACTIVE_LOW>,
-+		<&gpio3 RK_PD5 GPIO_ACTIVE_LOW>;
-+	num-cs = <2>;
-+	status = "okay";
-+};
-+
-+&spi2 {
-+	status = "okay";
-+	assigned-clocks = <&cru CLK_SPI2>;
-+	assigned-clock-rates = <200000000>;
-+	num-cs = <1>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
-+
-+	pmic@0 {
-+		compatible = "rockchip,rk806";
-+		reg = <0x0>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
-+			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
-+		spi-max-frequency = <1000000>;
-+		system-power-controller;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		vcc1-supply = <&vcc5v0_sys>;
-+		vcc2-supply = <&vcc5v0_sys>;
-+		vcc3-supply = <&vcc5v0_sys>;
-+		vcc4-supply = <&vcc5v0_sys>;
-+		vcc5-supply = <&vcc5v0_sys>;
-+		vcc6-supply = <&vcc5v0_sys>;
-+		vcc7-supply = <&vcc5v0_sys>;
-+		vcc8-supply = <&vcc5v0_sys>;
-+		vcc9-supply = <&vcc5v0_sys>;
-+		vcc10-supply = <&vcc5v0_sys>;
-+		vcc11-supply = <&vcc_2v0_pldo_s3>;
-+		vcc12-supply = <&vcc5v0_sys>;
-+		vcc13-supply = <&vcc_1v1_nldo_s3>;
-+		vcc14-supply = <&vcc_1v1_nldo_s3>;
-+		vcca-supply = <&vcc5v0_sys>;
-+
-+		rk806_dvs1_null: dvs1-null-pins {
-+			pins = "gpio_pwrctrl1";
-+			function = "pin_fun0";
-+		};
-+
-+		rk806_dvs2_null: dvs2-null-pins {
-+			pins = "gpio_pwrctrl2";
-+			function = "pin_fun0";
-+		};
-+
-+		rk806_dvs3_null: dvs3-null-pins {
-+			pins = "gpio_pwrctrl3";
-+			function = "pin_fun0";
-+		};
-+
-+		regulators {
-+			vdd_gpu_s0: dcdc-reg1 {
-+				regulator-name = "vdd_gpu_s0";
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+				regulator-enable-ramp-delay = <400>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
-+				regulator-name = "vdd_cpu_lit_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_log_s0: dcdc-reg3 {
-+				regulator-name = "vdd_log_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
-+				regulator-name = "vdd_vdenc_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_ddr_s0: dcdc-reg5 {
-+				regulator-name = "vdd_ddr_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd2_ddr_s3: dcdc-reg6 {
-+				regulator-name = "vdd2_ddr_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcc_2v0_pldo_s3: dcdc-reg7 {
-+				regulator-name = "vdd_2v0_pldo_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <2000000>;
-+				regulator-max-microvolt = <2000000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcc_3v3_s3: dcdc-reg8 {
-+				regulator-name = "vcc_3v3_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vddq_ddr_s0: dcdc-reg9 {
-+				regulator-name = "vddq_ddr_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s3: dcdc-reg10 {
-+				regulator-name = "vcc_1v8_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v75_s3: nldo-reg1 {
-+				regulator-name = "vdd_0v75_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vdd_ddr_pll_s0: nldo-reg2 {
-+				regulator-name = "vdd_ddr_pll_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			avdd_0v75_s0: nldo-reg3 {
-+				regulator-name = "avdd_0v75_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <837500>;
-+				regulator-max-microvolt = <837500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v85_s0: nldo-reg4 {
-+				regulator-name = "vdd_0v85_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v75_s0: nldo-reg5 {
-+				regulator-name = "vdd_0v75_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			avcc_1v8_s0: pldo-reg1 {
-+				regulator-name = "avcc_1v8_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s0: pldo-reg2 {
-+				regulator-name = "vcc_1v8_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			avdd_1v2_s0: pldo-reg3 {
-+				regulator-name = "avdd_1v2_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_3v3_s0: pldo-reg4 {
-+				regulator-name = "vcc_3v3_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vccio_sd_s0: pldo-reg5 {
-+				regulator-name = "vccio_sd_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			pldo6_s3: pldo-reg6 {
-+				regulator-name = "pldo6_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&tsadc {
-+	status = "okay";
-+};
-+
-+&u2phy0 {
-+	status = "okay";
-+};
-+
-+&u2phy0_otg {
-+	status = "okay";
-+};
-+
-+&u2phy2 {
-+	status = "okay";
-+};
-+
-+&u2phy2_host {
-+	phy-supply = <&vcc5v0_usb>;
-+	status = "okay";
-+};
-+
-+&u2phy3 {
-+	status = "okay";
-+};
-+
-+&u2phy3_host {
-+	phy-supply = <&vcc5v0_usb>;
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	pinctrl-0 = <&uart2m0_xfer>;
-+	status = "okay";
-+};
-+
-+&uart5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart5m1_xfer>;
-+	status = "okay";
-+};
-+
-+&usb_host0_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host0_ohci {
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	usb-role-switch;
-+	status = "okay";
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dwc3_0_role_switch: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&usbc0_role_sw>;
-+		};
-+	};
-+};
-+
-+&usb_host1_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host1_ohci {
-+	status = "okay";
-+};
-+
-+&usb_host2_xhci {
-+	status = "okay";
-+};
-+
-+&usbdp_phy0 {
-+	mode-switch;
-+	orientation-switch;
-+	sbu1-dc-gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
-+	rockchip,dp-lane-mux = <2 3>;
-+	status = "okay";
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usbdp_phy0_orientation_switch: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&usbc0_orien_sw>;
-+		};
-+
-+		usbdp_phy0_dp_altmode_mux: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&dp_altmode_mux>;
-+		};
-+
-+		usbdp_phy0_dp_in: endpoint@2 {
-+			reg = <2>;
-+			remote-endpoint = <&dp0_out_con>;
-+		};
-+	};
-+};
-+
-+&vop {
-+	status = "okay";
-+};
-+
-+&vop_mmu {
-+	status = "okay";
-+};
-+
-+&vp0 {
-+	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
-+		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-+		remote-endpoint = <&hdmi0_in_vp0>;
-+	};
-+};
-+
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
+ static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] =3D {
+-       "vresetn",
+-       "aresetn",
+        "hresetn",
++       "aresetn",
++       "vresetn",
+ };
 
--- 
-2.34.1
+Cheers,
+Prabhakar
 
+>  /*
+>   * System IO
+>   *
+> @@ -661,7 +655,27 @@ static int mali_c55_init_context(struct mali_c55 *ma=
+li_c55,
+>
+>  static void __mali_c55_power_off(struct mali_c55 *mali_c55)
+>  {
+> -       reset_control_bulk_assert(ARRAY_SIZE(mali_c55->resets), mali_c55-=
+>resets);
+> +       int ret;
+> +
+> +       ret =3D reset_control_assert(mali_c55->hresetn);
+> +       if (ret)
+> +               goto disable_clocks;
+> +
+> +       ret =3D reset_control_assert(mali_c55->aresetn);
+> +       if (ret)
+> +               goto err_deassert_hresetn;
+> +
+> +       ret =3D reset_control_assert(mali_c55->vresetn);
+> +       if (ret)
+> +               goto err_deassert_aresetn;
+> +
+> +       goto disable_clocks;
+> +
+> +err_deassert_aresetn:
+> +       reset_control_deassert(mali_c55->aresetn);
+> +err_deassert_hresetn:
+> +       reset_control_deassert(mali_c55->hresetn);
+> +disable_clocks:
+>         clk_disable_unprepare(mali_c55->vclk);
+>         clk_disable_unprepare(mali_c55->aclk);
+>         clk_disable_unprepare(mali_c55->hclk);
+> @@ -702,11 +716,23 @@ static int __mali_c55_power_on(struct mali_c55 *mal=
+i_c55)
+>                 goto err_disable_aclk;
+>         }
+>
+> -       ret =3D reset_control_bulk_deassert(ARRAY_SIZE(mali_c55->resets),
+> -                                         mali_c55->resets);
+> +       /* Release video, AXI and register interface resets in that order=
+. */
+> +       ret =3D reset_control_deassert(mali_c55->vresetn);
+>         if (ret) {
+> -               dev_err(mali_c55->dev, "failed to deassert resets\n");
+> -               goto err_disable_vclk;
+> +               dev_err(mali_c55->dev, "failed to deassert vresetn\n");
+> +               goto err_assert_vresetn;
+> +       }
+> +
+> +       ret =3D reset_control_deassert(mali_c55->aresetn);
+> +       if (ret) {
+> +               dev_err(mali_c55->dev, "failed to deassert aresetn\n");
+> +               goto err_assert_aresetn;
+> +       }
+> +
+> +       ret =3D reset_control_deassert(mali_c55->hresetn);
+> +       if (ret) {
+> +               dev_err(mali_c55->dev, "failed to deassert hresetn\n");
+> +               goto err_assert_hresetn;
+>         }
+>
+>         /* Use "software only" context management. */
+> @@ -741,7 +767,13 @@ static int __mali_c55_power_on(struct mali_c55 *mali=
+_c55)
+>
+>         return 0;
+>
+> -err_disable_vclk:
+> +       /* A shared reset takes a reference before calling its provider. =
+*/
+> +err_assert_hresetn:
+> +       reset_control_assert(mali_c55->hresetn);
+> +err_assert_aresetn:
+> +       reset_control_assert(mali_c55->aresetn);
+> +err_assert_vresetn:
+> +       reset_control_assert(mali_c55->vresetn);
+>         clk_disable_unprepare(mali_c55->vclk);
+>  err_disable_aclk:
+>         clk_disable_unprepare(mali_c55->aclk);
+> @@ -818,13 +850,20 @@ static int mali_c55_probe(struct platform_device *p=
+dev)
+>                 return dev_err_probe(dev, PTR_ERR(mali_c55->vclk),
+>                                      "failed to acquire vclk\n");
+>
+> -       for (unsigned int i =3D 0; i < ARRAY_SIZE(mali_c55_reset_names); =
+i++)
+> -               mali_c55->resets[i].id =3D mali_c55_reset_names[i];
+> +       mali_c55->vresetn =3D devm_reset_control_get_optional_shared(dev,=
+ "vresetn");
+> +       if (IS_ERR(mali_c55->vresetn))
+> +               return dev_err_probe(dev, PTR_ERR(mali_c55->vresetn),
+> +                                    "failed to acquire vresetn\n");
+>
+> -       ret =3D devm_reset_control_bulk_get_optional_shared(dev,
+> -                       ARRAY_SIZE(mali_c55_reset_names), mali_c55->reset=
+s);
+> -       if (ret)
+> -               return dev_err_probe(dev, ret, "failed to acquire resets\=
+n");
+> +       mali_c55->aresetn =3D devm_reset_control_get_optional_shared(dev,=
+ "aresetn");
+> +       if (IS_ERR(mali_c55->aresetn))
+> +               return dev_err_probe(dev, PTR_ERR(mali_c55->aresetn),
+> +                                    "failed to acquire aresetn\n");
+> +
+> +       mali_c55->hresetn =3D devm_reset_control_get_optional_shared(dev,=
+ "hresetn");
+> +       if (IS_ERR(mali_c55->hresetn))
+> +               return dev_err_probe(dev, PTR_ERR(mali_c55->hresetn),
+> +                                    "failed to acquire hresetn\n");
+>
+>         of_reserved_mem_device_init(dev);
+>         vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
+>
+> --
+> 2.56.0
+>
+>
