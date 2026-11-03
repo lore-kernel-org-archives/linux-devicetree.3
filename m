@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695965;
-	b=daUTB4A52QDX4p5OwEll3jJwVvZYeYbcV4BcLoi8rqa8q0IdMj3itHGc4LAKbzuZRzUn
-	 AnUrViHpYbJkVMxZWaZM8eMK2X0MFt0bDU18EYz+WTxtXdLY0G2VbxgfuzXoEYTeMOTBd
-	 40wEq9zKJJ6e+0vLIJyFSEtchR97UxesdJzWdcx9PLwZ0XdoHgrPRV4OhGrQIA1BCi8Yi
-	 q/fw2k41ujQx8Cq1DrBeydvFRkgnOKAMykEJcU4H1FR4c/pHYrriGc1lkYExkbO5J99yo
-	 bqEIuJFkSK24/nmpxUzMtRsB32nSczAZQpekGMqetP0P7MYmexWW9/6ASG/aYWWdY9A==
+	t=1793696075;
+	b=BKHVWKXrPg/u9uFVjWjYoYEdT03v6HaFLoUJa6F5xe4K1xx5slga9mnre3jrS0X9kzQc
+	 Ie9J7c3wJz/AQTcqhdQMqCYgMll1T9NWM9CGCMdV42IXNff6SOHTqG2+X+S1erl7uON1S
+	 fJ2ftYzq1j72LvuYQDb+3YYJ3NWH9sYCVnuRdu45IDH5f+QYZl8YqfMT6FHryXw5ygBk3
+	 PeTZMrgqFGD78CphQyuShSuMc+1KnjezuHZZVhPkedlGqc/I1XJ4IOG1zIa34xmW3cZY2
+	 1IQP7tS0Yu7ibboryzpAZKUWJTCiQFjU5Oq5bdS0Rb5GDCKbt/6dntbD9Yr9Fi1w8CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
-	b=cedvDrDZrzInhhQzW4q0pKxJnK/E7/kKC7hpIw74aqxp4wDV0WJZEkE1CW/32JW7Kl9C
-	 FqIMH2pA4J6sB0fql5I/WztJfspl5iczgjrG7L5nvdpWPXql4D0b1zGm9HmnWvPRvdPYP
-	 QAI2DIoWBpB4+HTVwIWG+HWg1fNQutlcAU5Dl6sisdWLTUbm3YmZ4mguDlz36f0MaaYIe
-	 zAWqP6Zvqlh160GQPS1N3xTq0V3SFTlGOSfdEA1MZxb6w0z60NWSl1vT4EHJlnx/6dinF
-	 viBjp2fZ8ca7czkfTCtUGeJJLaHCnImPEb6znGn+EEkB18nfoGqxElxKWGt5sN8DKFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696075;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SzRb8gxs5rhfvZRxfyzyGCLFYGZVHtAW1hWtV88plgU=;
+	b=1G27iJ5GXbZpbQrdXK+uD/Rn4sQd2peI7NjGhM5wG32f1/6it1JkgeygPyvYhp+V2RFB
+	 IdGAosigZOEgMQylnbnU8SFdbe2r8D3X7KHluq6tys7Vku5zP4Kv+NAVz6K28OBGzLPe7
+	 uD3lUWah3duilqv8oRqW9nxwHMzN6mJxcucjNGzesGE9jQLxvufDY7y1dvHWEMno8ZpHL
+	 Nkmdp3OaMEPlbFdZX/c+EE0avLWC5P5cs9X8bYfAFta4Y1BzUGX2iQjKGrjQzrXTrPUTH
+	 leoO9yRQfSuaf1tTaSFTBvP/r398JVVvXLegVJV32BGT9weaV7o5X9Idgv9QAENWRig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Kkpeey0y;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgiPBMRy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3357606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 08:52:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3357606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A8E606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 08:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Kkpeey0y
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so43189475e9.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 00:52:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793695963; x=1794300763; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
-        b=Kkpeey0ycZBJPK+awNbsenphUdiA1HBnSjtXYjGhfY5uRNOtzFiSXHpBO2CsUDlSn1
-         BR17Mtf+4UFo8KlNtiDO6kKqbyOVAcyQn2/e407Rg36fz0qJLB2/KvcdXqMWUH8Sm1wi
-         NB74W2BH5B8hXPl5ZEg1u+piume7YhDXGoE1DwDJuCbBy+/axt89rbeinnTeXAaO8KVi
-         ah/0gtiNMCR7nZCC5P6mf6BvDpvNEp8lkBDzP8Ow1+aiEopPhBfM9iR/pBXPMhE7rxOL
-         Aimpz5/LbY8ztjW/DNCC09gMg4LamBkDuwZlAAsVceoeS53QCXbwFeOFkOb9ZJ7eNvV/
-         xb7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793695963; x=1794300763;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RHBl9u4PW6S73EDeR1NNdDwKss/rh1D+3K5dZAbhGGY=;
-        b=FSchPl0Tmd2EXod2w5BKS0iDxt42DKwp9bg3E7/08hHAIQ1+qttFDah6Q/M8BFHEyj
-         ZevBn7bTxlg3hR0+SXE60rlY/mniHz7CGL6+OeBb2nxdg7RCUCSO0O+MJVjYzZdPyL4L
-         5Rr8aYZVjr74M4/ZawIpPZXwJJqzkIXb3EWvc5xLDrARljsi4Eoz6KwyAhnkvkV9lPLm
-         hviz8LfeHIrar8/maCxSKCWhQ/TNNYt0H1g85KrbdzUFb1VzW9pkyI03zsLn34OXDmI8
-         +m9uApMxP75TbrYekx+K0MA8RepvBeuAvv5kyUEiXhWJZVqsOuADFWgg89SDaoautiRJ
-         woGw==
-X-Forwarded-Encrypted: i=1; AKwUvByJZNpZZRpsekCOt41ewILxVoMtk1reIq2iF2lJSNZpXNq8ubm3MWdQ0umQJolPbliCkhl6FRZAnfDJ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/IV9bkA9oHrQ3itH3khrfhlclFJRX2xrwY0R4vsZIQvZOlXMYO
-	7Gf8Oc3Sii+YBBDhNUN6YEJR78MGi0oTg9r7f4VH1ShUoqOHhOjctx8DZqRandw//gA=
-X-Gm-Gg: AYBFou2pgyxPkCZkHZRn2B+Isot1MGLUpz8nfbac8kq6d6bwvYYLTUAc8hw8etvdhWy
-	KOksnqiZ0/6pv8IGJ2ZagI9ljVRkXEjKGUjg/ssDh0pDooM9m3fvBt5bR7u1QNvH9jVqBklhCph
-	AytcEHjfcyPCD4Pd7DQ+0FPQ2Aj33QLxaFyMhYMqs9iem5gID1p+QkFGtMufKCSsrVTYC+yM0ps
-	KlRYUmtAGtA8zzQrt3ZaQG3l+ttggHB858h6xaYGMojqcMkJW4cx9glyioxbKSyhDvlgc6psog1
-	hR5yuPLmlYkFnv6gNf12Uf64bFgfJmhDywBfhn/JWtwBvxVf4avelapagAakjGpSvQNMH/NKmfC
-	kU8faWyqXruh2yeqACbEXVezWnWcCPFQgOCY+Tljkl7+ZCl3XHiXHngvQtwabHt7A4Qc/d9IwPK
-	LyHKDczLmSefn4cwnDoVsnIqZ6fCE7P1BHNxt2JYmxPs9r/rT0V5x/oqGpRb8TzlOOa8izkpsY8
-	pVZ4SwZkf+bmSWrKWr6ja6M5rSOR6gYGeIvHRHjOZVtz71QhHSAYdJTM2WYeIdxG/L2BlmUwmIx
-	2pBglQm5UKQ7uAMnQ8KZk68GqV+koouvsAgR/Vamas1nbFsu+VgqEk1JRDygSiuDQALtYtsuZ2W
-	Ok5FPN7I=
-X-Received: by 2002:a05:600c:6216:b0:4a3:5aea:21e5 with SMTP id 5b1f17b1804b1-4ac1737c533mr271366495e9.9.1793695963059;
-        Tue, 03 Nov 2026 00:52:43 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8c6a9e0sm43117295e9.6.2026.11.03.00.52.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 00:52:42 -0800 (PST)
-Message-ID: <3736bdc3-0f1e-49a9-9559-5a3b7383848b@linaro.org>
-Date: Tue, 3 Nov 2026 09:52:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgiPBMRy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EEA51F000C1;
+	Tue,  3 Nov 2026 08:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793696074;
+	bh=SzRb8gxs5rhfvZRxfyzyGCLFYGZVHtAW1hWtV88plgU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JgiPBMRygaKMhjQQ5sIUWpdhswTahTnVPoUp4dVBbgFsCOChLTvsQbtbv3g5/ryDK
+	 1HRIqCA/we/T6oV+vQXs4Z3bF76Qs0bWuypbvwgNkXoqbE+8BR1VDQI5yyNLffhRVl
+	 7Bm2BQk409cBZwW/V6jwwjXdxL1dp+UVah+HkZD3eGxrov/H7Ix8mWIHpcAbugiS8S
+	 VE7Q2kRA3N0YtrjIIJ9+Vr5p7x2zHCp19ZamiYFH8nnG1mw5BkCTNvMz1WW6/Kxo1u
+	 VcIvGopqgPm22njcuhXxznBsQ7rN44ZFluIW9Jpes/9pxX5SJNE0a0lRG2SwKl7SwK
+	 UNn8+fVcQ929g==
+Message-ID: <sashiko-outbox-194895@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: mediatek: mt8390-genio-common: Fix type
+ C port mode and connection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103083335.2944847-2-wenst@chromium.org>
+References: <20261103083335.2944847-1-wenst@chromium.org>
+ <20261103083335.2944847-2-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 08:54:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,58 +60,190 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
- tachometer
-To: Igor Velkov <iav@iav.lv>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
- <20261102-ping-fan-1@iav.lv>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261102-ping-fan-1@iav.lv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/2/26 19:20, Igor Velkov wrote:
-> Hi Neil,
-> 
-> Gentle ping: this has your Reviewed-by from Oct 7, but I don't see
-> it in for-next. Could you pick it up for v7.5?
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: mediatek: mt8390-genio: swapped HS and SS USB-C hub =
+endpoints
+- [Medium] arm64: dts: mediatek: mt8390-genio: host data-role breaks TCPM s=
+ink and PDOs
+- [Medium] arm64: dts: mediatek: mt8390-genio: partial hub ports graph mark=
+s port 1 unused
+- [Low] arm64: dts: mediatek: mt8390-genio: hub ports nodes violate ti,usb8=
+020b schema
+--
 
-Yes
+commit ef02f781783f3c2d23b3aa255937ed902c67f777
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Neil
+arm64: dts: mediatek: mt8390-genio-common: Fix type C port mode and connect=
+ion
+
+This commit changes the ssusb1 controller's operating mode to "host", drops
+its usb-role-switch property, updates the Type-C connector's data-role to
+"host", and routes the Type-C port data endpoints through the onboard USB
+hub nodes under xhci1.
+
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch=
+/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> index 669eaec662f33..821dbf9d3fc5d 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
+> @@ -512,7 +512,7 @@ rt1715@4e {
+>  		connector {
+>  			compatible =3D "usb-c-connector";
+>  			label =3D "USB-C";
+> -			data-role =3D "dual";
+> +			data-role =3D "host";
+>  			op-sink-microwatt =3D <10000000>;
+>  			power-role =3D "dual";
+>  			try-power-role  =3D "sink";
+
+[Severity: Medium]
+When data-role is changed to "host" (setting port->typec_caps.data to
+TYPEC_PORT_DFP) while power-role =3D "dual", try-power-role =3D "sink", and
+PDO_FIXED_DATA_SWAP in sink-pdos and source-pdos remain set, won't this
+cause a data role mismatch and PD capability inconsistency when attaching to
+a USB PD power source?
+
+When the port attaches as a Sink in tcpm_snk_attach(), it initializes the
+roles using tcpm_data_role_for_sink():
+
+drivers/usb/typec/tcpm/tcpm.c:
+#define tcpm_data_role_for_sink(port) \
+	((port)->typec_caps.data =3D=3D TYPEC_PORT_DFP ? \
+	TYPEC_HOST : TYPEC_DEVICE)
+
+Because port->typec_caps.data is TYPEC_PORT_DFP, tcpm_snk_attach() ->
+tcpm_set_roles() sets port->data_role =3D TYPEC_HOST and programs the TCPC
+message header data role to DFP while attached as a Sink. When the remote PD
+Source (which also starts as DFP/host per the USB PD specification) sends
+its initial Source_Capabilities message with PD_HEADER_DATA_ROLE =3D 1,
+tcpm_pd_rx_handler() sees both sides as DFP:
+
+drivers/usb/typec/tcpm/tcpm.c:tcpm_pd_rx_handler() {
+	...
+		if (!!(le16_to_cpu(msg->header) & PD_HEADER_DATA_ROLE) =3D=3D
+		    (port->data_role =3D=3D TYPEC_HOST) && rx_sop_type =3D=3D TCPC_TX_SOP=
+) {
+			tcpm_log(port,
+				 "Data role mismatch, initiating error recovery");
+			tcpm_set_state(port, ERROR_RECOVERY, 0);
+	...
+}
+
+In addition, sink-pdos and source-pdos in this connector node still include
+PDO_FIXED_DATA_SWAP, which advertises DR_Swap support to the partner via
+tcpm_pd_send_sink_caps() / tcpm_pd_send_source_caps() and exposes
+dual_role_data =3D 1 in sysfs, even though tcpm_pd_ctrl_request() rejects
+incoming PD_CTRL_DR_SWAP requests when port->typec_caps.data !=3D
+TYPEC_PORT_DRD.
+
+[ ... ]
+
+> @@ -1555,6 +1548,19 @@ hub_2_0: hub@1 {
+>  		peer-hub =3D <&hub_3_0>;
+>  		reset-gpios =3D <&pio 7 GPIO_ACTIVE_HIGH>;
+>  		vdd-supply =3D <&usb_hub_fixed_3v3>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@2 {
+> +				reg =3D <2>;
+> +
+> +				usb_2_0_p2: endpoint {
+> +					remote-endpoint =3D <&typec_con_hs>;
+> +				};
+> +			};
+> +		};
+>  	};
+> =20
+>  	hub_3_0: hub@2 {
+> @@ -1563,11 +1569,18 @@ hub_3_0: hub@2 {
+>  		peer-hub =3D <&hub_2_0>;
+>  		reset-gpios =3D <&pio 7 GPIO_ACTIVE_HIGH>;
+>  		vdd-supply =3D <&usb_hub_fixed_3v3>;
+> -	};
+> =20
+> -	port {
+> -		xhci_ss_ep: endpoint {
+> -			remote-endpoint =3D <&typec_con_ss>;
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@2 {
+> +				reg =3D <2>;
+> +
+> +				usb_3_0_p2: endpoint {
+> +					remote-endpoint =3D <&typec_con_ss>;
+> +				};
+> +			};
+>  		};
+>  	};
+>  };
+
+[Severity: Medium]
+Are the High-Speed and SuperSpeed endpoints connected to the wrong hubs her=
+e?
+
+In drivers/usb/misc/onboard_usb_dev.c (onboard_dev_id_table) and
+Documentation/devicetree/bindings/usb/ti,usb8020b.yaml, TI USB8020B product
+ID 0x8025 (compatible "usb451,8025") is the USB 3.0 SuperSpeed hub and
+product ID 0x8027 (compatible "usb451,8027") is the USB 2.0 High-Speed hub:
+
+drivers/usb/misc/onboard_usb_dev.c:
+	{ USB_DEVICE(VENDOR_ID_TI, 0x8025) }, /* TI USB8020B 3.0 HUB */
+	{ USB_DEVICE(VENDOR_ID_TI, 0x8027) }, /* TI USB8020B 2.0 HUB */
+
+In mt8390-genio-common.dtsi, hub@1 has compatible =3D "usb451,8025" (the 3.0
+hub) and hub@2 has compatible =3D "usb451,8027" (the 2.0 hub), even though
+their pre-existing DT labels hub_2_0 and hub_3_0 are reversed. Placing
+usb_2_0_p2 (linked to typec_con_hs, port@0) under hub@1 and usb_3_0_p2
+(linked to typec_con_ss, port@1) under hub@2 connects the High-Speed Type-C
+endpoint to the SuperSpeed hub and the SuperSpeed Type-C endpoint to the
+High-Speed hub.
+
+[Severity: Medium]
+Does adding a ports node containing only port@2 to hub@1 and hub@2 cause
+downstream port 1 of the TI USB8020B hub to be marked as USB_PORT_NOT_USED
+and non-removable?
+
+When a USB hub is enumerated, usb_hub_create_port_device() calls
+usb_of_get_connect_type() for each downstream port:
+
+drivers/usb/core/of.c:usb_of_get_connect_type() {
+	...
+	/* Only set connect_type if binding has ports/hardwired devices. */
+	if (!usb_of_has_devices_or_graph(hub))
+		return USB_PORT_CONNECT_TYPE_UNKNOWN;
+
+	/* Assume port is unused if there's a graph or a child node. */
+	connect_type =3D USB_PORT_NOT_USED;
+	...
+}
+
+Previously, hub@1 and hub@2 had no child nodes or OF graph, so all
+downstream ports defaulted to USB_PORT_CONNECT_TYPE_UNKNOWN. Once ports is
+added with only port@2 defined, usb_of_has_devices_or_graph(hub) returns
+true and downstream port 1 (which has neither a port@1 graph node nor a
+child device node) returns USB_PORT_NOT_USED, causing
+set_usb_port_removable() in drivers/usb/core/hub.c to mark any device plugg=
+ed
+into downstream port 1 as DEVICE_FIXED.
+
+[Severity: Low]
+Also, does adding ports child nodes to hub@1 ("usb451,8025") and hub@2
+("usb451,8027") fail dtbs_check against
+Documentation/devicetree/bindings/usb/ti,usb8020b.yaml?
+
+Unlike ti,usb8041.yaml (which references usb-hub.yaml# and uses
+unevaluatedProperties: false), ti,usb8020b.yaml only references
+usb-device.yaml# and sets additionalProperties: false without defining a
+ports property.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103083335.2944=
+847-1-wenst@chromium.org?part=3D1
