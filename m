@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704093;
-	b=A8kkGbw5Hh4R9PFyx11UVIL/vaNSjMSVYGx63D3jkEJ+7BV6MapvQSfNvBRnCyV0EvDa
-	 cOTYRv+1al2GPcw7Onqhal3saz/tD8V9iJb2in8zA2I7hUf9B42tFas4MLDgcmKxi9qaL
-	 8FqCrUmpP5qIHObDAsK9aCBm9sp+dv8DhYmRqzsfx9wDVvH3vaz2OvKDnIc3rPDohqUYO
-	 ZTwfuQ54dcMsyhcwqkBLLL8Dr79wYclkpusIZR8p7f8ZBaPs8RRfarMivzsGtpEeXiE+w
-	 OgI0ExsBr0dfk3Sa/yRlwQqcrhe8a5kZvJGHsqP+rL9Z8ww5BbPwfpFa1Hs9ckLc8Aw==
+	t=1793704122;
+	b=YeB2esthRwaPBRFFlRV9O1Ctlt7WTrEh+VMGr11cCeldYwpGvLAGazOdIqQasrpZsHMV
+	 lyLbS+j7R2TZIz6slz+w6gwAs5Bbp1Z1cOwqvGbOYY3EbqCFwSy/PPs0nVuDf4CU41hbT
+	 tMYbRXsj2tvOEJcchV5z7mtu0j7ICJifA3tOxYuYykPRpD2CPmlXzCM3knjdnLrs1KmM3
+	 O+6L31WFupjnWv8bjI1e1B4xikrjotlqc59Lu0hWULaj0qs1+DQrJGUXrsVt1ypVKWddc
+	 n+VJGRr1yWIXI/0ApkNOC3prSX7gEbBCVvyt4p+swwREbAr/CbwJS4XKCjCmpFwk9KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704093;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xPoZusWyH3D9fdoWkwrWqXdMyuACo60BjbvRfcDTRcI=;
-	b=HIUdYA3pxm3MadseJJxdYd9d1faYoV1jHDRo3vnK08WuuUx2/is8Cxa9dHUSnoT3eYG6
-	 j9tQfX6vmlt5Ion1x/x+c0puUscU4NRbn849GRkaWKwsgWuB+sv6lwI4Gphp4ESp69N2/
-	 iNLNGrSM0FWtiY0yOVVCrjIXP8XPTkPLblo++Td9eq2UoNtrpuZ5zEOulQkvmqdhQazMu
-	 jBiIRB5d6e3r4c6MOPnlwiaZBJP3vK+NmB0ZBLbVvs0D51+awaffluSb6admh4yGpH+/M
-	 ygFdOD5PGQAOOC47s16sDSdJtaf5mD4PFVWL9ZxKj2Ije2YONXjqzYPc2oyzhs3a5Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704122;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aYL/i0YuscUEzD0VCErR+Tz3KdHDJR7ZwPlCYlD62po=;
+	b=tIWFUXM6goONnBM5M73BgbxSXVHfywKLclImN+DnZ+o+9cHpttqyvdyDJQiOtJWo15bt
+	 w8vsdIT6sMp0IQsoF9Qa9vtpTxY8iaGufBZZHWloP31VYE8ruUO8ojAUv6+WMh/SvYCmI
+	 A4ii49bpJVQFzVbIBFyO2BOibiCq5pN4DFbtPojNf5pOycds8DZcrmhf3wSS4F+GdS2sL
+	 sjtblxipFoi4FJ4vJoP/c0j5Rd+8il5TXvxiGOw4Pwn2SYiYSJcPwVgCzlzEiFHgYFiP8
+	 rnofIeuaoocwNlUy8s54flgyVpgXiWhmdqNmuIuDAziuwTtpVTYz8Z3XAUFDdNUvQ6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHj7eU2y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ib3z5+Md;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AAD606A324
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 11:08:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48F4606A32E;
+	Tue,  3 Nov 2026 11:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHj7eU2y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB56A1F00AD9
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 11:08:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ib3z5+Md
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF051F000C1;
+	Tue,  3 Nov 2026 11:08:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704093;
-	bh=xPoZusWyH3D9fdoWkwrWqXdMyuACo60BjbvRfcDTRcI=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=UHj7eU2yyOQGjbmDeez3g+eYL0Bv/uBQFaVXwnSjXyABHS2vICEdmQxCEJrHP2qju
-	 kEAGy47lVIwdWk3dqx9JXTvkAaEe7ImmoKHeTbrMAIPL6tsz/btjcHiUuzd9vYHgIs
-	 ACLyFdhhQWwRQyNgLOPxHcVSHobGrMkreSap/1L/sJ6373OYfeVsF+YX84ejAx25A5
-	 andD1CvJB/16z3poGAxQPCT7qbH7sp1VcsXrMnPslbovnNMPOpuh6ncs1SFjs4I8TG
-	 TgwrunHp7mwg1CLdW7//hRh/UPy0m0rM5NQtIgq8etzTLFKyE/9PA2bxs6d/a2UfBU
-	 UytNUnElfgWpQ==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab3dd966e1so36383311fa.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 03:08:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzMwV2KkvA4H9Bq3DDFZ8bPK2/fOFm6Yo6Gcl2Hy0sfVUFfeLssOTTONpgpRnuzwXS/bmCJCGcZpHKf@vger.kernel.org
-X-Gm-Message-State: APuU4Z9C/5wcU/xmVTP5rRcAJlyjXjsoF/8gspMEfLlcXe9zgSzrvbZp
-	I6NRPxUZ4hZDopNvs7IQQO0/FKXv8a9PyatnVUZyWNKogkskCty+sCktCuGp6jtbtb0cxzDupJG
-	4SmTvI+grjTzIPq4ERn9nIgYcgSQ/rCU=
-X-Received: by 2002:a2e:a555:0:b0:3a6:5ec0:7977 with SMTP id
- 38308e7fff4ca-3acb7b45f8dmr32247991fa.22.1793704091325; Tue, 03 Nov 2026
- 03:08:11 -0800 (PST)
+	s=k20260515; t=1793704121;
+	bh=aYL/i0YuscUEzD0VCErR+Tz3KdHDJR7ZwPlCYlD62po=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ib3z5+MdhkonNdwMiArvyjWg6RnzTYHc2pP/M44kZZ+O5Vr8BoPLiJPCfQFqyxVHW
+	 N1YYjgkSE9RJ5mkBYWF/Wkv2WqEyM8LwFzDLHiZyZXRwW9+lo5WtALZ12TX+bsotmk
+	 VYq5I9K/9tJovZW+Gaef777aWtvI04kR29BgdVYEOhbbEhxZcAYKpr7klaqi+IlgbX
+	 oVMX/g0apanLPeSaSllUbJBAuluobnHJgzD8bgoakxClpdDEdjGc+8oUhyweJURGZj
+	 59hulPiSobqluqW2m8XOZyAG+/hl6V9VWBDKI/B95hDZyuLjpSuLjprzGFeSH5r4V5
+	 lT7XCpm47J4/A==
+Date: Tue, 3 Nov 2026 12:08:38 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com, daniel@makrotopia.org, 
+	linux@armlinux.org.uk, arinc.unal@arinc9.com, Landen.Chao@mediatek.com, 
+	dqfext@gmail.com, sean.wang@mediatek.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
+Subject: Re: [PATCH v4 6/7] dt-bindings: net: dsa: mediatek,mt7530: add
+ EcoNet EN751221 switches
+Message-ID: <20261103-soft-lyrical-squid-c5a108@quoll>
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-7-cjd@cjdns.fr>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,47 +64,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-a100-thermal-trips-v1-1-73bce7ff0767@gmail.com>
-In-Reply-To: <20261103-a100-thermal-trips-v1-1-73bce7ff0767@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 3 Nov 2026 19:07:56 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64fEDzpn-ytggienzYjOGiQYsJ=SLCVx4zz9psw=bvjYg@mail.gmail.com>
-X-Gm-Features: AclHuK_7MCsHCFGRxCGrHLGiBJS1LagIQXdv248ODfyEYfHWYTzn5PL2aAFmzB8
-Message-ID: <CAGb2v64fEDzpn-ytggienzYjOGiQYsJ=SLCVx4zz9psw=bvjYg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: allwinner: a100: Add CPU thermal trips and
- cooling maps
-To: rajanyadav0307@gmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029184202.1859843-7-cjd@cjdns.fr>
 
-On Tue, Nov 3, 2026 at 5:09=E2=80=AFPM Rajan Yadav via B4 Relay
-<devnull+rajanyadav0307.gmail.com@kernel.org> wrote:
->
-> From: Rajan Yadav <rajanyadav0307@gmail.com>
->
-> The CPU thermal zone in sun50i-a100.dtsi has a sensor but no trip
-> points, so nothing throttles the CPU as it heats up and nothing shuts
-> the system down before it overheats. On a KickPi K5C (A133) without a
-> heatsink, the CPU reaches 90 C within minutes of full load.
->
-> Add a passive trip at 90 C that throttles all four cores through
-> cpufreq, and a critical trip at 110 C, using the same layout as
-> sun50i-h6.dtsi.
->
-> The temperatures come from the Allwinner BSP (sun50iw10p1.dtsi). The
-> BSP drives this zone with the power allocator governor: control starts
-> at 70 C, the target is 90 C, and 110 C is critical. The power
-> allocator needs a power model of the CPUs (dynamic-power-coefficient),
-> which the A100 does not have in mainline, so here the 90 C target
+On Thu, Oct 29, 2026 at 06:42:01PM +0000, Caleb James DeLisle wrote:
+> The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
+> in the SoC register space. It is similar to the econet,en7528-switch
+> except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
+> port 5 has no PHY, but is in some implementations connected to a
+> downstream MT7530 multi-chip module via a TRGMII link.
+> 
+> The downstream MT7530 is similar to the MT7621 multi-chip module and
+> has all gigabit ports.
+> 
+> Add the econet,en751221-switch compatible with the same constraints as
+> the other built-in switches and also add the econet,en751221-gswitch
+> multi-chip-module switch whose port 6 is configured as a DSA link port.
+> 
+> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+> ---
+>  .../bindings/net/dsa/mediatek,mt7530.yaml     | 43 ++++++++++++++++++-
+>  1 file changed, 41 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> index f98b9113ad12..011c94ef9554 100644
+> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
+> @@ -29,6 +29,12 @@ description: |
+>    and the switch registers are directly mapped into SoC's memory map rather than
+>    using MDIO. The DSA driver currently doesn't support MT7620 variants.
+>  
+> +  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
+> +  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
+> +  module implementation of the MT7530 as well as the on-die switch. In these
+> +  packages, the multi-chip module is connected to port 5 of the on-die switch
+> +  via a TRGMII link and allows for 5 gigabit ports.
+> +
+>    There is only the standalone version of MT7531.
+>  
+>    Port 5 on MT7530 supports various configurations:
+> @@ -109,6 +115,14 @@ properties:
+>            Built-in switch of the EcoNet EN7528 SoC
+>          const: econet,en7528-switch
+>  
+> +      - description:
+> +          Built-in switch of EcoNet EN751221 SoC
 
-Does the downstream BSP have this? It would be nice if we could port
-it over. Then you can properly use the power allocator and/or the
-schedutil governor.
+You can drop, pointless description, repeats the compatible.
 
-ChenYu
+> +        const: econet,en751221-switch
+> +
+> +      - description:
+> +          Multi-chip module gigabit MT7530 in EN751221 SoC
+
+Keep it in one line with description. No need to inflate it even more.
+
+> +        const: econet,en751221-gswitch
+
+That's almost the same compatible, which makes me wonder if you describe
+the same device twice. Same device, same compatible.
+
+Best regards,
+Krzysztof
+
