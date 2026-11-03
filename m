@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793664700;
-	b=HT3Cg8FnJJ4xMY7D53nid/WGwAmGkOzK28RZThSslhMq1IitT0cmLBMcN7Zs8E5MFmo2
-	 +++ALa+jhTkTIhbfZAZEVvkXmJ/a7eV9LJ53+xS/qWatW+50BdT5VWV/rQoQwcTOJ383K
-	 GV3MHP0tYQKbGP5FkTvuSs+fx5QLiAnWrXXoHuKFBBPbNXLG1WRT9iLkBKAoGJ8DdOr+g
-	 IupIzp03Uzf78VxhJzZTR6uws10hz7i8p8TEPotQbqPmDqVbwgyj/HM4KL2zyPOcl2GCQ
-	 8OActFjkuAJQ8L6+k3r2DYbR23+JybSgWMVcdNFJmvi+g1SQ+LsPMigebwymFz85jig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664700;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IiWBWsYR5E7muXgvdHXi9q+MaBzNdnhsukAFteSamOg=;
-	b=HgHiTikVQLoTlv/zWxWHMEob7tn56BJBo4RJDO0JeNmXSMeyd6V7BlJ+gFrSAVthHwMm
-	 xjwxOMxaHRDXrNRs+wyEcCxXDrCDOi0Ia6MHLVCHTf3pkk3likEVs+/TcB7TaMjFwnPIu
-	 YVegvwlP2ngrQYk3mDhtj28eq061kQLIugBIzEWbt5cL8Clu869hUdUh/Tp4zbB0Ksaie
-	 pDrzEBIR7/3R5nvOP/CWWSixSlTPoskaXjZeQsaeyiiQm3GGjZ8U4ILWWXssm435APQpJ
-	 UxCc+JrVA7rUQZwqBEwAvgeaTK1aBuv+ku3fvfSpNFUIcHE4IgXBLjoe7iJ8XzqSrTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRL0bWxP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793665151;
+	b=QxMZ8Q50wUXmx5x/nGFDtme+T9Uox/nexFq50Pg/PLiT//GAs3ppbPkyJals16odQ0SB
+	 D583wv5A1rS8iS9Iyrzso7HOhP+3CqfATLdeD8iprT/gT8d+NMw+/6aJAd+MgoIN4Notu
+	 /sDLdtSEehRVyIgDWOMWcQxboXvdViYKyrcCWXHr7KYcKERzneQ1zLyD2qE8nSTxzF0x4
+	 nBhYtPyEOEo+ItM96LU+zl9BaOeIe0LnRLQ3i97q22eVx2LtjZvsAOZzG5qQPz648hx/p
+	 TX9uIGwHPC36FfFx97pT1hGCA2FDhHnoULLf1dmW5tuWJpVvQz3ExQAX/iLUVRxAcBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793665151;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=D3DRMxW5hdwwlOm3Hc350Jx9nWw6ye7l2TVN151lhQo=;
+	b=Um1ylG7zxjjLDIJOmscguAkur0+7UEyBoFfAX2uU7K6gsFJY+Y/EhMXmRtJsc1Wc49+7
+	 luphnG0VPDOH7+5f6wn5ojF5ZE8TMGkDD0hikeZC6MewnQ27xXEHXivSOVaKCw1ng2yEF
+	 4Vm6Ha+jGaWOcizImmvMCbHYYy4VZ5QWfObB60Rd7jNoLAZ1Q+JyVOAk6rjNLvi2YWzPr
+	 5fLkVq+Jdx/uHlssr3K6vxc8s82YfJEgKbCsuTrBi2+tVOKR8G6Uwzo/25f9ExKY0D6du
+	 Ual5bov/ExxgmD4bqmMoBdpbtbN2/PUoG+c3Fw+jLJIUkH/R5EfoNsx1ih+0sxa/1NA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJHljwn0;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCAF606A327;
-	Tue,  3 Nov 2026 00:11:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7710606A324;
+	Tue,  3 Nov 2026 00:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRL0bWxP
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793664699;
-	b=b3+J4c4QFbZi8X5vK/9yjvfyu9LfxXmWWBCkyinZXIk2cLIfSA+O4b5bxYBrunX3pBtr
-	 jAgPfs/0E4yeJHQnHkuNMttF+SV/o7tqCpM+sKHGpngwG9dEWk9/+hKhsIyHJlIC08169
-	 NQ4tkAOJSkZgpeZHPOk4UTIZVKuEWMml63JSc3Tmbv7uBhEbK0R/89psEYjJW/4RW7W7I
-	 lF++O2VPwyEHtxDcUqqeSH8YyF9HOgyTG04w/qeaQse+NJ3yKipKEn7XsYYfI8jlyiSqn
-	 Aou4xFewTgcLmZ72ysIjC7J2yFaBaGneac1XztVdfO9FtYO0rVtm3xyfi6wX9Hed/2A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793664699;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IiWBWsYR5E7muXgvdHXi9q+MaBzNdnhsukAFteSamOg=;
-	b=Fw6wgFQtgHzH9tPjiP9dEUyKJgYhtilCGV3Efv7Ce6JJoqoJyj6mDe3Wyukj0NWejEya
-	 Xh21BLwbzCRL7/AVZpcdMXiYie6k4kArKt02rsTxwPpmUsMlL3g72jMfmaOOiGqiJ52e/
-	 i66OrZMwiXEPha3NvL/UVrhgmjHVQe0wMlUcfu26AByorkd3YufOyfpqaoWeJTxr9EayG
-	 mxvZUL/G0SYlLwB31iFqGeI+SaKnnOZ8n/DCk2C1NL2wOsy2LDaWg9KfiPX4WPzghNx+P
-	 EmkJ7EqTLav5q0ssIHDI86sH0dG+ZA5Jhm0wrkuIgP2q0GZtk57hlNt0oJzPCIcwf5A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8CB2D1F0093A;
-	Tue,  3 Nov 2026 00:11:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJHljwn0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AFF31F000C1;
+	Tue,  3 Nov 2026 00:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793664699;
-	bh=IiWBWsYR5E7muXgvdHXi9q+MaBzNdnhsukAFteSamOg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JRL0bWxPCr3zqnNj6e0VPffaaZNS98ifTSwyedxpVREUiRUY4Cxkh91/RXhAOHI28
-	 Eg8RRE3OPiiJICUFgK9mKzA6kLy1KvDX9KcxH9PZd6BXw0oAGLiq+qZtkm2E5DN7Jy
-	 virHjkcXVjEMZXHfxWU+Eb5Hb+RivMJ0l/wBrVqvltvwFUtXpWwI8yLZd81fr6J2AO
-	 gnIzbsqs8vSNXgJTnK5uYMvu1AG16C3RwysC0LRAvfHxL8B1UhHIA9rwL0QPBiA1C5
-	 cvacgxPx/msHIN50yC0mW6b2AEeBzsBHuK2A81DAiAwbcjv0yLxwSeZHUldU0FXU0D
-	 cxaWV1FimeMGw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2009846707;
-	Tue,  3 Nov 2026 00:11:38 +0000 (UTC)
-From: Kohei Otsuka via B4 Relay <devnull+kohei.spacemachines.com@kernel.org>
-Date: Tue, 03 Nov 2026 11:11:32 +1100
-Subject: [PATCH 2/2] serial: 8250_of: drop RS-485 RTS on Microchip
- Core16550
+	s=k20260515; t=1793665150;
+	bh=D3DRMxW5hdwwlOm3Hc350Jx9nWw6ye7l2TVN151lhQo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HJHljwn0ZvL0qOhTosjUJbm4ldqNCa/KjStpTYP3xqRWNV5Pny+6NDe2wpihm4/e8
+	 C4q6cVD7iGz7pdwGDCQecb1tiGaozO3iVlC9hUrTceF9eIR3A565j5Fu9Ivygy7qbI
+	 XRw+Y5sp7GwVXds4a9OEIzcpyyLslUhtnsa8ymxmckSs6fKJcsJHgmeH3TCL6H2DDN
+	 a668BXCAEdtfswuAyQQuJoXSNBCBWtHokGdWEN3pL8qGdvLS5PkV04ACwqlsVsn4S8
+	 YH6WI+TMIjVQVHR8+iSBtG9OQwGvnoNdSBqdpj46U4prEm13fLdMW4VDR3xADF5X5Z
+	 lVeqzrCW1abog==
+Message-ID: <sashiko-outbox-194371@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: serial: 8250: add Microchip Core16550
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kohei Otsuka" <kohei@spacemachines.com>, devicetree@vger.kernel.org
+Cc: linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
+References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
+ <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 00:19:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,79 +59,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-core16550-rs485-v1-2-6d15ebe1e5b9@spacemachines.com>
-References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
-In-Reply-To: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
- devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- conor.dooley@microchip.com, Kohei Otsuka <kohei@spacemachines.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793664697; l=2108;
- i=kohei@spacemachines.com; s=20261103; h=from:subject:message-id;
- bh=pUGC6KsYj2Vq9mX7f4htRLLVNc2OLm78QJDAJj/EEIw=;
- b=SOZsHbxjVHhtvOAxWm/5ie1jSZyqibBbtTO8KauS4N9ybYX3pM37QIw+++Brrh6+jV03PUFPq
- jPXmi+ScU6UDUhEIw6LlcdnBBE4Jq5kG2U77ux8j07NF8zRfODtsvzA
-X-Developer-Key: i=kohei@spacemachines.com; a=ed25519;
- pk=1kit/vmX5JiLGH9NPcqlvT55ISWaLmNipdL5VrriRt0=
-X-Endpoint-Received: by B4 Relay for kohei@spacemachines.com/20261103 with
- auth_id=1385
-X-Original-From: Kohei Otsuka <kohei@spacemachines.com>
-Reply-To: kohei@spacemachines.com
-Content-Transfer-Encoding: 7bit
 
-From: Kohei Otsuka <kohei@spacemachines.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: serial: 8250: missing RTL version in microchip,core=
+16550
+--
 
-Core16550, a 16550-compatible UART for Microchip FPGAs, interrupts on
-THRE but not on TEMT. When the last character moves from the FIFO into
-the shift register, the THRE interrupt calls __stop_tx(), which finds
-TEMT clear and, without UART_CAP_NOTEMT, returns to wait for a TEMT
-interrupt that never comes. RTS, and with it the RS-485 driver enable,
-then stays asserted after the frame, and receive interrupts, disabled
-for the half-duplex transmission, stay off.
+commit de9364d94e19f22c5fdbfabf92e9c1ea40cb4c1e
+Author: Kohei Otsuka <kohei@spacemachines.com>
 
-Set UART_CAP_NOTEMT for nodes compatible with "microchip,core16550",
-so em485 drops RTS from its stop timer one frame time (plus 1/7) after
-THRE, as it does for DesignWare UARTs.
+dt-bindings: serial: 8250: add Microchip Core16550
 
-Set UART_CAP_FIFO as well: with the capabilities already non-zero,
-serial8250_do_startup() no longer fills in the PORT_16550A default,
-and without UART_CAP_FIFO serial8250_clear_fifos() does nothing, so
-the RX FIFO is not flushed at the end of a half-duplex transmission.
+This commit adds the microchip,core16550 compatible string with ns16550a as=
+ a
+fallback to the 8250 serial Devicetree binding for the Microchip Core16550
+FPGA soft IP core.
 
 Link: https://github.com/linux4microchip/meta-mchp/issues/5
-Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
----
- drivers/tty/serial/8250/8250_of.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/8250_of.c
-index b41ca604083f..2f1f505501a2 100644
---- a/drivers/tty/serial/8250/8250_of.c
-+++ b/drivers/tty/serial/8250/8250_of.c
-@@ -278,6 +278,15 @@ static int of_platform_serial_probe(struct platform_device *ofdev)
- 	if (port8250.port.fifosize)
- 		port8250.capabilities = UART_CAP_FIFO;
- 
-+	/*
-+	 * Core16550 has no TEMT interrupt: without UART_CAP_NOTEMT the em485
-+	 * code waits for one after the last THRE interrupt and never drops RTS.
-+	 * Set UART_CAP_FIFO too, because a non-zero value stops
-+	 * serial8250_do_startup() filling in the PORT_16550A default.
-+	 */
-+	if (of_device_is_compatible(ofdev->dev.of_node, "microchip,core16550"))
-+		port8250.capabilities |= UART_CAP_FIFO | UART_CAP_NOTEMT;
-+
- 	/* Check for TX FIFO threshold & set tx_loadsz */
- 	if ((of_property_read_u32(ofdev->dev.of_node, "tx-threshold",
- 				  &tx_threshold) == 0) &&
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
+tation/devicetree/bindings/serial/8250.yaml
+> index 50d5c977afa3d..33a5929bdaa69 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -137,6 +137,7 @@ properties:
+>                - ti,da830-uart
+>                - loongson,ls2k0500-uart
+>                - loongson,ls2k1500-uart
+> +              - microchip,core16550
 
--- 
-2.53.0
+[Severity: Medium]
+Should this compatible string include the RTL version suffix (for example,
+microchip,core16550-rtl-vN matching the Libero Core16550 major RTL release)
+rather than using an unversioned microchip,core16550 name?
 
+Unlike hard SoC peripherals whose IP revision is fixed by an SoC-specific
+compatible string, Core16550 is a synthesizable soft IP core from Microchip=
+'s
+Libero catalog that can be instantiated in FPGA fabric across different chip
+families and IP revisions.
 
+Existing Microchip FPGA soft IP core bindings follow the
+microchip,<ip>-rtl-v<N> naming convention:
+
+  Documentation/devicetree/bindings/spi/microchip,mpfs-spi.yaml:
+    - microchip,coreqspi-rtl-v2 # FPGA QSPI
+    - microchip,corespi-rtl-v5 # FPGA CoreSPI
+
+  Documentation/devicetree/bindings/gpio/microchip,mpfs-gpio.yaml:
+    - microchip,coregpio-rtl-v3
+
+  Documentation/devicetree/bindings/i2c/microchip,corei2c.yaml:
+    - const: microchip,corei2c-rtl-v7 # Microchip Fabric based i2c IP core
+
+  Documentation/devicetree/bindings/pwm/microchip,corepwm.yaml:
+    - const: microchip,corepwm-rtl-v4
+
+Other soft 16550 IP cores in Documentation/devicetree/bindings/serial/8250.=
+yaml
+also include their RTL or IP version (opencores,uart16550-rtlsvn105 and
+xlnx,xps-uart16550-2.00.b). Including the RTL version suffix would keep the
+binding consistent with other Microchip soft IP cores and allow software to
+distinguish between revisions if behavior (such as TEMT interrupt generation
+or FIFO handling) changes across RTL releases.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-core16550-=
+rs485-v1-0-6d15ebe1e5b9@spacemachines.com?part=3D1
