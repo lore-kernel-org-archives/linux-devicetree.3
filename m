@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793718700;
-	b=drGPgbUpTyqs1yjwzVUnF7cWWnPWtMN4ehQDncW2YhImgE+miyqcaqprDeg6UY3fMNbo
-	 6jGEcs9rCefO6J5FxU6doDIiOIGzCgCVzJ4E8aofvLfyOZFe+kkaBNK50+AjcV2EV+ImR
-	 3qC0lnfyzDtGJSg02UShuFN+HHgWnjjwkDakAG+kRpSvHb8DmnmAw89BHDZitKlyMJqVc
-	 CApU41mtsL+L9OrdfXWKBco4hSjjHH3DxFWM0esD6D8d1q7/bXtWbPWl3kllAusQiP4pC
-	 vQ1Ku0J5PkZN07KTdITJ5i9UA2V8Rorbkt0NQYV2DGysptP3iFuGdHF4RcOHHeVbn2w==
+	b=l9SooFjaDnWq2+EHlDP0Qy1pLm3yJbeLJ1/CbjlzcahMx0tGXVp0N40qngv/nBmyOqSy
+	 qtc5lunnB9AbhcEl4wfZ0haPIE7wIV7BSTdaTNmzwETxciMTeMaSu0FAq7VPyZU127OLF
+	 eKI87IjEk0TObFGn3OAR1z8JR4AVUebvt2gzoaeLxsnRiek2mY3kILPuAGZviearL/kJZ
+	 FgvVXDB5snRCrvvLLECgUjBW8Tem38YagFPotCIQRsAugD6M/wmKOetuvw6f6h4QvnJ6r
+	 vQf41sdfMuGP1l0DzBQKYCWhC8H14GtmTYXME3quti1pzq84VMuaFGmTxmHb5rLsDCA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793718700;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=sy1sdDWA+u1mhmEL4Lf6QFFARB0/Ugd7xLpfO88L4lc=;
-	b=UX5katt5myDmDxAotm7CzOOTYsq8yz+jLjt6w1juY+PmE5AMD7oU/9uyNSbf4mk9+/Mc
-	 bYQNcGnpkgWMNtttXBFNt93yAWn8a2apzdXl4yKo9obZkVU4zF6Zl2I2p0H5i7Yep4dh3
-	 e635niHnTtt54gdYttfo1Ngk+TzRMvkwITGcF89HMGJHLl8mrny15WFW4pvBYTGijzjui
-	 0u3W35aRXzbo3iTRxeUCDvpg6kZsrGbfahvwYnHLZn4GUevW35l8qS2W9QpeGv0beO3dX
-	 SZIuNjrAK7CBgu5fPB2mGG+shMPOLZ1M/h2Nand305dqEGvPjMSsiNElAYSRqlWxViQ==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ZhxFxQVBSsCCwVBEhg/3TJFmkdSch9FDXhPkOUs2eeI=;
+	b=uD/mudPW/cQKOXQAqtvGH9GGQiJT1FsG8G8ef6aYyfZBfaHzUsNj0w8TtvBL62hw0bTk
+	 xgQMwSziTLx2YTPzIb1Yu6nzS7yHkYpWRjQ3qaT6NZUuRz9IHXrFZHIaGNg8leOLd/ADT
+	 n55OH2ej0Cju0AOSq2kAhFTCWmlexVJbBgab3htcThytqJlyLAFOa7a62gHZ9H1Dhkd8r
+	 aNR2Se6z4WKsqveklVWbwHjEJJjyEr6MB8/HeO8024iuYQbTQsW2Ogs7jUOxw3qgjrmVc
+	 Ng713Gbrhi1DrQLGGMahJF96MQFKfH2NtaCzmTCN7mG80hgrYh0DmSiCvTQkthR0mfw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYxbj334;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aroiUfdQ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B63606A784;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05B5606D808;
 	Tue,  3 Nov 2026 15:11:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYxbj334
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aroiUfdQ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793718699;
-	b=TqcYEbU6cUws9uFdvfODD9QEJmjLtU/nQyQSj/eJ40N4Pz1TcnmsKhml3mZbETc01SQS
-	 ojjpQEplRxVUpSYf87Ydwrw/kIsyDxZzUf8p8M6Khwiobs79Is5J2aGFTZiPykWO2jPKG
-	 TGahqwbDUu2RFuYnr9VbUy1cTkf5JDFqP0CIlNnGQ6vZY7ewUYTVh0dcIunu9Avo94WP2
-	 PQMTpGqFYSeOGPYKvtqlWa01lDjkkUPZI7ezdwiH5UB04LjukWI3CIA3m/4MTifWQ7G9J
-	 NWMqFC139p5ljaPVY1zZ06oSc7HakvcpyyZ1Y4fcCURlzZV+7uKFiMHr5bPeBHpbhYw==
+	b=juVuWjLOt4jvxADm1maD6JxsJCkHX0r2yPefw43Dj5gOK7fvyGtADx+uF8l4w7A7OQ/k
+	 XP1dyFPOky8AUI3f5YGZoYOkMqE1cbCNOfeMCgmluRCSIClTRl8HIBjHYyF95O0FBhCs3
+	 Jj/ww48oK55rqM3h4db3IuPnodG55xJs2MAVPMhuQcUjNAkD5rXdnIH/cWPA5vKBJ0qaS
+	 VVN9BG6AUrdrvSGIcMdFIKWzw1hGAEjvCPIGIm/k/xKXNus8E9N26iUSnTy7ph3F+xNPX
+	 +Wqegr3z+N+Ww1PE+DzLXCnkK9tdzV5s4KL4QedXMY5HjiMP6BkqfJtIblNFwjfAf3w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793718699;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=sy1sdDWA+u1mhmEL4Lf6QFFARB0/Ugd7xLpfO88L4lc=;
-	b=lVESqMq4wr/w44ShaI9cS3eAg3PMNapSbif23wRbLUPeVT/Uy3f1zfbajs01ndjzF+Ez
-	 ljVuGFKYIZmXzvzTTBH2SAN+5pFHxN6o/LisyPAKDcOjNzYOICbQCO49OURbKl6oI6udj
-	 cNZcfcCbjHiAlJv9Ayx+VbpZC69+jeUMBbNEMOvcMqvlv7/zHzstUSajKIq6+fA7Q+cuh
-	 d7YsxZ+ibJF5Gr4+7ULH1g+HECMvQu6S9/xB52+wKsxG8a9XLr/6AJmM+foIIgkqqci0T
-	 I143KaIeeRQwhexcmxawXuUV4KX3H3BlYHRBJ6fjRXfIJCG90v7VtzAvg5kziZfvAYg==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ZhxFxQVBSsCCwVBEhg/3TJFmkdSch9FDXhPkOUs2eeI=;
+	b=JMxP//A8KHhilrdT6yrGIQ5bbWgcgIhx8Opbp9PHF2zL+UKUuqTVbdf4KQHias+jhMu9
+	 p+FG2fAT1fHA+by5cfX8rCTLOBBmj5OBJeB0+tBq39Nya/09+9qI2rkc/7f8ZeKpQpe4n
+	 NIxQe6F7V0N5fgXMhCi0+sCLLy32e7756+4yVjcWB8PpyLKZAID/XP+LPST0Ul52o6h7G
+	 VDep6KBIdhr0kKY1BaVNltWnygQyR4JD9oVPN09phqxjEyr2XxMPh/BJJFdyqPVd9HcqX
+	 O2NaM9vwKsuBpVTSlRsH/DxkQNdInEAwJ6F4bESTp6a4kWIVX17twhgxLHdstlXLrhw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 810121F00A02;
+	by smtp.kernel.org (Postfix) with ESMTPS id 813AE1F00A15;
 	Tue,  3 Nov 2026 15:11:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793718699;
-	bh=sy1sdDWA+u1mhmEL4Lf6QFFARB0/Ugd7xLpfO88L4lc=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=fYxbj334IUJNPyH4MS8xQ7OawT3dfy3iL6avv8YcEcwfj4XNb03zWd0wf7wi1c+aJ
-	 1GiYO/kZloi6iOy95BhYV33rSZTCd8ifSBmvWV+17S1cAcpJm6NLk9AAeupvFS8l1h
-	 3QAkL5FCQ3HiX1DapXuXHdvQgAfUZIIT5iPXu+DFSrA09gXt+hTfFHCgzGQ/UYcaU9
-	 ymMnlkQ4UjdcSJgQoXrcslshKuoQVyNeVYd8YLjHiIWiklxWZBt7C8CrgTNqLZjw0P
-	 n7u5cCPJqo246DfemJ10Ue379ixN7eWVwpqqw4iQi0AVUXInlNBqk334cPtqZC5kMj
-	 RxVKkOUFPZaCQ==
+	bh=ZhxFxQVBSsCCwVBEhg/3TJFmkdSch9FDXhPkOUs2eeI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=aroiUfdQyYT9DP9COsC6ePlxaS/u60SEiMPafuYZcpvZTYK0virRvLj3SZqp2IP34
+	 MlQzxvVeTUV9YEE0zz72JrHpUsWsD/cEtMCGMHT97oiAx4xJUpnG4mJj90KQGcKIfY
+	 mC/7U/cQ6PkjnBfUppNyfoGwwRL//92dO9N4sJjkEdUU0GT9sh888F8+YORcl72uUQ
+	 i25MpPbCVtoYIIMup1x1YQlBgZTIXf3ALIK8iT1Q6arNPP1GOxVASKtMeN9IbGubHj
+	 0wV5XhXTez27Hlj84sPq9L/HAbXpetaFOv47qaahGOlEN6xA7COiHcRKb+ZtAo+uZy
+	 iVPF4BMu9yIQg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CDF61469B6;
+	by lkml.kernel.org (Postfix) with ESMTP id E89F0469C6;
 	Tue,  3 Nov 2026 15:11:35 +0000 (UTC)
 From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Subject: [PATCH v2 0/8] Add support for MIPS P8700
-Date: Tue, 03 Nov 2026 16:11:24 +0100
-Message-Id: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
+Date: Tue, 03 Nov 2026 16:11:26 +0100
+Subject: [PATCH v2 2/8] dt-bindings: riscv: cpus: add gf,mips-p8700
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,12 +83,9 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJz56WoC/03MQQ6CMBCF4auQWVvTGSpFVt7DsNAypV1ISYtEQ
- 3p3K25c/i8v3waJo+cEXbVB5NUnH6YSdKjAuNs0svBDaSBJjazpJOZWSymGJQmFum2tREWkofz
- nyNa/duval3Y+LSG+d3rF7/pTzqj+lBWFFDU12qLiu2G8uIXNGMNzPprwgD7n/AH05L2cpgAAA
- A==
-X-Change-ID: 20260325-p8700-dts-41788f014227
+Message-Id: <20261103-p8700-dts-v2-2-3ac5d49f2c37@htecgroup.com>
+References: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
+In-Reply-To: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -104,95 +100,44 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
  Paul Walmsley <paul.walmsley@sifive.com>, 
  Palmer Dabbelt <palmer@sifive.com>, 
- Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793718695; l=3907;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793718695; l=791;
  i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=zHYiuOrAOGUKb3zk94xINXfL6OoQmBspjmotb9xqkoU=;
- b=33gipfFB6OzQenMAHjINnWTFCT/xdttEHnqLGCLAJiRQNhETw4JLG2O0GHJThKzb8M3j5YRLT
- oCK/su/6u43B8QEX7nQDKqC3jwkwpElqvZbIKl+DAVwNwb/gG5Ptwhp
+ bh=9r+1zOKPzU+i4ZT8EB9T5a+EqeMioNWwz2te9YRWjxc=;
+ b=+BnhWHkCTSsdtLXP13Ak/Ol9NEC55TjJ/xC9Uk3KZQb8Z2yNgjZsLYhToj/zwDsME5s9L70aH
+ b5RbdLs5bNvDiKC7c/OxSdJE4ODCFPTigCot+Y2CJwjAXAKaST1oCX2
 X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
  pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
 X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
  with auth_id=476
 X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 Reply-To: aleksa.paunovic@htecgroup.com
+Content-Transfer-Encoding: 7bit
 
-The MIPS P8700 is a multi-core RISC-V microprocessor system, supporting
-both single-cluster and multi-cluster configurations. [1]
-This series adds full description of the platform,
-including the Boston FPGA board configured with a P8700 bitfile.
+From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-The P8700 cores support the RV64GCZba_Zbb (G = IMAFD) Standard ISA,
-with a caveat: the A extension is only partially supported, and all ZAAMO
-extension instructions are emulated on the SBI level. The device tree
-intentionally does not reflect this fact. Vladimir Kondratiev's series
-improves performance by directly substituting AMO instructions with LR/SC. [4]
-The two patchsets do not depend on one another.
-
-The board itself is the same board as 'img,boston', configured with a different
-bitfile [3]. The Boston board has been supported since commit 6e62a888029b
-("MIPS: generic: Support MIPS Boston development boards") (thanks to Maciej for finding the ref).
-
-GlobalFoundries has acquired MIPS [2] and the vendor prefix
-for all newly added MIPS RISC-V hardware reflects that fact.
-
-I tested this series both on QEMU and a Boston board
-configured with a single P8700 CPU,
-after applying the necessary U-Boot and OpenSBI changes
-to match the 'compatible' strings and the changed MTIMER register order.
-We are planning to upstream these as well.
-
-Links:
-[1] https://mips.com/wp-content/uploads/2025/11/P8700-F_Programmers_Reference_Manual-TM.pdf
-[2] https://gf.com/news-and-events/news/globalfoundries-completes-acquisition-of-mips/
-[3] https://training.mips.com/cps_mips/Examples/MD00901_Boot-MIPS_Example_Boot_Code_for_MIPS_Cores.pdf
-[4] https://lore.kernel.org/all/20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com/
+Document the MIPS P8700 compatible.
 
 Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 ---
-Changes in v2:
-- Patch 1: Replace "MIPS Technology" with "MIPS Technologies".
-- Patch 3: Name the FPGA used and add the versioned bitfile compatible.
-- Patch 5: Drop hart indexes from MSWI.
-- Patch 6: Swap mtimecmp and mtime, require reg-names both for mtime and mtimecmp on P8700.
-- Original patch 7: Dropped.
-- Patch 7 (previously 8): Remove additional harts that are not
-  present in the bitfile I have. Reflect changes made in patches 3, 5 and 6.
-  Remove riscv,cbom-block-size. Drop undocumented compatibles. Other minor changes.
-- Link to v1: https://lore.kernel.org/r/20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com
+ Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
----
-Aleksa Paunovic (8):
-      dt-bindings: vendor-prefixes: Add GlobalFoundries, Inc.
-      dt-bindings: riscv: cpus: add gf,mips-p8700
-      dt-bindings: riscv: Add MIPS Boston board compatible
-      dt-bindings: interrupt-controller: Add MIPS P8700 APLIC
-      dt-bindings: interrupt-controller: Add MIPS P8700 ACLINT MSWI
-      dt-bindings: timer: Add MIPS P8700 ACLINT MTIMER
-      riscv: dts: gf: Initial support for the P8700 Boston board
-      riscv: defconfig: Enable GF SoCs
+diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
+index 0da219ae6769767a9b7f41f179a3559ae7160d69..c7f1cf1db6eef5b25403d53bca7cffd9bc1f2240 100644
+--- a/Documentation/devicetree/bindings/riscv/cpus.yaml
++++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+@@ -48,6 +48,7 @@ properties:
+               - amd,mbv64
+               - andestech,ax45mp
+               - canaan,k210
++              - gf,mips-p8700
+               - nuclei,ux900
+               - sifive,bullet0
+               - sifive,e5
 
- .../bindings/interrupt-controller/riscv,aplic.yaml |   1 +
- .../thead,c900-aclint-mswi.yaml                    |  11 ++
- Documentation/devicetree/bindings/riscv/cpus.yaml  |   1 +
- Documentation/devicetree/bindings/riscv/gf.yaml    |  33 +++++
- .../bindings/timer/thead,c900-aclint-mtimer.yaml   |  35 ++++++
- .../devicetree/bindings/vendor-prefixes.yaml       |   4 +-
- arch/riscv/Kconfig.socs                            |   6 +
- arch/riscv/boot/dts/Makefile                       |   1 +
- arch/riscv/boot/dts/gf/Makefile                    |   2 +
- arch/riscv/boot/dts/gf/p8700-boston.dts            | 135 +++++++++++++++++++++
- arch/riscv/boot/dts/gf/p8700.dtsi                  |  82 +++++++++++++
- arch/riscv/configs/defconfig                       |   1 +
- 12 files changed, 311 insertions(+), 1 deletion(-)
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260325-p8700-dts-41788f014227
-
-Best regards,
 -- 
-Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+2.43.0
 
 
