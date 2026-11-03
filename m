@@ -1,98 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.104.111.113
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709237;
-	b=M8iTEx9MxOaxkbuO07F7wIOvbMQnwOH8CDxjLrnH6Ntcl/YlBt2oYxqFyctKqufkhI8c
-	 DHAmd563oadbmp6cZ62gxGAXBwqkLALkHAgvsCgd/tP6yK1mN69Rzij67mL4tDMFbhbhM
-	 72E7+DLQLjoezyXH5OxgGdIqRetbGqTSoWhNymDxfMFDYELN7ysq5RHE8Ke4WtfdvFYZa
-	 Rfb4aaL1o+4uIfgJtpXY7LykjGnnmvAOf7TWBKMu84/Wd9BoMKaRjPArm+u+/AReVdFsl
-	 avfqHEly3k12Bc7bS5NQWsNn2EiwPynlmQ8TS2X4zS9w1F2fnjQFjiNO+9nAySq3PUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709237;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793709662;
+	b=vUj8gw9f7AK1W7WRI13PkTqcJPDg0Ol1GKvEDg5GoSKF4o7MhbZiYNqHVbkvv3a3smnB
+	 EFhE9HJoSJ3Gp5KGtxNOjw9NGLd2TaY5H71YJZQBnHsat8V9w1m4FV4/bjbPVygsnfblE
+	 CAkrH4uY8vXRLXb7MSXYy9xXz826G5pjlX8bkl7Esh3uquYlji66rKhZzzYeWyMvuVeBl
+	 3WHF/sDj1D0WPLvT204lsg4OYVAkw7898eaZ9UzhFdslssvPbcyxi+rxZooPyTXG8CEcP
+	 TmDL6D2jNlo4SIrKNoAv4h3TH7W8+EI7OD/9fmCYZ3WiFk1oiwDgKB5DQIWwWpihp0w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709662;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=3YbZfMNOvwxSAdlNsq/wcOSIe8AOLfjmneeCjbh9K/Q=;
-	b=3eRuWDelyAHeXSm5YnpRjBZdoZFbG1wAwZYFYpuwBd/rxiLgWlpQssvnZetCdvVLEml2
-	 WnQ3VLHEi6DlOHJ+g0pBqBn0FqM+DHcI7hM+e+zv/4yYk1eQUGS65jE+6+zQ9EIuITt3h
-	 mxdN+zmeoROj7CywtsHARQc2EaULBzJVOAqC7y9IGTEt6m7FkJ9NNCR8wXFYFVMb6Ua9o
-	 GcGo1SDc0wxNtJckR+ail2o3zFFk67/lE4CcEZAYpW78k6ZCrwVOIhTLda+MTUy7To2Ai
-	 0FGFkB3WB2Gqj5Js995mgeqBHxieXP+8pw+RYkmkhMsaQmehpeT6YM0sGGd8VJ6jw/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toradex.com;
-	spf=pass smtp.mailfrom=toradex.com;
-	dkim=pass header.d=toradex.com header.i=@toradex.com header.a=rsa-sha256 header.s=toradex-com header.b=JxURb3LD;
-	arc=none smtp.remote-ip=194.104.111.113
-Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.111.113])
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RQl3hqohQ/Z/sRPHduciY8J4ZvVSVl35Zc9E3tyencc=;
+	b=Uq2CVA2Ev1GrFP4fIfyo7Du3m/ugkhqO8L5uUI4uGH/yP77TZSW4ojc4Ei8mSOZ4NOjm
+	 pN9Aj9La+oyKGo+lNLb0BJj2qKWVQgRkwWq/cphyn1RBBV1CpBEnp55FEO1r3L3YADh2G
+	 V9miO4Pv1Iivc1igp470WqBo9VfZNMP6l+xqNalEApwoEl0DbOS3aY6PtlelmUEBtywhQ
+	 gF1pE0yhjJ7C9XgBNocsr0MmLaLYmAC9QkfpA15mNUOgGF8o8orU21j+nHAjI77d9g+5s
+	 52l4qHj915cw2OEeTO9NeQl3QMGhY8Am3z+tOEf3ad6GEpTnzuxA7VGBRbd7DBaMRUQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zUaLjWZJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.22
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013022.outbound.protection.outlook.com [40.93.201.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB35606A333
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 12:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AB35606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996A1606A335;
+	Tue,  3 Nov 2026 12:41:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 996A1606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=toradex.com header.i=@toradex.com header.a=rsa-sha256 header.s=toradex-com header.b=JxURb3LD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
-	t=1793709229;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3YbZfMNOvwxSAdlNsq/wcOSIe8AOLfjmneeCjbh9K/Q=;
-	b=JxURb3LDLdNj/D5vBcOQajXoTd9TskHCjKfSd5H+45pSi6NeHETu0GsNMKMzorwdrCTKb3
-	zTCpLTLF3dP6CN84WAULW72a7jORd6LLbjSFnAtMVjFC2E8bZb/bgMb5ebYH4718k3+fEs
-	dJN0qDf1yfMP9ISR+i5AG/g0RbmeqNI=
-Received: from ZR1P278CU001.outbound.protection.outlook.com
- (mail-switzerlandnorthazon11022079.outbound.protection.outlook.com
- [40.107.168.79]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- de-mta-32-ELaw-RTuPpy8TEYZSlkQ4w-1; Tue, 03 Nov 2026 13:33:44 +0100
-X-MC-Unique: ELaw-RTuPpy8TEYZSlkQ4w-1
-X-Mimecast-MFC-AGG-ID: ELaw-RTuPpy8TEYZSlkQ4w_1793709223
-Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
- ZRZP278MB1985.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:b7::13) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.12; Tue, 3 Nov 2026 12:33:40 +0000
-Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- ([fe80::88:6821:13f5:a5b2%3]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 12:33:40 +0000
-Date: Tue, 3 Nov 2026 13:33:38 +0100
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] arm64: dts: freescale: imx95-aquila: Keep DP_PWR
- always enabled
-Message-ID: <aunUon2a8W0mcele@francesco-nb>
-References: <20261103105323.2394012-1-francesco@dolcini.it>
- <aunOT21BZmGkJQ25@vm>
-In-Reply-To: <aunOT21BZmGkJQ25@vm>
-X-ClientProxiedBy: FR0P281CA0253.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::8) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:2e::8)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=zUaLjWZJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CLqMoftDiHe9hhKXBkiw2Zj2sJ3YLpLLwesTDU53O+4H3auu7u+SfFzCJVwB+UgwWZVZdNGOUW/tllyhXlL11cQtpLS6embd4ISbj+7T66h5J/O1rW+AwmFBZ1DF2uosSb4xRnVV3/dchvt+VpS8iKwP4sxaCbw+90s2TPwJbHN6MIA68sIBy0hmUdCieH2LStJygiW7vel9LM834ncibiryfkWB2moq7MPJKy/EKEDe3NagHARnjxDZsFiKnVJ5nW3WC03qG4Sdm3Pr46IdCr6vWUvrPzVr6U+xydVkeFn/BguDpvhe6fghsgxZ5h/Uf19npq23KivUy3RgYLlg2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RQl3hqohQ/Z/sRPHduciY8J4ZvVSVl35Zc9E3tyencc=;
+ b=vjOPkJJpIL/n14ztZ8Iwz/5KTpaO8PDHofvIh6zqdcEk4EhVqYrM/5nSNw9p3ks0R18JeOEU+87iCBfoIHjQe7YOaFaXQey+zGiIn8uvoYAxHHKNG/biwQg+xKh/3bwmnC4jsbikVHai7AeTAY86PG7+TOK5hllXaswktg90/wF3ACAyPSnPXj2nPxWMgykCu4reEwrzEhz1LNXUkAuLHWQy0k+1wFQXQzbvtx97FWXvHv+Ycuq1yiMsfFXJfgDfsIr28WJxhZDPYrTz7tEFXHUPS/4cJJihJolKDbG5sxSXvEkdpCr/OXsygo58QK0MaDxTcFkHUXbmyzUl2JwppA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RQl3hqohQ/Z/sRPHduciY8J4ZvVSVl35Zc9E3tyencc=;
+ b=zUaLjWZJpHDTa4QL5CUyKxl/oyOyRggGTnRCqKTC7RFf7lh5Ua4aiFSupk///E8PCe66cRN1eV8qPG9/7UZZBaM4Yzrd82T2u2PYB04bO5cvJeODyBrjhRFGNIO+VA5TZFzykpt4efucj77Y6aq5Pk6sElgwRZxVn2SU9qsLY1s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5)
+ by MW4PR12MB7468.namprd12.prod.outlook.com (2603:10b6:303:212::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 12:40:56 +0000
+Received: from SN7PR12MB8147.namprd12.prod.outlook.com
+ ([fe80::3923:c1a4:778b:56f2]) by SN7PR12MB8147.namprd12.prod.outlook.com
+ ([fe80::3923:c1a4:778b:56f2%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 12:40:56 +0000
+Message-ID: <797e993c-f477-4777-9485-5a9b89aeea7b@amd.com>
+Date: Tue, 3 Nov 2026 18:10:44 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 1/8] dt-bindings: net: add Xilinx TSN Endpoint
+ Ethernet MAC
+To: Rob Herring <robh@kernel.org>, netdev-bot+sashiko@kernel.org
+Cc: srinivas.neeli@amd.com, nagadheeraj.rottela@amd.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, michal.simek@amd.com, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, rostedt@goodmis.org, edumazet@kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
+References: <20261016-patches_v2_external-v3-1-e33d3960ca1e@amd.com>
+ <179249749105.3135.3116293825083161439@kernel.org>
+ <20261021031657.GA3867774-robh@kernel.org>
+Content-Language: en-US
+From: "Neeli, Srinivas" <srneeli@amd.com>
+In-Reply-To: <20261021031657.GA3867774-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0166.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1cf::7) To SN7PR12MB8147.namprd12.prod.outlook.com
+ (2603:10b6:806:32e::5)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,81 +107,255 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|ZRZP278MB1985:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2e62de9-7550-4cee-c70f-08df39a6b0e7
+X-MS-TrafficTypeDiagnostic: SN7PR12MB8147:EE_|MW4PR12MB7468:EE_
+X-MS-Office365-Filtering-Correlation-Id: f33a8ebb-ff59-46d8-9239-08df39a7b46c
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|261026140227099003|4143699003|56012099006|261028144727099003|261022105027099003|261026121527099003|10067099003|18002099003|22082099003
-X-Microsoft-Antispam-Message-Info: FxA0w88DktgXbNoFJO3daV0O2Vm/MaM4+sa5EincuOqHfdtXm7YXfbYteYVwg0gH2GqOIrfxWAtwEAZXH8uvb8gb36+oHoMdZFqW9rUzQtTdJheRu0NFLe+k7eOZy7RKFryRSTjFJitsppG9eH1/n1Qa/3oX0B0muXmQTb5Sn7qkB9SsFhXT+LnhxvdZfJjLd+1yfmbjgteeK32dE04v+dXxwUrytVF3Qdg3sJnYGHELc9vp1DjWZSt5skSzmeaJ2ZiCU79cP8CvkC4J54wRtEpp4+DWj3EZkP0E1+lE27eydh8qo6c13DUc4L1rZZcNh/z9KxpBzwucpo8wJ0LAe1jQSCgbViYidUReXsSEZauyQV3zg5TcE9Q1QfLsUfmdUEJX+iAFPxWcQlp6J5rWXyN68h2INh9QKFjDKA/InjFCZ0kbtDV15IB6TE2j3Sfgrj+Fio6YgtA0I16l7nibOntJaUso35ooMpeZxuvXgLhPhh5yGlrCi5vkV+R+pj0+9vfco8xJXApBf+FU42dCniknqCvQwlLshwnnX5ULUvM8RL7WmlThG6Q8eUaR3aGUMGTNhPQF81bCn/7rJhRnrnCkBQ4B/RuMdLIUqFr1nR1Se6JX4IvbrmfZ82srKXnJfaJSbQpUJpswNb9JlU9SUQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(261026140227099003)(4143699003)(56012099006)(261028144727099003)(261022105027099003)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|3023799007|10067099003|261102123227099003|11063799006|4143699003|261021121427099003|261026140227099003|261022105027099003|56012099006|261026121527099003|261022075727099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	S6oO+0ya1mz+M5Gr6Rjh7OmVSyfrxP+ivbwndFq1FdM/0jEbdWk4bEnzLG4hf8Bo/6DMiIUXVaOBmibcZHa1UWF1rv0fD7PPJ6LeO0B9hbMWr+JvQ+YJ1HQkMuxbsDf39Ty7mMfKV2ryZNGSWhXytzw/z6Fx2BJw4VNvPOmx8FI0DKw+AhVrB551FC0ZuwHXpFMgSEgFVOvki4GrdEmOQVagSqPRml1kEXOLmq9dq4W2PCaHVDlh+VCraIe2nRuL2wuek+n1dPZ08IUD5blURMATLVjbQZ3bkwvhtC/ySdMRYEtYXxVzZt1WvSiJsnit9x7l6a+UijtkePLtlMJXZ2qSOtBw/9wtwMriOmVKf/EdzYH0QbkVlJd8T7jM5vfGcrgrO6zhiVmHPtTyKK0PtrnmZqXoTaaVPXjqYOKv25hi5QrkSmzR6y1L4qJLFiNrA1CPeGCKGC4vT1MKeL/S5bzWoNX3SbWBIYfnYH2jKEnwe3sU+0NlWaTw0+x/Ij7b++pMrTlbA19WD7QcQWYdHzD4r5YxuYqBeMNcWwNSlcAO2MjrRN4RNnY1ZnV9enLEIOcNpQnzRjeYVjdSUfz05KMHCk1R6nYD6D3CEHwdKR2B1UaaGuEGqKZ/I88+qUJd
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB8147.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(261102123227099003)(11063799006)(4143699003)(261021121427099003)(261026140227099003)(261022105027099003)(56012099006)(261026121527099003)(261022075727099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?B4UJXakZ5vz8Zjs2LMVITApxCgYm3GSrkTjSmDhE8IcjB1DeKsEc3uimIOLd?=
- =?us-ascii?Q?rb5yM7VCmi2NXOvp4vaZuUr5BBB3T2S2ssA8i75PFcQb+VRAqosfNy/cK5Ss?=
- =?us-ascii?Q?RXnL8zkoHGYLuEp+cQrMU5uICo0nVNXBLF6ExCmhC0jlwusRO0S6V2p4NqRC?=
- =?us-ascii?Q?o8ynneYwrc+l/2Su8itMP2JNj5I/JRTyN1TuPeNHKNH7ZMGXW7wcgd+5f83M?=
- =?us-ascii?Q?oDAXVBVt0Q985ptPz0WNZYcUzqRsPm12H2o/wSFplq0Oz92CyDAdgb50rcJS?=
- =?us-ascii?Q?qgOxmZRkuhx0Ma2h82O7BDV7sO85HPoCiet5VzNxxLfBo2hOxLjaF6TJOsBp?=
- =?us-ascii?Q?Aadik5TL3QAqABvKQB52XwAk000MFlPkHsnhxcSMXNsaf/L8Sqfdn7IjsExU?=
- =?us-ascii?Q?VyAJ9S1NV16WA2evnmKBiunOVtgStXFU75jftVzSvHwR1lHlJlOLwo+eUYnZ?=
- =?us-ascii?Q?UwZXP/fUVQL7Y0SWmMaPdWiZRRsrNAcMGL6oG6VkuF3reX6ngOXZkAZI+svY?=
- =?us-ascii?Q?S6lh6UaHKh0PHadxril8OSDCYvN2WGIpEiqMPcwcLuKR3WbncRE3hd6t19/C?=
- =?us-ascii?Q?eHEmDJHW1eFnVr470baf4wvh6aq6+KWYGVrDslD5hG3X2NsUhqiKWIX30xqv?=
- =?us-ascii?Q?0hf/gGOUqHrtXGCYmI1ZXNWQ0tvKhXWUO+/93Toitdy3R1GdqEfKGDaQFy5Y?=
- =?us-ascii?Q?4fNx+McwpS8b6dOFlfiDXeLqTTYoVJ3BiAkcteyYiJshOWESFNHd8QM2Pr5x?=
- =?us-ascii?Q?ohfEcEjbXKrD71ndtvpxzuENgqai4cP4xMyS0OnG8eS9QRtEwyWg7IsjHIT8?=
- =?us-ascii?Q?7kzPxYgHIaChdobJy4ZfuE0NKirVTT/0CpJ4duvqBFgKNwGdSxpw/1Mw5v/K?=
- =?us-ascii?Q?J0oh4GAQmwtGtX9jIOZjVh3oC6nnGF7LPA5RBZcK825cDf9t4ZOl11HhS+ss?=
- =?us-ascii?Q?zt8b7Md0yuTyaxsOGR3CmNKznDwRPdZDt8vA1bvfREna1xIq/UaWfNHYPj7J?=
- =?us-ascii?Q?HInqC1mZl4WsppWLYLJ93IsrrEb8K9i5Kc5Bg+KH4iCXKI2A31WdbOqjSpQ/?=
- =?us-ascii?Q?1qS6a0qG9Rtdx1pez7HeXx/xXVtm6+PdwabsGBZK/5gFKGkQvCnD1aHB1JWB?=
- =?us-ascii?Q?FGTTXPsQRgs0t+zXxtvU9TlsSzkKloACYobQFGLfF4/DGB3faL5U2O1YKLF5?=
- =?us-ascii?Q?j+J/1zXUPmj6qxqhd4mqv+X71mv4inRjFwUJKFhoZCyb+S+Iowcf6hJeIn2k?=
- =?us-ascii?Q?xVkYCC5dXQR+WAEGYiqafW4RLHco3X8UW9cyG7505CA71y/8/TR4jEU9gNcI?=
- =?us-ascii?Q?nosLv9nXRmpU/XpW4cDlOGahT+0eeptDxd8joAsvS5Njku0W67iVeObaiEPP?=
- =?us-ascii?Q?sq77uKFyfr61gZzhS7p/KMM1YmT8XmSZT3Y2foeREEcKh/AzTsw6aynEwCMj?=
- =?us-ascii?Q?UrNREPwpLqllIx/y7uNSG+QJhLPOmqgWtXWTK+3ck8ZtAmSLfW+UNfFZ1v2L?=
- =?us-ascii?Q?Y25w9HNVWPphtWkNqo7GUIJiTB1t/DmZt7paGF4g84WxXtagEKJxxUtgCTvq?=
- =?us-ascii?Q?eHghKqkAceFddlKauZ67/VWgZwD0brqwTslpwQfxUc2cVloo0K0KbPdI+vmn?=
- =?us-ascii?Q?fCFEaXc/4rtvwpOn5lkYG1eIrDiwQ77FOTEJIpNNY79szEtyRcOBZn9aAowS?=
- =?us-ascii?Q?ZMa4AHZN7hvO44lL4y2NwSI/PP1h5NhE3XfBbVbpOqz5vKSQlRti8AeWS8co?=
- =?us-ascii?Q?G4KRRnCAgXwa8xKwWugHvBZ+CONXTcA=3D?=
-X-Exchange-RoutingPolicyChecked: vFyuicRLWi8dCq+Uy5GQtdsJqu95zPzA1KSSQIlduXkUlDIDpGJODehtwIq7YW2naJISFdWrKXCHqSMWWe4Z/xUSYn07HOWqIJD+Ua36pFxAUjoWp5+/O03FTjVnoiD89T1qADX4pnU72ofwpLL51BQOltNemyCxCtrrM4HvZkMLWu+HtxRjk+zTPYflAY87EaNn3+j4nKdDOMMiUxO7ffM7BQbf40sx9fXWgmdJOei+YftjjiDgQE3siPKEHziPX3/POgImCNVzEWazjxigBd9kGPHB551WYw2N9kysQeZnzWHSqHVGhrlkQ/d+ydTqXaHECgajV9HCiifOf7XEFQ==
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2e62de9-7550-4cee-c70f-08df39a6b0e7
-X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2UvK3NUUWJ0bUF2L0hsTGI1dVR2YkVWcmpvaFJIY2VkSkFPZ0xNai9obHdp?=
+ =?utf-8?B?a3diVE9IRWRwV2RnSGRqRkM0bHNQNkxFVTBJMUFxLzBXcHptVXBVcWQ4b09M?=
+ =?utf-8?B?OURDSjhXR0pIdktIWTVzYldta0lHOVRENStSS1lqckFTVGZZbzNBb3NSS3U5?=
+ =?utf-8?B?ZnRFR2FPR2lMaWdKYVV5ZE9IeVpkZG85eEUzVXcxZWFOSjB0RGlHeVc0MmpC?=
+ =?utf-8?B?cmUwR0VyclQ1ck5icHZRWTUxaGVkNnJMSy9TL2lMSGxIOXZ2THdNQ3c5VGlx?=
+ =?utf-8?B?M3ptUzgzb0tRZjFlNW5DakxOdjh6UHdMZDNLWWlZOUMzVjRDVmp0cFNzTkhs?=
+ =?utf-8?B?aVdrVnlRVE03RmRna09TYTdnQXdQVTVaWkNRTlJZeC9XWnNvVjdoamNiMmxT?=
+ =?utf-8?B?ZkMyRlhqZm1TbnJubGZER3BmRFJ3dFovQVRET0REc3RYRUdpSkZKblhpbnM4?=
+ =?utf-8?B?Kys2Z29EMStTb3VZd2NTbU1qRWtpZHhZWVZJYmlaUlBGemdsQWdBSnZodUs3?=
+ =?utf-8?B?VDhiWHN2SGNBdDM1N3Bwb3FNam1rbE9uZzFYWE5JVURVNnRudEczRmdPbytR?=
+ =?utf-8?B?TEkwNnR2QmZvaEI0MFpSeFFwMkRwcTFwM0dQOWtnZzlta1BLTU1zNU8rRmlX?=
+ =?utf-8?B?Sm9rcmZDYUU0R2pXMTRndnVHZE1vQ2oxVEpCbFVjV3ZFVkdsVCt4QU5KOU15?=
+ =?utf-8?B?eitESjdCT2ozL0V4MUc0UHdQWWhGQkFid3FMRE1OUHBITUJLSG5WSDFRRTdH?=
+ =?utf-8?B?MmpOMjVrYTFTWndaaTEzaXQxSi94OTY5YzA1eEh4QTdlM3dwOXdSZmIzbzhX?=
+ =?utf-8?B?SjRrU0MwaHJOZit3RGdjMno5YmJVTnlRcGpnZFlPVjBJb2thN2RWUVlUUW9B?=
+ =?utf-8?B?Wk54V1RkUUVUSm9JOXZ1WG1NcDBQeTBlT1k2bE1TWDFvRTZISXd1K0NLays2?=
+ =?utf-8?B?TFdkYysrbmtQWHNoZHhnSlFhYWFjc25MazRITHZpWTNoemh4UGdycnhiMExp?=
+ =?utf-8?B?L2V5K0dkYTdzZmZVUmhyS2lzbGhXM3gvblFSd0lCVy8ydjJlTEttcUhFUlpq?=
+ =?utf-8?B?YUI0ejdBY2JLN01udkNSWmovTzN1MDJOU1o5NTVtajFlaEtneEViT0VMM3g1?=
+ =?utf-8?B?NVRGL0FFcW1idnNTY2wwRFgwSXU3cmRSZ2plb2ZvczcxRStSOXVLby8zZ2Uy?=
+ =?utf-8?B?M2ZvbWNLT3V5RnloOUV5bWgzOVFFb1o4ODQxVGtNWkhmNWxWbVllMFA2OTlL?=
+ =?utf-8?B?dHJ5OCtQV3JYQTdKdVYyNG44Y3lYWlNSdW5UN21VZ0lMNytCbjcyNHh5b2Jz?=
+ =?utf-8?B?V2QvWmNzYWJUNG9DMk80bjFaelRNRE9nWXMzUHJycG40NC9kN1E1MUt1anNS?=
+ =?utf-8?B?anRTcE5uOVZaWXk5V2YwV1BhV0IrZ09pb0owMTdzdWdNdm9icUcwRHFIWk1s?=
+ =?utf-8?B?T0daUERwL2RaTmdFdlQyd09QTzVrOFpIYlBqYnZRV2lNNTJCb2dVdWlxN0Zx?=
+ =?utf-8?B?dGhrRldybjczcjAyQmhXR3FGZWU3ZXVBaUs4cE9KTEZaTGpXaTg4SHRYNVpN?=
+ =?utf-8?B?VGJQUmdDdTUzUnhyV1VXWUgvZnJ6SGRhMTY5QjczcUlzQnpqNWtpOHBLelgz?=
+ =?utf-8?B?T0VETXBZdGJhS3hSU3FSQjI5R1pzbWVua3pWaGtZYnl2MTRjN21kL3dhUW14?=
+ =?utf-8?B?akhEaG5Tc1hqRkJuMFRaYjMwUkJXb2RKaHgyelZ3TkhYeEFuWnpWOTlHWkNn?=
+ =?utf-8?B?NXloSWRhZFpZMmp4L2tUcHhUVzE5aXVWb25WZmhuK2hjUnJpY29XRjNpeUF4?=
+ =?utf-8?B?SlEzVnVIdElTMVBDMEhmekVTTExPb0xsTm9USEp1Mzl5V3RNMDJiUFd4VE1i?=
+ =?utf-8?B?ZklXd1JQcnFnQjB2ZDgvQnI5M2pTdTllUVdOYnFRb1o0Z1Q4SlF2N0p3bFZN?=
+ =?utf-8?B?YTJLUUhoMXk2L05oZ0YvV0tscVdjcWFiNWlMRmtvKzFzUmxoRWVNSFBkOUhu?=
+ =?utf-8?B?bk1QV3MvRGp2Z0pFa2wwem1kWEhCYmVoSm1RUFo5ajR5UnFIL1JVQXRUcmtY?=
+ =?utf-8?B?bXRmOGJWYmVWMkY2WURyNG11SFJNaGJjeHo0MzhlQ3RGUWpBSkdDajh2cGtS?=
+ =?utf-8?B?NnEzcjkrVGxlRjZ0Wm81MHRTRFh3dVRWc1VTZms4dlZRVFhRV3ZUMUc2Qjh1?=
+ =?utf-8?B?MGtEYW5Ja1RhVG4xUFJRSDErc1U3UHdQWmVuQUlzWFRiZnpKUzdEeG1MWlVU?=
+ =?utf-8?B?bWh6clJZZEVsZDRVREIvYmVkQTVqeGExR3c4UE5nckV5cVo1TGNzSWowVTM1?=
+ =?utf-8?Q?qaZTx/cfIfxGauKPUD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f33a8ebb-ff59-46d8-9239-08df39a7b46c
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8147.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 12:33:40.6453
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 12:40:56.0502
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I7IvbJGMFpyO3Y3YFW3WVm1VYpyIzjwN8HdrZ5tLt1/qwokzwcJcqQ3uTI7V/HG5Jra+1cFCjedrS4YUlXokShFQJQuQCNUfl0/qg61z374=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZRZP278MB1985
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 0xjUOFtBLbaEhFAE_Jn5BBg4xScaGFPecwSNfk1AaKw_1793709223
-X-Mimecast-Originator: toradex.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-CrossTenant-UserPrincipalName: x+/cvT1xtftGoEE49y/PJ3O1lDiWCunU5zxHTs3ong/AWPKpr8Ns1TEG7O73w+v4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7468
 
-On Tue, Nov 03, 2026 at 02:25:02PM +0200, Laurentiu Palcu wrote:
-> Hi Francesco,
->=20
-> On Tue, Nov 03, 2026 at 11:53:14AM +0100, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >=20
-> > DP_PWR on the DisplayPort connector powers active DP cables and
-> > adapters, which do not work without it. Keep it always enabled, and mar=
-k
-> > it boot-on so that the firmware, e.g. U-Boot, enables it at boot,
->=20
-> I believe this "mark it boot-on so that the firmware, e.g. U-Boot,
-> enables it at boot" sentence is a bit misleading. AFAIK, u-boot does not
+Hi Rob,
 
-It's not.
+On 10/21/2026 8:46 AM, Rob Herring wrote:
+> On Tue, Oct 20, 2026 at 11:58:11AM +0000, netdev-bot+sashiko@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found more severe
+>> issue(s) in other patches of this series. This mail is only an FYI, in case
+>> you want to address the nit picks below when you respin.
+>>
+>> Low priority / nit picks for your consideration:
+>>
+>> - [Low] In Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-
+>>    ethernet-mac.yaml, the ethernet@ node's dma-names (lines 81-96) does…
+>> - [Low] Concern: tx-queues-config only enforces a lower bound tied to
+>>    xlnx,num-priorities, and the rest of the checking is left to a driver…
+>> - [Low] The child compatibles in
+>>    Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-…
+>>
+>> --
+>>
+>> dt-bindings: net: add Xilinx TSN Endpoint Ethernet MAC
+>>
+>> This adds a YAML binding for the Xilinx TSN Endpoint Ethernet MAC IP in
+>> its Bridged Endpoint configuration. The wrapper node owns the shared
+>> clocks and xlnx,num-priorities. It has two children: an xlnx,tsn-ep-mac
+>> endpoint that holds the DMA channels, and an xlnx,tsn-switch three-port
+>> switch with its MDIO buses and ports.
+>>
+>>> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+>>> new file mode 100644
+>>> index 0000000000000..bca834120b3b1
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+>>> @@ -0,0 +1,491 @@
+>> [ ... ]
+>>
+>>> +properties:
+>>> +  compatible:
+>>> +    const: xlnx,tsn-endpoint-ethernet-mac-3.0
+>> [ ... ]
+>>
+>>> +patternProperties:
+>>> +  "^ethernet@[0-9a-f]+$":
+>>> +    type: object
+>>> +    $ref: /schemas/net/ethernet-controller.yaml#
+>>> +    unevaluatedProperties: false
+>>> +    description:
+>>> +      Endpoint MAC sub-node. Provides the host-side data path through the
+>>> +      DMA channels described by its dmas / dma-names.
+>>> +    properties:
+>>> +      compatible:
+>>> +        const: xlnx,tsn-ep-mac
+>> [Severity: Low]
+>> The wrapper compatible is versioned (xlnx,tsn-endpoint-ethernet-mac-3.0).
+>> The child compatibles here and on the switch node (xlnx,tsn-switch) are
+>> generic and carry no version.
+>>
+>> writing-bindings.rst asks for specific compatibles, with no device-family
+>> names. For sub-blocks of a bigger device, it asks for device-based
+>> compatibles.
+>>
+>> If a later IP revision, or the planned Endpoint-only variant, changes the
+>> endpoint or switch register layout, how would these child nodes be told
+>> apart? The endpoint driver later in the series matches only on
+>> "xlnx,tsn-ep-mac" in xlnx_tsn_ep_of_match.
+>>
+>> Should the child compatibles be tied to the device or version, the same
+>> way the wrapper compatible is?
+> It's fine. Being specific is less important given there's a specific
+> parent compatible.
+>
+>> [ ... ]
+>>
+>>> +      dma-names:
+>>> +        minItems: 2
+>>> +        maxItems: 16
+>>> +        items:
+>>> +          pattern: "^(tx|rx)_chan[0-7]$"
+>>> +        allOf:
+>>> +          - contains:
+>>> +              pattern: "^tx_chan[0-7]$"
+>>> +          - contains:
+>>> +              pattern: "^rx_chan[0-7]$"
+>>> +        description: |
+>>> +          Names matching the entries in 'dmas', one per DMA channel and in
+>>> +          the same order. TX channel names use "tx_chan<N>" and RX channel
+>>> +          names use "rx_chan<N>", where N is 0..7. At least one TX and one RX
+>>> +          channel are required. Example: "tx_chan0", "tx_chan1", ...,
+>>> +          "rx_chan0", "rx_chan1", ....
+>> [Severity: Low]
+>> The description says the names are "one per DMA channel". The v3
+>> changelog says "Cap TX at 8 and RX at 8 channels". Does the schema
+>> enforce either of these?
+>>
+>> Without uniqueItems: true, dt_binding_check appears to accept a 16-entry
+>> list of fifteen "tx_chan0" plus one "rx_chan0". It also appears to accept
+>> "tx_chan0".."tx_chan7", then "tx_chan0".."tx_chan6", then "rx_chan0".
+>>
+>> dtschema doesn't add uniqueness to -names properties by itself. For
+>> example, renesas,drif.yaml lists "rx", "rx", while renesas,sdhi.yaml sets
+>> uniqueItems: true on its clock-names.
+>>
+>> Could uniqueItems: true be added here? The pattern only allows eight
+>> names per direction, so that would also enforce the 8 TX / 8 RX limit.
+>>
+>> Later in the series, ep_count_dma_channels() rejects duplicate TX and RX
+>> names at probe time. So the runtime result is a DT that passes schema
+>> validation and then fails probe.
+> IIRC, dma-names is the exception here. So yes, you should add
+> 'uniqueItems: true'.
 
-We use OF_UPSTREAM, this is the single DT file that both U-Boot and
-Linux (and maybe other projects) use.
+   I tried to add uniqueItems: true under dma-names and I observed the below
+   error:
 
-Francesco
+       xlnx,tsn-endpoint-ethernet-mac.yaml: patternProperties:^ethernet@...:
+       properties:dma-names: Additional properties are not allowed
+       ('uniqueItems' was unexpected)
+         from schema $id: 
+http://devicetree.org/meta-schemas/string-array.yaml#
+
+   As per my understanding the core DT schema already has uniqueItems: true
+   for dma-names:
+
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/dma/dma.yaml
+
+   I also tried to reproduce the negative test scenarios reported by
+   netdev-bot using:
+
+     make dt_binding_check DT_CHECKER_FLAGS=-m \
+  DT_SCHEMA_FILES=Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+
+     With DT_CHECKER_FLAGS=-m I can reproduce the reported errors. 
+Without it
+     those negative scenarios pass. As per my understanding netdev-bot ran
+     without DT_CHECKER_FLAGS, which is why it reported these cases as
+     accepted. As all the scenarios are rejected once DT_CHECKER_FLAGS is
+     passed, I am ignoring the warning and keeping the binding unchanged.
+>
+>> [ ... ]
+>>
+>>> +        patternProperties:
+>>> +          "^queue[0-7]$":
+>>> +            type: object
+>>> +            additionalProperties: false
+>> [ ... ]
+>>
+>>> +        required:
+>>> +          - queue0
+>>> +          - queue1
+>> [ ... ]
+>>
+>>> +allOf:
+>>> +  - if:
+>>> +      properties:
+>>> +        xlnx,num-priorities:
+>>> +          const: 3
+>>> +    then:
+>>> +      patternProperties:
+>>> +        "^ethernet@[0-9a-f]+$":
+>>> +          properties:
+>>> +            tx-queues-config:
+>>> +              required:
+>>> +                - queue0
+>>> +                - queue1
+>>> +                - queue2
+>> [Severity: Low]
+>> With xlnx,num-priorities = <2>, can a tx-queues-config that contains
+>> queue0 through queue7 still pass dt_binding_check?
+>>
+>> The ^queue[0-7]$ pattern accepts every index from 0 to 7. The if/then
+>> blocks for num-priorities 3..8 only add entries to required. So the
+>> schema has a lower bound tied to xlnx,num-priorities, but no upper bound.
+>>
+>> Later in the series, ep_parse_tx_queue_config() rejects queueN with
+>> N >= num_tx_queues at probe time, so only schema validation is affected.
+>>
+>> Could each if/then block also set queueK: false for K >= N, so the
+>> schema rejects these nodes too?
+Understood. I will address the upper bound check in the next version.
+
+Thanks
+Neeli Srinivas
+
+pw-bot: cr
+
+> Shrug. Sounds too complicated.
+>
+> Rob
 
