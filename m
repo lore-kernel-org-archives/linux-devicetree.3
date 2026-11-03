@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694829;
-	b=KuioihAaD2CXEybYTYTUPBLv6HqAgtikx4JimKVrkMb++lK2uJkf7wRZoCXC3prvTMXi
-	 ZshgEuNhwojbxI7KfjTUe6PtPEUUJIz4/Ngronf6k8PTdYvVp/I3VmIG/uQjKVp79hAJA
-	 iu0fabuTvUdn05NHrgigucH9DHxNbplfb7iCVE0pVG13qSLP3kQxWSyST7F0fV3GRHEuu
-	 rmla+DZSX3X8G+b9TW4FB7VFWv6bl7oQGFmHJvrBrZ7bs6VgTGogVi9oIUtpxBQyHguV9
-	 3+zM6fY9+vPRYWfeZGcplcjwBX2Q9ubPX0PNpXXRJhN0s8VyTAcfo5mGFxa4tUZw8Jw==
+	t=1793694972;
+	b=w+FBqPxOXs1+29EM6RMXUnbpybyiZk0P3vQTFWqgdCWjmqNEzT+c1sPEZOThHUr5Im7C
+	 qF3PQmEeIJEMaLeLtnlAebjD2G0hoZIPPH1VRjFesgykjCYp5/1mjDNQfRyKomFYb582L
+	 ccdl5qp/GoKluC/y+zkAiLCN4jrPvWspzJDk6B5tkS0CaU7+PjqAud2O3KhMJIj/I079r
+	 8DSTFDBOwGKM/0xu6Wc0uv6e0Mx5vQ95ZAci5zu2QQg5tvOXdo1l4Xha08Dw8NGV40yfn
+	 ZPVcx7qV9WWdPJq4VeNAKjjHkMJCPbXlbFSqbgLfea7U7XUsyq5/pVBVWozzCCQuDNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694829;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EmoljQi0147YiLUFunyMlClRhQm9winwcBqrIvSVOGU=;
-	b=qA4l1ge9hImj3tuQ916nnKsiUncafjjTMovUrlpmpNIlJra1WugumA8S72hcnaw8UOec
-	 taZFzUFVCJRJ+nGJ7IIYJwk4acZp7UErs9jDEQha/C0+idA6wKXFxDCfr33IZ2SiHAzWk
-	 Abh05J6yTtTMzEhrkt4Qp0DlYqkvd2jfUF+RwDHAVq/aQSx1fwjd6aaxIVWJfHl3XwYyF
-	 E2EsHwql8Ru/PnXi9KLkyctfNNrUNWUbFbnXH1MDSdziaYXQX8IPZV14IfOClx9WyFhMa
-	 yixMoVSV0lcjri5OgQCYMp9kncKyG9Vl0cUCSypa/kVZDdFvT8QhsYO5/APoebu06/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694972;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=YHMyH5n3CwX4ey/bPvWwSK67mbEcamik8agTwl+J6bg=;
+	b=Fk7JKHMwcYTSZi3BjH4ROXeT8O80ypP+G+dExMbuMevQMSG9ZaM8JiWeJ2/9BsMdnJ/G
+	 p1/peIdStJ9bnaVvAbjMRxb1HyohnmVeEnoXTKfcWmFaJi+QOuUTiYSWjk69HZ+FR4z2M
+	 yXhROHEUzEjLRWRzH9SDS2NmQYdWhiLCp+ukpQFbt7zIgVT7DMW/TJMJatnFe5r8BYKxI
+	 iNmulc+iEvDAEEIL+nUnuACBkedtacD1mZkGqJn3yZ1vDHE71B/nvwhnKxNch1voFJz6J
+	 W0oYAXqpsj3qXmw5k6dbjqMbgba9DDY3dF+rIUREZ/YWc6UXN58YE+YH7h/f4IzcNDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="n7Quj/AH";
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFK6SCmr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E4C6076B93
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 08:33:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74E4C6076B93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B28606A32E;
+	Tue,  3 Nov 2026 08:36:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=n7Quj/AH
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso232904a91.0
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 00:33:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793694828; x=1794299628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EmoljQi0147YiLUFunyMlClRhQm9winwcBqrIvSVOGU=;
-        b=n7Quj/AHbVM1a7RMGssrs4u1o405qZMkK08mi2hx0bd5P82SfEAsds9sCZzfGODbr/
-         5q6+0243aYdk4GyBOia86uhWzCr0DuUY2c408pKqwVcgTkjOzBbCWikn8E9zr/aqxc1I
-         b9HTzlo+a/5RHDaSmzzgy5Ly89w2k0dPCQz2w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793694828; x=1794299628;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EmoljQi0147YiLUFunyMlClRhQm9winwcBqrIvSVOGU=;
-        b=kZDKxL29AT+zYNpebof+PQ7NZxEB0KKfGn8k9wYQyKycHB5OYUu1jnqpAdWhS/fL/P
-         +l9lADkuhOacyVQORulKa7tYV4BIXE97eLOti8HFvxHbBNFdJ0V90N4XPOPJN6c7C3yH
-         s9rTAzxQPvVQ1IoFaAVpadR88oHUgwM1zVAZcp1KIQ3xifK+X85mdAINB9wdEoK5suDc
-         BJmFIRrfikuA0KaOvYJq0VIla+x8+7/2HmQBUD3059/8ksc8Lv4O7elpTV3KD0DQlRiO
-         iH/dGEGJwpGceFPUFpZwxHQisLyE29fYo3H2sIFO+pV8oExeFhUTwQe0an54lAtSiGFK
-         tjvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw/itS85HhUX4E8TOokSex77lERXneMkUDFDJckQscLwIwwKaRCktZE/W9hY3mgm86MVxS2LoaarApG@vger.kernel.org
-X-Gm-Message-State: APuU4Z/jI/ucOUyKeUW0gvdoGPtGWDL6E0bWw3lLj4m49r/VN9lCG8Ui
-	j3yEUT7217lyRfhXajqwwk9Ni6VA2tC2a+X51zxAo6OUPTTuaFBmuvckb2wE4vS5Ig==
-X-Gm-Gg: AYBFou2HlrFasQmeqVmUWumw9KqcUPoD5TDQOcJWsTmMK1T0syS4JJAx5/OBEXebIkL
-	hype6fYZw0iKf5YYwWWkno91sC1VCzf7NqrTngXGTz3xRyXQlC2Bg0lK7xa50jEKOjO/4ZKDRCf
-	BrKYqyvI5bnjLmRzAGyzN+QmYqLGJFTfqjf2ngB/IovAUOxA/hbMxKVuR7ngblGBEBQHCT06+Y4
-	dNxsNxfIH6bCxHGpEB3CPedtPpoMikAOJj+cxmStm9q/OlJW889GSz4SPtroTdMOJkBicn0gZVV
-	62TjyD2xcvngEDYF0PMRU51T4R3nsEzc1H8Hha2On5AfJTd/nYqLHv8MXApsxWhrl128rBZ59Ip
-	9XgroPMdUX2rFcPMm7ok6BMTsB6hNe+i3ZcY/P27uH7yY+PlZ3aXaB2EjjF9lDWgeYzQBiOH7Io
-	hBCjsnBSiZzuP2X9ddXxstqLvesBmVG9euomaAKN86z5z43QrXNkxupvvB+4LALiKCIVunPmxZy
-	XXdHjIyQ1bBANB1n9BwbzUnIbMVsS09c/wD1tg+JilSMLe+5zEdQVgudnyxlEMz9NFO/zo6J3GI
-	UPKDj8hya0B44qGy0XaNmN1egFDUZwIBQEKyk8gSUgG2KF+e14JrWp/q9tvnsn254ng/z13iTmG
-	ZAyJP3R9nVOcnMO+EuieOXaT5o49OmIULOc4=
-X-Received: by 2002:a17:90a:e7c5:b0:3a8:337d:228a with SMTP id 98e67ed59e1d1-3ae89559886mr6852208a91.6.1793694827794;
-        Tue, 03 Nov 2026 00:33:47 -0800 (PST)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:dea6:6326:4502:bb8b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c8329afsm3192790a91.8.2026.11.03.00.33.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:33:47 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: mediatek: mt8390-genio-common: Split out USB hub enable pin mux
-Date: Tue,  3 Nov 2026 16:33:33 +0800
-Message-ID: <20261103083335.2944847-3-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103083335.2944847-1-wenst@chromium.org>
-References: <20261103083335.2944847-1-wenst@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFK6SCmr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D321A1F000C1;
+	Tue,  3 Nov 2026 08:36:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793694972;
+	bh=YHMyH5n3CwX4ey/bPvWwSK67mbEcamik8agTwl+J6bg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EFK6SCmrc4gZY5ktRiZDshIttTnELS5KHwlzuz2n5FhG+sbBTJKkiFJnNv2FPG0rz
+	 2WIJGt5KjbOQpRALb1IlSKIgRTVfL6touf8k3tUQi1uM7SOdswHqLCBS9c9DqDXJe5
+	 5OhtSX32pjwOtI+mc+NYospfRDXSc7kSty86Vx1oZ1raMgC+FriixJFNI7cgUL0ZCT
+	 mWkdqArcBTRLwLDXXTJmvUKxb9QmQhC7rDazKKyQmYZ1hRdgpZO5dwopGMNra/jb0I
+	 cHMwQTy6Kw76V7Nfy41dXi2qpV1fnXoSP0uIekiyt8tkvH/4kFx/+PL4MCUbu8RMXe
+	 2Q9vckGy7ssXA==
+Message-ID: <sashiko-outbox-194839@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 12/22] arm64: dts: apple: t8103-j313: Add
+ speaker/headset jack nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Calligeros" <jcalligeros99@gmail.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103-macaudio-v4-12-637484efe46d@gmail.com>
+References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+ <20261103-macaudio-v4-12-637484efe46d@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 08:36:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,60 +60,237 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-"pins-usb-hub-3v3-en" listed in "usb1-default-pins" is actually the
-enable pin for the USB hub's supply regulator.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] ASoC: apple: macaudio: OF ref leak and devres order in macaudio_de=
+vm_release()
+- [Medium] ASoC: tas2770: tas2770_set_dai_tdm_idle() treats positive return=
+ as error
+- [Medium] ASoC: apple: macaudio: macaudio_be_assign_tdm() overwrites slot =
+error
+- [Low] arm64: dts: apple: t8103-j313: unused #address-cells/#size-cells in=
+ sound
+--
 
-Split it out as a separate pinmux node attached to the regulator
-instead.
+commit dd4cb33fc5a853fd54101899a161b5d0c84f160e
+Author: James Calligeros <jcalligeros99@gmail.com>
 
-Fixes: 7982bf7ec2e3 ("arm64: dts: mediatek: add device-tree for Genio 700 EVK board")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Compile tested only.
----
- .../boot/dts/mediatek/mt8390-genio-common.dtsi     | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+arm64: dts: apple: t8103-j313: Add speaker/headset jack nodes
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
-index 821dbf9d3fc5..5f41d78df685 100644
---- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
-@@ -216,6 +216,8 @@ touch0_fixed_3v3: regulator-5 {
- 
- 	usb_hub_fixed_3v3: regulator-6 {
- 		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usb_hub_3v3_pins>;
- 		regulator-name = "vhub_3v3";
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
-@@ -1256,16 +1258,18 @@ pins-vbus {
- 
- 	};
- 
-+	usb_hub_3v3_pins: usb-hub-3v3-pins {
-+		pins-usb-hub-3v3-en {
-+			pinmux = <PINMUX_GPIO112__FUNC_B_GPIO112>;
-+			output-high;
-+		};
-+	};
-+
- 	usb1_default_pins: usb1-default-pins {
- 		pins-valid {
- 			pinmux = <PINMUX_GPIO88__FUNC_I0_VBUSVALID_1P>;
- 			input-enable;
- 		};
--
--		pins-usb-hub-3v3-en {
--			pinmux = <PINMUX_GPIO112__FUNC_B_GPIO112>;
--			output-high;
--		};
- 	};
- 
- 	usb2_default_pins: usb2-default-pins {
--- 
-2.56.0.385.gac671c819a-goog
+This commit adds the TI TAS5770L speaker amplifier and Cirrus CS42L83
+headset jack codec device tree nodes for the M1 MacBook Air (J313), along
+with the sound node advertising them to the macaudio machine driver.
 
+> diff --git a/arch/arm64/boot/dts/apple/t8103-j313.dts b/arch/arm64/boot/d=
+ts/apple/t8103-j313.dts
+> index f8b2b1637b9dc..36c47734a1dc0 100644
+> --- a/arch/arm64/boot/dts/apple/t8103-j313.dts
+> +++ b/arch/arm64/boot/dts/apple/t8103-j313.dts
+> @@ -55,4 +55,89 @@ &typec1 {
+
+[ ... ]
+
+> +/ {
+> +	sound: sound {
+> +		compatible =3D "apple,j313-macaudio";
+> +		model =3D "MacBook Air J313";
+
+[Severity: High]
+As reported by Sashiko on v3 [1], when this apple,j313-macaudio node binds =
+to
+macaudio_snd_driver, does macaudio_snd_platform_probe() in
+sound/soc/apple/macaudio.c leak the backend DAI link CPU and CODEC device_n=
+ode
+references on unbind or if devm_add_action() fails, and can the devres
+registration order cause macaudio_vlimit_update() to dereference a NULL
+ma->card.snd_card during unbind?
+
+During probe, macaudio_parse_of() -> macaudio_parse_of_be_dai_link() ->
+macaudio_parse_of_component() acquires device_node references via
+of_parse_phandle_with_args() for the CPU and CODEC DAIs. In
+macaudio_snd_platform_probe():
+
+sound/soc/apple/macaudio.c:macaudio_snd_platform_probe() {
+	...
+	ret =3D devm_add_action(dev, macaudio_devm_release, data);
+	if (ret)
+		return ret;
+
+	ret =3D devm_snd_soc_register_card(dev, &data->card);
+	if (ret) {
+		for_each_card_prelinks(&data->card, i, link) {
+			snd_soc_of_put_dai_link_codecs(link);
+			snd_soc_of_put_dai_link_cpus(link);
+		}
+
+		return ret;
+	}
+}
+
+If devm_add_action() fails, macaudio_snd_platform_probe() returns without
+releasing the DAI link CPU and CODEC device_node references. Likewise, when
+probe succeeds and the device is later unbound, neither ASoC core teardown
+nor macaudio_devm_release() calls snd_soc_of_put_dai_link_codecs() and
+snd_soc_of_put_dai_link_cpus():
+
+sound/soc/apple/macaudio.c:macaudio_devm_release() {
+	struct macaudio_snd_data *ma =3D data;
+
+	cancel_work_sync(&ma->lock_update_work);
+	cancel_delayed_work_sync(&ma->lock_timeout_work);
+}
+
+In addition, because devm_add_action(dev, macaudio_devm_release, data) is
+registered before devm_snd_soc_register_card(), devres LIFO teardown runs
+devm_card_bind_release() -> snd_soc_unregister_card() ->
+soc_cleanup_card_resources() first, which frees card->snd_card and sets it =
+to
+NULL before macaudio_devm_release() cancels lock_update_work and
+lock_timeout_work. If either work item runs during teardown,
+macaudio_vlimit_update() accesses ma->card.snd_card->controls_rwsem:
+
+sound/soc/apple/macaudio.c:macaudio_vlimit_update() {
+	...
+	if (take_rwsem)
+		down_write(&ma->card.snd_card->controls_rwsem);
+}
+
+> +
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+
+[Severity: Low]
+Will defining #address-cells and #size-cells on the sound node trigger a dtc
+avoid_unnecessary_addr_size warning when building with W=3D1?
+
+Neither headphone-dai-link nor speaker-dai-link uses a reg or ranges proper=
+ty
+(and Documentation/devicetree/bindings/sound/apple,macaudio.yaml does not
+define reg on child dai-link nodes despite listing #address-cells and
+#size-cells in required), which causes check_avoid_unnecessary_addr_size() =
+in
+scripts/dtc/checks.c to warn under W=3D1.
+
+Also, since arch/arm64/boot/dts/apple/t8103-j313.dts already has a root
+/ { ... }; block at the top of the file, should the sound node be placed in
+that existing root node block rather than opening a second / { ... }; block
+after the phandle overrides?
+
+> +
+> +		headphone-dai-link {
+> +			link-name =3D "Headphone Jack";
+> +
+> +			codec {
+> +				sound-dai =3D <&jack_codec>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai =3D <&mca 2>;
+> +			};
+> +		};
+> +
+> +		speaker-dai-link {
+> +			dai-tdm-idle-mode-0 =3D "zero";
+> +			dai-tdm-idle-mode-1 =3D "zero";
+
+[Severity: Medium]
+When speaker-dai-link sets dai-tdm-idle-mode-0 and dai-tdm-idle-mode-1 to
+"zero" for the two ti,tas5770l codecs, will tas2770_set_dai_tdm_idle() fail=
+ to
+complete the TDM idle setup and cause macaudio_be_assign_tdm() to fail?
+
+During backend initialization, macaudio_be_init() -> macaudio_be_assign_tdm=
+()
+calls snd_soc_dai_set_tdm_idle() with SND_SOC_DAI_TDM_IDLE_ZERO, which
+dispatches to tas2770_set_dai_tdm_idle() in sound/soc/codecs/tas2770.c:
+
+sound/soc/codecs/tas2770.c:tas2770_set_dai_tdm_idle() {
+	...
+	case SND_SOC_DAI_TDM_IDLE_ZERO:
+		ret =3D snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
+						    TAS2770_TDM_CFG_REG4_TX_KEEPER,
+						    TAS2770_TDM_CFG_REG4_TX_KEEPER);
+		if (ret)
+			return ret;
+
+		ret =3D snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
+						    TAS2770_TDM_CFG_REG4_TX_FILL, 0);
+		if (ret)
+			return ret;
+		break;
+}
+
+Because snd_soc_component_update_bits() returns 1 when the register value
+changes, 0 when unchanged, and a negative errno on error, setting
+TAS2770_TDM_CFG_REG4_TX_KEEPER after reset returns 1. Checking if (ret)
+instead of if (ret < 0) causes tas2770_set_dai_tdm_idle() to return 1 early
+without clearing TAS2770_TDM_CFG_REG4_TX_FILL or updating
+tas2770->idle_tx_mode.
+
+In sound/soc/apple/macaudio.c, macaudio_be_assign_tdm() then checks if (ret)
+on the return value of snd_soc_dai_set_tdm_idle():
+
+sound/soc/apple/macaudio.c:macaudio_be_assign_tdm() {
+	...
+		if (props->codecs[0].idle_mode) {
+			ret =3D snd_soc_dai_set_tdm_idle(dai, props->codecs[0].idle_mask,
+						       0, props->codecs[0].idle_mode, 0);
+			if (ret) {
+				dev_err(card->dev, "Failed to set idle props for codec\n");
+				return ret;
+			}
+
+		}
+}
+
+Won't this treat the positive return value 1 as an error and log "Failed to
+set idle props for codec" when initializing speaker_left and speaker_right?
+
+[Severity: Medium]
+In the same single-codec branch of macaudio_be_assign_tdm() in
+sound/soc/apple/macaudio.c (used for each of the two CPU/CODEC pairs in
+speaker-dai-link), can a failure from snd_soc_dai_set_tdm_slot() be
+overwritten when props->codecs[0].idle_mode is set?
+
+Looking at macaudio_be_assign_tdm():
+
+sound/soc/apple/macaudio.c:macaudio_be_assign_tdm() {
+	if (rtd->dai_link->num_codecs =3D=3D 1) {
+		dai =3D snd_soc_rtd_to_codec(rtd, 0);
+		ret =3D snd_soc_dai_set_tdm_slot(dai, mask, 0, nslots, MACAUDIO_SLOTWIDTH=
+);
+
+		/*
+		 * Headphones get a pass on -ENOTSUPP (see the comment
+		 * around bclk_ratio value for primary FE).
+		 */
+		if (ret =3D=3D -ENOTSUPP && props->is_headphones)
+			return 0;
+
+		if (props->codecs[0].idle_mode) {
+			ret =3D snd_soc_dai_set_tdm_idle(dai, props->codecs[0].idle_mask,
+						       0, props->codecs[0].idle_mode, 0);
+			if (ret) {
+				dev_err(card->dev, "Failed to set idle props for codec\n");
+				return ret;
+			}
+
+		}
+
+		return ret;
+	}
+}
+
+Unlike the multi-codec loop below it (which checks if (ret) return ret;
+immediately after snd_soc_dai_set_tdm_slot()), the num_codecs =3D=3D 1 path=
+ does
+not check ret before entering if (props->codecs[0].idle_mode), so
+snd_soc_dai_set_tdm_idle() overwrites any negative error returned by
+snd_soc_dai_set_tdm_slot().
+
+[1] https://lore.kernel.org/r/20261018-macaudio-v3-11-abdff7741dea@gmail.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-macaudio-v=
+4-0-637484efe46d@gmail.com?part=3D12
