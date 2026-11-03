@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793688634;
-	b=BN/D1nGXhSV+OfqI9Vfu2uiaNOAReHL7Me30+6u205Lc/un8bXXs7BN4TX8v/G2LPdZA
-	 9hDZFP0us03/zOtNJjaWZdAu5krS3gZVloY0MU+thoZkqQyxRGcUUO4gdDSx5zIq9c+1i
-	 qzGflpbZlSWIwsHIbnaYWp3xW1Jl5xHeMXmqCP9+Z9r9ASIZBsjVlQOj4Dq/qCqrC911R
-	 l72vqEWHaAK1eOMXeVuOPB3fMEZSm3Hr/Cd4zlVLswKWHCZYgXJDYvSr2tPGNLCkTXpb/
-	 yQG1NLBrYPMFqH/o2LuSYeEmAwuzsflIApphD2bvFqi4Tti17ZLKGJsH4Ly6krgoNwA==
+	t=1793688635;
+	b=FAc9fN8S7oKUigjQHiIr1DmF9Ro0LV1VoKRcnrNBSIdj68ZTp8b6BoaRvlAAaD383+Zz
+	 G+pngVxb1EpgYLdQsmpOyUYA9bbL0jve9XHrtusicYQPD+VLMNgyE+27bBK2khPd2d3gv
+	 JHhTxGOERhg0qH+SlYwbD+ZKpKwzVtIBySpdR+2z9wYHLlm1q6S7pdrcIrBDz4nwWm/l+
+	 G6VL6dfyfFsm22UWLHtXShxGfhwCTJnDIg8/oNXFPp2iOAjP6tgrIKLWGprQ6whmowjdD
+	 kqDp583QDdX4Ecxpc8siZP3aQQ7/FA99HkS5TTariU0y2Kg3oZMufTQjbewHFurb4PA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688635;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
-	b=p3KsFz+XzSAmLdrJys/9XngWOz9ZnpSldQhKLOLqTGISgH35PJQ7sGyATBtJIvRtzKfL
-	 TBtqCRATgBU1/5n3eRWwhKGwrxwWrVoB9wP+6zF5R+ZR3Drl/C+1rlJ28fgFZfhrCRf1x
-	 ue7Q4kKCsfTzNzAK9mWJW+w3lNt7NKh354SvfwIrQjy6TTBbyWwgQkXl9nLRLgesu2rYA
-	 XVNZob/z+W3HR0CnFPT70X9B+Ar1PaO8rU10PyVqQvINXaEewn0EqgFyDG/xFb5q0A1+L
-	 DISvvaQCkpC2LO5glOYzX4tx3SmzCaWkpIgBIXE6hjcpOzFxWFhN3FOZwsQuoeFQHsg==
+	bh=O/68xx5ufGD2Z5hepHuRXosJTqiGTE6W1d6Jm9B2bcE=;
+	b=xQo3+0EsFocxQGm6IFRDCPk+FEn5QasHiNy+/siVg6CYTeN2jzi+eKWh6HTyCautgKZs
+	 sXnbm0+n+41xIyRBuHqOmimGWbZwCUvzMeeyqNxZbaUBtJ3YrrEkODzpFxGLTkPBMRNI5
+	 Ln0gmtUCq54MnYxdpUmqNNU9uIV7tRcDxkpoeWOHuRfU5lru5RR2x44rsju2t802uLVki
+	 OHsf5y1E20WxVAf6HnZlU8KlsQ0ynwsckeiUJ//aN3EEBX46eHKzcn7K6Vc0KGoTKzXYe
+	 R9hyk9+xL1qD2AQT3DVqF1xsspU5F5fcuIod1HCMaAQyub5aMVeD7imVABRJmIKAuTw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjWvmr7u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fY2gVT9l;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BA3606A331;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B77606A330;
 	Tue,  3 Nov 2026 06:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjWvmr7u
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fY2gVT9l
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793688634;
-	b=BOwc2WJCr+DcDyMswovOfjklm+xfrxY6ic/JAjoYYkQxekwW86hNa2oeYIk7wWigO2fL
-	 F8uxMQ7W+QvYDBYjHaZke9ASbLo9mHpX+FMEzM3lGjrK6pmSqhWcWRRYpnjKXdGxxkke/
-	 /24Lu0CVs9ELHmbhTzUdU4vc0lth6QIftLiX7Oz6PvUasOmlth3tcAhQkJxxs7uth18Vp
-	 b9l9jl07ZaNQzLPlOeGbqCTik6l2RMdN4EeOTVKqfS0TKVojkBZETuXdxilFXhtVMmFnJ
-	 aVJMiSpOtc8F2MJAYnwYxFIIDb7UgFs46HRG+eREJ79I7AX3AMFuG+G6+rtmZX3GFFQ==
+	b=rlH5KNnhpRjCAu4E9mgIy1cwZ4Qf3slrJrYVPJJjfiX4ZSRHvDSkn0hgKXqhOw9WUsZo
+	 yfzdu6mMXQxGB3Dsi+47u+I/9fgLjdHOABpGmGjn7L7bSeUu622D4HHXeAQMhA5oaSS5G
+	 Y7sUpUQ0z87h6fbnnCxcxHeYHUd/ZMsZ33HLsERAqgXIZLrQmGP4S7RWBvNBr/OC37l5N
+	 IX/1YEUSmpxosjTBV9mdsOmBlf56rPGbp249qd9T+k4unLiPV9AC8HCxm+C1lEjzP/553
+	 OND2Ty3XnMOXllr5DGfPnXByh+hvVyMxeKwwGqoU6WEFMfmEiupBpm7MZRkVb8TkbaQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793688634;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
-	b=XXWfe4R6eOgnoYkOWQ9Q8QzRIf+59Bfu3ALtUOKo9jKaxk77Ax88o1tyxLOimyX6gphk
-	 PnCzV0JDwkQfTzRakwNPv6pi+fIA85oBGiHFzmvB0YU2DNRahSF5rzmbQDAG38sPRerel
-	 SXP/AdNYFZYyjx1RAs+CjMpKWxkJDvkyOJqWMUXrIYPZxehww+DgZxJE29ZL2iQ1RZhTT
-	 if8dNxr5egDUd9YKkAT4bU2TITBQ/fvlnP+u3Z0sLOaei027a+jH9ZGUWG/IXywWBIJBv
-	 nWeervIVGKaH1ikO1j5pfxNgX0XmZ/Z6dvllPa8l9PbK2cv9+RFD4RNy8c7CdtWg1Lw==
+	bh=O/68xx5ufGD2Z5hepHuRXosJTqiGTE6W1d6Jm9B2bcE=;
+	b=OUnxswREcT5s7EwFItZSCQe/4OX28YA0LvluwsCDcKyGpCowLhGKq+05KYv+50NuEieF
+	 joZR06IFXOsU9e4++WSxThiqcdjnqFj9nko7D1yN2xRBVwJ6HJK8+p5LALjp5d0F0coHP
+	 u1jiBczy9xAqFOqc/AUWNbYllG9tT+YCFSzZkdmxAjneObQqP0wEah4tFyRQZWJS7ypvb
+	 qLPtBeo+/dlG391EV+ljBK/dAG2IpwVF49YAn8kJ2PZkq5xoZKr4mbQQvv6NrR8tDKuLy
+	 FGO/jVCfF/xdYcsbSDW0usTtunyW9qAGekej5IgjbihtxUOQIKewEMbfkEBUDyEPIlQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B14731F00919;
+	by smtp.kernel.org (Postfix) with ESMTPS id B20D61F0093A;
 	Tue,  3 Nov 2026 06:50:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793688634;
-	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	bh=O/68xx5ufGD2Z5hepHuRXosJTqiGTE6W1d6Jm9B2bcE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=KjWvmr7uP92FXRO4zGdMOamWGpi2urvBtJwEGPOq0HrqW+ZPCj8aJCLiUNR4Se9xx
-	 /AbxZqx1IAsFt5LZq+6G9L1A71fSvqvPIlc/79XCrBqXy57WotsgMsK08B04VcrOkO
-	 XXgWyZ2UHAdNQQ1ziffKOFmDttCQxI140kUUbcUDBSQEmJ7vfKWMPDY6X6l0xXJYnf
-	 XoC5+DUDl1lL/BKog/v9exDe4A/wPANBxZq0SzxRqnMKHlThG6NM8jMfabBFeslaCL
-	 Xm2CYz8KGm0SetbXY0hi1V9T5rowMHu+8LAUGNw5vOcVDxc+1iALywCKPvwVVaK0I9
-	 h9ENEW/tbo4fA==
+	b=fY2gVT9l9nyihxuTya/00m/PQ706ZyPoNgqfCuev+KAgpg2RxmFss3/j+fi3gAK35
+	 HMPO1PJr3CTmQ+iSVKrf/zzb3fOCvcv2Pw+UuS53SOSfdEhD/JK+eynDcjWCxFHtZy
+	 uVuagZh4xQWRGzIfRoCFSuwCu58Feq9WloZg5p3nTut2899lkK5cFI6/ZnTO7TzCsr
+	 q7CcJEE8W8vBUB1aAsZFeBD7ZjYbuB0DSvRU7n60W40FiBggAVXl2l5LTnWjlDYRc3
+	 nOmLp3Z0ocMJpYUHbxB3UVkqRn/EQ4ih8f/uYTGgoKJxCDvsr0QfMwTa91ajMwn1a0
+	 5W3nx+uIvp4OQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1DFB2467EE;
+	by lkml.kernel.org (Postfix) with ESMTP id 2B3F5467FB;
 	Tue,  3 Nov 2026 06:50:32 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Tue, 03 Nov 2026 14:50:19 +0800
-Subject: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
- properties
+Date: Tue, 03 Nov 2026 14:50:20 +0800
+Subject: [PATCH 2/5] media: Documentation: it6625: document the audio
+ controls
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-upstream-it6625-alsa-i2s-v1-1-bb91e2879b01@ite.com.tw>
+Message-Id: <20261103-upstream-it6625-alsa-i2s-v1-2-bb91e2879b01@ite.com.tw>
 References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
 In-Reply-To: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -97,11 +97,11 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
  linux-api@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793688630; l=2381;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793688630; l=2749;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=YquEGnkfejE8LQ3h36bXPBE3tLh6TFPGHJoLWRG719M=;
- b=lLa4lYyu0HCAvAC77t+VFLi8mHRGaDxq0l3ShmMhyDEv9x09C/rJmAzz4NtI+UYwIy0FFRS6Z
- MWSSGIdCtJACYzF2hCf13F7H0z7i5eJ3X0FqCs3gET+azSqwYf7rqnZ
+ bh=ysI2023N4J3uX9hTybs3IcHa3N84jOblyDxxemwdqPk=;
+ b=Wf/UUYj5V/9n6qXXtNTs44d/blo0+4IUpelP+53k//2gxOddpy6cz7WNwMeFlVbeyTTk/uaPf
+ DtnLq6Y8VX6CwLx7D3L0akmMLNih8WZXkCt04zH/i5gBhBLAU2VZta4
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -112,75 +112,68 @@ Content-Transfer-Encoding: 7bit
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-IT6625 and IT6626 decode the HDMI audio stream and output it on an I2S
-interface, driving the bit and frame clocks themselves. The bridge has up
-to eight I2S data pins.
+The IT6625 driver exposes two read-only driver-specific controls,
+V4L2_CID_IT6625_AUDIO_SAMPLING_RATE and V4L2_CID_IT6625_AUDIO_PRESENT,
+which so far are described only in the uAPI header.
 
-Add '#sound-dai-cells' so the bridge can be referenced as an audio codec
-DAI, and 'ite,i2s-data-lanes' to describe which data pins are connected
-to the audio receiver, in HDMI channel-pair order. Without the property
-only SD0 is connected.
+Add a page for the driver to the V4L2 driver-specific documentation that
+describes both controls, and list it in MAINTAINERS.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 23 +++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ Documentation/userspace-api/media/drivers/index.rst  |  1 +
+ Documentation/userspace-api/media/drivers/it6625.rst | 18 ++++++++++++++++++
+ MAINTAINERS                                          |  1 +
+ 3 files changed, 20 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-index 9b621f726249189255692da02049ebcbf1d5b43c..9304a0507903e7eaee44fa565e49c6938e9eb7d8 100644
---- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-@@ -43,6 +43,23 @@ properties:
-   ovdd-supply:
-     description: I/O supply voltage
- 
-+  '#sound-dai-cells':
-+    const: 0
+diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Documentation/userspace-api/media/drivers/index.rst
+index 8d2c489b8453e11b8e15ef9d9c1c0312f3da06af..57be8dd5749d7f5aa6e0e21c7e3d89d377a209d0 100644
+--- a/Documentation/userspace-api/media/drivers/index.rst
++++ b/Documentation/userspace-api/media/drivers/index.rst
+@@ -33,6 +33,7 @@ For more details see the file COPYING in the source distribution of Linux.
+ 	dcmipp
+ 	dw100
+ 	imx-uapi
++	it6625
+ 	mali-c55
+ 	max2175
+ 	npcm-video
+diff --git a/Documentation/userspace-api/media/drivers/it6625.rst b/Documentation/userspace-api/media/drivers/it6625.rst
+new file mode 100644
+index 0000000000000000000000000000000000000000..efd970e8124979abffb6f9ba3ea1e1bc193820b3
+--- /dev/null
++++ b/Documentation/userspace-api/media/drivers/it6625.rst
+@@ -0,0 +1,18 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+  ite,i2s-data-lanes:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 1
-+    maxItems: 8
-+    uniqueItems: true
-+    items:
-+      enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-+    description:
-+      I2S audio data pins (SD0 - SD7) that are connected to the audio
-+      receiver, in HDMI channel-pair order. The first entry is the pin
-+      carrying HDMI channels 1 and 2, the second the pin carrying channels 3
-+      and 4, and so on. The bridge drives the I2S bit and frame clocks. If
-+      the property is absent, only SD0 is connected.
++ITE IT6625/IT6626 HDMI to MIPI bridge driver
++============================================
 +
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
-     properties:
-@@ -111,6 +128,7 @@ required:
-   - ovdd-supply
- 
- allOf:
-+  - $ref: /schemas/sound/dai-common.yaml#
-   - if:
-       properties:
-         compatible:
-@@ -131,7 +149,7 @@ allOf:
-                   required:
-                     - bus-type
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
-@@ -153,6 +171,9 @@ examples:
-         vdd33-supply = <&vdd33_reg>;
-         ovdd-supply = <&ovdd_reg>;
- 
-+        #sound-dai-cells = <0>;
-+        ite,i2s-data-lanes = <0 1 2 3>;
++The IT6625 driver implements the following driver-specific controls. All of
++them are read-only and describe the audio of the HDMI input.
 +
-         ports {
-           #address-cells = <1>;
-           #size-cells = <0>;
++``V4L2_CID_IT6625_AUDIO_SAMPLING_RATE (integer)``
++-------------------------------------------------
++    The sampling rate of the HDMI audio stream, in Hz. 0 means that the rate
++    is not available: there is no stable input signal or no audio, the bridge
++    reported a rate code that the driver does not recognize, or reading the
++    audio status failed.
++
++``V4L2_CID_IT6625_AUDIO_PRESENT (boolean)``
++-------------------------------------------
++    Whether the bridge currently receives HDMI audio.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 760791e3635f3c306e7fed7240b948d29b45ae66..1d6de374d86d3046d993bf220195b1a75049fa8a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13972,6 +13972,7 @@ M:	Hermes Wu <Hermes.Wu@ite.com.tw>
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+ F:	Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
++F:	Documentation/userspace-api/media/drivers/it6625.rst
+ F:	drivers/media/i2c/it6625.c
+ F:	include/uapi/linux/it6625.h
+ 
 
 -- 
 2.34.1
