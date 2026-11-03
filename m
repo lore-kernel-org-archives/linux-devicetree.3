@@ -1,109 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793729868;
-	b=2sZcC7AwyZBeGRa7gjROi3Cj8xHpRG2AVLt5V27znrAOILgS4uOFvZ6wtlKVr2Uq+3tH
-	 3qTkvbH2JyQRpoEvzxy9Wph4lKbHAUrho9ijE3KTMmfITCOPzx0MSueTmk22yHTirvbWS
-	 3qQsi4Zj9gfrWa69C7tkhjXXXBnpLVYefYPY7vLKN9MJriYnheQ2wrCJS8/As9HPFyDTn
-	 DXJxi5SKWfnMMoldP6P9e4tJE67EdCoVyxJ28R99L8kqcUODvEetDlrb4sjUE+V9qeamU
-	 zOOm6Mbcj9cfW1yTwSwHfqBN5Dy6YaplJJZjrtKpGtvdltqZfGl/IBYbNQXA+XbuwVA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729868;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nAY0mN4ePeDJpvyfjyvP42Hy+cpGroSpFYr9jrHC9X4=;
-	b=bIx2DI2Sp0TpAVfEXjfUldMtt9wc2n4xa78pkBV7gakJlCfQYbQt0BMTZWuqd7VFwBlN
-	 eOmCPn+6xQzaLINc3wkq030OwDA54k9WyeO/KPAixzx+y5P4o5Qf16LCqD0tVvHPpCns2
-	 LT7Y0HaAOJ1UuqxC5hZegrcWQYflqTSLrRtnYre2uq3AnnbRHUmLYK3P+KpV1fRKh+UG5
-	 PVfholaEkwV+zTPvkLO9JGO+QXffTzLwnae2v88Qqzjdf434uwB0Um6agt3ML50Y4sG9p
-	 HDf0rr2QTAJjROOXZE0GbivD/hkPHFq1tUPj17b/9dM2em6gJi6fS21IaRoq19JRT9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D3pDzPua;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.50
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012050.outbound.protection.outlook.com [40.93.195.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793729951;
+	b=MyalvV7fZkyQaBRvr36RgoMriYxjfiCvSUDbEILzPBvGfrpDgiogB2c2iKt5LEXLoHTy
+	 JR71oBGTW0f/fGEJUBGuKtdKrjad65o3g+xXKRxuuluS4Odjg6ok31hgsDLuNUi5UXAOj
+	 Zk3n3Liy49gWtpxlZ89YuYaM4rAwhNFb5xLPZiKuUoiQRU0tpgq2YL3/p3811YP997Upy
+	 6u6bYGGB4FbONA/8cCjpRyYym5Sn+ZbMlTMVOZEzJ1l00tMqG2IO1r2JhTrOMuO6Zvyl+
+	 NzFdtOIxX6MRF4G1fBdJuIqElynmjpAa+XQacIqozUlndtteiHrtMSzpL0VodX0ZzCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729951;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=MOf4jGoNjklui20b3tjGfAb5reyk40611yCdNTmL8YM=;
+	b=NP2rq2jtgZkL1igJP9hF9n57b/mCHZI+Mh7SxzXRkUEX08EZ2EkxHoWZdjzDwBEAHMh0
+	 OAywiSFdgQxrRzooPJkNP1wfsTA3ouM5a0nVxZ461jOqVsD+5kYZ5kam3BWorf7F0ivHV
+	 IvUeaEgGICExnqSVIvNLnbcVb9hcbZAkiP4Uwk7QDL1uZxhjxr7LQ+momdD5uVdGjb/mN
+	 LSjXjGCQX7Gpkyd4MEoqMAWLOIh89TnTNoPNdfUucsGpGxErg7e2T3+y4t5NvMlKOwwu3
+	 UmK0igs88yN/4a9nUSwxYx9qJ4/g53qKUnBYMSCJHtnqDt+H2k/q2SlffAx9PkTgHuw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=DsXd0tFD;
+	arc=none smtp.remote-ip=83.166.143.169
+Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch [83.166.143.169])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55907606A324;
-	Tue,  3 Nov 2026 18:17:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55907606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C21606A32E
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 18:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C21606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D3pDzPua
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tUZ9QxWZlaLMI7hOCHjsHGZ8z/6v6ZEr5iQgtyd7kj0C5oh6u9ngLPe6wIS7e/5gJt6C8see9C0bTFJSEZrMl9xKXb//Iya7Y0/hbCYHPpnmMA1JiYRLgCEPMZUSx4vWJhLQ92PkIEk9W16Cd1GwiEBEWqpDx8qasU7ikUpKZZ3FiHNTEjwLx8luStJYmpyKAV/D9N+Fp7+gkQorsfNHNumvWxTCk5D+/aYE80kkwNeMKgdjp5Ny0pB0fh/+N4hdLyfxjVsOKE05FyoDpjtjj2iw63dgYuuzCxs/oQTjsy8FDEMDHBg62ARLFGOgnCi8HVVMP9+1bQBaUoZosh9ArQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nAY0mN4ePeDJpvyfjyvP42Hy+cpGroSpFYr9jrHC9X4=;
- b=HtCi35Jlz6EzxdqIuyfPVQaYV+BENhO76+xisqQLO5TAYYLps3M6OUIRKHdE0BXH+deiYTjF7l7IuVgJfQ1CIYEtSwHuDMCdedyWj5FWgGJNCK4fkjduTXmkoWDu3oE7cQPrjINBhxPWDiuuXFrldZNLBvfTyvEkADc1b+w/4Q9lpKG3sNc2BYbE8SBIm9c5dLesI1Spw6dymEo5a+wsBcp01kn5QniMOtDuaw+wrdUcgIbExKpHpkPEaMcNEoPDcAg4tZkuDR8x/SjXzZa5apBruA5jRCqMv5wGxJuQDSXWgZpNtzIpMdhv5d/xDL464bZB6XWhCFzfuCpeEHgkCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nAY0mN4ePeDJpvyfjyvP42Hy+cpGroSpFYr9jrHC9X4=;
- b=D3pDzPuaiWSEcJ/jLQyOgL9NMwbBG+jNHi4EGVJI6IttReqfS5QB4A4PMvt9yOo1nbQ0WdI1Xx5mlzSTFGxJ2rKh72rTSLajLLn+EDCVBepXQM6OjQe6YDDS/e0Uo6zccjqxeGc2B12puLUI4qDSVepjsyKLiFAEG7XJxU6DG/8=
-Received: from MW4PR03CA0287.namprd03.prod.outlook.com (2603:10b6:303:b5::22)
- by SN7PR12MB6932.namprd12.prod.outlook.com (2603:10b6:806:260::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 18:17:40 +0000
-Received: from SJ5PEPF000001EF.namprd05.prod.outlook.com
- (2603:10b6:303:b5:cafe::a7) by MW4PR03CA0287.outlook.office365.com
- (2603:10b6:303:b5::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 18:17:40 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001EF.mail.protection.outlook.com (10.167.242.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 18:17:40 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 12:17:39 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 12:17:39 -0600
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 12:17:36 -0600
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <gregkh@linuxfoundation.org>, <stern@rowland.harvard.edu>,
-	<michal.simek@amd.com>, <robh@kernel.org>, <saravanak@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>, "Radhey
- Shyam Pandey" <radhey.shyam.pandey@amd.com>
-Subject: [PATCH] usb: host: ehci-xilinx-of: remove the driver
-Date: Tue, 3 Nov 2026 23:47:21 +0530
-Message-ID: <20261103181722.2174208-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=DsXd0tFD
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJxff68bgzkyT;
+	Tue,  3 Nov 2026 19:19:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1793729946;
+	bh=MOf4jGoNjklui20b3tjGfAb5reyk40611yCdNTmL8YM=;
+	h=From:Date:Subject:To:Cc:From;
+	b=DsXd0tFDLTDRXX3RSqyLlcB1kW3IhvNccFTPnIAI9MNsLSqO9qNP0Vs4mUtBu/E5x
+	 fv/PF2FeyeNnamovPYIvlSII91vhuXpDLPSw8/XrlQ0MyTUd6pDcAFcX47FpKUX3p7
+	 fr+Sl/a5D+vQXNBQxC3OXLqKsvTWXcvNdKP9kpIbTA2IFW/3zPR7CFtZHUy+miu04S
+	 HPayaCPNIuz2g8Puj9gFKsi9Fu4qncciMG79Fuf7XCBpUgBsXP0Q/6XS98XwD49Wku
+	 /cyKq7brUT4mXjalsDI+jCHPRvXgq+XwEx9nAdpjxQuP8CCE0+1BOAT2M9PzG5Nhie
+	 0a6/TJtBedWQw==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJxfd4ttrzfD0;
+	Tue,  3 Nov 2026 19:19:05 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Tue, 03 Nov 2026 19:18:58 +0100
+Subject: [PATCH] arm64: dts: rockchip: support camera module on Haikou
+ Video Demo on RK3399 Puma
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,376 +61,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EF:EE_|SN7PR12MB6932:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d7e8713-59cc-4a6e-08d6-08df39d6bf3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|6133799003|18002099003|261102123227099003|56012099006|10067099003|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261022075727099003|5023799004|11063799006|261026121527099003|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	S1+C1ug7arZ5ZRFAPa/VTnffDVj4OC573K0UD7LUd14B8gXCk6ZZx4xbMEm6I6YqWwF+2sJ2K+bIwXEMbQUjykPDq/57S4bLIP7Jh+/4LTk8ktl0/BQo3L16j9OAzVV5Ni0SAMGBkWbtMkXqVsRMmw/VHV9+oHwX+W5hQv7OcE9BmWkl5A3qnPguypDIvuLsLaO7yhHWf1VR6ZguSfZw79/aKyis2PUQeRFEO4luawF8r4erv5Vvtmr3LL0+kHwkv3Y6QAV/u5O2LbSsaNUOZGKyqPwAj0agDWWmm4UEjYt1stBOJgei9apSRzebi+XI0ukrABVNUy/UkPv1f6rXY62uaOW+QR0qikkvnNrdw1JiqyjaWjJlzT3OiMDBIONme2IBN58NEXmEkWrEHUIi/cdDDJ9QDr91FkZlueSJcht0KEWMhGvA/FdYtAPJFC1Ks+xUtPO2OD5iVKhCMjlNcKsHCcCYC4Lccqt5KYGKg8aYPr5UkJDZoL1x/qGfJCd3gBpqFZ0DeSO01wG598ACgq8+hdNFffZHgLWc3MNf2jsV8WVQJ9GDKxHTTyte0s5472bsyWECRpiK3NVutQ5YdrAaGzLfp8z3GvRTd9o6U15/qKWh38V8UphkgXum3E0XsT4RsnvQxJPUPRKg/5PDeHtUV29rRvGixhAMBlP5VR2bn1xa1Um3+vGV2kNBjBMByAi+vHgoZkBDRg8ebrPg2Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(6133799003)(18002099003)(261102123227099003)(56012099006)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(5023799004)(11063799006)(261026121527099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	cZqTuVA+3z8PecXKncmkm1XjbNnh3dGcG7/bzIm4FbuBynLaRCBUuES606HGv4l4+E6zsqzO0KwXfgh6oRINx76dwO2x3Qw9tehIoOMiTcaUecbXo6EA8kOeR7EU2AAvJlKaJ84GQQ1PxEo/uohAX4qR5Th00HzbtMLuzO1H7otwVnmeFfVlU9xENAgYJAYwPvrB7H5RQENGCnl2ChdpE8S9a+hzZVFNTzf1NBpKfbZydFodBxaJHauBOfI0YVZMz9aIIp3jGKEEQwwy/NRlOC8s7MkuMAHwmqvLRM/vu+OuDQVMSfciyARGF4UL0yF3mw9wy4w4TfKJlsEJfmVozqFbwf2A+SFvTLOV6X+gPpTI3NHNOd8BHiOCbMRbG6Z4SifmdbloqlYhFzEJhxlitXxptJsHpqez00TH8+rxAyRY8BC5H85WsvZ2K6C0BtJt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 18:17:40.2912
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d7e8713-59cc-4a6e-08d6-08df39d6bf3e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001EF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6932
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-rk3399-puma-haikou-video-demo-cam-v1-1-9a49d97839b5@cherry.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ7CIBBG4as0s3aSUhIiXsW4oPBrx4bSgDQmT
+ e8u6vLbvLdTQRYUunQ7ZWxSJC0N6tSRn9zyAEtopqEfjFK95jxrbS2vNTqenMyp8iYBiQNiYu8
+ ih7MZYbR1VoFaZ824y/v3uN7+LnV8wr++YTqOD1jo+mCFAAAA
+X-Change-ID: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-The Xilinx XPS USB host controller is legacy soft IP for PPC405 and
-MicroBlaze FPGA designs.
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
-This IP core relies on Xilinx Platform Studio (XPS) and the ISE Design
-Suite, both of which were discontinued by Xilinx years ago. Furthermore,
-modern AMD toolchains (Vivado Design Suite and Vitis) provide no support
-for the legacy PLB (Processor Local Bus) architecture used by this core.
-As a result, no new hardware designs can be built using this IP.
+The Haikou Video Demo adapter has a proprietary connector for a camera
+module which has an OV5675 camera sensor and a companion DW9714 focus
+lens driver.
 
-Nothing in the upstream tree carries its "xlnx,xps-usb-host-1.00.a"
-compatible string, no defconfig enables CONFIG_XPS_USB_HCD_XILINX, and
-the compatible was never documented as a binding.
+This adds support for the camera module on RK3399 Puma module fitted on
+a Haikou devkit with the Haikou Video Demo adapter.
 
-It is also one of the few remaining users of the deprecated glue model
-where the .c file is #included into ehci-hcd.c rather than built as its
-own object.
-
-Given the complete obsolescence of the supporting hardware development
-tools and the lack of upstream users, remove the dead driver.
-
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- drivers/usb/host/Kconfig          |  11 --
- drivers/usb/host/ehci-hcd.c       |   7 -
- drivers/usb/host/ehci-xilinx-of.c | 229 ------------------------------
- scripts/dtc/dt_to_config          |   8 +-
- 4 files changed, 2 insertions(+), 253 deletions(-)
- delete mode 100644 drivers/usb/host/ehci-xilinx-of.c
+Camera only works once the ov5675 driver is adapted[1] to work with
+24MHz MCLK. With the similar work done for RK3588 Tiger[2], we now have
+all our modules supporting the same set of features when used in
+conjunction with Haikou Video Demo.
 
-diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
-index 05a88969a6a0..471d203b60a5 100644
---- a/drivers/usb/host/Kconfig
-+++ b/drivers/usb/host/Kconfig
-@@ -224,17 +224,6 @@ config USB_EHCI_PORT_SPEED_HOOK
- 	depends on USB_EHCI_ROOT_HUB_TT
- 	# Used for hosts with controller-specific port speed reporting
+Same request as made in [2], please only merge this once the OV5675
+series[1] is merged.
+
+[1] https://lore.kernel.org/linux-media/20261026101646.2450051-1-heiko@sntech.de/
+[2] https://lore.kernel.org/linux-rockchip/20261026102027.2451025-1-heiko@sntech.de/
+---
+ .../rockchip/rk3399-puma-haikou-video-demo.dtso    | 55 ++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
+index 141a921a06e47..6c28e7e60ef28 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
++++ b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
+@@ -16,6 +16,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
  
--config XPS_USB_HCD_XILINX
--	bool "Use Xilinx usb host EHCI controller core"
--	depends on (PPC32 || MICROBLAZE)
--	select USB_EHCI_BIG_ENDIAN_DESC
--	select USB_EHCI_BIG_ENDIAN_MMIO
--	help
--		Xilinx xps USB host controller core is EHCI compliant and has
--		transaction translator built-in. It can be configured to either
--		support both high speed and full speed devices, or high speed
--		devices only.
--
- config USB_EHCI_FSL
- 	tristate "Support for Freescale on-chip EHCI USB controller"
- 	select USB_EHCI_ROOT_HUB_TT
-diff --git a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
-index 75f780ec3ba0..7842f8a752d7 100644
---- a/drivers/usb/host/ehci-hcd.c
-+++ b/drivers/usb/host/ehci-hcd.c
-@@ -1331,10 +1331,6 @@ MODULE_LICENSE ("GPL");
- #include "ehci-ppc-of.c"
- #endif
+ &{/} {
+@@ -100,6 +101,12 @@ &i2c1 {
+ 	/* OV5675, GT911, DW9714 are limited to 400KHz */
+ 	clock-frequency = <400000>;
  
--#ifdef CONFIG_XPS_USB_HCD_XILINX
--#include "ehci-xilinx-of.c"
--#endif
--
- #ifdef CONFIG_SPARC_LEON
- #include "ehci-grlib.c"
- #endif
-@@ -1346,9 +1342,6 @@ static struct platform_driver * const platform_drivers[] = {
- #ifdef CONFIG_USB_EHCI_HCD_PPC_OF
- 	&ehci_hcd_ppc_of_driver,
- #endif
--#ifdef CONFIG_XPS_USB_HCD_XILINX
--	&ehci_hcd_xilinx_of_driver,
--#endif
- #ifdef CONFIG_SPARC_LEON
- 	&ehci_grlib_driver,
- #endif
-diff --git a/drivers/usb/host/ehci-xilinx-of.c b/drivers/usb/host/ehci-xilinx-of.c
-deleted file mode 100644
-index 1d16cfefabd7..000000000000
---- a/drivers/usb/host/ehci-xilinx-of.c
-+++ /dev/null
-@@ -1,229 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--/*
-- * EHCI HCD (Host Controller Driver) for USB.
-- *
-- * Bus Glue for Xilinx EHCI core on the of_platform bus
-- *
-- * Copyright (c) 2009 Xilinx, Inc.
-- *
-- * Based on "ehci-ppc-of.c" by Valentine Barshak <vbarshak@ru.mvista.com>
-- * and "ehci-ppc-soc.c" by Stefan Roese <sr@denx.de>
-- * and "ohci-ppc-of.c" by Sylvain Munaut <tnt@246tNt.com>
-- */
--
--#include <linux/err.h>
--#include <linux/signal.h>
--
--#include <linux/of.h>
--#include <linux/of_platform.h>
--#include <linux/of_address.h>
--#include <linux/of_irq.h>
--
--/**
-- * ehci_xilinx_port_handed_over - hand the port out if failed to enable it
-- * @hcd:	Pointer to the usb_hcd device to which the host controller bound
-- * @portnum:Port number to which the device is attached.
-- *
-- * This function is used as a place to tell the user that the Xilinx USB host
-- * controller does support LS devices. And in an HS only configuration, it
-- * does not support FS devices either. It is hoped that this can help a
-- * confused user.
-- *
-- * There are cases when the host controller fails to enable the port due to,
-- * for example, insufficient power that can be supplied to the device from
-- * the USB bus. In those cases, the messages printed here are not helpful.
-- *
-- * Return: Always return 0
-- */
--static int ehci_xilinx_port_handed_over(struct usb_hcd *hcd, int portnum)
--{
--	dev_warn(hcd->self.controller, "port %d cannot be enabled\n", portnum);
--	if (hcd->has_tt) {
--		dev_warn(hcd->self.controller,
--			"Maybe you have connected a low speed device?\n");
--
--		dev_warn(hcd->self.controller,
--			"We do not support low speed devices\n");
--	} else {
--		dev_warn(hcd->self.controller,
--			"Maybe your device is not a high speed device?\n");
--		dev_warn(hcd->self.controller,
--			"The USB host controller does not support full speed nor low speed devices\n");
--		dev_warn(hcd->self.controller,
--			"You can reconfigure the host controller to have full speed support\n");
--	}
--
--	return 0;
--}
--
--
--static const struct hc_driver ehci_xilinx_of_hc_driver = {
--	.description		= hcd_name,
--	.product_desc		= "OF EHCI",
--	.hcd_priv_size		= sizeof(struct ehci_hcd),
--
--	/*
--	 * generic hardware linkage
--	 */
--	.irq			= ehci_irq,
--	.flags			= HCD_MEMORY | HCD_DMA | HCD_USB2 | HCD_BH,
--
--	/*
--	 * basic lifecycle operations
--	 */
--	.reset			= ehci_setup,
--	.start			= ehci_run,
--	.stop			= ehci_stop,
--	.shutdown		= ehci_shutdown,
--
--	/*
--	 * managing i/o requests and associated device resources
--	 */
--	.urb_enqueue		= ehci_urb_enqueue,
--	.urb_dequeue		= ehci_urb_dequeue,
--	.endpoint_disable	= ehci_endpoint_disable,
--	.endpoint_reset		= ehci_endpoint_reset,
--
--	/*
--	 * scheduling support
--	 */
--	.get_frame_number	= ehci_get_frame,
--
--	/*
--	 * root hub support
--	 */
--	.hub_status_data	= ehci_hub_status_data,
--	.hub_control		= ehci_hub_control,
--#ifdef	CONFIG_PM
--	.bus_suspend		= ehci_bus_suspend,
--	.bus_resume		= ehci_bus_resume,
--#endif
--	.relinquish_port	= NULL,
--	.port_handed_over	= ehci_xilinx_port_handed_over,
--
--	.clear_tt_buffer_complete = ehci_clear_tt_buffer_complete,
--};
--
--/**
-- * ehci_hcd_xilinx_of_probe - Probe method for the USB host controller
-- * @op:		pointer to the platform_device bound to the host controller
-- *
-- * This function requests resources and sets up appropriate properties for the
-- * host controller. Because the Xilinx USB host controller can be configured
-- * as HS only or HS/FS only, it checks the configuration in the device tree
-- * entry, and sets an appropriate value for hcd->has_tt.
-- *
-- * Return: zero on success, negative error code otherwise
-- */
--static int ehci_hcd_xilinx_of_probe(struct platform_device *op)
--{
--	struct device_node *dn = op->dev.of_node;
--	struct usb_hcd *hcd;
--	struct ehci_hcd	*ehci;
--	struct resource res;
--	int irq;
--	int rv;
--	int *value;
--
--	if (usb_disabled())
--		return -ENODEV;
--
--	dev_dbg(&op->dev, "initializing XILINX-OF USB Controller\n");
--
--	rv = of_address_to_resource(dn, 0, &res);
--	if (rv)
--		return rv;
--
--	hcd = usb_create_hcd(&ehci_xilinx_of_hc_driver, &op->dev,
--				"XILINX-OF USB");
--	if (!hcd)
--		return -ENOMEM;
--
--	hcd->rsrc_start = res.start;
--	hcd->rsrc_len = resource_size(&res);
--
--	irq = irq_of_parse_and_map(dn, 0);
--	if (!irq) {
--		dev_err(&op->dev, "%s: irq_of_parse_and_map failed\n",
--			__FILE__);
--		rv = -EBUSY;
--		goto err_irq;
--	}
--
--	hcd->regs = devm_ioremap_resource(&op->dev, &res);
--	if (IS_ERR(hcd->regs)) {
--		rv = PTR_ERR(hcd->regs);
--		goto err_irq;
--	}
--
--	ehci = hcd_to_ehci(hcd);
--
--	/* This core always has big-endian register interface and uses
--	 * big-endian memory descriptors.
--	 */
--	ehci->big_endian_mmio = 1;
--	ehci->big_endian_desc = 1;
--
--	/* Check whether the FS support option is selected in the hardware.
--	 */
--	value = (int *)of_get_property(dn, "xlnx,support-usb-fs", NULL);
--	if (value && (*value == 1)) {
--		ehci_dbg(ehci, "USB host controller supports FS devices\n");
--		hcd->has_tt = 1;
--	} else {
--		ehci_dbg(ehci,
--			"USB host controller is HS only\n");
--		hcd->has_tt = 0;
--	}
--
--	/* Debug registers are at the first 0x100 region
--	 */
--	ehci->caps = hcd->regs + 0x100;
--
--	rv = usb_add_hcd(hcd, irq, 0);
--	if (rv == 0) {
--		device_wakeup_enable(hcd->self.controller);
--		return 0;
--	}
--
--err_irq:
--	usb_put_hcd(hcd);
--
--	return rv;
--}
--
--/**
-- * ehci_hcd_xilinx_of_remove - shutdown hcd and release resources
-- * @op:		pointer to platform_device structure that is to be removed
-- *
-- * Remove the hcd structure, and release resources that has been requested
-- * during probe.
-- *
-- * Return: Always return 0
-- */
--static void ehci_hcd_xilinx_of_remove(struct platform_device *op)
--{
--	struct usb_hcd *hcd = platform_get_drvdata(op);
--
--	dev_dbg(&op->dev, "stopping XILINX-OF USB Controller\n");
--
--	usb_remove_hcd(hcd);
--
--	usb_put_hcd(hcd);
--}
--
--static const struct of_device_id ehci_hcd_xilinx_of_match[] = {
--		{.compatible = "xlnx,xps-usb-host-1.00.a",},
--	{},
--};
--MODULE_DEVICE_TABLE(of, ehci_hcd_xilinx_of_match);
--
--static struct platform_driver ehci_hcd_xilinx_of_driver = {
--	.probe		= ehci_hcd_xilinx_of_probe,
--	.remove		= ehci_hcd_xilinx_of_remove,
--	.shutdown	= usb_hcd_platform_shutdown,
--	.driver = {
--		.name = "xilinx-of-ehci",
--		.of_match_table = ehci_hcd_xilinx_of_match,
--	},
--};
-diff --git a/scripts/dtc/dt_to_config b/scripts/dtc/dt_to_config
-index 70d6d5f06bdc..3f9e751a3285 100755
---- a/scripts/dtc/dt_to_config
-+++ b/scripts/dtc/dt_to_config
-@@ -116,13 +116,12 @@ $num_pr_flags = $pr_flag_pos_config_test_fail + 1;
-        'hardcoded_no_driver'                   => ['no_config'],
++	focus: focus@c {
++		compatible = "dongwoon,dw9714";
++		reg = <0xc>;
++		vcc-supply = <&cam_afvdd_2v8>;
++	};
++
+ 	touchscreen@14 {
+ 		compatible = "goodix,gt911";
+ 		reg = <0x14>;
+@@ -122,6 +129,50 @@ pca9670: gpio@27 {
+ 		pinctrl-names = "default";
+ 		reset-gpios = <&gpio4 RK_PD6 GPIO_ACTIVE_LOW>;
+ 	};
++
++	camera@36 {
++		compatible = "ovti,ov5675";
++		reg = <0x36>;
++		assigned-clocks = <&cru SCLK_CIF_OUT>;
++		assigned-clock-rates = <24000000>;
++		clocks = <&cru SCLK_CIF_OUT>;
++		avdd-supply = <&cam_avdd_2v8>;
++		dvdd-supply = <&cam_dvdd_1v2>;
++		dovdd-supply = <&cam_dovdd_1v8>;
++		lens-focus = <&focus>;
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&cif_clkouta>;
++		reset-gpios = <&pca9670 6 GPIO_ACTIVE_LOW>;
++		rotation = <180>;
++
++		port {
++			cam_output: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <450000000>;
++				remote-endpoint = <&mipi_in_cam>;
++			};
++		};
++	};
++};
++
++&isp1 {
++	status = "okay";
++
++	ports {
++		port@0 {
++			mipi_in_cam: endpoint@0 {
++				reg = <0>;
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <450000000>;
++				remote-endpoint = <&cam_output>;
++			};
++		};
++	};
++};
++
++&isp1_mmu {
++	status = "okay";
+ };
  
-        # drivers/usb/host/ehci-ppc-of.c
--       # drivers/usb/host/ehci-xilinx-of.c
--       #  are included from:
-+       #  is included from:
-        #    drivers/usb/host/ehci-hcd.c
-        #  thus the search of Makefile for the included .c files is incorrect
-        # ehci-hcd.c wraps the includes with ifdef CONFIG_USB_EHCI_HCD_..._OF
-        #
--       # similar model for ohci-hcd.c (but no ohci-xilinx-of.c)
-+       # similar model for ohci-hcd.c
-        #
-        # similarly, uhci-hcd.c includes uhci-platform.c
+ &mipi_dsi {
+@@ -145,6 +196,10 @@ mipi_in_panel: endpoint {
+ 	};
+ };
  
-@@ -131,9 +130,6 @@ $num_pr_flags = $pr_flag_pos_config_test_fail + 1;
-        'drivers/usb/host/ohci-ppc-of.c'        => ['CONFIG_USB_OHCI_HCD',
-                                                    'CONFIG_USB_OHCI_HCD_PPC_OF'],
- 
--       'drivers/usb/host/ehci-xilinx-of.c'     => ['CONFIG_USB_EHCI_HCD',
--                                                   'CONFIG_USB_EHCI_HCD_XILINX'],
--
-        'drivers/usb/host/uhci-platform.c'      => ['CONFIG_USB_UHCI_HCD',
-                                                    'CONFIG_USB_UHCI_PLATFORM'],
- 
--- 
-2.44.4
++&mipi_dsi1 {
++	status = "okay";
++};
++
+ &mipi_out {
+ 	mipi_out_panel: endpoint {
+ 		remote-endpoint = <&mipi_in_panel>;
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
+
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
 
