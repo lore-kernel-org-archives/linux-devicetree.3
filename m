@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738058;
-	b=kC/12WDeFlU16fAhiW0bwGODQeq/HrP/OF/j8PmmskfpakjPrsiXwkEiFlq2CkO8JA/Z
-	 CT1EQGNtoXG6MF/JZk08s81JSzIkNsjBpaptz76lR4BQjZDftOxue36GTjCDqj2CqrJR+
-	 Dh/Ym+J5d6E7NMOx7a7hfznfL49AsCMzu0dxvWysQYHaVfRnbarZHh3WEG8OYCtwXKnl1
-	 Ro6AKd8sS6V9czkhPdIKr128DdYN1WisBHN0AaHxTFg8NFSd067xb8Kt+s6rMtXZQQ2D5
-	 Wi0lI2AlTaFg2IiFWvhEFkpindiru/cQ6cxpCpornzX5lB8ukAMbsCt9n9WdJYu1v3w==
+	t=1793738247;
+	b=acL4JqL95yzsj6lmHWQDRwu1nB9vU1Yvcx+wFPymXpJO7BZ1puuqomSM6wUAbA0dDWUH
+	 cSf9MVNI53ewNDOkODCMNz94h1+IzxozHOt3ZKedQmlwfeH0+HHw0SWceSzVZYCTXC5BV
+	 xcfuAh/6On0Rk89KpqgC/vj8cGEyaj5aWnAVQcVGdXk5GBuiMqf+3cu57KIe5P2HN9y38
+	 2XfF5BQRQeTkODBBURam9ki2vOzxiuzu/6ZFOMccbtaPI5oQbyukSsROtK3J4s4GiRML7
+	 RGm8BUnSDP7VMEcZFqzGADkGfcbBwM69afGMsTYRSsd0Cq0MP9n+vI9xdIWQ6rzbvnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738247;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NmhCleWsjB+17l2UAGXCMV0yzOyDAojZ2H14gtAolRI=;
-	b=r6lOdujhV2jfjqZ/Rk7f92D9FZhPYnqf3S9MkfpxgENsREeBPTbqgG5INHkFbIexWL2D
-	 Nbq7sjatLplR/6a83xny9QyWrhBuuF/pDJm/4HU1uEK3b1MWZssO3lEYxcBMEO61YiniE
-	 tcJl2eywzpt8Mb30pqdgPvFcJka17E+rG5FcADB9df/jonWtCELkvOqN/5P5sjois7Y3d
-	 HVo3miusn3e9MoD6N2u6TFlFYwsJaRgWEAO91dd4/EZ3WMpMGtKfBHYV0alu+fplpocsf
-	 Xgfzpa83aQuzFZtlbrSXPgbkK4pDrsvmf4R9d1HHHbhjQ9jJsi+HI9gd84dOO61ix+Q==
+	bh=4jECsKV01we93tb+KX8k3fUvMX/oMx8ZJgJvfFLq7iA=;
+	b=HqFZ7fA5jPqCXrY0HtHi/deJ+bRaXeQATuhD+9LtRhbbnVhdR7PJZ+qmYWSB9woMccQ8
+	 RoGXvvQdouoWrnB15e5o/82zcYJ5RG/JdJvsNgh4Pw9Esd6KUYq29f1DyJE2ZpdUi9Yy+
+	 JwCvffzeQDqCIfoh6EHZ4v+sFRkPcXxzaRJolosPgGD34swNe84oR5qefUDMK4xWLOArQ
+	 kNlhKDYnboFLkUh8IgxMszc074UFtvdi4g4x7+QQ3UAZP+jatmPXMLK/tosBCRXyI69zn
+	 b+2u1sP89KTpURqhDtDcOsy4f/cUjfDQw638wwcCIHpc5UmqFG/moD/EeXKAWSx/Icw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSx1kdgn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFzHL0iC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9841F606A324
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:34:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26BA606A31B;
+	Tue,  3 Nov 2026 20:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSx1kdgn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7AC1F000C1;
-	Tue,  3 Nov 2026 20:34:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFzHL0iC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E0F1F0093A;
+	Tue,  3 Nov 2026 20:37:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793738058;
-	bh=NmhCleWsjB+17l2UAGXCMV0yzOyDAojZ2H14gtAolRI=;
+	s=k20260515; t=1793738246;
+	bh=4jECsKV01we93tb+KX8k3fUvMX/oMx8ZJgJvfFLq7iA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OSx1kdgnbyZCyZ36cS7To5A3NFamIsNL2An5K57qOefQJ2l8Dqc7wWBvQXhG9J2PD
-	 ATudCNgEf0euK6By6cpie0NcdRckPPRQiW/PvX4nQRyItfjvOP/pzZbI9sERuFD12i
-	 gnPcI1ZiXgBv6aNG/oiDSbzMGawhUx09RwdxaAMLISM9r88T27qYze126h1UUXtvIX
-	 asNU0IfkDtWolQ6lE/5+s5LA40xlsqFGaIymQTx7acscG8mOISmImjiTxTwEkp+Wrj
-	 yOcukWSJ9q2cyllOloUB3FrEpaGtKeFAP/Xna70+qghxSvcvaMuP0xrqPwaa0581b2
-	 X97XgqO1wYBDA==
-Message-ID: <sashiko-outbox-195992@kernel.org>
+	b=WFzHL0iCpM6+kdjkVst039kPF0JpCWVjGlBVhHZOJKA3HIqIhS9X1fn0b6Q8Fcy+i
+	 B9rbFjX90q3ai6A2gwFmglIQfgR+4zGAlSQOG3VfY5NALTHO15rY3/h/LP6CDEr1eF
+	 VbEDL4iEcZPvRbb02PyP4AJm4dcx5a5j1F4FAZi51H6iwG/UYM6B1wpa4EOdaNkPT7
+	 g0UQagaktzYO0YQURNah/UVDxbM9oRGdEigPbwvxdU01JVHru4peYFkx9crSWSJ98u
+	 jH0TKlkPVsXObQnljh0SuSOXRGLLQq8urb5xERTLOQTdIzZG3eWA5//hlBS9xf4rDU
+	 jQrKOdmGqPYpg==
+Message-ID: <sashiko-outbox-195996@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next] dt-bindings: net: Convert
- snps,dwc-qos-ethernet to DT schema
+Subject: Re: [PATCH v2 1/2] dt-bindings: mfd: Document support for Airoha
+ AN8855 Switch SoC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102203353.1384705-1-robh@kernel.org>
-References: <20261102203353.1384705-1-robh@kernel.org>
+To: "Christian Marangi" <ansuelsmth@gmail.com>, mfd@lists.linux.dev, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261103203034.12869-2-ansuelsmth@gmail.com>
+References: <20261103203034.12869-1-ansuelsmth@gmail.com>
+ <20261103203034.12869-2-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 20:34:17 +0000
+Date: Tue, 03 Nov 2026 20:37:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,33 +61,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] dt-bindings: net: snps,dwc-qos-ethernet-4.10: redundant maxItems on=
- clocks
+- [Medium] dt-bindings: mfd: airoha,an8855: missing ethernet-switch node br=
+eaks DT ABI
+- [Low] dt-bindings: mfd: airoha,an8855: undocumented PHY nvmem-cells in ex=
+ample
 --
 
-commit ccf9541bde2e61e4e9ad2f4d7325ff792d7181d2
-Author: Rob Herring (Arm) <robh@kernel.org>
+commit 5c22f417efc026df5dc02aca005efec24fec3d06
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-dt-bindings: net: Convert snps,dwc-qos-ethernet to DT schema
+dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
 
-This commit converts the snps,dwc-qos-ethernet-4.10 binding to DT schema
-format and moves shared properties to snps,dwmac-common.yaml. It also drops
-unused compatibles and updates the example to use Tegra186.
+This commit adds the MFD device tree binding schema for the Airoha AN8855
+Switch SoC, documenting its efuse NVMEM provider and MDIO bus child nodes.
+
+> diff --git a/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml b/D=
+ocumentation/devicetree/bindings/mfd/airoha,an8855.yaml
+> new file mode 100644
+> index 0000000000000..ee72411548516
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+> @@ -0,0 +1,134 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    const: airoha,an8855
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +  efuse:
+> +    type: object
+> +    $ref: /schemas/nvmem/airoha,an8855-efuse.yaml
+> +    description: EFUSE exposed by the Airoha AN8855 SoC
+> +
+> +  mdio:
+> +    type: object
+> +    $ref: /schemas/net/mdio.yaml#
+> +    description: MDIO exposed by the Airoha AN8855 SoC
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - mdio
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+The description states that the Airoha AN8855 Switch SoC exposes an Ethernet
+Switch, an NVMEM provider, and Ethernet PHYs, and the accompanying MFD driv=
+er
+registers MFD cells for both airoha,an8855-efuse and airoha,an8855-switch.
+
+However, properties in airoha,an8855.yaml omits the ethernet-switch child
+node while setting additionalProperties: false, and leaves efuse out of the
+required list.
+
+In Device Tree bindings, adding a child node to required after the binding =
+is
+merged breaks DT ABI compatibility because existing DTBs without that child
+node become invalid, and bindings are expected to describe the complete
+hardware up front rather than staging child nodes across driver series.
+
+Should the DSA switch schema be included with this series so that
+ethernet-switch and efuse can both be documented and marked required from t=
+he
+start?
+
+[ ... ]
+
+> +            mdio {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +
+> +                internal_phy1: ethernet-phy@1 {
+> +                  compatible =3D "ethernet-phy-idc0ff.0410",
+> +                               "ethernet-phy-ieee802.3-c22";
+> +                  reg =3D <1>;
+> +
+> +                  nvmem-cells =3D <&shift_sel_port0_tx_a>,
+> +                      <&shift_sel_port0_tx_b>,
+> +                      <&shift_sel_port0_tx_c>,
+> +                      <&shift_sel_port0_tx_d>;
+> +                  nvmem-cell-names =3D "tx_a", "tx_b", "tx_c", "tx_d";
+> +                };
 
 [Severity: Low]
-In Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml at
-line 39 under properties:clocks, maxItems: 5 is specified alongside a
-5-element items list without additionalItems: true.
+In examples, internal_phy1 and internal_phy2 under the mdio node specify
+compatible =3D "ethernet-phy-idc0ff.0410", "ethernet-phy-ieee802.3-c22" alo=
+ng
+with nvmem-cells and nvmem-cell-names =3D "tx_a", "tx_b", "tx_c", "tx_d".
 
-In the devicetree meta-schema (meta-schemas/items.yaml), when items is a
-fixed-order list, maxItems is implicitly set to the length of the items list
-and explicitly specifying maxItems is disallowed.
+Documentation/devicetree/bindings/net/ethernet-phy.yaml does not define
+nvmem-cells or nvmem-cell-names, and no binding schema under
+Documentation/devicetree/bindings/net/ documents ethernet-phy-idc0ff.0410 or
+these calibration cell names. The example only passes dt_binding_check
+because ethernet-phy.yaml sets additionalProperties: true.
 
-Does this cause dt_binding_check / dt-doc-validate to fail on
-properties:clocks:maxItems, and should maxItems: 5 be removed here?
+Does this need a dedicated PHY binding schema documenting those nvmem
+calibration properties before using them in the example?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102203353.1384=
-705-1-robh@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103203034.1286=
+9-1-ansuelsmth@gmail.com?part=3D1
