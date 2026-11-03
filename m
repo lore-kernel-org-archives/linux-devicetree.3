@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692738;
-	b=XWzt7E8kxo4FL6LlSSO1e2O0q33UoRJ0NEO7woDA8B2Y0we+Cx5PLxxeHhJMH1etWLca
-	 2AzDtSPxN6s4taKfJnsCnF/Nb/YPibpOWuJ+c1tWvpO/vKnSofXygSxQdWMKSeyaNrayf
-	 eTURm1K9fP33jT/Xwt1cEw1+zxC8tnlpritTCNbMYXA2c0j+th+vHIkPw6kTi5m8GJgJC
-	 7c7dniYPmvljvCwCQL2p6BQa51LvhBooo0lcrFZlBGYmqG5s9uTl65g3RVnsVu5eMXWUf
-	 TtUxCpvDPvuo0PFSE64wl8CsKeh/OV6DPYFdZBzG6zLJguQ1hkLziXoTxcoWcBaDJ8w==
+	t=1793692882;
+	b=cnIS+jRznH3XS6E2CFFAWDQE1nbykjSnIWhdHUztNliI9f+QxmkVDsDAPElKbrVBwIgJ
+	 EkFFeFvvdSSnOL3Nwr4FwFYPGhTGiOMP9s2x/JcD1eyNotFs+s+eiKCX7PvnqNTZC9Hay
+	 D2AsN695XgdbegNVy8sRrwEjyqmjlFgOX8a++reDj4Q83waRctOJXK5zgKF9E7X6VSIPd
+	 WXJ9kYDPTfq9aby+6pwwqRc0jyNTJwt0x/zTf7hrTIpTyLeTf+t4cja4sZT/2xBXtfOcj
+	 InZykVav98bbRBs4aPS+n5qcGPi7ZH99VvGoGVpf0US6jPNRB+173BY8F6jydCwTGng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692882;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=LDkwUPzmjdfRONwaHupqKDUAz44VqFEVdwFb3Eppasg=;
-	b=23ApXZVV7JHezTYSRIey9mkEzZJKwHmoGtjCGSbbduCI5Spd6XJpBfsog/gtC4wYy7zZ
-	 OV1KhQoJE5BiRoc5L2HsgP1pW5vzEBSJaBJPycEBQzhqeEeanqtTeO53bKqcdLWm+5HuO
-	 xlz8D7qI+vSwiwWM82hwJ0KhkkLrCqptbDuxXzX+R4p3Kevbaoor/L3Y2CgrRQTK3Mv/m
-	 XS2cTtHhpMgDGWlJX8FXYsP2xq6lkp4LVuuQWkbh+7jQsrDRYasNhFSW2OswpDaYqOm1V
-	 g4VamW69v5HH3WtYx4qDaPBeuHbkqdOoTzzcFKHmdFUS96ZBjykmA7IwYMUxpiqlMkA==
+	bh=KNTJ7+aGLleegUTNQ5JpdEdo0YNVvO3z3jFP4d6sxVU=;
+	b=VuQ4u25P10AeCP+0MvJ7R2noxv3HZnWT0CXUlszauDugGiixAMA7KcbWgRFPqOgdis20
+	 k6UKdxXbHN/CIXVcDKyOBHggY5granK7fH0ndKE9k3vQG0iOEizUgwBgwJz/Q/D/PnVTW
+	 MMLkXGTmSTl9f67KtIk57TgRFtUXag5ue6yqjwSiGIhU7GeIIBbziLRLUNjkkRgaTAm99
+	 Y9nuskjhRPHgg25MkwS4e5+A/Wok6TZ/8DjrXcSFlz0hgDVw7EboMas9WrnPxJbqqt5E0
+	 Y5v7yDmxhOkvEyojTfEwtAATmS9v6aKfrJvQkSMBc3ZcVyYDDhYVZIaVxgwCUeAIglA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cD3jQjDX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFdk6hxZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E481606A32C;
-	Tue,  3 Nov 2026 07:58:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A686606D802;
+	Tue,  3 Nov 2026 08:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cD3jQjDX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5AF51F00A17;
-	Tue,  3 Nov 2026 07:58:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UFdk6hxZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCF91F00A16;
+	Tue,  3 Nov 2026 08:01:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793692738;
-	bh=LDkwUPzmjdfRONwaHupqKDUAz44VqFEVdwFb3Eppasg=;
+	s=k20260515; t=1793692881;
+	bh=KNTJ7+aGLleegUTNQ5JpdEdo0YNVvO3z3jFP4d6sxVU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cD3jQjDX+FHYClLxGbd5BMtTA4ivFZ/K5wxxc4riqav3yaVmcYdcVWYFigpdM85mm
-	 f6yYwLZIVOI01ArOogsnoyPom94Kj/yyta1+Aiy/RTxAsCckYbZW65y0+GaBfMlLct
-	 S+nXIm3hMAWLskc+NiWWegoDjyz0DeaMlefHRo4HVTrA8GTfUrXp1X8TxuuMUu4KQ/
-	 eZFlGpz8YB9dJZH4qnk0cOMOJJJd/omVSMfdUJ8WAYqegkow9XadSaSKWc/9cxwtgO
-	 ahInj2duq1i1kWpl4HXBxqPKxAP60H1QHTjCrzc2ni+CgqO+xIxJVPghCCXLX0f6+b
-	 lma5mtGpN+mIQ==
-Message-ID: <sashiko-outbox-194781@kernel.org>
+	b=UFdk6hxZLZuBFeEFhHzKLJi5V2ujidsBj8zD9CgJ6CefTWT/6PwEb7wMbujqSuM3y
+	 CVCYS/ATciibT3eqiDXgdkMYiwXvmWtkwZZbkM9NJKEu8GHfGa1DDVbYCPfgNtjXj1
+	 BUfCiCGHJfswP4AjXq+qBS+cKJ6SFQlzYgO8ft/f/XP82ixPnvO0eFMUWpzN1K+Nzv
+	 TosCSLv/NyLFfVWX37mLK05KcbZm5UCvpvntWs3AT+jLX3VfBkyMqjQd8SWQWR79WN
+	 fxcW0HTKCMBYxRrB07+xdGqn5ZVikjoivyNwD94c9EtGVzqfqkiF1mwwJTwjv6xd54
+	 qGE/ex3tx1PEg==
+Message-ID: <sashiko-outbox-194787@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/22] ASoC: dt-bindings: Add binding for Apple
- Silicon Mac audio
+Subject: Re: [PATCH v5 1/3] dt-bindings: usb: Add CIX Sky1 USBSSP controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Calligeros" <jcalligeros99@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-macaudio-v4-4-637484efe46d@gmail.com>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-4-637484efe46d@gmail.com>
+To: =?utf-8?b?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
+Cc: =?utf-8?b?bGludXgtdXNiQHZnZXIua2VybmVsLm9yZw==?= <linux-usb@vger.kernel.org>,
+ =?utf-8?b?ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc=?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103074929.1971195-2-hongliang.yang@cixtech.com>
+References: <20261103074929.1971195-1-hongliang.yang@cixtech.com>
+ <20261103074929.1971195-2-hongliang.yang@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:58:57 +0000
+Date: Tue, 03 Nov 2026 08:01:21 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,77 +63,112 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] ASoC: dt-bindings: apple,macaudio: drop unnecessary #address-cells/=
-#size-cells
+- [Low] dt-bindings: usb: cix,sky1-usbssp: invalid bus node name and proper=
+ty order
 --
 
-commit 7babcc38fd08c53ef9be38d7c4acfca64730a1a5
-Author: Martin Povi=C5=A1er <povik+lin@cutebit.org>
+commit 26d70ffe3b921fd15f5adca3d546e808116719c0
+Author: Hongliang Yang (=E6=9D=A8=E5=AE=8F=E4=BA=AE) <hongliang.yang@cixtec=
+h.com>
 
-ASoC: dt-bindings: Add binding for Apple Silicon Mac audio
+dt-bindings: usb: Add CIX Sky1 USBSSP controller
 
-This commit adds a Devicetree binding schema for the primary audio
-subsystem found on Apple Silicon Macs, integrating the SoC I2S peripheral
-and codecs for the headphone jack and speaker arrays.
+This commit adds the Device Tree binding schema for the CIX Sky1 Cadence
+USBSSP controller glue layer and updates MAINTAINERS.
 
-> diff --git a/Documentation/devicetree/bindings/sound/apple,macaudio.yaml =
-b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml b=
+/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
 > new file mode 100644
-> index 0000000000000..7a97ce5bb7a1d
+> index 0000000000000..c29654567e765
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
-> @@ -0,0 +1,195 @@
-
+> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> @@ -0,0 +1,152 @@
 [ ... ]
-
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usbssp
+> +
+> +  reg:
+> +    items:
+> +      - description: AXI bus attribute configuration registers
+> +      - description: Controller status registers
+> +
+> +  reg-names:
+> +    items:
+> +      - const: axi
+> +      - const: status
+[ ... ]
+> +  cix,usb-syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the Sky1 S5 system controller used to program USB mode
+> +      strap controls.
+> +
 > +  "#address-cells":
-> +    const: 1
+> +    const: 2
 > +
 > +  "#size-cells":
-> +    const: 0
+> +    const: 2
 > +
-> +  model:
-> +    description:
-> +      Model name for presentation to users
-> +    $ref: /schemas/types.yaml#/definitions/string
+> +  ranges: true
 > +
 > +patternProperties:
-> +  "^([a-z]+-)?dai-link$":
-> +    description: Node for each sound peripheral such as the speaker arra=
-y,
-> +      headphones jack, or microphone.
-> +    type: object
-> +    $ref: tdm-slot.yaml#
-> +    unevaluatedProperties: false
-
-[ ... ]
-
+> +  "^usb@[0-9a-f]+$":
+> +    $ref: cdns,usb3.yaml#
+> +
 > +required:
-> +  - '#address-cells'
-> +  - '#size-cells'
 > +  - compatible
-> +  - model
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - cix,usb-syscon
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/cix,sky1.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    soc {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +
+> +        usb-rcsu@91c0300 {
+> +            compatible =3D "simple-bus";
+> +            #address-cells =3D <2>;
+> +            #size-cells =3D <2>;
+> +            ranges =3D <0x00 0x00000000 0x00 0x091c0300 0x00 0x150>,
+> +                     <0x00 0x091d0000 0x00 0x091d0000 0x00 0x20000>;
 
 [Severity: Low]
-Are #address-cells and #size-cells needed in this binding?
+Does this pass make dt_binding_check and scripts/dtc/dt-check-style
+--mode=3Dstrict?
 
-The only child nodes permitted under the sound node match the pattern
-^([a-z]+-)?dai-link$ with unevaluatedProperties: false, which forbids unit
-addresses in the child node names and disallows reg and ranges properties
-on the child nodes. The parent sound node also sets additionalProperties:
-false without allowing ranges or dma-ranges.
+In the example, usb-rcsu@91c0300 has compatible =3D "simple-bus", which
+requires a node name matching ^(bus|soc|axi|ahb|apb|isa|pci-ep-bus)(@[0-9a-=
+f]+)?$
+under schemas/simple-bus.yaml (such as bus@91c0300).
 
-Because these properties are marked as required, any conforming devicetree
-source file will trigger a dtc avoid_unnecessary_addr_size warning when
-compiled with W=3D1 in scripts/dtc/checks.c:check_avoid_unnecessary_addr_si=
-ze():
+Also, in usb-rcsu@91c0300, ranges is placed after #address-cells and
+#size-cells, which triggers a property-order warning from
+scripts/dtc/dt-check-style --mode=3Dstrict since ranges should precede
+standard properties per Documentation/devicetree/bindings/dts-coding-style.=
+rst.
 
-	FAIL(c, dti, node, "unnecessary #address-cells/#size-cells without \"range=
-s\", \"dma-ranges\" or child \"reg\" or \"ranges\" property");
-
-Should #address-cells and #size-cells be dropped from properties, required,
-and examples in Documentation/devicetree/bindings/sound/apple,macaudio.yaml?
+Similarly, in the top-level properties and required lists of
+Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml, should ranges
+be placed right after reg-names rather than after cix,usb-syscon,
+#address-cells, and #size-cells per
+Documentation/devicetree/bindings/writing-schema.rst?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-macaudio-v=
-4-0-637484efe46d@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103074929.1971=
+195-1-hongliang.yang@cixtech.com?part=3D1
