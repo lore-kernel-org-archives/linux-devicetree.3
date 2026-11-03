@@ -1,99 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793725818;
-	b=pFtzS19uChQl9ePbq77M6EtAV+QoArVHTH6CQtAQvTF6M/MrvPLprlKefy+KP1oCCNE2
-	 XjvvtO2wwgHNihMZdT0Nb6JEF5s0ZOGftKNSNE6GaXdXD3UJi0T/t3hMryfMjg1Ek42WM
-	 A0r5bZMpCrZgp231iymoqWDjhgCb9kIsTc/C+SEvKGjk7gZUSBD2tfb1f+HsWm3gPmS7k
-	 YriGzTZ33uZodIvVVgcGf4Kn/ywg7b2u4wTRq0grlf8pafFkLJ7LJPIZG0xx6EiQ024KQ
-	 MUGj4fxMRhYBkJ7e6ihfVHJ2Mab12U782p4F6m2YqZ+Czb/Vsgb5giZKRWXYfo1UAOQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725818;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793726359;
+	b=XJqS1rBY1JNl+/7ptlJTC/8XyecO8Su1CS4upQ6ySOHeNfMk7j73GLiL0oZcECpIRVbK
+	 qjP37GsM0HC/iGULedUC8N0M8kEHvcLRMWig6Z0dPImb1zZ/5Og9Mym58Yv0wr2n9iD71
+	 5XcgEylFcs/Hf7LmC8PgikB/fGuC1JO6BV4fKb2+BUDbe1nU5btgAk24GWJt4/DlrnQNx
+	 XXx2FdjWNSwo06DB9IpEdACRPYtNL8CLhKUurwUlvl8OX2T/0OK3xR67kMHdELXAiEW1u
+	 mEDmJtBZuRIay/XSQMkvD1SOIIfnO3jJ0nJYrZ26Jcf1YcQeyCjMh6d8jzuKjuieUxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793726359;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=dVyIeRQJHeB49FS4amSNOfxSQ+jsE+/JpXBqaJR89vk=;
-	b=jaQLxAqRiZukw6otepOvwJrVP5AMmVqciv7nOA1SV2oDyhoASlY8no+kPTHzSZMWGbdk
-	 JDlRBW2ffRaEc6xoir9O+//bnN8vwuAVrMgmWGJ/MwHcv5YJn1ONnd0FD2cCFQS1szAw5
-	 fIJM4Z1RXa6H+2dXF6Jby4YlPr50Kkgu0qux83nUNCIklqdA7bfuaG0YVAHtxFxalaRvt
-	 p0LA/+N2uxEXbRI08i7JjnrTbFpyTOnPWEkolU4ZBa3EuXo9kdaZP2aDOG3bEC4FC8WnY
-	 i5S4OLovIIjyabIzgncvtZWv1uHxnmL3OeGZl6GIS4+Qz79R0wElYAOaB1WYIT3rLeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=JxILHW9o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=E1AIQqXxMElr9XYHIFcSfJejuF++6x4Nf+fj72eanNY=;
+	b=WXe77iNgDWkguhdmlMVZt+7N10knAembqSN7z9D+Kb2qJ61LjbahCHsZc/MyBeW8VzdK
+	 bn0uPV8c/M4JrvZAVvmi1G6f3cXrcPRupga7HZGm04eoSPOLvQqsooZwY8qnxfm136Jij
+	 bxvLPtlHy4Er/2tOGOepz030X1+aRBo2Q117XvlR9PzNToAbl3Shyvvoetpsv/NrEbS3Q
+	 3VAGdGTP8NiUHfIjCIKleppgocnmpScQ74uQTQahfuLTjfkokevH8uqPXhKmwU3NJlRN0
+	 ggll7slZq85UkCFY6PR/rhhp1Ick80gGF9/QMRi4Sn6Eum2jyVkeOmP7BaXttbUtl5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="R/YhAD4c";
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE3C606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 17:10:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FE3C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA15606A31B
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 17:19:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA15606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=JxILHW9o
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c450ab1483cso727774166b.3
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 09:10:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793725811; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bk4ZBk1IqP8qAIMY6ku21lPIqKrU+E73npBBcAzAAHtvrAL+jVEqtyBsQcIVR2hGYN
-         K+LGn6Eaq5KAHCTEyfQbdPTx/To9YcKJ7cM/4+Iil8Q0FPOamG1/iwzbuIbyJ06geDKa
-         /rsfSQxHEcETrTSTUu0/VYc+vR8WQSLYv6+4dz3ksAWVEa2fqr+l0Ynw4XZ72P5UP7Km
-         KeeQ2bMhtrpu4pLC6a7Nzkfev8UMbvfKXYbCMClYq9zN1n/iHAeH05GT8rkDx2KsFiie
-         MdLeqCgqXLW/I+HgvrzJy9moOCZLQsBniSwa2ns4z3ktMwCDPt9KNLMU62th5qBfqQ9u
-         o/vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dVyIeRQJHeB49FS4amSNOfxSQ+jsE+/JpXBqaJR89vk=;
-        fh=p7thBn6HOarrokwmTCSyfUxoO2ec9bJ9S8zI8eR9w3U=;
-        b=lWbRXaiABQyyMlvmgI3qXMMF0pmn3m9B1z/CdrBM6ih/wXWHIDtCRDpwJ/pdvd6DMq
-         lKyFYEphGArVzP+Pi5eHL07aUg1eh8eTkVO4Zc4J+62cQwSw0CNH8cfAObMDEbhBzzJo
-         O0lNWsU9b3k2LnyLJnNVlpoZb09KmWZMQ6H3XuvjuoR3ODMZj4g916bm2BA9z51jba8+
-         AjCJPDA/Vew15wpxN1O0DwwofKUbCJmWYmpLx7RfoGbu8WnRO4TiCD0CHgTPv0a2iRvo
-         J/ikypsbRQk/4J7EXHMobfz3zlrYqyLqHk4JoL0DovLTZmt0eyGHGyXqZXi+dD43TzCY
-         7lRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=R/YhAD4c
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b060ec084so2651065f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 09:19:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793725811; x=1794330611; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dVyIeRQJHeB49FS4amSNOfxSQ+jsE+/JpXBqaJR89vk=;
-        b=JxILHW9oYQyXUYBtKv5mOLzWifmwbFU5MNI6Mp4YODeYAzXlF6FwKyKkebHtzdDUmP
-         oXoW2e5P8WnYVZNz7WHUyIFENfwIZI1SD3j4wlgld63bqHDUfuqwCyjVM6tGZg095Ar9
-         ou5iZ8mvEHPtc2qB9uYv3hztIjJReuw1mOKug0C9yGfIIPj2AFQN+pOenpQvaxSV+5tK
-         AKHy1yYC/IEtbdkJ94EYKQoYPFQ76GClEv0y75JPclIa+KUBpLBVQ8VkgaAFCPVhV70e
-         yPtYJX87NNuZpHnwgo7/tkA2MJwTZ1Uz4tZ7JzvmBzB2IsQM+S/v9DwgE4cYVMCDibu2
-         Tt/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793725811; x=1794330611;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=baylibre.com; s=google; t=1793726356; x=1794331156; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=dVyIeRQJHeB49FS4amSNOfxSQ+jsE+/JpXBqaJR89vk=;
-        b=o/dnuGtWHkZe11adzJl6L5wuqp1d7tm07ImeEpqIcZ4mKKKKJjR78FwpKZmBQlshqS
-         ys3qQVLoGtBv7mrlCCNEKAFrX4CbwjyS0e0CMWceoOTsmaon7u1RsvQfG6fLfLO9+/Up
-         2ky4GVhA0C0AL2Jrk0Ws8yrJhb/mdP/UYojo7zuNC6CRxrv5Qn6+uG+Ag1MU8LyIgWEf
-         Jp6a8r25ohXaosHP2Z0Xr/9Hd4UglAXjvZELc5WDqcSkEu6mozSHcqAkpZ02BuDDNOBB
-         JqQBuAZ8CbrLXTO3U0FXF4R4o3Kd8ifqlzzebvZLbAtIRMWtpxGU1c8Kyow1xo+mDAda
-         pYXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxA1GSDU0M8ONaulr2TQY1CvH553+dBPwXNz3W9L8zDblHLSy8b9M0hh8J/cjdpJMlKt+lOuJRCVpz/@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZA1KEofo5BXs68q0Si3kLj4p7Io7U17OgCvrU/LuS2eWCrgeQ
-	aacKhaP61MTq4WBLoBWPTZ28T1152pU6895/cY1n3hTy/qCtN5KHwao0A7fNGYTbknl9f1Gb3sT
-	qfYRYKkphd/VhuaTcuHrTmSGqdxwD0mmFiigUzsILRQ==
-X-Gm-Gg: AYBFou3S6g8/s6deubzYfUP/ZLDkiNS8HO3GHZwsIGRkgtCAffzmS/elGz1w/MWS65e
-	T6Vhf1KdIztfBm+Kju+fbrcwO82MNOUS+pXYl0hrPn8MrVTg4A+EWLAUyC77UopG4uxxE08JOqM
-	bDYd5UGi/msjqXQqusxT7uY+y1SbUIYu4o+Y1Zju0UNvUluJy0Eql2r5/de5dGYEoB8TF9xixFo
-	JnOcaVQ2hvIJnnAfhOPeeAh0eW2uDuG8OYXmqlXKJuGXnhsB9/0iXZS6sAszVD9972Rf1nUgiNp
-	qTpHjxtvxJlL6j9oiYrDkpUZfobGooMijNSG4k37yqaMokWByUMLBRDTNWrv9RtbEOTCipGNLLQ
-	Qfw0mPnNAaRq90wAlIek0dTDGs9gG159jNZOTM6aMQ7mUBQt9pHHLEExWgfqDaMDtJ3uP
-X-Received: by 2002:a17:907:9811:b0:c25:2688:8212 with SMTP id
- a640c23a62f3a-c4ca74209fcmr1138335066b.0.1793725810499; Tue, 03 Nov 2026
- 09:10:10 -0800 (PST)
+        bh=E1AIQqXxMElr9XYHIFcSfJejuF++6x4Nf+fj72eanNY=;
+        b=R/YhAD4cjF5HWZDS12Mmaz+AKtQwFDm5TTdP7WOfrT+BN86ErsKgMJuuD0p6wMvdgb
+         uqWg9OIBWW/0jQlOjEM0nHsDOEJKBU8o+MrsPV8Vz862UFKNSEW/xRNOO8aCGJroh5fA
+         KuX0NmF0thJd1pgxQzW3+xWBCAPflB3KiPmww8fLaPznA8ilgAyad4tCLgjsfN+etHaX
+         HhvCLHebKXO5C2YdHrvuPZ/20HTlx6rRE1RcliE+Uyy3yrjmdv+ESzBlTiU4kGZbNpa2
+         X8QEbssT0s+tVG+09Si8g+Ae5Jqrd8c4s9zoCAdw6JW1YaDGxc00om1YhvkHkUbMj0AK
+         BG2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793726356; x=1794331156;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E1AIQqXxMElr9XYHIFcSfJejuF++6x4Nf+fj72eanNY=;
+        b=dnGbOfRu4ECFBoCWbyIiHVItJgoofUKkH5B8kfPmlwGSQj1e7W6xfvPkzgwiJHSWco
+         zYoQbdL5Eq2R9Y1Y6q6Bn4vfpJZHq6lHXCUm/JlzusMLMHMs8y/OF2PuxZE/1iesqlsO
+         5M/7bSguD3QkSGcDH0EslBw/mhVkNtbdTuGhJ2nRLsEfSRkyRcfzfZBHtPBRpK2vis2A
+         8QVcV2m9iMHpeAApJkMqtugnrush4SPWllBUtNaEubCyL0ODgJRB89gsmBygtTgxFT1E
+         LkK8bie8np9N3AVLMcHhcp7PtZBUx56h1KZi+TzJW/WX7DYCdxULDaH2sIOMfnsh8dxA
+         IrmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1v90bgzglRW4/kobI6Qp3wVnuTxkJW9Mfcvtq2BFqYtn/nPFYVGprfOl5/DeB50SiX70SABHSJ7aO@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yzOepSGrl0MOB45MKFgFqj+iodNkhPb4tVeZoq/zkx/KnXZ/J
+	ey3mx7jAkoK8RdJ+4x3h/nXQ/odvWHOW87uTwh89C/tvDuxJF83Z2hdSXgn+LHTnePI=
+X-Gm-Gg: AYBFou0LfeIX735ljEVF6Nki2pj2hqA3Aa/Lx6/tow5MT5UAx9J16tAuM4GlknOA1jg
+	hTBGS8wbw6VtqWx1Bj3ZIDhuon8N28VdJVuh7YvrAKzfGPvRomfAdusZ5ejnX0qyCgzTc3FvGKT
+	hFzdmqQ4FuX5E7ZTE2qW8B7yUjVWdUbV6yyct9aBhkqPRcyjJEdaihkyLh+WXoOFddPw5/AE4uN
+	ZiUTKAvXqkZlOZjeRPaZG/WcLDVB+RiiBvu9mguqMoNLuYbnl75rKwC3wxg3o7LWk6OdiBbAyxD
+	PfC7x/MEa+TLoQTJIhO4M7hsfguKkheLzI7OG6eDX5Ro4IBVRO88EB0PEtNuJz/+EZ89n4wkrkk
+	jvuSa5uJoSiHyZH46rWVzmqUCm8gOv5IZqCBmy/wAQt2dkzM6Ewdle+Rs9fAHU7d/8YnrZpyuGx
+	l/HBuditHwsTh6Xr3jNG3Da1nGUOz6PRY+KFqNwXih9q557N6A1CX88MIRt95De/nYTavdQhVnS
+	RquUcj1in21XbC+ykMUir2lUzc6eeXVBwIQjZGM+uAfWcgVKcbK/36sww2TrmJcHXg4OtZ/ZQOK
+	ch9EVCM3UrZE7xJbDzixQzVFdZHfN5PjzwXP6BPCy8TEuvk/
+X-Received: by 2002:a05:6000:4711:b0:48e:2371:3835 with SMTP id ffacd0b85a97d-48e6e309f7amr31462901f8f.51.1793726356301;
+        Tue, 03 Nov 2026 09:19:16 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80eb1sm27856601f8f.34.2026.11.03.09.19.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 09:19:15 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,59 +89,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102090713.896324-1-pbrobinson@gmail.com> <CAPY8ntCZgp4_aaYim__XrmfL=gW-e1dnu2CjBG3n-VzbghYgNQ@mail.gmail.com>
-In-Reply-To: <CAPY8ntCZgp4_aaYim__XrmfL=gW-e1dnu2CjBG3n-VzbghYgNQ@mail.gmail.com>
-From: Phil Elwell <phil@raspberrypi.com>
-Date: Tue, 3 Nov 2026 17:09:33 +0000
-X-Gm-Features: AclHuK8tMj1QOQ1uafVmUFnYp2xZaTUAkPNNAv0ydPYWKPLq44x8qXFWk7k_EBs
-Message-ID: <CAMEGJJ2ro0s0ZvQRgNneZZKTictbQcWzfLAT9fc9d62uA1cS3g@mail.gmail.com>
-Subject: Re: [PATCH 0/9] dma: Add BCM2711 and BCM2712 support to bcm2835-dma
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Peter Robinson <pbrobinson@gmail.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, Vinod Koul <vkoul@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	bcm-kernel-feedback-list@broadcom.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 5/9] clk: google: Add CPM clock driver
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>, 
+ linux-arm-kernel@lists.infradead.org, 
+ Mariano Marciello <mmarciello@google.com>, 
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org, 
+ =?utf-8?q?Jakub_G=C5=82owacki?= <jglow@google.com>
+In-Reply-To: <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
+Date: Tue, 03 Nov 2026 18:19:04 +0100
+Message-Id: <179372634472.2573818.17532943286609086157.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2561; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=fqTcKnieuf7JekGsRwrFzLg18sNZNXRDB3ktfvrRuF8=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmvxLvWxKwtTKye09bOcqL677Xz98LyWeKzJO0s975wd
+ 7Ja9XReRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACbSsICR4VV9nuzFk3pBi2Zr
+ S330mea5O3JtmtSmJXnzDHZHnFB9YMPIcPdp827jZbrejwUizdSOlxd4HP60etnkLR9Dtthb55w
+ N4wMA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On Tue, 3 Nov 2026 at 16:49, Dave Stevenson
-<dave.stevenson@raspberrypi.com> wrote:
+> Google Tensor SoCs (used on Pixel phones) manage many resources
+> (including most clocks) using a Central Power Manager (CPM)
+> co-processor. We communicate with CPM using mailboxes, abstracted in the
+> cpm_request_client(), etc., API.
+> 
+> The clock tree is largely not represented fully by this driver, because
+> CPM hides most of the divider, mux, and parent details, instead
+> maintaining its own internal table of mappings for divider and mux
+> values. The one exception is for some of the DPU clocks, where several
+> clocks and dividers are exposed directly, and the firmware API works on
+> divider values instead of clock rates. I attempt to represent this
+> properly with dividers and parents, although I don't have the full
+> display stack running to verify everything yet.
 >
-> Hi Peter
->
-> On Mon, 2 Nov 2026 at 09:07, Peter Robinson <pbrobinson@gmail.com> wrote:
-> >
-> > The upstream bcm2835-dma driver only handles the older BCM2835 SoCs
-> > up to the Raspberry Pi 3. The later BCM2711/BCM2712 add extra channels
-> > that support 40-bit DMA4 channels so add support so this works upstream.
-> >
-> > The first patch updates the bindings, them patches 2-5 do some
-> > refactoring and add the support for the newer SoCs.
-> >
-> > Finally patches 6 and 7 add the nodes to the base device tree and
-> > patches 8 and 9 enable it and configure HDMI audio to use them as
-> > per the down stream device trees.
-> >
-> > The series was assisted considerably by Claude Opus 5.5 based on the
-> > various downstream Raspberry Pi patches and tested on a number of
-> > RPi5B revC/D, RPi4B and a RPi3B+ all running Fedora 45. Checkpatch
-> > and dtbs_check pass clean.
->
-> cc Phil Elwell as he knows far more about DMA on the Pi than I do.
 
-Let me answer some of the questions that have arisen:
+As you say, the clock tree is not fully represented here. Beyond that, CPM
+owns the clocks themselves, as the driver acknowledges by setting
+CLK_GET_RATE_NOCACHE.
 
-1. The downstream bcm2711 dtsi has 2 nodes for the DMA channels for 2 reasons:
-   i. It is an accurate reflection of the hardware, and which bus the
-DMA controller's bus master interface appears on.
-   ii. It allows us to use the address translation provided by the
-dma-ranges property - we do no explicit address munging in the
-downstream driver.
+The driver keeps a partial copy of CPM's state in the kernel:
 
-2. This driver does know about each channel's capabilities - see how
-is_lite_channel and is_40bit_channel are initialised independently of
-the DT node where it is declared.
+- Rate tables below hard-code what the FW has (or should have) instead
+  of rounding the rate, even though there seems to be a ROUND_RATE_OP_ID.
 
-I hope that clears things up a bit.
+- kernel handles PLL parenting and divider math for the DP clocks, while the
+  firmware can also switch them to what looks like the oscillator, out of
+  the kernel's view. So the math is likely duplicated as well
 
-Phil
+This middle ground cannot be kept consistent. CCF assumes it knows the
+topology and computes rates from it, but the firmware makes the actual
+decisions. The DP clocks already show it: the tree can report a parent the
+hardware does not use, and .recalc_rate()/.determine_rate() can disagree
+with what CPM programmed.
+
+I would advise to follow a model closer SCMI. What you are doing here looks
+a lot like it.
+(see drivers/firmware/arm_scmi/clock.c and drivers/clk/clk-scmi.c)
+
+ - Put the LPCM service protocol (request word layout, dst_id, timeout,
+   error translation) in the CPM firmware/soc driver, behind a small API
+   shared by clk and reset. Philipp asked for the error helper on 6/9; the
+   whole request encoding is common, not just the errors.
+
+ - Make the clock driver a thin CCF adapter: each CPM clock is an opaque
+   endpoint, and gate/rate requests go to the firmware. Get rates from the
+   firmware (round-rate op) instead of local tables. Model no topology the
+   kernel does not own. If parents must be exposed, the firmware should
+   describe them, as SCMI does, rather than the kernel hard-coding them.
+
+-- 
+Jerome
+
