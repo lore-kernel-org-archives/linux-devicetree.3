@@ -1,56 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689538;
-	b=w7pIhTLEC7Hh5VFC61k6KJAnG49Sbid7Owi04eRVhg4EjwEM1fMt5TRcK5hNHKxgIyTg
-	 O+TaIOtHNTiY1hsG9X9BKpHjNdSYJeM3XTMTaAZieNqGLESY0AQDoBzj3ZTz6GebOU/vn
-	 MMX22ua9UV49p7QbU/9MOo9CxFM6aRo7zgiUo1wTm/OnlZuRy9s/fZQMfpGfGTEgyOPxP
-	 KSPha1TjDidyp8XTQZhuuyRFU4r5RbMFJvGJo9uWmwR5+zzIDIyyKLNZ/cDDsTR9muaCK
-	 mnqj1HuDoLyi4PNl2LFH0bwN7Pikqvg/JeGcDdZie7CaUJpYaLtt37Xhmc7ALcvsKRQ==
+	t=1793689542;
+	b=ezSgYOnoec2xgYLl7wHetQXzadamavgMZftTb8TsXpzAQxtBLh8/Y5t9d9oDsQndHoXD
+	 CGu2QMMMXR4K6NCDKKschE4+IlLjYYwoaFMe45gLYXH9UjdT5ZzItIoVBb5P8VfZAFGP5
+	 dlVxQt0+99vtrADI0ZA2zzzFGBrmiN+fFMxUKDKgMxKEsO/+2GGDTH07TiWvDB8BiP6VL
+	 bPJsUI5r8273KLCQmxTicXP6kBp2RbwYS6vg7wEbp27eSLE2H/X+75OZztKKwkmACWlNh
+	 guuKVl6pahASC547fdtmbVhJQ8/Zb+X6D31DWiIwjgNrih/3hA1AEN0oNjPHL8h2g7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689538;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=b+1r9gLi57K+E9a6gov2FmCNSqgrtqoQvYMl0hImDj8=;
-	b=UgHNdc7O+oo9NcFUAngfVx/lzTyf9t1oV2cIp0Vpc3RnBi1c9i8X4jAfLcsVDtvg4diz
-	 nXJYyJENEcph05gdXpnR3d9r5LFTDDeJ/8FEhcVxd890k2eUdtPRAYsFdyfnI3RvCasrP
-	 af+P2qI+8WHIPMbK7nsQUDHlDhum4QpEGGrMRQwGKYpAUmEGK539koeJTYsCj14BTgaU0
-	 MRH61OmcX4ZYJ8vn4k6HhYYLTKPHWvNZX6aojV7keh0lObH0R6g/S5QIgKNi/bloOt51g
-	 AuTd4f5iP+mD4B5B8Pw9uPFlqMgegSB4Ene/uVykpjVaeg//VWz2UaIEcF05ucl5fvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689542;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=m69S8GAWIcolCD174TtHbNXT0/7WGT8M9Xze/Z33az0=;
+	b=etdBU1PDvpvEUDakVrxFK/4HO+3X9+vg0HqNfYHoEjgaVEZGzszuoLc8kxeVDqwRI5Cm
+	 xnFxBSvYYkuai1AIxioCEvbu8eUBj8BhNUMYxdPE2g/yIQyd69R9QLZHFKcNGNktVxO1B
+	 dZNSJbH9NzMxrBfOi/NBQcy7VR3+1NplHzCoOePKmcEMe8CqDA65I7H5sODT1WIa+dSO0
+	 xx++J9LdniUmxcrOhKg0bp5XkG1pJAGGgY12s9WxdWzY53YC1xLeKX1IMi0BpcrSDmDWE
+	 7xcdYUquOiqPwFWQ/vx17HDwYS36hizR/W4b//AiEUHk71ztkR0mSHo8Kp33uuhTgWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IhcbJGA0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CCF606A329;
-	Tue,  3 Nov 2026 07:05:37 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=VxCSHYV8;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70473606A32E;
+	Tue,  3 Nov 2026 07:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70473606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IhcbJGA0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DD51F000C1;
-	Tue,  3 Nov 2026 07:05:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793689537;
-	bh=b+1r9gLi57K+E9a6gov2FmCNSqgrtqoQvYMl0hImDj8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IhcbJGA0MevPOfAe22ldsgewa6VtaZmZ488ytoCCojaMYOtEa5jOtS/t0oQjlF1ZP
-	 vYJFmm1iTltpYovSVfSAxSCr8p0Q0x6PpzbhwfohsMBkgqrqRcvlpO8yMmDFnljo6J
-	 L83ZH7zcDCKB5UgvXIxSG6VcFEVVXbrzvijwNheoqCl2yE3SUVf5FDlsSg6X62Yo+4
-	 3vSwbUwqUiqup6OSvCtJBpa0b+37U0BMz6IYBGw61/KAhGTPq2i3JotVCrpJmGF9m+
-	 sBFC1w2thJHHsW+u20d7UESVh7IvDtBiQzEJsOYAQK/MexNFmTI5gbmxmQx+EiMqJU
-	 Xv+2aM++jR60Q==
-Message-ID: <sashiko-outbox-194692@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] media: i2c: it6625: add I2S audio capture DAI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261103-upstream-it6625-alsa-i2s-v1-4-bb91e2879b01@ite.com.tw>
-References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
- <20261103-upstream-it6625-alsa-i2s-v1-4-bb91e2879b01@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:05:36 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=VxCSHYV8
+Received: from [192.168.1.10] (unknown [52.172.102.187])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8270820B7166;
+	Mon,  2 Nov 2026 23:05:23 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8270820B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793689527;
+	bh=m69S8GAWIcolCD174TtHbNXT0/7WGT8M9Xze/Z33az0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VxCSHYV8nnK+RVLEmx1wYoQ0JQRZ7nt6eUUV/sT+JrBhNIu8xGoz49bXXGtOAzb1T
+	 8Alkg+E/z33YXdffv+a7t2ZAZ4/bwL980Usv5j9mcAs4YZckkFdy/E9ohKhKbyBO13
+	 XI7mI6i/ZfvTnsX5+ZknoCZeh7zU1n9qc5IVNKe4=
+Message-ID: <561328cc-0c0f-43b7-ad7e-a362e183f295@linux.microsoft.com>
+Date: Tue, 3 Nov 2026 12:35:35 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,209 +52,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] iio: adc: versal-sysmon: fix race in interrupt
+ teardown
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
+ Jonathan Cameron <jic23@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ amitrkcian2002@gmail.com
+References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+ <20261102122112.1723130-2-amit.kumar-mahapatra@amd.com>
+Content-Language: en-US
+From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+In-Reply-To: <20261102122112.1723130-2-amit.kumar-mahapatra@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] media: i2c: it6625: it6625_dai_shutdown() cancels active rate-se=
-ttle polling
-- [Medium] media: i2c: it6625: it6625_audio_refresh() in DAI ops skips V4L2=
- ctrl update
---
+Hi Amit,
 
-commit 1dfd81c0e8bfaba0b855fe94b881d239f6f65287
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
-
-media: i2c: it6625: add I2S audio capture DAI
-
-This commit registers an ASoC component and I2S capture DAI for the IT6625
-and IT6626 HDMI-to-MIPI bridges when #sound-dai-cells is present in the
-device tree. It constrains capture streams to the currently observed HDMI
-audio status, stops active streams on status changes, and polls for audio
-status updates and rate settling.
-
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index 6f12a0e760178..f1bd42ad15eda 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
-
-[ ... ]
-
-> @@ -2001,6 +2158,369 @@ static int it6625_v4l2_init_controls(struct v4l2_=
-subdev *sd)
->  	return 0;
->  }
-> =20
-
-[ ... ]
-
-> +static void it6625_audio_refresh_work(struct work_struct *work)
-> +{
-> +	struct it6625 *it6625 =3D container_of(to_delayed_work(work),
-> +					     struct it6625, audio_refresh_work);
-> +	unsigned long flags;
-> +	bool rearm;
+On 02-11-2026 17:51, Amit Kumar Mahapatra wrote:
+> sysmon_disable_interrupts() masks all interrupts, clears masked_temp and
+> cancels the unmask worker, but leaves the interrupt handler live. A
+> worker that is already running can re-enable an alarm through IER after
+> the mask write. If that alarm fires, the handler queues the worker again
+> after cancel_delayed_work_sync() has returned. On unbind this action runs
+> before devm releases the IRQ, so the queued work can run after the
+> devm-allocated iio_dev that embeds it has been freed.
+> 
+> Disable the IRQ first so that no handler is running or can start, then
+> clear masked_temp and cancel the worker, and mask all interrupts last,
+> once nothing is left that can unmask them. Record the IRQ number for
+> this.
+> 
+> Fixes: c7f7eb10638f ("iio: adc: versal-sysmon: add threshold event support")
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+>   drivers/iio/adc/versal-sysmon-core.c | 5 ++++-
+>   drivers/iio/adc/versal-sysmon.h      | 2 ++
+>   2 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
+> index 1b55d343982e..6b9a58e19831 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
+> @@ -781,12 +781,14 @@ static void sysmon_disable_interrupts(void *data)
+>   {
+>   	struct sysmon *sysmon = data;
+>   
+> -	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
+> +	disable_irq(sysmon->irq);
+>   
+>   	scoped_guard(spinlock_irq, &sysmon->irq_lock)
+>   		sysmon->masked_temp = 0;
+>   
+>   	cancel_delayed_work_sync(&sysmon->sysmon_unmask_work);
 > +
-> +	it6625_s_ctrl_audio(&it6625->sd);
-> +
-> +	spin_lock_irqsave(&it6625->audio_lock, flags);
-> +	/* every run uses up one re-check of a settle budget */
-> +	if (it6625->audio_settle_polls)
-> +		it6625->audio_settle_polls--;
-> +	rearm =3D (it6625->audio_substream && !it6625->audio_block) ||
-> +		(it6625->audio_settle_polls && it6625_audio_settling(it6625));
-> +	spin_unlock_irqrestore(&it6625->audio_lock, flags);
-> +
-> +	if (rearm)
-> +		schedule_delayed_work(&it6625->audio_refresh_work,
-> +				      msecs_to_jiffies(IT6625_AUDIO_REFRESH_MS));
-> +}
-> +
-> +static struct it6625 *dai_to_6625(struct snd_soc_dai *dai)
-> +{
-> +	/* the I2C client data is the V4L2 subdev */
-> +	return sd_to_6625(snd_soc_dai_get_drvdata(dai));
-> +}
-> +
-> +static int it6625_dai_startup(struct snd_pcm_substream *substream,
-> +			      struct snd_soc_dai *dai)
-> +{
-> +	struct it6625 *it6625 =3D dai_to_6625(dai);
-> +	struct snd_pcm_runtime *runtime =3D substream->runtime;
-> +	struct it6625_audio_info info;
-> +	unsigned long flags;
-> +	u32 gen;
-> +	int ret;
-> +
-> +	it6625_audio_refresh(it6625);
+> +	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
+>   }
+>   
+>   static int sysmon_init_interrupt(struct sysmon *sysmon,
+> @@ -807,6 +809,7 @@ static int sysmon_init_interrupt(struct sysmon *sysmon,
+>   	if (ret)
+>   		return ret;
+>   	sysmon->temp_mask = imr & SYSMON_TEMP_INTR_MASK;
+> +	sysmon->irq = irq;
+>   
+>   	ret = devm_request_irq(dev, irq, sysmon_iio_irq, 0, "sysmon-irq", indio_dev);
+>   	if (ret)
+> diff --git a/drivers/iio/adc/versal-sysmon.h b/drivers/iio/adc/versal-sysmon.h
+> index bb9a75bf71c0..701ef9b56263 100644
+> --- a/drivers/iio/adc/versal-sysmon.h
+> +++ b/drivers/iio/adc/versal-sysmon.h
+> @@ -85,6 +85,7 @@ struct regmap;
+>    * @regmap: register map for hardware access
+>    * @lock: protects read-modify-write sequences on threshold registers
+>    *        and cached state that spans multiple regmap calls
+> + * @irq: interrupt number, 0 when events are not supported
+>    * @irq_lock: protects interrupt mask register updates (MMIO path only)
+>    * @masked_temp: currently masked temperature alarm bits
+>    * @temp_mask: temperature interrupt configuration mask
+> @@ -101,6 +102,7 @@ struct sysmon {
+>   	 * that spans multiple regmap calls.
+>   	 */
+>   	struct mutex lock;
+> +	int irq;
+>   	/*
+>   	 * Protects interrupt mask register updates.  Only used on the
+>   	 * MMIO path (fast_io regmap); I2C has no IRQ and never reaches
 
-[ ... ]
+Change looks good to me.
 
-> +/* also called on rollback after a successful .startup */
-> +static void it6625_dai_shutdown(struct snd_pcm_substream *substream,
-> +				struct snd_soc_dai *dai)
-> +{
-> +	struct it6625 *it6625 =3D dai_to_6625(dai);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&it6625->audio_lock, flags);
-> +	it6625->audio_block =3D true;
-> +	spin_unlock_irqrestore(&it6625->audio_lock, flags);
-> +
-> +	cancel_delayed_work_sync(&it6625->audio_refresh_work);
-> +	cancel_work_sync(&it6625->audio_xrun_work);
-> +
-> +	spin_lock_irqsave(&it6625->audio_lock, flags);
-> +	it6625->audio_substream =3D NULL;
-> +	it6625->audio_running =3D false;
-> +	it6625->audio_block =3D false;
-> +	spin_unlock_irqrestore(&it6625->audio_lock, flags);
-> +}
+Reviewed-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
 
-[Severity: Medium]
-Can it6625_dai_shutdown() prematurely stop rate-settle polling started by
-it6625_audio_event()?
-
-If an HDMI format or audio event occurs while a capture stream is running a=
-nd
-leaves audio present without a valid sampling rate, it6625_audio_event()
-performs:
-
-  it6625_audio_event()
-    it6625_s_ctrl_audio()
-      it6625_audio_refresh()
-        it6625->audio_gen++;
-        queue_work(system_wq, &it6625->audio_xrun_work);
-    if (it6625_audio_settling(it6625)) {
-        it6625->audio_settle_polls =3D IT6625_AUDIO_SETTLE_POLLS;
-        schedule_delayed_work(&it6625->audio_refresh_work, ...);
-    }
-
-Because audio_gen was incremented, subsequent calls to it6625_dai_prepare()=
- or
-it6625_dai_hw_params() return -EPIPE, so userspace has to close the capture
-stream to recover.
-
-When userspace closes the stream, it6625_dai_shutdown() runs
-cancel_delayed_work_sync(&it6625->audio_refresh_work) and does not re-sched=
-ule
-audio_refresh_work after clearing audio_block even when
-it6625->audio_settle_polls > 0 and it6625_audio_settling(it6625) is still
-true. If the bridge raises no further interrupt once the rate settles, won't
-ctrl_audio_sampling_rate and it6625->audio remain stuck at rate 0?
-
-> +
-> +static int it6625_dai_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-> +{
-> +	if ((fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) !=3D SND_SOC_DAIFMT_CBP_=
-CFP ||
-> +	    (fmt & SND_SOC_DAIFMT_FORMAT_MASK) !=3D SND_SOC_DAIFMT_I2S ||
-> +	    (fmt & SND_SOC_DAIFMT_INV_MASK) !=3D SND_SOC_DAIFMT_NB_NF)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int it6625_dai_hw_params(struct snd_pcm_substream *substream,
-> +				struct snd_pcm_hw_params *params,
-> +				struct snd_soc_dai *dai)
-> +{
-> +	struct it6625 *it6625 =3D dai_to_6625(dai);
-> +	const struct it6625_audio_stream *s;
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	it6625_audio_refresh(it6625);
-> +
-> +	spin_lock_irqsave(&it6625->audio_lock, flags);
-> +	ret =3D it6625_audio_validate_locked(it6625);
-> +	s =3D &it6625->audio_accepted;
-> +	if (!ret &&
-> +	    (params_rate(params) !=3D it6625_audio_fs_to_rate(s->fs_code) ||
-> +	     params_channels(params) !=3D s->channels ||
-> +	     params_format(params) !=3D SNDRV_PCM_FORMAT_S32_LE))
-> +		ret =3D -EINVAL;
-> +	spin_unlock_irqrestore(&it6625->audio_lock, flags);
-> +
-> +	return ret;
-> +}
-> +
-> +static int it6625_dai_prepare(struct snd_pcm_substream *substream,
-> +			      struct snd_soc_dai *dai)
-> +{
-> +	struct it6625 *it6625 =3D dai_to_6625(dai);
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	it6625_audio_refresh(it6625);
-> +
-> +	spin_lock_irqsave(&it6625->audio_lock, flags);
-> +	ret =3D it6625_audio_validate_locked(it6625);
-> +	spin_unlock_irqrestore(&it6625->audio_lock, flags);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Should it6625_dai_startup(), it6625_dai_hw_params(), and it6625_dai_prepare=
-()
-call it6625_s_ctrl_audio(&it6625->sd) instead of calling
-it6625_audio_refresh(it6625) directly?
-
-Calling it6625_audio_refresh() updates it6625->audio and increments
-it6625->audio_gen when a status change is observed, but skips
-it6625_audio_update_ctrls().
-
-If an audio change that raised no interrupt is observed by
-it6625_dai_startup() and causes it6625_audio_check() to fail, startup retur=
-ns
-an error without scheduling audio_refresh_work and without updating
-ctrl_audio_sampling_rate or ctrl_audio_present. Similarly, if
-it6625_dai_hw_params() or it6625_dai_prepare() observes a change and returns
--EPIPE, and userspace closes the substream before audio_refresh_work runs,
-it6625_dai_shutdown() cancels audio_refresh_work and leaves the v4l2 contro=
-ls
-out of sync with the sample stored in it6625->audio.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-upstream-i=
-t6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw?part=3D4
+Regards,
+Prasanna Kumar
