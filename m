@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793679974;
-	b=B9cvHoGsV17fCT0vdpSHT0UDGihwfsmgllKwsBJsoF4T4J3b1ilFIStmrM4HjytcKmBd
-	 xUNk6vz2ROO8rBRRqSEckWt/4ziKADJqW6J5SmJzlAgrj+WS5/9HVH/tAIsheYfK+kYxT
-	 pCiH3FQrpz/jltKDQ7Rtk+V+WIE7vnYrf8RdKhSQiAPeYvtZyqnFJn/XGFzRQGZSehEfe
-	 81FeT4/F953f38S0oKOd9/wu6mYMjCKPIQLwxCBmqN0Ebo2s42leLeSr2fB92aUHYQXgq
-	 SINhB/cTfUv4xYG0rdP2vcX37jFopvJD7Op86OfKg7U7GXyT1eous7myX4fZeCsUt3g==
+	t=1793679978;
+	b=Wq3vRNfpMWLAwqDsQ4C8KNN7zjxW2kV6GcjuuGBQ+2j6vjhHDAJE6Sbb1oiNyYcNEFL+
+	 dWjtMDxXLh71JnUxCJdu0CsE51GubOyiAMZZG3/bbqgNr1ms0Pr1DqrC9xbA/3LtPiUHY
+	 +q9PSP1hK1+LdmM3z4f8fi7A6LKy9iGVQdZihv41KakDOL0hJx1yN2q+E3LLEs6e6BtVJ
+	 ySWO9TwloaDlC3heQ0lN4SXSKDwTnnV2ZXu1NBaBIlH9shm9LnwxDqk4W3yN9lOaJO1Pc
+	 ltYzJ8C8lCk5PakbiCUFQpkoDD3yY0YxGo4LBre19TslDSICZKGjVJ6zR3uiqnXfXWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793679974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793679978;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=PGfNJvt0jz4lC2WFoydgyKQ9YHvmNk2PJYm3FO57IiU=;
-	b=q4PGTOZGjD/j6OKIji8C+oU+KKNPzfdQlFTrFh20yVh2pj6+nC0lwZAqlYXihTJvOUkn
-	 c+YGSX4UF0YOZJ4ngni0slkFd1bIYTlVLM4r3NuLRrf1YS5WtbVLrSXP6z1uVB3EM5vpk
-	 6jNrG7zNjxRUluMbsptP2FD5+RRoO9ZpmQxNH6K6ZASw2Ddfh7lTeqezJdm9gtyw34ks6
-	 LZak7wETUTPIi27Oiz+tMP9FnBnd9GqRQh5TT/dzEIWkxyODeY0chPrM6mLqGlp8SRtiR
-	 QQqwieBSa0VwwEwJgF06aBo60aYr80c27kDJrJUbYGTZAes/T9vdvKykAm+2SBrnDwg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=7cQFQl2Kr996XSKX3WpePSzhZ8Xk95BwnJZrJcsq3DI=;
+	b=VyBx+5BYl1Q4ZHouM9+QPDDzJcEmx2BAi44z7L65UVZOgeYm+Z8pBZP5u1d1wdr0Fg7D
+	 YnDHIGLjHfYidM4yz2H/5OdIhkgxgxNo/Dl4v8QsQQmF6pQWZxurSPuma3LwFivIE7OZ9
+	 7Qlv0aU8c5jLo7dOtVJHUIXlsZC3yKgDYF5vnqpLlZaHd14UJoxcPslIZIpEaacJoUD6q
+	 Cg8PeHAhoRFNcNiyRP9L8OiYbR467RfGTUuB8Wm0G1esIu0Q+/dYdmB9MT4Jo2FxvbstB
+	 K0HbG5TCW9uXPyiIjhL5itamCOxJWYVWNXV3Fl86nyIqGBftXxTqYWWZX+Nr277dCDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MR+8S+02;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=niZ+xJDf;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD403606A326
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 04:26:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD403606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4CA606A32F
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 04:26:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B4CA606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MR+8S+02
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36637676140so5143377eec.0
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 20:26:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=niZ+xJDf
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a064f294cbso2389611b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 20:26:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793679973; x=1794284773; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PGfNJvt0jz4lC2WFoydgyKQ9YHvmNk2PJYm3FO57IiU=;
-        b=MR+8S+028NWHFOLgD3dGAo2Bjt89I6MGylX051UADfa55D890bNxI6alS/Ue0aIHSb
-         T8fyf0+V9b4AvgsYPgEcgFuEPz9RzVf9FYMkerL86HGa/HCPo700Tg04YrQT/iYBIsJx
-         Sozo23EspOBlk6drvIsKm8wheqxe3qwW3c0vbupsJNiheWRUgCQGRQ/lL/2gFKdmtFJn
-         BvsBWOszgUO/plSfRWoy/abAFccUmt2s4/QchVQnC772lWAgmAWqHT4pjI8RhhOYbF//
-         Ye/AlaoMuScFlXsYkr5GLr/bF4Iy4WoS9ZGyuEByudVdrzuWuQUK+voxOY3NrDqppUqt
-         hVcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793679973; x=1794284773;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793679977; x=1794284777; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PGfNJvt0jz4lC2WFoydgyKQ9YHvmNk2PJYm3FO57IiU=;
-        b=vkCbEBXjHAz+SjDAIspVQKNzZMTXbwW3Pd+dJrqNisruRwCwNvo/Rf5RMLJtV1rIOX
-         bmarboE2iGGdg5DUzT7vGGxKCmsFUYyYFN/DBl8qTAGMCdEJ04Phg/eXAsVSB2wUqutU
-         2DfyneVbnkW8gs4In7TNw/NjnzaRGRKmPonSBTlcViA62MneO9MmQCZUhx+o5rFVkAUp
-         o04Asmsj5SncS2Wgl9txYr/2EdjBy7ZQbq1rC8UUwzmBblZDGQNYthUTkWGpVbTPjeR0
-         Zlgq5J6kHI59IAfoXbiK33pSBJSHXrj/HCC39RsQQ7ds156WVQtzqzAbvA5MTCBKD+rx
-         xuMA==
-X-Forwarded-Encrypted: i=1; AKwUvByVzmPu1ZZL8pxwkEwcYYtSC5H8l5HUQWKARcNaWUEu2iPxT1fTCNQrNDcJY7FsmmxfLAao4qPCWqCp@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+XULMTdauQh1peZKsu31mV/lAw78uHLbzB6UkFK///Ns9YSID
-	OkfBAWWBl0L5LisXowpX4CXB/58fjHyc3ngErF7sP6bFYprMfcm5u5p4x6+0Uj6ZQzjD1R6ZA4N
-	GlHgU4+snVI1JNGWBdmjDpxsYljfSjkxiGw==
-X-Received: from dybb7.prod.google.com ([2002:a05:693c:6087:b0:35d:1771:4816])
+        bh=7cQFQl2Kr996XSKX3WpePSzhZ8Xk95BwnJZrJcsq3DI=;
+        b=niZ+xJDfRp3mSjFqmMSKkINQtxKHzmusZY7NaAg/M+0A/E9LBxjal8f2MCKxCHaIA+
+         QqrJPfF4dwpg8RndPJ+Z6M61OsVnMl8alHVozhxttHjGbMx2edtbQvP6bjC3XyF6aUI5
+         esT8Z0VrJGmKSDvxFLSpk0cT4HqfiOJoXiN3cKtAjzlSnAcVkrMYkhmRCiN01ggOahAZ
+         VxXzQIjn/lJ5GEyyjaMXkjhr7lDeS/dv6Z2xQCEFe74kSRSDgt6NH1NAuLC8BcqgSQ3j
+         QZKWNecn5NP9KEIamsZTS3l+6TpgYT9lXTgS9779K3T5aSYfxrbW0cMO1U/S2hezXxF9
+         j3mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793679977; x=1794284777;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7cQFQl2Kr996XSKX3WpePSzhZ8Xk95BwnJZrJcsq3DI=;
+        b=Uu8wFtdpOzUk0I9E0yhARcxQU4O86t6BGC9x+gvAfzw7eib8h+10oScIjJdXNjJtco
+         R6J08UTATw5DOaBd+u2rnYsRA+s2QGwMjj23tLhQKZTrDz1O5oFPgFA6XcLiRuqpo5L+
+         gxD7qdmzcdVMgRsB/lx1yTAXC3YY3JEcUxxWtAA8bMM2K66Xfh6eDjm1xpWSPv9JTNqd
+         AJghWdCO7ALj/yYmMmE6WBSRYmc9P1TpdMpita5fmdMDQUGx7EhjaclS2wMx5+V4gF0h
+         6Eg+rNFrWMkN1Ksgg/yHKrcygClASZzZO8oCqsJYYTkTSplNlHOMmtwwEsCgQruxFv0w
+         lp+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwzLVJd8qzWpSjCzX4sxBjKdLhp3IJJzxIc6iRpL0x/k5H+VltPpPMIh4+XfgCtguDVDIk+U3sa29ej@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uVJcEFayvibL4EMGq3ZapGRgw+NUwX1dJ6GU7rXwV8x4VDNPG
+	pK9p7mxo7nAhFPvOvqXbhSDtvu5rYC87OCK5ogNlbRkTK899/M5TcnHlzk3UvnlfmqqOEwInzev
+	rmOUEWUS2HEztNKSQBuFiVxOOtblk/NHM9w==
+X-Received: from pfei14-n2.prod.google.com ([2002:a05:6a00:c04e:20b0:891:b886:dd4b])
  (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:c01c:10b0:36a:50ec:db3f with SMTP id 5a478bee46e88-36a50ecdd21mr16735703eec.7.1793679972480;
- Mon, 02 Nov 2026 20:26:12 -0800 (PST)
-Date: Tue,  3 Nov 2026 09:56:04 +0530
+ 2002:a05:6a00:349a:b0:89f:7ed5:865c with SMTP id d2e1a72fcca58-8a9be396728mr10313189b3a.9.1793679976311;
+ Mon, 02 Nov 2026 20:26:16 -0800 (PST)
+Date: Tue,  3 Nov 2026 09:56:05 +0530
+In-Reply-To: <20261103042608.387626-1-vamshigajjela@google.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,9 +79,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261103042608.387626-1-vamshigajjela@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103042608.387626-1-vamshigajjela@google.com>
-Subject: [PATCH 0/3] spmi: Add SmartDV SPMI controller driver and bindings
+Message-ID: <20261103042608.387626-2-vamshigajjela@google.com>
+Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: Add smartdv
 From: vamshi gajjela <vamshigajjela@google.com>
 To: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
@@ -91,39 +95,27 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Vamshi Gajjela <vamshigajjela@google.com>
 
-This series adds Device Tree bindings and a controller driver for the
-SmartDV IP Solutions MIPI System Power Management Interface (SPMI) master
-controller ("smartdv,spmi").
+Add the "smartdv" vendor prefix for SmartDV IP Solutions Private
+Limited.
 
-This IP is integrated in Google Tensor SoCs starting with the G5
-generation (codename: laguna, canonically written as "lga",
-"google,lga-spmi") to communicate with on-board Power Management ICs
-(PMICs).
+Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The controller supports MIPI SPMI v1.0 and v2.0 non-data bus commands
-(RESET, SLEEP, SHUTDOWN, WAKEUP), register read/write, extended register
-read/write, and extended register read/write long transfers up to 16 bytes.
-
-Patch 1/3 adds the "smartdv" vendor prefix to vendor-prefixes.yaml.
-Patch 2/3 documents the Device Tree bindings for the SmartDV SPMI
-controller ("smartdv,spmi" and "google,lga-spmi").
-Patch 3/3 adds the spmi-smartdv controller driver.
-
-Vamshi Gajjela (3):
-  dt-bindings: vendor-prefixes: Add smartdv
-  dt-bindings: spmi: Add SmartDV SPMI controller
-  spmi: Add SmartDV SPMI controller driver
-
- .../bindings/spmi/smartdv,spmi.yaml           | 126 +++++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   7 +
- drivers/spmi/Kconfig                          |  10 +
- drivers/spmi/Makefile                         |   1 +
- drivers/spmi/spmi-smartdv.c                   | 525 ++++++++++++++++++
- 6 files changed, 671 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/spmi/smartdv,spmi.yaml
- create mode 100644 drivers/spmi/spmi-smartdv.c
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..f15d81da1e3d 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1569,6 +1569,8 @@ patternProperties:
+     description: SKOV A/S
+   "^skyworks,.*":
+     description: Skyworks Solutions, Inc.
++  "^smartdv,.*":
++    description: SmartDV IP Solutions Private Limited
+   "^smartfiber,.*":
+     description: ShenZhen Smartfiber Technology Co, Ltd.
+   "^smartlabs,.*":
 -- 
 2.56.0.317.g454f8302e1-goog
 
