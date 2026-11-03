@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696961;
-	b=kjMmPwpX4i2r/Jf6B6UD6FgtR/IqE30dt0GTdAgr/JAOTWjO6qikFnnuRmhuHnpE9tIN
-	 IMNlKwy1JEBm7JUcg30UjPm7yL/Ltobp/kKaK94+aF+cDuijdTTmjhsT8wUR0o+ttXo4e
-	 MCeN7MTMmCfZkmV8kZkKIOPcAivKDcgHi2ySCiGb9HFjF354hXvHeyHJiBsogzYar7qGi
-	 dAcQ8YCoW1qNFamfP3Vvkxw8VgcFFO7fuRCq4vaw//VF9m2yBg1QvCrPUgtJ8CB/S1aMP
-	 Z97J2XzkL1YPl0sK3hcMOP9rQe8lvtUahE7EidNKNARf4z87kShWN5HZvLLAZMzdUSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696961;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BBTr+Hy0VdRQdkWFNF6C19CVLgiwmF8bx5L98QPeRao=;
-	b=ve4FKvZAipOqaPrnnvaH9PWA7UJUdIPLHmlvrOJTcB/379Yc0oCXMW99MEKUTOcHzTVI
-	 MgjJxsoBWHAvTiqSb/PipyyrM1jci7tMPdIXsVZlZ3krGjFu4xfPmz1EXft5dPSbBDIgh
-	 71DIwO79s9Jv8yrlahl89V8sHuS51YmRJuZ1AAhPqaAB/ZsavXmsq236cwtsRTkpqhYvK
-	 i/0gZPNolQtuxluav9ZMncLLh7m0AABmryL4v6lAdyfxm4UN7MIYPz97i53K4/PT/cI56
-	 waHx8pslX4XFoXS8LT4odsUJLHbN4KM4fRikjJfiJ/0E/VHqUlmTcOjmsL9898sef0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rd1HG7b8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793697261;
+	b=E+sBaKWJKm0XPvtSuxhN0F39NmbQAghu1n+lgWL8k+19/zBaBQwytxMiC9YBx5o4CS/q
+	 Sn00Gx15EVbcXObehxPNpL+rtKX2kE5E3bowgCZf9WYv8qcVxKpPJmVQVn44482ew+ghj
+	 j3DCqZEE8I2cy87U9IAKqJTZ17BP0DYKoiNzo7UuLpAy9A8HDbcU9PFMSXMUepFxUoKPa
+	 Mh4p44DcCHnlnKPkMFpZnW3KqkqSUYxUB+65R6EZk/FD3WdddZg4EySp46O6NTXFKtmM1
+	 x9ifW47b2sOXGNjttt1MqtZW8vkjasU6cGq0UJup+9yK1vngi7lH4whI9hIbB0iPLWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697261;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
+	b=vEW3OyDTqdkJxDAMVs/AGBsZ+ZcEjrvA+di6RWih+AcWhEC2MTA4s7NNMLqYfmqAcwEw
+	 QV9FPEvtVgy2LNfRepoEaTHP6riKmLZczDwVR+bN9P0H81+NuoTE1RurpU2JEAd4mlTD9
+	 8m/Nz0UkajwnLLICi6I8W7BQ+q0KP2h72a4kuUYREkEWQokPdZLTtorUjqjKyhz/s4w17
+	 cN31zncz8rs5Dr9UwfE2UoNIAK1pYUqw7fRLPs5nt4SPtabgADAEnwPc5tAvvXc8IoQI8
+	 gAFK3yTUwUeK+Z4Oeur2LciZg9yjly0HMwku0c7+bg9hQruLffqZU64L/XY90lxwCJw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Az16B1NT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 163D5606A32D;
-	Tue,  3 Nov 2026 09:09:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794B4606A324;
+	Tue,  3 Nov 2026 09:14:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 794B4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rd1HG7b8
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id ADD0D1F000C1;
-	Tue,  3 Nov 2026 09:09:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793696960;
-	bh=BBTr+Hy0VdRQdkWFNF6C19CVLgiwmF8bx5L98QPeRao=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rd1HG7b8vKZe3wL/ox7VTzKhvRkMIgOpQtaCq81EvltYUAtmuBG5zKgISB7rB6jWN
-	 82ubsJlxEMAeI8hSK/O6entOhlOIlmwyhzbJrRTKO7pWZIXs21NW7xObuC1JuQZD1g
-	 Jh0hwVw9en8yuOAe32im+vxH/EFqLFKbEPMPGAhXeGjH8/VC2CLORlYDbzDGzOXSnv
-	 8GMUPK7nxczSg/LqNlTqFbBDqklCnvsd232VMNtWxFHsjB90mg6Efu4IMfrRQiwmdi
-	 KpzptJyZJvf8WzfkXvJIiOyTKSt3smkg7K2GnlZacL/37cvWrt1eEMPQbn40j9y/E/
-	 suXLPWzbDtEMg==
-Date: Tue, 3 Nov 2026 10:09:17 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
-Subject: Re: [PATCH RFC] arm64: dts: qcom: nord: add ADC-TM thermistor
- channels for Nord PMICs
-Message-ID: <ebhzyg5ypdes5vmh7z4tfe7wngbra7jmilfizhs3rprigfjshq@hefxoxdebp5h>
-References: <20261028150103.520428-1-shengchao.guo@oss.qualcomm.com>
- <6drdycuoo4n4qssp3axrij5xrftvg6w24z4oa5xw6wmtayknk2@mwz62l7bnvhg>
- <aumbOqMXf-uWmGOx@QCOM-aGQu4IUr3Y>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Az16B1NT
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A9E7320103C;
+	Tue, 03 Nov 2026 10:14:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793697257;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
+	b=Az16B1NT/o8u9bVz4Vr+qtoUJMO3XnS5rLrEvivYNfOeg/KeYGFKJa8LvN/V523v7lH/79
+	dKjT1Dj0L2tkZoPLOQYbfdaLEiI4+49lt+e0MAxy8rJLme1LJMizWuHIj3IuJqhIdplKzl
+	bLdN24LfJoTlqzgYGPzLR7nqq8CoC8dBkvg2VKgJL1LKp2XvwAUqf3Q/cBzK8GgB83tSLq
+	iJQT7CebcWCXUevcw24RNeD62XHc1PVw01VapBpiNKtOAGGnKnBK9rgWhkCY3EnEB6J/J/
+	TZDqOnUvRwt7btSCyUqCt3QOIkm1cCXRPqacLNsX22HxcLv1l68DnXQC2AxoCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793697257;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xCKzQnE8sR8qGnyIMcveJ64Ln+A33qIBzCr/8Ncna5s=;
+	b=IeFNgT0IVHiRepot8IhD9+8MZxksgKp8QtZ0Q+NkRQKSzRW3F1st38bGCwY408Qds7atpb
+	ASrtbeQfpuAnNb5kkd7A+fbJ8ddafXqTtv0cWMMKVkgzhTPcwxdGEQURAVF1Bq9QZ0rgTg
+	9Vy3wLWnvjju/NCLna2Jd9dKEalVQTk8EXyJGFG8zWnPj2aNmEqFl0MlVN2ji7XxzsVrsT
+	WQO+2MIY9f1v0UNM0UDw6LyRIoKSSMVnq3fAMy5ZR/NKyOiIELMNjRr/xIJYmGGI4VnjHD
+	4JiOPXyDQ1eksy1+MAANficJxkHsVtWHcA8cTuH9WeEIu9XiQesit2LyMZgpcA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793697257; a=rsa-sha256;
+	cv=none;
+	b=MqelqDHcu32UrtpOsw3KKZGLgLnFSR66JSukkrD0iM4rky+LVtOW4DCdHiERKyp0wwyUUR
+	GpeDDOCAgBKM7K8U1C36Gv6NbS5q0c332HXHoL93qzyNgEhptnCF4Q7rWM42PJSwcutHq7
+	hj+C8jujlg6ifEOlQI652m1MHSw4+zhWckIyPos4F8hrlN7763yEA8xzS9Aogizms7TF/z
+	N9uxspC3AcdMXAscx5zzdN40nfJrBNAnohLxQCGiVeRKE+pr0x0NTROgrjV/fgvjOKINoW
+	XQbjuGVpvakYsEUAjDsft9Ml7OavlmNny2MoEjyxe4tOnmtQ082HCtQPFGF80g==
+Message-ID: <88963fd1fd87123496a55e2002bc8b0dc2466bd4.camel@pengutronix.de>
+Subject: Re: [PATCH 6/9] reset: google: Add CPM reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,  Peter
+ Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org, Tudor
+ Ambarus <tudor.ambarus@linaro.org>,  =?ISO-8859-1?Q?Andr=E9?= Draszik	
+ <andre.draszik@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Radu Rendec	
+ <radu@rendec.net>, linux-arm-kernel@lists.infradead.org, Mariano Marciello	
+ <mmarciello@google.com>, Douglas Anderson <dianders@chromium.org>, 
+	linux-clk@vger.kernel.org, Jakub =?UTF-8?Q?G=C5=82owacki?=
+ <jglow@google.com>
+Date: Tue, 03 Nov 2026 10:14:17 +0100
+In-Reply-To: <aukyyYhDCBUdIH16@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+	 <20261026144346.6.I0b1ad34a718a9b5f667d2481041970ea45989dd3@changeid>
+	 <8d57f0a1dc8a07838bf1320f9b79588196264ff5.camel@pengutronix.de>
+	 <aukyyYhDCBUdIH16@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,61 +105,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aumbOqMXf-uWmGOx@QCOM-aGQu4IUr3Y>
 
-On Tue, Nov 03, 2026 at 04:28:42PM +0800, Shawn Guo wrote:
-> On Fri, Oct 30, 2026 at 10:28:21AM +0100, Bartosz Golaszewski wrote:
-> > On Wed, Oct 28, 2026 at 11:01:03PM +0800, Shawn Guo wrote:
-> > > From: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
-> > > 
-> > > PMAU0102 (Kai_MV) and PMM8650AU's Kobra_MM ADC5 Gen3 controllers only
-> > > expose REF_GND/1P25VREF/DIE_TEMP calibration channels; none of their
-> > > AMUX thermistor pins are wired up, so none of the board thermistor
-> > > rails feed the thermal framework.
-> > > 
-> > > Only 3 AMUX pins are actually wired to thermistors on Nord, all on
-> > > Kai and none on Kobra: Kai instance E's AMUX1 (SDRAM3 THERM) and Kai
-> > > instance I's AMUX1/AMUX2 (SDRAM1 THERM, UFS THERM). Kai's other AMUX
-> > > pins are either DO_NOT_USE or wired to voltage-rail monitors, not
-> > > thermistors, so add only these 3 channels.
-> > > 
-> > > Add #thermal-sensor-cells = <1> to the two Kai adc@ nodes that gain
-> > > a channel, the new AMUX1[/AMUX2]_THM channel(s) with qcom,adc-tm,
-> > > and a per-channel thermal-zone for each, following the existing
-> > > Gen3/Gen4 board pattern of a direct thermal-sensors phandle into the
-> > > ADC channel.
-> > > 
-> > > Signed-off-by: Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>
-> > > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > > ---
-> > 
-> > ...
-> > 
+On Mo, 2026-11-02 at 17:03 -0800, Brian Norris wrote:
+> Hi Philipp,
+>=20
+> On Wed, Oct 28, 2026 at 03:03:24PM +0100, Philipp Zabel wrote:
+> > On Mo, 2026-10-26 at 14:43 -0700, Brian Norris wrote:
+[...]
+> > > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_assert_debugfs_fops, NULL,
+> > > +			 goog_cpm_rst_debugfs_assert_set, "%llu\n");
 > > > +
-> > >  		pmau0102_f_thermal: pmau0102-f-thermal {
-> > >  			polling-delay-passive = <100>;
-> > >  			thermal-sensors = <&pmau0102_f_mbg_temp>;
-> > > @@ -501,6 +545,42 @@ trip0 {
-> > >  			};
-> > >  		};
-> > >  
-> > > +		pmau0102_i_sdram1_thermal: pm-i-sdram1-thermal {
-> > 
-> > Existing thermal zone nodes use the "pmau0102" prefix.
-> 
-> Hi Bartosz,
-> 
-> Following up on this: "pmau0102-e-sdram3-thermal" exceeds the
-> thermal-zones.yaml node name limit (11 chars before "-thermal").
-> Since v2 moves these zones into the board DTs per Konrad's comment,
-> I will name them after the measured component, i.e. sdram3-thermal,
-> sdram1-thermal and ufs-thermal, like other boards do. I will drop
-> your Acked-by in v2 as the patch changes quite a bit.
->
+> > > +DEFINE_DEBUGFS_ATTRIBUTE(goog_cpm_rst_deassert_debugfs_fops, NULL,
+> > > +			 goog_cpm_rst_debugfs_deassert_set, "%llu\n");
+> > > +
+> > > +static void goog_cpm_rst_add_debugfs(struct goog_cpm_rst_debugfs_ent=
+ry *entry,
+> > > +				     struct dentry *debugfs_root,
+> > > +				     const char *name)
+> > > +{
+> > > +	struct dentry *d =3D debugfs_create_dir(name, debugfs_root);
+> > > +
+> > > +	debugfs_create_file("assert", 0220, d, entry,
+> > > +			    &goog_cpm_rst_assert_debugfs_fops);
+> > > +	debugfs_create_file("deassert", 0220, d, entry,
+> > > +			    &goog_cpm_rst_deassert_debugfs_fops);
+> > > +}
+> >=20
+> > Please drop the debugfs functionality or explain what it is needed for.
+>=20
+> Ack. I think I'll probably go with "drop", but some notes:
+>=20
+> There's no real way to test and validate a "reset" driver without a
+> consumer. There is no direct (even for debug) interface into the reset
+> API, unlike in some other subsystems (e.g., GPIO). I believe the main
+> purpose here on Pixel drivers has been hardware+driver testing, so one
+> can test reset functionality before hooking it up to real client
+> drivers, and without adding fake drivers or extra debug code (a la
+> "printf debugging").
+>=20
+> (One might observe these results either via /dev/mem-like access to
+> registers, or even through external debug peripherals/consoles that can
+> monitor the status of the underlying component that is being reset.)
+>=20
+> This all would generally be in an early hardware bringup scenario, so
+> admittedly it probably doesn't have as much of a use case in the
+> upstream kernel  -- it's a long shot for this kind of hardware/product
+> development to *actually* work directly on an upstream kernel, with
+> upstream drivers.
+>=20
+> ...but if I were imagining a better way to do this without bypassing
+> reference counting: perhaps it could be useful to a have a
+> debug-oriented "reset client" driver, that could bind to arbitrary reset
+> devices, if they're not already owned, and expose a sysfs or debugfs
+> interface like this? That could fill similar use cases for this sort of
+> hardware testing/validation area.
+>=20
+> But anyway, I understand such a proposal should definitely come
+> separately from this driver submission.
 
-Sounds good!
+Thank you for explaining anyway. With that use case in mind, I think
+"drop" is the right choice for now. This functionality can be
+implemented in the core and use reset controls like any other consumer
+driver.
 
-Thanks,
-Bartosz
+regards
+Philipp
