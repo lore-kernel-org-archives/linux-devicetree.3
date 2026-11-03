@@ -1,112 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793723123;
-	b=5YsTb86+JHo8zeFqiXzK1CnF5qkynoWM/lWMqh80Cek8GZnXJhQHsQeypmY13m9WXCXt
-	 l30N3jEP7l8bb9kI9tD5ytzC+RA0h0lNl0dAjhsH9uv+wgMakViv2T+PnBm5cuIqY51Wx
-	 iXYC6G/3XWWP+EzvFxaiFs43KsQvNEDK9leZo75DeZx+msh21/JO+P9j/1hv135ZhYWaM
-	 QdbqlDtM1d40KJ7nxDQdyfKRuJSnMqNaAQaErT3zgMVy7yrKa/oPH3mepM8ZdpSuzU9jM
-	 2BAvStq2VavuCinDneUQ9r+O7i6zmJCrZGr/YJwUYdw3wIvDRJvKCpXGAOzIyhYMhig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723123;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6zyMxWVaLRlrzyt0tmMAewN95mt1HurEOoa5PZ+1XiM=;
-	b=FMdSxFxpiyJv8c2rCY5uOJNq/1pYpk2GCvGa7BNIrP07f85tvyQNuNRr4B+0ss6e/Wz2
-	 A07Ksf93G1v6eB0ByhyyEbTY6ZnYgjt4ORijIdaxoz+ob0ZZlyekpSXLJCsKqoqsej/8p
-	 NSq8nkF2MZAJUKeyYmZgZTTKJKhyRkHUKQrpuRI1Fs3XM3hZkpCmzSYgkKDqQ2CAZdf2w
-	 OwIt0Q31hMzeTW9q/RouwjX+fBJ/tNLvztdrXGVciBRP37GETatdGAlp0b1m6FmDI94b0
-	 egmbmsb9PWR2uTS2pU046jReIeE8qZCR86ngSetxWukKgO4+6dED4RKytysVcfKuUbA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fa9GrIOj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.45
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793723238;
+	b=TgWP0TszlY7YDUP57rF9ljxh2SPwsCBfZPWHSSCQv9jDEfJZxoT023+3qwKNCqjzK1pc
+	 Ikg8jRQJOopQwksZfUIdfYbZRFDRIW70izTNTFfOVKjy2Loqx/65OQJsWadxm0gte5qSO
+	 Qm3o9N1VJrOjPSxZLBccsosPNO5la0iGKy29Dwy8KWp9aNAkJuZoCWtKb8Tp80N0gmL8Y
+	 c03DSzf2uwAtdfMxEx3DKVO6cByhbTGCPEJC28UyC/r9ZZreYC+gNySwseNB50EsRs6K/
+	 vP5O2r8VsT4kHXi721lVyZQbn7MlB840T76fU2XuPTrvIl1oH6Ad05jGT8ge6d2/CJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723238;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=I1AWzUFA3Oachr2Qibp7GjIpzBQCVcrtm0Vca+qYnFA=;
+	b=t2rmpy0gk2SljlPRu54b1nKPCfYiZjcSlOPo1WwiF7yG05Bn5f4mVEK/TbmcpGWwvm0N
+	 JTlVPXKqbbFnFy25CqPv6nQZVKnolB1Z2JVtrxUgbo5Nb3ocN32A3W4Bi2DnblZr2IYqO
+	 6wXacl6XEgQZNaksqpG+zNawkIwrEEXze+4x5fFPpIqsXtobJfwcs23lpdemQupegUtB/
+	 ypP9/Smcl2KVLzgQ6kqjK6QtkZtQp+DBCNpxRGqOGhzHXwCUYT0Y4c/7Vpie+fHWb36Cw
+	 VzsRyAv1HGynBSJ7s8T1usZ5/YQqs6TVB07OJFvbwIIbOA7UpTH1KOZ7spXQJtVj35A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RqOZ/p14";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D76C606A335;
-	Tue,  3 Nov 2026 16:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D76C606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB85606A324;
+	Tue,  3 Nov 2026 16:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fa9GrIOj
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xypmjGs1kSXMUZDFXKDayybtsseuc3iUrikOJx3ZN8G09pp9nk7Jpv1uQIpiN75Q6TRtfKbg5yQvhhQupWq1fKIG8lfJFPRrhKc3HVKQvVEAS1Urh7RMkIv6GqM/tQ9q/6LBszwaHsVlYk2x0fuxVFXRCPIs08E8qFN5FZibGweXq5qc/4BTYXiXrbqaMSdrG+Af0RUwLggUYK8EN3woULYIwN02CryxYe2DwWoXWMpEq8Sye+xHnxa8JcqpAVAFhdC7i8XTBFzJIIUJJ2twBj4bpHMIB84TAsblg/DmOVvFmM0a7znYB2LaVl92YgJpxTQaYVIR3RI8HGpNyGsinw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6zyMxWVaLRlrzyt0tmMAewN95mt1HurEOoa5PZ+1XiM=;
- b=QKDBFM6iVo4YjOmvcaRfS5jM4HvPUNDOD0KOmImCxJJUqCS/fX2idbBdy1GeN2UdyswhhpFbdEGNTCgH7ws2cgGubmxvGVLhA5aEEc9xA3pKdQ4iatSXPQLW0mwBcEnPou7MhjazIAbE4lDVc05CJp/d538B6fKFC0/v7tfk7q+DE3h5YdyGuzHP+7zEnJhjoZm6RT0YAzNeneoOJUnR6z1LXr/DuFYav5oiBtdoqI3GMBUW5+6wFDSVo7/cIsjl32yqQYtklk3cHbihfUW6i6LT036talb7IdSdSyk63s+4kHXAVKFGIZn/cazWshbEFQs8LVQ5yOAgeflQyMIo4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6zyMxWVaLRlrzyt0tmMAewN95mt1HurEOoa5PZ+1XiM=;
- b=fa9GrIOjfxkvoyllV35c+8hEPOpOJcfs3i8E9F3yWTdAd8V0+VmiTDB5yTxWe31zbjH2lVg+0LPzEPuC0uOFWkCYJDwx1Ky7mXDz454HAOTWS7hpzSoYTIh5WcejgadPxDfT8GLEbQCWWR+aCLoQEFRl3pP5Ttf+KC/ItJk/fRY=
-Received: from CH0P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::6) by
- SA6PR12MB999201.namprd12.prod.outlook.com (2603:10b6:806:450::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 16:24:49 +0000
-Received: from CH1PEPF0005BD5E.namprd02.prod.outlook.com
- (2603:10b6:610:ef:cafe::95) by CH0P220CA0008.outlook.office365.com
- (2603:10b6:610:ef::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 16:24:48 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0005BD5E.mail.protection.outlook.com (10.167.244.247) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:24:48 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:24:46 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:24:46 -0600
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 10:24:41 -0600
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
-	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
-	<mhocko@suse.com>, <m.szyprowski@samsung.com>, <robin.murphy@arm.com>,
-	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Subject: [PATCH 0/4] kexec,mm/cma: do not run the next kernel from a fixed-base CMA area
-Date: Tue, 3 Nov 2026 21:54:25 +0530
-Message-ID: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqOZ/p14
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75A61F000C1;
+	Tue,  3 Nov 2026 16:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793723238;
+	bh=I1AWzUFA3Oachr2Qibp7GjIpzBQCVcrtm0Vca+qYnFA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RqOZ/p141KX5CE7URn51HZuraohH8+lJo7k9l8Kch8ZKCn6wL2XqKCbrxKbNiW7pO
+	 txJfpFepSQSkoYuuTOiDx+9OBWBXvOdyxkUcrOV6cWb/9BEORZAURSFWOKaJlvvPNv
+	 16foK7rKGa8nIgKBnchrH5K9nsRG47s9uvoQKax1VfNrVKRwUgQGTuA5VxgTIbCsLQ
+	 VUin3vAr89++wATIoIA6A/iYF/nmDvMow8qYG5V+jvJ9azGXqcY7GcWeFgultGdF1x
+	 miSMeCXdWbdOpEvDNFmTIb52O3GmU+Q+2HPeId5ICcP3xyTMnA0xIcd7OBq9NDILtO
+	 jZWst9iw6QrOQ==
+Message-ID: <sashiko-outbox-195721@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/9] greybus: operation: arm request timeout before
+ sending
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ayush Singh" <ayush@beagleboard.org>, "Jason Kridner" <jkridner@beagleboard.org>, robertcnelson@gmail.com, "Johan
+ Hovold" <johan@kernel.org>, "Alex Elder" <elder@kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
+ =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>, "Eric
+ Biggers" <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>, "Ayush
+ Singh" <ayush@beagleboard.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Markus
+ Probst" <markus.probst@posteo.de>
+Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261103-gb-uart-transport-v5-3-f8e326d6561f@beagleboard.org>
+References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
+ <20261103-gb-uart-transport-v5-3-f8e326d6561f@beagleboard.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 16:27:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,80 +74,198 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD5E:EE_|SA6PR12MB999201:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2b4ae8e-8581-444c-18c2-08df39c6fb08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|23010399003|36860700016|56012099006|10067099003|18002099003|261009223027099003|261022075727099003|921020|261102123227099003|261021123027099003|261021121427099003|261022115727099003|11063799006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	LuLvjFVnDBrU91Q4OP1QehB+udeusNPB+vvs0j90Avj7BssmtFwsSk44ipPx0vuEzIbSoFEfJzKt0p6DIFQXKuiyIho98OXIX1fwhWzoDRcheUHmaHxwrBWX6R+lNY+zt2YzPCExmbviL5znD4p+PLmTvpI+H2AS7duxJOmHTBs9IXmXmz0BJw+AdsJD+AmRnOTnfI3UYXH/N2Fv5NW3bujojxwdpyuQmrlxxXQshFSudNzIE8Wo6lMR7KV43nusWgNVgEN3+fKflrJP/CXSCyHwykMT/vyB5oBSS+XaGLO1wfzy+PdsNMmrCJAkOuDH77PuK26BNDuAUrErSHAxlL9nG/MVAT/4uiV5RyWNlx2lAFYdQ0aMnLxG1H0U90F/GXsl7p0mLQTPdq8KeDmyaEveHcoAd/v+aP1vMk0XQ9kwlCoXjDrlAleBQsRj2h2yomkGrbpBDTSaMQ/jQwz/FtteeXxNWH7JZgvn/ImhK9ScFGTgHlPK+6UgruXAPWFqa2/dweNkWDTBuIYbK62/3hsuah9A6XNyIkuIeVPQMWRfV/rSmlGnHVlWjVruRZWiLhtrESn4okvFp+0hdYVXn9Kwaqjsdt4PoIMu+9UcJwvW5aUTT7FFd+MHx9yQZzUWYdWR5xzhVWlphCgfGTrkdRbM6Nw4CdsabJl8UrBVYm/9tYvFT0+Jv4c4PtXwYvkQ
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(23010399003)(36860700016)(56012099006)(10067099003)(18002099003)(261009223027099003)(261022075727099003)(921020)(261102123227099003)(261021123027099003)(261021121427099003)(261022115727099003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dNjv3IiiTvWJOExdT+n/aXaOt24uPeJgwW9EHjE7jKsEpmeVAQMMigmVO3akbgxqlZOB9FcA7UyxuzFLLdbpaV8G/qkqMN7IFVop+2uHY8g4467tfR/jKDHJzWwTVo+zdZEUAUYBwJ6HF4c24K6B5B/g8z3o3c8C2rL7fQ8Z5UkoYgj2QPNVcEXemXid2STOIMYcAQz1CluVSYC+Naz8Mn/COk1fPHz0VV/YY3N9jv6ihcPficU8XGbb/IdxQxYUa13gRp8w+d5MqLpmerGZI5tF5pcgu1lPIel2LSaKgGxRWA8yjGv+wVg+H6t0c8rlO/pfQ4yWnH3KPIxCuVU9jbLpRYZwkZazssrLRkcxIzprd4jpv6B+ClVf7RLAej2Z022rPMX1kgU+gFD6fhf6hrtBafhL9xmCnuFTqrHQzsKKvC/G9h3/TmrYo/ei237y
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:24:48.7263
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2b4ae8e-8581-444c-18c2-08df39c6fb08
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0005BD5E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR12MB999201
 
-Since commit 07d24902977e ("kexec: enable CMA based contiguous
-allocation"), kexec_locate_mem_hole() places the next kernel in the
-default CMA area and it runs from there in place. If that area has a
-fixed base the loaded kernel declares the range it is executing from
-as a shared-dma-pool, and cma_activate_area() frees its own image to
-the page allocator. On a VEK385 that corrupts kernel text within
-~300ms of /sbin/init starting.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] greybus: operation: UAF and ref underflow in gb_operation_requ=
+est_send()
+- [Critical] greybus: operation: UAF from early timeout in gb_operation_req=
+uest_send()
+- [Critical] greybus: operation: timer leak in gb_operation_request_send() =
+on cancel
+--
 
-Patch 1 is the fix and stands on its own. Patches 2 and 3 close the
-same hole for a device tree placing a shared-dma-pool over the kernel
-image with no kexec involved; patch 4 is an unrelated cleanup.
+commit 7b73a81d11f2d699f2c8ebeafd18ae6352191433
+Author: Ayush Singh <ayush@beagleboard.org>
 
-Changes since RFC:
-- Patch 1 records CMA_DYNAMIC_BASE rather than CMA_FIXED_BASE.
-- New patch 2 answers the RFC's open question (Pratyush): -EBUSY from
-  node_init keeps the reservation, so refusing an overlapping pool no
-  longer frees [_text, _end) along with it.
-- Patch 3 reordered after it, returns -EBUSY, rejects a wrapping
-  base+size; both Reviewed-by tags dropped for the rework.
-- New patch 4 drops the duplicate alignment check (Mike).
+greybus: operation: arm request timeout before sending
 
-Tested on VEK385: with patch 1 kexec declines all three device-tree
-pools; without it the booted kernel refuses the overlapping pool.
+This commit arms the operation timeout timer before calling
+gb_message_send() in gb_operation_request_send() so that a fast response
+completing before gb_message_send() returns does not leave an armed timer
+behind, and calls timer_delete_sync() in the err_put_active error path.
 
+> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+> index a63bc2eb164e9..2d37acedf36f8 100644
+> --- a/drivers/greybus/operation.c
+> +++ b/drivers/greybus/operation.c
+> @@ -782,20 +782,25 @@ int gb_operation_request_send(struct gb_operation *=
+operation,
+>  		return 0;
+>  	}
+> =20
+> +	/*
+> +	 * Arm the timeout before sending: the response can arrive, and the
+> +	 * operation complete, before the host driver returns.
+> +	 */
+> +	if (timeout) {
+> +		operation->timer.expires =3D jiffies + msecs_to_jiffies(timeout);
+> +		add_timer(&operation->timer);
+> +	}
 
-Link to RFC: https://lore.kernel.org/all/20261014145731.3431527-1-radhey.shyam.pandey@amd.com
+[Severity: Critical]
+Could an operation still be cancelled between gb_operation_get_active() and
+add_timer(&operation->timer) in gb_operation_request_send(), leaking an
+armed timer in operation->timer?
 
-Radhey Shyam Pandey (4):
-  kexec: do not place the next kernel in a fixed-address CMA area
-  of: reserved_mem: keep the reservation when node_init returns -EBUSY
-  mm/cma: reject CMA areas that overlap the kernel image
-  mm/cma: drop the duplicate alignment check in rmem_cma_setup()
+Earlier in gb_operation_request_send(), operation->errno is initialized to
+-EINPROGRESS and the first gb_operation_get_active() adds operation->links
+to connection->operations.
 
- drivers/of/of_reserved_mem.c    | 14 +++++++++++
- include/linux/cma.h             | 10 ++++++++
- include/linux/of_reserved_mem.h |  5 ++++
- kernel/dma/contiguous.c         |  5 ----
- kernel/kexec_file.c             | 12 +++++++++
- mm/cma.c                        | 43 ++++++++++++++++++++++++++++++++-
- mm/cma.h                        |  2 ++
- 7 files changed, 85 insertions(+), 6 deletions(-)
+If a concurrent thread disables the connection via gb_connection_disable()
+or gb_connection_disable_forced() after the second
+gb_operation_get_active() succeeds and before add_timer(&operation->timer)
+runs:
 
+CPU0                                    CPU1
+gb_operation_request_send()
+  gb_operation_result_set(-EINPROGRESS)
+  gb_operation_get_active()
+  gb_operation_get_active()
+                                        gb_connection_cancel_operations()
+                                          gb_operation_cancel(-ESHUTDOWN)
+                                            gb_operation_result_set(-ESHUTD=
+OWN)
+                                            queue_work(&operation->work)
 
-base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
--- 
-2.44.4
+                                        gb_operation_work()
+                                          timer_delete_sync(&operation->tim=
+er)
+                                          operation->callback(operation)
+                                          gb_operation_put_active(operation)
+                                          gb_operation_put(operation)
+  add_timer(&operation->timer)
+  gb_message_send() -> returns 0
 
+Because gb_operation_work() runs timer_delete_sync(&operation->timer) before
+CPU0 calls add_timer(&operation->timer), nothing deletes operation->timer
+afterward. When the caller later drops its reference via gb_operation_put(),
+_gb_operation_destroy() frees struct gb_operation while operation->timer is
+still queued in the timer wheel.
+
+> +
+>  	ret =3D gb_message_send(operation->request, gfp);
+
+[Severity: Critical]
+What happens if operation->timer expires after add_timer(&operation->timer)
+is called, but before the host driver in gb_message_send() has submitted its
+transport request?
+
+For an asynchronous host driver such as drivers/greybus/es2.c, if the
+sending thread is delayed or preempted before message_send() assigns
+message->hcpriv and calls usb_submit_urb():
+
+drivers/greybus/es2.c:message_send() {
+	...
+	spin_lock_irqsave(&es2->cport_out_urb_lock, flags);
+	message->hcpriv =3D urb;
+	spin_unlock_irqrestore(&es2->cport_out_urb_lock, flags);
+	...
+	retval =3D usb_submit_urb(urb, gfp_mask);
+}
+
+If operation->timer fires first, gb_operation_timeout() sets
+operation->errno to -ETIMEDOUT and schedules gb_operation_work():
+
+gb_operation_timeout()
+  gb_operation_result_set(operation, -ETIMEDOUT)
+  queue_work(gb_operation_completion_wq, &operation->work)
+
+gb_operation_work()
+  timer_delete_sync(&operation->timer)
+  gb_message_cancel(operation->request)
+    es2.c:message_cancel() -> no-op because message->hcpriv is not yet acti=
+ve
+  operation->callback(operation)
+  gb_operation_put_active(operation)
+  gb_operation_put(operation)
+
+When the sending thread resumes in es2.c:message_send(), it submits the URB
+and returns 0 to gb_operation_request_send(). Because operation->callback()
+has already completed the operation, the caller can drop the final reference
+to operation via gb_operation_put(), freeing operation->request and
+operation->request->buffer in _gb_operation_destroy() while the URB is still
+in flight.
+
+>  	gb_operation_put_active(operation);
+>  	gb_operation_put(operation);
+>  	if (ret)
+>  		goto err_put_active;
+> =20
+> -	if (timeout) {
+> -		operation->timer.expires =3D jiffies + msecs_to_jiffies(timeout);
+> -		add_timer(&operation->timer);
+> -	}
+> -
+>  	return 0;
+> =20
+>  err_put_active:
+> +	timer_delete_sync(&operation->timer);
+>  	gb_operation_put_active(operation);
+>  err_put:
+>  	gb_operation_put(operation);
+
+[Severity: Critical]
+Can this error path underflow operation->active and operation->kref and
+trigger a use-after-free on struct gb_operation when gb_message_send() fails
+after operation->timer has already expired (or after gb_operation_cancel()
+has been called)?
+
+In gb_operation_request_send(), two pairs of kref and active references are
+taken before gb_message_send(): one pair for operation completion, and one
+pair held across gb_message_send().
+
+With operation->timer armed before gb_message_send(), if gb_message_send()
+sleeps or takes longer than timeout before returning an error (for example,
+hdlc_tx_frames() in gb-beagleplay.c waiting on a full TX circular buffer
+before returning -EAGAIN, or write_all() in gb_uart_node.rs returning
+-EINTR), operation->timer can fire while gb_message_send() is still running:
+
+gb_operation_timeout()
+  if (gb_operation_result_set(operation, -ETIMEDOUT))
+      queue_work(gb_operation_completion_wq, &operation->work);
+
+gb_operation_work() then runs on gb_operation_completion_wq, invokes
+operation->callback(operation), and drops the completion reference pair:
+
+gb_operation_work()
+  ...
+  operation->callback(operation);
+  gb_operation_put_active(operation);
+  gb_operation_put(operation);
+
+When gb_message_send() returns a non-zero ret, gb_operation_request_send()
+drops the send-guard reference pair and jumps to err_put_active:
+
+  ret =3D gb_message_send(operation->request, gfp);
+  gb_operation_put_active(operation);
+  gb_operation_put(operation);
+  if (ret)
+      goto err_put_active;
+
+In err_put_active, timer_delete_sync(&operation->timer) only waits for the
+timer callback to finish; it does not cancel the already-queued
+operation->work, nor does err_put_active check gb_operation_result_set() to
+see whether completion was already claimed.
+
+Consequently, err_put_active drops gb_operation_put_active(operation) and
+gb_operation_put(operation) a third time when only two pairs were acquired,
+underflowing operation->active to -1 (which also causes wait_event() in
+gb_operation_cancel() to hang) and dropping the caller's own kref on
+operation (or accessing operation after it was already freed if an
+asynchronous callback such as gb_loopback_async_operation_callback() dropped
+the caller's reference before gb_operation_put() prior to err_put_active).
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-gb-uart-tr=
+ansport-v5-0-f8e326d6561f@beagleboard.org?part=3D3
