@@ -1,57 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722866;
-	b=ypR0sxq9jvJy+/7cqcz9QzamGjOm6DjlDkNE1HTBkWlIC3LdYnNq0CRYpD2k6SjJMbVq
-	 q6NAgxO0eafOO6oKnTeyFj/G+IpLVO2DqADY97umXEzefKClDSSNVuu3rvKZA7in0hOOQ
-	 PoZdkcBVey5GrjdN617NSNDJVuOlBQyRxpWomPRpVMfvDA2/Fg4OtwrBlADN+gBG5SCjr
-	 6OcKXWQSnvGXrPaDrYGYRKpJctDyA7wSN8fShGkw6p24Bdjmh3tCFfC6ZBiVDyCWAqjVL
-	 +vDQGWpCIIkv+cdnXorHSfK1Mn5hr8MNefTQ8KruAgXsKpi16H7+6nb/0lU4aCf8yCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722866;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=9qUdcRCfFWv6324qVPO1fXVCslRlkMZSb6BS8J+iLlQ=;
-	b=iMha+XFC8+OqNkvk5LA44AaWmMiuoQMyU71rJYrCBKaEc4ET9LCGEvKht3dh4Zl0rTob
-	 kVQvPKBEyBs2SH8+MQ1aro75ZxlZNzaTndXujKVCNWxOEZ0Jo4LUhwif41DY53RwsRWv4
-	 gFwRrAvRWIRDNcjn1DONb5XSOmq9JcOfMQGBNcFG0QK1STIKekmkhpC3qyNYExuObhCsu
-	 8lfssx5oqONj9d4UTgolVerH0yGr9f9NEAFxMRYHW2PPyQPk1dSZsj5hV+aZjIy0DkG73
-	 5afMs6e1U32JQlOFwEkdP4h5Tes/ISVeU24P16LiC+sHYwWTlGfng5N0dHbGfUcG+2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/QXahyo";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793723102;
+	b=gikfm782u9UL97vOwoXJDGi4NeucozWuSkI4bkQz0ooix8bQY1nUmrpCIw4OFbCK2Jks
+	 6ofTLB69PMb839QGv8eUi4NpHbCad58aRJVNjHaf6Wfk/B/gtbPnPota0bho7s+1W/FnE
+	 896g4B9wlkN63USogML/gczsC3iVCIRqXrXW9LRfh7o3OSroFniPLAabYYEv2t+xCAlm9
+	 FicK57EVJeViP/D9fgDh/Atz/dFkcYmnSxlip4NnVGrFp0Pg31+D9mYqVqyXdmXCtEUsH
+	 dV6fxWAxN16MWXrVnb4K6pPa1UUBWS24wMAxkZVser3wp5q8V7yTKNZHjY4UFV8y21w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723102;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cOOqBcSjsbY/uSk3m/QRiRLOIA01HChh1VM1B6chXCk=;
+	b=WNhnpur37eBO9QulL/tdO71upBnG0+dK6uPybpHZeOtiniHsyAJhS6X3BU+9xkf5uYnl
+	 AuNxETstWOt15u4ShSM/ozDcvk6Fw+ZFSjMZmb+rVRmp7jeiZICLTXG/ZXDmBxiK22xPJ
+	 V6BQ+Dvpt8C5iZWfl9DzjrKwKnOz9f6GIfcfkX0P83Eewa9HUQ0AJk23bETfB+yK2nfAV
+	 ztSShme5tDN2bVZcxogODzFW1ZwkIlx78tgejQ4tNlDavQ/9gkLhNYiFZAEKag4AT4wqU
+	 t3qRn83KEYL+VA0v/D84nJY4nT0dc4cQxgx+fUrd1dtMeUtZ7JabJAsxNv5rwQCI9Ew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gYuTBWBu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.16
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010016.outbound.protection.outlook.com [52.101.46.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44FC606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885BD606A328;
+	Tue,  3 Nov 2026 16:25:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885BD606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/QXahyo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244841F000C1;
-	Tue,  3 Nov 2026 16:21:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793722865;
-	bh=9qUdcRCfFWv6324qVPO1fXVCslRlkMZSb6BS8J+iLlQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L/QXahyoRekzs7ve3YvXIL6PzDBVk5CJKvEy8JlSSznbCEIrfOpKh+NqMewgRy7W5
-	 obZDf48UXUYoNF3UkArU6S5ru4kSVRWEbk+a5OPvUzn6ihkQT28FUw2+Os9p2+QQt0
-	 ZJWGB4BXys1rVOVxRcYj5GDR40LeQwQlEpwJoecYUAEeeYSFYEyVk8jwAIGIs7IZ1A
-	 nseax33HgFeoicEXc7vJqYCceOPe35qAbfQ/s6jhKhk/kjBOdrYUl8ZLD3j3vf4nbK
-	 l7kTwaMfXpUp4W4Up6a9AzwbGu9+TcV4wy2QhXjAYnortLgY88Oq8XvyVPulNk70F7
-	 PzG8MMqTnCF0A==
-Message-ID: <sashiko-outbox-195714@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/12] arm64: dts: qcom: sm8650: Add Iris context
- bank subnodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261103-vpu_iommu_iova_handling-v6-11-e4b6ad864f8f@oss.qualcomm.com>
-References: <20261103-vpu_iommu_iova_handling-v6-0-e4b6ad864f8f@oss.qualcomm.com>
- <20261103-vpu_iommu_iova_handling-v6-11-e4b6ad864f8f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 16:21:04 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gYuTBWBu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nR2BhCw2PlTq8OQfiww+VN7UccnA8ywGW4sXPFVkjJgf4iK+746Uyk5CApPW3RX1gIiNfJlNj1L0t8+s9+jSivL3uVZDmPoMDKXrlpzgO+RmTJmIHefCaXRTXuv0xZORJ3f3J7ezMQO2D8kYjKLzKSMiatY80O7FAfVka11ohO4Mme84Wmf9N6FloGmErV+HXN9gTCdgXyfg8YtA7Ji9Zh8BHsef1BAFo2HbycRbMnfxiBnA3bSqyRR4ToxJ1+JSCbpgtdKa1zeDqUaq320r/Qa0w56WDqeYCIJKQxhPU2VCT9dDJflL5bJSSGF0gwbUMRuThLx75xM9UzMo3F2Drg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cOOqBcSjsbY/uSk3m/QRiRLOIA01HChh1VM1B6chXCk=;
+ b=jAkafMbrODkh1VUIa2nAfZjz79lYm0QnfPOFcBZXXepjSJU4KzaccbnwmEJ0Yz6cFJTNqoOk+THI448zgiu89pg5G9ZEV3hpddD0HWSNPIwEOOY95Dn5zNTMzms3kXeSQDfYPSozNHCTjvGs3xblljijC9T/8p9Oidf8W5fdl2wCgpGJDhuNVZ9N9NMlI/C36hIVVoT6SQUaCqT+5nL1o4qVSgMcOpxJRJMyLgQq6ZZDm6nxKFG/dGvFsnuzhCrRH4ITVjeoAyXPooizPzaUkB+szRImWDqccmOkxc05YRPW7u93mhlVYFoOH+Ih98jGvv9uhL97imbEyoq2LCXGEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cOOqBcSjsbY/uSk3m/QRiRLOIA01HChh1VM1B6chXCk=;
+ b=gYuTBWBujDogFMnmv95L1Z3p093mbcZWrpEYIhdRPcuWfBy7Zu6vT32h5Gd0EaXdGNAyOhD9uDtE+98U7PIX400cgXo+Eeky4OccvjuzBlxab8oGz7ZLKqyr6SYNjemFkh0Pztd8x7WaMAlFdPRduFONZ+088C7lRfDfYsFCrj4=
+Received: from CH0P220CA0030.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::28)
+ by SA5PPF8DEAB7A29.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d4) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 16:24:52 +0000
+Received: from CH1PEPF0005BD5E.namprd02.prod.outlook.com
+ (2603:10b6:610:ef:cafe::f) by CH0P220CA0030.outlook.office365.com
+ (2603:10b6:610:ef::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 16:24:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0005BD5E.mail.protection.outlook.com (10.167.244.247) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:24:52 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 10:24:52 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 10:24:51 -0600
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 10:24:46 -0600
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
+	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
+	<mhocko@suse.com>, <m.szyprowski@samsung.com>, <robin.murphy@arm.com>,
+	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Subject: [PATCH 1/4] kexec: do not place the next kernel in a fixed-address CMA area
+Date: Tue, 3 Nov 2026 21:54:26 +0530
+Message-ID: <20261103162429.2053989-2-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.44.4
+In-Reply-To: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
+References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,116 +117,169 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD5E:EE_|SA5PPF8DEAB7A29:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69808556-f2aa-43a4-10c9-08df39c6fd77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|23010399003|36860700016|18002099003|22082099003|921020|56012099006|11063799006|261022105027099003|261009223027099003|261022115727099003|261028144727099003|261102130727099003|261102123227099003|261021121427099003|261026140227099003|261026121527099003|10067099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	w11FTgRXCywOPfZMJXpjgaf+KrEh4R7TB2Q0k+JMOOcpdX8JLvugDaBu/CPReF7coe4IWWUrDaKUF6Dd9FGMfDTf6qeFFbizZAZpIvxQzdv321e2GRwT92jKu3dsTO4LPHwmWxYy70sRc4FCEcto67xG/tT88Z7vK2Yclo7K3roVM6FppKrlTGmkjMqS/3qIJhods9bUiM6XwPqvGapFGcIZx/XCOOftOqJUmTJdD4rqw/yauftt9R88qeb4scWE/BmKy96XzfBYMgb8AcYw5SJ93RQSXbaNYWkCE+W+jWsKEG0RQe0OHKdVUAnQ/fV4/xLaMjkxOlSoIV3sZ5wIQfU0ZXSlm7rdVIjjdCT6dv8B+g0nrOLQNKy8aUY9q75Hrd+vYeWt48ZdGDFVKdshptSheGLHianztK1VH/uPYqr704JeqTfA7FRR02Ogw22zXk4JeBQYp5OGK3gDGaikMl60tLSzOFXZtbTvxsfrPokKhYhQVfuspzHHuYqKIMKigYs/RVlk1cDlde06bV8KeC7cefTciE7Uhp+M93DC7+DqacasHiLUztuzxjIUjzSSLTB5SaS95QJGhS1e33GB5F4zW2sL5DICFIEOMxQdWdLr/cJ8Vug59PQRaxbTZnu1B3hXbMzarzFWbox3dE8UYCmMdqQNpitbfaVUbdnY+BOD+h/+xbr6KfAoEVM8JvqmdnYD/gJdMwhdYvouvzzQl5HX54D0lISz2na8iOyo42N4UiGOAQsOx7CfGpgDDrVI
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(23010399003)(36860700016)(18002099003)(22082099003)(921020)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261022115727099003)(261028144727099003)(261102130727099003)(261102123227099003)(261021121427099003)(261026140227099003)(261026121527099003)(10067099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yx32ppD7490Hv4LXRa/cJk7A4kouWQeEh5WmwZeBNpJ1oSI1pd3O02ZPEZx28i6IqRCPlb3Jc0EJJa8gk0LGmFnxg9gnRK6GVIjqoQgCxeAKDM0d1dtCrGkG+jQ5a59nuIxvWVkZB9sknQhNB25iZRKtGTkA54hHWcsceLk8lgiq+7oAAO+CrRV1oT9SB9gxq2gy2MAdt1ukitI/Fb0ZYavAZ0SrbGrgiPo9pU/SIOnu8U1BtixaS1wJ68jF3fwYeAsoUkEoN2LaGy4fLLa8uAEcN/c1GTR+typP5b22wNEdJ1UbfOPSLKp0e3NjL5NHEdbXU33nQ63BApPghry16++d3N8XR5Vuw3eQKVnevDAMXKJHiQ9EIlccIYpqJjZ409MUitCBCuC/xFAOMIT6OfGBKG4EIt+R7/RlgqJ/DEOEV6Tz67wntsiRhPNQhHCN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:24:52.8094
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69808556-f2aa-43a4-10c9-08df39c6fd77
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0005BD5E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF8DEAB7A29
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] media: iris: missing IOMMU readiness check in iris_create_cb_dev()
---
+kexec_alloc_contig() takes the next kernel's destination from the default
+CMA area and the next kernel runs from there in place, which is safe only
+if that area does not exist at the same address in the kernel being loaded.
+For a device-tree area it does: the loaded kernel declares the range it is
+executing from as a shared-dma-pool and cma_activate_area() frees its own
+image to the page allocator. Record in CMA_DYNAMIC_BASE which areas CMA
+placed itself and accept only those, letting kexec_locate_mem_hole() fall
+back to the memblock search. "cma=nn" works, "cma=nn@ss" no longer does.
 
-commit b47d404291c07cfcdeb8c7a25de5057ab9c274a2
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
+Suggested-by: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+Changes since RFC:
+- Use CMA_DYNAMIC_BASE flag instead of CMA_FIXED_BASE.
+- Drop Pratyush reviewed-by tag as there is implementation change.
+---
+ include/linux/cma.h | 10 ++++++++++
+ kernel/kexec_file.c | 12 ++++++++++++
+ mm/cma.c            | 16 ++++++++++++++++
+ mm/cma.h            |  2 ++
+ 4 files changed, 40 insertions(+)
 
-arm64: dts: qcom: sm8650: Add Iris context bank subnodes
+diff --git a/include/linux/cma.h b/include/linux/cma.h
+index 8555d38a97b1..d4683a4ff3cc 100644
+--- a/include/linux/cma.h
++++ b/include/linux/cma.h
+@@ -61,4 +61,14 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
+ extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
+ 
+ extern void cma_reserve_pages_on_error(struct cma *cma);
++
++#ifdef CONFIG_CMA
++bool cma_has_dynamic_base(const struct cma *cma);
++#else
++static inline bool cma_has_dynamic_base(const struct cma *cma)
++{
++	return false;
++}
++#endif
++
+ #endif
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index b668ce8d68ee..763dee85558f 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -28,6 +28,7 @@
+ #include <linux/vmalloc.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/kexec_handover.h>
++#include <linux/cma.h>
+ #include "kexec_internal.h"
+ 
+ #ifdef CONFIG_KEXEC_SIG
+@@ -691,6 +692,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
+ static int kexec_alloc_contig(struct kexec_buf *kbuf)
+ {
+ 	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
++	struct cma *cma;
+ 	unsigned long mem;
+ 	struct page *p;
+ 
+@@ -702,6 +704,16 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
+ 	if (kbuf->image->type == KEXEC_TYPE_CRASH)
+ 		return -EPERM;
+ 
++	/*
++	 * The next kernel runs from here rather than being copied out, so it
++	 * would declare this area again from the same description and release
++	 * the pages holding its own image to the page allocator. Only an area
++	 * this kernel placed itself is safe to use.
++	 */
++	cma = dev_get_cma_area(NULL);
++	if (!cma || !cma_has_dynamic_base(cma))
++		return -EOPNOTSUPP;
++
+ 	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
+ 	if (!p)
+ 		return -ENOMEM;
+diff --git a/mm/cma.c b/mm/cma.c
+index 9ec1d1fd5dff..9c53b2b70dc8 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -55,6 +55,19 @@ const char *cma_get_name(const struct cma *cma)
+ }
+ EXPORT_SYMBOL_GPL(cma_get_name);
+ 
++/**
++ * cma_has_dynamic_base() - was the area placed at an address CMA chose?
++ * @cma: Contiguous memory region
++ *
++ * An area without a dynamic base was placed where something outside the kernel
++ * said it should go, typically a device tree reserved-memory node, and so lands
++ * at the same address in every kernel booted with that description.
++ */
++bool cma_has_dynamic_base(const struct cma *cma)
++{
++	return test_bit(CMA_DYNAMIC_BASE, &cma->flags);
++}
++
+ static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+ 					     unsigned int align_order)
+ {
+@@ -519,6 +532,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
+ 	}
+ 
+ 	(*res_cma)->nid = nid;
++	if (!fixed)
++		set_bit(CMA_DYNAMIC_BASE, &(*res_cma)->flags);
+ 	*basep = base;
+ 
+ 	return 0;
+@@ -708,6 +723,7 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
+ 
+ 	cma->nranges = nr;
+ 	cma->nid = nid;
++	set_bit(CMA_DYNAMIC_BASE, &cma->flags);
+ 	*res_cma = cma;
+ 
+ out:
+diff --git a/mm/cma.h b/mm/cma.h
+index 68e574b0f951..4703e0958b01 100644
+--- a/mm/cma.h
++++ b/mm/cma.h
+@@ -80,6 +80,8 @@ enum cma_flags {
+ 	CMA_ZONES_VALID,
+ 	CMA_ZONES_INVALID,
+ 	CMA_ACTIVATED,
++	/* Base address was chosen by CMA, not dictated by the caller. */
++	CMA_DYNAMIC_BASE,
+ };
+ 
+ extern struct cma cma_areas[MAX_CMA_AREAS];
+-- 
+2.44.4
 
-This commit moves the iommus property on the SM8650 video-codec node into
-dedicated non-pixel and pixel child subnodes so that the non-pixel stream c=
-an
-specify its own restricted iommu-ranges. It also adds address-cells,
-size-cells, and dma-ranges to the parent video-codec node.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/q=
-com/sm8650.dtsi
-> index 86fbb0fd6472d..fd82b83c228ef 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-> @@ -5274,11 +5274,12 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_O=
-NLY>,
->  				      "xo",
->  				      "core";
-> =20
-> -			iommus =3D <&apps_smmu 0x1940 0>,
-> -				 <&apps_smmu 0x1947 0>;
-> -
->  			dma-coherent;
-> =20
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +			dma-ranges =3D <0x0 0x0 0x0 0xe0000000>;
-> +
->  			/*
->  			 * IRIS firmware is signed by vendors, only
->  			 * enable on boards where the proper signed firmware
-> @@ -5286,6 +5287,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ON=
-LY>,
->  			 */
->  			status =3D "disabled";
-> =20
-> +			non-pixel {
-> +				iommus =3D <&apps_smmu 0x1940 0x0>;
-> +				iommu-ranges =3D <0x25800000 0xba800000>;
-> +			};
-> +
-> +			pixel {
-> +				iommus =3D <&apps_smmu 0x1947 0x0>;
-> +			};
-
-[Severity: High]
-When moving the iommus property from the parent video-codec node to the
-driverless non-pixel and pixel child subnodes, could iris_probe() succeed
-before apps_smmu has probed, leaving the context bank devices without DMA or
-IOMMU configuration?
-
-With iommus on the child subnodes rather than the parent node,
-__fw_devlink_link_to_suppliers() only creates DL_FLAG_SYNC_STATE_ONLY proxy
-links on the parent video-codec device, and parse_iommus in
-drivers/of/property.c is marked optional unless fw_devlink.strict=3D1. As a
-result, really_probe() on the parent video-codec device no longer defers on
-apps_smmu in device_links_check_suppliers() or platform_dma_configure().
-
-When iris_probe() subsequently creates the child devices via
-iris_init_cb_devs() -> iris_create_cb_dev(), platform_device_register_full()
-triggers the bus notifier path:
-
-  platform_device_register_full()
-    device_add()
-      bus_notify(BUS_NOTIFY_ADD_DEVICE)
-        iommu_bus_notifier()
-          iommu_probe_device()
-            iommu_init_device()
-              platform_dma_configure()
-                of_dma_configure_id()
-                  of_iommu_configure()
-
-If apps_smmu has not registered yet (for instance when CONFIG_ARM_SMMU=3Dm =
-or
-during asynchronous probing), of_iommu_configure() returns -EPROBE_DEFER,
-which causes of_dma_configure_id() to free the range map, clear
-dev->dma_range_map, skip arch_setup_dma_ops(), and return -EPROBE_DEFER.
-However, iommu_init_device() and iommu_bus_notifier() ignore that return
-value, so platform_device_register_full() still succeeds:
-
-  drivers/media/platform/qcom/iris/iris_probe.c:iris_create_cb_dev() {
-      ...
-      pdev =3D platform_device_register_full(&plat_dev_info);
-      of_node_put(child_of_node);
-      if (IS_ERR(pdev))
-          return ERR_CAST(pdev);
-
-      dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
-      dma_set_seg_boundary(&pdev->dev, DMA_BIT_MASK(32));
-
-      return &pdev->dev;
-  }
-
-Because no driver binds to the non-pixel or pixel platform devices,
-really_probe() -> platform_dma_configure() never runs for them, and
-iris_probe() registers the V4L2 video nodes while core->np_dev and
-core->p_dev have no IOMMU group, dma_range_map, or DMA ops configured.
-
-Should iris_create_cb_dev() check device_iommu_mapped(&pdev->dev) (or verify
-that IOMMU/DMA setup completed) and unregister pdev while returning
--EPROBE_DEFER if the SMMU is not ready yet?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-vpu_iommu_=
-iova_handling-v6-0-e4b6ad864f8f@oss.qualcomm.com?part=3D11
