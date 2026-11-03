@@ -1,83 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722499;
-	b=bH6iLgMX8B/rDxTdusfFQJHY9Mlt4Y1lMNTQHLxmPt0N3FD0DsIV3nczNOVvfh23NBuy
-	 JbGn0D8S2Ax3RQoWc1RKFFviSbjIaDsgIk3zMmv3fVgKKUtXP8gnnlbem8Kr/YFTcL4oV
-	 RmHEvFFRgOfYF+88bj5L6kaAzWWjaJHm1fI0N34VgyeoArwtyh1kYVzISWbirmlboLsd3
-	 mp6BDinoZm1gL3DgTSLwtjb97fC4x4s3QeyfxHu5jZLhO8tfg3z5Ei97jQ3qzfS0E0em4
-	 H/iN3BD3ELjcsxtPlLzs4ACR+u1tMiLGtCAocFjJnp2VP4vC2faK1v8N29zpFXxJ5QA==
+	t=1793722586;
+	b=BlvsecR8yNBqBAEYgxD3P9p9aIt8RtTLaqNkkbgjG8gJ1p8mNodPs2lZh7hg25/k5n8Y
+	 JlERhopieM4h9IZc4wFAtw/1MhoXXqONH7Da9oyfz38izksMKKHmZNeSJbFyq6PDOxqQH
+	 CAjOhTYBWh0t8ocqL6w/VikCIu7c1a4Fq5XRAZIVClhUfTtv1uhKPZ/rfYIiWoSgfDJss
+	 MKEpxkHHghCzVBYWXiSNlj2OLboV5a8bYbqbB/HFYR/bup4hxd+LflpGXnpU4oWzWrn9t
+	 b13TSRweezitlmAk0bNutpfsP/h8+8pTWnGx6tkc0uH44jGz+Vg0A0OOdT9CqKM1nTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722499;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=EKCJmsDojR6fmOrZt3xL3Qv8JIBHOSZUtNHfGzpr6gM=;
-	b=LyjlhfbeE09uWbxJ1VC/BEf+C9HZXrkzgU054AYmRqfTB2aV7IjsmRLAhcpckXwxyG6j
-	 hVuO+68dOIRjOD05d+JcNdyi3a9+bH9hGAtsZ5fSDGNY3zzp4O7JfwHuPqMxl7sdMBJau
-	 9F3i+b+AINzPsl1CQW98XY9uTnaRGKowcP69HshLXWGm3z4z1Pa60d8by5sPNYvxSQnB9
-	 JVnqqMjRxXV5Nj7dwlXBCy8VQpjtASn9QJ1oYNfDRurwYDz43SXggNW+bTnJAQFvEy2r2
-	 EY93McR21JH7wjrj+EwQytWwT3/8Rg0XWjG9Pny3oXWvbBjmRGySqeK4KPwbcNq7G7A==
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=a5wryUwdVr5GvbYUG9GqKAxvh5aLU+Gi2pGInFj178M=;
+	b=jTQ1zx1Hj7ptrdFkwaFYjiLZc7+guCjxzSAy2SFonaynYV5gB5Qy6ASsq1P00irZXQLh
+	 jC3/QPLY37BgFAV054SSJ9T8J5+Hx/70sy0iZ8Bk8L4te8U6E97kMbobuiciMwUntFVmR
+	 37wzBdOn+IC+z5KSbrA7aFRS1EYK3YLu579MyySW3z+4Lxbu2UVflyTMSdFNyKeoxJ8Op
+	 6X7sLWMw3Eorep8vsNQILQBkXwDZGYmJV5cUPFdPplchfxos+PHndprAT1pvtn3cE/16z
+	 +Cm1eY0hs9MUG+MaLlGHh1FzRfRGvOTuENBDcEYRNm76JSc2Zgf8hG41/Yr6lNm9Uog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U7915FKJ;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tQWN0zn4;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0683606A334;
-	Tue,  3 Nov 2026 16:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0683606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5760606A32C
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:16:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5760606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U7915FKJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793722499; x=1825258499;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Acx7f7PNUJNNihS9jXTISjx6ZVUeRGm4ZDOoBevZJME=;
-  b=U7915FKJa13azIbYE/daiFihw6YrsaPnjzrdtN2/0ho1ocDdZnzsic0F
-   hVEgweixGfLALxC/lzHXs09BGU6+/T1RnMS0PHixRChUNKvHrpQMcwiJN
-   TQVvlKahxTQ2pHp8xg7kA6OH1rmHbm3oEcysATpJ6E6Qc85v2m5j6hih4
-   Q+wLkR43BUSnUAPTE25n2J1X2igSSf4tZYSd4TiNdBBGhyPTYVKuuexhx
-   GsqM3nISxndBucA5CfscT8Y/LGRgjFjsMb3JC4H9INS9D/mgDv0RoHV7h
-   Hbv2xMLlVVu4ILCc9LB3ulqiBuf7OYxgT8J9/laVjteW+1jpjLjujm41b
-   w==;
-X-CSE-ConnectionGUID: euUmgpmvRBmqZbpFs8IxOw==
-X-CSE-MsgGUID: HiywbwjBReSTfCkptSPTSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2452774"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2452774"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:14:58 -0800
-X-CSE-ConnectionGUID: nhPE4N1wTuS0wqrduR9jJw==
-X-CSE-MsgGUID: rdviNjH4Tj6XJ8HBUI6SdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6620460"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:14:55 -0800
-Date: Tue, 3 Nov 2026 18:14:52 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Marius Cristea <marius.cristea@microchip.com>
-Subject: Re: [PATCH v5 3/5] iio: core: add iio_fill_val_int_64() helper
-Message-ID: <auoIfKeWziFMy0zh@ashevche-desk.local>
-References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
- <20261103-pac1711-v5-3-71c20101a52e@microchip.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tQWN0zn4
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso29453005e9.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:16:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793722584; x=1794327384; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a5wryUwdVr5GvbYUG9GqKAxvh5aLU+Gi2pGInFj178M=;
+        b=tQWN0zn4mbc/nm7sRMRHS6zM7wV2ZWWPSgNW1OkEqrtl23h9nItJwLkqH8lOb8zVBK
+         OFP2+lUVU1tTQPTvzkCWk/AhWnUCxwtwZQNEpQA53Un7I2YWf52NrlNMZez2j87xd6ou
+         I1scCNTgRsPXSSUbELKQG92ntW7kx5wAST1Hjb1FgOMeR8MjMLQqipgXyLxKYrpkhm2L
+         5PoKKqekeUAPusyF04z/zEHfCl+mjrHlK7kF8dfKniJbF29xRaygVOAVS5kDwf+zq3B6
+         3Lx6ADdYpw1YoDBrYlDwOPZ12HBZfP5QKpjlegY6cKydTXYbA3uF4n2bysQHYB+0RqJo
+         dbrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793722584; x=1794327384;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a5wryUwdVr5GvbYUG9GqKAxvh5aLU+Gi2pGInFj178M=;
+        b=Rx0v+poD3UtOYmXbcTKZPEmM8S8yXYD19t/q+FyiwdK/86PljVIYY4RTHy9DucHn5m
+         jo2iJrhXg2FWQdwogaz9VwE+XIB2A4wZyS9kqDNQxOYa/XraGeVGezYDPG+gOqNuCoac
+         5Xmd4GU3z4nbeq3enL+1Jzfy1O2qwG24r1/4zbty0D44ONUWR5QNvto1JzLFGRaqsavJ
+         4bKaBoGyLAiLcYhn7Gl29+yDcSYK/rQe2/tECayqGNpVIlC9XQ8FseBuV52vRcprbmUd
+         wpyHA9M09XS6JOO6f7e6dtH1oQ8lcCvtAi3F1qNIv6tHWg6bWI8l7697NHTPqxmWT9Fq
+         BQVw==
+X-Gm-Message-State: APuU4Z8zcpfCLVl+qHA5jhx8WfjQEx5CWFp7xtdppWIXs1yG72d6jmfB
+	4JiwlHaZUWTCNjgpYUpw6iENSaXs0udbfbwixTw4uR6nuHKgGc6UelmhXpDQuw==
+X-Gm-Gg: AYBFou3/l+AQiymalKt7XZtBDqNsjIvIdL4UsGLCkhFD0wlb+g+8Az4LHKA+HhWFHWw
+	p5QjyO58LKS5th+VknP+OD+nO6FwBWYq+4/4dlFSQsnR4WzjjJHepmreskQnIFQ7nWWc7SCVu9/
+	+gMSLjjYM2WU0GiblG9cbNu17q/k9HtRIVzt6B3AZSrqPQrX6Tz1T1cCmiVG4ltPRY97CCagaiW
+	mY0ow97cVqxxOaLCdDSAwrInj/8aKuVbJ3jWnOlJNezu/AarQdyN+tmg4M+yNjn34RUyxJ0/Gci
+	7tCAJnGCWPZq9ID8Ca2oMjRp4ZcyiMX/bu+iYmQYaei7d9pBbOqYB6Zx+RnTk70kpy9nmqPtA5r
+	shFcc68dUzOHdynv9NKzFQ+I76iYhlEBDrehrpS5JB9pfi/6dNpOAIa+/iJtz5VsBhywJJAZQrD
+	x38DwdmGsDrElEdsjVh8wtdjtoZCfFTjhO0fV738SJYLRoKZ05pSJO0DknixOhTi3q95MaQcY/Y
+	NoR8KvKzMtAcDzkR+MqbfiLhX30KuQsKr7A2LuC1CAmJad15fFP8U+ZXGFDyhKl5IMlEcIIyDu7
+	GrfZR+rZXCsQKed5lWXGrblYq3Y5hwqBDUPKurAoUOEYQPWrOaQ7Ij6w295Oes9j+7e5Glr6a5W
+	2ZN/y/WK+TiCg7rX1vBL7sYCF/a1+pdOM5vlBJQBxBkN2qfCT2vG+IdoriP++Af2n2lMoVZX/nH
+	l7A0Jd
+X-Received: by 2002:a05:600c:4454:b0:4a5:1cf1:b7bd with SMTP id 5b1f17b1804b1-4ac1794032cmr319005485e9.16.1793722583910;
+        Tue, 03 Nov 2026 08:16:23 -0800 (PST)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bab1a8sm25631726f8f.57.2026.11.03.08.16.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:16:23 -0800 (PST)
+Date: Tue, 3 Nov 2026 17:16:20 +0100
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org,
+	robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v1 3/3] serial: fsl_lpuart: Enable TTY wakeup for
+ wakeup-source ports
+Message-ID: <auoI1NJgc3ky89jf@Lord-Beerus.station>
+References: <cover.1793719239.git.stefano.r@variscite.com>
+ <58d65b44ca054ea83eb835bf5decebd688cad04d.1793719239.git.stefano.r@variscite.com>
+ <sashiko-outbox-195698@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,24 +100,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261103-pac1711-v5-3-71c20101a52e@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-195698@kernel.org>
 
-On Tue, Nov 03, 2026 at 04:37:13PM +0200, Ariana Lazar wrote:
-> Add iio_fill_val_int_64() to populate the val and val2 output parameters
-> with the lower and upper 32 bits of a 64-bit value, as used for
-> IIO_VAL_INT_64. The helper wraps lower_32_bits() and upper_32_bits() in
-> order to split the value with a single call.
+On Tue, Nov 03, 2026 at 04:07:25PM +0000, sashiko-bot@kernel.org wrote:
+> [Severity: High]
+> Does enabling tty_wakeup_default at registration time cause a suspend and
+> resume state mismatch between the serial core and lpuart_uport_is_active()
+> when the TTY device is not open in userspace?
 > 
-> The pac1711 driver will be the first user of this function.
+> With tty_wakeup_default set, serial_core_add_one_port() enables wakeup on
+> tty_dev during probe before any process opens the port (when port->tty is
+> NULL and tty_port_initialized(port) is false).
+> 
+> If the system suspends while the port is closed, lpuart_suspend() calls
+> uart_suspend_port(), which checks device_may_wakeup(tty_dev) without checking
+> tty_port_initialized(port):
+> 
+> drivers/tty/serial/serial_core.c:uart_suspend_port() {
+> 	...
+> 	tty_dev = tty_port_find_device(port);
+> 	if (tty_dev && device_may_wakeup(tty_dev)) {
+> 		enable_irq_wake(uport->irq);
+> 		put_device(tty_dev);
+> 		return 0;
+> 	}
+> 	put_device(tty_dev);
+> 	...
+> }
+> 
+> Because uart_suspend_port() returns early here, it leaves uport->suspended as
+> 0 and skips console_suspend(uport->cons) as well as uart_change_pm(state,
+> UART_PM_STATE_OFF).
+> 
+> However, lpuart_suspend() then checks lpuart_uport_is_active(sport), which
+> requires both a non-NULL port->tty and tty_port_initialized(port):
+> 
+> drivers/tty/serial/fsl_lpuart.c:lpuart_uport_is_active() {
+> 	...
+> 	tty = tty_port_tty_get(port);
+> 	if (tty) {
+> 		tty_dev = tty->dev;
+> 		may_wake = tty_dev && device_may_wakeup(tty_dev);
+> 		tty_kref_put(tty);
+> 	}
+> 
+> 	if ((tty_port_initialized(port) && may_wake) ||
+> 	    (!console_suspend_enabled && uart_console(&sport->port)))
+> 		return true;
+> 
+> 	return false;
+> }
+> 
+> When the port is not open in userspace and console_suspend_enabled is true,
+> lpuart_uport_is_active(sport) returns false, causing lpuart_suspend() to take
+> the else-if branch and disable ipg_clk and baud_clk while the console is
+> still active and unsuspended:
+> 
+> drivers/tty/serial/fsl_lpuart.c:lpuart_suspend() {
+> 	...
+> 	} else if (pm_runtime_active(sport->port.dev)) {
+> 		lpuart_disable_clks(sport);
+> 		pm_runtime_disable(sport->port.dev);
+> 		pm_runtime_set_suspended(sport->port.dev);
+> 	}
+> }
+> 
+> Wouldn't any printk() during suspend or early resume then call
+> lpuart32_console_write() or lpuart_console_write() while the LPUART clocks
+> are disabled, triggering an unclocked MMIO access (bus hang or synchronous
+> external abort)?
+> 
+> Similarly, on resume, lpuart_resume() skips lpuart32_hw_setup(),
+> lpuart_hw_setup(), and lpuart_console_fixup() because
+> lpuart_uport_is_active(sport) is false, while uart_resume_port() also returns
+> early without restoring console termios or calling console_resume() because
+> !uport->suspended && device_may_wakeup(tty_dev) is true:
+> 
+> drivers/tty/serial/serial_core.c:uart_resume_port() {
+> 	...
+> 	if (!uport->suspended && device_may_wakeup(tty_dev)) {
+> 		if (irqd_is_wakeup_set(irq_get_irq_data((uport->irq))))
+> 			disable_irq_wake(uport->irq);
+> 		put_device(tty_dev);
+> 		return 0;
+> 	}
+> 	...
+> }
+> 
+> If the LPUART loses power during deep sleep while the console TTY is closed,
+> doesn't this leave the console hardware uninitialized after resume?
+> 
 
-NAK. Use existing iio_val_s64_decompose().
+The suspend/resume mismatch described here predates this series and is
+already reachable by enabling the TTY device's power/wakeup attribute
+from userspace with the port closed.
+This series changes the initial wakeup policy, it does not introduce the
+mismatch.
+The underlying suspend/resume handling should be discussed and
+addressed separately, rather than attributed to this patch.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1793719239.git.stefano.r@variscite.com?part=3
