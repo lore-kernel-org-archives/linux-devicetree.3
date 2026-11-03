@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692430;
-	b=AcG37VyL+nfV26jvnSggEfFli+WuMu3KSjvrkfbWNRonDcafL6fD70H+CzvzjQecXFt3
-	 M5CDQeYydqoi+XNTR5RtljZYAGnRMivI8LQ2g+xI4Nv5255fNauEqCPWk4KEx51dizVTL
-	 zUXTOfB3drKZMb2HS3LWPQn44pqc/4/JSeGcQodxSLedTjlRT9JQpLgi/gzJgEb/PunE3
-	 duAHS7ItTMOROkfz+7s1Wau2kzWDZpo9eoZy7y9Nfa9GYh+mbOHc95bPKPwviGqUC7FL1
-	 bG4P2Hti0JToOcZvqN4qoVHH1DD33CsynWXuX8RUXQLiSIr/OA7FBpo6+FhTpJ7WH5Q==
+	t=1793692727;
+	b=mmj66kwP0U4JiIhwQaBcJAp6GKZRNGLLYVO/YiBygvEHYVWkqXrR99z6d6KqqXWdzAfQ
+	 Ryj4KJRa99mbza+DrUPptiaZZColHo9zTnODEHTN8JwG0zTK5+e+y15lfOCoJ3LZd0HNX
+	 D2d+rgN/qF7Z/2oBYeu7kNFAjH8ZjMcsQjax2hAfjZ9N4J4EE5mEXowXSehAzTVJw5kDC
+	 XmeUMtfr6ddEFVCi1spE0BGsQjEwe4s6ENmR9VJVUO0mWTvxNzkn3m9Vn18TejozCNzNh
+	 Ec4vT4XgycdG2TcT3EY1vz5bmA8POHhu5rAPiDuJxC6L+AVy8aLIBdsHXomnFeKF/8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692430;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692727;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NSEF6IMREPbRYJwxq5ZNXwh3i/SY6gOoEyTh0Y+96EA=;
-	b=R2sdxlJ71eKgLwMFti6hxkqAOpRJXPMa21q8k0ZB9hzMR/HccNW3nRMR6aWkVR5K7DwH
-	 8a/ww649/okShxwATvVTYNsc+UQMNw5YwEU8mpQveVHH37LcwTbAfrPr44YTNl7t9smvX
-	 HLJvtlmgw1EMXORpptjexdGtDCZrkB2AKiiHsI8uILWFp/F98Ru4yDZawbEAggJqe9vwL
-	 qpB1eKtY0Ym91/48JhPcWcLvnIkKlPSvQ+fZaIb6cJIoqHbvfc9mYJkOkR8LIbRNBSLyJ
-	 t+EvYP63iA74qbFwTzpf+4KL7V1w3T4VsN1y/Q6T9Ja8o6Yg+7aQhVwf4hLSD3zuQAQ==
+	bh=o1BJ/Y2TNEexfoxI4/HZbpkaa7m/VA6soorGM6Dw74k=;
+	b=ggkRoAFPa8QQi1uLYCb6GLaSbNpxr54KalFQa7jUNBIr3Ir61t09TxyO8Hoznn7Bkd4G
+	 aw6v/FTRAc1RSubsN4VkRelVBCctTkTUnKPpCwDmacl45vvOkmxy+Gb9MgEI7fOFrq6xm
+	 PhNp1DFg84uK80LB+69gxzLKF4o/4HpHIJEWgNOmndFz6M9cXmu0WdPMo2zeomflLuchg
+	 6cx11Lh+Iose2f14Xu5jBbPujxhxaPzBD1GPb92J37s4XQ5NuypU8s2kOiN0yslI3TUu/
+	 g9kYp2U0w7EP50XuDBdgYcFathvCm5R/nBXLqQu56OXC72XuozvlEpykq1LGMdViP7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qb40SwVv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ov6qPki4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E907606A324;
-	Tue,  3 Nov 2026 07:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF258606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 07:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qb40SwVv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8358F1F000C1;
-	Tue,  3 Nov 2026 07:53:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ov6qPki4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558701F000C1;
+	Tue,  3 Nov 2026 07:58:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793692429;
-	bh=NSEF6IMREPbRYJwxq5ZNXwh3i/SY6gOoEyTh0Y+96EA=;
+	s=k20260515; t=1793692726;
+	bh=o1BJ/Y2TNEexfoxI4/HZbpkaa7m/VA6soorGM6Dw74k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qb40SwVvLGaAiFuzkhDvPkpa/nM25qFo2WmwKKk4qcv/MZpcwA/D7RppEziVz54/Q
-	 U+0K46+Ki7Ed5c73ZroyOWS23Pv07PVXbvh4b/Z442tbVKIW9NiuN3xSlrRcZPehtK
-	 T42XrAbhha/VUDHtTO9KfVQRdscVn00zEuxbc2TXNLgInOjaIOMRAvk4W8BtcN75rV
-	 eDq13Z/VY1L0dx+WXt2Wne7S2sBITzvrJv3FPsolNPeazS5Tr0gfNtiruW525U9P6i
-	 jEb3Uihl6H4tlegbQak1/JWYj7ImIChO3fgYAnlqevDB5F3I4iD4Wg76HrrfxvR2Xg
-	 EMpzyaZb9qyQw==
-Message-ID: <sashiko-outbox-194759@kernel.org>
+	b=Ov6qPki46u9Qd7dwBPTtG6I8/kgcLxHj98b5odjWvXZfLHwNaPnQ8l+i7bjFXu8ur
+	 aBEWP/YwmVCOaVXHB2vGNx3Z3gNI32PAqtjMk4YCLEwEM01TnRbAAY95LQU8FejkVg
+	 t3bGt1oYaElKRrkS7bG7z89jnDzpvTqhGL69crx0YCFHJ9iamRoYuVwgsa4+h36yuz
+	 DsZ0t79+IlNDZru0Nxq0JwVA1Xs9dptzA+SdcH++QmySOR5Pnk8ZG/zcna0rF0Am57
+	 TE+OZ4AyNFQuHomae8zkOHbw24W4GB98EAM8prSLCulEF2HK9GnGaEtXY9/G0ki5so
+	 DF6LnJTLL0fqA==
+Message-ID: <sashiko-outbox-194780@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 01/22] ASoC: dt-bindings: cs42l84: Allow referenced
- dai-common properties
+Subject: Re: [PATCH v5 2/3] phy: cix: Add CIX Sky1 USB3 PHY driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Calligeros" <jcalligeros99@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-macaudio-v4-1-637484efe46d@gmail.com>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-1-637484efe46d@gmail.com>
+To: =?utf-8?b?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
+Cc: =?utf-8?b?bGludXgtcGh5QGxpc3RzLmluZnJhZGVhZC5vcmc=?= <linux-phy@lists.infradead.org>,
+ =?utf-8?b?ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc=?= <devicetree@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261103074913.1971025-3-hongliang.yang@cixtech.com>
+References: <20261103074913.1971025-1-hongliang.yang@cixtech.com>
+ <20261103074913.1971025-3-hongliang.yang@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:53:49 +0000
+Date: Tue, 03 Nov 2026 07:58:45 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,74 +63,68 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] ASoC: dt-bindings: cs42l84: loss of #sound-dai-cells const: 0 const=
-raint
+- [Low] phy: cix: missing select REGMAP for PHY_CIX_USB3 in Kconfig
 --
 
-commit 51c8f9a50da0d86d550f375ea1f80d7bccc11075
-Author: James Calligeros <jcalligeros99@gmail.com>
+commit d964298ad6351b3e6e7c48b5d622d1449937080f
+Author: Hongliang Yang (=E6=9D=A8=E5=AE=8F=E4=BA=AE) <hongliang.yang@cixtec=
+h.com>
 
-ASoC: dt-bindings: cs42l84: Allow referenced dai-common properties
+phy: cix: Add CIX Sky1 USB3 PHY driver
 
-This patch updates the cirrus,cs42l84 Devicetree binding schema to reference
-dai-common.yaml, switches additionalProperties to unevaluatedProperties, and
-removes the explicit #sound-dai-cells property definition.
+This commit adds a PHY driver for the multi-port Cadence SD0803 USB3 PHY fo=
+und
+on CIX Sky1 SoCs, handling initialization, reset, and clock management.
 
->     ASoC: dt-bindings: cs42l84: Allow referenced dai-common properties
->    =20
->     Some consumers may wish to prepend the codec's name with a known value
->     to identify a specific codec among many and set #sound-dai-cells. All=
-ow
->     this by allowing referenced properties from dai-common.yaml.
->    =20
->     Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-
-> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml =
-b/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml
-> index 94062c1d9d45f..66cae8b7db5da 100644
-> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml
-> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l84.yaml
-> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L84 audio CODEC
->  maintainers:
->    - Martin Povi=C5=A1er <povik+lin@cutebit.org>
-> =20
-> +allOf:
-> +  - $ref: dai-common.yaml#
+> diff --git a/drivers/phy/cix/Kconfig b/drivers/phy/cix/Kconfig
+> new file mode 100644
+> index 0000000000000..aaa2eb9d45527
+> --- /dev/null
+> +++ b/drivers/phy/cix/Kconfig
+> @@ -0,0 +1,20 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Phy drivers for Cix PHYs
+> +#
 > +
->  description: |
->    The CS42L84 is a headphone jack codec made by Cirrus Logic and embedded
->    in personal computers sold by Apple. It was first seen in 2021 Macbook
-> @@ -29,14 +32,11 @@ properties:
->    interrupts:
->      maxItems: 1
-> =20
-> -  '#sound-dai-cells':
-> -    const: 0
-> -
+> +if ARCH_CIX || COMPILE_TEST
+> +
+> +config PHY_CIX_USB3
+> +	tristate "Cix USB3 PHY Driver"
+> +	depends on OF && HAS_IOMEM
+> +	select GENERIC_PHY
 
 [Severity: Low]
-Does removing the const: 0 constraint on #sound-dai-cells weaken schema
-validation for cirrus,cs42l84 nodes?
+Does PHY_CIX_USB3 in drivers/phy/cix/Kconfig also need to select REGMAP?
 
-Documentation/devicetree/bindings/sound/dai-common.yaml only sets:
+In drivers/phy/cix/phy-cix-usb3.c, the driver defines cix_u3phy_regmap_cfg =
+as
+struct regmap_config, calls regmap_multi_reg_write() in sky1_u3phy_init(), =
+and
+calls devm_regmap_init() in cix_u3phy_probe():
 
-  properties:
-    '#sound-dai-cells': true
+drivers/phy/cix/phy-cix-usb3.c:sky1_u3phy_init() {
+	...
+		ret =3D regmap_multi_reg_write(u3phy->phy_regmap, sky1_u3phy_conf,
+					     ARRAY_SIZE(sky1_u3phy_conf));
+	...
+}
 
-However, the CS42L84 driver in sound/soc/codecs/cs42l84.c registers only a
-single DAI in cs42l84_i2c_probe():
+drivers/phy/cix/phy-cix-usb3.c:cix_u3phy_probe() {
+	...
+	u3phy->phy_regmap =3D devm_regmap_init(dev, NULL, u3phy, &cix_u3phy_regmap=
+_cfg);
+	...
+}
 
-  ret =3D devm_snd_soc_register_component(&i2c_client->dev,
-          &soc_component_dev_cs42l84, &cs42l84_dai, 1);
-
-Without const: 0 in cirrus,cs42l84.yaml, dtbs_check will allow non-zero
-#sound-dai-cells values even though the codec only supports 0 cells.
-
-Also, since cirrus,cs42l84.yaml already permitted #sound-dai-cells prior to
-this change, should the commit message be updated so it does not claim that
-referencing dai-common.yaml is needed to allow setting #sound-dai-cells, and
-should '#sound-dai-cells': const: 0 be retained here?
+In include/linux/regmap.h, struct regmap_config, devm_regmap_init(), and
+regmap_multi_reg_write() are guarded by CONFIG_REGMAP without fallback stubs
+when CONFIG_REGMAP is disabled. If CONFIG_PHY_CIX_USB3 is enabled in a
+configuration where no other option selects REGMAP, building phy-cix-usb3.o
+will fail due to an incomplete struct regmap_config type and implicit funct=
+ion
+declarations.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-macaudio-v=
-4-0-637484efe46d@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103074913.1971=
+025-1-hongliang.yang@cixtech.com?part=3D2
