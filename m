@@ -1,53 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738950;
-	b=MmNXn3alUWl94PmSedMLAvSJ1NY75KDXckZot3GOzkVgN1XFQdF+1ePR9c6QE3jXRB9q
-	 UZuzdsoWmecH/x2H88571R5ftTdlDvYY8iYAEcK6+6h/9mA869vDUTzAGI+4SKah0dcJM
-	 s3Pmzdlhe/KGWSXz8hpyore7nYdegv70LH+z4pe6+6g5RDMj7kcDcQBsxlbqabnR0KCmj
-	 gxdy5u3uq8X+swJWR8VMIevmAzYFAoUO95C/9PgJUsFMACCSZRtRaH6KX2V/cgQimHRUA
-	 SGCTAtfLET0M4AKm5DJ2FSU29MXuxyBmK6sBNG+9KYPWI4T5MXizsUL7RyO2kOz62Gg==
+	t=1793738967;
+	b=NIN5+KwlzVLo3epSVGob+XXYKohvyBIeV/pwNH3mqwbw4bjWGisYE6EoMqCoP2ZtLqL5
+	 10PWQxAUPApaSSKMF+zQARuTGtJKCg4879oWCLi3Bihq4eEK6HYgjVrNd42A9uaC6FOm2
+	 YqTbxSl1Sx2Qu78KmLg+t/7F26Su7ggIhxq+5/60OOFP6aUSNCWVMkH1YbO8sUB6Zc/C8
+	 1hDZCDWqZXxseZID3vxCSv05ARBt8iSlsRQMQynZ5ou8UKEogvV0/x338q6xB+z37keiz
+	 9l0QxX4rtZK+YIMfoIaCmIn1fkU9ZGelLSDuXPLbuLQv+nVxkLY9Iqom7vLNUfi0ILw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738950;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5pEXNHxm+1LvvbAJkBUjAraBQ2f8Pvm2T7kYMLzvOTo=;
-	b=HXm8UXAc/jElk8NIyV76lZtVPZPFSE9gIbS5IS3hlij5ZmJp46pWSmAGOV/Zdq8FPg4J
-	 oMD+xV94Fcfaj344JHYmcY+ws35dQrzeFzHyOBw4kq1qYcQw3nk+7vIHXdJ1AsGT3uKQH
-	 zgWD/+/xoWLBIqCENllpNPp9sRpmHhuE9NvcWue4uy6eX3qBQY5pD8iQ1HUu57KfBjJTH
-	 7GPiLcARIdimuyiAgjUXZups8/DPnzSh0miq+lStChJ76G5MkgsuAWbQ0d9kZzEUI+d7T
-	 PKK9aMfNLw5ltb357G66CDxTbTEN4XcUq3d+3fKf6gmKOcuQCwYMmN/GO4jXTw3iNkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738967;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=FGhJGJT7/ajXBG/Ryc6jGnf7WdwsklM7FcdhFTQMZHo=;
+	b=FeJ9aXyim6XCxKg+R2wuucWpiHCTIDVCx+X2uWxDbabidI9vQSUJJwzkv4IEyxVmvgEG
+	 ONKcP0K0WnjlCMafWiPYuPbEo4imYBvqkKUPbkHigE9G7kcssy0nm5+S0wmEmrYO0P7UZ
+	 WluLC0HwOd/TmqKa9qSbYZHUCNQmfJI78hr+DvTba3+ImCpOJAtsoLEY6M8eUtG3atoA7
+	 4X4koiOgL9LVSvXazrfaV4p637wCOIazdqgdN38xQ+K8wvKXaJIKp8GajYacNZvi9b29z
+	 O9+dY19ItU0wtxAAutozxweOVL1MOSZ/bo6pe5tN5iWMGlgt5FDjDT/zTOciOqyC3Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yn5XgSPj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gFZr+y5N;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25FB606A31B;
-	Tue,  3 Nov 2026 20:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2F5606A324;
+	Tue,  3 Nov 2026 20:49:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C2F5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yn5XgSPj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50F641F000C1;
-	Tue,  3 Nov 2026 20:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793738949;
-	bh=5pEXNHxm+1LvvbAJkBUjAraBQ2f8Pvm2T7kYMLzvOTo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yn5XgSPjb6TxnRFledsKv2fyS1EesjugD6FLhpc9yLDZH9hb/3AuGBSwwkx9erixE
-	 XxcZwxRJVF+4BSsT/LBQP1na6TeoHkRY2WD1CuRphbsK+35EAmFjQHwyVJNJNCzxre
-	 35vq0icSl8vbWm2ViJkIKTGhEpO3zBDxH/fbfJRAEJI4L9ebznM6zoCZ8wDgZYJbbE
-	 iT7UoAsr4Zv5906V17SZankD6S61NauJxzm0fsiv3HXeyeUgtuC5Nyzk4SaSwgelSR
-	 cy3jGqaUfucpDy8j//WLhlUSRmw6c3OW62FUbvTk1TEFeemgLrjJ46E2GEEAa32rZs
-	 s7Y7Oxyprnztw==
-Date: Tue, 3 Nov 2026 14:49:07 -0600
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH net-next] dt-bindings: net: Convert snps,dwc-qos-ethernet
- to DT schema
-Message-ID: <20261103204907.GA3951195-robh@kernel.org>
-References: <20261102203353.1384705-1-robh@kernel.org>
- <sashiko-outbox-195992@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gFZr+y5N
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=FGhJGJT7/ajXBG/Ryc6jGnf7WdwsklM7FcdhFTQMZHo=; b=gFZr+y5NvotJO80HhnQaOhsgTN
+	YFOM0LShQYwZ2DbGuI2G5b90By4jiBXrTPrPIpZ6vEQDqbbCad4V807MCpRYqXpajD6DuA2AdJiBp
+	iTA8FAZDX76W0LBFSJNO25mq2MdLiCdO2bYqbvHfZS1cFGZpS4SYNCut2te9orGXAUtQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOLRP-00EAjb-DH; Tue, 03 Nov 2026 21:49:11 +0100
+Date: Tue, 3 Nov 2026 21:49:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ciprian Regus <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 0/5] net: ethernet: adi: adin1110: Add OPEN
+ Alliance TC6 support
+Message-ID: <49b292c4-c0e9-4b19-aa4d-d15dd20d25b6@lunn.ch>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,34 +76,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-195992@kernel.org>
+In-Reply-To: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
 
-On Tue, Nov 03, 2026 at 08:34:17PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: net: snps,dwc-qos-ethernet-4.10: redundant maxItems on clocks
-> --
-> 
-> commit ccf9541bde2e61e4e9ad2f4d7325ff792d7181d2
-> Author: Rob Herring (Arm) <robh@kernel.org>
-> 
-> dt-bindings: net: Convert snps,dwc-qos-ethernet to DT schema
-> 
-> This commit converts the snps,dwc-qos-ethernet-4.10 binding to DT schema
-> format and moves shared properties to snps,dwmac-common.yaml. It also drops
-> unused compatibles and updates the example to use Tegra186.
-> 
-> [Severity: Low]
-> In Documentation/devicetree/bindings/net/snps,dwc-qos-ethernet-4.10.yaml at
-> line 39 under properties:clocks, maxItems: 5 is specified alongside a
-> 5-element items list without additionalItems: true.
-> 
-> In the devicetree meta-schema (meta-schemas/items.yaml), when items is a
-> fixed-order list, maxItems is implicitly set to the length of the items list
-> and explicitly specifying maxItems is disallowed.
-> 
-> Does this cause dt_binding_check / dt-doc-validate to fail on
-> properties:clocks:maxItems, and should maxItems: 5 be removed here?
+On Tue, Nov 03, 2026 at 06:09:13PM +0200, Iustin Stolniceanu wrote:
+> The ADIN1110 supports two SPI host interface protocols: the generic SPI
+> protocol, which the adin1110 driver implements today, and the OPEN
+> Alliance TC6 protocol. The protocol is selected by the SPI_CFG1 pin,
+> which the device latches when it comes out of reset.
 
-Yes, I left this fix in my tree uncommitted before sending this...
+Is it possible to read the status of this pin from a register?
 
-pw-bot: cr
+   Andrew
