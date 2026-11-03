@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705778;
-	b=tolI9JNTsONTqhny39/nJEuQMSvzyu3vyKqXzoGWqYB0IYU2CDMAXiytbTK1Ac2gMKGX
-	 j9nMWNYzNPyZpJIZFx/UH05n3j4soru3NXxx+U24YJJ2xqZiMu/Qms3urt/J7lyJ2Fx8Q
-	 cm4x6ptfd4bAiX5P84oKeRw1gux3B5gF8XsLNDtpEUFVxg4J0ZDp4HV7l5+/kZoVpIzHq
-	 /l6wCJrYMwDrQx/XhTr2Q8JmHcEEt8THRE3PCHaM5M372pRqCOZHcSnwZvf3mS5u/GJL3
-	 cBoX7ldmzppJMzctu6plOIvx79JCTSgoSrlEiB1VUjCaRVgwa6Wq5KlFvLsSE9Safuw==
+	t=1793705780;
+	b=ERPvgbaUts7z553ErGFQIKR6x8u3SX+nQ42Wl/BJeMUKS1UGhs/yUI82mAtfTQRDBLGV
+	 I5xlOSePos30H52DeXAEvVpnEb8t5oR7LEOTG1Bjm22u+y74MmB9nXY4K0ye9b/JzWKd3
+	 pIW0W13ZRlt2aukQPrhDyNQx9zDw8SZepRbiEocvUARFFH6ZqArrci+jVEwxdvzHRCzXT
+	 yEO1PJXXjm/jfuY7qfwiKQn0qdMRXeUSKThP63KAt2KhwtxfnpovprmaF5u2b4InSbnkR
+	 wawWNdZDlMuQuu3c41lDIN9q1p9jOBcb3ylQFd4p87sZ0TYPDhSYSMUZRVCDf1KPjcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705778;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705780;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Hkg06kMkGpDl6NYXxV87/LdFbQkm6+fXg9an6FXsgdc=;
-	b=laUjRKC+p7apkEenccS8hVvmdgBpKC38vQCaz3HPjjduSHqBAUR8YxCTiF31tvfrZccU
-	 JESJ8Pfpv3dJNs14iyusaI32V78ANOFZ008MPCT03R1VvUdnG0FcuqqsUuEE/jih6heu4
-	 N2Kafy2ykyBMQ9vYFFQrgZmYQ8MS8BtNNnNqT/Trgy9eW10B+PRHa/KI9AmKwUErJyqPI
-	 Vku9c1Y9KSsVpp3B8/xGp2dGY8krJZ0AqYnE61GAN2OI7Ynzh5dT/mKNFgZdjQA/B/TLk
-	 F44vLShqCkPf2sVDqfY3S5ooS/4cokK9iqqvIO/jE3dbR70+dIuHcIPVHtcwgceL2Cw==
+	bh=GD1SL19iwFjVAJ/qykCRRPQN2n90aLSCCxJnZirXzBI=;
+	b=DNGiwaIay0pgsO5tOcgo/FTmtPaSIbgbvUjwRoiU3nwOr3OnUlaX73b2JGg1UIh/+6by
+	 J/vQdLVXzxCU2xGi0plJkE6IkCVTa/+v/tZf7lyYKgNRVh6ywXfEymQrkIyGxcLSCGDgt
+	 zLW3J+4HqsFBhQ8DKHAPqMhtg8EKkjESSU3EkPbqQ6OZPCvaRMk8DBbDmPBXkiQiFFInh
+	 oHv38DBJ80XZGh3iMA6MT2hZG43sZ/CUnD67pIfuQsPEF9+jUlvYy8HGZDAMHbxcyUbuT
+	 Wsy41mddj8vrGCZE5X9YveztOWy1Galy7B39SkxqIubJJd25VnB/oOgFEr7uwFPAe4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Nc19oQi5;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=VgoLJol0;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20006082BE1;
-	Tue,  3 Nov 2026 11:36:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A20006082BE1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA9D6082BE7;
+	Tue,  3 Nov 2026 11:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA9D6082BE7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Nc19oQi5
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=VgoLJol0
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5C13B1D12;
-	Tue,  3 Nov 2026 12:33:52 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9E1002022;
+	Tue,  3 Nov 2026 12:33:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793705633;
-	bh=VdQD5e8RQEfseqp8dAXGa1dYEGrJdW8Nr5b9vOkh6Ds=;
+	s=mail; t=1793705635;
+	bh=kJlmFA//cCbJpgb3G8IFGZ8O2b1twdN/0LD7q/cWAWo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Nc19oQi5UwgaanRL1HBfWoKpqttq9RNSMZ+LEtGft1u0gsv3CYeMESz0W5VahxHaD
-	 APKHOmlLjfuMlOe6T8dQy6Wtp4P1XkHNcXqAXdZ1zUc8JrLa09iyrjrUgVRCwE0jMS
-	 bjLjWI8UcDHhOI0vzX5AhUFh5NL03zedEZ/XHNgM=
+	b=VgoLJol0mK4OCbEHrlvm/AYH4T0qe4sB8Gb1QB9LItZHtUCohn9KLOz2/DSWZyBCN
+	 1PUjDvLtGLbIyt8jL5a3sgwySCS3vDMWh+fD5mbEFqHnsCfIg/FQG7/ZOZJgRTSDYq
+	 /aQN+WfcGgQijBWpkdLHmANDZ0L0V94JhMLfVRC4=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:32 +0200
-Subject: [PATCH v5 12/15] drm/tidss: oldi: Add power domain support
+Date: Tue, 03 Nov 2026 13:34:34 +0200
+Subject: [PATCH v5 14/15] arm64: dts: ti: k3-am62p-j722s-common-main: Add
+ support for DSS
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-12-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-14-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -71,190 +72,291 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Jayesh Choudhary <j-choudhary@ti.com>, Aradhya Bhatia <a-bhatia1@ti.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4927;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9767;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=VdQD5e8RQEfseqp8dAXGa1dYEGrJdW8Nr5b9vOkh6Ds=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccZydHLz1k3kSYU1yBegIQnwN3Rb88xaMPrt
- mxV0f/B9IGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGQAKCRD6PaqMvJYe
- 9ap9D/9/pK5sMsiaLh5ZwKnEjV5ejLOzBRdMjfCXnzv+5XUJysl6RYj8mZ7MYFINqYeDL6uq2CK
- EgAK/spnYLtdvUGhtpY3k2nVpS+BID4apVhgowLiVo+SW99+fBO6gt2jEx1Whw/SW2evtgb0ehM
- xB04SmwE0AzqmGiJjGs9vcjsBKgGz9GEPq9fUrxgY9cQL17voZ5UW82tuf7kpBiAV0iF+L91CIX
- nl6kUOkjmToO07SHeRwqqZ5xDFta//2igK7u8T5/D55VZbhBsGchJI97t2xrd0Q6wn/fz8yUEHD
- 3D8YXQpdUAWpysXv39k3qFju5D5LG6d/blyJfUVJwvpabgtOoqYpkEO8OJPJku6+lbjpwJAmzxO
- y0207VAEpflloDDBpYV3AfN65OEnUwsF2aEdcKJ/Vs4CG9pzzIOoYgyz5WPGC7MiQ2G/TWsmJ7r
- RO80jmUJcptFKJsClMs4ZwHyfpPOp49OB0w0kuYcNo/nYoy9l8iy0pPTfSq2c/mZlLBwtw19Bih
- JQOxwjzDUbSERifQAOVKWP7RtM4pHMapc+gPBO5xtZsKbGxo5TaOK3+qGD1CYVIOazSdIwZFHil
- H4NphmkZAljxaRkJnTm+wA39Cmgr5SSOAg8sRpRCiDeOmro7HcDWd8JNZEQ8nPniRm81gysvMN6
- nYjuhNs9ZGrtARg==
+ bh=ZPDkTaOeWTJ64kV5d8UXrMFvdVDZNiZ7dgqhIkmvEeg=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccaSd+KzvaZJodvx0Oplt7qvN1rOjApS00oK
+ +VSEjQgvL6JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGgAKCRD6PaqMvJYe
+ 9fqXD/0ZY7Q5TB06T8P2c/VTj/rcWPd+pZ1WBEDYOETAvzqyvPkiMRLdfValYlcrHyMEgtqqCtH
+ Ps5DR20M9b5SbDGDWt2m3KMVe9UUxi3unspf/dQM0bPsocGmCaPbCfYFndIelGDrXIjAzXVtf1x
+ Q5GCoOohPadT1IjstSXTx6PBvGCEwCdXVMQhVqB3HOANnE9/mJ/xrULeDcGmXbI99YJeZV2OYuz
+ +pm+ml/xiqlfYthvkL7wUwvN8DtKeadSfqETV+PYc4eavigNaWOwwPayuHWOT7vgZYqrDNpYMKY
+ aCdKqEAjcA6kOerbvpyNP8VFyySh0cshELOM3Lyfz8u2eFqL+6AbOHomtgMnPqxe0kpeV/i0+gq
+ fu+8lECw0M6AZ91sfkf31BVGeNO7h759KEyJVH8L/+Anr0fkQOZE/U+8iraM3LEyJeDQ++bK8vG
+ hmwSkgso+NW/gEjV+91Ag5aBphhPOGvpAuMuzLekHc22rNrZfs7CxXjHHdhtVqrOIGdggeVRRty
+ khLTAluirc3ObPNNC57CAE0OG3beH4SyPzDLe+EplY7OP8HygC9FuUn+p6x3npdnk9C4y5JTSjj
+ UnzFhy+V0OFcFnamjxTp39AKbJIJkQuJ+upvx0+FCITXNTmIjALijNtCxE658x7uDa3oVw4DC+y
+ C83JQyibOqQrxug==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-The OLDI TXes on AM62P and J722S have power domains of their own,
-described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
-real devices, so the driver core does not attach these power domains,
-and nothing in the core turns them on.
+From: Jayesh Choudhary <j-choudhary@ti.com>
 
-Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
-manage the power state of the returned virtual devices with runtime PM
-functions.
+TI's AM62P and J722S SoCs support 2 display subsystems (DSS), DSS0 and
+DSS1, each with two video ports (VP) and two video planes. The outputs
+from the DSS VPs can be routed to two OLDI TXes (OLDI0, OLDI1), a DSI
+TX, or parallel DPI output.
 
+DSS0 supports:
+- VP0: OLDI0 in single-link mode or OLDI0 and OLDI1 in dual-link or
+  clone mode.
+- VP1: DPI
+
+DSS1 supports:
+- VP0: OLDI1 in single-link mode, or DPI
+- VP1: DPI or DSI
+
+The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
+between the DSS instances. Thus only a single VP can output to DPI, and
+a single VP can use an OLDI block. Note that in single-link
+configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
+be used by DSS1.
+
+Add the necessary nodes to k3-am62p-j722s-common-main.dtsi, including
+DSS0, DSS1, OLDI0, OLDI1, DPHY and DSI.
+
+An important note about OLDIs:
+
+We have two OLDI hardware blocks. Each OLDI has certain configuration
+that has to be done before it can be used. The OLDI blocks get this
+configuration directly from the DSS block, via DSS registers. However,
+as a single OLDI block can be used either with DSS0 or DSS1, the
+source for the configuration changes according to (probably, this is
+unclear) a DSS related clock mux.
+
+So, afaics, when thinking about Linux device hierarchy wrt. control
+busses, OLDI blocks are children of DSS blocks, and they reside in a
+special DSS bus. And the OLDI parent changes according to the mux. As
+far as I know, there is no way we can represent this in the DT.
+
+Thus the solution used here (and in the driver) is that each DSS node
+contains the OLDI nodes that can be used with that DSS. Thus the DSS0
+node has two child nodes, OLDI0 and OLDI1, and the DSS1 node has one
+child node, OLDI1. The OLDI1 nodes thus refer to the same piece of
+hardware, and they cannot be used at the same time. The selection which
+OLDI nodes to use are chosen in the board dts files, so assuming the dts
+files are correct, no resource conflict can happen.
+
+This is not a very nice solution, but the hardware doesn't make it easy
+to have a clean solution, and, most importantly, this works.
+
+Signed-off-by: Aradhya Bhatia <a-bhatia1@ti.com>
+Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+[tomi.valkeinen: various fixes and improvements]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 90 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 89 insertions(+), 1 deletion(-)
+ .../boot/dts/ti/k3-am62p-j722s-common-main.dtsi    | 110 +++++++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-am62p.dtsi               |  20 ++++
+ arch/arm64/boot/dts/ti/k3-j722s.dtsi               |  16 +++
+ 3 files changed, 146 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 5552c1c51074..f898a2bde653 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -10,6 +10,8 @@
- #include <linux/of_graph.h>
- #include <linux/mfd/syscon.h>
- #include <linux/media-bus-format.h>
-+#include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+index f130c7cb998d..ae8db1bccadd 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+@@ -64,6 +64,11 @@ audio_refclk1: clock-controller@82e4 {
+ 			#clock-cells = <0>;
+ 		};
  
- #include <drm/drm_atomic_helper.h>
-@@ -35,6 +37,12 @@ struct tidss_oldi {
- 
- 	struct clk *serial;
- 	struct regmap *io_ctrl;
++		dss_oldi_io_ctrl: oldi-io-controller@8600 {
++			compatible = "ti,am625-dss-oldi-io-ctrl", "syscon";
++			reg = <0x8600 0x200>;
++		};
 +
-+	/*
-+	 * The power domains of this OLDI TX and, in dual-link mode, of its
-+	 * companion. NULL for an OLDI TX without a power domain of its own.
-+	 */
-+	struct device *pd_devs[2];
+ 		phy_gmii_sel: phy@4044 {
+ 			compatible = "ti,am654-phy-gmii-sel";
+ 			reg = <0x4044 0x8>;
+@@ -1111,6 +1116,63 @@ dphy0: phy@30110000 {
+ 		status = "disabled";
+ 	};
+ 
++	dphy_tx0: phy@301c0000 {
++		compatible = "ti,j721e-dphy";
++		reg = <0x0 0x301c0000 0x0 0x1000>;
++		clocks = <&k3_clks 238 16>, <&k3_clks 238 1>;
++		clock-names = "psm", "pll_ref";
++		#phy-cells = <0>;
++		power-domains = <&k3_pds 238 TI_SCI_PD_EXCLUSIVE>;
++		assigned-clocks = <&k3_clks 238 1>;
++		assigned-clock-parents = <&k3_clks 238 2>;
++		assigned-clock-rates = <25000000>;
++		status = "disabled";
++	};
++
++	dss0: dss@30200000 {
++		compatible = "ti,am62p-dss";
++		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
++		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
++		      <0x00 0x30206000 0x00 0x1000>, /* vid */
++		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
++		      <0x00 0x30208000 0x00 0x1000>, /* ovr2 */
++		      <0x00 0x3020a000 0x00 0x1000>, /* vp1: Used for OLDI */
++		      <0x00 0x3020b000 0x00 0x1000>, /* vp2: Used as DPI */
++		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
++		reg-names = "common", "vidl1", "vid",
++			    "ovr1", "ovr2", "vp1", "vp2", "common1";
++		power-domains = <&k3_pds 186 TI_SCI_PD_EXCLUSIVE>;	/* DSS0 */
++		clocks = <&k3_clks 186 6>,
++			 <&dss0_vp1_clk>,
++			 <&k3_clks 186 2>;
++		clock-names = "fck", "vp1", "vp2";
++		interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
++		status = "disabled";
++
++		oldi-transmitters {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			dss0_oldi0: oldi@0 {
++				reg = <0>;
++				clocks = <&k3_clks 186 0>;
++				clock-names = "serial";
++				ti,oldi-io-ctrl = <&dss_oldi_io_ctrl>;
++				power-domains = <&k3_pds 243 TI_SCI_PD_EXCLUSIVE>; /* OLDI0_VD */
++				status = "disabled";
++			};
++
++			dss0_oldi1: oldi@1 {
++				reg = <1>;
++				clocks = <&k3_clks 186 0>;
++				clock-names = "serial";
++				ti,oldi-io-ctrl = <&dss_oldi_io_ctrl>;
++				power-domains = <&k3_pds 244 TI_SCI_PD_EXCLUSIVE>; /* OLDI1_VD */
++				status = "disabled";
++			};
++		};
++	};
++
+ 	vpu: video-codec@30210000 {
+ 		compatible = "ti,j721s2-wave521c", "cnm,wave521c";
+ 		reg = <0x00 0x30210000 0x00 0x10000>;
+@@ -1119,6 +1181,54 @@ vpu: video-codec@30210000 {
+ 		power-domains = <&k3_pds 204 TI_SCI_PD_EXCLUSIVE>;
+ 	};
+ 
++	dss1: dss@30220000 {
++		compatible = "ti,am62p-dss";
++		reg = <0x00 0x30220000 0x00 0x1000>, /* common */
++		      <0x00 0x30222000 0x00 0x1000>, /* vidl1 */
++		      <0x00 0x30226000 0x00 0x1000>, /* vid */
++		      <0x00 0x30227000 0x00 0x1000>, /* ovr1 */
++		      <0x00 0x30228000 0x00 0x1000>, /* ovr2 */
++		      <0x00 0x3022a000 0x00 0x1000>, /* vp1: Used for DPI/OLDI */
++		      <0x00 0x3022b000 0x00 0x1000>, /* vp2: Used for DPI/DSI */
++		      <0x00 0x30221000 0x00 0x1000>; /* common1 */
++		reg-names = "common", "vidl1", "vid",
++			    "ovr1", "ovr2", "vp1", "vp2", "common1";
++		power-domains = <&k3_pds 232 TI_SCI_PD_EXCLUSIVE>;	/* DSS1 */
++		clocks = <&k3_clks 232 8>,
++			 <&dss1_vp1_clk>,
++			 <&k3_clks 232 4>;
++		clock-names = "fck", "vp1", "vp2";
++		interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
++		status = "disabled";
++
++		oldi-transmitters {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			dss1_oldi1: oldi@1 {
++				reg = <1>;
++				clocks = <&k3_clks 232 0>;
++				clock-names = "serial";
++				ti,oldi-io-ctrl = <&dss_oldi_io_ctrl>;
++				power-domains = <&k3_pds 244 TI_SCI_PD_EXCLUSIVE>; /* OLDI1_VD */
++				status = "disabled";
++			};
++		};
++	};
++
++	dsi0: dsi@30500000 {
++		compatible = "ti,j721e-dsi";
++		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
++		clocks = <&k3_clks 231 2>, <&k3_clks 231 5>;
++		clock-names = "dsi_p_clk", "dsi_sys_clk";
++		power-domains = <&k3_pds 231 TI_SCI_PD_EXCLUSIVE>;
++		interrupt-parent = <&gic500>;
++		interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
++		phys = <&dphy_tx0>;
++		phy-names = "dphy";
++		status = "disabled";
++	};
++
+ 	hsm: remoteproc@43c00000 {
+ 		compatible = "ti,hsm-m4fss";
+ 		/* contiguous regions but instantiated separately in HW */
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p.dtsi b/arch/arm64/boot/dts/ti/k3-am62p.dtsi
+index 9d6266d6ddb8..08541e615fb6 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p.dtsi
+@@ -89,9 +89,13 @@ cbass_main: bus@f0000 {
+ 			 <0x00 0x0fd80000 0x00 0x0fd80000 0x00 0x00080000>, /* GPU */
+ 			 <0x00 0x20000000 0x00 0x20000000 0x00 0x0a008000>, /* Third peripheral window */
+ 			 <0x00 0x30040000 0x00 0x30040000 0x00 0x00080000>, /* PRUSS-M */
++			 <0x00 0x301c0000 0x00 0x301c0000 0x00 0x00001000>, /* DPHY-TX */
+ 			 <0x00 0x30101000 0x00 0x30101000 0x00 0x00010100>, /* CSI window */
+ 			 <0x00 0x30200000 0x00 0x30200000 0x00 0x00010000>, /* DSS */
+ 			 <0x00 0x30210000 0x00 0x30210000 0x00 0x00010000>, /* VPU */
++			 <0x00 0x30220000 0x00 0x30220000 0x00 0x00010000>, /* DSS1 */
++			 <0x00 0x30270000 0x00 0x30270000 0x00 0x00010000>, /* DSI-base1 */
++			 <0x00 0x30500000 0x00 0x30500000 0x00 0x00100000>, /* DSI-base2 */
+ 			 <0x00 0x31000000 0x00 0x31000000 0x00 0x00050000>, /* USB0 DWC3 Core window */
+ 			 <0x00 0x31100000 0x00 0x31100000 0x00 0x00050000>, /* USB1 DWC3 Core window */
+ 			 <0x00 0x40900000 0x00 0x40900000 0x00 0x00030000>, /* SA3UL */
+@@ -144,6 +148,22 @@ cbass_wakeup: bus@b00000 {
+ 		};
+ 	};
+ 
++	dss0_vp1_clk: clock-divider-oldi-dss0 {
++		compatible = "fixed-factor-clock";
++		clocks = <&k3_clks 186 0>;
++		#clock-cells = <0>;
++		clock-div = <7>;
++		clock-mult = <1>;
++	};
++
++	dss1_vp1_clk: clock-divider-oldi-dss1 {
++		compatible = "fixed-factor-clock";
++		clocks = <&k3_clks 232 0>;
++		#clock-cells = <0>;
++		clock-div = <7>;
++		clock-mult = <1>;
++	};
++
+ 	#include "k3-am62p-j722s-common-thermal.dtsi"
  };
  
- struct oldi_bus_format {
-@@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
- 	return 0;
- }
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s.dtsi b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+index ca10c6904b69..dd04accfc518 100644
+--- a/arch/arm64/boot/dts/ti/k3-j722s.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+@@ -228,6 +228,22 @@ cbass_wakeup: bus@b00000 {
+ 		};
+ 	};
  
-+static void tidss_oldi_power_get(struct tidss_oldi *oldi)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
-+		if (oldi->pd_devs[i])
-+			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
-+	}
-+}
++	dss0_vp1_clk: clock-divider-oldi-dss0 {
++		compatible = "fixed-factor-clock";
++		clocks = <&k3_clks 186 0>;
++		#clock-cells = <0>;
++		clock-div = <7>;
++		clock-mult = <1>;
++	};
 +
-+static void tidss_oldi_power_put(struct tidss_oldi *oldi)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
-+		if (oldi->pd_devs[i])
-+			pm_runtime_put(oldi->pd_devs[i]);
-+	}
-+}
++	dss1_vp1_clk: clock-divider-oldi-dss1 {
++		compatible = "fixed-factor-clock";
++		clocks = <&k3_clks 232 0>;
++		#clock-cells = <0>;
++		clock-div = <7>;
++		clock-mult = <1>;
++	};
 +
- static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
- {
-@@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
- 		return;
+ 	#include "k3-am62p-j722s-common-thermal.dtsi"
+ };
  
-+	tidss_oldi_power_get(oldi);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state,
- 							     bridge->encoder);
- 	if (WARN_ON(!connector))
-@@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
- 
- 	/* Clear OLDI Config */
- 	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
-+
-+	tidss_oldi_power_put(oldi);
- }
- 
- #define MAX_INPUT_SEL_FORMATS	1
-@@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
- 	return -ENODEV;
- }
- 
-+static void tidss_oldi_detach_pd(void *data)
-+{
-+	struct device *pd_dev = data;
-+
-+	dev_pm_domain_detach(pd_dev, true);
-+}
-+
-+static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
-+					       struct device_node *oldi_tx)
-+{
-+	struct device *dev;
-+	int ret;
-+
-+	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
-+	if (IS_ERR_OR_NULL(dev))
-+		return dev;
-+
-+	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return dev;
-+}
-+
-+static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
-+				     struct tidss_oldi *oldi,
-+				     struct device_node *oldi_tx)
-+{
-+	struct device_node *companion;
-+	struct device *pd_dev;
-+
-+	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
-+	if (IS_ERR(pd_dev))
-+		return PTR_ERR(pd_dev);
-+
-+	oldi->pd_devs[0] = pd_dev;
-+
-+	if (oldi->companion_instance < 0)
-+		return 0;
-+
-+	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
-+	if (!companion)
-+		return -EINVAL;
-+
-+	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
-+	of_node_put(companion);
-+	if (IS_ERR(pd_dev))
-+		return PTR_ERR(pd_dev);
-+
-+	oldi->pd_devs[1] = pd_dev;
-+
-+	return 0;
-+}
-+
- void tidss_oldi_deinit(struct tidss_device *tidss)
- {
- 	for (int i = 0; i < tidss->num_oldis; i++) {
-@@ -584,7 +666,7 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
- 
- 	/*
- 	 * Only the primary OLDI needs to reference the io-ctrl system
--	 * registers, and the serial clock.
-+	 * registers, the serial clock and the power domains.
- 	 * We don't require a check for secondary OLDI in dual-link mode
- 	 * because the driver will not create a drm_bridge instance.
- 	 * But the driver will need to create a drm_bridge instance,
-@@ -608,6 +690,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
- 					    oldi_instance);
- 			return ret;
- 		}
-+
-+		ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
-+		if (ret)
-+			return dev_err_probe(tidss->dev, ret,
-+					     "OLDI%u: Failed to set up the power domains.\n",
-+					     oldi_instance);
- 	}
- 
- 	/* Register the bridge. */
 
 -- 
 2.43.0
