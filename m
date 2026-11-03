@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729951;
-	b=MyalvV7fZkyQaBRvr36RgoMriYxjfiCvSUDbEILzPBvGfrpDgiogB2c2iKt5LEXLoHTy
-	 JR71oBGTW0f/fGEJUBGuKtdKrjad65o3g+xXKRxuuluS4Odjg6ok31hgsDLuNUi5UXAOj
-	 Zk3n3Liy49gWtpxlZ89YuYaM4rAwhNFb5xLPZiKuUoiQRU0tpgq2YL3/p3811YP997Upy
-	 6u6bYGGB4FbONA/8cCjpRyYym5Sn+ZbMlTMVOZEzJ1l00tMqG2IO1r2JhTrOMuO6Zvyl+
-	 NzFdtOIxX6MRF4G1fBdJuIqElynmjpAa+XQacIqozUlndtteiHrtMSzpL0VodX0ZzCA==
+	t=1793730083;
+	b=KwZFTCI/i/WiYXF2kfmpxJ3jpPZBIEknmjCuf6bIkzsQTRlz5+RpqdDQpX3krLiDixaK
+	 7M6UzygTRKug6R0FArCjLzbOePhOzxI415hzHPSJLF3DUl1HKuV93YkKKmJ6EUuNbMRv+
+	 iPm0TsNeNuiDWFvgWtHBf8jafdrY8pGYWanvHjQZurw1zR+Oed1z2hRqpgln74P+A7kXN
+	 Exr2s3/3ssNghVuvoaPh8Py2czwkdJCziagWwLZ+8FtB3JmewjWyrz7H36kzFRIXDFrWH
+	 ftE0K3Uy+IdEHRNy3MyCcqAi9lepv9lO0kP+KLFojBogNHw2X0MKM6sZweFY3Tooc3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729951;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
-	bh=MOf4jGoNjklui20b3tjGfAb5reyk40611yCdNTmL8YM=;
-	b=NP2rq2jtgZkL1igJP9hF9n57b/mCHZI+Mh7SxzXRkUEX08EZ2EkxHoWZdjzDwBEAHMh0
-	 OAywiSFdgQxrRzooPJkNP1wfsTA3ouM5a0nVxZ461jOqVsD+5kYZ5kam3BWorf7F0ivHV
-	 IvUeaEgGICExnqSVIvNLnbcVb9hcbZAkiP4Uwk7QDL1uZxhjxr7LQ+momdD5uVdGjb/mN
-	 LSjXjGCQX7Gpkyd4MEoqMAWLOIh89TnTNoPNdfUucsGpGxErg7e2T3+y4t5NvMlKOwwu3
-	 UmK0igs88yN/4a9nUSwxYx9qJ4/g53qKUnBYMSCJHtnqDt+H2k/q2SlffAx9PkTgHuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730083;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FFg5lBDyaTkqCOMiyU7y1v3jtarrni8pj6cJLPTtz/k=;
+	b=vqrc4zeXhMDZBx8RB8z4kt64ZoHoJ3AN0QLkyiXqaFX6T9JwqpR+2unjt4pB6PVj7T9S
+	 9WzQz0tIu7kSHyikUdW1t+y29vTiMN4LNHjAskxxVwCIvhmfwmVJfAiB2SwyKxhsic0ln
+	 zYrGRFGeccDxtvFqX1v5XbBHphq28zJpRNe5teXcjCb0zIC1CCMy2/4UqykQOAuG70AWS
+	 8Qe3toxKBjHqPe927zJ0iyTSEgdBLEf2dY3YAnPAABrv+PYSNLlIhEWWqmW5yZ+yc62+1
+	 ZvfpJtHtfiQy0vaCZGP9O5dUi1LH5k44m9Rjih31pq320B85jZnyuif1DIzg+ry3ZKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=0leil.net;
-	spf=pass smtp.mailfrom=0leil.net;
-	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=DsXd0tFD;
-	arc=none smtp.remote-ip=83.166.143.169
-Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch [83.166.143.169])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JRkM/Gwg";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C21606A32E
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 18:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C21606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F2E606A324;
+	Tue,  3 Nov 2026 18:21:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=DsXd0tFD
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJxff68bgzkyT;
-	Tue,  3 Nov 2026 19:19:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1793729946;
-	bh=MOf4jGoNjklui20b3tjGfAb5reyk40611yCdNTmL8YM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=DsXd0tFDLTDRXX3RSqyLlcB1kW3IhvNccFTPnIAI9MNsLSqO9qNP0Vs4mUtBu/E5x
-	 fv/PF2FeyeNnamovPYIvlSII91vhuXpDLPSw8/XrlQ0MyTUd6pDcAFcX47FpKUX3p7
-	 fr+Sl/a5D+vQXNBQxC3OXLqKsvTWXcvNdKP9kpIbTA2IFW/3zPR7CFtZHUy+miu04S
-	 HPayaCPNIuz2g8Puj9gFKsi9Fu4qncciMG79Fuf7XCBpUgBsXP0Q/6XS98XwD49Wku
-	 /cyKq7brUT4mXjalsDI+jCHPRvXgq+XwEx9nAdpjxQuP8CCE0+1BOAT2M9PzG5Nhie
-	 0a6/TJtBedWQw==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJxfd4ttrzfD0;
-	Tue,  3 Nov 2026 19:19:05 +0100 (CET)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Tue, 03 Nov 2026 19:18:58 +0100
-Subject: [PATCH] arm64: dts: rockchip: support camera module on Haikou
- Video Demo on RK3399 Puma
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRkM/Gwg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9FD1F00A15;
+	Tue,  3 Nov 2026 18:21:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793730083;
+	bh=FFg5lBDyaTkqCOMiyU7y1v3jtarrni8pj6cJLPTtz/k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JRkM/Gwg3Yp3XqQ43iKxJKBDjXY3d6QFU6avJyOTBXRoYR0bnVOoV0c3otj23KqiF
+	 3pQQlb50xV8Vls8XvLBtU+uoXcaCxa7udtEs6jv6tqF9mvO9MxIyYwFm/A91KVJVOd
+	 R72yASFR2heC4eCnDvKxBbgaVXDcRP1cA8fClEQg8IEWgtfhfG35EYBQwE3zKYggtq
+	 vKsI8M6ht4jzbvF8ubctqDIaIuxrbwRllqjqlv1b2GzR21pXAdD8Eqfs+eOY1K55JW
+	 UN9rpgrj1YDYXYb4NY/TbxWK/KyJFWM7TMeclo+gFZ4SvvdjjspaplJxjXz6OHr5mY
+	 Ofkw3A1QNe/JQ==
+Date: Tue, 3 Nov 2026 18:21:18 +0000
+From: Conor Dooley <conor@kernel.org>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	linux <linux@analog.com>
+Subject: Re: [PATCH v5 4/8] dt-bindings: iio: imu: Add bindings for ADI
+ ADIS16607
+Message-ID: <20261103-defective-clip-8b6689ecf2cb@spud>
+References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
+ <20261102-adis16607-v5-4-4f98b0d271ac@analog.com>
+ <20261102-barista-haste-6f219aa98c81@spud>
+ <20261103-accomplished-real-cuttlefish-b6efdc@quoll>
+ <LV9PR03MB841498F9B9889C8F1908EF01F7692@LV9PR03MB8414.namprd03.prod.outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,139 +74,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-rk3399-puma-haikou-video-demo-cam-v1-1-9a49d97839b5@cherry.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ7CIBBG4as0s3aSUhIiXsW4oPBrx4bSgDQmT
- e8u6vLbvLdTQRYUunQ7ZWxSJC0N6tSRn9zyAEtopqEfjFK95jxrbS2vNTqenMyp8iYBiQNiYu8
- ih7MZYbR1VoFaZ824y/v3uN7+LnV8wr++YTqOD1jo+mCFAAAA
-X-Change-ID: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.17-dev
-X-Infomaniak-Routing: alpha
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KxjI3xIIqfBUAzAW"
+Content-Disposition: inline
+In-Reply-To: <LV9PR03MB841498F9B9889C8F1908EF01F7692@LV9PR03MB8414.namprd03.prod.outlook.com>
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+--KxjI3xIIqfBUAzAW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The Haikou Video Demo adapter has a proprietary connector for a camera
-module which has an OV5675 camera sensor and a companion DW9714 focus
-lens driver.
+On Tue, Nov 03, 2026 at 12:15:50PM +0000, Sabau, Radu bogdan wrote:
+> > -----Original Message-----
+> > From: Krzysztof Kozlowski <krzk@kernel.org>
+> > Sent: Tuesday, November 3, 2026 12:55 PM
+>=20
+> ...
+>=20
+> > > > The binding exposes optional properties for:
+> > > >   - An external clock for sync mode (falling back to the internal 8=
+ kHz
+> > > >     clock when absent)
+> > > >   - A hardware reset GPIO (active low)
+> > > >
+> > > > Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> > >
+> > > Why did you drop Rob's tag?
+> >=20
+> > Explanation in cover letter is confusing. There is no difference between
+> > v4 and v5. There is some description change betweeb v3 and v5. So was
+> > the description change something forcing to re-review?
+> >=20
+>=20
+> Perhaps the explanation can get a bit confusing around that "since v3".
+> The quick history of it is that v3 to v4 saw a change in the GPIO descrip=
+tion
+> and so Jonathan suggested I should've dropped the tag in v4, therefore
+> I did so in v5.
 
-This adds support for the camera module on RK3399 Puma module fitted on
-a Haikou devkit with the Haikou Video Demo adapter.
+tbh, I don't really think that justified removal but w/e.
+Since I can't re-provide rob's tag
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
----
-Camera only works once the ov5675 driver is adapted[1] to work with
-24MHz MCLK. With the similar work done for RK3588 Tiger[2], we now have
-all our modules supporting the same set of features when used in
-conjunction with Haikou Video Demo.
+Cheers,
+Conor.
 
-Same request as made in [2], please only merge this once the OV5675
-series[1] is merged.
+--KxjI3xIIqfBUAzAW
+Content-Type: application/pgp-signature; name=signature.asc
 
-[1] https://lore.kernel.org/linux-media/20261026101646.2450051-1-heiko@sntech.de/
-[2] https://lore.kernel.org/linux-rockchip/20261026102027.2451025-1-heiko@sntech.de/
----
- .../rockchip/rk3399-puma-haikou-video-demo.dtso    | 55 ++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
-index 141a921a06e47..6c28e7e60ef28 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-puma-haikou-video-demo.dtso
-@@ -16,6 +16,7 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- 
- &{/} {
-@@ -100,6 +101,12 @@ &i2c1 {
- 	/* OV5675, GT911, DW9714 are limited to 400KHz */
- 	clock-frequency = <400000>;
- 
-+	focus: focus@c {
-+		compatible = "dongwoon,dw9714";
-+		reg = <0xc>;
-+		vcc-supply = <&cam_afvdd_2v8>;
-+	};
-+
- 	touchscreen@14 {
- 		compatible = "goodix,gt911";
- 		reg = <0x14>;
-@@ -122,6 +129,50 @@ pca9670: gpio@27 {
- 		pinctrl-names = "default";
- 		reset-gpios = <&gpio4 RK_PD6 GPIO_ACTIVE_LOW>;
- 	};
-+
-+	camera@36 {
-+		compatible = "ovti,ov5675";
-+		reg = <0x36>;
-+		assigned-clocks = <&cru SCLK_CIF_OUT>;
-+		assigned-clock-rates = <24000000>;
-+		clocks = <&cru SCLK_CIF_OUT>;
-+		avdd-supply = <&cam_avdd_2v8>;
-+		dvdd-supply = <&cam_dvdd_1v2>;
-+		dovdd-supply = <&cam_dovdd_1v8>;
-+		lens-focus = <&focus>;
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cif_clkouta>;
-+		reset-gpios = <&pca9670 6 GPIO_ACTIVE_LOW>;
-+		rotation = <180>;
-+
-+		port {
-+			cam_output: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <450000000>;
-+				remote-endpoint = <&mipi_in_cam>;
-+			};
-+		};
-+	};
-+};
-+
-+&isp1 {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			mipi_in_cam: endpoint@0 {
-+				reg = <0>;
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <450000000>;
-+				remote-endpoint = <&cam_output>;
-+			};
-+		};
-+	};
-+};
-+
-+&isp1_mmu {
-+	status = "okay";
- };
- 
- &mipi_dsi {
-@@ -145,6 +196,10 @@ mipi_in_panel: endpoint {
- 	};
- };
- 
-+&mipi_dsi1 {
-+	status = "okay";
-+};
-+
- &mipi_out {
- 	mipi_out_panel: endpoint {
- 		remote-endpoint = <&mipi_in_panel>;
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauomHgAKCRB4tDGHoIJi
+0pqWAP46Yk+3+HeDXpRD/ncdrcQCIqpRULqh48V1tzKP6OS/MQEAuHNM/lrOur2W
+I+5JpbOrijCU4gkCWMIUkOp0bYyqcQo=
+=WlQ9
+-----END PGP SIGNATURE-----
 
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261103-rk3399-puma-haikou-video-demo-cam-d86be639a91e
-
-Best regards,
---  
-Quentin Schulz <quentin.schulz@cherry.de>
-
+--KxjI3xIIqfBUAzAW--
