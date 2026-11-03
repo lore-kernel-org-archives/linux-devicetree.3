@@ -1,70 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723291;
-	b=1kPBye5GDjMIsIGjglX987fnghYKdFLZo+PdltART7vLK5O40G16seGf9YX2p+hKWqjK
-	 l4V2IXvv0QivHuQIZF378JMvybZHV6rVZ0wZIWF6aG6tPlybCZ+6HmVQoJAj7OED4nN81
-	 GrPNn7hTcBWOrLKlKZ/0DcuOTqpNy6u3/rs4mhXhHhd7oBBqI6vjF/0qhfpqC7Vd2TLLN
-	 uAmU4W0mFvOCPyMoWayfEaGX3obO6kt4d8dRH3Sb2RojlNPEue2fLnGJBXYBkPhCzIE8l
-	 VxhHKds2WyZqwfS0o/IFhhZV4rGTB/L7thKe7qcdczLQzC781BAmV9lzB8HyeENvtEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723291;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=kFjGSTadJ6qoktnpYz+dD2REm71grJ6UoHE4PWQ/UmU=;
-	b=LV7OR/25MfmJ87zyXqhtV56dnPDiY+QhbmIjumdvYeiPE34+LCMjUILBt6YKDi/meX3/
-	 6Bk468WKQwutrLVHcNf87rk6jxI144/5dfex08R1j6bOhh6nS6rk1RqTUqBV5dnBX+vho
-	 cVkhfRxreZoibGqEmWHSvC1rsGDvnOxLDOj4MlNQBml8+GFYbvWdPx/GMNkpZcEps1ymf
-	 ycHCiHXKGN1VnA9v9PZMDQsywRfG6C9hRo7koJibCueUhXG2rY4gFoNv3C94vv3BVGXqe
-	 H+uFBGaM3l0PMjsuGmOXGFJOrBNMMjbZEspE9mcUsHZJxqL9r0YoWBuKcME9PGPE9qA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJryDVI+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793723373;
+	b=iVBaLEXRazY93WPGr1UentlnqfqWLofcAinI4fjGTf2+EByOQdY002qrD0MnT9PLv9V8
+	 5+1vWAKnV2623wK8rSumsuU9N1+kUA81sOZm8kRvoaK9Bz7UYvTuMum7NA3J8WUcYJc6g
+	 lwgW77+N1AVMEWHAQBBCtZ4Qjij7+fFiNoA7dGfRwLFEKTF8XyVr81WDaMUvqgzH78LWm
+	 SWPvpJpUWgk0012L3YA2Wy62j7WJFq486MYDqBiWE+ben6B0p7jPBnVGLQI3tDzGgZSBU
+	 T9UszzV9dX3Ync3JUnu+D0rfJ5srbcm3U2TMqWi5MSXAvIxQaqd4giy1j34kjns9G/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723373;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
+	b=xrW4rLCEi1aHAST27v2Cl4R+/TrzFvqcMwjuxKKbkytc3e3PjzVuwbCe1NiSJmiegsI+
+	 s7GlVmoVpssqtyi8RO6kgkW40vU6IPoi93Oy15UzGqUPvy1T+lWFqjFsJHYWoyhR3kjlk
+	 o4/QI6ruv2ByIHZSGqT9gXHqPdeRvGHtxkWwS31srAZrbPKZt/svQKFauECG9w6Grd7g3
+	 R8wI1BcreKxlBUWfmYv1xzhyYwmVI95JZ8Mtj9ZsLmnAlYKwL3fp1yi3wbCtbF+VmWLrj
+	 EVf1HgTnKJ5Oehbl55qTnuNghqnsmaByX3LO7M+Lp5/MUxbbszyt/gmQoZQfZkiaNzg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oSQtlEHv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010033.outbound.protection.outlook.com [40.93.198.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BCA606A324;
-	Tue,  3 Nov 2026 16:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99524606A328;
+	Tue,  3 Nov 2026 16:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99524606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJryDVI+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DCF1F000C1;
-	Tue,  3 Nov 2026 16:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723291;
-	bh=kFjGSTadJ6qoktnpYz+dD2REm71grJ6UoHE4PWQ/UmU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FJryDVI+RTtFOJZpdf9qlki724l0mIzud1wID2ZFGSsOEVpWf5DvwDvXB5pGnjk8q
-	 VI6JajuHnseOqOMbMvimsiWyk2rKegsjVJrWPyiFCNzdRRaSgc/NRDIH2sysBDoaAO
-	 g4KW0M1J3XspwXIfjvvMFRWOPn1vg6QmKP1QxlIW7G7LffkrWreXJgrX8SdUCciIdJ
-	 Gh26Fu6Su9GncWtnVdXbdUlgYsAswFNJd5K2CKU+95M1HgogAS5O5aBXv0nkE5ltLg
-	 9F6wORaUaksyxbVKHwuf2BjfKBYmkofjmoHjAHUPqHMiUJknjLBoRA2v73jg3qI9vr
-	 AKP6mDRb7do/w==
-Message-ID: <sashiko-outbox-195724@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/9] rust: kernel: Add greybus abstractions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>, "Jason Kridner" <jkridner@beagleboard.org>, robertcnelson@gmail.com, "Johan
- Hovold" <johan@kernel.org>, "Alex Elder" <elder@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
- =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>, "Eric
- Biggers" <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>, "Ayush
- Singh" <ayush@beagleboard.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Markus
- Probst" <markus.probst@posteo.de>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261103-gb-uart-transport-v5-6-f8e326d6561f@beagleboard.org>
-References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
- <20261103-gb-uart-transport-v5-6-f8e326d6561f@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 16:28:09 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oSQtlEHv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iZ/CP4lF1yI/NWFk8EF6P4c9PHdgiz+tCW7wiRCgCL/ZapCGKfTBBgiKESCMVZV0rhNoctZ9rLvi2gWQoghhMhN4AsIKAwNPkWpnUACZDXmhkJZVzoNnuLjYtiIl4/SYx4lbDd8YA+wK8lJYVYBKgZCuQJNP5nBpvXPCk/7itbPikceVlgf6Xz9MWdKrzehAoD96LVNDdNZaDP9Rsiae05/XIOwlV3bfWzC0lNba1EV9rOX3Y7Hvawq+dFlRlB+f1oLWU5MgY9Yf2Z4rT7Q/yMJAwxzUCr7T1H+XLuYjt5/5f8kwtlVcnjdOBiL2MKt8HEE0/op+3WTRiW1+KWORMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
+ b=vjInhPqiHu37AFiPgGAWMJF3Lnpn9GqtFMtwpHt2rMSSTJ2nyzPZ5rJJ1ZTHIV/yOS9wf46Ru9xiEU6iWnkQEn8/CRCdT85y8L0fMgAg0Zza/KvZPWluYzsFbJZXqbjmZKcNYxfTiW6eKJ89gK3XntCUsWiFQPxsng+S4tuEiY/Yo/N0wIabB8KSD9gBusYagekdTe1F3v5zXoMIMvP3MS57TQ73EIQeQqRCLsLR854UKg6IxhgHFQPxDyTFcdHFCLa/nOth8zOzvgPvD1EqjR+/878nsS8s+kba3UKqa23CX7Q9cvNzhN89hEG1+s5SwIBrrt/LP7Wx6O1zvc5/KA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
+ b=oSQtlEHvSDAkssEUG0mB1C7bPYGWQy6IHpAsL07JYnQ4B+RfCTLPpm6LBq68+xztF8E6BNN4Tcdkr579kWjAJxb7Bc9ofiPjg+4UPIvLV6vOBAXn28io6sHjxf+p7a1E1y3fgOTwl6kFUz9dsvUqm5zjHPAjKKq8UfTAlPZuKgU=
+Received: from BY3PR05CA0045.namprd05.prod.outlook.com (2603:10b6:a03:39b::20)
+ by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 16:25:19 +0000
+Received: from MW1PEPF00018894.namprd03.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::34) by BY3PR05CA0045.outlook.office365.com
+ (2603:10b6:a03:39b::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 16:25:19 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF00018894.mail.protection.outlook.com (10.167.249.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:25:19 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 10:25:08 -0600
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 3 Nov 2026 10:25:03 -0600
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
+	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
+	<mhocko@suse.com>, <m.szyprowski@samsung.com>, <robin.murphy@arm.com>,
+	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
+	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Subject: [PATCH 4/4] mm/cma: drop the duplicate alignment check in rmem_cma_setup()
+Date: Tue, 3 Nov 2026 21:54:29 +0530
+Message-ID: <20261103162429.2053989-5-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.44.4
+In-Reply-To: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
+References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,75 +113,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00018894:EE_|DS7PR12MB6189:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1fe01bd-8512-4efa-6e98-08df39c70d3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|7416014|376014|1800799024|36860700016|261022105027099003|261021121427099003|261021123027099003|921020|261026140227099003|261028144727099003|11063799006|56012099006|22082099003|261102123227099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	epst9tIK9Nw6Flg9AL8MdPpXv18W7619t7mIdXDosX4vle939uBUjZQPbpfv6Frp+qD+7BSO0ddR+F5qjuMn5R6HqbNlydD1v5IyaZCJgu+OHE/CX9jTVYZ3jxuDQRsahnnI92oLV8Aq66ap7qtbyvnd8Zh6TgxcxDyxTtAte2UvOHfPKYMI6Gnrmd7rwWCn64nUsEfmseAUR8KMuZhfS6pjmlXVGodMGpXGjNS8ziVobmtH+p7z5QcSXauP/7b0QsjgEM8bIPJgXAzALFdN/Qh3nAdqQ6p+ksR12wJy1qFMDnuEdLAoHTYYzx05r+HI+aXwJPOoIItvwal79OmUkyZ8bFjc5Go330jXyh7auRShYZquN6WgDvAsU1ioBcauV+P8vEI+2P+NN13xKhfAhqrGsXs9VBfdw/AzmxyGSTuJH751ZUaVgAkfsEUgXZGvjrNZlt5qEH5CNU19+SG2Wyn7quM/9k/VH2WV69P+CiiElwvO9JvGz/29yf2K4JX4N71EqWfJjdw8RlCSSt1Ur5m/8MxPj7O5ktKe/CAqPzEUjUpXrJ6J2flVinnvIBIZ013Xs55GwMsxqZ4Jn0FgABKYPKAmKcjipsJgo3d4jGi27hgf9ZuWm4sxN7ZensiCIeFhQ+RlWnkNZlipqie9QzLNVGceVzf/dp1VWY/6bJsapXSybpSSPfuE+x19aaPZYII0JSSIKdeUpNwXuv5cmG4W+VZRVc3HxOtyv0f25CSEbSbeyLjlim6GbUZGP4pa
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(376014)(1800799024)(36860700016)(261022105027099003)(261021121427099003)(261021123027099003)(921020)(261026140227099003)(261028144727099003)(11063799006)(56012099006)(22082099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zDh0DEnEi7HvHxB5stq29M/5hR5i/o7prngSgh/2Y2vfy90PFxmh88zHzoepdI2Wf/ARuFGww7eKgAXs9pfM+mr+3kpzgdg8uEgqPOljg5MND0DVfhmLkSosCHj1SHtW2yfyp1774g9Nre5GS34XVJ8dK6x3mI+CFz4gkXGaqOtZP6wN/gPCxJ86BhnPcokwS/sG1GjKHXO9g/IUEPWCGYwuRvhz7i20S3E4O25aezr1QQAYjoaiY3Vhs8d+OW6Znrgshw9sBKhWD0p7B+1kK7zBpGknG1ZWOxtI1wp+mkDv1mmc6jij4pqxEuUzmN2ZS3DBRFJF5jvytu6ayRiOKnr7m6a74gwNHkXImHrMdqqcRFNiWwMx1g+LL3E++SPCTrKuAjM1F4olu5CHzo93UvX3Wdp8JcWKUfFt2DO9UstktkBF0eP+m5ztEx0M3bYd
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:25:19.2118
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1fe01bd-8512-4efa-6e98-08df39c70d3c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00018894.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] rust: greybus: blanket Send and Sync impls on hd::Device<Ctx>
---
+cma_init_reserved_mem() already refuses a base or size that is not aligned
+to CMA_MIN_ALIGNMENT_BYTES, so the identical test in rmem_cma_setup() only
+repeats it one call earlier. Remove it and report the failure from
+cma_init_reserved_mem() instead, where the area name is available: the
+message now says which pool is misaligned, and every caller gets the
+diagnostic rather than just the device-tree path.
 
-commit d45a0cafbb6b7cfe1ad47516461c24f42e8c8a34
-Author: Ayush Singh <ayush@beagleboard.org>
+Suggested-by: Mike Rapoport <rppt@kernel.org>
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+---
+Changes since RFC:
+- New patch
+---
+ kernel/dma/contiguous.c | 5 -----
+ mm/cma.c                | 6 +++++-
+ 2 files changed, 5 insertions(+), 6 deletions(-)
 
-rust: kernel: Add greybus abstractions
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 90937dc7c627..14450cf0f832 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -552,11 +552,6 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (!IS_ALIGNED(rmem->base | rmem->size, CMA_MIN_ALIGNMENT_BYTES)) {
+-		pr_err("Reserved memory: incorrect alignment of CMA region\n");
+-		return -EINVAL;
+-	}
+-
+ 	ret = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
+ 	if (ret) {
+ 		pr_err("Reserved memory: unable to setup CMA region\n");
+diff --git a/mm/cma.c b/mm/cma.c
+index 3231a53161cd..68dea7070d69 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -326,8 +326,12 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+ 	}
+ 
+ 	/* ensure minimal alignment required by mm core */
+-	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
++	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES)) {
++		pr_err("area %s (%pa, size %pa) is not aligned to %lu bytes\n",
++		       name ?: "(unnamed)", &base, &size,
++		       (unsigned long)CMA_MIN_ALIGNMENT_BYTES);
+ 		return -EINVAL;
++	}
+ 
+ 	ret = cma_new_area(name, size, order_per_bit, &cma);
+ 	if (ret != 0)
+-- 
+2.44.4
 
-This commit adds Rust abstractions for the Greybus core, including host
-device registration, driver callbacks, and wire protocol definitions.
-
-> diff --git a/rust/kernel/greybus/hd.rs b/rust/kernel/greybus/hd.rs
-> new file mode 100644
-> index 0000000000000..9e1a5fc645cd7
-> --- /dev/null
-> +++ b/rust/kernel/greybus/hd.rs
-[ ... ]
-> +/// A Greybus host device.
-> +///
-> +/// # Invariants
-> +///
-> +/// The wrapped value is a valid `struct gb_host_device` created by `gb_=
-hd_create()`, and every
-> +/// [`ARef<Device>`](crate::sync::aref::ARef) owns an increment on its r=
-eference count.
-> +#[repr(transparent)]
-> +pub struct Device<Ctx =3D device::Normal>(Opaque<bindings::gb_host_devic=
-e>, PhantomData<Ctx>);
-> +
-> +// SAFETY: `gb_host_device` is reference counted through its embedded `s=
-truct device`, which may be
-> +// used from any thread.
-> +unsafe impl<Ctx> Send for Device<Ctx> {}
-> +
-> +// SAFETY: `gb_host_device` has its own internal locking, so it is safe =
-to share references to it
-> +// across threads.
-> +unsafe impl<Ctx> Sync for Device<Ctx> {}
-
-[Severity: Low]
-As reported by Sashiko on v4 [1], in rust/kernel/greybus/hd.rs, Device<Ctx>
-provides blanket Send and Sync implementations for all Ctx and omits the
-Ctx: device::DeviceContext bound on the struct definition.
-
-Because Device<Ctx> also implements AsRef<device::Device<Ctx>>, marking
-Device<device::CoreInternal> as Sync would allow sharing a
-&Device<device::CoreInternal> reference across threads and obtaining
-concurrent &device::Device<device::CoreInternal> references, even though
-device::Device<device::CoreInternal> is intentionally !Sync because
-set_drvdata() and drvdata_obtain() mutate dev->driver_data without
-synchronization.
-
-Other bus device wrappers in the kernel crate (such as device::Device,
-serdev::Device, platform::Device, pci::Device, auxiliary::Device, and
-usb::Device) bound Ctx: device::DeviceContext on the struct definition and
-only implement Send and Sync for Device (Device<device::Normal>) and Sync
-for Device<device::Bound>, keeping Core and CoreInternal contexts !Send and
-!Sync.
-
-Should Device<Ctx> in rust/kernel/greybus/hd.rs constrain
-Ctx: device::DeviceContext and restrict its Send and Sync implementations to
-match the other device wrappers?
-
-[1] https://lore.kernel.org/r/20261021-gb-uart-transport-v4-3-c308ce821d45@=
-beagleboard.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-gb-uart-tr=
-ansport-v5-0-f8e326d6561f@beagleboard.org?part=3D6
