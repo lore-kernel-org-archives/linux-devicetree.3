@@ -1,102 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793686926;
-	b=sIDiO5Lplv2lrEULH2snixaR8oqBjL6D9u17PFngjNQ0IC1iSVVp0Ka0onDfcbjuW10v
-	 pPoy8LtHIYM6rtIxctboWJZJNpk35XAQIj65i54LOgOsDDDcRVYLcAXCD2jiFYC++u0zI
-	 +kYuIRi7MKOxKa40ce78tFDdBrKX7JNm0uXxEcxLESvFEo2lu2ydBdO/yzHUcCeULejCD
-	 ZrWqnGrV8AUcCCVSFVMZMPk2+Rsb2mI/DGVAc5Ly1gbKjdLCV7ItTD/iPH0HXDpXkp8Fj
-	 +zPpz3qYQgiIrEY/G6pw1/J3G9QZl1zmuhCoPJwW+EDZZlFOM54yLwvHooK515eBHsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686926;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1HlWiv+/uRHSKWG8JbnsJK+PTgRkxxJNpomB6PP90WA=;
-	b=rMyeKfCcieN1Um7xmFRs43Sxhjkb1xC2I0+KxhT33WHyhKvMVozl6kVgD2n4ZYuQr4Sn
-	 fzET9/S5dkeAmeaaVsaOM3AfFnmASv06mA4cIXAsouR/nAiVdua2ief5e0e/4f/mI9fiN
-	 NpcOVum8+hfwN2t5gsmWx+QMvY7CjDaYwVX6vsEJ9FEY+89Le6CFUPZ0PIcq5UgJCD7de
-	 esEZ70CKjNQKyJwkEbV+ppqfYSt8IOiWQkHGE7DSMVNzj7P4orzZGWS/keX4eIMSckaeH
-	 r6299ymOKm+FAeROaFK9gv5ZBJygzBcVEEFphkFA/PQZqysXb/exnLcnWafJvACv5vg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b="BM7kk9/S";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.18
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013018.outbound.protection.outlook.com [52.101.72.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793687141;
+	b=plBkWKR35p829EAkEq2ifs5aclLgZ1+MWAgvlFemSCoZmYbWCAuvHy28obphSNWyEMpb
+	 LWGx+t9roLKMouAC8aUGB66jt/0XAwaQsGPgMgGaM1spTNmAYIGZJC9g9gihCotcjz4om
+	 2Qmrl/6tz4JeNKtESlgRxlBghfAjvEE2t2Y86uvzey945lrR2Czw4kUuGuq6ln05U46q0
+	 bf7KKIxY351gogCeyEsspDpN0FOFksWYAMGleFgpXPjS5ArmJfQVyVzUdA2WDGuMOz54U
+	 KcwidE5kiAPaih/m/nb6AbdTeKTAjWQSPz7iyFk4MguXlydCHH60OrEeVG+nhbsO8ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687141;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
+	b=FbVFZ6c+nRFjP9yxDWSz/yTw6zIat2+7Vm/62n6ce/kBievnPSSSWNA2gHR4bRHQZrci
+	 iJKC74T9c1ulyhgRYWj6Z6QPEsPD0W5N4NjFK2zXqZYgHpkCkxcbjn2c9DWveOh+6lfIt
+	 EPFPEECE9A2igGIUVuhz1POvJaEoh8ONWhQjEgEkFdwYqVnS58vx5Ts/PyNehr5+WDknl
+	 ck4LgLYTqQMl+l4Zcvjz5bHRaf4HDM5dmuO30tpIMMU4oC5WxBizUtIhulWLULRviM1qD
+	 Xl0v4NCgdfz2Jkve7tMuCEo0FnSMPr0GXlYceOmV8F1FPX2WYbBvR91nrRgKDLD0ZPQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NKTIlecT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WORAAsag;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC88606A338;
-	Tue,  3 Nov 2026 06:22:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAC88606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FBF606A336
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 06:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90FBF606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=BM7kk9/S
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pdH3qPlwFpxKivQpezKKQFpx4H5h89LDkkcXJ7FLCLu/FHpxIwxMCoZ9zZ5GSqxZrEsWpnmROGBL+tmRmy7OTg72geZ+yt4twa1hi2tBJ5T43ywjfZAmgng+iXSh3cG4qnDvGZo4nssW5wKGK/tnbF+lG1Hr0hXRO+JNNbMG3A4IleJ81b9h+wBO6g7cIt86fxZccmzPmNhJc5BN4dNSMYsiY9SgTYbUAPo9wIV2QoZ0KxXSXKI4QbHzm54LzuAV1qKRQeyju4PrWubsCjKIdjV7U9gqasjawyz46lZ2Bax4DNHkdaKa5W8lQGzEF33cjeNPOJ2YwXapTYRWvToYrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1HlWiv+/uRHSKWG8JbnsJK+PTgRkxxJNpomB6PP90WA=;
- b=bzrNHCz8Us8l8DKR9G6oe7QIXYrnOREWkAotL1tHWKkwR5JnxXMZgHu3PvxmKw0JQzoIw5RmG0wxsuIGziSAQipgwdMYY0BQDyMspyV04ObA+dH/nPdpdcopzPk6fI9i7ueYvNlOcViGZ0DrM5KYGv6/bt1v7PS1aho1unmJbBXynWX79mLl0BIeQKbKyhLRbmL9lDEi2hSc4GqZwFcqQ8POTeLC6SWNsY9Pd1bejiO6XmicZuuGyrEz8IegfEVQQerstIDEmPOQv5/D4YSrUn7CHLt6G7yvnaFctEsE55QXPpkakpVxJzeHwfpSokYn/7MCSLtG7V3iJMGTYjyAQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1HlWiv+/uRHSKWG8JbnsJK+PTgRkxxJNpomB6PP90WA=;
- b=BM7kk9/SKKhaJJEtUAl+3Ytfit/Wup/nVF7m6Gp+cZr+Z0qtmAW+Mo3kDQItpucExSAo6kUMczuepsjNm/Y2KvWOJjbahTqTsYQrlcQ6pGenpkovW5ttpe0msF+/0Zwo8xiMjkZ7HGS/xXPKqP7j/SGP6oYUdQ01hLvYQ8X27vH4juu4bEiBUHR85gTzWYOZsXMA1CSG5qViE/WTWUKK1eHyaeX6JSWdW2tjfS1dwzGbuLakL2wC/iHShquFz6Dr+2cMMeKdphuiP2Ymny2HD+gK+Np6b0b30LZ7sejRqve2sknBx5E2o0LqlDugrKVojF+SGhWMoBnua3WmlqYa0Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by PR3PR04MB7353.eurprd04.prod.outlook.com (2603:10a6:102:82::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 06:22:02 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 06:22:02 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Date: Tue, 03 Nov 2026 14:22:12 +0800
-Subject: [PATCH v9 16/16] drm/imx: dc: Use prefetch engine
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-imx8-dc-prefetch-v9-16-3b985e7636e2@nxp.com>
-References: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
-In-Reply-To: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI3PR03CA0006.apcprd03.prod.outlook.com
- (2603:1096:4:297::8) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NKTIlecT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WORAAsag
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31eKcr470789
+	for <devicetree@vger.kernel.org>; Tue, 3 Nov 2026 06:25:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=; b=NKTIlecTkJkLQpyk
+	l1CuiHINKA6OWTGX514QCSm3j//VdQG6yjs1xM+tfYH0ge25EUSaxS9NrDMWXWit
+	68+W2GXucwhjmXqFm0mJNnBCdKHpqcMaBPO3lkns6EcBkqKV1pXZ0GiUu40lrfw1
+	F+WduvqnYBt/SASF3tibJeVM6+PhR6Q4LTNm3Q+qoVMSZXI6BYq6xCNe5VKKpZhA
+	U3avqe2sONtupM3eHOSRIGEFPMu3pJtMVhN4fQPM3G++JCU1HNONCq7aloO1unvX
+	XCLkXgDrRx099SnCG29tLDVDC/6bQmicNs8zc5R4jrs9eEQ//jYwh7xVvrg12Ivu
+	72E2EA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq081t95t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 06:25:39 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e94f72fb9fso37306925ad.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 22:25:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793687139; x=1794291939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
+        b=WORAAsagLLAZE33dKvZqoXvNybMdRp9WwZKdp64c2t8FgmHKtShJMXY4OGNxD6XaXi
+         W7wm2kl7wwPu/FjVLdzNJHeqmapGp6jur8/FQ0hFubnkHkx0vmFeDH/CwwfWaAs8qvdF
+         mkow1e5wqzolDZxFYt/QTCkvX4xOaano8PFP0hb14DDmYB5M7TbtN3LFCUkemA+YZI85
+         +2HNblVLNglvL4aYO48Yz2iliubksQz7DaRvX8ZlJA+7oxsvPdwrbJCGXg7rRuCnC2Bi
+         pDT2oFigRnxqDeZwoSzBV4ZAi1GFqlmJqk6GE3plvHT0czDOYNK4ZAqjsbfdZl0ZR6Zu
+         AYrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793687139; x=1794291939;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zuXF6ZSzTfT7+2Gs7wEgJItjp3Ye61fxPfiAF1h6RHc=;
+        b=AIGwB647PHF2oy012kqPt+g26po/IJswrSrcM7/U/7egO+QwRYWgqlbz8/cswnNdVE
+         Rs9oIKx3OvhKKdduncdenmwx9PH9LKvUcxFqWolqxrXkbVdvRr/pd/7v+VPJCQi7CZrT
+         6QvHTqhQjrZuL2OUTOFI+d1isst2akd+EohtEStgAK0xlBXNU++T8qlOP9a+AWvdNzoQ
+         T3oh4jbCqCqgTgkejGBtc+d+jSFEMhaDb6TEIpXUv1j192vQEKhJB5mTfOREzZ17azwu
+         9vTflqJDNUUsJ3FPml+35ZXTqn7b0zEVqM5aM4KtjGGkf0U2dXKkkqa8tZf9CLHPSWvt
+         VDiw==
+X-Forwarded-Encrypted: i=1; AKwUvBzc7E+h36VKPp+VcCQTapgYlmFHcP77RET19uTCF2HVQfaeWowc43SYLd3eSzP7xfSQWeWejNIWFZB7@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eDu2FzaWAb4Zzg07sp2BK63TkvbFepaAMz9NTaUIRQJz3olgV
+	cmV/qCRveiB17AekFgpvfPxS9XvNZg8/70ag1pBxATbUaGzYHICXUGTm7s5IsdeE30U598mZuoK
+	0eGszed2qbCX3sUmXvnyb5SRotMFHn/fdmZlL1GZ7mtncI7g2RJH5QMMx1Me2qd5N
+X-Gm-Gg: AYBFou0eKidr97+T03X6LRKasf23G3PNk3lX8f1B7rz8dYacO6wp7dN5ptlx+jXwUhD
+	evt20KIbvcy5yPB7/lp5am8tbXI0cF3b63HteuzILMW/eAYWflGF+h4DIXsCKNYWuF2neAqT9on
+	AP9jLK0Za861cdy/y46pmv7pXsNNICl6py8yGI+qwyBuaclV/PkvVJl/CXdqMDbz7d7/2vLgMO4
+	qrPURUI1eCX4nP9r2feNqTPKy7mcq5bBDbFGLX1VymyE/A8JMK776ioIYfi97UdxFhiLb8FxCSt
+	tK+uPjXTz5OgswlnUfZ1RCOj5064YSX3JcLOt6rBJwFG5B1PYSb1QfzUYqHAzXoytkxJ7JP4k6R
+	zDdj6vbnwJd4jEcmPh/oJ5700aILjbOHL/qK9+6mrHgKYY7kzm9YxMHc3bh2WVGgW8ArHfTnNqY
+	T/wK3l
+X-Received: by 2002:a17:902:f545:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2eb364ddee2mr111958325ad.49.1793687138976;
+        Mon, 02 Nov 2026 22:25:38 -0800 (PST)
+X-Received: by 2002:a17:902:f545:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2eb364ddee2mr111958015ad.49.1793687138325;
+        Mon, 02 Nov 2026 22:25:38 -0800 (PST)
+Received: from [10.218.31.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3924c858sm36924505ad.35.2026.11.02.22.25.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 22:25:37 -0800 (PST)
+Message-ID: <e1ac9331-7a3c-4836-bd78-b67b60f918fb@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 11:55:29 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,580 +116,429 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|PR3PR04MB7353:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccd4407f-d88f-4d12-0ffa-08df3972c637
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|7416014|376014|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|921020|56012099006|11063799006|261022105027099003|261021121427099003|261009221227099003|261021123027099003|261026121527099003|261022075727099003|261009223327099003|261009220027099003|261009221727099003|261009223027099003|261028144727099003|261026140227099003|260925022911599003|260925021911599003|260925021311599003;
-X-Microsoft-Antispam-Message-Info:
-	GwtxZ8b89fqYg+ZRAM2WWR2NqleZo0X2Z1SM8tCvZiNn+H7Knsw3/40dgCHaiSJtYU1uSvmc0hEViPyxHchXmfDhJgSTD93vpzxzVWTK459IVrO2AZVpm2ABPAZtWSmGUceWU6rBOUMduUThJ+VudCtd9ODKFlOEvUUpDvj4wcoHWp0KHWnjwQh9nw9RgN332IqTLEgKRLHS2he/uKyPdJPXRVXvaw1wbf71o23fHxYoyyOWKwAry/G0xQtIl2l77ZFy32krv7peeCH3LAJ038BdBZfqnJajJoqZbD37bt0Q2iJbflysuwBvM7Oa03Kdu67SOQgZiQKFyhcThhOw2iJzxmCKjpCa4deX90x/27VJJ8TS5jlsnCM8dUdC5+7QGN6m3h7kODdH2pgCnzFv60HqP3UByEkw5NgsMmTW5GWTguOp+QM7Q4Z7W7yO+KWAU4Fxn1oMyvH+C4uDOb5xexzUlVBLwvNCoci7axMvC9PqnJz1b98e7PXaFgqs2rpcOAtQHtxkEnzjJZog8j3LL964o6O7kgLUw5YoidoQ0xpWUATBx4/pEE+PxeeCMh+1dMrtW7x+MVMDLeSWJ/gUPrvKQAz1xlr1JxwNDUxNDCfIqYHTP4bB174iu8gBI6/bWUcctXh3pMlrm+1KDsr0tnOD37VOUh82ZEpSIdCPlO4BR6Vw5yKxbOWzrQ55YacnTiYbnwvDkp5L9vH15HY7UQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(7416014)(376014)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(921020)(56012099006)(11063799006)(261022105027099003)(261021121427099003)(261009221227099003)(261021123027099003)(261026121527099003)(261022075727099003)(261009223327099003)(261009220027099003)(261009221727099003)(261009223027099003)(261028144727099003)(261026140227099003)(260925022911599003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RW5TMXhvbk1xcHUzbkpOQzRwNXIzc0c4Nk5xeXZqRlZIdzBnVFpNSU8yYklP?=
- =?utf-8?B?ajR0cy9HeW8wNWlibXNqc1VmcGthbGRWaDZYR3BLN0tHejRDZkt3eDFKT0pY?=
- =?utf-8?B?bVIvYldWS3JjalZaV3YvNk9BTHRsNzZlUWtEVnhXWGlJL1Z6SEZ5NHZsYWhR?=
- =?utf-8?B?UWhaTi8vVVM3OEhwZTB3VGZpMTB6cUdGLzQwUFU0K3JWMjgvaVBvRmk3SWhx?=
- =?utf-8?B?YTRlTzRpRjIwU3FqSHliY3gwNjZmdXVyaVVGMTZPMStaT1l3Nk5Ta2g3YUpO?=
- =?utf-8?B?NlNZTElDM0RuVzc1MDhzb3l6dVI0Q3JVV3RnejF1dERCZ2VmTFVYQU50NUpH?=
- =?utf-8?B?YkM2N1BnbjZYSmhJRXhDQTVlcGhtRHppWkVHTXhOR2tpOGpvTTZHMHY5MnFK?=
- =?utf-8?B?UFZ2bzhodWxncStJWUdGMXRocmcrRmxheDNUb2RaSFAvZ01RNnpCZm5VdFZZ?=
- =?utf-8?B?QVc2SVpLTVh2QTF4N1RzbkN1eFZjVy9NdXR3M0VEOVlSbEIzUDA1Z3FSQVds?=
- =?utf-8?B?YzhvUXdGU0IyMloyaktlQW5GZitsV1J0cWsyV1JPNE5HT1k3Vk5rRDlaazl2?=
- =?utf-8?B?eTNjeDFSQ21NRzMvZVJPem16K29LdkpjekdrL3FaRzZkeU45N0tSYldBYXBS?=
- =?utf-8?B?TU12RlQrUEJBR3cxcmpQRHBncy8zVGR5dGh2M2J4RmpEMlZFekhsbVNZb1dz?=
- =?utf-8?B?UzZzcWhpRmdTSUJBdW9qSXlveE5qTFpmZHVtMFBDSWJyMnJRRWZxbUlhVTdB?=
- =?utf-8?B?KzVzZjc2UjA2SC9ydWM1K2RBejFRZ2pETjFSV0l1OUxKRDJYYVFySWIzbjdO?=
- =?utf-8?B?UDlqQiszY1JyNm1wUkxNTUt2WmdrSTUyU1pQc1R2dk5qUFI3c0E1NEhUYkdE?=
- =?utf-8?B?NzZkOWo1Q3Z2YllUMEFKM0dBOCt3N1Y1OTFPWStpdHQrOExpcWU4anVUL3Js?=
- =?utf-8?B?TWNic1owTS8waEttME5TV0pHcUY3ZitBN2licmZNZFYrMTVrKzByRm10eEc5?=
- =?utf-8?B?YzlkbzhHZ1E2Zkp0WG14OEJMMW53Sy9iYUh5OHNmUWdSR3VsQTBzWUdrWnpR?=
- =?utf-8?B?OEF4RCtBQzhMWU9PTHF3R2hGcXRHVUhhaytranU4TkVVbWpIdldxTGQrR0o5?=
- =?utf-8?B?M3ZPUFNxalZOUSs4aXNCbjc1c3MweWxOQ3lVSFg0UHJCRThVbnZDdS91ZlZB?=
- =?utf-8?B?TVhLa01zTHRMMDlHd3A5MktXRXVubGZrNmJTckRTUCtMOW5DdHQvUHgrUk1z?=
- =?utf-8?B?a2oxRzlJeTR4MitTUitUS1pvYlVuSDRFVytYLzQ1OVBIQ0t6eDJId01vVjRM?=
- =?utf-8?B?UjdOZi83OEJwUzMrQ1hqL0pZRm9jdUg4QlZsZjd1QlZPNkNXN1V2eXNoUlJq?=
- =?utf-8?B?bE9Mc3RxVjdNQlRUZlIwNndTeTV5YU9uMFRWeFI2d3gwdjFvY3JmZDVkSkZ4?=
- =?utf-8?B?cXBQWHVBVGFDRW9pajJlSkhQb3h1dU5CUXB4RGZnZVVXajEwb1JXY2NybUF6?=
- =?utf-8?B?Z2pxNUk2OWdOV091S3pzcjZzcHFhT1JYTXI4b1AxS3BaQzhEck0yemZJZEJZ?=
- =?utf-8?B?V3ZnUmR2RlFnWFZmY25kWkVva0YvSnRWL3dFZG5oUWYxNHUxRzNtcWIrcFQx?=
- =?utf-8?B?dmpWd3cwaXMyV2pRc2ZkTzFCUTdOY0ZMQzhqTTdNR2hiM28yZ1dxZHdRdG4x?=
- =?utf-8?B?ODBWVmQzc2xGZnNXd2FOQzI3REJPTG45N2IxWnNCL1JiWUEzRTRZUDBIZFRZ?=
- =?utf-8?B?d2h3VXdpTzdmR2hxZWR4V2JsNnIrWEFPNkl4YVVReUd5aklrSnN4SGJnRU5B?=
- =?utf-8?B?ZWhYblRQV0k4NVFKZE91TnZoSkZwRDVka3FuNTQ2b2Iza1FkRDdjN3B0RERz?=
- =?utf-8?B?UFM1RGRBSW1mdjFYQUtlYVhnOHRDZVZqR0cxczNqS0FNOW05enVLZWh5dTdS?=
- =?utf-8?B?RDRsc1Nna0doUytPTjg2RVdvekorc1RSSHdsbFJxSzFwcy9wMHVwVEp0WVVY?=
- =?utf-8?B?eXFaYWVvcGsxc3lOczhrT0cyYTN2STBRTEZnNGNnKzdzNEVUd3FhUllFMnNl?=
- =?utf-8?B?dGJndWRWSGNoSmF1TmZBSUU5Y1lUSitwQ01hY1hkZkdaRS9jMUJDSm1KMEZ5?=
- =?utf-8?B?bHd6ZzJTWDQrZ05GcTg0aEQzcm05d1JKKzN4bDd5Q3VRS3QxN2lDNlJCWE84?=
- =?utf-8?B?YWYza1dSMnI5c2J3U2c0THdxTmZXNHpRMWVwVUxTUDJXVUZ3YTRMVFM3SFZS?=
- =?utf-8?B?dUprbngwS2pyNm45UHo0Nk5WZzlhZlJZTDRVeFZJQ2s1ZWtkV2VwMjZNRkZi?=
- =?utf-8?B?V2FOdVhaL2FkT0NENVhSc3NKNFNCeHF3TExDdVpjbDBmbDZLUk03dz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccd4407f-d88f-4d12-0ffa-08df3972c637
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:22:02.6633
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OKi3NWeSTHWwGMN4aSuKYjtrnB7YsLE5fnzOTTLZjMA4tAC/XzZLnb+clwWLthPdW3xn0RJxNSMbG/TaqO2c/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7353
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 2/2] net: wwan: qcom_bam_dmux: Assign
+ restricted DMA pool to remote processor
+To: netdev-bot+sashiko@kernel.org
+Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, loic.poulain@oss.qualcomm.com,
+        ryazanov.s.a@gmail.com, johannes@sipsolutions.net, edumazet@kernel.org,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        deepak.singh@oss.qualcomm.com
+References: <20261021-qcom-bam-dmux-vmid-ext-v3-2-cedd1f681102@oss.qualcomm.com>
+ <179292379960.3134.17105636011699871887@kernel.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <179292379960.3134.17105636011699871887@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyNSBTYWx0ZWRfX7soxAuCv6I78
+ 9c5E57V+eRXjk/dOR3YgAfTcQSEUz+SqKxOMqFfA8ZimghYL2L5v4wS+ZVeIG31SD4ztuqWzSb5
+ xZYlEr7dI1/RfaphcvM4HZ+H7mHsL/Q=
+X-Proofpoint-ORIG-GUID: lsb-7vPl0EqlWJIugEBlU5gR_gaIp4_R
+X-Authority-Analysis: v=2.4 cv=F73C5ahN c=1 sm=1 tr=0 ts=6ae97e63 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=70-S8w_-Z3ilBdKCbEIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: lsb-7vPl0EqlWJIugEBlU5gR_gaIp4_R
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyNSBTYWx0ZWRfX0erGsdzBKMyG
+ lHElFifbJhgf3pakidn3ZdfAmpDk5MqX4MYRzZcv+TKlarB9mX6uhPmXUSliGOhJK/GE/9TWTQW
+ sf+xHUqicuWRu9V9cif8e5kT4jSj3TMnAMYp+t0t06fMZUC9lJKripozhnIgr64f5elKSGbavkk
+ xbjxnHG98OfAH8ccAzhqrZYKi8mB15JcO5Aap4wiB9Hvh+BNEkCVhFH9PCvfwio7KxhLOWHgJ8n
+ L3kOZ1s5CaUgduYegkGskqb8Ht4Fy8JqxI+ClYGKlXyklLNvnElL5SK9G3XsyaAfVsn8iWcss3F
+ Kdy6D8ZHHYHgEfSv/3RHd+IqhLnWhfucXG5qykSHcz9OvNuqBHHF7++6x/r7WquQqaDbyJPnCYe
+ VceALEPBdXUV/Fs/23mcd4eqSSbhQ7kbEVx8oO82yxlGnTW2I+4O+Pgj8OzrmulCa2PxmUff7KA
+ CKzaPfRswYGPksDoEOQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030025
 
-One prefetch engine consists of one DPR channel and one or two PRGs.
-Each PRG handles one planar in a pixel format.  Every FetchUnit used
-by KMS may attach to a PRG and hence use a prefetch engine.  So, to
-simplify driver code, always use prefetch engines for FetchUnits in
-KMS driver and avoid supporting bypassing them.  Aside from configuring
-and disabling a prefetch engine along with a FetchUnit for atomic
-commits, adapt burst size/stride fixup requirements from PRG in
-FetchUnit driver and set use_raw_spinlock flag in ExtDst PIXENGCFG
-regmap configuration to avoid sleeping on PREEMPT_RT because
-dc_ed_pec_sync_trigger() can be called with local irq and preempt
-disabled.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
----
-v9:
-- Drop "struct dc_dprc *dprc" argument from dc_dprc_rtram_width_supported()
-  and dc_dprc_stride_supported() function calls.  (Laurentiu)
-- Check old_plane_state->visible before calling dc_dprc_disable() in
-  dc_crtc_atomic_disable().  (Sashiko AI bot)
+On 25-10-2026 03:53 pm, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 7 potential
+> issue(s) to consider.
+>
+> Critical: 0 · High: 0 (1) · Medium: 4 (1) · Low: 3
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Medium] The commit message says BAM descriptor FIFOs "must therefore
+>    be constrained" to the shared region, and that they are covered "when…
+> - [Medium] bam_dmux_assign_dma_pool() always passes `u64 src =
+>    BIT_ULL(QCOM_SCM_VMID_HLOS)` (line 777) to qcom_scm_assign_mem(), so…
+> - [Medium] In bam_dmux_remove(), `remote_suspended` decides whether the
+>    pool goes back to HLOS-only, and it can be wrong in two ways.
+> - [Medium] Once the restricted pool is assigned RW to the modem VMID,
+>    every RX buffer mapping copies uninitialized HLOS memory into memory…
+> - [Low] The patch changes the probe error path in bam_dmux_probe() for an
+>    irq_get_irqchip_state() failure.
+> - [Low] The binding and the driver disagree on which qcom,vmid values are
+>    valid.
+> - [Low] The driver and binding accept qcom,vmid values up to 63, and
+>    bam_dmux_reclaim_dma_pool() passes `src = BIT_ULL(HLOS) |…
+>
+> Pre-existing issues:
+> - [High] bam_dmux_remove() calls
+>    cancel_work_sync(&dmux->register_netdev_work) at line 964, before RX…
+> - [Medium] This problem wasn't introduced by this patch, but net_devices
+>    that registered successfully are unregistered and never freed.
+>
+> --
+>
+> net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+>
+> When qcom,vmid is present in DT, this patch requires a restricted DMA pool
+> and uses SCM to assign the whole pool to both HLOS and the remote VMID. The
+> pool is reclaimed for HLOS on remove or on probe error cleanup, unless the
+> remote side did not drop its power vote. It also changes the
+> irq_get_irqchip_state() failure path in probe to call bam_dmux_remove().
+>
+>> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+>> index cc6ace8d64371..fa3621224a56e 100644
+>> --- a/drivers/net/wwan/qcom_bam_dmux.c
+>> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+> [ ... ]
+>
+>> @@ -762,6 +768,96 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
+>>   	return 0;
+>>   }
+>>   
+>> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
+>> +{
+>> +	struct device *dev = dmux->dev;
+>> +	struct device_node *rmem_np;
+>> +	struct reserved_mem *rmem;
+>> +	struct qcom_scm_vmperm dst[2];
+>> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
+> [Severity: Medium]
+>
+> Is it safe to assume on every probe that HLOS is the only current owner?
+> qcom_scm_assign_mem() documents @srcvm as the "vmid for current set of
+> owners".
+>
+> Two paths can leave the pool owned by {HLOS, vmid} after the driver
+> instance is gone. The first is bam_dmux_remove(), which skips the reclaim
+> on a remote timeout:
+>
+> 	else if (dmux->dma_pool_perms)
+> 		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
+>
+> The second is bam_dmux_reclaim_dma_pool(), which only logs when the SCM
+> call fails.
+>
+> In both cases the only record of the assignment is dmux->dma_pool_perms.
+> That field lives in devm_kzalloc() memory, which is freed right after
+> remove or after the failed probe.
+>
+> On the next probe (module reload, or unbind/bind of the remoteproc
+> parent), the zeroed dmux would ask TZ to move the pool from {HLOS} while
+> {HLOS, vmid} actually owns it. Would the assign then fail with "SCM assign
+> restricted DMA pool failed" until reboot?
 
-v8:
-- Inspect lb_sec read by dc_lb_pec_dynamic_sec_sel_get() in
-  dc_crtc_disable_at_boot().  (Sashiko AI bot)
-- Inspect ed_src read by dc_ed_pec_src_sel_get() in
-  dc_crtc_disable_at_boot() and check it against LINK_ID_NONE.
-  (Sashiko AI bot)
-- Avoid disabling DPRC in dc_crtc_disable_at_boot() if CRTC was enabled
-  by bootloader.  (Sashiko AI bot)
-- Enable/disable DPRC properly for cases where plane transitions to
-  visible/invisible status.  (Sashiko AI bot)
+Yes. This is fail-safe, since the pool is static reserved memory that is
+never returned to the page allocator. This matches the existing
+qcom_scm_assign_mem() users, which also only log reclaim failures.
 
-v7:
-- Check {old,new}_plane_state against NULL in dc_crtc_atomic_flush().
-  (Sashiko AI bot)
-- Return 128B burst size from dc_fu_burst_size_fixup() when baddr == 0.
-  This avoids undefined behavior of __ffs(0).  (Sashiko AI bot)
-- Set use_raw_spinlock flag in ExtDst PIXENGCFG regmap configuration to
-  avoid sleeping on PREEMPT_RT because dc_ed_pec_sync_trigger() is can be
-  called with local irq and preempt disabled.
-- Modify debug message in dc_crtc_disable_at_boot().
-- Adapt dc_drv_crtc_was_enabled() in dc_crtc_disable_at_boot().
-- Rename __dc_crtc_disable_fg_along_with_dprc_repeat_en() to
-  dc_crtc_disable_fg_along_with_dprc_repeat_en().
-- Update commit message.
+>
+> The new probe error path calls bam_dmux_remove() right after the PC IRQ
+> may have powered up RX, so it seems likely to hit the timeout case.
 
-v6:
-- Rebase onto the latest drm-misc-next and resolve conflicts.
+This path is not reachable with the SMSM irqchip, as
+smsm_get_irqchip_state() only fails for states other than
+IRQCHIP_STATE_LINE_LEVEL.
 
-v3:
-- Collect Frank's R-b tag.
----
- drivers/gpu/drm/imx/dc/dc-crtc.c  | 164 +++++++++++++++++++++++++++++++++++---
- drivers/gpu/drm/imx/dc/dc-ed.c    |   5 ++
- drivers/gpu/drm/imx/dc/dc-fu.c    |  30 ++++++-
- drivers/gpu/drm/imx/dc/dc-fu.h    |   2 +-
- drivers/gpu/drm/imx/dc/dc-kms.h   |   5 ++
- drivers/gpu/drm/imx/dc/dc-plane.c |  46 +++++++++--
- 6 files changed, 229 insertions(+), 23 deletions(-)
+>
+>> +	u32 vmid;
+>> +	int ret;
+>> +
+>> +	if (!of_property_present(dev->of_node, "qcom,vmid"))
+>> +		return 0;
+>> +
+>> +	ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
+>> +	if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
+>> +		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
+> [Severity: Low]
+>
+> Should the binding and this check agree on the valid range? The
+> qcom,bam-dmux.yaml binding in this series allows:
+>
+>      items:
+>        minimum: 1
+>        maximum: 63
+>
+> This check rejects 3 (QCOM_SCM_VMID_HLOS) but accepts 0. So a DT with
+> qcom,vmid = <3> passes dtbs_check and then fails probe with -EINVAL. In
+> the other direction, vmid 0 is rejected by the schema but is passed to
+> SCM here.
+>
+> [Severity: Low]
+>
+> On 32-bit kernels, can a vmid between 32 and 63 be reclaimed correctly?
+> bam_dmux_reclaim_dma_pool() passes src = BIT_ULL(HLOS) | BIT_ULL(vmid).
+> However, qcom_scm_assign_mem() builds the source list with the unsigned
+> long BIT():
+>
+> 	for (b = 0; b < BITS_PER_TYPE(u64); b++) {
+> 		if (srcvm_bits & BIT(b))
+> 			src[i++] = cpu_to_le32(b);
+> 	}
+>
+> On 32-bit this shift is undefined for b >= 32, so the remote VMID entry
+> would not be written. src_sz is still computed with hweight64(), so the
+> SCM call would see an uninitialized trailing source slot. The helper's
+> int next_vm |= BIT(newvm->vmid) has a similar limit.
+>
+> The root cause is in the existing SCM helper. However, this patch adds a
+> caller and accepts a range the helper cannot encode on 32-bit, and
+> QCOM_BAM_DMUX is used on 32-bit SoCs such as MSM8974. Should the range be
+> tightened here, or should the helper switch to BIT_ULL()?
+>
+> [ ... ]
+>
+>> +	rmem = of_reserved_mem_lookup(rmem_np);
+>> +	of_node_put(rmem_np);
+>> +	if (!rmem)
+>> +		return dev_err_probe(dev, -EINVAL,
+>> +					     "Failed to look up restricted DMA pool\n");
+>> +
+>> +	if (!is_swiotlb_for_alloc(dev))
+>> +		return dev_err_probe(dev, -EINVAL,
+>> +				     "Restricted DMA pool not attached\n");
+> [Severity: Medium]
+>
+> The commit message says:
+>
+>      BAM-DMUX DMA mappings and BAM descriptor FIFOs must therefore be
+>      constrained to a designated memory region ...
+>
+>      When the BAM DMA controller references the same pool, its descriptor
+>      FIFOs are covered by the assignment as well.
+>
+> This check only looks at the bam-dmux device. The descriptor FIFOs are
+> allocated on the BAM controller's own device in bam_alloc_chan():
+>
+> 	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
+> 					&bchan->fifo_phys, GFP_KERNEL);
+>
+> Their address is then programmed into BAM_P_DESC_FIFO_ADDR in
+> bam_chan_init_hw().
+>
+> Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml has no
+> memory-region property and sets additionalProperties: false. This series
+> only updates the bam-dmux binding.
+>
+> With a schema-valid DT, wouldn't the FIFOs stay in ordinary memory that
+> the modem VMID cannot reach? That would leave the XPU violation possible
+> for FIFO accesses.
+>
+> Should the bam-dma binding gain a memory-region property? Should the
+> driver also verify, or at least warn, that the DMA controller behind the
+> rx/tx channels uses the same pool?
 
-diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
-index d03246036d4a..55c198db9644 100644
---- a/drivers/gpu/drm/imx/dc/dc-crtc.c
-+++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
-@@ -25,6 +25,7 @@
- #include <drm/drm_vblank.h>
- 
- #include "dc-de.h"
-+#include "dc-dprc.h"
- #include "dc-drv.h"
- #include "dc-kms.h"
- #include "dc-pe.h"
-@@ -204,7 +205,14 @@ dc_crtc_atomic_flush(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- 				drm_atomic_get_old_crtc_state(state, crtc);
- 	struct drm_crtc_state *new_crtc_state =
- 				drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_plane_state *old_plane_state =
-+			drm_atomic_get_old_plane_state(state, crtc->primary);
-+	struct drm_plane_state *new_plane_state =
-+			drm_atomic_get_new_plane_state(state, crtc->primary);
-+	struct dc_plane *dc_plane = to_dc_plane(crtc->primary);
- 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-+	bool plane_becoming_invisible = false;
-+	bool disabling_visible_plane = false;
- 	int idx;
- 
- 	if (drm_atomic_crtc_needs_modeset(new_crtc_state) ||
-@@ -216,13 +224,48 @@ dc_crtc_atomic_flush(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- 
- 	enable_irq(dc_crtc->irq_ed_cont_shdload);
- 
--	/* flush plane update out to display */
--	dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
-+	if (old_plane_state && new_plane_state) {
-+		disabling_visible_plane = old_plane_state->visible &&
-+					  drm_atomic_plane_disabling(old_plane_state,
-+								     new_plane_state);
-+
-+		plane_becoming_invisible = old_plane_state->fb &&
-+					   new_plane_state->fb &&
-+					   old_plane_state->visible &&
-+					   !new_plane_state->visible;
-+	}
-+
-+	if (disabling_visible_plane || plane_becoming_invisible) {
-+		unsigned long flags;
-+
-+		dc_crtc_dbg(crtc, "disabling FetchUnit along with DPRC\n");
-+
-+		/*
-+		 * Don't relinquish CPU until DPRC REPEAT_EN is disabled and
-+		 * sync is triggered.
-+		 */
-+		local_irq_save(flags);
-+		preempt_disable();
-+
-+		DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
-+		dc_dprc_disable_repeat_en(dc_plane->fu->dprc);
-+		/* flush plane update out to display */
-+		dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
-+
-+		local_irq_restore(flags);
-+		preempt_enable();
-+	} else {
-+		/* flush plane update out to display */
-+		dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
-+	}
- 
- 	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(ed_cont_shdload_done);
- 
- 	disable_irq(dc_crtc->irq_ed_cont_shdload);
- 
-+	if (disabling_visible_plane || plane_becoming_invisible)
-+		dc_dprc_disable(dc_plane->fu->dprc);
-+
- 	DC_CRTC_CHECK_FRAMEGEN_FIFO(dc_crtc->fg);
- 
- 	drm_dev_exit(idx);
-@@ -323,14 +366,33 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- 	dc_crtc_queue_state_event(new_crtc_state);
- }
- 
--static inline void __dc_crtc_disable_fg(struct drm_crtc *crtc)
-+static inline void
-+dc_crtc_disable_fg_along_with_dprc_repeat_en(struct drm_crtc *crtc)
- {
-+	struct dc_plane *dc_plane = to_dc_plane(crtc->primary);
- 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-+	unsigned long flags;
- 
--	enable_irq(dc_crtc->irq_dec_seqcomplete);
-+	/* Don't relinquish CPU until DPRC REPEAT_EN is disabled. */
-+	local_irq_save(flags);
-+	preempt_disable();
-+
-+	/*
-+	 * Sync to FrameGen frame index moving so that
-+	 * FrameGen can be disabled in the next frame.
-+	 */
-+	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
- 	dc_fg_disable(dc_crtc->fg);
--	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
--	disable_irq(dc_crtc->irq_dec_seqcomplete);
-+	/*
-+	 * There is one frame leftover after FrameGen disablement.
-+	 * Sync to FrameGen frame index moving so that DPRC REPEAT_EN
-+	 * can be disabled in the next frame.
-+	 */
-+	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
-+	dc_dprc_disable_repeat_en(dc_plane->fu->dprc);
-+
-+	local_irq_restore(flags);
-+	preempt_enable();
- }
- 
- static void
-@@ -338,14 +400,31 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- {
- 	struct drm_crtc_state *new_crtc_state =
- 				drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_crtc_state *old_crtc_state =
-+				drm_atomic_get_old_crtc_state(state, crtc);
-+	struct drm_plane_state *old_plane_state =
-+			drm_atomic_get_old_plane_state(state, crtc->primary);
- 	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
-+	struct dc_plane *dc_plane = to_dc_plane(crtc->primary);
- 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
- 	int idx;
- 
- 	if (!drm_dev_enter(crtc->dev, &idx))
- 		goto out;
- 
--	__dc_crtc_disable_fg(crtc);
-+	enable_irq(dc_crtc->irq_dec_seqcomplete);
-+
-+	if (old_crtc_state->plane_mask && old_plane_state->visible)
-+		dc_crtc_disable_fg_along_with_dprc_repeat_en(crtc);
-+	else
-+		dc_fg_disable(dc_crtc->fg);
-+
-+	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
-+	disable_irq(dc_crtc->irq_dec_seqcomplete);
-+
-+	if (old_crtc_state->plane_mask && old_plane_state->visible)
-+		dc_dprc_disable(dc_plane->fu->dprc);
-+
- 	dc_fg_disable_clock(dc_crtc->fg);
- 
- 	/* request pixel engine power-off as plane is off too */
-@@ -371,7 +450,11 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
- int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
- {
- 	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
-+	struct dc_plane *dc_plane = to_dc_plane(crtc->primary);
- 	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-+	enum dc_link_id ed_src, lb_sec;
-+	bool disable_dprc = false;
-+	bool crtc_is_enabled;
- 	int ret;
- 
- 	ret = pm_runtime_resume_and_get(dc_crtc->de->dev);
-@@ -381,16 +464,71 @@ int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
- 		goto out1;
- 	}
- 
-+	crtc_is_enabled = dc_drv_crtc_is_enabled(dc_drm, drm_crtc_index(crtc));
-+
-+	ret = pm_runtime_resume_and_get(dc_drm->pe->dev);
-+	if (ret) {
-+		dc_crtc_err(crtc, "failed to get DC pixel engine RPM: %d\n",
-+			    ret);
-+		goto out2;
-+	}
-+
- 	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
- 		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
--		goto out2;
-+		goto out3;
- 	}
- 
--	dc_crtc_dbg(crtc, "disabling FrameGen at boot\n");
--	__dc_crtc_disable_fg(crtc);
-+	ret = dc_ed_pec_src_sel_get(dc_crtc->ed_cont, &ed_src);
-+	if (ret || ed_src == LINK_ID_NONE) {
-+		dc_crtc_err(crtc, "failed to get content ExtDst's source\n");
-+		if (ret == 0)
-+			ret = -EINVAL;
-+		goto out3;
-+	}
-+
-+	if (ed_src == LINK_ID_CONSTFRAME0 || ed_src == LINK_ID_CONSTFRAME1)
-+		goto disable;
-+
-+	ret = dc_lb_pec_dynamic_sec_sel_get(dc_plane->lb, &lb_sec);
-+	if (ret || lb_sec == LINK_ID_NONE) {
-+		dc_crtc_err(crtc,
-+			    "failed to get primary plane LayerBlend secondary source\n");
-+		if (ret == 0)
-+			ret = -EINVAL;
-+		goto out3;
-+	}
-+
-+	/*
-+	 * If CRTC was enabled by bootloader instead of this driver, we don't
-+	 * know if DPRC was enabled or not.  In this case, enforcing DPRC
-+	 * disablement potentially causes imbalanced clock enable count for
-+	 * DPRC and PRG clocks.  So, we presume bootloader doesn't bother to
-+	 * use prefetch engines.
-+	 */
-+	if (crtc_is_enabled)
-+		disable_dprc = true;
-+
-+disable:
-+	enable_irq(dc_crtc->irq_dec_seqcomplete);
- 
--	if (!dc_drv_crtc_is_enabled(dc_drm, drm_crtc_index(crtc)))
--		goto out2;
-+	if (disable_dprc) {
-+		dc_crtc_dbg(crtc, "disabling FrameGen along with DPRC REPEAT_EN at boot\n");
-+		dc_crtc_disable_fg_along_with_dprc_repeat_en(crtc);
-+	} else {
-+		dc_crtc_dbg(crtc, "disabling FrameGen at boot\n");
-+		dc_fg_disable(dc_crtc->fg);
-+	}
-+
-+	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
-+	disable_irq(dc_crtc->irq_dec_seqcomplete);
-+
-+	if (!crtc_is_enabled)
-+		goto out3;
-+
-+	if (disable_dprc) {
-+		dc_crtc_dbg(crtc, "disabling DPRC at boot\n");
-+		dc_dprc_disable_at_boot(dc_plane->fu->dprc);
-+	}
- 
- 	dc_crtc_dbg(crtc, "disabling clocks at boot\n");
- 
-@@ -400,6 +538,8 @@ int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
- 
- 	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
- 
-+out3:
-+	pm_runtime_put(dc_drm->pe->dev);
- out2:
- 	pm_runtime_put(dc_crtc->de->dev);
- out1:
-diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-ed.c
-index 1370b968168b..271d0745b21f 100644
---- a/drivers/gpu/drm/imx/dc/dc-ed.c
-+++ b/drivers/gpu/drm/imx/dc/dc-ed.c
-@@ -77,6 +77,11 @@ static const struct regmap_config dc_ed_pec_regmap_config = {
- 	.reg_stride = 4,
- 	.val_bits = 32,
- 	.fast_io = true,
-+	/*
-+	 * Registers could be accessed with local irq and preempt disabled,
-+	 * so use a raw spinlock to avoid sleeping on PREEMPT_RT.
-+	 */
-+	.use_raw_spinlock = true,
- 	.wr_table = &dc_ed_pec_regmap_write_table,
- 	.rd_table = &dc_ed_pec_regmap_read_table,
- 	.volatile_table = &dc_ed_pec_regmap_volatile_table,
-diff --git a/drivers/gpu/drm/imx/dc/dc-fu.c b/drivers/gpu/drm/imx/dc/dc-fu.c
-index d9933218069c..fd98d02e4d6b 100644
---- a/drivers/gpu/drm/imx/dc/dc-fu.c
-+++ b/drivers/gpu/drm/imx/dc/dc-fu.c
-@@ -125,13 +125,31 @@ static inline void dc_fu_set_numbuffers(struct dc_fu *fu, unsigned int num)
- 			  SETNUMBUFFERS_MASK, SETNUMBUFFERS(num));
- }
- 
--static void dc_fu_set_burstlength(struct dc_fu *fu, dma_addr_t baddr)
-+static unsigned int dc_fu_burst_size_fixup(dma_addr_t baddr)
- {
--	unsigned int burst_size, burst_length;
-+	unsigned int burst_size;
-+
-+	if (baddr == 0)
-+		return 128U;
- 
- 	burst_size = 1 << __ffs(baddr);
- 	burst_size = round_up(burst_size, 8);
- 	burst_size = min(burst_size, 128U);
-+
-+	return burst_size;
-+}
-+
-+static unsigned int
-+dc_fu_stride_fixup(unsigned int stride, unsigned int burst_size)
-+{
-+	return round_up(stride, burst_size);
-+}
-+
-+static void dc_fu_set_burstlength(struct dc_fu *fu, dma_addr_t baddr)
-+{
-+	unsigned int burst_size, burst_length;
-+
-+	burst_size = dc_fu_burst_size_fixup(baddr);
- 	burst_length = burst_size / 8;
- 
- 	regmap_write_bits(fu->reg_cfg, BURSTBUFFERMANAGEMENT,
-@@ -151,8 +169,14 @@ void dc_fu_set_src_bpp(struct dc_fu *fu, enum dc_fu_frac frac, unsigned int bpp)
- }
- 
- static void dc_fu_set_src_stride(struct dc_fu *fu, enum dc_fu_frac frac,
--				 unsigned int stride)
-+				 unsigned int width, int bpp, dma_addr_t baddr)
- {
-+	unsigned int burst_size = dc_fu_burst_size_fixup(baddr);
-+	unsigned int stride;
-+
-+	stride = width * (bpp / 8);
-+	stride = dc_fu_stride_fixup(stride, burst_size);
-+
- 	regmap_write_bits(fu->reg_cfg, fu->reg_sourcebufferattributes[frac],
- 			  STRIDE_MASK, STRIDE(stride));
- }
-diff --git a/drivers/gpu/drm/imx/dc/dc-fu.h b/drivers/gpu/drm/imx/dc/dc-fu.h
-index 9fbd7aadd264..0527a7b2221d 100644
---- a/drivers/gpu/drm/imx/dc/dc-fu.h
-+++ b/drivers/gpu/drm/imx/dc/dc-fu.h
-@@ -87,7 +87,7 @@ struct dc_fu_ops {
- 	void (*set_baseaddress)(struct dc_fu *fu, enum dc_fu_frac frac,
- 				dma_addr_t baddr);
- 	void (*set_src_stride)(struct dc_fu *fu, enum dc_fu_frac frac,
--			       unsigned int stride);
-+			       unsigned int width, int bpp, dma_addr_t baddr);
- 	void (*set_src_buf_dimensions)(struct dc_fu *fu, enum dc_fu_frac frac,
- 				       int w, int h);
- 	void (*set_fmt)(struct dc_fu *fu, enum dc_fu_frac frac,
-diff --git a/drivers/gpu/drm/imx/dc/dc-kms.h b/drivers/gpu/drm/imx/dc/dc-kms.h
-index a25d47eebd28..8b45b21a6f8a 100644
---- a/drivers/gpu/drm/imx/dc/dc-kms.h
-+++ b/drivers/gpu/drm/imx/dc/dc-kms.h
-@@ -130,4 +130,9 @@ struct dc_plane {
- 	struct dc_ed *ed;
- };
- 
-+static inline struct dc_plane *to_dc_plane(struct drm_plane *plane)
-+{
-+	return container_of(plane, struct dc_plane, base);
-+}
-+
- #endif /* __DC_KMS_H__ */
-diff --git a/drivers/gpu/drm/imx/dc/dc-plane.c b/drivers/gpu/drm/imx/dc/dc-plane.c
-index 42c0a46281cb..ba20d3535515 100644
---- a/drivers/gpu/drm/imx/dc/dc-plane.c
-+++ b/drivers/gpu/drm/imx/dc/dc-plane.c
-@@ -17,6 +17,7 @@
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_print.h>
- 
-+#include "dc-dprc.h"
- #include "dc-drv.h"
- #include "dc-fu.h"
- #include "dc-kms.h"
-@@ -44,11 +45,6 @@ static const struct drm_plane_funcs dc_plane_funcs = {
- 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
- };
- 
--static inline struct dc_plane *to_dc_plane(struct drm_plane *plane)
--{
--	return container_of(plane, struct dc_plane, base);
--}
--
- static int dc_plane_check_max_source_resolution(struct drm_plane_state *state)
- {
- 	int src_h = drm_rect_height(&state->src) >> 16;
-@@ -88,6 +84,26 @@ static int dc_plane_check_fb(struct drm_plane_state *state)
- 	return 0;
- }
- 
-+static int dc_plane_check_dprc(struct drm_plane_state *state)
-+{
-+	struct drm_framebuffer *fb = state->fb;
-+	dma_addr_t baseaddr = drm_fb_dma_get_gem_addr(fb, state, 0);
-+	u32 src_w = drm_rect_width(&state->src) >> 16;
-+
-+	if (!dc_dprc_rtram_width_supported(src_w)) {
-+		dc_plane_dbg(state->plane, "bad RTRAM width for DPRC\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!dc_dprc_stride_supported(fb->pitches[0], src_w, fb->format,
-+				      baseaddr)) {
-+		dc_plane_dbg(state->plane, "fb bad pitches[0] for DPRC\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int
- dc_plane_atomic_check(struct drm_plane *plane, struct drm_atomic_commit *state)
- {
-@@ -123,7 +139,11 @@ dc_plane_atomic_check(struct drm_plane *plane, struct drm_atomic_commit *state)
- 	if (ret)
- 		return ret;
- 
--	return dc_plane_check_fb(plane_state);
-+	ret = dc_plane_check_fb(plane_state);
-+	if (ret)
-+		return ret;
-+
-+	return dc_plane_check_dprc(plane_state);
- }
- 
- /* A prerequisite is that drm_dev_enter() has been called beforehand. */
-@@ -158,12 +178,18 @@ dc_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
- {
- 	struct drm_plane_state *new_state =
- 				drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_plane_state *old_state =
-+				drm_atomic_get_old_plane_state(state, plane);
-+	struct drm_crtc_state *new_crtc_state =
-+				drm_atomic_get_new_crtc_state(state, new_state->crtc);
-+	bool needs_modeset = drm_atomic_crtc_needs_modeset(new_crtc_state);
- 	struct dc_plane *dplane = to_dc_plane(plane);
- 	struct drm_framebuffer *fb = new_state->fb;
- 	const struct dc_fu_ops *fu_ops;
- 	struct dc_lb *lb = dplane->lb;
- 	struct dc_fu *fu = dplane->fu;
- 	dma_addr_t baseaddr;
-+	bool prefetch_start;
- 	int src_w, src_h;
- 	int idx;
- 
-@@ -184,7 +210,8 @@ dc_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
- 
- 	fu_ops->set_layerblend(fu, lb);
- 	fu_ops->set_burstlength(fu, baseaddr);
--	fu_ops->set_src_stride(fu, DC_FETCHUNIT_FRAC0, fb->pitches[0]);
-+	fu_ops->set_src_stride(fu, DC_FETCHUNIT_FRAC0, src_w,
-+			       fb->format->cpp[0] * 8, baseaddr);
- 	fu_ops->set_src_buf_dimensions(fu, DC_FETCHUNIT_FRAC0, src_w, src_h);
- 	fu_ops->set_fmt(fu, DC_FETCHUNIT_FRAC0, fb->format);
- 	fu_ops->set_framedimensions(fu, src_w, src_h);
-@@ -193,6 +220,11 @@ dc_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
- 
- 	dc_plane_dbg(plane, "uses %s\n", fu_ops->get_name(fu));
- 
-+	prefetch_start = needs_modeset || !old_state->fb ||
-+			 (!old_state->visible && new_state->visible);
-+	dc_dprc_configure(fu->dprc, new_state->crtc->index, src_w, src_h,
-+			  fb->pitches[0], fb->format, baseaddr, prefetch_start);
-+
- 	dc_lb_pec_dynamic_prim_sel(lb, dc_cf_get_link_id(dplane->cf));
- 	dc_lb_pec_dynamic_sec_sel(lb, fu_ops->get_link_id(fu));
- 	dc_lb_mode(lb, LB_BLEND);
+This is covered by a separate binding change for the BAM DMA controller:
+https://lore.kernel.org/all/20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com/
+With memory-region on the BAM DMA node, dma_alloc_wc() allocates the
+descriptor FIFOs from the pool, without BAM DMA driver changes.
 
--- 
-2.43.0
+Using the same pool for both nodes is a DT requirement. The DMA channels
+are only requested at modem power-up, so a check in BAM-DMUX could not
+fail probe and would only warn after the fact.
+
+>
+>> +
+>> +	if (!qcom_scm_is_available())
+>> +		return -EPROBE_DEFER;
+>> +
+>> +	dst[0].vmid = QCOM_SCM_VMID_HLOS;
+>> +	dst[0].perm = QCOM_SCM_PERM_RW;
+>> +	dst[1].vmid = vmid;
+>> +	dst[1].perm = QCOM_SCM_PERM_RW;
+>> +
+>> +	ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
+>> +				  ARRAY_SIZE(dst));
+> [Severity: Medium]
+>
+> Once the whole pool is RW for the modem VMID, does every RX mapping copy
+> uninitialized kernel memory into it?
+>
+> bam_dmux_skb_dma_queue_rx() allocates the RX skb with
+> __netdev_alloc_skb() and calls skb_put(skb, BAM_DMUX_BUFFER_SIZE) without
+> zeroing. It then maps the buffer DMA_FROM_DEVICE.
+>
+> With a restricted-dma-pool, swiotlb_tbl_map_single() copies the original
+> buffer into the pool slot before the transfer, whatever the direction:
+>
+> 	swiotlb_bounce(dev, tlb_addr, mapping_size, DMA_TO_DEVICE, pool);
+>
+> That would put up to 2 KiB of stale kernel data per buffer into memory
+> shared with the modem. This happens for all 32 RX buffers at power-on and
+> again on each refill in bam_dmux_rx_callback().
+>
+> Should the RX buffers be zeroed before mapping when qcom,vmid is set?
+
+This is generic swiotlb behaviour for all restricted-dma-pool users: the
+original buffer is bounced for every direction, so that bytes the device
+does not write are preserved. Without a restricted pool, as on the
+existing BAM-DMUX platforms, the BAM accesses the skb directly, including
+its stale contents, so the pool does not widen the exposure.
+
+>
+> [ ... ]
+>
+>> @@ -829,8 +929,11 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>>   
+>>   	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
+>>   				    &dmux->pc_state);
+>> -	if (ret)
+>> -		goto err_disable_pm;
+>> +	if (ret) {
+>> +		/* The PC IRQ may already have powered up the RX path */
+>> +		bam_dmux_remove(pdev);
+>> +		return ret;
+>> +	}
+> [Severity: Low]
+>
+> This changes the irq_get_irqchip_state() failure path from only disabling
+> runtime PM to a full bam_dmux_remove(). That seems to fix an existing bug.
+> The threaded PC IRQ is already registered at this point and may have run
+> bam_dmux_power_on(), which requests the RX channel and maps and submits
+> the RX skbs. The old err_disable_pm path leaked all of that while devm
+> freed dmux.
+>
+> Could this be split into a separate patch with a Fixes: tag so it reaches
+> stable, and mentioned in the commit message?
+>
+> The change also alters probe behaviour. The failure path can now block in
+> wait_event_timeout() for up to BAM_DMUX_REMOTE_TIMEOUT, it sends a
+> power-down vote through bam_dmux_runtime_suspend(), and it calls
+> disable_irq() on devm-managed IRQs.
+>
+> [ ... ]
+>
+>> @@ -853,6 +957,7 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>>   	struct bam_dmux *dmux = platform_get_drvdata(pdev);
+>>   	struct device *dev = dmux->dev;
+>>   	LIST_HEAD(list);
+>> +	bool remote_suspended;
+>>   	int i;
+>>   
+>>   	/* Unregister network interfaces */
+> [Severity: High]
+>
+> This isn't a bug introduced by this patch, but the new probe error path
+> relies on bam_dmux_remove() to tear down an RX path that may already be
+> active. remove cancels register_netdev_work before RX is stopped:
+>
+> 	cancel_work_sync(&dmux->register_netdev_work);
+> 	...
+> 	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
+> 	...
+> 	disable_irq(dmux->pc_irq);
+> 	bam_dmux_power_off(dmux);
+>
+> During the wait, an RX completion can carry a BAM_DMUX_CMD_OPEN command
+> for a channel that has no netdev. That goes through
+> bam_dmux_rx_callback()->bam_dmux_cmd_open(), which calls
+> schedule_work(&dmux->register_netdev_work) again. Nothing cancels the work
+> after that.
+>
+> Can the work then run after devres frees dmux, or register netdevs that
+> point at the freed dmux and are never unregistered?
+>
+> During probe, netdevs[] is all NULL, so after a power-up ack every open
+> command from the modem would schedule the work.
+
+This is a pre-existing issue in bam_dmux_remove(), present since the
+driver was added. This is out of scope for this series.
+
+>
+> [Severity: Medium]
+>
+> This isn't a bug introduced by this patch, but are the registered
+> net_devices ever freed?
+>
+> bam_dmux_register_netdev_work() calls free_netdev() only when
+> register_netdev() fails. bam_dmux_netdev_setup() does not set
+> needs_free_netdev, and this path only calls unregister_netdevice_queue()
+> and unregister_netdevice_many(). netdev_run_todo() only frees the device
+> when needs_free_netdev is set.
+>
+> So each registered netdev seems to leak on remove. With this patch it can
+> also leak in the new probe error cleanup, if interfaces were already
+> created.
+
+This is a pre-existing issue in bam_dmux_remove(), present since the
+driver was added. This is out of scope for this series.
+
+>
+>> @@ -872,13 +977,21 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>>   	pm_runtime_set_suspended(dev);
+>>   
+>>   	/* Try to wait for remote side to drop power vote */
+>> -	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
+>> +	remote_suspended = wait_event_timeout(dmux->pc_wait, !dmux->rx,
+>> +					      BAM_DMUX_REMOTE_TIMEOUT);
+>> +	if (!remote_suspended)
+>>   		dev_err(dev, "Timed out waiting for remote side to suspend\n");
+>>   
+>>   	/* Make sure everything is cleaned up before we return */
+>>   	disable_irq(dmux->pc_irq);
+>>   	bam_dmux_power_off(dmux);
+>>   	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+>> +
+>> +	/* The remote side may still access the pool if it did not suspend */
+>> +	if (remote_suspended)
+>> +		bam_dmux_reclaim_dma_pool(dmux);
+> [Severity: Medium]
+>
+> Can remote_suspended be stale or wrong by the time it gates the reclaim?
+>
+> It is sampled while the PC IRQ is still enabled, and disable_irq() only
+> runs afterwards. In between, the modem can raise its power vote again,
+> and bam_dmux_pc_irq() would run:
+>
+> 	if (new_state) {
+> 		if (bam_dmux_power_on(dmux))
+> 			bam_dmux_pc_ack(dmux);
+>
+> That requests RX, maps the RX skbs into the pool and acks the modem.
+> disable_irq() only waits for the handler to finish. The earlier true value
+> then reclaims the pool while the modem believes the link is up.
+>
+> Also, dmux->rx == NULL does not necessarily mean the remote powered down.
+> If bam_dmux_power_on() fails in the PC IRQ handler or in probe,
+> bam_dmux_power_off() clears rx while pc_state is set to true. The wait
+> then returns immediately and the pool is reclaimed while the remote vote
+> is still asserted.
+>
+> The commit message says:
+>
+>      Skip the reclaim and leave the pool assigned if the remote side did not
+>      acknowledge the power-down, since it may still access the pool.
+>
+> Would it be more robust to make this decision after disable_irq(), based
+> on the remote PC state (for example !dmux->pc_state)?
+
+Agreed. In the next revision, the reclaim can be decided after disable_irq()
+based on dmux->pc_state, so a failed power-on with the remote vote still
+asserted also leaves the pool assigned.
+
+Vishnu
+
+pw-bot: cr
 
