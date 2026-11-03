@@ -1,89 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.132
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793691194;
-	b=4MxAtpl/QMtcp4OSys5OSCsKFY3P+VdU34vGi4NxDLeG6193pC5MG1GsfE7Tjhu+a2pc
-	 lvasjC9INyusMm2nsQIsAsv7q0JHoEGKLfwidU+OzeQNNqwqEQw0JmzyHvhY4FdP5W4Ml
-	 kH7RTwJT/SYOea9kBbx7/oStTTa7PckIswpaj9GYlRX5MTeFloh30Njd36QEcmr7AG6Hd
-	 gBl4oY210XauC8wyhrIjZl2EAwOgYKGggejx7qO1qSUwxQ/FpeHWu5gFA11ezO3SYX13P
-	 lpg89tTnp+6M2rJUSLaqvjnIu9FpKjgKJaIt8qkDpG865gASysfgbDsRXch51vNo9mA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691194;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
-	b=2E80wxARdpvuQNRoiRT5TiuZ5Z4xizfTliQ5fDFQ7IHTs0btEmyDVo1hSW7ieUBtfyMS
-	 iBg9LSLoYY/IuuroHEUXqpaI1C4lZjNnmUf9kSA7j0IzZzntf8bfVHGnmyiS+SSCMaQxo
-	 uFHyLWjJ5CIka+VvuicrG6pYaCZCqwQBYCZM1IQlhGYYbzJVU+QStqzqyNb1Xvg8WrQdy
-	 S3Vx0tDtQoWCYVRBOZGa6YOGY1Xwx9mTmTFTLBJgS8G+T669E8KkrHYwOM6bQPALstsDK
-	 a/KwlAsiFqVJorqqV0gVmJuV5b3RSMtbWzimS6/JD4DLJtU4vsdGvOVtIGZn4uUJZLg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.132
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2132.outbound.protection.partner.outlook.cn [139.219.146.132])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793691617;
+	b=OBV0BTNfFejSSbNZoSW2E23aQqe2Yw+OtG1mz/0UxfYN1l/0aj3Y+p51CnBGVmngK1pV
+	 35tW3FXNyPimK1im3hiMOH0igdaUJaCkR8f0LXLz++plNQFn4JeUR1XdnXhvhyJhyJ47O
+	 3dKkzCDKTLTbyQYisjCOxQmCassWL3QTmuPKyGGCMUWtFdtaVFPbM1hrv8c10lNQh4q/2
+	 Q7LV7WhUo8aXcTde6K84ymDtTEHlwBG23uaZjOjtjMMYJWhiX3fyQ5WigZd5DX+jEiCUv
+	 hMF903p5SNZJehv0VyEmg2wvbU9ro5IDu9ntwVPWabRdrXwp7cVm2WGGmJ0yLl8S4cQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691617;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=RY/sXJR+//XYZDqNeUIB/EseqfgzZRdyY7oVg4AHbJk=;
+	b=rqKhpsGUm9PAVPUtsSkkKbE+A+yFmav6Xj2v51McDceIT7ZnXcskqw42Limdua4nXXE5
+	 GtaGtCLIlUwdBlPQimGF8SYj7HeEaqqtSzIQlj2I0UA7Gf+K4dIGevuUxRnL/5WWVQ3xq
+	 BsgzQtNVqWq7W+ZXGTOA3cwdOLk94eiqdzK14/0MK21Tenl44AJ0yLC4pGuilSYFNKErN
+	 NhlSa72gYHxvZQcQzdPSV4XG9OX9NWA+VcEDh0R34lkqUrTIbP2UjMqhFZ9zZavRykX11
+	 f2p74fqziiq7L7bdXMmjOzreNn0tq+MTpbwtYRr+Hkp3KI/AuMiugkwx7l8g0DuaVyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="yi08nLr/";
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB124606A32C;
-	Tue,  3 Nov 2026 07:33:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB124606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y5ZLSlglU5RRavx9f7wUnqt+1B7IvtHcGvH0NAf7MdaPR3ZVVL8kEqWoKkK9VAfRRWm3HsbRC96OoEW27cGrNX4530HF5P0V3nAU/Xo4sm4v7YDGcsanjUZMrrykn/c3liWasgNdSXPYeVR6q7jB2irFC9T5wNC9ZFaoaTjBPrW1ijw/XFMeWSPql0iQuxHA4gFCS/CILmUCnkZxDpxx4x8ymdPX1gx/FasSK36eVeOle0a8DEoRrnSc9GATqSC/3kN24X3WLClAexMXXSq++dmv08e2paAVQfPGMoPOIGYZh1k5qpcy6+s+i+4guJtxopGEfPQpNpJoYtV351uJJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
- b=XIWT5Nmia9jqo82THaAVVTAitUjw9QOca3LO2Df/4rQSonhhHjmLGjN3e9tKZcxelwkxsf9kbqIgh6ARamszlEEvNXkfXgyAW/ONveA8BZNhkvowKBLG/tZP48kYT0QFe8Aj6sqeS8is5uJkoGnzSFUDm/VrZLvU7EcuPZwsNWwmNEqeZ7MLHvMUylunshkMW8CxwrUh5I187WQgWQMN5DTVZcKNTyQKLTxplh20VbotMGtDb+Js87UDnY5Bw0wLCIJyHQ7DiElo/j++xaAX5wqv+tVNBy+kyxMpNVhsK6CKbst+Zspa+IY4cJSl7QD7w3Nss8Ec+EPQubSx8KpXCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1032.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:c::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 07:33:00 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 07:33:00 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: [PATCH v11 1/6] dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
-Date: Tue,  3 Nov 2026 15:32:47 +0800
-Message-Id: <20261103073252.3028-2-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261103073252.3028-1-lianfeng.ouyang@starfivetech.com>
-References: <20261103073252.3028-1-lianfeng.ouyang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0008.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510::13) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DA5606A32C
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 07:40:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DA5606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yi08nLr/
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso2344167a12.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 23:40:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793691610; x=1794296410; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RY/sXJR+//XYZDqNeUIB/EseqfgzZRdyY7oVg4AHbJk=;
+        b=yi08nLr/AMviALnEJEd32c0OYOiECY5uD4yZv3zhkwRhHozK1flE/fXd3S5nAMfrQA
+         1tKc1WHzyds7AbD+cfORPxWj1YA6zzrTLZUWRVeKcJIHtvzhwRRpz4F9p/Dv7U18rcTQ
+         eC/qZ6qkK8VVB6h/Gtu7q8B9zYEbPacb3iPNmlXVlgFwT8DlR/QRc6SlWLw8lszPompH
+         ISPiLvikHWtZ8JOgCb04xbVlGSS2oQUjI+0uaOG05IfjFu9WKZAezLtsGLOTSAdAo9Dd
+         c+VVC8btj9QVb/UkmvQqR+eZQD/3VOAcW6tW923JwlGAKApngz5rLE9etQIo9xSgkhan
+         1Vvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793691610; x=1794296410;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RY/sXJR+//XYZDqNeUIB/EseqfgzZRdyY7oVg4AHbJk=;
+        b=eKiWKP4IzQbykpkB66oy6twImWKqPNhAvZ4zPi5HXxABJROXvyfef7aXwEGCeNtzeR
+         M9WVaKZQm9jy5rIsy7L1IWTvgBqMaN3VYZYEyD/H7vrNoFUDbAeTyWp7nPJvUMmLnje3
+         UMCLcxfOqVv6tdID1tNJHqnI9klnwzVcAShPdUIWbD6VIOETMOPMtlxpAvYOpWgbUjsI
+         qY/L2QQJF/gmKFoCWtft7thI60oRGQVKlH5DCoghynPTTTIAXCZGSO9H64ja+lSY7F97
+         BNQnY8M2q5m3kIjzlaqndCXQ5CBXKd+3rW9tpC7i5o6AuCCa9uAmLEAtLqGkNgj8i91z
+         V0kw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9Ax5rWv/8tU+1fAVwLfRSiVgIJl8tRFn1TB0YWfbAXdOJ/T2rvh79n1JyEm31lrqBWCzZhYP2JUTB@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ksseUVzlsmTce2+siF9rG6IThoFWw1g88Pz94CsfLga06M+Qj
+	tGTazKLzf6dWDsRiOlZN5RbTg9CBpSQ3qIPzglvzaM8b0jAkEv/nhAkG
+X-Gm-Gg: AYBFou2oxodVraQ0YyoRG0XSk7AyXF0coLqVugLeoMS1MvsBcRnj/Yqc5jUtfWG9RPd
+	10vjYRcedarXuSQBzmUg1UDK74NCIKRoHqrE668OHY+4CHqA/pDG2Cd2hPyoLsZ2ND3gnoJ2KVa
+	SRHYhUera5oPKuYiJOe2g5NpvuB3kswJyZjjXGm+7yt0q704boF8t8wS3C1+dSkdfYyk4HSk2HL
+	HfQc1UY0forEmBpkSFOnR7qv+ZASZwJH/R5p+tASVJd9GLttTwarTBqzLVWJbjsrgqMCe8aUpW0
+	nRR16Andf+HeZNul7fnzGesNcDmnhvSWXV7MM7D0wiusbpHCZ+/iXWyu+XeLzpsf6wAmrOkuVMr
+	M6wxAt1gL5HHsR/QKCdPtJbcPv+7VmAw6rtv7qBPA641V0NjJwTUi9vIdO3A2YjNrXWdcdukSxQ
+	toaLUL5MRH7LDTAy6cNuSkSK9fbWR+d/2xRDoKWI2INgXUoUpyJES3TnjqsUI7V0nrDtREnWceQ
+	xLvqaPRP9dAf71DvpESyrO5xufjBcr1NpQ6II5yyeJYUkTfoxRH1rrY5p818LPet2Acm31NYzyG
+	/ZvpXQXmXFuoRLuaFn/wac6r4jzDVw0lrqWO75UQl6eEzvFB1O1w9PRkqJ+DaK1b4D/TH2M9a4L
+	XM/sdgeCS4zhq5TfL/8DOe7P2CSp+g5z7T57dgIaXYdY0D5q2H5I6VY8BuiUjj5GvYoqqFEUGq7
+	D1G7c=
+X-Received: by 2002:a17:90b:4cd0:b0:3a4:f8da:2478 with SMTP id 98e67ed59e1d1-3ae8974b76dmr9984235a91.29.1793691609740;
+        Mon, 02 Nov 2026 23:40:09 -0800 (PST)
+Received: from [192.168.2.34] ([2403:581e:d87e:0:739f:50a5:e171:f133])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c903d0dsm2956769a91.12.2026.11.02.23.40.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 23:40:09 -0800 (PST)
+From: James Calligeros <jcalligeros99@gmail.com>
+Subject: [PATCH v4 00/22] Add speaker and headset jack support for Apple
+ Silicon Macs
+Date: Tue, 03 Nov 2026 17:39:48 +1000
+Message-Id: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,101 +95,267 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2de92709-4111-4f69-9164-08df397cafd8
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|52116014|38350700014|261021123027099003|56012099006|261009223027099003|261028144727099003|261022075727099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|261102123227099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	mxJkKXvjRcooyJe0HdDNZBAEfQvcpRiid4N2inrF8b3olyfM2HEjkwjBDSDkymG0bNj2feFgIqYsMkr4X8nIHIcF56+zzwyc8qIr1F4Ya18vSN8U4TG32A/jqhhT7gvGKarfzRtfygzG0/zAF2xZxBfEBQQYNbSGRZFMOaEOIHYH13CFHO+ei2CNmB9gkS3XiMhjjPg9fU6kYhAyhVeUzjLxXGCG9HmPgM6wBCLqxwqRZ7O7onqs6llxvKInh5B3Ezs3mD0ILcR3KgXaEHmI9L0tb9p/iw5/TlDejgUz42L6UGUtpwrg34a+7sXgJETkkOB/XPNkcHsW2uTVz9Zrn1OMFl67XdOiSr3h0iSxdjeu1yHeGtmiex1lh3JixX7tzoH4AxnvkJ1NpHcvI23Smdej2q6lilKFWsM5gn61fSZL1idxbn7nMgDj5ySFJTO8k3nDTiv6oy5UbKyJ2qsMR+U3dGhckGJk3XofL9KiLjD+EWz5SShvScIAyQpn7DoS3vgJkAOgxZZlrIrYn7t7vjSm7wm89NtXnmBjBEv+tjM2jTKt9JUctwGleph1GzhL
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(52116014)(38350700014)(261021123027099003)(56012099006)(261009223027099003)(261028144727099003)(261022075727099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(261102123227099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?52tR4EUThfSR9qBfg8B4PPPTQM3a8Pt2Lrs/XJ7TLy1B5mQxjf5tWkgLEzT+?=
- =?us-ascii?Q?miqbqexQ3R43ScXK7b51G5OEImUReEdpNp4Sw26vaiPd0UhzBKxPH56Wzyu3?=
- =?us-ascii?Q?Jbrsg8qHuqjx+2RXpD3SErvWaZWoNO4ziMnykfc8g9vP3dIpv70+48dDIgfv?=
- =?us-ascii?Q?Br3DN01581MwTxkYMBmY2US4H3tpU01bE9Md5idKLCDcajlNyVFYv70e4BNZ?=
- =?us-ascii?Q?VDM9JkVyP7tfJ+owoA4KcKtyIFVU2b9Ml5ya69cDuKZeOZyafyehEcIkh+Bm?=
- =?us-ascii?Q?oIkexMLW9fQN1hFoWCRatcpCor7tuqIln/nDqb3pqZk+5wain+wKZKpNIcHo?=
- =?us-ascii?Q?x9T5qBdtKCbQASppaAFH9Htc7a9nDN7sGPi78XUWinWQlzRGwEd3fp5NSBKt?=
- =?us-ascii?Q?eNena6FrTfkurhnY+hl9+Kv6Ni7V2Pd5Yo7Jp6tm3mOjyn9CKmGFkvaLbELt?=
- =?us-ascii?Q?/R3u9U4mZ2ddve4/MtufqOh74ByzQidVX1Vsj1LY0bIhWkDuv+y3b/K2O7LH?=
- =?us-ascii?Q?/qvRFvmb28oyriBUK3742cgsjE/gdm0MSl8/UiUR/iLBbYoZB6iF/8kC2uRW?=
- =?us-ascii?Q?rUJUqLgglJVvlwLhmGH2iJw5pnt3szI1YpbEttzAmimInBe0jIgAbSk8vqAP?=
- =?us-ascii?Q?BpW6oWwuiM9F41jyc+MZbsymB1n+AIREDX/r92ooaj3GYfUUEryhKt7bkdvR?=
- =?us-ascii?Q?pQ/s3cNseARI8IPjnj1Pu3FNqy+3g+bxxJWl7u9L9v9pVAe4wlbQqcPhuRb9?=
- =?us-ascii?Q?BRuRBTaDofxCQJpkjvo9KEGdUmGDsq5RFz4kufJFGnGlBZyQ2hf1kRjAlN6d?=
- =?us-ascii?Q?JStG9W2HZcjhtxymjtpxXB9IOPq5gazbLBbG6+tmApoqSgcuOYIiIErllckj?=
- =?us-ascii?Q?h/B+j814KrfNKvBNW6gEYvoRk2K2eUOFBV7k+ye+whrsMhZf8sKykxeh6hnB?=
- =?us-ascii?Q?hiWb70g7Ptu6vreZz+LwGQYuewYU6mu7/MAvJLMmQeKty6RYQaAFvsOziqg5?=
- =?us-ascii?Q?QmB77nljSRHqDvgBIO5E/++PSuD1LsM3bluc4FglRtk7F3VwPUSbZtGMR4Zg?=
- =?us-ascii?Q?QtNVyqWoWfW0zFLU4f+SUDD7AYujBg7PZ7V+K25pbsaY+8NuGCmxvFpq0we+?=
- =?us-ascii?Q?yZDo7N2PE37Hg39Vp2qXG4G5mDrVMglVnTqlEy3a8A+kPc0RAVHu0hustadz?=
- =?us-ascii?Q?s9G4NceomSu77xLcSB/1EGE0JbbNumIVtUs+u39P1mVQOsjhrDiCixEFrxcF?=
- =?us-ascii?Q?fX2xSMC0moy/KC+HhvBU1JLMqulIW8IakPHHIsdXzk45XNfVP9QW5NgnLhF7?=
- =?us-ascii?Q?B+wsYEFJ6KUlUEIQVozBgkhMqlzzuNrXRPQgDCU1DL1XccW+GnHa25nE2zQv?=
- =?us-ascii?Q?DcngnQ0G1GMNdBVOPKlLXIPl+FxpOe2sahYHpjDankScKEOubaXrjbE3QjnM?=
- =?us-ascii?Q?oP7qOZf1Ao0fLiHuU6PWZOtaeU8/d5T/MPhj+UGQrxyq3Moi4P58XxdJM6vO?=
- =?us-ascii?Q?eRV+RDtEoGSFcDY5HQQjBIAxxkgA4cfA3fFB9xTerZFEXPcpOKsAwUQ7rAAm?=
- =?us-ascii?Q?BmcLLVREGrRQrG5dFmPstz7V9bIErDgNPCBXd1R4OUZquN4l0DWAzqNWuGtM?=
- =?us-ascii?Q?rEKwRy6gWiasIXqoOS3wlMYvZFTnyCMocWVRku6BIkElpNhtwCjHMGiVjNX3?=
- =?us-ascii?Q?ttrdXsS0JCJrCWNQcZ1ZXCJK7S+oC2A+J5fyidmG5R3jhz1MoM+W5JX8qKml?=
- =?us-ascii?Q?+CvIthpiztA+fOxleO/s/J8hWOdh+YgExyWyM+0ZGgSjfAz9pDVL?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2de92709-4111-4f69-9164-08df397cafd8
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 07:32:59.9720
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b053Efitxby4xWtlWtlcwgKQu0bSTQjPUgQ1mmDUjuQbDIeWsMmF+PFOuDU8GnIjbPJgvCu4Y2D2j0sqp93NUHtsTZKkV+t+4sANKCc1ysbuwWuP3Mya+fq0gdL2RB62
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1032
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13Nyw6CMBQE0F8hXVvTFw9d+R/GxaW9QI1QQ4FoC
+ P9ui0aJy0nmzMzEY2/Rk2Mykx4n663rQlC7hOgGuhqpNSETwUTGDjylLWgYjXVUSs21qiRTBki
+ o33us7GOdOl/e2Y/lFfUQfWw01g+uf65fE4+9z6xgv9mJU0ZzxbUWDHKF6aluwd722rUkzk7iC
+ zljagNFhKXK0WRSplD8Q7mBvNhAGSCUpqry8GsQtnBZlhc4fx/SJAEAAA==
+X-Change-ID: 20260915-macaudio-33c1c4f304da
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Calligeros <jcalligeros99@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>, 
+ Sasha Finkelstein <k@chaosmail.tech>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11310;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=6g7QVojQmSRkyvrUrdmAVUMi6as1nE3Ga0sd7SW9+ZE=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFkv+09t28WuuO3Qo91/7y7c36ur8VBM8utk9aTVajvM/
+ i7PbZjH0DGRhUGMi8FSTJFlQ5OQx2wjtpv9IpV7YeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZjqzl6Gf0bpGu/MXu65yBy5drbCOwGfdfOPKbB817p/R2CT/KfvH34xMix/fca
+ t58X51o0VSjKeubxH5iV5SJgpPWjny+9qiCq5xAcA
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Hi folks,
 
-Update the StarFive TRNG DT bindings to reflect current SoC support.
+This series adds the machine driver and related bindings for the
+primary audio subsystem on Apple Silicon Macs. The macaudio
+machine driver is based on an RFC sent many years ago
+by Martin Povišer[1]. 
 
-The obsolete "starfive,jh8100-trng" compatible string is removed since
-  JH8100 SoC is no longer supported. A new "starfive,jhb100-trng"
-  compatible string is added for JHB100 SoC TRNG support.
+The driver uses the DPCM model to dynamically
+glue a backend DAI (combination of MCA ports and codecs) to a
+frontend PCM. While this theoretically allows us to route any
+backend to any frontend, this is not used in practice; the "Primary"
+frontend is always used for the headset codec and the "Secondary"
+is always used for the speakers.
 
-The maintainer entry is also updated to reflect current ownership as the
-  previous maintainer has resigned.
+The audio subsystem on Apple Silicon Macs is rather complicated and
+the speaker arrangement is highly variable; some machines have a
+single mono woofer while others pull together multiple woofers
+and tweeters into a single stereo pair. Every machine also includes
+a headset jack, and some also have their own builtin microphones which
+are handled by a separate coprocessor with its own driver.
 
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Many functions which are handled by firmware on other platforms
+must be handled by the kernel or by userspace. Most notably, speaker
+protection is handled by speakersafetyd[2], a userspace daemon.
+Speaker protection is handled in userspace due to the expensive
+floating point calculations and amount of per-machine configuration
+data required.
+
+The machine driver facilitates this by exposing a capture
+PCM from which the voltage and current across each speaker's voice
+coil can be read. Given that there are absolutely no hardware or
+firmware level failsafes preventing permanent damage to the fragile
+speakers found on these machines, the driver also implements a
+failsafe that will significantly attenuate and lock the gains
+of every connected speaker unless speakersafetyd is running.
+
+Version 2 of this series drops numerous fixes and semi-related
+patches that are not strictly necessary for the machine driver
+to function correctly. These will be resubmitted at a later date.
+
+Adding the required Devicetree updates for M3 series devices would
+have bloated this series to an unreasonable size as they are still
+missing most prerequisite hardware nodes. They will be added in a
+future series.
+
+Regards,
+James
+
+[1] https://lore.kernel.org/asahi/20220606191910.16580-1-povik+lin@cutebit.org/
+[2] https://github.com/AsahiLinux/speakersafetyd
+
 ---
- .../devicetree/bindings/rng/starfive,jh7110-trng.yaml  | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+Changes in v4:
+- Allow additional properties from dai-common in CS42L42 and CS42L84
+- Extend base tdm-slot.yaml idle mode props instead of defining bespoke ones
+- Clean up macaudio binding formatting
+- Give CS42L83 regulators unique node names
+- Drop useless reg property from macaudio dai-link, replace with named
+  nodes for headphone and speaker links
+- Fix up snd_soc_set_enum_kctl declaration to match altered argument names
+- Set TDM idle mode/mask for single-codec machines
+- Put card and jack back on the heap; not having these around causes more
+  problems than it solves
+- Prevent headphones from routing to the secondary mux, and speakers from
+  routing to the primary mux as the primary mux cannot drive the speakers
+  anyway
+- Avoid leaking OF node references on failed driver probes
+- Replace platform_remove with devres release action to cancel enqueued work
+- Use str_has_prefix for checking speaker link name
+- Link to v3: https://patch.msgid.link/20261018-macaudio-v3-0-abdff7741dea@gmail.com
 
-diff --git a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-index 4639247e9e51..d21769b7d54e 100644
---- a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-+++ b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-@@ -7,15 +7,13 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: StarFive SoC TRNG Module
- 
- maintainers:
--  - Jia Jie Ho <jiajie.ho@starfivetech.com>
-+  - Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
- 
- properties:
-   compatible:
--    oneOf:
--      - items:
--          - const: starfive,jh8100-trng
--          - const: starfive,jh7110-trng
--      - const: starfive,jh7110-trng
-+    enum:
-+      - starfive,jh7110-trng
-+      - starfive,jhb100-trng
- 
-   reg:
-     maxItems: 1
--- 
-2.43.0
+Changes in v3:
+- Add TAS5770L compatible to TAS2770 driver to match binding
+- Fix incorrect Right Tweeter prefix on J415
+- Make reference to dai-common.yaml in cs42l{42,84} bindings for
+  common properties
+- Fix Devicetree binding formatting in macaudio binding
+- Sort macaudio compatible list by fallback compatible
+- Add references to fixed regulators for machines with CS42L83
+- Fix iMac model compatibles (they are compatible with each other)
+- Fix Mac Mini J474 name
+- Rework kctl activate/deactivate to be a more pure wrapper of snd_ctl_activate_id
+- Check for kctl->put before iterating in soc_set_enum_kctl
+- Allocate structs on heap in soc_set_enum_kctl
+- Rework snd_soc_set_enum_kctl to be neater
+- Refactor snd_soc_set_enum_kctl to eliminate ret assignment
+- Set evalue.id and info.id in soc_set_enum_kctl
+- Guard against pointer arithmetic errors/null pointer deref in volume limiter
+- Replace stored snd_soc_card with static struct
+- Mark speaker BEs/FEs as nonatomic
+- Link to v2: https://patch.msgid.link/20261004-macaudio-v2-0-7b47ed6335a8@gmail.com
+
+Changes in v2:
+- Drop patches that are only tangentially related (will be submitted
+  later)
+- Drop wildcard-matching API for kctls
+- Relabel J473 sound model to Mac mini
+- Align Devicetree changes with upstream bindings
+- Relax Cirrus CS42L42 required properties to keep DT style checker happy
+- Define missing properties in CS42L{42,84} bindings
+- Fix mistyped DT properties
+- Improve macaudio DT binding description
+- Drop generic fallback compatible for apple,macaudio
+- Drop now-redundant descriptions from other compatibles
+- Constrain DAI link link-name property with an enum of valid values
+- Drop MCA node from macaudio binding example
+- Fix heading comment style in macaudio
+- Drop obsolete module parameter
+- Replace string functions with safer variants
+- Replace dropped wildcard API with searching for full kctl name
+- Rework idle props parsing to better surface errors/invalid Devicetree entries
+- Add additional locking to backend setup
+- Take controls_rwsem when safety functions are called from workqueues
+- Replace all mutex{,un}lock calls with guard/scoped_guard
+- Fix incorrect amp gain value for j37x config struct
+- static const-ify all config structs
+- Cancel control lock update workqueue on teardown
+- Drop unused DAPM widget
+- Fix commented-out safe volume calculations
+- Drop speaker lock kcontrol ownership checks and related core API extension
+- Link to v1: https://patch.msgid.link/20260920-macaudio-v1-0-741cc20a74e5@gmail.com
+
+To: David Rhodes <david.rhodes@cirrus.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: Martin Povišer <povik+lin@cutebit.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Shenghao Ding <shenghao-ding@ti.com>
+To: Kevin Lu <kevin-lu@ti.com>
+To: Baojun Xu <baojun.xu@ti.com>
+To: Sen Wang <sen@ti.com>
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+Cc: asahi@lists.linux.dev
+Cc: linux-sound@vger.kernel.org
+Cc: patches@opensource.cirrus.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-mediatek@lists.infradead.org
+
+---
+James Calligeros (17):
+      ASoC: dt-bindings: cs42l84: Allow referenced dai-common properties
+      ASoC: dt-bindings: cs42l42: Allow referenced dai-common properties
+      ASoC: dt-bindings: tdm-slot: Allow indexed TDM idle properties
+      ASoC: tas2770: Add compatible for TAS5770L
+      arm64: dts: apple: t8103-jxxx: Add regulators for CS42L83 power supply
+      arm64: dts: apple: t8103-j274: Add speaker/headset jack nodes
+      arm64: dts: apple: t8103-j313: Add speaker/headset jack nodes
+      arm64: dts: apple: t8103-j293: Add speaker/headset jack nodes
+      arm64: dts: apple: t8103-j45x: Add headset jack nodes
+      arm64: dts: apple: t8112-j413: Add speaker/headset jack nodes
+      arm64: dts: apple: t8112-j415: Add speaker/headset jack nodes
+      arm64: dts: apple: t8112-j473: Add speaker/headset jack nodes
+      arm64: dts: apple: t8112-j493: Add speaker/headset jack nodes
+      arm64: dts: apple: t600x-j31x: Add speaker/headset jack nodes
+      arm64: dts: apple: t600x-j375: Add speaker/headset jack nodes
+      arm64: dts: apple: t602x-j41x: Add speaker/headset jack nodes
+      arm64: dts: apple: t602x-j47x: Add speaker/headset jack nodes
+
+Martin Povišer (5):
+      ASoC: dt-bindings: Add binding for Apple Silicon Mac audio
+      ASoC: ops: Introduce 'snd_soc_ctl_activate'
+      ASoC: ops: Introduce 'soc_set_enum_kctl'
+      ASoC: card: Let 'fixup_controls' return errors
+      ASoC: apple: Add macaudio machine driver
+
+ .../devicetree/bindings/sound/apple,macaudio.yaml  |  195 +++
+ .../devicetree/bindings/sound/cirrus,cs42l42.yaml  |    5 +-
+ .../devicetree/bindings/sound/cirrus,cs42l84.yaml  |    8 +-
+ .../devicetree/bindings/sound/tdm-slot.yaml        |   34 +-
+ arch/arm64/boot/dts/apple/t6000-j314s.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6000-j316s.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6001-j314c.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6001-j316c.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6001-j375c.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6002-j375d.dts          |    5 +
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi     |  131 ++
+ arch/arm64/boot/dts/apple/t600x-j375.dtsi          |   61 +
+ arch/arm64/boot/dts/apple/t6020-j414s.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6020-j416s.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6020-j474s.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6021-j414c.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6021-j416c.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6021-j475c.dts          |    5 +
+ arch/arm64/boot/dts/apple/t6022-j475d.dts          |    5 +
+ arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi     |   35 +
+ arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi     |   10 +
+ arch/arm64/boot/dts/apple/t8103-j274.dts           |   70 +
+ arch/arm64/boot/dts/apple/t8103-j293.dts           |  114 ++
+ arch/arm64/boot/dts/apple/t8103-j313.dts           |   85 +
+ arch/arm64/boot/dts/apple/t8103-j456.dts           |   43 +
+ arch/arm64/boot/dts/apple/t8103-j457.dts           |   43 +
+ arch/arm64/boot/dts/apple/t8103-jxxx.dtsi          |   32 +
+ arch/arm64/boot/dts/apple/t8112-j413.dts           |  104 ++
+ arch/arm64/boot/dts/apple/t8112-j415.dts           |  128 ++
+ arch/arm64/boot/dts/apple/t8112-j473.dts           |   58 +
+ arch/arm64/boot/dts/apple/t8112-j493.dts           |  104 ++
+ include/sound/soc-card.h                           |    2 +-
+ include/sound/soc.h                                |    6 +-
+ sound/soc/apple/Kconfig                            |   18 +
+ sound/soc/apple/Makefile                           |    4 +
+ sound/soc/apple/macaudio.c                         | 1734 ++++++++++++++++++++
+ sound/soc/codecs/tas2770.c                         |    1 +
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c          |    4 +-
+ sound/soc/soc-card.c                               |   12 +-
+ sound/soc/soc-core.c                               |    5 +-
+ sound/soc/soc-ops.c                                |   99 ++
+ 41 files changed, 3182 insertions(+), 28 deletions(-)
+---
+base-commit: f308b528e539c2a14dc7d59201cff45d89b00ab2
+change-id: 20260915-macaudio-33c1c4f304da
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
