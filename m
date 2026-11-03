@@ -1,84 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700649;
-	b=3IRAmOw+o8hVHwYQg2D5s4Y0IzUS8pJCOfOuABuZXtuM18Vg+AfRjsjy/MASYq5g3xzE
-	 by4WrD5SYzEIfTP+ydfJKAPkcUMIjl52pHSJuDoCMBSg0HNVsm/bZ4O0FvB5MDxi8vyaS
-	 +rhBvf41wfARrQw60mA3EUB/KZVjFqegwxs/IcjamuRh6lzMPe5nlM3TUSQdodYKc9eQI
-	 Ou8HohVZiAzmF87RRGBOqIk7ONefqUWPU5aDagHn1JabB+tkBhg3sbOCSl9lNL1CXkZY5
-	 1niB3MkSCEPQw4jk30yBGAwgayCY4aRX+BRFTJK4HU/geymiaO/DnYaXzT3w4Nd16yQ==
+	t=1793700760;
+	b=kD8RZ43Qoz1E86Gmz1zJn6tXA51TPbPN/rhNHxOe6sr1UvAPyoP6Dhn+8pOLS1Ci9xFR
+	 Y39tU5/qwzGUZKE6I4Adf9ci2L1bTpsBBepYSbgk87w3Nngl09KNkXBAJIFU+WygoN50y
+	 tmN2rEq1H6AAG/tGbszk5bt3rt/886ZsKKNDOVj9mb0uqeun85oX3HCkAGFR/dpba5a76
+	 MMhXr98ekxdrT5hGg2DdejqLvRF3N9zQPUhKOHW1xOAArQ4kstOfvRW9LBeVMISfGgLPR
+	 U/icRmJ9lTRN5nDv9dm81bCH8m5UyglaqnEMF4NTptpVmxJ38RPZpMXPx2hZcQtLolA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700649;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=KKjRcMgA2od1JAUQ3NDEJd+3pJ6utv9HJwQINe7Cudo=;
-	b=n95Nj7933JKjVcytJxJiz1GD0sIh6fkWVVJ1fhShDu7PEGCTstd5VlcrIridrmj7ryPR
-	 2JVRjmL83klwpDEVuJORKVCF2FJTp5K70BGa5auN7/fal0X1A//D7kWJeG8XVhouImcwc
-	 fRd/jBs12tFeWMFgBUhmfFfrWa7qXo1K/jQwBgdDT8sXH0dlIDCT2VMbY8YQbmjE6nY07
-	 VaYXijopzXEXR5ZvVrFuYKwUyov4i2mZuuSHlpqfSasGD4CZA4Nif8u5kkwQIeMJWjwtT
-	 DKUOgBM816nrE/IatXxOeQpdiLVkY6DrRVZ8M51/UUB+LeFtEFy0kycs6tJEuy+ypTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700760;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=cAJcK6wWXyswA+ys5mhuqkoXL9U9AnrrgIBwujtRqPY=;
+	b=K+1s3AYBmpdnAxSYdhTaIwPGwEgv6qAjXMIDpVq6o+00DzsCE4mbq9h0+Dq6toLVMj/+
+	 fCAPe0EextEQSApNuevx+8Rwcfi9WTh0NsOd7Cn2y8LUnzhz5UqC3nqWAAT6JUTkWLabr
+	 /9Z+R5tC/dlNFPhI4XxIAIBsyWPa0ahK/6VDnL7SF8LuPdRDU+m+M4zWbRdZoJK8D/UDZ
+	 JkiSfiRKz4bW4GBKuwD5X4NqU0sY9to1tJhl92IRV26A1U4V/V7oXSWZBLfjRn7amHVkX
+	 78qBgJZ7FlNGC6Kcekf+tHv8V5JZKFZ6I6mHgv46aZ5gU2gc8ThyXLbT2knqc6TArLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nK64mHTD;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dKEWj3bT;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524D76082BD2;
-	Tue,  3 Nov 2026 10:10:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 524D76082BD2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF436606BFB5;
+	Tue,  3 Nov 2026 10:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF436606BFB5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nK64mHTD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793700648; x=1825236648;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qLeNMV9ESxS4vfP26Q6ujH3mVp4IAYKlMBiwJ2rztyc=;
-  b=nK64mHTDuRqNfCDxuCrjiRkMWyv0Hy70+2pKQeXqd8MDkYJHPH713aB2
-   Kg+WT9rxP5X6QkzQDfsxwM040eByk7GlkG9a+t+OGZHPu5FeAh/Tr2pHX
-   ELNB2G8TMSeG57r9EoZEpaSJNpl50aVnt52MyKJjgUe/zSIUtr/YOhl9l
-   ltdaLyt/IXjN8CX+3GzYLkfUy05MjB9sTxJXWjwtaLFO7ollfK/imFcdP
-   eBGB2hHM8djbEQcR0nYEu9nrc1bGDVURSS641WGy6FvyU4pYUQAgfOzqM
-   t91VQpRI866ZRnQU81SMa7o8CIrMi4f6B3f+Pu9ccXqp23M0NmYQbW0FN
-   Q==;
-X-CSE-ConnectionGUID: /PD3c7YoSwOFAb74OzsHvg==
-X-CSE-MsgGUID: ktY+/j/CQvuz67T4vyuX8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2415067"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2415067"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:10:47 -0800
-X-CSE-ConnectionGUID: cVqWb3x6TMefkE/gQOoIFQ==
-X-CSE-MsgGUID: kl2DLb2fTzeQYxqtxFEZLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6400206"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:10:43 -0800
-Date: Tue, 3 Nov 2026 12:10:41 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, amitrkcian2002@gmail.com
-Subject: Re: [PATCH 3/6] iio: adc: versal-sysmon: disable interrupts on
- shutdown
-Message-ID: <aumzIdkwp_jVcTTs@ashevche-desk.local>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
- <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=dKEWj3bT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793700758;
+	bh=9btp8D9CPqLhI6r9B18vL4l7TPjBWaSIYvAxgmvmR6c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=dKEWj3bT/58KDBwd/Z8OpjUvDEx6ZjdQ0FbFeEf9w/dF0r94mgic1ld59ib3uO3rd
+	 dJpT7qUluCDn+OyjMnCARsqs4v6UVRh09TEV1DuZc7B5Uat692H0xhziqywu1GSeCH
+	 5C16AZZi09uOt41nq+DeyL1W7ygCPO9wm9P9gcsGuy53LaZkZZu111yqHvt8Teohl3
+	 OXKqPZsFbSxdEZTvrcqKk2PnYkLxNcutv5Fx7hs7KybwRIqMeKPc057ZDZzbXvf8/J
+	 4WVvswzqRMWQgpZoglVxj9fvgA15FnOG7kqCyKblGFW34iAiD4DW7LH/B3bmqXG/sf
+	 d3f53IewUPPCg==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 81B8C17E096A;
+	Tue, 03 Nov 2026 11:12:37 +0100 (CET)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Date: Tue, 03 Nov 2026 11:12:07 +0100
+Subject: [PATCH net-next v4 02/10] dt-bindings: net: mediatek-dwmac:
+ deprecate rx/tx delay vendor properties
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,40 +63,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102122112.1723130-4-amit.kumar-mahapatra@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-dwmac-mediatek-mt8189-v4-2-c86c14fc50f4@collabora.com>
+References: <20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com>
+In-Reply-To: <20261103-dwmac-mediatek-mt8189-v4-0-c86c14fc50f4@collabora.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Biao Huang <biao.huang@mediatek.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793700755; l=2297;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=9btp8D9CPqLhI6r9B18vL4l7TPjBWaSIYvAxgmvmR6c=;
+ b=cVxeY2ot/J+KDZxhQ7Pu1JpngY4IuWiFHFH/axsmnfTUmosKScVBrnx6wzkGfUkAfwjhzmyzc
+ tx/3J9kpfMYAMUKkYy1r+F75Crm7QnmHHLi5nMNzBSH8VWNs3DbTRrW
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-On Mon, Nov 02, 2026 at 05:51:09PM +0530, Amit Kumar Mahapatra wrote:
-> Interrupt teardown is registered with devm_add_action_or_reset(), so
-> sysmon_disable_interrupts() runs when the driver is unbound but not when
-> the system shuts down: device_shutdown() invokes only the driver's
-> .shutdown callback, which this driver does not implement.
-> 
-> The device is therefore left with its alarm interrupts enabled in
-> hardware once Linux has stopped servicing them.
-> 
-> Add a .shutdown callback performing the same teardown, so the device is
-> quiesced before control is handed on. The helper lives in the core
-> module, so it is exported for the platform front-end. It skips a
-> device described without an interrupt, which never set up interrupt
-> handling.
-> 
-> Disabling the interrupts at shutdown is safe to have and not a must have
-> requirement for shutdown.
+The mediatek-dwmac bindings provides the 'mediatek,rx-delay-ps' and
+'mediatek,tx-delay-ps' vendor properties for describing the internal
+RX and TX clock delays.
 
-...
+The generic Ethernet controller bindings also provides standard
+properties to describe the same kind of property with the same unit
+(picoseconds)
 
-> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> +	struct sysmon *sysmon = iio_priv(indio_dev);
+So, ddd deprecated flag to these vendor properties and update their
+descriptions to tell to user to prefer standard properties over vendor
+ones.
 
-Side Q to Jonathan: How do you see having a helper that unites these two?
-Something like void *iio_priv_from_drvdata(struct device *dev)
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+ Documentation/devicetree/bindings/net/mediatek-dwmac.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+index 14f9683f20fe..956240616638 100644
+--- a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+@@ -80,6 +80,7 @@ properties:
+       interface and timing delay.
+ 
+   mediatek,tx-delay-ps:
++    deprecated: true
+     description:
+       The internal TX clock delay (provided by this driver) in picoseconds.
+       For MT2712 RGMII interface, Allowed value need to be a multiple of 170,
+@@ -88,8 +89,11 @@ properties:
+       or will round down. Range 0~31*550.
+       For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
+       or will round down. Range 0~31*290.
++      Deprecated, this property should not used anymore for RGMII TX internal delays,
++      the standard tx-internal-delay-ps property should be used instead.
+ 
+   mediatek,rx-delay-ps:
++    deprecated: true
+     description:
+       The internal RX clock delay (provided by this driver) in picoseconds.
+       For MT2712 RGMII interface, Allowed value need to be a multiple of 170,
+@@ -98,6 +102,8 @@ properties:
+       or will round down. Range 0~31*550.
+       For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple
+       of 290, or will round down. Range 0~31*290.
++      Deprecated, this property should not used anymore for RGMII RX internal delays,
++      the standard rx-internal-delay-ps property should be used instead.
+ 
+   mediatek,rmii-rxc:
+     type: boolean
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
