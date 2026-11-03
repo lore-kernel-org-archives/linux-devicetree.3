@@ -1,71 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723238;
-	b=TgWP0TszlY7YDUP57rF9ljxh2SPwsCBfZPWHSSCQv9jDEfJZxoT023+3qwKNCqjzK1pc
-	 Ikg8jRQJOopQwksZfUIdfYbZRFDRIW70izTNTFfOVKjy2Loqx/65OQJsWadxm0gte5qSO
-	 Qm3o9N1VJrOjPSxZLBccsosPNO5la0iGKy29Dwy8KWp9aNAkJuZoCWtKb8Tp80N0gmL8Y
-	 c03DSzf2uwAtdfMxEx3DKVO6cByhbTGCPEJC28UyC/r9ZZreYC+gNySwseNB50EsRs6K/
-	 vP5O2r8VsT4kHXi721lVyZQbn7MlB840T76fU2XuPTrvIl1oH6Ad05jGT8ge6d2/CJw==
+	t=1793723259;
+	b=E0C0ftK5j+EaTFuS7vSXEOwAMRDHLE0+gmA+QA+cFuFl1lT1ZCoRQBb4SL/34XpwjLjg
+	 Hlhb9iuIoWKa1zpCpgaV20scvsjw/PZQ7EyTnhwddiZjhm9goF/SMM02+jpQkjGHOOi8O
+	 hp6x49JcJm6KopJOn7hYBdxm4tbGX5FmzHSbpXwpwEcXQDK3xP6WHAaK8AB4oGana/NhB
+	 xjeW2u9Nu7k9y8aHF6a2+xYvG23Vii/dmLArU2t8Njpr6Lm9o/v+0GLJwV8v8xraUwS2G
+	 /YBC5O5t7l61RBX2O44LzV0/om46E4UU/w2lSXk58kacbUkm9L/gagbG8s6c0FvrI7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723238;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723259;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=I1AWzUFA3Oachr2Qibp7GjIpzBQCVcrtm0Vca+qYnFA=;
-	b=t2rmpy0gk2SljlPRu54b1nKPCfYiZjcSlOPo1WwiF7yG05Bn5f4mVEK/TbmcpGWwvm0N
-	 JTlVPXKqbbFnFy25CqPv6nQZVKnolB1Z2JVtrxUgbo5Nb3ocN32A3W4Bi2DnblZr2IYqO
-	 6wXacl6XEgQZNaksqpG+zNawkIwrEEXze+4x5fFPpIqsXtobJfwcs23lpdemQupegUtB/
-	 ypP9/Smcl2KVLzgQ6kqjK6QtkZtQp+DBCNpxRGqOGhzHXwCUYT0Y4c/7Vpie+fHWb36Cw
-	 VzsRyAv1HGynBSJ7s8T1usZ5/YQqs6TVB07OJFvbwIIbOA7UpTH1KOZ7spXQJtVj35A==
+	bh=c/PP8zYRcBQAvEGxGLzZMIhxqihLTRzlXxj5qbe6Jos=;
+	b=jKUjmwcf8SPnInfMYrAqY674kU8kiIFBclilEjFoM+gnjMQXJ+4OqTZ1s83/JlmfiqQa
+	 3X8DDVDHpU74vmN7yeGkRUBJY4WXrlDg3urEUh0o2gfDWDsFVtJpdFz1kst6Y5LgWnq+O
+	 llrJ1T+nwzxQYmEv19VSIzDpJ0kUmU1poiXJQNxoNiNY+2Xpr5ovPJsEbnIdFx79C/7oV
+	 Rp9fSUU/SjTZFGqC2mzAlKm2icgb4U916U+y06+isSYjPaKzzNjS7bQH4xIyZQ4SeKuMZ
+	 QONdLQ+YFLksWghhI37aMASwaux9iRhP74tv+v+2wc8LWcW/6R1PrFochYT7OGdKPhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RqOZ/p14";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P9R/bLdA";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB85606A324;
-	Tue,  3 Nov 2026 16:27:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBEA606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:27:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqOZ/p14
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75A61F000C1;
-	Tue,  3 Nov 2026 16:27:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P9R/bLdA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCCEB1F000C1;
+	Tue,  3 Nov 2026 16:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723238;
-	bh=I1AWzUFA3Oachr2Qibp7GjIpzBQCVcrtm0Vca+qYnFA=;
+	s=k20260515; t=1793723259;
+	bh=c/PP8zYRcBQAvEGxGLzZMIhxqihLTRzlXxj5qbe6Jos=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RqOZ/p141KX5CE7URn51HZuraohH8+lJo7k9l8Kch8ZKCn6wL2XqKCbrxKbNiW7pO
-	 txJfpFepSQSkoYuuTOiDx+9OBWBXvOdyxkUcrOV6cWb/9BEORZAURSFWOKaJlvvPNv
-	 16foK7rKGa8nIgKBnchrH5K9nsRG47s9uvoQKax1VfNrVKRwUgQGTuA5VxgTIbCsLQ
-	 VUin3vAr89++wATIoIA6A/iYF/nmDvMow8qYG5V+jvJ9azGXqcY7GcWeFgultGdF1x
-	 miSMeCXdWbdOpEvDNFmTIb52O3GmU+Q+2HPeId5ICcP3xyTMnA0xIcd7OBq9NDILtO
-	 jZWst9iw6QrOQ==
-Message-ID: <sashiko-outbox-195721@kernel.org>
+	b=P9R/bLdAX2hjj57iA/MizbhPD56fWPl7OPFfOd9CZ50XSKVV7pMt5+T+979xQjnYI
+	 Q/lkQJGltAYg4kwtO7oGY1iLssnS7jrfu+SEi4Okc4wac2waTFShrXUwrZ/TUw0J1u
+	 JO7l1WgPrMMdZ0bWFN/9WY/5+TS1+ZW6mBYsowI7VZGXqTWQyKEIVdbcAO/01eIW5U
+	 Jx1O0+GtbrVq5tQTp0w+ZvOqFzK3cXidCaFf1C5gxkzFobNbi3uRDJKsA6z//Xcu3H
+	 R93ReEmR1tL+62QzFvAuksubafdtqqQ18eBHftTSgH9iTfBJRCgQG712eXmV5He3w2
+	 A4Zrf/TWKZaZQ==
+Message-ID: <sashiko-outbox-195723@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/9] greybus: operation: arm request timeout before
- sending
+Subject: Re: [PATCH v12 2/2] block: implement NVMEM provider
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>, "Jason Kridner" <jkridner@beagleboard.org>, robertcnelson@gmail.com, "Johan
- Hovold" <johan@kernel.org>, "Alex Elder" <elder@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
- =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>, "Eric
- Biggers" <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>, "Ayush
- Singh" <ayush@beagleboard.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Markus
- Probst" <markus.probst@posteo.de>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261103-gb-uart-transport-v5-3-f8e326d6561f@beagleboard.org>
-References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
- <20261103-gb-uart-transport-v5-3-f8e326d6561f@beagleboard.org>
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-block-as-nvmem-v12-2-f4a2a681087d@oss.qualcomm.com>
+References: <20261102-block-as-nvmem-v12-0-f4a2a681087d@oss.qualcomm.com>
+ <20261102-block-as-nvmem-v12-2-f4a2a681087d@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 16:27:16 +0000
+Date: Tue, 03 Nov 2026 16:27:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,195 +62,183 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] greybus: operation: UAF and ref underflow in gb_operation_requ=
-est_send()
-- [Critical] greybus: operation: UAF from early timeout in gb_operation_req=
-uest_send()
-- [Critical] greybus: operation: timer leak in gb_operation_request_send() =
-on cancel
+- [High] block: self-deadlock in add_partition() when blk_nvmem_add() probe=
+s layout
+- [High] block: ABBA deadlock between disk->open_mutex and nvmem->srcu in d=
+rop_partition()
+- [Medium] block: blk_nvmem_reg_read() uses fput() instead of bdev_fput() o=
+n exclusive bdev
 --
 
-commit 7b73a81d11f2d699f2c8ebeafd18ae6352191433
-Author: Ayush Singh <ayush@beagleboard.org>
+commit 348ca9207d847db1f952272a2d1ea367e90cb1ca
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-greybus: operation: arm request timeout before sending
+block: implement NVMEM provider
 
-This commit arms the operation timeout timer before calling
-gb_message_send() in gb_operation_request_send() so that a fast response
-completing before gb_message_send() returns does not leave an armed timer
-behind, and calls timer_delete_sync() in the err_put_active error path.
+This commit implements a read-only NVMEM provider for block devices and
+partitions whose device tree node describes an NVMEM layout. Each NVMEM
+read opens the block device with BLK_OPEN_EXCL and reads from it using
+kernel_read().
 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index a63bc2eb164e9..2d37acedf36f8 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -782,20 +782,25 @@ int gb_operation_request_send(struct gb_operation *=
-operation,
->  		return 0;
->  	}
-> =20
-> +	/*
-> +	 * Arm the timeout before sending: the response can arrive, and the
-> +	 * operation complete, before the host driver returns.
-> +	 */
-> +	if (timeout) {
-> +		operation->timer.expires =3D jiffies + msecs_to_jiffies(timeout);
-> +		add_timer(&operation->timer);
-> +	}
+> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> new file mode 100644
+> index 0000000000000..69b69184e1630
+> --- /dev/null
+> +++ b/block/blk-nvmem.c
+> @@ -0,0 +1,112 @@
 
-[Severity: Critical]
-Could an operation still be cancelled between gb_operation_get_active() and
-add_timer(&operation->timer) in gb_operation_request_send(), leaking an
-armed timer in operation->timer?
+[ ... ]
 
-Earlier in gb_operation_request_send(), operation->errno is initialized to
--EINPROGRESS and the first gb_operation_get_active() adds operation->links
-to connection->operations.
-
-If a concurrent thread disables the connection via gb_connection_disable()
-or gb_connection_disable_forced() after the second
-gb_operation_get_active() succeeds and before add_timer(&operation->timer)
-runs:
-
-CPU0                                    CPU1
-gb_operation_request_send()
-  gb_operation_result_set(-EINPROGRESS)
-  gb_operation_get_active()
-  gb_operation_get_active()
-                                        gb_connection_cancel_operations()
-                                          gb_operation_cancel(-ESHUTDOWN)
-                                            gb_operation_result_set(-ESHUTD=
-OWN)
-                                            queue_work(&operation->work)
-
-                                        gb_operation_work()
-                                          timer_delete_sync(&operation->tim=
-er)
-                                          operation->callback(operation)
-                                          gb_operation_put_active(operation)
-                                          gb_operation_put(operation)
-  add_timer(&operation->timer)
-  gb_message_send() -> returns 0
-
-Because gb_operation_work() runs timer_delete_sync(&operation->timer) before
-CPU0 calls add_timer(&operation->timer), nothing deletes operation->timer
-afterward. When the caller later drops its reference via gb_operation_put(),
-_gb_operation_destroy() frees struct gb_operation while operation->timer is
-still queued in the timer wheel.
-
+> +static int blk_nvmem_reg_read(void *priv, unsigned int from,
+> +			      void *val, size_t bytes)
+> +{
+> +	struct block_device *bdev =3D priv;
+> +	struct file *bdev_file;
+> +	loff_t pos =3D from;
+> +	ssize_t ret;
 > +
->  	ret =3D gb_message_send(operation->request, gfp);
+> +	/* open and prevent other exclusive openers */
+> +	bdev_file =3D bdev_file_open_by_dev(bdev->bd_dev,
+> +					  BLK_OPEN_READ | BLK_OPEN_EXCL,
+> +					  blk_nvmem_reg_read, NULL);
+> +	if (IS_ERR(bdev_file))
+> +		return PTR_ERR(bdev_file);
+> +
+> +	if (file_bdev(bdev_file) !=3D bdev) {
+> +		fput(bdev_file);
+> +		return -ENODEV;
+> +	}
+> +
+> +	ret =3D kernel_read(bdev_file, val, bytes, &pos);
+> +	fput(bdev_file);
 
-[Severity: Critical]
-What happens if operation->timer expires after add_timer(&operation->timer)
-is called, but before the host driver in gb_message_send() has submitted its
-transport request?
+[Severity: Medium]
+As reported by Sashiko on v5 [1], does calling fput(bdev_file) here and on
+the file_bdev(bdev_file) !=3D bdev error path defer releasing the exclusive
+claim on bdev past the return of blk_nvmem_reg_read()?
 
-For an asynchronous host driver such as drivers/greybus/es2.c, if the
-sending thread is delayed or preempted before message_send() assigns
-message->hcpriv and calls usb_submit_urb():
+bdev_file_open_by_dev() is called with BLK_OPEN_EXCL and blk_nvmem_reg_read
+as the holder, which claims bdev and the whole disk via bd_finish_claiming(=
+).
+However, fput() defers __fput() -> bdev_release() to task_work (for user
+threads) or delayed_fput_work (for kernel threads such as deferred probe
+workers).
 
-drivers/greybus/es2.c:message_send() {
-	...
-	spin_lock_irqsave(&es2->cport_out_urb_lock, flags);
-	message->hcpriv =3D urb;
-	spin_unlock_irqrestore(&es2->cport_out_urb_lock, flags);
-	...
-	retval =3D usb_submit_urb(urb, gfp_mask);
-}
+Until that deferred work runs, bdev_yield_claim() has not been called and
+bdev->bd_holder remains set. If another consumer or userspace process tries
+to mount or exclusively open the block device (or read another NVMEM cell on
+the same disk) immediately after blk_nvmem_reg_read() returns, bd_may_claim=
+()
+can fail with -EBUSY.
 
-If operation->timer fires first, gb_operation_timeout() sets
-operation->errno to -ETIMEDOUT and schedules gb_operation_work():
+Should blk_nvmem_reg_read() call bdev_fput(bdev_file) instead of
+fput(bdev_file) so that bdev_yield_claim() releases the holder claim
+synchronously before deferring the file release?
 
-gb_operation_timeout()
-  gb_operation_result_set(operation, -ETIMEDOUT)
-  queue_work(gb_operation_completion_wq, &operation->work)
+[ ... ]
 
-gb_operation_work()
-  timer_delete_sync(&operation->timer)
-  gb_message_cancel(operation->request)
-    es2.c:message_cancel() -> no-op because message->hcpriv is not yet acti=
-ve
-  operation->callback(operation)
-  gb_operation_put_active(operation)
-  gb_operation_put(operation)
-
-When the sending thread resumes in es2.c:message_send(), it submits the URB
-and returns 0 to gb_operation_request_send(). Because operation->callback()
-has already completed the operation, the caller can drop the final reference
-to operation via gb_operation_put(), freeing operation->request and
-operation->request->buffer in _gb_operation_destroy() while the URB is still
-in flight.
-
->  	gb_operation_put_active(operation);
->  	gb_operation_put(operation);
->  	if (ret)
->  		goto err_put_active;
+> diff --git a/block/partitions/core.c b/block/partitions/core.c
+> index eee954df1ac6e..c83227710584a 100644
+> --- a/block/partitions/core.c
+> +++ b/block/partitions/core.c
+> @@ -289,6 +289,8 @@ void drop_partition(struct block_device *part)
+>  	xa_erase(&part->bd_disk->part_tbl, bdev_partno(part));
+>  	kobject_put(part->bd_holder_dir);
 > =20
-> -	if (timeout) {
-> -		operation->timer.expires =3D jiffies + msecs_to_jiffies(timeout);
-> -		add_timer(&operation->timer);
-> -	}
-> -
->  	return 0;
-> =20
->  err_put_active:
-> +	timer_delete_sync(&operation->timer);
->  	gb_operation_put_active(operation);
->  err_put:
->  	gb_operation_put(operation);
+> +	blk_nvmem_del(part);
+> +
+>  	device_del(&part->bd_device);
+>  	put_device(&part->bd_device);
+>  }
 
-[Severity: Critical]
-Can this error path underflow operation->active and operation->kref and
-trigger a use-after-free on struct gb_operation when gb_message_send() fails
-after operation->timer has already expired (or after gb_operation_cancel()
-has been called)?
+[Severity: High]
+As reported by Sashiko on v11 [2], can calling blk_nvmem_del(part) inside
+drop_partition() cause an AB-BA deadlock between disk->open_mutex and
+nvmem->srcu?
 
-In gb_operation_request_send(), two pairs of kref and active references are
-taken before gb_message_send(): one pair for operation completion, and one
-pair held across gb_message_send().
+On the NVMEM read path, __nvmem_reg_read() holds srcu_read_lock(&nvmem->src=
+u)
+(and on sysfs reads, kernfs holds the active reference on the nvmem binary
+attribute) and calls:
 
-With operation->timer armed before gb_message_send(), if gb_message_send()
-sleeps or takes longer than timeout before returning an error (for example,
-hdlc_tx_frames() in gb-beagleplay.c waiting on a full TX circular buffer
-before returning -EAGAIN, or write_all() in gb_uart_node.rs returning
--EINTR), operation->timer can fire while gb_message_send() is still running:
+  __nvmem_reg_read()
+    blk_nvmem_reg_read()
+      bdev_file_open_by_dev()
+        bdev_open()
+          bd_prepare_to_claim()
+          mutex_lock(&disk->open_mutex)
 
-gb_operation_timeout()
-  if (gb_operation_result_set(operation, -ETIMEDOUT))
-      queue_work(gb_operation_completion_wq, &operation->work);
+On the partition removal path (__del_gendisk(), bdev_del_partition(), or
+bdev_disk_changed()), drop_partition() is called with disk->open_mutex held
+(and in __del_gendisk(), blk_freeze_acquire_lock(q) is also held; in
+bdev_disk_changed(), whole->bd_claiming is also held):
 
-gb_operation_work() then runs on gb_operation_completion_wq, invokes
-operation->callback(operation), and drops the completion reference pair:
+  drop_partition()
+    blk_nvmem_del()
+      nvmem_unregister()
+        synchronize_srcu(&nvmem->srcu)
+        device_unregister(&nvmem->dev)
 
-gb_operation_work()
-  ...
-  operation->callback(operation);
-  gb_operation_put_active(operation);
-  gb_operation_put(operation);
+If a reader enters __nvmem_reg_read() and looks up the bdev in
+blkdev_get_no_open() just before drop_partition() runs, the reader will blo=
+ck
+waiting for whole->bd_claiming or disk->open_mutex in bdev_open() while
+holding nvmem->srcu, while drop_partition() holds disk->open_mutex and waits
+in synchronize_srcu(&nvmem->srcu) for the reader to finish.
 
-When gb_message_send() returns a non-zero ret, gb_operation_request_send()
-drops the send-guard reference pair and jumps to err_put_active:
+> @@ -406,6 +408,9 @@ static struct block_device *add_partition(struct gend=
+isk *disk, int partno,
+>  	/* suppress uevent if the disk suppresses it */
+>  	if (!dev_get_uevent_suppress(ddev))
+>  		kobject_uevent(&pdev->kobj, KOBJ_ADD);
+> +
+> +	blk_nvmem_add(bdev);
 
-  ret =3D gb_message_send(operation->request, gfp);
-  gb_operation_put_active(operation);
-  gb_operation_put(operation);
-  if (ret)
-      goto err_put_active;
+[Severity: High]
+As reported by Sashiko on v11 [3], can calling blk_nvmem_add(bdev) from
+add_partition() self-deadlock when the partition uses an nvmem-layout driver
+that reads from the NVMEM device during registration?
 
-In err_put_active, timer_delete_sync(&operation->timer) only waits for the
-timer callback to finish; it does not cancel the already-queued
-operation->work, nor does err_put_active check gb_operation_result_set() to
-see whether completion was already claimed.
+add_partition() is called with disk->open_mutex held:
 
-Consequently, err_put_active drops gb_operation_put_active(operation) and
-gb_operation_put(operation) a third time when only two pairs were acquired,
-underflowing operation->active to -1 (which also causes wait_event() in
-gb_operation_cancel() to hang) and dropping the caller's own kref on
-operation (or accessing operation after it was already freed if an
-asynchronous callback such as gb_loopback_async_operation_callback() dropped
-the caller's reference before gb_operation_put() prior to err_put_active).
+  lockdep_assert_held(&disk->open_mutex);
+
+When called from add_disk_final() -> disk_scan_partitions(), the current
+task has also claimed disk->part0 via bd_prepare_to_claim(disk->part0,
+disk_scan_partitions, NULL), setting whole->bd_claiming.
+
+Inside add_partition(), blk_nvmem_add() calls nvmem_register(), which
+synchronously populates the layout child device and fires NVMEM_ADD
+notifiers:
+
+  add_partition()
+    blk_nvmem_add()
+      nvmem_register()
+        nvmem_populate_layout()
+          device_add()
+            ...
+              layout->add_cells()
+                nvmem_device_read()
+                  __nvmem_reg_read()
+                    blk_nvmem_reg_read()
+                      bdev_file_open_by_dev()
+                        bdev_open()
+                          bd_prepare_to_claim()
+                          mutex_lock(&disk->open_mutex)
+
+When a layout driver (such as u-boot-env, onie-tlv-layout, or
+kontron-sl28vpd-layout) or an NVMEM_ADD notifier reads from the NVMEM device
+during probe, bdev_open() will either sleep forever in bd_prepare_to_claim()
+waiting on whole->bd_claiming owned by the same thread in
+disk_scan_partitions(), or deadlock on mutex_lock(&disk->open_mutex) already
+held by add_partition().
+
+[1] https://lore.kernel.org/r/20260613132137.D65B51F000E9@smtp.kernel.org
+[2] https://lore.kernel.org/r/20261015-block-as-nvmem-v11-3-f890ac74f87d@os=
+s.qualcomm.com
+[3] https://lore.kernel.org/r/20261015-block-as-nvmem-v11-3-f890ac74f87d@os=
+s.qualcomm.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-gb-uart-tr=
-ansport-v5-0-f8e326d6561f@beagleboard.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-block-as-n=
+vmem-v12-0-f4a2a681087d@oss.qualcomm.com?part=3D2
