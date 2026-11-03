@@ -1,85 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714804;
-	b=KowUF5vUtfX7tKIytzJU4GBxUk0t/voQa1fzreKcsqaNXOnLKMqjHaEi42k0mO8GKU+o
-	 o+tpqm83o2VTXr7mbAwnWTeuXzK+68AV6tR708kv65d/udRAn+qWvJLRVqtNpVIGWDbEI
-	 JRcyC123d/yBxW0Q2PwxmomlJtwHHkAGkL0uO0m1PvZu800+pdC1/KOcMnVLbCE7bi7qj
-	 uqnxmqBGxXQTwW3YSo18pR0djyBzdDmQfhOzEWC94be6VDNuieG+1/Zw0BGgAiknAX8BX
-	 haR1jDzWQydWU/2Tkdvv3GMTcUcZeX4Dk3L+cFIy+f1xPrcCXP2IcJyFQZVDnnkMW7g==
+	t=1793714936;
+	b=HcrcoSiuA3AK9TGDvOQvppL17+v9F3at0qOpEK1AnxeO4MB5jgJQSq2NKEeAJ8FLSSaT
+	 z18a2z1GZJSE9QArGyUEoEzKdIdzTgCN2OYH6+kXy2SGS548gCQxWkOAfvsp/6hbh4A8d
+	 myKeYaZtRDdULyOIdD3FXo4LRgHDfkd4oL8ngZpPktvJ2I9NTlWiWwOVa5vFEAc+eCHB8
+	 Osmf1+CbQ2rh1cUy8AjC7OaEdBqw0UxpOZqyiIH6u7pIzAZaCVFf8t3VPYN7RuFMwY/H0
+	 oFnCxxtwhTNumMcDgAE44CnaV7DA6n8hNt8/oZn9JFheWHI+uYUYatVfNRRS6QDsfwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714804;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=;
-	b=v5XpdMNYo0ly+1TfO6Eu3ZoP6kI3JG+efupoOwhaq/C8ojOsYfHhwHuAeqWWhL479Vae
-	 N3iFOyXlxedZ0l9LUgCgH50A53yzW9YVnInF6r2mvJfzLWP69iGDJb5Cqt5OlBswMbAtP
-	 iYXVJnzWjlOlC7WzSsA4VFA0PgN3QFa4Ump/GqYHzCfjeDlHdXmTMfj58XmWvRCg+QA/c
-	 PFAfJip6e26KW0fg1STi4iKLr0DfB4OtPTh7zf9VjMDz7tPb9W+quc0A5rcYH5J3v+wOJ
-	 swM9GtEhs9uK+CkGtwLdr7zpi324QNHznrSpjKM36v5SJhDXGfcSbBdzbI+HRd5ATwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714936;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qfFlfuobUs0Isvbz0jTDZgklsqPPgH6u+YoCPP35c3k=;
+	b=YzWsDslJHSiFdZy4MA6MTyXmByY5gNGpvVAy0jhL7ZDLKwlWtwgw/WyNt/S34ePCnwZg
+	 pV3AGtjGPm/W3i+it14VJirwQgWfFj9U9TNdO0viHa1X10bOcpiqpWyh74Yurn96dXTBX
+	 BYqGI7SqHGFUPSc3qUjn1QtFHIF9leLsGzzeqPS6yhasreycLKYsw19ALbipd4h2Og1ru
+	 slljl9PI3arMt4NiXDIWwj0QfXaKvA6Vzg3EnJNdTAzKssmuvK9qJ2lImXnbcakXX6hD2
+	 yqbvavA6IGBQ2afAdVR9M9UCH/VyGPTB2ubNiQOXJYZQNNRcKTXsldhNBxPv1hvTYbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzzhOnFa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE7C606EE95
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:06:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE7C606EE95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C63606A329
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id OD4GxGtBWusRSOF9wxyau7; Tue, 03 Nov 2026 14:06:44 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id OF9kxJQ4xgk6fOF9kxw32W; Tue, 03 Nov 2026 14:06:33 +0000
-X-Authority-Analysis: v=2.4 cv=KM9aDEFo c=1 sm=1 tr=0 ts=6ae9ea74
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=FzxAIiGUqTgkHgvMK3YA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=; b=WbReQISJVjZ9SKK4v8Lk919q/S
-	QTS26pV4lYlANCIoJX843UZDmeNC13XMJ7bB0Wqvu1IeqMZGLj5gPPTYFPogkSeumAPrkqdhz8JWM
-	LBpnM6UXBgskJ8KW5j6JAZg+Av9jqqE5HYXz6jjqepwYxCBr6t6I2+OPEbUUiw5dYY26ictnnczDR
-	er9Ur6IHHtxttRzzWkPTX5kgg2WNWpfc0BHUU8S+DnvyLW3c0EF54IayDnqoce1GmzP/i655QgJrp
-	tIy7l0Cl4IHGOaziz1OIFk8S/dLVOPMSI9ml6YfTtOCF52l10PVQG3kjzS+h5i4ptuLxI0Bcf3N2a
-	l7cITQMA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52734 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOF9j-00000002ZuZ-352a;
-	Tue, 03 Nov 2026 19:36:31 +0530
-Date: Tue, 3 Nov 2026 06:06:30 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Kevin Jia <kjia@nexthop.ai>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: Re: [PATCH v3 2/2] hwmon: (fs1603) Add driver for TDK FS160x and
- FS1006 uPOL converters
-Message-ID: <85bc9a12-9674-4fb0-9dc3-11ef8695599e@roeck-us.net>
-References: <20261030-fs1603-v3-0-6f8963a74def@nexthop.ai>
- <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzzhOnFa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3671F000C1;
+	Tue,  3 Nov 2026 14:08:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714935;
+	bh=qfFlfuobUs0Isvbz0jTDZgklsqPPgH6u+YoCPP35c3k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZzzhOnFaOW5CNcG9aOHukgtaQH4/a05alzMolwfFmwJqqnf4PrdyUujQLRRbBjiS4
+	 Flqn6JCKvNY81/JSme2GVwq5fyX9ri83duGbuEiAbwdp490Mlx52oceu1VIi6tzsff
+	 fZv0jKlYPEHyo8cgK3JxHWRhttkgq87csMWaGcxQQA55Kq907ueRSJGN0r6WRgbMB1
+	 sM3hVNjvXr+KyJsG5g35QCAQ1coMtDW4oA+xOc2LQdv3TErSx6+PTgEIBR/d3yBLgU
+	 iOWO4CJlig3YFUE6Iq2hMGqqRuOx2jzAQd+k94wQjuzcs1ct6Ic0+BFHGGP34Yi9Sl
+	 G3welGYe67THA==
+Message-ID: <sashiko-outbox-195423@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bob Hui" <bg9oxa@163.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103-quarkpi-ca2-v13-2-ad8c30cdb67e@163.com>
+References: <20261103-quarkpi-ca2-v13-0-ad8c30cdb67e@163.com>
+ <20261103-quarkpi-ca2-v13-2-ad8c30cdb67e@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 14:08:53 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,68 +59,173 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOF9j-00000002ZuZ-352a
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:52734
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 16
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFbc1Ed7vj4qtDEshJE4fXlRwjcwAlnh/XzFtZbDrZfnUyWpWdtXe/O3NAZK/xFG2MvMWnnktJsuYwM4QCE9sEH4AROdMi9q0gNAY6KM36ybj80waOCR
- /uHqvJLif/OgZQtKqAYrNGfY4xETRV9X0sfj3DPvB4/P/0ht4v/E3Ez7XpN5Gixzu5ntz02rCelrdyHe4dKQoBFbIZTC4W+nYdyDtAO/wSiQk2nYXosNWukR
 
-On Fri, Oct 30, 2026 at 08:35:38PM +0000, Kevin Jia wrote:
-> The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
-> an integrated inductor. They report input voltage, output voltage, output
-> current and temperature, plus over-voltage, over-current and
-> over-temperature status, over a proprietary I2C register map. They are
-> not PMBus devices, and their register numbers collide with PMBus command
-> codes: 0x21 is a status byte here where PMBus defines VOUT_COMMAND.
-> 
-> The parts have no ID register, and the FS1606-0600 and FS1606-2500
-> presets change how telemetry is encoded: the -2500 uses the 20mV steps
-> of the higher voltage parts, and the -0600 needs a current correction
-> derived from the IOUT_GAIN register and the output voltage. The model is
-> therefore taken from the device name or compatible.
-> 
-> The over-voltage and over-temperature protection thresholds are
-> reported as in1_crit and temp1_crit. The over-voltage threshold is a
-> percentage of the VOUT_SET target, so the driver reads VOUT_SET but
-> never writes it: VOUT_SET is a two-byte pair, and a partial write leaves
-> the part silently ignoring all register writes until its input power is
-> cycled. The driver is read-only.
-> 
-> Power good is not exposed. It also deasserts while the output is
-> disabled or soft-starting, so it would report a deliberately disabled
-> output as a fault.
-> 
-> On boards that raise the rail with a feedback divider, VOUT_SET holds
-> the feedback-pin target while the output voltage telemetry reports the
-> rail. The driver measures the divider ratio at probe from the output
-> voltage and the Fb register and scales the over-voltage threshold by
-> it, so in1_crit is in the same domain as in1_input. A part whose Fb
-> reads within four steps of the output keeps a ratio of one.
-> 
-> Co-developed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] arm64: dts: rockchip: non-power-of-two ramoops sizes in quarkpi-ca2
+- [Low] arm64: dts: rockchip: unreferenced combophy regulators and unused i=
+nclude
+- [Low] arm64: dts: rockchip: duplicate headphone DAPM routes in QuarkPi-CA2
+--
 
-Applied.
+commit b00e8823ca510ece58a0c11ef8ab0946698d2e72
+Author: Bob Hui <bg9oxa@163.com>
 
-Thanks,
-Guenter
+arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+
+This commit adds the device tree for the ALIENTEK QuarkPi-CA2, an RK3588S
+based card computer, describing its regulators, storage, display, audio,
+USB, PCIe, and expansion interfaces.
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> new file mode 100644
+> index 0000000000000..df9887d5dc925
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> @@ -0,0 +1,1211 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/pinctrl/rockchip.h>
+
+[ ... ]
+
+> +	analog_sound: analog-sound {
+> +		compatible =3D "simple-audio-card";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&hp_det>;
+> +		simple-audio-card,name =3D "QuarkPi-CA2 ES8388";
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,bitclock-master =3D <&sound_cpu>;
+> +		simple-audio-card,frame-master =3D <&sound_cpu>;
+> +		simple-audio-card,mclk-fs =3D <256>;
+> +		simple-audio-card,aux-devs =3D <&hp_amp>;
+> +		simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
+> +		simple-audio-card,pin-switches =3D "Headphones", "Headset Mic";
+> +		simple-audio-card,widgets =3D
+> +			"Headphone", "Headphones",
+> +			"Microphone", "Headset Mic";
+> +		simple-audio-card,routing =3D
+> +			"Headphones", "LOUT1",
+> +			"Headphones", "ROUT1",
+> +			"Headphones", "Headphone Power OUTL",
+> +			"Headphones", "Headphone Power OUTR",
+> +			"Headphone Power INL", "LOUT1",
+> +			"Headphone Power INR", "ROUT1",
+> +			"LINPUT1", "Headset Mic",
+> +			"RINPUT1", "Headset Mic";
+
+[Severity: Low]
+As reported by Sashiko on v12 [1], in analog_sound, when
+simple_util_parse_routing() parses simple-audio-card,routing, it registers
+both direct routes from LOUT1 and ROUT1 to Headphones and amplified routes
+through the hp_amp simple-audio-amplifier (LOUT1/ROUT1 -> Headphone Power
+INL/INR -> Headphone Power OUTL/OUTR -> Headphones).
+
+Since the headphone outputs are routed through hp_amp, should the direct
+"Headphones", "LOUT1" and "Headphones", "ROUT1" entries be dropped so the
+DAPM graph does not contain duplicate parallel paths in
+dapm_is_connected_ep()?
+
+[ ... ]
+
+> +	combophy_avdd0v85: regulator-combophy-avdd0v85 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "combophy_avdd0v85";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt =3D <850000>;
+> +		regulator-max-microvolt =3D <850000>;
+> +		vin-supply =3D <&vdd_0v85_s0>;
+> +	};
+> +
+> +	combophy_avdd1v8: regulator-combophy-avdd1v8 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "combophy_avdd1v8";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <1800000>;
+> +		vin-supply =3D <&avcc_1v8_s0>;
+> +	};
+
+[Severity: Low]
+Are combophy_avdd0v85 and combophy_avdd1v8 needed here? Neither regulator is
+referenced by any consumer in rk3588s-quarkpi-ca2.dts or rk3588s.dtsi, and
+both are always-on fixed regulators without GPIO control that simply mirror
+their parent supplies (&vdd_0v85_s0 and &avcc_1v8_s0).
+
+Also, the <dt-bindings/media/video-interfaces.h> include at the top of
+rk3588s-quarkpi-ca2.dts appears to be unused. Could these unreferenced
+regulator nodes and the unused header include be removed?
+
+[ ... ]
+
+> +	reserved-memory {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		ramoops: ramoops@118000 {
+> +			compatible =3D "ramoops";
+> +			reg =3D <0 0x118000 0 0xd8000>;
+> +			console-size =3D <0x80000>;
+> +			ftrace-size =3D <0x00000>;
+> +			pmsg-size =3D <0x30000>;
+> +			record-size =3D <0x14000>;
+> +		};
+> +	};
+
+[Severity: High]
+Can these non-power-of-two pmsg-size (0x30000) and record-size (0x14000)
+values in ramoops@118000 cause misconfigured zone sizes and alignment faults
+at boot when CONFIG_PSTORE_RAM is enabled?
+
+In fs/pstore/ram.c, ramoops_probe() rounds non-power-of-two zone sizes down
+to powers of two:
+
+    if (pdata->record_size && !is_power_of_2(pdata->record_size))
+        pdata->record_size =3D rounddown_pow_of_two(pdata->record_size);
+    ...
+    if (pdata->pmsg_size && !is_power_of_2(pdata->pmsg_size))
+        pdata->pmsg_size =3D rounddown_pow_of_two(pdata->pmsg_size);
+
+This reduces pmsg_size from 0x30000 to 0x20000 and record_size from 0x14000
+to 0x10000, leaving dump_mem_sz =3D 0xd8000 - 0x80000 - 0x20000 =3D 0x38000.
+
+When ramoops_probe() -> ramoops_init_przs() initializes the dump zones, it
+computes:
+
+    *cnt =3D mem_sz / record_size; /* 0x38000 / 0x10000 =3D 3 */
+    zone_sz =3D mem_sz / *cnt;
+    zone_sz =3D ALIGN_DOWN(zone_sz, 2); /* 0x12aaa */
+
+Advancing paddr by 0x12aaa places subsequent persistent_ram_buffer headers =
+at
+2-byte-aligned physical addresses (0x12aaaa, 0x14fffe, and 0x1cfffe, with t=
+he
+latter two straddling 4K page boundaries). When persistent_ram_new() ->
+persistent_ram_post_init() -> buffer_size() calls atomic_read() on the start
+and size fields of struct persistent_ram_buffer, arm64 kernels built with
+CONFIG_LTO emit load-acquire instructions (ldar/ldapr) that require 4-byte
+alignment and fault on 2-byte-aligned addresses.
+
+Should console-size, pmsg-size, and record-size be power-of-two values that
+divide the ramoops reg size into power-of-two zones?
+
+[1] https://lore.kernel.org/r/20261102-quarkpi-ca2-v12-2-d749d9bb2bf9@163.c=
+om
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-quarkpi-ca=
+2-v13-0-ad8c30cdb67e@163.com?part=3D2
