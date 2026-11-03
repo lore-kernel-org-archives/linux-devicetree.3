@@ -1,56 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717969;
-	b=uWPo2ZAFInSVAPGswWPyrIVT57g+h3BacmizR/tgGIa4lW+YATLZPx0XqzZIf8N8ENlg
-	 SRQORBx0UMhWsH0MbxJHSn3oybxsDICXuCjuM6cdk0clzI6B6oqWFyJNGY/6CwV8IA/lg
-	 aPptEaX02+dLzQp5YRNWRfqOS+Wxfe/Vdc/S3j9GB0P0vU29zUn4IdOlRihOEPnxKTSnv
-	 YdFNRVjA6K0Qv6Kad8gPuPOEk+DDgFe65W5xqA2z6PvM7X7gFdQl/bv8pT+hsopw8S1vm
-	 /GVOXmtH2sZpfjZ284QgnndKOSJKC3NtVo+cfPWL0O+Cu/pTfuGpQ1OOFN6OB3zOxGg==
+	t=1793718006;
+	b=Mv3Dw3dnjSiX0i84/RW7RFB61xbQbFnNlwd+qSL1eDdBXG1HujJ24hySnl9OWhQfr7L0
+	 0pyI9+mWTOGGXFl6kukQlxLAh0OTWHNpIS0Q9ZRHN5dxB5vOhy5G0mzZ4qWNWwIpPzCMY
+	 km/y//EXtFOj1Dw8N9RCGJoHZ6DSzzFNyVLTVeb2zWjI/oyuqeDNK4+O+cFXv1hDGItDn
+	 iMQVcwXC3vIjQQvKL2RGaOzNwi82jeITmhnhuwe9GlzVoMhmdKV1ShIbHuus5oVVl96XZ
+	 CtBdsopDJ5sRpIeBSrLi+TwoCuLVoOCWcu4I6l92wNYjhOfYI4/KnbW9x9A85AaavXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717969;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=av6iXpXGA/lgjiHfsVWYR0lccsZKBf5SvoImZPAutT8=;
-	b=V99P+xi0ZobsQ/DVHeSQtAU3t0zLeb8fw4a2maXILDaJt/2xAnUg29SsjC+O6K9X/yQC
-	 bzkpKugLAEEwm5Zr2aUQcuY6dd07oEhjDZ+ZkI6VFDt8weflpLGnHUJ7Xm9tgS9RZ4Wbj
-	 MlLLi3F8s2Af+aD8MZOrJrqoyITJVRSr3d6aASXNA0mHs0Yo43uB40jqYUZwfbyNDVoVK
-	 +PczAZlcMfxNUjKXPov487dNO7se+ODIi7Pp42t3KPexJRs6MpsE1t3WH2QE6eyU6sKVm
-	 VvdAiBqOikoH2wsfNzB3JDxQXD0/218r4nvty2IDDoIYs5Gk30vLLIOvv0Bt9acfYWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718006;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
+	b=HGLzlqmrFfIhihp7Pz+wjzMXXD+xO6rzHlln94mm8oN1hswFkZtJcePjBQlTewbYBzDC
+	 w+I5bCOLnatsfC/tu9Hg2EUC9BjV0Xj4S3CExlVnm0qQjoeKmlD8C4Q/uT0WwVzD8grBE
+	 4Yy7z8yhxgbWhFZ6PzlTPwSqWIji6eQ46BZDK2T0jbKodLVJZ4mkmCkc1yPwV7L1jnNOi
+	 PxTiVP97qocQOEApccuMIEo3ltdM/auth1xGCYDPqqRlk5a6Ekc5/0PvAbUmyklG51m1K
+	 mhcMAPOeUsAfVkn6bWRUoMgImayFSMra714FeNRCn+nBLG6yPm6DQWJoOPHzJFeX0oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/RkLw2p";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="d/aEna/I";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=L8ikNYu2;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C556071A07;
-	Tue,  3 Nov 2026 14:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19990606D2C7
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 15:00:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19990606D2C7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/RkLw2p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563631F00919;
-	Tue,  3 Nov 2026 14:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717968;
-	bh=av6iXpXGA/lgjiHfsVWYR0lccsZKBf5SvoImZPAutT8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a/RkLw2picPvejCVJxSLfXJJ88Imgi3XVl72Jc/7AxwJqIByqaJa2lssevpHkxzqY
-	 amGTqdVPrFdnO7g+BCud8b0Yv08bwTPg1F+7zQ4F1X5W5Vnxnrtr/iDUi4wfoMpSJy
-	 GfyWWrX35rtT70RH/AtrBIZEo2blL0KxJNnU228mbDgQt4wSb2r69XMwpTCVPifrWL
-	 8uOo8fqvaD0/krZYkNO0h2OehAzt6gKG052FguquPo8fiZjophvLZAXG/YRBxxt09f
-	 vX8deXMuTwZOeSUV9MBUUUr3GZh235eWhiw3jmcJ0zskjOaD84e3Et1eC9xzzTcf4c
-	 9qUzWfjhiMnYw==
-Message-ID: <sashiko-outbox-195525@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/5] iio: adc: add support for PAC1711
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-pac1711-v5-5-71c20101a52e@microchip.com>
-References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
- <20261103-pac1711-v5-5-71c20101a52e@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 14:59:27 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d/aEna/I;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=L8ikNYu2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793718000;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
+	b=d/aEna/IqhxuAdRkL56DUGLT33MVPskmrVBKBPcZHPcKk43bZeB7SeuomSGeqEqmDGLief
+	OKAECoTFmR1qi6iz1XThuvxJftxsUcO7BBw+QRkwxnzKe1CQOInw43o9thPuLjhfoT7Yl9
+	ylBFNG+l+979ZIOzzgBnaFlWd+RRo2k=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-378-AisS1V-SMvyxkkKcUALjQQ-1; Tue, 03 Nov 2026 09:59:58 -0500
+X-MC-Unique: AisS1V-SMvyxkkKcUALjQQ-1
+X-Mimecast-MFC-AGG-ID: AisS1V-SMvyxkkKcUALjQQ_1793717997
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a204f135ffso24402225e9.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 06:59:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793717997; x=1794322797; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
+        b=L8ikNYu2nJANA/1K/oRwp8m7sU05o/fPbEHkZIDt/M3Ypjb6ri/5xVc/PKz5qbB608
+         aX0x8gpkgf5JSKjPrkuFRK3S+VKQWLcFMJnHECryKpM+KPRyYXF+xQHy9Hl6x2DoABkZ
+         YZ0vgcHSypaNF/7sH8oY0onzz83jov/eVP7bCR+hpntJwAhpuFfPih0e99Ywn7rLG0Pg
+         3dFK/jApuEk52U0M9vrYgDJlDzBL5IJ0BgSy49Y2D2THjeOvuoxH8IDBWT46kqg63ue3
+         7Ng6jiJ8hAqnXpeOpzdVqHeY8vnIZpEsEOQ4hBV4vtnrQKxx4Tw2cWclN0sAzRBGnhPq
+         1QDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793717997; x=1794322797;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
+        b=BSlSPxe+vqrgZHm4LdmprX+lA9+q08MbxqefO+BPdjvhXfr859P5ZkDrlu59h6hW7q
+         o01TzUrOXkvHUcx1aYXtVy9imopzr7zr/tk4mTLRCdqjsbY6lQKlShJpqHkdfh3vOg7o
+         Dj8qF8XbnWnrHZvgHavuOaF5MDq4N11mtg6FttLFGv/hVICeS+ADwXRUUh+rR26o+PMo
+         yk1ikon5/kAfCWcAnHW4Wk8TXuUlw8vWnBCUDeaqQ7PPjvpw3Q0VLJ0HwIgg71CAWc5R
+         3IpmLyPv9Zbo0p/dXopmQFvtHfhh/18IC9tLMq802FWEOTRtTHo6lFXTBDmin93afXRR
+         Xu2g==
+X-Forwarded-Encrypted: i=1; AKwUvBwnDY6rWddbpbiFiXpqYMFaRQobdczTd3tDK97jeIKQfObI72xz/kmcif56bU9SmeVhxLRJXlszQvum@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Io7xrwApVdfdZZRRD5vlPMRtb8+1wmMQIy2DTJiH8kml4woh8
+	pPeWMRssnrisPgJ0GPBbeyr6x5d3+ohkxceGtZtAgrbiP8CpZ/xiJyY4plCQAv/n5phbSUlizsy
+	6F0Od+YOlGNEZ6vuQPuK/IEt4cOe1EsrIPP6FvKmVM8nK6+vHJLT1WNMG4rkod+A=
+X-Gm-Gg: AYBFou08BeBfovN969PonRgyYbvyQN4Ghaj0YfBZ53Izp37Gh3CnfvoOeen1GFNio3g
+	IzAm3bb2Fq5Mz4u7iXLCYrp1MGT9ZnYNP4MhzA86nTuM/9tBt9RsZ8kpXebIPyVEuGVX845VQ+W
+	O3d9nlZpAmUs2VHNEev5xqZlXKJN2ZYNaXsxZgXMozZ4bHqBC7jPxkrB444bZxwEmKchN418CFb
+	SDnlJ+QCl6IZmo0mWiXr/4oedqDf/W637+ymIbzj7J7rhKcVtYrC0m/6sgpsz9c3F9DSa5aD573
+	uAFDHX9zI/6P7gZhDLtAdEDTTJ6+Wi2EhKkkJS0RE7dEZgAfQOxmmT6vWx5jQtPGaI9NEncJ2BI
+	rnJBdTVM0S5C3fOlHsZsDO9ww2KMpx9H+bgIHVdZhZuArDP/PXIRR5BFZH6HBa46DW6VA7KLHcM
+	0n+kUmm0gi3hId/EQLsG2DBNkTuweUmQ+HOkV8n0En8Xg=
+X-Received: by 2002:a05:600c:a4c:b0:4a2:967:dfb8 with SMTP id 5b1f17b1804b1-4ac1765d7d7mr307788855e9.20.1793717997477;
+        Tue, 03 Nov 2026 06:59:57 -0800 (PST)
+X-Received: by 2002:a05:600c:a4c:b0:4a2:967:dfb8 with SMTP id 5b1f17b1804b1-4ac1765d7d7mr307787935e9.20.1793717996940;
+        Tue, 03 Nov 2026 06:59:56 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm464079285e9.1.2026.11.03.06.59.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 06:59:56 -0800 (PST)
+Message-ID: <ff77c7ef-4c3b-4113-966d-3c46d5776cdf@redhat.com>
+Date: Tue, 3 Nov 2026 15:59:54 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,452 +111,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/7] net: dsa: mt7530: support EcoNet EN751221
+To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
+ Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ naseefkm@gmail.com, b.larsson@gmx.com
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261029184202.1859843-1-cjd@cjdns.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] iio: adc: pac1711: wrong power and energy scale units in pac1711_r=
-ead_raw()
-- [High] iio: adc: pac1711: missing vdd-supply regulator enable in pac1711_=
-probe()
-- [Medium] iio: adc: pac1711: in_shunt_resistor uses micro-ohms instead of =
-Ohms
-- [Medium] iio: adc: pac1711: signed int overflow of shunt in pac1711_read_=
-raw()
-- [Medium] iio: adc: pac1711: premature jiffies_tstamp update in pac1711_se=
-nd_refresh()
-- [Low] iio: adc: pac1711: premature sample_rate_idx update in pac1711_writ=
-e_raw()
---
+On 10/29/26 19:41, Caleb James DeLisle wrote:
+> The EcoNet EN751221 has a unique switch configuration. Every chip made
+> with an EN751221 die has at least one on-die MT7530 that is MMIO based.
+> This switch has 3x 10/100 ports and 1x gigabit port.
+> 
+> Some popular chip packages such as the EN7513G and EN7526G have another
+> MT7530 implemented as a multi-chip-module that connects to port 5 of
+> the on-die switch and is controlled via the MDIO controller integrated
+> in the on-die MT7530.
+> 
+> In this configurations, the upstream switch is put into a "passthrough"
+> mode in which all traffic is forwarded between port 5 and port 6
+> without altering its DSA tags.
+> 
+> Furthermore, since the DSA core does not call mt753x_setup until all
+> switches are present, and the downstream switch only becomes available
+> when the upstream switch has configured its MDIO controller, the MDIO
+> controller setup on MMIO implementations must be done before
+> mt753x_setup, or else it will never complete.
+> 
+> Finally, the on-die switch and the MCM switch connect via a TRGMII link
+> which requires calibration. In order to calibrate this, PLL adjustment
+> must be possible on the on-die switch, necessitating changes to the
+> core_(set|clear|write|rmw) functions to support MMIO implementations.
+> 
+> Solve all of these issues, add the TRGMII calibration, and add support
+> for both switches.
+> 
+> Since this patchset will probably be subject to some discussion, please
+> consider accepting any patches that are non-controversial since it will
+> make future re-submissions easier.
+Does not apply cleanly, please resubmit. While at it, please add the 'net-next'
+subj prefix.
 
-commit c4f8dfb4bdee1e8ce1711a47ff2fad6880c4a9a3
-Author: Ariana Lazar <ariana.lazar@microchip.com>
+/P
 
-iio: adc: add support for PAC1711
-
-This commit adds an IIO ADC driver for the Microchip PAC1711, PAC1721,
-PAC1811, and PAC1821 single-channel power and current monitors with hardware
-accumulators.
-
-> diff --git a/drivers/iio/adc/pac1711.c b/drivers/iio/adc/pac1711.c
-> new file mode 100644
-> index 0000000000000..6adc37a7ba0be
-> --- /dev/null
-> +++ b/drivers/iio/adc/pac1711.c
-> @@ -0,0 +1,1233 @@
-
-[ ... ]
-
-> +/* Full FSR power is multiplied by 10^9 to ensure precise scale calculat=
-ion. */
-> +#define PAC1711_PRODUCT_VOLTAGE_PV_FSR	(4200ULL * NANO)
-> +#define PAC1721_PRODUCT_VOLTAGE_PV_FSR	(900ULL * NANO)
-
-[ ... ]
-
-> +static int pac1711_send_refresh(struct pac1711_chip_info *info, u32 wait=
-_time)
-> +{
-> +	struct i2c_client *client =3D info->client;
-> +	int ret;
-> +
-> +	/* Writing a REFRESH or a REFRESH_V command */
-> +	ret =3D i2c_smbus_write_byte(client, PAC1711_REFRESH_REG_ADDR);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s - cannot send Refresh cmd (0x%02X)\n",
-> +			__func__, PAC1711_REFRESH_REG_ADDR);
-> +		return ret;
-> +	}
-> +
-> +	/* Register data retrieval timestamp */
-> +	info->chip_reg_data.jiffies_tstamp =3D jiffies;
-> +
-> +	/* Wait till the data is available */
-> +	fsleep(wait_time);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int pac1711_reg_snapshot(struct pac1711_chip_info *info, bool *re=
-freshed)
-> +{
-> +	u32 wait_time;
-> +	int ret;
-> +
-> +	guard(mutex)(&info->lock);
-> +
-> +	/* No hardware refresh is needed */
-> +	if (refreshed)
-> +		*refreshed =3D false;
-> +
-> +	/* Return early if the minimum polling time hasn't elapsed */
-> +	if (!time_after(jiffies, info->chip_reg_data.jiffies_tstamp +
-> +			msecs_to_jiffies(PAC1711_MIN_POLLING_TIME_MS)))
-> +		return 0;
-> +
-> +	wait_time =3D (1024 * 1000) / pac1711_samp_rate_map_tbl[info->sample_ra=
-te_idx];
-> +
-> +	/* A hardware refresh will happen */
-> +	ret =3D pac1711_reg_snapshot_locked(info, wait_time);
-> +	if (!ret && refreshed)
-> +		*refreshed =3D true;
-> +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static ssize_t pac1711_read_shunt_resistor(struct iio_dev *indio_dev, ui=
-ntptr_t private,
-> +					   const struct iio_chan_spec *ch, char *buf)
-> +{
-> +	struct pac1711_chip_info *info =3D iio_priv(indio_dev);
-> +
-> +	guard(mutex)(&info->lock);
-> +
-> +	return sysfs_emit(buf, "%u\n", info->shunt);
-> +}
-> +
-> +static int pac1711_set_acc_enable(struct pac1711_chip_info *info, int va=
-l)
-> +{
-> +	struct i2c_client *client =3D info->client;
-> +	struct device *dev =3D &client->dev;
-> +	u32 wait_time, sample_rate;
-> +	int ret =3D 0;
-> +
-> +	if (val !=3D 0 && val !=3D 1)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&info->lock);
-> +
-> +	if (val =3D=3D info->enable_acc)
-> +		return 0;
-> +
-> +	/*
-> +	 * Force a hardware refresh to zero out the internal accumulators
-> +	 * and start a new measurement window, as the chip accumulates
-> +	 * continuously in the background.
-> +	 */
-> +	if (val) {
-> +		sample_rate =3D pac1711_samp_rate_map_tbl[info->sample_rate_idx];
-> +		wait_time =3D (1024 * 1000) / sample_rate;
-> +		ret =3D pac1711_send_refresh(info, wait_time);
-> +	} else {
-> +		info->chip_reg_data.acc_val =3D 0;
-> +		info->chip_reg_data.vacc =3D 0;
-> +		info->chip_reg_data.acc_count =3D 0;
-> +	}
-
-[Severity: Medium]
-Should info->chip_reg_data.jiffies_tstamp be updated only after
-pac1711_reg_snapshot_locked() has finished reading the measurement register=
-s,
-rather than inside pac1711_send_refresh()?
-
-Currently, pac1711_send_refresh() sets info->chip_reg_data.jiffies_tstamp =
-=3D
-jiffies before sleeping for wait_time and before any registers are read into
-info->chip_reg_data.
-
-When pac1711_set_acc_enable() re-enables accumulation, it calls
-pac1711_send_refresh() without reading the measurement registers into
-info->chip_reg_data. If userspace reads in_voltage0_raw, in_current0_raw, or
-in_power0_raw within 50 ms (PAC1711_MIN_POLLING_TIME_MS),
-pac1711_reg_snapshot() sees the updated timestamp and returns early with st=
-ale
-cached values. The same issue occurs if an I2C block read fails in
-pac1711_reg_snapshot_locked() after pac1711_send_refresh() succeeds.
-
-Conversely, at 8 SPS where wait_time is 128 ms, recording jiffies_tstamp
-before fsleep(wait_time) means the 50 ms cache window has already expired by
-the time pac1711_send_refresh() returns.
-
-> +
-> +	if (!ret)
-> +		info->enable_acc =3D val;
-> +
-> +	if (ret)
-> +		dev_err(dev, "failed to reset accumulator: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +/*
-> + * The value of the shunt resistor may be known only at runtime and set =
-by a client
-> + * application. This attribute allows to set its value in micro-ohms. Y =
-is the channel
-> + * number. The value is used to calculate current, power and accumulated=
- energy or
-> + * Coulomb counter.
-> + */
-> +static ssize_t pac1711_write_shunt_resistor(struct iio_dev *indio_dev, u=
-intptr_t private,
-> +					    const struct iio_chan_spec *ch, const char *buf,
-> +					    size_t len)
-> +{
-> +	struct pac1711_chip_info *info =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &info->client->dev;
-> +	unsigned int sh_val;
-> +	int ret;
-> +
-> +	ret =3D kstrtouint(buf, 10, &sh_val);
-> +	if (ret) {
-> +		dev_err(dev, "Shunt value is not valid\n");
-> +		return ret;
-> +	}
-> +
-> +	if (sh_val =3D=3D 0)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&info->lock);
-> +
-> +	info->shunt =3D sh_val;
-> +
-> +	return len;
-> +}
-> +
-> +static const struct iio_chan_spec_ext_info pac1711_ext_info[] =3D {
-> +	{
-> +		.name =3D "in_shunt_resistor",
-> +		.read =3D pac1711_read_shunt_resistor,
-> +		.write =3D pac1711_write_shunt_resistor,
-> +		.shared =3D IIO_SHARED_BY_ALL,
-> +	},
-> +	{ }
-> +};
-
-[Severity: Medium]
-Does exposing in_shunt_resistor in micro-ohms violate the IIO sysfs ABI?
-
-Documentation/ABI/testing/sysfs-bus-iio specifies that in_shunt_resistor is
-expressed in Ohms. Here, pac1711_read_shunt_resistor() emits info->shunt
-directly in micro-ohms via sysfs_emit(), and pac1711_write_shunt_resistor()
-parses the input as an integer in micro-ohms via kstrtouint().
-
-Should this format the value in Ohms using iio_format_value() with
-IIO_VAL_FRACTIONAL (or IIO_VAL_INT_PLUS_MICRO) and parse writes with
-iio_str_to_fixpoint(), matching other power monitor drivers such as pac1921?
-
-[ ... ]
-
-> +	case IIO_CHAN_INFO_SCALE: {
-> +		u32 shunt;
-> +
-> +		guard(mutex)(&info->lock);
-> +		shunt =3D info->shunt;
-> +
-> +		switch (chan->address) {
-> +		case PAC1711_VBUS_REG_ADDR:
-> +			*val =3D info->features->voltage_millivolts_max;
-> +			*val2 =3D (info->vbus_mode =3D=3D PAC1711_FULL_RANGE_BIPOLAR) ? 15 : =
-16;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		case PAC1711_VSENSE_REG_ADDR:
-> +			/*
-> +			 * Currents - scale for mA - depends on the channel's shunt value
-> +			 * (100mV * 1000000) / (2^16 * shunt(uohm))
-> +			 */
-> +			*val =3D 1526;
-> +			*val2 =3D shunt;
-> +
-> +			if (info->vsense_mode =3D=3D PAC1711_FULL_RANGE_BIPOLAR)
-> +				*val =3D *val << 1;
-> +
-> +			return IIO_VAL_FRACTIONAL;
-
-[Severity: Medium]
-Can *val2 overflow to a negative value in pac1711_read_raw() when info->shu=
-nt
-exceeds INT_MAX?
-
-Both pac1711_parse_fw() and pac1711_write_shunt_resistor() accept 32-bit
-unsigned values up to U32_MAX into info->shunt, only rejecting zero. When
-shunt > INT_MAX, assigning it to the signed int *val2 for IIO_VAL_FRACTIONAL
-wraps *val2 negative, causing iio_format_value() to output a negative curre=
-nt
-scale. Should shunt values greater than INT_MAX be rejected?
-
-> +		case PAC1711_VPOWER_REG_ADDR:
-> +		case PAC1711_VACC_REG_ADDR:
-> +			if (chan->type =3D=3D IIO_CHARGE) {
-> +				/*
-> +				 * Coulomb counter scale:
-> +				 * 16-bit resolution: (100mV * NANO) / 2^16
-> +				 * 12-bit resolution: (100mV * NANO) / 2^12
-> +				 */
-> +				u64 ref =3D info->features->has_16bit_resolution ?
-> +						  1525878906250ULL : 24414062500000ULL;
-> +
-> +				if (info->vsense_mode =3D=3D PAC1711_FULL_RANGE_BIPOLAR)
-> +					ref =3D ref << 1;
-> +
-> +				ref =3D div_u64(ref, shunt);
-> +				*val2 =3D do_div(ref, 1 * NANO);
-> +				*val =3D ref;
-> +
-> +				return IIO_VAL_INT_PLUS_NANO;
-> +			}
-> +
-> +			/*
-> +			 * Power - uW - it will use the combined scale
-> +			 * for current and voltage
-> +			 * current(mA) * voltage(mV) =3D power (uW)
-> +			 */
-> +			tmp =3D info->features->voltage_pv_fsr;
-> +			do_div(tmp, shunt);
-> +
-> +			if (chan->type =3D=3D IIO_ENERGY)
-> +				*val2 =3D info->features->has_16bit_resolution ? 32 : 24;
-> +			else
-> +				*val2 =3D 32;
-> +
-> +			if (info->vsense_mode =3D=3D PAC1711_FULL_RANGE_BIPOLAR)
-> +				*val2 -=3D 1;
-> +
-> +			if (info->vbus_mode =3D=3D PAC1711_FULL_RANGE_BIPOLAR)
-> +				*val2 -=3D 1;
-> +
-> +			shift =3D fls64(tmp) - 31;
-> +			if (shift > 0) {
-> +				tmp >>=3D shift;
-> +				*val2 -=3D shift;
-> +			}
-> +
-> +			*val =3D (int)tmp;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-
-[Severity: High]
-Are the scale units for IIO_POWER and IIO_ENERGY in pac1711_read_raw() off =
-by
-factors of 1,000 and 1,000,000 respectively?
-
-According to Documentation/ABI/testing/sysfs-bus-iio, power channels
-(in_powerY_raw * in_powerY_scale) must be reported in milliwatts (mW), and
-energy channels (in_energy_raw * in_energy_scale) must be reported in Joules
-(J).
-
-However, PAC1711_PRODUCT_VOLTAGE_PV_FSR (4200ULL * NANO =3D 4.2 * 10^12) and
-PAC1721_PRODUCT_VOLTAGE_PV_FSR (900ULL * NANO =3D 9 * 10^11) compute the
-numerator in microwatts * micro-ohms, as noted in the comment above. Dividi=
-ng
-by shunt (in micro-ohms) and returning IIO_VAL_FRACTIONAL_LOG2 with *val2 =
-=3D 32
-(or 24) yields a scale in microwatts for IIO_POWER (1,000x too large for mW)
-and microjoules for IIO_ENERGY (1,000,000x too large for Joules).
-
-[ ... ]
-
-> +static int pac1711_write_raw(struct iio_dev *indio_dev, struct iio_chan_=
-spec const *chan,
-> +			     int val, int val2, long mask)
-> +{
-> +	struct pac1711_chip_info *info =3D iio_priv(indio_dev);
-> +	struct i2c_client *client =3D info->client;
-> +	struct device *dev =3D &info->client->dev;
-> +	int new_idx, ret, refresh_time;
-> +	s32 old_samp_rate;
-> +	__be16 val_be16;
-> +	u32 wait_time;
-> +	u16 val_u16;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		scoped_guard(mutex, &info->lock) {
-> +			old_samp_rate =3D pac1711_samp_rate_map_tbl[info->sample_rate_idx];
-> +			new_idx =3D pac1711_get_samp_rate_idx(val);
-> +			if (new_idx < 0)
-> +				return new_idx;
-> +
-> +			ret =3D i2c_smbus_read_i2c_block_data(client, PAC1711_CTRL_ACT_REG_AD=
-DR,
-> +							    sizeof(val_u16), (u8 *)&val_be16);
-> +			if (ret !=3D sizeof(val_u16)) {
-> +				dev_err(&client->dev, "cannot read regs from 0x%02X\n",
-> +					PAC1711_CTRL_ACT_REG_ADDR);
-> +				return ret < 0 ? ret : -EIO;
-> +			}
-> +
-> +			val_u16 =3D be16_to_cpu(val_be16);
-> +			FIELD_MODIFY(PAC1711_CTRL_SAMPLE_MODE_MASK, &val_u16, new_idx);
-> +			val_be16 =3D cpu_to_be16(val_u16);
-> +			ret =3D i2c_smbus_write_i2c_block_data(client, PAC1711_CTRL_REG_ADDR,
-> +							     sizeof(val_be16), (u8 *)&val_be16);
-> +			if (ret) {
-> +				dev_err(dev, "Failed to configure sampling mode in 0x%02X\n",
-> +					PAC1711_CTRL_ACT_REG_ADDR);
-> +				return ret;
-> +			}
-> +
-> +			info->sample_rate_idx =3D new_idx;
-> +			info->chip_reg_data.ctrl_act_reg =3D val_u16;
-> +
-> +			/* Force register snapshot and timestamp update with a refresh. */
-> +			refresh_time =3D msecs_to_jiffies(PAC1711_MIN_POLLING_TIME_MS) + 1;
-> +			info->chip_reg_data.jiffies_tstamp =3D jiffies - refresh_time;
-> +			wait_time =3D (1024 * 1000) / old_samp_rate;
-> +
-> +			/*
-> +			 * We must wait for cycle completion before updating the
-> +			 * sample rate value.
-> +			 */
-> +			ret =3D pac1711_reg_snapshot_locked(info, wait_time);
-> +			if (ret) {
-> +				dev_err(dev, "%s - cannot snapshot ctrl and measurement regs\n",
-> +					__func__);
-> +				return ret;
-> +			}
-> +		}
-
-[Severity: Low]
-In pac1711_write_raw(), info->sample_rate_idx is updated to new_idx before
-pac1711_reg_snapshot_locked() sends the refresh command that activates the
-new control register settings. If pac1711_reg_snapshot_locked() fails to se=
-nd
-the refresh command, won't the chip remain at old_samp_rate while
-info->sample_rate_idx reports new_idx?
-
-Also, in the error path of the i2c_smbus_write_i2c_block_data() call above,
-dev_err() logs PAC1711_CTRL_ACT_REG_ADDR instead of PAC1711_CTRL_REG_ADDR.
-
-[ ... ]
-
-> +static int pac1711_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct pac1711_chip_info *info;
-> +	struct iio_dev *indio_dev;
-> +	u32 wait_time;
-> +	int ret, err;
-> +
-> +	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*info));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	info =3D iio_priv(indio_dev);
-> +	info->client =3D client;
-> +
-> +	ret =3D pac1711_chip_identify(indio_dev, info);
-
-[Severity: High]
-Does pac1711_probe() need to enable the vdd-supply regulator before accessi=
-ng
-the chip over I2C?
-
-Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml requires
-vdd-supply, but pac1711_probe() never calls devm_regulator_get_enable(dev,
-"vdd") before calling pac1711_chip_identify() and pac1711_chip_configure().=
- If
-the regulator is not already enabled by the bootloader, I2C communication w=
-ill
-fail during probe, or the regulator core may disable the unclaimed supply at
-late_initcall while the device is in use.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-pac1711-v5=
--0-71c20101a52e@microchip.com?part=3D5
