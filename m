@@ -1,71 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723569;
-	b=Moh/hMqRzXPOhHmRiu6m5N5dpKDRtkPxIozwNYn8rEaokUxBx+nf2cm3S6kCTrZz0AWy
-	 IrJfEkHrtPlEBEvVCRUhRtaCAvrTpVMi561e5Z40VarEThukOc3eb61wAl64ceBSMqDlh
-	 dZTglesM1PMLsdzJFHv8fD15g8PSInvt/2Kv4nwna/532/UDAK2vL2MApw8KhmnzefMXh
-	 6OK3COYVjTqWY2ploRamY3YtDgbrqUA+TpVZCT7mIIZiH/d+pHLuP86gb0tKgpyZaYAT7
-	 WaWOtWX1B409YM2y/Ztlg45enwC9wxRv8QjGKcgo1m/QhNn6vnnyif7vxjuZlKANlNA==
+	t=1793723783;
+	b=u5IPpPXbTDDS6u841jC5qQdR4tSUdPcMvIjyMt9z6eCIsbLpi4vcfsCUX9YGbPWAj434
+	 GtRYflrg5B+IHy1vILG3nY0fEJaprLdHevr5IdEsNHdgLYYCnDK2OxJ/YxVYMFoVLmZY4
+	 lPcAVtxNSwzfzLnxD0c4wz9r6Cn5xh5sKk9ouTMewTuq0XItbTYJW1N2DIhddzmDVbkj3
+	 31+F6+T04kcKbarUZ/qJCEwZa31TofwSlV6ocTeWgcB9QojGpK6rdR61SDUOpXbwaQDdy
+	 1UumDywAG/NLaRdoEAFtjLh3oHcA74r7mMoSnOfoIdOXM1Tgf//opVB1AYgNFMqnFnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723569;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PVzXQ2RYaauL4WOwQ31wWF0ak8azJBeYTb0/1fqEAaE=;
-	b=PNM+Itmmy7M4mayV++vtJNjJjoVsnkFBAT/eugWJ9kPZEwt0YKoYYfIGfvACg1I0b2BA
-	 zd1CQyhi/tsMKuMoWk7PW7Yf9WsKvB4+oFh1xFIxPi96Rd4vc0NBKyEhFewcYpd7b0q/C
-	 PgK0/pBlZ8Z99nC3Z1VYaiXJQQ1xf4Bx7J2ZJbYF/5usgnWaiI+XIMZlQpMc7wsLzWTth
-	 m41m0JCoO48BEIj93JchI6y3Bfp4z7TWxWYgEPbAWpubSC+noKdQLOgVF7/g9wDYVNNAz
-	 YtWL83lRTIl2NIY6l9+wSTxqLpin0PfJ0IGeYeym1Z9QhoTsfNqJV+oNdbgwM/nCyDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723783;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2BAabvEd6vL4y9BLf5sVKsYhFFT7p2yobeyEnKOJ5A4=;
+	b=GzSfmAX95fL8ewhfbLkHV/r4AuHfntN5NNDZjaXNeCEyFlGRDZuDSc0ZItU6z+fNkMA3
+	 vAk9FoI3ePwd/ersd8Do2qEs9tMC7Hwpxa3qXLoJnA+BYH4r74PQXss4ukcE9NXvWWO33
+	 93eifab4kPggMMXOgj4Nei7io2poZ1cSVuYi9ZvSbTL/f2n21w19Bl2Xj1tnoFopx6IYF
+	 zP/bB08rseMBxHQin0SHxT5Nj7lScaJr4caxv+iNQDU85ouG6+zxIDz1LUA+izujW7TS8
+	 GeaO/ORekh3UMhVw/lqLZGG+vvnvTvn/mJEZkLoQReZmovnrvNqTkn4f7sl8G797oMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVhJ1DD9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BBB606A324;
-	Tue,  3 Nov 2026 16:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVhJ1DD9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDA11F0093A;
-	Tue,  3 Nov 2026 16:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723569;
-	bh=PVzXQ2RYaauL4WOwQ31wWF0ak8azJBeYTb0/1fqEAaE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UVhJ1DD92jYPTwpzTriuTDtiTfy2CiWCj00e/WHxiFzK5SizkQoQjACjofZdEkRZP
-	 /h2VEIm+kUygQOqtLpjpVDBcFIgGczNemozZGLHLWZ98gtL11/DJeue0LAmAV80oqK
-	 Gkp88uLQ1Zbnp3VQcebet61Eru0PVl+qmXpApM+w907bFe4Pn5cLBEGMMIt4G5r9wc
-	 kMNT4uSHU3pniH2hFAbBkz3HFcS0NBxiJt6AF49IkRhv7BweULY7xTOWzhxjapxStV
-	 13T5XX7epziOk9f3l0ipHmwn7AmS34/p/S95flIIpp7FDOU0Oub1D+wQ2uA2MCMCGR
-	 VUE+rGcnTuZ4g==
-Message-ID: <sashiko-outbox-195729@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 7/9] drivers: greybus: Add software SVC
- implementation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ayush Singh" <ayush@beagleboard.org>, "Jason Kridner" <jkridner@beagleboard.org>, robertcnelson@gmail.com, "Johan
- Hovold" <johan@kernel.org>, "Alex Elder" <elder@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
- =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
- Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>, "Eric
- Biggers" <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>, "Ayush
- Singh" <ayush@beagleboard.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Markus
- Probst" <markus.probst@posteo.de>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261103-gb-uart-transport-v5-7-f8e326d6561f@beagleboard.org>
-References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
- <20261103-gb-uart-transport-v5-7-f8e326d6561f@beagleboard.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 16:32:47 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79BA606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D79BA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5364042eecfso70489581cf.2
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:36:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723782; x=1794328582;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2BAabvEd6vL4y9BLf5sVKsYhFFT7p2yobeyEnKOJ5A4=;
+        b=bAL/AI4y5QXMhzXJTjsclPH2aVMjk4A3VMmj+BKSlbAzLzabPHhjb9+eM89fWvs6ov
+         KwyRqwhAeLXgjqxq6HO2ps4Jk+aiVrOtIUuxiKjmPep/58EELAgxQlNRXH6lSVuGLapf
+         6wiq6aXgV3Qwq8WLl6MUvl2HmUHKihlRbRdWLE9YXohu+yH5JsDdBFF+5TiVvW/+/Nik
+         DkyjsHRvoSWrqJna95oDXpEFk514R4i4DDzpG8pV/g4CAZIIsuiXgrGYWvTyQrnTj+m9
+         tleB+v9jxNW5NOdPgLh15L9Km5gn6vEtvTA43QVOegRFOYqiv0pXWiFyW1bftMfzU0zQ
+         ONgw==
+X-Forwarded-Encrypted: i=1; AKwUvByTcXIW7JnqdCtAPPfwMFGy7AGjt22RtUzVgQb5oEAxyDzjUEh61aWZP9DAsnC0x63b7ticMQHE7vwQ@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FfqSdn0IdlfghhDxGvL2KuwV7GdBvpOR7zdFSzIoT1lgHvxra
+	W6obu1aFfYfUYg7P8kCNUWcQrOb35sIyHmJRXBkJTZDk/IGeQARsLTd0fSXUmdVIFic=
+X-Gm-Gg: AYBFou3k4tBCKNMr5baKpCIzP7JLZbC4QFqMWkHARJgaUxZz2Sp2tH7UE/03EYLZD+7
+	uCVDynJe5P2EBnKxQUX4OYpptSlaBG081BvQZenxUTubMdPnTJyZTuviII1sODXcRbzgyKGoG3Q
+	d8UGhwuwhyDN9vn+NJRif4a7mzFklTUal+WhBoAj7bM1sSbIB75CrY1hoxGLICXdMszLpXxzsgv
+	qQUEhndzexv+3p3CqpL9lLTzCy7zTdrEuI2hvOZf7Q40fubBvnlyteu0aiWmRKCyqzJ5GkCrwaH
+	+K+IMQ6O0URQKdMCAn5/9bk5kaJfDVwmWOmxy3BO9IT1ggYZPZ7FTE3rWNdz4VupDizLRtNk8Su
+	nbgge+qMvGmmLucGOh8wUaqPrdDSFAzCy8KWLcAUb5fCEBmy/gKe5sS7VTAgExeLD6M+/vK7xll
+	3nxkz9D4yzoqd2PaSKPvCltbm5fWookIKw+kR0i/nPVteW03bC2m7+08hETgmI/qvBrNx5bDR4k
+	sX0qfHAmPK6Fi6OH1v5nLyu+1mgQb23muCQF5tbHRqca0GAP3s/Bu69WIrukKYOFUMeIxL2bQcQ
+	9aHugeVB4iJ0E/gRF/ga+u5L4wEH20zyacR1nHYGfDyixuiv1miQWg6f10B7PXRQI7K+5na6oW0
+	9dkD4SApSjl9yYKUs1of4CfdqsUFoSURTnDqKNquUnw2amyYbeUIwvpfo
+X-Received: by 2002:ac8:5ad5:0:b0:537:83ea:2fc6 with SMTP id d75a77b69052e-542b781d950mr225407841cf.58.1793723781637;
+        Tue, 03 Nov 2026 08:36:21 -0800 (PST)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com. [209.85.222.182])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f252ffsm121473036d6.14.2026.11.03.08.36.21
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 08:36:21 -0800 (PST)
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e7ad9f78dso550392085a.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:36:21 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxrpt7l7e8ng0tf8/8hwxsXgynE4aM8QMvhqo6052haHgdFf1vNQL5uXswZk0iAGhMqmNU5neqO8JHD@vger.kernel.org
+X-Received: by 2002:a05:690e:4810:b0:67b:9051:e32a with SMTP id
+ 956f58d0204a3-67ba50e0ademr6918680d50.93.1793723407281; Tue, 03 Nov 2026
+ 08:30:07 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,210 +81,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261022200640.3101932-1-tanure@linux.com> <20261022200640.3101932-3-tanure@linux.com>
+ <95418d50-a83f-47da-819b-de04eab449e2@lunn.ch>
+In-Reply-To: <95418d50-a83f-47da-819b-de04eab449e2@lunn.ch>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Tue, 3 Nov 2026 16:29:55 +0000
+X-Gmail-Original-Message-ID: <CAJX_Q+1jAYu-0XjUqmNsR4hbSPTWT+JzsBK+PNqPg_yxCKy8YA@mail.gmail.com>
+X-Gm-Features: AclHuK9mStYKxlMFWLlexMhXND4q5zYuU5C_HQS0PBE7THFUZlCXo6CxCqTl6Rk
+Message-ID: <CAJX_Q+1jAYu-0XjUqmNsR4hbSPTWT+JzsBK+PNqPg_yxCKy8YA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] greybus: gb_softsvc: unsynchronized async SVC handshake in init() =
-and drop()
-- [Medium] greybus: gb_softsvc: unchecked response result in GbHdDriver::sv=
-c_handler()
-- [Low] greybus: gb_softsvc: commit message describes outdated NodeOps API
---
+On Mon, Nov 2, 2026 at 1:18=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > +        rx-internal-delay-ps:
+> > +          enum: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 200=
+0,
+> > +                 2200, 2400, 2600, 2800, 3000]
+>
+> Is 0 possible with the hardware? If so, i would accept it.
+Yes, 0 is the delay line switched off. v5 accepts it, and the T7 joins
+the existing G12A list in the binding instead of carrying its own.
 
-commit ee105f38d9a9f65cae00900a000f4081ef4dbafb
-Author: Ayush Singh <ayush@beagleboard.org>
-
-drivers: greybus: Add software SVC implementation
-
-This commit adds gb-softsvc, an in-kernel software implementation of a
-Greybus Supervisory Controller (SVC) in Rust for transports that do not
-have a hardware SVC on the bus.
-
->     drivers: greybus: Add software SVC implementation
->    =20
->     A Greybus network requires an SVC (Supervisory Controller) to bring
->     interfaces up, assign device IDs and connect CPorts to the AP. On a
->     UniPro network the SVC is a real entity on the bus, but transports th=
-at
->     merely carry Greybus messages - a UART, an I2C bus, a network link -
->     have no such entity, so every host driver for those transports ends up
->     open-coding an SVC emulation of its own.
->    =20
->     Add gb-softsvc, a Rust implementation of the SVC that lives in the
->     kernel and registers itself as a Greybus host device. It answers the
->     SVC-side operations the core expects during interface bring-up and
->     teardown.
->    =20
->     Host drivers use it through a small in-kernel interface. A driver
->     implements the NodeOps trait to send data towards its node and then
->     calls module_insert() to announce a new node, submit_message() to hand
->     incoming Greybus messages back to the core, and module_remove() on
->     disconnect. Interface IDs are allocated by the SVC and returned from
->     module_insert().
->    =20
->     Connection create/destroy and interface activate/resume currently just
->     acknowledge the request; callbacks into NodeOps can be added later if
->     transports need to act on them.
->    =20
->     gb_softsvc_exports.c exports the Rust symbols for dependent modules, =
-as
->     the build system does not yet support Rust cross-module dependencies
->     natively. This hack is taken from nova-core [0].
->    =20
->     [0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc=
-977@nvidia.com/
->    =20
->     Signed-off-by: Ayush Singh <ayush@beagleboard.org>
-
-[Severity: Low]
-As reported by Sashiko on v4 [1], does the commit message still describe an
-older version of the public API?
-
-The changelog states that host drivers implement NodeOps and call
-module_insert() (to obtain allocated interface IDs) and module_remove(). In
-drivers/greybus/gb_softsvc.rs, the public trait is InterfaceOps,
-module_insert() and module_remove() are private methods on Svc, and drivers
-use Module::new(), Module::submit_message() with a module-relative interface
-index, and Drop for Module.
-
-> diff --git a/drivers/greybus/gb_softsvc.rs b/drivers/greybus/gb_softsvc.rs
-> new file mode 100644
-> index 0000000000000..c9bff6a5fa658
-> --- /dev/null
-> +++ b/drivers/greybus/gb_softsvc.rs
-
-[ ... ]
-
-> @@ -0,0 +1,533 @@
-> +            (
-> +                false,
-> +                protocols::GB_SVC_TYPE_INTF_UNIPRO_ENABLE
-> +                | protocols::GB_SVC_TYPE_INTF_UNIPRO_DISABLE,
-> +            ) =3D> self.0.intf_unipro_enable_disable(hd, hdr),
-> +            (false, protocols::GB_SVC_TYPE_INTF_ACTIVATE) =3D> self.0.in=
-tf_activate(hd, msg),
-> +            (false, protocols::GB_SVC_TYPE_INTF_RESUME) =3D> self.0.intf=
-_resume(hd, msg),
-> +            (true, protocols::GB_SVC_TYPE_PROTOCOL_VERSION) =3D> self.0.=
-send_svc_hello(hd)?,
-> +            (true, protocols::GB_SVC_TYPE_SVC_HELLO) =3D> {
-> +                let global_state =3D GlobalState::new(self.0.clone(), hd=
-.into());
-> +                let _ =3D GLOBAL_STATE.lock().replace(global_state);
-> +            }
-
-[Severity: Medium]
-Should GbHdDriver::svc_handler() verify that the response header result is
-GB_OP_SUCCESS before advancing the handshake and populating GLOBAL_STATE?
-
-In drivers/greybus/operation.c, gb_operation_request_handle() always calls
-gb_operation_response_send(operation, status) for non-unidirectional reques=
-ts:
-
-drivers/greybus/operation.c:gb_operation_response_send() {
-    ...
-    /* Fill in the response header and send it */
-    operation->response->header->result =3D gb_operation_errno_map(errno);
-
-    ret =3D gb_message_send(operation->response, GFP_KERNEL);
-    ...
-}
-
-If gb_svc_version_request() or gb_svc_hello() fails in drivers/greybus/svc.=
-c,
-the core still sends a response over GB_SVC_CPORT_ID with a non-zero error
-code in header->result and leaves svc->state uninitialized. Because
-GbHdDriver::svc_handler() only matches on (hdr.is_response(),
-hdr.request_type()), it will treat the failed response as a success and
-publish an uninitialized SVC in GLOBAL_STATE.
-
-> +            (
-> +                true,
-> +                protocols::GB_SVC_TYPE_MODULE_INSERTED | protocols::GB_S=
-VC_TYPE_MODULE_REMOVED,
-> +            ) =3D> {}
-> +            (false, ty) =3D> {
-> +                dev_warn!(hd.as_ref(), "unsupported request 0x{:02x}\n",=
- ty);
-> +                let rsp =3D Msg::response(hdr, protocols::GB_OP_PROTOCOL=
-_BAD, ());
-> +                hd.data_rcvd(protocols::GB_SVC_CPORT_ID, rsp.as_bytes());
-> +            }
-> +            (true, ty) =3D> dev_warn!(hd.as_ref(), "unexpected response =
-0x{:02x}\n", ty),
-> +        };
-> +
-> +        Ok(())
-> +    }
-> +}
-
-[ ... ]
-
-> +impl kernel::Module for GreybusSoftSvc {
-> +    fn init(_module: &'static ThisModule) -> Result<Self> {
-> +        pr_info!("gb_softsvc (init)\n");
-> +
-> +        // SAFETY: This runs once at module init, before anything else c=
-an reach `GLOBAL_STATE`.
-> +        unsafe { GLOBAL_STATE.init() };
-> +
-> +        let faux =3D faux::Registration::new(c_str!("gb-softsvc"), None)=
-?;
-> +        let svc =3D Arc::pin_init(Svc::new(), GFP_KERNEL)?;
-> +        let data =3D GbHdDriver(svc.clone());
-> +
-> +        let dev =3D faux.as_ref().as_ref();
-> +        let hd =3D hd::Registration::new(dev, GB_OPERATION_SIZE_MAX, CPO=
-RT_ID_MAX + 1, Ok(data))?;
-> +
-> +        svc.send_version(hd.as_ref())?;
-> +
-> +        Ok(GreybusSoftSvc {
-> +            _hd: hd,
-> +            _faux: faux,
-> +        })
-> +    }
-> +}
-> +
-> +impl Drop for GreybusSoftSvc {
-> +    fn drop(&mut self) {
-> +        let _ =3D GLOBAL_STATE.lock().take();
-> +        pr_info!("gb_softsvc (exit)\n");
-> +    }
-> +}
-
-[Severity: High]
-Because the SVC handshake runs asynchronously on svc->connection->wq, can
-GreybusSoftSvc::init() and GreybusSoftSvc::drop() race with the handshake w=
-ork
-items?
-
-In GreybusSoftSvc::init(), svc.send_version() calls hd.data_rcvd() ->
-greybus_data_rcvd() -> gb_connection_recv_request(), which only queues the
-incoming GB_SVC_TYPE_PROTOCOL_VERSION request onto svc->connection->wq.
-GreybusSoftSvc::init() returns before that work item and the subsequent
-GB_SVC_TYPE_SVC_HELLO request complete and populate GLOBAL_STATE in
-GbHdDriver::svc_handler(), so a consumer calling Module::new() right after
-module init will see GLOBAL_STATE as None and fail with EAGAIN:
-
-    pub fn new(intfs: &[Arc<dyn InterfaceOps>]) -> Result<Self> {
-        ...
-        let guard =3D GLOBAL_STATE.lock();
-        let state =3D guard.as_ref().ok_or(code::EAGAIN)?;
-
-In addition, when GreybusSoftSvc is dropped, GreybusSoftSvc::drop() runs
-GLOBAL_STATE.lock().take() before its _hd field is dropped via
-Registration::drop() -> gb_hd_del() -> gb_svc_del() ->
-gb_connection_disable_rx(). If the asynchronous GB_SVC_TYPE_SVC_HELLO respo=
-nse
-is processed on svc->connection->wq after GreybusSoftSvc::drop() clears
-GLOBAL_STATE but before _hd is unregistered, GbHdDriver::svc_handler() will
-reinstall GlobalState into GLOBAL_STATE and leak the Arc<Svc> and
-ARef<hd::Device> references.
-
-[1] https://lore.kernel.org/r/20261021-gb-uart-transport-v4-4-c308ce821d45@=
-beagleboard.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-gb-uart-tr=
-ansport-v5-0-f8e326d6561f@beagleboard.org?part=3D7
+>
+>    Andrew
