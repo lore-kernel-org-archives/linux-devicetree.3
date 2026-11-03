@@ -1,132 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732348;
-	b=VN1eEU+DnovclHtsxDMXd2yAwyaYJyaFVGHfIdDyK7GVb/qqCUxPG8yKKuhDTpmnqUqG
-	 +xBo5cO/ko6JW6stdJi1sMzV4UCtR8zcugYTzHBeG+3cs/JH/wTKvTKaHtOUVosTGyw7s
-	 CIVr6hrHg2AOZFdAvAtuibpfgyr8+Fcgsv+c3o+Xsl+SCOuP5B+H5kwLBf4usFSzG1lh2
-	 E7LitkEadvKWoJeGpNdnqekg0mKuAuBGL/XpXN3UQzOEeebVdZ204emeyE84rhTvwuy2r
-	 9y+mlbGeGTDTMrAEzj60yqOjBTzmqGDZaRq55l40f1s+8VuRztvl8mLenO/Ytnobh0Q==
+	t=1793732592;
+	b=dJyqeni9AVnRbYluBDCUjS5DcQGv9BSFNJj7500qxTJCut2SrubdLsRMloHcS656Sl60
+	 rq7Wc+P+jueN/nLGUtz5HVqkCYSI1elHChgsrQF6B7iiav4vyrqO6OyZMYAp4zyJMq6aV
+	 74Chr384Tm8KaIn7wTR9kyjjDWD/TFxnMLVRC8Oxplq1C+Hq0nFujbMPhXfu+dJednL3p
+	 EGTsaW+Ey2/e7opNJlYeGNomKczyCaDumg9D8HkxaTfMgwODpTQ8GAm84ut8ihoTIyT6j
+	 NdbSquI6KN87be2e0sBe626zewZ762wkAoXx5yVyZMwy0Ok7C4dnax0IFDxIGULQt1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732348;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=J7X+N3b/Iozr8Iw7Q9vLqcq+wqZH/CWnHiKVeMbKEmo=;
-	b=TrtKXZVynRiodjcougatj6t3WV9+6hmvOM3WYtwKmpasti7I2KTdW7RnaCZE6D/vLJc6
-	 uE1uRWGf7jrHO6WKgEn1vkw5iL+s5Pd9s0KsqvYcEknRnXYDf985WTKZFaSYqefsG1Eur
-	 ZG8cJCpWlmErVZQnUydVbO7HMXmEes++RI5y7CZpieBZeU02oVIqH++SkvWEvXm01NY4J
-	 4Khag+iidDvq0nd+usco69q6VSWH/Wnu7SGu4qyAlX9yLSO6eByE2ejomF+RFtlJlDr3/
-	 hzVgjriECrxq+20OWW0EWbtx8jMq3HreAxhcycZ/F82PqIVjPVf+BqSe6yl3xiwQZ+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732592;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=xvEXD0A13TlEkJSjJvxPTvrIHXODTzRlnVR3jcsajDA=;
+	b=XOOkM/M+2ogSYaOT/UJw0xXaPoD8yHmk+EwQsdYF56tCuggMYQW82CCwxjg2GgCGGUF/
+	 Fv/lMN9GgIk1gDpr/31D7ab37C6F7ktycqHJa3f8QCq9grTNKb6ydcBI1iSrTJwns1mo/
+	 +67uMfnv/hHIPs4xUO6nLqsJnX7/l+OnDjjwRBc2nw6S8sKdTypSvkDRKvbJpW6Sh3FHB
+	 nsGSb1YBDlIab6r6PBA9UdZ8Iyu5pCbF1tM/hBoILK9XQvq+GeO+i21bq6begAi3++PyY
+	 rVtTkDz9xPoIaZAx1ZKjXT0u7WatRUWfU6/UDf+iJUm5g9hbWPG4zHGjhBarX9RICOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MUGv2Kdq;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlW37u8u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097E0606A32F
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 18:59:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 097E0606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A9C606A328;
+	Tue,  3 Nov 2026 19:03:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MUGv2Kdq
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a17a332ecso6821948eec.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 10:59:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793732347; x=1794337147; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J7X+N3b/Iozr8Iw7Q9vLqcq+wqZH/CWnHiKVeMbKEmo=;
-        b=MUGv2KdqugwUjwtDn+5TEs87XsBH6SLTKU2VnuO7MeKo6hr4G5WH4O55wxRf43JXjq
-         s4GLbtJziYvCL8aJeaRkPvbVSJRuYcD79RqLOhm3K8WcuWsYcB6Ziudrzsv1CrC07u0F
-         eeK0IGODbK1MBN0NyElMx/axzRgFDpbY/f4N1s0bQx8OzhaCbM4C77eijEtz2tK6avwd
-         jIuK+W4ysYUA0fCY/zhjI3sP/rkF9QL4GSrBo5192CeRPPyJlisVudQsAqBsfuVbx201
-         8WfWRhga3xBSMnG6+AMLIpCzka4/V3h3bqBZnqQBBngmWmeWgvYnwglc9N9f6vswPPA4
-         4s2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793732347; x=1794337147;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J7X+N3b/Iozr8Iw7Q9vLqcq+wqZH/CWnHiKVeMbKEmo=;
-        b=CWv3pUXEYFRK16MpNpgYI9jkRk2ZgL6UdX0P2TnTuKgZwNKKmZB+e//qyFCX0gZjn2
-         YbNg43dkq+9f0h3FeGpJPbwZ4pvEcs4Q23Bb2kNyV16pJcGIaRKj24M4oAgLGp59iVQr
-         DhRvRLaFCRuayMc8nAHU4DM/amWcEByWOMIQZtUN+7E98cqQqYAK3PK3f/cRviDFt6cs
-         uYOR7OeFmtIY8B8sWztY7uExQUC/LIpY/4zzxMAlmxk9sLPMnXw1nzSqZdXllFfRUsBs
-         zlBRFacgj2zjZtvlX0tHwiRCx5RxmKXwhVwM+eEf6gKWley1ALdiEL1Q+FOsRk7M/YkC
-         A9fA==
-X-Forwarded-Encrypted: i=1; AKwUvBy1WZbMu87E/8zhk2CL4Ts3wklq83fsF3ytFcVfYyy9et6kcxmMRGQle5QW9rmLJ4XmAS62FuFsKNy2@vger.kernel.org
-X-Gm-Message-State: APuU4Z/h14XNsEA/Wci3ievFHNw0vMoAKJ7DwGBX/wU5nfCGq8Da6+hq
-	abWJtFUnw2pU/nqL9dtyVwuu7hcGdXQSvcBZbEt0FZHyu2NOlV9LcYsD
-X-Gm-Gg: AYBFou3wRxtd4Jzsqmk6xRAsV8Pq0EVPgkMUv24zEyhj0M86wwg6QikBrO4+s+8Wa6h
-	FHkpeZunqfCiCzxW3Jfj54canriUDNaTEXk7I1qfJZcLsip2qVr+JPW4917o+vwNGwqKgqf/RUD
-	LxBIRvhj+8rrl0Glii62waNv+MXwiISj73xbrhcTyItVBt1STs9TQEaVrCke81Z3TvykiIlbJic
-	5CC56YUzTRkmBjgI2wV0GEPeyVk1pyC1fF3ASUx60pL6O8JMxttCYRzER8jBxmwhtnsWiAgYxGN
-	1f/OwtuFr0xSjzkBnezbp0vZTVj9zPyDuhmpx/Kmr/LVN6s7gFukovH8pS7z9QnZaxb8I7AOJFY
-	kcFOLwvJzRj2RZC5YlfRRsKEvGiHDEYLulbeITU+BFer/gUiyTRdyj3CmQ+GpbzfvVRvbS+7FcE
-	WQk/6QMgNhU3K+wTakJbDKkR/1/MvJgbXfxfkq8PRuxlmZw+0E24SWs/7Wk0Hieh7P1ujicmJHX
-	36lli7lBNQ3osLt8EcooOFlFYf1o2Or6POlIwNJ6dJcGnEgbjt2YXjjf0KKSHBBaDUmDQg8dWAB
-	ruj2AumHoiLY1gPlD65tATxa+B62dkYhMxVsG/6hlNEY/OQZsc3/197ACTacTS/LUtYs
-X-Received: by 2002:a05:7300:7b81:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-36a42431768mr30787340eec.28.1793732346941;
-        Tue, 03 Nov 2026 10:59:06 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b3b7esm49159eec.28.2026.11.03.10.59.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:59:06 -0800 (PST)
-Date: Tue, 3 Nov 2026 10:58:59 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>, Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
-	Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>, 
-	Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Orson Zhai <orsonzhai@gmail.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>, 
-	Paul Kocialkowski <paul.kocialkowski@bootlin.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Chanh Nguyen <chanh@os.amperecomputing.com>, Alistair Francis <alistair@alistair23.me>, 
-	Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
-	Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
-	Scott Branden <scott.branden@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-Message-ID: <auou2CBiiR6zA0G0@google.com>
-References: <20261102135330.2493332-1-robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlW37u8u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0EA1F000C1;
+	Tue,  3 Nov 2026 19:03:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793732591;
+	bh=xvEXD0A13TlEkJSjJvxPTvrIHXODTzRlnVR3jcsajDA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XlW37u8uobYgOg/xeAwypZCFonefwEbObwyYNMDAfMwHvFMeG97UK8RZr2VMv04ej
+	 k/Xf9RnBvvs3f42R3op/Hf09zPyI0hcl1VxYAaSuR4zgGk68jUT+rF3DiTzK9n7+V0
+	 7pQer3ztCfLD03skANfSM8dPl1rxGLr6dw7XzzrawcmC6gklRLeRP6g7//rluIij2J
+	 SUDEFcR92MicTFV1nkCkHfRuGNkJiRc58iAC+OAt874U2KsS4FEaBWBoMQNE+MGAij
+	 kyWBf6OoDvNkMpbhsBo3Bgjp3wiP46iolir753Vvk5ovQjd/PBCaVoJwzIkffWVsRX
+	 zY9UsfrL6a8tw==
+Message-ID: <sashiko-outbox-195874@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] usb: misc: usb251xb: configure battery charging
+ from DT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jhon Wilker Rodrigues Aquino" <jhonwilker0112@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103185514.72144-3-jhonwilker0112@gmail.com>
+References: <20261103185514.72144-1-jhonwilker0112@gmail.com>
+ <20261103185514.72144-3-jhonwilker0112@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 19:03:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -135,31 +60,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
 
-On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/display/xylon,logicvc-display.yaml      |  2 +-
->  .../devicetree/bindings/dpll/dpll-device.yaml        |  2 +-
->  .../bindings/embedded-controller/google,cros-ec.yaml |  4 ++--
->  .../intel,ixp4xx-network-processing-engine.yaml      |  2 +-
->  Documentation/devicetree/bindings/gpio/gpio-mxs.yaml |  4 ++--
->  .../devicetree/bindings/hwmon/maxim,max31790.yaml    |  2 +-
->  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml    |  2 +-
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml         |  6 +++---
->  .../bindings/input/touchscreen/cypress,tt21000.yaml  |  2 +-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] usb: misc: usb251xb: missing bat_support check in usb251xb_get_o=
+fdata()
+--
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
+commit 7116fd963729fc92bbd453fc4d055b0129eabda3
+Author: Jhon Wilker Rodrigues Aquino <jhon.aquino@autotrac.com.br>
 
-Thanks.
+usb: misc: usb251xb: configure battery charging from DT
 
--- 
-Dmitry
+This commit parses the battery-charging-enable port list from the device tr=
+ee
+to configure the battery charging enable register on USB251xB hubs.
+
+> diff --git a/drivers/usb/misc/usb251xb.c b/drivers/usb/misc/usb251xb.c
+> index fb0693742f018..166eb541ef161 100644
+> --- a/drivers/usb/misc/usb251xb.c
+> +++ b/drivers/usb/misc/usb251xb.c
+> @@ -577,6 +577,10 @@ static int usb251xb_get_ofdata(struct usb251xb *hub,
+>  			      (wchar_t *)hub->serial,
+>  			      USB251XB_STRING_BUFSIZE);
+> =20
+> +	hub->bat_charge_en =3D USB251XB_DEF_BATTERY_CHARGING_ENABLE;
+> +	usb251xb_get_ports_field(hub, "battery-charging-enable", data->port_cnt,
+> +				 true, &hub->bat_charge_en);
+
+[Severity: Medium]
+Should parsing "battery-charging-enable" in usb251xb_get_ofdata() be gated =
+on
+data->bat_support?
+
+Commit dd99d106de25 ("usb: misc: usb251xb: Add structure for holding chip
+specific values") introduced bat_support in struct usb251xb_data, setting it
+to false for usb2517_data and usb2517i_data because the USB2517/USB2517i
+variants do not support battery charging:
+
+	static const struct usb251xb_data usb2517_data =3D {
+		.product_id =3D 0x2517,
+		.port_cnt =3D 7,
+		.led_support =3D true,
+		.bat_support =3D false,
+		.product_str =3D "USB2517",
+	};
+
+Earlier in usb251xb_get_ofdata(), the variant-specific LED property checks
+data->led_support before applying the configuration:
+
+	if (data->led_support && of_get_property(np, "led-usb-mode", NULL))
+		hub->conf_data3 &=3D ~BIT(1);
+
+Without a similar check on data->bat_support here, bat_support remains unus=
+ed
+and probing a USB2517 or USB2517i node with "battery-charging-enable" prese=
+nt
+in the device tree will populate hub->bat_charge_en and write non-zero valu=
+es
+to the reserved register 0xD0 (USB251XB_ADDR_BATTERY_CHARGING_ENABLE) during
+usb251xb_connect().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103185514.7214=
+4-1-jhonwilker0112@gmail.com?part=3D2
