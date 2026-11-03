@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793717144;
-	b=Jxdddfl15WZd18XshDLD54L1VS1lj3IhOPftkYWGVV6dnsn928WAj63Wt7D61CtxB7oW
-	 il79AIZlkwJJzKqJeDprb4VW17cUkoNBcNnWGjRvMK3fanVNcd926RWktmu11YKuRAUoI
-	 BLRezGYVCBYRDcbuqZzde7Vm5VLI1AhXw91HP0B8NopuKvzYT7OUjQX8Pdsftf59pzC/2
-	 FIxjp82ZrkocEwuvI1Z9hAoybxSuaxljlmAK8QpSoxO3iGP+2LOs3w9/xbM+ssYYHlrPg
-	 LZvnmZU1sxwDnXwghZ+cwmUyi56tp2yBD8+b5Me8IePhNP4UJpSg6KE3txYviqaczQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717144;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=S4qcarRIzyPxsuQpd7GLOf5aNbdhnpO7LL1PTtmVaHY=;
-	b=Rln2yaA8no57i0lcUK7YGHE8SawZdsuvx0Xzm0LCAA/dvTvTPzS80p049fQAaBZV5DNn
-	 486Zqfc7JNIPHpQBouYRCGHLgpH/rPzvSCZ+hVD4f2NcBpDIz5j/Fy0erBprmLQdOU2HI
-	 hscDfibStLHjC3TssKv86MOqECCA4fkb27QdL/Q8SxN54b9lBaDgcECXXCw1UxTszv9Fs
-	 +JOgyLRVhY+rKQDnGIAP7Uv3L/i+UGUtK7+Rinr82xyKxGeE+lQcUsKZcSA29vUK6HfJp
-	 Kj9a9Pt1MQh1Fx9Bujlh6iX5frS2wbRjKGqre1YXV/bgvuUVb53rVlCkhUvao2R4izQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kizgfJ4A;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.42
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.101
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793717162;
+	b=jawtXgo5FnVNDKD7a40FGYi92b38GaFctMrGmygdy0B8rE70IqglHWzGmC12xNu7/5BG
+	 +2HF13hqiAI4Py2Aqb58ITHFr4+pkhI652WvC5QWzw3Plre/VerVkLFSOmV/YfzkGYo8Y
+	 WefRnNzBtUgPaCzem98z6VygrQ6JB8/MKumXqtuvWGnwSQ54ZNNFiilukpwrSq0Bat7pb
+	 e3JR16VNa/cHVB1HUqALMh6QtrVW+OlQ0HaGktnir57cp8gYmc6JtDEHMDEnkiX93gqQY
+	 p/CNe9Af3bUl4AVs6Pot73rqtP3oGKPMWUlwCeFddslTwFQJ32Z+cbFiGyYki8cwvcA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717162;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Y/W8sgknOe1isSMCBVbQa0yKLOZnnS++ptDkeWSy/v4=;
+	b=gVviBAjRR2/QBe0enU08BaFjkQTZOj0GF+rxJAa9vcJeR7nNLiSZY9EW2BenLPvqDVP3
+	 3MOYirA5hlBZfZXXArPRceFnH+BK/fyNvMpLhSRQA+eH39MeTFZHhtJivbSjxqrWyuDHC
+	 g2Nx7s8juBI0VwerRaRDrXKNlF5i0MPQ3+QR2PofrjEo03NpamrRd9Q6a02ZFZwdgyT1m
+	 F+/HT/o3WQnTykuXZ4aM+Z4QNUXROP/4PfCYdjACAQ+vGzH+czBIGTBDH55dESolooBG3
+	 a9Iz/oi0h2p7p7BeQ7C1juADozUqu+XeULIcKj0U2V4GwHF58Q/rt20xLnBFZy37zJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b="nbXk/xck";
+	arc=none smtp.remote-ip=79.135.106.101
+Received: from mail-106101.protonmail.ch (mail-106101.protonmail.ch [79.135.106.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48EE606A33D
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:45:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A48EE606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46A0606A328
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:46:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B46A0606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kizgfJ4A
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67be1e468a8so309279d50.0
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 06:45:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793717142; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RNByBCdAtozWO2q8qki/+5WxGmC+V5TuTcZYyjwyqVI+R4VyPB199fFG1UkntL+kGt
-         Uz07Bk/YIoVSo4EOY/5wqyGh4yJTfIHueAW/vXggSRimDArmV1AJVF0qdJVFsYgMYCGO
-         dM6shHVGSAW6bT8j84GVyT6+0Qyebp5FA9413zfDcdBtf3RABZw4HCRDZZS09LbDjZMK
-         A0MlDWIOq6BUBdt29CPI4pbEyqL+IGtBNLOseIuy17UVofIdKmfmb7gelTYqQFfZ/rkA
-         w78ElNRhHCWfGZoTsxIKDcebdtyR9Ax7NTWAdHRPC/Dgs/3XWA0MaNKLkFCZrFTc25zv
-         Su4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=S4qcarRIzyPxsuQpd7GLOf5aNbdhnpO7LL1PTtmVaHY=;
-        fh=TCOxQC/N38E+lHQAE6K/M5sLhf+jGRQZWM5Tsgb4Zog=;
-        b=CRTM3OSYXHi0bVyE/0yWb3iWOwt4FrNz4VqnODyv+t/lOAZ54MyfCyp8NtiAvS4gF4
-         bzOdIopb1HfcskRRal+Ua4vMJiaRGw3uVW5HRghVFTkSqixbFTB/jNaGmbacK71EYLOv
-         uQwPvvck1U8WZ+Ip7wp8hscwTE95n1RohqadXGb7+GR0mLAr0dzUHbXXeVSIWNgt662y
-         nYJ/XHC0GeP50xNKNMrHgiFqYLI3l60Rnj1a4DSywUcpanDlJqpV+a4DzuoavCTfmzpu
-         82N23Bue4nyeP+GQxjPhdWz9/8xHzBv4GeNuQ7rgMgXe4rf4kBzjH1lrRWNJlo8qQj7g
-         LvtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793717142; x=1794321942; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S4qcarRIzyPxsuQpd7GLOf5aNbdhnpO7LL1PTtmVaHY=;
-        b=kizgfJ4Am7zPK5oTi1VjOREORBnLvfmMgkKMNVn5x7UU75Ox5QNhSkoxnWI1jtGpBQ
-         0F/eshb2ZOoin6xvAfW25WS+8kDNNbcWNJI5P3lYSiq3b/9+U63w0Gd92LfCKl76afuG
-         tJuSl7fGh0GzHU+PPvbzXEoPB5PyQfIAWCL1D0joNqPteZPb4w0frDM1jw2X8pF87iXv
-         S75R7L0alOKvLZg3Shld63p46s52oektnO9r15+xj1iv/As4aj5Q+66IJwlMZvI1/L9S
-         LvU1MgJW+QGUV1V5y8f+ecrthUI656REDGKCgsKY0EvwMjcJoVBpqb3zoBmBOK3Kv/2n
-         Qm5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717142; x=1794321942;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S4qcarRIzyPxsuQpd7GLOf5aNbdhnpO7LL1PTtmVaHY=;
-        b=RlXmhsP8rEfs5FWevO2ssgMWfFLAMuXogQ3M7r/Fee2HhSMR8JebU8w2bE93qclMcL
-         4EsMemEhu93xOSH/woyWylenY9vm4HmPSjyUo95jk42Az1OF3qwnrs5PB3Ju07Jm1u+j
-         U0G9Peb3hxuSSYfetLiJAHBZQ9GsJ46X1ETfj4/tkO2leOS71N6q3A3MpeJJqdPag/tH
-         eZUxSAT+vqYTsub1S6AbozYJMiKVNvihSoJ8aSF4yOM3GpR12O2WhHT4LhIiRKwQKU9a
-         0o/FNsqeoRqpwoFCsY8FZn+AeVczk3ZOqG2qt1VA7YX5aUZb4+hph5QFRQ2OwbVc2DQ0
-         sgXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAo9PfJ8BETOXOhYKk/xp04FKvwAEEMbnp8sTYNDtMt+M0C3JvTVcuwIq00loDLY7BClD+Xru4nwGn@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6r6/53mIct35289GaweRDTDUzOPuwmONyYG0iECkLrCgtxwlz
-	nEOCeQQ8RCSNzsv4AEsfDZgJCVugNXIjo9waa4Od1XZNNKLgbA752uq2nocBzinmNBK/c7B+suq
-	PYGkuEUIeO0+hIhjFI5COhpf9/lZ1yw==
-X-Gm-Gg: AYBFou0eRWzw74Kuii9wKwuWPCL1sEqfWri5Amn6USD6WQ92aBaF1a8HGHktfjtjDkc
-	94jsLiMiUxEtFSejceCYU4nMRSCp3kU26ydmT6dupYUJ5OizcsAwlSdqqL5bOC4FLr8A2dO06IF
-	j0qFuaLqY1UKu8jnCWMbIVy8MjwT/usu8lR71dbd8lIoUsPh3yyMPz1qWW2LxnOAHcsiDwJXiRS
-	15CbrHKOET44YMDL9nLT64QaXUKjgKu27SOPzuVF3cBzILf+aAQkYDrDpXC61R/FADVxoQUm5Mc
-	OX3Bf1XCHNcUxzVCNpFmmYuq/ob0x0To2uOBOtff7mphzWiR+AUWghOJl3Xb2T3vfS8w4XjyjrH
-	fBALeZbh3bWSFAz7wvBtAfjsw7w0+K+Cb7cvQRMaGrA2/pJx92gGCkzCcDGZ5QCLB+zOO8xIVwg
-	g3PyX9wmS4+EZgmhs=
-X-Received: by 2002:a05:690e:1699:b0:67b:e91f:1eb4 with SMTP id
- 956f58d0204a3-67be91f204dmr59967d50.105.1793717142405; Tue, 03 Nov 2026
- 06:45:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=nbXk/xck
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793717156; x=1793976356;
+	bh=Y/W8sgknOe1isSMCBVbQa0yKLOZnnS++ptDkeWSy/v4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=nbXk/xckxNhHJNEZ+/CB7k6BzTxtoo6nsgRk0hqk+Ac+rOqSKGemxUxDvy7q0t0Yx
+	 ZjFyVEYaCuhiD79oQPlkZ00N3zJp8OllInsqBjLqjwIxwQkNIG29V+rLStqKNBNQ9O
+	 3ikEtc5v306/kEtYQHQYcnvBuAi7b4xWC/AY0RVP+217EA2qhos/IG6ItKyNcZrQla
+	 SOLup+pNeA4wXFJyUAuimBBtb3FtxJAzXXjuipNFWYwWIIWPPbRzMlr1/gORmqEfGo
+	 xfDzt3lA6k8l979pU9q2wGZWd8MR5OL53So+FjvCLdnE10ptpxuSfi0KcjnJz0xQfk
+	 joh16VIuiXauQ==
+Date: Tue, 03 Nov 2026 14:45:52 +0000
+To: Daniel Thompson <danielt@kernel.org>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 2/2] backlight: add ktd3137 support
+Message-ID: <1IItRacxO3yGApfxlr9c4eyKqir8AGxFAmGYXWKDS_spX5pByW6JP0hxMqthOs7_8j0cOzthZYeTyu2wA1LAwNWDqsw0B_E-WExI1IjjmRM=@protonmail.com>
+In-Reply-To: <aunskqwg_CbpBL49@aspen.lan>
+References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com> <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com> <aunskqwg_CbpBL49@aspen.lan>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 915c26afe2412af62bf2b0b808173180062f1df2
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,37 +64,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-a100-thermal-trips-v1-1-73bce7ff0767@gmail.com> <CAGb2v64fEDzpn-ytggienzYjOGiQYsJ=SLCVx4zz9psw=bvjYg@mail.gmail.com>
-In-Reply-To: <CAGb2v64fEDzpn-ytggienzYjOGiQYsJ=SLCVx4zz9psw=bvjYg@mail.gmail.com>
-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Date: Tue, 3 Nov 2026 08:45:31 -0600
-X-Gm-Features: AclHuK8t5ej_tgD9GJGBIoXXh4hckeei19bttMW9q0EtGop8alsm0H9-n1doCqE
-Message-ID: <CANxy8yTbu63ykQnqa_XA=HhV7JTDZd3ac2XWGzYNwuHBAd2DuQ@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: allwinner: a100: Add CPU thermal trips and
- cooling maps
-To: wens@kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/3/26 11:49, Andre Przywara wrote:
-> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+On Tuesday, November 3rd, 2026 at 4:15 PM, Daniel Thompson <danielt@kernel.=
+org> wrote:
 
-Thanks for the review, Andre.
+> On Mon, Nov 02, 2026 at 09:58:49PM +0200, Roman Vivchar via B4 Relay wrot=
+e:
+> > From: Roman Vivchar <rva333@protonmail.com>
+> >
+> > Add support for the KTD3137 display backlight IC. It's used in various
+> > Xiaomi phones, such as Xiaomi Redmi Note 9.
 
-> P.S. Since you have a device and have been looking at this: can you
-> check the CPU speed bin selection? I think it's quite wrong for the
-> A133.
-[...]
-> I would be grateful if you could dig into this and come up with OPP
-> updates. Many thanks!
+...
 
-Yes, I will look into the speed bins and the A133 OPPs. I'll compare the
-BSP's bin detection with what is in mainline, test on the K5C, and send
-the result as a separate series.
+> > +static int ktd3137_init(struct ktd3137 *ktd)
+> > +{
+> > +=09u32 val =3D KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR;
+> > +=09int ret;
+> > +
+> > +=09ret =3D regmap_write(ktd->regmap, KTD3137_REG_CONTROL, val);
+>=20
+> Nitpicking but val seems a bit pointless here.
 
-Thanks,
-Rajan
+Agreed.
+
+>=20
+>=20
+> > +=09if (ret)
+> > +=09=09return ret;
+> > +
+> > +=09ret =3D regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFA=
+ULT);
+> > +=09if (ret)
+> > +=09=09return ret;
+
+...
+
+> > +
+> > +=09props.type =3D BACKLIGHT_RAW;
+> > +=09props.max_brightness =3D KTD3137_MAX_BRIGHTNESS;
+> > +=09props.brightness =3D KTD3137_DEFAULT_BRIGHTNESS;
+>=20
+> No need for KTD3137_DEFAULT_BRIGHTNESS. Just use KTD3137_MAX_BRIGHTNESS.
+
+Ack.
+
+>=20
+>=20
+> > +=09props.scale =3D BACKLIGHT_SCALE_LINEAR;
+> > +=09device_property_read_u32(ktd->dev, "default-brightness", &props.bri=
+ghtness);
+> > +
+> > +=09backlight_dev =3D devm_backlight_device_register(ktd->dev,
+> > +=09=09=09=09=09=09       "ktd3137-backlight",
+> > +=09=09=09=09=09=09       ktd->dev, ktd,
+> > +=09=09=09=09=09=09       &ktd3137_backlight_ops,
+> > +=09=09=09=09=09=09       &props);
+> > +=09if (IS_ERR(backlight_dev))
+> > +=09=09return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
+> > +=09=09=09=09     "failed to register backlight device\n");
+>=20
+> dev_err_cast_probe()
+
+Didn't know about this one, thanks.
+
+>=20
+>=20
+> > +
+> > +=09i2c_set_clientdata(client, backlight_dev);
+> > +=09return backlight_update_status(backlight_dev);
+> > +}
+> > +
+> > +static void ktd3137_remove(struct i2c_client *client)
+> > +{
+> > +=09struct backlight_device *backlight_dev =3D i2c_get_clientdata(clien=
+t);
+> > +=09struct ktd3137 *ktd =3D bl_get_data(backlight_dev);
+> > +
+> > +=09backlight_dev->props.brightness =3D 0;
+> > +=09backlight_update_status(backlight_dev);
+> > +
+> > +=09gpiod_set_value_cansleep(ktd->enable_gpio, 0);
+>=20
+> Is this needed?
+
+The datasheet says "When HWEN is set high, ... if SCL/SDA=E2=80=99s pull up=
+ voltage
+is much less than VIN voltage, it can cause a small leakage current ...,
+there will be around 7uA additional leakage current from VIN in this standb=
+y
+mode."
+
+It's better to put chip into shutdown mode, which won't cause power leakage
+according to the datasheet, and ensures that I2C registers will be reset in
+case chip needs to be cleanly re-initialized.
+
+All other comments will be addressed in v2.
+
+Best regards,
+Roman
+
+>=20
+> > +}
+>=20
+>=20
+> Daniel.
+> 
