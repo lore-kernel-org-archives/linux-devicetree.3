@@ -1,56 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664490;
-	b=PZy0IOAaXmKYMGJe2cHaatLST0xSq3vkQE7PatMPkhLXOB2yqIfoUwZ6pS7kDSxnNENa
-	 DKxmuAmd17EZ2qgoOYKlOXepsBlMQJPOA91oYk1YCZFAFwPuwUQJ/IL2ePfA86hHSzwnj
-	 XoJA3lUlEj8l5+uhzxnjD2ilCYNjs60IT2XcfYHJ3+/YeeeNM1Igu8VcG5/K7XfW2jhr4
-	 BNdRl/dQme8Ci4XKYxo0U5iS7ojau5XyGIysiK7fABQHK3vT2fxYyiW6cM+cs6SIWMWCX
-	 XC3hqov0BNDssMsH+oNRmQw7FuxItDIHLv4mUAuRWluVNbmKKxXAT2QUQhb1V/yn3nw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664490;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JwMFLLfKvXgE8eknGGRABoKdTh4BgliElDneW6vU7B0=;
-	b=YT51DEOzERYBS5OXlbipSbvmdMpuIuSH3cczQ8rSJtq9HRBXFSWEpod52NMqFX7vWeu8
-	 KiLP1xEtbvSuKu7CJdsJSKuu/2azUlzsYPr6kc0jEHFQRWf+u5sNBj9vFLQZ5rhC9EdbR
-	 44zC+/0ZutGMGDN3NbFhxrE4ZMZpCkn6O1nuB5t0tOVEAVHjYZQsV07DU1DuYpEJ8zvjD
-	 HPjkt19e+DtQkDXvm9mBH169j4rIfBCb9krnc8zDc5GgOSr07Cpi5bndOLauq24mltrvb
-	 NQMls91dylsO7J8qZYEqnUsbLSnUFnZFn5GIQ2VO81VH8OHnCYjIg8Mu7zkVOmozsaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4DiEI30;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793664700;
+	b=1a/e/PmpmvAq2o7R5vtuJ8XTVeDx1tl8g522YLOlK+yX6oAJO+92h9J/UjoaBt1kKdvQ
+	 nwGZS1tV0ur1CWZII9kBjZW34MfjzylLOSGAv5LQ3yXqPs9Pllca9c0xNx7g3n6NK7OZ4
+	 nKxU6xnERg7sH2QgB5nu4tGZ7f14NyW7y6xr+kbAurgVj+xDNTHJPWhR6zAFrwMJbkZl/
+	 wH4G+AzGGglor876K/iamKQ+Fd15ZLB/hj9SoQEBrjg+7a7u9mC82yz8GxYkA64gZyKvH
+	 yW52nxggdSPuoklsPezvBYQ3On9n4IuI6b1gHWm7qA1ZrfFME75gJjQLf0YbAF+A/hg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664700;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Rimijeo0hhgQ28xN8m2LpYnhw4hO4T2xabx+eRVXKqY=;
+	b=goKURu9mOKrAzeifWJXPoOEPIDhP00WsQNI5a0Wi968rZ8+Xb3NZJT52JXe/TC8kGvdK
+	 rV1iNWATyzYzKDJ0Eed/frfcBeikEGAhOtZHE1csmBv0DQUtDn6+i/14pShuzQVhBbM96
+	 8MF8Z26ZlT8b0TN3K7kftsZZuQBlk2jgX8gjMus0u3bVVfg0Ckj5x744qBHVTQlsKgOYd
+	 Z5h6bGLsVxjDcsJxpVvKoOblCzA0VXV3Fwoct2bGWa2RuAcbEJQh7VF97LuB62hEj4Kju
+	 KC4XRU36Lro6IbHgRti+KbLI2UGy8qJySZIs7qPZLS7onx3sL95hQ0oyjtabOIq7WxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HT2gWqIJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBEDC606A326;
-	Tue,  3 Nov 2026 00:08:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70849606A324;
+	Tue,  3 Nov 2026 00:11:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4DiEI30
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4901F000C1;
-	Tue,  3 Nov 2026 00:08:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HT2gWqIJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793664699;
+	b=RIUtYjsQdmC6LEnb164tBMGWDdifM6Il7eIDMzRZ57d396SAYjP4sMUh4q4pPs5W0NGH
+	 +y01xSoRNqKdafT8UgmNDNVRUGQX/s9m/Vu0mVHVwvw78afuB4jLhJdRhHjD3XpAbmAg1
+	 y6YeI2yWrZ4+L6cvHfjoZ1FawgvodrJkdE55OObpK3SsxR9fkXoZcifRaVJVQ5VyvnsF6
+	 /XP/AbONnsApj/ZD821EMPxsR/PBLworjjNtmAa4kI1dndiWkI/ljkEWeqxuToHTA9R6V
+	 CR/GIWlrivhqwoITRtfbWlpP9Okgo93kU+MZPdG55Yxjkca70FMLUmTuWZBTI0K7Wtg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793664699;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Rimijeo0hhgQ28xN8m2LpYnhw4hO4T2xabx+eRVXKqY=;
+	b=fREo8shFh5u7NA+l4j/1HKNbGcqWz/6vvaA1ilKhGYbppiGBxGK8qiSYQ5SyVnF8SS4Z
+	 ipeh9hIcm3vu27kIB0Sgh2WyfAjAq+38HR4k6GsdIAlvSG4d0eetAxt+Q6aKv2HiLp+iu
+	 7P0qaA9dbPSKW1KThq83rU4M5dGN8pamp5rXxMPSvPZfdDy6o8suX1UesxMyCyP3+M7r0
+	 n1/5E1eS4UW2OMji9Xf5Te4LkUkqBBlyjMEcEH0CJVgs+9nDnewcj5Vky84lYVDEKyi+7
+	 5k6uiIzPfC9Nq9cjhJWyqGG8nwpiFMQAzuqtwM63vaJJaCTMEIfCbtTOUtgDMpcShPw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8035B1F00919;
+	Tue,  3 Nov 2026 00:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793664489;
-	bh=JwMFLLfKvXgE8eknGGRABoKdTh4BgliElDneW6vU7B0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z4DiEI308tq2NK3yFpWgMO1dRs3beITz1yKUFKQ17pkv1mfSb8h55gU60/kB2tM7Q
-	 VbfZDM1NAfIwjZml8nk6Mt8W1hi3iohyVq7yuhEAxxxmyG5rZi2LCknXpGPu8dywDx
-	 eCRqs7sMWKyQ+v9golC+bV3wN01LhXRGnPBsw8mgjZ1uv+eEoiTGkdQxVR71OalWJW
-	 csibbvY4fhhx2C1ZOARaYG8WynPhhERHNTn6JWjpHB5NyVjwPe0zZITXpqAYe30MB6
-	 cyr7iv0cpXcc9S/80UnpavJqdKRNu4f3MzjpV5xwiHGjCKhSvGLgDKuBERbnrAicP2
-	 BlcncNhpMju8w==
-Message-ID: <sashiko-outbox-194360@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 2/3] perf: Add Raspberry Pi BCM2835 AXI PMU driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ian Rogers" <irogers@google.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102234301.2242242-3-irogers@google.com>
-References: <20261102234301.2242242-1-irogers@google.com>
- <20261102234301.2242242-3-irogers@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 00:08:08 +0000
+	s=k20260515; t=1793664699;
+	bh=Rimijeo0hhgQ28xN8m2LpYnhw4hO4T2xabx+eRVXKqY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=HT2gWqIJcie6EgkFkGzzUpd+b0IdSD8kziHqPQfH1+4kLyctxdQrV7uC8f+tsSecO
+	 cebGSxk1VInvj1x9YDX9VjsUBiL00oKNJExmJC+WEhJbi9irY+sZPn3YK0Z6ftlqbk
+	 w/lL41WwsayUD/ElJ1WNbQTRe21hoHkzQnzm0vRGIE02Z5jau/eK6TLA5Se8HqD0Wv
+	 CUMhShMuWGYhRs2DaJtDOlAQFashCngvGaVmhep2cEtZArJeM/UhGXIgKrDqdtFb8X
+	 rFJ2Ke1rag/iuwpb2Yh1HmsTCTVrY3euvsk4iNCgV/WByjSNEaI5qyI6HX9DKGak0B
+	 FFqTdm+YArAHQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 13992466BA;
+	Tue,  3 Nov 2026 00:11:38 +0000 (UTC)
+From: Kohei Otsuka via B4 Relay <devnull+kohei.spacemachines.com@kernel.org>
+Date: Tue, 03 Nov 2026 11:11:31 +1100
+Subject: [PATCH 1/2] dt-bindings: serial: 8250: add Microchip Core16550
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,170 +81,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
+References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
+In-Reply-To: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
+ devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ conor.dooley@microchip.com, Kohei Otsuka <kohei@spacemachines.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793664697; l=1092;
+ i=kohei@spacemachines.com; s=20261103; h=from:subject:message-id;
+ bh=5TXl591/YzqcOSELFalYpXwEI+0DMkNWmIZ4V551fL0=;
+ b=+enBIazHpUREEwhYKyIiaqaWTCMaO/lY47NrchaLaXzIBuAE3LAU2vQfh1AfMT3mPZf1nj+ca
+ 2hEZDtprBBrDgOn5xu5WykMIW1bk9zf6IiZc8/qpqOI0hqZXAOTVGMM
+X-Developer-Key: i=kohei@spacemachines.com; a=ed25519;
+ pk=1kit/vmX5JiLGH9NPcqlvT55ISWaLmNipdL5VrriRt0=
+X-Endpoint-Received: by B4 Relay for kohei@spacemachines.com/20261103 with
+ auth_id=1385
+X-Original-From: Kohei Otsuka <kohei@spacemachines.com>
+Reply-To: kohei@spacemachines.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] perf: rpi_axi_pmu: NULL ctx deref in rpi_axi_pmu__validate_group()
-- [Low] perf: rpi_axi_pmu: enforce RPI_AXI_MAX_EVENTS limit in group valida=
-tion
-- [Low] perf: rpi_axi_pmu: Kconfig depends on undefined symbol RPI_AXIPERF
---
+From: Kohei Otsuka <kohei@spacemachines.com>
 
-commit 3a239421611725bee7d8e283cbdeacf0ec2bf701
-Author: Ian Rogers <irogers@google.com>
+Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
+including the fabric of PolarFire SoC. Its registers follow the 16550A,
+so ns16550a stays the fallback, but it raises no interrupt on TEMT,
+which the driver has to know about to support RS-485 on it.
 
-perf: Add Raspberry Pi BCM2835 AXI PMU driver
+Add microchip,core16550 with ns16550a as the fallback.
 
-This commit adds a perf PMU driver for the Raspberry Pi System and VideoCore
-AXI performance monitors on Broadcom BCM2835 and BCM2711 platforms.
+Link: https://github.com/linux4microchip/meta-mchp/issues/5
+Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+---
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
-> index 245e7bb763b99..c1d7d64caba28 100644
-> --- a/drivers/perf/Kconfig
-> +++ b/drivers/perf/Kconfig
-> @@ -325,4 +325,18 @@ config NVIDIA_TEGRA410_C2C_PMU
->  	  Enable perf support for counters in NVIDIA C2C interface of NVIDIA
->  	  Tegra410 SoC.
-> =20
-> +config RPI_AXI_PMU
-> +	tristate "Raspberry Pi AXI Performance Monitor"
-> +	depends on ARCH_BCM2835 || COMPILE_TEST
-> +	depends on !RPI_AXIPERF
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 50d5c977afa3..33a5929bdaa6 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -137,6 +137,7 @@ properties:
+               - ti,da830-uart
+               - loongson,ls2k0500-uart
+               - loongson,ls2k1500-uart
++              - microchip,core16550
+           - const: ns16550a
+       - items:
+           - enum:
 
-[Severity: Low]
-Should this dependency on !RPI_AXIPERF be removed from the patch before it =
-is
-applied?
+-- 
+2.53.0
 
-RPI_AXIPERF is not defined in the mainline kernel tree, and although the no=
-te
-below the --- separator asks maintainers to delete this line when applying,
-tools like git am and b4 strip the note and commit the undefined Kconfig
-symbol directly, which triggers scripts/checkkconfigsymbols.py warnings.
 
-[ ... ]
-
-> diff --git a/drivers/perf/rpi_axi_pmu.c b/drivers/perf/rpi_axi_pmu.c
-> new file mode 100644
-> index 0000000000000..f194b8633e434
-> --- /dev/null
-> +++ b/drivers/perf/rpi_axi_pmu.c
-
-[ ... ]
-
-> +static bool rpi_axi_pmu__validate_group(struct perf_event *event)
-> +{
-> +	struct perf_event *sibling, *leader =3D event->group_leader;
-> +	struct rpi_axi_hw_events fake_hw_events[MON_MAX];
-> +
-> +	rpi_axi_hw_events__init(&fake_hw_events[MON_SYSTEM]);
-> +	rpi_axi_hw_events__init(&fake_hw_events[MON_VPU]);
-> +	if (!rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, leader))
-> +		return false;
-> +	for_each_sibling_event(sibling, leader) {
-> +		if (!rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, sibling))
-> +			return false;
-> +	}
-> +	return rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, event);
-> +}
-
-[Severity: High]
-Can calling for_each_sibling_event(sibling, leader) when leader =3D=3D event
-cause a NULL pointer dereference under CONFIG_PROVE_LOCKING=3Dy, and also
-validate the group leader twice?
-
-When userspace opens a standalone event or group leader via perf_event_open=
-()
-with group_fd =3D=3D -1, perf_event_alloc() sets event->group_leader =3D ev=
-ent and
-calls perf_init_event() -> perf_try_init_event() while event->ctx is still
-NULL:
-
-kernel/events/core.c:perf_try_init_event() {
-	if (event->group_leader !=3D event && pmu->task_ctx_nr !=3D perf_sw_contex=
-t) {
-		ctx =3D perf_event_ctx_lock_nested(event->group_leader,
-						 SINGLE_DEPTH_NESTING);
-		BUG_ON(!ctx);
-	}
-
-	event->pmu =3D pmu;
-	ret =3D pmu->event_init(event);
-}
-
-Because rpi_axi_pmu_event_init() -> rpi_axi_pmu__validate_group() does not
-return early when leader =3D=3D event, it proceeds to for_each_sibling_even=
-t():
-
-include/linux/perf_event.h:
-#define for_each_sibling_event(sibling, event)			\
-	lockdep_assert_event_ctx(event);			\
-	if ((event)->group_leader =3D=3D (event))			\
-		list_for_each_entry((sibling), &(event)->sibling_list, sibling_list)
-
-With CONFIG_PROVE_LOCKING=3Dy, lockdep_assert_event_ctx(leader) evaluates
-lockdep_is_held(&leader->ctx->mutex) while leader->ctx is NULL, dereferenci=
-ng
-a near-NULL address inside lockdep. In addition, when leader =3D=3D event, =
-the
-final rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, event) call
-validates the leader a second time.
-
-Should rpi_axi_pmu__validate_group() return true immediately after validati=
-ng
-leader when leader =3D=3D event (or skip calling rpi_axi_pmu__validate_grou=
-p() in
-rpi_axi_pmu_event_init() when event->group_leader =3D=3D event)?
-
-[ ... ]
-
-> +static int rpi_axi_pmu_add(struct perf_event *event, int flags)
-> +{
-> +	struct rpi_axi_pmu *pmu =3D pmu_to_rpi_axi_pmu(event->pmu);
-> +	enum monitor mon =3D config_to_monitor(event->attr.config);
-> +	struct rpi_axi_hw_events *hw_events =3D &pmu->monitor[mon].hw_events;
-> +	unsigned long spinflags;
-> +	int idx, slot =3D -1;
-> +
-> +	raw_spin_lock_irqsave(&pmu->lock, spinflags);
-> +	idx =3D rpi_axi_hw_events__get_alloc_event_idx(hw_events, event);
-> +	if (idx < 0) {
-> +		raw_spin_unlock_irqrestore(&pmu->lock, spinflags);
-> +		return -EAGAIN;
-> +	}
-> +
-> +	for (int i =3D 0; i < RPI_AXI_MAX_EVENTS; i++) {
-> +		if (!pmu->events[i]) {
-> +			slot =3D i;
-> +			pmu->events[i] =3D event;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (slot < 0) {
-
-[Severity: Low]
-What happens if userspace creates an event group with more than
-RPI_AXI_MAX_EVENTS (66) hardware events targeting this PMU that share at mo=
-st
-3 (bus, filter) pairs per monitor?
-
-In rpi_axi_pmu_event_init() -> rpi_axi_pmu__validate_group() ->
-rpi_axi_pmu__validate_event() -> rpi_axi_hw_events__get_alloc_event_idx(),
-events targeting the same (monitor, bus, filter) increment
-fake_hw_events[mon].refcount[i] without checking the total number of PMU
-events against RPI_AXI_MAX_EVENTS, so rpi_axi_pmu_event_init() succeeds.
-
-However, when group_sched_in() attempts to schedule the group via
-rpi_axi_pmu_add(), the 67th event will find no free slot in
-pmu->events[RPI_AXI_MAX_EVENTS] and fail with -ENOSPC, causing
-group_sched_in() to roll back all 66 previously added events on every
-multiplexing rotation tick.
-
-Should rpi_axi_pmu__validate_group() also reject groups whose total number =
-of
-events on this PMU exceeds RPI_AXI_MAX_EVENTS?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102234301.2242=
-242-1-irogers@google.com?part=3D2
