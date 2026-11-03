@@ -1,76 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696098;
-	b=P2l96Al+ZoFVRx3qm9WF4+uCbz8CIUliyBfpw/KxnVXaoxEWz6ofuJXqAIXLqv5aSXBa
-	 xdXQPWqLwt2rhjlNjBZSCFhTnH5lBnAHLqrxUXLlMOifq8KwqL/JITYlt71Sp6PCj0S+t
-	 uj3HbBrshRke7tv1NGb5teCLeQBMBwfz5wg735/GECXli7VefFjwx9fuS1a4jaOyehW99
-	 9r8HX1QRrNrYm6kucUsDXm7FRCxu90of5zUJ8j9c+CVV7MXMSNeSbAehr5A/e8qgUMl4Y
-	 aoqBKmNw7MaIssx/Q3gXajCHeFW2CcSzTQxigDfRcrQGpKw2MptS+bfG+Pem26+oVzA==
+	t=1793696109;
+	b=Tiy+aD5B+qbMRqoAdOpRa62ea/2lr9r0XcXIMPJor2jMyLAayZWnwhv3exLIPwVyP8WX
+	 nyI3Q7vFWTGNt5poOBP4AJFkE+v9H/U8WKWpydBnw5OeXE5A50sxc3RMS/TSYGsdx5t7l
+	 OHXiM4206T8ErkBrTNGmobCkkAse8U2bRIfFSK7hJdfIdE5FEld8vFrwJrINKMtGPPjbh
+	 C7heorAPv0NVcRkZGAX/63fECKX6gf6YBrNvyW0qQvSMLz1gC769Davtc6tEK04UZittz
+	 MxLmz1JTb3ftAdzrl+ybjUQ+7fgmR0rL2rS0y5ZKAZAhBCAgZvA8/Mj8+AysMm9TIfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696098;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=dlJ5xMksR4WOvEPc9s2K/nzvHc7oGxq9usmZlWMYcc8=;
-	b=FgNTJLT79nYuVX63hzXAd3LYEhHcKT3fQqLkfXyBldOl02cfceBnKKW6PlNVaiLl/0lJ
-	 OXH1ZItqs8LiJj97oyKC5MyztGHEbwdBC+ofx13XReYFNinB7Pej5vVyI1P80/HrLjzck
-	 1EPZodHWkQilSWbpeU5u2cKOUuanIOhVlNRNM5JrEGxC9X+zumsIPYyeQxiXmrcjK7qDi
-	 mQu38fk+1qTt/d6/agA1VI5Ux9MnAL9jeiKfT8NKph7zxgLV69MuCtWHHwqv9wUJ/dfHl
-	 541gHIs2eyaZalZ5UFBnaWDAz0YLQGKln9G4uR3Xb++2TO1f3OHMER2bjIjClpE+IQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696109;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
+	b=gDxZF/wZAdaFIbTeiMpyuRc7JYnnAQhlQ6HLmXI5RWdR320ZWBK3X5vy1qLqFqh+pnou
+	 NPR+qjs1tYmxGHekVHvJWJ61i93GBA2XUcchGHIujClIWiC1W9BznqbUzyGtj9xA65j1x
+	 mfNtLPCA5uavoBV5vCZvBhCMHHINHnY3IXElJPQ450yB23SGcfVT1YD2hKQ0I3M4onRI3
+	 ImvI2q8L2nKUqGp0TIftpZ4U0i4j6BBSsKRRRopifUyGrdPQ7W2tJh/CMFZK8iyV1Kh2J
+	 k8Ao8CXo1Brxr+dp+1lnIMRS61VFNYMO9hr6jbr9JwZrRF/ULx3AfHNH36aXE7yYhBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tb4P2c31;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679EB606A326
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 08:54:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 679EB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso2356099a91.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 00:54:58 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D00606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 08:55:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D00606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tb4P2c31
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so26112135e9.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 00:55:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793696107; x=1794300907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
+        b=tb4P2c31O94KPbtcM+9HGamMUoeSJpm688QqLQHP4hJk4CdmZcauDs+ZG3RhjL3OqP
+         83U14EZE2dM08TV1PFO0bayYgxCjJAZwxYrKIi7hshc8+269p2tlnPEdRFkIv76T1oWv
+         qQZlfREtbknavweStprVRQFhLexTTf1hN1Pk0B5pNaw5deRFADnUmYrkzSHWshHO/3Oo
+         yY2crvWrFXr1MrZimgIRy6KNY6kPOi+hJZsm5mishijBDPEy7iBadj+NmHzk4vVU+CKb
+         dabUBw5i9J7b0kVifyOAJ4NSJrBz7Fk83JdvUIcQEODaNRgF0f/7lrMUz5tL5f0LuWFQ
+         jR1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793696098; x=1794300898;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dlJ5xMksR4WOvEPc9s2K/nzvHc7oGxq9usmZlWMYcc8=;
-        b=tShyLmjqZFfK/PFIvgzwXJuPvW4qbSHLTcReNsIuAXmRrMmV2oBBsJh8kZ8f3lkWyz
-         fmk1+4BrW1bxMmsa/mO5XQxWor7dGHepPz64MXOMWLXGx4EO3bto3Kw273ixr8vzYraG
-         s+SyY9Thi1GS6TziJVcx/GEDJ5Q5QVZUsOZWckOnHYfv4gBuvBM2OSjMXM/iYnIBJ2ut
-         WJ2YPC1CoHQ3XA8iqsCypg11Ya5iVu923bwT00nnAY1Oy00kJkPPP4hyzn2yxA70xwIm
-         QDLZWA3ypJZVRmeX0EjdrwH7OJOpd2cwDQJK1P5YLV4sDlWNn0gDk6elfwu3eiRNUXzZ
-         T6Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEpfal1HgS8ekd2gPUzudvVaRXDE1oPBnuipv4uyehVnw9xiEbJ0wV+G4gnX49txRTig2f1eQquLo3@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VKQBEZrHeeZnpBXOlJ+eNKPgGznwj+LzQmdDGJAZpH0qmKXBb
-	ZtNvSJx1J2k+k/0MZguAE93Imbf8xY7U1bbyfAMLLF5A0iCLZ6nE6sYWKDVzgZxRuUM=
-X-Gm-Gg: AYBFou3XXC1gIYqVrsTX3kW1vOhk2aYPCEs1rveCUb7zg2LOn7GFhnb1yjRoU3AXoWu
-	q2lPqcw3Aga1EKyoTN3kI9b/g4rZ1GaX5dQrEVv1Q4LTfrIwuJAoGv6XtRGVqVkFTL8kiWYQfSV
-	ufAysltgDkCcvasEIPN2xienvyGuyYVSkuw+NshVJzOBP3Nfu9ijJYdmR+R6V92D0SwpOB2jT/E
-	9qfeponbvr5D5z7ItneIFcDk0V+HXrqkpVqh9FqXTufP6yugA2XDHDg+vq3MNSeKP/YCSxjvckM
-	aSLMpIOjS5X4FX1JFVQ69+7UIgwrSWiftc03L00afre0E4USpzPLWYa1VKxtFNmFnZHnkw5M2pW
-	fpx3eIphkvmM8DlSmvAN+X3SL6/ybsgkIGMuR76QF4NU1Iu73POx6Xfb53IfY4dSYCFFUK+TAvl
-	mz3otXE2I+iBL/93ykhnDJWPu1GOJyycLOwzELN9p3dMypSz3yGFsnJkaGdjhbrnd5dfMLKbjIb
-	kF/QIDhmCDY3g0MylyfDXm0pQVT3ss+sfPOn/EFuG8YxI8hiMbHz4IN0hVC5zK+2xobFQ/n9dHu
-	d++bcEjwFyEGNOr1Qx1t0yWtXpeV2Lb8a4q8GUJQl+oktYA+MwGqlsiGVQ3B7OUL
-X-Received: by 2002:a17:90a:d2ce:b0:3ab:884b:659e with SMTP id 98e67ed59e1d1-3ae896f825bmr10148154a91.9.1793696097654;
-        Tue, 03 Nov 2026 00:54:57 -0800 (PST)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com. [74.125.82.45])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7dea33sm3288980a91.6.2026.11.03.00.54.57
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1793696107; x=1794300907;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=agwTDlVTaDDjvub+/sVTXidA5drfVA/Xuq65aoektFk=;
+        b=OVpNlNx7b8Z8cYbYPwV4UCcP4a/BZoHyUOia+OE3sZgUOahlBeuSgKG0loZg9cGq3d
+         YdziCzG9xJ89N0/S9cSodQ7z+9e7jLjJjsTC1sWfXzW3UXPDw1ji4kCP0gNRzPLwdgjm
+         8QH+cwDoIYHQFdiY8iLU5sE/CtghA2dwP3+VmzV+Bd1kVCAlziwZBzXSMCOpgZPDuBFC
+         br9Jj8KoCvPhz5F9knef2cHddoChMd919vIY7EBJnlms67JPBwHlSax7ONV4QCnZit1h
+         kZthl2jzXTLZHAzpiSjp3yYT1YKa5S5ySXZ354p0rz3TeD6/qWlHtkmBVQVoroqFSvWZ
+         5eiw==
+X-Forwarded-Encrypted: i=1; AKwUvBw5BmzdJA+zT8TDSUMVgp/HVxbYaCrdnucTF1cOuU2toqVdIYz2cuPKuIsccxUX9s+6HU57/cX9xmn3@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tMNn5hBHuHgwVceZLzOyYUh+UdjugsjNfcketwlcidMyqkE61
+	7MhPROV1P+WXeEOtJuhmHPw+BeEAwMqMUPX2N1QYQQYBUYfdY4F8OCxTTrQIIFMz8hA=
+X-Gm-Gg: AYBFou3AW4ooaXb1ts3X+WN1oWvUKfyDOJ+O/2lFhR4DXugli8xxcDB/RmrvgH0ARWL
+	3w+fp+7vPdGxSGSBfW1f5/CJgfUAhsHIEsHuCOVeBpXClP8yqgQNZby4QpUdLVl/7xhMvJy3tx5
+	vi7KTpqpMIvoeS6Gh5W9LGwBS6Ln6BSLqzDuGf7SQJ7RxmsoT9p0V6O9apdogslPGPoPCelTcHi
+	LpRKDeAPFKIWhy6ar4Jn/iefTw1tDEfJm37i1gQ5BPUQB9cctAHWDcdxiV9Dtl0epKizc3DdpK3
+	XQNNJBu5c5g1J5ImKk+LmNEsdRmHNwYcw6MMEDQqXL6mKd7Jm0rtrCh+O2XBsg7scOZXCcJCUsA
+	EapJW0WY1oyPI4M0hBFgbgkNAkBahZ0qnZ6DX5L0F8riQpZ+gMuxNpeV7AYn2ptXhc7hVcI7wuS
+	t3m7XmKIN5zWceHBGmeA0gD3ik+WJHWnIv+Njq96PZt3bO5OTQSApOhF1tUtM9VvxD/N2nhLM2S
+	9uTVbM2wv1rQZN10liGYIzAn2rqiGoApWyqbAV6qx0kgPXBIjmUwBqp2xDAocpMeZBq/oWy/cQd
+	2i88asXLtAKeBm5qjGd7lJJwpnGmXigNatPONkcaX4tWyUeW8z43KN9gqEQ5BAR7hCOXYcSf/3k
+	lDlKU80hF
+X-Received: by 2002:a05:600c:8119:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4ac17a36a28mr255021625e9.9.1793696106916;
+        Tue, 03 Nov 2026 00:55:06 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:95a2:4869:9f46:45f0? ([2a01:e0a:106d:1080:95a2:4869:9f46:45f0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9bd5d9fsm40122525e9.15.2026.11.03.00.55.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 00:54:57 -0800 (PST)
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15dd124bbe7so5512608c88.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 00:54:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxd+8Uc5TLUzRGQmPLWB2znyS3Q2FPpuVQFu8/qwtwpPGWZpJHpwsc5EcN+bmSHAJ89vKDjQe3pWWrz@vger.kernel.org
-X-Received: by 2002:a05:6102:370d:b0:7c8:18a2:f769 with SMTP id
- ada2fe7eead31-7d0723dd1abmr4090280137.0.1793695749441; Tue, 03 Nov 2026
- 00:49:09 -0800 (PST)
+        Tue, 03 Nov 2026 00:55:06 -0800 (PST)
+Message-ID: <518cba7c-1aba-492f-ac6a-c5c4fe6da847@linaro.org>
+Date: Tue, 3 Nov 2026 09:55:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,273 +93,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793026273.git.geert+renesas@glider.be> <e723696e02cfb34fb808e2ae3ccb6faf68528c00.1793026273.git.geert+renesas@glider.be>
- <20261028132937.GL15441@killaraus.ideasonboard.com> <CAMuHMdXycpJ6COtiAA-2oRRfHSfLK40n2cacStW15QJRN3EfLQ@mail.gmail.com>
- <20261028163940.GA2673734@killaraus.ideasonboard.com> <CAMuHMdVOT+DTZum525kmYfP+jzzPrxMnEeRAkapxOMGz4XMHBA@mail.gmail.com>
- <20261030112314.GD2587681@killaraus.ideasonboard.com> <CAMuHMdXR=dcooQoKwrycDpTaZjFk2CCueL08dYYFJLE9bP90cg@mail.gmail.com>
- <20261102160945.GH3368923@killaraus.ideasonboard.com> <CAMuHMdVHFquHz+OzpHirWENEEQeZbiXx=8eeRDKssvw++jGOUw@mail.gmail.com>
- <20261102230610.GC3548113@killaraus.ideasonboard.com>
-In-Reply-To: <20261102230610.GC3548113@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 3 Nov 2026 09:48:56 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdU_7c8b+oj0Xb4rHWA4v8FzBG98pRrCcON-uufKUtzUMQ@mail.gmail.com>
-X-Gm-Features: AclHuK_e7CeN9r2CWRxTZ3YftMZc8LrnmvjcdiFK90YF4Wz4SjpA3pg2WAZWNlI
-Message-ID: <CAMuHMdU_7c8b+oj0Xb4rHWA4v8FzBG98pRrCcON-uufKUtzUMQ@mail.gmail.com>
-Subject: Re: [PATCH 07/11] dt-bindings: clock: renesas,r8a78000-cpg: Add PWM clocks
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] arm: dts: meson8m2: add dwmac 3.70a compatible
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+References: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Laurent,
+On 11/2/26 00:20, Martin Blumenstingl wrote:
+> The Meson8m2 DWMAC reports User ID 0x10 and Synopsys ID 0x37,
+> identifying it as a Synopsys DWMAC 3.70a core.
+> 
+> Add the "snps,dwmac-3.70a" compatible to match meson8b.dtsi.
+> 
+> Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> ---
+>   arch/arm/boot/dts/amlogic/meson8m2.dtsi | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/amlogic/meson8m2.dtsi b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
+> index 6725dd9fd825..cdc47ee1a233 100644
+> --- a/arch/arm/boot/dts/amlogic/meson8m2.dtsi
+> +++ b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
+> @@ -25,7 +25,7 @@ canvas: video-lut@48 {
+>   };
+>   
+>   &ethmac {
+> -	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac";
+> +	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac";
+>   	reg = <0xc9410000 0x10000
+>   		0xc1108140 0x8>;
+>   	clocks = <&clkc CLKID_ETH>,
 
-On Tue, 3 Nov 2026 at 00:06, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Mon, Nov 02, 2026 at 05:59:02PM +0100, Geert Uytterhoeven wrote:
-> > On Mon, 2 Nov 2026 at 17:09, Laurent Pinchart wrote:
-> > > On Fri, Oct 30, 2026 at 02:51:54PM +0100, Geert Uytterhoeven wrote:
-> > > > On Fri, 30 Oct 2026 at 12:23, Laurent Pinchart wrote:
-> > > > > On Thu, Oct 29, 2026 at 10:08:28AM +0100, Geert Uytterhoeven wrote:
-> > > > > > On Wed, 28 Oct 2026 at 17:39, Laurent Pinchart wrote:
-> > > > > > > On Wed, Oct 28, 2026 at 03:43:42PM +0100, Geert Uytterhoeven wrote:
-> > > > > > > > On Wed, 28 Oct 2026 at 14:29, Laurent Pinchart wrote:
-> > > > > > > > > On Mon, Oct 26, 2026 at 03:55:23PM +0100, Geert Uytterhoeven wrote:
-> > > > > > > > > > Add definitions for the clocks used by the PWM modules on R-Car X5H:
-> > > > > > > > > >  - R8A78000_CPG_SGASYNCD16_PERW_MAIN,
-> > > > > > > > > >  - R8A78000_CPG_S0ASYNCD8_PERW_MAIN.
-> > > > > > > > > > Include R8A78000_CPG_SGASYNCD8_PERW_MAIN for ordering consistency.
-> > > > > > > > > >
-> > > > > > > > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > > > > > > >
-> > > > > > > > > > --- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
-> > > > > > > > > > +++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
-> > > > > > > > > > @@ -28,5 +28,8 @@
-> > > > > > > > > >  #define R8A78000_CPG_SGD8_PERW_BUS           18
-> > > > > > > > > >  #define R8A78000_CPG_SGD32_PERW_BUS          19
-> > > > > > > > > >  #define R8A78000_CPG_S0D24_HSCN_OTHER                20
-> > > > > > > > > > +#define R8A78000_CPG_SGASYNCD8_PERW_MAIN     21
-> > > > > > > > > > +#define R8A78000_CPG_SGASYNCD16_PERW_MAIN    22
-> > > > > > > > >
-> > > > > > > > > Could you also add R8A78000_CPG_SGASYNCD4_PERW_MAIN and
-> > > > > > > > > R8A78000_CPG_SGASYNCD32_PERW_MAIN for ordering consistency ? The
-> > > > > > > > > dependency patch should then also include R8A78000_CPG_SGD4_PERW_BUS and
-> > > > > > > > > R8A78000_CPG_SGD16_PERW_BUS, as well as
-> > > > > > > > > R8A78000_CPG_S0D{1,2,4,8,12,16}_HSCN_OTHER.
-> > > > > > > >
-> > > > > > > > I could add them, but do you have any need to refer to them from DT?
-> > > > > > > > So far I only added clocks that are listed as clock supplies of on-SoC
-> > > > > > > > modules, e.g. R8A78000_CPG_SGASYNCD8_PERW_MAIN is supplied to the
-> > > > > > > > Timer Unit (TMU)).
-> > > > > > >
-> > > > > > > So we have two conflicting goals here. One of them is to only add clocks
-> > > > > > > that we have validated to exist (and ideally work as documented). The
-> > > > > > > other is to keep renesas,r8a78000-cpg.h readable. We won't be able to
-> > > > > > > satisfy them both fully.
-> > > > > > >
-> > > > > > > I think we previously discussed adding whole groups of dividers in one
-> > > > > > > go, as some sort of middle-ground approach. Those are clocks that are
-> > > > > >
-> > > > > > That is what did in this and the previous patch: we need
-> > > > > >   - R8A78000_CPG_SGASYNCDn_PERW_MAIN for n=16, and added the one for
-> > > > > >     n=8, too.
-> > > > >
-> > > > > That's missing n=4 and n=32. While SGASYNCD32 isn't referenced in the
-> > > > > datasheet, SGASYNCD4 is (in SCIF and HSCIF). Maybe that's just an
-> > > > > oversight ?
-> > > >
-> > > > We already have the clocks for (H)SCIF (_BUS, not _MAIN!):
-> > > >
-> > > >     #define R8A78000_CPG_SGASYNCD4_PERW_BUS         0
-> > > >     #define R8A78000_CPG_SGASYNCD8_PERW_BUS         1
-> > >
-> > > Wait... Aren't R8A78000_CPG_SGASYNCD8_PERW_MAIN and
-> > > R8A78000_CPG_SGASYNCD8_PERW_BUS the same clock, just with a different
-> > > name ? The user manual says _BUS, the clock diagram in the spreadsheet
-> > > says _MAIN. The SCP firmware defines both, with the same parent (PLL5)
-> > > and the same frequency. I have a feeling it may "just" be discrepancy
-> > > between the user manual and the spreadsheets.
-> > >
-> > > *sigh*
-> >
-> > After my previous comment about "87 SGD4_* clocks" (quoted at the end),
-> > I started wondering if they are really identical and ungateable.
-> > The documentation calls each clock list a "clock hierarchy"
-> > (e.g. the PERW hierarchy), and each sublist another "clock hiearchy"
-> > (e.g. PERW_BUS vs. PERW_MAIN) which sounds like they are different.
->
-> I only see PERW_MAIN, not PERW_BUS. There's a PERW_MAIN_MP sub-hierarchy
-> though. And I'm fairly sure there are errors in the diagrams (at least
-> in the VIO hierarchy).
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-The clock diagram indeed doesn't have PERW_BUS clocks, while the clock
-list does have both, and the main document refers to them as clock
-supplies for e.g. (H)SCIF and I2C.  Sole exception is LBCK_PERW_MAIN,
-which is in the diagram, but not in the list; the latter has
-LBCK_PERW_BUS.
-
-Note that S0ASYNCD8_PERW_{BUS,MAIN} is even listed twice, with different
-divider chains, but still resulting in the same final rate.
-
-For e.g. VIO, _MAIN in the clock diagram and _BUS in the clock list
-indeed seem to be synonyms.
-
-> > I also wouldn't be surprised if each (sub)hierarchy is gateable, too.
-> > So unless we can get clear confirmation, I'd rather be safe than sorry.
->
-> I haven't found any sign neither in the documentation nor in the SCP
-> firmware sources that those would be gateable. If they are, they are not
-> gated by default.
->
-> In any case, I think it would make sense to model in DT all the clocks
-> listed in the diagrams. That should make it possible to properly handle
-> gates after the fact, should there be any.
-
-In DT, we only model supplies and consumers, so only tail clocks from
-the diagrams (i.e. what's in the lists)?
-
-> > > > > - Some modules may need to know the rate of the functional clock gated
-> > > > >   by the MDLC. As those clocks are controlled through power domains,
-> > > > >   they are only specified as the last cell of the power-domains
-> > > > >   property, and are not listed in the clocks property. How do you
-> > > > >   envision this to work ?
-> > > >
-> > > > The functional clock (or its parent) is still listed in the clocks
-> > > > property.  Compare e.g. the hscif0 nodes on R-Car V4H:
-> > > >
-> > > >     clocks = <&cpg CPG_MOD 514>,
-> > > >              <&cpg CPG_CORE R8A779G0_CLK_SASYNCPERD1>,
-> > > >              <&scif_clk>;
-> > > >     clock-names = "fck", "brg_int", "scif_clk";
-> > > >     power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-> > > >     resets = <&cpg 514>;
-> > > >
-> > > > and R-Car X5H:
-> > > >
-> > > >     clocks = <&cpg R8A78000_CPG_SGASYNCD4_PERW_BUS>,
-> > > >              <&cpg R8A78000_CPG_SGASYNCD4_PERW_BUS>,
-> > > >              <&scif_clk>;
-> > > >     clock-names = "fck", "brg_int", "scif_clk";
-> > > >     power-domains = <&mdlc_perw R8A78000_MDLC_PD_APL 0x54>;
-> > > >     resets = <&mdlc_perw 0x54>;
-> > > >
-> > > > On R-Car V4H, MSTP514 aka "hscif0" is modelled as a gateable MSTP
-> > > > clock with parent R8A779G0_CLK_SASYNCPERD1, and used as "fck".
-> > > > On R-Car X5H, R8A78000_CPG_SGASYNCD4_PERW_BUS is used as "fck" directly.
-> > > > Calling clk_get_rate() on MSTP514 and R8A78000_CPG_SGASYNCD4_PERW_BUS
-> > > > gives similar results.
-> > >
-> > > On Gen5 we will then end up enabling the clock twice, once through the
-> > > power domain, and once through the explicit clk_enable(fck) in the
-> > > driver. I suppose that's fine in theory (there's an extra runtime cost
-> >
-> > It depends, and can only be true for drivers that still do explicit
-> > clock management.
->
-> Yes, I forgot to mention that.
->
-> > Many drivers that don't need to know anything
-> > (e.g. the rate) about the clock have been modified to delegate this
-> > fully to Runtime PM.
-> >
-> > On R-Car Gen5, the (now purely internal) module clock used for module
-> > standby is different from the "fck" clock in DT.  So perw 0x54 is
-> > controlled through Runtime PM, and SGASYNCD4_PERW_BUS is
-> > controlled by the SCIF driver directly (but it is a no-op as the bus clock is
-> > always-on).
->
-> I expect the FCK input of the IP core to be connected to the clock gated
-
-At least the FCK input.
-
-> by the MDLC. Using SGASYNCD4_PERW_BUS in DT is likely inaccurate. It
-> should work fine for now as the SCP firmware doesn't make the clock
-> controllable, but I'm not sure that the bus clock is really always on.
-> The dividers listed in the CPGMA* diagrams typically have clock gating
-> capability.
-
-E.g. DIV6 dividers (like the MSIOF parent) do have clock gating.
-
-> > On previous R-Car generations, "fck" is the module clock, and is
-> > enabled twice.
-> >
-> > > though) as clocks are reference-counted. However, the current SCP
-> > > firmware reference-counts the clocks based on their SCMI ID, and the
-> > > MDLC clock (perw 0x54) and its parent (R8A78000_CPG_SGASYNCD4_PERW_BUS)
-> > > have different IDs. This can cause the clock to be disabled at an
-> > > unexpected point. In this specific case, however, given that
-> > > R8A78000_CPG_SGASYNCD4_PERW_BUS isn't controllable, it won't cause an
-> > > issue, but in the generic case it can fail badly.
-> >
-> > Current SCP firmware indeed doesn't handle parent-child relations:
-> > e.g. perw 0x54 has a clock rate of zero, and is not a child of
-> > SGASYNCD4_PERW_BUS.  So the MDLC remapping driver ended up becoming
-> > responsible for controlling the parent clock if it is gateable, which
-> > is the case for e.g. MSIOF (see mod_map_in.fw_fck_parent).
->
-> It's worse than that. The firmware doesn't implement parent-child
-> relationships, but sometimes it tries to control the parent
-> independently from different children :-(
-
-Bad...
-
-> Look for instance at the DPCKCR register. bit CKSTP is documented as
-> gating the DP_EXT_VIO_DP[012] clocks. I expect that bit to actually gate
-> the parent clock, DP_EXT_VIO (from CPGMA1). However, the three separate
-
-Agreed.
-
-So DP_EXT_VIO_DP[012] are/can be modeled as the same clock?
-
-> DP_EXT_VIO_DP[012] clocks exposed by the SCMI firmware (and named
-> SCP_CLOCK_ID_CLK_DP_EXT_OTHER[012] because consistent names wouldn't be
-> confusing enough) all map to the DPCKCR.CKSTP bit in the backend, and
-> are reference-counted separately.
-
-That is really bad.
-
-Are the DP_EXT_VIO_DP[012] clocks functional clock parents?
-If yes, the MDLC remapping driver can work around this by always
-controlling all three together when module standby is controlled.
-If no, the CPG remapping driver probably has to return a new clock
-type that controls all three together.
-
-> > > > > So we could add e.g. SGASYNCD32 already, as long as we don't reference
-> > > > > it in DT without testing.
-> > > >
-> > > > We could, but which one: "_PERW_BUS" or "_PERW_MAIN"? Or both?
-> > >
-> > > See above :-)
-> > >
-> > > > And what's the point if there are no users?
-> > >
-> > > Future-proofing, to avoid adding the SGASYNCD32 clock later with a
-> > > non-consecutive ID.
-> >
-> > Then perhaps we should add all clocks from the spreadsheet upfront?
->
-> It's tempting. Maybe doing it per-hierarchy ? When enabling devices in
-> the VIO hierachy, I ended up verifying most of the clocks anyway. We can
-> then try to spot all inconsistencies and ask for confirmation.
-
-It is indeed tempting, and would match what we did for previous
-R-Car SoCs.  Having unused definitions is not that bad, it might just
-increase a linear table used in an xlate function (which we currently
-don't have in the CPG driver).
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Neil
