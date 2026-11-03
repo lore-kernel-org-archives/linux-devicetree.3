@@ -1,80 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719909;
-	b=QzU+d0Om4oIFDDPVvMtbKcvDNuMBe0FZC4XPQmnhYOqoz7jYpJ8ayU0g4mPjANIc/GJ1
-	 edc/Po3mbBR4R81V56N2s88nypLg6Qal6JHFkN2QgjhLk1jRu2WH2SVACJog2Wmtkv9wl
-	 YXwC3+0R2BpGgPduOqao56YYmSQeWPLZ7Y+ks9wqK7OmlwH0xjoEjN43GHfbUSh1Blg3T
-	 CrpAkoUyhEfz1xOzywygCg7G/9Ee7Rs/Fjm3o3P6ChOyAGBWJYV5eTv05H/G2zmojs7wz
-	 fMJCMHgkG62gPAyKmoCFwikrqfLBlOFprkhqADc7r0VNEjBtblRurAlbaIWXOsKfZ6A==
+	t=1793719910;
+	b=Lb+0aVVh7jX0WHl1Jn3IflDF2s1sUsorrng0N5fAqnnRU6NqBXFaFWdtVotOnttWOJbx
+	 tgexjFHYs3z7ArPfyDBy3db7CVgVx82uVv5WAV4rK3mX7qSEu6hHSlcij/VvZPJJobuwH
+	 2Zhs+4KyaNkh7ne+l3sC17cwxkkcB37L6uawWHGdqvsgGrDkIjqIfLU9TAiHRVlJ9v9Yx
+	 GLbsNZfBTUFIEgs8CUT7R4Wecxhw0geEJ5TEwWIkZG1M5BpjaamHYfllGi+oIuel5lW+b
+	 egVjrQcgDwuSUWur7QpU6C/d3T0bArN9RKVVLFQ3xEHNcicZj3ltPZ87BYVU0MgbpAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719909;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719910;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=CPNNCo+GFGu/9nal5nPw6bilsFuJkUchsPFZNI+iVXk=;
-	b=KKTGqogCaxol1Qeh1/was/REICIAgco9ft2AmvB4PjBmsZzpfkYz+cGY2+m+tCCkr8/H
-	 euYs3Kw3ipvNFp8v977L6zXjkmOdIRSH87JjyvMLJPUocSzn96JQE+yjf6l9j6qXy5mfN
-	 Qo9OcYRwOHDBCaGTRpNmzLCIdlvU0iyEbIYRZBiqjp7iSi0H6/eKTORQ/jvdGNr8R9Jm3
-	 XFV0d6vAjGpM8DdoyY40ljbMWUl7YY8AFJ0dzlm6v5mB+uMgWOI6dvgTHS0ISMer/z7/a
-	 UyEE5Mz06rBuMA37dd2tRt4vkRPxQtIsf2CrWVMhQmMur/F+wfuJP3kgd8QCuSgQo9w==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=px9zdgpwFS81LrmsDCxEPDim7SV/QUfj3I75ZxFvQQQ=;
+	b=LVcJ6quD8yINxfcxMS+EYBSYrtDApiNdmw0mOOnuHGQZccY+V8T8w+uwiY1c0/NbRKEM
+	 Uqx3DKyueZktTQ8678gulHzFXri7YeOJA5q1chnsN9vi3w4Ovnf2RKOatSHlioGgrOSdz
+	 DyTuWOOdr3/pt+atsmd3e9rTlUOEnhIgFrd6UJRuoG+VhDIlMtLefVJ7rwFwrJlNV90Tk
+	 cVrK7KyaOkXrlHIoUevnyUrosnCO/JsQdvWuHwWa298fc8h/sXxX/r5mChwVu7bn9PvqU
+	 iOONrH5nnFuL9t+zjROag/SGUVgdxwYsXL0jLhaCdffnncHS3ieZujDewBHl+pNJjzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="t/R4+HYK";
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sojIxkPq;
+	arc=none smtp.remote-ip=209.85.167.177
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC077606A324
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 15:31:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC077606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB233606A32C
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 15:31:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB233606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t/R4+HYK
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-82109f51565so2210231a34.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 07:31:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sojIxkPq
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-5326cdde017so1293600b6e.2
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 07:31:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793719907; x=1794324707; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CPNNCo+GFGu/9nal5nPw6bilsFuJkUchsPFZNI+iVXk=;
-        b=t/R4+HYKW+/Fm+UogBo7D7mmpiuj1rhuTEJDyPf+b0LIUsY31q3k2rDmr3fF5PqV0f
-         xYEZLuuGv0awJhh17doexj0ARTnHZcZL9pFUFhY3rB3pFUlV4aE4GTRxBsg2dZDAKhRN
-         yVoMyYPgGqVpSd9uMdg/+guWXKovdtcKQbleIGrGzG4Sn8QPZn6ufnSQBT+Qgxh8iwZj
-         HAD/vFvNwNDgDVIX5eezEqyaALRWWQQLYJGPEgmod0tt66MnXh/QPZ9g5awOr/ekGcIh
-         FGftaxTEyvU+LKYpZk051ZARA99aQ41Yayb8o39kbAAqgbbY1DfMHEdwgi5F+8tx+uUh
-         rJPA==
+        d=gmail.com; s=20260707; t=1793719908; x=1794324708; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=px9zdgpwFS81LrmsDCxEPDim7SV/QUfj3I75ZxFvQQQ=;
+        b=sojIxkPq6NLi82zW8xNQsD4MP9WPH5h6qCYkF9Kk46qMCBe/xhI8U3grEGxHJ1YptF
+         7+kJVMIOSv5IVdByY65XNntCqgvyqmIvBxVpfaI5Vog4+ZTqnk7NlYKBKpODqF7I8IJs
+         qphSzJjX1J8SGqohjFiYyLc5qhFnuujPI07KUhtA+s5q3mgLZ2YF1lIevprNy3RKRZHf
+         2ZG0Iv9g2q9VkjG8GnXwcw54/PJezNEnpA4HvjSy32NPk3QBDvs1ame4WpTjnk1RbSAG
+         VRdhliP3GaAvEot2uDzDa6TRExwA9AzyjX0rZGAue4WWPtMSvgpL+IvMMKDQIypsiPGj
+         YNuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793719908; x=1794324708;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CPNNCo+GFGu/9nal5nPw6bilsFuJkUchsPFZNI+iVXk=;
-        b=fkZovjrSoXr3uAtdooYzXVqblNWLxQFAC3G0eWH5E+oBDM1zAfb5kjSBuDxczmpFv1
-         Ab9oQLIry2L0nYKBIrrBrWl+kMpvv9+obnIsPENl4pdI20aQupYl6Hg9+x05hx+Cz79M
-         Snb1lzwDupCNx2aHTRtUkwlfc+rNxAVEdhDQRLeI00q2Bgu6/wfrLUTOQbLKbr6HqNo4
-         4aD8M6vPvFp5NTy70jt8zViPp8CwAFUjqPGjSHFSGtCljeVPQvF9xrHLp4QS2E1TiNLs
-         G491p2TG/6KGy3oWn/iKg1KwOEFFvf2b5kx1nY8xolcXUKp3m8f8hOQFFamfVcaEhYMz
-         4zYg==
-X-Gm-Message-State: APuU4Z+OyZuE6ct5rNUt1DwzEvRj+D86SiiiYqp2iv8+MlSvKtXWqYkv
-	3+CwPNYDXWmCTaL9k6PfksF1UqQ6qdAicwgHJNSV0rTGppFCPymxyptx
-X-Gm-Gg: AYBFou3E/LcQxorp3vmn98qekvTy/m/+v4EZPWC3bklV68MXBGmjR/nnG58mX1IXTvH
-	GPNQHMcRA/Rvrtjp5RfU9zzG8mBlkx4hSJLFHT9k/6TwKHudxdOrjhSNbJx1+2i7C53K/UOe1l8
-	HKcCme/F/WDzrOJx1Fbui0uOGRFwvvq7C/vR1tP8ExRsqklzWHAoRMClM22zSZpRCSChn3lTtZR
-	VAc9zHLxI/KTIsqfLS3hMQ9Ao6i4msKBRm9tUQ1PvcSNoJX5kZFsYvXB1jCnRkwF9IY6clLe8Xe
-	165eS/Z2sntnQlBYzK36lzUYEDqg7Uz8u5Q4oZHqkoCswqUBoP1IOV5Iy3IJWhoxoDzwO/TtFjL
-	0C3DYy0/dMuGqi97arcq6Y8sOcHlOffm6Zao1g2ehaLkehgBLpFmu2S+h/QiSeQbHcMwGYOUqHt
-	9gduQbJzR07U6Ofl6RPGwpsbh79fA1d0obTQ6+zWBfbG41ZwgtAD0IvbabpQves2bg3mQ5G+3WF
-	EkT3auWrZc1skX+o7+QCTodekHLGMVpeJbkzj3A7B9VQzl3GPOLlY8Li5YqwdJhvxrIPbj3C41X
-	0SrAU8ntTTz9P7jvlHpjkqjFBRoBUw==
-X-Received: by 2002:a05:6808:2389:b0:4d3:6be7:c64a with SMTP id 5614622812f47-5640d62df3fmr8545899b6e.0.1793719907638;
-        Tue, 03 Nov 2026 07:31:47 -0800 (PST)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=px9zdgpwFS81LrmsDCxEPDim7SV/QUfj3I75ZxFvQQQ=;
+        b=B9pLrFCro0CfzJgq2Xi/A8x2XInLO1+djN3PvqgI4q9uuejCn8dwffwiyM/9ZmMJef
+         2ReG/Uc3lyd37lmG4Y1IghcMFm9jwotya5sQeri5UtdT8exDE0zRta87WhITWQtjnzmH
+         /dqFmYW2uz08iE/abboZgqcz3DRypMsqlIE3m6HoYFQzuYUqj55s5HNm0lu86XlIFXMT
+         MOJxv/DE/11oyhfTYqR39gD/S9e5X50NdapeaK5G/59paI7CXXJT4dnBVCsLci3SULZa
+         MciHsB6RGCjclgeZ10kfJRmGR1hVoJonGQFom8QIj8OS6be3n3x6qR89Id2MaCFlksfh
+         E7Ag==
+X-Gm-Message-State: APuU4Z/rMfuQJCiXybVMqIsca84aohRYHEUiw1G+e6xDTkuT5U9rKdTd
+	jP1lsyLWG0tlTrN2oL5Wx6H3CSE0KKQcoY8GyK9lDdnub8Ir6vXXNa84
+X-Gm-Gg: AYBFou0m+j6gBX7g8v3qNfJ/mOzuM8rPTIKSeWg6nKCFSRCsLM1UBiWEidNk6qHJbVq
+	8OX1ykm49i5Piyap14YlpW2PafMUmF6pLQ5Fy2cAtEV80ZENJbmvCizVQfQYxDbGrMyRg333w0q
+	f2BzdflKnvQvrAk2depKSWHXqxtDPGwafhemuIxNQCKNO82DI+AmHHkyX72unYh0draA8VmKnwn
+	yWP482NKeAsay14fm9wSMPAZY/+/X1bdbHGjNU0cfhk8xyh/zBiO7TtVh577EIJ1oN3cSST4cnz
+	qqh4gBvObB+dgfVq6ANQjRzcb6ohXDuNTA6UZkPdZ7M+x9aVAbXVfjuL0smvnwplstVsOL9KrEB
+	RYsvMbtkF8qdbuBFcEeFNFe5eyt/V7nUU3gezS2yHEvGYVpmopbM0xH2XWWQpfkJdF03ik4h1Ld
+	mTLy/t7MybU2b74pPfJ/jwKLU1U0GKfs7Npq0XlS52lwzkxcTYdGSL1d8XZQ2l8zEV7hof3tKz6
+	8rsNt9QkzPRSpB+iYaefQ4ITuMGz0i+Kl73lvLyw8H33Hn6/eaNUw76/Tf1qEvMlOpW7MHL27W/
+	S7uan/MkKnKZ3ibH9FFymnOutMCN/fXfraeqRN//5ku9jixpWv/5
+X-Received: by 2002:a05:6808:1a02:b0:4f9:6348:cd3b with SMTP id 5614622812f47-5640dd6a370mr8851018b6e.41.1793719908538;
+        Tue, 03 Nov 2026 07:31:48 -0800 (PST)
 Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd95dc0sm11599188b6e.6.2026.11.03.07.31.46
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd95dc0sm11599188b6e.6.2026.11.03.07.31.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 07:31:46 -0800 (PST)
+        Tue, 03 Nov 2026 07:31:48 -0800 (PST)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-rockchip@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -86,10 +88,12 @@ Cc: devicetree@vger.kernel.org,
 	krzk+dt@kernel.org,
 	robh@kernel.org,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH 0/2] Add rockchip-timer for RK356X
-Date: Tue,  3 Nov 2026 09:31:42 -0600
-Message-ID: <20261103153144.343764-1-macroalpha82@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: timer: rockchip: Add rk3568 compatible
+Date: Tue,  3 Nov 2026 09:31:43 -0600
+Message-ID: <20261103153144.343764-2-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103153144.343764-1-macroalpha82@gmail.com>
+References: <20261103153144.343764-1-macroalpha82@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,18 +107,25 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add the rockchip-timer to the RK356x SoC. The timer for the RK356x is
-register compatible with the rk3288. Address range taken from BSP
-device tree and confirmed with rk3568 technical reference manual.
+Add compatible string for Rockchip RK3568 timer.
 
-Chris Morgan (2):
-  dt-bindings: timer: rockchip: Add rk3568 compatible
-  arm64: dts: rockchip: Add timer node for rk356x
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+---
+ Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../devicetree/bindings/timer/rockchip,rk-timer.yaml      | 1 +
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi             | 8 ++++++++
- 2 files changed, 9 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml b/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+index 6d0eb0014eee..b245a3051d66 100644
+--- a/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml
+@@ -24,6 +24,7 @@ properties:
+               - rockchip,rk3228-timer
+               - rockchip,rk3229-timer
+               - rockchip,rk3368-timer
++              - rockchip,rk3568-timer
+               - rockchip,rk3576-timer
+               - rockchip,rk3588-timer
+               - rockchip,px30-timer
 -- 
 2.53.0
 
