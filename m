@@ -1,39 +1,39 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690727;
-	b=3dFWAo/1gWFRtMIDloG/FASMklyNBekijV7wfHuK/j0TTNSdlUngDO2GXlxp57yl/+t3
-	 dze9BA2ZZ4ZbRaqDCHsbON0/qB5npolqoM+R1hmurKWdQxewAE4oJSoTgVd7huSQZwzwR
-	 iYGWCYsiw6Vrq3QW+hyELWQ2yMKtCtjRrw9QhS6VsEU06UnVKub+L6xbN6bbNstgE9fA5
-	 SKT2MOgGKs0TtycdOkShtao/TC0O4cm2327OAKbt8pzFIlmvwCQV58tTB44LhjxcnEg39
-	 RrJ/sduFBQyvBo+1bPzkss8XzlR8T30eaGoNJGKUk8Fu6VvAvB4v2SlsbwNvfDWWq5A==
+	t=1793690730;
+	b=4ySV1lnveL1wQefahMydrz3zIRlWnZ1PcBrN++OQwbsR4Rx7j1sPJsFqzt1KW5I0m11h
+	 nYssajqqFgZ0WXYju6RkMvbLlejZBX0i0r6h8q4STdDiCuSvwoNeu87cO12TPUXckYsNk
+	 UOiiYBNn1Mp2uwRa5xRQ4lck8aQpm3TSCNurfSUnz+vr/K7n4qrTzXgunDxjpTTY8if2n
+	 Ya2whE0zhX/jk6n5ng2CaSUl0XMyXnkEJQI7my6NdLM5mOMt+173JzCLDbBEnwD7q3j04
+	 TuIEU+Lyv9EajjZp20d9v5sMsGL4gAhA2cU+hsQ0S9DlAsgHcxUCNuG0qzXZ91+7aVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690730;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
 	 X-Coremail-Antispam;
-	bh=sbYsjIuAmmj9qc9MD7OVH8PdOpsGjgwLlEDWhDRoGbU=;
-	b=bYUF4ANAwTk2ZOvZIK/DQLBIEnA/k4rRdbHRdUmVX/Q7aOsXxPl4yorQjQFnTjZZK0BN
-	 hr7irScjBVq5sbAOL5QVCAlFIaCccSzFueROy19Zao6/y16yP2yWBjLK8x1NX7bd7IVT4
-	 BebwtdMYDZHeGzppO7yrNQxFkq1ra3dghIFtPCAHGBcw5aTxHxENmfbTW+YdzabkpDdS3
-	 5Hv10hzWXFZUZvkwAbvpZSTI+3fXx6xurbyQNNWgc/v9+H1YlM3TazAK68PhvmQRnonMe
-	 PgJr1jsZGFuDoCHZiax0n33dKsCkFcGaxT1cPKg7zEvCvwaQNeqhMLW8IXXtJU5sA/w==
+	bh=G1j5rMKnJ6ihVq5uHJzfwFefjl3D9s3JCtiCZjnJzRU=;
+	b=RRcQKToJmPbOIQJIIsRdEgca5AO/A8GvBPNKt2ny1PZnEuAc0nif1yT+Jnnafy11ZEMy
+	 jMfXeJ0xcFj7Cx9sw5xztnZ9gKv8+w+1mI813l5S5PQ1SSFdxQhT0/NzCXhk8K55oqQyM
+	 3gOETZ3+NY83ZpzCFgDjnHEsesdRsppgxPZF7eVwqHw8oOh7WQ1moFq9JnWMBleIK1pLR
+	 Kqn1GSC96QVXPF+raABss4b5grZDr0Ure5NSXfWiFg77e16blgHmgplePRnfmzjz2LOHT
+	 +gSJ4VtrnbmkTjYDZOIfFx5cns/E5t3p4M/+GGq8k+J2ZUBb4TSVNTMSb+G9UeZLFOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=loongson.cn;
 	spf=pass smtp.mailfrom=loongson.cn;
 	arc=none smtp.remote-ip=114.242.206.163
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38BD3606A32D;
-	Tue,  3 Nov 2026 07:25:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BD3606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1EB6D606A332;
+	Tue,  3 Nov 2026 07:25:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EB6D606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
 Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8AxYdFkjOlqH94bAA--.15759S3;
-	Tue, 03 Nov 2026 15:25:24 +0800 (CST)
+	by gateway (Coremail) with SMTP id _____8CxfdJnjOlqMN4bAA--.15176S3;
+	Tue, 03 Nov 2026 15:25:27 +0800 (CST)
 Received: from kernelserver (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJBx5cxijOlq7xUyAA--.10875S2;
-	Tue, 03 Nov 2026 15:25:23 +0800 (CST)
+	by front1 (Coremail) with SMTP id qMiowJBx5cxijOlq7xUyAA--.10875S4;
+	Tue, 03 Nov 2026 15:25:25 +0800 (CST)
 From: Binbin Zhou <zhoubinbin@loongson.cn>
 To: Binbin Zhou <zhoubb.aaron@gmail.com>,
 	Huacai Chen <chenhuacai@loongson.cn>,
@@ -51,10 +51,11 @@ Cc: Huacai Chen <chenhuacai@kernel.org>,
 	loongarch@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-pm@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH v8 4/7] thermal/drivers/loongson2: Simplify thermal sensor registration
-Date: Tue,  3 Nov 2026 15:25:13 +0800
-Message-ID: <7668eeead32fd1ca85622a4593585237f3807949.1793690276.git.zhoubinbin@loongson.cn>
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v8 6/7] dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for Loongson-2K0300
+Date: Tue,  3 Nov 2026 15:25:15 +0800
+Message-ID: <42000d97b3e8429b732aa113d6b08c786fe2e339.1793690276.git.zhoubinbin@loongson.cn>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1793690276.git.zhoubinbin@loongson.cn>
 References: <cover.1793690276.git.zhoubinbin@loongson.cn>
@@ -68,83 +69,149 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBx5cxijOlq7xUyAA--.10875S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEACGrpUP0D1AAAsy
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZFyfXFWkAr4rWFyfJrWUtrc_yoW8urWxp3
-	y3GasrGrZrGrsru34DZw4UXFWjk3W3tFW7XF4xuwn5urZ8J34agFyYqFyFqryxAFyrZF12
-	vr1qkrWUCayDW3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+X-CM-TRANSID:qMiowJBx5cxijOlq7xUyAA--.10875S4
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEACGrpUP0D2AAAs+
+X-Coremail-Antispam: 1Uk129KBj93XoWxCr45Gw43Gr4fWF4rXrW7KFX_yoW5CryDpF
+	sxCw48Gr1kKF17Z398tFy8CanYvF92yasrurs7Wr13trs8K3yaq3y3K3WYvayfur10qFy7
+	uryv9rWUCF1DCrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
 	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Wrv_ZF1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
-	z7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
-	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE
-	2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6x
-	AIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIE
-	c7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUIYhFUUUUU
+	0xBIdaVrnRJUUUBlb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1q6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
+	14v26r4UJVWxJr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6rWY6Fy7McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCj
+	c4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxV
+	Cjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY
+	6xIIjxv20xvE14v26F1j6w1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcV
+	CF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv
+	6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1PCzJUUUUU==
 
-The Loongson-2K SoCs expose a single on-chip thermal sensor, so the
-loop over LOONGSON2_MAX_SENSOR_SEL_NUM only ever registers one thermal
-zone. The additional iterations never succeed and the surrounding
-error handling ends up relying on the value of tzd after the loop,
-which is fragile and hard to follow.
+Add a new compatible string `loongson,ls2k0300-thermal` for the thermal
+sensor found on the Loongson-2K0300 SoC.
 
-Register sensor index 0 directly and fail the probe if that single
-registration fails.
+The hardware differs from existing SoCs in that it requires a phandle to
+a syscon node that provides the CHIP ID register, used as a compensation
+source in the temperature calculation.
 
+Update the binding to make `loongson,chipid` required for this new
+compatible, and clarify the register region requirements for each
+variant.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 ---
- drivers/thermal/loongson2_thermal.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ .../thermal/loongson,ls2k-thermal.yaml        | 73 ++++++++++++++-----
+ 1 file changed, 55 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index 8be0c6a29efe..19e3f9246cc0 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -17,8 +17,6 @@
+diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
+index 79e691b08341..d312e27737a2 100644
+--- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
+@@ -10,13 +10,11 @@ maintainers:
+   - zhanghongchen <zhanghongchen@loongson.cn>
+   - Yinbo Zhu <zhuyinbo@loongson.cn>
  
- #include "thermal_hwmon.h"
- 
--#define LOONGSON2_MAX_SENSOR_SEL_NUM	3
+-allOf:
+-  - $ref: /schemas/thermal/thermal-sensor.yaml#
 -
- #define LOONGSON2_THSENS_CTRL_HI_REG	0x0
- #define LOONGSON2_THSENS_CTRL_LOW_REG	0x8
- #define LOONGSON2_THSENS_STATUS_REG	0x10
-@@ -176,7 +174,7 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct loongson2_thermal_data *data;
- 	struct thermal_zone_device *tzd;
--	int ret, irq, i;
-+	int ret, irq;
+ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - loongson,ls2k0300-thermal
+           - loongson,ls2k1000-thermal
+           - loongson,ls2k2000-thermal
+       - items:
+@@ -34,28 +32,56 @@ properties:
+   '#thermal-sensor-cells':
+     const: 1
  
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
-@@ -207,17 +205,9 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
++  loongson,chipid:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the syscon with the Loongson-2K0300 CHIP ID.
++
+ required:
+   - compatible
+   - reg
+   - interrupts
  
- 	loongson2_thermal_set(data, 0, 0, false);
+-if:
+-  properties:
+-    compatible:
+-      contains:
+-        enum:
+-          - loongson,ls2k2000-thermal
++allOf:
++  - $ref: /schemas/thermal/thermal-sensor.yaml#
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: loongson,ls2k0300-thermal
++    then:
++      properties:
++        reg:
++          items:
++            - description: Thermal base register region
++      required:
++        - loongson,chipid
  
--	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
--		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
--
--		if (!IS_ERR(tzd))
--			break;
--
--		if (PTR_ERR(tzd) != -ENODEV)
--			continue;
--
--		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
--	}
-+	tzd = devm_thermal_of_zone_register(dev, 0, data, thermal_ops);
-+	if (IS_ERR(tzd))
-+		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor");
+-then:
+-  properties:
+-    reg:
+-      minItems: 2
+-      maxItems: 2
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: loongson,ls2k1000-thermal
++    then:
++      properties:
++        loongson,chipid: false
++        reg:
++          items:
++            - description: Thermal base register region
  
- 	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
- 					IRQF_ONESHOT, "loongson2_thermal", tzd);
+-else:
+-  properties:
+-    reg:
+-      maxItems: 1
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: loongson,ls2k2000-thermal
++    then:
++      properties:
++        loongson,chipid: false
++        reg:
++          items:
++            - description: Thermal base register region
++            - description: Thermal data output register region
+ 
+ unevaluatedProperties: false
+ 
+@@ -69,3 +95,14 @@ examples:
+         interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
+         #thermal-sensor-cells = <1>;
+     };
++
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    thermal-sensor@16001500 {
++       compatible = "loongson,ls2k0300-thermal";
++       reg = <0x16001500 0x30>;
++       interrupt-parent = <&liointc1>;
++       interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
++       loongson,chipid = <&chipid>;
++       #thermal-sensor-cells = <1>;
++    };
 -- 
 2.52.0
 
