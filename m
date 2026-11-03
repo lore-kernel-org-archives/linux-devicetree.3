@@ -1,108 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718006;
-	b=Mv3Dw3dnjSiX0i84/RW7RFB61xbQbFnNlwd+qSL1eDdBXG1HujJ24hySnl9OWhQfr7L0
-	 0pyI9+mWTOGGXFl6kukQlxLAh0OTWHNpIS0Q9ZRHN5dxB5vOhy5G0mzZ4qWNWwIpPzCMY
-	 km/y//EXtFOj1Dw8N9RCGJoHZ6DSzzFNyVLTVeb2zWjI/oyuqeDNK4+O+cFXv1hDGItDn
-	 iMQVcwXC3vIjQQvKL2RGaOzNwi82jeITmhnhuwe9GlzVoMhmdKV1ShIbHuus5oVVl96XZ
-	 CtBdsopDJ5sRpIeBSrLi+TwoCuLVoOCWcu4I6l92wNYjhOfYI4/KnbW9x9A85AaavXg==
+	t=1793718314;
+	b=Cl2sDBVGIB0UsTMKu97flEUIjZqDthxG4dwTmy33Ev/8T3SD3PZxkAISjqtNI3O16G1Y
+	 xMw1tNUSmS9DAK1L5pYNw231ytsgg3hL1RypkqqWpl2eBd436VzexHLxIWZ2A77niFpCq
+	 SXM3zP33tmHskCfkLKM9LbJGixvalHIdCRENPoBnRImzJON/svz79Twe7lXykXMBagzAA
+	 Kr6k2+v3xFfjQmBOxBytL2FSAf/Yk29nV2WNkn3iUtFkx7YHfWmTeoUbR4wMkDppiHh2J
+	 T6dHv8C+Cw8DG7CBWGEx+RSO3Thd9YKqkc2GSnJE8Yf0HSI5umaFMC8eZfU15JOarEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718006;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
-	b=HGLzlqmrFfIhihp7Pz+wjzMXXD+xO6rzHlln94mm8oN1hswFkZtJcePjBQlTewbYBzDC
-	 w+I5bCOLnatsfC/tu9Hg2EUC9BjV0Xj4S3CExlVnm0qQjoeKmlD8C4Q/uT0WwVzD8grBE
-	 4Yy7z8yhxgbWhFZ6PzlTPwSqWIji6eQ46BZDK2T0jbKodLVJZ4mkmCkc1yPwV7L1jnNOi
-	 PxTiVP97qocQOEApccuMIEo3ltdM/auth1xGCYDPqqRlk5a6Ekc5/0PvAbUmyklG51m1K
-	 mhcMAPOeUsAfVkn6bWRUoMgImayFSMra714FeNRCn+nBLG6yPm6DQWJoOPHzJFeX0oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718314;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Hth1zOYqu4nC0RncTQP2jKNxjJEdw1iVk3pWXd/QbHs=;
+	b=vgdn75EIqoAnEYW79gufx8VWMXC4NQhx8SQk4II2VBgQAukC6xryu4CrrJS6XtdO5a8J
+	 c3mDiy+ZnS3pDYdkiehsAwuxFKY/1vxyZtyxucI9a8OOycvE/fUF1ERgZaGH1l3Q+Jh43
+	 uX/6HGC3CiMSRp84U8+nffcDwRXxE7+pJjyq3Hvt5DrQ+27JzPWN0WwlkgMlU9dVNrnIB
+	 Zw7QQGHAYJYSDUR8wPCi2CN1SsjmTOGTxKslL1McOh/dOoG8Pvfii6BTFQxv7rcXhwyR2
+	 ZwUGkItMbBGmnp4ndXay2unetMSu+pixHWDc/gewmniEBBMg/pl/2GiqE34FGHkp/lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="d/aEna/I";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=L8ikNYu2;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeW6CWy0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19990606D2C7
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 15:00:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19990606D2C7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B32606A333;
+	Tue,  3 Nov 2026 15:05:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d/aEna/I;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=L8ikNYu2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793718000;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
-	b=d/aEna/IqhxuAdRkL56DUGLT33MVPskmrVBKBPcZHPcKk43bZeB7SeuomSGeqEqmDGLief
-	OKAECoTFmR1qi6iz1XThuvxJftxsUcO7BBw+QRkwxnzKe1CQOInw43o9thPuLjhfoT7Yl9
-	ylBFNG+l+979ZIOzzgBnaFlWd+RRo2k=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-378-AisS1V-SMvyxkkKcUALjQQ-1; Tue, 03 Nov 2026 09:59:58 -0500
-X-MC-Unique: AisS1V-SMvyxkkKcUALjQQ-1
-X-Mimecast-MFC-AGG-ID: AisS1V-SMvyxkkKcUALjQQ_1793717997
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a204f135ffso24402225e9.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 06:59:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793717997; x=1794322797; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
-        b=L8ikNYu2nJANA/1K/oRwp8m7sU05o/fPbEHkZIDt/M3Ypjb6ri/5xVc/PKz5qbB608
-         aX0x8gpkgf5JSKjPrkuFRK3S+VKQWLcFMJnHECryKpM+KPRyYXF+xQHy9Hl6x2DoABkZ
-         YZ0vgcHSypaNF/7sH8oY0onzz83jov/eVP7bCR+hpntJwAhpuFfPih0e99Ywn7rLG0Pg
-         3dFK/jApuEk52U0M9vrYgDJlDzBL5IJ0BgSy49Y2D2THjeOvuoxH8IDBWT46kqg63ue3
-         7Ng6jiJ8hAqnXpeOpzdVqHeY8vnIZpEsEOQ4hBV4vtnrQKxx4Tw2cWclN0sAzRBGnhPq
-         1QDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717997; x=1794322797;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7N01ts74+fbd6A0+ugAJGY01iwryjK/kLUoNysOMm1c=;
-        b=BSlSPxe+vqrgZHm4LdmprX+lA9+q08MbxqefO+BPdjvhXfr859P5ZkDrlu59h6hW7q
-         o01TzUrOXkvHUcx1aYXtVy9imopzr7zr/tk4mTLRCdqjsbY6lQKlShJpqHkdfh3vOg7o
-         Dj8qF8XbnWnrHZvgHavuOaF5MDq4N11mtg6FttLFGv/hVICeS+ADwXRUUh+rR26o+PMo
-         yk1ikon5/kAfCWcAnHW4Wk8TXuUlw8vWnBCUDeaqQ7PPjvpw3Q0VLJ0HwIgg71CAWc5R
-         3IpmLyPv9Zbo0p/dXopmQFvtHfhh/18IC9tLMq802FWEOTRtTHo6lFXTBDmin93afXRR
-         Xu2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwnDY6rWddbpbiFiXpqYMFaRQobdczTd3tDK97jeIKQfObI72xz/kmcif56bU9SmeVhxLRJXlszQvum@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Io7xrwApVdfdZZRRD5vlPMRtb8+1wmMQIy2DTJiH8kml4woh8
-	pPeWMRssnrisPgJ0GPBbeyr6x5d3+ohkxceGtZtAgrbiP8CpZ/xiJyY4plCQAv/n5phbSUlizsy
-	6F0Od+YOlGNEZ6vuQPuK/IEt4cOe1EsrIPP6FvKmVM8nK6+vHJLT1WNMG4rkod+A=
-X-Gm-Gg: AYBFou08BeBfovN969PonRgyYbvyQN4Ghaj0YfBZ53Izp37Gh3CnfvoOeen1GFNio3g
-	IzAm3bb2Fq5Mz4u7iXLCYrp1MGT9ZnYNP4MhzA86nTuM/9tBt9RsZ8kpXebIPyVEuGVX845VQ+W
-	O3d9nlZpAmUs2VHNEev5xqZlXKJN2ZYNaXsxZgXMozZ4bHqBC7jPxkrB444bZxwEmKchN418CFb
-	SDnlJ+QCl6IZmo0mWiXr/4oedqDf/W637+ymIbzj7J7rhKcVtYrC0m/6sgpsz9c3F9DSa5aD573
-	uAFDHX9zI/6P7gZhDLtAdEDTTJ6+Wi2EhKkkJS0RE7dEZgAfQOxmmT6vWx5jQtPGaI9NEncJ2BI
-	rnJBdTVM0S5C3fOlHsZsDO9ww2KMpx9H+bgIHVdZhZuArDP/PXIRR5BFZH6HBa46DW6VA7KLHcM
-	0n+kUmm0gi3hId/EQLsG2DBNkTuweUmQ+HOkV8n0En8Xg=
-X-Received: by 2002:a05:600c:a4c:b0:4a2:967:dfb8 with SMTP id 5b1f17b1804b1-4ac1765d7d7mr307788855e9.20.1793717997477;
-        Tue, 03 Nov 2026 06:59:57 -0800 (PST)
-X-Received: by 2002:a05:600c:a4c:b0:4a2:967:dfb8 with SMTP id 5b1f17b1804b1-4ac1765d7d7mr307787935e9.20.1793717996940;
-        Tue, 03 Nov 2026 06:59:56 -0800 (PST)
-Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm464079285e9.1.2026.11.03.06.59.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 06:59:56 -0800 (PST)
-Message-ID: <ff77c7ef-4c3b-4113-966d-3c46d5776cdf@redhat.com>
-Date: Tue, 3 Nov 2026 15:59:54 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeW6CWy0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD1B1F000C1;
+	Tue,  3 Nov 2026 15:05:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793718314;
+	bh=Hth1zOYqu4nC0RncTQP2jKNxjJEdw1iVk3pWXd/QbHs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JeW6CWy0Vbpzj9DuHBa/l1GWsihQ06s9xSIr7PLVYOaqcEw1BjA1+3R+hOGG6YSa3
+	 cCs30X4gv5CRv6P2nxNECzNx61lUDov7nytHaAJY1EUGzIFhthN6eSNbcyCFoMrOwG
+	 Aswjivg0wZ7jCy9tChr7nFbkztPGwN7zOF1t6aIhax7aix4LULOrnCBLuzt1iw8Qb1
+	 a+Ebf/P7tgzszkfSSLa4/rtHvZexLKfOUVUI+rxDtzoNNC4IKu1x86HYsSFh0CDEgz
+	 OPMglniK7RVpbRsTAOuN8i7TY3tSKBglU07ZLjOM+chjuy0LpMjDHQDU/4t69c9pfp
+	 XdUHfVu8I8quw==
+Message-ID: <sashiko-outbox-195550@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: kaanapali: Mark the USB
+ controller as a Type-C mode switch
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joonhoe Kim" <26rote@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103135057.1682-4-26rote@gmail.com>
+References: <20261103135057.1682-1-26rote@gmail.com>
+ <20261103135057.1682-4-26rote@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 15:05:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,59 +60,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/7] net: dsa: mt7530: support EcoNet EN751221
-To: Caleb James DeLisle <cjd@cjdns.fr>, netdev@vger.kernel.org
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, linux@armlinux.org.uk, arinc.unal@arinc9.com,
- Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- naseefkm@gmail.com, b.larsson@gmx.com
-References: <20261029184202.1859843-1-cjd@cjdns.fr>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261029184202.1859843-1-cjd@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/29/26 19:41, Caleb James DeLisle wrote:
-> The EcoNet EN751221 has a unique switch configuration. Every chip made
-> with an EN751221 die has at least one on-die MT7530 that is MMIO based.
-> This switch has 3x 10/100 ports and 1x gigabit port.
-> 
-> Some popular chip packages such as the EN7513G and EN7526G have another
-> MT7530 implemented as a multi-chip-module that connects to port 5 of
-> the on-die switch and is controlled via the MDIO controller integrated
-> in the on-die MT7530.
-> 
-> In this configurations, the upstream switch is put into a "passthrough"
-> mode in which all traffic is forwarded between port 5 and port 6
-> without altering its DSA tags.
-> 
-> Furthermore, since the DSA core does not call mt753x_setup until all
-> switches are present, and the downstream switch only becomes available
-> when the upstream switch has configured its MDIO controller, the MDIO
-> controller setup on MMIO implementations must be done before
-> mt753x_setup, or else it will never complete.
-> 
-> Finally, the on-die switch and the MCM switch connect via a TRGMII link
-> which requires calibration. In order to calibrate this, PLL adjustment
-> must be possible on the on-die switch, necessitating changes to the
-> core_(set|clear|write|rmw) functions to support MMIO implementations.
-> 
-> Solve all of these issues, add the TRGMII calibration, and add support
-> for both switches.
-> 
-> Since this patchset will probably be subject to some discussion, please
-> consider accepting any patches that are non-controversial since it will
-> make future re-submissions easier.
-Does not apply cleanly, please resubmit. While at it, please add the 'net-next'
-subj prefix.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] usb: dwc3: qcom: race between dwc3_qcom_mux_set() and system sus=
+pend/resume
+--
 
-/P
+commit fe7520845f2780f9c1a4d2eb56c40d6f95200b73
+Author: Joonhoe Kim <26rote@gmail.com>
 
+arm64: dts: qcom: kaanapali: Mark the USB controller as a Type-C mode switch
+
+This commit marks the Kaanapali USB controller node with the mode-switch
+property so that it switches to the UTMI clock when the USB3-DP combo PHY
+enters DisplayPort-only mode and stops the USB3 PIPE clock.
+
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> index e48a179d07220..a06d5d8674885 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -3941,6 +3941,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+>  			tx-fifo-resize;
+>  			dma-coherent;
+> =20
+> +			mode-switch;
+
+[Severity: Medium]
+Can enabling mode-switch on the Kaanapali USB controller trigger a race
+between dwc3_qcom_mux_set() and system suspend/resume in
+drivers/usb/dwc3/dwc3-qcom.c?
+
+On Kaanapali boards (kaanapali-mtp.dts and kaanapali-qrd.dts),
+qcom,kaanapali-pmic-glink instantiates UCSI on connector@0. In
+ucsi_register_port(), UCSI creates a non-freezable singlethread workqueue
+(con->wq) and acquires the USB controller mode switch via typec_mux_get().
+If a connector change happens during system sleep transitions,
+ucsi_handle_connector_change() runs on con->wq and invokes
+typec_set_mode() -> typec_mux_set() -> dwc3_qcom_mux_set():
+
+drivers/usb/dwc3/dwc3-qcom.c:dwc3_qcom_mux_set() {
+	...
+	if (qcom->ignore_pipe_clk || qcom->pm_suspended ||
+	    qcom->dp_only =3D=3D qcom->utmi_pipe_clk ||
+	    pm_runtime_resume_and_get(qcom->dev))
+		return 0;
+
+	dwc3_qcom_select_utmi_clk(qcom, qcom->dp_only);
+	...
+}
+
+In dwc3_qcom_pm_suspend(), dwc3_pm_suspend(&qcom->dwc) runs before acquiring
+qcom->pipe_clk_lock and setting qcom->pm_suspended =3D true, while runtime =
+PM
+is still enabled until device_suspend_late():
+
+drivers/usb/dwc3/dwc3-qcom.c:dwc3_qcom_pm_suspend() {
+	...
+	ret =3D dwc3_pm_suspend(&qcom->dwc);
+	if (ret)
+		return ret;
+
+	guard(mutex)(&qcom->pipe_clk_lock);
+
+	ret =3D dwc3_qcom_suspend(qcom, wakeup);
+	if (ret)
+		return ret;
+
+	qcom->pm_suspended =3D true;
+	...
+}
+
+If qcom->dev was runtime-suspended and dwc3_qcom_mux_set() runs after
+dwc3_pm_suspend() finishes but before pipe_clk_lock is acquired,
+dwc3_qcom_mux_set() sees qcom->pm_suspended =3D=3D false and calls
+pm_runtime_resume_and_get(qcom->dev). Wouldn't that run
+dwc3_qcom_runtime_resume() -> dwc3_runtime_resume(&qcom->dwc) (reinitializi=
+ng
+the core and resuming the PHYs) right before dwc3_qcom_suspend() disables
+the glue clocks and interconnects?
+
+Similarly, in dwc3_qcom_pm_resume(), qcom->pm_suspended is cleared and
+pipe_clk_lock is released before calling dwc3_pm_resume(&qcom->dwc):
+
+drivers/usb/dwc3/dwc3-qcom.c:dwc3_qcom_pm_resume() {
+	...
+	scoped_guard(mutex, &qcom->pipe_clk_lock) {
+		ret =3D dwc3_qcom_resume(qcom, wakeup);
+		if (ret)
+			return ret;
+
+		if (!qcom->ignore_pipe_clk &&
+		    qcom->dp_only !=3D qcom->utmi_pipe_clk)
+			dwc3_qcom_select_utmi_clk(qcom, qcom->dp_only);
+
+		qcom->pm_suspended =3D false;
+	}
+
+	ret =3D dwc3_pm_resume(&qcom->dwc);
+	...
+}
+
+Inside dwc3_pm_resume(), pm_runtime_disable(dev) is held across
+pm_runtime_set_active(dev) and dwc3_resume_common(). If qcom->dev was
+runtime-suspended prior to system sleep, __pm_runtime_disable() records
+dev->power.last_status =3D RPM_SUSPENDED, so rpm_resume() returns -EACCES w=
+hile
+runtime PM is disabled. If dwc3_qcom_mux_set() runs during that window, it
+sees qcom->pm_suspended =3D=3D false, updates qcom->dp_only, and returns 0 =
+when
+pm_runtime_resume_and_get(qcom->dev) fails with -EACCES. Doesn't this skip
+dwc3_qcom_select_utmi_clk() and leave qcom->utmi_pipe_clk out of sync with
+qcom->dp_only?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103135057.1682=
+-1-26rote@gmail.com?part=3D3
