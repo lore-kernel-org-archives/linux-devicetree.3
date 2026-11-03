@@ -1,56 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704374;
-	b=ZnNFSrQq9hGLX1tWK+ql/67FjfByrYpuaF8+CA7MrnLWXd24zXRVByG976duxEQLZXBa
-	 b2YuNwp6rvz0pnhfup7rsNaTB3pEz07iy5epGp9BDfED8Hi6jU8zKwesxP3sYFZUSZ4Dv
-	 /BRmMQwCJ+6JrXCHSOyAlAC4Z7q6JUVSMRNP2jLumoICb+93WMDqS/DGP29Tpq/Tmd0JK
-	 8Ug2ftcr8PlGUEXHpT21BXk3ck1wgd9pTAWrydu4AOFW/OD9Qq9xDTUPBMNDJausyFEug
-	 cJLuA50E9scRPIwPVFwl4TZnjXdzwBPabj+gIS8/VMhkC5N72/xEXvOP3GgK98iOwqw==
+	t=1793704515;
+	b=krufuuxUVKta2QHClFa9Dki/rjLVUW5EfLO1YhaDe0HGPoz7CpX6JYtjrEqN7bkjex8g
+	 QgtUytqZ5zOZt6mVRMSfIVUoTy7Z5xba434Thue9/NH1QutG4wb2d4/YFDUpwgiQaN+r0
+	 oaLSDyHVzq2eeV4d0QLLy2f9WQJONjnwqn3fqaHlBnDkqcolwiP8Oh2x2cBuRRcU3UW7T
+	 sTe6wJC/haMD13Dg10Epiooi9IJ4JOaYXdqEA67h1RnM6Y8DoU4k4J79Fz1oNgdiGoxjK
+	 Un2H0AdrKZWQRzTsXC25EZK9oFX8z8n5859mT38shpRybiYJu6H/CzFN+jDK3ezoIcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704374;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=p3iQDriiwxe/5du2e1tCc3FwMservQSWsuM2sFE2jDo=;
-	b=3EqLm0tlYDTdrujNBhxq2SvaC01Fdny7XztAafZbspLe4rjO8RFWKuwYCJqI+8keXcFA
-	 IR6LROk7xL6JJfeT/ecoy5c2yDzPZ4OPVDzhB6a6j66+zbmomf2f5wrc++zRx5mXjmEqJ
-	 g9zzDWpJGClj2hAOrksTTEhOAcWxonlnR51mJQEiSORND4JTCwlpP3MWzGFRQP+qqltGB
-	 sZzfRNEe94gTIFFTruCZuHAbrqI/mr/f5GOF4eX0v+SFSwX/1gKPLV50XAtll1HEF9UUr
-	 qIl+mlX9i+jOzqjSlOfbsq57wol/O3yTWXmA3YJox/dSks99aUTDbpnKVda8bsu1gwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704515;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=o+P6q3DZzJVDgAtxOxsBNiFQ77g8/YvF2QELBdxcJZk=;
+	b=jGymK1exdNc/1DhNfzxp5Aigix+2wUpeekpTO7ehIFv2dt0T6tMF8cprhOi43pDOo3aB
+	 M1j8GdCa1F6Zp2oAC2KMfLMjBl3TgeyEGgq7zrlaQ5MNbmeO31aXXVixEXlP71geyH5N7
+	 TKsbSj0xzxFCEt+2GUJGFgE3d2JbnhaB22W90uR21mvZoDD6szMCfVyw6y6OGf/GQk03J
+	 hQLUOB9jYYxfbRG+yYEKFaBoPvdsrj2hE6XTJ8Nir7AJxTnqel87+NUKnZNzfHAXcH0fv
+	 kObZU8G9OAUec+Zr+8doDJjvoJbHLk1iXW6R5VZuGZ+a7hvrQEjlCT49C0wgTWt4Stw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYuQPLUL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwGIH3ua;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64495606B13B;
-	Tue,  3 Nov 2026 11:12:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA50606B11A;
+	Tue,  3 Nov 2026 11:15:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYuQPLUL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0033E1F000C1;
-	Tue,  3 Nov 2026 11:12:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwGIH3ua
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B77F1F00919;
+	Tue,  3 Nov 2026 11:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704374;
-	bh=p3iQDriiwxe/5du2e1tCc3FwMservQSWsuM2sFE2jDo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dYuQPLUL/S9LSYLUncaaBQ1b4bFhIxlOciSF9QHGZxnewMOaYilkaFTQflBXyc8cC
-	 /NHqp3PlHVic9HEAUTiiPknFXtpEiSNCyqxJOIaioTiGTv+jBpZrJSWkbS47WCsN9C
-	 j21kc5iszINBmwEU9S4/MtBI1alW+qYh/Qq8/vprXcqBddPv5QbMvgPDJ9aC7pRTTO
-	 CEPVMLpR7eyJ4HlEcho3Ad+59OYlhll9jzwUTJCj2uYgdqdvl5VRzeECFLFSpAEE9C
-	 U1QZ1q5Bekx69sniqgcsJSqK1wdAi60i/Fxi56QynzN0qRejL5hJ4G+3XAh48P/yhc
-	 w6F7Pt070vLww==
-Message-ID: <sashiko-outbox-195124@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/13] arm64: dts: apple: t604x: Add PMU Device Nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Myria Sarvay" <myrialsarvay@gmail.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-m3-plus-pmu-events-v1-11-a8eb6c1139fe@gmail.com>
-References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
- <20261103-m3-plus-pmu-events-v1-11-a8eb6c1139fe@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 11:12:53 +0000
+	s=k20260515; t=1793704514;
+	bh=o+P6q3DZzJVDgAtxOxsBNiFQ77g8/YvF2QELBdxcJZk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cwGIH3ua3/gX2aX0cyytE+vXc3lCWe1q3aM52HqhDeaorXpPMV2UxKffYso22rqyv
+	 bJbe/Ldz3OmMWfkZw7F/sT4HzeWtRN8gEYLKH5MBD6dXE4eykygI+sKo3b0EZ1+qHv
+	 QWqLbCmtvbKtV1+qv9cogfmhM5Eo/OCLZagDrtGmpZlkOJ+yBZ/GK4tYcHxKUVVUWe
+	 L03yV20n4ka8ZfOhGk8JZRnYR6+5bnQ0OoQ7iSC7KrSntOXjQnUfrZlGiuWXiT8PEj
+	 Fu28TbQ6Qrs1kImtHaR3dnISWsdUl+wdKcMMxoAecU/o3DH+FUvLi3PQ3T1DThlMih
+	 /LPgp3EUYcnRQ==
+Date: Tue, 3 Nov 2026 12:15:12 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Dave Jones <s.dave.jones@gmail.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v4 1/6] dt-bindings: display: rockchip: analogix-dp: Add
+ support for RK3568
+Message-ID: <20261103-therapeutic-ostrich-of-romance-b29fc9@quoll>
+References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+ <20261030064905.2248999-2-damon.ding@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,98 +68,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030064905.2248999-2-damon.ding@rock-chips.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: apple: t6041: 4-cell PMU interrupts with 3-cell aic pa=
-rent
---
+On Fri, Oct 30, 2026 at 02:49:00PM +0800, Damon Ding wrote:
+> Document the "rockchip,rk3568-edp" compatible.  Like RK3576/RK3588,
+> the RK3568 eDP controller has the dp/pclk/hclk clocks and dp/apb
+> resets, but unlike them it does not use GRF registers, so make the
+> "rockchip,grf" property conditional on the SoC.
+> 
+> Also document the avdd-0v9 and avdd-1v8 supplies, which are needed by
+> the RK3568 eDP controller.
+> 
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-commit d0216cee20998d9364fd46a4827e945211d4e88a
-Author: Myria Sarvay <myrialsarvay@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-arm64: dts: apple: t604x: Add PMU Device Nodes
+Best regards,
+Krzysztof
 
-This commit adds the pmu-e and pmu-p device tree nodes for the Apple M4
-Pro/Max (t6041) SoC.
-
-> diff --git a/arch/arm64/boot/dts/apple/t6041.dtsi b/arch/arm64/boot/dts/a=
-pple/t6041.dtsi
-> index 9110d05c896da..2c72972d12192 100644
-> --- a/arch/arm64/boot/dts/apple/t6041.dtsi
-> +++ b/arch/arm64/boot/dts/apple/t6041.dtsi
-> @@ -314,6 +314,18 @@ l2_cache_2: l2-cache-2 {
->  		};
->  	};
-> =20
-> +	pmu-e {
-> +		compatible =3D "apple,brava-e-pmu";
-> +		interrupt-parent =3D <&aic>;
-> +		interrupts =3D <AIC_FIQ 0 AIC_CPU_PMU_E IRQ_TYPE_LEVEL_HIGH>;
-> +	};
-> +
-> +	pmu-p {
-> +		compatible =3D "apple,brava-p-pmu";
-> +		interrupt-parent =3D <&aic>;
-> +		interrupts =3D <AIC_FIQ 0 AIC_CPU_PMU_P IRQ_TYPE_LEVEL_HIGH>;
-> +	};
-
-[Severity: High]
-Should the interrupts properties in pmu-e and pmu-p use 3 cells instead of =
-4?
-
-In arch/arm64/boot/dts/apple/t6041.dtsi, the parent aic controller declares
-3 interrupt cells:
-
-	aic: interrupt-controller@502400000 {
-		compatible =3D "apple,t6041-aic3", "apple,t8122-aic3";
-		...
-		#interrupt-cells =3D <3>;
-
-When arm_pmu_device_probe() -> pmu_parse_irqs() ->
-platform_get_irq_affinity() -> of_irq_parse_one() parses these 4-cell
-specifiers against the 3-cell parent, only the first 3 cells are read into
-fwspec->param[0..2] with fwspec->param_count =3D 3.
-
-In drivers/irqchip/irq-apple-aic.c, both aic_irq_get_fwspec_info() and
-aic_irq_domain_translate() then read param[1] (which is 0, matching
-AIC_TMR_HV_PHYS) as the FIQ index and param[2] (AIC_CPU_PMU_E or
-AIC_CPU_PMU_P) as the trigger type:
-
-	if (fwspec->param_count =3D=3D 3)
-		intid =3D fwspec->param[1];
-	else
-		intid =3D fwspec->param[2];
-
-and:
-
-	args =3D &fwspec->param[1];
-
-	if (fwspec->param_count =3D=3D 4) {
-		die =3D args[0];
-		args++;
-	}
-
-As a result, the PMU affinity masks at AIC_CPU_PMU_E and AIC_CPU_PMU_P are
-missed, and interrupt translation or registration fails for both PMU nodes
-(returning -ENOENT in EL1, or colliding with the hyp-phys timer FIQ / faili=
-ng
-aic_fiq_set_type() with -EINVAL in EL2). When platform_get_irq_affinity()
-fails in pmu_parse_irqs(), it triggers WARN_ON(irq <=3D 0) and leaves
-pmu->supported_cpus empty, causing armpmu_register() to pass nr_cpu_ids to
-topology_core_has_smt() and read past the end of cpu_topology[].
-
-Should these be:
-
-	interrupts =3D <AIC_FIQ AIC_CPU_PMU_E IRQ_TYPE_LEVEL_HIGH>;
-
-and:
-
-	interrupts =3D <AIC_FIQ AIC_CPU_PMU_P IRQ_TYPE_LEVEL_HIGH>;
-
-matching the timer node in t6041.dtsi and the PMU nodes in t8132.dtsi and
-t8140.dtsi?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-m3-plus-pm=
-u-events-v1-0-a8eb6c1139fe@gmail.com?part=3D11
