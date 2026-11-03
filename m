@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736148;
-	b=YRiUQp9fqm7fU3MQmQBNwfznGTeL5wviXwndZJs8nYldogeeefkoGpf/uGzsJL8Hlx9d
-	 ZTJosUK1Q06BMlM9iWY4empLby1XFGvsuEmBAVVpRlY8848A7S3S5aZgyJelcwz9geBT9
-	 1a7er6RFKEkrCKoizrEQNjEki0xF1HfVSbiH7fjk9SWFbqn9cT1CSPOpsMA+9b/0rhzJ9
-	 KeiTaYg+pEWrWr3VqeoI//6ok7WWG8wHxZ0eFNGwmXZfh1pFwEWwYRVNjwnbWmco8vlT3
-	 ivofcIGG8djUF4/lWy5on2AEod8iIbmgiYujQN4PYB/mpF6WTEwyls1zAZDElM44XYQ==
+	t=1793736212;
+	b=3lanrPbj3LZ9HTF7ckAYCWPFAoFyW2A8Auuwji+VRhoYB1/r8ZXlyOYN75bR10vuNetn
+	 LcwYUlTTct0k28+Y+23jCkAqH0gB64wZylhe/A4Tye6AwrY572t2McCLr5WWxZ+CT+5Al
+	 pW6l9rqzyXEleP1VqM2fGGocrp5r+DNY2nc7o+jH660kIuhIzJiihioNxyf6hlu5v7LWs
+	 KFoLhxi2N3ogYlnzkFpaBGBrNtFJLKgUIB+HDkmEfCzyTf0gwXpvTseazZivNDrIJYQag
+	 YjNlFcZioedFswDKmfYDfBY254xWa+aSIKWwtsiSkOY3WWI7deckQgqshWgbN/hYCAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736148;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JXKgP8NvWBMDICYMceAdXiB+d2mm0l021tsooHUk0nI=;
-	b=iKfigtV+fqUP98bp7m48eitLjLfh7iHsUWfGUxksyQ0AOJK3wkJ3FIHA5NJ1sjxK1pxk
-	 jpkz1OlMJ3angGCmJ6owiSH7ZvLAwOTVJEjHwqtRLjln7cU1Fty7fEHx/WZgYAs+cRt1D
-	 A94OQrr0tIAnvPb/CcBvQ5baQTeQo21at66bEJK0P+0vAHGYP7NpK2QXgXQA0j7t7pTcf
-	 hFvKp4qK6bgg7F0qAHwCcSfQWEbAyMxXdeBBF3wPzCKOG3qa6rTebVBDC3H2Sc1aIbHF+
-	 qKTZJNN5jE4dRXSRWOEWbFQuVmjLOzwvSRwJvnCvhSIJihseEVPUEGLcUpdSmEX0tnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736212;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=U1Or1ILmplwMCt9mtFKMvSlwMjG1et6SGTG6EtWHktk=;
+	b=ofNpePizAr5y41PXG+WrYo7M+z6ybRYXwaE+vy5iwsL+MkMdZUhBsuX5ZtZZhNN9eub2
+	 f5aPfGPGm5EtgHedOtqaGVjOe7x1v999Cml7vzRysJ4gfJnrZNZneaBi83edqKIWJKIC2
+	 9uQ66IEcLJanZe+oujosQlRukJWLk9HmMhu4bus1ik5H2QF2/50tX6q2o93kfTuFDimxn
+	 /HMTqDP6aNBc/9y4FWygSRDkJva9yndCteGPAEF/magrTcOqY1LxKhy2JlSHdcPyvq51H
+	 G/iI9I0O+fCGYpA1Kn4r+A8Rf4c82nDluO4lAyyvqOQbbBrw6fjAWFsMqyJyGzP44Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VqY60YX7;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7cYleg+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0FD606A333
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:02:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB0FD606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACC1606A326
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VqY60YX7
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a2761c69fbso38909c88.0
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 12:02:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793736147; x=1794340947; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JXKgP8NvWBMDICYMceAdXiB+d2mm0l021tsooHUk0nI=;
-        b=VqY60YX7v8zgxI9xGHnBm3fI6aR0ID8Ct0mY+MKC9DHEJ7iiPC311TyL4/XhhoZvYW
-         bkfpRoEtcG03oN3jk97wYDCh9aso4m7RLJwpMUaeoCe3MkUR1OyWL9Gwt+jZw1VDf6uC
-         uCVJoxWS2nsLKHZ4O1mosfbegjmKG0YB+IjILarWIzolB+3K0cxA4xKn0VQy0V7AxuNh
-         jF7XgpRxiN+bd0zcjyfF9h7jHCYmU9lLvE2PtqrZVQEAz0AyMk6InGdlu9CuVebBBcb+
-         Lb2JgflMAHMPoQfKyBZKocXRzIx84tsNAEuiRTsdY2t/qnYVaAVxKm52r3LMBJSpburw
-         lNGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793736147; x=1794340947;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JXKgP8NvWBMDICYMceAdXiB+d2mm0l021tsooHUk0nI=;
-        b=a0UuNwPXJjSmUdnsDnjhaRvaDSJM1G5931wgdu0vJJrdW6xcnT4bxZn+DYt4v9WTVf
-         RfMZDq3Trv1R2fq8ccjGxV64E1kwl1ZPXoKtE/jrZ/Krlx9qREzXLItqgPgztlL+/+Q6
-         o5ti7JNXgzUSnWf0hUNh0b1iaakjKN2MkDKSLAnGdY04Sch1VNdsOVXCJ0DNb34qGQ1g
-         tAm7jq7VprMSQak0Y2ad//zMUud57I7cF+dNxdqWnWUzK8gvATOAeNbeMZZ7g9wTlDXB
-         vUjjExLPBNQmhDb0TeFUDjN31mL/fBCo3RTfXfnAmQoU2ZqU8QvZxVH2Z9Di+xj7E6WJ
-         9ngw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKJ4WhURJqa5waywB+ydNShnfg17U35afXAitpWUerCWXUuW/rFlZ6s8mXi/MtdShWpV4FHDAzq6vs@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nVpOOnMoEuUCa0i6079VPKU3UH/+tXGOzcc2awyArDHGwzteC
-	+xPMtr2iiUsp1wSF221NkkzMIzf6aJLjaR8SBmg4GVdNykr7wMu5Nl3K
-X-Gm-Gg: AYBFou2AkuoTNxikK4Q9oTFJLTe1wGBZkFy+Q7l2FAqms5u5K2WZ3CCy4/TkiihfoHj
-	EtDwAKMJo+NMLzmGYWqDGyc3RUMe41D8iKHQXjQH2VENPty2p3uKFqI9mKkHjhDkm5dZUnggN4n
-	ZRxejIEREk13U2TTD+GY6qDCdl1pLLjf7IoR967iTkJWtHtXd+qQgdO3o2VN31fu1HOYjGP1E0u
-	JiItup0wVPG+Ewl0tNUnkPzif6VwdIV84zKgaRe0H/3KzSV4QAIs+9jaLKMFhufyzXGgTlsATn+
-	rtgHytta9xDv1ipBML10Vvr1niZyeFsiQXkdR1yrT/kyr8mssXQKtdHAhJPhPWg+LyYdvvEmVms
-	N/W815k2VTrmy10FhlKPNVz9IRCGDdcqr1nEWGjKvty2jB1N7FxC1mqPFZVLyBiviMR7RqdZwjS
-	xGmIRGdx984184leO672U2YhFUcSJBx/1NW+C7em4iSrKnVTeBzKoliLI0gVZ5P3arebuX3cZ+U
-	/ZhWrfBT7lQzJqLfufUk7yaYpNk1apU/sJvj9j2CEqxULC9UwhoGRthvLSC1AkkEEEE91/zYINR
-	NuF3rHdjqt5x3aOAZ2+aq4xDXBPEmDxffX5Aj6c6UB5DUkFBO+TKMswQi1oG7JhecRlh
-X-Received: by 2002:a05:7022:170c:b0:145:287:ce91 with SMTP id a92af1059eb24-1ac59dd30ebmr21798770c88.14.1793736146378;
-        Tue, 03 Nov 2026 12:02:26 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3784f78sm591496eec.2.2026.11.03.12.02.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:02:25 -0800 (PST)
-Date: Tue, 3 Nov 2026 12:02:21 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Input: add FocalTech FT3683G touchscreen driver
-Message-ID: <auo7GvY0Ufq_7DTn@google.com>
-References: <20261030-focaltech-ft3683g-v1-0-38b2f941b039@pm.me>
- <20261030-focaltech-ft3683g-v1-2-38b2f941b039@pm.me>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7cYleg+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0993F1F0093A;
+	Tue,  3 Nov 2026 20:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793736211;
+	bh=U1Or1ILmplwMCt9mtFKMvSlwMjG1et6SGTG6EtWHktk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d7cYleg+OR4CIAZnd+7AnQG86/Zmdur8xmaMk55VXcxRpgKwhOo5CgjcvjGjXPTzU
+	 hlM8n0pvImC/lsaYnVM7wyp0wsZZpUzASyGuALKH95DdWNsE36h+AX5PfRvTD+y9Zc
+	 LgFdTwoznrd5iFfJUc/2E7lbjecno2ffy0jqJzOWENtxPpmrXFGBkO13y0i9Gy5dza
+	 bFBW2KKXf4CCLdiwLX9WAN1MZ8LlQxotDgU0BEzzZfnCI1sDFDATvBkFMQ5uGdrsNo
+	 pd65W0MKUQaO3Gn/nmp1JlCXGIQHyl8mjaPjutn+k95wDIAaIMyXpFmUvF2ur0bRsb
+	 dpzm+93yN6acw==
+Message-ID: <sashiko-outbox-195954@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] phy: airoha: add support for AN7583 Gen3 PCIe
+ PHY driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261103195007.9721-3-ansuelsmth@gmail.com>
+References: <20261103195007.9721-1-ansuelsmth@gmail.com>
+ <20261103195007.9721-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 20:03:30 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,433 +60,233 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-focaltech-ft3683g-v1-2-38b2f941b039@pm.me>
 
-Hi Alexander,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] phy: airoha: use of devm_phy_optional_get() for required qp_phy
+- [Medium] phy: airoha: G3_ANA_PXP_JCPLL_SSC_EN not cleared on init or dein=
+it
+- [Low] phy: airoha: misuse of dev_err_probe() in an7583_pcie_phy_init()
+- [Low] phy: airoha: unused FREQ_LOCK_MAX_ATTEMPT macro and MAINTAINERS ord=
+er
+--
 
-On Fri, Oct 30, 2026 at 05:27:15AM +0000, Alexander Koskovich wrote:
-> Add a driver for the FocalTech FT3683G, a flexible OLED capacitive
-> touch controller supporting 10-point multitouch over SPI. This touch
-> controller is found in the Nothing Phone (3a).
-> 
-> The driver implements the SPI transport layer, touch event parsing for
-> the FocalTech protocol v2 format, and basic power management.
-> 
-> The existing edt-ft5x06 driver is not reused, as the FT3683G uses
-> FocalTech's newer v2 reporting protocol (protocol version header) over
-> SPI with a custom framing (length header, dummy bytes, status byte and
-> a CRC-16/MCRF4XX trailer) instead of plain register access.
-> 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  MAINTAINERS                                   |   1 +
->  drivers/input/touchscreen/Kconfig             |  12 +
->  drivers/input/touchscreen/Makefile            |   1 +
->  drivers/input/touchscreen/focaltech_ft3683g.c | 365 ++++++++++++++++++++++++++
->  4 files changed, 379 insertions(+)
-> 
+commit 2954f920d212f21a88edba191990e99091d7cd13
+Author: Christian Marangi <ansuelsmth@gmail.com>
+
+phy: airoha: add support for AN7583 Gen3 PCIe PHY driver
+
+This commit adds a new PHY driver for the Gen3 PCIe port on the Airoha
+AN7583 SoC, implementing its register map and calibration sequence.
+
 > diff --git a/MAINTAINERS b/MAINTAINERS
-> index 68efbf580964..79f3d6211cb5 100644
+> index 93abbb315065d..fb88a25ce0381 100644
 > --- a/MAINTAINERS
 > +++ b/MAINTAINERS
-> @@ -10503,6 +10503,7 @@ M:	Alexander Koskovich <akoskovich@pm.me>
->  L:	linux-input@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/input/touchscreen/focaltech,ft3683g.yaml
-> +F:	drivers/input/touchscreen/focaltech_ft3683g.c
->  
->  FOCUSRITE CONTROL PROTOCOL/SCARLETT2 MIXER DRIVERS (Scarlett Gen 2+, Clarett, and Vocaster)
->  M:	Geoffrey D. Bennett <g@b4.vu>
-> diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-> index 9b9ae8ac3f7f..f7ade03f4a0e 100644
-> --- a/drivers/input/touchscreen/Kconfig
-> +++ b/drivers/input/touchscreen/Kconfig
-> @@ -1414,4 +1414,16 @@ config TOUCHSCREEN_HIMAX_HX83112B
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called himax_hx83112b.
->  
-> +config TOUCHSCREEN_FOCALTECH_FT3683G
-> +	tristate "Focaltech FT3683G touchscreen driver"
-> +	depends on SPI
-> +	select CRC_CCITT
-> +	help
-> +	  Say Y here to enable support for FocalTech FT3683G touchscreens.
+> @@ -788,6 +788,14 @@ F:	Documentation/devicetree/bindings/phy/airoha,en75=
+81-pcie-phy.yaml
+>  F:	drivers/phy/phy-airoha-pcie-regs.h
+>  F:	drivers/phy/phy-airoha-pcie.c
+> =20
+> +AIROHA AN7583 PCIE PHY DRIVER
+> +M:	Christian Marangi <ansuelsmth@gmail.com>
+> +L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
+> +F:	drivers/phy/airoha/phy-an7583-pcie-regs.h
+> +F:	drivers/phy/airoha/phy-an7583-pcie.c
 > +
-> +	  If unsure, say N.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called focaltech_ft3683g.
-> +
->  endif
-> diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-> index bfd9de83389d..45cdd7bb7d6f 100644
-> --- a/drivers/input/touchscreen/Makefile
-> +++ b/drivers/input/touchscreen/Makefile
-> @@ -119,3 +119,4 @@ obj-$(CONFIG_TOUCHSCREEN_IQS5XX)	+= iqs5xx.o
->  obj-$(CONFIG_TOUCHSCREEN_IQS7211)	+= iqs7211.o
->  obj-$(CONFIG_TOUCHSCREEN_ZINITIX)	+= zinitix.o
->  obj-$(CONFIG_TOUCHSCREEN_HIMAX_HX83112B)	+= himax_hx83112b.o
-> +obj-$(CONFIG_TOUCHSCREEN_FOCALTECH_FT3683G)	+= focaltech_ft3683g.o
-> diff --git a/drivers/input/touchscreen/focaltech_ft3683g.c b/drivers/input/touchscreen/focaltech_ft3683g.c
+>  AIROHA SOUND DRIVER
+>  M:	Christian Marangi <ansuelsmth@gmail.com>
+>  L:	linux-sound@vger.kernel.org
+[ ... ]
+> diff --git a/drivers/phy/airoha/phy-an7583-pcie.c b/drivers/phy/airoha/ph=
+y-an7583-pcie.c
 > new file mode 100644
-> index 000000000000..5c8133ffb265
+> index 0000000000000..f3c42654895f8
 > --- /dev/null
-> +++ b/drivers/input/touchscreen/focaltech_ft3683g.c
-> @@ -0,0 +1,365 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * FocalTech FT3683G Touchscreen Driver
-> + *
-> + * Copyright (c) 2012-2020 FocalTech Systems, Ltd.
-> + * Copyright (c) Alexander Koskovich <akoskovich@pm.me>
-> + */
+> +++ b/drivers/phy/airoha/phy-an7583-pcie.c
+> @@ -0,0 +1,823 @@
+[ ... ]
+> +#include "phy-an7583-pcie-regs.h"
 > +
-> +#include <linux/cache.h>
-> +#include <linux/crc-ccitt.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/input.h>
-> +#include <linux/input/mt.h>
-> +#include <linux/input/touchscreen.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/spi/spi.h>
-> +#include <linux/string.h>
-> +
-> +#define FT3683G_MAX_POINTS	10
-> +
-> +#define FT3683G_SPI_CMD_READ	0xa0
-> +#define FT3683G_SPI_DUMMY	3
-> +#define FT3683G_SPI_RETRIES	3
-> +#define FT3683G_SPI_CS_DELAY_US	150
-> +
-> +#define FT3683G_REG_CHIP_ID	0xa3
-> +#define FT3683G_REG_CHIP_ID2	0x9f
-> +
-> +#define FT3683G_CHIP_IDH	0x56
-> +#define FT3683G_CHIP_IDL	0x72
-> +
-> +#define FT3683G_REG_TOUCH_DATA	0x01
-> +
-> +#define FT3683G_TOUCH_LEN	8
-> +#define FT3683G_TOUCH_HEADER	4
-> +#define FT3683G_TOUCH_BUF_SIZE	(FT3683G_MAX_POINTS * FT3683G_TOUCH_LEN + \
-> +				 FT3683G_TOUCH_HEADER)
-> +
-> +#define FT3683G_TOUCH_OFF_XH	0
-> +#define FT3683G_TOUCH_OFF_XL	1
-> +#define FT3683G_TOUCH_OFF_YH	2
-> +#define FT3683G_TOUCH_OFF_YL	3
-> +
-> +#define FT3683G_EVENT_DOWN	0
-> +#define FT3683G_EVENT_UP	1
-> +#define FT3683G_EVENT_CONTACT	2
-> +
-> +#define FT3683G_PROTOCOL_V2	0x02
-> +
-> +#define FT3683G_FW_INIT		0xff
-> +
-> +struct ft3683g_data {
-> +	struct spi_device *spi;
-> +	struct input_dev *input;
-> +	struct touchscreen_properties props;
-> +	struct regulator_bulk_data supplies[2];
-> +	struct gpio_desc *reset_gpio;
-> +	struct device *dev;
-> +	struct mutex spi_lock; /* protects tx_buf/rx_buf */
+> +#define FREQ_LOCK_MAX_ATTEMPT	50
 
-In what cases will there be concurrent accss?
+[Severity: Low]
+This isn't a bug, but FREQ_LOCK_MAX_ATTEMPT is defined in
+drivers/phy/airoha/phy-an7583-pcie.c without being referenced anywhere in
+the driver. Also, in MAINTAINERS, AIROHA AN7583 PCIE PHY DRIVER is placed
+after AIROHA PCIE PHY DRIVER; should FREQ_LOCK_MAX_ATTEMPT be dropped and
+the MAINTAINERS entry be placed in alphabetical order before AIROHA
+ETHERNET DRIVER?
 
-> +	u8 tx_buf[256] ____cacheline_aligned;
-> +	u8 rx_buf[256] ____cacheline_aligned;
-> +};
-> +
-> +static int ft3683g_spi_read(struct ft3683g_data *ts, u8 addr,
-> +			    u8 *data, u32 len)
+[ ... ]
+> +static void an7583_pcie_phy_init_jcpll(struct an7583_pcie_phy *pcie_phy)
 > +{
-> +	struct spi_transfer xfer = { };
-> +	u32 dp = 4 + FT3683G_SPI_DUMMY;
-> +	u32 txlen = dp + len + 2;
-> +	u16 crc_calc, crc_read;
-> +	int error, i;
-> +
-> +	guard(mutex)(&ts->spi_lock);
-> +
-> +	memset(ts->tx_buf, 0, txlen);
-> +	ts->tx_buf[0] = addr;
-> +	ts->tx_buf[1] = FT3683G_SPI_CMD_READ;
-> +	ts->tx_buf[2] = (len >> 8) & 0xff;
-> +	ts->tx_buf[3] = len & 0xff;
-
-cpu_to_be16p()? or put_unaligned_be16()?
-
-> +
-> +	xfer.tx_buf = ts->tx_buf;
-> +	xfer.rx_buf = ts->rx_buf;
-> +	xfer.len = txlen;
-> +
-> +	for (i = 0; i < FT3683G_SPI_RETRIES; i++) {
-> +		error = spi_sync_transfer(ts->spi, &xfer, 1);
-> +		if (error)
-> +			continue;
-> +
-> +		if (ts->rx_buf[3] & 0xa0) {
-
-What is 0xa0? GENMASK()? Something els?
-
-> +			fsleep(FT3683G_SPI_CS_DELAY_US);
-> +			continue;
-> +		}
-> +
-> +		crc_calc = crc_ccitt(0xffff, &ts->rx_buf[dp], len);
-> +		crc_read = ts->rx_buf[dp + len] |
-> +			   (ts->rx_buf[dp + len + 1] << 8);
-
-get_unaligned_le16()?
-
-> +		if (crc_calc != crc_read) {
-> +			fsleep(FT3683G_SPI_CS_DELAY_US);
-> +			continue;
-> +		}
-> +
-> +		memcpy(data, &ts->rx_buf[dp], len);
-> +		return 0;
-> +	}
-> +
-> +	return error ? error : -EIO;
+> +	regmap_set_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
+> +			G3_PMA_FORCE_SEL_DA_PXP_JCPLL_EN);
+> +	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
+> +			  G3_PMA_FORCE_DA_PXP_JCPLL_EN);
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SPARE_H,
+> +			   G3_ANA_PXP_JCPLL_SPARE_L,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SPARE_L, 0x20));
+> +	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_RST_DLY,
+> +			G3_ANA_PXP_JCPLL_PLL_RSTB);
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
+> +			   G3_ANA_PXP_JCPLL_SSC_DELTA,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA, 0x0));
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
+> +			   G3_ANA_PXP_JCPLL_SSC_DELTA1,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA1, 0x0));
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
+> +			   G3_ANA_PXP_JCPLL_SSC_PERIOD,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_PERIOD, 0x0));
+> +	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
+> +			  G3_ANA_PXP_JCPLL_SSC_PHASE_INI);
+> +	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
+> +			  G3_ANA_PXP_JCPLL_SSC_TRI_EN);
+[ ... ]
+> +static void an7583_pcie_phy_init_ssc_jcpll(struct an7583_pcie_phy *pcie_=
+phy)
+> +{
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
+> +			   G3_ANA_PXP_JCPLL_SSC_DELTA,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA, 0x106));
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
+> +			   G3_ANA_PXP_JCPLL_SSC_DELTA1,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_DELTA1, 0x106));
+> +	regmap_update_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_DELTA,
+> +			   G3_ANA_PXP_JCPLL_SSC_PERIOD,
+> +			   FIELD_PREP(G3_ANA_PXP_JCPLL_SSC_PERIOD, 0x31B));
+> +	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
+> +			G3_ANA_PXP_JCPLL_SSC_PHASE_INI);
+> +	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_VCO_TCLVAR,
+> +			G3_ANA_PXP_JCPLL_SSC_EN);
+> +	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_IFM,
+> +			G3_ANA_PXP_JCPLL_SDM_IFM);
+> +	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SDM_HREN,
+> +			G3_ANA_PXP_JCPLL_SDM_HREN);
+> +	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_RST_DLY,
+> +			  G3_ANA_PXP_JCPLL_SDM_DI_EN);
+> +	regmap_set_bits(pcie_phy->g3_ana, REG_PXP_JCPLL_SSC_TRI_EN,
+> +			G3_ANA_PXP_JCPLL_SSC_TRI_EN);
 > +}
-> +
-> +static int ft3683g_read_reg(struct ft3683g_data *ts, u8 addr, u8 *val)
+[ ... ]
+> +static int an7583_pcie_phy_deinit(struct an7583_pcie_phy *pcie_phy)
 > +{
-> +	return ft3683g_spi_read(ts, addr, val, 1);
-> +}
+> +	/* Disable RX CDR/PR */
+> +	regmap_clear_bits(pcie_phy->g3_pma, REG_SS_DA_XPON_PWDB_0,
+> +			  G3_PMA_DA_XPON_CDR_PR_PWDB);
 > +
-> +static int ft3683g_check_chip_id(struct ft3683g_data *ts)
-> +{
-> +	u8 idh, idl;
-> +	int error;
+> +	/* Disable TX PLL output/enable */
+> +	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_TXPLL_CKOUT_EN,
+> +			  G3_PMA_FORCE_DA_PXP_TXPLL_CKOUT_EN |
+> +			  G3_PMA_FORCE_SEL_DA_PXP_TXPLL_CKOUT_EN |
+> +			  G3_PMA_FORCE_SEL_DA_PXP_TXPLL_EN |
+> +			  G3_PMA_FORCE_DA_PXP_TXPLL_EN);
 > +
-> +	error = ft3683g_read_reg(ts, FT3683G_REG_CHIP_ID, &idh);
-> +	if (error)
-> +		return error;
+> +	/* Disable JCPLL output/enable */
+> +	regmap_clear_bits(pcie_phy->g3_pma, REG_FORCE_DA_PXP_JCPLL_CKOUT_EN,
+> +			  G3_PMA_FORCE_DA_PXP_JCPLL_CKOUT_EN |
+> +			  G3_PMA_FORCE_SEL_DA_PXP_JCPLL_CKOUT_EN |
+> +			  G3_PMA_FORCE_SEL_DA_PXP_JCPLL_EN |
+> +			  G3_PMA_FORCE_DA_PXP_JCPLL_EN);
 > +
-> +	error = ft3683g_read_reg(ts, FT3683G_REG_CHIP_ID2, &idl);
-> +	if (error)
-> +		return error;
+> +	/* Assert PHY resets */
+> +	regmap_clear_bits(pcie_phy->g3_pma, REG_SW_RST_SET,
+> +			  G3_PMA_SW_TX_FIFO_RST_N |
+> +			  G3_PMA_SW_ALLPCS_RST_N |
+> +			  G3_PMA_SW_PMA_RST_N |
+> +			  G3_PMA_SW_TX_RST_N |
+> +			  G3_PMA_SW_RX_FIFO_RST_N |
+> +			  G3_PMA_SW_XFI_RXPCS_RST_N |
+> +			  G3_PMA_SW_REF_RST_N |
+> +			  G3_PMA_SW_RX_RST_N);
 > +
-> +	if (idh != FT3683G_CHIP_IDH || idl != FT3683G_CHIP_IDL) {
-> +		dev_err(ts->dev,
-> +			"chip ID mismatch: expected %02x%02x, got %02x%02x\n",
-> +			FT3683G_CHIP_IDH, FT3683G_CHIP_IDL, idh, idl);
-> +		return -ENODEV;
-> +	}
-> +
-> +	dev_dbg(ts->dev, "chip ID: %02x%02x\n", idh, idl);
-> +	return 0;
-> +}
-> +
-> +static irqreturn_t ft3683g_irq(int irq, void *dev_id)
-> +{
-> +	struct ft3683g_data *ts = dev_id;
-> +	u8 buf[FT3683G_TOUCH_BUF_SIZE];
-> +	unsigned int x, y, id, event;
-> +	int event_num, i, base;
-> +	u8 protocol;
-> +	int error;
-> +
-> +	error = ft3683g_spi_read(ts, FT3683G_REG_TOUCH_DATA,
-> +				 buf, sizeof(buf));
-> +	if (error) {
-> +		dev_err_ratelimited(ts->dev, "failed to read touch data: %d\n",
-> +				    error);
-> +		return IRQ_HANDLED;
-
-Why not IRQ_NONE?
-
-> +	}
-> +
-> +	if (!memchr_inv(&buf[1], FT3683G_FW_INIT, 4)) {
-> +		input_mt_sync_frame(ts->input);
-> +		input_sync(ts->input);
-> +		return IRQ_HANDLED;
-
-I'd do "goto out".
-
-> +	}
-> +
-> +	protocol = (buf[1] >> 4) & 0x0f;
-> +	if (protocol != FT3683G_PROTOCOL_V2)
-> +		return IRQ_HANDLED;
-> +
-> +	event_num = buf[1] & 0x0f;
-> +	if (!event_num || event_num > FT3683G_MAX_POINTS)
-> +		return IRQ_HANDLED;
-> +
-> +	for (i = 0; i < event_num; i++) {
-> +		base = FT3683G_TOUCH_LEN * i + FT3683G_TOUCH_HEADER;
-> +
-> +		event = buf[base + FT3683G_TOUCH_OFF_XH] >> 6;
-> +		id = buf[base + FT3683G_TOUCH_OFF_YH] >> 4;
-> +		if (id >= FT3683G_MAX_POINTS)
-> +			continue;
-> +
-> +		input_mt_slot(ts->input, id);
-> +
-> +		if (event == FT3683G_EVENT_DOWN ||
-> +		    event == FT3683G_EVENT_CONTACT) {
-
-Could be written as:
-
-		if (input_mt_report_slot_state(ts->input, MT_TOOL_FINGER,
-					       event == FT3683G_EVENT_DOWN ||
-							event == FT3683G_EVENT_CONTACT) {
-			...
-
->
-> +			x = ((buf[base + FT3683G_TOUCH_OFF_XH] & 0x0f) << 8) |
-> +			    buf[base + FT3683G_TOUCH_OFF_XL];
-
-get_unaligned_xx16()?
-
-> +			y = ((buf[base + FT3683G_TOUCH_OFF_YH] & 0x0f) << 8) |
-> +			    buf[base + FT3683G_TOUCH_OFF_YL];
-> +
-> +			input_mt_report_slot_state(ts->input,
-> +						   MT_TOOL_FINGER, true);
-> +			touchscreen_report_pos(ts->input, &ts->props,
-> +					       x, y, true);
-> +		} else {
-> +			input_mt_report_slot_state(ts->input,
-> +						   MT_TOOL_FINGER, false);
-> +		}
-> +	}
-> +
-> +	input_mt_sync_frame(ts->input);
-> +	input_sync(ts->input);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int ft3683g_power_on(struct ft3683g_data *ts)
-> +{
-> +	int error;
-> +
-> +	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-> +	usleep_range(2000, 3000);
-> +
-> +	error = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
-> +	if (error) {
-> +		dev_err(ts->dev, "failed to enable regulators: %d\n", error);
-> +		return error;
-> +	}
-> +
-> +	usleep_range(2000, 3000);
-> +	gpiod_set_value_cansleep(ts->reset_gpio, 0);
-> +	msleep(50);
+> +	/* Disable TX analog blocks */
+> +	regmap_clear_bits(pcie_phy->g3_ana, REG_PXP_TX_CKLDO_EN,
+> +			  G3_ANA_PXP_TX_CKLDO_EN |
+> +			  G3_ANA_PXP_TX_DMEDGEGEN_EN);
 > +
 > +	return 0;
 > +}
+
+[Severity: Medium]
+When an7583_pcie_phy_init() runs, an7583_pcie_phy_init_ssc_jcpll() enables
+JCPLL spread-spectrum clocking by setting G3_ANA_PXP_JCPLL_SSC_PHASE_INI
+and G3_ANA_PXP_JCPLL_SSC_EN in REG_PXP_JCPLL_VCO_TCLVAR, and
+G3_ANA_PXP_JCPLL_SSC_TRI_EN in REG_PXP_JCPLL_SSC_TRI_EN.
+
+However, an7583_pcie_phy_deinit() does not clear these JCPLL SSC bits (in
+contrast to airoha_pcie_phy_exit() in drivers/phy/phy-airoha-pcie.c, which
+clears CSR_2L_PXP_JCPLL_SSC_PHASE_INI | CSR_2L_PXP_JCPLL_SSC_TRI_EN |
+CSR_2L_PXP_JCPLL_SSC_EN), and Phase 1 in an7583_pcie_phy_init_jcpll() only
+clears G3_ANA_PXP_JCPLL_SSC_PHASE_INI and G3_ANA_PXP_JCPLL_SSC_TRI_EN
+without clearing G3_ANA_PXP_JCPLL_SSC_EN.
+
+If the PHY is re-initialized after phy_exit() or after a failed phy_init()
+attempt (or if the bootloader left JCPLL SSC enabled), will
+G3_ANA_PXP_JCPLL_SSC_EN remain set during Phase 1 JCPLL and TXPLL
+configuration when SSC is supposed to be disabled?
+
 > +
-> +static void ft3683g_power_off(struct ft3683g_data *ts)
+> +static int an7583_pcie_phy_init(struct phy *phy)
 > +{
-> +	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-> +	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
-> +}
+[ ... ]
+> +	ret =3D phy_init(pcie_phy->qp_phy);
+> +	if (ret) {
+> +		an7583_pcie_phy_deinit(pcie_phy);
 > +
-> +static void ft3683g_power_off_act(void *data)
+> +		return dev_err_probe(pcie_phy->dev, ret, "failed to initialize QP phy\=
+n");
+> +	}
+
+[Severity: Low]
+Is dev_err_probe() appropriate inside the phy_ops .init callback
+an7583_pcie_phy_init()?
+
+Because an7583_pcie_phy_init() runs when a consumer PCIe controller driver
+calls phy_init() after an7583_pcie_phy_probe() has already bound
+pcie_phy->dev, calling dev_err_probe(pcie_phy->dev, ret, ...) will suppress
+error messages completely if ret is -ENOMEM, or downgrade the message to
+dev_dbg() and allocate pcie_phy->dev->p->deferred_probe_reason on an
+already-bound device if ret is -EPROBE_DEFER. Should this use dev_err()
+instead?
+
+[ ... ]
+> +static int an7583_pcie_phy_probe(struct platform_device *pdev)
 > +{
-> +	struct ft3683g_data *ts = data;
+> +	struct an7583_pcie_phy *pcie_phy;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct phy_provider *provider;
 > +
-> +	ft3683g_power_off(ts);
-> +}
-> +
-> +static int ft3683g_probe(struct spi_device *spi)
-> +{
-> +	struct device *dev = &spi->dev;
-> +	struct ft3683g_data *ts;
-> +	int error;
-> +
-> +	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-> +	if (!ts)
+> +	pcie_phy =3D devm_kzalloc(dev, sizeof(*pcie_phy), GFP_KERNEL);
+> +	if (!pcie_phy)
 > +		return -ENOMEM;
 > +
-> +	ts->dev = dev;
-> +	ts->spi = spi;
-> +	spi_set_drvdata(spi, ts);
-> +	mutex_init(&ts->spi_lock);
+> +	pcie_phy->g3_ana =3D an7583_pcie_phy_regmap_init(pdev, "g3-ana");
+> +	if (IS_ERR(pcie_phy->g3_ana))
+> +		return dev_err_probe(dev, PTR_ERR(pcie_phy->g3_ana),
+> +				     "Failed to initialize g3 ANA regmap\n");
 > +
-> +	ts->supplies[0].supply = "vddio";
-> +	ts->supplies[1].supply = "vci";
-> +	error = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies),
-> +					ts->supplies);
-> +	if (error)
-> +		return dev_err_probe(dev, error, "failed to get regulators\n");
-> +
-> +	ts->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ts->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ts->reset_gpio),
-> +				     "failed to request reset gpio\n");
-> +
-> +	error = ft3683g_power_on(ts);
-> +	if (error)
-> +		return error;
-> +
-> +	error = devm_add_action_or_reset(dev, ft3683g_power_off_act, ts);
-> +	if (error)
-> +		return error;
-> +
-> +	error = ft3683g_check_chip_id(ts);
-> +	if (error)
-> +		return error;
-> +
-> +	ts->input = devm_input_allocate_device(dev);
-> +	if (!ts->input)
-> +		return -ENOMEM;
-> +
-> +	ts->input->name = "FocalTech FT3683G Touchscreen";
-> +	ts->input->id.bustype = BUS_SPI;
-> +	input_set_drvdata(ts->input, ts);
-> +
-> +	input_set_capability(ts->input, EV_ABS, ABS_MT_POSITION_X);
-> +	input_set_capability(ts->input, EV_ABS, ABS_MT_POSITION_Y);
-> +	touchscreen_parse_properties(ts->input, true, &ts->props);
-> +
-> +	error = input_mt_init_slots(ts->input, FT3683G_MAX_POINTS,
-> +				    INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
-> +	if (error)
-> +		return dev_err_probe(dev, error, "failed to init MT slots\n");
-> +
-> +	error = devm_request_threaded_irq(dev, spi->irq, NULL, ft3683g_irq,
-> +					  IRQF_ONESHOT, "ft3683g", ts);
-> +	if (error)
-> +		return dev_err_probe(dev, error, "failed to request IRQ\n");
-> +
-> +	error = input_register_device(ts->input);
-> +	if (error)
-> +		return dev_err_probe(dev, error,
-> +				     "failed to register input device\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static int ft3683g_suspend(struct device *dev)
-> +{
-> +	struct ft3683g_data *ts = dev_get_drvdata(dev);
-> +
-> +	disable_irq(ts->spi->irq);
-> +
-> +	input_mt_sync_frame(ts->input);
-> +	input_sync(ts->input);
+> +	pcie_phy->qp_phy =3D devm_phy_optional_get(dev, NULL);
+> +	if (IS_ERR(pcie_phy->qp_phy))
+> +		return dev_err_probe(dev, PTR_ERR(pcie_phy->qp_phy),
+> +				     "Failed to get QP PCIe phy\n");
 
-Why is this needed? We do not do that in any other drivers.
+[Severity: Medium]
+Should an7583_pcie_phy_probe() use devm_phy_get() instead of
+devm_phy_optional_get() for pcie_phy->qp_phy?
 
-Thanks.
+In Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml,
+phys is a required property because QPHY configuration is needed during the
+PCIe PHY setup and calibration phase. With devm_phy_optional_get(dev, NULL),
+a missing phys property or a disabled QPHY node in DeviceTree causes
+_of_phy_get() to return ERR_PTR(-ENODEV), which devm_phy_optional_get()
+turns into NULL. Both an7583_pcie_phy_probe() and phy_init(pcie_phy->qp_phy)
+in an7583_pcie_phy_init() will then succeed silently without initializing
+the required QPHY.
 
--- 
-Dmitry
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103195007.9721=
+-1-ansuelsmth@gmail.com?part=3D2
