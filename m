@@ -1,78 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793717587;
-	b=CR8kXscAaZsXv4o2e2j06N3RyAUZs79A5OJwQzW+PxEoFqmZjbJqVEvU79K53cTYnOMF
-	 PAehzWPj2aA52eETudNCzf8sex4vJYZAzxAdVttf8YMnGLp06qzvJ3n8VeyISLm/ciNgN
-	 YtRZetcq+sFAefY7ZkGdRQRdcPooti2JKCEGAkb2PPcnP19+JtIa7o9suOaKTVhA3cfzp
-	 zGYVcniZaJaPwuulEmTwmNC/iqZVSb7S+Rw5OjUsPGLaz25gvdNrhE+7BzFfduz7oK3po
-	 pVT8t/WlMf7xsetkLRH4ZYoQn7bkpAbYmceop+f4ljptFpZhRA6VYHmKcxPnCEri4Tg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717587;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3cd1RdBhkSm+ZiZ5rASD1/HLM+kjmk/X7A6n3LUzWeY=;
-	b=QNoYy9SS+VvxZ8ftUA6S8DpilaKiYxBm33ffyiBS32NAzo15eQrkavgGPzvRile6wC45
-	 ljPzvC2xepEOn1TzO6eEyvmaNFB0W/f2K6J/r6LcZu9FB0vuGinzcajNWZt2XC5Zf5q2X
-	 AHGj/uzcyCqOpMh2wWuzShn8RFiFVSNzJ729cpWz2qnF5OMyHaaD9ON0IR1zlTxR9eaB4
-	 HEgh3ejQZi0sszYSJYhl8WPK7waeJ2UkXszUZyq5O2vS7j9/ejBBUj1EwdJtr3VLk/vXm
-	 /wEfq0hW6nsVJaSowSzo5ZRCbd2kK/yfefvgRqzub0OYrJJ1bLfF8DPHktefgBmW5vA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFA0sdV1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8345260A6F54;
-	Tue,  3 Nov 2026 14:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFA0sdV1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793717586;
-	b=mwj6vUgGR8x2mbIpyVg2pgr5b1zwpjfakv3oQ1AzZHNoSK4BatF92yDc7O3K4Xii1atJ
-	 gyMzgTQdwpZKbWE37EdTaKwUmow2nIdMNKIiaxrjMwRnjwZoWLiuPSHRr9XSptpr0JVqV
-	 3D3n50wXY5Dh2a8ta/i/gsQjGKwT+rf+NRJveMGvouglow/fClv3uhp7ik+UO1U3UZ8H0
-	 /618zblUw14chgyn1SOuTJhfLLByORBwWYSil1ff0aduhaxFaSBmgTJHWvRoSoyCRaKbU
-	 9AggkuWZx+PXlIwTueXrDG3xUFCE+v7FUvQOxblaBLcqOeevCB/foXaCy32WRzxVtLg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793717586;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=3cd1RdBhkSm+ZiZ5rASD1/HLM+kjmk/X7A6n3LUzWeY=;
-	b=RpSKPIfCG770MensTLGJXvPuUeY4nYs3limV342om3yzN1kVdYHD8ZCizXuO2GyfwtxF
-	 5LegRQh6NMYbj3JSscqFCHk3LSyQSJkJffYH2bg09xvbdkWyYH7mhoyDOhjAkTPAXxWmu
-	 Co0qdKmna9f8TpJLhB/bI6+8YGJ8mLosrwdxyc7LY2If7cPz/1+93ngmInJY7hn24A08Z
-	 muTPKIg2BYq6dOz5cg1FK+3gHX5fxOCKyhT5rcY+Jbox9rr66sV2a1nB0F9MLRHMboDEW
-	 4rivsx64dsIy848qOjZBZm7XMTwGAQj4bcnunAyWcrjs8DkUHbSucyD53vlkQey4CpA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793717831;
+	b=eh12wbJZAadY+tyuD0nThtwKIzj65UJw/bCpET0i2aWsTDy7k6ndbGTpE2gUtfO/NCYn
+	 xTSnm7Z1Hn0ACVTGd9uj8H7/BWDXiifzHuYirycoUVmO410L1XYGdBQDxQ97TdbALptYm
+	 747GcNLtRk+qo1y53iZVkB7TN+719RYPTTAdYvXCpzev0JiWHJGmdLVYeDJA06yVxWbrn
+	 c4H7j/zSHByRo1htGXA1Q3zNugD35R+99IfGO0ZCjkzlTqaDutqm/rP77rmHTmKSWZKhT
+	 4eQyt+Z7u4SI/cVJWT8bKXYFvAHyCOfdLkLbFzAo+ZTJFnj4nAB3RZdF9EgiIV/V9BA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717831;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=A4bNmGzPUft+bl2hd8oRtaUGmDxT0eDv2+FKZP+8TJg=;
+	b=Hww9QKFfEj3R3cfAedm1yv3t164sfPgmhEGzwoQBLKLPs4W7J/nMh9Fko8hGQpHnBjPn
+	 jtpuGG95uR3/D0gExzfuLuSHxiFTfxKBnk8DRPqttIgRdFpFYiR23DRTr9zLc/ou85RjK
+	 qHmmlPiIx0XBTKaOijx21MTNDfAPFpM+WwQ4HyV2WtWuh+7YeX2nJ+dxP/ixSpdpwbHOT
+	 7mydYtTltqHspvm6uQUewDufuPi7WgcHpxElfQXm19NuiDMzLHejIxUqskIyDj5LjJbkO
+	 q5kvWQdSPaXqhLjHLylL4fdB0aFhigKwkTo5hS3xzbDiHKn/x/e8DneuAazrro2TQPw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=TMtWkqkA;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1478A1F00A17;
-	Tue,  3 Nov 2026 14:53:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717586;
-	bh=3cd1RdBhkSm+ZiZ5rASD1/HLM+kjmk/X7A6n3LUzWeY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ZFA0sdV1myM77wHdbcTOl+PshqoZgt1kFwjx1ipteMUPVHRhLxbFoOyo41jKpgN74
-	 Xud8wD6DOrdlEA5hSAZVGl0f303YGDe3bkBNzhcRFgj5RvJRsJlP2lB3szSEhvCX7W
-	 6HuK37vVtZ5JJPafGk2yBHrImzJUrqONBycooUC4oc2ci7lx0FELXaOr3ktHe8rQRg
-	 6BcuYmm3T1zFe5SmBYmKU7KkWouYReTKcSXEX+vo3JWfq2PYHiBDUi1WGUJKB0n817
-	 VTPm7hsW17ECciiu0Qg8HwVz/b+quN8DhrczAHfEh5RQ4bAh6DTONapueqIS8hoeHj
-	 SiUeEt1SnOVzg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A0D05469B2;
-	Tue,  3 Nov 2026 14:53:01 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Tue, 03 Nov 2026 11:53:02 -0300
-Subject: [PATCH v3 06/10] iio: frequency: ad9910: add axi backend driver
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFA7606BA02
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:57:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEFA7606BA02
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=TMtWkqkA
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35C16278CDF;
+	Tue,  3 Nov 2026 15:57:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793717828; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=A4bNmGzPUft+bl2hd8oRtaUGmDxT0eDv2+FKZP+8TJg=;
+	b=TMtWkqkA1MgODNkA+UcgsAvQC4JSAAQU6CKGwEYtgnJGf1lZ68m8qRL1YrHSUu6g3O/+iZ
+	7IkmlsIwNvULwxrfJTjszywsaBQzQTAUkPfHn99bkN9Y1+WUNkpibL4wS3OjcjXohyu2lQ
+	TZe3zURWJs9zHMuUsqm1T01WdTbzx9C5TPqEF8pWJ1+v+rH5h0Nq3q8N1hWh8frhtKEtgS
+	1Oz3HM0zaYirAeJwM7a8rriLq1EIafe9f0frwPkYtg4JqixrZJ7QXni7U5XEcoOOVqBM5l
+	HR4eE2qSPJ3a2A79IEur64ppSV3klK+rBzJrqfs+V+z8l9UpVfoNeMAwmO484A==
+Message-ID: <3624a201-be82-423f-ac96-7ab530e7918e@cjdns.fr>
+Date: Tue, 3 Nov 2026 15:57:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,676 +55,367 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-ad9910-backend-support-v3-6-0e9224ddf7b7@analog.com>
-References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
-In-Reply-To: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
-To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-doc@vger.kernel.org, 
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Olivier Moysan <olivier.moysan@foss.st.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793717581; l=19659;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=H51DWtTjuhg85n9f8ZRQ0VtM+IVF+9NeQFmrRp6rTDg=;
- b=gtOYTrSDWCJj/rHGQiRxZokdmLFlKnB8olaqyIVMckyZW5k5ibF09+D5Eb8tmv/T4FRG14iJc
- /vibK2nPxOtDVhfCfmlQpiDmAJodzmPc5Pfi9IfsBECmvrUWpHdPTII
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v4 3/7] net: dsa: mediatek: add support for passthrough
+ mode
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-4-cjd@cjdns.fr> <sashiko-outbox-191438@kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <sashiko-outbox-191438@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Add the driver for the AD9910 AXI backend IP core, which interfaces with
-the data and control pins of the AD9910 DDS. It registers as an IIO
-backend that provides:
+On 30/10/2026 20:22, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] net: dsa: mt7530: mt753x_check_passthrough() breaks dual-CPU-port boards
+> - [High] net: dsa: mt7530: mt753x_trap_frames() blocks CPU control frames in passthrough
+> - [High] net: dsa: mt7530: downstream switch callbacks assume local CPU port
+> - [Medium] net: dsa: mt7530: setup overwrites PVC_EG_TAG on passthrough CPU port
+> - [Medium] net: dsa: mt7530: mt7530_port_enable() ignores per-port CPU conduit
+> --
+>
+> commit 89ff16dda9d512576bf6153ac6b119283ed62bea
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> net: dsa: mediatek: add support for passthrough mode
+>
+> This commit adds passthrough mode support for MT7530 switches so that an
+> upstream SoC-integrated switch can pass traffic to and from a downstream
+> MT7530 switch without altering the MediaTek DSA tag.
+>
+>> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+>> index d10194488bdee..c5b3b00acb956 100644
+>> --- a/drivers/net/dsa/mt7530.c
+>> +++ b/drivers/net/dsa/mt7530.c
+> [ ... ]
+>
+>> @@ -1286,13 +1297,81 @@ mt753x_trap_frames(struct mt7530_priv *priv)
+>>   				   TO_CPU_FW_CPU_ONLY);
+>>   }
+> [ ... ]
+>
+>> +/* If this switch is downstream of another switch that is in passthrough mode,
+>> + * the "CPU" port is actually a DSA port.
+>> + */
+>>   static void
+>>   mt753x_cpu_port_enable(struct dsa_switch *ds, int port)
+>>   {
+>>   	struct mt7530_priv *priv = ds->priv;
+>>   
+>> -	/* Enable Mediatek header mode on the cpu port */
+>> -	regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
+>> +	if (priv->is_passthrough) {
+>> +		/* Disable parsing of the DSA tag, it will be forwarded blindly
+>> +		 * to the downstream switch.
+>> +		 */
+>> +		regmap_write(priv->regmap, MT7530_PVC_P(port),
+>> +			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
+>> +			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
+>> +
+>> +		/* The port is not configured to parse DSA tags, so they are
+>> +		 * liable to be confused for length fields, so length check is
+>> +		 * disabled.
+>> +		 */
+>> +		regmap_clear_bits(priv->regmap, MT753X_AGC, AGC_L2LEN_CHK);
+>> +
+>> +		/* In passthrough mode, MTU is only enforced downstream */
+>> +		mt7530_port_change_mtu(ds, port, MT7530_MAX_MTU);
+>> +
+>> +		/* Loop detection has no value in passthrough mode */
+>> +		regmap_set_bits(priv->regmap, MT753X_MTRAP,
+>> +				MT7530_LOOP_DET_DISABLE);
+>> +	} else {
+>> +		/* Not passthrough, enable DSA tag handling on CPU port. */
+>> +		regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
+>> +	}
+>>   
+>>   	/* Enable flooding on the CPU port */
+>>   	regmap_set_bits(priv->regmap, MT753X_MFC,
+>> @@ -1322,6 +1401,7 @@ static int
+>>   mt7530_port_enable(struct dsa_switch *ds, int port,
+>>   		   struct phy_device *phy)
+>>   {
+>> +	int upstream_pt = dsa_switch_upstream_port(ds);
+>>   	struct dsa_port *dp = dsa_to_port(ds, port);
+>>   	struct mt7530_priv *priv = ds->priv;
+>>   
+>> @@ -1332,13 +1412,38 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
+>>   	 * bridge.
+>>   	 */
+>>   	if (dsa_port_is_user(dp)) {
+>> -		struct dsa_port *cpu_dp = dp->cpu_dp;
+>> +		priv->ports[port].pm |= PCR_MATRIX(BIT(upstream_pt));
+>>   
+>> -		priv->ports[port].pm |= PCR_MATRIX(BIT(cpu_dp->index));
+> [Severity: Medium]
+> On switches with multiple CPU ports (such as MT7531 where per-port conduit
+> assignment is supported via mt753x_port_change_conduit()), does replacing
+> dp->cpu_dp->index with dsa_switch_upstream_port(ds) in mt7530_port_enable()
+> connect a user port to the wrong CPU port when its assigned conduit differs
+> from that of the first available port?
+>
+> dsa_switch_upstream_port(ds) returns dsa_upstream_port(ds, dp->index) for the
+> first available port on the switch rather than dsa_upstream_port(ds, port)
+> for the port being enabled. When a user port assigned to the secondary CPU
+> conduit is brought up via dsa_user_open() -> mt7530_port_enable(), shouldn't
+> this use dsa_upstream_port(ds, port) instead?
+>
+> [ ... ]
 
-- a DMA output buffer that streams data into the parallel data port;
-- the parallel data destination (F[1:0] pins) and data rate, derived
-  from the PDCLK frequency;
-- the PROFILE[2:0] pins control, through profile channel enables.
 
-It also registers a PWM chip with a single output driving the DRCTL
-pin, which the AD9910 driver uses to control the digital ramp generator
-direction. The PWM implements the waveform callbacks, with period, duty
-length and duty offset programmed in SYNC_CLK cycles. The duty offset
-is realized by a delay applied once, before DRCTL starts toggling. The
-waveform is reprogrammed when the SYNC_CLK rate changes, so that the PWM
-output keeps its timing.
+This looks like a real problem. The CPU port can be changed and this 
+won't track that. However, cpu_dp can point to a port on another switch, 
+so it's unreliable to use it for a port address directly. So I suppose 
+the best solution is to use cpu_dp if it is local, otherwise use the 
+first DSA port. Change conduit is not going to work with a cascaded 
+switch, but it won't anyway because the CPU port is on another switch so 
+it's already setup to error out.
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- MAINTAINERS                                |   1 +
- drivers/iio/frequency/Kconfig              |  17 +
- drivers/iio/frequency/Makefile             |   1 +
- drivers/iio/frequency/ad9910-axi-backend.c | 551 +++++++++++++++++++++++++++++
- 4 files changed, 570 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 64aa7b539ca3..abfbbf0b6b4e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1734,6 +1734,7 @@ F:	Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
- F:	Documentation/iio/ad9910.rst
-+F:	drivers/iio/frequency/ad9910-axi-backend.c
- F:	drivers/iio/frequency/ad9910.c
- F:	drivers/iio/frequency/ad9910.h
- 
-diff --git a/drivers/iio/frequency/Kconfig b/drivers/iio/frequency/Kconfig
-index 994d199080eb..f7f5c3cce005 100644
---- a/drivers/iio/frequency/Kconfig
-+++ b/drivers/iio/frequency/Kconfig
-@@ -42,6 +42,23 @@ config AD9910
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ad9910.
- 
-+config AD9910_AXI_BACKEND
-+	tristate "Analog Devices AD9910 AXI Backend driver"
-+	depends on AD9910
-+	depends on HAS_IOMEM && PWM
-+	select IIO_BACKEND
-+	select IIO_BUFFER
-+	select IIO_BUFFER_DMAENGINE
-+	select REGMAP_MMIO
-+	help
-+	  Say yes here to build support for the AXI Backend Driver for the
-+	  Analog Devices AD9910 DDS. The IP core is used to drive digital ramp
-+	  control pins and interface with the parallel data port of the AD9910
-+	  device.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ad9910-axi-backend.
-+
- endmenu
- 
- #
-diff --git a/drivers/iio/frequency/Makefile b/drivers/iio/frequency/Makefile
-index e3b1d36ed620..bfac9e205e81 100644
---- a/drivers/iio/frequency/Makefile
-+++ b/drivers/iio/frequency/Makefile
-@@ -6,6 +6,7 @@
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD9523) += ad9523.o
- obj-$(CONFIG_AD9910) += ad9910.o
-+obj-$(CONFIG_AD9910_AXI_BACKEND) += ad9910-axi-backend.o
- obj-$(CONFIG_ADF41513) += adf41513.o
- obj-$(CONFIG_ADF4350) += adf4350.o
- obj-$(CONFIG_ADF4371) += adf4371.o
-diff --git a/drivers/iio/frequency/ad9910-axi-backend.c b/drivers/iio/frequency/ad9910-axi-backend.c
-new file mode 100644
-index 000000000000..db99fa9f2dda
---- /dev/null
-+++ b/drivers/iio/frequency/ad9910-axi-backend.c
-@@ -0,0 +1,551 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * AD9910 AXI Backend driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/kstrtox.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/pwm.h>
-+#include <linux/regmap.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/backend.h>
-+#include <linux/iio/buffer-dmaengine.h>
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/iio.h>
-+
-+#include "ad9910.h"
-+
-+/* Register addresses */
-+#define AD9910_AXI_REG_RESET		0x040
-+#define AD9910_AXI_REG_DRG		0x084
-+#define AD9910_AXI_REG_PROFILE		0x088
-+#define AD9910_AXI_REG_DRCTL_PERIOD	0x08C
-+#define AD9910_AXI_REG_DRCTL_WIDTH	0x090
-+#define AD9910_AXI_REG_DRCTL_DELAY	0x094
-+#define AD9910_AXI_REG_BURST_COUNT	0x098
-+#define AD9910_AXI_REG_BURST_DELAY	0x09C
-+#define AD9910_AXI_REG_RAMP_CFG		0x0A0
-+
-+#define AD9910_AXI_REG_UPDATE_CTRL	0x104
-+#define AD9910_AXI_REG_PAR_RATE		0x108
-+#define AD9910_AXI_REG_F_CFG		0x10C
-+
-+#define AD9910_AXI_REG_RESET_CORE_MSK		BIT(0)
-+
-+#define AD9910_AXI_REG_DRG_DRCTL_MSK		BIT(2)
-+#define AD9910_AXI_REG_DRG_TOGGLE_EN_MSK	BIT(3)
-+
-+#define AD9910_AXI_REG_RAMP_CFG_ONE_SHOT_MSK	GENMASK(1, 0)
-+#define AD9910_AXI_REG_BURST_COUNT_MSK		GENMASK(19, 0)
-+
-+#define AD9910_AXI_REG_UPDATE_RATE_MSK		BIT(0)
-+#define AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK	BIT(1)
-+#define AD9910_AXI_REG_UPDATE_EXT_TRIG_MSK	BIT(2)
-+
-+#define AD9910_AXI_REG_PROFILE_MSK		GENMASK(2, 0)
-+#define AD9910_AXI_REG_IO_UPDATE_MSK		BIT(0)
-+#define AD9910_AXI_REG_F_CFG_MSK		GENMASK(1, 0)
-+
-+#define AD9910_AXI_F_CFG_AMP			0
-+#define AD9910_AXI_F_CFG_PHASE			1
-+#define AD9910_AXI_F_CFG_FREQ			2
-+#define AD9910_AXI_F_CFG_POLAR			3
-+
-+#define AD9910_AXI_PD_CLK_MAX_FREQ_HZ		(250ULL * HZ_PER_MHZ)
-+#define AD9910_AXI_PAR_RATE_MAX			U16_MAX
-+#define AD9910_AXI_ONE_SHOT_BURST		1
-+
-+struct ad9910_axi_state {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	/*
-+	 * lock to protect multiple accesses to the device registers and global
-+	 * data/variables.
-+	 */
-+	struct mutex lock;
-+	u64 pd_clk_freq_uhz;
-+	/* last applied DRCTL waveform, kept when the SYNC_CLK rate changes */
-+	struct pwm_waveform drctl_wf;
-+};
-+
-+/* DRCTL waveform in SYNC_CLK cycles, a zero period means disabled */
-+struct ad9910_axi_drctl_wfhw {
-+	u32 period;
-+	u32 width;
-+	u32 delay;
-+};
-+
-+static u32 ad9910_axi_ns_to_cycles(struct ad9910_axi_state *st, u64 ns)
-+{
-+	return min(mul_u64_u64_div_u64(ns, st->pd_clk_freq_uhz,
-+				       1ULL * NANO * MICROHZ_PER_HZ), U32_MAX);
-+}
-+
-+static u64 ad9910_axi_cycles_to_ns(struct ad9910_axi_state *st, u32 cycles)
-+{
-+	return mul_u64_u64_div_u64_roundup((u64)cycles * NANO, MICROHZ_PER_HZ,
-+					   st->pd_clk_freq_uhz);
-+}
-+
-+static int ad9910_axi_drctl_tohw(struct ad9910_axi_state *st,
-+				 const struct pwm_waveform *wf,
-+				 struct ad9910_axi_drctl_wfhw *wfhw)
-+{
-+	if (!wf->period_length_ns) {
-+		*wfhw = (struct ad9910_axi_drctl_wfhw){ };
-+		return 0;
-+	}
-+
-+	wfhw->period = ad9910_axi_ns_to_cycles(st, wf->period_length_ns);
-+	if (!wfhw->period) {
-+		/* round up to the shortest period, with no duty and no delay */
-+		*wfhw = (struct ad9910_axi_drctl_wfhw){ .period = 1 };
-+		return 1;
-+	}
-+
-+	wfhw->width = min(ad9910_axi_ns_to_cycles(st, wf->duty_length_ns),
-+			  wfhw->period);
-+	/*
-+	 * The delay is applied once, before DRCTL starts toggling, which
-+	 * results in the duty offset of the periodic waveform. A delay of a
-+	 * whole period is the same as no delay at all.
-+	 */
-+	wfhw->delay = ad9910_axi_ns_to_cycles(st, wf->duty_offset_ns);
-+	if (wfhw->delay >= wfhw->period)
-+		wfhw->delay = 0;
-+
-+	return 0;
-+}
-+
-+static void ad9910_axi_drctl_fromhw(struct ad9910_axi_state *st,
-+				    const struct ad9910_axi_drctl_wfhw *wfhw,
-+				    struct pwm_waveform *wf)
-+{
-+	if (!wfhw->period) {
-+		*wf = (struct pwm_waveform){ };
-+		return;
-+	}
-+
-+	wf->period_length_ns = ad9910_axi_cycles_to_ns(st, wfhw->period);
-+	wf->duty_length_ns = ad9910_axi_cycles_to_ns(st, wfhw->width);
-+	wf->duty_offset_ns = ad9910_axi_cycles_to_ns(st, wfhw->delay);
-+}
-+
-+static int ad9910_axi_drctl_write(struct ad9910_axi_state *st,
-+				  const struct ad9910_axi_drctl_wfhw *wfhw)
-+{
-+	int ret;
-+
-+	/*
-+	 * DRCTL toggling restarts, applying the delay, when enabled or when
-+	 * its period or width changes. Changing the delay alone does not
-+	 * restart it, so disable toggling while updating the waveform.
-+	 */
-+	ret = regmap_clear_bits(st->regmap, AD9910_AXI_REG_DRG,
-+				AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-+	if (ret)
-+		return ret;
-+
-+	/* A zero period disables the PWM output, so leave toggling off */
-+	if (!wfhw->period)
-+		return 0;
-+
-+	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_DELAY, wfhw->delay);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, wfhw->width);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, wfhw->period);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Register values reach the SYNC_CLK domain in snapshots, taken every
-+	 * 64 AXI clock cycles. Make sure toggling being disabled is captured
-+	 * by one of them before enabling it again.
-+	 */
-+	fsleep(2);
-+
-+	return regmap_set_bits(st->regmap, AD9910_AXI_REG_DRG,
-+			       AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-+}
-+
-+static int ad9910_axi_f_cfg(unsigned int chan)
-+{
-+	switch (chan) {
-+	case AD9910_CHAN_IDX_PARALLEL_AMP:
-+		return AD9910_AXI_F_CFG_AMP;
-+	case AD9910_CHAN_IDX_PARALLEL_PHASE:
-+		return AD9910_AXI_F_CFG_PHASE;
-+	case AD9910_CHAN_IDX_PARALLEL_FREQ:
-+		return AD9910_AXI_F_CFG_FREQ;
-+	/* polar amplitude and phase are a pair sharing the same destination */
-+	case AD9910_CHAN_IDX_PARALLEL_POLAR_AMP:
-+	case AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		return AD9910_AXI_F_CFG_POLAR;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_chan_enable(struct iio_backend *back, unsigned int chan)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	int f_cfg, ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (chan) {
-+	/*
-+	 * Profiles are mutually exclusive, as the PROFILE[2:0] pins always
-+	 * select one of them. Enabling a profile channel selects it, which
-+	 * implicitly disables the previously selected one, hence there is
-+	 * nothing to do when disabling a profile channel.
-+	 */
-+	case AD9910_CHAN_IDX_PROFILE_0 ... AD9910_CHAN_IDX_PROFILE_7:
-+		chan -= AD9910_CHAN_IDX_PROFILE_0;
-+		return regmap_update_bits(st->regmap, AD9910_AXI_REG_PROFILE,
-+					  AD9910_AXI_REG_PROFILE_MSK,
-+					  FIELD_PREP(AD9910_AXI_REG_PROFILE_MSK, chan));
-+	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		f_cfg = ad9910_axi_f_cfg(chan);
-+		if (f_cfg < 0)
-+			return f_cfg;
-+
-+		ret = regmap_update_bits(st->regmap, AD9910_AXI_REG_F_CFG,
-+					 AD9910_AXI_REG_F_CFG_MSK,
-+					 FIELD_PREP(AD9910_AXI_REG_F_CFG_MSK, f_cfg));
-+		if (ret)
-+			return ret;
-+
-+		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-+				       AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_chan_disable(struct iio_backend *back, unsigned int chan)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+
-+	switch (chan) {
-+	case AD9910_CHAN_IDX_PROFILE_0 ... AD9910_CHAN_IDX_PROFILE_7:
-+		return 0;
-+	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		return regmap_clear_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-+					 AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static struct iio_buffer *ad9910_axi_request_buffer(struct iio_backend *back,
-+						    struct iio_dev *indio_dev)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	const char *dma_name;
-+
-+	if (device_property_read_string(st->dev, "dma-names", &dma_name))
-+		dma_name = "tx";
-+
-+	return iio_dmaengine_buffer_setup_ext(st->dev, indio_dev, dma_name,
-+					      IIO_BUFFER_DIRECTION_OUT);
-+}
-+
-+static void ad9910_axi_free_buffer(struct iio_backend *back,
-+				   struct iio_buffer *buffer)
-+{
-+	iio_dmaengine_buffer_teardown(buffer);
-+}
-+
-+static int ad9910_axi_set_sample_rate(struct iio_backend *back,
-+				      unsigned int chan, u64 sample_rate)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	struct ad9910_axi_drctl_wfhw wfhw;
-+	u64 div, pd_clk_freq_uhz;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (chan) {
-+	case AD9910_CHAN_IDX_PHY:
-+		if (!sample_rate || sample_rate > 4 * AD9910_AXI_PD_CLK_MAX_FREQ_HZ)
-+			return -EINVAL;
-+
-+		pd_clk_freq_uhz = sample_rate * MICROHZ_PER_HZ >> 2;
-+		if (pd_clk_freq_uhz == st->pd_clk_freq_uhz)
-+			return 0;
-+
-+		st->pd_clk_freq_uhz = pd_clk_freq_uhz;
-+		if (!st->drctl_wf.period_length_ns)
-+			return 0;
-+
-+		/*
-+		 * DRCTL is clocked by SYNC_CLK, reprogram it so that the PWM
-+		 * output keeps the applied waveform.
-+		 */
-+		ad9910_axi_drctl_tohw(st, &st->drctl_wf, &wfhw);
-+		return ad9910_axi_drctl_write(st, &wfhw);
-+	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		if (!sample_rate || sample_rate > AD9910_AXI_PD_CLK_MAX_FREQ_HZ)
-+			return -EINVAL;
-+
-+		sample_rate *= MICROHZ_PER_HZ;
-+		div = DIV64_U64_ROUND_CLOSEST(st->pd_clk_freq_uhz, sample_rate);
-+		div = clamp(div, 1U, AD9910_AXI_PAR_RATE_MAX);
-+		ret = regmap_write(st->regmap, AD9910_AXI_REG_PAR_RATE, div - 1);
-+		if (ret)
-+			return ret;
-+
-+		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-+				       AD9910_AXI_REG_UPDATE_RATE_MSK);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_read_raw(struct iio_backend *back,
-+			       struct iio_chan_spec const *chan, int *val,
-+			       int *val2, long mask)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	u32 div;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		switch (chan->address) {
-+		case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE: {
-+			guard(mutex)(&st->lock);
-+
-+			ret = regmap_read(st->regmap, AD9910_AXI_REG_PAR_RATE,
-+					  &div);
-+			if (ret)
-+				return ret;
-+
-+			iio_val_s64_decompose(div64_u64(st->pd_clk_freq_uhz,
-+							(u64)div + 1),
-+					      val, val2);
-+			return IIO_VAL_DECIMAL64_MICRO;
-+		}
-+		default:
-+			return -EINVAL;
-+		}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_reg_access(struct iio_backend *back, unsigned int reg,
-+				 unsigned int writeval, unsigned int *readval)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+
-+	if (readval)
-+		return regmap_read(st->regmap, reg, readval);
-+
-+	return regmap_write(st->regmap, reg, writeval);
-+}
-+
-+static const struct iio_backend_ops ad9910_axi_iio_back_ops = {
-+	.chan_enable = ad9910_axi_chan_enable,
-+	.chan_disable = ad9910_axi_chan_disable,
-+	.request_buffer = ad9910_axi_request_buffer,
-+	.free_buffer = ad9910_axi_free_buffer,
-+	.set_sample_rate = ad9910_axi_set_sample_rate,
-+	.read_raw = ad9910_axi_read_raw,
-+	.debugfs_reg_access = iio_backend_debugfs_ptr(ad9910_axi_reg_access),
-+};
-+
-+static const struct iio_backend_info ad9910_axi_back_info = {
-+	.name = "ad9910-axi",
-+	.ops = &ad9910_axi_iio_back_ops,
-+};
-+
-+static const struct regmap_config ad9910_axi_regmap_config = {
-+	.val_bits = 32,
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = 0x0800,
-+};
-+
-+static int ad9910_axi_pwm_round_waveform_tohw(struct pwm_chip *chip,
-+					      struct pwm_device *pwm,
-+					      const struct pwm_waveform *wf,
-+					      void *wfhw)
-+{
-+	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-+
-+	guard(mutex)(&st->lock);
-+
-+	return ad9910_axi_drctl_tohw(st, wf, wfhw);
-+}
-+
-+static int ad9910_axi_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-+						struct pwm_device *pwm,
-+						const void *wfhw,
-+						struct pwm_waveform *wf)
-+{
-+	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-+
-+	guard(mutex)(&st->lock);
-+
-+	ad9910_axi_drctl_fromhw(st, wfhw, wf);
-+
-+	return 0;
-+}
-+
-+static int ad9910_axi_pwm_read_waveform(struct pwm_chip *chip,
-+					struct pwm_device *pwm, void *_wfhw)
-+{
-+	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-+	struct ad9910_axi_drctl_wfhw *wfhw = _wfhw;
-+	u32 drg;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = regmap_read(st->regmap, AD9910_AXI_REG_DRG, &drg);
-+	if (ret)
-+		return ret;
-+
-+	if (!FIELD_GET(AD9910_AXI_REG_DRG_TOGGLE_EN_MSK, drg)) {
-+		*wfhw = (struct ad9910_axi_drctl_wfhw){ };
-+		return 0;
-+	}
-+
-+	ret = regmap_read(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, &wfhw->period);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, &wfhw->width);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_read(st->regmap, AD9910_AXI_REG_DRCTL_DELAY, &wfhw->delay);
-+}
-+
-+static int ad9910_axi_pwm_write_waveform(struct pwm_chip *chip,
-+					 struct pwm_device *pwm,
-+					 const void *_wfhw)
-+{
-+	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-+	const struct ad9910_axi_drctl_wfhw *wfhw = _wfhw;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = ad9910_axi_drctl_write(st, wfhw);
-+	if (ret)
-+		return ret;
-+
-+	ad9910_axi_drctl_fromhw(st, wfhw, &st->drctl_wf);
-+
-+	return 0;
-+}
-+
-+static const struct pwm_ops ad9910_axi_pwm_ops = {
-+	.sizeof_wfhw = sizeof(struct ad9910_axi_drctl_wfhw),
-+	.round_waveform_tohw = ad9910_axi_pwm_round_waveform_tohw,
-+	.round_waveform_fromhw = ad9910_axi_pwm_round_waveform_fromhw,
-+	.read_waveform = ad9910_axi_pwm_read_waveform,
-+	.write_waveform = ad9910_axi_pwm_write_waveform,
-+};
-+
-+static int ad9910_axi_setup(struct ad9910_axi_state *st)
-+{
-+	int ret;
-+
-+	st->pd_clk_freq_uhz = AD9910_AXI_PD_CLK_MAX_FREQ_HZ * MICROHZ_PER_HZ;
-+
-+	ret = regmap_set_bits(st->regmap, AD9910_AXI_REG_RESET,
-+			      AD9910_AXI_REG_RESET_CORE_MSK);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_clear_bits(st->regmap, AD9910_AXI_REG_RESET,
-+				 AD9910_AXI_REG_RESET_CORE_MSK);
-+}
-+
-+static int ad9910_axi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct ad9910_axi_state *st;
-+	struct pwm_chip *chip;
-+	void __iomem *base;
-+	struct clk *clk;
-+	int ret;
-+
-+	chip = devm_pwmchip_alloc(&pdev->dev, 1, sizeof(*st));
-+	if (IS_ERR(chip))
-+		return PTR_ERR(chip);
-+
-+	st = pwmchip_get_drvdata(chip);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
-+
-+	st->dev = dev;
-+	st->regmap = devm_regmap_init_mmio(dev, base,
-+					   &ad9910_axi_regmap_config);
-+	if (IS_ERR(st->regmap))
-+		return dev_err_probe(dev, PTR_ERR(st->regmap),
-+				     "failed to init register map\n");
-+
-+	ret = devm_mutex_init(dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = ad9910_axi_setup(st);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to setup device\n");
-+
-+	chip->ops = &ad9910_axi_pwm_ops;
-+
-+	ret = devm_pwmchip_add(dev, chip);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Could not register PWM chip\n");
-+
-+	return devm_iio_backend_register(dev, &ad9910_axi_back_info, st);
-+}
-+
-+static const struct of_device_id ad9910_axi_of_match[] = {
-+	{ .compatible = "adi,ad9910-axi-backend" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ad9910_axi_of_match);
-+
-+static struct platform_driver ad9910_axi_driver = {
-+	.driver = {
-+		.name = "ad9910-axi-backend",
-+		.of_match_table = ad9910_axi_of_match,
-+	},
-+	.probe = ad9910_axi_probe,
-+};
-+module_platform_driver(ad9910_axi_driver);
-+
-+MODULE_AUTHOR("Rodrigo Alencar <rodrigo.alencar@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices AD9910 AXI Backend driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("IIO_DMAENGINE_BUFFER");
-+MODULE_IMPORT_NS("IIO_BACKEND");
+>
+>> @@ -2511,7 +2671,7 @@ mt7530_setup(struct dsa_switch *ds)
+>>   		/* Disable learning by default on all ports */
+>>   		regmap_set_bits(priv->regmap, MT7530_PSC_P(i), SA_DIS);
+>>   
+>> -		if (dsa_is_cpu_port(ds, i)) {
+>> +		if (dsa_is_upstream_port(ds, i)) {
+>>   			mt753x_cpu_port_enable(ds, i);
+>>   		} else {
+>>   			mt7530_port_disable(ds, i);
+> [Severity: Medium]
+> In both mt7530_setup() and mt7531_setup_common(), mt753x_cpu_port_enable()
+> sets MT7530_PVC_P(port) with PVC_EG_TAG(MT7530_VLAN_EG_DISABLED) when
+> priv->is_passthrough is true, but right after the if/else block in the loop:
+>
+> drivers/net/dsa/mt7530.c:mt7530_setup() {
+>      ...
+> 		if (dsa_is_upstream_port(ds, i)) {
+> 			mt753x_cpu_port_enable(ds, i);
+> 		} else {
+> 			mt7530_port_disable(ds, i);
+>
+> 			/* Set default PVID to 0 on all user ports */
+> 			regmap_update_bits(priv->regmap, MT7530_PPBV1_P(i),
+> 					   G0_PORT_VID_MASK, G0_PORT_VID_DEF);
+> 		}
+> 		/* Enable consistent egress tag */
+> 		regmap_update_bits(priv->regmap, MT7530_PVC_P(i),
+> 				   PVC_EG_TAG_MASK,
+> 				   PVC_EG_TAG(MT7530_VLAN_EG_CONSISTENT));
+>      ...
+> }
+>
+> Doesn't this unconditionally overwrite PVC_EG_TAG_MASK on the passthrough
+> upstream CPU port with MT7530_VLAN_EG_CONSISTENT, since mt7530_port_enable()
+> only rewrites MT7530_PVC_P(port) for the downstream DSA link port?
 
--- 
-2.43.0
+
+It does, but PVC_EG_TAG(MT7530_VLAN_EG_DISABLED) is not set because the 
+intent is that it will not be overwritten but rather because it's equal 
+to zero so leaving it or omitting it from the write statement have the 
+same effect.
+
+
+>
+> [Severity: High]
+> Also in mt7530_setup() and mt7531_setup_common(), mt753x_trap_frames(priv)
+> is still called unconditionally even when priv->is_passthrough is true:
+>
+> drivers/net/dsa/mt7530.c:mt753x_trap_frames() {
+> 	regmap_update_bits(priv->regmap, MT753X_BPC,
+> 			   PAE_BPDU_FR | PAE_EG_TAG_MASK | PAE_PORT_FW_MASK |
+> 				   BPDU_EG_TAG_MASK | BPDU_PORT_FW_MASK,
+> 			   PAE_BPDU_FR | PAE_EG_TAG(MT7530_VLAN_EG_DISABLED) |
+> 				   PAE_PORT_FW(TO_CPU_FW_CPU_ONLY) |
+> 				   BPDU_EG_TAG(MT7530_VLAN_EG_DISABLED) |
+> 				   TO_CPU_FW_CPU_ONLY);
+>      ...
+> }
+>
+> On a normal switch, PORT_SPEC_TAG is enabled on the CPU port so frames sent
+> by the CPU are directed by the MediaTek special tag. On a passthrough switch,
+> mt753x_cpu_port_enable() leaves PORT_SPEC_TAG unset on the CPU port so frames
+> are forwarded via the port matrix.
+>
+> When the CPU transmits STP BPDUs, 802.1X PAE, LACP, PAUSE, or LLDP frames
+> (matching 01:80:c2:00:00:00/01/02/03/0e in BPC, RGAC1, and RGAC2) towards a
+> downstream switch port, won't those frames ingressing the passthrough
+> switch's CPU port match the trap rules and be restricted to
+> TO_CPU_FW_CPU_ONLY (the passthrough switch's own CPU port) instead of being
+> forwarded to the downstream DSA link port?
+>
+> [ ... ]
+
+
+Makes sense to skip mt753x_trap_frames() if passthrough.
+
+
+>
+>> @@ -3304,7 +3472,7 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
+>>   
+>>   	/* Set the CPU port to trap frames to for MT7530. Trapped frames will be
+>>   	 * forwarded to the numerically smallest CPU port whose conduit
+>> -	 * interface is up.
+>> +	 * interface is up. NOTE: "CPU port" can also mean an upstream DSA link.
+>>   	 */
+>>   	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
+>>   	    priv->id != ID_EN7528)
+> [Severity: High]
+> On the downstream switch behind a passthrough switch, the upstream port is a
+> DSA link port (DSA_PORT_TYPE_DSA) rather than a CPU port (DSA_PORT_TYPE_CPU),
+> and dp->cpu_dp / conduit->dsa_ptr point to the CPU port on the upstream
+> switch. How are the following paths handled on the downstream switch?
+>
+> First, in mt753x_conduit_state_change(), mt7530_update_port_member(), and
+> mt7530_port_vlan_filtering(), the code uses cpu_dp->index directly:
+>
+> drivers/net/dsa/mt7530.c:mt753x_conduit_state_change() {
+> 	struct dsa_port *cpu_dp = conduit->dsa_ptr;
+>      ...
+> 	mask = BIT(cpu_dp->index);
+> }
+>
+> drivers/net/dsa/mt7530.c:mt7530_update_port_member() {
+> 	struct dsa_port *dp = dsa_to_port(priv->ds, port), *other_dp;
+> 	struct mt7530_port *p = &priv->ports[port], *other_p;
+> 	struct dsa_port *cpu_dp = dp->cpu_dp;
+> 	u32 port_bitmap = BIT(cpu_dp->index);
+>      ...
+> }
+>
+> drivers/net/dsa/mt7530.c:mt7530_port_vlan_filtering() {
+> 	struct dsa_port *dp = dsa_to_port(ds, port);
+> 	struct dsa_port *cpu_dp = dp->cpu_dp;
+>
+> 	if (vlan_filtering) {
+> 		mt7530_port_set_vlan_aware(ds, port);
+> 		mt7530_port_set_vlan_aware(ds, cpu_dp->index);
+>      ...
+> }
+>
+> If the upstream switch's CPU port index differs from the downstream switch's
+> upstream DSA link port index (for example, port 6 on the upstream switch vs
+> port 5 on the downstream switch), won't these program the wrong port on the
+> downstream switch?
+
+
+Probably best to write an mt753x_get_upstream_port() which uses CPU port 
+if local, otherwise first DSA. This can be used everywhere.
+
+
+>
+> Second, when a VLAN is added or deleted on the downstream switch, DSA calls
+> mt7530_port_vlan_add() and mt7530_port_vlan_del() on the downstream switch's
+> upstream DSA link port (passing the user port's untagged and pvid flags). In
+> mt7530_hw_vlan_add():
+>
+> drivers/net/dsa/mt7530.c:mt7530_hw_vlan_add() {
+>      ...
+> 	if (dsa_port_is_cpu(dp))
+> 		val = MT7530_VLAN_EGRESS_STACK;
+> 	else if (entry->untagged)
+> 		val = MT7530_VLAN_EGRESS_UNTAG;
+> 	else
+> 		val = MT7530_VLAN_EGRESS_TAG;
+> 	regmap_update_bits(priv->regmap, MT7530_VAWD2,
+> 			   ETAG_CTRL_P_MASK(entry->port),
+> 			   ETAG_CTRL_P(entry->port, val));
+> }
+>
+> Because dsa_port_is_cpu(dp) is false for the downstream switch's upstream DSA
+> link port, won't mt7530_hw_vlan_add() fail to set MT7530_VLAN_EGRESS_STACK
+> and instead set UNTAG or TAG, while mt7530_port_vlan_add() and
+> mt7530_port_vlan_del() also overwrite PVID and ACC_FRM_MASK on the upstream
+> port?
+
+
+if (dp == mt753x_get_upstream_port(ds)) seems like it would fix this.
+
+
+>
+> [ ... ]
+>
+>> @@ -3399,6 +3574,99 @@ static int mt7988_setup(struct dsa_switch *ds)
+>>   	return mt7531_setup_common(ds);
+>>   }
+>>   
+>> +/* 1 if passthrough, negative if error. */
+>> +static int mt753x_check_passthrough(struct device *dev)
+>> +{
+>> +	struct device_node *ports, *port;
+>> +	int passthrough_ports = 0;
+>> +	int enabled_ports = 0;
+>> +
+>> +	ports = of_get_child_by_name(dev->of_node, "ports");
+>> +	if (!ports)
+>> +		ports = of_get_child_by_name(dev->of_node, "ethernet-ports");
+>> +
+>> +	if (!ports) {
+>> +		dev_err(dev, "no ports child node found\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	for_each_available_child_of_node(ports, port) {
+>> +		struct device_node *link;
+>> +
+>> +		enabled_ports++;
+>> +
+>> +		link = of_parse_phandle(port, "ethernet", 0);
+>> +		if (!link)
+>> +			link = of_parse_phandle(port, "link", 0);
+>> +
+>> +		if (!link)
+>> +			continue;
+>> +
+>> +		of_node_put(link);
+>> +
+>> +		passthrough_ports++;
+>> +	}
+>> +
+>> +	of_node_put(ports);
+>> +
+>> +	/*
+>> +	 * A switch is considered passthrough if exactly two available
+>> +	 * ports have an "ethernet" or "link" phandle.
+>> +	 */
+>> +	if (passthrough_ports > 2 ||
+>> +	    (passthrough_ports == 2 && enabled_ports != 2)
+>> +	) {
+>> +		dev_err(dev, "Only two ports allowed in passthrough mode\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return passthrough_ports == 2;
+>> +}
+> [Severity: High]
+> What happens in mt7530_probe_common() -> mt753x_check_passthrough() on
+> standalone dual-CPU-port boards where two ports (such as port@5 and port@6)
+> both have "ethernet" phandles and no port has a "link" phandle?
+>
+> Because mt753x_check_passthrough() counts both "ethernet" and "link" phandles
+> into passthrough_ports without checking whether any "link" phandle is
+> present, passthrough_ports is 2 whenever two CPU ports are enabled. If any
+> user ports are also enabled (enabled_ports > 2, as on mt7621, mt7622,
+> mt7623n, and mt7986 dual-CPU-port boards), doesn't mt753x_check_passthrough()
+> return -EINVAL and abort the switch probe? And if all user ports happen to be
+> disabled (enabled_ports == 2), wouldn't it falsely enable passthrough mode on
+> a switch with two CPU ports and no downstream switch?
+
+
+Indeed, that's a problem. I think passthrough should not be enabled if 
+there are multiple ethernet ports, but it should not be excluded.
+
+
+Keeping these notes to send a v5.
+
+
+Thanks,
+
+Caleb
 
 
