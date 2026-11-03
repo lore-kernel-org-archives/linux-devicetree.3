@@ -1,107 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793733821;
-	b=UHSMTnKuL2a7mugB/uNzhL+tiXJf0J2618yNZ6wflKa/cqmlZvu0IF/0PYQJ1H992Gh+
-	 wiYoUMj1yga3Wkk9s2Wf9/uPPCQK0T7W6eITc3PhOBE7IK4xmuF7fKaF1W/4wP65MZ1zZ
-	 Fgohb7iX9b4gbzu671Oc/x5fcujwTZub1ccRwkz0RcclW5mF/v42Cu0PLmB0E72PKM+DW
-	 n5wadbKLxt2amBCFc/owy2iBmQOJDQoR9uKIohhaxQk4Ynmqert/VHwYAS3Q8qB67SqyB
-	 fqQDRiUHaaHFKfTdFxVybzR1LekWDq1ICyBGOBMdXQSP9rMQT498RKQ9rwrm05uzATQ==
+	t=1793733913;
+	b=oX+rGEj/tECUuYrySS227kO2RkJS9CtS9DnAL5lx5x9oUwPLY1xQA/d10e1aRsoOxt/u
+	 FfEfJgDEKr8SpUCcpaC8YNWgiKIFrJp1Ieo7R6bslibaq2ByjfVFmoJh7HUHE/JxWgsiC
+	 rww+p4sGHzyTmYFNHQgEFTJWyzMSXtGBhiPOsdIdAvZqAjTKZSGkFBl7GqW9gRmv8MS22
+	 7rdQfeaYaTOEuXqCdrDAv30Yh5BJvRrm7V6mYElDqLldxvLa4OxsL/9loAFOO9yIRehlT
+	 Ijg/w9MyLvRTbNwQMySz0ngiLWPwjNFTJ3JSaulKvAmyekR1BeWAwpu6ylYG5m7OCHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793733821;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VTVjbTeG+iIcoknSp2y3rgvXBTLyVqZrj1BvDpiUQFE=;
-	b=hoKHUGT/UntRENUqfyE8W5OXeJtqaU109wv/YeqN95lQANjyRFpbEwF2k0gqibflyIWf
-	 WRCJdE4nOM6WXJNkMbLmVXPugY6M6+soAKaNeW2tLnRWiGJDmbYcOUsHJraKMntaWWgiJ
-	 9Sw4mrJkRAG4wswwz6ZtNOIY+vbSN1N1moMbdDFgVrcX2MVU+m8VnimzBl95vE2Rcy92o
-	 18AFOYGfv/BsEn6PG61GB2MI3jVRTO/bKG+kPdLYcYkSpDPrfl4kuGoNCiyJiWVj2FXty
-	 OqmS7hB9ggvgH/7EIOg8CZVNqO+wwyUPhUL1zWIf0+TGtrWxQX3Q9tUNZHz5TieySMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793733913;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=7PUwfrJVawcXLdfu41PY6uZ3y3+L4mK5joYpI+grGjw=;
+	b=J4FD0giNByL8YyTGgthevfdsFVz+sLcxxLY2Y8MEyLYL8VnOV47TNU7flf2uq+uTTM8e
+	 P4KfF888l1XpX/1J4fDPImXTXC3aoZLLYPsnDatSI1q+uEOVSpwrQPBtHsc2f/KFgdqow
+	 02SVhMtPguQ7LMH0udnzBfLaKkYSAcuu9USosYGRjfPwG6Njt80HDSuSiGGONbNpKykq8
+	 cf0EhGmhJJ3V4yc/hcCQbctlUZh1Gs3RYmSmu1qOoP8Ui+JlDB3arbgugPQ4o/XaYL6iN
+	 46e1t4dxV+X91D6BtJPYn4qp88SqcoVxYo8rIVeqNpZnnCwnLNNEG6ixDVZjWZvx7VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UuVY1uYK;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Qpao8Mtf;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74226606D802
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 19:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74226606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1901606A329
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 19:25:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1901606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UuVY1uYK
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-845f3fa7f38so1974843a34.3
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 11:23:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793733820; x=1794338620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VTVjbTeG+iIcoknSp2y3rgvXBTLyVqZrj1BvDpiUQFE=;
-        b=UuVY1uYKWCAEpdR5KDEqV2VJYoWh2HxSRrJvYXyC998J4n5Ckcrdy6MYHXQLlsrDOl
-         AobIfLO3alLOa8vSZ53ykyQy9F++ayFlu/YIark/bPOiW9ElPy+Zy4WCqaqq+QBZzmar
-         ij/PCSHMUB3YYFymnImP4RN55EWxPiKFtHw4WyNZ0QKlxNUoaJ97v5g3vOQ2FllUd2yE
-         tJOM8AqL4LGEvwq6an/8fymCFTD+jktLe0yvBPtIMcnWsj6NpehQlnrv34QJUlG0/a8n
-         yxnTzJeynPGYOy3IJH30XR5Y+TZXY+1Rjfr4LcR+I5rZmx8Ec+3Qk95o2BVP9Yj1UHXU
-         xk/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793733820; x=1794338620;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VTVjbTeG+iIcoknSp2y3rgvXBTLyVqZrj1BvDpiUQFE=;
-        b=KiHfEeYgtJpUvb/FFqc93dJ8j+7vlJvHV+N6/nDuYm5Ln+MtoW2kSLhADpXpI+eUFj
-         elKkDVzA8O44nwEz75P5z579M3J5O43NsPlxRSBYrmr6gDE1aV5UgoQeoagamKu0iRTY
-         P3RpO5UcRLQSlZkTGj0XdhCZ7awr/epYQ8kOJj9jtIRSkDBITXj3epvDAF2i9frgzi+r
-         h6S23Shq6Yock6otF5+PUgND6VJZDMrspVJ5fNoJFWrTu2xmAnageoG0Jf03KXwp3UXk
-         C1WfERA9mT96PB+1EQYKSQfzKEtt+Hi8tR23iNaHD+1aPBsZC9WBGBjnxMGqttRUQEqw
-         h6+A==
-X-Forwarded-Encrypted: i=1; AKwUvBy8WrhAhoRN139RReslRuvmYxk5nJeKYShUH0dfN4NvPesOQ029TFLrt0ViWSdns5wYlqgevj1W0xFe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rdWPBqIKGmtV/ah90uyA2nwzp+hzF9IC87W+VOMIurNLA4afr
-	uGolCgxv5YwfrVmWdEZIqditJvxmxTt3PM4MUtOPeIE64OP6Ucd59yMC
-X-Gm-Gg: AYBFou3wCFKaiKJsOqFWt1ioI+EmUF+R+MfrP1wK5B7aQN3NWl4GlCp5qQ/YtWeQZxv
-	f1CmCrfv9d1jYd1Ic1UJ50kBw5ZGOSzqnoGo4gTvI8ZafUUN3lG+HJdyD3x3WXHaFV7xyPW3s9l
-	2TLbq1R899HcMDsJSQGNfZngC7lUsmHQJCLf8JLX9MaZVEK0vtNAzheLScRWB5Gf5TaJzJ7h0is
-	l8hPoroKO40U0PfWSr1Iko2ixxxMY/nZ0vWCO5CoDhoXn8DIYKPbHXwn4gr+8nf1FVyoLaHRKxO
-	+D3QihzkSlQCXwu2CZZMv2NjkzPgLS8W1HxsBsOXJVQBojQqZ9NYGvI+lPtWo2AlKmQiS4s74gv
-	EP4Suv7L9gw9qJ8IsqD9X/IzWY1vLSiuxM4EYJhzmGbM2YkJ3z7Frnxbt1B+3toql6JQPZS/R3b
-	KPOuYt+j/Mr+20SyPX+Z8o2AFz71FWvh2Dpm4CAw+Iol9RU//ucLqYwsqwujTYr9/YZjPV5FBC9
-	T0KbEqBuqxfBuvRJbouagflQtYLB/lybQSFCw3Li1GvBlT9vWdKw2cOT5SGLDP08C04J+nuX9Vk
-	pj1HFKw+iyQ44Klk9d/goW8pEcE72A==
-X-Received: by 2002:a05:6830:680b:b0:822:e8ac:7d20 with SMTP id 46e09a7af769-85d3651d32dmr9328662a34.6.1793733820420;
-        Tue, 03 Nov 2026 11:23:40 -0800 (PST)
-Received: from neuromancer ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm43323a34.14.2026.11.03.11.23.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:23:39 -0800 (PST)
-From: Chris Morgan <macroalpha82@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	david@ixit.cz,
-	detlev.casanova@collabora.com,
-	maz@kernel.org,
-	michael.riesch@collabora.com,
-	diederik@cknow-tech.com,
-	shawn.lin@rock-chips.com,
-	heiko@sntech.de,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	tglx@kernel.org,
-	daniel.lezcano@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH 2/2] arm64: dts: rockchip: Add timer node for rk356x
-Date: Tue,  3 Nov 2026 13:23:31 -0600
-Message-ID: <20261103192331.394489-3-macroalpha82@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103192331.394489-1-macroalpha82@gmail.com>
-References: <20261103192331.394489-1-macroalpha82@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Qpao8Mtf
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103192510euoutp02bbeddbf42ad595e8c036ae24ba788aba~kn3zRciNm1818518185euoutp02L
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 19:25:10 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103192510euoutp02bbeddbf42ad595e8c036ae24ba788aba~kn3zRciNm1818518185euoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793733910;
+	bh=7PUwfrJVawcXLdfu41PY6uZ3y3+L4mK5joYpI+grGjw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Qpao8Mtfd2URQjUccfzke10r/zvBO8i96Iol6Oks4QfxnNbKN2y5fkGa7tHv9hweB
+	 V/F1gx8XGuJR+ZPqIfCNcYRux5iFrJ0AHh4Ty2G/Dx2felApgdDigzb4XLPadl5s07
+	 qw71+24Cik5kWKGQmM16vbJDin4bKAo+kDutXFAU=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103192509eucas1p1b2f9e4fdd60dc8eae89579a1440a30f6~kn3yjR5OT3099830998eucas1p1_;
+	Tue,  3 Nov 2026 19:25:09 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261103192508eusmtip2a833c7ccdaf7e75a797dd7005f03374d~kn3yAQfdV2937629376eusmtip29;
+	Tue,  3 Nov 2026 19:25:08 +0000 (GMT)
+Message-ID: <b71ac175-fba5-4f61-bbdb-0b98dec9ccee@samsung.com>
+Date: Tue, 3 Nov 2026 20:25:08 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,37 +64,132 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v3 2/2] of: reserved_mem: allocate and map the
+ reserved_mem array early
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-mm@kvack.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, Rob Herring
+	<robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Oreoluwa
+	Babatunde <oreoluwa.babatunde@oss.qualcomm.com>, Wandun
+	<chenwandun1@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+	linux-riscv <linux-riscv@lists.infradead.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103192509eucas1p1b2f9e4fdd60dc8eae89579a1440a30f6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6
+X-EPHeader: CA
+X-CMS-RootMailID: 20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6
+References: <CGME20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6@eucas1p2.samsung.com>
+	<20261015082315.56876-1-m.szyprowski@samsung.com>
+	<20261015082315.56876-3-m.szyprowski@samsung.com>
+	<CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com>
 
-From: Chris Morgan <macromorgan@hotmail.com>
+Hi Geert,
 
-Add the timer node for the rk356x. The timer is present at the SoC
-level and is register compatible with the rk3288 timer.
+On 03.11.2026 19:04, Geert Uytterhoeven wrote:
+> On Thu, 15 Oct 2026 at 10:29, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+>> Get rid of the static, limited-size reserved_mem array and replace it
+>> with array allocated by memblock_alloc_raw() and accessed directly or
+>> through a temporary early_memremap() mapping (depending on the
+>> architecture support). Such mapping is needed for some architectures
+>> (like ARM64), where linear map is not yet available during early boot
+>> scan. The array is allocated from the bottom of RAM to avoid placing it
+>> in highmem area, because some architectures (e.g. Xtensa, C-SKY, MIPS32)
+>> set the memblock limit to the end of lowmem only after the early scan.
+>> The early mapping is not used on PPC64, where the scan is done before
+>> early_ioremap_setup(), but the memory allocated by memblock is already
+>> accessible at that point.
+>>
+>> Having a single, writeable array with all reserved regions removes the
+>> need to perform two step initialization introduced by commit
+>> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
+>> regions are processed"), so all regions can be processed during the
+>> early scan again.
+>>
+>> The reserved_mem array is allocated only after all static (defined by
+>> the 'reg' property) regions are marked as reserved or no-map, so it
+>> cannot be placed in any of them. Errors of the early reservations are
+>> not recorded per region, only the fact that some of them failed is
+>> stored and a message asking to fix the device-tree is printed. The
+>> region specific init functions for the static regions are then called
+>> in a separate pass, once the array is available. Then all dynamically
+>> allocated reserved regions are processed.
+>>
+>> Suggested-by: Mike Rapoport <rppt@kernel.org>
+>> Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
+>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Thanks for your patch, which is now commit aa05faf815836c47 ("of:
+> reserved_mem: allocate and map the reserved_mem array early")
+> in dt-rh/for-next.
+>
+> This causes an early crash on BeagleV Starlight Beta:
+>
+>  [...]
+>  earlycon: uart0 MMIO32:0x0000000012440000 (options '115200n8')
+>  printk: legacy bootconsole [uart0] enabled
+>  printk: debug: skip boot console de-registration.
+>  efi: UEFI not found.
+> -OF: reserved mem: 0x00000000fb000000..0x00000000fcffffff (32768 KiB)
+> map non-reusable framebuffer@fb000000
+> -OF: reserved mem: 0x00000000f9000000..0x00000000f9ffffff (16384 KiB)
+> map non-reusable framebuffer@f9000000
+> -OF: reserved mem: 0x00000000d0000000..0x00000000f7ffffff (655360 KiB)
+> map non-reusable framebuffer@d0000000
+> -OF: reserved mem: 0x00000000c9000000..0x00000000ccffffff (65536 KiB)
+> map non-reusable framebuffer@c9000000
+> -OF: reserved mem: 0x00000000fa000000..0x00000000faffffff (16384 KiB)
+> nomap non-reusable dma-reserved@fa000000
+> -Reserved memory: created DMA memory pool at 0x000000107a000000, size 16384 KiB
+> -OF: reserved mem: initialized node linux,dma@107a000000, compatible
+> id shared-dma-pool
+> -OF: reserved mem: 0x000000107a000000..0x000000107affffff (16384 KiB)
+> nomap non-reusable linux,dma@107a000000
+> -SBI HSM extension detected
+> -[...]
+> +Oops - store (or AMO) access fault [#1]
+> +Modules linked in:
+> +CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted
+> 7.4.0-rc1-starlight-00002-gaa05faf81583 #411 PREEMPT
+> +Hardware name: BeagleV Starlight Beta (DT)
+> +epc : __memset+0x68/0xfe
+> + ra : fdt_scan_reserved_mem+0x3a4/0x80a
+> +epc : ffffffff8087fd88 ra : ffffffff80a313c8 sp : ffffffff81403c20
+> + gp : ffffffff814dc6c0 tp : ffffffff8140cf80 t0 : ffffffc4fea38ff0
+> + t1 : 0000000080200000 t2 : ffffffc4fec03008 s0 : ffffffff81403d10
+> + s1 : ffffffffffffffff a0 : ffffffc4fea39000 a1 : 0000000000000000
+> + a2 : 00000000000000f0 a3 : ffffffc4fea390f0 a4 : 0000000000000008
+> + a5 : ffffffff8087fd88 a6 : 00000000000000f0 a7 : 0000000000001000
+> + s2 : ffffffc4fec00000 s3 : 00000000000000f0 s4 : 0000000000000000
+> + s5 : 0000000000002de0 s6 : 0000000000000006 s7 : fffffffffefefefe
+> + s8 : ffffffc4fec02fd4 s9 : ffffffff8148e318 s10: fffffffffefefeff
+> + s11: ffffffc4fea39000 t3 : ffffffff8150df00 t4 : ffffffff8150df00
+> + t5 : ffffffff8150df00 t6 : ffffffff8150df78 ssp : 0000000000000000
+> +status: 0000000200000100 badaddr: ffffffc4fea39000 cause: 0000000000000007
+> +[<ffffffff8087fd88>] __memset+0x68/0xfe
+> +[<ffffffff80a2f63a>] early_init_fdt_scan_reserved_mem+0xa4/0x110
+> +[<ffffffff80a06c8e>] paging_init+0x17c/0x46a
+> +[<ffffffff80a046dc>] setup_arch+0xdc/0x584
+> +[<ffffffff80a009b8>] start_kernel+0x98/0x940
+> +Code: 0000 8793 00e7 8305 97ba 8782 b023 00b2 b423 00b2 (b823) 00b2
+> +---[ end trace 0000000000000000 ]---
+> +Kernel panic - not syncing: Fatal exception in interrupt
+> +---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
+>
+> Reverting the commit fixes the issue.
 
-Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Does moving early_init_fdt_scan_reserved_mem() to the end of setup_bootmem()
+in arch/riscv/mm/init.c change anything?
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 1a4562df20ee..cc3faeb9a86d 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -1373,6 +1373,14 @@ i2c5: i2c@fe5e0000 {
- 		status = "disabled";
- 	};
- 
-+	timer0: timer@fe5f0000 {
-+		compatible = "rockchip,rk3568-timer", "rockchip,rk3288-timer";
-+		reg = <0x0 0xfe5f0000 0x0 0x1000>;
-+		interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&cru PCLK_TIMER>, <&cru CLK_TIMER0>;
-+		clock-names = "pclk", "timer";
-+	};
-+
- 	wdt: watchdog@fe600000 {
- 		compatible = "rockchip,rk3568-wdt", "snps,dw-wdt";
- 		reg = <0x0 0xfe600000 0x0 0x100>;
+Could You provide a full boot log from the working kernel and /proc/iomem dump?
+
+
+Best regards
 -- 
-2.53.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
