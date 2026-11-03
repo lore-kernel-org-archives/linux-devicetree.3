@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714719;
-	b=1DQkJ9ARiTMLuz0EEAmmo93X6D2W9HS+LCNjfEuO3A89wMkrtdKqj/y7jcqlwUGR0LYs
-	 5B3YYoDKhtWf0iRgNdi7s2gd5s9WlHwrj8mm0rkK8dLZ0zE1KdReuvqCu9i54hhZZOVxw
-	 tG/CmarZ1TtPTEB/v/viUJbz4X9KjLz4L06SrSMG/cqiQQWuBycxDp2D9vRaIsXRQYP10
-	 y1GDYnTn1/tV/6LpRypdBvzWx0YJDcvoVK1CvbOtf+VqC9pqyNqYCKOuu0Tbr2h2LKPih
-	 MggWFid63/oQCBWZwT5ANOpktC2V1NGPWJCjO0t++x/eq3KvYGCbNF21+X8cMKTVWDw==
+	t=1793714804;
+	b=KowUF5vUtfX7tKIytzJU4GBxUk0t/voQa1fzreKcsqaNXOnLKMqjHaEi42k0mO8GKU+o
+	 o+tpqm83o2VTXr7mbAwnWTeuXzK+68AV6tR708kv65d/udRAn+qWvJLRVqtNpVIGWDbEI
+	 JRcyC123d/yBxW0Q2PwxmomlJtwHHkAGkL0uO0m1PvZu800+pdC1/KOcMnVLbCE7bi7qj
+	 uqnxmqBGxXQTwW3YSo18pR0djyBzdDmQfhOzEWC94be6VDNuieG+1/Zw0BGgAiknAX8BX
+	 haR1jDzWQydWU/2Tkdvv3GMTcUcZeX4Dk3L+cFIy+f1xPrcCXP2IcJyFQZVDnnkMW7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714719;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bF7qGpdtN0WIrQT8+FBNrErYPWOmZTo7dWkERTkp0DY=;
-	b=xmq/Bqea+Fo0bvjJmq5A3YdeVU1ywLP42nD+vh+1VjxK7nfGd2V5veTiUexWTOCQkw6r
-	 Z0wro9NLxAxQAJ2nQs20dw+HMzeT/ME9srLtDeEkRx7eL5HhaA+/FDTeStPqYle/H7zZ6
-	 VXvsEXEczs3njX998kAG9PKbK09Dqjki4IPjBMkXLL4Fhew8zberNOHuNHnaIZaFcuxo+
-	 tOgC/0fHbMyzcEKOzxXOqgPBMsJW9CUbUolz+tRwxYaLBEM9CU2mlJci1be3n3CV13eTY
-	 G+P0l0eiJVRoZn3GCJXIwHpB01Sd40eyX2HHF5ZRuGFWDptVZpqhNdDaKCM/GUeYCEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714804;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=;
+	b=v5XpdMNYo0ly+1TfO6Eu3ZoP6kI3JG+efupoOwhaq/C8ojOsYfHhwHuAeqWWhL479Vae
+	 N3iFOyXlxedZ0l9LUgCgH50A53yzW9YVnInF6r2mvJfzLWP69iGDJb5Cqt5OlBswMbAtP
+	 iYXVJnzWjlOlC7WzSsA4VFA0PgN3QFa4Ump/GqYHzCfjeDlHdXmTMfj58XmWvRCg+QA/c
+	 PFAfJip6e26KW0fg1STi4iKLr0DfB4OtPTh7zf9VjMDz7tPb9W+quc0A5rcYH5J3v+wOJ
+	 swM9GtEhs9uK+CkGtwLdr7zpi324QNHznrSpjKM36v5SJhDXGfcSbBdzbI+HRd5ATwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhKpbDLi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3CE606D816;
-	Tue,  3 Nov 2026 14:05:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE7C606EE95
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:06:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE7C606EE95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhKpbDLi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9067A1F00A2C;
-	Tue,  3 Nov 2026 14:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793714719;
-	bh=bF7qGpdtN0WIrQT8+FBNrErYPWOmZTo7dWkERTkp0DY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GhKpbDLia+ePgaenqQHOfJQOjb2rh86uzpnEuGIj8tTEmWCLbyq1lvnZ4EFDyuPxH
-	 Vv0rd000DCFwH6xiDLBmoAkk7GTDD1IqDLk6hF64Jy3rbTzqzdJ4G1tSurY8v0/YzX
-	 FvH2io3WUnl1/JErrbGdQBu8ynP4m/azATLPEta2b1s7I2UsTHIVjO+zSoheO5j5qG
-	 W9j8814TttOmhTo8R448UZseXBdBiOYQtyAXesqB0Wf/VJcGTNdht2Sv+k5M8I0glO
-	 V1+JrGK55NW7cdIZYxrgga8xmc0BKJAP/pQ4Y9OqI/R9JR7TBKuHOoxJUyvQgW7kII
-	 hPIt7jsO9Pl3g==
-Date: Tue, 3 Nov 2026 14:05:13 +0000
-From: Daniel Thompson <danielt@kernel.org>
-To: rva333@protonmail.com
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
-Message-ID: <aunqGVkX7-Y61iDA@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
- <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=WbReQISJ
+Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
+	by cmsmtp with ESMTPS
+	id OD4GxGtBWusRSOF9wxyau7; Tue, 03 Nov 2026 14:06:44 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OF9kxJQ4xgk6fOF9kxw32W; Tue, 03 Nov 2026 14:06:33 +0000
+X-Authority-Analysis: v=2.4 cv=KM9aDEFo c=1 sm=1 tr=0 ts=6ae9ea74
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=FzxAIiGUqTgkHgvMK3YA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=t9xteX2xGuMkIJkhxfrkuc80ADp9/4k5b+edGPUq4fc=; b=WbReQISJVjZ9SKK4v8Lk919q/S
+	QTS26pV4lYlANCIoJX843UZDmeNC13XMJ7bB0Wqvu1IeqMZGLj5gPPTYFPogkSeumAPrkqdhz8JWM
+	LBpnM6UXBgskJ8KW5j6JAZg+Av9jqqE5HYXz6jjqepwYxCBr6t6I2+OPEbUUiw5dYY26ictnnczDR
+	er9Ur6IHHtxttRzzWkPTX5kgg2WNWpfc0BHUU8S+DnvyLW3c0EF54IayDnqoce1GmzP/i655QgJrp
+	tIy7l0Cl4IHGOaziz1OIFk8S/dLVOPMSI9ml6YfTtOCF52l10PVQG3kjzS+h5i4ptuLxI0Bcf3N2a
+	l7cITQMA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52734 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOF9j-00000002ZuZ-352a;
+	Tue, 03 Nov 2026 19:36:31 +0530
+Date: Tue, 3 Nov 2026 06:06:30 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Kevin Jia <kjia@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: Re: [PATCH v3 2/2] hwmon: (fs1603) Add driver for TDK FS160x and
+ FS1006 uPOL converters
+Message-ID: <85bc9a12-9674-4fb0-9dc3-11ef8695599e@roeck-us.net>
+References: <20261030-fs1603-v3-0-6f8963a74def@nexthop.ai>
+ <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,56 +91,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com>
+In-Reply-To: <20261030-fs1603-v3-2-6f8963a74def@nexthop.ai>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOF9j-00000002ZuZ-352a
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:52734
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 16
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFbc1Ed7vj4qtDEshJE4fXlRwjcwAlnh/XzFtZbDrZfnUyWpWdtXe/O3NAZK/xFG2MvMWnnktJsuYwM4QCE9sEH4AROdMi9q0gNAY6KM36ybj80waOCR
+ /uHqvJLif/OgZQtKqAYrNGfY4xETRV9X0sfj3DPvB4/P/0ht4v/E3Ez7XpN5Gixzu5ntz02rCelrdyHe4dKQoBFbIZTC4W+nYdyDtAO/wSiQk2nYXosNWukR
 
-On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
->
-> Kinetic KTD3137 is an LED IC, used in various mobile devices for the
-> display backlight. Add devicetree bindings documentation for this chip.
->
-> Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
->
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
->  .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 ++
->  2 files changed, 69 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-> new file mode 100644
-> index 000000000000..140615640a9a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
-> @@ -0,0 +1,64 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Kinetic Technologies KTD3137 LED Backlight
-> +
-> +maintainers:
-> +  - Roman Vivchar <rva333@protonmail.com>
-> +
-> +description:
-> +  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for medium
-> +  to large size LCD panels.
-> <snip>
-> +  led-max-microamp:
-> +    minimum: 5000
-> +    maximum: 29800
-> +    default: 20200
-> +
-> +  vin-supply: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vin-supply
+On Fri, Oct 30, 2026 at 08:35:38PM +0000, Kevin Jia wrote:
+> The TDK FS1603, FS1604, FS1606 and FS1006 are uPOL DC-DC converters with
+> an integrated inductor. They report input voltage, output voltage, output
+> current and temperature, plus over-voltage, over-current and
+> over-temperature status, over a proprietary I2C register map. They are
+> not PMBus devices, and their register numbers collide with PMBus command
+> codes: 0x21 is a status byte here where PMBus defines VOUT_COMMAND.
+> 
+> The parts have no ID register, and the FS1606-0600 and FS1606-2500
+> presets change how telemetry is encoded: the -2500 uses the 20mV steps
+> of the higher voltage parts, and the -0600 needs a current correction
+> derived from the IOUT_GAIN register and the output voltage. The model is
+> therefore taken from the device name or compatible.
+> 
+> The over-voltage and over-temperature protection thresholds are
+> reported as in1_crit and temp1_crit. The over-voltage threshold is a
+> percentage of the VOUT_SET target, so the driver reads VOUT_SET but
+> never writes it: VOUT_SET is a two-byte pair, and a partial write leaves
+> the part silently ignoring all register writes until its input power is
+> cycled. The driver is read-only.
+> 
+> Power good is not exposed. It also deasserts while the output is
+> disabled or soft-starting, so it would report a deliberately disabled
+> output as a fault.
+> 
+> On boards that raise the rail with a feedback divider, VOUT_SET holds
+> the feedback-pin target while the output voltage telemetry reports the
+> rail. The driver measures the divider ratio at probe from the output
+> voltage and the Fb register and scales the over-voltage threshold by
+> it, so in1_crit is in the same domain as in1_input. A part whose Fb
+> reads within four steps of the output keeps a ratio of one.
+> 
+> Co-developed-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Signed-off-by: Kevin Jia <kjia@nexthop.ai>
 
-Why is vin-supply required?
+Applied.
 
-
-Daniel.
+Thanks,
+Guenter
