@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687957;
-	b=BFxhoAXv2KlJUqmcBkc6Cz57T20z7vzFoVOfpEwGTz5qClFb+Hqp6l0s37mims7sQCyY
-	 VrVWBk3ii1WHs7DXcR0qmcbKUcyll1TsMRrZ6BiunTfUyktBHMQ9UX6JUHcRbZRzI5tzv
-	 HBB3F8ybYedwpob32v3V0RsMVs3H8xRPKqNISaOyijCEqdk/hrV5XF2dVPKB78eWv+LXq
-	 VQx9DV6Q9thb5czCmwhAJMTyFLy2b3qdvKgOpuYybmNctSWuWdBy4Gjuoi/GIzf3eWIRL
-	 5kfmQVzO8vuMA+yPlo7ilONyTIj5ql7GFOOxhBbrXcZAUwwuK+I4J/ayMllXaOrLKZw==
+	t=1793688342;
+	b=KDpobCtf35wFh1ZrE0Qh46TECrMI2W6pVfOBI1sbDSMiSfyxw13HNrMFz/nrFcBdOecr
+	 dLGjWF3thYEdeuZCAlcTu+sjCsViFvBLieSqOMTyYqM5Zc++3FqAHqbp5y8ltyqdRl628
+	 tVfsrfP2nXZc74TxfGfchASwmo02pMxH+NgMvRKZjOqfcsruhE39gXFJppc3Lf19ZZ0kR
+	 Qq3JGsnbPN44Sh7iFL42opYLeXC0ke/WTtu3sYbtrT2qATr7hNWhofimCZFcJ4zrY0qdu
+	 yUlqpr39kl7UutdzJRmGGrcRmBIZC36JBtCA53/SC34iT6LayxJxqzKC7XoU9s5r2KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688342;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=lSYvc//2evcuVvvfbgkvtGMf4hbeH9dEG3g0YeldfH8=;
-	b=zApoxyMDOvntR8T15LhmzOuSQcwK8u5mnvqjsiRzRE1nrGvtAsvq665XZWFfFmxgTlZl
-	 j7LVW00CawotJovjQAPixDjVMjGp75FCoGbGpBcfAiVxTHXytlOQBXSjRpH6tGlD5Tkud
-	 f4Sis3J/wj2I9gSe6bbKDt/Zjpsj/Nb/piFxx1Zc92jkWOjs/j+vtWYcPefz4inVS9z1J
-	 sWM/bWbQlyCim1maElacIBb+g+GJGaGiv6YIChulxXHG/lX2LMfF1JrkRQIJ/wzpe5iC6
-	 QDty1Y3hz+IfHlhrHA+RyQoMb9PsGQXLMNKL2S4h+B35UTrgLQ384dI2NlFScn8KJQQ==
+	bh=eMuncFlOkfDAJOBFT4QXDQGFaegN/xHZ9ygGp1Yzaf8=;
+	b=Jrb7ojEh+poNNZXqMmWqTgeDmoA/m+7zdEt0kpsgH7utRGIMD5RYeZ3CuwJkIUUf9z/4
+	 6I8YmJJAqGpu9vyHwclCIyT7dy4juFuijFITlfyHEQS5y5bG4YsKhuEh+dTjbEqTF54CE
+	 nVHcDYJ+vLbhX/ghk+6tVxz0FFSr3kQ5AcoBHOGNQtfY87zDt0rulcOjs6ppu3j0wnSFf
+	 Ol4NNY564Lm10V20EuB9svr8y+y1pveG8wCDHTzeWq9SFP9Ryureek28hB1w2+GmY3YLs
+	 oq0wdda71pqRuL20D3IcpyJQPvyZ3FhM/Yf0mlYtmL0laJtwAd5+xbfm/I2D2J4oROQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYuuwOrB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHvJcuKY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32288606A324;
-	Tue,  3 Nov 2026 06:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF204606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 06:45:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYuuwOrB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AE61F000C1;
-	Tue,  3 Nov 2026 06:39:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHvJcuKY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB751F000C1;
+	Tue,  3 Nov 2026 06:45:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793687956;
-	bh=lSYvc//2evcuVvvfbgkvtGMf4hbeH9dEG3g0YeldfH8=;
+	s=k20260515; t=1793688341;
+	bh=eMuncFlOkfDAJOBFT4QXDQGFaegN/xHZ9ygGp1Yzaf8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JYuuwOrBIzz7fLQ67ZBuvME0tdnr7gVl0ZNb/E3fXqyFJGWYDAxE4SnCyIcTga8c1
-	 nKplLFcvCvy3Ah247q5rQrSoN9uOaoQX7UqIbyMpIuDycmsELciHNX4NJCq7WsVsyd
-	 miMIdtWz606jBZyrkZTrQSxEx5ZdiKjsBQo0OvxBVJ6W27ymZ5jNQ0vnzODm0qtlox
-	 75ySdzoh9D3EqdcDzSQERO5aTQBZvQWfSzSeMO+nq+a7vd6oqZgoU2sSWV2ageKFzf
-	 8yJ+h1nQHVT8xfDtJNVoo9sqeg4OE5dgvRDKDhuN67dTmgb473x24cxUFOGc5ncv0s
-	 embgxrFlB27xg==
-Message-ID: <sashiko-outbox-194651@kernel.org>
+	b=ZHvJcuKYFGDHahDD+O75U4/+nFFSYNul4ENK46y0JrvEsWgUOXntaYJItX+ndt+DP
+	 YnPE69wa4b+uqiFHbiapA3F4jPrYOTwPMmiNjtAJIdXYYd4RFMJAAtBc8Wf7ImT257
+	 dFwcOdfR4GUsxVoR0lWlrG67+rXaJjfMgs6rxtGRSh8Kuc8PuN/BRYkfecWS1RdAsR
+	 uU1b9720NJPTSsA+zpFbdckbxDWKD13QxvTcaBRiJ+o7XgbxBvoy4bcS/q+jJvNlxQ
+	 Ey8yUv4uKbiUWsGKYQYBdDsZUyGWMtLy2bKEuQwO5sZc/qiC992pEqRyF7nKO9gH77
+	 lb/S9BZeNusbw==
+Message-ID: <sashiko-outbox-194667@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 04/16] drm/imx: dc-kms: Use driver specific
- .atomic_commit_tail callback
+Subject: Re: [PATCH] arm64: dts: rockchip: Enable SD UHS-I modes on ROCK Pi
+ 4
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liu Ying" <victor.liu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261103-imx8-dc-prefetch-v9-4-3b985e7636e2@nxp.com>
-References: <20261103-imx8-dc-prefetch-v9-0-3b985e7636e2@nxp.com>
- <20261103-imx8-dc-prefetch-v9-4-3b985e7636e2@nxp.com>
+To: "Igor Velkov" <iav@iav.lv>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103-rockpi4-sd-uhs-v1-1-fa394d2046e1@iav.lv>
+References: <20261103-rockpi4-sd-uhs-v1-1-fa394d2046e1@iav.lv>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 06:39:15 +0000
+Date: Tue, 03 Nov 2026 06:45:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,129 +60,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/imx: dc: plane disable skipped on modeset in dc_drm_atomic_com=
-mit_tail()
+- [Medium] arm64: dts: rockchip: sdmmc 1.8V switch races with rockchip_iodo=
+main_probe()
+- [Medium] arm64: dts: rockchip: vcc_sdio 3.0V suspend voltage with 1.8V UH=
+S-I mode
 --
 
-commit ff022f683849ca82589cd00028c8fb7c412423dc
-Author: Liu Ying <victor.liu@nxp.com>
+commit b8883fc4178b08c2e5a74537faa16281101fdba5
+Author: Igor Velkov <iav@iav.lv>
 
-drm/imx: dc-kms: Use driver specific .atomic_commit_tail callback
+arm64: dts: rockchip: Enable SD UHS-I modes on ROCK Pi 4
 
-This commit introduces a custom atomic_commit_tail callback for the i.MX8qxp
-Display Controller KMS driver that passes DRM_PLANE_COMMIT_ACTIVE_ONLY and
-DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET to drm_atomic_helper_commit_plane=
-s()
-to avoid accessing plane registers while clocks are disabled.
+This commit lowers the minimum voltage of the vcc_sdio regulator to 1.8 V a=
+nd
+enables UHS-I modes (SDR12 through SDR104) with vqmmc-supply on the sdmmc
+controller for ROCK Pi 4 boards.
 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-kms.c b/drivers/gpu/drm/imx/dc/dc-=
-kms.c
-> index 0e2ce6a425487..9ffa15ac43a25 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-kms.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-kms.c
-[ ... ]
-> @@ -30,6 +31,29 @@ static const struct drm_mode_config_funcs dc_drm_mode_=
-config_funcs =3D {
->  	.atomic_commit =3D drm_atomic_helper_commit,
->  };
-> =20
-> +static void dc_drm_atomic_commit_tail(struct drm_atomic_commit *state)
-> +{
-> +	struct drm_device *dev =3D state->dev;
-> +
-> +	drm_atomic_helper_commit_modeset_disables(dev, state);
-> +
-> +	drm_atomic_helper_commit_planes(dev, state,
-> +					DRM_PLANE_COMMIT_ACTIVE_ONLY |
-> +					DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET);
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi b/arch/ar=
+m64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+> index 52de4a79e2f41..3de1d14529c1a 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+> @@ -356,7 +356,7 @@ vcc_sdio: LDO_REG4 {
+>  				regulator-name =3D "vcc_sdio";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> -				regulator-min-microvolt =3D <3000000>;
+> +				regulator-min-microvolt =3D <1800000>;
+>  				regulator-max-microvolt =3D <3000000>;
+>  				regulator-state-mem {
+>  					regulator-on-in-suspend;
 
-[Severity: High]
-Could passing DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MODESET (and
-DRM_PLANE_COMMIT_ACTIVE_ONLY) here leave the plane's FetchUnit source buffer
-and LayerBlend enabled in hardware after the old framebuffer is cleaned up?
+[Severity: Medium]
+Just below this in vcc_sdio, regulator-state-mem still configures a 3.0 V
+suspend voltage:
 
-In drm_atomic_helper_commit_planes(), DRM_PLANE_COMMIT_NO_DISABLE_AFTER_MOD=
-ESET
-skips calling funcs->atomic_disable() when the CRTC needs a modeset:
+arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi:
+    vcc_sdio: LDO_REG4 {
+        ...
+        regulator-state-mem {
+            regulator-on-in-suspend;
+            regulator-suspend-microvolt =3D <3000000>;
+        };
+    };
 
-    if (disabling && funcs->atomic_disable) {
-        struct drm_crtc_state *crtc_state;
+At regulator registration, set_machine_constraints() ->
+suspend_set_initial_state() -> __suspend_set_state() ->
+rk808_set_suspend_voltage() programs RK808_LDO4_SLP_VSEL_REG to 3.0 V.
 
-        crtc_state =3D old_plane_state->crtc->state;
+When a UHS-I card is initialized, mmc_sd_init_card() ->
+mmc_set_uhs_voltage() -> dw_mci_switch_voltage() ->
+mmc_regulator_set_vqmmc() switches vcc_sdio to 1.8 V, and
+rockchip_iodomain_notify() -> rockchip_iodomain_write() configures the
+RK3399 GRF_IO_VSEL SDMMC0_VDD bit for 1.8 V mode.
 
-        if (drm_atomic_crtc_needs_modeset(crtc_state) &&
-            no_disable)
-            continue;
+During system suspend to RAM (mem), _mmc_sd_suspend() -> mmc_power_off() ->
+dw_mci_set_ios() -> mmc_regulator_disable_vqmmc() only drops the enable
+reference on the regulator-always-on vcc_sdio regulator without restoring
+its voltage to 3.0 V, and the non-switchable SD card supply stays powered
+with both the card and GRF_IO_VSEL in 1.8 V mode. When PMIC_SLEEP is
+asserted, the RK808 switches LDO_REG4 to RK808_LDO4_SLP_VSEL_REG (3.0 V) in
+hardware without notifying rockchip-iodomain:
 
-        funcs->atomic_disable(plane, state);
-    }
+drivers/soc/rockchip/io-domain.c:rockchip_iodomain_notify()
+    /*
+     * According to Rockchip it's important to keep the SoC IO domain
+     * higher than (or equal to) the external voltage.  That means we need
+     * to change it before external voltage changes happen in the case
+     * of an increase.
 
-That flag is meant for drivers where the CRTC atomic_disable callback also
-disables the CRTC's planes. However, in drivers/gpu/drm/imx/dc/dc-crtc.c,
-dc_crtc_atomic_disable() only disables FrameGen and calls pm_runtime_put() =
-on
-the Display Engine and the shared Pixel Engine without disabling the planes:
+Does leaving regulator-suspend-microvolt at 3.0 V drive 3.0 V onto the
+1.8 V-configured SDMMC0_VDD I/O domain and SD bus during mem suspend?
 
-    enable_irq(dc_crtc->irq_dec_seqcomplete);
-    dc_fg_disable(dc_crtc->fg);
-    DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
-    disable_irq(dc_crtc->irq_dec_seqcomplete);
+> @@ -696,6 +696,11 @@ &sdmmc {
+>  	max-frequency =3D <150000000>;
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&sdmmc_clk &sdmmc_cd &sdmmc_cmd &sdmmc_bus4>;
+> +	sd-uhs-sdr12;
+> +	sd-uhs-sdr25;
+> +	sd-uhs-sdr50;
+> +	sd-uhs-sdr104;
+> +	vqmmc-supply =3D <&vcc_sdio>;
 
-    dc_fg_disable_clock(dc_crtc->fg);
+[Severity: Medium]
+In arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi, io_domains is a
+sibling consumer of vcc_sdio rather than a supplier to sdmmc:
 
-    /* request pixel engine power-off as plane is off too */
-    pm_runtime_put(dc_drm->pe->dev);
+    &io_domains {
+        ...
+        sdmmc-supply =3D <&vcc_sdio>;
+        status =3D "okay";
+    };
 
-And in drivers/gpu/drm/imx/dc/dc-plane.c, __dc_plane_atomic_disable() is wh=
-at
-actually disables the FetchUnit source buffer and LayerBlend:
+Because drivers/pci/ and drivers/soc/ are linked before drivers/i2c/ in
+drivers/Makefile while drivers/mmc/ is linked after drivers/i2c/, when
+CONFIG_PCIE_ROCKCHIP_HOST=3Dy both rockchip_pcie_probe() and
+rockchip_iodomain_probe() defer on their RK808 regulators before i2c0 probes
+and are queued on deferred_probe_pending_list with pcie0 ahead of
+io_domains.
 
-    /* disable fetchunit in shadow */
-    fu_ops =3D dc_fu_get_ops(dplane->fu);
-    fu_ops->disable_src_buf(dplane->fu, DC_FETCHUNIT_FRAC0);
+Once i2c0 registers the RK808 regulators, dw_mci_rockchip_pltfm_driver
+(which uses PROBE_PREFER_ASYNCHRONOUS) finds vcc_sdio ready, probes
+immediately without waiting for io_domains, and schedules mmc_rescan().
+Meanwhile, deferred_probe_work_func() runs rockchip_pcie_probe() ->
+rockchip_pcie_host_init_port() synchronously before
+rockchip_iodomain_probe():
 
-    /* set ExtDst's source to ConstFrame */
-    dc_ed_pec_src_sel(dplane->ed, dc_cf_get_link_id(dplane->cf));
+drivers/pci/controller/pcie-rockchip-host.c:rockchip_pcie_host_init_port()
+    msleep(PCIE_T_PVPERL_MS);
+    gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
 
-When dc_crtc_atomic_enable() runs with new_crtc_state->plane_mask =3D=3D 0,=
- it
-switches ed_cont's source selection to cf_cont, but it does not call
-fu_ops->disable_src_buf():
+    msleep(PCIE_RESET_CONFIG_WAIT_MS);
 
-    /* show CRTC background if no plane is enabled */
-    if (new_crtc_state->plane_mask =3D=3D 0) {
-        /* constframe in content stream shows black frame */
-        dc_cf_constantcolor_black(dc_crtc->cf_cont);
+    /* 500ms timeout value should be enough for Gen1/2 training */
+    err =3D readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_BASIC_STATU=
+S1,
+                             status, PCIE_LINK_UP(status), 20,
+                             500 * USEC_PER_MSEC);
 
-        cf_link =3D dc_cf_get_link_id(dc_crtc->cf_cont);
-        dc_ed_pec_src_sel(dc_crtc->ed_cont, cf_link);
-    }
+When the PCIe slot is empty, this blocks the deferred probe workqueue for
+roughly 700 ms before rockchip_iodomain_probe() can call
+regulator_register_notifier() on vcc_sdio. During that window,
+mmc_rescan() -> mmc_sd_init_card() -> mmc_set_uhs_voltage() ->
+dw_mci_switch_voltage() -> mmc_regulator_set_vqmmc() switches vcc_sdio to
+1.8 V and runs dw_mci_rk3288_execute_tuning() while GRF_IO_VSEL is still at
+its 3.3 V default.
 
-If an active CRTC with an enabled primary plane undergoes a modeset while
-remaining active and disables its plane in the same commit,
-dc_crtc_atomic_disable() calls asynchronous pm_runtime_put(dc_drm->pe->dev)
-and dc_crtc_atomic_begin() immediately calls
-pm_runtime_resume_and_get(dc_drm->pe->dev) before runtime suspend runs (or =
-the
-second CRTC on the shared Pixel Engine keeps dc_drm->pe->dev active), so
-dc_pe_runtime_resume() does not reset the Pixel Engine hardware. Because
-drm_atomic_crtc_needs_modeset() is true, DRM_PLANE_COMMIT_NO_DISABLE_AFTER_=
-MODESET
-skips dc_plane_atomic_disable(), leaving SOURCEBUFFERENABLE and LayerBlend
-enabled after drm_atomic_helper_cleanup_planes() cleans up the framebuffer.
-
-Similarly, because drm_atomic_helper_swap_state() swaps crtc->state before
-dc_drm_atomic_commit_tail() runs, plane_crtc_active(old_plane_state) evalua=
-tes
-to false whenever a CRTC is being disabled (new_crtc_state->active =3D=3D f=
-alse).
-With DRM_PLANE_COMMIT_ACTIVE_ONLY, disabling a CRTC and its plane while the
-second CRTC keeps the shared dc_drm->pe->dev powered on, followed by
-re-enabling the first CRTC with plane_mask =3D=3D 0, also skips
-dc_plane_atomic_disable() without ever calling fu_ops->disable_src_buf().
+Can this cause SDR104 tuning to fail at boot unless rockchip_iodomain_probe=
+()
+is guaranteed to register its vcc_sdio notifier before sdmmc switches volta=
+ge?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-imx8-dc-pr=
-efetch-v9-0-3b985e7636e2@nxp.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-rockpi4-sd=
+-uhs-v1-1-fa394d2046e1@iav.lv?part=3D1
