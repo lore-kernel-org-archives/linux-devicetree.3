@@ -1,109 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696357;
-	b=OlnhcRk/LpC/35Hu9CoPpzA9UrwS/6lfkihINwXbfJP6GLvGerucQyl9/e7406InYkwt
-	 lP4k8Mu53jhFwKORzE6bLjTLWF3mudAE5JU3EAbxXS09zCS312XWMsDTHyGfzrm9u7k7B
-	 V0IsXl7NNgQyAp0h6099LyfnQWs5tX9oRKK7IUgSea5F3v/n2cyeCi8cmVMyvFeLVmNr9
-	 9CBrYPZT6NUJ4tI0f9k3RJuYZQx5wQ+/Gym6wK4eIBlQ7lvaxQg/h+iwzkcDZWEqzHfI4
-	 UTncXR+5m3/ZA13+kM4taPHxPgDwuupWMoFftxnV+WvM6Oh74pufh36Sy1S7tKWmQGA==
+	t=1793696366;
+	b=po99mxFG9YEav/f5ybrbd1z3Mxg4VgmBYJfzCvs0Lihoitno3VbkDly0nHoP/TPUDaVV
+	 9/JLlzmOUvHj7tkDS9wcQyalx7DpX0CZ+4gx3XzGRzEiw0840sDMC7j8DrgVT4z8SKftA
+	 RjHinaq9gnnNK+anhtROwBV5p4C3QUA+mJC0gVe55BYy21NWfz4w8fSfaxnlK2W2Knnnh
+	 StoKk7w7rj/dGLsONu8eG818czbNJBLBS1AGG4YhUp4XJWwTo+9PlVLOXaTpQcpElcaIz
+	 nRn01I7DWChT/1XBZpuGBwwAhFhL3dI4+wEXruL0lD1GpNtNsE09JJWvIP89S1aNTRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696357;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rA1Ovd0Kzmkr6NATBzq19LdNhCK5jrPNyVR/5XvodLA=;
-	b=SMVWo8tqHNgWlnoqrxjSnBZ5u5T8vuuL8KwVWH9gyOw/7MR/hWAs7IMXYwmk1tRjAB+K
-	 lk1YxOdb4hRXQVVaJmPmMpecWihFfxQVtx8Hr+SxZD5HI5csxjBpZ7jdVZtbdg6+o9ghu
-	 tYMxfGujhTIDNhvsynch/OVV6adKALUISphZgKw6Ue2ncty9ub0mrRlGLWETnHV3munEh
-	 0cZ41VHwI34WuIFOr3ZDOMwkmJ+U+38d1MHMmjcikBW9aVxP5maEQEow9ji72VPxp1lNa
-	 agPSCXUbUq9E3lf8c/NHt78u6NccTP6tM0hoSE62gckWSOZXiOwkcRQ8O9TsguOUJVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696366;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=EDuH9Cj6iHQYdRvsNQHBOSRZ77zk+KQTpmXeNSrerjw=;
+	b=Soa8Ubd+cl6DDK6Oj2HvdjEwqRuReoS0+j0fXfCxXf9Y6BbduTH4q68TmYXrLupOYxDN
+	 rsW1AXFO+01WNlP9G8DVcSTVBoD9B4uZVFwNqtKuuTHpsiTUCwZvpAZAMg1pWuvzeCiQc
+	 vnCmK2DVUVFGwLeU9nSDUmv+qfrYPSPlonHFG1m5nOigAsswaQZc82tTnd7HutlqQzjhM
+	 gfz+9DWYDRCX96psA9j+2mrpVFRs5get56b+BecEp23Ea6RN329hsm1Rjg5c6A8HUUeFk
+	 TWTsQvaDeW34wUtO40PmKPF9AWt8nu/K5B3HfE35MOgEEOXbI1gFjbvgVtNAm5wtTMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GwfWNW3q;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaFRGRfR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9C6606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 08:59:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C9C6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597AE606A327;
+	Tue,  3 Nov 2026 08:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GwfWNW3q
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso566772a91.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 00:59:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793696356; x=1794301156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rA1Ovd0Kzmkr6NATBzq19LdNhCK5jrPNyVR/5XvodLA=;
-        b=GwfWNW3qDAiD5R4hrCV0GCl+mXn2dw/xdGiCMYzVXnh8sAo5j30pzKaJQ2c8Yqb+2y
-         R2NhPV6XfLLtSftaQyzY0ccCktIvRfCOIIxuseEwn/HltiMoK38y+JTGogIgZUwfaw46
-         tdbC23erg8nvyt6asc4sC+Ns8l4T2E9EjfmJ5LkE5tkJ4sFHbCnN7NiFOMtoS4azkeFM
-         64lF9Cz4bFrJ7/YlGIFvdlMi/jQ11pfGwapqs92V9N7LndtS7ou+8UGIujsqvaUoqBSb
-         XHuRVmowHsCLH17yFAVxR9OvuXNTXHtCiqNj/nRYcOIMLlHTNUdBr38yq2PURkXJCVx6
-         +RFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793696356; x=1794301156;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rA1Ovd0Kzmkr6NATBzq19LdNhCK5jrPNyVR/5XvodLA=;
-        b=P7yXKSVsnuhYL9mm5PxEYhPzTObWbG2jQaETwOtprOF/OvhTCPr2Aa2ofOQz8n5Q04
-         CPRXYCC+KLaaEi39pV5s60oifOgZT003IFKFRe9C5K5uMRaAy5ikhiuBTR3pqoIH+AOB
-         wTTf1u5GeRV+ZYav+j+8HZrNA0DoDec521V7BjEHT21OauWrLr/3oHscBa8G2DYu2AYc
-         LmzZ7lDABlLqUDofCWVsGEh46itQbjpsTUoDB12o12O8WWFWvw93tpLRVKqNRHRYFG63
-         u7NY4TymDMA58u2uAw+ahe3zAOYUXWEpVGS16pS4MveWPutjFAzgiMBiwr1bGy/x2hlT
-         KjUA==
-X-Forwarded-Encrypted: i=1; AKwUvBy2k1rk4OvRxMmsADsgPc+1XMvWs26dffqf1tP9y4ll2OyG/wKZtWLpq3oofMJ4iqj+m/aXF8paO3IO@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fqKK2w73aqqylq6LLZygqh8kS6u0X4mJIn+4hvBpHdM5xPwo/
-	gpsew4fI478fQ6pYhXQGumvZFly7Kdg8+qm4i6FNkBBKcXKOlrNiME5Z
-X-Gm-Gg: AYBFou1RJ3Q+VyZcq9FX7Itfv7c7jR4Jv7XixLeAyDEobrzrT30zuVo48g965oAp2He
-	Nwoc9a1E5pxvymsW+4Kh7uErIZp3Ss9G3IqlpoA0T8sz2xi74/KiZ+AuoFiVQ8AzbLDWNFMhpxe
-	4T4ayG4r13tmK9r0S2cb0nKc42mVPG8GcBEjuXXoIxBDTGREoMoWJsB+43AVMJFjQh/khWVxNxJ
-	AkD1Zhyt8MKc4DQg/5NMgoP7v0D65isGQ91n09GjYKJXty460mqA6/ddUegsDOCYrxyZ5uz4RYb
-	TGZ5BqiINBbUza0GSjZpORI7bZTQiZwmp06sh9qn0DhAMGBwu0wp8Y0e4a9wr0gklUrAX7y2Zes
-	kMp8sDFMcWZI2Hf1bTX166q6/sIqQPmLuclglD5ByXPXPoosPkeOSFc0Iu6imBkF4QMAWPDefXF
-	5wWiiwMyiYOXaZ0Afy6WlK8JFU77hPqPG7l6qKCgig/gbIRepku1J4B7jhq+Ofq2NNM6z/hLBe5
-	esqaCiAtllc5dLQed+qEp0D/mZnVCdS0pZQMGPoS1nAOgDdcTC3FqsYWtPgJPJJI2mOx4gqNbGQ
-	yIRtsht2nComDXXaK5fjCn+h4yh7TgUL6ubazieDi8f9bq64dJlzjB8ZPdkDCHxagLcZGGmrYEN
-	U60RQSGFqQF06
-X-Received: by 2002:a17:90b:53c4:b0:3ac:9e5e:d1a5 with SMTP id 98e67ed59e1d1-3ae8988339dmr19037670a91.6.1793696355979;
-        Tue, 03 Nov 2026 00:59:15 -0800 (PST)
-Received: from chenyou.. ([140.116.39.229])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6740a1sm3345662a91.10.2026.11.03.00.59.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:59:15 -0800 (PST)
-From: Chen-Yu Yeh <chenyou910331@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Chen Wang <chen.wang@linux.dev>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Hiago De Franco <hfranco@baylibre.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	sophgo@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Chen-Yu Yeh <chenyou910331@gmail.com>
-Subject: [PATCH 3/3] riscv: dts: sophgo: sg2002-milkv-duo256m: Enable USB role switch
-Date: Tue,  3 Nov 2026 16:58:47 +0800
-Message-ID: <20261103085847.338613-4-chenyou910331@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103085847.338613-1-chenyou910331@gmail.com>
-References: <20261103085847.338613-1-chenyou910331@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aaFRGRfR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43B91F00919;
+	Tue,  3 Nov 2026 08:59:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793696365;
+	bh=EDuH9Cj6iHQYdRvsNQHBOSRZ77zk+KQTpmXeNSrerjw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aaFRGRfRClEyKtnvMiMmsW8lUCZeieNtsqVEnHibPwF3rUB7fPm6CmsAmj3lNvoD6
+	 JI3p5TtAZTdJFhUwHsLivmwtV7xN3yfYl4FB52K4JnBCLGwyvpyR2cT/6ctiJGmNyA
+	 W6YDO9GUXbSvMIpVJ7QEYSFyG7Q5+cFtF/bfqSACr/dcF7C8ncUXblQEMquAUq8qnT
+	 F9EwKY8EfIQe2CPWQ9vpjFHIAqkBs9NeU4ZVtpWiVdRjzip8oQpwadiARec/qVjnWg
+	 UpAEygrVQ9X5Su6QESn5O3WQHBPSdAJF0N0jJ5JzEZHrA5d3snTEzDgxnbCGfGdpbI
+	 MYAO43FiCjAEQ==
+Message-ID: <sashiko-outbox-194910@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/max20830) Add support for
+ MAX20810, MAX20815, LTM4739, LTM4740
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Carlos Jones" <carlosjr.jones@analog.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103084331.449-3-carlosjr.jones@analog.com>
+References: <20261103084331.449-1-carlosjr.jones@analog.com>
+ <20261103084331.449-3-carlosjr.jones@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 08:59:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,44 +60,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The USB-C port of the Milk-V Duo 256M is the only USB connector on the
-bare board, and the vendor image uses it in device mode by default.
-Host mode is mainly needed with the USB & Ethernet IO board, whose USB
-hub hangs off the same controller.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] hwmon: (pmbus/max20830) Kconfig help text not updated for new chips
+--
 
-Use the role switch in the PHY so that one DTB can do both, and default
-to peripheral to match the vendor image.
+commit a48cd701bd54f337809702615b2dcd55ba0b47a3
+Author: Carlos Jones Jr <carlosjr.jones@analog.com>
 
-This changes the default of the port from host to device. To use host
-mode, including the hub on the IO board, select it at runtime:
+hwmon: (pmbus/max20830) Add support for MAX20810, MAX20815, LTM4739, LTM4740
 
-  echo host > /sys/class/usb_role/3000000.syscon:phy@48-role-switch/role
+This commit adds support for the MAX20810, MAX20815, LTM4739, and LTM4740
+step-down switching regulators to the max20830 PMBus driver by matching
+their IC_DEVICE_ID strings ("MAX20810B" and "MAX20815B") and updating
+Documentation/hwmon/max20830.rst.
 
-Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
----
- arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+> diff --git a/drivers/hwmon/pmbus/max20830.c b/drivers/hwmon/pmbus/max2083=
+0.c
+> index 4d25a084af096..39cce250beca4 100644
+> --- a/drivers/hwmon/pmbus/max20830.c
+> +++ b/drivers/hwmon/pmbus/max20830.c
+> @@ -20,7 +20,15 @@ struct max20830_data {
+>  	u32 vout_rfb2;
+>  };
+> =20
+> +/*
+> + * IC_DEVICE_ID strings matched at probe. The LTM4739/LTM4740 uModules
+> + * report their MAX die ID with a "B" suffix, not the "LTM47xx" names in
+> + * their datasheets (being corrected); the plain datasheet IDs are not
+> + * matched, as no such part has been observed.
+> + */
+>  static const char * const supported_chip_ids[] =3D {
+> +	"MAX20810B",	/* LTM4739 */
+> +	"MAX20815B",	/* LTM4740 */
+>  	"MAX20830",
+>  	"MAX20830C",
+>  	"MAX20840C",
 
-diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-index d4e86c15664e..0ad1dfd9449c 100644
---- a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-+++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
-@@ -105,6 +105,11 @@ &uart0 {
- };
- 
- &usb {
--	dr_mode = "host";
-+	dr_mode = "otg";
- 	status = "okay";
- };
-+
-+&usbphy {
-+	usb-role-switch;
-+	role-switch-default-mode = "peripheral";
-+};
--- 
-2.43.0
+[Severity: Low]
+This isn't a bug, but when adding support for MAX20810, MAX20815, LTM4739,
+and LTM4740 in supported_chip_ids[] and Documentation/hwmon/max20830.rst,
+should the SENSORS_MAX20830 entry in drivers/hwmon/pmbus/Kconfig also be
+updated?
 
+Currently drivers/hwmon/pmbus/Kconfig only lists the previously supported
+models:
+
+config SENSORS_MAX20830
+	tristate "Analog Devices MAX20830 and compatibles"
+	help
+	  If you say yes here you get hardware monitoring support for Analog
+	  Devices MAX20830, MAX20830C, and MAX20840C.
+
+Documentation/hwmon/submitting-patches.rst asks that Kconfig information be
+kept up to date when adding functionality to existing drivers, similar to
+commit 4cdcd4789fb6 ("hwmon: (max20830) Add support for MAX20830C and
+MAX20840C").
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103084331.449-=
+1-carlosjr.jones@analog.com?part=3D2
