@@ -1,105 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793680700;
-	b=yx8BlFtvy0EshMnhvdE2AWBC7DuoYbVmDY3twzHO9qsKU4MbDU4Qf95J/qz4ChRe7bqA
-	 zhNcdaIILhjkqFLHKrEVfR5q9I/8+fL2I0bImk980sg0iV0Hb0YHzhzwZw6jU9zL+8I5g
-	 f+HiBiOIa2WQxCiFFb9QYkDzy6gnKFrCPkdv1QXo+DS+j9PYNi2zjs98/AAFGkyqDl/1L
-	 BuCgavMw6OgsPAP3oFyp35oBN+KH1oSPLiVgOlEIZf4mgX0i3usYcWVWHIB12YowKEmpr
-	 H8IUpgJxiPN+fZADG/a87Lfp4OEK65ShSX70DFyDte9NThbjGR45ZGBpyORv1Za7S8A==
+	t=1793681558;
+	b=oFOnlUZ9r2ZVwf5EtJiCVaN02EPpECmDA2KwETkdSe4raIfqOmNaxnCuN2PvLCrEQ4BR
+	 mBhldAR66O5qX+/BBc0/JOlNQOGUgNa7XQub/ZpJJNoHQjRiUrTwK3wlbcdFuvBcUsZrL
+	 ke2KCCeGbHyYcb5pr7OyCDRiUFhFRV2604O117Qw4YVqx0oTdIJbdfBxVT9HoBDEku7gW
+	 8jbjh2X4w1jX7G65JYtgcwXA+9GmpuKJpz40qNWsBqzsNNzOkweyDYWcBhx2xCZ0SQ7mJ
+	 4siMgkol4wIzklBoeS0hKg0/brIeGh7OShb+ly4VKZB+v7NYDFlSAn6kybV5Vyqy29A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793680700;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
-	b=iwg3k7AZk+2yyNNsDcb4fUBf6t2maOBI08u2zA8ML/tuDbTLXkBU2DnNGKfILQwQjGjL
-	 b+SiGwLMImXpkR5PAAz5Jtfcj2lixTnNQpAGea+zoPm6JUBtdzDYMCl2OO1dZp99ZSpaJ
-	 jnO0flnkfxy0AUH57HnwvUp12BtoBL2mTTE3+7zNE38CFDg1sl2TRG5VNsMGu++HeFxec
-	 qK1JjMiw0nBj7SKH6uV8Gfh2d2jY088hOCti7f2NORGL81yoVLev32RexhMgrT3EcrMiB
-	 8lS1n8BtQ0Zwa3U8Oyn8SSD3WvIY+IeAbR65AdyTqNjWbnzrk9Bph9+G1dPEbQR6n8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681558;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=v1i5re8NwFOOtVsv6Epqv+P7oggVp+WbMhkgKAYwimo=;
+	b=ck55bR9rDdeoiU3/MY+qjTzD8rO+8ykANauRqaY/XlUsoV87AfuuTbA3qHdXja43g+BR
+	 +XIse66dctIUjShOGk4TYYBPwubvoY/HwH04gwfShXzdGMQoBv4sVLo7LiZsra/dbPAX8
+	 LqTyL+SkDDIatniaGqlPxvHtRQN9ZfxLrp7vma4Hsn5hGAIfEPD55Fh1B/NtWvUuyapPJ
+	 JBWTvxc/AJddvKCj1uDeVHO7fEj/NpPZjIhxlZWQei/53m4icWQh+8lzkz77J8ezBfywC
+	 l4hexGYAvQnJgXURZA4h/ciaK1PFMOoHPoo5uluyaxX1iIEYaGIXiizdAexN08YcFag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XElVPPXI;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0j9qFw6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CFC606A32F
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 04:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3CFC606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172FD606A329;
+	Tue,  3 Nov 2026 04:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XElVPPXI
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so168804a91.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 20:38:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793680699; x=1794285499; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
-        b=XElVPPXIpP6fosW6+7K3jVrmtXYfBRPTpzAlgEI6/7G5HJ+9KEJPQ3UoWAaex8SJ47
-         n5pY1ZRXvWc8XMYoR0maYVkdsXoSj0uwAHnNUnJyH3KKaMRiAFJdNbx6yD/d+aqssFad
-         NSUa4WrlOGyXMenr619P4qq1AQplaGBT6NfEY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793680699; x=1794285499;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wOgLDWMrbGue3Y3ijnkKX9LYoTRtoFaZwaUPNmihNOI=;
-        b=mazcD8U+R79/Oh0oZsW2sEwsW8DeYkQ0hqiE0jF4vhRtaNSaex+sATf87p913QKDir
-         lKcEnIMEhJypD5BR2p4+P0CWH23f8J0WgY3vWwRRfq/zqKIsA3pNnlVhL94FINOGHlGP
-         Ml1IPkYziR9tKD8Mj+Sth6dZ6Ra8d65KLBZU7UmTD96HPG5igPiXvqfauWzgBAotTZLg
-         G5QAi+tEwf2JDhpHw14Rz2/S8ZH8X5jGBvHA+v3zQ9cAMXgXugUNE8FAUvBfaPkF1OoF
-         0BooExf5M/TxceXy3e081n++ihVMJ5s03+PvaDLm9e6PWUmkez+gnc+Xilze8HxCztQ8
-         Tssg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2EFWqmPcd1/m3nXjt8Ny2VW+FtofvD6CrJR3yX/9iFv7TiSZCEAT9FSZHpAXYyiaw79mPig/acyU7@vger.kernel.org
-X-Gm-Message-State: APuU4Z/T2ToC+jqHBmrUjW0ZANNH37F5oAsNUXvOfPZ6DHmc6TN5Mp6k
-	kgPuT2W6/OzE1hwgazKZg/4t0GhnAwgNCClpRhPwRTPgvRWtIzn7rSAq8YCz0l5nlw==
-X-Gm-Gg: AYBFou3jloN3jTm9dvg9GHyScSk/92OC7E7R8+5B74/vSGQc3X0X0TXS3VVb0+IBsHk
-	QQ29qFFqCJorH2TV16iC5sr0WYUkcifbfHLmgQ7RrbQmwx3cp4ft5qJKgOAudW3Z1y3/oo2Jua2
-	YQ1rb8r+fJ8KJ9QLVEWR96d/jXcoGWoL8JPtSZpOixuSxuETAmv5nkp4Q+4TUA56CmF4x9+q50k
-	q0Whv2/lhuv2uxofe3ZW9BZ6gq4uovmczPjtBI2g14frKAJE3ztw1twTf9otGS9tiCRuMG9YPRv
-	ULv2KtluQRIGhr4r1f+GqTCxWDn0Zgmqw/gDIkJZ91gf6p1CFwVNx+65EIIyEe0oOOlSJDHPw9W
-	Jz21Cs76q+tGQTRxj0KdiLbgwcugu7n0ony54mNWvkcT+SRfOF94VvVDkKFwLJSWBe5kFPUGt2O
-	GQrnL61zcYR/2dAmFWj8ys5oD5EfqFn5q1MLwgeJ9N6w3ro9IUHW1aXPjTRcmVypJIVt4g6oEY4
-	5iHxi/25wKR2we6j8RNBWD9oVtskMnfJ4W0EijJQxGuEbfjxxoWIgdQkBlXdiO0D7JbiifqdtNt
-	i2Y1hKEmbxWAZHWQGdyRLiEU5oSCjrW98HUBsktfKJjQRRzwZnVWAJdA8mB0Q71tzpF28JGYMFz
-	AWiIA2xoV+bcacWZUJcudjNFrXumm8NVGWw==
-X-Received: by 2002:a17:90b:280c:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3ae8972a6d2mr6631601a91.18.1793680698982;
-        Mon, 02 Nov 2026 20:38:18 -0800 (PST)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:dea6:6326:4502:bb8b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c71c253sm2072761a91.16.2026.11.02.20.38.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:38:18 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable+noautosel@kernel.org
-Subject: [PATCH v7 8/8] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
-Date: Tue,  3 Nov 2026 12:37:32 +0800
-Message-ID: <20261103043734.2179858-9-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103043734.2179858-1-wenst@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0j9qFw6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA7E1F0093A;
+	Tue,  3 Nov 2026 04:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793681557;
+	bh=v1i5re8NwFOOtVsv6Epqv+P7oggVp+WbMhkgKAYwimo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=X0j9qFw62XWa/cb4cEe2kxUAKogeyRfA3ljwErUPjKYcGO4NWF+unQ7hnSifa2s1m
+	 f8hmJf81idGZwpur/ploMUF7G9KciquS7JCxywcRn2//R0M3bx5m16qpbMhKpkIuFV
+	 qe6U4jXHcuixQoKn4dNyu0JBQ1CPXFxihIQQDgB3tbLYRjDmor5RgZbDiy1ANm+whi
+	 Bjuu+buBFDp+XkQT1dmzx54IMoslsCSCA5l341sRz42ro++IQPgwtVNWaoYeTKhqK6
+	 JIrbfdx1cmJbRakmJ7EbffT8wKH+eW1qIp64TkSq6AMvSbFb4mkwE300Pw1zl3aLz+
+	 MU1hQytEl73AA==
+Message-ID: <sashiko-outbox-194583@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/8] HID: i2c-hid-of: skip post-power-on delay if
+ powered on sufficiently long
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261103043734.2179858-4-wenst@chromium.org>
 References: <20261103043734.2179858-1-wenst@chromium.org>
+ <20261103043734.2179858-4-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 04:52:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,42 +60,160 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The Synaptics trackpad, like the Elan trackpad option, is fed from the
-system 3.3V power rail. Add it to the trackpad device node.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] HID: i2c-hid-of: skipped post_power_delay_ms in i2c_hid_of_power_u=
+p()
+--
 
-Also add the correct post-power-on delay, even though in practice it is
-not required. The Synaptics trackpad requires 100ms after power-on (or
-deasserting the reset, whichever comes later) to fully initialize. The
-power is always on and the reset pin is not routed out, so the
-implementation could try skipping the delay.
+commit ac10ce6c4cef7a3904b81ccfc0086f427b98f32b
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
-Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-I think this shouldn't be backported, as backporting it without the
-driver enhancements just delays the trackpad probing with no real
-gains.
----
- arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
- 1 file changed, 2 insertions(+)
+HID: i2c-hid-of: skip post-power-on delay if powered on sufficiently long
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-index 68caf4c58cfe..8adbfc307fca 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-@@ -94,6 +94,8 @@ trackpad@2c {
- 		hid-descr-addr = <0x20>;
- 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
- 		wakeup-source;
-+		vdd-supply = <&pp3300_u>;
-+		post-power-on-delay-ms = <100>;
- 		status = "fail-needs-probe";
- 	};
- };
--- 
-2.56.0.385.gac671c819a-goog
+This commit replaces regulator_bulk_enable() and the unconditional msleep()=
+ in
+i2c_hid_of_power_up() with regulator_bulk_enable_and_wait() so that the
+post-power-on delay is skipped when the regulator supplies have already been
+enabled for at least post_power_delay_ms.
 
+> diff --git a/drivers/hid/i2c-hid/i2c-hid-of.c b/drivers/hid/i2c-hid/i2c-h=
+id-of.c
+> index 59393d71ddb9d..fdaad451e7102 100644
+> --- a/drivers/hid/i2c-hid/i2c-hid-of.c
+> +++ b/drivers/hid/i2c-hid/i2c-hid-of.c
+
+[ ... ]
+
+> @@ -48,16 +49,14 @@ static int i2c_hid_of_power_up(struct i2chid_ops *ops)
+>  	struct device *dev =3D &ihid_of->client->dev;
+>  	int ret;
+> =20
+> -	ret =3D regulator_bulk_enable(ARRAY_SIZE(ihid_of->supplies),
+> -				    ihid_of->supplies);
+> +	ret =3D regulator_bulk_enable_and_wait(ARRAY_SIZE(ihid_of->supplies),
+> +					     ihid_of->supplies,
+> +					     ihid_of->post_power_delay_ms * USEC_PER_MSEC);
+>  	if (ret) {
+>  		dev_warn(dev, "Failed to enable supplies: %d\n", ret);
+>  		return ret;
+>  	}
+> =20
+> -	if (ihid_of->post_power_delay_ms)
+> -		msleep(ihid_of->post_power_delay_ms);
+> -
+
+[Severity: High]
+As reported by Sashiko on v6 [1], could replacing the unconditional
+msleep(ihid_of->post_power_delay_ms) with regulator_bulk_enable_and_wait() =
+in
+i2c_hid_of_power_up() cause initialization regressions on existing Device T=
+ree
+platforms where ihid_of->supplies are dummy or always-on regulators whose
+last_on timestamp was recorded during early boot, even though the HID device
+itself just exited reset or powered up?
+
+When the delay is skipped, __i2c_hid_core_probe() or i2c_hid_core_resume()
+immediately issues I2C transfers (such as i2c_hid_probe_address(),
+i2c_hid_fetch_hid_descriptor(), or i2c_hid_set_power()) before the controll=
+er
+firmware has finished booting, which can fail with -ENXIO.
+
+There appear to be three in-tree Device Tree patterns affected by this:
+
+1. Pinctrl-driven reset deassertion at driver bind time:
+Because Documentation/devicetree/bindings/input/hid-over-i2c.yaml does not
+define reset-gpios or post-reset-deassert-delay-ms (which i2c_hid_of_probe()
+only populates for x86 platform data), several boards hold the controller in
+reset at boot via a pin pulldown and drive the reset pin output-high in
+pinctrl-0 when pinctrl_bind_pins() runs right before i2c_hid_of_probe(),
+relying on post-power-on-delay-ms to wait for the device to boot out of res=
+et.
+
+For example, in arch/arm64/boot/dts/qcom/sdm850-samsung-w737.dts, digitizer=
+@9
+omits vdd-supply (using the dummy regulator), sets post-power-on-delay-ms =
+=3D
+<120>, and releases reset in pen_rst_l:
+
+	pen_rst_l: pen-rst-l-state {
+		pins =3D "gpio21";
+		function =3D "gpio";
+		bias-disable;
+		drive-strength =3D <2>;
+
+		/*
+		 * The pen driver doesn't currently support
+		 * driving this reset line.  By specifying
+		 * output-high here we're relying on the fact
+		 * that this pin has a default pulldown at boot
+		 * (which makes sure the pen was in reset if it
+		 * was powered) and then we set it high here to
+		 * take it out of reset.  Better would be if the
+		 * pen driver could control this and we could
+		 * remove "output-high" here.
+		 */
+		output-high;
+	};
+
+Similarly, arch/arm64/boot/dts/mediatek/mt8186-corsola-magneton-sku393216.d=
+ts
+(as well as sku393217.dts and mt8183-kukui-kodama.dtsi / kakadu.dtsi /
+jacuzzi-burnet.dts) uses an always-on regulator while touchscreen_pins driv=
+es
+the reset pin output-high in pinctrl-0:
+
+	touchscreen@10 {
+		compatible =3D "hid-over-i2c";
+		reg =3D <0x10>;
+		interrupts-extended =3D <&pio 12 IRQ_TYPE_LEVEL_LOW>;
+		pinctrl-names =3D "default";
+		pinctrl-0 =3D <&touchscreen_pins>;
+		vdd-supply =3D <&pp3300_s3>;
+		post-power-on-delay-ms =3D <350>;
+		hid-descr-addr =3D <0x0001>;
+	};
+
+2. DRM panel followers where the panel driver sequences power and reset:
+In arch/arm64/boot/dts/mediatek/mt8186-corsola-starmie-sku1.dts,
+touchscreen_himax is a panel follower whose vdd-supply (mt6366_vio18_reg) is
+marked regulator-always-on in mt8186-corsola.dtsi:
+
+	touchscreen_himax: touchscreen@4f {
+		compatible =3D "hid-over-i2c";
+		reg =3D <0x4f>;
+		interrupts-extended =3D <&pio 12 IRQ_TYPE_LEVEL_LOW>;
+		pinctrl-names =3D "default";
+		pinctrl-0 =3D <&touchscreen_pins>;
+		vdd-supply =3D <&mt6366_vio18_reg>;
+		panel =3D <&panel>;
+		post-power-on-delay-ms =3D <450>;
+		hid-descr-addr =3D <0x0001>;
+	};
+
+Here, the switched analog rails (avdd/avee) and hardware reset GPIO of the
+integrated Himax HX83102 TDDI controller are toggled by hx83102_prepare() a=
+nd
+hx83102_unprepare() in drivers/gpu/drm/panel/panel-himax-hx83102.c. When
+drm_panel_prepare() triggers ihid_core_panel_follower_work() ->
+i2c_hid_core_probe_panel_follower() or i2c_hid_core_resume() ->
+i2c_hid_of_power_up(), won't regulator_bulk_enable_and_wait() see the early
+boot last_on timestamp of mt6366_vio18_reg and skip the 450 ms delay right
+after hx83102_prepare() powered and reset the chip?
+
+3. S3 suspend/resume with hardware-sequenced rails:
+On boards using pp3300_s3 (modeled in mt8186-corsola.dtsi as a fixed regula=
+tor
+with regulator-always-on because it is sequenced by PMIC EXT_PMIC_EN2 during
+S3), regulator_bulk_disable() and regulator_bulk_enable_and_wait() do not
+update rdev->last_on across S3 suspend and resume while CLOCK_BOOTTIME
+advances. On S3 resume in i2c_hid_core_resume() -> i2c_hid_of_power_up(),
+won't this skip post_power_delay_ms even though the rail was just re-enabled
+by hardware?
+
+[1] https://lore.kernel.org/r/20260901074930.764550-4-wenst@chromium.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103043734.2179=
+858-1-wenst@chromium.org?part=3D3
