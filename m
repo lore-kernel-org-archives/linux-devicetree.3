@@ -1,84 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724873;
-	b=UQTcl6mhkFK/oLrpkR05vaibzW3BHqvbQAvVbXDiIR+JrkJ2rwBv+Uzp/lfV2jtF/Jq8
-	 HEbpc7Z0U5l4zHfhH56bmQq/QMjBTaiXdo6y/FELTbLeJiC4G+TjRfhCKH3JEKGAkfuom
-	 bjdDZMijcUC/kGHzT/hVS+CYP56b/OEz9FvwJPSqDoipHht92eW2rsSc2WP8Qm2KrohrA
-	 GLYI6hpuujekeBRmi1fV05uFBdgrbIS9pYQKkZGI/nNFZ3cODYPRM8AE4xRgQpm/vsTKY
-	 XegDEo5q0A/LuLVIv73UMcq2sxWjDNoJrLTSqK/YCJbDDLq04Rno/dxU1ufQOYglI2Q==
+	t=1793724977;
+	b=DCajYX2O8vfSvQfQG8RqyHvU7E2qLJkbyz1/TvMxRcS0ADkfZxzrGk+QXVhh7sKBOIGD
+	 +Vpk0mRF6zP/hkoL/Mwp8KkENhVz3xADLJrHg7aXT8HCAOegHAGnFTF6Et5vAFzXNMvJG
+	 mZZZQykGU19FkAXAl7HdMAGxjQzDFlW4dDZ7m+2y5GjldLwfrmt9g34CXluPJqoj8Tamx
+	 1zNEtEOZ3cOVOBSjxlWNAX+M0AfWvk7fFfxA3wqUV1fNjeG8HMeTheT3mm2qdiLmGQmPw
+	 GeDCUeMFeNtjtgsLEzSpSMY8i2M+09b0bxld4i7DcLt/shHG3xk21GE+plA2wpbjNWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724873;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=WD2GWrHxGNQECop37VP/Xf/Pf2MMXPl5ygD4L+CMi9g=;
-	b=bdnJpvXheVJAxPyC2YTUd1wggYWDg+WWAEj+3h669kcTn1WjdqrUb8EAAIdQbSIJOxUf
-	 6+Ykv3+zRR25UOMNucIRtSF02aCZyT7j5jfKQbmx0zWLxSETPcY6moJRcewRIMjp057gT
-	 +jWP4kZfBMaM+AloWwVeWURbUe7h7m0Lcs5QE35uYpjOK5NXZy5bwlgLWZNt0QXYDVQg1
-	 3U5HsbtOP6M4dNNRYFai9i0iA5wprud3kAI1SKxGJOG7K7buxqc1X0TN8B/qYDXhX3Pcp
-	 6t0do5/Lqp4hMWQ6hTeKtyeMNlLHP7z4xzBECy4snX/JqcH1hTCVTaa5BRNG0HFc+rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724977;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=TTj64Sa8S+aVgR4NPp05Dm2kql2/bkp1UbfdcQ1rzyc=;
+	b=5sSG0DQqotykbEjSaU+vaB+PFMfedA1xIAEbOg0O5+lquQ+CNn3aKd5S6xwF7Hvunyq2
+	 aI2FJZGm98x4NwcaDh1lQNNxQnuAmg0PmsvxOGrqQmYfELVnCBXBRyp1tghR0XWVUbPrD
+	 d7nFCVnendaBOUh/Gz47BTc2AJXaSN8/KDOUK1VTUvo3mrztHC2M0USkBwbZJSBMnzoDT
+	 LKPIVxJwM5SQ7nu8XjNaakDO7Vlt1/H11KPTaY9xEJ1IyMc1xXCimI/6kMCVQJAzo2xU2
+	 P4DZ+jNwxXSm9O/TAFmzH/lWYL7V87XaC9Ibqk+r9GP5rXocxbnAMLkL3xOyISPEcEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J2F6WBWX;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b="N3pPM/WS";
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559A6606EEAA;
-	Tue,  3 Nov 2026 16:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 559A6606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DDE606A32C
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68DDE606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J2F6WBWX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793724872; x=1825260872;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zGItpx+XsrdALmEsBycV8i25IwA6vjMLwIUqW81fqJE=;
-  b=J2F6WBWXbLJBR3spy1VtPiKGfQHYqglx4SRwTyZcMCxoN5kTy13sXsNf
-   OMpMErJgMqwUTCPC77csGYChFdhOBt5MlCxqAhmhuaQ1SUmaZzIKvSgsX
-   kwKxual7/eiviTSTofES6H2mKWmixxVRT57Voh7DEphtF0dIAxkTG+e79
-   tgCZPcRw8kwwShXX9+hokix2WKSX4sw5hVwWusVjMGYvGUHaThILIgxzQ
-   eOQPOv19+ouRWGnLTI+mSp9GlLV3PvfTAgB6mw1K/cOYh+29V++a9mNVc
-   g98yZR73h18ybHxKp1AhvFJL3fNtbphgRPxBtUWEtLmSvfXgzdD3YwX4p
-   g==;
-X-CSE-ConnectionGUID: p7I1yhG3SkOLtjgI5kdRWg==
-X-CSE-MsgGUID: JLZ6G3ACT2mqTCy9K18QLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2351112"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2351112"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:54:32 -0800
-X-CSE-ConnectionGUID: ElKpCDeGRoGMohprU6iHYA==
-X-CSE-MsgGUID: 8ERzto85RWWYdWBfMOrcTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6820418"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 08:54:27 -0800
-Date: Tue, 3 Nov 2026 18:54:24 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>, linux-acpi@vger.kernel.org,
-	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 13/13] gpio: pl061: use string_choices helpers for
- IRQ trigger logging
-Message-ID: <auoRwOBuoxz94haW@ashevche-desk.local>
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-13-4f93114ea204@ambarella.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=N3pPM/WS
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55A67280640;
+	Tue,  3 Nov 2026 17:56:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793724974; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=TTj64Sa8S+aVgR4NPp05Dm2kql2/bkp1UbfdcQ1rzyc=;
+	b=N3pPM/WSMCFQ+E9+29JzKGJaiIFwXzoEI7o21wauDcfH3xKDXEj5ex0OHr6nt51C27k/am
+	qEltz2sAezRV2BW43PAEGuQxlZ1olfjBw2jM22gS+U5LhEeKR37+IUCeFQQPvMmEq2u9GT
+	aTzRUVhAzBulr9vB8KrrgWr/jEDvaMUZLu7RYpRe3Bv8HbHzUJxCcXxfBQZzu7d7oqos7+
+	cbpRav+JDW12nf1acPgLbcCjQB0QBhhiR2785qWixiTsfxA4vZwFsNfbxaa/mkQx4RW15d
+	WGE58pdtSg1PMA9tmfkH2/TRCxipgraYJCWXmP3aqkXBQnpkEWnJT7FplsqaCg==
+Message-ID: <492da787-471d-4923-b6ad-6f6cb113b19e@cjdns.fr>
+Date: Tue, 3 Nov 2026 17:56:11 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,22 +55,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-cv75-gpio-v13-13-4f93114ea204@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v4 4/7] net: dsa: mediatek: support PLL setup on MMIO
+ MT7530
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-5-cjd@cjdns.fr> <sashiko-outbox-191439@kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <sashiko-outbox-191439@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Nov 02, 2026 at 02:46:06PM +0800, Long Zhao via B4 Relay wrote:
 
-> Add str_rising_falling() next to the other str_* helpers and use
-> str_high_low() / str_rising_falling() for the level and edge debug
-> lines.
+On 30/10/2026 20:22, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] net: dsa: mt7530: missing child_bus mdio_lock in core_write() and core_rmw()
+> --
+>
+> commit 3f6621fc167b9cbb00feef9399db3022a584cb8e
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> net: dsa: mediatek: support PLL setup on MMIO MT7530
+>
+> This commit records the switch's internal MDIO bus in priv->child_bus during
+> mt7530_setup_mdio() and updates core_write() and core_rmw() to fall back to
+> priv->child_bus when priv->bus is NULL so MMIO MT7530 instances can perform
+> PLL and core register configuration via the internal PHY MDIO bus.
+>
+>> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+>> index c5b3b00acb956..d45388e2efc83 100644
+>> --- a/drivers/net/dsa/mt7530.c
+>> +++ b/drivers/net/dsa/mt7530.c
+>> @@ -77,6 +77,12 @@ core_write(struct mt7530_priv *priv, u32 reg, u32 val)
+>>   	struct mii_bus *bus = priv->bus;
+>>   	int ret;
+>>   
+>> +	if (!bus)
+>> +		bus = priv->child_bus;
+>> +
+>> +	if (WARN_ON_ONCE(!bus))
+>> +		return;
+>> +
+>>   	mt7530_mutex_lock(priv);
+>>   
+>>   	/* Write the desired MMD Devad */
+>> @@ -112,6 +118,12 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
+>>   	u32 val;
+>>   	int ret;
+>>   
+>> +	if (!bus)
+>> +		bus = priv->child_bus;
+>> +
+>> +	if (WARN_ON_ONCE(!bus))
+>> +		return;
+>> +
+>>   	mt7530_mutex_lock(priv);
+>>   
+>>   	/* Write the desired MMD Devad */
+> [Severity: Medium]
+> When priv->bus is NULL and core_write() or core_rmw() falls back to
+> priv->child_bus, does mt7530_mutex_lock() leave bus->mdio_lock unlocked?
+>
+> Looking at mt7530_mutex_lock() and mt7530_mutex_unlock() in
+> drivers/net/dsa/mt7530.c:
+>
+> static void
+> mt7530_mutex_lock(struct mt7530_priv *priv)
+> {
+> 	if (priv->bus)
+> 		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
+> }
+>
+> static void
+> mt7530_mutex_unlock(struct mt7530_priv *priv)
+> {
+> 	if (priv->bus)
+> 		mutex_unlock(&priv->bus->mdio_lock);
+> }
+>
+> On MMIO switches where priv->bus is NULL, mt7530_mutex_lock() becomes a
+> no-op. However, core_write() and core_rmw() perform multi-step Clause 22
+> MMD indirect sequences across MII_MMD_CTRL and MII_MMD_DATA using raw
+> bus->write() and bus->read() calls.
+>
+> Even though the underlying indirect PHY accessors acquire priv->reg_mutex for
+> each individual Clause 22 register transfer, priv->reg_mutex is released
+> between each step of the MII_MMD_CTRL and MII_MMD_DATA sequence. Once
+> mt7530_setup_mdio() registers priv->child_bus, runtime callers such as
+> mt753x_phylink_mac_config() -> mt7530_mac_config() -> mt7530_setup_port6()
+> call core_clear(), core_write(), and core_set() (which use core_rmw() and
+> core_write()). Could concurrent phylib or MDIO accesses on priv->child_bus
+> (which serialize on priv->child_bus->mdio_lock) interleave between those
+> steps and corrupt the MMD register accesses?
 
-It should be two separate patches. Otherwise LGTM.
 
--- 
-With Best Regards,
-Andy Shevchenko
+This is potentially a problem, but it can't be solved by locking 
+priv->child_bus because that will cause re-entrant deadlock. I think the 
+bulk of core_write() could be replaced by phy_write_mmd() and 
+mt7530_mutex_lock() could be dropped entirely, but this is a bit of 
+re-architecting that I'm not entirely comfortable with and I think it's 
+probably better to leave it as it is for now.
+
+
+Thanks,
+
+Caleb
 
 
