@@ -1,70 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716676;
-	b=AK/qvJyELXSA9jLVYQezHUyG5fuir+6akot+ZbhttNacuOfNCk6msw4t4UcvKCGAPs8I
-	 K5CNXgNnEjVV4ym7jyIPPlTxXrgK4BGwdA/VU2JOs/1r6qUd1LLEHmwlcpO8UVLJxi8R0
-	 Yzd/F2VT/UgY91Drc/WKzRtz21dccLVp1gFyjL4i60cpOYdx/9hNuUZDG2C+eY9SBtAPM
-	 aIw3srHRwdqyTisjncvZr2GuRlue5fSwI+ydVFsZ5OuJjRjo4sFwgiumYfhdOphMfZonf
-	 Vk3ECcRrLEQPCUSp+W7jJK00qbysDdL3kJM9Cj/ZcDfnfyYev0i0e2C3lTZUs1i3eOA==
+	t=1793716683;
+	b=gwyYlG1If/uBJm+yTMwk8gMnR1h97eQnSRhh0PS+1xDl7ycD4YD7RZ7yWrj124rTqQDj
+	 BFlckJCwsEqaKOMTz+4mNvBMMpQlVRlzm4gIo3WYlHSJzTKD9kKmjUShMuhDh1i0ni+C6
+	 /1Bnwete2rxCAIvl2bbSuKmXmU2V5kAM37JmzIfnjcGl2sTORiMuaKzdUOA5GD/TTun8E
+	 1V68oihhmp68FMDjxJNsL6CmvHfZ35CoS+P6hqEm846V4cpuJtFW/haPx7tPUpF1ALrxq
+	 sh+dK4CqRLoU8BYuTqw3xPm4RBYkOjP+EJhKDeHlVuBPLHGH/qCDjYPG7BUERM1loXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716683;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=9aaHUaZ+v66t3YydydbToNbzzq2UxbY/jPxKZ6dEeQw=;
-	b=YCPJf4u/3nfDTgSyhM1noPLFMFDnDwi24medJB6hSt7ixq86k2nrWIFPezHoqQaSIjBp
-	 VMHY4STFAXjsyZD+y8kvAINtZuTxKQsLWjCXNCkWaGDwFVOpyq1c8y5v8+/+f8O7W3v6B
-	 A48eS6A8Qlj+VbsYi7Iv178/V5mzhhbKU3O0ieX5tW7srpws/BBSyh3rJPgl+XuVVk7Aj
-	 1slIo+z3+XMa+Yb2lvRh5K83XXwQFW8AAIOiY4PBhWnZgi74cbgX+7NRtx+pbCRl3FZb9
-	 3ZEfkQydXjO37P8A30UsHcjbZwlw56340Kys4wOlPIjYsblf6bk3IdD+VPu+5sC/R+Q==
+	bh=leHzs4RreBeMv0JjRDW/2jJpJ3s6XFiVTM1A5UvDtmc=;
+	b=1BYCC6sL3MBG7Y1xHhSe7W7snsFQUGVqQmPyyVyxsbQgrO+khvCUGv3SrS+h8adNiQ1k
+	 yw03gpdFN+lRE1SxbNRweBb7DpDaO9CMA0G/hjR+W643IhuutAGLRWlxfTHZ6kwVF4sDU
+	 NbaVk9p4/jueNFIgAdE9c2m7ZdblP6H7eXjI72Yby8FPRndft671hTdhyXJamb3HtANol
+	 EVoB/v/X6nvQL6nYSD6HGndUdgpNuHW/plO6wC4HZGWyzy5HsMJpg3RhJS1fbertpQFdv
+	 1AkrV4NqjisCrn7c0dHgSlwUdmciQTH7OUO27AT9RB/41xdSa3zSMpBj/z1BFiem10g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=cOQyqPLz;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=zfwonjgP;
 	arc=none smtp.remote-ip=68.232.153.233
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26600606A33D;
-	Tue,  3 Nov 2026 14:37:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26600606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD765606A326;
+	Tue,  3 Nov 2026 14:38:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD765606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=cOQyqPLz
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=zfwonjgP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793716675; x=1825252675;
+  t=1793716682; x=1825252682;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=gXvajI6GzObRwvMjgyeEqoXV7MnuP0WEg5kBk1+v4+U=;
-  b=cOQyqPLzFtRJ7W4bwrDRod6/hWnhFPMWsGRBtYB2ezzT68mSS1hIjQGY
-   tbqJh+gptXqfwchxh6GF/5U1fytRRayp6idqkExk3v3AR/uqc9SFkIusX
-   4q5gQqBq1N1FFWVLkjcaapEu4zBaY13Afq24JmMqgtn3Sscfvm72i/kDT
-   doD1oxlUkrzYHqOzA/XBs6dshqdrNaNBuSdXPx6Ul/Q7CbmDA4I2mO0Qo
-   I2iadD71JvoGM0B1hwJnCuY/95CF5R4vg/5gnEPmpCSslEhMFtGaTCev0
-   zdvg5tqLLr7vaYQGk1MUYlZa5veXQpMHLRo+Alu1DAgkPCKNfSKivfk4K
-   A==;
-X-CSE-ConnectionGUID: XoY6bCqIQH2mEUri3H6BCw==
-X-CSE-MsgGUID: vfcH5ztgSFCXXQNzXelJ2g==
+  bh=DUxQaNWfjyy4GHOs35JjJYUnwSXjtV8jv+KkuiKQfDI=;
+  b=zfwonjgPHjOKOXBzJHfjXZQ/GWwqjbMcqrODg6N8UBuDKyInCMskaqUq
+   Z+AL0Go764myN7VbHW85vgHLq0C3JQJOx9dtJq76hwqHOPj+7SIOPL8+A
+   VWugyyYC9D42ofqCmWcxEmoHVRn88TOxCRb1V9EqdycUKgx57r200iKNY
+   Y8TdIdosJcHK3IKJuM4+JnqoWulQiAetLfTL/qQTPjNmxoETlya1oj9cv
+   TtSKq9fZHTscOyFXTjOLCs3vXnbDtq92vHcoTMHnjyMIqYfWj/ETYKhhu
+   UpjLjOcz5NpENhpNkSkCyZKyOQBbomaQvDKFmAx++ssR5OuvUYcztNy6L
+   g==;
+X-CSE-ConnectionGUID: YHmEmCZxTAqDgubKT1Zd1w==
+X-CSE-MsgGUID: s+4QE1N9Q5C4vvjKAAjeHA==
 X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="76535163"
+   d="scan'208";a="76535174"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 03 Nov 2026 07:37:55 -0700
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 03 Nov 2026 07:38:01 -0700
 Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
  chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 3 Nov 2026 07:37:55 -0700
+ 15.1.2507.58; Tue, 3 Nov 2026 07:38:01 -0700
 Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
  (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Tue, 3 Nov 2026 07:37:52 -0700
+ Transport; Tue, 3 Nov 2026 07:37:58 -0700
 From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Tue, 3 Nov 2026 16:37:12 +0200
-Subject: [PATCH v5 2/5] iio: core: add IIO_CHARGE channel type
+Date: Tue, 3 Nov 2026 16:37:14 +0200
+Subject: [PATCH v5 4/5] dt-bindings: iio: adc: add support for PAC1711
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,7 +76,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261103-pac1711-v5-2-71c20101a52e@microchip.com>
+Message-ID: <20261103-pac1711-v5-4-71c20101a52e@microchip.com>
 References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
 In-Reply-To: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
 To: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
@@ -89,109 +89,237 @@ CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<neil.armstrong@linaro.org>, Marius Cristea <marius.cristea@microchip.com>,
 	Ariana Lazar <ariana.lazar@microchip.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793716664; l=4074;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793716664; l=8814;
  i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=gXvajI6GzObRwvMjgyeEqoXV7MnuP0WEg5kBk1+v4+U=;
- b=8ExPqrmrFAudI84YiX1903QSc1HX1G5kly6uwWd+dlw5hxjfsuTafuh7JvK55TO6zMBAiZGn5
- 90MNnW1c+RwAjwtL+KeTftPqpctAZSpKbhgtErn27Bg/CFHPpNIYEMt
+ bh=DUxQaNWfjyy4GHOs35JjJYUnwSXjtV8jv+KkuiKQfDI=;
+ b=F678N2edFa8rBFOa3sb/ivgnmtJruGpyLYeTRQuUMjMkGxl/0HCgGCWPE6sYp1aqKXewCKEP/
+ 8LZ0TCdiDLUC/2E0qNhKMbtQPR1k28qE7tkoPFMIDg0MMyHdXbrJ4tL
 X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
  pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-Add a new channel type for Coulomb counters, which accumulate current
-measurements over time. The sysfs attribute is in_chargeY_raw and after
-applying in_chargeY_scale, the value exposed is in milliCoulombs,
-following the SI convention used by the IIO subsystem.
+This is the device tree schema for Microchip PAC1711, PAC1721, PAC1811 and
+PAC1821 single-channel power monitor with accumulator. The PAC1711 and
+PAC1721 devices use 12-bit resolution for voltage and current measurements
+and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
+resolution and use 32 bits for power calculations. The 56-bit accumulator
+register accumulates power (energy) or current (Coulomb counter).
 
-This new channel type will first be used by the pac1711 driver to report
-Coulomb counter measurements.
+PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+PAC1721 and PAC1821.
+
+The accumulation-source property aims to specify what kind of hardware is
+intended to be used/available for the user. There are two main cases here:
+- the user wants to measure also the current/power consumed before the
+driver insertion (e.g. from the boot to user control) and if this is a
+runtime setting, the hardware accumulator will be reset by the default
+configuration the driver starts with.
+- the driver does not know what type of hardware it's dealing with. In
+case the part is monitoring the charge/discharge current it does not
+make sense in user-space to change the accumulator to calculate energy.
+Same if the hardware is intended to calculate energy it does not make
+sense in user-space to change to Coulomb counter. Changing the setting
+from one mode to another will reset the hardware accumulator inside the
+chip.
 
 Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- Documentation/ABI/testing/sysfs-bus-iio | 13 +++++++++++++
- drivers/iio/industrialio-core.c         |  1 +
- include/uapi/linux/iio/types.h          |  1 +
- tools/iio/iio_event_monitor.c           |  2 ++
- 4 files changed, 17 insertions(+)
+ .../bindings/iio/adc/microchip,pac1711.yaml        | 169 +++++++++++++++++++++
+ MAINTAINERS                                        |   6 +
+ 2 files changed, 175 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-index a4f5595722ade77e81b49efffc68c971e60a2e5b..3d569a2169c2100b3fc81d38bd63124fb8b67e84 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio
-+++ b/Documentation/ABI/testing/sysfs-bus-iio
-@@ -510,6 +510,8 @@ What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_blue_scale
- What:		/sys/bus/iio/devices/iio:deviceX/in_concentration_co2_scale
- What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_scale
- What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_scale
-+What:		/sys/bus/iio/devices/iio:deviceX/in_charge_scale
-+What:		/sys/bus/iio/devices/iio:deviceX/in_chargeY_scale
- KernelVersion:	2.6.35
- Contact:	linux-iio@vger.kernel.org
- Description:
-@@ -1781,6 +1783,7 @@ What:		/sys/.../iio:deviceX/in_energy_en
- What:		/sys/.../iio:deviceX/in_distance_en
- What:		/sys/.../iio:deviceX/in_velocity_sqrt(x^2+y^2+z^2)_en
- What:		/sys/.../iio:deviceX/in_steps_en
-+What:		/sys/.../iio:deviceX/in_charge_en
- KernelVersion:	3.19
- Contact:	linux-iio@vger.kernel.org
- Description:
-@@ -2509,3 +2512,13 @@ Description:
- 		Raw (unscaled) volumetric flow rate reading from the channel.
- 		To convert to standard units (cubic metres per second, m^3/s)
- 		apply the channel's _scale (and _offset, when present).
+diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..1ddf8a485c9c3e56dc96f82394c137259e00f541
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
+@@ -0,0 +1,169 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/microchip,pac1711.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+What:		/sys/bus/iio/devices/iio:deviceX/in_charge_raw
-+What:		/sys/bus/iio/devices/iio:deviceX/in_chargeY_raw
-+KernelVersion:	7.4
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Raw charge value read from the channel. The device acts as
-+		a Coulomb counter by accumulating current measurements over
-+		time. Units after application of scale are milliCoulombs. X
-+		is the IIO index of the device.
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index 767a7794624a5026742087eb8885eb2a5ded05f0..90c92e57e8605d2ab443541b88944dab7084babc 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -100,6 +100,7 @@ static const char * const iio_chan_type_name_spec[] = {
- 	[IIO_ALTCURRENT] = "altcurrent",
- 	[IIO_COVERAGE] = "coverage",
- 	[IIO_VOLUMEFLOW] = "volumeflow",
-+	[IIO_CHARGE] = "charge",
- };
++title: Microchip PAC1711 Power Monitors with Accumulator
++
++maintainers:
++  - Ariana Lazar <ariana.lazar@microchip.com>
++
++description: |
++  This device is part of the Microchip family of Power Monitors with Accumulator.
++  Datasheet links:
++  [PAC1711]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1711-Data-Sheet-DS20007058.pdf
++  [PAC1721]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1721-Single-Channel-Power-Monitor-with-Accumulator-DS20007088.pdf
++  [PAC1811]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1811-Data-Sheet-DS20007066.pdf
++  [PAC1821]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1821-Data-Sheet-DS20007097.pdf
++
++  PAC1711, PAC1721, PAC1811 and PAC1821 are Single Channel Power Monitors
++  with Accumulator, having 12-bit or 16-bit resolution. The devices PAC1711
++  and PAC1811 can measure up to 42V Full-Scale Range, respectively 9V
++  Full-Scale Range for PAC1721 and PAC1821.
++
++properties:
++  compatible:
++    enum:
++      - microchip,pac1711
++      - microchip,pac1721
++      - microchip,pac1811
++      - microchip,pac1821
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++  "#io-channel-cells":
++    const: 1
++
++  shunt-resistor-micro-ohms:
++    description:
++      Value in micro Ohms of the shunt resistor connected between the VSENSE+
++      and VSENSE- inputs, across which the current is measured. This value is
++      needed to compute the scaling of the measured current.
++
++  label:
++    description: Unique name to identify which device this is.
++
++  microchip,vbus-input-range-microvolt:
++    description: |
++      Specifies the voltage range in microvolts chosen for the voltage full
++      scale range (FSR). The range should be set as <minimum, maximum> by
++      hardware design and should not be changed during runtime.
++
++      The VBUS could be configured into the following full scale range:
++        - for PAC1711 or PAC1811:
++            - VBUS has unipolar 0V to 42V FSR (default)
++            - VBUS has bipolar -42V to 42V FSR
++            - VBUS has bipolar -21V to 21V FSR
++        - for PAC1721 or PAC1821:
++            - VBUS has unipolar 0V to 9V FSR (default)
++            - VBUS has bipolar -9V to 9V FSR
++            - VBUS has bipolar -4.5V to 4.5V FSR
++
++  microchip,vsense-input-range-microvolt:
++    description: |
++      Specifies the voltage range in microvolts chosen for the current full
++      scale range (FSR). The current is calculated by dividing the vsense
++      voltage by the value of the shunt resistor. The range should be set as
++      <minimum, maximum> by hardware design and it should not be changed
++      during runtime.
++
++      The VSENSE could be configured into the following full scale range:
++        - VSENSE has unipolar 0 mV to 100 mV FSR (default)
++        - VSENSE has bipolar -100 mV to 100 mV FSR
++        - VSENSE has bipolar -50 mV to 50 mV FSR
++    oneOf:
++      - items:
++          - const: 0
++          - const: 100000
++      - items:
++          - const: -100000
++          - const: 100000
++      - items:
++          - const: -50000
++          - const: 50000
++
++  microchip,accumulation-source:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: |
++      The Hardware Accumulator may be used to accumulate VPOWER or VSENSE values
++      for any channel. By setting the accumulator for a channel to accumulate
++      the VPOWER values gives a measure of accumulated power over a time period,
++      which is equivalent to energy. Setting the accumulator for a channel to
++      accumulate VSENSE values gives a measure of accumulated current, which is
++      equivalent to charge.
++
++      The Hardware Accumulator could be configured as:
++       "energy" - Accumulator accumulates VPOWER (energy)
++       "charge" - Accumulator accumulates VSENSE (Coulomb Counter)
++    enum: [energy, charge]
++    default: energy
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - shunt-resistor-micro-ohms
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          pattern: "^microchip,pac1[78]11$"
++    then:
++      properties:
++        microchip,vbus-input-range-microvolt:
++          oneOf:
++            - items:
++                - const: 0
++                - const: 42000000
++            - items:
++                - const: -42000000
++                - const: 42000000
++            - items:
++                - const: -21000000
++                - const: 21000000
++          default: [0, 42000000]
++  - if:
++      properties:
++        compatible:
++          pattern: "^microchip,pac1[78]21$"
++    then:
++      properties:
++        microchip,vbus-input-range-microvolt:
++          oneOf:
++            - items:
++                - const: 0
++                - const: 9000000
++            - items:
++                - const: -9000000
++                - const: 9000000
++            - items:
++                - const: -4500000
++                - const: 4500000
++          default: [0, 9000000]
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        power-monitor@40 {
++            compatible = "microchip,pac1711";
++            reg = <0x40>;
++
++            shunt-resistor-micro-ohms = <11000000>;
++            label = "VDD3V3";
++            vdd-supply = <&vdd>;
++            microchip,vbus-input-range-microvolt = <(-21000000) 21000000>;
++            microchip,vsense-input-range-microvolt = <(-50000) 50000>;
++            microchip,accumulation-source = "energy";
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c9dfb48e900df71a86d4686d3ec2c..ebba9b0b3f834576b422b96283f9a3cc79405c3a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17889,6 +17889,12 @@ F:	Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
+ F:	drivers/nvmem/microchip-otpc.c
+ F:	include/dt-bindings/nvmem/microchip,sama7g5-otpc.h
  
- static const char * const iio_modifier_names[] = {
-diff --git a/include/uapi/linux/iio/types.h b/include/uapi/linux/iio/types.h
-index d0fb714ca0fd97421d2c8345e3bc34329f1cb1b9..8acf4105216c11718c07f76ac67b93a8ba7fd6a0 100644
---- a/include/uapi/linux/iio/types.h
-+++ b/include/uapi/linux/iio/types.h
-@@ -55,6 +55,7 @@ enum iio_chan_type {
- 	IIO_ALTCURRENT,
- 	IIO_COVERAGE,
- 	IIO_VOLUMEFLOW,
-+	IIO_CHARGE,
- };
- 
- enum iio_modifier {
-diff --git a/tools/iio/iio_event_monitor.c b/tools/iio/iio_event_monitor.c
-index b5c5479b9d78f70cab9d6939ceaab32e42b3f718..50c12395767c0c91916eabc420c62631e834a4e5 100644
---- a/tools/iio/iio_event_monitor.c
-+++ b/tools/iio/iio_event_monitor.c
-@@ -67,6 +67,7 @@ static const char * const iio_chan_type_name_spec[] = {
- 	[IIO_ALTCURRENT] = "altcurrent",
- 	[IIO_COVERAGE] = "coverage",
- 	[IIO_VOLUMEFLOW] = "volumeflow",
-+	[IIO_CHARGE] = "charge",
- };
- 
- static const char * const iio_ev_type_text[] = {
-@@ -198,6 +199,7 @@ static bool event_is_known(struct iio_event_data *event)
- 	case IIO_ALTCURRENT:
- 	case IIO_COVERAGE:
- 	case IIO_VOLUMEFLOW:
-+	case IIO_CHARGE:
- 		break;
- 	default:
- 		return false;
++MICROCHIP PAC1711 POWER/CURRENT MONITOR DRIVER
++M:	Ariana Lazar <ariana.lazar@microchip.com>
++L:	linux-iio@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
++
+ MICROCHIP PAC1921 POWER/CURRENT MONITOR DRIVER
+ M:	Matteo Martelli <matteomartelli3@gmail.com>
+ L:	linux-iio@vger.kernel.org
 
 -- 
 2.43.0
