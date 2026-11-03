@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694972;
-	b=w+FBqPxOXs1+29EM6RMXUnbpybyiZk0P3vQTFWqgdCWjmqNEzT+c1sPEZOThHUr5Im7C
-	 qF3PQmEeIJEMaLeLtnlAebjD2G0hoZIPPH1VRjFesgykjCYp5/1mjDNQfRyKomFYb582L
-	 ccdl5qp/GoKluC/y+zkAiLCN4jrPvWspzJDk6B5tkS0CaU7+PjqAud2O3KhMJIj/I079r
-	 8DSTFDBOwGKM/0xu6Wc0uv6e0Mx5vQ95ZAci5zu2QQg5tvOXdo1l4Xha08Dw8NGV40yfn
-	 ZPVcx7qV9WWdPJq4VeNAKjjHkMJCPbXlbFSqbgLfea7U7XUsyq5/pVBVWozzCCQuDNQ==
+	t=1793695092;
+	b=ZvebHpOTt8yf6hhiyC+puMOJzzTljk33RfP68qGg+pB0s8VCXR8XR7+5Xmf00aQAbnBj
+	 gjJ2KhRGR1FX/5gR+qK1/dtuya7g+xl8LsNDvztPNrTibnlPRk/iPyvxNrYDk4gkANONz
+	 0oNy3ufSccN5ms4NVtGhkHfvf+DOZ+mh/K9Ee41OXYRaZEF3jyRHYOnA4fWCCmzCHyk69
+	 GX7Eoyt4uI0ivWegKdho5zCRMNnA1T75aFafq9HYLzelA5cYkX8QTXVrTj4MSsi4Juku6
+	 V87j7ssDwC8qMrjShK/LySJ5pi92kChaB5eyIPkw4p8T5yJqW3AtD8Ok0IKHHvp5sBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694972;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=YHMyH5n3CwX4ey/bPvWwSK67mbEcamik8agTwl+J6bg=;
-	b=Fk7JKHMwcYTSZi3BjH4ROXeT8O80ypP+G+dExMbuMevQMSG9ZaM8JiWeJ2/9BsMdnJ/G
-	 p1/peIdStJ9bnaVvAbjMRxb1HyohnmVeEnoXTKfcWmFaJi+QOuUTiYSWjk69HZ+FR4z2M
-	 yXhROHEUzEjLRWRzH9SDS2NmQYdWhiLCp+ukpQFbt7zIgVT7DMW/TJMJatnFe5r8BYKxI
-	 iNmulc+iEvDAEEIL+nUnuACBkedtacD1mZkGqJn3yZ1vDHE71B/nvwhnKxNch1voFJz6J
-	 W0oYAXqpsj3qXmw5k6dbjqMbgba9DDY3dF+rIUREZ/YWc6UXN58YE+YH7h/f4IzcNDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695092;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=5FN8m7PE/nm8LadW/EpmCHNTSgvk1Y0b2hsF8AG+DuU=;
+	b=gOXYjhoF/EXJWnbxiZ4GbrSYYpjVOBRzk3uUDcstRHeY1PJi5/z7xFaJSp1ahWuv08Nj
+	 f51+F7vfGQsjRrNShdt3HQpTXUY9qxGXH6Y/aLuVACAcLo2axVyP+ajeAHS9Gp79QT7E7
+	 5fNvU7RNlHDiy22UlQusj4n3CjkpUGZN+HJ4+6JKZo+pYq/K4U2+40OCiCbc60MuaGZjA
+	 1Bn9FeIKFwxbYmzqnOdVNsUBqnkeRDW65/EzFJ8RzDIC3+gw0Ja3iLbzU5RHRsQYlLw9g
+	 53h4ChxSQ6v/8KHOk5+SBZv6UZDSe19myjrNysP1gZMBvEhcChwDPbahb2rTpVzaIaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFK6SCmr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=S2X8k+eM;
+	arc=none smtp.remote-ip=54.207.22.56
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B28606A32E;
-	Tue,  3 Nov 2026 08:36:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDD4606B6C7;
+	Tue,  3 Nov 2026 08:38:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDD4606B6C7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFK6SCmr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D321A1F000C1;
-	Tue,  3 Nov 2026 08:36:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694972;
-	bh=YHMyH5n3CwX4ey/bPvWwSK67mbEcamik8agTwl+J6bg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EFK6SCmrc4gZY5ktRiZDshIttTnELS5KHwlzuz2n5FhG+sbBTJKkiFJnNv2FPG0rz
-	 2WIJGt5KjbOQpRALb1IlSKIgRTVfL6touf8k3tUQi1uM7SOdswHqLCBS9c9DqDXJe5
-	 5OhtSX32pjwOtI+mc+NYospfRDXSc7kSty86Vx1oZ1raMgC+FriixJFNI7cgUL0ZCT
-	 mWkdqArcBTRLwLDXXTJmvUKxb9QmQhC7rDazKKyQmYZ1hRdgpZO5dwopGMNra/jb0I
-	 cHMwQTy6Kw76V7Nfy41dXi2qpV1fnXoSP0uIekiyt8tkvH/4kFx/+PL4MCUbu8RMXe
-	 2Q9vckGy7ssXA==
-Message-ID: <sashiko-outbox-194839@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 12/22] arm64: dts: apple: t8103-j313: Add
- speaker/headset jack nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Calligeros" <jcalligeros99@gmail.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-macaudio-v4-12-637484efe46d@gmail.com>
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-12-637484efe46d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 08:36:11 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=S2X8k+eM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793695025;
+	bh=5FN8m7PE/nm8LadW/EpmCHNTSgvk1Y0b2hsF8AG+DuU=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=S2X8k+eMvetVoh91gknxaeBnzSseEYb8/5qQlLoFs+YOx2VeUyTgEyTM4wcBg9UqU
+	 SveMYyc3p0PGnt4++LLbqBkWHAAL3Yj3AzvXbTOtrTssUW13CtUIuMnKzx8r9F2TEn
+	 LrlDcks8Kh0upp9xXd+gSEOrh4Xbs3viwFQvNXNI=
+X-QQ-mid: esmtpgz15t1793695023tc41014d1
+X-QQ-Originating-IP: jI9c/45z34vZJ/XfyY1oeHzOv3EIn1UV4330Y0mJHdU=
+Received: from = ( [58.254.69.131])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 03 Nov 2026 16:37:00 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6635203195531731142
+EX-QQ-RecipientCnt: 16
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Tue, 03 Nov 2026 08:36:46 +0000
+Subject: [PATCH 1/5] dt-bindings: timer: Add SpacemiT K1 timer
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,237 +62,145 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-spacemit-soc-timer-v1-1-36722421db6e@linux.spacemit.com>
+References: <20261103-spacemit-soc-timer-v1-0-36722421db6e@linux.spacemit.com>
+In-Reply-To: <20261103-spacemit-soc-timer-v1-0-36722421db6e@linux.spacemit.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2545;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=YTzIYqz5yG8XkouJ9NazRxZn63OsQlQGGOsumRdwLmQ=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFkv5ypxzD163Ou2RS3TDdUZFbERR3fef+I2eeY8pqM7H
+ xxwXpz2sKOUhUGMi0FWTJGl+wHPtgKfKNsCgUJfmDmsTCBDGLg4BWAivZ0Mf+XP9ATs+SOUkmOw
+ e9XH/f01SlUtK+z2KcssUP+yrjFzphxQhXoCv3KHwiW50Az7HcsF1Dc+4zZhX8d3/BjX5DdBZ1U
+ 5AA==
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Mt8u4lqhpR4HFl4RM5aoYYUnpttwMECiFCyfKBAivRjKDXEO4X4R4qjj
+	I9OHihMfknnYVjC2BMRuomptEyq+uE3zB1+Kk/9mdAv6KlREwGu26Q1FNDVedUz8bZynu7O
+	/nnNIA9wE7xNjQ+O8uaNmQ/YmDSl54N+UythOcnhW04cz3884cx/uIpWW9RE/ZhiGgBnnQp
+	vd4TPqby4DOiQ1RG9TTse8PWbNGGgO2//V2p6gAxdxoh5BmY6+IqddK3rAsWSEHJIZdfqrd
+	s/uikyJgz1B64aUGZwJrDnXg9LyKduN3OaXGWk6X5wn1vurx2cvQH64OaxN8yETRnc4Hi04
+	1bkzAmDdUOeyVHVa6YLxUw8t6t1PjldIDQUZGmwquy7t9wPmu3/MFDWTeegjnB7Tr2x4w7O
+	gwS7gURxXU1d1kXhORBVJd8TTuVBcZejkTLDeZrH2yUaPkdCJRBMtsvVhQO+9C5gN4Vjq5J
+	9qW+jF6X+vXVVNzmxGKp19NWOn+xw5d/ZSbpG69vMlwx4j7LQpCtVD1itoQxfnH4rkHc2ei
+	ZR/DY7p8TB14AqsxOnra0f/nXavfaA6RKTgMBrbK2t77kEguXbGI4OfDn9LX05cpnDV+DgE
+	dw0mQICUcMNF1W1mMB73dyH+KwXt465haGRd2h95v7cNj0JPBAwxrKfj1pFPFviMFnn4mQJ
+	aVL8a/vKk9bZzXpclatwIuS77y+1929XolS3FrUuRK3ZCgrO4FsZlz58lKZ3FpiCouUuGbk
+	6pTuir+FwcWafz9wQwsqW8CCIEqTCRC0PppM+Xpih6XxPLtI44WykvqBqcnJtyd3/2YWIKl
+	og/Pidq+tIXz87Z3cWo7OFtqAajAB9ebeaIwW0w1DpDeFjPNprrluKuWeih9bzxfhpgRSoX
+	6YhL8GXK2WHxld40wtcuA1FE++9a4W+9R2Tz89qsa+DAHEQ0deirJ6l38hKbNUZ4P4MMC81
+	I6CXyntjMrkNmkvBV/d9sKjixRun1k7UUijF4Uug4iCe5erpB7LiUq4ZFQ8d7jQnWwMGK7r
+	cfZFVAMy/ecRynoiYfQ4J8TkFVYXNjdThmQddMTJxqC2X7d4RZH/zKxJ24PiEeL+RpzdBHe
+	+t2NnDC4G+/TgSOHSP9VK4asNFrcKm0BO7n6Y/0VTG7V6RrGNPugi7falIx81W2kbjV1v4v
+	P3F/wfTAPPdV/S+g8t+9GPjbNQ==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] ASoC: apple: macaudio: OF ref leak and devres order in macaudio_de=
-vm_release()
-- [Medium] ASoC: tas2770: tas2770_set_dai_tdm_idle() treats positive return=
- as error
-- [Medium] ASoC: apple: macaudio: macaudio_be_assign_tdm() overwrites slot =
-error
-- [Low] arm64: dts: apple: t8103-j313: unused #address-cells/#size-cells in=
- sound
---
+The SpacemiT timer block provides three 32-bit counters, each with three
+match comparators and an interrupt output. Describe its register range,
+interrupts, functional and bus clocks, and reset.
 
-commit dd4cb33fc5a853fd54101899a161b5d0c84f160e
-Author: James Calligeros <jcalligeros99@gmail.com>
+K3 uses the same register interface, so describe its timer with a
+SoC-specific compatible followed by the K1 fallback.
 
-arm64: dts: apple: t8103-j313: Add speaker/headset jack nodes
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+ .../bindings/timer/spacemit,k1-timer.yaml          | 71 ++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
 
-This commit adds the TI TAS5770L speaker amplifier and Cirrus CS42L83
-headset jack codec device tree nodes for the M1 MacBook Air (J313), along
-with the sound node advertising them to the macaudio machine driver.
+diff --git a/Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml b/Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml
+new file mode 100644
+index 000000000000..b71785b8aa94
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/spacemit,k1-timer.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/timer/spacemit,k1-timer.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SpacemiT K1 timer
++
++maintainers:
++  - Troy Mitchell <troy.mitchell@linux.spacemit.com>
++
++description:
++  The timer block contains three 32-bit up counters, each with three match
++  comparators and an interrupt output. Each counter can use the functional
++  clock or the internal 32.768 kHz clock and supports free-running and
++  periodic operation.
++
++properties:
++  compatible:
++    oneOf:
++      - const: spacemit,k1-timer
++      - items:
++          - const: spacemit,k3-timer
++          - const: spacemit,k1-timer
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    minItems: 1
++    items:
++      - description: Counter 0 interrupt
++      - description: Counter 1 interrupt
++      - description: Counter 2 interrupt
++
++  clocks:
++    items:
++      - description: Functional clock
++      - description: APB bus clock
++
++  clock-names:
++    items:
++      - const: func
++      - const: bus
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/spacemit,k1-syscon.h>
++
++    timer@d4014000 {
++        compatible = "spacemit,k1-timer";
++        reg = <0xd4014000 0x100>;
++        interrupts = <23>;
++        clocks = <&syscon_apbc CLK_TIMERS1>,
++                 <&syscon_apbc CLK_TIMERS1_BUS>;
++        clock-names = "func", "bus";
++        resets = <&syscon_apbc RESET_TIMERS1>;
++    };
 
-> diff --git a/arch/arm64/boot/dts/apple/t8103-j313.dts b/arch/arm64/boot/d=
-ts/apple/t8103-j313.dts
-> index f8b2b1637b9dc..36c47734a1dc0 100644
-> --- a/arch/arm64/boot/dts/apple/t8103-j313.dts
-> +++ b/arch/arm64/boot/dts/apple/t8103-j313.dts
-> @@ -55,4 +55,89 @@ &typec1 {
+-- 
+2.56.0
 
-[ ... ]
-
-> +/ {
-> +	sound: sound {
-> +		compatible =3D "apple,j313-macaudio";
-> +		model =3D "MacBook Air J313";
-
-[Severity: High]
-As reported by Sashiko on v3 [1], when this apple,j313-macaudio node binds =
-to
-macaudio_snd_driver, does macaudio_snd_platform_probe() in
-sound/soc/apple/macaudio.c leak the backend DAI link CPU and CODEC device_n=
-ode
-references on unbind or if devm_add_action() fails, and can the devres
-registration order cause macaudio_vlimit_update() to dereference a NULL
-ma->card.snd_card during unbind?
-
-During probe, macaudio_parse_of() -> macaudio_parse_of_be_dai_link() ->
-macaudio_parse_of_component() acquires device_node references via
-of_parse_phandle_with_args() for the CPU and CODEC DAIs. In
-macaudio_snd_platform_probe():
-
-sound/soc/apple/macaudio.c:macaudio_snd_platform_probe() {
-	...
-	ret =3D devm_add_action(dev, macaudio_devm_release, data);
-	if (ret)
-		return ret;
-
-	ret =3D devm_snd_soc_register_card(dev, &data->card);
-	if (ret) {
-		for_each_card_prelinks(&data->card, i, link) {
-			snd_soc_of_put_dai_link_codecs(link);
-			snd_soc_of_put_dai_link_cpus(link);
-		}
-
-		return ret;
-	}
-}
-
-If devm_add_action() fails, macaudio_snd_platform_probe() returns without
-releasing the DAI link CPU and CODEC device_node references. Likewise, when
-probe succeeds and the device is later unbound, neither ASoC core teardown
-nor macaudio_devm_release() calls snd_soc_of_put_dai_link_codecs() and
-snd_soc_of_put_dai_link_cpus():
-
-sound/soc/apple/macaudio.c:macaudio_devm_release() {
-	struct macaudio_snd_data *ma =3D data;
-
-	cancel_work_sync(&ma->lock_update_work);
-	cancel_delayed_work_sync(&ma->lock_timeout_work);
-}
-
-In addition, because devm_add_action(dev, macaudio_devm_release, data) is
-registered before devm_snd_soc_register_card(), devres LIFO teardown runs
-devm_card_bind_release() -> snd_soc_unregister_card() ->
-soc_cleanup_card_resources() first, which frees card->snd_card and sets it =
-to
-NULL before macaudio_devm_release() cancels lock_update_work and
-lock_timeout_work. If either work item runs during teardown,
-macaudio_vlimit_update() accesses ma->card.snd_card->controls_rwsem:
-
-sound/soc/apple/macaudio.c:macaudio_vlimit_update() {
-	...
-	if (take_rwsem)
-		down_write(&ma->card.snd_card->controls_rwsem);
-}
-
-> +
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-
-[Severity: Low]
-Will defining #address-cells and #size-cells on the sound node trigger a dtc
-avoid_unnecessary_addr_size warning when building with W=3D1?
-
-Neither headphone-dai-link nor speaker-dai-link uses a reg or ranges proper=
-ty
-(and Documentation/devicetree/bindings/sound/apple,macaudio.yaml does not
-define reg on child dai-link nodes despite listing #address-cells and
-#size-cells in required), which causes check_avoid_unnecessary_addr_size() =
-in
-scripts/dtc/checks.c to warn under W=3D1.
-
-Also, since arch/arm64/boot/dts/apple/t8103-j313.dts already has a root
-/ { ... }; block at the top of the file, should the sound node be placed in
-that existing root node block rather than opening a second / { ... }; block
-after the phandle overrides?
-
-> +
-> +		headphone-dai-link {
-> +			link-name =3D "Headphone Jack";
-> +
-> +			codec {
-> +				sound-dai =3D <&jack_codec>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai =3D <&mca 2>;
-> +			};
-> +		};
-> +
-> +		speaker-dai-link {
-> +			dai-tdm-idle-mode-0 =3D "zero";
-> +			dai-tdm-idle-mode-1 =3D "zero";
-
-[Severity: Medium]
-When speaker-dai-link sets dai-tdm-idle-mode-0 and dai-tdm-idle-mode-1 to
-"zero" for the two ti,tas5770l codecs, will tas2770_set_dai_tdm_idle() fail=
- to
-complete the TDM idle setup and cause macaudio_be_assign_tdm() to fail?
-
-During backend initialization, macaudio_be_init() -> macaudio_be_assign_tdm=
-()
-calls snd_soc_dai_set_tdm_idle() with SND_SOC_DAI_TDM_IDLE_ZERO, which
-dispatches to tas2770_set_dai_tdm_idle() in sound/soc/codecs/tas2770.c:
-
-sound/soc/codecs/tas2770.c:tas2770_set_dai_tdm_idle() {
-	...
-	case SND_SOC_DAI_TDM_IDLE_ZERO:
-		ret =3D snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
-						    TAS2770_TDM_CFG_REG4_TX_KEEPER,
-						    TAS2770_TDM_CFG_REG4_TX_KEEPER);
-		if (ret)
-			return ret;
-
-		ret =3D snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
-						    TAS2770_TDM_CFG_REG4_TX_FILL, 0);
-		if (ret)
-			return ret;
-		break;
-}
-
-Because snd_soc_component_update_bits() returns 1 when the register value
-changes, 0 when unchanged, and a negative errno on error, setting
-TAS2770_TDM_CFG_REG4_TX_KEEPER after reset returns 1. Checking if (ret)
-instead of if (ret < 0) causes tas2770_set_dai_tdm_idle() to return 1 early
-without clearing TAS2770_TDM_CFG_REG4_TX_FILL or updating
-tas2770->idle_tx_mode.
-
-In sound/soc/apple/macaudio.c, macaudio_be_assign_tdm() then checks if (ret)
-on the return value of snd_soc_dai_set_tdm_idle():
-
-sound/soc/apple/macaudio.c:macaudio_be_assign_tdm() {
-	...
-		if (props->codecs[0].idle_mode) {
-			ret =3D snd_soc_dai_set_tdm_idle(dai, props->codecs[0].idle_mask,
-						       0, props->codecs[0].idle_mode, 0);
-			if (ret) {
-				dev_err(card->dev, "Failed to set idle props for codec\n");
-				return ret;
-			}
-
-		}
-}
-
-Won't this treat the positive return value 1 as an error and log "Failed to
-set idle props for codec" when initializing speaker_left and speaker_right?
-
-[Severity: Medium]
-In the same single-codec branch of macaudio_be_assign_tdm() in
-sound/soc/apple/macaudio.c (used for each of the two CPU/CODEC pairs in
-speaker-dai-link), can a failure from snd_soc_dai_set_tdm_slot() be
-overwritten when props->codecs[0].idle_mode is set?
-
-Looking at macaudio_be_assign_tdm():
-
-sound/soc/apple/macaudio.c:macaudio_be_assign_tdm() {
-	if (rtd->dai_link->num_codecs =3D=3D 1) {
-		dai =3D snd_soc_rtd_to_codec(rtd, 0);
-		ret =3D snd_soc_dai_set_tdm_slot(dai, mask, 0, nslots, MACAUDIO_SLOTWIDTH=
-);
-
-		/*
-		 * Headphones get a pass on -ENOTSUPP (see the comment
-		 * around bclk_ratio value for primary FE).
-		 */
-		if (ret =3D=3D -ENOTSUPP && props->is_headphones)
-			return 0;
-
-		if (props->codecs[0].idle_mode) {
-			ret =3D snd_soc_dai_set_tdm_idle(dai, props->codecs[0].idle_mask,
-						       0, props->codecs[0].idle_mode, 0);
-			if (ret) {
-				dev_err(card->dev, "Failed to set idle props for codec\n");
-				return ret;
-			}
-
-		}
-
-		return ret;
-	}
-}
-
-Unlike the multi-codec loop below it (which checks if (ret) return ret;
-immediately after snd_soc_dai_set_tdm_slot()), the num_codecs =3D=3D 1 path=
- does
-not check ret before entering if (props->codecs[0].idle_mode), so
-snd_soc_dai_set_tdm_idle() overwrites any negative error returned by
-snd_soc_dai_set_tdm_slot().
-
-[1] https://lore.kernel.org/r/20261018-macaudio-v3-11-abdff7741dea@gmail.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-macaudio-v=
-4-0-637484efe46d@gmail.com?part=3D12
