@@ -1,78 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703621;
-	b=w6I1lNbilwxHlIEZCeV5dBfuk34xI86FUHtfou2nVs1rx19cMqbmYKsfa+kguj6Q2f13
-	 9N+KHK/40ro2OrkRC1U6U9Oq7eTCsqO3Ay0dBYxjmIwuWthWtMi75RUrPtWt8SEHZbECP
-	 Z8QOQqMXs8r1SpcdbzGJvFwQi9wc+md3uZYQrxHeJmpL26zS00rnZRKHxVLDMagV89NCG
-	 TOs3iDh2E2cFfZW3ObNr6wFv0+PbEs7hmtDRSk0JhF9NHthGCnbyzyLvMSZpbO/my3SVI
-	 NyOtcmZgE1D5gIwP/DnhXfjrM79LJAXBp3NkhvKEsKIDslQY2b9AnHSDkV0LaW61UEQ==
+	t=1793703927;
+	b=L3t2wcykiHVkzu/XuL5Qr0oXg+JAC5CpEp9TQV7nOpb7cTDYA3Iw0CUDoP4i39DP3D3T
+	 f0SZPDyfNn1yg/QNctPoDgGR52TlCTfYe8uyfUefIzFyjCEoP0bmNgCvZhujDpVkUagFY
+	 X//YhEK6m+WaCth6MX2ts8ExCxh0r/GwMKLNFo8MqY9ew+zrE8EVZGtgYzfkXllZfWIco
+	 g1cqdSnKLDDtOq5tHB61m+L60BGlmg3N/Eyzve9VwGzNFavPinuKqT8Lu1+ooawBt41Rp
+	 sIPYPwdiaoLop2eSD3Rniw1+Dli2V34NnCOfX7OPw2p0wrylP+lqYK0ql0vFTYuPj7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703621;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=ZHaluVN4QVG6zZ01mYkAS1E2kQ0Rb60RdvEd/xq8+1s=;
-	b=DCUB+YOdHTZnmc0vtZ/m+nL7VL/6IdbOdSSQivtuGR8aID93OeSwZ7cIFcNK060RCYHu
-	 l8SWisMXGTTWLpI2bCQOvXrjUHiMmlaTojkiUniCZh2R2u48E+pEGXt7xQN/K0ft0ETeo
-	 GbtxTAj/tdrF92s2+HC+Kjo31FW/dzzknlgUNSKRi6Ffqj3xQTcc+kZVtBvjK3uxf5xtF
-	 M6aPAVkGYD8ySsC9j02V41TzlP1qEtfJETmkhqqHBisSLUI47CIAPw6pHsj8+wjeJnWYz
-	 mzsCPiYmyR0hy5q+oDXHpfES5e69ZHtaiAzbwYBu3KVW2+gn8+33cntnIeHQ0AUze2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703927;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LFiGU0wVYYFRIuNAq63PC6SLhwVIgqIMMPvA4Bls3qE=;
+	b=5ViHI9xHx5yN//iwxt2daNgjnwHVx435lyE1TZB2CNGztEH+1XUUX2f1ufy7lwUoA0aP
+	 q+qIO8UnoIBl/nAvei8NFz0Ny5GfO4SXKKMVA+sHn01P+0mUqTHvWfEltlWKcBn2waTab
+	 DkgIK9B/ZxnvCFsTru6n6+4vdd4xiR2TvCTch1JGvkVROo9c96W1lZteHiW7stX+4le7u
+	 KxRfMiTPthmfGNzrOL22L+gw0DjBn0G0jr9AvOiokTrjhPJaRFFNA/EJ+lldFlCKf44DG
+	 8Yo43pHyQtbPTs4PI0LX5uJGg7Bsv0KilWmNtEODEehRyZw7nrtafzPNkJMMYE6zFZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fUgFd3BU;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y62S+JmB;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0F4606C5C8;
-	Tue,  3 Nov 2026 11:00:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E0F4606C5C8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8577A606D81F
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 11:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8577A606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fUgFd3BU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793703620; x=1825239620;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A48PNQFXuCWaAUzwsonKXEuzgeRg37aflgFlNnBvsgY=;
-  b=fUgFd3BUWplT3n4FZm1ip2TgRk/hmlylWrOQ9Fh5Sz/2K3mS8AsTEhAA
-   ddOjgnwB1x/mgW3zbmIrKoyiqpPXG9ekTCCr8Dofiz9oyDEV4dyq8Ymhw
-   dvksHjEf28b9Fh/IeCynA3D+pAECs98C/1YETZl7Ds3T1YJIOVE6OvoJM
-   0PHsNazXXys+vCjeBhciYTjz0Qr9PMK4L71Hp3DfMrYSdRyrxYgOCwyZ1
-   BZyxhuDe578hABeMmPEqmDXvixjkQBqtWR3jIgKWuFOT2bTPx7DXlGJuP
-   1t+N8uyd4n6wcC37g5zpQU+rI29LwgEGioPvcf690PDE7yKtzldiaEOTT
-   A==;
-X-CSE-ConnectionGUID: twrRqcOkSMusX5VjdTAgSg==
-X-CSE-MsgGUID: K9qbNdnzSXybLzxMaJKJwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2301516"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2301516"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:00:19 -0800
-X-CSE-ConnectionGUID: aQt+PnvgRQqhUUS7EoIt/A==
-X-CSE-MsgGUID: ba8yQ2UHSCKJc0G0pnuv0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6238759"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:00:16 -0800
-Date: Tue, 3 Nov 2026 13:00:13 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v3 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <aum-vUx5oFSocGc1@ashevche-desk.local>
-References: <20261030031501.130290-1-cwweng.linux@gmail.com>
- <20261030031501.130290-3-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y62S+JmB
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso26791875e9.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 03:05:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793703926; x=1794308726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LFiGU0wVYYFRIuNAq63PC6SLhwVIgqIMMPvA4Bls3qE=;
+        b=Y62S+JmB4ApRXS1aUJzO88O3fK322dR6cG9xNZLkfEmndK7DM1pE9II5exNLD0g4NI
+         d/DjpZsvo6NfN4Z+13mMxbFaoEdQrBcedKsbruLRwamwo1ohvcWYRc6PoOjCJa6SNqLu
+         bkqu+AgsXs5C4Y6LuAmRzdO2p2NNqEDZarOH+GUJMXeB6e7s39GHNtl8B4R6cZiVdObF
+         lzDaovFg1h64NzCkK4UCkNA9PKFzMjNI9JyN2zEfXXkBDtoEct9MuZuU5OXJSP6tGMRa
+         kwar3gz3Yl6Z6ATPC8yfNCGq/UozgAgWv3mnRzFUvIRgScCHVdZZp/tDIRhO8jwLkAn3
+         T7Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793703926; x=1794308726;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LFiGU0wVYYFRIuNAq63PC6SLhwVIgqIMMPvA4Bls3qE=;
+        b=mixFLgydzeOumy3taEzQ0SAb51w3h85aCTlfvIuhdioJv5oc3Hbr3nORKbRYyEZzj5
+         p9GyGzPQc+lHdKFWw4l36e+I//rCLEUTtbF3XOFEBJz2bnuoREDSnmv6giCrcnf0Hk9Z
+         tqQYv7/s0uEFmXBb7HcQ8nhHM9QoM9i8CdvEzfbaIrZDEo0WTYZUf9snTyYrfmkjRgj/
+         oJqeGbs98/CN+ETOD3ai1VwKxcGhQuEr5H0Hy+1TKIIPo+HPVuZ8PEHjSq/SRPImVg1v
+         09HyjhLVJESEv3Pnlmvs03vSvRN+wQiraK3g0Py2DhcgU9cU60iwcfKRJCN2sSx12lch
+         wzgg==
+X-Forwarded-Encrypted: i=1; AKwUvByYhAsXRydPwhc2iDW5SE+YmGEmp/+VHKqkuQFz6SFcTqqHGcV/d5hOrdotw8cozzhtycSLyjpUdVi4@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HHCT2FRl3Hk3Gkxw/4T2tOabfLEGg3sGtOCkrFlWnxQciWAQB
+	fPpZP6V+DfW5ZrqB9WxDc8kUrmztMtTaB57wqi0Pcgoy/pR2cZzDVaRARpsSrkmcqhU=
+X-Gm-Gg: AYBFou1aPy1KlRE3udgYfIB5viSiIctTAYALAa37joKQ+FS5kJlt0oXlW3upA6osbfr
+	jDmOPKoSTKZ35xf4wx0R5pcKoeMGMMDmsjqp+ZTBNR0mJrQ1mylR1FvrJM58HID7QOsTMakX5G7
+	kyIZPcBvn+NVGvoqPQTmkz2kVj4o3zlrJjafN9xHzL7Fg70An66ERpwoWB4mApXh2tnT4gku8Lh
+	kbYYSbAJh1FafTOa8K3LMxRLgimld0qe8ftHJ/kLLvwC8KMRvqBS5vg02RTWbAH/Ji9O9xmJQwk
+	hxPG5HKUirJKDnteVVkEiTfRc5VA6KqKFlK0FiGNWhAiw8Vm+l5X6bNWE9H75X+xN4I6AUENijS
+	FcgASgt65DxYtHBI4xqiCvPecqBFkk2YmN95EzQp+wO2ZzV6+E+P71fbgFCC+9v6rz8MQFW+cyd
+	p8BKcu8YgCG2rG6th7oBRAGRFtSS2JXAwW3wYn8ScfpBTBcEbLdk4WZdualOT8pY7uRxLz5ZI06
+	hCK5rK4pe70QFUpo/FF8J0lMpf7NfPTobWw3+m61OuTl9aYkRviU/Gih90Z1MQ0S7yKxPAtF7v1
+	8MO2kCt5pqA1J4HBC7DUB30kv6JXKgferOPWzx4WWpAKPQQgPxeZW5crHWA04LBA5bwTa+ss9R8
+	vIpp/Z3o/2pyveYe2IpxcYuQvwZPcvXuoiw5L1i/fU3Yo8g==
+X-Received: by 2002:a05:600c:3f14:b0:4a3:59ee:86b with SMTP id 5b1f17b1804b1-4ac14ec873emr282656675e9.4.1793703925515;
+        Tue, 03 Nov 2026 03:05:25 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:861:39c2:e340:14ec:7986:30c8:6bc6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2afee292bsm53218155e9.4.2026.11.03.03.05.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 03:05:25 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Igor Reznichenko <igor@reznichenko.net>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev
+Subject: [PATCH 0/4] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
+Date: Tue,  3 Nov 2026 12:05:20 +0100
+Message-ID: <20261103110524.2812831-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,459 +107,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030031501.130290-3-cwweng.linux@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Fri, Oct 30, 2026 at 11:15:01AM +0800, Chi-Wen Weng wrote:
-
-> Add an IIO driver for the Enhanced Analog-to-Digital Converter (EADC)
-> found on Nuvoton MA35D1 SoCs.
-> 
-> The driver supports direct conversion and externally triggered buffered
-> capture using sample module 0. Both single-ended inputs and the four
-> fixed differential input pairs are supported.
-> 
-> Use the internal 1.6 V reference when no external reference supply is
-> provided, and report the reference voltage through the IIO scale
-> interface.
-> 
-> Use ADINT0 for conversion completion. Configure the interrupt source
-> and end-of-conversion position explicitly, and recover from conversion
-> timeouts by resetting the EADC control circuits, synchronizing the IRQ
-> and clearing stale conversion state before another conversion is
-> started.
-> 
-> Reset the EADC control circuits during hardware initialization and
-> sanitize interrupt, compare and sample-module trigger configuration so
-> the driver does not depend on state left by firmware when the external
-> reset control is unavailable.
-> 
-> Provide firmware-node channel translation so DT IIO consumers select
-> channels by the logical channel index described by the channel node's
-> reg property rather than by the position of the channel in the driver's
-> channel array.
-> 
-> Add clock, optional reset and system sleep handling, and restore the
-> controller configuration after resume.
-
-...
-
-> +static const struct regmap_config ma35d1_adc_regmap_config = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +	.max_register = MA35D1_EADC_REFADJCTL,
-
-> +	.cache_type = REGCACHE_NONE,
-
-This has to be justified. If it's indeed necessary, explain in the comment
-above why cache is disabled.
-
-> +};
-
-...
-
-> +static int ma35d1_adc_reset_control(struct ma35d1_adc *adc)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_EADCRST);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_read_poll_timeout(map, MA35D1_EADC_CTL, val,
-> +					!(val & MA35D1_EADC_CTL_EADCRST),
-> +					1, USEC_PER_MSEC);
-
-Use numbers with multipliers, id est 1 * USEC_PER_MSEC.
-
-> +}
-
-...
-
-> +	/* Drain an interrupt which may already have been latched by the GIC. */
-> +	synchronize_irq(adc->irq);
-> +
-> +	err = regmap_write(map, MA35D1_EADC_STATUS2,
-> +			   MA35D1_EADC_STATUS2_ADIF0);
-
-It's perfectly a single line precisely with 80 characters in it.
-
-> +	if (!ret)
-> +		ret = err;
-> +
-> +	reinit_completion(&adc->completion);
-
-...
-
-> +static irqreturn_t ma35d1_adc_isr(int irq, void *data)
-> +{
-> +	struct iio_dev *indio_dev = data;
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	unsigned int status;
-> +	int ret;
-
-> +	ret = regmap_read(adc->regmap, MA35D1_EADC_STATUS2, &status);
-> +	if (ret || !(status & MA35D1_EADC_STATUS2_ADIF0))
-> +		return IRQ_NONE;
-
-Split this to two conditions, it will be better to maintain in a long term.
-
-> +	regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-> +		     MA35D1_EADC_STATUS2_ADIF0);
-
-Use local variable and make this a single line.
-Btw, no return check here because...?
-
-> +	complete(&adc->completion);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-...
-
-> +static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2, long mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	u16 raw;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		guard(mutex)(&adc->lock);
-
-+ blank line. Make guard()() to be visible in the code at a glance.
-
-> +		if (adc->suspended)
-> +			return -EBUSY;
-> +
-> +		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (chan->differential)
-> +			*val = ma35d1_adc_sign_extend(raw);
-> +		else
-> +			*val = raw & MA35D1_EADC_DAT_RESULT_12BIT;
-> +
-> +		return IIO_VAL_INT;
-> +	}
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = adc->vref_mV;
-> +		/* Differential mode has a VREF / 2048 LSB; single-ended uses /4096. */
-> +		*val2 = chan->differential ? 11 : 12;
-
-Perhaps make two definitions? 11 already second time appears in the code.
-
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
-> +				       const unsigned long *scan_mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	const struct iio_chan_spec *scan_chan = NULL;
-> +	unsigned long bit;
-> +
-> +	for_each_set_bit(bit, scan_mask, iio_get_masklength(indio_dev)) {
-> +		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
-
-IIRC we have a for_each macro for this.
-
-> +
-> +		if (chan->type == IIO_TIMESTAMP)
-> +			continue;
-> +
-> +		if (chan->type != IIO_VOLTAGE || scan_chan)
-> +			return -EINVAL;
-> +
-> +		scan_chan = chan;
-> +	}
-> +
-> +	if (!scan_chan)
-> +		return -EINVAL;
-> +
-> +	adc->scan_chan = scan_chan;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_buffer_postenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +
-> +	guard(mutex)(&adc->lock);
-> +
-> +	if (adc->suspended)
-> +		return -EBUSY;
-> +
-> +	return adc->scan_chan ? 0 : -EINVAL;
-
-Unroll to if return; return. As it's done just in above function.
-
-> +}
-
-...
-
-> +static irqreturn_t ma35d1_adc_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf = p;
-> +	struct iio_dev *indio_dev = pf->indio_dev;
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	IIO_DECLARE_BUFFER_WITH_TS(u16, scan, 1) = { };
-> +	u16 raw;
-> +	int ret;
-> +
-> +	mutex_lock(&adc->lock);
-
-Use guard()(). This might require to split the content into the helper
-function.
-
-> +	if (!adc->suspended && adc->scan_chan) {
-> +		ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
-> +		if (!ret) {
-> +			scan[0] = raw & MA35D1_EADC_DAT_RESULT_12BIT;
-> +			iio_push_to_buffers_with_ts(indio_dev, scan, sizeof(scan),
-> +						    pf->timestamp);
-> +		}
-> +	}
-> +
-> +	mutex_unlock(&adc->lock);
-> +
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-...
-
-> +static int ma35d1_adc_fwnode_xlate(struct iio_dev *indio_dev,
-> +				   const struct fwnode_reference_args *iiospec)
-> +{
-> +	unsigned int i;
-
-Not used outside the loop.
-
-> +	if (iiospec->nargs != 1)
-> +		return -EINVAL;
-> +
-> +	for (i = 0; i < indio_dev->num_channels; i++) {
-
-	for (unsigned int i = 0; i < indio_dev->num_channels; i++) {
-
-
-> +		const struct iio_chan_spec *chan = &indio_dev->channels[i];
-> +
-> +		if (chan->type == IIO_VOLTAGE &&
-> +		    chan->channel == iiospec->args[0])
-> +			return i;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-
-...
-
-> +static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
-> +				     struct device *dev)
-> +{
-> +	DECLARE_BITMAP(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int scan_index;
-> +	int num_channels;
-> +	int ret;
-> +
-> +	bitmap_zero(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +
-> +	num_channels = device_get_child_node_count(dev);
-> +	if (!num_channels)
-> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-> +
-> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> +		return dev_err_probe(dev, -EINVAL, "too many ADC channels\n");
-
--ENOSPC
-
-> +
-> +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
-> +				sizeof(*channels), GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	scan_index = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		bool differential;
-> +		u32 reg;
-> +		u32 vinp;
-> +		u32 vinn;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing channel reg property\n");
-> +
-> +		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +			return dev_err_probe(dev, -EINVAL,
-
--ENOSPC
-
-> +					     "invalid ADC channel index %u\n", reg);
-> +
-> +		if (test_and_set_bit(reg, used_regs))
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "duplicate ADC channel index %u\n", reg);
-
--EEXIST
-
-> +		if (fwnode_property_present(child, "single-channel")) {
-> +			ret = fwnode_property_read_u32(child, "single-channel",
-> +						       &vinp);
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "invalid single-channel for index %u\n",
-> +						     reg);
-> +
-> +			if (vinp >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid ADC input %u\n", vinp);
-
--ECHRNG
-
-> +			vinn = 0;
-> +			differential = false;
-> +		} else {
-> +			if (reg >= 4)
-> +				return dev_err_probe(dev, -EINVAL,
-
-Ditto.
-
-> +						     "invalid differential pair %u\n", reg);
-> +
-> +			vinp = reg;
-> +			vinn = reg + 4;
-> +			differential = true;
-> +		}
-> +
-> +		ma35d1_adc_init_channel(&channels[scan_index], reg, vinp, vinn,
-> +					scan_index, differential);
-> +		scan_index++;
-> +	}
-> +
-> +	channels[scan_index] = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = scan_index + 1;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
-> +{
-> +	int ret;
-> +
-> +	adc->vref = devm_regulator_get_optional(dev, "vref");
-> +	ret = PTR_ERR_OR_ZERO(adc->vref);
-> +	if (ret == -ENODEV) {
-> +		adc->vref = NULL;
-> +		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-> +		return 0;
-> +	}
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
-> +
-> +	ret = regulator_enable(adc->vref);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable VREF supply\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, ma35d1_adc_vref_disable, adc->vref);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regulator_get_voltage(adc->vref);
-> +	if (ret <= 0)
-
-Too many nested branches. Unroll it
-
-> +		return dev_err_probe(dev, ret ?: -EINVAL,
-> +				     "failed to get VREF voltage\n");
-
-	if (ret < 0)
-		return dev_err_probe(dev, ret, "failed to get VREF voltage\n");
-	if (ret == 0)
-		return dev_err_probe(dev, -EINVAL, "wrong VREF voltage\n");
-
-> +	adc->vref_mV = ret / (MICRO / MILLI);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_suspend(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-
-	struct regmap *map = adc->regmap;
-
-> +	int ret;
-> +
-> +	ret = iio_device_suspend_triggering(indio_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mutex_lock(&adc->lock);
-> +
-> +	ret = ma35d1_adc_disable_irq(adc);
-> +	if (ret)
-> +		goto resume_triggering;
-> +
-> +	synchronize_irq(adc->irq);
-> +
-> +	ret = regmap_clear_bits(adc->regmap, MA35D1_EADC_CTL,
-> +				MA35D1_EADC_CTL_ADCEN);
-
-	ret = regmap_clear_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-
-> +	if (ret)
-> +		goto resume_triggering;
-> +
-> +	adc->suspended = true;
-> +	clk_disable_unprepare(adc->clk);
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return 0;
-> +
-> +resume_triggering:
-> +	mutex_unlock(&adc->lock);
-> +	iio_device_resume_triggering(indio_dev);
-> +
-> +	return ret;
-> +}
-
+Content-Transfer-Encoding: 8bit
+
+The PocketGo S30 is an Allwinner A33 handheld with a 320x480 1-lane
+MIPI-DSI panel built around an Ilitek ILI9488. The panel uses the
+existing ILI9488 DSI driver with its own init sequence (from the stock
+kernel), timings and DSI mode; the sequence is close to the
+E35GH-I-MW800CB one.
+
+Patch 1 adds the vendor prefix. Patch 2 makes the binding's port
+optional: the Allwinner sun6i DSI host links its panel as a child node
+and has no output port, and the driver does not use one. Patch 3 adds
+the compatible, patch 4 the panel. The board devicetree will be sent to
+the sunxi tree separately.
+
+Testing: each patch built with W=1 for arm (multi_v7_defconfig,
+DRM_PANEL_ILITEK_ILI9488=y and =m) and arm64 (defconfig, =m), no
+warnings; dt_binding_check clean for ilitek,ili9488.yaml and
+vendor-prefixes.yaml. Tested on a PocketGo S30 on 7.3.1 with the final
+version of this series (A33 sun6i DSI, one lane): the panel probes and
+attaches to the DSI host, and the picture shows the right colors, size
+and position.
+
+Tool disclosure: this series was prepared with Claude Opus 5.5
+(Anthropic) as a coding assistant, in an interactive session: it
+extracted the stock init table and timings, wrote the code, the
+bindings and the messages. I reviewed and understand it, and tested it
+as described.
+
+Romain TISSERAND (4):
+  dt-bindings: vendor-prefixes: add PocketGo
+  dt-bindings: display: panel: ilitek,ili9488: make the port optional
+  dt-bindings: display: panel: ilitek,ili9488: add the PocketGo S30
+    panel
+  drm/panel: ilitek-ili9488: add the PocketGo S30 panel
+
+ .../display/panel/ilitek,ili9488.yaml         |  2 +-
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ drivers/gpu/drm/panel/panel-ilitek-ili9488.c  | 55 +++++++++++++++++++
+ 3 files changed, 58 insertions(+), 1 deletion(-)
+
+
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
