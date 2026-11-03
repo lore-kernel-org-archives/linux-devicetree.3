@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737085;
-	b=Rc15iFIsapbO1TM14gNhCqULv/0+LyjpXZn8w1kTI5v3lKuqwhEQeOL+4RmjlbHv3dvC
-	 UR8GgAohPZ3lwpsok5f9HwwPnvXv4gffaIB8lp3yMOx1bQT0jRLeemtVuOheNc/0HAnCo
-	 Q0SyBGl6UhVFvGpP7sIde5QbyV1D0EwSkKETkQxYdR9rmeK66JQ76EXbRnn+yCG5sc0hV
-	 P/c6TdhFBWMO3iwAPQTB7DBadnFgBZP0Lg+B7N8pnxgbfWPWj7t8cCuYOBqE8dv2HF1P0
-	 CwPyNYykB8S73ZhR+IMZ43DvSEs+XaftAE+IAKPnnSlTWh7zhEOD5r7EI/FPA4ct+VQ==
+	t=1793737239;
+	b=RAoyO4KxMNG2vMdxS9PY2SOkCyJa21z4zf0foUy3gVVHCmKXdcuI3rzsXsu88zPyaqJv
+	 m3Bg56Gfsq4fVduhwOTY6t6W1OuH1heoeyI9s13sqesjWkDqezitbPuTsmWTvnsdvqyil
+	 34cc9LwKe7ScZn0gSlf3YE5T0UXay9IF8sgEbrnC3tCwVt6p+OzcM0eRdsH0EfXFXDbBL
+	 xLeQLUeTqEFCDaDUgIAU5FQU0A3P24uoMG9nE+TefxX4bkOL7l/l+AVovX+eOFC3JKbEK
+	 VYf0geP/Kju5tPqFwgtyx9jrb0MjC3JjeiSnnEMME8Lnn1oWXLYfsqrKFtcoht5Zlew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737085;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=21YTsaUIzqwKpv7uvmR8FnltNXuMCMLU81BLzlN5RkI=;
-	b=d9Pso8kBVLqdWKKPo11p0KC0ZUXzlGzzdHheheNU75e4NTT/8tWPHYHZr3MYwc+4qBsL
-	 NaQcOhw6g1MhVtdc/7OtHjWTdH1UzS6lfYa6RBxEHCetKo92J7O5MzlHIwRdm7RmPONN7
-	 tzg//fwJdnO+M61ARIXpRn1kH2fe/Do+0vBb82EvRj7ovYby62cYHOYhLnAJ8XoOvkNLq
-	 IoMSEdjk7t452tlo30cDTL5HGYQDpjSGvQV20fhF7c3OohYuFOE21r77odd9Cy2VXvtE5
-	 zEcVjrmbm4sZ2zmwlBQ/VLfGj0KY36Q/IgZSN8X6TiCBBJGe61es8lVsCEFP8v+5d2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793737239;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=IUqvrTFx/K9gimEKml2NBPNOGsMG8AhbzuFakDXurYY=;
+	b=Ql1uxXeXB5tPHiJJlJFvu+aMPNAKhn2+SAAAuuoQdj/LHrJfws2ORcKuO7R7t4KWUV0b
+	 nYNQlrY3Paokzm0j43QmU6gvMixYCETnTyGkC3AfY3WRlhrcYuwiRZ0Pk50h3aN3yNWh/
+	 tnHWZbONy1Jo62L4Yx4vc+mFKamZQuX0JqJQHX+ZDcnaebemXTt7AWRD/CgEDKKYrcD2C
+	 PFixqhc1NiQGhnBW/LvzWvwegx0F5AsoLh6IxdAM30ZRJ3AxMgRRyYn7y9nhWpodaceq6
+	 NGXcIxKMLAKbpNAITGzMJKSZzddiJwvDCAOTE8EMumtA1PbmP1Or94hZFnQeyUJg+Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnykI1v+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=M1WpxImR;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E136606A31B
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:18:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2346F606A324;
+	Tue,  3 Nov 2026 20:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2346F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnykI1v+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C1E1F000C1;
-	Tue,  3 Nov 2026 20:18:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793737085;
-	bh=21YTsaUIzqwKpv7uvmR8FnltNXuMCMLU81BLzlN5RkI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UnykI1v+Itt78na5Z36W5O1LCpzg6PyihARN6su5Ib470myi14uFLUTfDGYHNagRA
-	 r185rwgLGQBWsMDN41/arlTpdN/sltS+UnYcoLZaaaGLvII3SMu6eFdKZB0zTDNfGB
-	 IJYoh6BUL/bnt/Op1er3xsmEMSyROZPaDlR/q6Ec0/WAzdzXnZMo/ccLtsoY6+yNSQ
-	 gNr/bGWgyc3pfWnjQqk+dmL04EVhWfyd/5Q4DaR7Ykh6iM+idn/iLVVydIyUhxUtp8
-	 wCJdgH5PXIaJpXwLOZfj8L4yd8g43q9JwhwSoIRXI/U2Gd0VEj3vtiDgqy7NdZFkKj
-	 NCwAdmBGEVkBQ==
-Message-ID: <sashiko-outbox-195980@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 7/9] arm64: dts: qcom: agatti: Add OPE node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261103-camss-isp-ope-v13-7-c2cbf15a39b1@oss.qualcomm.com>
-References: <20261103-camss-isp-ope-v13-0-c2cbf15a39b1@oss.qualcomm.com>
- <20261103-camss-isp-ope-v13-7-c2cbf15a39b1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 20:18:04 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=M1WpxImR
+Received: from L30177.local (unknown [82.65.104.223])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id 2315113F879;
+	Tue,  3 Nov 2026 21:20:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1793737230;
+	bh=pWeUyM6RmTRIJwmZpWd83pWgMmzCsnHnooQuFRo17E4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=M1WpxImRjmom39Ius3QyNuflJtzxPVkktY45SdPzp5AfVrM2zR1QFBZ9+kOKroJpN
+	 fQ+FsbipAeSvkPm6++hiV6tDvNRbYbaKyI8rAi8OeKWPQo3bVgb6TePI0wRWC6Wci3
+	 CmBhEKN3neytI33DBcfdw6KEdR0nBjh/aPUKl3vFBPCTuFBVS7OHQrSLfDoz2zA1s5
+	 6qvj16NNh8s95DrL+1sHrXkJX1Z/tN0keyx/H08Mg/3DMllMZ3dQyH96vBh7xxPeUQ
+	 vPb9el4sU0QAtFIyfOuwHLEHsc631CnpLd5iRFJtm7g23SSZzPBuOjWS48Md/7Bghz
+	 /DCBEqK2p5hzg==
+Date: Tue, 3 Nov 2026 21:20:21 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
+	Frank.Li@kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
+ mux
+Message-ID: <aupCBbNlYGFWc8Cq@L30177.local>
+References: <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr>
+ <20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-1-3aad0860b984@free.fr>
+ <sashiko-outbox-195824@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,123 +67,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-195824@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: agatti: duplicate OPE SMMU stream IDs in camss=
- and isp_ope
---
+Hi M. Bot,
 
-commit 0728079779703fd918786c156a61313ff87b0a37
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > +          enum: [ iic1, iic2, iic3, iic4, iic5, iic6, xspi1-data74,
+> > +                  xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
+> > +                  sdhc2-data74, sdhc2-base, uart1-soutsin, uart1-rtscts,
+> > +                  uart2-soutsin, uart2-rtscts, irq11-8, irq7-4, irq3-0,
+> > +                  evt4-3, evt2-0, clk-out, asleep, reset-req ]
+> 
+> [Severity: Medium]
+> Should clk-out also be listed in the function enum (with a corresponding
+> if/then rule in allOf allowing the clk-out group)?
+> 
+> The other single-pad groups in RCWSR14 (asleep for ASLEEP_PMUX and
+> reset-req for RESET_REQ_PMUX) expose their encoding 0 primary functions
+> (asleep and reset-req) alongside their alternate functions.
+> 
+> For the clk-out group (CLK_OUT_PMUX in RCWSR14[5:3]), the schema permits
+> the gpio (0b001) and flextimer (0b010) functions in allOf, but omits the
+> primary clk-out (0b000) function, which prevents a board from selecting or
+> restoring the CLK_OUT function via pinctrl states without failing schema
+> validation.
 
-arm64: dts: qcom: agatti: Add OPE node
+No: the LX2160 doc states that CLK_OUT_PMUX 0b000 is reserved
+and then it seems it dropped its CLK_OUT section (per the revision history).
 
-This commit adds the Offline Processing Engine (OPE) device tree node for t=
-he
-Agatti platform (QCM2290), describing its register regions, clocks,
-interrupt, interconnects, IOMMU mappings, and OPP table.
-
-> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
-com/agatti.dtsi
-> index d9f4cbfd2861c..8f2b451b8f6e8 100644
-> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
-> @@ -1990,6 +1990,83 @@ port@1 {
->  			};
->  		};
-> =20
-> +		isp_ope: isp@5c42000 {
-> +			compatible =3D "qcom,qcm2290-camss-ope";
-> +
-> +			reg =3D <0x0 0x5c42000 0x0 0x400>,
-> +			      <0x0 0x5c42400 0x0 0x200>,
-> +			      <0x0 0x5c42600 0x0 0x200>,
-> +			      <0x0 0x5c42800 0x0 0x4400>,
-> +			      <0x0 0x5c46c00 0x0 0x190>,
-> +			      <0x0 0x5c46d90 0x0 0xa00>;
-> +			reg-names =3D "cdm",
-> +				    "top",
-> +				    "qos",
-> +				    "pipeline",
-> +				    "bus_read",
-> +				    "bus_write";
-> +
-> +			clocks =3D <&gcc GCC_CAMSS_AXI_CLK>,
-> +				 <&gcc GCC_CAMSS_OPE_CLK>,
-> +				 <&gcc GCC_CAMSS_OPE_AHB_CLK>,
-> +				 <&gcc GCC_CAMSS_NRT_AXI_CLK>,
-> +				 <&gcc GCC_CAMSS_TOP_AHB_CLK>;
-> +			clock-names =3D "axi",
-> +				      "core",
-> +				      "iface",
-> +				      "nrt",
-> +				      "top";
-> +
-> +			interrupts =3D <GIC_SPI 209 IRQ_TYPE_EDGE_RISING>;
-> +
-> +			interconnects =3D <&bimc MASTER_APPSS_PROC RPM_ACTIVE_TAG
-> +					 &config_noc SLAVE_CAMERA_CFG RPM_ACTIVE_TAG>,
-> +					<&mmnrt_virt MASTER_CAMNOC_SF RPM_ALWAYS_TAG
-> +					 &bimc SLAVE_EBI1 RPM_ALWAYS_TAG>;
-> +			interconnect-names =3D "config",
-> +					     "data";
-> +
-> +			iommus =3D <&apps_smmu 0x800 0x0>,
-> +				 <&apps_smmu 0x820 0x0>,
-> +				 <&apps_smmu 0x840 0x0>;
-
-[Severity: Medium]
-As reported by Sashiko on v12 [1], should the OPE stream IDs (0x800, 0x820,
-and 0x840) be removed from the camss node (camss@5c11000) in
-arch/arm64/boot/dts/qcom/agatti.dtsi now that isp_ope (isp@5c42000) claims
-them?
-
-In arch/arm64/boot/dts/qcom/agatti.dtsi, camss@5c11000 still lists the three
-OPE stream IDs alongside VFE's 0x400 stream ID:
-
-		camss: camss@5c11000 {
-			...
-			iommus =3D <&apps_smmu 0x400 0x0>,
-				 <&apps_smmu 0x800 0x0>,
-				 <&apps_smmu 0x820 0x0>,
-				 <&apps_smmu 0x840 0x0>;
-
-When both camss and isp_ope are enabled (for example via
-arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtso),
-arm_smmu_master_alloc_smes() and arm_smmu_device_group() in
-drivers/iommu/arm/arm-smmu/arm-smmu.c match the shared SMEs for 0x800, 0x82=
-0,
-and 0x840 and merge camss and isp_ope into a single iommu_group and shared
-DMA iommu_domain:
-
-drivers/iommu/arm/arm-smmu/arm-smmu.c:arm_smmu_device_group() {
-	...
-	for_each_cfg_sme(cfg, fwspec, i, idx) {
-		if (group && smmu->s2crs[idx].group &&
-		    group !=3D smmu->s2crs[idx].group) {
-			mutex_unlock(&smmu->stream_map_mutex);
-			return ERR_PTR(-EINVAL);
-		}
-
-		group =3D smmu->s2crs[idx].group;
-	}
-
-	if (group) {
-		mutex_unlock(&smmu->stream_map_mutex);
-		return iommu_group_ref_get(group);
-	}
-	...
-}
-
-Furthermore, if isp_ope is probed by the IOMMU core before camss (such as
-when camss is enabled via an overlay), arm_smmu_device_group(camss) matches
-isp_ope's group on SMEs 0x800, 0x820, and 0x840 and returns early without
-populating smmu->s2crs[idx].group for camss's 0x400 SME.
-
-[1] https://lore.kernel.org/r/20261102-camss-isp-ope-v12-7-702254689feb@oss=
-.qualcomm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-camss-isp-=
-ope-v13-0-c2cbf15a39b1@oss.qualcomm.com?part=3D7
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr?part=1
