@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793696528;
-	b=2TJYIwbQFUe7G8XplOwc1MNccw3Ql8lsIEwoFnpMTGJGjGybKlUvGbWrDQX+nCL832VD
-	 ACR/VfqMSML3YTNJ6P7nqd07zaHBJFTo+ZUxKOpZvbwHI/iSeynMMzyj7nDg5r0tp9Rz+
-	 ucItkQM3aIgDKnt1mFE0tvZAT692BCUwG7Aqcmm0CHBaEPZXWBEJYqxFkUyaDgIpCmZ+T
-	 PFv+FnrgxKvEVf+rb72Www1TstLzUtImjmRjCi3ezEmP6RUvUT1S6+VKApWw+0R3HGDTG
-	 DpKZVoQwf3CtIw1XxyFzN1Wfj2gSB47/Z+oyWpiZ4i17lPkxTqOtbAyizTXtLrmCW3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793696528;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3Utcoo35B8Ox3irX1m8vM/1qxcx3YaOzvnLjUbyQjAE=;
-	b=N5eF1si+Uemb9b0I1tf/VBSc4A44BXJ2JhogJryKXf29reJ9xLITYnpnR4TiM90+8GF6
-	 B9cZWEtS+X5rOS74StFZt79bHcnNg9wIkQsBC8zEzOCIIxz72jHroZQ90gSLvyAmBV/y+
-	 FDCqCPYw7a3bt4jMt6chYLYbHwnwJLxRGnwvYjm3+xKny5Ecp5apX1i/IXt/KxEJ/DLp0
-	 aMw9qfSBtlkObcGvrxkbr8cidvYBDPYUWj4sZRSiWgfdnBxVLyVqAxf4KAuJVHGNQOMb/
-	 yMRUyUkL+sIy6EjPCTrM4TMnz8ksowQrHHNcUmwEul2ml3FDrxvXnUyyp6URFujNCyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj+LciLx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793696537;
+	b=q5Wz4UJfyChS+1HdiDhLjlCMUCp3r/VpfPK8njWx/kj6ozQFTwJZHRKXlvppBFapLwdU
+	 G+SyCT08Zlxs5Q9QLbWvK4XtpUkfyiPHxUNahLlz5mKiy/nKFbwu99p+rPWinUrranQwT
+	 OiYChj6/TGf1IKWKspLl5ZTP1BRQlQN0Y9dZafuIHUOA+lzFuntHeSwEy2EUDYf/cvfkK
+	 GVguXPGT4r0CvrknuoxAMKfQtNI61EmOuq4+sPYKG4IonKavM5RAKQgFyTbki8yyyND9Q
+	 BgaBLzfR/UrPfBzLWi/wubDwuUUvdTYEcBFMQKuRftesn/mb4QRUZToQyRR1HddHGJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793696537;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=I5KjhCza7OLCRkoYMN0mD1Q2oGVJGpZNaMPYaatrZlM=;
+	b=0ePYpP5oyKlyEKuMFOwVKR7Gk0JYWiovHSOPLBNdn7eeeLhFvIeCsVM+dk1XrbQVZF1c
+	 NHkVg60ZGBk7E+a0dVFi6dKj2dTl1VKf6Yrjwr5cN0QhvbmQxW+1G6tXK9XtKeSOtflqy
+	 fCqs8fHai3TNEoZf1wD6s+JN1U+qORxNjljBNUgDR1lN1whLOXLjlA/R/tmyXIV4C2eNL
+	 /RQS5//6ZBMBM/y8ProLe9adDAj47UIqD1PO/vyJsjH0YvGDRK40PM2e8Apo0G8scNYMS
+	 bEEigFPGm5irU28pwDiD/52Rv1F+TGGKhLz0itv5k2QPw9gRd9r5X0fmwb8QVpyZ3fA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ciwGRpx2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C887606D803
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 09:02:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90BFF606D824
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 09:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90BFF606D824
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj+LciLx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC491F000C1;
-	Tue,  3 Nov 2026 09:02:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793696528;
-	bh=3Utcoo35B8Ox3irX1m8vM/1qxcx3YaOzvnLjUbyQjAE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kj+LciLxpg/er6kVeOVISFAKp/MKAsUOXKeXVCS+6C/CrQ4r2nC3/E11rE2WjdK8n
-	 nGdpQ22RHDpHq1g0fdhVKXu4RWNTfQbBYk8+bxgh68sF2ZXFdZGi35s8ue5mPFloJC
-	 02I7AvdrwKWSE6JWRFJkCAdWKd3dq8sVNmw8Mv6+y6ozlt4aiTQLLM3ZESyPneRkQq
-	 tN8MwnaRVC43KSafrla1raOdslecGtSBvKIb3yrE9XMjfJLKkLVSPv+kXGr7m9CqHZ
-	 Z9j8ic2tjKJhm8ehWGCjxgQAt8mvX/jtRH/zVisQ9RAL0Ld4nZaRoXqBataMRUEZIY
-	 Cfod+m8l4Z7fw==
-Message-ID: <sashiko-outbox-194914@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] clocksource/drivers/spacemit: Add K1 timer support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-spacemit-soc-timer-v1-2-36722421db6e@linux.spacemit.com>
-References: <20261103-spacemit-soc-timer-v1-0-36722421db6e@linux.spacemit.com>
- <20261103-spacemit-soc-timer-v1-2-36722421db6e@linux.spacemit.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 09:02:07 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ciwGRpx2
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5554190eec.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 01:02:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793696537; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EI68hDqqOOpGw7/r956Xjb5dTQKSacBt4FHAx93P29/b20ZmDljMUWRqirkdr6OBfK
+         Nuox1Ou3GdxcNj0aJy+fyWVxLBCt/WmCq0TCCxOKnC7AMrHnLa6NpY6loVf5Y/LSOQg8
+         Usm+2Y2/Th/VL9Am4Z1UJSAsYJI7LhPxAZmxyMCGiduPDaaMmKIhf4D2LT8BCrRjZd/c
+         vra9D505tHYpZ/7pMxuMQIn/O4c2QduUkrut+DiHm/hU3KK/IxfU4oqjvbiFY4fVGrOB
+         BuyWW/IOBFq2rtyXYrjoDvb+Cdc2q5V5JTDsiYf9iR/OvrmeWavqDlZGnl1xpWgXDJxV
+         2DUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I5KjhCza7OLCRkoYMN0mD1Q2oGVJGpZNaMPYaatrZlM=;
+        fh=HwavcsxWrbe0Qpoxw7cDTC4G9lMlryycarR0POiIMaw=;
+        b=YRn8Cn9rniRKCCNzej1YoSHDXMmStpYzjXqD7o+K1cOL4m6QNI9xsIericZlx4ikX1
+         kuv5Uy4Z4+BU8uHARNrZSipLtLfYNIunx38HcmariOwdOLX31Aj+G8/ga4iProrTpiUM
+         IRqhsKqWXu6zPokAYIEqbAdsjzetfDNxJ6HeVAi8JZXjtvuQ5rrEYnPk41KqMfDznO3L
+         HRbmXkLbLsVi1nnm7xJStuio4NLg+TewNDpDDz7iL5qhcgIJf9xTmYU9IqMUtfL7/vom
+         ApUDSU0x14xnraGJgDkdovZ4wEYWe3LAs8UvYVTUZ7D51BHuo+ikrB52okyvNxYyQBeQ
+         5/SQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793696537; x=1794301337; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I5KjhCza7OLCRkoYMN0mD1Q2oGVJGpZNaMPYaatrZlM=;
+        b=ciwGRpx2kcHNTz6ttmKCjLHvNvU4D+NrO24Iekv6nFHROsIHfJzjgzeFIvIop+cH9z
+         rh0kL61fy6v4C5HPDGZYpdm8ehoxlvThnx4p2vZ5+6ij5RGxiAjHB8DiIc/iTexMqrpO
+         u40ArrwZ8pGC1cU76kRdkxR+kJRe/HPVr0hbiWPjgf8ezUFsCYQTg2och8VmNHf5FcfY
+         lwlVmvuFAR/1QyUGQjaQ4QIxCWXr0QUP7LMh0metD8NUvwKVGbk/5E5BzgLZcMkUGkkM
+         ppJjttWc+JAv3zrtDfAaqElUmNrVKNW+l5+3Pc0he6clMhV6o15x35JflnwCHcfVwGA8
+         Na+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793696537; x=1794301337;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I5KjhCza7OLCRkoYMN0mD1Q2oGVJGpZNaMPYaatrZlM=;
+        b=mWUJwKRUf3hEyML35cEu1i8Y4tIwlzIdSBUX4sDYrwguRqmlhXBn3kLkPbK88J8Lqf
+         PV+XSmr2/F/tB/6fK394aIyG8QYuBwuqitJwjP3jQcDU/7C4VWJmpIjtmlwuJTeAQNbF
+         WStVG62khQH+O1B2d3JwULyrrY9FYtsjwaGbUgOgL6+hH/Tm6aZpSdVoAqxLizQ6lksi
+         kF+MDGiOk8OJbyw0+wNUd50Lwxx27NxAKA1pDC3TAMuPCp0cZvSV0nqy7sxwTw6oZyyZ
+         ml+nGWmyhfIFRc0ST5Wep0oBpiK/BhjirKWyw5QfcdmKVT8YfblrZcoRw4bcelROcl2h
+         xXFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/Py+J3O727kJlHU7bX82MRA5oUnX+b35c4beUGelpMF37BbTyj1Ob5HbHUIIyaxjiXyjugcsMOIJS@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fSYWkl5iZF/cdeLUzfmwAiSNTKVaNNDWrc7EaDfvw7BipisaK
+	KMvBsiE18D4YSoc1p8eieCp2wYhs9PsYZD0w5mi9EjdcdNtRUTMVDf70e6n4AdlXdYXZ4Oq1p5G
+	6qrIOMXAvRaXqDUsTMM7D2j8g/Xl65FI=
+X-Gm-Gg: AYBFou2JkldVhdwjY5sp5KzJs4N8uZZBVk4+aLZhHqpHzz4KtpsAVBqyc0gPABfSyCu
+	23I/KsxnExYEyv5AFEizNEVCkIPZKdpcxqy7tKcfi4sztoKAf0RD6qhknNqVOGRINu2HyXLMDFz
+	tJdzjzMCPfwf+KPnXL5/sX+8HVzqnLJc6pPNUMDC4UfmG+MPM7EEKnBCHsDHpA2M1tqVfo3umXQ
+	L7OTIpfmD5wiAjM0QedJSfGShyiO5PgWkbHcXkgwzju05slv4z/YFxdXPnGE3B4tz0+VttcN+cg
+	0pLmFB7N8BQGjW0TC277Ui9GDNhLn06hdr7/eNx/VVzd5NOWoFAdN2NxC8pLCcdlewuXU2hW+lo
+	XHHjWI521QkqlHWMEv1yRhqxlBK4Nm4lenzUh7nhKeGJaViAvjZSmt1CgHvGE2OpCa8NAnw==
+X-Received: by 2002:a05:7301:1a05:b0:36a:11e7:a11a with SMTP id
+ 5a478bee46e88-36a4236241cmr19980626eec.12.1793696536533; Tue, 03 Nov 2026
+ 01:02:16 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,210 +103,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261022132259.240717-1-clamor95@gmail.com> <179362684510.3310106.12424997423646231725.b4-ty@b4>
+ <HUi_TWCnQA2WP19xCg9CEw@nvidia.com>
+In-Reply-To: <HUi_TWCnQA2WP19xCg9CEw@nvidia.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 3 Nov 2026 11:02:04 +0200
+X-Gm-Features: AclHuK9kP2YZS9qM8orBh3iwFzVk5JoYyyundAYGnDH-DFMvjVyJq8oHL57nrh0
+Message-ID: <CAPVz0n0fpR553WL7bRYKFcHgGrc2pauMsKs1PTnuZVpN8UM5oQ@mail.gmail.com>
+Subject: Re: (subset) [PATCH v4 0/7] drm/tegra: Add support for
+ Tegra20/Tegra30 8-bit CPU interface
+To: Mikko Perttunen <mperttunen@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] clocksource/drivers/spacemit: wrong MMIO register offsets for K1 t=
-imer
-- [High] clocksource/drivers/spacemit: free-running mode in spacemit_timer_=
-resume()
-- [High] clocksource/drivers/spacemit: direct TMR_COUNT read in spacemit_ti=
-mer_stop()
---
+=D0=B2=D1=82, 3 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 03:45=
+ Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Monday, November 2, 2026 10:40=E2=80=AFPM Neil Armstrong wrote:
+> > Hi,
+> >
+> > On Thu, 22 Oct 2026 16:22:52 +0300, Svyatoslav Ryhel wrote:
+> > > The display controller in Tegra20/30 SoCs features an 8-bit SPI inter=
+face
+> > > that closely resembles the MIPI DBI Type B protocol and is referred t=
+o as
+> > > '8-bit CPU'.
+> > >
+> > > Add DC parametrization options needed for fine tuning by bridges.
+> > > Add 8-bit CPU interface in form of a bridge linking to RGB port.
+> > > Add 2 DBI Type B panels used in LG Optimus 2X which work with
+> > > the 8-bit CPU interface.
+> > >
+> > > [...]
+> >
+> > Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (=
+drm-misc-next)
+> >
+> > [1/7] dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and L=
+G LH400WV3 panels
+> >       https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/46011a636=
+fd729c99781533e265297748b5a0b0f
+> > [2/7] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+> >       https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9fe804e2a=
+3001fd024c0809678d09c5e0ed359ee
+> > [3/7] drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
+> >       https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/d87ca1bec=
+bb095b6204cf657508c91e5e995d9b5
+> >
+> > --
+> > Neil
+> >
+> >
+>
+> Unfortunately these panel drivers are not functional -- they rely on a
+> contract with tegra-dc that we've changed in v5 of the series.
+>
+> Mikko
+>
 
-commit 4dc32afe42f41419e8802088abd5d90ef4a2a234
-Author: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-
-clocksource/drivers/spacemit: Add K1 timer support
-
-This commit adds a platform clockevent driver for the SpacemiT K1 and K3 APB
-timers, using counter 0 and its first match comparator as a shared oneshot
-broadcast timer device.
-
-> diff --git a/drivers/clocksource/timer-spacemit.c b/drivers/clocksource/t=
-imer-spacemit.c
-> new file mode 100644
-> index 0000000000000..70076c17b5037
-> --- /dev/null
-> +++ b/drivers/clocksource/timer-spacemit.c
-> @@ -0,0 +1,312 @@
-
-[ ... ]
-
-> +/* Use counter 0 and its first match comparator. */
-> +#define TMR_CER			0x00
-> +#define TMR_CMR			0x04
-> +#define TMR_CCR			0x0c
-> +#define TMR_MATCH		0x10
-> +#define TMR_PRELOAD		0x40
-> +#define TMR_PRELOAD_CTRL		0x50
-> +#define TMR_IER			0x60
-> +#define TMR_ICR			0x70
-> +#define TMR_SR			0x80
-> +#define TMR_COUNT		0x90
-
-[Severity: High]
-Are these register offsets matching the SpacemiT K1/K3 3-counter,
-3-comparator APB timer hardware layout?
-
-The K1/K3 timer block uses the MMP timer register map (as in
-arch/arm/mach-mmp/regs-timers.h), where the counter 0 and shared control
-registers are at:
-
-  TMR_CCR          0x0000
-  TMR_TN_MM(0, 0)  0x0004
-  TMR_CR(0)        0x0028
-  TMR_SR(0)        0x0034
-  TMR_IER(0)       0x0040
-  TMR_PLVR(0)      0x004c
-  TMR_PLCR(0)      0x0058
-  TMR_ICR(0)       0x0074
-  TMR_CER          0x0084
-  TMR_CMR          0x0088
-  TMR_CVWR(0)      0x00a4
-
-With the offsets defined here, TMR_CER (0x00) points to TMR_CCR, TMR_CMR
-(0x04) points to counter 0 match 0, TMR_CCR (0x0c) points to counter 0 match
-2, TMR_MATCH (0x10) points to counter 1 match 0, TMR_PRELOAD (0x40) points =
-to
-TMR_IER(0), TMR_PRELOAD_CTRL (0x50) points to TMR_PLVR(1), TMR_IER (0x60)
-points to TMR_PLCR(2), TMR_ICR (0x70) points to TMR_WSR, TMR_SR (0x80) poin=
-ts
-to TMR_WICR, and TMR_COUNT (0x90) points to TMR_ILR(1).
-
-Won't this cause spacemit_timer_probe(), spacemit_timer_resume(),
-spacemit_timer_next_event(), and spacemit_timer_interrupt() to read and wri=
-te
-the wrong hardware registers?
-
-[ ... ]
-
-> +static int spacemit_timer_stop(struct spacemit_timer *timer)
-> +{
-> +	u32 val, prev;
-> +	int ret, i;
-> +
-> +	val =3D readl(timer->base + TMR_CER) & ~TMR_COUNTER_EN;
-> +	ret =3D spacemit_timer_write(timer, TMR_CER, val, TMR_COUNTER_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * CER crosses into the counter clock domain. Its readback alone does
-> +	 * not show that counting has stopped. COUNT is synchronized back to
-> +	 * APB, with up to three counter clocks of latency. Wait for a stable
-> +	 * count before changing the match or preload registers.
-> +	 */
-> +	prev =3D readl(timer->base + TMR_COUNT);
-> +	for (i =3D 0; i < 10; i++) {
-> +		udelay(timer->sync_us);
-> +		val =3D readl(timer->base + TMR_COUNT);
-> +		if (val =3D=3D prev)
-> +			return 0;
-> +		prev =3D val;
-> +	}
-> +
-> +	return -ETIMEDOUT;
-> +}
-
-[Severity: High]
-Can the counter value register be read directly in spacemit_timer_stop()
-without cross-domain metastability?
-
-In this timer block, the counter register TMR_CR(n) runs in the functional
-clock domain and is not synchronized to the APB bus on direct reads. As not=
-ed
-in arch/arm/mach-mmp/time.c:timer_read():
-
-  __raw_writel(1, mmp_timer_base + TMR_CVWR(1));
-
-  while (delay--)
-          val =3D __raw_readl(mmp_timer_base + TMR_CVWR(1));
-
-Should spacemit_timer_stop() latch and read the synchronized counter snapsh=
-ot
-through TMR_CVWR(0) (offset 0xa4) instead of reading the counter register
-directly?
-
-[ ... ]
-
-> +static int spacemit_timer_next_event(unsigned long delta,
-> +				     struct clock_event_device *evt)
-> +{
-> +	struct spacemit_timer *timer =3D to_spacemit_timer(evt);
-> +	unsigned long flags;
-> +	u32 val;
-> +	int ret;
-> +
-> +	raw_spin_lock_irqsave(&timer->lock, flags);
-> +
-> +	ret =3D spacemit_timer_quiesce(timer);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D spacemit_timer_write(timer, TMR_MATCH, delta - 1, U32_MAX);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D spacemit_timer_write(timer, TMR_IER, TMR_MATCH0, TMR_MATCH_MASK=
-);
-> +	if (ret)
-> +		goto out;
-> +
-> +	/* Enabling the counter reloads the zero preload value. */
-> +	val =3D readl(timer->base + TMR_CER) | TMR_COUNTER_EN;
-> +	ret =3D spacemit_timer_write(timer, TMR_CER, val, TMR_COUNTER_EN);
-
-[ ... ]
-
-> +static int spacemit_timer_resume(struct clock_event_device *evt)
-> +{
-> +	struct spacemit_timer *timer =3D to_spacemit_timer(evt);
-> +	unsigned long flags;
-> +	u32 val;
-> +	int ret;
-> +
-> +	raw_spin_lock_irqsave(&timer->lock, flags);
-> +	ret =3D spacemit_timer_quiesce(timer);
-> +	if (ret)
-> +		goto out;
-> +
-> +	/* Select the functional clock and disable automatic match reload. */
-> +	val =3D readl(timer->base + TMR_CCR) & ~TMR_CLOCK_MASK;
-> +	ret =3D spacemit_timer_write(timer, TMR_CCR, val, TMR_CLOCK_MASK);
-> +	if (ret)
-> +		goto out;
-> +
-> +	val =3D readl(timer->base + TMR_CMR) | TMR_FREE_RUNNING;
-> +	ret =3D spacemit_timer_write(timer, TMR_CMR, val, TMR_FREE_RUNNING);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D spacemit_timer_write(timer, TMR_PRELOAD_CTRL, 0, GENMASK(2, 0));
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret =3D spacemit_timer_write(timer, TMR_PRELOAD, 0, U32_MAX);
-
-[Severity: High]
-When TMR_FREE_RUNNING (BIT(0)) is set in TMR_CMR during
-spacemit_timer_resume(), does enabling the counter in
-spacemit_timer_next_event() reload TMR_PRELOAD?
-
-In this timer block, setting bit 0 of TMR_CMR selects free-running mode whe=
-re
-the counter wraps across 32 bits and ignores the preload register, whereas
-clearing bit 0 of TMR_CMR selects preload mode (as in
-arch/arm/mach-mmp/time.c:timer_config(), which clears bit 0 in TMR_CMR for
-counter 0).
-
-Because spacemit_timer_next_event() programs TMR_MATCH with delta - 1
-relative to zero rather than relative to the current counter value, won't
-setting TMR_FREE_RUNNING in TMR_CMR leave the counter at its previous non-z=
-ero
-value when re-enabled, causing oneshot events to fire at the wrong time or
-wait for a full 32-bit wraparound?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-spacemit-s=
-oc-timer-v1-0-36722421db6e@linux.spacemit.com?part=3D2
+Panels are functional, but they require specific configuration
+described by Mikko. This is not an issue. Since We are working on mipi
+dbi bus for Type A and B devices I will just add commits converting
+these panels to mipi dbi panel driver. They will be as an example how
+to make/convert dbi type a/b panel drivers.
