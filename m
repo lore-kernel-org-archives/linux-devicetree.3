@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703929;
-	b=HwIYRtcKzbWm4OS+6mwV+qHgwi6UKTM58XsQ+LmxjJROR/uK7pZKg8D/EZ8TB1ZkmMD4
-	 /bENYwEyRD3+Yg1hcFlarOdL0aTtf1O7ZuDYoBxDIM4uR4njkewVLWAhUjd/er4AQHlL/
-	 /P5bFLCXtEVJEuDCo5xJhkMw1CJdXsLeYYGe6g3YSSHspFoRYbYIL8k6jy9pG4Et1AQQO
-	 JpybF7KrmDcJ69U41WjX2ApvSoBFVcqZ/ZsmipZsFbefx88Hbt48konZp+GDBZb5+UAKu
-	 XeiVrlT/oviI08dWFbmhyeef+7cZFT7ovIR0uTGWkrBoMMwPt7ys5/pG5/gONWaSe/g==
+	t=1793703930;
+	b=G9jiGUrzPRzeNBbzpSGDMSoggeDHlKuUKrAMV2ELT4+M2K9JvPI/yCV1sjLUYi8Irqak
+	 bWFFc9urHkXJJ5J//05OJyqQNlRlSD5OLhhOm1ebEVL7faZzf/+b2Uq7kyvqrvoq/GpvY
+	 uUiGLSyZ4m6HO1YbM89oeJqE/oJkyklOjnBQuz0J7iczYcJ4tWmxBjlpP8NGBD1ObMKHS
+	 8EM3FeZAqyFSKSGPW2SHiwKgl7gKyGxniZg/Uj2SJCCSZWgVYKxpgYfJGbhZZYKZAkj+r
+	 vUvsU7bacWZ6O1RdHNhdFfZz5f5zmlcK+vXuZW0Ihz5fLAQI1MoU9wuCiKuDlxjl56Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703930;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2peUJ98OgTSEIArQaXah+YOCOAD/R5kMNJb0El9Mbi0=;
-	b=KI6BcqB9NtV2WinL9x/ybAvitzy4b831/A+nfa3n1tfkIy0wKD/j7TUHEBeals4rbBS8
-	 85dXeXGH2aAeT8C2gJdimvowQ2T//iVeKwWMjPnqxEl5WvuTGSjsKwAWgfYk68Bm6qKDM
-	 e7zAyhG2lIUwffR+aakZv8wazY1COA9GCyJ2pxpX6sbTwTqCtPVEDXtQoYby8MGMfTH6E
-	 J2SlicdaUuGJ/GcvawdFK26glu96/aUYCPdhEpccHycTD5SfRYtJzYFyd+OtaVpPyKzGb
-	 w6DcXRgkHpTcMIHsJDP7PoM7J82Di2YFHldUhM1v39iv+T4uVFYnktYe3Y2v5suBv4g==
+	bh=8uVawaux8sNeEnQ6GG0I15QjU4Tv1ysiOdcaZPwS+rA=;
+	b=FwuBF/04xo4oD5+9rNLrOoul3QVAvWmI0FNgwQLVx7q5WkqRx6KxinKEgSuiJDViWOcA
+	 5bBdZu2NZFXdsZfc1H1QIfewfKwWGxoMojCpAFnZqqZXpn1W0x0cQyogvnWPF7MQa9N0I
+	 Xnm76uuwgBEzwyhQ/Uo4c+mkg0H609HyQURgD2/QQftsFIXmt6FGj/k3DXlhfBApNywmT
+	 p52CSXXaz+19nBNwbeZGxy5Ek8NlePSJEixsetP9RKLqKOsFFWbbnbwzD6cJrONQ9qFnq
+	 CgyxbI0dIWrKOvsIqUAj9XE6v8VewLNn7eUuZApFvXwGAN63sCEVe4KTQAoA/MI+d4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hGIH5NqZ;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMGe99cV;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF5F606ED84
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 11:05:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DF5F606ED84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEA4606ED84
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 11:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FEA4606ED84
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hGIH5NqZ
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso32686395e9.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 03:05:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMGe99cV
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so36197445e9.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 03:05:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793703928; x=1794308728; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793703929; x=1794308729; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2peUJ98OgTSEIArQaXah+YOCOAD/R5kMNJb0El9Mbi0=;
-        b=hGIH5NqZpKssCrXz9eVV7dV9w9rb/utOwtMeSSTdftkrFFZE2N60ZyooWCwnCgnnMa
-         YgOyr/7wmhi+oVyhVLg9oI3MRwWrBK0FC6MShRXA4zhh0eTRwyrxZmuPdI3Ex4G+gdoh
-         MWiLZdqxOri9/1STMpArrfugKMi7tZA+kDnMO41zrb9GQt6QpYwzbBkdfsZHxZAWvUvo
-         yjfpk8J1yiycTO7tQUtkrZ6G+hv3mCYD2TVXLVkKj3sXnRdbObenOxrFTjh9re/Q6zgW
-         fdC8LatkTa+hFh4MuuBGtVyxVPjqWoqRf+fmnGw6h2cLmWAfaJs/tVGobqfRnIwafOWj
-         tJJw==
+        bh=8uVawaux8sNeEnQ6GG0I15QjU4Tv1ysiOdcaZPwS+rA=;
+        b=cMGe99cVQwvxenLIq8hmGoLfLAMyCDSPrToFpISyapKnhEPANHCmKV8Zu53d0NmrWU
+         QoNCf1CeCksZq9KqgIExqX0ZHZ9ek8Vr9Gu9nq5hQH4B+1ltLTQGZbE5TRpv7ZFMEPPG
+         K9n4IMXh9EFj8z0jWJ3HfOTfx6YyP7L5YO6eMAHG3XhUgeICHviuLc32tyerHpy0oWyv
+         2avthLjzlFjegKCm4lZsOPS3nTnZAccdn9YdBnqeppbBT+xUsSjictEXKu+swV/gnbdJ
+         svRZ1+TpD+WpmdXJhCi33DN2Dq7HtXvWt/0vC9ZGHsZVeYFtWLJLMgon39KIufPIncDj
+         KFag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793703928; x=1794308728;
+        d=1e100.net; s=20260707; t=1793703929; x=1794308729;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2peUJ98OgTSEIArQaXah+YOCOAD/R5kMNJb0El9Mbi0=;
-        b=GqkR1NB1+HNqKByc1/3NsMQgruxqnNLzCoo8L+AUY54i/1GaajWh+/GYvP4xNZd1ab
-         dGUZGgz7inX45LLJss+JuJCj3syE8+fNUwMewLytADA6PG2mpTl6f+nQIseULyD1Ftgi
-         oFhgfWr00ueXXkjLl3khdORJC+uB09PZFlIRuByCoEAkO1SqAWMMCq/+fhFWY//3P9FU
-         bLhcK7tI1nBRSRVjpHQ5fW4FvQO86eBPYlcnxtxo5HvBPsWJ9JFS7YMtdVVdD0QO/GmY
-         KPP3aKEqQ+rtpaib6L+j7N0/aPkhmPAYASoVlvlo3sd+FfOOgVqe6FkgXRw0HiqcPA0B
-         VlpA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRrI+oE6P85ydp8Z78Ya1B7E490vX8sQhhqEcw3bZ5fVRZu8dPGaw4TqI1bcATlTo4ryKZP8/iRaQe@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/IHPty97c4GN9OvBhe8ZTvIFEJsWAGCfMNNiYim7aXZ988GMB
-	0dVCSXP0Cufs1izz4v47XJlBPZQ+waGIikfeLDF3ec+kkQdANY9mj8ii
-X-Gm-Gg: AYBFou0ygQBjfE4+5VbRVj77rKVr5ZctOYXQMCJQi/JF9854Tk5SqX9b60+cMe8E39W
-	anUmaJ5qxsVi20zNGKOLA3EW+i9s/GSrvQ+4QSmlYoc+LyN5BtVF1X7bUIRl8dFMQD14kAx00pU
-	G85yAlhUApnj+4RSvSawmVaEFTTzxwzXF6wzLtQJ+EuVSi7KIbE5mVo8p7yanxcZmwBButYHRsH
-	tbNKOMO6HCnyy4TfF87qlFWb/JbDGpYTEfIb3Xcq55ac95BO3/VC7k/Q0+VgUKGs4UlDuhU983K
-	oz+HWrsD3bXHjO79Ge7npeih8J8d99P5yYsOrhv1tDBVaYDiwDxfIvZGwPsqzvgV9LxwdFb1CbC
-	/a7Q6WO4ZhKr2xBvnBcIc4SAYWW5QIQz8MHl8ySf4kAcEN3szC44sczQcUfiQqnNMtsA0g1DdlQ
-	Iz+S0QyqHFouiwSKCM5fUDD5axYfFtpwX4WgjMP4FgodpPSAhFFet7FdaB6HJ3fCPMJEVCT1C1p
-	oFnrKfk7WxAvZkxE/FtjDQWQ+LkqC4e6mEP4lOpJSTWkFSWUzNAk1/q15yJAnuuIDBIT04oqKPC
-	4i7jru9Rp/GXdqwl57m94jFE4AQqe+wzzch+PzqkaxSumw8w642ZVN6+W1WFgJl7tW+FyIGcxq0
-	0XxpykCRvW35zC2J+KYqP3Y6W1YZp/wSb957mxtnn4OUFpg==
-X-Received: by 2002:a05:600c:19c9:b0:4a1:f377:5c68 with SMTP id 5b1f17b1804b1-4ac18a8911amr292299845e9.34.1793703927676;
-        Tue, 03 Nov 2026 03:05:27 -0800 (PST)
+        bh=8uVawaux8sNeEnQ6GG0I15QjU4Tv1ysiOdcaZPwS+rA=;
+        b=uNUovVzNHuD0FLg/GD9ozX8cWHJPdSxzV54pgw5WSvKZnDr79YLuBBByZIIkZaUubL
+         PxyfRGV2qGlUMygUb76A6ShahseqqDY5k8VyL50WQegDfE0TwzPGenZf63dQ3bBU0tHD
+         DTeNXMP0d9ioyIvisD1rIV8fLu5rxtOY3GtzUAPyhlLmTxrU950q3751PwRJbnak4EJg
+         hM6sA5ER7PRNDXKm6tEUtlretU0RCyB7aMRGtKQ1S4ILH2dZ0VCTdkYSuwdmPkqPGpPw
+         4nFqcvgUvBBJj90zJXPREJSjOKU7Y7T8pWAUuAMn4JEFWzpxkb1CIZqx5kxXcOqL21JD
+         sn4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwrKVvrYw3ITVhN8Wl03zY/eM7b52P8eXZiN0tkfbtyN3DoP5A7CV0r3CNkaADD+u+I6LUJlW8XykRo@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WuTJNXuK531HzxwFSJpKizCCMhTxOh3o8T+5Rx9MgehVaK1/K
+	TUrZqC1G/BAo2/yd0oOfmcpXnNae2m9RGXzvSuoJAhF//2OXG9fk0Wzj
+X-Gm-Gg: AYBFou0wPaOmLp2RH4LJhkAUCLVztXF4Hrx7s/ZR0QAjF0QZlUtPFQ0Dgz6JpMan78j
+	dRbThCgZshKIWs1qNCNW5pqOiv4aetz7GouRZroV8SsGg6Yf4WC9SusUqNgpWGnZIio+L3ABKzJ
+	VbF+sqBVFkchXSiwVi0JOC5Wza+BEELHWJB/zFsJow8Q5YzWIF+lKsFiVmGXitU/dIhBvxLV/k9
+	wAB+vtuiTeRl7Ki4UE1tGp5IOZlPWkhhy1PthQHj7UgvP0JeBKjMKbxxvk2K2rL+VuUFxGRdqsL
+	pKJuPJiktOcLQ9wxTAl84MYfbKjbST44Ka7lw6aTjTyfsyQl1HjIHZecXV6QRO7PbLJbiGpwM//
+	ss32+TxD5/jCNToQnjsHmyuaJ3nNdo66xz9st+JcH9Y5A++7PHdTLW6CWaLH2mLc0zOoM3QkXxN
+	RsV+j+Dkt3Op9+q94V0zBejH07aOBxChOOQl+T729pIuhQL3w3WeFIy/i5j//q3jEvtNLuBnQJI
+	+0KTR/6Q/HnETMYtZ6FogfayyzlTD1ZqAI7Xo+xt8gXqhtqGiGLrGeBUt8onLoGec9afmyi/VYv
+	rIhS3eB/nTW8zXCQaTBn+cD7N8ng+EviUlEQ7QV8MRR0zB4BRVGTv/gTdNpCJ3i0Lel4cAuC4GW
+	LZNBwycUKDkJfwlpyPUml/kUi1xa9xFqUKruLBs3Wl0FS+Q==
+X-Received: by 2002:a05:600c:638f:b0:4a3:59c2:b41e with SMTP id 5b1f17b1804b1-4ac150b304cmr286208485e9.4.1793703928755;
+        Tue, 03 Nov 2026 03:05:28 -0800 (PST)
 Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:861:39c2:e340:14ec:7986:30c8:6bc6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2afee292bsm53218155e9.4.2026.11.03.03.05.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2afee292bsm53218155e9.4.2026.11.03.03.05.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:05:27 -0800 (PST)
+        Tue, 03 Nov 2026 03:05:28 -0800 (PST)
 From: Romain TISSERAND <romain.tisserand@gmail.com>
 To: Igor Reznichenko <igor@reznichenko.net>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -95,9 +95,9 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	sashiko-reviews@lists.linux.dev
-Subject: [PATCH 3/4] dt-bindings: display: panel: ilitek,ili9488: add the PocketGo S30 panel
-Date: Tue,  3 Nov 2026 12:05:23 +0100
-Message-ID: <20261103110524.2812831-4-romain.tisserand@gmail.com>
+Subject: [PATCH 4/4] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
+Date: Tue,  3 Nov 2026 12:05:24 +0100
+Message-ID: <20261103110524.2812831-5-romain.tisserand@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261103110524.2812831-1-romain.tisserand@gmail.com>
 References: <20261103110524.2812831-1-romain.tisserand@gmail.com>
@@ -112,26 +112,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PocketGo S30 handheld has a 320x480 1-lane MIPI-DSI panel built
-around an Ilitek ILI9488.
+The PocketGo S30 handheld (Allwinner A33) has a 320x480 1-lane MIPI-DSI
+panel built around an Ilitek ILI9488.
+
+The init sequence is the stock kernel's, read back from the running
+stock system. It differs from the E35GH-I-MW800CB sequence only in VCOM
+(0x26 instead of 0x25), the display function control (2 parameters
+instead of 3) and the position of the inversion command. As on stock,
+the panel is set to the 18 bpp interface pixel format while the DSI link
+carries RGB888, so the panel shows 6 bits per color.
+
+Timings and video mode are from the stock configuration: 12 MHz pixel
+clock, htotal 382, vtotal 524, active low sync (lcd_hv_sync_polarity 0),
+non-burst video mode with sync pulses and without EoT packets.
 
 Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
 ---
- .../devicetree/bindings/display/panel/ilitek,ili9488.yaml        | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 55 ++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-index 016a573893b7..27f9aaa81582 100644
---- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-@@ -17,6 +17,7 @@ properties:
-     items:
-       - enum:
-           - focuslcds,e35gh-i-mw800cb
-+          - pocketgo,s30-panel
-       - const: ilitek,ili9488
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+index 6ab8ae72abbf..4be3d22360da 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+@@ -86,6 +86,50 @@ static const struct drm_display_mode e35gh_i_mw800cb_display_mode = {
+ 	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+ };
  
-   reg:
++static void pocketgo_s30_init(struct mipi_dsi_multi_context *ctx)
++{
++	/* Gamma control 1,2 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xE0, 0x00, 0x10, 0x14, 0x01, 0x0E, 0x04, 0x33,
++				     0x56, 0x48, 0x03, 0x0C, 0x0B, 0x2B, 0x34, 0x0F);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xE1, 0x00, 0x12, 0x18, 0x05, 0x12, 0x06, 0x40,
++				     0x34, 0x57, 0x06, 0x10, 0x0C, 0x3B, 0x3F, 0x0F);
++	/* Power control 1,2 */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xC0, 0x0F, 0x0C);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xC1, 0x41);
++	/* VCOM Control */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xC5, 0x00, 0x26, 0x80);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x36, 0x48);
++	/* Interface pixel format 18bpp */
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x3A, 0x66);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0xA0);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x02, 0x02);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xE9, 0x00);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0x21);
++	mipi_dsi_dcs_write_seq_multi(ctx, 0xF7, 0xA9, 0x51, 0x2C, 0x82);
++}
++
++static const struct drm_display_mode pocketgo_s30_display_mode = {
++	.clock = 12000,
++
++	.hdisplay = 320,
++	.hsync_start = 320 + 22,
++	.hsync_end = 320 + 22 + 12,
++	.htotal = 320 + 22 + 12 + 28,
++
++	.vdisplay = 480,
++	.vsync_start = 480 + 22,
++	.vsync_end = 480 + 22 + 4,
++	.vtotal = 480 + 22 + 4 + 18,
++
++	.width_mm = 49,
++	.height_mm = 74,
++
++	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
+ static inline struct ili9488 *panel_to_ili9488(struct drm_panel *panel)
+ {
+ 	return container_of(panel, struct ili9488, panel);
+@@ -269,8 +313,19 @@ static const struct ili9488_desc e35gh_i_mw800cb_desc = {
+ 	.bpc = 6,
+ };
+ 
++static const struct ili9488_desc pocketgo_s30_desc = {
++	.init_sequence = pocketgo_s30_init,
++	.display_mode = &pocketgo_s30_display_mode,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
++		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET,
++	.format = MIPI_DSI_FMT_RGB888,
++	.lanes = 1,
++	.bpc = 6,
++};
++
+ static const struct of_device_id ili9488_of_match[] = {
+ 	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
++	{ .compatible = "pocketgo,s30-panel", .data = &pocketgo_s30_desc },
+ 	{ }
+ };
+ 
 -- 
 2.43.0
 
