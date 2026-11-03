@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698922;
-	b=Du7doOVTTepcTy6kAVgqGjEpUWY7ZPlAXcA76w+4/bPZw2+LE9SY+lDgsFLylhJdoLgD
-	 S1DFPWygRUwIKX0gOmQZoiP1a+t+viW5AUsL8JzIjtnxgdy66jUiSYPCddluS/x5LYe5J
-	 jVHFVHLLXw6666bJLrrFTK5CEqA/CdE7hovGF346d3U4hewrpSWrOe5nykZO41OsmJ417
-	 fQkziONigryt4CVBrZX98olYaKlJ7nDZ7AJKfh16aXcnEBZF/Cg0npWk79cEMIw2D4DTh
-	 LqzV8KZhcKjjnLrs75DHYFRQVYNIn7GBen288ccxZZKN1dQvHkMIuT2Lyje8ei5bH/g==
+	t=1793699075;
+	b=eR98wiswUwP1tn0J0hjwXrayAJhqhumyYFqRsXFotvn8TIm0pw+ejH+m6KeIUcLy+ZFH
+	 tprmefQORLRIMIUo1iqOUSajVymOLbTBJiObjiRr9lt5cvsB9a6mTv0Xow2h9e6hqF+fB
+	 E6LRiwVKppGYuSNmYDTMs8+/f3a3VLu8TsYlaaliyxnu6vg1Pb7ElEkGMvZ+CzxL7xvc0
+	 jQtHaqhkJkrQLMXTt6lBLbwlZh0qn6w1NjB5Fp0TCq+ttz2zcia6khS18fKJmAy9I2vMC
+	 zbadyEOBCv+COzkii1maBfjAQgLeNc+g/7tn3cQa9tm/VY2igOhOshRs7mvb9q6kuKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698922;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ICUROXcoViLoeFUqglXzq1+yr2nRaukEJjcoViPdsOU=;
-	b=E6ZW5QzyBWgdVRLbOdmFKsrnSASt5Zlc7prAh4PjEDOUL5Uahhq7ZHPOaWz0rVeuy+iV
-	 41B/ZsSPqRWkfYVbayPBb+bENkRHBu1tifVo+7ZRT/ptnhly/84SNkJOARSSDKYZ+0Bqz
-	 GYRP7LQ7tQhYq3bju2kxY0Kn/wCmkwqevntINw1JPBSjL4iTjmPnEwSvxVWmxLUH23LvT
-	 bCx7yrA9J6o5far5ZTo8ZdWBQEUh4PC7I7xibmiX8LuxYcXpAsKp8MubE/QoIiM5wmtBS
-	 Lfb7VNrZBj6xRb4CP9LIKKdr+8/SL/YVQ0LOK1GmApm1vUhdDttCBpQ1R7LCZYE2f1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699075;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=EqD6XXEFKVf4WUIZtUdGo2rdQDUJQpo7+qGZ1y//k9Y=;
+	b=1gQ7dwNnNzIAWrlZMvPFsHCSA7skexrs2sVkvpD6UvmoxAmsQOFH0JW/3fArjPV+Yut3
+	 VTENsHC4UV7Q5savUQYtamAMkLM+Z07WHW4+WgoXboAbX5pAaYic4UNLYrhdlp7EWVjDM
+	 7qNZGENS3+SQb/Ftfxp65pVeHgdjf8WAPhcux/tE3ZXvkl1nARjh9HuOFQvgx9jd/nfUf
+	 r1GnmRZ/HIQd7rjN4eTLtWc340dfZOw8byMI7VCF2QP/i0ufLmUc3gY6CGhwff6KoQDiu
+	 o6ougBQD01o57TrHLcFuNWELFUHUxG3J5KsExJICMRzyOC5ubO+WDMJRkDNe66QNeCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cwLd+rSP;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NFegZMCm;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C698606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 09:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C698606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB3F606A337
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 09:44:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CB3F606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cwLd+rSP
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id A48A3C4FEE1;
-	Tue,  3 Nov 2026 09:43:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D9016046C;
-	Tue,  3 Nov 2026 09:41:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C5309103290E8;
-	Tue,  3 Nov 2026 10:41:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793698917; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ICUROXcoViLoeFUqglXzq1+yr2nRaukEJjcoViPdsOU=;
-	b=cwLd+rSPtJ2QO3mALDUg1PP5FtvS9GayMPBQOhCtdQ1AORNQskqETFY1AcuFHjqsyneixT
-	VnuANAf/cowmNfVV32udXdAVT5//WuWQRgkjrdIWLc2M+kZ29iYTSVtThZJ1z2z5MNh5MN
-	C/QCWKY4FFKR6UCDwCfzYe9RdbC+22jIxl8a8J4/1LxDmiHwcx7x+IeNbLLGm6pxefVEtc
-	X/yWaHYt1+oUVYtpiOmL1Uf8fppXgSMRnI+UoMHoYeYGCTFa8/g6WqXkOewwfb4H7XMmwd
-	U+ldcYBv2mGP8FM8RfjNJdw1hu5zKzSBOmAXVVh4HbyOQk8N1csN1XA2p8KaaQ==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: interrupt-controller: add Mobileye
- EyeQ5 PCIe MSI controller
-In-Reply-To: <sashiko-outbox-193804@kernel.org>
-References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
- <20261102-eyeq5_msi-v2-1-4aa3d3608064@bootlin.com>
- <sashiko-outbox-193804@kernel.org>
-Date: Tue, 03 Nov 2026 10:41:56 +0100
-Message-ID: <8733ti2qvv.fsf@BLaptop.bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NFegZMCm
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261103094425euoutp016fdacaed61ed555d83050da270bf6552~kf8wF6I6e2871728717euoutp01_
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 09:44:25 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261103094425euoutp016fdacaed61ed555d83050da270bf6552~kf8wF6I6e2871728717euoutp01_
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793699065;
+	bh=EqD6XXEFKVf4WUIZtUdGo2rdQDUJQpo7+qGZ1y//k9Y=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=NFegZMCmsOz9eMS3itkiBpvSwHFNBoGwf/1MbFWg2hwoq6nDtOviGgPzwKEQMieAq
+	 BOAhrAlUiRqpCclrpKU8YGbKCRT9ZGzbeNMHXA3CGtVpCqUnhSE1GnX/aNkjJmUmby
+	 4dt4J1ImQVGPlOkD5w0ASZ47AFZhwhHBTo7b8leY=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103094425eucas1p14f8698866db3a44dc2559fef5569686e~kf8vsv8-G1950419504eucas1p1X;
+	Tue,  3 Nov 2026 09:44:25 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103094424eusmtip1a4f4097b78810e28de113df65a194052~kf8ug9zZc1524615246eusmtip1d;
+	Tue,  3 Nov 2026 09:44:24 +0000 (GMT)
+Message-ID: <8b1e8238-e5ba-4875-869f-478177591738@samsung.com>
+Date: Tue, 3 Nov 2026 10:44:23 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,116 +64,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] of: reserved_mem: mark the early_memremap() array
+ helpers __init
+To: Sasha Levin <sashal@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>, devicetree@vger.kernel.org,
+	llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261102224528.2495168-1-sashal@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103094425eucas1p14f8698866db3a44dc2559fef5569686e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261102224535eucas1p2a4b762399cd706fadb9dbaeb08188846
+X-EPHeader: CA
+X-CMS-RootMailID: 20261102224535eucas1p2a4b762399cd706fadb9dbaeb08188846
+References: <CGME20261102224535eucas1p2a4b762399cd706fadb9dbaeb08188846@eucas1p2.samsung.com>
+	<20261102224528.2495168-1-sashal@kernel.org>
 
-Hello Krzysztof,
+On 02.11.2026 23:45, Sasha Levin wrote:
+> early_array_map() and early_array_unmap() wrap early_memremap() and
+> early_memunmap(), which are __init, but the helpers themselves are only
+> static inline. If the compiler decides not to inline them, the out of
+> line copy ends up in .text and modpost complains. clang 21 does this for
+> a riscv allnoconfig build:
+>
+>   WARNING: modpost: vmlinux: section mismatch in reference: early_array_map+0x30 (section: .text) -> early_memremap (section: .init.text)
+>   ERROR: modpost: Section mismatches detected.
+>
+> Both helpers are only called from fdt_scan_reserved_mem(), which is
+> __init, so mark them __init too.
+>
+> Fixes: aa05faf81583 ("of: reserved_mem: allocate and map the reserved_mem array early")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Medium] dt-bindings: interrupt-controller: eyeq5-msi: drop bogus #inte=
-rrupt-cells
-> - [Low] dt-bindings: interrupt-controller: eyeq5-msi: drop software label=
- property
 
-You do not need to review this version. The remarks above from Sashiko
-are correct. I will send a new revision soon. I hope that it will be the
-correct one.
+I wasn't aware that 'static inline' functions might need __init
+annotations.
 
-Gregory
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-> --
->
-> commit 9aaa3be0c94345e12c3b93b0a3ada8acf3fb0a25
-> Author: Gregory CLEMENT <gregory.clement@bootlin.com>
->
-> dt-bindings: interrupt-controller: add Mobileye EyeQ5 PCIe MSI controller
->
-> This commit adds the devicetree binding schema for the Mobileye EyeQ5
-> PCIe MSI controller.
->
->> diff --git a/Documentation/devicetree/bindings/interrupt-controller/mobi=
-leye,eyeq5-msi.yaml b/Documentation/devicetree/bindings/interrupt-controlle=
-r/mobileye,eyeq5-msi.yaml
->> new file mode 100644
->> index 0000000000000..b86698e4f82c7
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/interrupt-controller/mobileye,ey=
-eq5-msi.yaml
->> @@ -0,0 +1,90 @@
->
-> [ ... ]
->
->> +properties:
->> +  compatible:
->> +    const: mobileye,eyeq5-msi
->> +
->> +  reg:
->> +    items:
->> +      - description: GCSR block of the PCIe port
->> +      - description: MSI vector control block
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  interrupt-controller: true
->> +
->> +  '#interrupt-cells':
->> +    const: 1
->
-> [Severity: Medium]
-> Should interrupt-controller and '#interrupt-cells' be dropped from
-> properties and required in mobileye,eyeq5-msi.yaml?
->
-> According to the description, this hardware block only snoops message
-> signaled interrupt write transactions from a peripheral port and signals
-> its parent interrupt controller when a vector is pending. Consumers
-> reference this node exclusively via msi-parent with '#msi-cells' set to 0,
-> and it has no wired interrupt inputs.
->
-> Consistently, the driver in drivers/irqchip/irq-eyeq5-msi.c only registers
-> a parent domain via msi_create_parent_irq_domain() using
-> eyeq_msi_domain_ops (.alloc, .free, and .select =3D
-> msi_lib_irq_domain_select) and implements no .translate or .xlate callback
-> for wired interrupt specifiers.
->
-> Requiring interrupt-controller and '#interrupt-cells' set to 1 exposes an
-> undocumented 1-cell interrupt specifier for a controller that cannot serve
-> as an interrupt-parent, whereas chaining to a parent interrupt is an
-> operating system driver detail (compare with altr,msi-controller.yaml,
-> fsl,ls-msi.yaml, and fsl,mu-msi.yaml).
->
->> +
->> +  msi-controller: true
->> +
->> +  '#msi-cells':
->> +    const: 0
->> +
->> +  label:
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    description: Name of the MSI domain. If omitted, the node name is u=
-sed.
->
-> [Severity: Low]
-> Is the label property appropriate for mobileye,eyeq5-msi.yaml?
->
-> In devicetree bindings, label is intended for human-identifiable physical
-> labels on a board or enclosure (such as external ports, leds, or buttons),
-> whereas an irqdomain name and driver fallback behavior are kernel software
-> concepts. In drivers/irqchip/irq-eyeq5-msi.c, this property is only used
-> to print a boot message in pr_info(), and no other binding under
-> Documentation/devicetree/bindings/interrupt-controller/ defines label.
->
-> Additionally, if label were ever kept, its string type is already defined
-> by core dtschema common properties, making the explicit $ref to
-> /schemas/types.yaml#/definitions/string redundant.
->
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-eyeq5_ms=
-i-v2-0-4aa3d3608064@bootlin.com?part=3D1
 
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> ---
+> KernelCI's clang-21 riscv builds fail on this once dt/for-next is
+> merged, so it will probably show up in tomorrow's linux-next as well.
+>
+> Tested with a riscv LLVM=1 allnoconfig build (fails at modpost before,
+> links after), plus W=1 builds of of_reserved_mem.o for riscv and arm64
+> defconfig with clang, and arm64 defconfig with gcc.
+>
+>  drivers/of/of_reserved_mem.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 0fd1683cba011..630ad65466385 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -66,11 +66,11 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
+>   */
+>  #if defined(CONFIG_GENERIC_EARLY_IOREMAP) && !defined(CONFIG_PPC64)
+>  #include <asm/early_ioremap.h>
+> -static inline void *early_array_map(void *array, size_t size)
+> +static inline void * __init early_array_map(void *array, size_t size)
+>  {
+>  	return early_memremap(__pa(array), size);
+>  }
+> -static inline void early_array_unmap(void *map, size_t size)
+> +static inline void __init early_array_unmap(void *map, size_t size)
+>  {
+>  	early_memunmap(map, size);
+>  }
+
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
