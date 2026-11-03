@@ -1,70 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730083;
-	b=KwZFTCI/i/WiYXF2kfmpxJ3jpPZBIEknmjCuf6bIkzsQTRlz5+RpqdDQpX3krLiDixaK
-	 7M6UzygTRKug6R0FArCjLzbOePhOzxI415hzHPSJLF3DUl1HKuV93YkKKmJ6EUuNbMRv+
-	 iPm0TsNeNuiDWFvgWtHBf8jafdrY8pGYWanvHjQZurw1zR+Oed1z2hRqpgln74P+A7kXN
-	 Exr2s3/3ssNghVuvoaPh8Py2czwkdJCziagWwLZ+8FtB3JmewjWyrz7H36kzFRIXDFrWH
-	 ftE0K3Uy+IdEHRNy3MyCcqAi9lepv9lO0kP+KLFojBogNHw2X0MKM6sZweFY3Tooc3g==
+	t=1793730172;
+	b=3KwwzYMaWbIcnGpLqDP2tfoAyt16iEq3raqj4Qr3XbDiU+CXzDM7sYrkvfoXRH5LSZwr
+	 dOiSvQzn4Ttkp7677ixZwBzf55aSkT4y4yG8bFP4qCpqeUQeXyuS924rdNJjJnSIcKHuj
+	 YktIvXyfqQQ7alu8PhNfZcGgKdmJXrgic1owc0U/cd368T3Pvq5G4Uy7DiQpSX2CXeb1C
+	 qSecV6fXLye+cnxXV16UHkgSOeXdUUwt1ZyHfzO2ysHkhT14x7LVzTOOhQ6RQiGb2tuxm
+	 tnwtw3VBfymljUIkh+II+Wio5SfKbHmU6A0QZ+aN2knVhGTuXKZyKV27+uQW+l0Mlcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730172;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FFg5lBDyaTkqCOMiyU7y1v3jtarrni8pj6cJLPTtz/k=;
-	b=vqrc4zeXhMDZBx8RB8z4kt64ZoHoJ3AN0QLkyiXqaFX6T9JwqpR+2unjt4pB6PVj7T9S
-	 9WzQz0tIu7kSHyikUdW1t+y29vTiMN4LNHjAskxxVwCIvhmfwmVJfAiB2SwyKxhsic0ln
-	 zYrGRFGeccDxtvFqX1v5XbBHphq28zJpRNe5teXcjCb0zIC1CCMy2/4UqykQOAuG70AWS
-	 8Qe3toxKBjHqPe927zJ0iyTSEgdBLEf2dY3YAnPAABrv+PYSNLlIhEWWqmW5yZ+yc62+1
-	 ZvfpJtHtfiQy0vaCZGP9O5dUi1LH5k44m9Rjih31pq320B85jZnyuif1DIzg+ry3ZKQ==
+	bh=Ud7L2BHlOxXSkrDxIcOwnu6Rw0+dRUWE6yyL5rEtQsA=;
+	b=X5ZLTuuf/tpXi+xyT5vLmctIB9XICzL6s5yyfsU1WBymd8yhi9VQ18STw8UObhJfOhwb
+	 4lUxdIq10Q2Bm7dSV18NqeJcVLNmDZ7/PCC8EJaOi0n1C4hkHFJEF5wtRv0pms5a40ckh
+	 2/4CdljqKKPlTABYajP92LTPsu6P9ESRwPmM/Vu3aIWyuvU2qW7x/S8ScnWKEfGniwlkK
+	 +8UgK5yI3OAO2X15RoCrAibdN1aQxrWXIFj0f8uGMG458xuyj/LXXdEmHWyOs9x8WiCV7
+	 564IkW0zX2LZQxAARLStNPhaEOq+8GuiIwKlP4wT1F46TYTia5+8VLAoe2ZbefV00Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JRkM/Gwg";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYvOyYdK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F2E606A324;
-	Tue,  3 Nov 2026 18:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B21606A324;
+	Tue,  3 Nov 2026 18:22:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRkM/Gwg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9FD1F00A15;
-	Tue,  3 Nov 2026 18:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYvOyYdK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AADFD1F000C1;
+	Tue,  3 Nov 2026 18:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730083;
-	bh=FFg5lBDyaTkqCOMiyU7y1v3jtarrni8pj6cJLPTtz/k=;
+	s=k20260515; t=1793730171;
+	bh=Ud7L2BHlOxXSkrDxIcOwnu6Rw0+dRUWE6yyL5rEtQsA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JRkM/Gwg3Yp3XqQ43iKxJKBDjXY3d6QFU6avJyOTBXRoYR0bnVOoV0c3otj23KqiF
-	 3pQQlb50xV8Vls8XvLBtU+uoXcaCxa7udtEs6jv6tqF9mvO9MxIyYwFm/A91KVJVOd
-	 R72yASFR2heC4eCnDvKxBbgaVXDcRP1cA8fClEQg8IEWgtfhfG35EYBQwE3zKYggtq
-	 vKsI8M6ht4jzbvF8ubctqDIaIuxrbwRllqjqlv1b2GzR21pXAdD8Eqfs+eOY1K55JW
-	 UN9rpgrj1YDYXYb4NY/TbxWK/KyJFWM7TMeclo+gFZ4SvvdjjspaplJxjXz6OHr5mY
-	 Ofkw3A1QNe/JQ==
-Date: Tue, 3 Nov 2026 18:21:18 +0000
+	b=GYvOyYdKFWOLPI/K/HSlCcLL+bwttjCQ2Vpvy+j5EkBZjrcB8bFJysEgqd/LtOlEa
+	 9+011rq6kzLcEGOZtTMcQ4r8XIelCD+Q8Pj6SFZstUaXwNk7Mpw9hDgVg/oajwW8eJ
+	 /BMcpHPjN/+lQ5ueXSXl/lTjhapv6A+LbZYuiHzDRUg4tD+dX7pocVJe6yWk9om716
+	 3PN4GVD+teUK9un1i6USvIXkYqVg+Hq284TyUy3SP531MgcHZp7pqh1x/crpSzehYU
+	 OMHa3Cyvnwd9aoBjWrzYVyjmilq88QOmyvyH0wcp16YGRl12LcyEmmzfnyE68UvgUm
+	 5HaXpj/lbAxJQ==
+Date: Tue, 3 Nov 2026 18:22:46 +0000
 From: Conor Dooley <conor@kernel.org>
-To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+To: Peter Robinson <pbrobinson@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	bcm-kernel-feedback-list@broadcom.com,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	linux <linux@analog.com>
-Subject: Re: [PATCH v5 4/8] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
-Message-ID: <20261103-defective-clip-8b6689ecf2cb@spud>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
- <20261102-adis16607-v5-4-4f98b0d271ac@analog.com>
- <20261102-barista-haste-6f219aa98c81@spud>
- <20261103-accomplished-real-cuttlefish-b6efdc@quoll>
- <LV9PR03MB841498F9B9889C8F1908EF01F7692@LV9PR03MB8414.namprd03.prod.outlook.com>
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 1/9] dt-bindings: dma: brcm,bcm2835-dma: Add BCM2711 and
+ BCM2712
+Message-ID: <20261103-fade-dweller-775b1ccbaf7b@spud>
+References: <20261102090713.896324-1-pbrobinson@gmail.com>
+ <20261102090713.896324-2-pbrobinson@gmail.com>
+ <20261102-email-target-d3191584d234@spud>
+ <CALeDE9Ncz=6jo_1VxdCJgSVV+fCTgkUvci-=e4MQYFYo_O9M0Q@mail.gmail.com>
+ <5bd67c8d-41ee-40e7-ab75-031e1520758f@gmail.com>
+ <CALeDE9NhPa3V4jJ-Lc1sOujdrSAtkOuoeLW98NBxUai2qZFoLw@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,59 +73,110 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KxjI3xIIqfBUAzAW"
+	protocol="application/pgp-signature"; boundary="OYy0OWd0C8mSK/JA"
 Content-Disposition: inline
-In-Reply-To: <LV9PR03MB841498F9B9889C8F1908EF01F7692@LV9PR03MB8414.namprd03.prod.outlook.com>
+In-Reply-To: <CALeDE9NhPa3V4jJ-Lc1sOujdrSAtkOuoeLW98NBxUai2qZFoLw@mail.gmail.com>
 
---KxjI3xIIqfBUAzAW
+--OYy0OWd0C8mSK/JA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 12:15:50PM +0000, Sabau, Radu bogdan wrote:
-> > -----Original Message-----
-> > From: Krzysztof Kozlowski <krzk@kernel.org>
-> > Sent: Tuesday, November 3, 2026 12:55 PM
->=20
-> ...
->=20
-> > > > The binding exposes optional properties for:
-> > > >   - An external clock for sync mode (falling back to the internal 8=
- kHz
-> > > >     clock when absent)
-> > > >   - A hardware reset GPIO (active low)
-> > > >
-> > > > Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+On Mon, Nov 02, 2026 at 09:35:48PM +0000, Peter Robinson wrote:
+> On Mon, 2 Nov 2026 at 20:38, Florian Fainelli <f.fainelli@gmail.com> wrot=
+e:
+> >
+> > On 11/2/26 12:18, Peter Robinson wrote:
+> > > On Mon, 2 Nov 2026 at 19:39, Conor Dooley <conor@kernel.org> wrote:
+> > >>
+> > >> On Mon, Nov 02, 2026 at 09:06:51AM +0000, Peter Robinson wrote:
+> > >>> Add compatibles for the BCM2711 40-bit DMA4 channels, which are
+> > >>> described by a separate node covering channels 11-14, and for the
+> > >>> BCM2712 DMA controllers. The register address of a node identifies =
+its
+> > >>> first channel, allowing a controller to be split across nodes.
+> > >>>
+> > >>> Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+> > >>> Cc: Rob Herring <robh@kernel.org>
+> > >>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > >>> Cc: Conor Dooley <conor+dt@kernel.org>
+> > >>>
+> > >>> ---
+> > >>>   .../bindings/dma/brcm,bcm2835-dma.yaml        | 31 ++++++++++++++=
++++--
+> > >>>   1 file changed, 29 insertions(+), 2 deletions(-)
+> > >>>
+> > >>> diff --git a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma=
+=2Eyaml b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+> > >>> index c9b9a5490826c..31d97a10a0ea9 100644
+> > >>> --- a/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+> > >>> +++ b/Documentation/devicetree/bindings/dma/brcm,bcm2835-dma.yaml
+> > >>> @@ -9,18 +9,27 @@ title: BCM2835 DMA controller
+> > >>>   maintainers:
+> > >>>     - Nicolas Saenz Julienne <nsaenz@kernel.org>
+> > >>>
+> > >>> -description:
+> > >>> +description: |
+> > >>>     The BCM2835 DMA controller has 16 channels in total. Only the l=
+ower
+> > >>>     13 channels have an associated IRQ. Some arbitrary channels are=
+ used by the
+> > >>>     VideoCore firmware (1,3,6,7 in the current firmware version). T=
+he channels
+> > >>>     0, 2 and 3 have special functionality and should not be used by=
+ the driver.
+> > >>>
+> > >>> +  BCM2711 channels 11 to 14 are 40-bit capable DMA4 channels, desc=
+ribed by a
+> > >>> +  separate brcm,bcm2711-dma node. BCM2712 has 40-bit addressing on=
+ all
+> > >>> +  channels, with channels 6 to 11 being DMA4 channels. A controlle=
+r may be
+> > >>> +  split across several nodes, the register address identifies the =
+first
+> > >>> +  channel of a node.
+> > >>
+> > >> Uh no, a device should not be split across different nodes. This sho=
+uld
+> > >> not be needed, why can't your driver handle the upper channels having
+> > >> different capabilities?
 > > >
-> > > Why did you drop Rob's tag?
-> >=20
-> > Explanation in cover letter is confusing. There is no difference between
-> > v4 and v5. There is some description change betweeb v3 and v5. So was
-> > the description change something forcing to re-review?
-> >=20
+> > > This is the way it's done in the downstream kernel, unfortunately
+> > > Broadcom doesn't publish the HW details so either they'd need to
+> > > contribute the support (which they've not done since the RPi4 was
+> > > available) or I'm not sure what the other options would be. Open to
+> > > suggestions.
+> >
+> > Neither here nor there, IMHO, yes it would be nice if documentation was
+> > published (and a customer like Raspberry Pi is probably one of the few
+> > that can get the needle to move there).
+> >
+> > You have the bcm2711 and bcm2712 compatible strings which should be
+> > enough for you to know which channels are 40-bit capable and which are
+> > not, yet keep the same Device Tree node.
 >=20
-> Perhaps the explanation can get a bit confusing around that "since v3".
-> The quick history of it is that v3 to v4 saw a change in the GPIO descrip=
-tion
-> and so Jonathan suggested I should've dropped the tag in v4, therefore
-> I did so in v5.
+> From reading the downstream commits though it reads like the different
+> channels have different capabilities? Or am I reading that wrong and
+> it's the different generations of the HW that have different
+> capabilities?
 
-tbh, I don't really think that justified removal but w/e.
-Since I can't re-provide rob's tag
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+That I cannot answer, but it should make no difference right? Can the
+DMA core not cope with different channels having different capabilities?
+If it can't, the correct thing to do is extend the DMA core, not make
+two nodes.
 
 Cheers,
 Conor.
 
---KxjI3xIIqfBUAzAW
+--OYy0OWd0C8mSK/JA
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauomHgAKCRB4tDGHoIJi
-0pqWAP46Yk+3+HeDXpRD/ncdrcQCIqpRULqh48V1tzKP6OS/MQEAuHNM/lrOur2W
-I+5JpbOrijCU4gkCWMIUkOp0bYyqcQo=
-=WlQ9
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauomdgAKCRB4tDGHoIJi
+0pGwAQDRU1UwJJQoJg1NDelCs/EW0G+wfNCTMkVRloenYHuQsgD/dEcCdXvNLxuf
+gjn3c350LhclHq3pPf9RbJA9UdGWagw=
+=s7oi
 -----END PGP SIGNATURE-----
 
---KxjI3xIIqfBUAzAW--
+--OYy0OWd0C8mSK/JA--
