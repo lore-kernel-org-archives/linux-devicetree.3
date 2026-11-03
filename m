@@ -1,66 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728648;
-	b=pm5eWD7cP6hAAGPGIgPKyNEYven3KezXLNnctFzYvdqIxDiqI+fJcc62SIsFhTZ6wZgi
-	 aQSQrcJJ3g6Otu3+Ks+v+1ZN1PZp+a/s88DzYwqXg8VbwHrcxDOOdEJj6eXFWIbRvW7kl
-	 FfaXtQKAHhPZmdArvpG5QGQprwJJ4/78q5J2eUM7ZoDNPMyzETEmFntgeYQ5ut3Hmh3NE
-	 e9S3zNuqwBBfkR6+b165Dg8Lx+ywO53pNOHL1Quv2Gy7I0TpfqCZUPWpcTD8i+bQO7+MQ
-	 x4jGrD/JUnSfXsTTUJEiqTON7nPuq7e4FqeT43hheiRblLq0Vfxoo/TXsLuv7g2UFMA==
+	t=1793729083;
+	b=uBo6RqvLNiDvuzkE/9D62l4EJTYrUJNA5grlu8rGKOand6ieWcZ2Jv84YwbDYEmVnAjh
+	 vPEa12WYNrq0LURYBGHJqv3F3wlxyhoonb22/7zhlG0m83nCERYlMmzsOaqMe/p1cu60u
+	 euiRBysfk6Rn7fau0ZqDlZHz/ffcOw/5YRNEFJTY89kAGkBNqOnf4QJMu9got/BhJvxBG
+	 +DHLJUTM4ruvBnF5DKXW+nS55+43o81JKODN9OxqHpH4ompcGrTbAMQXmRnbzRtsVmUIB
+	 CpjFRA9g98ChvPe8bo7UgLW5+104CqNl8SqRkIzsdSVK04xUE/FhJl02sq2n/6CgPdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=huPTPHyj739fiAid2QA4LZrf2KE7+U9NxU9Pc0EOceI=;
-	b=Siu/6OLV9XGR0E0EhQprZcZG0qNlW/gafIwXReI9OkyjCCI53BThZMoQ9xgYTHzTleI+
-	 AObyC8dCN2aE7nN3LwsOQoYaNNWeh0Wm2pTCCO/Qp0ZNGeoGe4ZpHCzhSUTJp0nn9HFT1
-	 cQdNd4gORAJWsTRknC3fg5PVM+IrvT4jp8yTZ0LB+69+bPpzsULF9pOpSBSGoavfRUxWX
-	 q2qgwNgsonohZLJiOS4kx2hk71ZMu0IDI7reczGAC2q4Z/ZizkANPqEAa9hC7kO3+7sBc
-	 i1+3lny4aLPZ0aiAYu/iBmycpd8Na7AoECipU7vQxeIwD5zYScPhwEg07kHY8CUWDTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729083;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=6s58Pb4hAe6Hy7/bwQYEC0q1H7BmJZKjEQo1aMto/nU=;
+	b=ErG01VzpqZ0im6LQwZUr7s02eNVGdQF8GVDDAumhS7T6GCGAwISunkDpJ8SXVlcUl/03
+	 iogcmaH+Xmt02Zb+jiaAhhaqohriatQVxaWA9RSP06aiRPyTBEiPqeVAqUDojEHzHs3m0
+	 3F8dYzd1ZRYIwQseaoSzUNe/YnbKuwvFcPLecZM78uHcOqvYBLVfJJswGA8A6eJSjjMFJ
+	 HBDEX/6JEaMg2s1J7oPTup6r3Z5N51OLtPQ4WBc6UV8CdNbTD+PSJ3FMd6C2zAdoVyJI0
+	 sYRz9lBaHLjNufKSFUihnWuVZLPkJLNDJ3MQj5MTUJnlyGftkgQ5dNAJ/5/lI/qawmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=kz7QtwZg;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.217.52
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565B8606A328;
-	Tue,  3 Nov 2026 17:57:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 565B8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=kz7QtwZg
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJx9g5s9Gz1XLktx;
-	Tue,  3 Nov 2026 17:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793728641; x=1796320642; bh=huPTPHyj739fiAid2QA4LZrf
-	2KE7+U9NxU9Pc0EOceI=; b=kz7QtwZgvIkdgq1Q/SyonKRrUFzGijm8PvxhVoQB
-	ojEM1Hs/BO+gJVZZ2IIcEckk5bR4Ob5f3yHayTquilHwJcTqSt6Ps9XxQvPAbaSo
-	cbQi4cjx+h03hoKC8KvQg4GGrXTJj160ZT5KnQ9xgNZm2iLeebBYOhwQan1C3Kz5
-	QDKGSCgxB6Cy7tBipZ2ShftwVD86GG/6wF1Z9BOCbNyRV8S3x/M8uaDwiT26R3BF
-	KCydXXOjt3HZVBu2/R8zukAA0nU5nWQqSUGLYXxTWKxswrHWLo6SOrf/IAct/R/6
-	5ZbyntzH1ngmf1f5XYoBRgakL1vK4Iovfq13mDAm53tKkA==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id ozLDpqkHbJhh; Tue,  3 Nov 2026 17:57:21 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJx9X0ml1z1XLkvj;
-	Tue,  3 Nov 2026 17:57:20 +0000 (UTC)
-Message-ID: <444b8e4d-948a-48de-b40e-74246b849842@acm.org>
-Date: Tue, 3 Nov 2026 09:57:19 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA24606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 18:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAA24606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7bec5112765so2945787137.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 10:04:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793729082; x=1794333882;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6s58Pb4hAe6Hy7/bwQYEC0q1H7BmJZKjEQo1aMto/nU=;
+        b=yKU2QpOJNawZw4NwFrxblFnGGf5Ns1csiospvK4UGSv3/xdV4RkY5LgSwCEIuZYvU3
+         VkyNH34Fxkid/MoN4X0cNxAL8pYd6Ofz+TvO0UBIbfdVpd/0hPwVk+tAz84L+Zrmoi1S
+         qXOIhHdia5zgEm2V70TVSOsvu2k9In/n1ghEERi1cLW9sPZft7tQdGFD9jW/vLTvVR33
+         VuuGb90sqI1OMpTJpbvCoTFyDaYTcKCrZykZdY8dFU95Fgxqm9X03IkIUFxoLKA2FuDI
+         3SfrWP6/qV5Iom8YN+ANut5Uhpa7l3+Rt006hs7dOy+KzmabSaF0YAD0xv+WzbVrLg27
+         GWWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEDKCHdUyBn40z9pHCHN+IcstU+yNn2Ckvjk+6kBTeHqMZIHiFd78qjVP7D6Yw65Fl7L+lLEYm/NCT@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VS8aidVqx8Zoi3I3wYQeyt+eYzlrLuEriFSdS0UcY2YtQCJ1E
+	OMyVHgM4TXrf+2PdOVQtQYbrhEIx3q46I+goW5Pv8gTrab/owFalbg1faaFdeAEY
+X-Gm-Gg: AYBFou1p8dxIU+/uE6PhL5Td/DLeY+9NiDi8xK1ji5U6qXdLlRulQ9x+Ni41pl/xF+K
+	xK0XG45wZu6uwM5wro7Wb/8qE1uENndZL8yBdGcxYCIX6h6mJM4+B49Jwmn+m+l13MkRHzoijJs
+	oe54nh9zGAGOk9ITqRQpKrZXT4AFvw1dVLBI1+eyL+35MJEKZVkXXjevmZINNZdbT3WuCgjpwMf
+	4bYo8rmUVmfW2ejY2D5qWWNTmGSwJc95qlUrarViqziMpnuow7VGLidImSk+8x+nsuEQJvsyXEt
+	hzWUkrStEinLDjum+85Kz8xjNzuHy3hItAllg7BcwiNNJ4YQ1uJcE4ckc8NQyK8fRvT7JUBUW5W
+	AUKhd2iPWgwBB35SvylKRzecfEBwN9rwtGIzRwOjHDYxSlJ1Nj6Le65fkn5XTzm75V9XvujqjqJ
+	mVz21XbH/XhVgkXZvtYgewm0GZfkmTaZ4G+q0zs6VKrB1lkex89q8ZWRN4E3gH4LwzW4vgg6p8o
+	86Hx1Pu0PGn0/sCTOSEHT0a2BQKZkw0iv9IcNfkcHZr6ybA+PP7NKuRxJBnZShj3XHQVQFc+MdM
+	OtOdy0uL+mErMRIb0ost6O+Rp+4U9hFyTsCkndjE1kkj0fawoCE=
+X-Received: by 2002:a05:6102:f0a:b0:7cc:2cef:b330 with SMTP id ada2fe7eead31-7d072bb37d1mr6305451137.12.1793729081571;
+        Tue, 03 Nov 2026 10:04:41 -0800 (PST)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec76ec2e49sm10240167e0c.2.2026.11.03.10.04.39
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 10:04:40 -0800 (PST)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-998569550adso251170241.2
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 10:04:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwApk3bMbpTRx8qad1gpVnHq3T9vU5se8G/+PlYLtf27IK6tEr4tjoP5Of/hMTL8/D4aBgS9wksPfDx@vger.kernel.org
+X-Received: by 2002:a05:6102:14a3:b0:7a1:f951:664f with SMTP id
+ ada2fe7eead31-7d072ca34famr5656944137.22.1793729079166; Tue, 03 Nov 2026
+ 10:04:39 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,70 +80,124 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 10/11] ufs: s32n7: Add NXP S32N79 UFS host controller
- driver
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
- NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Pedro Sousa <pedrom.sousa@synopsys.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
- Asutosh Das <quic_asutoshd@quicinc.com>
-Cc: imx@lists.linux.dev, linux-scsi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
- eballetb@redhat.com, echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
-References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
- <20261103133215.1385823-11-larisa.grigore@oss.nxp.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261103133215.1385823-11-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+References: <CGME20261015082334eucas1p2a3bbf3650f279abbd39d05d63e35aba6@eucas1p2.samsung.com>
+ <20261015082315.56876-1-m.szyprowski@samsung.com> <20261015082315.56876-3-m.szyprowski@samsung.com>
+In-Reply-To: <20261015082315.56876-3-m.szyprowski@samsung.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 3 Nov 2026 19:04:28 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com>
+X-Gm-Features: AclHuK_SLyopQmsKezfvIJp8vgdHBUR6jbYkiTzIVRA3K3sJMZtG6ZwxF0OVemw
+Message-ID: <CAMuHMdXcM9yvwLBSi-aYRinG3omhu5aoeNVYynfFQsnDDWR-Hw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] of: reserved_mem: allocate and map the
+ reserved_mem array early
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: linux-mm@kvack.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>, Wandun <chenwandun1@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-riscv <linux-riscv@lists.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Marek,
 
-On 11/3/26 5:32 AM, Larisa Grigore wrote:
-> Add support for the UFS host controller on the NXP S32N79 SoC, built on
-> the Synopsys DesignWare (DWC) UFS architecture, using the UFSHCD DWC an=
-d
-> UFSHCD platform glue.
+On Thu, 15 Oct 2026 at 10:29, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
+> Get rid of the static, limited-size reserved_mem array and replace it
+> with array allocated by memblock_alloc_raw() and accessed directly or
+> through a temporary early_memremap() mapping (depending on the
+> architecture support). Such mapping is needed for some architectures
+> (like ARM64), where linear map is not yet available during early boot
+> scan. The array is allocated from the bottom of RAM to avoid placing it
+> in highmem area, because some architectures (e.g. Xtensa, C-SKY, MIPS32)
+> set the memblock limit to the end of lowmem only after the early scan.
+> The early mapping is not used on PPC64, where the scan is done before
+> early_ioremap_setup(), but the memory allocated by memblock is already
+> accessible at that point.
+>
+> Having a single, writeable array with all reserved regions removes the
+> need to perform two step initialization introduced by commit
+> 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory
+> regions are processed"), so all regions can be processed during the
+> early scan again.
+>
+> The reserved_mem array is allocated only after all static (defined by
+> the 'reg' property) regions are marked as reserved or no-map, so it
+> cannot be placed in any of them. Errors of the early reservations are
+> not recorded per region, only the fact that some of them failed is
+> stored and a message asking to fix the device-tree is printed. The
+> region specific init functions for the static regions are then called
+> in a separate pass, once the array is available. Then all dynamically
+> allocated reserved regions are processed.
+>
+> Suggested-by: Mike Rapoport <rppt@kernel.org>
+> Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-The following comments posted on v9 have not yet been addressed:
-* device_get_match_data() is still called in both ufs_s32n7_probe() and
-   ufs_s32n7_init(). Since all S32N7 variants use the same vops callbacks
-   (or vops can be embedded in struct s32n7_soc_data and recovered via
-   container_of(hba->vops, ...)), one lookup suffices.
-* ufs_s32n7_link_startup_post_change() still open-codes a local-only
-   subset of ufshcd_dwc_connection_setup() (setting N_DEVICEID =3D 0
-   without N_DEVICEID_VALID, and skipping peer attributes). The v10
-   commit message states this "follows the Synopsys recommended
-   sequence", but still does not explain why
-   ufshcd_dwc_connection_setup() (used by ufs-amd-versal2.c) cannot be
-   used on S32N79.
+Thanks for your patch, which is now commit aa05faf815836c47 ("of:
+reserved_mem: allocate and map the reserved_mem array early")
+in dt-rh/for-next.
 
-Other issues:
-* Back-to-back writes to SCM_STATUS: ufs_s32n7_link_startup_pre_change()
-performs two consecutive posted writel() calls to ufs->reg_scm +
-SCM_STATUS (SCM_STATUS_PHY_RESET(1) immediately followed by
-SCM_STATUS_PHY_RESET(1) | SCM_STATUS_SRAM_BYPASS(1)) with no readback or
-delay in between. Either the first write is redundant, or if the
-hardware requires observing SRAM_BYPASS =3D 0 while PHY_RESET =3D 1, a
-readback/delay is missing and should be documented.
-* Magic hex constants for shared DWC M-PHY bitfields:
-s32n79_reset_config, s32n79_calib_mphy_disabled,
-s32n79_calib_mphy_enabled, and pwr_change_phy_regs use raw hex values
-(0x8A for CBREFCLKCTRL2 even though ufshcd-dwc.h already defines
-CBREFREFCLK_GATE_OVR_EN, plus 0x4, 0x100, 0xc, 0x8). ufs-amd-versal2.c
-already defines MPHY_FAST_RX_AFE_CAL, MPHY_FW_CALIB_CFG_VAL,
-MPHY_RX_OVRD_EN, and MPHY_RX_OVRD_VAL for these same registers=E2=80=94mo=
-ving
-those bit macros to ufshcd-dwc.h would avoid magic numbers.
-  Thanks,
+This causes an early crash on BeagleV Starlight Beta:
 
-Bart.
+ [...]
+ earlycon: uart0 MMIO32:0x0000000012440000 (options '115200n8')
+ printk: legacy bootconsole [uart0] enabled
+ printk: debug: skip boot console de-registration.
+ efi: UEFI not found.
+-OF: reserved mem: 0x00000000fb000000..0x00000000fcffffff (32768 KiB)
+map non-reusable framebuffer@fb000000
+-OF: reserved mem: 0x00000000f9000000..0x00000000f9ffffff (16384 KiB)
+map non-reusable framebuffer@f9000000
+-OF: reserved mem: 0x00000000d0000000..0x00000000f7ffffff (655360 KiB)
+map non-reusable framebuffer@d0000000
+-OF: reserved mem: 0x00000000c9000000..0x00000000ccffffff (65536 KiB)
+map non-reusable framebuffer@c9000000
+-OF: reserved mem: 0x00000000fa000000..0x00000000faffffff (16384 KiB)
+nomap non-reusable dma-reserved@fa000000
+-Reserved memory: created DMA memory pool at 0x000000107a000000, size 16384 KiB
+-OF: reserved mem: initialized node linux,dma@107a000000, compatible
+id shared-dma-pool
+-OF: reserved mem: 0x000000107a000000..0x000000107affffff (16384 KiB)
+nomap non-reusable linux,dma@107a000000
+-SBI HSM extension detected
+-[...]
++Oops - store (or AMO) access fault [#1]
++Modules linked in:
++CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted
+7.4.0-rc1-starlight-00002-gaa05faf81583 #411 PREEMPT
++Hardware name: BeagleV Starlight Beta (DT)
++epc : __memset+0x68/0xfe
++ ra : fdt_scan_reserved_mem+0x3a4/0x80a
++epc : ffffffff8087fd88 ra : ffffffff80a313c8 sp : ffffffff81403c20
++ gp : ffffffff814dc6c0 tp : ffffffff8140cf80 t0 : ffffffc4fea38ff0
++ t1 : 0000000080200000 t2 : ffffffc4fec03008 s0 : ffffffff81403d10
++ s1 : ffffffffffffffff a0 : ffffffc4fea39000 a1 : 0000000000000000
++ a2 : 00000000000000f0 a3 : ffffffc4fea390f0 a4 : 0000000000000008
++ a5 : ffffffff8087fd88 a6 : 00000000000000f0 a7 : 0000000000001000
++ s2 : ffffffc4fec00000 s3 : 00000000000000f0 s4 : 0000000000000000
++ s5 : 0000000000002de0 s6 : 0000000000000006 s7 : fffffffffefefefe
++ s8 : ffffffc4fec02fd4 s9 : ffffffff8148e318 s10: fffffffffefefeff
++ s11: ffffffc4fea39000 t3 : ffffffff8150df00 t4 : ffffffff8150df00
++ t5 : ffffffff8150df00 t6 : ffffffff8150df78 ssp : 0000000000000000
++status: 0000000200000100 badaddr: ffffffc4fea39000 cause: 0000000000000007
++[<ffffffff8087fd88>] __memset+0x68/0xfe
++[<ffffffff80a2f63a>] early_init_fdt_scan_reserved_mem+0xa4/0x110
++[<ffffffff80a06c8e>] paging_init+0x17c/0x46a
++[<ffffffff80a046dc>] setup_arch+0xdc/0x584
++[<ffffffff80a009b8>] start_kernel+0x98/0x940
++Code: 0000 8793 00e7 8305 97ba 8782 b023 00b2 b423 00b2 (b823) 00b2
++---[ end trace 0000000000000000 ]---
++Kernel panic - not syncing: Fatal exception in interrupt
++---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
+
+Reverting the commit fixes the issue.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
