@@ -1,121 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793679506;
-	b=cfjKgHDX1F6bx/9Qim0Eu1VJmcjZt+J5FpNkRQg7nmK9iZUEPnPsr5/JIDGvwolvZHQx
-	 +fTsvdED69DC1vSy9KllzOuiYSpIcSKejrWOPx/U9FKpzEBEv1/z1+yMDQ4XoT95CfaaK
-	 RoLxBk2JBHNpsCJUBHKrNdE9kI8HS3P2krpV5vhlIQRyvyNkLULTmOE12xebK1/NwHfSS
-	 PtNgiCQLhe14RXdSmucnntz1v2X3QN8vmT88zI01D2T8C9HCWevRSMJ/kKnhu5ll0o7DO
-	 yklFfqL7v281s8U9wtAtj8jmlVKYUFA92QUeQe/fiqYJMf4kJ0l+Xj4Thzs9pnbb/jg==
+	t=1793679686;
+	b=DEe6ACRhDsgi7Thr+ld5DgDZucnuDFvq8WBLJIPoNvcK1Q7t/anCUd2KOhTaZIEKPMKh
+	 PzGF8TbNkHBvgIfT6gi3JMyN3hOdLlUKm0z1UFq4WjCoIU7AdglOb+zADGXa9pfVFh9Td
+	 GtLLV6HEU2sjp+U9JqUzGqJ9KB02hfg2yBM1flYf0A5HpySFvUrfRTGKjowbN3FyfGhor
+	 AkTza3O1ozWMCU6WuCYENre68LJEEiXQpGfE85WVG8Hs01ubPcfuSirhpbLAd9yzWZTq0
+	 Y33YaIYg/nh4WvtX+tixyPMIGSA84UVe8Pk6sWEvoBvlB58FAmTOdnFiC8R/FeLDZTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793679506;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=tgjhSVpsh7WmEgcUKf9hKk4F8PjwpzgwqUXXPzT37bk=;
-	b=Je3q3gm0YmlNzP61d19oPO87ipd70CDzITNqcb7Qo0ozY+9pRjyUOSnJYO4eIVu3ayB4
-	 7b7LOpwTV2ynbO6PpepQF8i54BpM4LpnPWx3s/fRnlHwgXLKqjZnljmWhbKIbtGru12qY
-	 8To6XJUjVpx9Hjg2M2hq5E6zICVNhjpfYfwSUEt6tf1PzwcjmpvxOfLkry+8HZ2S22Xfm
-	 8Ym/gpZ8EhqOvG1A0rkL/v1g5vzVr43neiIx9TpdAFnHz/vEJfi6JfXwIw8SflGfuNxru
-	 w9bTMzJY16dms2Yu9mJGP7xo9Gdx6HuYoZ9sIQhOzfrAAVycI+V9AROxHtFmibUCDEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793679686;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=7hpI2iCSGoz71vPjJKjpaH2lhKVzdhV0IEDs+PYjGYI=;
+	b=zv6cqaTDSx056rYn5aYn3NPtJsCmvmi+my7qKr5arT4RdD/8l0tCP1rqLpUsr2gqHIDu
+	 t4k66qwLjR7IQSZupuUQzizJ6WmOXDDFPMSWq6Db+GdxbQ0jwi+zzO/c9cpt6MZhPKrYL
+	 x17Qt6v5bysn0col9hxw6AcQdqouG5opba3gRafMK7kfilK4if1BJevjdek4DmYxZIIHj
+	 Z/UL2Jk11enGKXANupUHLindNTXOyzXhUOh40k4JjU87u8SQjRqpK5I5uKyZY4hti8N4N
+	 KpJ7/lso0Gc7HGpCehXGgmJBqZ6i1LyWmj1d++1v8RVdov4PezYHc2TabfK4vOrhWYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MXyOblNy;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HyMMpSVy;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bOykYUWF;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A241A606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 04:18:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A241A606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35470606A326;
+	Tue,  3 Nov 2026 04:21:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35470606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MXyOblNy;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HyMMpSVy
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A33hrOt1141745
-	for <devicetree@vger.kernel.org>; Tue, 3 Nov 2026 04:18:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=tgjhSVpsh7WmEgcUKf9hKk4F8PjwpzgwqUX
-	XPzT37bk=; b=MXyOblNyivzlhhDaxvbxapLabSSW4APLlwmdNnz60zphknHtWXP
-	lEb/nG2i3qBSUuXwAO2cZc4GR4V7fvp28HvGBgsnQN7mVTdYh9qX6uOyFZOaK0hq
-	fUsbpufi1B0TSIbS2+nwW3mALKaUO+P5iYbE5Yp7drdjcYOJKMnUrDFAN2cga4R3
-	eeKk5vD3y+t1Tn91U1cqtOiQ3RktCSBm9uF1BjZCpiqiUxKqvf0X+F7ZTQbLelSH
-	VgSVgAZCzRRIb8xospDrFES1BH5jzU3kIgNuz6Ctlu+vLsVNMj9XS1qpLJp03wd5
-	/bLOo4cBVPd3fVdReK1qs06V9x5iWhWWB6g==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq7ycr4f6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 04:18:24 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1acbaf81bebso396595c88.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 20:18:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793679504; x=1794284304; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tgjhSVpsh7WmEgcUKf9hKk4F8PjwpzgwqUXXPzT37bk=;
-        b=HyMMpSVyg6Z3t9AbJhOBDrYyfvr4zpQ6+lOyk2aB3EFXA2jc+VoP0LDE6h/L2P0zZ7
-         fpl7gkcuvUWYxpdPg2Qrw/eMsBx2YJSUVZy1+OXhuJmyhsSoghBswM/iNbOA5QPIzXvT
-         Q3FK70D+TTbydiImusKCsAkdhBdHzUw3WHu3mgvUeNDV9YnH7AWSNKKiaKDEeaOWKRq5
-         xGRjr3P4s7sctXuJIWgCwY1FhNiDT3ESC6Le0ZXlBnx06QeMlo5w6YCwse8f74YjfM0q
-         xING7YImd6/tOaaTssMBRnY1700tIS32BiPHcepy/fQ8P9BIMRt4kqoU31lv+reHgYZ0
-         H55A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793679504; x=1794284304;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tgjhSVpsh7WmEgcUKf9hKk4F8PjwpzgwqUXXPzT37bk=;
-        b=YZliPm14x3s0EzsdBO/CO9Bw9cM/CXV9nMgFxRVbS1eoo4WfIC8OYtjTGtgL7lsjJz
-         VynqVd9vCThZPdc5qL9UMdnDSsREXrn7djS3MU1WSDjp7e4YiB9PsQXL7mu8dmMVZjdY
-         zQ3CNOqR7b2b/NwXApzNE4D/5v5nvar5x4WhVmjbzMjq/osKQdqchup7/ENHhpIQukTI
-         HldmjR5XtuCJN/L4g7xvOdW2MRZyCahzMEaiH0569B/ypemB7Ot1/W+xk09dYv6STFsC
-         Y/eV6+9t4ACmU5O82CjZMAPM7blgusbuibmsUp8orRgNVHZ0Tcaz5H4+FTL6NJx8n7it
-         CWiA==
-X-Forwarded-Encrypted: i=1; AKwUvByvM1LfUP/yv4nZ4aXXDn8HPEofbDtWF0PEVwfscxvnLXpA27FPAeOtpx1tr8ahZ7tPuOZPTQVCjill@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9pIRSM70IKwSWifcpG+hU0a9oyG2RpSPmVA5fHsOh4Ex43/UE
-	P9BuK45KTg/KlnhbRe2yBddxMlG/w634Jef7twRSqaEWaR/aKd2qLiz8pl1QJxDwlyjc4gpkH/t
-	f6WxgMPQ/pNjCzAlQQyvXCWGQaLeu65O7eLMd6IXlxYcqpZHVmvTTZ8EI5Rs65ITU
-X-Gm-Gg: AYBFou3er7SRWkRF5Jn5ZUmJ7D9XkeJG4EzoDMoAYJb3g0fBieVkqZRQhLNUoYeHM4F
-	zvPcLT/uImMcGNcTMnnmtOWzH+olF6HQv9zSUZQxhLsf16avJcrwYuO/b/31U5EeLJgk8abGUUa
-	DRFK7y6NQAWnbQ/iiOK3kLizqFySwBBdgsnNWwh81S7vH1dNkroWCXtIZOjMRTmg33wQ7xXTwMF
-	032DbJ8GIFexOnzyzK4cj4rFmUKA9imoo1I+pBliPmxW1aFTn94m1OJiMRSxNzy9JFMKERfKRTl
-	TlMupDW3S9faG7FtGLWyGtYi8dNC0/ep5xU3dLNiQHFmjR0SHbDrUInSpwH8kgMRhvqMtIfUe20
-	a/l3zhe0TIb19ObdmJ/VGjgqLQoHiNpNelasWpvbjMf4nkiwogjMMs9vU8d6ObZFJuxwOLXLT4d
-	roadRLAiYAMy1WWznrI/aRDHYNkVwbW2Tk
-X-Received: by 2002:a05:701b:424a:20b0:148:302e:1bed with SMTP id a92af1059eb24-1ac5e8df484mr16586699c88.38.1793679504084;
-        Mon, 02 Nov 2026 20:18:24 -0800 (PST)
-X-Received: by 2002:a05:701b:424a:20b0:148:302e:1bed with SMTP id a92af1059eb24-1ac5e8df484mr16586653c88.38.1793679503305;
-        Mon, 02 Nov 2026 20:18:23 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm21701617c88.9.2026.11.02.20.18.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 20:18:22 -0800 (PST)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v5 0/2] usb: typec: Add onsemi FUSB15201 support
-Date: Tue,  3 Nov 2026 12:18:04 +0800
-Message-ID: <20261103041806.1885974-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bOykYUWF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793679684; x=1825215684;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=e/FUd/e/mAYT7IeYzGgwu4zSfKt4EcJEQsjr//9wYN8=;
+  b=bOykYUWFUwpgjQzzyCElyiY3wnujUeznqtjBEqbgEDWPU2tPv+lfYlHA
+   k4KKcr9n2JfxnSXfFiwZZ+yr6mw0fj+9RikZJjV3C1MYwo7ZUOSTH4e5P
+   l3hdvbT0nZE0AWDJvwTOaOu8JW0B8hDQ/6TsCxqqv108o2JQXnurPsq6A
+   /k8sOXt+aovbtXMIXir5oe8xiQpPQ+vhAcsbB+bn4KerItALqsX1MFWpU
+   Znzt9+P370Hq3pedVK77lYgpcRwMP7sdYDwJR+C67qfvMTNvchSYFQEsR
+   qxiT0mj+aU00KemEnCfBTGom6W0t7U56om+OmbsGcVTtmEnN6gkrAJfn8
+   w==;
+X-CSE-ConnectionGUID: wr9nd00wQ92+3JGj/L5jEQ==
+X-CSE-MsgGUID: VJOs+BUSRbmbc52eHjlntA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2495159"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2495159"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:21:23 -0800
+X-CSE-ConnectionGUID: JaDX/0xDSXe4TwWItdmlvQ==
+X-CSE-MsgGUID: C6+kcDqrTNGoQJ5+2a7VTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6633917"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 02 Nov 2026 20:21:19 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xO61L-00000000iI4-2oC3;
+	Tue, 03 Nov 2026 04:21:15 +0000
+Date: Tue, 3 Nov 2026 12:20:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andre Przywara <andre.przywara@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 RESEND 5/6] firmware: smccc: lfa: Register DT interrupt
+Message-ID: <202611031233.vQxtNp7l-lkp@intel.com>
+References: <20261102165421.3651202-6-andre.przywara@arm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -125,68 +92,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=V7foQuni c=1 sm=1 tr=0 ts=6ae96090 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=R9LytnawintqPorzxAkA:9 a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-ORIG-GUID: WHHkA17YG6THjOtJRL24wIOswldXBWa5
-X-Proofpoint-GUID: WHHkA17YG6THjOtJRL24wIOswldXBWa5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxNiBTYWx0ZWRfX+ITYTynAAyuG
- 4hN/KGBSqBLm9UV5ghho+Poylus5smwyyUYjm1KghB6an6Ea0FQl1aoHT6+q8zfgrRK0Vk6jMcK
- tnXLPUC27VqsHSkXu/8vqHsjTR6S7p+N7seG+bh1uYpAkAdg3kMO96WwUJA4OT0lQ1ZRCV5kOPo
- yr4ESsd9I3zWMhKZYs/Z1khkFjBaLSWK88vp913ShWv2WDUaZYNeNdmpID9UMtshGGtn5Pi9pdG
- oBIgYeoYTHsSiljX8qZ+jKwQqpoVQaoeUHVFJjdOvsQg0Jtn5UJfu//MFbVSbZXGDTGJx39maJy
- W1QsU63oP63Vm0mIlJINI+KliOklNfBfDJQQsjwkKjOoBtXl5KBsXcdRpRZfACiOid0s6vU82lX
- Tab/O1o01+XPhMBwmI5cCSbjSEemEIxtnS+sWRDvgvWnBpzAhk5fr0sebK7SC42GSq49bxF3qNC
- usjFl5/ybxqLVKcYVPg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAxNiBTYWx0ZWRfX1iZWWqllsmAk
- n3cCUmM6nLEtfwbNg5WUE5P+ejFoVoM+VVEZh3jNCvLDizosZ+XaCzb6VxNWbt4pU3gyVizAaJ8
- HSEZiCDLk/awXyh2L/pFETjUoMHmrA4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0
- adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030016
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102165421.3651202-6-andre.przywara@arm.com>
 
-The series adds a driver/binding for onsemi FUSB15201 which can be found
-on Qualcomm Nord reference design boards as a dual-port USB Type-C
-controller.
+Hi Andre,
 
-Changes for v5:
-- Hold chip->lock while seeding the initial port state in
-  fusb15201_hw_init(), so a data_role or power_role write arriving
-  while the port is being registered cannot fail with -ENOTCONN. (Sashiko)
-- Link to v4: https://lore.kernel.org/all/20261102111732.1678646-1-shengchao.guo@oss.qualcomm.com/
+kernel test robot noticed the following build warnings:
 
-Changes for v4:
-- Drop Assisted-by: LLM
-- Link to v3: https://lore.kernel.org/all/20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com/
+[auto build test WARNING on robh/for-next]
+[also build test WARNING on arm64/for-next/core linus/master next-20261030]
+[cannot apply to arm/for-next arm/fixes clk/clk-next kvmarm/next rockchip/for-next soc/for-next nferre-at91/at91-next shawnguo/for-next v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Changes for v3:
-- Address Heikki's review comments (Thanks Heikki!)
-- Link to v2: https://lore.kernel.org/all/20260911073414.16711-1-shengchao.guo@oss.qualcomm.com/
+url:    https://github.com/intel-lab-lkp/linux/commits/Andre-Przywara/dt-bindings-arm-Add-Live-Firmware-Activation/20261102-175415
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/20261102165421.3651202-6-andre.przywara%40arm.com
+patch subject: [PATCH v5 RESEND 5/6] firmware: smccc: lfa: Register DT interrupt
+config: arm64-randconfig-1000-20261103 (https://download.01.org/0day-ci/archive/20261103/202611031233.vQxtNp7l-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 13.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031233.vQxtNp7l-lkp@intel.com/reproduce)
 
-Changes for v2:
-- Drop include of <linux/mod_devicetable.h>
-- Link to v1: https://lore.kernel.org/all/20260902045938.184221-1-shengchao.guo@oss.qualcomm.com/
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611031233.vQxtNp7l-lkp@intel.com/
 
-Shawn Guo (2):
-  dt-bindings: usb: Add onsemi FUSB15201 Type-C and PD controller
-  usb: typec: Add onsemi FUSB15201 driver
+All warnings (new ones prefixed by >>):
 
- .../bindings/usb/onnn,fusb15201.yaml          | 152 +++++
- drivers/usb/typec/Kconfig                     |  17 +
- drivers/usb/typec/Makefile                    |   1 +
- drivers/usb/typec/fusb15201.c                 | 586 ++++++++++++++++++
- 4 files changed, 756 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/onnn,fusb15201.yaml
- create mode 100644 drivers/usb/typec/fusb15201.c
+   drivers/firmware/smccc/lfa_fw.c: In function 'lfa_register_dt':
+   drivers/firmware/smccc/lfa_fw.c:939:16: error: implicit declaration of function 'devm_request_threaded_irq'; did you mean 'devm_request_region'? [-Werror=implicit-function-declaration]
+     939 |         return devm_request_threaded_irq(dev, lfa_irq, NULL,
+         |                ^~~~~~~~~~~~~~~~~~~~~~~~~
+         |                devm_request_region
+   drivers/firmware/smccc/lfa_fw.c:940:66: error: 'IRQF_COND_ONESHOT' undeclared (first use in this function)
+     940 |                                          lfa_irq_handler_thread, IRQF_COND_ONESHOT,
+         |                                                                  ^~~~~~~~~~~~~~~~~
+   drivers/firmware/smccc/lfa_fw.c:940:66: note: each undeclared identifier is reported only once for each function it appears in
+   drivers/firmware/smccc/lfa_fw.c: In function 'lfa_smccc_remove':
+   drivers/firmware/smccc/lfa_fw.c:1034:9: error: implicit declaration of function 'devm_free_irq'; did you mean 'devm_free_pages'? [-Werror=implicit-function-declaration]
+    1034 |         devm_free_irq(&sdev->dev, lfa_irq, NULL);
+         |         ^~~~~~~~~~~~~
+         |         devm_free_pages
+   drivers/firmware/smccc/lfa_fw.c: In function 'lfa_register_dt':
+>> drivers/firmware/smccc/lfa_fw.c:942:1: warning: control reaches end of non-void function [-Wreturn-type]
+     942 | }
+         | ^
+   cc1: some warnings being treated as errors
 
--- 
-2.43.0
 
+vim +942 drivers/firmware/smccc/lfa_fw.c
+
+   925	
+   926	static int lfa_register_dt(struct device *dev)
+   927	{
+   928		struct device_node *np;
+   929	
+   930		np = of_find_compatible_node(NULL, NULL, "arm,lfa");
+   931		if (!np)
+   932			return -ENODEV;
+   933	
+   934		lfa_irq = irq_of_parse_and_map(np, 0);
+   935		of_node_put(np);
+   936		if (!lfa_irq)
+   937			return -ENODEV;
+   938	
+   939		return devm_request_threaded_irq(dev, lfa_irq, NULL,
+   940						 lfa_irq_handler_thread, IRQF_COND_ONESHOT,
+   941						 NULL, NULL);
+ > 942	}
+   943	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
