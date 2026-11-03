@@ -1,85 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728209;
-	b=atmBmr1oDR1uXFr3u0Y/U5ubgQUHv7InuwDyXnmUBfRpQhnduTWTEtWev5yubRjFU/8Y
-	 EkVUtyteaHnOXHk8E7V56MRvCavklPrMp6oW37VaCB5hyChVpNtMCy/e5F6mGT0kPyvUu
-	 TAP58Cf1VijHwbUl20kQlWrXxqvLmH6zrvy3HsLv5wp8SVOzdRE/fCAunkAuhQ7yfsSSo
-	 iQ9FlDCzHf4MyzO0buPx2wkqfV7ZDMqugIyqCXzX15sJ56JpJNEfBWVNWBfIQ+dD/7+4U
-	 6rcrjPTN0kZAF07jC14TRSIW1N7kGyCrv0m7TrI/rdOvzU/pfn5QfgaeLdXamqcud2A==
+	t=1793728429;
+	b=v4Z/sFPipCVFEPJZ4KVoiqnGKXR+Av8BB1tM3uQ4BKZOWoXfzoyW+XT5XGniffGEPkDJ
+	 o9NKEE1tfD7P25hwjs6c0k8oVjfZxJNFt4EAaXF6GIit1OmtDN9ZEiJb311cXeWT81sdE
+	 +Oq5PTBdA3WK9oDj+nlRts19mb4c6IRQ1EJ2+pCNf41j33MO5PP3fCOwi4fImFc/dU1C6
+	 R2YYGPLTkx6Hxvd4JsfiTWH+Qlqu4jvdJLp9LonBswwW2XAR+yJau4ffoenjqMGc0/8gS
+	 VRmlsHVIixdzit/hFE1Pf76o+qfcftpXK9K1cZvOIddN8jd+1BHHZBGkDHyFSDTXl4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728209;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=rK8Oyi1EVEyMMt2fZfOKvUCg++w38odpzGTd7OnPeuY=;
-	b=SXyoTG+f1s4PCLyTWfzhlkOi/GVdLAp4Vo/a1ZmJ291qxzrHJXMH5UramVaUR4hB+cBD
-	 2sR15tZ+rB20BO0uD4Qw8RgK2Q8dCRCAZZ2n3r1lcS3DgTIVD4i8XV9gZlWwFcnKERvEw
-	 yERk2ZFCdEgoO5NqZltHRtPFagegOdY45138fDUUJW4ugosAQuPCbpBPN79pDOZaTQMXF
-	 v2LwjyI2ZmAlIezeSnpIYGg5jArt4EbUcYWCpG8WtOn2pTq5CvbXQLHscN2t6GmSbdrMM
-	 0uEIOX/eP4pov2MkY4Y1uoHBshcISUKrJnX6T3O2LTvFq5bsCs7+lO+cyG3AxdSK39g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nv/S8+4XbDZcebn2R51IJieAKP1m3RtJvkfF3QMxym4=;
+	b=3lrlrmUHiFPoFuZHzH0zT7PJU99PHBomJDKzvJpGkebY/Y1UF7uZljM1zEceounwNPtD
+	 fb9gu7nKVqHWdgc0BpueQXXXSf0zCPNSnwjXRuXGFFr4b3/Ru4kIQwAYAKdvDTAzWz14P
+	 /BPs1ira5mpky829jeVThfueqCbyGpUButGRWzc8vhxxxYji0TR2MsECsGTjnoCCOOG4g
+	 CXUJTfevjHfiIkFtmylEkqo9tqe675OOJHW2lQimZL/4UNL17YiH9nLr3nd87xeKWX5E8
+	 frQRAlGM9mMb1lppKwGhj3ssiDDdZflsHY3edx2IG1y/MKxdGUveZcNIPMZ0w8814rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgCZqgSw;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=r8YfTIAk;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87612606A31B;
-	Tue,  3 Nov 2026 17:50:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87612606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724C6606A324;
+	Tue,  3 Nov 2026 17:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 724C6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EgCZqgSw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793728209; x=1825264209;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vkMUZ8Mg4qCpdEUhz5E8ZLoH+xJDC3jv0x1a8OM3Wfo=;
-  b=EgCZqgSwBiLhoz9mBgCyJjlKqSf6B/ddfjCx515MgmLiE6mj7yPJqdZ5
-   jugw8TxvaF4OSU7YiZDm5zGl8m9YInT1xxQPPOTH4DB27ckRjhjgvOz0I
-   5qFs/FSpvi15BISXxyJnHOFP6wiastKoP1NRT8SRUdt0GPsY9GeyLlYDZ
-   Lrahl+ASodxa5XLDFh9E/oENTvUWtE/mjZbifREktxYTTd4J48c8XdpbE
-   CVZqpW24sWaIJJc60xsmLv/KW5tEzKHwC9u7A9BsrBfxcA5BVWrDmhRI7
-   ygFgEO8gvcbUV9wqfB2eTgfKH9yf/dfDJnu2udgHeQFSiYoI4yIBiDttS
-   w==;
-X-CSE-ConnectionGUID: SgwUSJDRTHuHfYVIz7swfw==
-X-CSE-MsgGUID: i721Eu2VS8+n7EzYjMQSKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2354121"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2354121"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:50:08 -0800
-X-CSE-ConnectionGUID: W8U5kkjERKmmqPh8cg97YQ==
-X-CSE-MsgGUID: U12cYMDXTpeSN9n2zbd3/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="7014913"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:50:04 -0800
-Date: Tue, 3 Nov 2026 19:50:02 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Michael Walle <mwalle@kernel.org>
-Cc: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>, linux-acpi@vger.kernel.org,
-	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 08/13] gpio: regmap: remove gpiochip before tearing
- down irqchip
-Message-ID: <auoeysEHqGemmuhO@ashevche-desk.local>
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
- <DMKL43ZCOSQ3.3TAJL8BRQ6ZTH@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=r8YfTIAk
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJx5S5T4Rz1XLktx;
+	Tue,  3 Nov 2026 17:53:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793728424; x=1796320425; bh=nv/S8+4XbDZcebn2R51IJieA
+	KP1m3RtJvkfF3QMxym4=; b=r8YfTIAkCYBU4vtqIaBhFbgBI53QY2dlipL8p6MZ
+	R6N+cyOsOyihZHkfJVGt/cWCcM8VzMaYn4V8rdyg66wOEzSsHPsKAA6nxPgtC1L3
+	GrdU9a0qyA62toxXqekrxhMxPtFtaCuZJgXdfRmFdpt8rGrVArYfZjPvr6ieWLa1
+	XiAIh4APqPCF47YiOJNJvv8GQN+r0zjy7qtDT6pAOnYYIKu9UYQffw50or9sOYii
+	zTh1xLotom9/E8WepKxW8Z4bSJFwZeT1PN/E4KNbwuhw8vdoq6TrmfyHTIJkTmrt
+	e1TlWUBryytPkLD6gKwama66XixRoa6zBL19NfJUgN+F5A==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id P6WlHWsK3ueh; Tue,  3 Nov 2026 17:53:44 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:b098:ee7:dc7c:db4e] (unknown [104.135.182.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJx5M4wVSz1XLkvj;
+	Tue,  3 Nov 2026 17:53:43 +0000 (UTC)
+Message-ID: <a608e18b-30a1-4c26-a456-c6b219d4a517@acm.org>
+Date: Tue, 3 Nov 2026 09:53:42 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,41 +70,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMKL43ZCOSQ3.3TAJL8BRQ6ZTH@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 01/11] ufs: core: Return a negative errno from WLUN
+ suspend/resume
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
+ NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
+ Asutosh Das <quic_asutoshd@quicinc.com>
+Cc: imx@lists.linux.dev, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
+ eballetb@redhat.com, echanude@redhat.com
+References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
+ <20261103133215.1385823-2-larisa.grigore@oss.nxp.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261103133215.1385823-2-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 09:33:20AM +0100, Michael Walle wrote:
-> On Mon Nov 2, 2026 at 7:46 AM CET, Long Zhao via B4 Relay wrote:
-> >
-> > gpio_regmap_unregister() currently calls regmap_del_irq_chip() before
-> > gpiochip_remove(). That disposes the mapped virtual IRQs and frees the
-> > irq_domain while ACPI GPIO-signaled events may still be requested and
-> > while gpiod_free_irqs() still needs gc->irq.domain.
+On 11/3/26 5:32 AM, Larisa Grigore wrote:
+> __ufshcd_wl_suspend() and __ufshcd_wl_resume() may return a positive result
+> code, e.g. from ufshcd_link_startup() when DME link startup fails while
+> restoring the link.
 > 
-> Maybe Andy have an opinion here. But that deviated from the usual
-> cleanup in the reverse order and at least deserves a comment in the
-> code.
-
-Yeah, this is unfortunate. I think to make it work as proposed the IRQ domain
-handling in GPIOLIB should be revisited. So, at least a good comment is a must,
-indeed.
-
-> > Remove the gpio_chip first so ACPI teardown and USED_AS_IRQ cleanup run
-> > against a live domain, then delete the regmap irqchip. Use the same
-> > order on the registration error path, which previously leaked the
-> > irqchip when gpiochip_irqchip_add_domain() failed after
-> > regmap_add_irq_chip_fwnode().
+> The runtime PM core treats any non-zero value as a failure of the WLUN,
+> but rpm_get_suppliers() only checks for a negative value. The LUs
+> consuming the WLUN are thus reported as resumed and receive I/O while
+> the WLUN is still suspended.
 > 
-> This should be split into a seperate patch with a Fixes: tag.
-
-Not sure if we need a separate change here as two are coupled.
-I leave it to Bart to decide.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> Convert positive values to -EIO, as ufshcd_init() already does.
+> Do the same in __ufshcd_wl_suspend() for consistency, so that callers
+> always get a negative errno.
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 
