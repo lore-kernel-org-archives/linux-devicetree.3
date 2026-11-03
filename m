@@ -1,70 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793746285;
-	b=kjlX8GDi8ZsoK/xbuUvzJzz/Gpn+U049MpkZBywRRDLDhQrja5VFPuxqdXJW27Z3K0Cs
-	 w/3DwRBHakiyi9RpxaeHEmp0hZaredeFu62hzPVZ0rj+2CLoiZhost3KSpT/cL4BbCABE
-	 AY+D45m9yZttXc1OJb0DnKMZYdKj5bne06cBTO9vqD83+LmO4EA8gIekcHcgAJmVQ+NJy
-	 Whm1dVYCGgHCo/4v4obZ65UnMb9WwoPLrxoDBWsKdf07wlt83J+hPu1dMMsQdBaf0NnSO
-	 Qk3r/K1Ev5b3nlG/mXoA3kzivkjAjSgOkKwrEBmeAOkJzzJXoZ9e//sjIAG4sxzo1Tw==
+	t=1793746507;
+	b=FEOYuQO8juSa0pE23iB/qhNGCWtYKduEp9g0a1xHtegr0kcpNWeulkMtKlj2ibEiu16s
+	 6HWplkVD5aX4UZJ84qJVD+ZY6PGxgOTc57EOtZKhnFp5tB2hYwxmbaQE1IO08nWVI08bN
+	 qclcSZgnGJzRh4WPhJPa8Hhn5jyigi/GPDJr4Dnwb4c1Xv6q4iPXoT8Iyreoy78W83khH
+	 2uE9mwylNTTIqdSWngZsnjrQbQOizZ75po0HARNLD/PzVXim9wwMg2m8+io6jaOL5b1Nz
+	 +IiaYUvL5Td+RadXXA2sXz8RMLsW2WENGzGCfMmMRLvuLb86rQedVWNH8BvuDKpmeVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746285;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=o7HXQPomhFEfrYFjVcsrdsok+Tx5KNS+/so3Un5/lrc=;
-	b=JZjrtkpFm5V+pbUXUH3djJFuHH0JcPvKm9f6qDXhKXQ9T14auPBr3iLUhXMXweDdfALP
-	 pwhIg39x+iRmufmhF3rPKrfTGLmcNu7NAo3PGo0wQDl9LX0uDSuin2bkdav+njDhgWMP3
-	 KecRGcDOj0cttJqnTp5u+Uvd2cw+nhqjwyh1VXsuHDvJ5REa3zJgn/jCN6W/X9evUTdGM
-	 NAwGww4rngxxLkWx0DYjgQExnFFaldAX+5O26O7/g/8yPmnUGQJb9VpXgVdUpEkP/zKeD
-	 MosaEHcPHBqLCKWimxwYKXx9doEehXX4wRynXsC7MVbv3HElTv9viMYcHmayYK2Z0wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746507;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=oheIWokBfQkQ0F/QvYholTPqB5SpXrXrzxHjvxf/aZw=;
+	b=2IN6iGYJ1MyzGZ8xcbVQYyYf0p2DhTkUjA/PPSvk3v0YrGZAhnvYh4Iah8JizHtfMFEX
+	 ovUsnX8ZiwCx4g068dY534mIJujRwKrtBA1kplFcq2aoq7hVgjI0F6p6mDqs2n490gG6W
+	 3N3oox+9hJlbrp/1lDJGcD7cA02kNo3uW/tMpwVrmShpKUZ/42GYMxBJfGu9mIn51yE7c
+	 L6tOYM0jQGQv6x/ydVX85B/NGGfA6IQoBWK3g/MqIUSDDDG/qUIecV2lloyEFc4poUUIw
+	 RbQRC39t0BrdDkQzqrYexa+jtaSCTzhk/P1ExcjasOneE4fuWKV/O5AS/8S+aT+wJiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e8agXrda;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Le3uX6k9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4257A606A31B;
-	Tue,  3 Nov 2026 22:51:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4257A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D35606A328;
+	Tue,  3 Nov 2026 22:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e8agXrda
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=o7HXQPomhFEfrYFjVcsrdsok+Tx5KNS+/so3Un5/lrc=; b=e8agXrdauKRx9EGxkmib/g9VuU
-	mDkazXkDbRhtV8JTfmGehKVWbki2agxMfivjwj3H4Z7DrWaQ87OgZlnjv96V405f70UM8mEHiCoEK
-	TLd4STOnPAShQ8B5UpqgNF77zT0/kgRPw/bgf1mBJTSHL5/ItZgiw07vjqZMz8ri84ErO7Sqn5uY8
-	BjeUx54xkn3O/6fjaNdEbOCVTI2mJDProM+XKVHiSN1FuQdZXYUhw8KhN0mtqJkPCyJOTIMjnsun+
-	Ct9vIUE/vopzPCY8Sep1G/z0WMU8T4JLlqhKjt5CTs/Lcr32soSSG4RSYht1Z/bG5OHaAT0LNrfFx
-	R/xopxBA==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [PATCH v15 03/15] accel/rocket: wait for a running IRQ handler before
- resetting a core
-Date: Tue, 03 Nov 2026 23:50:58 +0100
-Message-ID: <3311623.TQGk6oTFT5@diego>
-In-Reply-To: <20261101082307.151957-4-gahing@gahingwoo.com>
-References:
- <20261101082307.151957-1-gahing@gahingwoo.com>
- <20261101082307.151957-4-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Le3uX6k9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C131F000C1;
+	Tue,  3 Nov 2026 22:55:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793746506;
+	bh=oheIWokBfQkQ0F/QvYholTPqB5SpXrXrzxHjvxf/aZw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Le3uX6k9FG/WH5rnnVXS5DU1STzyVxHdXb9ZXs53fCLYfMv1nlZ1fOU/BfThnvjGh
+	 SwwpSxg6BEtT9TLM3q3dMJIV0wPCUZWlSqmFmp4HJOGu9ABMKU7OBfDc27IVbL51RG
+	 0qolsq/Civag5bu8aP5ToL+3gKZKlCimUrFjbo+3fNNSEqPVaiUxZYv236zxFpihUn
+	 uN+rgWUKhn6ksZkpCyVzXYe6tRB/0DOonMj7oymJEN4or7m+Jv/vRDzthwFpneimoj
+	 kAwolz3lUPAAwqdDiLQuQQeh9vH//R8MU5VNc9wZg2EdilPqKDf9UUWIEtUKTjr4jl
+	 t4EdEdJs/YyIw==
+Message-ID: <sashiko-outbox-196161@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: display: imx: Document fsl,pcr
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fabio Estevam" <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261103224830.377009-1-festevam@gmail.com>
+References: <20261103224830.377009-1-festevam@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 22:55:06 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,75 +58,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Am Sonntag, 1. November 2026, 09:22:55 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Jiaxing Hu:
-> drm_sched_stop() does not wait for a threaded handler that is already
-> running. Call synchronize_irq() after it, outside job_lock, which the
-> handler takes.
->=20
-> Before the sync, mask the block's interrupt and clear its raw status, so
-> that an active core cannot signal a completion after it. Do that under
-> job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
-> and only when pm_runtime_get_if_active() returns a positive count: the
-> reset holds no runtime PM reference, and with the domain down a register
-> access takes an async SError.
->=20
-> Igor Paunovic's induced-reset runs on RK3588, including a two-task job th=
-at
-> puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
-> does not show the race is closed".
->=20
-> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail=
-=2Ecom/
-> Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaX=
-Q8HoMtHD5U1g@mail.gmail.com/
-> Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail=
-=2Ecom/
-> Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmai=
-l.com/
-> Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gma=
-il.com/
-> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
-nduced reset, JOB_TIMEOUT_MS=3D2
-> ---
->  drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
->  1 file changed, 68 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 03e5f094f60b..5b2abf40b618 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -401,9 +401,74 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
-hed_job *bad)
->  	drm_sched_stop(&core->sched, bad);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: display: imx: fsl,pcr documented on controller node
+--
+
+commit 135b52931f21eeadf62c2f0174408c4c3faaf98d
+Author: Fabio Estevam <festevam@gmail.com>
+
+dt-bindings: display: imx: Document fsl,pcr
+
+This commit documents the fsl,pcr property in fsl,imx-lcdc.yaml to address
+dt-core.yaml validation warnings on i.MX25 and i.MX27 device trees.
+
+> diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.y=
+aml b/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
+> index 84610b5690c49..f1931436a4d81 100644
+> --- a/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
+> +++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.yaml
+> @@ -65,6 +65,12 @@ properties:
+>      description:
+>        LCDC Sharp Configuration Register value.
 > =20
->  	/*
-> -	 * Remaining interrupts have been handled, but we might still have
-> -	 * stuck jobs. Let's make sure the PM counters stay balanced by
-> -	 * manually calling pm_runtime_put_noidle().
+> +  fsl,pcr:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      LCDC Panel Configuration Register value used in the display node
+> +      referenced by the display property.
 
-Also, why are you changing the original comment here?
-The new wording below, does say essentially the same and you're changing
-it again the next patch.
+[Severity: Low]
+Should fsl,pcr be defined here under the top-level properties of
+fsl,imx-lcdc.yaml?
 
-[...]
+In drivers/video/fbdev/imxfb.c, controller properties such as fsl,lpccr,
+fsl,lscr1, and fsl,dmacr are read from the LCD controller node in
+imxfb_init_fbinfo(), whereas imxfb_probe() resolves the display phandle
+and passes that separate node to imxfb_of_read_mode():
 
-> +	/*
-> +	 * No handler is running now, but we might still have stuck jobs. Let's
-> +	 * make sure the PM counters stay balanced by manually calling
-> +	 * pm_runtime_put_noidle().
->  	 */
->  	scoped_guard(mutex, &core->job_lock) {
->  		if (core->in_flight_job)
->=20
+drivers/video/fbdev/imxfb.c:imxfb_of_read_mode() {
+	...
+	ret =3D of_property_read_u32(np, "bits-per-pixel", &bpp);
+	ret |=3D of_property_read_u32(np, "fsl,pcr", &pcr);
+	...
+}
 
+As the description notes and as shown in the second example of
+fsl,imx-lcdc.yaml (display0), fsl,pcr is placed in the separate display node
+referenced by the display phandle rather than in the LCD controller node
+itself.
 
+Defining fsl,pcr in the top-level properties of fsl,imx-lcdc.yaml silences
+the dt-core.yaml type warning globally, but it also permits fsl,pcr on the
+LCD controller node where the driver never reads it. In addition, the allOf
+conditional for fsl,imx1-lcdc and fsl,imx21-lcdc disables display, fsl,dmac=
+r,
+fsl,lpccr, and fsl,lscr1, but does not set fsl,pcr: false.
 
+Would it be more accurate to document the display node schema separately (or
+disallow fsl,pcr on the controller node itself)?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103224830.3770=
+09-1-festevam@gmail.com?part=3D1
