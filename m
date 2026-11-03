@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705776;
-	b=2KNpzTmCpYPBn1TrRdeFFDzOu4g6WmjVTNJkhh18BIxx3L4/8bVCGWHHmO8qI47Oez//
-	 YE056xK0SZjelHUXSspz4mx3MYz+1YKyKjfnz3lSNtc9+lDvVFaeG+cBZMot6ZGu0HuyY
-	 JSkqIYjlqTmY0QuLFlg0dshmol7Ji4h7JvCJJrs2kTOJ7ato9CU2v/N3UvNps+GpcvLxX
-	 GFYh1zDsBRzJUz3Bi4koaJMl4RvmUIifxa9ZOuwmpHMZsSQftLz8JIl4YdX45/hgABMpJ
-	 e68uwtfQBaLU+v59K5RgyNgwQvIGGbaro8MXDe8aw24IFTi2xCLI5n52egJffsDcD8A==
+	t=1793705771;
+	b=4rdsg35I/9Wix+AJTTpdkLYX5w2OL5DmbqySngWg7KNYuonWm/qb0yKElCbBpuRYrfIZ
+	 ssit7mN+2ImS4A7TYm2nb6LAE5UljFVFTxKZDJmT4qFXhw3DuInGOBAqmZP5Pv3e+3/L5
+	 Ig/5HaWuwW+Ar8hKI24BXdxp+kFeUh6eS/CyDRO3bcN+3DjRSLYBZxk9CeIiZ3jVPg7i+
+	 TVmhQlMzkMixKPAVBouPGtc2/rjWN7fmZyaIlewh3ZwOdGRKiQC0Hz8Ndv1hx2p8OTk6e
+	 bfVVUxI1URUbrAd6pzZfdYPf0WgRKPSphZr2I2dRxGwwiSxBBdgDChbD8RPXWTbCQYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705771;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=rDuqHtQlXZSgFfeq7ZSWioePY3kvEDc7zoYDaD/9pHI=;
-	b=hEwiJDP1kZXTskDCqUsIO6hyNi8OaBdtlhsUFrLzOi1A0HvcY1jyOCI8KRGMBHRcOBr8
-	 syeBrtW1nrXjVZv2TyyvCRX4DJk6prM20R/XiSr9svdkeh7V0XTNhL+xJ+b7ijgaCo7Ve
-	 E4F1HWsfVB5/CRQkqt9STCSta5gj0yziWNJkeOmDNV3Z1qbMoHHrqhCBoOlPGO/qCzsc1
-	 z2vRMpbLQr3dIC+swq2hSZJ92Va9Ck+EYrvmnkUNMW2T9pxFJQkr2jLstj/4TlwwtUCfX
-	 xP9XUV4YtctrAiueioVM9S+wArfkXA0NovexLzF15PqsCt4uN1WldYjp7lJLcEmez1g==
+	bh=5BT1om7dMxe0+KPFlhkATOyCWnao3HxieIFWLVHi+3I=;
+	b=SsgsONR5F20KJw06BAYonXh4wxXx5Jq+jfQB+tE01s7wWnC07fP21PuVYJ066OwdCt7b
+	 297CIvbPmxvY/QY8q+DsCwMKYTIXd6HO1XuuHufk0erBNWVAck2WGqQB/yWwEjPY2sdA3
+	 c89vf9y+xGfnaMyhgz+bbZZRkNastKtNsW0gXDskr8Ms2vbB2z2c5Ys0xeYPGR0n6OFUQ
+	 kWYn5YmXnfHhHqnaQs5nwUn7BtyiJ6Js4vdB8RVYXRXeJoXIzKH0nxenqlTECncTLbPHe
+	 SRmU2T6EwpAwLMdofkGErPhAZsdyXpPuYqmSxut+RKu7RO7gG2MFe0brgQOOfYx9IuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=SyyZKvzP;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BNw4fsXN;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A153D606EEAB;
-	Tue,  3 Nov 2026 11:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A153D606EEAB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DCA606EE86;
+	Tue,  3 Nov 2026 11:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54DCA606EE86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=SyyZKvzP
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BNw4fsXN
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 180FC287E;
-	Tue,  3 Nov 2026 12:33:50 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7F2AD27FE;
+	Tue,  3 Nov 2026 12:33:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793705631;
-	bh=F/L5+gkuDrSZcJ30dAJHYqalbmfLemsHzfUp8D8sZNE=;
+	s=mail; t=1793705626;
+	bh=lCX97vVaNf2WptwIp7Q2Y19AtPkuKlMbVEBKL5bbL1U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=SyyZKvzPLK4g5G2Km6cPeZvp8WkIb+iN2bz2BvYSXFlO3AKNECX3yJnCpsa70Aaz5
-	 5/p50Q7jPbCebwKvMBk0+BEUaC+mI/tH5bE3c9K+7N/x9M+kPUO7GPgfjI7gTSnbfG
-	 8ev48aytWw2tIvKWSN9Hu36ZTaAMjwZ/mZAbHnb8=
+	b=BNw4fsXNZN3+/+uDs7U9f54aBfzd9g2SPlmgtU9oPHLaAdVyYK3i/T3kUsLS894O0
+	 kwhUHJLi8yKsZ7Uj5bbk0UYEUIc382SJTcMuZVFozWColUVaBPR2ZvzBsrIu82Rkrv
+	 dONE1xmhSPBOxpaYBbhCzLbB/h3qTXkeD3C+n/7M=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:30 +0200
-Subject: [PATCH v5 10/15] drm/tidss: oldi: Fix cleanup on a failed init
+Date: Tue, 03 Nov 2026 13:34:26 +0200
+Subject: [PATCH v5 06/15] drm/tidss: Use the AM625 features for AM62A7
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-10-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-6-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,48 +73,177 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=892;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5259;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=F/L5+gkuDrSZcJ30dAJHYqalbmfLemsHzfUp8D8sZNE=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccZw4IlyT81hqKavStnM561Q2fWsO615iqL0
- I6H4lEeLUmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGQAKCRD6PaqMvJYe
- 9TcSEACY5+Vp+/E3NpI4r2/xf8ktIe5+uxKMnOZ0b0eCB2ArI6ZP4F6SJ8vJP9aAE10xJf+sJub
- N6UaSa5KtGT/09zMndU1fhNbswi3rXCF49+TyZoYF0ERbeUL/uTCChE9ICeepYjgkc6lAKFkYDK
- yh6Fjt62jidNWKt+u92kkpBAZ+XGmFNFktmNRbdiPWhbzrp8eTQ8FdhKeKArAymYRmU8oxq5WV3
- 5sYA7Dh4tGVcIZQiPk/uetF+UWOF5mDcVw6EdX2cfPC2USSGTv+hMxSN5w+IjYx4HrQq2yizH9D
- 4l/k+SbJp1pqJE+6Ayr0kCYv6oQAuCc6XOmhV4IFPa7fIUU+8OI2TXum+T0gA9rQMMGmVMINuei
- Kx7q0/Thoy9oKifj4PLEXUDGJc2R6o3XQV2IL9b5zTDxC14jPWXTm1kE4o7/LHxzrhvtBT4iUGU
- slkskC+y+olOzTFvuqLZvpqFC6YxhP0OrV7kl71Bsdit4i8vjXdEO8yV+LLm9eM0O4Z8I9leGmW
- Cp+dg7qMz3JkRlbM65Pn3dZROW2h3NZLASflwroP8kJUqxHl0ft/yqE25Ug3AC0BOLLRQPk/FWp
- byqPWvJPbdeXRpkrabKTY1JnPl4h1DoxzSHC/ZrruYzD1biPIdKm1oEKd88NhQqzlzGR4Z4Ohgy
- shiQtBds35Gdvpw==
+ bh=lCX97vVaNf2WptwIp7Q2Y19AtPkuKlMbVEBKL5bbL1U=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccX2ciXsFVaa3ku/BlYaLVhRR5Ey+tYT1l5W
+ 7qqG/rlbreJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFwAKCRD6PaqMvJYe
+ 9W/xD/9BL9boxlQmi12B33BPVysIEAP5++92nJI7q/nIq+JZGfESc1NfrWq28x2gLxXNsG43g6d
+ OO7FLyCvOJmwpA0eKmBU0IP9XaQBDsS2I8X1c9s9DH4sh308Wra91PobvAX+Y+jzoMnMWKvCo0l
+ CBdmmymD6zegBVUBhXqg+zGOAtIX8aHXvzPwMnoUxfPMmmgfBIly4R4GbOYcVF4HIQRw9RQmFEv
+ lBskFKJCzF/k0xmEJJxpJ67cI9jzESvikp2giC+SPbQBy+OqB2jkp6S8IGB8ISLl7JgwSX5gl8Q
+ q71Dw8zOPCkw7gRdKwRk1McNzR2LpeW8JKQO33RGEVgUtjhhg5Zdi7Rm35pr2ixA9OI78XCnywm
+ 4RcTIbbdvuzYpZWqmVutVTtgvnMwiz+2XPK2t8MqmJmQ5O9yfFMLNLI47RzSKNRjNE1ys7UkC06
+ +qHYXAFhFE3jvUiFvQBgp5SEpU2SMY0jnaI4cE9UROQ5xv+NlBLa0FVWtX/er/bSkp8uM2GMqOE
+ oAbI+kS2MU86XHvm3lqGapBrVmzq2Mv3T00UktmWFK1HOlMF01QLoySEUnK2qJVH5SlUfTKjmOa
+ 9+uIUcNTPNIWmgFccuD+weKSIkp4RQ/wMGnfeflNKSyDjPplGr0xYnrAQWvSbIu1d05RG2sHvXt
+ M+dYHosDbWlX6Vw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-tidss_oldi_init() registers a bridge for each OLDI TX in turn. If a later
-OLDI TX fails, the bridges registered for the earlier ones are not
-removed.
+With the recent cleanups, the data in dispc_am62a7_feats is identical to
+dispc_am625_feats, except the subrevision, and the only place where we
+have a difference of behavior wrt. the subrevision is in a debug print.
 
-Fix this by calling tidss_oldi_deinit() in the error path.
+Drop the dispc_am62a7_feats and use dispc_am625_feats for AM62A7. The
+debug print will print a few extra OLDI status bits for AM62A7, which
+are not relevant as AM62A7 doesn't have OLDI, but that is harmless.
 
-Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
-Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 59 -------------------------------------
+ drivers/gpu/drm/tidss/tidss_dispc.h |  2 --
+ drivers/gpu/drm/tidss/tidss_drv.c   |  2 +-
+ 3 files changed, 1 insertion(+), 62 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 506507e83112..7344d86e1f13 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -638,5 +638,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
- err_put_node:
- 	of_node_put(child);
- 	of_node_put(oldi_parent);
-+	tidss_oldi_deinit(tidss);
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index 028cf78df3fe..17390f0c3913 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -350,60 +350,6 @@ const struct dispc_features dispc_am625_feats = {
+ 	.vid_order = {1, 0},
+ };
+ 
+-const struct dispc_features dispc_am62a7_feats = {
+-	.scaling = {
+-		.in_width_max_5tap_rgb = 1280,
+-		.in_width_max_3tap_rgb = 2560,
+-		.in_width_max_5tap_yuv = 2560,
+-		.in_width_max_3tap_yuv = 4096,
+-		.upscale_limit = 16,
+-		.downscale_limit_5tap = 4,
+-		.downscale_limit_3tap = 2,
+-		/*
+-		 * The max supported pixel inc value is 255. The value
+-		 * of pixel inc is calculated like this: 1+(xinc-1)*bpp.
+-		 * The maximum bpp of all formats supported by the HW
+-		 * is 8. So the maximum supported xinc value is 32,
+-		 * because 1+(32-1)*8 < 255 < 1+(33-1)*4.
+-		 */
+-		.xinc_max = 32,
+-	},
+-
+-	.subrev = DISPC_AM62A7,
+-
+-	.common = "common",
+-	.common_regs = tidss_am65x_common_regs,
+-
+-	.num_vps = 2,
+-	.vp_name = { "vp1", "vp2" },
+-	.ovr_name = { "ovr1", "ovr2" },
+-	.vpclk_name =  { "vp1", "vp2" },
+-
+-	.vp_feat = { .color = {
+-			.has_ctm = true,
+-			.gamma_size = 256,
+-			.gamma_type = TIDSS_GAMMA_8BIT,
+-		},
+-	},
+-
+-	.num_vids = 2,
+-
+-	.vid_info = {
+-		{
+-			.name = "vid",
+-			.is_lite = false,
+-			.hw_id = 0,
+-		},
+-		{
+-			.name = "vidl1",
+-			.is_lite = true,
+-			.hw_id = 1,
+-		}
+-	},
+-
+-	.vid_order = {1, 0},
+-};
+-
+ const struct dispc_features dispc_am62l_feats = {
+ 	.subrev = DISPC_AM62L,
+ 
+@@ -945,7 +891,6 @@ dispc_irq_t dispc_read_and_clear_irqstatus(struct dispc_device *dispc)
+ 	case DISPC_K2G:
+ 		return dispc_k2g_read_and_clear_irqstatus(dispc);
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 	case DISPC_J721E:
+@@ -963,7 +908,6 @@ void dispc_set_irqenable(struct dispc_device *dispc, dispc_irq_t mask)
+ 		dispc_k2g_set_irqenable(dispc, mask);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 	case DISPC_J721E:
+@@ -1479,7 +1423,6 @@ void dispc_ovr_set_plane(struct dispc_device *dispc, u32 hw_plane,
+ 					x, y, layer);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 		dispc_am65x_ovr_set_plane(dispc, hw_plane, hw_videoport,
+@@ -2384,7 +2327,6 @@ static void dispc_plane_init(struct dispc_device *dispc)
+ 		dispc_k2g_plane_init(dispc);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 	case DISPC_J721E:
+@@ -2501,7 +2443,6 @@ static void dispc_vp_write_gamma_table(struct dispc_device *dispc,
+ 		dispc_k2g_vp_write_gamma_table(dispc, hw_videoport);
+ 		break;
+ 	case DISPC_AM625:
+-	case DISPC_AM62A7:
+ 	case DISPC_AM62L:
+ 	case DISPC_AM65X:
+ 		dispc_am65x_vp_write_gamma_table(dispc, hw_videoport);
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index ebaf559d56e5..d07352f7b2bd 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -63,7 +63,6 @@ enum dispc_dss_subrevision {
+ 	DISPC_K2G,
+ 	DISPC_AM625,
+ 	DISPC_AM62L,
+-	DISPC_AM62A7,
+ 	DISPC_AM65X,
+ 	DISPC_J721E,
+ };
+@@ -96,7 +95,6 @@ static inline bool dispc_vp_is_am65x_oldi(const struct dispc_features *feat,
+ 
+ extern const struct dispc_features dispc_k2g_feats;
+ extern const struct dispc_features dispc_am625_feats;
+-extern const struct dispc_features dispc_am62a7_feats;
+ extern const struct dispc_features dispc_am62l_feats;
+ extern const struct dispc_features dispc_am65x_feats;
+ extern const struct dispc_features dispc_j721e_feats;
+diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
+index 44b0b009c29a..7e7f2ba6ae82 100644
+--- a/drivers/gpu/drm/tidss/tidss_drv.c
++++ b/drivers/gpu/drm/tidss/tidss_drv.c
+@@ -238,7 +238,7 @@ static void tidss_shutdown(struct platform_device *pdev)
+ static const struct of_device_id tidss_of_table[] = {
+ 	{ .compatible = "ti,k2g-dss", .data = &dispc_k2g_feats, },
+ 	{ .compatible = "ti,am625-dss", .data = &dispc_am625_feats, },
+-	{ .compatible = "ti,am62a7-dss", .data = &dispc_am62a7_feats, },
++	{ .compatible = "ti,am62a7-dss", .data = &dispc_am625_feats, },
+ 	{ .compatible = "ti,am62l-dss", .data = &dispc_am62l_feats, },
+ 	{ .compatible = "ti,am65x-dss", .data = &dispc_am65x_feats, },
+ 	{ .compatible = "ti,j721e-dss", .data = &dispc_j721e_feats, },
 
 -- 
 2.43.0
