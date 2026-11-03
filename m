@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716450;
-	b=VNerkkiHvCYCrULC7Z8xoTZ6JWNW3kzY+gC2YPtsfL91l2bt5mHx9efqW920QYax9Vm6
-	 2zEHWqGNlvp21JghgYOOW8tL8fjLWq6aMh6WHGoRSdfL6Q2Mf6t+j5JkPG4VGXBL4CC00
-	 FiJnqQynzfDomUtQIY5fqC4D33RuBan5uWgwBQF7dAmi7H7Uptap9Yrg6197dLLOWsHRc
-	 VmsTWebZhI0NI8Tu9o4g54ybHBYL2eyL4P8UYRtFhHWeAzSS1iDcPoaZo+Uhs6tI34Dfb
-	 22ynvAQOvfM6oKRGr0/tQ8Fr/IaOOBIovcvq/gmE+lahaoBTt1veDw1J9qy/JvP7QKQ==
+	t=1793716521;
+	b=M1C4PYxWSxrpl3nFM6S2dQXyGqX4+47siEZArah6MEnhsBgiGOmASpELtFA5plUW7ZVx
+	 otFzBlVmWiuTdAvvD9SrOJRPR95NAQmMY46NWqKKHGX2IydHnAHRm1l3WRaWhVuWKIwUI
+	 sB9EFRkXqjkxM142oY14kICs6d0yLokFixzyMIVi0rZZ0JeWYc7C8mY6g8u0c7F2Bw5Xi
+	 R1BiwgX2kGFHMX1K7Rjz+TOwArmKwwjPvzdGArjxBaOkpFUuSYIqDqbBejEGS0+4uUtw7
+	 2Fi0F6y2+IrJ1gCkCqcx9CcwEfpTOTVWw5uoVjks8AutGACychb3rV0TqJarsOVdsdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716450;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
-	b=yG3oaLWriQkDDnqIZB6/a6RiS66fuFqIuhvJ/tAbJS3UVfvuSZKSmmlZ4FfjFwO8J99S
-	 HP+7o0PHBEP3tYFcjTy6Bkc4/3xrS+h0aVGdaW730awn3i1yUoKJ237exF2rUNgRbkXS/
-	 Vo7qk1n3APnOckm6kdZD6yhghuIgV126OohznCtMZhCamSFOg46Y1LfSewux0Fq13QPMw
-	 0eGPtESzbaqUY5r5En/yCnQiiD43kTaN5dlNTg+ie9ubbzlH9KKxzp3SR0gCjslzXcQEy
-	 k++U09w1nfUlivs+aYbb818BJScU+v9ssN+y1hWSlT18yNqhEJMBuIa6hS3kHSP6tDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716521;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JUCwd//FmrYIyWVKE8rnl37bcrsYgZt5lQx6QxyFuDc=;
+	b=t86n+6veImwa7FWyc9hx4smCl+7HGY8WFXeXKrb/NRD7MlMr0ViSwSbeV5FnLMdUa7j8
+	 87o7FHYtY0S4NUMrCIjX0TFk1znpXm9u3eT7UlmDprtS1b0EIBycn/2m82ijXR7TpEIfT
+	 X17Xddmc8nyYAgkHHp6Sr4z2D3+tdMuC0VYugjR/8Yje5tkqF/JeiVeuvo8A47enjO7rY
+	 f9JA8BPqb8rxKsq+FbuhsopL2XJ4f519HbLqlzGKN8Xr4h+qoiktX83ABvkgIoJbhLLxZ
+	 b2YzdvoBIGhvsu1EpoCHCxiusYkf5EuW3aO7K4sO+ZHxMTTkNorUnrtZc71dJ2mZt3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz;
-	arc=none smtp.remote-ip=79.135.106.98
-Received: from mail-10698.protonmail.ch (mail-10698.protonmail.ch [79.135.106.98])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCPPfE5I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A18F606A33B
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 14:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A18F606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7779606A324;
+	Tue,  3 Nov 2026 14:35:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=sJYuyUCz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793716447; x=1793975647;
-	bh=4ei8VWimnYV+Bwu8FysUlKVY7l28DimLQlCI3Ur68F8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=sJYuyUCzkNU/lmgDb0NwnnxE4957XBhDJxljyhYhXxubK3nITlCHcpr75CZzF6D4h
-	 DBF5FLZKmS4dGUFfXmTjgHmbKH7lDuCX/YctsWdU73r9Evkx4Zutb1RmFVGlgfghec
-	 dLX+dM4dVCsv3WhVe19+/Fc7zNy/YskLFq04IKQkLttpCTvDNaPyLv5+ASOALXSTm2
-	 6pd3bQsxfLza73fL+JIyAC2ippfNzBF54nXiXuMMfc5+mkVjJq0OLEZ3aVn4WFCBZM
-	 OicfTi4OMHZ7i+oSY9i5J3biCLw8igL5SZfJzsZgkt8R2vekBLQ/9ZiiEXjbaIxsZf
-	 1xqmPJLsU/syg==
-Date: Tue, 03 Nov 2026 14:34:02 +0000
-To: Daniel Thompson <danielt@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
-Message-ID: <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
-In-Reply-To: <aunqGVkX7-Y61iDA@aspen.lan>
-References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com> <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com> <aunqGVkX7-Y61iDA@aspen.lan>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 53d7bfe873821e818f7ca436899c3f949815e231
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCPPfE5I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EA91F000C1;
+	Tue,  3 Nov 2026 14:35:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793716520;
+	bh=JUCwd//FmrYIyWVKE8rnl37bcrsYgZt5lQx6QxyFuDc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MCPPfE5IQUsUCSSpr/kws0u6Rc13Fd4yc1ZJkGISyjSXGE86OkdCGuMmVzmdFKhsL
+	 kLGvXsv1YWtb6IlqgVmfn9/MBKoMiBRv/OmWF+RzFKOd8Ao/Lrb3MqQ2LE9SaXUxM0
+	 bSEOWAW+XnoLJhCJMlDcjPxcTqT0xom7U1KVa3snkxAyD3mUa7R43cIJcJKvaRujfc
+	 j1E117HcnIjSRzgZfazyU5hCl5ZVNfO18pD59pl+9QVReUy+/upMnkeiFW7KMgEUDj
+	 74LfOJ/8JXcEDWiY5ejDW9CaF8QDUZlqe8WEDJ9CzOZeEI1WfGGKV/P+UIsvRPrjNb
+	 KZZ+zx1EWcKnA==
+Message-ID: <sashiko-outbox-195459@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] usb: dwc3: qcom: Use the UTMI clock as PIPE
+ clock in DisplayPort-only modes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joonhoe Kim" <26rote@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103135057.1682-3-26rote@gmail.com>
+References: <20261103135057.1682-1-26rote@gmail.com>
+ <20261103135057.1682-3-26rote@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 14:35:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,80 +60,230 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Daniel,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] usb: dwc3: qcom: broken Type-C state handling in dwc3_qcom_mux_set=
+()
+- [High] usb: dwc3: qcom: PM races and lost clock switches with dwc3_qcom_m=
+ux_set()
+--
 
-On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@kernel.=
-org> wrote:
+commit 8f6090d15a3eafa1d84e143a83d04937bda97612
+Author: Joonhoe Kim <26rote@gmail.com>
 
-> On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay wrot=
-e:
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > Kinetic KTD3137 is an LED IC, used in various mobile devices for the
-> > display backlight. Add devicetree bindings documentation for this chip.
-> >
-> > Datasheet: https://www.kinet-ic.com/uploads/KTD3137-04a.pdf
-> >
-> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> > ---
-> >  .../bindings/leds/backlight/kinetic,ktd3137.yaml   | 64 ++++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |  5 ++
-> >  2 files changed, 69 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/leds/backlight/kinetic,k=
-td3137.yaml b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3=
-137.yaml
-> > new file mode 100644
-> > index 000000000000..140615640a9a
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.=
-yaml
-> > @@ -0,0 +1,64 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/leds/backlight/kinetic,ktd3137.yaml=
-#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Kinetic Technologies KTD3137 LED Backlight
-> > +
-> > +maintainers:
-> > +  - Roman Vivchar <rva333@protonmail.com>
-> > +
-> > +description:
-> > +  The Kinetic Technologies KTD3137 is an I2C LED backlight driver for =
-medium
-> > +  to large size LCD panels.
-> > <snip>
-> > +  led-max-microamp:
-> > +    minimum: 5000
-> > +    maximum: 29800
-> > +    default: 20200
-> > +
-> > +  vin-supply: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vin-supply
->=20
-> Why is vin-supply required?
->
+usb: dwc3: qcom: Use the UTMI clock as PIPE clock in DisplayPort-only modes
 
-The chip cannot function without VIN power supply. Even if it's on the
-always-on power rail on certain board, there's always a chance it might be
-accidentally left disabled on the other. It's better to document supply in
-the bindings as far as I understand.
+This commit registers the Qualcomm DWC3 glue driver as a Type-C mode switch
+when the mode-switch property is present. It switches the controller to use
+the UTMI clock in place of the PIPE clock during 4-lane DisplayPort-only
+modes (pin assignments C and E) so that USB 2.0 continues to work when the
+QMP combo PHY powers down its USB PCS.
 
-Best regards,
-Roman
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index ac68b4218b56b..71b0402f0ae66 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+[ ... ]
+> @@ -419,21 +429,72 @@ static irqreturn_t qcom_dwc3_resume_irq(int irq, vo=
+id *data)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> -static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
+> +static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom, bool utmi)
+>  {
+> -	/* Configure dwc3 to use UTMI clock as PIPE clock not present */
+>  	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+>  			  PIPE_UTMI_CLK_DIS);
+> =20
+>  	usleep_range(100, 1000);
+> =20
+> -	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+> -			  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
+> +	if (utmi)
+> +		dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+> +				  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
+> +	else
+> +		dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+> +				  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
+> =20
+>  	usleep_range(100, 1000);
+> =20
+>  	dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+>  			  PIPE_UTMI_CLK_DIS);
+> +
+> +	qcom->utmi_pipe_clk =3D utmi;
+> +}
+> +
+> +static int dwc3_qcom_mux_set(struct typec_mux_dev *mux,
+> +			     struct typec_mux_state *state)
+> +{
+> +	struct dwc3_qcom *qcom =3D typec_mux_get_drvdata(mux);
+> +
+> +	guard(mutex)(&qcom->pipe_clk_lock);
+> +
+> +	if (state->alt && state->alt->svid =3D=3D USB_TYPEC_DP_SID) {
+> +		if (!qcom->dp_active)
+> +			qcom->dp_only =3D state->mode =3D=3D TYPEC_DP_STATE_C ||
+> +					state->mode =3D=3D TYPEC_DP_STATE_E;
+> +		qcom->dp_active =3D true;
+> +	} else if (state->mode =3D=3D TYPEC_STATE_SAFE) {
+> +		qcom->dp_active =3D false;
+> +	} else if (!qcom->dp_active) {
+> +		qcom->dp_only =3D false;
+> +	}
 
->=20
-> Daniel.
-> 
+[Severity: High]
+When the Type-C DisplayPort altmode driver transitions through the safe
+state or exits altmode, typec_altmode_set_mux() in drivers/usb/typec/bus.c
+populates state.alt with the DP altmode device (where state.alt->svid is
+USB_TYPEC_DP_SID):
+
+drivers/usb/typec/bus.c:typec_altmode_set_mux()
+	state.alt =3D &alt->adev;
+	state.mode =3D conf;
+	state.data =3D data;
+
+	return typec_mux_set(alt->mux, &state);
+
+Before configuring pin assignment C or E, typec_altmode_enter() and
+dp_altmode_configure_vdm() in drivers/usb/typec/altmodes/displayport.c
+first place the connector into TYPEC_STATE_SAFE via typec_altmode_notify().
+Because dwc3_qcom_mux_set() checks state->alt && state->alt->svid =3D=3D
+USB_TYPEC_DP_SID before checking state->mode =3D=3D TYPEC_STATE_SAFE, that
+initial TYPEC_STATE_SAFE notification enters the first branch, sets
+qcom->dp_only =3D false, and sets qcom->dp_active =3D true. When
+dp_altmode_configured() then notifies TYPEC_DP_STATE_C or TYPEC_DP_STATE_E,
+qcom->dp_active is already true, so qcom->dp_only is not updated and
+dwc3_qcom_select_utmi_clk() is never called.
+
+Similarly, on disconnect or mode exit, typec_altmode_exit(), typec_remove(),
+and dp_altmode_notify() pass state->alt->svid =3D=3D USB_TYPEC_DP_SID with
+TYPEC_STATE_SAFE or TYPEC_STATE_USB, which also hit the first branch and
+leave qcom->dp_active and qcom->dp_only stuck.
+
+In addition, qmp_combo_typec_mux_set() in
+drivers/phy/qualcomm/phy-qcom-qmp-combo.c only delays a PHY mode switch
+when qmp->dp_powered_on is true:
+
+	if (qmp->qmpphy_mode !=3D QMPPHY_MODE_USB3_ONLY && qmp->dp_powered_on) {
+		dev_dbg(qmp->dev, "typec_mux_set: DP PHY is still in use, delaying switch=
+\n");
+		return 0;
+	}
+
+If a port driver such as pmic_glink_altmode enters TYPEC_DP_STATE_D while
+qmp->dp_powered_on is false and then reconfigures to TYPEC_DP_STATE_C or
+TYPEC_DP_STATE_E without an intervening TYPEC_STATE_SAFE, the PHY switches
+to QMPPHY_MODE_DP_ONLY while dwc3_qcom_mux_set() skips updating
+qcom->dp_only because qcom->dp_active is already true.
+
+Should state->mode =3D=3D TYPEC_STATE_SAFE and TYPEC_STATE_USB be checked
+before inspecting state->alt, and can gating qcom->dp_only on
+!qcom->dp_active miss valid transitions to DP-only mode?
+
+> +
+> +	if (qcom->ignore_pipe_clk || qcom->pm_suspended ||
+> +	    qcom->dp_only =3D=3D qcom->utmi_pipe_clk ||
+> +	    pm_runtime_resume_and_get(qcom->dev))
+> +		return 0;
+> +
+> +	dwc3_qcom_select_utmi_clk(qcom, qcom->dp_only);
+> +	pm_runtime_put_autosuspend(qcom->dev);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> @@ -756,6 +825,8 @@ static int dwc3_qcom_pm_suspend(struct device *dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	guard(mutex)(&qcom->pipe_clk_lock);
+> +
+>  	ret =3D dwc3_qcom_suspend(qcom, wakeup);
+>  	if (ret)
+>  		return ret;
+> @@ -772,11 +843,17 @@ static int dwc3_qcom_pm_resume(struct device *dev)
+>  	bool wakeup =3D device_may_wakeup(dev);
+>  	int ret;
+> =20
+> -	ret =3D dwc3_qcom_resume(qcom, wakeup);
+> -	if (ret)
+> -		return ret;
+> +	scoped_guard(mutex, &qcom->pipe_clk_lock) {
+> +		ret =3D dwc3_qcom_resume(qcom, wakeup);
+> +		if (ret)
+> +			return ret;
+> =20
+> -	qcom->pm_suspended =3D false;
+> +		if (!qcom->ignore_pipe_clk &&
+> +		    qcom->dp_only !=3D qcom->utmi_pipe_clk)
+> +			dwc3_qcom_select_utmi_clk(qcom, qcom->dp_only);
+> +
+> +		qcom->pm_suspended =3D false;
+> +	}
+> =20
+>  	ret =3D dwc3_pm_resume(&qcom->dwc);
+>  	if (ret)
+
+[Severity: High]
+How does the synchronization between dwc3_qcom_mux_set(), system sleep, and
+runtime PM handle the following cases?
+
+1. In dwc3_qcom_pm_resume(), qcom->pm_suspended is cleared and
+qcom->pipe_clk_lock is released before dwc3_pm_resume(&qcom->dwc) runs:
+
+drivers/usb/dwc3/core.c:dwc3_pm_resume()
+	pm_runtime_disable(dev);
+	ret =3D pm_runtime_set_active(dev);
+	if (ret)
+		goto out;
+
+	ret =3D dwc3_resume_common(dwc, PMSG_RESUME);
+
+If dwc3_qcom_mux_set() runs on a workqueue right after pipe_clk_lock is
+released:
+- Before pm_runtime_disable(dev), if the device was runtime-suspended prior
+  to system sleep, pm_runtime_resume_and_get(qcom->dev) can trigger
+  dwc3_qcom_runtime_resume() -> dwc3_runtime_resume(&qcom->dwc)
+  concurrently with dwc3_pm_resume(&qcom->dwc).
+- Between pm_runtime_disable(dev) and pm_runtime_enable(dev), if last_status
+  was RPM_SUSPENDED, pm_runtime_resume_and_get(qcom->dev) returns -EACCES
+  and dwc3_qcom_mux_set() returns 0 after dwc3_qcom_pm_resume() has already
+  checked qcom->dp_only !=3D qcom->utmi_pipe_clk, losing the clock switch.
+- If the device was runtime-active, pm_runtime_resume_and_get(qcom->dev)
+  succeeds and dwc3_qcom_select_utmi_clk() gates PIPE_UTMI_CLK_DIS while
+  dwc3_resume_common() is resetting and reinitializing the DWC3 core.
+
+2. In dwc3_qcom_pm_suspend(), dwc3_pm_suspend(&qcom->dwc) runs before
+acquiring qcom->pipe_clk_lock and setting qcom->pm_suspended =3D true. If t=
+he
+device was runtime-suspended, a concurrent dwc3_qcom_mux_set() call can
+invoke pm_runtime_resume_and_get(qcom->dev) -> dwc3_qcom_runtime_resume()
+after dwc3_pm_suspend() has completed, and dwc3_qcom_suspend() will then
+disable qcom->clks while the DWC3 core and PHYs are active.
+
+3. When the device is runtime-suspended in device role without wakeup,
+dwc3_qcom_prepare() -> dwc3_pm_prepare() returns 1, enabling the PM core
+direct_complete path, which disables runtime PM and skips both
+dwc3_qcom_pm_suspend() and dwc3_qcom_pm_resume(). If dwc3_qcom_mux_set() is
+called during system sleep under direct_complete, qcom->pm_suspended is
+false and pm_runtime_resume_and_get(qcom->dev) fails with -EACCES. Because
+dwc3_qcom_runtime_resume() does not check qcom->dp_only !=3D
+qcom->utmi_pipe_clk, the pending clock switch is never applied on a
+subsequent runtime resume.
+
+4. When the controller is runtime-suspended and dwc3_qcom_mux_set() calls
+pm_runtime_resume_and_get(qcom->dev), dwc3_qcom_runtime_resume() calls
+dwc3_runtime_resume(&qcom->dwc) before dwc3_qcom_mux_set() switches the
+clock via dwc3_qcom_select_utmi_clk().
+
+Could the clock selection check be performed inside dwc3_qcom_resume() (so
+both system resume and runtime resume apply any pending change before the
+core resumes), with qcom->pipe_clk_lock and qcom->pm_suspended covering the
+full suspend and resume sequences?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103135057.1682=
+-1-26rote@gmail.com?part=3D2
