@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793664318;
-	b=pmDnt0+6m48HDfT/W0IZUm9bt6yDXGRuqkd9DWxvC2vAfytEU+k/LOTP8FmoOfFv9WeB
-	 TVdHMsLfb/tPy3zNhIGy+OjcTavcNVy/akYVMigcjwFBJz2oTVURfWwAt8RqUIGDD2q47
-	 e/1QYNuRiP/kM19OysVwS8lnPw73MngqNGmO0aRhkcKVz84aESp53PGDG4DmJOiyTyu0H
-	 sSIStA1pRQmqXeX0CaBos5yuAub0E8YCN3dR5SXfF03lbCDkfPzfxNgEqmbaSIZa6K8Er
-	 j/OckrzESRa6VkwSt7Nvjs/8Lo+AY9LW6OO2IZBTR/BuDc2aNpOLohFKmkPv0OfBRQg==
+	t=1793664490;
+	b=PZy0IOAaXmKYMGJe2cHaatLST0xSq3vkQE7PatMPkhLXOB2yqIfoUwZ6pS7kDSxnNENa
+	 DKxmuAmd17EZ2qgoOYKlOXepsBlMQJPOA91oYk1YCZFAFwPuwUQJ/IL2ePfA86hHSzwnj
+	 XoJA3lUlEj8l5+uhzxnjD2ilCYNjs60IT2XcfYHJ3+/YeeeNM1Igu8VcG5/K7XfW2jhr4
+	 BNdRl/dQme8Ci4XKYxo0U5iS7ojau5XyGIysiK7fABQHK3vT2fxYyiW6cM+cs6SIWMWCX
+	 XC3hqov0BNDssMsH+oNRmQw7FuxItDIHLv4mUAuRWluVNbmKKxXAT2QUQhb1V/yn3nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793664318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793664490;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=qeB2TLU5FfiVlcNQvlfLjI69C5+H9lKLzqIcjDo7DDU=;
-	b=BTOq3Auz8NBXEQ1as2rFHyQOidZUurqrHje6AMqEEsEdAxp8NM6d6ar5n+hnweN9Rnk+
-	 jSWA8VZrYvkKeBKM5NloopQOL7aVF8R8da5EAcsgHteAiQ0+ydALRRMJT25T7haxY0jzJ
-	 oeDdenDBrrRJE3qYLDkGnGKNQtDF7b4M1Edh89lHDgKKd7sTub9vjFX0I0Aq35gIgU4B2
-	 tOU4oQFDu26kA04YyXbEsubft1TMKV10BnBD8z9qGlkPPaY+eWgP204tjoctEKi5ZKeyi
-	 hzmoQ7dxKcZ/hkldBUKjyUVILCHyKfZYAejnj+mHhtEtBvi4C4NdIaEmyF/rMvr99zg==
+	bh=JwMFLLfKvXgE8eknGGRABoKdTh4BgliElDneW6vU7B0=;
+	b=YT51DEOzERYBS5OXlbipSbvmdMpuIuSH3cczQ8rSJtq9HRBXFSWEpod52NMqFX7vWeu8
+	 KiLP1xEtbvSuKu7CJdsJSKuu/2azUlzsYPr6kc0jEHFQRWf+u5sNBj9vFLQZ5rhC9EdbR
+	 44zC+/0ZutGMGDN3NbFhxrE4ZMZpCkn6O1nuB5t0tOVEAVHjYZQsV07DU1DuYpEJ8zvjD
+	 HPjkt19e+DtQkDXvm9mBH169j4rIfBCb9krnc8zDc5GgOSr07Cpi5bndOLauq24mltrvb
+	 NQMls91dylsO7J8qZYEqnUsbLSnUFnZFn5GIQ2VO81VH8OHnCYjIg8Mu7zkVOmozsaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUkB65Zm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4DiEI30;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AD0606A326;
-	Tue,  3 Nov 2026 00:05:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBEDC606A326;
+	Tue,  3 Nov 2026 00:08:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bUkB65Zm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3DC91F000C1;
-	Tue,  3 Nov 2026 00:05:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z4DiEI30
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4901F000C1;
+	Tue,  3 Nov 2026 00:08:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793664317;
-	bh=qeB2TLU5FfiVlcNQvlfLjI69C5+H9lKLzqIcjDo7DDU=;
+	s=k20260515; t=1793664489;
+	bh=JwMFLLfKvXgE8eknGGRABoKdTh4BgliElDneW6vU7B0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bUkB65ZmM+b03Vv0bwC73U5LqIorwsGMth5a59X9fT41EaRUkUHuqgl/ZgFwkKTzf
-	 d5gKl26U52jc74M+B/rlU97lzO81Hg9DRbVtePt+BHYB+uFdWHkij8iaB2BoKXLkP+
-	 ONjAMqLa3gdoM7N6RtUtL6vDWBEPwn+hZ3DbK4sJ7Z3NPIZGrTHnJOsB4v7SJS9N8h
-	 zPL3AetKNv9FBKUrAz2r0fsYh33cLNSpHMqhHupy8PQ58Jyu1K5ipxXOpg/jfozdW9
-	 xFkdaAoi5XCePfr5o5Ndb2IVWoStCtf9Snb4HGt0M8AOK3lF5HnQ4eiAkwvwTsWcBf
-	 mWnfhNwrr+YMw==
-Message-ID: <sashiko-outbox-194355@kernel.org>
+	b=Z4DiEI308tq2NK3yFpWgMO1dRs3beITz1yKUFKQ17pkv1mfSb8h55gU60/kB2tM7Q
+	 VbfZDM1NAfIwjZml8nk6Mt8W1hi3iohyVq7yuhEAxxxmyG5rZi2LCknXpGPu8dywDx
+	 eCRqs7sMWKyQ+v9golC+bV3wN01LhXRGnPBsw8mgjZ1uv+eEoiTGkdQxVR71OalWJW
+	 csibbvY4fhhx2C1ZOARaYG8WynPhhERHNTn6JWjpHB5NyVjwPe0zZITXpqAYe30MB6
+	 cyr7iv0cpXcc9S/80UnpavJqdKRNu4f3MzjpV5xwiHGjCKhSvGLgDKuBERbnrAicP2
+	 BlcncNhpMju8w==
+Message-ID: <sashiko-outbox-194360@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/11] dt-bindings: gpio: vf610: fix clock
- requirements per SoC
+Subject: Re: [PATCH v15 2/3] perf: Add Raspberry Pi BCM2835 AXI PMU driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261103-gpio-vf610-fixes-v2-1-7c71fb36e184@nxp.com>
-References: <20261103-gpio-vf610-fixes-v2-0-7c71fb36e184@nxp.com>
- <20261103-gpio-vf610-fixes-v2-1-7c71fb36e184@nxp.com>
+To: "Ian Rogers" <irogers@google.com>
+Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102234301.2242242-3-irogers@google.com>
+References: <20261102234301.2242242-1-irogers@google.com>
+ <20261102234301.2242242-3-irogers@google.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 00:05:16 +0000
+Date: Tue, 03 Nov 2026 00:08:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,120 +60,169 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] dt-bindings: gpio: vf610: unwieldy per-compatible conditionals in s=
-chema
+- [High] perf: rpi_axi_pmu: NULL ctx deref in rpi_axi_pmu__validate_group()
+- [Low] perf: rpi_axi_pmu: enforce RPI_AXI_MAX_EVENTS limit in group valida=
+tion
+- [Low] perf: rpi_axi_pmu: Kconfig depends on undefined symbol RPI_AXIPERF
 --
 
-commit f45327f7512fd2e644abcea33601844cbc02415b
-Author: Peng Fan <peng.fan@nxp.com>
+commit 3a239421611725bee7d8e283cbdeacf0ec2bf701
+Author: Ian Rogers <irogers@google.com>
 
-dt-bindings: gpio: vf610: fix clock requirements per SoC
+perf: Add Raspberry Pi BCM2835 AXI PMU driver
 
-This patch updates Documentation/devicetree/bindings/gpio/gpio-vf610.yaml to
-set minItems: 1 on clocks and clock-names and adds per-compatible if-then
-rules under allOf requiring two clocks for fsl,imx7ulp-gpio and one clock f=
-or
-fsl,imx8ulp-gpio.
+This commit adds a perf PMU driver for the Raspberry Pi System and VideoCore
+AXI performance monitors on Broadcom BCM2835 and BCM2711 platforms.
 
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml b/Doc=
-umentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> index a31f64b6d40b4..822fa11d18d97 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> @@ -57,11 +57,13 @@ properties:
->      maxItems: 32
+> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+> index 245e7bb763b99..c1d7d64caba28 100644
+> --- a/drivers/perf/Kconfig
+> +++ b/drivers/perf/Kconfig
+> @@ -325,4 +325,18 @@ config NVIDIA_TEGRA410_C2C_PMU
+>  	  Enable perf support for counters in NVIDIA C2C interface of NVIDIA
+>  	  Tegra410 SoC.
 > =20
->    clocks:
-> +    minItems: 1
->      items:
->        - description: SoC GPIO clock
->        - description: SoC PORT clock
-> =20
->    clock-names:
-> +    minItems: 1
->      items:
->        - const: gpio
->        - const: port
-> @@ -116,6 +118,36 @@ allOf:
->          reg:
->            items:
->              - description: GPIO register base address
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx7ulp-gpio
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +        clock-names:
-> +          minItems: 2
-> +          maxItems: 2
-> +      required:
-> +        - clocks
-> +        - clock-names
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx8ulp-gpio
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        clock-names:
-> +          maxItems: 1
-> +      required:
-> +        - clocks
-> +        - clock-names
+> +config RPI_AXI_PMU
+> +	tristate "Raspberry Pi AXI Performance Monitor"
+> +	depends on ARCH_BCM2835 || COMPILE_TEST
+> +	depends on !RPI_AXIPERF
 
 [Severity: Low]
-This isn't a bug, but in Documentation/devicetree/bindings/gpio/gpio-vf610.=
-yaml
-nearly every hardware resource property now differs between the
-fsl,vf610-gpio / fsl,imx7ulp-gpio dual-module PORT+GPIO controller and the
-fsl,imx8ulp-gpio family (including fsl,imx93-gpio, fsl,imx94-gpio, and
-fsl,imx95-gpio), which does not share a compatible fallback with
-fsl,vf610-gpio.
+Should this dependency on !RPI_AXIPERF be removed from the patch before it =
+is
+applied?
 
-The existing conditional in allOf already splits reg and interrupts between=
- the
-two hardware families:
+RPI_AXIPERF is not defined in the mainline kernel tree, and although the no=
+te
+below the --- separator asks maintainers to delete this line when applying,
+tools like git am and b4 strip the note and commit the undefined Kconfig
+symbol directly, which triggers scripts/checkkconfigsymbols.py warnings.
 
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - fsl,vf610-gpio
-              - fsl,imx7ulp-gpio
-    then:
-      properties:
-        interrupts:
-          maxItems: 1
-        reg:
-          items:
-            - description: PORT register base address
-            - description: GPIO register base address
-    else:
-      properties:
-        interrupts:
-          minItems: 2
-        reg:
-          items:
-            - description: GPIO register base address
+[ ... ]
 
-With clocks and clock-names also diverging across variants, would it be
-cleaner to split the fsl,imx8ulp-gpio binding into a separate schema docume=
-nt
-(or at least fold the fsl,imx8ulp-gpio clock constraints into the existing
-else branch above) rather than adding more per-compatible if-then blocks to
-allOf?
+> diff --git a/drivers/perf/rpi_axi_pmu.c b/drivers/perf/rpi_axi_pmu.c
+> new file mode 100644
+> index 0000000000000..f194b8633e434
+> --- /dev/null
+> +++ b/drivers/perf/rpi_axi_pmu.c
+
+[ ... ]
+
+> +static bool rpi_axi_pmu__validate_group(struct perf_event *event)
+> +{
+> +	struct perf_event *sibling, *leader =3D event->group_leader;
+> +	struct rpi_axi_hw_events fake_hw_events[MON_MAX];
+> +
+> +	rpi_axi_hw_events__init(&fake_hw_events[MON_SYSTEM]);
+> +	rpi_axi_hw_events__init(&fake_hw_events[MON_VPU]);
+> +	if (!rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, leader))
+> +		return false;
+> +	for_each_sibling_event(sibling, leader) {
+> +		if (!rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, sibling))
+> +			return false;
+> +	}
+> +	return rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, event);
+> +}
+
+[Severity: High]
+Can calling for_each_sibling_event(sibling, leader) when leader =3D=3D event
+cause a NULL pointer dereference under CONFIG_PROVE_LOCKING=3Dy, and also
+validate the group leader twice?
+
+When userspace opens a standalone event or group leader via perf_event_open=
+()
+with group_fd =3D=3D -1, perf_event_alloc() sets event->group_leader =3D ev=
+ent and
+calls perf_init_event() -> perf_try_init_event() while event->ctx is still
+NULL:
+
+kernel/events/core.c:perf_try_init_event() {
+	if (event->group_leader !=3D event && pmu->task_ctx_nr !=3D perf_sw_contex=
+t) {
+		ctx =3D perf_event_ctx_lock_nested(event->group_leader,
+						 SINGLE_DEPTH_NESTING);
+		BUG_ON(!ctx);
+	}
+
+	event->pmu =3D pmu;
+	ret =3D pmu->event_init(event);
+}
+
+Because rpi_axi_pmu_event_init() -> rpi_axi_pmu__validate_group() does not
+return early when leader =3D=3D event, it proceeds to for_each_sibling_even=
+t():
+
+include/linux/perf_event.h:
+#define for_each_sibling_event(sibling, event)			\
+	lockdep_assert_event_ctx(event);			\
+	if ((event)->group_leader =3D=3D (event))			\
+		list_for_each_entry((sibling), &(event)->sibling_list, sibling_list)
+
+With CONFIG_PROVE_LOCKING=3Dy, lockdep_assert_event_ctx(leader) evaluates
+lockdep_is_held(&leader->ctx->mutex) while leader->ctx is NULL, dereferenci=
+ng
+a near-NULL address inside lockdep. In addition, when leader =3D=3D event, =
+the
+final rpi_axi_pmu__validate_event(event->pmu, fake_hw_events, event) call
+validates the leader a second time.
+
+Should rpi_axi_pmu__validate_group() return true immediately after validati=
+ng
+leader when leader =3D=3D event (or skip calling rpi_axi_pmu__validate_grou=
+p() in
+rpi_axi_pmu_event_init() when event->group_leader =3D=3D event)?
+
+[ ... ]
+
+> +static int rpi_axi_pmu_add(struct perf_event *event, int flags)
+> +{
+> +	struct rpi_axi_pmu *pmu =3D pmu_to_rpi_axi_pmu(event->pmu);
+> +	enum monitor mon =3D config_to_monitor(event->attr.config);
+> +	struct rpi_axi_hw_events *hw_events =3D &pmu->monitor[mon].hw_events;
+> +	unsigned long spinflags;
+> +	int idx, slot =3D -1;
+> +
+> +	raw_spin_lock_irqsave(&pmu->lock, spinflags);
+> +	idx =3D rpi_axi_hw_events__get_alloc_event_idx(hw_events, event);
+> +	if (idx < 0) {
+> +		raw_spin_unlock_irqrestore(&pmu->lock, spinflags);
+> +		return -EAGAIN;
+> +	}
+> +
+> +	for (int i =3D 0; i < RPI_AXI_MAX_EVENTS; i++) {
+> +		if (!pmu->events[i]) {
+> +			slot =3D i;
+> +			pmu->events[i] =3D event;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (slot < 0) {
+
+[Severity: Low]
+What happens if userspace creates an event group with more than
+RPI_AXI_MAX_EVENTS (66) hardware events targeting this PMU that share at mo=
+st
+3 (bus, filter) pairs per monitor?
+
+In rpi_axi_pmu_event_init() -> rpi_axi_pmu__validate_group() ->
+rpi_axi_pmu__validate_event() -> rpi_axi_hw_events__get_alloc_event_idx(),
+events targeting the same (monitor, bus, filter) increment
+fake_hw_events[mon].refcount[i] without checking the total number of PMU
+events against RPI_AXI_MAX_EVENTS, so rpi_axi_pmu_event_init() succeeds.
+
+However, when group_sched_in() attempts to schedule the group via
+rpi_axi_pmu_add(), the 67th event will find no free slot in
+pmu->events[RPI_AXI_MAX_EVENTS] and fail with -ENOSPC, causing
+group_sched_in() to roll back all 66 previously added events on every
+multiplexing rotation tick.
+
+Should rpi_axi_pmu__validate_group() also reject groups whose total number =
+of
+events on this PMU exceeds RPI_AXI_MAX_EVENTS?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-gpio-vf610=
--fixes-v2-0-7c71fb36e184@nxp.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102234301.2242=
+242-1-irogers@google.com?part=3D2
