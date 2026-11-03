@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703309;
-	b=cqmywwRr94bvkIWxpekD95QUTnXXMuMYW/ZBBtiGqYxS2We/+JCj/gHXR8BH1rv3usSn
-	 buIiqh/mVdklVB8TNpXdE4oyTcaOpKUZx2OOvRmgDv/sFmsnk/PY62zto4TRQY5jEd0fH
-	 Hup4UlspBMdEYcnPYLwUgPEQVfW/mVet2nFEXkZXSh6aaWjbwbkAliuoeCTRn+hn8CKdk
-	 p6JvdBplkHyFoqVrsBg3gGtQkRi+3haXgIbMdSuRIA0CnTcLhpedHbtneHh44QccKGuvL
-	 BEpGLemsm8aoKc+N/1o7Ucr0nC/wI/kusotiYM3FZmd4d5AMo2QWB3rNip6qCKkweoQ==
+	t=1793703399;
+	b=B9AT8uAdMrzpaWcGZjOlNaLGWyVsXWU0nJ98AQnop3puwuYb1BMLyG/mIYQZa8E9yxrH
+	 7To//elPMnF6HVr9pJpA3IupttFX+PBwlFSEtudsqOwbJcIBhaq7PBFtz7WOw/uDW7I/T
+	 cvu240iWlXE1MBM8ABWBy8wa5k/44NbXkpUSnGCl9ensj23N3mXhB2RW+IoBv9Fzx+kdD
+	 CHwaWTTEaq/C4gkZ/8N4lRmRaZ/3UkW+73R8weUBSfgMMUW1uEKfgDcU4eSiOY5noyCmZ
+	 tZML69E7DNEpmlYokFImijdimQcc7Hps7ShQUfDxX+5uvSum6fGTl8095Am1wK+Fqww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703309;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=w876MNRRdwRCJnTU1Fel47UMgeqbTWjT7jcDrhfNJKE=;
-	b=kQdqrBwkSe097ubYEaSQEUXK5ICnRxBYu3PjJtQ7mCd3YLDc4F2Bq8ac918v157b/2W8
-	 Afi+3XSuH0i+WiIgBn1259K32zMhv5lKyEbWN5sckRrD5TLxWynhxvaKIg7HTybPN51Su
-	 JIRTdFHQDkmREBHT+coy5u2Q0FVEA/rhDstGzPPqmGSuzZjkFCDvwdG8QDgjtERh7+rTk
-	 hRVl/FDS6sWUnh/ACsSikBLBT7uxokpfuRVcmcvvjY3yTkdJYueiBnFtqYmAFMKJ9YNHG
-	 /DDOiCFzNLlIYm01wQYCIE6530ssD9LZQRj9CvW/ZtDNxWvJ0XbDsemMrWQDcwrLOSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703399;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=X3uNTxzJ5UFNAWBq1CS/GtIwDgeixGPpAQXfyA/vaps=;
+	b=qKyf5dF2VaymILJX37FUO/vFZ3hVo5EE97nCK9fYa/OfjrewIHfFpPBV0buSjASF86uu
+	 pj+6YSZn9QnPa+0nPP3jyhCMXkecTN6l0P5cmnwBv35YQAlk7goLzPYsaMSSVXbI+p+dC
+	 Pd3JGr8yg+IG0ZnjRqDgZwsoGmNkCYy+gTTdA+FeuFv1nd/i66Ahy7De7ewLnGoAyKXQ7
+	 kFVuID0AV8PgXM3L2jBCdabmS+BTsCr/CeGm5paPXF2bjJjevvaaAzJCvKNhZ5RouFBSP
+	 /JcL7zMfSdKBR0t62fXpcNNfzJ+I/ZfciSRPHtkj2x0QBY9r+KDlXBI3hLA1B4PFvVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGhmVNVq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcUmT25q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82494606EDA2;
-	Tue,  3 Nov 2026 10:55:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1727C606BA5A
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 10:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XGhmVNVq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8ED1F000C1;
-	Tue,  3 Nov 2026 10:55:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcUmT25q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79EDE1F000C1;
+	Tue,  3 Nov 2026 10:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793703309;
-	bh=w876MNRRdwRCJnTU1Fel47UMgeqbTWjT7jcDrhfNJKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XGhmVNVq11sVz2YuESBLrONEKvK0ZNJjI2SHX5sTBYCcFcs6FWJ2YiCm8aMGrjwux
-	 Do3wZjHshoAa6omlmPqTLhWZF0pvwEnaW2N2Qsd7a2rYtB3q2hvkBPnE89nQxaUAXG
-	 KA1f3vqz+yXjLuYZORRIojBR8XP+z98A0jTh6+L70t4FynniyE9KeBNEcK2+01GuAK
-	 +odVFY3a79WkD40N+S0Nk7lLqxLAtHBGG9WaJgGU5sEJ13oj5y833SlGKQbWYnkaZo
-	 uaUxhiK/X/RBATcHVtoMX9QBmqijVCgNGdBp8LUC+q2goVfK/RKhl6RCOoIMZ4vk9I
-	 q7X2MQ340Elgg==
-Date: Tue, 3 Nov 2026 11:55:05 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Alexandru Ardelean <alexandru.ardelean@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux@analog.com
-Subject: Re: [PATCH v5 4/8] dt-bindings: iio: imu: Add bindings for ADI
- ADIS16607
-Message-ID: <20261103-accomplished-real-cuttlefish-b6efdc@quoll>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
- <20261102-adis16607-v5-4-4f98b0d271ac@analog.com>
- <20261102-barista-haste-6f219aa98c81@spud>
+	s=k20260515; t=1793703398;
+	bh=X3uNTxzJ5UFNAWBq1CS/GtIwDgeixGPpAQXfyA/vaps=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mcUmT25qZSbh7fuT5ECJvgDDHXDSTU0QPJ1Ae3HX2lMMqFIYdaqAW8iiJMlvspmdh
+	 bwdwEktBSKE3A8iaHzRGEmLeezyUF2AyFL2GQ4RpDFFFHfplPiy1o0+933BHyh2IMd
+	 4pAWVPbG8m0G6so9ZMdjlt6zzLxWad25TY4I7OY9nlvEl4nDRyLI5ZZWfv+djZPfd0
+	 KbAxUCAzNxiSD5H6hTsTHRWNewtoCc/MREa0u7zmn6MIOgI5RX58kfJkb/2OAiTVfN
+	 1zg3YbL1d9XZkG91S4TamrUjl/MPSt2nfluW0FfFcLgwiYgKoBovFyDzHT7l4vArGL
+	 6Zl0i74y9dilA==
+Message-ID: <sashiko-outbox-195086@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] of: unittest: fix node reference leak in of_notify()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wentao Liang" <vulab@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103104236.1373612-1-vulab@iscas.ac.cn>
+References: <20261103104236.1373612-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 10:56:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,41 +58,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261102-barista-haste-6f219aa98c81@spud>
 
-On Mon, Nov 02, 2026 at 07:36:00PM +0000, Conor Dooley wrote:
-> On Mon, Nov 02, 2026 at 11:25:40AM +0200, Radu Sabau via B4 Relay wrote:
-> > From: Radu Sabau <radu.sabau@analog.com>
-> >=20
-> > Add device tree bindings for the Analog Devices ADIS16607 Precision
-> > MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
-> > gyroscope, triaxial accelerometer, and temperature sensor, and
-> > communicates over SPI Half-Duplex.
-> >=20
-> > Two variants are supported, adis16607-2 and adis16607-3, differing
-> > only in gyroscope full-scale range (=C2=B1450=C2=B0/s and =C2=B12000=C2=
-=B0/s
-> > respectively).
-> >=20
-> > The binding exposes optional properties for:
-> >   - An external clock for sync mode (falling back to the internal 8 kHz
-> >     clock when absent)
-> >   - A hardware reset GPIO (active low)
-> >=20
-> > Signed-off-by: Radu Sabau <radu.sabau@analog.com>
->=20
-> Why did you drop Rob's tag?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] of: unittest: extra of_node_put() in of_notify() causes refcount u=
+nderflow
+--
 
-Explanation in cover letter is confusing. There is no difference between
-v4 and v5. There is some description change betweeb v3 and v5. So was
-the description change something forcing to re-review?
+commit e1e7dd44b042cb6a35f29a5d1cce9e3a35006236
+Author: Wentao Liang <vulab@iscas.ac.cn>
 
-Radu, please carefully read submitting patches.
+of: unittest: fix node reference leak in of_notify()
 
-Best regards,
-Krzysztof
+This commit moves the of_node_put(nd->overlay) call in of_notify() out of
+the default switch branch so that it runs after all notifier actions.
 
+> diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+> index e255f54f4d760..3202781998808 100644
+> --- a/drivers/of/unittest.c
+> +++ b/drivers/of/unittest.c
+> @@ -3460,11 +3460,12 @@ static int of_notify(struct notifier_block *nb, u=
+nsigned long action,
+>  		break;
+> =20
+>  	default:			/* should not happen */
+> -		of_node_put(nd->overlay);
+>  		ret =3D -EINVAL;
+>  		break;
+>  	}
+> =20
+> +	of_node_put(nd->overlay);
+
+[Severity: High]
+Does moving of_node_put(nd->overlay) outside the switch statement cause a
+reference count underflow on nd->overlay?
+
+Before the switch statement, of_notify() acquires a single reference on
+nd->overlay:
+
+drivers/of/unittest.c:of_notify() {
+	ret =3D 0;
+	of_node_get(nd->overlay);
+
+	switch (action) {
+
+	case OF_OVERLAY_PRE_APPLY:
+		found =3D of_find_node_by_name(nd->overlay, "test-unittest16");
+	...
+}
+
+In all four valid action branches (OF_OVERLAY_PRE_APPLY,
+OF_OVERLAY_POST_APPLY, OF_OVERLAY_PRE_REMOVE, and OF_OVERLAY_POST_REMOVE),
+nd->overlay is passed as the from argument to of_find_node_by_name(), which
+unconditionally drops a reference on from via of_node_put(from).
+
+Only the default branch does not call of_find_node_by_name(nd->overlay, ...=
+).
+With of_node_put(nd->overlay) moved after the switch statement, every valid
+overlay notifier action acquires one reference and drops two references on
+nd->overlay, prematurely releasing the node while the overlay changeset is
+still using it.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103104236.1373=
+612-1-vulab@iscas.ac.cn?part=3D1
