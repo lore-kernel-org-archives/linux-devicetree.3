@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701918;
-	b=Yy7Pivv0yM3vFT6YBaLvQCAhlwshC78QYYMMWBpPJg1FCPVLNNgXF2/rN0xg8JKFAFNi
-	 FuIBYb0jUdmuy+EGBsqrZZy7ebnfXdSemwgN98Q0gpRmQFmD00N0inVE918tYi2fHgSfw
-	 004Hssn6VOm9TkCBkJ6xPUVWxQ2Q9iWM1cJqZqauOLdOke1PZSLo6NSFRoyV7calSnDeN
-	 NB/VDT1oJ5g5zapGutGLA/MY2E3u3O2zsrqLQ0hA5LsI6VQCloxSb1bQpoyO80toppwLp
-	 hoVUigTtbnW4mGwzoEBgHfU6oVvbocV9hV7Xw7DLzaRfbV4IfRV4/i6JS62/LasJtyA==
+	t=1793701978;
+	b=CZK891ri87mwQxxClYiOcoB1TPV+MawhVek5dEYGcynQItzcZcxJ/YW2BAddtfDI3Nr6
+	 MIboXROSUyAkNj7IAtQUxAqTcvW8GMXrOZ3Dm21n70TUKXygDexnA5XT3UIlgHVsGnLdT
+	 v41xF2BB7kuIU8t6cWH4nu43QGJ4vG7PnM7aabAAEfLMMVLVfHxBsj7xkfXm1tfDHdq+z
+	 n++buwejSEl/MHrS1U5hZEaGUk8SEqubsFDj3eLlIyxqWM0a1EMrLrQPpGghCsrFJK4/T
+	 JGtQ+4kdTS/G5aBEIZZF+sjM5lmgVM0S0xhE7K4cN/FlcfsI4hqMhqYkAy9sV6CS/yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701918;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+YUUo+ozWrhoL04CCUSKDN6tzUMAOiODdsNzEJG8KPY=;
-	b=RKu7hKTSshtb9a9q3M3SgoYHw3CC2h9Hkr3YFZKQvffIvH7eQQWJJqDCxOJvsjdDAYas
-	 SrOZKi12JGKJbvOs6Xopngv5wd4FgMR/GPF8f7CMWnuZOKfEQHfRjBW5i2QPhGMB3fogB
-	 F0hUhjibtMZLADkrgVvK5sNryFZdBrdIGZZeU5gOiK1QgKrri485fCldv2zjV9OVx8QV9
-	 y0Stk5hz6TsQY89eACCajTavuxF/irEJsE3C6AqVOUGmWafirBAAUtp1a7xVWTe1gUMQ3
-	 Ld6wdERfOXh0u0cY5XS948iGa58PdzEDsOWutycSx6GrYzaqfmvUKX6zWtw+SsDRPLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701978;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=x+3g/2mTyBRtfyMD++fMo+Sl/wDkNbI3U1BEdaNY8aw=;
+	b=Rki8NNXKq8QO7ytHfqhWYZ0hUihdJwv3mJMGtYg7C2B6sVmqA0Rpni6IGXGvILI2Kfhp
+	 Kged0zarfMm7agAZ2zl6vOTB+ONPsZ6au41yMdqXKN9ks6Xl60239GtAV2nymWnZ7Yt/E
+	 658tz52B3W5ZWMtKo/wBD6R1HPHxpeSCWs76UuSE2hhWY/Fq0/yyhLKpaNrwGey0YzNyF
+	 Z21cqmC8LrHk+47TTSK7y+sQAlkOO4bNpqMbdhQXV5pVaUK8CUWyWaB/3ZS3P4jvHODbS
+	 87/I9O4Hyjq+gKQjQINXwCWoScwDs6Ktbl7HvPGBAODXw/3VPoaJykloz1pwwswnYNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDnv98DE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=INbhnWRK;
+	arc=none smtp.remote-ip=185.70.43.103
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11B7606B13A;
-	Tue,  3 Nov 2026 10:31:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F36C606D819
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 10:32:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F36C606D819
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jDnv98DE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ADF51F000C1;
-	Tue,  3 Nov 2026 10:31:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701917;
-	bh=+YUUo+ozWrhoL04CCUSKDN6tzUMAOiODdsNzEJG8KPY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jDnv98DEg9N5BzAPFCobcUYchY2ifS/BVq5Hme2oDmg+K0UUpZ+KBzasvET/IxFwL
-	 oV6EeUaeOi4ZIznBk9KtVGPkfSMdhDzr1SBf7TwTgbzeav1F8FLI+Yi+6v4dVNxjI6
-	 xnwvdTRIrnhJPgxsk/8eV+nuSaF5gvG12yFX7MoK2JhYLUfuunOfg68KsoevgTvP7x
-	 kzw8RDFdV/+T0dJyv4pXhcIS2OUzVTNF9y4Yh5gyJT7V0+AvtND2go0bcDCc+F2ooC
-	 xEVUJb/ofaaa6Dlv7fCv3iO9h83Wws3sMzUa4rYAlNE16RvDmGSCJImD+/pIVt6W6e
-	 osVpLkn1mb0bw==
-Message-ID: <sashiko-outbox-195055@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/13] drivers/perf: apple_m1: Use macros for
- per-implementation init functions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Myria Sarvay" <myrialsarvay@gmail.com>
-Cc: linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103-m3-plus-pmu-events-v1-5-a8eb6c1139fe@gmail.com>
-References: <20261103-m3-plus-pmu-events-v1-0-a8eb6c1139fe@gmail.com>
- <20261103-m3-plus-pmu-events-v1-5-a8eb6c1139fe@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 10:31:56 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=INbhnWRK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793701974; x=1793961174;
+	bh=x+3g/2mTyBRtfyMD++fMo+Sl/wDkNbI3U1BEdaNY8aw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=INbhnWRKGaTANqlclc4yMocKNvXRaTrblCW0SFw32HUjPzVim1Y564ubR8zNLoog/
+	 B40HaSo5HWvYD1Y3suTS5LhUR+KQBsHR7xJSniUmao9I2D4x06YcWdt2oqHYvUVZaD
+	 W5yXTQ0/HrgBcv2SB3426FggrMlvdwTGEvAQCdi9UVDnncwcQcs0vFiSQoe0JbO3MK
+	 X/u4ARQhjoGogpal2mKlumoJAyw5MZWPLyFuRp7t1UWbqvzwsYWWdfkHyF+UahRUBm
+	 oN1Po1ITNTHei2A3n3waYv34X2i0pPxCu2zhxiAjZzO+XUgNmKo0KQk/pMT7h7AlQZ
+	 JpWNpZVIUysSw==
+Date: Tue, 03 Nov 2026 10:32:51 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+Message-ID: <20261103103235.94397-2-lsa.uz@pm.me>
+In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
+References: <20261103103235.94397-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a299268a7b54c60b9b1496298ec22c4e134592fe
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,116 +63,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] drivers/perf: apple_m1: unused macro m2_pmu_init_pmceid aliases rem=
-oved symbol
-- [Low] perf: apple_m1: redundant macro aliasing and duplication in APPLE_P=
-MU_INIT()
---
+The VD55G0 is a monochrome global shutter sensor with a 644x604 active
+array, sending over a single MIPI CSI-2 lane, with the same supplies,
+reset and strobe GPIOs as the VD55G1. Its MIPI rate runs from 750 to
+1200 Mbps (UM2829, 13.1), so its link frequency starts at 375 MHz, and
+its I2C address is set in its NVM rather than fixed.
 
-commit b798f559facbfb19db0eef028f7f7e42ebc0042c
-Author: Myria Sarvay <myrialsarvay@gmail.com>
+allOf moves below required to carry the if/then for that minimum.
 
-drivers/perf: apple_m1: Use macros for per-implementation init functions
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+v2: the VD55G0 joins this file instead of a st,vd55g0.yaml of its own,
+with allOf below required for the if/then, as Krzysztof pointed to. It
+is Peter Marshall's 01/11 and 02/11 of his vd55g1 v2 squashed, as
+Krzysztof asked there, with the VD55G0's description added:
+https://lore.kernel.org/all/20260918221705.323510-3-pm@petermarshall.ca/
 
-This commit replaces the per-core-family PMU initialization functions in
-drivers/perf/apple_m1_cpu_pmu.c with an APPLE_PMU_INIT() macro and adds
-compatibility macro aliases for M2 callbacks and attribute groups.
+ .../bindings/media/i2c/st,vd55g1.yaml         | 27 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-> diff --git a/drivers/perf/apple_m1_cpu_pmu.c b/drivers/perf/apple_m1_cpu_=
-pmu.c
-> index a14864263bf1f..e7e9b51ffadcc 100644
-> --- a/drivers/perf/apple_m1_cpu_pmu.c
-> +++ b/drivers/perf/apple_m1_cpu_pmu.c
-> @@ -653,71 +653,40 @@ static int apple_pmu_init(struct arm_pmu *cpu_pmu)
->  }
-> =20
->  /* Device driver gunk */
-> -static int m1_pmu_ice_init(struct arm_pmu *cpu_pmu)
-> -{
-> -	cpu_pmu->name =3D "apple_icestorm_pmu";
-> -	cpu_pmu->enable		  =3D m1_pmu_enable_event;
-> -	cpu_pmu->get_event_idx	  =3D m1_pmu_get_event_idx;
-> -	cpu_pmu->map_event	  =3D m1_pmu_map_event;
-> -	cpu_pmu->set_event_filter =3D m1_pmu_set_event_filter;
-> -
-> -	cpu_pmu->map_pmuv3_event  =3D m1_pmu_map_pmuv3_event;
-> -
-> -	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_EVENTS] =3D &m1_pmu_events_attr_=
-group;
-> -	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_FORMATS] =3D &m1_pmu_format_attr=
-_group;
-> -	return apple_pmu_init(cpu_pmu);
-> -}
-
-[ ... ]
-
-> +#define APPLE_PMU_INIT(gen, family)								\
-> +static int gen ## _pmu_ ## family ## _init(struct arm_pmu *cpu_pmu)				\
-> +{												\
-> +	cpu_pmu->name			=3D "apple_" #family "_pmu";				\
-> +	cpu_pmu->enable			=3D gen ## _pmu_enable_event;				\
-> +	cpu_pmu->get_event_idx		=3D gen ## _pmu_get_event_idx;				\
-> +	cpu_pmu->map_event		=3D gen ## _pmu_map_event;				\
-> +	cpu_pmu->set_event_filter	=3D gen ## _pmu_set_event_filter;				\
-> +												\
-> +	cpu_pmu->map_pmuv3_event	=3D gen ## _pmu_map_pmuv3_event;				\
-> +												\
-> +	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_EVENTS] =3D &gen ## _pmu_events_=
-attr_group;	\
-> +	cpu_pmu->attr_groups[ARMPMU_ATTR_GROUP_FORMATS] =3D &gen ## _pmu_format=
-_attr_group;	\
-> +	return apple_pmu_init(cpu_pmu);								\
-> +}
-
-[Severity: Low]
-This isn't a bug, but APPLE_PMU_INIT(gen, family) expands all seven callback
-and attr_groups assignments into every per-family init function (such as
-m1_pmu_icestorm_init() and m1_pmu_firestorm_init()), even though core
-families within the same generation only differ in cpu_pmu->name.
-
-Because APPLE_PMU_INIT() unconditionally token-pastes gen ## _pmu_* for
-every field, any generation that shares callbacks or attribute groups with
-an earlier generation also requires a block of #define aliases to satisfy
-token pasting (including in subsequent patches for m4 and a18).
-
-Would it be cleaner to follow the pattern in drivers/perf/arm_pmuv3.c
-(PMUV3_INIT_SIMPLE calling armv8_pmu_init), or have per-generation init
-helpers called by a small per-family wrapper that only sets cpu_pmu->name,
-to avoid both the #define alias blocks and the repeated per-family
-assignments?
-
-> +
-> +#define m2_pmu_enable_event		m1_pmu_enable_event
-> +#define m2_pmu_get_event_idx		m1_pmu_get_event_idx
-> +#define m2_pmu_set_event_filter		m1_pmu_set_event_filter
-> +#define m2_pmu_map_pmuv3_event		m1_pmu_map_pmuv3_event
-> +#define m2_pmu_init_pmceid		m1_pmu_init_pmceid
-
-[Severity: Low]
-Is m2_pmu_init_pmceid needed here?
-
-Earlier in the series ("drivers/perf: apple_m1: Support per-implementation
-event tables"), m1_pmu_init_pmceid() was replaced by apple_pmu_init_pmceid(=
-),
-which is called directly from apple_pmu_init():
-
-static int apple_pmu_init(struct arm_pmu *cpu_pmu)
-{
-	...
-	apple_pmu_init_pmceid(cpu_pmu);
-
-	bitmap_set(cpu_pmu->cntr_mask, 0, M1_PMU_NR_COUNTERS);
-	return 0;
-}
-
-APPLE_PMU_INIT() does not reference gen ## _pmu_init_pmceid, so
-m2_pmu_init_pmceid (and a18_pmu_init_pmceid in "drivers/perf: apple_m1: Add
-Apple A18 Support") is unused and aliases a non-existent symbol. Can this
-macro definition be dropped?
-
+diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml b/D=
+ocumentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+index dfd87beba06..0245673d105 100644
+--- a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+@@ -16,21 +16,23 @@ description: |-
+  array size of 804H x 704V. It is programmable through I2C interface. The =
+I2C
+  address is fixed to 0x10.
+=20
++ The VD55G0 is a monochrome global shutter image sensor with an active arr=
+ay
++ size of 644H x 604V, programmable through I2C at an address set in its NV=
+M.
++
+  Image data is sent through MIPI CSI-2, which is configured as only 1 data
+  lane. The sensor provides 4 GPIOS that can be used for external LED signa=
+l
+  (synchronized with sensor integration periods).
+=20
+-allOf:
+-  - $ref: /schemas/media/video-interface-devices.yaml#
+-
+ properties:
+   compatible:
+     enum:
++      - st,vd55g0
+       - st,vd55g1
+       - st,vd55g4
+       - st,vd65g4
+     description:
+-      VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a color o=
+ne.
++      VD55G0, VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a
++      color one.
+=20
+   reg:
+     maxItems: 1
+@@ -101,6 +103,23 @@ required:
+   - reset-gpios
+   - port
+=20
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,vd55g0
++    then:
++      properties:
++        port:
++          properties:
++            endpoint:
++              properties:
++                link-frequencies:
++                  items:
++                    minimum: 375000000
++
+ unevaluatedProperties: false
+=20
+ examples:
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-m3-plus-pm=
-u-events-v1-0-a8eb6c1139fe@gmail.com?part=3D5
+2.54.0
+
+
