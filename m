@@ -1,57 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673369;
-	b=Ra10eYVhRNM2q2ApM7y5qeoqUTYwCigvDvp8ckDpwPvnxys9b1aF1AtNDQNlTeWmMlJa
-	 O5Sh2bDeNfLEQnWxCNa+XqlumlJF57EpYCz9NuW8A457pM1E0oobAVbAeHAzh7MHR/Vu9
-	 8O6zj+hYk775nap1svfOuQkyJ5pPcunfSQItPeqr/ZfkrIZ9FSpGvrXO+mZXio7gEo2qv
-	 E4c39JWB38u1MA8o5hsV++FgujUJGaA4heMWaGB1zIHEd+GQF81ZbMr4dwoerU9QmOI6X
-	 luNv2wPIaPpBGEvzu4WlQjEBZbdrT1OzW6X0APx393u7m6KJDj97f9DW47m8uc2CC6A==
+	t=1793673383;
+	b=20UVP97e7rhVf3JclgFoX5JpDFR7qkiM2Gq3LOP9V4/uYfMsb/MlbWFsWZ6M8++9iIBv
+	 iKNlEBIYCWn9LvIcv7/0uJZHs820A3a/nv/FWnzp3M6mbN0DhbFz49i9VmF5Uwwc/OHSU
+	 d3pDhyYAR62h5u0/yFFAIZNgv+k7zEGr0c5B6vR76VJ7JYkmnWZG+NEojnqxkixNrjGgC
+	 vRQY5HcHdCGkxEYbnEUHoKEpjIGWMjv33lb9VqZCOA/P8GnOSt3tittErpz6Um/igMaUQ
+	 jcldQgfG11avWVX3qUe8UErr4GXSRTTAsaSawBzTdFGlpcdokdlbawluVNQAX2lYk0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673369;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=EOY7lKQ2343iKZVXjbGxKQTPMo/zIAHZ2MfL3CmeO/A=;
-	b=Ej9Kb4xZE8lvJh5cseKfso78GeZM31HewvWaQUFvx9jLMjB+j2L1uoJpnUiz0gls1L51
-	 LhnBwXpn7Wo74lrDX/U1jNnbS+DpoZbm/r/po0BHoRh3EgnR+draHKB+lAuTJYDdhkECR
-	 3hL8bs3WjT9v831mN46NjVFTttFgsIYj9yGL/RiG67S1JPFL4zW6MfVgsm97GUGIn4aWg
-	 fdKrgWisgQ8mN9zf27IVENPd5MinKPB5pQqZJS+aegBr9PRnmATXl8Hrnv72c7N9dGvjP
-	 LrHFHm8JLpogcSq4B0hLvr7UZcTdbeQnTmV+DD4tc634B/JKo4tiiarx0JaWHLSPikg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673383;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9Jlikt+rNAof8xPAw+Y9FynKuu4c36ojLvpof3Ekays=;
+	b=VYxWvBdPQ2V2fP4iDERO4vNOcPmax2zBqKPTQNhnsgCapJFEkvyqshNUvD5jEVMh2IZ0
+	 mPhWvJdFIZ9coIhsP6ncJ6mvNyN2k8YEY1ysV3cdDEoxoC2oyDGrb7ZrHIt/A5lXFR2bc
+	 Tshm3B7gfLuizlKd/vdL5bYuTB0/mbWNVNArysHW7Tsb4ppvImNgKDZLR5sCnVU7GAC9r
+	 B/NCTO+DupYSImPU8hRd/f6L0RJSmW+58ijCtgmywWU8jpNzmZeUOJsVjrwWiyObj+ZSJ
+	 +KVjAV59W2hajJN0vtl0VBq9Z7MOcW/8Egtk6/wr0Bq99CJICfLCEooYdy+6/lIRJHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkHHpg4m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DkWPyLYl;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1D5606A324;
-	Tue,  3 Nov 2026 02:36:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A583606A329
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 02:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A583606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkHHpg4m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F373B1F000C1;
-	Tue,  3 Nov 2026 02:36:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793673369;
-	bh=EOY7lKQ2343iKZVXjbGxKQTPMo/zIAHZ2MfL3CmeO/A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZkHHpg4m2lTbN626X2fvYE78IXUqvVVkdraaRL3Be3Fu93XaYSk0UjxonC7p6Pa52
-	 86ljyTytSbuVFOvfiJcnjHmA94bptgw32nTMrTkXF6qkovsvP6MIWTi54qJ2itPLFE
-	 JsTMT1xDjKsr+QKR5nEmY84AK85EAIXB55Skt0tRRJN1OQ17RQFZFeV8C/6aaS59no
-	 kYjaJ9693dda2Jqj4n78bT4NQykhIgSRynCjLdBbimoVRcE8aHMx4aatkt6bB9ozfQ
-	 +0lCd/tNU7u77hrOozN1gZv8N5hv/n55Wp5vuW3KD7HWmPYqIzzTYHsSGQ8MljzPNR
-	 BDJhTd0rnQhog==
-Message-ID: <sashiko-outbox-194464@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document
- MA35D1 PDMA controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shan-Chun Hung" <shanchun1218@gmail.com>, dmaengine@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261103022202.2139674-2-shanchun1218@gmail.com>
-References: <20261103022202.2139674-1-shanchun1218@gmail.com>
- <20261103022202.2139674-2-shanchun1218@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 02:36:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DkWPyLYl
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1a2761c69fbso6048874c88.0
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 18:36:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793673382; x=1794278182; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9Jlikt+rNAof8xPAw+Y9FynKuu4c36ojLvpof3Ekays=;
+        b=DkWPyLYllsX8F9+zQfC/3k0f0U/ZXIWnnK0l4RWtnzGRXTFQx23lYizRBzclJKYzak
+         zKwbG3jUzjz7dLCCWrOEePoLecvuwaUTU6IV7K2/w8w0iUV53/STEFHeYqThhFkolZYx
+         UxHMGZby9xe0cedTKCDXGgRryw1uzxDJegxZ0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793673382; x=1794278182;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Jlikt+rNAof8xPAw+Y9FynKuu4c36ojLvpof3Ekays=;
+        b=HSHzRZZDkd0wUH3Rz1fek7AZYzKS1w/TbBfWB+0MDt1ZUKuTN5kW0DUSac2aHHWYqo
+         l8xm8iVcDoyR92iN5KFpP02+VCeZ+2Uw9zm3GzE49r66ObUiGnd/pcRQ1dvCbYGVQx46
+         fqKonZeyPiQNcTMg1pw/f/EN8SyiN58lbwvi0QtNUPpEGQPlFkYzfXXYB2xvlsaRmFAP
+         zTHl0D2so3oe2CzMCMoZ+SWQoZ03Qg+Zu25j8fD2LhGQwQjmRXD35jOTP1XZqvIl9zuG
+         9bXvlm0k6SbHUMgKv5v5DqvV/Js4qgc9rYqnscll//6FYLxOb2ZWCNvm26HzUtHenJdb
+         qGkA==
+X-Forwarded-Encrypted: i=1; AKwUvByRx7I7kKjoPF6y/xeH4jXpUk3b6GNh0SrR9ulor3HN6473tBhEIAeNRZeviw+wX9VgeLe8w9TF3sf7@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcF5JgoVzEob0Vz2xxiJNcIdJLN6drMwFrEe6hK0H4drgemaqP
+	K9K84rUA3NvM4fgmaERHmvDCikctWCU+2+2UnGETlURImrki5Xy2535MCrc6u2wBcg==
+X-Gm-Gg: AYBFou0HQvgb2AwHERGO6kuMuu5Knje2iaiCPRgt0trIjO8OZ5yklrX9XxEK35L8PrW
+	GQlruDfiAVL0d4WZ3h/XDxMz3ui1uyw+7+DaQixQo+b+gOfspiNsjkymQNPtUawMVVM3EVCcP3O
+	4f2V9luaHlkJ4O2YiAeU732WrfZTwBp4SxoMw0eWqba2i0un1uBOJ21vHn4gEGDhIcuoi2t7IMD
+	VHxrsDS2nrQOhR9JqPUlSXkBVcXY3Y6IC6W9n9NaxpBSy+AnEuCdCEv9e9kn3YNpnfvY7ATn7eT
+	wuBit4INygLnpV0ncaRre46HJ/MbUfBpEk1qx/X3J481sGDZhzzMlGE4YGaQ+LIdMMM8pUSUS7y
+	W1X8s7M6VY76HnHSq44w8sL/hMUoDEEhNgBtswnuVOFMQf/rXgweLHj5dKQ55EB3Zt3VaqJDBqk
+	DG0CZFzRPzSMF+9GJglr42pYlo6kOtHjd0Sz5ywbStZwIJ7NnyqpaGzh4c1sR7d8l41wxnIM0xH
+	fr8iJQKaZTbIPLpjTbvqfvI4XkzTGLNtUBiFIctej+LGLwPyoTZj4FrjdKMZMjoWqytHM7qGQyF
+	1NlppDqK/lxhcpdKKahhUxgQcp9nvrvaVhImaNFgXo0ArW2DgmSVwRZCGzH/kl2vgM0=
+X-Received: by 2002:a05:7022:1110:b0:14d:c9e:a356 with SMTP id a92af1059eb24-1ac59dd07f5mr17524614c88.12.1793673381373;
+        Mon, 02 Nov 2026 18:36:21 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1ac1abcd6f1sm37000499c88.20.2026.11.02.18.36.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 18:36:20 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:36:18 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
+ binding
+Message-ID: <aulIoq2oVjJ3DVzL@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,95 +109,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028-rapid-daffodil-rat-0adc6a@quoll>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dt-bindings: dma: nuvoton,ma35d1-pdma: additionalProperties blocks =
-common props
-- [Low] dt-bindings: dma: nuvoton,ma35d1-pdma: missing resets property in s=
-chema
---
+On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
+> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
 
-commit 5c880c71a9c2f4fa473d23c5e2bcf77d9794575d
-Author: Shan-Chun Hung <shanchun1218@gmail.com>
+> > --- /dev/null
+> > +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
+> > @@ -0,0 +1,16 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > +/*
+> > + * This header provides constants for CPM IRQ.
+> > + *
+> > + * Copyright 2025-2026 Google LLC
+> > + *
+> > + */
+> > +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+> > +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+> > +
+> > +#define CPM_IRQ_RTC_ALARM_NO			0
+> 
+> Keep naming consistent. Clocks has _CLK suffix, so this should not use
+> prefix.
+> 
+> 
+> > +#define CPM_IRQ_AOC_MIN				7
+> 
+> Anyway, ABI constants should be indexed from 0 and incremented by 1.
 
-dt-bindings: dma: nuvoton,ma35d1-pdma: Document MA35D1 PDMA controller
+What do you mean by this? Do I need to make up names for the
+unused IDs between 0 and 7? On an initial search, I don't believe they
+have any meaning at all. Does that mean I should make up some kind of
+"RESERVED_<N>" naming here?
 
-This commit adds the devicetree binding schema and request source header for
-the Nuvoton MA35D1 PDMA controller.
+Between 7 and 156, these are just ... 150 different "service numbers"
+within the AOC (Always On Connectivity) subsystem. I can name them
+AOC_0, AOC_1, ... AOC_149 if that helps.
 
-> diff --git a/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.ya=
-ml b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
-> new file mode 100644
-> index 0000000000000..cd752571242c6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
-> @@ -0,0 +1,72 @@
+Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
+into 0-151? I thought it was valuable to directly use the firmware
+indexing where possible; if I change those, then the indexing loses its
+inherent meaning, and we also have to add another layer of translation.
 
-[ ... ]
+> > +#define CPM_IRQ_AOC_MAX				156
+> > +#define CPM_IRQ_AP_GDMC_WAKE			157
+> > +
+> > +#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
 
-> +allOf:
-> +  - $ref: dma-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: nuvoton,ma35d1-pdma
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
 
-[Severity: Low]
-Should this binding also document the resets property?
+> > --- /dev/null
+> > +++ b/include/dt-bindings/soc/google,lga-lpcm.h
+> > @@ -0,0 +1,54 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > +
+> > +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+> > +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+> > +
+> > +/*
+> > + * LPCM IDs of each SSWRP.
+> > + */
+> > +#define LGA_LPCM_CPM			0
+> 
+> What are all these?
 
-The MA35D1 reset binding and driver define dedicated hardware reset lines f=
-or
-the four PDMA controllers:
+The binding doc says:
 
-include/dt-bindings/reset/nuvoton,ma35d1-reset.h:
-    #define MA35D1_RESET_PDMA0	4
-    #define MA35D1_RESET_PDMA1	5
-    #define MA35D1_RESET_PDMA2	6
-    #define MA35D1_RESET_PDMA3	7
+      Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
+      See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+      <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
 
-drivers/reset/reset-ma35d1.c:
-    static const struct ma35d1_reset_map ma35d1_resets[] =3D {
-        ...
-        [MA35D1_RESET_PDMA0] =3D   {0x20, 4},
-        [MA35D1_RESET_PDMA1] =3D   {0x20, 5},
-        [MA35D1_RESET_PDMA2] =3D   {0x20, 6},
-        [MA35D1_RESET_PDMA3] =3D   {0x20, 7},
+and
 
-Without resets in the properties block, describing the controller's hardware
-reset line in a devicetree node will fail dtbs_check validation.
+      Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
+      2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+      <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
 
-> +
-> +  "#dma-cells":
-> +    const: 2
-> +    description:
-> +      The first cell is the channel number. The second cell is the
-> +      peripheral request source (REQSRC) selection, which defines which
-> +      peripheral is connected to that PDMA channel.
-> +
-> +  dma-channels:
-> +    const: 10
-> +
-> +additionalProperties: false
+These are the IDs used in the firmware interface to talk about these
+things, as many of the SoC resources involved (clocks, resets, power
+domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
+with indexing within each subsystem).
 
-[Severity: Low]
-Since this schema references dma-controller.yaml# under allOf, shouldn't it
-use unevaluatedProperties: false instead of additionalProperties: false?
+In reading again, I see that the definitions and explanation of these
+terms and the SoC organization are split a bit between the pmdomain
+commit message and the binding doc. Where would you prefer I elaborate
+more? In the binding doc, the comments here, or both?
 
-Using additionalProperties: false causes dtbs_check to reject standard DMA
-controller properties inherited from dma-controller.yaml# and
-dma-common.yaml# (such as dma-channel-mask or dma-requests) unless they are
-duplicated in the local properties block.
+Or are you suggesting these IDs should be allocated/structured
+differently?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103022202.2139=
-674-1-shanchun1218@gmail.com?part=3D1
+Brian
+
+> Best regards,
+> Krzysztof
