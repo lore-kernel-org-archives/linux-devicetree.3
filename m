@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719818;
-	b=bbEmT9aZr4gkAhHCgI7vD7Rkr9DIm98mgwv6WWLKbO53ldKDa88ZrIPEYXGkZuluK9mB
-	 AE4xWK9v5scsl54sYGCV5tVOt811xa+o2wZhjiURQTN2ziTbrJqvFoN0/fnRw3EV6V/Ar
-	 Qk3If6VHGto6IaBdUi2SM0FmWzs+nz6fLpsGQmBAbgYPwXRtcOfGH1x7Nn0Lwie9fCQP5
-	 4UyHUIJOHm2ZbkueUDhK1PIcosVkK1M/qfIXHkqNHCcJjhAakaZf5hhzr8BZa/YYoiJnj
-	 PYFLbkauwf9bzoXPA26Txhw9G6dm12TC3usOcPXhK/LC9LLI5ZMTNS/RU1NMLwxkKSg==
+	t=1793719909;
+	b=QzU+d0Om4oIFDDPVvMtbKcvDNuMBe0FZC4XPQmnhYOqoz7jYpJ8ayU0g4mPjANIc/GJ1
+	 edc/Po3mbBR4R81V56N2s88nypLg6Qal6JHFkN2QgjhLk1jRu2WH2SVACJog2Wmtkv9wl
+	 YXwC3+0R2BpGgPduOqao56YYmSQeWPLZ7Y+ks9wqK7OmlwH0xjoEjN43GHfbUSh1Blg3T
+	 CrpAkoUyhEfz1xOzywygCg7G/9Ee7Rs/Fjm3o3P6ChOyAGBWJYV5eTv05H/G2zmojs7wz
+	 fMJCMHgkG62gPAyKmoCFwikrqfLBlOFprkhqADc7r0VNEjBtblRurAlbaIWXOsKfZ6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719818;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5USuSpAY6BqKBJXRkghIPtIuqHJ67CoBJXg16mpKvCA=;
-	b=Y6B/ImDTzw/mjfqB0dpRePtZ+F7yX9dxl9AYyVL3PAMHwmXuMruJolXxsAwLmiVWi2bT
-	 /ifEVfYBWfIR1nLyNstIe0oED18jq/ZjxzWrHugqQ954Nu6oJLfSIEKrEeZM2fgP3CaKQ
-	 UoXKLmAfaKoALu0DK/7hOWtK2XwbQjmbkiiwJjltN1EH4XXb0moIaYXA43rarDUdIAVci
-	 IV51n7SaW30cCIeWBA27TGkWw+M17P3jlVVP8CqVpRAQD00as13VA8/13ojoU3WVRM6+s
-	 Vv6h8yehJ/KGm+MyYvI9uuOfsFaMP3WgOl8cMRisyI5zTFDZMXf2C8pqSCUuFkS7a5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719909;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=CPNNCo+GFGu/9nal5nPw6bilsFuJkUchsPFZNI+iVXk=;
+	b=KKTGqogCaxol1Qeh1/was/REICIAgco9ft2AmvB4PjBmsZzpfkYz+cGY2+m+tCCkr8/H
+	 euYs3Kw3ipvNFp8v977L6zXjkmOdIRSH87JjyvMLJPUocSzn96JQE+yjf6l9j6qXy5mfN
+	 Qo9OcYRwOHDBCaGTRpNmzLCIdlvU0iyEbIYRZBiqjp7iSi0H6/eKTORQ/jvdGNr8R9Jm3
+	 XFV0d6vAjGpM8DdoyY40ljbMWUl7YY8AFJ0dzlm6v5mB+uMgWOI6dvgTHS0ISMer/z7/a
+	 UyEE5Mz06rBuMA37dd2tRt4vkRPxQtIsf2CrWVMhQmMur/F+wfuJP3kgd8QCuSgQo9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V564JMZ1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="t/R4+HYK";
+	arc=none smtp.remote-ip=209.85.210.50
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFFD606A331;
-	Tue,  3 Nov 2026 15:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC077606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 15:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC077606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V564JMZ1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1271F00919;
-	Tue,  3 Nov 2026 15:30:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793719818;
-	bh=5USuSpAY6BqKBJXRkghIPtIuqHJ67CoBJXg16mpKvCA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V564JMZ18rp3LLDtaoKcHIMWvfu2Wa279rjZfWf84BoQnNDu2Qv4dBAgwNQQuN8d/
-	 7emhaWmKX5l4YFg6BvTkDYOqYLIj+1lXCTS8Vm02kkx+qE4Ap/ZihOW3AJDeBf6k7p
-	 NRlRhU1qWoTz8qdAqSv6tcZV4RgYIM9Pt3hxspsR2hMwdcqpTDXrS7z8DVuUy2TTIi
-	 B9dIW8qdCki0Z1SlMgKVNmrX6GpjiRgzUYW3OLEPBX9qjnXB2/yWXRhfSF2yV/kIBc
-	 gMQB2l4hDi6Wl3X5c+VC62Z9NadcwuF8uNrXoiDcJinWeQbsfDCx4ja1UwHx7T5I6a
-	 M1QTKa0Li5maQ==
-Message-ID: <sashiko-outbox-195621@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/7] dmaengine: add a bus for DMA channel devices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: imx@lists.linux.dev, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261103-edma-iommu-v3-v4-2-470415d418c5@Example.Com>
-References: <20261103-edma-iommu-v3-v4-0-470415d418c5@Example.Com>
- <20261103-edma-iommu-v3-v4-2-470415d418c5@Example.Com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 15:30:17 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t/R4+HYK
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-82109f51565so2210231a34.2
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 07:31:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793719907; x=1794324707; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CPNNCo+GFGu/9nal5nPw6bilsFuJkUchsPFZNI+iVXk=;
+        b=t/R4+HYKW+/Fm+UogBo7D7mmpiuj1rhuTEJDyPf+b0LIUsY31q3k2rDmr3fF5PqV0f
+         xYEZLuuGv0awJhh17doexj0ARTnHZcZL9pFUFhY3rB3pFUlV4aE4GTRxBsg2dZDAKhRN
+         yVoMyYPgGqVpSd9uMdg/+guWXKovdtcKQbleIGrGzG4Sn8QPZn6ufnSQBT+Qgxh8iwZj
+         HAD/vFvNwNDgDVIX5eezEqyaALRWWQQLYJGPEgmod0tt66MnXh/QPZ9g5awOr/ekGcIh
+         FGftaxTEyvU+LKYpZk051ZARA99aQ41Yayb8o39kbAAqgbbY1DfMHEdwgi5F+8tx+uUh
+         rJPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793719908; x=1794324708;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CPNNCo+GFGu/9nal5nPw6bilsFuJkUchsPFZNI+iVXk=;
+        b=fkZovjrSoXr3uAtdooYzXVqblNWLxQFAC3G0eWH5E+oBDM1zAfb5kjSBuDxczmpFv1
+         Ab9oQLIry2L0nYKBIrrBrWl+kMpvv9+obnIsPENl4pdI20aQupYl6Hg9+x05hx+Cz79M
+         Snb1lzwDupCNx2aHTRtUkwlfc+rNxAVEdhDQRLeI00q2Bgu6/wfrLUTOQbLKbr6HqNo4
+         4aD8M6vPvFp5NTy70jt8zViPp8CwAFUjqPGjSHFSGtCljeVPQvF9xrHLp4QS2E1TiNLs
+         G491p2TG/6KGy3oWn/iKg1KwOEFFvf2b5kx1nY8xolcXUKp3m8f8hOQFFamfVcaEhYMz
+         4zYg==
+X-Gm-Message-State: APuU4Z+OyZuE6ct5rNUt1DwzEvRj+D86SiiiYqp2iv8+MlSvKtXWqYkv
+	3+CwPNYDXWmCTaL9k6PfksF1UqQ6qdAicwgHJNSV0rTGppFCPymxyptx
+X-Gm-Gg: AYBFou3E/LcQxorp3vmn98qekvTy/m/+v4EZPWC3bklV68MXBGmjR/nnG58mX1IXTvH
+	GPNQHMcRA/Rvrtjp5RfU9zzG8mBlkx4hSJLFHT9k/6TwKHudxdOrjhSNbJx1+2i7C53K/UOe1l8
+	HKcCme/F/WDzrOJx1Fbui0uOGRFwvvq7C/vR1tP8ExRsqklzWHAoRMClM22zSZpRCSChn3lTtZR
+	VAc9zHLxI/KTIsqfLS3hMQ9Ao6i4msKBRm9tUQ1PvcSNoJX5kZFsYvXB1jCnRkwF9IY6clLe8Xe
+	165eS/Z2sntnQlBYzK36lzUYEDqg7Uz8u5Q4oZHqkoCswqUBoP1IOV5Iy3IJWhoxoDzwO/TtFjL
+	0C3DYy0/dMuGqi97arcq6Y8sOcHlOffm6Zao1g2ehaLkehgBLpFmu2S+h/QiSeQbHcMwGYOUqHt
+	9gduQbJzR07U6Ofl6RPGwpsbh79fA1d0obTQ6+zWBfbG41ZwgtAD0IvbabpQves2bg3mQ5G+3WF
+	EkT3auWrZc1skX+o7+QCTodekHLGMVpeJbkzj3A7B9VQzl3GPOLlY8Li5YqwdJhvxrIPbj3C41X
+	0SrAU8ntTTz9P7jvlHpjkqjFBRoBUw==
+X-Received: by 2002:a05:6808:2389:b0:4d3:6be7:c64a with SMTP id 5614622812f47-5640d62df3fmr8545899b6e.0.1793719907638;
+        Tue, 03 Nov 2026 07:31:47 -0800 (PST)
+Received: from neuromancer ([75.28.21.198])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd95dc0sm11599188b6e.6.2026.11.03.07.31.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 07:31:46 -0800 (PST)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	shawn.lin@rock-chips.com,
+	diederik@cknow-tech.com,
+	michael.riesch@collabora.com,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH 0/2] Add rockchip-timer for RK356X
+Date: Tue,  3 Nov 2026 09:31:42 -0600
+Message-ID: <20261103153144.343764-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,87 +98,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dmaengine: bus name collision with SuperH dma_subsys in dma_bus_=
-init()
---
+From: Chris Morgan <macromorgan@hotmail.com>
 
-commit 6400cfe74e7a9d7882031548be64a3d0e53cb075
-Author: Peng Fan <peng.fan@nxp.com>
+Add the rockchip-timer to the RK356x SoC. The timer for the RK356x is
+register compatible with the rk3288. Address range taken from BSP
+device tree and confirmed with rk3568 technical reference manual.
 
-dmaengine: add a bus for DMA channel devices
+Chris Morgan (2):
+  dt-bindings: timer: rockchip: Add rk3568 compatible
+  arm64: dts: rockchip: Add timer node for rk356x
 
-This commit adds a dedicated dma_chan_bus_type bus for DMA channel devices =
-and
-registers it at core_initcall so that per-channel IOMMU configuration can be
-performed properly. It also cleans up the unmap pools on initialization
-failure.
+ .../devicetree/bindings/timer/rockchip,rk-timer.yaml      | 1 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi             | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
-> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-> index 34be53487a21d..3a297f2754915 100644
-> --- a/drivers/dma/dmaengine.c
-> +++ b/drivers/dma/dmaengine.c
-> @@ -1643,6 +1643,17 @@ void dma_run_dependencies(struct dma_async_tx_desc=
-riptor *tx)
->  }
->  EXPORT_SYMBOL_GPL(dma_run_dependencies);
-> =20
-> +static int dma_chan_bus_match(struct device *dev,
-> +			      const struct device_driver *drv)
-> +{
-> +	return 0;
-> +}
-> +
-> +const struct bus_type dma_chan_bus_type =3D {
-> +	.name  =3D "dma",
-> +	.match =3D dma_chan_bus_match,
-> +};
-> +
->  static int __init dma_bus_init(void)
->  {
->  	int err =3D dmaengine_init_unmap_pool();
-> @@ -1650,10 +1661,21 @@ static int __init dma_bus_init(void)
->  	if (err)
->  		return err;
-> =20
-> +	err =3D bus_register(&dma_chan_bus_type);
-> +	if (err)
-> +		goto err_destroy_unmap_pool;
+-- 
+2.53.0
 
-[Severity: Medium]
-Does registering dma_chan_bus_type with the name "dma" collide with the
-existing SuperH DMA subsystem bus?
-
-In arch/sh/drivers/dma/dma-sysfs.c, SuperH already defines and registers a
-bus_type with the same name:
-
-    static const struct bus_type dma_subsys =3D {
-            .name =3D "dma",
-            .dev_name =3D "dma",
-    };
-
-    static int __init dma_subsys_init(void)
-    {
-            ...
-            ret =3D subsys_system_register(&dma_subsys, NULL);
-            if (unlikely(ret))
-                    return ret;
-    ...
-    }
-    postcore_initcall(dma_subsys_init);
-
-On SuperH configurations where both CONFIG_DMA_ENGINE=3Dy and CONFIG_SH_DMA=
-_API=3Dy
-are enabled (such as sh2007_defconfig), dma_bus_init() runs at core_initcall
-and registers /sys/bus/dma first. When dma_subsys_init() subsequently runs =
-at
-postcore_initcall, subsys_system_register() -> subsys_register() ->
-bus_register() fails with -EEXIST and triggers a sysfs duplicate filename
-warning, which then causes register_dmac() -> dma_create_sysfs_files() ->
-device_register() to fail with -EINVAL when registering SuperH DMA channels.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-edma-iommu=
--v3-v4-0-470415d418c5@Example.Com?part=3D2
