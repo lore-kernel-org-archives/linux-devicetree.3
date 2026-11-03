@@ -1,51 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724977;
-	b=DCajYX2O8vfSvQfQG8RqyHvU7E2qLJkbyz1/TvMxRcS0ADkfZxzrGk+QXVhh7sKBOIGD
-	 +Vpk0mRF6zP/hkoL/Mwp8KkENhVz3xADLJrHg7aXT8HCAOegHAGnFTF6Et5vAFzXNMvJG
-	 mZZZQykGU19FkAXAl7HdMAGxjQzDFlW4dDZ7m+2y5GjldLwfrmt9g34CXluPJqoj8Tamx
-	 1zNEtEOZ3cOVOBSjxlWNAX+M0AfWvk7fFfxA3wqUV1fNjeG8HMeTheT3mm2qdiLmGQmPw
-	 GeDCUeMFeNtjtgsLEzSpSMY8i2M+09b0bxld4i7DcLt/shHG3xk21GE+plA2wpbjNWQ==
+	t=1793725310;
+	b=SFQjZtTCq4fMke1JnpkfP7k9mMXYxz5GbuOL6nxvD1iDXSd0d4SBJg3Wy5ZCiCA3U+s+
+	 m8j+x3DjLIQzeZBmouDCL/zr7TpeB8YMGRk7/QnOtipONOTNxkO+NpCn7gVqbMoKuBhWK
+	 FFNK7PPVbaarsHMR+BJiEfe5aTMaILRv/thvFC8ym0Q7yh3rni3QJYMcufYH7cuKrE299
+	 j4AFsuCXudP1/MIOINzVD9eCGy6dxucx6M9d87JuaQM5lWKp9Hm5GNIFWKzUmxWKwI6vO
+	 5kse35BEnbQ69DRaVCx3gzti5/SHVUW1ToH9Y8Rx21QD+/nYx9sLqg0ALzN1Io0LYDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724977;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=TTj64Sa8S+aVgR4NPp05Dm2kql2/bkp1UbfdcQ1rzyc=;
-	b=5sSG0DQqotykbEjSaU+vaB+PFMfedA1xIAEbOg0O5+lquQ+CNn3aKd5S6xwF7Hvunyq2
-	 aI2FJZGm98x4NwcaDh1lQNNxQnuAmg0PmsvxOGrqQmYfELVnCBXBRyp1tghR0XWVUbPrD
-	 d7nFCVnendaBOUh/Gz47BTc2AJXaSN8/KDOUK1VTUvo3mrztHC2M0USkBwbZJSBMnzoDT
-	 LKPIVxJwM5SQ7nu8XjNaakDO7Vlt1/H11KPTaY9xEJ1IyMc1xXCimI/6kMCVQJAzo2xU2
-	 P4DZ+jNwxXSm9O/TAFmzH/lWYL7V87XaC9Ibqk+r9GP5rXocxbnAMLkL3xOyISPEcEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725310;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=ek9smadtLyva7J0eFk6xYHOFlCqPp9k7Ck6t1GYbu0s=;
+	b=Ing/pofrGsLjBBn06QnXMgCtU9qZBsdN1wy0L+x7R2xQiVPXFODX49kfH0TSN5MhbK7A
+	 B5iCyjS03k/jjHa6UM7VNC9rtBcLV26w097PKgpf0VCnXPZAxemXLOBScOBiMCiDpJbqU
+	 swqq7Pf/QKvfi4LVQNHL7/9vXrCA/yLqXB1QDF+Vlnxu95yxE46118NLTQdS4JQQWs1il
+	 kjrImx+T77dxS/V98OjGWMhZVxJyncMjghjjbzQX9DbDukzt7VHCKij6CWWYlv5/oLy7E
+	 ANNPRNr3qCd/Ba22EnpPvTWiDsGMQQm5YhJ9rJ4Zdo9Td3jD4G0AMMW5C5xsn3aYAwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cjdns.fr;
-	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b="N3pPM/WS";
-	arc=none smtp.remote-ip=5.135.140.105
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=LdjTITSv;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DDE606A32C
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68DDE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FCD606A329
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 17:01:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19FCD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=N3pPM/WS
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55A67280640;
-	Tue,  3 Nov 2026 17:56:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1793724974; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=TTj64Sa8S+aVgR4NPp05Dm2kql2/bkp1UbfdcQ1rzyc=;
-	b=N3pPM/WSMCFQ+E9+29JzKGJaiIFwXzoEI7o21wauDcfH3xKDXEj5ex0OHr6nt51C27k/am
-	qEltz2sAezRV2BW43PAEGuQxlZ1olfjBw2jM22gS+U5LhEeKR37+IUCeFQQPvMmEq2u9GT
-	aTzRUVhAzBulr9vB8KrrgWr/jEDvaMUZLu7RYpRe3Bv8HbHzUJxCcXxfBQZzu7d7oqos7+
-	cbpRav+JDW12nf1acPgLbcCjQB0QBhhiR2785qWixiTsfxA4vZwFsNfbxaa/mkQx4RW15d
-	WGE58pdtSg1PMA9tmfkH2/TRCxipgraYJCWXmP3aqkXBQnpkEWnJT7FplsqaCg==
-Message-ID: <492da787-471d-4923-b6ad-6f6cb113b19e@cjdns.fr>
-Date: Tue, 3 Nov 2026 17:56:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=LdjTITSv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ek9smadtLyva7J0eFk6xYHOFlCqPp9k7Ck6t1GYbu0s=; b=LdjTITSv1I6D7UC1Qub88SVZvI
+	Hb90AQA9XrPIUiMSVuhEjbBgReVtl3UQxNgT3At+Md6wz4AvwCKfEY0+g0xfSxvsfurYp49VFXgfi
+	WBEAISPOtxRDKc6c37EBQrWpvSZuFaT6vGco5L+ucUnMd8OjTC5gS/8PWpkqELc21dpRPi/1lM5q4
+	LWMJ/oh4v/C9X4qdYnM/SrVjjl0loixpr3Gl7m/AHmZ4hxTIMlhSKCy/fPqCxy7eFECWW1656n2r3
+	iT3PXvmceFeDntihwjdDi9QjEjyEA3aeGSA15jFZYOy5invJGeQe+uHQI303ZjmHhymS6Zc/klBqO
+	lgefN9+Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: linux-rockchip@lists.infradead.org, Chris Morgan <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, shawn.lin@rock-chips.com,
+ diederik@cknow-tech.com, michael.riesch@collabora.com, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: timer: rockchip: Add rk3568 compatible
+Date: Tue, 03 Nov 2026 18:01:37 +0100
+Message-ID: <3661431.qSoW2BAyJ8@diego>
+In-Reply-To: <20261103153144.343764-2-macroalpha82@gmail.com>
+References:
+ <20261103153144.343764-1-macroalpha82@gmail.com>
+ <20261103153144.343764-2-macroalpha82@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,113 +63,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v4 4/7] net: dsa: mediatek: support PLL setup on MMIO
- MT7530
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261029184202.1859843-1-cjd@cjdns.fr>
- <20261029184202.1859843-5-cjd@cjdns.fr> <sashiko-outbox-191439@kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <sashiko-outbox-191439@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+
+Hi Chris,
+
+Am Dienstag, 3. November 2026, 16:31:43 Mitteleurop=C3=A4ische Normalzeit s=
+chrieb Chris Morgan:
+> From: Chris Morgan <macromorgan@hotmail.com>
+>=20
+> Add compatible string for Rockchip RK3568 timer.
+>=20
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> ---
+>  Documentation/devicetree/bindings/timer/rockchip,rk-timer.yaml | 1 +
+
+Please make sure to check get_maintainers to catch all needed recipients.
+
+# scripts/get_maintainer.pl -f Documentation/devicetree/bindings/timer/rock=
+chip,rk-timer.yaml
+
+you're especially missing the clocksource maintainers:
+    Daniel Lezcano <daniel.lezcano@kernel.org> (maintainer:CLOCKSOURCE, CLO=
+CKEVENT DRIVERS,in file)
+    Thomas Gleixner <tglx@kernel.org> (maintainer:CLOCKSOURCE, CLOCKEVENT D=
+RIVERS)
+
+and some additional lists:
+    linux-kernel@vger.kernel.org (open list:CLOCKSOURCE, CLOCKEVENT DRIVERS)
+    linux-arm-kernel@lists.infradead.org (moderated list:ARM/Rockchip SoC s=
+upport)
+
+the clocksource part does not seem to have a dedicated list, so
+linux-kernel should be included.
 
 
-On 30/10/2026 20:22, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] net: dsa: mt7530: missing child_bus mdio_lock in core_write() and core_rmw()
-> --
->
-> commit 3f6621fc167b9cbb00feef9399db3022a584cb8e
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> net: dsa: mediatek: support PLL setup on MMIO MT7530
->
-> This commit records the switch's internal MDIO bus in priv->child_bus during
-> mt7530_setup_mdio() and updates core_write() and core_rmw() to fall back to
-> priv->child_bus when priv->bus is NULL so MMIO MT7530 instances can perform
-> PLL and core register configuration via the internal PHY MDIO bus.
->
->> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
->> index c5b3b00acb956..d45388e2efc83 100644
->> --- a/drivers/net/dsa/mt7530.c
->> +++ b/drivers/net/dsa/mt7530.c
->> @@ -77,6 +77,12 @@ core_write(struct mt7530_priv *priv, u32 reg, u32 val)
->>   	struct mii_bus *bus = priv->bus;
->>   	int ret;
->>   
->> +	if (!bus)
->> +		bus = priv->child_bus;
->> +
->> +	if (WARN_ON_ONCE(!bus))
->> +		return;
->> +
->>   	mt7530_mutex_lock(priv);
->>   
->>   	/* Write the desired MMD Devad */
->> @@ -112,6 +118,12 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
->>   	u32 val;
->>   	int ret;
->>   
->> +	if (!bus)
->> +		bus = priv->child_bus;
->> +
->> +	if (WARN_ON_ONCE(!bus))
->> +		return;
->> +
->>   	mt7530_mutex_lock(priv);
->>   
->>   	/* Write the desired MMD Devad */
-> [Severity: Medium]
-> When priv->bus is NULL and core_write() or core_rmw() falls back to
-> priv->child_bus, does mt7530_mutex_lock() leave bus->mdio_lock unlocked?
->
-> Looking at mt7530_mutex_lock() and mt7530_mutex_unlock() in
-> drivers/net/dsa/mt7530.c:
->
-> static void
-> mt7530_mutex_lock(struct mt7530_priv *priv)
-> {
-> 	if (priv->bus)
-> 		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
-> }
->
-> static void
-> mt7530_mutex_unlock(struct mt7530_priv *priv)
-> {
-> 	if (priv->bus)
-> 		mutex_unlock(&priv->bus->mdio_lock);
-> }
->
-> On MMIO switches where priv->bus is NULL, mt7530_mutex_lock() becomes a
-> no-op. However, core_write() and core_rmw() perform multi-step Clause 22
-> MMD indirect sequences across MII_MMD_CTRL and MII_MMD_DATA using raw
-> bus->write() and bus->read() calls.
->
-> Even though the underlying indirect PHY accessors acquire priv->reg_mutex for
-> each individual Clause 22 register transfer, priv->reg_mutex is released
-> between each step of the MII_MMD_CTRL and MII_MMD_DATA sequence. Once
-> mt7530_setup_mdio() registers priv->child_bus, runtime callers such as
-> mt753x_phylink_mac_config() -> mt7530_mac_config() -> mt7530_setup_port6()
-> call core_clear(), core_write(), and core_set() (which use core_rmw() and
-> core_write()). Could concurrent phylib or MDIO accesses on priv->child_bus
-> (which serialize on priv->child_bus->mdio_lock) interleave between those
-> steps and corrupt the MMD register accesses?
-
-
-This is potentially a problem, but it can't be solved by locking 
-priv->child_bus because that will cause re-entrant deadlock. I think the 
-bulk of core_write() could be replaced by phy_write_mmd() and 
-mt7530_mutex_lock() could be dropped entirely, but this is a bit of 
-re-architecting that I'm not entirely comfortable with and I think it's 
-probably better to leave it as it is for now.
-
-
-Thanks,
-
-Caleb
+Heiko
 
 
