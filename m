@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705771;
-	b=4rdsg35I/9Wix+AJTTpdkLYX5w2OL5DmbqySngWg7KNYuonWm/qb0yKElCbBpuRYrfIZ
-	 ssit7mN+2ImS4A7TYm2nb6LAE5UljFVFTxKZDJmT4qFXhw3DuInGOBAqmZP5Pv3e+3/L5
-	 Ig/5HaWuwW+Ar8hKI24BXdxp+kFeUh6eS/CyDRO3bcN+3DjRSLYBZxk9CeIiZ3jVPg7i+
-	 TVmhQlMzkMixKPAVBouPGtc2/rjWN7fmZyaIlewh3ZwOdGRKiQC0Hz8Ndv1hx2p8OTk6e
-	 bfVVUxI1URUbrAd6pzZfdYPf0WgRKPSphZr2I2dRxGwwiSxBBdgDChbD8RPXWTbCQYQ==
+	t=1793705778;
+	b=tolI9JNTsONTqhny39/nJEuQMSvzyu3vyKqXzoGWqYB0IYU2CDMAXiytbTK1Ac2gMKGX
+	 j9nMWNYzNPyZpJIZFx/UH05n3j4soru3NXxx+U24YJJ2xqZiMu/Qms3urt/J7lyJ2Fx8Q
+	 cm4x6ptfd4bAiX5P84oKeRw1gux3B5gF8XsLNDtpEUFVxg4J0ZDp4HV7l5+/kZoVpIzHq
+	 /l6wCJrYMwDrQx/XhTr2Q8JmHcEEt8THRE3PCHaM5M372pRqCOZHcSnwZvf3mS5u/GJL3
+	 cBoX7ldmzppJMzctu6plOIvx79JCTSgoSrlEiB1VUjCaRVgwa6Wq5KlFvLsSE9Safuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705778;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5BT1om7dMxe0+KPFlhkATOyCWnao3HxieIFWLVHi+3I=;
-	b=SsgsONR5F20KJw06BAYonXh4wxXx5Jq+jfQB+tE01s7wWnC07fP21PuVYJ066OwdCt7b
-	 297CIvbPmxvY/QY8q+DsCwMKYTIXd6HO1XuuHufk0erBNWVAck2WGqQB/yWwEjPY2sdA3
-	 c89vf9y+xGfnaMyhgz+bbZZRkNastKtNsW0gXDskr8Ms2vbB2z2c5Ys0xeYPGR0n6OFUQ
-	 kWYn5YmXnfHhHqnaQs5nwUn7BtyiJ6Js4vdB8RVYXRXeJoXIzKH0nxenqlTECncTLbPHe
-	 SRmU2T6EwpAwLMdofkGErPhAZsdyXpPuYqmSxut+RKu7RO7gG2MFe0brgQOOfYx9IuA==
+	bh=Hkg06kMkGpDl6NYXxV87/LdFbQkm6+fXg9an6FXsgdc=;
+	b=laUjRKC+p7apkEenccS8hVvmdgBpKC38vQCaz3HPjjduSHqBAUR8YxCTiF31tvfrZccU
+	 JESJ8Pfpv3dJNs14iyusaI32V78ANOFZ008MPCT03R1VvUdnG0FcuqqsUuEE/jih6heu4
+	 N2Kafy2ykyBMQ9vYFFQrgZmYQ8MS8BtNNnNqT/Trgy9eW10B+PRHa/KI9AmKwUErJyqPI
+	 Vku9c1Y9KSsVpp3B8/xGp2dGY8krJZ0AqYnE61GAN2OI7Ynzh5dT/mKNFgZdjQA/B/TLk
+	 F44vLShqCkPf2sVDqfY3S5ooS/4cokK9iqqvIO/jE3dbR70+dIuHcIPVHtcwgceL2Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BNw4fsXN;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Nc19oQi5;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DCA606EE86;
-	Tue,  3 Nov 2026 11:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54DCA606EE86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20006082BE1;
+	Tue,  3 Nov 2026 11:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A20006082BE1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=BNw4fsXN
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Nc19oQi5
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7F2AD27FE;
-	Tue,  3 Nov 2026 12:33:45 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5C13B1D12;
+	Tue,  3 Nov 2026 12:33:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793705626;
-	bh=lCX97vVaNf2WptwIp7Q2Y19AtPkuKlMbVEBKL5bbL1U=;
+	s=mail; t=1793705633;
+	bh=VdQD5e8RQEfseqp8dAXGa1dYEGrJdW8Nr5b9vOkh6Ds=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=BNw4fsXNZN3+/+uDs7U9f54aBfzd9g2SPlmgtU9oPHLaAdVyYK3i/T3kUsLS894O0
-	 kwhUHJLi8yKsZ7Uj5bbk0UYEUIc382SJTcMuZVFozWColUVaBPR2ZvzBsrIu82Rkrv
-	 dONE1xmhSPBOxpaYBbhCzLbB/h3qTXkeD3C+n/7M=
+	b=Nc19oQi5UwgaanRL1HBfWoKpqttq9RNSMZ+LEtGft1u0gsv3CYeMESz0W5VahxHaD
+	 APKHOmlLjfuMlOe6T8dQy6Wtp4P1XkHNcXqAXdZ1zUc8JrLa09iyrjrUgVRCwE0jMS
+	 bjLjWI8UcDHhOI0vzX5AhUFh5NL03zedEZ/XHNgM=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Tue, 03 Nov 2026 13:34:26 +0200
-Subject: [PATCH v5 06/15] drm/tidss: Use the AM625 features for AM62A7
+Date: Tue, 03 Nov 2026 13:34:32 +0200
+Subject: [PATCH v5 12/15] drm/tidss: oldi: Add power domain support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-beagley-ai-display-v5-6-f1c8d0e52bb4@ideasonboard.com>
+Message-Id: <20261103-beagley-ai-display-v5-12-f1c8d0e52bb4@ideasonboard.com>
 References: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 In-Reply-To: <20261103-beagley-ai-display-v5-0-f1c8d0e52bb4@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -73,177 +73,188 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5259;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4927;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=lCX97vVaNf2WptwIp7Q2Y19AtPkuKlMbVEBKL5bbL1U=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccX2ciXsFVaa3ku/BlYaLVhRR5Ey+tYT1l5W
- 7qqG/rlbreJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHFwAKCRD6PaqMvJYe
- 9W/xD/9BL9boxlQmi12B33BPVysIEAP5++92nJI7q/nIq+JZGfESc1NfrWq28x2gLxXNsG43g6d
- OO7FLyCvOJmwpA0eKmBU0IP9XaQBDsS2I8X1c9s9DH4sh308Wra91PobvAX+Y+jzoMnMWKvCo0l
- CBdmmymD6zegBVUBhXqg+zGOAtIX8aHXvzPwMnoUxfPMmmgfBIly4R4GbOYcVF4HIQRw9RQmFEv
- lBskFKJCzF/k0xmEJJxpJ67cI9jzESvikp2giC+SPbQBy+OqB2jkp6S8IGB8ISLl7JgwSX5gl8Q
- q71Dw8zOPCkw7gRdKwRk1McNzR2LpeW8JKQO33RGEVgUtjhhg5Zdi7Rm35pr2ixA9OI78XCnywm
- 4RcTIbbdvuzYpZWqmVutVTtgvnMwiz+2XPK2t8MqmJmQ5O9yfFMLNLI47RzSKNRjNE1ys7UkC06
- +qHYXAFhFE3jvUiFvQBgp5SEpU2SMY0jnaI4cE9UROQ5xv+NlBLa0FVWtX/er/bSkp8uM2GMqOE
- oAbI+kS2MU86XHvm3lqGapBrVmzq2Mv3T00UktmWFK1HOlMF01QLoySEUnK2qJVH5SlUfTKjmOa
- 9+uIUcNTPNIWmgFccuD+weKSIkp4RQ/wMGnfeflNKSyDjPplGr0xYnrAQWvSbIu1d05RG2sHvXt
- M+dYHosDbWlX6Vw==
+ bh=VdQD5e8RQEfseqp8dAXGa1dYEGrJdW8Nr5b9vOkh6Ds=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq6ccZydHLz1k3kSYU1yBegIQnwN3Rb88xaMPrt
+ mxV0f/B9IGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaunHGQAKCRD6PaqMvJYe
+ 9ap9D/9/pK5sMsiaLh5ZwKnEjV5ejLOzBRdMjfCXnzv+5XUJysl6RYj8mZ7MYFINqYeDL6uq2CK
+ EgAK/spnYLtdvUGhtpY3k2nVpS+BID4apVhgowLiVo+SW99+fBO6gt2jEx1Whw/SW2evtgb0ehM
+ xB04SmwE0AzqmGiJjGs9vcjsBKgGz9GEPq9fUrxgY9cQL17voZ5UW82tuf7kpBiAV0iF+L91CIX
+ nl6kUOkjmToO07SHeRwqqZ5xDFta//2igK7u8T5/D55VZbhBsGchJI97t2xrd0Q6wn/fz8yUEHD
+ 3D8YXQpdUAWpysXv39k3qFju5D5LG6d/blyJfUVJwvpabgtOoqYpkEO8OJPJku6+lbjpwJAmzxO
+ y0207VAEpflloDDBpYV3AfN65OEnUwsF2aEdcKJ/Vs4CG9pzzIOoYgyz5WPGC7MiQ2G/TWsmJ7r
+ RO80jmUJcptFKJsClMs4ZwHyfpPOp49OB0w0kuYcNo/nYoy9l8iy0pPTfSq2c/mZlLBwtw19Bih
+ JQOxwjzDUbSERifQAOVKWP7RtM4pHMapc+gPBO5xtZsKbGxo5TaOK3+qGD1CYVIOazSdIwZFHil
+ H4NphmkZAljxaRkJnTm+wA39Cmgr5SSOAg8sRpRCiDeOmro7HcDWd8JNZEQ8nPniRm81gysvMN6
+ nYjuhNs9ZGrtARg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-With the recent cleanups, the data in dispc_am62a7_feats is identical to
-dispc_am625_feats, except the subrevision, and the only place where we
-have a difference of behavior wrt. the subrevision is in a debug print.
+The OLDI TXes on AM62P and J722S have power domains of their own,
+described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
+real devices, so the driver core does not attach these power domains,
+and nothing in the core turns them on.
 
-Drop the dispc_am62a7_feats and use dispc_am625_feats for AM62A7. The
-debug print will print a few extra OLDI status bits for AM62A7, which
-are not relevant as AM62A7 doesn't have OLDI, but that is harmless.
+Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
+manage the power state of the returned virtual devices with runtime PM
+functions.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 59 -------------------------------------
- drivers/gpu/drm/tidss/tidss_dispc.h |  2 --
- drivers/gpu/drm/tidss/tidss_drv.c   |  2 +-
- 3 files changed, 1 insertion(+), 62 deletions(-)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 90 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 89 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 028cf78df3fe..17390f0c3913 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -350,60 +350,6 @@ const struct dispc_features dispc_am625_feats = {
- 	.vid_order = {1, 0},
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 5552c1c51074..f898a2bde653 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -10,6 +10,8 @@
+ #include <linux/of_graph.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/media-bus-format.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+@@ -35,6 +37,12 @@ struct tidss_oldi {
+ 
+ 	struct clk *serial;
+ 	struct regmap *io_ctrl;
++
++	/*
++	 * The power domains of this OLDI TX and, in dual-link mode, of its
++	 * companion. NULL for an OLDI TX without a power domain of its own.
++	 */
++	struct device *pd_devs[2];
  };
  
--const struct dispc_features dispc_am62a7_feats = {
--	.scaling = {
--		.in_width_max_5tap_rgb = 1280,
--		.in_width_max_3tap_rgb = 2560,
--		.in_width_max_5tap_yuv = 2560,
--		.in_width_max_3tap_yuv = 4096,
--		.upscale_limit = 16,
--		.downscale_limit_5tap = 4,
--		.downscale_limit_3tap = 2,
--		/*
--		 * The max supported pixel inc value is 255. The value
--		 * of pixel inc is calculated like this: 1+(xinc-1)*bpp.
--		 * The maximum bpp of all formats supported by the HW
--		 * is 8. So the maximum supported xinc value is 32,
--		 * because 1+(32-1)*8 < 255 < 1+(33-1)*4.
--		 */
--		.xinc_max = 32,
--	},
--
--	.subrev = DISPC_AM62A7,
--
--	.common = "common",
--	.common_regs = tidss_am65x_common_regs,
--
--	.num_vps = 2,
--	.vp_name = { "vp1", "vp2" },
--	.ovr_name = { "ovr1", "ovr2" },
--	.vpclk_name =  { "vp1", "vp2" },
--
--	.vp_feat = { .color = {
--			.has_ctm = true,
--			.gamma_size = 256,
--			.gamma_type = TIDSS_GAMMA_8BIT,
--		},
--	},
--
--	.num_vids = 2,
--
--	.vid_info = {
--		{
--			.name = "vid",
--			.is_lite = false,
--			.hw_id = 0,
--		},
--		{
--			.name = "vidl1",
--			.is_lite = true,
--			.hw_id = 1,
--		}
--	},
--
--	.vid_order = {1, 0},
--};
--
- const struct dispc_features dispc_am62l_feats = {
- 	.subrev = DISPC_AM62L,
+ struct oldi_bus_format {
+@@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
+ 	return 0;
+ }
  
-@@ -945,7 +891,6 @@ dispc_irq_t dispc_read_and_clear_irqstatus(struct dispc_device *dispc)
- 	case DISPC_K2G:
- 		return dispc_k2g_read_and_clear_irqstatus(dispc);
- 	case DISPC_AM625:
--	case DISPC_AM62A7:
- 	case DISPC_AM62L:
- 	case DISPC_AM65X:
- 	case DISPC_J721E:
-@@ -963,7 +908,6 @@ void dispc_set_irqenable(struct dispc_device *dispc, dispc_irq_t mask)
- 		dispc_k2g_set_irqenable(dispc, mask);
- 		break;
- 	case DISPC_AM625:
--	case DISPC_AM62A7:
- 	case DISPC_AM62L:
- 	case DISPC_AM65X:
- 	case DISPC_J721E:
-@@ -1479,7 +1423,6 @@ void dispc_ovr_set_plane(struct dispc_device *dispc, u32 hw_plane,
- 					x, y, layer);
- 		break;
- 	case DISPC_AM625:
--	case DISPC_AM62A7:
- 	case DISPC_AM62L:
- 	case DISPC_AM65X:
- 		dispc_am65x_ovr_set_plane(dispc, hw_plane, hw_videoport,
-@@ -2384,7 +2327,6 @@ static void dispc_plane_init(struct dispc_device *dispc)
- 		dispc_k2g_plane_init(dispc);
- 		break;
- 	case DISPC_AM625:
--	case DISPC_AM62A7:
- 	case DISPC_AM62L:
- 	case DISPC_AM65X:
- 	case DISPC_J721E:
-@@ -2501,7 +2443,6 @@ static void dispc_vp_write_gamma_table(struct dispc_device *dispc,
- 		dispc_k2g_vp_write_gamma_table(dispc, hw_videoport);
- 		break;
- 	case DISPC_AM625:
--	case DISPC_AM62A7:
- 	case DISPC_AM62L:
- 	case DISPC_AM65X:
- 		dispc_am65x_vp_write_gamma_table(dispc, hw_videoport);
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index ebaf559d56e5..d07352f7b2bd 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -63,7 +63,6 @@ enum dispc_dss_subrevision {
- 	DISPC_K2G,
- 	DISPC_AM625,
- 	DISPC_AM62L,
--	DISPC_AM62A7,
- 	DISPC_AM65X,
- 	DISPC_J721E,
- };
-@@ -96,7 +95,6 @@ static inline bool dispc_vp_is_am65x_oldi(const struct dispc_features *feat,
++static void tidss_oldi_power_get(struct tidss_oldi *oldi)
++{
++	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
++		if (oldi->pd_devs[i])
++			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
++	}
++}
++
++static void tidss_oldi_power_put(struct tidss_oldi *oldi)
++{
++	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
++		if (oldi->pd_devs[i])
++			pm_runtime_put(oldi->pd_devs[i]);
++	}
++}
++
+ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_commit *state)
+ {
+@@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
+ 		return;
  
- extern const struct dispc_features dispc_k2g_feats;
- extern const struct dispc_features dispc_am625_feats;
--extern const struct dispc_features dispc_am62a7_feats;
- extern const struct dispc_features dispc_am62l_feats;
- extern const struct dispc_features dispc_am65x_feats;
- extern const struct dispc_features dispc_j721e_feats;
-diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
-index 44b0b009c29a..7e7f2ba6ae82 100644
---- a/drivers/gpu/drm/tidss/tidss_drv.c
-+++ b/drivers/gpu/drm/tidss/tidss_drv.c
-@@ -238,7 +238,7 @@ static void tidss_shutdown(struct platform_device *pdev)
- static const struct of_device_id tidss_of_table[] = {
- 	{ .compatible = "ti,k2g-dss", .data = &dispc_k2g_feats, },
- 	{ .compatible = "ti,am625-dss", .data = &dispc_am625_feats, },
--	{ .compatible = "ti,am62a7-dss", .data = &dispc_am62a7_feats, },
-+	{ .compatible = "ti,am62a7-dss", .data = &dispc_am625_feats, },
- 	{ .compatible = "ti,am62l-dss", .data = &dispc_am62l_feats, },
- 	{ .compatible = "ti,am65x-dss", .data = &dispc_am65x_feats, },
- 	{ .compatible = "ti,j721e-dss", .data = &dispc_j721e_feats, },
++	tidss_oldi_power_get(oldi);
++
+ 	connector = drm_atomic_get_new_connector_for_encoder(state,
+ 							     bridge->encoder);
+ 	if (WARN_ON(!connector))
+@@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
+ 
+ 	/* Clear OLDI Config */
+ 	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
++
++	tidss_oldi_power_put(oldi);
+ }
+ 
+ #define MAX_INPUT_SEL_FORMATS	1
+@@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
+ 	return -ENODEV;
+ }
+ 
++static void tidss_oldi_detach_pd(void *data)
++{
++	struct device *pd_dev = data;
++
++	dev_pm_domain_detach(pd_dev, true);
++}
++
++static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
++					       struct device_node *oldi_tx)
++{
++	struct device *dev;
++	int ret;
++
++	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
++	if (IS_ERR_OR_NULL(dev))
++		return dev;
++
++	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return dev;
++}
++
++static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
++				     struct tidss_oldi *oldi,
++				     struct device_node *oldi_tx)
++{
++	struct device_node *companion;
++	struct device *pd_dev;
++
++	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
++	if (IS_ERR(pd_dev))
++		return PTR_ERR(pd_dev);
++
++	oldi->pd_devs[0] = pd_dev;
++
++	if (oldi->companion_instance < 0)
++		return 0;
++
++	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
++	if (!companion)
++		return -EINVAL;
++
++	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
++	of_node_put(companion);
++	if (IS_ERR(pd_dev))
++		return PTR_ERR(pd_dev);
++
++	oldi->pd_devs[1] = pd_dev;
++
++	return 0;
++}
++
+ void tidss_oldi_deinit(struct tidss_device *tidss)
+ {
+ 	for (int i = 0; i < tidss->num_oldis; i++) {
+@@ -584,7 +666,7 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+ 
+ 	/*
+ 	 * Only the primary OLDI needs to reference the io-ctrl system
+-	 * registers, and the serial clock.
++	 * registers, the serial clock and the power domains.
+ 	 * We don't require a check for secondary OLDI in dual-link mode
+ 	 * because the driver will not create a drm_bridge instance.
+ 	 * But the driver will need to create a drm_bridge instance,
+@@ -608,6 +690,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
+ 					    oldi_instance);
+ 			return ret;
+ 		}
++
++		ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
++		if (ret)
++			return dev_err_probe(tidss->dev, ret,
++					     "OLDI%u: Failed to set up the power domains.\n",
++					     oldi_instance);
+ 	}
+ 
+ 	/* Register the bridge. */
 
 -- 
 2.43.0
