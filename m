@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722046;
-	b=ze7GShOuooMzy30j9ZBcElHeTcG84ruCG/zTRmBk9aI5vHqL2xnpxaf6MC1basv/hgyJ
-	 4sk+DrKsFMEm/EaBOYl9oI7MEjAVHMJsXomyIs1kHwg04ESNzgnTU/Gx/NWgerj7QwSlS
-	 OTMtflYmNeXTNwzI81Duit/y8+acJc0eKtRg9kTltzFsAbhpPd6+9x/QwT1q+XeEOjP5y
-	 aykvl9RxFIInadkeoCUunWV8NxiOcJouETKpc8EMSViVqKtaLG5DuUbG76X5nKiryBngh
-	 Hvx3eKw8is+1tNDdodCwxJxBF3kddWg3dOFgCDU/YZliTL4jhWC54vDxjDarKI8NxkA==
+	t=1793722092;
+	b=zLV3Rw01waIK0Vy76Z0z3cITuvFiG7NmTflgm4xIf/quodKaW/0eUdaZq5izZClKLwhv
+	 nU/6xHDJIIyai2MyuuZW7u/S3PZ6uc6EteXVxW6WD6RblOJsMRXEBRvxJrC/XVdNtumnw
+	 aN9RMV/zv7BE04ftfcf1ABSOMzy2/C6QCQa6gM/Ubt0K8u2D5E+xN2VuM6fpiEqBzyTIK
+	 SoxxqLfCNFgWqBWF/FXR+ie2mesF1aqfq9QLY4gfeyD2j2pb4uH7ifYGmhFlqsuGHNcyI
+	 n301R3vOjnPGNfSJu/xkFBYkkBlOJv7Q7UEcZ1VAZhh9ahbgTFGd03OCoLDw/C7OUKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722092;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=V6gL72yOF/PFakknFjYD7NM7BNGsE1QwRUGWLZHDTEA=;
-	b=tub8INHf29Hou5j0yv2bNBvmI5AVAOWVJjJkjOIOJEt1XffW8wUn2Iv2Rb1A5Sla5irG
-	 jPNSrTOLb+MmlNCpzhacyWLZaBKxwfF3UYVmlED0MqKxkTVfgtRNDWNUNQKdkJ0SzOZTg
-	 oh5aOjhbmvxLRI05VPlXEsE1+yxCIkmPm0I/NtX0bZnATeMWy7U6whkds9DQfcJuSZ8JQ
-	 idUreTsxPN4ooRjrpqw8Tq4OpHee/dGmcU6XZMLMmEW4cONUxb7M5vophphMmmN0vXbNe
-	 7fOQ7GymNF2c7PENuxRlGgi6/E0FC8e1ijRHXVO2rAC0BmejLfcrAQ6EOjKAY+T0+Hg==
+	bh=15eXFobmklMF6Zz8KZABOj/NYU9Bb/gZ6f+yX2jZ//4=;
+	b=CPTPisdqRgGMc3uzxUlDq3/Ld4fCLuV7sEWSunBU4nJM/AGyV/Wk80i3t4XYXCwn9GVd
+	 zefN59M7aLoeUi6M/1N+n9KRNEXUGxuARC6gSAFwlI0Fg7yN8CLBW3VT8c/vNjTlob9N8
+	 N2Eb/KI2tH1Fhst1lPwHw8uyHBx9hRof/Hj1djqN9Gp+Gh3eV2mfO9dlLATzblVlpnDPG
+	 MDonLhJYt0VPHTTQkHFPrQoSPN0DBECH5/frSSCkK0bX+dmzdzJbY6k6jzU/4sH7UOVsH
+	 U8PwX9kjrh1j1gYHYc9v6MVinSn5YmvAQAfas6QBwSgB1WuYy21LNVUG3ALELj2vPxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V87Y3FHw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjfdUDao;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807A9606A324;
-	Tue,  3 Nov 2026 16:07:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D55F606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V87Y3FHw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BCB1F000C1;
-	Tue,  3 Nov 2026 16:07:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjfdUDao
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF48E1F000C1;
+	Tue,  3 Nov 2026 16:08:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793722046;
-	bh=V6gL72yOF/PFakknFjYD7NM7BNGsE1QwRUGWLZHDTEA=;
+	s=k20260515; t=1793722092;
+	bh=15eXFobmklMF6Zz8KZABOj/NYU9Bb/gZ6f+yX2jZ//4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V87Y3FHwvKytw/G9+DczOI9dJrAZjNURtrUgkgvswFAj6o7Q7YpEMGT9qikEI3VWd
-	 1r+lswXC+BscikAwlpasQO+pXDqwRx8FRN1uc0gxpKTG1khkqm/3WI84rquSJ/o54R
-	 kM6VY2S4Ym0LtZD2ib5U9U7a62pyXLTct3Alq2CMsWAnhae4pPvsSppUKMwpmXuqpv
-	 7R+X8EJLhvgcrIei0NQUT41Yc0itfSeGVQeb9+U5B9/1ooYWeP3eQhxmgrE59a6lhk
-	 5/euBZYIJxboXVEd5jQl9S5rbb1w5yIuf2Bpu8Io0axJBsysb8o33/u+uNPqy9C4mi
-	 +CvifmUXiIpfw==
-Message-ID: <sashiko-outbox-195698@kernel.org>
+	b=gjfdUDaowIUI57ChTO/LZ0zj58egmnmNU9Vm34X4RcHr7mfAYxou7Q2qz8P/K6O/H
+	 bcCrdry9DVfoGCEtOcvjKu3CnAoqitXBAe2VO/TZsYp5/wNcNc5IeDxFcefFmZhq6u
+	 i+jkNn4gijuul5vN6I/EDl5m+CZS6CQwt/FXGCGSZOFoqrL4M8WZ0fyscxAu+Da/kH
+	 JwQ0gZdd8wnItWRo3mWWW1AgVKCoLnsC4DMZ4brVPl3cQA76q6Aswhenj8Km0V8FQ4
+	 /jiWUU8wNFQJvOtBVRrZZcPyeNjaFMydv4qTR+zNUBLkakZ0YYIoxxeJeuXvATUuGY
+	 CwsFzuBf5/mDQ==
+Message-ID: <sashiko-outbox-195699@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] serial: fsl_lpuart: Enable TTY wakeup for
- wakeup-source ports
+Subject: Re: [PATCH v6 06/12] media: iris: Skip DMA mask setup when the core
+ device has no IOMMU
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>, devicetree@vger.kernel.org, linux-serial@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <58d65b44ca054ea83eb835bf5decebd688cad04d.1793719239.git.stefano.r@variscite.com>
-References: <cover.1793719239.git.stefano.r@variscite.com>
- <58d65b44ca054ea83eb835bf5decebd688cad04d.1793719239.git.stefano.r@variscite.com>
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261103-vpu_iommu_iova_handling-v6-6-e4b6ad864f8f@oss.qualcomm.com>
+References: <20261103-vpu_iommu_iova_handling-v6-0-e4b6ad864f8f@oss.qualcomm.com>
+ <20261103-vpu_iommu_iova_handling-v6-6-e4b6ad864f8f@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 16:07:25 +0000
+Date: Tue, 03 Nov 2026 16:08:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,125 +61,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] serial: fsl_lpuart: suspend state mismatch in lpuart_uport_is_acti=
-ve()
+- [Medium] media: iris: missing IOMMU readiness check for context bank devi=
+ces
+- [Low] media: iris: commit message omits iris_reserve_iova_region() changes
 --
 
-commit 5f417acc28861452465313313b5ef22d373f3ae3
-Author: Stefano Radaelli <stefano.r@variscite.com>
+commit 5b3d97b6ae9d000944779c5b28977e003ea98d0c
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-serial: fsl_lpuart: Enable TTY wakeup for wakeup-source ports
+media: iris: Skip DMA mask setup when the core device has no IOMMU
 
-This commit sets tty_wakeup_default in lpuart_probe() from the wakeup-source
-device tree property so the serial core enables TTY wakeup at registration
-time.
+This commit updates iris_probe(), iris_reserve_iova_region(), and
+iris_unreserve_iova_region() to check device_iommu_mapped(dev) before
+performing IOVA reservation and DMA mask configuration on the parent iris
+device.
 
-> diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpu=
-art.c
-> index c8575c9652035..35397152a39b3 100644
-> --- a/drivers/tty/serial/fsl_lpuart.c
-> +++ b/drivers/tty/serial/fsl_lpuart.c
-> @@ -2905,6 +2905,7 @@ static int lpuart_probe(struct platform_device *pde=
-v)
->  		sport->port.ops =3D &lpuart_pops;
->  	sport->port.has_sysrq =3D IS_ENABLED(CONFIG_SERIAL_FSL_LPUART_CONSOLE);
->  	sport->port.flags =3D UPF_BOOT_AUTOCONF;
-> +	sport->port.tty_wakeup_default =3D of_property_read_bool(np, "wakeup-so=
-urce");
+>     media: iris: Skip DMA mask setup when the core device has no IOMMU
+>    =20
+>     Once the streams are described as context bank subnodes, the "iommus"
+>     property no longer sits on the parent iris node. That device then has=
+ no
+>     IOMMU domain of its own and never performs DMA directly, so calling
+>     dma_set_mask_and_coherent() on it is meaningless, and on a device wit=
+h no
+>     IOMMU it can fail and abort probe.
+>    =20
+>     Set the DMA mask only when device_iommu_mapped() reports an IOMMU on =
+the
+>     core device. Platforms that have not been converted still carry "iomm=
+us"
+>     on the parent node and keep the existing setup. For converted platfor=
+ms
+>     the mask is applied to each context bank device instead, in
+>     iris_create_cb_dev().
+>    =20
+>     Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>     Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>     Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>     Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>=20
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index e659461716ba4..6d7147d73d40b 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -154,6 +154,9 @@ static void iris_unreserve_iova_region(struct device =
+*dev, struct dma_iova_state
+>  {
+>  	unsigned int i;
+> =20
+> +	if (!device_iommu_mapped(dev))
+> +		return;
+> +
+>  	for (i =3D 0; dma_iova_size(&iova_state[i]); i++)
+>  		dma_iova_free(dev, &iova_state[i]);
+>  }
+> @@ -167,6 +170,9 @@ static int iris_reserve_iova_region(struct device *de=
+v, struct dma_iova_state **
+>  	unsigned int count =3D 0;
+>  	int ret =3D -ENOMEM;
+> =20
+> +	if (!device_iommu_mapped(dev))
+> +		return 0;
 
-[Severity: High]
-Does enabling tty_wakeup_default at registration time cause a suspend and
-resume state mismatch between the serial core and lpuart_uport_is_active()
-when the TTY device is not open in userspace?
+[Severity: Low]
+This isn't a bug, but the commit title and message only describe skipping
+dma_set_mask_and_coherent() in iris_probe().
 
-With tty_wakeup_default set, serial_core_add_one_port() enables wakeup on
-tty_dev during probe before any process opens the port (when port->tty is
-NULL and tty_port_initialized(port) is false).
+Should the commit message also mention skipping the IOVA region reservation=
+ in
+iris_reserve_iova_region() and iris_unreserve_iova_region() when the core
+device has no IOMMU (where dma_iova_try_alloc() would otherwise return false
+and cause iris_probe() to fail with -ENOMEM)?
 
-If the system suspends while the port is closed, lpuart_suspend() calls
-uart_suspend_port(), which checks device_may_wakeup(tty_dev) without checki=
-ng
-tty_port_initialized(port):
+> +
+>  	state =3D devm_kcalloc(dev, BITS_PER_TYPE(dma_addr_t) + 1, sizeof(*stat=
+e), GFP_KERNEL);
+>  	if (!state)
+>  		return ret;
+> @@ -433,9 +439,11 @@ static int iris_probe(struct platform_device *pdev)
+> =20
+>  	dma_mask =3D core->iris_platform_data->dma_mask;
+> =20
+> -	ret =3D dma_set_mask_and_coherent(dev, dma_mask);
+> -	if (ret)
+> -		goto err_vdev_unreg_enc;
+> +	if (device_iommu_mapped(dev)) {
+> +		ret =3D dma_set_mask_and_coherent(dev, dma_mask);
+> +		if (ret)
+> +			goto err_vdev_unreg_enc;
+> +	}
 
-drivers/tty/serial/serial_core.c:uart_suspend_port() {
+[Severity: Medium]
+Can this allow iris_probe() to succeed when the SMMU has not probed yet on
+platforms converted to context bank subnodes?
+
+On converted platforms, the parent iris node has no iommus property, so
+platform_dma_configure(core->dev) sees -ENODEV from of_iommu_configure() and
+treats it as non-fatal. In addition, fw_devlink does not block core->dev on
+the child subnodes' iommus phandles because parse_iommus is marked optional
+and descendant fwnode links use FW_DEVLINK_FLAGS_PERMISSIVE.
+
+When iris_init_cb_devs() -> iris_create_cb_dev() registers the child context
+bank devices:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_create_cb_dev() {
 	...
-	tty_dev =3D tty_port_find_device(port);
-	if (tty_dev && device_may_wakeup(tty_dev)) {
-		enable_irq_wake(uport->irq);
-		put_device(tty_dev);
-		return 0;
-	}
-	put_device(tty_dev);
-	...
-}
-
-Because uart_suspend_port() returns early here, it leaves uport->suspended =
-as
-0 and skips console_suspend(uport->cons) as well as uart_change_pm(state,
-UART_PM_STATE_OFF).
-
-However, lpuart_suspend() then checks lpuart_uport_is_active(sport), which
-requires both a non-NULL port->tty and tty_port_initialized(port):
-
-drivers/tty/serial/fsl_lpuart.c:lpuart_uport_is_active() {
-	...
-	tty =3D tty_port_tty_get(port);
-	if (tty) {
-		tty_dev =3D tty->dev;
-		may_wake =3D tty_dev && device_may_wakeup(tty_dev);
-		tty_kref_put(tty);
-	}
-
-	if ((tty_port_initialized(port) && may_wake) ||
-	    (!console_suspend_enabled && uart_console(&sport->port)))
-		return true;
-
-	return false;
-}
-
-When the port is not open in userspace and console_suspend_enabled is true,
-lpuart_uport_is_active(sport) returns false, causing lpuart_suspend() to ta=
-ke
-the else-if branch and disable ipg_clk and baud_clk while the console is
-still active and unsuspended:
-
-drivers/tty/serial/fsl_lpuart.c:lpuart_suspend() {
-	...
-	} else if (pm_runtime_active(sport->port.dev)) {
-		lpuart_disable_clks(sport);
-		pm_runtime_disable(sport->port.dev);
-		pm_runtime_set_suspended(sport->port.dev);
-	}
-}
-
-Wouldn't any printk() during suspend or early resume then call
-lpuart32_console_write() or lpuart_console_write() while the LPUART clocks
-are disabled, triggering an unclocked MMIO access (bus hang or synchronous
-external abort)?
-
-Similarly, on resume, lpuart_resume() skips lpuart32_hw_setup(),
-lpuart_hw_setup(), and lpuart_console_fixup() because
-lpuart_uport_is_active(sport) is false, while uart_resume_port() also retur=
-ns
-early without restoring console termios or calling console_resume() because
-!uport->suspended && device_may_wakeup(tty_dev) is true:
-
-drivers/tty/serial/serial_core.c:uart_resume_port() {
-	...
-	if (!uport->suspended && device_may_wakeup(tty_dev)) {
-		if (irqd_is_wakeup_set(irq_get_irq_data((uport->irq))))
-			disable_irq_wake(uport->irq);
-		put_device(tty_dev);
-		return 0;
-	}
+	pdev =3D platform_device_register_full(&plat_dev_info);
+	of_node_put(child_of_node);
+	if (IS_ERR(pdev))
+		return ERR_CAST(pdev);
 	...
 }
 
-If the LPUART loses power during deep sleep while the console TTY is closed,
-doesn't this leave the console hardware uninitialized after resume?
+those child platform devices have no driver bound, and
+BUS_NOTIFY_ADD_DEVICE -> iommu_bus_notifier() -> iommu_probe_device() ->
+iommu_init_device() ignores the -EPROBE_DEFER returned by
+dev->bus->dma_configure(&pdev->dev) when the SMMU is not ready.
+
+With both iris_reserve_iova_region() and dma_set_mask_and_coherent() now
+skipped on core->dev when !device_iommu_mapped(dev), wouldn't iris_probe()
+finish and register the V4L2 video devices while neither core->dev nor
+core->np_dev / core->p_dev is attached to an IOMMU domain, causing subseque=
+nt
+iris_open() -> iris_core_init() -> iris_hfi_queues_init() calls to run
+dma_alloc_attrs() on an unmapped context bank device?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793719239.gi=
-t.stefano.r@variscite.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-vpu_iommu_=
+iova_handling-v6-0-e4b6ad864f8f@oss.qualcomm.com?part=3D6
