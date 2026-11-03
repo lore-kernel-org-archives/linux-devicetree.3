@@ -1,52 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712171;
-	b=TBmDSaXYa0uOB0fZAOfGmhG4cK2Nd5p+yTTqvxfu7vZzC/yks/rD0E5QqC1kA8FsHkhy
-	 Rko3e9sNwdbfDBS6uFu2vG1AgRFuVuUdWbld1zT5irqBgiRWlfLZtYjbY6I9fO7w3AdlW
-	 2/GAhEg7p+u0DMAU4/br1HWnK4eZnm3w2hZJg1kQJm9SSoOcu39qstoWYt6ozEqRMPp7L
-	 ylLqXJ7Nv5NymRyOQfSwO7uqz7XOUqMrm0DDCMlp7raq+O8akZHc+AJoLnjquEXt4sOrO
-	 kSW+XpqItdPCocU5hmCLyEtUSBXdbak/f0Mag/4NC235W0vSBBjASuInH9uRJInXNTA==
+	t=1793712227;
+	b=Szp3+owX+wuVUzIi+wvkJ4jPCMq+7GaQFjXXBF+N23twRdbrKChbuucWnWUyHWZvcfNF
+	 ojmx4Vm7X/WmuL6lts/5i59/nsPnCMOrP/kcgJNWg6IGG5gqGJKJ5SBTjisHfTL0fF+MW
+	 +ztYDjwgkE1cRJ8Mj1J/+2+Ve0/7FqHM65dPI1TXBmDt+CtE8B7VQsspFECHg3NSqFnGl
+	 7PUh9TL6mjcp6PZlIDzbnbIhm0Z4GRIdYVZqjGXo1502/pERVIiTOWI7viqjEjaLJ+HjC
+	 7i4VoKYwlseWv8foDBLXqENNdMqZQuf6pizj4x+Lm8OA8PpOERfYChNWPW2IVk29j2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712171;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=VewCD5rQVPnDQ07iJbynJVb6h4a7OVM9KP3rsrwt/NU=;
-	b=uKJA594OHi/jtF1KLVqhrkm3p+gWvlDn35s3HT32dS16eHlXSgJynV8SxfcwKumauqD/
-	 arl+Bc+FmC1ld+8XM11NBtSlBi51ZrMjCaExl8AVbCnfQSIuT1WXysAuMQlMVre7bTagI
-	 atgKYOJnTMcFWThbjI72ou3+hFiDezEfWiynAPI+WtTslWqVKUrc3/F/FXmx79NQJboWR
-	 ff66S5tY1lkkqVo6puLkF1enXu7vuDkOjYp45/kUr4zY+5wUP8e4v2ABSxQLnS6ISilPk
-	 16WrbeVBhS9wFp8ox0zq7wWTuCEjxbvD5m7bBQkThJdoYRK1dM5ugdFHPKrCVc78fbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=LYqgeXyiX8XVMyFZcD47JEncntf0/UCmpJA/xWCOZns=;
+	b=xkA69pZe9WpC1tHczOxwBBanOTiJjohY4b05X2xJgIpUQ0km6DL3cuYOPW8MTj5bRC0U
+	 aAdAdT8fWm0YqB1rudIQ0nnHgxX0xM4GikKg98S5sqIiL+7Yb6Bqg9zA1I7ICzlvFN3Qy
+	 Trtatwi11fNKTQza3WL50ZXsNJKKjhQ1IAyPhDvioIh5nrw1d3wxODegcm2siPDodZHt9
+	 e1eE7m+328UsMtNdsnvKYM/rT6ZPJmUOoPlgBgE0cPeks6kphDzd23g8ijqJFvj85b887
+	 l/zoMpl7as4WCTDtmRergprcT8CQ2tYC5ZKZKr0stv6AaeaZO1XcOa7JGtxwU8yIC3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=R0DmgznX;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ffroot.co.za;
+	spf=pass smtp.mailfrom=ffroot.co.za;
+	dkim=pass header.d=ffroot-co-za.20260707.gappssmtp.com header.i=@ffroot-co-za.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aXmhSvV8;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21DA606A326;
-	Tue,  3 Nov 2026 13:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E21DA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C959606A331
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 13:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C959606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=R0DmgznX
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57D7810B73C;
-	Tue, 03 Nov 2026 14:22:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793712158;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=VewCD5rQVPnDQ07iJbynJVb6h4a7OVM9KP3rsrwt/NU=;
-	b=R0DmgznX7Ax57K5GNw+5JTQ8I9uTNuFvVqgwVLIxe7t3+3pjZSxtrH5XcRsnK7biSPtEis
-	M64+psSzsYBaGc/Dk7RmKByOAh41JkLuSobcxYTVcJoFn59S1ofEzNIY84qON2y7JNpvAx
-	1Ek2nwp8vV65aikoJHxjcYJuMz6TR7w4icsvBRgXhODntO7PVhc4WsXf4qKtDCIZo8u219
-	njC4o7NrwpbHi22ezAPHcGntHWbe8bUPby/ybs3TF7rDx6xgYQNNi4ejkpPtNanJuuA2KU
-	IcEOwNucuR8rf2VaRbhrAYkZt54bBLVsRIHacWcgBLvslFJailgWSGp68I9wNQ==
-Message-ID: <eee735b6-9447-4790-b51e-cac01ebcd7c8@nabladev.com>
-Date: Tue, 3 Nov 2026 14:22:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ffroot-co-za.20260707.gappssmtp.com header.i=@ffroot-co-za.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aXmhSvV8
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so31550685e9.2
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 05:23:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ffroot-co-za.20260707.gappssmtp.com; s=20260707; t=1793712224; x=1794317024; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LYqgeXyiX8XVMyFZcD47JEncntf0/UCmpJA/xWCOZns=;
+        b=aXmhSvV8WyLnGfnVJqEd8aHGaEhsAdqn7rjhu7boyOefGlqsewcRwSHGp3D2jS+don
+         4VlFam6GVibWBDwg1evA+MIXFQvKm2BvUVe0DnJL2NRUbmBYQ0k+WGBmZrSkGXI4Hd0D
+         oxV89lIE9OUzRCQdaLD44PPtCj4CUJS9tVx1cA9BARjlQC5YXSqP6R7GBW9eDFMSmUq7
+         2JC1ilUinFN4qDdvks8PWb9U4mT24uoPV+/lQlfpFwnfqekuRYWQrp+gskZLoR9QWIzl
+         nZllHDbNj05p2wz+WfTSJFZ6uM2lYYPLX597kMlvw/MWIFJDxKUfMOhkY+r6mMQJRxJz
+         OUsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793712224; x=1794317024;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LYqgeXyiX8XVMyFZcD47JEncntf0/UCmpJA/xWCOZns=;
+        b=FWmHxTvPDlZSUKMUpPDuUwENo901E80v1l9zPpUH8r7aG5e6MyXFw8K3SUGWXuTZrk
+         VUTnoIFBzcGjUwZlDhyk15gYEe37o4bSRMZqoh0XASrzfghljmYaWPwnYejAkLI9GEKL
+         fXJQbSZZ0sNOvKRrpU1sh5K6BP0zRp/Vfw4oJqzn5IP+FxPGhI4AnDw3j3J/bro2Ijiu
+         sclD+LZ9udUTbwskSuBHcy/zr/R3o7WP2vVYqHQfqo1WuCtPEpL9yW2TaNeBlWOZZFPV
+         LWhh5UXnqNE8Ox9EgxHNmPilun3qUjobnqKGecJyL8UPXTEdTSaCgiJ1lrB5i5db/XhI
+         dWGg==
+X-Gm-Message-State: APuU4Z+/uNyZNVQRwBk5i1gknGbhz+gmFrjsFNseV4NyhPVKU66eYL5j
+	D2+fFgNUY0abl1staXVLtiiTj4Pw8IcSFeB4MIlghix0YrggXUqS0Y5ww67aqyIYDEY=
+X-Gm-Gg: AYBFou0EA5sCCbDLaCchJW1qsZnPzfFs1WZcQAAZUMjFrHc5GgIhiZ8cj7cbFnbLE5K
+	I9+QbObzQ0rpMm3MVj8eLRTSgNR9STuuwx11wQ6a++VY16ylZMiznYsTcFH3f7g3UPgMIFcVheZ
+	+r4nTaIg0hCMO7BmWtiEhCorQOQcAallmuiPiv+5zyIeNzqLFh60hzOFLDApRpDIifQWssipF8J
+	VIjbGj51F7z15wxm3I+EybFty5sumAMoa4MNrFo9Y68dxHGGbCse3SknrUoloZEW5KqiEYYAS5c
+	NvD1pdFjHBUzTW8LF/QwbLb46MsDFtUizph17ww8KgEJgTpoPaRqOrnc3v5+KXyy22n4zMzK8N0
+	Liq9nlz1v4DBbPM7+YlayjfDlMjjpav4nQbYSXoOxAg2exwIFERIQi8bMLO0jM2YOK93v13WpFf
+	FzP+RkTAjtx3/xCqIfMaQ+WdGCro8ADRj9dWNV9J89/cvzY0Ge0R+MPiiILyZ6m7v558n8L7mVA
+	O+xx2dvAgUlRTUi6tErVPo6SAPF63ubUPVEDZ1ixokg4pfHKIasHP4wis+WjCffY0L97LxZylvX
+	wvRIQGlClP7uYYVWoX2Nk9OJOJZhdbnTtTlegkMLCswhuRv+nWQc5y+CBQ==
+X-Received: by 2002:a05:600c:e547:10b0:4ad:5e09:ae43 with SMTP id 5b1f17b1804b1-4ad5e09ae61mr139983985e9.29.1793712224232;
+        Tue, 03 Nov 2026 05:23:44 -0800 (PST)
+Received: from andrew.office ([192.145.132.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ad414e298bsm163615055e9.2.2026.11.03.05.23.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:23:43 -0800 (PST)
+From: Andrew Gaylard <ag@ffroot.co.za>
+To: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org,  qinjian@cqplus1.com,  robh@kernel.org,
+  krzk+dt@kernel.org,  conor+dt@kernel.org,  linux@armlinux.org.uk,
+ soc@lists.linux.dev, arnd@arndb.de
+Subject: Re: [PATCH v5 0/6] arm: sunplus: add Tibbo LTPP3G2 board support
+In-Reply-To: <20260924164922.117236-1-ag@ffroot.co.za> (Andrew Gaylard's
+	message of "Thu, 24 Sep 2026 18:49:16 +0200")
+References: <20260924164922.117236-1-ag@ffroot.co.za>
+User-Agent: mu4e 1.12.14; emacs 30.2
+Date: Tue, 03 Nov 2026 15:23:39 +0200
+Message-ID: <sa6mrrqhwv8.fsf@andrew.office>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,104 +98,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
-To: Arnd Bergmann <arnd@arndb.de>,
- "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>
-References: <20260916204509.166633-1-marex@nabladev.com>
- <20260916204509.166633-2-marex@nabladev.com>
- <ad7fdd3a-489a-4573-8dec-961a16e6539b@amd.com>
- <20261013132625.GA159927@killaraus.ideasonboard.com>
- <acdfefce-a7cd-4918-bcca-52357bcf182d@amd.com>
- <20261013175438.GL4214@killaraus.ideasonboard.com>
- <99b0511a-96d2-420b-bfbe-6e22fdaffbf9@app.fastmail.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <99b0511a-96d2-420b-bfbe-6e22fdaffbf9@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-On 10/22/26 3:19 PM, Arnd Bergmann wrote:
-> On Tue, Oct 13, 2026, at 19:54, Laurent Pinchart wrote:
->> On Tue, Oct 13, 2026 at 03:47:12PM +0200, Michal Simek wrote:
->>> On 10/13/26 15:26, Laurent Pinchart wrote:
->>>> On Tue, Oct 13, 2026 at 10:21:26AM +0200, Michal Simek wrote:
->>>>> On 9/16/26 22:44, Marek Vasut wrote:
->>>>>> Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
->>>>>> The board is populated with four ethernet ports, QSPI NOR,
->>>>>> eMMC, UART and USB host interfaces.
->>>>>>
->>>>>> Signed-off-by: Marek Vasut <marex@nabladev.com>
->>>>>> ---
->>>>>> Cc: Conor Dooley <conor+dt@kernel.org>
->>>>>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>>>>> Cc: Michal Simek <michal.simek@amd.com>
->>>>>> Cc: Rob Herring <robh@kernel.org>
->>>>>> Cc: devicetree@vger.kernel.org
->>>>>> Cc: linux-arm-kernel@lists.infradead.org
->>>>>> Cc: linux-kernel@vger.kernel.org
->>>>>> ---
->>>>>> NOTE: Checkpatch complains about ethernet-phy-id2000.a240 being
->>>>>>          undocumented, but the TI DP83822I is generic C45 PHY that
->>>>>>          is valided by Documentation/devicetree/bindings/net/ethernet-phy.yaml
->>>>>> ---
->>>>>> V2: - Rename lm75 node to sensor@
->>>>>>        - Use GPIO_ACTIVE_LOW macro
->>>>>> V3: - Drop bogus clk_ignore_unused bootargs
->>>>>>        - Drop gpio line names
->>>>>> ---
->>>>>>     arch/arm64/boot/dts/xilinx/Makefile           |   1 +
->>>>>>     .../dts/xilinx/zynqmp-vhip6-evalboard.dts     | 300 ++++++++++++++++++
->>>>>>     2 files changed, 301 insertions(+)
->>>>>>     create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
->>>>>
->>>>> I am not able to review or take this board support further without publicly
->>>>> available hardware documentation for the platform (board-level and relevant
->>>>> interface details). Please share public documentation links once available, and
->>>>> I’ll be happy to revisit the patches.
->>>>
->>>> There are plenty of boards that have no public documentation. Pretty
->>>> much all phones and laptops are like that. We even have a whole
->>>> architecture that only runs on a few machines in a single person's
->>>> basement [*] :-) The kernel has never required public schematics for
->>>> boards, SoCs or IP cores.
->>>>
->>>> [*] A slight exageration possibly, but that's how I heard arch/alpha/
->>>>       being described at the maintainers summit.
->>>
->>> Pretty much every SOC with programmable logic or FPGA boards have unlimited
->>> amount of configurations and make no sense to describe all of them.
->>
->> As far as I understand, the dts describes the board only, there's no PL
->> devices in there. The fact that the SoC has programmable logic doesn't
->> seem relevant, unless I'm missing something. The situation is the same
->> as with any other SoC. We have lots of device tree sources in upstream
->> for all kind of boards, with or without schematics available, for
->> development boards or for boards integrated in products, for easily
->> available mass-market products or for specialized devices more costly to
->> source.
->>
->> Maybe I'm wrong about all this, so I've CC'ed all ARM64 SoC maintainers
->> on this e-mail to get feedback on the overall mainline policy for
->> upstreaming device tree sources.
-> 
-> In general, we definitely want this type of board to have an upstream dts
-> files, and there is no requirement for public documentation as in
-> many cases the dts source is the only documentation that is
-> available.
-> 
-> As platform maintainer, Michal should review the dts file to see if it
-> follows the general coding style and maintainability standards. If any
-> of the data in the dts turns out to be wrong in a way that one cannot
-> tell without access to hardware or documentation, that is Marek's problem
-> and he gets to fix it.
-Thank you for the clarification.
+Andrew Gaylard <ag@ffroot.co.za> writes:
 
-Michal, is there anything left over to do with these patches ?
+> The Tibbo LTPP3G2 is a board based on the Sunplus SP7021 SoC:
+> https://tibbo.com/store/tps/ltpp3g2.html
+> It is the platform that underpins Tibbo's industrial IoT products.
+>
+> This series adds board support to linux-next:
+
+Hi all,
+
+Ping?
+
+v5 was posted on 24 September.  Patches 1 and 2 are DT binding changes
+and have been ack'd (thanks Conor).  I haven't heard anything from the
+SP7021 maintainer; mails to qinjian@cqplus1.com bounce.
+
+The SP7021 platform entry in MAINTAINERS has no git tree, so I am not
+sure how this series should be routed. Could the SoC maintainers advise
+whether they can take it directly, or who should pick it up? 
+
+It still applies cleanly to v7.4-rc1.
+
+Thanks,
+Andrew
