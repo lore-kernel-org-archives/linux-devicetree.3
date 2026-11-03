@@ -1,82 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707408;
-	b=Ge0FtLyPiSV0pBzS87wIIfhmV6LXBahlHwIQNstHBOK960xHvCjtQ0b0UL89tZomhgTz
-	 vNI3PAJW4XNyZUxM9IXiZhb5c3uOBpg2A3XePGfWmM8NCLynvt8A9y0NiKAgxthjRW3ak
-	 KQ7mNzIFZOGd06+nCaNOc/fhLva8IRb9XGwnHuwme+UOG2AzTxbXuXlQIGvM+Qzp7zyVn
-	 Hq54OxAiUflp4oYjRftl+BOVvRev5Q6EFPf14Y/3AycyjsvB84WuleioJcf0J6e/UGUWp
-	 ApLiD7nSg6kJVB29RVZWeJtt5YY2Yh0aq4h3y6d/i/pkYvGYX9swD9uc0DNTsh7MO2Q==
+	t=1793707770;
+	b=4GbJHV2MSh04Mcxm7t/+1DpcKI6JPQL1hA61qRDZ7oZWpxGHZRm9xuFGZAkj4TZYTjMr
+	 aIYJzc5glq19wTa/shPnL1HmM+udh5JRcWoeIrkb44zDwElyV1v8lbpNO4tuj6sPQqwBT
+	 WW2r9dE0nt4qDK0T9ypXj0y0+r+sbztv+YwEYgYFM3SCkJd6BGqg38PznH1LExwZ+Y+Uj
+	 no/DgpciB0+XxCQC0ccntleiQnpqYn/EBYWU+mtVUQ58ERXqoAoAdxb4tUsV1l30KwH+0
+	 Wbn01cuyEZFnzRUe3xOgAUWIrEYUwMo75OE20NCgpR+JArFjq/5sceoxMCoaKeRAaVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707408;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=aFDkJvc0SlO0FoZdt7sy/omFWAvQLp/LHRh9YqnoHDQ=;
-	b=qMVNk3Q33n6BYv1OLl6J3njET99wFHHj2+FqtLNRgyBTsqIeP1pwTfgosneGPoWz3ni2
-	 eLRoOsBoaYb+5K11HvsVKYlu5as+6pexKD0dOR3ezAatniXKnmw69NlObzkhk7VVoJnjz
-	 O+co1RL77fYq3JXKwVKsXCdcvSQjb4SfvNIU0vIqVJh+weC7wSh9KBX+jj86656rIyTS+
-	 aqjKE7GboKH3haJV0itI3L9n+ssNhm1YXQC7a1+Gh0hoCbGdRY0gipg4+5rWMaRGuLSl6
-	 jl56NeiTkffudhfNrQp3eXlPPsnBA0TyLdvDNdXQsyfpsiPx6d95aquDV8GSzNb7OkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707770;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=F9Nq6xXSDAhqR0oQcX9hdN1OZL/n9rDxlf/0A6fLVEo=;
+	b=KYHs1dmz65rc1CHCtqSKyERHt29YeYkephQAoJgO3GiFJDKH1AxTKyTV9aaUxHFQOddv
+	 3cuwkC4z/TkwsAnRI6nX9ecyrO2Ke7Vij2tgdPZzDMnmiH+fAPhnF6LG6xVUlMzwbYT3I
+	 UAxgDKIlmG1Fs06oYpRfSgNZ7y9GO+CMHn+iEFtZnfXfC8xLeP0D+w4zWjtumpzSYKgsx
+	 5ozN2205R6ilE2vxpg+rhPThR9se4mtd+cBdQPvkHMOt2AHynFqtlnboSFKVuro2nyKPh
+	 s2xuNVawwWnK9hlbk450zOKuc5B+rIioE/BncvsjMEvLaEQ0juEEkrlh2PcAwnRABiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKJzLVtx;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbLsDA90;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAD3606D820;
-	Tue,  3 Nov 2026 12:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDAD3606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB93606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 12:09:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HKJzLVtx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793707409; x=1825243409;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ms+g3QoZSUyFHUMK9wfol68PI8V8MBi/mm/vsDLdkK8=;
-  b=HKJzLVtxnCKrz1kbs/KMp5RNv0G8AoPu37zW05Ha7X8xAq7qMkHKVzOu
-   QyY0XY7CpZslVYp+hiwWwZI4oil0XouTcplQWmfuDa0L1Q+cg74AvAIfY
-   /S8p7lWEZinvzuGaVVZyPc1ZxSK74MwJJNt5tjhcCTbhCQmD4EmDzI35q
-   YmoI49FCeJEyiznEqJ33xpFoHZRDyFumKU5AGGZCSOSeZEPCbXJkj6QQH
-   2ik8BbGCIe1fMbwX1nbqQUpGOik1WB4v5uhUwJm5xqGWEureCNZ0r4NOi
-   +srPxXIxBTQXvKwNnNJJcm/YupR6SgmROhv+O9kM/wDFo6S0j+4rVKEz0
-   w==;
-X-CSE-ConnectionGUID: hiLi+IPGQaivNb8egb+K7g==
-X-CSE-MsgGUID: 1UN2z4S4TruEczkdvDe0SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2336005"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2336005"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:03:28 -0800
-X-CSE-ConnectionGUID: u0dGWKT/S9WdmDpo9aqLlg==
-X-CSE-MsgGUID: 772hCfvgTIKLnsT8dX0suA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6737785"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 04:03:23 -0800
-Date: Tue, 3 Nov 2026 14:03:21 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v6 4/8] serial: 8250_dw: configure the Allwinner H616 UART
-Message-ID: <aunNiQcpKMrc88EK@ashevche-desk.local>
-References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
- <20261102-submit-h616-uart-fifo-v1-v6-4-25afcb346b0c@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbLsDA90
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9291F000C1;
+	Tue,  3 Nov 2026 12:09:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793707769;
+	bh=F9Nq6xXSDAhqR0oQcX9hdN1OZL/n9rDxlf/0A6fLVEo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RbLsDA90kz0E2f6C0wOrRXdN2fw1G/3uKejI6XrgAeXCeSOMpEWSy/9XYJ8ltHwrp
+	 oCxGfaUi8FMVPHJkMP/aQ0758eG3fUCnAZIbfpbLwRpjmgumYL+87tqcbTDs90VNQD
+	 paXKzpQey14mz2tr4hnw7/M+lzjtBeIg9fGvK9TIl5Vx4jeCSpzp41JjmTi2Ry6U+1
+	 a50UWbKrBS+XXt/EtgMJ0j5jrxoH/cunMjtR3I/EpRh88ebK5yRSaDMUJGkBTF24Jy
+	 kpwW0aTyyrgwtHjl4Pe5ynnWqNgwV78Uqoo43YaJ3nISBtzoGfVmOyYguNySk9+xoc
+	 9PaX/tfCwmr2A==
+Message-ID: <sashiko-outbox-195218@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacky Huang" <jackyhuang@nvidia.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <70b7dd4c538ce72a2caf3b4420af3889e9b2dab7.1793705210.git.jackyhuang@nvidia.com>
+References: <cover.1793705210.git.jackyhuang@nvidia.com>
+ <70b7dd4c538ce72a2caf3b4420af3889e9b2dab7.1793705210.git.jackyhuang@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 12:09:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -85,86 +59,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-4-25afcb346b0c@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 02, 2026 at 12:55:19PM -0700, James Hilliard wrote:
-> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
-> component parameter register reads as zero. Generic 16550 probing leaves
-> the port using the 16-byte FIFO configuration and its trigger-level table.
-> 
-> Keep PORT_16550A and supply H616's fixed FIFO depth through platform data.
-> The 8250 core derives the transmit load from that depth.
-> 
-> Allwinner encodes receive thresholds relative to the FIFO depth: one byte,
-> quarter-full, half-full and depth minus two. Construct the RX trigger
-> threshold array on the fly so other FIFO sizes can reuse the same mapping.
-> For H616 the thresholds are 1, 64, 128 and 254 bytes, with the normal
-> half-full FCR setting selecting 128 bytes. Use this array for both RX
-> trigger callbacks and the shared bytes-to-FCR conversion.
-> 
-> Serialize trigger changes with termios through the port mutex. Hold a
-> runtime PM reference for the register access and the UART port lock while
-> updating the FCR shadow and hardware. Changing only the trigger field
-> preserves the FIFO contents; a runtime resume failure leaves both the
-> shadow and hardware unchanged.
-> 
-> Advertise automatic flow control so CRTSCTS enables MCR.AFCE, matching the
-> DesignWare termios path's hardware CTS handling.
-> 
-> Select this configuration through the platform setup callback. H616's
-> debug-divisor and RS485 control registers overlap offsets used to detect
-> generic DesignWare features. Use the fixed configuration with BUSY-safe
-> integer divisor programming and software RS485 handling.
-> 
-> Keep the UART clock enabled during termios changes with SKIP_SET_RATE.
-> Its clock is a gate on the shared APB2 source rather than an independent
-> baud-rate generator.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] ARM: dts: aspeed: vr-c2-bmc mac2 pinctrl conflicts with gpio0 mu=
+x pins
+- [Low] ARM: dts: aspeed: vr-c2: unreferenced framebuffer shared-dma-pool n=
+ode
+--
 
-I'm not sure I followed previous discussion, but as far as I get it Ilpo
-mentioned the possibility to have that FIFO trigger threshold helper to be
-available on 8250_dw level (meaning dwlib). Or was it decided against this?
+commit 07cf82ff2465e47eff9ccc7235e61fcff4d5b27a
+Author: Jacky Huang <jackyhuang@nvidia.com>
 
-...
+ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
 
-> +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
-> +{
-> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
-> +	struct uart_8250_port *up = up_to_u8250p(p);
-> +	int fcr, ret;
+This commit adds the device tree for the NVIDIA MGX Vera C2 BMC based on
+the ASPEED AST2600 SoC.
+
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts b/a=
+rch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts
+> new file mode 100644
+> index 0000000000000..a044dfa004fc1
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts
+
+[ ... ]
+
+> +	reserved-memory {
+> +		ranges;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
 > +
-> +	fcr = serial8250_bytes_to_fcr(data->rxtrig_bytes, bytes);
-> +	if (fcr < 0)
-> +		return fcr;
+> +		framebuffer@9f000000 {
+> +			reg =3D <0x9f000000 0x01000000>;
+> +			no-map;
+> +		};
 > +
-> +	guard(mutex)(&p->state->port.mutex);
+> +		ramoops@a0000000 {
+> +			compatible =3D "ramoops";
+> +			reg =3D <0xa0000000 0x100000>;
+> +			max-reason =3D <2>;
+> +			record-size =3D <0x10000>;
+> +		};
 > +
-> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
+> +		framebuffer {
+> +			compatible =3D "shared-dma-pool";
+> +			alignment =3D <0x01000000>;
+> +			reusable;
+> +			size =3D <0x01000000>;
+> +		};
+
+[Severity: Low]
+Is this framebuffer shared-dma-pool node intentionally left unreferenced?
+
+During boot, fdt_scan_reserved_mem() -> __reserved_mem_alloc_size() ->
+rmem_cma_setup() allocates 16 MiB from memblock for this pool. Because
+linux,cma-default is not set, rmem_cma_setup() only stores the struct cma
+pointer in rmem->priv for per-device attachment via a memory-region
+phandle in of_reserved_mem_device_init_by_idx().
+
+However, this node has no phandle label, no device node references it via
+memory-region, and &gfx is not enabled in this device tree, so no device
+can allocate DMA buffers from this 16 MiB pool. Should this node be
+removed, or labeled and referenced by an enabled &gfx node?
+
+[ ... ]
+
+> +&gpio0 {
+> +	gpio-line-names =3D
+> +		/* A0-A7 */
+> +		"", "", "", "", "", "", "", "",
 > +
-> +	guard(uart_port_lock_irqsave)(p);
-
-> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
-> +	up->fcr |= fcr;
-
-	up->fcr = (up->fcr & ~UART_FCR_TRIGGER_MASK) | fcr;
-
-(as is also okay)?
-
-> +	/* Changing the trigger alone preserves the FIFO contents */
-> +	serial_port_out(p, UART_FCR, up->fcr);
+> +		/* B0-B7 */
+> +		"", "", "", "", "", "", "", "",
 > +
-> +	return 0;
-> +}
+> +		/* C0-C7 */
+> +		"SGPIO_I2C_MUX_SEL-O",
+> +		"", "", "", "", "", "", "",
+> +
+> +		/* D0-D7 */
+> +		"", "", "",
+> +		"UART1_MUX_SEL-O",
 
--- 
-With Best Regards,
-Andy Shevchenko
+[ ... ]
 
+> +/* NCSI MAC */
+> +&mac2 {
+> +	phy-mode =3D "rmii";
+> +	pinctrl-0 =3D <&pinctrl_rmii3_default>;
+> +	pinctrl-names =3D "default";
+> +	use-ncsi;
+> +
+> +	status =3D "okay";
+> +};
 
+[Severity: Medium]
+Does pinctrl_rmii3_default on &mac2 conflict with the gpio0 lines
+SGPIO_I2C_MUX_SEL-O (GPIOC0) and UART1_MUX_SEL-O (GPIOD3)?
+
+In drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c, the RMII3 group includes
+balls H24 (GPIOC0 / RMII3RCLKO) and E26 (GPIOD3 / RMII3RXER):
+
+    GROUP_DECL(RMII3, H24, J22, H22, H23, G23, F23, F26, F25, E26);
+    GROUP_DECL(NCSI3, J22, H22, H23, G23, F23, F26, F25, E26);
+
+When &mac2 probes with pinctrl_rmii3_default, pinmux_enable_setting()
+claims both H24 and E26 for 1e670000.ethernet and muxes H24 as the 50 MHz
+RMII3RCLKO output. Because aspeed_g6_pinmux_ops sets .strict =3D true, any
+subsequent GPIO request for GPIOC0 or GPIOD3 via aspeed_gpio_request() ->
+pinctrl_gpio_request() -> pin_request() will fail with -EINVAL.
+
+Since &mac2 uses NCSI, should it use pinctrl_ncsi3_default so H24
+(GPIOC0) is not claimed as RMII3RCLKO, and is GPIOD3 (E26) expected to be
+used as a GPIO while NCSI3 is active?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793705210.gi=
+t.jackyhuang@nvidia.com?part=3D2
