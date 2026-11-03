@@ -1,57 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691796;
-	b=AOXZ8mXNgtRwnAUZyb4rzwux1u3OmjSh9zqiH89GCV2yfExIOc94czqLtMmuRCb+qCXc
-	 ogQmNNVtTV/MTp31Jpd3YDIl13s+jbSL+H8LZAjDlpNbfRSE3Tx09Gx3qiTVoYBeOvNnb
-	 fyP4EhWOr3n4W0fmm1eYfoL3N481olojlOmc6Dq28Sfu64IonpvHrAQuEy/lOcnJr15F5
-	 R+dGOBvQ+ubPzPztpUX5DkZxftvzXK+mNyW6ybC/qWjMWTKvwifS0mE/Erqp0S9MJf82j
-	 qB2L9YVW3yh4G+8hWjgwN/JSa0uL+a/3ys1KiU6GL2IVDthuMyC2Qm64h8J9fu7XzCg==
+	t=1793691802;
+	b=EGu1kNhVxYfoFcRS7+i8PlRkoon+sUZvklLUHNzd2KQ4glGmTlgqR5xGXuta83LIgGww
+	 5hgcuR21mFYFbxybfyWdakObej7SMGYr+4uoOEmQYRaIcXkH9c7QNMBdaPkamgZ/A/8e1
+	 eb/sk1kxbHiwFxZjl9sJEpiz8NSw7AQsEL0k2Ak3fhOV2gVDjd8oYVsZlw30XNp3oT2/L
+	 zgk/8/8jL4S5NPVNAUNkxaj176saHqYEMKfLeCSktLT7VV9E1WjuIJkJ6h/sViAwGiBHf
+	 YcqZ+ecm/qeKKskQzpCdrbgSS9NKO4aeOCx4fchjLPO80S1o76RLDeN2WVatwDuAM8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691796;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=G6SxuhRmek6l6SMS2NrKxZ9uvRsXUAnWLaSUDEjxtJ8=;
-	b=ktcN1LHvixPXwJBzum5dmhBcXZkn0NYaQqK6ktSq51qa5oH9FfHgmJsj6ax8KffNcviF
-	 gyjU/TPTkeIDUEnw/jVnlzfWkfP+KVNuWQqRosU4XHJfA0LUvZbytygVeIFLqvQH1/y5I
-	 hX1OLfSQR7l/Psdv7FXokG7sV1xlWI28eyiOUg2D4STK+45i8h8KnkfKcp0se9x8MEoSw
-	 jbjOc/xw5IUVNiAOVYS9lFsnsg1wpGBVceaC/Jzbp9PAGvZ0StbR74EThHHnyO1V21oTd
-	 AvZss8p7MXc1+EoZsWVc9JZBdu2leH1lDxTc+ZF2TFswJYxkitPw4VqGiWvLJrvvnnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=z65FbJFnjWHxVaxQI8JGYbEaf36adoL6Hch5QBpP1Jc=;
+	b=vOiP4Ldaup0qtXTpgCOnuy0y6M9KvMPh6jKRvOm6DPsMQgFOj5WLq5ecWb6uzhXyYI17
+	 csDewd5KiKhY5o56xIwn3C6icadie61RL0pkvNvA2psvDynsgdEs6NE9A/LQzqz0/Bmj7
+	 hEeE7Ok0HkSomppbinnI1Tkh8sJmdBUT5P6gxiSUzgQZ//DUoPwZOLytb0qdaEbC9enTS
+	 izavHVno7TkN14MvTa3uWe68LzJPiCgWaZ9IBYAGlxoJAq9XmrkoNdjhZm0oa9rgqcGoh
+	 /cmPofmKAud/R6bLB/fGiibiBZJTc1i0SfQ9tGqDYjetUfUcLbAB37SK9QrZJtgLQJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBLsG6l3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOMJs7wm;
+	arc=none smtp.remote-ip=209.85.215.170
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF907606A33B
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 07:43:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765B9606A32E
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 07:43:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 765B9606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBLsG6l3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2981F00A1B;
-	Tue,  3 Nov 2026 07:43:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691795;
-	bh=G6SxuhRmek6l6SMS2NrKxZ9uvRsXUAnWLaSUDEjxtJ8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IBLsG6l3oQzumIhcdWJM86Y0RKSR36FdsL3RT2pQWkIty+eI2hOk7sCR3T8LAlKPH
-	 GMgnWL1x4SW5mFUtYfG+VhKBasWaUJPdEXojKqD5Y7agr6WFZkvro01oI6EPa1P8XA
-	 ASxbx5b6oSUEL1orHN3rDjva2xcKy0O9sXmRpxYKFzJbfGtFZjPgchs4RqUexQFy6Z
-	 5ZVosxIsYbBPEbAKEmxYxEwiR2XtM+l4xmLbP7U5L7bPGpwIks+leSq+UD53NOGgj5
-	 Ms1BDvxSzHPsl9jV9Jqkb0D8shPF2/jcotxXDHq7Ut5vWdHw83Pjdwi5WDoXY59NVf
-	 omgx2m2c9b1aA==
-Message-ID: <sashiko-outbox-194729@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 7/7] thermal/drivers/loongson2: Add Loongson-2K0300
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <b36f79d7d130f5068620ceb224fcdfb4cde49b16.1793690276.git.zhoubinbin@loongson.cn>
-References: <cover.1793690276.git.zhoubinbin@loongson.cn>
- <b36f79d7d130f5068620ceb224fcdfb4cde49b16.1793690276.git.zhoubinbin@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 07:43:14 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOMJs7wm
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso633284a12.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 23:43:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793691802; x=1794296602; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z65FbJFnjWHxVaxQI8JGYbEaf36adoL6Hch5QBpP1Jc=;
+        b=JOMJs7wm64L3SLWZU+8B/pCRUU08onnqAWFtbZGVHmVRi7yT6nH0gVq1sDd3yWBZsE
+         y55EPlDsqqFNRCTrmYzAXT1Bsimojw7u0AurFUQvjEECf7k+Jv/lLUWIJ4WvBHpZlvQj
+         bpQp1RG8cUlcN5qfwrovcIFq7DvoXiNJhbT/01mdLKHzHYtq1vNnTzfrUqlmD5InvfIM
+         6UI17jZ9Irrb8B8Ht4f73SOYPNgYULsHeL1JOCwVGJHce/J9a0E7aUv5wMtRWpkHYUbs
+         yeuqblaFBKOGT+bjB3pe0yzToWtSIqteNQM40kyBdO4TIp0lifCsjZ0QPZL03Ag7mo8/
+         75KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793691802; x=1794296602;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z65FbJFnjWHxVaxQI8JGYbEaf36adoL6Hch5QBpP1Jc=;
+        b=bSShz0aqLm/e7aQ2FvnWDNxBEmiuUXBNs5I0RVtYIyLKILQNfNxgqYjYvBQL1LaaOw
+         UfEQ5HtaMa/1TTPmyoYugGJn87AjwAckK1aiWuiiTb0gocS5yfOBqOtBRcW9p3nHDL6a
+         hiZLl7esmK42U/ffyK9mx9DoELQUNWiLAqdXHyp65/3Ngc2jcmAJICDHDhdDI70o8Uyc
+         EXkTP9hKlJLJxiFre+5kd+xtFNnUm6anQm9zrOOT1sCixdLkAdk0tIUh2k0TDN55ZR4Y
+         Av/0arIEBJhKGOKDibalMZrTI3L+3ZaKPqGLDDDoqWloET2xZOphMrqVo3tpVNYXjeHs
+         Dn+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxm091yJwTsXiU15aXwqPluaXgDAtKiFP+LtYRh8ovnIH8l3SMnZqUofiaAqNA5FzV2yfNjYlryEuVS@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jntgt8luYFKIkUP4T3i297LXjzeI0NlTQjsgnew2zg5gnKyKL
+	GUllqp9IsukVzo69FZlr0WZG5YGgNfFYfRqBxleTHf9q/iQU6WwPFs7K
+X-Gm-Gg: AYBFou1h6W/KQvrhBxOxi7MKWxECc1LvwMUXCIXQ8sBx4J7uBHZ21WJZm04RZltQlwt
+	eRSabfwr7J8rC2/vJ9tKoDJAB1aHasz9uIbvYLLxg4D6+Kt3pS57GqfNUNq/PtNupRnNIjOoCP5
+	KUYdrBYsRvuAWN56qKHgh8rBVd/9I4OuWczOKh0YNCfiPdGC+v/oHGWN5HI/tx44s797LQLws64
+	o4z8/fn0WNQF1U3JQGxpGAskp7BlccFhexNOvpkiCJrYNL2FDvlm67MIBmBlzcJyt1sVIFpQAcO
+	JJ9brnOaXt86errGsBOT2qXqxfr26fCdD6QyO1xqd2R0G7SNB2w5iuJqmM2EBnGdJGTmstdwdbL
+	pJGfrMiVDuqLqWj5gk9T3byJnTCjNJW/ARU5W7lI9wbt+Gj4p/5MSzzo9XROGiFBzl1ULwHIs9c
+	CJrXjAnpSodvIHfu9FG1pcQgsZw0W68JzCpAEdVh3DM1JKUCV6/rmIhLs3LwpkliYWDmffiua5+
+	V/JfDhotAbpbIoezqfBR7FuoKBRWjzM65B6uzKX1mutvlKDQRrRa+vLTOA27exyD9CWg+3XHyjK
+	96zxfRK4wjSUrjH1df47ofu7Fz9ho87xClVuoku2X5C9H8wD5kOeHX0WXhuJI2dVPkpwAhbwQHg
+	4L6sJajlHemlXW1usfJ5m0hQoVVHo0W/fF/ST99sEs95mQ+WI/CulWmfNLo+mHXqKXFmwfQmEHu
+	1payU=
+X-Received: by 2002:a17:90b:4c44:b0:3ad:9ecf:2b88 with SMTP id 98e67ed59e1d1-3ae897356e2mr9451595a91.19.1793691801674;
+        Mon, 02 Nov 2026 23:43:21 -0800 (PST)
+Received: from [192.168.2.34] ([2403:581e:d87e:0:739f:50a5:e171:f133])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c903d0dsm2956769a91.12.2026.11.02.23.43.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 23:43:21 -0800 (PST)
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Tue, 03 Nov 2026 17:40:10 +1000
+Subject: [PATCH v4 22/22] arm64: dts: apple: t602x-j47x: Add
+ speaker/headset jack nodes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,130 +94,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-macaudio-v4-22-637484efe46d@gmail.com>
+References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+In-Reply-To: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Calligeros <jcalligeros99@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2528;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=Mpa6Lyvo5t3WwDhLa15s7MQvnpQJvZyAGw7Ghv9V1tE=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFkv+y/cXfot+mNMjqG8VQGnwRn3EyJWLF0yd4RXtmu/+
+ PuK4dLTjoksDGJcDJZiiiwbmoQ8Zhux3ewXqdwLM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ GukY6xgxcHEKwFT7czD895M+e0r0trTbnV0nPsxR/+sWH2Zbxmy//I3n/ESnsJq4dYwMZ+yOvLw
+ gwH4mdKdQWcjzb8U8nGvO1fbvNZLOyU+ekd/KBwA=
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] thermal/drivers/loongson2: missing MFD_SYSCON dependency in Kcon=
-fig
-- [Medium] thermal: loongson2: missing ADC delay in ls2k0300_thermal_hw_ini=
-t()
---
+The M2 Pro/Max/Ultra Mac mini and Mac Studio integrate Apple-specific
+variants of the TI TAS2764 and Cirrus CS42L42. Add these nodes and
+advertise them to the machine driver via the sound node.
 
-commit 10dff186e720aacd669123374d9a7f0a467f16da
-Author: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+---
+ arch/arm64/boot/dts/apple/t6020-j474s.dts      |  5 +++++
+ arch/arm64/boot/dts/apple/t6021-j475c.dts      |  5 +++++
+ arch/arm64/boot/dts/apple/t6022-j475d.dts      |  5 +++++
+ arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi | 10 ++++++++++
+ 4 files changed, 25 insertions(+)
 
-thermal/drivers/loongson2: Add Loongson-2K0300 support
+diff --git a/arch/arm64/boot/dts/apple/t6020-j474s.dts b/arch/arm64/boot/dts/apple/t6020-j474s.dts
+index e3c2635d84fa..f39697490365 100644
+--- a/arch/arm64/boot/dts/apple/t6020-j474s.dts
++++ b/arch/arm64/boot/dts/apple/t6020-j474s.dts
+@@ -46,4 +46,9 @@ &pcie0 {
+ 			<0x300 &pcie0_dart_3 1 1>;
+ };
+ 
++&sound {
++	compatible = "apple,j474-macaudio", "apple,j473-macaudio";
++	model = "Mac mini J474";
++};
++
+ #include "hwmon-mini.dtsi"
+diff --git a/arch/arm64/boot/dts/apple/t6021-j475c.dts b/arch/arm64/boot/dts/apple/t6021-j475c.dts
+index 9fe17f1f7f59..f8f776f9eb1e 100644
+--- a/arch/arm64/boot/dts/apple/t6021-j475c.dts
++++ b/arch/arm64/boot/dts/apple/t6021-j475c.dts
+@@ -36,4 +36,9 @@ &pcie0_dart_1 {
+ 	status = "okay";
+ };
+ 
++&sound {
++	compatible = "apple,j475-macaudio", "apple,j375-macaudio";
++	model = "Mac Studio J475";
++};
++
+ #include "hwmon-fan-dual.dtsi"
+diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+index 32938a3bf96a..153899f1569b 100644
+--- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
++++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+@@ -73,3 +73,8 @@ &bluetooth0 {
+ 	compatible = "pci14e4,5f72";
+ 	brcm,board-type = "apple,canary";
+ };
++
++&sound {
++	compatible = "apple,j475-macaudio", "apple,j375-macaudio";
++	model = "Mac Studio J475";
++};
+diff --git a/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi b/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi
+index 926bb4ab77af..7f1faefcf9bb 100644
+--- a/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi
++++ b/arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi
+@@ -36,3 +36,13 @@ &hpm2 {
+ &hpm3 {
+ 	interrupts = <44 IRQ_TYPE_LEVEL_LOW>;
+ };
++
++&speaker {
++	interrupts-extended = <&pinctrl_ap 58 IRQ_TYPE_LEVEL_LOW>;
++	shutdown-gpios = <&pinctrl_ap 57 GPIO_ACTIVE_HIGH>;
++};
++
++&jack_codec {
++	interrupts-extended = <&pinctrl_ap 59 IRQ_TYPE_LEVEL_LOW>;
++	reset-gpios = <&pinctrl_nub 8 GPIO_ACTIVE_HIGH>;
++};
 
-This commit adds thermal sensor support for the Loongson-2K0300 SoC, reading
-calibration offsets from the CHIP ID syscon registers and falling back to an
-old-fuse slope when the calibrated temperature falls outside the valid rang=
-e.
+-- 
+2.56.0
 
-> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongs=
-on2_thermal.c
-> index d83aaa588c485..0a9d039c9ab8c 100644
-> --- a/drivers/thermal/loongson2_thermal.c
-> +++ b/drivers/thermal/loongson2_thermal.c
-
-[ ... ]
-
-> @@ -83,6 +118,101 @@ static int loongson2_thermal_set_trips(struct therma=
-l_zone_device *tz, int low,
->  	return 0;
->  }
-> =20
-> +static int ls2k0300_thermal_adc_to_temp_mc(struct loongson2_thermal_data=
- *data, int slope)
-> +{
-> +	int raw_adc;
-> +
-> +	raw_adc =3D FIELD_GET(LOONGSON2_THSENS_OUT_11B_MASK,
-> +			    readl(data->ctrl_reg + LOONGSON2_THSENS_OUT_REG));
-> +
-> +	return (raw_adc + data->calib_offset) * slope - LS2K0300_TEMP_OFFSET;
-> +}
-
-[ ... ]
-
-> +static void ls2k0300_thermal_detect_old_fuse(struct device *dev,
-> +					     struct loongson2_thermal_data *data)
-> +{
-> +	int temp;
-> +
-> +	temp =3D ls2k0300_thermal_adc_to_temp_mc(data, LS2K0300_TEMP_SLOPE);
-> +
-> +	if (temp < LOONGSON2_LOWEST_VALID_TEMP ||
-> +	    temp > LOONGSON2_HIGHEST_VALID_TEMP) {
-> +		dev_warn(dev, "calibrated temperature %d mC out of range [%d, %d], usi=
-ng old fuse formula",
-> +			 temp, LOONGSON2_LOWEST_VALID_TEMP, LOONGSON2_HIGHEST_VALID_TEMP);
-> +		data->flags =3D LS2K0300_UNCALIBRATED_FLAG;
-> +		data->calib_offset =3D 0;
-> +	}
-> +}
-
-[ ... ]
-
-> +static int ls2k0300_thermal_hw_init(struct platform_device *pdev,
-> +				    struct loongson2_thermal_data *data)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	int ret;
-> +
-> +	data->regmap_cfg =3D syscon_regmap_lookup_by_phandle(dev->of_node, "loo=
-ngson,chipid");
-> +	if (IS_ERR(data->regmap_cfg))
-> +		return PTR_ERR(data->regmap_cfg);
-
-[Severity: Medium]
-In drivers/thermal/loongson2_thermal.c, ls2k0300_thermal_hw_init()
-unconditionally calls syscon_regmap_lookup_by_phandle(). When
-CONFIG_MFD_SYSCON is not enabled, the stub in include/linux/mfd/syscon.h
-returns ERR_PTR(-ENOTSUPP), causing loongson2_thermal_probe() to fail at
-runtime on Loongson-2K0300.
-
-Neither LOONGSON2_THERMAL in drivers/thermal/Kconfig nor LOONGARCH in
-arch/loongarch/Kconfig selects or depends on MFD_SYSCON:
-
-drivers/thermal/Kconfig:
-    config LOONGSON2_THERMAL
-        tristate "Loongson-2 SoC series thermal driver"
-        depends on LOONGARCH || COMPILE_TEST
-        depends on OF
-
-Should LOONGSON2_THERMAL select MFD_SYSCON in Kconfig?
-
-> +
-> +	ret =3D ls2k0300_thermal_read_calib(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to read calibration data");
-> +
-> +	writel(LS2K0300_THSENS_INIT_MASK, data->ctrl_reg + LS2K0300_THSENS_CFG_=
-REG);
-> +
-> +	ls2k0300_thermal_detect_old_fuse(dev, data);
-
-[Severity: Medium]
-As reported by Sashiko on v7 [1], in drivers/thermal/loongson2_thermal.c,
-ls2k0300_thermal_hw_init() writes LS2K0300_THSENS_INIT_MASK to
-LS2K0300_THSENS_CFG_REG and immediately calls
-ls2k0300_thermal_detect_old_fuse() without waiting for the sensor ADC to
-finish its initial conversion.
-
-If the sensor was not already enabled prior to probe,
-ls2k0300_thermal_detect_old_fuse() -> ls2k0300_thermal_adc_to_temp_mc() can
-read a reset or stale value of 0 from LOONGSON2_THSENS_OUT_REG. With
-raw_adc =3D=3D 0, any calibration offset of 622 or less produces a temperat=
-ure
-below LOONGSON2_LOWEST_VALID_TEMP (-40000 mC), permanently setting
-LS2K0300_UNCALIBRATED_FLAG and clearing data->calib_offset.
-
-Should there be a delay or readiness check after writing
-LS2K0300_THSENS_CFG_REG before reading LOONGSON2_THSENS_OUT_REG?
-
-[1] https://lore.kernel.org/r/93002842dcf01ec651a9711075f5967026b95987.1791=
-512067.git.zhoubinbin@loongson.cn
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793690276.gi=
-t.zhoubinbin@loongson.cn?part=3D7
