@@ -1,117 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722227;
-	b=SJC4Mz/+kX3lybYFvAfmbWfNCgFGkcn3koVePLTrMqvWV1zJOk/iVkx2Bn9+9G6ruj0o
-	 radW5kZLHAVs7vMMNiMWBS73U8IjFAO1gDD1AfKhSDuDHig4uFQVD+iuP6dD3YoZ6VBI4
-	 5K6NNqXlgEuZiX6iamSvnL1dCYdnbvS2H5P5sKEl4M9QaVq4qdjMgZkYm3R8NYdAlh055
-	 W+Xo6V9gW5yk2KGSdPEM4Bg30nrD/NicI91xhiDpsLJbT3cK6+Cfv9CSYMUjB/sO56WSK
-	 98l7VMqI7q6juqZv6JRfRlfsXD5mpY8Zhje8fCPDPkATIrlzXVMXaBjJRtS/jkI7PtQ==
+	t=1793722349;
+	b=IJyV/s0767XNNSSQklHOFhrQHNHVPiXr1ytRwsTuYp/o26tLkIr7a63BDcsKIBo1ikWj
+	 8W8W/1jQTBblQxZ+0RiE8Jp6BBAsUzz/ujHHE+pIxtEHGZ6ryqEcp6o5zixh5vPl4vBQg
+	 7bTbJ++nWnBdENTuyCOcWpNLjHC2MfmDFhUsD3xOuQ3/B+u8wdD95BZ5SWSuSQy/o3T0M
+	 c8FQ2AomSEtH5U3FVzmFddfMQPmgevG/Z3G0tgDZXH6c19NLiI4XjUzYMUGXDjJiDFdeq
+	 BIROa58x8cqwcaIF9gVaIfIrya3Gu+9ZPA4JWUyRVuvHT+zwmHTQrD02N2nJV6C8KOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722227;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=o3AtUaDDignDhemVJZmrs9RvFoTNS+PrlXslggB1GSc=;
-	b=dqkZVi/1ALIlcVUMjh19KnxKQnylu0DTsOZwGBfqHOnT/gdYzsKU/DFqN3V78sElNn47
-	 mFTxpER8W+LFmtmmXp5UlCB7Tw31HWv0EZ8Hn6kBfxEEBGoyPjinAWdyZtbS4oXnudjrh
-	 QOzTlm2yNrEmLLm+1C3LYQ/OKydsGhRl+oftDm+ygJjuIPaZ/ASM29gvBwQ4nCoBke160
-	 ZlDlocTzizY4hW4EQH0242MCmSDlwFatjlB9viKCwpkYkLuU5GBPTfPJFv/EluZsMkl/8
-	 jULBSaUMlvexHfzmOa8IzicjZPcL00jZLAswQ3lyzlZVOdO8+KZokwObOkgQFSQ9mug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722349;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=k3wOXwT/k0LbDBrntawfvyLqtjKreuDEhwrYfhEh6/k=;
+	b=Kr2VGHqB6mH8anVQgupUTsnRy+b8hwR0Pw5HI0iBefEXhMiwQkl/IRy/56HOvkq7OTQe
+	 6a49pv7cFZcJjSaUCK7ruZYN6YyCgrdu47z4MwPJzjKYDsf0k9BayEwODKpxxPawPH3pE
+	 hIrUzGPynJIoz1ZGHTfiz0mP9vKbK1lbjLhCpxZjwzsSt4tx7/NImC7QNrT2WU38M2mzT
+	 CQL5wN7MoP7beqnqxB99rINQd0nQHTOf0kK/5ud3LpoqCfWltj67zwL+boDH+1KyToAaA
+	 DxOFW5sSeAGGZ5Io/ERJiLk6qt6BadqUO8eWTZmxk1XFQfXyYkdQcLAW6E3p6VTegTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rx+67YcM;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=JbZRI7Oy;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=beagleboard.org;
+	spf=fail smtp.mailfrom=beagleboard.org;
+	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=tutmjVCb;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87598606A331;
-	Tue,  3 Nov 2026 16:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87598606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BB6606A335
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:12:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BB6606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rx+67YcM;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=JbZRI7Oy
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3E75hN689031;
-	Tue, 3 Nov 2026 11:10:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=o3AtUaDDignDhemVJZmrs9RvFoTNS+PrlXslggB1GSc=; b=rx+67Yc
-	M56QuT/vMnjcSMWEOy3gDJwhlvoswlFU/+KnmfPzgvdX/N0t/mqpqBQlxNnCmQZt
-	Wzu2RdG4xnGotBt8lqtj9QpNcGs5eAPBptOvckZIaCz7TmbJxLLGh8hq4B5m1C5y
-	nupwYLl8WloVOhnThCV1OpLAl/jZgnI7C0K/cxQH35eMxDdyBrMsHOC6NI9QDuRH
-	KmRWBHp31O6aC6OXjt6tZStYuSUIXiuOhhEdAGGMYK5Rmb9wZEL1ya6KuH92cFjZ
-	38yK1iS+4fxBvbGYji2jzfRh9GlTroTthS/HJ9+ZH6GrDbI+cG+oftuNwgX5eq2S
-	qu2p/2J8Y1JBqyA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=o3AtU
-	aDDignDhemVJZmrs9RvFoTNS+PrlXslggB1GSc=; b=JbZRI7OyfshvFu7RNPXqp
-	HWRHXGD7jyxZaE8/VUyw+4uJc5OHoYstVc0ljCGSZ03h4KQfOLWA0NeMbWBrlvhI
-	hxzpNx6MAJR62GyNgcV4E1yWqsiN+rbJEs1tNAYN4WZ0Rf8iHQVwaP86a5DbecaC
-	+oc1K9cCVEwFw7EYjv/3UawqqDM9QvpQKGG1NFNxxkXWzJJmSTpN0WTibPiMTypC
-	/82nmSdjx5/J0i1RRZo9KlV1FYn/i8SAJuZgvGFJSqO4vgjClLBRQ7jMOnKcjbpt
-	KLGp6JSeuLRtYVgbb4oR3sIkZ5lzpydPqEz4QfMein8Tw4U9odpbzAOoclOg4MCe
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hqh160ptd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Nov 2026 11:10:14 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6A3GAD1T003134
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:10:13 -0500
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 3 Nov 2026 11:10:12 -0500
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 3 Nov 2026 11:10:12 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 3 Nov 2026 11:10:12 -0500
-Received: from HYB-6AVb5If9qTU.tail230d3d.ts.net (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.49])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A3G9KcQ032393;
-	Tue, 3 Nov 2026 11:10:07 -0500
-From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>,
-        Heiner Kallweit
-	<hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Marcelo Schmitt
-	<marcelo.schmitt@analog.com>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Ciprian Regus <ciprian.regus@analog.com>,
-        Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Subject: [PATCH net-next 4/5] net: ethernet: adi: adin1110: Add OA TC6 protocol support for ADIN1110
-Date: Tue, 3 Nov 2026 18:09:17 +0200
-Message-ID: <20261103160918.409701-5-iustin.stolniceanu@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
-References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=tutmjVCb
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-353804b591eso7504266eec.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:12:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=beagleboard.org; s=google; t=1793722347; x=1794327147; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=k3wOXwT/k0LbDBrntawfvyLqtjKreuDEhwrYfhEh6/k=;
+        b=tutmjVCbafnKZ5xd+rUmHojIuJviiEwrd6OnDwB1Fa2khQDZJtwC8eG0R06a869fIc
+         aVumRSRA+CGPl+cqnNBoN90OYx4GAszZdLxC/jU13RmIF5+W1BOZpLBV1O3C3+x/MJv4
+         VAMQEiF7yWx6SLoeKoJTpMIoohd3nehS4/1dg5q4+qpbpw0x2jc3T2flHAQWyqT8hXqc
+         5r3CiIv5HbUvl9IRQEZrxzYHLMrBzzZxX5jXhF9og/hxjAvO9WgbjM5qhRMhjq2FOT/R
+         UVnV7s0aJ5Q4jvXQ4m8ohgCGJls+Q5SRgPKOUjHWtTvLS3fHq+UGNTkXIuH1cg+uMKKO
+         BMGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793722347; x=1794327147;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=k3wOXwT/k0LbDBrntawfvyLqtjKreuDEhwrYfhEh6/k=;
+        b=eYIIHrnvEYJzP6PMwGkiQAsWbxBaM/EBVunVrZtQwt/N+AVZQCJ0+lA/ETrmrpfA5g
+         y6RlYrlUWJYrRCRp3u1ADOBtRhBw1Yna1oc2dAx85C8eCAOwgJAqe4xVEFdca30fYOF1
+         e+U4Ad8Z9paekS07jQtiTMF2RCPw0sMk2DkYpcHR24RSMMTY//1wDtebkHz7emyD/9IK
+         La0fnInSuVYl2GholxBQ6swSuzLX/Zzb7mrhlRBt1yTX0MFwmj5ehyccz1EW3vqNNpFv
+         MUna9jKsnq21TWjRIJqcweQRxrop2f8jWBxLTKHlUG0C38CilmE6aPhnx2GS7gTOt/0G
+         8t8A==
+X-Forwarded-Encrypted: i=1; AKwUvBySaRDfhUNEa8QGAUi4BMLZw2G3V196bOyc+C6hcAJj2Nm6JEOeaWRXMSSOQYylUSxAfBl2JzdRml/I@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FqNqYR8f4z6M6Cgq96N6y2wWSQcTmWl3eBgm2b9zZe4j4Hj9p
+	LDwEPqIdzPaPQDnkQTjCxQap0uX+hV5850UmriE12/QqOFfYItjZ3wKRW5os1KOBrw==
+X-Gm-Gg: AYBFou3m4quJvmP6MzjOqF22KpcMDbRoi1iax7+ajGJicrD2HYZT39mTqhqN5oc9+8V
+	jREt8i9KL8Ev6A8aUH64k3GEpeHndUjCCBjNyfrQRGmXpb9azJcujHesAM/AJoL/V7bcV2d1dHQ
+	PcWLtC6ISnMrIOp26L+trJktpEqfFJLOtFOo+gbwoOtiwF9e8m4ds9L7V/vVAvKuTnVcqrOI9Mp
+	BzGb/PkwR5Y+/MWYHK40IV+tR4ykxJGUPS+gjPt2KnQdHylHP9Z8vfMbsfpL3fTcZ1ySuhdxSBG
+	nxUiZrxE/jWfZW+jwR2i1nzMXN3nta3vGefblUfA/VGR2p6wpH1ncs5ZFgTFk/8LrWmzoS72YIw
+	mYxqwfOoU8DYUlnAlKqCURJARw5Qj3XOjqbCzrxPZC4rlVxXLiTthsfJGvUvCDR0hCRvLcuvGal
+	RxetoY/x8XDGQmfUPbDcPmGRCHeLJfiTj8hk+5fSOL6FP9b0JNT4UfMbvqUdfEasHyVVmv54+F3
+	XX+4q3zTI2YUvmqxWfUCYyOYUvxT3cgsZlznzwDCD/mL1z3oc/apWzcUvZPRNXGYy4jB2eP8sf1
+	Fgnob0uk9zyiepr03boGTEHMynQGcQ37DAXYySoz9tJUU1rBihHll96+EgIGkw==
+X-Received: by 2002:a05:693c:83dc:10b0:365:d42a:f415 with SMTP id 5a478bee46e88-36a423454b2mr22770760eec.12.1793722347185;
+        Tue, 03 Nov 2026 08:12:27 -0800 (PST)
+Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm47214021eec.6.2026.11.03.08.12.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:12:26 -0800 (PST)
+From: Ayush Singh <ayush@beagleboard.org>
+Subject: [PATCH v5 0/9] Add Greybus Sotfsvc and UART Node drivers
+Date: Tue, 03 Nov 2026 21:41:47 +0530
+Message-Id: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -121,391 +92,259 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA2NCBTYWx0ZWRfXzjySLauhd/jZ
- mQzyq6/R0cSCC0izVtRjB3RcgCM6PKxRgcIeV2FbOOSAZ1VctkoyPoOcRC6Cfr4D+PXMW89vPB7
- iAIbgxLGZcll8rzAN3cnQpWWMxhlAYt3+Urh921vhgsQ2FFvx542
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA2NCBTYWx0ZWRfXw3w7uEAdu/68
- +J4z7p1HKQ+bRhKfbrs9xWor8kIsIhqqQDqR6KjYZtOhL3Q+eNpDjZO0vLgG95jO3o2kJh99K7x
- EhyqIE5a1v86w23oNWw+vkG3SuIJokfExQp9NajdV7X6z5ju2GSYjs4mxXnBLRNO5go5N7WFfXE
- 63SAXQE6s9A7J8QXX3+/dvp6LyrECOarppIA7quZuvC0q3pu4LcIlliQmsjyi/+Cd383aPh6ODw
- NUMVvLhgbjECc9TFNLjyyd/KcB/7Dv5PSj1B1/Ltyy9Yj7xr1w3dcgSWf8oubsHbXC1xyVgrMbU
- m7LmN6SV21Dw8OXJgKfobyWQhr1b1AwLQA2XrsyKajDLg3NgF1CJzd+DZSu9sDTE2jGwndupE+O
- Yk3e45+pGvA9WzuH1ySaFo32e2WxEyIShyT0asQyres2nNNJ+fFo2W70lhhmn/JhI6pBtwZk82L
- T0AWhdNAdEbqCx0wDZQ==
-X-Proofpoint-ORIG-GUID: ikmDWVs1i8kxVapNaV8Gclj7swRBnB_g
-X-Proofpoint-GUID: ikmDWVs1i8kxVapNaV8Gclj7swRBnB_g
-X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6aea0766 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=Mci-6iFgQkcKbKAaMZ8A:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 adultscore=0 clxscore=1011 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030064
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTWrDMBAF4KsEraugGUmxmlXuEboY/dgRFCtIj
+ kkIvntlU0og6m7ewPtmnqyEHENhx92T5TDHEtNYg/7YMXehcQg8+poZCjwIA4IPlt8oT3zKNJZ
+ rqtMnau0PWndOOVZ71xz6eN/M81fNl1imlB/biRnW7a+GLW0GLjga9ASKbGe7kw00fAebKPt9y
+ gNbzRlfna7lYHVISGuh17310HbknwMCZMuR1THgBRkCcv0//6gXB6HlqOo4KYwLBsEr/e4sy/I
+ DuCidCpABAAA=
+X-Change-ID: 20260810-gb-uart-transport-9255d6557c4c
+To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, 
+ Ayush Singh <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, 
+ Markus Probst <markus.probst@posteo.de>
+Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10414;
+ i=ayush@beagleboard.org; h=from:subject:message-id;
+ bh=Un+JeaoO5nO0A9iuuQpHYPf5wnPRYStXrfDeLtewjmA=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq6gffJCf0b/EqQOpxLrbuuTe3NhD7a1SSw7JvZ
+ lw8kq9Iq+6JAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCauoH3wAKCRAFzvXHieVa
+ dD67EACKfk6XiXD58HxSF+y6CsNtxvs0y1I27VMtCmCE+voKUv5LnKyONvWAIAKKqkdmbZ1WnLE
+ Wz2je7a/Irzs2cXqE0uquRPdK5UchkX/HXZrx+IvP0EckD+0DeefWut/p6vhGPovZKwLyUoPXrr
+ 7sVY4ZBS/PxYlQXOVINkmHZ9ByRVWpGbVDDKPN5Ka5TRl0YDQoEiqMOaRFwNKec2An+Yup5L0mo
+ Fg9l0SoxLJJLz92qMr+D0mf3nY8bMpRW6GYvgt1Q2Y44SbWqwcO0PtUwhIZPRANzl9O7gsdbWd4
+ 80TDAt93fhPxge/4z91HyaU5pnspPmSRT3qYb3+rNdOpUpTyt5Ce+cyWtcLnXqMiYkudWqk6wml
+ IUA3bSgncoHNlxR7tFIHWtb0H+1m5UVzb8lg2PG/uQKNT/3LtWfBh8PW8iKqkB1Fr1x/jRPb8tl
+ 0mgdlc+H359s8ECRoz7VD9QKoy5kK8osSZd+KwtgACy6b2czAK4HUZ9zT3KD9aEy1n0vBjSDcRW
+ UkETlXL3OM4CLQSZa7anyy79QuslTLPf9R6c5LGKdS/aG0rEwK91GH/878SbRNtEkM8rDQaTah0
+ iSLlAe5Xr/7QvJYvJxtnngfhgFMMVicASgt5wkxyOubDiEmeQssLeUoX5nNbkql2SXZwE1eT6Dp
+ +UQVJhZLgJNbnWA==
+X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
+ fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-From: Ciprian Regus <ciprian.regus@analog.com>
+A Greybus network needs an SVC (Supervisory Controller) to bring
+interfaces up, assign device IDs and connect CPorts to the AP. On a
+UniPro network the SVC is a real entity on the bus. On transports that
+merely carry Greybus messages - a UART, an I2C bus, a network link -
+nothing on the wire plays that role, so the SVC has to be emulated
+somewhere: in a user-space bridge (gbridge), in coprocessor firmware
+(cc1352p7 in gb-beagleplay), or open-coded inside the host driver itself.
 
-The ADIN1110 and ADIN2111 support two SPI host interface protocols,
-the generic SPI protocol and the OPEN Alliance TC6 protocol. The
-protocol is selected by the state of the SPI_CFG1 pin, which the device
-latches when it comes out of reset. The driver currently supports only
-the generic SPI protocol.
+This series moves the emulation into the kernel and makes it shared.
+This was discussed in a prior RFC as well [2], but to keep things short,
+removing the need for an external SVC greatly simplifies the greybus
+network setup when nodes are directly connected over common transports
+such as UART, I2C etc.
 
-Add support for the OPEN Alliance TC6 protocol on the ADIN1110, using
-the oa_tc6 framework, when the adi,spi-oa-tc6 property is set. The
-framework handles the data transfers and the MDIO bus. Register
-accesses go through read_reg/write_reg callbacks, so the existing MAC
-configuration code is shared by both protocols. The ADIN1110 specific
-MAC registers are in MMS 1.
+    gb-uart-node          gb-softsvc              greybus core
+   (transport, serdev) <-> (SVC + host device) <-> (bundles, protocols)
+        NodeOps            module_insert()
+     submit_message()      module_remove()
 
-The framework does not append the FCS to transmitted frames, so set
-CRC_APPEND in CONFIG2 to let the MAC append it. Also set the port state
-to forwarding on open, as the generic SPI path does, otherwise the
-broadcast and multicast filters drop all received frames.
+gb-softsvc registers itself as a Greybus host device and answers the
+SVC-side operations the core expects during interface bring-up and
+teardown. A host driver implements the NodeOps trait to push data
+towards its node, calls module_insert() to announce a new node,
+submit_message() to hand incoming Greybus messages back to the core,
+and module_remove() on disconnect.
 
-The ADIN2111 is not supported in OPEN Alliance TC6 mode yet, and probe
-fails with -EOPNOTSUPP.
+The first user is gb-uart-node, a driver for Greybus nodes attached over
+a plain serial port. Framing is HDLC, with a one-byte address (0x01 for
+Greybus) and control byte, followed by the 16-bit CPort ID and the
+Greybus message. No SVC firmware is required on the far end, so the node
+can be a bare microcontroller speaking Greybus - a BeagleConnect Freedom
+over its serial link, in this case. The testing is performed with
+greybus-zephyr [0] implementation.
 
-Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
-Co-developed-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Both drivers are written in Rust, which is why the middle of the series
+is abstractions rather than drivers. Only the APIs these two drivers
+need are covered: protocols.rs abstracts the SVC-facing parts of
+greybus_protocols.h, and types such as Greybus Interface do not
+implement AlwaysRefCounted yet. The intent is to grow this as more Rust
+host drivers appear rather than to abstract the whole subsystem up
+front.
+
+Patches 1 and 2 are small C-side preparations to the Greybus core:
+exporting gb_connection_get()/gb_connection_put() and adding
+gb_connection_hd_find_by_intf(), a lookup by remote interface and CPort
+id for callers that only know the far end of a connection. Patch 3 adds
+a CRC-CCITT abstraction, needed for HDLC frame checks. Patch 4 adds the
+Greybus abstractions, patches 5 and 6 the two drivers, and patch 7 the
+device tree binding for BeagleConnect Freedom.
+
+Open questions
+***************
+
+- gb-uart-node imports types from gb-softsvc, so the series carries the
+  Rust-to-Rust cross-module calling setup from nova-core [1]:
+  gb_softsvc_exports.c plus the Makefile plumbing that emits crate
+  metadata and generates the export list. This is a workaround for the
+  build system not supporting Rust cross-module dependencies natively,
+  and it should go away once that lands.
+
+- Connection create/destroy and interface activate/resume in gb-softsvc
+  currently just acknowledge the request. Callbacks into NodeOps can be
+  added when a transport actually needs to act on them; I did not want
+  to invent an interface without a user.
+
+- Zerocopy is currently not being used in grebeybus/protocols.rs. They
+  cannot be derived yet since types generated by bindgen do not have
+  them, and it seems explicitly forbindden to manually impl the traits.
+  So using old traits from transmute.
+
+- The bindings are supposed to be created for actual device, but any MCU
+  that supports Zephyr, can run the greybus-zephyr firmware with UART
+  transport. So not sure if adding a beagle,beagleconnect-freedom
+  compatible is the correct choice here.
+
+- The individual patches can be spun off into independent patch series
+  if required. The reason for this single patch series is to provide a
+  complete picture of usage.
+
+- Since gb-softsvc currently is not being used from a C driver, no C API
+  is provided. However, if required, it can be added.
+
+- Writing to UART from gb-uart-node is currently a bit broken. I am not
+  quite sure what the safe way is to go from a non-bound device to a
+  bound device. Any suggestions on this front are welcome.
+
+- I am not sure if Rust abstractions should have a seperate entry in
+  MAINTAINERS with me as the maintainer, or if they should just be added
+  to the respective subsystem entries. As mentioned by Miguel Ojeda
+  [3], this is upto greybus maintainers. So waiting on their inputs. I
+  am available to be maintainer for the Rust abstractions for greybus
+  if required.
+
+[0]: https://github.com/beagleboard/greybus-zephyr
+[1]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@nvidia.com/
+[2]: https://lore.kernel.org/all/ecca8eb2-8e5a-4770-bcf6-3fb49773088b@beagleboard.org/
+[3]: https://lore.kernel.org/all/CANiq72mA6pTmPJUk8g7y3Z=wetFMXdzHLiPEPChpY4OTg3OHiw@mail.gmail.com/
+
+Signed-off-by: Ayush Singh <ayush@beagleboard.org>
 ---
- drivers/net/ethernet/adi/Kconfig    |   1 +
- drivers/net/ethernet/adi/adin1110.c | 186 +++++++++++++++++++++++++++-
- include/linux/oa_tc6.h              |   1 +
- 3 files changed, 186 insertions(+), 2 deletions(-)
+Changes in v5:
+- Remove AlwaysRefCounted impl from Interface. No longer required.
+- Fix invalid comments.
+- Fix interface drop in spinlock.
+- Impl AlwaysRefCounted for hd::Device only in normal context.
+- Match the bus device struct defination in device.rs docs.
+- Return GB_OP_PROTOCOL_BAD instead of ENOTSUP when encountering an
+  unknown message.
+- Fix possible race condition in SVC module removed. Flagged by
+  sashiko-bot. Involved, ensuring that operation_cancel cannot drop an
+  in-flight message.
+- Fix timer leak in a greybus operation.
+- Check write_all return.
+- Return E2BIG when frame lenght is exceeded in uart node driver.
+- Link to v4: https://lore.kernel.org/r/20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org
 
-diff --git a/drivers/net/ethernet/adi/Kconfig b/drivers/net/ethernet/adi/Kconfig
-index bdb8ff7d15da..c35f68814c21 100644
---- a/drivers/net/ethernet/adi/Kconfig
-+++ b/drivers/net/ethernet/adi/Kconfig
-@@ -22,6 +22,7 @@ config ADIN1110
- 	depends on SPI && NET_SWITCHDEV
- 	select CRC8
- 	select PHYLIB
-+	select OA_TC6
- 	help
- 	  Say yes here to build support for Analog Devices ADIN1110
- 	  Low Power 10BASE-T1L Ethernet MAC-PHY.
-diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
-index 53fac3dc8be6..d08b165bf7c4 100644
---- a/drivers/net/ethernet/adi/adin1110.c
-+++ b/drivers/net/ethernet/adi/adin1110.c
-@@ -19,6 +19,7 @@
- #include <linux/mii.h>
- #include <linux/module.h>
- #include <linux/netdevice.h>
-+#include <linux/oa_tc6.h>
- #include <linux/regulator/consumer.h>
- #include <linux/phy.h>
- #include <linux/property.h>
-@@ -114,6 +115,8 @@
- #define ADIN_MAC_P2_ADDR_SLOT			3
- #define ADIN_MAC_FDB_ADDR_SLOT			4
- 
-+#define ADIN1110_MMS0_LIMIT			0x30
-+
- DECLARE_CRC8_TABLE(adin1110_crc_table);
- 
- enum adin1110_chips_id {
-@@ -145,6 +148,7 @@ struct adin1110_port_priv {
- 	u32				nr;
- 	u32				state;
- 	struct adin1110_cfg		*cfg;
-+	struct oa_tc6			*tc6;
- };
- 
- struct adin1110_priv {
-@@ -161,6 +165,9 @@ struct adin1110_priv {
- 	struct adin1110_port_priv	*ports[ADIN_MAC_MAX_PORTS];
- 	char				mii_bus_name[MII_BUS_ID_SIZE];
- 	u8				data[ADIN1110_MAX_BUFF] ____cacheline_aligned;
-+
-+	int (*read_reg)(struct adin1110_priv *priv, u16 reg, u32 *val);
-+	int (*write_reg)(struct adin1110_priv *priv, u16 reg, u32 val);
- };
- 
- struct adin1110_switchdev_event_work {
-@@ -192,7 +199,18 @@ static u8 adin1110_crc_data(u8 *data, u32 len)
- 	return crc8(adin1110_crc_table, data, len, 0);
- }
- 
--static int adin1110_read_reg(struct adin1110_priv *priv, u16 reg, u32 *val)
-+static int adin1110_read_reg_tc6(struct adin1110_priv *priv, u16 reg, u32 *val)
-+{
-+	struct adin1110_port_priv *port_priv = priv->ports[0];
-+
-+	if (reg >= ADIN1110_MMS0_LIMIT)
-+		return oa_tc6_read_register_mms(port_priv->tc6, OA_TC6_MAC_MMS1,
-+						 reg, val);
-+
-+	return oa_tc6_read_register(port_priv->tc6, reg, val);
-+}
-+
-+static int adin1110_read_reg_generic_spi(struct adin1110_priv *priv, u16 reg, u32 *val)
- {
- 	u32 header_len = ADIN1110_RD_HEADER_LEN;
- 	u32 read_len = ADIN1110_REG_LEN;
-@@ -240,7 +258,23 @@ static int adin1110_read_reg(struct adin1110_priv *priv, u16 reg, u32 *val)
- 	return ret;
- }
- 
--static int adin1110_write_reg(struct adin1110_priv *priv, u16 reg, u32 val)
-+static int adin1110_read_reg(struct adin1110_priv *priv, u16 reg, u32 *val)
-+{
-+	return priv->read_reg(priv, reg, val);
-+}
-+
-+static int adin1110_write_reg_tc6(struct adin1110_priv *priv, u16 reg, u32 val)
-+{
-+	struct adin1110_port_priv *port_priv = priv->ports[0];
-+
-+	if (reg >= ADIN1110_MMS0_LIMIT)
-+		return oa_tc6_write_register_mms(port_priv->tc6, OA_TC6_MAC_MMS1,
-+						  reg, val);
-+
-+	return oa_tc6_write_register(port_priv->tc6, reg, val);
-+}
-+
-+static int adin1110_write_reg_generic_spi(struct adin1110_priv *priv, u16 reg, u32 val)
- {
- 	u32 header_len = ADIN1110_WR_HEADER_LEN;
- 	u32 write_len = ADIN1110_REG_LEN;
-@@ -263,6 +297,11 @@ static int adin1110_write_reg(struct adin1110_priv *priv, u16 reg, u32 val)
- 	return spi_write(priv->spidev, &priv->data[0], header_len + write_len);
- }
- 
-+static int adin1110_write_reg(struct adin1110_priv *priv, u16 reg, u32 val)
-+{
-+	return priv->write_reg(priv, reg, val);
-+}
-+
- static int adin1110_set_bits(struct adin1110_priv *priv, u16 reg,
- 			     unsigned long mask, unsigned long val)
- {
-@@ -881,6 +920,22 @@ static void adin1110_set_rx_mode(struct net_device *dev)
- 	spin_unlock(&priv->state_lock);
- }
- 
-+static int adin1110_set_rx_mode_tc6(struct net_device *dev,
-+				    struct netdev_hw_addr_list *uc,
-+				    struct netdev_hw_addr_list *mc)
-+{
-+	struct adin1110_port_priv *port_priv = netdev_priv(dev);
-+	struct adin1110_priv *priv = port_priv->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->lock);
-+	port_priv->flags = dev->flags;
-+	ret = adin1110_setup_rx_mode(port_priv);
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
- static int adin1110_net_open(struct net_device *net_dev)
- {
- 	struct adin1110_port_priv *port_priv = netdev_priv(net_dev);
-@@ -938,6 +993,31 @@ static int adin1110_net_open(struct net_device *net_dev)
- 	return 0;
- }
- 
-+static int adin1110_net_open_tc6(struct net_device *net_dev)
-+{
-+	struct adin1110_port_priv *port_priv = netdev_priv(net_dev);
-+	struct adin1110_priv *priv = port_priv->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->lock);
-+
-+	/* Needed for the broadcast/multicast filters to forward to the host */
-+	port_priv->state = BR_STATE_FORWARDING;
-+
-+	ret = adin1110_set_mac_address(net_dev, net_dev->dev_addr);
-+	mutex_unlock(&priv->lock);
-+	if (ret < 0) {
-+		netdev_err(net_dev, "Could not set MAC address: %pM, %d\n",
-+			   net_dev->dev_addr, ret);
-+		return ret;
-+	}
-+
-+	phy_start(net_dev->phydev);
-+	netif_start_queue(net_dev);
-+
-+	return 0;
-+}
-+
- static int adin1110_net_stop(struct net_device *net_dev)
- {
- 	struct adin1110_port_priv *port_priv = netdev_priv(net_dev);
-@@ -961,6 +1041,14 @@ static int adin1110_net_stop(struct net_device *net_dev)
- 	return 0;
- }
- 
-+static int adin1110_net_stop_tc6(struct net_device *net_dev)
-+{
-+	netif_stop_queue(net_dev);
-+	phy_stop(net_dev->phydev);
-+
-+	return 0;
-+}
-+
- static void adin1110_tx_work(struct work_struct *work)
- {
- 	struct adin1110_port_priv *port_priv;
-@@ -1006,6 +1094,18 @@ static netdev_tx_t adin1110_start_xmit(struct sk_buff *skb, struct net_device *d
- 	return netdev_ret;
- }
- 
-+static netdev_tx_t adin1110_start_xmit_tc6(struct sk_buff *skb, struct net_device *dev)
-+{
-+	struct adin1110_port_priv *port_priv = netdev_priv(dev);
-+
-+	if (skb_put_padto(skb, ETH_ZLEN)) {
-+		dev->stats.tx_dropped++;
-+		return NETDEV_TX_OK;
-+	}
-+
-+	return oa_tc6_start_xmit(port_priv->tc6, skb);
-+}
-+
- static void adin1110_ndo_get_stats64(struct net_device *dev,
- 				     struct rtnl_link_stats64 *storage)
- {
-@@ -1056,6 +1156,16 @@ static const struct net_device_ops adin1110_netdev_ops = {
- 	.ndo_get_phys_port_name	= adin1110_ndo_get_phys_port_name,
- };
- 
-+static const struct net_device_ops adin1110_tc6_netdev_ops = {
-+	.ndo_open		= adin1110_net_open_tc6,
-+	.ndo_stop		= adin1110_net_stop_tc6,
-+	.ndo_eth_ioctl		= adin1110_ioctl,
-+	.ndo_start_xmit		= adin1110_start_xmit_tc6,
-+	.ndo_set_mac_address	= adin1110_ndo_set_mac_address,
-+	.ndo_set_rx_mode_async	= adin1110_set_rx_mode_tc6,
-+	.ndo_validate_addr	= eth_validate_addr,
-+};
-+
- static void adin1110_get_drvinfo(struct net_device *dev,
- 				 struct ethtool_drvinfo *di)
- {
-@@ -1123,6 +1233,69 @@ static int adin1110_check_spi(struct adin1110_priv *priv)
- 	return 0;
- }
- 
-+static void adin1110_oa_tc6_remove(void *data)
-+{
-+	oa_tc6_exit(data);
-+}
-+
-+static int adin1110_oa_tc6_probe(struct adin1110_priv *priv)
-+{
-+	struct adin1110_port_priv *port_priv;
-+	struct oa_tc6_quirks quirks = {0};
-+	struct net_device *netdev;
-+	struct device *dev;
-+	int ret;
-+
-+	dev = &priv->spidev->dev;
-+
-+	if (priv->cfg->id == ADIN2111_MAC)
-+		return dev_err_probe(dev, -EOPNOTSUPP,
-+				     "OA TC6 isn't supported for ADIN2111\n");
-+
-+	netdev = devm_alloc_etherdev(dev, sizeof(*port_priv));
-+	if (!netdev)
-+		return -ENOMEM;
-+
-+	port_priv = netdev_priv(netdev);
-+	port_priv->netdev = netdev;
-+	port_priv->priv = priv;
-+	port_priv->cfg = priv->cfg;
-+	port_priv->nr = 0;
-+	priv->ports[0] = port_priv;
-+	SET_NETDEV_DEV(netdev, dev);
-+
-+	quirks.reset_settle_us = 50000;
-+
-+	port_priv->tc6 = oa_tc6_init(priv->spidev, netdev, &quirks);
-+	if (IS_ERR(port_priv->tc6))
-+		return PTR_ERR(port_priv->tc6);
-+
-+	priv->read_reg = adin1110_read_reg_tc6;
-+	priv->write_reg = adin1110_write_reg_tc6;
-+
-+	ret = devm_add_action_or_reset(dev, adin1110_oa_tc6_remove,
-+				       port_priv->tc6);
-+	if (ret)
-+		return ret;
-+
-+	/* The OA TC6 framework doesn't append the FCS, let the MAC do it. */
-+	ret = adin1110_set_bits(priv, ADIN1110_CONFIG2, ADIN1110_CRC_APPEND,
-+				ADIN1110_CRC_APPEND);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (device_get_ethdev_address(dev, netdev))
-+		eth_hw_addr_random(netdev);
-+
-+	netdev->if_port = IF_PORT_10BASET;
-+	netdev->netdev_ops = &adin1110_tc6_netdev_ops;
-+	netdev->ethtool_ops = &adin1110_ethtool_ops;
-+	netdev->priv_flags |= IFF_UNICAST_FLT;
-+	netdev->netns_immutable = true;
-+
-+	return devm_register_netdev(dev, netdev);
-+}
-+
- static int adin1110_hw_forwarding(struct adin1110_priv *priv, bool enable)
- {
- 	int ret;
-@@ -1649,6 +1822,7 @@ static int adin1110_probe(struct spi_device *spi)
- 	const struct spi_device_id *dev_id = spi_get_device_id(spi);
- 	struct device *dev = &spi->dev;
- 	struct adin1110_priv *priv;
-+	bool oa_tc6_protocol;
- 	int ret;
- 
- 	priv = devm_kzalloc(dev, sizeof(struct adin1110_priv), GFP_KERNEL);
-@@ -1663,11 +1837,19 @@ static int adin1110_probe(struct spi_device *spi)
- 	mutex_init(&priv->lock);
- 	spin_lock_init(&priv->state_lock);
- 
-+	oa_tc6_protocol = device_property_read_bool(dev, "adi,spi-oa-tc6");
-+
-+	if (oa_tc6_protocol)
-+		return adin1110_oa_tc6_probe(priv);
-+
- 	/* use of CRC on control and data transactions is pin dependent */
- 	priv->append_crc = device_property_read_bool(dev, "adi,spi-crc");
- 	if (priv->append_crc)
- 		crc8_populate_msb(adin1110_crc_table, 0x7);
- 
-+	priv->read_reg = adin1110_read_reg_generic_spi;
-+	priv->write_reg = adin1110_write_reg_generic_spi;
-+
- 	ret = adin1110_check_spi(priv);
- 	if (ret < 0) {
- 		dev_err(dev, "Probe SPI Read check failed: %d\n", ret);
-diff --git a/include/linux/oa_tc6.h b/include/linux/oa_tc6.h
-index e0627b99e569..2fd051e1c604 100644
---- a/include/linux/oa_tc6.h
-+++ b/include/linux/oa_tc6.h
-@@ -79,6 +79,7 @@
- #define OA_TC6_PHY_C45_AUTO_NEG_MMS5		5	/* MMD 7 */
- #define OA_TC6_PHY_C45_POWER_UNIT_MMS6		6	/* MMD 13 */
- 
-+struct mii_bus;
- struct oa_tc6;
- 
- enum oa_tc6_quirk_flag {
+Changes in v4:
+- Remove gb_uard_node::GbUartNode::unbind. Suggested by Markus Probst,
+  since write is still valid after unbind.
+- Add inline attribute where suggested.
+- Remove patch 1. No longer required with modifications to the old patch
+  2.
+- Increse hdlc max buffer size to 512 bytes.
+- Send module_removed request before removing from map.
+- Also do not hold lock across interface drop.
+- Link to v3: https://lore.kernel.org/r/20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org
+
+Changes in v3:
+- Fix incorrect email in MAINTAINERS.
+- Make CONFIG_RUST_GREYBUS_ABSTRACTIONS depend on sysfs like
+  CONFIG_GREYBUS.
+- Fix cleanup in hd::Registration::new in case of errors.
+- Fix comments.
+- Fix Msg AsBytes impl as suggested by sashiko-bot.
+- Use SpinLock for intf_map. This should be fine since we need locking
+  only for getting the interface. We do not hold locks across operations.
+- Properly drop message in case of buffer overflow in gb_uart_node.
+- Link to v2: https://lore.kernel.org/r/20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org
+
+Changes in v2:
+- Fix possible null pointer dereference in
+  gb_connection_hd_find_by_intf. Flagged by sashiko-bot.
+- Remove prompt CONFIG_RUST_CRC_CCITT_ABSTRACTIONS Kconfig symbol.
+- Add CONFIG_RUST_GREYBUS_ABSTRACTIONS to ensure that greybus is
+  built-in for rust abstractions to work.
+- Use gfp_mask in message_send callback.
+- Only provide a Message reference in message_cancel callback.
+- Add invariant comment for Registration.
+- Call Registration->add directly in new, before constructing
+  Registration.
+- Add Send and Sync bounds to T in Registration<T>
+- Set endo_id as 0. Is not used anywhere.
+- Fix module_insert intf_count. Was hardcoded to 1 by mistake. Flagged by
+  sashiko-bot.
+- Check for empty intfs slice in Module::new.
+- Remove module in serdev::Driver::unbind instead of on drop.
+- Make gb_uart_node write atomic. Using temp buffer to build frame.
+- Fix import style.
+- Reorder beagleconnect-freedom dtbinding patch to be before gb_uart_node.
+- Add vbat-supply and reg properties to beagleconnect-freedom dtbinding.
+- Reference spi-peripheral-props in beagleconnect-freedom dtbinding.
+- Link to v1: https://lore.kernel.org/r/20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org
+
+---
+Ayush Singh (9):
+      greybus: operation: keep request active across message_send
+      greybus: svc: add gb_svc_flush()
+      greybus: operation: arm request timeout before sending
+      greybus: connection: Add greybus_data_rcvd_by_intf()
+      rust: crc_ccitt: add CRC-CCITT abstraction
+      rust: kernel: Add greybus abstractions
+      drivers: greybus: Add software SVC implementation
+      dt-bindings: beagle: Add BeagleConnect Freedom
+      greybus: Add Rust UART node driver
+
+ .../beagle/beagle,beagleconnect-freedom.yaml       |  62 +++
+ MAINTAINERS                                        |  15 +
+ drivers/greybus/.gitignore                         |   1 +
+ drivers/greybus/Kconfig                            |  35 ++
+ drivers/greybus/Makefile                           |  50 ++
+ drivers/greybus/connection.c                       |  47 ++
+ drivers/greybus/gb_softsvc.rs                      | 533 +++++++++++++++++++++
+ drivers/greybus/gb_softsvc_exports.c               |  15 +
+ drivers/greybus/gb_uart_node.rs                    | 270 +++++++++++
+ drivers/greybus/operation.c                        |  29 +-
+ drivers/greybus/svc.c                              |  14 +
+ include/linux/greybus/connection.h                 |   2 +
+ include/linux/greybus/svc.h                        |   1 +
+ lib/crc/Kconfig                                    |   7 +
+ rust/bindings/bindings_helper.h                    |   2 +
+ rust/kernel/alloc.rs                               |   6 +
+ rust/kernel/crc_ccitt.rs                           |  26 +
+ rust/kernel/greybus/hd.rs                          | 391 +++++++++++++++
+ rust/kernel/greybus/mod.rs                         | 200 ++++++++
+ rust/kernel/greybus/protocols.rs                   | 445 +++++++++++++++++
+ rust/kernel/lib.rs                                 |   4 +
+ 21 files changed, 2152 insertions(+), 3 deletions(-)
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20260810-gb-uart-transport-9255d6557c4c
+
+Best regards,
 -- 
-2.43.0
+Ayush Singh <ayush@beagleboard.org>
 
