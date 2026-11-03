@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723783;
-	b=u5IPpPXbTDDS6u841jC5qQdR4tSUdPcMvIjyMt9z6eCIsbLpi4vcfsCUX9YGbPWAj434
-	 GtRYflrg5B+IHy1vILG3nY0fEJaprLdHevr5IdEsNHdgLYYCnDK2OxJ/YxVYMFoVLmZY4
-	 lPcAVtxNSwzfzLnxD0c4wz9r6Cn5xh5sKk9ouTMewTuq0XItbTYJW1N2DIhddzmDVbkj3
-	 31+F6+T04kcKbarUZ/qJCEwZa31TofwSlV6ocTeWgcB9QojGpK6rdR61SDUOpXbwaQDdy
-	 1UumDywAG/NLaRdoEAFtjLh3oHcA74r7mMoSnOfoIdOXM1Tgf//opVB1AYgNFMqnFnQ==
+	t=1793723789;
+	b=FNoraBczwL3hRoQmZS78Gp+SKst6e0CwKYNDunfK0N8GhxgLlM0EP70It6KuQ+XiDZT4
+	 FsjPPheVP56mOqfBPfZUAa7SSecqYZYpKfOI6l1Tw+wmbZffTW6WtYi5s0t4EakHEkhVU
+	 BHKnEAocj8DY3+01BHKZQXRHR+U1i4ELWWrWlTqNGWYs487koxAiQvtMGBzxdfZFm45LP
+	 HVCs7PvNSKA886s6NskGFSVdHV80zMdNyiCcti4j/hwon+rs5cO3bnX1yNgT/9Syjf3wW
+	 g8yPFdvSJb9eU28GiV6zyARqVvtJChZ51EqByxS4q7fRAM+PMWJ+XNrlCfpg0fCjT8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723783;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723789;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
 	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
 	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2BAabvEd6vL4y9BLf5sVKsYhFFT7p2yobeyEnKOJ5A4=;
-	b=GzSfmAX95fL8ewhfbLkHV/r4AuHfntN5NNDZjaXNeCEyFlGRDZuDSc0ZItU6z+fNkMA3
-	 vAk9FoI3ePwd/ersd8Do2qEs9tMC7Hwpxa3qXLoJnA+BYH4r74PQXss4ukcE9NXvWWO33
-	 93eifab4kPggMMXOgj4Nei7io2poZ1cSVuYi9ZvSbTL/f2n21w19Bl2Xj1tnoFopx6IYF
-	 zP/bB08rseMBxHQin0SHxT5Nj7lScaJr4caxv+iNQDU85ouG6+zxIDz1LUA+izujW7TS8
-	 GeaO/ORekh3UMhVw/lqLZGG+vvnvTvn/mJEZkLoQReZmovnrvNqTkn4f7sl8G797oMQ==
+	bh=YNY6h4Csi0xCblDGgiFLCrE5yAWsa766ysMezcggLVQ=;
+	b=EBmebZBZaUl4SCwXZWrF/+V1dGh/4qjPP5OLIT+M3z2BLYvSTQ9LXZ/keLnKHb1LCrB2
+	 HhoP2X/u7R2HS97jJOArtRnIsUp+D3qjk8UR4SiG+kr0jI3J0HDpARFwlx3q2QHG2ukxw
+	 FG6q9aNMtv8Ix+IR4TT2nKIE/VBkB3oMkzlK+nH2mX6tJ0zB4M0pYymHR/YJmXFe2NocU
+	 knN/imhDf4+MRPxfyY1RwB2JqwZk7QrCVRlZS6oUe7x0jatiDXHySx8d8emfjNWCXGTBL
+	 ZYnUVBTFVjn/BKGUJwiTxknxKPBPuU7BKJr6N2eEKoHTp3YgSpiTzo1RWs7bi93qZ+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=linux.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79BA606A324
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:36:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D79BA606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA90606A32F
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DA90606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5364042eecfso70489581cf.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:36:22 -0800 (PST)
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a39e5161c1so3053596b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:36:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793723782; x=1794328582;
+        d=1e100.net; s=20260707; t=1793723788; x=1794328588;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2BAabvEd6vL4y9BLf5sVKsYhFFT7p2yobeyEnKOJ5A4=;
-        b=bAL/AI4y5QXMhzXJTjsclPH2aVMjk4A3VMmj+BKSlbAzLzabPHhjb9+eM89fWvs6ov
-         KwyRqwhAeLXgjqxq6HO2ps4Jk+aiVrOtIUuxiKjmPep/58EELAgxQlNRXH6lSVuGLapf
-         6wiq6aXgV3Qwq8WLl6MUvl2HmUHKihlRbRdWLE9YXohu+yH5JsDdBFF+5TiVvW/+/Nik
-         DkyjsHRvoSWrqJna95oDXpEFk514R4i4DDzpG8pV/g4CAZIIsuiXgrGYWvTyQrnTj+m9
-         tleB+v9jxNW5NOdPgLh15L9Km5gn6vEtvTA43QVOegRFOYqiv0pXWiFyW1bftMfzU0zQ
-         ONgw==
-X-Forwarded-Encrypted: i=1; AKwUvByTcXIW7JnqdCtAPPfwMFGy7AGjt22RtUzVgQb5oEAxyDzjUEh61aWZP9DAsnC0x63b7ticMQHE7vwQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FfqSdn0IdlfghhDxGvL2KuwV7GdBvpOR7zdFSzIoT1lgHvxra
-	W6obu1aFfYfUYg7P8kCNUWcQrOb35sIyHmJRXBkJTZDk/IGeQARsLTd0fSXUmdVIFic=
-X-Gm-Gg: AYBFou3k4tBCKNMr5baKpCIzP7JLZbC4QFqMWkHARJgaUxZz2Sp2tH7UE/03EYLZD+7
-	uCVDynJe5P2EBnKxQUX4OYpptSlaBG081BvQZenxUTubMdPnTJyZTuviII1sODXcRbzgyKGoG3Q
-	d8UGhwuwhyDN9vn+NJRif4a7mzFklTUal+WhBoAj7bM1sSbIB75CrY1hoxGLICXdMszLpXxzsgv
-	qQUEhndzexv+3p3CqpL9lLTzCy7zTdrEuI2hvOZf7Q40fubBvnlyteu0aiWmRKCyqzJ5GkCrwaH
-	+K+IMQ6O0URQKdMCAn5/9bk5kaJfDVwmWOmxy3BO9IT1ggYZPZ7FTE3rWNdz4VupDizLRtNk8Su
-	nbgge+qMvGmmLucGOh8wUaqPrdDSFAzCy8KWLcAUb5fCEBmy/gKe5sS7VTAgExeLD6M+/vK7xll
-	3nxkz9D4yzoqd2PaSKPvCltbm5fWookIKw+kR0i/nPVteW03bC2m7+08hETgmI/qvBrNx5bDR4k
-	sX0qfHAmPK6Fi6OH1v5nLyu+1mgQb23muCQF5tbHRqca0GAP3s/Bu69WIrukKYOFUMeIxL2bQcQ
-	9aHugeVB4iJ0E/gRF/ga+u5L4wEH20zyacR1nHYGfDyixuiv1miQWg6f10B7PXRQI7K+5na6oW0
-	9dkD4SApSjl9yYKUs1of4CfdqsUFoSURTnDqKNquUnw2amyYbeUIwvpfo
-X-Received: by 2002:ac8:5ad5:0:b0:537:83ea:2fc6 with SMTP id d75a77b69052e-542b781d950mr225407841cf.58.1793723781637;
-        Tue, 03 Nov 2026 08:36:21 -0800 (PST)
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com. [209.85.222.182])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f252ffsm121473036d6.14.2026.11.03.08.36.21
+        bh=YNY6h4Csi0xCblDGgiFLCrE5yAWsa766ysMezcggLVQ=;
+        b=M2w+Rf20QqpIl6rItKO2w76aK4Qsz5qmJ8kjEe5lHZx0+WWqsAu1EImHY5x+gigjRm
+         PzxWtxmZpfFPkdq71jLG+4G797XYpfgzW1ZnHKT/Af2HcjtWQ2l3619Rgkmn8qd74FyQ
+         TWihhunnqQHurepobTtyr/rTMsfBLMlMoh4GcsK90EUZZnG/fVPeOgptQwA0tcXKJNf7
+         M9K8HSSm3W1nrLPDlM41UJPbxopyD8B1qnWQrQMzmlIydNdY/yyc5PCDc32k5IqxOx0W
+         qDrGbeqWm70u8pGpL8oiVeI/M/PzeyexS11ymuHMJ5XXaAXluAbjhl/mAfQIfLPOCOzR
+         Kf/g==
+X-Forwarded-Encrypted: i=1; AKwUvByxU7KiQuxgaWM4Km2MDjUMIEsi5kdHASExa/NFxY9uZA7qberzoKmh3JjNCmwiEQ73+Js91gYudmcz@vger.kernel.org
+X-Gm-Message-State: APuU4Z91r8qj5AbwwXlRt+oPulYvOTB/hsn+wdA1wshZXlUyLCz16NVF
+	DEzPIGWhxPXiG+ptc45Qc8SvF7JRELSo0vO5EFYoGB9gKTSD66fzVGSFcdxCbLA7hTZqrw==
+X-Gm-Gg: AYBFou23Cqz6zzBBSHZcdbjyLa2Yd2AD+/IyrFp2qIAXAVogxUpGWPsEGvLzVfmpWcE
+	n7Zj58JmB/nvleE9THsU6ETixC+2WuFWfRNT/VlcTHWUTWkOkLMjHi5RVR15kLKfc64Mxfmpf0v
+	DTfkMkEw/uR9VzVraMlBjdLz+6I2/6gkdcL7efWLpcPiHVgM9MiZ2NbVLOR7xVedAJnBfNAN4rP
+	rho30TEVf3+Kiy21N0gakO1jKEUto3NLldW50+Vrkqxee58jVlV4+1VaLfcUayp+da2FcvyuJnY
+	9fpXAehSj38wfHXcDNRmYyg0pSnq03MIXR3hNzRPypes/9bKfHfVcA9bUSAsuVsZFSoOYHFiU6p
+	O02nS7467qVRmVVLpMGbI6geh5tWz0XGEpvBc4cKkn+3fLUl38gXREd3R7Zkq4Y+rvhQhiNlZrJ
+	pjoCltINSv24G3hz6eqWpr5eSZX/RuGX30tOEby8R4Sq2Kwvwll18uDFrmuDDbQum545/adBlIy
+	VG/QM93/Tah0nTn4jMBzcuSfFwKiQ+qQOtDV8L+mqMN/JNqghNhYgb4IV8okFhKfLZoGJCteySo
+	gEci+GxQLG/gsXPo/QryZ08ZoDDUOfaDkKZQcPrXjSsgKp/IojBXxpE4e0R80nDxFqukaizAwsS
+	YRo1gCDE4MAzoUTgxxlbz0eLKO1SpTdalOXBaryaVHW8/HqdiwX6q2ds=
+X-Received: by 2002:a05:6a00:1daa:b0:89e:df2e:cebb with SMTP id d2e1a72fcca58-8a9bdfb2e1bmr12872228b3a.59.1793723787787;
+        Tue, 03 Nov 2026 08:36:27 -0800 (PST)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com. [74.125.82.179])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadaf82a66sm3472030b3a.56.2026.11.03.08.36.27
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 08:36:21 -0800 (PST)
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e7ad9f78dso550392085a.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:36:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxrpt7l7e8ng0tf8/8hwxsXgynE4aM8QMvhqo6052haHgdFf1vNQL5uXswZk0iAGhMqmNU5neqO8JHD@vger.kernel.org
-X-Received: by 2002:a05:690e:4810:b0:67b:9051:e32a with SMTP id
- 956f58d0204a3-67ba50e0ademr6918680d50.93.1793723407281; Tue, 03 Nov 2026
- 08:30:07 -0800 (PST)
+        Tue, 03 Nov 2026 08:36:27 -0800 (PST)
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so7418872eec.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:36:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByF4JghPcUKF7hT/+99zaQ2fxw8IBVTLmEf3mFuwdq528+2wyK5ZnDOt26p2jHJ/Sd04tmFQLmQ6oAX@vger.kernel.org
+X-Received: by 2002:a05:690e:1c07:b0:676:8974:9795 with SMTP id
+ 956f58d0204a3-67ba50e5d1emr10529834d50.92.1793723366247; Tue, 03 Nov 2026
+ 08:29:26 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,14 +83,14 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261022200640.3101932-1-tanure@linux.com> <20261022200640.3101932-3-tanure@linux.com>
- <95418d50-a83f-47da-819b-de04eab449e2@lunn.ch>
-In-Reply-To: <95418d50-a83f-47da-819b-de04eab449e2@lunn.ch>
+ <f8da1842-bdc0-4bf7-8f15-46b57a9eedc9@lunn.ch>
+In-Reply-To: <f8da1842-bdc0-4bf7-8f15-46b57a9eedc9@lunn.ch>
 Reply-To: tanure@linux.com
 From: Lucas Tanure <tanure@linux.com>
-Date: Tue, 3 Nov 2026 16:29:55 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+1jAYu-0XjUqmNsR4hbSPTWT+JzsBK+PNqPg_yxCKy8YA@mail.gmail.com>
-X-Gm-Features: AclHuK9mStYKxlMFWLlexMhXND4q5zYuU5C_HQS0PBE7THFUZlCXo6CxCqTl6Rk
-Message-ID: <CAJX_Q+1jAYu-0XjUqmNsR4hbSPTWT+JzsBK+PNqPg_yxCKy8YA@mail.gmail.com>
+Date: Tue, 3 Nov 2026 16:29:14 +0000
+X-Gmail-Original-Message-ID: <CAJX_Q+3hxekJn1FiDJjYqDoCFyczxzvCuQJwWQ1DbH_WXjihOQ@mail.gmail.com>
+X-Gm-Features: AclHuK9_PvSlgVJNQpbckdVoDA5-AvRndijSeKC1Bujpf2P-dAJH6DOiVyEau-s
+Message-ID: <CAJX_Q+3hxekJn1FiDJjYqDoCFyczxzvCuQJwWQ1DbH_WXjihOQ@mail.gmail.com>
 Subject: Re: [PATCH v4 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
 To: Andrew Lunn <andrew@lunn.ch>
 Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
@@ -106,16 +106,34 @@ Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemlo
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 1:18=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+On Mon, Nov 2, 2026 at 1:27=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
 >
+> > +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.y=
+aml.
+> > +        # The RX delay line of this glue is fine tuning in 200ps steps=
+,
+> > +        # added on top of what phy-mode describes. The TX side has no =
+fine
+> > +        # tuning: its only step is a quarter of the clock period, the =
+full
+> > +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+> > +        tx-internal-delay-ps: false
+> > +
 > > +        rx-internal-delay-ps:
 > > +          enum: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 200=
 0,
 > > +                 2200, 2400, 2600, 2800, 3000]
 >
-> Is 0 possible with the hardware? If so, i would accept it.
-Yes, 0 is the delay line switched off. v5 accepts it, and the T7 joins
-the existing G12A list in the binding instead of carrying its own.
+> This is good, thanks.
+>
+> > +
+> > +        amlogic,tx-delay-ns: false
+> > +        amlogic,rx-delay-ns: false
+>
+> Maybe add a comment that these are deprecated in new SoCs favour of
+> the standard {rx|tx}-internal-delay-ps properties.
+Done in v5.
 
 >
->    Andrew
+>     Andrew
+>
