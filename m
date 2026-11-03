@@ -1,105 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793671668;
-	b=yeHTuNeDQBUa0+ege3/jkmSO0XFT7E0qrBUl7qFmXWB7DELSBD6bHB4yp6ObDaDhdvV9
-	 vZ42zrdeEmDjWPcPbH73pwv+0PdneEaQuNcJtoh/mQ7OyqkwNLzJUGK2WTH8dvlAvwTW7
-	 tP7FK8ykUHLYNbz0Wyn6O8o+3MqzkjfrW3D19Hz/UcI21nqO7wGpv7oXtjYuEHtq2n4ii
-	 2PsB5rqIvLBe7zQLz4Dlr8uYf1vq5TcdcCeZEE/aSGwl/7rbkEH8qPdxIs9XZnItwEmPE
-	 775aHQhYKhe3BFDeuHu0YQf/UQyDGWIn77oPLzlaIjjiTMFSsOWa2Ge2Pq6ZuALQjWA==
+	t=1793672534;
+	b=r804ZQtGFMTbVxn3sIrGYXaSQwVTfiWA92d49PBTtyFtZqT1rHGGGSFJx26htyW2lEWZ
+	 QIW9q8fr9tNPQ1Yx0L5EHxXV1C9Jtc69C22DwYWbmQTxR2aQQtQpHnneBVzudDyO9gAaz
+	 YfuvZBcSqK/4uhMaQp52JxTn+C1KqnfvpjnRwAiKQSQHmo1zE3hDO7JaiFqu34bLgqP09
+	 Jw7G+zr6i0jW9hr4H82eZ87W7INYIqC8RLiWR6gJI/AeAInuQSVEQKB9yr/WVyonEAakU
+	 uZg3v/RujVpJZoVhqqs1aygeZO4rlm60JfviwFWdJE5ELRwm8NXx0W3Bg8s4xszR4Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672534;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=mnCMgi1Mjc7rqcgOPGVHBPcSRGGmUVFCpLTaHePthjU=;
-	b=zhFWg2WaLJ1MpGZk1lqgmTC6Pho8eeowbyVSjCRiplkR0RNv3zlxXX/rB4mtEwtLKSIf
-	 iUt3J9GZDeN0aIQ57Xmgxxpiq96V4tyv/tkPSU4k0HFraV36Bv7aEvjbgQd7XqF3OLa1i
-	 4AxPW65cZbrrnuY+CF9aajUzL7if/SfQlhuHEg9C8lYWT/lXAxpaPfgbLwJPM3s+LnAOT
-	 bIGwpys4zJi724qK9v34Y58EDVygbuiXAV8bzo1IP4fCz8SaXoeyu2diZkzm/v3l3SJYS
-	 bgMDus6r4/W1+2/elkk80nt9jffWMjIRN0VFQ+RflhXCpCBVApCe+RGGJz7mkhge/gg==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=r7CZHsFtToEeDraAns18SBV26Wozlx1z/SodGdtdGHQ=;
+	b=sqVG/jid4N/DzhPXrhdgm+oAdgOQP/Dyf5kco6LLZpqqYQ3EO2ht7M6dJ5LFoBNPhN+U
+	 cUpXrasJ3JLEjcC/FUq0uPxMat9oTJg1NJZk+sIE7fDM3oto/0/74s7tKle0w7ktIRwxb
+	 wfHbI3ABJwH24Esmmjc0KvbifVyDXXCiaXEL+qsPX6QUtUtpDQGnNjwvNYmm5hvdBYtHi
+	 7Zmi7hxbfSCI19E7Bw+YW+ZCy9ljCsCmDR68UbfIatvxUsaNJ4VKdbfwUBuCaAnIfs7Ih
+	 kxy3eb3Wc+S3y6SzfOrz17Fomg380Nln+a4FyUsXUJZYAxX7ZjRLy1bAnBjuclWBfsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLjZ44wG;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pcvJJlQH;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACD7606A33F
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 02:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ACD7606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F16B606A327
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 02:22:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F16B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aLjZ44wG
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a8cc11ac42so3520625c88.0
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 18:07:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pcvJJlQH
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e987b4a710so1130725ad.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 18:22:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793671667; x=1794276467; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mnCMgi1Mjc7rqcgOPGVHBPcSRGGmUVFCpLTaHePthjU=;
-        b=aLjZ44wGmMHqn8e7JX/I8P1V8VARuQh9o/ia1bogyOm6JOCislA1YcxOmIPAwzWMj1
-         IStM6BfN0n6A/Mi7nmKeP+I/YEQ4JUI7eoCX12cJ9HDCtLihrgNPebZlvOTpH2BmP9dD
-         jawS7ea3vQz4o3ANdgnbSTDQswDHEQkKX/To8=
+        d=gmail.com; s=20260707; t=1793672534; x=1794277334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r7CZHsFtToEeDraAns18SBV26Wozlx1z/SodGdtdGHQ=;
+        b=pcvJJlQHlGOF0cpRM0UZePAnDC0vqeuBRizCxvexJ7QOLkN8zL3s4Cjs3WJ/t5DCBc
+         d3lY9QkXohvzSDMe3oJ+hXgdx8im/eKScekNjdD5xWcpzme7sOuLYx170dlJIMYZlszQ
+         YPdulHvcX71xyKzwLy00njaxlw1cMOFw8ZeSm+ZVYAdo6Ubhj9QafHmSlaGYXtsJpi2W
+         902Ac+nkX/bTmhzQd4fdw5AVucBp3I6xec0Zok7FolDgMaPxy6bDM+qClB4y1BTAm5cU
+         lSPpWGTzBUxCl1zoIyC8IwHL59W2TLZTBU/801Ml6a5Zxl0hbtaPi+Hb4VZ3RjnC/o6k
+         ytOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793671667; x=1794276467;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mnCMgi1Mjc7rqcgOPGVHBPcSRGGmUVFCpLTaHePthjU=;
-        b=O1/LdbuHlgjQCU6ETfaLF9k8EeAxOL3JyPbEG34O/Qpe5XP8WZnvm5CTsUdTsuaSwC
-         iiSECzDRAUjnFb7DyJvAqv4/JZ8ZhopewLTZmTnr0t9ArPI0gbquNDrwAANKtD+8eFa7
-         andir1cHKLab4bBboKLY8EZaaAOJWJL3gUWr7NIy6ilkHCQetcQhU/R2SkL2Ra7HCqUi
-         j6ZnHqwg/5wBRMtByWqN7/Qfat5S4U90oHpEO4e8LI+oHis6b+CQmPEgW67FvgAn2x0x
-         arZU/v4DKXrr821QDSjRheNVUMjri8vtvtzHIvhRr5gnM3w/ZkuBIc67Ra/nD917taR7
-         XQNQ==
-X-Forwarded-Encrypted: i=1; AKwUvByre7y2a6Lbvl1qikFn1fjJKsxnHvanzjTfWmrrI77mzx7Njh1ZauIp881n7qgOQkoW+3jkmmA4Mnlk@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkQJ/AJJPF+lVoyZexEZZMHrNfpbj/FlvZPEMPzG/zn0hIKFGl
-	S7F7jiTxpmuBqCcXN/yTcmBHomhzQdZYSab6RPR+TMVCHiKz3jnl0IR2r2GK7ZdkIA==
-X-Gm-Gg: AYBFou2nVpmPGmmsszmAvFLhcrfclzJUGyIH9sn2qOoA8axjmgBBvFp9/ZAY7wpXTsJ
-	lsBToce9fMbSWhIPWbBu753mBvzOw7oo7Ir8amu74lYhcxqxpuzlNLD/vu/DQ7JCw8Xs/2Dm/pt
-	uDm2tjv3oh0kvDHf8uLGX8Iv2yofHIXQSy6U56Zo+96x2vLPm6qb0KDxb/hC7YSN78j77TTt0eD
-	5m8V2IiFp1XPrI2HtP7ND8H/0pgJRHuTPFRduI8MjkfRy/HcbRjrC9L+crXfgUdYF4ik0j9526+
-	3ar5GVmsYNqf/sZizaNcnMlGV3RmhDpapHV81elJ8KkRAOYECDPu24q/won3K1HMAe84JTJf39V
-	ZjVyY86hT0AfrcXyOKflwopFX46NW1D9tTXGzAFW/XigN0VcHFzt3QkHi4bbW7WZNj6E8KKj9x3
-	7AG+wU0nwF7N5gDHczds0aQhP6u0aPVADoaqbEd/COWGlB/PQLGdNfBeKFQsVIai21+qvSUuTbJ
-	xrIsrDQ4az+mAqVLGIA2u82Tzh2+hWKkGsp6JY19jpOYAepXng/87sCJyC+6hG34YVD2GOktGoU
-	Kn20p4gGBa52Z59gH4BHT0NiP1lZUrIjL3c7Zl7Jhi+CJ9Xj8mlLdNuMMz5ThiWXbrY=
-X-Received: by 2002:a05:7022:f105:b0:168:e942:4e62 with SMTP id a92af1059eb24-1ac601d2f3amr14793852c88.40.1793671667220;
-        Mon, 02 Nov 2026 18:07:47 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b23b847348sm4090158c88.4.2026.11.02.18.07.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 18:07:46 -0800 (PST)
-Date: Mon, 2 Nov 2026 18:07:44 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+        d=1e100.net; s=20260707; t=1793672534; x=1794277334;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r7CZHsFtToEeDraAns18SBV26Wozlx1z/SodGdtdGHQ=;
+        b=MCzxKoP/cqK4ywwBrjI8lN3uMJT5CGKDel1QogfK7PKBXu76F+bB77//czPnAKARNL
+         iyW+km07eFnEwtO4LR8FVx1mOrqYlB9x+xG8OOmKwgpgv/21k2Am33kPSaaM7TnjgyD3
+         PB657Wch1oxR2RrxpiEuEdo/H6BJjL1an1yAsL7Jsf3R6I2uIFuZaW1LbrVSE7AqkiSZ
+         xstyvcx81Zn2FwLB4aR+uOKIv302iZ2xb26/XqdFo1DyllPtJE8G9UcuTn4jqTApXa+i
+         4WG151hLnId8kzq2/uARXXPRy8VtGsgPKnX7Oox9fOa+AePVDvCaYBdXUom3w7lOHvnP
+         VVQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxrHGwQS/wDW31FFsy1m8vbThnEpSUyGyr1eHAi+1ZXgaI352HHhnS4mYa6ZdPMx6d0jamEA8SZyi5@vger.kernel.org
+X-Gm-Message-State: APuU4Z/32vu90AmG5A1/7rVfy33KPHwVuFz7qXHncgDENBs4Iw/dlbYa
+	9ZT4SfA1AGGUS5AzEU9nq9JKbhIGz6/xondLAGhLmagggkKNgwxSFHEl
+X-Gm-Gg: AYBFou1lpmiPnQ87iKMeAboswUgQrU7zJPg9VDeOU8FLLd2RT92ziOpPFwdeHAZiiKr
+	MBoYnCb//LXR0bikQkiHnYQD5LUkCuJV8PxwiPX+dyqSP38izICiUkskZqPpsjnUWFKJfGxKG/O
+	u+QRW0i92QcG2rTut6GGAAZqx62gYr+9FE8LNy73tlMp9ZBXyOkHKoNSwrkYFqMH9f/ZZ9+RhSk
+	1hwUoTBy/A3AhgaPo8xOvXTmR6L6L3JgMp5IeFBctWLsY1UcVKF1dn+HflBJfECUqQ8OTyoSSNr
+	AXDHGz0mWKuuv1n/NiGHGFMtQqL6eQ7nNCuUUSF8lgwomTDE8T2Da25BQ5sTd7y63k7KnCkhDwq
+	9HNdjWRl6CJwC/TUEdZfxZwQMJTlLPQ3a2w7JadtyMw8OtUd8W0do8TcArxqUXIYP6a8XqLCyTo
+	ZAY87TNkDtYLHyU8wzm2VDyJJNstj/v0iJKQdTOMcZSDKT9PfF9wu7a5aVfnny7ynJAnN7A6PgK
+	UhAl8RxFh0ddMI7ZQLIXZbDkKtxhzG7jfNnn8zYaP5IYmi8sfJz9Va11OlNtKi2OriXSWLebVAW
+	B0JoPWE8L0fZj5aqxEtIkdcVQe9njyqCpoptaoiWrwzaMbgjysRDZ1rcdvWrhCHSFV6+P6b5N3M
+	fC2tQNs+a7fGJ/Jg=
+X-Received: by 2002:a17:90b:55ce:b0:3ae:3f20:7058 with SMTP id 98e67ed59e1d1-3ae897bafd5mr6113235a91.36.1793672533832;
+        Mon, 02 Nov 2026 18:22:13 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7dea24sm1570124a91.5.2026.11.02.18.22.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 18:22:13 -0800 (PST)
+From: Shan-Chun Hung <shanchun1218@gmail.com>
+To: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	vkoul@kernel.org,
+	Frank.Li@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	kees@kernel.org,
+	gustavoars@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	Mariano Marciello <mmarciello@google.com>,
-	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
-	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
-Subject: Re: [PATCH 3/9] soc: google: Add CPM over MailBox Array driver
-Message-ID: <aulB8F6hc1eDvyfj@google.com>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.3.I7bc547c83b7bf677a62670099f481a91ac737073@changeid>
- <20261028-literate-pony-of-valor-3209fb@quoll>
+	dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Cc: Shan-Chun Hung <shanchun1218@gmail.com>
+Subject: [PATCH 0/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+Date: Tue,  3 Nov 2026 10:22:00 +0800
+Message-Id: <20261103022202.2139674-1-shanchun1218@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,25 +107,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028-literate-pony-of-valor-3209fb@quoll>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 02:27:05PM +0100, Krzysztof Kozlowski wrote:
-> On Mon, Oct 26, 2026 at 02:43:41PM -0700, Brian Norris wrote:
-> > --- /dev/null
-> > +++ b/drivers/soc/google/Kconfig
-> > @@ -0,0 +1,13 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +
-> > +config GOOGLE_CPM_MBA
-> > +	tristate "Google Tensor CPM MailBox Array Interface"
-> > +	depends on ARCH_GOOGLE || COMPILE_TEST
-> > +	depends on MAILBOX
-> 
-> Can it be compile tested without mailbox?
+This series adds the PDMA controller driver and DT binding for the
+Nuvoton MA35D1 SoC.
 
-I don't think so. mbox_request_channel() and friends do not have stub
-implementations for the non-CONFIG_MAILBOX case.
+The driver supports memcpy, slave scatter-gather and cyclic transfers,
+and a per-channel timeout configured through
+dma_slave_config.peripheral_config. The timeout is needed by the
+MA35D1 UART driver, to be submitted separately.
 
-Brian
+Tested on the MA35D1 SOM board with Linux v7.4-rc1, using local
+(not yet submitted) QSPI and UART patches that use this PDMA driver.
+
+Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+
+Shan-Chun Hung (2):
+  dt-bindings: dma: nuvoton,ma35d1-pdma: Document MA35D1 PDMA controller
+  dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+
+ .../bindings/dma/nuvoton,ma35d1-pdma.yaml     |  72 ++
+ drivers/dma/Kconfig                           |  12 +
+ drivers/dma/Makefile                          |   1 +
+ drivers/dma/ma35d1-pdma.c                     | 780 ++++++++++++++++++
+ include/dt-bindings/dma/ma35d1-pdma.h         | 113 +++
+ include/linux/dma/ma35d1-pdma.h               |  24 +
+ 6 files changed, 1002 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+ create mode 100644 drivers/dma/ma35d1-pdma.c
+ create mode 100644 include/dt-bindings/dma/ma35d1-pdma.h
+ create mode 100644 include/linux/dma/ma35d1-pdma.h
+
+--
+2.25.1
+
