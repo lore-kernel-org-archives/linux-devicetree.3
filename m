@@ -1,65 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725418;
-	b=XC5TRe1RrY8Y70Qpg9EK8BYbjKk+RXxAy4DwspDcC0jD17jlLpAZCEmH1C2Ggv2KGLd6
-	 Akk0h9FFv370kQR98JUCgV0DJ7tRRgorUteU2ITsvEDz2DLhn6j/92FVuKQjsz0vVYAaU
-	 EvETDINKYPQCagDe/V4diKHmzZm9OB1Wf0DukI6g8jTFJF/wfqpFyWGaZenGUP7d8Oc3d
-	 FwhS6x6HCQsuIXyw/LGNXPfG6QVRwAvVjlro281WEv+wn5W/kFeaoEbjuLqRBYH8QG+wO
-	 cWdVNq6bj5V489dbxewynRWTLnt+ZkLHvOC5qjnRFJ5szHmwSdjFjQAjrjRuvtwkhoA==
+	t=1793725807;
+	b=wxnB6ct+gL17gxCXerl976+abL7vWA+Zez7+UHz4JIKkgEbTzbS9VRXz0mutwGat29he
+	 rfvbrOhYe1enX/IDv6JeqEtYZznGrHU1z3b2fO0a5GeUCbVP85kGZCr3Cv8wFirKjjeWL
+	 BPsrFJ6QTv9hvlkkJRUOy1p/97vTaLiCBUTgLtGjpjRpZfJkz/P/QHPSpaAIGufjVlNZW
+	 DY65Z84acB/QPoxxLZczQpNFpEDHbb2un2MvAUZH+7QzrFfkPHdLd0DXcr5WxvdWhYwOi
+	 a+IVPBbxe3zd52Vaelpn+KD9TDjczA9g8eUQ1YdS5no1VBXUWuJ1XrnoHfLbRza4rcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725418;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=oJl/TJkLN6vcbAEnvKrOzAyKBfnwjHKhu4PdgIjDoks=;
-	b=qUGEXHedjIIjyWzQJYvJyGBX4WfhECgaUgsbnbNsFPHbMEiDuMSR/3R214TWrnHDkmMl
-	 iHfGmM0Ilyg8dQmdko4H6iCjMnIMw1d7LHnnBBXT44YriPxr2yyl/A9hSOsOZ0ZEd014n
-	 tW0HZrUw+hSjt4zgsD/C1XZlC8YHaVeVKLUmnbs8MYimnJMDF8fRZM4GPEreHR46tm/8D
-	 8XTLVj8xVuZTt8Xrpy4ZZFhn12m0uOX0XY0E3fLJhZucIaKTNEH10f6/zCVtcXqyVlSzS
-	 A52JtoDyOa2N2HiATAfa0buAfUfZ2Mu5dUOUpV3bY/yYGMb36oV44HvbTHl9Ezh5wjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725807;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4yXF2qH2dZlH5NaZeOXrAhyY/aCMSbLE9DiPJAinWiM=;
+	b=C5vvE1rh4OSw1SSrEuoRF0skIcXa7//b3V22wLpapTnBStzwqMMS2ygx/RLo5TtiIAev
+	 OtkMsSF5W5ZfMU1egaQSmDJflw3hfPGaUrBmtICjtj9hh3p0dTIsv9q7RDmECUuSMWgI8
+	 OkglLk6zdFmOAeJ5n6ecOLUy1QlWlCIswDnUbHw5tkTsOXttBqCjOfgpgbis2Rw6QFUwV
+	 Qvlz80zwc1d3C6gRP/RH0ivjRjtqTwdRCVWOm5omEhzjnvrOAqB24sw8TpnfaLZJed4Oz
+	 P9hAv79bYkm06o4h7gpcp3EJzCNbZoQXX9BhvNYCybudxDvtqX8fIiaCASYMW1ftViA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YnsEWs3y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2GtedTK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD76606A328;
-	Tue,  3 Nov 2026 17:03:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7270D606A328;
+	Tue,  3 Nov 2026 17:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YnsEWs3y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4AB91F00919;
-	Tue,  3 Nov 2026 17:03:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2GtedTK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841171F000C1;
+	Tue,  3 Nov 2026 17:10:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793725417;
-	bh=oJl/TJkLN6vcbAEnvKrOzAyKBfnwjHKhu4PdgIjDoks=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YnsEWs3yYqaEO+ACtWiQnMA+mDs+IhbnDrFnmBDK3JH1zpUiEV89kGy5bkeK4MQUI
-	 ydom9mDv+U8k2hJTm/RHxdIQaHrVHl+S9e6VvC4puvO1YRdRQV6gR8QEvdI7MAbCnD
-	 58/XlxT1cKDy7N2N0RUkYbISq4MhEb/I6Z/ObEZle2ftUhVJDDgpDUG559wW8K8h+f
-	 qZN81d8YTwQcvQdeRgjzHScR5ScbQlkJPLyyTqG61GaU/+8RkBPlomxvmFZPwQcg2V
-	 h4Xrd43HR3b+7OoUVjBNlfWKkCh5vfDlajvY0HR4A+0RGqTg43cZhw1VbsaAOwNCNv
-	 2P9hOrrLXwPrw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E5C602557271;
-	Tue, 03 Nov 2026 17:03:35 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Val Packett <val@packett.cool>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, linux-sound@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261020170341.1641325-1-val@packett.cool>
-References: <20261020170341.1641325-1-val@packett.cool>
-Subject: Re: [PATCH v3 0/4] ASoC: codecs: wcd937x: add USB Type-C analog
- audio mux support
-Message-Id: <179366137297.2186205.17170898890068464983.b4-ty@b4>
-Date: Mon, 02 Nov 2026 23:16:12 +0000
+	s=k20260515; t=1793725807;
+	bh=4yXF2qH2dZlH5NaZeOXrAhyY/aCMSbLE9DiPJAinWiM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H2GtedTKni4UU2EY3qobMS0Dg3+Qmas82D0rV3NG1oUmo/Ml8rDNYcCcm0B0ET+Yp
+	 9SCFdcnz4ahrGyyNSCy9b16+wLKDB+Gj4iVSBMsQFv5KW95uzWSOSxkwyDlbif19V+
+	 ZO09Z7FBbVo/mZpUvU807tA1ga8DQw5UgYbs1RyYaMZDI0mc45lBdybYIoOx67hGdu
+	 NIuyZczUueXbJoZQFi3Gw3+zxdgfZBwoMyjRIBqzddkNHAq1ZN6xjWy2ZHYwhHuWsd
+	 lOvsHMTguvX2mYrABptuiCFjUf9QaiywEvoTmtZJJqivuMh2WT0E5HclqIBPMl2V95
+	 w4QhY8zlKUGMg==
+Date: Tue, 3 Nov 2026 17:10:01 +0000
+From: Daniel Thompson <danielt@kernel.org>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: leds: backlight: add Kinetic KTD3137
+Message-ID: <auoVaaZjcnRTj1S9@aspen.lan>
+References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
+ <20261102-6768-ktd3137-v1-1-b5b4f903c56e@protonmail.com>
+ <aunqGVkX7-Y61iDA@aspen.lan>
+ <_kyk4j6fx0PX5QqVrjAIGH-5fzUhj-fKhD8YT4F734mCOnQCDXui6wQB77AOka69_gblWOJN2SxzC5OSrH1lXiQeciLfVnWuPHS0JfaMKD4=@protonmail.com>
+ <aunyu4ToQ0T3b2Mj@aspen.lan>
+ <CmvbeteAqxtpenZUmJ4dqRvXYjjDzTTDevRB4NUlN0WGLOUk0jwzt2C3ZtuZ3Eb2UwBDEPUWpu9biU1OOhKGWQITolX96cFXolBTMgSyh1c=@protonmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,59 +66,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1802; i=broonie@kernel.org;
- h=from:subject:message-id; bh=P0WuLn3qq9FzDL0VHul4uoyyq/cYW1My5q/KDid12bI=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeCT/X2VJyavuv+TJaddd7L4leXvAq5daZk2e+VrlqH
- NETEtrl1lHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJtCgw/I++flPsyTSW+a2/
- NoQqyz86qRzwnk/o6tdVsi17vN33rXzD8E/xzOYQFnkBg4vX3wYJdxstXrjp3qzYtIbUF+91v8k
- uu8UOAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CmvbeteAqxtpenZUmJ4dqRvXYjjDzTTDevRB4NUlN0WGLOUk0jwzt2C3ZtuZ3Eb2UwBDEPUWpu9biU1OOhKGWQITolX96cFXolBTMgSyh1c=@protonmail.com>
 
-On Tue, 20 Oct 2026 14:03:24 -0300, Val Packett wrote:
-> ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
-> 
-> Currently only wcd939x has support for USB-C SBU audio in mainline, but the
-> older WCD codecs can do the same thing 939x does with USBSS, with an
-> external 3rd party mux instead. This series adds support for that based on
-> wcd939x code.
-> 
-> [...]
+On Tue, Nov 03, 2026 at 03:21:45PM +0000, Roman Vivchar wrote:
+> On Tuesday, November 3rd, 2026 at 4:42 PM, Daniel Thompson <danielt@kernel.org> wrote:
+>
+> > On Tue, Nov 03, 2026 at 02:34:02PM +0000, Roman Vivchar wrote:
+> > > Hi Daniel,
+> > >
+> > > On Tuesday, November 3rd, 2026 at 4:05 PM, Daniel Thompson <danielt@kernel.org> wrote:
+> > > > On Mon, Nov 02, 2026 at 09:58:48PM +0200, Roman Vivchar via B4 Relay wrote:
+> > > > > +  led-max-microamp:
+> > > > > +    minimum: 5000
+> > > > > +    maximum: 29800
+> > > > > +    default: 20200
+> > > > > +
+> > > > > +  vin-supply: true
+> > > > > +
+> > > > > +required:
+> > > > > +  - compatible
+> > > > > +  - reg
+> > > > > +  - vin-supply
+> > > >
+> > > > Why is vin-supply required?
+> > > >
+> > >
+> > > The chip cannot function without VIN power supply. Even if it's on the
+> > > always-on power rail on certain board, there's always a chance it might be
+> > > accidentally left disabled on the other. It's better to document supply in
+> > > the bindings as far as I understand.
+> >
+> > You haven't just documented the binding, you have also made the property
+> > mandatory by adding it to required.
+> >
+> > So what I am asking is why is this property listed as required. You
+> > didn't implement the driver in a way that makes the supply mandatory.
+>
+> Not sure I follow.
+>
+> In the driver I've used devm_regulator_get_enable(), rather than _optional(),
+> since my understanding is that the non-optional helper is a standard kernel
+> API for required supplies (with regulator core warning and fallback to dummy
+> regulator in case DT omits it).
 
-Applied to
+That dummy fallback essentially makes it optional. On a board with an
+always-on supply then there is no need to include vin-supply in the
+DTB. The driver will work just fine without it.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-Thanks!
+> Do you suggest dropping vin-supply from required: ? On my board it's connected
+> to an always-on supply, though I can't tell about others. I can proceed with
+> this if the DT maintainers are okay with that.
 
-[1/4] ASoC: dt-bindings: qcom,wcd937x: Add USB-C graph properties
-      https://git.kernel.org/broonie/sound/c/cef46975ac77
-[2/4] ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
-      https://git.kernel.org/broonie/sound/c/66b5b9e4ef2d
-[3/4] ASoC: codecs: wcd-mbhc: guard against NULL cfg in typec_report_(un)plug
-      https://git.kernel.org/broonie/sound/c/f138c329457a
-[4/4] ASoC: codecs: wcd939x: fix ref leak and NULL deref with USB-C audio
-      https://git.kernel.org/broonie/sound/c/9003f8ad9c4e
+Given your answers then, yes, vin-supply should not be in the required:
+list (e.g. we don't want DT validation to fail for a DT that does not
+include a vin-supply).
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Daniel.
