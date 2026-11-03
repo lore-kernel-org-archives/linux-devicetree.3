@@ -1,57 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.129.254.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793675496;
-	b=C9A1LHR1aXCNzyx/WQLj0esX8S1VxzP4Jfya8cAp7l9ikvNkXaVOYqnYDBxY60uy4XCR
-	 9nTXjCpn13K3ypl58zt/WVcrLVSvS8trbMz2b8aE6kqc7gAB5plI0aKJ5oYM9+uaUinLH
-	 /Sle3TB4QzhPw/LW7WrmVP55gn8gPIN3K9TYzkKtMAYc7gbkZOcUpp/8DxvAJ9i/s0v39
-	 zex9w9VzU7Ug/70RzCU5EZ9gEu2tzFElTNz9wukBED9i4MajMT12nefd0XRZYu9EFV3Qq
-	 sR3Ng73LRNKh8JOuK087OfNNmtBN7V/9nZCpEbsjr4xw+TfcXH5DZjOZY0+shmXdHYw==
+	t=1793675821;
+	b=nevDiKxGgVQ0XrLcFi3qJEpQFoAC47uDLDnOuWooMQ0zd+LI9S3TTb5KJK1yFS36YpZF
+	 rigP3AAojqkxp4p3fKVQfiW2h7OdWvttyFZ06ku9gJgTTlH8VwcOnGU46awhaPLhas5Ak
+	 7HQCJ4SF+AdKQBJhAH0Crqs0uVzyG+E2WKNjtCUqhSuKkLMZUyFz88hH0GSiTwEtzetWV
+	 i+qYvMSC9ioDdxg13Nl/gj6Ash5t9WJMxSZcCcKG6fqmymcUZrA5d6tIzwZVsdUaV2fXK
+	 8tui4bG3marP23ChztIDAYD2+M3z+7Cm1fA/ZO8DG08Ba4zFkCO58V1THwxRoSo/KXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675496;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=34lnL3/2E9Q5qWjt9BFmVHAcQcUIN41uKsm9o3mcoSM=;
-	b=fmy4ELq6IHoow+wf0x7SynHz+ype6nDdkY8MjuR86kpWMgUR15CipPRoXePhxfCoT5fl
-	 79EIWZJHsfR2spya0Y4UBvL9NfxcRTdNN8f6O2KCnEKPdCQ02+8XVIwecIn/D+Qzpv7Xf
-	 PwUM4q8KvmeeqMmusROGNAnJTJ2JSoC41X5mTA2ETzFBkDiD0W1hAhBW8RRsZ9BCZNE+p
-	 rzXXsX3/iNiClSlJRWT49UiexqwJZyDrR6a8DRqPAp7OHZLm4bIv9SioAR9suraBwcFNv
-	 +zS/WCNE1HXtFsld6LChveBTvTiwBgcNshDtdqjjEQ0XX3cDLdXh55RMeqX1wrt7Gnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675821;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=LEpal+P6ZHLKvKuKIsrpsC1CN7IbicAe3JsrzSw/RAw=;
+	b=D2yQTJ5oWFwphvwEGQXd9x4TvFVu49SmTnk91Zhdz/p2z9i7MMRN+qHsS+IAXgX7sb9n
+	 WSOVU4YNhMt0WcSQa4Z/y7Al0LHVSnobrWpXFDpM+sSJ1yjMF+FNVrTUEdyDEoQRYCJLO
+	 5ZywfWbvNML2Mdu+lxCzs/NPAeK1roS2qpfSrexrCLhu/FD8CKgsO0Uhy+p3NarFPwN9s
+	 oqBpjXy/o4mfR1mc7Hde59rHO6W405K1rDJQuEGdKFTxtfEMImUp7bgfcaCHAPGfb0K2H
+	 nNIXOAuuzOC3ql2hE0gTG6HLcLTH/q7LdgcaTTt+XRJK86x4Qf6MguqKI8BBT/hHt/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTBiybBE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=CHPFAsKX;
+	arc=none smtp.remote-ip=103.129.254.97
+Received: from mail-m25497.xmail.ntesmail.com (mail-m25497.xmail.ntesmail.com [103.129.254.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA04D606A324
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 03:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C975606A327;
+	Tue,  3 Nov 2026 03:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C975606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BTBiybBE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1014A1F000C1;
-	Tue,  3 Nov 2026 03:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793675495;
-	bh=34lnL3/2E9Q5qWjt9BFmVHAcQcUIN41uKsm9o3mcoSM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BTBiybBEn7bRifcH6jStCBbkTpuDM3ENzXX45ng2tJ8dDDTcLiv1rnfiNARW5EgJg
-	 /BjyS9kNqZ8wdtdEFRabBYcRdmBNH1Hn/4CIU4ygjLsBb7iszrfu7t/aGdFoDSJLWH
-	 75gu2bI4KfprtTDuU7h19M8xSik7Ep0mGidsiFeEbJPT0KFsjzzvuLauJzyGld/s1b
-	 8wtGk0Cjbb4ezxFTFSCj1UJPjj/2Ejo2TGIafJxtHresLT9lEsTH/6h73BMogtMOsB
-	 VwIPmJKBfcSQY74LpLav3KtflJn/g+oesJ+OUr2OjDn10hZgNgo6abvhrp4/AJFkra
-	 NpYzg8qvbpIXw==
-Message-ID: <sashiko-outbox-194497@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] i2c: amlogic: Add Amlogic A9 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261103-a9-i2c-v5-2-86f2dcd179d8@amlogic.com>
-References: <20261103-a9-i2c-v5-0-86f2dcd179d8@amlogic.com>
- <20261103-a9-i2c-v5-2-86f2dcd179d8@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 03:11:34 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=CHPFAsKX
+Received: from [192.168.61.151] (unknown [61.154.14.87])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5344818dd;
+	Tue, 3 Nov 2026 11:16:48 +0800 (GMT+08:00)
+Message-ID: <fd6f29f0-15ba-4f98-abbe-3ea18e930df6@rock-chips.com>
+Date: Tue, 3 Nov 2026 11:16:47 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,295 +47,1296 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Andrew Lunn <andrew@lunn.ch>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+To: Bob Hui <bg9oxa@163.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+References: <20261102-quarkpi-ca2-v11-0-eb246076a82f@163.com>
+ <20261102-quarkpi-ca2-v11-2-eb246076a82f@163.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261102-quarkpi-ca2-v11-2-eb246076a82f@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19f68ce2b03a4kunm5bf1e65a4745e6
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUlDVh9JTxhCQkpJGR8ZTFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ0xZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=CHPFAsKXrb/jCT0hKcfpS0gt5hYgnfYdopMQZyskIzDv3h8jzjdLE9ua9haqsGCCCWfJg0kF2MEfB7rIx7x4lAqI9WZDR10HZ42ANiwh5ZxDF6VhwTQBnWHur3LEtUk1MnOCiVYVNgAS06lp/rLamgxuOjDMfgesAMWAzDygDLs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=LEpal+P6ZHLKvKuKIsrpsC1CN7IbicAe3JsrzSw/RAw=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] i2c: amlogic: unstopped hw transfer on timeout in aml_i2c_xfer_msg=
-()
-- [Medium] i2c: amlogic-a9: transfer started before IRQ setup in aml_i2c_do=
-_start()
-- [Medium] i2c: amlogic-a9: missed completion in aml_i2c_irq() on multi-chu=
-nk reads
-- [Low] i2c: amlogic: use of deprecated master_xfer in aml_i2c_algorithm
-- [Low] i2c: amlogic-a9: off-by-one minimum divider check in aml_i2c_set_cl=
-k_div()
---
+在 2026/11/02 星期一 23:00, Bob Hui 写道:
+> Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based card
+> computer. The board comes in 4, 8 and 16 GiB LPDDR4X variants with
+> 32 GB, 64 GB or 128 GB of eMMC; this was tested on the 16 GiB/128 GB
+> one.
+> 
+> Supported peripherals:
+>    - 2x LPDDR4X SDRAM and eMMC, plus the microSD card slot
+>    - RK806-1 PMIC with the full regulator tree
+>    - HDMI output up to 4K60, through hdptxphy0 and VOP2
+>    - Gigabit Ethernet with the YT8531 RGMII PHY on MDIO1
+>    - four USB Type-A ports (1x USB 3.0, 3x USB 2.0)
+>    - USB Type-C port with USB 3.0 and DP output, described through the
+>      USBDP PHY and DP0, with role switch and DP altmode
+>    - 3.5 mm headset jack (headphones + microphone) with the ES8388
+>      codec, the headphone amplifier and jack detection
+>    - three function keys (volume down, volume up and PWR_ON from the
+>      PMIC) and the headset hook button
+>    - IR receiver, 4-pin PWM fan connector and a work LED
+>    - 3-wire debug UART (UART2)
+>    - 40-pin expansion header with UART5, I2C3, I2C5, SPI0 and PWM14
+>    - two 26-pin MIPI DSI and three 22-pin MIPI CSI connectors, with the
+>      connector I2C buses enabled (i2c4, i2c7); panels and cameras are
+>      described by overlays
+>    - M.2 E-key socket for a WiFi/BT module, with the PCIe 2.0 x1 link
+>      enabled (pcie2x1l2, combphy0_ps)
+>    - Mali GPU and the three NPU cores
+> 
 
-commit 0ce6cfd604c34b299eddac3e8d6a46653816e69c
-Author: Junyi Zhao <junyi.zhao@amlogic.com>
+Please add a link to the schematic if possible, when adding a new board
+suppot, that would make folks easy to check the code.
 
-i2c: amlogic: Add Amlogic A9 I2C controller driver
+https://github.com/openedv/card_computer_QuarkPi-CA2-RK3588S/blob/main/2_hardware/3_Peripheral_hardware_interface_diagram/QuarkPI-CA2%20V1.0%20Peripheral%20Hardware%20Interface%20Reference.pdf
 
-This commit adds a driver for the I2C controller found on Amlogic A9 SoCs,
-along with the corresponding Kconfig, Makefile, and MAINTAINERS entries.
 
-> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
--amlogic-a9.c
+Otherwise, sdmmc/sdhci/PCIe parts look good to me,
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> Signed-off-by: Bob Hui <bg9oxa@163.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch> #gmac1 + mdio1
+> ---
+>   arch/arm64/boot/dts/rockchip/Makefile              |    1 +
+>   .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts      | 1202 ++++++++++++++++++++
+>   2 files changed, 1203 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> index e7936a21c1185..02c2a127a9181 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -236,6 +236,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5b.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5-pro.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-cm5-base.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-quarkpi-ca2.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-radxa-cm5-io.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-roc-pc.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-rock-5a.dtb
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
 > new file mode 100644
-> index 0000000000000..d7f88d6feb05b
+> index 0000000000000..c7889f729191d
 > --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
-> @@ -0,0 +1,431 @@
-
-[ ... ]
-
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> @@ -0,0 +1,1202 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 > +/*
-> + * SCL =3D clk/b_ratio. if b_ratio<=3D8, SCL =3D clk/8
+> + * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
 > + */
-> +static int aml_i2c_set_clk_div(struct aml_i2c *i2c)
-> +{
-> +	unsigned long clk_rate =3D i2c->clk_rate;
-> +	unsigned int div;
 > +
-> +	div =3D DIV_ROUND_UP(clk_rate, i2c->frequency);
+> +/dts-v1/;
 > +
-> +	/* clock divider has 12 bits */
-> +	if (div >=3D (1 << 12)) {
-> +		dev_err(i2c->dev, "requested bus frequency too low\n");
-> +		return -EINVAL;
-> +	} else if (div <=3D 8) {
-> +		dev_err(i2c->dev, "requested bus frequency too high\n");
-> +		return -EINVAL;
-> +	}
-
-[Severity: Low]
-In aml_i2c_set_clk_div(), the comment notes that b_ratio <=3D 8 yields
-SCL =3D clk / 8. Since div =3D=3D 8 is the minimum divider that produces th=
-e exact
-clk / 8 frequency without clamping, should this check be div < 8 rather than
-div <=3D 8 so that a valid divider of 8 is not rejected with -EINVAL?
-
-[ ... ]
-
-> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
-> +{
-> +	struct aml_i2c *i2c =3D dev_id;
-> +	u8 *buf =3D NULL;
-> +	u32 rd_len, i;
-> +	u32 rd_val;
-> +	u32 irq_state;
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/pinctrl/rockchip.h>
+> +#include <dt-bindings/soc/rockchip,vop2.h>
+> +#include <dt-bindings/thermal/thermal.h>
+> +#include <dt-bindings/usb/pd.h>
+> +#include "rk3588s.dtsi"
 > +
-> +	spin_lock(&i2c->lock);
+> +/ {
+> +	compatible = "alientek,quarkpi-ca2", "rockchip,rk3588s";
+> +	model = "Alientek QuarkPi-CA2";
 > +
-> +	irq_state =3D readl(i2c->regs + REG_CFG_IRQ_STATE);
-> +	if (i2c->state =3D=3D A9_STATE_IDLE) {
-> +		dev_warn(i2c->dev, "i2c irq triggered abnormally, irq_state:0x%x,irq_e=
-n:0x%x\n",
-> +			 irq_state, readl(i2c->regs + REG_CFG_IRQ_ENABLE));
-> +		goto complete_irq_out;
-> +	}
+> +	adc_keys: adc-keys {
+> +		compatible = "adc-keys";
+> +		io-channels = <&saradc 1>;
+> +		io-channel-names = "buttons";
+> +		keyup-threshold-microvolt = <1800000>;
+> +		poll-interval = <100>;
 > +
-> +	if (irq_state & A9_TRANS_ERROR) {
-> +		i2c->error =3D -ENXIO;
-> +		goto complete_irq_out;
-> +	}
+> +		button-vol-down {
+> +			label = "volume down";
+> +			linux,code = <KEY_VOLUMEDOWN>;
+> +			press-threshold-microvolt = <417000>;
+> +		};
 > +
-> +	switch (i2c->state) {
-> +	case A9_STATE_READ:
-> +		buf =3D i2c->msg->buf;
-> +		rd_len =3D min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
-> +		for (i =3D 0; i < rd_len; i++) {
-> +			rd_val =3D readl(i2c->regs + REG_CFG_RX);
-> +			buf[i2c->pos++] =3D rd_val & TX_RX_DATA;
-> +		}
-> +		/* Rx must clear thresh after read fifo */
-> +		clear_irq_status(i2c, A9_RX_THRESH_READ);
-> +		break;
-> +	case A9_STATE_WRITE:
-> +		aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_HALF);
-> +		if (i2c->pos =3D=3D i2c->msg->len)
-> +			aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_TX_THRESH_WRITE, 0);
-> +		/* Tx must clear thresh after write fifo */
-> +		clear_irq_status(i2c, A9_TX_THRESH_WRITE);
-> +		break;
-> +	default:
-> +		break;
-> +	}
+> +		button-vol-up {
+> +			label = "volume up";
+> +			linux,code = <KEY_VOLUMEUP>;
+> +			press-threshold-microvolt = <17000>;
+> +		};
+> +	};
 > +
-> +	if (!(irq_state & A9_TRANS_DONE) ||
-> +	    (i2c->state =3D=3D A9_STATE_READ && i2c->pos < i2c->msg->len))
-> +		goto irq_trans_out;
+> +	aliases {
+> +		ethernet0 = &gmac1;
+> +		mmc0 = &sdhci;
+> +		mmc1 = &sdmmc;
+> +	};
+> +	analog_sound: analog-sound {
+> +		compatible = "simple-audio-card";
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&hp_det &hp_con>;
+> +		simple-audio-card,name = "QuarkPi-CA2 ES8388";
+> +		simple-audio-card,format = "i2s";
+> +		simple-audio-card,bitclock-master = <&sound_cpu>;
+> +		simple-audio-card,frame-master = <&sound_cpu>;
+> +		simple-audio-card,mclk-fs = <256>;
+> +		simple-audio-card,aux-devs = <&hp_amp>;
+> +		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
+> +		simple-audio-card,pin-switches = "Headphones", "Headset Mic";
+> +		simple-audio-card,widgets =
+> +			"Headphone", "Headphones",
+> +			"Microphone", "Headset Mic";
+> +		simple-audio-card,routing =
+> +			"Headphones", "LOUT1",
+> +			"Headphones", "ROUT1",
+> +			"Headphones", "Headphone Power OUTL",
+> +			"Headphones", "Headphone Power OUTR",
+> +			"Headphone Power INL", "LOUT1",
+> +			"Headphone Power INR", "ROUT1",
+> +			"LINPUT1", "Headset Mic",
+> +			"RINPUT1", "Headset Mic";
+> +		sound_cpu: simple-audio-card,cpu {
+> +			sound-dai = <&i2s0_8ch>;
+> +		};
 > +
-> +complete_irq_out:
-> +	i2c->state =3D A9_STATE_IDLE;
-> +	reset_fifo_pos(i2c);
-> +	complete(&i2c->done);
-> +	aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE, A9_RX_THRESH_READ | A9_TX_THR=
-ESH_WRITE, 0);
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +irq_trans_out:
-> +	spin_unlock(&i2c->lock);
+> +		sound_codec: simple-audio-card,codec {
+> +			sound-dai = <&es8388>;
+> +			system-clock-frequency = <12288000>;
+> +		};
+> +	};
 > +
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: Medium]
-As reported by Sashiko on v2 [1], can multi-chunk I2C read transfers
-(msg->len > A9_I2C_FIFO_DEPTH) miss the transfer completion interrupt in
-aml_i2c_irq()?
-
-Unlike A9_STATE_WRITE, which disables A9_TX_THRESH_WRITE once the final byt=
-es
-are queued, A9_STATE_READ leaves A9_RX_THRESH_READ enabled and samples
-REG_CFG_IRQ_STATE only once upon entry.
-
-When msg->len is a multiple of 32 (for example, 64), the 32nd byte of the
-final chunk triggers A9_RX_THRESH_READ before the I2C STOP condition finish=
-es
-on the bus. If A9_PHY_DONE asserts while aml_i2c_irq() is draining those 32
-bytes from REG_CFG_RX and before A9_RX_THRESH_READ is cleared, the interrupt
-line remains continuously asserted without generating a new rising edge, wh=
-ile
-aml_i2c_irq() takes goto irq_trans_out because the initial irq_state snapsh=
-ot
-did not have A9_TRANS_DONE set.
-
-Similarly, if both A9_RX_THRESH_READ and A9_PHY_DONE are set when
-aml_i2c_irq() enters with more than 32 bytes remaining, aml_i2c_irq() drains
-only 32 bytes, clears only A9_RX_THRESH_READ, and exits via irq_trans_out w=
-ith
-i2c->pos < i2c->msg->len. Because A9_PHY_DONE is already asserted and fewer
-than 32 bytes remain to re-trigger A9_RX_THRESH_READ, no further interrupt =
-edge
-occurs, leaving wait_for_completion_timeout() in aml_i2c_xfer_msg() to time
-out with -ETIMEDOUT.
-
+> +	hp_amp: audio-amplifier {
+> +		compatible = "simple-audio-amplifier";
+> +		sound-name-prefix = "Headphone Power";
+> +		enable-gpios = <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
+> +	};
 > +
-> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
-> +{
-> +	unsigned int reg_val;
-> +	unsigned int trans_len;
+> +	chosen {
+> +		stdout-path = "serial2:1500000n8";
+> +	};
+> +	hdmi0-con {
+> +		compatible = "hdmi-connector";
+> +		type = "a";
 > +
-> +	trans_len =3D msg->len;
-> +	reg_val =3D (unsigned int)(((msg->addr & 0x7f) << START_SADDR_SHIFT) |
-> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
-> +				((trans_len & 0xfff) << START_LEN_SHIFT) | START_START);
-> +	aml_i2c_set_mask(i2c, REG_CFG_START,
-> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
-> +	clear_irq_status(i2c, IRQ_ALL_MASK);
-> +	/* enable thresh mode */
-> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
-> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
-_WRITE;
-> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
-> +	}
-> +}
-
-[Severity: Medium]
-As reported by Sashiko on v2 [2], in aml_i2c_do_start(), setting START_START
-in REG_CFG_START begins the hardware transfer while A9_ENABLE_IRQ_BIT
-(A9_NCK_ERROR | A9_PHY_DONE) is already enabled in REG_CFG_IRQ_ENABLE, befo=
-re
-clear_irq_status(i2c, IRQ_ALL_MASK) is called and before A9_RX_THRESH_READ =
-or
-A9_TX_THRESH_WRITE is enabled in REG_CFG_IRQ_ENABLE.
-
-If execution is delayed between writing REG_CFG_START and writing
-REG_CFG_IRQ_STATE (for example, due to task preemption under CONFIG_PREEMPT=
-_RT,
-vCPU preemption, or NMI/FIQ latency), the controller can assert A9_NCK_ERROR
-on an address NACK or A9_PHY_DONE on a short transfer, which is then wiped =
-out
-by clear_irq_status(i2c, IRQ_ALL_MASK) before aml_i2c_irq() acquires i2c->l=
-ock
-and reads REG_CFG_IRQ_STATE. When aml_i2c_irq() runs, it sees
-!(irq_state & A9_TRANS_DONE) and exits via irq_trans_out without completing
-i2c->done, causing aml_i2c_xfer_msg() to time out.
-
-Should the interrupt status be cleared and the threshold interrupts enabled
-before asserting START_START in REG_CFG_START?
-
+> +		port {
+> +			hdmi0_con_in: endpoint {
+> +				remote-endpoint = <&hdmi0_out_con>;
+> +			};
+> +		};
+> +	};
 > +
-> +static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bo=
-ol last)
-> +{
-> +	unsigned long time_left, flags;
+> +	headset_keys: headset-keys {
+> +		compatible = "adc-keys";
+> +		io-channels = <&saradc 3>;
+> +		io-channel-names = "buttons";
+> +		keyup-threshold-microvolt = <1800000>;
+> +		poll-interval = <100>;
 > +
-> +	i2c->msg =3D msg;
-> +	i2c->pos =3D 0;
-> +	i2c->error =3D 0;
+> +		button-play-pause {
+> +			label = "play pause";
+> +			linux,code = <KEY_PLAYPAUSE>;
+> +			press-threshold-microvolt = <2000>;
+> +		};
+> +	};
+> +	ir_receiver: ir-receiver {
+> +		compatible = "gpio-ir-receiver";
+> +		gpios = <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&ir_receiver_pin>;
+> +	};
 > +
-> +	spin_lock_irqsave(&i2c->lock, flags);
-> +	i2c->state =3D (msg->flags & I2C_M_RD) ? A9_STATE_READ : A9_STATE_WRITE;
-> +	aml_i2c_prepare_xfer(i2c, A9_FIFO_FILL_FULL);
-> +	reinit_completion(&i2c->done);
+> +	leds: leds {
+> +		compatible = "gpio-leds";
 > +
-> +	aml_i2c_set_mask(i2c, REG_CFG_BUS, BUS_NO_STOP, (last ? 0 : BUS_NO_STOP=
-));
+> +		work_led: led-0 {
+> +			color = <LED_COLOR_ID_GREEN>;
+> +			function = LED_FUNCTION_HEARTBEAT;
+> +			gpios = <&gpio1 RK_PD7 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger = "heartbeat";
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&work_led_pin>;
+> +		};
+> +	};
 > +
-> +	/* Start the transfer */
-> +	aml_i2c_do_start(i2c, msg);
-> +	spin_unlock_irqrestore(&i2c->lock, flags);
+> +	fan: pwm-fan {
+> +		compatible = "pwm-fan";
+> +		#cooling-cells = <2>;
+> +		pwms = <&pwm7 0 50000 0>;
+> +		cooling-levels = <0 50 100 150 200 255>;
+> +	};
 > +
-> +	time_left =3D msecs_to_jiffies(I2C_TIMEOUT_MS);
-> +	time_left =3D wait_for_completion_timeout(&i2c->done, time_left);
+> +	combophy_avdd0v85: regulator-combophy-avdd0v85 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "combophy_avdd0v85";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <850000>;
+> +		regulator-max-microvolt = <850000>;
+> +		vin-supply = <&vdd_0v85_s0>;
+> +	};
 > +
-> +	/*
-> +	 * Protect access to i2c struct and registers from interrupt
-> +	 * handlers triggered by a transfer terminated after the
-> +	 * timeout period
-> +	 */
+> +	combophy_avdd1v8: regulator-combophy-avdd1v8 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "combophy_avdd1v8";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <1800000>;
+> +		vin-supply = <&avcc_1v8_s0>;
+> +	};
 > +
-> +	if (!time_left) {
-> +		guard(spinlock_irqsave)(&i2c->lock);
-> +		i2c->state =3D A9_STATE_IDLE;
-> +		aml_i2c_set_mask(i2c, REG_CFG_IRQ_ENABLE,
-> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, 0);
-> +		clear_irq_status(i2c, IRQ_ALL_MASK);
-> +		reset_fifo_pos(i2c);
-> +		return -ETIMEDOUT;
-> +	}
+> +	vbus5v0_typec: regulator-vbus5v0-typec {
+> +		compatible = "regulator-fixed";
+> +		enable-active-high;
+> +		regulator-name = "vbus5v0_typec";
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+> +		vin-supply = <&vcc5v0_usb>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&typec5v_pwren>;
+> +	};
 > +
-> +	return i2c->error;
-> +}
-
-[Severity: High]
-As reported by Sashiko on v2 [3], when wait_for_completion_timeout() expires
-(!time_left) in aml_i2c_xfer_msg(), this timeout path sets i2c->state to
-A9_STATE_IDLE, disables the threshold IRQs, clears REG_CFG_IRQ_STATE, and
-calls reset_fifo_pos(i2c), but never clears START_START in REG_CFG_START or
-otherwise aborts the active hardware transfer while A9_ENABLE_IRQ_BIT remai=
-ns
-enabled in REG_CFG_IRQ_ENABLE.
-
-If the stalled transfer shifts additional bytes after reset_fifo_pos(i2c), =
-the
-hardware FIFO pointers become non-zero for the next message. Furthermore, if
-the stalled transfer finishes or NACKs after a subsequent aml_i2c_xfer_msg()
-has set i2c->state to A9_STATE_READ or A9_STATE_WRITE, aml_i2c_irq() will
-process the stale A9_PHY_DONE or A9_NCK_ERROR interrupt against the new
-i2c->msg, corrupting i2c->msg->buf, i2c->pos, and i2c->error and prematurely
-completing i2c->done. Even if the late interrupt arrives while i2c->state is
-still A9_STATE_IDLE, aml_i2c_irq() jumps to complete_irq_out and calls
-complete(&i2c->done) when no transfer is waiting.
-
-Also, this function mixes manual spin_lock_irqsave() / spin_unlock_irqresto=
-re()
-with guard(spinlock_irqsave)(&i2c->lock) without directly including
-linux/cleanup.h. Could the hardware transfer be explicitly halted on timeou=
-t,
-the spurious complete(&i2c->done) when A9_STATE_IDLE avoided, and the locki=
-ng
-style made consistent across aml_i2c_xfer_msg()?
-
-[ ... ]
-
-> +static const struct i2c_algorithm aml_i2c_algorithm =3D {
-> +	.master_xfer	=3D aml_i2c_xfer,
-> +	.functionality	=3D aml_i2c_func,
+> +	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc_1v1_nldo_s3";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <1100000>;
+> +		regulator-max-microvolt = <1100000>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +	};
+> +
+> +	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
+> +		compatible = "regulator-fixed";
+> +		gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&sd_s0_pwr>;
+> +		regulator-name = "vcc_3v3_sd_s0";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		vin-supply = <&vcc_3v3_s3>;
+> +	};
+> +
+> +	vcc12v_dcin: regulator-vcc12v-dcin {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc12v_dcin";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <12000000>;
+> +		regulator-max-microvolt = <12000000>;
+> +	};
+> +
+> +	vcc3v3_pcie: regulator-vcc3v3-pcie {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc3v3_pcie";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		vin-supply = <&vcc12v_dcin>;
+> +	};
+> +
+> +	vcc5v0_sys: regulator-vcc5v0-sys {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_sys";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		vin-supply = <&vcc12v_dcin>;
+> +	};
+> +
+> +	vcc5v0_usb: regulator-vcc5v0-usb {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_usb";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +	};
+> +
+> +	reserved-memory {
+> +		#address-cells = <2>;
+> +		#size-cells = <2>;
+> +		ranges;
+> +
+> +		ramoops: ramoops@118000 {
+> +			compatible = "ramoops";
+> +			reg = <0 0x118000 0 0xd8000>;
+> +			console-size = <0x80000>;
+> +			ftrace-size = <0x00000>;
+> +			pmsg-size = <0x30000>;
+> +			record-size = <0x14000>;
+> +		};
+> +	};
 > +};
+> +
+> +&combphy0_ps {
+> +	status = "okay";
+> +};
+> +
+> +&combphy2_psu {
+> +	status = "okay";
+> +};
+> +
+> +&cpu_b0 {
+> +	cpu-supply = <&vdd_cpu_big0_s0>;
+> +	mem-supply = <&vdd_cpu_big0_s0>;
+> +};
+> +
+> +&cpu_b1 {
+> +	cpu-supply = <&vdd_cpu_big0_s0>;
+> +	mem-supply = <&vdd_cpu_big0_s0>;
+> +};
+> +
+> +&cpu_b2 {
+> +	cpu-supply = <&vdd_cpu_big1_s0>;
+> +	mem-supply = <&vdd_cpu_big1_s0>;
+> +};
+> +
+> +&cpu_b3 {
+> +	cpu-supply = <&vdd_cpu_big1_s0>;
+> +	mem-supply = <&vdd_cpu_big1_s0>;
+> +};
+> +
+> +&cpu_l0 {
+> +	cpu-supply = <&vdd_cpu_lit_s0>;
+> +	mem-supply = <&vdd_cpu_lit_mem_s0>;
+> +};
+> +
+> +&cpu_l1 {
+> +	cpu-supply = <&vdd_cpu_lit_s0>;
+> +	mem-supply = <&vdd_cpu_lit_mem_s0>;
+> +};
+> +
+> +&cpu_l2 {
+> +	cpu-supply = <&vdd_cpu_lit_s0>;
+> +	mem-supply = <&vdd_cpu_lit_mem_s0>;
+> +};
+> +
+> +&cpu_l3 {
+> +	cpu-supply = <&vdd_cpu_lit_s0>;
+> +	mem-supply = <&vdd_cpu_lit_mem_s0>;
+> +};
+> +
+> +&dp0 {
+> +	status = "okay";
+> +};
+> +
+> +&dp0_in {
+> +	dp0_in_vp1: endpoint {
+> +		remote-endpoint = <&vp1_out_dp0>;
+> +	};
+> +};
+> +
+> +&dp0_out {
+> +	dp0_out_con: endpoint {
+> +		remote-endpoint = <&usbdp_phy0_dp_in>;
+> +	};
+> +};
+> +
+> +&gmac1 {
+> +	phy-mode = "rgmii-id";
+> +	clock_in_out = "input";
+> +
+> +	snps,reset-gpio = <&gpio0 RK_PD5 GPIO_ACTIVE_LOW>;
+> +	snps,reset-active-low;
+> +	snps,reset-delays-us = <0 20000 100000>;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&gmac1_miim
+> +		     &gmac1_tx_bus2
+> +		     &gmac1_rx_bus2
+> +		     &gmac1_rgmii_clk
+> +		     &gmac1_rgmii_bus
+> +		     &gmac1_clkinout>;
+> +
+> +	phy-handle = <&rgmii_phy1>;
+> +	status = "okay";
+> +};
+> +
+> +&gpu {
+> +	mali-supply = <&vdd_gpu_s0>;
+> +	status = "okay";
+> +};
+> +
+> +&hdmi0 {
+> +	frl-enable-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_LOW>;
+> +	pinctrl-0 = <&hdmim0_tx0_cec &hdmim0_tx0_hpd
+> +		     &hdmim0_tx0_scl &hdmim0_tx0_sda>;
+> +	pinctrl-names = "default";
+> +	status = "okay";
+> +};
+> +
+> +&hdmi0_in {
+> +	hdmi0_in_vp0: endpoint {
+> +		remote-endpoint = <&vp0_out_hdmi0>;
+> +	};
+> +};
+> +
+> +&hdmi0_out {
+> +	hdmi0_out_con: endpoint {
+> +		remote-endpoint = <&hdmi0_con_in>;
+> +	};
+> +};
+> +
+> +&hdmi0_sound {
+> +	status = "okay";
+> +};
+> +
+> +&hdptxphy0 {
+> +	status = "okay";
+> +};
+> +
+> +&i2c0 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c0m2_xfer>;
+> +	status = "okay";
+> +
+> +	vdd_cpu_big0_s0: regulator@42 {
+> +		compatible = "rockchip,rk8602";
+> +		reg = <0x42>;
+> +		fcs,suspend-voltage-selector = <1>;
+> +		regulator-name = "vdd_cpu_big0_s0";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <550000>;
+> +		regulator-max-microvolt = <1050000>;
+> +		regulator-ramp-delay = <2300>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +
+> +		regulator-state-mem {
+> +			regulator-off-in-suspend;
+> +		};
+> +	};
+> +
+> +	vdd_cpu_big1_s0: regulator@43 {
+> +		compatible = "rockchip,rk8603", "rockchip,rk8602";
+> +		reg = <0x43>;
+> +		fcs,suspend-voltage-selector = <1>;
+> +		regulator-name = "vdd_cpu_big1_s0";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <550000>;
+> +		regulator-max-microvolt = <1050000>;
+> +		regulator-ramp-delay = <2300>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +
+> +		regulator-state-mem {
+> +			regulator-off-in-suspend;
+> +		};
+> +	};
+> +};
+> +
+> +&i2c1 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c1m4_xfer>;
+> +	status = "okay";
+> +
+> +	es8388: audio-codec@11 {
+> +		compatible = "everest,es8388", "everest,es8328";
+> +		reg = <0x11>;
+> +		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
+> +		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&i2s0_mclk>;
+> +		assigned-clock-rates = <12288000>;
+> +		AVDD-supply = <&vcc_3v3_s0>;
+> +		DVDD-supply = <&vcc_1v8_s0>;
+> +		HPVDD-supply = <&vcc_3v3_s0>;
+> +		PVDD-supply = <&vcc_3v3_s0>;
+> +		#sound-dai-cells = <0>;
+> +	};
+> +};
+> +
+> +&i2c2 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c2m0_xfer>;
+> +	status = "okay";
+> +
+> +	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
+> +		compatible = "rockchip,rk8602";
+> +		reg = <0x42>;
+> +		fcs,suspend-voltage-selector = <1>;
+> +		regulator-name = "vdd_npu_s0";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <550000>;
+> +		regulator-max-microvolt = <950000>;
+> +		regulator-ramp-delay = <2300>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +
+> +		regulator-state-mem {
+> +			regulator-off-in-suspend;
+> +		};
+> +	};
+> +
+> +	husb311: typec-port@4e {
+> +		compatible = "hynetek,husb311", "richtek,rt1711h";
+> +		reg = <0x4e>;
+> +		interrupt-parent = <&gpio1>;
+> +		interrupts = <RK_PA4 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&usbc0_int>;
+> +		vbus-supply = <&vbus5v0_typec>;
+> +
+> +		usb_con: connector {
+> +			compatible = "usb-c-connector";
+> +			label = "USB-C";
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +			try-power-role = "sink";
+> +			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
+> +			sink-pdos = <PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
+> +			op-sink-microwatt = <1000000>;
+> +
+> +			altmodes {
+> +				displayport {
+> +					svid = /bits/ 16 <0xff01>;
+> +					vdo = <0xffffffff>;
+> +				};
+> +			};
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					usbc0_orien_sw: endpoint {
+> +						remote-endpoint = <&usbdp_phy0_orientation_switch>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					usbc0_role_sw: endpoint {
+> +						remote-endpoint = <&dwc3_0_role_switch>;
+> +					};
+> +				};
+> +
+> +				port@2 {
+> +					reg = <2>;
+> +
+> +					dp_altmode_mux: endpoint {
+> +						remote-endpoint = <&usbdp_phy0_dp_altmode_mux>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&i2c3 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c3m1_xfer>;
+> +	status = "okay";
+> +};
+> +
+> +&i2c4 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c4m3_xfer>;
+> +	status = "okay";
+> +};
+> +
+> +&i2c5 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c5m2_xfer>;
+> +	status = "okay";
+> +};
+> +
+> +&i2c7 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c7m0_xfer>;
+> +	status = "okay";
+> +};
+> +
+> +&i2s0_8ch {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2s0_lrck &i2s0_sclk &i2s0_sdi0 &i2s0_sdo0>;
+> +	status = "okay";
+> +};
+> +
+> +&i2s5_8ch {
+> +	status = "okay";
+> +};
+> +
+> +&mdio1 {
+> +	rgmii_phy1: ethernet-phy@1 {
+> +		compatible = "ethernet-phy-ieee802.3-c22";
+> +		reg = <0x1>;
+> +
+> +		motorcomm,clk-out-frequency-hz = <125000000>;
+> +		motorcomm,keep-pll-enabled;
+> +	};
+> +};
+> +
+> +&package_thermal {
+> +	polling-delay = <1000>;
+> +
+> +	cooling-maps {
+> +		map0 {
+> +			trip = <&fan_trip0>;
+> +			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
+> +		};
+> +
+> +		map1 {
+> +			trip = <&fan_trip1>;
+> +			cooling-device = <&fan 1 2>;
+> +		};
+> +
+> +		map2 {
+> +			trip = <&fan_trip2>;
+> +			cooling-device = <&fan 2 3>;
+> +		};
+> +
+> +		map3 {
+> +			trip = <&fan_trip3>;
+> +			cooling-device = <&fan 3 4>;
+> +		};
+> +
+> +		map4 {
+> +			trip = <&fan_trip4>;
+> +			cooling-device = <&fan 4 THERMAL_NO_LIMIT>;
+> +		};
+> +	};
+> +
+> +	trips {
+> +		fan_trip0: fan-trip0 {
+> +			temperature = <50000>;
+> +			hysteresis = <2000>;
+> +			type = "active";
+> +		};
+> +
+> +		fan_trip1: fan-trip1 {
+> +			temperature = <55000>;
+> +			hysteresis = <2000>;
+> +			type = "active";
+> +		};
+> +
+> +		fan_trip2: fan-trip2 {
+> +			temperature = <60000>;
+> +			hysteresis = <2000>;
+> +			type = "active";
+> +		};
+> +
+> +		fan_trip3: fan-trip3 {
+> +			temperature = <65000>;
+> +			hysteresis = <2000>;
+> +			type = "active";
+> +		};
+> +
+> +		fan_trip4: fan-trip4 {
+> +			temperature = <70000>;
+> +			hysteresis = <2000>;
+> +			type = "active";
+> +		};
+> +	};
+> +};
+> +
+> +&pcie2x1l2 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pcie2x1l2_perstn>;
+> +	reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
+> +	vpcie3v3-supply = <&vcc3v3_pcie>;
+> +	status = "okay";
+> +};
+> +
+> +&pd_gpu {
+> +	domain-supply = <&vdd_gpu_s0>;
+> +};
+> +
+> +&pd_npu {
+> +	domain-supply = <&vdd_npu_s0>;
+> +};
+> +
+> +&pinctrl {
+> +	headphone {
+> +		hp_con: hp-con {
+> +			rockchip,pins = <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_down>;
+> +		};
+> +		hp_det: hp-det {
+> +			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +	ir {
+> +		ir_receiver_pin: ir-receiver-pin {
+> +			rockchip,pins = <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_up>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +		work_led_pin: work-led-pin {
+> +			rockchip,pins = <1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_down>;
+> +		};
+> +	};
+> +
+> +	pcie {
+> +		pcie2x1l2_perstn: pcie2x1l2-perstn {
+> +			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +	sdmmc {
+> +		sd_s0_pwr: sd-s0-pwr {
+> +			rockchip,pins = <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>;
+> +		};
+> +	};
+> +
+> +	usb-typec {
+> +		typec5v_pwren: typec5v-pwren {
+> +			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +
+> +		usbc0_int: usbc0-int {
+> +			rockchip,pins = <1 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
+> +		};
+> +	};
+> +};
+> +
+> +&pwm14 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pwm14m1_pins>;
+> +	status = "okay";
+> +};
+> +
+> +&pwm7 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pwm7m0_pins>;
+> +	status = "okay";
+> +};
+> +
+> +&rknn_core_0 {
+> +	npu-supply = <&vdd_npu_s0>;
+> +	sram-supply = <&vdd_npu_mem_s0>;
+> +	status = "okay";
+> +};
+> +
+> +&rknn_core_1 {
+> +	npu-supply = <&vdd_npu_s0>;
+> +	sram-supply = <&vdd_npu_mem_s0>;
+> +	status = "okay";
+> +};
+> +
+> +&rknn_core_2 {
+> +	npu-supply = <&vdd_npu_s0>;
+> +	sram-supply = <&vdd_npu_mem_s0>;
+> +	status = "okay";
+> +};
+> +
+> +&rknn_mmu_0 {
+> +	status = "okay";
+> +};
+> +
+> +&rknn_mmu_1 {
+> +	status = "okay";
+> +};
+> +
+> +&rknn_mmu_2 {
+> +	status = "okay";
+> +};
+> +
+> +&saradc {
+> +	status = "okay";
+> +	vref-supply = <&vcc_1v8_s0>;
+> +};
+> +
+> +&sata0 {
+> +	/* shares combphy0_ps with pcie2x1l2 */
+> +	status = "disabled";
+> +};
+> +
+> +&sdhci {
+> +	bus-width = <8>;
+> +	no-sdio;
+> +	no-sd;
+> +	non-removable;
+> +	max-frequency = <200000000>;
+> +	mmc-hs400-1_8v;
+> +	mmc-hs400-enhanced-strobe;
+> +	full-pwr-cycle-in-suspend;
+> +	vmmc-supply = <&vcc_3v3_s3>;
+> +	vqmmc-supply = <&vcc_1v8_s3>;
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc {
+> +	max-frequency = <150000000>;
+> +	no-sdio;
+> +	no-mmc;
+> +	bus-width = <4>;
+> +	cap-mmc-highspeed;
+> +	cap-sd-highspeed;
+> +	disable-wp;
+> +	sd-uhs-sdr104;
+> +	vmmc-supply = <&vcc_3v3_sd_s0>;
+> +	vqmmc-supply = <&vccio_sd_s0>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det>;
+> +	status = "okay";
+> +};
+> +
+> +&spi0 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&spi0m3_pins>;
+> +	cs-gpios = <&gpio3 RK_PD4 GPIO_ACTIVE_LOW>,
+> +		<&gpio3 RK_PD5 GPIO_ACTIVE_LOW>;
+> +	num-cs = <2>;
+> +	status = "okay";
+> +};
+> +
+> +&spi2 {
+> +	status = "okay";
+> +	assigned-clocks = <&cru CLK_SPI2>;
+> +	assigned-clock-rates = <200000000>;
+> +	num-cs = <1>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
+> +
+> +	pmic@0 {
+> +		compatible = "rockchip,rk806";
+> +		reg = <0x0>;
+> +		interrupt-parent = <&gpio0>;
+> +		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
+> +			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
+> +		spi-max-frequency = <1000000>;
+> +		system-power-controller;
+> +
+> +		gpio-controller;
+> +		#gpio-cells = <2>;
+> +
+> +		vcc1-supply = <&vcc5v0_sys>;
+> +		vcc2-supply = <&vcc5v0_sys>;
+> +		vcc3-supply = <&vcc5v0_sys>;
+> +		vcc4-supply = <&vcc5v0_sys>;
+> +		vcc5-supply = <&vcc5v0_sys>;
+> +		vcc6-supply = <&vcc5v0_sys>;
+> +		vcc7-supply = <&vcc5v0_sys>;
+> +		vcc8-supply = <&vcc5v0_sys>;
+> +		vcc9-supply = <&vcc5v0_sys>;
+> +		vcc10-supply = <&vcc5v0_sys>;
+> +		vcc11-supply = <&vcc_2v0_pldo_s3>;
+> +		vcc12-supply = <&vcc5v0_sys>;
+> +		vcc13-supply = <&vcc_1v1_nldo_s3>;
+> +		vcc14-supply = <&vcc_1v1_nldo_s3>;
+> +		vcca-supply = <&vcc5v0_sys>;
+> +
+> +		rk806_dvs1_null: dvs1-null-pins {
+> +			pins = "gpio_pwrctrl1";
+> +			function = "pin_fun0";
+> +		};
+> +
+> +		rk806_dvs2_null: dvs2-null-pins {
+> +			pins = "gpio_pwrctrl2";
+> +			function = "pin_fun0";
+> +		};
+> +
+> +		rk806_dvs3_null: dvs3-null-pins {
+> +			pins = "gpio_pwrctrl3";
+> +			function = "pin_fun0";
+> +		};
+> +
+> +		regulators {
+> +			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
+> +				regulator-name = "vdd_cpu_lit_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <550000>;
+> +				regulator-max-microvolt = <950000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
+> +				regulator-name = "vdd_vdenc_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <550000>;
+> +				regulator-max-microvolt = <950000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_gpu_s0: dcdc-reg1 {
+> +				regulator-name = "vdd_gpu_s0";
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <550000>;
+> +				regulator-max-microvolt = <950000>;
+> +				regulator-ramp-delay = <12500>;
+> +				regulator-enable-ramp-delay = <400>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_1v8_s3: dcdc-reg10 {
+> +				regulator-name = "vcc_1v8_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_log_s0: dcdc-reg3 {
+> +				regulator-name = "vdd_log_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <675000>;
+> +				regulator-max-microvolt = <750000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_ddr_s0: dcdc-reg5 {
+> +				regulator-name = "vdd_ddr_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <675000>;
+> +				regulator-max-microvolt = <900000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd2_ddr_s3: dcdc-reg6 {
+> +				regulator-name = "vdd2_ddr_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_2v0_pldo_s3: dcdc-reg7 {
+> +				regulator-name = "vdd_2v0_pldo_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <2000000>;
+> +				regulator-max-microvolt = <2000000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_3v3_s3: dcdc-reg8 {
+> +				regulator-name = "vcc_3v3_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +
+> +			vddq_ddr_s0: dcdc-reg9 {
+> +				regulator-name = "vddq_ddr_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_0v75_s3: nldo-reg1 {
+> +				regulator-name = "vdd_0v75_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <750000>;
+> +				regulator-max-microvolt = <750000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_ddr_pll_s0: nldo-reg2 {
+> +				regulator-name = "vdd_ddr_pll_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <850000>;
+> +				regulator-max-microvolt = <850000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			avdd_0v75_s0: nldo-reg3 {
+> +				regulator-name = "avdd_0v75_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <837500>;
+> +				regulator-max-microvolt = <837500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_0v85_s0: nldo-reg4 {
+> +				regulator-name = "vdd_0v85_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <850000>;
+> +				regulator-max-microvolt = <850000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_0v75_s0: nldo-reg5 {
+> +				regulator-name = "vdd_0v75_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <750000>;
+> +				regulator-max-microvolt = <750000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			avcc_1v8_s0: pldo-reg1 {
+> +				regulator-name = "avcc_1v8_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_1v8_s0: pldo-reg2 {
+> +				regulator-name = "vcc_1v8_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			avdd_1v2_s0: pldo-reg3 {
+> +				regulator-name = "avdd_1v2_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1200000>;
+> +				regulator-max-microvolt = <1200000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_3v3_s0: pldo-reg4 {
+> +				regulator-name = "vcc_3v3_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vccio_sd_s0: pldo-reg5 {
+> +				regulator-name = "vccio_sd_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			pldo6_s3: pldo-reg6 {
+> +				regulator-name = "pldo6_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&tsadc {
+> +	status = "okay";
+> +};
+> +
+> +&u2phy0 {
+> +	status = "okay";
+> +};
+> +
+> +&u2phy0_otg {
+> +	status = "okay";
+> +};
+> +
+> +&u2phy2 {
+> +	status = "okay";
+> +};
+> +
+> +&u2phy2_host {
+> +	phy-supply = <&vcc5v0_usb>;
+> +	status = "okay";
+> +};
+> +
+> +&u2phy3 {
+> +	status = "okay";
+> +};
+> +
+> +&u2phy3_host {
+> +	phy-supply = <&vcc5v0_usb>;
+> +	status = "okay";
+> +};
+> +
+> +&uart2 {
+> +	pinctrl-0 = <&uart2m0_xfer>;
+> +	status = "okay";
+> +};
+> +
+> +&uart5 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&uart5m1_xfer>;
+> +	status = "okay";
+> +};
+> +
+> +&usb_host0_ehci {
+> +	status = "okay";
+> +};
+> +
+> +&usb_host0_ohci {
+> +	status = "okay";
+> +};
+> +
+> +&usb_host0_xhci {
+> +	usb-role-switch;
+> +	status = "okay";
+> +
+> +	port {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		dwc3_0_role_switch: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&usbc0_role_sw>;
+> +		};
+> +	};
+> +};
+> +
+> +&usb_host1_ehci {
+> +	status = "okay";
+> +};
+> +
+> +&usb_host1_ohci {
+> +	status = "okay";
+> +};
+> +
+> +&usb_host2_xhci {
+> +	status = "okay";
+> +};
+> +
+> +&usbdp_phy0 {
+> +	mode-switch;
+> +	orientation-switch;
+> +	sbu1-dc-gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_HIGH>;
+> +	sbu2-dc-gpios = <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
+> +	rockchip,dp-lane-mux = <2 3>;
+> +	status = "okay";
+> +
+> +	port {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		usbdp_phy0_orientation_switch: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&usbc0_orien_sw>;
+> +		};
+> +
+> +		usbdp_phy0_dp_altmode_mux: endpoint@1 {
+> +			reg = <1>;
+> +			remote-endpoint = <&dp_altmode_mux>;
+> +		};
+> +
+> +		usbdp_phy0_dp_in: endpoint@2 {
+> +			reg = <2>;
+> +			remote-endpoint = <&dp0_out_con>;
+> +		};
+> +	};
+> +};
+> +
+> +&vop {
+> +	status = "okay";
+> +};
+> +
+> +&vop_mmu {
+> +	status = "okay";
+> +};
+> +
+> +&vp0 {
+> +	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+> +		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
+> +		remote-endpoint = <&hdmi0_in_vp0>;
+> +	};
+> +};
+> +
+> +&vp1 {
+> +	vp1_out_dp0: endpoint@a {
+> +		reg = <ROCKCHIP_VOP2_EP_DP0>;
+> +		remote-endpoint = <&dp0_in_vp1>;
+> +	};
+> +};
+> 
 
-[Severity: Low]
-In struct i2c_algorithm, master_xfer is marked deprecated in include/linux/=
-i2c.h
-in favor of xfer. Could aml_i2c_algorithm initialize .xfer =3D aml_i2c_xfer
-instead?
-
-[1] https://lore.kernel.org/r/sashiko-outbox-181284@kernel.org
-[2] https://lore.kernel.org/r/sashiko-outbox-181284@kernel.org
-[3] https://lore.kernel.org/r/sashiko-outbox-181284@kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-a9-i2c-v5-=
-0-86f2dcd179d8@amlogic.com?part=3D2
