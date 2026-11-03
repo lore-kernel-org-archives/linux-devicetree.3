@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703399;
-	b=B9AT8uAdMrzpaWcGZjOlNaLGWyVsXWU0nJ98AQnop3puwuYb1BMLyG/mIYQZa8E9yxrH
-	 7To//elPMnF6HVr9pJpA3IupttFX+PBwlFSEtudsqOwbJcIBhaq7PBFtz7WOw/uDW7I/T
-	 cvu240iWlXE1MBM8ABWBy8wa5k/44NbXkpUSnGCl9ensj23N3mXhB2RW+IoBv9Fzx+kdD
-	 CHwaWTTEaq/C4gkZ/8N4lRmRaZ/3UkW+73R8weUBSfgMMUW1uEKfgDcU4eSiOY5noyCmZ
-	 tZML69E7DNEpmlYokFImijdimQcc7Hps7ShQUfDxX+5uvSum6fGTl8095Am1wK+Fqww==
+	t=1793703460;
+	b=FafijOZfb4PzbA9md5ae94SSV+IlHUZsSjgdb33eG1g3jesn8XmedkYV1tM2ZoNKoBi8
+	 Th233GUvypCcpQes79gyeeD+SluSlTwQTIdD+usIhyDMsXlHvu4/HyaRlutk+dTebT2BV
+	 AzPk8OCjGp2zBMy/x96z3OrBcpQMaaFXLP3XvgtZaH9uY4uZLEl+QPIVQgEspTClqhoMG
+	 ryvOHNe67uIu7COynTdeqgedEfF9/30pWx0DRzHY+RuogvU7zn4P/N9BmASc49ocR7+gt
+	 hmOkGm7ohXGTLVjhMEMDhZuRQXYzYRAH7eZ1SBRLI8h4hAgg9mAE5g8YuUp8zwgJaZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703399;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703460;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=X3uNTxzJ5UFNAWBq1CS/GtIwDgeixGPpAQXfyA/vaps=;
-	b=qKyf5dF2VaymILJX37FUO/vFZ3hVo5EE97nCK9fYa/OfjrewIHfFpPBV0buSjASF86uu
-	 pj+6YSZn9QnPa+0nPP3jyhCMXkecTN6l0P5cmnwBv35YQAlk7goLzPYsaMSSVXbI+p+dC
-	 Pd3JGr8yg+IG0ZnjRqDgZwsoGmNkCYy+gTTdA+FeuFv1nd/i66Ahy7De7ewLnGoAyKXQ7
-	 kFVuID0AV8PgXM3L2jBCdabmS+BTsCr/CeGm5paPXF2bjJjevvaaAzJCvKNhZ5RouFBSP
-	 /JcL7zMfSdKBR0t62fXpcNNfzJ+I/ZfciSRPHtkj2x0QBY9r+KDlXBI3hLA1B4PFvVg==
+	bh=31Qn9FABkN/3b1h4gQ5wD9w3I2E7zevl/SoiAZ7wTuc=;
+	b=JVjciDs4bTlRHBdFDEyPyN6IViOeOQoAZh0Xduf+bJ4IrgFOg6+nc2RSYOL5ntnsqhru
+	 gcfYYcekOJEP7Tc2qtQAnxBeCuSN14nkLriIuAD8wo1CXHvEpvtA0HMESvYKthbXezqdX
+	 eqx8jFTSeHubbmKfidB4mdCLCn3EP9TGYu9/uienvSW9sqjuz8jHxxcVZVrb9sLVhhivY
+	 fop5MxZsgEYOvTIPMrpZzpU5SQbG1xpwXNPH5z+gLKRNz483/4RB+YAKzUxX/8TCRWtYv
+	 H80+CEuQBfwywXlB6tX0fT2Y0Vii4IPsCZqHNb4tdwCO4Bp9aYAIhPS7zk07kbLLrUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcUmT25q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ld7Y9COj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1727C606BA5A
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 10:56:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D508606BF96
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 10:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcUmT25q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79EDE1F000C1;
-	Tue,  3 Nov 2026 10:56:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ld7Y9COj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295341F000C1;
+	Tue,  3 Nov 2026 10:57:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793703398;
-	bh=X3uNTxzJ5UFNAWBq1CS/GtIwDgeixGPpAQXfyA/vaps=;
+	s=k20260515; t=1793703460;
+	bh=31Qn9FABkN/3b1h4gQ5wD9w3I2E7zevl/SoiAZ7wTuc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mcUmT25qZSbh7fuT5ECJvgDDHXDSTU0QPJ1Ae3HX2lMMqFIYdaqAW8iiJMlvspmdh
-	 bwdwEktBSKE3A8iaHzRGEmLeezyUF2AyFL2GQ4RpDFFFHfplPiy1o0+933BHyh2IMd
-	 4pAWVPbG8m0G6so9ZMdjlt6zzLxWad25TY4I7OY9nlvEl4nDRyLI5ZZWfv+djZPfd0
-	 KbAxUCAzNxiSD5H6hTsTHRWNewtoCc/MREa0u7zmn6MIOgI5RX58kfJkb/2OAiTVfN
-	 1zg3YbL1d9XZkG91S4TamrUjl/MPSt2nfluW0FfFcLgwiYgKoBovFyDzHT7l4vArGL
-	 6Zl0i74y9dilA==
-Message-ID: <sashiko-outbox-195086@kernel.org>
+	b=ld7Y9COjZxgft7HhBJi1M9RCGQ9OoKBzfU9Y+VU4J096DAqAxr9ZSEgZsq9fLC4i0
+	 oKUCPi6UQShY7Y6wE5G+iynjd+h84Bo38otXyJLqh6oPqiwryvW4Y+xuwXnJRhE8bT
+	 +FD7KHyNY6h8DjGXuXDRQRO2703XLnmB1Bw9kA5Uq2hm+h2RVFeKIFRkyTOg8FyMDT
+	 vyIZ7sessF6/BLUJ66wY/Hnjc5Yln5RcJSSd5cYsFkOIHLpnrQwNH3eEHcyKY52j8j
+	 Ki2//2t/NIysI6XtXVRgrpPOr9s5YztxZfslpY6DAnrNjO4ii4JAYcvq5CJb8zRZof
+	 vFHmIwHNPC1KQ==
+Message-ID: <sashiko-outbox-195088@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] of: unittest: fix node reference leak in of_notify()
+Subject: Re: [PATCH] of: unittest: fix node leak in phandle remapping test
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Wentao Liang" <vulab@iscas.ac.cn>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261103104236.1373612-1-vulab@iscas.ac.cn>
-References: <20261103104236.1373612-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104235.1373591-1-vulab@iscas.ac.cn>
+References: <20261103104235.1373591-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 10:56:38 +0000
+Date: Tue, 03 Nov 2026 10:57:39 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,64 +61,59 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] of: unittest: extra of_node_put() in of_notify() causes refcount u=
-nderflow
+- [Medium] of: unittest: leak of p[] nodes in of_unittest_parse_phandle_wit=
+h_args_map()
 --
 
-commit e1e7dd44b042cb6a35f29a5d1cce9e3a35006236
+commit 76085e24075478d56a6949c4d7365c6d0d60c538
 Author: Wentao Liang <vulab@iscas.ac.cn>
 
-of: unittest: fix node reference leak in of_notify()
+of: unittest: fix node leak in phandle remapping test
 
-This commit moves the of_node_put(nd->overlay) call in of_notify() out of
-the default switch branch so that it runs after all notifier actions.
+This commit releases the device_node reference for the consumer node and
+adds cleanup for the provider node references when a provider lookup fails
+in of_unittest_parse_phandle_with_args_map().
 
 > diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-> index e255f54f4d760..3202781998808 100644
+> index e255f54f4d760..f240b1175211b 100644
 > --- a/drivers/of/unittest.c
 > +++ b/drivers/of/unittest.c
-> @@ -3460,11 +3460,12 @@ static int of_notify(struct notifier_block *nb, u=
-nsigned long action,
->  		break;
-> =20
->  	default:			/* should not happen */
-> -		of_node_put(nd->overlay);
->  		ret =3D -EINVAL;
->  		break;
->  	}
-> =20
-> +	of_node_put(nd->overlay);
+> @@ -578,6 +578,9 @@ static void __init of_unittest_parse_phandle_with_arg=
+s_map(void)
+>  	for (i =3D 0; i < ARRAY_SIZE(p); ++i) {
+>  		if (!p[i]) {
+>  			pr_err("missing testcase data\n");
+> +			while (i > 0)
+> +				of_node_put(p[--i]);
+> +			of_node_put(np);
+>  			return;
+>  		}
+>  		prefs[i] =3D OF_KREF_READ(p[i]);
 
-[Severity: High]
-Does moving of_node_put(nd->overlay) outside the switch statement cause a
-reference count underflow on nd->overlay?
+[Severity: Medium]
+Does this error path still leak device_node references in p[i + 1] through
+p[5]?
 
-Before the switch statement, of_notify() acquires a single reference on
-nd->overlay:
+In drivers/of/unittest.c:of_unittest_parse_phandle_with_args_map(), all six
+provider nodes are looked up before the validation loop begins:
 
-drivers/of/unittest.c:of_notify() {
-	ret =3D 0;
-	of_node_get(nd->overlay);
+	p[0] =3D of_find_node_by_path("/testcase-data/phandle-tests/provider0");
+	p[1] =3D of_find_node_by_path("/testcase-data/phandle-tests/provider1");
+	p[2] =3D of_find_node_by_path("/testcase-data/phandle-tests/provider2");
+	p[3] =3D of_find_node_by_path("/testcase-data/phandle-tests/provider3");
+	p[4] =3D of_find_node_by_path("/testcase-data/phandle-tests/provider4");
+	p[5] =3D of_find_node_by_path("/testcase-data/phandle-tests/provider5");
+	for (i =3D 0; i < ARRAY_SIZE(p); ++i) {
+		if (!p[i]) {
 
-	switch (action) {
+If p[i] is NULL for an earlier entry (for example p[0]) while subsequent
+lookups in p[i + 1 .. 5] succeeded, unwinding only from i down to 0 leaves
+the non-NULL references in the remaining elements of p[] unreleased.
 
-	case OF_OVERLAY_PRE_APPLY:
-		found =3D of_find_node_by_name(nd->overlay, "test-unittest16");
-	...
-}
-
-In all four valid action branches (OF_OVERLAY_PRE_APPLY,
-OF_OVERLAY_POST_APPLY, OF_OVERLAY_PRE_REMOVE, and OF_OVERLAY_POST_REMOVE),
-nd->overlay is passed as the from argument to of_find_node_by_name(), which
-unconditionally drops a reference on from via of_node_put(from).
-
-Only the default branch does not call of_find_node_by_name(nd->overlay, ...=
-).
-With of_node_put(nd->overlay) moved after the switch statement, every valid
-overlay notifier action acquires one reference and drops two references on
-nd->overlay, prematurely releasing the node while the overlay changeset is
-still using it.
+Since of_node_put() safely accepts NULL pointers, should this loop over the
+entire p[] array (and update the commit message, which currently states that
+the references were acquired by preceding loop iterations)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103104236.1373=
-612-1-vulab@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103104235.1373=
+591-1-vulab@iscas.ac.cn?part=3D1
