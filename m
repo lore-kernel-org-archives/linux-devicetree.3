@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704246;
-	b=TgUv8HupivLOK8voeuzFR3c9APg01+0CZ4zT8LxmD3yzOZsHkSA0s4Z4z++ojinqwupu
-	 uhZ448d4sdWQ6Bu8+uiCoNFZrU9uLL8DIOvjI1+fPWjjJXupACVy0eFqxlyUTrOY6Hv+m
-	 pgU+8sa8eZ9hNeTiuiShzmFPfy85Cjkub+xHuGsaYR/ZsUCcz9BUo4CX9JcFQ/hYEx7Sl
-	 VxOuhbbpik3D+i7JFBh9/FUrxySQfK+JLZOKdMtONrxqHEAzKlg4aPWAkPg2N/mLmNFZn
-	 NOjtRMVnO2sz88zp5mKB57Iz6JpHgGiS9d5uKcbG77F+7EAqGi7Q8NKOULlz703+Euw==
+	t=1793704242;
+	b=iDN4JC6+wGv0P1o9laMNmgZTZt0SVNAUSMy2c/9KI/ytbJs34bRMipbbwTyy6qigfd8Y
+	 MyNtuzxCzJERb0uIjJWyVKx5rJQCPUT2NT9okifuZg/IkqNro7H3Xnm365GXAX62x1cY5
+	 OhkBKlof1hFhgMfNx53LF31l3gsCVMbXjJKkgFWIivvi9ui1Oh4OSkbeI7Dw2AZrvNmJU
+	 N6C3OS9F+Ih0G7mHwMvSDU6u5g41p3aEhgyzXzTFtv9lv2I9NIGrXVmqj+pYp7Hm1ROaH
+	 GxUn2OClSk93oT5Q2QswRFLoKVoGEqsb6qkQ8rCsubLXQHX8y1Bv1vKiJvIJHJuu2fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704242;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oH9yiNjBLnPnYV/tVi7O279D04XNMxHc/uOO8R+Zy+Y=;
-	b=vb32gFMtiRwIho0hcr5KwAXOWyFiOfA+B4vwKpqPGx8RNKarYOxgp85a1M7goS7rd/pK
-	 u8FI5iUnMwQJAEeLUMYhx4HI1JA1D0aZOuVJi2DT1Bca0xEl+Xn24094J8iyLNI2MNmVz
-	 T20Jo954FWcYnEyJeH//wSl+VJHxKqZfj+HEy8X40NC+B2dxWBoaa7Vy7zicPkq8SWh4Y
-	 GIfhrbeMSrI8RdloUwNcRY3l16HrCsD1P954lhMuxwoHBuG0QtL2YAbVdWhYrDvThclQp
-	 5OY0dh7/qz2zePE/qDaYadpsEGoQeL+DieZMnDSznm0TyKLty6aUa0qgI/O8bfRNhwQ==
+	bh=LbX5Q7p4xQHFkAnxvv4GcKsc3X8LYGY6+OaH92+Mxgg=;
+	b=gIOEoJG6M51EF48tchk+aHraPRrP4SzZMZhScG4WRtFpRWcswfqguQPdUz0vxJ740Bh3
+	 9QvH0Iq7ejvFM0HpQtJqfkrszQC2Hw3qv9xHHVLg6QAIAdbFCwdp893mqZehyh5UOU58t
+	 +P1t9kLmpAXaWKT+ZrJWEDNqQGrL3qwCh635jKwb4DjQcIIIEMY0eE2rUsAg+rmJU1jb2
+	 QU/jMwU27qPcDYLlT2bYmAAFgDRhe/JU7QupcOdPhJ2CBZD3qRJwpzG46wZJPHZfvTfw4
+	 i50MH+QWsQ3yKitupUPnFr4jK/ahtJztRocJPEXv0EYv1ypnZt+Rv20sQDUA1TfuAZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDKJNtTK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iaSCruUJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD84606F7C0;
-	Tue,  3 Nov 2026 11:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CB9606EE9B;
+	Tue,  3 Nov 2026 11:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDKJNtTK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54E21F000C1;
-	Tue,  3 Nov 2026 11:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iaSCruUJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DBF1F000C1;
+	Tue,  3 Nov 2026 11:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704245;
-	bh=oH9yiNjBLnPnYV/tVi7O279D04XNMxHc/uOO8R+Zy+Y=;
+	s=k20260515; t=1793704242;
+	bh=LbX5Q7p4xQHFkAnxvv4GcKsc3X8LYGY6+OaH92+Mxgg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WDKJNtTKYmj96sfXMvVAPPRf3HgcRFFxdAAYJC6MtHaveC8CAnlhpk/JcYNLFAgk0
-	 uz/V8fWC6JQVy8G1RUO0jtwPiortNGkJ8dqwOG9UKof/5X2lbKiuwXpZ3i226kwTby
-	 upR25nu7N1+mvBEn5AflBBkh/UJMINeUjemytOljYUN34gc45eMe1/oNn57PHTfCtv
-	 U2gcWmh/h+KAU/83XNmE095pdnNXKkqDaz9sfqGXHJ8BeQWtgp+gHOeJMNDM6WyeJi
-	 SjP1eewS8LaWWJ3KsYM9PHDIuKmK1TjlPUXf1MG/HQcqbRVX2adAMBZoZo3EFIznSM
-	 Cg9WNITXZUq2w==
-Date: Tue, 3 Nov 2026 12:10:42 +0100
+	b=iaSCruUJv3kdb7l48HlV/ZPCcpEN9U74E07lrc4MkMn2Ex9UaC9XanM/TeR2DN1rq
+	 hzilA5yK6jLeyWsbCqC3vjokTV/2d9rMV9KgkkXQHZ60CdmDdUWTbhd44O056GhHXn
+	 EgPJxCCg5n5JLg6F89ATgtvQwmdm2SJyMGo+veJPK2T9zFcUUthKCAnIceBEmRidOJ
+	 BJ1tGJaUzeGE1hQR5Na+zKNMmUr3PhF9VQmqXkjrtB73UFEl2H73zTAHkUNEZkgo0Q
+	 wSY5QBK+DxTzsEAQ7rSIQEV3pxPxwEkz8K4CK2G9CkE11S9it7dR7nZTHDcV5UdCOO
+	 JDzrml6d/OdFQ==
+Date: Tue, 3 Nov 2026 12:10:40 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
-	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org
+Cc: Saravana Kannan <saravanak@kernel.org>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>
 Subject: Re: [PATCH] of: unittest: fix node reference leak in
- of_unittest_dynamic()
-Message-ID: <20261103-jumping-pretty-leopard-b094a1@quoll>
-References: <20261103104236.1373631-1-vulab@iscas.ac.cn>
+ of_unittest_match_node()
+Message-ID: <20261103-tall-silent-skunk-9e4e0f@quoll>
+References: <20261103104237.1373649-1-vulab@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,18 +59,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104236.1373631-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104237.1373649-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:36 +0000, Wentao Liang wrote:
+On Tue, 03 Nov 2026 10:42:37 +0000, Wentao Liang wrote:
 > of_find_node_by_path() returns a device_node with its reference count
-> incremented. of_unittest_dynamic() only returns directly on the
-> allocation failure path and otherwise falls off the end of the
-> function, so the reference is never dropped.
+> incremented. of_unittest_match_node() never releases that reference:
+> failed matches continue to the next iteration, and the reference taken
+> for the last test case is still held when the function returns.
 > 
-> Release the reference on both exits.
+> Drop the reference on all three paths.
 > 
-> Fixes: 7e66c5c74f73 ("of/selftest: Add self tests for manipulation of properties")
+> Fixes: 1f42e5dd5065 ("of: Add self test for of_match_node()")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
