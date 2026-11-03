@@ -1,60 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793733627;
-	b=EpN0bSMgMjH8FtQLBxwRPVHGw9rcS1LDP29T6m3O2KxsnDP6BtxYcOLNHtYj7gn/Hy5+
-	 4ts7bbNGMvvZNABoo/4Ab5L64WcrsRSTW5kDaKtFdbZNuldZbKid/hqtNxoLqIT6INDgr
-	 VcUFZCl/zwkAhK2jzFqngu6559JMygV8IogPs4ZCzJx7mkGZTXkpo4ZP1ch+WsA8f8XAe
-	 yN686fk3L6pqNBo8qxU/fe7Yhq3DlyiT0VrI+wyV6DWPFjMqZJZtXZuHkAKwc6RG+MJVj
-	 cW4Cfvjm8JCKJUV0goQ5Wis35i3/pOVAkLRoDlA+/oX37rtf2bZ71l+L9iDyslfY+Mw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793733627;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793733820;
+	b=yPgcknaGiRe8GRGFAeYP67YIRIeiS/uc2YFk4ookvuNUZlO83vsWnZy3gxWJJcPjvGVD
+	 J3ssZtsfaYLbI9QQHqsdqIF2cJmzq5zB7QAG1awaEjKzmSscbZevkHawlQffIcNKsdR+/
+	 A385gx9RoeUXL50SaCwsGWgYJM5z9zANq6EdMcrhXyClFN0aAJtOshzzLNevWNn8i2+lY
+	 rY8TiLk5cuHY6FGzc6/BgsBNBXMjWJoTMHUTEqhttKh2W6mpFqFVAWLACVNf0jYTcL+4q
+	 bvJQQNAvoYtJMZ/qMdoURRqqE3hdRPyU5/E21CTFoXBqlLrjWT+snwn3so19jXCfgtg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793733820;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=YhBfBa8Pny6kFuQ4E8aewbRLvPI4dlsdbD5dTiRQ7Gc=;
-	b=gkuG8xU4zE7u7FeoeLqZj/jAv7R/Hp5Kd0YB4bzQywjXkDIllD2Ibx+me16z+7m7jsvj
-	 IkCoW8ckZLJVV0kxXQMUWddCbqsaz+s5j7PMlBPst7Cc0MtMNzsUZvOdtHK6ZrKW7wTIG
-	 L0C9ZOPNLHsD84WgNFoLDxVqIvcGOEy1+9wDa8U1OymjmU+GRVc6TE7z25kuQIQQuu9UA
-	 V8HjLRlM5Z0/8zIc+woH/2M5+m/cNrfi7qjQaiMaKgXYSYktcwQlREMOJQPc9wOKkzeVR
-	 7FwQX47KIiGRVA4skYz/mZhxRMZUhPI/JeuihGdLrTekA8kkg6Fvr8MZ/f2gtvXWh0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=LM3QOEpR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=2bf+ycJ31FjWROHBLtqJsAsms5ifHfK4LcWycDMaIZM=;
+	b=R5A29Daou5H2jthvXH1BBG5UMhMi0fh7gSWmmkxG4/MVz3pymjWxqFolFPAq6BTYB4eK
+	 rlJ/M23MhpnePuMLXj3kfUpzaoQgIdu/8ko7rnu8A4HvLVnlMQdTEs4NCDSM3Eu8ONhrT
+	 d9urcLJOOHzA4xkIiqC7Fe8WFqm3t6ie9YEBTmCktUUEmXFe0m/YNn8ewWXlJJgARPKcF
+	 tZ5DkIgkssbPnvSBYN0roWMb6eg5R/LftM8VTLyN0PJqHAviSSaIcXgLXlGH93Nh+Ah4f
+	 lOcbvfweEwj2FNb90W4R8XqNCE9tcVdU4QY3jqJbT0xcTBArLyjNXQz9jFpu2QGNu9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hUeKWbuB;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB7B606A31B;
-	Tue,  3 Nov 2026 19:20:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DB7B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F507606A324
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 19:23:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F507606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=LM3QOEpR
-ARC-Seal: i=1; a=rsa-sha256; t=1793733598; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=YY2YI4CHmoRMtnhUzV0HUozrcEpzv4UjVwsf3eUGBEjF1mr8c6/9SEPQFcwjnCHEv4TfWWr5Q+k5PdWp5fGFSli/3jZ4nR55bAPVyCEr5SulybRau2CbP1ATn5pi6Lt9EW4nHsHkQNO0mSECNIWxuh6XyvMW9Qe/ibrGKs35+5s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793733598; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YhBfBa8Pny6kFuQ4E8aewbRLvPI4dlsdbD5dTiRQ7Gc=; 
-	b=iMVeAHL4jegNpWP9+3oSxp+pm9RSdirqX/5qs/hwWCDljo1Q9/jfO6aTyZb0BS71/P7usuA0Z0jWbmrCzJoRFgIObEzvOMwFXsO1+hNK/CB8ZXXDZTxuYiwMovUBhuaMOi/TwWu6A1wcEUX5TVWXArR4RkpJP8On0qG14k7saII=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=LM3QOEpRp5Djr2FLet4alvtrLgPm0FiOJsvXKm7AL+pq8Yr81TdtQo8eTLVF88zFqtRfLtMZEylMC4ZMZVMORG19cU+lmz+gp8kdlzqXbqJ6q5GIy9Jr8ZuEiUZZsPpCCcOxH4N4MwYoRrkurZLoHoJSxo1mIK2k3KTVvl6eDUw=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=YhBfBa8Pny6kFuQ4E8aewbRLvPI4dlsdbD5dTiRQ7Gc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 17937335969083.55780142088463;
-	Tue, 3 Nov 2026 20:19:56 +0100 (CET)
-Date: Tue, 03 Nov 2026 21:19:55 +0200
-From: Igor Velkov <iav@iav.lv>
-To: sashiko-reviews@lists.linux.dev
-Cc: iav@iav.lv, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Enable SD UHS-I modes on ROCK Pi 4
-Message-ID: <20261103-re-sashiko-rockpi4-sd-uhs-1@iav.lv>
-In-Reply-To: <sashiko-outbox-194667@kernel.org>
-References: <20261103-rockpi4-sd-uhs-v1-1-fa394d2046e1@iav.lv> <sashiko-outbox-194667@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hUeKWbuB
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-716b58a4365so469322eaf.3
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 11:23:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793733818; x=1794338618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2bf+ycJ31FjWROHBLtqJsAsms5ifHfK4LcWycDMaIZM=;
+        b=hUeKWbuB5zyDbHpFb4I/fvFIocB9Pse9sJLRZ4OuIFliaF9iTzB3y6LOoVblsTPgEU
+         ZJ+EedPz8ac/VierSn3i2HmYmFfhAVeH/EIqQuNu0SHY0xBwSvgKDQUzJq8PFoSG8gNE
+         YsLubWlX5zblBqsvYsMbHhmZcMGu14Fak5iUovb+clJPgeVrIp5RVTHcRVrmVyUshfz0
+         N88hheLTXG8RjOmhmXGGZ9kHRVUdsAcj27/BsGuUsgFf364Qvzf5SPrjAMfxJnNd/wK4
+         O2U7hpoHcubMcEhS0YBbfQYo5lvX3WcmPIZa+ambCMR6YQlmLA1/dzCaCtBDthoB6cqw
+         m92w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793733818; x=1794338618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2bf+ycJ31FjWROHBLtqJsAsms5ifHfK4LcWycDMaIZM=;
+        b=XASRzZ6VtQuUaAINeWOXAbz7zLtGRVlMm9tz73d0m2dsbTIEJqYynsQM3JES6KB4AT
+         /QzJvPoyeMd9Z6DAo1E5IQuJqhq90sjEItJ3VPEn2IdrTkxr3dSc/4JtbuheNgZkVVy/
+         eijGrfV5dmvy3lhZDMRgpz1qWf1I+tC+divsY1BW/LJUOt8UX6d73wt89y6k/qYq4gsF
+         ygeiS2cEVTyyP1FNRuG+uUL8l6f5WEVPIQHbzNmNKTxSsA6wJQlBDrQsYm6rPk4kqnW2
+         18DdrMDZ8uZ09IBBasu2KfwyiPt3xAxqUJcD3uK0l6W0eG8tqf5a8WFegbmGtfH4K9uM
+         +MmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzr/BI4troX3APL+hS/vK0HBfBNgBu+iEbGRyK2bSP7DMA41AwXykvj/smZEKTt/Id+K15cr8UE223z@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/1PUlE+rgrCRncqXcNh1wSoKE4FxZlDTizAcdw1NCUgmWqn4w
+	h3zYBZ0cnpQY9++R9T7EtA3UFLMv+yag9Vjud4mv6nU/su8YEo8SjhkO
+X-Gm-Gg: AYBFou2jxVPLWxHdYJTVsfqjb8ARUgU4I9/oKeNkXUltJtMQspIaXSRNQPTpz8A89bi
+	QQSwmIHiGkduXYbfYkcoWIEJttIHRQAb4z07shoM6k+eUKJ6Y7yziXP+xERQeBmwFpYDiiCPkvx
+	v+u0kYbZvkDazaE5EDc8tgiHIpRbAW04srJtYh0NpqjETGSe+7Xl9W8DjZZXaY6/vhv8fv6TFKL
+	Wj/YHfnChFDKIFyDkAWTF9UP+WdPh+8qdzFnNPcwa9Ml5DgdkuBUE21A7LHRjHi99+Pg34d8PJC
+	5N2AHM31/+teGa1VQuKCW3JZqBI00iYQsSvvs4rylyHzU8NZ9FaLtAE7lAcIUqLjR+pgYHxOttK
+	v3Z7nCyc8K7wiD9s4Pc7PzDy2g4kGqE7Cny0lmvVHkq3wmv04gadkBugqifazplPDy4hWiqeT5p
+	7mXNtoaig5nR+Effzvvx6Z/VpERVQCv3aJTDNhriou01NyGvduYRw9vD5aeftiEO/Plo/8qY5tO
+	KJGiqsQS5U5Y3Yu2T8YFoWgdvbVV9/s4o6jSMDCeP+kklYpE9X+3zM80psCsag3CCuONLlDLVjV
+	2r9Sc3J37Wl6+cP+DVz/mNVb+h4DUpJbt6bQCtaGUIRzALZznMVb
+X-Received: by 2002:a05:6820:4612:b0:702:f890:e113 with SMTP id 006d021491bc7-714f242df26mr6473969eaf.9.1793733817847;
+        Tue, 03 Nov 2026 11:23:37 -0800 (PST)
+Received: from neuromancer ([75.28.21.198])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm43323a34.14.2026.11.03.11.23.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 11:23:37 -0800 (PST)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	david@ixit.cz,
+	detlev.casanova@collabora.com,
+	maz@kernel.org,
+	michael.riesch@collabora.com,
+	diederik@cknow-tech.com,
+	shawn.lin@rock-chips.com,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	tglx@kernel.org,
+	daniel.lezcano@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH 0/2] Add rockchip-timer for RK356X
+Date: Tue,  3 Nov 2026 13:23:29 -0600
+Message-ID: <20261103192331.394489-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,18 +108,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-The RK808 sleep voltages do not take effect on ROCK Pi 4. Its SLEEP
-pin is wired to GPIO1_A5 (AP_PWROFF), and nothing muxes that pin to
-AP_PWROFF: the DT has no ap_pwroff pinctrl (NanoPi 4 has one), and
-U-Boot passes no suspend GPIOs to TF-A. Read back on a ROCK Pi 4A:
-GPIO1_A5 is a GPIO input, low. The vcc_sdio sleep state is also the
-same as on rockpro64, roc-pc and other RK3399 boards with SDR104.
+From: Chris Morgan <macromorgan@hotmail.com>
 
-The io-domain race is what the PCI patch linked under the commit
-message fixes:
-https://lore.kernel.org/r/20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv
+Add the rockchip-timer to the RK356x SoC. The timer for the RK356x is
+register compatible with the rk3288. Address range taken from BSP
+device tree and confirmed with rk3568 technical reference manual.
 
-Igor
+Resending since I left a few key people off, sorry about that.
+
+Chris Morgan (2):
+  dt-bindings: timer: rockchip: Add rk3568 compatible
+  arm64: dts: rockchip: Add timer node for rk356x
+
+ .../devicetree/bindings/timer/rockchip,rk-timer.yaml      | 1 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi             | 8 ++++++++
+ 2 files changed, 9 insertions(+)
+
+-- 
+2.53.0
+
