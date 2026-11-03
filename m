@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672534;
-	b=r804ZQtGFMTbVxn3sIrGYXaSQwVTfiWA92d49PBTtyFtZqT1rHGGGSFJx26htyW2lEWZ
-	 QIW9q8fr9tNPQ1Yx0L5EHxXV1C9Jtc69C22DwYWbmQTxR2aQQtQpHnneBVzudDyO9gAaz
-	 YfuvZBcSqK/4uhMaQp52JxTn+C1KqnfvpjnRwAiKQSQHmo1zE3hDO7JaiFqu34bLgqP09
-	 Jw7G+zr6i0jW9hr4H82eZ87W7INYIqC8RLiWR6gJI/AeAInuQSVEQKB9yr/WVyonEAakU
-	 uZg3v/RujVpJZoVhqqs1aygeZO4rlm60JfviwFWdJE5ELRwm8NXx0W3Bg8s4xszR4Cg==
+	t=1793672544;
+	b=v5ITJc9lLTe4iT9dccm7vPG03TX5AXZnzQFca4Y3E3qRoO8diKup99+Z0eDuFc+E98xS
+	 yp+omI6bdroQUFWH2oVSSuKAQU0JyitAUL9z+J1v1P4SobvQ8nFruSlr/QvamKubvgN+C
+	 Ru4R7Rl729BFaY+LtLuPHuy55AhERT5SJaLz4xYr0NrNhD8Z2xeQmcN3bLtqVjJAsDABn
+	 i4arv8mZV02ZLfgZT6axSJbrgogY7YOZwMHuxMGzbcRPy1xB3cUuw3Uh01trflyh2r5X4
+	 TuD8icJb+gZ+LhDt0HKpRIwoNpgN+Tkgey8cb43G8aWaYI4Ddxltw/9SDLthj/o3Isw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672544;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=r7CZHsFtToEeDraAns18SBV26Wozlx1z/SodGdtdGHQ=;
-	b=sqVG/jid4N/DzhPXrhdgm+oAdgOQP/Dyf5kco6LLZpqqYQ3EO2ht7M6dJ5LFoBNPhN+U
-	 cUpXrasJ3JLEjcC/FUq0uPxMat9oTJg1NJZk+sIE7fDM3oto/0/74s7tKle0w7ktIRwxb
-	 wfHbI3ABJwH24Esmmjc0KvbifVyDXXCiaXEL+qsPX6QUtUtpDQGnNjwvNYmm5hvdBYtHi
-	 7Zmi7hxbfSCI19E7Bw+YW+ZCy9ljCsCmDR68UbfIatvxUsaNJ4VKdbfwUBuCaAnIfs7Ih
-	 kxy3eb3Wc+S3y6SzfOrz17Fomg380Nln+a4FyUsXUJZYAxX7ZjRLy1bAnBjuclWBfsQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=c6o6PLfOQ/7KuRbl8bHOcYkGmLHd5N5tTbX+9m2iR9o=;
+	b=gqZP0TEwa8dIvTQMjamvQ7gXec3KWxC3M+u/UoeWBHjoOzV7kT4WpgGkW6+DVMQlHa+d
+	 9reikKe/Ez9AYtJfOA58GOHzipKcAjbE3bucMWyxG6HtR+rTCedCDP1YeZVyoxbhq4w21
+	 XnsjH7AKx55LV7rWCPvM2Prh5jvD9BlXjFbhMF8xCXNbOyspHUmC6I9Jzk/woRpCkfeHc
+	 TI3g15aHTnBsFUDQ7M/NARDPzM57kKl1orHCRqL+fdtFnoz+43ixDuNJ1POd0LBQkDgPK
+	 3HJPVJimL5Kl1tqlcgNxED4R1ZJpSbBPU6nB6UiG2bDBXvWxivzvuyaY4XhnENc6VkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pcvJJlQH;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m2TT2Anp;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F16B606A327
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 02:22:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F16B606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1E3606A327
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 02:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B1E3606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pcvJJlQH
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e987b4a710so1130725ad.1
-        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 18:22:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m2TT2Anp
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso1307840a12.1
+        for <devicetree@vger.kernel.org>; Mon, 02 Nov 2026 18:22:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793672534; x=1794277334; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r7CZHsFtToEeDraAns18SBV26Wozlx1z/SodGdtdGHQ=;
-        b=pcvJJlQHlGOF0cpRM0UZePAnDC0vqeuBRizCxvexJ7QOLkN8zL3s4Cjs3WJ/t5DCBc
-         d3lY9QkXohvzSDMe3oJ+hXgdx8im/eKScekNjdD5xWcpzme7sOuLYx170dlJIMYZlszQ
-         YPdulHvcX71xyKzwLy00njaxlw1cMOFw8ZeSm+ZVYAdo6Ubhj9QafHmSlaGYXtsJpi2W
-         902Ac+nkX/bTmhzQd4fdw5AVucBp3I6xec0Zok7FolDgMaPxy6bDM+qClB4y1BTAm5cU
-         lSPpWGTzBUxCl1zoIyC8IwHL59W2TLZTBU/801Ml6a5Zxl0hbtaPi+Hb4VZ3RjnC/o6k
-         ytOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793672534; x=1794277334;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793672538; x=1794277338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r7CZHsFtToEeDraAns18SBV26Wozlx1z/SodGdtdGHQ=;
-        b=MCzxKoP/cqK4ywwBrjI8lN3uMJT5CGKDel1QogfK7PKBXu76F+bB77//czPnAKARNL
-         iyW+km07eFnEwtO4LR8FVx1mOrqYlB9x+xG8OOmKwgpgv/21k2Am33kPSaaM7TnjgyD3
-         PB657Wch1oxR2RrxpiEuEdo/H6BJjL1an1yAsL7Jsf3R6I2uIFuZaW1LbrVSE7AqkiSZ
-         xstyvcx81Zn2FwLB4aR+uOKIv302iZ2xb26/XqdFo1DyllPtJE8G9UcuTn4jqTApXa+i
-         4WG151hLnId8kzq2/uARXXPRy8VtGsgPKnX7Oox9fOa+AePVDvCaYBdXUom3w7lOHvnP
-         VVQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxrHGwQS/wDW31FFsy1m8vbThnEpSUyGyr1eHAi+1ZXgaI352HHhnS4mYa6ZdPMx6d0jamEA8SZyi5@vger.kernel.org
-X-Gm-Message-State: APuU4Z/32vu90AmG5A1/7rVfy33KPHwVuFz7qXHncgDENBs4Iw/dlbYa
-	9ZT4SfA1AGGUS5AzEU9nq9JKbhIGz6/xondLAGhLmagggkKNgwxSFHEl
-X-Gm-Gg: AYBFou1lpmiPnQ87iKMeAboswUgQrU7zJPg9VDeOU8FLLd2RT92ziOpPFwdeHAZiiKr
-	MBoYnCb//LXR0bikQkiHnYQD5LUkCuJV8PxwiPX+dyqSP38izICiUkskZqPpsjnUWFKJfGxKG/O
-	u+QRW0i92QcG2rTut6GGAAZqx62gYr+9FE8LNy73tlMp9ZBXyOkHKoNSwrkYFqMH9f/ZZ9+RhSk
-	1hwUoTBy/A3AhgaPo8xOvXTmR6L6L3JgMp5IeFBctWLsY1UcVKF1dn+HflBJfECUqQ8OTyoSSNr
-	AXDHGz0mWKuuv1n/NiGHGFMtQqL6eQ7nNCuUUSF8lgwomTDE8T2Da25BQ5sTd7y63k7KnCkhDwq
-	9HNdjWRl6CJwC/TUEdZfxZwQMJTlLPQ3a2w7JadtyMw8OtUd8W0do8TcArxqUXIYP6a8XqLCyTo
-	ZAY87TNkDtYLHyU8wzm2VDyJJNstj/v0iJKQdTOMcZSDKT9PfF9wu7a5aVfnny7ynJAnN7A6PgK
-	UhAl8RxFh0ddMI7ZQLIXZbDkKtxhzG7jfNnn8zYaP5IYmi8sfJz9Va11OlNtKi2OriXSWLebVAW
-	B0JoPWE8L0fZj5aqxEtIkdcVQe9njyqCpoptaoiWrwzaMbgjysRDZ1rcdvWrhCHSFV6+P6b5N3M
-	fC2tQNs+a7fGJ/Jg=
-X-Received: by 2002:a17:90b:55ce:b0:3ae:3f20:7058 with SMTP id 98e67ed59e1d1-3ae897bafd5mr6113235a91.36.1793672533832;
-        Mon, 02 Nov 2026 18:22:13 -0800 (PST)
+        bh=c6o6PLfOQ/7KuRbl8bHOcYkGmLHd5N5tTbX+9m2iR9o=;
+        b=m2TT2Anp45931/GbpPEfD/jEZWQDpLLp5MNAFB0D+d4TLBq6QJ6swR9O39ofTgNgBj
+         eqY0UTxeAd1ot3BtcdwpqCxipc+7EUclOjtxBtOHUDoqrrWVlaRzadNb+rx0SN/omHg7
+         u/54ORaaNI78u0d1f3z1uc66QgyLMQcDIbFC7nBAnL9Dj7VwIuNHgb4agSFVXhvbMWcB
+         tcCm0eS7lLEiivtuY27U9NhreZhMULytjVms5Rf/+zGjsS1pRDFLTXC2YmIiAO0tBHmy
+         mleiO6f54qJ/uDQMTL37SvmwHAYcbmKnwHO5DX29ejGu1zl38s8FcOjPsPOSc47+USNk
+         97cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793672538; x=1794277338;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c6o6PLfOQ/7KuRbl8bHOcYkGmLHd5N5tTbX+9m2iR9o=;
+        b=eR5NXaUrNUBuntElyWC/3TtlX5RcBTD5+BEuyS3iq0McRrLtnVbXrNDci/gO1gfxev
+         axDUiC0MpkTM5STUaJeSKeBUXvHIAWHgaOwktsw3V/q79ONBYiYTqIS5J1v0qTAs7u1f
+         ItEW2lnzo9Tg7Is059paT0HqT1tRFEhcmZ/4lFPE5qugZ4u6Z1BmkuVTXD05tZHjHIuE
+         UI3JkaQuIhFK9jfIyzzD2+gNwVF/xbf2998VD2KRMdW834UOFLerU7AM7T2WZey9RfS7
+         9vkk3Eota0jdvdXfHIZjOxx3Ygy6KAkjl46JW02eoqGcFpKfhogUgcCixhrB2HrJuX2p
+         BtEQ==
+X-Forwarded-Encrypted: i=1; AKwUvByiq1IxafKCi9d03ihWyzFVa3W6IqY5pdJFX81Lwgflpbc6Gl8y3ktOvwfi6jomf/kcjf8XuD66PrQF@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fu9yOHt6FxfWsKNa/lQTTadORFnjAA77zga+9nwSTVvLZlwL0
+	WJyvifTx1AlK05ZP9KdJPDEEarAznj2RcB0FeNGZnLADAfEQgAioftjy
+X-Gm-Gg: AYBFou2TO1yFHksYZh1FW1Ndg+UBUUyvP1jvcSiDFSYXoVbPWg7UjGAe13xyGv9AnZP
+	1HnoBU79WdIiMKvgdyKHFcwoRqvmqj/iwKqYsoCpcH5RUbPJfrPZhDidCes97+//+lscDJkXVDU
+	rYgPyp0u0dkWAR93jqWpFMTT3PXj0s4VYSSVwqCIzfZee746GHfIx44di4BWOCpJwwFplriE2Ji
+	av9ProFaVc+twqJjdpE8GnJdmedog9x4YzNt0fs4fZTp5x9d0lcbTZpSkls+LDnhE+emuZ/rmYm
+	YPHQBC4qCvvcckPLDDlc14JqxaDxjQt3zK7/6NhqNnqWNcHR6cpSkTWOR7XmFSsbVOUiUZMJSBP
+	n8D9rF71eZ/97KhfmZEQOGiJyi3nW0A886FWw31iZHLfmZQWXXw6Jt61PXtGonYfT4rofxLat/i
+	31xpFmUAMW5M8UJaprzL31jOSmRpqv6EhSy2fSuMZdxuHHcbDdB4fSqEFZkKv02yiN/yOFryiYz
+	TAXRFakAHcwwvsozna8k7SmSoyWQRcNc/eOrOniQ/K7wT3gcof3q7iC68KkXqC53mGZrQF2O+MW
+	aSv7TwcgM4aXYtomJNEdVURddYPC1DlB4nh8hMvFPl2HMFGK0i0Yw0h/RJmafNx5MyjUlUoRnrv
+	i5bJKhLm0N3Ts4UQ=
+X-Received: by 2002:a17:90b:4a46:b0:3aa:f2c4:12e9 with SMTP id 98e67ed59e1d1-3ae8953617fmr10497917a91.3.1793672537642;
+        Mon, 02 Nov 2026 18:22:17 -0800 (PST)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7dea24sm1570124a91.5.2026.11.02.18.22.10
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c7dea24sm1570124a91.5.2026.11.02.18.22.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 18:22:13 -0800 (PST)
+        Mon, 02 Nov 2026 18:22:17 -0800 (PST)
 From: Shan-Chun Hung <shanchun1218@gmail.com>
 To: ychuang3@nuvoton.com,
 	schung@nuvoton.com,
@@ -94,10 +95,12 @@ To: ychuang3@nuvoton.com,
 	linux-kernel@vger.kernel.org,
 	linux-hardening@vger.kernel.org
 Cc: Shan-Chun Hung <shanchun1218@gmail.com>
-Subject: [PATCH 0/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-Date: Tue,  3 Nov 2026 10:22:00 +0800
-Message-Id: <20261103022202.2139674-1-shanchun1218@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document MA35D1 PDMA controller
+Date: Tue,  3 Nov 2026 10:22:01 +0800
+Message-Id: <20261103022202.2139674-2-shanchun1218@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261103022202.2139674-1-shanchun1218@gmail.com>
+References: <20261103022202.2139674-1-shanchun1218@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,35 +112,213 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds the PDMA controller driver and DT binding for the
-Nuvoton MA35D1 SoC.
-
-The driver supports memcpy, slave scatter-gather and cyclic transfers,
-and a per-channel timeout configured through
-dma_slave_config.peripheral_config. The timeout is needed by the
-MA35D1 UART driver, to be submitted separately.
-
-Tested on the MA35D1 SOM board with Linux v7.4-rc1, using local
-(not yet submitted) QSPI and UART patches that use this PDMA driver.
+Add binding for Nuvoton MA35D1 PDMA controller.
 
 Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
-
-Shan-Chun Hung (2):
-  dt-bindings: dma: nuvoton,ma35d1-pdma: Document MA35D1 PDMA controller
-  dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-
- .../bindings/dma/nuvoton,ma35d1-pdma.yaml     |  72 ++
- drivers/dma/Kconfig                           |  12 +
- drivers/dma/Makefile                          |   1 +
- drivers/dma/ma35d1-pdma.c                     | 780 ++++++++++++++++++
- include/dt-bindings/dma/ma35d1-pdma.h         | 113 +++
- include/linux/dma/ma35d1-pdma.h               |  24 +
- 6 files changed, 1002 insertions(+)
+---
+ .../bindings/dma/nuvoton,ma35d1-pdma.yaml     |  72 +++++++++++
+ include/dt-bindings/dma/ma35d1-pdma.h         | 113 ++++++++++++++++++
+ 2 files changed, 185 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
- create mode 100644 drivers/dma/ma35d1-pdma.c
  create mode 100644 include/dt-bindings/dma/ma35d1-pdma.h
- create mode 100644 include/linux/dma/ma35d1-pdma.h
 
+diff --git a/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+new file mode 100644
+index 000000000000..cd752571242c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dma/nuvoton,ma35d1-pdma.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton MA35D1 PDMA controller
++
++description:
++  This describes the devicetree bindings for four Peripheral DMA engines to perform
++  memory-to-memory, memory-to-peripheral, or peripheral-to-memory data transfer
++  capable of supporting 10 channels, implemented in Nuvoton MA35D1 SoCs.
++
++maintainers:
++  - Shan-Chun Hung <shanchun1218@gmail.com>
++
++allOf:
++  - $ref: dma-controller.yaml#
++
++properties:
++  compatible:
++    const: nuvoton,ma35d1-pdma
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  "#dma-cells":
++    const: 2
++    description:
++      The first cell is the channel number. The second cell is the
++      peripheral request source (REQSRC) selection, which defines which
++      peripheral is connected to that PDMA channel.
++
++  dma-channels:
++    const: 10
++
++additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - "#dma-cells"
++  - dma-channels
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        dma-controller@40080000 {
++            compatible = "nuvoton,ma35d1-pdma";
++            reg = <0x0 0x40080000 0x0 0x2000>;
++            interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
++            clocks = <&clk PDMA0_GATE>;
++            #dma-cells = <2>;
++            dma-channels = <10>;
++        };
++    };
++
++...
+diff --git a/include/dt-bindings/dma/ma35d1-pdma.h b/include/dt-bindings/dma/ma35d1-pdma.h
+new file mode 100644
+index 000000000000..0ddc99d29661
+--- /dev/null
++++ b/include/dt-bindings/dma/ma35d1-pdma.h
+@@ -0,0 +1,113 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (C) 2026 Nuvoton Technology Corp.
++ */
++
++#ifndef __DT_BINDINGS_DMA_MA35D1_PDMA_H__
++#define __DT_BINDINGS_DMA_MA35D1_PDMA_H__
++
++#define MA35D1_PDMA_MEM			0
++#define MA35D1_PDMA_UART0_TX		4
++#define MA35D1_PDMA_UART0_RX		5
++#define MA35D1_PDMA_UART1_TX		6
++#define MA35D1_PDMA_UART1_RX		7
++#define MA35D1_PDMA_UART2_TX		8
++#define MA35D1_PDMA_UART2_RX		9
++#define MA35D1_PDMA_UART3_TX		10
++#define MA35D1_PDMA_UART3_RX		11
++#define MA35D1_PDMA_UART4_TX		12
++#define MA35D1_PDMA_UART4_RX		13
++#define MA35D1_PDMA_UART5_TX		14
++#define MA35D1_PDMA_UART5_RX		15
++#define MA35D1_PDMA_UART6_TX		16
++#define MA35D1_PDMA_UART6_RX		17
++#define MA35D1_PDMA_UART7_TX		18
++#define MA35D1_PDMA_UART7_RX		19
++#define MA35D1_PDMA_UART8_TX		20
++#define MA35D1_PDMA_UART8_RX		21
++#define MA35D1_PDMA_UART9_TX		22
++#define MA35D1_PDMA_UART9_RX		23
++#define MA35D1_PDMA_UART10_TX		24
++#define MA35D1_PDMA_UART10_RX		25
++#define MA35D1_PDMA_UART11_TX		26
++#define MA35D1_PDMA_UART11_RX		27
++#define MA35D1_PDMA_UART12_TX		28
++#define MA35D1_PDMA_UART12_RX		29
++#define MA35D1_PDMA_UART13_TX		30
++#define MA35D1_PDMA_UART13_RX		31
++#define MA35D1_PDMA_UART14_TX		32
++#define MA35D1_PDMA_UART14_RX		33
++#define MA35D1_PDMA_UART15_TX		34
++#define MA35D1_PDMA_UART15_RX		35
++#define MA35D1_PDMA_UART16_TX		36
++#define MA35D1_PDMA_UART16_RX		37
++#define MA35D1_PDMA_QSPI0_TX		54
++#define MA35D1_PDMA_QSPI0_RX		55
++#define MA35D1_PDMA_QSPI1_TX		56
++#define MA35D1_PDMA_QSPI1_RX		57
++#define MA35D1_PDMA_SPI0_TX		60
++#define MA35D1_PDMA_SPI0_RX		61
++#define MA35D1_PDMA_SPI1_TX		62
++#define MA35D1_PDMA_SPI1_RX		63
++#define MA35D1_PDMA_SPI2_TX		64
++#define MA35D1_PDMA_SPI2_RX		65
++#define MA35D1_PDMA_SPI3_TX		66
++#define MA35D1_PDMA_SPI3_RX		67
++#define MA35D1_PDMA_I2C0_TX		70
++#define MA35D1_PDMA_I2C0_RX		71
++#define MA35D1_PDMA_I2C1_TX		72
++#define MA35D1_PDMA_I2C1_RX		73
++#define MA35D1_PDMA_I2C2_TX		74
++#define MA35D1_PDMA_I2C2_RX		75
++#define MA35D1_PDMA_I2C3_TX		76
++#define MA35D1_PDMA_I2C3_RX		77
++#define MA35D1_PDMA_I2C4_TX		78
++#define MA35D1_PDMA_I2C4_RX		79
++#define MA35D1_PDMA_I2C5_TX		80
++#define MA35D1_PDMA_I2C5_RX		81
++#define MA35D1_PDMA_I2S0_TX		86
++#define MA35D1_PDMA_I2S0_RX		87
++#define MA35D1_PDMA_I2S1_TX		88
++#define MA35D1_PDMA_I2S1_RX		89
++#define MA35D1_PDMA_TMR0		94
++#define MA35D1_PDMA_TMR1		95
++#define MA35D1_PDMA_TMR2		96
++#define MA35D1_PDMA_TMR3		97
++#define MA35D1_PDMA_TMR4		98
++#define MA35D1_PDMA_TMR5		99
++#define MA35D1_PDMA_TMR6		100
++#define MA35D1_PDMA_TMR7		101
++#define MA35D1_PDMA_TMR8		102
++#define MA35D1_PDMA_TMR9		103
++#define MA35D1_PDMA_TMR10		104
++#define MA35D1_PDMA_TMR11		105
++#define MA35D1_PDMA_EPWM0_P1_RX		110
++#define MA35D1_PDMA_EPWM0_P2_RX		111
++#define MA35D1_PDMA_EPWM0_P3_RX		112
++#define MA35D1_PDMA_EPWM1_P1_RX		113
++#define MA35D1_PDMA_EPWM1_P2_RX		114
++#define MA35D1_PDMA_EPWM1_P3_RX		115
++#define MA35D1_PDMA_EPWM2_P1_RX		116
++#define MA35D1_PDMA_EPWM2_P2_RX		117
++#define MA35D1_PDMA_EPWM2_P3_RX		118
++#define MA35D1_PDMA_EPWM0_CH0_TX	122
++#define MA35D1_PDMA_EPWM0_CH1_TX	123
++#define MA35D1_PDMA_EPWM0_CH2_TX	124
++#define MA35D1_PDMA_EPWM0_CH3_TX	125
++#define MA35D1_PDMA_EPWM0_CH4_TX	126
++#define MA35D1_PDMA_EPWM0_CH5_TX	127
++#define MA35D1_PDMA_EPWM1_CH0_TX	128
++#define MA35D1_PDMA_EPWM1_CH1_TX	129
++#define MA35D1_PDMA_EPWM1_CH2_TX	130
++#define MA35D1_PDMA_EPWM1_CH3_TX	131
++#define MA35D1_PDMA_EPWM1_CH4_TX	132
++#define MA35D1_PDMA_EPWM1_CH5_TX	133
++#define MA35D1_PDMA_EPWM2_CH0_TX	134
++#define MA35D1_PDMA_EPWM2_CH1_TX	135
++#define MA35D1_PDMA_EPWM2_CH2_TX	136
++#define MA35D1_PDMA_EPWM2_CH3_TX	137
++#define MA35D1_PDMA_EPWM2_CH4_TX	138
++#define MA35D1_PDMA_EPWM2_CH5_TX	139
++#define MA35D1_PDMA_EADC0_RX		146
++
++#endif /* __DT_BINDINGS_DMA_MA35D1_PDMA_H__ */
 --
 2.25.1
 
