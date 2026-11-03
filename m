@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.57
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.39
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793688875;
-	b=XBMxQIvgJtYQqPs1JLUWGj4rDW+9WGrN85ylAbv5rzGheUHMYxrkjyNz5oZrlahfEAC8
-	 mlILJkXLkNbrzWbcWX7JikLAh4En7oyb4qmUE+a4j4VnwjfEZdFth53epcIs1dAY+SncH
-	 dlXiIPYnOnVGxsOL+kLFHwFNXm+MmGcXTuQ15ADjUiNi2O02PO40WobhHz0SIm/dG0O1p
-	 qLCZaR+DF019XbMd2AgiW+IzylcfrX2pL6EAueyj1dpSjnF0OChGA1/pGvE0K45utn+Yc
-	 K1roJvnyurhJMfe7mM++45Fc7BeOQHVQg/QzskzjagEdnx7+F9qwjx9g7o8ZLgsKDSA==
+	t=1793688909;
+	b=h9RjQwQQ8El+OzRPc/6uUYrr6hNRZIBsFABkHgxsA4Stawb+ji4zYmtxOHCJ7f1+mZkr
+	 Q3BNPEuk7b8Ml2YiwELhR0SgjUuFYzzauKJJewLMiTZzECfQFa018gDy6PtEvP7X52xGd
+	 c6JQupTZKLIidLeSflmGfmwW5pOV1gftKu7yReBncoHjgedLKbt0geVATgW62WtBBMfKp
+	 mOZr+vnWQ+OQ5ISDVosGmqJsJSgtxJNpTWTxMlLjGX1MPyasA+2prmLCeOH8zRJ7troIL
+	 IVgzFL0C3WdoFz/YHXfvCmiSXBEMCHm0tjnic16viEKbcWNzm3wUQEKMRdxC6hF2/PQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688875;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688909;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
 	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -25,79 +25,76 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KKG2iqLqM3JLVKJgw2zromkuXZ5Jm69NX+odaXvVfzo=;
-	b=xcJPZBR7wJdIuCmCElknLTumbLe6AsSwUVuoMw2vCkuWUDfCl2m+L6v5dUYKPEiLEiSG
-	 3C0kbP3k4kQwQds7VGuw3TZiuocN9d0ghJjo0VY3NiPQYwVyu6f8E1uk/Kl/ujtI2jI91
-	 DR//6ZL6W2ji37TRESgr4sLsl9rl/JRpTC1DAsSGfWg9uPPmZViu5Qb8pEjgbu0lOVVW3
-	 EcKym6e5+7Ldskp0SYkYpU+JCNrU0yo361Ss/UAvYhshBiTtLXa0VkYVv8fx737sFlK+D
-	 eBDkPlzJMfPQi7snZTrsdEeooudq9+KrwMHHpeJ9AqIspaT302oR2D6C9Ed6pmfllIQ==
+	bh=Pr93mp+82LWF/v0eXGsgnrotsjXf0udIMS1fYK4OmWI=;
+	b=0GjGsYai6snKb1hBdTrKAaGbO7J3ncQxWWo26Tmz84X13yj4bRg2h51eisFShLX7P1y+
+	 +H2Y3WN4DREJB2F2Znqd4NSSxd32vDWRkvsHdhCf1mFMShn4wRXBI51d6XK4G4l2rheZS
+	 xTsgLm8fRf0lryRbdcEruTQ/fnlL8Hjk9d9qZpNfJSOYmWUOVUdALA1RO7irrBe8517kP
+	 6Dl9lgdR07TfXhwpgvqRVX0gYtpV84pWG+XEP7GPe614VqiZWi5GZL6lrzCr6RA133WOw
+	 rACmjJ2jMBWCL7xn93n98f2zHtAReO2H49vYTMCSj3pbLx/ZJi6wu7IuM1Blv+qDjJQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gGKfqd5U;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.57
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011057.outbound.protection.outlook.com [40.93.194.57])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gpFkYJEx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.39
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011039.outbound.protection.outlook.com [52.101.62.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06741606A324;
-	Tue,  3 Nov 2026 06:54:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06741606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3DE606A324;
+	Tue,  3 Nov 2026 06:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD3DE606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gGKfqd5U
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gpFkYJEx
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HCsRDn1M5KPsTXi10d09q9VLCFNi11RwRh8lNGmkD9y34LY6e0GUJKM6EnztTivisPcL9i8XpoZlty2Ya8123gsmsQ0zVcLrXJpJC0ZMOUu+PLUCGcjZ0eUyoOVSZu8MHOT5A53y3YpXxXId7/MfO6d9KpRi6v+BbIN0jpxA0wMWT7bB74bNkqbuov7RbE8Sd5erqUKlRsQvYpvSnep4eX9DiqxVCngUg3tmBmd2rofON2pqzJy5EMgBYPct0LqmA3YI9+0EP6DdGRGhtbdV2AjOOHJ+JiY+NreLdtMRIqZdMXtRKxV9U3RD0TFuwPVoydLCL79g88K4KSe8GkAhpw==
+ b=rVjKefoJdAv+qfsghSQC6df2h89mj561xPxn0RTLuBAA/Me0k6A8S+OSldFeZ46OjXvmc40NJSh/B7lnHwHAPBAND8Kd/Cz5m/5l1gG4ST/bgmxe1wo6Hg+5bP6AOQrXvxhIxom5UpVjqsgWQ+wpXtY5giaw/iToeBen0JBxp15OpGjqUUyt6jxXORgaQO5NcviLpG0QKbae83/TO3OusYi1JAPjPMlg8ScI9SlzWyP6gnaIi7KNXK1Dn7iDDjiWJMVLRk6AfeXdrZYIlYJb+9ElSvsUMAx6fDJhjQlgUHrYJBa5j34GwjCH394yKd7yQXkr8lNohJtYd1i+tV4KUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KKG2iqLqM3JLVKJgw2zromkuXZ5Jm69NX+odaXvVfzo=;
- b=xLC31KDWOxN+C3kgVIlFztjJpdj8eNZZzQ/enPqoEVqKCpNYbA7KYRi+TlHCuWY/8iIfXg18m2gu0wyuBciRT3s4CvsuvBPZwmMmFDCmGO/nUlaxXMru79Q0C83eRwS4ngOR9yb/I7II5f/T8HiyDt9vbnDW1LmuMpYUQzhRVXNUf9xyjWBT+5fUXTKqzn3XimazGzZ2Tl7YevnkEG1c0TlEao8xtsqDqgljxH0uksSUVeb7nosycFTFC3fZMWTxHOevEA0bVS3YLnVhtamaj/809f3Y8vAcc76z0vg/PEuF2U0+YeQDBCJo2jdGvA86oxEYbp0UhM13ukAQ5XYeAA==
+ bh=Pr93mp+82LWF/v0eXGsgnrotsjXf0udIMS1fYK4OmWI=;
+ b=nHN7Y2O/g4aXFSk9de6mnMuQ70TBnVvbACrSFNn2LUaPN5pCn7ofe9b01V3yh6DCgFXsCNyYRPawgA0Z2FvFvwX9r+rtOu+bPYwSvuiYFrqw9S7rK9Pt+7CMrOAk+x1WrXVyQH9fQaWTSpLwH2TS1j6yD3bW1UuJSNoFpx7n5jcOtLUBFrKuuif79QXJKMd5lrWtcNVXnvORa1ZRZ/QnZwJOm03zIgkdBSfDnfLxWKbKqVW0HMGeHA/Mu7IAfX9rrSZVckpIXTzYV1BSvC3fEktHlAXzTl26PuDD8i+F6xbqjBeJfeEPLkbTsnkZvR7PhM4G27m4ghabLVWV3OXiVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KKG2iqLqM3JLVKJgw2zromkuXZ5Jm69NX+odaXvVfzo=;
- b=gGKfqd5UQiPUnLtLjeUpd7EYJS68Yyd1Ziscd3Sidiih4IfCU1rnPI5t5+li8sWgBzm+p02XAuPHerfLycALpl+uOHhTKkGd5OmmZvNVveTRfoFnhn8wzC4Aup7etw+WMoBDgaPLirE+bUvfJUeYc21oDIhrxW73gZFu2CCoq+ErUx4JzpJn80QSsS0mKfdbma/QIrRzGfRxRFGtW4MUdk0LksmkdFlqKLb+7fl3v/l0eZkhm15Q09dBTkDuq8H6Vu1E0qDeetXly/Z1i4dcKUocfoDY6Bj2aqlN0OIUdT82zs5xh9V4OVJBTu/Lwh/wQ8le7G9EA5oM7X47kev9cQ==
+ bh=Pr93mp+82LWF/v0eXGsgnrotsjXf0udIMS1fYK4OmWI=;
+ b=gpFkYJExr4KGj4gijpMidVr/iKwmSTpAtFNRs86dv2wPNqPrZ8LDserDns+Yr8IqH8/370Pkx3QYKA5iie1mDYowiu1wRRpCDBcPjYm+jtHJ+Qd28moFY8p37Td0dw1E/VmfUm1twDckRi5b05tOgHZSUlAPPABW8Jn1Q9sBf+Zgd8pZUW5Od5dAvJNQl6Rs4XF4/1u/nx/uVYF9tyZrvsv3Im+et5MHhHEFBfl/zbj8OlXE9puRtbMnN5gjkRhNh1pbykZlQEN/5MLXWLOM3bd0omN0innBgSSwvRKn9IDKyI3iVEqhuxKNy9d7R6s3aHSBry8a3Tj/d3LYByN41A==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by PH0PR12MB7838.namprd12.prod.outlook.com (2603:10b6:510:287::10) with
+ by SA1PR12MB8743.namprd12.prod.outlook.com (2603:10b6:806:37c::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 06:54:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Tue, 3 Nov
+ 2026 06:54:37 +0000
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 06:54:28 +0000
+ 06:54:36 +0000
 From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Thierry Reding <thierry.reding@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
-Date: Tue, 03 Nov 2026 15:10:05 +0900
-Message-ID: <weWUeY3nRGCfNVcl2RuY5g@nvidia.com>
-In-Reply-To: <20261029152909.234584-12-clamor95@gmail.com>
-References:
- <20261029152909.234584-1-clamor95@gmail.com>
- <20261029152909.234584-12-clamor95@gmail.com>
+ Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Douglas Anderson <dianders@chromium.org>, Aniruddha Rao <anrao@nvidia.com>,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Cc: Johnny Liu <johnliu@nvidia.com>, Johnny Liu <johnliu@nvidia.com>
+Subject:
+ Re: [PATCH v3 0/4] Add Tegra238 BPMP support and fix stale EMC clock rate
+Date: Tue, 03 Nov 2026 15:25:51 +0900
+Message-ID: <8Vvs2CcoQRmp5w8swuUfpw@nvidia.com>
+In-Reply-To: <20261102121202.2431928-1-johnliu@nvidia.com>
+References: <20261102121202.2431928-1-johnliu@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY4P301CA0056.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36b::16) To SJ2PR12MB9161.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P301CA0044.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
  (2603:10b6:a03:566::20)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -109,859 +106,150 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH0PR12MB7838:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8aa9af92-84ba-4d4d-b056-08df39774e40
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SA1PR12MB8743:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87a11418-a4a8-4f2f-e7e7-08df397752f6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|10070799003|6133799003|22082099003|18002099003|56012099006|261102123227099003|3023799007|10067099003|261009223027099003|921020|261022115727099003|261022105027099003|261022113327099003|261021121427099003|261021123027099003|261021130227099003|261021133027099003|261021135927099003|261022075727099003|4143699003|11063799006|261026130827099003|261028144727099003|261026135527099003|261026140227099003|261026121527099003;
+	BCL:0;ARA:13230040|376014|10070799003|7416014|366016|23010399003|1800799024|18002099003|10067099003|261102123227099003|22082099003|921020|11063799006|261022105027099003|261026121527099003|261021121427099003|261026140227099003|261009223027099003|261028144727099003|56012099006|261021123027099003;
 X-Microsoft-Antispam-Message-Info:
-	nobVRYUznYuYXrsWAZ90BjRWwpBL9lNSFMiTIK5VzIXxtrbZrlVOU8Oqar7dVYgaIbDo1CtP2wyDm+uNhFzIlwmsAQE6jnGXw/EQ/lo5P11v5s5xPSfiw+vRTkuZwHlptMz4cAbM9XpvZY9WatZRB5GKmWGtS6LBXIyBiBddPCzW9V5KiSkQRCdHObtsF1TaPLieGeFQHNQpshuKWqC7P3boeJozwVOF6y9yLaaMg/WSLNB/sJix/IXdSwKeGv3QTl2Lsa8JMZ95yghY4ocJdQ2tHBzFnbYqrH53YiINtiGH8vmwjX4ROWde2DKj6ONGD2S0e9iezdnVqwrvF5F1xfuERDfPXmLo3zTcrnCi+PZ7Iv8pcV4WyYdVFrEeFGoF2nE2is6dlrpozg4Xmus86MpWc2dcLCAXwDxP+U+pPLwoYikfnAMOV6Il0zrSTbhpuEEFm+ttltkjQoOW4920R/i7Ual2/LnrxS3G+sXS7FnB3dU7dFjNnzffPmyy6bt7xg2L15ter9ZoGJ+/vVPNjMZam9eT05fFHLIZGN2P3Re0e0mFNt3eN0mIIB4grSQ7IKUlZj3iMbSZXqFor2grX5eduJ7wChagPhqCJ909ZM4f1lEvXZzU6r67mfCxjZEI9ZSxORSOD2s1uADOrI4PH5Ky8O7BjtLbdoHtu3J3ODvlV2NCGyzGX26RDYijweWCzQNlKJVTmDvCY5hh71G4yw==
+	tWSa+2FQnRAJeceug5OIJ/GLvoPTOahwHmskYRwr8ZbKy1VVPZq1aLTvCVRJbM+f1c4XCUNf0jfQYC5/i5MKNDXGd0aFYBLF716vH6lzqklrtzk+WykuawAjJqEYooiCiMB7lfvQRpUWCp3+TCXSxRPjHFolbolUnaUFVl8rYwRd5Ior1tZcLOjHwSn6quWdgbcd1prF+mspSovG72c9pf1lXFKBK/nSc+2OaUYd6wDuHNhDMkWfkeyn7kkp2ZJZmSlMIhNh4YYc9D1t+GlbLRQsWGMV/GBxvY55xBNDM1KwFWjaEkv/u7WW0lW80nuSZVWCW5k6fV3HV4lfkoegrtzOpZsQmqxzkwciCFGLvel40jbOYgPQTnkcoA37Y+JJfNaqZ7OjhR7VFP4y4vGJi1mZ0xhUHv3utpMyMZ1Juszr8Zg3JbL+0Vrg4yTmUop/Er2FAENF4ECDRUFKxTfJNDDm+DZ1VKhRWRd9Ihb2wD3tdoDqU5ete4sWzZsOQzh4ZuPdY/D7Zg8AHzu/Q2ljVkZh7QlvXYgyanjuLHZEB0bFFUnX7rSS0MeY0RQNbCziwm0wBw4m+X6+lc7bDGitCXRTLHhH8oLt4g0TfYQa5D0f6iOogaPBeASUqI8yk3jD+gIX1+jq2f4lGZc+Ja7T3GK02P8kiJWEVCAEYtM2/43V7Bx97c37/qZf3dH5SgOnnBHhYHkJD9wTnOihlogS9w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(10070799003)(6133799003)(22082099003)(18002099003)(56012099006)(261102123227099003)(3023799007)(10067099003)(261009223027099003)(921020)(261022115727099003)(261022105027099003)(261022113327099003)(261021121427099003)(261021123027099003)(261021130227099003)(261021133027099003)(261021135927099003)(261022075727099003)(4143699003)(11063799006)(261026130827099003)(261028144727099003)(261026135527099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(7416014)(366016)(23010399003)(1800799024)(18002099003)(10067099003)(261102123227099003)(22082099003)(921020)(11063799006)(261022105027099003)(261026121527099003)(261021121427099003)(261026140227099003)(261009223027099003)(261028144727099003)(56012099006)(261021123027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eDNib0dCTUkxRStyVUVnMGd4UVNJMUlQRzlYZ3RuQlhyYXlzN2JzSzBIUTFH?=
- =?utf-8?B?c3ZnMDhPOS9pZzJDblY1T1RYMWlmT2lVOXZIb3RlMjFIZG13YW43ZFBHeU1C?=
- =?utf-8?B?NEZKUDEzU1BPMXVNSGYrSlhkWXhpdjBkWkJuQXgwSkxtZzd6SXhuUUtGMWxI?=
- =?utf-8?B?NlQwVEd5bDE3eEhYT2k5c1dLUnJWMnQwN3ZFRVFMZ3FwTVF0TTlNdnYwVUZT?=
- =?utf-8?B?cmxmbTVPZENlVVBUSnFCMHE1SHdBTGlyNUNGQ2VBakttZ0dXR0xRWnhzdmVv?=
- =?utf-8?B?dnNUdGM5RHJCbTZ3RjlPK1poamF0d00xNlB3L1VVYUhLdzhGaTBFUzVURy9u?=
- =?utf-8?B?SWxqV1BKTFpLbUZUSzRhMU5WYkQ2bFJhV2tSbFlHWFdRb0pLbGlyeUtjZjhG?=
- =?utf-8?B?WUNSM3gzMWpHcTUvUU5NQ0s2L2VkM1ZuOWlUVGFyK09ielYyOTJEOUxHa29N?=
- =?utf-8?B?d1pmN0MwTnE0aWxZeDNaRlJDTm91TVhRQ05HL3AwZ3d0ZjRReHU1aEN2cGJG?=
- =?utf-8?B?ZE1zakw4anhhSmlzc0RSMnFRQldpb09BZUlzcDBrQjgzYXZVSEpMYXg5VExY?=
- =?utf-8?B?bDNVUEhjUWQwakREQ3JDK1JGd0Z2OTdwcVVqemhSNm50UDI3WGUvTzJSaW5Z?=
- =?utf-8?B?MngvWVZQUXhuRzMrOG5jK2M4Wit3b05vYVpaVlVweklJUHFrMC8zL1hMcDJp?=
- =?utf-8?B?QnZMT3ArSklvWUR1R1VJSWpCaEtoNVlTaGhPUXh5WXVTVGtXVy9ERlMzZlpu?=
- =?utf-8?B?cEFIUzlrT1c0RzBxb3JDS0trSGJ3OWdnZFBhUVVoSmJqZlRjRTZ5VGtuT21o?=
- =?utf-8?B?a2tDVTIyQXcyanlCZFMwYm01SFEvb3NjcVM2ZEd6NS9remVDZS9hRktBYzkv?=
- =?utf-8?B?bitpelFpZDZ6dWdFZEU1SkZlN00wbC9VcWUwVEZlbVgxQUxjcHdaeTZhOUY4?=
- =?utf-8?B?VmwzNzc0NlQwbkgyT3lyNGxSYXZIS2kwVG1uc1M2VXZJd2ZxaEFoMlJlV0xw?=
- =?utf-8?B?NFlDTHFLUWMvcmU1WGdyZlVxRkRmZWY1K3EwS3FjeDBhSm5aVldZUW9FYkZU?=
- =?utf-8?B?OEZaMHRIa1Jnd3g2TFhrSXh1TUFyZFpIbWM4Y0dKTW5yYk01RGUrN1cydmZK?=
- =?utf-8?B?eWs5ZGF3VWkzQWFYY2JxM0VZaHllaVZ3bG1rWmNPVlltQnVrbjkyZTNWQlNu?=
- =?utf-8?B?YkF3YkNsUzVpUk9uSnZSUFBIVWtTbzg2MXdXOGtXaElXZko0cGhVdVBncGE3?=
- =?utf-8?B?ZmlVYlhYL0FJQkEyNERqdzQydWRqckdVWjFjNXA3UElOdWJ3MmNodVROTXJa?=
- =?utf-8?B?RTgybkRPbDE0NS96WldCaXB3N243ZTdlc3hISngvaG1kUS9FakFubXRQTXpQ?=
- =?utf-8?B?ejVIRGZsSTUzM0RuYWxQT2xoQXpLUjdhK1JMS2lpTVhpZENaTmZGS3R4RWFa?=
- =?utf-8?B?cVA4VGcvTGZmTnRrSmNRRTVKbllEdTdkMzRSL3lwL09LZHhOOHAyUTdmK2pn?=
- =?utf-8?B?VmZvRHdWZmhpTmw2ZkVBZmxjVmtZVlFKYjc1Tk1JcTZqS3N1d05XVURkZ1FW?=
- =?utf-8?B?WlpyWG43VnZPK1YvcWN6NWxnTnplVldhYlJWWHhMSGg1eThsWjdUMVlVMnFt?=
- =?utf-8?B?V2R1cHltaGFVODNaMkxKaGpSNFg3dVd3ckJsMnpRY0RMeER2SnFKL0dlRFBi?=
- =?utf-8?B?V09RUUxKcFpRMzkxVng5ZWVDNjNiVElvSGFOQ2QwNEJiUk02Y3l0WTZRNDNo?=
- =?utf-8?B?OXFpajhLM3NxK05FVHBJZ2ZBRkVOZkwrNFFQWkw3U3g3NU5hOUtldUgrRW1y?=
- =?utf-8?B?Z1dJWE5vbVAyOFZucVNGaEJtQ3hiUlMvcmZ0TkZ4MkRzdmJIT3VHUDZibTE5?=
- =?utf-8?B?UUZ4ZE5kSUkzajRxUWFqTXV2a3owNzcyNUVidEEzZmJtTmVDRnN2S3ZiNlBD?=
- =?utf-8?B?azl2em1OQlBxV0g4UWlrNDQ2YklucGI0WG1WU1lOVk5ic2krSExOdWUvcTVN?=
- =?utf-8?B?VjJpWkVDaXFxa2RMRVpKZ3lhOGVWRVlwZm5RQVlDY2E5ZStKUjFkZ1Vybng3?=
- =?utf-8?B?L3pYSk5JWmh2UVlQdkZMZmJZdVR6NkE0ajZvUkIvQnBwVWVmVnhnNkI2V2VS?=
- =?utf-8?B?RlREMHprUThSTEFBRGZlanc4ajRpS0FZdzNDNVlWMzNwUlIyejJLUjk1TzZn?=
- =?utf-8?B?YUMySUk0MTdoS003S2crcEZldkpGQjhjQ2dMSkQwZDltdjJ5VTNOeWd0THpY?=
- =?utf-8?B?WGVLaitkY0Q4cG9kZTEyeVdKcXg2TEVZaXUvQkIyZ3VlQkk3N1pybWRJeXg5?=
- =?utf-8?B?SWF5azZOTk03bXhFWDlIRVMycWlpSkVBd1VzbENmSS9aOFc2R2tYbzE4VHEx?=
- =?utf-8?Q?20yVRBOfITpW55kQEGuyRDPcLuGLtWczapkNbbsOuUVUV?=
-X-MS-Exchange-AntiSpam-MessageData-1: 73YWrOJs6zISlA==
+	=?utf-8?B?Ukszek5iLy96L0FyZFlWSHhVdzdIbHlXUjBlcUpuSndLUGhMYWRwRWdjbHhy?=
+ =?utf-8?B?YjBKQ1BQQ2NyZUw4SUl3amJQLzZUVERUZmZZazJweWRYUDU2cjVlaEtLb0NS?=
+ =?utf-8?B?cGZwV2VUdTVOZHhsQ0tpU0pWT2QrS0UwUmJPLzNBdUZNVytCdkxFN0xvZEhN?=
+ =?utf-8?B?NGlyMi9UVVBVZWhtb0JYV29IdE1pL1hOcEIyKzFJcW9QYzFpQ1FRV05ZeWN0?=
+ =?utf-8?B?bGd1cStlRDdyT3RGRGFzTVZLTkhIUFZtbFd6TngyeG1Xd3dmS0dtemRNRFdl?=
+ =?utf-8?B?eERSaThFYmszdGZKZDMvaGFrZGVkRXJpaHhjT09ScHFoWS8zcmxGV0lMdndV?=
+ =?utf-8?B?VmJaMC9ZTW5nVk1JLys4VkhlNHpWaml2NmY5M0JVMnVmSmtPcnZDY1Rnb0hr?=
+ =?utf-8?B?dDB0S2dvY2RWTUJhYndHQnNCMnVpNEQ1TWx4L3BZd3VhRnRNZ2wzSjljY1Ru?=
+ =?utf-8?B?VFd3TjZXTEZtdk4vNnVkL3g2Z2RqVkI4aGlUUzl6bEVUTXZOM2lKaUN6R1lR?=
+ =?utf-8?B?KzhzMmZTUjBldG9yWitZVy9jSHZuYWphVXpyQnlRWE9HUldocDBZTVMyUFpp?=
+ =?utf-8?B?WEV6d1Z6WkxrL1dmcHU5TWJyaVlmWm5HMWEwSUZidDl4THNqUXdHalQ2NGZP?=
+ =?utf-8?B?WDhoZW5lcHcwYUdhL3pqQWt0aVZ5QmJXemNCblJmd3hiVy9JTnUveEtkMGti?=
+ =?utf-8?B?OUNUYUR0bW56YUJuWjJNbWp1YTRGeUpLRlFqaElCcDNoOCtOOTFJZy9VV1Z6?=
+ =?utf-8?B?RUNxZlBnZTRwTGNqU2kyNm5VeDNPdkk2cTlkaHRucmptTTRKMWcrM1BIclFX?=
+ =?utf-8?B?eTVpRWVYZFY2Uit2TldvWlNTcW1VZjZBQndDTzF2NkNUSUlyakNDVnQ4TEFD?=
+ =?utf-8?B?czZkUSttcmtQdVNwVGFOK1FhZVl6ZVRUaGEydHNRR3pCaUxwUFRGZm5iWjEy?=
+ =?utf-8?B?NG1aRWlaci81TDhPSmFJU0ZTVDRSWlUwc0FjMWdKYi9EVFBsM0h5Skc5WGRO?=
+ =?utf-8?B?cGxjZjNpZnZoM1p2cHEyNGVyRm1FMVRkYUQ0NVhjN2FIeXA2R0hjYWxyZkR0?=
+ =?utf-8?B?bHVod3JMMXJjMWpERDdLaUlWSEFTeWRnWlczZU4wNE5BM3RnY3pxRU5BS1lO?=
+ =?utf-8?B?WGtJNlVkekJzMU5HdERjakRjQTRnc1ozSGpabUlJUDN6T1R3SXd3QjRVTXRP?=
+ =?utf-8?B?ZG00WUU3ZlQ5dXYxZXhNay8wTXpxLzZvaTFDK2JFRGtFN3MvbWE3ZHEvTWpz?=
+ =?utf-8?B?SWd3aWNQREVCaUFSbjNSdTREci9XajdINUtjNjZQTHV1cTd0bUhNZUxVMG1l?=
+ =?utf-8?B?YUNVUUYyYVBoRjBBVzQ5THp0dUFVYlAwaVd4VEhTV1grM1hjVjFES3BSQTNY?=
+ =?utf-8?B?c09FNjFScVRxQXY0OURKYXpRVzlBMzFHRjRyUUNPWUE3R1hYQlczYzI3TDZm?=
+ =?utf-8?B?Ykk4MTlaWU94M09NVERNWllRZnBxN0tVS1FGdGV0Zm1yVVdzSmJpZDNMeWIy?=
+ =?utf-8?B?RHd5MEJoQTZHRVZML3hSUzVzOUVOM3B5V1JCdHRNUHN1eGJBTitPQUtLRVEy?=
+ =?utf-8?B?UTRsOHhxVWFGUDZrT05jTlRZbVE2YnBIeXlMaXhHRVMwT09JUEJ0V0ZhaWJP?=
+ =?utf-8?B?VWxZWXR4cytNb3ZwWDBGdzJ1YzZuQ0JUZktyeXRHRndsVlhCVFp3ZzVJWUF6?=
+ =?utf-8?B?SmYvTWhoZkI3aEcwdktEa3NMOUVSN2psTnFqQlV4Q3N6dzhmTk9kS29Za00x?=
+ =?utf-8?B?NUZJbWdRdFpFKzQ2Q0xiU2xkTnpFT2duamgydlF3RWFKVDluSjhKdlV3dkdK?=
+ =?utf-8?B?OUlZWk5YcUM1VEhUTnh0a01kVGFkT2xvMWhjeTBpdzQ2Q0NSd2NERFZia2Vy?=
+ =?utf-8?B?ZGZMbCttYWR6R1lxVVlZOGpKS1BlYW95QTM3bnJqaVRnWmt2dmVaaGxIeENI?=
+ =?utf-8?B?cTZ6QTYycVozU0pIdVdFdE90S3c4eDUwNXU5dXdyRS9YODBaamNYL2xrWkQw?=
+ =?utf-8?B?OEZhK1NXU0F0MGFWb2ZPZE4xK0ZDS3plR2pHNGEzaUpVK1hLZnpqdE1FdEdG?=
+ =?utf-8?B?bHl5YVpDL0hkZGRaeDRhbkdQM005MmhHTGRnODFOWm8wN1VnWGpjWkhYZVR3?=
+ =?utf-8?B?VmdCTnI0OFNpYVVmbTlGSVpVa1pmVG9ZMENiMlVIN1JZR09yb3ViaTN2MEV4?=
+ =?utf-8?B?WDVwdGFLZXVUR1NXU1lzQ1pPbVJKc0ozNjdvYnJ3bEZVSTNEWk9td1lId3pE?=
+ =?utf-8?B?c2FPWmsvVGJDalR3ME9RNEhZNzhSSmZscG9NSXZXSWQ1bVB4dVZjeXQrQ3d2?=
+ =?utf-8?B?NnNWMGEwb29SczZFV1pCb0NWaWJLblp3bDhSRzNqdTNxcnVWRUZYMWxTV2Zl?=
+ =?utf-8?Q?Xy4iQX8tnu/pg8VaYNIHSlxKL910rYySGL2JIT50zddWO?=
+X-MS-Exchange-AntiSpam-MessageData-1: jt3iOf7hc1VQgw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa9af92-84ba-4d4d-b056-08df39774e40
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87a11418-a4a8-4f2f-e7e7-08df397752f6
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:54:28.8959
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 06:54:36.7650
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5h9F8YX0hYZlZaVueMA/k6Fv0RxAIEwWSQ8lppk8ZRJzxIzW90gBbf1gfgxr9bfLhx4w8UE8ZDQ2bKEZHN3wuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7838
+X-MS-Exchange-CrossTenant-UserPrincipalName: LZ8UpgAkmCW2c9nt2CeIlYdER+vRIKRaP1l+xxi8DHsYc4jaVoNfYnq5tWOyyO4WQjIH23HERc1jiKHl4Qnb4w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8743
 
-On Friday, October 30, 2026 12:29=E2=80=AFAM Svyatoslav Ryhel wrote:
-> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-> that closely resembles the MIPI DBI Type B protocol and is referred to as
-> '8-bit CPU'. Each display controller provides two such interfaces, which
-> can be used to send MIPI DCS commands to initialize and control the panel
-> while image data is transmitted via 16/18/24-line RGB.
+On Monday, November 2, 2026 9:11=E2=80=AFPM Johnny Liu wrote:
+> EMC clock scaling is handled by the BPMP firmware without kernel
+> involvement, so clk_get_rate() on the EMC clock can return a stale value
+> cached by the common clock framework. This series makes the EMC clock
+> rate uncached on Tegra234, Tegra238 and Tegra264, and adds the pieces
+> needed to identify the EMC clock on each of these chips.
 >=20
-> The '8-bit CPU', although being the DC interface, is modeled using a
-> bridge framework for flexibility and convenience. This implementation doe=
-s
-> not change the existing codebase besides registering the bus.
+> The EMC clock ID differs per chip (TEGRA234_CLK_EMC=3D31,
+> TEGRA238_CLK_EMC=3D43, TEGRA264_CLK_EMC=3D290), while the
+> "nvidia,tegra186-bpmp" fallback compatible and the tegra186_soc data are
+> shared across several chips. To avoid detecting the chip at runtime, the
+> EMC clock ID is carried in per-SoC BPMP data selected by the device tree
+> compatible.
 >=20
-> Suggested-by: Mikko Perttunen <mperttunen@nvidia.com> # DC command transf=
-er
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/gpu/drm/tegra/Makefile |   1 +
->  drivers/gpu/drm/tegra/dbi.c    | 632 +++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/tegra/dc.c     |   4 +
->  drivers/gpu/drm/tegra/dc.h     |   3 +
->  4 files changed, 640 insertions(+)
->  create mode 100644 drivers/gpu/drm/tegra/dbi.c
+> Patch 1 adds the "nvidia,tegra238-bpmp" compatible to the binding,
+> together with the Tegra238 clock ID header. Patch 2 adds an emc_clk_id
+> field to struct tegra_bpmp_soc, together with dedicated SoC data for
+> Tegra234 and Tegra264 built on a common TEGRA186_BPMP_SOC_COMMON
+> initializer. Patch 3 adds Tegra238 support to the BPMP driver, including
+> its own SoC data and EMC clock ID. Patch 4 then sets
+> CLK_GET_RATE_NOCACHE on the clock matching that ID, so that the common
+> clock framework forwards rate queries to the BPMP instead of returning a
+> stale cached rate.
 >=20
-> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
-ile
-> index e399b40d64a1d..ae7fccb3d6421 100644
-> --- a/drivers/gpu/drm/tegra/Makefile
-> +++ b/drivers/gpu/drm/tegra/Makefile
-> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
->  	hdmi.o \
->  	mipi-phy.o \
->  	dsi.o \
-> +	dbi.o \
->  	sor.o \
->  	dpaux.o \
->  	gr2d.o \
-> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
-> new file mode 100644
-> index 0000000000000..e129be0f21da5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tegra/dbi.c
-> @@ -0,0 +1,632 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Nvidia Tegra20/30 MIPI-DBI Type B host driver
-> + *
-> + * Copyright (C) 2026 Svyatoslav Ryhel <clamor95@gmail.com>
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/kernel.h>
-> +#include <linux/media-bus-format.h>
-> +#include <linux/module.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/property.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/string.h>
-> +
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_bridge.h>
-> +#include <drm/drm_drv.h>
-> +#include <drm/drm_mipi_dbi.h>
-> +#include <drm/drm_mipi_dbi_bus.h>
-> +#include <drm/drm_of.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include "dc.h"
-> +
-> +enum tegra_dbi_dc_signal {
-> +	TEGRA_DBI_COMMAND,
-> +	TEGRA_DBI_DATA
-> +};
-> +
-> +#define TEGRA_DBI_DATA_PINS_MAX			8
-> +#define TEGRA_DBI_INTERFACE_MAX			2
-> +
-> +struct reg_entry {
-> +	u32 offset;
-> +	u32 value;
-> +};
-> +
-> +static const struct reg_entry com_pin_output[] =3D {
-> +	{ DC_COM_PIN_OUTPUT_ENABLE(0),   0 },
-> +	{ DC_COM_PIN_OUTPUT_ENABLE(1),   0 },
-> +	{ DC_COM_PIN_OUTPUT_ENABLE(2),   0 },
-> +	{ DC_COM_PIN_OUTPUT_ENABLE(3),   0 },
-> +	{ DC_COM_PIN_OUTPUT_POLARITY(0), 0 },
-> +	{ DC_COM_PIN_OUTPUT_POLARITY(1), 0 },
-> +	{ DC_COM_PIN_OUTPUT_POLARITY(2), 0 },
-> +	{ DC_COM_PIN_OUTPUT_POLARITY(3), 0 },
-> +	{ DC_COM_PIN_OUTPUT_DATA(0),     0 },
-> +	{ DC_COM_PIN_OUTPUT_DATA(1),     0 },
-> +	{ DC_COM_PIN_OUTPUT_DATA(2),     0 },
-> +	{ DC_COM_PIN_OUTPUT_DATA(3),     0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(0),   0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(1),   0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(2),   0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(3),   0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(4),   0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(5),   0 },
-> +	{ DC_COM_PIN_OUTPUT_SELECT(6),   0 },
-> +};
-
-Instead of this table with unused repeated zero values, I think it would=20
-be cleaner to have just the register offsets:
-
-  static const u32 tegra_dbi_pin_regs[] =3D {
-  	DC_COM_PIN_OUTPUT_ENABLE(0),
-  	// ...
-  };
-
-> +
-> +struct tegra_dbi_priv {
-> +	struct device *dev;
-> +	struct tegra_dc *dc;
-> +
-> +	struct mipi_dbi dbi;
-> +	struct mipi_dbi_host dbi_host;
-> +
-> +	struct drm_bridge bridge;
-> +	struct drm_bridge *next_bridge;
-> +
-> +	const struct tegra_dbi_interface *index;
-
-'index' implies an integer, can you rename this to 'interface'.
-
-> +	struct reg_entry com_pin_backup[ARRAY_SIZE(com_pin_output)];
-> +
-> +	u32 bus_width;
-> +	u32 reg;
-> +	bool active;
-> +};
-> +
-> +struct pin {
-> +	u32 reg;
-> +	u32 pos;
-> +};
-
-Can you rename this to struct tegra_dbi_pin?
-
-> +
-> +struct tegra_dbi_interface {
-> +	struct pin dc;
-> +	struct pin rw;
-> +	struct pin cs;
-> +	struct pin data[TEGRA_DBI_DATA_PINS_MAX];
-> +};
-> +
-> +static const struct tegra_dbi_interface tegra_dbi_idx[TEGRA_DBI_INTERFAC=
-E_MAX] =3D {
-> +	/* Nvidia Primary 8-bit CPU interface configuration */
-> +	{
-> +		.dc =3D { DC_COM_PIN_OUTPUT_DATA(3), PIN_LDC  },
-> +		.rw =3D { DC_COM_PIN_OUTPUT_DATA(1), PIN_LSC0 },
-> +		.cs =3D { DC_COM_PIN_OUTPUT_DATA(3), PIN_LCSN },
-> +		.data =3D {
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD0 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD1 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD2 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD3 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD4 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD5 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD6 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(0), PIN_LD7 },
-> +		},
-> +	},
-> +	/* Nvidia Secondary 8-bit CPU interface configuration */
-> +	{
-> +		.dc =3D { DC_COM_PIN_OUTPUT_DATA(2), PIN_LVP0 },
-> +		.rw =3D { DC_COM_PIN_OUTPUT_DATA(1), PIN_LSC1 },
-> +		.cs =3D { DC_COM_PIN_OUTPUT_DATA(2), PIN_LM0  },
-> +		.data =3D {
-> +			{ DC_COM_PIN_OUTPUT_DATA(2), PIN_LHP1 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(2), PIN_LM1  },
-> +			{ DC_COM_PIN_OUTPUT_DATA(2), PIN_LDI  },
-> +			{ DC_COM_PIN_OUTPUT_DATA(2), PIN_LPP  },
-> +			{ DC_COM_PIN_OUTPUT_DATA(1), PIN_LPW0 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(1), PIN_LPW2 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(2), PIN_LVP1 },
-> +			{ DC_COM_PIN_OUTPUT_DATA(2), PIN_LHP0 },
-> +		},
-> +	},
-> +};
-
-If we include the information needed by init_primary/init_secondary in=20
-the tegra_dbi_interface tables as well, we can get rid of the 'reg'=20
-field.
-
-> +
-> +static inline struct tegra_dbi_priv *mipi_dbi_to_tegra_dbi(struct mipi_d=
-bi *dbi)
-> +{
-> +	return container_of(dbi, struct tegra_dbi_priv, dbi);
-> +}
-> +
-> +static inline struct tegra_dbi_priv *dbi_host_to_tegra_dbi(struct mipi_d=
-bi_host *host)
-> +{
-> +	return container_of(host, struct tegra_dbi_priv, dbi_host);
-> +}
-> +
-> +static inline struct tegra_dbi_priv *bridge_to_tegra_dbi(struct drm_brid=
-ge *bridge)
-> +{
-> +	return container_of(bridge, struct tegra_dbi_priv, bridge);
-> +}
-> +
-> +static void tegra_dbi_pin_set(struct tegra_dc *dc, const struct pin *pin=
-, bool value)
-> +{
-> +	u32 val =3D BIT(pin->pos + 1); /* unmask is 1 bit above position */
-> +
-> +	if (value)
-> +		val |=3D BIT(pin->pos);
-> +
-> +	tegra_dc_writel(dc, val, pin->reg);
-> +}
-> +
-> +static void tegra_dbi_write(struct tegra_dbi_priv *priv,
-> +			    enum tegra_dbi_dc_signal signal, u8 value)
-> +{
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	const struct tegra_dbi_interface *idx =3D priv->index;
-> +
-> +	tegra_dbi_pin_set(dc, &idx->dc, signal);
-> +
-> +	tegra_dbi_pin_set(dc, &idx->cs, 0);
-> +	tegra_dbi_pin_set(dc, &idx->rw, 0);
-> +
-> +	for (int i =3D 0; i < TEGRA_DBI_DATA_PINS_MAX; i++)
-> +		tegra_dbi_pin_set(dc, &idx->data[i], field_get(BIT(i), value));
-> +
-> +	tegra_dbi_pin_set(dc, &idx->cs, 1);
-> +	tegra_dbi_pin_set(dc, &idx->rw, 1);
-> +
-> +	udelay(10);
-> +}
-> +
-> +static int tegra_dbi_dbi_command(struct mipi_dbi *dbi, u8 *cmd, u8 *para=
-m, size_t num)
-> +{
-> +	struct tegra_dbi_priv *priv =3D mipi_dbi_to_tegra_dbi(dbi);
-> +	u8 command =3D *cmd;
-> +
-> +	/* Blocks all commands when interface is not active */
-> +	if (!priv->active)
-> +		return -ENODEV;
-> +
-> +	tegra_dbi_write(priv, TEGRA_DBI_COMMAND, command);
-> +
-> +	for (int i =3D 0; i < num; i++)
-> +		tegra_dbi_write(priv, TEGRA_DBI_DATA, param[i]);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tegra_dbi_host_attach(struct mipi_dbi_host *host, struct mipi=
-_dbi_device *dbidev)
-> +{
-> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
-> +	struct device *dev =3D priv->dev;
-> +	struct drm_bridge *bridge;
-> +	struct device_node *ep;
-> +	int ret;
-> +
-> +	bridge =3D of_drm_get_bridge_by_endpoint(dev_of_node(dev), 1, -1);
-> +	if (IS_ERR(bridge))
-> +		return PTR_ERR(bridge);
-> +
-> +	bridge->type =3D DRM_MODE_CONNECTOR_DPI;
-> +	priv->next_bridge =3D bridge;
-> +
-> +	/* get input ep (port0/endpoint0) */
-> +	ret =3D -EINVAL;
-> +	ep =3D of_graph_get_endpoint_by_regs(dev_of_node(dev), 0, 0);
-> +	if (ep) {
-> +		ret =3D of_property_read_u32(ep, "bus-width", &priv->bus_width);
-> +		of_node_put(ep);
-> +	}
-> +
-> +	if (ret)
-> +		priv->bus_width =3D 24;
-
-I think this would look a bit cleaner like ..
-
-  priv->bus_width =3D 24;
-
-  ep =3D of_graph_get_endpoint_by_regs(dev_of_node(dev), 0, 0);
-  if (ep) {
-    of_property_read_u32(ep, "bus-width", &priv->bus_width);
-    of_node_put(ep);
-  }
-
-> +
-> +	return devm_drm_bridge_add(dev, &priv->bridge);
-> +}
-> +
-> +static void tegra_dbi_host_detach(struct mipi_dbi_host *host, struct mip=
-i_dbi_device *dbidev)
-> +{
-> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
-> +
-> +	drm_bridge_remove(&priv->bridge);
-
-The above calls devm_drm_bridge_add, so I believe drm_bridge_remove will=20
-happen automatically.
-
-> +	drm_bridge_put(priv->next_bridge);
-> +}
-> +
-> +static const struct mipi_dbi_host_ops tegra_dbi_host_ops =3D {
-> +	.attach =3D tegra_dbi_host_attach,
-> +	.detach =3D tegra_dbi_host_detach,
-> +};
-> +
-> +static void tegra_dbi_init_primary_interface(struct tegra_dbi_priv *priv=
+> The series touches both the clock and the firmware code. Patch 4 depends
+> on patch 2, and patch 3 depends on patches 1 and 2, so I would suggest
+> taking the whole series through the Tegra tree with an Acked-by from the
+> clock maintainers.
+>=20
+> Changes in v3:
+> - Move the TEGRA186_BPMP_SOC_COMMON refactoring out of the Tegra238
+>   support patch and into the "Add per-SoC EMC clock ID" patch, as the
+>   refactoring only makes sense together with the per-SoC emc_clk_id.
+> - Keep all Tegra238 specific changes (Makefile, CONFIG_ARCH_TEGRA_238_SOC
+>   guards, clock ID header include, tegra238_soc data and compatible match=
 )
-> +{
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	u32 value;
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_ENABLE(3));
-> +	value &=3D ~(BIT(PIN_LCSN) | BIT(PIN_LDC));
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_ENABLE(3));
-> +
-> +	/* Set LSC0/LCSN/LDC output polarity HIGH */
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_POLARITY(1));
-> +	value &=3D ~BIT(PIN_LSC0);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_POLARITY(3));
-> +	value &=3D ~(BIT(PIN_LCSN) | BIT(PIN_LDC));
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
-> +
-> +	value =3D PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD0) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD1) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD2) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD3) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD4) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD5) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD6) |
-> +		PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LD7);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(0));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(3));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LSC0);
-> +	value |=3D PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LSC0);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(3));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LCSN);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
-> +	value |=3D PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LCSN) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LDC);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-> +}
-> +
-> +static void tegra_dbi_init_secondary_interface(struct tegra_dbi_priv *pr=
-iv)
-> +{
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	u32 value;
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_ENABLE(2));
-> +	value &=3D ~(BIT(PIN_LDI) | BIT(PIN_LPP));
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_ENABLE(2));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(3));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LPW0);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LPW2);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LSC1);
-> +	value |=3D PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LPW0) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LPW2) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LSC1);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(3));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(4));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LHP0);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LHP1);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LVP0);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LVP1);
-> +	value |=3D PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LHP0) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LHP1) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LVP0) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LVP1);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(4));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(5));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LM0);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LM1);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDI);
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LPP);
-> +	value |=3D PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LM0) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LM1) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LDI) |
-> +		 PIN_OUTPUT_SELECT_OUT(PIN_OUTPUT_SELECT_LPP);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(5));
-> +}
-> +
-> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	u32 value;
-> +
-> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-> +	value &=3D ~DISP_CTRL_MODE_MASK;
-> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-> +
-> +	/* Disable all options except cursor if enabled */
-> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
-> +	value &=3D CURSOR_ENABLE;
-> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
-> +
-> +	tegra_dc_commit(dc);
-> +
-> +	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
-> +	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
-> +
-> +	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
-> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
-> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
-> +
-> +	value =3D 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
-> +		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
-> +		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
-> +	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
-> +
-> +	 /* Init cycle 1: WRITE_MEMORY_START, set LCD_PCLK and COMMAND */
-
-Extra space here before '/*'
-
-> +	tegra_dc_writel(dc, MIPI_DCS_WRITE_MEMORY_START, DC_DISP_SPI_INIT_SEQ_D=
-ATA_A);
-> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
-> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
-> +	tegra_dc_writel(dc, BIT(12) | BIT(14), DC_DISP_SPI_INIT_SEQ_DATA_D);
-> +
-> +	value =3D SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
-> +		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
-> +		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
-> +	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
-> +
-> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
-> +	value &=3D ~BASE_COLOR_SIZE_MASK;
-> +
-> +	switch (priv->bus_width) {
-> +	case 16:
-> +		value |=3D BASE_COLOR_SIZE_565;
-> +		break;
-> +	case 18:
-> +		value |=3D BASE_COLOR_SIZE_666;
-> +		break;
-> +	case 24:
-> +	default:
-
-Why the default case? My assumption would be that if the bus width is=20
-not something that's expected, that's an error.
-
-> +		value |=3D BASE_COLOR_SIZE_888;
-> +		break;
-> +	}
-> +
-> +	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
-> +
-> +	/*
-> +	 * Backup registers before unshadowing since actual register values
-> +	 * may differ and their state backed up now is the correct one.
-> +	 */
-> +	for (int i =3D 0; i < ARRAY_SIZE(com_pin_output); i++)
-> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
-> +			priv->com_pin_backup[i].offset);
-> +
-> +	/* Unshadow to set up command and data pins */
-> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	if (priv->reg)
-> +		tegra_dbi_init_secondary_interface(priv);
-> +	else
-> +		tegra_dbi_init_primary_interface(priv);
-> +
-> +	priv->active =3D true;
-> +
-> +	/*
-> +	 * DBI requires that the next bridge be enabled here in order to
-> +	 * send DCS commands, since the interface pins will subsequently be
-> +	 * reconfigured for video data.
-> +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
-> +		next_bridge->funcs->atomic_enable(next_bridge, state);
-
-Instead of hijacking the flow, could we move the panel init commands=20
-into the prepare callback, and deinit into the unprepare callback?=20
-Command mode would then stay active until this function (host-side=20
-atomic_enable) is called, and again become active at the end of=20
-atomic_disable. AFAICT that should allow for a normal lifecycle.
-
-> +
-> +	tegra_dbi_pin_set(dc, &priv->index->cs, 0);
-> +
-> +	priv->active =3D false;
-> +
-> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-> +
-> +	for (int i =3D 0; i <  ARRAY_SIZE(com_pin_output); i++)
-> +		tegra_dc_writel(dc, priv->com_pin_backup[i].value,
-> +				priv->com_pin_backup[i].offset);
-> +
-> +	tegra_dc_commit(dc);
-> +
-> +	/* Set LDC pin to V Pulse 1 */
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-> +	value &=3D ~DISP_CTRL_MODE_MASK;
-> +	value |=3D DISP_CTRL_MODE_C_DISPLAY;
-> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-> +}
-> +
-> +static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +
-> +	for (int i =3D 0; i < ARRAY_SIZE(com_pin_output); i++)
-> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
-> +			priv->com_pin_backup[i].offset);
-> +
-> +	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	if (priv->reg)
-> +		tegra_dbi_init_secondary_interface(priv);
-> +	else
-> +		tegra_dbi_init_primary_interface(priv);
-> +
-> +	priv->active =3D true;
-> +
-> +	/*
-> +	 * DBI requires that the next bridge be disabled here in order to
-> +	 * send DCS commands, since the interface pins will subsequently be
-> +	 * reconfigured for video data.
-> +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_disable)
-> +		next_bridge->funcs->atomic_disable(next_bridge, state);
-> +
-> +	priv->active =3D false;
-> +
-> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-> +
-> +	for (int i =3D 0; i <  ARRAY_SIZE(com_pin_output); i++)
-> +		tegra_dc_writel(dc, priv->com_pin_backup[i].value,
-> +				priv->com_pin_backup[i].offset);
-> +
-> +	tegra_dc_commit(dc);
-> +}
-> +
-> +static int tegra_dbi_atomic_check(struct drm_bridge *bridge,
-> +				  struct drm_bridge_state *bridge_state,
-> +				  struct drm_crtc_state *crtc_state,
-> +				  struct drm_connector_state *conn_state)
-> +{
-> +	struct drm_display_mode *adjusted_mode =3D &crtc_state->adjusted_mode;
-> +
-> +	/* Set safe default bus flags if panel does not specify them */
-> +	if (!bridge_state->input_bus_cfg.flags)
-> +		bridge_state->input_bus_cfg.flags =3D bridge->timings->input_bus_flags=
-;
-> +
-> +	/* Default to positive sync */
-> +	if (!(adjusted_mode->flags &
-> +	      (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC)))
-> +		adjusted_mode->flags |=3D DRM_MODE_FLAG_PHSYNC;
-> +
-> +	if (!(adjusted_mode->flags &
-> +	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
-> +		adjusted_mode->flags |=3D DRM_MODE_FLAG_PVSYNC;
-> +
-> +	return 0;
-> +}
-> +
-> +static int tegra_dbi_attach(struct drm_bridge *bridge,
-> +			    struct drm_encoder *encoder,
-> +			    enum drm_bridge_attach_flags flags)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct device *dev =3D priv->dev;
-> +
-> +	priv->dc =3D dev_get_drvdata(dev->parent);
-> +	if (!priv->dc)
-> +		return -ENODEV;
-> +
-> +	return drm_bridge_attach(bridge->encoder, priv->next_bridge, bridge,
-> +				 flags);
-> +}
-> +
-> +static enum drm_mode_status tegra_dbi_mode_valid(struct drm_bridge *brid=
-ge,
-> +						 const struct drm_display_info *info,
-> +						 const struct drm_display_mode *mode)
-> +{
-> +	if (mode->hdisplay > 800)
-> +		return MODE_H_ILLEGAL;
-> +
-> +	if (mode->vdisplay > 800)
-> +		return MODE_V_ILLEGAL;
-
-Is there a source for the 800x800 limit?
-
-> +
-> +	return MODE_OK;
-> +}
-> +
-> +static const struct drm_bridge_funcs tegra_dbi_funcs =3D {
-> +	.attach =3D tegra_dbi_attach,
-> +	.mode_valid =3D tegra_dbi_mode_valid,
-> +
-> +	.atomic_enable =3D tegra_dbi_atomic_enable,
-> +	.atomic_disable =3D tegra_dbi_atomic_disable,
-> +	.atomic_check =3D tegra_dbi_atomic_check,
-> +
-> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-> +};
-> +
-> +static const struct drm_bridge_timings default_tegra_dbi_timings =3D {
-> +	.input_bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-> +			   DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
-> +			   DRM_BUS_FLAG_DE_HIGH,
-> +};
-> +
-> +static int tegra_dbi_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct mipi_dbi_device *dbidev;
-> +	struct tegra_dbi_priv *priv;
-> +	struct device_node *np;
-> +	int ret;
-> +
-> +	priv =3D devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
-> +				     &tegra_dbi_funcs);
-> +	if (IS_ERR(priv))
-> +		return PTR_ERR(priv);
-> +
-> +	priv->dev =3D dev;
-> +
-> +	/* Default to primaty */
-
-The comment seems unnecessary now, as the code below will error out=20
-(correctly) if the property is not present.
-
-> +	ret =3D device_property_read_u32(dev, "reg", &priv->reg);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get reg\n");
-> +
-> +	if (priv->reg !=3D 0 && priv->reg !=3D 1)
-> +		return dev_err_probe(dev, -EINVAL, "Wrong reg value: %d\n", priv->reg)=
-;
-> +
-> +	priv->index =3D &tegra_dbi_idx[priv->reg];
-> +	memcpy(priv->com_pin_backup, com_pin_output, sizeof(com_pin_output));
-> +
-> +	/* Initialize MIPI DBI interface */
-> +	mutex_init(&priv->dbi.cmdlock);
-> +	priv->dbi.command =3D tegra_dbi_dbi_command;
-> +
-> +	priv->dbi_host.dev =3D dev;
-> +	priv->dbi_host.dbi =3D &priv->dbi;
-> +	priv->dbi_host.ops =3D &tegra_dbi_host_ops;
-> +
-> +	priv->bridge.of_node =3D dev_of_node(dev);
-> +	priv->bridge.timings =3D &default_tegra_dbi_timings;
-> +
-> +	np =3D of_graph_get_remote_node(dev_of_node(dev), 1, -1);
-> +	if (!np)
-> +		return -EINVAL;
-> +
-> +	dbidev =3D devm_mipi_dbi_device_register(dev, &priv->dbi_host, np);
-> +	of_node_put(np);
-> +	if (IS_ERR(dbidev))
-> +		return dev_err_probe(dev, PTR_ERR(dbidev),
-> +				     "Failed to register DBI device\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static struct platform_driver tegra_dbi_driver =3D {
-> +	.driver.name =3D "tegra-dbi",
-> +	.probe =3D tegra_dbi_probe,
-> +};
-
-I don't see the need for the separate driver and probe. You should be=20
-able to just use the tegra-dc platform device. If there's some issue,=20
-please point it out.
-
-> +
-> +static void tegra_dbi_release(void *pdev)
-> +{
-> +	platform_device_unregister(pdev);
-> +	platform_driver_unregister(&tegra_dbi_driver);
-> +}
-> +
-> +int devm_tegra_dc_dbi_init(struct device *dev)
-
-No need to have the devm_ prefix, for driver internal initialization=20
-functions it's expected that they can set up devm actions on the device.
-
-> +{
-> +	struct device_node *dbi_np __free(device_node) =3D
-> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
-> +	struct platform_device_info dbi_info =3D { 0 };
-> +	struct platform_device *dbi;
-> +	int ret;
-> +
-> +	/* Missing node means that DBI is not used, continue */
-> +	if (!dbi_np)
-> +		return 0;
-> +
-> +	ret =3D platform_driver_register(&tegra_dbi_driver);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to register DBI driver\n");
-> +
-> +	dbi_info.parent =3D dev;
-> +	dbi_info.name =3D "tegra-dbi";
-> +	dbi_info.id =3D PLATFORM_DEVID_AUTO;
-> +	dbi_info.fwnode =3D of_fwnode_handle(dbi_np);
-> +	dbi_info.of_node_reused =3D true;
-> +
-> +	dbi =3D platform_device_register_full(&dbi_info);
-> +	if (IS_ERR(dbi)) {
-> +		platform_driver_unregister(&tegra_dbi_driver);
-> +		return dev_err_probe(dev, PTR_ERR(dbi),
-> +				     "Failed to create DBI device\n");
-> +	}
-> +
-> +	ret =3D devm_add_action_or_reset(dev, tegra_dbi_release, dbi);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> index 5bbf2c028edd8..768cf82776632 100644
-> --- a/drivers/gpu/drm/tegra/dc.c
-> +++ b/drivers/gpu/drm/tegra/dc.c
-> @@ -3382,6 +3382,10 @@ static int tegra_dc_probe(struct platform_device *=
-pdev)
->  		}
->  	}
-> =20
-> +	err =3D devm_tegra_dc_dbi_init(&pdev->dev);
-> +	if (err)
-> +		return dev_err_probe(&pdev->dev, err, "failed to init DBI\n");
-> +
->  	err =3D tegra_dc_rgb_probe(dc);
->  	if (err < 0 && err !=3D -ENODEV)
->  		return dev_err_probe(&pdev->dev, err,
-> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
-> index 2b87bb675d4cf..3df49422a2bd1 100644
-> --- a/drivers/gpu/drm/tegra/dc.h
-> +++ b/drivers/gpu/drm/tegra/dc.h
-> @@ -177,6 +177,9 @@ void tegra_dc_rgb_remove(struct tegra_dc *dc);
->  int tegra_dc_rgb_init(struct drm_device *drm, struct tegra_dc *dc);
->  int tegra_dc_rgb_exit(struct tegra_dc *dc);
-> =20
-> +/* from dbi.c */
-> +int devm_tegra_dc_dbi_init(struct device *dev);
-> +
->  #define DC_CMD_GENERAL_INCR_SYNCPT		0x000
-> =20
->  #define DC_CMD_GENERAL_INCR_SYNCPT_CNTRL	0x001
+>   in a single "Add Tegra238 support" patch, and reorder it after the
+>   per-SoC EMC clock ID patch.
+> - Reword the "Add per-SoC EMC clock ID" commit message to describe the
+>   intended use of emc_clk_id: the BPMP clock provider sets
+>   CLK_GET_RATE_NOCACHE on that clock, as it is completely managed by the
+>   firmware and the common clock framework must pass rate queries through
+>   to get the latest rate.
+> - No changes to patches 1 and 4 apart from the patch numbering.
+>=20
+> Changes in v2:
+> - Squash "dt-bindings: clock: Add Tegra238 BPMP clock IDs" into
+>   "dt-bindings: firmware: tegra186-bpmp: Add Tegra238 compatible".
+> - Reword the binding commit message to state that the Tegra238 SoC is
+>   fully compatible with the Tegra186 BPMP.
+>=20
+> v2: https://lore.kernel.org/all/20261028155000.1205739-1-johnliu@nvidia.c=
+om/
+> v1: https://lore.kernel.org/all/20261028084900.1047287-1-johnliu@nvidia.c=
+om/
+>=20
+> Johnny Liu (4):
+>   dt-bindings: firmware: tegra186-bpmp: Add Tegra238 BPMP
+>   firmware: tegra: bpmp: Add per-SoC EMC clock ID
+>   firmware: tegra: bpmp: Add Tegra238 support
+>   clk: tegra: bpmp: Do not cache the EMC clock rate
+>=20
+>  .../firmware/nvidia,tegra186-bpmp.yaml        |   1 +
+>  drivers/clk/tegra/clk-bpmp.c                  |   3 +
+>  drivers/firmware/tegra/Makefile               |   1 +
+>  drivers/firmware/tegra/bpmp.c                 |  61 ++--
+>  include/dt-bindings/clock/nvidia,tegra238.h   | 279 ++++++++++++++++++
+>  include/soc/tegra/bpmp.h                      |   1 +
+>  6 files changed, 329 insertions(+), 17 deletions(-)
+>  create mode 100644 include/dt-bindings/clock/nvidia,tegra238.h
+>=20
 > --=20
-> 2.53.0
+> 2.43.0
 >=20
 >=20
 
+Thank you!
+
+Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
 
 
