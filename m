@@ -1,72 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706218;
-	b=Hc3hI3eYUkmaTKUiy6EiSdvA3EeIKu81SJNOT1sqLN3pJOlWvKDl/UHM0nGRjw3Q3eOp
-	 tdPHGcsZJx6HVOQkF1ooCdpDjeCLDoditbd4opRf3lEp4wfL8WnOGKTf+4c16fbwuKxno
-	 ADYjgtE/H9Me8LaVfnAzOXOkIcYnsrWJwv3DYuwDFBAK4uj9dIc2tZxFpKES6bscPvZ9K
-	 zPbCoo7d/qK25N5HqW4WuUtRkVagCthuYtPqCNze3GpZHA6c0aj8zwVKtfMEfSVip7t5S
-	 k9qF0PSi78n2h6Le0ssYkWyV26sxaeHLvqaVyCPdiIaWjqxStMKASpy7q7wR83TUL1Q==
+	t=1793706371;
+	b=Kf4Ev7a7iaCbWmFX+376oILUiw32so32TMxSfS9hWHSMu+/4wXZbRpyKDLakRZ6OYZWA
+	 gFJv/i+C3B0N9Uh6Z7LXH2VxPhQJOLHtbRaQEgk+WHQgi8gzPQS3a4HTfxeuwlknQ2inw
+	 qqmbYYdMgSmWJg2eiM/kx7Ag0yTxpzpyDAp1W5IdtzFkrg+vGbBjrG+92dA4RUwzvQCU7
+	 PSxidXabGWVjhWIOmrg6fTH0yIObxVPJSTSzASn2qgKCTXBCWi/iLb9Qg6e+/6xlZnvAa
+	 eGyUpVceHVAITqcZZvSqJZ3zGGeML9xTMuQYX7PIJVLnnTGHYkEAi08NgPUKPgRd8Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706218;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=ke2iiy+5bPFA2Qh7Wbg/X9FR3jHVJljstab3aXxJ3pk=;
-	b=l0eI0L3ksOSdREXrxnmlJsGG8y7sEpKLa7tlb5mIEeh3VcTjJ66MSj51wDkbcEE2h8cU
-	 rOLxZYOr5A6QWBQvVQSMv+8h3GyARn0oGYldWfr0PT1GfVMaIOtUvtqGIU2tn7RGViyRF
-	 Ha2UjcHX1uKKxkue5zweE/H5FkvowpasGtx/2j+dj6r/SHFNPdr4dcFQs7o2/2dwcJEKi
-	 L3cqhkswueMWQ/gYlYQ2PVd2TO2kN/DW/waY2iVTl3NIG6GVIpfg5UBn8QxANU8J/NNL8
-	 P5fxMdaSD7Qfnu5m8jI94n1OACFO+f8JAnU3h9DKdX4BYLq5ClBUGqYI21t7ktPUn1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706371;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=zRXqrOpqPdyVMxadAbJbOQp1pF8T1j8qh7t5p4OQo+c=;
+	b=Jjhc/A+W2jDZmjm1+5xWY3tefdPMQVdSHrFSDyal2ApQByGC7Eqoq1pTqpWbZlVZGa30
+	 VEpuN7Spr3zw7zCdbGTH5/6Lx170jnV8I9mOdapvUyL4Oc/pyE4cLy5mbp5zXF2+2q975
+	 JDhnJyIDg4L4axGgkuL4lEnfcqs1F2dW4wlnoxhnV6bhtKGN5m/PvHyfM5DyiYpwFGvWt
+	 Xw55cfuhtCBD6+BLwk9uqxoXuznYnvRVrpxBSiTsaEKf3MsUWENXSarftxOANgpxXWouv
+	 qUMAvnhMBSWvVi4kjV25LFuWrYdxpaxe1minpqe4kHbdGxnB6NhJI4xYiC6/2x/+JkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JjYBD9rD;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhfGHXuB;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794A7606A33C
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 11:43:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 794A7606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1921606A33B;
+	Tue,  3 Nov 2026 11:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1921606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=JjYBD9rD
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 26FCBC8F45C;
-	Tue,  3 Nov 2026 11:44:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9BD936046C;
-	Tue,  3 Nov 2026 11:43:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57C35103291E2;
-	Tue,  3 Nov 2026 12:43:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793706209; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ke2iiy+5bPFA2Qh7Wbg/X9FR3jHVJljstab3aXxJ3pk=;
-	b=JjYBD9rD0vsN/BIRrCSyjvM0/rLF7ga7LoE78CJtvmkvkA3NI9ACU6hCK9+SA+iGlzm2rz
-	uUGYJfvkH5Hd+zYkXRqJU2SmYGldH8R8uq49DCw/022mPwZKa2aMnZiU/qgMx95QMjMmOL
-	47emcUh+0g8jJFFw7wFTMQu2Wz+j46egu1+W01OR8oSRf08if6LL3Yigrgv4hqZtoA6WuG
-	PO7czrEGk5nmRibJMIvFudAIwYMDiVyge3qTAE6lLQd75nGpzV03JAzpDZ7K/fwlJIIomd
-	s5MRy6aa3zOjxWePs4OmSm1Rdi60bdsFLg5gk0MGxyrtU4AaAunTtjeBuzy8Tg==
-Date: Tue, 3 Nov 2026 12:43:23 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Angel J <iamanaws@httpd.dev>, linux-pci@vger.kernel.org,
- bhelgaas@google.com, robh@kernel.org, lizhi.hou@amd.com,
- andrea.porta@suse.com, florian.fainelli@broadcom.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH v3] PCI: of_property: Omit bus properties without a
- subordinate bus
-Message-ID: <20261103124323.0f8b1071@bootlin.com>
-In-Reply-To: <20260918202045.GA1191948@bhelgaas>
-References: <20260918195540.GA1187209@bhelgaas>
-	<20260918202045.GA1191948@bhelgaas>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AhfGHXuB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793706371; x=1825242371;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k34J5bk1+MbWLLiN/cBv7+iaC1FJgNw6KnASGpx22VU=;
+  b=AhfGHXuBASUCsFOab01Sha8XssuHLx//1MzS+LmdGqZmfYdyN/VuXqNf
+   2mBzDT7SQnS0LVyiVUh4NYmAGuGUFWpvbJbvooY5h9G/x9ZMJcWmq6Mxf
+   jtY8ilphIKpa4N7/mbXvp9LZmjeV7ZTD/bqn0jvx6vaSzD5FQTCkvCI3o
+   8WY4AIe1nqVrJzuBnGpeRgqy3/Ktngem29IyHrmooNGqDYJ4NVVK8b00G
+   HJ7AizWIoC9o2hdlPvZlDzfMWK2y5HyrIfhaEVYonOwqbevC7L7fqsILo
+   eKM5Fw1qLJ2GkT6ZjWNvRyYp9Oeb4gSvI1nRlX4Ahc85MA0mDkh1ZMePC
+   A==;
+X-CSE-ConnectionGUID: YcHudSiDTI6GUMIO5/D/Aw==
+X-CSE-MsgGUID: j9e2YDKsRIaqA8/+Al69NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2306705"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2306705"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:46:10 -0800
+X-CSE-ConnectionGUID: +50rtPemS3qs1F87pbe9vA==
+X-CSE-MsgGUID: 5a1QMZAXRhCgk3MDdtV4fg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6494861"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:46:07 -0800
+Date: Tue, 3 Nov 2026 13:46:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v6 2/8] serial: 8250: share the RX trigger conversion
+ helper
+Message-ID: <aunJfAPQMuiiH2N1@ashevche-desk.local>
+References: <20261102-submit-h616-uart-fifo-v1-v6-0-25afcb346b0c@gmail.com>
+ <20261102-submit-h616-uart-fifo-v1-v6-2-25afcb346b0c@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,54 +87,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-submit-h616-uart-fifo-v1-v6-2-25afcb346b0c@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Bjorn,
-
-On Fri, 18 Sep 2026 15:20:45 -0500
-Bjorn Helgaas <helgaas@kernel.org> wrote:
-
-> On Fri, Sep 18, 2026 at 02:55:40PM -0500, Bjorn Helgaas wrote:
-> > Author: Angel J <iamanaws@httpd.dev>
-> > 
-> > PCI: of_property: Omit bus properties without a subordinate bus
-> > 
-> > A bridge (a device with a Type 1 header) may not have a secondary bus
-> > allocated (pdev->subordinate), e.g., if there are no available bus numbers
-> > or the bridge secondary/subordinate bus numbers are not writable.
-> > 
-> > The dynamic OF helpers of_pci_prop_bus_range() and of_pci_prop_intr_map()
-> > dereference pdev->subordinate without checking it.  When
-> > CONFIG_PCI_DYNAMIC_OF_NODES is enabled, this can cause a NULL pointer
-> > dereference and early boot hang.
-> > 
-> > Generate 'bus-range' and 'interrupt-map' properties only when a subordinate
-> > bus exists.  Keep the node and its remaining properties for bridges without
-> > one.
-> > 
-> > The problem was latent since 407d1a51921e ("PCI: Create device tree node
-> > for bridge"), but wasn't reachable until 1f340724419e ("PCI: of: Create
-> > device tree PCI host bridge node"), which appeared in v6.15.  Before
-> > 1f340724419e, of_pci_make_dev_node() returned early because the parent OF
-> > node was missing.
-> > 
-> > Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
-> > Signed-off-by: Angel J <iamanaws@httpd.dev>
-> > [bhelgaas: move pdev->subordinate test to callees, commit log]
-> > Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> > Cc: stable@vger.kernel.org	# v6.6+
-> > Link: https://patch.msgid.link/20260912043106.10715-1-iamanaws@httpd.dev  
+On Mon, Nov 02, 2026 at 12:55:17PM -0700, James Hilliard wrote:
+> Drivers can supply receive-trigger thresholds through the RX trigger
+> callbacks without adding a legacy port type to uart_config[]. Extract the
+> threshold search into serial8250_bytes_to_fcr() so those drivers can use
+> the same conversion as the generic 8250 implementation.
 > 
-> I put this on pci/for-linus, planning to be in v7.3, but I would love
-> to have testing reports to make sure it still works as the v2 does.
+> Keep the implementation in 8250_port.c and export it in the SERIAL_8250
+> namespace. Include the unsupported-table check and preserve the existing
+> nearest-lower selection and highest-encoding fallback.
 
-I know it's too late to add a tag but well, just to mention my test somewhere:
+...
 
-It works for the LAN966x use case. Tested with v7.4-rc1.
+> -static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
+> +int serial8250_bytes_to_fcr(const unsigned char *rxtrig_bytes, unsigned char bytes)
+>  {
+> -	const struct serial8250_config *conf_type = &uart_config[up->port.type];
+> -	int i;
+> -
+> -	if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+> +	if (!rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
+>  		return -EOPNOTSUPP;
+>  
+> -	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> -		if (bytes < conf_type->rxtrig_bytes[i])
+> +	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
+> +		if (bytes < rxtrig_bytes[i])
+>  			/* Use the nearest lower value */
+> -			return (--i) << UART_FCR_R_TRIG_SHIFT;
+> +			return (i - 1) << UART_FCR_R_TRIG_SHIFT;
+>  	}
 
-Tested-by: Herve Codina <herve.codina@bootlin.com>
+Strictly speaking cosmetics should go into a separate patch (for-loop iterator
+locality, (--i) morph).
 
-Best regards,
-Hervé
+>  	return UART_FCR_R_TRIG_11;
+>  }
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
