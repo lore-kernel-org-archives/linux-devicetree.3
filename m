@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.16
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.31
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793723102;
-	b=gikfm782u9UL97vOwoXJDGi4NeucozWuSkI4bkQz0ooix8bQY1nUmrpCIw4OFbCK2Jks
-	 6ofTLB69PMb839QGv8eUi4NpHbCad58aRJVNjHaf6Wfk/B/gtbPnPota0bho7s+1W/FnE
-	 896g4B9wlkN63USogML/gczsC3iVCIRqXrXW9LRfh7o3OSroFniPLAabYYEv2t+xCAlm9
-	 FicK57EVJeViP/D9fgDh/Atz/dFkcYmnSxlip4NnVGrFp0Pg31+D9mYqVqyXdmXCtEUsH
-	 dV6fxWAxN16MWXrVnb4K6pPa1UUBWS24wMAxkZVser3wp5q8V7yTKNZHjY4UFV8y21w==
+	t=1793723115;
+	b=BMjaugOppWlOlse13UMydNp1f1q5Vhhc8jIxrOR5M8iyFRkT88O0M4s826YpZKVY+0hT
+	 D0rf2EoPfc38+/f7dZcpS7k0lgYnJdekXneiVT2He7CjLa9Ltas33jvjOuHeHP32RiF0D
+	 rk+UjkQLcrijAjB0AAFEMMscE1tDHrJCFlRSbIq+i2gmBi/PznoH5Tk0BG8W8TzRCBt5H
+	 bfpgfzReJSc6YpCfNOltnM+PhVrdzbQ9DPKCws7ZBwXOhvhJrcXH5qp3o3dwApsSXi/Im
+	 B6K7xvu+oJ6hkOj85c4qAt5OK5kGsZIsFwtLHSnSOHc1M9uI+X85pmi7espcGHiBGAA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723102;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723115;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
@@ -26,53 +26,52 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cOOqBcSjsbY/uSk3m/QRiRLOIA01HChh1VM1B6chXCk=;
-	b=WNhnpur37eBO9QulL/tdO71upBnG0+dK6uPybpHZeOtiniHsyAJhS6X3BU+9xkf5uYnl
-	 AuNxETstWOt15u4ShSM/ozDcvk6Fw+ZFSjMZmb+rVRmp7jeiZICLTXG/ZXDmBxiK22xPJ
-	 V6BQ+Dvpt8C5iZWfl9DzjrKwKnOz9f6GIfcfkX0P83Eewa9HUQ0AJk23bETfB+yK2nfAV
-	 ztSShme5tDN2bVZcxogODzFW1ZwkIlx78tgejQ4tNlDavQ/9gkLhNYiFZAEKag4AT4wqU
-	 t3qRn83KEYL+VA0v/D84nJY4nT0dc4cQxgx+fUrd1dtMeUtZ7JabJAsxNv5rwQCI9Ew==
+	bh=Pjvtisfj0ShIvEUhY1wqdXjIdnKALWvBB/aKcW/zekM=;
+	b=Y3m12FOamed4OSg297v3jQAjpl9L0WlOYLrt+70da6CXHP5jjCeORmgsVc76BX2N0v57
+	 SrFB9dHCbSg1a0WvCY4HD22CsjEHGFRJfseK59WHMyWoJCBXBd531yaBENhRtj4cwBWr4
+	 tTYenDHmvwqxBl7nnXjhU/AYLL0AUbyr6wseO1beQDdqAtQUgRdYhv9QxJHL4l8BtiMm7
+	 yaMi9Xuo2UDTV+8//15m884rLNGq07ubxpt3WUalXtZdC0q10ZYzRP9dp77rugHGKQ5f9
+	 +LAixRErzLkpKUZCBXyFhm51SizkbwHhnIGS/SXA9y6NWHs1vEoXDjOWMuZmgjG6raQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gYuTBWBu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.16
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010016.outbound.protection.outlook.com [52.101.46.16])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FcKrv1we;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.31
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885BD606A328;
-	Tue,  3 Nov 2026 16:25:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885BD606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B645B606A339;
+	Tue,  3 Nov 2026 16:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B645B606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gYuTBWBu
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=FcKrv1we
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nR2BhCw2PlTq8OQfiww+VN7UccnA8ywGW4sXPFVkjJgf4iK+746Uyk5CApPW3RX1gIiNfJlNj1L0t8+s9+jSivL3uVZDmPoMDKXrlpzgO+RmTJmIHefCaXRTXuv0xZORJ3f3J7ezMQO2D8kYjKLzKSMiatY80O7FAfVka11ohO4Mme84Wmf9N6FloGmErV+HXN9gTCdgXyfg8YtA7Ji9Zh8BHsef1BAFo2HbycRbMnfxiBnA3bSqyRR4ToxJ1+JSCbpgtdKa1zeDqUaq320r/Qa0w56WDqeYCIJKQxhPU2VCT9dDJflL5bJSSGF0gwbUMRuThLx75xM9UzMo3F2Drg==
+ b=tQCmZpO1w8C+ZgQB2ZiEJIk0ZtEcGOVPzPXn6U86KtZEI9kthOiFUH0Nw3ln4BO5D/zz2DAoGMe9IJviTs2s6SCLb8ye4/75WWs/zYesUGaDnM6dotvRkd/LB8NeCYyvrOKRzpn0VWJSEvbSBE0JW4NBOFEA6errGcarplwbxcxqhAMuZeZE+W4jF/2/nF3edkFuvZyW3reooMBEjK4fgsmJ6WJz+/8cyvGTadwxvqZXC+thhT18RV3p4W17X77yS3NCnJDR2GpJH3WM4macc5821iL1BbamZjvcXc98xSemRgSjcOntJo8Ck0Bc09rDwAtaOPWbgAnUk5QSUY4bnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cOOqBcSjsbY/uSk3m/QRiRLOIA01HChh1VM1B6chXCk=;
- b=jAkafMbrODkh1VUIa2nAfZjz79lYm0QnfPOFcBZXXepjSJU4KzaccbnwmEJ0Yz6cFJTNqoOk+THI448zgiu89pg5G9ZEV3hpddD0HWSNPIwEOOY95Dn5zNTMzms3kXeSQDfYPSozNHCTjvGs3xblljijC9T/8p9Oidf8W5fdl2wCgpGJDhuNVZ9N9NMlI/C36hIVVoT6SQUaCqT+5nL1o4qVSgMcOpxJRJMyLgQq6ZZDm6nxKFG/dGvFsnuzhCrRH4ITVjeoAyXPooizPzaUkB+szRImWDqccmOkxc05YRPW7u93mhlVYFoOH+Ih98jGvv9uhL97imbEyoq2LCXGEg==
+ bh=Pjvtisfj0ShIvEUhY1wqdXjIdnKALWvBB/aKcW/zekM=;
+ b=kDrBI7eCg4iySzmFsUqEoakM4yE+AtS7Wo899pU2dUgf+wc9lAZR/eElF75UABltMNXjEyzKwUf1rFtcZSo0MA1NfupY4oeciG9PLmf1S9K9AlaXMJvuxVUbw5ULaYqMiIAIfxWlBHzOSmsykLlAlPe3ouXH8/eoN9cci6ismee0Uf3G72X75fNGI97tIKH3i9vxmA4SOkSagOxXnoOTE3fVUuXa43Bt79W0dLyOpM6jPqOJSLys0dUyZZ/0UlnorWzF6ypseKremxSVae69U5Tlgo8fwMf46hgOoGM7z7UlSaCuMx08mwv1U+v4FFQqIXEGDt7v1qvUPuoa2Mpy6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cOOqBcSjsbY/uSk3m/QRiRLOIA01HChh1VM1B6chXCk=;
- b=gYuTBWBujDogFMnmv95L1Z3p093mbcZWrpEYIhdRPcuWfBy7Zu6vT32h5Gd0EaXdGNAyOhD9uDtE+98U7PIX400cgXo+Eeky4OccvjuzBlxab8oGz7ZLKqyr6SYNjemFkh0Pztd8x7WaMAlFdPRduFONZ+088C7lRfDfYsFCrj4=
-Received: from CH0P220CA0030.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::28)
- by SA5PPF8DEAB7A29.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d4) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 16:24:52 +0000
-Received: from CH1PEPF0005BD5E.namprd02.prod.outlook.com
- (2603:10b6:610:ef:cafe::f) by CH0P220CA0030.outlook.office365.com
- (2603:10b6:610:ef::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 16:24:52 +0000
+ bh=Pjvtisfj0ShIvEUhY1wqdXjIdnKALWvBB/aKcW/zekM=;
+ b=FcKrv1weFrU9sJBRNR6566wrUgQUQQXHe2btKi5ykrcnyOMh08jWS9wbhR3daBe/NvaTb1z/7X0JSHkpVkNbUuGuVru6ykkA5AHzuLJyXc2Wwu+mvc3Yif5klwuKYz0G1sgyG8V+azWVKE4TBD+t0/H4E+pow/Emhy8w0a8lSug=
+Received: from SJ0PR03CA0003.namprd03.prod.outlook.com (2603:10b6:a03:33a::8)
+ by DS7PR12MB6336.namprd12.prod.outlook.com (2603:10b6:8:93::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.8; Tue, 3 Nov 2026 16:25:09 +0000
+Received: from MW1PEPF0001888E.namprd03.prod.outlook.com
+ (2603:10b6:a03:33a:cafe::36) by SJ0PR03CA0003.outlook.office365.com
+ (2603:10b6:a03:33a::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Tue, 3
+ Nov 2026 16:25:09 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,20 +79,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0005BD5E.mail.protection.outlook.com (10.167.244.247) with Microsoft
+ MW1PEPF0001888E.mail.protection.outlook.com (10.167.249.165) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:24:52 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:25:08 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:24:52 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:24:51 -0600
+ 2026 10:24:57 -0600
 Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 10:24:46 -0600
+ Transport; Tue, 3 Nov 2026 10:24:52 -0600
 From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
 	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
@@ -103,9 +98,9 @@ To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
 CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
 	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Subject: [PATCH 1/4] kexec: do not place the next kernel in a fixed-address CMA area
-Date: Tue, 3 Nov 2026 21:54:26 +0530
-Message-ID: <20261103162429.2053989-2-radhey.shyam.pandey@amd.com>
+Subject: [PATCH 2/4] of: reserved_mem: keep the reservation when node_init returns -EBUSY
+Date: Tue, 3 Nov 2026 21:54:27 +0530
+Message-ID: <20261103162429.2053989-3-radhey.shyam.pandey@amd.com>
 X-Mailer: git-send-email 2.44.4
 In-Reply-To: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
 References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
@@ -122,164 +117,91 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0005BD5E:EE_|SA5PPF8DEAB7A29:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69808556-f2aa-43a4-10c9-08df39c6fd77
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001888E:EE_|DS7PR12MB6336:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e1ee63c-3c51-45d5-0de9-08df39c70717
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|23010399003|36860700016|18002099003|22082099003|921020|56012099006|11063799006|261022105027099003|261009223027099003|261022115727099003|261028144727099003|261102130727099003|261102123227099003|261021121427099003|261026140227099003|261026121527099003|10067099003|261022075727099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|82310400026|36860700016|921020|11063799006|5023799004|56012099006|261009223027099003|261028144727099003|261022105027099003|261022075727099003|261022115727099003|261102123227099003|261021121427099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	w11FTgRXCywOPfZMJXpjgaf+KrEh4R7TB2Q0k+JMOOcpdX8JLvugDaBu/CPReF7coe4IWWUrDaKUF6Dd9FGMfDTf6qeFFbizZAZpIvxQzdv321e2GRwT92jKu3dsTO4LPHwmWxYy70sRc4FCEcto67xG/tT88Z7vK2Yclo7K3roVM6FppKrlTGmkjMqS/3qIJhods9bUiM6XwPqvGapFGcIZx/XCOOftOqJUmTJdD4rqw/yauftt9R88qeb4scWE/BmKy96XzfBYMgb8AcYw5SJ93RQSXbaNYWkCE+W+jWsKEG0RQe0OHKdVUAnQ/fV4/xLaMjkxOlSoIV3sZ5wIQfU0ZXSlm7rdVIjjdCT6dv8B+g0nrOLQNKy8aUY9q75Hrd+vYeWt48ZdGDFVKdshptSheGLHianztK1VH/uPYqr704JeqTfA7FRR02Ogw22zXk4JeBQYp5OGK3gDGaikMl60tLSzOFXZtbTvxsfrPokKhYhQVfuspzHHuYqKIMKigYs/RVlk1cDlde06bV8KeC7cefTciE7Uhp+M93DC7+DqacasHiLUztuzxjIUjzSSLTB5SaS95QJGhS1e33GB5F4zW2sL5DICFIEOMxQdWdLr/cJ8Vug59PQRaxbTZnu1B3hXbMzarzFWbox3dE8UYCmMdqQNpitbfaVUbdnY+BOD+h/+xbr6KfAoEVM8JvqmdnYD/gJdMwhdYvouvzzQl5HX54D0lISz2na8iOyo42N4UiGOAQsOx7CfGpgDDrVI
+	P9wd7HB4gYRUgbfcn7PlGa9tGGWjmu7k7sHcL6iaBoH3vU1jYT1tEkabULr3w+zmntT1hm368I7v8oIC7k6tvnI7YbdirRhy/S8sr9+Z3f8XUGAeznnEVvxajZaRSAaAUzCgkgP1ybjyegY0WC4KFKkpHZcBMyIFVAnCqUVcZZ9BBDREtFiesmEa/Im8QSFPVGegj0szTsgsGit1h4QxmgsOJ6xdyGWAq7HI+Q8tb+vEoxKSZBGg8TrSA7p0Q5toeq47U03BN9TL5B7SZtuG+udgDZz3yv+RNE67YpT9oh9MQVNKDKMJatyqIfMleXnjgh/YzAzdYRvdKbjc47Khj4HCRXjChP/l5a9DtC/xEWHW8gQuE6oeiAUpwTeNjxh8z9unzRwIQDTJ0NTB2OnnyahQzEZ3pFk74NwWj08SrmO+rQDUSv6N9/f5sVUQ2pT02DDF8gZsS6EcIwQRlT95IkZGsitHlhCL82XdjVLcQ9T+BKPsgPSWAQ1tISnQtFmcckO/+cqXxEXKsU4lobgnJpUbHnm+E5gsfxOOHrOnUAoWCyDNkCi8HoUkARXhnbNsXCsm3h5OmDbXImtaaB/meJ60DV7SX5gAWjZ6/fJtSkul0oMQ/uWtbAKjHyMp5BgOJ5se0kebrqJX/dD53U5w2RiIHaQ+hSpy7Vq2IIxCgGBrDcchWJydaGSy/UX3nNfEUkVLdH5OVjACHjLYiWfr1jBQwLZeb0XO6eXRWZeYCSeh3t9sbxRDfOa2ljl9NboA
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(23010399003)(36860700016)(18002099003)(22082099003)(921020)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261022115727099003)(261028144727099003)(261102130727099003)(261102123227099003)(261021121427099003)(261026140227099003)(261026121527099003)(10067099003)(261022075727099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(921020)(11063799006)(5023799004)(56012099006)(261009223027099003)(261028144727099003)(261022105027099003)(261022075727099003)(261022115727099003)(261102123227099003)(261021121427099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	yx32ppD7490Hv4LXRa/cJk7A4kouWQeEh5WmwZeBNpJ1oSI1pd3O02ZPEZx28i6IqRCPlb3Jc0EJJa8gk0LGmFnxg9gnRK6GVIjqoQgCxeAKDM0d1dtCrGkG+jQ5a59nuIxvWVkZB9sknQhNB25iZRKtGTkA54hHWcsceLk8lgiq+7oAAO+CrRV1oT9SB9gxq2gy2MAdt1ukitI/Fb0ZYavAZ0SrbGrgiPo9pU/SIOnu8U1BtixaS1wJ68jF3fwYeAsoUkEoN2LaGy4fLLa8uAEcN/c1GTR+typP5b22wNEdJ1UbfOPSLKp0e3NjL5NHEdbXU33nQ63BApPghry16++d3N8XR5Vuw3eQKVnevDAMXKJHiQ9EIlccIYpqJjZ409MUitCBCuC/xFAOMIT6OfGBKG4EIt+R7/RlgqJ/DEOEV6Tz67wntsiRhPNQhHCN
+	epOc018vOFBmUnxxl2d/BTdrKnAy7mD01BGD4uZ8zb7VmxcOdmQ/Q9mxTSb/mKs7+qjAbZ7Wal+MTRP79qjtbiZcenSNbXVR71Z2jk84piNQWRumdx5ZMxdz5yZ7BNxNfAOnkB3XaWUuf9BvM0/ecIMAK4jL9R9zu8dzX5JhWDHQV/iXmRmXVKi6KCQpa4sudSb8cu/jmHz3Q7F641SelpGsvjowba1C/9UPrJALtCVBHdn+3hXJtaAOTVr3g1lgjPeiA34+4dDKWdu7DVEqps4qIePzAs3QNNhhvPAIpBJpjoI4obIMDENOsCC8ERDfM6KULaKylae/CvfE4aZorRs+EeYlhn2+OXhC1QibwBVxLs4SuF0oxlVYkq06z7a3TbsoxFEMqMYomvYRWr4JHXv5QPq+kSducKD0t1xQBcnzLzlaZdhcZe8FmCitDmUi
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:24:52.8094
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:25:08.9295
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69808556-f2aa-43a4-10c9-08df39c6fd77
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e1ee63c-3c51-45d5-0de9-08df39c70717
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0005BD5E.namprd02.prod.outlook.com
+	MW1PEPF0001888E.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF8DEAB7A29
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6336
 
-kexec_alloc_contig() takes the next kernel's destination from the default
-CMA area and the next kernel runs from there in place, which is safe only
-if that area does not exist at the same address in the kernel being loaded.
-For a device-tree area it does: the loaded kernel declares the range it is
-executing from as a shared-dma-pool and cma_activate_area() frees its own
-image to the page allocator. Record in CMA_DYNAMIC_BASE which areas CMA
-placed itself and accept only those, letting kexec_locate_mem_hole() fall
-back to the memblock search. "cma=nn" works, "cma=nn@ss" no longer does.
+fdt_init_reserved_mem_node() treats any error from a region's init function
+as "this node is unusable" and calls memblock_phys_free() on the whole
+range, although the range was reserved earlier during the FDT scan by code
+unrelated to that init function. Give -EBUSY the meaning "cannot be used as
+described, but must stay reserved" and skip the release for it. Nothing
+returns -EBUSY from node_init today. The next patch does, to refuse a CMA
+pool overlapping the kernel image, which without this would free
+[_text, _end) rather than protect it.
 
-Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-Suggested-by: Mike Rapoport <rppt@kernel.org>
+Suggested-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 ---
 Changes since RFC:
-- Use CMA_DYNAMIC_BASE flag instead of CMA_FIXED_BASE.
-- Drop Pratyush reviewed-by tag as there is implementation change.
+- New patch
 ---
- include/linux/cma.h | 10 ++++++++++
- kernel/kexec_file.c | 12 ++++++++++++
- mm/cma.c            | 16 ++++++++++++++++
- mm/cma.h            |  2 ++
- 4 files changed, 40 insertions(+)
+ drivers/of/of_reserved_mem.c    | 14 ++++++++++++++
+ include/linux/of_reserved_mem.h |  5 +++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/include/linux/cma.h b/include/linux/cma.h
-index 8555d38a97b1..d4683a4ff3cc 100644
---- a/include/linux/cma.h
-+++ b/include/linux/cma.h
-@@ -61,4 +61,14 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
- extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 0fd1683cba01..d67a2b3a4d44 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -621,6 +621,20 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
  
- extern void cma_reserve_pages_on_error(struct cma *cma);
+ 	err = __reserved_mem_init_node(rmem, node);
+ 	if (err != 0 && err != -ENODEV) {
++		/*
++		 * The region was reserved before its init function ran, so it
++		 * is not ours to release. -EBUSY says the init function is
++		 * declining it for a reason that outlives this node; freeing
++		 * it would hand the range to the page allocator even though
++		 * something else still owns it.
++		 */
++		if (err == -EBUSY) {
++			pr_info("node %s init failed, keeping reservation\n",
++				rmem->name);
++			rmem->name = NULL;
++			return;
++		}
 +
-+#ifdef CONFIG_CMA
-+bool cma_has_dynamic_base(const struct cma *cma);
-+#else
-+static inline bool cma_has_dynamic_base(const struct cma *cma)
-+{
-+	return false;
-+}
-+#endif
-+
- #endif
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index b668ce8d68ee..763dee85558f 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -28,6 +28,7 @@
- #include <linux/vmalloc.h>
- #include <linux/dma-map-ops.h>
- #include <linux/kexec_handover.h>
-+#include <linux/cma.h>
- #include "kexec_internal.h"
+ 		pr_info("node %s compatible matching fail\n", rmem->name);
+ 		rmem->name = NULL;
  
- #ifdef CONFIG_KEXEC_SIG
-@@ -691,6 +692,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
- static int kexec_alloc_contig(struct kexec_buf *kbuf)
- {
- 	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
-+	struct cma *cma;
- 	unsigned long mem;
- 	struct page *p;
- 
-@@ -702,6 +704,16 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
- 	if (kbuf->image->type == KEXEC_TYPE_CRASH)
- 		return -EPERM;
- 
+diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
+index 49da515859f2..4bf32f80785c 100644
+--- a/include/linux/of_reserved_mem.h
++++ b/include/linux/of_reserved_mem.h
+@@ -21,6 +21,11 @@ struct reserved_mem_ops {
+ 	int	(*node_validate)(unsigned long fdt_node, phys_addr_t *align);
+ 	int	(*node_fixup)(unsigned long fdt_node, phys_addr_t base,
+ 			      phys_addr_t size);
 +	/*
-+	 * The next kernel runs from here rather than being copied out, so it
-+	 * would declare this area again from the same description and release
-+	 * the pages holding its own image to the page allocator. Only an area
-+	 * this kernel placed itself is safe to use.
++	 * Returns 0 on success, -ENODEV if the node is not handled by these
++	 * ops, or -EBUSY if the region cannot be used but must stay reserved.
++	 * Any other error releases the region.
 +	 */
-+	cma = dev_get_cma_area(NULL);
-+	if (!cma || !cma_has_dynamic_base(cma))
-+		return -EOPNOTSUPP;
-+
- 	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
- 	if (!p)
- 		return -ENOMEM;
-diff --git a/mm/cma.c b/mm/cma.c
-index 9ec1d1fd5dff..9c53b2b70dc8 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -55,6 +55,19 @@ const char *cma_get_name(const struct cma *cma)
- }
- EXPORT_SYMBOL_GPL(cma_get_name);
- 
-+/**
-+ * cma_has_dynamic_base() - was the area placed at an address CMA chose?
-+ * @cma: Contiguous memory region
-+ *
-+ * An area without a dynamic base was placed where something outside the kernel
-+ * said it should go, typically a device tree reserved-memory node, and so lands
-+ * at the same address in every kernel booted with that description.
-+ */
-+bool cma_has_dynamic_base(const struct cma *cma)
-+{
-+	return test_bit(CMA_DYNAMIC_BASE, &cma->flags);
-+}
-+
- static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
- 					     unsigned int align_order)
- {
-@@ -519,6 +532,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
- 	}
- 
- 	(*res_cma)->nid = nid;
-+	if (!fixed)
-+		set_bit(CMA_DYNAMIC_BASE, &(*res_cma)->flags);
- 	*basep = base;
- 
- 	return 0;
-@@ -708,6 +723,7 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 
- 	cma->nranges = nr;
- 	cma->nid = nid;
-+	set_bit(CMA_DYNAMIC_BASE, &cma->flags);
- 	*res_cma = cma;
- 
- out:
-diff --git a/mm/cma.h b/mm/cma.h
-index 68e574b0f951..4703e0958b01 100644
---- a/mm/cma.h
-+++ b/mm/cma.h
-@@ -80,6 +80,8 @@ enum cma_flags {
- 	CMA_ZONES_VALID,
- 	CMA_ZONES_INVALID,
- 	CMA_ACTIVATED,
-+	/* Base address was chosen by CMA, not dictated by the caller. */
-+	CMA_DYNAMIC_BASE,
- };
- 
- extern struct cma cma_areas[MAX_CMA_AREAS];
+ 	int	(*node_init)(unsigned long fdt_node, struct reserved_mem *rmem);
+ 	int	(*device_init)(struct reserved_mem *rmem,
+ 			       struct device *dev);
 -- 
 2.44.4
 
