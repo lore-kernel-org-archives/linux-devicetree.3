@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.25.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738036;
-	b=rYGpjcm/pAQN/O2R3YTLPehfA4/Wptrz4PfM7xS0zLwFyI2f1bK+cWhEQdTyVR2ubu8E
-	 Iykq9begrt1KLQt0WEL/nwK7zudwYntoJVR2YZEg8w5WD3FGLhbJuNbH2xlPM9x04k4rh
-	 /o6wMz2rxfxKxXbXHK61Qxiybk4EufhHZaZK8zWLIXpZybfeRn/230tyiaBAkWMkBpr6S
-	 n0LJxiueU2CWyHKLh3W911HnwKAJIXGBOwQHdusTn5I6QHVMmphcGIPtzb7xs/N8pkcBa
-	 JDaVSpReO44eZv2r8QcE47SjuglfF8n3JfnpTjgER9XGAwX5PWHKsl+63h0knA0DJmw==
+	t=1793738040;
+	b=rRqaWGBIAZHWZix28QJDx/NaziJ1yrZms1eocOdv0QJp5nKY5QKJI9u4ilTFp2IR6C9c
+	 8TOAlpx/iiZBp/tItXcp01EkBhH7OaWuJv50TmhwO+CoHox3Ii4mXDy/52hFULlFcdluO
+	 NxGmtxll+Ag5DPjsWA4H7zQeMh06FpihUs9NwnPJX4vi1HB/4oNTE2h06OSPuzAdjtj1K
+	 HYaH6fgo1wNyQw86+VuLECThQButYxA+K/yaIe4Me+Cor+FqRC6llTdffp8j/+9WGv9bi
+	 VO9+Q4Uy34TmR0HQx22V9gEHWT+zQ0m+lnm0p408QnlZPBiMIViTmxJHCTFhkuMOPDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738036;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738040;
 	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:
 	 DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IpTAQdRgdhCJhb1hvxDKWghah7aGv6NZyMkxYCZ92Rs=;
-	b=etIpDXDvS9iOjpG82Y7Q5B12vFgVFLZ6vtrdvZwU4fRkBmkkyh7N5mrEFDMcDukEZ+72
-	 T36vHJ3duvcMvmpvgHyG8/Sfh3atyiYvFjREhBZ7K+qSYshtN+K8bQ9x2EHhrXdeJn6ym
-	 YXRrn94atlNVelWwQnpt2+Zyr8n42sQcBUn7/X+RXL720c5kD1PuiCEyAhTULtkTTMCtQ
-	 ZGO3wTk8pz8rFXioEp7YK+3sZu0oAlkYvV+bm8KXQEGDpgQPiYJBUvUA02koXRcWFPcCB
-	 1Of8yQ1eIDT4i53um9qP3SRfwa1ETQqy/USPk86gk8m9iTSLEX5BEHGl7PVZVvd4Oxg==
+	bh=sjUVdGPpRThFzw+FQF/UnfYCE/2vePJvLFuHafbyQjw=;
+	b=coydB+JIm6gARV1lQViF0ul7OFko6UTF9x552jJeiLXC3CGJPfXrXkrECN3TEz31f1/D
+	 yx1dew3k8YuXxpG4kC5NLRNr8mtYaCC/CPnAGkxTDZ8y86+QJ4q1bN4OqG1tDOAvCBtgU
+	 ss6hSXzNqCjsp6rfRHaxoy3PXat3a4AyYoL+ngtiQS75XnIPalds+pPUmjiIWWaDlR4GV
+	 T1XPf+NYlpvuVr+oajufpUkVcsXRa1U3KtYHqKl4u/fsOgMzArsjZWIqAw6JvS08P6QdS
+	 PswnVbbdD0iJRdGyk7BAg4nEcHujyIFsbjG73TT7+4SOkgWoMW/l2NAmTHP3y+i4B/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rnplus.nl;
 	spf=pass smtp.mailfrom=rnplus.nl;
-	dkim=pass header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=Jsn76HXz;
+	dkim=pass header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=AuN1mweB;
 	arc=none smtp.remote-ip=178.251.25.70
 Received: from mail.rnplus.nl (mail.rnplus.nl [178.251.25.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4215F606D801
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:33:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4215F606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F530606A328
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:33:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F530606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rnplus.nl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rnplus.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=Jsn76HXz
+	dkim=pass (1024-bit key, unprotected) header.d=rnplus.nl header.i=@rnplus.nl header.a=rsa-sha256 header.s=dkim header.b=AuN1mweB
 Received: from localhost (unknown [127.0.0.1])
-	by mail.rnplus.nl (Postfix) with ESMTP id 761C937977E
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:33:47 +0000 (UTC)
+	by mail.rnplus.nl (Postfix) with ESMTP id BA8FB379782
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 20:33:44 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at rnplus.nl
 Received: from mail.rnplus.nl ([127.0.0.1])
 	by localhost (mail.rnplus.nl [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id WCUcTe7DtT-F for <devicetree@vger.kernel.org>;
-	Tue,  3 Nov 2026 21:33:47 +0100 (CET)
+	with ESMTP id Si_XFBUMicgx for <devicetree@vger.kernel.org>;
+	Tue,  3 Nov 2026 21:33:44 +0100 (CET)
 Received: from E595 (unknown [185.10.157.158])
-	by mail.rnplus.nl (Postfix) with ESMTPSA id A6BC737977F;
-	Tue,  3 Nov 2026 21:33:43 +0100 (CET)
+	by mail.rnplus.nl (Postfix) with ESMTPSA id 39F5D379778;
+	Tue,  3 Nov 2026 21:33:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=rnplus.nl; s=dkim;
-	t=1793738024; bh=a4vWSx9rLNvabRu3vIDBn7/4YymkwBrYWvlKnKwfxas=;
+	t=1793738021; bh=wpaK3xlqbSy7BwAovXZxHl0KmlkJ7DTAtEtWwvx+axY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jsn76HXzv4eFOOwgUbSQIOLIMAQKaYgXoVJs1tbb10Zi16awRA0nzypxAAuD7oPf5
-	 ErykmkbQDhlSf/z/v3DVS7gRqu0J7U3IRopvcx7d9Rmlkm3cXH5s5Of3IlzeiAKXBS
-	 LxB5ravxMejTgXwNveef187G1bdaVUpEVvS2l94Y=
+	b=AuN1mweBZv9JootaBzdqVRAZ/Om8mJXHR958XTAd+PULHJt+HCJeSpSt1YajYhV2h
+	 VAflSQKXHqyu6Ycur0aJVXHSLmoSw/hGACXo05pMP3QHJNzX9E22lrU0mCcEbc9gFR
+	 z1BYcz6rIdWCMgSDe4Wg0lLYoHYFLQ0aKMO0bFhM=
 From: Renze Nicolai <renze@rnplus.nl>
 To: Joel Stanley <joel@jms.id.au>,
 	Andrew Jeffery <andrew@codeconstruct.com.au>
@@ -58,9 +58,9 @@ Cc: Renze Nicolai <renze@rnplus.nl>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] ARM: dts: aspeed: x570d4u: Add some GPIO line names
-Date: Tue,  3 Nov 2026 21:33:05 +0100
-Message-ID: <20261103203308.54789-5-renze@rnplus.nl>
+Subject: [PATCH 1/4] ARM: dts: aspeed: x570d4u: Remove w83773g temperature sensor
+Date: Tue,  3 Nov 2026 21:33:02 +0100
+Message-ID: <20261103203308.54789-2-renze@rnplus.nl>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103203308.54789-1-renze@rnplus.nl>
 References: <20261103203308.54789-1-renze@rnplus.nl>
@@ -75,47 +75,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several GPIO lines used on the board had no gpio-line-names entry.
-Name the NMI button and control lines (GPIOA2/A3), the BIOS flash
-chip-select and LPC reset outputs (GPIOJ1/J3), and the hard
-power-off control line (GPIOAB3).
+The w83773g temperature sensor is only available on variants
+of the X570D4U with 10GBit ethernet and should only be loaded
+after checking the board variant information in the FRU EEPROM.
 
 Signed-off-by: Renze Nicolai <renze@rnplus.nl>
 ---
- arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts | 5 -----
+ 1 file changed, 5 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
-index fca14320829e..0089845a6f0b 100644
+index e61a6cb43438..7d27833b761d 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-x570d4u.dts
-@@ -79,7 +79,7 @@ iio-hwmon {
- &gpio {
+@@ -164,11 +164,6 @@ &i2c0 {
+ &i2c1 {
+ 	/* Hardware monitoring SMBus */
  	status = "okay";
- 	gpio-line-names =
--	/*  A */ "input-locatorled-n", "", "", "", "", "", "", "",
-+	/*  A */ "input-locatorled-n", "", "button-nmi-n", "control-nmi-n", "", "", "", "",
- 	/*  B */ "input-bios-post-cmplt-n", "", "", "", "", "", "", "",
- 	/*  C */ "", "", "", "", "", "", "control-locatorbutton-n", "",
- 	/*  D */ "button-power-n", "control-power-n", "button-reset-n",
-@@ -92,7 +92,7 @@ &gpio {
- 	/*  H */ "", "", "", "", "input-mfg-mode-n", "",
- 		 "led-heartbeat-n", "input-case-open-n",
- 	/*  I */ "", "", "", "", "", "", "", "",
--	/*  J */ "output-bmc-ready-n", "", "", "", "", "", "", "",
-+	/*  J */ "output-bmc-ready-n", "output-bios-cs-n", "", "output-lpc-reset", "", "", "", "",
- 	/*  K */ "", "", "", "", "", "", "", "",
- 	/*  L */ "", "", "", "", "", "", "", "",
- 	/*  M */ "", "", "", "", "", "", "", "",
-@@ -114,7 +114,7 @@ &gpio {
- 		 "", "",
- 	/* AA */ "input-cpu1-thermtrip-latch-n", "",
- 		 "input-cpu1-prochot-n", "", "", "", "", "",
--	/* AB */ "", "input-power-good", "", "", "", "", "", "",
-+	/* AB */ "", "input-power-good", "", "control-hard-power-off", "", "", "", "",
- 	/* AC */ "", "", "", "", "", "", "", "";
+-
+-	w83773g@4c {
+-		compatible = "nuvoton,w83773g";
+-		reg = <0x4c>;
+-	};
  };
  
+ &i2c2 {
 -- 
 2.56.0
 
