@@ -1,85 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726359;
-	b=XJqS1rBY1JNl+/7ptlJTC/8XyecO8Su1CS4upQ6ySOHeNfMk7j73GLiL0oZcECpIRVbK
-	 qjP37GsM0HC/iGULedUC8N0M8kEHvcLRMWig6Z0dPImb1zZ/5Og9Mym58Yv0wr2n9iD71
-	 5XcgEylFcs/Hf7LmC8PgikB/fGuC1JO6BV4fKb2+BUDbe1nU5btgAk24GWJt4/DlrnQNx
-	 XXx2FdjWNSwo06DB9IpEdACRPYtNL8CLhKUurwUlvl8OX2T/0OK3xR67kMHdELXAiEW1u
-	 mEDmJtBZuRIay/XSQMkvD1SOIIfnO3jJ0nJYrZ26Jcf1YcQeyCjMh6d8jzuKjuieUxg==
+	t=1793728003;
+	b=Gn7M0dZ4Tg/72ZD2YDNLPK5TaK0Obxy3Y3SiSNsJmcP52PTu/M6SKqK1EdAu/nMidzzy
+	 j0I1aTzozeNULZEhFAjR1de3p2AX9RrMdKHJxzZvoLkh7MrViomSbDVkef8rZLdDe2Scg
+	 uwSt/uyLkbINRa9xZPjU4J9fCkRO2JBTHgbRAdnMVfjRZBNBLnJ4cQBrvrswDvcFxzh/O
+	 zMIBpqiaQPgNmkUurjGC1OJsK/F1QiUI8zmCzK0wuDQ1KyvwuJ5BFaCmd3/PuLh1Ht1Wq
+	 KXh4tAFafQHo1SnOQNHFUvz1gaYXHxGBS1TtOSM30jsl5qRSza6LQj9xsMtZM2Axguw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726359;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=E1AIQqXxMElr9XYHIFcSfJejuF++6x4Nf+fj72eanNY=;
-	b=WXe77iNgDWkguhdmlMVZt+7N10knAembqSN7z9D+Kb2qJ61LjbahCHsZc/MyBeW8VzdK
-	 bn0uPV8c/M4JrvZAVvmi1G6f3cXrcPRupga7HZGm04eoSPOLvQqsooZwY8qnxfm136Jij
-	 bxvLPtlHy4Er/2tOGOepz030X1+aRBo2Q117XvlR9PzNToAbl3Shyvvoetpsv/NrEbS3Q
-	 3VAGdGTP8NiUHfIjCIKleppgocnmpScQ74uQTQahfuLTjfkokevH8uqPXhKmwU3NJlRN0
-	 ggll7slZq85UkCFY6PR/rhhp1Ick80gGF9/QMRi4Sn6Eum2jyVkeOmP7BaXttbUtl5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728003;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=/dxNHrW6G0LpkFGwuqqn+AZVOo/NlA+DkY90dwAI/rQ=;
+	b=n74NPx/822VB4Gxvs6gnSsOZ4AV40rjGxdIJl1Dl/6is27fk57oE/zyeO4co8ITwBErO
+	 SpGMDOpzSdNgI//FefaBFUyEBZi8GzBbQ+40+Na1W5CVzChehUw0lP2OIjTMoFdCP9qu3
+	 iOJJ9fX8mAv7VN8X22f5XMR+337WXN8P4ZvdgY9y9WOm4bFkRGYtW6pN5SVLGhxnPKgFn
+	 s4+Ww00pvkT4jXtS4PHNHi5sUmQlNtdJVmQdSOE2ZpIRxVRC4U8HsO5mndOVJr0fV1J+i
+	 PyRaGuLhNFP/mkgE5lR9eacWc/jZXidruiGRWsoenSFhGZdqmngSLOoYhuZznXPsVRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="R/YhAD4c";
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=itGMsRvV;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA15606A31B
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 17:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA15606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9453606A328;
+	Tue,  3 Nov 2026 17:46:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9453606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=R/YhAD4c
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b060ec084so2651065f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 09:19:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793726356; x=1794331156; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E1AIQqXxMElr9XYHIFcSfJejuF++6x4Nf+fj72eanNY=;
-        b=R/YhAD4cjF5HWZDS12Mmaz+AKtQwFDm5TTdP7WOfrT+BN86ErsKgMJuuD0p6wMvdgb
-         uqWg9OIBWW/0jQlOjEM0nHsDOEJKBU8o+MrsPV8Vz862UFKNSEW/xRNOO8aCGJroh5fA
-         KuX0NmF0thJd1pgxQzW3+xWBCAPflB3KiPmww8fLaPznA8ilgAyad4tCLgjsfN+etHaX
-         HhvCLHebKXO5C2YdHrvuPZ/20HTlx6rRE1RcliE+Uyy3yrjmdv+ESzBlTiU4kGZbNpa2
-         X8QEbssT0s+tVG+09Si8g+Ae5Jqrd8c4s9zoCAdw6JW1YaDGxc00om1YhvkHkUbMj0AK
-         BG2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793726356; x=1794331156;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E1AIQqXxMElr9XYHIFcSfJejuF++6x4Nf+fj72eanNY=;
-        b=dnGbOfRu4ECFBoCWbyIiHVItJgoofUKkH5B8kfPmlwGSQj1e7W6xfvPkzgwiJHSWco
-         zYoQbdL5Eq2R9Y1Y6q6Bn4vfpJZHq6lHXCUm/JlzusMLMHMs8y/OF2PuxZE/1iesqlsO
-         5M/7bSguD3QkSGcDH0EslBw/mhVkNtbdTuGhJ2nRLsEfSRkyRcfzfZBHtPBRpK2vis2A
-         8QVcV2m9iMHpeAApJkMqtugnrush4SPWllBUtNaEubCyL0ODgJRB89gsmBygtTgxFT1E
-         LkK8bie8np9N3AVLMcHhcp7PtZBUx56h1KZi+TzJW/WX7DYCdxULDaH2sIOMfnsh8dxA
-         IrmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1v90bgzglRW4/kobI6Qp3wVnuTxkJW9Mfcvtq2BFqYtn/nPFYVGprfOl5/DeB50SiX70SABHSJ7aO@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yzOepSGrl0MOB45MKFgFqj+iodNkhPb4tVeZoq/zkx/KnXZ/J
-	ey3mx7jAkoK8RdJ+4x3h/nXQ/odvWHOW87uTwh89C/tvDuxJF83Z2hdSXgn+LHTnePI=
-X-Gm-Gg: AYBFou0LfeIX735ljEVF6Nki2pj2hqA3Aa/Lx6/tow5MT5UAx9J16tAuM4GlknOA1jg
-	hTBGS8wbw6VtqWx1Bj3ZIDhuon8N28VdJVuh7YvrAKzfGPvRomfAdusZ5ejnX0qyCgzTc3FvGKT
-	hFzdmqQ4FuX5E7ZTE2qW8B7yUjVWdUbV6yyct9aBhkqPRcyjJEdaihkyLh+WXoOFddPw5/AE4uN
-	ZiUTKAvXqkZlOZjeRPaZG/WcLDVB+RiiBvu9mguqMoNLuYbnl75rKwC3wxg3o7LWk6OdiBbAyxD
-	PfC7x/MEa+TLoQTJIhO4M7hsfguKkheLzI7OG6eDX5Ro4IBVRO88EB0PEtNuJz/+EZ89n4wkrkk
-	jvuSa5uJoSiHyZH46rWVzmqUCm8gOv5IZqCBmy/wAQt2dkzM6Ewdle+Rs9fAHU7d/8YnrZpyuGx
-	l/HBuditHwsTh6Xr3jNG3Da1nGUOz6PRY+KFqNwXih9q557N6A1CX88MIRt95De/nYTavdQhVnS
-	RquUcj1in21XbC+ykMUir2lUzc6eeXVBwIQjZGM+uAfWcgVKcbK/36sww2TrmJcHXg4OtZ/ZQOK
-	ch9EVCM3UrZE7xJbDzixQzVFdZHfN5PjzwXP6BPCy8TEuvk/
-X-Received: by 2002:a05:6000:4711:b0:48e:2371:3835 with SMTP id ffacd0b85a97d-48e6e309f7amr31462901f8f.51.1793726356301;
-        Tue, 03 Nov 2026 09:19:16 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80eb1sm27856601f8f.34.2026.11.03.09.19.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 09:19:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=itGMsRvV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793728003; x=1825264003;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8tWwkUcDgUwAlNlsNw/nuUJoQ+QTjblPWrHjviPkR8Q=;
+  b=itGMsRvVxr1Q3nNbuhocA9ZNiFvVmAxZ3yXdlnssesRQUTYFAbSQ22cz
+   +kfR368ncHU0iu4tZBMo+uDZFa/n8/3TWOX3RPqHhGN2CugVY+NNoL/3x
+   rOsJOW+PdzjLOGha4NB2VEdWDqQ94bbuUfjuJSpi5oQ9bbFw5mBTfnbM8
+   uEWdzD0U/dFse3eygo3mWj/Bup8n6IPiJCR4Y1OiSnh2KGpESsL+xf96V
+   JhruHcuPZHqKZwFWHwBQKs2vjHQC6FmAA84NZ+qefNmQQ0KMeSPyc2qMI
+   8O1os0qsunrUREI80zELzS3wITeCLGKDgNvmNOO/vWiwCFrXAA8w6mtg8
+   w==;
+X-CSE-ConnectionGUID: +I+Pow6ASIGXWPkBwurNYg==
+X-CSE-MsgGUID: WSb8YOMTRS+FaBvDTPxiSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2341647"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2341647"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:46:43 -0800
+X-CSE-ConnectionGUID: 2qmoe+4zTeqQJV9qvwrzQQ==
+X-CSE-MsgGUID: Vd3mWcaoQmyREjgKNrE6Pw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6840336"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:46:40 -0800
+Date: Tue, 3 Nov 2026 19:46:36 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <westeri@kernel.org>, linux-acpi@vger.kernel.org,
+	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v13 08/13] gpio: regmap: remove gpiochip before tearing
+ down irqchip
+Message-ID: <auod_B2Aie6Tk7Za@ashevche-desk.local>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+ <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,89 +88,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/9] clk: google: Add CPM clock driver
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>, 
- linux-arm-kernel@lists.infradead.org, 
- Mariano Marciello <mmarciello@google.com>, 
- Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org, 
- =?utf-8?q?Jakub_G=C5=82owacki?= <jglow@google.com>
-In-Reply-To: <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
-References: <20261026214359.3122870-1-briannorris@chromium.org>
- <20261026144346.5.I82dc05365979021379fe730d6d52792a87ff15ed@changeid>
-Date: Tue, 03 Nov 2026 18:19:04 +0100
-Message-Id: <179372634472.2573818.17532943286609086157.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2561; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=fqTcKnieuf7JekGsRwrFzLg18sNZNXRDB3ktfvrRuF8=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFmvxLvWxKwtTKye09bOcqL677Xz98LyWeKzJO0s975wd
- 7Ja9XReRykLgxgXg6yYIksNd7X4O0mtL7Om69yGmcPKBDKEgYtTACbSsICR4VV9nuzFk3pBi2Zr
- S330mea5O3JtmtSmJXnzDHZHnFB9YMPIcPdp827jZbrejwUizdSOlxd4HP60etnkLR9Dtthb55w
- N4wMA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-cv75-gpio-v13-8-4f93114ea204@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> Google Tensor SoCs (used on Pixel phones) manage many resources
-> (including most clocks) using a Central Power Manager (CPM)
-> co-processor. We communicate with CPM using mailboxes, abstracted in the
-> cpm_request_client(), etc., API.
+On Mon, Nov 02, 2026 at 02:46:01PM +0800, Long Zhao via B4 Relay wrote:
+
+> gpio_regmap_unregister() currently calls regmap_del_irq_chip() before
+> gpiochip_remove(). That disposes the mapped virtual IRQs and frees the
+> irq_domain while ACPI GPIO-signaled events may still be requested and
+> while gpiod_free_irqs() still needs gc->irq.domain.
 > 
-> The clock tree is largely not represented fully by this driver, because
-> CPM hides most of the divider, mux, and parent details, instead
-> maintaining its own internal table of mappings for divider and mux
-> values. The one exception is for some of the DPU clocks, where several
-> clocks and dividers are exposed directly, and the firmware API works on
-> divider values instead of clock rates. I attempt to represent this
-> properly with dividers and parents, although I don't have the full
-> display stack running to verify everything yet.
->
+> Remove the gpio_chip first so ACPI teardown and USED_AS_IRQ cleanup run
+> against a live domain, then delete the regmap irqchip. Use the same
+> order on the registration error path, which previously leaked the
+> irqchip when gpiochip_irqchip_add_domain() failed after
+> regmap_add_irq_chip_fwnode().
 
-As you say, the clock tree is not fully represented here. Beyond that, CPM
-owns the clocks themselves, as the driver acknowledges by setting
-CLK_GET_RATE_NOCACHE.
+...
 
-The driver keeps a partial copy of CPM's state in the kernel:
+> Cc: Michael Walle <mwalle@kernel.org>
 
-- Rate tables below hard-code what the FW has (or should have) instead
-  of rounding the rate, even though there seems to be a ROUND_RATE_OP_ID.
+Use --cc in the command line for `git format-patch` or at least move Cc list to
+be after the --- line. This will reduce a noise in the commit message.
 
-- kernel handles PLL parenting and divider math for the DP clocks, while the
-  firmware can also switch them to what looks like the oscillator, out of
-  the kernel's view. So the math is likely duplicated as well
+...
 
-This middle ground cannot be kept consistent. CCF assumes it knows the
-topology and computes rates from it, but the firmware makes the actual
-decisions. The DP clocks already show it: the tree can report a parent the
-hardware does not use, and .recalc_rate()/.determine_rate() can disagree
-with what CPM programmed.
+> +#ifdef CONFIG_REGMAP_IRQ
+> +	if (gpio->irq_chip_data)
+> +		regmap_del_irq_chip(gpio->regmap_irq_line, gpio->irq_chip_data);
+> +#endif
 
-I would advise to follow a model closer SCMI. What you are doing here looks
-a lot like it.
-(see drivers/firmware/arm_scmi/clock.c and drivers/clk/clk-scmi.c)
+>  #ifdef CONFIG_REGMAP_IRQ
+>  	if (gpio->irq_chip_data)
+>  		regmap_del_irq_chip(gpio->regmap_irq_line, gpio->irq_chip_data);
+>  #endif
 
- - Put the LPCM service protocol (request word layout, dst_id, timeout,
-   error translation) in the CPM firmware/soc driver, behind a small API
-   shared by clk and reset. Philipp asked for the error helper on 6/9; the
-   whole request encoding is common, not just the errors.
+Now it seems a dup, make it a helper, like
 
- - Make the clock driver a thin CCF adapter: each CPM clock is an opaque
-   endpoint, and gate/rate requests go to the firmware. Get rates from the
-   firmware (round-rate op) instead of local tables. Model no topology the
-   kernel does not own. If parents must be exposed, the firmware should
-   describe them, as SCMI does, rather than the kernel hard-coding them.
+static void gpio_regmap_del_irq_chip(... *gpio)
+{
+#ifdef CONFIG_REGMAP_IRQ
+	if (gpio->irq_chip_data)
+		regmap_del_irq_chip(gpio->regmap_irq_line, gpio->irq_chip_data);
+#endif
+}
 
 -- 
-Jerome
+With Best Regards,
+Andy Shevchenko
+
 
