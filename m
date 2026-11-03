@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793742381;
-	b=MLGGC3+CoHBeKSEDwLpmIFS9ZDJvsuGRLIAobPC2dZBvHSVcPcQHTOSb3Y69tgMlD5Ae
-	 sC+iqfm9tIv0nNCIL/9dVoP/9Qhhk0S2C7PRAiRhyTXIeMf3pL8c3IHvY6RBUxkx57mXm
-	 cFGGCC+zNsBOKFztB+xC1jMnceFr4jS26zwqiWQ+eMM4cav80g7BwtIyDa/60EqoBlyX6
-	 gZGurxuhvC7AUZf1XQ6EeBDGqAMQYxpkHFw+tyjECVnbGb4AZoz5W6VqN7Ih/upR5l8/l
-	 B9fMMcohYDoF/aJscAK6P7Cuonh/+dVCgkrA1qL2MSJ6lh9ICvI8UHeG2bQ1uEYD3gw==
+	t=1793742424;
+	b=Uy+M8HCsUCIxZjOcVcPDjCxkbT1CKXAf9ki3QJxlGg73QzKee3iTniBp2/tPM2YVcpCj
+	 PaBTQEce1vCS8ODWCl2KEfz3FBSNJMXbmciMCL4a2YvsbAGEVnkkqZGj2DkS6l0MPeS8y
+	 9nUAlhfGf4x6j/Dud42p24+BaFZHG8G76X2EQG+FQsdUL9PB96Ua3Cf8EJrzr2NYsv8pB
+	 Jg2XWu1trpnnyknn67SsW4hXVzU6/g4USKrTE1SrVpR4LqlIRkL7WxvZm+wuZjb9hXdG0
+	 mh/pTGpxUqNDzkCThlC01W48NjleXQq8INvFXIEzeJZQHSVOk/xCc/Hv4NB6hID8K3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793742381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742424;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0DNLLjSttti2OQSih1kTXZgEXGm357f1EA6dDkr6z5I=;
-	b=CFNFCevAJD1q4KMaRviMj8TI+uTg1RkJQSz+i/IqQySY8tpliacaLhoxY1SAO/dnK1sj
-	 0GEzir7HpSNcfeS5/T3GfcopLiQBvBvU8QkFKbF2pf1G4Ir36t7VkEby+gWPRyEw6rCNW
-	 jm9mWUcC2xzHgaUTrqpCIjbjXbozNhQm6Kc2JjkXi4CWb6mBMfSW4/HL+WX24hEO7WRHs
-	 Fo2TI6qFCdjuQ120BOOVSU2icqwusI4RcBN7c/YBXrfl9/6n8We3Q2YhBvNVLKpyDhFpw
-	 QTSDW+C0b11YOP2eG3OSXRpJVIU6YcWEZqcbtcXzT3VjfHCbUFuAXMXxt9PR8tWg6kw==
+	bh=0qIMVRakx8MFE3+X6O+uiOk2xUDzs4Y5tphV+i06Ud4=;
+	b=pVASN6c7mPi2ZcMiUa1B8UyXsKS8HKUvwo9eFmHVvv/R3qEq9oaw0LnDrOeMwZ8DCpbE
+	 clYcJjdtN1BAn6ImlHq5o9HiSGd6esR2jgQZXhX9X57cYwJo0lRQXB8TsbPxz0Cy4KaQV
+	 3y36eXybKBt6TNGZUuFBYVn6rZZqEJRlgJxPGGDxRJgu7ILpc5elwEDg7meIQNl0SvHFQ
+	 QY+JpQDUw2/GZBVwBIqkiuJTmpbI1X5oGDX1VXHoRYaDOvFtSWmwM2Lya33uC3vd7LuXr
+	 xXqE/LI36esZMT3xYyEfNCpmEDRomPT2JhWxLnIlOKzMe5m0r55S6yclhTc32Q6Xl2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYwtomkS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrP6fJQb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C632606A326;
-	Tue,  3 Nov 2026 21:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A05606A31B;
+	Tue,  3 Nov 2026 21:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYwtomkS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1957A1F000C1;
-	Tue,  3 Nov 2026 21:46:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrP6fJQb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD4F11F000C1;
+	Tue,  3 Nov 2026 21:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793742380;
-	bh=0DNLLjSttti2OQSih1kTXZgEXGm357f1EA6dDkr6z5I=;
+	s=k20260515; t=1793742423;
+	bh=0qIMVRakx8MFE3+X6O+uiOk2xUDzs4Y5tphV+i06Ud4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AYwtomkS/1VYXxTOzT31d7QR4zUOKxpye6LygxNbHb+8Jj3nDdpgqbEOUrzn3Mx7p
-	 uCb7U6IX1aY9LOsrE65b1ZFk9Qo44PjPInFKyoI4NDpU2HXu3kTsZh1QU5Xe4lC1PU
-	 1rVw2GqHGlPPDvQJVeFVtTYGADyQFDhFJMY+r7u2f4XIABklH3AHpr0Mx90ur9Z37x
-	 sCu4wbZJTXUkHOJwYZhn5dW/3UKPEwCWGA5ITqitIE0lBh2osKwwEhCJBr5eoF+lar
-	 DciNd1tW33XQRgswy037GWTVgbpxIe+R2ASv/gbE5CPezX7x2OWhp02yTR8X6UQD2u
-	 KRt4hltnhLHZA==
-Date: Tue, 3 Nov 2026 21:46:15 +0000
+	b=XrP6fJQbEMevUrTsydlsPVLlGv7HAoO5QaCj+GegM3+0hNUUNIvkkgdh9OZKQQ09y
+	 OO1k2l2GiX67dVfoedyKZyy9szczuqj4MY3shuEtW5aet2pHS9lmQ5d2C7jyor97OV
+	 aW2WEyv7Ikv6cjwXNLJIRowhq9j0Z/o+zDu04dy95467Oxc2bxUBOpW72mvR3jI/iy
+	 ysYWG1U1WD6bgirOIg9FO4C8jT8wd3r3hdvjx8wtdrfCZAc/Iph+jEjFKf6OpznsYy
+	 xQZuCCcJ3CuSU4dS5nfnMbJ4vPWa3ZXerB6XO7DuLo/DqZqnGlLZqOGyhAxYA5TAKV
+	 sd3Vh7apqLXCg==
+Date: Tue, 3 Nov 2026 21:46:57 +0000
 From: Conor Dooley <conor@kernel.org>
 To: aleksa.paunovic@htecgroup.com
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -56,11 +56,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
 	Paul Walmsley <paul.walmsley@sifive.com>,
 	Palmer Dabbelt <palmer@sifive.com>
-Subject: Re: [PATCH v2 4/8] dt-bindings: interrupt-controller: Add MIPS P8700
- APLIC
-Message-ID: <20261103-palm-stand-5f54657140f7@spud>
+Subject: Re: [PATCH v2 2/8] dt-bindings: riscv: cpus: add gf,mips-p8700
+Message-ID: <20261103-synapse-posing-06a06f09a9cc@spud>
 References: <20261103-p8700-dts-v2-0-3ac5d49f2c37@htecgroup.com>
- <20261103-p8700-dts-v2-4-3ac5d49f2c37@htecgroup.com>
+ <20261103-p8700-dts-v2-2-3ac5d49f2c37@htecgroup.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,67 +70,61 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DoJrlLmBCVXxxwh0"
+	protocol="application/pgp-signature"; boundary="MZmL+98OJ3neLu75"
 Content-Disposition: inline
-In-Reply-To: <20261103-p8700-dts-v2-4-3ac5d49f2c37@htecgroup.com>
+In-Reply-To: <20261103-p8700-dts-v2-2-3ac5d49f2c37@htecgroup.com>
 
---DoJrlLmBCVXxxwh0
+--MZmL+98OJ3neLu75
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 04:11:28PM +0100, Aleksa Paunovic via B4 Relay wrot=
+On Tue, Nov 03, 2026 at 04:11:26PM +0100, Aleksa Paunovic via B4 Relay wrot=
 e:
 > From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 >=20
-> Document the aplic compatible for the MIPS P8700.
->=20
-> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-> ---
->  Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.yaml =
-| 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/riscv=
-,aplic.yaml b/Documentation/devicetree/bindings/interrupt-controller/riscv,=
-aplic.yaml
-> index 0718071444d29fbfa36283fc9666e8cecd6f77e7..9b986aa1a1c62316a1fd08fe5=
-35075111601b80e 100644
-> --- a/Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.=
-yaml
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/riscv,aplic.=
-yaml
-> @@ -27,6 +27,7 @@ properties:
->    compatible:
->      items:
->        - enum:
-> +          - gf,mips-p8700-aplic
+> Document the MIPS P8700 compatible.
 
-tbh, I don't like this because other devices on this "soc" are using
-mips,p8700-aplic and so I think this should be gf,p8700-aplic but I
-don't really care that much.
+Same comment here.
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
->            - qemu,aplic
->            - spacemit,k3-aplic
->        - const: riscv,aplic
+>=20
+> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+> ---
+>  Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Document=
+ation/devicetree/bindings/riscv/cpus.yaml
+> index 0da219ae6769767a9b7f41f179a3559ae7160d69..c7f1cf1db6eef5b25403d53bc=
+a7cffd9bc1f2240 100644
+> --- a/Documentation/devicetree/bindings/riscv/cpus.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+> @@ -48,6 +48,7 @@ properties:
+>                - amd,mbv64
+>                - andestech,ax45mp
+>                - canaan,k210
+> +              - gf,mips-p8700
+>                - nuclei,ux900
+>                - sifive,bullet0
+>                - sifive,e5
 >=20
 > --=20
 > 2.43.0
 >=20
 >=20
 
---DoJrlLmBCVXxxwh0
+--MZmL+98OJ3neLu75
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaupWJwAKCRB4tDGHoIJi
-0ouyAQDJ+wUgUc04yCoAMVTPXDadsJZrrjNC74GrjwNAVDDwBgD9Fdx4gjR/QuhF
-oaDNIvt0fRWflgAUJp7oXfdoMfO90w0=
-=b4BH
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaupWUQAKCRB4tDGHoIJi
+0jzdAP0QRFUSXCqY5Bx3PwIkHe8G4jQ4n++qQHiyt4ZrvklGjwEAq/J4pFCTTSSY
+OkWYe1RQ1q9IRpH+0wlrFRb7J/wsbQQ=
+=iO2t
 -----END PGP SIGNATURE-----
 
---DoJrlLmBCVXxxwh0--
+--MZmL+98OJ3neLu75--
