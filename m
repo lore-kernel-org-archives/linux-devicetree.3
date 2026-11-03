@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701978;
-	b=CZK891ri87mwQxxClYiOcoB1TPV+MawhVek5dEYGcynQItzcZcxJ/YW2BAddtfDI3Nr6
-	 MIboXROSUyAkNj7IAtQUxAqTcvW8GMXrOZ3Dm21n70TUKXygDexnA5XT3UIlgHVsGnLdT
-	 v41xF2BB7kuIU8t6cWH4nu43QGJ4vG7PnM7aabAAEfLMMVLVfHxBsj7xkfXm1tfDHdq+z
-	 n++buwejSEl/MHrS1U5hZEaGUk8SEqubsFDj3eLlIyxqWM0a1EMrLrQPpGghCsrFJK4/T
-	 JGtQ+4kdTS/G5aBEIZZF+sjM5lmgVM0S0xhE7K4cN/FlcfsI4hqMhqYkAy9sV6CS/yg==
+	t=1793701973;
+	b=46ohYhZahU2UldodWUAvd0jjiGlMhgFUPuzZztxYz+1riQBgB1fElCjUUh8vNzPlQw76
+	 ZtkA5iIIqfB80WO/TzlWPQp1+jtmibe+TkRQiXSdCBu7SFh1vtfL5UTdutfhKurHrUHC8
+	 /D5M+kyrOrPf9dnyEgOiBeR0aljNgpOodz65g3xENN6z/5QfoExtAzZDYSXBRwhbzvuI7
+	 eCsc6TUR8zu8zyBARJnNkpdDMGY5kmeu4sf6fLYVowTOa7B0SGsl1ktLbC/WMJq4deqI3
+	 cMdlyhvhhBL7jQxrI1wHrO4abXi0iZLciFsudKxGcMnpkaLNAZvtzGeB5lbpEI3bjcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701973;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=x+3g/2mTyBRtfyMD++fMo+Sl/wDkNbI3U1BEdaNY8aw=;
-	b=Rki8NNXKq8QO7ytHfqhWYZ0hUihdJwv3mJMGtYg7C2B6sVmqA0Rpni6IGXGvILI2Kfhp
-	 Kged0zarfMm7agAZ2zl6vOTB+ONPsZ6au41yMdqXKN9ks6Xl60239GtAV2nymWnZ7Yt/E
-	 658tz52B3W5ZWMtKo/wBD6R1HPHxpeSCWs76UuSE2hhWY/Fq0/yyhLKpaNrwGey0YzNyF
-	 Z21cqmC8LrHk+47TTSK7y+sQAlkOO4bNpqMbdhQXV5pVaUK8CUWyWaB/3ZS3P4jvHODbS
-	 87/I9O4Hyjq+gKQjQINXwCWoScwDs6Ktbl7HvPGBAODXw/3VPoaJykloz1pwwswnYNA==
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=l+qzHo5wRksBt7nGrTMUCyKL4/4CA96XgjMlVATDMkg=;
+	b=0cHHyGhlepTzVKsNBtTXqydYwyTLPveWP7MAjF7GUQ6WrUPdI6JXcCWswqBUkMvbvnTY
+	 NxE/oWr0Sou3G20VbqCpgDf3V8YAKxSquogKykd3aek6088aidHBTpsjJuvZRYm74uAzl
+	 HXsLu3hKrDM0M6rTiFGZhXOB13QxzfXHhaMLrHYnEetMSrrBlzLReONNN2CisfVvwwLnV
+	 +VJy4zcnNg5GVZwxVuiqUZ2xqKHq+Y+4V1LPErD4Ki0V+0G4q20iLkwH08/zQxPj5zOT7
+	 E43vifrdGV1LN4KDlmVGXZz/+RpZ78+FCqS+/n0xXlvpIgB1kO1j9m2CsKQqw06Xt6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=INbhnWRK;
-	arc=none smtp.remote-ip=185.70.43.103
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=YloxspST;
+	arc=none smtp.remote-ip=79.135.106.118
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F36C606D819
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 10:32:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F36C606D819
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11AE4606D803
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 10:32:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11AE4606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=INbhnWRK
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=YloxspST
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793701974; x=1793961174;
-	bh=x+3g/2mTyBRtfyMD++fMo+Sl/wDkNbI3U1BEdaNY8aw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=INbhnWRKGaTANqlclc4yMocKNvXRaTrblCW0SFw32HUjPzVim1Y564ubR8zNLoog/
-	 B40HaSo5HWvYD1Y3suTS5LhUR+KQBsHR7xJSniUmao9I2D4x06YcWdt2oqHYvUVZaD
-	 W5yXTQ0/HrgBcv2SB3426FggrMlvdwTGEvAQCdi9UVDnncwcQcs0vFiSQoe0JbO3MK
-	 X/u4ARQhjoGogpal2mKlumoJAyw5MZWPLyFuRp7t1UWbqvzwsYWWdfkHyF+UahRUBm
-	 oN1Po1ITNTHei2A3n3waYv34X2i0pPxCu2zhxiAjZzO+XUgNmKo0KQk/pMT7h7AlQZ
-	 JpWNpZVIUysSw==
-Date: Tue, 03 Nov 2026 10:32:51 +0000
+	s=protonmail3; t=1793701969; x=1793961169;
+	bh=l+qzHo5wRksBt7nGrTMUCyKL4/4CA96XgjMlVATDMkg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=YloxspSTIm37TD7mO4qlavAiCfvwduTfF2yKy81dPCoTDLNxIzHOW7FK76Q0Dq+R+
+	 FItmg3wJN1IzDXDBwiV/+7mziJ0Pv4ph83aKDBrq5/t2c+CvOxBFbbmTYoW2Qjs6Hn
+	 Iw6gZtvV1guEYDiFGmg87rP0qRZJzGywxf4qjUod0eiWmv76tZUE4Sw6Ka+wGijnbf
+	 EDQ9l/KIxpXf5ZsgYV6HLxN7AoEQcfGDEc/ZF9jUSW26eJvdhevAqAC+0eTiV54rRm
+	 FXDvKTwwopluKwvftiT03F5vWjbq+2rh/D4DnMv5oxAVxNw3xKb4tg8AIw6Hoy8Po6
+	 v/cSP0Fhwl9Ag==
+Date: Tue, 03 Nov 2026 10:32:42 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
 From: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
-Message-ID: <20261103103235.94397-2-lsa.uz@pm.me>
-In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
-References: <20261103103235.94397-1-lsa.uz@pm.me>
+Subject: [PATCH v2 0/4] media: Add the ST VD55G0 global shutter sensor
+Message-ID: <20261103103235.94397-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: a299268a7b54c60b9b1496298ec22c4e134592fe
+X-Pm-Message-ID: e6facd6fc030380132ad81c97d2f9ab9c4c7d10c
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,88 +64,83 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The VD55G0 is a monochrome global shutter sensor with a 644x604 active
-array, sending over a single MIPI CSI-2 lane, with the same supplies,
-reset and strobe GPIOs as the VD55G1. Its MIPI rate runs from 750 to
-1200 Mbps (UM2829, 13.1), so its link frequency starts at 375 MHz, and
-its I2C address is set in its NVM rather than fixed.
+The ST VD55G0 is a 644x604 monochrome global shutter sensor. It is the
+infrared camera of the Microsoft Surface Pro 11 for Business with Intel
+(Lunar Lake, IPU7) and of the Surface Pro 9 (Alder Lake, IPU6), ACPI
+device SMO55F0. Without a driver the camera does not appear at all.
 
-allOf moves below required to carry the if/then for that minimum.
+  1/4  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+  2/4  media: i2c: Add ST VD55G0 global shutter sensor driver
+  3/4  media: ipu-bridge: Add ST VD55G0
+  4/4  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v2: the VD55G0 joins this file instead of a st,vd55g0.yaml of its own,
-with allOf below required for the if/then, as Krzysztof pointed to. It
-is Peter Marshall's 01/11 and 02/11 of his vd55g1 v2 squashed, as
-Krzysztof asked there, with the VD55G0's description added:
-https://lore.kernel.org/all/20260918221705.323510-3-pm@petermarshall.ca/
+The driver is a port of ST's own downstream driver, firmware patch
+included, as vd55g1 carries its own:
+https://github.com/STMicroelectronics/vd55g0-linux-driver
+Benjamin reviewed it off-list before v1; 2/4 carries his
+Co-developed-by, and its clock tree is based on his.
 
- .../bindings/media/i2c/st,vd55g1.yaml         | 27 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 4 deletions(-)
+Changes since v1:
+- 1/4: the VD55G0 joins st,vd55g1.yaml instead of a file of its own,
+  with its 375 MHz link-frequency minimum in an if/then, as Krzysztof
+  pointed to. Benjamin's Co-developed-by went with the separate file.
+- 2/4: no code change; MAINTAINERS no longer lists a binding for it.
+- 4/4: the st,leds name and GPIO numbers now live in the bridge's own
+  structs, as the software nodes outlive the module (Fernando). With
+  v1, unloading ipu-bridge and rebinding the sensor froze the machine.
+  Adds the Surface Pro 9, which strobes from the same GPIO (Fernando).
+- Rebased on v7.4-rc1.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml b/D=
-ocumentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-index dfd87beba06..0245673d105 100644
---- a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
-@@ -16,21 +16,23 @@ description: |-
-  array size of 804H x 704V. It is programmable through I2C interface. The =
-I2C
-  address is fixed to 0x10.
-=20
-+ The VD55G0 is a monochrome global shutter image sensor with an active arr=
-ay
-+ size of 644H x 604V, programmable through I2C at an address set in its NV=
-M.
-+
-  Image data is sent through MIPI CSI-2, which is configured as only 1 data
-  lane. The sensor provides 4 GPIOS that can be used for external LED signa=
-l
-  (synchronized with sensor integration periods).
-=20
--allOf:
--  - $ref: /schemas/media/video-interface-devices.yaml#
--
- properties:
-   compatible:
-     enum:
-+      - st,vd55g0
-       - st,vd55g1
-       - st,vd55g4
-       - st,vd65g4
-     description:
--      VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a color o=
-ne.
-+      VD55G0, VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a
-+      color one.
-=20
-   reg:
-     maxItems: 1
-@@ -101,6 +103,23 @@ required:
-   - reset-gpios
-   - port
-=20
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,vd55g0
-+    then:
-+      properties:
-+        port:
-+          properties:
-+            endpoint:
-+              properties:
-+                link-frequencies:
-+                  items:
-+                    minimum: 375000000
-+
- unevaluatedProperties: false
-=20
- examples:
+On both machines the sensor needs Hao Yao's int3472 fix: the SSDB asks
+for 24 MHz, but INT3472 enables the clock at 19.2 MHz, so without it the
+sensor runs at four fifths of every rate this series computes:
+https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
+Its v2 fixes the Surface Pro 11. On the Alder Lake Surface Pro 9 the
+_DSM takes 0 for 24 MHz rather than 3, as Fernando measured, so its v3
+has to choose the value per platform.
+
+On IPU6, frames come out corrupted unless a CPU latency bound is held
+while streaming; that is the ISYS, not this sensor (Fernando, on v1).
+
+v1: https://lore.kernel.org/all/20261019162722.25587-1-lsa.uz@pm.me/
+
+Tested on the Surface Pro 11 for Business, on v7.4-rc1 with Hao Yao's
+int3472 v2, D. Manresa's ipu-bridge 1/2 for the unload test, KASAN with
+KASAN_VMALLOC, and lockdep, IPU7 run by the ipu6 driver:
+- probe defers until ipu-bridge has made the endpoint, then binds;
+- every mode runs at 59.14 fps, as the controls give, in Y8 and Y10 at
+  all four sizes and in Y10 packed at full size;
+- under auto exposure, exposure and the gains read back what the sensor
+  applies, and carry over to manual mode;
+- the illuminator through led_mode;
+- v4l2-compliance 46 of 46, and 54 of 54 through the media device,
+  with two warnings for the read-only crop;
+- unloading the IPU stack and ipu-bridge, then unbinding and binding the
+  sensor, is clean; with v1 it froze the machine;
+- no KASAN, lockdep or Oops report; the only WARNING is the ipu6
+  driver's lockdep_assert_held() at each stream start, as with v1;
+- W=3D1 and sparse clean; dt_binding_check clean, and it refuses a VD55G0
+  example at 125 MHz.
+The Surface Pro 9 entry is not tested here.
+
+Sergey Lebedev (4):
+  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+  media: i2c: Add ST VD55G0 global shutter sensor driver
+  media: ipu-bridge: Add ST VD55G0
+  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
+
+ .../bindings/media/i2c/st,vd55g1.yaml         |   27 +-
+ MAINTAINERS                                   |    9 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/vd55g0.c                    | 2434 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |   70 +-
+ include/media/ipu-bridge.h                    |    6 +-
+ 7 files changed, 2551 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/media/i2c/vd55g0.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 --=20
 2.54.0
 
