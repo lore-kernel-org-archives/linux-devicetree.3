@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739957;
-	b=Ok9Gf5bNeOepzSUcxST+qF9UbgyESMkn7Ec+RBH6BGUNGEW1S1kURgFQiwh13zTZx+xr
-	 5UQAIkxVZd124/Vc7FA2RcwkL0GlX1Yl3BmXfrOtrduOqbG9JVjuHOwNkOc8jy6KIKU7+
-	 /ReK+cLC2+nVfNfviCLeEMlZgxQhtn7AiBZFBcsFktTegH5kBXFoaUJDDhIk4OuzncSYI
-	 FqRufUsfPs9Q9j0RVJtSlfcePUjcyQbo082didCEa+816qVM5kjXVUPsTuiOJ3MLxWnG/
-	 ud6Tig5aPhXB/iC1j5oRUmTrwkFgyUzFHKCMaGaXujzP8sADyjt70CSShd4lk2ViBhg==
+	t=1793739958;
+	b=Gyk80YcvyKRSHgQyACdb/+KdQ+BemggfVll4839mw9X1QDOoOo4ALiKk1jTS9UAD9Xr8
+	 oUWqk+R6M+VINqH5lZWOSbusPOzJycPtTatMgP5h4Y2kE1M780EwOlB7GN15KKZNZ0Q40
+	 0jZ2f0enMRu/ICpf4qYJnvXnDmuqFlqFiZp4fjlCcYUC0VazLdY84zKYXTUra1m+8IU8L
+	 FiiPJdBFbae3cOsR3OSt+pYqJwJItrAqXLVbOIlMie4Rqhb2Tpdf8BqZGglgvTLBPUtxH
+	 vE0ClRrHbwD+cHFcuizvh1sAUIjhQADNiLTOj2T44eWYJrtIWKwr0fMP33INGGNBUvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739958;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AqZ+Q6+JQOnxenc3GUY9TdYd5SGi7vhfYzorexaHK30=;
-	b=CqeHi3hTMhYNAmaADM7Tvcb557yL4J7Hvukd9FUPUXDdXGw58rKEDFDpnNS3WgYLZC+u
-	 4M0d7yZIhKL/01cJglt/26VHhfqRD8vhEuw4I1dI1xTTeQerNXdVxhv3YWlmfKy+znlZ9
-	 +RQ7fXYrmy/Zsym4+j915DWmwDRbLQoVZ5um88XrQ+Xx+5ull0fuQXrq7l2oAC4g7TOH/
-	 iaHljEhgDGkQhQU9fJQF5IHwRO01ZQpHcMHBj/pq/hX8ptRyXfOzll22l/K2lzFAqgx0z
-	 s3MWKrEaXm8tm+3CzS2rgja7MFVlG088Yg2vESwhuNalNGJp8rlJTupQ/G0oyrhghiQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QI5qU1trTwZm0S8t5gCAWIJ9CPL9O0gAUfA8IjPCltU=;
+	b=PaiqVifCpBp9I4CpBadoIt7d6gIWTu4po6n5oBz6XkLaMG5fK5PX+b2XJRwCR1INaOsk
+	 K27eC1vfMdotpMzDKJwck8/0mnX0iub5iPoequyGyo6/K0P8c50RenccsG5YzHkrKxvp9
+	 niYi1hxdOwbkj05CwMzTWktoCAKw13y1eOmC1ug9KiqT6vX/vU/ip05bM/C5S95fh19M+
+	 HVrUt8Evk3iGag4j6F6+upfxBdQcLMjMUw6tpiWg2cqgDNRrc/9ja8F1kWyLM0fGGDihY
+	 WFct4KengYgump9LSsBgdn7ubqjcFdU8+mNTV+LcScW6GATmDydmt38cykQMmEt3OcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqpcUbkp;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OJuvyz3j;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC97606A32C
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 21:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BC97606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1041D606A332
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 21:05:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1041D606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqpcUbkp
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso16858f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 13:05:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OJuvyz3j
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df4f540ebso11400f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 13:05:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793739955; x=1794344755; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AqZ+Q6+JQOnxenc3GUY9TdYd5SGi7vhfYzorexaHK30=;
-        b=hqpcUbkpAbc76tLYMwSubgMXF8WGebDUQp9v+SdNEyl9bx6bjhb6ZGziJ38ALV0gfj
-         x2/0t9dh4kCwKszoNt4CMjwAXuHDzmb9923xIpKDa+Jb8Xn6/PGfYmHwn0/07q/yE1Ar
-         0iSnKpBtpxA0ftV6+W+cJJyxSddXbPNtdFeDQyjwVpPFi7mKmqHIezk6Ujm/Ah+2+ACG
-         LSqnc3P8Z/VpKlYrbXki5YY90EFkKgNbcIJQOD+4LUsxu7ShXa/1p/PRnKAzPYhwUT8z
-         /EnqEm+KF2ty8z6j9DRfJfOiPUHPR8x6kq7lRimB0fOrQajAW7dbyLnje5i9JEf9axIG
-         G6GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793739955; x=1794344755;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793739956; x=1794344756; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AqZ+Q6+JQOnxenc3GUY9TdYd5SGi7vhfYzorexaHK30=;
-        b=UvL0dDKd5QUGG1uUXwFQWeI/Ung1Q4auKoXuXPF4NGk0UNI4GyXTsrAenvTNEN9htd
-         vrbLGwDYWKaAnssL3K3hktNJmwANCOgLIbGRK3SFxX+4iCNNhsQMXCeVWY5GOf9bTvDc
-         i82tFR+uiiDBeoWsNOjKTLreTSgOsgaQCvEfvH4RwFLTdWf3SjzOc5KeV3jFH52TO24X
-         ROzBO2IGQ7oVslktHKb7TJSWP1FB9h7uhzp2TLQM/ozzn+1Q5XsWpGsd1K+pTtEBOVPp
-         LlN60PQugUQuQ60WPCg7BxADTUZccQkGST3o61nfaUYMFOvaOu/hOPjtHLvbAbIGOhnu
-         LQqw==
-X-Forwarded-Encrypted: i=1; AKwUvBznj0bGK/ofQXmq4A+YNoTjCrySrzt+IlImjj7kSdDMpGXRKnJccU4p5hBIUlEkF9Mz70LQ1HLhxXh3@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zZvBNE/VTCNjfc8CF42tKzYlqRUKGyBnDt/NhNq4YIEEhqTBf
-	eDZ1LZ5K/wXZ2/dUCBUN6MFwAqAMsUp0mU4uleMi7W/vKM2WLQPrf2Cc
-X-Gm-Gg: AYBFou2n/H38N/Hc042K9sogwqZibZSxtGvEExmEkDXej+3+8fU+wDL6NnYUdYjYuEU
-	A1pcIMugOrmyBcxKu0yKAJtH/oJ3OaVJoh/QbHEF2LPSDsvHFVOfpcfz2D2aRf9q7OIogH2UPwS
-	OK4wmSDu7wxtvjc6u7WFyA294SxI0cCU2kg8U8IZvMtYU9dsis40fbrIu9jsNzI4UnzdYAnrStr
-	a6jzYPLWBvbr2t5dXrAXyHdjlfaBDow4Yffife5BjIhtW1Rt989TLwd0dvL6+jrlG7v1PISLZDl
-	Y6ujz1QWphbpvo7ky5E/FvNR3r9ATEdHX++SXXAE91HSo86u5vNKcyxE398bMmfegPltoXM17z1
-	Lm6aUr1/sQUZkqFjzIikzNRlcdPQwQuH18lyYENp2CLYjqKLt80oUGj1PgT7UDyU7f0X3Hfsa9o
-	skgr0G/72fu4JP7Ee2/9yA3toUmrXWJD+azogVOJKvYAgK/WgGWm/i+TPwVa70DBgJzXG2shc/P
-	02M0hR/6J9loi+DQ+rzmmqDS5pHbHQU7o2CYjhR2KBzZDGsT6MK1xyKxzey1ezg+jUTLTmKxgJG
-	RAZCYTMQAISzfs0jRoDfPvJoHDAz6nRM98oZIR5tIM4opbFxVEKxdnFvW+uLw4r9Ic/RYUVlPBL
-	4GrCAjX4r8qiEbz+dU+bSrLk/zRpzNTOKR3KgLPHlrgALsjhVf7Hwkx8=
-X-Received: by 2002:a05:6000:29d6:b0:48e:3fc:e393 with SMTP id ffacd0b85a97d-48e6e2c2f66mr20419511f8f.6.1793739954927;
-        Tue, 03 Nov 2026 13:05:54 -0800 (PST)
+        bh=QI5qU1trTwZm0S8t5gCAWIJ9CPL9O0gAUfA8IjPCltU=;
+        b=OJuvyz3j70MjV8XQJoIom1Q/RGba1SDSh9oDkAGWqCHZJvRt79oJJ2dNRgEpZ15hHx
+         uSvh/CAjG0Rho1dTJn/GLNrpOw70dXusp2CcEOp40TMWvGOE0hbP8qaqjwuG7sVQAFYt
+         9gFWE3VP2/KiQf1DEc1Z+KAp7G1Rs12rKa8/ztgrJ6/z6TOq/m7aWcbpEGjkdhMjKALG
+         5vA90huOJO7qrWN20z3retMDkuDJZLYMlneIy5fQU8OG23qDiKOF4Wfk1rVNXf1q3Hcu
+         J3EeQqX5nMKG6S98M0pEm3ZgkzGWX6VT/FYs6hTwa0EEAhQ9JD+98CBTfCDj0DArg9aO
+         bcrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793739956; x=1794344756;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QI5qU1trTwZm0S8t5gCAWIJ9CPL9O0gAUfA8IjPCltU=;
+        b=jZ5Vt1VDhxYylYF5RWgIksmp1igtMbSdKcB4moBkr6PEQ9xii6uKhXLNOuVyFvpShy
+         58U2EGNXaquJ8vYtpnE+BH5doWbpl3wkSGlsGLuKZMEPvm0GaM4xTDjRnwQapTEko6vG
+         zSAFi9i63Hzf2qRRNaoPpmlpS7eUxS8uFIRhLUD2wLz533sgOMi5C61PKry/eGdYVXIZ
+         OuDgjVwom51mYHNGFZ+M5unAGAmfK3yMuHPB3DBO3KuwDlYTf8aa7scuXJr2ymnt1dOr
+         erh6yDC9ra2tqj8cZAtpLJVCQcA5AhpPp1rTqFTUuUsr72UEu39sKEoWGBMMC7+jkDzT
+         nu2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxSNg9hKe1w5C87yvpB6B8e8rW9bpgUMet0b4baaVsgyaLZrzdhoFt7UQRYZBkcQIdEuMwqJTZIibOF@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0IVvXWo1XC34iZbdynffSRywvDVgIexsN/4EmVCOxw54CboA9
+	QSIYJirFeLBVxFqENsGmtuMhCmxQBq1Ca51vg9KmytBeyO/6scdXBNwS
+X-Gm-Gg: AYBFou15ndpEs1H+PvDD5geqDfIMKsmNPwS/ozofsTYzoTAXRnNj/W96AchQbPNmdo8
+	bNLaEyG5bnr8xunLmWb0qoCeNfp/BCJHsj8uxLGRGJ2K26hknozj8Eeak3SG2JAxpf6Jyi45Oyr
+	1Rd0F8SCu4qw11LVdhfi7Tq5qZJv6HT2ygCH6jZ5fJz9RdXhs32F4BKZtJ2hIw5AVz5/4j1u426
+	cP2bEbwt50Be+oZvjEl1zYuAr1e5CaFaZOKmWArtdo8/EZc5KndW3q3H67YfgobNOyNBK+iRBts
+	0q26pVUmIkkI5B971plYkXE25hO5+r/QN59x+R/lgeFwBvM0qQfPPvWDhVcKbrEUf1Py478jNkN
+	zo33TpMGIyrUhuImqZIrX3ThUsxFF7HYgg5boW5luFSWLNxPH+ChFd+yxgvl3eUOgfRmYsL6WQv
+	GlG6CgVx5JuT+cWRicBDjiQ9NFEYY1j6A6GtmDqGUklN0kKECAB6OZS2R6zgqpt+vTNguJGM6me
+	AwKcgFKsLAWZgBI4HKtxQ8q3yNhrJnvjkfEn8n2AKpRNvoPgN51sOpWVoB68BRPRNYridaQkTWc
+	zIPoZ87ZuoCzKj6NGrIBlhZ6/+LWi7clQcW/p65gCVaB6TUmfEacmoBcA9qTz7txCUJ+gfB8dCl
+	dxx9dSDDE231klvRPfyTI2iSzbniUV2u3EQ==
+X-Received: by 2002:a05:600c:8b2c:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4ac150b3dbfmr345625415e9.4.1793739956406;
+        Tue, 03 Nov 2026 13:05:56 -0800 (PST)
 Received: from Ansuel-XPS24.localdomain (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fed553441sm41850f8f.43.2026.11.03.13.05.51
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48fed553441sm41850f8f.43.2026.11.03.13.05.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 13:05:53 -0800 (PST)
+        Tue, 03 Nov 2026 13:05:55 -0800 (PST)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Stefan Roese <sr@denx.de>,
 	Andi Shyti <andi.shyti@kernel.org>,
@@ -92,10 +93,12 @@ To: Stefan Roese <sr@denx.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
 Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v3 1/2] dt-bindings: i2c: mt7621: Document an7581 compatible
-Date: Tue,  3 Nov 2026 22:05:40 +0100
-Message-ID: <20261103210542.15965-1-ansuelsmth@gmail.com>
+Subject: [PATCH v3 2/2] i2c: mt7621: limit SCL_STRETCH only to Mediatek SoC
+Date: Tue,  3 Nov 2026 22:05:41 +0100
+Message-ID: <20261103210542.15965-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261103210542.15965-1-ansuelsmth@gmail.com>
+References: <20261103210542.15965-1-ansuelsmth@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,38 +110,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Airoha SoC implement the same Mediatek logic for I2C bus with the only
-difference of not having SCL_STRETCH bit.
+The same I2C driver is also used for Airoha SoC with the only difference
+that the i2c_reset should not enable SCL_STRETCH for Airoha SoC.
 
-Add a dedicated compatible for the Airoha AN7581 SoC to account for this
-minor bit variant.
+Introduce a new compatible for Airoha and limit the SCL_STRETCH only to
+Mediatek SoC.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-Changes v3:
-- Fix typo for account
 Changes v2:
-- Add ACK tag
+- Use match data for storage
 
- .../devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml          | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/i2c/busses/i2c-mt7621.c | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
-index 118ec00fc190..e6ea5bc1c681 100644
---- a/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/mediatek,mt7621-i2c.yaml
-@@ -14,7 +14,9 @@ allOf:
+diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
+index 0a288c998419..fa1f32d4f046 100644
+--- a/drivers/i2c/busses/i2c-mt7621.c
++++ b/drivers/i2c/busses/i2c-mt7621.c
+@@ -57,9 +57,14 @@
+ /* timeout waiting for I2C devices to respond */
+ #define TIMEOUT_MS		1000
  
- properties:
-   compatible:
--    const: mediatek,mt7621-i2c
-+    enum:
-+      - airoha,an7581-i2c
-+      - mediatek,mt7621-i2c
++struct mtk_i2c_data {
++	bool have_scl_stretch;
++};
++
+ struct mtk_i2c {
+ 	void __iomem *base;
+ 	struct device *dev;
++	const struct mtk_i2c_data *data;
+ 	struct i2c_adapter adap;
+ 	u32 bus_freq;
+ 	u32 clk_div;
+@@ -83,6 +88,7 @@ static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
  
-   reg:
-     maxItems: 1
+ static void mtk_i2c_reset(struct mtk_i2c *i2c)
+ {
++	u32 reg;
+ 	int ret;
+ 
+ 	ret = device_reset(i2c->adap.dev.parent);
+@@ -93,8 +99,11 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
+ 	 * Don't set SM0CTL0_ODRAIN as its bit meaning is inverted. To
+ 	 * configure open-drain mode, this bit needs to be cleared.
+ 	 */
+-	iowrite32(((i2c->clk_div << 16) & SM0CTL0_CLK_DIV_MASK) | SM0CTL0_EN |
+-		  SM0CTL0_SCL_STRETCH, i2c->base + REG_SM0CTL0_REG);
++	reg = ((i2c->clk_div << 16) & SM0CTL0_CLK_DIV_MASK) | SM0CTL0_EN;
++	if (i2c->data->have_scl_stretch)
++		reg |= SM0CTL0_SCL_STRETCH;
++
++	iowrite32(reg, i2c->base + REG_SM0CTL0_REG);
+ 	iowrite32(0, i2c->base + REG_SM0CFG2_REG);
+ }
+ 
+@@ -247,8 +256,17 @@ static const struct i2c_algorithm mtk_i2c_algo = {
+ 	.functionality = mtk_i2c_func,
+ };
+ 
++static const struct mtk_i2c_data i2c_mt7621_data = {
++	.have_scl_stretch = true,
++};
++
++static const struct mtk_i2c_data i2c_an7581_data = {
++	.have_scl_stretch = false,
++};
++
+ static const struct of_device_id i2c_mtk_dt_ids[] = {
+-	{ .compatible = "mediatek,mt7621-i2c" },
++	{ .compatible = "mediatek,mt7621-i2c", .data = &i2c_mt7621_data },
++	{ .compatible = "airoha,an7581-i2c", .data = &i2c_an7581_data },
+ 	{ /* sentinel */ }
+ };
+ 
+@@ -286,6 +304,7 @@ static int mtk_i2c_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	i2c->dev = &pdev->dev;
++	i2c->data = device_get_match_data(&pdev->dev);
+ 
+ 	if (of_property_read_u32(pdev->dev.of_node, "clock-frequency",
+ 				 &i2c->bus_freq))
 -- 
 2.55.0
 
