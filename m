@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722349;
-	b=IJyV/s0767XNNSSQklHOFhrQHNHVPiXr1ytRwsTuYp/o26tLkIr7a63BDcsKIBo1ikWj
-	 8W8W/1jQTBblQxZ+0RiE8Jp6BBAsUzz/ujHHE+pIxtEHGZ6ryqEcp6o5zixh5vPl4vBQg
-	 7bTbJ++nWnBdENTuyCOcWpNLjHC2MfmDFhUsD3xOuQ3/B+u8wdD95BZ5SWSuSQy/o3T0M
-	 c8FQ2AomSEtH5U3FVzmFddfMQPmgevG/Z3G0tgDZXH6c19NLiI4XjUzYMUGXDjJiDFdeq
-	 BIROa58x8cqwcaIF9gVaIfIrya3Gu+9ZPA4JWUyRVuvHT+zwmHTQrD02N2nJV6C8KOg==
+	t=1793722358;
+	b=Jcuq2dL11QtAZfmuRZ+GrEf4GVyqLpY0Bd0yRX6l+xGLB7gNBVwsPeWgqGU30/80HiLc
+	 sGFkzRlcXNuznIh0AP06/nfKpzyRIkxag6XlUX1+5+TThZ1ZdMMqY59ycwTyEU9ZdCQX5
+	 OxkThIMud54gQaSPgP39GN5myyGyYWVOjMrlTHQNN9PCxwbIqvVJAl4Qil9gnx8iMPu+o
+	 MAl5robxlUCZCJGFJVPeLXZHUfjj4DXhrs5JUWx351ge2sugGfBsn/8Ovn9t6qcgdVEeC
+	 f5jsTQSzwhRQRwQx03PYaiJ44Lo08fphhSHan9tb3SVcXum+RhTlgDxGNGQ4Z7Epy7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722358;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=k3wOXwT/k0LbDBrntawfvyLqtjKreuDEhwrYfhEh6/k=;
-	b=Kr2VGHqB6mH8anVQgupUTsnRy+b8hwR0Pw5HI0iBefEXhMiwQkl/IRy/56HOvkq7OTQe
-	 6a49pv7cFZcJjSaUCK7ruZYN6YyCgrdu47z4MwPJzjKYDsf0k9BayEwODKpxxPawPH3pE
-	 hIrUzGPynJIoz1ZGHTfiz0mP9vKbK1lbjLhCpxZjwzsSt4tx7/NImC7QNrT2WU38M2mzT
-	 CQL5wN7MoP7beqnqxB99rINQd0nQHTOf0kK/5ud3LpoqCfWltj67zwL+boDH+1KyToAaA
-	 DxOFW5sSeAGGZ5Io/ERJiLk6qt6BadqUO8eWTZmxk1XFQfXyYkdQcLAW6E3p6VTegTA==
+	bh=iU5C5/OkbP/mHfQmlmymeaJJHUTP1UrWfMP2HJrt0ok=;
+	b=dPDOo0JcjVXHpzRxZ9/jG65XIEKXJ0a8SB/851If5ZgOWsiGzw45C/xcRrbNkrmS6Y7B
+	 6NaqRADXvxE7JdGiHyX3ZQ86clPNXX34zm8nOj7C51x+EnGXNh+LMkcbImlBhV5o96L/G
+	 nJikfTL+pV6plV0Y/2hFG0GK+onoKqXwkBOa9nOeT5+vWGH9RX16IlQuGJQq/YwHwkqkr
+	 ky0O10EQoAzm69V3l+fLlkR4H+EMrETwVUKlryaldFo67Su9KTKzKS0xkbfUBf+O8SbHP
+	 uOM/Y5Io5nJ/QF6GpZrEYv+TCNfIYIckvAJrULF74ltsPccRjp4QJnRr8HMfV5HcpAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=beagleboard.org;
 	spf=fail smtp.mailfrom=beagleboard.org;
-	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=tutmjVCb;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=K2xPQoGs;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BB6606A335
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:12:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BB6606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718A4606D803
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 16:12:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 718A4606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=beagleboard.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=tutmjVCb
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-353804b591eso7504266eec.0
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:12:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=beagleboard.org header.i=@beagleboard.org header.a=rsa-sha256 header.s=google header.b=K2xPQoGs
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a2761c69fbso7461052c88.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 08:12:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=beagleboard.org; s=google; t=1793722347; x=1794327147; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=k3wOXwT/k0LbDBrntawfvyLqtjKreuDEhwrYfhEh6/k=;
-        b=tutmjVCbafnKZ5xd+rUmHojIuJviiEwrd6OnDwB1Fa2khQDZJtwC8eG0R06a869fIc
-         aVumRSRA+CGPl+cqnNBoN90OYx4GAszZdLxC/jU13RmIF5+W1BOZpLBV1O3C3+x/MJv4
-         VAMQEiF7yWx6SLoeKoJTpMIoohd3nehS4/1dg5q4+qpbpw0x2jc3T2flHAQWyqT8hXqc
-         5r3CiIv5HbUvl9IRQEZrxzYHLMrBzzZxX5jXhF9og/hxjAvO9WgbjM5qhRMhjq2FOT/R
-         UVnV7s0aJ5Q4jvXQ4m8ohgCGJls+Q5SRgPKOUjHWtTvLS3fHq+UGNTkXIuH1cg+uMKKO
-         BMGg==
+        d=beagleboard.org; s=google; t=1793722358; x=1794327158; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iU5C5/OkbP/mHfQmlmymeaJJHUTP1UrWfMP2HJrt0ok=;
+        b=K2xPQoGsHLhY0/0ukrvjtUpDmmWht+hhyNK/lzr4qmXaw7b+2n1UIcWKoWsngnuFLn
+         MNnPH1UurYIgOmXZxm+Ao5ewmR/C4ZRriLk8Bo4hPhsNjQ64LsQfRH66lLYpQZud/UB0
+         uZ144T8z8OtxXX5p2/FAC/zlFJHx0JvUd9JPiS7ZjHLgobJ4fKSqMjOxep93Qd8Mj7Tf
+         pevX9Dpt8sab0n8umGdq1yL0S1TzmfJ1P7Y2HL0byweKy1p65HJBiGe343mV+nfY5+Qt
+         XzzhTgL86fuxQrL+ExoJMwP3fat5Eu8zdw+m7PZifAdA+/X5uk7SxOvRWdlKOI9hWScZ
+         47Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793722347; x=1794327147;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=k3wOXwT/k0LbDBrntawfvyLqtjKreuDEhwrYfhEh6/k=;
-        b=eYIIHrnvEYJzP6PMwGkiQAsWbxBaM/EBVunVrZtQwt/N+AVZQCJ0+lA/ETrmrpfA5g
-         y6RlYrlUWJYrRCRp3u1ADOBtRhBw1Yna1oc2dAx85C8eCAOwgJAqe4xVEFdca30fYOF1
-         e+U4Ad8Z9paekS07jQtiTMF2RCPw0sMk2DkYpcHR24RSMMTY//1wDtebkHz7emyD/9IK
-         La0fnInSuVYl2GholxBQ6swSuzLX/Zzb7mrhlRBt1yTX0MFwmj5ehyccz1EW3vqNNpFv
-         MUna9jKsnq21TWjRIJqcweQRxrop2f8jWBxLTKHlUG0C38CilmE6aPhnx2GS7gTOt/0G
-         8t8A==
-X-Forwarded-Encrypted: i=1; AKwUvBySaRDfhUNEa8QGAUi4BMLZw2G3V196bOyc+C6hcAJj2Nm6JEOeaWRXMSSOQYylUSxAfBl2JzdRml/I@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FqNqYR8f4z6M6Cgq96N6y2wWSQcTmWl3eBgm2b9zZe4j4Hj9p
-	LDwEPqIdzPaPQDnkQTjCxQap0uX+hV5850UmriE12/QqOFfYItjZ3wKRW5os1KOBrw==
-X-Gm-Gg: AYBFou3m4quJvmP6MzjOqF22KpcMDbRoi1iax7+ajGJicrD2HYZT39mTqhqN5oc9+8V
-	jREt8i9KL8Ev6A8aUH64k3GEpeHndUjCCBjNyfrQRGmXpb9azJcujHesAM/AJoL/V7bcV2d1dHQ
-	PcWLtC6ISnMrIOp26L+trJktpEqfFJLOtFOo+gbwoOtiwF9e8m4ds9L7V/vVAvKuTnVcqrOI9Mp
-	BzGb/PkwR5Y+/MWYHK40IV+tR4ykxJGUPS+gjPt2KnQdHylHP9Z8vfMbsfpL3fTcZ1ySuhdxSBG
-	nxUiZrxE/jWfZW+jwR2i1nzMXN3nta3vGefblUfA/VGR2p6wpH1ncs5ZFgTFk/8LrWmzoS72YIw
-	mYxqwfOoU8DYUlnAlKqCURJARw5Qj3XOjqbCzrxPZC4rlVxXLiTthsfJGvUvCDR0hCRvLcuvGal
-	RxetoY/x8XDGQmfUPbDcPmGRCHeLJfiTj8hk+5fSOL6FP9b0JNT4UfMbvqUdfEasHyVVmv54+F3
-	XX+4q3zTI2YUvmqxWfUCYyOYUvxT3cgsZlznzwDCD/mL1z3oc/apWzcUvZPRNXGYy4jB2eP8sf1
-	Fgnob0uk9zyiepr03boGTEHMynQGcQ37DAXYySoz9tJUU1rBihHll96+EgIGkw==
-X-Received: by 2002:a05:693c:83dc:10b0:365:d42a:f415 with SMTP id 5a478bee46e88-36a423454b2mr22770760eec.12.1793722347185;
-        Tue, 03 Nov 2026 08:12:27 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793722358; x=1794327158;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iU5C5/OkbP/mHfQmlmymeaJJHUTP1UrWfMP2HJrt0ok=;
+        b=PxPr4mMBaULVFkH99t5dJgxMOZPGa6fpmeSZ4Pux1QD3ZPKdNJetGiSy8fymI9FCbn
+         rjVwPrB53kJtK2EFh18sbZMomU1vNTHFjk7NQPPshG2SgGB7LzZrTG6YlAoMk7bm7IS9
+         YGjtcU2qh2yhe2t1jtMNRxxDB/vxd1uawvoXi4QuMcY2BGvblXS63YGqHDfFH8rYk4LM
+         koDnaIYIf/fkn9jdG3aYWExL6alqjsbJxR/gMkLZV1EDrrsnIH2DsQCrDPbvRSu+Ujhg
+         PG08hFp4BZyCPMpZZWkMntXsydMd2VOqWxTH6jwRgF+tzwohoIPmdqBXAc1OcX29FQ4s
+         GdXg==
+X-Forwarded-Encrypted: i=1; AKwUvBz71slwSaXztiiiod8sigLf0IFLDF0UOdqlZwVrhKJvuR+pOdzQtFblfKt+w2ZzuEa7xSsIdL/rRUe7@vger.kernel.org
+X-Gm-Message-State: APuU4Z94I0UXp7mNTiJG7xvoUxwaSv3E2iFtZ4xs3hw1k9XP6QdU0e6q
+	mztGGUpOyHdZPqzsXf6FqTfUD36Yuhj9hWZpNJq7yAnVdXI9EF792a04IlgyX0jymA==
+X-Gm-Gg: AYBFou3WRtc02wkil2LrhOJ5fSg7MbKwuqQFJlC/hRDZsvklXvVF3jakYOUe83+mBOV
+	r4vrAglhwUhZ0wkFbVCpTmQLfcjeuPJenB8G7IUYdXCQKKlmS6Co0vXteeaNIKW0+x14R1ZbjA+
+	90sPuqTHQfL/+k4b19gNDeoEAOzAOYyXpMfeGOjKoVVr/UB1LH4srzTNaRh52ivj0QLUr9sTei7
+	CLsvk2yPZR5qjFgJNZyEi4aaXFziNGyAElmnycD8xxILstn9t8jC7vh4fX6Hj++2EusvCp85kwI
+	EVw00wA7AoNviRvWp0gRNPafbZ4tuS2cV789jL1Rr/B8qMSzgdjb2fvBGHaKv6zlTUDq/9naLJg
+	FF08iw09kbjmqpeRm234pVEDRtDKW4/2S3L601Own/5qOSeTQmYRGJpiZtH9WMzsIRABWSRa6/5
+	B/6Gh1voFSNo+sO9HEfbnerdBZvBYWsnMRUrreZ/VHRCMZ3Gu3GQTiKLnJnVmTC+RkzUX6Ir7a0
+	7VHe0Sj6ossro/j69wErhH0CLQ4QJVjeAFPbCOfU5lWKQJLmuIlP9fZ8ZoWcYH3mFp6uWFfRekT
+	mlV1YJEcpM5mtKiR2/zF5U7qhD0U2b8BepC1cdLP
+X-Received: by 2002:a05:701b:4250:20b0:1a3:f368:5a41 with SMTP id a92af1059eb24-1ac5ab53a12mr22895531c88.20.1793722357340;
+        Tue, 03 Nov 2026 08:12:37 -0800 (PST)
 Received: from [192.168.29.54] ([2405:201:4019:32fc:3c55:6b24:5147:322b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm47214021eec.6.2026.11.03.08.12.16
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm47214021eec.6.2026.11.03.08.12.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:12:26 -0800 (PST)
+        Tue, 03 Nov 2026 08:12:37 -0800 (PST)
 From: Ayush Singh <ayush@beagleboard.org>
-Subject: [PATCH v5 0/9] Add Greybus Sotfsvc and UART Node drivers
-Date: Tue, 03 Nov 2026 21:41:47 +0530
-Message-Id: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
+Date: Tue, 03 Nov 2026 21:41:48 +0530
+Subject: [PATCH v5 1/9] greybus: operation: keep request active across
+ message_send
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,12 +95,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTWrDMBAF4KsEraugGUmxmlXuEboY/dgRFCtIj
- kkIvntlU0og6m7ewPtmnqyEHENhx92T5TDHEtNYg/7YMXehcQg8+poZCjwIA4IPlt8oT3zKNJZ
- rqtMnau0PWndOOVZ71xz6eN/M81fNl1imlB/biRnW7a+GLW0GLjga9ASKbGe7kw00fAebKPt9y
- gNbzRlfna7lYHVISGuh17310HbknwMCZMuR1THgBRkCcv0//6gXB6HlqOo4KYwLBsEr/e4sy/I
- DuCidCpABAAA=
-X-Change-ID: 20260810-gb-uart-transport-9255d6557c4c
+Message-Id: <20261103-gb-uart-transport-v5-1-f8e326d6561f@beagleboard.org>
+References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
+In-Reply-To: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
 To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, 
  Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -122,229 +120,100 @@ To: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com,
  Markus Probst <markus.probst@posteo.de>
 Cc: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
  rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
- devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>, 
- Conor Dooley <conor.dooley@microchip.com>
+ devicetree@vger.kernel.org, Ayush Singh <ayush@beagleboard.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10414;
- i=ayush@beagleboard.org; h=from:subject:message-id;
- bh=Un+JeaoO5nO0A9iuuQpHYPf5wnPRYStXrfDeLtewjmA=;
- b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq6gffJCf0b/EqQOpxLrbuuTe3NhD7a1SSw7JvZ
- lw8kq9Iq+6JAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCauoH3wAKCRAFzvXHieVa
- dD67EACKfk6XiXD58HxSF+y6CsNtxvs0y1I27VMtCmCE+voKUv5LnKyONvWAIAKKqkdmbZ1WnLE
- Wz2je7a/Irzs2cXqE0uquRPdK5UchkX/HXZrx+IvP0EckD+0DeefWut/p6vhGPovZKwLyUoPXrr
- 7sVY4ZBS/PxYlQXOVINkmHZ9ByRVWpGbVDDKPN5Ka5TRl0YDQoEiqMOaRFwNKec2An+Yup5L0mo
- Fg9l0SoxLJJLz92qMr+D0mf3nY8bMpRW6GYvgt1Q2Y44SbWqwcO0PtUwhIZPRANzl9O7gsdbWd4
- 80TDAt93fhPxge/4z91HyaU5pnspPmSRT3qYb3+rNdOpUpTyt5Ce+cyWtcLnXqMiYkudWqk6wml
- IUA3bSgncoHNlxR7tFIHWtb0H+1m5UVzb8lg2PG/uQKNT/3LtWfBh8PW8iKqkB1Fr1x/jRPb8tl
- 0mgdlc+H359s8ECRoz7VD9QKoy5kK8osSZd+KwtgACy6b2czAK4HUZ9zT3KD9aEy1n0vBjSDcRW
- UkETlXL3OM4CLQSZa7anyy79QuslTLPf9R6c5LGKdS/aG0rEwK91GH/878SbRNtEkM8rDQaTah0
- iSLlAe5Xr/7QvJYvJxtnngfhgFMMVicASgt5wkxyOubDiEmeQssLeUoX5nNbkql2SXZwE1eT6Dp
- +UQVJhZLgJNbnWA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3228; i=ayush@beagleboard.org;
+ h=from:subject:message-id; bh=MvQe+DgFaMcXzVZSj9U2FX8VhW8LyI+3Lsz78olAE4w=;
+ b=owEBbQKS/ZANAwAKAQXO9ceJ5Vp0AcsmYgBq6gffz/rGgZ8sp30AZYi986laH7YSeSBXVTilB
+ ukuAIzPEzqJAjMEAAEKAB0WIQTfzBMe8k8tZW+lBNYFzvXHieVadAUCauoH3wAKCRAFzvXHieVa
+ dL6pEACrdLRShuNWiKfcXdCjwJA/AflYkX9lIZJoKIjBwygV6p7PxfzCab+742ZWiEHUjWk0N4S
+ lKnMIkvnpjfAmZUXyXH3rBgLlXpm4f9GLNpSfkPg42HqHOxLC8R5d2Y1taoIsv42TY12AmL+S0K
+ D2hZ0/BU3zcXc3Ae8SsYTn4nfygkIAPJmiNpCskhIVHWm3yF+zAoeH97GwekIgdq2YuBVsk8TI1
+ Z/ORgE2WyAS9uRW3QhR1tRML/V1gIY/Hyv92Bq1OawyLxAk/B5IFqzlXnwR17KTgeaWOvnJP829
+ DT5ejPyfV27Vqce3hPR5DEdZObwg4tDK2+7lkFxb8djzEEqD17Zflz0ri7oVXhEWyFmoETkhJ2e
+ 57WDsX+Ng6yhzvCNU8wP8Jz5oFN2fGjf/2PloOSIyK0JANFXOGSg+fWmzMwK+GqINXtaVPh5Nuh
+ k8EmcmEx/ekoHswneZYQh4rJkIFQoeRkHuqPYhoQfd1ix6h25wl/xrWmNjNoJIY9LO+cnrRPoew
+ FiFODQJRMOGa+FllGe2ZBwG+PH1EPkmt1A0RyMEjuDUF7HHuqXIlnAMTOJ55QZvwdZRG8cm5oWu
+ SlvdM3qeEpaEWMuuAFqCjPFkifOtL+S5KkHsEvlbqH2xo1is2aa0Y8u02goPVtmXXou0ZzxqeZr
+ Qp4hOGX/hqlRDzw==
 X-Developer-Key: i=ayush@beagleboard.org; a=openpgp;
  fpr=DFCC131EF24F2D656FA504D605CEF5C789E55A74
 
-A Greybus network needs an SVC (Supervisory Controller) to bring
-interfaces up, assign device IDs and connect CPorts to the AP. On a
-UniPro network the SVC is a real entity on the bus. On transports that
-merely carry Greybus messages - a UART, an I2C bus, a network link -
-nothing on the wire plays that role, so the SVC has to be emulated
-somewhere: in a user-space bridge (gbridge), in coprocessor firmware
-(cc1352p7 in gb-beagleplay), or open-coded inside the host driver itself.
+gb_operation_request_send() takes a single active count, and completion
+drops it. This would be fine normally, but in case of cancellation (in
+gb_softsvc context, this would happen in module_removed), completion
+(gb_operation_work), can drop the active count, while message_send is
+running.
 
-This series moves the emulation into the kernel and makes it shared.
-This was discussed in a prior RFC as well [2], but to keep things short,
-removing the need for an external SVC greatly simplifies the greybus
-network setup when nodes are directly connected over common transports
-such as UART, I2C etc.
+The core does call message_cancel before dropping the active count,
+but in most normal circumstances, cancelling an operation that is
+already writing over a protocol (UART) is not really possible. So we
+are only left with making the core wait for the said write to complete
+instead of making active count 0 while message_send is in progress.
 
-    gb-uart-node          gb-softsvc              greybus core
-   (transport, serdev) <-> (SVC + host device) <-> (bundles, protocols)
-        NodeOps            module_insert()
-     submit_message()      module_remove()
+The patch takes a second reference and active count before the send
+and drop them once it returns. If the connection starts tearing down
+between the two calls, return 0 and let the cancel complete the
+operation.
 
-gb-softsvc registers itself as a Greybus host device and answers the
-SVC-side operations the core expects during interface bring-up and
-teardown. A host driver implements the NodeOps trait to push data
-towards its node, calls module_insert() to announce a new node,
-submit_message() to hand incoming Greybus messages back to the core,
-and module_remove() on disconnect.
+Since it took at least me a while to truely understand what the initial
+sashiko-bot report meant, here is an example:
 
-The first user is gb-uart-node, a driver for Greybus nodes attached over
-a plain serial port. Framing is HDLC, with a one-byte address (0x01 for
-Greybus) and control byte, followed by the 16-bit CPort ID and the
-Greybus message. No SVC firmware is required on the far end, so the node
-can be a bare microcontroller speaking Greybus - a BeagleConnect Freedom
-over its serial link, in this case. The testing is performed with
-greybus-zephyr [0] implementation.
-
-Both drivers are written in Rust, which is why the middle of the series
-is abstractions rather than drivers. Only the APIs these two drivers
-need are covered: protocols.rs abstracts the SVC-facing parts of
-greybus_protocols.h, and types such as Greybus Interface do not
-implement AlwaysRefCounted yet. The intent is to grow this as more Rust
-host drivers appear rather than to abstract the whole subsystem up
-front.
-
-Patches 1 and 2 are small C-side preparations to the Greybus core:
-exporting gb_connection_get()/gb_connection_put() and adding
-gb_connection_hd_find_by_intf(), a lookup by remote interface and CPort
-id for callers that only know the far end of a connection. Patch 3 adds
-a CRC-CCITT abstraction, needed for HDLC frame checks. Patch 4 adds the
-Greybus abstractions, patches 5 and 6 the two drivers, and patch 7 the
-device tree binding for BeagleConnect Freedom.
-
-Open questions
-***************
-
-- gb-uart-node imports types from gb-softsvc, so the series carries the
-  Rust-to-Rust cross-module calling setup from nova-core [1]:
-  gb_softsvc_exports.c plus the Makefile plumbing that emits crate
-  metadata and generates the export list. This is a workaround for the
-  build system not supporting Rust cross-module dependencies natively,
-  and it should go away once that lands.
-
-- Connection create/destroy and interface activate/resume in gb-softsvc
-  currently just acknowledge the request. Callbacks into NodeOps can be
-  added when a transport actually needs to act on them; I did not want
-  to invent an interface without a user.
-
-- Zerocopy is currently not being used in grebeybus/protocols.rs. They
-  cannot be derived yet since types generated by bindgen do not have
-  them, and it seems explicitly forbindden to manually impl the traits.
-  So using old traits from transmute.
-
-- The bindings are supposed to be created for actual device, but any MCU
-  that supports Zephyr, can run the greybus-zephyr firmware with UART
-  transport. So not sure if adding a beagle,beagleconnect-freedom
-  compatible is the correct choice here.
-
-- The individual patches can be spun off into independent patch series
-  if required. The reason for this single patch series is to provide a
-  complete picture of usage.
-
-- Since gb-softsvc currently is not being used from a C driver, no C API
-  is provided. However, if required, it can be added.
-
-- Writing to UART from gb-uart-node is currently a bit broken. I am not
-  quite sure what the safe way is to go from a non-bound device to a
-  bound device. Any suggestions on this front are welcome.
-
-- I am not sure if Rust abstractions should have a seperate entry in
-  MAINTAINERS with me as the maintainer, or if they should just be added
-  to the respective subsystem entries. As mentioned by Miguel Ojeda
-  [3], this is upto greybus maintainers. So waiting on their inputs. I
-  am available to be maintainer for the Rust abstractions for greybus
-  if required.
-
-[0]: https://github.com/beagleboard/greybus-zephyr
-[1]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc977@nvidia.com/
-[2]: https://lore.kernel.org/all/ecca8eb2-8e5a-4770-bcf6-3fb49773088b@beagleboard.org/
-[3]: https://lore.kernel.org/all/CANiq72mA6pTmPJUk8g7y3Z=wetFMXdzHLiPEPChpY4OTg3OHiw@mail.gmail.com/
+       Thread A                     Thread B + worker                  active
+       ------------------------     ------------------------------     ------
+  1    get_active()                                                      1
+  2    gb_message_send()
+  3      GbNode::write() ...
+  4      ... blocked                state = DISCONNECTING
+  5      ... blocked                gb_operation_cancel()
+  6      ... blocked                  result_set(-ESHUTDOWN)
+  7      ... blocked                  queue_work(completion)
+  8      ... blocked                  wait_event(!active)  [sleeps]
+  9      ... blocked                [worker] gb_operation_work()
+ 10      ... blocked                [worker]   put_active()   [:292]     0
+ 11      ... blocked                  wait_event wakes, returns       <- too early
+ 12      ... blocked                gb_module_del() returns
+ 13      ... blocked                [softsvc] Module::drop finishes
+ 14      ... blocked                serdev port closed, unbind done   <- bad
+ 15      write() returns
+ 16    return to caller
 
 Signed-off-by: Ayush Singh <ayush@beagleboard.org>
 ---
-Changes in v5:
-- Remove AlwaysRefCounted impl from Interface. No longer required.
-- Fix invalid comments.
-- Fix interface drop in spinlock.
-- Impl AlwaysRefCounted for hd::Device only in normal context.
-- Match the bus device struct defination in device.rs docs.
-- Return GB_OP_PROTOCOL_BAD instead of ENOTSUP when encountering an
-  unknown message.
-- Fix possible race condition in SVC module removed. Flagged by
-  sashiko-bot. Involved, ensuring that operation_cancel cannot drop an
-  in-flight message.
-- Fix timer leak in a greybus operation.
-- Check write_all return.
-- Return E2BIG when frame lenght is exceeded in uart node driver.
-- Link to v4: https://lore.kernel.org/r/20261021-gb-uart-transport-v4-0-c308ce821d45@beagleboard.org
+ drivers/greybus/operation.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-Changes in v4:
-- Remove gb_uard_node::GbUartNode::unbind. Suggested by Markus Probst,
-  since write is still valid after unbind.
-- Add inline attribute where suggested.
-- Remove patch 1. No longer required with modifications to the old patch
-  2.
-- Increse hdlc max buffer size to 512 bytes.
-- Send module_removed request before removing from map.
-- Also do not hold lock across interface drop.
-- Link to v3: https://lore.kernel.org/r/20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd60..a63bc2eb164e 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -766,7 +766,25 @@ int gb_operation_request_send(struct gb_operation *operation,
+ 	if (ret)
+ 		goto err_put;
+ 
++	/*
++	 * Completion can drop the reference and active count above while the
++	 * host driver is still sending. Hold another of each across the send, so
++	 * that cancelling the operation waits for the host driver to return.
++	 */
++	gb_operation_get(operation);
++	ret = gb_operation_get_active(operation);
++	if (ret) {
++		/*
++		 * The connection is being torn down, and the operation, which is
++		 * already on its list, will be cancelled and completed.
++		 */
++		gb_operation_put(operation);
++		return 0;
++	}
++
+ 	ret = gb_message_send(operation->request, gfp);
++	gb_operation_put_active(operation);
++	gb_operation_put(operation);
+ 	if (ret)
+ 		goto err_put_active;
+ 
 
-Changes in v3:
-- Fix incorrect email in MAINTAINERS.
-- Make CONFIG_RUST_GREYBUS_ABSTRACTIONS depend on sysfs like
-  CONFIG_GREYBUS.
-- Fix cleanup in hd::Registration::new in case of errors.
-- Fix comments.
-- Fix Msg AsBytes impl as suggested by sashiko-bot.
-- Use SpinLock for intf_map. This should be fine since we need locking
-  only for getting the interface. We do not hold locks across operations.
-- Properly drop message in case of buffer overflow in gb_uart_node.
-- Link to v2: https://lore.kernel.org/r/20260827-gb-uart-transport-v2-0-a03bb1f5fbd1@beagleboard.org
-
-Changes in v2:
-- Fix possible null pointer dereference in
-  gb_connection_hd_find_by_intf. Flagged by sashiko-bot.
-- Remove prompt CONFIG_RUST_CRC_CCITT_ABSTRACTIONS Kconfig symbol.
-- Add CONFIG_RUST_GREYBUS_ABSTRACTIONS to ensure that greybus is
-  built-in for rust abstractions to work.
-- Use gfp_mask in message_send callback.
-- Only provide a Message reference in message_cancel callback.
-- Add invariant comment for Registration.
-- Call Registration->add directly in new, before constructing
-  Registration.
-- Add Send and Sync bounds to T in Registration<T>
-- Set endo_id as 0. Is not used anywhere.
-- Fix module_insert intf_count. Was hardcoded to 1 by mistake. Flagged by
-  sashiko-bot.
-- Check for empty intfs slice in Module::new.
-- Remove module in serdev::Driver::unbind instead of on drop.
-- Make gb_uart_node write atomic. Using temp buffer to build frame.
-- Fix import style.
-- Reorder beagleconnect-freedom dtbinding patch to be before gb_uart_node.
-- Add vbat-supply and reg properties to beagleconnect-freedom dtbinding.
-- Reference spi-peripheral-props in beagleconnect-freedom dtbinding.
-- Link to v1: https://lore.kernel.org/r/20260820-gb-uart-transport-v1-0-282da14ab7b7@beagleboard.org
-
----
-Ayush Singh (9):
-      greybus: operation: keep request active across message_send
-      greybus: svc: add gb_svc_flush()
-      greybus: operation: arm request timeout before sending
-      greybus: connection: Add greybus_data_rcvd_by_intf()
-      rust: crc_ccitt: add CRC-CCITT abstraction
-      rust: kernel: Add greybus abstractions
-      drivers: greybus: Add software SVC implementation
-      dt-bindings: beagle: Add BeagleConnect Freedom
-      greybus: Add Rust UART node driver
-
- .../beagle/beagle,beagleconnect-freedom.yaml       |  62 +++
- MAINTAINERS                                        |  15 +
- drivers/greybus/.gitignore                         |   1 +
- drivers/greybus/Kconfig                            |  35 ++
- drivers/greybus/Makefile                           |  50 ++
- drivers/greybus/connection.c                       |  47 ++
- drivers/greybus/gb_softsvc.rs                      | 533 +++++++++++++++++++++
- drivers/greybus/gb_softsvc_exports.c               |  15 +
- drivers/greybus/gb_uart_node.rs                    | 270 +++++++++++
- drivers/greybus/operation.c                        |  29 +-
- drivers/greybus/svc.c                              |  14 +
- include/linux/greybus/connection.h                 |   2 +
- include/linux/greybus/svc.h                        |   1 +
- lib/crc/Kconfig                                    |   7 +
- rust/bindings/bindings_helper.h                    |   2 +
- rust/kernel/alloc.rs                               |   6 +
- rust/kernel/crc_ccitt.rs                           |  26 +
- rust/kernel/greybus/hd.rs                          | 391 +++++++++++++++
- rust/kernel/greybus/mod.rs                         | 200 ++++++++
- rust/kernel/greybus/protocols.rs                   | 445 +++++++++++++++++
- rust/kernel/lib.rs                                 |   4 +
- 21 files changed, 2152 insertions(+), 3 deletions(-)
----
-base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
-change-id: 20260810-gb-uart-transport-9255d6557c4c
-
-Best regards,
 -- 
-Ayush Singh <ayush@beagleboard.org>
+2.56.0
 
