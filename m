@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.158.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793748669;
-	b=RQfz5sdy3S3hVB5tLSh0TQfH6v2vM8w5wGk7H57bQHJkvOACYXY6jLOt2gVhmEsbpWda
-	 e8JxvMu8i3vuC3DsJOkFe6+uDu813ZWoxY6iEGRe3yUZsKMh9JJcXfDzr8sJI4WhqOOC3
-	 ADyMPtW4wH0bLS6sVdcz1BC6y0eyX5o8VmtxnSl99w1t4Kits5fpa1RgdI649kR30w8bl
-	 Rd7iDrQ++7zrNBVBqnEXA+nLVUQeudcozZ9JU7XJNqsGvFnI5cIzvs/TvGuukmDGhe7L5
-	 xbgBm5oujjiq2n/rxDuSaTtsBnZA8IFEXQfwlMvtJV7A2u66BNQOt5zSdLj5B8NuVEA==
+	t=1793748673;
+	b=3YEIyQoHtPysHOK8r8OR1yV+Fza6xw7aOe1JlT5FRWNYHwxPE04EJ++9v9KgCXzJkaDR
+	 l71t1DUdlAP5XS4wLJqIVmevcGh5Z0PrAi5efDa0PVarCFOuW+IC9xTwfO2wdMa2Fih2V
+	 ZA67x03hQqhh0HConPg9a3YpamT43L2XZSoryCvvxMQIN0qgy8ysI89CscU1FBJgN8JVA
+	 I34oGWqjjetJzovmwVHgG8m8pF5DbqQrrQj+95GUHyFy3YD3gm0AcbdweIyiKHCA8nC6A
+	 ZoXpixaBgOUtBTOamKgc0gnITLDd9u1kFYM8GsKTwXl1F40GmlUBjcDOWklGBZtS39Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793748673;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=1cQv5Yv37SP3AJ6YiCsdOAK5DnVQSQnvJ0pajJfDHMc=;
-	b=jPhIbePwE3Q+VVcYVF1FrARDyChKDaGnEL7p5uuGCTwLvzpZlB0C4zwExzuN08LOp7ZV
-	 Nd+gzJWbXbXS9l0l4WyogTFT/lHJPdYWQj1hCQEgvGLcY1J0i+PGieaND67DCIKPWFg29
-	 +JyHRKTn9aJKxl21VROIShhMzwYFFildTho4h73GY+n61aI3duga9ZmwNRBd6aoG0nhhB
-	 wraaEakbSE/VK6++/q1s2m+/8E/xU6zWT+gaizcpNFGWypmS9ug9D+9zrXhRgQHPmC4FB
-	 72bPAMofGvWhScr1gNyoZLVFgMhF1QAqxsTofecNJzZnQzcArTtDr1VV1KElMNuaBtQ==
+	bh=/1t78VH49OICnCMyo1z5frvTtIlLEj9iqkcrMPmsj/E=;
+	b=UVUBhpwulmPIXmlsvLaOYhgxj3Qy0f2dMnm+havC+l9oxKqGjhHvgrTHCUp6M8xsNDmy
+	 eTgWoFWnuD/wAtBgo/GFyt2aQ4o32imCFtJKdP6AotYCZdZKSG3x9FAb5OS2zAuUXIOas
+	 aPTev83Za8Aru60ZpYkB4EjObbkWDESioPHRUW0iaHb7JfkJO+eK2rJbrSQOex4goiEU4
+	 3AasK/J3Rtn71gGwPzlzBsjQOJzcxEDCvrf6sHd8fFI66uGv0g1hmag+bkQXKaoGu9i71
+	 2N3DNnXEMBen7scloZAP/0X6LflZoGlYz9bceScuNt6/+O+5o0UkCIqmFxV68L+PXWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=Jcw+Xkp0;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b="n/7q6u22";
 	arc=none smtp.remote-ip=62.149.158.101
 Received: from smtpcmd02101.aruba.it (smtpcmd02101.aruba.it [62.149.158.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF93E606A338
-	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 23:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF93E606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C838606A32F
+	for <devicetree@vger.kernel.org>; Tue,  3 Nov 2026 23:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C838606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=Jcw+Xkp0
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=n/7q6u22
 Received: from [192.168.1.237] ([94.34.125.0])
 	by Aruba SMTP with ESMTPSA
-	id ONxyxz48a7fl5ONxzxPxAP; Wed, 04 Nov 2026 00:30:59 +0100
+	id ONxyxz48a7fl5ONxzxPx9u; Wed, 04 Nov 2026 00:30:59 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793748659; bh=koGz70JWkwxpofy4HnBzQDpBS7jXm5AMZsYlOif0cqo=;
+	t=1793748659; bh=WRkBwj9Lh4y4B90qy4T7LLf3UBUQstNlJd97j2Qv8fA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=Jcw+Xkp01IzcrLUJRT8HyNcLOLEADY0rF8an2a6NkkvFIDMx3H1cdldxXUPPHYf/E
-	 HATXxvvUtuccDAccfViY+nAFtRuWomXOwF8T3QeV+wa5mpEfWVJyTs6apDhFB982Xk
-	 L8Y2Qc9aZdHk9hb1kenM+jpGoqCm2bcFp4QsL6b1AZVaQ2sYka8MOaxwgKirmY47x6
-	 E3QceB0KrAdAYIxdXYcLOSViQzuo0zR7M/sw9iYCNjre82GqJPyteZKXBC3q1A2l+t
-	 vCHYpqWCqKw7DMxUts4M8gA+jEHDOJlvmnSZBp+CEYghoVbxB/zpZaKfRc5C1c9Ci1
-	 lRATCujBQWdlw==
+	b=n/7q6u225h+0SYOHAB3KQakjVvV9yICT5JyroEtMnt2tewKaMFrIvXhNAahojnvFO
+	 Tpvq1BBUb12sSgHQ6OFwa+y84bxJZFMxyX/mzuYKQjSPhcYylBJ+E+IL8SlEmMaaRJ
+	 6oit6w6zMogA8ySLiB1M5SyxIY8Cxgx0EJVeXZ3IOcqafzAFeilG8aRrz1t1VIpSM3
+	 eJ0B7BAor273NwgaXMeUIdr+dvS8hI34YOXI3mZ7Ug9ImoRExBjsPHooYE+LM7j2Ux
+	 BT43a8XSQrL3sCgZnYrZwqtkvPygfV01dR/mk7zUTwKmAH0oMAY1WSZY7xvFlr1XOH
+	 OeulKHLsoD06w==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Wed, 04 Nov 2026 00:30:59 +0100
-Subject: [PATCH v3 3/5] bcma: scan: accept wrapper-less cores on
- wrapper-less backplanes
+Date: Wed, 04 Nov 2026 00:30:58 +0100
+Subject: [PATCH v3 2/5] bcma: scan: support big-endian backplanes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,7 +59,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-bcm6362-wlan-v3-3-e46562b2ac12@mythread.it>
+Message-Id: <20261104-bcm6362-wlan-v3-2-e46562b2ac12@mythread.it>
 References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
 In-Reply-To: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -82,54 +81,57 @@ X-CMAE-Envelope: MS4xfCGfJlQk5zHd5tl9/+3/t67H4T9ssLhpKRSdEehXV6IsMyUJNHfeWsrfsRr
  kM6QpSpcJtnpbWmdYHjYgP75YpanYkw6Dvrflog8Zs27Kz7Gndxy1FJVs/bmVWca1HRoQjFlI3rigDUc001ddm+N8cUEBdjLsqxpJAx6tMwpRQkS3L4LvrOO
  NnyL2XfWfOhgH/r1vvyVZ+7vPV/rA+ikJLiXsd5ZQTB/YYauvSTk8ynqAgGKaZsyTKjdy+mTwzFcV9s+T/ohEnqCfprfXEzlJtAvrZCTa4DWYw==
 
-The scan drops every component that publishes no master or slave
-wrapper in the EROM (NMW = NSW = 0), apart from a few known cores,
-because without a wrapper bcma has no agent registers to gate and
-crash. Since usually bcma is loaded early, it ends as a loop-crash.
+On some SoCs the bcma backplane is a big-endian peripheral, so the
+ChipCommon ID/EROM pointer registers and the EROM itself read wrong
+ with readl().
 
-Some backplanes, such as the integrated WLAN of the BCM6362, have
-no wrappers on any core. ChipCommon and the 802.11 core are gated
-through a SoC-level register block owned by the host driver, whose
-aread32/awrite32 ops emulate the agent registers, and core 0x837
-needs no gating.
+Add a big_endian flag to struct bcma_bus, set by the host driver
+before bcma_init_bus(), and use ioread32be() for scan-time accesses
+when it is set. Core register accesses after the scan already go
+through the host ops, which the host driver provides with the right
+endianness.
 
-Add a wrapperless flag to struct bcma_bus, set by the host driver
-before bcma_init_bus(), and accept these cores without wrappers when
-it is set. Other hosts keep rejecting them.
+Nothing changes for other devices.
 
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/scan.c       | 6 ++++++
- include/linux/bcma/bcma.h | 2 ++
- 2 files changed, 8 insertions(+)
+ drivers/bcma/scan.c       | 4 +++-
+ include/linux/bcma/bcma.h | 3 +++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/bcma/scan.c b/drivers/bcma/scan.c
-index 983a62ddeebb..ef880b635971 100644
+index 84742408a59c..983a62ddeebb 100644
 --- a/drivers/bcma/scan.c
 +++ b/drivers/bcma/scan.c
-@@ -318,6 +318,12 @@ static int bcma_get_next_core(struct bcma_bus *bus, u32 __iomem **eromptr,
- 		case BCMA_CORE_GCI:
- 		/* Not used yet: case BCMA_CORE_OOB_ROUTER: */
- 			break;
-+		case BCMA_CORE_CHIPCOMMON:
-+		case BCMA_CORE_80211:
-+		case BCMA_CORE_SHIM:
-+			if (bus->wrapperless)
-+				break;
-+			fallthrough;
- 		default:
- 			bcma_erom_skip_component(bus, eromptr);
- 			return -ENXIO;
+@@ -143,6 +143,8 @@ static const char *bcma_device_name(const struct bcma_device_id *id)
+ 
+ static u32 bcma_scan_read32(struct bcma_bus *bus, u16 offset)
+ {
++	if (bus->big_endian)
++		return ioread32be(bus->mmio + offset);
+ 	return readl(bus->mmio + offset);
+ }
+ 
+@@ -155,7 +157,7 @@ static void bcma_scan_switch_core(struct bcma_bus *bus, u32 addr)
+ 
+ static u32 bcma_erom_get_ent(struct bcma_bus *bus, u32 __iomem **eromptr)
+ {
+-	u32 ent = readl(*eromptr);
++	u32 ent = bus->big_endian ? ioread32be(*eromptr) : readl(*eromptr);
+ 	(*eromptr)++;
+ 	return ent;
+ }
 diff --git a/include/linux/bcma/bcma.h b/include/linux/bcma/bcma.h
-index 7ab2b21e7238..5dcf877e2872 100644
+index 17fc50190014..7ab2b21e7238 100644
 --- a/include/linux/bcma/bcma.h
 +++ b/include/linux/bcma/bcma.h
-@@ -365,6 +365,8 @@ struct bcma_bus {
- 
- 	/* Backplane registers, EROM included, are big-endian */
- 	bool big_endian;
-+	/* Cores have no DMP wrappers, the host ops handle agent accesses */
-+	bool wrapperless;
+@@ -362,6 +362,9 @@ struct bcma_bus {
+ 	/* We decided to share SPROM struct with SSB as long as we do not need
+ 	 * any hacks for BCMA. This simplifies drivers code. */
+ 	struct ssb_sprom sprom;
++
++	/* Backplane registers, EROM included, are big-endian */
++	bool big_endian;
  };
  
  static inline u32 bcma_read8(struct bcma_device *core, u16 offset)
