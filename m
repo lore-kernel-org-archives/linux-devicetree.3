@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693710;
-	b=B2CxG/OUXTWQIIpM2TFE2hDDRfRjrpQcgYXR2Aw4KnAsl17RJ5yprdPenb48KX7wOeJN
-	 SsN0JQI4h78dOWX/bOcbIGxQG5KxlYWpnP30bv5vrHrBN8rcrwD7c5nhyp8YFC24XakLE
-	 ecnZftx83Q3/lSXKkPc1lpxyGCjBpKnFN7+04DGFJbxtwNzRZuef4iwi6LtyMxhwUm4LK
-	 u3wUV75w4fd11WR8/E+m9wSmOgNBfHVr7gaKbB1QDZnvxYa/QlzTvM5UlmqG7GXJ+wMfn
-	 WYE7bOGEBiZHftRlpTFblf+X5EiqFBS3X/YbBaDrj3b4YnpuHq931+0VDPfFNwpZVww==
+	t=1793693712;
+	b=aP2RBMi+sgSExI1RcexxErSy8jcVHCCdTbc87jR6bG+MUqJOT7NyW3Flv8MaTgWYzlyU
+	 G/Cs+rFH7rNPMLI1j2MkQAMRWjGsH60V+P8juU8Jipue9uCjTPbxFhtAKTh71ZdL3Bnm+
+	 0M2b27Jt8dyUxpa3Oz8k59I4dzVNugKnAhnAPUSPzZ+K3D+jAeRmhl8S4OdeWsgsKtNSK
+	 lD++3Xg8e9aqxg4QYABiq3fvoBwJ3TNqVniH3bZvoFdEDhdQP2qvDeJKx8L1bgr8ezunM
+	 XCiOLVUY3YMP+q0fr2YDAB+Fz8CvxN15wT1lmDTAjAa3CyhbgLuRiHIpKtGni+GXmAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693712;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=TONs+Q/DijSR2FXVzY4H5fpiXv+7PHbmWchCwxnjqw0=;
-	b=cM55LZM1o9aCf8uhmlzlBqPMBnbD8a4pwFMTy6IaXpYs5glr3rR+yTyx5Q9un7WP2RyF
-	 NaavicFo9zlWRnZphV0yi5sW+MKGdeX+9lxlMBhBcKK5/EWaG5M6M71IXeuRzNZ1iYqNM
-	 w7k+16O4cg/ec2hDwJs+6Q89v3tWkRl7pJ9QBDxSXXvxa/q2K5HMWFyD0CNxYRvJTA9eY
-	 AGDDv7qLFc94eZkyhQAdtXy3o/z4SHhrE5Ye1atxlB6YtvGHRBJCuv7MQKFbFim3ueD6R
-	 Rkh77dPoibxVODfBUiPEwktKj1oUjb8MFylvuL4W0KrkLzGegYGHB0rA/4W6nVBOIww==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=BliLsDRj4BVefHY0apAlXatRGt/1Hw6rKHjbEQ5OtPA=;
+	b=gA6SrxDm3eNNoU2RZoi0t6mZqvKm8fJEkleHVflTvJqVp5IUQEYeFJ2qM6SGsTdgHMdm
+	 QtMsM4JBPdeSqi5bkf3r3UFz0K1SVSSIUXjvoXmgLgjnK4HvX4VRlyC4od1SnAzrMkqvw
+	 x8X6D3Vv2SaiHaJfNYa7CkIP6o1xxKPOVK/OOOAldYNnimQybRKIRzhbD3hhsAIBP6Yrt
+	 DipWAbOj97ZSxa9DMPUc+2TrWHD7XfB21VsMQyvK3/BjlGMx1ww0fGXz94WoSVsNHtwAk
+	 QXTk7fuHaqdecXrw7wUp4S2ZcEBSUNJTGqyh4UYxJQGf378GH6KWotgEuSI4t6wXYfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,14 +25,14 @@ Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9B6606A330;
-	Tue,  3 Nov 2026 08:15:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF9B6606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7509C606A332;
+	Tue,  3 Nov 2026 08:15:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7509C606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.98])
-	by APP-05 (Coremail) with SMTP id zQCowABH4LX3l+lq3fQ9AA--.19826S2;
-	Tue, 03 Nov 2026 16:14:49 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowABH4LX3l+lq3fQ9AA--.19826S3;
+	Tue, 03 Nov 2026 16:14:52 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -49,11 +49,14 @@ Cc: linux-phy@lists.infradead.org,
 	linux-riscv@lists.infradead.org,
 	Icenowy Zheng <uwu@icenowy.me>,
 	Han Gao <rabenda.cn@gmail.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v4 0/2] phy: add support for TH1520 USB PHY
-Date: Tue,  3 Nov 2026 16:14:42 +0800
-Message-ID: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v4 1/2] dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+Date: Tue,  3 Nov 2026 16:14:43 +0800
+Message-ID: <20261103081444.1983071-2-zhengxingda@iscas.ac.cn>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,44 +67,130 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABH4LX3l+lq3fQ9AA--.19826S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZw4xWr1rXF4rAr1fGFWUCFg_yoW3CrbE93
-	W8ZrW7Aa1Duas5GFWjyr1xXayjyF4aqFykJF1Fqry3Zrn7Z34Yv348uF13WF4kGr45GFn3
-	J348ZF18ArnrKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-TRANSID:zQCowABH4LX3l+lq3fQ9AA--.19826S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxurWfuryDGFykJry8tFWUJwb_yoW5XFyUpa
+	yfGr1ftwnagrna9w4fJF10kF1fKrs5ZF1Fqr17Ww18Xws0g3WFq3sFkr15ZF48Jr48ZFW7
+	uFs09Fy2kF17Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4
+	IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48J
+	MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aiiDUUUUU==
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-This patchset is split from the "Add TH1520 USB support" patchset,
-with only the PHY binding/driver part.
+The TH1520 SoC features a Synopsys USB 3.0 FemtoPHY with some custom
+glue logic configuring PHY parameters.
 
-Icenowy Zheng (2):
-  dt-bindings: phy: add binding for T-Head TH1520 USB PHY
-  phy: add a driver for T-Head TH1520 USB PHY
+Add a binding for it.
 
- .../bindings/phy/thead,th1520-usb-phy.yaml    |  75 ++++++++
- drivers/phy/Kconfig                           |   1 +
- drivers/phy/Makefile                          |   1 +
- drivers/phy/thead/Kconfig                     |  12 ++
- drivers/phy/thead/Makefile                    |   2 +
- drivers/phy/thead/phy-th1520-usb.c            | 179 ++++++++++++++++++
- 6 files changed, 270 insertions(+)
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+Changes in v4:
+- Finally added Conor's R-b.
+Changes in v3:
+- Re-add avdd33-usb3-supply to the required properties list.
+- Add reg to the required properties list, as this is a MMIO peripheral.
+Changes in v2:
+- Lifted avdd33-usb3-supply from required properties list. Because of
+  this the R-b from Conor isn't added yet for reconfirmation. (The
+  related regulator isn't yet controllable because no driver is
+  available.)
+
+ .../bindings/phy/thead,th1520-usb-phy.yaml    | 75 +++++++++++++++++++
+ 1 file changed, 75 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
- create mode 100644 drivers/phy/thead/Kconfig
- create mode 100644 drivers/phy/thead/Makefile
- create mode 100644 drivers/phy/thead/phy-th1520-usb.c
 
+diff --git a/Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml b/Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+new file mode 100644
+index 0000000000000..0d2494a71b2bd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/thead,th1520-usb-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: T-Head TH1520 USB PHY
++
++description: |
++  The T-HEAD TH1520 USB PHY is a Synopsys USB 3.0 FemtoPHY glued with some
++  custom logic to configure PHY parameters.
++
++maintainers:
++  - Icenowy Zheng <zhengxingda@iscas.ac.cn>
++  - Wei Fu <wefu@redhat.com>
++  - Drew Fustini <dfustini@tenstorrent.com>
++
++properties:
++  compatible:
++    const: thead,th1520-usb-phy
++
++  reg:
++    maxItems: 1
++
++  "#phy-cells":
++    const: 0
++
++  clocks:
++    items:
++      - description: PHY bus clock
++      - description: PHY reference clock
++
++  clock-names:
++    items:
++      - const: bus
++      - const: ref
++
++  resets:
++    items:
++      - description: PHY bus reset
++      - description: PHY reset
++
++  reset-names:
++    items:
++      - const: bus
++      - const: phy
++
++  avdd33-usb3-supply:
++    description: |
++      3.3V power supply for the PHY, named AVDD33_USB3 in the SoC pin list.
++
++required:
++  - compatible
++  - reg
++  - "#phy-cells"
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - avdd33-usb3-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    phy@ec030000 {
++      compatible = "thead,th1520-usb-phy";
++      reg = <0xec030000 0x10000>;
++      #phy-cells = <0>;
++      clocks = <&clk_misc 1>, <&clk_misc 3>;
++      clock-names = "bus", "ref";
++      resets = <&rst_misc 6>, <&rst_misc 7>;
++      reset-names = "bus", "phy";
++      avdd33-usb3-supply = <&avdd33_usb3>;
++    };
 -- 
 2.56.0
 
