@@ -1,110 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793723373;
-	b=iVBaLEXRazY93WPGr1UentlnqfqWLofcAinI4fjGTf2+EByOQdY002qrD0MnT9PLv9V8
-	 5+1vWAKnV2623wK8rSumsuU9N1+kUA81sOZm8kRvoaK9Bz7UYvTuMum7NA3J8WUcYJc6g
-	 lwgW77+N1AVMEWHAQBBCtZ4Qjij7+fFiNoA7dGfRwLFEKTF8XyVr81WDaMUvqgzH78LWm
-	 SWPvpJpUWgk0012L3YA2Wy62j7WJFq486MYDqBiWE+ben6B0p7jPBnVGLQI3tDzGgZSBU
-	 T9UszzV9dX3Ync3JUnu+D0rfJ5srbcm3U2TMqWi5MSXAvIxQaqd4giy1j34kjns9G/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723373;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
-	b=xrW4rLCEi1aHAST27v2Cl4R+/TrzFvqcMwjuxKKbkytc3e3PjzVuwbCe1NiSJmiegsI+
-	 s7GlVmoVpssqtyi8RO6kgkW40vU6IPoi93Oy15UzGqUPvy1T+lWFqjFsJHYWoyhR3kjlk
-	 o4/QI6ruv2ByIHZSGqT9gXHqPdeRvGHtxkWwS31srAZrbPKZt/svQKFauECG9w6Grd7g3
-	 R8wI1BcreKxlBUWfmYv1xzhyYwmVI95JZ8Mtj9ZsLmnAlYKwL3fp1yi3wbCtbF+VmWLrj
-	 EVf1HgTnKJ5Oehbl55qTnuNghqnsmaByX3LO7M+Lp5/MUxbbszyt/gmQoZQfZkiaNzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oSQtlEHv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.33
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010033.outbound.protection.outlook.com [40.93.198.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793723406;
+	b=ia97ftczXAveBuh21PVqygfqP6LadlEZqOlSHMZXg3CiGc8vtCn4A/FBcuHNNyN51fHP
+	 iK7Zwd3/WJXkZYamsZWjV1Aaj1vdgT5VMlExyiQNfOZw6SBqMYfrsV/CZd05KF/SCQOgO
+	 Rwu9pBv9dPV9ALbyjOriWJJGnB38WixLGm278MJsU0+acOKHVOIyUMyjn9zQOyfyowTOI
+	 5LiXOA4gvqvyRMoMWC4l8vUycbLQxlCIVkQwtnYGd5FW7UeK5KkXceNV9r35ISHktAlJp
+	 7NHJpwRqrqKHaMU88yE1jfOnuuHR57o1D+3PnSDlhZLaom65XQLaKMVyZwQMULUTBhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723406;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Hd9PQQ8ozOYSKti/kNoYNT++gNKLWkbtNoIAA4opdCA=;
+	b=HungH1gcpS//WoXhKUCYGQgm4ppEjwmZYUHDD9buUjW8iULN9ud6L3TTFHNDSwSPXziC
+	 ozgnzqRPkIndCnWbPAfvmh6EwWExT/4x173NBpdMJDN8t29DRC+dmAmP7NiUffkDYXyEJ
+	 uWqi7lP+5X1nJkkgMRPFsf7kJFYnwX+OE5aDFkbWnzRDKZN1WhgkrCiZip5Pt1sK+QYAd
+	 AcQmuyewqx+xAFG5YJ8bR/MgkxZotE5fbMTrIvY26jeYmauaICQ2LX5dDiQbcVAwsV33r
+	 G850vY2xWw6u6fjH4tdYQQG4kgs4sVmzEpZ9ZtxIeuUJeHz8rrc+B6qPsKF7WNEb4ZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUDG7NQ0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99524606A328;
-	Tue,  3 Nov 2026 16:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99524606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A27E606D803;
+	Tue,  3 Nov 2026 16:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oSQtlEHv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iZ/CP4lF1yI/NWFk8EF6P4c9PHdgiz+tCW7wiRCgCL/ZapCGKfTBBgiKESCMVZV0rhNoctZ9rLvi2gWQoghhMhN4AsIKAwNPkWpnUACZDXmhkJZVzoNnuLjYtiIl4/SYx4lbDd8YA+wK8lJYVYBKgZCuQJNP5nBpvXPCk/7itbPikceVlgf6Xz9MWdKrzehAoD96LVNDdNZaDP9Rsiae05/XIOwlV3bfWzC0lNba1EV9rOX3Y7Hvawq+dFlRlB+f1oLWU5MgY9Yf2Z4rT7Q/yMJAwxzUCr7T1H+XLuYjt5/5f8kwtlVcnjdOBiL2MKt8HEE0/op+3WTRiW1+KWORMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
- b=vjInhPqiHu37AFiPgGAWMJF3Lnpn9GqtFMtwpHt2rMSSTJ2nyzPZ5rJJ1ZTHIV/yOS9wf46Ru9xiEU6iWnkQEn8/CRCdT85y8L0fMgAg0Zza/KvZPWluYzsFbJZXqbjmZKcNYxfTiW6eKJ89gK3XntCUsWiFQPxsng+S4tuEiY/Yo/N0wIabB8KSD9gBusYagekdTe1F3v5zXoMIMvP3MS57TQ73EIQeQqRCLsLR854UKg6IxhgHFQPxDyTFcdHFCLa/nOth8zOzvgPvD1EqjR+/878nsS8s+kba3UKqa23CX7Q9cvNzhN89hEG1+s5SwIBrrt/LP7Wx6O1zvc5/KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3im34LmcRYA+cSiE+sBGk7UdCBE4SoKxb7+/feltjdY=;
- b=oSQtlEHvSDAkssEUG0mB1C7bPYGWQy6IHpAsL07JYnQ4B+RfCTLPpm6LBq68+xztF8E6BNN4Tcdkr579kWjAJxb7Bc9ofiPjg+4UPIvLV6vOBAXn28io6sHjxf+p7a1E1y3fgOTwl6kFUz9dsvUqm5zjHPAjKKq8UfTAlPZuKgU=
-Received: from BY3PR05CA0045.namprd05.prod.outlook.com (2603:10b6:a03:39b::20)
- by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 16:25:19 +0000
-Received: from MW1PEPF00018894.namprd03.prod.outlook.com
- (2603:10b6:a03:39b:cafe::34) by BY3PR05CA0045.outlook.office365.com
- (2603:10b6:a03:39b::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
- Nov 2026 16:25:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF00018894.mail.protection.outlook.com (10.167.249.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 16:25:19 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
- 2026 10:25:08 -0600
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 3 Nov 2026 10:25:03 -0600
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <robh@kernel.org>, <saravanak@kernel.org>, <akpm@linux-foundation.org>,
-	<david@kernel.org>, <ljs@kernel.org>, <liam@infradead.org>,
-	<vbabka@kernel.org>, <rppt@kernel.org>, <surenb@google.com>,
-	<mhocko@suse.com>, <m.szyprowski@samsung.com>, <robin.murphy@arm.com>,
-	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <iommu@lists.linux.dev>, <kexec@lists.infradead.org>,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Subject: [PATCH 4/4] mm/cma: drop the duplicate alignment check in rmem_cma_setup()
-Date: Tue, 3 Nov 2026 21:54:29 +0530
-Message-ID: <20261103162429.2053989-5-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
-References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUDG7NQ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F95D1F00A18;
+	Tue,  3 Nov 2026 16:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793723405;
+	bh=Hd9PQQ8ozOYSKti/kNoYNT++gNKLWkbtNoIAA4opdCA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BUDG7NQ0/lHzpiPu+jwuqlL3hP4gXpULtNXG71tbvKd7XNAbKnAEOb7mM5tAOKBmp
+	 V4zFYcVXK6yxmaFiSNoyTxVUxRCZaD0vyn74BoNYq5yzDEwwUAe/aarppwewp5MTi+
+	 YJDja6RS7HEB3jsDZnWrMG/LXQn/b0oNiQASY89GENa7kUD+co788voxYh1D7fAcod
+	 rtJnif45tnei/4F/3SF+RYK+SHMP3OduGweo3THRK3LuigIAQS5wktAvdz3Mzv6tgh
+	 PrIcll1od/N+ENujX8eeBW6VTgxGF84TK5A4HsraJ3YjWhN+LYqr95ZHJGj42Q3k46
+	 PAdtk+zkT10MA==
+Message-ID: <sashiko-outbox-195727@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/9] greybus: operation: keep request active across
+ message_send
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ayush Singh" <ayush@beagleboard.org>, "Jason Kridner" <jkridner@beagleboard.org>, robertcnelson@gmail.com, "Johan
+ Hovold" <johan@kernel.org>, "Alex Elder" <elder@kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, =?utf-8?b?Qmo=?=
+ =?utf-8?b?w7ZybiBSb3kgQmFyb24=?= <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor
+ Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, =?utf-8?b?T251ciDDlnprYW4=?= <work@onurozkan.dev>, "Eric
+ Biggers" <ebiggers@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>, "Ayush
+ Singh" <ayush@beagleboard.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Markus
+ Probst" <markus.probst@posteo.de>
+Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261103-gb-uart-transport-v5-1-f8e326d6561f@beagleboard.org>
+References: <20261103-gb-uart-transport-v5-0-f8e326d6561f@beagleboard.org>
+ <20261103-gb-uart-transport-v5-1-f8e326d6561f@beagleboard.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 03 Nov 2026 16:30:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,87 +74,167 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00018894:EE_|DS7PR12MB6189:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1fe01bd-8512-4efa-6e98-08df39c70d3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|7416014|376014|1800799024|36860700016|261022105027099003|261021121427099003|261021123027099003|921020|261026140227099003|261028144727099003|11063799006|56012099006|22082099003|261102123227099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	epst9tIK9Nw6Flg9AL8MdPpXv18W7619t7mIdXDosX4vle939uBUjZQPbpfv6Frp+qD+7BSO0ddR+F5qjuMn5R6HqbNlydD1v5IyaZCJgu+OHE/CX9jTVYZ3jxuDQRsahnnI92oLV8Aq66ap7qtbyvnd8Zh6TgxcxDyxTtAte2UvOHfPKYMI6Gnrmd7rwWCn64nUsEfmseAUR8KMuZhfS6pjmlXVGodMGpXGjNS8ziVobmtH+p7z5QcSXauP/7b0QsjgEM8bIPJgXAzALFdN/Qh3nAdqQ6p+ksR12wJy1qFMDnuEdLAoHTYYzx05r+HI+aXwJPOoIItvwal79OmUkyZ8bFjc5Go330jXyh7auRShYZquN6WgDvAsU1ioBcauV+P8vEI+2P+NN13xKhfAhqrGsXs9VBfdw/AzmxyGSTuJH751ZUaVgAkfsEUgXZGvjrNZlt5qEH5CNU19+SG2Wyn7quM/9k/VH2WV69P+CiiElwvO9JvGz/29yf2K4JX4N71EqWfJjdw8RlCSSt1Ur5m/8MxPj7O5ktKe/CAqPzEUjUpXrJ6J2flVinnvIBIZ013Xs55GwMsxqZ4Jn0FgABKYPKAmKcjipsJgo3d4jGi27hgf9ZuWm4sxN7ZensiCIeFhQ+RlWnkNZlipqie9QzLNVGceVzf/dp1VWY/6bJsapXSybpSSPfuE+x19aaPZYII0JSSIKdeUpNwXuv5cmG4W+VZRVc3HxOtyv0f25CSEbSbeyLjlim6GbUZGP4pa
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(7416014)(376014)(1800799024)(36860700016)(261022105027099003)(261021121427099003)(261021123027099003)(921020)(261026140227099003)(261028144727099003)(11063799006)(56012099006)(22082099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	zDh0DEnEi7HvHxB5stq29M/5hR5i/o7prngSgh/2Y2vfy90PFxmh88zHzoepdI2Wf/ARuFGww7eKgAXs9pfM+mr+3kpzgdg8uEgqPOljg5MND0DVfhmLkSosCHj1SHtW2yfyp1774g9Nre5GS34XVJ8dK6x3mI+CFz4gkXGaqOtZP6wN/gPCxJ86BhnPcokwS/sG1GjKHXO9g/IUEPWCGYwuRvhz7i20S3E4O25aezr1QQAYjoaiY3Vhs8d+OW6Znrgshw9sBKhWD0p7B+1kK7zBpGknG1ZWOxtI1wp+mkDv1mmc6jij4pqxEuUzmN2ZS3DBRFJF5jvytu6ayRiOKnr7m6a74gwNHkXImHrMdqqcRFNiWwMx1g+LL3E++SPCTrKuAjM1F4olu5CHzo93UvX3Wdp8JcWKUfFt2DO9UstktkBF0eP+m5ztEx0M3bYd
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:25:19.2118
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1fe01bd-8512-4efa-6e98-08df39c70d3c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF00018894.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
 
-cma_init_reserved_mem() already refuses a base or size that is not aligned
-to CMA_MIN_ALIGNMENT_BYTES, so the identical test in rmem_cma_setup() only
-repeats it one call earlier. Remove it and report the failure from
-cma_init_reserved_mem() instead, where the area name is available: the
-message now says which pool is misaligned, and every caller gets the
-diagnostic rather than just the device-tree path.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] greybus: operation: double put in gb_operation_request_send() =
+on send error
+- [Critical] greybus: operation: race between gb_operation_get_active() cal=
+ls on send
+--
 
-Suggested-by: Mike Rapoport <rppt@kernel.org>
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
-Changes since RFC:
-- New patch
----
- kernel/dma/contiguous.c | 5 -----
- mm/cma.c                | 6 +++++-
- 2 files changed, 5 insertions(+), 6 deletions(-)
+commit 1f5c8fb4470157e5c81c1041163bd49efb2ea63b
+Author: Ayush Singh <ayush@beagleboard.org>
 
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index 90937dc7c627..14450cf0f832 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -552,11 +552,6 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
- 	if (ret)
- 		return ret;
- 
--	if (!IS_ALIGNED(rmem->base | rmem->size, CMA_MIN_ALIGNMENT_BYTES)) {
--		pr_err("Reserved memory: incorrect alignment of CMA region\n");
--		return -EINVAL;
--	}
--
- 	ret = cma_init_reserved_mem(rmem->base, rmem->size, 0, rmem->name, &cma);
- 	if (ret) {
- 		pr_err("Reserved memory: unable to setup CMA region\n");
-diff --git a/mm/cma.c b/mm/cma.c
-index 3231a53161cd..68dea7070d69 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -326,8 +326,12 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
- 	}
- 
- 	/* ensure minimal alignment required by mm core */
--	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
-+	if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES)) {
-+		pr_err("area %s (%pa, size %pa) is not aligned to %lu bytes\n",
-+		       name ?: "(unnamed)", &base, &size,
-+		       (unsigned long)CMA_MIN_ALIGNMENT_BYTES);
- 		return -EINVAL;
-+	}
- 
- 	ret = cma_new_area(name, size, order_per_bit, &cma);
- 	if (ret != 0)
--- 
-2.44.4
+greybus: operation: keep request active across message_send
 
+This commit takes an extra reference and active count on the Greybus
+operation across gb_message_send() in gb_operation_request_send() so that
+operation cancellation waits for the host driver's send path to return.
+
+> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+> index 7e12ffb2dd60d..a63bc2eb164e9 100644
+> --- a/drivers/greybus/operation.c
+> +++ b/drivers/greybus/operation.c
+> @@ -766,7 +766,25 @@ int gb_operation_request_send(struct gb_operation *o=
+peration,
+>  	if (ret)
+>  		goto err_put;
+> =20
+> +	/*
+> +	 * Completion can drop the reference and active count above while the
+> +	 * host driver is still sending. Hold another of each across the send, =
+so
+> +	 * that cancelling the operation waits for the host driver to return.
+> +	 */
+> +	gb_operation_get(operation);
+> +	ret =3D gb_operation_get_active(operation);
+> +	if (ret) {
+> +		/*
+> +		 * The connection is being torn down, and the operation, which is
+> +		 * already on its list, will be cancelled and completed.
+> +		 */
+> +		gb_operation_put(operation);
+> +		return 0;
+> +	}
+
+[Severity: Critical]
+Because the first gb_operation_get_active(operation) call adds operation->l=
+inks
+to connection->operations with operation->active =3D=3D 1 and then drops
+connection->lock before the second reference and active count are acquired,
+can a concurrent teardown race in the window between the two
+gb_operation_get_active() calls?
+
+1. If gb_connection_disable() or gb_connection_disable_forced() runs right
+after the first gb_operation_get_active() unlocks connection->lock,
+gb_connection_cancel_operations() -> gb_operation_cancel() queues
+gb_operation_work(). If gb_operation_work() runs before this thread reaches
+the second gb_operation_get(operation), it invokes operation->callback(),
+decrements operation->active to 0 (waking gb_operation_cancel() before
+gb_message_send() has even started), and drops the completion reference. For
+asynchronous callers whose callback drops the caller's own reference (such =
+as
+gb_loopback_async_operation_callback() in drivers/staging/greybus/loopback.=
+c),
+operation->kref can reach 0 and free operation before the second
+gb_operation_get() and gb_operation_get_active() touch it.
+
+2. For GB_OPERATION_FLAG_CORE operations, gb_operation_get_active() permits
+operations when connection->state is GB_CONNECTION_STATE_DISCONNECTING:
+
+drivers/greybus/operation.c:gb_operation_get_active() {
+	...
+	case GB_CONNECTION_STATE_DISCONNECTING:
+		if (!gb_operation_is_core(operation))
+			goto err_unlock;
+		break;
+	...
+}
+
+If a core operation passes the first gb_operation_get_active() in
+GB_CONNECTION_STATE_ENABLED, and gb_connection_disable() transitions to
+GB_CONNECTION_STATE_DISCONNECTING and cancels/completes the operation in the
+window before the second gb_operation_get_active(), won't the second
+gb_operation_get_active() still succeed in DISCONNECTING, re-add the already
+completed operation to connection->operations, and send it?
+
+Conversely, in drivers/greybus/connection.c, gb_connection_disable() and
+_gb_connection_enable() call gb_connection_cancel_operations() when entering
+GB_CONNECTION_STATE_DISCONNECTING, but not when subsequently setting
+connection->state =3D GB_CONNECTION_STATE_DISABLED:
+
+drivers/greybus/connection.c:gb_connection_disable() {
+	...
+	spin_lock_irq(&connection->lock);
+	connection->state =3D GB_CONNECTION_STATE_DISCONNECTING;
+	gb_connection_cancel_operations(connection, -ESHUTDOWN);
+	spin_unlock_irq(&connection->lock);
+	...
+	connection->state =3D GB_CONNECTION_STATE_DISABLED;
+}
+
+If a core operation passes the first gb_operation_get_active() while in
+GB_CONNECTION_STATE_DISCONNECTING and connection->state transitions to
+GB_CONNECTION_STATE_DISABLED before the second gb_operation_get_active(), t=
+he
+second call returns -ENOTCONN and this path returns 0 without dropping the
+first active count or reference and without anyone cancelling the operation,
+leaking operation and hanging synchronous callers waiting on
+operation->completion.
+
+> +
+>  	ret =3D gb_message_send(operation->request, gfp);
+> +	gb_operation_put_active(operation);
+> +	gb_operation_put(operation);
+>  	if (ret)
+>  		goto err_put_active;
+
+[Severity: Critical]
+What happens if gb_operation_cancel() cancels the operation while
+gb_message_send() is in progress, and gb_message_send() then returns a
+non-zero error code?
+
+While gb_message_send() is running, operation is on connection->operations
+with operation->errno set to -EINPROGRESS. If a concurrent teardown calls
+gb_connection_cancel_operations() -> gb_operation_cancel(operation, -ESHUTD=
+OWN):
+
+drivers/greybus/operation.c:gb_operation_cancel() {
+	...
+	if (gb_operation_result_set(operation, errno)) {
+		gb_message_cancel(operation->request);
+		queue_work(gb_operation_completion_wq, &operation->work);
+	}
+	...
+}
+
+gb_operation_work() will run operation->callback(operation) and call
+gb_operation_put_active(operation) and gb_operation_put(operation), consumi=
+ng
+the initial completion active count and reference.
+
+If gb_message_send() also returns an error (for example, on disconnect or TX
+failure), gb_operation_request_send() drops the send active count and
+reference here, and then jumps to err_put_active:
+
+	ret =3D gb_message_send(operation->request, gfp);
+	gb_operation_put_active(operation);
+	gb_operation_put(operation);
+	if (ret)
+		goto err_put_active;
+	...
+err_put_active:
+	gb_operation_put_active(operation);
+err_put:
+	gb_operation_put(operation);
+
+Wouldn't jumping to err_put_active drop the completion active count and
+operation->kref a second time (three puts for two gets), underflowing
+operation->active to -1, underflowing operation->kref into a use-after-free,
+and running both the asynchronous completion callback and the synchronous
+error return path?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-gb-uart-tr=
+ansport-v5-0-f8e326d6561f@beagleboard.org?part=3D1
