@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804050;
-	b=kiPs61bPPpShKqdsT3gMjK36pwl1iGZ6y0kQa77J25Fjbed1iIjfbPyr9gFhO1cM2vJ7
-	 QF6fm6zMU+/PQRIYWtTNLlMnTE1BS1MMflrkII7tYJxNojxHOHk0ajdcMcpflDjMUoZsl
-	 OyPPlI1K9ejqJdGlJnSEZXEjUDpH/gboEEG+9WeLmQiisHDlJM1Eq61Z+P2NUIK/BCWTX
-	 Tt1VU4Jrp+2u3KcIhCkpvURFi+G5ax1d+z+uI54PPqsNXy8f35zfouEzlk5NpO3AVtNvf
-	 gqkL4HgSn2eGinnS7zI9Y3wiZSBz1Ktqja1OTyFWeePZZ1SlXZH4qVsCPw4iadboGhg==
+	t=1793804134;
+	b=wjz4d7wbEDFhI77Sk5kRCEC6uZaHD1NItXhn9cm5moeSX+AGXie/ciluW9XFjd3ehBIu
+	 6/T+NtWhgwvkY7NfiuIPeJNoF8XJ7zJJ5E0095ajYN23Frz+BMCyGQ2/QNyP4cHy2i/d+
+	 wo1WVN5S4FTfiZG4HJh82WY4+zeO7w5na+eo9sLQUnZ3KWO7cvNYQUPFS890PzGAlQyz9
+	 7+mZGlUunhxbNqVsO0yZ9/rJOwsUxL+IcgNpyx+j8jvoic2g+3BP6oeMD+dnSM06CS12S
+	 f5DeI9sx+Nj943cHgOUWwgFCit+LW8dotpcqOHrKuIseBQ0sjGC/h30bQAZNnwtzo0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804134;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kACk4DNsJRkoKPadv9XX9hMPYj3GrFJQKsWh+CJvnFM=;
-	b=1ElVOHC3fbUCZGff19cXjibvVTFBNrjpvefUG+s7lpFu/BU9wvfBNaHgWRpJPOCmfQbc
-	 QwOW1rQeB+y2R7MCtywY8ROSjw41JO5xSQVOqil2Ssu4YKzURmIYrL4DLO8P0b/ABn4ph
-	 DsOn+jsrn/txtokd3nf3/TWvq7Jgf+TQZZUq1Uus8OsIUXMkriq5OgKBpFR+P/co0jy6G
-	 f5sTN533Rokdj6RVwA2jf9LZxhui12XLHM/0EK+rGG1gJlejutZgPGHXHltlARzLaXOkF
-	 uin4I0ZWkrENxGunkOX9gVMrx3hod/R8W2LyMQPOE808x90FY5V801CrwVEHJHOdkWQ==
+	bh=isimDxNSlztO3YEPF/qt1Nhk4IMQdPHrybt3Xy8kD+w=;
+	b=4+17pGFLbPEMSwWy9hy3iI6qNQMYoElQ+X4feypxOef1Cnla/ST95PfPyfIZza/vuFp+
+	 Qh+SqS7UZrtTJzKd4uLK2QMNeu714sGuAGVJSloO0GxG/LKjYV7D6uTwjS2TjqCJydmYt
+	 mff3x6ECwXiIvnUKTBeiOVWeuxy/7dnuU/ptFSCG/ZR9SuXVUib9bBGAJ+ojhIMB5ixfG
+	 l08d/inJlqOrDr5Jkg05krgVyv+8i00tdiJzMAO2Xb1vH1JzFtCsSbtBBlt0UoTn7Qdt3
+	 ZdNfgFnSIsabdSIj9eneFT3G3YG44lMHFLbBanSeuSB4J9nncgsq+hDHmr1xg3ilPXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y679kHWW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6DhnRuS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23BC606A32E;
-	Wed,  4 Nov 2026 14:54:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A349606A326;
+	Wed,  4 Nov 2026 14:55:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y679kHWW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0781F00A16;
-	Wed,  4 Nov 2026 14:54:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6DhnRuS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B611F000C1;
+	Wed,  4 Nov 2026 14:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804049;
-	bh=kACk4DNsJRkoKPadv9XX9hMPYj3GrFJQKsWh+CJvnFM=;
+	s=k20260515; t=1793804133;
+	bh=isimDxNSlztO3YEPF/qt1Nhk4IMQdPHrybt3Xy8kD+w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y679kHWWNV7v0Zt3/FfQWF3YOvHs8VxmDPDjVLwwGAYnWWuZcENfuTdqBqjNdbA3s
-	 ZVPhbwE2oUcYcftPCkNLSHmk+C7YRUxV2zxlcD5nXTmFtVtOPfFJNt+Z1Tn/7En9v/
-	 xGgnVgMEOLS4qWpRKI4lqTfdPwVNnmJ5vPftfVry39tpkW+VkMTyiK3qeAipsDgDaT
-	 0TsnepRDEL93y6KbV2JuWAKGzcC3tA0gG8PYIhJ6V/Ii2MMUYajsD1d2tnmMYpDc6x
-	 fRWNJ+mitqx/SC8kCHfUz8pAeCScTKX9R6ew+4iZAMXZQ/2c0oEBh53+An3w+Bvxcr
-	 tFbIrcMOsKiTQ==
-Date: Wed, 4 Nov 2026 15:54:06 +0100
+	b=W6DhnRuSWypXbxJXbNQ0EMyk/tuSgRWZxUmxBNPdGJBTJSAwubFgemB5eeOyGblCF
+	 8oFvQ48yR3N5W6xAqzi588S2gt9epZt7XMQb09VseekknBdGEfATiQKN2yWU8y9jm9
+	 vu2mbneCsNSadfo2ZobEmXqzvJ0M8T7wTKtXZyZxTmwoQJC1rRC2a+nF87EqLRgXaw
+	 8VDdasCXqn5dXyquvJ9LquE2oCqmzf0LHbsMs0XSPy1MWvLEkIq6Xfr30Tea3I/fiW
+	 h8MM6FVVrvO2LDEeSYnofhzOGVfJMsTAnNdE1WhgIFkUTuA4xFdwcV8nLMQ758HC2H
+	 IIdIJy7UDTBig==
+Date: Wed, 4 Nov 2026 15:55:30 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
-Message-ID: <20261104-sympathetic-toucanet-of-patience-294ced@quoll>
-References: <20261104145118.952453-1-robh@kernel.org>
+Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: Remove orphan HiSilicon hibvt driver
+Message-ID: <20261104-careful-organic-hyrax-faed56@quoll>
+References: <20261104145104.950566-1-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,23 +60,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261104145118.952453-1-robh@kernel.org>
+In-Reply-To: <20261104145104.950566-1-robh@kernel.org>
 
-On Wed, Nov 04, 2026 at 08:51:16AM -0600, Rob Herring (Arm) wrote:
-> Remove the hi3516cv300 clock driver as there is no such platform
-> upstream and only drivers for clocks, pwm and ethernet. There's also
-> been no changes other than common cleanups in 10 years since the driver
-> was added.
+On Wed, Nov 04, 2026 at 08:51:02AM -0600, Rob Herring (Arm) wrote:
+> Remove the HiSilicon hibvt PWM driver as none of the SoCs exist
+> upstream. The hi3516cv300 only has pwm, clock and ethernet drivers.
 > 
 > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
->  drivers/clk/hisilicon/Kconfig                 |   9 -
->  drivers/clk/hisilicon/Makefile                |   1 -
->  drivers/clk/hisilicon/crg-hi3516cv300.c       | 317 ------------------
->  include/dt-bindings/clock/hi3516cv300-clock.h |  36 --
->  4 files changed, 363 deletions(-)
->  delete mode 100644 drivers/clk/hisilicon/crg-hi3516cv300.c
->  delete mode 100644 include/dt-bindings/clock/hi3516cv300-clock.h
+>  .../devicetree/bindings/pwm/pwm-hibvt.txt     |  23 --
+>  drivers/pwm/Kconfig                           |  10 -
+>  drivers/pwm/Makefile                          |   1 -
+>  drivers/pwm/pwm-hibvt.c                       | 285 ------------------
+>  4 files changed, 319 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pwm/pwm-hibvt.txt
+>  delete mode 100644 drivers/pwm/pwm-hibvt.c
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
