@@ -1,56 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816450;
-	b=GOLkQlK9tSf2KqfOYnZjVQ79Txgep7NOtBXlj+Lw/yo5s6D8htoTx1xagFmbt/ailq2z
-	 roZfmfbhTUur2PBnDz44MU1+rTK1jdQIz1WkC5BdgAyxtd+y6qAY4h+e1amW7YNixcKOz
-	 O+EeciG590Dr1tjwSwntGV/YY0g5B5dDld8FLcEyzOG2ClfAyPJbpkvXQmuYyZAgjM1K6
-	 dPL8RAyhJFXuzX5rf/2pjf/GrdVq6yjl8gJDRGbKSjToYa+/lUxGDk4fJ7rX8ycjCOBoM
-	 KY/TZUpQ8ylihibxgiN/Q2uaemFOyZj7aqxKXnYkXM2oIcUsIScqN3cChtxCX/ZTj0Q==
+	t=1793816475;
+	b=uoqWzEpPiQyw6MwUh3Yo3Pt2UFJsce34v+zFqwB9l5tnrmvS0hMzung7RHp0J7iYSh/6
+	 YoVgdIgJGgyQ1x265UVNT3CMrnCP1p0AuwlnKA0aWnVe1AX+hZsz+ziW5MbkKwriFhJM1
+	 zO8eBvKm26nfcO/JL2vFdtdGrroOAUNxMhxbe80OPHrvFOM6d6GA43luGZmqcFG9zEPah
+	 YJh2zAuNrjL3esI0QqQ5gPkoDi8Kyx4Cse/rW5cdHkY8luqtTH1RdQbC5E80BibI6+JOl
+	 rH22sMTL5dQFhOlfkRa8da6pBxJ5aSisShA1yKKwbERFL5qJcZHGHdWtu3Fav7n3K8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816450;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=6cRoPWabrGRdi2lo3+Y9ZP0w1fcPeMxolUurBKt+2P4=;
-	b=z5unxZAL0GAZ7TW/6WQtw9cMwc4ZAhQHROcDUI3Gg8yrZt05loPXjCvJhfK9AkCrpAuE
-	 /wOjhCu2+ezcLHgnZGPolnin6OO3807EoSypjfHZZeo7IA24d7FwBBVi+gHNduC2VMbbj
-	 lsknqLCbvqkZafqvquYE2ds4KkMGvi9QhvWQKXGO/ng2pmCtvvgxbELUZ/EeOyMWKS77c
-	 SvDD9cMJhWCCyjbCfIR2N17/U8PxqGpjXyioljHrtDyCg/ergQssKUNTVV9te3XGhW2c7
-	 HkDAKH1rJTah9Wr9qJNtsZgFRP2ltXRxOPczk6NqJPHjxhAwaVGjYaf9N+/kWynH9qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816475;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Sv7soWA+8vLeAn0vUqDVEp1NS4DBCssklLnyMqiia/U=;
+	b=WM5rCiWLe4IwiEEvM5h2wnfUfeD2DLcrvtFg6xMlvBtyo1aN+Mxw4J1ETNjrW6TGsFHC
+	 G401sb5SHkOnm06h2Q++jyEKgB4gQtYeeT2ihdMPzoyqu83HuQSOXK+WXKwxRsox/UOWp
+	 HweJRyf5URqJQoIu/D/7Q7OVQ3OrjO7NfbLnN/ZwOmSk3Za+6+1wSCqh3jfE2dIFj8u/n
+	 1rv7ChuNlaIfkLntK5SGAmcLKF7uZ9PmD5++mQgGXYg7u9uRnvcb42BX2i91A40TUZYZA
+	 arvwnoj/N6MhNLqRuBwXyKXpu+yot7hvkXCrnVMhCyPIyONcp4aYKq7UKY5Fob6HmGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bN3c4+jq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O3Sohw3y;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41F2606D80C;
-	Wed,  4 Nov 2026 18:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2C1606EEA6
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:21:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E2C1606EEA6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bN3c4+jq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204B31F00A16;
-	Wed,  4 Nov 2026 18:20:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816449;
-	bh=6cRoPWabrGRdi2lo3+Y9ZP0w1fcPeMxolUurBKt+2P4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bN3c4+jqe3FNrWkRh1NqW2rzNNjbU9vXIoXnGglze1F0xMREhQFyPAwW9XAIS87E7
-	 U+e4a8eMOQDgLxmsW5tdhvLqxvBixDPcT6WlWCTtIrgBDUqieHhkwxWy+RilMjApbT
-	 9f+mYw1MlfUNWAkdGQAQoR/9WSjZgfFUFoWWeBhU5jOvgMmOg9icDKZxt2f6Q1Hhot
-	 14ssxlPKXuriuTCXS1IlWLWuxT3bkg4RieoL14BkJDgjvwX5lCVjxky+10fI48qyNg
-	 YfI40OxzmwJ6VjXjUTlm5WmsPLx5+iHJhROZ5Nd5xjyM3OtfJK0AxsZ5bUCFlNo20n
-	 DXhaWDzouJbxw==
-Message-ID: <sashiko-outbox-197830@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/7] arm64: dts: qcom: sm8350: Add SoundWire and LPASS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Demeter Barna" <me@fromdisposition.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-b4-sm8350-sound-v1-6-4c872df294fa@fromdisposition.org>
-References: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
- <20261104-b4-sm8350-sound-v1-6-4c872df294fa@fromdisposition.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 18:20:48 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O3Sohw3y
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9764195e9.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 10:21:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793816473; x=1794421273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sv7soWA+8vLeAn0vUqDVEp1NS4DBCssklLnyMqiia/U=;
+        b=O3Sohw3yzUnp1cPk11pPogSUPf+c4hJme185SYfrLMi+sl3AKe6jlw9KxOarWHn0Gx
+         hpPslQKPEdIIc2QgtL1Y4lg5jllxWaVf4qIXQnXY4D1TBcy6zWXfWeuTSiNrhV6BY5AW
+         qrdJUP4yoc/gIb95ngj+ec6RkTqDDhgNIVQUZeIB8Z9bAbaKuqcINPdw8E7V6abveKXA
+         RGLLSJSsEJROukYT0znjZEPnAPkfA9R1dTL3vn4rBIOCph11YqOpkTFzxfGAszmdPdpQ
+         sbiH1tnJDfekZmBtIeSrJGaoAz3vP+MoMtR9u+8laFqXjk3a3JfMPcJcImIGP+/2ZTIK
+         grYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793816473; x=1794421273;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sv7soWA+8vLeAn0vUqDVEp1NS4DBCssklLnyMqiia/U=;
+        b=LV93yDPAG/NdcTT7oImP8PaIhTIGhIexVxzTBSHizi3Cn4iQUPp+QhwC+VlgR2pieb
+         f8gOg5V3WwRNVwLR4eXeCbyskAOif4YRljmBGxfTNuHFZCM6HP/TMi5ngVpHyVnZMcWh
+         pj0mdG0rfX5P/jxQEe1ilT5jTz8khIfvDEqBLTCqgzDgV1GBFVl6d8a5Asvn5CTNH7hW
+         7I2PRSr3+O2NWbhjD0E8MsPo2hzjQbDopOxWNlDYrXnoirUxxCw4B5C0Dqr8T7pf8meg
+         HTcxsWYpe7YTO4z4KhOdLJ66eNUMeTOn5+45OpupR4btCQlS+fV/l8W9MT119v4oCcR+
+         F8Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBwPXOSTCgV6MgMq06A/ucJuBV5JQsAObqzbuLj8Uo1jiCVxH58cooCaNCI09qa+W8k19K0eHw8iLnSp@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NCRT3Vi+MDRG6c+nIRLHliOgrrXlmCZvr1fpPWrUdomYqwvrj
+	ddkZovIORphXEB+WZ5I4sjlRC/bnlPSc5zY/N4qzXAquKGNZL66eI0Oo
+X-Gm-Gg: AYBFou0IFjyRlsFelCpcmaF+zm+iv93utEwAoOUoRBdRmVtOvtMgnnwlWF85avYynwT
+	k48q3uK43W8qJzeXWAxHkYUECk4TowxClXI7aPBwtcnazvRR2toB9UgZdBEntS09jFbTLNgzbk1
+	touHEjCRhfxyw4lt8I2VxnlOxrR7I/xt1qmBuy8Eyo2MjiSZUiVpHH1QqeKhQ7i1r26lgSnOp0r
+	Fr0I+5ouaGzOYhMKSpdHLIxXo/VaG1gG2Wjd4e/47YmULf2Kv6AO+fCwHJZrjXw93dO/a+zkuaS
+	UB0UgSOhxqzhWz/9w84Q0FLBPDen1wgCSExts+ufFa6Eggpk8WMAij0EDx3tYqgJtp2YX0l7Y6G
+	R/+QbgkbF24z8IoTcWeH70TjQSlKobCupyr07ji9UglK2sLVKIeE65FeffKwP/21Gkoq1UTxt9Z
+	pDGqi1IYoff5JV2N+lz/e4vPphYng5/RY9hiyW7qdo4MVzoDvSQkkpvid0+Vam3HDSn4EzR3pnm
+	IXXtpCHC+xdIf2y6INqCe11kx5xJ65X6UOLl694l67OyDda2aCtinYm/d7mo3nfxGbXQEcrpfxk
+	vUPUZXQS4zzfqpXRWSY9t20F4xbzsOI7AY1zt8XY21kErMi57irGfWJkr3d4EiRRr3sUSX63Ldi
+	vVEx6T9Wz/fBdAExqHkAK/6Nq+Ma9JPCBKMHUaa89avoBIICLjUNlM1pAI94=
+X-Received: by 2002:a05:600c:a012:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4ac17b2ce18mr370321105e9.27.1793816473362;
+        Wed, 04 Nov 2026 10:21:13 -0800 (PST)
+Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:21:12 -0800 (PST)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH net-next v4 02/14] net: dsa: tag_rzn1_a5psw: Add RZ/T2H ETHSW tag protocol support
+Date: Wed,  4 Nov 2026 18:20:50 +0000
+Message-ID: <20261104182105.1102555-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,60 +117,141 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: sm8350: wrong PDC wakeup interrupt on swr2 node
---
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-commit e0bc0fd5876d3b09082c8770bf88a52e98e61a79
-Author: Demeter Barna <me@fromdisposition.org>
+Add a distinct DSA tag protocol for the RZ/T2H ETHSW to separate its
+semantics from the RZ/N1 A5PSW, even though both use the same tagged
+frame structure. The on wire layout is identical, but the ControlData
+bit assignments differ between the two switch families.
 
-arm64: dts: qcom: sm8350: Add SoundWire and LPASS
+The common tagged frame format is:
 
-This commit adds the LPASS RX, TX, and VA macro nodes, the RX and TX
-SoundWire controller nodes along with the LPASS audio clock controller,
-and the LPI pin configuration states for SoundWire and DMICs on SM8350.
+  +----------------------+-------------------------------+
+  | Field                | Size (octets)                 |
+  +----------------------+-------------------------------+
+  | Preamble             | 7                             |
+  | SFD                  | 1                             |
+  | Destination Address  | 6                             |
+  | Source Address       | 6                             |
+  | ControlTag (0xE001)  | 2                             |
+  | ControlData          | 2                             |
+  | ControlData2         | 4 (timestamp, portmask)       |
+  | Type/Length          | 2                             |
+  | Payload              | 0..1500 / 0..9000             |
+  | Pad                  | 0..42                         |
+  | FCS                  | 4                             |
+  +----------------------+-------------------------------+
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/q=
-com/sm8350.dtsi
-> index 55b32050ce9c8..85476a04ea3fd 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-[ ... ]
-> @@ -2022,6 +2023,133 @@ compute-cb@5 {
-[ ... ]
-> +		swr2: soundwire@3230000 {
-> +			compatible =3D "qcom,soundwire-v1.6.0";
-> +			reg =3D <0 0x03230000 0 0x2000>;
-> +			interrupts-extended =3D <&intc GIC_SPI 166 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&pdc 130 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names =3D "core", "wakeup";
+The differences arise in the ControlData interpretation:
 
-[Severity: Medium]
-Should the wakeup interrupt on swr2 use PDC pin 70 instead of 130 on
-SM8350?
+  ControlData field (bits):
+    +---------+-----------------------------+
+    | SoC     | Meaning                     |
+    +---------+-----------------------------+
+    | RZ/N1   | [0-3]: ingress port         |
+    |         | [4-15]: reserved            |
+    +---------+-----------------------------+
+    | RZ/T2H  | [0-3]: ingress port         |
+    |         | [4]: timestamp timer select |
+    |         | [5]: reserved               |
+    |         | [6]: RED period indicator   |
+    |         | [7-15]: reserved            |
+    +---------+-----------------------------+
 
-When swr2 enters runtime suspend via swrm_runtime_suspend() in
-drivers/soundwire/qcom.c, it stops the bus clock and enables
-ctrl->wake_irq so that a peripheral pulling TX data lane 0
-(WCD_SWR_TX_DATA0, LPI gpio1 / TLMM gpio169 on SM8350) high can wake the
-controller.
+Because these semantics diverge, register a new
+DSA_TAG_PROTO_RZT2H_ETHSW protocol and corresponding tag driver.
 
-In drivers/pinctrl/qcom/pinctrl-sm8350.c, sm8350_pdc_map routes TLMM
-gpio169 to PDC pin 70 (which pdc maps to GIC_SPI 520 via
-qcom,pdc-ranges), whereas PDC pin 130 is the SC7280 mapping and is not
-mapped to any GPIO on SM8350:
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+v3->v4:
+- No change
 
-drivers/pinctrl/qcom/pinctrl-sm8350.c:sm8350_pdc_map[] =3D {
-	...
-	{ 169, 70 }, { 172, 132 }, { 174, 87 }, { 175, 88 }, { 177, 89 },
-	...
-};
+v2->v3:
+- No change
 
-With <&pdc 130 IRQ_TYPE_LEVEL_HIGH>, peripheral wakeup events on the TX
-SoundWire bus will not fire during runtime suspend.
+v1->v2:
+- Updated commit message
+---
+ include/net/dsa.h             |  2 ++
+ include/uapi/linux/if_ether.h |  2 +-
+ net/dsa/tag_rzn1_a5psw.c      | 21 +++++++++++++++++++--
+ 3 files changed, 22 insertions(+), 3 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-b4-sm8350-=
-sound-v1-0-4c872df294fa@fromdisposition.org?part=3D6
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..57143cf52f89 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -62,6 +62,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_KSZ8463_VALUE		34
+ #define DSA_TAG_PROTO_MT7628_VALUE		35
+ #define DSA_TAG_PROTO_KS8995_VALUE		36
++#define DSA_TAG_PROTO_RZT2H_ETHSW_VALUE		37
+ 
+ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
+@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
+ 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
+ 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
++	DSA_TAG_PROTO_RZT2H_ETHSW	= DSA_TAG_PROTO_RZT2H_ETHSW_VALUE,
+ };
+ 
+ struct dsa_switch;
+diff --git a/include/uapi/linux/if_ether.h b/include/uapi/linux/if_ether.h
+index 1ffac52c39df..9fd25c5d96c9 100644
+--- a/include/uapi/linux/if_ether.h
++++ b/include/uapi/linux/if_ether.h
+@@ -121,7 +121,7 @@
+ #define ETH_P_YT921X	0x9988		/* Motorcomm YT921x DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_EDSA	0xDADA		/* Ethertype DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_DSA_8021Q	0xDADB		/* Fake VLAN Header for DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+-#define ETH_P_DSA_A5PSW	0xE001		/* A5PSW Tag Value [ NOT AN OFFICIALLY REGISTERED ID ] */
++#define ETH_P_DSA_A5PSW	0xE001		/* A5PSW/ETHSW Tag Value [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_IFE	0xED3E		/* ForCES inter-FE LFB type */
+ #define ETH_P_AF_IUCV   0xFBFB		/* IBM af_iucv [ NOT AN OFFICIALLY REGISTERED ID ] */
+ #define ETH_P_NXP_NETC  0xFD3A		/* NXP NETC DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
+diff --git a/net/dsa/tag_rzn1_a5psw.c b/net/dsa/tag_rzn1_a5psw.c
+index aab0ec143c77..3dff661fa58c 100644
+--- a/net/dsa/tag_rzn1_a5psw.c
++++ b/net/dsa/tag_rzn1_a5psw.c
+@@ -23,6 +23,7 @@
+  */
+ 
+ #define A5PSW_NAME			"a5psw"
++#define ETHSW_NAME			"ethsw"
+ 
+ #define A5PSW_TAG_LEN			8
+ #define A5PSW_CTRL_DATA_FORCE_FORWARD	BIT(0)
+@@ -111,8 +112,24 @@ static const struct dsa_device_ops a5psw_netdev_ops = {
+ 	.rcv	= a5psw_tag_rcv,
+ 	.needed_headroom = A5PSW_TAG_LEN,
+ };
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_A5PSW, A5PSW_NAME);
++DSA_TAG_DRIVER(a5psw_netdev_ops);
++
++static const struct dsa_device_ops ethsw_netdev_ops = {
++	.name	= ETHSW_NAME,
++	.proto	= DSA_TAG_PROTO_RZT2H_ETHSW,
++	.xmit	= a5psw_tag_xmit,
++	.rcv	= a5psw_tag_rcv,
++	.needed_headroom = A5PSW_TAG_LEN,
++};
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_RZT2H_ETHSW, ETHSW_NAME);
++DSA_TAG_DRIVER(ethsw_netdev_ops);
++
++static struct dsa_tag_driver *dsa_tag_driver_array[] = {
++	&DSA_TAG_DRIVER_NAME(a5psw_netdev_ops),
++	&DSA_TAG_DRIVER_NAME(ethsw_netdev_ops),
++};
++module_dsa_tag_drivers(dsa_tag_driver_array);
+ 
+ MODULE_DESCRIPTION("DSA tag driver for Renesas RZ/N1 A5PSW switch");
+ MODULE_LICENSE("GPL v2");
+-MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_A5PSW, A5PSW_NAME);
+-module_dsa_tag_driver(a5psw_netdev_ops);
+-- 
+2.56.0
+
