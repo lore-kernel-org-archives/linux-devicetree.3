@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826498;
-	b=Gz8Y8eE3R23QEYa7a+6iG9vn7piguOvKTSEki61IXS42Nc/XqaxVtcXHiwKom0zSRdbn
-	 VdpN31QaOPj/z5/vis1mGdArDIs7MKc59VEUPK9nPcBr37+ZTcPDkhy/8C3mFixtJzQba
-	 6NmscZyQ6Z7ePYCw6psXslHmRStrWQYU8bkjVNCBWx0QbLhALWwS14JkNLyvwvIUmidP8
-	 otxqN+TsQO8WFoKg8NyrewUdu8r8JmVWMUVq8voBKueH+63rWBtxi13jJMvpMBJ5VCwY4
-	 OJeOm5R7czo2Tmcs/XaRgS65WewcBIdr5Js47T0Y78McH8Ed25y02RaeIoNwv0hQBHQ==
+	t=1793826662;
+	b=IiuFp/rcPxkoFoVR+9s5nyAo1F4/TP25LYJGk2dutjoVrRc2DudQFhLE2r3YiNyZQCko
+	 M6GvASwuyjEQeimbo1l6cBIqpKKMZM4uqR3j03ccsHMFlpZTkJuAE24y7fkwv9SvQ8cN4
+	 2oer1LfzqVRqloAXUsFzxCZj7PCBQzHW8eBpi0WmODNBfkyTKQp6h/JKEsCOq9zzZQX5R
+	 L6L2lcHeL0Q6VuDyAI/kKwfhuFo6/yQXM7V2m34YEVYIWrz/1Om7HVJd0Pyqgy5sCh2W4
+	 Z3bmVnPOWzWh7cQMI48hz4btpfUbK3jsdK3y4fzJsBYUVsbrXAtLUf6C9aNFOQsvhLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826662;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=kZ0APffWEaTaEkAPlAgVZvcS5GpGBVOGqbwV8XhHs3A=;
-	b=u2Tot86+stdF5APLK4xeCau2unyaso4KJADaCqa8Z7QOFeCRZpDXxQv/pyEcGUGam2bI
-	 RMQ+tbFjD2j1DIsPIb0PZgSDJf390SfOclL8MPRGE0lV6m4JUJpGj7jFIc7rUM9IHZJch
-	 lMqnJTXqj9E0gnsU352nYwuzx0SmvtVpSjULDkt8yTWFVv9v7q89byQdvQHKV9XYIkZ0k
-	 BCF/u8+qUPh3wDaGt+CQ8SS2LVPEHewSL4sqzjmXmExflzGkjpamyPs9FV46y4S2zduRx
-	 YNsbO4Xp5GCdspZC4DkqiWYKL2oDkmccqaNXcialxNSa0f76Fy0olTLx1XzD3hQFZtw==
+	bh=VbkL8LQViZifO3xFhZOAP83LuW2URUVsFhAJbvn2DMw=;
+	b=u1k9IibJlqWeWlYUW2gnEkzLsGNz4h/6q8ckU3mzoOhbczlDoNqMoqVb/zCQSODgdeRk
+	 ed+YoST7LQwnGUxDMyvPbj0ONHTD6aHK5ipz40tz5nmABCL4V9Hgj8zCyJmE5RD7DrPa5
+	 nfJBtrGkzz+84K07vEwm5MbKSIRyfdNwlhyEIGbv9NFMUjiTJp5ulRGxl8PintzSXyIbx
+	 hYuVQxuzqciVvjjcypT/BEdyOV7lPswO57Z0rvjA+cj/Gp0Egi280r+RymPtY8JJ4h1qB
+	 XaDPHy/rdL/Q/rkjCMGcIOQbUaE3NhP6B/uwIj7T1P8oT/usCzZ35w+6l+PZwrV4WRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgXc2cov;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPJQihX0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB96A6070E6B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 21:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2744606D81E
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 21:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgXc2cov
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 839C61F00919;
-	Wed,  4 Nov 2026 21:08:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPJQihX0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2961F000C1;
+	Wed,  4 Nov 2026 21:11:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793826497;
-	bh=kZ0APffWEaTaEkAPlAgVZvcS5GpGBVOGqbwV8XhHs3A=;
+	s=k20260515; t=1793826661;
+	bh=VbkL8LQViZifO3xFhZOAP83LuW2URUVsFhAJbvn2DMw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LgXc2covtRPbbRxYZ5BxmFBh4FOPvh2ZGQaibaVN2vWUkh89tqcMFWsRlssHSTvZj
-	 36ucj/GJnG6jOB7rnsxSIPWuOC18FQ4eDo9StNS1nviOX5S6W64L+A3elAS2dX6kX1
-	 723DPkyONVB1t6SH0LK2tNDiacXMmiphvPyRfcHFzm43bXiudiGkEvI/HjE+mdaGey
-	 rimEfZVv6W3gP0czlOFP3ZMMyryezFr3AnVgS9VCH7MZS67xFtZU7iPhEh4WD/O+xC
-	 aaY5ZmWgnz0Wy8Ix/rVaeaiyde8YbJ/T31BRG+sI89TeKP7DDqpYbE61/tbIkZF7Sf
-	 /FYLf2cAUw2Hg==
-Message-ID: <sashiko-outbox-198047@kernel.org>
+	b=WPJQihX0tXtaKNrFS/WLLbPkmhIi3vy3mfACs9GNEmcn/K8l8xdib/AeHx/Q2Ex1I
+	 82bD70+XLFKuqwfxVAPEkhcaITKNEAoal3IUK2plCh5z5VnxCpAUdbccZEeI6mahct
+	 6FwZgF+PSeDHdmw1LaMndFRwYCzQ7grTvoq7B8zJar7guwKpeaofPJDFamsmeiKyZ3
+	 o5MyUXY+6LEVmbjd/jskWkRbO0fDWpqF8q10zVOa7vr+kBDjlaaVXd6aH4Xbzypjgl
+	 hHveG6gjpNKrlZQq90bGEW58mpKCHlMYYmajUsgiBel5no6qlhZtYm/9kHB8P5VP63
+	 Ltt1IRFNLkaRQ==
+Message-ID: <sashiko-outbox-198051@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
+Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Andrew Gigena" <mail@andrewgigena.dev>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
 References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
- <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 21:08:17 +0000
+Date: Wed, 04 Nov 2026 21:11:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,213 +60,178 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: media: qcom,sm8150-camss: fix port endpoint schema =
-and clock-lanes
-- [Low] dt-bindings: media: qcom,sm8150-camss: drop internal CAMCC RCG *_sr=
-c clocks
-- [Low] dt-bindings: media: qcom,sm8150-camss: wrong voltage in vdda-pll-su=
-pply text
+- [High] media: qcom: camss: vfe_lite0/1 clock rates ignored in vfe_set_clo=
+ck_rates()
+- [Medium] media: qcom: camss: vdda-phy and vdda-pll assigned to CSID inste=
+ad of CSIPHY
 --
 
-commit c84531abb5c3a45299a3b568782087233c82947c
+commit aa7ed9591fa067f32f7175a9e60c6b9597ae38fa
 Author: Andrew Gigena <mail@andrewgigena.dev>
 
-dt-bindings: media: qcom,sm8150-camss: Add SM8150 CAMSS
+media: qcom: camss: Add support for SM8150
 
-This commit adds the Device Tree binding schema for the Qualcomm SM8150
-Camera Subsystem (CAMSS), describing its CSIPHY, CSID, VFE, clock,
-interrupt, IOMMU, interconnect, and power domain resources.
+This commit adds CAMSS platform support for the Qualcomm SM8150 SoC,
+including four CSIPHY, four CSID, two VFE, and two VFE-Lite instances. It
+adds CAMSS_8150 to the shared CSIPHY and VFE paths and defines the per-block
+clocks, regulators, power domains, interrupts, and interconnects.
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> new file mode 100644
-> index 0000000000000..a65067352b58c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> @@ -0,0 +1,477 @@
-
-[ ... ]
-
-> +  clocks:
-> +    minItems: 42
-> +    maxItems: 42
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camnoc_axi
-> +      - const: camnoc_axi_src
-> +      - const: cpas_ahb
-> +      - const: cphy_rx_src
-> +      - const: csiphy0
-> +      - const: csiphy0_timer
-> +      - const: csiphy0_timer_src
-> +      - const: csiphy1
-> +      - const: csiphy1_timer
-> +      - const: csiphy1_timer_src
-> +      - const: csiphy2
-> +      - const: csiphy2_timer
-> +      - const: csiphy2_timer_src
-> +      - const: csiphy3
-> +      - const: csiphy3_timer
-> +      - const: csiphy3_timer_src
-> +      - const: vfe0_axi
-> +      - const: vfe0
-> +      - const: vfe0_src
-> +      - const: vfe0_cphy_rx
-> +      - const: vfe0_csid
-> +      - const: vfe0_csid_src
-> +      - const: vfe1_axi
-> +      - const: vfe1
-> +      - const: vfe1_src
-> +      - const: vfe1_cphy_rx
-> +      - const: vfe1_csid
-> +      - const: vfe1_csid_src
-> +      - const: vfe_lite0
-> +      - const: vfe_lite0_src
-> +      - const: vfe_lite0_cphy_rx
-> +      - const: vfe_lite0_csid
-> +      - const: vfe_lite0_csid_src
-> +      - const: vfe_lite1
-> +      - const: vfe_lite1_src
-> +      - const: vfe_lite1_cphy_rx
-> +      - const: vfe_lite1_csid
-> +      - const: vfe_lite1_csid_src
-> +      - const: slow_ahb_src
-> +      - const: gcc_ahb
-> +      - const: gcc_axi_hf
-> +      - const: gcc_axi_sf
-
-[Severity: Low]
-Should the 15 *_src Root Clock Generator (RCG) clocks be dropped from clocks
-and clock-names here?
-
-In drivers/clk/qcom/camcc-sm8150.c, each of the corresponding leaf branch
-clocks already wires .parent_hws to its respective *_clk_src RCG with
-CLK_SET_RATE_PARENT set:
-
-    static struct clk_branch cam_cc_ife_0_clk =3D {
-        ...
-        .clkr =3D {
-            ...
-            .hw.init =3D &(const struct clk_init_data) {
-                .name =3D "cam_cc_ife_0_clk",
-                .parent_hws =3D (const struct clk_hw*[]) {
-                    &cam_cc_ife_0_clk_src.clkr.hw,
-                },
-                .num_parents =3D 1,
-                .flags =3D CLK_SET_RATE_PARENT,
-                .ops =3D &clk_branch2_ops,
-            },
-        },
-    };
-
-Rate configuration and enablement propagate from the leaf branch clocks
-automatically, and the CAMSS driver resources (csiphy_res_sm8150,
-csid_res_sm8150, and vfe_res_sm8150) never request any of the *_src clocks.
-Other Qualcomm CAMSS bindings with the same CAMCC topology (such as
-qcom,sc8280xp-camss.yaml, qcom,sc7280-camss.yaml, qcom,sm6150-camss.yaml, a=
-nd
-qcom,sm6350-camss.yaml) only expose the leaf branch clocks in the binding.
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index c54185c93a8a9..7035f5b333ff3 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -1940,6 +1940,254 @@ static const struct resources_icc icc_res_sm6350[=
+] =3D {
+>  	},
+>  };
+> =20
+> +static const struct camss_subdev_resources csiphy_res_sm8150[] =3D {
+> +	/* CSIPHY0 */
+> +	{
+> +		.regulators =3D {},
+> +		.clock =3D { "csiphy0", "csiphy0_timer" },
 
 [ ... ]
 
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    description:
-> +      CSI input ports.
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input port for receiving CSI data from CSIPHY0.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              clock-lanes:
-> +                maxItems: 1
-> +
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - clock-lanes
-> +              - data-lanes
+> +static const struct camss_subdev_resources csid_res_sm8150[] =3D {
+> +	/* CSID0 */
+> +	{
+> +		.regulators =3D {
+> +			{ .supply =3D "vdda-phy", .init_load_uA =3D 0 },
+> +			{ .supply =3D "vdda-pll", .init_load_uA =3D 0 }
+> +		},
 
 [Severity: Medium]
-Does requiring clock-lanes under port@0..3.properties.endpoint break C-PHY
-endpoints and D-PHY endpoints that omit the hardwired clock lane, while the
-example's endpoint@0 node bypasses this schema?
+Should the vdda-phy and vdda-pll supplies be attached to csiphy_res_sm8150
+instead of csid_res_sm8150 (similar to how commit 0567d0f1cc62 moved them
+from CSID to CSIPHY for SM8250)?
 
-In the example below, port@0 defines an addressed endpoint@0 child node:
+When streaming starts via video_prepare_streaming() -> v4l2_pipeline_pm_get=
+()
+-> pipeline_pm_power(), media_graph_walk_next() pops upstream entities firs=
+t,
+invoking csiphy_set_power_legacy() on CSIPHY before csid_set_power() on CSI=
+D:
 
-    port@0 {
-        reg =3D <0>;
-        #address-cells =3D <1>;
-        #size-cells =3D <0>;
+drivers/media/platform/qcom/camss/camss-csiphy.c:csiphy_set_power_legacy() {
+	...
+		ret =3D regulator_bulk_enable(csiphy->num_supplies,
+					    csiphy->supplies);
+		if (ret < 0) {
+			pm_runtime_put_sync(dev);
+			return ret;
+		}
 
-        csiphy_ep0: endpoint@0 {
-            reg =3D <0>;
-            clock-lanes =3D <7>;
-            data-lanes =3D <0 1 2 3>;
-            remote-endpoint =3D <&sensor_ep>;
-        };
-    };
+		ret =3D camss_enable_clocks(csiphy->nclocks, csiphy->clock, dev);
+		if (ret < 0) {
+			regulator_bulk_disable(csiphy->num_supplies,
+					       csiphy->supplies);
+			pm_runtime_put_sync(dev);
+			return ret;
+		}
 
-Because port@0..3 only define properties.endpoint (matching a node literally
-named endpoint), endpoint@0 is matched only by graph.yaml#/$defs/port-base
-and bypasses the endpoint constraints in this file.
+		enable_irq(csiphy->irq);
 
-Furthermore, on Qualcomm 3-phase Gen2 CSIPHY blocks
-(drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c), the D-PHY clock
-lane is hardwired to lane 7 in hardware and is not configurable, while C-PHY
-mode (bus-type =3D <1>, MEDIA_BUS_TYPE_CSI2_CPHY) uses 3-wire trios with an
-embedded clock and has no clock lane at all. Sibling CAMSS bindings removed
-clock-lanes in commit 336136e197e2 ("media: dt-bindings: media: camss: Remo=
-ve
-clock-lane property") and commit b8ef764aff5be ("dt-bindings: media:
-qcom,x1e80100-camss: Remove clock-lanes port property"), and use an
-unnumbered endpoint node in the example.
+		csiphy_reset(csiphy);
+
+		csiphy->res->hw_ops->hw_version_read(csiphy, dev);
+	...
+}
+
+With csiphy_res_sm8150 leaving .regulators empty and csid_res_sm8150 holding
+vdda-phy and vdda-pll, won't csiphy_set_power_legacy() enable the CSIPHY
+clocks and access CSIPHY registers in csiphy_reset() and hw_version_read()
+before the PHY regulators are enabled, and also power on the PHY regulators
+unnecessarily when CSID is used standalone with its test pattern generator?
+
+> +		.clock =3D { "vfe0_csid", "vfe0_cphy_rx", "vfe0", "vfe0_axi" },
 
 [ ... ]
 
-> +  vdda-phy-supply:
-> +    description:
-> +      Phandle to a regulator supply to PHY core block.
-> +
-> +  vdda-pll-supply:
-> +    description:
-> +      Phandle to 1.8V regulator supply to PHY refclk pll block.
+> +	/* CSID_LITE0 */
+> +	{
+> +		.regulators =3D {
+> +			{ .supply =3D "vdda-phy", .init_load_uA =3D 0 },
+> +			{ .supply =3D "vdda-pll", .init_load_uA =3D 0 }
+> +		},
+> +		.clock =3D { "vfe_lite0_csid", "vfe_lite0_cphy_rx", "vfe_lite0" },
+> +		.clock_rate =3D { { 400000000, 480000000, 600000000 },
+> +				{ 0 },
+> +				{ 0 }, },
 
-[Severity: Low]
-Should the vdda-pll-supply description say 1.2V instead of 1.8V?
+[ ... ]
 
-In the example below, vdda-phy-supply and vdda-pll-supply use 0.88V and 1.2V
-rails:
+> +static const struct camss_subdev_resources vfe_res_sm8150[] =3D {
 
-    vdda-phy-supply =3D <&vreg_l5a_0p88>;
-    vdda-pll-supply =3D <&vreg_l3c_1p2>;
+[ ... ]
 
-Commit 94d14ac1f2d3 ("dt-bindings: media: Correct camss supply description")
-previously updated the other Qualcomm CAMSS bindings to describe
-vdda-phy-supply as the 0.88V supply and vdda-pll-supply as the 1.2V supply =
-to
-CSIPHY IP blocks.
+> +	/* VFE_LITE_0 */
+> +	{
+> +		.regulators =3D {},
+> +		.clock =3D { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb", "camnoc_axi", "vf=
+e_lite0" },
+> +		.clock_rate =3D { { 0 },
+> +				{ 0 },
+> +				{ 19200000, 80000000},
+> +				{ 19200000, 150000000, 266666667, 320000000, 400000000, 480000000 },
+> +				{ 320000000, 400000000, 480000000, 600000000 }, },
+> +		.reg =3D { "vfe_lite0" },
+> +		.interrupt =3D { "vfe_lite0" },
+> +		.vfe =3D {
+> +			.is_lite =3D true,
+> +			.line_num =3D 4,
+> +			.hw_ops =3D &vfe_ops_170,
+> +			.formats_rdi =3D &vfe_formats_rdi_845,
+> +			.formats_pix =3D &vfe_formats_pix_845
+> +		}
+> +	},
+> +	/* VFE_LITE_1 */
+> +	{
+> +		.regulators =3D {},
+> +		.clock =3D { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb", "camnoc_axi", "vf=
+e_lite1" },
+> +		.clock_rate =3D { { 0 },
+> +				{ 0 },
+> +				{ 19200000, 80000000},
+> +				{ 19200000, 150000000, 266666667, 320000000, 400000000, 480000000 },
+> +				{ 320000000, 400000000, 480000000, 600000000 }, },
+
+[Severity: High]
+Will the clock rates for vfe_lite0 and vfe_lite1 (as well as cpas_ahb) ever
+get configured on SM8150?
+
+During probe, camss_init_subdevices() initializes each entry in
+vfe_res_sm8150 with vfe->id set to the array index, so VFE_LITE_0 has
+vfe->id =3D=3D 2 and VFE_LITE_1 has vfe->id =3D=3D 3.
+
+When powering on a VFE instance, vfe_get() calls vfe_set_clock_rates() (or
+vfe_check_clock_rates()), which only processes clocks matching
+vfe_match_clock_names():
+
+drivers/media/platform/qcom/camss/camss-vfe.c:vfe_match_clock_names() {
+	char vfe_name[7]; /* vfeXXX\0 */
+	char vfe_lite_name[12]; /* vfe_liteXXX\0 */
+
+	snprintf(vfe_name, sizeof(vfe_name), "vfe%d", vfe->id);
+	snprintf(vfe_lite_name, sizeof(vfe_lite_name), "vfe_lite%d", vfe->id);
+
+	return (!strcmp(clock->name, vfe_name) ||
+		!strcmp(clock->name, vfe_lite_name) ||
+		!strcmp(clock->name, "vfe_lite") ||
+		!strcmp(clock->name, "camnoc_axi") ||
+		!strcmp(clock->name, "camnoc_rt_axi"));
+}
+
+For VFE_LITE_0 and VFE_LITE_1, vfe_lite_name evaluates to "vfe_lite2" and
+"vfe_lite3", which do not match "vfe_lite0" or "vfe_lite1" (nor does
+vfe_match_clock_names() match "cpas_ahb"). Since csid_res_sm8150 also sets
+the clock_rate entry for "vfe_lite0" and "vfe_lite1" to 0, neither
+csid_set_clock_rates() nor vfe_set_clock_rates() will set their rates,
+leaving the VFE-Lite clocks at their 19.2 MHz boot frequency when streaming.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-sm8150-v7-=
-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev?part=3D2
+4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev?part=3D3
