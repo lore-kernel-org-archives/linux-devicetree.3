@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808229;
-	b=DqDHp580h3A0aZDIjI06rVEtKi6Qb6ISArJmNF81AKHaHsQaFAWVCoKT6O0Rzya0YGL+
-	 y8rFnsCJtXKYOim8AGxM/QWy0ye35bN7Qb5Lh+33Ug4PQkovHEGyBWqmziasKCcSNSWPS
-	 FL/jJjiEdAmy3BTiTgk1Nul5kLycR+1vSGjumRlQsJqJdimrZJKnBGJW8AxlZYeXPgimc
-	 0/Ed4nNIhZwrhWJeeMp2+6YaAhfzaTxfiacuGnDnLNOtuzFabPNtxEPUa1APAwEj1wgK5
-	 GUln7FGAXOwPpvpVQHxAn00cHsuxvW6TyTQHbzZSd3z78UkbzXLRiJo6whViYUcPQDA==
+	t=1793808642;
+	b=eonx4p2Ow/nir8L/Trb9S5VJbrdj7M32QCOsAkEHHo8lWGHjpi3mBR0drHGHQICIn4jr
+	 Z5q1IE64fGKdKX0hc0j6pJ1kqWU2+KE62h7hQRRpH5941uX1qda0AbS8ZLL201jf6qwJb
+	 a2xYviszVCvPbnXA4WhWSR5jMYwQc/OM1yXm82ohG5oqt/Q5CqSWDaxBkaYoS884ufxaC
+	 KNkM3A/l/zviCyfkua53lWrnweXaaspUJikoNgwyu/HRwwIQhZ1CKRq+4J8UA+f+piXRL
+	 H2m7FRVJcN690cCT4JLfbwkWs2bu/pKXKt34nLj30my03jEFEOJO9JooMp1qyeEPIpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808229;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4z0jvqdS/1LMWIjFo97DLyqM1S7YnHqeCK2uONFB0l0=;
-	b=MO83QFkT2YdfJtyKLkx/y023AZAobTdDtkE7doTUWNuxma6dgdWnThWwW3qx2EqNnI85
-	 Jn/ciP63h/cV7Ngbupc3wRSKxJARrtc6lqWEPe1B0VNk+oZDKZJ8qx2sLzxeo8AnRU2u1
-	 B+rRGNSia6VszK44Xnecs3ApB0LtkcKKqXKmGy60id317u9bIWPOq7Ytl6GAP7spkHyMV
-	 O/xI9K7t4rRPiK1VM/F+rlgE7Wpcu93p5K2l34Gxd6vYcML5CNPGVj5mjRAprMPkxyijp
-	 HiR9uzCl82LSSfCoSPtkJESd0dJQ5510lTErnZEsa08ziJIqCQNY67qSFQS637mVlBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808642;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Yy6wGnSydKjKPjrOgz5BaJYWTwgr4+9MeU7pUAvTs7M=;
+	b=ye2UyM5N/0YPBmxcbcRuXrrSKOaWnZkAaAm/M/Qdd9eEGW6oiGToreB7s0jsXmObf0KT
+	 Z2CyAOR7uWezADaK+GDuLUMiKBrKdDJbhSBZ8IUs6AQ581Jn/J7yMKduApv+KH8Z1JEFq
+	 0EyFBw1uwGvJyyhfeHfBBIf/p9Mmb5PGBr70VI6j8AtyctAW4zy3pta4Krw6GP7fumiyR
+	 BIWqZH4HSqC08ijnFFrFBIGJoOQ0B1yglD23DWMrgF+lnpC71iKsCTqJuXpD1biLvriXi
+	 bN+6LDqqX8VFk80zirdVyCWRJcCE6bpYMebwkiLmOUVoIe6qoW1/jiGsjRJ/UsRs0Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvmssJKq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=naNrgEj7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54AC606A337;
-	Wed,  4 Nov 2026 16:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EC0606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvmssJKq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAF61F00A02;
-	Wed,  4 Nov 2026 16:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=naNrgEj7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9ABF1F000C1;
+	Wed,  4 Nov 2026 16:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793808228;
-	bh=4z0jvqdS/1LMWIjFo97DLyqM1S7YnHqeCK2uONFB0l0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lvmssJKqKlBB8zb6lcm8q6aHeXG/qCiP+gUjcU9nvF+xGya/hGTMk+h5EqGwaP7Dg
-	 hCEjLaOMvxn99ux2L1vQ1WZcAx2UrUfxZq7tcVAtMx/fDv/Y5cU6wFg00SgqtSbZ+a
-	 /WXDF59xns9xcQX8OTZxjVf71BkxvniIjNyKm58RvBXNg83UcnxxNX2rY1B43JrSuJ
-	 8RqAyPwTf10OjQuQ7aJ8eKOoS80vk/S9VLlqiPDSLY5yZngtZ4hz6g28t2nn+PF25i
-	 8xKOs2XnzNhgBZUBhfQUJEOVMjBCn0dWJFHOAMfzJuGQi9BEpg3Gc3u0bauDSadtxU
-	 b+XunlvXOSbvg==
-Date: Wed, 4 Nov 2026 10:03:46 -0600
-From: Rob Herring <robh@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v6 2/2] of: Add support for "iommu-ranges" on a device
- node
-Message-ID: <20261104160346.GD3951195-robh@kernel.org>
-References: <20261103-add_iommu_ranges-v6-0-361f3921a133@oss.qualcomm.com>
- <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
+	s=k20260515; t=1793808642;
+	bh=Yy6wGnSydKjKPjrOgz5BaJYWTwgr4+9MeU7pUAvTs7M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=naNrgEj7akxnjtDZ1mXMv4TXg68nCA4oioPERPl7A0h0wYaiDbS0EgTKTJFPqXxKZ
+	 smLCImaQT5B1MI1gAzAAnFDQIZxnaYo4dZP/8YFheHXmd+OVPDDoOvws0gqQXp9ar+
+	 gGVKAHlNup3YH9I6n3dLRwInu7kTtrEPD8kxdF41xJgGClFEz5ip0gkPtRl/VIItl8
+	 jQMVMmSYJLDXD+F1hLsZiEbHijolu5pzr8+ARKXy6M9XW7LZ3fm9kaEJIXbbm27Grb
+	 O0Uudj2LByeUUPcdfEZ+M5R7Jh7epr6u39CV8xGdWg1yAEPrutxwoqkXWWcB4jWQJY
+	 UgVjT7ohEqKIA==
+Message-ID: <sashiko-outbox-197578@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 4/5] net: ethernet: adi: adin1110: Add OA TC6
+ protocol support for ADIN1110
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Iustin Stolniceanu" <iustin.stolniceanu@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103160918.409701-5-iustin.stolniceanu@analog.com>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+ <20261103160918.409701-5-iustin.stolniceanu@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 16:10:41 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,68 +60,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
 
-On Tue, Nov 03, 2026 at 08:59:33PM +0530, Vikash Garodia wrote:
-> Reserving an IOVA address using "iommu-addresses" requires it to be
-> placed in the reserved-memory node. But when "iommu-addresses" is the
-> only property being described and there is no backing "reg" (i.e. no
-> actual reserved system memory), it does not really belong under
-> /reserved-memory. A device IOVA range is specific to its own address
-> space, and does not describe the system physical memory to make it
-> qualify under reserved-memory. Given this, place "iommu-addresses"
-> inside reserved-memory only when it is paired with a "reg", otherwise,
-> define it within the device own node. It was discussed here:
-> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-> 
-> Existing "iommu-addresses" property expects a phandle, which does
-> not make sense when the property is defined within the device node.
-> "iommu-ranges" was introduced to specify the device specific IOVA ranges
-> when there is no backing "reg".
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  drivers/iommu/of_iommu.c | 134 +++++++++++++++++++++++++++++++++++++++++++----
->  1 file changed, 125 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-> index 5c266511db78910d6fd221af5437cecff4931c22..0428ceb50dec58f11872b4fb64e283fa8d9046a3 100644
-> --- a/drivers/iommu/of_iommu.c
-> +++ b/drivers/iommu/of_iommu.c
-> @@ -185,11 +185,118 @@ iommu_resv_region_get_type(struct device *dev,
->  	if (start == phys->start && end == phys->end)
->  		return IOMMU_RESV_DIRECT;
->  
-> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
-> -		 &start, &end);
-> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
-> +		&start, &end);
->  	return IOMMU_RESV_RESERVED;
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] net: adin1110: broken uc and mc filtering in adin1110_set_rx_mod=
+e_tc6()
+--
+
+commit fee140bec5b369ab45ae064be0620e5878578e1e
+Author: Ciprian Regus <ciprian.regus@analog.com>
+
+net: ethernet: adi: adin1110: Add OA TC6 protocol support for ADIN1110
+
+This commit adds OPEN Alliance TC6 SPI protocol support for the ADIN1110
+MAC-PHY using the oa_tc6 framework when the adi,spi-oa-tc6 property is
+present. It introduces OA TC6 register accessors, net_device_ops callbacks,
+and probe handling while sharing the existing MAC configuration logic.
+
+> diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/a=
+di/adin1110.c
+> index 53fac3dc8be62..d08b165bf7c48 100644
+> --- a/drivers/net/ethernet/adi/adin1110.c
+> +++ b/drivers/net/ethernet/adi/adin1110.c
+
+[ ... ]
+
+> @@ -881,6 +920,22 @@ static void adin1110_set_rx_mode(struct net_device *=
+dev)
+>  	spin_unlock(&priv->state_lock);
 >  }
->  
-> +/**
-> + * of_iommu_derive_resv_regions - derive reserved regions which
-> + *                                are outside of iommu-ranges
-> + * @dev: device for which to get reserved regions
-> + * @list: reserved region list
-> + *
-> + * A device can describe its own usable IOVA ranges directly on its node
-> + * via "iommu-ranges". Everything not under those ranges is derived
-> + * as a reserved region so the IOMMU allocator won't use it. Entries may
-> + * appear in any order in the property.
-> + */
-> +#if IS_ENABLED(CONFIG_OF_ADDRESS)
+> =20
+> +static int adin1110_set_rx_mode_tc6(struct net_device *dev,
+> +				    struct netdev_hw_addr_list *uc,
+> +				    struct netdev_hw_addr_list *mc)
+> +{
+> +	struct adin1110_port_priv *port_priv =3D netdev_priv(dev);
+> +	struct adin1110_priv *priv =3D port_priv->priv;
+> +	int ret;
+> +
+> +	mutex_lock(&priv->lock);
+> +	port_priv->flags =3D dev->flags;
+> +	ret =3D adin1110_setup_rx_mode(port_priv);
+> +	mutex_unlock(&priv->lock);
+> +
+> +	return ret;
+> +}
 
-Is this really needed? Assuming CONFIG_OF is enabled, this is only false 
-on Sparc. I don't think Sparc needs anything in this file. There 
-aren't any IOMMU drivers for Sparc unless COMPILE_TEST is enabled. So 
-maybe building of_iommu.c as a whole should depend on CONFIG_OF_ADDRESS?
+[ ... ]
 
-Rob
+> @@ -1123,6 +1233,69 @@ static int adin1110_check_spi(struct adin1110_priv=
+ *priv)
+>  	return 0;
+>  }
+> =20
+> +static void adin1110_oa_tc6_remove(void *data)
+> +{
+> +	oa_tc6_exit(data);
+> +}
+> +
+> +static int adin1110_oa_tc6_probe(struct adin1110_priv *priv)
+> +{
+
+[ ... ]
+
+> +	netdev->if_port =3D IF_PORT_10BASET;
+> +	netdev->netdev_ops =3D &adin1110_tc6_netdev_ops;
+> +	netdev->ethtool_ops =3D &adin1110_ethtool_ops;
+> +	netdev->priv_flags |=3D IFF_UNICAST_FLT;
+> +	netdev->netns_immutable =3D true;
+> +
+> +	return devm_register_netdev(dev, netdev);
+> +}
+
+[Severity: Medium]
+In adin1110_oa_tc6_probe(), netdev->priv_flags sets IFF_UNICAST_FLT, which
+tells netif_rx_mode_run() -> netif_uc_promisc_update() not to fall back to
+IFF_PROMISC when secondary unicast addresses are added to dev->uc.
+
+However, adin1110_set_rx_mode_tc6() ignores both the uc and mc address list
+snapshots and only calls adin1110_setup_rx_mode():
+
+drivers/net/ethernet/adi/adin1110.c:adin1110_setup_rx_mode() {
+	ret =3D adin1110_set_promisc_mode(port_priv,
+					!!(port_priv->flags & IFF_PROMISC));
+	if (ret < 0)
+		return ret;
+
+	ret =3D adin1110_multicast_filter(port_priv, ADIN_MAC_MULTICAST_ADDR_SLOT,
+					!!(port_priv->flags & IFF_ALLMULTI));
+    ...
+}
+
+Because neither dev->uc nor dev->mc is programmed into the hardware MAC
+filter slots, and ADIN_MAC_MULTICAST_ADDR_SLOT is only enabled when
+IFF_ALLMULTI is set, won't frames destined to secondary unicast addresses
+or joined multicast groups (such as IPv6 Neighbor Discovery solicited-node
+multicast when IFF_ALLMULTI is not set) be silently dropped in OA TC6 mode?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103160918.4097=
+01-1-iustin.stolniceanu@analog.com?part=3D4
