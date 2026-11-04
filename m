@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778133;
-	b=ZdP4V4Gct6k5vmnK8bYJxwA0vQHYK9ULMcBH8hcMVG3HgmsWmvbTbYVG76HooacnNFG+
-	 VDXbh3igVJ1h/5AKzlOYt69Yyt0PEuiJ5owywY/5nnom+Vh99N0qsZaBpT4Mhi83Ohtu+
-	 DiivvaCbrnUDaiEeKxfU4+HUw+OOP5V2AGn7wbJaoPlSA767YOuzxN+eXfjec0AosNd/p
-	 6zYJ2TzA+KWRbhHqXgVm+MNfEtd9HpOajasGpt6Bti36bHtkQnquQQ/ry6LcpSU15jJP7
-	 qWeBzHojdmr/swWCcNK/GmcbxaggHdO5jF/9cu6kx3kGdVMk0yCxj2+vvdvMhs/OIyw==
+	t=1793778139;
+	b=Egyyqpqkq7kmxn6F3p5q5D5oMAOiz0ENtFj7FsbjsHNTNoTlWgN7GH2sMEtA929DH9QM
+	 GYw4FKNXKB/iMSm8qf4g2/spgwY60Vr2MZTsWA0J9GaWB0XgR2KDJA3Gcve+Ig7BTIJlw
+	 IUqNwgOLs3d+au4vKeU0g8JsdLKbnU/BW4vjQZqp8uep332I79nEOqgomCfzFaMHmp2Hi
+	 0hG0HcvUXQ7bcxXuSx3/V3hhcvxrSTgcz0iGPpYaetq/3JuVsQxEcmxJ9JJQsstv3tSqr
+	 rTwvbLtwP+qqNJPL0Mxz2ocPGCA+o99tp39bIaNY2TFpcIQMq4ofWpvp6B4SCGmFU2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778133;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778139;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=XgGz0RsBeuTAkb9+mf6U3WsqonKJkMfHigPc4/u2i24=;
-	b=JWAJlqeEtwyzaiC0ur6hgP7N4OdGUn5uIBcPGTFXRs/PhCFOSnvwlPL2qdeFjc1mF8A5
-	 5E5jQBWsnI6FTWWGtiAWGFTyGDAVsJOaQ1ZHvsw7HPYhjaXGTlBTPH6fmjkj57wSvlhHv
-	 /JXsihqNVi2gFdE0dyizk0nRXLfoqkEST30itTZ9hE0B63S+9o8If9jWspIsh0GqmpQs2
-	 4THevowHCRthipq8eF2LtsRWZhkPACUX3Vh2GqDehLlr9ZEJPoWHmGFWy3/eaSljCmSEr
-	 6qAcT4G1F0SQSq7CXJrzlM9gNKdxdBKLZJqTaQ13Q1HkEvdg5zhqFa7NGK5apLy4KZQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DmsYpFlGwWZ6wODCprWn4/pAbquT0OQazWJnECBB6Is=;
+	b=SXKW5f5ecFILrTtJgDLhjl5g3vaRdxnfzNGzJrdB+t4wPN9HLHc474ACdauTX2V/tP4x
+	 IPfa4idI1n3hIKIecT2PFGKuI0T1ICBes4ykFosAkRqGWhkb1bsUEl2rQ8H31LgRlmBR9
+	 h883eQDqQqUsrutNPBLK6GGtaHdoYplzMHA+O++HYLyFTz1mxRlR992OY77RNfzhKy1yi
+	 g8baiUNn6ixkITNQF5qAyOCdPb4j1Ptz4e72H4BMa8V8KBALpxU2YlSWwWU9SDldxBqmn
+	 5uWJAPcg8BIVgR1+kNkpdUfPESi1IfRvH4ifesXH18bzx1uDmvab2hWu7cxx5Xizk0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GFkDsZM1;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOFw0+rQ;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59808606A328
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:42:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59808606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390EE606A329
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 390EE606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GFkDsZM1
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1aefd1bf74aso306513c88.1
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 23:42:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOFw0+rQ
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36cedf1bd63so351102eec.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 23:42:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793778132; x=1794382932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XgGz0RsBeuTAkb9+mf6U3WsqonKJkMfHigPc4/u2i24=;
-        b=GFkDsZM1X2fvZz7fpFxwGKgbV3Y0f2EwxqtIEVZ7CppVOXupPs01n2FGhSODJ/HwCo
-         8rMt6ha9VIM2fp74g86DkY7D85F9IdDGoovji5s68uv60eOKq1gYRGvlKEGsU+7Ddgv2
-         jUt/tVb9mYlKeN/vKv//GH+bPwgiAV8hU6vY6HAbMEfWtEdsT8+xbVLML/BIznkhoahK
-         1naS7Et+tMlJlVjSNDZq85Sk+48UYxBW8Ebh0dYTLU8Z/yyoDQp4/jzCQemr1QdI6j8K
-         YvT8pb27yUltIZbjOwM7Rw8wOaP9ZH19nIjhCqNLYeSpt/IkS6+hXsUvbaFbDgothKNy
-         HlJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793778132; x=1794382932;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793778138; x=1794382938; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XgGz0RsBeuTAkb9+mf6U3WsqonKJkMfHigPc4/u2i24=;
-        b=iowNxVj6V5OvXycUuNIk0ZRZzpYsWicZ/Q4yq7ngij87D1nqSDsN9v8CG1GHlebcYT
-         nY0hXtmhdOtWxUVdiNk4v9pZ8ky4nWpSAHPisFT1+ZGq66xkLrfNVK4UFcTRO4K+JRQU
-         ZSUy6Ar7abVAbL7xMq0ssqT71t0iTuNn+vZszawZQQez/9l/zRqXS9cxSNO4SV5sRdYx
-         sSTWLAUCzKLmaoYLUfmpA2In9RbzQrPNg8ogHBElvofZDff0kN7F6W9YtgVydjQF01rF
-         RayAl/0vmUfT2Ypo7vhSNNGolO3OrB5331fNd/T8v3nU1P0ZCszSmHjx5r0K+hWfB+R6
-         K1iA==
-X-Gm-Message-State: APuU4Z8gr5Dk2y+20PyGp4iCJBFHVbOgqjAFIjeaf7SoJp39qMBCOIrt
-	eYe3j5HbwUycd0oQt3jAd2uScNwHEJ4lnhPH+RawOs97wB4O41ou0zu5
-X-Gm-Gg: AYBFou1ECsgGiCEfYSFjBAgbIwJ0RhDz4ApAD/EX6K+86KIGRQtH250hCJ5SL2q42hm
-	OelwbZnAlG75r7oMGh1uPv5igocSLJp0nSUk7jhKsRs+nrrtWoMSYBJrIMsbWpVJjn/5UqXbXeI
-	FQKvc2p/WONyOzq7T6U7ckPd2OBiRR1Ff/NahfniNOc6esABvJSYPIITQnT66cBZV/f2AoGdOWb
-	ZNYsiSyWhT55xRoAtOgjP8D6MbrufBpM+6pQcZOfEQC6BnlNEZa2rHZyrAgDQu3M5SEeTUFpx0Q
-	LACeiQWUOUH2oA7INDpND7s3eTHGcOHbd5hsiy2SkRgPzu8X6dOPOVNyjOLgj2ET1tkYt0fGe3g
-	fnYwpTB7W3wSNpaXX+CkPRiI23x/aSF0bIQcAaNnlMhG4lMQeSR5vUI8eRys3no61DnJhSr4pup
-	8xTgGZmYOSNLNe2Vh03Q0YYYc9qYOAriLsgYtHQxq3ozlsGnw+5Auw+Ii4Gm1xo4UAMQHIoN/dg
-	OQ59FkEPNesPn8O+UdxpJ8ejVQ17ETbTV6/sXvxeJOW8RN5V3E1Bz906PhbwVWBaq28HyEJpIT2
-	OBDz4IFBCg4pqH6YB1rdTEX5RAFZHIeHvcMmgBRf1/LhimHE/o6Nj/raX5MlcoOWpD4zzF3tVA=
-	=
-X-Received: by 2002:a05:7022:4588:b0:1a7:4c5f:57e9 with SMTP id a92af1059eb24-1a94b852aabmr36592212c88.27.1793778132148;
-        Tue, 03 Nov 2026 23:42:12 -0800 (PST)
+        bh=DmsYpFlGwWZ6wODCprWn4/pAbquT0OQazWJnECBB6Is=;
+        b=GOFw0+rQ4Ki57IB4ZW29BzoZiSL96hz+qgDdjQj/oPScTAJi6HjnRAB21NRT9r425C
+         xFTZYWbk9VXMZLFutBr+ixjINLhyH8eUmPnDgjRXZEi5NmM/N21ZUhJB+gezsya3SppW
+         f40oBw4DuuBXQ7h+VNBCbpqg17daldox5cbY9/+Pt5zItqHpb4bCcdRp/ZejRi/NDrV6
+         +o78jxmwCzV6VS3Wpiz5z380+tdLFoyj3ipB3Ths2yn0XTFclU6/E7BXA1sN1/j+SqI+
+         F/NYKZ1PW5nmiThlTwpH/cXt5B2wsfDpzxDVU1aULl4tiIoVGfBTP3SNUpB/e0nuxS1O
+         VdlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793778138; x=1794382938;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DmsYpFlGwWZ6wODCprWn4/pAbquT0OQazWJnECBB6Is=;
+        b=NVpvVXBoT9ozHLXQm8qdhFXjiqJXhJLGeV+WOThZ6/igCcDv9oA8WoDPmrCS8dvdaX
+         W0yV4YLMHGUI36LPXv2KFKyqTt84tNv7FEdlKRmBUclNUXKOvVl6dNFDz4g/Berj6M6F
+         i/4AqG7xSCroweDapwPRLyLQ+Nc/SpkolUJlqUSEpPed1O1yf0QEIwh1xom8j8PJ5Uio
+         asG1Nf6zcK9w1GsBNfncxcqqACMn0N/LY+e/05Gil0qB5wLIPeeGddNUhHK8WiQJWzSY
+         lwjClfDkWxjJBRb31Ao7oYMyoC1Sb1q0BGHv46HxS/zlsnNBhIWQFKPRS+tM3vUeZIfb
+         K6sA==
+X-Gm-Message-State: APuU4Z9a1GHr7y9hQHHE4zYJ3rfw8ZGiQ5E4/LbP4QWmZ4vWYtujoTT1
+	hywPM6OC/rFCWrYHyrEqQPWHMs9+N6Vn0v+TY4thMGM/INyE8HMuEFFQ
+X-Gm-Gg: AYBFou2tg7ya8Zni5soUxGYZfFmJd22eQN+KlM6whvxERqVVN/Evd45j/A2uy7GAoP1
+	Utx/vFLOZRegyevzNAxLEefgBUwgVNPzXXv50ErRzDhwYOPPMdke+y3JBsKqobIgeCfiKid/sW1
+	A2CNWhWIIcuTmBBLpkczSWJkquKpmraXqv/5wdKy0s5jxkE8ASkgjlgInTZDvXOiSWrkRJSqDnj
+	X9c11kUN5qZ6A3XHQyOi6nm2eoUqYn8dqrDdEhLP2+2tzny8yGrXqJZJk9nhm4HSbIJAg0T0F6G
+	GglS+mgj/OShStUXSUFyoIpYdsOfTQR1RRpO69ZEaZABFWdkiWDGnI+qcvFBzg6jydK++XVzngv
+	Ttv+ArwD3fXFxQ5TpxwLg7n79fDIW+DeajPw3NPG54sv+1aqUWlYmc2P/40K3HzDx0XgvkkeQr5
+	GP1usRC2iwPUQ4xUHxfp+GUPYEjjJQ22dlCgCpMSy38bOB9pu0uLN/+IdDGLNp2A28t83YMQw3J
+	CNRTCqM6QJDnWESRlkB1Wg205Tvr2YoKeP0Phok4EE50d+DN3PNq7rlS0ViNEaECNrqQ8Jw7zsS
+	U28HFSJM4ABMjM0/S/S1CXo7PFmodvnBnnOgthpPEViCOLXMM01RUQ==
+X-Received: by 2002:a05:701b:4555:10b0:1b1:f02b:2317 with SMTP id a92af1059eb24-1b1f03a6afamr11492019c88.22.1793778138147;
+        Tue, 03 Nov 2026 23:42:18 -0800 (PST)
 Received: from 192.168.1.71 ([2402:a00:163:2ce9:c926:5826:36de:3b37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm5318385c88.5.2026.11.03.23.42.07
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm5318385c88.5.2026.11.03.23.42.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 23:42:11 -0800 (PST)
+        Tue, 03 Nov 2026 23:42:17 -0800 (PST)
 From: Ajit Singh <blfizzyy@gmail.com>
 To: linux-usb@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -87,10 +88,12 @@ Cc: devicetree@vger.kernel.org,
 	conor+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ajit Singh <blfizzyy@gmail.com>
-Subject: [PATCH v1 0/2] usb: typec: mux: tusb1046: add HPD_IN override support
-Date: Wed,  4 Nov 2026 13:12:00 +0530
-Message-ID: <20261104074202.76712-1-blfizzyy@gmail.com>
+Subject: [PATCH v1 1/2] dt-bindings: usb: ti,tusb1046: document HPD_IN override
+Date: Wed,  4 Nov 2026 13:12:01 +0530
+Message-ID: <20261104074202.76712-2-blfizzyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261104074202.76712-1-blfizzyy@gmail.com>
+References: <20261104074202.76712-1-blfizzyy@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,21 +106,44 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 For boards where HPD_IN is not asserted by hardware, the TUSB1046
-allows software to force it high over I2C using the HPDIN_OVERRIDE
-bit in the General register (0x0A).
+can force it high over I2C using the HPDIN_OVERRIDE bit in the
+General register (0x0A).
 
-Add the optional ti,hpd-in-override property and driver support
-to force HPD_IN high when DisplayPort mode is selected, and clear
-the override when switching to USB or Safe mode.
+Document the optional ti,hpd-in-override property to force HPD_IN
+high when DisplayPort mode is selected.
 
-Ajit Singh (2):
-  dt-bindings: usb: ti,tusb1046: document HPD_IN override
-  usb: typec: mux: tusb1046: support HPD_IN override
+Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+---
+ Documentation/devicetree/bindings/usb/ti,tusb1046.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- .../devicetree/bindings/usb/ti,tusb1046.yaml       |  9 +++++++++
- drivers/usb/typec/mux/tusb1046.c                   | 14 ++++++++++++++
- 2 files changed, 23 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
+index e1501ea6b50b..58e9fde3ca71 100644
+--- a/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
++++ b/Documentation/devicetree/bindings/usb/ti,tusb1046.yaml
+@@ -20,6 +20,14 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  ti,hpd-in-override:
++    type: boolean
++    description: |
++      Force the HPD_IN signal high through the HPDIN_OVERRIDE bit in the
++      General register while DisplayPort Alt Mode is active. This is useful
++      on boards where HPD_IN is not driven by the downstream DisplayPort
++      sink.
++
+ required:
+   - compatible
+   - reg
+@@ -39,6 +47,7 @@ examples:
+ 
+             mode-switch;
+             orientation-switch;
++            ti,hpd-in-override;
+ 
+             port {
+                 endpoint {
 -- 
 2.50.1 (Apple Git-155)
 
