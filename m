@@ -1,62 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796304;
-	b=EbUjy0MicpocPaQFeuUzSUrZmixmQMjvXqTFH5NpxFyVvGZjkx+e3UX15MJDK9h89v10
-	 6Y1potV1gBAegNaXWKMmkvAho1UlaoPwn4vpc07gf3F9YUkXqxjjk4G0GgrIlbOzxdgb+
-	 1HkyGFyFNhbJRMdZB3MtmvTZbu3BHE+DvTx5Ayg1pDS9Gcv39U7XEi8P3fGBljiO2v6qh
-	 sCd381rK6zLQS34PqkRnojaYdkKnl9tf5vIc5bhcXh+LwBLd6erQz6gjmew4Xc1pjJoSA
-	 zs+QjOzL/teJpAcztba5kUjR4xx3PI/O3p/eZRLMB+WEFWjB5crWVJTRfsvsoUsXV5Q==
+	t=1793796375;
+	b=skQxdr3pcgWXFZxww4yG2SN8Oqo+BFOeWo9ZJH+CH5LAMM0nHKmSaJv8/KMBEIMMzws1
+	 wiM2ajjDB2dPzG4zt2/UWXhSBGpGr7Vzoo38fvZwzslbY6BdCPLxv1MPkXhu/P1kJUD1U
+	 gzPb/X3OA+f+uioCyxPuooGWc+JTJX2qYJNb7B4aoBLn+JSl2o80wHS/e5Dv1iwXvSJ4U
+	 5LBZH6A4XyAwOFOZycS0gp9+PEueEYxHlpidEZHM4hI5o2csxM9Ra7s6FCADodkcGYhye
+	 O+KJXGXY8yqSLMBkn+3TBNZGFGSEjNHKr6noS7CCiSdRVff3Cbsk+9FuPjtgnx+xUYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796304;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bcwZ+BIYS1fsQmOTmnctKIFVuU2lYAEyD4sfxCNPlOc=;
-	b=rxwM3kNE2pqW6NLV46hWI7w03DIzM/2uiWIex7OugOpu0YeULEvT1keKHQfTtuMHZlED
-	 cKueXxeH1/NIG7mx9pPWuE612N29FkNPbH76vpP1jwpfTRbEIf0BAQbPA88oLQivdTBeY
-	 vtfw7YScG4VYu7Ab51dilqibIxIzfXMW+3LPiOHsVwlUMZa85z/TrfKPreGROHOdwOLTW
-	 mLP+1RCZ9m8Y8pt7TBuPpTkigYYAU2UfGTUO4cJzVs/6Y8WJnB135yTmXCx+61Nf9ydyJ
-	 BMlgdz6qrB9BjwAfbDL1aUV4bd0WGjSRh5GMJMJmqn1Z93p3swTJveg/81YkslszNYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796375;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Subject:From:To:Cc:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=ud7i8nnvBkdRVkVjV5P07IGY/fDmIFTDHSVtW4K9wfw=;
+	b=BJsJNQJT5oJrjV2vBfy2adrQetjvaQM05f5Wdmh4ORit1osXk9JbByF22mjttLnjyiiu
+	 JM0KlzS/REjZITvOSpkgmqzWGoKC1U8s2fEEbAKy0vrMZZSWfR4r4OF8AUABrMO8YQNCH
+	 sFkgcaRHaVrjdTl3yFL74T19BEHLw+GtCsp++E5bN4lNLppOrV7x2Ra6SHyEOJdJY2tq8
+	 m42GeNyDwCcnF5mBvZAJQWPL8vUvOKtZ8f4nZtrROn052hWXk4AGIGSjcwHaqF9A/nCyP
+	 K84Y5dRrylKKcOQEODgwYHc6AJ5jD/hJhwRLmaRPYn4SXGzpCOPrUTREH5NDeANW7yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIIim+qm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=vwNJdk9R;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79534606A330;
-	Wed,  4 Nov 2026 12:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D145606A31B;
+	Wed,  4 Nov 2026 12:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D145606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DIIim+qm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598B81F0093A;
-	Wed,  4 Nov 2026 12:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793796304;
-	bh=bcwZ+BIYS1fsQmOTmnctKIFVuU2lYAEyD4sfxCNPlOc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DIIim+qm76m0x9L1ZNhKMdCT1vWZTspXPk51CEw+nAMPr1rvH5wHjtG4dD8nOWREO
-	 aFTPn+yk45VSNsUIoGoSCfFGMPSOxBrTLW/c0BiWbfYsea26DN5KWgX/XIHg4dKMpI
-	 UdRph5o4raxC79x4v2v7VWs7nzbQBA3dix0avbtXdFwC+x9mx1fQJtuc4giF0Rx8K2
-	 o0aPK74Ll7Qp4YxhuDM57OyycPIb6UACEvuma5MxcYvg9NG00wSXQvOgOA8Sv6H0RN
-	 HfmqswWqwQGXBZGUbNCqNjhU6tcXLOuuTFp8rgOtUovDANAPz7Kcc3WpLkHdd0rTdB
-	 aFB3+hx3R0fmA==
-Date: Wed, 4 Nov 2026 13:44:59 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, Amit Kucheria <amit.kucheria@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/6] dt-bindings: thermal: qcom-tsens: document
- qcm6490 tsens
-Message-ID: <20261104-gleaming-polar-panda-77c21f@quoll>
-References: <20261031-thermal_bin-v2-0-d76fd073ae98@oss.qualcomm.com>
- <20261031-thermal_bin-v2-3-d76fd073ae98@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=vwNJdk9R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793796333;
+	bh=ud7i8nnvBkdRVkVjV5P07IGY/fDmIFTDHSVtW4K9wfw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=vwNJdk9Rqznf8c0Jd+ViAy9HSDB0XzxyptvnWEJW8/lKu2YobJLyZUkhDg617qtHA
+	 9X5s/cjZlNIr2099WbfnyOufkqTIPyEY33L9fS/tlps+uNTIH4WMXmKfAwW9/o2k7f
+	 ZbTyLKOWZuKu1i5OmbaOPrdfj0uNFZSt0Ap574ro=
+X-QQ-mid: zesmtpgz6t1793796331t28955be0
+X-QQ-Originating-IP: hJ9E/gMI2dwNw1YEW3nJrkwLffT0S2bkqJlyttVlVJ0=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 04 Nov 2026 20:45:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5863053726233936690
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,31 +58,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031-thermal_bin-v2-3-d76fd073ae98@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=b7d78e441824c4b04bea4fdbdffd564c14f6ff6ad7497c5a67632b196766;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 04 Nov 2026 20:38:47 +0800
+Message-Id: <DMMFL4TP6K9U.5WFLI5G6YC5@linux.spacemit.com>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 BS01DCMA support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Emil Renner Berthing" <emil.renner.berthing@canonical.com>, "Troy
+ Mitchell" <troy.mitchell@linux.spacemit.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan"
+ <dlan@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
+ <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>, "Guodong Xu" <docular.xu@gmail.com>, "Yangyu Chen"
+ <cyy@cyyself.name>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
+ <20261104-k3-bs01dcma-v1-2-794025247e4a@linux.spacemit.com>
+ <CAJM55Z9Yj87hqwMugqRsf_RL9np=KqzCj-J9RyutuWKd-w-n+g@mail.gmail.com>
+In-Reply-To: <CAJM55Z9Yj87hqwMugqRsf_RL9np=KqzCj-J9RyutuWKd-w-n+g@mail.gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NVrDa/vn3l+O9qiowlTD2zaHKE0g++nF0vjHVbzY0C5kPKcQLtb4u+2L
+	qjPDvKpym0s8Db3rTBZjdVtuIuNVW7Z4S3e+nEb0R96VUj3nxKycKSJPlEN3Sr7dsiZPZ4D
+	KX08oz8aDvuSRrdpIuQGiWQrCB4+2eGOlaCOlPkD4YuWjL7bz9hMGUOERICj1CAkzASR+y2
+	Ex0LuOXq5asYsXOlYvBIA6ZgFPFsQK4nMU2WwbGfJfPMijwDt4/5MRZcKYcwG69SPvTsF6t
+	xydpwvCM6cejj3FmdW1jUtQMIgQHTxSy2/NbPf1oeASk4amm1qAU0aYdUGp/HGLAe14Rk8S
+	kZxRWsb3j3vRNm4QoQeORotIoW84Q7NFmgq9HMGkDQh3urUuiufOQdNw4VG5r7WS+s27tGp
+	wHooCq1VDwzpiMCobOxXelAfSDJBie7gBT+q+iP+xq49WRsqXhwsmf080ARMT7TmBHeGtIN
+	6ITSGA5eFdfIspJVlob9KSHqg+dtY2CaRC9gVdREATaYDZatDP71wXdcknsZXzk3I+Bv32u
+	jUh71/yR4Msxjzhzny5mgE1/59DfZepTTMzOkGS/v2GAay41hwaJEce2mk1ZiXHDNpsdvnN
+	nVkqeEnqNB5MX0azSvNSSDuEpjpGFU7zC3C/erwMeAM2ek9BVaiFh+cdB30CbNS8aR7nA4k
+	/m1vqaWruf4q2I6wwqK+EPrbBD6Ki/5V3eoCPYLamdD/v7zUa2aRUAXsJxi+38V+zVOVYN5
+	w2PhSazs/PRqkLJW2sXl69H7zUIYf2AbAq2UQfAUrDLhff2NVZWTBlhdJLcpZRlCczE41+Y
+	vlOzZngukDGS25bMc1uqymyv+vw7NMGNE99INhFfRtiTgV2cAk/6zNgF00JCjYV0NjPDulJ
+	vOLlhO1wNGBF8+YIpKUaJoVpMP4OhYQweD8gh7LiefkDkQqajkRVIE/GmF9Zr3Py9b+yAGW
+	aUK2/VpuyLd+0B7ktRjaxKkW17F8kyP2yQ501fk1zuZN/1naGSE6M+G8Cb8sSRPvjpfYkKy
+	ZKsWI5iRUBMbOmhtXIHXw/IP25NXIpiAXXbhDUeMQ/M8c6IIEZaJGixfjaFeuNwCmUXtYUU
+	qewk1aNk321
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Sat, Oct 31, 2026 at 06:52:49PM +0530, Gaurav Kohli wrote:
-> From: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
-> 
-> QCM6490 uses a tsens-v2 IP block and supports hardware-binned critical
-> trip points. Add its compatible to the tsens-v2 enum.
-> 
-> SoCs that support hardware-bin critical trips read their manufacturing
-> bin from qfprom fuse cells rather than the usual calibration cells: a
-> single "i-temp" bit on hamoa/purwa-class parts, and a "jtag-id"/
-> "feat-id" pair on sc7280/qcm6490. Extend nvmem-cell-names with two
-> oneOf branches so these fuse-cell names validate.
-> 
-> Signed-off-by: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
+--b7d78e441824c4b04bea4fdbdffd564c14f6ff6ad7497c5a67632b196766
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Wed Nov 4, 2026 at 8:21 PM +08, Emil Renner Berthing wrote:
+> On Wed, 4 Nov 2026 at 07:24, Troy Mitchell
+> <troy.mitchell@linux.spacemit.com> wrote:
+>>
+>> K3 BS01DCMA is a board equipped with a SpacemiT K3 SoC, 16 GiB of LPDDR5
+>> memory, a P1 PMIC, an EEPROM and QSPI NOR flash.
+>>
+>> Add initial support for the serial console, EEPROM, PMIC and QSPI NOR
+>> flash.
+>
+> Hi Troy,
+>
+> Thanks for the patch!
+>
+> I just had a talk with Dong from Spacemit. He tells me the BS01DCMA is
+> the name of a module similar to the com260, only it has a different
+> form factor and each module consists of 2 separate K3 nodes. Similar
+> to how the com260 module can be used in a small carrier board
+> (spacemit,k3-com260-ifx) and in a 10-node server
+> (spacemit,k3-com260-tq), I'd expect to see a
+> common arch/riscv/boot/dts/spacemit/k3-bs01dcma.dtsi describing the
+> module itself, and then an
+> arch/riscv/boot/dts/spacemit/k3-bs01dcma-<something>.dts that
+> describes the extra peripherals that can be accessed when the module
+> is plugged into the server.
+Ah, I think I got the product form factor wrong. I'll double-check this
+with Dong. Thanks for pointing it out!
 
-Best regards,
-Krzysztof
+--=20
+Troy Mitchell
 
+
+--b7d78e441824c4b04bea4fdbdffd564c14f6ff6ad7497c5a67632b196766
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIYEABYKAC4WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCausnVxAcdHJveUBrZXJu
+ZWwub3JnAAoJEJgJ74D5MzQvwR0BAIMhLAVoskfIVLiSUa7AOkJcF8Seux/3ZYNB
+5w+rYXNuAQD5XKQ71sqJjooaXjxAwzwcJGIyf9TnZuNkxHNXuC/DDQ==
+=LQsG
+-----END PGP SIGNATURE-----
+
+--b7d78e441824c4b04bea4fdbdffd564c14f6ff6ad7497c5a67632b196766--
