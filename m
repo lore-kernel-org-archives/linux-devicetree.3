@@ -1,41 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782812;
-	b=OaxJNgKxUrLAoTfPxno6FEvzRan1vkIArU3EsZO4KFFcZmA97Grv/YohlF75zKJn3mcJ
-	 CaUMtO4slGQ0VXAvE/dPYb+Iuaq90lhD7ikl+nrqb3Fo+i/Bek9G+Rx57E6YmovuGAdHH
-	 EsF0IVloHzUA9QaRQm47EnuWPIYO7tA7IApDkBHyedyM1wcVVCSBlZB1UUqkkK+EjMvGz
-	 S5DCoQB3uqeWWl/rBrhAZWaArAMrhZNuSv6i+5uyG6KkM6i2fW9xJlJts7da6M9BaUf0v
-	 jMyDYhHoJ6ZrMCZ83xC0ri4LGe73BduAqWPg+wGvOP25ID1Y/X04YDRwC0Kt+IBAALA==
+	t=1793782887;
+	b=xtQ7rs6xjpIcf469cDlnBIT0jKFMk/shjUqKK1cueJKoraeElREeMraCTRHyw7CSmJMx
+	 B3Mme1hhRjuApenNZZA5bdmND368bpdmcELXtZQnRk6rKJ4vsVZ8eKI+1rfRYy6tdIv7y
+	 Hy164lNEYiZ8S74w5pMit0Vim2ubOO2UfWIJKtXrbo0G2WgkqidMYRt3Lge0MEMtHkL4R
+	 j5N0mQH7MS1+rFCpSNISLsNW2iN3D6fBgk2nIm3xgp9hEX7/CYPG8oaPRUfVQ+OpYSrhV
+	 0YEHryvN0bTA2HFulkabb6OH659Ev/+whHf1AoTnaqTw7FxLsfbqwEHO4yQX68WLE6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782812;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=eAdT+8rLd44bxIIAm/zwqM4YbafLLwH/m+nhuD3g5QU=;
-	b=ykUcZi2H4zBmfa/Z11v4jbvQ97WjC7zT+GrCd13TQ/P6GUAcK1AEAwPyRptOmq47T9AU
-	 ak9RmJMp6B1E+Keip49WE5kxdonSmxLFnWXO4YFVJSpEYycqV1wCPCoFhaMlA13BksULE
-	 /RyHG4kPgYSDqBQY2sFNgTkmROUIwWoOU3J3YStmyjN50tVN/qkhNQGp5bHTmdtHXDF8j
-	 fT6kZL7eNwmBiYWlC2Ghv01GZrH8wVAIKp/33r5CNw3dpRELUkSjuon6mP0OlsZxnRVfL
-	 jQ9poWuvw5XapYpSuP4TcswMxCPWXVap4hC/dE9NU7ZFjD35a8UrxPxqRq+2Uz0+L7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782887;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=AaKiM9W+fdOJ7e3/KZVbbDmGDM/hjoRoSVQ8Q/hFZsc=;
+	b=c2gclsYSexp1vV4Wn0JiQznzC4Zkz0faRYbfuXxlaUjXStqWyTg/7k2K/Q65QRW2PEQP
+	 BeoLH3jzpAP4V2VVQ7WAiISgKyjuuMlR2xmdKmIVQZPJklI8gYn40d06O9D5/Ch68AQfv
+	 NLXUfZVz216UeIdgGqf5kVp1QNn2wE9ByuoHK6rzYZ6tZAZxShaA13Xm9yjWz8uJjbVkU
+	 dlcsih8X8/VqWX67wHghA/3G3g7R6YoYg7OfqN+tv1RKc2e4QIhPc/kz9k7rMnLFICIcX
+	 iBX6rMIORZ1c8jkzYxJdAJFW18WFt5ttaSuI15d7997eDtEPeRXQip/cIhrCH37LcVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	arc=none smtp.remote-ip=103.209.128.50
-Received: from mail-m12850.netease.com (mail-m12850.netease.com [103.209.128.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF82606A328;
-	Wed,  4 Nov 2026 09:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BF82606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5376b923e;
-	Wed, 4 Nov 2026 16:59:59 +0800 (GMT+08:00)
-Message-ID: <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
-Date: Wed, 4 Nov 2026 16:59:58 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22AE606A329
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:01:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C22AE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2eb18f4da15so1539135ad.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:01:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793782886; x=1794387686;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AaKiM9W+fdOJ7e3/KZVbbDmGDM/hjoRoSVQ8Q/hFZsc=;
+        b=SqYdU8jc1NXwMyJytsFcyaKAlRb5Rj5iHahS9P17vGkIdB1KR+n7BczEjINCMVn64X
+         O+lr52e6+K/08Ps5LLgmva9HkmZpt+HywRyimPwur29jXs2KjRDWKbfgVu4SlBoB22/E
+         ee2CVkvaLjwemCHpRdM03w3l1umFWmzNNOPWEeD1e6zlRyPCytt+UNx/G/w4Ul3bpkD2
+         +lObRlDHh4LT6kcTqTONZ5y0c+RX7o0hZ3l3K7niJ4485UwrR3uvX+vRUVSqu/GOr4pu
+         E1UUmEozxW+vZvWj9beLMGiH0ShpkKAEvg7FTskHkTI2d0x4YPVd2iS3WM18uMEwB1ZW
+         KnuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxMsuHV4/cJBHTf8qUK3pbRrM2qeMTVfb7RadypeNocoLrHlxEUt3yOtpwGlvZNOQRgrcwemG5ni45C@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TZz05xmpOWmwd4ouWt1s+LrZmpAL6jrhkJKtI0qOISOGLQfMi
+	pLDvh1rnA0uX0ufpoRvrf5rSEBE2c5L+vDopLhE+12MMnG/lH8YPdZMGcgJwXmVe
+X-Gm-Gg: AYBFou1OqKNEVzt2ECPG/RllIQmq0vJrKyA+vBWcuEvtZmpYgdn41+M3639/Sr22dLU
+	sdQoJ2tTay5QyMCTficdPVobqQbdl7WRukFwo+AzKqAuRKH6LCbonq3Nh1x7z1WuZX4IBegEpBU
+	WSwMJJVROYy5Xx8pKqq9AHq03Ck+rk+CRVQmB9VXcP2hiyl6xndiM0/1vi74v723Upw0L3W9O7U
+	so68uxNRtIugsqo2N7iBtSVtXxk8RPaZq+aWvIzn7dXdBHSCwNZftq65fo3u90C4HW9ownBaJxN
+	VBF0nCfWj01kwjdNmM0ZXPdOYfO/uXeIcoCD3zROg6vSXMQ1wXFFTQG/lpTPHPYArN5Ka17rwcK
+	EaNp5KLOM8tKz/K2tuLQr93z/YFFTvsX2s0x06YyIIQIJj2IiVsGoQRV6Y+ZQRDw6T4iGA7FU4l
+	qyNYHTgUmhvtyWrSO5DiIGDRcQlJEyb/RsoouGHnpplchjAA04sR99fIZ6os+uys1jImIR+QWhB
+	vofRu87zr6A5rnbIMN8swTOq5nqFuoGaJ/4kHpdKso+tyZaUEOteY0w6RWJ0Qv7Wzmo2KP6MqiL
+	5KtfBgxxAFVQ608Ixt7PqzBiKIiDtOvGihhwXnwlNIj7fTxy93NjV4ulHAJdz3+ymocnHmwke25
+	f0KxXxXn6Bcei/uLmpc81oCojo4HgJO+wGFeH0qZmxIk=
+X-Received: by 2002:a17:902:d50e:b0:2e9:628d:e9a6 with SMTP id d9443c01a7336-2eb364f35f2mr133910655ad.57.1793782886174;
+        Wed, 04 Nov 2026 01:01:26 -0800 (PST)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com. [74.125.82.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed091a62d4sm4972655ad.60.2026.11.04.01.01.25
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 01:01:25 -0800 (PST)
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a18fc7a38so992536eec.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:01:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBz1exPXkcZhNTcHdjFPqgRKq1YKoaVjQkaqYsFco2IoRWL+kPJzSQXU8ZBxjcj4K07oydaj6rAC1Lrb@vger.kernel.org
+X-Received: by 2002:a05:693c:4144:10b0:35d:4185:5395 with SMTP id
+ 5a478bee46e88-36a423a205fmr27260638eec.16.1793782884949; Wed, 04 Nov 2026
+ 01:01:24 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -45,205 +81,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
+References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+ <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev> <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
+ <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com> <4fb6c428-85fd-4674-8480-919191db1277@kernel.org>
+In-Reply-To: <4fb6c428-85fd-4674-8480-919191db1277@kernel.org>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 04:01:13 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ7CY6hitrp7xk6=r65EEQNYc74RYg-BjVSJo=6UBLq36g@mail.gmail.com>
+X-Gm-Features: AclHuK9uQeJIR1NfXJqyf9nbtbfdJiELHYiw7wy3ZTo2enB8PX2i4vU_7m4oveI
+Message-ID: <CAPY4CJ7CY6hitrp7xk6=r65EEQNYc74RYg-BjVSJo=6UBLq36g@mail.gmail.com>
+Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dave Jones <s.dave.jones@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
-References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
- <20261030064905.2248999-3-damon.ding@rock-chips.com>
- <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1a5c95c3e03a8kunm4bbaef2a348d4c
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTklPVksZGRpLSxlPSBgYH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5KVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=MHZnCuK3X0/bHPD1qBFBpPTg5quAPx84ehdDHx+2O7e+ZW0NvxFEq3Qa7uJmJjE/dpQuLUHBLvCCA7Erx3R7UwcpFYvbZelF7bJukJ0Kp7fqAV1l7q9ezBQqrl4ZAThxvSRXaHEinP0DVtJ8ttPK0TCapb15cyIRtY1FZvkdsBk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=eAdT+8rLd44bxIIAm/zwqM4YbafLLwH/m+nhuD3g5QU=;
-	h=date:mime-version:subject:message-id:from;
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
+> No, it is not. It has clear and obvious checkpatch warning.
 
-On 11/3/2026 7:20 PM, Krzysztof Kozlowski wrote:
-> On Fri, Oct 30, 2026 at 02:49:01PM +0800, Damon Ding wrote:
->> Document the eDP transmitter PHY with NaNeng IP block found on the
->> RK3568 SoC.  The PHY has its own register window inside the eDP PHY
->> GRF, so its node is modeled as a child of the eDP PHY GRF syscon with
->> a reg property describing that window.  Also add the
->> "rockchip,rk3568-edp-phy-grf" compatible and the phy node reference to
->> the Rockchip GRF schema.
->>
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>
->> ---
->>
->> Changes in v4:
->> - Add the reg entry for the PHY node and the ranges/#address-cells/
->>    #size-cells for the parent syscon node.
->> ---
->>   .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 68 +++++++++++++++++++
->>   .../devicetree/bindings/soc/rockchip/grf.yaml | 20 ++++++
->>   2 files changed, 88 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->> new file mode 100644
->> index 000000000000..b78da00ffefd
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
->> @@ -0,0 +1,68 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Rockchip eDP Transmitter PHY with NaNeng IP block
->> +
->> +maintainers:
->> +  - Damon Ding <damon.ding@rock-chips.com>
->> +  - Heiko Stuebner <heiko@sntech.de>
->> +
->> +description:
->> +  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
->> +  registers, therefore the PHY node is expected to be a child of the
->> +  eDP PHY GRF syscon node.
->> +
->> +properties:
->> +  compatible:
->> +    const: rockchip,rk3568-edp-phy
->> +
->> +  reg:
->> +    maxItems: 1
->> +    description: PHY registers within the eDP PHY GRF.
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  clock-names:
->> +    const: refclk
-> 
-> Just "ref"
-
-Will fix in v5.
-
-> 
->> +
->> +  "#phy-cells":
->> +    const: 0
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - "#phy-cells"
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/rk3568-cru.h>
->> +
->> +    soc {
->> +      #address-cells = <2>;
->> +      #size-cells = <2>;
->> +
->> +      edp_phy_grf: syscon@fdcb0000 {
->> +        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-> 
-> This is beyond the scope of this binding. Drop entire node.
-
-Will Drop in v5. The example should only show the PHY node itself.
-
-> 
->> +        reg = <0x0 0xfdcb0000 0x0 0x8000>;
->> +        clocks = <&cru PCLK_EDPPHY_GRF>;
->> +        ranges = <0x0 0x0 0xfdcb0000 0x100>;
->> +        #address-cells = <1>;
->> +        #size-cells = <1>;
->> +
->> +        edp_phy: phy@0 {
->> +          compatible = "rockchip,rk3568-edp-phy";
->> +          reg = <0x0 0x100>;
->> +          clocks = <&pmucru XIN_OSC0_EDPPHY_G>;
->> +          clock-names = "refclk";
->> +          #phy-cells = <0>;
->> +        };
->> +      };
->> +    };
->> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
->> index 7bcb4e2f47ec..c089bd014003 100644
->> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
->> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
->> @@ -93,6 +93,7 @@ properties:
->>                 - rockchip,rk3399-grf
->>                 - rockchip,rk3399-pmugrf
->>                 - rockchip,rk3562-pmu-grf
->> +              - rockchip,rk3568-edp-phy-grf
->>                 - rockchip,rk3568-grf
->>                 - rockchip,rk3568-pmugrf
->>                 - rockchip,rk3576-ioc-grf
->> @@ -119,6 +120,8 @@ properties:
->>     "#size-cells":
->>       const: 1
->>   
->> +  ranges: true
->> +
->>   required:
->>     - compatible
->>     - reg
->> @@ -156,6 +159,22 @@ allOf:
->>             $ref: /schemas/phy/rockchip,rk3288-dp-phy.yaml#
->>             unevaluatedProperties: false
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: rockchip,rk3568-edp-phy-grf
->> +
->> +    then:
->> +      required:
->> +        - "#address-cells"
->> +        - "#size-cells"
->> +      patternProperties:
->> +        "^phy@[0-9a-f]+$":
->> +          type: object
->> +          $ref: /schemas/phy/rockchip,rk3568-edp-phy.yaml#
->> +          unevaluatedProperties: false
-> 
-> Properties should be defined in top level. Here you only narrow them.
-> 
-> This binding is getting close to unreadable/unmaintainable. Split new
-> devices with children to their own binding.
-
-Agreed. The "rockchip,rk3568-edp-phy-grf" syscon will be documented by
-its own binding schema in v5.
-
-Best regards,
-Damon
-
+Sorry, my wording was ambiguous. I meant that I've fixed it in v2,
+which I haven't sent yet, and v2 passes checkpatch --strict; v1
+doesn't.
