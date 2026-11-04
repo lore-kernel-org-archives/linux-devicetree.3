@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809210;
-	b=ONOLCi4je+5vUB7b4FjJHBOCjVv9bNYf4io3BWLhPUizWr99+/IAIZ+ccbuHF7ls7FkD
-	 4+HNVw7vwaf0eoJ78go6IAPgvRkvX/US6o/Jfusx7HqINiG9QfABs36p+gZDB8RNJyGA4
-	 q/+wietvidrwEKi04oOuYeln1kidUeETKA94Ej9qnWKmT1OgSaT1C/ZUEsdc7KChB57PV
-	 ioK+9Kqk5CO3ekR0LyOywhBgHOEbJonWY+bZsW63eNfcoO59RI4OoHRI9CwWv0U7SebxH
-	 RrT0BtzHb2FYCxriWotYxgvnHay319VL+FWTMr1w6I8MKA6oBLZa359tyf+sZgCWNCw==
+	t=1793809393;
+	b=YCOK8/3LmOGzkpCi7OI4krqAA9t8Jaa5exJtkDfVPhLqrSHLUrnDVaoN5v5Bq4adMofV
+	 LKqpNvzLxY1PBk3owfZtIZrZ5W1lJLllf+vgAyWxPmv8PE86QbgRkQWxKXk/Cn6nuz582
+	 KPJpH60XFu7bEJvG9K5HJGIlUpiJ/Fsr5bpbWVKSl6nQbX4mJ8oeI3UrFt5yfMb0QuEHz
+	 i+KoY2BYHN2wx94jL4I2u+H6st2LnCSmwszqORWKO7uOdKQR0Rx4TobGUiJ3Vd69w3cqg
+	 L7AWMCwSbnbnIApJH7UxThvKPfKCqx1PhISLjCsazb72aMWPi64A3ceRmcQKke8pbSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809210;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pjFn7Y3OC+D5gDYL7AOGzIF/B+0rHfG3IC6MlKA6Dpw=;
-	b=vSWk4YKXtX3KI6o4ayAR+IN188U+h+rI4HXcUrNJ93LTRb5wPFDyHO5+Qep/tNyCc0jN
-	 U/Z4AAoQyT0C8gLfMOv4SNPbVKTOj0PmjqHlxaxyTia6OQ4Ydk+VV/VA/Nf2zWvQYPRJL
-	 qk8WlAYwE0iIgiTFqHqpSj4r7uI6hTbWBJ48UDUAjsh3z98OviiXVYYio8EWldoJ/hyor
-	 zoH9LXOgIWqIMVgzQv3OnFaFA621dcHwJycqR4i1wKeNXN2fomy70y6xKddtyyH1Cosu6
-	 XbB4nZCztTPExcEYYNP9uIQbdsrCuMuT5hLcYs7nsO8RY3hsy0XqUAkbfCP1BJzA7dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809393;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=vocGYEw/5tonadEsgL+tN2/v9RawaaHXU9Cku3rNbjM=;
+	b=O34byX0W5FAs253nc59TKXAu5H8EaJVSbcK+0WCyBJ23G8RMdbcdQtsKxgkKgEPqixZn
+	 Jj9eUJQG8/wqP07R2LxpAVqpcnn035nUA1mdIPfUw3JFK4DsjT4YFfkSP4ecacLXzwyKl
+	 hJ4EoxyoHbfkQl9NM0GsrgTLAVR6PUVoizGYtAa8AeLVzyLAkwbO3VsKLhETQWYkN/8S/
+	 peB3evmK7a1KM7vywj0G+dmmRS8vvA9+VVokB7dk6KvDdM9Kubnd6Ha0quzVO4iVWzCHY
+	 7usx5ImxXuPB3yqZshYDEoJh1XDKLpVl2LZQ4EVtfMTD2/l0anZd3gOpdHthVp42hmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gd2sBo1z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=OfBHQzq3;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC8D606A329;
-	Wed,  4 Nov 2026 16:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CE4606D80B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:23:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39CE4606D80B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gd2sBo1z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3485B1F000C1;
-	Wed,  4 Nov 2026 16:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793809209;
-	bh=pjFn7Y3OC+D5gDYL7AOGzIF/B+0rHfG3IC6MlKA6Dpw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gd2sBo1zjahjCh7eQHoPAalz/DGoiFeVygcECsHvD3ifKbD2lEZSekCHWyfTmPJWu
-	 JNwY9+bwuxJwr7wh24R7z1tTEznV1UggkD0b2519IJ1+Lx0jwYWFTjiBnNIN0z6p+z
-	 yonimCq04f417zwqthfYmVvyg1/EdilUfXIkyag9ih4ntTPqHlRLThSHrLEZnQWwXQ
-	 GJbUVGZcPWuqOID+4phrkSxZYIqerJ8flIdbhN1Gd5t2xOObG0YyrQdevcCXCKhEIx
-	 IoluWwmi7Bn/fMYZUNwbUx24PmO9SFFRLHFWB/ZIUu0WwuF+Bm0HAVYAZYY8T0djAI
-	 vm02tBNmUNQww==
-Date: Wed, 4 Nov 2026 16:20:04 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Kohei Otsuka <kohei@spacemachines.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, conor.dooley@microchip.com
-Subject: Re: [PATCH 1/2] dt-bindings: serial: 8250: add Microchip Core16550
-Message-ID: <20261104-zen-aloha-35da49a7e72c@spud>
-References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
- <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=OfBHQzq3
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so12182575e9.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 08:23:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793809391; x=1794414191; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vocGYEw/5tonadEsgL+tN2/v9RawaaHXU9Cku3rNbjM=;
+        b=OfBHQzq3oKvaoOFRoHZC/AgPU6SHQTh8Tn5idn471YK/WW7khloYoayW8Miad1hh/R
+         KTc7jor1qVubUrWQg5V/EQUqhjaIYEmOPlcmCvmduK0bPEG+qH0SofyMwQhX1qq/jLD9
+         Ys6NJrQnAvEuV36Z1EOknH8puwbPth1kq5JCukPwMIFTDJZuDZM6V1lZmTauLqIOgglP
+         ItOQhaGCEgY9eyhrxBcJh6mK5QNpkHYUjVc0vWfGL8qNUakZeutNp21/PAUmX/S7c025
+         J3X4tZ3V3kfN+vE74GoZsRwqv2GdRW01AmrkMZ2nVZgQwm5fILOeSN3G7j8TlKScH5I7
+         BYLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793809391; x=1794414191;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vocGYEw/5tonadEsgL+tN2/v9RawaaHXU9Cku3rNbjM=;
+        b=nIbz9kpwli6etZTj2pbkW+FhW5Z2j/ftSmN8Ccq9KcCsIj6cK/WCYFqs7JZQcqKQna
+         SiJPB/bM6AooVJhXnU+5VptrRIZZqswZ9fLuQk4A2ADYupsUfAHAukPVh/IoTAZOsNFW
+         drqm2onBL9xwbC6fH8CPEOmPCPrFY1Kv/oefLlvqlyOVlv1KxYU8RqoH6jwaw4My9qR+
+         lDaMU+uGqgez48UL5UKFBiGQm/YA/NWaVwRDjKmf1sqngZVAr4YAD+h4kPjUUnr49W3/
+         Ayd6wlWxQg40FbX0/B6TEMAXn0wjvPBU4uWM1xRzb4kGaKsgfk9LMUhzyBaLfbb2LRcE
+         YWnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxe+ForTdNfaO2aFf0aRKZFskvLt2bpuZM25NHUkM70GbwDqteQlYlJYwyQ8Sia0DPr1wdoSYOoZZpu@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Tst1RmsYfBMHgHis3542gT5/DQ21LHErRn3o6G9t41F8o+s4A
+	iSStP7H7PkQI2hY7wL6+5ZYy/eFTSFPZIcNkdzj2pNDWAnhvNkXEBNiGPOb8LRkuAs8=
+X-Gm-Gg: AYBFou0oytuFt3CEyeNYFhckVAlrvTWRj/1eQm9GEy8eCvWoG5qHL++r/0/HlPTSiMF
+	ilv4VWUtJltqtjH5Hal/FgJKJkL2ykM/ATYIY21CvawXrJqyEU0TjeRG/jJrXv/NUti1dUViSbU
+	YF9j7FDZE/cYcYHDzMIt4/TiL/O+Bcgc29gLHjSnM342L4JrLe3AJVYfgWrmHkexaKfeo3UFuMT
+	c9a4Km2jDXRajwkYGhvl3KbsZEGSLofP5QfFGYQz+wQ9s2Mrru+AaUr0ImzRou+spfobSxNeMzM
+	HTyWMMFQxZS8oLzQ53XHxDcz1Dx8SmBtgGaiZmLUnZRdZRhhEs3ojrtFrRGoklN5u6GT0QC5m/3
+	bBnucQiGDWie36Stlc8kx5K2MKe5DbAtkPWLddiFH/o734Ch2QgFXO1lSwTQ7Hmi3migrl4JE2/
+	u62Akd+qGPcVYYGdzP2Y0Jg4mjTH14iKZtXN+9qfEXogxTnkOHp6Oyk5ie9tb23x/icj7psCkuD
+	CIqdtlBW3DSBf9QgfszgBkzabSQkEU7pu4y3En5UuaEBPAExOtXLi/7hmYxET2711yAcZAZl5+U
+	1p1xple7EPnqWN3zYB0Nl7yyIMwUQRpvqtuIcCaw2g==
+X-Received: by 2002:a05:600c:1907:b0:4b4:a551:681a with SMTP id 5b1f17b1804b1-4b55c8743d8mr75395e9.3.1793809391436;
+        Wed, 04 Nov 2026 08:23:11 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.163.117])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a80e0fe6sm168477495e9.1.2026.11.04.08.23.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 08:23:10 -0800 (PST)
+Message-ID: <f416b51a-0775-4834-9e1d-af8a72d9a1d8@linaro.org>
+Date: Wed, 4 Nov 2026 16:23:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,72 +90,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/YK4gQNoKzn69mov"
-Content-Disposition: inline
-In-Reply-To: <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] of: Add support for "iommu-ranges" on a device
+ node
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+ Eric Auger <eric.auger@redhat.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20261103-add_iommu_ranges-v6-0-361f3921a133@oss.qualcomm.com>
+ <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---/YK4gQNoKzn69mov
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 03/11/2026 15:29, Vikash Garodia wrote:
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index 5c266511db78910d6fd221af5437cecff4931c22..0428ceb50dec58f11872b4fb64e283fa8d9046a3 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -185,11 +185,118 @@ iommu_resv_region_get_type(struct device *dev,
+>   	if (start == phys->start && end == phys->end)
+>   		return IOMMU_RESV_DIRECT;
+>   
+> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
+> -		 &start, &end);
+> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
+> +		&start, &end);
+>   	return IOMMU_RESV_RESERVED;
+>   }
+>   
 
-On Tue, Nov 03, 2026 at 11:11:31AM +1100, Kohei Otsuka wrote:
-> Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
-> including the fabric of PolarFire SoC. Its registers follow the 16550A,
-> so ns16550a stays the fallback, but
+Same feedback as @ the last version of this.
 
-> it raises no interrupt on TEMT,
-> which the driver has to know about to support RS-485 on it.
+I still think this behaviour change should have its own patch that 
+preceds this patch so that the logical change is clearly explained and 
+understood as a standalone change.
 
-Doesn't this exclude using the fallback to ns16550a, since it requires
-specific interrupt handling?
+Supporting iommu-ranges != not mapping misaligned ranges.
 
->=20
-> Add microchip,core16550 with ns16550a as the fallback.
->=20
-> Link: https://github.com/linux4microchip/meta-mchp/issues/5
-> Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
-> ---
->  Documentation/devicetree/bindings/serial/8250.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
-tation/devicetree/bindings/serial/8250.yaml
-> index 50d5c977afa3..33a5929bdaa6 100644
-> --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> @@ -137,6 +137,7 @@ properties:
->                - ti,da830-uart
->                - loongson,ls2k0500-uart
->                - loongson,ls2k1500-uart
-> +              - microchip,core16550
+Otherwise this change goes under the radar of the new functionality 
+addition.
 
-This needs a -rtl-vX suffix on the end, as is used for other fabric
-cores - see microchip,corei2c.yaml for an example.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
->            - const: ns16550a
->        - items:
->            - enum:
->=20
-> --=20
-> 2.53.0
->=20
-
---/YK4gQNoKzn69mov
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCautbLwAKCRB4tDGHoIJi
-0hEzAP9yRmEhtlbVR6cyvMk5PogsOPk+0H5ZoPenSwG3LA95mQD+P3B2Wjyav1c0
-ZUWJtuzMvs7EkProyzmI9Y8M6PDHPQI=
-=WvVS
------END PGP SIGNATURE-----
-
---/YK4gQNoKzn69mov--
+---
+bod
