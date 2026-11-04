@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763674;
-	b=aGjohW0jnVMlrfkKr6P+bYrqNW/g2eM4+EaA/CvpbZsM/DgvlHZgHevJWKbD3CCm+XYB
-	 4ITNMbOzfoyzcim1qV5Z0pd0zloEr/r01Q8EjondWRkLLS93d7RufijPd51jQKPBWtSFC
-	 nGaxriGzbxxWNyqlcJ6ePHiljkcGssDAvHasYzmkYsxifC8ssdX6/MnRBahN1/fK5MHfK
-	 Q4yiIIicHnGb3GnBcLDCADDlo/xY6sNcpQnUr8Y3zr0sv3OugcAMC5swQPgMfVnI9GMJt
-	 t3ZdZNXzEARNM1FWHR3hR2V3T+1L7juzVkf+6kAsIx4FmKsplp3ZCLWQFtO1PUuUQNg==
+	t=1793763720;
+	b=Uwnyov49nn59YodA4Rjx3aBctIBREAMUKBFXFK+gYi8xBA2iuzeHzmIu4WdWWuvw+liU
+	 ZHV9Ttr7gvPQ1uX0ZSCw2xweKB46w3kyteipRzez9I3xma3C79DFpJwZrS0nBnI0FdWgZ
+	 8yWYn/DCF0u4CICMr1V22A/DOxChyaVIcxXzmrWw5ySS1Sy2fdPwU9U1tPEvN1yOJO00v
+	 L+oVml9nGkNOGbQEp/qmsOeacrRMO0qN1Oiyk7COC752tgWSwsIvUhy4E4UaM2RqX2c84
+	 gw70GXQtK2QOLj9X0Op0/FQFQaERpkfyLAuLlV8RbPKAxAqJY2zkZhn/73vYqiehyBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763674;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763720;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=ZfU3QDJk03w7Octfw0qxWRtbR9li0uNTEHM66lL57Rw=;
-	b=fGP/S4t2QnMWRaz/4nlhAQLGzqNqjDfsOFf5se6FZ3N/Yq9Q6z/+ACLXNqRO+UeUZPYD
-	 lqoUpYRIGi6A8rk1mbIrbnd4BBtH/nWJhVvEkDKTCSj4oY2RXmxdF6eCo/gNcn2SMv+b8
-	 gpxhkeHS5JzV0MKnoHP5Zq1MlchuDaBL8MAlqiDHUF9fWMctNet4dQ8Fk1NI508VwnZXx
-	 RgR+nAzleL5HbfKIXZ1aDhgibtqqlPEJXam9cR8ATER5wZuPA/RGGg6tiq6oreuH2vWKF
-	 W6yoMA+GJ/5T8IxsoT0HsIH6lmZ8+rHlIfJuFIaXRwvKFaUeCbtC3K58MUQdMih08lA==
+	bh=cWnFRKpZokWkQ5E2c9rJhlVsbvaysRnqtojKqmGnkxo=;
+	b=FE0L4C1cQu1kBnwQf/Ssiy+eDHXmFyQOp0vVWkWAOoSS34LePzI58qas2Ub+AAiA9Uoe
+	 8LNzpg+tGY6C6GR+706+v2rvzEf2anypwMVcGCQuy1r2YdPPae31hm50LRprP6HXl3miO
+	 NWBGNT4D3RuNwmNMeVw5Fx4l+W2NNTIUe5bgNTqZTNEeNfUYFiVHla9GvxEzyPybGBktw
+	 u0M5EsaSMYUbs/Xag3jGop1R0LRx8GvhdEcOFUqxwaluuvzbCLZ0KLbm1GMxJOLvL8ZUm
+	 c+Fv9WA5FlxkvqTAupjMqvipxNYRUtnjk1BoUCWx7HLyA4qJv+fZ1+wEdMIvTBx8NTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWwBnn4m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/ELI3F4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D24C606A326;
-	Wed,  4 Nov 2026 03:41:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C0F606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 03:42:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWwBnn4m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA57F1F00A1D;
-	Wed,  4 Nov 2026 03:41:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/ELI3F4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56701F000C1;
+	Wed,  4 Nov 2026 03:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793763674;
-	bh=ZfU3QDJk03w7Octfw0qxWRtbR9li0uNTEHM66lL57Rw=;
+	s=k20260515; t=1793763719;
+	bh=cWnFRKpZokWkQ5E2c9rJhlVsbvaysRnqtojKqmGnkxo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jWwBnn4m0xNDpMNIssO8VXvnPz+xcMLbgysyEVhGGKlk1nsylAMTHyaNKY4OgsEgD
-	 Et76499H8KH6FWiaAw2Uwoc76uvafEIxrLSKhhl+dhd7my+IFOh2hT4PfDG+/3jxaT
-	 e5CPvVuZhh8+kVGjNpYKA0dvrA2CXMucde9dg739jJusd7CjxR0ufc2mT7nM2wcdXs
-	 7U1FGrjFV9w6WUKOiLEHcom9tsaRbEnYwNzFQdE09gA9PfMPIm4VyN/q0PqY68r4gL
-	 NgxeqJ58C4uOgT1vse6CICSjj5B/DrD/bV6U0oPmIYbvSySt1QfquTuvk/9Ud8MUMQ
-	 hvi1wdhkSVKOg==
-Message-ID: <sashiko-outbox-196619@kernel.org>
+	b=U/ELI3F4/9/nErWCZ/+5Y5mbL0qU65EQvMBv0t6TOaCWZcRf93RW+drFMaq2KZ6+o
+	 dG1YtYKZOhPnOYfLFBZXKxaHicbVDG4sK7DpuYSKPICtIL1pXO6aIth5hCTpHnEs0r
+	 PR/exldeSyG51tGwGVLNJVMJw6TculT7PRoGD27KC/c53aqC1vvBA/0CUOfIUFxPRc
+	 i1mF72FF88g6PwLKLDfeRkKCO3phxoqXYH+1irDwbPbYeZUh+L7biC50hVntqjVRXA
+	 1ag4UBgrhZ/c8Bqh56hAnNZLujEcAYOEs8egHg/Jabq1RI2kVg83zoyS5zOtMUs7lG
+	 N0QF8s6qK79uQ==
+Message-ID: <sashiko-outbox-196620@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] hwmon: ltc4283: Add support for the LTC4284 swap
- controller
+Subject: Re: [PATCH v6 4/5] arm64: dts: qcom: sm8750-lenovo-elden: add the
+ Lenovo Legion Y700 Gen4
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexis Czezar Torreno" <alexisczezar.torreno@analog.com>
-Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-staging-ltc4284-v1-2-49fce67ebc48@analog.com>
-References: <20261104-staging-ltc4284-v1-0-49fce67ebc48@analog.com>
- <20261104-staging-ltc4284-v1-2-49fce67ebc48@analog.com>
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104032648.209747-5-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261104032648.209747-5-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 03:41:13 +0000
+Date: Wed, 04 Nov 2026 03:41:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,397 +61,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] hwmon: ltc4283: positional initializers in ltc4283_i2c_id table ent=
-ries
-- [Low] hwmon: ltc4283: duplicated channel info table and chip-ID helpers
-- [Low] hwmon: ltc4283: missing default resistor fallback in ltc4283_setup()
-- [Low] hwmon: ltc4283: commit message omits functional differences for LTC=
-4284
+- [Medium] arm64: dts: qcom: sm8750-lenovo-elden: unvalidated skeleton boar=
+d DTS
 --
 
-commit 07a1775aa285e31dccd905e19fc784e472406b97
-Author: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+commit 3e2b204812c71d90f6fa41a9d3a0c687d7154cd7
+Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-hwmon: ltc4283: Add support for the LTC4284 swap controller
+arm64: dts: qcom: sm8750-lenovo-elden: add the Lenovo Legion Y700 Gen4
 
-This commit adds support for the Analog Devices LTC4284 negative voltage hot
-swap controller to the ltc4283 hwmon driver, including dual current sense
-channels and separate ADC power sense resistor handling.
+This commit adds an initial board devicetree for the SM8750-based Lenovo
+Legion Y700 Gen4 tablet with the board compatible, chassis type, board
+clocks, and firmware-reserved GPIO ranges.
 
->     hwmon: ltc4283: Add support for the LTC4284 swap controller
->    =20
->     Support the LTC4284 Hot Swap Controller. It is very Similar to LTC428=
-3 but
->     for higher power. The device features programmable current limit with
->     foldback and independently adjustable inrush current to optimize the
->     MOSFET safe operating area (SOA). The SOA timer limits MOSFET tempera=
-ture
->     rise for reliable protection against overstresses.
->    =20
->     An I2C interface and onboard ADC allow monitoring of board current,
->     voltage, power, energy, and fault status.
->    =20
->     Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-
-[Severity: Low]
-This isn't a bug, but the commit message mostly repeats generic hot-swap
-controller features already shared with the LTC4283.
-
-Could the changelog also describe the functional differences added to the
-driver for the LTC4284, specifically the two current sense channels (SENSE1
-and SENSE2) with separate sense resistors (rsense and rsense2) and the
-dedicated ADC sense resistor (radc) used for power and energy calculations?
-
-> diff --git a/drivers/hwmon/ltc4283.c b/drivers/hwmon/ltc4283.c
-> index 9ec409bc26482..d27c211146152 100644
-> --- a/drivers/hwmon/ltc4283.c
-> +++ b/drivers/hwmon/ltc4283.c
-[ ... ]
-> @@ -173,7 +192,19 @@ enum {
->  #define LTC4283_ADIO34_MAX \
->  	LTC4283_ADC_2_MAX_DIFF(LTC4283_CHAN_ADIO34 - LTC4283_CHAN_ADIN12)
-> =20
-> +enum ltc4283_chip_id {
-> +	ID_LTC4283,
-> +	ID_LTC4284,
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
+4/boot/dts/qcom/sm8750-lenovo-elden.dts
+> new file mode 100644
+> index 0000000000000..821950715c8e4
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+> @@ -0,0 +1,50 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "sm8750.dtsi"
+> +
+> +/ {
+> +	model =3D "Lenovo Legion Y700 Gen4";
+> +	compatible =3D "lenovo,elden", "qcom,sm8750";
+> +	chassis-type =3D "tablet";
+> +
+> +	clocks {
+> +		xo_board: xo-board {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <76800000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		sleep_clk: sleep-clk {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <32000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		bi_tcxo_div2: bi-tcxo-div2-clk {
+> +			compatible =3D "fixed-factor-clock";
+> +			#clock-cells =3D <0>;
+> +
+> +			clocks =3D <&rpmhcc RPMH_CXO_CLK>;
+> +			clock-mult =3D <1>;
+> +			clock-div =3D <2>;
+> +		};
+> +
+> +		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
+> +			compatible =3D "fixed-factor-clock";
+> +			#clock-cells =3D <0>;
+> +
+> +			clocks =3D <&rpmhcc RPMH_CXO_CLK_A>;
+> +			clock-mult =3D <1>;
+> +			clock-div =3D <2>;
+> +		};
+> +	};
 > +};
 > +
-> +struct ltc4283_chip_info {
-> +	enum ltc4283_chip_id id;
-> +	const char *name;
-> +	const struct hwmon_chip_info *hwmon_info;
-> +};
-> +
->  struct ltc4283_hwmon {
-> +	const struct ltc4283_chip_info *info;
->  	struct regmap *map;
->  	struct i2c_client *client;
->  	unsigned long gpio_mask;
-> @@ -182,12 +213,118 @@ struct ltc4283_hwmon {
->  	unsigned long power_max;
->  	/* in millivolt */
->  	u32 vsense_max;
-> -	/* in tenths of microohm*/
-> +	/* in tenths of microohm - For LTC4283 SENSE or LTC4284 SENSE1 */
->  	u32 rsense;
-> +	/* in tenths of microohm - For LTC4284 SENSE2 only */
-> +	u32 rsense2;
-> +	/* in tenths of microohm - For LTC4284 ADC power measurement */
-> +	u32 radc;
->  	bool energy_en;
->  	bool ext_fault;
->  };
-> =20
-> +static u32 ltc4283_get_rsense(const struct ltc4283_hwmon *st, u32 channe=
-l)
-> +{
-> +	if (channel)
-> +		return st->rsense2;
-> +
-> +	return st->rsense;
-> +}
-> +
-> +static u32 ltc4283_get_rpower(const struct ltc4283_hwmon *st)
-> +{
-> +	/* For LTC4284, ADC uses radc. For LTC4283, ADC uses rsense. */
-> +	if (st->info->id =3D=3D ID_LTC4284)
-> +		return st->radc;
-> +
-> +	return st->rsense;
-> +}
-> +
-> +static u8 ltc4283_get_sense_reg(const struct ltc4283_hwmon *st, u32 chan=
-nel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1;
-> +
-> +	return LTC4284_SENSE2;
-> +}
-> +
-> +static u8 ltc4283_get_sense_min_reg(const struct ltc4283_hwmon *st, u32 =
-channel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE_MIN;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1_MIN;
-> +
-> +	return LTC4284_SENSE2_MIN;
-> +}
-> +
-> +static u8 ltc4283_get_sense_max_reg(const struct ltc4283_hwmon *st, u32 =
-channel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE_MAX;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1_MAX;
-> +
-> +	return LTC4284_SENSE2_MAX;
-> +}
-> +
-> +static u8 ltc4283_get_sense_min_th_reg(const struct ltc4283_hwmon *st, u=
-32 channel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE_MIN_TH;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1_MIN_TH;
-> +
-> +	return LTC4284_SENSE2_MIN_TH;
-> +}
-> +
-> +static u8 ltc4283_get_sense_max_th_reg(const struct ltc4283_hwmon *st, u=
-32 channel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE_MAX_TH;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1_MAX_TH;
-> +
-> +	return LTC4284_SENSE2_MAX_TH;
-> +}
-> +
-> +static u8 ltc4283_get_curr_alarm_reg(const struct ltc4283_hwmon *st)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4284)
-> +		return LTC4283_ADC_ALM_LOG_4;
-> +
-> +	return LTC4283_ADC_ALM_LOG_1;
-> +}
-> +
-> +static u8 ltc4283_get_curr_alarm_high_mask(const struct ltc4283_hwmon *s=
-t, u32 channel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE_HIGH_ALM;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1_HIGH_ALM;
-> +
-> +	return LTC4284_SENSE2_HIGH_ALM;
-> +}
-> +
-> +static u8 ltc4283_get_curr_alarm_low_mask(const struct ltc4283_hwmon *st=
-, u32 channel)
-> +{
-> +	if (st->info->id =3D=3D ID_LTC4283)
-> +		return LTC4283_SENSE_LOW_ALM;
-> +
-> +	if (!channel)
-> +		return LTC4284_SENSE1_LOW_ALM;
-> +
-> +	return LTC4284_SENSE2_LOW_ALM;
-> +}
-
-[ ... ]
-
-> @@ -974,15 +1133,32 @@ static int ltc4283_read_labels(struct device *dev,
->  static int ltc4283_set_max_limits(struct ltc4283_hwmon *st, struct devic=
-e *dev)
->  {
->  	u32 temp =3D st->vsense_max * DECA * MICRO;
-> +	u32 resistor =3D ltc4283_get_rpower(st);
->  	int ret;
-> =20
-> -	ret =3D ltc4283_write_in_byte(st, LTC4283_SENSE_MAX_TH, LTC4283_ADC1_FS=
-_uV,
-> -				    st->vsense_max * MILLI);
-> -	if (ret)
-> -		return ret;
-> +	if (st->info->id =3D=3D ID_LTC4283) {
-> +		ret =3D ltc4283_write_in_byte(st, LTC4283_SENSE_MAX_TH, LTC4283_ADC1_F=
-S_uV,
-> +					    st->vsense_max * MILLI);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		/* LTC4284: Set max limits for SENSE1 and SENSE2 */
-> +		ret =3D ltc4283_write_in_byte(st, LTC4284_SENSE1_MAX_TH,
-> +					    LTC4283_ADC1_FS_uV,
-> +					    st->vsense_max * MILLI);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D ltc4283_write_in_byte(st, LTC4284_SENSE2_MAX_TH,
-> +					    LTC4283_ADC1_FS_uV,
-> +					    st->vsense_max * MILLI);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	/* Power is given by ISENSE * Vout. */
-> -	st->power_max =3D DIV_ROUND_CLOSEST(temp, st->rsense) * LTC4283_ADC2_FS=
-_mV;
-> +	st->power_max =3D DIV_ROUND_CLOSEST(temp, resistor) * LTC4283_ADC2_FS_m=
-V;
-> +
->  	return ltc4283_write_power_byte(st, LTC4283_POWER_MAX_TH, st->power_max=
-);
->  }
-> =20
-> @@ -1271,6 +1447,45 @@ static int ltc4283_setup(struct ltc4283_hwmon *st,=
- struct device *dev)
->  	 */
->  	st->rsense /=3D CENTI;
-> =20
-> +	/*
-> +	 * For LTC4284, rsense is for SENSE1, rsense2 for SENSE2, and radc is
-> +	 * the effective sense resistance for ADC+- pin.
-> +	 */
-> +	if (st->info->id =3D=3D ID_LTC4284) {
-> +		ret =3D device_property_read_u32(dev, "adi,rsense2-nano-ohms",
-> +					       &st->rsense2);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to read adi,rsense2-nano-ohms\n");
-> +
-> +		if (st->rsense2 < LTC4283_MIN_RSENSE || st->rsense2 > LTC4283_MAX_RSEN=
-SE)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "adi,rsense2-nano-ohms(%u) too small or too large [%u %u]\n",
-> +					     st->rsense2, LTC4283_MIN_RSENSE, LTC4283_MAX_RSENSE);
-> +
-> +		st->rsense2 /=3D CENTI;
-> +
-> +		ret =3D device_property_read_u32(dev, "adi,radc-nano-ohms",
-> +					       &st->radc);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to read adi,radc-nano-ohms\n");
-> +
-> +		if (st->radc < LTC4283_MIN_RSENSE || st->radc > LTC4283_MAX_RSENSE)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "adi,radc-nano-ohms(%u) too small or too large [%u %u]\n",
-> +					     st->radc, LTC4283_MIN_RSENSE, LTC4283_MAX_RSENSE);
-> +
-> +		st->radc /=3D CENTI;
-
-[Severity: Low]
-In ltc4283_setup(), st->rsense is initialized to LTC4283_MIN_RSENSE before
-calling device_property_read_u32(dev, "adi,rsense-nano-ohms", &st->rsense) =
-so
-that the driver can probe without firmware properties:
-
-	st->rsense =3D LTC4283_MIN_RSENSE;
-	ret =3D device_property_read_u32(dev, "adi,rsense-nano-ohms",
-				       &st->rsense);
-	if (!ret) {
-		if (st->rsense < LTC4283_MIN_RSENSE || st->rsense > LTC4283_MAX_RSENSE)
-			return dev_err_probe(...);
-	}
-
-When an LTC4284 device is instantiated via ltc4283_i2c_id without firmware
-properties, won't ltc4283_probe() -> ltc4283_setup() fail because
-device_property_read_u32() is required to succeed for adi,rsense2-nano-ohms
-and adi,radc-nano-ohms instead of defaulting to LTC4283_MIN_RSENSE?
-
-> +
-> +		/* Enable SENSE1 and SENSE2 */
-> +		ret =3D regmap_set_bits(st->map, LTC4283_ADC_SELECT_2,
-> +				      LTC4284_SENSE1_SELECT_MASK |
-> +				      LTC4284_SENSE2_SELECT_MASK);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	ret =3D device_property_read_u32(dev, "adi,current-limit-sense-microvol=
-t",
->  				       &st->vsense_max);
->  	if (!ret) {
-> @@ -1558,6 +1773,91 @@ static const struct hwmon_channel_info * const ltc=
-4283_info[] =3D {
->  	NULL
->  };
-> =20
-> +static const struct hwmon_channel_info * const ltc4284_info[] =3D {
-[ ... ]
-> +	HWMON_CHANNEL_INFO(curr,
-> +			   HWMON_C_INPUT | HWMON_C_LOWEST | HWMON_C_HIGHEST |
-> +			   HWMON_C_MAX | HWMON_C_MIN | HWMON_C_MIN_ALARM |
-> +			   HWMON_C_MAX_ALARM | HWMON_C_CRIT_ALARM |
-> +			   HWMON_C_RESET_HISTORY | HWMON_C_LABEL,
-> +			   HWMON_C_INPUT | HWMON_C_LOWEST | HWMON_C_HIGHEST |
-> +			   HWMON_C_MAX | HWMON_C_MIN | HWMON_C_MIN_ALARM |
-> +			   HWMON_C_MAX_ALARM | HWMON_C_CRIT_ALARM |
-> +			   HWMON_C_RESET_HISTORY | HWMON_C_LABEL),
-> +	HWMON_CHANNEL_INFO(power,
-> +			   HWMON_P_INPUT | HWMON_P_INPUT_LOWEST |
-> +			   HWMON_P_INPUT_HIGHEST | HWMON_P_MAX | HWMON_P_MIN |
-> +			   HWMON_P_MAX_ALARM | HWMON_P_MIN_ALARM |
-> +			   HWMON_P_RESET_HISTORY | HWMON_P_LABEL),
-> +	HWMON_CHANNEL_INFO(energy,
-> +			   HWMON_E_ENABLE),
-> +	HWMON_CHANNEL_INFO(energy64,
-> +			   HWMON_E_INPUT),
-> +	NULL
+> +&tlmm {
+> +	gpio-reserved-ranges =3D <39 1>, <74 1>;
 > +};
 
-[Severity: Low]
-This isn't a bug, but there is quite a bit of duplication here:
+[Severity: Medium]
+As reported by Konrad Dybcio on v5 [1], is there a reason to include
+arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts in this series before the
+base board enablement can be validated on hardware?
 
-1. ltc4284_info[] copies all 16 voltage channels, the power channel, and the
-energy channels from ltc4283_info[] just to add a second current channel.
-Could both current channels be defined in ltc4283_info[] and channel 1 hidd=
-en
-for ID_LTC4283 in ltc4283_is_visible() / ltc4283_curr_is_visible(), similar
-to how ltc4283_in_is_visible() hides voltage channels?
+In this patch, the root node and tlmm node in sm8750-lenovo-elden.dts only
+define the board clocks (xo_board, sleep_clk, bi_tcxo_div2, and
+bi_tcxo_ao_div2) needed to satisfy phandles in sm8750.dtsi and the reserved
+GPIO ranges, without SPMI PMICs, RPMh regulators, console, or storage.
 
-2. Eight separate helper functions (ltc4283_get_sense_reg(),
-ltc4283_get_sense_min_reg(), ltc4283_get_sense_max_reg(),
-ltc4283_get_sense_min_th_reg(), ltc4283_get_sense_max_th_reg(),
-ltc4283_get_curr_alarm_reg(), ltc4283_get_curr_alarm_high_mask(), and
-ltc4283_get_curr_alarm_low_mask()) branch on st->info->id. Could these
-register addresses and masks be stored in struct ltc4283_chip_info instead?
+Even with the follow-up commit ("arm64: dts: qcom: sm8750-lenovo-elden:
+describe the WL2868C regulators"), the board devicetree only enables
+gpi_dma2, qupv3_2, and i2c10 with pmic@2f (willsemi,wl2868c) and a
+wl2868c_vsys fixed regulator, while leaving out the SPMI PMIC regulators
+that supply the WL2868C LDO inputs (in-d12-supply, in-d34-supply,
+in-d5-supply, and in-d7-supply), any regulator consumers, and base board
+peripherals.
 
-3. ltc4283_set_max_limits() branches on st->info->id =3D=3D ID_LTC4283 to s=
-elect
-LTC4283_SENSE_MAX_TH vs LTC4284_SENSE1_MAX_TH instead of reusing
-ltc4283_get_sense_max_th_reg(st, 0).
+Since the WL2868C devicetree usage is already covered in the example in
+Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml, should
+sm8750-lenovo-elden.dts be deferred to the separate board enablement series
+once it can be validated on hardware?
 
-4. ltc4283_setup() repeats the property read, [LTC4283_MIN_RSENSE,
-LTC4283_MAX_RSENSE] range check, and division by CENTI three times for
-adi,rsense-nano-ohms, adi,rsense2-nano-ohms, and adi,radc-nano-ohms. Could
-that be factored into a small helper?
-
-[ ... ]
-
-> @@ -1769,13 +2090,15 @@ static int ltc4283_probe(struct i2c_client *clien=
-t)
->  }
-> =20
->  static const struct of_device_id ltc4283_of_match[] =3D {
-> -	{ .compatible =3D "adi,ltc4283" },
-> +	{ .compatible =3D "adi,ltc4283", .data =3D &chip_info_ltc4283 },
-> +	{ .compatible =3D "adi,ltc4284", .data =3D &chip_info_ltc4284 },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, ltc4283_of_match);
-> =20
->  static const struct i2c_device_id ltc4283_i2c_id[] =3D {
-> -	{ "ltc4283" },
-> +	{ "ltc4283", (kernel_ulong_t)&chip_info_ltc4283 },
-> +	{ "ltc4284", (kernel_ulong_t)&chip_info_ltc4284 },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, ltc4283_i2c_id);
-
-[Severity: Low]
-This isn't a bug, but should the modified and new entries in ltc4283_i2c_id=
-[]
-use named initializers (.name and .driver_data) to match I2C subsystem
-conventions?
+[1] https://lore.kernel.org/r/dddc808a-6407-4db1-aa72-0ebe5652f97c@oss.qual=
+comm.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-staging-lt=
-c4284-v1-0-49fce67ebc48@analog.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104032648.2097=
+47-1-xiaqinghuan@mail.ustc.edu.cn?part=3D4
