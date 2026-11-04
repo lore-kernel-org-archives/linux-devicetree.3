@@ -1,79 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793825996;
-	b=lqBw7v4g//11JBOeTpwX8UTCxWNYCAjjacQKr5AvEu8wa0QUOIxQYlVOcNTq346GG+G9
-	 XaKNX3m4Crr8xWVxxhotdiW0z5LNbsEixmSKbRyGEIsWXIIWDVl4B00aTWLbHhA6f2K5N
-	 KNulx146igov7EbWP2egJ01njnWaqmztcEfi9BWtWCGVwn5glhQwut6dV9hzaKiKJRplu
-	 K9I75JNg8NK1WfUIDKDKA1hdNRqejOKtFel76TtqiJh1A+QkeqEh5pSLpx2Z53FkjD6m/
-	 MrlTRAKX5isM0Xl2079M6eRGs+G9acbhmrdCZQOehgdDZ4HseQ21D4JBGQdAeqKCnrg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825996;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rqlh0OoXKTFT1PQI1HOdwpJMhVGTQQ3D/fRH6n1TqSU=;
-	b=XJlfYZv+rbPO7bv3kR/+IncYf5WXvk51D191Al6IcwZc16uSuqujCz9ue7bepbt4sp7r
-	 7hCWIHMHvIllUalwzibYtD+H83k8E98bqweBXthe2L8+3UNc1WM9ud2soTNrGqpnlEWA4
-	 tUuK42EgYQBQ3bcEXYZMVMCkYCKSF7kUbEC7BrkADcmRqC2kZ6202k94CZul2jcQ0ufvl
-	 7+8SV43Xx1cPLlvF/KqZgQ1R8MDo7dbl/SbN4NX/1vQV1Fb/ku02yZBiknIjjETfiJMoG
-	 4MTZMlj7Qog4chf7Z/g0AyChwZuKSN8q0dnQCRSA+1BjxAopQtE97XLPTPEz+RqnaDQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhuLH0xv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793826411;
+	b=ZHkDON/HOdb9bO7JIh77NAzLRocbPvjrKfIn1ZIhRiKG7ox45UYx+c2zYRJESE101pXC
+	 VgFSFEZR58a0LAK8OxaXNvtJ7RzWjmAWg6RMpulrz9EX08ss9AE6rZNPCRqOVPMkFKTqR
+	 v0nyIhEVBpNNCgHb36n9yIGUJcAp++pZd2EJNhPPCL/R+8D4CkXcHae5Wf08jaTHE6sSq
+	 hagV//Q+y77gf91Z4EAlo4txeUGMKvhCwHVRoreGywQmqYFP0P7RVxjjgZ+Uh8skQkh8W
+	 I+Y30DRgMUq/FaRWabjCjSYdWIQhS9PPjU/yCaadUgGCknA8gsjjTT2JIpL/BE4ookA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826411;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=bmyZRAr/fzqETDf7KUmFNioNYdP8sCPB2LYnaAnEY1M=;
+	b=GcHjYpWI3Myh3+3nGdzHjrajlIllN6vsaOyQ1djyVIq+12rQNmtSnTpDrdanbKFvGrJl
+	 eG3UqpY5PZYk9t7kcS+Y+hyMFuC3Bhy++LEanjs8md0/wiQaxagPUuO/tx/faR3WN9FzP
+	 iuK+3svll5VI6vadfoYMrK1TEllMq4eqZ1cFO/vtXOGFN8kANt+IB3bvVwaYdOZ1AVj/E
+	 hT54wkJvRSknGCs5w0N8Bvbl3GZMImWB7TvO7m8q3tFoP42teQXEm1G7bf+Lc9NNABKVW
+	 GrpYBgOIeLsqATe3TRDZksGteEVKX9fFfgZIqTIGC4oFTUUbFbFKxzmhgNLyP8BJK+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3w3rUZun;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E25D60E7529
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 20:59:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335CA606D834;
+	Wed,  4 Nov 2026 21:06:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 335CA606D834
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhuLH0xv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793825995;
-	b=0mqKVmS5kKNELhS/t33vndolRW7jsYUZO5oBZGUqh+kHDKWfncQS4ubvFF0nwQKMT6JE
-	 AxU69P+9CDubGEC8vI2LLEI4CMIf9khm4FQviMezP94fRM9WJd3YCTjA6dB+1Gm2JT/Y7
-	 aojOgnIsMJLqPy7Sp1Fd9cbdVW2gH1VptmNYI67Px86kcqNALxugL+CNkZCz8Z2tN7qm/
-	 fLIhBt21SS1NOTFsRr8zQNYHMBTsqb8ZNc0lBzZ7drTJ7eilP9+ZIOn2qprBzEKz8ZDLh
-	 WzyMCfThYV4/AUid+IYGbi5wsoBdZbuksnlTvz87ji6k/Oytmd8IGnxRgNXT2yRAriw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793825995;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rqlh0OoXKTFT1PQI1HOdwpJMhVGTQQ3D/fRH6n1TqSU=;
-	b=pxqkQ+K9Nh6EGwkCX6aLderOM8Vwzb5X+k68p/+4h+4Y+EJw6E7e6oCTaNaiz5b+DhEd
-	 G8/WhRmuLZ34gVDpB+JZ2wbC2rTXYzukCl8yQjGIcjxc5uIEIJyrptgiv4meWaPD9jUPC
-	 hm0RViP0gDKt0IMoaYPEnDdgwqMLU98TL6vu1yXy4dGO7OMf9t8kVD+yPVhM0UUNnyR9M
-	 OLnqn7BdPFVesGk3U6SYj4VuLg+JLhufO3Glhk4UHtluUXAZtiTShj+Cl6s6QexERCFkv
-	 w5H4ml/d6TTjwnBZXHFP9JIe/92xF3ORT5w9+CDfcqbQzbkHPh9SIA4jbPuKJwtFS+Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8B2DE1F00A18;
-	Wed,  4 Nov 2026 20:59:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793825994;
-	bh=rqlh0OoXKTFT1PQI1HOdwpJMhVGTQQ3D/fRH6n1TqSU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mhuLH0xvhUBrMfdOe2ntVk9IvPZbsg/RhQ+IIXPGTveZ+n7p8IUskN2OldQ3Hvm8d
-	 t1Ml83R6j7kgAL+RwrR0LR/soAv4YljX9cM9V6b7oKLqADBPxxbwLxUKb9qJnLDIQT
-	 25tPQ85+Nq9ZOXElaMDY9UpbFDO3kBxCipOQSDB5TcYRhBk+fmZ2XANRAeMVZAu0ZT
-	 Tk7987jwKTlCKaak0/I8hiRQXujXV2V3GXPdEdd71zrAL+NauTAwyvE27slLdq1eVS
-	 HJjJeIgtlC7Z27FyIYCoQ9wlB5CP8XUKaBmv1x7RSf+WAOnaoxw1udAOcBUAyJAj9J
-	 6rPRtJW6VyDzg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EBEBD46FAC;
-	Wed,  4 Nov 2026 20:59:52 +0000 (UTC)
-From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 21:59:23 +0100
-Subject: [PATCH v2 3/3] arm64: dts: rockchip: add support for NanoPi M6V2
- board
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=3w3rUZun
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=bmyZRAr/fzqETDf7KUmFNioNYdP8sCPB2LYnaAnEY1M=; b=3w
+	3rUZun2YsXj23IZuBmoF5mP9RNEn61KLtokMC95mGNYEVmeQ5LRKM+EeStHEnK/IahlJq6rJk4JS5
+	u9i8JRW4Z3Cmv2BTLGhRRCi/90aK5wR3KhyUb8/hWW9L/IeqvrkgkfEQyOKeOnmz7ZNDh9u0jPmov
+	2cFKQnwvTUdSdJ4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOiBs-00EO5q-Cx; Wed, 04 Nov 2026 22:06:40 +0100
+Date: Wed, 4 Nov 2026 22:06:40 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Cc: Iustin Stolniceanu <iustin.stolniceanu@analog.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ciprian Regus <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 4/5] net: ethernet: adi: adin1110: Add OA TC6
+ protocol support for ADIN1110
+Message-ID: <5ef1e25b-2d6d-4cb1-8030-756d60c37c47@lunn.ch>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+ <20261103160918.409701-5-iustin.stolniceanu@analog.com>
+ <aus-LdkVRPxR6lFu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,163 +78,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-nanopi-m6v2-v2-3-dfcd8714f48a@gmail.com>
-References: <20261104-nanopi-m6v2-v2-0-dfcd8714f48a@gmail.com>
-In-Reply-To: <20261104-nanopi-m6v2-v2-0-dfcd8714f48a@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Shawn Lin <Shawn.lin@rock-chips.com>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Joachim Eastwood <joachim.eastwood@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793825992; l=3730;
- i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=HHQTMsbiHoDvV4k5fOgzM7R6OF8pxLzbRe7t3xi4I0Q=;
- b=pLoioa4DXzOYLFPjeycLv5Si+yS1Jb3O+ClLo26AW0tG4GB0AluSmJgjF0544wpfj4ardxT8A
- GpaGGu0SohEAjGdqxVsOU0rXxfkeSoRkUgo6zQJ/vkRcC67hx4jeaAO
-X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
- pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
-X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
- with auth_id=846
-X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
-Reply-To: joachim.eastwood@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aus-LdkVRPxR6lFu@analog.com>
 
-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+> > +static int adin1110_set_rx_mode_tc6(struct net_device *dev,
+> > +				    struct netdev_hw_addr_list *uc,
+> > +				    struct netdev_hw_addr_list *mc)
+> > +{
+> > +	struct adin1110_port_priv *port_priv = netdev_priv(dev);
+> > +	struct adin1110_priv *priv = port_priv->priv;
+> > +	int ret;
+> > +
+> > +	mutex_lock(&priv->lock);
+> 
+> guard(mutex)(&priv->lock)?
 
-The NanoPi M6V2 board is an updated version of the original M6 board
-with the following changes.
-* New audio CODEC (Everest ES8389)
-* New Ethernet PHY (MotorComm YT8531C)
-* 1 extra user button
-* Misc connector changes on the board
+netdev Maintainers have a strong dislike for this sort of guard. Not
+in this case, but often it protects too much, since the end of the
+function is frequently passed the end of the critical section.
 
-The codec_es_3v3 regulator enable pin is hardwired to the 5V input rail.
+The scoped variant can be used, since that explicitly marks the end of
+the critical section.
 
-See link below for detailed information:
-https://wiki.friendlyelec.com/wiki/index.php/NanoPi_M6V2
+https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
 
-Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
----
- arch/arm64/boot/dts/rockchip/Makefile              |  1 +
- .../boot/dts/rockchip/rk3588s-nanopi-m6v2.dts      | 94 ++++++++++++++++++++++
- 2 files changed, 95 insertions(+)
+Using device-managed and cleanup.h constructs
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 57a1f41986377..3df63c35b4bf0 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -240,6 +240,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-indiedroid-nova.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-khadas-edge2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-lubancat-4.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-m6v1.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-m6v2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-r6s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-nanopi-r6c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-odroid-m2.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts
-new file mode 100644
-index 0000000000000..b343c1e08c263
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-m6v2.dts
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+/dts-v1/;
-+
-+#include "rk3588s-nanopi-m6.dtsi"
-+
-+/ {
-+	model = "FriendlyElec NanoPi M6V2";
-+	compatible = "friendlyarm,nanopi-m6v2", "rockchip,rk3588s";
-+
-+	analog-sound {
-+		compatible = "audio-graph-card";
-+		label = "rk3588s-es8389";
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_det>;
-+		hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
-+
-+		dais = <&i2s0_8ch_p0>;
-+		routing =
-+			"Headphones", "HPOL",
-+			"Headphones", "HPOR",
-+			"INPUT1", "Microphone Jack",
-+			"INPUT2", "Microphone Jack";
-+		widgets =
-+			"Headphone", "Headphones",
-+			"Microphone", "Microphone Jack";
-+	};
-+
-+	codec_es_3v3: regulator-codec-es-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "codec_es_3v3";
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&user_btn>;
-+
-+		user-button {
-+			label = "User";
-+			linux,code = <BTN_1>;
-+			gpios = <&gpio0 RK_PD3 GPIO_ACTIVE_LOW>;
-+			debounce-interval = <50>;
-+		};
-+	};
-+};
-+
-+&i2c7 {
-+	audio-codec@10 {
-+		compatible = "everest,es8389";
-+		reg = <0x10>;
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		assigned-clock-rates = <12288000>;
-+		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		clock-names = "mclk";
-+		vddd-supply = <&vcc_1v8_s3>;
-+		vdda-supply = <&codec_es_3v3>;
-+		#sound-dai-cells = <0>;
-+
-+		port {
-+			es8389_p0: endpoint {
-+				remote-endpoint = <&i2s0_8ch_p0_0>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2s0_8ch {
-+	i2s0_8ch_p0: port {
-+		i2s0_8ch_p0_0: endpoint {
-+			dai-format = "i2s";
-+			mclk-fs = <256>;
-+			remote-endpoint = <&es8389_p0>;
-+		};
-+	};
-+};
-+
-+&pinctrl {
-+	buttons {
-+		user_btn: user-btn {
-+			rockchip,pins = <0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&rgmii_phy1 { /* MotorComm YT8531C */
-+	compatible = "ethernet-phy-id4f51.e91b";
-+};
+Netdev remains skeptical about promises of all “auto-cleanup” APIs,
+including even devm_ helpers, historically. They are not the preferred
+style of implementation, merely an acceptable one.
 
--- 
-2.56.0
+Use of guard() is discouraged within any function longer than 20
+lines, scoped_guard() is considered more readable. Using normal
+lock/unlock is still (weakly) preferred.
 
-
+	Andrew
