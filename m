@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810732;
-	b=YmBepF/Ofg1JCHOxZsW687Ym58LRmmveYN9VZBgomMUcQkuJ9Wf57WF1CYiHKJDnbaVR
-	 NZZ09RsDb7bnubup6zecBFEDkAOvAgwk6vUF/2xvRam649/XtTUpicYfqkXfmJwz/oFgF
-	 WXmJETA83wDMXQg/fmocAHbBRs7q2eS46YsHTLduVzj6eYceTinsfjA4qZGdzC0ZBDWds
-	 8sQ1ozC78+BpNFsSUcHU/MsNSf+X6S0zGCEfpPVNW+wspR9IZ9AO1ItOrUgRqEAd9fTvs
-	 l4p658bKkx1/UQIx07a846kRMyzrUwvf3yLpNH6ofG7+nYi4YzzSjFsKBdIOIWuLxjA==
+	t=1793810739;
+	b=nqO5Q/rLZ4vlor2CczAxWkYlQGLWZkA/DTKRcfi1GkhrFd8hUcuij0ZSIXoE/n2prpMS
+	 0K70KfkyGsQzmGpQcLbIbPMqjJZxtw6IzOtkQ4qThTkvtrMvO13SpimJMD+I0tZZE1ZMr
+	 uL7QHWwJkgxxZAZhiAOcj4/7DzLrPtKF4/AgBUQQQoILU12x4brX0baZiV1yWOG3V+N/t
+	 JFSYCIrNpvFxG/8lXkdb+3Ol3q5566VkT33OX2HjrEdYgtqGuqYdiV0tnhcbnTal99irn
+	 CFGcwri/xT2zzZY4TtSJIqXwCwRlwsqwAL5RMNVAhKbj37xgJhOjgt9ejqXr9pLTFDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810732;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810739;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=a/9ygPAkTkEPoEGsinPiA3vfqnT3GrgOWJ1i5yM5FwM=;
-	b=C9TMpV5KRgZAVM5Nteqwl9ewYbtcWnJd8VHuhXhoONSU+cR7aQMG8QJWTRN2jA30eH6w
-	 aJ3jcSxNJg6tMXImn3+CY2X/8SLqJ3RutJis/GvsG6fiWH3d6U396oTcem+4UeoY1NiM7
-	 xiUSxyhkZQ4BBG+y509IZoeYeKs+gLKOIDJT8F9q9TqtK4HjwFHKHrLIweStqlMCrBkZ3
-	 OGYCFQmv/OJ3C9Da92tv4SauUQoAaFy1ISucLVyx7xa1R6UqVba/ruwexFtDePBmLtqMz
-	 zlJSkpV89IWimAHAzTfh/SYKLhPHV8VqFOdX+QM61tzM9KdW03MPmnWLeFxiv+EZRbA==
+	bh=ubnY4McmoFrrH8E8woK0Dx2b09gWWGMhkGbARjItHnU=;
+	b=SKggTJOkZwBxidFWvM2MTV6z/pCoNVCo7SUOsf5TZNl4wmmGRd8Ifs0FyxX6jCEJIaKq
+	 CwwvfkUGT5vPvo+mBheydNxsXkD2pSBPIfEHKTJ1tNYMX01oBgPM+ndq6/2o9S/ZiRcDU
+	 +fTKxyPSma+Ho4qCALs9Z0sEpgKF/cOTRyFyK3edN21FbjCL088pH+YJwChDPw1KnGJjy
+	 AWP4Ixiy01mPJUqz3suUwS60nGjJ7xnfgbNoVbO79bg4aDNQIbZFQC6fTMeNKWqxCiTe2
+	 AnWeUZ3RpmG1Beahe5tG+cPdK16sTMW7buzm0s4SehCNMg1qKu22geh3/eeeCXLJOPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bn/OceYF";
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uv3ybTOG;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D764606A326
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:45:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D764606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D15C606A337
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D15C606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bn/OceYF
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36d6765756fso713724eec.1
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 08:45:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uv3ybTOG
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so1719995eec.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 08:45:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793810731; x=1794415531; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793810738; x=1794415538; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a/9ygPAkTkEPoEGsinPiA3vfqnT3GrgOWJ1i5yM5FwM=;
-        b=bn/OceYFwArPyDFSPPPx6F7fxbevCxKT8R7FeB0p2fbvIf+7OBijoe08vy0rwYc+5G
-         /QZBWvJuKv/UYxDHvFcwLo1G5AofW5PO7IZT2FC4GT2O6VrxOvu2JcN1jB7k5hdV/kYN
-         fS38yTExWUTJGvZc8YTuWCR+sxiYYi1vChhUP2aaBrFUuS7OpBt8gd/X4hXLV1RRI5mO
-         ChyQV/5HOvlWE8Kuu1Qu8f1m4wzI2Nu/JhSro6UmNEX+Pux9AKYWt89R04k4H1B1tg0q
-         BH8kBQIYND/ACmTt+ZaioNGqcPPB4bwc0yDq1hYXQKG2B83ZPSN2qQsgFmuGLfJUj+QH
-         xj+g==
+        bh=ubnY4McmoFrrH8E8woK0Dx2b09gWWGMhkGbARjItHnU=;
+        b=Uv3ybTOGXwY8Lox7OZJ0Ofmp4Gi2o3uTLQ9p+FZtDRp0V+yPofXQ2BEVufCAdMbgdo
+         yStRALcgk5v7iM4wln+y3fSbnUYRZ2nkhg6nKQdKAvFpEu38xUn/oI7OQPsKlODwLevT
+         Dc0KiyEGbBq3sd4zs/i8E6fpsrhZd35evsZLUE3jKaFbGhv0S4aA0lRfuyJHcdpvIHi7
+         3zueXs50v4mOgsKJ86nwk8c1lrbJc55ha7CRgc3ApKr+KNHN9C8sXmXij4G0D/CTYLqr
+         8Q1RM7WBtjksi+mQbvMdp9gKH1xUPGUXeOA2Ktkr9YUzm6cK3pD5mfM53xuG+6VtHTse
+         jF4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810731; x=1794415531;
+        d=1e100.net; s=20260707; t=1793810738; x=1794415538;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a/9ygPAkTkEPoEGsinPiA3vfqnT3GrgOWJ1i5yM5FwM=;
-        b=QqUXNK+UN4TIEbqxrc2sCdYTjCbofTcSEFf9TWtov4y3jKqBcxKFUJ/j5CCU/rYCXC
-         Uxj2be6hPSkUV0rBngazrVAdcvSZn9NQweL1M/DGHOXRDiDjVIim2CBb5DFeowJkpFsh
-         ulfj4wQy20DLVpgszX2Su85ypRn6djqY+zXktXq2WA6dLt/xTcaWK0I87PL6gnqmF91Z
-         r7iMpx2mlRB4eNsIbPkPo6xlgHRFmpod9Vz3eSCfOmp8spunWYF8LeOqRnoOekQsgWb4
-         /oLKUcVQQtKcsAgTH1GB8jJGR0iPsB7D11eMn0brMSAYshlQFovKL0ALGLyCCIsI1XUm
-         wfvw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/4KuPdXPsknW4Q1Q5wR14Sv3FNedzTFRahO1BpPQFdaJxrvtsVcmEQnPNLNHgwG6PZCtcOOIYeMya@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oMjULWA2gjpm2Q2R+uFSYxsDlpQ2xWvT4SfPvGfZH5pcHm/MI
-	XmHm2qYRgFWybb8YSVbRKulSX9fPSYChClHXWJLPeP1c62adWliyLFHc
-X-Gm-Gg: AYBFou0XfPK4ER/kjJOlqw6B4Nml/58Mhdi0kfd3hiWfcRUYhv0v3RRMvQOKn3Ppteu
-	dV10fba5dMM8khyOnnBjYgnu2i3B8GWiRffCU2dczQRi1NycpqJaoGTONUB4t2aTeiPseQV5AlZ
-	eFXdNLVIxfTONVywdfGbSj081LSQTMkqhytwbBcV2snRjiN2SHRKpfDs0t2MlMPAiohA5axdqX8
-	L7TrEeeDv+R5lSC2pntgmCQvh+u8vVHTfmZRJeamOL97yLll1ZjuRwSeIH0KMWLBDjIqdAPwcra
-	qupw3tNZYNHOAqFcxKMHTrsuMN9jhPB2yG6i3g1keLr7QDRKfgExv1tWBxzIhn9Qr0qkAUdzX+A
-	CzgsbDF2Do7CY68/OFs3/j0VlUt7F6NgTcGPd4aaKjytaVo8fKKrZUII3o4HBeH9jrIVW05o0nx
-	nPZK2Ju5+Th8P1BMpcttvOZxac9n9XkuQIoCWRGjjq3oztZOGy5GxgstkU8w8VcFN67nMsdkC36
-	RE18/0iHSeD6RBDl26LnZnGWcfuW8/yln8sLVSHPMVthK8bE5qHuuErdwg8TQSsL+27ril9/+yj
-	h4WxoHRSjZZtrdHyILg16YlDejoONJg3koEDHP2YMO1FwmGZoBW/6s0LfN46ywuDn7ai3WYW4Kv
-	hJWBO19mruRM4usRJU3O8aTU0wk7gRyHu3R+SCjmn1ZK3Lxff66NsmbjwF3LIbzYCs9YwIO688X
-	X/T/HeYlkh2znHYMgbQSZLhamCaHHmgadP/mtDTVBJVQ==
-X-Received: by 2002:a05:693c:4154:10b0:369:f4d7:19fc with SMTP id 5a478bee46e88-36a424988abmr28669874eec.41.1793810730934;
-        Wed, 04 Nov 2026 08:45:30 -0800 (PST)
+        bh=ubnY4McmoFrrH8E8woK0Dx2b09gWWGMhkGbARjItHnU=;
+        b=MeLHH67D3bSAOOwmCdyuA42pQ2jAh1XxTrDIwTytrtSAAgwNQTvqftHTG59SRtw86B
+         0iNJ8D5PeO4ugUm+GWMhfF8ofvuJtFGeJGuBm5dWKIJk1GKeEP2uPJnfsUuT2HshhZ3k
+         HQgkZPEbShlMEFspuSXQFPoPNJgUZWLjTCrX1jgPfp12URE7xVSZn0zSEJqNSSZ5KjBQ
+         cymjEEIcApuiPqx/hMZMn18Cky98RODbQnnJFJ+2rqEznUv+KyKv1LXgiklTJWtQe/ri
+         qCdXR6hmCZqMN2QTyvTpV+0MXBeLFVpCnl8IlCtOUMsc65cxrCdCGlGScaAKbCACGb59
+         lDtw==
+X-Forwarded-Encrypted: i=1; AKwUvBzC+apoXRJc8dAtlWbm90mSYfaInstBMwX32MzkNxds3vRqtToOMeJunZwCDwCHHEicb3tl7Ty2RhQi@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NficrtJM+fFYTGPeHDPhCiAXBkS0S4yL+xe87lMooLb84ZwFz
+	+C8x94RTgfwESYNMzb/9NQVp4w4uLEKCMwfpMeB3v0GS+u8tyZMqvNjr
+X-Gm-Gg: AYBFou0Gfg8o6VPx1Cnh1jmVsqvBwxpfNXQE+6X9dfYhUZY1ABPfbr/w85jrptrTexF
+	demPDtBtihXLXRZAlHfJ3m5teolhwjvpNPrGDbKju6dm8OaqOkVijvT3b/UDKReslOZ1RA5xizp
+	ahdB94O9i+ykJ9/k0jjyTgmJ8JnJXjd+n12hsU4y5VXSuX8tR7FzE4GoaVC2r7Wk+0pMPYU3SD2
+	SLHagr7tDMBXTdKaA/7BRTv6b27A8xM61z1P3HCevBy87XV3HPfyHvy9rR6xZ4QKyAbzp81ZFjA
+	HS42Lgufl31vM6ocDof356RiVaFD1P/zyX6/iWPRIzVK7H6yWgLv8nZkpFwzEe2avfN5dywd78C
+	2YIoOop7SUDXi4G508gxpaGqWMQ48Cqa3MoOr1ZaYJlYBR5/BFPm8C4s7/mkKpldcZZdiqZ3Az7
+	dKDa+4x9X0O6AGQFyVbQMjcRRSTgQlPEKVa036q0ZhRlkpc/VGEY7f0om+3//a4AbFkkhFETmYD
+	soaxPeyxjZHnuNfF2cb+09/7nntLDTsXtCnWA51vWgv/7RMUMkxUgb/ZOXZNzkBgdRTos0BzqMU
+	GHeg0D2K6olLhG68DE6Hc89d6usnf7IUjgg9BaQmsdx5ZS2wkS0LczsxH440CC5Orz0hcyKLw/h
+	em9mLkcLndVoyHpvzA5AsHnq5xGnwYNGQjCI9V+UoFr1Iq4f2jpfkALeedyA937Q2vkVh8WaP6s
+	DReNWt76VL9kfJSnyXKpHjtLoR1dwzpJwQZXRRH8GHsg==
+X-Received: by 2002:a05:693c:88cb:20b0:36a:1e50:e45 with SMTP id 5a478bee46e88-36a423624d5mr23360620eec.9.1793810738064;
+        Wed, 04 Nov 2026 08:45:38 -0800 (PST)
 Received: from kapoor.iiserb.ac.in ([203.18.51.212])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.24
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:45:30 -0800 (PST)
+        Wed, 04 Nov 2026 08:45:37 -0800 (PST)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
 	Conall O'Griofa <conall.ogriofa@amd.com>,
@@ -98,9 +98,9 @@ Cc: Salih Erim <salih.erim@amd.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to 30-50
-Date: Wed,  4 Nov 2026 22:15:00 +0530
-Message-ID: <20261104164510.105359-2-kapoorarnav43@gmail.com>
+Subject: [PATCH v3 2/2] iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+Date: Wed,  4 Nov 2026 22:15:01 +0530
+Message-ID: <20261104164510.105359-3-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104164510.105359-1-kapoorarnav43@gmail.com>
 References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
@@ -115,48 +115,171 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Channels 20 to 29 of the PL-SYSMON block are its fixed channels (PL
-temperature to VCCADC), which the driver always provides. Only channels
-30 to 50 (the differential input, VUser0-3 and VAux0-15) are external
-channels that can be described as "channel@N" child nodes, yet the
-binding accepts any N from 20 to 50. Listing one of the fixed channels
-there only makes the driver add it a second time.
+ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
+ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
+channel specs and lets ams_init_module() fill them for the AMS node and
+each of its children, without telling it how much room is left.
 
-Limit the child nodes to channels 30 to 50.
+For the PL-SYSMON node, ams_init_module() always adds the 10 fixed PL
+channels, numbered 20 to 29, and ams_get_ext_chan() then appends one
+channel per "channel@N" child as ams_pl_channels[N - 20]. Only channels
+30 to 50 are external ones, but any N from 20 to 50 is accepted, so a
+child numbered 20 to 29 duplicates a fixed channel. A PL node can then
+have up to 41 channels while only 31 are budgeted for it, and together
+with the 13 PS and 7 AMS control channels this writes past the end of
+the buffer. Since the modules are filled in device tree order, the fixed
+channel blocks copied after the PL node can overflow as well.
 
-Fixes: 39dd2d1e251d ("dt-bindings: iio: adc: Add Xilinx AMS binding documentation")
-Suggested-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
+unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
+far out of bounds.
+
+Only accept the external channels 30 to 50. Also pass the remaining
+capacity down to ams_init_module() and ams_get_ext_chan() and fail with
+-ENOSPC when a module does not fit, so that a device tree repeating a
+reg value can't write past the buffer either.
+
+Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- .../devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml       | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/iio/adc/xilinx-ams.c | 57 +++++++++++++++++++++++++++++-------
+ 1 file changed, 46 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
-index 3ae1a0bab38f..0872f5f314c1 100644
---- a/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
-@@ -160,17 +160,18 @@ properties:
-         const: 0
+diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
+index 158e6133abf5..745edcf7c735 100644
+--- a/drivers/iio/adc/xilinx-ams.c
++++ b/drivers/iio/adc/xilinx-ams.c
+@@ -144,7 +144,14 @@
+ #define AMS_PL_CSTS_ACCESS_MASK		BIT(1)
  
-     patternProperties:
--      "^channel@([2-4][0-9]|50)$":
-+      "^channel@([34][0-9]|50)$":
-         type: object
-         description:
--          Describes the external channels connected.
-+          Describes the external channels connected. Channels 20 to 29 are
-+          always available and are not listed here.
+ #define AMS_PL_MAX_FIXED_CHANNEL	10
+-#define AMS_PL_MAX_EXT_CHANNEL		20
++/*
++ * The PL channels are numbered from 20 in the binding. The first
++ * AMS_PL_MAX_FIXED_CHANNEL of them are always present, the external ones
++ * from AMS_PL_EXT_CHANNEL_MIN to AMS_PL_EXT_CHANNEL_MAX follow them in
++ * ams_pl_channels[].
++ */
++#define AMS_PL_EXT_CHANNEL_MIN		30
++#define AMS_PL_EXT_CHANNEL_MAX		50
  
-         properties:
-           reg:
-             description:
-               Pair of pins the channel is connected to. This value is
-               same as Channel Number for a particular channel.
--            minimum: 20
-+            minimum: 30
-             maximum: 50
+ #define AMS_INIT_POLL_TIME_US		200
+ #define AMS_INIT_TIMEOUT_US		10000
+@@ -1131,6 +1138,9 @@ static const struct iio_chan_spec ams_pl_channels[] = {
+ 	AMS_PL_AUX_CHAN_VOLTAGE(15),
+ };
  
-           xlnx,bipolar:
++static_assert(ARRAY_SIZE(ams_pl_channels) ==
++	      AMS_PL_MAX_FIXED_CHANNEL + AMS_PL_EXT_CHANNEL_MAX - AMS_PL_EXT_CHANNEL_MIN + 1);
++
+ static const struct iio_chan_spec ams_ctrl_channels[] = {
+ 	AMS_CTRL_CHAN_VOLTAGE(AMS_SEQ_VCC_PSPLL, AMS_VCC_PSPLL0, "VCC_PSPLL"),
+ 	AMS_CTRL_CHAN_VOLTAGE(AMS_SEQ_VCC_PSBATT, AMS_VCC_PSPLL3, "VCC_PSBATT"),
+@@ -1142,20 +1152,31 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
+ };
+ 
+ static int ams_get_ext_chan(struct fwnode_handle *chan_node,
+-			    struct iio_chan_spec *channels, int num_channels)
++			    struct iio_chan_spec *channels, int num_channels,
++			    unsigned int max_channels)
+ {
+ 	struct iio_chan_spec *chan;
+-	struct fwnode_handle *child;
+ 	unsigned int reg, ext_chan;
+ 	int ret;
+ 
+-	fwnode_for_each_child_node(chan_node, child) {
++	fwnode_for_each_child_node_scoped(chan_node, child) {
+ 		ret = fwnode_property_read_u32(child, "reg", &reg);
+-		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
++		if (ret)
++			continue;
++
++		/*
++		 * The fixed channels have been added already, anything else
++		 * outside of the external range is not a valid channel.
++		 */
++		if (reg < AMS_PL_EXT_CHANNEL_MIN ||
++		    reg > AMS_PL_EXT_CHANNEL_MAX)
+ 			continue;
+ 
++		if (num_channels >= max_channels)
++			return -ENOSPC;
++
+ 		chan = &channels[num_channels];
+-		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
++		ext_chan = reg - AMS_PL_EXT_CHANNEL_MIN + AMS_PL_MAX_FIXED_CHANNEL;
+ 		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
+ 
+ 		if (fwnode_property_read_bool(child, "xlnx,bipolar"))
+@@ -1183,7 +1204,8 @@ static void ams_iounmap_pl(void *data)
+ 
+ static int ams_init_module(struct iio_dev *indio_dev,
+ 			   struct fwnode_handle *fwnode,
+-			   struct iio_chan_spec *channels)
++			   struct iio_chan_spec *channels,
++			   unsigned int max_channels)
+ {
+ 	struct device *dev = indio_dev->dev.parent;
+ 	struct ams *ams = iio_priv(indio_dev);
+@@ -1191,6 +1213,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+ 	int ret;
+ 
+ 	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
++		if (max_channels < ARRAY_SIZE(ams_ps_channels))
++			return -ENOSPC;
++
+ 		ams->ps_base = fwnode_iomap(fwnode, 0);
+ 		if (!ams->ps_base)
+ 			return -ENXIO;
+@@ -1202,6 +1227,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+ 		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
+ 		num_channels = ARRAY_SIZE(ams_ps_channels);
+ 	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
++		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
++			return -ENOSPC;
++
+ 		ams->pl_base = fwnode_iomap(fwnode, 0);
+ 		if (!ams->pl_base)
+ 			return -ENXIO;
+@@ -1213,9 +1241,14 @@ static int ams_init_module(struct iio_dev *indio_dev,
+ 		/* Copy only first 10 fix channels */
+ 		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
+ 		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
+-		num_channels = ams_get_ext_chan(fwnode, channels,
+-						num_channels);
++		ret = ams_get_ext_chan(fwnode, channels, num_channels, max_channels);
++		if (ret < 0)
++			return ret;
++		num_channels = ret;
+ 	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
++		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
++			return -ENOSPC;
++
+ 		/* add AMS channels to iio device channels */
+ 		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
+ 		num_channels += ARRAY_SIZE(ams_ctrl_channels);
+@@ -1245,7 +1278,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+ 		return -ENOMEM;
+ 
+ 	if (fwnode_device_is_available(fwnode)) {
+-		ret = ams_init_module(indio_dev, fwnode, ams_channels);
++		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -1253,7 +1286,9 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+ 	}
+ 
+ 	device_for_each_child_node_scoped(dev, child) {
+-		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
++		ret = ams_init_module(indio_dev, child,
++				      ams_channels + num_channels,
++				      ams_size - num_channels);
+ 		if (ret < 0)
+ 			return ret;
+ 
 -- 
 2.53.0
 
