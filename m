@@ -1,112 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801080;
-	b=rqREQq4e169fD/Y8fpNxg2oKQ3fwCz3lx2bYePc0pgLCwGz3hqggWorj6vG/JPmxwNRr
-	 xqnkvVTKPH0e2lHwkJ7Vhm3NIqR8Ax1ZlCyameJ3wbd5Q0sN1O2Y4cHilNK9RSfbQ1+Eh
-	 nslQDFteoOjGQuoBfZq/0Ex9RcdrUEMCA1wShfzdAEjCaQq2SOl75yooDcEEoQyxRT2k9
-	 p8YC4spUInKISXbOil7RDXEAjWj/GTehuJBoTD9MEmks0Vq1blXttwwv5FZ24O0wnEWQx
-	 6FkexK8PqHQCgrmpdlxb5JXjWn8y9yeAZ5ceqKnkmiFuJVCmFtZXgkVtFnqcS21K6vg==
+	t=1793801196;
+	b=FRtN8qIQY9MgXp+ng3oCGjzQft5CE8qiLOmdSg3z+M8JXx482b8lC9qmGjsKor1IeQvN
+	 3dpD02ZNJJxt/5iUsRqhc5azetCYs8iyJcEWSMpXJAVZhTeXdG/SRQ8ziREiH/nlCbim3
+	 fsHiejn6vdj0XVa84gvdslyMzI14XxmH6SP+o2umysqHIob8AucRCayUZv5HCyqu1EcOq
+	 wC6gCVD9YGA6nlK21s6lcBryZM+e6oWBNLa0BfwQcfSukUx3PtZjFbov5uKZK+42ChJSv
+	 tOqr3xYKSlFZCpg8PYdQPXZENfbVLV1T0fnPj4ByjNavZFdFh89n8inNGE5uyfqq9Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801080;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=itd8Y+uchN2HJrYq4RSPlfZt/iDxc9zWsOFSO8a/jcY=;
-	b=Yrxoc08ue7WhkPSbWxbUGe29INmj/ioSzO6ZoOCfaj3I4nyOLvAM4YR7wQfMra6Swly5
-	 q+lBmfX9uyY7WEi4QfPCDD0IXOua13mh01LZwiY7ZPQOf7JSzctO/snsrWtChqmkRPg3h
-	 VPhjoEFPl5u5QXtH6NARJtog0rPIqpMb78ZJfYOeW96oqP/k15BH6ODKE9QcVPx6tDlSt
-	 INjb6JNlBJE2lpMuzlNaCrdEMsmWnQUXi+Eh5aWz/AH2r0/T8+z3XdZprjUek0GAOwdC9
-	 LSUv+IGT812MjOKQGHDC4OIzaiSsEemrlSFknMBu4/hmZierU9AeEgtgruFt4kwgnIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801196;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
+	b=bVQl6nN1aqJpXTKFkiHbqK5BsNQS/0m+t4dxPBzTFUQIz64hjbeb7ZRAw8zssafIF81U
+	 1A4ulSQ6V8Xrq5+c1tWq+qbGiqEc/KyJbiZ+7hrPixdYv5o0Ibmrm6xxAEVa/YDSGHuEf
+	 FOWE0vdqWLBNd2nq5CbqObyWBPjD/Li7uZjqzSZkiO4bwuoVk/pu22NApmYMxpyE9zAmA
+	 uQRe1icaKpH7U0zmLbAW2DSRa2AI5PUl1rWwtobWf+6sOptS7y6iTTXhaPuh1JxILVPWd
+	 tn0ytqs/DDwkrZ5BE/ya5p+XYnY1j2VmWIfVWQt3Ikk5MU420Dk8/SHIVgtIaN7LdkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cCpwgcqH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CUJZ8iST;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAAB606EEAA
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 14:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEAAB606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1B9606A31B;
+	Wed,  4 Nov 2026 14:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cCpwgcqH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CUJZ8iST
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BZues119370
-	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 14:04:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	itd8Y+uchN2HJrYq4RSPlfZt/iDxc9zWsOFSO8a/jcY=; b=cCpwgcqHhX88zqxe
-	wKpSvCBv5dquXNMbyzsRpkUZKkkHfISr3zrtgx/n4+6juick4N4OY/MXhKeXLaWD
-	97DesLv3ibhadPjc61dojFlEetb+3q724OGWzkhy1fLVQFyjuf8J9wb9lar3Sxv6
-	qLtGuiDDoGpZdGDmxWmqhCHno2Ji2YMdQzo3JjUD74A8Xbk2pvBamVmkWzba/sqB
-	XJsq6dJIIpDVA9ymxqpSig88iIp16Sl4HicVJNisjPRNS8XJNbP2ueCOP0A63c8E
-	Bfrz3Peu1JysW8OEh8myUkzbUFp49cW/rYLq2ucaQtaXEY+N7BSXAxpuYiOgVr1M
-	SOtMig==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqwb0aarc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 14:04:38 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ead18311ebso156154e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 06:04:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793801077; x=1794405877; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=itd8Y+uchN2HJrYq4RSPlfZt/iDxc9zWsOFSO8a/jcY=;
-        b=CUJZ8iST/IZ1aA+BXnnHifNjs7YAwZKkmI4xfufD/XuOAPc79wncl1x7CeQJKVIqex
-         xApdlPxfV9JCAwvf2l7/IUY6X8fY+VsSmIratxVLVVC8kWpVMjDrPjAjda8zd5FC0FAC
-         H06gENNgTsPrb53R7JR+4M66dML+eNGPm+1KLQa1mDNRBm6TPO6uVipru5wycbxuhEZL
-         gyLU8aHSbprbaLPGTe9jrjXVnr003HVVg1favCMw2K2o8RjQitXwEqAaY3JEkdCnjz4S
-         oNEmLrbApQTwCw9eyemlQD+UbtSAaq1bH7Zf/Pbm8glt1Z0QhW6+0d5ywnEo2ai1q1oX
-         XNhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793801077; x=1794405877;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=itd8Y+uchN2HJrYq4RSPlfZt/iDxc9zWsOFSO8a/jcY=;
-        b=J8Fy+alsdVHTnNnRhXRXYtIKN7iOZxh/rMsQmNlv9abdM1efXvKbptq8cq2O6ho+KQ
-         5E8Q4MJo9ZzUNB81m64hDZSggxHawBltZxp6iJ3SNNeFraZKivD6ixIObgzsobZHf2hj
-         TBswceJ5za6POxpaAB7992MK6NQhLOLvYnzIMx9s2Il/AAuvN79S4B/z8O1YI1PpeAIQ
-         R+iavY5Vm5pa+jurZzHRp0rL5jiII12e9Zj1W2UeOvOtXtN/rvb284biHtVA7HfF1Lkc
-         tKF1fuLyYzmetWR+wFxIvL9sxkWGkclTB2JIyehglE2+WdDliVdRdYEtV3ubF26QfcWk
-         9EDw==
-X-Forwarded-Encrypted: i=1; AKwUvByG2UeTOVjmvTtR5BO6zW+gFlqEwQ7EOhnJDIR4O1F2LshEm5xeBe2EmZDkvfIpayYSUdqGMjkRxC/v@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LVrDb4tQVsQ+6u8yfQK10ifhDP6pcA3vMwwGiGdvhgGU7acwT
-	xMZq4nGUTDq/R3khdh8DVE0DHJjdXCtXbel3dnb6E/1zxowHCTaWVZV398LcnAW6+++a/cGeF9h
-	RRtj7xWYTw4KrBTS1HXmxFI9yGCvIqLvkbjxZDqpjZ0M27LK+HiAiQf1831DlGCad
-X-Gm-Gg: AYBFou35HQvuZ4O+obPl5qbm40kQ/wYouiTmkunDLuSlFyErRMwXTbI7cfHn9JGHfWk
-	KYKrm40WNWp8J5JtnGcCEGPxJXfPANCWDSLDPCH+rtPepuksUT2njGnqBvzImoAS1//+Ua7+jbw
-	2Oh9kvB5AnGUfrFaAWnVQ1UXeqQBadLODsNbLsB1/7UOKnYEoPu/rRTUtL0+HL8rjxQSJCTXRJN
-	gYgIH+n3RAQwRRFs+eCraBzklWziLC41C67fzUYrCmw880g1FwwSej2E/5JXShUCCx80jDqpkR0
-	pBGLJju7vbcd7NVYtHl5HlDQxv+Fyq8ASS8gBwDC1Pc8EJjIfnZfrApG+jz77o+bQCN9P6liXo4
-	mf/N7KCiAkDSzKnXXJJpUpyfE6qcVdUh1N47gXEoVAaAZMeLLVLwZiaS0bAqnjFidonzgoa/NKW
-	+gsw==
-X-Received: by 2002:a05:6122:218b:b0:5ea:a0f0:192f with SMTP id 71dfb90a1353d-5ec6881c31bmr6419431e0c.10.1793801077433;
-        Wed, 04 Nov 2026 06:04:37 -0800 (PST)
-X-Received: by 2002:a05:6122:218b:b0:5ea:a0f0:192f with SMTP id 71dfb90a1353d-5ec6881c31bmr6418906e0c.10.1793801072076;
-        Wed, 04 Nov 2026 06:04:32 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d87b5sm3968358f8f.11.2026.11.04.06.04.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:04:30 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 15:03:48 +0100
-Subject: [PATCH 6/9] fwnode: define the count_references() fwnode operation
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3943A1F00919;
+	Wed,  4 Nov 2026 14:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801195;
+	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bDAinQV78kjJGiRao2RlWwJ7qdRGHIzm8KQao4PrDV/PUop6ZnJhhSCnZ7zWFaZXj
+	 izuvBAY15eKrmx8/0Dg52D3yuOCzfzA47CKA0osbIpS7Jnpu0T+kekKoIm4z1KoT98
+	 8XO41cC7jSYiuEYnKQIKDFs0Y6lx3rxnA3lATzL37Lo5t+seairFqy4rw99vURD6SV
+	 Nl24+LErs1Xhnr1zFtPP/QIW9neMElBYB0zIMokMaU/BGgXzYIvIubR/ok/X1uiimI
+	 Ie7Qffgec1FYRixwAld/q/0zdZy/911jv68Utp9WjeVJBZs4m6krRAQTTp2XnX9EKE
+	 8TnxLsUXIxwIg==
+Date: Wed, 4 Nov 2026 15:06:31 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shan-Chun Hung <shanchun1218@gmail.com>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
+	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+Message-ID: <20261104-airborne-vivid-caterpillar-991425@quoll>
+References: <20261103022202.2139674-1-shanchun1218@gmail.com>
+ <20261103022202.2139674-3-shanchun1218@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,107 +60,215 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-fwnode-for-each-prop-v1-6-6e28fe1c72c4@oss.qualcomm.com>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Daniel Scally <djrscally@gmail.com>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-        Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Linus Walleij <linusw@kernel.org>
-Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1638;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=uLLErtVyyBCCkNg/MASZUF+mZGiOHH8LUrLC/RKjXs4=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq6ztS2SsNdvowGbCSji4kZOTwDRHFzVi2ScCTm
- 5DN09+/VD2JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaus7UgAKCRAFnS7L/zaE
- w440D/4vJjAqKGaTW6L9NuB+kiT9Z1j8j6GncKaGTKchN0TnH5ydAEKWi2Qizwxyo04HcaKr+HQ
- 4T12cK/xUvEPrxrLPLy97ZpWxLC21qJ8sj6boM1JlVC2V+5QXDq6339woLssxJ7Y6M99mmxGNK0
- UVXhqSSv9ju6n+VLIppKzuq8CuwgL/VzXfTB7aHz/Cd+Xsz6lX+uaTHbSXBUKrANZ/8mc1Ah4xw
- LlE2LnTq7wisxno9g2y0vYQQIjSRHTS8THzfXWP1S4wW8tgjV1Pmq5QMK//1ycVjqLfir3viFE7
- Ff5OJTBBHCIPAMGZD0VdZybYCipsP2yjNt2Xhg6oFBqu9GpuuyiZ0cBuPFlWI3AwbCyBuM9QsVR
- eFk7uPyVIeuDQMf9MKYHvjKHoyUkDCJCc6p9uaA3hHhKcwSapv0I+gfJE/eojzptJZJHKvxyNuG
- +lG49XDNmu5UG/YjkNtvw8oay7kbYHBQicu7eEdg0fwqfiaDIm61T7X0PQvffKbI0/5Okf3t1Vr
- nKclDroDVSiQrwB2nDXnE8RP4n1FAt6bjHO2txCMTh1Oox5VR0B9mqCeH+xVxBJ9XFUPD637HRS
- yYvDvMriOT/0YdbwaG+p/rLaUxpahQjMVuGXSPkPEIzmD00ie61X6oRcCr74MhpYpDJ3ZwS6fzb
- fczhOO0ijZqWZzQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1NiBTYWx0ZWRfX0hyLRY3Ewwn6
- 6SysgNyVs3eSCNYzFg2+fDZylCKtS7Cklff8JV2SpY/pOY76XJHwfbwVaHz2QoZFWG7zXgMISpZ
- pIOggEk30krQOEsNGLG0HAilGWYhzDk=
-X-Authority-Analysis: v=2.4 cv=OfINnRTY c=1 sm=1 tr=0 ts=6aeb3b76 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=pu8Hlg4PHyDR7New1bsA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-GUID: ifugWENGZ46TUcnpkrVzFRiEWT6Hgg_y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1NiBTYWx0ZWRfX8Wffo/bhBbsZ
- ZBM7hR8dsc7laGWlz4lH+tbYx8GgCkWBHaIgLsAavKUja8OOWbWqulJFo+JNUuNJeBezyVNwUOF
- 7r8+oA/X+YyzU+Od4j0xEpE3qqdBjwQk6ko+issykqAzzVEfdrD/mhKxRI10aC0KtNyVGRczEnp
- /XP/4JBU1Qth4jRq6fYWCASV8FgqrNoQjPZU3tfrEMhOkzAXzIr6nM7FIGOO5dC2L0U4Lh/QtP0
- NORCBay5wuP+fXCzoj/gGgfs8JfyrS3d36AwFQYZDSK5hwnNhfGU0O7fje29IBS3bcTH0cJl1c1
- fuppS/DJvS6+ncGfYo47T54AwGWcsF/024iJTHadcOE/yLZMEjmM4RRQFCtzrjgHN+0B8SDMvI1
- XO9bstRdWTVlk3SE09U3pDM/DVwI1BhGvxZ9tld6ZadPLeczzJMHNoF+/3fZl9ExHzPX/+hvA9O
- /hWys6RQTujMY9tiAPw==
-X-Proofpoint-ORIG-GUID: ifugWENGZ46TUcnpkrVzFRiEWT6Hgg_y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- phishscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040056
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103022202.2139674-3-shanchun1218@gmail.com>
 
-Add a new fwnode callback allowing to count all references of given
-firmware node.
+On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
+> +#include <linux/align.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/compiler_types.h>
+> +#include <linux/container_of.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/device.h>
+> +#include <linux/dma-direction.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/dma/ma35d1-pdma.h>
+> +#include <linux/dmaengine.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/gfp_types.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/irqreturn.h>
+> +#include <linux/limits.h>
+> +#include <linux/list.h>
+> +#include <linux/math.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_dma.h>
+> +#include <linux/overflow.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/scatterlist.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/spinlock_types.h>
+> +#include <linux/stddef.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- include/linux/fwnode.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+Do you use all these defines?
 
-diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
-index 2d7e0b9245d445d473c7317bd27058abe5750b40..15acade60564ddb5f5a48f2235b626466d77dbdf 100644
---- a/include/linux/fwnode.h
-+++ b/include/linux/fwnode.h
-@@ -137,6 +137,10 @@ struct fwnode_reference_args {
-  * @get_parent: Return the parent of an fwnode.
-  * @get_next_child_node: Return the next child node in an iteration.
-  * @get_named_child_node: Return a child node with a given name.
-+ * @count_references: Return the number of references in a property, including
-+ *		      empty ones. @nargs_prop names the property in the
-+ *		      referenced node holding the number of arguments, if NULL
-+ *		      the references have no arguments.
-  * @get_reference_args: Return a reference pointed to by a property, with args
-  * @graph_get_next_endpoint: Return an endpoint node in an iteration.
-  * @graph_get_remote_endpoint: Return the remote endpoint node of a local
-@@ -180,6 +184,8 @@ struct fwnode_operations {
- 	struct fwnode_handle *
- 	(*get_named_child_node)(const struct fwnode_handle *fwnode,
- 				const char *name);
-+	int (*count_references)(const struct fwnode_handle *fwnode,
-+				const char *prop, const char *nargs_prop);
- 	int (*get_reference_args)(const struct fwnode_handle *fwnode,
- 				  const char *prop, const char *nargs_prop,
- 				  unsigned int nargs, unsigned int index,
+I don't see usage of header with bindings, though.
 
--- 
-2.47.3
+> +
+> +#include "dmaengine.h"
+> +#include "virt-dma.h"
+> +
 
+...
+
+> +static int ma35d1_pdma_probe(struct platform_device *pdev)
+> +{
+> +	int i, irq, nr_chans, ret;
+> +	struct clk *pdma_clk;
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *node = dev->of_node;
+> +	struct ma35d1_chan *ch;
+> +	struct ma35d1_pdmadev *pdmadev;
+> +	void __iomem *reg_base;
+> +
+> +	pdma_clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(pdma_clk))
+> +		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
+> +
+> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+> +	if (ret)
+> +		return ret;
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	ret = of_property_read_u32(node, "dma-channels", &nr_chans);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get dma-channels\n");
+> +
+> +	if (nr_chans > PDMA_MAX_CHANS) {
+> +		dev_warn(dev, "dma-channels %d exceeds max %d, clamping\n",
+> +			 nr_chans, PDMA_MAX_CHANS);
+> +		nr_chans = PDMA_MAX_CHANS;
+> +	}
+> +
+> +	pdmadev = devm_kzalloc(dev, struct_size(pdmadev, channels, nr_chans), GFP_KERNEL);
+> +	if (!pdmadev)
+> +		return -ENOMEM;
+> +
+> +	pdmadev->nr_chans = nr_chans;
+> +
+> +	reg_base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(reg_base))
+> +		return dev_err_probe(dev, PTR_ERR(reg_base),
+> +				     "Failed to map pdma global registers\n");
+> +
+> +	dma_cap_zero(pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
+> +	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
+> +
+> +	pdmadev->ddev.dev = dev;
+> +	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
+> +	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
+> +	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
+> +	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
+> +	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
+> +	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
+> +	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
+> +	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
+> +	pdmadev->ddev.device_tx_status = ma35d1_tx_status;
+> +	pdmadev->ddev.device_config = ma35d1_slave_config;
+> +	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
+> +	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
+> +
+> +	spin_lock_init(&pdmadev->lock);
+> +	INIT_LIST_HEAD(&pdmadev->ddev.channels);
+> +	for (i = 0; i < nr_chans; i++) {
+> +		ch = &pdmadev->channels[i];
+> +		ch->dev = dev;
+> +		ch->pdmadev = pdmadev;
+> +		ch->id = i;
+> +		ch->base = reg_base;
+> +		ch->vc.desc_free = ma35d1_pdma_desc_free;
+> +		vchan_init(&ch->vc, &pdmadev->ddev);
+> +	}
+> +
+> +	ret = devm_request_irq(dev, irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+> +
+> +	ret = dmaenginem_async_device_register(&pdmadev->ddev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
+> +
+> +	platform_set_drvdata(pdev, pdmadev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void ma35d1_pdma_remove(struct platform_device *pdev)
+> +{
+> +	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
+> +	int i;
+> +
+> +	of_dma_controller_free(pdev->dev.of_node);
+> +	writel(0, pdmadev->channels[0].base + PDMA_INTEN);
+> +
+> +	for (i = 0; i < pdmadev->nr_chans; i++)
+> +		tasklet_kill(&pdmadev->channels[i].vc.task);
+> +}
+> +
+> +static const struct of_device_id ma35d1_pdma_match[] = {
+> +	{ .compatible = "nuvoton,ma35d1-pdma" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
+> +
+> +static struct platform_driver ma35d1_pdma_driver = {
+> +	.probe = ma35d1_pdma_probe,
+> +	.remove = ma35d1_pdma_remove,
+> +	.driver = {
+> +		.name = "ma35d1-pdma",
+> +		.of_match_table = ma35d1_pdma_match,
+> +	},
+> +};
+> +module_platform_driver(ma35d1_pdma_driver);
+> +
+> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
+> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/dma/ma35d1-pdma.h b/include/linux/dma/ma35d1-pdma.h
+> new file mode 100644
+> index 000000000000..13f1410d74da
+> --- /dev/null
+> +++ b/include/linux/dma/ma35d1-pdma.h
+> @@ -0,0 +1,24 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Header file for the MA35D1 PDMA Controller driver
+> + *
+> + * Copyright (C) 2026 Nuvoton Technology Corp.
+> + */
+> +#ifndef _MA35D1_PDMA_H
+> +#define _MA35D1_PDMA_H
+> +
+> +/**
+> + * struct ma35d1_peripheral - PDMA peripheral configuration
+> + * @prescaler: timeout prescaler value
+> + * @counter: timeout counter value
+> + *
+> + * Slave device drivers fill in this structure and pass it via
+> + * dma_slave_config.peripheral_config/peripheral_size to configure
+> + * the MA35D1 PDMA engine's per-channel timeout detection block.
+
+Hm? Confusing, how is it supposed to be used? Do you just reimplement
+board files?
+
+> + */
+> +struct ma35d1_peripheral {
+> +	unsigned int prescaler;
+> +	unsigned int counter;
+> +};
+> +
+> +#endif /* _MA35D1_PDMA_H */
+> --
+> 2.25.1
+> 
