@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779113;
-	b=Du2kvPgHuCVAJ2+Lp5SHYExOEb8+wF09whYq4PXiAXVcxSHSxbirhWOOqt6w0lw+31au
-	 EBtaQakwhwPr3gbBILUIhRRJ2RGIM2natSmqLLWI1m9OigJ0c3DUu++aluJIPOZMc1nuH
-	 G8siypAEvtGsS6NY2ZbbtkeRtgPdlg87KOUnpM6LKV3W6/yKL/xNMIjXyhiZgUT/lzMqs
-	 ZIh++t2BVuHkN7H/S7WA+a/aUQde3+msmKHtwB85alVJh/nr+IFLn0VC0set29kGrpjZ1
-	 jZIlkUx7vWV2Bob6E9zS/YHDLzAVcOJdCSA3yOPRv/pdAh0b6wFALeJeC7NIUnqLgfw==
+	t=1793779153;
+	b=sg47MgMF5MD2hv+6fWVDY0VRcOVsfBmOhd3o+Le9ZX+ZKcgev/G6NFRwhHLQ5b6XFt5E
+	 EqQ4D2tNkEEFJVTwLFgpVwA2S0kYFuOpewrdDhCUZLx9NRuW5KUZOpu3DtLUdHRvy/KDo
+	 AXZfY1mFLOT5X6R2hAiApQDTbO/anZ4ZyfC30FhhQRkd84aT6yOBV9vM2zUbwkAg79rW5
+	 MeOCRdtm8YYcMuKG/h1qdmlYw/CFDznJh/+t9DSZy2BpechGjB7+s/1BUBwNrSkxtFYhk
+	 t0CdZjtar8WW7kjhIFw/ymkD6jVur+16IFWCsXJc8kH/NAxz9/mtnwJjnbAf8PPq6Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779113;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Yzs3TvTUyCNgvkC1v8i5/KukWGuWF2PDxlQsJeMPHXU=;
-	b=HdWZeVm21aolYjhlNLLa2Xt3FDsMk/i1Bt3aGVP79pQ+zRVlZP2XXN1+b7CujwrEVBYY
-	 ElNCJ8q5Gxa0FgG0vVue03AX4lWR/PrY4Iz5hL26awUOrRejkE8+w8BUt4MiKJTabmTcJ
-	 Qsck0MUqCHHbboUPHL1fQJHr5UDuiuPOKKXh9REoo21z0oUHkN2y8mon31AZnV/Rc67kr
-	 McdZ43A/UgkO0fCZD3KgDndKU5EnfBUJaIeRyFQNsYwRJC6Gyl7+lHMqKSVvGy6OGat9e
-	 n9eAJrPF+Teeg/Odw47lc1MClGoWIoIM3676ZAm6rmDAv9XYu+LmK+ihYTROvzqrrww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779153;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=FwddSV8gjKPLCgQSFLRj949WDVGR/jN2Co6X4wj9CHE=;
+	b=3auRtYcNBn20Dj2FwjmKFgr6AqXJ2rPxuiPwbzUNPBoAcVxtdUnyftkzhyOJvTG+EbF9
+	 N2fCfqIHn6HRduRI+OiCruyzc2SyokGYg91YyGKl6VXdaiOm0c4f5JcM/kjExL54AfYa5
+	 sZsiP+GhHpaCDln9XnppnnWcjNqVLnZ8yyycACe5qrOJUpA6p3gn71AKAQZwlhwHKjtou
+	 BSKljJak/vEnmVb8A70e4qsEnUrAPU5xDZpirSGUvHGdvZxUhMRm+vM87/Br4Zl5dWD6f
+	 uyKFil2TBCaw9y7j9aWYLuTKFd2CU4V5wIASCQPj+Sa1xAKmowPB4zFj+T76T5LLzFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APD3QMfW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lVsptOrK;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08CD606A328
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC51606A31B;
+	Wed,  4 Nov 2026 07:59:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FC51606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APD3QMfW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE551F00A1E
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:58:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793779112;
-	bh=Yzs3TvTUyCNgvkC1v8i5/KukWGuWF2PDxlQsJeMPHXU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=APD3QMfWSKD1BEqDuFPXE3+ohbtpJ6xbOkKF6/O6IX/sFmf/WP6tCTDPkk7Blzesk
-	 9AEVKiwcntw99HFpLfc/vRRK6t0gNxTIHcHq6gE7VkH0GGGP9gA6kD74UuMoPnvQ0d
-	 aeM08aciNUWSsTLf6qfTtyp8IerYG5yHTVghZ8eNRM61BcV9BHFMi22/mNmPB4rybU
-	 KF5Nvz87trX80hDjstvXlqRP/RjVqVM6sTq+llZVdRujHeg3C+ozXR41e2+7gr+L2C
-	 Kwjz4N1LwdZIcYXIK4HaVufFg8C/SwduBh5RJqtnmLsAfz/WtWsIWMBcNzUdGkFzHC
-	 5L2yR8fY5rTXA==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b488586facso463677a12.2
-        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 23:58:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwuolXPikojgKH40kXnTI2ZY83NLQ8tne2/uNognKH/0sPQvQnVo2+bnge3iMC5v60GrtZV5T58RhC7@vger.kernel.org
-X-Gm-Message-State: APuU4Z/P/yxvPNEB6tw7U4AU9AapdWJ1cLwa5U2g4TExDo8CzWgFS1n4
-	nfmzQV+cmPimFLv2ed62oEONP+lzFrXatehjdW/cp5FnUhkmdfwYvmneZE8rcvrJOeoaH3Ta52A
-	VnhzsLcp8+gpertkDpSU+jGi3ZMFxylo=
-X-Received: by 2002:a05:6402:4608:b0:6b3:dd6e:3dca with SMTP id
- 4fb4d7f45d1cf-6b4d4d82589mr10723248a12.28.1793779111329; Tue, 03 Nov 2026
- 23:58:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lVsptOrK
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 5EBE3C8F46E;
+	Wed,  4 Nov 2026 08:00:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4E22460770;
+	Wed,  4 Nov 2026 07:59:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D3A9103291CE;
+	Wed,  4 Nov 2026 08:59:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793779146; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=FwddSV8gjKPLCgQSFLRj949WDVGR/jN2Co6X4wj9CHE=;
+	b=lVsptOrK1Zz3jAzDZnQknIIQ56jf3OxAnl47CL/Gf9A13kNPIuuNDyelE8xn4n3Bftm/gv
+	tjvzyR38gj0OTgMwS4euoaQnuomvxU4awLnb7fWIDD0EacgP1pMsB2NGTQf1xKEasEmPAx
+	PPzgqj+y4UkXegTSv4jx9a3g2KHqnBwWBMVATy4dLXlkqNzqbO9UA+wtUngiIhZr5CvaRa
+	JOIBTpQ9zbbSYQspKcWXrEHkyhdLOuLtllkGbbh9PSpgpvoZBU8/O1Xma/2+cVLl7Nzz7j
+	XqS6Kyjs+/f/ZMIBC0/AkVlLGwlnJAthIvt2/Q1HoCIowxMa6YJwF9W3BJ81iw==
+Message-ID: <963ddb89-fada-4340-b767-285ce9362d1e@bootlin.com>
+Date: Wed, 4 Nov 2026 08:58:59 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,60 +62,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793776192.git.zhoubinbin@loongson.cn>
-In-Reply-To: <cover.1793776192.git.zhoubinbin@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 4 Nov 2026 15:58:19 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5xomk3dwDScquwWWCD3_FCoJG8dur0b09j68QUqPT3VQ@mail.gmail.com>
-X-Gm-Features: AclHuK9cpjirvuwWJw1GRdeY1qyvEyu7MaMSjIH4ln9noIFTiQtqfBK6yL3oNPQ
-Message-ID: <CAAhV-H5xomk3dwDScquwWWCD3_FCoJG8dur0b09j68QUqPT3VQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] serial: 8250: Add Loongson-2K0300 and Loongson-2K3000
- UART support
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Haowei Zheng <zhenghaowei@loongson.cn>, Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 0/2] net: stmmac: Add the Siflower SF19A2890 glue
+To: joseph@telaak.dev, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-For this series:
+Hi Joseph,
 
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+On 11/4/26 08:22, Joseph Telaak via B4 Relay wrote:
+> The Siflower SF19A2890, a MIPS SoC for home routers, has a DesignWare
+> GMAC 3.73a. Its interface type and RGMII clock delays are set in a
+> small configuration block next to its clock and reset manager. This
+> series adds a binding and the glue.
+> 
+> The glue is based on Chuanhong Guo's driver, which read the RGMII delays
+> from a factory flash cell in the delay line's own units and always
+> applied them. Here the delays come from rx-internal-delay-ps and
+> tx-internal-delay-ps and are applied only when those are present. The
+> interface type is set through set_phy_intf_sel.
+> 
+> The delay line's step is not documented, so I measured it: sweeping
+> each delay register over 0-255 with the link at 1000 Mb/s, the working
+> windows repeat every 145 steps (TX) and 144.5 steps (RX), which is one
+> 8 ns period of the 125 MHz RGMII clock. So a step is about 55 ps. The
+> TX eye is about 3.1 ns wide and the RX eye about 1.75 ns; the delays the
+> bootloader programs, 17 and 10 steps (935 and 550 ps), sit inside both.
+> 
+> On the GL.iNet GL-SFT1200 the GMAC is the CPU port of a MaxLinear GSW150
+> switch over RGMII with no delays on the board; the GMAC adds both.
+> 
+> The MAINTAINERS entry that covers these files comes with the MIPS series
+> "MIPS: Add support for the Siflower SF19A2890"; this series applies on
+> its own. That entry is also why checkpatch's question about updating
+> MAINTAINERS for the new files is left unanswered here.
 
-On Wed, Nov 4, 2026 at 3:46=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn>=
- wrote:
->
-> Hi all:
->
-> This series adds UART support for two Loongson SoCs.
->
-> The Loongson-2K0300 UART is the same as the one found on the
-> Loongson-2K1500, so it is documented as falling back to
-> "loongson,ls2k1500-uart" and then "ns16550a". No driver changes are
-> needed.
->
-> The Loongson-2K3000 UART differs from earlier Loongson UARTs in that it
-> does not require MCR/MSR signal inversion. It also supports a fractional
-> baud rate divisor. A dedicated compatible and driver data are added so
-> the driver can distinguish it.
->
-> Thanks.
-> Binbin
->
-> Binbin Zhou (3):
->   dt-bindings: serial: 8250: Document Loongson-2K0300 UART compatible
->   dt-bindings: serial: 8250: Add dedicated Loongson-2K3000 UART
->     compatible
->   serial: 8250_loongson: Add Loongson-2K3000 UART support
->
->  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
->  drivers/tty/serial/8250/8250_loongson.c            | 7 +++++++
->  2 files changed, 11 insertions(+)
->
->
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> --
-> 2.52.0
->
+hmm not sure this is the common practice, usually you update MAINTAINERS
+along with the driver introduction. This should be part of this series.
+
+> 
+> Tested on a GL-SFT1200 with the GSW150 driver:
+> - each of WAN, LAN 1 and LAN 2 links at 1000 Mb/s full duplex and
+>   passes iperf3 both ways (160-205 Mb/s out, 262-273 Mb/s in, well
+>   under line rate; I have not looked into where the limit is);
+> - 10 GB each way through LAN 1, after which every CRC, alignment,
+>   error, drop, overflow and underflow counter on eth0 and lan1 is 0;
+> - 50 link down/up cycles, after which the link and traffic recover;
+> - the MAC address from the factory partition, and ethtool reporting the
+>   link with no PCS workaround.
+
+no PCS workaround ? what's that about ?
+
+Besides that, nice and simple glue, thanks ! :)
+
+Maxime
+
+> 
+> ---
+> Joseph Telaak (2):
+>       dt-bindings: net: Add Siflower SF19A2890 GMAC
+>       net: stmmac: Add Siflower SF19A2890 glue
+> 
+>  .../bindings/net/siflower,sf19a2890-gmac.yaml      | 110 ++++++++++++++
+>  .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig        |  11 ++
+>  drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c  | 158 +++++++++++++++++++++
+>  5 files changed, 281 insertions(+)
+> ---
+> base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+> change-id: 20261102-sf19a2890-gmac-4fb4808f869c
+> 
+> Best regards,
+> --  
+> Joseph Telaak <joseph@telaak.dev>
+
