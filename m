@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804200;
-	b=UU/mv7N+XLlWqVrKEy242e6+ZmXIu5sDQ4yEbHy2EJ77NHBhojdlIfEI5rcmLDeDwRT2
-	 cA4HGfvBvV+44JqTdHjawy6GN5ptliZssLctciib+vOZtqHclu6JgNbX4SLF98JPTCqoN
-	 X1bduTvGmvlFyVfmTyuIuzWEFx+8KnFEio9l3AgZA55erZfRrwJ4lfHuGmw4vhRvirm5H
-	 PjKws9WBSuw2PjC0xQSg0Avo/eSGr+XiskQrSAb92htHLSJZwiadkqT2Q+JhtzAQd7NdJ
-	 PKXx8TxCA+C8R/AXsxegZlGvqtRBqonAbQ2MvOMtJOYxv1CVdBFDPhn7gzvPTnalqQA==
+	t=1793804405;
+	b=Kn3xpR6jQ0lk8xNDgQnPw75HVx1nI5YdtDxfPw9PIyfmJx+AJr0skRKGo+Hcum/NUKga
+	 eEV6htnWfWfwQyey8eDZ5QtjhwT/reaYyVX+/olvhIY+O1KxbMxBTOZyWqvhmHWGF+pqT
+	 K8Meun6wDc+gGZx10GEmzqCE/7mWvY4eUY98e0GQjmZuuAWbbNs7cf4sYRD3KJp2Jso95
+	 Z4cjR0B49/9Oxc429ZEV79mwISPM/RKvrSQ/c2sd6lHpoYiHUziy70wM6CynoCRef/Mnm
+	 aQDKbXrY5WpREqZpmiK+PfhPwtn4487blcpGfs255kdyxEouLeK19J2j9r0G9KzOmuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804200;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=59zhTayxczl43EeYDiMSSxpzLdPh5wVDsn3GkH9nffc=;
-	b=hLo6+D8RoFbRCRdd0vYh6bx0jgcHZS5LyCHwy+a0zTjuZtNMyQm0tK8aisbTJALKoIPy
-	 bvVXmVyCq4/r7rGfqVtRAQXka1qS67fRRwEcFc4jkPJwMdkKReQD/+aFcOPYH2mgUbG8t
-	 ayHUJrrbWWAoCbqJJ8MpJ2t4VowHqoOPWNHmDktbLOKfQxEPz+fqVrLsGp5iCh0x5RC3d
-	 U40gOKeIOX5Z0FU0rdSy8j6PG1ERJjpyuand32jveeNd9Pc4eGppahjHVDQ8xYC8s0iTT
-	 meW77hB9NCi9WmWReQXCwfV6x/kzGQCPqjF0q0Z+SK+9oAvObM89gvRAJoU+1pQL/yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804405;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=j6Lmm1Hn0vVGy1edj0ZEjgYqhILrVPlHvC3oCOWpi7M=;
+	b=BZ1DptbYefzP+bw0qjFpqvBeebD1Jsde+aH0pkfuxE6J2pgSuHT0/2V5uVQ0VNpreEjP
+	 gvsMGQVgDTeILGnZ2yB7z2OCOL2j5RJPGC0sUZQSEdADZTJNm4ug/mz4l1oux294Qfl2B
+	 5EjMn2yNfalEJr2SiDLgjIyURwh8J867DhBC/4gYUwvimcQ01QokwHfR63yRnyKX85AgR
+	 2o7R+pzvQbNAchLqDcV3bwEWPUDpdmOMrZIXscaC2TCJYKsS6weyjnpGlSye28LnfoDfb
+	 Vb2lKGXBjQeK/t4zb1J99yxbpNmR7JJwG9TOwjtNkE5AQmLUH/QbVOumPDTFdKBjY7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksej+oID;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2FfGEza;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CC3606A328;
-	Wed,  4 Nov 2026 14:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F9D606A31B;
+	Wed,  4 Nov 2026 15:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksej+oID
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A771F000C1;
-	Wed,  4 Nov 2026 14:56:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2FfGEza
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC551F000C1;
+	Wed,  4 Nov 2026 15:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804199;
-	bh=59zhTayxczl43EeYDiMSSxpzLdPh5wVDsn3GkH9nffc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ksej+oIDIBq0Lssyj4jKKmoO9D0FheijDjcLkWtrCBSdXuCdPdlONB/yW3l8R5B1B
-	 WXzWWTQGWBnf8wiRAal8qMOBvD6dNjR45XhyXSDhm76MfJxdI5vHbS8VJ2i/FsOWau
-	 xVucDZMJNOMchEo8l0gYt7SLipQvxzAgpESk7tSyz48gqr4qJiqKg+pvy7L5twQCLn
-	 9oVbgvH3TyqprheKDjubv5Vn3YR/y94UzxZFdIaOSUWbcKqfz3PA+mLfEZMQkCUWkf
-	 FgXg7066/vRmIPMLBOuRaLCLOLbBTgTKn5LWastAkEBGsuGSznoMtuuH/VFnWOA82K
-	 jjub1Ky2gy2pw==
-Date: Wed, 4 Nov 2026 15:56:35 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: hisilicon: Remove orphan femac driver
-Message-ID: <20261104-realistic-elite-kagu-7beabd@quoll>
-References: <20261104145038.946918-1-robh@kernel.org>
+	s=k20260515; t=1793804404;
+	bh=j6Lmm1Hn0vVGy1edj0ZEjgYqhILrVPlHvC3oCOWpi7M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=E2FfGEzaY+5pOzHmP/Qxnev2lkJRvRtWfseKPiVnC5SyQQRdX107lcHXaRuDu4dvc
+	 01x9DlOLwXIKCTDZo7U68AomcvrrsY//bJ86MFgKiillsjiABXwMI7n7IlB7Dkc8OT
+	 fCXwaSJndHc3pgqcHQaOmylqRE4z0SgZGiIv8naOuT2dustP7iLQr+CP5qQYmBWPkB
+	 lcxMrqK8T9uAK4dgutBLjd2Omzyhi2j9jNMSmErfYY9mxGylwZGf6bcoOqf357N16Y
+	 kUqaMpic1Jn//qEiji8bHm45Z7AKqdnrmWBoWXNwAPuk+ogVHfhg2fOrq1FT1vBLPt
+	 +diG578y2m8yA==
+From: Brian Masney <masneyb@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20261104145118.952453-1-robh@kernel.org>
+References: <20261104145118.952453-1-robh@kernel.org>
+Subject: Re: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
+Message-Id: <179380439179.620564.4189393090905207161.b4-ty@b4>
+Date: Wed, 04 Nov 2026 09:59:51 -0500
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,32 +61,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104145038.946918-1-robh@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=290; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=q+c2CJOAfFyU7qIx6L79cH32JQkactqk07DEdp5nXKs=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJee2Szv/AKeLrwtsgit/132dj3u2zzlYuSS55/vbRqn
+ vLi5jCdjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACZyn5Xhn7m+GsuxteWiuw99
+ 42W7p/tjxb+J25Kt02XfM8i8Ph+kfInhD8+ErlfFiof2qAgJTzX+a1NaqTk95v1qv2fTJHVK98/
+ wYgUA
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-On Wed, Nov 04, 2026 at 08:50:34AM -0600, Rob Herring (Arm) wrote:
-> Remove the HiSilicon femac driver as it is not used on any upstream SoC.
-> The hi3516cv300 only has clock, pwm, and this driver.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/net/hisilicon-femac-mdio.txt     |  22 -
->  .../bindings/net/hisilicon-femac.txt          |  41 -
->  drivers/net/ethernet/hisilicon/Kconfig        |  12 -
->  drivers/net/ethernet/hisilicon/Makefile       |   1 -
->  drivers/net/ethernet/hisilicon/hisi_femac.c   | 976 ------------------
->  drivers/net/mdio/Kconfig                      |   7 -
->  drivers/net/mdio/Makefile                     |   1 -
->  drivers/net/mdio/mdio-hisi-femac.c            | 150 ---
->  8 files changed, 1210 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-femac-mdio.txt
->  delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-femac.txt
->  delete mode 100644 drivers/net/ethernet/hisilicon/hisi_femac.c
->  delete mode 100644 drivers/net/mdio/mdio-hisi-femac.c
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Wed, 04 Nov 2026 08:51:16 -0600, Rob Herring (Arm) wrote:
+> clk: hisilicon: Remove hi3516cv300 driver
+
+Applied, thanks!
+
+[1/1] clk: hisilicon: Remove hi3516cv300 driver
+      https://git.kernel.org/clk/linux/c/3865d0d4439f
 
 Best regards,
-Krzysztof
+-- 
+Brian Masney <masneyb@kernel.org>
 
