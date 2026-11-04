@@ -1,56 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793753675;
-	b=n05qHP3G9FJ4AzaV8n0MEep4HkVqncPmQzb/krAIuNsb/0DSZ65kO4jpq9XB8/nS5UYM
-	 5wZs2MoS6qXn+ZFxoQI71+pRDx37A989EgZXir2E+eU/4Dm1iXO7RnMAiPtFCLygr84j/
-	 WbyQiTB1hjPZZC+sKEPZka/aRvChMnK2XJe5UBXgsfFsKLIGSXNDutmaqVN3ragfJERe9
-	 44tOztS8AaDSLt39bfY2yBnMQzawszoYCxcTx/Izd/XXQpokvUPkahkZWI2xhGPRrdlIu
-	 TSatAmuKHfn6tFgUQdQFRaj+f2WIhJvqDI3CGBWmcAW8ZTNLjN9aLPRzqnfAs0fcE9Q==
+	t=1793753874;
+	b=lR0MgfoQrJV3s+K2WXMc4JI7+dHdN0qBOs+u6ZMiWxGEE2TOAFSHdx4lRnvjnwM9mckJ
+	 5WWXSymxr06cTN9DCvCbbvyGSJB6IC4+9YcPA6rECV8wNopie30XMn4LasWp9X8rxXymo
+	 XzPFG56KX12AVoh+cIgwDQkkpAH96M0KPluXtBSKzcAKokiRgXIrU+DUg2IU7DV0ATiNb
+	 /4kqd/D7t+FpboK0BsbQ98nQd6IRiLP6YJgroSRyPXIVuyYK6i3fpfkih58ZLywt9Bb9I
+	 aMt2l00CYW9DWVyGogRax+V8eI6IMAvEsiGqmpVVrAXGTne9AjBh5RWE3mUbYXBVtsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793753675;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=rECYDe2ipfnRxAeupQxLBOt8FlJwyz9vJwvIRBDXdNA=;
-	b=zPPEE4g87GgunkVgsUVOI5419mrIkR9LK4jVx8quKe3PdKU+pn0/+Bxakn9zKMTkJmMM
-	 wx2hJOz5n0kLF3jCKMZ7w2XRczcVwCcPzr3JRoWpN1x+dJVDONJH4DMSWxC+2fwoIHMQm
-	 T31tVVWDhG7fhFilxPF171kdOhi+vfmHDwTztRFeq8WpE8Pt24seNF/kJtZUZH3eD/2y5
-	 mUcwuhBJSpVq7dU0t/TBoCsibgBj0w7of+GXh6JZqlw/2xhDVUnG3hTX4+luBsWihg+Kn
-	 v73lMfREUZbba5diD2IsOAwA2Tphlk4JeoyWp3e8g56eVHu5RcvACm8dHiVM+gE8ZaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793753874;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Sk8Hr0fhc3C8eQFrISEupQ4YS+zYJDt+3X6d4EBkWvk=;
+	b=kgITNbYLiengy0PsUVAhjlwwW3B/DOyhM0Ow8v6ExdcTMo/5zSNjojXbea34ExilheNM
+	 1OLJetH5YFoN9PK66m4BQM9Wr6hxz2d2uf8zu91wMv46CgO0U7/N0S9uA6sdmLK6ZyaQz
+	 cwxKk7yhfCsnDIErkAaD6IpAjUb1TaaIMjJBzxBbNLJD+tnIWtUlTJqHPu0AoP654fzVN
+	 fQ+lGYWmqBjdUrOm57SZq0+y+KtIqqnM85+9pxfDh4LSD/b7Ijk0SgzozXkrDs4NEBTOC
+	 tL44oUVNlNidpK9KAfSzbqjq1IGIaOMSQL6EgXw655i/N2L++lSd+CmXY5QgUnC3ZjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emulxxuy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Cbod9g/Y";
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C045D606A328;
-	Wed,  4 Nov 2026 00:54:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E14606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 00:57:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93E14606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emulxxuy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284BF1F000C1;
-	Wed,  4 Nov 2026 00:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793753674;
-	bh=rECYDe2ipfnRxAeupQxLBOt8FlJwyz9vJwvIRBDXdNA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=emulxxuyRkEKQkzhfVDQL3OCglznXmO7xMIQ3V31IaXcFBh9nTo/9wg3PKRozmwpy
-	 p0twarU5TyhCvAQWZtKE8h8hXvLl/Bivwvqqktt22/smsaJbbMb3zt9puHc0L/cMrd
-	 q0AFOWYV5Q32zADX7Q6u9WiFX4cLIzWCpxKUYj3AkDy46luvKhrk1gTdcZ2jhY6lr6
-	 9kOw07e3M78M5wg3Cy/pbCKH0LOsUEB9xQlbvs/2MWaXZhUS8sGbdJuuSDat6xoSDb
-	 /XIn7YcB+XA3UTUvURPWL3MWUFrWKixarhIHCR1jQQCYZo8fLMONAS3b2qSyFP2Thq
-	 RW/eNpFkfpkGg==
-Message-ID: <sashiko-outbox-196325@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104004332.2141282-4-elder@riscstar.com>
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <20261104004332.2141282-4-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 00:54:33 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cbod9g/Y
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1931ff67a29so711056c88.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 16:57:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793753873; x=1794358673; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sk8Hr0fhc3C8eQFrISEupQ4YS+zYJDt+3X6d4EBkWvk=;
+        b=Cbod9g/YU3+tOlTtTnbUSHpJBHl6gN8BoKQeRJP9pi5xeiIv1FPevko0jwJ+aGLuLy
+         9+Vq0qwtYZhy1ZPpENlk06KJavb305By1d6MkDFwSS94Kb6MIUB0aPCZyna27CAn7nKa
+         5qPYzapHjs6ljtS11Yg9JQyVgMkYRqEZjf5pCJfeYdjPZJHnqGxPSheIJ7o8Q6jKz4WX
+         A1WQiE5SigEMfFCImoYerpJq3aJaLTVBDKu+btRbLQAt6+T7SXBCUpxxa13F/V3FNOgp
+         CvccOATz2nUzmYNW+L7KhgaTkfkqgypeLVVw1GbDcJvVMaSGuL8YWhYn4Er/QeuFqmKG
+         q7bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793753873; x=1794358673;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sk8Hr0fhc3C8eQFrISEupQ4YS+zYJDt+3X6d4EBkWvk=;
+        b=PGGzCf7Irfw+233F616hESMgx075uS6Gzl0SWFofWM/RCTYi0hOQ2BDqJU8VV6taiq
+         sFtTNOrWj/C1ZgrCmtENKrH1JZ2WFSqvfBOGkHKdt6Jw500ZOJ3B2jtIZQ6BfWHhybcT
+         FhR6cr0IUxLX5HZZIWsR9jPnCzWnZELAJ8FWUktYYucbJiqscC4haL/dawgJnFXxVLiu
+         tnvxY6l5ryGfeyKlAL9iuPVqt+d1gElJTC8Cn+4XPS4ZvtYh17wRVo/HBx8a1q9IlXpP
+         2GovIUv4onUtUEh/6MT8qe+d240XlOzSs+WRY3bG58QLAhr7X8yw0i1ewVi2ofDhm+ZQ
+         2Ilw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6bizWCwQpTUquvqixuyIyyQtQ87Mwr0THCVwJVxaFssuX3E68GiATtNSgSBiKTqFZvugRD/XMTrdr@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6aOnjoWjbnfRaPPSwkT0uxclGcIecO198uU6ZDSfmH2xRlTjf
+	kd7BpUA4qgXlqS0wLWOGdwx/OYJk8lNnX1owLuo7qOsVMxL4S3UWCPS6
+X-Gm-Gg: AYBFou0lV9j+XXn2jKfq6n9//oueVsdP5TzNycq8ReRLqW5Odq9juwFTNwFrOtmm1vc
+	3aqxSk+dUZTjymBzapD9rJFJBT9Y7uT8ADf4WnWbapIUPDvXMbHBgAGQJugegjLYer5i8StrQ6d
+	0jNpHVK+fTjax7hE7f4sshH0uI3Ej8XsVVkxA03h8HjaEEWYX0eeUl738OSxg2FmtBuhG7xXXiG
+	R2P81n5Pyz8sXFvGfI+6DFjM1bQtl0Z4MCWqvqWGzRvVfdKbkI7LnlNWXrJrod2OCOC+ejh+xqy
+	pbfUqKs1mXp9IVn1GU0IFW8Ot+1Y36JjV1gEtX4xlnRjuD4k4iflFm63pTEaaqcfhATYtxTaUVq
+	ad49m/Znhb8tTOvhvk972iaAJP+WuU2ZfcGZrM5hsiqam9o1Q7rlLV2NHjXvSWO3tZwsn+Vb+uW
+	loJ7KxC/KzPGRphLS+Ll4kObyVmhuFQt9d7ZWHphMIt1Q/8sMUv7glN5ZD787Cq8A4qmQ7U63FW
+	FpB0S4N+TF+gQTAE8JUOPiughAjYOiLdrylrGG3iFlAKvF8cBIvY555dSdJ5VXYM/lHiMYU/a1X
+	3ryta2qo4jUs1TwjCOUM
+X-Received: by 2002:a05:7022:1117:b0:195:49ee:94c7 with SMTP id a92af1059eb24-1ac5a0b579emr19552410c88.8.1793753872638;
+        Tue, 03 Nov 2026 16:57:52 -0800 (PST)
+Received: from debian ([169.211.140.146])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2c2ddsm2546423c88.10.2026.11.03.16.57.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 16:57:52 -0800 (PST)
+Date: Tue, 3 Nov 2026 19:57:42 -0500
+From: Kwanghoon Son <asdfkwang@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+Message-ID: <auqC9jOIQTyieQUJ@debian>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
+ <20261029-spyglass-evasion-772697094cb9@spud>
+ <20261029-amuser-savior-6a6ab062f471@spud>
+ <auSDJH9V31wmbrYv@debian>
+ <20261030-slider-finished-360b10521e0b@spud>
+ <auXQaY25XfYzxEb1@debian>
+ <20261102-throng-botanical-b244058ecc37@spud>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,197 +124,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-throng-botanical-b244058ecc37@spud>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] clk: tc9564: duplicate clock names across chips due to using dev->=
-id
-- [High] clk: tc9564: uninitialized clk_data->num in tc9564_clk_probe()
---
+> I'd rather not really. I shouldn't be the maintainer for platforms I do
+> not care about, but I will do it if you're unwilling to - in part
+> because I expect that the volume for the platform will be pretty low.
+> 
+> Please read through Documentation/process/maintainer-soc.rst to see what
+> the expectations for a platform maintainer are.
+> 
+> Cheers,
+> Conor.
 
-commit d0d52063b982041aca91451199195cd79995784b
-Author: Alex Elder <elder@riscstar.com>
+I'd like to take on BL808 platform maintenance. I'm new to the
+maintainer workflow, so I may need some guidance initially, but I'd like
+to give it a try.
 
-clk: toshiba: introduce a TC9564 SoC clock driver
+I'll update on v2.
 
-This commit adds a platform clock driver for the Toshiba TC9564 SoC,
-registering its PLL, fixed-factor, and gate clocks via a syscon regmap.
-
-> diff --git a/drivers/clk/clk-tc9564.c b/drivers/clk/clk-tc9564.c
-> new file mode 100644
-> index 0000000000000..8eeba85919703
-> --- /dev/null
-> +++ b/drivers/clk/clk-tc9564.c
-> @@ -0,0 +1,288 @@
-
-[ ... ]
-
-> +/*
-> + * The full name of every clock has a prefix "tc9564" followed by a sing=
-le
-> + * character ('a', 'b', etc.) that differs for each chip/device number.
-> + * Each clock's "name" defines the unique portion of the clock's full na=
-me.
-> + */
-> +#define FULL_NAME_SIZE	24	/* Enough for formatted full name */
-> +#define NAME_SIZE	12	/* Unique portion of the clock name */
-> +#define FORMAT_FULL_NAME(_full_name, _id, _name)		\
-> +	snprintf(_full_name, FULL_NAME_SIZE, "tc9564%c_%.*s",	\
-> +		'a' + (_id), NAME_SIZE, _name)
-
-[ ... ]
-
-> +/* Parent is the input oscillator running at 25 MHz; PLL runs at 1250 MH=
-z */
-> +static struct clk_hw *pll_register(struct device *dev,
-> +				   const struct clock_init *init)
-> +{
-> +	char full_name[FULL_NAME_SIZE];
-> +
-> +	FORMAT_FULL_NAME(full_name, dev->id, init->name);
-> +
-> +	return devm_clk_hw_register_fixed_factor_index(dev, full_name, 0, 0,
-> +						       init->mult, 1);
-> +}
-> +
-> +/* The PLL is the parent of all fixed clocks */
-> +static struct clk_hw *fixed_register(struct device *dev,
-> +				     const struct clock_init *init)
-> +{
-> +	struct tc9564_clock *tc9564_clock =3D dev_get_drvdata(dev);
-> +	char full_name[FULL_NAME_SIZE];
-> +	struct clk_hw *pll_hw;
-> +
-> +	FORMAT_FULL_NAME(full_name, dev->id, init->name);
-
-[ ... ]
-
-> +static struct clk_hw *gate_register(struct device *dev,
-> +				    const struct clock_init *init)
-> +{
-> +	struct tc9564_clock *tc9564_clock =3D dev_get_drvdata(dev);
-> +	struct clk_init_data clk_init =3D { };
-> +	const struct clk_hw *parent_hw;
-> +	char full_name[FULL_NAME_SIZE];
-> +	struct gate_clock *clock;
-> +	int ret;
-> +
-> +	clock =3D devm_kzalloc_obj(dev, *clock);
-> +	if (!clock)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	FORMAT_FULL_NAME(full_name, dev->id, init->name);
-
-[Severity: High]
-Will passing dev->id to FORMAT_FULL_NAME() in pll_register(),
-fixed_register(), and gate_register() cause clock registration to fail with
--EEXIST when more than one TC9564 device is present?
-
-The clock MFD cell is registered as a platform device in
-tc9564_config_syscon_probe():
-
-drivers/soc/toshiba/tc9564-syscon.c:tc9564_config_syscon_probe() {
-	...
-	return devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
-				    tc9564_config_syscon_cells,
-				    ARRAY_SIZE(tc9564_config_syscon_cells),
-				    NULL, 0, NULL);
-}
-
-For platform devices, the platform bus stores the instance ID in pdev->id
-(struct platform_device::id), while dev->id (struct device::id) is never set
-and remains 0 for every instance. As a result, every TC9564 device formats
-its clocks with the "tc9564a_" prefix (such as "tc9564a_PLL"), so probing a
-second TC9564 device collides in __clk_core_init() when registering its
-clocks in the global clock namespace.
-
-Note that pdev->id cannot be passed directly to 'a' + (_id) either, because
-PLATFORM_DEVID_AUTO allocates IDs from the system-wide platform_devid_ida
-shared across all auto-numbered platform devices rather than a 0-based
-per-chip index.
-
-> +
-> +	parent_hw =3D tc9564_clock->clk_data->hws[init->parent];
-> +
-> +	clk_init.name =3D full_name;
-> +	clk_init.ops =3D &gate_clk_ops;
-> +	clk_init.parent_hws =3D &parent_hw;
-> +	clk_init.num_parents =3D 1;
-> +
-> +	clock->hw.init =3D &clk_init;
-> +	clock->init =3D init;
-> +
-> +	ret =3D devm_clk_hw_register(dev, &clock->hw);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return &clock->hw;
-> +}
-> +
-> +static int tc9564_clk_probe(struct platform_device *pdev)
-> +{
-> +	struct clk_hw_onecell_data *clk_data;
-> +	struct tc9564_clock *tc9564_clock;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct device_node *parent_np;
-> +	int ret;
-> +
-> +	parent_np =3D dev_of_node(dev->parent);
-> +	if (!parent_np)
-> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
-> +
-> +	tc9564_clock =3D devm_kzalloc_obj(dev, *tc9564_clock);
-> +	if (!tc9564_clock)
-> +		return -ENOMEM;
-> +
-> +	/* Note: MMIO regmap (no error checking needed when used) */
-> +	tc9564_clock->regmap =3D device_node_to_regmap(parent_np);
-> +	if (IS_ERR(tc9564_clock->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(tc9564_clock->regmap),
-> +				     "failed to get config regmap\n");
-> +
-> +	clk_data =3D devm_kzalloc_flex(dev, *tc9564_clock->clk_data, hws,
-> +				     CLOCK_COUNT);
-> +	if (!clk_data)
-> +		return -ENOMEM;
-> +	tc9564_clock->clk_data =3D clk_data;
-> +
-> +	dev_set_drvdata(dev, tc9564_clock);
-> +
-> +	/* Initialize all the clocks */
-> +	for (u32 i =3D 0; i < clk_data->num; i++) {
-
-[Severity: High]
-Does clk_data->num remain 0 in tc9564_clk_probe() when building with
-compilers that do not support __builtin_counted_by_ref?
-
-devm_kzalloc_flex() populates the __counted_by counter via
-__set_flex_counter():
-
-include/linux/compiler_types.h:
-#if __has_builtin(__builtin_counted_by_ref) && \
-    !defined(CONFIG_CC_HAS_BROKEN_COUNTED_BY_REF)
-#define __flex_counter(FAM)	__builtin_counted_by_ref(FAM)
-#else
-#define __flex_counter(FAM)	((void *)NULL)
-#endif
-
-include/linux/overflow.h:
-#define __set_flex_counter(FAM, COUNT)				\
-({								\
-	*_Generic(__flex_counter(FAM),				\
-		  void *:  &(size_t){ 0 },			\
-		  default: __flex_counter(FAM)) =3D (COUNT);	\
-})
-
-On compilers without a working __builtin_counted_by_ref (such as GCC < 15.1
-or Clang < 22.1), __set_flex_counter() writes COUNT into a temporary compou=
-nd
-literal and leaves clk_data->num as 0. Without an explicit
-clk_data->num =3D CLOCK_COUNT assignment, the loop in tc9564_clk_probe()
-registers zero clocks and of_clk_hw_onecell_get() rejects all clock lookups
-with -EINVAL.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104004332.2141=
-282-1-elder@riscstar.com?part=3D3
+Best regards,
+kwang.
