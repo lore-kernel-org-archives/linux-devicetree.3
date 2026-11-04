@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796478;
-	b=eMhFm7E6naS6W6Wbym9uduEYzQ4yLktdE4vU9+s8deQW2v2dhtzsUURv9unBPP1GFYvr
-	 tCO2mdGHFw0pwvHwcurb6o2E1HpxjL7nPoSehD1h9/rNFpHjKpVLKVvbq3zk3R4vRzNp8
-	 OwTnr0J+JR7xBqeIV2hj/LinxAdrbAS3vVnv6Fa2gXxVrViFiJ2UDJf4bxWHQ8UYjX5b8
-	 1Xgvy5UM/tPsNT38jyCzWN/99yNdV1JOli1lOGrfAL/sAWsTQ7re48BOa3oQ4mitpqwFK
-	 Aob/S6xg4ou6e1StH8WkBh3ELGEd7c7YxkREhc1fz3SQvLM4Vfc4HwxcSLvFQVx+8Wg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796478;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=4bUSZ5fY0Bht2N6RwM6W93VN/oWn6p/LY4lW15Lo2MQ=;
-	b=ab4agjRudZnwB+J0eRNZxBeA/qj8mh9wHaMt6YqMz5U9F4JpND7AF3ULLdjNBKB1dgeW
-	 V/ioUH9aZZR/30L+DrFXLV/o1KkXX4rAjNCj7vx0lnPKN2dIVPjTGdsB9ibfznQ3HRF6j
-	 QukqVD50bdRuajemsWjMd1q1mN8jRl6ZcQ+oDmWYIIbfccxrelEl9xvK7Rzl5jvDIOTHn
-	 0koxXRASekahDT6/TjEsP5syp55X5kABeHCg3cTNICSRqfiaI58Sxgq6ImbxNn/tyZmxA
-	 bKM0uLujZNEER7QFZ2aEMQcAD44kDwR9G2A1l3O5GytpnM9PO0SeNIw/8H+RkpmFidA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWRxEY97;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.102
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793796622;
+	b=ymNxbhL820CheIR6oajXbD3qJffE7F5cjll85M344TO/KqrL0B179iT/rdmhI9SDnll1
+	 kyxmx0n4VRJ3NBhYxl958Ij5U6DCoFEAUYXq02a1nk100exBiLeMNRn1s6FXNyI62TmMl
+	 xn1RSYHMeJP6iEWOWjcSloqYBJhBPmk4KGiyeYuu/VzW20/nfW8u69N/2MErC1WULLOPv
+	 SogrD595Mc4LHYx89QM78im0h4br7tPISdLZQRUmorUfP9ptJ4PJOrZ7TA9oAYkCGEMBm
+	 DdzKy/ocNAcm1o0gAEs/MEkfCRhTKPn19WEwxFRsa6O6FBedX48hi3YL4xCcuKfXWJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796622;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=pYCkqby7ZYFlZsTaRBTg/gKKYgtsIri+QbxQt94r4ig=;
+	b=jjevAca/eLgvO7v3CWE6PtmBtKgpJUBq04fp5qly68pt29gc4vvdG9LnHzfYgaaIZ9mo
+	 VNtdOW2bZvyhXAOkbJkTfDxAmwvj6fEXZ0QPmWd5uC++e8NzL1yJpC6wX7Xg+hrSjI0qJ
+	 mUm9ExNXkwczbS7o+vdOQ1GNc5cnvIPFBlS4cQ8RlFQXz67nVanOxzaILCYaz4uySsQZx
+	 0DK5WUW7zqszc9Cydm0lZ5TbfHGbJs5R4zP/AJEfAf1iEyyFlijJu2bqaYkEjODZxUYPE
+	 ztErkT2KA5259E1HC8wYIqxsua/YhLr0wScQr3BdxX5j8/V3WUSTIvBohPFfK85jcqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.102
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022102.outbound.protection.outlook.com [40.107.75.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5565E606A31B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWRxEY97
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F9C1F00919;
-	Wed,  4 Nov 2026 12:47:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793796478;
-	bh=4bUSZ5fY0Bht2N6RwM6W93VN/oWn6p/LY4lW15Lo2MQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EWRxEY97ndQ16cmOkyPl+xSINyeSwcxMKD+nHV8jT/g5qzNJ7j73GqK6XScWrEgFR
-	 IUMGYVjZP2TOqhe/NY/zjNy1b6/F7GQfdO6WtemNOaPtoeBG3KUZ0kRQgNNubZZrUv
-	 ip7Skz919S3ZU7RSXQgxeQD2tZbCHBUA7Q9YiDhuxm4rQBSsnAE3fbFQdlX1fFtaDC
-	 UPM1MS4S5br8xQtEcfR8JY0+aRVr/bOU+na9rvPqxnek7MD4ItVKXphA+LhhPVzjN2
-	 7tsOZI/R7lUev931Hm9vxdRRjI6bKJrCIbXPiBMW13WAGrxRDgVVYZEcotO+aK4ofo
-	 dXuE/hSu0+2/w==
-Message-ID: <sashiko-outbox-197300@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: st: add PSCI idle state to STM32MP23 CPU
- domains
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrick Delaunay" <patrick.delaunay@foss.st.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104133023.1.If2b6b99285c1e60ca11b6e7fccf7d9b130ca20dd@changeid>
-References: <20261104133023.1.If2b6b99285c1e60ca11b6e7fccf7d9b130ca20dd@changeid>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 12:47:57 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93916606A328;
+	Wed,  4 Nov 2026 12:50:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93916606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fqF5XUfMu7jyQOr01yaDyQM1m7/7gBR3JcI+p6PtbVz9dPTfOhlspiJ42HObi0tGF4APxSdamAPau8r7Qh8cS1sIy6nU0ToCXKCUcKOP0LbOlbo7P2ZwuuH5wcaIW+eeCN2CNJ3iEzoeZvl6wkSGDwa4SmkRdUQtYTrKMMlIbXseH7y71OD4w4/MSpsfpPomMsYMzC4d/C6YoP60s+FXTndHZ8e/CamsWYFvFgKpeCvDgsmYOEgfcEcxUfPUf6h++KWIZI924Qy1TMvY/oxRXeeuQIPT4FKgj812fJayLN6i/m7ADrjkq0I7yDi0PH22vetEh5OXVjSZ+62F1FoAXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pYCkqby7ZYFlZsTaRBTg/gKKYgtsIri+QbxQt94r4ig=;
+ b=IHRKCGCeTgTOJsV4ZfrGzOjEtflcFIREVaIW9H3fMOfWKw7W/AANvs+DgkGDUR0t1hQEOaz1BuH25P+mwDhoyAJ58WKprtB3mCfrgiXfGfqx4DhQt/biPGemP87JqelOzQ2xhTqsbMcCDs83Avovd6ypz1QM1icwPLUSifjmKbPshFZQnBiAJBBjx08+kkdkfadXQa0ASKGKX1/zx+V4QG1nqL3c46+aiaGr5glaF2HIqgWhyYKtJpRlEg2ucvYEXTAUgoOPxbTjBtEzJZpotRxLK7WIK8XomVwg9prVLbUvF5SdyZco60/DMUzvyapuJLk1KqXDr9fI5fj0dSaNhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR01CA0005.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::23) by KUYPR06MB8793.apcprd06.prod.outlook.com
+ (2603:1096:d10:96::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 12:50:18 +0000
+Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
+ (2603:1096:4:191:cafe::7e) by SI2PR01CA0005.outlook.office365.com
+ (2603:1096:4:191::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
+ Nov 2026 12:50:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 12:50:17 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CC97540A5BD7;
+	Wed,  4 Nov 2026 20:44:13 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.murphy@arm.com
+Cc: devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jelly.Jia@cixtech.com
+Subject: [PATCH v5 3/5] dt-bindings: dma: arm,dma-350: Document optional clocks and resets
+Date: Wed,  4 Nov 2026 20:44:09 +0800
+Message-ID: <20261104124411.296640-4-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104124411.296640-1-Jelly.Jia@cixtech.com>
+References: <20261104124411.296640-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,106 +105,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|KUYPR06MB8793:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 48459951-762f-4e3f-370b-08df3a722de1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|261102123227099003|261021123027099003|56012099006|261028144727099003|261009223027099003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	/1cg/y0N52EZzN6tDjno9EFKFPdYkDG5a+WcasBum/QzbMhHDCWX5nmvqTt7fkqEiVbqkd57bT1cUg8722v/8KeRmeu4gAhbXw9jNBMpz1R8c+U9ITMjFLIs92H2nMhGcCG42bxvjpz4x3EY7XSp3fSOOO4LvU7IIzHaKfVduZnYNA2f3pwKz7UWrrffqhHvCEIU+9cXJekJhpEEGY+YniG6B/TIRtKZjM/IUSiK/CKMyNl4VzUbdiEXeU9HPG77Q5Yp6KJMP8KrTuWMGpvuOgLrlzgKL33tFM40+WgedWQYc3faj39y0Ai3i/AmLIeepGj+qy0wlbRVpE+6NHL0mfGoZ+guleIsrqn/9SKkXdLlEw/EF/UNW1z/u6Ls6PWwc5ePiAZgLTmpLRx6OIiN/RV68ly0k1MxPaK+6goEyl9Zz0oY0r0qm+KgAgbDvsHGvUwKfC4vxjqYZFzV0zjuxllgOAkW62bEMUCa7SF6M7Ah+CbH5mlXSYUGmAp4y4XsqynAKXvnPoFr9gv/48L0eaiAUDye1QtiRHjBTotGyguYMRu7O2LxdcnUHgKtqD428iiumMeTZviGaJuKai2ZMfPl4GeABoLAHLwW/sCNa2bzopZCl4WmGu6QGUatQolIx148r8fq6u7JfitwTbjTwwCUme8k/DGOPv5ahl7kUDQq9rTvDKcu6ukD6rFBRYHMgENbXqKVR/S7jn91KWZULg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(261102123227099003)(261021123027099003)(56012099006)(261028144727099003)(261009223027099003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	t+/0qWRhDqUz8t8rKzanc/6KUTKGxeHrR2TfJ8pKrykJ+rCJLguSzdb/KJ1m6q8VB+B+wws1HbLTCnY/uPgxbLeE5V7OWdSSAeJjPF6xlqg/YESEdX+4kAG+GV1PmjGgerfmJo9TGn9rB07zoyBpey/pVtTbQS6lx3c+9S7VbH6SOwJEztwnPDS8b5ecM/VnGL8pKUGsi/n8k0AtFgnvAEy5cifnKlnwYqu1qObqz22BMAMgqMXhY5cSVU4x67vmnmYy6020kJw3tfdZlVrBl9Qt0c4JIrOIGLIOmLyQmybaOQtEqvC6XsaIcWIHtF2oxQhm+PYbaoiR3fBkwB5B7niqBuCZHBGmi0Ent0ROSWO7XG/Z/Ho/55J3qmYHAsRC/lMnd4Kc1/F7ohb9NjMBkIm7e3n7C33UdGozztHr/Jc6iHe0I5FmwQF8JBueZeLF
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:50:17.8507
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48459951-762f-4e3f-370b-08df3a722de1
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66D0.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR06MB8793
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: st: stm32mp231 cpu-sleep local-timer-stop conflicts wi=
-th always-on
---
+Some integrations gate the DMA-350 controller with a bus clock or hold it
+in reset. Sky1 provides a clock for both its FCH and AUDSS instances, and
+a reset for the AUDSS instance. Document these standard resources on the
+DMA controller node.
 
-commit 54de3bc82d13d38707edd20793e9450770876715
-Author: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Neither property is required, so existing device trees are unchanged.
 
-arm64: dts: st: add PSCI idle state to STM32MP23 CPU domains
+Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+---
+ .../devicetree/bindings/dma/arm,dma-350.yaml     | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-This commit adds a PSCI CPU suspend idle-state node to stm32mp231.dtsi and
-references it from the STM32MP23 CPU power domains so the CPU power-domain
-governor can manage them in OSI mode.
+diff --git a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+index 429f682f15d8..43279878207c 100644
+--- a/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
++++ b/Documentation/devicetree/bindings/dma/arm,dma-350.yaml
+@@ -9,9 +9,6 @@ title: Arm CoreLink DMA-350 Controller
+ maintainers:
+   - Robin Murphy <robin.murphy@arm.com>
+ 
+-allOf:
+-  - $ref: dma-controller.yaml#
+-
+ properties:
+   compatible:
+     const: arm,dma-350
+@@ -36,9 +33,22 @@ properties:
+     const: 1
+     description: The cell is the trigger input number
+ 
++  clocks:
++    maxItems: 1
++    description:
++      Optional bus clock, where the integration gates the controller clock.
++
++  resets:
++    maxItems: 1
++    description:
++      Optional reset line, where the integration exposes one.
++
+ required:
+   - compatible
+   - reg
+   - interrupts
+ 
++allOf:
++  - $ref: dma-controller.yaml#
++
+ unevaluatedProperties: false
+-- 
+2.54.0
 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts=
-/st/stm32mp231.dtsi
-> index fefbf6f4f1537..27231e140fbb5 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> @@ -24,6 +24,19 @@ cpu0: cpu@0 {
->  			power-domains =3D <&cpu0_pd>;
->  			power-domain-names =3D "psci";
->  		};
-> +
-> +		idle-states {
-> +			entry-method =3D "psci";
-> +
-> +			cpu_sleep: cpu-sleep {
-> +				compatible =3D "arm,idle-state";
-> +				arm,psci-suspend-param =3D <0x00000002>;
-> +				local-timer-stop;
-> +				entry-latency-us =3D <150>;
-> +				exit-latency-us =3D <200>;
-> +				min-residency-us =3D <1000>;
-> +			};
-> +		};
-
-[Severity: High]
-Does setting local-timer-stop on cpu_sleep while the timer node in
-arch/arm64/boot/dts/st/stm32mp231.dtsi still specifies always-on cause CPUs
-entering cpu-sleep to miss timer wakeups and hang in idle?
-
-In arch/arm64/boot/dts/st/stm32mp231.dtsi, the architected timer node has t=
-he
-always-on property:
-
-	timer {
-		compatible =3D "arm,armv8-timer";
-		...
-		always-on;
-	};
-
-Because always-on is present, arch_timer_of_init() in
-drivers/clocksource/arm_arch_timer.c clears arch_timer_c3stop:
-
-	arch_timer_c3stop =3D !of_property_read_bool(np, "always-on");
-
-and __arch_timer_setup() omits CLOCK_EVT_FEAT_C3STOP from the per-CPU clock
-event device.
-
-When a CPU enters cpu_sleep, local-timer-stop sets CPUIDLE_FLAG_TIMER_STOP,
-so cpuidle_enter_state() calls tick_broadcast_enter() ->
-tick_broadcast_oneshot_control(TICK_BROADCAST_ENTER). However,
-tick_broadcast_oneshot_control() in kernel/time/tick-common.c checks
-CLOCK_EVT_FEAT_C3STOP first:
-
-	if (!(td->evtdev->features & CLOCK_EVT_FEAT_C3STOP))
-		return 0;
-
-	return __tick_broadcast_oneshot_control(state);
-
-Because CLOCK_EVT_FEAT_C3STOP is not set, tick_broadcast_enter() returns 0
-without arming a broadcast timer and without returning -EBUSY to fall back =
-to
-WFI in cpuidle_enter_state():
-
-	if (broadcast && tick_broadcast_enter()) {
-		index =3D find_deepest_state(drv, dev, target_state->exit_latency_ns,
-					   CPUIDLE_FLAG_TIMER_STOP, false);
-
-		target_state =3D &drv->states[index];
-		broadcast =3D false;
-	}
-
-As a result, the CPU enters the PSCI cpu-sleep state where the local timer
-stops, without a broadcast timer armed or a fallback to WFI when no broadca=
-st
-timer is available (stm32mp231.dtsi defines no lptimer broadcast timer node=
-s,
-and bc_hrtimer cannot wake a single-core STM32MP231 or dual-core
-STM32MP233/STM32MP235 when all CPUs enter idle).
-
-Should the timer node in stm32mp231.dtsi replace always-on with
-arm,no-tick-in-suspend, matching commit 9ec406ac4b7de3 ("arm64: dts: st:
-Replace always-on by arm,no-tick-in-suspend for timer in stm32mp251.dtsi") =
-on
-stm32mp251.dtsi and stm32mp211.dtsi?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104133023.1.If=
-2b6b99285c1e60ca11b6e7fccf7d9b130ca20dd@changeid?part=3D1
