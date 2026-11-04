@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778312;
-	b=TQA9wiQLmTbdBd6Y0aZBQ4NbXn+oUPpDhsBkQzYYj8+LfOctk2uCRnsUSIdiHqJKUTt1
-	 Iai09vS4IDKhyLbEQR3cUVcpWc5V2ktXdQ1Sx/+blVarfBZBdl+C5N2/SorMwnk3Vks6k
-	 fQBkiSzjTXXj2qkrSuE+3kZNLv5WNHipbNTTYYcXmXDTtDSb8rEjimAhwXwQW/t6sTg6e
-	 nIhO6htqyTXKngfckJASZe5R6hzh66Vs8Eq/jRt+StWKpnoFQhuCZcbMmfZ7bPaw1qsGh
-	 RmXZDHnvxKSedhSZUMcYf1R1wmjoZGtHen3fnwnRH913whsW0knSBTEMYjHjCUVx6/w==
+	t=1793778372;
+	b=Eq1tpwtGY46xb/5tuFTayEUee+9U/NMW4PVkjplmUGQp9xj9xYSF+NTJN5K9ypDAF8KV
+	 IML60i9aG+Ha5TsuEY890kYFVJDWPuS+eZ8mna4nmggAhJLTxKJfP4l0BsdzJMwdsq/Yy
+	 Ht0+Tt2ZCVhNn4g2x0+Zsu5GFVqwUtnvS60bXLDQFY/dUCLoTL1YyEEptR0ICMEcTfgEf
+	 pV4HFB0HtfHMJqOjzOn7Kf+keNQr/sPG3CEYh4uh0iB+cWQgtynnCUCM5vDYgrMtpBNqT
+	 oFQ/lZ3EKnaLDDE/NzZelHaUSsWxE33ss9CyfOfDCU8lopCXos4CI2f8D26ZoKdaq8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778312;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8y2kXXM0F18zXu60W4wtYhDmW88tNPQqKg6LXtsGAKM=;
-	b=jYHLW1FyUP4VfO2R9yJSY2ZKiNvVzMc3ZD4yG6Nt3kBHAGh7DMacPY5XfUiJDcjFslEp
-	 dbmT8LQZ5+WoZhjFoxHBnAFh3XgT9fJft97uYrflR1E22Vt+W1p4yS46Fbp2G3/PCD8SL
-	 TRJM6W0KZnIO3CbYc7Xxi73pPYL0LDClAVHju2jz0AZQbfQQPMSyRih0bcCK4rya9CYed
-	 CzXE046QU5aUe+OEgHx/TILE2UteP3pU5V77RRml8dMwdCS6q3qbKEO4EgiQVOpM09bia
-	 cYAu4FkIqyG2sw/sLdkkutvYaSyN7aptEan/F3nKRE7gIbUrlGeIHwYjfgb8n7Z7yEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778372;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=BKtEwN9SjzU3vDDD4SW+5UbctESaNHA3sfD45hV8J9c=;
+	b=NBkmLcWMT5gGELUM5nsibSe1/2OPjv3OQXTVDtzYQMCKORhEqMg7yE9wZEku8j2SBKU8
+	 ygY/TJGZUfn79NhKgIY86gN4MujYO67MHNzQDG+mjUWnBcJnh6vLlTgMycJi0+QUpZsgM
+	 +NP90dfwC4l+lsp/kBp3WP9R91Bdjfr/cH2iUmRTqxhPt3x5+mqySjAOlaIcXGhI5YeYQ
+	 2mgllBdJA/+xxzWqTvGzCOXdJ8d7M8lOich0VpVIBWCteCRIE3k5Sgi03XpYAPPyn6Aue
+	 9wLK2FOQu/2AtwZM5pspWxRnnRXMqzgE/D9maI7pu5BdpnuUEhCB8wNfJxqu9+yK5NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSIEm2w8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2013B606A32D;
-	Wed,  4 Nov 2026 07:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSIEm2w8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4841F000C1;
-	Wed,  4 Nov 2026 07:45:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778311;
-	bh=8y2kXXM0F18zXu60W4wtYhDmW88tNPQqKg6LXtsGAKM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gSIEm2w8f2RNTicp7R71VbVSmK34XAsUVtlOYji74g4QPS5B9t6PJMnBBsvZfasly
-	 xvDk1TGm+BaQyT2yETy7DTNV06lpPJctnulcsLn0x36v5Q21y4kNMmRDkEph/6fn7r
-	 18rS5ujedEOtVaJRr1InZMEbkmGyyL6O4XqNlIkvfrw+kOnLKjNAeiME8oGmVl3ylc
-	 iOakgPOOQ0jayWV+rSpX3CpfJHsCxBcBCTxHsQ5xLr+yDdD09VDfafS3HhMTivpdhw
-	 YUuBNQqpB5pwkOPWkkT6jeRXLMxaWf9yk55ngJeqv9TnHV1VztjSCoWbW1q7LHTbT8
-	 G1ON5hVs1T9eQ==
-Message-ID: <sashiko-outbox-196816@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/10] ARM: dts: imx6ulz: Enable RNGB on BSH SMM-M2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Haoning Cheng" <Haoning.CHENG@cn.bosch.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261104-add-bsh-smm-m2-v1-3-369f0a77e021@cn.bosch.com>
-References: <20261104-add-bsh-smm-m2-v1-0-369f0a77e021@cn.bosch.com>
- <20261104-add-bsh-smm-m2-v1-3-369f0a77e021@cn.bosch.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:45:10 +0000
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 535B2606A31B;
+	Wed,  4 Nov 2026 07:46:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535B2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8AxXdLA4upq3jocAA--.16432S3;
+	Wed, 04 Nov 2026 15:46:08 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJDxBc294upqZ0YyAA--.10037S2;
+	Wed, 04 Nov 2026 15:46:06 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Haowei Zheng <zhenghaowei@loongson.cn>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>
+Subject: [PATCH 0/3] serial: 8250: Add Loongson-2K0300 and Loongson-2K3000 UART support
+Date: Wed,  4 Nov 2026 15:45:44 +0800
+Message-ID: <cover.1793776192.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,53 +60,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxBc294upqZ0YyAA--.10037S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEBCGrqknoEBAAAsh
+X-Coremail-Antispam: 1Uk129KBj9xXoW7Gw1xGw4kAw1xGr47AF4UKFX_yoWDXFgE9w
+	1SvF18W345CFnFq3yaqrW3Cr4fWFWqkF1qkw1kt3yS9342kryDuryqkryDC3W3XrWDuFn8
+	ZrWkGry09w1fGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbS8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_JF0_JFyl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+	Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5ID7UUUUU=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] ARM: dts: imx6ulz: redundant status override on already-enabled rng=
-b node
---
+Hi all:
 
-commit b4e06771ac0019a530bbaccfe9a26a1cf41ddf74
-Author: Leonhard Hesse <leonhard.hesse@bshg.com>
+This series adds UART support for two Loongson SoCs.
 
-ARM: dts: imx6ulz: Enable RNGB on BSH SMM-M2
+The Loongson-2K0300 UART is the same as the one found on the
+Loongson-2K1500, so it is documented as falling back to
+"loongson,ls2k1500-uart" and then "ns16550a". No driver changes are
+needed.
 
-This commit adds a status override to enable the rngb node in the BSH SMM-M2
-device tree.
+The Loongson-2K3000 UART differs from earlier Loongson UARTs in that it
+does not require MCR/MSR signal inversion. It also supports a fractional
+baud rate divisor. A dedicated compatible and driver data are added so
+the driver can distinguish it.
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts b/arch/arm/=
-boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-> index aac211a9f9ebd..39b7ee585860f 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-> @@ -30,6 +30,10 @@ &gpmi {
->  	status =3D "okay";
->  };
-> =20
-> +&rngb {
-> +	status =3D "okay";
-> +};
+Thanks.
+Binbin
 
-[Severity: Low]
-Is this status override for &rngb in
-arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts needed?
+Binbin Zhou (3):
+  dt-bindings: serial: 8250: Document Loongson-2K0300 UART compatible
+  dt-bindings: serial: 8250: Add dedicated Loongson-2K3000 UART
+    compatible
+  serial: 8250_loongson: Add Loongson-2K3000 UART support
 
-arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts includes imx6ulz.dtsi,
-which in turn includes arch/arm/boot/dts/nxp/imx/imx6ull.dtsi where the
-rngb node is defined without a status property:
+ Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+ drivers/tty/serial/8250/8250_loongson.c            | 7 +++++++
+ 2 files changed, 11 insertions(+)
 
-    rngb: rng@2284000 {
-        compatible =3D "fsl,imx6ull-rngb", "fsl,imx25-rngb";
-        reg =3D <0x02284000 0x4000>;
-        interrupts =3D <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-        clocks =3D <&clks IMX6UL_CLK_DUMMY>;
-    };
 
-Because neither imx6ull.dtsi nor imx6ulz.dtsi sets status =3D "disabled" on
-rngb, __of_device_is_available() in drivers/of/base.c already treats the
-node as enabled by default, making this change a functional no-op.
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.52.0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-add-bsh-sm=
-m-m2-v1-0-369f0a77e021@cn.bosch.com?part=3D3
