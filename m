@@ -1,72 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817900;
-	b=o9hEjUGl29y+bSzhMR7WfDpl6GsF5UsceBDRLhbdBZJhz5HgN6m6lWVPrUR3aUIfogm4
-	 p3mlBRS24t7vMpLPNJ+UkxesODDs5SHyQ0NIRdh7N/9vRBQFJ/zwbZ1LS95saj16FoFoi
-	 wrj2oxyU16nURcNhX/ymGlZqmCk/Ue1VWQ7IUYXFqEaS3FjLrV/wYv09BbqjFzjBg8XoH
-	 a2fkEtHTQtKFoYPDbX7mBe3X0n5Tgekx++iqETqlYkZMShUpPNFge4Q8cNH2E7gNUxF0y
-	 d3yydvIF7x9rQwlWyvHwB5kLIgUCnLpxS7d/Lk3kWHq4lMZ1Dh9DX137zqqad+rgiTw==
+	t=1793818187;
+	b=am+G7SXUm+wZ7gY42a7VQIj3U8mSqNyVrgIlX3JMSfKLXgP5kPO9DtDXLUfWJmzUoW91
+	 RA284V/JiUM3reXpn2hxkzEjRIpIlXx9D0lVd5o07jlOFY4Gojqg4z3YbAjTDDexpxupu
+	 HfPRvwkZo9eHqDX3LT/D5p81rUQDs1RnXhz3xAIyIPs8QpFD8uXb/LFv87iXhXd9NOBRJ
+	 cjDtFpPolWdJHrGLn1M20C4J0BELqoB+pyat+t3uR158uR5ZjJrUJFbMYmsPluUvwSvSh
+	 HCS6HxKl/TmGH5UOet8jo8I0/33gQKJOYt3fJzoKVwgZp5SCZQoDFGzzH3L6rQ2YC6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817900;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=iYiNfVlDefu7QyzgN/zmHCKOcgLtwtgGp2yoyp3offg=;
-	b=OF6LNCP9Glgyaw6xFBsV1SDTdI2mEBbF/yLKRfN3rvahmkoeTa8lbIWKsiwoECyHLgoZ
-	 ZGi9gyKgQgRiWz21VtKGibS7ODFCodO0JdGeBuffa8WIYV1rAryrq5si3VbigmJENb0sM
-	 4e1+NzapNmpRmo+/sPmqk+EqsAvRy65/tCH/lI0hGqN3brOKA7K3MwifG2PTaYfIE1bta
-	 i/SffQldyBeGDSim2akt0eksSJ/yO90AqoyUCJELJX5de62+XQOMOJkceEbkOjxvYffaV
-	 f98zr2pMP4mj/Vfkmb/LFFMpgRpFYFbaI/gEQ+fUowr0Fqyo2wAt33FB7XSmSPkfQwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=tDX9nGWyIBZYspDuB9K3KPW8x4O1lO65MXioXZW/+9U=;
+	b=P7sGmKPLcsI2wVE3MR9GE7rhWiEvFm3WF3fuV67NvJyEvaRdUTi+6XkRlNTr9okvgPTE
+	 GxvnMM6SLgEuYUZtRxVuF4yqNgyrWAYmzdgAKw35cnnT/vM4cnxwoZS/5XuFmav3ismuk
+	 W5EDOhHSuNmOWN6bcblvvpxJXMo7/nJrFz88reL+k6fjF+gAN82E9DQplOHJCHNc4ncxK
+	 Yj95fNdYl6DO48SzHfQMxlVLKU3zUaJptjG48jpUc5/dpkyhmhT0GUgYQNhucX1hyFwH2
+	 wYFvLC+iu/TF0hra08NWl//ehvL9SHKFeMzuoUV9Lzw2bEYaddFw21GOjoVyAWXngCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cEKYfC+6;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Id0Bic5y;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6EA606A32D
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:44:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E6EA606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E798606EE80
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:49:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E798606EE80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cEKYfC+6
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 96CC41A144F;
-	Wed,  4 Nov 2026 18:44:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6833C60770;
-	Wed,  4 Nov 2026 18:44:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF69910329205;
-	Wed,  4 Nov 2026 19:44:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793817889; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=iYiNfVlDefu7QyzgN/zmHCKOcgLtwtgGp2yoyp3offg=;
-	b=cEKYfC+6BMi/JWjyBZkBqZySFl9y1Mi9ihTxUE0AKiqlu7hW0sZp7eo6q0uoF4QUNjcvYN
-	ktfWX2aA9MfYmUpuVWOAUrb9VFliA3iJcqGlORdu3CwA4mpMzi6iHDpsAhAiFvwruuB8My
-	3TkD1rXvTPWyeUvd2nf90mko5aSt5CQY4ovj6j3Oyth1h0NHRL8ky5jAlKGID6vgPQPGdx
-	kJSSXiLu5+81KEFZP8KVigvu1uuE/Km5gjDOD5u9Jvn4STqdaKSYvoa1Lb3CWcJfZc33ap
-	jOTuXtmk+ZNNMAV/iGkoNZyQWk3AlHnmnKkRJMy8kvh15oeL0bW+/oygEXJO5w==
-Date: Wed, 4 Nov 2026 19:44:43 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Val Packett <val@packett.cool>
-Cc: Maximilian Luz <luzmaximilian@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Id0Bic5y
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so6582925e9.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 10:49:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818185; x=1794422985; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tDX9nGWyIBZYspDuB9K3KPW8x4O1lO65MXioXZW/+9U=;
+        b=Id0Bic5yqAl+5SIXtBA4w+100yT429WrjN8ZtNubXEat1ekKfQqyGBMqlXrtrShG0Z
+         SeR+npYeXjTMV0aIh+AoCpjlFU12JFLcrA3heZBgrLSzHFq4mZcYijyC3EfjlcVbt2pK
+         sLbrs6lsflEnLvKicPLhODnKh5i5lmEqGsAws3wjs6wLTMXPzz7oft6AAhSRP0hqNWSh
+         vKx0XCvCXh6CJKFnaaykYYmPcGWxORPquT+IO1Cx55KIpsW4bLFzWxl6FdlEFlOYuFBR
+         NoCVUf5hrugZFD5C1EjPrpEwAqExiRNrBV+6gF4oUtH8pZdHZSCYZZs6tL/b8YHmVdbO
+         ibOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818185; x=1794422985;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tDX9nGWyIBZYspDuB9K3KPW8x4O1lO65MXioXZW/+9U=;
+        b=weqj5mFPMl0gV9LGOlwLdkVHPdqim4rX+k/3ZAe7E4FlolPf1Qcv5Ig0ksHrN1HrXs
+         ErCRvIAx8iBq+WG9/IV+ngVzADMKm49FJDWqFzwZYyaojlFmzROxoKyabQGa6f5JoBF+
+         OLJj8rxSG/vzrkcloZOMFI7G/b2ek7nPXTopwBN3HNyhmh4bz9iMV8NE+ZJxoHz9p+Gb
+         9SwEGYoX0sgcjernsBhJNo4XGQD9whTeBgodJmhp+Glmt5wUM6zMVsME2oqNY+KnX14p
+         e5FnUT4thWnLHYscCqWkADM3g9bAz8ehsJsG7ZCuj0VfiUZPDLbzKPXcg2+8V8xq4pTQ
+         cz3A==
+X-Gm-Message-State: APuU4Z/jTWd+Aa+OYIQd4sTwBEuqJQwhD75Ylf5gYch44Awe/75IHaD1
+	80Z1DmIvpCZbIs8WLxcw7dc97QHQh70ahOS8QOqxWW4LB2dS7uhSsdo7cPck2Q==
+X-Gm-Gg: AYBFou0z1C0Pyqii4wRY2cstfxjVSCIq1vh3gE0opvSaxzEvG5YB8CRlFT6L4AJxg3c
+	IkLatvxX7j37BTV4lYCbNBX01j329AgwTkg8c/ReRp/Z+JrGLA2y3BiFD5o4gWhVhvjJsox9zg0
+	XpC9PP75GEphzaB63pV7OscEIh2csMpWNk4xRrDZAp1WNj91bsGgBs02alKqchBHHQMi5IrSO+/
+	n3uHL5nnzidYcYf01Y8BuUK6TARMRmL6Tq/3b5KbesSizHUixdyJVb4OuiXMSc+KHm9FDz0lU4t
+	b4GfOO4pfKiGx+iLCqv9KxsM9Yt1cUHNkaJf2oeS+gkYM5OLJ5nhdlU36V2EmlWbbCIWRjlOQrC
+	YqiXxvyBLPJ2Oiw3AWUVtysUUFL0R2CDTqFPr0sMcpzREFipdLi4k/XKEHbsZf6wa0Y/pIYlqv8
+	nzL+qdEJ8U5PxYkjhynQp608QmTbVlWdA2sCPZ2d4V+mjns9mvd5xuxSoJyx5V+QrvBLCIJMUZv
+	6k4nAK1J/BERvblX1Z0f8PV9Lk9FhSKrpYOGI0Z4u9VvlA81hJ1NrPB5E7RzO48/OGTg/H2KRD8
+	kxOFtFUsm0b7RH2Ro57jz05mmdnGQ5+6j9EJfzKC8+0C7EVxHNTz/RL3AE2Mo35G0+NQQLVIDMz
+	+KlmzAHbuCEeZNLo3UMy+P4iuyCO2kGY5BRZd3pXn2F5Zft2Bk8RBsaDyzvLIg3EjoItASEsq22
+	4Du9glq5p3iNx4Nn8KSZg3U+a8Qug2lXi21j5VPalqWvaiBoUSGT26EKl7myJlOSkpOFKXfSmxv
+	rcryjteIIgWphpvhuKcrbBZ63avSEmAPZ9OGTBp0uN4
+X-Received: by 2002:a05:600c:3554:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4ac150b20eamr403830775e9.2.1793818185436;
+        Wed, 04 Nov 2026 10:49:45 -0800 (PST)
+Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56fca22e1sm5081745e9.14.2026.11.04.10.49.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:49:44 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org
-Subject: Re: [PATCH 4/5] rtc: Add basic support for RTC via Surface System
- Aggregator Module
-Message-ID: <202611041844436d5e655d@mail.local>
-References: <20261104070441.74127-1-val@packett.cool>
- <20261104070441.74127-5-val@packett.cool>
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: allwinner: h6: Enable GPU and CPU DVFS on more boards
+Date: Wed,  4 Nov 2026 19:49:38 +0100
+Message-ID: <20261104184940.882833-1-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,46 +102,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104070441.74127-5-val@packett.cool>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 04/11/2026 04:04:35-0300, Val Packett wrote:
-> +static void surface_rtc_remove(struct ssam_device *sdev)
-> +{
-> +	/* Device-managed allocations take care of everything... */
-> +}
-> +
+Most H6 boards don't use the GPU OPP table, and the Orange Pi One Plus
+and Lite2 lack CPU DVFS as well, so their GPU and CPU run at a fixed
+clock rate. This series enables both.
 
-I guess the function can simply be dropped then. Else, this looks good
-to me.
+Jernej Skrabec (2):
+  arm64: dts: allwinner: h6: Add GPU OPP table to all boards
+  arm64: dts: allwinner: h6: orangepi: Enable CPU frequency scaling
 
-> +static const struct ssam_device_id surface_rtc_match[] = {
-> +	{ SSAM_SDEV(SAM, SAM, 0x00, 0x00) },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(ssam, surface_rtc_match);
-> +
-> +static struct ssam_device_driver surface_rtc_driver = {
-> +	.probe = surface_rtc_probe,
-> +	.remove = surface_rtc_remove,
-> +	.match_table = surface_rtc_match,
-> +	.driver = {
-> +		.name = "surface_rtc",
-> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +};
-> +module_ssam_device_driver(surface_rtc_driver);
-> +
-> +MODULE_AUTHOR("Maximilian Luz <luzmaximilian@gmail.com>");
-> +MODULE_DESCRIPTION("RTC driver for Surface System Aggregator Module");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.56.0
-> 
+ arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts | 1 +
+ arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi  | 6 ++++++
+ arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64.dts   | 1 +
+ arch/arm64/boot/dts/allwinner/sun50i-h6-tanix.dtsi     | 1 +
+ 4 files changed, 9 insertions(+)
 
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.43.0
+
