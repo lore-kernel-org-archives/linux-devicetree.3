@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793802640;
-	b=KXs8qmAfuDqEbD/a2Gz65ODertNwjv6J1QRu5e68y8d+RGkncAEoXJq6+9aGwaxeShcq
-	 M3eYjvxcDw1wc5fA6OKsMKymq8PCBYIdJIEnb+bxSQC7SoUW1MG5UAPH5eHqgT26RsIyB
-	 upF5WzTP/JtRVY1F6B7919xBFqOYP48OAWhSJYa2Uje2Ocg/c67AXGQTbmOgFI4xMwUu7
-	 9KbR2k0FlJtjy6FNjW53rrt1iyKxf2mCJWr5nO/XuaLT0mV7XmWczAM6RHlBs0j+/mTTT
-	 pd9Ng36Zdn5sejC2mVPAv+Go4wy2sIPnxl+L9v7zWa8fGNE+4MOQLVKZTDXA+mhr16w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Rn0itiYWQq4UoXD7WO2n0E3/GBUM2A+vN4SJN/HSKdo=;
-	b=XTLWgs0n7RpK3i99rNi4WiG7ULqg9YO9r8uDyq82vEjRoNMvR121Cn11J7tRDAYFrl2J
-	 1oGHjAl2Br87IjBtSOwiW9OTKAyXPVKAqNyQbK7c0A+Q0a7QM2jUI+ELxepjPZHn2Kn9q
-	 gGPdJ5HtYkiWiR3LUrGoP3N5LP538MWMMG+jss6hkntbUm71fKKizBejN8qnRlddFiRd6
-	 fqfXVcnsgDI99c8YFo35S0yEaQLy2KAc+B3j7SbipFg6A11yb15P+PEmpGC4RvfZcERx7
-	 Dj51v1xVcbqt7FrTCJC8ETYZlZkbMK7ueinYMzyX8G1X6GrkgMP6hxx6lk6A2IDJULQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amarulasolutions.com;
-	spf=pass smtp.mailfrom=amarulasolutions.com;
-	dkim=pass header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=IM3V1nfM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153CF606A326
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 14:30:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153CF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793803326;
+	b=ErP0x+1z1uKNirj+4xW0lDGK6h/JSxTr66S4LFRBMHzzyF7D7Rjfsy0bR6VmMmrysDG+
+	 fzvyQukWUZ/IDDx/tvobL03Sg0ZD4O5AAWN95sTJ0dVqTdr8I+aEoynyVSqni6JrXmgUX
+	 5uU9U8/C4q5BMR824xSJqFfyzLXQ8/nNSscr+DKOXF5mM4olJCLtumol5IzGupdOoaEdu
+	 HBPXzu6vROHDeQOFT2cpr3m+4QFAzA4o1C6x0Rqm6oF6zRxRblivH2KIGSGCBIXDJY7Vq
+	 S2w5KPdxf5uXOPIkYDjLwQZD+gzQ1g2fMVsTlje1BviaFz9gkHt+yn60Rjb2f/29odw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803326;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=yEXOiGhgbR5kbYCDmjXy0GbChNz5nYoCzDv/8cG/g+Y=;
+	b=SVzgyNHoa005arGi9X1JZrh5aFxqwi+nCBm/i68DIKMkHuzNQXzn2ct9/zq/FT1S9B2e
+	 KyTJ22mjRHpUzswZCFN586Kl/NGFM/G2UCKcDDDKLz2b2/znXwlM/EAK3lk9cTxR49I/w
+	 GgWBOM9pQU9zrkVoArdQdlncX4Ok1KVdz8SENeIaaC0YFJVVyISsgXDFp3HJeIKyTT0vE
+	 Bqf6dydlTxQ0KOqme2MTOIh0GYPuIJ0r+KDwrI0LV/QDydCZFzwCMfrzQSKmr3iMuHxfn
+	 rnXlNL4cfB8ogiAq8oajL1vGBwI1f5eLv/EjyiWG1uW5FUv+jMk6A0ZInygHj2VXD1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 528C3606A336;
+	Wed,  4 Nov 2026 14:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528C3606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=IM3V1nfM
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67bec5dc8d4so750262d50.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 06:30:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793802639; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nn9lahWLY6I1KOfLkjxbJMSPD009hPjcb8NGxvjLKLh/NzE1Ex+EKh51BGl2ECSTjh
-         8fzlkQbuBtFu5SQWqL40GGFMmlEhK6CaUQXPcHfWanQCcEXh7UQUiBaJ67LnuxiIhuR1
-         8+VVkgUGQSjl4EOcqpeCtpXBtt5HtitQAnVR2do6EOVtuGqVvCwbIcGCAEsMC/Y8lsTt
-         WaERDpLfgCgJ02o2zdt0g6O6quo6hNR0pvy7Lw7tY/Ydu7l/fOyLXwCkn7D7+XtBNUix
-         5toQMFBRR7qCDwKx0cwpihnZTxkBFWFK9cNBBfvPdwt5Kt9kdYgxK9ktHudFGv0Yu+an
-         tSHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Rn0itiYWQq4UoXD7WO2n0E3/GBUM2A+vN4SJN/HSKdo=;
-        fh=J9V3ZjgH+yk9QbPsXeVqSZ8FDmo4wAFAP0M98Cz2B40=;
-        b=AW37h4opdmBrvUZH/tWkYuIjYiHebh/ACbpuDcxxnFiBq/Wow4SS0aNY5xTmdb04MB
-         WcOzMm576yckKHIY5NRFmtNHEfP+ODJ13NRKa5MArlFSUzdEb5udqkY+LJEqRdxSqac2
-         U+wrGBomg3dBNtnudI8ub90+pJKmk0Bw6bXiDeh7dTaz5VU3fU8tR9qhj92N/x8uyYNI
-         Hz5r6vKKE18vd1bC4bZ6ifU6lDro+A8mbSrLuMJ+WqCMdaqw/laxLKiTAgtd1AkmY+Sk
-         66TgyfnPHLMSqYgZUObjjOCXF4IkD7cxe6fNwiZ0WQLk506Y6t0QFeE+zquQUoDYxsOC
-         XC2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1793802639; x=1794407439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rn0itiYWQq4UoXD7WO2n0E3/GBUM2A+vN4SJN/HSKdo=;
-        b=IM3V1nfMdyfBycwTSOze4fkQR/dg2hzQheXiDA/HdcVRW7u5PaXH4iiRmPSzQyq3N5
-         9AgNhr6sPE+C9QuZ/rDUmdBQk2/+RHPs2597wMbl3+eKt1ZBk1L58dCoizsAHMiosLCd
-         ThYZ1r8MnmKabThNKeZDx2x9lFITOSH9R1/BY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793802639; x=1794407439;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rn0itiYWQq4UoXD7WO2n0E3/GBUM2A+vN4SJN/HSKdo=;
-        b=WULNNxBlJixV7A3nLb9VwlSFUOZggBN0x5wNb+SAf9zmIMZQ8MeqoS4IKSJHqP35GP
-         pMtXAKF98pc/aocdrkAlSKozi+xgXKKj9r/gPMcetd5J7vYD2MVvOaiNiQdB8i8c94F/
-         nP/Mjb+KfjllPoFLno21+pqUY+T0RvIfWb/TGIGPtaOEaFEauNfYSblwtKhzRgCE3t5W
-         ItWEmWnHWpkenWHFejybYVUB7DcGrMiKt6iLa2GTPsdeU+8+9SGCFiRp3c+TpFl7N3hM
-         lJae7d5fYhQUqq62NAIyQkBzfYgOtUJ0eVRyVAfsaNtF0ZpjVSJxUygFpn8Vgk6We32e
-         mXVg==
-X-Forwarded-Encrypted: i=1; AKwUvByWilZr6W4y+oPFrwNZzF3Tj3f5iIfmAoF9RUkK+So1Fq4oH8FgAMNsZxGhb9tIj9VMFkDXaemYIxKc@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jD3ovWn2jW7os3ndRjsgS9XPWPmumJNuS5pqnuAx0AJs2Qd1i
-	aqSJMi2A511GKB+NvYa3WE0X32lteRTFEhr18Cpm7PcV8NpWJg2zb2cCJWSjsXfE2GXPJ3z5fZr
-	xo5pAAquUvN6+keVslS4fKgOUvjxHhOcmTlFo1ns0Zg==
-X-Gm-Gg: AYBFou3Q+fsxaaCLPNaBRUJub6W0UFD4YDxyvd2C1/ZZmuf5p8CmUtwMR314EtqPwOZ
-	w1AmleppdcANOCGGHwgI4wXNa3RlqXYAS3SSpn5Gl5zrYGDA3u50Yeu4BPJm0nJWGUDylA5Uu4Z
-	shHbM3Md5Q0C7j9/utLPDGAiUGJD4UFBjJCr+3AwdNPuY/wkJIVQKrUI5HLSKTiRnF2T6/26XzN
-	tHQTKfCbaCkyK2rmu3E0HqDYy8JM2xUpEWUhL7hoEzpb0RlN2BlZwDS+gNdyBsd0TAn3hvFEU3Q
-	5b7o1bav+EoYks11H/qnKLuesHY5gKv/9B2snOCe1DOpZCDsykTdUw5Dr2RLq/dTRX+gEKSSUCe
-	GJOFY0+ydf5aHHKED1w0dhsmfGARNwLK1CoreDhg7lnUOCkrTDvomQA75geG4qm6xrnho
-X-Received: by 2002:a05:690e:128d:b0:67b:f2b4:7ea3 with SMTP id
- 956f58d0204a3-67bf2b48061mr1185261d50.18.1793802638944; Wed, 04 Nov 2026
- 06:30:38 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=luId+KEo
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F5F31476;
+	Wed,  4 Nov 2026 06:42:01 -0800 (PST)
+Received: from [10.57.65.23] (unknown [10.57.65.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DF6933F673;
+	Wed,  4 Nov 2026 06:42:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793803324; bh=OQ+6GXsnzNtECacWk2BjiQr1Za6EzTRmQxCpvw/0bo8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=luId+KEomiCYTx0zsDXfLF0NiGSbVJSZAawz5X649BNQCNK5aIrov6r7jQPa5f5G1
+	 /y7/Z1tTcJswVlprth41Zn/4fMIj1S2AkxetBjIo4WJhSSAHooaIdF0oJpfr07XKSr
+	 mYYkWIizutTHBEivTMuSApJZfPh5pMdZsop7CXg0=
+Message-ID: <80b69632-dbe1-405b-910a-c17a943d8fc2@arm.com>
+Date: Wed, 4 Nov 2026 14:41:59 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,186 +53,183 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028135915.2665857-1-dario.binacchi@amarulasolutions.com> <8c8908f1-ed6b-478a-ad00-c67448b25acb@foss.st.com>
-In-Reply-To: <8c8908f1-ed6b-478a-ad00-c67448b25acb@foss.st.com>
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Date: Wed, 4 Nov 2026 15:30:27 +0100
-X-Gm-Features: AclHuK-2YVD6MLpocItLoy0Jf9YnF4dS8B-jCRxYLxfAIe0sapLG1UQibi0oIPQ
-Message-ID: <CABGWkvoVrA7vaE6mKdp=2KNajREtgEi2RRV4qFcJmFqqWwQDoQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/4] Select the STM32MP25 LTDC pixel clock source for
- the RGB output
-To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Marek Vasut <marex@nabladev.com>, michael@amarulasolutions.com, 
-	linux-amarula@amarulasolutions.com, 
-	Yannick Fertre <yannick.fertre@foss.st.com>, 
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Brian Masney <bmasney+clk@redhat.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: [BUMP] [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Gabriel,
+Hi All,
 
-Thanks for your review.
+Just a polite bump; now that -rc1 is out, if anyone can spare any time to cast
+an eye and offer opinions, I'd be grateful. At this point, I'm most interested
+in feedback on the arm64 integration aspect; If you see blockers I'd like to
+discuss early.
 
-On Wed, Nov 4, 2026 at 11:42=E2=80=AFAM Gabriel FERNANDEZ
-<gabriel.fernandez@foss.st.com> wrote:
->
-> Hi Dario,
->
-> Thanks for working on this and for testing it on the Engicam board.
->
-> First, a small remark about patch 2/4: this driver is based on the one
-> we deliver to our customers in the ST kernel on GitHub [1]. Please keep
-> the original copyright and the Signed-off-by of the authors when you
-> reuse such code, and add your own on top of them (e.g. with
-> Co-developed-by).
-
-You are right, I used your downstream driver as a reference and I should
-have kept your copyright and authorship. Sorry about that.
-
->
-> Now about your two questions:
->
-> On 10/28/26 14:59, Dario Binacchi wrote:
->  > - the mux parents are referenced by their global names. Should they
->  >   rather be described by clocks/clock-names in the SYSCFG binding?
->  >   Moreover, no driver registers "txbyteclk" yet.
->
-> Yes, I would also prefer to describe them in DT. I'm working on a
-> version where the mux is described by a clock-controller sub-node of
-> the SYSCFG node. This sub-node is populated by the STM32MP2 SYSCFG
-> driver, so no auxiliary device is needed (patch 3/4 can be dropped):
->
->      syscfg: syscon@44230000 {
->          compatible =3D "st,stm32mp25-syscfg", "syscon";
->          ...
->          syscfg_clk: clock-controller {
->              compatible =3D "st,stm32mp25-syscfg-clk";
->              #clock-cells =3D <1>;
->              clocks =3D <&rcc CK_KER_LTDC>, <&lvds>, <&clk_dsi_txbyte>;
->              clock-names =3D "ltdc", "lvds", "dsi";
->          };
->      };
->
->      &ltdc {
->          clocks =3D ..., <&syscfg_clk CK_SYSCFG_PIX_LTDC>, ...;
->      };
->
-> The driver takes the parents from the "clocks" property
-> (clk_parent_data), so the inputs which don't exist on a given SoC (no
-> LVDS/DSI on STM32MP231/251) are simply omitted. For "txbyteclk", we keep
-> the existing clk_dsi_txbyte placeholder until the DSI driver provides
-> this clock.
->
-> I also want to keep "#clock-cells =3D <1>" with a onecell provider: the
-> SYSCFG has other clock selections, and I would like to be able to add
-> them later in the same driver without changing the binding again.
->
->  > - the pixel clock source is selected in the board devicetree by
->  >   assigned-clock-parents. Should the LTDC driver rather select it
->  >   according to its output (RGB, LVDS or DSI)?
->
-> I think the LTDC driver should select it: the source depends on the
-> output used, not on the board. This is what we do in our downstream
-> LTDC driver: it gets the mux as "ref" clock and calls clk_set_parent()
-> according to the encoder type (LVDS PHY clock for LVDS, LTDC kernel
-> clock otherwise) before setting the pixel clock rate. The board
-> overlays then don't need assigned-clock-parents. Yannick and Raphael
-> (in Cc) can comment on the LTDC side.
->
-> Since I have already reworked the clock driver this way (binding,
-> driver and SoC DT), would you be OK if I take over the
-> clk-stm32mp25-syscfg patch? I would send it in a series, keeping you as
-> Co-developed-by, and you could then rebase your Engicam patches on top
-> of it.
-
-Yes, please go ahead. Please Cc me on your series, I will test it on
-the Engicam
-MicroGEA-STM32MP257D-RMM with both the RGB and the LVDS displays.
-
-About patch 1/4: in your SoC DT rework, will the LTDC "lcd" clock become
-CK_KER_LTDC on STM32MP255/257, as in your downstream kernel?
-In that case I will drop it, otherwise I will resend it on its own.
-
-Thanks and regards,
-Dario
-
->
-> [1]
-> https://github.com/STMicroelectronics/linux/blob/v6.6-stm32mp/drivers/clk=
-/stm32/clk-stm32mp25-syscfg.c
->
-> Best regards,
-> Gabriel
->
->
-> On 10/28/26 14:59, Dario Binacchi wrote:
-> > On STM32MP25 the LTDC pixel clock is selected in the SYSCFG
-> > DISPLAYCLKCR register among the DSI byte lane clock, the LVDS PHY pixel
-> > clock (reset value) and the LTDC kernel clock. The SYSCFG node is
-> > already described as provider of this clock, which the LTDC references
-> > as "ref" clock, but no driver registers it, so the RGB (DPI) output
-> > can't work.
-> >
-> > This series adds a driver for this mux, probed as an auxiliary device
-> > of the STM32MP2 SYSCFG driver, and selects the pixel clock source on th=
-e
-> > Engicam MicroGEA-STM32MP257D-RMM display overlays. Patch 1 is an
-> > independent fix for the RGB display overlay.
-> >
-> > Tested on the Engicam MicroGEA-STM32MP257D-RMM board with both the RGB
-> > (Rocktech RK050HR345-CT106A) and the LVDS (Ampire AM-1280800W8TZQW-T00H=
-)
-> > displays.
-> >
-> > I am sending it as RFC since I am not sure about:
-> >
-> > - the mux parents are referenced by their global names. Should they
-> >    rather be described by clocks/clock-names in the SYSCFG binding?
-> >    Moreover, no driver registers "txbyteclk" yet.
-> >
-> > - the pixel clock source is selected in the board devicetree by
-> >    assigned-clock-parents. Should the LTDC driver rather select it
-> >    according to its output (RGB, LVDS or DSI)?
-> >
-> >
-> > Dario Binacchi (4):
-> >    arm64: dts: st: fix the Engicam RMM RGB display pixel clock
-> >    clk: stm32: add STM32MP25 SYSCFG clock driver
-> >    soc: st: stm32mp2-syscfg: register the STM32MP25 clock device
-> >    arm64: dts: st: select the Engicam RMM display pixel clock source
-> >
-> >   ...gea-rmm-overlay-am-1280800w8tzqw-t00h.dtso |   3 +
-> >   ...icrogea-rmm-overlay-rk050hr345-ct106a.dtso |   5 +
-> >   drivers/clk/stm32/Kconfig                     |  12 ++
-> >   drivers/clk/stm32/Makefile                    |   1 +
-> >   drivers/clk/stm32/clk-stm32mp25-syscfg.c      | 111 +++++++++++++++++=
-+
-> >   drivers/soc/st/Kconfig                        |   1 +
-> >   drivers/soc/st/stm32mp2-syscfg.c              |  28 ++++-
-> >   7 files changed, 159 insertions(+), 2 deletions(-)
-> >   create mode 100644 drivers/clk/stm32/clk-stm32mp25-syscfg.c
-> >
-> > ---
-> > base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> > branch: stm32mp25-ltdc-pixclk
-> >
+Thanks,
+Ryan
 
 
+On 15/10/2026 15:25, Ryan Roberts wrote:
+> Hi All,
+> 
+> This is v2 of an RFC to introduce a driver for the Arm Core Local Accelerator
+> (CLA), a CPU-local interface for programming attached accelerators. While the
+> interface is agnostic to the accelerator type, the initial (and currently only)
+> target is a compute engine.
+> 
+> The RFC aims to engage the community and get feedback on some key aspects. This
+> will help plan our approach for eventual upstreaming. Based on feedback from
+> Will and Marc in RFCv1, the driver now supports both bare metal and virtualized
+> environments. I also have commitments to publish the CLA spec, a supporting FVP
+> and a representaive user space, all to support upstreaming the driver, as per
+> Will's feedback.
+> 
+> For now you can find documentation included with patch 1, which describes the HW
+> and driver design. Note that the CLA is not part of the Arm Architecture.
+> 
+> Patch 1 documents the hardware and driver design, and adds a driver skeleton.
+> Patches 2-5 initialize and probe the device. Patches 6-9 add context management
+> for switching the device between different users. Patches 10-12 add some (small)
+> changes to KVM and VFIO, which then enables patches 13-15 to expose the HW for
+> device assignment into a VM.
+> 
+> Aspects I'm seeking feedback for:
+> 
+> * The general structure of the driver: The current shape addresses the
+>   performance requirements we have for the use cases, and is therefore our
+>   preferred approach. But there are some unusual aspects due to the HW design.
+> 
+> * Driver interaction with architectural support: I've opted to treat the CLA as
+>   a device rather than a CPU extension, so it's implemented as a (mostly)
+>   self-contained driver. It has some unavoidable coupling to the arch code since
+>   it needs to share page tables and ASIDs/VMIDs. All arm64 arch interaction is
+>   contained in cla-mtc.c.
+> 
+> * The location of the driver: although most accelerators will likely be compute
+>   ones, CLA is a generic MMIO interface that could handle any kind of
+>   accelerator. It's currently implemented as a misc driver. accel is another
+>   potential option, but given the current SVA approach, we would not use any of
+>   the services (memory-management or otherwise) that accel provides.
+> 
+> * Virtualization support: since the HW uses the CPU's MMU, we introduced a new
+>   VFIO_CPU_MMU group type, and added the kvm_arch_[get|put]_guest_mmu() API to
+>   KVM/arm64 so that the CLA can share the stage2 pgtables and VMID. The CPU
+>   pinning problem remains unsolved; the vCPU must be pinned to the pCPU that
+>   owns the CLA in order to access it. If the pCPU goes offline or the vCPU is
+>   otherwise unpinned, it would look to the guest like the HW is faulty. This
+>   issue is therefore contained to the guest. I've additionally improved the
+>   robustness of the core driver to deal with this eventuality gracefully.
+> 
+> I consider the core driver to be well tested and robust. The virtualization
+> portion is prototype and has known issues that would be addressed assuming the
+> approach gets positive feedback.
+> 
+> Changes since RFCv1 [1]
+> =======================
+> 
+>  - Added KVM guest support through VFIO mdev, including exclusive domain
+>    assignment, stage-2 memory translation and VMID pinning
+>  - Changed the userspace ABI to expose one `/dev/cla/<class-id>` device per
+>    accelerator class; `ARM_CLA_PARAM_DEV_ACCELS` now reports only accelerators
+>    belonging to the opened class (per Arnd)
+>  - Removed `ARM_CLA_UABI_VERSION` and the `ARM_CLA_PARAM_UABI_VERSION` query
+>    (per Arnd)
+>  - Various driver bug fixes and robustness improvements
+> 
+> 
+> Source, along with some tests, is available at [2]. Patches based on v7.3-rc5.
+> 
+> [1] https://lore.kernel.org/all/20260717104759.123203-1-ryan.roberts@arm.com/
+> [2] https://gitlab.arm.com/linux-arm/linux-rr/-/tree/features/cla-driver-v2-rfc-tests
+> 
+> Thanks,
+> Ryan
+> 
+> 
+> Jean-Philippe Brucker (10):
+>   misc/arm-cla: Add driver skeleton and documentation
+>   misc/arm-cla: Add launch operation helpers
+>   misc/arm-cla: Probe firmware-described devices
+>   misc/arm-cla: Initialize devices on CPU bringup
+>   misc/arm-cla: Accelerator context save and restore
+>   KVM: arm64: Export stage-2 MMU config
+>   vfio: Support VFIO devices that access the CPU MMU
+>   misc/arm-cla: Add stage-2 MTC and VM context switch
+>   misc/arm-cla: Support exclusive context assignment
+>   misc/arm-cla: Add vfio-mdev user interface
+> 
+> Ryan Roberts (4):
+>   dt-bindings: misc: Add Arm Core Local Accelerator
+>   misc/arm-cla: Set up memory translation context
+>   misc/arm-cla: Manage domain contexts
+>   misc/arm-cla: Add userspace interface
+> 
+> Shameer Kolothum (1):
+>   KVM: arm64: Introduce support to pin VMIDs
+> 
+>  .../devicetree/bindings/misc/arm,cla.yaml     |  77 +++
+>  Documentation/misc-devices/arm-cla.rst        | 217 +++++++
+>  Documentation/misc-devices/index.rst          |   1 +
+>  MAINTAINERS                                   |   9 +
+>  arch/arm64/include/asm/kvm_host.h             |  14 +
+>  arch/arm64/include/asm/kvm_mmu.h              |   1 +
+>  arch/arm64/kvm/mmu.c                          | 102 ++++
+>  arch/arm64/kvm/sys_regs.c                     |  14 +-
+>  arch/arm64/kvm/vmid.c                         |  77 ++-
+>  drivers/misc/Kconfig                          |   1 +
+>  drivers/misc/Makefile                         |   1 +
+>  drivers/misc/arm-cla/Kconfig                  |  26 +
+>  drivers/misc/arm-cla/Makefile                 |  15 +
+>  drivers/misc/arm-cla/arm-cla-regs.h           | 192 ++++++
+>  drivers/misc/arm-cla/arm-cla.h                | 393 ++++++++++++
+>  drivers/misc/arm-cla/cla-ctx.c                | 229 +++++++
+>  drivers/misc/arm-cla/cla-init.c               | 562 ++++++++++++++++++
+>  drivers/misc/arm-cla/cla-mdev.c               | 469 +++++++++++++++
+>  drivers/misc/arm-cla/cla-mtc.c                | 335 +++++++++++
+>  drivers/misc/arm-cla/cla-ops.c                | 417 +++++++++++++
+>  drivers/misc/arm-cla/cla-regs.c               | 370 ++++++++++++
+>  drivers/misc/arm-cla/cla-sched.c              | 474 +++++++++++++++
+>  drivers/misc/arm-cla/cla-topology.c           | 202 +++++++
+>  drivers/misc/arm-cla/cla-user.c               | 541 +++++++++++++++++
+>  drivers/vfio/group.c                          |  37 +-
+>  drivers/vfio/vfio.h                           |   5 +
+>  drivers/vfio/vfio_main.c                      |  16 +-
+>  include/linux/vfio.h                          |   1 +
+>  include/uapi/linux/arm-cla.h                  | 198 ++++++
+>  29 files changed, 4969 insertions(+), 27 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/misc/arm,cla.yaml
+>  create mode 100644 Documentation/misc-devices/arm-cla.rst
+>  create mode 100644 drivers/misc/arm-cla/Kconfig
+>  create mode 100644 drivers/misc/arm-cla/Makefile
+>  create mode 100644 drivers/misc/arm-cla/arm-cla-regs.h
+>  create mode 100644 drivers/misc/arm-cla/arm-cla.h
+>  create mode 100644 drivers/misc/arm-cla/cla-ctx.c
+>  create mode 100644 drivers/misc/arm-cla/cla-init.c
+>  create mode 100644 drivers/misc/arm-cla/cla-mdev.c
+>  create mode 100644 drivers/misc/arm-cla/cla-mtc.c
+>  create mode 100644 drivers/misc/arm-cla/cla-ops.c
+>  create mode 100644 drivers/misc/arm-cla/cla-regs.c
+>  create mode 100644 drivers/misc/arm-cla/cla-sched.c
+>  create mode 100644 drivers/misc/arm-cla/cla-topology.c
+>  create mode 100644 drivers/misc/arm-cla/cla-user.c
+>  create mode 100644 include/uapi/linux/arm-cla.h
+> 
+> --
+> 2.43.0
+> 
 
---=20
-Dario Binacchi
-Senior Embedded Software Engineer
-M. +39 328 0625246
-dario.binacchi@amarulasolutions.com
-=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=
-=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95
-Amarula Solutions SRL
- Via Felice Cavallotti 25D, 41012 Carpi, MO, IT
-info@amarulasolutions.com
-www.amarulasolutions.com
