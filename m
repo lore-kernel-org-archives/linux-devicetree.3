@@ -1,47 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781627;
-	b=JfmCOkZ7RoVURm29a9mlBfG3F96Bluhlz5c9mXoKpjQLfJs+n9YNUY/yQicBFLzRMGM3
-	 j13/QEAMp9F+XXmfgMgGp9dIIQ0rczgWMQ7ypEEhUa6onesoQvTqK7qJVN8T3M7MRrtYt
-	 tm1fJAuh9UX6vjf3MWSH6/a6mjBl/OaDmpIIJPZHow8doQgfhwzn718m7xtrP0JuE68iw
-	 A3sDz749hY0cnS0HAjafRjk+YZtRZt3n+428jVRi5YdX1K1Vf7z5cXhvWh8WGJx/S18lH
-	 i114IjNYQw/CmQWHCY3XcWl7K5cBUh4uYviN25BS9Zxqfegj7NaZLtNZx3wq4ocvSAQ==
+	t=1793781646;
+	b=Ug2jYqxdaJ5wgxEaawoGlGAy6Zf7Je+a6wtPEL/7TQxk3s51IW/94pxJdBBqGZyBhOXU
+	 gl34JoxegEOol1AowyEzHstflBHht/2AYnu4qMVv3RQC9q5bp7+ribQV2suudvkfhBt92
+	 s2hhiDbG7eHJ+dzbyKZVIK9VQdwcAlLT1uZVHxFRH253ZteHanrQ9DFitNsDjjv+UfGP9
+	 5sm3gR4+pw0wo+HMOUuc7TCfQnUe4+UHWT3hxyAJu6l2Y0OlU6L+ZbWApXciOgyzw12b3
+	 Umi2R6+WrAjD8REc/oQDVkncTN+DwuQwlWam0oNSGGpG2FNTIWwJDr8MjRK03+SvJbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781627;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kIwvQ2m8FTrcE+WK6Tj33njxckk9WhiI+63CgTuoiYk=;
-	b=A+t88y3INNfeWehHDsbmNZc4+UZCqgfMbpu+bZdV2qmGdhZ7WLATmX7/NVe3OmFj7TIf
-	 HIwCdxdmFHW0EIBM+n7HjaolK6I2IitDZezhOa/SaE4kMHzKC8sI3CGjD1gaPEmn1oFSw
-	 wEvEEgAVEQn4VF9bH8LT+v+Cwjijyhb1wZQ48P7q5Bo4kL1bOnp5kmFpumWiWTswkzwdT
-	 7Cn90NieZYjmMjK3NnEksxf18apyQo4qTn3BBwHHnyA2Wyy44Otxk213T+QFpVKI0PJuC
-	 KeMDuOIVVtdxn+8JdgS/JSQTy5O83asXwX/lf6rspdS8ol+xPREjGuZXb6q01TsxvEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781646;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=bKYL0tIwOuQrMDxrCyv61nKmyjjc86ptxINLaNUCb9M=;
+	b=iYJLxq3HK76HggopQalsiIzmFVLvpxNn+SfO9VKqug4dakBj22JaXAr01oZnBmBQnaBV
+	 bLBrFDJIntU99gnwMgIGIDCkDIt4HX/2Kv5tDQtsFVcabXJL7CULDFFXgFiBjSi7UB3rZ
+	 iMQJpYWm+SMKC5bXfIpzaV0gb2WeRkG5soPixOokM/b4H3oVro4XlJYN1VBvam9J48Tza
+	 QRiJbZKJcB+Ht/7J0JwwvtPxPMs5zCifa/XC5WbC1oHdKd6pvU8hDbc35kdnJe9/PLKwQ
+	 zTQa6kUTssQcY6Azd30c+uziVcD88B5MPYVpCNdJBtjGajw0FbIAizwwFuLK9QadouA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dl69mSdM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9860E606A31B;
-	Wed,  4 Nov 2026 08:40:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dl69mSdM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AB91F000C1;
-	Wed,  4 Nov 2026 08:40:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793781627;
-	bh=kIwvQ2m8FTrcE+WK6Tj33njxckk9WhiI+63CgTuoiYk=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Dl69mSdM8swdb8mVO3AyJaxzL/zQM3dwOAwGlllxEOjjCLvcTmB7j/+gRz7cW2oan
-	 KUSqia84w/Oe9qo6nUrLcUMOOEcDiIfZEgBv4k/+Cy2fpWATz8hfd2e1g2OL9mZROR
-	 V4OVWa4MtqdlWtv3CJBPPBS66NKa9Tmiq7W76WfBdYFruWshfz7KiXLwAN0VzB7v04
-	 gbj06HzuU1dxPqMdFxxbeVcZ7jPK5vFNvGAnfGon6IsCc+sG1dQoeiJXzSnGiVH+QP
-	 TZO14nSYo26b2tnBShgiVdDkfW3b8ayn4bwnoAy+lmPEkrZuLexTAygNu01bXTk9yg
-	 ZKhF4XyvuPD0A==
-Message-ID: <4e82a4bf-e2db-4a3b-bebd-9f9c473817a3@kernel.org>
-Date: Wed, 4 Nov 2026 09:40:15 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD53606A330
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 08:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD53606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso2645565ad.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 00:40:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793781646; x=1794386446;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bKYL0tIwOuQrMDxrCyv61nKmyjjc86ptxINLaNUCb9M=;
+        b=rBfCG5sG1QfD0MMBUvs2Dv3pcFrfAa09s29SRQ2o4dGOCCw3JtTb2u9I/pkuqDvVJU
+         6ahg/B56RJ9Po/LtW8z3F0jFh3FWysEEswB5tvgnwsExD9VBI+QD+mQt1gWaUQ0rcwZl
+         Dk7ZigEwh1BUgdo5CYQncuuRSVMCCJOs0m3I8/6IyQ5J8e3RlRYNqQ/24z44ega+gwOk
+         MzYsHq378x3GhJcI9XAG5WDjcC3rs1ONE1Wii66j6dNYt4P5Dn5nHRe+EGTIO4VwaF99
+         eaoAJSXuQh3djFwyscoGrOCyAtGYt9s8uSjkLL8uIjhuyqzwSeCibDUclFod9AC9CGVi
+         wBNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwI5mlERrGjBPLSpAZKyxRkj/HBWTOjSsr8IXwJVQyiQJWu0ZJLiutpSmBZw+Y+4pnP0DFzJzPOpsG4@vger.kernel.org
+X-Gm-Message-State: APuU4Z9keMMgTgAeuxQOoCg7Veb9NHfxWHNbzIRalF6Pe0MTnfBvTfVO
+	J/IPQardPQifhwMJeKjRXdJgWnIW3DxUZolD1k19opTzpaPVu8UGroobYG2wMeYY
+X-Gm-Gg: AYBFou33iYnBwG+63S3CWPYK4Hfmrz4glksRmHxi27xnKXQTQ+DzmIJWc6B1SW8nmFQ
+	42Ndl+s5Kc4gaKORwu/1VNu/YjtSU1gfYPCSkXSX3tSEbf1SWXPkAcwvS7wlJbDRjGQa0l93W78
+	snHtGXeDLouCPTUReSzsrM910GPrQpQ0Vvk4zxZtYyx3RpTU55on7pr1O9dWneUaqmIUaK9Jw6C
+	LbGnwni3DHSyLMXXcsOgnuFxWw9VsrF2ab1jYV1jzb1AAZFmauFnVsVoTkOlcLL4SIpe6cD9AqX
+	fxPo1+3GfwBxjEnzK3DBeYhOidMvfHgKODc0Uq7c6kGuHkfhNhDys7faqivpSYkLQEqGjWIeQs0
+	EzUbalQPewhgVdQ9Nu5uaC3KRhxWjxBuIUk6WxCnpaa86n6jOz71/6q6WVDSfr3Az1SVjsVTVXS
+	ZYvJSH2xf4symw6XFpkDKZe498RMQ4XlnY5ekTM1aXm/dIQQcGAGISL259qL1wX4QQUPXKb5Ufy
+	nY5BOB6F5MdlnTglw99Qd0j1RWLJvUcWH6MNqRM5ttFHudsMgWVJ/iSKPZvjoAdxKgm4bEOC6Wl
+	JApXrZQIAoiZwxBtPA96ZDvXbYrPmv76Umkhotig/tfj6BENtE0o4IJpF1kAeDbzXMV1llBUeeV
+	ix/Uwe5GWAZqGEF0z71p4dx8joa7alimSkACXvP+NwQmmuA==
+X-Received: by 2002:a17:902:e946:b0:2ea:19bc:2fd3 with SMTP id d9443c01a7336-2eb369df346mr144808445ad.24.1793781645715;
+        Wed, 04 Nov 2026 00:40:45 -0800 (PST)
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com. [74.125.82.169])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed090a08aesm4641655ad.40.2026.11.04.00.40.45
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 00:40:45 -0800 (PST)
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so620618eec.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 00:40:44 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxWVP39XLJgCA/jsPhfdagYV6CHbco199vxc1qwwRjuaLJD2Q7uh4l+4cusTwR8zVMAptBlYlCgOE7i@vger.kernel.org
+X-Received: by 2002:a05:693c:6407:b0:36a:7b3c:4e0a with SMTP id
+ 5a478bee46e88-36a7b3c4f8dmr7297124eec.24.1793781644445; Wed, 04 Nov 2026
+ 00:40:44 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,112 +81,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 08/11] dt-bindings: ufs: Add NXP S32N79 UFS host
- controller
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
- Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
- Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
- Pedro Sousa <pedrom.sousa@synopsys.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
- Asutosh Das <quic_asutoshd@quicinc.com>, imx@lists.linux.dev,
- linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- clizzi@redhat.com, aruizrui@redhat.com, eballetb@redhat.com,
- echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
-References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
- <20261103133215.1385823-9-larisa.grigore@oss.nxp.com>
- <20261104-holistic-loon-of-agreement-db7b8f@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261104-holistic-loon-of-agreement-db7b8f@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev> <6e8d69e3-9404-4a80-874e-0133f942229e@bootlin.com>
+In-Reply-To: <6e8d69e3-9404-4a80-874e-0133f942229e@bootlin.com>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 03:40:32 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ5RZFkQh5G0BbgC7FesQQbQ53AJQv6pYoK+YEVo8k62bA@mail.gmail.com>
+X-Gm-Features: AclHuK9Odzf_wS7Gr7Do7DU0hVIY-1521pU5hfzHYwAlyguOls_NqIQeDv60H-0
+Message-ID: <CAPY4CJ5RZFkQh5G0BbgC7FesQQbQ53AJQv6pYoK+YEVo8k62bA@mail.gmail.com>
+Subject: Re: [PATCH net-next 2/2] net: stmmac: Add Siflower SF19A2890 glue
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chuanhong Guo <gch981213@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 04/11/2026 09:38, Krzysztof Kozlowski wrote:
-> On Tue, Nov 03, 2026 at 02:32:12PM +0100, Larisa Grigore wrote:
->> Document the UFS host controller on the NXP S32N79 SoC.
->>
->> The S32N79 M-PHY has two data lanes per direction and the driver programs
->> both of them, so restrict lanes-per-direction to 2.
->>
->> The UFS core manages only the clocks added by the platform glue. Since
->> freq-table-hz is deprecated, the binding requires operating-points-v2 and
->> clock-names. As S32N79 does not scale the UFS clock, the OPP table contains
->> a single 0 Hz entry, which keeps the provider-configured rate while
->> allowing the clock to be enabled and gated.
->>
->> Reviewed-by: Frank Li <Frank.Li@nxp.com>
->> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-> 
-> No lore links in the changelog and b4 diff:
-> 
-> b4 diff '20261103133215.1385823-1-larisa.grigore@oss.nxp.com'
-> Looking up 20261103133215.1385823-1-larisa.grigore@oss.nxp.com
-> Checking for older revisions
-> Grabbing search results from lore.kernel.org
-> ---
-> Analyzing 91 messages in the thread
-> Could not find lower series to compare against.
-> 
-> Is NXP going to switch to b4 or not? How many times this can be raised?
-> 
-> Sure, you do not have to switch, but then why is `b4 diff` not working
-> on your patchset?
-> 
-> Dropping from DT patchwork.
+> This is only used during the probe sequence, you can simply pass it as
+> function parameters, this avoids using up memory to store that :)
 
-Ah, found now v8 and previous feedback was not responded to, nor addressed.
-
-Best regards,
-Krzysztof
+Thanks, v2 will pass the device to the delay helpers and drop the
+member.
