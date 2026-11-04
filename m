@@ -1,89 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827066;
-	b=AI6w0l38ZzrcOnoP7YLTi/C3TMpIPKlNVMX7tT2FP/6iYHB4by93Vn6bCgVfeDxMI6nk
-	 hKVqz1qn8J0cw0Tc+9bNjgUAaqPq88eahu49v1qcHX0v2iJc6S2a1Cu61iQ3G7qK+u0bx
-	 BPrX/cVwzTlu5tanXlQRBzw770lQnjgETNFFkIvwFypIloxj+R8pRVgmkoar/fSNJsAfb
-	 Th44mEymK8qtI42NnzEG5hgx/JEyvineKvUcSQlIix4yt1ogl7trwQJs2mgfC3mOE/10j
-	 QqwRRBqxXqmjQsNqXrl48N/kjB3hqL57PJfDvdV3xgruX0KFFaKwmAaeHqpiZuHnCCQ==
+	t=1793827169;
+	b=ncUtnr0KZx4HLG+YfHqsZ/Z2MNoKyNOV0T6wTMsHlOd1kKxF8wGiRv65b49KFrZwAnDB
+	 H/OJRzXYHoNr4wJreF4XdSNwcT6T5bhOLmOWxEDOpmCIyT6GQ4JBzHsf/iiGpoIbbwFZS
+	 Ov6OZzrl8zEvEYDIIxJsyF0nQCLjp4mayJPRyMa5BKvPRV7R1xAaQmv4ZZ9y0NNCeW/d8
+	 BTHFKsa4Q2URd++A9rHLNjlDeihd7EBifKwpIyTNddOIePAeDBkVLpRrnFxyEka7UOzCI
+	 JEpTw2wSLlxNsdFihQGIdGM/uu43lLAaMiD3qasSWkMLJfIkffLNDx0uoCtjwN/B8Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827066;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=mI96Y8ShDpKzHCEcP2OgiUqcR+z8DiP4BqJSlsmOoSE=;
-	b=cEVmQ5bEi8twbaI89NdeGg1+UYCQruBmZY1B3W8UpbRxdj8t3QVHT3WUyPo+ORwt29RN
-	 wGhZn9BeZuG7zlxtJP41vy9hsiYBz4qeiywOC6qxiEUouQsWWf5mkOCzHFEHMYeuJGnu2
-	 qZzjOFQYe8guKNRKC83syJKDyrPvzB+5jSwrUln3KcYP3Q3y48c/3BL8atsbPVI0/FBww
-	 gsQS2u78BFRODQIeu7q4FHcKvUBhM3ZUKpPanK5avMaeTmLyodgHawp/c393DmTZSk1PB
-	 WuU2T3Z8HogWBv+6oaUpXSsj0w9NZ7xfFC2aMq+6fBoZBdypUlSnZKfK2CnJcEKMfFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827169;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3DpEQ4BV8ncjuBOzZJCc6LJDmuPNTxkR4oFZHyN7ZmM=;
+	b=EPo4hwAoOSOYrxriRAgFvxVCgs7l0wKEnDJkQZewuW7NBHTzt3+I46ZWfzuphyPpwl6s
+	 PwK5NM5cKoY5jLAnTg3WcXH354wUqDk2dul+V26RFKIHsT63eQfsE0gEImyHUpjAHXewT
+	 fMgLU6dzkEqHB6dDQaoGL5LHxEY3e2GmVC8hsnIWzCvhNrAoRLk7ZArPpKWHAkhOQpfD3
+	 SwoFprmYErmVuVDluHDvhz1pjswaG3KqEBvOKuOGGViTsdHu+U9njQOLjbVL3us3LHGvR
+	 jufzJnf34M5WaJiXGiWTiMlbE++ZQy8oCU+x16RN2J+nayx8NhUnqHQjnoCfB6erAFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TsBCnEka;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=jNvCIdSw;
+	arc=none smtp.remote-ip=95.215.58.14
+Received: from mta1.migadu.com (out-14.mta1.migadu.com [95.215.58.14])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAEE606AE17;
-	Wed,  4 Nov 2026 21:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AAEE606AE17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9D6606AB17
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 21:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA9D6606AB17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TsBCnEka
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793827066; x=1825363066;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OxFD2y0vi2PbpMdz5Za1fUdK4ldU1V6rTl4KYYCPlCQ=;
-  b=TsBCnEkaakiPbPe6ANqqfntg++d5y3jlJz6k6zBT2+XSEEUNuQw5V0kX
-   VsJHGk5s5ExnA1PaxcPNDXVky0PyA3/kqduBlGo45fbsMsEMNRlJQzsBS
-   dP9FL4SyWJfzn/8/WQ9fOlm8gzdwxvcWO7YqfrMfXqfLfkOsPHZjvLn07
-   dvlavMZzWI516Xv9E2kToV9tVRWv7y60ehW0lgKCdidQvWD8f9IJsHQ/x
-   AjxdDNQBBDsrrtCtpdsNCpY4VkG/RDZzvLWVelVJXJZcSp9JH7rE0sUvq
-   gQqVvq3177Qt5JrVk42WwpkbNmed2OfNZ9hwP2mldweNFxlIGWsSxe1db
-   g==;
-X-CSE-ConnectionGUID: dF6hgHKDRR2Xed/zfqnxKg==
-X-CSE-MsgGUID: dXJuVqIRQye2KKkd7xKWnQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2505018"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2505018"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:17:45 -0800
-X-CSE-ConnectionGUID: 82oTkYOsSO2+b2xk6C7VnA==
-X-CSE-MsgGUID: kwSFyqLDR6iZxkWvyXwKVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6841615"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:17:40 -0800
-Date: Wed, 4 Nov 2026 23:17:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
-Message-ID: <auug8QoQ62ETGg1D@ashevche-desk.local>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=jNvCIdSw
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h8kZr+2P5FyKEJmL9Drkm4bpXOy70o/S/a6qT+o6Brk=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793827165; v=1; x=1794431965;
+ b=jNvCIdSwx8XbP6Z/yh4PauQlvjl2yBv9KSsBzTA8ni3TJC+OI+iwREUiak5pSkhymMK8zDB6
+ AwCAdorhppQ4hJWw8PNnXwolKNXcKo3AOKrNT7oXkc9w6rwXN5vkQ6889UpJo4l0LQ4x+f80RfI
+ JBhmZuvtUWJJYLP9rNGRD9pqEh+mvbY62A2waA//loj/jd+jOR6m33ZOeVUerY33QO5cpXxG9J8
+ YFjB5WO5gfu0/3+gWEGDp72EXkBj+SfhErYhS0i4yyWtHScgjFkPSdJLl6ip5eY//j7HGsIXTY6
+ V5unKt6xyV7Fr8/bWxW9I1fdH3KEl5VkFNeNLKzN3SQHQ==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c5aecda40ac6f06c;
+	Wed, 04 Nov 2026 21:19:25 +0000
+X-Mizu-Trace-ID: c5aecda40ac6f06c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c5405525-78ee-4480-b482-4dedc49661a7@packett.cool>
+Date: Wed, 4 Nov 2026 18:19:13 -0300
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,131 +60,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:03:46PM +0100, Bartosz Golaszewski wrote:
-> Provide fwnode_property_get_names() - a new fwnode function that allows
-> callers to retrieve the list of all properties of given firmware node.
+Hi,
 
-...
+On 11/4/26 5:54 PM, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
+>
+> Add CAMSS platform data for the Qualcomm SM8150 SoC. The camera
+> subsystem contains four CSIPHY, four CSID (two full and two lite), two
+> VFE and two VFE-Lite instances.
+>
+> The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
+> VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
+> layout. Add CAMSS_8150 to the version enum and to the shared code
+> paths, then add the per-block clock, regulator, power domain,
+> interrupt and interconnect resources.
+>
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+Wow, what an unbelievable coincidence — I just went looking for this and 
+found these patches on gitlab in order to test on the similar sc8180x, 
+and half an hour later you've submitted it to the lists! :D
+>   .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
+>   drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+>   drivers/media/platform/qcom/camss/camss.c          | 262 +++++++++++++++++++++
+>   drivers/media/platform/qcom/camss/camss.h          |   1 +
+>   4 files changed, 267 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> index dac8d2ecf799..851decb0691e 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> @@ -1141,6 +1141,7 @@ static bool csiphy_is_gen2(u32 version)
+>   	case CAMSS_8650:
+>   	case CAMSS_8775P:
+>   	case CAMSS_X1E80100:
+> +	case CAMSS_8150:
+It should probably go higher in the sort order, before 8250?
+>   		ret = true;
+>   		break;
+>   	}
+> @@ -1236,6 +1237,7 @@ static int csiphy_init(struct csiphy_device *csiphy)
+>   		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
+>   		break;
+>   	case CAMSS_8280XP:
+> +	case CAMSS_8150:
+>   		regs->lane_regs = &lane_regs_sc8280xp[0];
+>   		regs->lane_array_size = ARRAY_SIZE(lane_regs_sc8280xp);
+>   		break;
+Interesting, why do these match 8280xp and not, say, 8250?
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765..dd28058e98a7 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -354,6 +354,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+>   	case CAMSS_8650:
+>   	case CAMSS_8775P:
+>   	case CAMSS_X1E80100:
+> +	case CAMSS_8150:
+Sort order here too
+>   		switch (sink_code) {
+>   		case MEDIA_BUS_FMT_YUYV8_1X16:
+>   		{
+> @@ -2010,6 +2011,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+>   	case CAMSS_8280XP:
+>   	case CAMSS_8300:
+>   	case CAMSS_845:
+> +	case CAMSS_8150:
+>   	case CAMSS_8550:
+>   	case CAMSS_8650:
+>   	case CAMSS_8775P:
+> [..]
 
->  #include <linux/device.h>
->  #include <linux/err.h>
->  #include <linux/export.h>
-> +#include <linux/minmax.h>
->  #include <linux/of.h>
->  #include <linux/property.h>
->  #include <linux/phy.h>
->  #include <linux/slab.h>
 
->  #include <linux/string.h>
-> +#include <linux/string_helpers.h>
-
-You can replace string.h with string_helpers.h.
-
-We already rely on the fact that the latter includes the former
-elsewhere in the kernel.
-
->  #include <linux/types.h>
-
-> +/**
-> + * fwnode_property_get_names - get the list of all properties of this fwnode
-> + * @fwnode: Firmware node to get the list of properties for
-> + * @props: Pointer to an array of strings. It will contain the address of the
-> + *	   string list containing the property names.
-> + *
-> + * Return: Number of property names written into *props. If > 0, the caller must
-> + *	   free the array with kfree_strarray(). *props is only valid for
-> + *	   a positive return value.
-> + *	   %-EINVAL if arguments are not valid
-> + *	   %-ENXIO if no suitable firmware interface is present
-> + *	   %-ENOMEM if memory allocation failed
-
-> + * The list also includes the properties of the secondary firmware node, if
-> + * any. Properties present in both nodes are listed once.
-
-I don't know if this paragraph is for Return section or not. If not, it should
-go before as the Return section must be the last one in the kernel-doc (it's
-documented). Otherwise I'm not sure it belongs to the Return section. I think
-it would be better as a part of the description which should elaborate on the
-returning values in the parameter.
-
-> + */
-> +int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
-
-Triple indirection is rare. Do we really need it?
-
-> +{
-> +	int ret1, ret2 = -ENXIO, n1, n2, i, j, count;
-> +	char **prim = NULL, **sec = NULL, **merged;
-> +
-> +	if (IS_ERR_OR_NULL(fwnode))
-> +		return -EINVAL;
-> +
-> +	ret1 = fwnode_call_int_op(fwnode, property_get_names, &prim);
-> +	if (!IS_ERR_OR_NULL(fwnode->secondary))
-> +		ret2 = fwnode_call_int_op(fwnode->secondary, property_get_names, &sec);
-> +
-> +	if (ret1 == -ENXIO && ret2 == -ENXIO)
-> +		return -ENXIO;
-> +
-> +	n1 = max(ret1, 0);
-> +	n2 = max(ret2, 0);
-> +
-> +	CLASS(strarray, prim_props)(prim, n1);
-> +	CLASS(strarray, sec_props)(sec, n2);
-> +
-> +	if (ret1 < 0 && ret1 != -ENXIO)
-> +		return ret1;
-> +
-> +	if (ret2 < 0 && ret2 != -ENXIO)
-> +		return ret2;
-
-> +	if (n1 == 0 && n2 == 0)
-> +		return 0;
-
-Shouldn't these checks be before any CLASS()? Otherwise seems strange to me.
-
-> +	merged = kcalloc(n1 + n2, sizeof(*merged), GFP_KERNEL);
-
-Shouldn't here be something from overflow.h?
-
-> +	if (!merged)
-> +		return -ENOMEM;
-> +
-> +	/* The strings are now owned by merged, only free the container. */
-> +	for (i = 0; i < n1; i++) {
-> +		merged[i] = prim_props.array[i];
-> +		prim_props.array[i] = NULL;
-> +	}
-> +	count = n1;
-> +
-> +	/* Properties from the primary node take precedence. */
-> +	for (i = 0; i < n2; i++) {
-
-> +		for (j = 0; j < n1; j++) {
-> +			if (!strcmp(merged[j], sec_props.array[i]))
-> +				break;
-> +		}
-
-match_string() ?
-
-> +		if (j >= n1) {
-> +			merged[count++] = sec_props.array[i];
-> +			sec_props.array[i] = NULL;
-> +		}
-> +	}
-> +
-> +	*props = merged;
-> +	return count;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Thanks,
+~val
 
