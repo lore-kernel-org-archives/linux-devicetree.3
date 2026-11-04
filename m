@@ -1,57 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776967;
-	b=k1nymbl+pPXwJ1bPpveW7/YFTZajPImMHdmWDSTsLEyryCAis2p8is2uJnuPcVwVUE8k
-	 tTNQY7sUMRk9CY6K/mW7u8IYpKLyGqrquZ9+pC1yGrXoQPKI7c+Ei1sHui+dbFCEH/nZO
-	 Gt2b09u8CkU/AkTpB8MiHe6PyKU+cHIkcF0qE6EW2ul8TgMc5BWRsKyQcDQgXJyQY4b3A
-	 LRI1FSsGpcesgwIo+sI6xMGpIFW6w7t7uolFCN47yaJ0kHrGOuTS1wtSx6PqU6ASIpMEy
-	 DSwXJj6B2S53Wmx6loHt11XxNNRd5anLh/vbfIiwFXjQc8dAXq0iTwsuUmAOOxsdctA==
+	t=1793777029;
+	b=blRchioDa0FxImUIUJ0xysMN89/+jKh3phxdON28RIzrXiJOJKViAcnw0c9hhPef3MxV
+	 4vssbH+IhZuz+Y9pRJDJR+2knYFmfQSPJ9SB8YpZv26Mr1pY2/GsMkfMElvQsZ0yS2b+g
+	 vBFXSa/tP+dCjv3w5M4nGg/2hHVViRlG+Dem89mC7/11LyxEFbPCw0PwYVX5D1vfKzvC4
+	 jw5Suf9Bg0NyPwv1kT/VIjBo+f1ibuUH0rno1Tj1hyacaf5tIFPxhASy3vpkQ0HIJXCz+
+	 RnxfuZSm4vR3MTQNjdlSonPz8rqGR4zpLBxjnKiduUhNqDCYEbeTuaAQSb8SfDypMOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776967;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/9jz584ynBu7Sj7Ps+BcnxDJbg/SJ0jjq9P9M+C3V3Y=;
-	b=f1XM8eAEt9OxHq9+oCsTI8a/2c+q5W/cOHjpRgwodBzVByc7GWW3ovhyfm4E9xJd/Hb6
-	 KQZQolypN4mgPvdjbpo+IWCFyckgul20UZ4mb1JNqsHFLn7BuOqeJa80qqFP3fZQ6V21U
-	 Ac3hbRf9MJCjFBZpaaqN7Mb2xank0NjELMi7UD6Itt0rqoDUMNi+nvtFFXvh8VfUPq9lD
-	 ZsmXuZj1MMZTNyrSTu3yoPcCjko466x6fLkSfIZAdCzTpLHZGr4YYBJucM+srd2Ex2iMg
-	 42BVB1nG/lBUAJiEuVRI2E+aiTmXyBbhkCFsz5JIqvIDk7Y6UplzIkmfnxJt4k4TiUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777029;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NBOQ40gBeaDYVe8Awm5p4ozUA0tAVvF4nJgh2RDLTZA=;
+	b=GrxOrvmy+ZOZu8qmU4a48j0nkkVr5CJceDQvJXHrffu4po/hifyNtmyMvsrYLfurl6ln
+	 tu/1vzYtL/V49yb939DkQfYn4+ezv3XhfGiPyh/ceJk3APAN3+FmhLrNQL8jffNBAcxB5
+	 mAuKYiWslmcV0hj60ZmTDa/hCrklxP235TjkDN6DRxv2IwRX3a5PFAz6p4Wsmi3QcKD/g
+	 /PoHAM8aVQhORSrRhO9TLV6djee0SXD3QV3oaigdy1fcm4wt3Q5KF2PYUJJFx/+Mhlehe
+	 hbtRmIhC449A7nIGX6CR4BPveXclhr1ofujD9DCx1ixW4OnbCdKqESC+dW08qnjei5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePMyMMdo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fAzoyO7l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3467606A33B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:22:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AEA606A31B;
+	Wed,  4 Nov 2026 07:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePMyMMdo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052431F00A1C;
-	Wed,  4 Nov 2026 07:22:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fAzoyO7l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C3B71F000C1;
+	Wed,  4 Nov 2026 07:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776967;
-	bh=/9jz584ynBu7Sj7Ps+BcnxDJbg/SJ0jjq9P9M+C3V3Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ePMyMMdon30PgoY5hLv+8Y2mN8q3A4t6qfdzqX+LSFqxqduT6YFyRAJrh4ZuV7xKR
-	 1/9v21VWKF5cS1b8aB6d0SYXTLztbH0QkYpHBVjdV6gXcafBDn65IPHA1u3GiHfm6y
-	 z/tpTrMvNFFSa0L8JgQGQ2hpD/045FQ49G2Gwmhe61/VqQvmy1QbD46+ec/YsYTX9S
-	 mPSx8PmLmumMqkvbNrZDnz65oDHedoIRd3viV3Assr2yTgzuuQedemnYKGFgA5Pd7V
-	 FYMzIRQ6kBPLA6lz/20D0nQYd291Qy6uZou33NHaaCj4fYnoEkREAQNNgNL5dWWBSg
-	 Z6erdvzjDdo+g==
-Message-ID: <sashiko-outbox-196784@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: mips: Add Siflower SF19A2890 based
- boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joseph Telaak" <joseph@telaak.dev>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev>
-References: <20261104-sf19a2890-mips-v1-0-eae80820af68@telaak.dev>
- <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:22:46 +0000
+	s=k20260515; t=1793777028;
+	bh=NBOQ40gBeaDYVe8Awm5p4ozUA0tAVvF4nJgh2RDLTZA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fAzoyO7l7JrQauRVoEzkU2YbVbg3GZqLoQ1vbvKVgH8kKLf+jgVdZxVK2J5pSVAQL
+	 igHw5zbRXGhLbFPt+6lEcO8n/DMrkktk0R1AX7yS00jD4BRA/50zagFe3mZ/c1n3zS
+	 XDzqw/t2zI2Is/qsU5wgGD+XARqXmJio2t4k4O/1/1DlI2m29fAlsYM94VHedruACU
+	 QT8dAv05U6y1yXEoOuDyxkHzcTTF/Z6pdNibFjrneUGC58mrUzESj2HUCPPF5jhi93
+	 TDrFG+NTMNMwg7Q8eQunznuVUUt2kQEY4UDVM7lVI4kwhKurhlq8vTVoKgRIh2K2Vt
+	 z5rnAZ5/U8I1A==
+Message-ID: <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
+Date: Wed, 4 Nov 2026 08:23:42 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,48 +50,115 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
+To: Cui Chao <cuichao1753@phytium.com.cn>, Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+ <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
+ <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
+ <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: mips: dangling drivers/gpio/gpio-siflower.c in MAINTAI=
-NERS
---
+On 03/11/2026 03:57, Cui Chao wrote:
+> 
+> On 11/2/2026 6:00 PM, Krzysztof Kozlowski wrote:
+>> On 02/11/2026 10:51, Cui Chao wrote:
+>>> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
+>>> host bridges.
+>>>
+>>> By default, the 'linux,pci-domain' property must be unique across all
+>>> host bridges. This property allows a host bridge to explicitly opt-out
+>>> of this uniqueness check, permitting multiple host bridges to reuse the
+>>> same software domain number.
+>> Why isn't this deducible from the compatibles?
+> Hi Krzysztof,
+> 
+> Thanks.
+> 
+> The compatible cannot express this. "pci-host-ecam-generic" only
 
-commit bd8c11a7f9d608cf21a8f34b06b16b91d2058197
-Author: Joseph Telaak <joseph@telaak.dev>
+You have vendor specific compatibles, no?
 
-dt-bindings: mips: Add Siflower SF19A2890 based boards
+> describes how configuration space is accessed; it does not describe
+> whether two host bridge instances may share one Linux PCI domain.
+> 
+> The same compatible is used on systems where every host bridge must
+> have a unique domain and on this system where two RCs intentionally
+> share a domain with disjoint bus ranges and resource windows.
+> Comparing the compatible strings of the nodes therefore cannot
+> distinguish our case.
 
-This commit adds the device tree binding schema for Siflower SF19A2890
-MIPS SoC based boards, including the GL.iNet GL-SFT1200, and adds a
-corresponding entry in MAINTAINERS.
+OK, so let's look at your DTS - where is it posted for upstream?
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065d..2a7a083f2c470 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25698,6 +25698,14 @@ N:	sifive
->  K:	fu[57]40
->  K:	[^@]sifive
-> =20
-> +SIFLOWER SF19A2890 SOC SUPPORT
-> +M:	Joseph Telaak <joseph@telaak.dev>
-> +L:	linux-mips@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/mips/siflower.yaml
-> +F:	drivers/gpio/gpio-siflower.c
+> 
+> Adding a vendor-specific compatible only to trigger this Linux policy
+> would not describe a different hardware programming model either.
+> What actually makes reuse valid is the platform-level relationship:
+> the bus ranges and resource windows are disjoint.
+> 
+> If you prefer to avoid a new property, I can rework this to derive or
+> validate reuse from the non-overlapping bus-range and resource layout
+> instead. Would that be the preferred direction?
+> 
 
-[Severity: Low]
-Should the F: entry for drivers/gpio/gpio-siflower.c be deferred until
-the commit that actually adds that driver?
+This one is clear paste of LLM output to a message.
 
-Because drivers/gpio/gpio-siflower.c does not exist in the repository yet,
-running scripts/get_maintainer.pl --self-test=3Dpatterns triggers a warning
-in self_test() when checking the SIFLOWER SF19A2890 SOC SUPPORT section in
-MAINTAINERS:
 
-  MAINTAINERS: warning: no file matches	F:	drivers/gpio/gpio-siflower.c
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-sf19a2890-=
-mips-v1-0-eae80820af68@telaak.dev?part=3D1
+Best regards,
+Krzysztof
