@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795759;
-	b=OvOjT2SCv4ZfP2tBDM1wlD2Ur+0UVD48EibF2ZmkX73G+oL1VHTAg+DfPh6bI0UPTz/q
-	 lauhEpNTa8ML67Oj3JSwf6zp7H13mxZnw6DOuu8U3nJH91BJ8DeSEiue2Mi6u7Y0gtxYS
-	 eLx9GXa5HnwVHpkngb+afDW3h36DU/sj3puQDteg4FUEFEWD1F6+TFZd62qp73c02lOgW
-	 LkQvFOb2eJ5Mhkqbn+GaCK6VJ/H7+E79hm4XjePQeLfPRU2AOiisZdVJA6/K1GDjk/Y7T
-	 9dWiIYcaef8RpRRCUKPJf05MnthAMWOc0Iya8zHdtKZYhkx/tCXiJcWlM/prnb+9EMw==
+	t=1793795814;
+	b=kdF8+nCegbGPZwIO4AVz1Yh30mD0uHyexTEUnP9HvrVa+zUBql8YWr7UnZ5VGo4LFI+e
+	 lweHd0erqhjaniqWKjKw1cIWRs2849he05DMCdg+kAmGZplxSvnKgsCXVAS/HzGzZQdky
+	 7Xv/1kDzr8DbwRyoOUDFkzIRcJydqWdiDjqH9g1LPbkFvNzYLwAmYlmWTR3MzY3eGg6vI
+	 F2DAzoFpzz7pOUp5t02Q+nLw0Jtt3Af/jhnpcJFADP7lWRyoJWOMIiq4knwdwVBkWQvJM
+	 qcRSflfBaojtbOJ4bP7lkpsUB2FGin+WGQ2t9dk1Ame98pxXHATdHyrS5fetWbGOq8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795759;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+imR2EkDXt7g9BNSt/+SVergcOsqx7phY9wqlOz4x/g=;
-	b=BGHKzDdv7gIpc0TfDixPtZQa8+aiKO10aLEiqCPv9CgCz9peGMonXPZy65wIC2hDbbQN
-	 h2ZRTgO3BwlKxq1e35iNJKwMQwL1mhf9Rz2GJ0R0RTt7Sf5wvzCv93Jf1UqBweJ4kCFdi
-	 GxLt7rs7bneltjCyQVKHa5mHThdwEAmo7yiaqF7kLxRsksvf9P5F8QAVdg9qGrZMbiHhA
-	 ZVJHoESyFwhnbiu7xhn+2IJNU/Z8eZ+B288+XkhxtNuaBxT2lR4iLisOjrttxe4HEcgwk
-	 4oxCvDBWAssqYwMANSgYGum1IO5P2l/YYoGwbDyBS1kmZoZj9h+7Z8o7BR5WyG5ksVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795814;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=m2q5zprOd1HlfNJGZr5kfMMxRfdDFLnmMobPdffdDHQ=;
+	b=17UFa2vKieP2m48KdpdkqklmNQONzamAkhVEQQAFQSA/lTyikekU+p82nx9wzk926Nf0
+	 61yhzRFjnHXi2BN2yKVzCBA0ofPhPOwBoFkh3FsQWSy53Xs7WUZxaWspNnrXhb08WkvXm
+	 NlwmzqRe13MexMH33W61K9gV1MEenPHTzI4/baNgJfuLaQq2wDgSNgMMBKqSuSskHhr3M
+	 ZUCfdpawxhMKVO5AFt6mjuEcLMyH+DT2qc7J2nTfiA4ifWi4mqtFEE/4rm+PajLId7Fel
+	 xQ0md1V2ElTcbNBwxlx3Y0Nyt65bHCgbOlAldajTZLcbkg8Jn22JTO4VY7W2+t2foAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyFeSKeC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QN5FGuoG;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732C5606A328
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:35:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CDE606A326;
+	Wed,  4 Nov 2026 12:36:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63CDE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyFeSKeC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F751F000C1;
-	Wed,  4 Nov 2026 12:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793795759;
-	bh=+imR2EkDXt7g9BNSt/+SVergcOsqx7phY9wqlOz4x/g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dyFeSKeCQMKr/QCjIm3IMno9ljs5cPXxyhHoINVvCnHyWQdJl+wmF1PNL1QbN5Ks5
-	 8QBhdi900NTmyYWkOFoz0aJGoxtFd3K4hs32Wl09JD5HAnHkcndzmYx8yLIFfwSguP
-	 LjjlQLrBKd5iDQWPVD1u3225XhyL97yMhJkDoVL2yB8SnBEbRj/R3WSycfmgeX7Aer
-	 py379IvJ1XK128ODJ2X1agXMu5aK3S9lFkVbzIJmazqvH/JU9AM6y3c5IFx5J1MqQ5
-	 UO94t3/sXaHiCNqU0kfgyJntbn2gVUNZIxXiKX0SaxypNr+pJ1bIVc8htMl1KpqWrJ
-	 AbT9ClM5doxMA==
-Message-ID: <sashiko-outbox-197260@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] dt-bindings: i3c: Add support for Qualcomm I3C
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mukesh Kumar Savaliya" <mukesh.savaliya@oss.qualcomm.com>, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20261104122155.3789346-2-mukesh.savaliya@oss.qualcomm.com>
-References: <20261104122155.3789346-1-mukesh.savaliya@oss.qualcomm.com>
- <20261104122155.3789346-2-mukesh.savaliya@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 12:35:58 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QN5FGuoG
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 72C69C8F46F;
+	Wed,  4 Nov 2026 12:37:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 70EFD60770;
+	Wed,  4 Nov 2026 12:36:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D33CF103291D1;
+	Wed,  4 Nov 2026 13:36:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793795804; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=m2q5zprOd1HlfNJGZr5kfMMxRfdDFLnmMobPdffdDHQ=;
+	b=QN5FGuoGBU8EK/D8Ta5MqTqxt7iivT2JbjzmWJP8NCrtXBFPM3wQbQERdll8Nyh8be5YkZ
+	iD2b3TErWXdJPkY0+ZS2iqlzVkDQmaCV3SYJ+OuQ7SAnzU83fwrFJE6gb9wHW6a94fvC+0
+	ECqAxa5m5BFVKlw+BIpq4tydMCC5tlNJBAeoiRJ4kZ8FTKIEQKd8vTGbdZlkncjq0BK0Kl
+	skxzauoqpAoJhzmKTyqI9Da51N8aK/Z2TmmWET7bsdHPRURIvkM7mNLdPMVyIElsKtviuC
+	MP8U1QSlNjCZT6q1BBV75gPx9D0fgREUvSy/xuwnOWyr4K/a8h402dCF+xnVUw==
+Message-ID: <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
+Date: Wed, 4 Nov 2026 13:36:36 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,167 +61,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
+ global power budget
+To: Jonas Jelonek <jonas@jonasjelonek.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Sander Vanheule <sander@svanheule.net>,
+ Russell Senior <russell@personaltelco.net>
+References: <20261103220312.860629-1-jonas@jonasjelonek.de>
+ <20261103220312.860629-4-jonas@jonasjelonek.de>
+ <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
+ <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Low] dt-bindings: i3c: qcom,geni-se.yaml missing i3c child node pattern
-- [Low] dt-bindings: i3c: qcom,geni-i3c.yaml requires optional pinctrl-1 st=
-ate
-- [Low] dt-bindings: i3c: qcom,geni-i3c.yaml omits power-domains and OPP pr=
-operties
-- [Low] dt-bindings: i3c: qcom,geni-i3c.yaml example uses QUP base for IBI_=
-C reg
---
 
-commit 2e47e899944b24dd4c6fc08e4da686257bf4137c
-Author: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
 
-dt-bindings: i3c: Add support for Qualcomm I3C controller
+On 11/4/26 13:20, Jonas Jelonek wrote:
+> Hi Kory,
+> 
+> On 04.11.26 12:32, Kory Maincent wrote:
+>>
+>>
+>> On 11/3/26 23:03, Jonas Jelonek wrote:
+>>> Use the optional VMAIN regulator power budget to configure the MCU's
+>>> aggregate PoE power limit during probe. Quantize the available budget to
+>>> the protocol's 100 mW units and reserve exactly that amount through the
+>>> regulator core.
+>>>
+>>> The regulator budget represents the usable PoE allowance. Program zero
+>>> reserved power so the previous firmware guard band does not further reduce
+>>> that allowance.
+>>>
+>>> Require a finite budget of at least one protocol unit when vmain-supply is
+>>> provided. Program the budget before selecting dynamic power management and
+>>> ungating the ports, so enforcement starts with the regulator-derived limit.
+>>>
+>>> Enable VMAIN before hardware initialization and register one managed cleanup
+>>> action to free any reserved budget and release the enable reference on probe
+>>> failure and driver removal. Record each successful reservation immediately
+>>> so subsequent initialization failures are covered by this action.
+>>>
+>>> Read the current budget index before programming the MCU. Retain the
+>>> programmed MCU limit on probe failure and driver removal, as reducing that
+>>> limit to zero would interrupt ongoing power delivery.
+>>>
+>>> Boards without vmain-supply retain their existing firmware-managed
+>>> budget.
+>>>
+>>> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+>>> ---
+>>
+>> ...
+>>
+>>>    +static void rtpse_mcu_cleanup_vmain(void *data)
+>>> +{
+>>> +    struct rtpse_mcu_ctrl *pse = data;
+>>> +
+>>> +    if (pse->requested_budget_mW)
+>>> +        regulator_free_power_budget(pse->vmain, pse->requested_budget_mW);
+>>> +    regulator_disable(pse->vmain);
+>>> +}
+>>
+>> Following patch 4 logic, you might not want to disable the PSE controller power supply,
+> 
+> I added it because of the requirement that regulator_enable() calls must be
+> balanced with regulator_disable() calls. Accepting that this may power off the
+> rail in theory, something outside of the driver would need to keep the supply
+> enabled. Concretely, I'm thinking of "regulator-always-on". And all boards
+> I've seen so far which can use this driver do not provide a provide to really
+> power off the PoE rail. Sure this is no finite guarantee.
+> 
+> What is the correct way? I see either droping the enable call too, just relying on
+> that it is correctly handled outside of this driver, or I keep enable + disable and
+> the continued delivery is ensured with "regulator-always-on".
 
-This commit adds the device tree binding schema for the Qualcomm GENI-based
-I3C controller and its associated In-Band Interrupt controller.
+Indeed if you use "regulator-always-on" it does not turn off the power 
+supply when we call regulator_disable().
+https://elixir.bootlin.com/linux/v7.3/source/drivers/regulator/core.c#L3269
 
-> diff --git a/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml b/D=
-ocumentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-> new file mode 100644
-> index 0000000000000..bab89aeee23f4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-> @@ -0,0 +1,115 @@
+Does the PSE controller needs this supply to start, or is it only 
+required to power the PSE PIs?
 
-[ ... ]
+If it is the first you will need to enable it in the driver.
+If it's the latter, you could describe it as the PI's regulator parent 
+supply. An enable of any PI will enable this vmain regulator.
 
-> +  I3C controller nodes must be child nodes of a GENI-based Qualcomm Univ=
-ersal
-> +  Peripheral(QUP) wrapper. Refer to the GENI QUP wrapper binding describ=
-ed in
-> +  Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml.
+>> this will lead to a power off of all your PIs.
+> 
+> Is this enforced by PSE-PD or just based on the rail really being turned off?
 
-[Severity: Low]
-Will device tree validation fail when an i3c child node is placed under a
-GENI QUP wrapper node?
+If you call regulator_disable() on the main PSE power supply it will 
+turn off the power rail which will turn off you PIs.
 
-In Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml,
-patternProperties only permits spi, i2c, and serial child nodes while
-setting additionalProperties: false:
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
-patternProperties:
-  "spi@[0-9a-f]+$":
-    ...
-    $ref: /schemas/spi/qcom,spi-geni-qcom.yaml#
-
-  "i2c@[0-9a-f]+$":
-    ...
-    $ref: /schemas/i2c/qcom,i2c-geni-qcom.yaml#
-
-  "serial@[0-9a-f]+$":
-    ...
-    $ref: /schemas/serial/qcom,serial-geni-qcom.yaml#
-...
-additionalProperties: false
-
-Should Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml also be
-updated to allow i3c@[0-9a-f]+$ referencing /schemas/i3c/qcom,geni-i3c.yaml#
-(and disallow it for qcom,geni-se-i2c-master-hub)?
-
-> +
-> +allOf:
-> +  - $ref: i3c.yaml#
-> +  - $ref: /schemas/soc/qcom/qcom,se-common-props.yaml#
-> +
-> +properties:
-
-[ ... ]
-
-> +  pinctrl-names:
-> +    minItems: 1
-> +    items:
-> +      - const: default
-> +      - const: sleep
-> +
-> +  dmas:
-> +    maxItems: 2
-> +
-> +  dma-names:
-> +    items:
-> +      - const: tx
-> +      - const: rx
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interconnects
-> +  - interconnect-names
-> +  - pinctrl-0
-> +  - pinctrl-1
-> +  - pinctrl-names
-
-[Severity: Low]
-Should pinctrl-1 (and pinctrl-0 / pinctrl-names) be dropped from the
-required list, and pinctrl-0: true and pinctrl-1: true be declared in
-properties?
-
-Under properties, pinctrl-names specifies minItems: 1 so that the sleep
-state is optional, which matches the sibling bindings in
-Documentation/devicetree/bindings/i2c/qcom,i2c-geni-qcom.yaml and
-Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml. However,
-listing pinctrl-1 in required forces every node to provide a second pinctrl
-state and causes dtbs_check failures for boards or SoC dtsi files that only
-define the default state.
-
-> +
-> +unevaluatedProperties: false
-
-[Severity: Low]
-What happens during dtbs_check when a qcom,geni-i3c node specifies
-power-domains, operating-points-v2, or required-opps?
-
-Sibling GENI Serial Engine bindings such as
-Documentation/devicetree/bindings/i2c/qcom,i2c-geni-qcom.yaml define:
-
-  operating-points-v2: true
-...
-  power-domains:
-    maxItems: 1
-...
-  required-opps: true
-
-Because neither i3c.yaml nor qcom,se-common-props.yaml defines these
-properties and unevaluatedProperties is set to false here, won't QUPv3
-Serial Engine nodes that use power-domains and OPP tables fail schema
-validation?
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,sm8550-gcc.h>
-> +    #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
-> +
-> +    i3c@884000 {
-> +        compatible =3D "qcom,geni-i3c";
-> +        reg =3D <0x00884000 0x4000>,
-> +              <0x008c0000 0x10000>;
-
-[Severity: Low]
-Is 0x008c0000 the intended address for the IBI controller register space in
-this example?
-
-In arch/arm64/boot/dts/qcom/kaanapali.dtsi and
-arch/arm64/boot/dts/qcom/sm8550.dtsi, 0x008c0000 is the register base of the
-parent QUPv3 wrapper node (geniqup@8c0000) that contains SE1 at 0x00884000:
-
-		qupv3_2: geniqup@8c0000 {
-			compatible =3D "qcom,geni-se-qup";
-			reg =3D <0x0 0x008c0000 0x0 0x2000>;
-
-Also, this example mixes the SM8550 clock header with the Kaanapali
-interconnect header. Could the example use consistent headers and a valid
-IBI controller register address?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104122155.3789=
-346-1-mukesh.savaliya@oss.qualcomm.com?part=3D1
