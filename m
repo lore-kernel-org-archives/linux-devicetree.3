@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801705;
-	b=zrGg8Cua7hm3CDnP7MIcewMJWZYNIzNEqUyhfg2gWL5hnstDQHbb+TP9WB0cJ2HTSzC5
-	 HMLFmduogHY2A5U07seYLlBPIeNCMgsE6BhezhSUVmQpriUWVVHmU2rcZncrD8ZACo/B3
-	 OIzIsXGImgkLs4PFGwkCA0hxpp0pFYZHU3mh+ySii8f9r7t/v215AfCUUQ4qQ65GcHaDH
-	 lPDjeFKjBYBu4INpZeZtzBZxpeRULcPGc+Lc+f0mQP28D1mwxe7uR9FJLVvotrw6PB0xm
-	 X1XSHRkuHyQr+FwAfzCfX5opN8PSTCVrSmtycGr5Ui2O9p0DziJBZlBxfNkADyel6lA==
+	t=1793801718;
+	b=tZrlCDBn9Owz04FIMRrf1pyzaGJv9wHmb6VUU7XX/8ENnqzimRCMGNF8IXT0A88ZMskl
+	 hRApHzD62IgyTdIz+nCRIbkp4MEGEJB+443FwpQhord6yH2WKCwCP2/boiuTtBvQ1T8lf
+	 vBZyERG9/QRU+2Q3KdXoSpa4DtqrEP1jyXB9eWD8PWdLq2pmc7y6NTpu0+P8EHLI7wldl
+	 XRQU5iFOjjsXLwzoriqtEiBG40O8R9tyJ6Y+x2gSuETEOCDdwg3JKEoY5zcM+aq98gEAU
+	 nWI1UcpQZ/tO6996k+03K+M481KRK3bUbfGyVS/pq/R0zQ0HD04dJNO5pUNt6ciSQdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801705;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dlGw1Vs2nk7w7nEQo4xUi2ZyVkWq2NAceMJqFlWbasQ=;
-	b=JFd0sRhh68Gz4qH9ihN09u3DwYXzCZA08LKDsVpyIt5nLf+Rq8jBbcTbl3+psD3s2m/w
-	 BLbtdTD3Dn2eqmts3qXIjSkRT8WMl/cwM975iKTi0TCWjUKUC11FmAB+Dakj+42AlBkqa
-	 w8dn+m6uQwafmLV8ihs2vMVnMmq3nWqYFsvAM57Z/RyiFd5twj++xcCWKKEAZll8hOQN6
-	 NS0x6jn0QYKl0d0JWrWXryfuBB1oT4xsKBLLZq5b1pyXqb+YbDD27fL5ja8dk4yqo3fbS
-	 PPdFPDqvdbD5wrk4nhUbGzqS9o1vGiYalypuj9wxzzV8q9NoSkD9Ep1zaML1ApUzFyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801718;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=5DgJF2eS3rynnoix8a0tCd8I+sIiA2/Zqur1NudbvAw=;
+	b=K5AW1doRqKtlNn3tzqZm/LO7DFVXMTNbVroGrUK8rZ6l5wY1Mxi8Pv+m9I4ZsmfpJ9Vj
+	 SdGjoJTTYrQeouCYP1CUxkHy9xiU88UBgF/74pztDy9KWkbesJRGsRSLAY3FP4sFfK92r
+	 ablHsazuNQfi27pGjjENh4wi56YAvq1haex4GIr/E/DYDIZimzdpxhhQhE2Pdt/nUg1EU
+	 6yUyiTUyvzHs2JizTDpEzotEHst5cFM3uLpnVpLR5qGcgJNKVOZutQnvg1geDOh/joWHK
+	 M78t4S3chmVzLpTJFD2rM/wntJy1X+Beo9gJhKhRb2uYvpgtW0kn0BLGYAzck0RWrVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1RLMMXH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rdmxtu8L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48722606A31B;
-	Wed,  4 Nov 2026 14:15:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47598606A33F;
+	Wed,  4 Nov 2026 14:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1RLMMXH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18A71F000C1;
-	Wed,  4 Nov 2026 14:15:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rdmxtu8L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03FC1F00919;
+	Wed,  4 Nov 2026 14:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801705;
-	bh=dlGw1Vs2nk7w7nEQo4xUi2ZyVkWq2NAceMJqFlWbasQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j1RLMMXHEyo2f6D1+nzgQCuhYaCy8BEeswjiZLJo8ntXW+jdVF1GBWevzM3w17WfZ
-	 +xthdHRgLaRGDsv3+jKY9TB6VuKLHEQfuSjn8j1Quh6rFukilGSkfwftoCwF7sX9gX
-	 +8Yq0YKDUOD/7Km4y/qM/JDxomv3bB8pgaPR6ENEKLYqgXEHjlYR51zXMWtxD37P9L
-	 G8SH66QYQWQWROlJuKubXFvzKP08ofmjDuc9K4e1Uu3XMshNItX3wEwvlAj5VjDGn9
-	 wEKx24WdcqMBV+ocQlu6VT6QerMwlB/JmFkwynL95bIikKijEyAPkojtLjRbJbcVKp
-	 Bl97hZpy82pJw==
-Date: Wed, 4 Nov 2026 15:14:59 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, 
-	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, Icenowy Zheng <uwu@icenowy.me>
-Subject: Re: [PATCH] dt-bindings: mfd: syscon: add T-Head TH1520 compatibles
-Message-ID: <20261104-cryptic-influential-fulmar-7d0a7a@quoll>
-References: <20261103054716.1767730-1-zhengxingda@iscas.ac.cn>
+	s=k20260515; t=1793801717;
+	bh=5DgJF2eS3rynnoix8a0tCd8I+sIiA2/Zqur1NudbvAw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rdmxtu8Lo1onPzSAzYG0c94vlhxOY/yvmK/XdlGQRinYkLfA4bgFr1sZQ6j1nqp8U
+	 m3ZAZSsAsTD8mITmfNKuNlZjvdp0w8hKIxOt1cbmLjePGDITllOcp0E9R61n2uJBCC
+	 c2XrfcQq6FtrKsXz8uUqtLK0aobD1HCcYTv/zD7wTHCxrrL+6Ze8RbLJh56G1pHYPE
+	 mw7TFdL0nzWbBNeWXsTEkHowI5y7FW4//0cuY6A8HvZGSsEKTMV0rMgyVMgOze6sj2
+	 R5NGJIL2gxiL41tq8QOAjf2yvQDNr2COn5aEV7N14xlPnpi0gsPg6VcNNTx+kBFhgI
+	 fYiRSUoHpKJAg==
+Message-ID: <sashiko-outbox-197416@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 9/9] gpio: shared: generalize most code to firmware
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 14:15:17 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,25 +60,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103054716.1767730-1-zhengxingda@iscas.ac.cn>
 
-On Tue, Nov 03, 2026 at 01:47:16PM +0800, Icenowy Zheng wrote:
-> T-Head TH1520 has multiple system controllers for the "subsystems" on
-> the chip.
-> 
-> Add them to the syscon binding.
-> 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  Documentation/devicetree/bindings/mfd/syscon.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] gpio: shared: unused gpio_shared_fwnode_traverse() when CONFIG_OF=
+=3Dn
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 6eeb937e478380a7cc0f030271074c97cd8b7361
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+gpio: shared: generalize most code to firmware nodes
 
+This commit converts the device-tree scanning code in gpiolib-shared.c to
+use generic fwnode APIs and restricts the CONFIG_OF preprocessor guard to
+gpio_shared_of_scan().
+
+> diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
+> index 8c9ac9d933049..58ac049bb603e 100644
+> --- a/drivers/gpio/gpiolib-shared.c
+> +++ b/drivers/gpio/gpiolib-shared.c
+
+[ ... ]
+
+> @@ -292,19 +297,35 @@ static int gpio_shared_of_traverse(struct device_no=
+de *curr)
+>  	return 0;
+>  }
+> =20
+> -static int gpio_shared_of_scan(void)
+> +static int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
+>  {
+> -	if (of_root)
+> -		return gpio_shared_of_traverse(of_root);
+> +	int ret;
+> +
+> +	if (gpio_shared_fwnode_ignore(curr))
+> +		return 0;
+> +
+> +	ret =3D gpio_shared_fwnode_scan_properties(curr);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fwnode_for_each_child_node_scoped(curr, child) {
+> +		ret =3D gpio_shared_fwnode_traverse(child);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	return 0;
+>  }
+> -#else
+> +
+>  static int gpio_shared_of_scan(void)
+>  {
+> +#if IS_ENABLED(CONFIG_OF)
+> +	if (of_root)
+> +		return gpio_shared_fwnode_traverse(of_fwnode_handle(of_root));
+> +#endif
+> +
+>  	return 0;
+>  }
+> -#endif /* CONFIG_OF */
+
+[Severity: Low]
+When building with CONFIG_GPIO_SHARED=3Dy and CONFIG_OF=3Dn (for example, u=
+nder
+CONFIG_COMPILE_TEST=3Dy), the only non-recursive caller of
+gpio_shared_fwnode_traverse() in gpio_shared_of_scan() is preprocessed out.
+
+Does this trigger a -Wunused-function compiler warning for
+gpio_shared_fwnode_traverse() unless it is marked __maybe_unused?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-fwnode-for=
+-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com?part=3D9
