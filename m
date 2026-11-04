@@ -1,50 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798907;
-	b=zO5PoJGPfNVud3Y2lBMcS4XbOWaq2e3n5AFGXlBCujevzg8i9Fi8sGZUYOG/kF6Nv97v
-	 xAHxa2Q1S6EmmGFBhFnnpMwDt8DVFCnHgWpVHfjS7H0zx5Qrsw8DGBpYM6M8RzAXxJyyQ
-	 gbfhJOlgzxKSQA20mr0K81vPIA2aCKIX85BF+DzBna0mSv/N2qcfOFmvYZhzW8GTvXbod
-	 yCwLrqGiBJ7WmEouhhm7OJVWUmxNECr6YEH1v1+/UY3QxMYU5HEvxsgJzFmOTNhxw//6U
-	 rmYgONo/FGcW9DxozipXRHphK/r1qFpiunGUzIi69RRjhYj7rHQv8ORLdB/vo/cgKSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798907;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8i8Gt1iQa78D7XvWjNqKDdpDP87VjZn0P4Fq7WSVPeY=;
-	b=fdtYX7U5vuYDv7Bjk+Q59Tpdo5yOnCVnMA2dg+tUPkCSzM3e1QFZo8NMWomUQ7zH5Nb2
-	 1KuuTU7AmymFGoRdnLFBt/dBSIJrcKz29t4xt4O7hWIP/FV/KtXIHfvayfYz1MmhpQMtW
-	 e1UjLE1as4VgKVp1x/4ShqdisZ0wwTFUBgprVMFjPd6xj59guTEZTbptkcuTACgNQo5Ge
-	 Ow+trJSBYFtlWe/FOONS/p7BvFZ0pF4cTIhq2KjVVYCi+UfPozORiizTMIhHwc0m3NvYe
-	 zEW9tHMIWlmLYuXg8kLgk3hpDBppRGsdTcPKJm+V6540a8e4rP26xFXFZ8/qMOmj+xA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=p2Ohc52d;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793799154;
+	b=qKy/u9Vvx9vGj6k3w1AXIK387vxqAPkN7n/3Kv6AK7OVs5MCvSptNd5a7y3NYG5D/T1u
+	 XeJvwH9lasXNqL2s05rV6cLUFpYlGeEpAdlI7FdRKB5vIDtNg5x+JAgPTCjCB0GrZpiGW
+	 Ye0PNSIk1glspxVP81/K7LH19e4wcxMxgpyKRSDbFpYcCQwx58L6p1vivJwtdEhCUBPlV
+	 N+sK0yVZ11j0D6gZKorDVIJ3VvKKIHYs2YD9dI5EWcmrRD0LC4fOAH8u+AP8Dx8Hxbk6f
+	 beztCdI0z5xygoTF53Yn+ve7DYVh+5+RCT9glS20nhJXXb6NPqxEMQBQ8J9OVNZsjQg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799154;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
+	b=GS2OSqzL9ZcSDInl+glkdCwlrpnWYsHK6+Vx0mWf+OF+9zbx2BLMoZggNIzUl27ZQVL6
+	 GCBeZjr6fdNca1//oX+mwfGAL6fx6ei9HUttIli7Ol1lwZZvI/MGBLyiK/YbScj+CDcHK
+	 uhiTWPoWw1zcOIT48O8gIH7cq9vDGWRYd5XIm3o7LTDE2AjdFqeK0jzPQrbIUE5KmJk0O
+	 LqClA3AHFxPrscQE5AI4tJg2BRZUmrpKB7/1JXlC4I+GehMVgbpNeZl/zCqLHCgukhR2B
+	 Lt5j2GnUcxQ7vDM885h2C0xOIVtIa5yLJDt8zpxWpUm8CBVnq/zyGP/xeKORlddzBlQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy9pS4bp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E83606A31B;
-	Wed,  4 Nov 2026 13:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E83606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1E2606A330
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE1E2606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=p2Ohc52d
-Received: from [192.168.33.24] (185.221.143.99.nat.pool.zt.hu [185.221.143.99])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DFDD8BE;
-	Wed,  4 Nov 2026 14:26:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793798766;
-	bh=nle8zh40simosNCAgBe8q75lC3RldexvgyWriSXG2RM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=p2Ohc52dt0m80OL1Gr9OJC3EQquraG8Rh4/BuTvyYdVE+BO1STm47R76Ryx1VcRWD
-	 xNdnX2vJIOWtYOX6wFe/EIgGvB2Zh3bt/lMhNi/PALWo6QXTAzzP4VxWNR2tpDi5Wy
-	 8Cg0ok+sboE7PX5EqcV5IICX+zVUePYBNXIIzjEQ=
-Message-ID: <a4923238-e911-4da1-939e-f888d8d0a01d@ideasonboard.com>
-Date: Wed, 4 Nov 2026 14:28:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy9pS4bp
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-704597ef1d8so276576eaf.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:32:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793799153; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YErfnt9NXFhJ5toC38uoKShPP5HgCpqtT7WZwD+Jc91KzMWjufJsclJZd7Hmu5NBT0
+         HVYh7kWUU/nO38wIW81+bcjZSGgic5bBxAE47ADUmtQAQKDESsRSryYHMrEq1MAEkpVB
+         8BEpNDKowgauPFVVxzPehiRK1v43XYPI9tReIIHUY26J7IbP0J2pGBn04AQ5Sh+7pNcd
+         /Kc2ufKKvBRC/YKZPHnIkSMmkrHBzYqhiWHobzvdiiUU1Q7Qh74eX3H5fyr/6SnCVFrC
+         5w/puHEVYvleSDLuaa/EWVdj2sG6igoB8X7XdZ0rvaVIdjWZns2MbjVvJczSxBewU2CT
+         of0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
+        fh=y2Sa0iqe2OIpk7iuAkXKe0Z2LM/ByHxvYTgX8Ud6vTM=;
+        b=bj546jTHDDvUJESkGCKCRVMDvo3Z6+BSf0UuPNFj4n5LPycQgctLJU63D9ktX8/5Dc
+         DlPm53+o2rrKaOqTF1YuUXoa7yGkTFe6vBnDL8D2xNbtDKTVm1Ak7OTG+a9L7smSuCLn
+         48VefQdupFnkup7y5OIL9PfNEu33Z8Mc1UMOdCnz0Ocl2/WcZiF/Ninkne8z0nk2cYAy
+         3hLA/4fUy20FOJlKgCTkP9XJT/OYYVfWl6VRC0JvvUU9F1RgE03L08XWNG668sMf4sV3
+         C4KM0lJ79NNh8OqGMxtcKSS8oz87G5IAa3vIG55I3RhCT0sq/HWBJgdaCL7zlK80nT+2
+         7daw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793799153; x=1794403953; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
+        b=qy9pS4bprOjTsWRvlH9jkM15Jb6X9A27TdRPIVsM3h3dXuLNkrkluEELmjTLBM+V3P
+         ncmegftrX1Jbf48M/GIiWSkyr9c2afUzcpyDNVJUxw2kErAFuFuiYBM0d4r2Z2WVe8/P
+         mryc8gKuoM+SPz7kBRJsT3vcNUF1prKGEyid+vyji8hwjKqA/XununEaEOmNqxRbF7Ik
+         Ay6P0FIY9Xe7oHKlx6qraSAP9Dbjx59WRcXWsOznu+IpcBB6lS5xl7kIb0TV6bN2rGXy
+         D2jjv2adUgO9gp2wR1eQZMN2kZBuWpiOMzIW4Nth+vi0fpGicG3Y+McnpRkp2x+TqdRj
+         /FeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793799153; x=1794403953;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=flt7oH/ETh3Es2fb8h9unV+oYzs4yKusapEzarwUpgQ=;
+        b=pue5EnoR3EoCpyh6hHZLPtqJYEZXUo1Hc5tQfR8uDvOfKd078Znf69W5TqOayL35VU
+         cJDnZwHKLMomA4e1dBiBDpDFHT0dvw5Pv2D5zTPua6TeD4yckPhOVGry2/37wJ05clIw
+         mtbaaRaC4tCeMWOwuMJ4IAo0bcsUK2yw1a+Y5h7gXU+fSwHhUvtRJ4gQdcGNFzXqRy+r
+         LKJSKp8aQolsARYWeflttVbYjVz5pXT1XC5xXaohQ2Cpav3ycyAsFaAsD4CJWtLiC7Yo
+         eOWR/1i7h82HjN3+yqFncxG7KQdUcQSS3WEdFEPqKQUL7X/vMLfI+CRlmlToBefWZU0r
+         srSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxthaBWNaohhlJ9F0gk/WtJSSBSWMhbrkmmnTSTf36vvlai0msFzqbeE8bVP4SG73PLXLVgZgTea932@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ixmv2BiEyePmDV/hourBupakOmL8B8zWsH6cPcOgrvXM5DJrQ
+	O1Q5WhBMx/pjL90sc2V6XjH04SphkBCoy1yHpMoo0H3oQ+wuz58/d68l2D9C0sdca9FIcRDQU9F
+	H40vWOSCfeoZ46rD6NeiLcT3RvJ7K1iONGg==
+X-Gm-Gg: AYBFou0ukq4qRX4V7BmByfQ++R5BFVJNR5Cp0cEFLWg6v08WDv3DOW+IAX0q53zvTS7
+	vQvwPB+W7uSgE98xQeEETns/Fji7RPLDfiUo2zWOIr940SxBm5QyffKmwsXsz5hocD4yApeflx7
+	am2eAccS3YuKnCqqzbdW5TCuo9aKYQyo8ss59Vjg2CIGbIqyNfA8pu192pgsUMdXYlLcHdAbbJx
+	BMdskgcyQqirOGoVJbnWHddoAq7l+EV0ohqISPYaT3BNf8FWA+xpVXXYfn0BsAyPtBWx6KrTsTP
+	38n2+1+1ziro4kwcKXbyn5lI/zRcu2keLqz7GAGEp3ugyOUDgelJ99kKxVA0IhRClvt9G+Rc+eS
+	CHBkQyJ2HRahODQDow1RbT3lT3tHqCZucdaCk2a3c6CVb733adpyYK2oGLqqj+w==
+X-Received: by 2002:a05:6820:55d4:10b0:712:c3fb:b4dd with SMTP id
+ 006d021491bc7-714f2a07b44mr6865589eaf.58.1793799152650; Wed, 04 Nov 2026
+ 05:32:32 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,170 +104,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/7] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H
- EVK
-To: Linus Walleij <linusw@kernel.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Conor Dooley
- <conor.dooley@microchip.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
-From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
-Content-Language: en-US, hu-HU
-In-Reply-To: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev> <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
+In-Reply-To: <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
+From: Chuanhong Guo <gch981213@gmail.com>
+Date: Wed, 4 Nov 2026 21:32:20 +0800
+X-Gm-Features: AclHuK9KjWGPhCZrdzN2zSc99IwcSQrcSlYV4KRQtVdLRgeo4bHU_zFbKSD1vFk
+Message-ID: <CAJsYDVJ+FWHJ9AaJCmQwwfdsVJJC5mPw-fXzr2n6OAsZFHJbEA@mail.gmail.com>
+Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
+ reset manager driver
+To: joseph@telaak.dev
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Yao Zi <me@ziyao.cc>, linux-mips@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+On Wed, Nov 4, 2026 at 3:21=E2=80=AFPM Joseph Telaak via B4 Relay
+<devnull+joseph.telaak.dev@kernel.org> wrote:
+>
+> From: Chuanhong Guo <gch981213@gmail.com>
+>
+> Add a platform driver for the peripheral clock and reset manager (CRM)
+> block found on Siflower SF19A2890 and compatible SoCs.
+>
+> Each CRM block manages a group of APB peripherals through three registers=
+:
+> a reset register, a clock gate register, and a shared Bus Output Enable
+> (BOE) register that must be asserted for any peripheral in the block to
+> respond to bus transactions.
+>
+> The driver registers a clock gate controller and a reset controller from
+> a single DT node. A shared spinlock protects all read-modify-write
+> accesses across both. BOE is managed automatically: asserted when the
+> first clock gate is enabled and deasserted when the last one is disabled.
+>
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [jt: from Chuanhong's siflower-7.1 branch; one compatible per block with
+>  its gate bits, critical gates and reset masks in tables here instead of
+>  the siflower,valid-gates, siflower,critical-gates, siflower,reset-masks
+>  and siflower,num-resets properties
 
-2026. 10. 27. 17:11 keltezéssel, Linus Walleij írta:
-> Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
-> interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect their
-> video endpoints, and enable both blocks on the RZ/V2H EVK.
-> 
-> Two additional RFC patches replace bulk clock and reset operations in
-> the Mali-C55 driver with explicit sequences using named handles. They
-> reproduce the driver call orders from the reporters' working DT swap
-> while keeping the clock and reset assignments unchanged.
-> 
-> The Device Tree does *not* guarantee any sequencing of resources,
-> so these sequences must be handled in code.
-> 
-> Clocks are enabled hclk, aclk, vclk and disabled in reverse order.
-> Resets are deasserted vresetn, aresetn, hresetn and asserted in reverse
-> order. These are driver-only experiments: the CPG power domain can
-> enable clocks in DT order before the callback, and IVC may already hold
-> shared resources active. The physical transition order is not guaranteed.
-> These RFC patches have not been tested on hardware.
-> 
-> After these patches, and enabling the right Linux drivers, we get
-> this in the console:
-> mali-c55 16080000.isp: Detected Mali-C55 ISP 9000043.31032022.0
-> 
-> This was done in order to enable booting mainline with mainline
-> device trees.
-> 
-> The patches were authored with the assistance of an LLM.
-> 
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
-> Changes in v5:
-> - Add two RFC driver patches for explicit clock and reset sequencing.
+Why? This block is one used repeatedly inside this SoC and SF21,
+I think a generic binding with clock & reset description in dt makes it
+reusable without further changes and also results in a shorter driver
+without a table. This table in driver aren't simplifying the dt bindings
+anyway since it still needs one block per node.
 
-I also had the same problem as reported in https://lore.kernel.org/all/asz8oEtow_lrUU7K@zed/.
-So with the first 5 changes, the device will lock up when trying to stream:
-
-   [  124.093148] watchdog: CPU0: Watchdog detected hard LOCKUP on cpu 1
-
-but with all 7, it appears to function. And I have also tested without patch 6
-(clock ordering), and things appear to function as well.
-
-My understanding of the problem is as follows: previously I have used a device tree
-that specified
-
-   resets = <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
-   reset-names = "vresetn", "aresetn", "hresetn";
-
-while the order in the driver is:
-
-   vresetn
-   aresetn
-   hresetn
-
-and given that the bulk reset api asserts in order and deasserts in reverse order,
-this would be
-
-   assert: 0xd2 -> 0xd1 -> 0xd3
-   deassert: 0xd3 -> 0xd1 -> 0xd2
-
-whereas this patch series has the order
-
-   resets = <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
-   reset-names = "vresetn", "aresetn", "hresetn";
-
-so the ordering is as follows
-
-   assert: 0xd3 -> 0xd1 -> 0xd2
-   deassert: 0xd2 -> 0xd1 -> 0xd3
-
-meaning that the order is effectively reversed compared to the working configuration.
-
-However, by sequencing them in the driver, the ordering is:
-
-   assert: hresetn -> aresetn -> vresetn
-           0xd2    -> 0xd1    -> 0xd3
-   deassert: vresetn -> aresetn -> hresetn
-             0xd3    -> 0xd1    -> 0xd2
-
-which restores the working order.
-
-Given that `reset_control_bulk_{de,}assert()` very clearly document the order
-of operations. I would also be in favor of simply reordering `mali_c55_reset_names`,
-as suggested in https://lore.kernel.org/linux-media/CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com/#t
-
-
+--=20
 Regards,
-Barnabás Pőcze
-
-> - Match the call order from the reported DT swap using named handles.
-> - Link to v4: https://patch.msgid.link/20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org
-> 
-> Changes in v4:
-> - Provide interrupt names in both bindings, their examples and SoC nodes.
-> - Use Renesas RZ/V2H interrupt numbers in the binding examples.
-> - Link to v3: https://patch.msgid.link/20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org
-> 
-> Changes in v3:
-> - Correct the ISP video and register clock/reset mappings by swapping
->    vclk/hclk and vresetn/hresetn.
-> - Add an optional ISP power-domain binding and attach the RZ/V2H ISP
->    to the CPG power domain.
-> - Link to v2: https://patch.msgid.link/20260925-mali-c55-renesas-dts-v2-0-69f728a474a2@kernel.org
-> 
-> Changes in v2:
-> - Add separate IVC and ISP binding patches describing the optional IVC
->    frame-start/frame-stop completion and ISP DMA line-tick IRQs.
->    Show all six IRQs in the examples using consecutive mock numbers.
-> - Add the IVC frame-start/stop and ISP DMA line-tick interrupt lines
->    using the confirmed SPI assignments, addressing Geert's IRQ review.
-> - Correct the IVC and ISP register sizes to 64 KiB and 512 KiB,
->    respectively, as requested by Geert. GPV_VIDEO0 is a separate bus
->    interconnect region.
-> - Compact the clock and reset properties and remove blank lines between
->    properties, following Geert's review.
-> - Link to v1: https://patch.msgid.link/20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org
-> 
-> ---
-> Daniel Scally (2):
->        arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
->        arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add ISP and IVC nodes
-> 
-> Linus Walleij (5):
->        dt-bindings: media: renesas,r9a09g057-ivc: Describe additional interrupts
->        dt-bindings: media: arm,mali-c55: Describe DMA line-tick interrupts
->        dt-bindings: media: arm,mali-c55: Add power domain
->        [RFC] media: mali-c55: Sequence clocks explicitly
->        [RFC] media: mali-c55: Sequence resets explicitly
-> 
->   .../devicetree/bindings/media/arm,mali-c55.yaml    |  27 +++-
->   .../bindings/media/renesas,r9a09g057-ivc.yaml      |  22 +++-
->   arch/arm64/boot/dts/renesas/r9a09g057.dtsi         |  47 +++++++
->   .../boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts    |   8 ++
->   .../media/platform/arm/mali-c55/mali-c55-common.h  |  11 +-
->   .../media/platform/arm/mali-c55/mali-c55-core.c    | 136 +++++++++++++++------
->   6 files changed, 205 insertions(+), 46 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260922-mali-c55-renesas-dts-74d4727f59e5
-> 
-> Best regards,
-> --
-> Linus Walleij <linusw@kernel.org>
-
+Chuanhong Guo
