@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825803;
-	b=g+rouk0yz/VQlCpAKDp2OXa+0+UCPcpmE/Tyrh9PBh/gEQilCW2vOKjTwAonom2Zzqtx
-	 Lta9+eoEXt2G+oCXy053IpT2KMWLn8f2rmb68n6yWP2uDIVJuFjHWCVcAf360s+Mz1olJ
-	 IVaXABJj9AwNVs8v2X/1wMQ/6A1dN97TtEBCptpvweue2D+UYKmw2cL4ehbrOOSlv8AXz
-	 UzqHp5avkV+z/71axrZFSme0lUXMZ5KqqgWNrfufRVSpAIOwM0e3R72DZqxLkQBMf+46Y
-	 YkGv9FFFG4zaS3/I9URkjlwnG1cZbzOar4XSa73hboF/Wvo1qC1Sp1AEKNpXY4tkKSA==
+	t=1793825957;
+	b=tBB/x7088sUcX32+jHyuhHwpD7uORicX4sNHP+lQ4JSZzNCu1uXmunnmaZ3PC2HZyzxp
+	 GN9lK4t/lQwwTvr/WT5SFePYV2+NnFroLVBCO7outORetkswxNP/ZOgtvXZw1RLhtLiw5
+	 4wct2jttbQng3HksrS8QmPSPwrulqS1YXwmvXed/Oid1ifl15cnJLPEyddPj1H8V3OUrl
+	 GSY00dth244uH7Hkt8+mEtmoX8WDhXh6NaYl25Qvj2D9rHR6YXdJWLGqQuCYQU8NPhMIc
+	 3VaW7pY9AKV+WMp9FTiznLfkrvff3uQR1+5v3vKoI+9NCFc7zKDUt/sz+ghj3lZuGAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825803;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HFgBNmF1dKKEXAhT4vAg4tXiNZMtdj+Tl7klj0u5s9w=;
-	b=WLW/A5yLVDt2meTrLJFpQIEdcVhg8f4dmGCAW387KqW1L3ki4JP/vVyu3gUsmF7oFkEf
-	 5fPUKQlLnTHbazNHtPyHVp16MRP6jMlznG6eZAYctvwwEeM8NmJui5XVVlZhK9AME8sHW
-	 LQyQpjDSlD0Q8OJ65D781kTWVfCYFesZwUj6ewvBDrml+Ta0ZUaDHhHmWqYeKgGxOzuwG
-	 TQYDidzlxHLzbeKMlivLvHXIwBhui9RGNyVJdY8Gy9GMcfVMO/ZhTnoxmN5ak3hxtsJF9
-	 /5S5kECiSm28MFiSzhxZQeu+B0kJ0sCoV5yG5nrfNb5tbnpEIjGzWfD2ru878ebbX6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825957;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=GppNYjuMGLvGXPN3/RYh65TqC4RU+LDI0TC17oHb5To=;
+	b=NaXr5UEdzymIFGOdicX6zJf8/9Mu9ij49TBzf5vdp+0TAQ3EoHh3+/iDYXfMlmkOLAh/
+	 Byd5LNTeK2sQq+RhaFzqJX/fOBKD9s+QBQhTDoy15FVbsCDq8hKw+TErYZdNk3B1/qFW/
+	 KTbyue+qoFFEXJNrVas33C9KPZTNc9KzHzMJLMBijJfgbUGea7WIFuzLjWv3FO3LZLOSG
+	 noxKAJsuavP2Sx5b0/ErDNgdYlgbwC9QUm/mbNON2U+Po+JN+CABvQxxheskzEGJSS2N0
+	 N8K85LleXIoKu8pVwPHMNT8GJcf5HO34axI095PrhO2GRKqzpa4P724DNRAkfCGh4dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AjUAAIFk;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkO3IZ4q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB206078737;
-	Wed,  4 Nov 2026 20:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EB206078737
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224D9606D15A
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 20:59:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AjUAAIFk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793825800;
-	bh=DFMoN9VaSVJOOLJDXLMmcmecZLc78udASKoTWQJ1IOI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AjUAAIFkiuW98FJu5/ylNWovxCKnIXervDCdQA9Fh+rgpKxR7cLC9LjGYn0/xDgvN
-	 DWOD0IX9qA45/2uCKokePyD9FH/mO/GX69INb+wLz7GtvLwG0dAvffxnF8C/0NbEWC
-	 /mdZCIG442dQaiRve9lBLwbkCqo3zst9+3FUxjsUlYcA2T0onpOAb0rjejTUdDC2qV
-	 VXbyWi0+92XST4OaZMgkU8AMALOZhHqAxdGouxgoNPMoufb/GcrShfQTXzgv1GaOLX
-	 8YraaGnH6x7gnOXPAzOkUzqIhEh2dimoCaPvn5+mBwScM3HyJYvymkvfsk+CCdSzgk
-	 aAWnlwKfjZJ2g==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 54F2617E066C;
-	Wed, 04 Nov 2026 21:56:39 +0100 (CET)
-Message-ID: <f9797a72-2fd0-4127-b741-dfc6cf3306f1@collabora.com>
-Date: Wed, 4 Nov 2026 22:56:38 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkO3IZ4q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757F21F000C1;
+	Wed,  4 Nov 2026 20:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793825956;
+	bh=GppNYjuMGLvGXPN3/RYh65TqC4RU+LDI0TC17oHb5To=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UkO3IZ4q79j1KDVnu1/lyZXQWoAM2UoEijety7AQZrW2zM7PIltc/eU6P4NKnN0UX
+	 +N9TCXMphyixV4ZWAjx+vbG1qZVC6OvlhYJlVNp1HnsKf40DjbRhLWJxYCYmwVWzco
+	 hjXVxVQ08NJHnrOjqV60fI0kdBGPGadZnVlArgnpzLqrN0eO92uLQ45gBL1WNF0fAj
+	 W3GV9sd5LDV9zSpXeEnzJbXSkRUpMQ18Q6++Tstj9J2Hf0UYucLPEbVgBViW/5d9Tp
+	 Ca1DwXKPXwUDXwiB62X7/bk5jkC83n/wJ6GIfJWKly/eNvupAbULbwF+D6VMULRb/5
+	 9MqwjHvPqLeqQ==
+Message-ID: <sashiko-outbox-198033@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: i2c: qcom-cci: Document SM8150
+ compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrew Gigena" <mail@andrewgigena.dev>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-1-7a9534a9a22f@andrewgigena.dev>
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-1-7a9534a9a22f@andrewgigena.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 20:59:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,73 +60,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
- output format
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Daniel Stone <daniels@collabora.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
- Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Igor Paunovic <royalnet026@gmail.com>
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-13-6fab0fe43a9b@collabora.com>
- <CAPj87rOMjFEjOQ9TVgbGWu3gTwVjmjuFNtnFiyxbWO+g_RPqeA@mail.gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAPj87rOMjFEjOQ9TVgbGWu3gTwVjmjuFNtnFiyxbWO+g_RPqeA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Daniel,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: i2c: qcom-cci: missing allOf clock constraints for sm8=
+150
+--
 
-On 10/30/26 1:52 PM, Daniel Stone wrote:
-> Hi,
-> 
-> On Tue, 13 Oct 2026 at 23:52, Cristian Ciocaltea
-> <cristian.ciocaltea@collabora.com> wrote:
->> @@ -229,7 +230,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
->>         }
->>
->>         phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
->> -       phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
->> +       /*
->> +        * YUV422 always transmits two 12-bit components per clock cycle,
->> +        * regardless of the color depth, which from a rate perspective is
->> +        * equivalent to three 8-bit RGB components.  Force 8 bpc here to
->> +        * keep the PHY PLL output aligned with the TMDS character rate.
->> +        */
->> +       phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
->> +                               8 : conn_state->hdmi.output_bpc);
-> 
-> Same question as for the VOP2: why only special-case YUV422 when
-> YUV420 also needs special treatment? And presumably in a way which
-> can't just be mashed into bpc, because the maths doesn't work. So
-> would this be better off being handled as a separate output-mode
-> adjustment?
+commit aefd954e17156282727d64e6f6e3ba7607d36440
+Author: Andrew Gigena <mail@andrewgigena.dev>
 
-For YUV420, the halving is already in the TMDS rate, so the PHY PLL output
-equals the halved VOP2 DCLK - no special handling required here.
+dt-bindings: i2c: qcom-cci: Document SM8150 compatible
 
-However, since YUV422 is not deep-colour packed, its TMDS rate equals the pixel
-clock and therefore the PHY must get 8 bpc.  This is essentially what
-drm_hdmi_compute_mode_clock() does, forcing 8 for YUV422 for the same reason.
+This commit adds qcom,sm8150-cci to the list of CCI v2 compatible strings
+with qcom,msm8996-cci as a fallback.
 
-I replaced the ternary (and the related comment) with a documented helper.
+> diff --git a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml b/Do=
+cumentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+> index 1e8def25ec0ec..b545fd2378dae 100644
+> --- a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+> @@ -39,6 +39,7 @@ properties:
+>                - qcom,shikra-cci
+>                - qcom,sm6150-cci
+>                - qcom,sm6350-cci
+> +              - qcom,sm8150-cci
 
-Thanks,
-Cristian
+[Severity: Low]
+Should qcom,sm8150-cci also be added to the 5-clock conditional under allOf
+in Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml?
+
+At the top level, clocks and clock-names only specify minItems: 2 and
+maxItems: 6 without listing the allowed clock-names items. The
+qcom,msm8996-cci rule under allOf uses const: qcom,msm8996-cci rather than
+contains, so it only matches when qcom,msm8996-cci is used alone and does
+not apply when paired with qcom,sm8150-cci.
+
+Without adding qcom,sm8150-cci to the allOf conditional block alongside
+qcom,sc7280-cci, qcom,sm8250-cci, and qcom,sm8450-cci:
+
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - qcom,sc7280-cci
+              - qcom,sm8250-cci
+              - qcom,sm8450-cci
+    then:
+      properties:
+        clocks:
+          minItems: 5
+          maxItems: 5
+        clock-names:
+          items:
+            - const: camnoc_axi
+            - const: slow_ahb_src
+            - const: cpas_ahb
+            - const: cci
+            - const: cci_src
+
+dtbs_check will not constrain the clock count or clock-names list for
+qcom,sm8150-cci nodes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-sm8150-v7-=
+4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev?part=3D1
