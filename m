@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793772361;
-	b=E3qGEjdlH1E95SwnMMzb46LtGggNgFc3XFeMd0aOgu58dQRYddrmJpqac5011OGofIzS
-	 CJjVqKG2NMT2FIdPf3NqS8laY3PiiVVvkDla/2HGLXo+UOoDNHMMY025bYiA1zk92zw6n
-	 6/gEFFdIU50XEh1D9kwwH9bilZGjgukxO84s3FMOE/txLIgQonMW/q0F0WDI5KcR593dM
-	 TRw+lQRIEXb+Lr6UOhwqlsvNqwBIOjWQJ9CaV7EIhfM1ThhhpRMbg8UI4snQZWfh5/TBn
-	 jyr7fxZeKqLUFGgw6Q9yX82g4wubjbUfevsVcXkWoHfmE8UnoFsjM1MWUhUhrei4t6A==
+	t=1793772408;
+	b=X5/dftDOBBTFmltYsEqScDTwOLgpCe6Q7VilDJBoi5iDtGz7+MDt40xbCKSEQ7iAHKmK
+	 WY8lyMNCN7T6D9bJZhU+FFQWnd7dZU5uOg9J+p1iQkZNSgnx0Yt6AzEaJUx3akUXgodhP
+	 c4oj1y2DszIjxkYV20AQwuPIQ5RdVzuDdRd7nE2Z9lEmHKHGmX37Kn+LbGv1V9CuFHwex
+	 IGNRuO/vUXqx8RdqWjmSDgwNs6QzDGSvGFjtRYuDEXmVyLvXZl4cUwnx5I1ji0tECzaa1
+	 2JqVD1Skk9RS/KQAicdQCPxBcyp0Od8+GYYyMtf+ng0GxXdvfi+rnwYHAqfP6j6gNIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793772361;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=L3n36mnOsqyiV4KZF52bEPsThE+j4Itg7nle1oUa4HY=;
-	b=focj+V0Ivh+xUvIlWPgODkso2PHVGZJ09vE4vFmr58p18hJdytmOthcZ1V7JYClf53iX
-	 a6TwfwAQZ0kwgDzarKw+7ph0qqzDel6kOMt82WHNtR/pU8S68FZso6G35YAwutt6hh0g/
-	 L64gxfnrFmzfHyUjFMDTnP1DZ95f48zQ0FGPt86G25HfBy56CxUcAUnHAl57qLQJx9ZMn
-	 PjX7bfeKlFnLnvKWYc+9MCDymBqMfZL3JKtd3SMUec/XI65nIf4UM0c+TN3mDNO/qvgOb
-	 RRJUut7twJk9xMztFJtSP77vWvD6cSZ3U5B4bZ+09lCh7HxPqOKkstlZZe0HKMgEgNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772408;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=M04nz7JtAfGC0XufPbKSIPgja8ArZeDnQQ1b67GA2MU=;
+	b=ctoSDlUaJ3bAdxXkotR5QWwjEAORcjrDB5sm+HvqsHJkJ7O5LcQXObfZO8XOZ8aqtOJH
+	 rNS4XYbRwJBl3ea1VMq4Sn2qdy2ibsiYJNyfLe9AHqdhVqPwVM9abuqMaaq9XEZ7oNqwT
+	 d6nkbcho9PWKrKOTId5V+JgpWZZtCRSSHkIPLd75WeWvZZkXaqKVu85cZLi9/YvTLMCB2
+	 HYncUVS2XrV8I+3RYQvwKHADDi4ZfsjlpOomzpHw3pgWxGXTWWk5CIUrTEP0X9txe9iYG
+	 YPUP8f0LzmARzUUeDT5r/OWNyGttLXKQ7G8UqV4ph0ntZOgaMD2JSvjV5U7j6oOCReQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnlfF5vK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=motor-comm.com;
+	spf=pass smtp.mailfrom=motor-comm.com;
+	arc=none smtp.remote-ip=115.124.28.4
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7B0606A328;
-	Wed,  4 Nov 2026 06:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnlfF5vK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D181F000C1;
-	Wed,  4 Nov 2026 06:06:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793772361;
-	bh=L3n36mnOsqyiV4KZF52bEPsThE+j4Itg7nle1oUa4HY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nnlfF5vK4yGCIGVLlOoVGdVlZG+yCdwRWcmM7L9uY/E7EcZCuDRZtLKdFKXS4kuae
-	 32OCmy48roaEkqyeTamP1JTx9mpxaDXfLUxd8Z88NYlciiZk6qq8DPtQ4i6Y0uucJ6
-	 8GLOlOtUK9c79P1fOCWi8CBi9yGalB/xUweUofbT9t9eoY4tOXPXCSKKZUuKOJbM3E
-	 5LRdWyfIYBuBFeXw7DhgQSENCEPS8XpaQLGdr0w/O7cgdScQs5KbLF+yvCoWPo1JUF
-	 x5G4sf9hrCfshlGvx5bmHVjuappLcaT1WMIjMncQos73Ha0qxz+O3hSd40XSNePosk
-	 dp2BfXtllRiJQ==
-Message-ID: <sashiko-outbox-196725@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/3] dt-bindings: rtc: Add linux,wakeup-states and
- linux,alarmtimer-priority
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Velkov" <iav@iav.lv>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20261104-b4-alarmtimer-rtc-priority-v1-1-e996681b8086@iav.lv>
-References: <20261104-b4-alarmtimer-rtc-priority-v1-0-e996681b8086@iav.lv>
- <20261104-b4-alarmtimer-rtc-priority-v1-1-e996681b8086@iav.lv>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 06:06:00 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95544606A332;
+	Wed,  4 Nov 2026 06:06:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95544606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06713194|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0178532-0.000305542-0.981841;FP=16929337455097241330|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jwJZ9G7_1793772396;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jwJZ9G7_1793772396 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 14:06:41 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v28 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+Date: Wed,  4 Nov 2026 14:06:33 +0800
+Message-Id: <20261104060636.3901918-1-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,143 +64,180 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: rtc: OS-specific alarmtimer policy and sleep states=
- in DT
---
+This patchset mainly implements the phy8824 driver. The phy8824 is
+an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
+The driver mainly covers two application scenarios:
+ 1. external PHY8824
+ 2. PHY8824 embedded in a switch.
+The patchset mainly consists of three parts:
+ 1. the DTS for the phy8824
+ 2. a generic template testmode configuration api.
+ 3. the phy8824 functional functions.
 
-commit dc818a3fb414914888d04f5807458bc227693b0c
-Author: Igor Velkov <iav@iav.lv>
+changes in v28:
+1) Rebase.
 
-dt-bindings: rtc: Add linux,wakeup-states and linux,alarmtimer-priority
+changes in v27:
+1) Remove unuse macros and "," after yt8824_read_page() and
+   yt8824_write_page().
+2) Modify the function description for yt8824_restore_working_status()
+   and yt8824_config_init().
+3) Add UTP power up operation after init success in yt8824_config_init().
+4) Set sds_initialized to 1 in resume.
 
-This commit adds the linux,wakeup-states and linux,alarmtimer-priority
-properties to the common RTC Devicetree binding schema to describe per-RTC
-sleep-state wakeup capabilities and alarmtimer selection weights, and allows
-them in the amlogic,meson-vrtc and nxp,pcf8563 bindings.
+changes in v26:
+1) Rebase
 
-> diff --git a/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yam=
-l b/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml
-> index a89865fa676a6..bc4a1916f6007 100644
-> --- a/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml
-> @@ -30,6 +30,9 @@ properties:
->    reg:
->      maxItems: 1
-> =20
-> +  linux,alarmtimer-priority: true
-> +  linux,wakeup-states: true
-> +
->  required:
->    - compatible
->    - reg
-> diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf8563.yaml b/Doc=
-umentation/devicetree/bindings/rtc/nxp,pcf8563.yaml
-> index 22909a96123e5..5aabeb074c82b 100644
-> --- a/Documentation/devicetree/bindings/rtc/nxp,pcf8563.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/nxp,pcf8563.yaml
-> @@ -32,6 +32,9 @@ properties:
->    interrupts:
->      maxItems: 1
-> =20
-> +  linux,alarmtimer-priority: true
-> +  linux,wakeup-states: true
-> +
->    start-year: true
->    wakeup-source: true
-> =20
-> diff --git a/Documentation/devicetree/bindings/rtc/rtc.yaml b/Documentati=
-on/devicetree/bindings/rtc/rtc.yaml
-> index efb66df82782f..3b4b8ff90ada0 100644
-> --- a/Documentation/devicetree/bindings/rtc/rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/rtc.yaml
-> @@ -26,6 +26,35 @@ properties:
->        0: not chargeable
->        1: chargeable
-> =20
-> +  linux,alarmtimer-priority:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Weight of this RTC for waking the system on alarmtimer alarms.
-> +      Among the RTCs that can wake the system from the target sleep
-> +      state, the one with the highest value is used; on a tie, the
-> +      operating system decides. An RTC without this property has
-> +      priority 0.
-> +
-> +  linux,wakeup-states:
-> +    $ref: /schemas/types.yaml#/definitions/string-array
-> +    description:
-> +      System sleep states an alarm of this RTC wakes the system from,
-> +      given the board and its firmware. s2idle, shallow and deep are the
-> +      states of /sys/power/mem_sleep, hibernate is suspend-to-disk and
-> +      off is the powered-off system, and none, given alone, means the
-> +      alarm wakes the system from no state. An RTC without this property
-> +      is taken to wake the system from every state.
-> +    oneOf:
-> +      - items:
-> +          enum:
-> +            - s2idle
-> +            - shallow
-> +            - deep
-> +            - hibernate
-> +            - "off"
-> +      - items:
-> +          - const: none
+changes in v25:
+1) Correct the naming of some register name macro definitions used for
+phy8824 initialization to follow the conventional naming style.
 
-[Severity: Medium]
-Should OS-specific alarmtimer policy weights and Linux /sys/power/mem_sleep
-labels be encoded in the Devicetree binding rather than derived by the OS f=
-rom
-hardware properties and compatible strings?
+No functional change.
 
-Documentation/devicetree/bindings/writing-bindings.rst notes that bindings
-should describe hardware rather than Linux or device driver specifics, and
-should not add properties that are already implied by or deducible from the
-compatible string.
+changes in v24:
+1) Fix the typo during sds init.
+2) Add priv->sds_initialized to indicate whether the SDS extended
+registers shared by the four channels have been initialized.
 
-For linux,alarmtimer-priority, this encodes an arbitrary numeric weight for
-the Linux kernel alarmtimer subsystem (kernel/time/alarmtimer.c) into the DT
-ABI. Could the kernel instead select the preferred wakeup RTC using hardware
-characteristics already known to the RTC drivers (for example, alarm
-resolution such as RTC_FEATURE_ALARM_RES_MINUTE in drivers/rtc/rtc-pcf8563.c
-versus 1-second resolution, or alarm range), userspace policy, or standard =
-DT
-/aliases (rtc0, rtc1)?
+changes in v23:
+1) Remove meaningless comments in driver.
+2) Using #define to replace magic numbers during PHY8824 init.
 
-For linux,wakeup-states, several of the state definitions appear to conflict
-with hardware description or existing properties in rtc.yaml:
+changes in v22:
+1) Using motorcomm,package-mode to replace phy-mode in DTS.
+2) The corresponding parsing has also been updated, using
+   "motorcomm,package-mode".
 
-1. In Documentation/devicetree/bindings/rtc/amlogic,meson-vrtc.yaml, waking
-the system only when the application processors suspend is inherent to the
-hardware and firmware interface (a scratch register read by the SCP upon
-platform suspend, as implemented in drivers/rtc/rtc-meson-vrtc.c), which is
-already deducible from compatible =3D "amlogic,meson-vrtc" without a new DT
-property.
+changes in v21:
+patch 1: 1) Add maintainer for motorcomm,yt8824.yaml.
+    2) Using 10g-qxgmii instead of usxgmii.
+patch 3: 1) Change the usxgmii space to serdes space.
+         2) Add lock operation during phy-package init in probe()
+         3) Add check for whether auto-negotiation is enabled
+         when updating the link status in read_status().
 
-2. The values s2idle, shallow, and deep are Linux sysfs labels from
-/sys/power/mem_sleep rather than hardware properties. In particular, s2idle=
- is
-a pure Linux software freeze state where any enabled OS interrupt wakes the
-system, whereas an RTC without an interrupts property wired to the kernel
-cannot wake the system from s2idle. Similarly, on non-ACPI Devicetree
-platforms, hibernate uses power-off rather than a distinct hardware sleep
-state, and whether an RTC can wake the system from platform suspend or
-power-off is determined by interrupt/wakeup routing and power domain or PMIC
-wiring.
+changes in v20:
+patch 1: Add phy-mode description in properties in motorcomm,yt8824.yaml
 
-3. How does linux,wakeup-states interact with the existing wakeup-source
-property in Documentation/devicetree/bindings/rtc/rtc.yaml? Specifying
-linux,wakeup-states =3D "none" duplicates the absence of wakeup-source and
-allows contradictory combinations such as setting both wakeup-source and
-linux,wakeup-states =3D "none" in nxp,pcf8563.yaml. Conversely, stating tha=
-t an
-RTC without linux,wakeup-states wakes the system from every state (including
-hibernate and off) overstates the capability of standard RTCs that cannot w=
-ake
-a powered-off system.
+changes in v19:
+patch 2: Replace the int type with the u16 type for test_mode.
+patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
+         yt8824_utp_invalid_test_mode_paged() into 
+         yt8824_utp_set_template_test_mode().
+  2) Add a fatal error return when phy-mode is missing in
+         the DTS.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-b4-alarmti=
-mer-rtc-priority-v1-0-e996681b8086@iav.lv?part=3D1
+changes in v18:
+1. Split the template_testmode() into a small patch 
+   and optimize the implementation.
+2. Optimize the definition and initialization of 
+   interface_mode by adopting the existing approach.
+
+changes in v17:
+patch 1: Remove redundant description.
+         Use phy-mode instead of motorcomm,interface to describe the
+         interface.
+         Add the required checks.
+patch 2: Use phy-mode to get interface mode.
+         Need return after init configuration is done to avoid falling
+         into the error path.
+
+changes in v16:
+1. Add DTS documentation.
+2. Fix redundant initialization.
+
+changes in v14:
+1. Refactor the error return path to preserve and return the initial error,
+   rather than letting later errors mask it.
+
+changes in v13:
+1. Fix the lock release issue on the error path to prevent potential
+   deadlock or resource leak.
+2. Add a func yt8824_restore_defaults() to restore configuration on
+   the error path,ensuring the hardware/device is left in a known
+   good state upon failure.
+
+changes in v12:
+1. Refactor the yt8824_read_status() function to ensure proper state
+   synchronization between hardware registers and the phy_device structure.
+
+changes in v11:
+1. Clean build_clang warning.
+
+changes in v10:
+1. Within the interface that swaps to the USXGMII reg space,the lock
+   include shared_lock and mdio mutex must remain held throughout 
+   the entire operation and should only be released after all steps
+   have completed.
+2. Improve the template interface in phy-c45.c
+3. Fix the handling of some failure paths.
+
+changes in v9:
+1. Add shared_lock mutex prevents UTPs from interfering with each other 
+   due to swapping reg space.
+
+change in v8:
+1. Clean up format warning.
+2. Fix exception handling code logic based on Sashiko/Gemini.
+3. Remove interrupt/handle function
+
+changes in v7:
+1. Refactor the using of mdio lock
+  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
+  at the beginning, switch to the UTP address space after the operation is
+  completed, and then release the lock.The purpose of doing this is to
+  ensure that it will not affect other UTPs operating in the UTP address
+  space.
+2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
+
+changes in v6:
+1. Add  test mode helper in phy-c45.c
+2. Refactor the using of swapping paged for utp and fiber
+
+changes in v5:
+1. Fix diffs issue which caused by unexpected whitespace.
+2. Fix "exceeding 80 columns" warning.
+
+changes in v4:
+1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
+2. Fix locking issue. Since every interface requires switching of space, 
+   the bus is already locked during the space switching process in
+   phy_select_page(), other operations within the interface cannot 
+   be locked again before unlock in phy_restore_page().
+3. Fix warning log identified during the inspection process using
+   checkpatch.pl.
+4. Fix the way of using common api in phy_package.c
+
+
+changes in v3:
+1. Using common apis defined in phy_package.c to handle shared top
+extend register space.
+2. Add dts demo in motorcomm,yt8xxx.yaml.
+3. Fix unnecessary redundant judgments.
+4. Fix BMCR registers operation using magic number.
+5. Rename function based on its approximate functionality.
+
+changes in v2:
+1. Remove duplicate code and replace it with existing api.
+
+Kyle Switch (3):
+  dt-bindings: net: Document Motorcomm YT8824 PHY package
+  net: phy: Add support for Template Control register for PMA
+  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+
+ .../bindings/net/motorcomm,yt8824.yaml        |   78 +
+ MAINTAINERS                                   |    2 +
+ drivers/net/phy/Kconfig                       |    4 +-
+ drivers/net/phy/motorcomm.c                   | 1935 ++++++++++++++++-
+ drivers/net/phy/phy-c45.c                     |   23 +
+ include/linux/phy.h                           |    1 +
+ include/uapi/linux/mdio.h                     |   12 +
+ 7 files changed, 2052 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+
+-- 
+2.25.1
+
