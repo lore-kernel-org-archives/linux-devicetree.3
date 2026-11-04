@@ -1,56 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784269;
-	b=pHUWa3HNRFO842FtIPeMrGnT8KT6ycsuEQxYQEVYHg23c726RrlPyMggUcnpY16Qu1lJ
-	 N2JJZLlHFQn0MgLrOLnhVfOHpZdTFlkdBQlA9LcKkAn0CjgY/g6qGyeyDUyD7XrDrJ0Mq
-	 VNqtosXAKsyXSbbRWTOzQcUMoaf6SWYsogtLWCb4LiKDyB7KPVfWwWU7usQpYRrSdhCrh
-	 1qorBr7HCXmiymmh/s/ohCDkhDzZfv8MfzrsBXd9OLVtOBI2/VvQGuSU66qCYMmneDkg8
-	 ngpVwRx753bfANp2kqD+y7izc6BjoUUDBbcknNK2GGLKDyDlN9Od/7aKbylGeXWcLpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784269;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=9QGSwm9Eu4PPXaPQ8GPjGQLCK3FUulWZM+Ce/QNh/pw=;
-	b=Virfvik5VQHG3kApwmSrM33saa9RZsoYIRfOmWBy9NWPkwnLcWbvEdkWkzdLpQuwwRt5
-	 05hMXa6JUzAf0+xcBW39lfpuJp9nycFN9qQmW3GmcImDhM2uWGxvzbU1URuBq4X5hSM6g
-	 17uu7LIXVXwFUtugvgSIG7xEiHqswHfF+skffC5WOsjA+CtfLr22Yy52SX27iuhw9H4fM
-	 3ymkiA/ESj13P1XJ+N7d4PP5nsOHdqHrrMBh6mgWosVn1sm31aOYtkfNFVUbmnXhUopdm
-	 bRNk2AyAKE7UZIK+0APYXECt/SElDpWT7uiiDe3BFfqeP6RuUEiOB9Qu3SuczHuticw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI3HMy34;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793784350;
+	b=3yf+JzPbYCBNwAoOoEZEbv0JdacF0xF+CYJrXhrL694y1UIDAIQBOX6dwAWbHriwC1Yh
+	 ghv8fqhHDEF+mQMFEBv7mLn3KefDtr/Vuh8Dkh7HerDGZ3DjpW/JhjcLCT1ouWe5dtBZP
+	 q/Ug9eks19sKHmt4w8zx1QZVHEwQ4RLqEhrCEaWaXBYi1N5XMw3bYzyr6wOSV2ZPU/W0g
+	 jLqM/Q3S4t6X1D90s3JNZ/yRRzmkgdkKjh2ScSLBKJ8EhS304/D9k3kAgHTKScNgYrH82
+	 IVvM1RI0FYGvtLkcdvMaV3NP5u5N0AOJdDVQRRWCj6Z5gkenZsZNSUwmQuCWO+xSPOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784350;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=w8U74U1rPUCbHA+Z6GbARhQhlRN5MR1VyTlNpkgM6Xw=;
+	b=HS3IFy9MNd23JYu8NEbmGtuvmXU50L5Xw4QpZ6Hc31LHa2Lk/3J5gq+O7GeX7SxizjAJ
+	 18cfIi0mXLFoW7aprnkdgiEDVKdpBWGWHG1VSWIZTaoid1LQAWZmvYKBxLpC/CRTYvlww
+	 shqHt+uHXbCmgjLNm7I1VN1Wpw6GiBrMmfWzEg8f+cMXixFcnUWBrHJzChANl+SI/RSyH
+	 zMzgKCh3kz12laV6ND18kNRWT9zUrC4RsQWIpjZgA2RZ2Lruo6OGyn/fV5TSj5lMFW7CE
+	 CEwZBQfcPXjpCm3mszeHnHa9FsbfM2NaRnkGA3KC+G7UVWOKGXTYMaxJ/ZjfVB5r+rA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GmL0hlzE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FDD606A31B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743A5606A328;
+	Wed,  4 Nov 2026 09:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743A5606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI3HMy34
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5F31F00919;
-	Wed,  4 Nov 2026 09:24:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793784268;
-	bh=9QGSwm9Eu4PPXaPQ8GPjGQLCK3FUulWZM+Ce/QNh/pw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iI3HMy348pONSLjiBdAsc9Ry/MBqd3FRoXP1HKOys8kWPqi9NOv8DZosrZ/X3dcP5
-	 fFpCdHsWv9WK7mKP75Bw+wjL9O6A5coQqDgZmuBr2mHmaHb+wNlLRnwf/uofjGZMMK
-	 Td+zmZ8c7FjnTmeni48ph9oZ7ugVB348E7hbkeBUHnZUw/zgFNDBWQC0BE6XbBGU1n
-	 MSd/LiMJO4UMDYd+aQf/pQ/cBtsC1dZY0stkWxUkrPLeOko+a7g8gBVLYJnoHAhyQv
-	 pVXIdnEcHVQTTitkVq3lmMKSXjWN/DMcUDcyG2n68VdLmripQsLY/7bFd2XM+QL1Qq
-	 JBUsBydiEc/bA==
-Message-ID: <sashiko-outbox-196952@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104091136.151269-3-cwweng.linux@gmail.com>
-References: <20261104091136.151269-1-cwweng.linux@gmail.com>
- <20261104091136.151269-3-cwweng.linux@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GmL0hlzE
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 50C2220109D;
+	Wed, 04 Nov 2026 10:25:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793784346;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w8U74U1rPUCbHA+Z6GbARhQhlRN5MR1VyTlNpkgM6Xw=;
+	b=GmL0hlzEh6/zMrc7BWma8zSUIPrk78do1Ht+dBk2BZLwTFQe23LYDRufaZSjLoY79hb2IO
+	LpU0biM+xAlBhxQMKJUuoERzewEtXeVY6j2u0owQQqeKtOv2TsjZtP/LF8v4zJdBFDl+B2
+	Hh3Agkd1uZXotZjFSzzotEmEQusFhYmjYOS85E+8U/vmlkHfRXCHIrHeYRWQY4HIknNhMI
+	AlS0YUWqrCW9T3ZA/dd7ihmLM735iLBcJz6SjQUU4pKojZVnS2US0Io4ka0+R0Y87ea+uz
+	SAfutint65rU0Yh87s0Zp8+rDeA9jjHcYdB01Wmhfjx8Wz76x4q9qO4cwRbbVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793784346;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=w8U74U1rPUCbHA+Z6GbARhQhlRN5MR1VyTlNpkgM6Xw=;
+	b=VSAc9Qd159bqut/xNHfr8zIOeQUfzaz/wFf4SzWXaDxqEB6zoJ/1msq8lqNNfDEeSnLTDq
+	vvvweIeiKL+2e8BAx2P/PUZSDjIpFDKrUiA2ROhuqE19zeCrLn12CSEUNGVJdlblsdbFqR
+	tass/S2FKmyOUcfDNkYplqRtj30IywEVMGBTsBl1e5t8N5qdWDsr1/F9izmz4k1rOfcgSB
+	0BKw3eAJCwK0v6FS3BpdOWjbMRFpNvjKRAQgK1ekO0uQitaeDRJHdIyqLqwF8WBUXkZKBi
+	9lQOD5GJP4GVBnUnVuBid8MOLz3y8qtXQzmA7yFaxHOV5WJu1SMGki6QGRu4uw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793784346; a=rsa-sha256;
+	cv=none;
+	b=Cv7w//ohSIyW8cU/T0syoSW9QWkXrIxqlV0JKIwB9XO58jYOUtbKX0kbEG3dC+ug0iKw4z
+	DdM+c8lsqymz8uA5welyI9jAapN7RLNLvEybCQqPlP0FKuJoq1vJf7mqAh0m2A5jDHNbx6
+	AgHawSinYPc+icgh6EXbv6AfazHLu4cMiydEp6BIl5zSSeHq0VeDYAmH3ZX5YukBa+jAGh
+	m1LtZcnmEbb+NBxjp0trCxfahGdNwsCvXTc6jPGKfZ/BbDyMKRo33MVDpcS4XebKLO8+3D
+	aEMGh8DNMlmL39at/qEcRu9QjKAxLSttGgdhAZ7i2F8GbnDS7FJPTedpDkR61A==
+Message-ID: <e4474a7501c9e2a355dcc80d632bcfa10e1959e8.camel@pengutronix.de>
+Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
+ reset manager driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: joseph@telaak.dev, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
+ Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley	 <conor+dt@kernel.org>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 04 Nov 2026 10:25:46 +0100
+In-Reply-To: <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
+References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
+	 <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 09:24:27 +0000
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,169 +97,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] iio: adc: ma35d1: unclocked MMIO access when disabling buffer or s=
-uspending
---
-
-commit 42a7961767520f06d7be9ff697854a2064ddd67f
-Author: Chi-Wen Weng <cwweng@nuvoton.com>
-
-iio: adc: Add Nuvoton MA35D1 EADC driver
-
-This commit adds an IIO ADC driver for the Enhanced Analog-to-Digital
-Converter on Nuvoton MA35D1 SoCs, supporting single-ended and differential
-inputs, direct conversions, and triggered buffered capture using sample
-module 0.
-
-> diff --git a/drivers/iio/adc/ma35d1_eadc.c b/drivers/iio/adc/ma35d1_eadc.c
+On Mi, 2026-11-04 at 02:21 -0500, Joseph Telaak via B4 Relay wrote:
+> From: Chuanhong Guo <gch981213@gmail.com>
+>=20
+> Add a platform driver for the peripheral clock and reset manager (CRM)
+> block found on Siflower SF19A2890 and compatible SoCs.
+>=20
+> Each CRM block manages a group of APB peripherals through three registers=
+:
+> a reset register, a clock gate register, and a shared Bus Output Enable
+> (BOE) register that must be asserted for any peripheral in the block to
+> respond to bus transactions.
+>=20
+> The driver registers a clock gate controller and a reset controller from
+> a single DT node. A shared spinlock protects all read-modify-write
+> accesses across both. BOE is managed automatically: asserted when the
+> first clock gate is enabled and deasserted when the last one is disabled.
+>=20
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [jt: from Chuanhong's siflower-7.1 branch; one compatible per block with
+>  its gate bits, critical gates and reset masks in tables here instead of
+>  the siflower,valid-gates, siflower,critical-gates, siflower,reset-masks
+>  and siflower,num-resets properties, gate N parented to input clock N by
+>  index instead of by global name, the gate updates under the spinlock too=
+,
+>  no separator comments, Kconfig dependencies and help, subject]
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  drivers/clk/siflower/Kconfig                   |  11 +
+>  drivers/clk/siflower/Makefile                  |   1 +
+>  drivers/clk/siflower/clk-sf19a2890-periphcrm.c | 360 +++++++++++++++++++=
+++++++
+>  3 files changed, 372 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/clk/siflower/clk-sf19a2890-periphcrm.c b/drivers/clk=
+/siflower/clk-sf19a2890-periphcrm.c
 > new file mode 100644
-> index 0000000000000..b45ad3ef52645
+> index 000000000..95d4dd449
 > --- /dev/null
-> +++ b/drivers/iio/adc/ma35d1_eadc.c
-> @@ -0,0 +1,912 @@
-
-[ ... ]
-
-> +static void ma35d1_adc_hw_disable_action(void *data)
-> +{
-> +	struct ma35d1_adc *adc =3D data;
-> +
-> +	if (adc->clk_enabled)
-> +		ma35d1_adc_hw_disable(adc);
-> +}
-
-[ ... ]
-
-> +static int ma35d1_adc_buffer_predisable(struct iio_dev *indio_dev)
-> +{
-> +	struct ma35d1_adc *adc =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	guard(mutex)(&adc->lock);
-> +
-> +	ret =3D ma35d1_adc_disable_irq(adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	synchronize_irq(adc->irq);
-> +
-> +	return regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-> +			    MA35D1_EADC_STATUS2_ADIF0);
-> +}
-
-[ ... ]
-
-> +static int ma35d1_adc_suspend(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> +	struct ma35d1_adc *adc =3D iio_priv(indio_dev);
-> +	struct regmap *map =3D adc->regmap;
-> +	int ret;
-> +
-> +	ret =3D iio_device_suspend_triggering(indio_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mutex_lock(&adc->lock);
-> +
-> +	ret =3D ma35d1_adc_disable_irq(adc);
-> +	if (ret)
-> +		goto resume_triggering;
-> +
-> +	synchronize_irq(adc->irq);
-> +
-> +	ret =3D regmap_clear_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-> +	if (ret) {
-> +		/*
-> +		 * ADCIEN0 is enabled only while a conversion is active. Holding
-> +		 * adc->lock here guarantees that no conversion is in progress, so
-> +		 * leave it disabled. The next conversion enables it again.
-> +		 */
-> +		goto resume_triggering;
+> +++ b/drivers/clk/siflower/clk-sf19a2890-periphcrm.c
+> @@ -0,0 +1,360 @@
+[...]
+> +#define CRM_DATA(_g, _r)						\
+> +	{								\
+> +		.gates =3D sf19a2890_##_g##_gates,			\
+> +		.num_gates =3D ARRAY_SIZE(sf19a2890_##_g##_gates),	\
+> +		.reset_masks =3D sf19a2890_##_r##_resets,			\
+> +		.num_resets =3D ARRAY_SIZE(sf19a2890_##_r##_resets),	\
 > +	}
 > +
-> +	adc->suspended =3D true;
-> +	clk_disable_unprepare(adc->clk);
-> +	adc->clk_enabled =3D false;
-> +	mutex_unlock(&adc->lock);
+> +static const u32 sf19a2890_single_resets[] =3D { BIT(0) };
 > +
-> +	return 0;
+[...]
 > +
-> +resume_triggering:
-> +	mutex_unlock(&adc->lock);
-> +	iio_device_resume_triggering(indio_dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ma35d1_adc_resume(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_get_drvdata(dev);
-> +	struct ma35d1_adc *adc =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	mutex_lock(&adc->lock);
-> +
-> +	ret =3D clk_prepare_enable(adc->clk);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	adc->clk_enabled =3D true;
-> +	ret =3D ma35d1_adc_hw_init(adc);
-> +	if (ret) {
-> +		clk_disable_unprepare(adc->clk);
-> +		adc->clk_enabled =3D false;
-> +		goto unlock;
-> +	}
-> +
-> +	adc->suspended =3D false;
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return iio_device_resume_triggering(indio_dev);
-> +
-> +unlock:
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return ret;
-> +}
+> +static const u32 sf19a2890_gmac_resets[] =3D { GENMASK(1, 0) };
 
-[Severity: High]
-Can ma35d1_adc_buffer_predisable() and ma35d1_adc_suspend() access EADC MMIO
-registers while adc->clk is disabled?
+Are these two bits separate resets? Are they individually controllable?
+Why are they bundled into a single reset_control like this? The commit
+message doesn't explain.
 
-During system suspend, ma35d1_adc_suspend() sets adc->suspended =3D true, c=
-alls
-clk_disable_unprepare(adc->clk), and sets adc->clk_enabled =3D false. If a
-subsequent ma35d1_adc_resume() fails in clk_prepare_enable() or
-ma35d1_adc_hw_init(), its error path leaves adc->clk_enabled =3D false and
-adc->suspended =3D true while any previously enabled triggered buffer remai=
-ns
-active.
+[...]
+> +static const u32 sf19a2890_wlan_resets[] =3D { GENMASK(2, 0) };
+[...]
+> +static const u32 sf19a2890_usb_resets[] =3D { GENMASK(2, 0), BIT(3), BIT=
+(4) };
+[...]
+> +static const u32 sf19a2890_spi_resets[] =3D { GENMASK(5, 4) };
+[...]
+> +static const u32 sf19a2890_uart_resets[] =3D {
+> +	BIT(0) | BIT(4), BIT(1) | BIT(5), BIT(2) | BIT(6),
+> +};
 
-When userspace later disables the buffer or unbinds the driver (or if the
-driver is unbound while suspended, since devm_iio_device_register() teardown
-runs iio_device_unregister() -> iio_disable_all_buffers() ->
-ma35d1_adc_buffer_predisable() before ma35d1_adc_hw_disable_action()),
-ma35d1_adc_buffer_predisable() unconditionally calls ma35d1_adc_disable_irq=
-()
-and regmap_write(adc->regmap, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF=
-0)
-without checking adc->suspended or adc->clk_enabled, accessing MMIO registe=
-rs
-with the peripheral clock gated.
+Same question for the other multi-bit masks.
 
-Similarly, if another suspend cycle runs after a failed resume,
-ma35d1_adc_suspend() does not check whether the device is already suspended
-before accessing registers, calling clk_disable_unprepare(adc->clk) a second
-time, and calling iio_device_suspend_triggering(indio_dev) again.
 
-Should ma35d1_adc_buffer_predisable() and ma35d1_adc_suspend() check
-adc->suspended (or adc->clk_enabled, as ma35d1_adc_hw_disable_action() does)
-before touching the hardware registers and disabling the clock?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104091136.1512=
-69-1-cwweng.linux@gmail.com?part=3D2
+regards
+Philipp
