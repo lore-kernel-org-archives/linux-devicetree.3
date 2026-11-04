@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818315;
-	b=h7NBB0/abl5fg62RbtQfQ6ob07eww1wLJQ4C61vELLl9/A21wlLv1ne8GqgujrUDIU3Z
-	 QepWD8mXZaFyl2kFJH+ELJg4Sa6ySpj+06H8HNo91lwfU30ac3unimK35QsKbxLBcudhs
-	 btLNsH5x74VpE1X955cZwjMO7asYBd9zO+ml3OHVCbK0aKhDxZiEySNSQMhKikIDsGlcu
-	 7zlNpAZp7k9nfTkLdMzq+Im7FXp6kZ5PN9uXF8WiBBOYq351kuwH5vgTrvoNywpDQ4Y1i
-	 /GoO2SGB0zBScD7HCXontyOwHk+bLsuNRE33vWg46EnaDMQDoaiE1pQiPESSzYDP8UQ==
+	t=1793818468;
+	b=ckZ+G525YhgKfxn0P68cT4pz5E4zCgfcGk5BoTwtYFHqUmUXr7oGwkHeQK+39AXoJv6F
+	 x+TNbN2kYkH5wUn199LoZG6nXYijsXhvbix/L138AdlfhjH6Jx41/eko3xE6BwYqUqCu8
+	 uY5zJ7AN3hXLtfQbidwnNthyflIcSw/ZU/JcVFsDszyq93aHoA5VUJgFZTYkI92iQ9cT0
+	 79MdZ0JsN8nw2vjQ2pXK7m1RTPG/luU6lXWxFIPTWq+1+gisd/hxNGnasT3dQNmAs20WP
+	 gkFlSso7TlssfMQ16yOq9WWGCPRijT/1Y/YEa9fy2gvDaGv6qHcTFtLymeKhaWMHLPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818315;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
-	b=1X7mJBJ5SJu5g1dRcfqf5Z/N2oIQz5H7EmKuHrLtTP9itg9Y24qhQcT265TfNi33yxqK
-	 WcRTH6L5X0A2h5BWZrqPSwtNxRoxIYmq/FigKiuj7U+uChRzBVpFW6RyeKvRfxpQGPtK9
-	 ZCgpUqyohoKB87j+jnLCe6RAP7UwRxqXSjIGfm8deIV+ObnFbfF7YKodDZALB83BCYFSe
-	 Tl7fUCZ6jt96qOWUdxuA+WyzUOYfprZDLRBGitdYaVro1htQLvA+n6XOzSLt44ZQqvvVq
-	 VTprwr83syfc2jgZjXTwHP+VraNo5kXMhv8NRrhJz2lAqp4cUWsTeEcS1WzDvj/l7GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818468;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=a95SNiiT7dZBSQfEZM84dekyTvPeES9MfG8l19eIfTc=;
+	b=0+h+FpUV2MJddgqt91DmvYNjzVoAwfcax8gGdIDBCFbSZ1Bemd2Xauo3Oe7SG2rxkPlD
+	 CkRX/vlmZeIbt1gvBsnYPxje947zxPfJetMEB28E0f5D7YsoWfodljYb7w8TOR/znvXv+
+	 93Vlc0Ep/3rosp0DSbpiuEFoFRsfK+/TeSBLneRu4aE5fLcEhP/t2MkpLn40pOCbV3QVr
+	 cGSok8ObEwovXWTs8v+hsTIv5ORIxJGkm8ciYpuO5FjpR065Lu1pD3h2/dVVWL7szLd37
+	 PmC+vxFNjn+ugy9Jfz1aFCllSGGfOZRx7oCcXJ2UBcq1dNAROOcCNS9TpZbATZQCpsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu;
-	arc=none smtp.remote-ip=185.70.43.101
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7hwtTTC;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF25606D805
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF25606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32438606EEBC
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:54:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32438606EEBC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1793818308; x=1794077508;
-	bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=vxJUKcRuU1J3D9RxT0BjZUPto1pvptqtA1sdv7uTPU5Wd5CabFWDfvXI4OhKgYq1b
-	 RmVcmxn6lGV0KLIRbmf0XAMW9tsaJOJb1JcYZ3OawY1xtGMmQ4D1it1d0DyD4XwrZs
-	 49Ii/TQ1mULHm9DPR4SJjhxDYPylYoD6cZbwbtgNaM3EOHWW1hvXwL9Y3Bbxen6AiC
-	 qNZ+uGwCJzpT6M6sXxSlJZYuTLnSYT2Kma95yD57dtoS02X7DCYbjtNM6n3RuR3GEd
-	 sLq0NxA1mvS5iAVouV0Q+anJZF5XV7R5XUU5a50YPpPRfVJ5h5horz6/hQWDSX1bhx
-	 SeWJTVGccxEVg==
-Date: Wed, 04 Nov 2026 18:51:41 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, chunkuang.hu@kernel.org
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
-Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream Compression support
-Message-ID: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 8d12c3e225616d3655c04ed7e4412cce821e564c
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7hwtTTC
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so8102585e9.2
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 10:54:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818467; x=1794423267; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a95SNiiT7dZBSQfEZM84dekyTvPeES9MfG8l19eIfTc=;
+        b=E7hwtTTCqW2epiO/054BcrJ5x+cx7VA4DDCSjg0uECfKGnWtS+FKv10b2UhxUHAJ53
+         ouFEx7jKZLBPxA5L2DQlcC46nwWS5hnkER8yfh/6Q+XJA6UcFp5dLzJTgNb1p1uIhgxN
+         gcR44tb/rk2c0jqHuE999JuHKTSdfhaA21Iniy5ur/Zw/bqCRyAezkt4xyxZtuB3jVTp
+         eWFlP68kpNDF3hJilTGg862+xpObQmlrGRPNux3gpQ27bifH7dk9eu5ui4I7jcC85SYf
+         n28h1w3CPbLT/7LJIqxuM028n9ZeWS/z8AMirzKJiBF71pimXtWCHaUFMvlADY985Wv+
+         YCnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818467; x=1794423267;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a95SNiiT7dZBSQfEZM84dekyTvPeES9MfG8l19eIfTc=;
+        b=Kyv+TYzgVouju7DZSt4QTFdjd8QfCdUp2QwDWu/bloIfvgYl4X5SB5ZqwtogvRDSX+
+         cQCsZizAlzxq8231Gbnfionzs1wJVmsldwunQrHh42XEz4uIEm9zCRwRN5d/08GYinHf
+         L93SnNCORDydriA+OL+iDfvq0hfaKr16xrgi2yUYvjAD4PbWGR1mo5H3Fi74DelGKFK1
+         tQugALDiPZTzDiPypoAC0Hx62sjCcPYqOdUbCMoJF53VHmSnP4jXk+EkN0BG4ocX9Guq
+         XSta8paO4fkufD/CoPSMog4GiLa++5s1oDwOuTktJq5tuM/Ufd8fhvACNByYMhI8wZxe
+         7SDA==
+X-Gm-Message-State: APuU4Z8zGXMTX6jkmCZPvjru5EUyo7hoJMsU0u+cK8sQkAz/BJyCHYRF
+	mm8idM+9mp2/rIuaWdBcK84BT4MncstsmWDV6SLnmmyCeiPNxqzhvrpB
+X-Gm-Gg: AYBFou2TUocBViatBe4rNo6DKGbL+8DpIJtYjZ//tHStZ2PhsaVezHJxVrb9l+ZQoPZ
+	4+QNrIu1SrFrgZoDbN+rbRMvsHGOlYXw9vWGs7B9V0Rq0jXDKir95HLiv8Xpmr5k3T6L7xmfYcW
+	mNA03OW+fhk0gciN28SXBX8lTqb2ceuBb+Xq/+g9Vt1Nd8O+3PhkedoNG5i3+4HN+RJp1qshaOE
+	r/pfwkl7/Hktiol9NRMHSLYHCA0qssMv15Lrf5rALRQ4Es5MD6MdsHC7+YKS2nqt8h9vwBCkr1a
+	W7AOq21yYLHTYi0kThNnnPDSpCbFe4Wnu92p5dz/voESP9MIkc/gw6LFc4NOk2YKGrS8/yj+JaA
+	TNJcmSX911y6Houl/EA6goc2/1UlMkFl+ZEaJiGHA9fh/1a+mUSfvO8Pgji9xsQAIf9TxN7vDGy
+	OdWAcivBYWvFp9qsv6MF1zcMFqr7LinDTH/77nHk/U3mE/UCr46cqD0hM1kBn7nlpbJEKltu9CB
+	zAmxyvkBZmfZezE1X30GaDzR/527tPBgI+YTZdoUu9lsB+Cx4EuSdaNN7mS+a9gRQfubux+jMHI
+	EHV0Sa5XRGgHGZA4p7SzfY5udij+Y2TU9naRBnUo9AMzIGjfM5K0vIderU+dgO2vxpavAXnBBZl
+	tuQlZUUlXqUlEQ6ofhW5H4oBWuKdjyaZO5ivH6wtp1snbEoctSSxwYa3Sqi2QL3RHnqA2LC/orR
+	YxFehTtVX1n8S+G4HWEFl1GsjXerMuzasVkTzDmTRswzsDlmHMTWtmT20tymySAgIQBsITSsNNv
+	i9c4O/LwPG6XBcgrecm4yo6mJKCunLASAJv6AgkMxGqWpwjmyEeMoCZB5A5ZhGMLg==
+X-Received: by 2002:a05:600c:46d1:b0:4ab:cc03:7f60 with SMTP id 5b1f17b1804b1-4ac18993780mr378666935e9.18.1793818466426;
+        Wed, 04 Nov 2026 10:54:26 -0800 (PST)
+Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65b0sm4687805e9.11.2026.11.04.10.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:54:25 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH] arm64: dts: allwinner: h616: Add CPU cooling map
+Date: Wed,  4 Nov 2026 19:54:21 +0100
+Message-ID: <20261104185421.883883-1-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,110 +102,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Angelo,
+The CPU thermal zone has passive trip points, but no cooling map, so
+nothing throttles the CPUs and only the critical trip point ever acts,
+by shutting the system down. Throttle the CPUs above the 70 C trip
+point.
 
-I have tested this series with my out-of-tree mt6595 (command mode=20
-panel) and mt6768 (video mode) DRM. There's no regressions, but I=20
-spotted an issue with kconfig.
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
-> Add a real driver for the Display Stream Compression (DSC) Display
-> Controller IP, implementing support for DSC v1.1 to v1.2.
->=20
-> In order to do this, it was necessary to remove the basic DSC IP
-> bypass setup from mtk_ddp_comp: this functionality is retained in
-> the new mtk_disp_dsc driver, which checks if DSC was actually
-> requested by other components (with the only one that currently
-> supports this being DSI) and, if not, it will set BYPASS mode in
-> the DSC IP.
->=20
-> Like before, the BYPASS mode is set before starting the DSC IP,
-> but unlike before, this is being done in the component start
-> callback instead of the config one.
-> Notably, the config callback is called by mtk_crtc always
-> immediately before the calling start callback, so the order of
-> register writes is retained.
-> The only real difference is that now this is being done through
-> CPU writes instead of CMDQ, but since that's called only once
-> and since it's just three registers, the performance impact will
-> not be minimal and not even measurable.
->=20
-> As anticipated, DSC handling was also introduced in the mtk_dsi
-> driver: when performing dsi_host_attach, the driver now checks
-> if the DSI panel adds the DSC configuration structure to the
-> mipi_dsi_device structure and, if it does, it will store a
-> pointer in the driver-local mtk_dsi structure's `dsc` member.
->=20
-> The DSI driver will then check whether the DSC configuration
-> that comes from the panel is valid (in regard to MediaTek DSI)
-> and will call the DRM API's DSC helpers to calculate and set
-> all of the const and RC parameters for the actual DSC setup.
->=20
-> For the time being, even though the latest MediaTek SoCs do
-> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
-> as an initial contribution (which is rather big, and 1.2 would
-> make it even bigger - but that can anyway be implemented later).
->=20
-> As a last step for validation of DSC parameters in DSI, a check
-> for the hdisplay against DSC slice sidth and one for vdisplay
-> against DSC slice height was added to the mode_valid callback,
-> making sure that H/V are, as expected, multiples of slice W/H.
->=20
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index c6b3a3f8359a..e4e0b999473e 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -1105,6 +1105,16 @@ cpu_critical: cpu-trip-2 {
+ 					hysteresis = <0>;
+ 				};
+ 			};
++
++			cooling-maps {
++				map0 {
++					trip = <&cpu_target>;
++					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
++							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 
+ 		gpu-thermal {
 
-...
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -18,6 +18,8 @@
->   #include <video/mipi_display.h>
->   #include <video/videomode.h>
->  =20
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
-
-...
-
->   static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
-> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(s=
-truct mtk_dsi *dsi)
->   =09writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
->   }
->  =20
-> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
-> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
-> +{
-> +=09struct drm_dsc_config *dsc =3D dsi->dsc;
-> +=09struct device *dev =3D dsi->host.dev;
-> +=09int ret;
-> +
-> +=09if (dsc->bits_per_pixel & GENMASK(3, 0)) {
-> +=09=09dev_err(dev, "Fractional bits_per_pixel not supported\n");
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09if (dsc->bits_per_component !=3D 8) {
-> +=09=09dev_err(dev, "%u bits per component is not supported\n",
-> +=09=09=09dsc->bits_per_component);
-> +=09=09return -EINVAL;
-> +=09}
-> +
-> +=09dsc->simple_422 =3D false;
-> +=09dsc->convert_rgb =3D true;
-> +=09dsc->vbr_enable =3D false;
-> +
-> +=09drm_dsc_set_const_params(dsc);
-> +=09drm_dsc_set_rc_buf_thresh(dsc);
-> +
-> +=09ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
-
-If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),=20
-linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
-Should MediaTek DRM select it?
-
-Best regards,
-Roman
