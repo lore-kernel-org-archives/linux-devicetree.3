@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798126;
-	b=U6F7QcgyyFKmPelyQG/z2hxZ+Lo6up15cQqBgH9YBbX2bKh+Lpv+y/PjdLYt44KIaQjo
-	 MyPPuhZQX+4Bn5UffcBdlF51clF5MQtdnDBrF3rD7J40NaCsIJLMkEPiCudd/b5lr2nd0
-	 Ws07x84ItvozL5kdnazTTENQHI94Fvg01OxtPsJMa8oCkgjKWkyCChYBH3wcZkvYV43ZP
-	 QSQSoWtwdiAm7GVPmehi1W0JAkVUpmgAW2W1A4XA/K961p3WNwbjscoZnTC0l1ljIyLzt
-	 mzQ25jPTF3MLMMUaJHXZxSHvbgj4olM9ks80QIUfKPnbNkyB75TleYQF3ex9N04/sQA==
+	t=1793798189;
+	b=Ib1vPa1BVQlwOmwoOUxZGbm6+L5/bitNa8fOtwVRl+PiWIPEOw+WxmvmX1C0UDnxhDf+
+	 FoyG05xu429wEHU9vKR/5vYh+XsQvi/YK05mjSrTaNQEwZKiPIvd+R5Uu/AA1ShTxEKXO
+	 pnR/DipzQu8B5vdSw4/4dcH1mRHIPEfPOq3WYUo1k2d1Sf+RhEEsoXG3VwaxCBMEL/hkf
+	 eINLJcozrB7bPd2XergNip7IXHKGuFLbySow1Ius2CdRNYCKGd5UXxjN0fkxM20iAVeT/
+	 DZW00crMshpDIrLzlT5OqPf0t8I0nFuUCwjfstNMqtK5MjWVSB3XVL01GvOrUYxUIBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798126;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=FYpkozZQqv5x8iGDJjbaY+F1srftlQoPOW5hP9D9X1Y=;
-	b=5Bgfs1TP4WIncoyIZY7dplOSrDWIJQY2mCngNZU/VY1YU/ziw5MrV8msDk/O3TLwsu2+
-	 30D146db/iQI8USqnbDGSqdOX+/511WqA1UuHwhkAtE2i2igp2hjTI0yP37hhwthQ+4wz
-	 tq8DN8jOnRUV6ZF6pNoj2UILMUB4QNJ/e7gQgjxeAXcy1gJdKn/UiRK653zyJh7rM4hjh
-	 MXQYUi9jMpiET27SoOiJBtMqkfO4R3VTqdgTQR6cTwkjbVe/aq+5SiGh2Nvmz5U7XQ+Dp
-	 SgW3Qrw80g16AMD2cJat82Y+asWKNCQpplT9AFesqn8X19nv/REB0gADqNYbd7RzcTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798189;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=H9VTlijTFGW2hK1YgmVnrnjy6rcLsJbVdxBVMKqQ5Mk=;
+	b=pI7a1c6fErBQ55VVV4dmEfb6i1hAAYDQClD/vpDUQi+Zu/pAogZeWAti63z31kQejQ0w
+	 02cBXLKDifd/fdDzDdreVLtl5marXy061xdo31nrLPW0bU2UWSfuJqDDYOdzX+4Lii1WW
+	 eHOUd9tUmELPPRcXVruNrk0tot2F64ZlLf/iuZsnfv+vLfoJpuivdXsXH6zlMmAYwjx3G
+	 Ow+jPoF4FDdzA0zSXIecwt2dPJLdRV+oCZ2rHqEOSJsuldZZb3i3jPOhpEV1bgumr8I1r
+	 bcM0ufVI4/HYoVLziQW+ex+FJm3iNdhQwfgbLdyrub3TKiMFkB7xxDi3C7MtexLI17g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jI6RFciy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anVIaiiw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2339606A328;
-	Wed,  4 Nov 2026 13:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D0A606A32C
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jI6RFciy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C1C1F000C1;
-	Wed,  4 Nov 2026 13:15:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anVIaiiw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC711F00A18
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793798125;
-	bh=FYpkozZQqv5x8iGDJjbaY+F1srftlQoPOW5hP9D9X1Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jI6RFciyCCWXNetAAeL6LGKusLjRvuvWTJ8+RHwmtT/2IiFX5IfOAy8MSAtkWPUip
-	 GSZqGcD3pCUTusSIts9E5lgJQohwbGovx7ec86EX1qsk5uYKPOtGZcB9NyhLPUdP/a
-	 VBlGa2wJ+JnjogABNC42/9mj93Jp2xqiZKfWakmfQOM8h8vbBqnEGo4t+/nY9beYQ3
-	 5vj8SdWcZo9H+qJEApj2vqBTzm+jl+27bC/LZFAgZhDo1/RDj00IYPrsm0RI0E7EkG
-	 fKa5g4uSBAWXh+8hffpU75CNxhRlQmVN/0+DtNrAQjExQbyQuX+5EsuYDdY52vApuJ
-	 n+EKyQLHrrG8g==
-Date: Wed, 4 Nov 2026 14:15:21 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
-	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, sean@mess.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
-Subject: Re: [PATCH 1/2] dt-bindings: media: amlogic,meson6-ir: allow
- wakeup-source
-Message-ID: <20261104-taupe-eagle-of-experience-d3b6ea@quoll>
-References: <20261025192320.209446-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192320.209446-2-christian.koever-draxl@student.uibk.ac.at>
+	s=k20260515; t=1793798188;
+	bh=H9VTlijTFGW2hK1YgmVnrnjy6rcLsJbVdxBVMKqQ5Mk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=anVIaiiw1pZMJg2YZ1N3c1UamUmvnrrKGQWnO8NEpY87ayerF9aRI865xN7k4arhP
+	 0ora4PhcKUA7tc3gRf5KJPZRLzDlKLUVlUaqjd2AMjgBarla0oTMiSTZyFgbsGYlwY
+	 fsVOjVqGXMbB1lKrRbyHQGM8moEQGCArsVVqCajNxylEETrn8qtM2iWzHaOLT43wdY
+	 9CF1Ojyj4aExSItAwUd/2QmsiJWsZaO/6jXd0s8gtn7I/G6Mjw5g7TIub3bSE58eC8
+	 ii1USs42gD/OF3w97LAp+kC8W3GgxUmmbmvKzN05ws3y5BPE6ZVY/ahrli3ugfB9y1
+	 B7FSo5BHSH9EA==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso731268e87.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:16:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByvU6dnyiztQWrkTkrIh5S9q9+b/9rK2pRUjTq7bBtK2/8jzvCYsZa7HGGOsvJJ8/qi72X6xeZ3Qncm@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JRKY/CCNVr0tltNsvo7823GsEQCDWbXPdeU+Vab00WcK3CzmW
+	B3lkmHO2ZC5N6Ka761o6L625uUZcfELENBXTmqVuTSuhhLp9Bc5cpT66s0mzu25h/GD0bONdol8
+	MmSO/7EnVXAGbVZjDL9YXbi70LSH8xxo=
+X-Received: by 2002:a05:6512:6681:20b0:5bf:d9b4:9b48 with SMTP id
+ 2adb3069b0e04-5bfd9b49cfdmr3241637e87.23.1793798186772; Wed, 04 Nov 2026
+ 05:16:26 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,26 +59,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn> <20261103-a210-scmi-v3-7-ee6b31580808@iscas.ac.cn>
+In-Reply-To: <20261103-a210-scmi-v3-7-ee6b31580808@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:16:14 +0100
+X-Gmail-Original-Message-ID: <CAD++jLk_PJu_ViUmKSg19VEhc0=3SoyiqwkSH3vGix1qk7xpDA@mail.gmail.com>
+X-Gm-Features: AclHuK9XaDppXSCtd7Lxt5eqeFEltqu7_7zUAwED7nuqN9o1y9Frwslmkgi1DM8
+Message-ID: <CAD++jLk_PJu_ViUmKSg19VEhc0=3SoyiqwkSH3vGix1qk7xpDA@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 07/17] pinctrl: zhihe: add A210 support
+To: gaohan@iscas.ac.cn
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+	Jassi Brar <jassisinghbrar@gmail.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>, 
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	linux-clk@vger.kernel.org, linux-serial@vger.kernel.org, 
+	Han Gao <rabenda.cn@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261025192320.209446-2-christian.koever-draxl@student.uibk.ac.at>
 
-On Sun, Oct 25, 2026 at 08:23:18PM +0100, christian.koever-draxl@student.ui=
-bk.ac.at wrote:
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->=20
-> The receiver can stay powered across suspend and wake the system when
-> a remote control key is pressed. Allow boards to mark it as a wakeup
-> source.
->=20
-> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
-> ---
->  Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+Hi Zhiguo,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Mon, Nov 2, 2026 at 8:45=E2=80=AFPM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
 
-Best regards,
-Krzysztof
+> From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+>
+> Add pin mux and pin configuration support for the AON, PERI1 and PERI2
+> pad controllers of the Zhihe A210. Each pad forms its own group. Drive
+> strength requests are rounded up to the next supported value.
+>
+> Across system suspend, restore only the register fields Linux has
+> programmed and leave the ones set up by firmware alone. Release the
+> optional pad controller reset at probe.
+>
+> Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> Co-developed-by: Han Gao <gaohan@iscas.ac.cn>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 
+This looks good, just waiting for a non-RFC version and review of
+the device tree bindings.
+
+Yours,
+Linus Walleij
