@@ -1,69 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787954;
-	b=HV/biW6SYg8mAfsn2YFPZwfA9qwaeszmTlCaCWRblXE8ImNjfx3yLHgQjqvz2WEyB8aQ
-	 NBz2KHmzNzUJAXoZPTJgCGrrQTKznMPz1xRDCJWqN91B79vnZAfueMwgScxEK2pfs7euy
-	 LSdWiUwptkkv3eVt2vp68Sloy6f+WEyZvvLbZZ7LbxurrfKMDkQfhJXDxfyvRPk7Ln2GJ
-	 0fGmJoAXYL9tRq2apadFPORhy51sVL63OJ10Ch0gITEzk8xasPSPp1e0yy4lGF0PtB8DX
-	 VdWSk1Yczt8Kq9mao/2kt7nWrY2FQDpZ3j6E6s36x3XaPRAcX+ZJO89O2gwP5Ne+sYQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787954;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=uRrdt0oAcAPfS+w2dQ61HkrI15khdaUCiJ5g7tU0p+Q=;
-	b=VmaI1gtY7OW4R3Z8JopkUPOmTUnw+Ybne9a+SX66xr1wyXVsePbnhwqZqILWTiVvwfQW
-	 +LJD5hwJKLfE+9gmkGQY80/0ySN92NJh/WsogVu/alLXgtbuwTOzhTXKBIefJrOWyQ1B4
-	 VRd7UazUsbkWlwuQbb+1urz4pnE1cTck5qxnoblBkM1b9wQNKqDjLRrLkrDS5nfbZ0E/B
-	 cnwI+RqFkM0SxAocP3sTdbq7rlVv+0SClLaNeCqdvkW3peyAOx0CFs6gem+TdqYI8CFUo
-	 wyI6SlVeMaUxzL5DlRP44QdYomKMu9tC15i88G4aTg1my+mqfnx6xxpzPEwfEZgOehw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A+8t5vjZ;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793787950;
+	b=5VrEZg8tTcQc18pJqeARez/+2Ksus04YJeaR0q1SgAxt/cnPS00AKUetAc5/4JcN1QaS
+	 QUXauHWy0cND731R+d0D6vRTITLxm+0B9/3U0TWYyLpt4eGcRUzHhCQj+G2/MNHlG5WAO
+	 T5Eaytdt/N5ZtuRQPvo7QwUkFPbSFZmO6+KTLfOZc8f4/EMIe/y4w19ymComPG9CHlwmA
+	 8Yju79QJtQtzVUo00yXuNzpy3YPSb6jVeKMvY7aWhTlOgeFmmRdFwwc+bUPVynu9LgilQ
+	 NH/HeaOgI+DAgh64f+Pmud2PiE9JK5v2D3oxuzTqHvvKNvcMdnEHs/CGXg5NMn/bwrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787950;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=o3uO33BWTvRzGT589zK5XHXlVqQazzRdbRxGw4lkcXk=;
+	b=5n7Q1Yc2Q9LbPPeUwU0PBnqSEWJ/vAwO5awYqXuBR/w1HzszN879hhO5iPXJLJGC3Z75
+	 zYTepNzTuv/o7gpqkDv0ptzKpU7PwMwP4f2QK6efP0q53vZoPWj/eqHgMdfB1D2WDvnjA
+	 0ClE2YG04lLU/DPjma43Zd747wqYfVHuLaHvtPvmGTcNVUyDLBmU2IYfZM7m/sTxjv0ih
+	 +V6aHw4g/WqjGjvz3WJQafa7wIztFc2Bc1HjO9PeIBTN7WINfHj9OhNKzNgo1N4EVdpxz
+	 Kmz+2ZSLHfZyAz3S0GFmwhkJQIkmpReobFPLHXhrWClWUNEOA7FmQ2YSOFba1oeD6ZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=R10bR+nG;
+	arc=fail smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0F1606A329;
-	Wed,  4 Nov 2026 10:25:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D0F1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99282606A326;
+	Wed,  4 Nov 2026 10:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99282606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=A+8t5vjZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=uRrdt0oAcAPfS+w2dQ61HkrI15khdaUCiJ5g7tU0p+Q=; b=A+8t5vjZqpreZvPSLqn2rWHCfk
-	n20HzKOydnfedJfrqrbJoETErbWXGYMoVDxPotfS+pj30dhVa9kgt9ioE3h2XT9i+o0G+8YdGkx94
-	c3QBYW5k2mk+ni5jhkwtbJ0XyA5dPKbn2W67WeyaIRUJ548XcG9M2F372a+JG9Z4saOhjOzo+w3oC
-	eyhS0ZoraybqUEcq+Rs1ShIc64rINHDJig5KDlfjZqHUgloCWhUZhfDAow0U/X/rkbraLV4ZTsUbE
-	L8NNkvSjhwcAGWUz3HAevwzEEWEfjFK3ykebZUp2dFTL+4ugzZ2Y132qKzJFggyFXmgKN48nvtd3S
-	d5ApHuFg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [PATCH v15 04/15] accel/rocket: let the core suspend after a reset
-Date: Wed, 04 Nov 2026 11:25:30 +0100
-Message-ID: <3373678.NnENhoQgcM@diego>
-In-Reply-To: <20261101082307.151957-5-gahing@gahingwoo.com>
-References:
- <20261101082307.151957-1-gahing@gahingwoo.com>
- <20261101082307.151957-5-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=R10bR+nG
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 60653200AD7;
+	Wed, 04 Nov 2026 11:25:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793787941;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o3uO33BWTvRzGT589zK5XHXlVqQazzRdbRxGw4lkcXk=;
+	b=R10bR+nGpDOBHsBsgfY6x5gF6MVODYpe6zLWjOZvK+UTPbvF0HfqI/A/FRWV1xQ4rLOnJG
+	Hb8X0WX7j8MES5DZFlHTx+H0VDKdNkdnDXrwpBmZQD9uxqA2KqMQa+cD/tPkBFUbCD/bzy
+	HDEzMn4V9OjGUW4bx9vc1i1mW99gnJJv7Kker8hWZzv4E56jco3hpM2e6rpueAOWLuKM/c
+	hC7UWblK3ZcwnjcxAgxFp/foAklOa+fGZBqbfdfoPH3N4tWeIrqEcoIWLYNbphD/LSX+Y6
+	Cj5o9sYMg6E8rkMq1xVDrb3oQEqgDJt4gK6LDpJsPOTicIIrL87fbOnc7srrHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793787941;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o3uO33BWTvRzGT589zK5XHXlVqQazzRdbRxGw4lkcXk=;
+	b=aFCcuWhsp1Rz+FS39uH9Jep8WwzbEDt5X9Up5FrfhiHMupYvat/6ZsySEzPCJQbFFbrwdF
+	KxQfsflbd/FGbjgketDjDxiEn+2hXdq/QUXfdX/hn9MkcRlUk4K7KZQPX5inZV51ngDGxH
+	oIB7VXZOgAg4jv6zK11cAa1CH+MPVj8pg+Uf6/8qUbf5eMCW7rNfx49qebB3SqkOXX7wCK
+	u9AmNrsZPEEUK10aJK3NUbySExb7xvJ9jQPNOt1owma2lxC7CWI6AgDNp1UFTgKoXS0iiU
+	MOHCpL73RQg2QI3XWSMy8OMvGqtPnFpWcm8xM+tuBQynPUYBWfjXIlQnceVmUQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793787941; a=rsa-sha256;
+	cv=none;
+	b=W2SKAYeDEhEpB+KWH744MC/8Zua/10/EdN1knlfwc1zu3oHnUZNBLRDhvIToO9Czib2rc8
+	ttW6//vcBNO82+tOTuPweTyX/nRR4Z7AbC3GD6HS726LZbYk++LEDxksFPWHt9BHbnWpcK
+	OG+b2US90SeGVwPL6nQbqQWGLAdr9wssj3RIJH12VMFyi59Hyocz+TvK3UUS3TJdi4aTo6
+	rOBFxvK4R//wbiwbT556vl5gcqkF+t/7KkgN4E14J4r8OYUCcJa7eKz9jyp3oyB9AD4FBa
+	1rSsYoeu/4NZAATdwpGICbJiZk7+wqYyVkVOJBfhgH6VBVLUGxaHyUfOYokBsQ==
+Message-ID: <9afb8ddc8451afad4f7ff7b9a133dd8542d07205.camel@pengutronix.de>
+Subject: Re: [PATCH 1/3] hwspinlock: sun6i: Get the clock and the reset
+ without names
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, Wilken Gottwalt
+	 <wilken.gottwalt@posteo.net>, Bjorn Andersson <andersson@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai	 <wens@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland	 <samuel@sholland.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt	 <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti	 <alex@ghiti.fr>, Andre Przywara
+ <andre.przywara@arm.com>, Bastian Germann	 <bage@debian.org>,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 04 Nov 2026 11:25:41 +0100
+In-Reply-To: <20260927025626.69614-2-tien.nguyenminh@embeddedlinux.blog>
+References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+	 <20260927025626.69614-2-tien.nguyenminh@embeddedlinux.blog>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -73,60 +103,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Am Sonntag, 1. November 2026, 09:22:56 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Jiaxing Hu:
-> rocket_reset() drops the in-flight job's runtime PM reference with
-> pm_runtime_put_noidle(), which requests nothing, so the core does not
-> suspend until something else asks and its power domain does not cycle. On
-> RK3576 the domain's power-on resets the NPU bus interface; without it the
-> IOMMU stops answering and the job after a timeout fails.
+On So, 2026-09-27 at 09:56 +0700, Nguyen Minh Tien wrote:
+> The driver looks up its clock and reset by the name "ahb", but the
+> binding doesn't define clock-names or reset-names, so a node that
+> follows the binding fails to probe:
 >=20
-> Use pm_runtime_put_autosuspend(), as the completion path does. On a ROCK =
-4D
-> the job after a timeout goes from 0 to 128 of 128 channels correct.
+>   sun6i_hwspinlock 3005000.hwlock: unable to get AHB clock (-2)
 >=20
-> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail=
-=2Ecom/
-> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, i=
-nduced reset, JOB_TIMEOUT_MS=3D2
+> There is only one of each, so get them without a name. That is what
+> was asked for when the names were added to an A64 node, and nodes that
+> do set "ahb" keep working. For the reset, call the explicit
+> devm_reset_control_get_exclusive(), which devm_reset_control_get()
+> only wraps.
+>=20
+> Fixes: 3c881e05c814 ("hwspinlock: add sun6i hardware spinlock support")
+> Link: https://lore.kernel.org/f720eaf9-01d0-0e57-f6bf-9aade00aafb8@linaro=
+.org
+> Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
 > ---
->  drivers/accel/rocket/rocket_job.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/hwspinlock/sun6i_hwspinlock.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 5b2abf40b618..152a9098634b 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -467,12 +467,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
-ched_job *bad)
+> diff --git a/drivers/hwspinlock/sun6i_hwspinlock.c b/drivers/hwspinlock/s=
+un6i_hwspinlock.c
+> index c2d3145880..e7cc121310 100644
+> --- a/drivers/hwspinlock/sun6i_hwspinlock.c
+> +++ b/drivers/hwspinlock/sun6i_hwspinlock.c
+> @@ -104,14 +104,14 @@ static int sun6i_hwspinlock_probe(struct platform_d=
+evice *pdev)
+>  	if (!priv)
+>  		return -ENOMEM;
 > =20
->  	/*
->  	 * No handler is running now, but we might still have stuck jobs. Let's
-> -	 * make sure the PM counters stay balanced by manually calling
-> -	 * pm_runtime_put_noidle().
-> +	 * make sure the PM counters stay balanced by putting the reference the
-> +	 * job took, and request idle while doing it so the core can suspend.
->  	 */
-
-with my comment in patch 3/15 fixed
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-
->  	scoped_guard(mutex, &core->job_lock) {
->  		if (core->in_flight_job)
-> -			pm_runtime_put_noidle(core->dev);
-> +			pm_runtime_put_autosuspend(core->dev);
+> -	priv->ahb_clk =3D devm_clk_get(&pdev->dev, "ahb");
+> +	priv->ahb_clk =3D devm_clk_get(&pdev->dev, NULL);
+>  	if (IS_ERR(priv->ahb_clk)) {
+>  		err =3D PTR_ERR(priv->ahb_clk);
+>  		dev_err(&pdev->dev, "unable to get AHB clock (%d)\n", err);
+>  		return err;
+>  	}
 > =20
->  		iommu_detach_group(NULL, core->iommu_group);
-> =20
->=20
+> -	priv->reset =3D devm_reset_control_get(&pdev->dev, "ahb");
+> +	priv->reset =3D devm_reset_control_get_exclusive(&pdev->dev, NULL);
 
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-
-
+regards
+Philipp
