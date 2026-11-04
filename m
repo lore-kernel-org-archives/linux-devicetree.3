@@ -1,57 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804405;
-	b=Kn3xpR6jQ0lk8xNDgQnPw75HVx1nI5YdtDxfPw9PIyfmJx+AJr0skRKGo+Hcum/NUKga
-	 eEV6htnWfWfwQyey8eDZ5QtjhwT/reaYyVX+/olvhIY+O1KxbMxBTOZyWqvhmHWGF+pqT
-	 K8Meun6wDc+gGZx10GEmzqCE/7mWvY4eUY98e0GQjmZuuAWbbNs7cf4sYRD3KJp2Jso95
-	 Z4cjR0B49/9Oxc429ZEV79mwISPM/RKvrSQ/c2sd6lHpoYiHUziy70wM6CynoCRef/Mnm
-	 aQDKbXrY5WpREqZpmiK+PfhPwtn4487blcpGfs255kdyxEouLeK19J2j9r0G9KzOmuw==
+	t=1793804418;
+	b=DCY3BYUs4LX4vYP2aPvfPCPMPC6gu/Fy3OrU7xcNGu2V+iVQyJM75mcKRi3dCzUusfWo
+	 +sxhFuT32WkCrgiT8MbguyP+WGlC18h+EPqFzLRBG8f5UGpxk0HWuGaBHX8EFi3VEveRU
+	 iHLylwtWl2ZH9qSIlb+cEfyBD5+Ua7CNZk3DxPDu2dIDFbt2s1FxoPK4lHuYfOGZKMoku
+	 7/pf8wi1lJ+J1BlzjphyFVFpHropgw0RDK0exOOOGuivoJzAm5G3cPKwUfTepnW2KHhK6
+	 //kxanqvldIx8nQYcAuvQ8Zd2ihRcrXenkSrs7oovD6WY7gLfod51gfHEQzg65pAirA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804405;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=j6Lmm1Hn0vVGy1edj0ZEjgYqhILrVPlHvC3oCOWpi7M=;
-	b=BZ1DptbYefzP+bw0qjFpqvBeebD1Jsde+aH0pkfuxE6J2pgSuHT0/2V5uVQ0VNpreEjP
-	 gvsMGQVgDTeILGnZ2yB7z2OCOL2j5RJPGC0sUZQSEdADZTJNm4ug/mz4l1oux294Qfl2B
-	 5EjMn2yNfalEJr2SiDLgjIyURwh8J867DhBC/4gYUwvimcQ01QokwHfR63yRnyKX85AgR
-	 2o7R+pzvQbNAchLqDcV3bwEWPUDpdmOMrZIXscaC2TCJYKsS6weyjnpGlSye28LnfoDfb
-	 Vb2lKGXBjQeK/t4zb1J99yxbpNmR7JJwG9TOwjtNkE5AQmLUH/QbVOumPDTFdKBjY7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804418;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=L2TX4jw8nBgVDDi3cr/Q5stFGHBBLzs3q4obJ5FleF8=;
+	b=B2Kz4S53jjiseXt5ew78SF58uGUWRGnhyg6ehldpHJhwuPzLUwtUMDWuWs/YWwznfcAm
+	 G3Qs+wkOPQ3ezwbTclmrJCALDI4uyxJ7Ola3PANycMZQC/q/oveJE+K8UX2ln/LD5eM/y
+	 EwCO2uxxBCX5FKl6bRHJlCyumEyTcmVNbT+VfeKCksYokg0fY0bGxUrnyzTYcJJqORmiG
+	 ES2bg7UCmM1o9kAIqYLw0IySkQTHm9OyIbYDqylnu8RXoQWs4ISE1GbPEI83F8tGyDbqk
+	 mfJoI8pYvhritTQvN3qkKBjIPWmHUELKJTJ0y98wWGfex6hYKtD9nrLJvneXe4NhwoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2FfGEza;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mdjSfNjz;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F9D606A31B;
-	Wed,  4 Nov 2026 15:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B77606A331;
+	Wed,  4 Nov 2026 15:00:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B77606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2FfGEza
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC551F000C1;
-	Wed,  4 Nov 2026 15:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804404;
-	bh=j6Lmm1Hn0vVGy1edj0ZEjgYqhILrVPlHvC3oCOWpi7M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=E2FfGEzaY+5pOzHmP/Qxnev2lkJRvRtWfseKPiVnC5SyQQRdX107lcHXaRuDu4dvc
-	 01x9DlOLwXIKCTDZo7U68AomcvrrsY//bJ86MFgKiillsjiABXwMI7n7IlB7Dkc8OT
-	 fCXwaSJndHc3pgqcHQaOmylqRE4z0SgZGiIv8naOuT2dustP7iLQr+CP5qQYmBWPkB
-	 lcxMrqK8T9uAK4dgutBLjd2Omzyhi2j9jNMSmErfYY9mxGylwZGf6bcoOqf357N16Y
-	 kUqaMpic1Jn//qEiji8bHm45Z7AKqdnrmWBoWXNwAPuk+ogVHfhg2fOrq1FT1vBLPt
-	 +diG578y2m8yA==
-From: Brian Masney <masneyb@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org
-In-Reply-To: <20261104145118.952453-1-robh@kernel.org>
-References: <20261104145118.952453-1-robh@kernel.org>
-Subject: Re: [PATCH] clk: hisilicon: Remove hi3516cv300 driver
-Message-Id: <179380439179.620564.4189393090905207161.b4-ty@b4>
-Date: Wed, 04 Nov 2026 09:59:51 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mdjSfNjz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=L2TX4jw8nBgVDDi3cr/Q5stFGHBBLzs3q4obJ5FleF8=; b=mdjSfNjzuysfatSV3UV5aMC+2m
+	LLA4mrTdxlRu5ZW7vy8FnbTi08PDsefTmZsYT4HSI5QmxXr6b9kQ6gwpJoP3w2GNCz+3yIzQClEGW
+	MovEpP2TUpGaakLgsn/Opwmj1HaO62nrediWVdWoN4HdC/txEiq40bsbXLoL5HdKtcv4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOcT0-00EL1c-U5; Wed, 04 Nov 2026 15:59:58 +0100
+Date: Wed, 4 Nov 2026 15:59:58 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Stolniceanu, Iustin" <Iustin.Stolniceanu@analog.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Schmitt, Marcelo" <marcelo.schmitt@analog.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Regus, Ciprian" <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 0/5] net: ethernet: adi: adin1110: Add OPEN
+ Alliance TC6 support
+Message-ID: <c1747691-2c2e-4a7a-af04-92c94cb041b2@lunn.ch>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+ <49b292c4-c0e9-4b19-aa4d-d15dd20d25b6@lunn.ch>
+ <IA3PR03MB8453F2E91946AE59A9818B9AF2682@IA3PR03MB8453.namprd03.prod.outlook.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,29 +77,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-7ca47
-X-Developer-Signature: v=1; a=openpgp-sha256; l=290; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=q+c2CJOAfFyU7qIx6L79cH32JQkactqk07DEdp5nXKs=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJee2Szv/AKeLrwtsgit/132dj3u2zzlYuSS55/vbRqn
- vLi5jCdjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACZyn5Xhn7m+GsuxteWiuw99
- 42W7p/tjxb+J25Kt02XfM8i8Ph+kfInhD8+ErlfFiof2qAgJTzX+a1NaqTk95v1qv2fTJHVK98/
- wYgUA
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <IA3PR03MB8453F2E91946AE59A9818B9AF2682@IA3PR03MB8453.namprd03.prod.outlook.com>
 
+On Wed, Nov 04, 2026 at 08:06:56AM +0000, Stolniceanu, Iustin wrote:
+> On Tue, Nov 03, 2026 at 20:49 UTC, Andrew Lunn wrote:
+> > On Tue, Nov 03, 2026 at 06:09:13PM +0200, Iustin Stolniceanu wrote:
+> > > The ADIN1110 supports two SPI host interface protocols: the generic SPI
+> > > protocol, which the adin1110 driver implements today, and the OPEN
+> > > Alliance TC6 protocol. The protocol is selected by the SPI_CFG1 pin,
+> > > which the device latches when it comes out of reset.
+> >
+> > Is it possible to read the status of this pin from a register?
+> 
+> No, not for SPI_CFG1. The ADIN1110 has no register that reports the 
+> SPI_CFG1 level or the selected host protocol.
 
-On Wed, 04 Nov 2026 08:51:16 -0600, Rob Herring (Arm) wrote:
-> clk: hisilicon: Remove hi3516cv300 driver
+Seems like a badly thought out hardware design.
 
-Applied, thanks!
+> The only way to detect the mode at runtime would be to probe it:
+> read the PHYID register using one framing and fall back to the
+> other if the value does not match. I have not tried that yet, and I
+> am not sure that clocking a transaction in the wrong framing is
+> harmless for the device, so I went with a DT property describing how
+> the board straps the pin.
+> 
+> If you would prefer autodetection, I can try it on hardware for V2.
 
-[1/1] clk: hisilicon: Remove hi3516cv300 driver
-      https://git.kernel.org/clk/linux/c/3865d0d4439f
+Do you have an reference design using a jumper, so you can try all
+combinations? At minimum, it would be good to probe the chip, print an
+error message, and return ENODEV, if the property and the hardware
+don't match.
 
-Best regards,
--- 
-Brian Masney <masneyb@kernel.org>
-
+      Andrew
