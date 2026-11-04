@@ -1,86 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813367;
-	b=afLvePSRfZKXwYsPHfDeMrMRdtogoiyvDxl50zJ4LSv5S4C1kxaf5vaQ3RiUXfB0DfVS
-	 l2P6lkSPryTXwrmQPNL1/wQf3NnFw9obVZa4tVy4g1+xDK72H2zlhhIzCFfDh4mnklxcR
-	 fdqBkbA/KKv2WcreDwiWMv00xJwbPoJ/WmYYU9Udr5b8NpAqEPK8zyqn1efOwdEa+Ic+0
-	 oD7My5RHDIuI6mMw4RgGfV8DPKyrFEszDjPkZ9mHckpPSVRgtLzJjIpTNKDFdoLhxTkrJ
-	 PBjNx2IaUITrv2XYL458kmoToa/puZyHerYK21iuSmle5NuCNKKKsKaIrnu/fU1x8XQ==
+	t=1793813369;
+	b=ADVHf4Ez4djf3MMSddZN1E7rqVGahOxGSv8WFZu3yNQKcsLwN9k53Beo5o7QyPx/9IQt
+	 mZT4RcSnFc+52jzAAxVI0FVmDYEqeKX67QpfRKjcP8TFtQoszyRDru2eeYp5+ym72BxSn
+	 K6XlHusCMD8OYzJjf50SNKwdVnHydf6lHkemv9u68N3uaDNRHXJ2EW/ppichEeVqKkKKl
+	 Mei8sxYWYNd1IELayrPkiIehSn9KT9lePqBmoEVGMoMIwUxp67kG1NmOiZvto7Imj5RKT
+	 5FzOMoRcWQPgRZ1w5TifySsEQ4ruVqGvLBMexQcNG1ryDDcjPEYNz5PlUatAWyiSobQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813367;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=1yjePlK/OVhSN4qgjaCYH8FyVFqQX6cYW3VsCzAcJls=;
-	b=o2Nx2cnV/pDptEbkEXBqNpg2BzUFmG/w4Qx7LEnUW9uqbW4f0etTd39f8y7UVp6CzqTv
-	 mDn6CBmxIAfoU88H8YmxDzGTC11VFEC8vOs13WCXq/PyIYcrM056G3R+hkKiyl0dO4gEM
-	 7TdVS2O3tyHVX/1/l6XljsEA7p/2qLN1tJfM9y+rBw8eEVpdmg+IpWQmjB47mM+GfAprA
-	 ywir7fOGMEC9ueqS0D6FQwKgDdov4bpIk3DenbAtRDIEVQKpiGFm/No/APpSBCNWxywJp
-	 u/6mGJOT7TbGaroKEPd93zzxmSZkABdQZie4m6f5ovhrLZgN5TD9v+EYCGMqzqh/bCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813369;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yDbkb1XED6qncOAadzXW360XIzlZHMnFZRPOUhpQgSU=;
+	b=sKqfNHVs3sWX0GV/e970Vog0NhCcF+Ng10k5uwA8LIm3D+cXb5HcPOwkmYwHU0RTDtps
+	 nTYWv/MoBC3C6odmGMnTMipg5WcBwuvugS58oa5nk9gHylbjTNuv6R/1+y5vlzjGCX+59
+	 ZgCryZ5ztZrptQuLTV8AuGY/S7KQ88JqAJFT39dIr3KgEX7R3tigzo/SmhqcvP8XuU3SO
+	 ISNhQYCcRPPTGsBcgW+YqqjTvLbi4O1wf4W5WocH8o8hNcn8TVA8WxOPVNEPce8hjcvXQ
+	 KBRBdL57YNgIwYyPDTNXcs5k4Eo2q3G+Uc2/aWp5OgMbMaTPSkZV3yfJtU9ipDssfog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VSWTAoSQ;
-	arc=none smtp.remote-ip=35.162.73.231
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ad3K59ZV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88AEE60A2602;
-	Wed,  4 Nov 2026 17:29:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88AEE60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEE9606A33E;
+	Wed,  4 Nov 2026 17:29:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=VSWTAoSQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793813367; x=1825349367;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=1yjePlK/OVhSN4qgjaCYH8FyVFqQX6cYW3VsCzAcJls=;
-  b=VSWTAoSQloNgD44Qspt3WwON3QCkpkZbiaxkMR+JL7h7m6tQ6UWmU1om
-   1st6TEArYQCYLlfJvzJCDBKOIns3lvjE2UidAcfhxUDvdig3KvxAvqb+U
-   3pzUNJpbTd/jAPebP8rKIMi7kFjXG7RWRbl3WBXWeLHkfNSrchIQTncFz
-   oVLdZcLTD8ncKBCIhgjI0XJ+ykrIncwXR5ZTNCNNY07LQrzo1o5os1cXS
-   lH9jFsfcXPwCmML7fW1Hy12VfmGjH3bpQCO1Wg/++1uvx7tU6ZwPfBLz7
-   w8igNG1qolBmxKnaX7ARdGPlC76ywcdvPDfx/XsOiOGxIyrR/YXjgzRIm
-   Q==;
-X-CSE-ConnectionGUID: dKg5AfX1S2WyTmoW8PpJxA==
-X-CSE-MsgGUID: 8/9evcu2S+SeojUnp3ySeg==
-X-IronPort-AV: E=Sophos;i="6.27,195,1787011200"; 
-   d="scan'208";a="32909561"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:29:26 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:25339]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.23:2525] with esmtp (Farcaster)
- id d06f3413-26cf-4617-82db-f765a5bf5c0d; Wed, 4 Nov 2026 17:29:26 +0000 (UTC)
-X-Farcaster-Flow-ID: d06f3413-26cf-4617-82db-f765a5bf5c0d
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 4 Nov 2026 17:29:26 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 4 Nov 2026
- 17:29:23 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Rodolfo Giometti
-	<giometti@enneenne.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Takashi Sakamoto
-	<o-takashi@sakamocchi.jp>, Eliav Farber <farbere@amazon.com>,
-	<devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v7 3/4] dt-bindings: pps: pps-gpio: document optional pinctrl states
-Date: Wed, 4 Nov 2026 17:29:11 +0000
-Message-ID: <20261104172912.26456-4-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104172912.26456-1-farbere@amazon.com>
-References: <20261104172912.26456-1-farbere@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ad3K59ZV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3244B1F00A16;
+	Wed,  4 Nov 2026 17:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793813368;
+	bh=yDbkb1XED6qncOAadzXW360XIzlZHMnFZRPOUhpQgSU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ad3K59ZVwey0zN+ISekqtJdevUXZTFq9kr5r6K9gxSakjrzb9VFhME1mvJWxZZCbR
+	 C3okzBzlhkWouCNkouGn0AwWpmtcPyuK0AlxNRavWXvZ0Wh5UHW424pQYEpfBinoXr
+	 ZyMZSDhubMTw/4GQN4BLOV2yPY8j+Vs6GZOs/n1hKOn7MS0BWjtc6GdGGlAYue1k9O
+	 Wnd5QnSlC+APeAjd5WL8RVORlBTdbO/bcWky9AkIo+6M8q02hod5kE5bNH+N01lIP/
+	 AV53S+B/1sNH08KkjMMsMcRBMj2rureyOC4U6CAvXRhBpXdmkpGRUa341Hqn7KZHv2
+	 8Yg5aTzE07zcg==
+Date: Wed, 4 Nov 2026 18:29:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Devarsh Thakkar <devarsht@ti.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+	Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 12/14] MAINTAINERS: Add entry for Solomon SSD16xx DRM
+ driver
+Message-ID: <20261104-shrewd-traditional-goose-a382db@quoll>
+References: <20261019213726.4145532-1-devarsht@ti.com>
+ <20261019213726.4145532-13-devarsht@ti.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,92 +63,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019213726.4145532-13-devarsht@ti.com>
 
-When the PPS input GPIO is routed through a pin controller, a board may
-need to mux those pins to a different function while pps-gpio is not
-driving PPS (for example after the driver is unbound or across a kexec).
+On Tue, Oct 20, 2026 at 03:07:24AM +0530, Devarsh Thakkar wrote:
 
-Document the optional "default" and "inactive" pinctrl-names and show
-both in the example. The "default" state selects the PPS/GPIO function
-and is applied by the driver core before probe; the optional "inactive"
-state, when present, describes the mux to restore when the driver is
-unbound or the system is shut down. "default" is pinctrl-0, matching the
-implicit ordering the pinctrl core already assigns it, and "inactive" is
-pinctrl-1; the driver looks each state up by name.
+> +DRM DRIVER FOR SOLOMON SSD16XX E-PAPER DISPLAY CONTROLLERS
+> +M:	Devarsh Thakkar <devarsht@ti.com>
+> +R:	LiangCheng Wang <zaq14760@gmail.com>
+> +S:	Maintained
 
-Signed-off-by: Eliav Farber <farbere@amazon.com>
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
-Changes in v7:
-- Add Acked-by (Rodolfo Giometti) and Reviewed-by (Rob Herring). No other
-  change
+> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-Changes in v6:
-- No change. Rob Herring confirmed the two-entry ["default", "inactive"]
-  items list is fine as-is; the "sleep" state discussed on the list is not
-  something this binding needs
+Drop, you do not commit there.
 
-Changes in v5:
-- No change
-
-Changes in v4:
-- Rework per Rob Herring: do not express the ordering in prose; use an
-  ordered "items" list ("default" then "inactive") with minItems: 1,
-  since pinctrl-0 is already implicitly "default" and its position is
-  fixed. This also fixes the "['default', 'inactive'] is too long"
-  dt_binding_check error seen on v3. Reword the commit message accordingly
-
-Changes in v3:
-- Do not constrain pinctrl-names to a fixed ["default", "inactive"]
-  tuple. The driver looks the states up by name, so "inactive" may
-  appear in any position and other states may coexist; only require
-  (via "contains") that a "default" state exists, and reword the
-  description accordingly
-
-Changes in v2:
-- Rename the released state from "idle" to "inactive"
-
- .../devicetree/bindings/pps/pps-gpio.yaml          | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/pps/pps-gpio.yaml b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-index 383a838744eb..61b5de6724ea 100644
---- a/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-+++ b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-@@ -28,6 +28,17 @@ properties:
-     description: Indicates a falling edge assert, when present. Rising edge if absent.
-     type: boolean
- 
-+  pinctrl-names:
-+    description:
-+      The "default" state selects the PPS/GPIO function and is applied by the
-+      driver core before probe. The optional "inactive" state, when present,
-+      is selected when the driver is unbound or the system is shut down,
-+      handing the pins back to their alternate function.
-+    minItems: 1
-+    items:
-+      - const: default
-+      - const: inactive
-+
- required:
-   - compatible
-   - gpios
-@@ -40,8 +51,9 @@ examples:
- 
-     pps {
-         compatible = "pps-gpio";
--        pinctrl-names = "default";
-+        pinctrl-names = "default", "inactive";
-         pinctrl-0 = <&pinctrl_pps>;
-+        pinctrl-1 = <&pinctrl_pps_inactive>;
-         gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
-         assert-falling-edge;
-         echo-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
--- 
-2.47.3
+Best regards,
+Krzysztof
 
