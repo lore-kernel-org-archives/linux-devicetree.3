@@ -1,64 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835965;
-	b=1dG8Qj7GGcqgZmPyGB23rRceGhsOCZgp/dnkoEZ12UCpArCnVA2fuf4Fs5Y2sHsLB/nb
-	 ETQuoUaecWkO+pgtRwFnjSTZNKdV42v2yQv6QpcIM5A9sV1Mrk3v21lux6k/cC1ukBD6H
-	 mPQM0cKtvzulp0FtxwB/0qOgjKMlvKsG4/dxozLYEwfAL4F+e0ndSL3f1CTK/LymbKjeU
-	 LymGD+zXuHLhwSKxVvMjV3hZQsbscCL/TONA0Hxbv38XIy5MbcRqI4jMBB566tA+8r56K
-	 jltVDiS8FJkXxdncILgE+8o5Df4dCF3OHZ/f7+jjhSYa/8l7LaYeem485exEJc4IHqw==
+	t=1793836024;
+	b=M5bHUiw/9D8sMV4AI9Xgn5CjZf7T+gwQeGbIdk2ZVr94v5TzPn6G1ySwnMHl0qf3Z2A0
+	 84/2tixCAqhkU760vc2D2uGP3N3uBnpqQhUwRFcSoczmcOVuKq9TtIpj1SmkLXw3emyrg
+	 MqXttJ1mNjZtKKP1YpqrotpP5hKI5EEjUC2qdHVPu5oaoAtWZ/MmfEjpbAGJQwpl+HbaU
+	 5dwqWcqlyq2ZuZvb7lcdfNpiKlbRYltgpNBiD0SrhFfkl7r/74XL/Uv3yD+VSIHs6Cb/i
+	 3bwxVZR5D8fnnvV8kndP5mBNdf7QG5DWUlHx2ysUBl5AdKy1bEDU0I1X05dCcyV5Pzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835965;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KuXqYocoLhVizV5+uDkZOQ8T+Ta9Mt/oF23jxASUD+U=;
-	b=AAUaGeqKPvipjbRHzhA2uPWq9el4OpsLT733PEnos0uL4raBvJ0QhetqVUKQeAoUmjvL
-	 8Uys2w6RAXDV2LXkBWkrV3gCsyTyUWWGM0bTJfRPsmTM71kqm8mrN+lhELecaaHgXSf70
-	 AzfY4IqGA40K/j6cbasymbRF6yDiEw4OabJpfNcf62/9bGHtGg/0/c3gd/l+UsfzdP1H+
-	 esSwbEflNuP/Vm9+HnSCizmAzcUDZTd6TG3xsCpAAfI2wHkYdDRsou6mspffekowKPAEg
-	 UFNulNWokTMNFV8oGf5NFOSjSoALybhHSjMyArPAz1kN/wXjncmrX3PFUg7TS8RVkxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836024;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Ybn1U4ck4SXPPg0/2HE2JPN2c6fPoDZjnz2lKASv9Gw=;
+	b=ssuhS0iwNWhRpxH+oL4wBfnv/RvSTO/f6m3qCRntuKBE6n6NS1fTPyp5+NFg1mwIC9u5
+	 XKjqy+6KAVPurloKszcXAyqTKpBK/4OX+JE9bFk59OmHyzZfjPxZgdjlMebZoDmDAHcQk
+	 3gdeIEivnyUeZPAl4PV2KEJNy3L0H9y99T1bmv7c69G0RLnaEy1pvzO9Nx880L+zDpm5E
+	 JKHBPj2FjDS7D6IihJG5kVDAjIHZYzd6tkvnqP6WtJoMr6I9asHB16fVx7/mGOvSxKcq0
+	 iO9inTGkMqt8XH27SfLJbd+4uJt2gb/u9GEQcm2zCD8iGJm2USZQgflzUuZt0Wz282w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cd6Gn+0C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EjGtR966;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57ABC606A328;
-	Wed,  4 Nov 2026 23:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F52606A31B;
+	Wed,  4 Nov 2026 23:47:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cd6Gn+0C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548511F00A16;
-	Wed,  4 Nov 2026 23:46:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EjGtR966
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5491F000C1;
+	Wed,  4 Nov 2026 23:47:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793835965;
-	bh=KuXqYocoLhVizV5+uDkZOQ8T+Ta9Mt/oF23jxASUD+U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cd6Gn+0CNvsCUkYxIfxvYtDyaXRBksMpOxr/NmltYbziZB1LXYwJIYb9tJACHwv+8
-	 O8QFvffKVaoP8J0xHmYEz1yqTRHvQE8bbwjVUWKgwuuDRJB0ZjztTOkKLlquFI+4yy
-	 ggJeJYMg4N7pN5BtB8Ij+kP/tYMgQfNPPt8377su/XDyCX4r1NkMm2y2OKyrZnFkcj
-	 uPY6iHaYgzr3nHYhEvJBrVa4cI9CAyeHWwf0BJo9OHYywVB5MGwNde8p2CfQPhiLPz
-	 dREViQoYpy3abEyva8lrqFCj70/P8dGAyOtFHxrxCoQZgUeqdfkstr4RdrKHcEdlcO
-	 VL67YEXal5mzw==
-From: Vladimir Zapolskiy <vz@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	s=k20260515; t=1793836024;
+	bh=Ybn1U4ck4SXPPg0/2HE2JPN2c6fPoDZjnz2lKASv9Gw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EjGtR9666Gthy0HNXpBo2D0K7UWgNef9bYb34g72ci+M06cNmWMdOE2ChuRb1iKws
+	 HIy7vWx/l2UPx9pF1IZY1FQLvuPt9uDT4Qqa1h4Bk74ozloxpije2J9rHVPOQjO5oe
+	 gUZdPJQHu6G+3RyKnekvxVfLqr8de5lYagpJobyEFvFM7oHI8qjJIQ202oFaHJaTsN
+	 yIh2bkuRCdvIYsglSpXJtxKqleS7doC7NVyMAGkz7vKVNR61+JYrtSKOqFSNQP9qLZ
+	 sIXaHrqwYfK3j7eTlSZtB40PVTazRJEsYMYSt5i+hXRagWVHc3LTDxxDtyDFBSZ85Y
+	 0snuA1PB5AOYQ==
+Date: Wed, 4 Nov 2026 23:46:59 +0000
+From: Conor Dooley <conor@kernel.org>
+To: joseph@telaak.dev
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 3/4] media: qcom: camss: Add SM8350 CAMSS support
-Date: Thu,  5 Nov 2026 01:45:32 +0200
-Message-ID: <20261104234533.3044265-4-vz@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261104234533.3044265-1-vz@kernel.org>
-References: <20261104234533.3044265-1-vz@kernel.org>
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chuanhong Guo <gch981213@gmail.com>,
+	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: gpio: Add Siflower SF19A2890 GPIO
+ controller
+Message-ID: <20261104-judiciary-fool-05c4157a7cc7@spud>
+References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
+ <20261104-sf19a2890-gpio-v1-1-45e463c48728@telaak.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,316 +66,157 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8lCGnY4rd1pPxcek"
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-gpio-v1-1-45e463c48728@telaak.dev>
 
-Add support of the camera subsystem found on Qualcomm SM8350 SoC.
+--8lCGnY4rd1pPxcek
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The CAMSS IP on SM8350 contains:
-* three CSID and two CSID lite blocks, which are supported by CSID gen2,
-* three VFE and two VFE lite blocks, which are supported by VFE 480.
+On Wed, Nov 04, 2026 at 02:21:37AM -0500, Joseph Telaak via B4 Relay wrote:
+> From: Chuanhong Guo <gch981213@gmail.com>
+>=20
+> Document the GPIO controller found on the Siflower SF19A2890 and other
+> Siflower MIPS and RISC-V SoCs.
 
-Every CSID and CSID lite block contains a CSI2 test pattern generator,
-which is supported by CSID gen2 and controlled by the CSID subdevice
-test pattern control.
+FYI, these other devices need their own compatible strings when a dts
+for them is added.
 
-SM8350 CSID and VFE blocks are known as version 580, the hardware is
-programmed in the same way as Titan 480 found on SM8250, in particular
-CSID register spaces are placed inside VFE register spaces.
+>=20
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [jt: from Chuanhong's siflower-7.1 branch; Joseph Telaak as the binding's
+>  maintainer, GPL-2.0-only for the deprecated GPL-2.0 SPDX identifier,
+>  example indented by four spaces, commit message, subject]
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../bindings/gpio/siflower,sf19a2890-gpio.yaml     | 84 ++++++++++++++++=
+++++++
+>  1 file changed, 84 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gp=
+io.yaml b/Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gpio.ya=
+ml
+> new file mode 100644
+> index 000000000..6708d92fe
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpio/siflower,sf19a2890-gpio.yaml
+> @@ -0,0 +1,84 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/gpio/siflower,sf19a2890-gpio.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Siflower SF19A2890 GPIO controller
+> +
+> +maintainers:
+> +  - Joseph Telaak <joseph@telaak.dev>
+> +
+> +properties:
+> +  compatible:
+> +    const: siflower,sf19a2890-gpio
+> +
+> +  gpio-controller: true
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  gpio-ranges: true
+> +
+> +  reg:
+> +    maxItems: 1
 
-Qualcomm SM8350 CSIPHYs are supported by the CSI2 PHY driver only.
+Move this below compatible.
 
-Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
----
- .../media/platform/qcom/camss/camss-csid.c    |   3 +-
- drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
- drivers/media/platform/qcom/camss/camss.c     | 213 ++++++++++++++++++
- drivers/media/platform/qcom/camss/camss.h     |   1 +
- 4 files changed, 218 insertions(+), 1 deletion(-)
+> +
+> +  interrupts:
+> +    description:
+> +      Interrupt mapping, one interrupt per 16 GPIOs.
+> +    minItems: 1
+> +    maxItems: 10
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  ngpios:
+> +    description:
+> +      The number of GPIOs available on the controller implementation.
+> +    minimum: 1
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 9e64e8d44926..800a32b41667 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -1114,7 +1114,8 @@ int msm_csid_subdev_init(struct camss *camss, struct csid_device *csid,
- 
- 	/* Memory */
- 
--	if (camss->res->version == CAMSS_8250) {
-+	if (camss->res->version == CAMSS_8250 ||
-+	    camss->res->version == CAMSS_8350) {
- 		/* for titan 480, CSID registers are inside the VFE region,
- 		 * between the VFE "top" and "bus" registers. this requires
- 		 * VFE to be initialized before CSID
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 2680a9914765..dcebbfc97441 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -349,6 +349,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
- 	case CAMSS_8250:
- 	case CAMSS_8280XP:
- 	case CAMSS_8300:
-+	case CAMSS_8350:
- 	case CAMSS_845:
- 	case CAMSS_8550:
- 	case CAMSS_8650:
-@@ -2009,6 +2010,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
- 	case CAMSS_8250:
- 	case CAMSS_8280XP:
- 	case CAMSS_8300:
-+	case CAMSS_8350:
- 	case CAMSS_845:
- 	case CAMSS_8550:
- 	case CAMSS_8650:
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c54185c93a8a..0bca61b630d4 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -2242,6 +2242,206 @@ static const struct resources_icc icc_res_sm8250[] = {
- 	},
- };
- 
-+static const struct camss_subdev_resources csid_res_sm8350[] = {
-+	/* CSID0 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "vfe0_areg", "vfe0_csid", "vfe0_cphy_rx" },
-+		.clock_rate = { { 80000000 },
-+				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
-+				{ 400000000 } },
-+		.reg = { "csid0" },
-+		.interrupt = { "csid0" },
-+		.csid = {
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID1 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "vfe1_areg", "vfe1_csid", "vfe1_cphy_rx" },
-+		.clock_rate = { { 80000000 },
-+				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
-+				{ 400000000 } },
-+		.reg = { "csid1" },
-+		.interrupt = { "csid1" },
-+		.csid = {
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID2 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "vfe2_areg", "vfe2_csid", "vfe2_cphy_rx" },
-+		.clock_rate = { { 80000000 },
-+				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
-+				{ 400000000 } },
-+		.reg = { "csid2" },
-+		.interrupt = { "csid2" },
-+		.csid = {
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID_LITE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx" },
-+		.clock_rate = { { 80000000 },
-+				{ 400000000 },
-+				{ 400000000 } },
-+		.reg = { "csid_lite0" },
-+		.interrupt = { "csid_lite0" },
-+		.csid = {
-+			.is_lite = true,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID_LITE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx" },
-+		.clock_rate = { { 80000000 },
-+				{ 400000000 },
-+				{ 400000000 } },
-+		.reg = { "csid_lite1" },
-+		.interrupt = { "csid_lite1" },
-+		.csid = {
-+			.is_lite = true,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	}
-+};
-+
-+static const struct camss_subdev_resources vfe_res_sm8350[] = {
-+	/* VFE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi", "cpas_ahb", "vfe0_ahb", "vfe0_areg",
-+			   "vfe0", "vfe0_axi" },
-+		.clock_rate = { { 300000000, 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 0 },
-+				{ 338000000, 475000000, 600000000, 720000000 },
-+				{ 0 } },
-+		.reg = { "vfe0" },
-+		.interrupt = { "vfe0" },
-+		.vfe = {
-+			.line_num = 3,
-+			.pd_name = "ife0",
-+			.hw_ops = &vfe_ops_480,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi", "cpas_ahb", "vfe1_ahb", "vfe1_areg",
-+			   "vfe1", "vfe1_axi" },
-+		.clock_rate = { { 300000000, 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 0 },
-+				{ 338000000, 475000000, 600000000, 720000000 },
-+				{ 0 } },
-+		.reg = { "vfe1" },
-+		.interrupt = { "vfe1" },
-+		.vfe = {
-+			.line_num = 3,
-+			.pd_name = "ife1",
-+			.hw_ops = &vfe_ops_480,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE2 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi", "cpas_ahb", "vfe2_ahb", "vfe2_areg",
-+			   "vfe2", "vfe2_axi" },
-+		.clock_rate = { { 300000000, 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 0 },
-+				{ 338000000, 475000000, 600000000, 720000000 },
-+				{ 0 } },
-+		.reg = { "vfe2" },
-+		.interrupt = { "vfe2" },
-+		.vfe = {
-+			.line_num = 3,
-+			.pd_name = "ife2",
-+			.hw_ops = &vfe_ops_480,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE_LITE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi", "cpas_ahb", "vfe_lite_ahb",
-+			   "vfe_lite" },
-+		.clock_rate = { { 300000000, 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "vfe_lite0" },
-+		.interrupt = { "vfe_lite0" },
-+		.vfe = {
-+			.is_lite = true,
-+			.line_num = 4,
-+			.hw_ops = &vfe_ops_480,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE_LITE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "camnoc_axi", "cpas_ahb", "vfe_lite_ahb",
-+			   "vfe_lite" },
-+		.clock_rate = { { 300000000, 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 400000000, 480000000 } },
-+		.reg = { "vfe_lite1" },
-+		.interrupt = { "vfe_lite1" },
-+		.vfe = {
-+			.is_lite = true,
-+			.line_num = 4,
-+			.hw_ops = &vfe_ops_480,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	}
-+};
-+
-+static const struct resources_icc icc_res_sm8350[] = {
-+	{
-+		.name = "ahb",
-+		.icc_bw_tbl.avg = 38400,
-+		.icc_bw_tbl.peak = 76800,
-+	},
-+	{
-+		.name = "hf_mnoc",
-+		.icc_bw_tbl.avg = 2097152,
-+		.icc_bw_tbl.peak = 2097152,
-+	},
-+};
-+
- static const struct camss_subdev_resources csiphy_res_7280[] = {
- 	/* CSIPHY0 */
- 	{
-@@ -5738,6 +5938,18 @@ static const struct camss_resources sm8250_resources = {
- 	.vfe_num = ARRAY_SIZE(vfe_res_8250),
- };
- 
-+static const struct camss_resources sm8350_resources = {
-+	.version = CAMSS_8350,
-+	.pd_name = "top",
-+	.csid_res = csid_res_sm8350,
-+	.vfe_res = vfe_res_sm8350,
-+	.icc_res = icc_res_sm8350,
-+	.icc_path_num = ARRAY_SIZE(icc_res_sm8350),
-+	.csiphy_num = 6,
-+	.csid_num = ARRAY_SIZE(csid_res_sm8350),
-+	.vfe_num = ARRAY_SIZE(vfe_res_sm8350),
-+};
-+
- static const struct camss_resources sc8280xp_resources = {
- 	.version = CAMSS_8280XP,
- 	.pd_name = "top",
-@@ -5825,6 +6037,7 @@ static const struct of_device_id camss_dt_match[] = {
- 	{ .compatible = "qcom,sm6150-camss", .data = &sm6150_resources },
- 	{ .compatible = "qcom,sm6350-camss", .data = &sm6350_resources },
- 	{ .compatible = "qcom,sm8250-camss", .data = &sm8250_resources },
-+	{ .compatible = "qcom,sm8350-camss", .data = &sm8350_resources },
- 	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
- 	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
- 	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 7dc2fd9f03e0..aa722e68450b 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -92,6 +92,7 @@ enum camss_version {
- 	CAMSS_8250,
- 	CAMSS_8280XP,
- 	CAMSS_8300,
-+	CAMSS_8350,
- 	CAMSS_845,
- 	CAMSS_8550,
- 	CAMSS_8650,
--- 
-2.51.0
+With no maximum?
 
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - gpio-controller
+> +  - gpio-ranges
+> +  - interrupt-controller
+> +  - interrupts
+> +  - ngpios
+> +  - reg
+> +  - resets
+> +  - "#gpio-cells"
+> +  - "#interrupt-cells"
+
+Please fix the ordering here too.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
+> +
+> +    gpio@19d00000 {
+> +        compatible =3D "siflower,sf19a2890-gpio";
+> +        reg =3D <0x19d00000 0x100000>;
+> +        interrupts =3D <GIC_SHARED 246 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SHARED 247 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SHARED 248 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SHARED 249 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks =3D <&gpioclk 0>;
+> +        resets =3D <&gpiorst 0>;
+> +
+> +        gpio-controller;
+> +        #gpio-cells =3D <2>;
+> +        ngpios =3D <49>;
+> +        gpio-ranges =3D <&pinctrl 0 0 49>;
+> +
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <2>;
+> +    };
+>=20
+> --=20
+> Git-155)
+>=20
+>=20
+
+--8lCGnY4rd1pPxcek
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvD8wAKCRB4tDGHoIJi
+0hmLAQDFn8AQyWFbVtBLNfA/Jk6Pl5eG57rfoCu+xDzAklKXIwD/T2QiMRx1gfAx
+FLiy0lgH2wbO+h+sOgGTGVqK4xS6Bwg=
+=VE47
+-----END PGP SIGNATURE-----
+
+--8lCGnY4rd1pPxcek--
