@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818314;
-	b=xOjpXgjSN+eOFIoOU8ifS+6Lc0ZtILPe8xmXdZi8v1x5q7YSrFkqNgiM8MYXimHXavoR
-	 lqXMRPdMdPuQBjZbj8bsxhP5He91db3QajFsNXnlkIwBR0e+twCfILfGME4XtK0X4jKtk
-	 fm8Ibvg9iZwBSS3lywPrZm4t8Ho4la4yPm1y90mHOCaNg8JzJDI88aVNrl+QEPeE0nFsg
-	 FafuJPLHmw9V1Q/BbMP7FDMfThzoPSkDtMSvXj0y+Kd5UJ5CrvEW29NGWYkRCD1fL30VT
-	 4lqhg82on/pdeVQ0UZeCs/y+bF6APdKopgNMHiNDwMnABUw6lIlN6sBPKF/cIAQ4qhg==
+	t=1793818315;
+	b=h7NBB0/abl5fg62RbtQfQ6ob07eww1wLJQ4C61vELLl9/A21wlLv1ne8GqgujrUDIU3Z
+	 QepWD8mXZaFyl2kFJH+ELJg4Sa6ySpj+06H8HNo91lwfU30ac3unimK35QsKbxLBcudhs
+	 btLNsH5x74VpE1X955cZwjMO7asYBd9zO+ml3OHVCbK0aKhDxZiEySNSQMhKikIDsGlcu
+	 7zlNpAZp7k9nfTkLdMzq+Im7FXp6kZ5PN9uXF8WiBBOYq351kuwH5vgTrvoNywpDQ4Y1i
+	 /GoO2SGB0zBScD7HCXontyOwHk+bLsuNRE33vWg46EnaDMQDoaiE1pQiPESSzYDP8UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818314;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=i5XsCr+ucTT+O73E9489h5skp2UtkxdhspydLfN+Gms=;
-	b=dAAdjgC9DeMDy82IDQNrt4GoRW0qVIYkAYRBZewnvVU86boPte38tCDW/NcpB70Om483
-	 6sZxYRXY/x8hqp1wkG4D6TQ2BhvQhQzHJNa6GW0gimBDtktbw3Zn4v6QgWzKIj00mS8+a
-	 xWZ6zbAmeqp/JQF8jeEG7uJq59LS/SnOBfvjYTsbGyXSrQvEtTf4hqjfJFKEzDa1fYQXF
-	 tDkTcp/IaxzQuEEGXV+NCvmVUT+K/HJ12CZJII+AeQmo18dSXAY0jos1Sar762wy37dya
-	 aXvTylDFoBzq7oZ/RVe8YUyIo2i840kI8I2qnjEG0x5tjaxpzotV8cDfN3T6eAFHNmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818315;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
+	b=1X7mJBJ5SJu5g1dRcfqf5Z/N2oIQz5H7EmKuHrLtTP9itg9Y24qhQcT265TfNi33yxqK
+	 WcRTH6L5X0A2h5BWZrqPSwtNxRoxIYmq/FigKiuj7U+uChRzBVpFW6RyeKvRfxpQGPtK9
+	 ZCgpUqyohoKB87j+jnLCe6RAP7UwRxqXSjIGfm8deIV+ObnFbfF7YKodDZALB83BCYFSe
+	 Tl7fUCZ6jt96qOWUdxuA+WyzUOYfprZDLRBGitdYaVro1htQLvA+n6XOzSLt44ZQqvvVq
+	 VTprwr83syfc2jgZjXTwHP+VraNo5kXMhv8NRrhJz2lAqp4cUWsTeEcS1WzDvj/l7GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UAkBVP0C;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu;
+	arc=none smtp.remote-ip=185.70.43.101
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AD1606D815
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF25606D805
 	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19AD1606D815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF25606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UAkBVP0C
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so11330335e9.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 10:51:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818312; x=1794423112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i5XsCr+ucTT+O73E9489h5skp2UtkxdhspydLfN+Gms=;
-        b=UAkBVP0CZU3vaC4cQnPJC4Ij/vDt3r1Tb/JxOQDcVXp5XvNL12ybSpEBoSFfoAccth
-         jW28cIHdIUDVyOM0IXHwdCA8yGgIF/mgIFlaBsqPY1y8WhUmq//SJsVlnqGeGl2eiQH9
-         mdp0T0O5iGrO39rrqKm4Bykedt3cBgX4mpi8bEbEGP7V5qX2Q7GJCbAytUsa81cba7tB
-         KZOwvTZCnx7g55hxC83vf5l2aK0vJOtP9Hh9w7hrL+a/HobUeJlUrz4Ud2dPzPirSOK0
-         lhWZFct36pmIWEt1UOrZjdzwnstFWeA00Qv+WYUicmrovDQhnvDvR+C3af0DUcWuzcdF
-         ubOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818312; x=1794423112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i5XsCr+ucTT+O73E9489h5skp2UtkxdhspydLfN+Gms=;
-        b=TMoS7t8/jeOJ55DAG6fxT0U95FRTWBf6CQOa57YLddu1WMjO2Gmdv9en97U3yFoQQT
-         HIcQ8LuZWxwxlQH4RnJ8rUq7If1iTYmYWYcMOwGlsYP932PxFuTEaMt90LzDWFeR73XD
-         fN0bcgf6WCVSYcCG/3caarh1SSpM40t1EISEmP9CyKwKJdIhfkfwTI7CJujPa2kILBA/
-         MSVK8cQuIBmLXITYHHoeAE0+6IEGsdD6tJeNRI16GJF4D6bZi82GkSY2e1gcix1EcojH
-         dh/5he+oHVAJKEpoTIzdGT2Qzim4SRJC7yEdsj2Z+wa3h1qCHFUJNbm7vPRySMjgqb+B
-         3rrw==
-X-Gm-Message-State: APuU4Z+btbdY8K02jEenbNiIv17ArpX2BmpD8K5bNtECsWpnjyhhb1oX
-	+2Wt9S7eUh8iLvO+XQGd346ytxkaBlIjee0Kz59WLsjs2A2vfZimPHqr
-X-Gm-Gg: AYBFou0USiQ1jTBmR7U2dc7Ds5JC5cas9oLMoK7AErtr3UZHFEC8TB6Q6G8dxCRtCAB
-	dU3ykcHHZQQMPVNF61r1h+MpqobartW/J2SUcUVc/K+LoEHHEVZj3Jm6KFxm0/EsRLmul2261yZ
-	Dxuaw/D4MHglbxvquXly9onko5Q/7/xSNzqsITBuJgUTq2K7eg8ASElkwMT7iuY6rYXG0OwRAS9
-	aZM+4689GV3U7VjB2WrYvinudFUILLO3kqs7XMEJ1uC/kfHRRYjWE4aAYmNTJzXZZr+pnCHP6oc
-	+XDKVnwggAg4aswwxfLRXZ7YFnqiyEYaN7zzd0UP9s1IK/Kw6gqMojBflE8qKCtpsc3/l+3+JhO
-	pno60J0IHqX53FXgBiNfP3FR60IEF1clrP2N2zhVp6rny8ZcGnr/mawXKvkW8vq/cgHfXpTc5uI
-	/mkbKja6LNjwH4yvC67inCnn5Yq1flNAq8bJsp88bN1x4km44WwfLwkCa2cMvkyI782Ey8vJ5Jw
-	Ya20ULAlHbKJzRFDh8zupwNcoG+2GEIxEQGXCr6eXlB3P7EV9pWglTshaFp+1VgQCjswK1sKIeJ
-	EBGv03ti1/haSuk2B/cDAWAaVwSDSeHlHAxSE1RhjDZbCZaY5+hNkQKIZsqQ3WWqlsfiahuK6e5
-	QqYxAu7LPXkJNbBrjaRg21hFEMM/MCwI+WWBPvNBj1obpiVls9kVJ6DSq/EtUW2nXLjq76jYdv2
-	6ljtHG3gpYsWC2dozGew0/iiNPks06mJI3MXggsCh7df1vD+e5BnPrJxtFE1oax1vvvsO6zt+fS
-	p//U6zttrwW4ml74EqeBvLQoIfUebI0v7q5ZkdmbUjo
-X-Received: by 2002:a05:600c:470d:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4ac17471285mr378898355e9.7.1793818312397;
-        Wed, 04 Nov 2026 10:51:52 -0800 (PST)
-Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f02386bsm4031515e9.7.2026.11.04.10.51.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:51:51 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] ARM: dts: sun8i: r40: bananapi-m2-ultra: Limit eMMC clock to 37.5 MHz
-Date: Wed,  4 Nov 2026 19:51:48 +0100
-Message-ID: <20261104185148.883318-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=vxJUKcRu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793818308; x=1794077508;
+	bh=FPPm4Ifo7WxrNg+H9UhHD74zvq+SEmbeIyWBnjDCO4A=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=vxJUKcRuU1J3D9RxT0BjZUPto1pvptqtA1sdv7uTPU5Wd5CabFWDfvXI4OhKgYq1b
+	 RmVcmxn6lGV0KLIRbmf0XAMW9tsaJOJb1JcYZ3OawY1xtGMmQ4D1it1d0DyD4XwrZs
+	 49Ii/TQ1mULHm9DPR4SJjhxDYPylYoD6cZbwbtgNaM3EOHWW1hvXwL9Y3Bbxen6AiC
+	 qNZ+uGwCJzpT6M6sXxSlJZYuTLnSYT2Kma95yD57dtoS02X7DCYbjtNM6n3RuR3GEd
+	 sLq0NxA1mvS5iAVouV0Q+anJZF5XV7R5XUU5a50YPpPRfVJ5h5horz6/hQWDSX1bhx
+	 SeWJTVGccxEVg==
+Date: Wed, 04 Nov 2026 18:51:41 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, chunkuang.hu@kernel.org
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream Compression support
+Message-ID: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 8d12c3e225616d3655c04ed7e4412cce821e564c
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,37 +61,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The Samsung eMMC on Banana Pi M2 Ultra fails with "data error, sending
-stop command" within a second of sustained reads in DDR52 mode at
-50 MHz. At 37.5 MHz the same board survives a long read/write soak.
+Hi Angelo,
 
-Limit the eMMC clock to 37.5 MHz. Also enable the hardware reset line,
-which is routed to the controller (PC24), so the card can be recovered
-after such errors.
+I have tested this series with my out-of-tree mt6595 (command mode=20
+panel) and mt6768 (video mode) DRM. There's no regressions, but I=20
+spotted an issue with kconfig.
 
-Link: https://forum.libreelec.tv/thread/30663-banana-pi-m2u-emmc-data-error-sending-stop-command-fixed-with-a-40-mhz-device-tr/
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- arch/arm/boot/dts/allwinner/sun8i-r40-bananapi-m2-ultra.dts | 2 ++
- 1 file changed, 2 insertions(+)
+On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
+> Add a real driver for the Display Stream Compression (DSC) Display
+> Controller IP, implementing support for DSC v1.1 to v1.2.
+>=20
+> In order to do this, it was necessary to remove the basic DSC IP
+> bypass setup from mtk_ddp_comp: this functionality is retained in
+> the new mtk_disp_dsc driver, which checks if DSC was actually
+> requested by other components (with the only one that currently
+> supports this being DSI) and, if not, it will set BYPASS mode in
+> the DSC IP.
+>=20
+> Like before, the BYPASS mode is set before starting the DSC IP,
+> but unlike before, this is being done in the component start
+> callback instead of the config one.
+> Notably, the config callback is called by mtk_crtc always
+> immediately before the calling start callback, so the order of
+> register writes is retained.
+> The only real difference is that now this is being done through
+> CPU writes instead of CMDQ, but since that's called only once
+> and since it's just three registers, the performance impact will
+> not be minimal and not even measurable.
+>=20
+> As anticipated, DSC handling was also introduced in the mtk_dsi
+> driver: when performing dsi_host_attach, the driver now checks
+> if the DSI panel adds the DSC configuration structure to the
+> mipi_dsi_device structure and, if it does, it will store a
+> pointer in the driver-local mtk_dsi structure's `dsc` member.
+>=20
+> The DSI driver will then check whether the DSC configuration
+> that comes from the panel is valid (in regard to MediaTek DSI)
+> and will call the DRM API's DSC helpers to calculate and set
+> all of the const and RC parameters for the actual DSC setup.
+>=20
+> For the time being, even though the latest MediaTek SoCs do
+> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
+> as an initial contribution (which is rather big, and 1.2 would
+> make it even bigger - but that can anyway be implemented later).
+>=20
+> As a last step for validation of DSC parameters in DSI, a check
+> for the hdisplay against DSC slice sidth and one for vdisplay
+> against DSC slice height was added to the mode_valid callback,
+> making sure that H/V are, as expected, multiples of slice W/H.
+>=20
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
 
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-r40-bananapi-m2-ultra.dts b/arch/arm/boot/dts/allwinner/sun8i-r40-bananapi-m2-ultra.dts
-index cd2351acc32f..ddb70af25836 100644
---- a/arch/arm/boot/dts/allwinner/sun8i-r40-bananapi-m2-ultra.dts
-+++ b/arch/arm/boot/dts/allwinner/sun8i-r40-bananapi-m2-ultra.dts
-@@ -195,6 +195,8 @@ &mmc2 {
- 	vmmc-supply = <&reg_dcdc1>;
- 	vqmmc-supply = <&reg_dcdc1>;
- 	bus-width = <8>;
-+	max-frequency = <37500000>;
-+	cap-mmc-hw-reset;
- 	non-removable;
- 	status = "okay";
- };
+...
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -18,6 +18,8 @@
+>   #include <video/mipi_display.h>
+>   #include <video/videomode.h>
+>  =20
+> +#include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
 
+...
+
+>   static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
+> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(s=
+truct mtk_dsi *dsi)
+>   =09writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
+>   }
+>  =20
+> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
+> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
+> +{
+> +=09struct drm_dsc_config *dsc =3D dsi->dsc;
+> +=09struct device *dev =3D dsi->host.dev;
+> +=09int ret;
+> +
+> +=09if (dsc->bits_per_pixel & GENMASK(3, 0)) {
+> +=09=09dev_err(dev, "Fractional bits_per_pixel not supported\n");
+> +=09=09return -EINVAL;
+> +=09}
+> +
+> +=09if (dsc->bits_per_component !=3D 8) {
+> +=09=09dev_err(dev, "%u bits per component is not supported\n",
+> +=09=09=09dsc->bits_per_component);
+> +=09=09return -EINVAL;
+> +=09}
+> +
+> +=09dsc->simple_422 =3D false;
+> +=09dsc->convert_rgb =3D true;
+> +=09dsc->vbr_enable =3D false;
+> +
+> +=09drm_dsc_set_const_params(dsc);
+> +=09drm_dsc_set_rc_buf_thresh(dsc);
+> +
+> +=09ret =3D drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
+
+If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),=20
+linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
+Should MediaTek DRM select it?
+
+Best regards,
+Roman
