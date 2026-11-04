@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763536;
-	b=Yp7/0kvIjodRUpN2WurpwlzXhaR+Qt0dzaqkA2m1DfIiBfqXO8ZkbaUozbcoX2kDQYmd
-	 i17TRavGlPrw+xR1+SLfROPcU6iDCLiyUK7kEKD9wrmZ28scdcu3JPM4bFVA0p9bBXRvz
-	 +to+IGDREYITyu0UUrEpZb3pCL4J5W25aNtciPVKSLVH7FUu+moE0Y+AdyJVlnKhLwECe
-	 y/bGojeWmIA9Jx+2XAlcJdohUcB7UblugiRhYrSxK9jLF3BSYZfwp86nTH5+69NPyyCdW
-	 opazS0tNPOCCIZZEjAeRav3l8pASutF63vRFimz0xEyapl006lfeZ1upegveviJWmNQ==
+	t=1793763593;
+	b=XxciA3DiDCVF8HH04qTVSR7sIIbkKL2X48kNu2HDdWVaoMZeVlAr+79QpZfIxGL5rIXU
+	 hym9JATtb1p7XVloKe5n++tH3bjlzwbcKhM2dasid85HdW37NWhc9JuQ+q7Fj4nene60H
+	 eK5NMvn18j4vvORgyDxAjsFbuoduMYYlWv+3+sLoQHrCwkt/pWIh+fHJ3uEZ9hsyMVKlm
+	 YVzlpUJp7XUQBg0oK47IfMdbiGokTFQkndZ/i6JUw4Ziz9khg+yBisHpR6bWB67b0tcFI
+	 mHxBPyvJ5L+G89iwvXw2MKoo9rJIB8JyxPrbKJILqz/2b8BYvQClu3Qas31cDi6RZWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763593;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=SwAKSeXNfc2+XjvA2jErPYJH8LVIp2vkgrI+L0V6HEI=;
-	b=PweyQP/T6DRul4Yr8dzQsSHjOce6nmbBNNxLpjPZbmYfpKr208Eay7wbE3xxyWBG3Svr
-	 HOxkTJBQuC7bLk1y3DmmeTQjvw1LMJFJsZwlPMs2otwl2omDOr1RK7GyiUJDccvta/VDS
-	 fndl0q2LlTQZWuIZqUZyYE3uVL5HxVek79LA+HPYuYbIzekUDxAr4V74jTZeqkHnmkDyQ
-	 fQl7/QBdQsK1NJccRgVaLNc1eVGKkXD46HGgmzfpHl7KK+zqt+6KitGAijwGVS/1RJbMj
-	 IhldZ972vtbVXTSX8xuhSegkYQGsW0Sl+0z3NfFIztwwF+2xvqiUxFmiw/s08rN8TwQ==
+	bh=Be1MpHVkk0EzgqPoBgUwPLOvumuF2Q0xKTl/gK0yeGc=;
+	b=N4aw4a0haNxUGTa+kwiOk/duVVGypkKvzzaIqBwr0lSME+E/h1zUotH9TPwbsONIRyjR
+	 eSTVPka86VdlOHP10QPMK7/Im1Yd9W+PhpL0rcr7rYJKh868HuBMSXr+0hH33D9+EmBAf
+	 hB7GfX/RCStOlupqvDroHDCCm8vudwcIf88gloh9UeE7GhRCYIRBS6iASeqLHH+mWSNFM
+	 mU2j0UK+8jjTx385tD1Gx+Q87oTVfGI8qZTs+HGBkD/EWuVchxXX2owGGI3lhEEHVMEQ1
+	 IFMcXGBMJHIWgBCcBd+3fTmIhEt3JuEuzdf+cdLNoOOeVl+pXzvPKvPMCYEsoNNqCsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9Ams4Ig;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHcQO4fH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1FB606A338
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 03:38:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F19606A31B;
+	Wed,  4 Nov 2026 03:39:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9Ams4Ig
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489491F0093A;
-	Wed,  4 Nov 2026 03:38:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHcQO4fH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA061F000C1;
+	Wed,  4 Nov 2026 03:39:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793763535;
-	bh=SwAKSeXNfc2+XjvA2jErPYJH8LVIp2vkgrI+L0V6HEI=;
+	s=k20260515; t=1793763593;
+	bh=Be1MpHVkk0EzgqPoBgUwPLOvumuF2Q0xKTl/gK0yeGc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C9Ams4Ig7t1XpFD/82LzY8PYq06koGfBR+kPQCxop/ni36kOeoSI/tPJpczjUBe5L
-	 EqcTUeFltiOErP9EeX6DE+gWOUOtL1OBzVYYfOuzAF+Y+etV5MD9/cUBGtOEsrR6N6
-	 bKM1UWvVfTE4mjmTLVLZdSid+URiNWlgXZKT3yEEGr363CRJYI4xM2EZ42QGa4x8Sl
-	 xJOc9lWLZtrlbOGyzwe+T1UdbYhTI55tdpklmZG3UYZCuumIc4HunOfVvwkmpPvUT0
-	 wFSHNyEQuYwrSKRBd2OTbeMnIiJG6PIaIK7plCvwgJ2Enp80gamlE2zE4gLyLT4r+M
-	 4VXaX0A2+fl8g==
-Message-ID: <sashiko-outbox-196615@kernel.org>
+	b=jHcQO4fHxAaswNBWJAebWe76Nv7T0Jy0mulr35nzW6x6aniZJ3rZ76TkQsmIgjPmK
+	 VufVqnSuQ9XMQrRRa7vB5O9n1V48MTAPKpBDNdgRLGKXRPIgTp1Obhz0HnmJuGkYuw
+	 uEd8+QexGvBPdRameM6t0KZbR9CoaIwzrddc8YX6daTKiycb0B8U6v7QCnFdhouMcg
+	 uFyRXlOdsa/+ZbV6c5dBz+cQwDOa37l1sjUFhFARjHlxvuLKggoaZXCvef4g1K6xt3
+	 DcWLI84T/BTX7WWql51mFVDKNtaKxK1FBzvQOFId4+vxUfPsLTMAvo97cu4EGTLZ2Q
+	 2Hf2jnYtWPvKQ==
+Message-ID: <sashiko-outbox-196618@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/5] regulator: willsemi,wl2868c: add the WL2868C
- camera PMIC driver
+Subject: Re: [PATCH 1/3] dt-bindings: hwmon: ltc4283: add ltc4284
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104032648.209747-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261104032648.209747-3-xiaqinghuan@mail.ustc.edu.cn>
+To: "Alexis Czezar Torreno" <alexisczezar.torreno@analog.com>
+Cc: linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-staging-ltc4284-v1-1-49fce67ebc48@analog.com>
+References: <20261104-staging-ltc4284-v1-0-49fce67ebc48@analog.com>
+ <20261104-staging-ltc4284-v1-1-49fce67ebc48@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 03:38:51 +0000
+Date: Wed, 04 Nov 2026 03:39:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,236 +60,162 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] regulator: wl2868c: uninitialized chip->enabled in wl2868c_probe=
-()
-- [Medium] regulator: wl2868c: missing vsys-supply enable in wl2868c_probe()
-- [Medium] regulator: wl2868c: premature state update in wl2868c_disable()
+- [Medium] dt-bindings: hwmon: ltc4283: requiring rsense2 breaks single-dri=
+ver mode
+- [Low] dt-bindings: hwmon: ltc4283: ltc4284 example sense resistors below =
+min 50000
 --
 
-commit 43e6bd60d4f6c3f0ce8478df036a5927be90da6e
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+commit 9676b294cf2ad1168e5ce0d8de5c0cd58e68d9ed
+Author: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
 
-regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
+dt-bindings: hwmon: ltc4283: add ltc4284
 
-This commit adds a regulator driver for the Will Semiconductor WL2868C I2C
-camera power management IC supporting its seven LDO outputs.
+This commit adds device tree binding support for the Analog Devices LTC4284
+negative voltage hot swap controller to the adi,ltc4283 schema, including
+new properties for its second sense resistor and ADC resistance.
 
-> diff --git a/drivers/regulator/wl2868c-regulator.c b/drivers/regulator/wl=
-2868c-regulator.c
-> new file mode 100644
-> index 0000000000000..35bcdc3971eca
-> --- /dev/null
-> +++ b/drivers/regulator/wl2868c-regulator.c
-> @@ -0,0 +1,212 @@
-
-[ ... ]
-
-> +static int wl2868c_disable(struct regulator_dev *rdev)
-> +{
-> +	struct wl2868c *chip =3D rdev_get_drvdata(rdev);
-> +	unsigned int bits =3D rdev->desc->enable_mask;
-> +	unsigned int ldos;
+> diff --git a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml b/D=
+ocumentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> index 05e2132ad4d86..c850390ddc4a3 100644
+> --- a/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/adi,ltc4283.yaml
+> @@ -10,22 +10,42 @@ maintainers:
+>    - Nuno S=C3=A1 <nuno.sa@analog.com>
+> =20
+>  description: |
+> -  The LTC4283 negative voltage hot swap controller drives an external N-=
+channel
+> -  MOSFET to allow a board to be safely inserted and removed from a live
+> -  backplane.
+> +  The LTC4283 and LTC4284 are negative voltage hot swap controllers that=
+ drive
+> +  external N-channel MOSFETs to allow a board to be safely inserted and =
+removed
+> +  from a live backplane.
 > +
-> +	guard(mutex)(&chip->lock);
+> +  The LTC4284 features dual-gate drivers with four operating modes (sing=
+le
+> +  driver, parallel, high stress staged start, and low stress staged star=
+t)
+> +  configured via the hardware MODE pin. The MODE pin must be connected t=
+o the
+> +  appropriate voltage level (VEE, VIN, INTVCC, or left open) and cannot =
+be
+> +  controlled via software or GPIO.
+> =20
+>    https://www.analog.com/media/en/technical-documentation/data-sheets/lt=
+c4283.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/lt=
+c4284.pdf
+> =20
+>  properties:
+>    compatible:
+>      enum:
+>        - adi,ltc4283
+> +      - adi,ltc4284
+> =20
+>    reg:
+>      maxItems: 1
+> =20
+>    adi,rsense-nano-ohms:
+> -    description: Value of the sense resistor.
+> +    description:
+> +      Value of the sense resistor. For LTC4283, this is the resistor con=
+nected
+> +      between SENSE+/SENSE- pins. For LTC4284, this is the resistor conn=
+ected
+> +      between SENSE1+/SENSE1- pins.
 > +
-> +	chip->enabled &=3D ~bits;
+> +  adi,rsense2-nano-ohms:
+> +    description:
+> +      Value of the SENSE2 current sense resistor. This resistor is conne=
+cted
+> +      between SENSE2+ and SENSE2- pins.
 > +
-> +	/*
-> +	 * SYS_EN stays set while at least one output is enabled; the per-LDO
-> +	 * bits of the other outputs stay clear so that setting it cannot
-> +	 * switch anything else on.
-> +	 */
-> +	ldos =3D chip->enabled & WL2868C_LDO_ENABLE_MASK;
-> +
-> +	return regmap_write(chip->regmap, WL2868C_LDO_ENABLE,
-> +			    ldos ? WL2868C_SYS_ENABLE | ldos : 0);
-> +}
+> +  adi,radc-nano-ohms:
+> +    description:
+> +      Value of the effective resistance seen by the ADC+/ADC- pins.
+> =20
+>    adi,current-limit-sense-microvolt:
+>      description:
+> @@ -195,6 +215,20 @@ required:
+>    - adi,rsense-nano-ohms
+> =20
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: adi,ltc4284
+> +    then:
+> +      required:
+> +        - adi,rsense2-nano-ohms
+> +        - adi,radc-nano-ohms
+> +    else:
+> +      properties:
+> +        adi,rsense2-nano-ohms: false
+> +        adi,radc-nano-ohms: false
 
 [Severity: Medium]
-If regmap_write() fails in wl2868c_disable(), does chip->enabled get out
-of sync with both the hardware and the regulator core?
+As noted in the binding description above, the LTC4284 supports four
+hardware operating modes configured via the MODE pin, including single
+driver mode.
 
-In wl2868c_enable(), chip->enabled |=3D bits is only updated after
-regmap_write() succeeds. Here in wl2868c_disable(), chip->enabled &=3D ~bits
-is cleared before calling regmap_write().
+In single driver mode, only the first MOSFET path (GATE1 and SENSE1+/SENSE1=
+-)
+is used, and no second sense resistor is populated between SENSE2+ and
+SENSE2-.
 
-When ops->disable() returns a negative error code in _regulator_disable():
+If adi,rsense2-nano-ohms is unconditionally required in the allOf block for
+adi,ltc4284, wouldn't boards wired in single driver mode fail schema
+validation unless they specify a nonexistent adi,rsense2-nano-ohms property?
 
-drivers/regulator/core.c:_regulator_disable() {
-    ...
-    ret =3D _regulator_do_disable(rdev);
-    if (ret < 0) {
-        rdev_err(rdev, "failed to disable: %pe\n", ERR_PTR(ret));
-        _notifier_call_chain(rdev,
-                REGULATOR_EVENT_ABORT_DISABLE,
-                NULL);
-        return ret;
-    }
-    ...
-    rdev->use_count =3D 0;
-}
-
-the regulator core aborts the disable and keeps rdev->use_count at 1 while
-the LDO remains enabled in hardware, but chip->enabled has already lost
-that LDO's bit. A subsequent wl2868c_enable() or wl2868c_disable() on
-another LDO will then overwrite WL2868C_LDO_ENABLE with that bit cleared,
-shutting off the still-enabled output.
-
-Should chip->enabled only be updated after regmap_write() succeeds,
-matching wl2868c_enable()?
-
+> @@ -269,4 +303,19 @@ examples:
+>              #gpio-cells =3D <2>;
+>          };
+>      };
 > +
-> +static int wl2868c_is_enabled(struct regulator_dev *rdev)
-> +{
-> +	unsigned int mask =3D WL2868C_SYS_ENABLE | rdev->desc->enable_mask;
-> +	unsigned int value;
-> +	int ret;
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
 > +
-> +	ret =3D regmap_read(rdev->regmap, WL2868C_LDO_ENABLE, &value);
-> +	if (ret)
-> +		return ret;
+> +        swap-controller@20 {
+> +            compatible =3D "adi,ltc4284";
+> +            reg =3D <0x20>;
 > +
-> +	return (value & mask) =3D=3D mask;
-> +}
+> +            adi,rsense-nano-ohms =3D <1000>;
+> +            adi,rsense2-nano-ohms =3D <1000>;
+> +            adi,radc-nano-ohms =3D <500>;
+> +        };
 
-[ ... ]
+[Severity: Low]
+In drivers/hwmon/ltc4283.c, ltc4283_setup() validates the sense resistor
+properties against [LTC4283_MIN_RSENSE, LTC4283_MAX_RSENSE], where
+LTC4283_MIN_RSENSE is 50000 nano-ohms (50 micro-ohms) and LTC4283_MAX_RSENSE
+is 1677721599 nano-ohms:
 
-> +static const struct regulator_desc wl2868c_regulators[] =3D {
-> +	WL2868C_LDO(1, "vin12", 496000, 128, 0x03, 0x7f, BIT(0)),
-> +	WL2868C_LDO(2, "vin12", 496000, 128, 0x04, 0x7f, BIT(1)),
-> +	WL2868C_LDO(3, "vin34", 1504000, 256, 0x05, 0xff, BIT(2)),
-> +	WL2868C_LDO(4, "vin34", 1504000, 256, 0x06, 0xff, BIT(3)),
-> +	WL2868C_LDO(5, "vin5", 1504000, 256, 0x07, 0xff, BIT(4)),
-> +	WL2868C_LDO(6, "vin6", 1504000, 256, 0x08, 0xff, BIT(5)),
-> +	WL2868C_LDO(7, "vin7", 1504000, 256, 0x09, 0xff, BIT(6)),
-> +};
+    if (st->rsense < LTC4283_MIN_RSENSE || st->rsense > LTC4283_MAX_RSENSE)
+        return dev_err_probe(dev, -EINVAL,
+                             "adi,rsense-nano-ohms(%u) too small or too lar=
+ge [%u %u]\n",
+                             st->rsense, LTC4283_MIN_RSENSE, LTC4283_MAX_RS=
+ENSE);
 
-[ ... ]
+The example above sets adi,rsense-nano-ohms =3D <1000>,
+adi,rsense2-nano-ohms =3D <1000>, and adi,radc-nano-ohms =3D <500> (1 micro=
+-ohm
+and 0.5 micro-ohm), which will cause ltc4283_setup() to fail probe with
+-EINVAL.
 
-> +static int wl2868c_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct regulator_config config =3D { .dev =3D dev };
-> +	struct regulator_dev *rdev;
-> +	struct gpio_desc *reset;
-> +	struct wl2868c *chip;
-> +	unsigned int id;
-> +	int ret, i;
-> +
-> +	chip =3D devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> +	if (!chip)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&chip->lock);
-> +	config.driver_data =3D chip;
-> +
-> +	reset =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(reset))
-> +		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset GPIO\n"=
-);
-> +
-> +	if (reset) {
-> +		ret =3D devm_add_action_or_reset(dev, wl2868c_reset, reset);
-> +		if (ret)
-> +			return ret;
-> +		fsleep(1000);
-> +	}
-> +
-> +	chip->regmap =3D devm_regmap_init_i2c(client, &wl2868c_regmap_config);
-> +	config.regmap =3D chip->regmap;
-> +	if (IS_ERR(config.regmap))
-> +		return dev_err_probe(dev, PTR_ERR(config.regmap),
-> +				     "Failed to create regmap\n");
-> +
-> +	ret =3D regmap_read(config.regmap, WL2868C_DEVICE_ID, &id);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read device ID\n");
-
-[Severity: Medium]
-Does wl2868c_probe() need to request and enable vsys-supply (or the
-control logic supply) before accessing the chip over I2C?
-
-Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml defines
-vsys-supply and notes that the internal control logic is powered from the
-higher of VIN7 and VSYS, requiring at least one of vin7-supply or
-vsys-supply.
-
-However, vsys-supply is never requested or enabled by the driver, and
-vin7-supply is only registered as the supply_name for LDO7. On systems
-where the control logic is powered by a switchable vsys-supply (or
-vin7-supply when LDO7 is not enabled), the chip may not be powered when
-regmap_read() reads WL2868C_DEVICE_ID in wl2868c_probe(), or
-regulator_late_cleanup() may disable an unclaimed vsys-supply while LDO1
-through LDO6 are in use.
-
-> +	if (id !=3D WL2868C_DEVICE_ID_VALUE)
-> +		return dev_err_probe(dev, -ENODEV, "Unexpected device ID: %#x\n", id);
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(wl2868c_regulators); i++) {
-> +		rdev =3D devm_regulator_register(dev, &wl2868c_regulators[i], &config);
-> +		if (IS_ERR(rdev))
-> +			return dev_err_probe(dev, PTR_ERR(rdev),
-> +					     "Failed to register LDO%d\n", i + 1);
-> +	}
-
-[Severity: Medium]
-What happens if WL2868C_SYS_ENABLE and one or more LDO bits are already
-set in WL2868C_LDO_ENABLE when wl2868c_probe() runs (for example, when the
-optional reset GPIO is not present or was already deasserted by the
-bootloader)?
-
-In wl2868c_probe(), chip->enabled starts at 0, whereas
-wl2868c_is_enabled() reads WL2868C_LDO_ENABLE directly from the hardware
-and returns 1 for any LDO that is already active alongside
-WL2868C_SYS_ENABLE.
-
-When a consumer calls regulator_enable() on a boot-enabled LDO,
-_regulator_enable() checks _regulator_is_enabled(rdev):
-
-drivers/regulator/core.c:_regulator_enable() {
-    ...
-    if (rdev->use_count =3D=3D 0) {
-        /* The regulator may on if it's not switchable or left on */
-        ret =3D _regulator_is_enabled(rdev);
-        if (ret =3D=3D -EINVAL || ret =3D=3D 0) {
-            if (!regulator_ops_is_valid(rdev,
-                    REGULATOR_CHANGE_STATUS)) {
-                ret =3D -EPERM;
-                goto err_consumer_disable;
-            }
-
-            ret =3D _regulator_do_enable(rdev);
-            if (ret < 0)
-                goto err_consumer_disable;
-
-            _notifier_call_chain(rdev, REGULATOR_EVENT_ENABLE,
-                         NULL);
-        } else if (ret < 0) {
-            ...
-        }
-    }
-
-    rdev->use_count++;
-    ...
-}
-
-Because wl2868c_is_enabled() returns 1, _regulator_enable() skips calling
-_regulator_do_enable() -> wl2868c_enable() and increments rdev->use_count
-to 1 while that LDO's bit remains 0 in chip->enabled.
-
-When any other LDO is subsequently enabled in wl2868c_enable() or disabled
-in wl2868c_disable() (including regulator_late_cleanup() turning off an
-unused LDO), the driver writes WL2868C_LDO_ENABLE from chip->enabled and
-clears the boot-enabled LDO's bit while its consumer is actively using it.
-Similarly, if multiple LDOs are already enabled at boot and marked
-regulator-always-on or regulator-boot-on, registering the first one calls
-wl2868c_enable() with chip->enabled =3D=3D 0 and powers off the others.
-
-Should wl2868c_probe() initialize chip->enabled from WL2868C_LDO_ENABLE
-when WL2868C_SYS_ENABLE is already set?
+Were these example values intended to be 1000 micro-ohms (<1000000>
+nano-ohms) and 500 micro-ohms (<500000> nano-ohms), and should
+adi,rsense-nano-ohms, adi,rsense2-nano-ohms, and adi,radc-nano-ohms specify
+minimum: 50000 and maximum: 1677721599 in the schema?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104032648.2097=
-47-1-xiaqinghuan@mail.ustc.edu.cn?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-staging-lt=
+c4284-v1-0-49fce67ebc48@analog.com?part=3D1
