@@ -1,59 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788681;
-	b=VigsNstbpoj38YeJ1GolCWXYwVqOjsvDJnx1ndBcu5k+uzGkJV7HOla29CnBSc0GCHWO
-	 FqzLlCFowxmfiwacz8HzSr6lzduzcR+OGETbUDOZvwG2e7DkHcwKc4V7/EReEwIagqtP4
-	 3EbLm9r/p79D70Qk1wsWf4vtRGxr3xNGF7OZhdlxHRoFHNXJVgSM7rznz2jRvVD/2chOr
-	 5YM9LD11AVr8rjsROX4QFe8oPjDtltjQkUS3ParN9e+zpp+dCrXiquWYxAOIElvhbJxtr
-	 eALOReiD92ySuW3e60aw98HzmkiUmH9kOZyC38tXdl/t1ACa+XABQWgnhtnw5CyKnFg==
+	t=1793788694;
+	b=2gYUcVuftPZO9B+QxkNt9ASryfukCDhjPYE19/eugJ1gOFKRDYZOn+8W4Hz9nAywtNB2
+	 T2HH67KDSLzhjhODWAbL8z+vrpsNewclIBnIuuRD+PyWidsjOkrykc2c1W0iHWGXJXDkl
+	 bOKlgUJj+xLAjhoGmoH7BSbsY96NSKb6pNyiqDOvkVZnLAwL+7YR4gya5FzsbSbzV4UnF
+	 pv3OBM/dvqNGBIBE54A0AWhEftsficIPQoIzPdq/BxQcWI/S9ewzjrpA/8DcnNrspfRT6
+	 qwvjlMzMAh2RQMbYK0NXeDlCwCJWakfLz+69ip6Wgm5NwWM9vHdY5lG8cpASl2SyLsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788681;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Hg5P+ZRZSjSwStS0M8368HqB4GPBayyeLSUkGa3qSME=;
-	b=OBWz5Y9uEjO6//OBNmNowsbTOoNwoX8cy3v5++3OFcvXYDGV/QmG0uCF+TgMYwl1x65o
-	 Gyzvomo4s3/dZppts3EpJMvAbi9VP7l5l8eTy9bh/PTGe6d1d9rkDJaPecLs0cAFJnlZ1
-	 GsjaKSAGF+9j498RSDK1iodLjKZxwdj2PBfw+93PrbOmAlDE5uWJlgXhUVkl9Eg/tibX3
-	 n6Ke7LzBlpn1cfIOq9htduol1ogyAosriDvH5MXc+jV8ChvQ+zJ6aWYaTco2FmC7AEbNw
-	 pY5u535x95OiZeciPG+10RDYOaNOQnfQol3XYFR6p0OaHpA5JTdra+VWkHRBP+MUbkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788694;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Organization:
+	 Content-Transfer-Encoding;
+	bh=Bky+z94GjBhGuHRVzoeUOOEZJsIpZL6CWBksx0pMhcI=;
+	b=jq+aCxRyHgY0OELOyUw+fhOVeoFCrmdWc/DMC8/YVKuACyZVoA2jGbWrINKvo/BWgpfj
+	 IAbFcILKMbf6a/wuMz2+Jx/FzUKvvlLU3Uai4agv90G4IZUpxDTjd9MDB25y5q4yb3av3
+	 uOKA1tPbttEdin+c37RFA2SiS1haEOH7DGiVOH9cENWNWQwPwIlGh0JHAGliKvtgEtBEb
+	 8plibKPZFln4NE8Lm0YKxcIXFjfUJpy9D0UCFZn1Np5e9EePEhOZ0CeoQXL64uSyvqlfo
+	 W+1HKxq/PTwV22+nhERYcmHzaqcL2aIGyhugNaRIJ5NToRwk2Dt57LDHiWa/cP8Hb8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8nd1Zka;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbHSzHRz;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F703606A32C;
-	Wed,  4 Nov 2026 10:38:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E64606A326;
+	Wed,  4 Nov 2026 10:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E64606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8nd1Zka
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74CD1F000C1;
-	Wed,  4 Nov 2026 10:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788680;
-	bh=Hg5P+ZRZSjSwStS0M8368HqB4GPBayyeLSUkGa3qSME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O8nd1Zka7C4i6ewawjLjcddUeG3m8bZYQTmFTBmk/+OSb7FdN5sU12nkrWhgYZcgz
-	 GnRz6AIzDwexyIMonClnB2PM9db3ZcM1qW2pIVB2NghnEAzVkx2HZ3UdAgBi7roAtg
-	 PjSEnPvMwkJfHrQflndEzJAd/hGX4TWlKe/HBiVGBgyvtdmbRNebpoaqA9rmRfzv5G
-	 JlaWRa1v1OU/oIcRa1ukKkM3ecX/NepNa3UjEyD4pi0S4S+noVezeXKITaobe/FLgg
-	 zrOZp3YzVb2YXD78yPGXTH0Uy9hTohsJ/ahpieajshCLogepHwJvYYdGfzQU1M1n1A
-	 5r6rjGwKsGTSg==
-Date: Wed, 4 Nov 2026 11:37:56 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Po-Yu Chuang <ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 1/7] dt-bindings: net: ftgmac100: Make Aspeed
- compatibles standalone
-Message-ID: <20261104-helpful-courageous-hedgehog-f05bbf@quoll>
-References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
- <20261104-support_ast2700-v5-1-44057f4dde75@aspeedtech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbHSzHRz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793788694; x=1825324694;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=aOGzTuu2joxxtbxKzL4dHVBDbu15VwOAO4OF8srkPsM=;
+  b=XbHSzHRzAm2rnwRHd7vB8V1Qc+88tBsUrSv2zvJOZaBqtc0GHJ71XFU0
+   MFhAkmc2lQqrXMpsNSkYshzccff7Sd4ATzjNUOYye0AfI1yLriML2aYlU
+   F1FZvjHo64/kmylSNmgWhiQ1x4TqFpFve4jOMghGc5/9XE8SkFAKKF3HA
+   l6kBqHLWiowO6GecyGtJdmao9dG+yJgfSJYtXP5jSjQJ6/SpCJEuvdHGg
+   udhDO+ugv1OSj4NTdbwcSnURx9K2U/I9plfhmaatqzQmhgecfHxXmhPgJ
+   Ffxq1sv0XcQvp+E/0TCAouRR7eoP+bG/Uj9kC1+mjsrMruWGwALpIp3pM
+   Q==;
+X-CSE-ConnectionGUID: v8/Hb4mlQju6rvGc/nGxgA==
+X-CSE-MsgGUID: w2GzyS0lR7+1rwhdhMjKbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2412950"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2412950"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:38:13 -0800
+X-CSE-ConnectionGUID: +o7S5iu8SKeIiX9Wt7GSfA==
+X-CSE-MsgGUID: 8J3dyKC6Q4eTbNPj8Cjt7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6569104"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:38:12 -0800
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-aspeed@lists.ozlabs.org,
+	dawid.glazik@linux.intel.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [RESEND] dt-bindings: mfd: syscon: add aspeed,ast2600-i3c-global compatible
+Date: Wed,  4 Nov 2026 12:32:06 +0100
+Message-ID: <20261104113206.3243865-1-dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,70 +82,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-support_ast2700-v5-1-44057f4dde75@aspeedtech.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 01:13:54PM +0800, Jacky Chou wrote:
-> The aspeed,ast2400-mac, aspeed,ast2500-mac, and aspeed,ast2600-mac
-> compatibles are currently only valid when paired with the generic
-> "faraday,ftgmac100" fallback: if a node ever bound through the
-> generic entry alone, ftgmac100_probe() would set
-> rxdes0_edorr_mask/txdes0_edotr_mask to BIT(15) instead of the Aspeed
-> BIT(30), skip Aspeed clock setup, and leave the DMA mask too narrow.
+Add aspeed,ast2600-i3c-global to the syscon binding compatible list to
+document the AST2600 I3C global register syscon node, which is already
+used in aspeed-g6.dtsi.
 
-And device would work or not? If device still works after all these
-steps above, then why isn't fallback applicable?
+Without it, dtbs_check reports this node as failing to match any schema
+on every AST2600-based board.
 
-Be explicit, because I have no clue whether Aspeed clock setup is
-necessary for device to operate.
+Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+Resend of [1]. It was accepted on the list but is not in upstream.
 
-> 
-> Make each of them a standalone compatible instead, so none of the
-> Aspeed compatibles require the generic fallback alongside them.
-> 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> 
-> ---
-> ftgmac100_of_match[] has had dedicated entries for AST2400, AST2500,
-> and AST2600 since commit 03a2aba50b2c ("net: ftgmac100: List all
-> compatibles"), so there is no known kernel + devicetree combination
-> where a node has actually bound through the generic entry and gotten
-> the wrong EDORR bit. This part is a binding correctness fix, not a fix
-> for an observed failure.
-> 
-> Note that arch/arm/boot/dts/aspeed/aspeed-g4.dtsi, aspeed-g5.dtsi, and
-> aspeed-g6.dtsi still declare their MAC nodes with the two-string
-> "aspeed,astXXXX-mac", "faraday,ftgmac100" compatible, so this will make
-> dtbs_check warn against those files until the redundant fallback
-> compatible is dropped there as well. That .dtsi change will be sent as
-> a separate series through the Aspeed/arm-soc tree, since dt-bindings
-> changes don't go through that tree.
-> ---
->  .../devicetree/bindings/net/faraday,ftgmac100.yaml         | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> index d14410018bcf..c870dd0bda7b 100644
-> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> @@ -13,12 +13,10 @@ properties:
->    compatible:
->      oneOf:
->        - const: faraday,ftgmac100
+[1] https://lore.kernel.org/all/41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com/
+---
+ Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-This const goes to your new enum
+diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
+index 80ff0e1caca2..dae706ca7642 100644
+--- a/Documentation/devicetree/bindings/mfd/syscon.yaml
++++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+@@ -47,6 +47,7 @@ properties:
+               - apm,xgene-mcb
+               - apm,xgene-rb
+               - apm,xgene-scu
++              - aspeed,ast2600-i3c-global
+               - atmel,sama5d2-sfrbu
+               - atmel,sama5d3-nfc-io
+               - atmel,sama5d3-sfrbu
 
-> -      - items:
-> -          - enum:
-> -              - aspeed,ast2400-mac
-> -              - aspeed,ast2500-mac
-> -              - aspeed,ast2600-mac
-> -          - const: faraday,ftgmac100
-> +      - enum:
-
-here.
-
-Best regards,
-Krzysztof
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
