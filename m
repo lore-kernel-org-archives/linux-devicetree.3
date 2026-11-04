@@ -1,47 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789570;
-	b=ZpT09LF1tB6/s//Y4LjNR8MAEQKBpE8VdDxpJ8o4E2DnW1JyGcJQRfaCcUJsiqAr2tEv
-	 P6C1eqS5w/YrhHSu+hr0Xt8gz3St8uanJCLppOM+ApYvJwmNiRUlQ4ejOlAz+A9q3uZrc
-	 sl2xP2E/MgW3VxUpEOfNTb7TPmjS5avR6JYov5FL0WWXd57WP/m9E4/BXnLhjLSxHibV/
-	 UF1FaowO9vzikDt4BmBws7+5ecNtxgCeeLa+sO86WnqpdrZPwwamdhsbr7Xqk9kkmoo9s
-	 FoG+zP7bBHMAnpFSNktgWkRLw1A8tLs0qTad0BqCRoDJ6eI8r7e97CKF2XYF6RUtnEA==
+	t=1793789658;
+	b=PwR4xFrteePbFcgQ2X9TP9q5u7tEeurwmH6oRVh8tr5iIQmwnVEFZ+m4EmLTdI/sNIld
+	 ZJjXooOIvamXtUfJSuqIKiVnilig+IVm6s6qEc35atQuGAmPnpVJGmc9ON4SZGJJ37D7Q
+	 9wrajRmtVO23+ugRp0TnGyfqwvHVt8fE9wx3uZKg2mijiz8IcMYhJS2KKuThZTUIiXKiX
+	 +2hTSz5pkusP/C68i5lDkxkpfGUVHDo3rVOqcRtTOHwraL0RpyU9J4lxmWGsERFaJqJd3
+	 2sYcJPW5ntaPHnGnTW0iXyo2Qh2T5c9haauSfE4ojCe9OVv3+hcrTIiRWCm62xJynrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789570;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=V9NHiJRKdLmwoeHiLsEZLLQBVcbAZsdM/sy0puVsYyA=;
-	b=hVWJg/uXEGraIsEHArtZWeffDn0LMVUfvnWduCqvUihKJOjTUtbcnWuFkfSWrF1PcVR9
-	 UqmDFNAbG1yO+ieQr8bOTW19wOJexDKt2/sJRit5T1QMKPq/HCZjOoEb/eT5yWWTllENn
-	 7quDb+ySxIliff9fUtnApSEqBlygPxEg9Yd4s1bo3LgOUeDFlxWTT1YF1/vx5Uv57H040
-	 kkBsyKhiBGCawdzslnIrSjCI53PsQqmiuwcmadMb9KWS5fhWU14Na13GiiwcobcrD+McB
-	 1tTtQmOQSbzl2OOCo0epi2K9Skcu+gK/SAZ7gFpFJx71xThLUiuf0pLwG+Pspy/tbyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789658;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=advfz8qU7dnMlSXaKuDgnefU48uHbLndv3sHhQbWPMw=;
+	b=w4wS4iZPbxUe0z76vtRiXfkOtruBmwD6I66ZDZ5ddUzMoi02mKZZhR+5DRELqElx8iUr
+	 Kjn2wfifBtMvOE7Yh26Ob3c9OFKn2sihqc9mBFfZNhRW5ADi9ANHbpde8OZF74yhR177i
+	 c1z6O2aVHGfctQeNFzFa1qjqK5diKcf/OhWwpje4626gm3f67lvZuT2FwOsV/9NOaRk3W
+	 P4CfUDrrfw7KhSS7wD2NTyjyMRQPu4OmagHPO4tH5yArVTRuwmUrt8B7ZpzHQY2NNr/fx
+	 ubgoFiAD3rerj14NTorycfHfb1jLdNmvf2t1O27BusptjYGt3NMY07afk9+cF84HH2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQGvO+vp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zdYbA7OO;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8B7606A32E;
-	Wed,  4 Nov 2026 10:52:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68033606A326;
+	Wed,  4 Nov 2026 10:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68033606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQGvO+vp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F67B1F000C1;
-	Wed,  4 Nov 2026 10:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793789570;
-	bh=V9NHiJRKdLmwoeHiLsEZLLQBVcbAZsdM/sy0puVsYyA=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=AQGvO+vpUCKw4iG1OppNQR8+Q0/kGeVa7rf7nhi8vio63i0CMtDwG23/RZA7puzaw
-	 Uy9XzbOCI/TYnjQHHNVkn34UgzKufH8jU3UkMIbOJj9Cg4toOjHTIUcX8eQvkkW4az
-	 M3myT80wy4LZbPoC3zw1Yfe4tBwZ7ceGNCWHenLByu2PkNbJVrbNyuXC9KZJ91L4P3
-	 0C9wLyxLRSzzNCCBubgEMUGnYldQNXGhA5X96aABF+9I60qToQl3mQ5qB/pC2MEig3
-	 UnXOzzplXHLtjdEuUHgzamMTHnMEN/ZklAXDvevaK1BnMohBdCYTEXt1Zt4osO3YDH
-	 CFS1HGTVArRuQ==
-Message-ID: <f25646e3-d80e-4b26-b869-42608c89e665@kernel.org>
-Date: Wed, 4 Nov 2026 11:52:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=zdYbA7OO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=advfz8qU7dnMlSXaKuDgnefU48uHbLndv3sHhQbWPMw=; b=zdYbA7OObWwvo7rs7AE3iCVGzj
+	BDWigqB1/746eJLXXkDf5qazrTOAWtpR6IXVUy5F4lAy5LRoWZzSvOuDDxhuxlWORs7Qh69SwEZHc
+	/9XupRpbA4WLdDHRfdMCjKF3Z6gu12ueLkcIdQmUVPxsP9aWKjSFXTyd9KVC5arkHdNzBjEbyymlN
+	BWkvNbJCMZ/yMIKfdw/XZIRe7TItZc9UJTFoBH0IcZQYPT5jLnIgAPXCbtTEVaKoSrJRTb8+SKCSY
+	LbXBS/G7gGrWxExn6fTQEFPtVasKqtTGmql2SVnWJq0h+v6qQkSjC7PI+cWefytkCnlECJnArTLKw
+	e6i1O+cQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>, chaoyi.chen@rock-chips.com
+Subject:
+ Re: [PATCH v15 14/15] arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+Date: Wed, 04 Nov 2026 11:53:47 +0100
+Message-ID: <2915499.MsWZr2WtbB@diego>
+In-Reply-To: <20261101082307.151957-15-gahing@gahingwoo.com>
+References:
+ <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-15-gahing@gahingwoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,112 +73,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/22] ASoC: dt-bindings: cs42l42: Allow referenced
- dai-common properties
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-2-637484efe46d@gmail.com>
- <20261104-strict-precise-mouflon-85cbad@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261104-strict-precise-mouflon-85cbad@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On 04/11/2026 11:49, Krzysztof Kozlowski wrote:
-> On Tue, Nov 03, 2026 at 05:39:50PM +1000, James Calligeros wrote:
->> We may need to define both #sound-dai-cells and sound-name-prefix on some
->> machines where this codec is part of a simple DAI. Allow this by refrencing
->> dai-common.yaml and allowing its properties to be used.
->>
->> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
->> ---
->>  Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
->> index ab4c7d22dc0e..4ac0af34c464 100644
->> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
->> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
->> @@ -9,6 +9,9 @@ title: Cirrus Logic CS42L42 audio CODEC
->>  maintainers:
->>    - patches@opensource.cirrus.com
->>  
->> +allOf:
->> +  - $ref: dai-common.yaml#
->> +
->>  description:
->>    The CS42L42 is a low-power audio codec designed for portable applications.
->>    It provides a high-dynamic range, stereo DAC for audio playback and a mono
->> @@ -193,7 +196,7 @@ required:
->>    - VL-supply
->>    - VA-supply
-> 
-> Missing dai-cells constraint
+Am Sonntag, 1. November 2026, 09:23:06 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Jiaxing Hu:
+> Add the two RKNN cores and their IOMMUs, disabled, and label PD_NPU so a
+> board can give it the NPU rail. Each core lists both core domains, its own
+> first, as tested.
+>=20
+> Assign CLK_RKNN_DSU0 594 MHz. Nothing in mainline sets its rate or the NPU
+> rail, and at the 786 MHz it comes up at, on the 750 mV a ROCK 4D boots
+> with, two cores running together write wrong words, 11 to 25 in each pass
+> of 5400 rows. 594 MHz is clean, and Rockchip's OPP table asks only 725 mV
+> of its 500 and 600 MHz steps.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 74 +++++++++++++++++++++++-
+>  1 file changed, 73 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3576.dtsi
+> index ea9229b6e6f5..80943d748bfa 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1057,7 +1057,7 @@ power: power-controller {
+>  				#address-cells =3D <1>;
+>  				#size-cells =3D <0>;
+> =20
+> -				power-domain@RK3576_PD_NPU {
+> +				pd_npu: power-domain@RK3576_PD_NPU {
+>  					reg =3D <RK3576_PD_NPU>;
+>  					#power-domain-cells =3D <1>;
+>  					#address-cells =3D <1>;
+> @@ -1284,6 +1284,78 @@ power-domain@RK3576_PD_VO1 {
+>  			};
+>  		};
+> =20
+> +		rknn_core_0: npu@27700000 {
+> +			compatible =3D "rockchip,rk3576-rknn-core";
+> +			reg =3D <0x0 0x27700000 0x0 0x1000>,
+> +			      <0x0 0x27701000 0x0 0x1000>,
+> +			      <0x0 0x27703000 0x0 0x1000>;
+> +			reg-names =3D "pc", "cna", "core";
+> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
+> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
+> +				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
+> +			clock-names =3D "aclk", "hclk", "npu", "pclk",
+> +				      "aclk_cbuf", "hclk_cbuf";
+> +			assigned-clocks =3D <&cru CLK_RKNN_DSU0>;
+> +			assigned-clock-rates =3D <594000000>;
+> +			resets =3D <&cru SRST_A_RKNN0>;
+> +			reset-names =3D "srst_a";
+> +			power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
 
-Heh, I already asked for this two weeks ago.
+Why do you need both power-domains here?
+The naming does suggest each belongs to one core - similar to the rk3588?
 
-I do not see how you responded to my comment, dropping everything from
-DT patchwork.
+If each core really needs both domains, please state this explicitly.
 
-Best regards,
-Krzysztof
+Rockchip sadly does not provide RKNN documentation the first
+two parts of the TRM.
+
+
+Heiko
+
+
+
