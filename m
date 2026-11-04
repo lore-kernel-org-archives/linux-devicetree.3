@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793025;
-	b=jY1BANcDQ5unXrXfmLysTeiK6LuBpnrmCmomcPIGp4YR6S0xkHI1aNJTGxaN+v4cnH+5
-	 pw7Qs5B2WX5bLjFmflpg85SHiiq2/29Ys12YR2xmx0j0w6XPZRxao8EM3kLM7FHv0SOid
-	 odvM5yhQzScNyKR6RWGujYGKLCPRoNhWKNxdGQllIPe8lJmCy1otsWOFYblp4xDZ2wN6N
-	 iG/AyUMu9cUzN0zhWpmYWyff6WqSem3GvQ/qhf7b8biHJEpJI5bDSoAuX0eGtdk5W+hZr
-	 C9swywLAaEGZqVT5SyZRzz0kTM68Nhar47X9yzyDXlKdvc557pgPSIu2bT3IdPLWvyg==
+	t=1793793083;
+	b=eOmaEH3OvKW9GvEdCRjm9UNffyGO2AayJ8g5wZhtwZZczXMa/4nSrBguEbiaDWA0/EuG
+	 SUAIhSk13cdOdp2awm/HVSMK/+z4jlXa6Pqqj7uKzHbE+40gsqs6P3KwaMl3tHcjdOhMN
+	 8a1qgwIzXgCAHWFb4Wp7wPNv/k9+gosdY+Q4J/vRnah2CaoTYHqOpS8v79e+CmykUljoK
+	 6t1GGsUBCGcRS5nYjunEMBsnHhKHIuNx6n/YqXX7YGcXEI6fJWh3OSgb48kf7NPz3ObiM
+	 BRS1eWznw/UQTDbWP6MMTo3hgQUK5+z2poNPQpzuZeK74surzjo7NzRBZ+sUwoyLkmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793025;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=d5OejrVGsomYty+i3ZRzaeZMrk9/8f7YEpZV3hplRGU=;
-	b=n+xNKtP0yG8mN7eFe1Xddo67xXRYlLBBCKffDGjNRqmF9Y1ECT7yj3K5+RSSDSzfZqwV
-	 j+be2KFYOBh7vkhkNs0dCX1ry5xf5v8GmokvtyG3KxAQmpdW1PYwnHP8hD59isGp/EWYp
-	 AvefjAU3TglMJ4v91WCA99wMaPQ5EePQErRPN399516/ImuTHVhAorbmHXeQL9YXT9DLQ
-	 ZfPXh6672wmbXsIltof7VcgSbRQiiS7JdLtZGaBhDey7sG4CpX7moSVjw8dcWU35tZwAM
-	 mgqbsBXMH/Fleu1zZn2EqDWP6b+xjwWVM/uV0vcX1ZYnMwcBrj7p7F2+8OH4lcOJYXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793083;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ju0RIGfC6l+B1CQpzdwbFgWzPoOZtIYQ6xB05gUuuAw=;
+	b=ZdCrdW04WUkrIHP4fc3KHxR/wgZ0cVgj3ccouR34FKn7oUl8+y7xlrjC5AZvxDf4Q7fW
+	 WQ7N6+KEHCpadpgz5t0x1JdBYZdAXLBxi4zQ5g6Alrmr48ZmPOaPZQId5wHuApYbTOb/i
+	 0nYZSnzdFtWJOhSjYBp54BhpAwsZ3vKQve6qQhKi5talu47BFYtctPqwwRL2RpWlyzTn1
+	 07U0Ho7O/9AhgPXh2vhc+THJ0FqA7Bm3fchmjnUE2FbXHGUtS0wBpgQhy4C2H1cV9GuTv
+	 SZtVBo/pgEQwWMDKuDVhzzX4NbhbhzM9JDRl5q2Mc+D/nvagrELCRZdTGs4esUrD4Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdtIy1k5;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E/XKE0Yv";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467C2606A329;
-	Wed,  4 Nov 2026 11:50:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 467C2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E4A606A31B;
+	Wed,  4 Nov 2026 11:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdtIy1k5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793793023; x=1825329023;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xcmnKuYaN43ljFcSwJ9+DlplQK/ScAcS9ZuYXiL1cQE=;
-  b=IdtIy1k5MH4TQyWFaKBX3bEmoz5t0zspyu+QHiFo69Bk7iySJrF3gkhs
-   Y/8iCTv6CRfaP5ivhWbOKg47nnAF0u4iL90Ftt5suWjvRQCa8PPbd+Z4O
-   pHmiFOKrV9UMo3NDeBhFTGSSgza7SUud5UYx+i3FiE8TNZfeRaXL4vn0Z
-   QdXZmFJY8Mg3FfdzhMDQDZDhhVPkw2m9p9yUt0uM2ffvQtOZrjAu+u1If
-   P/j2Ur91ylcDq3GrW0pDDtMrXr3gCPSXRd1EpuNGZp2yUa4IoFG90CPH3
-   qxnddO7/KboTNuEzFdXcu2mlKrlaKdJuSjZDjfyUikOX1Ihqn97yKkmIj
-   w==;
-X-CSE-ConnectionGUID: jMFsEiJ9T3+0gCrl6ls3RQ==
-X-CSE-MsgGUID: O2oAy790QGukbjKVZP2BUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2550900"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2550900"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:50:23 -0800
-X-CSE-ConnectionGUID: A81cgGfxSCKoADnHFuRfKg==
-X-CSE-MsgGUID: yptMbd2vTjiP98KUKtDuow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6841666"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:50:19 -0800
-Date: Wed, 4 Nov 2026 13:50:17 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <ausb-YqIJM0mI65Y@ashevche-desk.local>
-References: <20261104091136.151269-1-cwweng.linux@gmail.com>
- <20261104091136.151269-3-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/XKE0Yv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726551F00A16;
+	Wed,  4 Nov 2026 11:51:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793793082;
+	bh=ju0RIGfC6l+B1CQpzdwbFgWzPoOZtIYQ6xB05gUuuAw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E/XKE0YvMWArkNayHl1n+uN0gUY07JAakbaHCngcu5q+n9dgXRcnsMDoNtLC+l9AK
+	 9F9nQbZDcAIWDCptfms+75Xi7Sj3Z/93rntR3tEDG/ygUuG6Z19APqj8ZGQx/fLlRb
+	 YB5cdX/qwTlq2JKfaowaSfp09vllBfJXVZh1ZadV1I/HhfbRNl8eatq1YjTrcY9Q0w
+	 sWquRhgqPwiO1TJ1Xe8Yv0hrWFXAxZfpU4iKs62ckEhe02DqRao2q9BNB7SInFn9X3
+	 8RJTa6kH/X9u7ebL8/CcBYNM/+Fy4v2d5ioRkYC9UafYP7DO3/Eacsfwlt6YRY++8O
+	 wgEaTEMNBoq0Q==
+Message-ID: <sashiko-outbox-197212@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 RESEND 4/4] ASoC: cdns: Add Cadence I2S-MC controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104113342.3660269-5-joakim.zhang@cixtech.com>
+References: <20261104113342.3660269-1-joakim.zhang@cixtech.com>
+ <20261104113342.3660269-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 11:51:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,542 +60,290 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104091136.151269-3-cwweng.linux@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 04, 2026 at 05:11:36PM +0800, Chi-Wen Weng wrote:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] ASoC: cdns: shared clk_i2s reparented in cdns_i2s_mc_hw_params()=
+ while active
+- [Medium] ASoC: cdns: clock and runtime PM leak in cdns_i2s_mc_probe() and=
+ on unbind
+- [Medium] ASoC: cdns: devm_pm_runtime_enable() ordered before IRQ in cdns_=
+i2s_mc_probe()
+- [Medium] ASoC: cdns: inverted DATA_WS_DEL bit for DSP_A and DSP_B in cdns=
+_i2s_mc_set_fmt()
+--
 
-> Add an IIO driver for the Enhanced Analog-to-Digital Converter found on
-> Nuvoton MA35D1 SoCs.
-> 
-> Support single-ended and fixed differential input pairs, direct
-> conversion, and triggered buffered capture using sample module 0.
-> 
-> The hardware supports multiple sample modules, but this initial driver
-> uses sample module 0 only and therefore supports one active voltage
-> channel per buffered scan.
+commit c19d92817bbbcb2d8d57a40b0aa755f6cec87691
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
 
-...
+ASoC: cdns: Add Cadence I2S-MC controller driver
 
-> +struct ma35d1_adc {
-> +	struct regmap *regmap;
-> +	struct clk *clk;
-> +	struct reset_control *rst;
-> +	struct completion completion;
-> +	/* Protect conversion state and register accesses from PM transitions. */
-> +	struct mutex lock;
-> +	const struct iio_chan_spec *scan_chan;
-> +	unsigned int vref_mV;
-> +	int irq;
-> +	bool clk_enabled;
-> +	bool external_vref;
-> +	bool suspended;
-> +};
+This commit adds an ASoC driver for the Cadence I2S-MC multi-channel
+controller in the CIX SKY1 audio subsystem, supporting up to 16 channels
+across 8 configurable data pins with independent transmit and receive DAIs.
 
-Now when it has optimal layout it's better to regroup the fields with some ties.
+> diff --git a/sound/soc/cdns/cdns-i2s-mc.c b/sound/soc/cdns/cdns-i2s-mc.c
+> new file mode 100644
+> index 0000000000000..defbb93adfe76
+> --- /dev/null
+> +++ b/sound/soc/cdns/cdns-i2s-mc.c
 
-struct ma35d1_adc {
-	struct regmap *regmap;
-	struct clk *clk;
-	struct reset_control *rst;
-	struct completion completion;
-	/* Protect conversion state and register accesses from PM transitions. */
-	struct mutex lock;
-	const struct iio_chan_spec *scan_chan;
-	int irq;
-	unsigned int vref_mV;
-	bool external_vref;
-	bool clk_enabled;
-	bool suspended;
-};
+[ ... ]
 
-...
-
-> +static const struct regmap_config ma35d1_adc_regmap_config = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +	.max_register = MA35D1_EADC_REFADJCTL,
-
-Add a comment why no cache is enabled.
-
-> +};
-
-...
-
-> +static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
+> +static int cdns_i2s_mc_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int=
+ fmt)
 > +{
-> +	struct regmap *map = adc->regmap;
+> +	struct cdns_i2s_mc_priv *i2s_mc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
+i);
+> +	struct device *dev =3D i2s_mc_priv->dev;
+> +	u32 ctrl =3D 0, dev_conf =3D 0;
+> +
+> +	dev_dbg(dev, "fmt =3D 0x%x\n", fmt);
 
-> +	unsigned int i;
+[ ... ]
 
-Not used outside the loops, just declare inside respective for:s.
+> +		/* DAI hardware audio formats */
+> +		switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+> +		case SND_SOC_DAIFMT_I2S:
+> +			dev_conf |=3D I2S_DEV_CONF_TRAN_I2S_ALIGN_LR;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_TRAN_APB_ALIGN_LR |
+> +				      I2S_DEV_CONF_TRAN_DATA_WS_DEL |
+> +				      I2S_DEV_CONF_TRAN_WS_DSP_MODE);
+> +			break;
+> +		case SND_SOC_DAIFMT_RIGHT_J:
+> +			dev_conf |=3D I2S_DEV_CONF_TRAN_DATA_WS_DEL;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_TRAN_I2S_ALIGN_LR |
+> +				      I2S_DEV_CONF_TRAN_APB_ALIGN_LR |
+> +				      I2S_DEV_CONF_TRAN_WS_DSP_MODE);
+> +			break;
+> +		case SND_SOC_DAIFMT_LEFT_J:
+> +			dev_conf |=3D I2S_DEV_CONF_TRAN_I2S_ALIGN_LR | I2S_DEV_CONF_TRAN_DATA=
+_WS_DEL;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_TRAN_APB_ALIGN_LR |
+> +				      I2S_DEV_CONF_TRAN_WS_DSP_MODE);
+> +			break;
+> +		case SND_SOC_DAIFMT_DSP_A:
+> +			dev_conf |=3D I2S_DEV_CONF_TRAN_I2S_ALIGN_LR | I2S_DEV_CONF_TRAN_DATA=
+_WS_DEL |
+> +				    I2S_DEV_CONF_TRAN_WS_DSP_MODE;
+> +			dev_conf &=3D ~I2S_DEV_CONF_TRAN_APB_ALIGN_LR;
+> +			break;
+> +		case SND_SOC_DAIFMT_DSP_B:
+> +			dev_conf |=3D I2S_DEV_CONF_TRAN_I2S_ALIGN_LR | I2S_DEV_CONF_TRAN_WS_D=
+SP_MODE;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_TRAN_APB_ALIGN_LR |
+> +				      I2S_DEV_CONF_TRAN_DATA_WS_DEL);
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
 
-> +}
+[ ... ]
 
-...
+> +		/* DAI hardware audio formats */
+> +		switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+> +		case SND_SOC_DAIFMT_I2S:
+> +			dev_conf |=3D I2S_DEV_CONF_REC_I2S_ALIGN_LR;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_REC_APB_ALIGN_LR | I2S_DEV_CONF_REC_DATA=
+_WS_DEL |
+> +				      I2S_DEV_CONF_REC_WS_DSP_MODE);
+> +			break;
+> +		case SND_SOC_DAIFMT_RIGHT_J:
+> +			dev_conf |=3D I2S_DEV_CONF_REC_DATA_WS_DEL;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_REC_I2S_ALIGN_LR |
+> +				      I2S_DEV_CONF_REC_APB_ALIGN_LR |
+> +				      I2S_DEV_CONF_REC_WS_DSP_MODE);
+> +			break;
+> +		case SND_SOC_DAIFMT_LEFT_J:
+> +			dev_conf |=3D I2S_DEV_CONF_REC_I2S_ALIGN_LR | I2S_DEV_CONF_REC_DATA_W=
+S_DEL;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_REC_APB_ALIGN_LR | I2S_DEV_CONF_REC_WS_D=
+SP_MODE);
+> +			break;
+> +		case SND_SOC_DAIFMT_DSP_A:
+> +			dev_conf |=3D I2S_DEV_CONF_REC_I2S_ALIGN_LR | I2S_DEV_CONF_REC_DATA_W=
+S_DEL |
+> +				    I2S_DEV_CONF_REC_WS_DSP_MODE;
+> +			dev_conf &=3D ~I2S_DEV_CONF_REC_APB_ALIGN_LR;
+> +			break;
+> +		case SND_SOC_DAIFMT_DSP_B:
+> +			dev_conf |=3D I2S_DEV_CONF_REC_I2S_ALIGN_LR | I2S_DEV_CONF_REC_WS_DSP=
+_MODE;
+> +			dev_conf &=3D ~(I2S_DEV_CONF_REC_APB_ALIGN_LR | I2S_DEV_CONF_REC_DATA=
+_WS_DEL);
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
 
-> +static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
-> +				     const struct iio_chan_spec *chan)
+[Severity: Medium]
+Are the data-to-word-select delay bits in dev_conf inverted between the
+dsp_a and dsp_b cases in cdns_i2s_mc_set_fmt() for both the transmit and
+receive DAIs?
+
+In the standard i2s case above, clearing the delay bit in dev_conf selects a
+1-bit-clock delay after the word-select transition, whereas in the left_j
+and right_j cases, setting the delay bit selects a 0-bit-clock delay.
+
+However, the dsp_a case sets the delay bit (0-bit delay) and the dsp_b case
+clears it (1-bit delay), which shifts transmitted and received samples by
+one bit clock cycle relative to the standard dsp_a (1-bit delay) and dsp_b
+(0-bit delay) timings.
+
+[ ... ]
+
+> +static int cdns_i2s_mc_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *params,
+> +				 struct snd_soc_dai *cpu_dai)
 > +{
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int mask;
+> +	struct cdns_i2s_mc_priv *i2s_mc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
+i);
+> +	struct device *dev =3D i2s_mc_priv->dev;
+> +	u32 rate, sample_rate =3D 0;
+> +	u32 slots, slot_width, resolution, ctrl;
+> +	unsigned long i2s_clk_rate;
+> +	u8 pin_tx_num, pin_rx_num;
+> +	struct clk *clk_parent;
+> +	bool is_master_mode;
 > +	int ret;
 > +
-> +	mask = MA35D1_EADC_CTL_DIFFEN | MA35D1_EADC_CTL_DMOF;
-> +	ret = regmap_assign_bits(map, MA35D1_EADC_CTL, mask, chan->differential);
-> +	if (ret)
-> +		return ret;
+> +	rate =3D params_rate(params);
+> +	slot_width =3D i2s_mc_priv->devtype_data->data_width;
+> +	dev_dbg(dev, "rate =3D %d, slot_width =3D %d\n", rate, slot_width);
+> +
+> +	/* switch clk mux to select the appropriate clk parent */
+> +	if (rate % 8000 =3D=3D 0) {
+> +		/* Sampling rate is a multiple of 8KHz, select "audio-clk0" */
+> +		clk_parent =3D i2s_mc_priv->clks[AUDIO_CLK0];
+> +
+> +		ret =3D clk_set_parent(i2s_mc_priv->clk_i2s, clk_parent);
+> +	} else if (rate % 11025 =3D=3D 0) {
+> +		/* Sampling rate is a multiple of 11.025KHz, select "audio-clk2" */
+> +		clk_parent =3D i2s_mc_priv->clks[AUDIO_CLK2];
+> +
+> +		ret =3D clk_set_parent(i2s_mc_priv->clk_i2s, clk_parent);
+> +	} else {
+> +		dev_err(i2s_mc_priv->dev, "Invalid sample rate\n");
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+As reported by Sashiko on v4 [1], what happens if playback on i2s-mc-aif1
+and capture on i2s-mc-aif2 are configured concurrently with sample rates fr=
+om
+different clock families (for example, 48 kHz on one DAI and 44.1 kHz on the
+other)?
+
+Because cdns_i2s_mc_dai[] exposes two independent DAIs sharing the single
+i2s_mc_priv->clk_i2s clock without cross-DAI rate family constraints or an
+active-stream check, calling clk_set_parent(i2s_mc_priv->clk_i2s, clk_paren=
+t)
+in cdns_i2s_mc_hw_params() switches the parent clock underneath an already
+active stream on the other DAI.
+
+Can this corrupt the running stream's sample rate divider in the sample rate
+register and violate the minimum functional-clock to bit-clock ratio?
+
+[ ... ]
+
+> +static int cdns_i2s_mc_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	pm_runtime_get_noresume(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+> +	ret =3D devm_pm_runtime_enable(&pdev->dev);
+> +	if (ret) {
+> +		pm_runtime_put_noidle(&pdev->dev);
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable runtime PM\n");
+> +	}
+> +
+> +	ret =3D cdns_i2s_mc_clks_enable(i2s_mc_priv);
+> +	if (ret) {
+> +		pm_runtime_put_noidle(&pdev->dev);
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
+> +	}
+> +
+> +	cdns_i2s_mc_rst(i2s_mc_priv);
+> +
+> +	irq =3D platform_get_irq(pdev, 0);
+> +	if (irq < 0) {
+> +		ret =3D irq;
+> +		goto err_disable_clks;
+> +	}
+> +	i2s_mc_priv->irq =3D irq;
+> +
+> +	ret =3D devm_request_irq(&pdev->dev, irq, cdns_i2s_mc_isr, 0,
+> +			       dev_name(&pdev->dev), i2s_mc_priv);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
+> +		goto err_disable_clks;
+> +	}
+
+[Severity: Medium]
+As reported by Sashiko on v4 [2], since devm_pm_runtime_enable() is
+registered before i2s_mc_priv->irq is initialized and before
+devm_request_irq() is called in cdns_i2s_mc_probe(), devres teardown on
+driver unbind or late probe failure will free the interrupt before disabling
+runtime power management.
+
+During teardown, can cdns_i2s_mc_runtime_resume() or
+cdns_i2s_mc_runtime_suspend() still run and call enable_irq() or
+disable_irq() on i2s_mc_priv->irq after it has already been freed?
+
 > +
 > +	/*
-> +	 * INTPOS = 0 generates ADIF0 at end of conversion. TRGSEL = 0 disables
-> +	 * the hardware trigger; conversions are started through SWTRG0.
+> +	 * Let pm_runtime_put_sync() disable the clocks, and take regcache effe=
+ct.
+> +	 * If CONFIG_PM is not enabled, the clock will stay powered.
 > +	 */
-> +	mask = MA35D1_EADC_SCTL_CHSEL_MASK |
-> +	       MA35D1_EADC_SCTL_TRGSEL_MASK |
-> +	       MA35D1_EADC_SCTL_INTPOS;
-
-Use room on the previous line(s).
-
-> +	ret = regmap_update_bits(map, MA35D1_EADC_SCTL(0), mask,
-> +				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
-> +					    chan->channel));
+> +	pm_runtime_put_sync(&pdev->dev);
+> +
+> +	ret =3D devm_snd_soc_register_component(&pdev->dev, &cdns_i2s_mc_compon=
+ent,
+> +					      cdns_i2s_mc_dai, ARRAY_SIZE(cdns_i2s_mc_dai));
 > +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(map, MA35D1_EADC_INTSRC0,
-> +				  MA35D1_EADC_INTSRC0_MASK,
-> +				  MA35D1_EADC_INTSRC0_SPLIEN0);
-> +}
-
-...
-
-> +static int ma35d1_adc_read_conversion(struct ma35d1_adc *adc,
-> +				      const struct iio_chan_spec *chan, u16 *raw)
-> +{
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int val;
-> +	long timeout;
-> +	int ret;
-> +
-> +	reinit_completion(&adc->completion);
-> +
-> +	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ma35d1_adc_config_channel(adc, chan);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(map, MA35D1_EADC_SWTRG, BIT(0));
-> +	if (ret)
-> +		goto disable_irq;
-> +
-> +	timeout = wait_for_completion_timeout(&adc->completion,
-> +					      MA35D1_EADC_TIMEOUT);
-
-Make it a single (yes, a bit longer) line.
-
-> +	if (!timeout) {
-> +		ma35d1_adc_abort_conversion(adc);
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	ret = ma35d1_adc_disable_irq(adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(map, MA35D1_EADC_DAT(0), &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!(val & MA35D1_EADC_DAT_VALID))
-> +		return -EIO;
-> +
-> +	if (val & MA35D1_EADC_DAT_OV)
-> +		return -EOVERFLOW;
-> +
-> +	*raw = FIELD_GET(MA35D1_EADC_DAT_RESULT_12BIT, val);
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to register soc componen=
+t\n");
 > +
 > +	return 0;
 > +
-> +disable_irq:
-> +	ma35d1_adc_disable_irq(adc);
-> +
+> +err_disable_clks:
+> +	cdns_i2s_mc_clks_disable(i2s_mc_priv);
+> +	pm_runtime_put_noidle(&pdev->dev);
 > +	return ret;
 > +}
 
-...
+[Severity: Medium]
+As reported by Sashiko on v4 [3], does cdns_i2s_mc_probe() leak the prepared
+and enabled clock references on i2s_mc_priv->clk_hst and
+i2s_mc_priv->clk_i2s when runtime power management is disabled in the kernel
+configuration or prevented via sysfs?
 
-> +static irqreturn_t ma35d1_adc_isr(int irq, void *data)
-> +{
-> +	struct iio_dev *indio_dev = data;
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	struct regmap *map = adc->regmap;
-> +	unsigned int status;
-> +	int ret;
-> +
-> +	ret = regmap_read(map, MA35D1_EADC_STATUS2, &status);
-> +	if (ret)
-> +		return IRQ_NONE;
-> +
-> +	if (!(status & MA35D1_EADC_STATUS2_ADIF0))
-> +		return IRQ_NONE;
+Specifically:
 
-regmap_test_bits() ? It will hide status OTOH. Up to you.
+1. If devm_snd_soc_register_component() fails when pm_runtime_put_sync() did
+not suspend the device, cdns_i2s_mc_probe() returns without calling
+cdns_i2s_mc_clks_disable(i2s_mc_priv).
 
-> +	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-> +	if (ret)
-> +		dev_err_ratelimited(regmap_get_device(map),
-> +				    "failed to clear ADC interrupt status: %d\n", ret);
-> +
-> +	complete(&adc->completion);
-> +
-> +	return IRQ_HANDLED;
-> +}
+2. Because cdns_i2s_mc_driver defines no remove callback and registers no
+devm action to disable the clocks, unbinding the driver while the device is
+runtime-active or when power management is disabled leaves clk_hst and
+clk_i2s enabled when devm_clk_get() releases them.
 
-...
+3. On the earlier error paths after pm_runtime_set_active(&pdev->dev),
+including err_disable_clks, pm_runtime_set_suspended(&pdev->dev) is not
+called, leaving the runtime power management state marked active with clocks
+disabled.
 
-> +static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2, long mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	u16 raw;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		guard(mutex)(&adc->lock);
-> +
-> +		if (adc->suspended)
-> +			return -EBUSY;
-> +
-> +		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
-> +		if (ret)
-> +			return ret;
-> +
-> +		if (chan->differential)
-> +			*val = ma35d1_adc_sign_extend(raw);
-> +		else
-> +			*val = raw;
-> +
-> +		return IIO_VAL_INT;
-> +	}
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = adc->vref_mV;
-> +		/* Differential mode has a VREF / 2048 LSB; single-ended uses /4096. */
-> +		*val2 = chan->differential ? MA35D1_EADC_DIFF_SCALE_BITS :
-> +					       MA35D1_EADC_RESOLUTION;
+[1] https://lore.kernel.org/r/20261019122048.1107179-5-joakim.zhang@cixtech=
+.com
+[2] https://lore.kernel.org/r/20261019122048.1107179-5-joakim.zhang@cixtech=
+.com
+[3] https://lore.kernel.org/r/20261019122048.1107179-5-joakim.zhang@cixtech=
+.com
 
-Broken indentation.
-
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
-> +				       const unsigned long *scan_mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	int bit;
-
-> +	adc->scan_chan = NULL;
-
-Should we update this even in case of wrong channel type?
-
-> +	iio_for_each_active_channel(indio_dev, bit) {
-> +		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
-> +
-> +		if (chan->type != IIO_VOLTAGE)
-> +			return -EINVAL;
-> +
-> +		adc->scan_chan = chan;
-> +	}
-> +
-> +	if (!adc->scan_chan)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	return regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-> +			    MA35D1_EADC_STATUS2_ADIF0);
-
-	struct regmap *map = adc->regmap;
-	...
-	return regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-
-*yes, it's 81 characters long.
-
-...
-
-> +static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
-> +				     struct device *dev)
-> +{
-> +	DECLARE_BITMAP(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	DECLARE_BITMAP(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
-> +	DECLARE_BITMAP(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int scan_index;
-> +	int num_channels;
-> +	int ret;
-> +
-> +	bitmap_zero(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	bitmap_zero(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
-> +	bitmap_zero(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +
-> +	num_channels = device_get_child_node_count(dev);
-> +	if (!num_channels)
-> +		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-> +
-> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> +		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
-> +
-> +	channels = devm_kcalloc(dev, size_add(num_channels, 1),
-> +				sizeof(*channels), GFP_KERNEL);
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	scan_index = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		bool has_diff, has_single;
-> +		u32 reg, vinp, vinn;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing channel reg property\n");
-> +
-> +		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +			return dev_err_probe(dev, -ENOSPC,
-> +					     "invalid ADC channel index %u\n", reg);
-> +
-> +		if (test_and_set_bit(reg, used_regs))
-> +			return dev_err_probe(dev, -EEXIST,
-> +					     "duplicate ADC channel index %u\n", reg);
-> +
-> +		has_single = fwnode_property_present(child, "single-channel");
-> +		has_diff = fwnode_property_present(child, "diff-channels");
-> +		if (has_single && has_diff)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "channel %u has conflicting input properties\n",
-> +					     reg);
-> +
-> +		if (has_diff) {
-
-> +			u32 inputs[2];
-
-No need, move this above instead of vinn and vinp. Or use custom data:
-
-		struct {
-			u32 p;
-			u32 n;
-		} vin;
-
-if you want to have distinct names.
-
-
-> +			ret = fwnode_property_read_u32_array(child, "diff-channels",
-> +							     inputs, ARRAY_SIZE(inputs));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "invalid diff-channels for index %u\n",
-> +						     reg);
-> +
-> +			vinp = inputs[0];
-> +			vinn = inputs[1];
-> +			if (vinp >= 4 || vinn != vinp + 4)
-> +				return dev_err_probe(dev, -ECHRNG,
-> +						     "invalid differential inputs %u-%u\n",
-> +						     vinp, vinn);
-> +
-> +			if (test_and_set_bit(vinp, used_diff_pairs))
-> +				return dev_err_probe(dev, -EEXIST,
-> +						     "duplicate differential inputs %u-%u\n",
-> +						     vinp, vinn);
-> +
-> +			channels[scan_index] = (struct iio_chan_spec) {
-> +				.type = IIO_VOLTAGE,
-> +				.indexed = 1,
-> +				.differential = 1,
-> +				.channel = vinp,
-> +				.channel2 = vinn,
-> +				.address = reg,
-> +				.scan_index = scan_index,
-> +				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +						      BIT(IIO_CHAN_INFO_SCALE),
-> +				.scan_type = {
-> +					.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> +					.realbits = MA35D1_EADC_RESOLUTION,
-> +					.storagebits = 16,
-> +					.endianness = IIO_CPU,
-> +				},
-> +			};
-> +		} else {
-> +			if (has_single) {
-> +				ret = fwnode_property_read_u32(child, "single-channel",
-> +							       &vinp);
-> +				if (ret)
-> +					return dev_err_probe(dev, ret,
-> +							     "invalid single-channel for index %u\n",
-> +							     reg);
-> +			} else {
-> +				vinp = reg;
-> +			}
-> +
-> +			if (vinp >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +				return dev_err_probe(dev, -ECHRNG,
-> +						     "invalid ADC input %u\n", vinp);
-> +
-> +			if (test_and_set_bit(vinp, used_single_inputs))
-> +				return dev_err_probe(dev, -EEXIST,
-> +						     "duplicate ADC input %u\n", vinp);
-> +
-> +			channels[scan_index] = (struct iio_chan_spec) {
-> +				.type = IIO_VOLTAGE,
-> +				.indexed = 1,
-> +				.channel = vinp,
-> +				.address = reg,
-> +				.scan_index = scan_index,
-> +				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +						      BIT(IIO_CHAN_INFO_SCALE),
-> +				.scan_type = {
-> +					.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-> +					.realbits = MA35D1_EADC_RESOLUTION,
-> +					.storagebits = 16,
-> +					.endianness = IIO_CPU,
-> +				},
-> +			};
-> +		}
-> +
-> +		scan_index++;
-> +	}
-> +
-> +	channels[scan_index] = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = scan_index + 1;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
-> +{
-> +	int ret;
-> +
-> +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-> +	if (ret == -ENODEV) {
-> +		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-
-> +		return 0;
-
-Can be deduplicated. See below how.
-
-> +	}
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
-> +
-> +	if (!ret)
-> +		return dev_err_probe(dev, -EINVAL, "invalid VREF voltage\n");
-> +
-> +	adc->external_vref = true;
-> +	adc->vref_mV = ret / (MICRO / MILLI);
-
-	if (ret == -ENODEV) {
-		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-	} else if (ret < 0) {
-		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
-	} else {
-		adc->external_vref = true;
-		adc->vref_mV = ret / (MICRO / MILLI);
-	}
-
-
-> +	return 0;
-> +}
-
-...
-
-> +	adc->clk = devm_clk_get(dev, NULL);
-> +	if (IS_ERR(adc->clk))
-> +		return dev_err_probe(dev, PTR_ERR(adc->clk),
-> +				     "failed to get ADC clock\n");
-> +
-> +	ret = clk_prepare_enable(adc->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable ADC clock\n");
-
-> +	adc->clk_enabled = true;
-
-Repeats what __clk_is_enabled() provides.
-
-> +	ret = devm_add_action_or_reset(dev, ma35d1_adc_clk_disable_action, adc);
-> +	if (ret)
-> +		return ret;
-
-...
-
-> +static int ma35d1_adc_resume(struct device *dev)
-> +{
-> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	int ret;
-
-> +	mutex_lock(&adc->lock);
-
-What's wrong with guard()()? Yes, for resume triggering support this needs to
-be wrapped. Same Q to other explicit mutex_lock() use cases.
-
-> +	ret = clk_prepare_enable(adc->clk);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	adc->clk_enabled = true;
-> +	ret = ma35d1_adc_hw_init(adc);
-> +	if (ret) {
-> +		clk_disable_unprepare(adc->clk);
-> +		adc->clk_enabled = false;
-> +		goto unlock;
-> +	}
-> +
-> +	adc->suspended = false;
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return iio_device_resume_triggering(indio_dev);
-> +
-> +unlock:
-> +	mutex_unlock(&adc->lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_adc_pm_ops,
-> +				ma35d1_adc_suspend, ma35d1_adc_resume);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104113342.3660=
+269-1-joakim.zhang@cixtech.com?part=3D4
