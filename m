@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801556;
-	b=GFhUXs0Bh2222jbVf8F9K6oV0vgEIAx78VgL14R9aWgAsjBun/haBi8OGjifNo6Dj3TV
-	 T1TFL45wEILUokifnxH+kG0NWxTelYNbdxWcuS6P7HECrdDu9QHjaIIYsy8QAaoEZWqMR
-	 Ap5H04meVahLhjUxooM8PcgTOD7JDbAK9AkmmKrt90q6Q1qnAiiJ2F6T2UT8ssElfoMaD
-	 imi4cIzUMZDZkb8dp1onkBJ9blG9jpev7cxV4vnaArEu8oh/E0RkgkR1u7OXE4rzg5X3+
-	 HJEnax4n6lgL40SqTQnB/kL0ZZn1vmAXsvQJ4uq6U/0ClIIg21bWZcuBzwM81doz24A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801556;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=YvS6ooKVwKypkaolFvHXqoO8MqX5BzI/xKvJfWr51T8=;
-	b=WcYO7ABNcVEWJosEYMu0G3cnByj1qui1yBH7DNhwm6TuHm/92iMjxtkstt9yOmoD5CFX
-	 R9hx29+otcw/CeNwBhSv9XK4uXn9oEs0l9CRQVAACK6AgcwrqwzuMuDWi5lFzW/zPH0Qj
-	 1lJy6EQKOgkM/j150AxTInFRh5VB6QO0rlwA2NPPdKMkTXjNMqEKfj6MJL6uBx0GiPmac
-	 wY2bHG7FqhZIYDyJ6dVIwHEgBA/xE6Ceu4SvplMUKMWrwJwD3FW7O52dCzQF5EjIyhHU2
-	 kHXf3RxtjLwSeAe7q6P4wtIAFOual5X+WdO1DFALHK6mRFT2EpOUMyMmbuMrKkoyCWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=OeMDIkmI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801559;
+	b=xP/5TBVayrkem9cvzPqPd5F9ls5W8KsM15JvMM6M+13UbQs29JQ22zTIoLasmn6W/8BA
+	 lG0B2UCUIRqHgWsSXaMbSvBcox2XLSNWh057HL/0/IPtP7G5bl6G/j9XCGQX8znICID+l
+	 x9Zol4meUWxeBOhyJW7YsqXGD4HqI0A/dqTjg9Kkj4Ep36VdCvtg+iOSxXjh8Df6a7zK7
+	 TNPCSZEV+ZdcEBcYD9C9z9uVwVHvXEpTxhIy5Th6UHSV+Y+FJLNT6ckEpw1QgVm0gzOKv
+	 6BCOUwm8/JpK5yZJ67iU9wCX45a1B/XY9P5d+n3ty+2yoJAzezXP0N2Qdy9BzZgnr6Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801559;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=R/qTYP1R+kSpV2jgLC+P4WluCtiADqd+MVp0Uzz5JAU=;
+	b=tL004/9um/0O6QBgozrl4XhLtPxHaMD8ldTjQ+xUgTdYfL1PHpr5BkokGgJ/aCYPR6OX
+	 2pribSN17NZmet22wzMISXZ3x5kGyawzF2kVKDyvoHZti8/Mz6tV2a83plH6XRhawyW67
+	 B5VYfsR8ymlinh1ezWrdeJ9exungAGt7NWZ9VSO5fZJxu2aJR91Of6SVQ3e2NzcQT3Tdr
+	 KGb7YCvvCtaFfuSi7N66Yjfnt8Yrvcz8Xxh1O5nb1rXXZwZLgH+rDT/c0dJ+2V6EuP6UG
+	 lpfIpWulxrj+xTB9bSGB+puNH9AsB3kQ8ARA/FfoC21vnEIjNqCEtFHAYAPiMXtH7QQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STApIEX9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F8C606EE84;
-	Wed,  4 Nov 2026 14:12:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85F8C606EE84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2914D606EE8C;
+	Wed,  4 Nov 2026 14:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=OeMDIkmI
-ARC-Seal: i=1; a=rsa-sha256; t=1793801509; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=T1jilRb5wucUxZzsiUHWFXU3QP8gWP4Jxbqx77jnO9LDy3ZSAES1TBG22meFsALSAZK++CUEtm95mlpfKOblP6cWrAwzUIVEkkNXeVaCt/qhQBT4r8AwMqeDp7ec+zVehZeA3Q5KiRgkEvCwIAXXKbDPIKgyKy9HeYC1cHrRko8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801509; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YvS6ooKVwKypkaolFvHXqoO8MqX5BzI/xKvJfWr51T8=; 
-	b=mTmYMnIK6OBW+AI3irWk9JuYEadnmcVGSn/LBXiV6KAQsTVdlNhdnGtsCHjRJr6WivzBo6c+WWGGVksyxB/gWAX9O7FsPPhfCn6YdOLWc1DC2H3cu5z57/860kmql+Ts4RQWMzIGNr5jG1jAB8+TToJlyesEXqmSssCOEWelfh8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=OeMDIkmIGVzsQFWqiBBZMVjQasmnyeiE1zY+UwBvVUrgqEphJo29TwTp+bf5IqU89A+7dgQzSBu2kOaQaDy1Q/2e8kxnoMp5cSBVIWugQrtyAskGHHrfqgkKeSdZHWPJP2sHYPnRFapB0br5mT2n0+WynU2mBBE56cx9aulffEE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=YvS6ooKVwKypkaolFvHXqoO8MqX5BzI/xKvJfWr51T8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179380150728514.866978180500155;
-	Wed, 4 Nov 2026 06:11:47 -0800 (PST)
-Message-ID: <12f1f67a-9855-4765-9f3c-5f30853df76b@collabora.com>
-Date: Wed, 4 Nov 2026 17:11:42 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STApIEX9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDEEA1F00A15;
+	Wed,  4 Nov 2026 14:12:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801559;
+	bh=R/qTYP1R+kSpV2jgLC+P4WluCtiADqd+MVp0Uzz5JAU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=STApIEX9nhWevvJ6wRUnBX3jnDILex3BD3LdFeRTX6/RdPAkXLXVoSIGEfd3OKB5/
+	 vxyWyl6i9kMTVXeGodZMLN2goOB0Ez7AJiomYMt5AfMFgShTXxEm0MQoIiL4R3n+4l
+	 rlCS3YMbrRJDS+ijmK1uyTyAKyJkBPpi5YM86wVzlEuLUhYEeoNb+OsYRm6Dd5Yl/o
+	 IZRr+69k4xtytxKKTHTTm+s9tAMFkaUIUiix9OXWqz2tRNFM5BrKSBKEXOmv6Zg3xP
+	 ZHneNKDZzU1a3izn0YLssImEGrGg//pLmwqawEvOtS0w5Gq3h52huNpdrM2Vu5Dd2t
+	 BrVAqAMdlVpVg==
+Message-ID: <sashiko-outbox-197409@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/9] device property: provide
+ fwnode_property_get_names()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 14:12:38 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,123 +60,131 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/10] media: synopsys: hdmirx: add media entity for
- video capture device
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-3-71a11a2e3e76@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-3-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 10/5/26 16:28, Sascha Hauer wrote:
-> From: Gerald Loacker <gerald.loacker@wolfvision.net>
-> 
-> Register the video device as a media entity with a sink pad to integrate
-> it into the media controller topology. This allows the capture device to
-> be properly represented in the media graph and enables userspace to
-> discover the device capabilities through the MC API.
-> 
-> The sink pad indicates that this entity receives data (HDMI video stream)
-> which is then made available through the V4L2 video capture interface.
-> 
-> Initialize the pad before registering the video device. The previous patch
-> gave v4l2_dev an mdev, so video_register_device() already registers the
-> entity, and doing it the other way round would hand
-> media_device_register_entity() an entity with no pads yet.
-> 
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 26 ++++++++++++++++++++--
->   1 file changed, 24 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index 8b04c84be75ec..9891e0f3874ea 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -125,6 +125,7 @@ struct snps_hdmirx_dev {
->   	struct hdmirx_stream stream;
->   	struct v4l2_device v4l2_dev;
->   	struct media_device mdev;
-> +	struct media_pad pad;
->   	struct v4l2_ctrl_handler hdl;
->   	struct v4l2_ctrl *detect_tx_5v_ctrl;
->   	struct v4l2_ctrl *rgb_range;
-> @@ -2761,15 +2762,29 @@ static int hdmirx_probe(struct platform_device *pdev)
->   
->   	stream = &hdmirx_dev->stream;
->   	stream->hdmirx_dev = hdmirx_dev;
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] device property: missing NULL check for props in fwnode_property=
+_get_names()
+--
+
+commit c6de0ca7eaa5586d9db8c473e272baa86e7c8e04
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
+device property: provide fwnode_property_get_names()
+
+This commit adds fwnode_property_get_names() to retrieve the list of all
+property names for a given firmware node, merging properties from both the
+primary and secondary firmware nodes.
+
+> diff --git a/drivers/base/property.c b/drivers/base/property.c
+> index a97575ff91990..7b0df3dfae53b 100644
+> --- a/drivers/base/property.c
+> +++ b/drivers/base/property.c
+
+[ ... ]
+
+> @@ -542,6 +544,81 @@ int fwnode_property_match_string(const struct fwnode=
+_handle *fwnode,
+>  }
+>  EXPORT_SYMBOL_GPL(fwnode_property_match_string);
+> =20
+> +/**
+> + * fwnode_property_get_names - get the list of all properties of this fw=
+node
+> + * @fwnode: Firmware node to get the list of properties for
+> + * @props: Pointer to an array of strings. It will contain the address o=
+f the
+> + *	   string list containing the property names.
+> + *
+> + * Return: Number of property names written into *props. If > 0, the cal=
+ler must
+> + *	   free the array with kfree_strarray(). *props is only valid for
+> + *	   a positive return value.
+> + *	   %-EINVAL if arguments are not valid
+> + *	   %-ENXIO if no suitable firmware interface is present
+> + *	   %-ENOMEM if memory allocation failed
+> + *
+> + * The list also includes the properties of the secondary firmware node,=
+ if
+> + * any. Properties present in both nodes are listed once.
+> + */
+> +int fwnode_property_get_names(const struct fwnode_handle *fwnode, char *=
+**props)
+> +{
+> +	int ret1, ret2 =3D -ENXIO, n1, n2, i, j, count;
+> +	char **prim =3D NULL, **sec =3D NULL, **merged;
 > +
-> +	hdmirx_dev->pad.flags = MEDIA_PAD_FL_SINK;
-> +	ret = media_entity_pads_init(&stream->vdev.entity, 1, &hdmirx_dev->pad);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "media entity pads initialization failed\n");
-> +		goto err_unreg_v4l2_dev;
+> +	if (IS_ERR_OR_NULL(fwnode))
+> +		return -EINVAL;
+> +
+> +	ret1 =3D fwnode_call_int_op(fwnode, property_get_names, &prim);
+> +	if (!IS_ERR_OR_NULL(fwnode->secondary))
+> +		ret2 =3D fwnode_call_int_op(fwnode->secondary, property_get_names, &se=
+c);
+> +
+> +	if (ret1 =3D=3D -ENXIO && ret2 =3D=3D -ENXIO)
+> +		return -ENXIO;
+> +
+> +	n1 =3D max(ret1, 0);
+> +	n2 =3D max(ret2, 0);
+> +
+> +	CLASS(strarray, prim_props)(prim, n1);
+> +	CLASS(strarray, sec_props)(sec, n2);
+> +
+> +	if (ret1 < 0 && ret1 !=3D -ENXIO)
+> +		return ret1;
+> +
+> +	if (ret2 < 0 && ret2 !=3D -ENXIO)
+> +		return ret2;
+> +
+> +	if (n1 =3D=3D 0 && n2 =3D=3D 0)
+> +		return 0;
+> +
+> +	merged =3D kcalloc(n1 + n2, sizeof(*merged), GFP_KERNEL);
+> +	if (!merged)
+> +		return -ENOMEM;
+> +
+> +	/* The strings are now owned by merged, only free the container. */
+> +	for (i =3D 0; i < n1; i++) {
+> +		merged[i] =3D prim_props.array[i];
+> +		prim_props.array[i] =3D NULL;
+> +	}
+> +	count =3D n1;
+> +
+> +	/* Properties from the primary node take precedence. */
+> +	for (i =3D 0; i < n2; i++) {
+> +		for (j =3D 0; j < n1; j++) {
+> +			if (!strcmp(merged[j], sec_props.array[i]))
+> +				break;
+> +		}
+> +
+> +		if (j >=3D n1) {
+> +			merged[count++] =3D sec_props.array[i];
+> +			sec_props.array[i] =3D NULL;
+> +		}
 > +	}
 > +
->   	ret = hdmirx_register_stream_vdev(stream);
->   	if (ret < 0) {
->   		dev_err_probe(dev, ret, "video device registration failed\n");
-> -		goto err_unreg_v4l2_dev;
-> +		goto err_cleanup_entity;
-> +	}
-> +
-> +	ret = media_device_register(&hdmirx_dev->mdev);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "media device registration failed\n");
-> +		goto err_unreg_video_dev;
->   	}
->   
->   	ret = hdmirx_register_cec(hdmirx_dev, pdev);
->   	if (ret)
-> -		goto err_unreg_video_dev;
-> +		goto err_unreg_media;
->   
->   	hdmirx_load_default_edid(hdmirx_dev);
->   
-> @@ -2784,8 +2799,12 @@ static int hdmirx_probe(struct platform_device *pdev)
->   
->   	return 0;
->   
-> +err_unreg_media:
-> +	media_device_unregister(&hdmirx_dev->mdev);
->   err_unreg_video_dev:
->   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
-> +err_cleanup_entity:
-> +	media_entity_cleanup(&hdmirx_dev->stream.vdev.entity);
->   err_unreg_v4l2_dev:
->   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->   	hdmirx_disable(dev);
-> @@ -2814,7 +2833,10 @@ static void hdmirx_remove(struct platform_device *pdev)
->   
->   	hdmirx_disable_irq(dev);
->   
-> +	media_device_unregister(&hdmirx_dev->mdev);
-> +
->   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
-> +	media_entity_cleanup(&hdmirx_dev->stream.vdev.entity);
->   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->   
->   	hdmirx_disable(dev);
-> 
+> +	*props =3D merged;
+> +	return count;
+> +}
 
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+[Severity: Medium]
+Should fwnode_property_get_names() in drivers/base/property.c also check
+!props at entry and return -EINVAL?
 
--- 
-Best regards,
-Dmitry
+The kernel-doc states that -EINVAL is returned if arguments are not valid,
+and unlike fwnode_property_read_string_array(), props is not optional.
+Because fwnode_property_get_names() passes &prim and &sec to the backend
+property_get_names callbacks rather than forwarding props, the backend
+callbacks never validate props either.
+
+If a caller passes NULL for props (for instance, expecting it to query the
+property count like fwnode_property_read_string_array()), it will return 0
+instead of -EINVAL when the node has no properties, or dereference a NULL
+props pointer at *props =3D merged and leak merged and all transferred prop=
+erty
+name strings when the node has at least one property.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-fwnode-for=
+-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com?part=3D4
