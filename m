@@ -1,76 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827767;
-	b=z5U5LINF+uI640utwFZx6uNqTiGvpD/krCQCZkxCE1hucrcVpmR3ooQFUAI3YwZQB5RY
-	 sKDNbvUUhyDxWYId01fMzwuNigdeReFklxwSIQsXhUlJjPi/lCVWDY26I/Xe5c7A7eKpA
-	 PW6VmNW3mKLCPnSnmwWRboMAQXNUe3nQLjO2oNR60CMfGe4DmOCicc0qiCGTWWXp0KRRp
-	 zvk6U2DkutkZm5SYAuOaj8ql58fY/BecIvVbN3um+o5Za/Q5Rp9rNLvzJb5mJLuvARk+2
-	 dzrGXb7Dbx6na8yC0iiP9V2PEfMh792SbHBPa/eWYJpqFQJmwQSfyB1VEa46+VFuvBg==
+	t=1793828045;
+	b=oNs++X7rpjqDPv55zzXB9wp+COlkMfl8zvVm6wLtDbnF0XYKKReowjyeIP25H2L39rJV
+	 rTdHtlL+O1Lz8wPHCCAf9q/TcBmBeVS/oBpTKQPHFfEKuEGYCMcWrnlJY9lY1th32pxnI
+	 vGEPmx64y9MCXoHY5XgbcpeNyxpGsYbSWRWp82CYooA7IGpANdXPylDkZmD5wCdtMBlu0
+	 XqxUKVwwSiYzptjsFwK/OScnVns4FjxfH131IFikHHBjSOEGASxT9q4A7LkymlGn/L2jo
+	 /S5kuRazVmG98dOxLWc7rY2sXBPryy9L206BkhXsVMmipkEGr6NgPrIt+TSemG56D0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827767;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Z5JEWAHX8HIT/y9bERySyCdVuC9uxNIx0YOcG+Jkvv0=;
-	b=MUQ7ziU4EJoW7sEVY+QZAXZQ3m1bOALU5nz4mx8A3hYEOkIt5z/dWlopvxbBhtXIzMjK
-	 jWqnoyZvarJHLHegejtC7oxEw2nndjiH9cGdMsR9BO/otWpJhiwsCoj77yvgRj6lBSS7p
-	 zZ8AhejaVpC2bS2aE9f9dmJU/hICzuYVC5+vthXPLTmGAg0k/RnRNCJtR8/wQnIfwdVIr
-	 uGmexxtSYT/bP+tCgEB3Wisy1gy7WQ89jvcGYzfSZhqlN1ShjSQ/SKkd4rPBX1YK2uIbP
-	 i7amepin6HqMUz2qNJMLVFQmyqmshDOJXD2/TOq9eem/wYE7q6YHz6F4sBqBRI9X67w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793828045;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=9nKvJbaUcji5RiFFkvoszphTBDYEbMKLXoOUcUhjA9Y=;
+	b=bjQICjKS5FnXTFPUFmeZLuNVZag3Pijcv8E/OYuOSvSV+xb+gJBUn34Azy/yP7D/uRou
+	 Zt6aEE0zckN2C0dv1WTTWPv+v0hAiF5z6O3biXh2ZXWgdHGWp5Fi53AbwhkjFH+QmOlEs
+	 7GV3978d7h85Hc0nrwkjQ4p2+OUU6wEzvBK3mrjjVl8NI8M7eqcLCo/JlFE4YEMKuHLs9
+	 aqQ1E3ip45EgK0qbfXuxpqSHfXZetPzk41f/pxp6sGY1iHJypyoMPe5w3Hc9pxUuPWRIE
+	 /7yVl6VdjyuZTMclTDwUPRwGZgiM7pYQnM0u5VH0PdgnC9lpGrwrRnSU1OcRlhXVOHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=i26NWnj+;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="El/1Rl9a";
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE245606BA3D;
-	Wed,  4 Nov 2026 21:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE245606BA3D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C882606BA35;
+	Wed,  4 Nov 2026 21:34:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C882606BA35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=i26NWnj+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Z5JEWAHX8HIT/y9bERySyCdVuC9uxNIx0YOcG+Jkvv0=; b=i26NWnj+huXIiWxNXO7EvLj08L
-	dpWAOUvdfL/BjVLhLZa9UB9Y6lVKooJS3wov0erHqIbKb8nrhToeu3GBLuiNNksYk4T1yQVbzKkgD
-	Y1Xb8/BoUJPnygFcAh5QHLr5/mvJbMZJv9xH9SJR1VI8xfNE9Iwe7KavNZ0C7QZg/2xM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOiXe-00EOKk-TI; Wed, 04 Nov 2026 22:29:10 +0100
-Date: Wed, 4 Nov 2026 22:29:10 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: joseph@telaak.dev
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Chuanhong Guo <gch981213@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890
- GMAC
-Message-ID: <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
- <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=El/1Rl9a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793828044; x=1825364044;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dSHD22sqoPeJn+6jn0TgmhqlpAHpJfnJ/nqGrnYSGlk=;
+  b=El/1Rl9a2hDoOzX1KY/EmvJKihDFF3W8O6fWO/I0jMFR8YAcjrvzFNYN
+   L2So0F6xSefrZQXMCfEyAWBZWosqwkhOZFtBf3BUVNEPETRLbNb+wMbjM
+   qletnCiq4BvTGah6PTzEYf/b64ShjpEDrqhYwhadLl89eTJDIEO3em+yI
+   L1NGV8jGX8nceTRcZStwAs2Ao3NIAGlISFH5KbfEknR9wZPQVBKbt3pZH
+   9PY+AAwCnZQNvLnsX0h5K626KAi82vAYjaaHOrW1l/BG9HLaLT2sGzaMu
+   9+A3MymaqZH+ezpQELVH5zikAqJy06ryGHRiXkjFgZXQYcUxwTdaF75xO
+   Q==;
+X-CSE-ConnectionGUID: cMaTYde5SL+vi4ZDRXWtCg==
+X-CSE-MsgGUID: tPDOqx38Th6lkhncZTTQiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2605453"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2605453"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:34:03 -0800
+X-CSE-ConnectionGUID: KwuCGyO9ScCeYbqAy0WSvA==
+X-CSE-MsgGUID: d1PmHtYQSVS2sjsse1bh1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="8605631"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:33:59 -0800
+Date: Wed, 4 Nov 2026 23:33:56 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
+Message-ID: <auukxCs4Be4idQPj@ashevche-desk.local>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,29 +95,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev>
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> +  rx-internal-delay-ps:
-> +    description:
-> +      Applied in steps of about 55 ps, rounded to the nearest step.
-> +    maximum: 14025
+On Wed, Nov 04, 2026 at 03:03:51PM +0100, Bartosz Golaszewski wrote:
+> Ahead of adding support for sharing of GPIOs for other types of firmware
+> nodes, convert as much code in gpiolib-shared.c as possible to using
+> fwnode APIs and guard the remaining OF-specific bits with CONFIG_OF
+> guards.
 
-Please add minimum, and multipleOf.
+...
 
-I've not looked at the code yet, but default: 0 would also be good.
+>  #include <linux/string.h>
+> +#include <linux/string_helpers.h>
 
-> +        rx-internal-delay-ps = <550>;
-> +        tx-internal-delay-ps = <935>;
+As commented before...
 
-These values are odd. The RGMII standard says 2ns is required. Where
-is the rest coming from.
+...
 
-> +        fixed-link {
-> +            speed = <1000>;
-> +            full-duplex;
-> +        };
+>  static LIST_HEAD(gpio_shared_list);
+>  static DEFINE_IDA(gpio_shared_ida);
+>  
+> -#if IS_ENABLED(CONFIG_OF)
+> +
 
-Does this mean there is a switch on the other end? Maybe look at what
-the switch is doing for RGMII delays.
+Do we need an extra blank line?
 
-	Andrew
+>  static struct gpio_shared_entry *
+>  gpio_shared_find_entry(struct fwnode_handle *controller_node,
+>  		       unsigned int offset)
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
