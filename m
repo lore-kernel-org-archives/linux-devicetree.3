@@ -1,110 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808109;
-	b=JKT/xswVarOBLcV+xpBx3DinPE1icsyRqGWaEvvhC74SvCfR/P12LWhs20/qT4lQ9gPp
-	 Ipd5Z/gdv9T/lwiPuP1sIPjhf3t4FvxxNXGCh/dd73mWyI1M5DzzUVEnsZXg4hUS80ymv
-	 Rngd65/NmOdqdfetkB/7u+xHNEGBOurgWcrcXXKI3yb5PckW2Ia7RA/7GTIaowORn1RDI
-	 r/g3puYz8lDVKVdXoG+EjE7mhsu1NK70DflebL9qP0EE8GEOs7HReqL4KwLe6N040A7wz
-	 13l+IFW6MiPQIRT/D94+ARc+bG9ULCTpWxHkkZan7rWO2uPUBOjyGuPCLgCK8VkazXQ==
+	t=1793808229;
+	b=DqDHp580h3A0aZDIjI06rVEtKi6Qb6ISArJmNF81AKHaHsQaFAWVCoKT6O0Rzya0YGL+
+	 y8rFnsCJtXKYOim8AGxM/QWy0ye35bN7Qb5Lh+33Ug4PQkovHEGyBWqmziasKCcSNSWPS
+	 FL/jJjiEdAmy3BTiTgk1Nul5kLycR+1vSGjumRlQsJqJdimrZJKnBGJW8AxlZYeXPgimc
+	 0/Ed4nNIhZwrhWJeeMp2+6YaAhfzaTxfiacuGnDnLNOtuzFabPNtxEPUa1APAwEj1wgK5
+	 GUln7FGAXOwPpvpVQHxAn00cHsuxvW6TyTQHbzZSd3z78UkbzXLRiJo6whViYUcPQDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808109;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=;
-	b=BDHcBi/0btUJ7CRcsUMpKWTubYo3S8sT6X4DzbwRCeQebwrwt++sT2SOxQ49ozqTGi/W
-	 xbCJhR/4q7BUCN3tEoppRY44SO2OykEJsAjyFkyQuimpfJTT8CsshOFcGV75vb6PtXL5j
-	 sk81bTAAdNkFR7tuqcCIgDKx3PmG6b8QRjWU7U6d9BXMgybZMieThryqPyVHLZsbRJnYU
-	 l2NyfJ+rGKwNk4tQETI2cGtwgwq8PcyOhOMKkUXPMTC810TUL2rA4cjERNW+SBkXlhd7V
-	 tMoJEc8vxTMeoG3D9hJrntmolDfMoTvUWZqQoC5QABGptSlVfCp1i571EYqtRY8/Wqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808229;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4z0jvqdS/1LMWIjFo97DLyqM1S7YnHqeCK2uONFB0l0=;
+	b=MO83QFkT2YdfJtyKLkx/y023AZAobTdDtkE7doTUWNuxma6dgdWnThWwW3qx2EqNnI85
+	 Jn/ciP63h/cV7Ngbupc3wRSKxJARrtc6lqWEPe1B0VNk+oZDKZJ8qx2sLzxeo8AnRU2u1
+	 B+rRGNSia6VszK44Xnecs3ApB0LtkcKKqXKmGy60id317u9bIWPOq7Ytl6GAP7spkHyMV
+	 O/xI9K7t4rRPiK1VM/F+rlgE7Wpcu93p5K2l34Gxd6vYcML5CNPGVj5mjRAprMPkxyijp
+	 HiR9uzCl82LSSfCoSPtkJESd0dJQ5510lTErnZEsa08ziJIqCQNY67qSFQS637mVlBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mndZZ8q6;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CfZQ3+Ev;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvmssJKq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AEB606A328
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55AEB606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54AC606A337;
+	Wed,  4 Nov 2026 16:03:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mndZZ8q6;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CfZQ3+Ev
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4FilFC3272745
-	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 16:01:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=; b=mndZZ8q6HS31pdl6
-	HNsFtLxpMXNTO5pmJCmr/NXsvnHKigi0f5KzgCkZn32BgqsFSWzgk9OlRyMzKXD+
-	yMxEVMMJfqQV3l8LXfApIZcA4kk0NAC0knuKIvFL8ysMLpnKWHWGzITV+VMz3UkS
-	mDQxV8LS+O04mkCJHjNVrxUK7KlfwnxikSLpOyPlptRWYyQ+RvEArDz8bbokYvuj
-	VF+84mZEpqfDPNb9k3MWwF8WbWXRerzOPNog2Nnw1Gn3tmvpzWHbpMSLU+ncE2hW
-	TvhkUhvT+5lqtSrml/7A7WzXwBJfVSEe2WV5B2enuHQTV1JzSp6oB37skhsqrtFg
-	kqSbOg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6bngd4c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:01:47 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36c9e87d262so1212866eec.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 08:01:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793808106; x=1794412906; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=;
-        b=CfZQ3+Ev80cNv3HPJmUTNB3gtlG3Pt/oMko8wN72mYHQ93Yisn3zdksD4vxsk8ixWf
-         6TkZEI/qh8saqWHSxv9b24prO/aeoYLMJslkvj5nlTfTntKvLkQPwgaIqJJbH9rQ4NlU
-         HBw8Pa/CnRiUmM4pmYs7zg+iut/DCa+wqFJwnEn+BJRnpsWoVRjwBphidsr/yXVL3oot
-         Mqr/rmMMtMmozcilMPkjHUqRzWe1bqd6CfJ+bpXWgfvrektT9hP/ra0G8QzC8LzjdH3l
-         xZcGKQUcKR1s8NblXrHkEZPA9iNauCdDGaiwKIT3EfS8edfyQj2r0CzXT64kW473lmBg
-         n6wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793808106; x=1794412906;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7TVjAetQhr+zqiL1REQZJOBOF8yETe6loWTAjtaYDT0=;
-        b=iv7MP33pSUuZChBEhj8Y5qT2Owb3UIIsFZidhSxNzPoawDX4REGgOmTQgVSLOc2NvL
-         o1O59OccSR1zkLstMXDEvhiOhB1jHY3WLrPnCRybsgR4dB2KClK1Z9YeDt8nnO+CuJpV
-         QNQvAJ94LTVP7vPG4Z/8CqMtoDozfmbN/USIGevjE8on+Y4us0m4XW3D+x+BW1yozU5f
-         cJMqqMGQNww20iQblGhVUJSZk/fCShoa9SlRHYab9aEkzJuKkcdTHLIFTZTBhRCmMlL3
-         qWOLRgwF5nJspOy9ATKwVao3FNHS7yQUasGdvRpMutAc2E9o1qyRM93NlYLrPIGmnrhG
-         k+hw==
-X-Forwarded-Encrypted: i=1; AKwUvBxj9IYi3gUaLpSjemy0vlkKut/Ojk/JUjgReCNYu6x9qYADY7n15O7716s3OdI59ojZEZYoLwmO4ilw@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vWjN23Dw9S3UkktZDiQlO8Sf8gpj/cfZv24GjHj+WTH/woaYA
-	bbkzjXrDaF7nWURMl4kjFpdZ1NLOGs1ZWmAlI9Dwc+ECZQhXafswi4HdoGp1HODfX8HALtzUFUE
-	xHtsAeK6Fv1hTx+AyW3bXMoYVjauR++JkDDwnZcLR9T+aRQlDrFy13md+AOOeKqyn
-X-Gm-Gg: AYBFou3DVqzfXdKj5d90I/bHczMwquRidoFDNNspJQ6+8cdNtoiV4OzW/b1mR3vTDsz
-	UHr7r0RebrjBjXAD+5ERjBtpvP8NRSVJaF/acMv1IfGbCWSdj5Zr9DY+o8ijgeAENBlHN62Ltzp
-	l+skmklVNbY1tvvgi+ZrNGFVvPB2k2Q6J670ifo1M/uy64nUoOH99LtFz9qUya3nff87dpIvwtP
-	RcPGxhmEgsXn/Ljyo/62iLABx3SKvk1RZtNydDTe0fqz38KSAGnGwOrG82bs2wZAvveWVpKphwy
-	LjPIK1qAq73eI2HS683yD8vKWu7It9W3r3sRbv7oqorYa1iJK6TvqXsEkzMT1wnCOm0I6gXmPkK
-	0aH2pcNc3Vy8t5Zs7DdQlQrX2NeZ7g1Q1meuLnk+934IR06FTcAVMQibKCRwbNwUOXqR4Udw8Sx
-	o=
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr25176950eec.34.1793808105991;
-        Wed, 04 Nov 2026 08:01:45 -0800 (PST)
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr25176880eec.34.1793808105143;
-        Wed, 04 Nov 2026 08:01:45 -0800 (PST)
-Received: from [192.168.1.10] ([115.98.177.53])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3785430sm12698284eec.3.2026.11.04.08.01.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 08:01:44 -0800 (PST)
-Message-ID: <8ae6dc76-1dca-454b-909a-ac5a09162131@oss.qualcomm.com>
-Date: Wed, 4 Nov 2026 21:31:37 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvmssJKq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAF61F00A02;
+	Wed,  4 Nov 2026 16:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793808228;
+	bh=4z0jvqdS/1LMWIjFo97DLyqM1S7YnHqeCK2uONFB0l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lvmssJKqKlBB8zb6lcm8q6aHeXG/qCiP+gUjcU9nvF+xGya/hGTMk+h5EqGwaP7Dg
+	 hCEjLaOMvxn99ux2L1vQ1WZcAx2UrUfxZq7tcVAtMx/fDv/Y5cU6wFg00SgqtSbZ+a
+	 /WXDF59xns9xcQX8OTZxjVf71BkxvniIjNyKm58RvBXNg83UcnxxNX2rY1B43JrSuJ
+	 8RqAyPwTf10OjQuQ7aJ8eKOoS80vk/S9VLlqiPDSLY5yZngtZ4hz6g28t2nn+PF25i
+	 8xKOs2XnzNhgBZUBhfQUJEOVMjBCn0dWJFHOAMfzJuGQi9BEpg3Gc3u0bauDSadtxU
+	 b+XunlvXOSbvg==
+Date: Wed, 4 Nov 2026 10:03:46 -0600
+From: Rob Herring <robh@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v6 2/2] of: Add support for "iommu-ranges" on a device
+ node
+Message-ID: <20261104160346.GD3951195-robh@kernel.org>
+References: <20261103-add_iommu_ranges-v6-0-361f3921a133@oss.qualcomm.com>
+ <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,134 +71,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] media: qcom: camss: Add Glymur specific resources
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-2-fcb619fc7319@oss.qualcomm.com>
- <20261104-smart-scorpion-of-bliss-2e8371@quoll>
-Content-Language: en-US
-In-Reply-To: <20261104-smart-scorpion-of-bliss-2e8371@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MyBTYWx0ZWRfXwyrN02KaQ+yc
- bnx0HfhOdlY5nHQfUvwAKxF2DvuqCHgg3DPr6FzA1nDlorCViTI6Q8R2/Vll7g9mUCQqXuw67ur
- 5q+3v2Z8JlG+hSf/NoUMF9RuZJK6yZ+Ka2h9LcOiQrEk2x6DTIRGWvuGhxB9dZ7zULEeCWdu0yy
- 1SkPp41ffAhnfWNX+sWE9fg2g8nqyXD77L43UOCe1sKIyBz22bAkmI52TbW8gSWgfUVqybfIP9y
- cJ6wsyX0AtRywUMfzbCIJHdq2a6GBOLQ40h/qNereZqoztfd1M2SfjOzPjaUJvQ30UG9mQBaYEa
- C+E8fMVke8xxg36oTGtjBXUZqSFE+N2Q7hnZ7ndl2dVicRsL8kZgl7Bnf+s/GS3IZmXEF9Haizj
- W00c+HYntFIQVGUj8yuaLAtn/iCdKowaEOHOSMT8LsyH3ufP0g58q0yAfuVzUTVHUP69xvafAYC
- 7OWwcNOSi9VQne02HgQ==
-X-Authority-Analysis: v=2.4 cv=KLLPn1Fo c=1 sm=1 tr=0 ts=6aeb56eb cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=iaXPdgsK/hfklW56b25dCw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PAWBQAtbQnHvqMwJI70A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: 9nQffPLdP8Kfet6POnNqI7PjMEvkqxLP
-X-Proofpoint-GUID: 9nQffPLdP8Kfet6POnNqI7PjMEvkqxLP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MyBTYWx0ZWRfX3JYRZMYCLmpH
- 42pFUeFkrObI7UKH4VVJXAoehw+YScyR4v/kmyK1OHvPgQk3MYYCBU5bkkT+nHdiJT7tf/3VH/i
- cYL4HQb5oRwSbcTegbO3knD33uOwooE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 phishscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040063
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-add_iommu_ranges-v6-2-361f3921a133@oss.qualcomm.com>
 
-
-
-On 04-11-2026 19:24, Krzysztof Kozlowski wrote:
->> Glymur uses the X1E80100 CAMSS resources, but its CSI2 PHYs are
->> described as standalone PHY nodes. Reusing the X1E80100 resources also
->> reuses csiphy_res[], where port@3 maps to CSIPHY id 4.
->>
->> Add Glymur resource data without reusing the X1E80100 CSIPHY resource
->> table, so the standalone PHY path uses the graph port number as the
->> CSIPHY id.
->>
->> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->> ---
->>  drivers/media/platform/qcom/camss/camss.c | 17 ++++++++++++++++-
->>  1 file changed, 16 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index 1db66976e51b81edeb223cebb6bbe84995d102c2..4f705a056eedbc7b09d2630ee6284b8d768cc6d5 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -5800,6 +5800,21 @@ static void camss_remove(struct platform_device *pdev)
->>  	camss_genpd_cleanup(camss);
->>  }
->>  
->> +static const struct camss_resources glymur_resources = {
->> +	.version = CAMSS_X1E80100,
->> +	.pd_name = "top",
->> +	.tpg_res = tpg_res_x1e80100,
->> +	.csid_res = csid_res_x1e80100,
->> +	.vfe_res = vfe_res_x1e80100,
->> +	.csid_wrapper_res = &csid_wrapper_res_x1e80100,
->> +	.icc_res = icc_res_x1e80100,
->> +	.icc_path_num = ARRAY_SIZE(icc_res_x1e80100),
->> +	.csiphy_num = 5,
-> 5? Your binding said three... Confusing.
+On Tue, Nov 03, 2026 at 08:59:33PM +0530, Vikash Garodia wrote:
+> Reserving an IOVA address using "iommu-addresses" requires it to be
+> placed in the reserved-memory node. But when "iommu-addresses" is the
+> only property being described and there is no backing "reg" (i.e. no
+> actual reserved system memory), it does not really belong under
+> /reserved-memory. A device IOVA range is specific to its own address
+> space, and does not describe the system physical memory to make it
+> qualify under reserved-memory. Given this, place "iommu-addresses"
+> inside reserved-memory only when it is paired with a "reg", otherwise,
+> define it within the device own node. It was discussed here:
+> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
 > 
-
-csiphy_num = 5 is needed to cover from port@0 to port@4; it is not
-meant to describe three populated links.
-
->> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
->> +	.csid_num = ARRAY_SIZE(csid_res_x1e80100),
->> +	.vfe_num = ARRAY_SIZE(vfe_res_x1e80100),
->> +};
->> +
->>  static const struct camss_resources msm8916_resources = {
->>  	.version = CAMSS_8x16,
->>  	.csiphy_res = csiphy_res_8x16,
->> @@ -6049,6 +6064,7 @@ static const struct camss_resources x1e80100_resources = {
->>  };
->>  
->>  static const struct of_device_id camss_dt_match[] = {
->> +	{ .compatible = "qcom,glymur-camss", .data = &glymur_resources },
->>  	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
->>  	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
->>  	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
->> @@ -6068,7 +6084,6 @@ static const struct of_device_id camss_dt_match[] = {
->>  	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
->>  	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
->>  	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
->> -	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
-> Why do you keep breaking the order...
+> Existing "iommu-addresses" property expects a phandle, which does
+> not make sense when the property is defined within the device node.
+> "iommu-ranges" was introduced to specify the device specific IOVA ranges
+> when there is no backing "reg".
 > 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  drivers/iommu/of_iommu.c | 134 +++++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 125 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index 5c266511db78910d6fd221af5437cecff4931c22..0428ceb50dec58f11872b4fb64e283fa8d9046a3 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -185,11 +185,118 @@ iommu_resv_region_get_type(struct device *dev,
+>  	if (start == phys->start && end == phys->end)
+>  		return IOMMU_RESV_DIRECT;
+>  
+> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
+> -		 &start, &end);
+> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
+> +		&start, &end);
+>  	return IOMMU_RESV_RESERVED;
+>  }
+>  
+> +/**
+> + * of_iommu_derive_resv_regions - derive reserved regions which
+> + *                                are outside of iommu-ranges
+> + * @dev: device for which to get reserved regions
+> + * @list: reserved region list
+> + *
+> + * A device can describe its own usable IOVA ranges directly on its node
+> + * via "iommu-ranges". Everything not under those ranges is derived
+> + * as a reserved region so the IOMMU allocator won't use it. Entries may
+> + * appear in any order in the property.
+> + */
+> +#if IS_ENABLED(CONFIG_OF_ADDRESS)
 
-I placed qcom,glymur-camss there to keep the match table alphabetically
-ordered, following Bryan's earlier comment about Glymur/Hawi ordering:
+Is this really needed? Assuming CONFIG_OF is enabled, this is only false 
+on Sparc. I don't think Sparc needs anything in this file. There 
+aren't any IOMMU drivers for Sparc unless COMPILE_TEST is enabled. So 
+maybe building of_iommu.c as a whole should depend on CONFIG_OF_ADDRESS?
 
-https://lore.kernel.org/all/23845ad3-dedd-4e24-803b-5abf3b030c4a@kernel.org/
-
-I can move it before qcom,x1e80100-camss or keep at same place if that is preferred.
-
->>  	{ }
->>  };
-
--- 
-Regards,
-Nihal Kumar Gupta
-
+Rob
