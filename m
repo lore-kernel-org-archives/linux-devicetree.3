@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793786466;
-	b=ew285gIfg5fOGgxy7Trmw3UkBas0VaSewSiWkzktTiqkMcABRXs7JBhzSup8gV4dbe56
-	 Fjh73FDU25L0c5JWAi88Msisl3S+repJqae2OniwT74nWG+J7hjB5X2NpErSp1AKN34z+
-	 CV28OYn2NnjVC4YWNfZfxjdzOYeXlgvpEeXSO2BQKV4n/hIZJ+bGWppiNOjfSgWjsXE/M
-	 Hx2sT2hkHK9fJWRlMRQ6IQSJinrx3t0rmHeVqyeEz3alTbGnFy7u09v5/95UoHDcHAbpz
-	 NSP0bvrAdzioJDV7IYyuqz4PMZTKdDhsVA1XqS4OS5AWvsRGvsNXCo0Qe+8WIwV1FsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786466;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kNMpvUIklLoqq2U8w19NKhZcvl6ucrqllQnFyuCL2rA=;
-	b=JcPUyfQYTDOpJ7YuDZ/8gkPuFDwbfddXntra3wviURH/R8WP63oUM9U17i9HslHhwH7x
-	 yDMh/awWJutc+Xbog+K7DVhqWHKDOXeUbHryDC/tJ8WGbffwepQCpMyjVQlO3tYmsayGW
-	 RblKbz8S/0XcL5ovTqk4O4KqwhQAEWAd9SgpiHuxjWquje4Vk1q7KZbNt6f0i93VBKubC
-	 rWmlItEqfFBI2taSVRXp4wbPakzJJXm5hx9g6/+gMZtysZXbxJnId6kxlfRQqQawvyfHP
-	 XrFfuZ7wU+y7WoTZ1hSqNRIVeoZ7iAqB/odz8EPv71N76qiJCIJsr+A89sTkrJ62C8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqXuTlax;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B29606A329;
-	Wed,  4 Nov 2026 10:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqXuTlax
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793786465;
-	b=scNVdgp2rgL4qYKiFohA5AADhM7i3P1qyMfYtWuHqcFiDTnHc161r5kww2VYLRVNTsUw
-	 /558y9Hz22RIlJZ560bha+t1nmmTfyDop/s1m9T8pqBayxw8S74oyNUJC/XXph/HuXwdA
-	 +71TV/8LHQRwATjn1sYLxeEp/Xcg5s8b5nhwKyqb57rVzxUqyi2TJLEzgGEfRzwJlFkpo
-	 cqhdymGVhuN+B0tkcOObNJtKTggiQqP9lhohIkJQWG1JytmvuBsIj2k17/hQQUa26ZLt3
-	 kj7b5d77PRteG7QZlYeyEWur+fFJQ/b8uwAOZxbYMPR+MVv0kmbjUz0ZcEKEzkoALtQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793786465;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kNMpvUIklLoqq2U8w19NKhZcvl6ucrqllQnFyuCL2rA=;
-	b=uUaPcWr21hl0DxE/qQlMfqZgYVKhvqC4EqVwsoGpYrXVEaJYawhMwBgeACcvf5944kNJ
-	 CH51uqg1ezcJC0dlpWD4fiLehEEU/FE0P5enkB/Yoe4CJUcQWLh5JeghIv5EzrJha5FTm
-	 p2fkDLv3m4/biBQJrs/pAloiQF7QVtMElwnDSACLLmlkwHIPDeYQwr1NlyWFimElIrN9R
-	 UjITaXHPCfAOIqghpo4HSZY4TfqaYTKky0Gc3K9iVI9fO/Ng+6/r9WWHRpN56m6B5M5ex
-	 O4MA1v/06ncXrBG0N/emapgyM44rHtb8zGxs4cU6T91FVU47TLgNRmywF0QQkr/EzNA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793786583;
+	b=zCFo3q90cqO/YCtZdF6nK0niFd7mBmmFqDVkbEQILz1AgF5/bOiZTRY+psMpb3tA+6Cf
+	 918Kee9GdiXlXL66DbziY2/0QPoYFEcFSTW7W2kDrTzOfWLAlMdzY9y8/EfWGdw7oz6bg
+	 fmFNZqd8kuthWSbUTGpQLUIEKvCY8YE4AMO4VWThS/oFowqPGtLEqran4stHJzkwqJho6
+	 ThrtNkCfdsR21z3Pnq1lrNsg8fGa6UaDSAaDvGMw5Gus1U9wmXmgHw5mooSUIbht3CoMq
+	 eLRBpWSlQhkeiWCN5GjUe4xs353ZybHJKRy74HOzNERN+tP11Ujlhx8iFMaAyelFkDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786583;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=4CtePqmfE3IlljY9sCYmE7WsQB53bpyDId8jwWKXqo0=;
+	b=LpvB/7FTjwsYtlW5CpfKMxqnC7pHqZGHzPGSIg69CzU2mAXaoz7RHFhxusvORzJOU2Lx
+	 Ovw93FwCzs6T+9NErAQXAA9ZigERSlDrpsuv9hsB8dDThloSVGMqq8+t6Pp5FdT2kanLY
+	 TG31pfxH65/C+w69nYJ+hHViwFxhy0Ymc3zzPXALhHmhRaFH0fRVRkTpsYzLGRV524ZyF
+	 mTVv7NqYZLvPYZKjV7zJO1frPAOkcMFtOdzj2RyRmTkM0AC8OmGYjlnu/4Ce9NsCGmc7a
+	 Hgj4W0UGQ48YMCS8afHMW3vNumUQy64A5OLvNIOYFy9aO5zTCauhzudlQ3BBnahdu2g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mO8a8Fbh;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6FDC01F0093A;
-	Wed,  4 Nov 2026 10:01:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793786464;
-	bh=kNMpvUIklLoqq2U8w19NKhZcvl6ucrqllQnFyuCL2rA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cqXuTlax2xrNkjJikKcmq3GGRrC5XCO5Y0T1xKuY9UcD+1oO+1pSgf7bKEC0xTh38
-	 CXHBC9jELYysMGXdE/v6CiQIt5BnopB4TRuO1F9prvp6EkjMFLiMjyiPFkRE0ggdAJ
-	 U8nCN0X5EPKke1HoQaJUOLGwBcT0GLte/IxOmoUkQNfBdxPOKn52b17PXGIiyt8oKo
-	 LgmfJVGTz3bTDAlrMZ/uQDYXsMWCXKYlJZqvMAShUb7t0pEEUJ1vVyDzamxk8BOaMV
-	 Lj3ESnL8NKM4phWsCcZyH+d4H9vb0BZedkK00EfOzkak4i9uXDUL5EuLZvQayMdsvT
-	 sYfJptCdxgLnA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DCEC146D9D;
-	Wed,  4 Nov 2026 10:01:03 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Wed, 04 Nov 2026 10:00:59 +0000
-Subject: [PATCH v7 1/2] dt-bindings: i2c: add Amlogic A9 I2C controller
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34BA606A326;
+	Wed,  4 Nov 2026 10:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F34BA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mO8a8Fbh
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 4E28A4E413F8;
+	Wed,  4 Nov 2026 10:03:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1A11960770;
+	Wed,  4 Nov 2026 10:03:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E78AD103291CE;
+	Wed,  4 Nov 2026 11:02:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793786579; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=4CtePqmfE3IlljY9sCYmE7WsQB53bpyDId8jwWKXqo0=;
+	b=mO8a8FbhChgY9+A9MFsGx1oFfSUYuboW3QbtxaqRpk4jxCModb687LEwITwPTEcQbBKlBi
+	iNATC9wLlool7m2Mr7aPn2MV3Iut4K5krpaQ0Erj3dGLT2VGCoXNcCJnmah06l5T79GVWk
+	7yer7VHIqORa4stCfEBgAZ9ZiWAv8Tdc8nUq3rbbt5OLsWiz271TwVGkB4Bse6F03+1Llm
+	Tmv1VIqn6Na/4hrlKky21PjHNguuzvRgMCtEyxxHIiP4rj0sg6ykJ+Pc+KifQ/SJunNNs1
+	NS82kUmoR3tPG1fH6t3GemNwJ3azIRseearlxFadmu0rVutJU3aFXGz8VofH4g==
+Message-ID: <c0af13a8-5ea6-47d3-9c6c-2935f8cd8ce0@bootlin.com>
+Date: Wed, 4 Nov 2026 11:02:50 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,107 +62,135 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-a9-i2c-v7-1-b31f2b53faf4@amlogic.com>
-References: <20261104-a9-i2c-v7-0-b31f2b53faf4@amlogic.com>
-In-Reply-To: <20261104-a9-i2c-v7-0-b31f2b53faf4@amlogic.com>
-To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Xianwei Zhao <xianwei.zhaol@amlogic.com>
-Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793786462; l=1772;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=Sz+UB7O1ObrX0Ep7OtBMUUtSVaLagIleTbf9GlXMQy8=;
- b=WhtEilMMr8PFBI9Pb17tCw2h/eTSiut7hp/36JutLYvH6xzDA5FVFYAnrXIQWffZnoFVuReL8
- ZoSMrKJfqQFBC+BZT7oS260qrELYZMPCpVwQPCszgatkGwIhHxVh6t7
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
-Content-Transfer-Encoding: 7bit
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net-next 1/4] net: pse-pd: realtek-pse-mcu: ensure MCU
+ does dynamic power management
+To: Jonas Jelonek <jonas@jonasjelonek.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Sander Vanheule <sander@svanheule.net>,
+ Russell Senior <russell@personaltelco.net>
+References: <20261103220312.860629-1-jonas@jonasjelonek.de>
+ <20261103220312.860629-2-jonas@jonasjelonek.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261103220312.860629-2-jonas@jonasjelonek.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Add a Device Tree binding for the I2C controller found on the
-Amlogic A9 SoC.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 56 ++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+On 11/3/26 23:03, Jonas Jelonek wrote:
+> From: Russell Senior <russell@personaltelco.net>
+> 
+> The MCU may have any power management mode configuration by default
+> but the driver should ensure that the MCU performs dynamic power
+> management with priorities as advertised. On certain devices, the
+> default MCU configuration ships with another default, possibly
+> preventing any power delivery.
+> 
+> Select the mode before deasserting the hardware port gate, so a failure
+> to establish the management policy does not ungate the ports.
+> 
+> Signed-off-by: Russell Senior <russell@personaltelco.net>
+> [jonas@jonasjelonek.de: adjust commit message, macro naming and comment;
+>   change error handling and select the mode before ungating ports]
+> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+> ---
+>   drivers/net/pse-pd/realtek-pse-mcu-core.c | 32 +++++++++++++++++++++++
+>   1 file changed, 32 insertions(+)
+> 
+> diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-pd/realtek-pse-mcu-core.c
+> index c70b09ca2012..f3fc67fe29d3 100644
+> --- a/drivers/net/pse-pd/realtek-pse-mcu-core.c
+> +++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
+> @@ -68,10 +68,14 @@
+>   /* Nominal PSE rail; 802.3at/bt operating range. */
+>   #define RTPSE_MCU_PSE_VOLTAGE_UV		54000000
+>   
+> +/* RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE values */
+> +#define RTPSE_MCU_POWER_MGMT_DYNAMIC_PRIO	0x02	/* dynamic, with port priority */
+> +
+>   enum rtpse_mcu_cmd {
+>   	RTPSE_MCU_CMD_SET_GLOBAL_STATE,
+>   	RTPSE_MCU_CMD_GET_SYSTEM_INFO,
+>   	RTPSE_MCU_CMD_GET_EXT_CONFIG,
+> +	RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE,
+>   
+>   	RTPSE_MCU_CMD_PORT_ENABLE,
+>   	RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE,
+> @@ -369,6 +373,26 @@ static int rtpse_mcu_set_global_state(struct rtpse_mcu_ctrl *pse, bool enable)
+>   	return (resp.payload[0] == 0x0) ? 0 : -EIO;
+>   }
+>   
+> +static int rtpse_mcu_set_power_management_mode(struct rtpse_mcu_ctrl *pse, u8 value)
+> +{
+> +	struct rtpse_mcu_msg req, resp;
+> +	const struct rtpse_mcu_opcode *opc;
+> +	int ret;
+> +
+> +	opc = &pse->dialect->opcode[RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE];
+> +	if (!opc->valid)
+> +		return -EOPNOTSUPP;
+> +
+> +	rtpse_mcu_msg_init(&req, opc->op);
+> +	req.payload[0] = value;
+> +
+> +	ret = rtpse_mcu_do_xfer(pse, &req, &resp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return (resp.payload[0] == 0x0) ? 0 : -EIO;
+> +}
+> +
+>   /* Port operations */
+>   
+>   static int rtpse_mcu_port_get_status(struct rtpse_mcu_ctrl *pse, unsigned int port,
+> @@ -826,6 +850,12 @@ int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse)
+>   	if (ret)
+>   		return ret;
+>   
+> +	/* ensure the MCU does dynamic power management with priorities */
+> +	ret = rtpse_mcu_set_power_management_mode(pse, RTPSE_MCU_POWER_MGMT_DYNAMIC_PRIO);
 
-diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-new file mode 100644
-index 000000000000..31ddc6d23732
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic A9 I2C Controller
-+
-+maintainers:
-+  - Xianwei Zhao <xianwei.zhao@amlogic.com>
-+  - Junyi Zhao <junyi.zhao@amlogic.com>
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: amlogic,a9-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  dmas:
-+    items:
-+      - description: DMA controller phandle and request line for RX
-+      - description: DMA controller phandle and request line for TX
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c@3a4400 {
-+        compatible = "amlogic,a9-i2c";
-+        reg = <0x3a4400 0x3c>;
-+        interrupts = <0 164 1>;
-+        clocks = <&clkc_periphs 11>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+    };
+Why do you pass RTPSE_MCU_POWER_MGMT_DYNAMIC_PRIO as parameter?
+You are calling this function only once in the whole series so you can 
+directly use it in the function.
+
+pw-bot: cr
+
+> +	if (ret)
+> +		return dev_err_probe(pse->dev, ret,
+> +				     "failed to set power management mode\n");
+> +
+>   	/*
+>   	 * Some boards gate all ports through a hardware line; deassert it only
+>   	 * after the MCU is confirmed, so a discover failure never ungates the
+> @@ -944,6 +974,7 @@ static const struct rtpse_mcu_dialect rtpse_mcu_dialect_gen2 = {
+>   		[RTPSE_MCU_CMD_SET_GLOBAL_STATE]	= RTPSE_MCU_OP(0x00),
+>   		[RTPSE_MCU_CMD_GET_SYSTEM_INFO]		= RTPSE_MCU_OP(0x40),
+>   		[RTPSE_MCU_CMD_GET_EXT_CONFIG]		= RTPSE_MCU_OP(0x4a),
+> +		[RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE] = RTPSE_MCU_OP(0x10),
+>   
+>   		[RTPSE_MCU_CMD_PORT_ENABLE]		= RTPSE_MCU_OP(0x01),
+>   		[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE] = RTPSE_MCU_OP(0x12),
+> @@ -964,6 +995,7 @@ static const struct rtpse_mcu_dialect rtpse_mcu_dialect_gen1 = {
+>   	.opcode = {
+>   		[RTPSE_MCU_CMD_GET_SYSTEM_INFO]		= RTPSE_MCU_OP(0x20),
+>   		[RTPSE_MCU_CMD_GET_EXT_CONFIG]		= RTPSE_MCU_OP(0x2b),
+> +		[RTPSE_MCU_CMD_SET_POWER_MANAGEMENT_MODE] = RTPSE_MCU_OP(0x17),
+>   
+>   		[RTPSE_MCU_CMD_PORT_ENABLE]		= RTPSE_MCU_OP(0x00),
+>   		[RTPSE_MCU_CMD_PORT_SET_POWER_LIMIT_TYPE] = RTPSE_MCU_OP(0x15),
 
 -- 
-2.52.0
-
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
