@@ -1,122 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796986;
-	b=DJ0WEIz+fa39Dp8KbfSxAD5ArxvivzFz8eZIFdwgo1qEwBZ4d7af3x/A0wrfgvPQ6PGv
-	 PMrP6F9kdp8KujMos2eFaPK8QG8FOyPAGbbbkQUNjI08qAKx6Z/5bYuvxmK9NqMP/6XTW
-	 /bupLGbOI5dKdnaN5nK3XbhGZXrOzf67vG9unFutXsObJEjF7McRukH5xE8mD9Y4AFh8W
-	 MGxCFGzrZFxavAvlZvT2+ecpta7bQXkk9cnaec6qu7+NtriMVZw7lVcPgqKGW+MighWUN
-	 LaiN267/zmWwpeNtnKwRJdJm3XS5NQJuYO+65n6nfS3PJEqlOSXirQYZH2LlHk8x7lw==
+	t=1793797061;
+	b=qifhx0gnZHWTr7xrJdfGmC+zEGmFvr7iU4SrIJj3aCDjiM2RvRCm+kmNuoAMwIOk3u7J
+	 vrKH7TYoz/OEMJoLHTxi7t2FwLsFcgNKkyvTdkva7g3JWC7rFOeNTzbY3RYMhN3ulZkoL
+	 RH8/8WJwqnNr/SyU8UctgYIe3ldtRE1jDz/SH8PNaBsmubbQNmQ7OX/A7afTyzddI+K7O
+	 w6yoa4FJy/+JQF+LSz53SLNGlJtHRkCmY6VoS1kX3EPl//9mAzVudeFTlT8B0L9XZpSNH
+	 YP0ZM6oEqzzamTJjuS3I0KgZLPgvUcHjak1jovOPFm7a2FgL0OA4xk3/+z4APhsdqGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=a3viuefWVHlkOcjcyLognlTI0g9S7LK7g5mw2hwAeX8=;
-	b=a9aUtQ+gfFiugUMBWFvlNpjV3P5smN/FZrDtajLHB53xtchmOA0x5AP9HGCJb/+0vFi1
-	 eipVOhkojbkqFBLU9sngsCEnkKTSIfKXjhW7jVsdl2V/a+L/iobJMwtipjnSjLoBaRubn
-	 FKKvYRqLsvYEXOpf9DX2jC5jUMhuYeEEDVumim/bdr5j5oGHkuP0F1krfg3DTYK83dU9z
-	 oRyunf99sI8wWb5SQ38FOgCDKzg0CAYmwxDKAt250rTk7xH/cwnItUhKysBYHb3RgPpcy
-	 FkyQvdoGwbF9r5hDCsuYE4iuTFZkQjPl8OCXSGoLEuTM9oh/tXo+UV2HIR0X/7LPVYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797061;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=ddmpdWi3QuBVMOiKneLveFAK1/e4+M4jtJ3iT9zThU4=;
+	b=ka6x3aNqWARTfVo5smDMhYURv1hy8MaTl/kDzq9Zpl+69wlvDGFXHQWgv5FB5zjLGWms
+	 RFbPIpVBBCT+NjKpi2cqc9dOfMxYAf5QcNd0BH9RFXoQ8B2XLROM7prTmXc3FL/WNPa0l
+	 JksB52jwvjNrriwtHxlzZnQChoUbxep5AyDAQ2HgftievUvqfOVl0eKwDJ5Zir2g34JTI
+	 UGCLTVakXSCVFZZTEXmSHQ6BqUipbrZx0qT3TM6oVuTnrNwYSY09C31ybn2Pq580Yy3yd
+	 zhsC14ZSiGh/BOaDIGjgQpce680fkje0eBLLsgEK6YcF7AczQ413K0yP/Ijlu11FHIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tomeuvizoso.net;
-	spf=pass smtp.mailfrom=tomeuvizoso.net;
-	dkim=pass header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=E1HS4KvD;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Qt+kgrYy;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21BB606A329
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:56:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A21BB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975AA606A32C;
+	Wed,  4 Nov 2026 12:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 975AA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=E1HS4KvD
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso4022625e9.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:56:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1793796984; x=1794401784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a3viuefWVHlkOcjcyLognlTI0g9S7LK7g5mw2hwAeX8=;
-        b=E1HS4KvDMJ6h45stv1yXcg6I/LLEE/c9MaF6ggenro1/m0w4QKXVE9y6xXyOpyL8I1
-         29B115DvRQVFT2gq1ICuxfvi5sQcPumezfbyddX1fyWCeBLKcAlcXd9gZ6sezLvemTVh
-         WA21r+rWy83sQ/m6kgUSl2ALr1nRvpPTT8KofRZrcuEGlZYgSVrJ9ZMZV7qwYtO4LHF7
-         HzcCk0kdgJHlo2eL/5FbAbPCSVJ9QEk2LNE5mgFuUPOqAvKxeef40wNrU/qf5+6SgSJN
-         3jbWRt/ekMkLMiHRPqmhKWKA0LoSJTKgkQPcFG6EvmyifG5TyT8j3FPqrmkp5R6NonH4
-         EG6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793796984; x=1794401784;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a3viuefWVHlkOcjcyLognlTI0g9S7LK7g5mw2hwAeX8=;
-        b=gNA5DZv57M0KDhkvO8ZuCHgHFmEwyI3G8xzHp4Y7voh3/nBwrP/aVp2QkAwriUB6rn
-         ak41mBGsMwKji01BXxRyV8dQcLWawmOQ8NIYlO18au8IMTpnS+Ikub/gXdi5LRBV5QSJ
-         y4AedyxXnOTEEs+qo9BiRDU2/IQ/E8eD2yXq01NVjVvFYLkkSmRFr1iqh7/RyaPsG6rC
-         KRoNAjUyh8hKRkP7Uh/J+fqxkwJ/IZmoVP3RqW+Zgz1ltDZCSCwdo1U3aPdqG80Ulmah
-         I07Iuj47GhqG3ubYUQMVf+DzlwWF9qr4NjN1x+zAZaH7fKnE41e6nA0UNp1P0zeJMlny
-         BNbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzw2nM2NrKamuDe90/6yAKi52OnGKcyBcZQ/WrqMEXwKY/nCTOw56Kp4NJpdAMD5VYVAO3GkJ8UZH+Q@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rpNiJTOH7T5jN0YQnatjSa1q6duWOe6gFUgnkRHHX7iJ2m3aZ
-	XtyMGe/+ycemtNKvKViqoQZbAS4ih91ZBXrP+gqXO43gZWysHYFqg4BM3vOJpJmnB6I=
-X-Gm-Gg: AYBFou3wZfYm4GiC6+7LbjrsHjSUyaaaymYUoZdQgPQaLJw6SMriqpqrThTM0zCr07c
-	iyll883KlAMZVtv2Ye0cs/wSWCaSo1oKzacZonTeMm5KOxQCg19UzxghjI2LetioogfH9a0LaC9
-	kcUBhW3kGH/XHVPItJSnoFTEBrcT6Av6tOwtl1DS8t1u1I5WlsfTTZuKI8jtocpDmBBHSQAXF5O
-	mBfQQ57OuJnGQZcw9QzH4QI4di8zxsk6q+bIgJt6ewYxmNJsKtCrmSGwETpWTlsZW6E3A3vMwSg
-	Qullpm44+zBJ74fU5ZVf8bKji7eWse8hxqF5zSqO16sAwGmGuFr38ZiRIL9nO5MwsEaDRpWtk4w
-	j6EXREphDEyHopb0KrK/QnCAYtruLbytZ1bu3P0W+y0CV8zO46KA08mAH+sTrMeC9fgM1ujNRGA
-	BtJmHmpb8U2CLJpXRofXfWc8zhBYAEZ1k4sn8LCob0ViLgCXrPjpQkIPp2bDXQ45VzkHzuHixog
-	ZMmw5GkJmtKrU/+8lMDScFhuyG8Smp6/9Pcr1Es4ipp+nYJB6LAGzLjQNWGvV+MQpSm9H14vPe5
-	0P+fa6ZgIwog1jNnCc0p7VjYXTQhRc6IbTSSbpL9j5441lE2zgDGWqoTVF/S12AjYF/J3JA+/l8
-	tWUXPGrxJz/Rw3mXw5B7iQYUnVuHvVP9HmFZaedTyasGtR3fvUDm6zWe/VhX/vBNHR0qaoVA=
-X-Received: by 2002:a05:600c:1d28:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4ac1793fb6bmr425311395e9.16.1793796983815;
-        Wed, 04 Nov 2026 04:56:23 -0800 (PST)
-Received: from alcachofa.home (cst-prg-36-190.cust.vodafone.cz. [46.135.36.190])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20935sm3705844f8f.54.2026.11.04.04.56.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:56:23 -0800 (PST)
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com,
-	royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Qt+kgrYy
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B5999C8F46F;
+	Wed,  4 Nov 2026 12:58:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ACBD760770;
+	Wed,  4 Nov 2026 12:57:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D4C82103291D1;
+	Wed,  4 Nov 2026 13:57:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793797055; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=ddmpdWi3QuBVMOiKneLveFAK1/e4+M4jtJ3iT9zThU4=;
+	b=Qt+kgrYyM855vtsvc4bHisl78unXFWqv/+HI9+4yY4aBMDiGLFw4giYJI08F+FnbDeJpaR
+	eTuGH434TIgDTPZj+zLAfMPhB5kP5wFInbX+xLypXItC64vqdZAceRKJugqCgOxgLU2Gk3
+	GIgPdRr7b+zfGi1xCRxvd8nZH3Kxxwhl5OLdX3sS5B9SiLHWkBT+2UN20rdDT9MI+X3gjz
+	KAvQT5EUiMrR6vbe88/6CgfbUqJEVeLVyqZ40yeAI2tTYkGWBTfQspQsT/cRHf5g0pB3eY
+	XZMd7yQHXz0UUAqXyP9mERWGw93Zxc3PrWrviBJiXrpBJmB7o2f+O9nuK32C1Q==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Rodolfo Giometti <giometti@enneenne.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Angelo Dureghello <adureghello@baylibre.com>,
+	Tobias Sperling <tobias.sperling@softing.com>,
+	Eason Yang <j2anfernee@gmail.com>,
+	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	duje@dujemihanovic.xyz,
+	herve.codina@bootlin.com,
+	thomas.petazzoni@bootlin.com,
+	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v15 03/15] accel/rocket: wait for a running IRQ handler before resetting a core
-Date: Wed,  4 Nov 2026 13:55:18 +0100
-Message-ID: <20261104125529.3229301-1-tomeu@tomeuvizoso.net>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261101082307.151957-4-gahing@gahingwoo.com>
-References: <20261101082307.151957-4-gahing@gahingwoo.com>
+Subject: [PATCH v3 0/2] iio: adc: add driver for Texas Instruments TLA2528 adc
+Date: Wed,  4 Nov 2026 13:57:23 +0100
+Message-ID: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -127,119 +87,52 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Nov 01, 2026 at 09:22 PM, Jiaxing Hu <gahing@gahingwoo.com> wrote:
-> drm_sched_stop() does not wait for a threaded handler that is already
-> running. Call synchronize_irq() after it, outside job_lock, which the
-> handler takes.
->
-> Before the sync, mask the block's interrupt and clear its raw status, so
-> that an active core cannot signal a completion after it. Do that under
-> job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
-> and only when pm_runtime_get_if_active() returns a positive count: the
-> reset holds no runtime PM reference, and with the domain down a register
-> access takes an async SError.
+Hi everyone,
 
-The above I understand.
+This is V3 for the TLA2528 ADC driver.
 
-> Igor Paunovic's induced-reset runs on RK3588, including a two-task job that
-> puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
-> does not show the race is closed".
+It takes all reviews from Jonathan, Matti, Rodolfo and Victor into
+account, thanks again everyone for that :)
 
-This is completely out of context for a commit message. How is somebody who is
-reading git log know who Igor is, and what his "induced-reset" is?
+Matti, I've not put your review tag as I've reworked things quite a bit,
+sorry about that.
 
-> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
-> Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8HoMtHD5U1g@mail.gmail.com/
-> Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail.com/
-> Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmail.com/
-> Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gmail.com/
-> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
-> ---
->  drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
->  1 file changed, 68 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-> index 03e5f094f60b..5b2abf40b618 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -401,9 +401,74 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
->  	drm_sched_stop(&core->sched, bad);
->  
->  	/*
-> -	 * Remaining interrupts have been handled, but we might still have
-> -	 * stuck jobs. Let's make sure the PM counters stay balanced by
-> -	 * manually calling pm_runtime_put_noidle().
-> +	 * Mask the block before waiting. hw_submit() arms INTERRUPT_MASK on
-> +	 * every submit and only the hardirq clears it, so on an ordinary
-> +	 * timeout it is still live and a completion can arrive after the sync
-> +	 * returns. The next submit re-arms it, so nothing is lost here.
-> +	 *
-> +	 * Only when the device is already awake, though. This function holds no
-> +	 * runtime PM reference of its own: the only one in the window belongs to
-> +	 * in_flight_job, and the completion path may have put it and cleared the
-> +	 * pointer before the timeout worker got here. drm_sched_stop() above can
-> +	 * block for a long time, and it drops every pending job's credits, so
-> +	 * rocket_job_is_idle() is true and nothing keeps the core resumed. On
-> +	 * this hardware a register access with the domain down takes an async
-> +	 * SError, so a reset must not be the thing that causes one.
-> +	 *
-> +	 * Only a positive answer will do. pm_runtime_get_if_active() tests
-> +	 * power.disable_depth before power.runtime_status, so -EINVAL MASKS a
-> +	 * suspended device rather than excluding one: pm_runtime_force_suspend(),
-> +	 * which is this driver's own system suspend callback, disables runtime PM
-> +	 * first and turns the clocks off second, and rocket_core_fini() suspends
-> +	 * the core and disables before it cancels the timeout worker. Both leave
-> +	 * the domain down with -EINVAL on offer.
-> +	 *
-> +	 * The cost is the other half of that ambiguity. A core that is still up
-> +	 * with runtime PM disabled (pm_runtime_force_suspend() before its
-> +	 * callback has run, or CONFIG_PM=n under COMPILE_TEST) is left unmasked,
-> +	 * because writing to it would mean writing to the half that is down as
-> +	 * well.
-> +	 *
-> +	 * Clear the raw status along with the mask, the way the completion path
-> +	 * does. Masking alone leaves the DPU bit latched until
-> +	 * rocket_core_reset(), and the hardirq decides on raw status alone, so a
-> +	 * fault from the IOMMU that shares this line would wake the thread again
-> +	 * and what the comment below asserts would stop being true.
-> +	 *
-> +	 * UNDER job_lock, because rocket_job_hw_submit() arms this same
-> +	 * register and always runs under that lock. reset.pending is set here
-> +	 * without the lock and read there with it, so a submit that has already
-> +	 * passed its check can re-arm the mask after this clears it, and then
-> +	 * the synchronize_irq() below fences a handler that is no longer the
-> +	 * one that matters: the block is left running a task with its
-> +	 * interrupt live. rocket_job_handle_irq() avoids the same race on
-> +	 * OPERATION_ENABLE by making its completion writes under this lock.
-> +	 *
-> +	 * pm_runtime_get_if_active() does not invoke a callback -- it only
-> +	 * takes a reference on an already-active device -- and
-> +	 * pm_runtime_put_autosuspend() is asynchronous, so neither can re-enter
-> +	 * this driver's runtime PM callbacks while the lock is held.
-> +	 */
+Maxime
 
-This is just absurd. The driver will quickly become unmaintainable if we merge
-this kind of comments. 
+V3:
+  - Require channels to be described
+  - Use guard()
+  - Add Datasheet link
+  - Drop the unused registers
+  - Use named initializers in the id table
+  - Collect Conor's Ack
 
-Please remove all LLM-generated text (cover letter, commit messages, and code
-comments) from the accel/rocket patches in this series, and replace it with
-your own.  I don't mind if you write it first in your native language and use a
-LLM to translate it to english, but I need for you to understand the code you
-submit and write yourself any communication with humans.
+V2: https://lore.kernel.org/r/20261030164705.297354-1-maxime.chevallier@bootlin.com
+  - Describe AVDD and DVDD in the bindings instead of vref.
+  - Add gpio-controller
+  - Allow describing individual ADC channels
+  - Switch to regmap with caching
+  - Reset the chip at probe time
+  - Small cleanups following all the reviews
+  - Moved MAINTAINERS to patch 1
 
-If you don't understand anything in the code well enough to write the commit
-messages, cover letter and comments, then I suggest you use the LLM to assist
-you in acquiring the knowledge that you are missing.
+V1: https://lore.kernel.org/linux-iio/20251223155534.220504-1-maxime.chevallier@bootlin.com/
 
-Also, please read:
+Maxime Chevallier (2):
+  dt-bindings: iio: adc: add Texas Instruments TLA2528
+  iio: adc: add driver for Texas Instruments TLA2528 adc
 
-Documentation/process/coding-assistants.rst
-Documentation/process/generated-content.rst
+ .../bindings/iio/adc/ti,tla2528.yaml          |  91 ++++++++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/adc/Kconfig                       |  12 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ti-tla2528.c                  | 215 ++++++++++++++++++
+ 5 files changed, 326 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
+ create mode 100644 drivers/iio/adc/ti-tla2528.c
 
-Thanks,
-
-Tomeu
+-- 
+2.56.0
 
