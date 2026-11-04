@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809690;
-	b=vnMR7XqyqWhvZECDH4oyWNygbcGuKmUN/9RYHJzonEU8yRy1rL2ZePUVUqjy1c9V0Aps
-	 JjVk1zWsL2ihyPM+AE/aBZ9nu2jUcYoIrO+u+XW9gr88g1SJ88Sq/QyGYsNKMYXJQBWEU
-	 RtojL9S4au7Z9K9n+ts+aG5V+lZmhfOjwp8GB3uPEVlJn0b/eE5WelRUVFio2QgrdJtwE
-	 GlroYWtCuBIUuzTHIyqhPOzeXyZ71UKuxpCQCUxRPnRVD50AZu3+q0j7azSAQzTrNYhtt
-	 Z4krK4qJBo01ROVqE5sGR4OaA6CADnw3aYfuFgGRkECXhkwl3OGk02aqG/FtNSM2Rdw==
+	t=1793809792;
+	b=JXHbn9wSO1GP5aeGFyoEd5MYvTCpPsed0yFQlBgyNKPtJ9hDOjrF1GnEIJE6Svge+EZA
+	 xo4RgEpQzrkaCALdIlTxvOLObNq1SOvkurbHri3vc+dj0yyHeaZhSRwqIandR6I5vSFSN
+	 zq5y+5/K30XGM3y1gSQNP6W29tfGXZD1uMiOvv3TyZ+hU8f7sNvlTe+knXiq3v3sZ4bkv
+	 5e7iHYCaw4F05WJwOVEKnVIhCAP3jck/h7MJnNkGHF53ZVwbh7N9g1/zGKH6RjE0Z1phW
+	 KDHuGxKS9viOUUVA57oYZR7uGJt79xbaDhYfcMANk2F8GRkM5B4GKLqQLdoDZFeUd/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809690;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0uwutcWUOXjhi9mOhfWVRBIVxAJypJiaHVoSSXGrXrA=;
-	b=X8KdJPNNEpZR4OEcqHFWnXSxSqvuWHkTl+gTXTOWxJd8/iE8h3y/7kIngPKcaiA4Qb/R
-	 hIUl9rmp5GGbZLKVZ2YzhG1WgXsxIc8Xn1jNrslYEfb41hnCYvimJXVjwicGSO10cHsx8
-	 cgSPKSestLo+r/2HdiM7PJlJZz4BUtLQhbpGTE+gCMkWs5aunfMhJGSxZbsnZAzft3sfa
-	 ZL+xHQNdweQJlzCiZ4V5hJvEiz9IEysJMb72L9YTCSf+Swd+DNbMKZE8j4xYsZI94NP6d
-	 f5uMQqOnpEKi79jBGZY6YguFu07Y/rBR0HkXI1vVJagERykQw5YOQBbscVuFsBam/aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809792;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=atDiQ1jLywCaP3AyVEImB+gZltQy0V8BagrbxL0rfyY=;
+	b=Dcs4JGv3oOFgM0QCl96LzJl58Xl4xlgOnSGVQSzPIQvfFVTfUfVriK4xG9m+AjyWetN7
+	 8CVArta1e/qIPpJgGPYkRAkSpmbqxHvGqISbuTSw99s+fKM2FixAlANYzlDkux4A+dn0N
+	 cPdvllqst7iVGz1QZlAPvTkaLRZ7+muNTyA2TdPrpNURBOZwv4eta4ytGGW+9YOgHy2bI
+	 gS9Cy1xBLKWun2KLw9KUiUJMc0rJfiBj/zTeJ7rfj5jKmKoZdGmJbsP19tMdsPDiK2Prf
+	 4B6xDCxP/MDiwaojjvLyoKZ6RdsNGUUiZCO9LYFAJqyvEpqd0W/8dFsEq56E7GhRtFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mlkpNh+z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b47bOC/3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1079C606A336;
-	Wed,  4 Nov 2026 16:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032F4606A339
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mlkpNh+z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADC61F00A18;
-	Wed,  4 Nov 2026 16:28:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b47bOC/3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E471F000C1;
+	Wed,  4 Nov 2026 16:29:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793809689;
-	bh=0uwutcWUOXjhi9mOhfWVRBIVxAJypJiaHVoSSXGrXrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mlkpNh+zTQEpWrbqTadXQW1MVQ4x/Ett9GW/Tkp52e1PSNgcgiVLj05008mS8sdRe
-	 Ah/G4mPipsKcZH/Djkh8Wot5VvLzn8CebS4bxwPR3mG8FnGK/QcMcRsMbWCOGgrh3z
-	 K1KtghPps7QXV6jPQbeFLqbRJDa9DSo2QkH62HsISTnKgUxmst1Vz/wNGdmcwyWgdF
-	 p8YnDMBkoOuq8rp5H85mCMDj2/cOYTwSy9Co0RLDYiDM6//YL1AAnXDlmwKdTGjtJb
-	 3MHPfUv2zVaVaDP9dje57yQhEVXtTRvp8a/pdoRXSycgzYEBtyDN/l4AoaOd8vnIYf
-	 UJALjvba+Ql4Q==
-Date: Wed, 4 Nov 2026 16:28:05 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Kohei Otsuka <kohei@spacemachines.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, conor.dooley@microchip.com
-Subject: Re: [PATCH 2/2] serial: 8250_of: drop RS-485 RTS on Microchip
- Core16550
-Message-ID: <20261104-aqueduct-caregiver-1513775dd0f8@spud>
-References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
- <20261103-core16550-rs485-v1-2-6d15ebe1e5b9@spacemachines.com>
+	s=k20260515; t=1793809791;
+	bh=atDiQ1jLywCaP3AyVEImB+gZltQy0V8BagrbxL0rfyY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=b47bOC/3A0RxnUdzrGef+aXOt5L92xLNPUSE5A24szrut0A3kwfnv5GWFo0Rmw85F
+	 5Tdc/bfgkA1gTlKdM81tunrILY6eokjbGK+/nznxio0+VmOHSS6yWR/K4pch4WGfao
+	 X2DC1SLRl6EPej/gADIMREih6WMk3VAUk1SsSnmcGdsSUZUeYeijaW8I5LxE64siT8
+	 WKftT+EeRQuUm7+D6LB06kaL/XBI+8Rm8ri7O6/5letBBW2NOtTNrGUsp40RnchhhW
+	 pjkd+4ixoPoxzTj4L9EZ3vouC5W4EmnsmzbuEWe1yrwmAZZnqWDTtJ310ri2gkvA1J
+	 g0SZpdQQQjhYg==
+Message-ID: <sashiko-outbox-197614@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] mm/cma: reject CMA areas that overlap the kernel
+ image
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Radhey Shyam Pandey" <radhey.shyam.pandey@amd.com>, robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, m.szyprowski@samsung.com, robin.murphy@arm.com, baoquan.he@linux.dev, pasha.tatashin@soleen.com, pratyush@kernel.org
+Cc: devicetree@vger.kernel.org, linux-mm@kvack.org, kexec@lists.infradead.org, conor+dt@kernel.org
+In-Reply-To: <20261103162429.2053989-4-radhey.shyam.pandey@amd.com>
+References: <20261103162429.2053989-1-radhey.shyam.pandey@amd.com>
+ <20261103162429.2053989-4-radhey.shyam.pandey@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 16:29:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,102 +60,114 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="naoNsQqpEmf8UReu"
-Content-Disposition: inline
-In-Reply-To: <20261103-core16550-rs485-v1-2-6d15ebe1e5b9@spacemachines.com>
 
---naoNsQqpEmf8UReu
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mm/cma: __pa_symbol(_text) triggers BUG() on arm32 DEBUG_VIRTUAL
+--
 
-On Tue, Nov 03, 2026 at 11:11:32AM +1100, Kohei Otsuka wrote:
-> Core16550, a 16550-compatible UART for Microchip FPGAs, interrupts on
-> THRE but not on TEMT. When the last character moves from the FIFO into
-> the shift register, the THRE interrupt calls __stop_tx(), which finds
-> TEMT clear and, without UART_CAP_NOTEMT, returns to wait for a TEMT
-> interrupt that never comes. RTS, and with it the RS-485 driver enable,
-> then stays asserted after the frame, and receive interrupts, disabled
-> for the half-duplex transmission, stay off.
->=20
-> Set UART_CAP_NOTEMT for nodes compatible with "microchip,core16550",
-> so em485 drops RTS from its stop timer one frame time (plus 1/7) after
-> THRE, as it does for DesignWare UARTs.
->=20
-> Set UART_CAP_FIFO as well: with the capabilities already non-zero,
-> serial8250_do_startup() no longer fills in the PORT_16550A default,
-> and without UART_CAP_FIFO serial8250_clear_fifos() does nothing, so
-> the RX FIFO is not flushed at the end of a half-duplex transmission.
->=20
-> Link: https://github.com/linux4microchip/meta-mchp/issues/5
+commit efca63a89d010b4bf63ea1571c8931374f2ec14d
+Author: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 
-It's worth noting that in that GitHub link I pointed out that the time I
-recall this core being used they required changes to the baud rate logic
-in the driver and that there were differences between how the baud rate
-is actually determined from the input clock:
-| The docs for core16550 say:
-|=20
-| This block takes the input PCLK and divides it by a programmed value (fro=
-m 1 to 216 =E2=80=93 1). The result
-| is divided by 16 to create the transmission clock (BAUDOUT)
-|=20
-| whereas ns16550a docs say:
-|=20
-| The UART includes a programmable baud rate generator
-| that is capable of dividing the timing reference clock input
-| by divisors of 1 to (216-1 ), and producing a 16 x clock for
-| driving the internal transmitter logic. Provisions are also included to u=
-se this 16 x clock to drive the receiver logic.
+mm/cma: reject CMA areas that overlap the kernel image
 
-Kohei reported not being affected by this, but I figured it was worth
-mentioning.
+This commit updates cma_init_reserved_mem() to reject CMA regions that
+overlap the kernel image range [_text, _end) so that cma_activate_area()
+cannot free kernel image pages into MIGRATE_CMA.
 
-Cheers,
-Conor.
-
-> Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
-> ---
->  drivers/tty/serial/8250/8250_of.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/=
-8250_of.c
-> index b41ca604083f..2f1f505501a2 100644
-> --- a/drivers/tty/serial/8250/8250_of.c
-> +++ b/drivers/tty/serial/8250/8250_of.c
-> @@ -278,6 +278,15 @@ static int of_platform_serial_probe(struct platform_=
-device *ofdev)
->  	if (port8250.port.fifosize)
->  		port8250.capabilities =3D UART_CAP_FIFO;
+> diff --git a/mm/cma.c b/mm/cma.c
+> index 9c53b2b70dc8f..3231a53161cda 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -31,6 +31,8 @@
+>  #include <linux/kmemleak.h>
+>  #include <trace/events/cma.h>
 > =20
-> +	/*
-> +	 * Core16550 has no TEMT interrupt: without UART_CAP_NOTEMT the em485
-> +	 * code waits for one after the last THRE interrupt and never drops RTS.
-> +	 * Set UART_CAP_FIFO too, because a non-zero value stops
-> +	 * serial8250_do_startup() filling in the PORT_16550A default.
-> +	 */
-> +	if (of_device_is_compatible(ofdev->dev.of_node, "microchip,core16550"))
-> +		port8250.capabilities |=3D UART_CAP_FIFO | UART_CAP_NOTEMT;
+> +#include <asm/sections.h>
 > +
->  	/* Check for TX FIFO threshold & set tx_loadsz */
->  	if ((of_property_read_u32(ofdev->dev.of_node, "tx-threshold",
->  				  &tx_threshold) =3D=3D 0) &&
->=20
-> --=20
-> 2.53.0
->=20
+>  #include "internal.h"
+>  #include "cma.h"
+>  #include "mm_init.h"
+> @@ -68,6 +70,16 @@ bool cma_has_dynamic_base(const struct cma *cma)
+>  	return test_bit(CMA_DYNAMIC_BASE, &cma->flags);
+>  }
+> =20
+> +static bool cma_overlaps_kernel_image(phys_addr_t base, phys_addr_t size)
+> +{
+> +	phys_addr_t end;
+> +
+> +	if (check_add_overflow(base, size, &end))
+> +		return true;
+> +
+> +	return base < __pa_symbol(_end) && __pa_symbol(_text) < end;
+> +}
+> +
+>  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+>  					     unsigned int align_order)
+>  {
+> @@ -295,6 +307,15 @@ int __init cma_init_reserved_mem(phys_addr_t base, p=
+hys_addr_t size,
+>  	if (!size || !memblock_is_region_reserved(base, size))
+>  		return -EINVAL;
+> =20
+> +	if (cma_overlaps_kernel_image(base, size)) {
+> +		phys_addr_t text =3D __pa_symbol(_text);
+> +		phys_addr_t end =3D __pa_symbol(_end);
+> +
+> +		pr_err("area %s (%pa, size %pa) overlaps kernel image [%pa-%pa]\n",
+> +		       name ?: "(unnamed)", &base, &size, &text, &end);
+> +		return -EBUSY;
+> +	}
 
---naoNsQqpEmf8UReu
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: High]
+Is __pa_symbol(_text) safe to call in architecture-independent CMA code?
 
------BEGIN PGP SIGNATURE-----
+In include/asm-generic/sections.h, _text is noted as architecture-specific:
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCautdFQAKCRB4tDGHoIJi
-0pYeAP9bzFHfeEOVzgCPalBVszyOeTqdZUtmuzJVLczvdHA/WwEAiVAoQZAfJtEY
-hQc6VtUVhSHnO9bAJ9+2LFX/+FyRbgk=
-=JBIx
------END PGP SIGNATURE-----
+    * _text, _data: architecture specific, don't use them in arch-independe=
+nt code
 
---naoNsQqpEmf8UReu--
+On 32-bit ARM, arch/arm/kernel/vmlinux.lds.S places _text at the start of
+.head.text before _stext:
+
+    .head.text : {
+        _text =3D .;
+        HEAD_TEXT
+    }
+
+while arch/arm/include/asm/memory.h defines KERNEL_START starting at _stext
+(or _sdata on CONFIG_XIP_KERNEL):
+
+    #ifdef CONFIG_XIP_KERNEL
+    #define KERNEL_START		_sdata
+    #else
+    #define KERNEL_START		_stext
+    #endif
+    #define KERNEL_END		_end
+
+When CONFIG_DEBUG_VIRTUAL=3Dy is enabled on 32-bit ARM, __pa_symbol(_text)
+calls __phys_addr_symbol() in arch/arm/mm/physaddr.c:
+
+    phys_addr_t __phys_addr_symbol(unsigned long x)
+    {
+        /* This is bounds checking against the kernel image only.
+         * __pa_symbol should only be used on kernel symbol addresses.
+         */
+        VIRTUAL_BUG_ON(x < (unsigned long)KERNEL_START ||
+                       x > (unsigned long)KERNEL_END);
+        return __pa_symbol_nodebug(x);
+    }
+
+Because _text is below KERNEL_START on 32-bit ARM, won't calling
+cma_init_reserved_mem() -> cma_overlaps_kernel_image() with
+base < __pa_symbol(_end) trigger VIRTUAL_BUG_ON() during early boot?
+
+In addition, on 32-bit ARM with CONFIG_XIP_KERNEL=3Dy (where _text is linked
+in ROM below PAGE_OFFSET while only [_sdata, _end) is in RAM) and on sparc64
+(where [_text, _end) is linked at KERNBASE rather than in the PAGE_OFFSET
+linear map), won't __pa_symbol(_text) also compute bogus physical addresses
+for the kernel image?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103162429.2053=
+989-1-radhey.shyam.pandey@amd.com?part=3D3
