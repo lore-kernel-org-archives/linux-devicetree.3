@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793760557;
-	b=GFhuGkI/0fBX0mYOIwvw31YtcktVW/2c0Ut4PnPiUHWe5RtDcOjqFDixqqPqfnIw9xcH
-	 /l3rgpvmr5dMWiZSstgXb3kBNwtNkZs0gh3ezK5c2MjoGRDDDyk9UL+3d/Uxn74PQUYd8
-	 roIqtzjG3Gt9jmM3zMt2pgENqpBZ1IlNlSY4Q1CZAqMunqpXZa3A+nSybG0H78wWQ1YQ9
-	 osVU9WYBpKlSnlUe90v9Cr0Vnd3BWC1dbKNL23K28HvhRmRW+nffHRr+a8aMQj/rGMSIP
-	 2SFYSEzceY5Tw1Y/SIul0oLvEL1v0SX11++lWFBcVzHlrqFjF4gwosEq7wblVkhKUWg==
+	t=1793760976;
+	b=FilG8dWoWqP/EZuMyv9Smydcl+rZXqIfBGC+Q8X9SwlwfJasxhXvDOa0D6pRVM6nVGBM
+	 uzcDRa40N8zZQsUgurPyS1z/Bgl4y9OXQy7I+wLGeiZcEv6egmCTm1ZBrpNzkFsi9DH+P
+	 uzj2fklmDxrD/FZBL95zuFPj4li+t58ccGxkHGofTxpo7GoNH0Plc+MvjQMuINQ9z0zUo
+	 ZI9ePII06WyYKTatkX18vkVnqQ/AncmpKy5mmTCDCf14r94t4SeKTyfCpOl3IktKExUXh
+	 lWC+pWn0pez+qYPrMS0/PYnAPENSt/2pBYDZs2CIky2/FwCMpVKyhro2q8VxzUYveCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760976;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=VI/zweAfAJVfcRh7FL3BS6NHi7RSSwwioEmxfJYdNNg=;
-	b=yn3dflrHQJtsd0iRsLISMMeeSMbYj/YJM0YIgqNRm5N1c860EyX6fEfpbIulI4Pd+M9A
-	 ZRgf4aljQ8FHj2RjfeVwND1cHRRCyJ5EhBJxhCnt+ItG/Hav0e85DOp5zYcOAInWEaZd/
-	 pBawC8/YIcsvd5/iPnpZQJpTQtsW8bSCBryhinVN1Z+7xyu8DAikwF7npe/BBvgC0YoRR
-	 +WiX7xtTXV/D81JMg1eePB3KAY3+mvKXwGapq6IZa1cZHxwVYwxk/2eax6/mEKt4LQ3BQ
-	 5djC/HqkmBwKMAiq5dmpasEa7dpXv2IQjjQvjdYN0rXQ/IxKvCY4CN44peWvV5uwjDA==
+	bh=IYtoB6g6XmX0Tiw5T5gjrs462UduyJvVBxRyDLPBJuI=;
+	b=QZF8V6sB9aKRwkk7M/UHqobW+zyy7EWhWwLm4ifEIbp1EtHioSO0zTuhfCQ2ygOW7NYA
+	 CinHbzNH+mPyQFBcRpF5zB+kSfGIF+VtTqf0P/339aJvbrzTtSf5wWoOaQdPlZwSHXSzK
+	 RvV7bg4tBxvSIZQwd83nLBNRFf2m2t5TbLVQC3aPHqCuZZYBnwI3SNnzN8lnoH+iPVTqz
+	 ZMaQhMv9F6vG2+TTn93f/oc/191klQn3SSjP5+Z6zBpaTiTm2UQGbJMyNm+Bsmb+Z5lPo
+	 tA2Jk0Sc3SNsf5N4FVnjui6/PKjz5ceKKgonZAQM355v838KH3W3em0DJ9jI0w68xPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOVN2bFz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dE1Fkd1b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D67606A31B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 02:49:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8885C606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 02:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOVN2bFz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81AF81F000C1;
-	Wed,  4 Nov 2026 02:49:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dE1Fkd1b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFEE1F000C1;
+	Wed,  4 Nov 2026 02:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793760556;
-	bh=VI/zweAfAJVfcRh7FL3BS6NHi7RSSwwioEmxfJYdNNg=;
+	s=k20260515; t=1793760976;
+	bh=IYtoB6g6XmX0Tiw5T5gjrs462UduyJvVBxRyDLPBJuI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nOVN2bFzKVwNHTXdGazYDvduHvJ4yY3hsUHJJNEQL2CBDNCycBqno1PyjbHy6u3/I
-	 9dWz6jPFsL1oLXsWaYe2VGtLq6itj3+Vrf2itQFyJdk6ju17tb0XuqewY8oe0gFL4M
-	 /pqj48Kx5B5MuljkKj9Uuqv/01MrwP9OD+Jif+Ws4aU5V6m7l2AtQ5TQX1ce+x7oie
-	 xKuiBmcokyN0tHm8vKaHsCIRn1dE+r1924FRu/WK9e06o337GYWL2DJQv4j4ADq81l
-	 6uFZm+6XFtpXZA8u8ppilzHT+ZfeaYoV/ytdxj9EiaWyrsGNRujHWUcMuts9v3Y6k2
-	 wTZxK8wqYSVww==
-Message-ID: <sashiko-outbox-196523@kernel.org>
+	b=dE1Fkd1bVFk/dJqCIRZBr5+tdglSM2424wSsp0gXDp5fC+J+f2lkareoVaEtncnvt
+	 4wuwdsp1twzQ0vMtQw7np6f1mSSHl2/P2GvgTy8dru0rmaEaWvOmJP7ytSUjYEQq8g
+	 6/Thq723xNiMBlCZ1mzDKldEzTcBnfatt6jWTBL2L4kWZ662hoCDJfeyNHPfTOxArG
+	 ySM9QkkejT6ngp6eQPcu8lgrzOFjWr6wVGZ7tVV6XmSCCQ7duGI+w1IoD4IHi4nY6K
+	 F33RQI9CLT3lBdnKrQsNA2CHj6tCa12DN/JjFdmiqwKQTeZF/n454e8NrFC27t0Yr8
+	 QvjgDiNDsawWw==
+Message-ID: <sashiko-outbox-196548@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: display: simple-framebuffer: Document
- mono format
+Subject: Re: [PATCH 1/2] fbdev: simplefb: Add mono framebuffer format
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Raase" <linux@sraa.de>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+In-Reply-To: <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
 References: <cover.1793758480.git.linux@sraa.de>
- <258a1228601ab9b5dbb8f077dacf61121b641f15.1793758480.git.linux@sraa.de>
+ <6c207278c23d11f2c17cee383d422c3295cc7d97.1793758480.git.linux@sraa.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 02:49:16 +0000
+Date: Wed, 04 Nov 2026 02:56:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,105 +62,109 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/sysfb: missing DRM_FORMAT_R1 blit and clip support for mono fo=
-rmat
-- [Medium] dt-bindings: display: simple-framebuffer: underspecified mono bi=
-t order
+- [High] fbdev: simplefb: adding DRM_FORMAT_R1 to SIMPLEFB_FORMATS breaks s=
+impledrm
+- [Medium] fbdev: simplefb: mono bit order in cfb helpers mismatches DRM_FO=
+RMAT_R1
 --
 
-commit 20af76c182c22fb42d62d508852f5a56db4c14ee
+commit 89b64a8b00831d236b9621c5f7f6d3729ed70512
 Author: Sebastian Raase <linux@sraa.de>
 
-dt-bindings: display: simple-framebuffer: Document mono format
+fbdev: simplefb: Add mono framebuffer format
 
-This commit documents the mono format in the simple-framebuffer Device Tree
-binding as a 1-bit packed pixel monochrome format with 8 pixels per byte.
+This commit adds a 1 bit-per-pixel monochrome ("mono") format entry mapped
+to DRM_FORMAT_R1 in SIMPLEFB_FORMATS and configures simplefb to use the
+FB_VISUAL_MONO10 visual when probing 1-bpp framebuffers.
 
-> diff --git a/Documentation/devicetree/bindings/display/simple-framebuffer=
-.yaml b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> index 45ffdebc9d86b..c627ec088434e 100644
-> --- a/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> +++ b/Documentation/devicetree/bindings/display/simple-framebuffer.yaml
-> @@ -94,6 +94,7 @@ properties:
->    format:
->      description: >
->        Format of the framebuffer:
-> +        * `mono` - 1-bit packed pixels, 8 pixels/byte
+> diff --git a/drivers/video/fbdev/simplefb.c b/drivers/video/fbdev/simplef=
+b.c
+> index 60e5dcec201ff..4662101885ec5 100644
+> --- a/drivers/video/fbdev/simplefb.c
+> +++ b/drivers/video/fbdev/simplefb.c
+> @@ -583,6 +583,8 @@ static int simplefb_probe(struct platform_device *pde=
+v)
+>  	info->fix.smem_start =3D mem->start;
+>  	info->fix.smem_len =3D resource_size(mem);
+>  	info->fix.line_length =3D params.stride;
+> +	if (params.format->bits_per_pixel =3D=3D 1)
+> +		info->fix.visual =3D FB_VISUAL_MONO10;
 
 [Severity: Medium]
-Should the binding description specify both the pixel polarity and the
-intra-byte bit ordering for mono, similar to how the other formats define
-their bit-to-channel mappings?
-
-In include/linux/platform_data/simplefb.h, SIMPLEFB_FORMATS maps mono to
-DRM_FORMAT_R1:
-
-include/linux/platform_data/simplefb.h:
-    #define SIMPLEFB_FORMATS \
-    { \
-        { "mono", 1, {0, 1}, {0, 1}, {0, 1}, {0, 0}, DRM_FORMAT_R1 }, \
-
-In include/uapi/drm/drm_fourcc.h, DRM_FORMAT_R1 is defined with the leftmost
-pixel in bit 7 (MSB) and the rightmost pixel in bit 0 (LSB).
-
-However, in drivers/video/fbdev/simplefb.c, simplefb_probe() sets
-info->fix.visual =3D FB_VISUAL_MONO10 and uses FB_DEFAULT_IOMEM_OPS without
-setting FBINFO_BE_MATH or FB_NONSTD_REV_PIX_IN_B:
-
-drivers/video/fbdev/simplefb.c:simplefb_probe() {
-    ...
-	if (params.format->bits_per_pixel =3D=3D 1)
-		info->fix.visual =3D FB_VISUAL_MONO10;
-	else
-		info->fix.visual =3D FB_VISUAL_TRUECOLOR;
-    ...
-}
-
-Because fb_reverse_init() in drivers/video/fbdev/core/fb_draw.h places the
-leftmost pixel at bit 0 (LSB) on little-endian CPUs and at bit 7 (MSB) on
-big-endian CPUs unless reversed, does simplefb end up using a CPU-endian
-dependent pixel bit order that is reversed relative to DRM_FORMAT_R1 on
+Does the bit ordering used by the cfb drawing helpers match DRM_FORMAT_R1 on
 little-endian systems?
 
->          * `a1r5g5b5` - 16-bit pixels, d[15]=3Da, d[14:10]=3Dr, d[9:5]=3D=
-g, d[4:0]=3Db
->          * `a2r10g10b10` - 32-bit pixels, d[31:30]=3Da, d[29:20]=3Dr, d[1=
-9:10]=3Dg, d[9:0]=3Db
->          * `a8b8g8r8` - 32-bit pixels, d[31:24]=3Da, d[23:16]=3Db, d[15:8=
-]=3Dg, d[7:0]=3Dr
-> @@ -106,6 +107,7 @@ properties:
->          * `x8r8g8b8` - 32-bit pixels, d[23:16]=3Dr, d[15:8]=3Dg, d[7:0]=
-=3Db
->          * `x8b8g8r8` - 32-bit pixels, d[23:16]=3Db, d[15:8]=3Dg, d[7:0]=
-=3Dr
->      enum:
-> +      - mono
+In include/uapi/drm/drm_fourcc.h, DRM_FORMAT_R1 is defined with MSB-first
+pixel ordering ([7:0] R0:R1:R2:R3:R4:R5:R6:R7, where the leftmost pixel R0 =
+is
+in bit 7).
+
+However, in drivers/video/fbdev/core/fb_draw.h, fb_reverse_init() and the
+cfb drawing helpers (cfb_imageblit(), cfb_fillrect(), cfb_copyarea()) place
+pixel 0 in the LSB on little-endian architectures and in the MSB on
+big-endian architectures unless CONFIG_FB_CFB_REV_PIXELS_IN_BYTE is enabled
+and FB_NONSTD_REV_PIX_IN_B is set in info->var.nonstd:
+
+drivers/video/fbdev/core/fb_draw.h:fb_reverse_init() {
+	struct fb_reverse reverse;
+#ifdef __LITTLE_ENDIAN
+	reverse.byte =3D fb_be_math(info) !=3D 0;
+#else
+	reverse.byte =3D fb_be_math(info) =3D=3D 0;
+#endif
+#ifdef FB_REV_PIXELS_IN_BYTE
+	reverse.pixel =3D info->var.bits_per_pixel < BITS_PER_BYTE
+		&& (info->var.nonstd & FB_NONSTD_REV_PIX_IN_B);
+#else
+	reverse.pixel =3D false;
+#endif
+	return reverse;
+}
+
+Since simplefb leaves info->var.nonstd at 0 and does not select
+FB_CFB_REV_PIXELS_IN_BYTE, won't the 8 horizontal pixels within each byte be
+bit-reversed relative to DRM_FORMAT_R1 (and relative to big-endian simplefb)
+on little-endian machines?
+
+> =20
+>  	info->var =3D simplefb_var;
+>  	info->var.xres =3D params.width;
+> diff --git a/include/linux/platform_data/simplefb.h b/include/linux/platf=
+orm_data/simplefb.h
+> index 4f94d52ac99fc..9b6d822145c9e 100644
+> --- a/include/linux/platform_data/simplefb.h
+> +++ b/include/linux/platform_data/simplefb.h
+> @@ -15,6 +15,7 @@
+>  /* format array, use it to initialize a "struct simplefb_format" array */
+>  #define SIMPLEFB_FORMATS \
+>  { \
+> +	{ "mono", 1, {0, 1}, {0, 1}, {0, 1}, {0, 0}, DRM_FORMAT_R1 }, \
 
 [Severity: High]
-How does simpledrm handle a simple-framebuffer Device Tree node with
-format =3D "mono" when CONFIG_DRM_SIMPLEDRM is enabled?
+Can adding "mono" with DRM_FORMAT_R1 to SIMPLEFB_FORMATS break display outp=
+ut
+when simpledrm is enabled?
 
-Both simplefb and simpledrm bind to simple-framebuffer nodes and validate t=
-he
-format property against SIMPLEFB_FORMATS:
+SIMPLEFB_FORMATS is shared with drivers/gpu/drm/sysfb/simpledrm.c, where
+simplefb_get_validated_format() matches fmt->name and looks up fmt->fourcc:
 
-drivers/gpu/drm/sysfb/simpledrm.c:
-    simpledrm_probe() ->
-        simpledrm_device_create() ->
-            simplefb_get_validated_format()
+drivers/gpu/drm/sysfb/simpledrm.c:simplefb_get_validated_format() {
+	...
+		if (!strcmp(format_name, fmt->name)) {
+			info =3D drm_format_info(fmt->fourcc);
+			if (!info)
+				return ERR_PTR(-EINVAL);
+			return info;
+		}
+	...
+}
 
-When simplefb_get_validated_format() accepts mono as DRM_FORMAT_R1,
-simpledrm claims the framebuffer aperture and registers a DRM device whose
-primary plane advertises DRM_FORMAT_R1 and emulated DRM_FORMAT_XRGB8888 via
-drm_sysfb_build_fourcc_list().
+With this entry added, simpledrm binds to "mono" simple-framebuffer devices,
+acquires the aperture (evicting or blocking simplefb), and registers a
+primary plane advertising DRM_FORMAT_R1 and emulated DRM_FORMAT_XRGB8888.
 
-During drm_client_setup(), drm_fbdev_client_setup() requests color_mode =3D=
- 1,
-which maps via drm_mode_legacy_fb_format(1, 1) to DRM_FORMAT_C1 rather than
-DRM_FORMAT_R1, so __drm_fb_helper_find_sizes() falls back to
-DRM_FORMAT_XRGB8888.
-
-When the fbdev client or an XRGB8888 userspace compositor commits a
+When in-kernel clients (such as fbdev emulation via drm_client_setup() ->
+drm_fbdev_client_setup()) or userspace compositors commit an XRGB8888
 framebuffer, drm_sysfb_plane_helper_begin_fb_access() calls
 drm_sysfb_get_blit_func(DRM_FORMAT_R1, DRM_FORMAT_XRGB8888):
 
@@ -171,35 +174,40 @@ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c:drm_sysfb_get_blit_func() {
 	} else if (src_format =3D=3D DRM_FORMAT_XRGB8888) {
 		switch (dst_format) {
 		case DRM_FORMAT_RGB565:
+			return drm_fb_xrgb8888_to_rgb565;
 		...
 		}
 	}
 	return NULL;
 }
 
-Since drm_sysfb_get_blit_func() has no case for DRM_FORMAT_R1, won't
-drm_sysfb_plane_helper_begin_fb_access() warn and fail every XRGB8888 atomic
-commit with -EINVAL?
+Because drm_sysfb_get_blit_func() has no conversion helper for DRM_FORMAT_R=
+1,
+it returns NULL, triggering a warning and failing every XRGB8888 atomic
+commit with -EINVAL.
 
-Additionally, if a client commits a native DRM_FORMAT_R1 framebuffer with a
-partial damage clip where x1 > 0, drm_sysfb_plane_helper_atomic_update()
-calculates the destination offset using drm_fb_clip_offset():
+Additionally, if a userspace client commits a native DRM_FORMAT_R1
+framebuffer with a non-zero horizontal damage clip offset (clip->x1 > 0),
+drm_sysfb_memcpy() calls drm_fb_memcpy():
 
-drivers/gpu/drm/sysfb/drm_sysfb_modeset.c:drm_sysfb_plane_helper_atomic_upd=
-ate() {
-    ...
-		iosys_map_incr(&dst, drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip)=
-);
-		blit_to_crtc(&dst, &dst_pitch, shadow_plane_state->data, fb, &damage,
-			     &shadow_plane_state->fmtcnv_state);
-    ...
+drivers/gpu/drm/drm_format_helper.c:drm_fb_memcpy() {
+	...
+		unsigned int bpp_i =3D drm_format_info_bpp(format, i);
+		unsigned int cpp_i =3D DIV_ROUND_UP(bpp_i, 8);
+		size_t len_i =3D DIV_ROUND_UP(drm_rect_width(clip) * bpp_i, 8);
+
+		src_i +=3D clip_offset(clip, src->pitches[i], cpp_i);
+	...
 }
 
-Because dst_format->cpp[0] is 0 for DRM_FORMAT_R1 while drm_fb_memcpy() uses
-DIV_ROUND_UP(bpp, 8) =3D 1 byte per pixel for the source clip offset, would=
-n't
-partial damage updates also miscalculate horizontal offsets?
+For 1-bpp DRM_FORMAT_R1, cpp_i evaluates to 1 byte per pixel, so clip_offse=
+t()
+advances src_i by clip->x1 bytes instead of bits (8 times the horizontal
+byte offset) while drm_sysfb_plane_helper_atomic_update() offsets dst using
+dst_format->cpp[0] =3D=3D 0. Won't that read past the end of the source buf=
+fer on
+partial horizontal updates?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793758480.gi=
-t.linux@sraa.de?part=3D2
+t.linux@sraa.de?part=3D1
