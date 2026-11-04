@@ -1,102 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779991;
-	b=rV8lPuCcelELvBdxb+FBraVsLO9YoX5W7DMwfOWsvHb366faiSLm4Q97j+Pjc9r7vN+B
-	 2pdFQd4F6F07IKNzWAH+zzLUlwUgPYurDvVGhP9SFTxQJrwBPbihur0OvcLmiKbVc/2kw
-	 zf2BRORIcX8emOypgSpyE5apCaWx5EP+SWO6x5rsvNM7o2Ab9FaOjBqr6ZjfWYu3B2QRv
-	 HpYFYUJSGypEssFTzf+4Gsz9GrPINkEH0jJb/xF6paZAHbMFakAtJtmK7yrtDdYIqXndv
-	 avSF/FU3an2AMb02oxyB+LF6MSuFqfT92LvUj/5ogMREIgs+rKAzFcbKyYeZKtIHsSg==
+	t=1793779997;
+	b=2ASBT4ujYW6/N/2Uyo3+bf2CtKdM3ZtqhdYdZlnWXJhR28cZgdL1/78c273CHU7WrGDD
+	 6KtT9T5DAKS0tvS/D094pTgoYG5qveakxActCYYtpmGgvGXYBZjsf8ISO4WVAyYrXKK48
+	 4WKArkqfkNHNTR+Lgh/yIvfBc4zdMFl4cWsJhSf3Ho30WbgFkhUgEEvDkp9PLvVry6KLq
+	 S6vWNeHx4o7BVl8ziMcmBpboGNLX2pgYmy5DsZ3Tf5Jlsu80fwwCnGPHHMbzLCTrcInEQ
+	 twkxmSLyFOk5Es1+Twhxm9ixcwklrJUUfItUECvudBZex3HlcuibM+ZapKorfitq+Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779991;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rYVCxbzjhwXie807mRKlkMf4y7MqKXFbNmLhmKxHJ8o=;
-	b=zaQMpOgFuaRmqYZQAU1dzh5m4BRgh00NbCj78J5TZqsrVdRCT8fka8FHQpc2Gv+cxGOX
-	 JgS4ldo7RZGzhxmEGY5d+YXjRoEhUfowOWg/WHCHXqv+akIOXraZJAx49iKStLWhkpkic
-	 tuZugqwSHi3KmWv/qo6uLXzh8S9BLDwDpKp1qyfjzQRsgLd4ybzE1c+5VJClwkV68WRsk
-	 SbTe/Wf7oYg1qD9YFlFF6Xd0uFhOYYoGoQOKkX2/FUhGtFT/0+6WlGLt2/llXhiFl9jAa
-	 w4FhyVANvlDYko0e2Lea5pU1HRFA39ZpM+1XU+A+4qlK4rrj+hUM3VR0Y6ogJWfrWjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779997;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=bdJaCuRrck5XURNeDJ9hK44eiu7EkOclUMzEmjR9gPg=;
+	b=ak+DfyKFKiHUm1UxS1avMZ6rzcwFBukjUhqD1aTXMq8viZ+/4Wu3bteq08qiuE4OVBd+
+	 NPV1aNI5yGrbYPOAK5DiBl5pnzdT0mIjnkVlAKge9vOo1n3TqsvtYq0HVtDF+9xtSWrqB
+	 JJ9zYdNn6dB5mG1H0sxwkki7G9Cs/so/jU1W7jxe8bDghPKhQ66EvJ2UFdiKKEKx8jmu7
+	 ZwAg6DwFboAeCf6QvkB9jYWKQ2Eus+c1vH3vJELXtHqtBw3VX1Zh47vXm968c2H2gU3A8
+	 Lin9s9znhZHwG+0n7/XRUhWw2erv8zie7cXu6sLISmr24r2vcdb3dCajjIPi9o7umdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TFaB6tYC;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=esasq0kU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2C2606D80E
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 08:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D2C2606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A44B606A32C;
+	Wed,  4 Nov 2026 08:13:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TFaB6tYC
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso218798a12.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 00:13:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793779991; x=1794384791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rYVCxbzjhwXie807mRKlkMf4y7MqKXFbNmLhmKxHJ8o=;
-        b=TFaB6tYClWr47CyI+QVWgH2XnHepS1ZR30HLKq+OHkfjGoSD9zH77KR1UEVuzMdF1/
-         FQGdUc5GMqrG7Xz7U3AAXyKq9yt1s+nsYkQRwvvbmlpFJS7LA0gxFBv2J9g3o3yU8YEj
-         btkw4iXwJTHCVBXzhjkb17P4Gy9Ui5iA8465mjoIOx3CHHukV/bY8N5JiWLUZTycuJzQ
-         gmUgo146yhClERrtnSeKe2RapGOCMHeIMfWcGdKmMoScUaXcekZcbWaE1tIblpDLjubm
-         1O/UjBE2m+IputViurgdQC6lNHdSXP7mwOzTmswhIdBbFiCyp4dPfQDUIYVzMGZs7wi6
-         w3Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793779991; x=1794384791;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rYVCxbzjhwXie807mRKlkMf4y7MqKXFbNmLhmKxHJ8o=;
-        b=Tiaw6v1OH5w1E/DMIn6veWfXCHuD8eb2JYlv/z6cSdy1b2Fh2Yb1J5ztgq9rIKo7Wl
-         k2hr8aLdxWWsGQcrsECFx1s7/i2qTsAcFLIMUz5o0C5tjxgqjGqYMhWookKE943U6zsi
-         z0x0jKSAgYK2UO+u1+fMtX/6YFc6rf1fUUiEiWQZhdDU6OWYii5p446oIAA/gvR7ZG/e
-         7uBl+WJbZBtO5w7soS0gBIB+DIGQajMrvfLEpeIykyvpbtIlGuBDVsE9WeSgYcAASKqF
-         rEEDufnUTuTM7a2mdWQsVeIhMkMVch6QGn1hnzYis6b9FfvmxcCKhOaSrmnvw1PEgfnV
-         9Zqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzYFY5kpoba8IMfHBaIAZ8fSMyb/AWzmFmMViYdxQM++Hvhv2CnyJCIulmnvczb3v33bfNn7wbCkcZR@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2Zm3xB+9jAoHcr/EpC3+QZBLNOd/a08oqwJlzfKVN1vML0oUW
-	6Ov2qRXKg6cpk/qnBXgDFHcbGAK/UpxkLrMP6evyGnUqcB2l8eiTM0oD
-X-Gm-Gg: AYBFou06dNzA7d4cALjyzrJXhzAl2TKHMa8mCi+iub0FSkLQJo5+MbI1aR3ord841zu
-	Qk8xcQvlGrgI9T/8XP8vNIyDRtcrXkJrRmGm36tV22aLFKBHrhkGDX29GZYtOrToqG/t7gGvaZx
-	pRfGsAeyy7GMPBEk1PTRE3pZS3GuVkns9B18OlDNGSNccPFSc/S4B8uWs3aIzD6nPWLO/MBEcBJ
-	O9FebMNpQMOuo4XjO5xIGu01rLKd4PqQoAOcSNnSPK8VV0oKtBfzpIrT+veyJIziOHxKSun7AJ7
-	Q/5ccwUf6kfkmt6RHjMNhHshwLwPrlXb3OioJVevh17g590zpEuAEgF9cnTwmWuTLhAyzI8Sf2/
-	Usf0f6IVUpigjY8thKBqD+CHcBX2KUYweEQBZfnUb8fsSTKb/ouRpaYxNa/fwPoiqcIGawrq84M
-	t+aM3OSXiCUPQqsX34mOSX8e6Mt52pVThElrL0ucrY+vWiUPVQ7CaCBOvATTRo6mvDrXHT88tTg
-	p0LDTBIFMlBdGNVX+A9HqYHjK2wHjAZWT9HOZq6gsAwBaBER3Om3/uZXsHlE1wj1y70XYHJxl//
-	3GONdInoFwonHBlp4Qt8Q6PtyauoWi7TNaHtsj6Z3m+hmOnnGtTOsVk=
-X-Received: by 2002:a17:90b:2dc5:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3ae897a5be6mr11780916a91.42.1793779990608;
-        Wed, 04 Nov 2026 00:13:10 -0800 (PST)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c2ab1cdsm8423510a91.0.2026.11.04.00.13.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 00:13:10 -0800 (PST)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: yin.li@oss.qualcomm.com,
-	robh@kernel.org,
-	james.morse@arm.com,
-	ben.horgan@arm.com,
-	sdonthineni@nvidia.com
-Cc: andre.przywara@arm.com,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ping Li <leeonion.muyu@gmail.com>
-Subject: Re: [PATCH v4 0/6] arm-mpam: Add basic device tree support for resctrl
-Date: Wed,  4 Nov 2026 16:13:02 +0800
-Message-Id: <20261104081302.304667-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=esasq0kU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345441F00A02;
+	Wed,  4 Nov 2026 08:13:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793779996;
+	bh=bdJaCuRrck5XURNeDJ9hK44eiu7EkOclUMzEmjR9gPg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=esasq0kUdJ8TBKGIsocSdW9hgp35/Sz3SfYoG18RFZUS+dbK328U20UdVz9VTOM2S
+	 97hF+FUycDdnSIPmeFIkTvAJkjC8fLpwh4/zheDSzMb+MFkPCjqqVfs3wgWPsx4xts
+	 VOHUSRJwXz0SoWS5DkFQw8GYxyHd5lGqiJ0BGmAhXmB78zv8R/DjJCe3xZCO+lVWDQ
+	 Y07CT5XTaRz+q2P75uPqCaQXv30mjvzYBADlzOUhJpFw/VVtJRBAskJzE0VvY0TrjR
+	 QxlynUCF7MYcY9y7jqvB7Ma+AESEAiW75ClD35ysQ9k51cNQphQxhAVxqxV93TO7LZ
+	 SCwEf+ZdG5U4A==
+Message-ID: <sashiko-outbox-196863@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: crypto: ice: Document sm8150 inline
+ crypto engine
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrew Gigena" <mail@andrewgigena.dev>, "Abel Vesa" <abelvesa@kernel.org>, "Herbert
+ Xu" <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>
+Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261104-sm8150-ice-rfc-v1-1-5737b6c2ecc0@andrewgigena.dev>
+References: <20261104-sm8150-ice-rfc-v1-0-5737b6c2ecc0@andrewgigena.dev>
+ <20261104-sm8150-ice-rfc-v1-1-5737b6c2ecc0@andrewgigena.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 08:13:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,31 +64,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Yin, Rob,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: crypto: ice: sm8150 standalone ICE conflicts with q=
+com,ufs.yaml
+- [Low] dt-bindings: crypto: ice: qcom,sm8150-inline-crypto-engine out of s=
+ort order
+--
 
-> Changes in v4:
->   - Drop memory controller MSC patch (no concrete platform user).
+commit 8ecc5836840659392f33486ed20f5aa5057a1a4c
+Author: Andrew Gigena <mail@andrewgigena.dev>
 
-We do have a concrete platform user for that patch.
+dt-bindings: crypto: ice: Document sm8150 inline crypto engine
 
-On our SoC we have implemented an MPAM 1.1 compliant MSC on the DDR
-egress path, which provides system-wide bandwidth QoS. The MSC is
-described in the device tree with the "arm,mpam-memory-controller-msc"
-and "arm,mpam-msc" compatibles, and this patch is what classifies it
-as MPAM_CLASS_MEMORY so that it can be used through resctrl.
+This commit documents the qcom,sm8150-inline-crypto-engine compatible string
+in Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml.
 
-We have verified this on hardware with v3 of this series (patches
-1-6) on top of a v7.4-rc1 based tree: the memory controller MSC
-probes correctly from DT, resctrl exposes the MB resource backed by
-it, and both bandwidth allocation (MPAMCFG_MBW_MAX) and the MBWU-based
-mbm_total_bytes monitoring work for it.
+> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-=
+engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-e=
+ngine.yaml
+> index 23bf98c2b9fa0..1918f18fe8b10 100644
+> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
+yaml
+> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
+yaml
+> @@ -23,6 +23,7 @@ properties:
+>            - qcom,sa8775p-inline-crypto-engine
+>            - qcom,sc7180-inline-crypto-engine
+>            - qcom,sc7280-inline-crypto-engine
+> +          - qcom,sm8150-inline-crypto-engine
 
-So this patch is genuinely useful for us, and we would like to ask
-you to reconsider dropping it. We are happy to help with testing, or
-to provide more details of our DT description if that is useful.
+[Severity: Medium]
+Does adding a standalone ICE compatible for SM8150 conflict with the existi=
+ng
+qcom,sm8150-ufshc binding in Documentation/devicetree/bindings/ufs/qcom,ufs=
+.yaml?
 
-Thanks,
-Ping Li
+On SM8150, the inline crypto engine is associated with the UFS controller
+(GCC only provides GCC_UFS_PHY_ICE_CORE_CLK, with no SDCC ICE clock in
+include/dt-bindings/clock/qcom,gcc-sm8150.h).
+
+In Documentation/devicetree/bindings/ufs/qcom,ufs.yaml, qcom,sm8150-ufshc is
+defined as using the legacy embedded ICE representation:
+
+    if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - qcom,msm8996-ufshc
+              - qcom,sdm845-ufshc
+              - qcom,sm6350-ufshc
+              - qcom,sm8150-ufshc
+    then:
+      properties:
+        clocks:
+          minItems: 9
+          maxItems: 9
+        clock-names:
+          items:
+            - const: core_clk
+            ...
+            - const: ice_core_clk
+        reg:
+          minItems: 2
+        reg-names:
+          items:
+            - const: std
+            - const: ice
+
+In the same qcom,ufs.yaml schema, the conditional rule for nodes using the
+standalone ICE binding via qcom,ice requires at most 1 reg entry and 8
+clocks, which is mutually exclusive with the qcom,sm8150-ufshc constraints:
+
+    if:
+      required:
+        - qcom,ice
+    then:
+      properties:
+        clocks:
+          maxItems: 8
+        clock-names:
+          maxItems: 8
+        reg:
+          maxItems: 1
+        reg-names:
+          maxItems: 1
+
+When ufshc@1d84000 in arch/arm64/boot/dts/qcom/sm8150.dtsi is converted to a
+standalone qcom,sm8150-inline-crypto-engine node referenced via qcom,ice and
+the embedded ice register range and ice_core_clk are removed from the UFS
+node, won't this fail dtbs_check against qcom,ufs.yaml and break Device Tree
+ABI compatibility with existing kernels expecting the embedded ICE registers
+and clock on qcom,sm8150-ufshc?
+
+>            - qcom,shikra-inline-crypto-engine
+
+[Severity: Low]
+This isn't a bug, but the compatible enum in properties:compatible in
+Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml is
+sorted alphabetically. Should qcom,sm8150-inline-crypto-engine be placed
+after qcom,shikra-inline-crypto-engine and before
+qcom,sm8450-inline-crypto-engine?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-sm8150-ice=
+-rfc-v1-0-5737b6c2ecc0@andrewgigena.dev?part=3D1
