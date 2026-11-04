@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.73
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796697;
-	b=Xqc2d1uGzvrRfZ3LUn5lwaAdrrKWdBtbkcYM+dDXyXz8CjMlUfiB1q5ieu6T9CQLLi7P
-	 QVjn4MMrwD2bNmp6JmcEmpb/5k3Qzpjl6fGnpf35klYcJrcEAiFIiWYZgdycGBO8fOg4E
-	 RxEgoJEqmuj5NEJ4rTruE+MnYetLJuTnHra9WQGwbNMv6QyFM6w6zWL19G19/xhQsCR6b
-	 f7yH7maMxeb27kKb+EuNl2pNfne99q6lsF8R/9LavAfSGnFfPED3OjDP0isHlNWTUdzwS
-	 eRN1pkLB/nz5zBKSQtYquEw+77AaeWsUAqAQv43VcZjonIpNCMQ0Lq94wKTQ9Jp2Acg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796697;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
-	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=GTgLqekxREDnux3hnYrxYqItzfHMhOlshtaUeR7+j5Y=;
-	b=yopM4f2FNSn+c7hFwPIH/pDCtqJyc7Ns9sPTSpkrvQ+QCg1Zz7OXEeQ676kqL+LStVHe
-	 vYgjcxJOfoO+aENhocDXR31hRKg+l3Mg8NoN6hZ3LX6t9wWVTtSO7eTyQwUcizv//fogm
-	 qj863n0gcH6hWbjoMn9TC/qC5ErSjoOOImAOF7IpYUPY3SaxqaYNB1cb5xXuhU+Xlr8+3
-	 pbs/CosZwD39FzIKmv/coDkB2itQhHFnOeLRU4uyxkId47DgYlpWI4lUe00bYOKwMHRYi
-	 tHuoyxgawoWilHrIPIWUcCJ64gIPC+EpXSUJfGAPHA682ylKn2G79+FlKxJrbwdeNUA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jonasjelonek.de;
-	spf=pass smtp.mailfrom=jonasjelonek.de;
-	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=1SzuAvfl;
-	arc=none smtp.remote-ip=217.72.192.73
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793796943;
+	b=W1WC5nBG7Wp+2kwtyYrhzrkOWezgCNtdTaERTGUhOCsejDQKmZrwPJI43UqdJfjBSg92
+	 CYV4QTdXGT7aIHBP0GPYeDkwSmAeS1dRKItn1ji+L/xYnqpFAUt2SSeAGp0Qgl/tkLaTI
+	 ikgKBb5OaGvuOSyZa+Dcp51CImSgeYoCO3snK1crSENY0Lv3K7rkhrWVdAYyKTVbp0ntL
+	 s8I82DKmvlIf4lDoUm/mF3Sl541cbIjdg/2D1TOxIqvgs8rRacaM6b2ls7A7Xzywmm+gI
+	 ojKmjbYN96CdqFSXXxWheXR3B8+sqWfG+oBACFUX7ugvbJsL67w37y2WBIX1nbRfgTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796943;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=zyr22CI2CmOFNj4yZHB6ux7UUbGZeisiaWsSJL9ai6E=;
+	b=J1qTP/RrliVvfbPFQR1Rf8XbYkfJ6yEyAhd+fir+vklXPFe6BwD+2x/dRCJXLs5+fkbz
+	 uspBs5H9pD+MXXV09VMVO6wnSeYSzvkDoI12XZWN4Du6sKfgOppRHgRwBukCmliB1/EJ4
+	 NbkEqcwNiGZeD+aufgLlXATns0GvucJBjxPvGi9R8Feq8IXx36zD/TcJy2lo1wywm17ER
+	 6wT3FEUBOrARcn4gFrc3Dnm2I+PWqPKtxYrYLu9GWEhL/WWBF/GWNcjtiIfhruI0utd8W
+	 mSNZwbJQ0e4nWFE+eWjD3jz7oy23XdoLkBQNg/FKs/gnWEKQ1qEWkmumeLc/HAGOtrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJpRChMc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8933606A328;
-	Wed,  4 Nov 2026 12:51:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8933606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D61606A31B;
+	Wed,  4 Nov 2026 12:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=1SzuAvfl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
-	s=s1-ionos; t=1793796687; x=1794401487; i=jonas@jonasjelonek.de;
-	bh=GTgLqekxREDnux3hnYrxYqItzfHMhOlshtaUeR7+j5Y=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=1SzuAvfl0xA8weUUl70fmcYiTjnU/ehtK41ZbzgsPfDnutvmTFPdgEvl6XSnwTv2
-	 K22ffL+k8ziUe2t1+FfaBDA8dhCUkzoLTy6c/SJJGzWGUO720cmqFPwKl5llKAmgt
-	 9KcUAGk6vrmoXy0pKYOFYIn2u2nd+EzR6i0D4a8Dm6EUB0DxJe3b/O7VkG0SU3F7G
-	 gy5tgwOVEsRoPKjW3jGn+VlECLjz4ailLfvM/4aDbesAyfjWvd8W7LJUjfulXI1dd
-	 58M7OOBjE/ewM4EYfDN4jbHdspmnBy/kXF7Eb90MpabFJUXvp1/wtWsPyuixSlX4O
-	 0+xxq/4bAA72sg3tKQ==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue107
- [213.165.67.113]) with ESMTPSA (Nemesis) id 1MhCq4-1wtONZ2THG-00mxZq; Wed, 04
- Nov 2026 13:51:27 +0100
-Message-ID: <d1196efc-ef27-4b69-81a6-f1fd99ccb85b@jonasjelonek.de>
-Date: Wed, 4 Nov 2026 13:51:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KJpRChMc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793796942;
+	b=IiwfPC5Knh8ZMmbGjvdRp1oSF+oVReJD1UG8CQjvxfbgBYSXrhWY5BNtBAuH9Hvywezf
+	 riOJqCb2HSieVQM7iBzjyzVBEt6r2IeSWh5iwlsbAGwsJONOR7CaeT76DylV5Bu86UDHM
+	 QFpJBTvRgQi5JFD1JbxyIgBPApCknjeN+t2pugpRjf+6AzBvVuCgpjgMHVX1iGMu4ii2r
+	 Ya8ZyjykprBsMGd+OPMQInBdhYqFxMXceRoiS95mkDVM6Vrr4zVOMkvAw635yPL5D8fZ+
+	 PvONFdnlsUJN0u/Gu7RK2ogp8uijlof1UrEfV1yn4sThmFTfmj5CrBoDzMv0Y7P8EOg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793796942;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=zyr22CI2CmOFNj4yZHB6ux7UUbGZeisiaWsSJL9ai6E=;
+	b=IIgAQ5/ZmC0cxoWB5Hl6rLMFJ/nq/ylnWC0+MqlCNwh3Ea2f+8ssQiU8vJa1adF6ENcH
+	 noAmWuPcM9m4MeNN/HgHy5/v62RrWgmeZPmHM4gxk+eb0cHuPvZMSY2GCYAcJ+2RK6g75
+	 oghEFf6NGF5zeKpd/hcdX8KTpmXncf6MZbTigHo2ZjURM3QX08GOdZH3sj0PwbivGO1gC
+	 +YzSPWG+bjxa7NiEDLXprAH0wbARbcnMeIItTsN5zmNSE7gMCb0I+C0tbGHoBdGhzkktk
+	 xiohstEr/Y+EgqJiBpVDdCciV0E0gV7m5YP10SDuFdpZ9QpDyUvz9JopnzgtnKNMEEA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 503471F0093A;
+	Wed,  4 Nov 2026 12:55:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793796942;
+	bh=zyr22CI2CmOFNj4yZHB6ux7UUbGZeisiaWsSJL9ai6E=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=KJpRChMcVbzmRlE+wlreOBcfm9NtES1wsEgtbfesqwQQRwL864GFq7GXF0SBH5oX8
+	 bS8F0NLSe+R9wUOL9x0Xvalv1a2KFXmvYEVvXmDYmHh4B+kUqlOEDj6VDce3IO1Jv7
+	 IDRY43Zxi0dW7x3Ze5xHFS9oi5dgNO+0OTwX11F+gp+dRRFMevHTBp7uoiE6SAOvkj
+	 7haESdwgQR4kRK3gkrRyddzpnepPtPPAPU1lIqXEF0SWbbau+o33zkGIAxJTK/dXM7
+	 PaWLr7tvcQQwlIU+Jjof5+DXOWKYyCH+4R7j24CAZMR1G7tX/GirCdnM1qJgGIsWep
+	 +1UT8V7nRz/2A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A2DA046E35;
+	Wed,  4 Nov 2026 12:55:41 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH RFC 0/3] Input - Tap to wake for FT5452
+Date: Wed, 04 Nov 2026 13:54:42 +0100
+Message-Id: <20261104-ft5x06-double-tap-v1-0-5a1bd80449cc@ixit.cz>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,210 +83,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
- global power budget
-Content-Language: en-US
-To: Kory Maincent <kory.maincent@bootlin.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Sander Vanheule <sander@svanheule.net>,
- Russell Senior <russell@personaltelco.net>
-References: <20261103220312.860629-1-jonas@jonasjelonek.de>
- <20261103220312.860629-4-jonas@jonasjelonek.de>
- <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
- <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
- <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
-From: Jonas Jelonek <jonas@jonasjelonek.de>
-In-Reply-To: <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:W/jSt+EVkXI+DSADrCyMZJ32Rl3/tDP8Pp94pKOhcLWv6ULeWgC
- CP4ozdJKUtn/PEqmGlXedWG96I9n7o6RrzmLeejdiL48SAD02xEbiuNalooRnbG++x62nOC
- wv8fenebItzY4p5MYQR/zI/8DZl68LHev57mpzC4P9XHvghltbwpymciztTjO03KpUVZjXf
- tVRR2ah+vjrLJaFgckbpw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:oECLamO+RUs=;Drag0WLXKGMnf3KIkkcOiIijqOA
- hi2bCvyjqMAiJeThsLUHu2p2cX9xKkoHa0KJANY+LbT+1QeVQjHt8HDDIuXtZkrp9VhD4AHOA
- L4aOutb/BRJOuao+Z81aRHC4EFXXbpaHlEvrV74OXSYwr0pSdXc/IDaAcsBCuqvyqc6JjoJj9
- dAboZ5PkccmYv4iLarkw4Z3ONrI2gW0CrbuT/llRcRsF+1aGAl6oxh7K9/GkfKUp3NZixvj4+
- fCRBTB12meR78/ch4Y5uWGeOZd37Rf8cN5KqtsPLRa5g6qVoofof9uSAYztGJQ92EJgBHlzCS
- GctuLzgh3tE4QyyLcDtbNhiHV0oBtvj1Uc2EkHAyE3SBYd0Czon/HaKn+4ZOoZYeKOiuKnrj6
- MG6+2KyZkmEBVpEXyMDzLpUMzPWtClhSkkNTeeINIorODeeg+jJI3fGs8ZBV1EM7TekEW0rnp
- NWSGhZbfcvQvTxE2JPD3bHhugYxWMhTpkQBH71+vw5gkTyOnYc/Xhq+5RnfUzO1/UEMJz6FSf
- 4az5RCrjeFFxefMuDtbpvb2VkLbvvqDMA/hzbV/TPhDU/+0nLKQs+QgIa/mfK7ziNDwk8NrHt
- dno0yWpHiwiyuy35QlpxQJhm7PlHKqIosXELRqPhet0g2GpO1EDzzvbxVw2ZiXPu00/4SGqD0
- Hgo9CCqJI3jWkp19qhE0b812nFYDqO5w+QATpluw9cZGk6kzUEZ2qW0/ENnA8JIMCU29I8pAP
- Lovi6deBAhN77FqXLMc5YfbwibfF9Tkf7z1mSroT8lwvb6AYrRMhu+Mz76AVP3BpXJrckfTcJ
- MrXnypIeoqV6YccL/mmyddUbe2yRBB8d84BM9xE0fW9fc4OTh/4FArTyR4dswDpNKvYvtcbjY
- SqS5J/qcFAotBZMbZ+pjdXiFlF+mJUhAxANS10hw73meCanf9QxVA3BiEfvx9M5bVPz0Hwj9P
- MFZaO+bljnZTeU5bovrO6L+HeKqCBcgk5VeK2tWts9zvPOncXC1R9+/o8kNYtWdLHpgGh5zYE
- NcC6yzW4s0MLQlgv04yPixQI0CYKHRE2GJIO1mzSeJBrwH32k3zyBjzcVyAxj3b2L3hf4qBM0
- 7s3w+3gcq+tUH4uUp/TdBGUqYDulkpm64QfaxniP66Xkycnszm6homx4ylDKopzfp0vOnRGvg
- msZI+izX5WaEvJqEo7gCqNDkKHoIF8QT2CHGq9qAjI2QjmDh/Pam4xtxTIZMqdJZ4HiKpwv+f
- l2sNuAiQlNH+3uSayl7VX8dnxbRggRotI7s43DB86av1CQkdWhdRkRLxW6KpqPVLl9kuXIQ7n
- oIWWbGeXgGFqbxF+CudHAXbx1lDYYm3e7eFpSj+eRnKFjl6we4Crd02AOtRF/7FUctiYO1G02
- r6emrusuXwAC8m7aH9+fBkpfCk5SSfjzn94ujj+VNmHZE4RAj9D3v4Gbc0MG2qwnsO4UL93PG
- TcIih9QeBGY98VrRdSqp8XKOUBhGLn0bdn1spbTq0FaDHF4r1EFmIKYGTmyS/13j9lEcGBDyo
- TsgZs0q+YqrSkPQtb6ixmUQY9rxJXK+g8PNIj4Zz/BKYmB5vkLR6auQS3q00iJXrPENK1otKx
- aK1glIcJu9dbE3ah7MUxRxHKTH967GML7Hez+ekE9pRjnZN85aXjQN8jxAwxt6+9wzC4LGTTq
- O0BijVK6QE9M0MLsNR2sGjuyA9xkWPmYvZh2gfXLrFZI5UQCYJxy9yW7NLRggKYXCDg8P3fG2
- QQqSPXXI0Vj6TY2bQlfVi1bxr0ymZ+dzTw+X6cCjRqvFZ2x0PCsqsQElQbVbfwNtNOyqogDBf
- Va+1Mot6PfoWB9ZRbFJNIhh1zCdYbzLvMsIgz3P/R+cmUAqGAWtrFx9UXYB8ndB5Cjgcx7w+/
- BZCRG+rhQOgSXdHqSCSgsd+9sB9S959LGQxKGt1YyaYSPYhErWrSSrOKZvquS6A+bFRA04KOP
- uWOdhsCEK0OxtyKxdSVHbWN1gLhynfWcxb1aYDAW+aBbIlYu8fQLdMpnn/Pyh/WofcOanQuld
- aWBFtMFosOER1liRNgf6SAVQhC0vCM8ESAVxXQnSqFKYVL2O4R/GfK21pRYOoN370RFBSzIsN
- ZCIPEi9Wf1Wal+TKZtbTLF7eK+ZEZNAUIWye6AMx+QfXWevb08jofPBeJw/dxeeZ5FihqdpP5
- diSzLw2hnoCctganibPT3vpKJTXIM0iQZ5Wxlcr01UnUGP7+Uw246rA+aoZIVekSDkQN2n1hL
- FJ+s/Kh5AIPmfFRqdoGJBkKzEO7deEeQymRWhi/7KyEogOfmakQCac+KxHNCDlY4z1jyPZj0v
- L/E6iwqM5BDbKPW2EDS1Cgs/R0pScB/0wLOGw76+jMklWlp77zGHTK5t/9H53e4p0q+p99iFZ
- rXSGeAMU0amf8TnJoNqI+DTwj7C/QChysdOgnH+FLCmEenIbfzOhPwKNouBzS+7e6h+X4MPjj
- 1xayM5REhkq1POCmR6KYURTAFGwBhdVuRdwRH+0BoAHKEqTbOk52wgEKaOv/5TysYUIS+YSRs
- ym9OSWBpkJYFE31nAnwv6svknt3Ho8kxXzDXmIgkFypHIahVpF+zZcDcgZ8x/6+ePdR/7kvG4
- 1JmDDIBdb/xbkAbQf7ldMIgv+7vZxooXD0Xn3SaVarigEy6+lQeNfTxMNRFeFcpa7PKaAMGEC
- LkVdf1hNU0Lxanph3c9Rfj8TbAMcJVJUPjG14XrfoQJ2A742wg6/MuWCVRvJWNjoxLP3aYyoE
- O4s3yur1PRXWS6J5B/zUd6BKJcOGuyWBAbE83SOeFrfsXi2h9Yd4NVlkirojsjZgDxu/BuAo1
- AdweGFrwKPo4XYlCbIdLdgaEsbX96tqrQMEyaqT7Tb3JxU7/V6MF3s+2to8/YDSLh6hwmMbun
- yZxVcGZKEZbX2uPQcN6M5L9mZvVLj4Iifv3O6Xy2L77vSgSqrTZSQonpJZPE1GVQYGMmdzCNS
- OonEUZt9edOyrQ1phfqrP6O5JC9eeFGAnO/3fy1VHht1wCZj+YzDxXmBTvM1Om5zUQf+7l4jg
- q84U5LqcTP2ijtyz2P4pqzOKwT/Z8JrKU9SWRE4SzIzOeBy8GEhJ1NQFLMiZQFF8hLeGbJZYX
- cHyTGai/s1SKy/Xmr/Mrm31pJnk97g0EUvUJsY/rZKEP/LF+OLu6DaqJ/Vt/k3cU4Ebf2SKGb
- fEe8GwIYDOU2x8HDx6+gJHzuQUZ6n9BInLStEEs5Z26SfYm4CuGD4/0nMr5wzrm0dQ2qGG6OP
- D67ES0u8rYJV2QEswf9/9rM22nicbboL/yxCcaxIq7KgeJhrlvgCX+tHW1r8ChVr6EWCLYaMZ
- +zaOW6HL2vxkNTTYMzgmNUvZZXYNTcngu12I9bb7M+ZkRWtfdM52GT085jP5EWJ7dPn57OGI4
- RQds3IpkQaXXVPFb8AsJkgokhEW761/yIR/9i536u23hrJlvdJSMp6ge0oURyw5wj4RZVGo4K
- 94355TLY2+eXjX2hTvvRdS48FqvhWfWEfm0MHbfBkh7VdTPmK1QnnheRlI7FLGukrXOYm94fc
- ZMyCWo9ANlfA+kRtxWizzvZqA5Nsg55+swLSlwpayWgGTWgKu3URLRgwv4G3b7/HtpsrbN+fx
- L4ZgQdcUD8xCvlt1Slw9ZMqwPA6Nex9MOldiSVh6XwocYCC5uVBS1F1awkCouxsBx/LxnrTct
- ekRjDwtuqa80jkuy2AgOqbLzkOZdpf55gH+Bwiy0TqbpWqAWe/jNDSUkrZJ6tMAwn3hGcqPl+
- 4dWfZyRkuaiJsSCt5fmedy6MTvTkFunN7OKdj8++VWlbFuzeMdT1nJ6z0onZjX3jglx4EsvJP
- 6kW3RXz7
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMT3bQS0woDM92U/NKknFTdksQCXQsDI6CsQUqqsZGxElBfQVFqWmY
+ F2MxopSA3Z6VYiGBxaVJWanIJyDSl2loACo0QQHoAAAA=
+X-Change-ID: 20261104-ft5x06-double-tap-8022020de323
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1258; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=pzSw6TKmONM6czBm61/vbfVAdGJHk+kTaSJEbz59twU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq6ytM/Owsjy5J6firfogdWwPvKt+ZEZb8PK7um
+ 529GuYtDsuJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCausrTAAKCRBgAj/E00kg
+ chBsD/0YUwsWoetDiBLm9SRyuFDq/RO6ukE3DxRxLUgI7ht59clz+7UKoMKfrwC5SMJWI3CL4x+
+ YujCy4QgbLfQW1KwV+tR8eZkoDf6Qy6okZbNBRR1qKQZBeE0cFdXPVXYVCQvPtT2gqwQtuUxkoq
+ IZO9VNp5YBcuWMGcwJyh+quufE1lvkfOUQB4+gBtw6jRirm3gdAUOixoMZtvcHsuAnZYgKcv9ND
+ rC8G/djBpzK3qOCwzGLXFYyedgl2/XbABbmKoIjiMDl6HdBiSateeZuphC/+GM/M8/cyVmPrfiO
+ IPoO6sHE/EwA5HnERE6xd/czgqLqGruI6H5/4bNl5B+izcGLLt7ZLPOAZTBFEcaOfq/YfNYo7mB
+ N6FiJdWQ6gkhD5Jw0HZB6ErihUpK5+LpXgBO4tAMJTUqzcA59HCRGeIAZ35t2zMz8or/9p9NfJU
+ J1epB0Pq9BwUmqVrzejfiwS9uubHiLfzDj0GC8nCvamEbFLYxMGM19kQrLW0yG1ETbsxCjupZW/
+ 1blNrGbIggErc+bHW2etFmqL78GbMRqtInIS+WSUIdkjZ6DmNDrNPZBRki6jLsQ1L8UaUUIxRW9
+ 7jeZnFgiMhgQ4ZAGo+KbV/k3wDK1hva+sYq5PEd7OcPBTJrF309nNUM/7uteCDHJo3S9IaT4aYt
+ r0EqJWOJzgyyMrA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+
+Sending RFC just to validate if this would be the correct approach to
+implementing the tap toi wake functionality
+
+I've tested this patch, it does wake up the phone.
+The second assessment is let device shell to react to double-tap input
+device when phone is only in screen-off mode, thus the second input
+device to bind to (when touchscreen is in the runtime sleep).
+
+Feel free to skip detailed review for RFC v1, I'll polish the code for
+upcoming v2 submission, after design discussion and approval.
+
+Thanks
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+David Heidelberg (3):
+      dt-bindings: input: touchscreen: edt-ft5x06: Add wakeup gestures
+      Input: edt-ft5x06 - Add wakeup gesture support for FT5452
+      arm64: dts: qcom: sdm845-shift-axolotl: Wake the system on a touchscreen double tap
+
+ .../bindings/input/touchscreen/edt-ft5x06.yaml     |  37 ++++
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts  |   6 +
+ drivers/input/touchscreen/edt-ft5x06.c             | 205 ++++++++++++++++++++-
+ 3 files changed, 244 insertions(+), 4 deletions(-)
+---
+base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+change-id: 20261104-ft5x06-double-tap-8022020de323
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
-
-On 04.11.26 13:36, Kory Maincent wrote:
->
->
-> On 11/4/26 13:20, Jonas Jelonek wrote:
->> Hi Kory,
->>
->> On 04.11.26 12:32, Kory Maincent wrote:
->>>
->>>
->>> On 11/3/26 23:03, Jonas Jelonek wrote:
->>>> Use the optional VMAIN regulator power budget to configure the MCU's
->>>> aggregate PoE power limit during probe. Quantize the available budget=
- to
->>>> the protocol's 100 mW units and reserve exactly that amount through t=
-he
->>>> regulator core.
->>>>
->>>> The regulator budget represents the usable PoE allowance. Program zer=
-o
->>>> reserved power so the previous firmware guard band does not further r=
-educe
->>>> that allowance.
->>>>
->>>> Require a finite budget of at least one protocol unit when vmain-supp=
-ly is
->>>> provided. Program the budget before selecting dynamic power managemen=
-t and
->>>> ungating the ports, so enforcement starts with the regulator-derived =
-limit.
->>>>
->>>> Enable VMAIN before hardware initialization and register one managed =
-cleanup
->>>> action to free any reserved budget and release the enable reference o=
-n probe
->>>> failure and driver removal. Record each successful reservation immedi=
-ately
->>>> so subsequent initialization failures are covered by this action.
->>>>
->>>> Read the current budget index before programming the MCU. Retain the
->>>> programmed MCU limit on probe failure and driver removal, as reducing=
- that
->>>> limit to zero would interrupt ongoing power delivery.
->>>>
->>>> Boards without vmain-supply retain their existing firmware-managed
->>>> budget.
->>>>
->>>> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
->>>> ---
->>>
->>> ...
->>>
->>>> =C2=A0=C2=A0 +static void rtpse_mcu_cleanup_vmain(void *data)
->>>> +{
->>>> +=C2=A0=C2=A0=C2=A0 struct rtpse_mcu_ctrl *pse =3D data;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 if (pse->requested_budget_mW)
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 regulator_free_power_budg=
-et(pse->vmain, pse->requested_budget_mW);
->>>> +=C2=A0=C2=A0=C2=A0 regulator_disable(pse->vmain);
->>>> +}
->>>
->>> Following patch 4 logic, you might not want to disable the PSE control=
-ler power supply,
->>
->> I added it because of the requirement that regulator_enable() calls mus=
-t be
->> balanced with regulator_disable() calls. Accepting that this may power =
-off the
->> rail in theory, something outside of the driver would need to keep the =
-supply
->> enabled. Concretely, I'm thinking of "regulator-always-on". And all boa=
-rds
->> I've seen so far which can use this driver do not provide a provide to =
-really
->> power off the PoE rail. Sure this is no finite guarantee.
->>
->> What is the correct way? I see either droping the enable call too, just=
- relying on
->> that it is correctly handled outside of this driver, or I keep enable +=
- disable and
->> the continued delivery is ensured with "regulator-always-on".
->
-> Indeed if you use "regulator-always-on" it does not turn off the power s=
-upply when we call regulator_disable().
-> https://elixir.bootlin.com/linux/v7.3/source/drivers/regulator/core.c#L3=
-269
->
-> Does the PSE controller needs this supply to start, or is it only requir=
-ed to power the PSE PIs?
->
-> If it is the first you will need to enable it in the driver.
-> If it's the latter, you could describe it as the PI's regulator parent s=
-upply. An enable of any PI will enable this vmain regulator.
->
-
-The purpose of this supply right now is to have the budget defined correct=
-ly
-and let the driver apply it. The rail input and managing the budget global=
-ly
-across all downstream managers and PIs is done in the firmware. The physic=
-al
-rail on the board itself doesn't need explicit enabling, mostly because it=
- really is
-always-on. Potentially it might be used for more later, including referenc=
-ing it
-in vpwr-supply of PIs.
-
-So having regulator_enable() here in the first place is probably not usefu=
-l.
-
->>> this will lead to a power off of all your PIs.
->>
->> Is this enforced by PSE-PD or just based on the rail really being turne=
-d off?
->
-> If you call regulator_disable() on the main PSE power supply it will tur=
-n off the power rail which will turn off you PIs.
->
-
-Best,
-Jonas
