@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788227;
-	b=dL0YrwXI17T6gQOpJOl8eSCboYzrhRUF+IgYbp+dpAAjRJmq7tBBb3MUugZN1rbHEdhN
-	 AXgAt9kb8EG9djz9CEfGnSFiaqmSyKrxuXEwXH2XPv/V2pKmHW2mr1/RurqUu67a/c+y3
-	 EzJ8M0ce6tTzbnPeueUnb7LlXnBuSpqOJIKo1/BkFgXKqdLSCGIsSw0RHrh3QTL5j/reZ
-	 usF/WfWdOJj0prDbCTpeEdTkKCPhz91Abol3nj/i0WD8w5FGECQQ6BbYTrfOB3Y5npQds
-	 K+nbMYQ6tqUUrpnklzqXpHMwFee/pWpXj6hisDkXoIheJ/HjoWNRw7+wGkaJIyhDekA==
+	t=1793788294;
+	b=QizCOI2qtWh5StRdbiEWsQsuQonctDyLYNms4p1fpNt89WUGTR55/xf6nFT4xDPNS/Hh
+	 pzwralMtZEArEoA/fwH1OC4Wk8F6ImuvJT7QAsmCmiR5vCtmspLm0cIXkxRyAxXjVSkYv
+	 QZwk+rks8Au/2vlDM75PKwcUev5JGjW+oB7Ji2ShufzVpIjYKXaz4MCIWrP2xTJn2zrso
+	 lUdMYQs0gddnWdGV14qTF6FVTdCGee53vM4306F5uyOPqy8axeJWBDcqMZ93j5GV0yrQq
+	 9O93kmDm9LlXuGVEvOS8i6A/TqOiHwC1hLpvNzTBhP0Mixk2LW3Jk1Qg40RQ8nFRKiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788294;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6XQw3zibaKqqpkbbYpdr8M7vZmcUn7VXCPtT1zKpVLI=;
-	b=j1H1sEatiqb2Cin4A2JFKw9nUG7gaDgccKZICPHrTL5wgQVasi2ow62l7+yP4pb3bRaP
-	 IEzHZOCuyk0FZQqnbGd63RCgaMThssDP9duJooP0cnv+uXe49oalMBi3TgjUWfbHU3IkH
-	 /gazDRarQUHtawgA8ioZK32A4AHjQ0bpiiOhI2MyDIvj3cSidC5+gNlcfZv6uofp6/PhA
-	 2lcfHbty6e/ZsVIaZYxWMyvFAiez9FhqtZfdp5nDV2883NuM/GFp5Pf1CAIcCuRBt5uMD
-	 8jYNFL05gu3hgkwNhmiWkHWIjdK97uss3aBuEmzhtlFiSIZKecq9O4j9/urIylFZT4Q==
+	bh=RKVbe5wtyaqbdsS8/HbDxH4t9plMOA4+bl7LHbj9uH0=;
+	b=cP8CY6TCp8Uf0Il6asVA0ApenQ1MRRyiyvFn477MbloLo/8u3f3xdrF1+7kcHwOp6XYs
+	 CTL6K1m0zqqiu3GRz8ZSJbHILcYYhZN0yydNxztpE25YFPIRvpmlABu/F1WXw8mIVmud2
+	 lOiZct13J/ENe+7Pn7YUMUAmoddl0ItzscKaRXzS/DSObGrpkW3Xs5u1fnnFw/+l35HE5
+	 ZAxy88GDF3V2xdJujlSyHEurQXTic3E19Hhu2Pgocexc6W5qONY7TIptv8Sd/rXiu2jI8
+	 hCMBX88OklGpLoVWPTfFpVOUNhuZ9C00mB1Tkrybw3Dfg/oLJfp64+D5ialMM/JG26Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhU8l6DV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNiFsKk5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4D8606A326;
-	Wed,  4 Nov 2026 10:30:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713CD606A326;
+	Wed,  4 Nov 2026 10:31:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhU8l6DV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55991F000C1;
-	Wed,  4 Nov 2026 10:30:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNiFsKk5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05AF1F00A29;
+	Wed,  4 Nov 2026 10:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793788226;
-	bh=6XQw3zibaKqqpkbbYpdr8M7vZmcUn7VXCPtT1zKpVLI=;
+	s=k20260515; t=1793788294;
+	bh=RKVbe5wtyaqbdsS8/HbDxH4t9plMOA4+bl7LHbj9uH0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XhU8l6DVgoXFDCGpA9dD5djco7w48DvID9LijKPUQT7Qg1HYZAYBe/gbxb5ziquVK
-	 615Ekjw6fa69msxvRHwG9DgI11fUDd1unnN+l7iPCyLS3+1hFMKLDNhOWn+j14owsA
-	 8J1iLGIa/6FwKXUHFpeG/2MMkDOTRS1H5b/m2ycTWUlZndgeg6HJrJMH4Go5jkahpY
-	 uaDJYn8DXHNnuQU7cJzpldjK5y5E3l1vQW0U2gtwV658lBtR6GnqsaidSPH/yIZW1P
-	 WVzetxP2BO/8zmq2a6T6ryH+iRogvDqu0mJzWXCyCUaVJODSuzGxJnG8UMUiSE2N61
-	 JzYYF4aaA5jjQ==
-Date: Wed, 4 Nov 2026 11:30:22 +0100
+	b=BNiFsKk5EddmshYubBEFa4JaZYePkjiGsNL3b/iWP/6a1xZ/Dba43ghaXEc1ZdLSK
+	 eCTcqEKKQ7IJNnoS94Ntu7XicSYRVqNgn4Odbvy7kmxVZfjTegG9MMighktixbJ2xz
+	 XtySR+p7+ljRUBXDE18+yTSgGCfCZ74uxOxTOZAJBJ92nGZa0I9GXgketKl4PIg/OJ
+	 CB3LiA84oV/ae6cr8zodF8pwzwCzQCPW7vKNH4EYK28EMvNjAlctkEiYq3PyU23fhy
+	 V7zoJTiPwRr7G/SSS6Vzu2YRIuCDO8sXCf9/Bpr69mLQW6sy/q+Lj/4CCkY3gMS5UZ
+	 Fv9fLgrqvKqXw==
+Date: Wed, 4 Nov 2026 11:31:30 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
@@ -47,11 +47,11 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
 	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v6 5/5] arm64: dts: qcom: sm8750-lenovo-elden: describe
- the WL2868C regulators
-Message-ID: <20261104-elfish-booby-of-awe-27d2b6@quoll>
+Subject: Re: [PATCH v6 3/5] dt-bindings: arm: qcom: document the Lenovo
+ Legion Y700 Gen4
+Message-ID: <20261104-offbeat-cerulean-degu-cfec1b@quoll>
 References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261104032648.209747-6-xiaqinghuan@mail.ustc.edu.cn>
+ <20261104032648.209747-4-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,37 +63,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261104032648.209747-6-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261104032648.209747-4-xiaqinghuan@mail.ustc.edu.cn>
 
-On Wed, Nov 04, 2026 at 11:26:48AM +0800, Qianhui Xu wrote:
-> The camera devices of the Lenovo Legion Y700 Gen4 are powered by a
-> WL2868C camera PMIC on i2c10: LDO1 feeds the rear sensor DVDD, LDO2 the
-> front sensor DVDD, LDO3 the front sensor AVDD, LDO4 the rear sensor
-> AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of both sensors and the VCM
-> VDDIO, all at fixed voltages including the offsets programmed by the
-> stock firmware. LDO6 is not wired out on this board.
-> 
-> i2c10 is a GENI I2C controller inside the qupv3_2 wrapper, so both
-> qupv3_2 and its gpi_dma2 parent are enabled alongside, otherwise i2c10
-> never populates and the regulators would never register.
-> 
-> The VSYS input of the PMIC is the always-on system rail of the tablet
-> and is described as a fixed regulator. The VIN12, VIN34, VIN5 and VIN7
-> inputs are fed by SPMI PMIC rails that are not described yet, so they
-> are left out and follow with the board series that adds the PMICs.
-> 
-> The consumers of these regulators (the rear sensor and its VCM on
-> cci0) are not described here: the CCI controllers are being added by
-> Hangxiang Ma's SM8750 series, and the sensor nodes follow with the
-> camera series that depends on it.
-> 
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> ---
->  .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 79 +++++++++++++++++++
->  1 file changed, 79 insertions(+)
+On Wed, Nov 04, 2026 at 11:26:46AM +0800, Qianhui Xu wrote:
+> The Lenovo Legion Y700 Gen4 is an SM8750 tablet that ships with the
+> lenovo,elden board compatible. Add it to the SM8750 section of the
 
-I do not understand why this is a separate patch. You add new hardware,
-so the commit is "add new hardware". One logical action, one commit.
+Board cannot be shipped with such compatible - it's first time usage
+here. "Add Lenovo Legion Y700 Gen4, an Qualcomm SM8750-based tablet".
 
 Best regards,
 Krzysztof
