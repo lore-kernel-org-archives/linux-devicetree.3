@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793815662;
-	b=DHEb/cuABg5E3iIdbJq1dAOPz1fQAu36sDuljSzYpSaBzfURsgHkjbP5YfNnQBzP7bw+
-	 yE0L7lraujFRDhj5zOM8BIbmMJ2s6JFciEezT619Q5jD+xFcHGEpLCZyFaum8qFj/yPqm
-	 Bv/ZVHiFoJKa9XNipQOmfWVcEb/3QdR2zQ3DMXVwBUkamRsjk5czJT1lz78PNvqRdRs8a
-	 GJJdU+pKDGg51UH6pH9GrwWSrvSxLI3k6wMkGSmKeS1xUYRcdsOyMLZ6qjTgbhxW1V2k6
-	 f6+hxCLy51uSTJwV3Rsq/ZZpDjkZamSXbJ1+EWiiaWzVQ62r0lNb/WnMuKody6LIXQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815662;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LmnPYKYK78q2tWSR28YMGbalwocf0PixP0/EBiHtZXE=;
-	b=eyUQMtuq+np9uk+/xZkEo/0N8KomV6iDeoorc1sPcSKgsJgIMB+BuUILr+scgCa0snzD
-	 h6igCL+JwpN+DLYUFCSxTSd2A0QlY+CDWLpr8XWt5cbkMy6VAI1Af+VvGlDbIFHM6MUaz
-	 jsGAUCWF87aDKUkIvNF8n8qcX4w3wRCaI96C5Fnk5l9cljYHhNwuuPLnd5rrQZHDLAekT
-	 Gn8NgGl3goHqkinpgQMQOX9CDN+iNwpTCR4KpNUR04Ct83TK7Q2MovrX2FrGd47ZyhKsU
-	 TyZySiNEHjCAmVouFuP3vvVNrF356epH1q16w4dBkvMN52lYiBcwvvHtyxSAQRlwRcQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JbTaGBYb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793815842;
+	b=D2EIfMH81zxTMo3ZU2MUu4H8XnqtPwteIIEZNq3AsP1jmVhWiKrBfM76jUCgiH9T7YG8
+	 0AWDi699XtEUz80wBfE2C9rp6Wk/hFbTXZoft2Z9GXmOafZdAiDAJ3DktvKtINLRU+HhS
+	 OsgIPv6ooM62P7C/KNWxeUGAJFmA3CHmq3dMRvwSv363UjINQXHAUw1fK8uQBdkhSbu3X
+	 Oqso6mf4Q70Iigwja5b7JzHm+QVdPrEpMzLAzAz0Tl+MYBcV6nkpi2IztKk8BLUSIqhCF
+	 H623z76wf5HKyE11j+tknOeX1A60lKtNvI/5B4wGzISZi+7B4Ei35qTanquGPRi43Jw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815842;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:MIME-Version:Date:From:
+	 To:Cc:Subject:In-Reply-To:References:Message-ID:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9WkmYf7R4SGzBZAROx5aLx/oJoqChBMmnepUumVTYnk=;
+	b=wqJG9Fi0oeolc+RsJBjmf6lcZo0p2EUsEqZGzwp1hQrPLq9lLi7mlWLnpjmTJrYgDCin
+	 nYoWoIlcP7why7igDwlFM9+y1F+CgQHKpiI7hwhGJwz4j4R/W0NnqanXGsuINCyuSkbEO
+	 YNg3FV7qvU9CgEuzHh5jATbAowMI3FlY2Ht7y5FSZ77dL7381Qmlk1n3G8uI+5sLRPalU
+	 J0v9OuNTyfrKZAU3hjtuRgYY/jdLAOJ8BuOveAOq0Lfj4KcmfCdfHuBsj8WRxIKeUrHw5
+	 PGzwn/JsaI9g9ajbGmp9Go8rHenDsI5NUpf/gSeEEmvkgwq2czHkdoexCGqgMrROsEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=posteo.net;
+	spf=pass smtp.mailfrom=posteo.net;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OF6qrx+w;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA83660703D6;
-	Wed,  4 Nov 2026 18:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D95606A6A2
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34D95606A6A2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JbTaGBYb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793815661;
-	b=VNl5ERZk0CYWbmlDpsJcU7WVpvgPLUIhpWabQwBAIc6VHjWsmK8nYJU62XQbS9t8IEDr
-	 EEXfhs2DrZYE4u/e612+LgTZL+Uhe3sPZFHY1tGVVsVfL7vK0mMZzbSgJM1eF4uX8Zi5C
-	 p8dSL/l2Xda7zYmL0pbiIrU7Cq4vpXlYWcDq0zjIdUbNuxg/9oy3TkzhYFB+8QF7tnK/6
-	 5sa9H6hId663Y2YwYIT/NJmryUTNQaZKedxE6YEfeQEEoDjFEUBBxCAIkjiTY6mbdKgk2
-	 PAPJlZk28ld2499zSGxCITusZbMfkBlP/jjE5rZDVTGd8MUU29yagxM+08mpHCvuKmw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793815661;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LmnPYKYK78q2tWSR28YMGbalwocf0PixP0/EBiHtZXE=;
-	b=C7kVZyr8pgRiDxHxdKqO0TTcNLkKoiSDVB76/DPl+Df8/7UG7tTb7ik73mwjil5komA3
-	 BNn8WSWDs861AGT3qPbO7no2JW23oSz1rCr3sMj2/QSoDgOzYTeZJ8lVLGsDy01XR+Q+s
-	 0a1NAlMw2OMdG+y5iAuw1eG29miv/iiUqpQMSxBrz/8Wwq047G/qMHIuvNpfzSrIeb6U0
-	 6TK9vQb8vJTIeRlY6w6cWeNwvQ5cJjBDk7qoJjNLDMyeER44a9AasOw0fROs4/vxqFGP0
-	 lylzLy2atkA1Uym6jMwek9qXlM2k8+0I7ip/BpaU5S0vpopwv0bqiXzsYTTHadMpdNg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 63D2C1F00919;
-	Wed,  4 Nov 2026 18:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793815661;
-	bh=LmnPYKYK78q2tWSR28YMGbalwocf0PixP0/EBiHtZXE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JbTaGBYbAQ+q6nNM8d5ngz/0L6V47o/1Mzvo8ZIRekXsdLsj9gLGZUq8162aLhsty
-	 Y4oyKA8frw0O/X/Slj+cKKfiFSIAjOzOp08JXj0xZHnibOcRTC5YMIYVCU+psBeJK9
-	 kBvMlz8EZmXtLaVb6PPoI+bLtqm6qsitqxU7FYvFclPUTBV+hHqwWv09GmdHtsrxtk
-	 53Obqsra2FC1G6NDDWsP25sXTp0zrkCYXOd3CxpjmfOwxso2++nOnLGoQ0aekhwmL0
-	 o1mm3EtT6bXr0smYj1BdU1KcCvgnf9VazqQ6bmdS+LI/bzVkMNf7N7+jCIkqG6ULOL
-	 ALyu9hKfp+WGw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DB67546F0D;
-	Wed,  4 Nov 2026 18:07:38 +0000 (UTC)
-From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Wed, 04 Nov 2026 18:07:10 +0000
-Subject: [PATCH 2/7] clk: qcom: lpassaudiocc-sc7280: Add SM8350 audio CSR
- resets
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OF6qrx+w
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 83DB3240104
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 19:10:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1793815838;
+	bh=9WkmYf7R4SGzBZAROx5aLx/oJoqChBMmnepUumVTYnk=;
+	h=MIME-Version:Date:From:To:Cc:Subject:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=OF6qrx+wODiEsY1kg24OzHlmcY2J44GmixT/URw+Uy5VIKGWpJNE4lPIzbf2cFLm/
+	 Z+1wptDWDG9bE6XRM249mIGrFXML9cOMdFAAx0AXXY3XxqgOP1RIdYu+Bc5tlrkLA+
+	 cRcIOgaXaKt6PIet5xGHw6S85D+Krwh7O8KvduIrzB6LTDDrt2XtN/QuAul5MHtMNy
+	 aJKd/8671w5XeTM4zQ2/wbHVuivELjBqUK3IrFHClTuHTPGiN9sicwsomGJsD3tJz3
+	 CwVYHTFXWzPaQ8KTarQkS8fEPViApMpgRdRNyCpZsGqJthE9UZzGc5oANGK5WpeHGb
+	 au9fPBHkeuUMA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jKYQN2xfgz9rxN;
+	Wed,  4 Nov 2026 19:10:36 +0100 (CET)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,69 +59,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-b4-sm8350-sound-v1-2-4c872df294fa@fromdisposition.org>
-References: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
-In-Reply-To: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, Demeter Barna <me@fromdisposition.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793815654; l=1525;
- i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=9ar4otrhuYQUlNK6qRIwOBsUEsXsIX335tkvdLVMcZo=;
- b=/Hbg+9HRwmhfM8q7TlfagS8ExqCph3R6R3NK7WGlxODcHKRVYPD9jIYDv9dMmQWKwbROOH8K1
- Dp0MC+QJJyXB8BJ7d1L5055yvNzi/UhfK8fl/suYi9lZgo7eLp1SpyX
-X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
- pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
-X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
- auth_id=1163
-X-Original-From: Demeter Barna <me@fromdisposition.org>
-Reply-To: me@fromdisposition.org
+Date: Wed, 04 Nov 2026 18:10:37 +0000
+From: mateusz.nowicki@posteo.net
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-watchdog@vger.kernel.org, Julius Werner <jwerner@chromium.org>, Evan
+ Benn <evanbenn@chromium.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Antonio Borneo <antonio.borneo@foss.st.com>,
+ Marek Vasut <marex@nabladev.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/3] watchdog: =?UTF-8?Q?arm=5Fsmc=5Fwdt=3A=20allo?=
+ =?UTF-8?Q?w=20a=20list=20of=20SMC=20function=20ids?=
+In-Reply-To: <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+ <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
+Message-ID: <37f9e5e73070972f224583bc1581e400@posteo.net>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Demeter Barna <me@fromdisposition.org>
+On 11/4/26 Guenter Roeck wrote:
+> On 11/4/26 08:16, Mateusz Nowicki wrote:
+>> My earlier patch, commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id
+>> of the SMC watchdog on stm32mp2"), switched the dtsi to 0xbc000000. 
+>> That
+>> made the watchdog work with current OP-TEE, but it broke boards that 
+>> run
+>> the older firmware. So today 6.18.y uses one id and 7.4 the other. 
+>> When
+>> the kernel and the firmware disagree, nobody pets the watchdog that 
+>> the
+>> bootloader started, and the board resets after 32 seconds. Marek hit
+>> this even with a recovery kernel, which is about the worst place for 
+>> it.
+>> 
+> 
+> So the DT on the board is updated to use the new ID but the firmware 
+> itself
+> isn't ? That seems a bit odd; I would have assumed that the DT on a 
+> board
+> is kept in sync with its firmware. Is that not the case here ?
 
-Without these resets the codecs on the SoundWire buses fail to
-initialize. The offsets match the QCM6490 reset-only descriptor, but
-the SM8350 node only has the CSR region, so probe it from index 0.
+Not necessarily. On these boards the DTB is built from the kernel tree
+and installed with the kernel, U-Boot just loads it from the boot
+partition. TF-A and OP-TEE sit in the FIP and are updated separately, so
+updating the kernel alone changes the ID. That's how Marek got hit: he
+updated OP-TEE, but his recovery kernel still had the old DTB.
 
-Signed-off-by: Demeter Barna <me@fromdisposition.org>
----
- drivers/clk/qcom/lpassaudiocc-sc7280.c | 4 ++++
- 1 file changed, 4 insertions(+)
+>> The idea from that thread: let arm,smc-id be a list. The driver tries
+>> the ids one by one and keeps the first one the firmware accepts. Older
+>> kernels only read the first cell, so they behave exactly as they do
+>> now. For stm32mp2 the list is <0xbc000000 0xb200005a>. Calling an id
+>> that belongs to some other firmware service would be bad, so the
+>> binding says the list may only hold ids known to be this watchdog.
+>> 
+> 
+> Would it possibly make sense to check keep a list of known IDs in the
+> driver ? It already checks 0x82003D06, so it might as well check a 
+> sequence.
 
-diff --git a/drivers/clk/qcom/lpassaudiocc-sc7280.c b/drivers/clk/qcom/lpassaudiocc-sc7280.c
-index 7e2172969..11332f9f0 100644
---- a/drivers/clk/qcom/lpassaudiocc-sc7280.c
-+++ b/drivers/clk/qcom/lpassaudiocc-sc7280.c
-@@ -732,6 +732,7 @@ static const struct qcom_cc_desc lpass_audio_cc_reset_sc7280_desc = {
- static const struct of_device_id lpass_audio_cc_sc7280_match_table[] = {
- 	{ .compatible = "qcom,qcm6490-lpassaudiocc", .data = &lpass_audio_cc_reset_sc7280_desc },
- 	{ .compatible = "qcom,sc7280-lpassaudiocc", .data = &lpass_audio_cc_sc7280_desc },
-+	{ .compatible = "qcom,sm8350-lpassaudiocc", .data = &lpass_audio_cc_reset_sc7280_desc },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, lpass_audio_cc_sc7280_match_table);
-@@ -768,6 +769,9 @@ static int lpass_audio_cc_sc7280_probe(struct platform_device *pdev)
- 	if (of_device_is_compatible(pdev->dev.of_node, "qcom,qcm6490-lpassaudiocc"))
- 		return qcom_cc_probe_by_index(pdev, 1, desc);
- 
-+	if (of_device_is_compatible(pdev->dev.of_node, "qcom,sm8350-lpassaudiocc"))
-+		return qcom_cc_probe_by_index(pdev, 0, desc);
-+
- 	ret = lpass_audio_setup_runtime_pm(pdev);
- 	if (ret)
- 		return ret;
+Fine with me, and it avoids the binding issue. I'd just rather not try
+the ST IDs on every platform, so how about making the list per
+compatible:
 
--- 
-2.53.0
+   compatible = "st,stm32mp25-smc-wdt", "arm,smc-wdt";
 
+with { 0xbc000000, 0xb200005a } as match data for it. arm,smc-id stays a
+single u32 and, if present, is tried first. Older kernels just match
+"arm,smc-wdt" and behave as today.
+
+If that works for you and the DT folks, I'll send v2.
+
+Thanks,
+Mateusz
 
