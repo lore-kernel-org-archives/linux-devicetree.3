@@ -1,86 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813377;
-	b=NY9kXrZH5kM2MGlcJU6NHSkmMjTOOWot+N6Q3ZVHPxi7TGQkva3/TwppQ0EMTHfYLSyz
-	 19eTfJ0fnxxgSckh4LI0AnkFOS9gaP64V4wcVILVc9X34f0YYNxmIduOfdVGK9LWUTslE
-	 3n63XR57Hr9Mb5HregSdMcOCJfRZ6hnuD2PD/BGZxR9/LAAjMU+35r2tmebZ2kGiPUHPm
-	 rg0jLDbqWKnF91MjTOoY7LDyUModRYK0zFISYp8s/UmJGyeovzAtr/HkZaz7iDlfjO3qj
-	 PKFQApEw/J+d9SwWo4UK4nlNH19fCu1jJrugxSEEn3x6WxgWU7qVGEM1mgzDqGOZoIA==
+	t=1793813476;
+	b=Lr44da7jEqYInw7K3z8KSe2uVfhZRMsW9Hov6gENVmDhz1qk493+lJBMtqr7twalZUHC
+	 2ZRcs5ZSzgWGhN20X2pXErmVKrveM+DQuqhhMa1KSa9bNaZ4ueP2lNvI9Txppje0zuVmu
+	 PHruoLPoPIu7UaOUmgD0DXUNJXhEyd5qjhh/YF+xMKRermSz27HFog+KX3kr0nnGXt83+
+	 DEvN0wytgaZ9Gtjx933xqF79rtFP46fRmYUVcuvj2mW51XgqYl641HdWQ5f5irdK1fd4h
+	 +if+PfqVFHk95beS/dixnYOwbjZGqZa9EqYOEnqg646Xye3zOTSLKeCT15aIdEEzqAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813476;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=uJi4hYqHGP5IAgvyHYUEblAka25d1awQGtmGQkKaaz4=;
-	b=bf0ZvfFc4rneE0ucZAFBS8SzxgF3VXd9bXjbQ1a6fGZFJpCnCz2HYWEokaPO1LlwGeoE
-	 z3IMyA5ooJWeQtC3Z2tQEYNukzN3R2TE8bRl8H0kWHFpRz9iCpteIV2OfEvjBO8+yMF4b
-	 SWYC8r4uCHprlGqHJWDOHVpebE1qR/gWTPWLsANkuDwuCAkx9pK6gw+q0JvUajNcJs6sZ
-	 eLMFahWorM4PjqvVWiLqr3odWluyUH6BbZmL5VgFHx828GNGv4AukyMjkfZYsKGpY07Is
-	 ZZJgZYZSdbs2Fk/TCv1JxvWltFfleJnxdXw0diBjDQkJsjdP/90tN6R4cAyUuDVtJKw==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=eEMB8r0budUtj3uGulxJe7mBeA6S1msIwjb4rAySSVk=;
+	b=hbS8THPCuK1pJQSG7ALX5kFlsV83YvkvN2zV3MFUvx6MNara0w4RecuWWoQPSnJAyZL8
+	 FJglRCLxRhE0Ovs5y+dQhLpZ+u1J7GImKUVgV2Rw5rAAr47+eJNhO9w8/NnpkdBq/doac
+	 1H7Jv0GcTV143NeSbvfv2b/6GBecRslNXdHvcOg8/+yltKxpwnJm4DhrQR0peJeCA8+zo
+	 pPUJ2YjkQnBoxJG5lkjgCmbtaD/UwYcFdYYY7AnWoM7nWuyD5Dir3G8D8FeYgthqHTfaN
+	 Q29+kakMvXMVPUOJwMLVHTwiPKr71R4UoHaKFoXIHLiX9P4wl9sT4sTMn/DQhhe7XAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Q7yIY8gF;
-	arc=none smtp.remote-ip=44.246.68.102
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MgBZ7EdZ;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC149606A330;
-	Wed,  4 Nov 2026 17:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC149606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F6E60700E7;
+	Wed,  4 Nov 2026 17:31:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20F6E60700E7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Q7yIY8gF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793813371; x=1825349371;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=uJi4hYqHGP5IAgvyHYUEblAka25d1awQGtmGQkKaaz4=;
-  b=Q7yIY8gFYFTUXo3s9Z9NlduFcgqfkCwEmrfy2Ws5F0CeSH5gNcO593wd
-   hykrRgvXoYrOPhlQGBYQVSAb/xZVd+ajuP877PiajcU+cvT/DXRGrAg/8
-   u9SkMvPGkx2bgKziVwlbTNXjL+SVMktp4WFTRNTM2ZwjNW48A7VD6HfiW
-   BorTtWT/qy+1N15hYclMh1pTYoThIO8D7/qR7demW4r6+DPaHvEFdEnE5
-   +YAseBXcjhSBniPXwHTTwXqTbsnnmFsczzfwiPrNKj8Vcbcxdl5zxCNhD
-   3XilLjK5JIpv5bFL22gWqcd81VjdiLk4PmQxZjDNJJIkrU+swvsQgz5yd
-   Q==;
-X-CSE-ConnectionGUID: 6W+PUdVtQv2THHiBY4ePjQ==
-X-CSE-MsgGUID: AoaYCeZWT3adgZW9rDeL7A==
-X-IronPort-AV: E=Sophos;i="6.27,195,1787011200"; 
-   d="scan'208";a="33017428"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 17:29:28 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26041]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.18.155:2525] with esmtp (Farcaster)
- id 4a128add-5d3d-4eed-bea4-ab07c1d644f8; Wed, 4 Nov 2026 17:29:28 +0000 (UTC)
-X-Farcaster-Flow-ID: 4a128add-5d3d-4eed-bea4-ab07c1d644f8
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Wed, 4 Nov 2026 17:29:28 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Wed, 4 Nov 2026
- 17:29:26 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Rodolfo Giometti
-	<giometti@enneenne.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Takashi Sakamoto
-	<o-takashi@sakamocchi.jp>, Eliav Farber <farbere@amazon.com>,
-	<devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v7 4/4] pps: clients: gpio: release pins to an inactive state on remove and shutdown
-Date: Wed, 4 Nov 2026 17:29:12 +0000
-Message-ID: <20261104172912.26456-5-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104172912.26456-1-farbere@amazon.com>
-References: <20261104172912.26456-1-farbere@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MgBZ7EdZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793813474; x=1825349474;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=m4SPikyWXZLxiPSXE01IVVLmm0cbn4Cy/WXBcIsyOMs=;
+  b=MgBZ7EdZQVySHNUPLqQ7+dMLmPbfqyBXcWaeE33tm/dAcO8UoL70fiJ9
+   OvznilhRW1f8MIi3poIFOErr94ehUdhBm7u6EvxJmkgEw+JKHigtSBeHQ
+   CgN0b8Y+NO0ObFjzDTGQid/l7tJ9AaPD4kVUak1jyvULxxW2SX3xSpAay
+   PhVG8EI1hS0Bmu75XjtO9iDqy2D8e7YTs7Fgv9NjvhJatunYLcABQwQvg
+   3GYhfu3s/Lmitkp77JWdqE+OSijOY72Rxhs/FmIJX6l1hxqmTnlEkLQX/
+   LsO3tidV4FDnUoivgb7h+lwFDJfmq/ct7nq43IbiXqzV+KrdnvqxJgkva
+   g==;
+X-CSE-ConnectionGUID: YTXjr7k0QS2SWzHb6s/CQQ==
+X-CSE-MsgGUID: ZD88bbL7RDueOOcwVIv4jg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2458172"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2458172"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 09:31:13 -0800
+X-CSE-ConnectionGUID: l5z61l+QSJ2Zl7Xes/bhZw==
+X-CSE-MsgGUID: U8j/Qh3jQ3G6t95yNbxQew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6676151"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 09:31:11 -0800
+Date: Wed, 4 Nov 2026 19:31:08 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Christoph Rudorff <chris@rudorff.com>
+Cc: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] iio: light: gp2ap002: add led power supply
+Message-ID: <autr3DH6UZLY_ys4@ashevche-desk.local>
+References: <20261104-iio-light-gp2ap002-v4-0-fa1cbaad2ce5@rudorff.com>
+ <20261104-iio-light-gp2ap002-v4-2-fa1cbaad2ce5@rudorff.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,321 +87,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-iio-light-gp2ap002-v4-2-fa1cbaad2ce5@rudorff.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Some boards route the PPS input GPIO through a pin controller and need to
-mux it to another function when pps-gpio is not driving PPS. The driver
-core applies the "default" pinctrl state before probe, so the pins are
-muxed for GPIO/PPS use while the driver is bound. Nothing, however, hands
-the pins back when the driver is unbound or the system is shut down, so
-they stay stuck in the GPIO function for whatever runs next, kexec
-included.
+On Wed, Nov 04, 2026 at 02:02:28PM +0100, Christoph Rudorff wrote:
+> Problem: no irq received. Not working.
+> 
+> According to datasheet page 8 "Recommended external circuit",
+> it got tree pins to supply: vio, vdd and vled->leda.
+> 
+> We were missing to power the led (pin leda)
+> 
+> * add leda regulator
+> * use regulator_bulk_*()
+> * pretty up set voltages
+> 
+> Tested on samsung-j5 (msm8916)
+> 
+> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
+> 
 
-Look up an optional "inactive" pinctrl state in probe via
-devm_pinctrl_get() and pinctrl_lookup_state(), and select it with
-pinctrl_select_state() in remove() and shutdown(). The state is looked up
-and selected by the driver itself rather than reusing the runtime-PM
-"idle"/"sleep" states, so its meaning is unambiguous and it does not
-depend on CONFIG_PM. Boards that do not describe an "inactive" state are
-unaffected.
+Missing '---' cutter line which makes this patch invalid and it may not be
+applied (your SoB should be a tag and it should be last in the chain; you may
+conduct an experiment, take the message ID of this email, run on a clean Linux
+kernel Git repository something like `b4 am -s $MSG_ID; git am ...` followed by
+`git log`, you will see the issue).
 
-Since "inactive" is only meaningful as the mux to restore after the
-core-applied "default" state, reject an "inactive" state that is not
-paired with a "default" one rather than releasing pins that were never
-put into a defined PPS state.
+> v2: Use regulator bulk api.
+> v3: pretty up, rename vled to leda
+> v4: add namespace "GP2AP002", use separate value for setting vdd,
+>     moved static supply-data back to global, more readable imho
+> ---
 
-Look up the pinctrl states first in probe(), before pps_gpio_setup(), and
-route every subsequent failure through a common err_release_pins label.
-The driver core applies the "default" mux before probe(), so a probe that
-fails after this point would otherwise leave the pins stuck in "default";
-releasing them to "inactive" on the error path is the symmetrical
-counterpart to what the core did on the driver's behalf. A failure in
-pps_gpio_get_pins() itself returns directly, as no state was taken yet;
-pps_gpio_release_pins() is a no-op when no "inactive" state was found.
+...
 
-Convert the pps_register_source() failure path to dev_err_probe() too,
-so all three probe error paths that share err_release_pins log the same
-way. This path already returned PTR_ERR(data->pps), so this is a logging
-change, not a fix.
+>  	int num_chan;
+>  	const char *compat;
+>  	u8 val;
+> -	int ret;
+> +	int ret, vdd_volt;
 
-The mux must not change while something can still drive the pins. On
-shutdown() the requested IRQ and the echo timer would otherwise outlive
-the mux change -- device_shutdown() is not the end of the road, the
-kernel keeps running to load and start the kexec image -- so a timer
-callback or the PPS handler could poke a line that by then belongs to
-another function. Tear down in the same order as remove(): free_irq()
-first, then the echo timer (only when the board has an echo GPIO, as in
-remove()), and the mux change last. shutdown() does not unregister the
-PPS source, which is a remove-time concern.
+Don't mix semantically different variables on the same line.
+Try to keep reversed xmas tree order.
 
-shutdown() is registered unconditionally, so it also runs on boards that
-describe no "inactive" state. There the mux change is a no-op, and freeing
-the IRQ and stopping the echo timer buy nothing, but they are harmless at
-that point and keep a single teardown sequence that does not depend on the
-pinctrl description.
+...
 
-Signed-off-by: Eliav Farber <farbere@amazon.com>
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
----
-Changes in v7:
-- Commit message only: note that shutdown() also runs on boards with no
-  "inactive" state, where the IRQ/echo teardown is harmless but not
-  needed (Rodolfo Giometti). No code change; tags kept
-- Add Acked-by (Rodolfo Giometti) and Reviewed-by (Linus Walleij)
+>  	if (ret) {
+> -		dev_err(dev, "failed to sett VDD voltage\n");
+> +		dev_err(dev, "failed to set VDD voltage\n");
+>  		return ret;
 
-Changes in v6:
-- Convert the pps_register_source() failure path to dev_err_probe() +
-  goto err_release_pins as well, so all three probe error paths sharing
-  err_release_pins log the same way. It already returned PTR_ERR(data->pps),
-  so this is a logging change, not a fix. Fold in here rather than a
-  separate patch since this block is rewritten by this patch anyway, with
-  a commit-message note (Rodolfo Giometti)
+Unrelated change.
 
-Changes in v5:
-- Resolve the v4 probe-failure open question by taking option "A + keep
-  the NULL guard": look the pinctrl states up first in probe(), before
-  pps_gpio_setup(), and route the pps_gpio_setup() failure through
-  err_release_pins too, so every path the driver can act on restores
-  "inactive". pps_gpio_release_pins() keeps its NULL guard, so it is a
-  no-op when no "inactive" state was found. Verified on the AL11 K2V6
-  JRD10 with a forced-defer test: the pins are released to "inactive" on
-  each failed attempt, the core re-applies "default" before the next, and
-  the mux settles at "default" on the eventual success, with no spurious
-  PPS event (Rodolfo Giometti)
-- Clear data->pins_inactive when rejecting an "inactive" state that has no
-  "default", so a board deliberately rejected here can never have its pins
-  released to "inactive"
-- Guard the echo-timer teardown in the new shutdown() with data->echo_pin,
-  matching remove() after the preceding patch (Rodolfo Giometti)
-- Convert the gpiod_to_irq()/request_threaded_irq() error paths to the
-  log-only dev_err_probe() + goto err_release_pins form, following patch 1
+>  	}
+> -
 
-Changes in v4:
-- No functional change (probe-failure raised as an open question, now
-  resolved in v5 above)
+Stray change.
 
-Changes in v3:
-- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl", not a probe
-  failure; keep propagating everything else, e.g. -EPROBE_DEFER
-- Restore the "inactive" mux on probe failure via a new err_release_pins
-  label
-- Warn if pinctrl_select_state() fails to apply the "inactive" state
-  rather than silently ignoring the error
-- Trim and de-duplicate the added comments
+...
 
-Changes in v2:
-- Rename the released state from "idle" to "inactive"
-- Look the state up in the driver with devm_pinctrl_get() +
-  pinctrl_lookup_state() + pinctrl_select_state() instead of
-  pinctrl_pm_select_idle_state(), removing the CONFIG_PM dependency
-- Fix shutdown() to free_irq() and the echo teardown before the mux
-  change, matching remove()
-- Require a "default" state whenever "inactive" is present and reject the
-  mismatch
+I stopped here.
 
- drivers/pps/clients/pps-gpio.c | 121 ++++++++++++++++++++++++++++++---
- 1 file changed, 113 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/pps/clients/pps-gpio.c b/drivers/pps/clients/pps-gpio.c
-index aec534c246af..e6d39ca6777d 100644
---- a/drivers/pps/clients/pps-gpio.c
-+++ b/drivers/pps/clients/pps-gpio.c
-@@ -17,6 +17,7 @@
- #include <linux/slab.h>
- #include <linux/pps_kernel.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/pinctrl/consumer.h>
- #include <linux/list.h>
- #include <linux/property.h>
- #include <linux/timer.h>
-@@ -30,6 +31,8 @@ struct pps_gpio_device_data {
- 	struct gpio_desc *gpio_pin;	/* GPIO port descriptors */
- 	struct gpio_desc *echo_pin;
- 	struct timer_list echo_timer;	/* timer to reset echo active state */
-+	struct pinctrl *pinctrl;	/* pin control handle */
-+	struct pinctrl_state *pins_inactive;	/* pins released when unbound */
- 	bool assert_falling_edge;
- 	unsigned int echo_active_ms;	/* PPS echo active duration */
- 	unsigned long echo_timeout;	/* timer timeout value in jiffies */
-@@ -96,6 +99,68 @@ static void pps_gpio_echo_timer_callback(struct timer_list *t)
- 	gpiod_set_value(info->echo_pin, 0);
- }
- 
-+/*
-+ * Look up the optional "inactive" pinctrl state. It requires a "default"
-+ * state (applied by the driver core before probe) and is rejected without
-+ * one. Absent pinctrl, or an absent "inactive" state, is not an error.
-+ */
-+static int pps_gpio_get_pins(struct device *dev)
-+{
-+	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-+	struct pinctrl_state *pins_default;
-+
-+	data->pinctrl = devm_pinctrl_get(dev);
-+	if (IS_ERR(data->pinctrl)) {
-+		/*
-+		 * A DT device without "pinctrl-0" yields -ENODEV, which
-+		 * is not an error here; propagate anything else.
-+		 */
-+		if (PTR_ERR(data->pinctrl) == -ENODEV) {
-+			data->pinctrl = NULL;
-+			return 0;
-+		}
-+		return dev_err_probe(dev, PTR_ERR(data->pinctrl),
-+				     "failed to get pinctrl\n");
-+	}
-+
-+	/* The "inactive" state is optional. */
-+	data->pins_inactive = pinctrl_lookup_state(data->pinctrl, "inactive");
-+	if (IS_ERR(data->pins_inactive)) {
-+		data->pins_inactive = NULL;
-+		return 0;
-+	}
-+
-+	/* "inactive" requires a "default" state to return from. */
-+	pins_default = pinctrl_lookup_state(data->pinctrl, "default");
-+	if (IS_ERR(pins_default)) {
-+		data->pins_inactive = NULL;
-+		return dev_err_probe(dev, PTR_ERR(pins_default),
-+				     "\"inactive\" pinctrl state requires a \"default\" state\n");
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Restore the "inactive" pinctrl state, handing the pins back to whatever
-+ * function uses them while pps-gpio is not driving PPS. This undoes the
-+ * "default" state the driver core applied before probe. A no-op for boards
-+ * that describe no "inactive" state.
-+ */
-+static void pps_gpio_release_pins(struct device *dev)
-+{
-+	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (!data->pins_inactive)
-+		return;
-+
-+	ret = pinctrl_select_state(data->pinctrl, data->pins_inactive);
-+	if (ret)
-+		dev_warn(dev, "failed to select inactive pinctrl state: %d\n",
-+			 ret);
-+}
-+
- static int pps_gpio_setup(struct device *dev)
- {
- 	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-@@ -156,15 +221,25 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(dev, data);
- 
-+	/*
-+	 * pinctrl setup (optional states) first, so the "inactive" mux can be
-+	 * restored on any later probe-failure path via err_release_pins.
-+	 */
-+	ret = pps_gpio_get_pins(dev);
-+	if (ret)
-+		return ret;
-+
- 	/* GPIO setup */
- 	ret = pps_gpio_setup(dev);
- 	if (ret)
--		return ret;
-+		goto err_release_pins;
- 
- 	/* IRQ setup */
- 	ret = gpiod_to_irq(data->gpio_pin);
--	if (ret < 0)
--		return dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-+		goto err_release_pins;
-+	}
- 	data->irq = ret;
- 
- 	/* initialize PPS specific parts of the bookkeeping data structure. */
-@@ -183,9 +258,10 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 	pps_default_params = PPS_CAPTUREASSERT | PPS_OFFSETASSERT;
- 	data->pps = pps_register_source(&data->info, pps_default_params);
- 	if (IS_ERR(data->pps)) {
--		dev_err(dev, "failed to register IRQ %d as PPS source\n",
--			data->irq);
--		return PTR_ERR(data->pps);
-+		ret = PTR_ERR(data->pps);
-+		dev_err_probe(dev, ret, "failed to register IRQ %d as PPS source\n",
-+			      data->irq);
-+		goto err_release_pins;
- 	}
- 
- 	/* register IRQ interrupt handler */
-@@ -195,14 +271,20 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 			  data->info.name, data);
- 	if (ret) {
- 		pps_unregister_source(data->pps);
--		return dev_err_probe(dev, ret, "failed to acquire IRQ %d\n",
--				     data->irq);
-+		dev_err_probe(dev, ret, "failed to acquire IRQ %d\n",
-+			      data->irq);
-+		goto err_release_pins;
- 	}
- 
- 	dev_dbg(&data->pps->dev, "Registered IRQ %d as PPS source\n",
- 		data->irq);
- 
- 	return 0;
-+
-+err_release_pins:
-+	/* Restore the inactive mux on probe failure; safe to do last here. */
-+	pps_gpio_release_pins(dev);
-+	return ret;
- }
- 
- static void pps_gpio_remove(struct platform_device *pdev)
-@@ -216,9 +298,31 @@ static void pps_gpio_remove(struct platform_device *pdev)
- 		timer_delete_sync(&data->echo_timer);
- 		gpiod_set_value(data->echo_pin, 0);
- 	}
-+	/* release the pins last, once nothing can drive them */
-+	pps_gpio_release_pins(&pdev->dev);
- 	dev_info(&pdev->dev, "removed IRQ %d as PPS source\n", data->irq);
- }
- 
-+static void pps_gpio_shutdown(struct platform_device *pdev)
-+{
-+	struct pps_gpio_device_data *data = platform_get_drvdata(pdev);
-+
-+	/*
-+	 * The kernel keeps running after device_shutdown() (e.g. to load and
-+	 * start a kexec image), so quiesce the hardware before touching the
-+	 * mux: free the IRQ and stop the echo timer first, then release the
-+	 * pins last, so no callback can drive a pin after it is handed back.
-+	 * The PPS source is left registered; that is a remove-time concern.
-+	 */
-+	free_irq(data->irq, data);
-+	/* reset the echo state, if the board has an echo GPIO */
-+	if (data->echo_pin) {
-+		timer_delete_sync(&data->echo_timer);
-+		gpiod_set_value(data->echo_pin, 0);
-+	}
-+	pps_gpio_release_pins(&pdev->dev);
-+}
-+
- static const struct of_device_id pps_gpio_dt_ids[] = {
- 	{ .compatible = "pps-gpio", },
- 	{ /* sentinel */ }
-@@ -228,6 +332,7 @@ MODULE_DEVICE_TABLE(of, pps_gpio_dt_ids);
- static struct platform_driver pps_gpio_driver = {
- 	.probe		= pps_gpio_probe,
- 	.remove		= pps_gpio_remove,
-+	.shutdown	= pps_gpio_shutdown,
- 	.driver		= {
- 		.name	= PPS_GPIO_NAME,
- 		.of_match_table	= pps_gpio_dt_ids,
 -- 
-2.47.3
+With Best Regards,
+Andy Shevchenko
+
 
