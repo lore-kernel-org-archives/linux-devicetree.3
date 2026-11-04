@@ -1,115 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816486;
-	b=QJErUs+Dl25NjdLDnnHUhBV5/GxsQorty2kmSpdhAHUA2Tutre9Hcln/0lx50334jtAp
-	 ZG/1NbyEEgY+M3m6X7LH3eKiSMuioWuCyE66ItEXpVqPtMUE8ocX9w9ldK7zFpJZ/+/64
-	 oKzaUqclL4+IGBERxC+dGU5lu5fcTVX+P72MEyVoACR4hb+t/wZxhCOQ7a2whbUmQtOf3
-	 EUxceuXPwWR6gYQzFFmF0MTEI+9TqfsJ2hhyC2Vn+7VmzsBUh2BZPhmOoLoWH0zyFhVMg
-	 m0WRKt2xpRiN0nZUzDFJLdlrKN5jTb5ksrXXOkPzu/AHl5LqKfbp4UvItMY22rcq98A==
+	t=1793816531;
+	b=skOiw1GWsQo2win0ttHQty0C4ogRZh+eSPOfWyvOLAke9USfvDqElziLKQG/0FLckOtQ
+	 CrwkoFgJZk4Vcgs5yD0b05aFo1Oq5Fp5yIdRrJSnr04I6bU+34ICyCBv2IrSsytBie4TO
+	 wqvhZ+y3xOfT/rGeptULvFlOmULZXDb0SvMDEp4kbNxa8h6PiZ9uZlqy9VF835PECDtcl
+	 5z/h0HU3DkcBK2/LnmpPZpX0Aob7yC3sm7FnBCuJoT4zMOz+gzmZDWBJDonfcIgGE3M5c
+	 a2hgFlJ5a4trZm/UsehMT3ugS4u+c8hD4Fi31NUL89g24sc77MDFX34dP8yk0x/dPEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816486;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aTDvp/Q0M0o5LAma9UuHl2ioDRXCh/2jQrBcsrQNRLI=;
-	b=Mhjz0mOLE2FVbg9j3HcJ7xYxu9d7ZYnkbZZxvm7ofaa2IBzGrmNJ64Mm3fGiLu9ouQk7
-	 lcTUSNtWxsIge/UhCIeLN8hbArOQwyAYgCohzaL6gBlXFHgB+rWg+XeZUsxhVTTJC5ncP
-	 r65nUSkqA9FSYcLLtJHbvkVSBBhs9up86f6GT7Hn6M2i45exlUYI3zdOuQhinAaNBzvDK
-	 UfPPWRbrCGDQDfGmAVADoP17nA4INEuhSSFzPScnNzsPjt//lewRzWSf3rXItflilMZmf
-	 t8pu5sI7M/PirR8z1n1C1PHZHmdBmyL3Xy9eSW5+yPBln1sbFZ048djuRP+AWbrLCBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816531;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ivWTJPqjdiuB5Vs30SI6emsm3IIETLMbeYJntQT1hdw=;
+	b=XrowEHex747tcuBtgtZGrMpXY6iwh/2gh3fRy6LwujC2EXZtFvYUyRNvxwHpZ5/nA1Fv
+	 IcYJ9fwqe7/BLstTRvwaOf1iqzS64sqBvBiq5pHL+sVNAplRoKMdL3jb+Pmjt0c+feE8k
+	 KmFBKv1pt+fjiFUjIFckszXTz4omb55EYtWMLt5LSZQtOtDRjn/G5Daj72Vsz+jxDq1Nv
+	 zVDGjLopPySu0JIsGTcLb21pS6ilyRCN+2WUOX3sk89AfhvrGKke/lDuU+ZgLn7aGy3ZH
+	 zR8RCnMCEGZgfGk9Uu7muECnBXj9X9DqHxmME0ZR2jf6lKLlbmojbVDT1uXaXocpXIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aRNKux8j;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=biPw850Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860A060A6F47
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 860A060A6F47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E68606D2DC;
+	Wed,  4 Nov 2026 18:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aRNKux8j
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e09aa5264so554945f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 10:21:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793816485; x=1794421285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aTDvp/Q0M0o5LAma9UuHl2ioDRXCh/2jQrBcsrQNRLI=;
-        b=aRNKux8jXMUGWHWagH10tnaFubvYY/cvfOC258fy0pVp0hcDXzySw/Q6YXq9semX30
-         farQ9acn5oTFCbz1nQL+p/mcyFEYgrwgN5EvIVBNM71OgHEeF1zic8TstmtsCVUGPmJt
-         svvzBkSOKPQlpOjEA/yBPnevN7N4NF7wBRjNZ1Zp8UNyUZRom8veuAMr/CkVFaneuGp4
-         +M0dgse9SXLkSvVQNLQPEmLpXsXnEpd+P1McqG+XoZhCaKxL4P989KsnwcMm8oylWep8
-         e32kq2zNveMI520KnbsIi5VuE6ZaIFO8ItsZWsNrPQZSO1WSM24gLV/gsz/cuJyQsZK8
-         2L2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793816485; x=1794421285;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aTDvp/Q0M0o5LAma9UuHl2ioDRXCh/2jQrBcsrQNRLI=;
-        b=QyNf9L3AkXvZKG5t0UXFvRewsOaEXoEbbo8j5QoGQsPyyYwiRBuPUybhceOTk7iFdt
-         7f0WfY2+TSSqh/R67Qy4i4XKu0acV7LI+m9qSn4YJfEzAuhP0insp6VFTtBJzkRmcp6g
-         l9MIKGXqQA/r+qNmDKIM29HVsBnR4XkoHf0FA/+WpupNaoptI6vodJj+ZyznWszaTeoe
-         NEotl9ZrC2jB1MZw4pP4sNDd2OZR46M0GOYODcDzfX2zpwMWnlhf1TmOThd+MybPSjFV
-         ML9ARzA129okA+1iVzxdfexBNJeUJ5/eyucHw46r2D8TjJjqNKm9bk3NM8gXGirXosQn
-         Z1Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVQB+wtpBCKX0Ut2CO3WfyygrFo+1aKQuY0MHb7nOoDpeoEBCOgqMaL3fB+0JeojJStfuk4VBLFDkp@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0zyyaPxWO8xFJfn7iQcsb5af3j8knYmqKcp/pNoZriByDxU4o
-	as06dHLlBh0EzCXYc+2YkBa3G8xpeP/0i6rt/Kqs0uX2eNM60TnZFJFZ
-X-Gm-Gg: AYBFou25vsKza7r2OzvkWqfJU0HBbGpkrxKUBVwLxQZWt1yGFjYZgaGp+bUIDjT0SvO
-	olpmsD/UXsQyYAuSuJbY25p88G2qk0wkzkciverO7J8Urf9S7KK6tGHIyC35Dcprf7Hhh/4qGy+
-	19SnmJ+fuHYHxU5OSYiorNfo5yzzNkpjYNwC4NIUqpQUxdmDLIh2Cd+YMHFeJFyjeqkDdR+cn9c
-	TsXv0OOszlwqNW89cwfY0KyA5n1As+xvWHZl821wdvydILaTPcCXS0utEYXHG6JHm4cU4ColLD0
-	QoNOHpk047naf8buaoTGYcoULqJk90dzHp8bVXSyy7MkFjQ3BRHf/B+ZiNwCsv7lkGO4sEDBqBC
-	sQ+zlGY/R9QQalele4wnAyV7rJ//wxN0I8wMPd3l8/6I4g6hUXuRB+fihwpfD8un2vRUVPJYDKy
-	86zAN8zXvHxUxCvPtwaXgksLyQPwoR9hOH+0c0W8UYJTu15RykRpcoxPBspc6ge8HMzm8T2ofCU
-	dMo88Pu/Lts48V0kf/wmUpTBc/56xzQakE03XPZx9VQ0ipW51YZU2VhBpTECklR2qYY/1DMxzbK
-	2jir9JKc/z2TgHO+ljOJ/V9Ok0GkzHeZ5x9lp+FFAZKbHrfmB+nmvF4OWndx8w6dtUXOw+sGv/3
-	k4dMI9Hb11ylH5Ixq6NHOnDZRwjda0O4nX5xKOQ==
-X-Received: by 2002:a05:6000:46ca:b0:48d:f541:a6e7 with SMTP id ffacd0b85a97d-48e6e4f4976mr26708137f8f.40.1793816484784;
-        Wed, 04 Nov 2026 10:21:24 -0800 (PST)
-Received: from iku.lan ([2a00:23c8:254f:fd01:b079:a2f1:caf7:b446])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844e2sm4073202f8f.28.2026.11.04.10.21.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:21:24 -0800 (PST)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Vladimir Oltean <olteanv@gmail.com>
-Subject: [PATCH net-next v4 14/14] net: dsa: Kconfig: Enable support for RZ/T2H and RZ/N2H SoCs
-Date: Wed,  4 Nov 2026 18:21:02 +0000
-Message-ID: <20261104182105.1102555-15-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261104182105.1102555-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=biPw850Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19DCF1F000C1;
+	Wed,  4 Nov 2026 18:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793816530;
+	bh=ivWTJPqjdiuB5Vs30SI6emsm3IIETLMbeYJntQT1hdw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=biPw850Qh7eUdzejzjr9cmpBWZxjMSFnXJE1D5FmNOuzgLcxet6+7xhVbOW6y9KNV
+	 2cQTNN6cNHDf53ajT35zi97f+QTFuniVTArFfg4Xj2tQwMRz/j6FKzmioLe+F5B6+9
+	 kdj4qBZOP/evRZLkoGOOWhw5sdvk8KJZN4KfN9YrVt5E0VraLgrEmoqf+Od/ne17BH
+	 63qoKs2GdGJgqu33B8RfBHabJltIpY8JzXKyXYFDXx0LbT6/cLNo8aMwoqLbRTiwXC
+	 DQWz+LGoN86gP8AoaBpnqjpVwcVN8Qs0r3u5oGZYBisjsMZ5+K971LhZihllOiEoUT
+	 /XzpY6ZiNobGA==
+Message-ID: <sashiko-outbox-197833@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/7] dt-bindings: clock: qcom,sc8280xp-lpasscc: Add
+ SM8350 LPASS audio CSR
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Demeter Barna" <me@fromdisposition.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-sound@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-b4-sm8350-sound-v1-1-4c872df294fa@fromdisposition.org>
+References: <20261104-b4-sm8350-sound-v1-0-4c872df294fa@fromdisposition.org>
+ <20261104-b4-sm8350-sound-v1-1-4c872df294fa@fromdisposition.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 18:22:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,57 +60,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: clock: missing sc7280 header in qcom,sc8280xp-lpasscc =
+See also
+--
 
-Update the Kconfig entry for the Renesas RZ/N1 A5PSW Ethernet switch
-driver to depend on ARCH_RENESAS instead of ARCH_RZN1. This allows
-the driver to be built for other Renesas SoCs that integrate a similar
-Ethernet switch IP, such as RZ/T2H and RZ/N2H.
+commit dee8eaeed95bbc7385e8c1208d78c9a4483b6760
+Author: Demeter Barna <me@fromdisposition.org>
 
-Also update the help text and prompt to reflect support for the ETHSW
-variant used on these SoCs.
+dt-bindings: clock: qcom,sc8280xp-lpasscc: Add SM8350 LPASS audio CSR
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Vladimir Oltean <olteanv@gmail.com>
----
-v3->v4:
-- No change
+This commit adds the qcom,sm8350-lpassaudiocc compatible to the
+qcom,sc8280xp-lpasscc binding schema for the SM8350 LPASS audio CSR block,
+which only provides resets to the OS and uses the SC7280 reset IDs.
 
-v2->v3:
-- No change
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpassc=
+c.yaml b/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+> index f235b4e24cc70..3d4a794abf134 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+> @@ -22,6 +22,7 @@ properties:
+>        - enum:
+>            - qcom,sc8280xp-lpassaudiocc
+>            - qcom,sc8280xp-lpasscc
+> +          - qcom,sm8350-lpassaudiocc
 
-v1->v2:
-- Added RB tag
----
- drivers/net/dsa/Kconfig | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+[Severity: Low]
+As noted in the commit message and implemented in
+drivers/clk/qcom/lpassaudiocc-sc7280.c, qcom,sm8350-lpassaudiocc binds to
+lpass_audio_cc_reset_sc7280_desc and uses the reset IDs from
+include/dt-bindings/clock/qcom,lpassaudiocc-sc7280.h:
 
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index fe8cd5338fda..f6894495b9ed 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -101,13 +101,14 @@ source "drivers/net/dsa/xrs700x/Kconfig"
- source "drivers/net/dsa/realtek/Kconfig"
- 
- config NET_DSA_RZN1_A5PSW
--	tristate "Renesas RZ/N1 A5PSW Ethernet switch support"
--	depends on OF && (ARCH_RZN1 || COMPILE_TEST)
-+	tristate "Renesas RZ/N1 A5PSW and RZ/{T2H,N2H} ETHSW Ethernet switch support"
-+	depends on OF && (ARCH_RENESAS || COMPILE_TEST)
- 	select NET_DSA_TAG_RZN1_A5PSW
- 	select PCS_RZN1_MIIC
- 	help
--	  This driver supports the A5PSW switch, which is embedded in Renesas
--	  RZ/N1 SoC.
-+	  This driver supports the Advanced 5-Port Switch (A5PSW) found on
-+	  Renesas RZ/N1 SoCs, and the Ethernet Switch (ETHSW) found on
-+	  Renesas RZ/T2H and RZ/N2H SoCs.
- 
- config NET_DSA_KS8995
- 	tristate "Micrel KS8995 family 5-ports 10/100 Ethernet switches"
--- 
-2.56.0
+  LPASS_AUDIO_SWR_RX_CGCR  0
+  LPASS_AUDIO_SWR_TX_CGCR  1
+  LPASS_AUDIO_SWR_WSA_CGCR 2
 
+However, the description property in
+Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml only
+lists the SC8280XP header:
+
+  description: |
+    Qualcomm LPASS core and audio clock control module provides the clocks,
+    and reset on SC8280XP.
+
+    See also:
+      include/dt-bindings/clock/qcom,lpasscc-sc8280xp.h
+
+In include/dt-bindings/clock/qcom,lpasscc-sc8280xp.h, the same macro names
+have different numeric values (with LPASS_AUDIO_SWR_WSA_CGCR defined as 1
+and LPASS_AUDIO_SWR_TX_CGCR defined as 0 for the LPASS TCSR block).
+
+Should include/dt-bindings/clock/qcom,lpassaudiocc-sc7280.h also be listed
+under "See also:" in description so that users of this binding know where
+the SM8350 reset IDs are defined?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-b4-sm8350-=
+sound-v1-0-4c872df294fa@fromdisposition.org?part=3D1
