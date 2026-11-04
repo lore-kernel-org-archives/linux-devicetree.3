@@ -1,105 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795186;
-	b=FsyZ+X/CjgxAK6KhePOcjStOi33qGnDhxSawmi6Xjkx74C2G66KwNeQ72Ffs3jfhLo5V
-	 g1Z5NC3juRN3ea+wyROs8KDA708l7A4s9GCNtXLu+/GN1wjGzfJXGacEAFgNQ0GqeEtOE
-	 yIHpaiVqTw18Bl2t8IcgQQ1oRcJ0BwxMoD6Z+BGmY6Z3PlKXLQERVfZXS8s1T+omDSt1P
-	 mPUuaDejLm7Qv4KbWVlr8ivRTWwp5WFl1OizhZJ0Csm+e/cIz/9rIAzrnS2u/yxvS6vTH
-	 HVHOP60O/Vm5oMj9O5TyVGLf8HRG3fVlL++KiGCgPvM1bzcAZektcEZMTPxM3tDUb+g==
+	t=1793795182;
+	b=Pq+nCnLhOyl3nc45maVlsffaABfORvcIC5j4Kj+DqGGbi37+DL5gUt/tjjZOXerD8j4e
+	 oGhGx8dZuRzIOV5oYgtiDr2olCDL9XVue/6+PjPjBr0mKhVJptfT/0EcHpZaAkmDhD8lb
+	 MY5qKb0xi+jVqAtP+9vHzmFcv2KHIT1Vw3P2C/Htvvsf7yblHBX03F3+sh0UefzJSHF21
+	 VHhKU7Q5A/bADFg9hNICAoWQzN/Ggr32vxWtmdPc8jQOSF0jymEgWRrNhILhAMjvTHZTj
+	 GP201u8ywkD0z8rGKfMQ4sgOHD+euy4y7TePgY9SUeBg0kAr3KanzE3IVCBogdaI4uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795186;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=thomxBGmhlzEQD85NB4cuQLLeHvP2M634LL7QtV22Rw=;
-	b=FUw53FT5U43qsbIKwo1rhLT8sUU3g6Jyv5pOs5vqjL2w8MeZLw76oa59AvDNV88Y0B0k
-	 Ki32e5knfFaC/bRiyJnHbIOM8bjvJk40nvv+OeGrIQUFHzwEJ2OnpB0Ewuvu1uKCRXpsG
-	 Lh2G4Acz1R/k2lETrt7Z6WLJAp6duFgjolIIO6foZDpt0buLoETI0VL16crgagXhWDSiG
-	 bPMWp5hO3AGhPvVSm9+Y7CqXLkqtKw0h7tii1/xcvkEIjn7MogHurih2Z7D2izrMwTo+T
-	 FK5cj0Ydl9uFmKVHvrFa+uBsNbgTSPMS8UOMXWuJPxy2KolRwCjdUWNkHLFmv2/O6bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795182;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VK2mF29MPTHHe+f3apHM/eGxl2KHbCALcUXSoRbY3qE=;
+	b=oHnOUpgDpwDIIfeCNYqUhmljgkqiUAxPJYv6qhqOP/Re2mt0DbuYKp0bQslWNJiVQCwC
+	 8TrjEylJbpHyZG8ol1J9OIERo0dGffgzsbvEKBLr432MhT0JxjWo9SSreL9JngQJ1aDTi
+	 uSYHjh/UOXwfY2gsQeSgYsZfqxaAEq9ilYxg/jGnuNFxXcjPHml06cYjXJ8livIidjK8r
+	 AO1zbKAkouKw7n72lcm9GwzCoLnbBTbErGfJ6PLkVAojxi+MwzZjBQRWT87xrEYQZ9hus
+	 dbr38lqj/H/K2bZ7Mba2KSRwhoDH9Rq5GYcLf2FGe/i9NNFXB+wNZkaR9PqpEGh+pzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HRBcL15j;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fx+t21J6;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HyQRJ2iB;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83E2606A329
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:26:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C83E2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB39D606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:26:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB39D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HRBcL15j
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so4424785e9.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:26:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fx+t21J6;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HyQRJ2iB
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BZt9E1700396
+	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 12:26:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VK2mF29MPTHHe+f3apHM/eGxl2KHbCALcUXSoRbY3qE=; b=Fx+t21J6rHyUMJMb
+	GZNednuJA+XbxTEdcMhD+WABGRodwzN8hXZt7g4lHDsSYSKoEglW8g24cxWZcFug
+	nVcgFlz7tvADFxgvXDFICY8tiEQyZwnmoDYt8l3NIDRGearB/MJ/12xRTojwXS8R
+	jDIh/wYZGnKeY5sr4BKV2/sEalWuUmjWJV2aaLo0jMtZUBOKYkaBy9ky6caOb0g3
+	mtDIDX/csZvbhvSnG3ZILY8FxI/X1gsn6LhTpMZdKecop0qGxm/pAABNNzxnIfUE
+	f/wg8FBCbYnzLV4tEkfw02jzmwq8l3DRA0USuwTQ5Cnf1UQmqUspE2koHjjUbvfp
+	M7jCNQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr3pyg8ak-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 12:26:20 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b0a7cbf164so123899a91.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:26:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793795184; x=1794399984; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793795180; x=1794399980; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=thomxBGmhlzEQD85NB4cuQLLeHvP2M634LL7QtV22Rw=;
-        b=HRBcL15j+yHMy3baKSzZG+feycDT3bLz/2Py0auzYiUnpUrrwKeNmbv2D93vhW+Y6y
-         4GFqlUTeaAxVs9Ja5WdO7TxR7CuFlucR8E9ngwCf3jN78C+Iad65or/2zRQV5tOXzDdl
-         baL5Y9sPvdHOysZNSsz2mrdqfUY4TPoe8QcRemBMDZAZ9pvOqYezCN3Kt9v01FO2hm7A
-         /vACd1WxhJGMCaIb0SheVEM4alHwz/yJNILaKigsl6JE4hdJGYjj7R7Lx/K6B9+e5f6O
-         A493Gudgn/Ervo4IDnA9vrDfTX28gDzpeqQwRkVCanlMTpy1m2K9BlzF7fOANqCa8C5r
-         ffmQ==
+        bh=VK2mF29MPTHHe+f3apHM/eGxl2KHbCALcUXSoRbY3qE=;
+        b=HyQRJ2iBX2PwwVOPnUnanJC9zGDofhaa3aQZgwvVeEvbZBfFDoAop+RD4dcg3hq/2b
+         ikEwSbKZsPvktv62Lw91CVKlqJ5L3va7K2M7hq4atmWGGu+Zq2SQ/Ziqf3zTMyZgboRo
+         EZk/VvQozGxOwIAEBaEWf8sEBvzJw4to9X/DSCAlzyVAcmHMDUrIl5nm6KtAu9oNpjx4
+         sEijJc/qBcYfTorcUfNhKjgu3vSBsqldHlQ4otb2xv37PqJ1TL2H0dmKta6/E5b6AFV1
+         xRymKmKxey5qvx0i/9nyF+AJke3CnGqic5xVsSF6sN3EVyroFLVFdw8shZNS4EAfOElW
+         oBHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793795184; x=1794399984;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=thomxBGmhlzEQD85NB4cuQLLeHvP2M634LL7QtV22Rw=;
-        b=MaRia5N3EdwVl79tpbE2+JMi4LzvW3dvX+ckIEH86pcdr/hh4p65v1lDSotaufdHOL
-         VBHGrpoWOyAal0b3VT21JVeZwDRMuoblSIoyf/MhCgUEOk6l3r2r3BQIc08KVS82qXtV
-         Xcj4dZAGRChODiNDH058K7PlDCm2jVCClHD9LLxkaERHE6h+9gWAqVGLAZui9j/5vQHv
-         59FCscIMC7wmx6aA9Ki2/5REOVM+5SIvYvqQgsVOaeWAijQWtCcLS9P8wgytGfIjhs1f
-         brOv5rgwD4FAkE/xXSQfd9VOpIEBId9tsN1LWTM8tPh7BMRdaQXNDTwFwHVukaeBMHE8
-         polQ==
-X-Gm-Message-State: APuU4Z8xrC786prWjNYlsprqnxmHU5pn3AoccxViSPtN4qV2qrGQoeJ9
-	bmRA/HcKj82LPU3vRWHjTpACIzoB2CWYZCtuGHpVXqMiF44PLVma9Bt2ndNgOQ==
-X-Gm-Gg: AYBFou2RxkmOxTQUW8xaYUkvgDx6lhX62gpze39U8jWHqgfBZSAGIxPyikdJwPyEOhU
-	WTppNUkLb/G+ETn3SPTSbpqEOScmPdcFydAGLOha0QDXII9BHXS4OreVi2CdvqNoYRs6gtsOPFa
-	jrcDmEX9bXQ1kDMRux+nRJmZKDM4YJbZQecWbln9cH+JLk09nqfweAjuUAgDNpvT1rAiMNa4XwG
-	P6PwmoJwKWWf5PIBIYF19j63ytohJd8uJ6rnvprWfAmiB+Br0q1pg3WqYY1c/sOUZ1sPwMT8sce
-	6CQSmJ2jWPfioppGCRyzdGAkF4idMY2agVNG6lM5MiKHcnerSkb8CT5ndVu2K1DUkHz2zs9lvL0
-	fF3033DPOH0ZzSaJdJZrmNoHpiuqYODqFJiShDMIN63bQ3D09DR7yoLTxpBrY3IgLlSvwUMQwTV
-	t8+4mS25TGRvJmN8xyvL3OdO6iS/eGE3EiFlqYEsPptmsf5cnVJQlRxa+ufOymxAYpw+0Y0xIiL
-	EFaHlDBw5WLlG6R03ypUqfnGHMitl0ls0tUo9sQUPDaCZ7JudewBQivjeutYaS3E3eZ6ovSvFb0
-	ea93HTVSyfMgMQy1zCf9cXJLdKhWfJNYTjzynp5ts7Ot/ml/uQ==
-X-Received: by 2002:a05:600c:a30a:b0:4ac:b0b2:fa12 with SMTP id 5b1f17b1804b1-4acb0b2fac0mr259956635e9.1.1793795183945;
-        Wed, 04 Nov 2026 04:26:23 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43da9825bsm50492415e9.15.2026.11.04.04.26.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:26:23 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Ion Agorria <ion@agorria.com>,
-	=?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v13 0/7] mfd: Add support for Asus Transformer embedded controller
-Date: Wed,  4 Nov 2026 14:25:59 +0200
-Message-ID: <20261104122606.215629-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793795180; x=1794399980;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VK2mF29MPTHHe+f3apHM/eGxl2KHbCALcUXSoRbY3qE=;
+        b=UIvI2nILWdQQdsxgt/46mbLxgifuql8Pu1++layaIE1VzMrhY25S3VKD15EG9UmQUb
+         FCEaJB4HyLdEO8T4uKVa6yjOCUJ1UH3G9G0nj/0BDRGAcH1siwXBIzUaqiTancIee8Nm
+         vs/IKd+o3aYtdoQPNA7rhLCxz+a5BqP5WEYYaaQuNgtOUhXM6IAoZTSpXrLGMQRZKZGd
+         HTXM5uCcr95nZBxAIrEIuz1wxw/2SBmpp0HNnR/iehVUpJRaL8dhZSetEjCz64pHcHbT
+         TrB+OST+uDvtDU0v6BLSDH/Im5Lie4iV07B+1XeYz0pXiv9k58NkNOqYr+aASPm2CelR
+         i7dw==
+X-Forwarded-Encrypted: i=1; AKwUvBzph4YAamlffbpbgkmuCLYhiY9qTySXzCBXvRGwtlERWNAs6AT+cgGebYBjAweKV3nMmw74OHdQvtHP@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fta8m5VcOTJHEB1Zg+ByCE+Y4armaHtCB1qTwNVA92A3kb/ez
+	UxWSKBP9DhrKBrOW7thbw0VhdrfLoiQa/VghRpH3TgDTh2Zv4m6SpnBhBKaFY4cP7b+I9VfKtMO
+	7DBMsoIabYonQeyGcfSqan7rBajoPkERPFtLECv8DLMN+v8Vn3t8QmgdgmPb4WSiu
+X-Gm-Gg: AYBFou1PtCCs8ON/ohJ+CWH1blPBymUQxiJw2uEZLY1SLxt2xDFX1VmEk8U9dXy7aB7
+	/CFIlf9TZhoB3NGZiru01YnZv4DbT4kyN8oVJkfZCXrihpLG0TmHGN2o1A9YZOONF2NGqXLO8+4
+	/R5wWddNd1VJCJBlNDMMsctvXqxs1vHjwc6exuJpt/0JHlYotr+OiRUVw/jNRoEV2RuFsRFJrTM
+	82jlBtFiC4sjW4giMvRDAosqYNJmbNOOW0c6JfYoHDOgi/MEURHeDa7N0XHvVquHUsLIIqL2/ce
+	UiMn3l6DEF4PwSbt0sHUKV5bnp5TldAZEGJC8/ydWCLYxTvKjnZbEiOSJ5n2cN45nhXLgcYH5zf
+	S3GJo7COGDqp+kJutRcWzJBuoQmhQP2Qdfqn+xJcsrLPnmCSl02rcV3nsdKCl/FiVt3T6YYdpMn
+	fuHFqOcA==
+X-Received: by 2002:a17:90b:53ce:b0:3ac:7c52:fae5 with SMTP id 98e67ed59e1d1-3ae89835706mr12958243a91.50.1793795179561;
+        Wed, 04 Nov 2026 04:26:19 -0800 (PST)
+X-Received: by 2002:a17:90b:53ce:b0:3ac:7c52:fae5 with SMTP id 98e67ed59e1d1-3ae89835706mr12958197a91.50.1793795178953;
+        Wed, 04 Nov 2026 04:26:18 -0800 (PST)
+Received: from [10.92.198.106] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm3924074a91.1.2026.11.04.04.26.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 04:26:17 -0800 (PST)
+Message-ID: <f51b9be2-acbe-4d4f-9f81-bf5b289eab0c@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 17:56:07 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -109,168 +116,162 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/12] hwmon: Add Qualcomm PMIC BCL driver
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
+ <20261005-qcom-bcl-hwmon-v4-2-50b9a8c730b7@oss.qualcomm.com>
+ <b7bc5c82-6812-4df6-9820-122a4c957036@oss.qualcomm.com>
+Content-Language: en-US
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+In-Reply-To: <b7bc5c82-6812-4df6-9820-122a4c957036@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ZbmIpcVA c=1 sm=1 tr=0 ts=6aeb246c cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=6zRx56OMOPonLltcXX4A:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0OSBTYWx0ZWRfX5h/hWwdaLTW6
+ oE4fW2EZ+WuDrnEkxWuq4RfAYpzevMsrNxl64KUUwi+ckDccbWzW951x1dhyAMjd3WxkDSps0H0
+ dOALcfiYG8Bj03g11pftnp0tcEvSRr7UP93MxXvIW5Uri4s5HfO6zUDFZs8mEb32zE+VWP1BpkS
+ xNXDsBO95xCTrqM9OSks/5z7rfYFgY/LyTlzERIcZOYZE1ulvD3ZqOImXgqlQKGWEPGnj4ziiPs
+ dm+AReLytxzsP0zJg5kOgjSMi81krzqiGIVzpk4SibmikDWXseZ3+8V07wpQ9bt1i759fvXiDNR
+ 153x32g7+r6WuhmPBrgxj2Roqd5qE9bNHDRsHfUrqqle9jXOoDR+0YneVpkc4UjJq8GIO7+izLR
+ Y7w+352l94W7lXPY5+waPCjpkry1DPY9yShaoY9oNsYXpvcKVDtzrkQD2yGgydQA2EaKNZZyA59
+ +M/qmeSIy20WG6IirTg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0OSBTYWx0ZWRfX6Ik6+Y1lV9Vo
+ w3ejGyCjrQiwj+oLbZakobJjfF/Yk2KhYHkfnLOrWN38KrDKYufX/XAH8pdwKhq4XRvanslIRuK
+ VRQXrb6ClOWDmvLWecPffIOkMg17DVQ=
+X-Proofpoint-ORIG-GUID: laUSXkbys8gtUFOT0rDj93vB-9_NRHmy
+X-Proofpoint-GUID: laUSXkbys8gtUFOT0rDj93vB-9_NRHmy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 suspectscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040049
 
-Add support for embedded controller used in Asus Transformers for
-managing power and input functions.
+Hi Konrad,
 
----
-Changes in v2:
-- converted sysfs debug exports into debugfs
-- added kernel-doc comments for exposed functions
-- fixed minor typos and inconsistencies
 
-Changes in v3:
-- dropped DockRAM commits (both schema and driver)
-- integrated DockRAM functionality directly into the controller driver
-- EC schema moved to embedded controllers folder
-- removed all cell descriptions from the schema
-- removed all compatibles from the cell drivers
-- adjusted naming conventions to better align with the ASUS Transformers
-- defined EC variant sets to provide coverage for all known devices
+On 10/12/2026 4:59 PM, Konrad Dybcio wrote:
+> On 10/5/26 2:24 PM, Manaf Meethalavalappu Pallikunhi wrote:
+>> Add driver for Qualcomm SPMI PMIC Battery Current Limiting (BCL)
+>> hardware monitor. The driver exposes battery voltage and current
+>> monitoring through hwmon interface.
+> 
+> [...]
+> 
+>> +static int bcl_in_thresh_write(struct bcl_device *bcl, long value, enum bcl_limit_alarm lvl)
+>> +{
+> 
+> [...]
+> 
+>> +static int bcl_curr_thresh_write(struct bcl_device *bcl, long value, enum bcl_limit_alarm lvl)
+> 
+> these two and bcl_in/curr_thresh_read can be unified, then some
+> helpers can be collapsed inline as they become single-use
 
-Changes in v4:
-- grouped known programming models of EC chronologically (both schema
-  and driver)
-- call debugfs init only if CONFIG_DEBUG_FS is enabled
+ACK
 
-Changes in v5:
-- added asus,tf600t-ec-dock compatible to schema
-- rebased on top of v7.0
-- kzalloc > kzalloc_obj in keys and kbc
+> 
+> [...]
+> 
+>> +static unsigned int bcl_get_version_major(const struct bcl_device *bcl)
+>> +{
+>> +	u32 raw_val = 0;
+>> +
+>> +	regmap_field_read(bcl->fields[F_V_MAJOR], &raw_val);
+>> +
+>> +	return raw_val;
+>> +}
+> 
+> This is single-use and trivial, inline it into the call site
 
-Changes in v6:
-- removed asus_ec_handle_smi casting
-- asus_dockram_access_ctl > asus_ec_get_ctl in control_reg_*
-- fixed battery Kconfig description
+ACK
 
-Changes in v7:
-- added status check of devm_kasprintf where missing
-- devm_asus_ec_register_notifier dropped, added .remove where it was used
-- removed cell_to_ec, asus_dockram_read, asus_dockram_write, asus_ec_* public API
-  asus_ec_i2c_command, devm_asus_ec_register_notifier, asus_ec_read, asus_ec_write
-- renamed asusec_info > asusec_core
-- ec-kbc: added packed size check
-	  ret > error
-	  improved key remap logic
-- ec-keys: improve formatting and comments 
-	   ret > error
-	   switched to dev_err_probe
-- ec-leds: reworked to register both leds via loop
-- ec-mfd: adjusted Kconfig description
-	  fixed smbus operation sizes
-	  fixed saving of EC fw model
-	  adjusted IRQ flags
-	  converted to use definer for set cell composition
-	  added factory mode states enum and handling
-	  defined some "magic" values
-	  self > client, info > ec, ecreq > ecreq_gpio, priv > ddata
-	  asus_ec_chip_data data > asus_ec_chip_info info
-	  ec_data > ec_buf, ctl_data > ctl_buf
-	  added and improved comments, added structure descriptions
-	  asus_ec_magic_debug > asus_ec_susb_on_status
-	  removed all dev_dbg and most of dev_info
-	  pronts with model, fw behavior, factory and susb state preserved
-	  switched to MFD_CELL_* macros
-	  removed debugfs
-- ec-battery: swithced to BIT macro
-	      lock usage moved to asus_ec_battery_get_value
-	      in asus_ec_battery_poll_work fixed possible rescheduling fail
-	      in asus_ec_battery_poll_work fixed missing not charging
-- ec-charger: POWER_SUPPLY_PROP_MODEL_NAME set as the first check
+> 
+>> +
+>> +static unsigned int bcl_get_version_minor(const struct bcl_device *bcl)
+>> +{
+>> +	u32 raw_val = 0;
+>> +
+>> +	regmap_field_read(bcl->fields[F_V_MINOR], &raw_val);
+>> +
+>> +	return raw_val;
+>> +}
+> 
+> Likewise
 
-Changes in v8:
-- added MODULE_ALIAS
-- renamed DOCKRAM_* to ASUSEC_*
-- ec-keys: input_handler moved into private structure
-- ec-leds: added brightness_get
-- ec-mdf:  fixed i2c_smbus_* return checks ()
-	   improved model storing
-- ec-batt: added status check of devm_kasprintf
+ACK
 
-Changes in v9:
-- fixed i2c_smbus_read_i2c_block_data return check
-- blocking_notifier_chain_register moved before serio registration
-- adjusted get_unaligned_le16 bounds check
-- unsigned long long > u64
-- iterator vars made scoped
-- removed "magic" values from ec-mfd
-- simplified logging, detect split into detect and init
-- improved error logs formatting
-- adjusted handler in media keys to connect strictly to dock keyboard
+> 
+> [...]
+> 
+>> +static int bcl_hwmon_write(struct device *dev, enum hwmon_sensor_types type,
+>> +			   u32 attr, int channel, long val)
+> 
+> Do we expect userland to program these, or are the default limits
+> sensible?
 
-Changes in v10:
-- ec-kbc: fixed possible out of buffer reads
-- ec-kbc: set notifier_call before blocking_notifier_chain_register
-- ec-keys: dropped input_unregister_device which should be handled by devm_input_allocate_device
+There are some usecases where userspace needs to modify these settings
+like in different ambient condition.
 
-Changes in v11:
-- applied changes from Florian Krischer (read_size parameterized and fix keyboard response framing)
-- ec-kbc: switch notifier and serio register calls
-- ec-keys: used WRITE_ONCE()/READ_ONCE() for priv->special_key_pressed
 
-Changes in v12:
-- removed unused includes
-- fixed kernel-doc warns
-- added check if dockram client and data are not NULL
-- replaced handler in media keys with Dmitry's implementation
-- calculate battery time props with unsigned value
+> 
+> [...]
+> 
+>> +	/*
+>> +	 * Map register value to battery configuration.
+>> +	 * As per hardware documentation:
+>> +	 * 0 -> 2S, 1 -> 3S, 2 -> 4S (unsupported)
+> 
+> Would it be hard to support?
 
-Changes in v13:
-- switch to PLATFORM_DEVID_AUTO
-- move notifier registration into input device open()/close()
-- remove code check in asus_ec_keys_setup_keymap()
-- register notifier before serio ports
-- wrap mfd and leds at 100 chars
-- moved retry in asus_ec_reset() into loop scope
-- removed asus_ec_leds_data from leds
-- removed platform_set_drvdata form leds probe
-- iterator remains i becuase name led is already taken by struct asus_ec_led pointer
-- unfolded driver struct fill in led platform_driver
-- minor formatting changes in serio and keyboard drivers
----
+As per hardware description, upto 3S is enabled, will remove 4S part 
+from documentation.
 
-Michał Mirosław (6):
-  mfd: Add driver for ASUS Transformer embedded controller
-  input: serio: Add driver for ASUS Transformer dock keyboard and
-    touchpad
-  input: keyboard: Add driver for ASUS Transformer dock multimedia keys
-  leds: Add driver for ASUS Transformer LEDs
-  power: supply: Add driver for ASUS Transformer battery
-  power: supply: Add charger driver for Asus Transformers
+> 
+> [...]
+> 
+>> +	/* Check if battery detection is supported */
+>> +	if (desc->battery_config_field.reg == 0) {
+> 
+> This is slightly sketchy, but SPMI peripherals always have some ID
+> registers at address zero, so okay..
+> 
+> [...]
+> 
+>> +static const struct of_device_id bcl_match[] = {
+>> +	{
+>> +		.compatible = "qcom,pm7250b-bcl",
+>> +		.data = &pm7250b_data,
+>> +	}, {
+>> +		.compatible = "qcom,pm7550-bcl",
+>> +		.data = &pm8550_data,
+> 
+> Are they exactly identical? If so, please use a fallback compatible
 
-Svyatoslav Ryhel (1):
-  dt-bindings: embedded-controller: document ASUS Transformer EC
+ACK
 
- .../asus,tf201-ec-pad.yaml                    | 119 ++++
- drivers/input/keyboard/Kconfig                |  10 +
- drivers/input/keyboard/Makefile               |   1 +
- .../input/keyboard/asus-transformer-ec-keys.c | 216 +++++++
- drivers/input/serio/Kconfig                   |  15 +
- drivers/input/serio/Makefile                  |   1 +
- drivers/input/serio/asus-transformer-ec-kbc.c | 258 ++++++++
- drivers/leds/Kconfig                          |  11 +
- drivers/leds/Makefile                         |   1 +
- drivers/leds/leds-asus-transformer-ec.c       | 114 ++++
- drivers/mfd/Kconfig                           |  16 +
- drivers/mfd/Makefile                          |   1 +
- drivers/mfd/asus-transformer-ec.c             | 551 ++++++++++++++++++
- drivers/power/supply/Kconfig                  |  22 +
- drivers/power/supply/Makefile                 |   2 +
- .../supply/asus-transformer-ec-battery.c      | 289 +++++++++
- .../supply/asus-transformer-ec-charger.c      | 208 +++++++
- include/linux/mfd/asus-transformer-ec.h       | 100 ++++
- 18 files changed, 1935 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/embedded-controller/asus,tf201-ec-pad.yaml
- create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
- create mode 100644 drivers/input/serio/asus-transformer-ec-kbc.c
- create mode 100644 drivers/leds/leds-asus-transformer-ec.c
- create mode 100644 drivers/mfd/asus-transformer-ec.c
- create mode 100644 drivers/power/supply/asus-transformer-ec-battery.c
- create mode 100644 drivers/power/supply/asus-transformer-ec-charger.c
- create mode 100644 include/linux/mfd/asus-transformer-ec.h
+Thanks,
+Manaf
 
--- 
-2.53.0
+> 
+> Konrad
 
