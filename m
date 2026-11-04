@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797527;
-	b=1c6Z7qLICOlqmKZdNpmdVmifvYrVM1S2ZQUgw3vEtWygLDquJiNNl3/NQnZ6ZGwxOTbw
-	 MLnrEZfBaVVzjc8QgDLiiWh1orQ+7ZtvA1JlaJ9L8fEjN3jfrsoLxt+Wi5CKVYbb7xBP0
-	 MFQnXgzhgBatxn2IRRIUTZ9DMrVusZaD9aBXscBaxBGSoEHgbQ6BcioQxZcEU03XByU0M
-	 Yc84UA1sC/+ob8zLu1jRqpW3tgQC2XVOuEoM8YbpUV3DRk/s139igZ909nqJ01KCKmyPo
-	 DW8CMRUM8JCQzadTlhqiusIptWb7XFpNfE5SX+3okRJ8WDsSgO/YY6jCBx+CbHI8Ymg==
+	t=1793797719;
+	b=Cx3EvIlB8axxyg5GOE+wqB3Zc/SSBW2KcqXVDLzF8Yz7wWBe/j5gPdyDSSy1avzKtnCf
+	 Fvx03OrItjChO0JxVKanrQKc5QPdq6NDea2n4bss9wybssgQlj+vReGUgNtoI6yDdiQoF
+	 RXFFxumsujq+VQmbv/LoO5bSigkccTMyaeeB6D5/qLko0p6w0EX7kTXRv5WT2Lx20HB0g
+	 niKMB7OfrJNSYjtLjArbt/PJhh1m+gdf21tTPEM6IPUgXQJBrqPSF0LOd32RELWJn+i0F
+	 WkDV3CgRdlf/vqIDNTXWGBvSA/DXhKSCLeuQfRfpXN+/wz3Mu9ro9akZWafc102u/Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797527;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LPKBxmhyg89L22fIaf9IQyOx1ftYYGNVMEyFVHYOx+w=;
-	b=09ZPBvNkEz/u3uc7vcADNvatX45SUWfeL53nwZqz4Rz+WLEniIgKw9on9KWKQW1O6aNr
-	 fJFf7z6vSoaeZPY0sntj8hc2Aw/KavOsIe0Pjj3vuaFlEgOCOMSbhH7nVZNckcXohFDLw
-	 jDOb1SjvrviTKyYCUYGd9p348AeLVlPCKUeZauPPP3UlcbIZybWzedQ6B1u3DCWOZZor0
-	 ub7j+AE2Ft1TLBP28gCsKITFPBper1nXihz02C4PJbuKGeJgWGLph9BJNPLohh1v98rp3
-	 kFHSGB80zZtkev1SJw310qmBvf1R+5quku5eMldzXaE2qd04KN7LDZVZLA8L1HZa9LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797719;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=iSfIUyfCKRc55EWDt6I8EFOvGiqA3QTQENqRfeCCvks=;
+	b=xvpUx5ojOZAqSrewX25YT1dGt3p4LEq0fC9SFCnqW8w28/ldsK+z/X2p3jVPwywVlFzD
+	 DTuyMavL91HYjW78y1IE1nC010xXW55tDXRrgXfLF7s/Z4xhUGDyUlGQRqwr3/wXcTPK7
+	 ld0Hc/6qTp0a+qKi1zW25YeNtVB6XSffxe+11sZWEsz2deAao+kes5cx5tmS1sOqaL5R2
+	 8pAr+TcEP/5WvBQnIHYRX1/0xNjl0KU2lxREj73P+eI4r4zLUmDAD6DnmfBsGLSTgfSeb
+	 g66BC9mhS8upGohcwRSeCh1GyrtB9dmkIKzFrydlasUnL6Ikkmp9BObwdxCizXWSdPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVrWEomG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9sZd8bJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1CE606A33D
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:05:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC183606A328;
+	Wed,  4 Nov 2026 13:08:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVrWEomG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38661F0157F
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:05:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9sZd8bJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162851F000C1;
+	Wed,  4 Nov 2026 13:08:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797526;
-	bh=LPKBxmhyg89L22fIaf9IQyOx1ftYYGNVMEyFVHYOx+w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RVrWEomG/IIX5cxMVNeQAJqg14gY31z7wjGrtqlnEeyw4TansTn8u898lZjy38P8l
-	 IOYQ9fyLUGCmGGEPqik0GJA2klQhNatrvFkvVB80aWjIvTHrBVzlCQFszwyf2gduN3
-	 mcROiofudnBjB9++SPu6MauEKpax3EiJo+g3lZKCtLcPdCnZImr7QgHyKGGO6at0N2
-	 O2NmcLOL3Edcev8rg6ppQLVQ+I2k2e6OXcijhVELFd0GgCI9aN8TntOMvjEhPIcvBM
-	 bOQFp7iInM+ZQjXmV7bD/OMvupiiBncz9rL/Q0PN1gE5ALQ0tZr9fLd/jdH6eVQnKV
-	 aRwzuZ249826Q==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso414509e87.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:05:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw3m8dG82QdY+sb14Q5jAEbs/tN6VJgeWvNDEVr8VqdQKazSiUy9eS2ROZH0FTn1iSDdNtzlFNs12dn@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LHkn8gAscnAe+Z54zYkNrJsSwTPnc+ZHafLWQgMh+O9o7Tj42
-	MlYD+/j0eyW5CLKm3gcNvmVFOWrvKgNRCWltjy7qV3AWRct6cyGUoiCDc+90MGY/gsLAxnTqTKA
-	3QAkEtUUQnw9mByttPqFyte+cJdFk9O8=
-X-Received: by 2002:a05:6512:3a89:b0:5bc:c446:760c with SMTP id
- 2adb3069b0e04-5bfd956f3c7mr5830020e87.48.1793797524594; Wed, 04 Nov 2026
- 05:05:24 -0800 (PST)
+	s=k20260515; t=1793797718;
+	bh=iSfIUyfCKRc55EWDt6I8EFOvGiqA3QTQENqRfeCCvks=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=V9sZd8bJIFxMrU7+WNcU0VPC7l3364cc6ALuq7BG2BwHJvDC8+wA2Spdou3w+EpG1
+	 /wLJrYKBUz2KeQQ4kWKWHIJ7ISG3lh1m5QxbQlJ4OZra119sh1wic2hhYZvlsSsWZu
+	 46vppfPBHAos0S1f/3AY0aUcJ9b0AXl7ra9wDpo9o3M7YetQpnlyDnvem39vdQseaZ
+	 D1PuKZWR4JS+x8shlCkPKeRUL2snRyWKy8SE14qhT0wdBw4Tmz+kbUdfuqASryLTBj
+	 eHlORmOISZSBpY2NUIq5egOGtgXSsvjReS0K39hoBP/Qf9HQd+qMNmt7EHObmajOXo
+	 HOQhtYjsSy2EA==
+Message-ID: <sashiko-outbox-197326@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/5] dmaengine: arm-dma350: Add slave and cyclic
+ transfer support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jelly Jia" <Jelly.Jia@cixtech.com>
+Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261104124411.296640-3-Jelly.Jia@cixtech.com>
+References: <20261104124411.296640-1-Jelly.Jia@cixtech.com>
+ <20261104124411.296640-3-Jelly.Jia@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 13:08:36 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,57 +60,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com> <20261022-add-board-ok3572-c-v1-6-0b0fd85a31ee@qq.com>
-In-Reply-To: <20261022-add-board-ok3572-c-v1-6-0b0fd85a31ee@qq.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 14:05:11 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkfnsnqr9DeJG1UY1BNPmXV=L1fh0o1fRgq2N70k3Aq2A@mail.gmail.com>
-X-Gm-Features: AclHuK_mv5t_ofBXXvFmTtsscxk8ZZZWMu9yfbYuWEEuKyuLUDpVdyNQz1Is1sQ
-Message-ID: <CAD++jLkfnsnqr9DeJG1UY1BNPmXV=L1fh0o1fRgq2N70k3Aq2A@mail.gmail.com>
-Subject: Re: [PATCH 06/27] dt-bindings: gpio: rockchip: Add RK3572 GPIO banks
-To: 1579567540@qq.com
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
-	Ulf Hansson <ulfh@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Jisheng Zhang <jszhang@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Wu <david.wu@rock-chips.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Jaehoon Chung <jh80.chung@samsung.com>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-gpio@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-phy@lists.infradead.org, 
-	linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 6:12=E2=80=AFPM Cunhao Lu via B4 Relay
-<devnull+1579567540.qq.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dmaengine: arm-dma350: uninitialized sentinel and reset for dch-=
+>req
+- [Medium] dmaengine: arm-dma350: clearing dch->desc on error in d350_irq()=
+ loses error
+--
 
-> From: Cunhao Lu <1579567540@qq.com>
->
-> RK3572 GPIO banks have four parent interrupts and a separate debounce
-> clock.
->
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+commit 84e756dbc528524c6cc746a33846d36d67c475ad
+Author: Jelly Jia <Jelly.Jia@cixtech.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+dmaengine: arm-dma350: Add slave and cyclic transfer support
 
-Perhaps Bartosz can just apply this one patch to shrink the series?
+This commit adds peripheral scatter-gather and cyclic DMA transfer support =
+to
+the arm-dma350 driver, including trigger configuration, coherent command po=
+ol
+management, period callbacks, and residue calculation.
 
-Yours,
-Linus Walleij
+> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+> index fdc4cd2245798..cfe3bacfab687 100644
+> --- a/drivers/dma/arm-dma350.c
+> +++ b/drivers/dma/arm-dma350.c
+
+[ ... ]
+
+> @@ -207,14 +252,489 @@ static inline struct d350_chan *to_d350_chan(struc=
+t dma_chan *chan)
+
+[ ... ]
+
+> +static int d350_slave_params(struct d350_chan *dch,
+> +			     enum dma_transfer_direction direction,
+> +			     phys_addr_t *dev_cpu_addr,
+> +			     enum dma_data_direction *dev_dir,
+> +			     enum dma_slave_buswidth *width, u32 *maxburst)
+> +{
+> +	struct dma_slave_config config;
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&dch->vc.lock, flags);
+> +	config =3D dch->sconfig;
+> +	spin_unlock_irqrestore(&dch->vc.lock, flags);
+> +
+> +	ret =3D d350_check_slave_config(dch, &config);
+> +	if (ret)
+> +		return ret;
+> +	if (dch->req >=3D d350_chan_to_dmac(dch)->nreq)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Can this check in d350_slave_params() ever evaluate to true?
+
+In d350_probe(), dmac is allocated with devm_kzalloc(), which zero-initiali=
+zes
+dch->req to 0 for all channels. Because d350_check_slave_config() already
+verifies d350_slave_supported(dch) (which requires nreq > 0), and the only
+place that updates dch->req is d350_of_xlate() after checking req < dmac->n=
+req,
+dch->req is always less than dmac->nreq. If a channel is requested without
+d350_of_xlate(), slave and cyclic transfers will silently use hardware trig=
+ger
+request line 0 instead of being rejected here.
+
+In addition, d350_free_chan_resources() does not reset dch->req or clear
+dch->sconfig when freeing channel resources:
+
+static void d350_free_chan_resources(struct dma_chan *chan)
+{
+	struct d350_chan *dch =3D to_d350_chan(chan);
+
+	writel_relaxed(0, dch->base + CH_INTREN);
+	d350_terminate_all(chan);
+	d350_wait_for_stop(dch);
+
+	free_irq(dch->irq, dch);
+	vchan_synchronize(&dch->vc);
+	vchan_free_chan_resources(&dch->vc);
+}
+
+Should dch->req be initialized to an invalid sentinel such as U32_MAX (or
+dmac->nreq) in d350_probe(), and should d350_free_chan_resources() reset
+dch->req and clear dch->sconfig so stale request and slave configuration st=
+ate
+is not retained across channel release and reallocation?
+
+[ ... ]
+
+> @@ -487,22 +1193,28 @@ static irqreturn_t d350_irq(int irq, void *data)
+>  		else
+>  			vd->tx_result.result =3D DMA_TRANS_ABORTED;
+> =20
+> -		vd->tx_result.residue =3D d350_get_residue(dch);
+> -	} else if (!(ch_status & CH_STAT_INTR_DONE)) {
+> -		dev_warn(dev, "Unexpected IRQ source? 0x%08x\n", ch_status);
+> -	}
+> -	writel_relaxed(ch_status, dch->base + CH_STATUS);
+> -
+> -	spin_lock(&dch->vc.lock);
+> -	vchan_cookie_complete(vd);
+> -	if (ch_status & CH_STAT_INTR_DONE) {
+> -		dch->status =3D DMA_COMPLETE;
+> -		dch->residue =3D 0;
+> -		d350_start_next(dch);
+> -	} else {
+> +		residue =3D d350_get_active_residue(dch);
+> +		vd->tx_result.residue =3D residue;
+>  		dch->status =3D DMA_ERROR;
+> -		dch->residue =3D vd->tx_result.residue;
+> +		dch->residue =3D residue;
+> +		dch->desc =3D NULL;
+> +		if (desc->cyclic)
+> +			vchan_terminate_vdesc(vd);
+> +		else
+> +			vchan_cookie_complete(vd);
+
+[Severity: Medium]
+Does clearing dch->desc =3D NULL on the error path in d350_irq() cause error
+status to be lost?
+
+When CH_STAT_INTR_ERR is raised for a non-cyclic descriptor, d350_irq() sets
+dch->status =3D DMA_ERROR and dch->desc =3D NULL, and calls
+vchan_cookie_complete(vd), which sets chan->completed_cookie to the failed
+descriptor's cookie.
+
+Because dch->desc is now NULL, a subsequent call to d350_issue_pending() se=
+es
+!dch->desc and starts the next descriptor:
+
+	spin_lock_irqsave(&dch->vc.lock, flags);
+	if (vchan_issue_pending(&dch->vc) && !dch->desc)
+		d350_start_next(dch);
+	spin_unlock_irqrestore(&dch->vc.lock, flags);
+
+d350_start_next() overwrites dch->cookie and sets dch->status =3D
+DMA_IN_PROGRESS. If the consumer then queries d350_tx_status() for the fail=
+ed
+cookie, dma_cookie_status() returns DMA_COMPLETE, cookie =3D=3D dch->cookie=
+ is
+false, and d350_find_queued_desc() returns NULL, so d350_tx_status() reports
+DMA_COMPLETE with a residue of 0 for the failed transfer.
+
+Clearing dch->desc in d350_irq() also prevents d350_terminate_all() from
+resetting dch->status back to DMA_COMPLETE:
+
+	if (dch->desc) {
+		if (dch->status !=3D DMA_ERROR)
+			vchan_terminate_vdesc(&dch->desc->vd);
+		dch->desc =3D NULL;
+		dch->status =3D DMA_COMPLETE;
+	}
+
+Should dch->desc remain set (or should d350_issue_pending() and
+d350_terminate_all() check dch->status =3D=3D DMA_ERROR) so that the error =
+state
+is preserved until the channel is terminated or queried?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104124411.2966=
+40-1-Jelly.Jia@cixtech.com?part=3D2
