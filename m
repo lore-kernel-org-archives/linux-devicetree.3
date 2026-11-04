@@ -1,70 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788085;
-	b=t6scjRysV5kARAZzeVUfx52BNl4rzW0xFrf5yVCwWXu6Du9TPeEM6Y9lGn0Kv2Vqwi2M
-	 wX/zbfbG2df0/HnC2LVjq5gYs/ksTo2v3nKWtuCSPQdkK6gZnpW2am7+5ttZsOSjkPgKk
-	 UZg8oNbFR7J8AV+YlqFCeyfaYMJV0vsIjdiIwcTFfaxYFKaQEs0tHJv1KAtaxhItMZZn1
-	 IrorLmnejyyzOeASeiV2S12cEjaGn6IKtQFZzZSg2sjoBQrI7piCnrh2ypSSrD10zjfQA
-	 cA/j+PNVnyhno7wYK42THunt/SOrHmkQPJrmOUk42ikqTuyfxXKMXWumMUgyzQmQAIg==
+	t=1793788227;
+	b=dL0YrwXI17T6gQOpJOl8eSCboYzrhRUF+IgYbp+dpAAjRJmq7tBBb3MUugZN1rbHEdhN
+	 AXgAt9kb8EG9djz9CEfGnSFiaqmSyKrxuXEwXH2XPv/V2pKmHW2mr1/RurqUu67a/c+y3
+	 EzJ8M0ce6tTzbnPeueUnb7LlXnBuSpqOJIKo1/BkFgXKqdLSCGIsSw0RHrh3QTL5j/reZ
+	 usF/WfWdOJj0prDbCTpeEdTkKCPhz91Abol3nj/i0WD8w5FGECQQ6BbYTrfOB3Y5npQds
+	 K+nbMYQ6tqUUrpnklzqXpHMwFee/pWpXj6hisDkXoIheJ/HjoWNRw7+wGkaJIyhDekA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788085;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=GLaKKMhflH6c9HMj7tkIQiYSGOrte1eESSKQrGjfr70=;
-	b=gPIsV7ZoiGMPjVIHqHdzdmnX76du6zIR7L4EyWWa2/TlxNc2sx2rDsDYSGTuxbZ3A1rR
-	 Cusrqkr0Rm3aHBeCEneyaYCBJs2TfMXJCvFZ6Y657i/XFqsMrEPJU2B4N4P/WKH1zHqSa
-	 T9Dqib9luuoO1B9XF8Y1tEM/h/01dy8V0RaXgwHI2BWBxx2LH4Upx32P/NJSuy2w08hJ5
-	 ydgO3LBjPd4w13MfNsYZLRMZhOfm2ZdL56KbyD0Q9+TSrQZJkxNr05M6uT/Yl73RhBr0o
-	 zH3UxKjZGEWRQ3JUw8+F10DZtg7zDwMklRo23j19P5qTN+8rtGPUW1nklapWNcH7qvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788227;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6XQw3zibaKqqpkbbYpdr8M7vZmcUn7VXCPtT1zKpVLI=;
+	b=j1H1sEatiqb2Cin4A2JFKw9nUG7gaDgccKZICPHrTL5wgQVasi2ow62l7+yP4pb3bRaP
+	 IEzHZOCuyk0FZQqnbGd63RCgaMThssDP9duJooP0cnv+uXe49oalMBi3TgjUWfbHU3IkH
+	 /gazDRarQUHtawgA8ioZK32A4AHjQ0bpiiOhI2MyDIvj3cSidC5+gNlcfZv6uofp6/PhA
+	 2lcfHbty6e/ZsVIaZYxWMyvFAiez9FhqtZfdp5nDV2883NuM/GFp5Pf1CAIcCuRBt5uMD
+	 8jYNFL05gu3hgkwNhmiWkHWIjdK97uss3aBuEmzhtlFiSIZKecq9O4j9/urIylFZT4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=o5rbZXVq;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhU8l6DV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72001606A332;
-	Wed,  4 Nov 2026 10:28:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72001606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4D8606A326;
+	Wed,  4 Nov 2026 10:30:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=o5rbZXVq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=GLaKKMhflH6c9HMj7tkIQiYSGOrte1eESSKQrGjfr70=; b=o5rbZXVqXBOPz9MgAOGvVCI9OH
-	rfV9RhCslhaCfar5qBWNZHOGhTb40svSP/U9cZBARICeF1s85qeLm1BXEtT1FXRqf/AxyyViXG5JX
-	uIkNbXx6TybQeiCckwatSpovab7geUmVJWT0K8/k6CSMM106OEhaJ5IuD+HJk93478dgXIlLq1V4r
-	N9RVyxyPENrg82zAQ9/z5Ej+MN4xwZMgv64pxwVyEPWSqNSYhP4JmER2b3z8rz2+60vAtDieRB/ya
-	3mLn1L8ZILnwjvn3P0wwDdv+BlF8gERII7sgsrW/Io66GFLsiGRYShcjIZh/lpt2g4xaPqN5nSVLE
-	7GEI3XHg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
- ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
- zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
- sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
- u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
- jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject:
- Re: [PATCH v15 05/15] accel/rocket: factor the completion tail out of the IRQ
- handler
-Date: Wed, 04 Nov 2026 11:27:41 +0100
-Message-ID: <8888361.5OynTdThKG@diego>
-In-Reply-To: <20261101082307.151957-6-gahing@gahingwoo.com>
-References:
- <20261101082307.151957-1-gahing@gahingwoo.com>
- <20261101082307.151957-6-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhU8l6DV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55991F000C1;
+	Wed,  4 Nov 2026 10:30:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793788226;
+	bh=6XQw3zibaKqqpkbbYpdr8M7vZmcUn7VXCPtT1zKpVLI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XhU8l6DVgoXFDCGpA9dD5djco7w48DvID9LijKPUQT7Qg1HYZAYBe/gbxb5ziquVK
+	 615Ekjw6fa69msxvRHwG9DgI11fUDd1unnN+l7iPCyLS3+1hFMKLDNhOWn+j14owsA
+	 8J1iLGIa/6FwKXUHFpeG/2MMkDOTRS1H5b/m2ycTWUlZndgeg6HJrJMH4Go5jkahpY
+	 uaDJYn8DXHNnuQU7cJzpldjK5y5E3l1vQW0U2gtwV658lBtR6GnqsaidSPH/yIZW1P
+	 WVzetxP2BO/8zmq2a6T6ryH+iRogvDqu0mJzWXCyCUaVJODSuzGxJnG8UMUiSE2N61
+	 JzYYF4aaA5jjQ==
+Date: Wed, 4 Nov 2026 11:30:22 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v6 5/5] arm64: dts: qcom: sm8750-lenovo-elden: describe
+ the WL2868C regulators
+Message-ID: <20261104-elfish-booby-of-awe-27d2b6@quoll>
+References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261104032648.209747-6-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,81 +61,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104032648.209747-6-xiaqinghuan@mail.ustc.edu.cn>
 
-Am Sonntag, 1. November 2026, 09:22:57 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Jiaxing Hu:
-> Move the part of rocket_job_handle_irq() that starts the next task or
-> retires the job into rocket_job_next_locked(). No functional change.
->=20
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
-
-this makes the irq-handler more descriptive in what it does
-
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-
+On Wed, Nov 04, 2026 at 11:26:48AM +0800, Qianhui Xu wrote:
+> The camera devices of the Lenovo Legion Y700 Gen4 are powered by a
+> WL2868C camera PMIC on i2c10: LDO1 feeds the rear sensor DVDD, LDO2 the
+> front sensor DVDD, LDO3 the front sensor AVDD, LDO4 the rear sensor
+> AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of both sensors and the VCM
+> VDDIO, all at fixed voltages including the offsets programmed by the
+> stock firmware. LDO6 is not wired out on this board.
+> 
+> i2c10 is a GENI I2C controller inside the qupv3_2 wrapper, so both
+> qupv3_2 and its gpi_dma2 parent are enabled alongside, otherwise i2c10
+> never populates and the regulators would never register.
+> 
+> The VSYS input of the PMIC is the always-on system rail of the tablet
+> and is described as a fixed regulator. The VIN12, VIN34, VIN5 and VIN7
+> inputs are fed by SPMI PMIC rails that are not described yet, so they
+> are left out and follow with the board series that adds the PMICs.
+> 
+> The consumers of these regulators (the rear sensor and its VCM on
+> cci0) are not described here: the CCI controllers are being added by
+> Hangxiang Ma's SM8750 series, and the sensor nodes follow with the
+> camera series that depends on it.
+> 
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 > ---
->  drivers/accel/rocket/rocket_job.c | 31 ++++++++++++++++++++-----------
->  1 file changed, 20 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 152a9098634b..417d5ef06c09 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -365,6 +365,25 @@ static struct dma_fence *rocket_job_run(struct drm_s=
-ched_job *sched_job)
->  	return ERR_PTR(ret);
->  }
-> =20
-> +/* Start the job's next task, or retire it. Caller holds job_lock. */
-> +static void rocket_job_next_locked(struct rocket_core *core)
-> +{
-> +	lockdep_assert_held(&core->job_lock);
-> +
-> +	if (!core->in_flight_job)
-> +		return;
-> +
-> +	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_coun=
-t) {
-> +		rocket_job_hw_submit(core, core->in_flight_job);
-> +		return;
-> +	}
-> +
-> +	iommu_detach_group(NULL, iommu_group_get(core->dev));
-> +	dma_fence_signal(core->in_flight_job->done_fence);
-> +	pm_runtime_put_autosuspend(core->dev);
-> +	core->in_flight_job =3D NULL;
-> +}
-> +
->  static void rocket_job_handle_irq(struct rocket_core *core)
->  {
->  	pm_runtime_mark_last_busy(core->dev);
-> @@ -378,17 +397,7 @@ static void rocket_job_handle_irq(struct rocket_core=
- *core)
->  		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
->  		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> =20
-> -		if (core->in_flight_job) {
-> -			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_co=
-unt) {
-> -				rocket_job_hw_submit(core, core->in_flight_job);
-> -				return;
-> -			}
-> -
-> -			iommu_detach_group(NULL, iommu_group_get(core->dev));
-> -			dma_fence_signal(core->in_flight_job->done_fence);
-> -			pm_runtime_put_autosuspend(core->dev);
-> -			core->in_flight_job =3D NULL;
-> -		}
-> +		rocket_job_next_locked(core);
->  	}
->  }
-> =20
->=20
+>  .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 79 +++++++++++++++++++
+>  1 file changed, 79 insertions(+)
 
+I do not understand why this is a separate patch. You add new hardware,
+so the commit is "add new hardware". One logical action, one commit.
 
-
+Best regards,
+Krzysztof
 
