@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798006;
-	b=Jd5o1g+Hui+DHG6O1jQqTU6l3UM5kn+NwvHwJyK2ye8NX5rEMsJx7+wORzhXoKfLKWjP
-	 VicbgwU2kgLgDYWpWXT935saK3zl74QWROCdxD/E19zPt+CovUNaRSlzilHD8IRg3QmTe
-	 8JQY7YEtKOsVfwR+SHBmdRk4b6PQLdvCOGr4rzkoujDlYd7Q71pFj85uXDGySMQZ2Soie
-	 Yggh6sFlPJTYmyNjO6Z5cN+Hjkf0bOQBlSNBJLWNIZlOpKG+8/zXYGVwEbUdwhrtkErM9
-	 snrz29ciWx4HE7D+EppGUPmjCAMw/+ON/V60heSl3yFI0fDH8v6Ystd8iZ96v24+vrw==
+	t=1793798081;
+	b=xm5v8afuv7mAFNqp5PdNIKzHUlEz0zK5QBFAemoPbW22ELNlWkrKAEO1jmp6rcRLqReO
+	 rWp9kNJ6x5WZhdsfT79CPcbJ+hmICLkyxEZ+QFlMZb7o5QPR1U2DktkWlLTveYNURWBo8
+	 HuF5294oWEQOK38GBed+k0BpSDJsLBpYcmHcDBxaybFI8DsBqE2zdSGWsu41DZLhANHEY
+	 8cdoxcWG5+uOk3/aNx7AYP9OpnWaOH+aHErHVgw/6RGd58PO8PgrCzpN+68FoXSdJIjkX
+	 DrO+tiblyKVBPst25GbSKSJbhQi60FBbW+G5lar/E0BO7zzXF/6/L1PZZ4m1ZBvGwbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798006;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=c/miz+XIkrZ9ityptWGlcqGz3sPpyzhAPiLeG3wobco=;
-	b=5LhCH2PAqaaI973UQgHbp5nv1VNTnINkrIJxLXJZ8ayLiAZeMMQw3SlWppQEPPkkQ41i
-	 WZvU0LjjdbCEVwO8WBs7ZbMus1HjWMWy7/cr8tDm9Ac8DuWv/f85pUHVGPKTCmHak4P+E
-	 haDgTyxIpwgDyqgFSNp4kxBhMzH8Lsbg0wPy2A4LtFGatwr4IY1tfzol1lmXVxnWoQKrx
-	 5E70nREfCF58yBaMxBsU1r3TA7np83EFKgjAz3o6RIxPmBARZx6BVUHrm8Z6qwuN8kLD3
-	 qo6wLqgfJlEJSweHC/G/WkSgxV9K8Y9tQoKtWelGi4QxAr4TzoyNGShpzSGiim7t61Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798081;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/p5+Pyk6coILlORdcQBpVHNHSFgdC438Pn8Lrp7EWZ4=;
+	b=19Irk/yl3uFqea4tr/ju1WosynxMX/GV5aaaWsqaOjPSa1cGsFgEvCZS53NItFAOlO7P
+	 2/4WvqAmaIv6NXA0vWhAEQuxpImlTcsIgl2Afi6VcT32814vY1v5d+lwdV6b3qfiKMBLr
+	 e//a2rKVUkrFU+Z9pvJw+5/j33oqdfI9gyI/3t8ao2Z1/iAZtCI1rrghNOrgu2/F3M0mQ
+	 qCP5z8wUO+cQZNTw4g1MCG61bBYQfxsQtO/6Mve+1sLcfeZVyzGV4IiqFApVLuSnp5B/I
+	 cp3/bzQk537WOHM2QDoA5ETh9/CruAqiOuW2x3QszCi1oPYznwr9WFsH5NeHGf5BgXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCnLY5Yb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSwVh+0e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19B3606A326;
-	Wed,  4 Nov 2026 13:13:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8CA606A33A
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCnLY5Yb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26701F00919;
-	Wed,  4 Nov 2026 13:13:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSwVh+0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31CD1F00A2E
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793798005;
-	bh=c/miz+XIkrZ9ityptWGlcqGz3sPpyzhAPiLeG3wobco=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VCnLY5YbXcyqv/hbXP9RVMCg4F8hC2yQH8d/eX7LGbTBLaC5Irhyrd6pCWT2q8Lsa
-	 di3T0VEjrIF7CEBSrBJiXUfEiqQlIiy+5Ys4ps76tRBThWbs9CYvp77P65eJPQWM1f
-	 cRjS5/QJJseF5PN9D+nKS5EwJp7hPFJTKNOvhex3w1p0EXH4Aezf9d5+gaK23gzaki
-	 Ccg/F2DUK1SoaO4TUX3wTfGlOBAj6eXmf1KPquc9AlvWpnyKxM1EbA5H8YkPYhYF+x
-	 yY1ExZ2AmKhlb+JuIpN2AueqxXwuguKZEYYhmU+zxVZF7GzHoo1iUscmtemeNYIxJO
-	 C7IUDMVkc8EWA==
-Date: Wed, 4 Nov 2026 14:13:21 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
-	konradybcio@kernel.org, abel.vesa@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com, 
-	krishna.kurapati@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com, 
-	dmitry.baryshkov@oss.qualcomm.com, neil.armstrong@linaro.org, val@packett.cool, 
-	balaji.kalkonda@oss.qualcomm.com, tvlad744@gmail.com, linux-arm-msm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: usb: qcom,snps-dwc3: Add mode-switch
-Message-ID: <20261104-bipedal-supportive-earwig-2aae26@quoll>
-References: <20261103135057.1682-1-26rote@gmail.com>
- <20261103135057.1682-2-26rote@gmail.com>
+	s=k20260515; t=1793798080;
+	bh=/p5+Pyk6coILlORdcQBpVHNHSFgdC438Pn8Lrp7EWZ4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PSwVh+0eCTT+b5fCxey1CsR0b6m5BP0NC9rEWv/qGoVAp7z7b/X1baMHbpDnRhHw0
+	 1IlSHrcLAlVsg55IpOJF5Nkvf2vaGC/fHZEyKH+Don9up9zSqgKV37V5nainUewRr1
+	 tAyK+1WI3fZ/i42mU5cbzo+HvC/82f7rkN3yxsVGBPX5SeP8DXJpSKARcrEvAMNSv1
+	 RLgoTtiG3rPcDWuwk0+yNZkdNee1OkZ9GCZo58XY+OQNfYVWhHMw4oNuRfTNNgiFs7
+	 4AkeoxFWz8uacgEWDIjPHFeVRqn52p+Yr5AhY/9vo5pidgnseQ+ftRBNMagtn2p8xU
+	 Pbq1Di/rgQkDA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bfc32574e7so644823e87.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:14:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzIa78P1V7gwereJN4TlNTTeVrHnsxljUzUX3JPIdqsj5d1r4Du9xqkEk9drryAZGdGSH7nX2KeEQLD@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lGGtNVQv/ggswQrtsws+o3dhjfc1gITh54nikKCGmRJdG7BbB
+	ltZo3eFOEWSVHuvB7fZOEiuxoSyzJBWDQcDA0YdlCgFLPMFkiQezG2f3wuwXCONyiKbK+leGDPC
+	Ro+HXszDHhrF7gVSW12/gd+Y+zI/1zTM=
+X-Received: by 2002:a05:6512:3d93:b0:5bf:ac46:c5d6 with SMTP id
+ 2adb3069b0e04-5bfd956d81cmr4929046e87.12.1793798079384; Wed, 04 Nov 2026
+ 05:14:39 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,47 +59,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103135057.1682-2-26rote@gmail.com>
+References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn> <20261103-a210-scmi-v3-6-ee6b31580808@iscas.ac.cn>
+In-Reply-To: <20261103-a210-scmi-v3-6-ee6b31580808@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:14:27 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=5SypKyjwb71hT2pzTZ3s9qi62JG_EevyjTjGgTZiE8w@mail.gmail.com>
+X-Gm-Features: AclHuK-6MXT5O-NfPKrU9YAGzhqKyzaaZr6RTIvrirwYp92eUVqCIspXmcEerPc
+Message-ID: <CAD++jL=5SypKyjwb71hT2pzTZ3s9qi62JG_EevyjTjGgTZiE8w@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 06/17] dt-bindings: pinctrl: add Zhihe A210 pin controller
+To: gaohan@iscas.ac.cn
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+	Jassi Brar <jassisinghbrar@gmail.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>, 
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	linux-clk@vger.kernel.org, linux-serial@vger.kernel.org, 
+	Han Gao <rabenda.cn@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 03, 2026 at 10:50:55PM +0900, Joonhoe Kim wrote:
-> The QMP USB3-DP combo PHY stops the USB3 PIPE clock when a Type-C
-> DisplayPort pin assignment gives it all four lanes for DisplayPort,
-> while the controller can keep running its USB 2.0 port. The controller
-> has to move to the UTMI clock before that happens, so it needs the
-> Type-C mux state as well. fwnode_typec_mux_get() only matches graph
+On Mon, Nov 2, 2026 at 8:45=E2=80=AFPM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
 
-Controller does not perform the switch, does it?
+> From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+>
+> Add a binding for the AON, PERI1 and PERI2 pad controllers of the Zhihe
+> A210. Every pad is muxed and configured on its own. Functions of the same
+> kind share one name unless a pad can select more than one instance of
+> them, as with the UARTs.
+>
+> Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 
-> nodes that have the "mode-switch" property, so allow it on the
-> controller node.
+This LGTM, just waiting for a non-RFC version and DT bindings review.
 
-So judging by this, you would need to fix fwnode_typec_mux_get() or
-opther driver code, not the binding?
-
-> 
-> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
-> ---
-> v2:
-> - Use the common usb-switch schema instead of a local definition
-> 
->  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> index b77c02c64d45..14fc7e4ebc80 100644
-> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> @@ -158,6 +158,8 @@ properties:
->        HS/FS/LS modes are supported.
->      type: boolean
->  
-> +  mode-switch: true
-
-Drop, but you might explicitly disallow orientation and retimer, if
-entire solution stays after review.
-
-Best regards,
-Krzysztof
-
+Yours,
+Linus Walleij
