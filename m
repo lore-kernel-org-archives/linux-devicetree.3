@@ -1,81 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791091;
-	b=rh8+SB0D4pmLPuaiNLUwGiE7TDalTHtKGea7kzXuzjoJJ72XXOf8ptumzthAIEM1Nrth
-	 H1r7Ju2TvpY7fBNxSZqe85atjuSaWoYu/EVA9LAWuONlMJHrWbpSw54rycmY5L4nPljAq
-	 GTByThZTVQVpYIuXLwepN1Bluxxm1rg27nXzrH6p5PNlOW2Fnisc1yC45CgbI04MlBwyj
-	 kBNKQjj9Lb0mvifi55ULwgpSbKECdzt3jfiWlxmU/RE1LCEeh4YMdHW+S+44n5KJt4FeW
-	 N9oNn1bBP/GgOc+qPj6Xh7taF9ETC43AEUWECJEObgxmzZu5KleGntL3Xwbsas1U1XA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791091;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4RJ6M+JjySay4WKw8KPrIRm4D2pO/biJ5kqHdcznYKs=;
-	b=pLPuewQh8lZafaZSYKCk48a43DHXgkZf3UqMJDfRpM+Pu5E5JCPJaJIOGkFpDaTfm4Y1
-	 u8KZdgoLg+Ypu3Q7d6DVfIN9JnReAyAt4a74Oe91H2SWZPDvZreNFFXNuHy0peZfDEG5r
-	 46gOxlR3hxwQeR/NODN5bSdYsbjZnpU5CJ6cUnN55KEG+Q1YQnZxzbwelSE+6zXTP1MNU
-	 rt4SGvUjLW6F077Th7+g37l+nCB7Jt9Sf4AktitMHJgBKH9+U3Zf4Z020xWBQ/kqzVu80
-	 DA7HrtxAyutBoBogVYaEN9SrzRspuvTO1g8IqpHlj6THrPg66lFY5Zd3kY66j4N51fw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j8QE9k5W;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793791154;
+	b=XoL94Kn7THkfLJWWj9c9dKSO8srpHXcq9q8Qju+Q3N8jATV7o/8rJfC0Y/Y8mCNZEX7A
+	 sr9muL5PTAjSI3I0Rt2yikFTMJ5Z2ek7M4Ny/+NFJEqo8qlYwRawijzG2yXnNoHoexKlz
+	 QRKESsuCAGNC2hj3fC66SvdEUprx9uIDDPHfJRptfHo/mq+yxdlOl4WJAzeMXKwWnIsTi
+	 5pkYfBk6sKL9YMp+Pmf+tPSiumgCU4MExPGnau1RkEkR9RSsoLhOIVK+2UZ+HfjH1PN17
+	 7YmKz7HtQlAad74F49nNE/ekXRHJWOhJRfrGyVa3mnr4JhaYo1sBsbHBgEfJ1e9xNQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791154;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=iRPfFoXZ4ZDUOJCKMnk6DPwDZmbT5D/X7E/C90hgvzw=;
+	b=0XrrlPapuv0Gxyt58v3koGdSqFS85kOjLX0KT5O6tvUlAVE2cBclxhQlISlBGpmTLrt+
+	 wn8V8VEmMhmcRtbPdVztk0nzusMl4lWi4Q2wKz61/5QtV/Kvku0ws3oDA0K6AwdpJ3+A6
+	 0eld6M9CVGlPd+V1SmF1hIZA8B6gd4C9mUsy5RBKw73Te77S05//WCdAHT82q/lI/3Bqr
+	 QPr6q62ebSv70sXK/2M9RVDMZADCdhhxJtlMBRgYwZMtNmexGVpzdrHfnG/ygqtrjujje
+	 hzyJeAfj4xZ6O7umCyIEZBHMD9nEemi+CaGAPdfMhjO4QQzOi2GYb6rZsFcKSzj8WiA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TejNaPEm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.59
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010059.outbound.protection.outlook.com [52.101.193.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61769606A332;
-	Wed,  4 Nov 2026 11:18:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61769606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4BC606A31B;
+	Wed,  4 Nov 2026 11:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A4BC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j8QE9k5W
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4B5G3P2599691;
-	Wed, 4 Nov 2026 11:17:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=4RJ6M+JjySay4WKw8KPrIRm4D2pO/biJ5kq
-	HdcznYKs=; b=j8QE9k5Wt0v6erqo4TztWoLdfNaKyNPJ4fDEvDehb1GGOzWrET+
-	swxSUMynF+C7neo6EMSs5nH2nyictmEjDGEt540M+BwX4OhgxTa1vwK16OTQSfXX
-	sr2/6PU+ZVTOnja5E4kJRhvZ2d7PPLrff81IuYEeWBU6bwdsF59QDVO9hSCPtHrb
-	pQejdEzxorad4ziEZA5Rn/ldkcsJOjio9BD1rdQ2c29OzKW3Ozia4bWWnZhK+9CL
-	EiqN2g50DLCeGRTyj2Fah+tqP7tOxX9HUwtFzOx3zNvH1YZnbYoFofVvuwuh5Hhq
-	LGKjkRZFzKlo2zJaRXlpNWYtxShtR6d3MIw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pkt9n-7
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 11:17:55 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BGGWf2675525;
-	Wed, 4 Nov 2026 11:16:16 GMT
-Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.147.246.140])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A4BGFd92675519
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 11:16:16 +0000 (GMT)
-Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 429934)
-	id BAE0A21442; Wed,  4 Nov 2026 16:46:14 +0530 (+0530)
-From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-To: mukesh.savaliya@oss.qualcomm.com, alexandre.belloni@bootlin.com,
-        Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, shubhrajyoti.datta@amd.com,
-        shubhamsanjay.patil@amd.com, adrian.hunter@intel.com,
-        manikanta.guntupalli@amd.com, linux-i3c@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com,
-        wsa+renesas@sang-engineering.com, alok.a.tiwari@oracle.com
-Cc: konrad.dybcio@oss.qualcomm.com, andersson@kernel.org,
-        jyothi.seerapu@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
-        aniket.randive@oss.qualcomm.com, praveen.talari@oss.qualcomm.com
-Subject: [PATCH v7 1/3] dt-bindings: i3c: Add support for Qualcomm I3C controller
-Date: Wed,  4 Nov 2026 16:46:08 +0530
-Message-ID: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TejNaPEm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xn6EuoGQl2Pnny9Ij9bCK9x03TPrHD/yJDmd2CyO9cPGMr9UArEZ1OzgPA/oeo05/k5gJ5m5lmUD9JnoyUr6YgJDSML3pCPxfYVh7/yCX+KOWFPw1gJJP/Ut35F5ZGPyKnXNhPGvkaoHhL0F0idxeTs9wZIASSD2NjS9XZGJt4VYK/dODq/RYVCirFS0UjkhP7KTEwk1PFXO3Fc00n/ZslN1N0sBsCPKyyie0OGKSa80KGtWpNcHBLbThi3wzBDUW8eESAMfftrScA858Ao9hwzszG/mQ0UjTsg8kX8ADTIgn6glDWc1E0wjdFaITqeNR0xpRYdNCpPOSX1qsdS51A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iRPfFoXZ4ZDUOJCKMnk6DPwDZmbT5D/X7E/C90hgvzw=;
+ b=j254fETjeCLDEIFYsTeuxEdN42q3nPpQzVZ5j57q1SrEatUPHzLYJaKRRUJ87TqXmjj+womHGC2+mFtMJRilyzKQoW4eqyLZLILqhNfbQtbE5BvnFM7URvg9y3i3ronIEtymfoK1TVqUAWAS3NAIDtrTG+3e6CM3+26NNVMJS5zZ1Rk3lggiKpse1C7Sf8dpE+Q9ubGYIudkjgF9tbBijfc5YCIQA5I2fHfvLcQ3/B4LuOr8dfb2QnXQW9soh7K2O3DG5GyEtLOFBLEZPVNgYXZlGQIV3Fk4O4m8hP+S1nRTTU1Yu4XR8ILxtho5Pyl+W27Ct3MgkdOiR5YP+P4hpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iRPfFoXZ4ZDUOJCKMnk6DPwDZmbT5D/X7E/C90hgvzw=;
+ b=TejNaPEmiZPYKB/znIJaWhcUMtCdE8IrQuVpBSIDYiWqH4xYbZGatUmQxAbgT/lgToeJgM2XOyzNn63j0dNJfrJwkMIpmtYGg17mkT8BhUFlBjnOdDMGM3qqm2Z5qkC5N3fXU6Pr8zk94feehASYroj2i4ko+zRk9JWzS3PkG7Iv9LHLKM5oPggV16+Jqd6mlwtq5e/EiyS3vqTGRG7qhRphO0yQ/ZvJQwhkucwHAQCC69EYPh9eq7cyisHQ+nE7v+fxu0u/Fv41pcl8fSmPzpf39hteA1Kzx5KC0GjqF36IUYytuQQru3JKYwv/PslSa1lb/G2shb4xzmNlTSvRgQ==
+Received: from BN1PR12CA0005.namprd12.prod.outlook.com (2603:10b6:408:e1::10)
+ by DS0PR12MB999289.namprd12.prod.outlook.com (2603:10b6:8:424::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 11:19:09 +0000
+Received: from BN1PEPF0001854C.namprd05.prod.outlook.com (2603:10b6:408:e1::4)
+ by BN1PR12CA0005.outlook.office365.com (2603:10b6:408:e1::10) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9
+ via Frontend Transport; Wed, 4 Nov 2026 11:19:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN1PEPF0001854C.mail.protection.outlook.com (10.167.248.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 11:19:08 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 03:18:57 -0800
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
+ 2026 03:18:57 -0800
+Received: from build-sheetal-noble-20261014.internal (10.127.8.14) by
+ mail.nvidia.com (10.129.68.8) with Microsoft SMTP Server id 15.2.2562.56 via
+ Frontend Transport; Wed, 4 Nov 2026 03:18:56 -0800
+From: Sheetal <sheetal@nvidia.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Thierry
+ Reding" <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+	Mohan Kumar <mkumard@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
+	<linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Sheetal
+	<sheetal@nvidia.com>
+Subject: [PATCH 0/2] ASoC: tegra: Add Tegra268 ADMAIF support
+Date: Wed, 4 Nov 2026 11:18:34 +0000
+Message-ID: <20261104111836.1100527-1-sheetal@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,174 +118,48 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfX2p0U8BCkRYnl
- 3kGCPqV4FlUTr186LmTpRbKUGRWtme32paDuP/v2zq9WeSEUKGajdajuMj769wkLAjkFZawcQ2e
- 8d8uAGN6fKW4z3V3QZ3e/ou+FCs80/k3vGWm1mxiXGxpS/9TFN9rbWarvPfQ+1prscVWDtxs1Nu
- qfDUEMg/pWkonvLV8FIpSHEGPXIiQ0u6VA6FJ/iBT7qC9dSSZZow0eU9f2XqweXI3UltBMM2Vq7
- 5xgjmuoFlgUz53+RQ594bgpo6zWbCDgGEH6OrYYsJLpx7U5FT/bbWC6qG6v4/142kmY4rSdZY/q
- mqGu4DQ3awZxvh3ICZ9K3aF/2LLUlffCpJrX2KSPKytC2uhnV5ESYsOzpIUICApSXeqSOjabU6+
- CTDxGXAqAvuBdVZ+kZWYcwc8/xWEtCGZsc8BOJuzppZDXRusW29TbBixKl10sy2s2/cEyoF8/8A
- 4PVVgrR7VkGr5sseBuA==
-X-Proofpoint-GUID: xFu2Ebln7wVPe8h_7vtNauucD1dZfn5w
-X-Proofpoint-ORIG-GUID: xFu2Ebln7wVPe8h_7vtNauucD1dZfn5w
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfXyFBBaOt4a6y6
- akuqsxzujPEqMH46Xw5hYSvj+JamAWLOpHFxm7rhd+gqyCVnH3pgfhu0SIwfRktRYqUTep28Q8X
- SfqIkfnQlPK9zGemgBas1B1Wuggm64M=
-X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeb1463 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
- a=m-1na6zgiUrtrnXSVq4A:9 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_03,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1011
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040044
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001854C:EE_|DS0PR12MB999289:EE_
+X-MS-Office365-Filtering-Correlation-Id: 328428c2-f858-4587-46de-08df3a657207
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|261022075727099003|261022105027099003|261028144727099003|261026140227099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	KDclTFMcXMsowoQzIQjW8u4BPRnz7NgR3piuzwywZqf5bcgdzPmOot4cWlOYyezY5bHxLqlWXkVzQ/WnHEJICKs2OOWCgsz22MhhVkZpD5bNm7/YeEIgSNBEdHyLrteXaPdQmUSrTj0DGJs49KSf+FTO2zkULOhORMJyT2bYKRrH7V7P1QQKRPOHTnr4sHhf0+s71C1J/h0+v1DDx5ygD843MkJlgaDQUpxCzEyVKm2uF8A8OUrlsXF4+2bQZWeoPZ5B0TycoJiB6duVM4xUcF6o0M/8w0eWLT++1m3xmDKJaMTFBPE3R/2UHf/YuBDAAPImeHNC2RfkIetiwEQO6hcK5DtmeTxhvzkX4oUZiFwFXsDOHzKTjZ53zkjhPpDcDFzs6yugHC/tq7fbnUJAQaG9+GI3HC+DFaKWNlvgHRqZ7dKcdODEMlhTvYKVtuZxI7dIzVOEjlLLluqTfv2uhgB+yXF+exsh2wzaD0JqdJmup6T+S2My9Pe76ILv0qB5cyOtFScLmQZusgBDLtqoPUqoFb68asNbLwqRpnEiZgdv80FRdhvtjy3++ImT83SSs2ObH8QcafoLunFZ7iyruPGtEm4Ypy7eBkAyYfG9Fzdnglz+1RCTPPl0jiSlbtA4bf5vMnELlYW5svxhsT2pcogMddPS+P/XSHjlSeCEjJwI+ms0xXCPrZ9NArCk6m+aCv6kO+8r2x/YszxqrhuWWQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261022075727099003)(261022105027099003)(261028144727099003)(261026140227099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FvpTT+9NROkB7c/DT1T38djzsr2d/dXKknbIUnKpklOfGvBlU5Hc6KG7EBdO3NcW9cKnHy8mzEoc5QgYJjGA2YfEWMAQoJTrIbXTIxN/O3k2WdVq4z7HRltebSySRm+atzn98St53+GVU1PEbJiRGl0va1O2bR+kpNM48MVa4PrYJ3OD4uB470kHKgueRN06JcJgCJ5pFqKlIpnTWddcLaBQITiFlf43lcCbCPXu4vOMTGCXQjQiFy134Frz37k18IE7LNlRfwiSQOlaieA7+ggJDvzWrkiHRJy1nCjJk4wtSLsCtkAC1Uz/1ro6ydn/RDV3ujbv/0hJx852VXDAYs4W1cPON7WUYnlmaB28OTCGQdIY3VpizSBc35a6P4GiR4iN3EgaHzrbm168raXXHOr1ykEuXmOPZrXWwzZdr1+JL46DZulc2J1kqo44vOb9
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:19:08.7210
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 328428c2-f858-4587-46de-08df3a657207
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0001854C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999289
 
-Add device tree bindings for the Qualcomm GENI-based I3C controller.
+Tegra268 reuses the Tegra264 ADMAIF register layout but provides only
+five RX and five TX interfaces. Add its binding, SoC data, DAI and
+control tables, and FIFO defaults to match this configuration.
 
-The controller supports I3C SDR transfers in mixed-bus mode with both I2C
-and I3C target devices present on the same bus. The binding describes the
-I3C controller instance along with its associated In-Band Interrupt (IBI)
-controller used for handling I3C target IBI events.
+Anupama Kunkulagunta (2):
+  dt-bindings: sound: Add Tegra268 ADMAIF support
+  ASoC: tegra: ADMAIF: Add Tegra268 support
 
-Document the required resources, interrupts, clocks, and dependencies
-needed to represent the hardware in device tree.
+ .../sound/nvidia,tegra210-admaif.yaml         | 22 +++++++
+ sound/soc/tegra/tegra210_admaif.c             | 66 +++++++++++++++++++
+ sound/soc/tegra/tegra210_admaif.h             | 20 ++++++
+ 3 files changed, 108 insertions(+)
 
-Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
----
- .../bindings/i3c/qcom,geni-i3c.yaml           | 115 ++++++++++++++++++
- 1 file changed, 115 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-
-diff --git a/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml b/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-new file mode 100644
-index 000000000000..bab89aeee23f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-@@ -0,0 +1,115 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i3c/qcom,geni-i3c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Geni based QUP I3C Controller
-+
-+maintainers:
-+  - Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-+
-+description:
-+  Qualcomm GENI-based I3C controller implementing an MIPI I3C bus master.
-+  The controller supports SDR transfers in mixed bus mode with both I2C and
-+  I3C target devices present on the same bus.
-+
-+  The controller consists of a GENI Serial Engine (SE) responsible for I3C
-+  bus transactions and an associated dedicated IBI controller(IBI_C) block
-+  used for Hot-Join, In-Band Interrupt (IBI) handling and management of GPII
-+  resources associated with the I3C controller.
-+
-+  I3C controller nodes must be child nodes of a GENI-based Qualcomm Universal
-+  Peripheral(QUP) wrapper. Refer to the GENI QUP wrapper binding described in
-+  Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml.
-+
-+allOf:
-+  - $ref: i3c.yaml#
-+  - $ref: /schemas/soc/qcom/qcom,se-common-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: qcom,geni-i3c
-+
-+  reg:
-+    items:
-+      - description: SE (Serial Engine) register address space
-+      - description: IBI controller (IBI_C) register address space
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: se
-+
-+  interrupts:
-+    items:
-+      - description: Core Serial Engine (SE) IRQ
-+      - description: IBI controller (IBI_C) manager IRQ
-+      - description: IBI controller (IBI_C) GPII IRQ
-+
-+  interconnects:
-+    minItems: 2
-+    maxItems: 3
-+
-+  interconnect-names:
-+    minItems: 2
-+    items:
-+      - const: qup-core
-+      - const: qup-config
-+      - const: qup-memory
-+
-+  pinctrl-names:
-+    minItems: 1
-+    items:
-+      - const: default
-+      - const: sleep
-+
-+  dmas:
-+    maxItems: 2
-+
-+  dma-names:
-+    items:
-+      - const: tx
-+      - const: rx
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interconnects
-+  - interconnect-names
-+  - pinctrl-0
-+  - pinctrl-1
-+  - pinctrl-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/qcom,sm8550-gcc.h>
-+    #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
-+
-+    i3c@884000 {
-+        compatible = "qcom,geni-i3c";
-+        reg = <0x00884000 0x4000>,
-+              <0x008c0000 0x10000>;
-+        clocks = <&gcc GCC_QUPV3_WRAP2_S1_CLK>;
-+        clock-names = "se";
-+        interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 796 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 797 IRQ_TYPE_LEVEL_HIGH>;
-+        interconnects = <&clk_virt MASTER_QUP_CORE_2 &clk_virt SLAVE_QUP_CORE_2>,
-+                        <&gem_noc MASTER_APPSS_PROC &config_noc SLAVE_QUP_2>,
-+                        <&aggre2_noc MASTER_QUP_2 &mc_virt SLAVE_EBI1>;
-+        interconnect-names = "qup-core", "qup-config", "qup-memory";
-+        pinctrl-0 = <&qup_i3c1_data_clk>;
-+        pinctrl-1 = <&qup_i3c1_data_clk_sleep>;
-+        pinctrl-names = "default", "sleep";
-+        #address-cells = <3>;
-+        #size-cells = <0>;
-+    };
-+...
 -- 
 2.43.0
 
