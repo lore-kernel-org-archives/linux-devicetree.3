@@ -1,88 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812689;
-	b=cKLpOFHCKbpR3y725k+EXOJLaQYQKhi/HkexSbf/2Dh+aIKFuTLCQzfuoJDJg1lphz5w
-	 i0G3N4fyvcNc37dY1+pHPZO6yQ7o5qjMafQZOhw6cRibwWyt5jSeuoSElpQWOBvG8zCCg
-	 /YUbu6Y94FiNcl9PD6brwpq2hV9l2dQv56icy4Ey+VgSBLXkb3JzLKnmAab8fueENbRuS
-	 1r4DhwbpOE9Wftagv4IPHP20xt/cbHZcHJIzprwGcpNFQ/PGCmRJyz6uy+cHwp2uMOMzW
-	 fo/ukxY3X/gSdz7fyOrMPvvYw87cPZ9ErhXDqVeS/RYnqs0Wk8zQk4Ze6plSUqYUgcw==
+	t=1793813053;
+	b=J/KK+yUdRRHTuGI712bAL8wq/itaC1kcYnV0g8snhdOHUKrPgoRFj+I373zw2sO0xCJo
+	 9fw1WwCRPDAO5KeBWBQJNHOCgX0KsqNa8LeHROclYMd8qCreD/7ZmYvuFXGF3UWKYYfZa
+	 ZvVRCFReJJkueB/2p2x/V5pL8nCzrd3J3lcr8qJ5HtCoSqF5cMr3INrxcTIDPxJTNCplm
+	 sJaDs3GScsLvPi4gQsujxauRRlhxO/Kp0MCzwNf2t1o1XhliWC96bVHGQUaufOl18NW+p
+	 e1xPt7dHK1oQCx3cKV0PN8VPx7odEP4I8arynvOLZNHw5XpKj83dM4pdU0gbpKxDBzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812689;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813053;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8/NfmLQ3EYgwoCetf8WIbYR9sd0SW9xVRHDNR83SE2k=;
-	b=eGfaVCS+grfCB7wfXhA53bfOZzDX9p3VRbQXEsNBZUoh+4ByMuBV9moLpH90GEnEld86
-	 oHsqJyqQ0bkh0Cu1EbEwFoe6GmuncYnv4LRw6MCTCUEijiwPtRY7IR1mF61XKUUPgd49m
-	 CHdKmuUAAhozong4UK0FrjKiU20BI7wAqK4PUOXtTfF0xuPYluoRAvXVphiOINVl5CkcQ
-	 d65PxtT/wE0yL3Y5ATnKr4IiglQ3ZPYmoHFrM7W82emV+rUAoOP6PjqaePAZLx+9lKXZB
-	 5QCNFgTBKfwNTiIBvjvBuYdxBzrnYr8RLKti7BBPDaW+8o+RSjQzwzqeaq3y1cJ5Tsw==
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=KJ6VISWospHgYw8r3RLcWmStVXedmzrG4Mzjiqw8u3g=;
+	b=G3o1J6b8JOh82vuMj6rXfkKzebkL0ZQNnBWybNTmum843nVio7j7BS35Lp8ylXZnLy/U
+	 pESMLIHH1rOo3qMMkSKKlcoJvlzlqWECyhGiVCygvvDdcxx3M2YxM1ynoQ2jVOrFGMZAq
+	 e8LX5YwLC3pBqWzAeMWwtu4AAQbIw2X3nbas7oLTo7uTxl6+aURs7Am36IkeK6wuK8KEP
+	 U65O/2KowMakHZVFgFbTT99cxE974+Phi6S6mdK0JeAfQPdLvZwlfn5QB6VMggNBgd0rh
+	 37GVAzvyupd7bd2xvKz0CmWtdQ7UqlN2oLN8FChzFUfrs4WQmQq0VMo69E6J0JHkKZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A71cIeR3;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wc+AbIDQ;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFE5606A328
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:18:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FFE5606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD31A606A329
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD31A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=A71cIeR3
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso8770465e9.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 09:18:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wc+AbIDQ
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e09aa5264so527744f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 09:24:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793812687; x=1794417487; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8/NfmLQ3EYgwoCetf8WIbYR9sd0SW9xVRHDNR83SE2k=;
-        b=A71cIeR3AARNC1XBZ/bBp1ZicrZksc7yqu6Ryaj/NLf79YbXXoFX7Z9JC6B8Oop1YG
-         cuzMQtJqj2z70GJnOB0NmhqzMYIpHSFuO93N4FXB5WTUsfK45VNB10QGVTm++r2D5X9G
-         E0XhphC1qgdaQtvfFq883+BWD+jWIE0Jqq1CWKDeGS7TVXDqU2yref+D2hsuE1W4koTi
-         yYuoQD+VgVk0He7b/dMRDhA9BQJQ5fcxAmGooiV/YefeufX5JvF70sGjpI+QKIKlmD/x
-         LzY9g9iPw1dqD7qe325U6QVeTcnp+JkzbuPtYoHozLZKi3VVQIC8PfUZGMtQZg7Rsfgo
-         Bl4g==
+        d=gmail.com; s=20260707; t=1793813051; x=1794417851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KJ6VISWospHgYw8r3RLcWmStVXedmzrG4Mzjiqw8u3g=;
+        b=Wc+AbIDQjwboDUfssHTFxKoUosrOYYPxrV6kw7i0TjQIco1rDmhZbhvR2S/o9h6Pe9
+         P0p44wk2wXLv77EKwW94aa1ng19+eBkLHdUzTl0DYRmYOwPP26pQ6vhXR32ZLkz7xVV4
+         9OlbVAowbknyKoxuzSv75cBsuSOrINYPhOlA3loBXpFokKPjbMMwYQ6dGl6HiXkBwfif
+         0GTznnKiLZ4gJKSRsoWi3AGCACiO18kHzLcGc5B5JEaFQgW3wJrXK+brQ5qc/COxSmg+
+         HDZOsjjHs50toWS8olorj+nY1B6DhZga8jMjByfPAxZhdJ45Oc6/Ec3WsUc1BdFhFXsW
+         FQuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793812687; x=1794417487;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8/NfmLQ3EYgwoCetf8WIbYR9sd0SW9xVRHDNR83SE2k=;
-        b=EbK+3BJAQ6UeRPTC9wrrjZXpoCUD94Ni0TXf9qquRvDue7PQSGwISkL8edYV39j5/+
-         mDFeQLSxkuvRXwmOsJ23kRVlPYqm7aIwuO9Vgt0nwAbr36LIXhD/ifqOYTzUENRiSwz+
-         ECdiR9vIkUgPSLawi2+DngvHnIdPuYYcB4bLR0vzUCwRsg+NprE3FRI5FY477gVEo8ap
-         +c66uyu2JbyW+ZMDIabFSeO/BcEml7q0kKU2Za5dbkvY3B7/5o2CqAQlutKhg5+nwJKN
-         AYsMCFxn4LfWZajMyQZv3LJcWg3VTbX7IY9n/jzkO2FDo0Aog3NRnyGIJhbBceQHkxOi
-         0Zbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxW4mk1LqMR8uuRyghk8oSk7aFGsNb7KyPOZF6GOsJcsYdAXXoFitsutq4yhuNUZ0XMtHywqey5CPiD@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4o9dTn/CkJnrWPFjBHtQA1Rx+4XaBh7Js5ngIkU5qGh0NhQOW
-	BOLWnREX1jz4HdLWYVaqhJPEL0EUBV1bR7W6va6l6khdglD+0PINkUazky3+9nfQdr0=
-X-Gm-Gg: AYBFou1ObtlFRWiBuGB7TpmngHiV8C7/teNTiWpLA5z5SbSFsxw+CvCJHAwX7yjsQD5
-	W1BSgtiBTmUK0mbp7ab44NEyhaUY3XZUWgpd82dOg6IIcpwKvzIF3Ha+pF7R7OSaukRi8xbLcmz
-	TEyK9ghE0NtzMUqPcvSfN0tQex4jaw55iWJ1R6JAnYeAJ0DWzNQMycTFytDacNai1OdjmP9ngdJ
-	XuLUU5itVKwG0KUn6DRWVkIpHB15VXPx+6pFMwh4KjbfXri5XtJ43UVwiADeTc1cUVh8G8BhByN
-	wxY4/zWv8+w4tVQnjRnRlB4gwCjstrGYrDUF+gxtrRnb3VmWb462tzla1uElfUnQiRErXx+GoJB
-	CGDqlh7f5/CF0GDKe3CvJhdbXWCEg+f0ddoKOLT3AMcboWTtEjCHehzR1Okg8BkZqdDh8rvzcc4
-	Y+iisdN4+We1sszC0eguR0VwuxPi45MSVYqDn7DPQNKGfQcuL/QUryhvbsYTPSCpB70mIe/aLwQ
-	IgvmfUQDoKWT343rR79V4IMFkRUEVpv9dZ4Iumd5gph8+7FlCMR08EnIPwdVCc12VZG12HXhxWr
-	jeNFkgSlWgbFAiOBnAjpHmI+vyKFongjNR+DMCOn0Nx0JQFbkaxG5TFWz+W1tLXglS6DVDsoK6W
-	wyAP36s91hQ==
-X-Received: by 2002:a05:600c:46ce:b0:4a6:7d6:821f with SMTP id 5b1f17b1804b1-4ac189928e9mr373130175e9.29.1793812687472;
-        Wed, 04 Nov 2026 09:18:07 -0800 (PST)
-Received: from ta2.c.googlers.com (231.141.38.34.bc.googleusercontent.com. [34.38.141.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ecdasm99030535e9.5.2026.11.04.09.18.06
+        d=1e100.net; s=20260707; t=1793813051; x=1794417851;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KJ6VISWospHgYw8r3RLcWmStVXedmzrG4Mzjiqw8u3g=;
+        b=YhrV+FCePC4PkkN+ToUBiv5Qos7VQsrlo6a0i9OZA+NUMzEiqkDVZsfvK2YywKkx6g
+         l8DsZ2DJc7VVN3DUwp41TfaVqVdvm5C+WePW8wdfPXDoLpqChcSlKXUjVNLDQIuknmpa
+         53RIbhKjJVYcXXv/WdqAOgGIQFVuE1fsNIIx1AR7tmIX5GYNeaqSdNAvGGwFEUqxOS8X
+         JO86OEyb4f91wg6/zemOrPdI0WrGBjIdDBc7YS7E4+otOn06icEmMGDnLRMHVyXtq3Z4
+         eYzYGr9MSg3doi6TY77dUQBpY0Dsp5vs1a9goOsUakA0VlQuUvEKsuBg9jLSlIN9Ml0L
+         rvLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQM/aFcCdCPpykkJ/yC56RLgdybh1iF5Lt8GVb5x780nUmZryXqBXm0Z8GFj+7gT4Y2RUH0JnyguZK@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VZ1Poazp+G74Ee/z+BgPvl4lIxkm/VMZzBg1dSs8w724PIid2
+	6ASWyODauva+pRMqgUwqKhmfy7eLVW3UWaacqgm0v8yj8cN5Uele4rbJ
+X-Gm-Gg: AYBFou1/f2Re5ebFv+/bI0V14SzMn85ymNJySKct9v7iBIsQWBdLgd43mBHLw47pqFG
+	DENnLtjwRin0VThaWXEXNNaQMcBjxI/js2pswgYjDpA9ABoZwQQ/ihigs/Q3Ggm7wTxkP2v2QcT
+	TmPy3dR5dhGFUQvxyiwDInDCixNGr8I3hMmKtFsaodMG9dwDO8R0PBzjnm9S+tgadj4uHykfoW5
+	xS4mkitckjYQ3AePPF4l3mDLEBkH5g+zT2Rt0iPrm3Oa33dJp5viffPXXY+8tHFiPX8bHokIL0D
+	kADjcPza3pCTRyfVL0fQFarn6Ye3CfBOliwXRSBBo2wxH7jSs2VsKp/pV6EdH/X8KNWd5nMORXx
+	L/Q6s+B0Klj7h9vVuz9obqSALHOMi21UVXMh0Si+WnDj2t0P4IH9RFkgOEpfmbZs6h3q5k9F+XO
+	PqVbwUi+3kovnxSg84Zmb7DN/fb7Glo/aEsHW7cSPga4ubqVx+LzSmS3l2lWYy9p35OzBPLDF35
+	Skf4lLvtHgl0MiI29bjdFj9/OnsUkUr2Tud1GEoO6Tp+RVvJTimDeHq5T8IzvoR0vRiQtf+P2rp
+	ic6rKUegXMUYnOv7OoCaDdbyfyM7jKm5NbhnCu0FtmchGWg3wEkPvwFaaeuEnDnfVqPhTGqFoz5
+	+rHUa
+X-Received: by 2002:a5d:5f85:0:b0:490:d197:bde8 with SMTP id ffacd0b85a97d-490d1a700a0mr1652639f8f.0.1793813050825;
+        Wed, 04 Nov 2026 09:24:10 -0800 (PST)
+Received: from rillian-arch.localnet ([2a00:23a8:8f4:6a01:5ffc:da36:c891:cd3c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac2772sm4779319f8f.18.2026.11.04.09.24.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 09:18:06 -0800 (PST)
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-Date: Wed, 04 Nov 2026 17:17:58 +0000
-Subject: [PATCH v9] arm64: dts: exynos: gs101: Add thermal management unit
+        Wed, 04 Nov 2026 09:24:09 -0800 (PST)
+From: Rillian Grant <rillian.grant@gmail.com>
+To: Lee Jones <lee@kernel.org>, Ruslan Koreev <koreev.r@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v3 4/4] leds: flash: lm3643: Describe the LED on the Lenovo
+ ThinkPad X9-15 Gen 1
+Date: Wed, 04 Nov 2026 17:24:04 +0000
+Message-ID: <IvA-bOWrRpaeGbjjXz1l3w@gmail.com>
+In-Reply-To: <20261021144034.1636708-1-koreev.r@gmail.com>
+References:
+ <20261011191026.149338-1-rillian.grant@gmail.com>
+ <179198409516.839288.2293417415100693160@kernel.org>
+ <20261021144034.1636708-1-koreev.r@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,306 +107,208 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="nextPart3G_yHyoEQi2GJmRMCtpajw"
+Content-Transfer-Encoding: 7Bit
+
+This is a multi-part message in MIME format.
+
+--nextPart3G_yHyoEQi2GJmRMCtpajw
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-acpm-tmu-dts-v9-1-e5c53cd8b440@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAMVo62oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyLHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMT3cTkglzdktxS3ZSSYt201OREi9SkFAtTwxQloJaCotS0zAqwcdG
- xtbUAfAtwa14AAAA=
-X-Change-ID: 20261104-acpm-tmu-dts-feca8ebd851d
-To: Peter Griffin <peter.griffin@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tudor Ambarus <tudor.ambarus@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793812686; l=8231;
- i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
- bh=FzMgyf0GkXAyHz8KN3lxfqbJvyM58XZDMZmsVFVF56M=;
- b=VcLAybzUpRdt0QacvThY4kiJAnifS9EwqcYep0QB5ESA/2J7Rlxdlz45MZVYRS2cA2JubWltF
- cvCADLbjES+ChWqPWNh7RaCINiQSKBd1jYJmS8Hh2Qrrd2hE2vlSM92
-X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
- pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
 
-Add the TMU node and thermal zones for the little, mid and big CPU
-clusters, and make the CPUs cooling devices.
+Hi Ruslan,
 
-Trips are ordered by temperature rather than by name, as the
-power_allocator governor relies on the order of the passive trips.
+On Wednesday, 21 October 2026 15:40:34 GMT Ruslan Koreev wrote:
+> Rillian, could you share the relevant SPB trace, including mode, current
+> and timeout writes, together with the installed driver version?
 
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
----
-Hi,
+Driver versions: the X9-15 Gen 1 values are from the Windows install on
+my machine. The X1 Carbon Gen 14 values are from the current package on
+Lenovo's support site.
 
-Add the device tree description of the Thermal Management Unit (TMU)
-on the Google GS101 SoC.
+X9-15 Gen 1:
+- lm3643.inf/.sys 70.26100.2.18321 (02/20/2025)
+- IR sensor: HM1092, hm1092.inf 70.26100.2.18321
+- FlashLEDsIntensity = 0x3C64 (lm3643.inf)
+- IRFlashLedIntensity = 40 (hm1092.inf)
 
-The GS101 TMU bindings and driver have been merged in v7.4-rc1 through
-the thermal tree. This patch is split off from v8 [1].
+X1 Carbon Gen 14:
+- lm3643.inf 71.26100.10.21060 (08/05/2026) however lm3643.sys contradicts
+  with 71.26100.23.21060
+- IR sensor: VD55G1, TBE0020A1.inf 71.26100.10.21060
+- FlashLEDsIntensity = 0x3C64 (lm3643.inf)
+- IRFlashLedIntensity = 30 (TBE0020A1.inf)
 
-Changes since v8 [1]:
-- dts: set polling-delay-passive to 250ms so thermal governors (step_wise,
-  power_allocator) periodically evaluate and adjust CPU cooling states while a
-  passive trip point is violated, place generic #thermal-sensor-cells before
-  samsung,acpm-ipc (André), fix tab indentation in cpucl1-thermal
-  cooling-maps, and use GPL-2.0-only SPDX identifier.
-- dts: order thermal zones by name and place cooling-maps before trips to
-  follow the DTS coding style, and keep trip points ordered by temperature
-  as power_allocator selects its switch-on and maximum trips by passive
-  trip order.
-- defconfig: drop the patch. CONFIG_EXYNOS_ACPM_THERMAL defaults to
-  ARCH_EXYNOS and is already built as a module in the arm64 defconfig
-  via CONFIG_EXYNOS_ACPM_PROTOCOL=m, so savedefconfig removes the line.
+Both lm3643.inf files bind ACPI\TXNW3643 and ACPI\INT347D. Apart from
+the version, they differ only in where DeviceCharacteristics/Security
+are written. The registry on the X9 matches the INF defaults.
 
-[1] https://lore.kernel.org/linux-samsung-soc/20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org/
+Before I submitted the DMI software node patch, I had seen that the
+Carbon had a different driver version and a different IRFlashLedIntensity.
+That is why I didn't reuse its values for the X9.
 
-Thanks,
-ta
----
- arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi | 136 +++++++++++++++++++++++
- arch/arm64/boot/dts/exynos/google/gs101.dtsi     |  18 +++
- 2 files changed, 154 insertions(+)
+I traced Microsoft-Windows-SPB-ClassExtension (analytic) during a
+Windows Hello face unlock on the X9. Every write to the LM3643 is
+preceded by a read of the same register. Register decodes are from
+SNVS967A.
 
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi
-new file mode 100644
-index 000000000000..5ca8360ee97e
---- /dev/null
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Google GS101 TMU configurations device tree source
-+ *
-+ * Copyright 2020 Samsung Electronics Co., Ltd.
-+ * Copyright 2020 Google LLC.
-+ * Copyright 2026 Linaro Ltd.
-+ */
-+
-+#include <dt-bindings/thermal/thermal.h>
-+
-+/ {
-+	thermal-zones {
-+		cpucl0-thermal {
-+			polling-delay-passive = <250>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 2>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&little_mitigate>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				little_switch_on: little-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				little_mitigate: little-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				little_hot: little-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				little_critical: little-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpucl1-thermal {
-+			polling-delay-passive = <250>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 1>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&mid_mitigate>;
-+					cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				mid_switch_on: mid-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				mid_mitigate: mid-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				mid_hot: mid-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				mid_critical: mid-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpucl2-thermal {
-+			polling-delay-passive = <250>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 0>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&big_mitigate>;
-+					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				big_switch_on: big-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
-+				big_mitigate: big-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				big_hot: big-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				big_critical: big-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-index b218ff50d228..395e4716f8fd 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-@@ -91,6 +91,7 @@ cpu0: cpu@0 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0000>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -103,6 +104,7 @@ cpu1: cpu@100 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0100>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -115,6 +117,7 @@ cpu2: cpu@200 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0200>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -127,6 +130,7 @@ cpu3: cpu@300 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0300>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -139,6 +143,7 @@ cpu4: cpu@400 {
- 			compatible = "arm,cortex-a76";
- 			reg = <0x0400>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL1>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&enyo_cpu_sleep>;
- 			capacity-dmips-mhz = <620>;
-@@ -151,6 +156,7 @@ cpu5: cpu@500 {
- 			compatible = "arm,cortex-a76";
- 			reg = <0x0500>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL1>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&enyo_cpu_sleep>;
- 			capacity-dmips-mhz = <620>;
-@@ -163,6 +169,7 @@ cpu6: cpu@600 {
- 			compatible = "arm,cortex-x1";
- 			reg = <0x0600>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL2>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&hera_cpu_sleep>;
- 			capacity-dmips-mhz = <1024>;
-@@ -175,6 +182,7 @@ cpu7: cpu@700 {
- 			compatible = "arm,cortex-x1";
- 			reg = <0x0700>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL2>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&hera_cpu_sleep>;
- 			capacity-dmips-mhz = <1024>;
-@@ -646,6 +654,15 @@ watchdog_cl1: watchdog@10070000 {
- 			status = "disabled";
- 		};
- 
-+		tmu_top: thermal-sensor@100a0000 {
-+			compatible = "google,gs101-tmu-top";
-+			reg = <0x100a0000 0x800>;
-+			clocks = <&cmu_misc CLK_GOUT_MISC_TMU_TOP_PCLK>;
-+			interrupts = <GIC_SPI 769 IRQ_TYPE_LEVEL_HIGH 0>;
-+			#thermal-sensor-cells = <1>;
-+			samsung,acpm-ipc = <&acpm_ipc>;
-+		};
-+
- 		trng: rng@10141400 {
- 			compatible = "google,gs101-trng",
- 				     "samsung,exynos850-trng";
-@@ -1937,3 +1954,4 @@ timer {
- };
- 
- #include "gs101-pinctrl.dtsi"
-+#include "gs101-tmu.dtsi"
+Start of the session (once, after the controller entered D0):
+  R 0x0A=00  R 0x0B=00  R 0x01=03  R 0x0C=02
+  R 0x07=09 -> W 0x07=09   boost config, POR default (2 MHz, 2.8 A ILIM,
+                           short detect on)
+  W 0x01=03                standby, LED1+LED2 enable, TX pin enable off
+                           (POR is 0x80)
+  W 0x08=00                no torch ramp, flash timeout 10 ms
 
----
-base-commit: 2c222a46655e0191e70ca92258ad3b3ead32787c
-change-id: 20261104-acpm-tmu-dts-feca8ebd851d
+Per pulse (repeats every ~133 ms):
+  W 0x01=03                standby
+  W 0x08=0F                no torch ramp, flash timeout 400 ms
+  W 0x03=99                bit7 = LED2 flash current override (LED2 = LED1),
+                           code 0x19 -> 25 x 11.725 + 10.9 = ~304 mA per
+                           LED (~608 mA total)
+  W 0x01=0F                flash mode (M1,M0=11), LED1+LED2  <- LED on
+  ... ~65 ms ...
+  W 0x08=00                timeout set to 10 ms while the flash is running
+  W 0x01=03                standby                           <- LED off
+  R 0x0A=01  R 0x0B=00     Flags1 bit0 = flash time-out flag (0x00 after
+                           the first pulse, 0x01 after every later pulse)
 
-Best regards,
--- 
-Tudor Ambarus <tudor.ambarus@linaro.org>
+This unlock had 6 pulses. The last one was turned off after ~3 ms, once
+the face was recognised. The driver never wrote the torch registers
+(0x05/0x06) or the LED2 flash register (0x04), and never used IR mode,
+STROBE or TX. The only values written to 0x01 were 0x03 and 0x0F.
+
+The LM3643 transactions with timestamps are attached. The raw ETL/XML
+trace is available on request.
+
+--
+Rillian Grant
+--nextPart3G_yHyoEQi2GJmRMCtpajw
+Content-Disposition: attachment; filename="lm3643-trace.txt"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"; name="lm3643-trace.txt"
+
+10:47:24.493347  LM3643 W 0x0A | R 0x00
+10:47:24.493427  -- controller 0x3CF250DE2738 D-state 0x1
+10:47:24.504454  LM3643 W 0x0B | R 0x00
+10:47:24.504748  LM3643 W 0x01 | R 0x03
+10:47:24.505018  LM3643 W 0x0C | R 0x02
+10:47:24.505315  LM3643 W 0x07 | R 0x09
+10:47:24.505564  LM3643 W 0x0709
+10:47:24.505741  LM3643 W 0x01 | R 0x03
+10:47:24.506021  LM3643 W 0x0103
+10:47:24.506229  LM3643 W 0x01 | R 0x03
+10:47:24.506479  LM3643 W 0x01 | R 0x03
+10:47:24.506736  LM3643 W 0x0103
+10:47:24.507080  LM3643 W 0x08 | R 0x00
+10:47:24.507317  LM3643 W 0x0800
+10:47:24.507537  LM3643 W 0x01 | R 0x03
+10:47:24.507777  LM3643 W 0x0103
+10:47:24.507935  LM3643 W 0x01 | R 0x03
+10:47:24.508181  LM3643 W 0x0103
+10:47:24.552953  HM1092(IR) W 0x010000
+10:47:24.632548  HM1092(IR) W 0x010001
+10:47:24.669203  -- controller 0x3CF250DDE738 D-state 0x1
+10:47:24.675057  LM3643 W 0x01 | R 0x03
+10:47:24.675520  LM3643 W 0x0103
+10:47:24.675806  LM3643 W 0x08 | R 0x00
+10:47:24.676278  LM3643 W 0x080F
+10:47:24.676575  LM3643 W 0x03 | R 0x99
+10:47:24.676857  LM3643 W 0x0399
+10:47:24.677059  LM3643 W 0x01 | R 0x03
+10:47:24.677316  LM3643 W 0x010F
+10:47:24.681780  IMX471(RGB) W 0x010000
+10:47:24.741365  LM3643 W 0x08 | R 0x0F
+10:47:24.741647  LM3643 W 0x0800
+10:47:24.741872  LM3643 W 0x01 | R 0x0F
+10:47:24.742178  LM3643 W 0x0103
+10:47:24.742372  LM3643 W 0x0A | R 0x00
+10:47:24.742621  LM3643 W 0x0B | R 0x00
+10:47:24.742969  IMX471(RGB) W 0x010001
+10:47:24.807808  LM3643 W 0x01 | R 0x03
+10:47:24.808069  LM3643 W 0x0103
+10:47:24.808246  LM3643 W 0x08 | R 0x00
+10:47:24.808503  LM3643 W 0x080F
+10:47:24.808776  LM3643 W 0x03 | R 0x99
+10:47:24.809023  LM3643 W 0x0399
+10:47:24.809178  LM3643 W 0x01 | R 0x03
+10:47:24.809456  LM3643 W 0x010F
+10:47:24.874410  LM3643 W 0x08 | R 0x0F
+10:47:24.874691  LM3643 W 0x0800
+10:47:24.874913  LM3643 W 0x01 | R 0x0F
+10:47:24.875165  LM3643 W 0x0103
+10:47:24.875371  LM3643 W 0x0A | R 0x01
+10:47:24.875619  LM3643 W 0x0B | R 0x00
+10:47:24.940847  LM3643 W 0x01 | R 0x03
+10:47:24.941139  LM3643 W 0x0103
+10:47:24.941306  LM3643 W 0x08 | R 0x00
+10:47:24.941552  LM3643 W 0x080F
+10:47:24.941768  LM3643 W 0x03 | R 0x99
+10:47:24.942104  LM3643 W 0x0399
+10:47:24.942271  LM3643 W 0x01 | R 0x03
+10:47:24.942513  LM3643 W 0x010F
+10:47:25.007386  LM3643 W 0x08 | R 0x0F
+10:47:25.007683  LM3643 W 0x0800
+10:47:25.007896  LM3643 W 0x01 | R 0x0F
+10:47:25.008160  LM3643 W 0x0103
+10:47:25.008322  LM3643 W 0x0A | R 0x01
+10:47:25.008577  LM3643 W 0x0B | R 0x00
+10:47:25.073907  LM3643 W 0x01 | R 0x03
+10:47:25.074207  LM3643 W 0x0103
+10:47:25.074392  LM3643 W 0x08 | R 0x00
+10:47:25.074649  LM3643 W 0x080F
+10:47:25.074867  LM3643 W 0x03 | R 0x99
+10:47:25.075123  LM3643 W 0x0399
+10:47:25.075366  LM3643 W 0x01 | R 0x03
+10:47:25.075621  LM3643 W 0x010F
+10:47:25.140383  LM3643 W 0x08 | R 0x0F
+10:47:25.140639  LM3643 W 0x0800
+10:47:25.140858  LM3643 W 0x01 | R 0x0F
+10:47:25.141103  LM3643 W 0x0103
+10:47:25.141266  LM3643 W 0x0A | R 0x01
+10:47:25.141507  LM3643 W 0x0B | R 0x00
+10:47:25.206938  LM3643 W 0x01 | R 0x03
+10:47:25.207270  LM3643 W 0x0103
+10:47:25.207443  LM3643 W 0x08 | R 0x00
+10:47:25.207689  LM3643 W 0x080F
+10:47:25.207897  LM3643 W 0x03 | R 0x99
+10:47:25.208150  LM3643 W 0x0399
+10:47:25.208318  LM3643 W 0x01 | R 0x03
+10:47:25.208581  LM3643 W 0x010F
+10:47:25.273481  LM3643 W 0x08 | R 0x0F
+10:47:25.273782  LM3643 W 0x0800
+10:47:25.274032  LM3643 W 0x01 | R 0x0F
+10:47:25.274303  LM3643 W 0x0103
+10:47:25.274485  LM3643 W 0x0A | R 0x01
+10:47:25.274721  LM3643 W 0x0B | R 0x00
+10:47:25.339949  LM3643 W 0x01 | R 0x03
+10:47:25.340239  LM3643 W 0x0103
+10:47:25.340418  LM3643 W 0x08 | R 0x00
+10:47:25.340684  LM3643 W 0x080F
+10:47:25.340932  LM3643 W 0x03 | R 0x99
+10:47:25.341210  LM3643 W 0x0399
+10:47:25.341406  LM3643 W 0x01 | R 0x03
+10:47:25.341660  LM3643 W 0x010F
+10:47:25.344654  LM3643 W 0x08 | R 0x0F
+10:47:25.344956  LM3643 W 0x0800
+10:47:25.345171  LM3643 W 0x01 | R 0x0F
+10:47:25.345419  LM3643 W 0x0103
+10:47:25.345575  LM3643 W 0x0A | R 0x01
+10:47:25.345808  LM3643 W 0x0B | R 0x00
+10:47:25.473344  HM1092(IR) W 0x010000
+10:47:25.474241  LM3643 W 0x08 | R 0x00
+10:47:25.474501  LM3643 W 0x0800
+10:47:25.474715  LM3643 W 0x01 | R 0x03
+10:47:25.474956  LM3643 W 0x0103
+10:47:25.475106  LM3643 W 0x01 | R 0x03
+10:47:25.475403  LM3643 W 0x0103
+10:47:25.486367  LM3643 W 0x0A | R 0x01
+10:47:25.486763  LM3643 W 0x0B | R 0x00
+10:47:25.623971  IMX471(RGB) W 0x010000
+10:47:27.620034  -- controller 0x3CF250DE2738 D-state 0x4
+10:47:28.631808  -- controller 0x3CF250DDE738 D-state 0x4
+
+--nextPart3G_yHyoEQi2GJmRMCtpajw--
+
+
 
