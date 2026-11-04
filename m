@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801956;
-	b=xl8ac4drzou9ANdZvtSlyT3RZeA5iF0H0YxY8aQuSNkZEsde2lty32kQ9AeiukrXfTNw
-	 ulIIiws8X/OV1LQpOvm2VV4Hi01kNStPXwPLpdlCxZ6OcED+XJdIavVB7YGVsQuIPEt8H
-	 Cy3v5a5jsLUNuL/F/FimA43z4+3IVIYpKb1j4+UsGW2e7FHuq0Dcqj7HT5KP2Jb9145wD
-	 RcYMeO5wBsG7q9r+ES3dsbyvMBF7ruzYKKtk/QDrfVRSgExc2C8fDYUb/jI2sgosEtk5A
-	 igtXC3wEKj/uQutD6y5uSIYcX5H9vun6AvujCh5/d9ddFfvL2pGa9Tp/8mrn/JhTYBw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801956;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=;
-	b=5o6m4yUvRoPLPHuqi4hLPEYGWmE5aUc7c73YC9Vv9Xk+lHpd6ZI7VVKZWh4ji/+Y/EfI
-	 zRhElWcd1DY7u2lbNYiFfFWHan7Hk4DwLkoQ5s34jbRLT2GS0Uc3yfSnQl79WJx35/MYN
-	 wi7wO1XwrtPrMknSLOTYtWgAaM1vzS1dTQpw5xJdZFue2HxCrcbIeyQQlc90IUvdhq1NJ
-	 66ISlW5x4Fr2Olbb5CiJrjecQ0tFh+nR8uoTpdIqDG336vyNnQUnDJLCJH8w9ZaOLTzMp
-	 3g7KB7dDmvhjmP7eA1qEeS8Pb3UKkDB3wgW3zf1M7314sm5xpJBKc6Ur0SJCfN5qeFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801966;
+	b=nyzmZ9U+EFQmWmiBWXFIn1AOllOjwEf5OWGC/J5lnsqxtsc8EgltLuD6elOmNnW1naR2
+	 Y2iACZ3Y8yLiQHHdCe+Rul8WhyY0HRpHCfMx3d5D/P4KA4jQjBj0p6TVh4CB53V1UHUPj
+	 bj9+Un+Juyt/zG6egPZ+vmTUb6dsTYLJZ85MZgdfbiZABm0QEsZas9jZwdaLmNpgOhLEh
+	 Z8vr6pIT+M7Qv/Mc0Ihwt9c2B4k1fjXoQbsMmHCuw1TmOq49Hb9/m5ymLGW/Ni81aCxrG
+	 eWbDnJjVlMz2JFM0LB+4Cb1bYOoL1v4xueEKahMA0R4KjSzHq94BHS1NmnyRo3a7mgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801966;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=1hE/mMB3E3minuGTIErhAoOn9CwKv3qYlwTz7dUSxsA=;
+	b=cK3lFGgAmZbMHwsZ/T1D/ndUWGr7uIgFcY3uQxNgRcVPVjyOM4XJ4rCuORl7ToOZXUKA
+	 kuXkAhlsHUVzWRXzywtGn2duCoQ3WZeDTNX2lq/NALEG8ddtAHBVF4eJQa5IPVSS5uCaF
+	 6og3GkpQitdlWoYY/Kh5xHQcsusYCHVF60Aku2n+Q+nXUQA6QgX5TsfujQkwAmLpwv4h/
+	 2u845IiGJTH6M+VASIZ+Mmwn4OzEcLoiWQYAJEOw5V7bzXf+K+D6FWHAuaMB2GkwZMN0R
+	 254/gSwjlt+LoFfYbSTt3VwFiCcLi41ijbIOm58htIbgqgeHXBGIYACNeRT1DjDAZPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbGioD6l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC96B606A31B;
-	Wed,  4 Nov 2026 14:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC96B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C54D606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 14:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4
-ARC-Seal: i=1; a=rsa-sha256; t=1793801923; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DBVfeNLfXabUNMkp7xC611fcDiXKusM2FO/lvSYIBEVfX5vEOlG99/wAEPA2nn1CmXMhxquDhJ/w5GiywA6nmhAZAQ9qR7kF6ZMUae4yoaMtdtjL/LGafcmjiO9taQ12h2QoIBl8gE01pgR0qC7/J9C60lBls5dFPBBjTHoReTc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801923; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; 
-	b=WxF7Md9n/6T9oMxYLFDsCmJnDW/IVHf1shql+aBVA+9q2NfoaI/L64IpgZYtqsbS4nQtM+ZrIZCIztHXGJb13T0oOh68+mJYaFG71d450cuEDwWUOjOtOyPApLWKQN5hcHlBesm+jTEPcMIJCXvZ8vOMh2TWSDVOzaxvNU8s+Mc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=d5kQAnW4pZPZT28S914Jp3/gQri6eNKfx76LfGqS26FI8NDKAKizKE03J94JN31BLLMGtJqpZ4NljQxcfbqngsOJCZWEN3Rorwv+kFPTrd3s+wdboiqeHH4x75d872lLsCLbIpGrxdV42MtiOzOwR2Nn548ghSLKKgX/gyLo3cw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793801921669437.63445022416045;
-	Wed, 4 Nov 2026 06:18:41 -0800 (PST)
-Message-ID: <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
-Date: Wed, 4 Nov 2026 17:18:36 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbGioD6l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FA41F00919;
+	Wed,  4 Nov 2026 14:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801965;
+	bh=1hE/mMB3E3minuGTIErhAoOn9CwKv3qYlwTz7dUSxsA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mbGioD6lupVQf3Um+9+Z1b6JFPdG6fUDsZIUDfl+Dpl8bJb+AD5l5HxEG1NsQ1Dnq
+	 QlWD9HW3Hqpb7eMHR5jcnUQBYztVUN2oTzcJgrWWn+kKyCW5ULTpZeiximjaWlIkBm
+	 4jX1eLj/pCrO0MRtcxsY77SJl5SmsQ4aW+R3Z9T/XaCusQGvZ/yW2Z5+K+AVAvz7MB
+	 TxHTXvaHmFLSMB3ADVlZd/Gmx2TSbmTf96ror+JWlG6wmkGu+lsoNqNPGWF6OTA9ny
+	 sPZiKiP+T0UIeHVXM5NBehkMKTvEZg91/CFnakyFnxIVWj6cXEKneHV1B2maO+ibot
+	 uCbyRDKvEyoVQ==
+Message-ID: <sashiko-outbox-197422@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v4 2/2] net: wwan: qcom_bam_dmux: Assign
+ restricted DMA pool to remote processor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Santhosh" <vishnu.santhosh@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261103-qcom-bam-dmux-vmid-ext-v4-2-3690cc5ca0fd@oss.qualcomm.com>
+References: <20261103-qcom-bam-dmux-vmid-ext-v4-0-3690cc5ca0fd@oss.qualcomm.com>
+ <20261103-qcom-bam-dmux-vmid-ext-v4-2-3690cc5ca0fd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 14:19:25 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,86 +60,214 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
- when the last user is gone
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>,
- Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
- <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
- <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 10/16/26 14:06, Sascha Hauer wrote:
-> Hi Dmitry,
-> 
-> On 2026-10-07 14:20, Dmitry Osipenko wrote:
->> On 10/5/26 16:28, Sascha Hauer wrote:
->>> @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
->>>   	hdmirx_disable_irq(dev);
->>>   
->>>   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
->>> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
->>>   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->>>   
->>> -	/* touched by hdmirx_disable()->hdmirx_plugout() */
->>> -	hdmirx_dev->rgb_range = NULL;
->>> -	hdmirx_dev->content_type = NULL;
->>> -
->>>   	hdmirx_disable(dev);
->>>   
->>>   	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
->>> +
->>> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
->>>   }
->>
->> This is uncommon v4l driver removal pattern, I suspect it's either not
->> correct or needs to be fixed in the core code.
-> 
-> The pattern looks uncommon because many drivers in the tree are affected
-> by the same issue ;)
-> 
-> Just like many other drivers the hdmirx embeds a struct v4l2_device in
-> its private data struct which is allocated with devm_*, thus freed
-> during driver removal. With an opened file descriptor the video_device
-> outlives the driver removal, and v4l2_release(), called on
-> the last file descriptors close then references the already freed memory
-> via vdev->v4l2_dev
-> 
-> This is a long standing problem. See [1] for example for an attempt to
-> fix it in the core. It seems consencsus at that time was that it must be
-> fixed in the drivers which is what this patch does for the hdmirx.
-> 
-> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@linux.intel.com/
-> 
->>
->> What is the user-visible or sanitizer-visible problem? How to reproduce it?
-> 
-> It can be reproduced with Kasan on affected drivers, below on the hdmirx
-> driver, but it should be reproducible like this on hantro and others as
-> well.
-> ...
-Thanks, the patches are good to me (tested on 5b with no problems found) 
-apart from this one that feels like it's not a proper solution.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] net: wwan: qcom_bam_dmux: race between bam_dmux_pc_irq() and bam_d=
+mux_probe()
+- [Low] net: wwan: qcom_bam_dmux: incomplete vmid validation in bam_dmux_as=
+sign_dma_pool()
+--
 
-Will be good to have input from the v4l core maintainers, or have this 
-fix made separately from the series to not hold rest of the patches.
+commit e5defad9cc621641da7903957a89aa1c3fa0145a
+Author: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
--- 
-Best regards,
-Dmitry
+net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+
+This commit assigns a restricted DMA pool to both the local and remote
+execution environments via QCOM SCM when the qcom,vmid property is present
+in the device tree, and reclaims the pool for the local environment during
+probe cleanup or driver removal if the remote side has dropped its power
+vote.
+
+> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam=
+_dmux.c
+> index cc6ace8d64371..c9639474e58ac 100644
+> --- a/drivers/net/wwan/qcom_bam_dmux.c
+> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+
+[ ... ]
+
+> @@ -762,6 +768,96 @@ static int __maybe_unused bam_dmux_runtime_resume(st=
+ruct device *dev)
+>  	return 0;
+>  }
+> =20
+> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
+> +{
+> +	struct device *dev =3D dmux->dev;
+> +	struct device_node *rmem_np;
+> +	struct reserved_mem *rmem;
+> +	struct qcom_scm_vmperm dst[2];
+> +	u64 src =3D BIT_ULL(QCOM_SCM_VMID_HLOS);
+> +	u32 vmid;
+> +	int ret;
+> +
+> +	if (!of_property_present(dev->of_node, "qcom,vmid"))
+> +		return 0;
+> +
+> +	ret =3D of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
+> +	if (vmid =3D=3D QCOM_SCM_VMID_HLOS || vmid >=3D BITS_PER_TYPE(u64))
+> +		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
+
+[Severity: Low]
+As reported by Sashiko on v2 [1], in Documentation/devicetree/bindings/net/=
+qcom,bam-dmux.yaml,
+qcom,vmid specifies minimum: 1 and maximum: 63, since 0 is not a valid
+Qualcomm SCM VMID. However, bam_dmux_assign_dma_pool() does not reject
+vmid =3D=3D 0 and passes it on to qcom_scm_assign_mem().
+
+Also, when bam_dmux_assign_dma_pool() records dmux->dma_pool_perms using
+BIT_ULL(vmid) and bam_dmux_reclaim_dma_pool() passes it as src to
+qcom_scm_assign_mem(), qcom_scm_assign_mem() tests srcvm_bits with 32-bit
+BIT(b):
+
+drivers/firmware/qcom/qcom_scm.c:qcom_scm_assign_mem() {
+	...
+	for (b =3D 0; b < BITS_PER_TYPE(u64); b++) {
+		if (srcvm_bits & BIT(b))
+			src[i++] =3D cpu_to_le32(b);
+	}
+	...
+	for (i =3D 0; i < dest_cnt; i++, destvm++, newvm++) {
+		...
+		next_vm |=3D BIT(newvm->vmid);
+	}
+}
+
+On 32-bit kernels (supported by QCOM_BAM_DMUX), BIT(b) is a 32-bit unsigned
+long shift, so vmid values in 32..63 trigger shift undefined behavior and
+fail to populate src[] properly during reclaim.
+
+Should bam_dmux_assign_dma_pool() reject vmid =3D=3D 0 (or enforce a tighter
+upper bound unless qcom_scm_assign_mem() uses BIT_ULL())?
+
+[ ... ]
+
+> @@ -829,8 +929,11 @@ static int bam_dmux_probe(struct platform_device *pd=
+ev)
+> =20
+>  	ret =3D irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
+>  				    &dmux->pc_state);
+> -	if (ret)
+> -		goto err_disable_pm;
+> +	if (ret) {
+> +		/* The PC IRQ may already have powered up the RX path */
+> +		bam_dmux_remove(pdev);
+> +		return ret;
+> +	}
+> =20
+>  	/* Check if remote finished initialization before us */
+>  	if (dmux->pc_state) {
+> @@ -845,6 +948,7 @@ static int bam_dmux_probe(struct platform_device *pde=
+v)
+>  err_disable_pm:
+>  	pm_runtime_disable(dev);
+>  	pm_runtime_dont_use_autosuspend(dev);
+> +	bam_dmux_reclaim_dma_pool(dmux);
+>  	return ret;
+>  }
+> =20
+> @@ -879,6 +983,12 @@ static void bam_dmux_remove(struct platform_device *=
+pdev)
+>  	disable_irq(dmux->pc_irq);
+>  	bam_dmux_power_off(dmux);
+>  	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+> +
+> +	/* The remote side may still access the pool if it holds its power vote=
+ */
+> +	if (!dmux->pc_state)
+> +		bam_dmux_reclaim_dma_pool(dmux);
+> +	else if (dmux->dma_pool_perms)
+> +		dev_warn(dev, "Leaving restricted DMA pool assigned to remote\n");
+>  }
+
+[Severity: High]
+Can bam_dmux_pc_irq() race with bam_dmux_probe() after devm_request_threade=
+d_irq()
+enables dmux->pc_irq, corrupting dmux->pc_state and causing
+bam_dmux_remove() to prematurely reclaim the DMA pool or leak RX DMA
+resources?
+
+In bam_dmux_probe(), devm_request_threaded_irq() enables dmux->pc_irq before
+irq_get_irqchip_state() and the initial dmux->pc_state check:
+
+	ret =3D devm_request_threaded_irq(dev, dmux->pc_irq, NULL, bam_dmux_pc_irq,
+					IRQF_ONESHOT, NULL, dmux);
+	if (ret)
+		goto err_disable_pm;
+
+	ret =3D irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
+				    &dmux->pc_state);
+	if (ret) {
+		/* The PC IRQ may already have powered up the RX path */
+		bam_dmux_remove(pdev);
+		return ret;
+	}
+
+	/* Check if remote finished initialization before us */
+	if (dmux->pc_state) {
+		if (bam_dmux_power_on(dmux))
+			bam_dmux_pc_ack(dmux);
+		else
+			bam_dmux_power_off(dmux);
+	}
+
+Meanwhile, bam_dmux_pc_irq() toggles dmux->pc_state without synchronization:
+
+	bool new_state =3D !dmux->pc_state;
+	...
+	if (new_state) {
+		if (bam_dmux_power_on(dmux))
+			bam_dmux_pc_ack(dmux);
+		else
+			bam_dmux_power_off(dmux);
+	} else {
+		bam_dmux_power_off(dmux);
+		bam_dmux_pc_ack(dmux);
+	}
+
+	dmux->pc_state =3D new_state;
+
+If the remote side asserts the PC line right after devm_request_threaded_ir=
+q()
+unmasks dmux->pc_irq:
+
+1. If irq_get_irqchip_state() sets dmux->pc_state =3D true and bam_dmux_pro=
+be()
+   powers on RX before bam_dmux_pc_irq() runs for that rising edge,
+   bam_dmux_pc_irq() computes new_state =3D !dmux->pc_state (false), powers
+   off RX, and sets dmux->pc_state =3D false (or irq_get_irqchip_state() can
+   concurrently overwrite dmux->pc_state with false after bam_dmux_pc_irq()
+   sets it to true). When bam_dmux_remove() later checks !dmux->pc_state, it
+   will call bam_dmux_reclaim_dma_pool(dmux) while the remote processor
+   still holds its power vote.
+
+2. If bam_dmux_pc_irq() and bam_dmux_probe() both see the rising edge and
+   call bam_dmux_power_on(dmux), the second dma_request_chan(dev, "rx")
+   fails with -EBUSY and sets dmux->rx =3D NULL (leaking the active RX DMA
+   channel), and bam_dmux_power_off(dmux) then skips
+   dmaengine_terminate_sync() and unmaps and frees dmux->rx_skbs[] while RX
+   DMA is still active.
+
+3. On the new error path where irq_get_irqchip_state() fails and calls
+   bam_dmux_remove(pdev), wait_event_timeout(dmux->pc_wait, !dmux->rx, ...)
+   runs before disable_irq(dmux->pc_irq). If bam_dmux_pc_irq() has started
+   on another CPU but has not yet assigned dmux->rx, wait_event_timeout()
+   returns immediately while dmux->rx is still NULL, disable_irq() waits for
+   bam_dmux_pc_irq() to finish powering on RX and sending bam_dmux_pc_ack(),
+   and bam_dmux_power_off() immediately tears down RX without waiting for
+   the remote side to drop its power vote.
+
+Would requesting dmux->pc_irq with IRQF_NO_AUTOEN, reading the initial
+irq_get_irqchip_state() and powering on if needed, and only then calling
+enable_irq(dmux->pc_irq) avoid these races?
+
+[1] https://lore.kernel.org/r/178996250389.2160803.17277339384338088713@ker=
+nel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-qcom-bam-d=
+mux-vmid-ext-v4-0-3690cc5ca0fd@oss.qualcomm.com?part=3D2
