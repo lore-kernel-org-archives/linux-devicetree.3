@@ -1,54 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830159;
-	b=aixFdEK4q3yBc0DAEY3hSVY0vrZtP7lHE0SRJdtRn/4SCykQ9uFqSTfLsD2wa8M7YY3y
-	 5FoRN07Ikv/NKb73epZ8L5yMaR694mboz/GT4biiuHxMnzJxClr62bXE1VlYhL5xeCrVL
-	 BJqHfkI/nBNUGqGEMQ2iOc84IdS8n9EWldFiWJRIKLXK3JW5KG4wDD2nPQSKC+X5f16AK
-	 +DNEN//vgyeB+O4wdvCXuv1Mzc8K3kuu8rCx1sVLg1wHk+kncRkIXUhaleHoCJ2VSiXja
-	 o56LNariKK6jDlk+H6Na6+pRJMj6ZmCeoPJGr1JrXmnoF2XZYANRLzWsnr7CKqNqHlg==
+	t=1793830592;
+	b=KyRVVByYdW1iKScZa+PEPjEo5Ze5rBShY1GtKaOjRUV3CubwNVU2rW1VDdpzDrZBE7o8
+	 tv6LfLmmwLOZZFOk+rSShh+P+V9rfy2zR8xTqoBeLp/DDYzStAgoQmK9SCrCeguGFLrnt
+	 1nPYiQUJo13zHop0nPu8jS9OnB1xQg36/FD59Z37nkUIbx/uSfLqzetXo7Zb8911WoTjz
+	 3Oy7o0SoQ0T8LXjqtEUDRNB974QdduwaLBsBjXmnBdn5Ln5w9dxtvwAi5d2Nw9uUbA3nS
+	 yHxFbcZ8gmUTJEdp3+D/mtppThfHrzNZPgmnN9NYsmLG3DXjS9VHv7Ev5P8TWaKiVtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830159;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=C25Dh7MRWLftFBeoGzTyfZNFjeA6A0kP3xkpMFR3t54=;
-	b=Da+4aQ6B1VlZj1aNuy5969ZefMYfyDQvkVFKygoAsJQLnLAjn3bUerExqYoXiRZYw34W
-	 Ql/OGI2DrtgXRPZaWI9TWJ+JFD+IzRs1KYDXW8qRJ7UV/mLarpdBeZIYGvMnmQQAvQhRr
-	 LY5QpnSt9vuPJbbBJvhJqHdeQ3NR1TFaQFx5zJMfz+dFt5h6UkvT6HGAq2clLs0uv7DBZ
-	 fTLxqAWPNAkbt3CcfYxxbXNH2Bgmd3rYLvOOcfkQz6g8I2hWrGeBbRJo9El1VRzNZVkar
-	 kZWWcpuExuCQ6ij2mUIa9Mp5aWBxNG9QarTQBY4fTeZuRn65OKd5vIQ9vNRyKK/RyKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830592;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=4dUj7qtlv87aoaokSVHZlryaRSMAw8BaqO13OeSv3d8=;
+	b=5oRWnwafL1UkkTW8zgkTk+CpWk2vqT66ugJt8vPjQsapXuwD+ONDNeHnebN+AMoPluN3
+	 o4BMhKm335P3eCTfcbn9RnNW4URb/7U/OPjSVsLZrNYcewqUpAagkWjzDmt2KEDXT0Oce
+	 8/96YIkUiM0GzkjEWbS1ClqJFYBzyQc1jbqLdPPVuw6hqCnhKuBASY4N9oq2JhluQfbYX
+	 LJhBi5dqkhs06U0i0DKMp7AwVtgP73cLqVKFjtIIYktpdX0AB8v8TjuGSLXoiZ0nFKFWY
+	 xMb+va4lyeWuGOg2djq09CSnOXVh7oig3EqVGITTg1HqKxS4IIF1tSzErzsotuoc2bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLeBrogx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC00606EE9F;
-	Wed,  4 Nov 2026 22:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLeBrogx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BEB51F000C1;
-	Wed,  4 Nov 2026 22:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793830158;
-	bh=C25Dh7MRWLftFBeoGzTyfZNFjeA6A0kP3xkpMFR3t54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HLeBrogx7aFTt2qQDFxrUQ9XeC87LA7O7TCT6KBn1Z5rIsJD4iaewsU3zzFQGX7A/
-	 u8wDow2w24DRGzrPfPboPfFX/9gaOpnAV07IDH3aUF/iMyry4Rjp2gUlBOMRvL6PRk
-	 o1ddi4tP75gBCqAeHgxfc1HuV1jFNLhMbB6gUmO/DbOZPQqwDrwv3arK9vonvVUxaY
-	 qv85HLM7FRP0jaEdYBLdaEkAaEk26K+a4Tjqu/65rF4VH2w8hJj2NskrhFAXc6A7n9
-	 jervBzp8WGC9WIiUC+UV4GAxY5Bh0qd51xocstvINkRHmKuoNoNuoGTgeWzbKjZKo7
-	 Heh7lrBbTprQg==
-Date: Wed, 4 Nov 2026 14:09:17 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v10 2/6] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <auutDXK15MV4tSyH@x1>
-References: <20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org>
- <20261104-dfustini-atl-sc-cbqri-dt-v10-2-1636a003a3c0@kernel.org>
- <sashiko-outbox-197711@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABED6072659
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 22:16:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DABED6072659
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso32732a91.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 14:16:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793830591; x=1794435391;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4dUj7qtlv87aoaokSVHZlryaRSMAw8BaqO13OeSv3d8=;
+        b=wDcRVrrwVneQcCAnCkmnQXPPDYef+FMLlLMtNlKSBWxbg7FiqGQX9ats9btDcCmo7r
+         Gaw3Ki8zZ9wpNjXswVGObN+cCCapWlsRTtxKCMMgkr5d2XEgOnD9V8enmZoUW/3nR/aY
+         yNbpLQdO3ewPonX2HSht9N6ItubUXOiiWGWG2abXaQBvwc5C5DQhciZr0bWbCM+GKpHk
+         JIfXPECXxzb3lLPFsKt5/629wQytOBTX0aVkJtys4NJWy3c7z6QGqqni6m7CdQou7kzb
+         2y3JnVbDHJcVO2Rww27xJUztdIQUba72cdJe0SYU5sGsLQn3hKW2BcFKMvtJ5i+XBpLL
+         JytA==
+X-Forwarded-Encrypted: i=1; AKwUvByOl1n6VjVDFPmtz3D+g86sW+xb6Q3yKfX4NZkpIdU9xb5qClOWdUsTIAfeCyd62YO6DxD7qkNSWWCP@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EhEzwq0U1S5NIhMWcP7ND7GOzveCg1Ojk2ofu6hq3udWN0tKb
+	5xsoCEwDIq6mUgK2RjqNuixDYO3tyOdU7uR4yrzTBuAupn27tPXXQ06D+remR7Cs
+X-Gm-Gg: AYBFou0nnYNXUvXRwyylyMy+QhlxUatL8gQ/6PuxZKhOu6h4Bvsl5lVMJRqz5E95PQ6
+	cY5TsHFd3xV5AqjMQsGZMCX45eQHnF11Pyemxua3chTr5BcL7HGyoFAXkUpJvF9a8jTYjgJ5p6c
+	SiicSLmtK5lRSatk0ZuuE3MY/PCef8b9wLBrjHXPI4bkkzNfRsOE5ay8p29nywpDj6RfrizpraM
+	+zvkkfAjZUOyBHYnh7ODFm9rq6cLeOrps+k3tPmunVOCoYa8JBCwVtTyPuNVPG1vpks86C/i6aM
+	/KKbfAhQC7YmG86wfWWapLCdvRBx3l/bmXL+YVfBVVrf3x3A2QYYikrH6wIzWXgLc14uaOhfGCK
+	69yTtxu2ChGFfXJ/pxn79p1nDcIAdQplg4Wdn2QLD+f4Rb0mOabADXIyceNu+VtIa91FU5h6g9d
+	sHNLMHrUGrE0VZN5ouhBSRcfrbEEhzVaY6crO9ULJqDasDBleJmVpiMd8nSW/Y3OoyeWNvFGSX+
+	6VSRonP6OUMRVbuuzNpQYIcFHDqaFqIA5bfi7Z6hLyRRa4DJl1zLTr4xJIThlCRK/g/Es4Cw0Al
+	VLd3b4LnanAA2Rbd0urjpgUAgn+1PFCDFhZWdavF63O2NlMs2s4i60U/hu0qiEyssdmSAvgBQD4
+	UHRsZqUVR6iu25cCLK81cIbZkXKt5gqF2DfnFi+yF7Kk=
+X-Received: by 2002:a17:90b:17cb:b0:3ab:330d:6e47 with SMTP id 98e67ed59e1d1-3b0afc1479cmr470967a91.10.1793830591167;
+        Wed, 04 Nov 2026 14:16:31 -0800 (PST)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com. [74.125.82.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3131f8csm783126a91.2.2026.11.04.14.16.30
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 14:16:30 -0800 (PST)
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a315ed211so81744eec.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 14:16:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwNhh6kDNPv1fdIuXCMxccasrnyI3WWuPivs9C9QnCqRyjCuN86U753vhskRoopzAYzifrUw+BgDc3x@vger.kernel.org
+X-Received: by 2002:a05:693c:80da:b0:368:2c6d:ddfe with SMTP id
+ 5a478bee46e88-36de5f6f030mr1017112eec.9.1793830585474; Wed, 04 Nov 2026
+ 14:16:25 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,111 +81,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-197711@kernel.org>
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+In-Reply-To: <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 17:16:14 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
+X-Gm-Features: AclHuK9-UnITn3qNlxFDVEt7-zpIej_-hzEuMRZnZQ7mZri5SrN5fWqpIt5XJGI
+Message-ID: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 04, 2026 at 05:06:58PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] resctrl: cbqri: ZERO_SIZE_PTR deref on CDP mount when rcid_count is 1
-> - [Medium] resctrl: cbqri: stale cpu_srmcfg_default and CSR_SRMCFG across cpuhp
-> --
-> 
-> commit ba22d9f49019cdbd30a554bde797ded425016085
-> Author: Drew Fustini <fustini@kernel.org>
-> 
-> riscv_cbqri: resctrl: Add cache allocation via capacity block mask
-> 
-> This commit wires RISC-V CBQRI capacity controllers into resctrl as L2 and
-> L3 cache resources, managing control domains across CPU hotplug and exposing
-> capacity block mask configuration.
-> 
-> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
-> > new file mode 100644
-> > index 0000000000000..165b0027bbe0f
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_resctrl.c
-[..]
-> [Severity: High]
-> What happens if a CBQRI capacity controller reports rcid_count == 1 and
-> supports_alloc_at_code == true, and userspace mounts resctrl with CDP
-> enabled (-o cdp, -o cdpl2, or -o cdpl3)?
-> 
-> In drivers/resctrl/cbqri_devices.c, riscv_cbqri_register_cc() only rejects
-> rcid_count == 0, so a controller with rcid_count == 1 is accepted. Here,
-> cbqri_resctrl_control_init() sets res->cdp_capable =
-> ctrl->cc.supports_alloc_at_code without requiring ctrl->rcid_count >= 2, and
-> resctrl_arch_set_cdp_enabled() allows enabling CDP whenever res->cdp_capable
-> is true.
-> 
-> When mounting with CDP enabled, rdt_get_tree() -> schemata_list_create() ->
-> schemata_list_add() halves num_closid:
-> 
->     s->num_closid = resctrl_arch_get_num_closid(r);
->     if (resctrl_arch_get_cdp_enabled(r->rid))
->             s->num_closid /= 2;
-> 
-> With rcid_count == 1, s->num_closid becomes 0. Next, closid_init() computes
-> rdt_min_closid == 0:
-> 
->     list_for_each_entry(s, &resctrl_schema_all, list)
->             rdt_min_closid = min(rdt_min_closid, s->num_closid);
-> 
->     closid_free_map = bitmap_alloc(rdt_min_closid, GFP_KERNEL);
->     if (!closid_free_map)
->             return -ENOMEM;
->     bitmap_fill(closid_free_map, rdt_min_closid);
-> 
->     /* RESCTRL_RESERVED_CLOSID is always reserved for the default group */
->     __clear_bit(RESCTRL_RESERVED_CLOSID, closid_free_map);
-> 
-> Because bitmap_alloc(0, GFP_KERNEL) returns ZERO_SIZE_PTR, Could
-> __clear_bit() immediately fault on ZERO_SIZE_PTR? Should
-> cbqri_resctrl_control_init() or resctrl_arch_set_cdp_enabled() require
-> rcid_count >= 2 for CDP?
+> Please add minimum, and multipleOf.
+>
+> I've not looked at the code yet, but default: 0 would also be good.
 
-A controller with a single RCID has nothing to allocate between in the
-first place, so I will reject an alloc-capable controller with fewer
-than two RCIDs in riscv_cbqri_register_cc().
+Will do: minimum 0, multipleOf 55 and default 0.
 
-> [Severity: Medium]
-> Can CSR_SRMCFG and per_cpu(cpu_srmcfg, cpu) become out of sync with
-> per_cpu(cpu_srmcfg_default, cpu) across CPU hotplug?
-> 
-> When a CPU assigned to a non-default resctrl group is taken offline,
-> cbqri_resctrl_offline_cpu() calls resctrl_offline_cpu(cpu), which removes the
-> CPU from the group's cpu_mask without resetting cpu_srmcfg_default to (0, 0).
-> Because the CPU is no longer in the group's cpu_mask or cpu_online_mask, a
-> subsequent rmdir of that group or unmount of resctrl will not clear
-> cpu_srmcfg_default on the offline CPU either.
-> 
-> In addition, riscv/srmcfg:online (registered at arch_initcall in
-> arch/riscv/kernel/qos.c) and cbqri:online (registered at late_initcall in
-> cbqri_arch_late_init()) both use CPUHP_AP_ONLINE_DYN, so
-> riscv_srmcfg_reset_cache() runs before cbqri_resctrl_online_cpu() on CPU
-> online and sets per_cpu(cpu_srmcfg, cpu) = U32_MAX while cpu_srmcfg_default
-> still holds the stale pre-offline RCID/MCID.
-> 
-> Inside cbqri_resctrl_online_cpu(), cbqri_attach_cpu_to_all_ctrls(cpu) runs
-> before resctrl_arch_set_cpu_default_closid_rmid(cpu, 0, 0) and performs
-> operations that can sleep (such as mutex_lock(), kzalloc_obj() with
-> GFP_KERNEL, and usleep_range() in cbqri_wait_busy_flag()). If a context
-> switch occurs on the onlining CPU during cbqri_attach_cpu_to_all_ctrls(),
-> __switch_to_srmcfg() sees cpu_srmcfg == U32_MAX, writes the stale
-> cpu_srmcfg_default into CSR_SRMCFG, and caches that stale value in
-> cpu_srmcfg.
-> 
-> When cbqri_resctrl_online_cpu() then calls
-> resctrl_arch_set_cpu_default_closid_rmid(cpu, 0, 0), it only updates
-> cpu_srmcfg_default in memory and never calls resctrl_arch_sched_in(current)
-> to refresh CSR_SRMCFG and cpu_srmcfg on the running CPU.
-> 
-> Should cbqri_resctrl_offline_cpu() reset the CPU's default CLOSID/RMID and
-> refresh CSR_SRMCFG, and should cbqri_resctrl_online_cpu() set the default to
-> (0, 0) and call resctrl_arch_sched_in(current) so CSR_SRMCFG and cpu_srmcfg
-> stay synchronized?
+> These values are odd. The RGMII standard says 2ns is required. Where
+> is the rest coming from.
 
-I will reset the CPU's default RCID and MCID in
-cbqri_resctrl_offline_cpu() as x86 does in clear_closid_rmid().
+They are the values the vendor bootloader programs, and I checked them
+against the hardware. Sweeping each delay over its 256 steps at
+1000 Mb/s, TX works from 0 to about 2.8 ns and RX from 0 to about
+1.5 ns; 935 and 550 ps sit inside both windows, and a 2 ns RX delay in
+the MAC fails.
 
-Drew
+The rest of the skew is not programmed anywhere: the switch's PCDU
+register for this port reads back 0, and with the MAC's delays at 0 as
+well the link still passes traffic. So it comes from the board routing
+or the chips themselves, which I can't separate from software.
+
+If you'd rather see this described another way in the DT, I'm happy to
+change it for v2.
+
+> Does this mean there is a switch on the other end? Maybe look at what
+> the switch is doing for RGMII delays.
+
+Yes, a MaxLinear GSW150 on its CPU port, with phy-mode "rgmii-id" and no
+*-internal-delay-ps. As above, its delays read back as 0.
