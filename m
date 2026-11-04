@@ -1,47 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780768;
-	b=GkCtuEOfgqXR4vzqjFR4mgG97W11bmxbCUj4o1M3s+n9qnZxrI8gVbBoDlhNcY9ktvY2
-	 avPJpSt0T4+D3AYhQ/o/6NfWu9qVbCy3nxvXYGZYDfXVWvTTjrvQJKyF3cvzR3HTyBbK8
-	 DV/5/ZKDxSrUtKuzbKayLUB6MO/vpuXBwNRI25FVUzGScYIQRJHn1OFf8cJaVzbPa3MG4
-	 nglbCxzTAsWwPs/zHvHx9MofdfMKIk4Go2hGCpkkh9dPb7aziYp3hEXFjrP8CDl1XmkOB
-	 eQY9gfcqgnutVKWm0AyJinCYiul60DXsjtaa8PvlibBVPvfmqQ6LtCxjFAAo1kbtKbg==
+	t=1793780810;
+	b=U4iYjsLfaPJu2eKivUW90TOF4BBKGXttJSY+94uEsXVD9KnHrnC4elYAWjcfsmojDgzL
+	 dQKE51dXnu3l02c7pm5j5PELFVh7SlLSruFbVGCzqc4+Ce+opW+7w2+RPyWfVEOw5oica
+	 HvGgxw5o2vQ7cdUZHCilJVLK0RzUPZY9nSscLhLQ0ES+SkavgzD9Oe4Ze659ZOYPH/h0Q
+	 nCfrMCl5DWmMY/Jt/G45PKjIVCklK2LA6xeSyBytjEJVdGOZUc2Od58JJThtjL37gZtDb
+	 EGw/Z9BECFWtTjWkDAeswbe0AoA/W2VIE44N6JNrv/bTGHHG4NVyhLyaeyTkzhsrEZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780768;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=J3ThcFtrRkgwnMtkNBNcnxrXl5oKD/YpSEz2FCPS0e4=;
-	b=GVd5wD9fnZEYw62veYfKDxuGuONU5wOnHy47n/IM8w869it15Vwb6dAHg/All//GK+uw
-	 FKMu0/qQV0Y6LvdWAbDxyHxjWF8N/agoSZKxqmOnJc43kOqgPuWVllwUlz8vnAglH36B3
-	 zX44to7khuhpsQ0GLIbc7hcHz9gxvzpopO9Dv/fF1kxjuriVG/eK2Uyf6FuR9YYcpwgAt
-	 vmt3bWrkcCCOCwVGSxouwJCTXzkqYOSL+kHuYUAU5howwGSI+4JU1D1ufl8huxFArm1/s
-	 draDLKcug72KlibKt5pDaGMFNU26v2aNj+OfC/AeyyZAV+YScn457ltLc63AuuZToGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780810;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=tvLMSn5HFpx5poOdSsb+2hYTyzg/cMkxA4fwRXRdGto=;
+	b=nrt0JbUaC/KGonajjnFjVGUD1R0owMm8mUw5NsfhRMMvkRdvy7LbuK5+0EwwHq/vdi6A
+	 xsUiBBNFW+FyeOilyY0VnsaB4qq7/EuTjgRWSA2cvifDwmAw6KI9I9v1furnvsUQL54sH
+	 H3AbQWYSRahQ8Z9/RcHP1JjZYqT4kJAmFBMEpwOS8Ma9wsDakrbvhxR7JRtEXz/2KXXAE
+	 2Xq42VEPSzEIKqEe964X+a1gC658TBT2poj/nHT8YipjT5I+IsFYBy0BPGK3cN+Isa9Dq
+	 SClJPRyRYdKpq/J+wm8vBJHCp7d3gSBeRw3rNeLehFN5xnx704B4oV4xvUVMRJ/GWMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nW5BYAki;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=absP1XAP;
+	arc=none smtp.remote-ip=209.85.208.170
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72162606A31B;
-	Wed,  4 Nov 2026 08:26:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2216606A32E
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 08:26:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2216606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nW5BYAki
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCC81F000C1;
-	Wed,  4 Nov 2026 08:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793780768;
-	bh=J3ThcFtrRkgwnMtkNBNcnxrXl5oKD/YpSEz2FCPS0e4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nW5BYAkiJKIjsord9BybRbZzsABBgSbKHBIx+fEbmhHW7NAlvgpmhZEBNrH3ZDIpv
-	 UhpmHApaRr81Eh4mWZONdzdUwVsuTE1On0usga42gDyVkO/wWESG1gSV7gCz5FHKfH
-	 ArDkKEtJHUKJ98HyEcc4qKimFqj4Ic9evIf+rfn5R9454gZSy8kM+VnVmABLUm3YYX
-	 Vvk4BJTwa5bsevXD2+kfMPnRfGB/JvwY8K165e8w870aL0JvVlJRSplmNRfDmErffN
-	 lwPlJDC0BuUdtf1mvvje3goqENp0/1d3ogmhPLXzLc3CNZEpvoA4JAsQicSJ3VlMZ/
-	 BmMkISc4MfhrQ==
-Message-ID: <ee28bd16-11fc-4b78-b1ee-e0e20bb0cfdb@kernel.org>
-Date: Wed, 4 Nov 2026 09:26:00 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=absP1XAP
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab3dd9681fso4927221fa.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 00:26:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793780808; x=1794385608; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tvLMSn5HFpx5poOdSsb+2hYTyzg/cMkxA4fwRXRdGto=;
+        b=absP1XAP5WyJOO4ydTiMHBpJYvH3qYUqCNKFKPJeOXvzrGlpB5o48crUhH22VhMAHr
+         pmHB4al1ucv287GKq4CfijCKii8jUsKxqTOSz4QUOd6VtSDWc1xKFgSpn9XBe4pNjxNL
+         9i13TJeXMRPbll+uxMSvUa5dzZpp/4xucAKPFsG7lyJSoh340Jp7z/DJ4qHMPsyc++au
+         VDLS1acj4vMhmwAeCvFFROED4SJJNI5Qhzeg5+lndFhUOrZzDKQ/eLBV9UbYOyt6Yf9L
+         jRbzqThMzuC1APpLwrz3wbqcOe91cbG8iUxrkil++rXHPYbIt+StjJUhVqLMufSqIZhx
+         zeug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793780808; x=1794385608;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tvLMSn5HFpx5poOdSsb+2hYTyzg/cMkxA4fwRXRdGto=;
+        b=pupZdWnKZdEZRbMPOVd4FnQpt1KO+QSApNt1VjYI2XZY5DZWSso1hlAnzqKbsprLAO
+         933fZO3kXOw0chtHQZ8ZZtfAobbtI7cZ/iDUoaYf4Mf03KPpI68tY70spS2Swqg7VYJ3
+         TsH14Qj7gGInBpXzrfxg6KMd5z3Mm0s3Y1GeKydhFYIDOGjKLOF2mRrIto+mkKb9nV6q
+         UDTZWGE0PQt7uV3u+egjPKcllBjsjDVc6y7+3LoRRDgSK0vRNdT+19sxwQwReXAan0N5
+         +A/7oLc0QIu3g4rg2s0SK6ySKHDpEhadmnDyigZwIyJ6iD5MCme3srtgdtJsc3dUWt75
+         WjtA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNvTx9tqiUwpg/XDyXPANy/hzH3Nw+7c1BUNY17PzAUZV/OBC4lrFLnm0M8GSZhvQdeyjROsljc9/B@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/CJB/1lnf7o9ccjG46etGS+hf8TkXQxAA0kMu3X41ukltr6x+
+	3BA3vWsHuP3nphCoxRbyHt4N66G10Y4RJdQ0OgNxFIrSUn5X5JDi/3g0OwIxNfaB/UI=
+X-Gm-Gg: AYBFou1FQDIQTeaPAcUIIl6PD3WzYOzRAj4hWoMOUelRj4xIP6W+T5SM/Zm9aOS0YpX
+	wW2591PIgRihLaiOQfmzI3+Oieuf0nbA+Kodtl7bo8+EzZBEqD+YdUQguQ30+fqmm/uxwOIVYCf
+	aUJ1SKgRiYXUQJew7rvjPhx7eY+7nVAG76b77weSBMyxCMEE2byz4lxQWNjUlIPoQSuVd1G5MHh
+	ILtLd7062AgikgPWX/bqrd3zO4m/E6Q2eQzkDLURDAsKQ0637/oOmKjjfByjS/8IP3Flo2lqVNV
+	F8UaFGUELSqX7FtUokBNCsdSENNaTzxE1eUHxQreMxu8C3mjBlmIBGYdk07oN8M0UfqaKDCCXR4
+	SF6yY0DBMug0vDmiW1ho3Zis+a1rwBrKcJB/zuZkQHICEH9EF8gSpqHHxCt3ADrbTDTdMhLf7fV
+	Oqb+dfe5uiQKwPUms1ko0hx6vodX/NftXhaM5VLUQrcBmy2gIOhkSlyEj6ZtPc8n1qS4pRxFGjZ
+	bLOhKyEjFq/KkSPNw3scbIdUf1gyIYKnPh9YgjwbgEoMjUO11ZevkSIukJqKwJWzGREPsgr+4Z5
+	j66K/FCRHl0pDyFWwtTTC5aZU26h5VspBAetGEjww1cxlpCPt9Md/Mc=
+X-Received: by 2002:a05:6512:2243:b0:5bf:a77e:7231 with SMTP id 2adb3069b0e04-5bfd956a2c7mr5805640e87.26.1793780807863;
+        Wed, 04 Nov 2026 00:26:47 -0800 (PST)
+Received: from nuoska (78-27-71-225.bb.dnainternet.fi. [78.27.71.225])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff38c2690sm269858e87.57.2026.11.04.00.26.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 00:26:47 -0800 (PST)
+Date: Wed, 4 Nov 2026 10:26:45 +0200
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-kbuild@vger.kernel.org, linux-yocto@lists.yoctoproject.org,
+	Bruce Ashfield <bruce.ashfield@gmail.com>
+Subject: Kconfig dependency loop LEDS_CLASS -> EC_ASUS_GLYMUR -> THERMAL ->
+ POWER_SUPPLY -> HID_NVIDIA_SHIELD -> LEDS_CLASS (was Re: [PATCH v4 2/4]
+ platform: arm64: Add a driver for the EC found on ASUS Glymur machines )
+Message-ID: <aursRfQRr0AOL1Oi@nuoska>
+References: <20261015-topic-asus_ec-v4-0-af6305ffcb10@oss.qualcomm.com>
+ <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,84 +111,317 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/2] phy: add support for TH1520 USB PHY
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Wei Fu <wefu@redhat.com>, Drew Fustini <dfustini@tenstorrent.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Icenowy Zheng <uwu@icenowy.me>, Han Gao <rabenda.cn@gmail.com>
-References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261015-topic-asus_ec-v4-2-af6305ffcb10@oss.qualcomm.com>
 
-On 03/11/2026 09:14, Icenowy Zheng wrote:
-> This patchset is split from the "Add TH1520 USB support" patchset,
-> with only the PHY binding/driver part.
-> 
-> Icenowy Zheng (2):
->   dt-bindings: phy: add binding for T-Head TH1520 USB PHY
->   phy: add a driver for T-Head TH1520 USB PHY
+(Adding linux-kbuild@vger.kernel.org, linux-yocto@lists.yoctoproject.org and
+yocto kernel maintainer Bruce)
 
+Hi,
 
-Considering how vulab@iscas.ac.cn is ignoring reviews/comments and spams
-with a lot of unthreaded emails, completely disregarding any tries of
-contact over last 1.5 months, shall we ignore all contributions from
-@iscas.ac.cn?
+On Thu, Oct 15, 2026 at 10:55:30AM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>=20
+> Some Qualcomm Snapdragon X2 Elite (Extreme)-based ASUS laptops (at
+> least the Zenbook A14 and A16) expose a custom, somewhat
+> Qualcomm reference-derived EC interface. Introduce a driver to
+> communicate with said EC, allowing for fan speed reporting, keyboard
+> backlight setting and receiving of a number of miscellaneous sideband
+> events.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/platform/arm64/Kconfig          |  16 +
+>  drivers/platform/arm64/Makefile         |   1 +
+>  drivers/platform/arm64/asus-glymur-ec.c | 616 ++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 633 insertions(+)
+>=20
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
+fig
+> index e32e01b2a9bd..84c475c62990 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -33,6 +33,22 @@ config EC_ACER_ASPIRE1
+>  	  laptop where this information is not properly exposed via the
+>  	  standard ACPI devices.
+> =20
+> +config EC_ASUS_GLYMUR
+> +	tristate "ASUS Zenbook A16 (Qualcomm) Embedded Controller driver"
+> +	depends on ARCH_QCOM || COMPILE_TEST
+> +	depends on I2C
+> +	depends on HWMON
+> +	depends on INPUT
+> +	depends on PM
+> +	depends on THERMAL || THERMAL=3Dn
+> +	select NEW_LEDS
+> +	select LEDS_CLASS
+> +	help
+> +	  Say M or Y here to enable the EC driver for the Qualcomm Snapdragon-
+> +	  based ASUS Zenbook A16 (UX3607OA) and similar machines. It provides
+> +	  temperature sensors readout, fan monitoring, keyboard and EC event
+> +	  reporting.
+> +
 
-Maybe this will be the only way to actually be heard?
+With this new EC_ASUS_GLYMUR driver in 7.4-rc1 there now exists a kconfig d=
+ependency loop
+in arm64 builds:
 
-Icenowy, do you have any possibility to reach to bot spammers from vulab?
+LEDS_CLASS -> EC_ASUS_GLYMUR -> THERMAL -> POWER_SUPPLY -> HID_NVIDIA_SHIEL=
+D -> LEDS_CLASS
 
-Best regards,
-Krzysztof
+In Yocto distro we use additional tools[1] to check that kconfig elements i=
+n fragments actually
+get applied in the final .config etc and one of the checks is for dependenc=
+y loops which now
+fails with 7.4-rc1, full log below[2].
+
+To me it looks like EC_ASUS_GLYMUR correctly depends on LEDS_CLASS and that=
+ enabling this
+driver by default on arm64 with LEDS_CLASS is correct. And also HID_NVIDIA_=
+SHIELD correctly
+depends on LEDS_CLASS. Thus I don't think the drivers are doing anything wr=
+ong and thus
+on the Yocto kernel QA check side the dependency loop check should be relax=
+ed since they
+now can exists in the kernel tree.
+
+Do you agree to this or is there maybe some way to remove the kernel side k=
+config dependency
+loop to and from LEDS_CLASS?
+
+Cheers,
+
+-Mikko
+
+[1] symbol_why.py and kconfig parsing library from https://git.yoctoproject=
+=2Eorg/yocto-kernel-tools/
+    detects this loop
+
+[2]
+2026-11-03 12:00:42 - ERROR    - Command "/builds/Linaro/trustedsubstrate/g=
+pit/build$ /builds/Linaro/trustedsubstrate/gpit/bitbake/bin/bitbake -c buil=
+d core-image-sato-sdk" failed:
+ERROR: linux-yocto-dev-7.4-rc1+git-r0 do_kernel_configcheck: config analysi=
+s failed when running 'symbol_why.py --dotconfig /builds/Linaro/trustedsubs=
+trate/gpit/build/tmp/work/genericarm64-poky-linux/linux-yocto-dev/7.4-rc1+g=
+it/linux-genericarm64-standard-build/.config --mismatches --classify': Trac=
+eback (most recent call last):
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/symbol_w=
+hy.py", line 879, in <module>
+    conf =3D kconfiglib.Kconfig( kconf, show_errors, show_errors )
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 948, in __init__
+    self._init(filename, warn, warn_to_stderr, encoding)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 1122, in _init
+    check_dep_loop_sym(sym, False)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 6691, in _check_dep_loop_sym
+    else _check_dep_loop_sym(dep, False)
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 6691, in _check_dep_loop_sym
+    else _check_dep_loop_sym(dep, False)
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 6691, in _check_dep_loop_sym
+    else _check_dep_loop_sym(dep, False)
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  [Previous line repeated 7 more times]
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 6695, in _check_dep_loop_sym
+    return _found_dep_loop(loop, sym)
+  File "/builds/Linaro/trustedsubstrate/gpit/build/tmp/work/genericarm64-po=
+ky-linux/linux-yocto-dev/7.4-rc1+git/recipe-sysroot-native/usr/bin/kconfigl=
+ib.py", line 6799, in _found_dep_loop
+    raise KconfigError(msg)
+kconfiglib.KconfigError:=20
+Dependency loop
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+LEDS_CLASS (defined at drivers/leds/Kconfig:23), with definition...
+
+config LEDS_CLASS
+	tristate "LED Class Support"
+	depends on NEW_LEDS
+	help
+	  This option enables the LED sysfs class in /sys/class/leds.  You'll
+	  need this to do anything useful with LEDs.  If unsure, say Y.
+
+(select-related dependencies: (ADB_PMU_LED && PPC_PMAC && ADB_PMU && MACINT=
+OSH_DRIVERS) || (INPUT_WISTRON_BTNS && X86_32 && !UML && INPUT_MISC && INPU=
+T) || (SENSORS_APPLESMC && INPUT && X86 && HWMON) || (IR_REDRAT3 && USB && =
+RC_DEVICES && RC_CORE) || (IR_TTUSBIR && USB && RC_DEVICES && RC_CORE) || (=
+IR_WINBOND_CIR && ((X86 && PNP) || COMPILE_TEST) && HAS_IOPORT && RC_DEVICE=
+S && RC_CORE) || (HT16K33 && FB && I2C && INPUT && BACKLIGHT_CLASS_DEVICE &=
+& AUXDISPLAY) || (BACKLIGHT_ADP8860 && I2C && BACKLIGHT_CLASS_DEVICE && HAS=
+_IOMEM) || (BACKLIGHT_ADP8870 && I2C && BACKLIGHT_CLASS_DEVICE && HAS_IOMEM=
+) || (BACKLIGHT_LM3639 && I2C && BACKLIGHT_CLASS_DEVICE && HAS_IOMEM) || (S=
+ND_HDA_GENERIC && SND_HDA_GENERIC_LEDS && SND_HDA && SND && SOUND) || (SND_=
+USB_TONEPORT && SND_USB && USB && SND && SOUND) || (HID_MSI && USB_HID && H=
+ID && HID_SUPPORT) || (HID_WACOM && USB_HID && HID && HID_SUPPORT) || (HUAW=
+EI_WMI && ACPI_BATTERY && ACPI_EC && ACPI_WMI && INPUT && X86_PLATFORM_DEVI=
+CES) || (ACER_WMI && BACKLIGHT_CLASS_DEVICE && SERIO_I8042 && INPUT && (RFK=
+ILL || RFKILL =3D n) && ACPI_EC && ACPI_WMI && (ACPI_VIDEO || ACPI_VIDEO =
+=3D n) && HWMON && X86_PLATFORM_DEVICES) || (ASUS_LAPTOP && ACPI && BACKLIG=
+HT_CLASS_DEVICE && INPUT && (RFKILL || RFKILL =3D n) && (ACPI_VIDEO || ACPI=
+_VIDEO =3D n) && X86_PLATFORM_DEVICES) || (ASUS_WIRELESS && ACPI && INPUT &=
+& X86_PLATFORM_DEVICES) || (ASUS_WMI && ACPI_WMI && ACPI_BATTERY && INPUT &=
+& HWMON && BACKLIGHT_CLASS_DEVICE && (RFKILL || RFKILL =3D n) && HOTPLUG_PC=
+I && (ACPI_VIDEO || ACPI_VIDEO =3D n) && (SERIO_I8042 || SERIO_I8042 =3D n)=
+ && X86_PLATFORM_DEVICES) || (EEEPC_LAPTOP && ACPI_EC && INPUT && (RFKILL |=
+| RFKILL =3D n) && (ACPI_VIDEO || ACPI_VIDEO =3D n) && HOTPLUG_PCI && BACKL=
+IGHT_CLASS_DEVICE && X86_PLATFORM_DEVICES) || (DELL_LAPTOP && DMI && BACKLI=
+GHT_CLASS_DEVICE && ACPI_BATTERY && (ACPI_VIDEO || ACPI_VIDEO =3D n) && (RF=
+KILL || RFKILL =3D n) && (DELL_WMI || DELL_WMI =3D n) && SERIO_I8042 && DEL=
+L_SMBIOS && X86_PLATFORM_DRIVERS_DELL && X86_PLATFORM_DEVICES) || (FUJITSU_=
+LAPTOP && ACPI && INPUT && BACKLIGHT_CLASS_DEVICE && ACPI_BATTERY && (ACPI_=
+VIDEO || ACPI_VIDEO =3D n) && X86_PLATFORM_DEVICES) || (HP_ACCEL && INPUT &=
+& ACPI && SERIO_I8042 && X86_PLATFORM_DRIVERS_HP && X86_PLATFORM_DEVICES) |=
+| (IDEAPAD_LAPTOP && ACPI && ACPI_BATTERY && RFKILL && INPUT && SERIO_I8042=
+ && BACKLIGHT_CLASS_DEVICE && (ACPI_VIDEO || ACPI_VIDEO =3D n) && (ACPI_WMI=
+ || ACPI_WMI =3D n) && X86_PLATFORM_DEVICES) || (LENOVO_WMI_HOTKEY_UTILITIE=
+S && ACPI_WMI && X86_PLATFORM_DEVICES) || (THINKPAD_ACPI && ACPI_EC && ACPI=
+_BATTERY && INPUT && (RFKILL || RFKILL =3D n) && (ACPI_VIDEO || ACPI_VIDEO =
+=3D n) && BACKLIGHT_CLASS_DEVICE && I2C && DRM && X86_PLATFORM_DEVICES) || =
+(YOGABOOK && ACPI_WMI && INPUT && I2C && X86_PLATFORM_DEVICES) || (SAMSUNG_=
+LAPTOP && (RFKILL || RFKILL =3D n) && (ACPI_VIDEO || ACPI_VIDEO =3D n) && A=
+CPI_BATTERY && BACKLIGHT_CLASS_DEVICE && X86_PLATFORM_DEVICES) || (ACPI_TOS=
+HIBA && ACPI_EC && ACPI_BATTERY && ACPI_WMI && BACKLIGHT_CLASS_DEVICE && IN=
+PUT && (SERIO_I8042 || SERIO_I8042 =3D n) && (ACPI_VIDEO || ACPI_VIDEO =3D =
+n) && (HWMON || HWMON =3D n) && (RFKILL || RFKILL =3D n) && IIO && X86_PLAT=
+FORM_DEVICES) || (LG_LAPTOP && ACPI && ACPI_BATTERY && INPUT && X86_PLATFOR=
+M_DEVICES) || (SYSTEM76_ACPI && ACPI_EC && ACPI_BATTERY && HWMON && INPUT &=
+& X86_PLATFORM_DEVICES) || (TOPSTAR_LAPTOP && ACPI && INPUT && X86_PLATFORM=
+_DEVICES) || (X86_ANDROID_TABLETS && I2C && SPI && SERIAL_DEV_BUS && GPIOLI=
+B && PMIC_OPREGION && ACPI && EFI && PCI && X86_PLATFORM_DEVICES) || (SEL33=
+50_PLATFORM && ACPI && GPIOLIB && PINCTRL_BROXTON && X86_PLATFORM_DEVICES) =
+|| (EC_ASUS_GLYMUR && (ARCH_QCOM || COMPILE_TEST) && I2C && HWMON && INPUT =
+&& PM && (THERMAL || THERMAL =3D n) && ARM64_PLATFORM_DEVICES) || (EC_LENOV=
+O_THINKPAD_T14S && (ARCH_QCOM || COMPILE_TEST) && I2C && INPUT && ARM64_PLA=
+TFORM_DEVICES) || (EC_LENOVO_YOGA_SLIM7X_GEN11 && (ARCH_QCOM || COMPILE_TES=
+T) && I2C && INPUT && HWMON && ARM64_PLATFORM_DEVICES))
+
+=2E..depends on EC_ASUS_GLYMUR (defined at drivers/platform/arm64/Kconfig:3=
+6), with definition...
+
+config EC_ASUS_GLYMUR
+	tristate "ASUS Zenbook A16 (Qualcomm) Embedded Controller driver"
+	select NEW_LEDS
+	select LEDS_CLASS
+	depends on (ARCH_QCOM || COMPILE_TEST) && I2C && HWMON && INPUT && PM && (=
+THERMAL || THERMAL =3D n) && ARM64_PLATFORM_DEVICES
+	help
+	  Say M or Y here to enable the EC driver for the Qualcomm Snapdragon-
+	  based ASUS Zenbook A16 (UX3607OA) and similar machines. It provides
+	  temperature sensors readout, fan monitoring, keyboard and EC event
+	  reporting.
+
+=2E..depends on THERMAL (defined at drivers/thermal/Kconfig:6), with defini=
+tion...
+
+menuconfig THERMAL
+	bool "Thermal drivers"
+	help
+	  Thermal drivers offer a generic mechanism for
+	  thermal management. Usually it's made up of one or more thermal
+	  zones and cooling devices.
+	  Each thermal zone contains its own temperature, trip points,
+	  and cooling devices.
+	  All platforms with ACPI or Open Firmware thermal support can use
+	  this driver.
+	  If you want this support, you should say Y here.
+
+(select-related dependencies: (ACPI_VIDEO && BACKLIGHT_CLASS_DEVICE && INPU=
+T && ACPI_WMI && ACPI) || (ACPI_PROCESSOR && (X86 || ARM64 || LOONGARCH || =
+RISCV) && ACPI) || (ACPI_THERMAL && ACPI_PROCESSOR && ACPI) || (AB8500_BM &=
+& AB8500_CORE && AB8500_GPADC && IIO =3D y && OF && POWER_SUPPLY) || (DRM_E=
+TNAVIV && DRM_ETNAVIV_THERMAL && DRM && MMU && DRM && HAS_IOMEM) || (DRM_NO=
+UVEAU && ACPI && X86 && DRM && PCI && DRM && HAS_IOMEM) || (MMC_SDHCI_OMAP =
+&& (ARCH_OMAP2PLUS || ARCH_KEYSTONE || COMPILE_TEST) && MMC_SDHCI_PLTFM && =
+OF && MMC))
+
+(imply-related dependencies: (ACPI_VIDEO && BACKLIGHT_CLASS_DEVICE && INPUT=
+ && ACPI_WMI && ACPI) || (ACPI_PROCESSOR && (X86 || ARM64 || LOONGARCH || R=
+ISCV) && ACPI) || (ACPI_THERMAL && ACPI_PROCESSOR && ACPI) || (AB8500_BM &&=
+ AB8500_CORE && AB8500_GPADC && IIO =3D y && OF && POWER_SUPPLY) || (DRM_ET=
+NAVIV && DRM_ETNAVIV_THERMAL && DRM && MMU && DRM && HAS_IOMEM) || (DRM_NOU=
+VEAU && ACPI && X86 && DRM && PCI && DRM && HAS_IOMEM) || (MMC_SDHCI_OMAP &=
+& (ARCH_OMAP2PLUS || ARCH_KEYSTONE || COMPILE_TEST) && MMC_SDHCI_PLTFM && O=
+F && MMC))
+
+=2E..depends on POWER_SUPPLY (defined at drivers/power/supply/Kconfig:2), w=
+ith definition...
+
+menuconfig POWER_SUPPLY
+	bool "Power supply class support"
+	help
+	  Say Y here to enable power supply class support. This allows
+	  power supply (batteries, AC, USB) monitoring by userspace
+	  via sysfs and uevent (if available) and/or APM kernel interface
+	  (if selected below).
+
+(select-related dependencies: ARM64 || (X86_AMD_PSTATE && ACPI && X86 && CP=
+U_FREQ) || (ACPI_AC && ACPI) || (ACPI_BATTERY && ACPI) || (ACPI_SBS && X86 =
+&& ACPI_EC && ACPI) || (AB8500_CORE && ABX500_CORE && MFD_DB8500_PRCMU && H=
+AS_IOMEM) || (DRM_AMDGPU && DRM && PCI && DRM && HAS_IOMEM) || (DRM_NOUVEAU=
+ && DRM && PCI && DRM && HAS_IOMEM) || (DRM_RADEON && DRM && PCI && (AGP ||=
+ !AGP) && DRM && HAS_IOMEM) || (HID_BATTERY_STRENGTH && HID && HID_SUPPORT)=
+ || (HID_ASUS && USB_HID && LEDS_CLASS && (ASUS_WMI || ASUS_WMI =3D n) && H=
+ID && HID_SUPPORT) || (HID_CORSAIR && USB_HID && LEDS_CLASS && HID && HID_S=
+UPPORT) || (HID_LOGITECH_HIDPP && HID_LOGITECH && HID && HID_SUPPORT) || (H=
+ID_NINTENDO && NEW_LEDS && LEDS_CLASS && USB_HID && HID && HID_SUPPORT) || =
+(HID_NVIDIA_SHIELD && USB_HID && BT_HIDP && LEDS_CLASS && HID && HID_SUPPOR=
+T) || (HID_PLAYSTATION && LEDS_CLASS_MULTICOLOR && HID && HID_SUPPORT) || (=
+HID_SONY && USB_HID && NEW_LEDS && LEDS_CLASS && HID && HID_SUPPORT) || (HI=
+D_STEAM && HID && HID_SUPPORT) || (HID_PULSAR && USB_HID && HID && HID_SUPP=
+ORT) || (HID_WACOM && USB_HID && HID && HID_SUPPORT) || (HID_WIIMOTE && LED=
+S_CLASS && HID && HID_SUPPORT) || (USB_CONN_GPIO && GPIOLIB && USB_SUPPORT)=
+ || (APPLE_MFI_FASTCHARGE && USB && USB_SUPPORT) || (TYPEC_TCPM && USB && T=
+YPEC && USB_SUPPORT) || (TYPEC_TPS6598X && I2C && TYPEC && USB_SUPPORT) || =
+(DELL_LAPTOP && DMI && BACKLIGHT_CLASS_DEVICE && ACPI_BATTERY && (ACPI_VIDE=
+O || ACPI_VIDEO =3D n) && (RFKILL || RFKILL =3D n) && (DELL_WMI || DELL_WMI=
+ =3D n) && SERIO_I8042 && DELL_SMBIOS && X86_PLATFORM_DRIVERS_DELL && X86_P=
+LATFORM_DEVICES) || (HP_WMI && ACPI_EC && ACPI_WMI && INPUT && (RFKILL || R=
+FKILL =3D n) && X86_PLATFORM_DRIVERS_HP && X86_PLATFORM_DEVICES) || (X86_AN=
+DROID_TABLETS && I2C && SPI && SERIAL_DEV_BUS && GPIOLIB && PMIC_OPREGION &=
+& ACPI && EFI && PCI && X86_PLATFORM_DEVICES) || (SEL3350_PLATFORM && ACPI =
+&& GPIOLIB && PINCTRL_BROXTON && X86_PLATFORM_DEVICES))
+
+=2E..depends on HID_NVIDIA_SHIELD (defined at drivers/hid/Kconfig:908), wit=
+h definition...
+
+config HID_NVIDIA_SHIELD
+	tristate "NVIDIA SHIELD devices"
+	select POWER_SUPPLY
+	depends on USB_HID && BT_HIDP && LEDS_CLASS && HID && HID_SUPPORT
+	help
+	  Support for NVIDIA SHIELD accessories.
+	 =20
+	  Supported devices:
+	  - Thunderstrike (NVIDIA SHIELD Controller 2017)
+
+=2E..depends again on LEDS_CLASS (defined at drivers/leds/Kconfig:23)
+
+ERROR: Logfile of failure stored in: /builds/Linaro/trustedsubstrate/gpit/b=
+uild/tmp/work/genericarm64-poky-linux/linux-yocto-dev/7.4-rc1+git/temp/log.=
+do_kernel_configcheck.519198
+ERROR: Task (/builds/Linaro/trustedsubstrate/gpit/build/../core/meta/recipe=
+s-kernel/linux/linux-yocto-dev.bb:do_kernel_configcheck) failed with exit c=
+ode '1'
+2026-11-03 12:00:42 - ERROR    - Command "/builds/Linaro/trustedsubstrate/g=
+pit/bitbake/bin/bitbake -c build core-image-sato-sdk" failed with error 1
+section_end:1793707242:step_script
