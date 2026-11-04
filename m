@@ -1,83 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788807;
-	b=coUUapRHzv20T74oIoqy9DKvE469hmzZfFpAVoHNLaQNEOjZZvRlZBGH1PLkRKrkIzMJ
-	 hINF2OAITTkkx5IkhLQQGwBi237tlCZAjYt84owS1ERTmM9a4IDEl48cHsTlnrOsHGg2o
-	 I5VBm7prdLG8hdUyOGcPmVjUqSmyDN7B6UmT4Krwi3+ZL91APgsTxwctykgfnyiwlc6kV
-	 spsQmAWEif4eUI2SVQKSRS67mT5IbMJG3mPG152/ryAKQvZFU2kpvytUtd13LotNCIh9l
-	 b4jOxD2A5DEuEJ2IM2XxsFzKx1fnyJz9EQgtJJ0M1s7rBsgcaks9ntZb8JqGG6Ngm8A==
+	t=1793788904;
+	b=0ywKHS8S1NCMIx6S1ONq6H+jf93aNADBPetD0WcTR16OR827yCoTyuRUxa/jBoJHhcSf
+	 sJg4ENY5XG81ctnvg3SiU7xF/eZoCx31vlQh+v4mWR7jSqJawVFBP8ub49n4uoKDLZZEl
+	 Noo7CadRRR+Nfp5TyWbM9qCwIk7F17UcmQ252QZ7Wygb29BbH2Q7aVTFfpfP2aH1xkbZi
+	 Bhj1yJbWNW2JPqSBTTHrw0Hq00e/9f6GPw8BTjRHBI7ecRnjt2eifnJMmi9k9FN7P3Ogs
+	 DCCOTqD6OouzySzR5Rf8w4GSSkl0aVL8TAN4jpVk3dI0JqN0MMFFDRNLNLJYcdTJsjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788807;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=9nviUxxklDz1e7RQotS+S5xXIzfCLzTAm+63a1Agefo=;
-	b=FB7jHdd0WU5ouCQ+qQwfQVYws967oGB+uHfrA7KmDNkQLT6xyrX6XHmegpkiUsj9cQDf
-	 kxEs7i2TBj3TsKT4K0tvVqySmm6pq19SYfFYTiEwGJIA4Uu5O1yiN6OilcxyUEFSenqYs
-	 7Y+7TxyUdV/MnybohmqOoxVpuXLvLdmiHG2tozisB/EfxrVMLTetL5uvewbwYra2TkmF/
-	 Am10oaBR2NAa7NdgzFFXkHgBZ0odSkMKMIe0e9zy0RRhQp/GZGKuIU5YRr3hLNkGQMrLl
-	 hxhvtcrz84Btowxu+Tm7a7Z0N3/bs4P4G+s1YTq3MV2G2ojVgKxyWeaMQf+G/Bcby2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788904;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=g/M5lTmWZ7ZLfEFYV6/3fxrG4+HGuIIbv/blTWR+kdI=;
+	b=JNUKP8gs21nUqfQ4giswcfMER7zh/PRTnhyI3pkG35DrcDYT1I4Kz3xs52ropLOVK5T2
+	 1tDF02qJwxwuyYETk2UtWVxrIuO3awCrBr+1eIVG2xF3eEZv1Yzw5L/Tyq+0QBbbMks/S
+	 pxr1JM8PGjq0LikqyE0Vogzu19CmDm2b5t1wjLj1CkpR535Fp6bpA/0JKdcrpZsvPk05d
+	 ZK7xnCVM6gY30uU8x+sRSkasANRreLqdFRo4jOIzGOvGm0F+jclFAA5iNPv4aTsRALRby
+	 jrdzVBxOH1+uiwh33NT66eFLCGFLf90/yjoRlFuYjnQtnMvr8mYby6AUJNDetoxVdhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lN/JzBSS";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A68F606A31B;
-	Wed,  4 Nov 2026 10:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A68F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE98606A31B;
+	Wed,  4 Nov 2026 10:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793788807; x=1825324807;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gS4Z3hxrWiNXk0PZbDdWd9RFAdHS8/Nmmvft9Q2f1Dg=;
-  b=A4GS76s4sQTRmC8reuCQpfR+h5NxcBgdDdlBGugjr4nHs/Hi2jIiwyMg
-   BrDI6Ta2xdtZRrjXNlFcCqJVn684CbwIa3ermOgVwPefAibPDCOjM/+gc
-   DJX1s9qKyEHQNsQ7jpgeMDEUgi2mhTQKcVHUJkGcnQgc1jsNIUA0/myiJ
-   8+q2q6jhJLkB5RkF29IZtCZ8Gnoqjobmf+1h8MKyHzA7XaFfKNULLL5/Z
-   ZRrn663t1gwQFSla9CN2o4kBkjV3IhwWTokY+GNkPJESyqkkIPU4il0E+
-   nAO9e9UAI97xFlee4SBGm7xDHHOLed4E80g8exMPNVLnakKbtCt0CsNRp
-   Q==;
-X-CSE-ConnectionGUID: i8WdGjGyScWElFU0bjM3DQ==
-X-CSE-MsgGUID: vgAsVhr/QmyBAmhNdRZeoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2436340"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2436340"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:06 -0800
-X-CSE-ConnectionGUID: xHuM0kqnRyy5PTiMdZKYlw==
-X-CSE-MsgGUID: IJOAm2dLQRCs+ce9hVyt8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7007981"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:03 -0800
-Date: Wed, 4 Nov 2026 12:40:01 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v7 05/12] serial: 8250_dw: derive RX trigger thresholds
- from the FIFO depth
-Message-ID: <ausLge5yYc2W00zi@ashevche-desk.local>
-References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
- <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lN/JzBSS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4084C1F000C1;
+	Wed,  4 Nov 2026 10:41:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793788903;
+	bh=g/M5lTmWZ7ZLfEFYV6/3fxrG4+HGuIIbv/blTWR+kdI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lN/JzBSSe6OsgtYBv24gjKdSML3Zm7sDoeZupAzIsmhc5fvTRjr1C65gCrzFAKLt+
+	 wW55WL6Vb1+i1EFLVY1MQnhhGnRaK7z6Aq/IDQJRort4iDC/JXBZlxAQIUvMtbk1QO
+	 SZB10ftHoeWXV/CHz78I1EBqkVXaquQ3FPIQlk35rlz7uBeT6GbrCZ8b+q9HRQ5REu
+	 z0YiGZgd9K09E1v5ZE8d8bDhRWc9KT/zIgHT+cOekgIsZ72B4egbXbzuB6PaV3XPxl
+	 o0MDbtwQF8lTzC5dVlvT6FY4wL8D2PBPlmRPL5dX3lHoK8ZvDHb/Je1MhJT5/0Puzv
+	 +9ikraKroPphQ==
+Date: Wed, 4 Nov 2026 11:41:40 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Po-Yu Chuang <ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 2/7] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+Message-ID: <20261104-prodigious-ara-of-research-05bf65@quoll>
+References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
+ <20261104-support_ast2700-v5-2-44057f4dde75@aspeedtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,67 +63,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261104-support_ast2700-v5-2-44057f4dde75@aspeedtech.com>
 
-On Tue, Nov 03, 2026 at 02:39:58PM -0700, James Hilliard wrote:
-> DW_apb_uart uses receive thresholds of one byte, one quarter full,
-> one half full and two bytes below full. The generic 16550A table describes
-> these encodings only for a 16-byte FIFO. For example, the half-full setting
-> on a 64-byte DW FIFO is reported as eight bytes instead of 32, and a sysfs
-> request for 32 bytes selects the 62-byte encoding.
+On Wed, Nov 04, 2026 at 01:13:55PM +0800, Jacky Chou wrote:
+> Add AST2700 to the FTGMAC100 compatible list and document that its
+> RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line
+> for AST2700 as it follows the same reset requirements as AST2600.
 > 
-> Build a per-port threshold table from the discovered FIFO depth in dwlib
-> and install receive-trigger callbacks for CPR-described FIFOs, including
-> LPSS ports. Keep the setup helper available to integrations which obtain
-> the depth without probing the optional DW registers. Validate that each
-> threshold is positive and representable before constructing the table.
+> Require "phy-mode" to be present in the device tree when the AST2700
+> compatible is used, matching the driver's probe-time requirement.
 > 
-> Serialize FCR updates with termios and the port lock, acquire a runtime PM
-> reference before accessing the device, and propagate resume errors without
-> changing the shadow or hardware. Update only the trigger field so changing
-> the threshold preserves the FIFO contents.
+> Add aspeed,ast2700-mac as a standalone compatible, consistent with
+> the other Aspeed compatibles.
 > 
-> The FCR mapping is documented in the DW_apb_uart databook, section 6,
-> FIFO Control Register. The existing default FCR encoding is unchanged.
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-...
+Your patch changed substantially, so dropping tag was appropriate.
 
->  static int dw8250_setup(struct uart_port *p)
->  {
-> -	dw8250_setup_port(p);
-> +	int ret;
-> +
-> +	ret = dw8250_setup_port(p);
-> +	if (ret)
-> +		return ret;
-> +
->  	return dw8250_setup_dma(p);
->  }
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> ---
+>  Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index c870dd0bda7b..0a376b849a91 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -17,6 +17,7 @@ properties:
+>            - aspeed,ast2400-mac
+>            - aspeed,ast2500-mac
+>            - aspeed,ast2600-mac
+> +          - aspeed,ast2700-mac
+>  
+>    reg:
+>      maxItems: 1
+> @@ -28,7 +29,7 @@ properties:
+>      minItems: 1
+>      items:
+>        - description: MAC IP clock
+> -      - description: RMII RCLK gate for AST2500/2600
+> +      - description: RMII RCLK gate for AST2500/2600/2700
 
-Split out a change that moves from void to int for _setup_port() and do it
-before the patch that creates _setup_dma(), so it will be less churn overall.
+So not valid for 2600?
 
-...
+>  
+>    resets:
+>      maxItems: 1
+> @@ -80,12 +81,21 @@ allOf:
+>            contains:
+>              enum:
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>      then:
+>        properties:
+>          resets: true
+>      else:
+>        properties:
+>          resets: false
 
-> struct dw8250_port_data {
+Blank line here
 
->  	/* Hardware configuration */
->  	u32			cpr_value;
->  	u8			dlf_size;
-> +	u16			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: aspeed,ast2700-mac
+> +    then:
+> +      required:
+> +        - phy-mode
 
-Put it first after the above comment. Check with `pahole` before and after
-results.
+Please constrain clocks.
 
->  	/* RS485 variables */
->  	bool			hw_rs485_support;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+Krzysztof
 
