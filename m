@@ -1,63 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797370;
-	b=0W2FYqWJmggeZOQ0h48F1/HgHHBoIvoPbCKa4E3MeWcEtREB4jzQDGWR7UvpvuxLY0Gc
-	 5M5FJMwtgDh6P7TwTiZ7+tAX+5WD0zulmHE5vObY11oKFqzBFjxLy27noYC0wy8W6xTub
-	 3OcPdrdFfsOdR4rnMD8i8+gA0bPJJZr18iETQzW2Ilx2HB9rqYcLMwSfgEEqL0RhJRWaO
-	 /tzeYPYXC+i80uJb6AgWLWdvyXNHgnl5qfpNX8yuMq6X/SAaw7bku5u3QFYCvXUszBvv4
-	 5zzfqkIvvP+/70OQ+kJokxBI30ORFp3GClz1HbENdz4Fe8ghSWfOLTy9JpSKSSjdICQ==
+	t=1793797466;
+	b=A5nhj0CoSc1qLDFP0r7MqzSkkdLesqEefHp4X/1Xw9Q4H5drKCjOG5uDJoXCkRcqw+XE
+	 fOvz6tP9z8WFA0nEI9OWnbPiz9LKVG8WiSyNGvgOlf8sVuz8GdFJEh/3njWBF0mFoWOOg
+	 EajAXUjeXzf1cEXRSczD6tx1/sulFxzRdYIAIUYkvDOVVg/JoZ3Uz/+mFOD2nl4vIjAZj
+	 uLsUz0HrGz2+5Vqlgbhwb9D4JLWrFeyYmijZRuFL4WY5OhD86csJscYuUEYTgbj0ljlGC
+	 DPEm/YOiSoz7dMLXAoSsZuAEHYxQdI1iDR47OppyWt+I8y+4lZVkwMIenD73V5aqqdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797370;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uJilNf/DuzscctLyLUnhtlaW8CcMOEh7Gq1rB8BFr8U=;
-	b=KMu1ERUrA0bEs1ancqbZh/m5BbRM/kahLe0OjJ+VVlL9D6D0J5ve42ehBTu2ru3Mwh24
-	 ACaVOIed2z0LAoYS/4rcBB1hC/2NV5BEQmKu2F5wUkDGHj6dj3Oo0HONKy++4SKOltSny
-	 26kIMMJz/R4/lOVLti2Ztxvt5dvvYup+sbRqlc/aT4FFRjm3mQK2R5rzkwcNELIjvxty/
-	 gcHQ8G5JnXZhJOrrwTEthH4LwqwRmEkZZoDXRk89VOEM+OEJkWMz1pKfYmfNLBe+Ae9uE
-	 llbFTKSV/5r2m2fDJzgr8kzkiRuGUfdtNIoqepAW8Dl0nsJIN1/Ley43E3zzdbTpB/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797466;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0gGIxmVj15HwpHlgucVC67kzMBeDjNiHcqiz6hAOrv8=;
+	b=tDjTbdrU3hdakKX1IOBuc3gVNcHLq69k6lNNQabbOnVKbh701zB3Aznt5uqvJgb1yuhj
+	 FInTEP1QMIJQPBK8wN5S1tG8IDKgBY/vQxRHh9FDMj2Y4Kpcf85a1c5pyPmOat4xgDV1U
+	 522NOtJ8dMOid6A/9jy6OrGdhjMiUlpJuP+lAN4dRSJnn1LmHDvpXFc1z6gmsq63uVHHh
+	 q1I7Jt8jtoEtt64oyIn0LGwdfHpzAJmmKlh7lwg8FApVYhAt8A0D6rxf5w+qKZXiukPwY
+	 PzFTDt0sNqg5jnY5Rt0ZA0YmrXs75tLa0y0s6CzQBkRrkPDaFunD2ii6QQviVGg5nsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=GdlkD5rC;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C182rFoz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297F36083610;
-	Wed,  4 Nov 2026 13:02:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 297F36083610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D373606A334
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:04:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=GdlkD5rC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=uJilNf/DuzscctLyLUnhtlaW8CcMOEh7Gq1rB8BFr8U=; b=GdlkD5rChX2w1X58aPkGyzqN0K
-	I7MJdxIq98amV+fOJctpJiKV3jDJyDTqhzGdnvgDVHhjKho++BKpOlKsnEOg7SWcAEo5oYtk/NC9w
-	ZcU94sJNGEHKJ2MzbpqiofpHczDZGyPF0MJqMM5RD6omxSSYAIjDL4EMHrL6ELyv7CcYR/AmjYn1e
-	7Er8449rKWS0JTbPpwokEbUNWP5dEJFv0ybGutfXyhttNA2dYqLqQT2Gp1+E77BjSTK5A9iB1JjrW
-	VGJAYESp+6dDN47W+6VwLj8pqE66GV3E24BSausAz/yknM19NtEwBUZ6BH64vPgmMgPaJBS4moRAU
-	lD3qk8bw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add support for Vicharak Axon Lite board
-Date: Wed,  4 Nov 2026 14:02:39 +0100
-Message-ID: <179379735607.665309.15426546617217855160.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260730134815.434654-1-hrushirajg23@gmail.com>
-References: <20260730134815.434654-1-hrushirajg23@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C182rFoz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569171F00A27
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:04:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793797466;
+	bh=0gGIxmVj15HwpHlgucVC67kzMBeDjNiHcqiz6hAOrv8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=C182rFozjpn+i/0Ts1DVq3b+ldJzLaYXncXGSKU5f4XCAI4+yQi49mycFeAVy/gy7
+	 8i034pd2KQtcZ+CDX7gNbb1ARO9RfgRTbhmouZunnvcULJfaG9HPLVwZ3ytUngroM8
+	 egwAbMwpz9XNDrjkbvaFb7ks4aeC1jnf/7xgjiQSSRWyIkLiOi9LhuCZ0m05jFhICK
+	 nr+140ioY7Z+vWkH+hoTBBLG9p9apDmaJAyXwiVWq7Jj1yLXp7seJxi3P3EtW934rg
+	 oWpdYy+4j+63c1HAegqRqhpSl5cl6n6imJzOTlCBDI2RliYbTkTkC1EonSRTyah1Td
+	 f1twz4w1M1Eww==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfc3292d90so486043e87.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:04:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBx3V5TZHnJcciezZOJuF8+nxexbNswPgLH5lnfph6EmjURL+f6VmarHtyB/tcK4FXDYxWcHJ0fKB3Qh@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ixVvq6Z7kQ2vd3fpwbZxmh1xfLp0kM/p104ao5/uojZvAHgmO
+	3jG5gddW7sIQ5ULoUg9F/9fVAucMdIvbdPsJEtWx3gAWu2sGkn/W3xRIltj/nGjKvuYe/68n0Zm
+	einXbzYvmsl75kbXuOweNhtYJQDrzPQ0=
+X-Received: by 2002:a05:6512:39cd:b0:5bf:b166:f58b with SMTP id
+ 2adb3069b0e04-5bfd95782a4mr5476115e87.55.1793797464785; Wed, 04 Nov 2026
+ 05:04:24 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,31 +59,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com> <20261022-add-board-ok3572-c-v1-5-0b0fd85a31ee@qq.com>
+In-Reply-To: <20261022-add-board-ok3572-c-v1-5-0b0fd85a31ee@qq.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:04:12 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=2Z3hP74dHRyE3Aabp+PvpcHX_90PQy+a_HMQwBdNx6g@mail.gmail.com>
+X-Gm-Features: AclHuK9_TlXav34NYeX4rfS2IYWnnq1y5c9wSfeOajfltWQaA7IZMQ4oBhaALpc
+Message-ID: <CAD++jL=2Z3hP74dHRyE3Aabp+PvpcHX_90PQy+a_HMQwBdNx6g@mail.gmail.com>
+Subject: Re: [PATCH 05/27] dt-bindings: pinctrl: rockchip: Add RK3572
+To: 1579567540@qq.com
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Jisheng Zhang <jszhang@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Wu <david.wu@rock-chips.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Jaehoon Chung <jh80.chung@samsung.com>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	mfd@lists.linux.dev, linux-gpio@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-phy@lists.infradead.org, 
+	linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Oct 21, 2026 at 6:12=E2=80=AFPM Cunhao Lu via B4 Relay
+<devnull+1579567540.qq.com@kernel.org> wrote:
 
-On Thu, 30 Jul 2026 19:18:13 +0530, Hrushiraj Gandhi wrote:
-> Add initial support for the Vicharak Axon Lite, an RK3576-based
-> single-board computer.
-> 
-> Patch 1 documents the "vicharak,axon-lite" compatible string in the
-> Rockchip arm bindings.
-> 
-> Patch 2 adds the board devicetree, enabling the RK806 PMIC with
-> CPU-big, CPU-little, GPU, NPU and logic regulators, Mali GPU, Gigabit
-> Ethernet (RTL8211F), eMMC, microSD, UFS storage, PCIe0 and PCIe1,
-> HYM8563 RTC, GPIO LEDs, and UART0 serial console.
-> 
-> [...]
+> From: Cunhao Lu <1579567540@qq.com>
+>
+> Add the RK3572 pinctrl compatible.
+>
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
 
-Applied, thanks!
+This patch 5/27 applied to the pinctrl tree.
 
-[1/2] dt-bindings: arm: rockchip: Add Vicharak Axon Lite board
-      commit: a9dfb4613bd2c44250d57bec8fc72a08f71d1d6a
-[2/2] arm64: dts: rockchip: Add Vicharak Axon Lite board
-      commit: 80e2828a00ba4f472289a699727abfd72a31de34
-
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Yours,
+Linus Walleij
