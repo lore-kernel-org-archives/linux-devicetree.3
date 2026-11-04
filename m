@@ -1,58 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800446;
-	b=Ek5iEkRZwqrmREkWLjtCZmruWv4D+pyzf+Uhk8s3yGJCNBV1Xkj2WpFi9UFMzRMmXk0r
-	 /TYekkhpcNzLTetDxmv1fxxREvKBQ30Ofr1mRi1fgLcgfAAieCScFFbRFuOkqJuWX3hdd
-	 RNwQoAy0dMrh/bkhcaMxttVQwbY98LdMq4tpri6mJGlAOH2E6/YSk2k+/93/tyD4M3bry
-	 LSiLPv7kvesMBLByWGFmicEY0ysLv6uXmOLFF3xXZp/eg6wFiqVAa7+rU1rQHJkba5rkZ
-	 +vpY2tX5BPLAue4pJxSgTwTFx31qm0kgmzVAvMjDZ7dPwJ4TCuvK3Rt6uvasquwBEUA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800446;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793800616;
+	b=e3UhBeMfoVRGYDDEnOby1gdWzgXnzsK3Digz/LC9ULHmxnCcpw38dyTsO2s+jj23Xe5U
+	 tRUYQkw15d8fmqsPfyzzFVaMMz+SyS/yXI1qW8UYLRyejw3nP0Y0dFLTBYVFMPkH0EPGo
+	 vaM8mhrTMXT8xcOiqYJdatRu3yiJsWJ9LAKTsUDXEHSDHfXcDQYW/ZAP+Kvq5K7as+zp7
+	 8zugoF53+oTirCTt85aomYQZtAgU0DtHwSIvfJif4qA5lTpqV4ifJXdgqQqLBp85NJ5wh
+	 UbAz4xX8NvVE0F7bgZkHp8JxFjrqbKp9xlmRzz9BXEiyowFt0nKNwEnbtHipa9MnFHQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800616;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=drgLSRnt5uPABDepZHClizyF65DMZ6f3WXlDwV1zLHo=;
-	b=LKa3i0sQw+Qdt6egAIs1z/UvICb4sy7JUXd8CX0NXvxVTRI360ccvWHSU+j0y03eKWn4
-	 eEmlnvkt7xz9S8xXktIIU7eOzGB6yxDFkTA4cFuazd1lGcoXFU4yuQt5yKxofQq4o4CBU
-	 biG72NYH30JwpYpdww4f+kftZOHwDCbb9AHu9DSFrMSRjBmnvTVVnShLzvXfCNLnNXu43
-	 qkQZ7kcxz7ccoJf5CnENnoS/d6xSxv+eQ3r2cwAa0bzxdXv8gBxBV8b49inGDFMni5nQf
-	 X4z7Jlaugz5qfr3yBrHIgzT4ruoJXI+b1svo9w1iJ0b4PSNonGbCsdTcjfqqARv6RFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8155pIt;
-	arc=none smtp.remote-ip=100.103.45.18
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vKic/C72+wqsttWAVuyp/YoaAXXWO+b8jG90BXZi1Zk=;
+	b=Dh+J1AbMRIl5XCRjlc/RtfHS/FU8RkiyUWT2V0w/Mzfkh4xk7/Awh5FcqIVW+4e7RDl6
+	 eWak/lenjrXGYiOt9BClKx7u5ymm2oS8thI3l3yREGD6YD9Hkpm38jWJ1+3vr/DU0WVtZ
+	 h3TJM9F/Du0W4iTIT/gLSMlbJQWbyWC/FTOtSUHOYxGY/3r7sVR4PstmFCbSRBvpRYmLA
+	 DNs+0IA40IdOJ0xKKnHqEZQu2wD5v28IxSSkxMNODSd8DYQXAyvXY3qi4CXg9iRl8hbqc
+	 fTCMxke8x0/fCAwuAwgxCyQM0zyEVLf7KnVAydFsy8IKwqmb3lobEWDssJRlk3ZxR8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbLsPnud;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB741606A32E;
-	Wed,  4 Nov 2026 13:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90504606A31B;
+	Wed,  4 Nov 2026 13:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8155pIt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F5F1F000C1;
-	Wed,  4 Nov 2026 13:54:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbLsPnud
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793800616;
+	b=ROACCw/h4Ho02HiQa+WvwTYnDfXCnAoMNjrGzU1oWC+h1QN5vKIvXRbaIvkl3HWxscmj
+	 SSn8OoiQAqkm/Brsst8H4Qm64mDvtsZDMWCye+HogimNi1boq5mTtByv3HgQ5NmCvK6rO
+	 5gaXGAbWgUK2w9H3uwvLaY2pEp1AgG3QtTOZzAbcwjl2YWWm9Nu6Qjfd3qyiuYT5eroAO
+	 76+Uuc+io31WLLE2nVoGHxI80Su12TyZwP4HtE+XUGCTx8EzdIvOVgRQRCjWjssh8HEoO
+	 20ocxXk+v2ogikCd+7+5+hJrP/9SN2ExFm9yK88Zr8SqByN0of/yRobDq2o9aOtOBEA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793800616;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vKic/C72+wqsttWAVuyp/YoaAXXWO+b8jG90BXZi1Zk=;
+	b=Umraio9WGSsS2Keq/gsHyv3UMnueAJ/5lJxL4/LNcsCrXtDJUAR6Hw6jAW/XMZPvAo8Q
+	 1uZZx04GFvpcjnYMMdFiqSO140UNKGhF6owMGpc5P1BnaGSTyR8//zRprLxaW19yIpCyd
+	 TlRCTCSf6e8vSfGHc1voYOtyMpxb6LWaAVQSNBi/9NOOK/y1BOsjEjGMB6HVjXFmtT/Ey
+	 WMFsoIUHtaJ19HJ3H/yByn+MO+84+xx4h8ZTqYPh/KFoK8daVG25JOCM39rJXXq8OM4IJ
+	 tRxiWp9eKYl7/hzfd/DtLtMtMNVRV5UF9G0VgM3R0W2U1VAgVSWqj5U0qP5ggMSwkmQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 683B91F000C1;
+	Wed,  4 Nov 2026 13:56:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793800445;
-	bh=drgLSRnt5uPABDepZHClizyF65DMZ6f3WXlDwV1zLHo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U8155pIt5MK3hkWVH9Jb3RTFDR0rZ+jCFBzbwDEI5mKsXtKh4+AsWedGRX2LWMOXv
-	 26XccUgqD0qI0JxQGSIZ3VUf6vEj5WhwyHeW9qahVLyic8iAd7Iq6ZoEdLGU3y+B2x
-	 r633ZRP9OLYoHnS2znt/x+0uocUPSqhElvJr/7xIKE0Sbs/vS0xrWaBPBjx8N6dBbw
-	 vbj6BlPvx9AkAOASwuXxKNSD+VtHmsdCJPBX5jnYvnMUq3v9y8vcpV3DoPjrvrkhMh
-	 RYC+OLuNyEnDA4d/N7FIaDoqwJzNfEcYzB1LqzfzUJmYmhKJidPCE1pj8SIQpqyPdY
-	 2H2nwI07LSagA==
-Date: Wed, 4 Nov 2026 14:54:01 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] media: qcom: camss: Add Glymur specific resources
-Message-ID: <20261104-smart-scorpion-of-bliss-2e8371@quoll>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-2-fcb619fc7319@oss.qualcomm.com>
+	s=k20260515; t=1793800616;
+	bh=vKic/C72+wqsttWAVuyp/YoaAXXWO+b8jG90BXZi1Zk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IbLsPnud0D1mUXuC/ZBeLR6kvJ93sDofOsrwh1adBZJErGaJpublLSPCSaRj1F0T/
+	 Yi+Box5ThELYqlJNZRqg58LC31uYyNkqlSjjMmU8EgnSfNvrbgQHySvhN4GFXKvMWH
+	 0zo+RB/xUt1Y1btOgD8qNJ4/xpp11aclLSbA1JCYqVYkGtF5KV7F3hnTRJOpdSyDp4
+	 YVAsP/TJfd2AUKuxEzITWS+0lsqc5/mwyWOvl7Neh1JqjcPbCCDMQJU9qK2nRjBA7z
+	 Vpd8piVIPWkg7oX+lB+7T+gUmxocSGqav2Htj8IvnIjSxaNYeoSc39eLMWBxTmWAl2
+	 G+JQQsD6P5zsA==
+Date: Wed, 4 Nov 2026 14:56:41 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Rodolfo Giometti
+ <giometti@enneenne.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, Angelo Dureghello
+ <adureghello@baylibre.com>, Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>, Marilene Andrade Garcia
+ <marilene.agarcia@gmail.com>, Cosmin Tanislav
+ <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz,
+ herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <20261104145641.000070f2@kernel.org>
+In-Reply-To: <20261104125726.1754980-3-maxime.chevallier@bootlin.com>
+References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
+	<20261104125726.1754980-3-maxime.chevallier@bootlin.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,73 +98,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261102-glymur_camss-v1-2-fcb619fc7319@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 02:20:58PM +0530, Nihal Kumar Gupta wrote:
-> Glymur uses the X1E80100 CAMSS resources, but its CSI2 PHYs are
-> described as standalone PHY nodes. Reusing the X1E80100 resources also
-> reuses csiphy_res[], where port@3 maps to CSIPHY id 4.
-> 
-> Add Glymur resource data without reusing the X1E80100 CSIPHY resource
-> table, so the standalone PHY path uses the graph port number as the
-> CSIPHY id.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/camss/camss.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 1db66976e51b81edeb223cebb6bbe84995d102c2..4f705a056eedbc7b09d2630ee6284b8d768cc6d5 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -5800,6 +5800,21 @@ static void camss_remove(struct platform_device *pdev)
->  	camss_genpd_cleanup(camss);
->  }
->  
-> +static const struct camss_resources glymur_resources = {
-> +	.version = CAMSS_X1E80100,
-> +	.pd_name = "top",
-> +	.tpg_res = tpg_res_x1e80100,
-> +	.csid_res = csid_res_x1e80100,
-> +	.vfe_res = vfe_res_x1e80100,
-> +	.csid_wrapper_res = &csid_wrapper_res_x1e80100,
-> +	.icc_res = icc_res_x1e80100,
-> +	.icc_path_num = ARRAY_SIZE(icc_res_x1e80100),
-> +	.csiphy_num = 5,
+On Wed,  4 Nov 2026 13:57:25 +0100
+Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
 
-5? Your binding said three... Confusing.
+...
 
-> +	.tpg_num = ARRAY_SIZE(tpg_res_x1e80100),
-> +	.csid_num = ARRAY_SIZE(csid_res_x1e80100),
-> +	.vfe_num = ARRAY_SIZE(vfe_res_x1e80100),
+> diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
+> new file mode 100644
+> index 000000000000..ec754ec43d7c
+> --- /dev/null
+> +++ b/drivers/iio/adc/ti-tla2528.c
+> @@ -0,0 +1,215 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Driver for Texas Instruments TLA2528 ADC
+> + *
+> + * Copyright (C) 2020-2021 Rodolfo Giometti <giometti@enneenne.com>
+> + * Copyright (C) 2025 Maxime Chevallier <maxime.chevallier@bootlin.com>
+> + * Datasheet: https://www.ti.com/lit/gpn/tla2528
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mod_devicetable.h>
+
+Remove mod_devicetable.h, now i2c.h supplies this. See Uwe Kleine-Konig's
+work on this.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/adc-helpers.h>
+> +#include <linux/iio/iio.h>
+> +
+
++ #include <asm/byteorder.h> for be16_to_cpu()
+
+> +#define TLA2528_OP_WRITE_REG		0x08
+> +#define TLA2528_OP_READ_REG		0x10
+> +
+> +#define TLA2528_GENERAL_CFG_ADR		0x01
+> +#define TLA2528_GENERAL_CFG_RST		BIT(0)
+> +#define TLA2528_CHANNEL_SEL_ADR		0x11
+> +#define TLA2528_CHANNEL_SEL_MANUAL_CHID	GENMASK(3, 0)
+> +#define TLA2528_AUTO_SEQ_CH_SEL_ADR	0x12
+> +
+> +#define TLA2528_NUM_CHANNELS		8
+> +
+> +struct tla2528 {
+> +	struct i2c_client *client;
+> +	struct regmap *regmap;
+> +	int vref_mv;
+
+Slight nit, but _mV so we emphasize this is a SI unit.
+
+> +
+> +	/* Protects manual channel selection */
+> +	struct mutex lock;
 > +};
 > +
->  static const struct camss_resources msm8916_resources = {
->  	.version = CAMSS_8x16,
->  	.csiphy_res = csiphy_res_8x16,
-> @@ -6049,6 +6064,7 @@ static const struct camss_resources x1e80100_resources = {
->  };
->  
->  static const struct of_device_id camss_dt_match[] = {
-> +	{ .compatible = "qcom,glymur-camss", .data = &glymur_resources },
->  	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
->  	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
->  	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
-> @@ -6068,7 +6084,6 @@ static const struct of_device_id camss_dt_match[] = {
->  	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
->  	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
->  	{ .compatible = "qcom,x1e80100-camss", .data = &x1e80100_resources },
-> -	{ .compatible = "qcom,glymur-camss", .data = &x1e80100_resources },
 
-Why do you keep breaking the order...
+...
 
->  	{ }
->  };
->  
-> 
-> -- 
-> 2.34.1
-> 
+> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+> +{
+> +	__be16 data;
+> +	int ret;
+> +
+> +	guard(mutex)(&tla2528->lock);
+> +
+> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
+> +	if (ret < 0)
+> +		return ret;
+>
+
+As rare as short reads may be, perhaps add a check whether the expected amount
+of bits have been returned from the device?
+
+-- 
+Kind regards,
+Joshua Crofts
