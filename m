@@ -1,65 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793751346;
-	b=rRtOzgH+eUbJ0rT1ScBPtPnETxvPJodcY6rwWOWK5Hes/qCZhlyADDtqx3DqSB5CJwWN
-	 HHJCkQFHRyMNMgsz4nZ5tzVXXaX8Rs9sOOHuOKS7+Vh0bijxYLVWDrDfgnj1QjWxNcaqG
-	 4z3hUJ2pMTTjQIc7Cuv+Kf04HgIujnbAnx5uoprCVUgrQvIFKHE8n2dJ1qN+Zoe3HhVec
-	 +g0LaLpmd9lvL+iiAWTl6CR8zhXvo4qEby+9fAmYqvbdIXmEpjQv6r+7hW0xT4XczBJz4
-	 4ASBHpVh4Lj8zMGS59d+pVkfWM4Cizh44sDs/khckMFqrnFQ6KXmeogk7X/hzcl3yqg==
+	t=1793751431;
+	b=2wYqHMRA8l645H6XhWbvZ0zx5VMrQZEhISTLoB4ViKkqxR7r4oFuiWOl4flrKvq9mtl5
+	 gxstgU2P/+U1X2mKXz+pLZHMCCRCBphjd/T8S70qyNlhmYvvvLLAMDpqgVnJmkp0Pp7qe
+	 dSgZTsc772Xt0R0WmZ/aLllYyoUcVkvMVFYrM5fTCR0pA3ocI+dYmjX8+dNV0313mL8Xh
+	 /WjjLgeJbaM8GmDuSiCixuw370a/ue5bkUXaiwVxamZxCWWTKS9Eg5EhpiNh3OYlWIPX5
+	 jB0BM3kgzLaXqd+XL7AvsuCJ7PuMbtz5JEePVo5bx6+lrIu7TmZMHXOroKHfDWji0Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793751346;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CZWeSPV6TtzxOobdW0CwXkqthFJr36xZqBQBmvhNYSU=;
-	b=WJ8ztsjf8T9JN0iizCQCmvA6bXcZDpiXxGajKlMcNtcXoV7O7eqfinPpFxud3MAMmDWC
-	 a5DMncgFC3xzcEyxfAU8g42RGCPk5ugFc+b9XWs9cAFdDa1VfpBE0tEZjwxv/2UNVTyED
-	 ssZxjEKK1rYV5dGTllTBPRphdXkNhcYKMbkEPP0W/JbVXgqWugLidOieidAmzFd+bsKhB
-	 ni0x59AH/Z+pY+WvyNwlWUQtIotY7sbSi3sddAN4v55Vn1jnRK/r+foLOt0wzY5qto7Pd
-	 0jPR3N0DeOovV7vWqXglTIpcXPzIYqlxbJtt7hDpGqFSpi48SKHvWq0s6XnCh7TwhGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793751431;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xqWKttadyBdN9NxbkSTF+ieKc0EWv7St4IhSOYTR118=;
+	b=1T4dUVuAwvJvzx3XADYlOscY6nqVEYQz867O9wcZJsXW+bSLM3uGi8DnfSbKjMA4mMBA
+	 TBT9mong8QxaY9QJL/R3oXYUU1h0Z2WMIXy6LVmss/KN93xYjhxnT9oKSHgfdF2bGivNq
+	 csAfhJnelNV/CnzTDg1UwPdGz1kRzpvIY5LH8hDMGc380zAjKAjCNspvD4TRclO21xRlf
+	 lZNNeCBzUIH54Uqkkm9or8xDPj6xFASNgxRokL4zXYTNrZgezZtymxW1PQyeHPZWzOI4t
+	 /WoIXurqI4q2m+R2SIEFocqGhqfMwOEhiNo2hcV78Zqnft97vfGhwSxjsy8I/58nxag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Oilm58;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCVyHgrK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A717606A31B;
-	Wed,  4 Nov 2026 00:15:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E22606A31B;
+	Wed,  4 Nov 2026 00:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C5Oilm58
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9737E1F000C1;
-	Wed,  4 Nov 2026 00:15:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aCVyHgrK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797811F000C1;
+	Wed,  4 Nov 2026 00:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793751345;
-	bh=CZWeSPV6TtzxOobdW0CwXkqthFJr36xZqBQBmvhNYSU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=C5Oilm58tJ4i2tpoH+UgNhBtKWWSlCAavrHl8VVN70b8kwHm5TOHbVaV3SZ0Eihi+
-	 HEnjbtGD4UhGZ1ibF1MonizVzkOPiCzSwsNkC6NwgPMB1sBkqCCrH+oDL+43nEZvmG
-	 y1jHz2sbWqWqgAVC6PI0v+di9Yf42VDlhE701l+cZzyX4TtgXSar/OuPuH84Hq49i7
-	 D+gok3AcGSPkBkT/ck5hij9rMVunPCfP7zF7l8Qaal7fmAPG0cWgOn7zmVXFERwYXt
-	 aLUqVghAz8T4DyQWoaPk64g6Q6GONiTMJXPAJEd4knPFE9bTFm5ibbAENVHueIhqr0
-	 j1H8FkWM8G47w==
-Date: Wed, 4 Nov 2026 00:15:35 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, Olivier Moysan
- <olivier.moysan@foss.st.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <ukleinek@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v3 07/10] iio: frequency: ad9910: support drctl control
-Message-ID: <20261104001535.46a1995b@jic23-hlaptop>
-In-Reply-To: <20261103-ad9910-backend-support-v3-7-0e9224ddf7b7@analog.com>
-References: <20261103-ad9910-backend-support-v3-0-0e9224ddf7b7@analog.com>
-	<20261103-ad9910-backend-support-v3-7-0e9224ddf7b7@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793751430;
+	bh=xqWKttadyBdN9NxbkSTF+ieKc0EWv7St4IhSOYTR118=;
+	h=From:To:Cc:Subject:Date;
+	b=aCVyHgrKGn/4jkZGieSPnRagyF+Cdx2R55fom4WNR4Bo2QuBeZA8TxjPVGauZ+RX/
+	 R6vdpw8JDyyuxrDArhXOkWsEAsGHny2oj0FOo2h88VFIFOFMAHcHuFasHM5FETsBNw
+	 lK2GZ3cHykOlorWXpr/Koy3VaKOK52gDt9zWLC5H9m8UvNrU08hTsNm3c2Fk9FXN7m
+	 dTVNWzTZn1hfmOz79cgX0rsu3KuctD5rVNqUGDFRL8IBwhZaGCT69OefzyLTIW2/nn
+	 7pXOxI8Z0qvt+LUFGSCvEgLpTPPiu6zgyL6gck0KA+JHvHwHjNcRaHh3C7UPGEEJin
+	 P7S9mERl0BTHA==
+From: Vladimir Zapolskiy <vz@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/3] clk: qcom: Add SM8350 camera clock controller
+Date: Wed,  4 Nov 2026 02:17:01 +0200
+Message-ID: <20261104001704.2744766-1-vz@kernel.org>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,76 +65,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 03 Nov 2026 11:53:03 -0300
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Add the camera clock controller (CAMCC) for Qualcomm SM8350 SoC, the
+clock configuration was taken from camcc-lahaina.c from msm-5.10.
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> The DRCTL pin controls the slope direction of the AD9910 digital ramp
-> generator (DRG). When dwell is enabled at a ramp limit, the DRG holds
-> that limit until the next DRCTL transition, so the sweep pattern is
-> defined by the waveform applied to that pin, which can be generated by
-> a PWM.
-> 
-> Get the optional "drctl" PWM and expose the integration_time attribute
-> in the DRG ramp up and ramp down channels, which sets the time interval
-> assigned to each ramp direction while the sweep parameter is accumulating.
-> 
-> The DRCTL waveform is described with the PWM waveform API, using the duty
-> offset when DRCTL needs to start low. The PWM is disabled when the
-> resulting period is zero. The waveform is rounded by the PWM provider
-> before being applied, so that integration_time reports the intervals
-> achieved by it. Writing to integration_time fails with -EOPNOTSUPP when
-> no DRCTL PWM is available. As the waveform API has no stubs, the driver
-> now depends on PWM.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+CAM_CC_PLL0 runs at 1200MHz, which requires the SVS_L1 level of the MX
+rail, so it is set as the MX performance state in the device tree node.
 
-The passing comment reflects discussion on v2.  Still seems worth
-tidying up to me!  Maybe as a follow up though.
+Vladimir Zapolskiy (3):
+  dt-bindings: clock: qcom: Add SM8350 camera clock controller
+  clk: qcom: Add SM8350 camera clock controller driver
+  arm64: dts: qcom: sm8350: Add camera clock controller
 
-Jonathan
+ .../bindings/clock/qcom,sm8350-camcc.yaml     |   69 +
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          |   15 +
+ drivers/clk/qcom/Kconfig                      |    9 +
+ drivers/clk/qcom/Makefile                     |    1 +
+ drivers/clk/qcom/camcc-sm8350.c               | 2650 +++++++++++++++++
+ include/dt-bindings/clock/qcom,sm8350-camcc.h |  149 +
+ 6 files changed, 2893 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/qcom,sm8350-camcc.yaml
+ create mode 100644 drivers/clk/qcom/camcc-sm8350.c
+ create mode 100644 include/dt-bindings/clock/qcom,sm8350-camcc.h
 
-
->  static void ad9910_hw_powerdown_action(void *data)
->  {
->  	struct ad9910_state *st = data;
-> @@ -2249,6 +2365,26 @@ static int ad9910_probe(struct spi_device *spi)
->  
->  	fsleep(AD9910_WAKEUP_DELAY_us);
->  
-> +	/*
-> +	 * DRCTL is the only PWM used, so it is looked up by index. A named
-> +	 * lookup would fail with -EINVAL when pwm-names is absent, preventing
-> +	 * the optional handling below.
-> +	 */
-> +	st->drctl_pwm = devm_pwm_get(dev, NULL);
-
-Maybe not something for this series, but it might be nice to have
-a devm_pwm_get_optional() to avoid having to track specific error
-values. Probably return NULL for nothing specified,
-similar to your wrapper code here. 
-
-
-> +	if (IS_ERR(st->drctl_pwm)) {
-> +		ret = PTR_ERR(st->drctl_pwm);
-> +		if (ret != -ENOENT && ret != -ENODEV)
-> +			return dev_err_probe(dev, PTR_ERR(st->drctl_pwm),
-> +					     "failed to get drctl pwm\n");
-> +		st->drctl_pwm = NULL;
-> +	} else {
-> +		ret = devm_add_action_or_reset(dev, ad9910_drctl_disable_action,
-> +					       st->drctl_pwm);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to add drctl disable action\n");
-> +	}
-> +
->  	ret = ad9910_parse_fw(st);
->  	if (ret)
->  		return ret;
-> 
+-- 
+2.51.0
 
