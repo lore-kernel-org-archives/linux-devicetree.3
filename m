@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778725;
-	b=UCiGt9kuQdojWfOmBvLsQ/iXyzwoJmlTaj0ZQpqXrLiaxQH0bkJMaZ6n441U+ZdYBcIO
-	 rYuKf3RykU7spGZEo5Sz8TWozp3E6a6IUzG2xqlCAQJUQMe5AAF/amR7/nLV93tRtvd8w
-	 tplxAFTBpS89z1pHluv6j9drHNFU9mXXEaZE20O+cgmf8o8EA7yPtoyvyhnDtR4oGEwGc
-	 sxwTgpUC5PCylxwfJHWV/TkCFuXUvbEGvW0vP+VvQM8avhavoHDfCgVA/eGbSlIaIGtuC
-	 Ab3hXrS/rhBJvFesg7s80Vj5wu4mvrWeDr5CakG4QLlpLevDuBdh4HUzJn+0MI91nIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778725;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BINK9s4ZfoUl2+0apuQ6n3zUEKf+TvZJ1T4q11gk+Rg=;
-	b=lHKfZw5ApL7U1ud9iNLtQoZg4quVAacxah3lTC9pw0VeEpQjEdClTFPHO3GVns+fh2D6
-	 tbWyRMzfYLBR4RNeQWmJqgnAWCixD3W2wRIJdQ+Vgevu67SC/vIxgDAEQcehyC0yCfGxU
-	 9ojX33j7vvH5plIlEoD5TcGiDsp/k3gwviEl4OHCM2XU8NnyPwBqGfKaVFahBDjW336R0
-	 AVFsHTm2IVCRunHLZFuKd/ZfdMwLYPcxKMQI8xjcafmdGGBuMu/j+UD48cn1lzG90eVUa
-	 FQDTwSNlZRUacm4C57nqKE1xERav97U6u9/FmJ6PAbDP9CQG+nn0Vs9+K5UTdlSP6ug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToClG8IA;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793778865;
+	b=l2xbMlv+FLWUz+b9wFGZF8t6w9Juk/gSklqRXgN+Xjqkhl6a+JoIhsLCrP3QLleSVzrj
+	 3uiutkQQMH4tL5AWCjJ5PrGg5JmR34sW4LcaXAn6S+DKwlCORmclBIRvUYnmNeT/oQJoa
+	 m3jrGiiEOwkJZSIJx3VJMgeuvVwbSb/QTQZs+BmWoPM6wkpq9IEkZoFuST1qzQcdqnevp
+	 /K7dssqzwd2DAByYyDe8PVGSnZiQRovWU12eIydWJN4Z6H9fHLORKfISUjtdG8yqZPsbn
+	 +lJ/FbZqVb/Rh1EVljhVY+Ska72K305r8SkQCn1feSz1ToeE8BD7NXuiSSJwWvTlFOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778865;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
+	b=hMKF5RdfmwexrlyR7z4W//Fo3PhnNUYO+jIwNMXeKJxxTIP4uiRV/FvaGYMV6urA1AX4
+	 cRYPnqZ/4oNBRXoan4v7FWf9ONpiftqiEjGGg/DbxNqpivqqSeuPoFWDsuJoBxnJP/2+G
+	 BNos/48fIoT3iBGGVqHmWmfxXlJKNHGXYQc8pzpH019ifxkVNi2Esr8eQvGYmUwnOUWDn
+	 JtLtvwbLacw1443MBJR8Ai4TF7d0rQ421bYb3ToZa50qe9+Ez6m/SWQE68SJH5z5WV3hT
+	 xTTeBnbv0j/lI2aLpapf31jOJx6qSsZLdkBwxIKFpSZL1+k2S4THPbrd15r6CyTsZYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFF5606A326;
-	Wed,  4 Nov 2026 07:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700F7606A333;
+	Wed,  4 Nov 2026 07:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ToClG8IA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC6A1F000C1;
-	Wed,  4 Nov 2026 07:52:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793778865;
+	b=MK7NojtCwLDROdzNkc/0U/bWQY3FElUlCc8J/W1e1OJieQO/KVHE4+2BvxL8CVB8mWYV
+	 jFL1tJmqDJ2x7l2Bv2kjw114fT2Q1Sbh/ZcWcsrbpFaRULCyib8UdW8/z6fw/eknfK3SL
+	 BXxImKaLijcDxDw4JMYhZqOOTdrQooEhh/GCaJxnqAOTmAfNKnH9/kLGVj3R1VpEcNqrS
+	 EwSVVSggcJbRGwM0h+COB8zo0Ey4o7d1XId8eHIGMshag4yVrnIXFTfvnd94nQFHjWoiK
+	 0Ef2d4N+fgWYHzm9GwrmZUwWxGO+lVCutprAiTzykzgsJWHfeZsUobZ9EW4xeVQqD1A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793778865;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
+	b=JBXAM0niG15zTG8o9WWoQ5AJBuyIVub2pCkmzitq+Xf6IWfmOU7iLhbOO2AoJzbnnYhR
+	 NVPBdxAaewdupEqTppru26seLgMMM8Hj16/lNXFGhNiyRq4JShZX6MnleIUK/cGvIEZ4p
+	 O6Ri8LQHQHjjqbUPYfmEAlqZCWe+0ePLrRZIc7LN//JfyGQg9bS6Pf26dBXicUvsdhwul
+	 Lv14uMI5J8x7nBx94ZA+P2tr8gLpPsWh9TSfzheezkdDompOsRQwvbF4h7rt4SbfqMwLv
+	 fZe3urQXVAmrHpHbXKdXFolq6gvOBEGThx/9FZ2X5jLdADpsvaxOhCEs+jqtef28MRg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id C8C791F00919;
+	Wed,  4 Nov 2026 07:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778725;
-	bh=BINK9s4ZfoUl2+0apuQ6n3zUEKf+TvZJ1T4q11gk+Rg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ToClG8IAWJWNzQVhPkRQVkdHg8oX+fT42a8VOhsYAKAHnSWRQEvjQvD+jektXqqfQ
-	 mvG8hEsCbDuyJmGH0934HE0G+MnWH26wGsqa/gYOYFzsTUQzLNZQunHuEEPRCuTOR4
-	 4kv+efHW1+PHrmGfL2BAm0+Cgs8RhC3iLzeWFTlAuiDzZjYrfmRpWD5YgALRq+uD/k
-	 xRcewPUaWokvCsIVSLH7laIykQCs+Qsh864NngADQRQSQNRonM2bH4VKLQN8X396Un
-	 OZ54yeIluLsVzGmxjP0udBDrNOSECeNZUrYtaDltjeqAHMCiw8hXaZNXqCe1LRQ0gI
-	 HvPmh15Tz2kxg==
-Message-ID: <sashiko-outbox-196836@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: serial: 8250: Add dedicated
- Loongson-2K3000 UART compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <c194b5248184779da500476281fd411fc80a98d6.1793776192.git.zhoubinbin@loongson.cn>
-References: <cover.1793776192.git.zhoubinbin@loongson.cn>
- <c194b5248184779da500476281fd411fc80a98d6.1793776192.git.zhoubinbin@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:52:04 +0000
+	s=k20260515; t=1793778865;
+	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VLB5jRJH6ANTcDNh/MxCplOqJlp/+2F/W778/hWLNovUE6myojf/A/3vrHDBbjQHj
+	 7EpPLarmxGnsWEpRjF5Q280Drj8sY/6SV0YF1MHc4jaFGkSwomoiKZsAlLw4rBve2S
+	 dnt0IP7jxJk03xYjatd0yNTUOv1op3bcZJ2TwTSLENJaNnWmRoZm42PAW3wZa6S1Bj
+	 yX4rtC6BrEdz4mkU+yCw5kZ/1NpcwMDPcYoE8rrA+7yCoCaCAm0y2B9csuX2vg0TRa
+	 /F+HtguXqxKXoerOWjE1NcE8ZyzyvlxLauc8zNYJ15XJySIJqvX4EWd9Aro95xk2UJ
+	 6f92BkDTdPjWw==
+Date: Wed, 4 Nov 2026 08:54:16 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-hwmon@vger.kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Marius Cristea <marius.cristea@microchip.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v5 1/5] unaligned: introduce be56 unaligned accessors
+Message-ID: <20261104085416.00004b55@kernel.org>
+In-Reply-To: <20261103-pac1711-v5-1-71c20101a52e@microchip.com>
+References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
+	<20261103-pac1711-v5-1-71c20101a52e@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,53 +91,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: serial: 8250: duplicate ns16550a fallback block for ls=
-2k3000
---
+On Tue, 3 Nov 2026 16:37:11 +0200
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
 
-commit 71974153fe22bc00d365059be9198364c9cfaa86
-Author: Binbin Zhou <zhoubinbin@loongson.cn>
+> From: Marius Cristea <marius.cristea@microchip.com>
+> 
+> The MAX34417, IIO driver, is using some unaligned 56 bit registers.
+> Provide some helper accessors in preparation for the new driver.
+> 
+> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
+> [narmstrong: update commit message and move to include/linux/unaligned.h]
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-dt-bindings: serial: 8250: Add dedicated Loongson-2K3000 UART compatible
+This patch is missing your Signed-off-by tag. Even if you're just
+carrying someone's patch, the SOB serves as proof that you have the
+right to do so.
 
-This commit documents the loongson,ls2k3000-uart compatible string with
-ns16550a as a fallback so the driver can distinguish the Loongson-2K3000 UA=
-RT
-from earlier Loongson UARTs that require MCR/MSR signal inversion.
-
-> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
-tation/devicetree/bindings/serial/8250.yaml
-> index 01abd39509a7a..33c13c48ed56e 100644
-> --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> @@ -196,6 +196,9 @@ properties:
->                - loongson,ls2k2000-uart
->            - const: loongson,ls2k1500-uart
->            - const: ns16550a
-> +      - items:
-> +          - const: loongson,ls2k3000-uart
-> +          - const: ns16550a
-
-[Severity: Low]
-This isn't a bug, but properties:compatible in
-Documentation/devicetree/bindings/serial/8250.yaml already has a two-item
-block with const: ns16550a as the fallback that includes the other base
-Loongson UART compatibles:
-
-      - items:
-          - enum:
-              ...
-              - loongson,ls2k0500-uart
-              - loongson,ls2k1500-uart
-          - const: ns16550a
-
-Could loongson,ls2k3000-uart be added to that existing enum instead of addi=
-ng
-a separate two-item block?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793776192.gi=
-t.zhoubinbin@loongson.cn?part=3D2
+-- 
+Kind regards,
+Joshua Crofts
