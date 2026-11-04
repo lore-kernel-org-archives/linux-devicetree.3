@@ -1,38 +1,39 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778372;
-	b=Eq1tpwtGY46xb/5tuFTayEUee+9U/NMW4PVkjplmUGQp9xj9xYSF+NTJN5K9ypDAF8KV
-	 IML60i9aG+Ha5TsuEY890kYFVJDWPuS+eZ8mna4nmggAhJLTxKJfP4l0BsdzJMwdsq/Yy
-	 Ht0+Tt2ZCVhNn4g2x0+Zsu5GFVqwUtnvS60bXLDQFY/dUCLoTL1YyEEptR0ICMEcTfgEf
-	 pV4HFB0HtfHMJqOjzOn7Kf+keNQr/sPG3CEYh4uh0iB+cWQgtynnCUCM5vDYgrMtpBNqT
-	 oFQ/lZ3EKnaLDDE/NzZelHaUSsWxE33ss9CyfOfDCU8lopCXos4CI2f8D26ZoKdaq8g==
+	t=1793778378;
+	b=mR9L78CaNBmjrT5ayMsR7McChD/RnTozHIl4NiuabKOT3O0OvZfVE6iuzu5fO84F5ts9
+	 2yT05D9aG2GGZHJ7v6F0OVi76jgzq/d0klqcp2gHf6c25REaOvLdoQgZ2yUmDC86SWJgf
+	 XWdvFUTzhPQ22ihu4Peb/k822B1zFkwLhsP7G3SCg2bmoYvaBuDV9vflslZcT6dgkWBbC
+	 1sSDijkrr3uzhkn4V9ibALaN514qlOcq+pMQCD0HR1qdmAjQebnJ25VJ9P0hS+oZxY1Wh
+	 HIpsRuHCB/sVypWglwIDMMkKxsQfdsjEFd1dL+TyV44aD1UVICYskZr1S3PM8HJl9NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778378;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=BKtEwN9SjzU3vDDD4SW+5UbctESaNHA3sfD45hV8J9c=;
-	b=NBkmLcWMT5gGELUM5nsibSe1/2OPjv3OQXTVDtzYQMCKORhEqMg7yE9wZEku8j2SBKU8
-	 ygY/TJGZUfn79NhKgIY86gN4MujYO67MHNzQDG+mjUWnBcJnh6vLlTgMycJi0+QUpZsgM
-	 +NP90dfwC4l+lsp/kBp3WP9R91Bdjfr/cH2iUmRTqxhPt3x5+mqySjAOlaIcXGhI5YeYQ
-	 2mgllBdJA/+xxzWqTvGzCOXdJ8d7M8lOich0VpVIBWCteCRIE3k5Sgi03XpYAPPyn6Aue
-	 9wLK2FOQu/2AtwZM5pspWxRnnRXMqzgE/D9maI7pu5BdpnuUEhCB8wNfJxqu9+yK5NQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=zYdj96Jjn4TYMr6TAGtl+RCu/tlDibSZcE0dt7Llbx8=;
+	b=uJvlWazFSYTAtr0W++fOZbsj1F4WPKmRz0PdgEXMn0kLsH8cZDGPqRFirur+hz71BoXV
+	 C/HO6SBRuYOU/+yCyMhLgfHy39V2suHweuymZBAryPjRmeArkgajj9HKlzt/RZXzPpYKy
+	 jmaOYSJSnpPUdZzexPOfzsPoEBkfz+Ymt6lZ9XIHx1Y5wK8Ku3bYmBy6hWcM85Hi6CpjC
+	 ZgnhMYVM2d1BNDIYefFPG/UDIVhkeA/VAoqxkNjO6XajzyEa/h4i4HApGBUAtVOEbH1aK
+	 N14sdFcArpbRwuxSchY7YZR8qHmiBp3DFIufZjjzdYrKCT8W2+cRMACWpdlE8crpeog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=loongson.cn;
 	spf=pass smtp.mailfrom=loongson.cn;
 	arc=none smtp.remote-ip=114.242.206.163
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 535B2606A31B;
-	Wed,  4 Nov 2026 07:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 535B2606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27C1B606A326;
+	Wed,  4 Nov 2026 07:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C1B606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
 Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8AxXdLA4upq3jocAA--.16432S3;
+	by gateway (Coremail) with SMTP id _____8AxX9PA4upq3TocAA--.16124S3;
 	Wed, 04 Nov 2026 15:46:08 +0800 (CST)
 Received: from kernelserver (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJDxBc294upqZ0YyAA--.10037S2;
-	Wed, 04 Nov 2026 15:46:06 +0800 (CST)
+	by front1 (Coremail) with SMTP id qMiowJDxBc294upqZ0YyAA--.10037S3;
+	Wed, 04 Nov 2026 15:46:07 +0800 (CST)
 From: Binbin Zhou <zhoubinbin@loongson.cn>
 To: Binbin Zhou <zhoubb.aaron@gmail.com>,
 	Huacai Chen <chenhuacai@loongson.cn>,
@@ -48,10 +49,12 @@ Cc: Huacai Chen <chenhuacai@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-serial@vger.kernel.org,
 	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH 0/3] serial: 8250: Add Loongson-2K0300 and Loongson-2K3000 UART support
-Date: Wed,  4 Nov 2026 15:45:44 +0800
-Message-ID: <cover.1793776192.git.zhoubinbin@loongson.cn>
+Subject: [PATCH 1/3] dt-bindings: serial: 8250: Document Loongson-2K0300 UART compatible
+Date: Wed,  4 Nov 2026 15:45:45 +0800
+Message-ID: <cf76d5d46eaba55b832287d1193111c369bcf548.1793776192.git.zhoubinbin@loongson.cn>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1793776192.git.zhoubinbin@loongson.cn>
+References: <cover.1793776192.git.zhoubinbin@loongson.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,11 +65,11 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc294upqZ0YyAA--.10037S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEBCGrqknoEBAAAsh
-X-Coremail-Antispam: 1Uk129KBj9xXoW7Gw1xGw4kAw1xGr47AF4UKFX_yoWDXFgE9w
-	1SvF18W345CFnFq3yaqrW3Cr4fWFWqkF1qkw1kt3yS9342kryDuryqkryDC3W3XrWDuFn8
-	ZrWkGry09w1fGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
+X-CM-TRANSID:qMiowJDxBc294upqZ0YyAA--.10037S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEBCGrqon0CygAAsd
+X-Coremail-Antispam: 1Uk129KBj9xXoWrKryruw47XF13ArWrKr4xKrX_yoWfurX_A3
+	WIv3Wkurs8AF1S93yYvr48Kr4fXr42kFyxCF18A3WkZ34jvrZxGF92ywn8Cr1UGr45ur13
+	uan3GryjvwnrGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
 	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
 	cSsGvfJTRUUUbS8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
 	vaj40_Wr0E3s1l1IIY67AEw4v_JF0_JFyl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
@@ -82,35 +85,27 @@ X-Coremail-Antispam: 1Uk129KBj9xXoW7Gw1xGw4kAw1xGr47AF4UKFX_yoWDXFgE9w
 	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
 	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5ID7UUUUU=
 
-Hi all:
+The UART on the Loongson-2K0300 SoC is identical to the Loongson-2K1500
+UART. Document the SoC-specific compatible `loongson,ls2k0300-uart`
+with fallback to `loongson,ls2k1500-uart` and then `ns16550a`.
 
-This series adds UART support for two Loongson SoCs.
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The Loongson-2K0300 UART is the same as the one found on the
-Loongson-2K1500, so it is documented as falling back to
-"loongson,ls2k1500-uart" and then "ns16550a". No driver changes are
-needed.
-
-The Loongson-2K3000 UART differs from earlier Loongson UARTs in that it
-does not require MCR/MSR signal inversion. It also supports a fractional
-baud rate divisor. A dedicated compatible and driver data are added so
-the driver can distinguish it.
-
-Thanks.
-Binbin
-
-Binbin Zhou (3):
-  dt-bindings: serial: 8250: Document Loongson-2K0300 UART compatible
-  dt-bindings: serial: 8250: Add dedicated Loongson-2K3000 UART
-    compatible
-  serial: 8250_loongson: Add Loongson-2K3000 UART support
-
- Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
- drivers/tty/serial/8250/8250_loongson.c            | 7 +++++++
- 2 files changed, 11 insertions(+)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 50d5c977afa3..01abd39509a7 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -192,6 +192,7 @@ properties:
+               - loongson,ls3a4000-uart
+               - loongson,ls3a5000-uart
+               - loongson,ls3a6000-uart
++              - loongson,ls2k0300-uart
+               - loongson,ls2k2000-uart
+           - const: loongson,ls2k1500-uart
+           - const: ns16550a
 -- 
 2.52.0
 
