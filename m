@@ -1,70 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790897;
-	b=UCzUkolIrc55GLMfBYwoPLtQPbeB/IwsmO5v5oPuJkXg5l54o+HfwVKM7T6VhrCDGhMs
-	 SGpcR2lkXqd73fZWpV7YWE+SUCxQFMyqpfOQsr9+yVPgNewv+p7JbVy3E8QVzZCyZ1bg0
-	 I9n2aiLFFUhghh5ZgE0bP3Tj+8Q1iPNnk6/a/H4IutSHp5ppBQA1nvuowXG1BWOe687pc
-	 11nlc66en5EXIcsd3OHqxIR68lO/kfNI3Wp8r1d96TNWht7o2lNxqNsj5caL/59vtmsI7
-	 w2KdqSB8vHqcqjzwaKzwsJNs8gC+KLSlQJ5q9fkXBGX7j6Uqvu58r7GInYaLRXnZWKQ==
+	t=1793791005;
+	b=sbY3ysmuR2UxLvcM/nst1xzr898TizbD9w6QQuk7+3kCW62LKLhX+2NoWv/h3fdLol2t
+	 k3Saqi8QXVmLUixKo+iW34JcPunFCyopu/8vu0xtCDpal3AeIBs/TjNsbl7H+ngVselA+
+	 QQaUlSs982DGzZdioVSC9GuvKCUQH782d/7Uel9yU3C3Bl/JSRMdHH+s+6JJ37061qRAq
+	 eRgz6Vz6JD0yQpUAkXyrQIXSC4ouQnj0+ff6DXUFWl0kCEZ3xum+rvXr9xzBsCfrpGNAZ
+	 NSfRaFO6bcT29YAx7bj/VgmfprzPQugp9jKcaV3rzMX1NkDbLaXYsXhQbidtdU1IwLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790897;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=ElMP7E+td4PbWaeCgFxYru40sXUejYFoNFjAdaBjGOg=;
-	b=TdVermDa4oNeNDgwcxwdpYcZGa8pPfkeMIgcaNLZFdB8G4dnYhz5TSohX56xIXUo7SYZ
-	 Wgo6rP5T/7ruzK4aMsUKOAcmofsUE5t+dL2Bo4Hpg5QN9lQXxczGEa53KutB2XdQC46Kq
-	 L1zanEU+h39LHwB+tNDkIVX6RDPHJhaJN15r9B2YbYzQsOxwp3m27Yva3HNkj854dUFF/
-	 ZI/BKnTKKbMlUFVaDC/wOmI9LW6T5MjQ1+eCEKUxiiHm7FFt0umsW7nqq2fvt5AUBzx9G
-	 TUevueLWBaiLYxBxgUh/dAQbz8RFpxtOPf2yFwkpenEGXHZAzTWM4S/oaqRhy3J1tJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791005;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=EKNkHe58jkoDMKUXvbrXleOxHAGull+uYnWOftiZvcw=;
+	b=dfGUAfKxM9kOIkWd5JciW+z6J2RUY/Mq53Gv25UaUlVnd5GoyY3ynZTo7vo9x7RpxYR4
+	 KjPFH9fJM8Pp/jM0e1gTrV9AcZTZXpH0YfKpTIcOYpQJ3NaTx1fQR5L8nthgI/iiJEvWM
+	 G1nqEfcnIUpzPy3d7Pjp13JzLS8clxwiZz8inJtJvqNQq7mBIP1JFBySYPsbvp+sLDzBH
+	 8S+ofH7/x34GOUEutGuDXdZZSsMmQzSqjzttMhCHR5GHM0IAUoNI/wz5DC9l4zyHruRJI
+	 xeUtYyTT3g3S4JHVWzHoZWP1idRaeXyhJ3dSJxWS6hh2v26kJ6yjOcbHCjLDKCybqmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=J2xn6IhH;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZhDwHyDb;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C208606A337;
-	Wed,  4 Nov 2026 11:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C208606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962B1606A31B;
+	Wed,  4 Nov 2026 11:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 962B1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=J2xn6IhH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=ElMP7E+td4PbWaeCgFxYru40sXUejYFoNFjAdaBjGOg=; b=J2xn6IhHyGYpOrVe5sEcUkfaKY
-	Nc+tIqwchMNBf6e0WxuM/1TyGy200YvdFq0TlADp3CGjiLoDRN4P1kPKAACXT0gFqgBz+H+EZU5LL
-	l8MGFNTnKN6Dw6NaGRwxVSZP0l498mS3SSQWuzEzC9HZYR0FHtGUJrXnDj+KNO7A4AAFj77a5ICam
-	ana+vlz5r7rgK19JEJLpgUsamSCyCJim3XtYGeF0vsra/5pAwgl2HHS1phJAmA4J5PLNdBlmeBbJ/
-	8siN4Ma/gCPNxpy8AmG3cZmmo697E7EIdH6MSRlsHdnWI7A5f+fMT970ATK0zQZK7Oc//yLd6+cOo
-	/8dLGruQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Igor Paunovic <royalnet026@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
- Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
- =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Subject:
- Re: [PATCH v2 08/11] accel/rocket: restore the NPU clock boot rate before
- powering the cores down
-Date: Wed, 04 Nov 2026 12:14:37 +0100
-Message-ID: <5089783.JsnAkG3lO3@diego>
-In-Reply-To: <20260922080114.44662-9-royalnet026@gmail.com>
-References:
- <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-9-royalnet026@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZhDwHyDb
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4B5VaO2600273;
+	Wed, 4 Nov 2026 11:16:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=EKNkHe58jko
+	DMKUXvbrXleOxHAGull+uYnWOftiZvcw=; b=ZhDwHyDb59ye51cMKfhgCqe6+wA
+	vn81Zch/4w86yG8DlxY6+ecGLHujRJiEi4jD7ez1yVHJLZp/7nHM4RVlPZw11gtn
+	pIk+0pCv2pKS3Xgu54JuzVBdv0GRv/iumKaGSslMah6O6OazfZBejCdqFPLyhM+v
+	gM3YJ4FbF5nGWO6wsWlWaSfnCOcrTYAEJAzhyhjIigyAkpZ/TZQ6BAkzZTeJq0Cf
+	+EEoN9i8G04Cd6WThbswxsaI3nzh9gGzCTIu7qIcmbiA2ppM/C9hjkEFY+iSbHFH
+	bF2KDQE3XiJ6IoVQXOudUGdP2+eUNgMXvYavB+UosAA/H47a2vSCX/neatw==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pkt3x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 11:16:22 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BGKeb2675674;
+	Wed, 4 Nov 2026 11:16:20 GMT
+Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.147.246.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A4BGJkQ2675660
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 11:16:19 +0000 (GMT)
+Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 429934)
+	id AF973216CA; Wed,  4 Nov 2026 16:46:18 +0530 (+0530)
+From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+To: mukesh.savaliya@oss.qualcomm.com, alexandre.belloni@bootlin.com,
+        Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, shubhrajyoti.datta@amd.com,
+        shubhamsanjay.patil@amd.com, adrian.hunter@intel.com,
+        manikanta.guntupalli@amd.com, linux-i3c@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com,
+        wsa+renesas@sang-engineering.com, alok.a.tiwari@oracle.com
+Cc: konrad.dybcio@oss.qualcomm.com, andersson@kernel.org,
+        jyothi.seerapu@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+        aniket.randive@oss.qualcomm.com, praveen.talari@oss.qualcomm.com
+Subject: [PATCH v7 3/3] MAINTAINERS: Add maintainer for Qualcomm's I3C controller driver
+Date: Wed,  4 Nov 2026 16:46:10 +0530
+Message-ID: <20261104111610.3739095-3-mukesh.savaliya@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
+References: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,154 +89,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfX4b3yMqPucaBU
+ zZYp6XCB9uI4FA9Sy1o8QEuveGBv69jibgks4Ji0U8RpEmL4RkCl9DtLh9TTMo31AjsGHf6CL7V
+ bg08X8KfrgVMgY13FlbfCl8trhCLy1o4gpbE3DeGshqDqSg6YBv/c3L1qpQsyK6YNDM8h6e6EfV
+ GtdAiLctMBDXoN09Iv2Lxja2roz6K1+hnuowhMHk+mgW713OUa+4OZAUcniwXU75yTIy9ue8rrE
+ +XNOwm0j2YIbzTWMAqFTK1lk4vMteKpuMCEyEXOrfcuPHVG5XwbkNsRQhBvAJH8i5A1GYjOHKSJ
+ 9CxCOei9E5V7+lE5H6OlRzUgPq1TnUX2E3G4CzeCkFE5VbpxOOkqyQgqLdFf2dXHxl4XTpznuJW
+ os+61r2mBiGP27gOpLfGsBXlBoYNr6MraeFngqNppNij5UFPFpNPcYVm15YfnyB1RTDU8drQBl0
+ nVlwXeqdrmZtL8YrgFA==
+X-Proofpoint-GUID: DILj6uuxh-N5uuwGQY9ZQyPrOlCmBUCg
+X-Proofpoint-ORIG-GUID: DILj6uuxh-N5uuwGQY9ZQyPrOlCmBUCg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0NCBTYWx0ZWRfXzrmUCp2GJfqP
+ KlkLESRRfxgsRhFt7OnIsprOyX/R7WvdXdSNnFeKUjxAbodkEUSWgbX2WnHC5sJctRhQpMnZBJw
+ QpcIRTwk+oA14mhITR6TrdLhiFrS+HY=
+X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeb1406 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=JfrnYn6hAAAA:8 a=VwQbUJbxAAAA:8
+ a=LDBv8-xUAAAA:8 a=yC-0_ovQAAAA:8 a=tiOelxa7q5ZmzYUgxBwA:9
+ a=1CNFftbPRP8L7MoqJWF3:22 a=DZeXCJrVpAJBw65Qk4Ds:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_03,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1011
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040044
 
-Am Dienstag, 22. September 2026, 10:01:11 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Igor Paunovic:
-> The compute clock is generated by a PVTPLL that lives inside the NPU power
-> island. Powering an island up while that clock is above the rate the
-> bootloader left it at does not work: the domain never acks the power-on,
-> and the first register access into it afterwards takes an asynchronous
-> SError. So the rate has to be back down before the last core goes away.
->=20
-> Nothing in the driver raises the clock today, which makes this a no-op on
-> its own, but it is the guard that has to be in the tree before anything
-> does, and the next patches do. The .shutdown hook is the same guard for t=
-he
-> handover: once devfreq is driving the clock, a kexec would otherwise pass
-> the raised rate to the next kernel, which powers the islands up before it
-> looks at it. What this cannot do is rescue a rate it did not set - the ra=
-te
-> read at probe is taken as the boot rate whatever it is.
->=20
-> The rate is read at probe rather than hardcoded. Mainline pins the RK3588
-> cores at 200 MHz with assigned-clock-rates, but that is a devicetree
-> property, not a property of the hardware, and a SoC whose devicetree does
-> not set it would be left running at a rate this driver had invented.
->=20
-> All three cores share the clock, so only the last core to suspend may low=
-er
-> it; the others just drop the count. Lowering it is safe with the islands
-> already down as long as the boot rate is one the firmware serves from GPL=
-L,
-> which on the RK3588 is the 200 MHz the devicetree pins: for that rate the
-> firmware writes only CRU clock selectors, never a register inside the NPU.
->=20
-> Assisted-by: LLM sparse checkpatch
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
-> v2: v1 of this patch kept a struct clk handle in struct rocket_device,
-> taken from the devres of the first core to probe, and used it from the
-> runtime suspend of whichever core went down last. Unbinding the cores
-> freed the handle underneath it: KASAN reported a slab-use-after-free in
-> clk_set_rate() during a ten-round unbind/rebind test on this board after
-> v1 was posted. No handle is kept any more; the callback uses the handle of
-> the core it runs for, which is bound for as long as the call lasts.
-> "A reboot" is dropped from the kexec sentence and the comment: whether the
-> clock selectors survive the global reset the firmware does on reboot has
-> not been checked. The argument that lowering the rate is safe is now
-> limited to a boot rate the firmware serves from GPLL, which on the RK3588
-> is the 200 MHz the devicetree pins.
->=20
->  drivers/accel/rocket/rocket_core.c   | 10 ++++++
->  drivers/accel/rocket/rocket_device.h | 15 +++++++++
->  drivers/accel/rocket/rocket_drv.c    | 47 ++++++++++++++++++++++++++++
->  3 files changed, 72 insertions(+)
->=20
-> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
-cket_core.c
-> index 5dd260bacbff6..c736537cf28f6 100644
-> --- a/drivers/accel/rocket/rocket_core.c
-> +++ b/drivers/accel/rocket/rocket_core.c
-> @@ -12,6 +12,7 @@
->  #include <linux/reset.h>
-> =20
->  #include "rocket_core.h"
-> +#include "rocket_device.h"
->  #include "rocket_job.h"
-> =20
->  int rocket_core_init(struct rocket_core *core)
-> @@ -36,6 +37,15 @@ int rocket_core_init(struct rocket_core *core)
->  	if (err)
->  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
-ore->index);
-> =20
-> +	/*
-> +	 * Record what the compute clock was running at before anything here
-> +	 * touched it, on the first core to probe. Reading it rather than
-> +	 * hardcoding a rate keeps this working on a SoC whose devicetree does
-> +	 * not pin the clock with assigned-clock-rates.
-> +	 */
+Add a new entry for the I3C QCOM GENI driver to the MAINTAINERS file.
+This entry includes the maintainer's name and contact information,
+ensuring proper maintainership and communication for the new driver.
 
-shorter comment please
+Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+---
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-> +	if (!core->rdev->npu_boot_rate)
-> +		core->rdev->npu_boot_rate =3D clk_get_rate(core->clks[2].clk);
-
-see comment about using a constant for the array index in patch 5.
-
-> +
->  	core->pc_iomem =3D devm_platform_ioremap_resource_byname(pdev, "pc");
->  	if (IS_ERR(core->pc_iomem)) {
->  		dev_err(dev, "couldn't find PC registers %ld\n", PTR_ERR(core->pc_iome=
-m));
-> diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/=
-rocket_device.h
-> index abb88a254e569..ba7c977cd6951 100644
-> --- a/drivers/accel/rocket/rocket_device.h
-> +++ b/drivers/accel/rocket/rocket_device.h
-> @@ -22,6 +22,21 @@ struct rocket_device {
->  	unsigned int num_cores;
->  	/* Slot capacity (DT core count); slots with a NULL .dev are free. */
->  	unsigned int max_cores;
-> +
-> +	/*
-> +	 * The cores have no clock of their own: one clock feeds all of them,
-> +	 * so any core's handle refers to the same thing. No handle is kept
-> +	 * here: each one belongs to the devres of the core that asked for it
-> +	 * and dies with that core's unbind, while this structure outlives any
-> +	 * single core. Whoever needs the clock uses the handle of the core it
-> +	 * was called for, which is bound for as long as the call lasts.
-> +	 *
-> +	 * npu_boot_rate is the rate the clock was left at before the driver
-> +	 * touched it, and active_cores counts the cores that are runtime
-> +	 * resumed right now.
-> +	 */
-
-shorter comment please
-
-> +	unsigned long npu_boot_rate;
-> +	atomic_t active_cores;
->  };
-> =20
->  struct rocket_device *rocket_device_init(struct platform_device *pdev,
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index b9b36c578db20..8f03de1af488c 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -297,6 +297,30 @@ static int find_core_for_dev(struct device *dev)
->  	return -1;
->  }
-> =20
-> +/*
-> + * Put the compute clock back where the bootloader had it. The cores sha=
-re
-> + * this clock, so this is only correct once none of them is running any =
-more.
-> + *
-> + * Lowering the rate is safe with the power islands down as long as the =
-boot
-> + * rate is one the firmware serves from GPLL, which on the RK3588 is the
-> + * 200 MHz the devicetree pins: for that rate the firmware touches only =
-the
-> + * CRU clock selectors, none of the NPU's own registers.
-
-shorter comments please.
-
-
-Thanks
-Heiko
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 46c416cadacd..43c5730dd007 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12637,6 +12637,14 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/i3c/cdns,i3c-master.yaml
+ F:	drivers/i3c/master/i3c-master-cdns.c
+ 
++I3C DRIVER FOR QUALCOMM GENI CONTROLLER IP
++M:	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
++L:	linux-i3c@lists.infradead.org (moderated for non-subscribers)
++L:	linux-arm-msm@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
++F:	drivers/i3c/master/i3c-qcom-geni.c
++
+ I3C DRIVER FOR RENESAS
+ M:	Wolfram Sang <wsa+renesas@sang-engineering.com>
+ M:	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+-- 
+2.43.0
 
