@@ -1,78 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793788694;
-	b=2gYUcVuftPZO9B+QxkNt9ASryfukCDhjPYE19/eugJ1gOFKRDYZOn+8W4Hz9nAywtNB2
-	 T2HH67KDSLzhjhODWAbL8z+vrpsNewclIBnIuuRD+PyWidsjOkrykc2c1W0iHWGXJXDkl
-	 bOKlgUJj+xLAjhoGmoH7BSbsY96NSKb6pNyiqDOvkVZnLAwL+7YR4gya5FzsbSbzV4UnF
-	 pv3OBM/dvqNGBIBE54A0AWhEftsficIPQoIzPdq/BxQcWI/S9ewzjrpA/8DcnNrspfRT6
-	 qwvjlMzMAh2RQMbYK0NXeDlCwCJWakfLz+69ip6Wgm5NwWM9vHdY5lG8cpASl2SyLsg==
+	t=1793788807;
+	b=coUUapRHzv20T74oIoqy9DKvE469hmzZfFpAVoHNLaQNEOjZZvRlZBGH1PLkRKrkIzMJ
+	 hINF2OAITTkkx5IkhLQQGwBi237tlCZAjYt84owS1ERTmM9a4IDEl48cHsTlnrOsHGg2o
+	 I5VBm7prdLG8hdUyOGcPmVjUqSmyDN7B6UmT4Krwi3+ZL91APgsTxwctykgfnyiwlc6kV
+	 spsQmAWEif4eUI2SVQKSRS67mT5IbMJG3mPG152/ryAKQvZFU2kpvytUtd13LotNCIh9l
+	 b4jOxD2A5DEuEJ2IM2XxsFzKx1fnyJz9EQgtJJ0M1s7rBsgcaks9ntZb8JqGG6Ngm8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793788694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788807;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Organization:
-	 Content-Transfer-Encoding;
-	bh=Bky+z94GjBhGuHRVzoeUOOEZJsIpZL6CWBksx0pMhcI=;
-	b=jq+aCxRyHgY0OELOyUw+fhOVeoFCrmdWc/DMC8/YVKuACyZVoA2jGbWrINKvo/BWgpfj
-	 IAbFcILKMbf6a/wuMz2+Jx/FzUKvvlLU3Uai4agv90G4IZUpxDTjd9MDB25y5q4yb3av3
-	 uOKA1tPbttEdin+c37RFA2SiS1haEOH7DGiVOH9cENWNWQwPwIlGh0JHAGliKvtgEtBEb
-	 8plibKPZFln4NE8Lm0YKxcIXFjfUJpy9D0UCFZn1Np5e9EePEhOZ0CeoQXL64uSyvqlfo
-	 W+1HKxq/PTwV22+nhERYcmHzaqcL2aIGyhugNaRIJ5NToRwk2Dt57LDHiWa/cP8Hb8A==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=9nviUxxklDz1e7RQotS+S5xXIzfCLzTAm+63a1Agefo=;
+	b=FB7jHdd0WU5ouCQ+qQwfQVYws967oGB+uHfrA7KmDNkQLT6xyrX6XHmegpkiUsj9cQDf
+	 kxEs7i2TBj3TsKT4K0tvVqySmm6pq19SYfFYTiEwGJIA4Uu5O1yiN6OilcxyUEFSenqYs
+	 7Y+7TxyUdV/MnybohmqOoxVpuXLvLdmiHG2tozisB/EfxrVMLTetL5uvewbwYra2TkmF/
+	 Am10oaBR2NAa7NdgzFFXkHgBZ0odSkMKMIe0e9zy0RRhQp/GZGKuIU5YRr3hLNkGQMrLl
+	 hxhvtcrz84Btowxu+Tm7a7Z0N3/bs4P4G+s1YTq3MV2G2ojVgKxyWeaMQf+G/Bcby2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbHSzHRz;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E64606A326;
-	Wed,  4 Nov 2026 10:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E64606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A68F606A31B;
+	Wed,  4 Nov 2026 10:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A68F606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XbHSzHRz
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A4GS76s4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793788694; x=1825324694;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=aOGzTuu2joxxtbxKzL4dHVBDbu15VwOAO4OF8srkPsM=;
-  b=XbHSzHRzAm2rnwRHd7vB8V1Qc+88tBsUrSv2zvJOZaBqtc0GHJ71XFU0
-   MFhAkmc2lQqrXMpsNSkYshzccff7Sd4ATzjNUOYye0AfI1yLriML2aYlU
-   F1FZvjHo64/kmylSNmgWhiQ1x4TqFpFve4jOMghGc5/9XE8SkFAKKF3HA
-   l6kBqHLWiowO6GecyGtJdmao9dG+yJgfSJYtXP5jSjQJ6/SpCJEuvdHGg
-   udhDO+ugv1OSj4NTdbwcSnURx9K2U/I9plfhmaatqzQmhgecfHxXmhPgJ
-   Ffxq1sv0XcQvp+E/0TCAouRR7eoP+bG/Uj9kC1+mjsrMruWGwALpIp3pM
+  t=1793788807; x=1825324807;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gS4Z3hxrWiNXk0PZbDdWd9RFAdHS8/Nmmvft9Q2f1Dg=;
+  b=A4GS76s4sQTRmC8reuCQpfR+h5NxcBgdDdlBGugjr4nHs/Hi2jIiwyMg
+   BrDI6Ta2xdtZRrjXNlFcCqJVn684CbwIa3ermOgVwPefAibPDCOjM/+gc
+   DJX1s9qKyEHQNsQ7jpgeMDEUgi2mhTQKcVHUJkGcnQgc1jsNIUA0/myiJ
+   8+q2q6jhJLkB5RkF29IZtCZ8Gnoqjobmf+1h8MKyHzA7XaFfKNULLL5/Z
+   ZRrn663t1gwQFSla9CN2o4kBkjV3IhwWTokY+GNkPJESyqkkIPU4il0E+
+   nAO9e9UAI97xFlee4SBGm7xDHHOLed4E80g8exMPNVLnakKbtCt0CsNRp
    Q==;
-X-CSE-ConnectionGUID: v8/Hb4mlQju6rvGc/nGxgA==
-X-CSE-MsgGUID: w2GzyS0lR7+1rwhdhMjKbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2412950"
+X-CSE-ConnectionGUID: i8WdGjGyScWElFU0bjM3DQ==
+X-CSE-MsgGUID: vgAsVhr/QmyBAmhNdRZeoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2436340"
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2412950"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:38:13 -0800
-X-CSE-ConnectionGUID: +o7S5iu8SKeIiX9Wt7GSfA==
-X-CSE-MsgGUID: 8J3dyKC6Q4eTbNPj8Cjt7A==
+   d="scan'208";a="2436340"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:06 -0800
+X-CSE-ConnectionGUID: xHuM0kqnRyy5PTiMdZKYlw==
+X-CSE-MsgGUID: IJOAm2dLQRCs+ce9hVyt8g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6569104"
-Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:38:12 -0800
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-aspeed@lists.ozlabs.org,
-	dawid.glazik@linux.intel.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [RESEND] dt-bindings: mfd: syscon: add aspeed,ast2600-i3c-global compatible
-Date: Wed,  4 Nov 2026 12:32:06 +0100
-Message-ID: <20261104113206.3243865-1-dawid.glazik@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+   d="scan'208";a="7007981"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 02:40:03 -0800
+Date: Wed, 4 Nov 2026 12:40:01 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v7 05/12] serial: 8250_dw: derive RX trigger thresholds
+ from the FIFO depth
+Message-ID: <ausLge5yYc2W00zi@ashevche-desk.local>
+References: <20261103-submit-h616-uart-fifo-v1-v7-0-c9e248d685c1@gmail.com>
+ <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,40 +87,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-submit-h616-uart-fifo-v1-v7-5-c9e248d685c1@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add aspeed,ast2600-i3c-global to the syscon binding compatible list to
-document the AST2600 I3C global register syscon node, which is already
-used in aspeed-g6.dtsi.
+On Tue, Nov 03, 2026 at 02:39:58PM -0700, James Hilliard wrote:
+> DW_apb_uart uses receive thresholds of one byte, one quarter full,
+> one half full and two bytes below full. The generic 16550A table describes
+> these encodings only for a 16-byte FIFO. For example, the half-full setting
+> on a 64-byte DW FIFO is reported as eight bytes instead of 32, and a sysfs
+> request for 32 bytes selects the 62-byte encoding.
+> 
+> Build a per-port threshold table from the discovered FIFO depth in dwlib
+> and install receive-trigger callbacks for CPR-described FIFOs, including
+> LPSS ports. Keep the setup helper available to integrations which obtain
+> the depth without probing the optional DW registers. Validate that each
+> threshold is positive and representable before constructing the table.
+> 
+> Serialize FCR updates with termios and the port lock, acquire a runtime PM
+> reference before accessing the device, and propagate resume errors without
+> changing the shadow or hardware. Update only the trigger field so changing
+> the threshold preserves the FIFO contents.
+> 
+> The FCR mapping is documented in the DW_apb_uart databook, section 6,
+> FIFO Control Register. The existing default FCR encoding is unchanged.
 
-Without it, dtbs_check reports this node as failing to match any schema
-on every AST2600-based board.
+...
 
-Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
-Resend of [1]. It was accepted on the list but is not in upstream.
+>  static int dw8250_setup(struct uart_port *p)
+>  {
+> -	dw8250_setup_port(p);
+> +	int ret;
+> +
+> +	ret = dw8250_setup_port(p);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return dw8250_setup_dma(p);
+>  }
 
-[1] https://lore.kernel.org/all/41d66492e1a1d42f6888459288311094c8b7bc51.1777058942.git.dawid.glazik@linux.intel.com/
----
- Documentation/devicetree/bindings/mfd/syscon.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Split out a change that moves from void to int for _setup_port() and do it
+before the patch that creates _setup_dma(), so it will be less churn overall.
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index 80ff0e1caca2..dae706ca7642 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -47,6 +47,7 @@ properties:
-               - apm,xgene-mcb
-               - apm,xgene-rb
-               - apm,xgene-scu
-+              - aspeed,ast2600-i3c-global
-               - atmel,sama5d2-sfrbu
-               - atmel,sama5d3-nfc-io
-               - atmel,sama5d3-sfrbu
+...
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> struct dw8250_port_data {
+
+>  	/* Hardware configuration */
+>  	u32			cpr_value;
+>  	u8			dlf_size;
+> +	u16			rxtrig_bytes[UART_FCR_R_TRIG_MAX_STATE];
+
+Put it first after the above comment. Check with `pahole` before and after
+results.
+
+>  	/* RS485 variables */
+>  	bool			hw_rs485_support;
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
