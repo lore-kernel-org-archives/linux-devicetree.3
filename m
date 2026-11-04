@@ -1,97 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793807133;
-	b=wMxjfpDHB1otf4XH6Cuz7cNLSn+n3Slyli6IfetsEk1inC+CvZz0F6svOd8yG8SwmkUr
-	 scuYQAwsHcnQl+R+LILWfzs4dcZq5a1AkLDy2GxWNBLzRl3xYTi4gqG7VUxYIJd3I//I6
-	 afCZ759YE4xUFAxsDZynZzT3lqpaT6bIR6AcOQBAtkmgk4pYFq4eHqOr0L3hxh3JMljl8
-	 qsdsMMjjOEOAwcRmTrPeLVswpaJlyYwI+XpPp7QaQNH5N7FqLHQzMsPUkhFNHHrdR3pow
-	 Mf9ayoAsLD0bD/8Ml7Rp+wxosNaa8ej9+dwAd10djtwOCaTkxR2RN7RPd1Rc0p6U4aA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807133;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793807402;
+	b=5jT4zAQHQshcZfoTXVswWu54wXO/ExLLsbTt9dzHAMzcP8o/xdNf5DvcHCagZAzCe5+e
+	 h3pkL22PLCAcftnnab7oTuL3223u7juCIf0F1KtTws1rSRtRSiDE2VerFYHnPDJvd6Xa6
+	 Lhp3Salh6p0IvGq0ypcw71P2/xYPIvfw9VkPFcSdLhP8sx1NXvNcUCnqTtR8tqf05YtMz
+	 bbkrUMQ80dGaDegv9jOBpWvwQBVRMEN6WDvSkQQAayB03Rk3KyQ5nNOwK4jOieWiIho6X
+	 r4pTmHIwr+WxJd/MhxNseAxb9HnUnJNSUb9MfXK+nl9iP7PDNZ+Sse8MMMTg38HJm7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807402;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UiVPtKeFBCLtUIymmIehHatACUcvqVgmWR/Go0AACwI=;
-	b=cvjK95GGcuw+aSkBXVR/fKhzbD5T5yOG2Vp8zKeCX34/Cbjb8Xg7prKWhrH7gy9QM5Bv
-	 gmBtOeRhNGPEy6o+pUY9X/6NM9mZf137P2R0yrdAC+a6wKjXujwUIE5UDmhz41Xn+zOKH
-	 ZbDnIT5H51/OV7ZkPHTl3WzjLmTr0TFJeeOd9Hi4Qg3HPODsoQZapTxNOu5znEQskTNOt
-	 h958EOcVLzliNiHMAJDwJgsY16wmDSXt4TRPqj0hhPV8Rk5oe5y8Xn0eJvR47jA5kQu2h
-	 1tR3ivtIxPUrw9ISYACrLfS8mhF0exptvzcdYODrc+VkEAnXV+yBhVU+pMDvmhgyy8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9sILAcN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0YCtVpjTTqGtYuJwt7+RiOCWhr4VkX1QLjCNxJ8HNmk=;
+	b=XZv97tMdd6OaMhTFHA6FcpwusA3ArBDwARNnFlJAufEldqacluha34SI6u9fX4waKuvz
+	 MqwMqykIMwMY8anzgZe2LYMzFZ1WJwFTD93nkjlIxLGBvxyXaliVUhOSmMtvquiSsFPhj
+	 j9jg6iA3Ufgb+oYSMY1b0XipEyoai0poDdkf8xABc/EDLTmPlIV7+BRFi2mlbVTPZ3Hfr
+	 xTOQa/dblRMWSg/UOARefumK9goQ7OcgcVAc5xyOnOr9Dyl+Ot/Yeeki/YF2M4hH4YGBs
+	 vxElwOmreXRt/alXNnWFDxWevTRpkjzPQxpt2bbsmrqgT7nb8GUodJwSL3yfjn7rXvQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+r1kzSN;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB0C606A329;
-	Wed,  4 Nov 2026 15:45:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 95BF4606A31B;
+	Wed,  4 Nov 2026 15:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9sILAcN
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793807132;
-	b=TgzacdaeK/6EZOeijGzWF43hO2d9BycWAEHo8mTvT8AdzOwFaDFrnQoeT/vwcuzu/whM
-	 OfXcLXBF7mkqYWsfrD/bF499W7BcCMt25ieZVV2u3VJXw+7c2omU+EeBMRxT/Me/EdZAI
-	 DLMspBlT/s0jRWGFaTDqQmzymlaxsapkEoZRZfOBFvfqMD4dJA5fxtVlqo4oLe+3oqVaL
-	 DoM8Awi6gErFwhUj1HIQxY85PGFeWtRBmPPdWdFhjcZV5pOan8BsY3ycL5Q4RrtqLnPdJ
-	 jeW5d3Ixb1WWZKzaPlrfWt9UWEkZO5mmtHXJLJmUEh7LrmD5OK/gVsffvZHFcx504kw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793807132;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UiVPtKeFBCLtUIymmIehHatACUcvqVgmWR/Go0AACwI=;
-	b=P3by71RdW6whUYoXwf6Ka7Pw2Jg587oitv2MptAEfeCzDQZz6bLP9dPQXIVcURcSYPkE
-	 0jtgO8Ms5PKvJQCt2fA21psIXd0A8Djgi5u+92WhPzgQ4ZhyBvafVqtSKkzCwHApVzy+X
-	 NwEWqUzf6tkDmrxUF/pxikwWkzdRoB4TDT1nkWwhnHscxkop8Vyz5SgEQ8/0ESOtB5J7x
-	 7E8wJfeXBcXsDEr64WfDV229njYUbhsRo/CIAyrBbcm2HSQZ7mMKZh9ChSU44vCFZgZDR
-	 bMlvoQW1wBlRPzuIv7kI9mMKkXLNpJMNv12JLhoeSOfp/2F9zGkOZTtE6ixfsGNjWGQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id AA2841F000C1;
-	Wed,  4 Nov 2026 15:45:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+r1kzSN
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A934E1F000C1;
+	Wed,  4 Nov 2026 15:50:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793807132;
-	bh=UiVPtKeFBCLtUIymmIehHatACUcvqVgmWR/Go0AACwI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=A9sILAcNto+WkqHN6+Vt0XkYtC7US/rjEJy/HrhymlGP7L86tnQgY3JaeKky1MgWp
-	 cjTePnup+kQkppdakRFhaERWE0dXxamWBo5enoBroAQQBdKk/rjrOyqk8e6dg0xmRq
-	 rB3QLJfM9aush7056qxVE9F7huQSTZvKfrw1aL8/njV0X8CI9Ag132IIk57RoNOpEf
-	 r0ZRFg8OYPAFm5WLt+8CUBWTaW5oOqKWlKc/oTHmmzZJfouAiM7wWPs+IO2Owv8Btx
-	 mzYND3X87sp7db3TOgKD/8c62cuiGMbKA+TzHxkTRO1+4KeMN2TyH0MviLVsoX6kST
-	 nvvhA+8GkYW3w==
-Date: Wed, 4 Nov 2026 16:45:23 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti Vaittinen
- <mazziesaccount@gmail.com>, Rodolfo Giometti <giometti@enneenne.com>,
- Marcelo Schmitt <marcelo.schmitt@analog.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Angelo Dureghello <adureghello@baylibre.com>,
- Tobias Sperling <tobias.sperling@softing.com>, Eason Yang
- <j2anfernee@gmail.com>, Marilene Andrade Garcia
- <marilene.agarcia@gmail.com>, Cosmin Tanislav
- <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz,
- herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <20261104164523.00002cba@kernel.org>
-In-Reply-To: <autSKpnh0hORsYT4@ashevche-desk.local>
-References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
-	<20261104125726.1754980-3-maxime.chevallier@bootlin.com>
-	<20261104145641.000070f2@kernel.org>
-	<autSKpnh0hORsYT4@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=k20260515; t=1793807402;
+	bh=0YCtVpjTTqGtYuJwt7+RiOCWhr4VkX1QLjCNxJ8HNmk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h+r1kzSNMIlPZ6OsPBPbk4UV9jh/t90TYcPNqUvaCUzuE7Eih2mHkdvEaXp1JmZHQ
+	 ch0j8PmaMk5cQMACUWukghEzl0nchyYkj/zXC0TbNtvpbbjOuPvjmb/ZC+Ylm9le2R
+	 s+mX7282FoJuKyvX/xBr9lNE74JmF7u4FyS7tayaGBiahdkATRthd4ctr1Y6EXl3/t
+	 DbbG492l4X+kj9wq05t9l9pwCTY3Yf08EV+FuSf4lR0G6kqVx3C7OJsJxOMt83wFP9
+	 l62aTPJJf9G3AtnWLuTQZbRwShEzIASb8WfDWCHDpcP4xaFOiMbD+wr6CxLSBKLDfH
+	 dZwGGEooNNiRA==
+Date: Wed, 4 Nov 2026 16:49:59 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: Remove orphan HiSilicon hibvt driver
+Message-ID: <autT6wRKAtZCBmc0@monoceros>
+References: <20261104145104.950566-1-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,54 +57,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zj44cpe2csx5d6vl"
+Content-Disposition: inline
+In-Reply-To: <20261104145104.950566-1-robh@kernel.org>
 
-On Wed, 4 Nov 2026 17:41:30 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> On Wed, Nov 04, 2026 at 02:56:41PM +0100, Joshua Crofts wrote:
-> > On Wed,  4 Nov 2026 13:57:25 +0100
-> > Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:  
-> 
-> ...
-> 
-> > > +#include <linux/types.h>
-> > > +#include <linux/units.h>
-> > > +
-> > > +#include <linux/iio/adc-helpers.h>
-> > > +#include <linux/iio/iio.h>  
-> > 
-> > + #include <asm/byteorder.h> for be16_to_cpu()  
-> 
-> Yep, but please before linux/iio/* block.
-> 
-> ...
-> 
-> > > +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
-> > > +{
-> > > +	__be16 data;
-> > > +	int ret;
-> > > +
-> > > +	guard(mutex)(&tla2528->lock);
-> > > +
-> > > +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
-> > > +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
-> > > +	if (ret < 0)
-> > > +		return ret;  
-> > 
-> > As rare as short reads may be, perhaps add a check whether the expected amount
-> > of bits have been returned from the device?  
-> 
-> Bits? You probably mistyped bytes?
+--zj44cpe2csx5d6vl
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: Remove orphan HiSilicon hibvt driver
+MIME-Version: 1.0
 
-Ugh yes, I was in between meetings and rushed my reply. Thanks for catching
-this!
+On Wed, Nov 04, 2026 at 08:51:02AM -0600, Rob Herring (Arm) wrote:
+> Remove the HiSilicon hibvt PWM driver as none of the SoCs exist
+> upstream. The hi3516cv300 only has pwm, clock and ethernet drivers.
+>=20
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
--- 
-Kind regards,
-Joshua Crofts
+Applied with Krzysztof's R-b tag to
+
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
+
+=2E
+
+Thanks
+Uwe
+
+--zj44cpe2csx5d6vl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrrVCUACgkQj4D7WH0S
+/k5gnAgAplBj28bWib1rtCPumDIweoJ1GwEAwcOAq/0V5a2HASMMtXPBgK/TpPCh
+PwlHNiBfNJ+NvaAKY6BnyjMOxW+4WiMDEiqEAgODmZx/IqGRjNl8pWsvTE4wgb7q
+ukm1Ur3zi/7zgC2Vq2B2tqMxVQWSy8Rkc8nCEzNeSnpu4oJ6vIRvnk4g8VnSdNQx
+MiFHidpN5lWSopjHUjfeDPvSq+UNfiRDNzX+PbatbXMb8xxlfaxZzsMC1u0hb7l+
+T7yrpCFw9jfgpTjnfQlXnk8r+Yqo+t30KKvhdCaJWLxuSywGyskTNIJEB4XixvRM
+S63WnNmZr/ogI/Jd+e0XaDi5a1qkEQ==
+=/trr
+-----END PGP SIGNATURE-----
+
+--zj44cpe2csx5d6vl--
