@@ -1,60 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778380;
-	b=mYU7IGIl67HxGhtTDMHx9wlY7RrfF3AcL8HXA+HRsbJTkLvTUAd7TgvNRgP9uU14WXOP
-	 pKzgXb6MIYCbPTdVsD4L4uhc9cOi/x0ajHBXQ4BANF5sCkgnoEz9DEvzznZOWWoHO0DJT
-	 nKp864yUDr75BCkO7pfbkm/uGemXX0gP0allbSFC7ltH6637duNqzMCiXRmOM/jZGWhPo
-	 2Z09ZoZllF0SYzdY9XKEKaWa+dSBkfRSKgILNhOskW8Kc+k7g7Zxh+MfaiKbaNrrIocbm
-	 u8L9ahml+CoDOW50nwBwBOfxXd6vy0wmK8jl/BHBReana2oXh02O3cJeoghQklSXZ0A==
+	t=1793778391;
+	b=hJG6m8andOFI637z5+INdeE3xIXeq28G+elk1Gcz8VA3O0/Ks37RTJkC7AFdTMn3x3ZY
+	 B4iLZEfNd7f+6F7Hc55+Hx6XU8xiAEmSyFBZG+gKdLNE7icPxYCLM/dslqA3sCh8lXUtC
+	 GV2E4yRXmGj+Wf04u8APKYrLSPgipqrTeE8LqDINkCxxwC3lup6zf7vHRKXSNa0R+3Ge/
+	 c5VfwAD6qKaOjgupHfbb/XcN652rPPX95cnWcuwVrvos7QSwWkKEc2Id0lW8ltFyhpqjE
+	 qHCUq4iF7j7ZrvqQrcs+au2xtY3GzN9IQwfaGKg7AMWJujGtI/5oVRUYpX+fuhip9mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778380;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=7oS569UmNWNCphbGbEDhGijwxYpSM6/8yQ/ULT8ORQw=;
-	b=nX6a7MKyM4myx4k+A8aUDcCiPjXmma0x7Z41xKU+/KDpQEw7fN8KdYKJeCO46W/NqO8L
-	 ZqWrenaD48jIrmsM0Y40ESEHLOU44LUDWdIHdkhQTOA/JFzw752RyhTy9ZNfva7zHAUC/
-	 mR622aPHh3YI0o1tcOKi8bQ56mRIrsjEBH9DWn5pZt6j1A5KQZjD3icJyJ8AGMdK14YEG
-	 qkNzLcIPpBV6wULAqE1LjmPc528dILgaq2UU3EO5EeC+dFttqFbHgNAHkRemNma81hkfU
-	 +nZvvD5g72mgbLmhmKP6yW1OR/g8Oz87oTC2dQeVQKrLbhLMZl8gCCx12jHXwgVVeZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778391;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=m52jieKKqnBv5GroLvKWf1SFv6SUy0rMYAbEKd7OWTU=;
+	b=2NfxH1swuCH9YgiTXhK4jpwsWAcFabIvFu/f0cVPM//qvoQEg0/G3Mo0XuJ3cg+w4RCx
+	 sCaOjMfI5srtKuBhumCHG5BZMA7SCDrnSmRFJW2qF7ijMkmt9V+IYsl7FBkgq4YEALtkR
+	 4K6Z8Wv+ujuWqzNp8iOYAw1XOw8E7FDWHZW148+1n2ZHcH63xA/tRI2G7HVYcTMGzXes9
+	 EY1d9MXaLgHDVjIK3sMY1mV3d9E2vTuhbEcfFqrvPHzuJJg/nbWAhnMCf8uwePpwzDYb6
+	 MobOMUCuHjpOG2UvZBJVUFUNRz65doUUPJnJA9XJB7C7Rg6rgDJXxHxNMX7BqzwuxVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD633606A334;
-	Wed,  4 Nov 2026 07:46:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD633606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8DxTNLJ4upq6zocAA--.15902S3;
-	Wed, 04 Nov 2026 15:46:17 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJDxBc294upqZ0YyAA--.10037S4;
-	Wed, 04 Nov 2026 15:46:08 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Haowei Zheng <zhenghaowei@loongson.cn>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH 2/3] dt-bindings: serial: 8250: Add dedicated Loongson-2K3000 UART compatible
-Date: Wed,  4 Nov 2026 15:45:46 +0800
-Message-ID: <c194b5248184779da500476281fd411fc80a98d6.1793776192.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1793776192.git.zhoubinbin@loongson.cn>
-References: <cover.1793776192.git.zhoubinbin@loongson.cn>
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqNlpjnW;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D231606D80E
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:46:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D231606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqNlpjnW
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-369f33df08eso675682eec.0
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 23:46:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793778391; x=1794383191; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m52jieKKqnBv5GroLvKWf1SFv6SUy0rMYAbEKd7OWTU=;
+        b=hqNlpjnW+B94JnDPH1Mm+SThPOCO4RIwGSc7I4zusesbXNTNQM2h80tD3ZBje6znFZ
+         yVtSJHvAqnRVpZaQJjWBiJd+qZ3hRmNsjpi2sThVFcGoa7K2IeIF48+i+UHj2M7O6/T4
+         E39YIGBeYkJ4rlEXTxhBQ7U6suJuJMMYC+w19o9XmSFOSW4cb9xWBeLgjEPhtfVV+J96
+         UqywfsXQI/2p3CLjpkApbSqTCraVP3PO7gjKdy4KUeAx5YLxsu5q4f131+I/XFHgGJmM
+         /libhKTQxKz3pLOqk+O5PXV/Q9pSWJL3oLf12rxlK9JeGI2NfsWhzTyRMN9YfF91+BMN
+         3/fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793778391; x=1794383191;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m52jieKKqnBv5GroLvKWf1SFv6SUy0rMYAbEKd7OWTU=;
+        b=tko+ctjBYgs2rDu2QXYG7uMYDfgtutdAw2gKU8uUZ6tCyjl+ma/VZxKlXedhhN+Yzh
+         9aC22GLC235HWECh+QypOmdEiwr77cNpY+SJjGhtmnod36wuBQNCfddJwLjfKIIhoW6t
+         vV5/WQvvSiS8xGX310AbPZaRj4CTQuPMF/O+xrIZpUX4eJ393TjSzkZZ9kL9DEdUHBHi
+         q2+HoyTYCv0m8S0YUKNx3XJv9SYrxf+hGeLINjEOnNcrNSCFDJXh1OFxXCDwDAVs/M3K
+         fAUCktYhHxIfvy4trsbxZeLUmJCZMslCV8qSSPgtkWJ2foarUEcFDt7yJYXpoXibR9wi
+         32LA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSvu6AuljZ1CcnRV8cD3kd+aPyio3Gim1QbTZNwdKXRYrSzfBCNAYMS/9RB8GplPji6eBNdhhFYB5T@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YF7aDr9RbePtZ0BRqTfkjevOXpf4G2VpSEIO7l3rMSeZoMlOd
+	t+69W7LVIOycHOYNPT7avNgdwCtMGtc4QYL76dPBkuf7SWYYSiZ2gRrh
+X-Gm-Gg: AYBFou0WcxxvL09RN6dSwevdk1UZy9+FvLY1i7DOmqTO3orUHzjrTgf7EEjfVOPANjj
+	VQdK9CKlWR9AbEUeZx1QLwwgAIpy8Z5s4eXH/Pjx4Dbn1rPKxpAqxDhhqdxofFG6qMSCbSx71bZ
+	uVe0GPnW+s6Skho6lapw4wJwhJT12pOOTKTQc8sBcNSHpcdAnHMZ7C70lwmE6DeHNdkNnyYhYbb
+	iX/LZy0szG1/938wxO//o9MqPibNovLgKAtnvaknDSZnIpQ2m2zxTfzdbeKmPshqc46kkLwvK1r
+	ucv4HKRwkl5+JZQiReps4k6HBn/qPGwdnfy3cnBEUxZ3XcSw6JqHezv0fcBh4xeNyWr9W9yqW2a
+	xs4ryM/m6y+PRNZddlZY+FdUi1W5zjB8Hdhwlfdy+z/mv/dN5aSWxkmzZGlxnSXNG+7W91q/uLQ
+	l2expo4KICFbG5OFYdv4mRp/yBhy6BhjEp93ja1jIJ49K/bTPQ55YW4TzjXqBgtb+8btz1WEfyn
+	q8V3nUPpJPKOXX4+F+UptLb9gDZQQ5y7OsKfsQBh/R/ohb42X2lPkDuARFHdLGJuGk7smL7Km5i
+	ifZ8gXsIkz1VuRHby74SCQNDdOuRbfCAg9TvkvlBgvITuGTAxDF6x5+rRVtC/+gw8rzcg9Ho0qy
+	Hs8gF1Q==
+X-Received: by 2002:a05:7300:e9d3:20b0:369:fe81:a575 with SMTP id 5a478bee46e88-36a4243ab94mr27130200eec.35.1793778390558;
+        Tue, 03 Nov 2026 23:46:30 -0800 (PST)
+Received: from Sobhana.localdomain ([157.51.204.42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a67edsm4566016eec.8.2026.11.03.23.46.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:46:30 -0800 (PST)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Wed, 04 Nov 2026 07:46:04 +0000
+Subject: [PATCH v12 1/6] dt-bindings: clock: Add SM7250 global clock
+ controller
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,53 +94,252 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc294upqZ0YyAA--.10037S4
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEBCGrqon0CzgAAsZ
-X-Coremail-Antispam: 1Uk129KBj9xXoW7XrWftFWxJryxuFy3GrWfWFX_yoWDurc_Aa
-	4xZw4vqr1fAF1S93yjvr47KryrXa42kFn7C3Wkt3WkZ3yjgrZxGryvk3s8CrWxWr4Uur1r
-	urs3CrW09rnxGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbSxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
-	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
-	vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
-	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
-	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
-	cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
-	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
-	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxhiSDUUUU
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-master-v12-1-57fbe9eef978@gmail.com>
+References: <20261104-master-v12-0-57fbe9eef978@gmail.com>
+In-Reply-To: <20261104-master-v12-0-57fbe9eef978@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Robert Marko <robimarko@gmail.com>, 
+ Guru Das Srinagesh <linux@gurudas.dev>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, 
+ Thara Gopinath <thara.gopinath@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Sreeshankar K <sreeshankar0910@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793778372; l=7988;
+ i=sreeshankar0910@gmail.com; s=20261029; h=from:subject:message-id;
+ bh=4JR89GKnTTmAoxNgD7NPPZnHUc2FC6CQYNElhDfzy4M=;
+ b=NAW4QjvOTSDH0MsrJv9iTeRvOQCUEec+g/b/eTNPmQYQ0qEWsoUCP1JavpZmBrfZ5Sz6r7wfj
+ T26D95mS2zrD+eUN1bztBxnJtDnTztZujgRchz8CGsvg0xkDco9E/69
+X-Developer-Key: i=sreeshankar0910@gmail.com; a=ed25519;
+ pk=CGSHduvtn2hwLCNRXRc9s/fh6X8PH/zNdp08zC8hOuQ=
 
-Unlike earlier Loongson UARTs, the Loongson-2K3000 UART does not require
-MCR/MSR signal inversion. Add a dedicated compatible so the driver can
-distinguish it from the existing Loongson UART variants.
+Add device tree bindings for global clock controller on SM7250 SoC.
 
-Document `loongson,ls2k3000-uart` with `ns16550a` as fallback.
-
-Signed-off-by: Haowei Zheng <zhenghaowei@loongson.cn>
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/serial/8250.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ .../devicetree/bindings/clock/qcom,gcc-sm8250.yaml |  13 +-
+ include/dt-bindings/clock/qcom,gcc-sm7250.h        | 163 +++++++++++++++++++++
+ 2 files changed, 172 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index 01abd39509a7..33c13c48ed56 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -196,6 +196,9 @@ properties:
-               - loongson,ls2k2000-uart
-           - const: loongson,ls2k1500-uart
-           - const: ns16550a
-+      - items:
-+          - const: loongson,ls2k3000-uart
-+          - const: ns16550a
-       - items:
-           - enum:
-               - aspeed,ast2600-vuart
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-sm8250.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-sm8250.yaml
+index 5f9aae728..f62aa0c59 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,gcc-sm8250.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,gcc-sm8250.yaml
+@@ -4,21 +4,26 @@
+ $id: http://devicetree.org/schemas/clock/qcom,gcc-sm8250.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm Global Clock & Reset Controller on SM8250
++title: Qualcomm Global Clock & Reset Controller on SM7250 and SM8250
+ 
+ maintainers:
+   - Stephen Boyd <sboyd@kernel.org>
+   - Taniya Das <quic_tdas@quicinc.com>
++  - Sreeshankar K <sreeshankar0910@gmail.com>
+ 
+ description: |
+   Qualcomm global clock control module provides the clocks, resets and power
+-  domains on SM8250.
++  domains on SM7250 and SM8250.
+ 
+-  See also: include/dt-bindings/clock/qcom,gcc-sm8250.h
++  See also:
++    - include/dt-bindings/clock/qcom,gcc-sm7250.h
++    - include/dt-bindings/clock/qcom,gcc-sm8250.h
+ 
+ properties:
+   compatible:
+-    const: qcom,gcc-sm8250
++    enum:
++      - qcom,gcc-sm7250
++      - qcom,gcc-sm8250
+ 
+   clocks:
+     items:
+diff --git a/include/dt-bindings/clock/qcom,gcc-sm7250.h b/include/dt-bindings/clock/qcom,gcc-sm7250.h
+new file mode 100644
+index 000000000..765fdc38f
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,gcc-sm7250.h
+@@ -0,0 +1,163 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_GCC_SM7250_H
++#define _DT_BINDINGS_CLK_QCOM_GCC_SM7250_H
++
++/* GCC clocks */
++#define GPLL0							0
++#define GPLL0_OUT_EVEN						1
++#define GPLL6							2
++#define GPLL9							3
++#define GCC_AGGRE_UFS_PHY_AXI_CLK				4
++#define GCC_AGGRE_USB3_PRIM_AXI_CLK				5
++#define GCC_BOOT_ROM_AHB_CLK					6
++#define GCC_CAMERA_AHB_CLK					7
++#define GCC_CAMERA_HF_AXI_CLK					8
++#define GCC_CAMERA_SF_AXI_CLK					9
++#define GCC_CAMERA_XO_CLK					10
++#define GCC_CFG_NOC_USB3_PRIM_AXI_CLK				11
++#define GCC_CPUSS_AHB_CLK					12
++#define GCC_CPUSS_AHB_CLK_SRC					13
++#define GCC_CPUSS_GNOC_CLK					14
++#define GCC_CPUSS_RBCPR_CLK					15
++#define GCC_DDRSS_GPU_AXI_CLK					16
++#define GCC_DISP_GPLL0_CLK_SRC					17
++#define GCC_DISP_AHB_CLK					18
++#define GCC_DISP_HF_AXI_CLK					19
++#define GCC_DISP_SF_AXI_CLK					20
++#define GCC_DISP_XO_CLK						21
++#define GCC_GP1_CLK						22
++#define GCC_GP1_CLK_SRC						23
++#define GCC_GP2_CLK						24
++#define GCC_GP2_CLK_SRC						25
++#define GCC_GP3_CLK						26
++#define GCC_GP3_CLK_SRC						27
++#define GCC_GPU_CFG_AHB_CLK					28
++#define GCC_GPU_GPLL0_CLK_SRC					29
++#define GCC_GPU_GPLL0_DIV_CLK_SRC				30
++#define GCC_GPU_IREF_CLK					31
++#define GCC_GPU_MEMNOC_GFX_CLK					32
++#define GCC_GPU_SNOC_DVM_GFX_CLK				33
++#define GCC_NPU_AXI_CLK						34
++#define GCC_NPU_BWMON2_AXI_CLK					35
++#define GCC_NPU_BWMON_AXI_CLK					36
++#define GCC_NPU_BWMON_CFG_AHB_CLK				37
++#define GCC_NPU_CFG_AHB_CLK					38
++#define GCC_NPU_DMA_CLK						39
++#define GCC_NPU_GPLL0_CLK_SRC					40
++#define GCC_NPU_GPLL0_DIV_CLK_SRC				41
++#define GCC_PDM2_CLK						42
++#define GCC_PDM2_CLK_SRC					43
++#define GCC_PDM_AHB_CLK						44
++#define GCC_PDM_XO4_CLK						45
++#define GCC_PRNG_AHB_CLK					46
++#define GCC_QMIP_CAMERA_NRT_AHB_CLK				47
++#define GCC_QMIP_CAMERA_RT_AHB_CLK				48
++#define GCC_QMIP_DISP_AHB_CLK					49
++#define GCC_QMIP_RT_DISP_AHB_CLK				50
++#define GCC_QMIP_VIDEO_CVP_AHB_CLK				51
++#define GCC_QMIP_VIDEO_VCODEC_AHB_CLK				52
++#define GCC_QUPV3_WRAP0_CORE_2X_CLK				53
++#define GCC_QUPV3_WRAP0_CORE_CLK				54
++#define GCC_QUPV3_WRAP0_S0_CLK					55
++#define GCC_QUPV3_WRAP0_S0_CLK_SRC				56
++#define GCC_QUPV3_WRAP0_S1_CLK					57
++#define GCC_QUPV3_WRAP0_S1_CLK_SRC				58
++#define GCC_QUPV3_WRAP0_S2_CLK					59
++#define GCC_QUPV3_WRAP0_S2_CLK_SRC				60
++#define GCC_QUPV3_WRAP0_S3_CLK					61
++#define GCC_QUPV3_WRAP0_S3_CLK_SRC				62
++#define GCC_QUPV3_WRAP0_S4_CLK					63
++#define GCC_QUPV3_WRAP0_S4_CLK_SRC				64
++#define GCC_QUPV3_WRAP0_S5_CLK					65
++#define GCC_QUPV3_WRAP0_S5_CLK_SRC				66
++#define GCC_QUPV3_WRAP1_CORE_2X_CLK				67
++#define GCC_QUPV3_WRAP1_CORE_CLK				68
++#define GCC_QUPV3_WRAP1_S0_CLK					69
++#define GCC_QUPV3_WRAP1_S0_CLK_SRC				70
++#define GCC_QUPV3_WRAP1_S1_CLK					71
++#define GCC_QUPV3_WRAP1_S1_CLK_SRC				72
++#define GCC_QUPV3_WRAP1_S2_CLK					73
++#define GCC_QUPV3_WRAP1_S2_CLK_SRC				74
++#define GCC_QUPV3_WRAP1_S3_CLK					75
++#define GCC_QUPV3_WRAP1_S3_CLK_SRC				76
++#define GCC_QUPV3_WRAP1_S4_CLK					77
++#define GCC_QUPV3_WRAP1_S4_CLK_SRC				78
++#define GCC_QUPV3_WRAP1_S5_CLK					79
++#define GCC_QUPV3_WRAP1_S5_CLK_SRC				80
++#define GCC_QUPV3_WRAP_0_M_AHB_CLK				81
++#define GCC_QUPV3_WRAP_0_S_AHB_CLK				82
++#define GCC_QUPV3_WRAP_1_M_AHB_CLK				83
++#define GCC_QUPV3_WRAP_1_S_AHB_CLK				84
++#define GCC_SDCC1_AHB_CLK					85
++#define GCC_SDCC1_APPS_CLK					86
++#define GCC_SDCC1_APPS_CLK_SRC					87
++#define GCC_SDCC1_ICE_CORE_CLK					88
++#define GCC_SDCC1_ICE_CORE_CLK_SRC				89
++#define GCC_SDCC2_AHB_CLK					90
++#define GCC_SDCC2_APPS_CLK					91
++#define GCC_SDCC2_APPS_CLK_SRC					92
++#define GCC_SDCC4_AHB_CLK					93
++#define GCC_SDCC4_APPS_CLK					94
++#define GCC_SDCC4_APPS_CLK_SRC					95
++#define GCC_SYS_NOC_CPUSS_AHB_CLK				96
++#define GCC_UFS_1X_CLKREF_CLK					97
++#define GCC_UFS_PHY_AHB_CLK					98
++#define GCC_UFS_PHY_AXI_CLK					99
++#define GCC_UFS_PHY_AXI_CLK_SRC					100
++#define GCC_UFS_PHY_ICE_CORE_CLK				101
++#define GCC_UFS_PHY_ICE_CORE_CLK_SRC				102
++#define GCC_UFS_PHY_PHY_AUX_CLK					103
++#define GCC_UFS_PHY_PHY_AUX_CLK_SRC				104
++#define GCC_UFS_PHY_RX_SYMBOL_0_CLK				105
++#define GCC_UFS_PHY_RX_SYMBOL_1_CLK				106
++#define GCC_UFS_PHY_TX_SYMBOL_0_CLK				107
++#define GCC_UFS_PHY_UNIPRO_CORE_CLK				108
++#define GCC_UFS_PHY_UNIPRO_CORE_CLK_SRC				109
++#define GCC_USB30_PRIM_MASTER_CLK				110
++#define GCC_USB30_PRIM_MASTER_CLK_SRC				111
++#define GCC_USB30_PRIM_MOCK_UTMI_CLK				112
++#define GCC_USB30_PRIM_MOCK_UTMI_CLK_SRC			113
++#define GCC_USB30_PRIM_SLEEP_CLK				114
++#define GCC_USB3_PRIM_CLKREF_CLK				115
++#define GCC_USB3_PRIM_PHY_AUX_CLK				116
++#define GCC_USB3_PRIM_PHY_AUX_CLK_SRC				117
++#define GCC_USB3_PRIM_PHY_COM_AUX_CLK				118
++#define GCC_USB3_PRIM_PHY_PIPE_CLK				119
++#define GCC_VIDEO_AHB_CLK					120
++#define GCC_VIDEO_AXI_CLK					121
++#define GCC_VIDEO_XO_CLK					122
++
++/* GCC resets */
++#define GCC_DPM_BCR						0
++#define GCC_GPU_BCR						1
++#define GCC_MMSS_BCR						2
++#define GCC_NPU_BWMON_BCR					3
++#define GCC_NPU_BCR						4
++#define GCC_PDM_BCR						5
++#define GCC_PRNG_BCR						6
++#define GCC_QUPV3_WRAPPER_0_BCR					7
++#define GCC_QUPV3_WRAPPER_1_BCR					8
++#define GCC_QUSB2PHY_PRIM_BCR					9
++#define GCC_SDCC1_BCR						10
++#define GCC_SDCC2_BCR						11
++#define GCC_SDCC4_BCR						12
++#define GCC_UFS_PHY_BCR						13
++#define GCC_USB30_PRIM_BCR					14
++#define GCC_USB3_DP_PHY_PRIM_BCR				15
++#define GCC_USB3_PHY_PRIM_BCR					16
++#define GCC_USB3PHY_PHY_PRIM_BCR				17
++#define GCC_USB_PHY_CFG_AHB2PHY_BCR				18
++
++/* GCC power domains */
++#define UFS_PHY_GDSC						0
++#define USB30_PRIM_GDSC						1
++#define HLOS1_VOTE_MMNOC_MMU_TBU_HF0_GDSC			2
++#define HLOS1_VOTE_MMNOC_MMU_TBU_HF1_GDSC			3
++#define HLOS1_VOTE_MMNOC_MMU_TBU_SF0_GDSC			4
++
++#endif
+
 -- 
-2.52.0
+2.43.0
 
