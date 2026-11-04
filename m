@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775972;
-	b=X4MqP9IEj3aSRgAqG+yhFFRv0fw2evJJlx+RjQTI+Sg5vqewvYbe6gKAA2COVT+s2Lol
-	 w8w1XiaUjf62fAAkX8qZf1+YE7NexXn2Rzw7Ss8WdRKum1nkKKbf0Epxw8Qyds9kCc5jZ
-	 YS+TvTn4GdMoNpJbJgplgWNIo+doienRaaxTnBNak/kRPWwx2cgKXhbIZurS4CM3usp6D
-	 P4pnF5lK1wuiuKwXRwVAQeXGvhSp4qa36BmqGdzPqYGJcFfPuJdOKqaFIGGEW5nfste53
-	 EoGQjxGiYrOlp3DqE9Do73tdQX3AY0zBBClyNkuFeJl2uPEizbnTqMh77iQrfePAXmw==
+	t=1793776240;
+	b=YgyBdUos6ch9HePQ6/kS/QB/Bl4i+QGLZxuy3yvRSOtEA87gpNo6fIV/apZ9GaRHvzMo
+	 nTKpdyDiZsWR+UkFPIvxKer7blPR/Ldrf6h2AK+w7LYsMELjg4qAx5pIvXScNOuwl0Yks
+	 l0TY6N4lXdsjw8vyy18BNsQp5u49RTcb/5iDurbVb3khOxBs/Xi2P73VcWmCKwDRxn4Nq
+	 7G09croKnre9YoqoGL1XKHdo8SB7B06m9pY4/XcGtGrRct53Mkwye+9hyhAI0pz/R4f2g
+	 P5hSZgzhueiX58HlY2tx6JCwG7s+S/k2N9Ad25AeeJ0Oty5i+LH/fiL492LuF4VYVBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775972;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WokjOK4qUKpaWUewt5ne3nHyD3RlNEsjQzStQ+c1XNE=;
-	b=1VeWttU86LWwsBNa+1GerubIUzB6+DdmfrYxJX2zI3TuoGwB4njVOSosCG9G7lQTZIDI
-	 T0Rc6t3ImGz5ADGl0ysvwUA2oC0FbtYVWSqqHKU/FL0C+q92ku0VSsswmCcT8M62lU3is
-	 0oMAYQMbJNNGtmc12CglYkZ/ZxzhkWmUHVIgLN+RiG6iRNfcY+6e8GeaHwpgWho1BdL/G
-	 vVC/xJjigR79BHlro+9vtmL0OporYAAasO70U4DGLSTGUAoPsbCsL5CEUevQBLas/rKk4
-	 3+RBtpZ/fqEwohvsvMczm4MwzRq35gVJVtRhnGZ+mHYtRJXbQcvup9jaL95T6EEpa/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776240;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=lLy5f2jv9ygbeiLL4rXL9dD4Ztss6Zzao9ZPhN/ARzI=;
+	b=vJH5gWWr57IWj5A/C52RP7pcjTY32wFcDZ3bIvnMuN/0t+/pg2CSeeGCvQggzty47uT8
+	 68rqGJ4Z/Ed3kUDzCqb6cfuLInUMp5oB6PCTvRIPwN7N2M4t5PqcUFFIuCMg0LNM+v7OD
+	 ivFrZxQiqCLQZPKWDHY/xwED1QOKBmpS8ibrbtUiiRX13VVFq+J+fYWAfKpXz4XcbtQHK
+	 111QkP0fUHR9ESQFdpuVMc9BYnLPD3LOX07AGzroi4mOxeV+Qt5OwyGZY+TMhmDJRYWkW
+	 dgqZUoY63bg2WLYHF/UzF+04mCeqLBel+vIHr3BhRfA0xuWMmhy74XCGE3cRw7+Rn7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=B88Yhe8a;
-	arc=none smtp.remote-ip=91.218.175.158
-Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJWNk8wV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D07606A32D
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18D07606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD63606A326;
+	Wed,  4 Nov 2026 07:10:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=B88Yhe8a
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sN6eycwIKu/qE35PSu5sRh3YS6d8qIr8WXShRM/F29s=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793775969; v=1; x=1794380769;
- b=B88Yhe8aXbPotwPXS5mSp7q9WTisv3lU8edmv+yeUfUElnMVx+W199HXIe33849cJX0b2Pw/
- wAkTPyH2vUZI62vArFzpgbv0zKyNyjsp3i/yE1Rs6yeixslCXDENmaZamV2R5Co0F481foPyI9Y
- x57EOvQqvy5fStSms+7SVykevbLmYLjfWLwdD+noYCdGWW3pjP0bEsb25wP0gOUs9B4yYUii/B3
- aYT6G+EDqC1VSa+Cld2VMUH/FfChob4dmCWnDFa/187hnKwLgv/ElGS9msqhVqQXkAWnIRsSUXD
- 93RK2RKyDdiTeDbCqa4+2nj7zRs13o4rTaPDSSVQhGwGQ==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5fa99feb5128d1f;
-	Wed, 04 Nov 2026 07:06:09 +0000
-X-Mizu-Trace-ID: e5fa99feb5128d1f
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Maximilian Luz <luzmaximilian@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	Val Packett <val@packett.cool>,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH 5/5] platform/surface: aggregator_registry: Add support for Surface Pro X
-Date: Wed,  4 Nov 2026 04:04:36 -0300
-Message-ID: <20261104070441.74127-6-val@packett.cool>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104070441.74127-1-val@packett.cool>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJWNk8wV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778BD1F000C1;
+	Wed,  4 Nov 2026 07:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793776239;
+	bh=lLy5f2jv9ygbeiLL4rXL9dD4Ztss6Zzao9ZPhN/ARzI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YJWNk8wVsUcqRmpt98qNf09ZDS9hlVvB/yjMzG7e+8/EDoiT69yLRRcAYO4oPrhYW
+	 0AKl4nQSEgMSbW7xl1iLTQT/Wjsr9OVDErpn2pytPIJoASz2wJ5D4wL7UrcvHhHWkM
+	 MxlXiEgRFWE629gxIn44kBW97LtRUsE+T6hoDEKd/DJjtyZ61Urp/XrP3GOEDiTcek
+	 tUuO5XgCqKQF4xM+9MMzpUg3zA9XYRcOyayqeviGqpkg7mexmoVpGaxtPPaJ1a8LgO
+	 ySl/k0LQSuKJ4OuKdAt/GnvaKEc01om0Z5kFfai7Z1pmmF8Z35CerZLEO/btP2547m
+	 jhfvX9cGkwmTw==
+Message-ID: <sashiko-outbox-196779@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
+ Pro X
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Val Packett" <val@packett.cool>
+Cc: devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20261104070441.74127-2-val@packett.cool>
 References: <20261104070441.74127-1-val@packett.cool>
+ <20261104070441.74127-2-val@packett.cool>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 07:10:39 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,70 +61,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Maximilian Luz <luzmaximilian@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: arm: qcom: commit message duplicates carina and omits =
+caspar
+--
 
-Add SAM client device nodes for the Surface Pro X.
+commit c0354ee6a701cd3d9a5f7b5512415336071339b5
+Author: Val Packett <val@packett.cool>
 
-Signed-off-by: Maximilian Luz <luzmaximilian@gmail.com>
-Signed-off-by: Val Packett <val@packett.cool>
----
- .../surface/surface_aggregator_registry.c     | 26 +++++++++++++++++++
- 1 file changed, 26 insertions(+)
+dt-bindings: arm: qcom: Document Microsoft Surface Pro X
 
-diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
-index cf3ae252b1c4..bec0a87a2a95 100644
---- a/drivers/platform/surface/surface_aggregator_registry.c
-+++ b/drivers/platform/surface/surface_aggregator_registry.c
-@@ -51,6 +51,12 @@ static const struct software_node ssam_node_hub_base = {
- 	.parent = &ssam_node_root,
- };
- 
-+/* Real-Time Clock. */
-+static const struct software_node ssam_node_rtc = {
-+	.name = "ssam:01:01:01:00:00",
-+	.parent = &ssam_node_root,
-+};
-+
- /* AC adapter. */
- static const struct software_node ssam_node_bat_ac = {
- 	.name = "ssam:01:02:01:01:01",
-@@ -352,6 +358,22 @@ static const struct software_node *ssam_node_group_sp7[] = {
- 	NULL,
- };
- 
-+/* Devices for Surface Pro X */
-+static const struct software_node *ssam_node_group_spx[] = {
-+	&ssam_node_root,
-+	&ssam_node_hub_kip,
-+	&ssam_node_rtc,
-+	&ssam_node_bat_ac,
-+	&ssam_node_bat_main,
-+	&ssam_node_tmp_sensors,
-+	&ssam_node_kip_tablet_switch,
-+	&ssam_node_hid_kip_keyboard,
-+	&ssam_node_hid_kip_penstash,
-+	&ssam_node_hid_kip_touchpad,
-+	&ssam_node_hid_kip_fwupd,
-+	NULL,
-+};
-+
- /* Devices for Surface Pro 8 */
- static const struct software_node *ssam_node_group_sp8[] = {
- 	&ssam_node_root,
-@@ -508,6 +530,10 @@ static const struct acpi_device_id ssam_platform_hub_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, ssam_platform_hub_acpi_match);
- 
- static const struct of_device_id ssam_platform_hub_of_match[] __maybe_unused = {
-+	/* Surface Pro X */
-+	{ .compatible = "microsoft,cambria", (void *)ssam_node_group_spx },
-+	{ .compatible = "microsoft,carina", (void *)ssam_node_group_spx },
-+	{ .compatible = "microsoft,caspar", (void *)ssam_node_group_spx },
- 	/* Surface Pro 9 5G (ARM/QCOM) */
- 	{ .compatible = "microsoft,arcata", (void *)ssam_node_group_sp9_5g },
- 	/* Surface Pro 11 (ARM/QCOM) */
--- 
-2.56.0
+This commit replaces the generic microsoft,surface-prox compatible string in
+Documentation/devicetree/bindings/arm/qcom.yaml with three model-specific
+compatible strings for the Surface Pro X variants.
 
+>     dt-bindings: arm: qcom: Document Microsoft Surface Pro X
+>    =20
+>     The Surface Pro X tablet was listed as a single generic compatible in
+>     dt-bindings, but a device tree using it has not landed upstream.
+>    =20
+>     Replace it with three model-specific compatibles:
+>     * microsoft,cambria for the orginal SQ1 model (with cellular)
+>     * microsoft,carina for the Wi-Fi-only (SQ1) model
+>     * microsoft,carina for the SQ2 refresh
+>    =20
+>     Signed-off-by: Val Packett <val@packett.cool>
+>
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
+ion/devicetree/bindings/arm/qcom.yaml
+> index 121ca557ce1ef..74f46697a363f 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -925,7 +925,9 @@ properties:
+>        - items:
+>            - enum:
+>                - lenovo,flex-5g
+> -              - microsoft,surface-prox
+> +              - microsoft,cambria
+> +              - microsoft,carina
+> +              - microsoft,caspar
+
+[Severity: Low]
+In Documentation/devicetree/bindings/arm/qcom.yaml under
+properties.compatible, the schema adds microsoft,cambria, microsoft,carina,
+and microsoft,caspar, but the commit message lists microsoft,carina twice
+(for both the Wi-Fi-only SQ1 model and the SQ2 refresh) and omits
+microsoft,caspar.
+
+Should the Wi-Fi-only (SQ1) entry in the commit description say
+microsoft,caspar instead of microsoft,carina?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104070441.7412=
+7-1-val@packett.cool?part=3D1
