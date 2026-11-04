@@ -1,70 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773965;
-	b=QlgUt2OrZNmCwAz/g90tkVBKEMVadhiAYyo+tNEJvjaPxTO1qyC9D7843Qhw5Zw4fHPv
-	 /uQeWY1BMkjs6u9EK4F8MvGhLn9RRhifwgAiC5mN9fiF7NMaE5TNHIa1OfAeEvsvNXAk5
-	 5kllKxsapD9GwxmKrSJrK1IQpLGlIcjaOeQZKU8MSw7WvMj9KmMQ/wonX76bzbK0gALaz
-	 Yf5vF1emWcRJPxRmlRUT55sQ9N9AuGyUiAsn+tSUpmrP0zb8hX95ZfWtgM0uuCUiRno5K
-	 4Ht4kvrC+o/k17DGoAoZdTo1PDJ5Qg4anN2Cc9vk3ISnVg/xoBnjTyUNH63I5S7SSrw==
+	t=1793775924;
+	b=t/q8Xo3+abeJGMOW9c6ZiIw1aRP1VV7tnL2MPJCuuYf8SMFTa9+gfxKEPAjykzzM27ig
+	 GvQEpcxUmgrqbcCdKwtQxjG2Yxn5vqhdDtbm1xS+lgeGKw7MomDPcNiYYFfWlxg58jxRn
+	 2ZFYLQqa6nRLMTohXGn70Kjb7MdNEylXINwjkWmYQbgbv/PbKzoCLL5jJXayaToHAKXOK
+	 8Fxc9jzNuiKIaC5h85TJyzVRkUuhTfB0KNLwThyenjn3yqWfwM/sfdOW5XVT6q6iuheVE
+	 i/YiNrR7yqkL966+qmmTSXrMSYf7Jg8xUVI9D5C1UD4Xwxgpaz17ROKF439V/jEAKAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773965;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=0uLC0HaAr1QkFmkp2tREOWhNfVwNoMBFyxu7npKuUlI=;
-	b=zAnfieD1EV4q0bKKWCW7nQ8Jf7DuKF8om5lMQSb7iqiNpdD7pH1nAcmkpAOf9EZqiyVV
-	 4G5EtUQLm1xwaJhH6gC78nChtY22bQ9g5UOjEQo27I3S9n18EnrzMeUruRURi8/Sp7ppf
-	 vMFU6dcmJJmAfrA7UgU4MWp6HE9cDSAUUen9gZXpZ+pM9xH06NioQaHgMeeH7Q0xMOALg
-	 lohOE1XpfthmYQc9QNynOHqaR7CpIJzRi9TPzgyCL2r3+RyV21tEOPGP4UcwOeZXRewRX
-	 jJ/S6Q4oDgmgCkiQbMBIgv+cR6gn8sIZcXz0RDUFq8PHVXB1t3T54kO1kznd8ZWViLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775924;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=cXRTR6Cd1Y2eTy4MIHECYmjQTfa4P4H4thCUYYRgRZ8=;
+	b=HJHgE3RV3A09jAva2c/hpJSXTJSUJcfj2i5jl6PHoaZVXZpz+/9ja1wXRmBM/b2GT0gl
+	 6qFDdd6WIECEvITHSiZGB1gABKnmm3MS399feFuQUmRiBSNg1CDa07k0kIIQun25ciWfy
+	 u37nN30zagPlwbMwxk8dc5U0aknez/79dCA7HxcmE26IWDY+s6sDAtTCQppFkN883evUf
+	 jCkEchy9uDg8Bvy61DS+WEkkSaSQS9CbymnCMYvTqdQsX5GtfePeWi9Sf5GUg43L64x3A
+	 GTbJJLisXGzkK85XahFUAG5fB/d4NxZmp9MdMp45TuoLhIl/TzNRd/btQAUTH11sQ9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=HXgOnWcG;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b="srVG/7Np";
+	arc=none smtp.remote-ip=95.215.58.49
+Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C9B606A31B;
-	Wed,  4 Nov 2026 06:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8C9B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DD1606A328
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:05:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82DD1606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=HXgOnWcG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793773962;
-	bh=0uLC0HaAr1QkFmkp2tREOWhNfVwNoMBFyxu7npKuUlI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HXgOnWcGkvr9hGip5zyzLcO+zguxsBD6jrG+2sYoN5UCtCv8jOLMh8y6YjIJRspq6
-	 9MXADVPmlbnPffNHiNxbYtFlO8WFyuZOoHOABu4slOZ6apfyaVXNx8s6G4T+zkuqBu
-	 HfUWMS45hQ/yMAwv3qFnJmAM/6P/+oLxjj1YBcagyxxpSK0khWg1SkJtto5aUOFyPB
-	 1n5X8CPVnJofglcSO3rrW7lzT1h5PlSsp+cS+ruyrO2g5wADT4BULzvODMHsjOB4Qu
-	 NblXEh4EfdcSxWWbX7XSzqML6xJXhwz72hW0t53WfyURgqoStg3zzBuDux+O+LxIWD
-	 o/iBF9urEa7gA==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jKFx663J1z4w9g; Wed, 04 Nov 2026 17:32:42 +1100 (AEDT)
-Date: Wed, 4 Nov 2026 17:29:32 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=srVG/7Np
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6utNHivWyaA8ZepnyHTTdDHkXVyFNNb5pORoTt6doaQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793775915; v=1; x=1794380715;
+ b=srVG/7Np6E2p6rEBdJz5gHPqqqtAWY2O7kqyCfvCVfrHZNBjk1Cc9YF1MRSwJh6vqA0wDpdV
+ 5pO9IFdGHeYUFWa0IguYG7wwsNi2JkWMVMKRggF0Em1toJ+BwdcG1sI5PEJ5cDbAjkZIcGmJFRs
+ LAV3EiTKJWRpE/eS9DgKlBJnFsvp5nTD5g8JS2uQxBoQyc1gCts/kATARel8Ey7/yDAUyrU4ZoL
+ VsmDh7XSVwb6eRtKUaRzlYSLDKveltKUJiq28v4mCSjms92naqv4EtlYlmogkEbxJ5kOIL8lzOJ
+ rSEaVaucnyeD7Q1yusyTWjYLhnmCW80BMu6EECrnU4ruA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0198b4517bc619b5;
+	Wed, 04 Nov 2026 07:05:14 +0000
+X-Mizu-Trace-ID: 0198b4517bc619b5
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Brian Norris <briannorris@chromium.org>,
+	Maximilian Luz <luzmaximilian@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-Subject: Re: [PATCH v3 08/15] libfdt: overlay: Factor out fixup and fragment
- path parsing helpers
-Message-ID: <aurQy1f21o1oTMrT@gractus.seuss>
-References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-9-dianders@chromium.org>
+	linux-rtc@vger.kernel.org
+Subject: [PATCH 0/5] Add support for the Microsoft Surface Pro X
+Date: Wed,  4 Nov 2026 04:04:31 -0300
+Message-ID: <20261104070441.74127-1-val@packett.cool>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -74,63 +78,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="coXX6PGQLopO7peK"
-Content-Disposition: inline
-In-Reply-To: <20261101220224.1436242-9-dianders@chromium.org>
+Content-Transfer-Encoding: 8bit
 
---coXX6PGQLopO7peK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The Surface Pro X is a 2019-era tablet powered by the Qualcomm SC8180X SoC,
+released in three variants (SQ1, Wi-Fi, SQ2).
 
-On Sun, Nov 01, 2026 at 02:01:15PM -0800, Douglas Anderson wrote:
-61;8401;1c> In preparation for updating the base device tree's `/__local_fi=
-xups__`
-> node during `fdt_overlay_apply()`, factor out two helper functions in
-> `libfdt/fdt_overlay.c`:
->=20
-> - Factor out `overlay_parse_fixup_entry()` from
->   `overlay_fixup_phandle()` to parse `"path:name:offset"` entries in
->   `/__fixups__` properties.
-> - Factor out `overlay_split_fragment_path()` from
->   `overlay_symbol_update()` to validate and split
->   `"/<fragment>/__overlay__[/<rel>]"` paths into the fragment name and
->   relative subnode path.
->=20
-> This commit is pure code movement with no functional change.
->=20
-> Reviewed-by: Simon Glass <sjg@chromium.org>
-> Assisted-by: Gemini:gemini-pro-prerelease
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Patches to support it have been around in a downstream tree at
+https://github.com/linux-surface/kernel for a while. Let's upstream it!
 
-Patches 8, 9 & 10 are good cleanups regardless of the rest of the
-series, so, merged.
+I have permission from Maximilian Luz to use his From/S-o-b with modified
+(squashed, stripped down and split by model variant) patches:
+https://github.com/linux-surface/surface-pro-x/issues/7#issuecomment-6597291831
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+One aspect that will need some input from people with internal qcom
+docs :) is the PCIe setup. There is sort of a multi PHY or multi
+controller setup, and for now we've been setting up a single
+controller with num-lanes=<2> and it does work, but it's not the
+proper way to do it..
 
---coXX6PGQLopO7peK
-Content-Type: application/pgp-signature; name=signature.asc
+Thanks,
+~val
 
------BEGIN PGP SIGNATURE-----
+Maximilian Luz (3):
+  arm64: dts: qcom: sc8180x: Add Microsoft Surface Pro X
+  rtc: Add basic support for RTC via Surface System Aggregator Module
+  platform/surface: aggregator_registry: Add support for Surface Pro X
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrq0MsACgkQzQJF27ox
-2GfjbxAAqndQ2o3MCTlJGFgfgpsF9GWSD+adrjWWvFwqKPzkGy20HKmvwuGghih2
-IkQ7r5le/kp51xS2eP3ZHlxSsd69zEMU8z50yv3nLugIwfWgxcoWla2td+D1tQWG
-jj1KRu7kreUtvdsQmkybRX4dpNCm+ksL5nDhNIotKD6+Jd+3QmjVTvNq3PM/cJRZ
-PReTIMxcnjO6EulbmOZkgsCbnQLpv7tzBmIw/z83TAFRgduCfAL9jVKb0U4nnV/z
-RioEX456SenflWWqYsTxZiJVB4hrxwNtv/d5tqeF3OW9xgo7oZO87RonaB676wlf
-IBU19pqt0x0XzldFzxCWLI26EvKQKwdiX67+r+QoaUm+Fbng9QB1B6V+gm0v53tb
-nMya1ayRFXTRsjXQEwy+eRTdLURRQ+QUpeFJg6CU29yAbUNcL+WEtcbaoAQwuqro
-FV44lcwwhmN86NchAMaqip/9rmGGy/26pui0CyRDGgTkvRaasUgE4x+hcLC4MVwI
-rNUn8lu+hN7yAUnzkm/bMsWHGIYYZvaywnngIWOvUaBkgV+hS1aZF1EBT8OeCT6V
-cg3sJx9FXAn56GcSfYoWerXf6YcYaZAlUXmBY8r1HOnV12MxDwBr4s05y8NJ1gdo
-52fFr4rDod6cB4/GohARWX/7hu/giyPfLsHYf5vHF9q7vY+xeS0=
-=zAtL
------END PGP SIGNATURE-----
+Val Packett (2):
+  dt-bindings: arm: qcom: Document Microsoft Surface Pro X
+  firmware: qcom: scm: Allow QSEECOM on the Surface Pro X
 
---coXX6PGQLopO7peK--
+ .../devicetree/bindings/arm/qcom.yaml         |   4 +-
+ MAINTAINERS                                   |   8 +
+ arch/arm64/boot/dts/qcom/Makefile             |   3 +
+ .../dts/qcom/sc8180x-microsoft-cambria.dts    |  38 +
+ .../dts/qcom/sc8180x-microsoft-carina.dts     |  50 +
+ .../dts/qcom/sc8180x-microsoft-caspar.dts     |  38 +
+ .../qcom/sc8180x-microsoft-surface-pro-x.dtsi | 853 ++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |   3 +
+ .../surface/surface_aggregator_registry.c     |  26 +
+ drivers/rtc/Kconfig                           |   9 +
+ drivers/rtc/Makefile                          |   1 +
+ drivers/rtc/rtc-surface.c                     | 129 +++
+ 12 files changed, 1161 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-cambria.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-carina.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-caspar.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/sc8180x-microsoft-surface-pro-x.dtsi
+ create mode 100644 drivers/rtc/rtc-surface.c
+
+-- 
+2.56.0
