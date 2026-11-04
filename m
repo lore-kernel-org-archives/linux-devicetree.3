@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780218;
-	b=OVVXvJ7qOstPakevatuvGLGJgc6Y6Dv85JhDwfQYHVGRaIHiDUfZNTNL4G06R/Dwyw32
-	 2eSUlNg0XrSqWmD7izn7oukDdRXoxOtKH7H2FrEMF6H8ziKFa+M81yKmDxzgxQ3vdEm90
-	 nvhXiQKiijxV3Yi297q3W4bP2IXwAXQh2bSWWuca9an6BjZIdj5WN1BuYR4xzFI+CuwD1
-	 Ovmskgp5My5mbvjBF8DZANw/LrRT90lqt0twZySUbD9QEzRfZ1DscUSKdGL5uXHAOuZWe
-	 hg5WHKn1KSX8SObK0eI8/S3OGjVDLZh3VowTs+hgFmZoyiBVI60KVntbZSKWe+3eqvQ==
+	t=1793780281;
+	b=HJ2H3UUmmLdYGnLQVULABKItt0GXDczK1V6a/nSjmaN4hXc7BgLctSyFHbp4McLsUrbE
+	 HNye3240rSFU0iFWCTAykAJvONOsz57fY5Yg0PdkXsKqDsw7CHmbjJhXBAChrUwojD9ip
+	 Zu8R2NZMAbvUl4yYG2eIt2D6/GKi1cmvRy4TdEJXAJC9CD+RYg8l2a4vjcHrJCTjlh1N8
+	 atYBIar8zy/1p1ojcicwch8MsJeXWp/Pec6dLafjjeFR6ssY9D3u5KtytbjfIyWstHDAu
+	 HmClmWb9nh4rrH/eLU0sEP84R/v+t0ctUXPL5Wc8Ll+PMgv89IhtVnbz6on+wsReKFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780218;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bEr+E9xOtLRNx3TtttDjAZWHSeX2oKJzpJrX+6wrSs4=;
-	b=s9Yw8ueeH3qFEKJvFcmL239YMxi8kw5xH+WtK1qLp4i5DSaqrJo4pxqH5Uvg8H5CBKF5
-	 3LlpOILbwkC8+KZipXH/RLize3KMvAH2ocx8rL71/xcUUYRsswXoms49qpapMq/wvAJOq
-	 XVBFHoBAkrjbLRDECWh/9iM0ygT11VU39j1nt++1AdG5K4lQ1vVDQe6ujlciYTozjOSJE
-	 2q8mRqY5X5urTn+Bmu+DiToue5MEwHISGwCXCHcovoeRrmH5FJ9x97iB2rvemj3K78a4Z
-	 cfO98lC8vPyOmmsrpdUEAa3xGB+fy1OMMDX67pAdAgu0ywvNjz9ZrJeGWGh8OQJ7ZjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780281;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XPtIL3s6s68TgM260sPxbQX+3w9FytSmTvOFqRvTVyA=;
+	b=gT+R2K0udGh2vLIX/qzHozS+Ydu9I9qQg8ZRAFkkZ6nMIZBlUfOlzAa0E6jKVKZaJBB4
+	 jdwsHccN+HhRgsFHBLieNXy5fu3pbFmGaF7fEZJ350WZ+GNKxtqXQzYjiM4NEa7qxAiVu
+	 rkES8srx9Fd+qZtJmlymSL8tUGnM3OX19F7GtGwOSmeX9hpxRa8wwp0riOLN2dT+h5DUX
+	 K9X6vH1IpZ4Ns9kwaKuS6lsVJHA4q2IOaV5/xaYTlT4Xmg4LbH1i8MZxo+zPb0pIcwuYs
+	 3ahU1aJ55r4+hMGrZVJT+hyPuLlAd0loQnyuscuzUXIlSWAQ+ehOtlQNqyhyIz6Ov/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKiuBKSB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIgDBGnz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9E9EC606A31B;
-	Wed,  4 Nov 2026 08:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3F0606A31B;
+	Wed,  4 Nov 2026 08:18:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKiuBKSB
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 58D751F00919;
-	Wed,  4 Nov 2026 08:16:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIgDBGnz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BF21F000C1;
+	Wed,  4 Nov 2026 08:18:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793780217;
-	bh=bEr+E9xOtLRNx3TtttDjAZWHSeX2oKJzpJrX+6wrSs4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eKiuBKSB3DgxcueVXgRKqwrrFsNAxAevJyyoy76e18ZSxADIFk/mBw9TmfUx747Oa
-	 WtIQsAEQ5MqRqPiVNFscZltaYB5lNpz9HczZlHwHx9Bc2FhyA6qpC3lH9UEO0YLnGC
-	 ePvyMdC3QUxcmum9SSez9YyeiRYO0wm7eoW0NFwcTzr1j9DbsPoOdRTl0P6bb7wfS0
-	 p+Ffb8nX72sn8HywN37/ymcoxPDMoWkYDiKbadnPZ1qiWF/n01yXJfpuHP/RSb8LY4
-	 eCUdB6GANEKDjLxt+fVAt7frdAyU73Yr2Psi5owtsY7FmnUNS1lbDunSllJDduy2aG
-	 Yr6VcTREMOVlQ==
-Date: Wed, 4 Nov 2026 09:16:53 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: joseph@telaak.dev
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
-	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Qingfang Deng <qingfang.deng@siflower.com.cn>
-Subject: Re: [PATCH 2/2] gpio: Add Siflower GPIO controller driver
-Message-ID: <tjadgdqzbvjj7kn4ubibqonrk7nod2gxknzzvdtr5vzs5gv6n5@bvue2t5y4ks7>
-References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
- <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev>
+	s=k20260515; t=1793780281;
+	bh=XPtIL3s6s68TgM260sPxbQX+3w9FytSmTvOFqRvTVyA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZIgDBGnz6OqRnaEpILQ7dUAmMeTFWk2Yr6U7OACaGJatJzFEhc955nqBNhi8N6jvn
+	 mKSZSdAM3KggaXugHO/h9LDxsVIWuwNj7q9n2uHBKY+qLdThz+MoI1mIIkqIWfmIdD
+	 3fLgdTAsB5mb13gc+UFYeHQIGDS2s4P9sLZ4N5b/UQ2IgzZpSRrVq0tVZ+kK9bXpw8
+	 FJZNmYZY9gPKTUIBGZHUv0MrL76DOkSFxmdgxW4mzJVNb7iskd/A0+CCqsnSd663wQ
+	 Wlwikfc2FqGF1MO2hvog0CniE24iSoOoqkTEZVaUlZ7mBhOOSZhaJKRla42Yt4YKj1
+	 as3Sm4iOF1ciA==
+Message-ID: <sashiko-outbox-196870@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 6/6] arm64: dts: qcom: Add SM7250 devicetree file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sreeshankar K" <sreeshankar0910@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-master-v12-6-57fbe9eef978@gmail.com>
+References: <20261104-master-v12-0-57fbe9eef978@gmail.com>
+ <20261104-master-v12-6-57fbe9eef978@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 08:18:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,426 +59,310 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev>
 
-On Wed, Nov 04, 2026 at 02:21:38AM -0500, Joseph Telaak via B4 Relay wrote:
-> From: Qingfang Deng <qingfang.deng@siflower.com.cn>
-> 
-> Add a driver for the GPIO controller on Siflower SoCs.
-> This controller is found on all current Siflower MIPS and RISC-V
-> chips including SF19A2890, SF21A6826 and SF21H8898.
-> 
-> Signed-off-by: Qingfang Deng <qingfang.deng@siflower.com.cn>
-> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-> [jt: from Chuanhong's siflower-7.1 branch; depend on MACH_SIFLOWER_MIPS,
->  longer Kconfig help, assert the reset through a devm action instead of in
->  .remove, which ran before the GPIO chip was removed, drop .owner and the
->  unused drvdata, drop the irq_set_affinity callback, which reached the
->  parent through irq_to_desc() (not exported with SPARSE_IRQ), call
->  gpiochip_disable_irq() and gpiochip_enable_irq() from mask and unmask as
->  an immutable irqchip must, find the group by its parent IRQ instead of
->  assuming consecutive numbers, return 0 or 1 from .get, read ngpios with
->  device_property_read_u32(), linux/math64.h and sorted includes, "Siflower"
->  spelling, subject]
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: sm7250: lmh_cluster1 cpu6 rejected by lmh_probe()
+- [Medium] arm64: dts: qcom: sm7250: invalid PSCI parameters in domain-idle=
+-states
+- [Medium] clk: qcom: gcc-sm7250: out-of-bounds -EINVAL lookup for GCC_VIDE=
+O_XO_CLK
+- [Medium] arm64: dts: qcom: sm7250: non-page-aligned ipa_gsi_mem and gpu_m=
+em regions
+- [Low] arm64: dts: qcom: sm7250: child nodes under soc@0 not sorted by add=
+ress
+- [Low] arm64: dts: qcom: sm7250: unused dt-bindings/power/qcom-rpmpd.h inc=
+lude
+--
 
-Same comment as for the DT binding patch.
+commit 133903425754af1429d60a918bf4c66666da655c
+Author: Sreeshankar K <sreeshankar0910@gmail.com>
 
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
-> ---
->  drivers/gpio/Kconfig         |  11 ++
->  drivers/gpio/Makefile        |   1 +
->  drivers/gpio/gpio-siflower.c | 325 +++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 337 insertions(+)
-> 
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index 55e428002..6125a8452 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -721,6 +721,17 @@ config GPIO_SIFIVE
->  	help
->  	  Say yes here to support the GPIO device on SiFive SoCs.
->  
-> +config GPIO_SIFLOWER
-> +	tristate "Siflower GPIO support"
-> +	depends on OF_GPIO
-> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-> +	select GPIOLIB_IRQCHIP
-> +	help
-> +	  GPIO controller driver for Siflower MIPS and RISC-V SoCs
-> +	  including SF19A2890, SF21A6826 and SF21H8898. Each line can be an
-> +	  input or an output and raise an interrupt on either edge or level,
-> +	  and inputs can be debounced in hardware.
-> +
->  config GPIO_SIOX
->  	tristate "SIOX GPIO support"
->  	depends on SIOX
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index 88f748846..bde618108 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -171,6 +171,7 @@ obj-$(CONFIG_GPIO_SCH311X)		+= gpio-sch311x.o
->  obj-$(CONFIG_GPIO_SCH)			+= gpio-sch.o
->  obj-$(CONFIG_GPIO_SHARED_PROXY)		+= gpio-shared-proxy.o
->  obj-$(CONFIG_GPIO_SIFIVE)		+= gpio-sifive.o
-> +obj-$(CONFIG_GPIO_SIFLOWER)		+= gpio-siflower.o
->  obj-$(CONFIG_GPIO_SIM)			+= gpio-sim.o
->  obj-$(CONFIG_GPIO_SIOX)			+= gpio-siox.o
->  obj-$(CONFIG_GPIO_SL28CPLD)		+= gpio-sl28cpld.o
-> diff --git a/drivers/gpio/gpio-siflower.c b/drivers/gpio/gpio-siflower.c
+arm64: dts: qcom: Add SM7250 devicetree file
+
+This commit adds the base SoC devicetree file for Qualcomm SM7250, defining
+CPU topology, PSCI idle states, reserved memory regions, clocks, interrupt
+controllers, RPMh, cpufreq, LMh, and timers needed to boot to serial consol=
+e.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm7250.dtsi b/arch/arm64/boot/dts/q=
+com/sm7250.dtsi
 > new file mode 100644
-> index 000000000..6eb560da7
+> index 0000000000000..02901f0b08a3f
 > --- /dev/null
-> +++ b/drivers/gpio/gpio-siflower.c
-> @@ -0,0 +1,325 @@
-> +// SPDX-License-Identifier: GPL-2.0+
+> +++ b/arch/arm64/boot/dts/qcom/sm7250.dtsi
+> @@ -0,0 +1,795 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
 > +/*
-> + * GPIO controller driver for Siflower MIPS and RISC-V SoCs including:
-> + *  Siflower SF19A2890
-> + *  Siflower SF21A6826
-> + *  Siflower SF21H8898
-> + *
+> + * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
 > + */
+> +
+> +#include <dt-bindings/clock/qcom,rpmh.h>
+> +#include <dt-bindings/clock/qcom,gcc-sm7250.h>
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/power/qcom,rpmhpd.h>
+> +#include <dt-bindings/power/qcom-rpmpd.h>
 
-Newline.
+[Severity: Low]
+As reported by Sashiko on v11 [1], is the dt-bindings/power/qcom-rpmpd.h
+include needed here? SM7250 uses the RPMh power domain definitions from
+dt-bindings/power/qcom,rpmhpd.h, and none of the legacy RPM definitions from
+qcom-rpmpd.h are referenced in this file.
 
-> +#include <linux/clk.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/irqchip/chained_irq.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/reset.h>
-> +
-> +#define GPIO_IR(n)	(0x40 * (n) + 0x00)
-> +#define GPIO_OR(n)	(0x40 * (n) + 0x04)
-> +#define GPIO_OEN(n)	(0x40 * (n) + 0x08)
-> +#define GPIO_IMR(n)	(0x40 * (n) + 0x0c)
-> +#define GPIO_GPIMR(n)	(0x40 * (n) + 0x10)
-> +#define GPIO_PIR(n)	(0x40 * (n) + 0x14)
-> +#define GPIO_ITR(n)	(0x40 * (n) + 0x18)
-> +#define GPIO_IFR(n)	(0x40 * (n) + 0x1c)
-> +#define GPIO_ICR(n)	(0x40 * (n) + 0x20)
-> +#define GPIO_GPxIR(n)	(0x4 * (n) + 0x4000)
-> +
-> +#define GPIOS_PER_GROUP	16
-> +
-> +struct sf_gpio_priv {
-> +	struct gpio_chip gc;
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +	struct reset_control *rstc;
-> +	unsigned int irq[];
-> +};
-> +
-> +#define to_sf_gpio(x)	container_of(x, struct sf_gpio_priv, gc)
-> +
-> +static u32 sf_gpio_rd(struct sf_gpio_priv *priv, unsigned long reg)
-> +{
-> +	return readl_relaxed(priv->base + reg);
-> +}
-> +
-> +static void sf_gpio_wr(struct sf_gpio_priv *priv, unsigned long reg,
-> +		       u32 val)
-> +{
-> +	writel_relaxed(val, priv->base + reg);
-> +}
-> +
-> +static int sf_gpio_get_value(struct gpio_chip *gc, unsigned int offset)
-> +{
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
+[ ... ]
 
-More common pattern is to retrieve the address of priv with
-gpiochip_get_data(). You already pass that address to
-devm_gpiochip_add_data().
+> +		domain-idle-states {
+> +			cluster_sleep_pc: cluster-sleep-0 {
+> +				compatible =3D "domain-idle-state";
+> +				arm,psci-suspend-param =3D <0x40000004>;
+> +				entry-latency-us =3D <2752>;
+> +				exit-latency-us =3D <3048>;
+> +				min-residency-us =3D <6118>;
+> +			};
+> +
+> +			cluster_sleep_cx: cluster-sleep-1 {
+> +				compatible =3D "domain-idle-state";
+> +				arm,psci-suspend-param =3D <0x41000224>;
+> +				entry-latency-us =3D <3638>;
+> +				exit-latency-us =3D <4562>;
+> +				min-residency-us =3D <8467>;
+> +			};
+> +
+> +			cluster_sleep_aoss: cluster-sleep-2 {
+> +				compatible =3D "domain-idle-state";
+> +				arm,psci-suspend-param =3D <0x41000c24>;
+> +				entry-latency-us =3D <3263>;
+> +				exit-latency-us =3D <6562>;
+> +				min-residency-us =3D <9826>;
+> +			};
+> +		};
+
+[Severity: Medium]
+As reported by Filippo Falezza on v11 [2], are the arm,psci-suspend-param
+values in cluster_sleep_pc, cluster_sleep_cx, and cluster_sleep_aoss encoded
+as expected by psci_pd_power_off() and __psci_enter_domain_idle_state()?
+
+When cluster_pd powers off in PSCI OSI mode, __psci_enter_domain_idle_state=
+()
+replaces the per-CPU state parameter with ds->state:
+
+drivers/cpuidle/cpuidle-psci.c:__psci_enter_domain_idle_state() {
+	...
+	if (ds->state)
+		state =3D ds->state;
+
+	ret =3D psci_cpu_suspend_enter(state);
+	...
+}
+
+Because ds->state replaces the per-CPU parameter rather than being ORed with
+it, Qualcomm cluster domain-idle-state parameters encode the per-CPU rail
+power collapse state (0x4) in bits [3:0], the cluster mode shifted left by
+4 bits in bits [15:4] (0x004 << 4 =3D 0x0040, 0x224 << 4 =3D 0x2240, and
+0xc24 << 4 =3D 0xc240), and affinity level 1 in bit 24 (0x01000000).
+
+Here, cluster_sleep_pc uses 0x40000004 (which is the affinity-level-0 per-C=
+PU
+rail power collapse parameter used by little_cpu_sleep_1 and big_cpu_sleep_=
+1),
+and cluster_sleep_cx and cluster_sleep_aoss use unshifted 0x41000224 and
+0x41000c24. Should these three parameters be 0x41000044, 0x41002244, and
+0x4100c244 instead?
+
+[ ... ]
+
+> +		ipa_gsi_mem: ipa-gsi@8bc10000 {
+> +			reg =3D <0x0 0x8bc10000 0x0 0x5400>;
+> +			no-map;
+> +		};
+> +
+> +		gpu_mem: gpu@8bc15400 {
+> +			reg =3D <0x0 0x8bc15400 0x0 0x2000>;
+> +			no-map;
+> +		};
+
+[Severity: Medium]
+Can the non-page-aligned boundary between ipa_gsi_mem and gpu_mem cause page
+mapping and PAS setup issues when loading the GPU zap shader?
+
+Here ipa_gsi_mem has a size of 0x5400 (ending at 0x8bc153ff) and gpu_mem
+starts at 0x8bc15400 (ending at 0x8bc173ff), so both no-map regions share t=
+he
+4KB physical page at 0x8bc15000, while map_mem() and __free_memory_core()
+round the start of the following System RAM region up via PAGE_ALIGN() /
+PFN_UP() to 0x8bc18000, leaving the remaining 3KB at 0x8bc17400..0x8bc17fff
+unmapped.
+
+When adreno_zap_shader_load() -> zap_shader_load_mdt() in
+drivers/gpu/drm/msm/adreno/adreno_gpu.c loads the GPU zap shader, it remaps
+and initializes the region via:
+
+	mem_region =3D memremap(mem_phys, mem_size, MEMREMAP_WC);
+	...
+	ret =3D qcom_mdt_load(dev, fw, fwname, pas_id,
+			    mem_region, mem_phys, mem_size, NULL);
+
+generic_ioremap_prot() aligns mem_phys (0x8bc15400) down to page boundary
+0x8bc15000 (overlapping the tail of ipa_gsi_mem), and qcom_mdt_load() ->
+__qcom_mdt_pas_init() -> qcom_pas_mem_setup() -> qcom_scm_pas_mem_setup()
+passes the unaligned base address 0x8bc15400 to TrustZone PIL setup (similar
+to the issue fixed on SM6350 in commit 44bcded2be4f ("arm64: dts: qcom:
+sm6350: Fix ZAP region")). Should ipa_gsi_mem and gpu_mem be aligned to 4KB
+page boundaries?
+
+[ ... ]
+
+> +	soc: soc@0 {
+> +		compatible =3D "simple-bus";
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges =3D <0 0 0 0 0x10 0>;
+> +		dma-ranges =3D <0 0 0 0 0x10 0>;
+> +
+> +		gcc: clock-controller@100000 {
+> +			compatible =3D "qcom,gcc-sm7250";
+> +			reg =3D <0x0 0x00100000 0x0 0x1f0000>;
+> +			clock-names =3D "bi_tcxo",
+> +				      "bi_tcxo_ao",
+> +				      "sleep_clk";
+> +			clocks =3D <&rpmhcc RPMH_CXO_CLK>,
+> +				 <&rpmhcc RPMH_CXO_CLK_A>,
+> +				 <&sleep_clk>;
+> +			power-domains =3D <&rpmhpd RPMHPD_CX>;
+> +			#clock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +			#power-domain-cells =3D <1>;
+> +		};
+
+[Severity: Medium]
+Does instantiating qcom,gcc-sm7250 expose an out-of-bounds lookup for
+GCC_VIDEO_XO_CLK in qcom_cc_clk_hw_get()?
+
+In include/dt-bindings/clock/qcom,gcc-sm7250.h, GCC_VIDEO_XO_CLK is defined=
+ as
+122, the highest index in the header:
+
+	#define GCC_VIDEO_AHB_CLK					120
+	#define GCC_VIDEO_AXI_CLK					121
+	#define GCC_VIDEO_XO_CLK					122
+
+In drivers/clk/qcom/gcc-sm7250.c, GCC_VIDEO_XO_CLK is enabled as a critical
+clock in gcc_sm7250_critical_cbcrs[] and omitted from gcc_sm7250_clocks[],
+where the highest designated index is [GCC_VIDEO_AXI_CLK] (121):
+
+	[GCC_VIDEO_AXI_CLK] =3D &gcc_video_axi_clk.clkr,
+	[GPLL0] =3D &gpll0.clkr,
+	[GPLL0_OUT_EVEN] =3D &gpll0_out_even.clkr,
+	[GPLL6] =3D &gpll6.clkr,
+	[GPLL9] =3D &gpll9.clkr,
+};
+
+Because ARRAY_SIZE(gcc_sm7250_clocks) (stored in cc->num_rclks) is 122, any
+consumer requesting <&gcc GCC_VIDEO_XO_CLK> hits idx >=3D cc->num_rclks in
+drivers/clk/qcom/common.c:qcom_cc_clk_hw_get() and gets ERR_PTR(-EINVAL)
+instead of NULL as returned for lower-indexed critical clocks such as
+GCC_CAMERA_XO_CLK or GCC_DISP_XO_CLK.
+
+[ ... ]
+
+> +		cpufreq_hw: cpufreq@18323000 {
+> +			compatible =3D "qcom,sm7250-cpufreq-hw", "qcom,cpufreq-hw";
+> +			reg =3D <0 0x18323000 0 0x1000>,
+> +			      <0 0x18325800 0 0x1000>,
+> +			      <0 0x18327800 0 0x1000>;
+> +			reg-names =3D "freq-domain0",
+> +				    "freq-domain1",
+> +				    "freq-domain2";
+> +			interrupts-extended =3D <&lmh_cluster0 0>,
+> +					      <&lmh_cluster1 0>;
+> +			interrupt-names =3D "dcvsh-irq-0",
+> +					  "dcvsh-irq-1";
+> +			clocks =3D <&rpmhcc RPMH_CXO_CLK>, <&gcc GPLL0>;
+> +			clock-names =3D "xo", "alternate";
+> +			#freq-domain-cells =3D <1>;
+> +			#clock-cells =3D <1>;
+> +		};
+> +
+> +		lmh_cluster0: lmh@18358800 {
+> +			compatible =3D "qcom,sm7250-lmh", "qcom,sm8150-lmh";
+> +			reg =3D <0x0 0x18358800 0x0 0x400>;
+> +			interrupts =3D <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+> +			cpus =3D <&cpu0>;
+> +			qcom,lmh-temp-arm-millicelsius =3D <60000>;
+> +			qcom,lmh-temp-low-millicelsius =3D <84500>;
+> +			qcom,lmh-temp-high-millicelsius =3D <85000>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <1>;
+> +		};
+> +
+> +		lmh_cluster1: lmh@18350800 {
+> +			compatible =3D "qcom,sm7250-lmh", "qcom,sm8150-lmh";
+> +			reg =3D <0x0 0x18350800 0x0 0x400>;
+> +			interrupts =3D <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
+> +			cpus =3D <&cpu6>;
+> +			qcom,lmh-temp-arm-millicelsius =3D <60000>;
+> +			qcom,lmh-temp-low-millicelsius =3D <84500>;
+> +			qcom,lmh-temp-high-millicelsius =3D <85000>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <1>;
+> +		};
+
+[Severity: High]
+Will lmh_cluster1 fail to probe and prevent cpufreq_hw from initializing wh=
+en
+cpus =3D <&cpu6> is passed to lmh_probe()?
+
+In drivers/thermal/qcom/lmh.c, lmh_probe() resolves the CPU node via
+of_cpu_node_to_id() and only accepts logical CPU IDs 0 and 4:
+
+	if (cpu_id =3D=3D 0) {
+		node_id =3D LMH_CLUSTER0_NODE_ID;
+	} else if (cpu_id =3D=3D 4) {
+		node_id =3D LMH_CLUSTER1_NODE_ID;
+	} else {
+		dev_err(dev, "Wrong CPU id associated with LMh node\n");
+		return -EINVAL;
+	}
+
+Because cpu6 is logical CPU 6 on SM7250 (where cpu0..cpu5 are in frequency
+domain 0 and cpu6 is the first big core in frequency domain 1), lmh_probe()
+returns -EINVAL for lmh_cluster1 before calling irq_domain_create_linear().
+
+Because cpufreq_hw references <&lmh_cluster1 0> in interrupts-extended and
+lmh_cluster1 is enabled in DT without ever registering its IRQ domain,
+fw_devlink blocks cpufreq_hw on the unmet interrupt supplier link; even if
+cpufreq_hw probes, qcom_cpufreq_hw_cpu_init() -> qcom_cpufreq_hw_lmh_init()=
+ ->
+platform_get_irq_optional() returns -EPROBE_DEFER for domain 1 (and also le=
+aks
+policy->freq_table and dynamic OPPs allocated earlier in
+qcom_cpufreq_hw_read_lut()). In addition, because qcom_cpufreq_hw_driver is
+registered at postcore_initcall while lmh_driver is registered at
+device_initcall (and cpu0 has no interconnects property to defer
+qcom_cpufreq_hw_driver_probe()), domain 0 also hits -EPROBE_DEFER during
+cpufreq_register_driver() while domain 2 (cpu7, which has no interrupt entry
+and gets -ENXIO) succeeds.
 
 > +
-> +	return !!sf_gpio_rd(priv, GPIO_IR(offset));
-> +}
+> +		tcsr_mutex: hwlock@1f40000 {
+> +			compatible =3D "qcom,tcsr-mutex";
+> +			reg =3D <0x0 0x01f40000 0x0 0x40000>;
+> +			#hwlock-cells =3D <1>;
+> +		};
 > +
-> +static int sf_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
-> +			     int value)
-> +{
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +
-> +	sf_gpio_wr(priv, GPIO_OR(offset), value);
-> +	return 0;
-> +}
-> +
-> +static int sf_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
-> +{
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +
-> +	if (sf_gpio_rd(priv, GPIO_OEN(offset)))
-> +		return GPIO_LINE_DIRECTION_IN;
-> +	else
+> +		timer@17c20000 {
 
-Drop the else. Or do:
+[Severity: Low]
+This isn't a bug, but several child nodes under soc@0 are out of ascending
+unit-address order: interrupt-controller@17a00000 is placed before
+interrupt-controller@b220000 and spmi@c440000, lmh@18358800 is placed before
+lmh@18350800, and hwlock@1f40000 and timer@17c20000 are placed at the end
+after lmh@18350800. Could the child nodes under soc@0 be sorted by unit
+address in ascending order to match the DTS coding style?
 
-    return sf_gpio_rd(priv, GPIO_OEN(offset)) ? GPIO_LINE_DIRECTION_IN : GPIO_LINE_DIRECTION_OUT;
+[1] https://lore.kernel.org/r/20261016042432.824-6-sreeshankar0910@gmail.com
+[2] https://lore.kernel.org/r/20261030004903.1068342-1-effeffe99@gmail.com
 
-> +		return GPIO_LINE_DIRECTION_OUT;
-> +}
-> +
-> +static int sf_gpio_direction_input(struct gpio_chip *gc, unsigned int offset)
-> +{
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +
-> +	sf_gpio_wr(priv, GPIO_OEN(offset), 1);
-> +	return 0;
-> +}
-> +
-> +static int sf_gpio_direction_output(struct gpio_chip *gc, unsigned int offset,
-> +				    int value)
-> +{
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +
-> +	sf_gpio_wr(priv, GPIO_OR(offset), value);
-> +	sf_gpio_wr(priv, GPIO_OEN(offset), 0);
-> +	return 0;
-> +}
-> +
-> +static int sf_gpio_set_debounce(struct gpio_chip *gc, unsigned int offset,
-> +				u32 debounce)
-> +{
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +	unsigned long freq = clk_get_rate(priv->clk);
-> +	u64 mul;
-> +
-> +	/* (ICR + 1) * IFR = debounce_us * clkfreq_mhz / 4 */
-> +	mul = (u64)debounce * freq;
-> +	do_div(mul, 1000000 * 4);
-> +	if (mul > 0xff00)
-> +		return -EINVAL;
-> +
-> +	sf_gpio_wr(priv, GPIO_ICR(offset), 0xff);
-> +	sf_gpio_wr(priv, GPIO_IFR(offset), DIV_ROUND_UP(mul, 0x100));
-> +
-> +	return 0;
-> +}
-> +
-> +static int sf_gpio_set_config(struct gpio_chip *gc, unsigned int offset,
-> +			      unsigned long config)
-> +{
-> +	switch (pinconf_to_config_param(config)) {
-> +	case PIN_CONFIG_INPUT_DEBOUNCE:
-> +		return sf_gpio_set_debounce(gc, offset,
-> +			pinconf_to_config_argument(config));
-> +	default:
-> +		return gpiochip_generic_config(gc, offset, config);
-> +	}
-> +}
-> +
-> +static void sf_gpio_irq_ack(struct irq_data *data)
-> +{
-> +	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +	unsigned long offset = irqd_to_hwirq(data);
-> +
-> +	sf_gpio_wr(priv, GPIO_PIR(offset), 0);
-> +}
-> +
-> +static void sf_gpio_irq_mask(struct irq_data *data)
-> +{
-> +	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +	unsigned long offset = irqd_to_hwirq(data);
-> +
-> +	sf_gpio_wr(priv, GPIO_IMR(offset), 1);
-> +	sf_gpio_wr(priv, GPIO_GPIMR(offset), 1);
-> +	gpiochip_disable_irq(gc, offset);
-> +}
-> +
-> +static void sf_gpio_irq_unmask(struct irq_data *data)
-> +{
-> +	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +	unsigned long offset = irqd_to_hwirq(data);
-> +
-> +	gpiochip_enable_irq(gc, offset);
-> +	sf_gpio_wr(priv, GPIO_IMR(offset), 0);
-> +	sf_gpio_wr(priv, GPIO_GPIMR(offset), 0);
-> +}
-> +
-> +static int sf_gpio_irq_set_type(struct irq_data *data, unsigned int flow_type)
-> +{
-> +	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +	unsigned long offset = irqd_to_hwirq(data);
-> +	u32 val;
-> +
-> +	switch (flow_type) {
-> +	case IRQ_TYPE_EDGE_RISING:
-> +		val = 4;
-> +		break;
-> +	case IRQ_TYPE_EDGE_FALLING:
-> +		val = 2;
-> +		break;
-> +	case IRQ_TYPE_EDGE_BOTH:
-> +		val = 6;
-> +		break;
-> +	case IRQ_TYPE_LEVEL_HIGH:
-> +		val = 1;
-> +		break;
-> +	case IRQ_TYPE_LEVEL_LOW:
-> +		val = 0;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	sf_gpio_wr(priv, GPIO_ITR(offset), val);
-> +
-> +	if (flow_type & IRQ_TYPE_LEVEL_MASK)
-> +		irq_set_handler_locked(data, handle_level_irq);
-> +	else
-
-Drop else.
-
-> +		irq_set_handler_locked(data, handle_edge_irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct irq_chip sf_gpio_irqchip = {
-> +	.name			= KBUILD_MODNAME,
-> +	.irq_ack		= sf_gpio_irq_ack,
-> +	.irq_mask		= sf_gpio_irq_mask,
-> +	.irq_unmask		= sf_gpio_irq_unmask,
-> +	.irq_set_type		= sf_gpio_irq_set_type,
-> +	.flags			= IRQCHIP_IMMUTABLE,
-> +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-> +};
-> +
-> +static void sf_gpio_irq_handler(struct irq_desc *desc)
-> +{
-> +	struct gpio_chip *gc = irq_desc_get_handler_data(desc);
-> +	struct irq_chip *ic = irq_desc_get_chip(desc);
-> +	struct sf_gpio_priv *priv = to_sf_gpio(gc);
-> +	unsigned int irq = irq_desc_get_irq(desc);
-> +	unsigned long pending;
-> +	unsigned int group, n;
-> +
-> +	for (group = 0; group < gc->irq.num_parents; group++)
-> +		if (priv->irq[group] == irq)
-> +			break;
-> +	if (WARN_ON_ONCE(group == gc->irq.num_parents))
-> +		return;
-> +
-> +	chained_irq_enter(ic, desc);
-> +
-> +	pending = sf_gpio_rd(priv, GPIO_GPxIR(group));
-> +	for_each_set_bit(n, &pending, GPIOS_PER_GROUP) {
-> +		generic_handle_domain_irq(gc->irq.domain,
-> +					  n + group * GPIOS_PER_GROUP);
-> +	}
-> +
-> +	chained_irq_exit(ic, desc);
-> +}
-> +
-> +static void sf_gpio_reset_assert(void *data)
-> +{
-> +	reset_control_assert(data);
-> +}
-> +
-> +static int sf_gpio_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct sf_gpio_priv *priv;
-> +	struct gpio_irq_chip *girq;
-> +	struct gpio_chip *gc;
-> +	u32 ngpios, ngroups;
-> +	int ret, i;
-> +
-> +	ret = device_property_read_u32(dev, "ngpios", &ngpios);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ngroups = DIV_ROUND_UP(ngpios, GPIOS_PER_GROUP);
-> +	priv = devm_kzalloc(dev, struct_size(priv, irq, ngroups), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(priv->base))
-> +		return PTR_ERR(priv->base);
-> +
-> +	priv->clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(priv->clk))
-> +		return PTR_ERR(priv->clk);
-> +
-> +	priv->rstc = devm_reset_control_get_optional(&pdev->dev, NULL);
-> +	if (IS_ERR(priv->rstc))
-> +		return PTR_ERR(priv->rstc);
-> +
-> +	ret = reset_control_deassert(priv->rstc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(dev, sf_gpio_reset_assert, priv->rstc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (i = 0; i < ngroups; i++) {
-> +		ret = platform_get_irq(pdev, i);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		priv->irq[i] = ret;
-> +	}
-> +
-> +	gc = &priv->gc;
-> +	gc->label = KBUILD_MODNAME;
-> +	gc->parent = dev;
-> +	gc->owner = THIS_MODULE;
-> +	gc->request = gpiochip_generic_request;
-> +	gc->free = gpiochip_generic_free;
-> +	gc->get_direction = sf_gpio_get_direction;
-> +	gc->direction_input = sf_gpio_direction_input;
-> +	gc->direction_output = sf_gpio_direction_output;
-> +	gc->get = sf_gpio_get_value;
-> +	gc->set = sf_gpio_set_value;
-> +	gc->set_config = sf_gpio_set_config;
-> +	gc->base = -1;
-> +	gc->ngpio = ngpios;
-> +
-> +	girq = &gc->irq;
-> +	gpio_irq_chip_set_chip(girq, &sf_gpio_irqchip);
-> +	girq->num_parents = ngroups;
-> +	girq->parents = priv->irq;
-> +	girq->parent_handler = sf_gpio_irq_handler;
-> +	girq->default_type = IRQ_TYPE_NONE;
-> +	girq->handler = handle_bad_irq;
-> +
-> +	return devm_gpiochip_add_data(dev, gc, priv);
-> +}
-> +
-> +static const struct of_device_id sf_gpio_ids[] = {
-> +	{ .compatible = "siflower,sf19a2890-gpio" },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, sf_gpio_ids);
-> +
-> +static struct platform_driver sf_gpio_driver = {
-> +	.probe		= sf_gpio_probe,
-> +	.driver = {
-> +		.name		= "siflower_gpio",
-> +		.of_match_table	= sf_gpio_ids,
-> +	},
-> +};
-> +module_platform_driver(sf_gpio_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Qingfang Deng <qingfang.deng@siflower.com.cn>");
-> +MODULE_DESCRIPTION("GPIO driver for Siflower SoCs");
-> 
-> -- 
-> Git-155)
-> 
-> 
-
-Thanks,
-Bartosz
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-master-v12=
+-0-57fbe9eef978@gmail.com?part=3D6
