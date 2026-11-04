@@ -1,108 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795202;
-	b=hlzFzb0pBtxCrVBeWVhl52IeZ9Rv4MkCRWMCy4XxT4Bz8fJT1RB1gxLaB7Hrt18Mot0R
-	 0q2G3d5hiTjfGK9EG8F8A7TQwO/rLIr4wk8ha0OcWj8IGM6uFTB1rrOj8JF/z3sTVJRP6
-	 qojzbpYboKqFovf943vHv9L0MNbpMlM+sqVrDenDV6GsZccBL9fy8xHsY2WYRyfaMu/sO
-	 1Dwp5/+CwSBTyyLCbDpE5YuArbUWlfjkdkyAKRaWRvGx5AMYfWGA0pTgFQa7IrXykB46y
-	 7fLOpGFDLxz/VnBSc7F0MHkJ2OW9rhgdZYm2kRucP5yM40xbKv6mvSwGLKOqHeXODeg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795202;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Dgj4UbbyEsyRyIW26kcdyCzSX0/3ndCVzhgrPch3x2A=;
-	b=LocbRfdX5Mw+CQbQn7sfkBcOKYbQTdf3bxpf3rdzqPI3f0ifjI1hE9on+hwEVTkRQloZ
-	 iTiDmMF/ckUO9A2msneckNWpSjIo9FiStufBEuVWlBIVUz0FEBGVsurDaOm0Oo0UP3CLd
-	 EBv8icD/ku6+r5FPveW+Q+THmKStrui26VXk/QOhMqpZbDE/cMWstVk3mXUHghm23JsPZ
-	 hJhXWoHXrUJlncE+x6e7kZyVVoSav8/YNdohTa6jwCdD2mAydo2AxRgbVn5hbzWy67dWS
-	 aed7+M5NwYgRzIDOvDjTo7H55LofQFVo7jFwM3ESYJOpvATlWGBWMtm0aRFhhcCb3Dw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RgVnWq2l;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793795442;
+	b=MYsc3nN0Ubj2TanIY8rR29BQE/4qVly4/TLgHWfhMgPjvN698Au+hrTKjwOYc8CW/Y2W
+	 MEfCtmhO8K7B6s/XR/prqV21XtS2A+DbOqGkvvzgCmI4YNcbnkquoTRrS5E5dATmf9sOC
+	 3Bffcf7a3U0KfhX63lQ/wJTiQTFzkk2MvChDsldVgNksOhyYbmX8rxLUtwChSulJCVXXW
+	 27Qu28otGMjWuCT4yn3sZo5PFl+f9bZrQ7y0LHDqMzYU3o3zM1LChr31eN5op8I5vyTmf
+	 F7aPZ4Wpocvv/TLdIH4Dno8jn2DeKE01qqKsWnEXu/HwX+vp7b/nhf72p1G8SG4gAug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795442;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hd92GcgT778Yt0B1JwZXuH2F889LDpcB4cZALLNz4n0=;
+	b=oD20DVySv4Q/Plxfw+uof1oroeQkZh5n/tZeiww1yxHpgwgCPMvpS/WIsh6WXK63U0i2
+	 oQMZnRW0O9ABD3hFTWQS4ydzrJoj+Y8OB56FoJHctICsCMUJ1uWuXh6XLGvYDHWTyLN0/
+	 UbFFRbjlrlTeDhvKz1IwrPZQDPK/mowUe6jzD5tz4ILA7I7kZzXcGyH+91qYSZNUoxKRI
+	 asqgNGhbdUYdFA85BHhnfJarLgR04eu4eWHuUEHwL0vmkjn7oOHjLs6SWx/Iy5+z+LfUF
+	 k5MaJCnjPFcF3NaamFwlBpMEXl9P8avfmT+RS49HNLdeZQbmEDYB416PH8vdf+FNauQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Gc7mO5Yb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.9
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010009.outbound.protection.outlook.com [52.101.84.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388BA606A32E
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 388BA606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34966606A31B;
+	Wed,  4 Nov 2026 12:30:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34966606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RgVnWq2l
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso4058765e9.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:26:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793795201; x=1794400001; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dgj4UbbyEsyRyIW26kcdyCzSX0/3ndCVzhgrPch3x2A=;
-        b=RgVnWq2lvaZtWU0Msv08LbOK/GMKxv52myuefhPghawz1gSdgUmwKagZ0hkqzclOUw
-         2K7M1awyw8mfNdydMD1cmTlfIdeZA1vIukqtZHZC/WFScDxAFTNknt1YFF9QACv/QIDt
-         rAn4o2xZp36F3JkJzVwv7Oqw0yULdHNmnSkOemeR3egrOv/wGHdUF35h9fXY8ofzEaZP
-         mrxXn+le3H9ArWn3seH6v45xXXwRuztWc81y1SWQH0IHMRo+pKrfwCNOFz2G4zUjDY24
-         9niMTG/lf5aoQSa6MC0FBdG6mWKLupnIdnhHkuZT1igYWNe8oH4UkA9Hl6er4gz4WD7q
-         YeYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793795201; x=1794400001;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dgj4UbbyEsyRyIW26kcdyCzSX0/3ndCVzhgrPch3x2A=;
-        b=tqKdR3IwCgg4bW8/hzL2f0QlP+1ulz9HuN86l/siT5BbppxYHZEdU50lrCHzwLp3Lm
-         Ed0wJw8xWxjWjwsPvfjXv3crwhmjAn3HB53TRBDe2mnqAspkGYJBk7c2dTsalHYYNqDe
-         OUs48+m+2mAcxIgX6qzQ2dTh0Q7nVRb0ND5Dj+7K9O0YB5HEfqp0EKHEvqAuGOwrakoB
-         59v1/zu1hFXX3YDdq5xJqGYgXtTRf5o1Vk0AJKRp1iTlMeYlfP0rDmJ0Rzl07cfFjw9a
-         4B/AWyEwA1ecmec6iLBDGZEQZZLWiL0gcxfEtDwtpmwDCOE/v6g4w4NvGD9vx72TOxGq
-         bDYw==
-X-Gm-Message-State: APuU4Z+zTLRwSMhyRBv73v/UkB5DxEDYanhnuBFEQaMYs/UaOCnf/NSg
-	+aeE4TTwakhEeulDfvS2mGkBlIRfDIrCc6xExzUWU32i5tS5Yj0mz47K
-X-Gm-Gg: AYBFou2A3GHCgo0nNQi1HxoeocTFUefw6JMde6j5GJT24z5CVaBoyOFcdEe4en00Tp6
-	rpgfZctape2Vc4rgHJWNxQnPd64VuhjHFllGKg75fYWP192KneKq/JcYw9iTCiLTrStD8NyASlp
-	WJ4JFScDNtmcEBJWLq+3a1nnQxHRLbzF85QcRzT7DzDWueZ9RXloui8o2/bnD2jRVOZ3r1XfKOv
-	T7DjOJa+JB2G/RS2u1ccG4FHslvfvT/JjJx2sSbOfV8zGuwLm5JWqdDGXVNcVfITYTe3lf8dJ04
-	e5y6a2qk9IEvvW75Usdr3bcRKhdX/96N4oFbxsvgFIyJonomAt6rNFNjOcrXhLMk1kg3POqX2x3
-	QnwnM4nNccyqz3BUFvbFrXc6valMrgldq1WUUdvUaH+xQmv4g7MPb87MpGOpJlj73623JtfQnMG
-	QVJqZmQXqb/qDT50tYfx40fe4Lr2NyBtKwNpHuGgIo77C24tyzedbU7VKd7hmBwL3PTt34baxy4
-	Aqf0caGcRCLPS9eBwnr1US25zSZwKAfeReLeylcnFcJwSAJq0tUuewCuK6qlJ+hWwcnM10AlRKG
-	vcWOYz11dWgf+4K2EXfit6Pm4S/6KnBUEx3T3y8CH8CjuFqBVA==
-X-Received: by 2002:a05:600c:470a:b0:4a1:7e77:c382 with SMTP id 5b1f17b1804b1-4ac16acfe61mr358083475e9.5.1793795200551;
-        Wed, 04 Nov 2026 04:26:40 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43da9825bsm50492415e9.15.2026.11.04.04.26.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:26:38 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Ion Agorria <ion@agorria.com>,
-	=?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: [PATCH v13 7/7] power: supply: Add charger driver for Asus Transformers
-Date: Wed,  4 Nov 2026 14:26:06 +0200
-Message-ID: <20261104122606.215629-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104122606.215629-1-clamor95@gmail.com>
-References: <20261104122606.215629-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Gc7mO5Yb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rVuTzr9xSSomF59jDZLQpzYWSKdu4vl8ObBUl58B53Q7v91nryZfLMMNH2l6Ou1mziXL/sxknOVbCjMrBP7PQNHnc8rXHFKyDhg0PSftm90CXHTvGEx45F4BSrr3DiLUcQowdQfvD7bm27lUPrJkvrtW1u/IA3Q5Ox2of+GPrKcWNZA283rYrE/NXDY71Kz02SFUOaq7utHDPYRtHVe9dIdTbwxA9Ea+YDJ2P2eZAfCgilp/DWBdd5ktxRNWMIYixjDqReM6J197+waNA02uzLLfrD75EZ+7D7ImVzeN3MHoSG61M40RGLlGjGh+l3aC+g/g590TFYx33h/aJEw2QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hd92GcgT778Yt0B1JwZXuH2F889LDpcB4cZALLNz4n0=;
+ b=hSUDrIEbVg0vkuRCGrRalENwUC+oPlaLn4AgSLRfeU0jLGN6MHRMjYbfV8+Ntvbe7ddxcj82/d9pd8Rc958zdRSasZSvHkmurQz00quqz6DUCIfYLjj0s5YMMioYz7+u2yX8ZfUT0US9b8Czgsp0yW9aTb0KDaR2opE/55Gl9DNVT7Z9iGMHrOpGW4O//0buiibRQJRKg/v2PEL3pMon/u4Yr0XYM8rJsBcYIjMB9OsqF/LzkQ4pRiI/XfPaB44qg1bFCVu4j7qwZ+cFABu52Fcq7gAVJDE3iJegGlDxb81K3xrVhd2cIgxu1jUigSVXFpyfy5tzUgOn9z9B+dn3Dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hd92GcgT778Yt0B1JwZXuH2F889LDpcB4cZALLNz4n0=;
+ b=Gc7mO5YbdgY+z+PS8czdbIEn4JpOqCSuEZFZhh8RTbZcXp7jood2qHKzJXtKaYl9UgAfjR6iJRLVuMV3qdpCVPZWHmFDHgNOsKE0gnIzmtpgXdIH4MC8Os6Thdlb3bx7IfjjpMZLduozKLoVlIsZTq0VklSu1R/xAaIXEXwOw0hbT3/m8/p3ZBzpPCAGxONoAjfpk82Ii0eP+7hMs81s8FU+/r2obuZQBDOX8pay8c+kc0w6eWp1SbfqDQDIYHYnGejNEJAPQs50QW7hJgRr9C3b71Blkmb84C22rsz8Ml8nhkgli/l+FKrb5zzOfwwT0sLm5XOGQDRebc7jL2XHMg==
+Received: from VI1PR03CA0068.eurprd03.prod.outlook.com (2603:10a6:803:50::39)
+ by DU0PR10MB6653.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:403::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 12:30:38 +0000
+Received: from MI3PEPF0000848B.eurprd02.prod.outlook.com
+ (2603:10a6:803:50:cafe::9d) by VI1PR03CA0068.outlook.office365.com
+ (2603:10a6:803:50::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 12:30:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF0000848B.mail.protection.outlook.com (10.167.240.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 12:30:37 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
+ 2026 13:31:22 +0100
+Received: from localhost (10.48.87.100) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
+ 2026 13:30:36 +0100
+From: Patrick Delaunay <patrick.delaunay@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: Linux STM32 <linux-stm32@st-md-mailman.stormreply.com>, Patrick Delaunay
+	<patrick.delaunay@foss.st.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] arm64: dts: st: add PSCI idle state to STM32MP23 CPU domains
+Date: Wed, 4 Nov 2026 13:30:25 +0100
+Message-ID: <20261104133023.1.If2b6b99285c1e60ca11b6e7fccf7d9b130ca20dd@changeid>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,274 +112,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000848B:EE_|DU0PR10MB6653:EE_
+X-MS-Office365-Filtering-Correlation-Id: c77cee8d-e871-4870-ab22-08df3a6f6e49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|10067099003|18002099003|11063799006|261102123227099003|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|56012099006|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	DtDTCjRjimFGq3qhRmYZhRY06h+v+/RQUsLQSOpLUpRTwRepnHPB+w7xsMgxfm5QkgvHxP8zAf/+hqYuUdNslj43k9cOCSy/b5AjZVYQEpBn7FK7D7RxDyfD0BBBClxUgpfZEaQl6IkFp8dUjlfOiobFMxdF6jWFoaCJ5VZupp5XchyImEbxtIt00wU6g0H0LS7PN2QkPODaztG5AAUUq4UQeabQOiowa5AI1HTz/qTN7lvGyzW5n/3J3mWQTuvtagomEQ15b+YFPtcN9rwqkFF8pdRId1SJUFACalTkXBxC98Y7maoBq7SiLGr0IcuPWXn6QTdPzjT9eovWGuhypiWw0e/eATWSFjMBgi1mygaF66/GOtvhN4z9wjKllqNEJikpY+86Zl9DCzcQJhqwgPtgeROImi41K2BLktAn3HfjbU1BzrlRMNAI2rSoHU9Uh5c8788a1TUBW8DHDGX/AObPGMU3pKAHCr+erNKxM3mqp5IEuWY0kdYrvKJpbwvr9u8BC35YxmimGj/pVAQOB2IGk3dXCOn+KZ0qFx9YMRcQzSpwgny28vq3wz7cqXJT1vShvNdEUtrQmjIuyiUU9ubWNStTdCae75zXU0uljCnyB31gHXGTy7MuijR815/EY3LzWKCQJXMkYfP8Fxm+tvJS1qpZrHiWUzoc5OQIErtdZnTImUiOCvdW9t9fOGk1S/kyFJ4ERzexhbu99wpAww==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(10067099003)(18002099003)(11063799006)(261102123227099003)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PHj0AojaCJlXQSQgNHm9cdSaPKLJFfYCE6u8mQJ0pH3tCTN0iiX1pYwQIjcJhaR/LATnfwFkkZfCvS47x2DGMXFeF5YuuZ/iZmR7mN7uv7mL+jACEwVPB0hHsCw5MaCGQEPluD9S80VR3EmRpU6zPRJntoKSlJkMPi+hk9q7PlQ8POIuGLV5+gsq86M1lPQGjifMLPrmv2W8SukqDsQZ7eAz/9Zps9aWsilbJp8zWw0w1fxtMXVcaxLJtpOku6lL9Qa2u3d1MyPURX3N7dWh8ZQ1ul5nTx3Kxvy+7M8di5UO7mg5L/nqhMkD1OODeI7K5cj0ufkAy1g39XeISSIUnuU6KLhvmsXaHU4LdsiF8VrkEKjaMSl+j7bcPRrOBec8lPB+GGg1tEoHuzaN/qHo4fllxkDom1n1acVYLCzPXe1F/M++DekZjk7VGNn4/gHo
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 12:30:37.5553
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c77cee8d-e871-4870-ab22-08df3a6f6e49
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000848B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6653
 
-From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+Define a PSCI CPU suspend state and reference it from both STM32MP23
+CPU power domains.
 
-Add support for charger detection capabilities found in the embedded
-controller of ASUS Transformer devices.
+In OSI mode, PSCI power domains are initialized as off. The idle-state
+allows the CPU power-domain governor to manage them, avoiding probe
+stalls for devices that depend on the cluster power domain, including
+SDMMC1.
 
-Suggested-by: Maxim Schwalm <maxim.schwalm@gmail.com>
-Suggested-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
 ---
- drivers/power/supply/Kconfig                  |  11 +
- drivers/power/supply/Makefile                 |   1 +
- .../supply/asus-transformer-ec-charger.c      | 208 ++++++++++++++++++
- 3 files changed, 220 insertions(+)
- create mode 100644 drivers/power/supply/asus-transformer-ec-charger.c
 
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 856eb81c97ae9..16d0a38b41b7e 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -508,6 +508,17 @@ config CHARGER_88PM860X
- 	help
- 	  Say Y here to enable charger for Marvell 88PM860x chip.
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 14 ++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp233.dtsi |  1 +
+ 2 files changed, 15 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index fefbf6f4f153..27231e140fbb 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -24,6 +24,19 @@ cpu0: cpu@0 {
+ 			power-domains = <&cpu0_pd>;
+ 			power-domain-names = "psci";
+ 		};
++
++		idle-states {
++			entry-method = "psci";
++
++			cpu_sleep: cpu-sleep {
++				compatible = "arm,idle-state";
++				arm,psci-suspend-param = <0x00000002>;
++				local-timer-stop;
++				entry-latency-us = <150>;
++				exit-latency-us = <200>;
++				min-residency-us = <1000>;
++			};
++		};
+ 	};
  
-+config CHARGER_ASUS_TRANSFORMER_EC
-+	tristate "Asus Transformer's charger driver"
-+	depends on MFD_ASUS_TRANSFORMER_EC
-+	help
-+	  Say Y here to enable support AC plug detection on Asus Transformer
-+	  Dock.
-+
-+	  This sub-driver supports charger detection mechanism found in Asus
-+	  Transformer tablets and mobile docks and controlled by special
-+	  embedded controller.
-+
- config CHARGER_PF1550
- 	tristate "NXP PF1550 battery charger driver"
- 	depends on MFD_PF1550
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index bec4a6263048c..cd3640f4b7480 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -69,6 +69,7 @@ obj-$(CONFIG_CHARGER_RT9471)	+= rt9471.o
- obj-$(CONFIG_CHARGER_RT9756)	+= rt9756.o
- obj-$(CONFIG_BATTERY_TWL4030_MADC)	+= twl4030_madc_battery.o
- obj-$(CONFIG_CHARGER_88PM860X)	+= 88pm860x_charger.o
-+obj-$(CONFIG_CHARGER_ASUS_TRANSFORMER_EC)	+= asus-transformer-ec-charger.o
- obj-$(CONFIG_CHARGER_PF1550)	+= pf1550-charger.o
- obj-$(CONFIG_BATTERY_RX51)	+= rx51_battery.o
- obj-$(CONFIG_AB8500_BM)		+= ab8500_bmdata.o ab8500_charger.o ab8500_fg.o ab8500_btemp.o ab8500_chargalg.o
-diff --git a/drivers/power/supply/asus-transformer-ec-charger.c b/drivers/power/supply/asus-transformer-ec-charger.c
-new file mode 100644
-index 0000000000000..c7a6bd2ba533f
---- /dev/null
-+++ b/drivers/power/supply/asus-transformer-ec-charger.c
-@@ -0,0 +1,208 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/err.h>
-+#include <linux/mfd/asus-transformer-ec.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/power_supply.h>
-+#include <linux/property.h>
-+
-+struct asus_ec_charger_data {
-+	struct notifier_block nb;
-+	struct asusec_core *ec;
-+	struct power_supply *psy;
-+	struct power_supply_desc psy_desc;
-+};
-+
-+static enum power_supply_property asus_ec_charger_properties[] = {
-+	POWER_SUPPLY_PROP_USB_TYPE,
-+	POWER_SUPPLY_PROP_CHARGE_BEHAVIOUR,
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_MODEL_NAME,
-+};
-+
-+static int asus_ec_charger_get_property(struct power_supply *psy,
-+					enum power_supply_property psp,
-+					union power_supply_propval *val)
-+{
-+	struct asus_ec_charger_data *priv = power_supply_get_drvdata(psy);
-+	enum power_supply_usb_type psu;
-+	int ret;
-+	u64 ctl;
-+
-+	/* Check if model name is requested first since it needs no hw access */
-+	if (psp == POWER_SUPPLY_PROP_MODEL_NAME) {
-+		val->strval = priv->ec->model;
-+		return 0;
-+	}
-+
-+	ret = asus_dockram_access_ctl(priv->ec->dockram, &ctl, 0, 0);
-+	if (ret)
-+		return ret;
-+
-+	switch (ctl & (ASUSEC_CTL_FULL_POWER_SOURCE | ASUSEC_CTL_DIRECT_POWER_SOURCE)) {
-+	case ASUSEC_CTL_FULL_POWER_SOURCE:
-+		psu = POWER_SUPPLY_USB_TYPE_CDP;	/* DOCK */
-+		break;
-+	case ASUSEC_CTL_DIRECT_POWER_SOURCE:
-+		psu = POWER_SUPPLY_USB_TYPE_SDP;	/* USB */
-+		break;
-+	case 0:
-+		psu = POWER_SUPPLY_USB_TYPE_UNKNOWN;	/* no power source connected */
-+		break;
-+	default:
-+		psu = POWER_SUPPLY_USB_TYPE_ACA;	/* power adapter */
-+		break;
-+	}
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_ONLINE:
-+		val->intval = psu != POWER_SUPPLY_USB_TYPE_UNKNOWN;
-+		return 0;
-+
-+	case POWER_SUPPLY_PROP_USB_TYPE:
-+		val->intval = psu;
-+		return 0;
-+
-+	case POWER_SUPPLY_PROP_CHARGE_BEHAVIOUR:
-+		if (ctl & ASUSEC_CTL_TEST_DISCHARGE)
-+			val->intval = POWER_SUPPLY_CHARGE_BEHAVIOUR_FORCE_DISCHARGE;
-+		else if (ctl & ASUSEC_CTL_USB_CHARGE)
-+			val->intval = POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO;
-+		else
-+			val->intval = POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE;
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int asus_ec_charger_set_property(struct power_supply *psy,
-+					enum power_supply_property psp,
-+					const union power_supply_propval *val)
-+{
-+	struct asus_ec_charger_data *priv = power_supply_get_drvdata(psy);
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_CHARGE_BEHAVIOUR:
-+		switch ((enum power_supply_charge_behaviour)val->intval) {
-+		case POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO:
-+			return asus_dockram_access_ctl(priv->ec->dockram, NULL,
-+				ASUSEC_CTL_TEST_DISCHARGE | ASUSEC_CTL_USB_CHARGE,
-+				ASUSEC_CTL_USB_CHARGE);
-+
-+		case POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE:
-+			return asus_dockram_access_ctl(priv->ec->dockram, NULL,
-+				ASUSEC_CTL_TEST_DISCHARGE | ASUSEC_CTL_USB_CHARGE, 0);
-+
-+		case POWER_SUPPLY_CHARGE_BEHAVIOUR_FORCE_DISCHARGE:
-+			return asus_dockram_access_ctl(priv->ec->dockram, NULL,
-+				ASUSEC_CTL_TEST_DISCHARGE | ASUSEC_CTL_USB_CHARGE,
-+				ASUSEC_CTL_TEST_DISCHARGE);
-+		default:
-+			return -EINVAL;
-+		}
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int asus_ec_charger_property_is_writeable(struct power_supply *psy,
-+						 enum power_supply_property psp)
-+{
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_CHARGE_BEHAVIOUR:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct power_supply_desc asus_ec_charger_desc = {
-+	.name = "asus-ec-charger",
-+	.type = POWER_SUPPLY_TYPE_USB,
-+	.charge_behaviours = BIT(POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO) |
-+			     BIT(POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE) |
-+			     BIT(POWER_SUPPLY_CHARGE_BEHAVIOUR_FORCE_DISCHARGE),
-+	.usb_types = BIT(POWER_SUPPLY_USB_TYPE_UNKNOWN) |
-+		     BIT(POWER_SUPPLY_USB_TYPE_SDP) |
-+		     BIT(POWER_SUPPLY_USB_TYPE_CDP) |
-+		     BIT(POWER_SUPPLY_USB_TYPE_ACA),
-+	.properties = asus_ec_charger_properties,
-+	.num_properties = ARRAY_SIZE(asus_ec_charger_properties),
-+	.get_property = asus_ec_charger_get_property,
-+	.set_property = asus_ec_charger_set_property,
-+	.property_is_writeable = asus_ec_charger_property_is_writeable,
-+	.no_thermal = true,
-+};
-+
-+static int asus_ec_charger_notify(struct notifier_block *nb,
-+				  unsigned long action, void *data)
-+{
-+	struct asus_ec_charger_data *priv =
-+		container_of(nb, struct asus_ec_charger_data, nb);
-+
-+	switch (action) {
-+	case ASUSEC_SMI_ACTION(POWER_NOTIFY):
-+	case ASUSEC_SMI_ACTION(ADAPTER_EVENT):
-+		power_supply_changed(priv->psy);
-+		break;
-+	}
-+
-+	return NOTIFY_DONE;
-+}
-+
-+static int asus_ec_charger_probe(struct platform_device *pdev)
-+{
-+	struct asusec_core *ec = dev_get_drvdata(pdev->dev.parent);
-+	struct asus_ec_charger_data *priv;
-+	struct device *dev = &pdev->dev;
-+	struct power_supply_config cfg = { };
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, priv);
-+	priv->ec = ec;
-+
-+	cfg.fwnode = dev_fwnode(dev->parent);
-+	cfg.drv_data = priv;
-+
-+	memcpy(&priv->psy_desc, &asus_ec_charger_desc, sizeof(priv->psy_desc));
-+	priv->psy_desc.name = devm_kasprintf(dev, GFP_KERNEL, "%s-charger",
-+					     priv->ec->name);
-+	if (!priv->psy_desc.name)
-+		return -ENOMEM;
-+
-+	priv->psy = devm_power_supply_register(dev, &priv->psy_desc, &cfg);
-+	if (IS_ERR(priv->psy))
-+		return dev_err_probe(dev, PTR_ERR(priv->psy),
-+				     "Failed to register power supply\n");
-+
-+	priv->nb.notifier_call = asus_ec_charger_notify;
-+
-+	return blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
-+}
-+
-+static void asus_ec_charger_remove(struct platform_device *pdev)
-+{
-+	struct asus_ec_charger_data *priv = platform_get_drvdata(pdev);
-+	struct asusec_core *ec = priv->ec;
-+
-+	blocking_notifier_chain_unregister(&ec->notify_list, &priv->nb);
-+}
-+
-+static struct platform_driver asus_ec_charger_driver = {
-+	.driver.name = "asus-transformer-ec-charger",
-+	.probe = asus_ec_charger_probe,
-+	.remove = asus_ec_charger_remove,
-+};
-+module_platform_driver(asus_ec_charger_driver);
-+
-+MODULE_ALIAS("platform:asus-transformer-ec-charger");
-+MODULE_AUTHOR("Michał Mirosław <mirq-linux@rere.qmqm.pl>");
-+MODULE_DESCRIPTION("ASUS Transformer Pad battery charger driver");
-+MODULE_LICENSE("GPL");
+ 	arm-pmu {
+@@ -123,6 +136,7 @@ psci {
+ 
+ 		cpu0_pd: power-domain-cpu0 {
+ 			#power-domain-cells = <0>;
++			domain-idle-states = <&cpu_sleep>;
+ 			power-domains = <&cluster_pd>;
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/st/stm32mp233.dtsi b/arch/arm64/boot/dts/st/stm32mp233.dtsi
+index 78f4059fca5d..cebefd99906f 100644
+--- a/arch/arm64/boot/dts/st/stm32mp233.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp233.dtsi
+@@ -26,6 +26,7 @@ arm-pmu {
+ 	psci {
+ 		cpu1_pd: power-domain-cpu1 {
+ 			#power-domain-cells = <0>;
++			domain-idle-states = <&cpu_sleep>;
+ 			power-domains = <&cluster_pd>;
+ 		};
+ 	};
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+branch: master
+
 -- 
-2.53.0
+2.43.0
 
