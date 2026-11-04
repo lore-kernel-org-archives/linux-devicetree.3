@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776920;
-	b=CXWleACjInL8Ch6mYrvotm0Q0aFww7xCk/T+iBJb5Nr9pK+bp5MDL8iLxEILMauX/mkW
-	 6Ga0pABm6ym7L0W0jkApWzFWNmpRSouglglxJVc+5arkoBFZB105SPhC4NnTBtPqiRl90
-	 ul44DWyrKyg4nYP+/gZfmEg+IdcfEBPxqwbxDSnvrFKvdOHSikuaEu7KU8pmxlg4+3kqF
-	 FoKkayXvUJpHbGvyniZxROi8RFk5iKJkZIzOWDznml5eM63xSIWe3cAaiKkpNrEQrDmB8
-	 Zg1NDK9ipWy+W4OgPYOK5xmAfabNUwJApBe0/VnOS3iAeS1OYzV8/0Tts49xr5/zzMw==
+	t=1793776932;
+	b=AhXRY4qkBhUWdv9VHIP1SgskuskhA0i/McBHMm7i3ekUWkm2C33Sp+Fw7tBXk1UJJs26
+	 /9f/b2SzDQBL0D5Fv/k+kIaiGlw6tzSwH/Ld2tDOy0P99IEjKSVriPNhEzND5yB35egyJ
+	 r4/DIcMeadQ7L8R/wqFW/vpVj3rGAouMaufI7BT7w7YTpp4t5p8+3/I/oDTceJt3OdjWS
+	 vFn/aqxow9qrmtQgMAFHZ8ansrcJE9IWW+TCaw8zpGxbxEumYagI2o/oydeZ9zDZzJi+/
+	 Um2eouK8BGjZFK7hBsPfF+yVUoPpHEsa+m1pAp7kTPHJ5JMbq9yV3k1Fo03e9qcCk/g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776932;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=vmsHHgSmlmWchoSirRQsWv7W1ZDjQH5Hl4rWSLwupOw=;
-	b=LPWodXsA2UUKnfZkWaiFOhPluA1vgRxeLg5e7e0hKfvCFnCHYj79ViDZTFnOI7ErAGJk
-	 hD6sKXkEHXocfgFhop2O2uDoJTYR3R8FOlIjRzV1jcYQ2Mn40JqkH2vFQBLHZqCilMRNq
-	 aex/KDd+4mK/hhFkiNST8DifizO1IPsvhS5QW96OOrjR7Q1cioF+lTSLXNPwPRzAvBjeT
-	 7itniYCrefTiwQeE39FfmDEZcYZDRo0hZggcmtuhLvdWNDx5vswhkZcF5Moo2NLM1upsL
-	 rhBaV/uGQ9HZsHbrTwXQOma+sfMHllMFAUnsetGCZEAfsSNKrUjZdtQaVQZPKm6a4dQ==
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eLEmq3EOrGZIMwAreirF8EBFdtGikzzH70m8KdFqnxw=;
+	b=eRLterExLDLIBm4daX3ay6vkPtvrnwSrZ6cNTeeRMhlic+PVsc5N80VAdixrKWRxuPCn
+	 Q60bJhXmHZbE/+CoCKh91b+N4ttI4RaRRbl9WEDjgL3kOO9r+WEAw3ysGi44BkIV2Jm2M
+	 SYdiUa/hUTq1u3mXDeC3HPCdsqQdXCJbviUCMq13N1j53aqo6HuyOmWTVlMT2wB3S8qNh
+	 T456mpO6yopy69TnPPls+6N7APlYFW4YanUPv7VV5UNf2GhO80Oxl9jhJkw3NhOGt4XT8
+	 jzswW9eJe+3B6KV+CFCI2aKNKMfvkoCmitu3fyoGzEWxJOhED6xXekJMuVlVty61mfA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmuq4f9x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oSVIuG3c;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EC2606D812;
-	Wed,  4 Nov 2026 07:22:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D8A606A337;
+	Wed,  4 Nov 2026 07:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmuq4f9x
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oSVIuG3c
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776920;
-	b=ndUMiU/EtkDKhxEA+bcdlpeElaGBLwfHIR5SiLXHpS0Mqu4ZOpfSXRfmEIqkRUsKK7uh
-	 KzNhi3+CZt5Ju4d+lkKNbISnx0DgXiJeh0cvLqLJZ67+FirOxWlIoAstrkRSzOVEoCWjv
-	 1jlrtKObUr7CmwLxB3PM/e+72K/rwboxeh2/X/MFF+INkXjkjU3oOhxeeqbl59KBGp07M
-	 f7gNZyuITFBTXS0Ytl2s453hzVlH3cHORWOm7uQ6Leeb48PaIHcw4+UtnJXJhZ1qSRcqn
-	 x8ijT6acfywNHbjVavCw4bdbHzoslp1t1FhnUcVcaT1c9VCb2GMNyOGQA9L45IVQHKw==
+	t=1793776931;
+	b=vJncmXvZ2UiuIp+D/mvaFlo2kkuM8QNrFcaBcet2lbvOUGTvVKPxRmSIiop9UsTO9yO5
+	 iUjo/LMHvhkzP157u8RgwWS3qL4SRQ86pRe7n1jNPACXcDwnMdLzyE8Z82G45ktnUTosj
+	 66HCfW1vlU3x0+uJeJZA1Yt5g++MB1Mkrr2Vxeqgu5cN7T1+gzPvPTqRyWrFPjTm2JQ2I
+	 WwdrUloASYfD5cUcFizi8BqybhdrBz0ATPDa21aEWoEBckUnS81wxDp4n7+rZOMVIEc2r
+	 vReDCCiXTxp283mCTyC9WiTbVl5jaD3zGsbM//C/Uh9Uq4sn4COW3bEVcFsycX2ue1g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776920;
+	c=relaxed/relaxed; t=1793776931;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=vmsHHgSmlmWchoSirRQsWv7W1ZDjQH5Hl4rWSLwupOw=;
-	b=IGwTYPbdwBmMsMPKEXL5n1x7vtWaxaRyu07dUBcd3kHO+Ce9QzRP8eHZ5y7Ux94A01jE
-	 xpcbHyDwl+op5QSFFnNZ5X5EX1/PcN39sstdVzQIzb2WNetdyfh8VUxx0rbTzNlXYBVhe
-	 0YoWsg0AqKVcZtAc3QAjsQPlfLD12K8820kkvNwh1naie9gIGDC+kKBuoVs3me0sjbRcB
-	 9eULSMD8N7qS2YObN7mGYPdS7rq6+tAz7IfsddnBm9/YdGaFB42VyKB6rFZMSyDnXbOtt
-	 I+kv5vSHpdmQPXgE5IcNwExd1lIbOvBh1Fhd7x1G2oLKQh97VjBUeFA9GNjZRLWozVg==
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eLEmq3EOrGZIMwAreirF8EBFdtGikzzH70m8KdFqnxw=;
+	b=RBDOvuG90WMICdzjverpUFkA3ckw2VBJYkQA5mwICYN4hpIMta9vuzBJhZWthtIMpCUC
+	 hPZF3OTVXmKK2mm6GECNLXizQNd5Vznuf0BkM280Xk/vPcZqEzgICKEKftVDUyuWRzb+F
+	 3ysWWPVRNxKoCvkcUkxU386vWdeq72DGDJ4eHIwt0bSWOnNgD5LemKdpmaXBdqUny84hE
+	 IoKdoAE8akz0oD21sDz2JwxayV335K2eyHSh1UScSU6i6pWaZFfL1QqYVwt7xNtYjgKM/
+	 1GdWb10jkOazlzB8KeCWJlZEbR5d4y/an4XFXap8Q+1TtMVel8p2MlrLJhKi0Qx9b+Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 12A2C1F00A1E;
-	Wed,  4 Nov 2026 07:21:59 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 187BC1F00A15;
+	Wed,  4 Nov 2026 07:22:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776920;
-	bh=vmsHHgSmlmWchoSirRQsWv7W1ZDjQH5Hl4rWSLwupOw=;
+	s=k20260515; t=1793776931;
+	bh=eLEmq3EOrGZIMwAreirF8EBFdtGikzzH70m8KdFqnxw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jmuq4f9xNoQU/YFL9FPcgSm+AQe19x5y5FbC34vaHRNAu8HDxqGxCOU+8LeswKaVm
-	 Vqik6P5t3NbOX13wnf8YkHhBRLNVBVJYiTeZ79r94wT4FnYoEsAbcRxvDfTDe0GP2a
-	 qSGnDSUkGJeK9/8lv+oDB5wVtQWmLWk7bAmOBEbQg2VKWB9U93gi/7ctzA5w2R3h1h
-	 yvkRgI+ARgrMqQ88k9sFT3QgQ+yyTHqt89Gxf79njAlQJ9s0cuVZtEh2ntld64Gv4X
-	 DFnPozcSUf+VB0TJ5ZQxvXUbiiAX0B0NVWx1UpaUQfu5xVwWy80qSAG3OeycsTyIxB
-	 G4TDmPQiD5DjQ==
+	b=oSVIuG3cY/xmwKeLJkDfCIOUXYgxUMTdfafQ/0Yc+cS2/mi38FygG5wIhazVyYFUP
+	 eNQS2c2h5KemtWbqlWE5cBMRLYLCmGt+YfiMtb3dSWdHM5vHLjdVCUvsREs9fL6QlV
+	 O7pQxbnxjKof9SvV+W5qmoncxyY5tWxoOJl65Ajp5+Q3gm4j2ARNsmNIADUC3GEPjq
+	 Z8OcsrxOmRn10W/5hFNOYQgk2yJgSASUX4qOXPH0bdc8iHl43kIaLcWTz/1B04fi9d
+	 ZN95GUj+uYwRBh8Q4LkuOM9LsSGo/WeBljQl86Jj7t07rQkPwLDxBlwIJ1ss2VJYy7
+	 s8m6/p5u5OOzw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9C59446D19;
-	Wed,  4 Nov 2026 07:21:58 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id A2F9446D21;
+	Wed,  4 Nov 2026 07:22:10 +0000 (UTC)
 From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Wed, 04 Nov 2026 02:21:53 -0500
-Subject: [PATCH 2/2] phy: siflower: Add SF19A2890 USB 2.0 PHY driver
+Date: Wed, 04 Nov 2026 02:22:06 -0500
+Subject: [PATCH 1/3] dt-bindings: usb: dwc2: Add Siflower SF19A2890
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,250 +83,51 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-sf19a2890-usb-phy-v1-2-db0cad937614@telaak.dev>
-References: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
-In-Reply-To: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Joseph Telaak <joseph@telaak.dev>
+Message-Id: <20261104-sf19a2890-dwc2-v1-1-d959375e26ab@telaak.dev>
+References: <20261104-sf19a2890-dwc2-v1-0-d959375e26ab@telaak.dev>
+In-Reply-To: <20261104-sf19a2890-dwc2-v1-0-d959375e26ab@telaak.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Minas Harutyunyan <hminas@synopsys.com>
+Cc: Chuanhong Guo <gch981213@gmail.com>, linux-usb@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776918; l=6750;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776930; l=810;
  i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=55sjfweFDl3DG/Y6urUkTYcKNznJpA6dYN0tn3GpR60=;
- b=fBCGjzUkgrhO5V0MSgDZavQVMJosq7wf7j6vJZc3dSEWh8cyjWVRUkp7kWfTq+V2kGKxAF4yj
- gploIT2HsfeBbYHKLst8Z/GapSmTymX/USDsbzbBTE991U0KrihAAz2
+ bh=y6CqO/fqkTYFYGM/WugYCN4cRmBu9+bliuNhbXSwqbQ=;
+ b=4a6RgqvjF3gfLx2o9U80bxzb+8Hd5FVq7eSWfhku+r1rTxlvh5KAJ7GOtCvC/fEXYCC6AHRV7
+ dhnasCqWMiMDEcRoBcLEwCfsZY2EdsYMZ+6Cy7YUcTpcYWvy8w4K7ET
 X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
  pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
 X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
  auth_id=1404
 X-Original-From: Joseph Telaak <joseph@telaak.dev>
 Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-From: Chuanhong Guo <gch981213@gmail.com>
+From: Joseph Telaak <joseph@telaak.dev>
 
-Add a driver for the USB 2.0 PHY of the Siflower SF19A2890. Powering it
-on enables its reference clock, releases its two resets and takes it
-out of sleep.
+The Siflower SF19A2890 has a DWC OTG 3.30a controller, with its own
+bus burst limit and an OTG interrupt quirk.
 
-Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
-[jt: from Chuanhong's siflower-7.1 branch, the SF19A2890 PHY only; reset
- names "por" and "phy", dev_err_probe() for the resets, drop the unused
- includes and drvdata, Kconfig dependencies and help, commit message,
- subject]
 Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 ---
- drivers/phy/Kconfig                      |   1 +
- drivers/phy/Makefile                     |   1 +
- drivers/phy/siflower/Kconfig             |  12 +++
- drivers/phy/siflower/Makefile            |   2 +
- drivers/phy/siflower/phy-sf19a2890-usb.c | 143 +++++++++++++++++++++++++++++++
- 5 files changed, 159 insertions(+)
+ Documentation/devicetree/bindings/usb/dwc2.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 105fbe408..8ba351e23 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -194,6 +194,7 @@ source "drivers/phy/realtek/Kconfig"
- source "drivers/phy/renesas/Kconfig"
- source "drivers/phy/rockchip/Kconfig"
- source "drivers/phy/samsung/Kconfig"
-+source "drivers/phy/siflower/Kconfig"
- source "drivers/phy/socionext/Kconfig"
- source "drivers/phy/sophgo/Kconfig"
- source "drivers/phy/spacemit/Kconfig"
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index c6dd02003..8c917c4c5 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -46,6 +46,7 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
- 					   renesas/	\
- 					   rockchip/	\
- 					   samsung/	\
-+					   siflower/	\
- 					   socionext/	\
- 					   sophgo/	\
- 					   spacemit/	\
-diff --git a/drivers/phy/siflower/Kconfig b/drivers/phy/siflower/Kconfig
-new file mode 100644
-index 000000000..5ae1f83d1
---- /dev/null
-+++ b/drivers/phy/siflower/Kconfig
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config PHY_SF19A2890_USB
-+	tristate "Siflower SF19A2890 USB 2.0 PHY driver"
-+	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
-+	depends on OF
-+	select GENERIC_PHY
-+	help
-+	  Enable this to support the USB 2.0 PHY of the Siflower SF19A2890,
-+	  used by its DWC2 controller. Its reference clock and its resets
-+	  come from the USB block's clock and reset manager.
-+	  Say M or Y if the kernel is to run on this SoC.
-diff --git a/drivers/phy/siflower/Makefile b/drivers/phy/siflower/Makefile
-new file mode 100644
-index 000000000..a12383193
---- /dev/null
-+++ b/drivers/phy/siflower/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_PHY_SF19A2890_USB)	+= phy-sf19a2890-usb.o
-diff --git a/drivers/phy/siflower/phy-sf19a2890-usb.c b/drivers/phy/siflower/phy-sf19a2890-usb.c
-new file mode 100644
-index 000000000..115e38b8c
---- /dev/null
-+++ b/drivers/phy/siflower/phy-sf19a2890-usb.c
-@@ -0,0 +1,143 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+
-+#define USB_SLEEPM 0x4
-+
-+struct sf19a2890_usb_phy {
-+	struct device *dev;
-+	struct clk *phy_clk;
-+	struct reset_control *usb_phy_rst;
-+	struct reset_control *power_on_rst;
-+	void __iomem *base;
-+};
-+
-+static int sf19a2890_usb_phy_power_on(struct phy *phy)
-+{
-+	struct sf19a2890_usb_phy *p_phy = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = clk_prepare_enable(p_phy->phy_clk);
-+	if (ret < 0) {
-+		dev_err(p_phy->dev, "Failed to enable PHY clock: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = reset_control_deassert(p_phy->usb_phy_rst);
-+	if (ret)
-+		goto err1;
-+
-+	ret = reset_control_deassert(p_phy->power_on_rst);
-+	if (ret)
-+		goto err2;
-+
-+	writel(1, p_phy->base + USB_SLEEPM);
-+	return 0;
-+err2:
-+	reset_control_assert(p_phy->usb_phy_rst);
-+err1:
-+	clk_disable_unprepare(p_phy->phy_clk);
-+	return ret;
-+}
-+
-+static int sf19a2890_usb_phy_power_off(struct phy *phy)
-+{
-+	struct sf19a2890_usb_phy *p_phy = phy_get_drvdata(phy);
-+
-+	writel(0, p_phy->base + USB_SLEEPM);
-+	reset_control_assert(p_phy->power_on_rst);
-+	reset_control_assert(p_phy->usb_phy_rst);
-+	clk_disable_unprepare(p_phy->phy_clk);
-+	return 0;
-+}
-+
-+static const struct phy_ops sf19a2890_usb_phy_ops = {
-+	.power_on = sf19a2890_usb_phy_power_on,
-+	.power_off = sf19a2890_usb_phy_power_off,
-+	.owner = THIS_MODULE,
-+};
-+
-+static int sf19a2890_usb_phy_probe(struct platform_device *pdev)
-+{
-+	struct sf19a2890_usb_phy *p_phy;
-+	struct phy_provider *provider;
-+	struct phy *phy;
-+	int ret;
-+
-+	p_phy = devm_kzalloc(&pdev->dev, sizeof(*p_phy), GFP_KERNEL);
-+	if (!p_phy)
-+		return -ENOMEM;
-+
-+	p_phy->dev = &pdev->dev;
-+
-+	p_phy->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(p_phy->base))
-+		return PTR_ERR(p_phy->base);
-+
-+	p_phy->phy_clk = devm_clk_get(p_phy->dev, NULL);
-+	if (IS_ERR(p_phy->phy_clk))
-+		return dev_err_probe(p_phy->dev, PTR_ERR(p_phy->phy_clk),
-+				     "failed to get usb phy clock\n");
-+
-+	p_phy->power_on_rst =
-+		devm_reset_control_get_exclusive(&pdev->dev, "por");
-+	if (IS_ERR(p_phy->power_on_rst))
-+		return dev_err_probe(p_phy->dev, PTR_ERR(p_phy->power_on_rst),
-+				     "failed to get power-on reset\n");
-+
-+	ret = reset_control_assert(p_phy->power_on_rst);
-+	if (ret)
-+		return ret;
-+
-+	p_phy->usb_phy_rst =
-+		devm_reset_control_get_exclusive(&pdev->dev, "phy");
-+	if (IS_ERR(p_phy->usb_phy_rst))
-+		return dev_err_probe(p_phy->dev, PTR_ERR(p_phy->usb_phy_rst),
-+				     "failed to get PHY reset\n");
-+
-+	ret = reset_control_assert(p_phy->usb_phy_rst);
-+	if (ret)
-+		return ret;
-+
-+	phy = devm_phy_create(p_phy->dev, NULL, &sf19a2890_usb_phy_ops);
-+	if (IS_ERR(phy))
-+		return dev_err_probe(p_phy->dev, PTR_ERR(phy),
-+				     "Failed to create PHY\n");
-+
-+	phy_set_drvdata(phy, p_phy);
-+
-+	provider =
-+		devm_of_phy_provider_register(p_phy->dev, of_phy_simple_xlate);
-+	if (IS_ERR(provider))
-+		return dev_err_probe(p_phy->dev, PTR_ERR(provider),
-+				     "Failed to register PHY provider\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id sf19a2890_usb_phy_of_match[] = {
-+	{
-+		.compatible = "siflower,sf19a2890-usb-phy",
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, sf19a2890_usb_phy_of_match);
-+
-+static struct platform_driver sf19a2890_usb_phy_driver = {
-+	.probe		= sf19a2890_usb_phy_probe,
-+	.driver		= {
-+		.name	= "sf19a2890-usb-phy",
-+		.of_match_table = sf19a2890_usb_phy_of_match,
-+	},
-+};
-+module_platform_driver(sf19a2890_usb_phy_driver);
-+
-+MODULE_AUTHOR("Ziying Wu <ziying.wu@siflower.com.cn>");
-+MODULE_DESCRIPTION("Siflower SF19A2890 USB2.0 PHY driver");
-+MODULE_LICENSE("GPL");
+diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
+index 6c3a10991..8217e84be 100644
+--- a/Documentation/devicetree/bindings/usb/dwc2.yaml
++++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
+@@ -59,6 +59,7 @@ properties:
+       - const: amcc,dwc-otg
+       - const: apm,apm82181-dwc-otg
+       - const: snps,dwc2
++      - const: siflower,sf19a2890-usb
+       - const: sophgo,cv1800b-usb
+       - const: st,stm32f4x9-fsotg
+       - const: st,stm32f4x9-hsotg
 
 -- 
 Git-155)
