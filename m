@@ -1,57 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.31.26.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797246;
-	b=iqnsP/wtrhjmzQr7oCUH8HDNJgwO8j58aG4Z0i6rySTe4FFLjZZuXZkZGxzyl8U2/rnq
-	 9BemSTVY47AvfA7CZ7yIoIiI6ELzbxEfjWXIQE5N7B0EmrL6vHs5JCQUK40MpPYtm5KV1
-	 iyScJj+70wOWBz5BPRAPNc8+7xQ5fSVFfitdDcf8b8vZB6K45VLAe9Ka80JPAM+lo096b
-	 GAMA3+rs7vhR+ao+D2IgccG/dUPi6Ez7KPFnjpyLt0iAM/M9hHHRSDjWCgZe7yU6wPRg6
-	 z8wGpY2c+fgsR4o33I0UPLKZgahmokppEOzCu6FjdFb1w5A+V1ByKpsF6FlJ38jYPvg==
+	t=1793797361;
+	b=1QN6ocR7YWCuNxjohfO91ww0nI7hayTOOJH5XqZuEcR5/DVxhjsIKJ/yNIVMr3u0pBaZ
+	 sm23/p3PXIgC1FGzEzSSUiVR0PSRPZPgJVYk4Sk3D4oXCRTgFqbkv0o4gNbCvml9SA0Bp
+	 CMvxxDiHQVKHkZzqlfQZQ68CiW9/JOvShDGUFytBL4NXoUXQ5H83F1y5VozWf87odTSsE
+	 rhDpZB6AEFOd5z0uan5otz01raT0Q+D1AuhmzYdW01soq5NUN/QalSFrRZo9L8hIaEM3n
+	 Tcm1+S4K1oLY24Y1CxsaDcqxcmLafy182nv9HellBTq5eHOoSV90EIfCuUeX7NrF2lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797246;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=UD40//OcIuMR1lC0i06JFbRnW3uRqKUV031SU597fIQ=;
-	b=cmzQCXyhy23Ip2mCmaL81pzzhq6O+OL53NK/1i9OPuICwGoifqXuF4mcIEcWzT9uxGCZ
-	 KDAWb4vhe/yti0vhDLS3M19LhevV4bPJmAhFvcUePu43Wa8t+HcD8BJDwPQ4D82mEIBOs
-	 bIYlTLRyCKtHdKSSR+UKRKoglEJRxLy/QAjrut3boWlKfnVK8gMR5xrllAOQIiplK+9hq
-	 hr4C19lkLczJqVEk1HJKO3MQxEByKFJipmIRME/KApMDdxVzMQrNcueprM4M9LQt/w+F6
-	 eZDXLb4AGfw3Yx3sQMdQ7rvu4joSJlwVLJ+Ynur2fLwm5l9xqzy/tQ9hKPiFPwZMXVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797361;
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=J4ABuYWkQ5zq8jCD2Src/25kn3cAI+KRj6yV2g4zeiI=;
+	b=xZZF+6/rW9keZC4G8A3OPJgyKKQOobGZ2utgSuZ16xgnuDH38P3oeUDE00m+0WYncJt2
+	 HRhg2cGHHiTl1DsV4M9wSGxo9Zq85il8aVjx4GwVGqc06OlLKUujvRK2zSZm0awnwga2Z
+	 TDjKCJF5R+zOE7qzWXCialYpJCTCW/ck1ULvffLsCu6KKa8C8pp5tqEguh2zlv/Wf0lLw
+	 AhYIfOjiaZ+LZiIkAAIccnxQnFGl9oTs55zdl4EVwXUruZplr3baVwWbl1p6MIPXykOUd
+	 biHKegPSEm65OvvfrtNswzqhz7AkIY2dqpuI8fDSsJaOsgwYIuJJQyd/xYxHk84gzmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDWfVok4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rudorff.com;
+	spf=pass smtp.mailfrom=rudorff.com;
+	arc=none smtp.remote-ip=193.31.26.27
+Received: from rudorff.com (rudorff.com [193.31.26.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EE1606D803;
-	Wed,  4 Nov 2026 13:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDWfVok4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 766361F00A17;
-	Wed,  4 Nov 2026 13:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797245;
-	bh=UD40//OcIuMR1lC0i06JFbRnW3uRqKUV031SU597fIQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eDWfVok4bq4ZGGCxgS3htSnfDgiy/4J0nrfSxz2ELTspb+LhMpNImx3ew1krnRSO0
-	 CYMtugg+D/I/qnAO4QtqmQeD2xk2mL0QF2VABQH/L2VPjOE9PypiJeRnPqmXf2Kbdj
-	 M9cjz6b4r0Pfh2xvROzYotZLrCPmB6Ew2TLt0bkoc2W9RbMEwKd1AVFdvXvwVWCFT3
-	 ceWsuOJdNttqDWWQ+wsXHiMI3LoX8Yq4J74FK6hv1lFz/bHjgGml56hvjWllwDfCq8
-	 edUe0mKlAmvsbFwp/N2Pn+/fh3gXq8W6ozahMVK0oUqypiPMQtstM7nWgC5KP3NRoa
-	 OgPDtePLycgjQ==
-Message-ID: <sashiko-outbox-197316@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/3] dt-bindings: input: touchscreen: edt-ft5x06:
- Add wakeup gestures
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261104-ft5x06-double-tap-v1-1-5a1bd80449cc@ixit.cz>
-References: <20261104-ft5x06-double-tap-v1-0-5a1bd80449cc@ixit.cz>
- <20261104-ft5x06-double-tap-v1-1-5a1bd80449cc@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 13:00:45 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B706606EEAB;
+	Wed,  4 Nov 2026 13:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B706606EEAB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
+Received: from [127.0.1.1] (dynamic-002-211-221-196.2.211.pool.telefonica.de [2.211.221.196])
+	by rudorff.com (Postfix) with ESMTPSA id CFE9140B57;
+	Wed,  4 Nov 2026 14:02:38 +0100 (CET)
+From: Christoph Rudorff <chris@rudorff.com>
+Date: Wed, 04 Nov 2026 14:02:28 +0100
+Subject: [PATCH v4 2/3] iio: light: gp2ap002: add led power supply
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,79 +44,243 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-iio-light-gp2ap002-v4-2-fa1cbaad2ce5@rudorff.com>
+References: <20261104-iio-light-gp2ap002-v4-0-fa1cbaad2ce5@rudorff.com>
+In-Reply-To: <20261104-iio-light-gp2ap002-v4-0-fa1cbaad2ce5@rudorff.com>
+To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Christoph Rudorff <chris@rudorff.com>
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: input: edt-ft5x06: event-* nodes encode OS policy i=
-n DT
---
+Problem: no irq received. Not working.
 
-commit 6f5aa6f1554c8cb1ae88e2ea6e589e4befad85e1
-Author: David Heidelberg <david@ixit.cz>
+According to datasheet page 8 "Recommended external circuit",
+it got tree pins to supply: vio, vdd and vled->leda.
 
-dt-bindings: input: touchscreen: edt-ft5x06: Add wakeup gestures
+We were missing to power the led (pin leda)
 
-This patch adds event child nodes to the edt-ft5x06 touchscreen binding
-to describe firmware wakeup gestures and map them to Linux input keycodes.
+* add leda regulator
+* use regulator_bulk_*()
+* pretty up set voltages
 
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x=
-06.yaml b/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.ya=
-ml
-> index 68b2f16016543..bfc540665a2d2 100644
-> --- a/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
-> @@ -111,6 +111,25 @@ properties:
-> =20
->    interrupt-controller: true
-> =20
-> +patternProperties:
-> +  "^event-(tap-double|swipe-(up|down|left|right))$":
-> +    type: object
-> +    $ref: ../input.yaml#
-> +    description:
-> +      A gesture the controller keeps detecting in its gesture mode, repo=
-rted
-> +      as a key on a separate input device. Gesture mode is entered when =
-the
-> +      touchscreen input device is closed or the system suspends, provided
-> +      the device may wake up the system. Only controllers whose firmware
-> +      implements the gesture registers support these nodes.
-> +
-> +    properties:
-> +      linux,code: true
-> +
-> +    required:
-> +      - linux,code
-> +
-> +    additionalProperties: false
+Tested on samsung-j5 (msm8916)
 
-[Severity: Medium]
-Do these event-(tap-double|swipe-(up|down|left|right)) child nodes encode
-OS/userspace policy and Linux driver details rather than describing the
-hardware?
+Signed-off-by: Christoph Rudorff <chris@rudorff.com>
 
-Unlike physical buttons, printed touch-overlay segments (touch-overlay in
-touchscreen.yaml), or trackpad controllers with per-gesture hardware
-sensing and timing tuning registers (such as azoteq,iqs7211.yaml, which
-configures hardware duration, distance, angle, and threshold registers per
-gesture), a touchscreen panel has no board-specific physical wiring or
-markings that determine whether double-tap or directional swipe wakeup
-gestures exist or what keycode they map to.
+v2: Use regulator bulk api.
+v3: pretty up, rename vled to leda
+v4: add namespace "GP2AP002", use separate value for setting vdd,
+    moved static supply-data back to global, more readable imho
+---
+ drivers/iio/light/gp2ap002.c | 92 +++++++++++++++++++++-----------------------
+ 1 file changed, 43 insertions(+), 49 deletions(-)
 
-Whether the touchscreen interrupt can wake the system is already described
-by the standard wakeup-source property, and whether the controller
-supports gesture detection is determined by the controller compatible and
-firmware. Choosing which wakeup gestures are enabled during screen-off or
-system suspend and which Linux keycode (such as KEY_WAKEUP) they emit is
-runtime OS/userspace policy rather than static hardware description.
+diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
+index de29081fd3b2..db4edcc9b849 100644
+--- a/drivers/iio/light/gp2ap002.c
++++ b/drivers/iio/light/gp2ap002.c
+@@ -123,12 +123,24 @@
+ #define GP2AP002_CON_OCON_HIGH		(0x3 << GP2AP002_CON_OCON_SHIFT)
+ #define GP2AP002_CON_OCON_MASK		(0x3 << GP2AP002_CON_OCON_SHIFT)
+ 
++enum {
++	GP2AP002_SUPPLY_VIO,
++	GP2AP002_SUPPLY_VDD,
++	GP2AP002_SUPPLY_LEDA,
++	GP2AP002_NUM_SUPPLIES
++};
++
++static const char *const gp2ap002_supply_names[GP2AP002_NUM_SUPPLIES] = {
++	[GP2AP002_SUPPLY_VIO] = "vio",
++	[GP2AP002_SUPPLY_VDD] = "vdd",
++	[GP2AP002_SUPPLY_LEDA] = "leda",
++};
++
+ /**
+  * struct gp2ap002 - GP2AP002 state
+  * @map: regmap pointer for the i2c regmap
+  * @dev: pointer to parent device
+- * @vdd: regulator controlling VDD
+- * @vio: regulator controlling VIO
++ * @supplies: bulk regulator data
+  * @alsout: IIO ADC channel to convert the ALSOUT signal
+  * @hys_far: hysteresis control from device tree
+  * @hys_close: hysteresis control from device tree
+@@ -140,8 +152,7 @@
+ struct gp2ap002 {
+ 	struct regmap *map;
+ 	struct device *dev;
+-	struct regulator *vdd;
+-	struct regulator *vio;
++	struct regulator_bulk_data supplies[GP2AP002_NUM_SUPPLIES];
+ 	struct iio_channel *alsout;
+ 	u8 hys_far;
+ 	u8 hys_close;
+@@ -445,7 +456,7 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	int num_chan;
+ 	const char *compat;
+ 	u8 val;
+-	int ret;
++	int ret, vdd_volt;
+ 
+ 	indio_dev = devm_iio_device_alloc(dev, sizeof(*gp2ap002));
+ 	if (!indio_dev)
+@@ -521,45 +532,39 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 		}
+ 	}
+ 
+-	gp2ap002->vdd = devm_regulator_get(dev, "vdd");
+-	if (IS_ERR(gp2ap002->vdd))
+-		return dev_err_probe(dev, PTR_ERR(gp2ap002->vdd),
+-				     "failed to get VDD regulator\n");
++	regulator_bulk_set_supply_names(gp2ap002->supplies,
++					gp2ap002_supply_names,
++					GP2AP002_NUM_SUPPLIES);
+ 
+-	gp2ap002->vio = devm_regulator_get(dev, "vio");
+-	if (IS_ERR(gp2ap002->vio))
+-		return dev_err_probe(dev, PTR_ERR(gp2ap002->vio),
+-				     "failed to get VIO regulator\n");
++	ret = devm_regulator_bulk_get(dev, GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
+ 
+-	/* Operating voltage 2.4V .. 3.6V according to datasheet */
+-	ret = regulator_set_voltage(gp2ap002->vdd, 2400000, 3600000);
++	/* vdd operating voltage 2.4V .. 3.6V according to datasheet */
++	ret = regulator_set_voltage(gp2ap002->supplies[GP2AP002_SUPPLY_VDD].consumer,
++				    2400000, 3600000);
+ 	if (ret) {
+-		dev_err(dev, "failed to sett VDD voltage\n");
++		dev_err(dev, "failed to set VDD voltage\n");
+ 		return ret;
+ 	}
+-
+ 	/* VIO should be between 1.65V and VDD */
+-	ret = regulator_get_voltage(gp2ap002->vdd);
+-	if (ret < 0) {
++	vdd_volt = regulator_get_voltage(gp2ap002->supplies[GP2AP002_SUPPLY_VDD].consumer);
++	if (vdd_volt < 0) {
+ 		dev_err(dev, "failed to get VDD voltage\n");
+-		return ret;
++		return vdd_volt;
+ 	}
+-	ret = regulator_set_voltage(gp2ap002->vio, 1650000, ret);
++	ret = regulator_set_voltage(gp2ap002->supplies[GP2AP002_SUPPLY_VIO].consumer,
++				    1650000, vdd_volt);
+ 	if (ret) {
+ 		dev_err(dev, "failed to set VIO voltage\n");
+ 		return ret;
+ 	}
+ 
+-	ret = regulator_enable(gp2ap002->vdd);
++	ret = regulator_bulk_enable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	if (ret) {
+-		dev_err(dev, "failed to enable VDD regulator\n");
++		dev_err(dev, "failed to enable regulators\n");
+ 		return ret;
+ 	}
+-	ret = regulator_enable(gp2ap002->vio);
+-	if (ret) {
+-		dev_err(dev, "failed to enable VIO regulator\n");
+-		goto out_disable_vdd;
+-	}
+ 
+ 	msleep(20);
+ 
+@@ -570,7 +575,7 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	ret = gp2ap002_init(gp2ap002);
+ 	if (ret) {
+ 		dev_err(dev, "initialization failed\n");
+-		goto out_disable_vio;
++		goto out_disable_power;
+ 	}
+ 	pm_runtime_get_noresume(dev);
+ 	pm_runtime_set_active(dev);
+@@ -616,10 +621,8 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	pm_runtime_put_noidle(dev);
+ out_disable_pm:
+ 	pm_runtime_disable(dev);
+-out_disable_vio:
+-	regulator_disable(gp2ap002->vio);
+-out_disable_vdd:
+-	regulator_disable(gp2ap002->vdd);
++out_disable_power:
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	return ret;
+ }
+ 
+@@ -633,8 +636,7 @@ static void gp2ap002_remove(struct i2c_client *client)
+ 	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
+ 	iio_device_unregister(indio_dev);
+-	regulator_disable(gp2ap002->vio);
+-	regulator_disable(gp2ap002->vdd);
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ }
+ 
+ static int gp2ap002_runtime_suspend(struct device *dev)
+@@ -657,8 +659,7 @@ static int gp2ap002_runtime_suspend(struct device *dev)
+ 	 * As these regulators may be shared, at least we are now in
+ 	 * sleep even if the regulators aren't really turned off.
+ 	 */
+-	regulator_disable(gp2ap002->vio);
+-	regulator_disable(gp2ap002->vdd);
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 
+ 	return 0;
+ }
+@@ -669,23 +670,18 @@ static int gp2ap002_runtime_resume(struct device *dev)
+ 	struct gp2ap002 *gp2ap002 = iio_priv(indio_dev);
+ 	int ret;
+ 
+-	ret = regulator_enable(gp2ap002->vdd);
++	ret = regulator_bulk_enable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	if (ret) {
+-		dev_err(dev, "failed to enable VDD regulator in resume path\n");
++		dev_err(dev, "failed to enable regulators in resume path\n");
+ 		return ret;
+ 	}
+-	ret = regulator_enable(gp2ap002->vio);
+-	if (ret) {
+-		dev_err(dev, "failed to enable VIO regulator in resume path\n");
+-		goto out_disable_vdd;
+-	}
+ 
+ 	msleep(20);
+ 
+ 	ret = gp2ap002_init(gp2ap002);
+ 	if (ret) {
+ 		dev_err(dev, "re-initialization failed\n");
+-		goto out_disable_vio;
++		goto out_disable_power;
+ 	}
+ 
+ 	/* Re-activate the IRQ */
+@@ -693,10 +689,8 @@ static int gp2ap002_runtime_resume(struct device *dev)
+ 
+ 	return 0;
+ 
+-out_disable_vio:
+-	regulator_disable(gp2ap002->vio);
+-out_disable_vdd:
+-	regulator_disable(gp2ap002->vdd);
++out_disable_power:
++	regulator_bulk_disable(GP2AP002_NUM_SUPPLIES, gp2ap002->supplies);
+ 	return ret;
+ }
+ 
 
-Furthermore, the description documents Linux driver implementation details
-(reporting the gesture on a separate input device and entering gesture
-mode when the touchscreen input device is closed or the system suspends),
-whereas Documentation/devicetree/bindings/writing-bindings.rst specifies
-that bindings should describe hardware rather than OS or device driver
-behavior.
+-- 
+2.39.5
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-ft5x06-dou=
-ble-tap-v1-0-5a1bd80449cc@ixit.cz?part=3D1
