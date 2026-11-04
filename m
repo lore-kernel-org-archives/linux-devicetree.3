@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805320;
-	b=dO55ILAWbjtlqwusFkHBDdYOyKtbeUCHPC2/L2iLQqzIIpShT+9PiP2jMepcAUe4gd/h
-	 Njlpqsup3uE+H7VkPs8/uLXsCvIJ26NTsPnN377KFUnUuJKNBumXej37YXdug6E9eEj4J
-	 3YnFnqCw842tIUeVwlulauwnDqmSaFl8Irz20kKe8FYsPPHOy+8e399EO2np1Ha0z+b0V
-	 tamFVIYbCp5Xwr/ngBoP81nwwDB23Z8s76Rr7ytl63Vb7D9OMFsC9RX+sUAKiZGuPgFn+
-	 RDsncOcypA9/qfNjzdJF541uBDfvIMJhQhT9pPr1WYm+QrQ7j30OtcrJkWtdiZT8GMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805320;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.138
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793805366;
+	b=LP6ZN/PJReSSW9BJ6YhJWDosaixwwlvLQJyLMeR1QIeCrSYXFzsu2ZbDJUNHNJzNvwbO
+	 PYEw1Fu1wBmc+ybkGJ2U3rFZl+KJHbaM40nrxbI2ruxrbOLDknBNjEr2UG4S6uPkWcYJl
+	 xZbENuJ9Qsqh5X37PXPzUg9nsXo/coPEj+P285vPD49UTCqMV9iirvtpbUJI2U+hyQ+BI
+	 Zh60on8fc0t/2u6WuMee5oae8mmcur/MYpZ69hwaUayIuHZI5Mrcw/sX68RP7QpfM1epV
+	 AIIeIjK553B40SwHz5Jlu4mtTdejV4AhF+ciV4Isnu3+Pa4Nl4H7pBXT6rJiC0Gsudw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805366;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=GpnNU5B9NJK77jC6aRes+NautYKxyKYAGU+8JJGRzB8=;
-	b=Xvrkb4RPjQ+r3E0ekz4X1tbgD7POEWhuSpR2aKVK8tXPmeoORKmlU6U7TjdsP+7aKcxi
-	 cdsHafK2WnWv4Ez0DM2tvyOjSm6FWp1loo10QTP6EQwnNpcNqDL3IuE0DxgNBrBouRD4k
-	 qeRkoOkSVW8ZkpBvDPl1wvNsq7Xg2kt3U3ZCFZstrXZCgky3QU+4Oc620ob8kHvCIHIVQ
-	 htXwX5Xt7cHnXSg5P3XqSOxguiVWpsT//YXYVdkmWPyNiH0rTAmYIcdEpawkqpzzCbfoF
-	 PhoEk5EzftpLGXDFpxuQ50aZYA9MsoxlqS13Iht6AmuaJuO7UXDVa6XEG5d/ThIWcTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+	b=1se3W3EHVms7XhiMc0D9xN8bTEewKhj1HnK6ToftjMcY8b65M5gF9cGZlJP8DQlIOjr8
+	 6zzUG20c22Y+2uPHsG7qfu1GYn0WAUMW3DOj+1S+mIWZYtVEPVi9TnuOwYhnUHr8cuy+G
+	 w5W/mR8OYnP5nzEJSg1OhpWWNaNB+8JDn6nK/up94b7MF9dT6Io/JwU6K2TT41UdB0Lv6
+	 3hV6TfEVLC1AnLXFROdFSD/8LELJwY87F6XTovOt419GwkHSRRkMHjUwQDYfCpn0Sxf10
+	 RrD2FLPN5T8esntf2hArqUpRoN/HkiXms/NGwu/7baPPY7wJQarF9L8eNz/lv5jtP5Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M6LY+J7M;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+gajlXC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.228.138
+Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DB1606D814
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33DB1606D814
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA8A606EEA9
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAA8A606EEA9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M6LY+J7M
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso7609875e9.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 07:15:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u+gajlXC
+Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c4064596f05so60541466b.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 07:16:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793805364; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WZ4eGtWA4H6Duez2ERpJXR0L/6Q3QYzoJ9cGghKDr79BE4Z5W3l0HZ25olN5zsoen+
+         2LAdOWs1lyR0PrNbnW81qxyvq5ohRYcpnFqXxLiU3HTq5EwTc3H3ZddnLB5Tq2xXBTcx
+         iDKI1byEOsRRaWCk3RuIkITR/fPfbDWkd3HYz44PmVmZNOzxsrzdbtB/AG2RdGj7eJpP
+         6F1MyaOALww7U4t2/9hDmjcrA2Eerz7KzFKbAH2Qcd0p/YkcdJzuSc7YINyplBQKooBG
+         4bWV+ryrsaC2dBOr3Be2F58Fxv+7oGvrCOEMFShmVKd7qIG63CEKce5q7sII6b3Z1Zuq
+         G0lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+        fh=79Wr3R8MGGPwpVx94ZxiTjlp86qA0b8+kOvfRjTV1D8=;
+        b=rRMXDFfaFFzs+odKViAZv8tkgSzbcXcq2MsPjOn6YJ8SsuSdGqFuXT/lmn8eZ/Usmn
+         Tz+If4C5QRlTk3+5Gbu771waQqRUBeT16MB73sPtdmWIEQ/O2eO1bt3mjKcFsgyyu6+C
+         qYLyDKT2iMre5oq8wFOyBzIhuyso3IUyJWDtB1vT7q9HNCwrrLJwxgWNyzjp6NgGDJxS
+         lvhosU/ov/yAP5iX9tF5gPvYEB6x1AHWGcBnk9kHduj8cw0NcaRUpdshuU5a5A+NF7by
+         9WQEO6fZHa+dcFWfMDdxHqJmCx+AQKDRCVKzLwi98Htnx13y4fHaQSFXr5u5P4KlNXdm
+         KzSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793805318; x=1794410118; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GpnNU5B9NJK77jC6aRes+NautYKxyKYAGU+8JJGRzB8=;
-        b=M6LY+J7Maap5Xkn35WhtQ4qpZIjdiLwIhtpYcaP9gnj984fV0oknNqjEMp2OegYMFI
-         aumcBMEIAt32eGfRe7wcGT6ACO/pz2N4VVwXNjjMbo/9g2J6K1XnKxM5cRImahGq06HQ
-         tJ4MoUZG1R3aDKsLG7SxTca8A9vCquS8imLq/JEqJpJkM/4D0HFralwa8VyQypN4ygY0
-         IRoe8JhKpodd9P6m76lJhYL59HHtAblnYAjAr28Q62qBncgmr7ViCJYBt/bePYtM9hjr
-         UFMduYQXZEweWE7+NhoNJFhYMYTKm/Y7uq0GdGsHlB6hIR38Re0OSMu7KSxgh+c2zvMS
-         /Jfg==
+        d=gmail.com; s=20260707; t=1793805364; x=1794410164; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+        b=u+gajlXCNeu4E/N1Rfx9lpm0Dt1PdqFXsWin8HmGWdHv0m5MS4a36qkhEun0FbEaen
+         br1BcgqE5tp1xVLHFtz9cWTPjgdy0WZK3bD8tAT7OkV3sgeF2IFaTjOeTYwXcuW1zOHL
+         +6wVkSucFztQJhCk5DomsSKNt56EAFiJO0qfWWadtQC6Jlv9GzpzP2D45N/XuOYPPaCG
+         uSH4Rhvv4a1yQIcjZP4deRe2if0aMY5PEMFlZ73oZAM8r9XmM3EP1MOEzWV2wMcnsofd
+         3AOM6FEOgnGneOY1al3Q3kK7DIvdYwG2H2GLtQ//96nDGpKFnHOXJbu5uPUlbbH8fonV
+         WbyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793805318; x=1794410118;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793805364; x=1794410164;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GpnNU5B9NJK77jC6aRes+NautYKxyKYAGU+8JJGRzB8=;
-        b=CgXiYfLk3EJ5E3v/Q2V6E/VYWkXaoLBViu8J1YQvn7JBxd1Xgz1sD9PN6xAHsoEjir
-         Vp+D44LtGQ6kOYEM5n/Z7+wdXWORMKlpb4r9ViWCuC7HamzQxeO9LztQTbhM3mqyYMYP
-         Di4yBKB2drM46I5RucqjDTsiY33fpJlBdMwXZOZlnZFpCWaafFIp/5pXznhLWxeHsDYw
-         Jnd4sjMsOF1DXFfVxj4EKQMMvYMmvAyLvBiBkIp6l0fxEHdGkuf/t0SrdNIaNGrMncgF
-         pzMT4jz4NkVWbRRnmHR9Bci2aqSgq6EViNhe7RIZZ79fu1x6dXpKCggYxAwSmQmOr2Py
-         KnAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzF23K0JZgv1TYIWumFAH3RBsVTLQBgy+vlbkCNDjU/DnIVXxTJm4/CY7ZoygAiC+1SynHAwJBsXpWz@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ftSoMpPb5l+bECrrE9D0qdgC1fysLLs48PzoVBu/0pn7yziwX
-	ZQpDRy4iAwck7RoKz10dQjf1MUNo10K6CaD5/jePnGXQmSrWoEuqBf2m
-X-Gm-Gg: AYBFou20eXPR4C+M6cWQWsNejsHdyV66LVmK15efnxf9QsURW8y6bdRMdaCwZWLLTT/
-	LoZIgfR/O268uO+vB5IHz77PG3p5EzrfeyJUCljANmWF/AgCOV/PvuuzLg5SqESX8yL9bgPHxIS
-	u3dTfjoSRVG6QrnvNRiuAiQ6h8MJGwY6Rv4cTvmAP8k4zmwYW+rwweDdu5Ka1bplRH5lYAr6S3q
-	xteVWNmumI2mPU/hTT/IdM/Fb3wq1OJ3ed1kJssrA2aAlKRC1gzPUMWwIj4rGFKNahhr4KAEaWC
-	KHO+xZkv1na69XFjhYT6HUn1+XDU0XVci8yJPDivEbyDfzToa/KFRaba9j02ZUPs09sBpUyskC4
-	nQhXprbUKI+rPfC9DjCokcUx1Ji8XxEnhA88Bc915JIAWYueirUerPRFBsrsm/9rw5ZdzVu1bb2
-	fKfzwhCmH/RIUxMTUFJNfGVJ3gqBJHRG1xpTAxE+CK1C2IGjwdiLmD7/+6qM2WMGYxENhTMI0XU
-	b1Ech4dtB+2CJEsvm2qWBXHzZ5dN0LCr/sILSyvWRCe9DTKuwJEvU5GQ9XZoYYDMSAN8S4f/iTj
-	HZeKvlzrV7H5bkkFKQUFIvUHOS3K0eGFWvT2RrMxpsAqH4+xVLi3znaDFKbgUH0a3A==
-X-Received: by 2002:a05:600c:4e11:b0:4a0:eae0:769a with SMTP id 5b1f17b1804b1-4ac185bc7d0mr364163455e9.28.1793805318506;
-        Wed, 04 Nov 2026 07:15:18 -0800 (PST)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:f5b6:cc80:9262:e168])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fee968763sm4435197f8f.56.2026.11.04.07.15.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:15:18 -0800 (PST)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Wed, 04 Nov 2026 15:15:13 +0000
-Subject: [PATCH v8 4/4] arm64: dts: renesas: r9a08g046l48-smarc: Enable
- USB2.0 support
+        bh=kdTVz8w7xpVwwFxFrP/pPSrvcaXONHeufsr6axyMCLQ=;
+        b=f8M9q5k59pvou7aLsWZhg8Fnba4fA9jUPtuI54OMbrDV+MUWRSmYXkqPwJMs2/Fwxx
+         EUNYTB/rZrVhI9cgav3i/d2gCccCN68Q3GCFuhx0w/YEDeIltqPFPk35HCXu0jcJhn5g
+         gLIq31qpL3LCCtZE65WZhEKtOQzfVuPDsyvgZ6kA50Z7Eh0NSKM9UOlmvLmwXXM6/teH
+         lgmuEyK+nRf53wLuVHmBVplKASEFsoZSq8655nA54ULtrhY2SJCy8kfBIuwiHfdUNpl2
+         vd5psjS01Q27VtHbP6GEXyU/osatpDinblxtZMmXQiP3zyGczg2N9S2dc61kUpfTDIE6
+         wC6A==
+X-Forwarded-Encrypted: i=1; AKwUvBx2ELGcpx/oVhM0QHmAMmBkH2wrMXCYVCDot2wMd/RvwKm4HSNZCnNSE78sfOrUHKgvJLRSd8Dtao+F@vger.kernel.org
+X-Gm-Message-State: APuU4Z/T/g7FonoJz7ghWU0b+HmMaaqIG0dvUihf8S36peaEZ0YHoXl3
+	NodqeBUZFWIJG/Z720OLdTWRPt5tF4ykchjSwxvXjOfxcW6H53x5c2PWoA6DITMeGD4PGvSHjh1
+	O83hpv6HHbmrWl5foefUoOJEzj6/A1yc=
+X-Gm-Gg: AYBFou1sX6qmeqSyx0Ym/klLkm/sktlbp2TsipTv7RtgIdoAzd9FS/CMzS0BTf2ww4U
+	9bHUOAk+rAGV5laKG8PaGLQDqUWILTl48xk///74v8R0Ux59Sdo1LXedylH7FFDZqSTYTazM63E
+	o2Eo344LX3Z1O5I3cJSL9Qto/K5DKi6wUtWElth+1InTf/Ud3hpRpKLiwSyEbQbprfKzPwfk01d
+	hsyi+9ucbCFDBgLMpCjNFc4/7PninjTxBaM87lBcxpX/AL26btrFUCmu3XEX34gxtIdtZ9OaOuE
+	bYcwhwrx68tO939zPL4Rgl1A6RoeD/u2fj34xwyDWnVCL2GaBa8CpNu70Eq9bjWnrVVSVEjvT+Y
+	bBfH7fUV2RaFUUEaoitE3cu0IezA1FTz3LSmIyJUzYgE8y0QxWqAbSBU=
+X-Received: by 2002:a17:906:99cd:b0:c46:50c6:f737 with SMTP id
+ a640c23a62f3a-c4ca7a8459cmr1547068466b.31.1793805363810; Wed, 04 Nov 2026
+ 07:16:03 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,136 +104,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-usb_rzg3l-v8-4-ab109c4bd108@bp.renesas.com>
-References: <20261104-usb_rzg3l-v8-0-ab109c4bd108@bp.renesas.com>
-In-Reply-To: <20261104-usb_rzg3l-v8-0-ab109c4bd108@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793805313; l=2436;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=YojL+tlinE7FIZ2yeWFo6aqIrFv+jHkcwPWa0n5GxOM=;
- b=qvqZR72nd3jkfSRiegsp8j/z9jBmkwHWkyrsvNPMZD0V96dBR0A57iLA022H7Js+e5d7JveyS
- 2lHoXLZDrTvB/6Bl/eYIAv6+X21qKBK0x7WHXSi52+0tIh5OSjDppeJ
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+References: <20261102174450.3000397-6-coiaprant@gmail.com> <20261104124020.3546166-1-amadeus@jmu.edu.cn>
+In-Reply-To: <20261104124020.3546166-1-amadeus@jmu.edu.cn>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Wed, 4 Nov 2026 23:15:51 +0800
+X-Gm-Features: AclHuK-zeYM4UdtsZyf6UCuVcNw6qYpttvJKvduU9hQNxft_dHREd_O22uUfBMU
+Message-ID: <CALj3r0ijsuzadYoi0NPkSpT8smRyi607APfxLS8_u3JSH3+dPg@mail.gmail.com>
+Subject: Re: [PATCH v3 5/6] arm64: dts: rockchip: fix USB OTG power on
+ Photonicat in battery mode
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: bigfoot@classfun.cn, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Chukun Pan <amadeus@jmu.edu.cn> =E4=BA=8E2026=E5=B9=B411=E6=9C=884=E6=97=A5=
+=E5=91=A8=E4=B8=89 20:40=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hi,
+>
+> > regulator_5v_boost: regulator-5v-boost {
+>
+> I prefer to use vcc as a prefix for consistency.
+>
+> > +      * 5V_OUT is the OR-ed combination of the VBAT boost (via D5002)
+> > +      * and VCCIN_5V (via D16).
+> > +      * It has no enable pin of its own.
+> > +      * Model it as a fixed regulator depending on the boost converter=
+,
+> > +      * so that VBAT is boosted when running on battery.
+>
+> What are the benefits of doing this? This is not a real regulator.
+> It is the same path as 5V_BOOST. D16 controls which channel the VIN
+> of VCC5V0_USB30_OTG0 comes from.
 
-Enable USB2.0 Host/Function on the RZ/G3L SMARC EVK board.
+Hi,
 
-Drop the explicit "disabled" overrides for the OHCI, EHCI and HSUSB
-nodes, as they are disabled by default in the SoC DTSI. Enable the USB
-PHY controller and both USB2 PHYs, with VBUS supplies, and add the USB0
-pin control (OVRCUR/VBUSEN). Port 1 has no OTG pins.
+Thanks for the feedback.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v7->v8:
- * Updated commit header.
- * Dropped redundant nodes from board dts as it is defined in common
-   board dtsi
- * Dropped usb1_pins.
-v6->v7:
- * Moved the patch.
- * dr_mode changed to 'host' as function is not enabled yet.
-v5->v6:
- * No change.
-v4->v5:
- * No change.
-v3->v4:
- * No change.
-v2->v3:
- * No change.
-v1->v2:
- * Updated commit description.
----
- arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts | 42 +++++++++++-----------
- 1 file changed, 22 insertions(+), 20 deletions(-)
+1. Naming: I'd prefer to keep the names as `regulator-5v-boost` and
+   `regulator-5v-out`. These match the exact net names in the schematic
+   (5V_BOOST and 5V_OUT). Adding a `vcc` prefix would break the 1:1
+   mapping between the DTS and the schematic, making it harder for
+   anyone tracing the board power.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 68d7b579e352..9ffaead2c6be 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -71,18 +71,6 @@ codec_dai: codec {
- #endif
- };
- 
--&ehci0 {
--	status = "disabled";
--};
--
--&ehci1 {
--	status = "disabled";
--};
--
--&hsusb0 {
--	status = "disabled";
--};
--
- &i2c2 {
- 	pinctrl-0 = <&i2c2_pins>;
- 	pinctrl-names = "default";
-@@ -134,19 +122,15 @@ &keys {
- #endif
- };
- 
--&ohci0 {
--	status = "disabled";
--};
--
--&ohci1 {
--	status = "disabled";
--};
--
- &pcie {
- 	pinctrl-0 = <&pcie_pins>;
- 	pinctrl-names = "default";
- };
- 
-+&phyrst {
-+	status = "okay";
-+};
-+
- &pinctrl {
- 	audio_clk_pins: audio-clock {
- 		pinmux = <RZG3L_PORT_PINMUX(H, 4, 6)>, /* AUDIO_CLK_B */
-@@ -217,6 +201,11 @@ ssi0_pins: ssi0 {
- 			 <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
- 			 <RZG3L_PORT_PINMUX(H, 3, 9)>; /* SSIF0_TXD */
- 	};
-+
-+	usb0_pins: usb0 {
-+		pinmux = <RZG3L_PORT_PINMUX(3, 0, 12)>, /* USB20_OVRCUR */
-+			 <RZG3L_PORT_PINMUX(3, 1, 12)>; /* USB20_VBUSEN */
-+	};
- };
- 
- #if SW_SER0_PMOD
-@@ -277,3 +266,16 @@ &ssi0 {
- 	status = "okay";
- };
- #endif
-+
-+&usb2_phy0 {
-+	pinctrl-0 = <&usb0_pins>;
-+	pinctrl-names = "default";
-+	vbus-supply = <&usb0_vbus_otg>;
-+	status = "okay";
-+};
-+
-+&usb2_phy1 {
-+	vbus-supply = <&usb1_vbus_otg>;
-+	renesas,no-otg-pins;
-+	status = "okay";
-+};
+2. Regarding the 5V_OUT node: I understand your point that D16/D5002
+   are hardware ORing and there is no software control. However, 5V_OUT
+   is a distinct net in the schematic. Keeping the node makes the DT
+   power tree accurately reflect the hardware and clearly documents
+   that both the USB VBUS and HDMI 5V domains share this OR-ed source.
 
--- 
-2.43.0
+   The `regulator-fixed` binding supports modeling always-on fixed
+   rails, so this doesn't break the regulator semantics. If the kernel
+   later supports multiple `vin-supply` inputs, we can update this node
+   to list both the boost and VCCIN_5V explicitly. For now, chaining
+   `vcc5v0_usb30_otg0` -> `5v_out` -> `5v_boost` is the most accurate
+   representation.
 
+Coia
