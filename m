@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780049;
-	b=Otz4lW1Frl5S6I+MAXKkGKupjpv0LxeCt2Hl2CXMYI6dAwHxRtenDXmZRlubt/G/Uas9
-	 ccFrQhfIe29uv6G86n+qL9tSzzGt00YgbwybUyUG4ZXnXxZs2lMWu4lM3gT42KBrGPn6x
-	 ZyGXrUnu6ZHHzYs0rgxTIWclyjizjP3stwaBTpWZ2RNw20W9kT41AZZLZ/fzA0ABubZ8y
-	 u8iBVg8NWqnNExnGw/LXz5xDOBj1hqeuKnBTrT6mRSD/9BEsAKfD7Gz9pO3Nal2Ftm5Ar
-	 oWQlcluVdMd1uy6pENEkt77ch6xiP5PPr2mfRn+m3IA7UCwyyxHQNdkIKXLFqZv/01g==
+	t=1793780216;
+	b=fWDmeufyOOgbPayJf39WgVWt3nOdk6C5J1rM1CotSVwXHh7qa4ZtQ+6yOvB1k7gSwJwV
+	 F8/EvuWif5VjJwFnObzwzB2Wwy0D2FwhDHivAkBhyDoKgC+2372D9TCmjO3kUor8Bjc8r
+	 miq/1YXyZ2zr9UCVtv7BE48amTUTJQQNTV/KOTECsEQV5HUXcGk/UwrRlTj9yy7LteL/V
+	 e3nsn8gWIjJz24WcWdIhZQ7j4LfCrifRjwqArOuk7XdUwaTjfN3hC66Cw1nni+Vma7wGY
+	 QFED0yK5ndBCJB5EcVpbPT/8grcDjrvf0E7+9Tzo4RpsCI39BoP1D5lMDAnzzstlbMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780216;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=mhQw30OBK6THYbnP5bFUVzME7pKzITD/dPhtNgP/8Jw=;
-	b=h8pEUD6nq57pzjXqto9za2xicEO61oLS3IB4GiRYQMZ6aQdWoWPkfbm3y2HjPkZYtV4w
-	 A3HWNRnHYVFc1M1lYBcbIDHxofBy8aP6lzpx3yUz01cJvaOlxJSIBkm7Y9Ml8vPfjPiZE
-	 4wpPvfmT+MzKDiJpy7r3N+UFz5vkzEtZd0Uf9MgVyaYlsh1ll3+iPuuCweCtsXdx6nHd/
-	 vJ7kKhIkx09bCVhgI4n4RnTfe7g1Vy7IkwvrC2DKhw3iW9bW9BOvdW8HqTMS8HI0wiYbb
-	 vwXTo9+mU9isF9+AkLPbUI7rfL0V5nzCVaRJI21qdDbzwwJ6pvygQpJxe0/wORkISOQ==
+	bh=Coqy+iAD8WVkeesIkQ0IfjNDo5a16hBPODLZiHIQ7yM=;
+	b=sbyJSa74o2BTohaZ5dCu0sb+Wg8Yl6/LDCsHNXuheGY2TXLZECiTnR2RLDqvgEuv+k3K
+	 9Y3B//E82LPFOdXG8q1/W98clZCQsi1bU9zu4HA5yNRTfsPv+Si0/mbIpYCEGoL6ox2gu
+	 2zefvtf9gfJlOlpT0AF7aTrq1doaEF8Fty7KoauS859MyXqGuJZBFqY42yYJxQCY+q0K7
+	 P7XyIjIPRtVZAfV4+Eh6989BzNa5Hgql7jIOfhnLEIPwFo2wYasKHoX7Sv9gXKUTJMJCp
+	 R9RNxCsY063rWfQmH2+/E3BWPlq9/+dfRZAQCtcmZnLb5dRmuHeBdUKoMpgMv7SjM3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dS/AzSNy";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWvvtbkG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCF7606A31B;
-	Wed,  4 Nov 2026 08:14:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E327606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 08:16:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dS/AzSNy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90B4A1F000C1;
-	Wed,  4 Nov 2026 08:14:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWvvtbkG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3A231F000C1;
+	Wed,  4 Nov 2026 08:16:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793780048;
-	bh=mhQw30OBK6THYbnP5bFUVzME7pKzITD/dPhtNgP/8Jw=;
+	s=k20260515; t=1793780215;
+	bh=Coqy+iAD8WVkeesIkQ0IfjNDo5a16hBPODLZiHIQ7yM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dS/AzSNyhkAlOpq4j2QjxL7ymhm4n1H1M+ZnQBKhmIk/2L17M2RpFW8GacAsVsNMC
-	 Nz3ZJWLwIbXHBopgZL6YFCLyWsuROqPGwwrg+1aYW+bhuRDHW8vURaK8GKXzmK3bAt
-	 zNtOPfDgmFv6NCIz56LrI4aSKgN+TrwiF4sifkgHpXZDjmc3/AwOQx2wjnMV3pxtcG
-	 8An8tc+/5de1UnO3beWfjeyvSnHTlYTVjD34/9Yy2zVUl8weEypmu/S7UJ8+YHbEok
-	 uqUXpGQ0C2gbYLp7aYsRZlrVV2+xGWxDKF7elPjkQS1sRshxXHxJQnebebR4/e39Dj
-	 665/KP6qqPjZA==
-Message-ID: <sashiko-outbox-196867@kernel.org>
+	b=gWvvtbkGHYBBMWCLLv9rByERgb57KczeeD2wKxx7npNGG7nCOPXZ/vXsU888vw9mK
+	 YeEgmDThUk9qpanKb19qkLFb13z49MuPqHKn7YZUS753/LYfzSZJeOHjBOZYwTiB9w
+	 kJJyo8MYtBgrwg5Wj1PObSpXBw8ae0ggt5Be/IGXj2nTs/tphYHJ3kGJrorSGzs2ch
+	 DSuihz3+2qBpEBZlWyIZl9ChriN7T4QM4X0juBAJwaHBtOVfcKhOf2X/zOqiOwdKbL
+	 w8eUcV6RrmQ70P+tGD5SONgj/4oC46k/u82PzWj9OLouBGiABvmlEP18VDBRe52zSF
+	 YHbk5rlvqEaqQ==
+Message-ID: <sashiko-outbox-196869@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/6] clk: qcom: Add Global Clock Controller (GCC)
- driver for SM7250
+Subject: Re: [PATCH v4 2/2] regulator: rpi-panel-v2: Add vcc-supply support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sreeshankar K" <sreeshankar0910@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-master-v12-2-57fbe9eef978@gmail.com>
-References: <20261104-master-v12-0-57fbe9eef978@gmail.com>
- <20261104-master-v12-2-57fbe9eef978@gmail.com>
+To: "Shashank Maurya" <shashank.maurya@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-rpi_reg-v4-2-3578e794ff45@oss.qualcomm.com>
+References: <20261104-rpi_reg-v4-0-3578e794ff45@oss.qualcomm.com>
+ <20261104-rpi_reg-v4-2-3578e794ff45@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 08:14:08 +0000
+Date: Wed, 04 Nov 2026 08:16:54 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,75 +62,70 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] clk: qcom: gcc-sm7250: wrong halt_check on gcc_ddrss_gpu_axi_clk
+- [High] regulator: rpi-panel-v2: leaked enable count in rpi_panel_v2_i2c_p=
+robe()
 --
 
-commit a24e620aee1e1a738b8a01486a74fa9dab88eef4
-Author: Sreeshankar K <sreeshankar0910@gmail.com>
+commit e10aa8754cb62ec300b893710f2607ab6d8e3548
+Author: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 
-clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+regulator: rpi-panel-v2: Add vcc-supply support
 
-This commit adds the Global Clock Controller (GCC) driver for Qualcomm SM72=
-50
-SoCs, registering PLLs, RCGs, branch clocks, GDSCs, and resets.
+This commit adds support for acquiring and enabling the vcc power supply in
+rpi_panel_v2_i2c_probe() before accessing the panel MCU over I2C.
 
-> diff --git a/drivers/clk/qcom/gcc-sm7250.c b/drivers/clk/qcom/gcc-sm7250.c
-> new file mode 100644
-> index 0000000000000..949a12ae93c99
-> --- /dev/null
-> +++ b/drivers/clk/qcom/gcc-sm7250.c
-> @@ -0,0 +1,2278 @@
+> diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulat=
+or/rpi-panel-v2-regulator.c
+> index 30b78aa75ee38..e54d675962e71 100644
+> --- a/drivers/regulator/rpi-panel-v2-regulator.c
+> +++ b/drivers/regulator/rpi-panel-v2-regulator.c
 
 [ ... ]
 
-> +static struct clk_branch gcc_ddrss_gpu_axi_clk =3D {
-> +	.halt_reg =3D 0x71154,
-> +	.halt_check =3D BRANCH_HALT,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x71154,
-> +		.enable_mask =3D BIT(0),
-> +		.hw.init =3D &(const struct clk_init_data){
-> +			.name =3D "gcc_ddrss_gpu_axi_clk",
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
-> +};
+> @@ -66,10 +67,21 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *=
+i2c)
+>  		.parent		=3D &i2c->dev,
+>  		.reg_set_base	=3D REG_POWERON,
+>  	};
+> +	struct regulator *vcc;
+>  	struct regmap *regmap;
+>  	struct pwm_chip *pc;
+>  	int ret;
+> =20
+> +	vcc =3D devm_regulator_get(&i2c->dev, "vcc");
+> +	if (IS_ERR(vcc))
+> +		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
+> +				     "Failed to get vcc supply\n");
+> +
+> +	ret =3D regulator_enable(vcc);
+> +	if (ret)
+> +		return dev_err_probe(&i2c->dev, ret,
+> +				     "Failed to enable vcc supply\n");
 
-[Severity: Medium]
-As reported by Taniya Das on v9 [1], should gcc_ddrss_gpu_axi_clk use
-BRANCH_VOTED instead of BRANCH_HALT for .halt_check?
+[Severity: High]
+As reported by Sashiko on v2 [1], does this leak the vcc regulator enable
+count when a subsequent call in rpi_panel_v2_i2c_probe() fails (such as
+devm_pwmchip_alloc(), devm_regmap_init_i2c(), devm_gpio_regmap_register(), =
+or
+devm_pwmchip_add()), or when the driver is unbound?
 
-When gcc_ddrss_gpu_axi_clk is disabled via
-clk_branch2_disable() -> clk_branch_toggle() -> clk_branch_wait() in
-drivers/clk/qcom/clk-branch.c:
+Because vcc is acquired with devm_regulator_get() and enabled with an
+unmanaged regulator_enable(), devres cleanup calls:
 
-	bool voted =3D br->halt_check & BRANCH_VOTED;
-	...
-	if (br->halt_check =3D=3D BRANCH_HALT_DELAY || (!enabling && voted)) {
-		udelay(10);
-	} else if (br->halt_check =3D=3D BRANCH_HALT_ENABLE ||
-		   br->halt_check =3D=3D BRANCH_HALT ||
-		   (enabling && voted)) {
-		int count =3D 200;
+  devm_regulator_release()
+    -> regulator_put()
+      -> _regulator_put()
 
-		while (count-- > 0) {
-			if (check_halt(br, enabling))
-				return 0;
-			udelay(1);
-		}
-		WARN(1, "%s status stuck at 'o%s'", name,
-		     enabling ? "ff" : "n");
-		return -EBUSY;
-	}
+while regulator->enable_count is still 1, triggering
+WARN_ON(regulator->enable_count) in _regulator_put() and leaving the
+underlying regulator_dev use_count permanently elevated.
 
-Having .halt_check set to BRANCH_HALT instead of BRANCH_VOTED causes
-clk_branch_wait() to poll the CBCR_CLK_OFF bit on disable rather than
-delaying 10us, which can trigger a WARN() splat if the voted DDRSS GPU AXI
-clock remains active.
+Should rpi_panel_v2_i2c_probe() use devm_regulator_get_enable(&i2c->dev,
+"vcc") instead so that a devm action is registered to disable the supply
+before releasing it?
 
-[1] https://lore.kernel.org/r/1ea96c7d-102a-4261-a70e-ca0813490a02@oss.qual=
-comm.com
+[1] https://lore.kernel.org/r/20260907055129.010E71F00A3A@smtp.kernel.org
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-master-v12=
--0-57fbe9eef978@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-rpi_reg-v4=
+-0-3578e794ff45@oss.qualcomm.com?part=3D2
