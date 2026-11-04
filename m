@@ -1,47 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806239;
-	b=3cFeewZGrYYmFoHNgDpznO/GSVAseB9L7oAOD5PNAFkiMlNd6KdFOqP+XmuyE0gEDDhl
-	 BXGUSFb/MM4Mlzu4zqs+D0IyYLYwOdijU2Q64v8SjHpCmzpU/GvY1PlwwuLYHg9WXSpid
-	 xMonWhESUACf8813MYNih4P3r/i4QR089IrLbyi37s/SsHkAo2KR3PJyX4+yuI1HYmo+J
-	 LtsSn2ruyy+HiUZnY+5XnBYGDAaENra3XAHm9346JsXjQJCrmNF442sJ60FlosdAPlqrK
-	 QdpiMCZ+gqN0/CTv+ZN9DtqA3GTQARqj4MxV1hAB/G5/UwHdhM6ZBftCr0BdkAZopdA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806239;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=BTVBpyFJQP4JwT4j+nHxFRZqLt/AH1jbT+5h5CdiZEM=;
-	b=IEr/zWfsHbbCBxB6XZWTUpwmM2za4/by6vB0BFJTYQUE/Qq1+Ap2BWWC4ZrzebVUvu15
-	 Cfso3QmCRwMwmjtRcqRF8qK5HwPeZ3/jGtsXSDHuxUYov/CqElASw0Q4FCT/gi/OAIkks
-	 K4szhtfgRBNWF3jl+wFCWEO2n4KkVglBUvLJMayqDW9Ns6BgTsmr0Y8vaWM5DLzSGINLd
-	 o8BZUXnIgXATC28Qf2U0w44RPhtLm4jwZxrd5ZY0J8OCnoBNJDulVR78oD+b4XXDbtMzF
-	 RmjeGAPnmepTPFqxjUeN0WRLL5YtzVG2KMFTyvYJJy2su0JWOKv7EqAPlbVbxr9+oSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XaJ/qPlI";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=135.181.139.185
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793806275;
+	b=neJi5lXWJQWiDEbWanJdimQwbokLLNtQhTnJHaRpftCM4qSAGkxtfythW0HDZ/g70u0X
+	 7p2m5EiFgArWVXuR0QscZhKc5n/iu/UxTLoWugLXwEaCSvyZTzMZBkt4AV1ho4dCuJ1Rn
+	 CrVfZv+zVOz4ylTatvleQS6/0BVwS10jW39obqbeCz1/I/V2lotoNa4cjbwfTWi3WNpMO
+	 8hZG1FaIRvZEDYfb0Lw8wNPlvnyKgbQsYAoHS2cL+txnTFNrOn2Sk01WlaWeQOQTi5USU
+	 NHKIJ8Rc8EMMAZW6ubZDmZ/lD86mY4dJeoiC2I25ljT3gRIdehQdo1qg8WXkj1oWvYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806275;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:To:
+	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YcTu78fwRsZ423aZq3ydzdnaGJrAPYdEOB86A5oSNsY=;
+	b=Ewwvm5w0WoaT3tHJ5Vr5zhCTSXUeKyeX1vz2kl5gLtUA2rU9ab+WAUHMhfwk6XAmXfFL
+	 6CqfV4+G9RcZ005orhmtYUSf6tu3gVcj81mNew7chwqiQF68xfXL087Xo/RWI0pwbeKmp
+	 DPdx+p03f5a3XsP85/RcYA4xDF/9rB45L+UnaJzlnx33D5tMjee57JtkY29Xc/3lF1dbA
+	 x6X/fnk5njpUgS+k6/f7FjyBW14AT1n24ielbvwkfCQ9LzgDZFjJstkg5CG8yE6Zo73fz
+	 vmij/GiOlpNbALiAv5Sj813uuGt/b4PLFcWF1NIfAlCP52L9Z502fe8yxKQlIwTIpjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=murena.io;
+	spf=pass smtp.mailfrom=murena.io;
+	dkim=pass header.d=murena.io header.i=@murena.io header.a=rsa-sha256 header.s=mail3 header.b=fvGqEt75;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=135.181.139.185
+Received: from mail3.ecloud.global (mail3.ecloud.global [135.181.139.185])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94A4606A328;
-	Wed,  4 Nov 2026 15:30:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFAE606A32E;
+	Wed,  4 Nov 2026 15:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BFAE606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XaJ/qPlI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1D41F000C1;
-	Wed,  4 Nov 2026 15:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793806238;
-	bh=BTVBpyFJQP4JwT4j+nHxFRZqLt/AH1jbT+5h5CdiZEM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XaJ/qPlIg7fE6maY2y3rsytUGViGgRX5wViamY+cwYIWQWXVGKCmEullsx6/88iut
-	 fbu7SkPOf39+yc2LHuXc0v+YI8VEreUCfgufBtxL8SGggZJWzxX41E6Lm6YCXYYas2
-	 0nGk5xxYyaPR64phX2xpKP6ORU26PMW1MdfziyPwrzsy074GQ+SviW4122Nz+LCJTP
-	 NceJSCVxDhzvwlOVimVSgT+NNsckd9RRyLS2htOffCOvzRxycP5F+p9kAS6plCSSWo
-	 P6/cr8mxU4AuS41W43lI4HC5IwsC7KaGHzYHeg0cgVSy2xS0axAeNwJ8CAwUnTrsPv
-	 jJnpM/1ymVqQg==
-Message-ID: <1edafb21-286b-4f00-9c80-cab3ff09e598@kernel.org>
-Date: Wed, 4 Nov 2026 16:30:28 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=murena.io header.i=@murena.io header.a=rsa-sha256 header.s=mail3 header.b=fvGqEt75
+Received: from authenticated-user (mail3.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail3.ecloud.global (Postfix) with ESMTPSA id 9C79A892219;
+	Wed, 04 Nov 2026 15:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail3;
+	t=1793806267;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YcTu78fwRsZ423aZq3ydzdnaGJrAPYdEOB86A5oSNsY=;
+	b=fvGqEt75s9iWkGdzW8PyLgckj9pdrMGkjGvFyZyahqRWPs9QHhig4DERi86GdJV1NnX5pN
+	1bIxfn/i6EW0gwi6gU8zIFSI2giGzm7nR4pymGBrVjCMSU+xd6peZmpSehIcs1cUSgKb79
+	lPnEOCSFnhHd1crPgsSQsiU2ACzrft8=
+ARC-Seal: i=1; a=rsa-sha256; d=murena.io; s=mail3; cv=none; t=1793806267;
+	b=vAJtK0uq7OD5cpcDMEr6T2zAIOODrXUui0Fba9wRf1JUKx81ri5QsE2SwcfvwRoZ+9S2aP
+	T52/xJyP3aPAqP64AwRoNdwAGBivpgD4FFc49zKk9DRdfzr9n1Nf4tsm9/+FHZCzvADXBA
+	2G57Kel3WG/PwQdzJKxbMLl9edo3df8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail3; t=1793806267;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YcTu78fwRsZ423aZq3ydzdnaGJrAPYdEOB86A5oSNsY=;
+	b=BaLGS0dkI31diK5IGJGwMlfhbAoOq9EWfkPdIwLqh368idE9xeuc9QM4cpddJUSjURyl/f
+	EZsxZfy7LPL/PgtehfcUMW/79cWCUUZ/3yD4Z2RHDYspbKvMKMPA9YnRrCXQegkWPDjuE3
+	ZTb+f/Cw1JqFuKPrn0F0DzKV1aPzUYg=
+ARC-Authentication-Results: i=1;
+	mail3.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+Message-ID: <5f595068-671e-4823-95af-da1702354a16@murena.io>
+Date: Wed, 4 Nov 2026 16:31:06 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,89 +77,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37802
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Jayant Shekhar <jshekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
- <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+To: sandie.cao@deepcomputing.io
+Cc: alex@ghiti.fr, aou@eecs.berkeley.edu, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, dlan@kernel.org, krzk+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ palmer@dabbelt.com, pjw@kernel.org, robh@kernel.org,
+ spacemit@lists.linux.dev, troy.mitchell@linux.spacemit.com
+References: <20261102060105.100645-1-sandie.cao@deepcomputing.io>
+Subject: Re: [PATCH v3 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ add P1 PMIC regulator tree
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <20261102060105.100645-1-sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/11/2026 10:11, Jayant Shekhar wrote:
-> Add a DRM panel driver for the Novatek NT37802 AMOLED DSI command-mode
-> panel used on the Maili/Pebble platform with a CSOT module.
+Hi Sandie,
 
-What is Maili? What is Pebble.. how anyone can guess it.
-
+> Add the P1 PMIC's regulator topology tree for DeepComputing FML13V05 board
 > 
-> The panel runs at 1440x3200@120Hz over four DSI lanes and uses DSC
-> 1.2 compression. The driver supports a reset GPIO and exposes DCS
-> brightness control.
-> 
-> Enable the driver as a module in the arm64 defconfig.
-> 
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
 > ---
->  arch/arm64/configs/defconfig                  |   1 +
+>  .../spacemit/k3-deepcomputing-fml13v05.dts    | 155 ++++++++++++++++++
+>  1 file changed, 155 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> index b5d5112de358..804abc85602a 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> @@ -22,6 +22,161 @@ memory@100000000 {
+>  		device_type = "memory";
+>  		reg = <0x1 0x00000000 0x4 0x00000000>;
+>  	};
+> +
+> +	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "AUX_VCC3V3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		regulator-always-on;
+> +	};
+> +
+> +	reg_aux_vcc5v: regulator-aux-vcc5v {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "AUX_VCC5V";
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		regulator-always-on;
+> +	};
+> +};
+> +
+> +&i2c8 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c8_cfg>;
+> +	status = "okay";
+> +
+> +	p1@41 {
 
-That's never part of other driver changes. Enable everything you need
-for your hardware in one commit, with proper explanation.
+I believe this should be pmic@41
+If it needs a label it could be p1: pmic@41 but the node name should be 
+more descriptive.
 
-Best regards,
-Krzysztof
+Kind regards,
+Maud
