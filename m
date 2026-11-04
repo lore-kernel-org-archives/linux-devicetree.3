@@ -1,90 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793766562;
-	b=YoY6l1og/CeGenZjiNCERw7IihwPSnzf15YKE9OKTKWvCFhtmU+z0dYNlYs4eaBItCiH
-	 VbpFc417SYYX0c7SD2gXj8Th9T/pLWZP0OAhfTcUgJrLoP2v02dcEtNj9B3bQAlLxhtRb
-	 tAe8U2N1KzLQMa1CFXqw0Lnawyw/k+ikQadtqu/he49oJE2O6N12o1HPyID6zO+SN1qg8
-	 DkMFVA/nt5EKSjOdYPoLzy62zUEw6o+8Ul0XkvlTzZw3T+kLJAzrmfwb0GzAy+oQZ9h1x
-	 0Ce2QHune3LMyC1pqMogAcEyBzkwRBz/0XuXVKkLaER7tedovhlbDuPvPvBSI253+sw==
+	t=1793767909;
+	b=efIjybpJKVAZPhTWWOR59HmnEKb4ET7aKKBnz2/8ZijwsNp7OvKP+W/9Oay1Vjp5oXM0
+	 scnuTKpAnRZZma3tMwMvFYA3IssmwAYveMJsd8LA0YXAsia6EtPXjRLH1RfIJZoAG2GiE
+	 N11TQsvI5TBzxFnW9Apl/Wk1nsSTXQsfuVz4leziDVUx833Noy97c3lLvtNEMh6Fp+dDg
+	 GH3xGgIzVhdMvg0ZpYOKNtWZFp5HYaTeH848Lr8LyrcIQIyWLvj7IA5vUF9kZulU7gUO/
+	 n+tD5m3AiM4qoJiXidC9E8ZZE//BVOSCg5U5vuDb3R8laF9h/151S/Htq0DLn7ceUJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793766562;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=s9VTcseFRjItBb8M0/dM+uCKSe8QR9zyb/UHNpdb02M=;
-	b=W98p2bOO0l4hU+APOmRIBq7QOUtI2UZbShSwbRw0HCrHN0AuNxCgStbIA7xrIbduHXTt
-	 Hmoqgd/MoefRbHJSImbPH+I3AnuaZGbRUa/l4r10K6Mh4aPd7DAtsZftNBC36LIqfXBzr
-	 BsVoHbXa179NmZBwe41E5ZLxg06+GQTXGKfzggAhx4DVS7d97y8AwG98bdkJq5P9SFhLJ
-	 foYPbkuSASFEGTunllqXGPfQhGk9dAworNidUB572uisWL3HZOJSskPuaobvLn3ocZ+6q
-	 jS+ADt0KR8D5Vqu7PBFiDec1M1W3VHmtG1w/VSOuCMA2PD+apcDEwozlltA9kVd2utw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793767909;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=3RJgO2pJ2GzMSDClBGmlaLUYgL+K5aXBXF8kpIJzyog=;
+	b=eDDqiBTmlAbZNsZLcbKiP7pDPhIfFWuBKI45KaeEVmS1yNlRGHw7HrSBp5JJ/+YPH6kq
+	 I/vEdLmlVu7KNwhjPHVjdlQybMexT9q39+HMWr/RJmj4I7iLCCI5FhdJ07Wrk3hp/Jody
+	 xttqanPbe2A6mTUMD4CMKl9qpLMLLLOjCHEhtp4hUEIpvKOVHgkzUkndgMdjTbahp328r
+	 gB82mSJy7MrwenZWbCr5iJ6iLIU9gpSUHJbbGCm1cDJiafT/FB15ejTiOFwbh9hOD/mbN
+	 5KcEWW6VxEDwFyzx/+HGoThEQxa9nZXfEUrrdLAjGpMDM0I6GVXHI97SWzg397qa7SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UIXNMrgN;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="KKGm5o/T";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a5SqVtdR;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5D6606A32C
-	for <Devicetree@vger.kernel.org>; Wed,  4 Nov 2026 04:29:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C5D6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B00606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 04:51:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B00606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UIXNMrgN
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c45551fa84eso47546966b.3
-        for <Devicetree@vger.kernel.org>; Tue, 03 Nov 2026 20:29:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KKGm5o/T;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a5SqVtdR
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A40RJ6V1191364
+	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 04:51:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=3RJgO2pJ2GzMSDClBGmlaL
+	UYgL+K5aXBXF8kpIJzyog=; b=KKGm5o/TIUlagb+fI79KuLU/G+AiD3d3ZYQ1tC
+	TnIKi4b+Zasq1WxNCGyxSi68sU7AIBPEzINnpEIIT6IBZ1xugmFQ2EkVHuzYA6Vb
+	bZAtxhPNINhI2sG0u3qqKMidVwSeqX2x6hO1dlwh5dPE/e0qcOevITV6fglFvWBg
+	dVj6+6zOGif+Biw3PoHtrifLghMXybMZNDsNLemvjdQ5OrLQI7PomgQ7duUoUcq3
+	3kx4hshBEoSKhMmmUbtBlluBZyudJH6eCdpgQ+44rX7fpg0OLkoenRYpMcD6MlH7
+	1YOFW4uWuUTp99xXYDbCbTuYm8zigfRBnpzhggl/bylxM3ng==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pja3f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:51:47 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so579327eec.1
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 20:51:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793766560; x=1794371360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s9VTcseFRjItBb8M0/dM+uCKSe8QR9zyb/UHNpdb02M=;
-        b=UIXNMrgNukq8PJJh5G1xlaNLNBUwu95EQX/j/TDzuTSJD4iI+TRgDgwweFxwIbNmAk
-         Ity2m0kF/b6zwmMINESMTTrRGygFT5TQd9O9TTCGr/KmWt6GBp6gWYtYfwFBZLpFbHv8
-         ytDkM++AMv5NHun0HwDP52pLeVa8ZIZdVpCqk=
+        d=oss.qualcomm.com; s=google; t=1793767907; x=1794372707; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3RJgO2pJ2GzMSDClBGmlaLUYgL+K5aXBXF8kpIJzyog=;
+        b=a5SqVtdRX2mRniSwdF8sMF7hgNjV6XFv0bv7IMlNvn+Hb0sJEsFTUedfN6L7q6giHu
+         IUcoFle0JLoxhgYqE5ec24ePCc3DTBjaExABq22xE7jNhi0fbRWKKV/uwQPGeAqzrxbH
+         x+yhlvV0olv271qseLLtuMbBwejFEAL0JoJdTqhaS93RfuiZI2m7pmQ9JTmW/H/mKcYu
+         HNdRK0FncmpvUD2PuYPekMhx7F/FAr84NXJuqYJpOteFtVl04mOqavIeRYZcoX4Cfd/x
+         CQEeg2iBVlSgKB4MZStCtkk9oULRy9TJ19OuaNPKc79Sxa3rCxqy2cbcJCUOBisCMY6O
+         /b/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793766560; x=1794371360;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s9VTcseFRjItBb8M0/dM+uCKSe8QR9zyb/UHNpdb02M=;
-        b=uGxWE0P7P3MZEkXZUzcMgznvJU4eXIYVln7mh5G26XMRQEMuOFnKggf9TlfkAhfXxR
-         dVWlERms3aKU5H3nqR1ys1R6AcJ3DB4uoR5TgXyul6x3h+ClYLJpfn0FyRdyq7Y8WtRL
-         cscnJ+94iEvuEHOvu1Q4aeRXfkxYTLR92BTqJXaGl/gNaGgCYds0KnH9oPrII8gWC2AM
-         nTSG6xfVpjP6oY5saVcTIuqftylkPh9kZIg8ZcKKyvYEUvGrVglBdJrwbQQ2PPTRV1TC
-         0LgwwL2enpX16d82HlKlWQsLD10HWIEI3hfXAKiItjEnRdGUdGlK2sN8FDmuydq5f9LS
-         ZX0w==
-X-Forwarded-Encrypted: i=1; AKwUvByS2zckvZ6hrliSaidX8K+OpFJ43rMdrUejiVA8of4SQc+B3ZxLwaRVs/h9wDaKZ/+BXhRxCofWI30t@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Q/LB7++z/rx9wxgcjhiahyZzVGi/7102ohwvV+WTgMAi7vkJ8
-	sC8yvcD3Mhv03dZNdozWi4r/Vu1TUCe4BRiI89WnP9V6pldeDdIZ+OjUHSVaj8uHAPHv8zSIOBj
-	RBV+dwA==
-X-Gm-Gg: AYBFou3HL1Gg/IO+aogw2SKxDDvesce4fKTkYrxsRImHItod82p2tNN/y25Sywn/IYg
-	fzkLJTtNWO+9aUOBbt7V3bLoJOLV1xkQedDrPnNLPMxuGgai/5sqWAfx7TcJ9VpoDUVuWsEs9Q0
-	8uAwr54CljIIx22gM/f6b5tELdbrHSqeEDg2xzlvHetkGJkp6Vb+NjtD3H5yt4JhoAp3VGmbbJy
-	PAmwNggoSC/ci42RCDoYDX1rieYVoxenqbXLqWGJyW0ct00MElECqGymcU0EoDEjqhHX9QjLKQm
-	CRaIXyB3lCMLpxRObsqtpCfZUkRL78LirlA/QsO8/9T6/V6WreKSJqmYp1G4nN2SWC15MW7BjFn
-	KM0hTRzY7wO0VA2SmXE1Qbr98WMNlAB94juPKfgSaAt33kpMjB1HKkDXCExYQSJBfO431xPHhDr
-	qHEl6M2669DcKAmPC2RJ38bCGOncLsSrFYhg3jNM3h7XK+MHFJNZWBzBtWPcSM6wjYR4He6/rOU
-	YmOafTrTsyOk5YVur5FU3BAhkX0qrfCj2Ffvzb9KlNBst69b3K+Y42xWQqa3KGMt5JVRIjypUae
-	Ro04H+kNp/JWAJkcJ/B3vstYLKMG2y/x/L3UcTyBSKAgUrPOM3V57jvM2BroWSFOw7o=
-X-Received: by 2002:a17:906:d54a:b0:c49:b952:5425 with SMTP id a640c23a62f3a-c4ca7ab94ffmr1218921366b.45.1793766559717;
-        Tue, 03 Nov 2026 20:29:19 -0800 (PST)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com. [209.85.128.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e46a44esm30514166b.59.2026.11.03.20.29.18
-        for <Devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 20:29:18 -0800 (PST)
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so1733015e9.1
-        for <Devicetree@vger.kernel.org>; Tue, 03 Nov 2026 20:29:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwOmCTEopvTT15jK98YbItuKLEdPHSF+KoQE6s9Ea8pltE8rvnjHFRfCr2cAqUMDX7yRy/6jjMBgnY/@vger.kernel.org
-X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id
- 5b1f17b1804b1-4ac1932bac0mr304971575e9.29.1793766557744; Tue, 03 Nov 2026
- 20:29:17 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793767907; x=1794372707;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3RJgO2pJ2GzMSDClBGmlaLUYgL+K5aXBXF8kpIJzyog=;
+        b=MDTDJL1pgI4jIljvpM4I3P6vzDsGVTAz0ZNGr+2LJ/1LaKNmy6mfQU4JJReA9yAhf+
+         Obww0QXklyDSIlW61iAxYPoMe0byKYI65X53LKW4aJAw2AlGUxzVYsT8kVxedS0NNQKa
+         mTmXsJNNrqM+ALDsk28M2ZeJZ+3hapnRFWDJ155unID5BUJFyMbZ2WAcaEpuEMNwuM4X
+         TVGdIupGVXrFc6FxT36dX6ZxofG1JCxHOnLhBdaGbu3ZZveez78hDWYYplMGa7S9UjB3
+         F2Zz7Y9JKFwJ4y7ku6WT6uiO0usJfepRSbbMn+Cxs3iBW/NEUfYQ9roGReR8HbF2gyT0
+         /ulA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV9uy3cKYPNH5RH3TxRfM7827XmeWh3/lAzkSbqwxbYOkDNq1mRiSs+zUizF3DXF50igUSOvTgVFy9@vger.kernel.org
+X-Gm-Message-State: APuU4Z98bnNsiQ0muLbcFgreptwPcjLJTCeBFnx1qZ6/ExCEQqc+FnGc
+	+iOgFpl018xAHFTGkTY0g664SaOwre1DG9OndEI+uFMvbbqIE4S07TIgnD6vZzAAPKAjZmompK0
+	OkPSY67IN4/+BEBn5IgNbxVFL5+81Ffd0cM4EN0nhy87eK9ghZwyuwIaLKFbr/gVk
+X-Gm-Gg: AYBFou2qp7szEpg3G5exdEybCiVpPq93vU0uYnPlI2fld0f8RSDvaTs3Ytvk1+K79Lx
+	EwWPCbC15wS+kz6tNGsSVWSS1dqK4WpZzMYoR9bNXEcYcV4w8EmF/zLT1rSCp3ObbaiKSI8MswW
+	2LrimwcwEzKPJCbOfFS5IFBnmTfLyNUq3Rkp5CPJp8iXSRsE5H75OXPrNNeud6Cmz6ot8/2D8LA
+	qQqZ6kjbTVaLPRr18UfGkkm4wlaaoOqu3J9lfZJyUSg/qGcSe+WndL11AshRs5Pv/47sb/ZFSdn
+	LNEqhS2xftaFkzJxQziU+Hb4kc1PRxWZ7Ar8aGY3ns0vLNgumSkQGHR+VCdYh0IFwmYB/7wbXd1
+	/G0zjnSw5Apso5hFZjyzrYikAdzTxSgUjJZ8UYnrq8moXoV5eNAUKH62z8UrOv/SNAnZGweXBJL
+	mhqVorUes1NtRHJCtMa52/Efno
+X-Received: by 2002:a05:693c:69d2:b0:368:9553:f2da with SMTP id 5a478bee46e88-36a423f5c39mr24894558eec.31.1793767906845;
+        Tue, 03 Nov 2026 20:51:46 -0800 (PST)
+X-Received: by 2002:a05:693c:69d2:b0:368:9553:f2da with SMTP id 5a478bee46e88-36a423f5c39mr24894510eec.31.1793767906169;
+        Tue, 03 Nov 2026 20:51:46 -0800 (PST)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca394c2a3sm3427958eec.20.2026.11.03.20.51.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 20:51:45 -0800 (PST)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Subject: [PATCH RESEND v7 0/2] input: misc: Add an initial driver for
+ haptics inside Qcom PMIH010x PMIC
+Date: Tue, 03 Nov 2026 20:51:16 -0800
+Message-Id: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,255 +115,212 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101220224.1436242-1-dianders@chromium.org>
- <20261101220224.1436242-8-dianders@chromium.org> <auhYb6FV2dPrbVxB@gractus.seuss>
-In-Reply-To: <auhYb6FV2dPrbVxB@gractus.seuss>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 3 Nov 2026 20:29:06 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
-X-Gm-Features: AclHuK-EI94Ty2au4xO-ZKZ76QhCMiI3A7chng9xu_64EGkNq0XD6rjuoimiGkw
-Message-ID: <CAD=FV=Vzyu7Jfg43yZQmThc5O007h2Ch5J3cnc4FG3eJUj8pNQ@mail.gmail.com>
-Subject: Re: [PATCH v3 07/15] devicetree: Add DeviceTree live tree representation
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org, 
-	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Julius Werner <jwerner@chromium.org>, Brian Norris <briannorris@chromium.org>, 
-	linux-kernel@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793767905; l=7936;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=5GlVoVF1VkHnE9upYHMiRJV0XPtsefTpbxl0+MIG+qc=;
+ b=DofQuZ62EJDQCKzhgQMtHhkY4GbMR/djZiFS8hUMNntp0u95aQV7bGphHY8v5CEHAFFr71TQz
+ cysDPB+12iIARmFSpdoXeBlvBNlMnGRa2r7rcXOR4j9P4fl0pLuji3I
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAxOSBTYWx0ZWRfXwvmExvLsjYUK
+ kWKCjmL4Pxb6n0J2rdtlTR+OPV+oDdgTFPRULGXE0RkTzsAqb9ymuEi8X6iW94MwAiXHH2oxFVR
+ VVVw5PFB8ZRO4fm6JKRwVa3m1ogWcyab3t6zxNl32n8jJGvlI+jzBcI6AbFMzB29zCNbjkoeyGE
+ NeO0D/FMCJXf/bUglohgENqE5IgVaKMyTK58uzQ2aGyYtdmt+zFnEnrJbtJI00hc25TJMzLdU4o
+ 2TjBpQdub3IRuiiajQmOIhErsCkl/6+6TUCw6bANfuHb3JPTwiULbUZDRAAX6LQpIk/K24yOZ17
+ LfK+rHoWe5r7gq/GIv1Dn7xrDWBrtZuzIx41Mwp+JclANo+MiuSMGxsrQBAAl9YV/iCVVJQg01I
+ +2QUvtcuS/om8QWVirnHQVgUksSzLKgGyyRxU4EU7f34CQ7jl11nTKXSfG3KP7J16kXNe7fh/Ee
+ 6qKBl1NyZszkgscTZ1Q==
+X-Proofpoint-GUID: H4jRDH9TqdXZ9zKJdjXuFa_oABRfsIZB
+X-Proofpoint-ORIG-GUID: H4jRDH9TqdXZ9zKJdjXuFa_oABRfsIZB
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAxOSBTYWx0ZWRfX1CF7pRislDWa
+ QybKLXxOgtsMIiPklPcrsuqzP0TEEZCbXIA/G52oeKJpa4NGE/RiGFygsxpBuFHWY84tIMpT5J0
+ 1q5+9ylUUk8JNe0vWDmN6kkxslgbt3I=
+X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeab9e3 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=wl7bymLZXRVIGl6rzDwA:9
+ a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_01,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040019
 
-Hi David,
+Qualcomm PMIH0108 PMIC has a haptics module inside and it could drive
+a LRA actuator with several play modes, including: DIRECT_PLAY, FIFO,
+PAT_MEM, SWR, etc. Add an initial driver to support two of the play
+modes using the input force-feedback framework:
 
-On Mon, Nov 2, 2026 at 1:31=E2=80=AFAM David Gibson <david@gibson.dropbear.=
-id.au> wrote:
->
-> On Sun, Nov 01, 2026 at 02:01:14PM -0800, Douglas Anderson wrote:
-> > diff --git a/devicetree.py b/devicetree.py
-> > new file mode 100644
-> > index 000000000000..198ab73eda88
-> > --- /dev/null
-> > +++ b/devicetree.py
->
-> This should probably go in a subdir, since it's not part of dtc
-> proper.  I think putting it in pylibfdt is ok, even though it's not
-> technically part of pylibfdt either.
+-- FF_CONSTANT effect for DIRECT_PLAY mode which drives sinusoidual
+  waveforms with fixed period and amplitude, which would generate
+  a constant vibration effect on the LRA actuator.
 
-Sounds good. For v4 I'll move `devicetree.py` to `pylibfdt/devicetree.py`
-and update `pylibfdt/meson.build` and `tests/meson.build` accordingly.
+-- FF_PERIODIC effect with FF_CUSTOM for FIFO streaming mode, which
+  can play an arbitrary waveform composed of a sequence of 8-bit
+  samples at a configurable play rate.
 
+Also, add the device node in the existing pmih0108 dtsi files, and enble
+the haptics device for several boards by updating the vmax and
+lra-period sttings according to the LRA components that mounted on each
+of them.
 
-> > +        node =3D cls()
-> > +        for prop in fdt.properties(offset):
-> > +            if prop.name in node.props:
-> > +                raise ValueError(f'Duplicate property {prop.name!r}')
-> > +            node.props[prop.name] =3D prop
->
-> This is, technically aliasing the Property returned directly from the
-> flattened tree, which seems a little risky.  Or at least it does if
-> Property is mutable, which it appears to be as a subclass of
-> bytearray.
->
-> On consideration, that kind of seems like a pre-existing mistake - the
-> way we use it, I think it makes more sense for Property to be
-> immutable (a subclass of 'bytes' instead).  I wonder if making that
-> change would break things.
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+---
+Changes in v7:
+- In the binding change, add specific pmih0108 compatible in the parent node of
+  the example for completeness. It doesn't change the schema itself so
+  previous Reviewed-by is still retained.
+- Remove checking "h->stop_timeline" agaist 0 value in haptics_stop_work()
+  to ensure the stop when it's wrapped around to 0.
+- Link to v6: https://patch.msgid.link/20260806-qcom-spmi-haptics-v6-0-19fcecd5204f@oss.qualcomm.com
 
-Note that `fdt.properties(offset)` (via `get_property_by_offset()`)
-already allocates a fresh `Property` object with copied bytes on each
-call rather than aliasing the underlying `Fdt` buffer. Even so, having
-`Property` be mutable is definitely footgun-prone when `Property`
-instances are stored in `DeviceTree` or shared across nodes, and making
-`Property` subclass `bytes` instead of `bytearray` has some nice extra
-benefits:
-- `Property` becomes hashable (can be used in sets/dict keys) and its
-  byte value is immutable.
-- `fdt.setprop()` and `sw.property()` C SWIG typemaps require
-  `PyBytes_Check()`, so previously passing a `Property` directly to
-  `fdt.setprop()` raised a `TypeError` unless wrapped in `bytes(prop)`.
-  With `Property(bytes)`, a `Property` can be passed directly.
+Changes in v6:
+ Drop patch [2/3] as it has been applied in
+  https://lore.kernel.org/linux-input/178602255123.2917765.7426706813083510078.b4-ty@b4/
 
-Looking into compatibility for external `pylibfdt` callers if we switch
-`Property` from `bytearray` to `bytes`:
-- All existing tests in `dtc` pass without modification, and U-Boot's
-  `dtoc` (`tools/dtoc/fdt.py`) immediately converts the `Property` from
-  `get_property_by_offset()` to `bytes(p)` anyway.
-- Indexing, slicing, `len()`, iteration, `struct.unpack()`, the buffer
-  protocol, and all read-only bytes/string methods work identically.
-- Equality comparisons (`=3D=3D`) against `bytearray` still work, since
-  `b'abc' =3D=3D bytearray(b'abc')` is `True` in Python.
-- One subtle difference is that `bytearray` has a `.copy()` method
-  (`prop.copy()`) whereas `bytes` does not (`b''.copy()` raises
-  `AttributeError`), though we could easily keep `prop.copy()` working
-  by aliasing `copy =3D __copy__` on `Property` if needed.
-- The only things that would break in external callers (and can't be
-  shimmed on a `bytes` subclass in CPython) are:
-  1. Mutating a `Property` in place (`prop[0] =3D x`, `prop.extend(...)`),
-     which seems unlikely since `Property` is a disconnected snapshot and
-     mutating it never updated the `Fdt` blob anyway.
-  2. Explicit `isinstance(prop, bytearray)` checks.
+ Fixed Sashiko review comments:
+ - Add FF_SINE waveform support since FF_RUMBLE would be converted to FF_PERIODIC
+   effect with FF_SINE waveform, and it is required to be supported. Also, clamp the
+   FIFO play length with replay.length, also document the limitation of supporting
+   replay.delay, u.periodic.magnitude and the envelope
+ - Add a separate worker to handle timeout stop, which gives a clear
+   way to distinguish timeout stop requests from actual play stop requests.
+ - Replace disable_delayed_work_sync() in close() to cancel_delayed_work_sync()
+   as it caused an issue that the work would be disabled permanently.
+ - Move haptics_enable_module(h, false) into the reset action(). Calling it
+   in close() would desynchronize the runtime PM state and could cause issues
+   if a play is triggered after close() and before the auto suspend timer
+   expires.
+ - Link to v5: https://patch.msgid.link/20260804-qcom-spmi-haptics-v5-0-77128ebbdd2d@oss.qualcomm.com
 
-In my draft v4 branch I've queued up a preparatory patch ("pylibfdt:
-Make Property a subclass of bytes instead of bytearray") that changes
-`Property` to subclass `bytes` via `__new__(cls, name, value)`, updates
-the `fdt_get_property_by_offset` SWIG typemap to return
-`PyBytes_FromStringAndSize()`, and drops the redundant `bytearray()`
-wrapper in `FdtRo.getprop()`. Let me know if that sounds good to you or
-if you're worried enough about compatibility with external callers that
-we should keep `Property(bytearray)`.
+Changes in v5:
+ Fixed review comments from Dmitry:
+ - Change to use "err" for the "ret" which hold error code
+ - Remove "haptics_queue_pending(...)" functtion and inline it into the
+   caller.
+ - In haptics_fifo_empty_irq() when writing FIFO chunk failed, instead of
+   stop the plan immediately, just clear the FIFO threshold to mask the
+   interrupt.
+ - Add "lockdep_assert_held(&h->play_lock)" for the helper functions
+   which require to be called when the lock is held.
+ - Add "gain_work" to handle set_gain() immediately.
+ - Set input device bus_type to "BUS_HOST".
+ - Move the remove teardown to input device close()
+ - Link to v4: https://patch.msgid.link/20260717-qcom-spmi-haptics-v4-0-b0fe0ed30849@oss.qualcomm.com
 
+Changes in v4:
+ Fixed Sashiko AI review comments in the driver:
+ - In haptics_start_fifo(), remove the goto and do the clear in the error
+   paths directly, also add a comment to explain that disabling the IRQ
+   synchronously won't cause a deadlock.
+ - When data refilling failed in IRQ handler, stop the play and disable
+   the IRQ to avoid the potential IRQ storming issue
+ - in play_work(), check if the effect_id in the request is the one which
+   under playing before stopping the play.
+ - Link to v3: https://patch.msgid.link/20260713-qcom-spmi-haptics-v3-0-c931bb7cb94f@oss.qualcomm.com
 
-> > +        for suboff in fdt.subnodes(offset):
->
-> So, this can be a later improvement, it doesn't need a respin, but
-> this is a pretty inefficient way of unflattening the tree.  To get
-> from one subnode to the next subnodes() needs to traverse everything
-> in between in the flattened format - which is also what the child
-> unflatten()s do.   So on at every level making this roughly O(d * n)
-> where n is the number of nodes, and d is the depth of the tree.  You
-> can unflatten in a single O(n) pass over the tree.
+ Also, add trailers in the binding changes.
 
-Since I'll be spinning v4 anyway, I've updated `DeviceTree.unflatten()`
-in my draft v4 to unflatten in a single O(n) pass using
-`fdt.next_node(offset, depth)` and a node stack.
+Changes in v3:
 
+ In the binding:
+ - Removed the ref for qcom,vmax-microvolt as the property with standard
+   unit already has a ref in dtschema
+ - Added 'qcom,pmih0108-haptics' as a device-specific compatible
 
-> > +        fdt =3D sw.as_fdt()
-> > +        fdt.set_boot_cpuid_phys(boot_cpuid_phys)
-> > +        fdt.pack()
->
-> The pack() is harmless, but probably unnecessary - fdt_finish(),
-> called from as_fdt() leaves an already packed tree.  Unless something
-> resized after that point, which set_boot_cpuid_phys() shouldn't do, it
-> should still be packed.
+ In the driver, fixed Sashiko AI review comments with below changes:
+ - Added a list to queue and serialize all of the request, which helps to
+   avoid the races between playback(), which is protected by evdev's event_lock,
+   and play_work(), which is protected by play_lock.
+ - Changed to use guard(mutex) or scoped_guard(mutex, ) for cleaner mutex logic
+   usages, and update protection section to prevent race conditions.
+ - Added runtime pm control in haptics_stop() function, use it as an unified interface
+   under the guard of 'play_lock' in play_work()/erase()/remove()/suspend(),
+   to ensure the runtime pm control correctness in race conditions.
+ - Removed unnecessary stop play sequence in fifo_empty_irq() as the HW would
+   automatically stop after the FIFO samples are played out.
+ - Added a common interface haptics_clear_effect() to clear the FIFO data with gaurd
+   of 'fifo_lock', and use it before upload() and in erase() to prevent race
+   condition.
+ - used __free() for safe memory cleanup
+ - Checked play_rate against negative value when loading FF_PERIOD effect
+ - Limited the custom_data length to 48K prevent potential OOM
 
-Good catch. Looking at `FdtSw.as_fdt()`, while `fdt_finish()` packs the
-FDT header's `totalsize`, `FdtSw.as_fdt()` currently doesn't trim the
-backing Python `bytearray` to `fdt_totalsize()` (unlike `Fdt.pack()`,
-which runs `del self._fdt[self.totalsize():]`), leaving trailing buffer
-slack in `fdt.as_bytearray()`. For v4 I plan to add a small preparatory
-patch ("pylibfdt: Trim Fdt bytearray to totalsize() in FdtSw.as_fdt()")
-so `FdtSw.as_fdt()` trims the `bytearray` to `fdt_totalsize()`, and drop
-`fdt.pack()` from `DeviceTree.flatten()`.
+ - Link to v2: https://patch.msgid.link/20260624-qcom-spmi-haptics-v2-0-b9118e60f3e3@oss.qualcomm.com
 
+Changes in v2:
 
-> > +    def get_str(self, name):
-> > +        """Return property `name` decoded as a NUL-terminated UTF-8 st=
-ring.
-> > +
-> > +        Args:
-> > +            name: Property name to look up in `self.props`.
-> > +
-> > +        Returns:
-> > +            Decoded string value (without the trailing NUL byte).
-> > +
-> > +        Raises:
-> > +            KeyError: If `name` is not in `self.props`.
-> > +            ValueError: If the property value is not a single NUL-term=
-inated
-> > +                UTF-8 string.
-> > +        """
-> > +        return self.props[name].as_str()
->
-> Rather than having wrappers around all the class Property acccessors,
-> would it be simpler (and only slightly more verbose) to just have a
-> property() method, returning a Property instance and use its accessors
-> in the caller?  Looking up properties with __getitem__ could also
-> work, although maybe the fact that doesn't get subnodes would be
-> confusing?
->
-> I guess that would also require a bunch of new class methods on
-> Property for the set* side.
+ Dropped dtsi change and I will resend them after the driver and binding changes get accepted.
 
-Yeah, that works out nicely. For v4 I've queued up a preparatory patch
-("pylibfdt: Add Property.from_*() creation methods") adding
-`from_cell()`, `from_uint32()`, `from_int32()`, `from_uint64()`,
-`from_int64()`, `from_list()`, `from_uint32_list()`, `from_int32_list()`,
-`from_uint64_list()`, `from_int64_list()`, `from_str()`, and
-`from_stringlist()` classmethods to `libfdt.Property` as the
-counterparts to `Property.as_*()`. Then in `DeviceTree` I've dropped all
-the `get_*()` and `set_*()` wrapper methods and replaced them with a
-single `DeviceTree.set_prop(prop)` helper (which stores
-`self.props[prop.name] =3D prop` so callers don't have to repeat the
-property name when setting a `Property`).
+ Updated haptics binding and addressed review comments from Krzysztof and Konrad:
+ - Extended the description to clarify the 'PAT_MEM' mode (not yet supported in the driver)
+   by comparing it with the 'FIFO' mode.
+ - Updated the compatible string to 'qcom,spmi-haptics' to match the file name and removed
+   the PMIC wildcard.
+ - Simplified register names to 'cfg' and 'ptn'.
+ - Corrected the unit naming for the 'qcom,vmax-microvolt' property.
+ - Added an additional clarification for the 'qcom,lra-period-us' property.
 
+ Updated the driver to address review comments from Konrad and Julian:
+ - In haptics_write_fifo_chunk(), separated variable declaration and assignment, and added
+   comments explaining the 4-byte and 1-byte FIFO writes.
+ - Replaced manual 'x * n / d' calculations with mult_frac().
+ - Switched to disable_irq() to prevent late IRQs after device removal.
+ - Replaced property reads with device_property_read_u32().
+ - Remove the 'INPUT' dependency in Kconfig
 
-> > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> > index ae46b29a8f5c..cfdb8f5749b6 100644
-> > --- a/tests/pylibfdt_tests.py
-> > +++ b/tests/pylibfdt_tests.py
-> > @@ -11,6 +11,8 @@ import types
-> >  import unittest
-> >
-> >  sys.path.insert(0, '../pylibfdt')
-> > +sys.path.insert(0, '..')
->
-> See above about location of devicetree.py.  But.. for that matter,
-> with the code in a separate module, it probably makes sense to have
-> its tests in a separate file, too.
+ Updated the driver to address feedback from Sashiko AI:
+ - Guarded pm_runtime_resume()/suspend() with 'pm_ref_held' to prevent runtime PM reference leaks.
+ - Replaced spinlock with a mutex to protect FIFO data during playback and avoid calling
+   sleepable regmap APIs under spinlock.
+ - Adjusted suspend/remove() sequence to stop playback before canceling work, and freed
+   FIFO buffers to prevent potential memory leaks.
+ - In FF_PERIODIC handling, allocated 'fifo_data' before assigning data to ensure its
+   consistency with 'data_len'.
+ - Registered the input device after enabling runtime PM.
+ - Unify to use 'h->dev' pointer in probe()
 
-Makes sense. For v4 I'll move the `DeviceTree` unit tests into a new
-`tests/devicetree_tests.py` file and run it alongside `pylibfdt_tests.py`
-in `tests/run_tests.sh`.
+ - Link to v1: https://patch.msgid.link/20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com
 
+---
+Fenglin Wu (2):
+      dt-bindings: input: Add Qualcomm SPMI PMIC haptics
+      input: misc: Add Qualcomm SPMI PMIC haptics driver
 
-> > +    def testDeviceTreeRoundTrip(self):
-> > +        """Test unflattening and flattening a tree via DeviceTree"""
-> > +        tree =3D copy.deepcopy(devicetree.DeviceTree.unflatten(self.fd=
-t))
->
-> What's the deepcopy for?  You're not retaining the original
-> unflattened copy.
+ .../bindings/input/qcom,spmi-haptics.yaml          |  139 +++
+ drivers/input/misc/Kconfig                         |   11 +
+ drivers/input/misc/Makefile                        |    1 +
+ drivers/input/misc/qcom-spmi-haptics.c             | 1251 ++++++++++++++++++++
+ 4 files changed, 1402 insertions(+)
+---
+base-commit: 66725039f7090afe14c31bd259e2059a68f04023
+change-id: 20260616-qcom-spmi-haptics-3cc97e7b232e
 
-I'll drop that in v4. (It was a leftover from testing
-`Property.__deepcopy__()` before that was split out into its own test in
-`pylibfdt_tests.py`.)
+Best regards,
+--
+Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+-- 
+Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-
-> > +        self.assertIsInstance(tree.props['compatible'], libfdt.Propert=
-y)
->
-> I don't know if directly accessing the tree's internal dictionary from
-> outside is a good idea.
-
-My intent was for `props` and `children` to be the primary public `dict`
-attributes of `DeviceTree` (rather than internal/private state), which
-keeps property and child-node lookups, iteration, and deletion
-(e.g. `node.props['compatible'].as_stringlist()`, `node.props.get(...)`,
-`del node.props[...]`) idiomatic in Python without needing a parallel
-set of dict-wrapper methods. Dropping the competing `get_*()`/`set_*()`
-wrappers on `DeviceTree` and adding `node.set_prop(prop)` makes that
-model much more consistent; for v4 I'll also update the `DeviceTree`
-class docstring to explicitly document `props` and `children` as public
-attributes for callers.
-
-
-> > +        tree2 =3D devicetree.DeviceTree.unflatten(fdt2)
-> > +        nodes1 =3D [(path, n.props, list(n.children.keys()))
-> > +                  for path, n in tree.walk()]
-> > +        nodes2 =3D [(path, n.props, list(n.children.keys()))
-> > +                  for path, n in tree2.walk()]
-> > +        self.assertEqual(nodes1, nodes2)
->
-> I don't think it's guaranteed that walk() will get the nodes in the
-> same order each time, so you probably want sets instead of lists here.
-
-Will fix in v4 by comparing
-`{path: (n.props, set(n.children.keys())) for path, n in tree.walk()}`
-(and using sets of paths in the other `walk()` test assertions).
-
-
-For now I'll hold these draft v4 changes in my local tree. If you have
-any feedback on the responses above (or any other patches in the
-series) I can make further changes before actually sending out a v4.
-If you'd prefer me to send out what I have now so you can review the
-latest-and-greatest, I'm happy to do that too. If nothing else, some
-of the changes we've made to how DeviceTree works here bleed into the
-other patches a little, so sending a v4 before you review further
-could be nice. ...but I also don't want to churn the series faster
-than you're ready for it. ;-)
-
--Doug
