@@ -1,59 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811677;
-	b=p4jIZIuB+xs3CQvhoRV8BYuPHmpVhXvwvZ9qB5o3nwcgOnmO5xF0VTlMJitmfihPDbH7
-	 /E+SdJl2uegIVQlIlvlZw6RRG67U9eae1LVFlC7LJ/pLGGKeKsOqAdApNj4WMvkWedppu
-	 j5O2szV/puFjK7BWl1hYDvJ8NMDyaBztpVIjG1R4CCs6MXXkjankweEDb8Ei0SoHl7gs/
-	 rAtRm4tKxTmrk/lWkyyshEznOeSDHGX2BgyBV2/DMpXgRdko+zxkjVlMimGhoqmJl/+mH
-	 61ZM/8MleMmAVdjccQTpZzii+v0wqNAH1oIoc6H8DTFq3qP/3XP95YZt6YmvaD5OGhA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811677;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=7tyK2W7ifA85cnhPna50E8pPdlavfr0G19glz6Qel+k=;
-	b=fLfGs/dNii7/9cStL/Js6bvCHLpmxVHWd1K3qKGZxef5Cd4CQllbd26dOt6hZ9xtokzh
-	 TgG1PfxGSdAa1PkKvqLKj912MR5YlwCHErQwk2Yqt9F6IaukkUBW3dPlIxFXH5oBxynQO
-	 6G2d4zk8fDoCsKOV0/eZHSJOxdpTxfn76a92R58Pib/TxG1oLf4Ajuz0rCpDV9UpES5vj
-	 tTiDVGMzA3R0BeBttGk07u5Q9dH92F/eDTTNJFF/jYIQRbOkdj6L1YCU2GjyRbIEAcMJY
-	 wovF4KcAi+ddL9IeIpd9ASrBPkwfwVS5qJfPOhFyzOm5SdWBk4cQEk8w27muBbpGsbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hzwbBvaP;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.126
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793811778;
+	b=YzdgCpaXqhxw0jsqH/4nPjq/a43yJQE+5wv8RWEckAFi+gJd+Uy3BMl6xrg9Lx/AFRuV
+	 v3FGKyli6OielaKQNAQoA9t7iJ8VleOYKPnntbLCTDtbSxB3U/9tvNoRbK2HMU0c+kwuA
+	 T+86ljxR21IquDujQXthWOzU2lYMfml9z5erINgP4ukxdK5aUj8JaO2UQvBaWcByWG49f
+	 VNyJS23Mczs+WPOElVDyqGobiuPQ58Ucvq3F1cd8loKL/DR2QhYd7/mjAGVA5mTbkq8pb
+	 YZuKSC6RFWp+vKZbclU4+Z/CvWOFq1VL5Dxq8cCe7Sx2YWGUOKrq87YGZAsjDSv23ug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811778;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uA1VfvAV5MRXPvJ+d/ZcWZAsZv+XbxSNxKa5uVfz+hg=;
+	b=a8fEQmTkqqUmVJ5uZYG/JAlVbecFMgFLzpz9lFhrZnFlmQxVqy/S1/YnKSFyfeJQfFpb
+	 5qt9uWtft0bgmorMoZUQ7bWZjmZqocsU6SQYlvvFX2Pv/w4M7rFOGj8PwvCzCZ4Ru1/g8
+	 X4ET/czomEX+u153i7KzQLDmTvy8wP4j0tXG7iqAVNg9Fmknsx1Q1oqqCSJ6cSDcQH/jT
+	 ZdvM+OAs+ttXboRowgee8JR9+BUPUbBHx4iuRy3XNNcvgj06ASATGIvjaA1l9RPChuCbr
+	 /0Po58bY2lwJPIUOdSlqjjlPrPAyhPSKMQkn1LiSju7tDTPRQXlull5QDXOt4cpksrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=phytec.de;
+	spf=pass smtp.mailfrom=phytec.de;
+	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=F4aI6+Pa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.126
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021126.outbound.protection.outlook.com [52.101.70.126])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D51606D807
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5D51606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA1C606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:02:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBA1C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hzwbBvaP
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3D6D41A1458;
-	Wed,  4 Nov 2026 17:01:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 12E4C60770;
-	Wed,  4 Nov 2026 17:01:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 13DCB1032920A;
-	Wed,  4 Nov 2026 18:01:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793811669; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7tyK2W7ifA85cnhPna50E8pPdlavfr0G19glz6Qel+k=;
-	b=hzwbBvaPRq6lhMEBZ2gMNk59q68O3CCo1hfZLOr2X/ZPix+STNrEV7H+4WJ4irRW0aYMmT
-	jv7lDd6p3N7VPRfJ8HtxeDph9eed4exwFyrn7/G0zvw5fGULHpxYhB6BR7YQXNybnBCUDq
-	WNg+5v0Zis/HH7shZpBCDdTkwn14d15TOOjvq2BcKYDP0M9pYgeOTIRy0suWq5S/UENNIU
-	weZ/DuZscv48MMAMwDPy+/5PnEhx4YX3W5MCcm7T06pKDRWZmHOk76Iy6hm6JFaw02IHKh
-	/oMinWu/EE5vwCMnf5PmW/ElU3KCN4rmiT3WtL/5+yxgS4IHrfMwMMYSvLqG6A==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Wed, 04 Nov 2026 18:00:35 +0100
-Subject: [PATCH v4 3/3] regulator: Add TI LM51772 support
+	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=F4aI6+Pa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KEj0TUylMyl7AuJtrD2hiUWDynD6rnSHt5QW0L3r2mpNvTb/oq1rtrFuJzppPaoT7CGW/tIwpWHlSzfUR3yutmiJCiT4NlXdTCi1NIIxqPoook3wGDAFCtA2nKuKMpFk7be9CywXZZT5ckiQAKmOM8eotMikcF4Z1lmJ/7g9DhQACn1avkmVQmsHXYtTrZxXVssCD4KLUX3F/03E+fU6Vyqbn8Z2s+ettPS+v5LSDAts8bBEX3bVJxclonf50spiCkI48NASdjIN9MhMmVoaYi3+44PJ0wCEG90LFLG6rXWuXCYOpzmdVvKFj9xF1sAqt4NotkbvFMTZ5VxLbND2aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uA1VfvAV5MRXPvJ+d/ZcWZAsZv+XbxSNxKa5uVfz+hg=;
+ b=mDZcCVQOwfWRckQ7sj4BGVPSRjXnlvJVmgMgFMtVJOEYNQ3gn5C+WdsM5Y5yAUNYzIyovEtEhQUbQ5a39yKG/UsA7brb21XNy/QsheTvtMusbZvYO3vqBMZdgFTiCNd5ZYMsTpV6HdnSgDpHpp79TXBsRfm2Z+1xGztwwLlg+8MAwNF258vr0ckPD+1srHR7HUP1ryg2nqcto1y24Lrpv+510Fk1Gtj3kWI4DfxWsO8mgLpvkDGlwhQzU/ydikKdcf9Soj/JJ6TuLpUDqhG3y0ZFmJcRxPLZ9DqujEd5SbfHz8q+64Vg1wHH8VTqhXciEDYnG1MnmOHr7tDcHQPKaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
+ dkim=pass header.d=phytec.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uA1VfvAV5MRXPvJ+d/ZcWZAsZv+XbxSNxKa5uVfz+hg=;
+ b=F4aI6+PaXaVaqneP1f12IfyMOL7gvjWDoSnYrBeXjeJ3GC4UuBFntTqStisnRfleJ1x8QR8c+XS1ijlR33bNyDMeZaQIaXto5vVVKPSeWRrsUHR3iNDsP/rflqKRJaKrBMzPTVeIfM30f+QefyhMcf08guKYgDqFB0Ha6I3JQp0EROIIqrkKijyBVzQIvQ+YVEZIzmhHvNywxy0Aqa73PWMn/AtemJoU6NipKMj9bQ7Jo1NGiPc5hWZDc6iorYrvSFgz0amgnuCrbauW8fT1cXm2zEhsqqCgIaLrf5RWI7qEG+R8a+yvSJEqx06/lUQDiPvz8leLur4Zr73oTOPOMQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=phytec.de;
+Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:159::10)
+ by DB9P195MB1730.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:399::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 17:02:53 +0000
+Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ ([fe80::2f8:67bc:a785:6894]) by VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ ([fe80::2f8:67bc:a785:6894%7]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
+ 17:02:53 +0000
+Message-ID: <a9504d96-7a1b-40b4-9dc2-37f8ce92d33e@phytec.de>
+Date: Wed, 4 Nov 2026 18:02:52 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] dts: imx95-phyflex-libra-rdk: Add dts for
+ phyFLEX-i.MX 95 Libra RDK
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
+ conor+dt@kernel.org, Frank.Li@kernel.org
+References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
+ <20261030-wip-bhahn-imx95_upstreaming-v1-2-1c1cebb5be99@phytec.de>
+ <sashiko-outbox-191084@kernel.org>
+Content-Language: en-US
+From: Benjamin Hahn <B.Hahn@phytec.de>
+In-Reply-To: <sashiko-outbox-191084@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0041.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::12) To VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:800:159::10)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,1005 +100,370 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261104-paul-lm51772-v4-3-494eab808581@bootlin.com>
-References: <20261104-paul-lm51772-v4-0-494eab808581@bootlin.com>
-In-Reply-To: <20261104-paul-lm51772-v4-0-494eab808581@bootlin.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793811647; l=31536;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=Y07bFZYafLGwAdew3kLxXLgdOcFQ9PGoa+yEeYD738w=;
- b=jpuD6cSrjDM6lP4TezYSfkr+M16MkA/CPVOtkCd9nVQ4skX8oWL/N3C3kwGtXdoZBoNaNZKtM
- ury3pCjnemqCecPICKXiNzIqVFfvOGBygErOx0jcrJ456eexcIXA1JN
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1P195MB0623:EE_|DB9P195MB1730:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27ee0f1a-9227-422d-a20a-08df3a957751
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|261022105027099003|261022075727099003|4143699003|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	bhrpsZsb8V2lLqLg+jXeQ+nFZVCfp5rVfwnaBRb7C918fBrNrCC29Ot4gF8kN3qYuhE8wcnuNsBuHsFqKFgD6CMNNkM2vIL3uaSYjdEKurRvTNZJYD8+nRVxAqs4rNHOlIjfcwpou2sa4q5E/IiQq2TT27vGbyaWOgYMzgVX3EU1DUSwGCb78O7MWmQxbtupNSxRrFywm19JT/ybZNm+S7i4mkjERJMIzW48/V1lXE6Q5LBf556U2qtGtToeWtbUN847hMFMtQodiCvfbmhO8C/q+2UQtkPRlh3MEyyLkg6s3LZ2RkX5Erq78w7gCd4jWBI5lDMO5Uo6d5Rm8Zl3xMy7JOGe/vSpULDpxYsbex4nH1vfQYO9m31X9tr4FcnEyZ750E4FGj9Cxkbdvc19QfIV/HmJLMZ5VkOKvjO+9cKTBukY96ugg/y4YN4MBW6Dp5O+WO/GDOZbjIyC00XOQNHOHcbmXj3f91j6QZwtdtxomKidwPsJzYXOD3MMP4W+Bfm73UrgmPqRL4HYLk6zgfKAuii40yHL0HktzapoWVqe2JVLkvFvvO2PJLL9AJwbrDabOOZu8m+CAuCudCkb5uznPN1eG4/49MEyjCXXjvmbindf50vqGJJxXahoWDiVIT4wbx+/8RptcN9I9XjOeoVKJ37CcgaCLfKrtsxf7Dk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1P195MB0623.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(261022105027099003)(261022075727099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QUFzTFpYeTFMbHZiQUpPbHJudE5wQndkTFZaaWtPQjF5L0VhazRNNHd3QjVU?=
+ =?utf-8?B?WlZJRnpBRnY4SzZKUVhlbDFWMEM1WmJyNlVTWmw0YWZNMWxQbUFiMC9Kb2lQ?=
+ =?utf-8?B?eGFxdktDdGoxL1FxcW5rVGRCQ0dvMTlHbFBKNy9yNkI3OWxJTG1uMzFrbWRl?=
+ =?utf-8?B?UE9UcEVEdzdscnpmU0EwaVhGVkRUS3BVZTJMaGpkdG0rNi8zMVJranN0Rjl0?=
+ =?utf-8?B?WHNudmFGczFORjNjbGcySzZIaUh6UWwxcmdrUlNhOTQweEM2bGhES09Rdnk0?=
+ =?utf-8?B?WnJsbWRJM1NOTjFRZDZNSXM1OU5XYVZhRHNMTGZ1WGp6QldBWHVhUDJtdG12?=
+ =?utf-8?B?NEVJMGwzV2hBSlRKRHZ0VU5ydjNGUmZYL1ZvT3ptd2trVlhCUk9sU3h2SmY4?=
+ =?utf-8?B?VW9Nd09SemlJSzM2Mys2cUFrWFBzaFZWU0JTOWJuVk1tREdtcUxDQXFmajZQ?=
+ =?utf-8?B?VUtFdjRSVVFlR3l5SytucnhOemhuN3lMODJEdHloNEZRRVczd1dUNUI3ZHhR?=
+ =?utf-8?B?aWptQk5Wdk9BWitzcFJ3M0ZOc2llVWpocG11MjdidkNzQ3hua2hCSHhRMW95?=
+ =?utf-8?B?U3pZQmZ3c3JLVSttcGk3RUYrNHRkbEh2N0NwUGxuQklhOVdtT1F0WktRU21R?=
+ =?utf-8?B?RUVYWTg3cHI0RlJYTllNbFNra2tpc2liMEw1TEIvWUMyRWlLTFJoZG9aaTBM?=
+ =?utf-8?B?U2F6UFZKYjRqcFVKUTh5NXNXZHRUM1hDZ2NBUmNuMGpWdEY2THN6citLUkps?=
+ =?utf-8?B?QWttK3ZLb0lyYnd5bXNlTk5IU0tpci9jZjVzWjdwbmNPNTdhckFDVGdMWTFo?=
+ =?utf-8?B?dnplcGhvMlBTYU5vSlRQTzZZK3ZLWjAzNVpEaTFZK0x4R2FtWmplc0srTzcz?=
+ =?utf-8?B?Mm1nNldGeHMzRDIvbm9jTXhzMndkUHBMN0JEb0dQekFDdVZEL1pZWVdBNGpl?=
+ =?utf-8?B?L0o3bWZFUzE3aUJnVHJUaFJ6ZHN1M1VUL1hIQkI0eWUvc3RxZDdMTllqWlQ2?=
+ =?utf-8?B?NkZob29QOUtEeXNwYTBCRlhza3dlU3dOSmxwRzlRRWlYTUtzNTQyZE5XQTRG?=
+ =?utf-8?B?SFJMaVRMeFNZUVlmckVmQXh5UndHWE5LbUUvanJ4T0pEVUxZRHkzcnlsMHhw?=
+ =?utf-8?B?OUV0MTdRVUJXdDVMWG50OU5NSmVmTXNhOHp5OVBUalR1TFNnUGZ1dWZvMEFR?=
+ =?utf-8?B?YnBiTitFRy9LMzFVempreDlVRVZERkJvclM3RFFLM25PVVZKNWRnaHBCWkM5?=
+ =?utf-8?B?aWV4KzNURGZvVm5mT0t2Y2YralZhTS80OU5WZU5rSjg1d3RuK3JOUEJCNHF4?=
+ =?utf-8?B?UnU4MTBBWjg2SWZnN2I0TWtNR0lYVCt0K2QxNjJqMGxjRUM4bEJmbkVNUmRG?=
+ =?utf-8?B?Y0ppMENURk1OQVBqQkZwL1Brajl3YkxZS2dWUVB6ajZzUEorb3N6SnRhMy9q?=
+ =?utf-8?B?bE8vWlhpbnBpb3IzOEZ5VFRNdWZuZ0c5T3I2UkVOVzlKSElJTE1rRDZ6Szh0?=
+ =?utf-8?B?QnY5ZlJDREU2MjBtTWxmVkFhWE5peENXRmlwUUY3R08rNXZySlBnejI0ckJm?=
+ =?utf-8?B?Y1IzcGdBcEliWExxR2d3NVlKVTBRK0hubUhTUkREQWpOcGZyQU9Ob2ZjWXNP?=
+ =?utf-8?B?eldmc0ZGQm1DNXdPTUZsaVN1N1ZHZkRLV0lvQnQ3MGhWMTlHYmlCZXNoL2dq?=
+ =?utf-8?B?bmVCYTUvWUdPU2wrbVVIb1NIazBPUzhOU1c3UWN0VUlmNVFrUVVjRTk0S3Yw?=
+ =?utf-8?B?WHBGOXl3a1FvVzJ1OGNVc3NjM0hPalJiWWovVzZudklYVzJSWHZ6UUFqQUV5?=
+ =?utf-8?B?Q0dPUGJybk4rMm83OW52U3FBRVliQ1NHQ01hWS9kcmltMnIwVWVVM2ZvL0xR?=
+ =?utf-8?B?NDFlWExvZEtVRnNJNGFZWlJDMUxvMXBGZWp4bFdGRE91U3Zzbm9zTmNvby9N?=
+ =?utf-8?B?elVKMWtLelRBZDhqS25zR1BPZzVzQ0Q3L21PZStkaXpEalhwTEd3N3dzRlk0?=
+ =?utf-8?B?MDQ1emU1dnM3Wm9odUVldmMzdy82T2dBWnpNQUsxNjRhOUNhVmRocUd3UnFj?=
+ =?utf-8?B?cDNIU1JjbXA3S1NkYkkrb2lPb1BsM0Ywb0NMT0NtRW5NL0FiTEZwZ1Fid0Jj?=
+ =?utf-8?B?dWUwNzhodUtmQWhjc0dxb1RlRXM1UExOVlhJYldINjdrM29mZ3F5MGgvd2My?=
+ =?utf-8?B?dmEzaFZsR2tvRFFFVzMxUW5EQ1Q2R01IQm1UcEhDTzJpNkhXMElySWM3ODBm?=
+ =?utf-8?B?YWwzRWxwNFNvbTM1WE9GMEhqK2ZCZGhaczlDd2tkSHp6WTJKQlZSV0RLVGl5?=
+ =?utf-8?Q?RWeRy/7YPe51HXqDav?=
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27ee0f1a-9227-422d-a20a-08df3a957751
+X-MS-Exchange-CrossTenant-AuthSource: VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:02:53.7398
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mmEMJqCMlDDJVOSdcZ1anO08JnW5r/D2RUG7EdFQJMYrF/REYK72g7P0PLi52e1x/on7htFOVlorc4lrV0rFTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1730
 
-Add driver for the TI LM51772 buck-boost voltage regulator.
+Am 30.10.26 um 15:00 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] arm64: dts: freescale: duplicate usdhc2-200mhzgrp node overwrites usdhc2 pins
+Thanks, will correct for v2.
+> - [High] arm64: dts: freescale: missing OF graph ports on M.2 connectors disables radios
+As already described in my other answer, lpuart8 is also used for 
+RS232/RS485 and specifiying the ports will lead to the interface not 
+beeing exposed as /dev/ttyLP1, so RS232/RS485 is no longer usable. That 
+is why the port is not specified.
+> - [High] arm64: dts: freescale: descending cooling-levels ending in 0 breaks pwm-fan
+The pwm-fan is tested and works as expected. The levels are inverted on 
+our hardware. 255 is fan off (if the hardware is cold enough). 0 is fan 
+on full speed.
+> - [Medium] arm64: dts: freescale: misplaced external-facing and wake-gpios on pcie0/pcie1
+> - [Medium] arm64: dts: freescale: stale gpio2 gpio-line-names collide with gpio_expander2
 
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- MAINTAINERS                           |   1 +
- drivers/regulator/Kconfig             |  11 +
- drivers/regulator/Makefile            |   1 +
- drivers/regulator/lm51772-regulator.c | 913 ++++++++++++++++++++++++++++++++++
- 4 files changed, 926 insertions(+)
+Will update/fix for v2.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c958e116cd66..a4c59be2551c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27465,6 +27465,7 @@ TI LM51772 BUCK-BOOST REGULATOR DRIVER
- M:	Paul Louvel <paul.louvel@bootlin.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
-+F:	drivers/regulator/lm51772-regulator.c
- 
- TI LMP92064 ADC DRIVER
- M:	Leonard Göhrs <l.goehrs@pengutronix.de>
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 7d151433747b..ce43a1dea33d 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -519,6 +519,17 @@ config REGULATOR_LM363X
- 	  One boost output voltage is configurable and always on.
- 	  Other LDOs are used for the display module.
- 
-+config REGULATOR_LM51772
-+	tristate "TI LM51772 voltage regulator"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  This driver supports the TI LM51772 buck-boost controller, designed
-+	  for USB Power Delivery applications. It provides a software
-+	  configurable buck-boost output voltage and a fixed auxiliary 5 V LDO
-+	  output, both controlled over I2C. The driver supports voltage
-+	  setting, current limiting and fault/thermal reporting.
-+
- config REGULATOR_LOCHNAGAR
- 	tristate "Cirrus Logic Lochnagar regulator driver"
- 	depends on MFD_LOCHNAGAR
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 6aabcc54382a..783eda233e25 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -61,6 +61,7 @@ obj-$(CONFIG_REGULATOR_ISL6271A) += isl6271a-regulator.o
- obj-$(CONFIG_REGULATOR_ISL9305) += isl9305.o
- obj-$(CONFIG_REGULATOR_FP9931) += fp9931.o
- obj-$(CONFIG_REGULATOR_LM363X) += lm363x-regulator.o
-+obj-$(CONFIG_REGULATOR_LM51772) += lm51772-regulator.o
- obj-$(CONFIG_REGULATOR_LOCHNAGAR) += lochnagar-regulator.o
- obj-$(CONFIG_REGULATOR_LP3971) += lp3971.o
- obj-$(CONFIG_REGULATOR_LP3972) += lp3972.o
-diff --git a/drivers/regulator/lm51772-regulator.c b/drivers/regulator/lm51772-regulator.c
-new file mode 100644
-index 000000000000..4bbc3a31ecbd
---- /dev/null
-+++ b/drivers/regulator/lm51772-regulator.c
-@@ -0,0 +1,913 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// TI LM51772 I2C regulator driver
-+//
-+// Datasheet: SNVSC22D (September 2025)
-+//
-+// Copyright (c) 2026 Bootlin
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/find.h>
-+#include <linux/i2c.h>
-+#include <linux/linear_range.h>
-+#include <linux/math.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/regulator/coupler.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/string.h>
-+#include <linux/units.h>
-+
-+#define LM51772_SENSE_RES_DEFAULT_UOHM		10000
-+
-+#define LM51772_OVP_MIN				0x00
-+#define LM51772_OVP_DEFAULT			0x3F
-+
-+#define LM51772_VCC1_LDO_UV			5000000
-+#define LM51772_VCC1_LDO_NV			1
-+
-+#define LM51772_DISCHARGE_STRENGTH_MIN_UA	25000
-+#define LM51772_DISCHARGE_STRENGTH_STEP_UA	25000
-+#define LM51772_DISCHARGE_STRENGTH_MAX_UA	75000
-+
-+#define LM51772_ILIM_MIN_UV			5000
-+#define LM51772_ILIM_STEP_UV			500
-+#define LM51772_ILIM_MIN_SEL			0x0A
-+#define LM51772_ILIM_MAX_SEL			0x8C
-+#define LM51772_ILIM_NSEL			0x100
-+
-+#define LM51772_ILIM_UV_TO_UA(rsns_uohm, uv)	(div_u64((u64)(uv) * MICRO, (rsns_uohm)))
-+
-+#define LM51772_PCM_WINDOW_LOW_MAX		0x1F
-+#define LM51772_PCM_WINDOW_LOW_DFLT		0xC
-+#define LM51772_PCM_WINDOW_LOW_STEP_PERMILLE	25
-+
-+#define LM51772_IVP_VOLTAGE_DEFAULT		0xFF
-+
-+#define LM51772_DIV10_MIN_UV			1000000
-+#define LM51772_DIV10_STEP_UV			10000
-+
-+#define LM51772_DIV20_MIN_UV			3300000
-+#define LM51772_DIV20_STEP_UV			20000
-+
-+#define LM51772_N_REGS				2
-+
-+/* Register map (datasheet table 8-1) */
-+#define LM51772_REG_CLEAR_FAULTS		0x03
-+#define LM51772_REG_ILIM_THRESHOLD		0x0A
-+#define LM51772_REG_VOUT_TARGET1_LSB		0x0C
-+#define LM51772_REG_VOUT_TARGET1_MSB		0x0D
-+#define LM51772_REG_USB_PD_STATUS_0		0x21
-+#define LM51772_REG_STATUS_BYTE			0x78
-+#define LM51772_REG_USB_PD_CONTROL_0		0x81
-+#define LM51772_REG_MFR_SPECIFIC_D0		0xD0
-+#define LM51772_REG_MFR_SPECIFIC_D1		0xD1
-+#define LM51772_REG_MFR_SPECIFIC_D2		0xD2
-+#define LM51772_REG_MFR_SPECIFIC_D3		0xD3
-+#define LM51772_REG_MFR_SPECIFIC_D5		0xD5
-+#define LM51772_REG_MFR_SPECIFIC_D6		0xD6
-+#define LM51772_REG_MFR_SPECIFIC_D8		0xD8
-+#define LM51772_REG_MFR_SPECIFIC_D9		0xD9
-+#define LM51772_REG_IVP_VOLTAGE			0xDA
-+
-+#define LM51772_ILIM_THRESHOLD_MASK		GENMASK(7, 0)
-+
-+#define LM51772_VOUT_TARGET1_MASK		GENMASK(11, 0)
-+
-+/* USB_PD_CONTROL_0 bits */
-+#define LM51772_CONV_EN2			BIT(0)
-+
-+/* STATUS_BYTE bits */
-+#define LM51772_STAT_OTHER			BIT(0)
-+#define LM51772_STAT_CML			BIT(1)
-+#define LM51772_STAT_TEMP			BIT(2)
-+#define LM51772_STAT_IOUT			BIT(4)
-+#define LM51772_STAT_VOUT			BIT(5)
-+#define LM51772_STAT_OFF			BIT(6)
-+
-+/* MFR_SPECIFIC_D0 bits */
-+#define LM51772_IMON_LIMITER_EN			BIT(6)
-+#define LM51772_EN_VCC1				BIT(5)
-+#define LM51772_CONV_EN				BIT(0)
-+
-+/* MFR_SPECIFIC_D1 bits */
-+#define LM51772_EN_THER_WARN			BIT(7)
-+#define LM51772_THW_THRESHOLD_MASK		GENMASK(6, 5)
-+#define LM51772_EN_NINT				BIT(4)
-+
-+/* MFR_SPECIFIC_D2 bits */
-+#define LM51772_EN_ACTIVE_DVS			BIT(6)
-+#define LM51772_DVS_SLEW_RAMP_MASK		GENMASK(5, 4)
-+#define LM51772_DISCHARGE_STRENGTH_MASK		GENMASK(3, 2)
-+/* Discharge when either CONV_EN or CONV_EN2 is disabled. */
-+#define LM51772_DISCHARGE_CONFIG0		BIT(1)
-+/* Stop discharging when Vout approaches the threshold (Vout ~= 0.5V). */
-+#define LM51772_DISCHARGE_CONFIG1		BIT(0)
-+
-+/* MFR_SPECIFIC_D3 bits */
-+#define LM51772_EN_IVP				BIT(7)
-+#define LM51772_SEL_IVR				BIT(6)
-+
-+/* MFR_SPECIFIC_D6 bits */
-+#define LM51772_CONFIG_SYNC_PIN_MASK		GENMASK(7, 6)
-+
-+/* MFR_SPECIFIC_D8 bits */
-+#define LM51772_SEL_FB_DIV20			BIT(7)
-+#define LM51772_EN_CDC				BIT(6)
-+
-+/* MFR_SPECIFIC_D9 bits */
-+#define LM51772_SEL_ISET_PIN			BIT(5)
-+#define LM51772_PCM_WINDOW_LOW_MASK		GENMASK(4, 0)
-+
-+struct lm51772_priv {
-+	bool nint;
-+	unsigned int ov_lim_uv;
-+	unsigned int vout_curr_table[LM51772_ILIM_NSEL];
-+	struct regulator_desc desc[LM51772_N_REGS];
-+};
-+
-+static int lm51772_regulator_set_thermal_protection(struct regulator_dev *rdev, int lim,
-+						    int severity, bool enable)
-+{
-+	static const struct linear_range thw_range_celsius = LINEAR_RANGE(95, 0, 3, 15);
-+	unsigned int regval = 0, mask = 0, selector = 0;
-+	struct regmap *regmap = rdev_get_regmap(rdev);
-+	long celsius = 0;
-+	bool found;
-+	int ret;
-+
-+	if (severity != REGULATOR_SEVERITY_WARN)
-+		return -EOPNOTSUPP;
-+
-+	if (lim != 0) {
-+		celsius = kelvin_to_celsius(lim);
-+
-+		ret = linear_range_get_selector_low_array(&thw_range_celsius, 1, celsius, &selector,
-+							  &found);
-+		if (ret || !found)
-+			return -EINVAL;
-+
-+		selector = thw_range_celsius.max_sel - selector;
-+
-+		regval |= FIELD_PREP(LM51772_THW_THRESHOLD_MASK, selector);
-+		mask |= LM51772_THW_THRESHOLD_MASK;
-+	}
-+
-+	regval |= FIELD_PREP(LM51772_EN_THER_WARN, enable ? 1 : 0);
-+	mask |= LM51772_EN_THER_WARN;
-+
-+	return regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D1, mask, regval);
-+}
-+
-+/*
-+ * CONV_EN2 and CONV_EN are internally OR'ed, so if one of them if set, the
-+ * converter operation is enabled.
-+ * For the get path, also OR the two bits because a previous user might have
-+ * set just one of them, and we can't know which one.
-+ * For the set path, set both bits to be consistent.
-+ */
-+
-+static int lm51772_set_conv_en(struct regmap *regmap, bool enable)
-+{
-+	int ret;
-+
-+	ret = regmap_update_bits(regmap, LM51772_REG_USB_PD_CONTROL_0, LM51772_CONV_EN2,
-+				 FIELD_PREP(LM51772_CONV_EN2, enable));
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D0, LM51772_CONV_EN,
-+				  FIELD_PREP(LM51772_CONV_EN, enable));
-+}
-+
-+static int lm51772_get_conv_en(struct regmap *regmap)
-+{
-+	unsigned int pd_ctrl, cfg0;
-+	int ret;
-+
-+	ret = regmap_read(regmap, LM51772_REG_USB_PD_CONTROL_0, &pd_ctrl);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(regmap, LM51772_REG_MFR_SPECIFIC_D0, &cfg0);
-+	if (ret)
-+		return ret;
-+
-+	return FIELD_GET(LM51772_CONV_EN2, pd_ctrl) || FIELD_GET(LM51772_CONV_EN, cfg0);
-+}
-+
-+static int lm51772_regulator_enable(struct regulator_dev *rdev)
-+{
-+	return lm51772_set_conv_en(rdev_get_regmap(rdev), true);
-+}
-+
-+static int lm51772_regulator_disable(struct regulator_dev *rdev)
-+{
-+	return lm51772_set_conv_en(rdev_get_regmap(rdev), false);
-+}
-+
-+static int lm51772_regulator_is_enabled(struct regulator_dev *rdev)
-+{
-+	return lm51772_get_conv_en(rdev_get_regmap(rdev));
-+}
-+
-+static int lm51772_regulator_get_ramp_delay(struct regulator_dev *rdev, int old_uV, int new_uV)
-+{
-+	struct regmap *regmap = rdev_get_regmap(rdev);
-+	unsigned int reg, slew_rate_uv_per_us, sel;
-+	int ret, delay_us;
-+
-+	ret = regmap_read(regmap, LM51772_REG_MFR_SPECIFIC_D2, &reg);
-+	if (ret)
-+		return ret;
-+
-+	sel = FIELD_GET(LM51772_DVS_SLEW_RAMP_MASK, reg);
-+	slew_rate_uv_per_us = rdev->desc->ramp_delay_table[sel];
-+
-+	delay_us = DIV_ROUND_UP(abs(new_uV - old_uV), slew_rate_uv_per_us);
-+
-+	return delay_us;
-+}
-+
-+static int lm51772_regulator_set_voltage_time(struct regulator_dev *rdev, int old_uV, int new_uV)
-+{
-+	struct lm51772_priv *priv = rdev_get_drvdata(rdev);
-+
-+	if (!priv->ov_lim_uv)
-+		return lm51772_regulator_get_ramp_delay(rdev, old_uV, new_uV);
-+
-+	/* set_voltage_sel() already waited for the ramp when OVP is used. */
-+
-+	return 0;
-+}
-+
-+static int lm51772_set_ov(struct regulator_dev *rdev, int lim_uV)
-+{
-+	static const struct linear_range ovp_ranges[] = {
-+		LINEAR_RANGE(4000000, 0, 0x18, 500000),
-+		LINEAR_RANGE(16000000, 0x18, 0x3F, 1000000),
-+	};
-+	struct regmap *regmap = rdev_get_regmap(rdev);
-+	unsigned int sel;
-+	bool found;
-+	int ret;
-+
-+	ret = linear_range_get_selector_high_array(ovp_ranges, ARRAY_SIZE(ovp_ranges), lim_uV, &sel,
-+						   &found);
-+	if (ret)
-+		return ret;
-+
-+	if (!found)
-+		sel = LM51772_OVP_MIN;
-+
-+	return regmap_write(regmap, LM51772_REG_MFR_SPECIFIC_D5, sel);
-+}
-+
-+static int lm51772_regulator_set_voltage_sel(struct regulator_dev *rdev, unsigned int sel)
-+{
-+	struct lm51772_priv *priv = rdev_get_drvdata(rdev);
-+	struct device *dev = rdev_get_dev(rdev);
-+	int curr_uv, new_uv, delay_us, ret;
-+
-+	if (!priv->ov_lim_uv)
-+		return regulator_set_voltage_sel_pickable_regmap(rdev, sel);
-+
-+	curr_uv = regulator_get_voltage_rdev(rdev);
-+	if (curr_uv < 0)
-+		return curr_uv;
-+
-+	new_uv = regulator_list_voltage_pickable_linear_range(rdev, sel);
-+	if (new_uv < 0)
-+		return new_uv;
-+
-+	delay_us = lm51772_regulator_get_ramp_delay(rdev, curr_uv, new_uv);
-+	if (delay_us < 0)
-+		return delay_us;
-+
-+	if (new_uv > curr_uv) {
-+		ret = lm51772_set_ov(rdev, new_uv + priv->ov_lim_uv);
-+		if (ret) {
-+			/* Abort the voltage change, because it will trip the OVP. */
-+			return ret;
-+		}
-+	}
-+
-+	ret = regulator_set_voltage_sel_pickable_regmap(rdev, sel);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(delay_us);
-+
-+	if (new_uv < curr_uv) {
-+		ret = lm51772_set_ov(rdev, new_uv + priv->ov_lim_uv);
-+		if (ret) {
-+			/* The OVP is not precise anymore, but it is still > new voltage. */
-+			dev_warn(dev, "failed to set OVP after voltage change\n");
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int lm51772_regulator_set_over_voltage_protection(struct regulator_dev *rdev, int lim_uV,
-+							 int severity, bool enable)
-+{
-+	struct lm51772_priv *priv = rdev_get_drvdata(rdev);
-+	int ret;
-+
-+	if (!enable)
-+		return -EOPNOTSUPP;
-+
-+	if (severity != REGULATOR_SEVERITY_PROT)
-+		return -EOPNOTSUPP;
-+
-+	priv->ov_lim_uv = lim_uV;
-+
-+	/* Use default OVP threshold when no limit is requested. */
-+	if (!lim_uV)
-+		return regmap_write(rdev_get_regmap(rdev), LM51772_REG_MFR_SPECIFIC_D5,
-+				    LM51772_OVP_DEFAULT);
-+
-+	ret = regulator_get_voltage_rdev(rdev);
-+	if (ret < 0)
-+		return ret;
-+
-+	return lm51772_set_ov(rdev, ret + lim_uV);
-+}
-+
-+static unsigned int lm51772_status2err(unsigned int status_reg)
-+{
-+	unsigned int errors = 0;
-+
-+	/*
-+	 * The BUSY bit (bit 7) is only meaningful during device startup.
-+	 * The INPUT bit (bit 3) reports a VIN_UV condition, which is not a
-+	 * regulator output error. Ignore both.
-+	 */
-+
-+	if (status_reg & LM51772_STAT_TEMP)
-+		errors |= (status_reg & LM51772_STAT_OFF) ? REGULATOR_ERROR_OVER_TEMP :
-+							    REGULATOR_ERROR_OVER_TEMP_WARN;
-+
-+	if (status_reg & LM51772_STAT_IOUT)
-+		errors |= REGULATOR_ERROR_OVER_CURRENT;
-+
-+	if (status_reg & LM51772_STAT_VOUT)
-+		errors |= REGULATOR_ERROR_OVER_VOLTAGE_WARN;
-+
-+	if (status_reg & LM51772_STAT_CML || status_reg & LM51772_STAT_OTHER)
-+		errors |= REGULATOR_ERROR_FAIL;
-+
-+	return errors;
-+}
-+
-+static int lm51772_get_error_flags(struct regulator_dev *rdev, unsigned int *flags)
-+{
-+	struct regmap *regmap = rdev_get_regmap(rdev);
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
-+	if (ret)
-+		return ret;
-+
-+	*flags = lm51772_status2err(reg);
-+
-+	return 0;
-+}
-+
-+static int lm51772_irq_map_event(int irq, struct regulator_irq_data *rid, unsigned long *dev_mask)
-+{
-+	struct regmap *regmap = rid->data;
-+	unsigned int status, reg, errors;
-+	size_t bit;
-+	int ret;
-+
-+	ret = regmap_read(regmap, LM51772_REG_STATUS_BYTE, &status);
-+	if (ret)
-+		return REGULATOR_FAILED_RETRY;
-+
-+	ret = regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
-+	if (ret)
-+		return REGULATOR_FAILED_RETRY;
-+
-+	errors = lm51772_status2err(status);
-+
-+	rid->states[0].notifs = (status & LM51772_STAT_OFF) ? REGULATOR_EVENT_DISABLE : 0;
-+	rid->states[1].notifs = 0;
-+
-+	rid->opaque = status;
-+
-+	for (size_t i = 0; i < rid->num_states; i++) {
-+		rid->states[i].errors = errors & rid->states[i].possible_errs;
-+
-+		for_each_set_bit(bit, &rid->states[i].errors, BITS_PER_TYPE(rid->states[i].errors))
-+			rid->states[i].notifs |= regulator_err2notif(BIT(bit));
-+
-+		if (rid->states[i].errors || rid->states[i].notifs)
-+			*dev_mask |= BIT(i);
-+	}
-+
-+	return 0;
-+}
-+
-+static int lm51772_irq_renable(struct regulator_irq_data *rid)
-+{
-+	struct regmap *regmap = rid->data;
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = regmap_read(regmap, LM51772_REG_STATUS_BYTE, &reg);
-+	if (ret)
-+		return REGULATOR_FAILED_RETRY;
-+
-+	if (rid->opaque && rid->opaque == reg) {
-+		ret = regmap_read(regmap, LM51772_REG_CLEAR_FAULTS, &reg);
-+		if (ret)
-+			return REGULATOR_FAILED_RETRY;
-+
-+		return REGULATOR_ERROR_ON;
-+	}
-+
-+	rid->opaque = 0;
-+
-+	return REGULATOR_ERROR_CLEARED;
-+}
-+
-+static int lm51772_vout_of_parse(struct device_node *np, const struct regulator_desc *desc,
-+				 struct regulator_config *cfg)
-+{
-+	u32 active_discharge_strength, pcm_window_low;
-+	unsigned int mask, val;
-+	int ret;
-+
-+	ret = of_property_read_u32(np, "ti,active-discharge-strength-microamp",
-+				   &active_discharge_strength);
-+	if (ret && ret != -EINVAL)
-+		return ret;
-+
-+	if (ret == -EINVAL) {
-+		active_discharge_strength = 0;
-+	} else {
-+		if (active_discharge_strength < LM51772_DISCHARGE_STRENGTH_MIN_UA ||
-+		    active_discharge_strength > LM51772_DISCHARGE_STRENGTH_MAX_UA ||
-+		    active_discharge_strength % LM51772_DISCHARGE_STRENGTH_STEP_UA)
-+			return -EINVAL;
-+
-+		active_discharge_strength =
-+			active_discharge_strength / LM51772_DISCHARGE_STRENGTH_STEP_UA - 1;
-+	}
-+
-+	ret = of_property_read_u32(np, "ti,pcm-window-low-permille", &pcm_window_low);
-+	if (ret && ret != -EINVAL)
-+		return ret;
-+
-+	if (ret == -EINVAL) {
-+		pcm_window_low = LM51772_PCM_WINDOW_LOW_DFLT;
-+	} else {
-+		if (pcm_window_low % LM51772_PCM_WINDOW_LOW_STEP_PERMILLE)
-+			return -EINVAL;
-+
-+		pcm_window_low /= LM51772_PCM_WINDOW_LOW_STEP_PERMILLE;
-+		if (pcm_window_low > LM51772_PCM_WINDOW_LOW_MAX)
-+			return -EINVAL;
-+	}
-+
-+	mask = LM51772_DISCHARGE_STRENGTH_MASK | LM51772_EN_ACTIVE_DVS;
-+	val = FIELD_PREP(LM51772_DISCHARGE_STRENGTH_MASK, active_discharge_strength) |
-+	      FIELD_PREP(LM51772_EN_ACTIVE_DVS, 1);
-+
-+	ret = regmap_update_bits(cfg->regmap, LM51772_REG_MFR_SPECIFIC_D2, mask, val);
-+	if (ret)
-+		return ret;
-+
-+	mask = LM51772_PCM_WINDOW_LOW_MASK;
-+	val = FIELD_PREP(LM51772_PCM_WINDOW_LOW_MASK, pcm_window_low);
-+
-+	ret = regmap_update_bits(cfg->regmap, LM51772_REG_MFR_SPECIFIC_D9, mask, val);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct regulator_ops lm51772_reg_default_ops = {
-+	.list_voltage = regulator_list_voltage_pickable_linear_range,
-+	.map_voltage = regulator_map_voltage_pickable_linear_range,
-+	.get_voltage_sel = regulator_get_voltage_sel_pickable_regmap,
-+	.set_voltage_sel = lm51772_regulator_set_voltage_sel,
-+	.set_over_voltage_protection = lm51772_regulator_set_over_voltage_protection,
-+	.set_thermal_protection = lm51772_regulator_set_thermal_protection,
-+	.set_active_discharge = regulator_set_active_discharge_regmap,
-+	.get_current_limit = regulator_get_current_limit_regmap,
-+	.set_current_limit = regulator_set_current_limit_regmap,
-+	.set_voltage_time = lm51772_regulator_set_voltage_time,
-+	.get_error_flags = lm51772_get_error_flags,
-+	.set_ramp_delay = regulator_set_ramp_delay_regmap,
-+	.is_enabled = lm51772_regulator_is_enabled,
-+	.enable = lm51772_regulator_enable,
-+	.disable = lm51772_regulator_disable
-+};
-+
-+static const struct regulator_ops lm51772_reg_iset_ops = {
-+	.list_voltage = regulator_list_voltage_pickable_linear_range,
-+	.map_voltage = regulator_map_voltage_pickable_linear_range,
-+	.get_voltage_sel = regulator_get_voltage_sel_pickable_regmap,
-+	.set_voltage_sel = lm51772_regulator_set_voltage_sel,
-+	.set_over_voltage_protection = lm51772_regulator_set_over_voltage_protection,
-+	.set_thermal_protection = lm51772_regulator_set_thermal_protection,
-+	.set_active_discharge = regulator_set_active_discharge_regmap,
-+	.set_voltage_time = lm51772_regulator_set_voltage_time,
-+	.get_error_flags = lm51772_get_error_flags,
-+	.set_ramp_delay = regulator_set_ramp_delay_regmap,
-+	.is_enabled = lm51772_regulator_is_enabled,
-+	.enable = lm51772_regulator_enable,
-+	.disable = lm51772_regulator_disable
-+};
-+
-+static int lm51772_of_parse(struct lm51772_priv *priv, struct device *dev, struct regmap *regmap)
-+{
-+	static const char *const sync_pin_modes[] = {
-+		"input-rising",
-+		"input-falling",
-+		"output-rising",
-+		"output-falling",
-+	};
-+	static const char *const input_voltage_modes[] = {
-+		"protection",
-+		"regulation",
-+	};
-+	static const struct linear_range ivp_ranges[] = {
-+		LINEAR_RANGE(4750000, 0x00, 0x94, 125000),
-+		LINEAR_RANGE(23500000, 0x95, 0xff, 250000)
-+	};
-+	bool ivp = false, ivr = false, cable_drop_compensation, found, iset_pin;
-+	const char *input_voltage_mode, *sync_pin_mode;
-+	struct regulator_desc *vout = &priv->desc[0];
-+	unsigned int sync_pin, selector, uv;
-+	u32 ivp_thres, sense_res_micro_ohms;
-+	int ret;
-+
-+	ret = device_property_read_string(dev, "ti,input-voltage-mode", &input_voltage_mode);
-+	if (ret && ret != -EINVAL)
-+		return ret;
-+
-+	if (ret == 0) {
-+		ret = match_string(input_voltage_modes, ARRAY_SIZE(input_voltage_modes),
-+				   input_voltage_mode);
-+		if (ret < 0)
-+			return -EINVAL;
-+
-+		/* IVP is required for IVR to operate. */
-+		ivp = true;
-+		ivr = ret == 1;
-+	}
-+
-+	iset_pin = device_property_read_bool(dev, "ti,iset-pin");
-+	priv->nint = device_property_read_bool(dev, "ti,nint");
-+	cable_drop_compensation = device_property_read_bool(dev, "ti,cable-drop-compensation");
-+
-+	ret = device_property_read_string(dev, "ti,sync-pin", &sync_pin_mode);
-+	if (ret && ret != -EINVAL)
-+		return ret;
-+
-+	if (ret == -EINVAL) {
-+		sync_pin = 0;
-+	} else {
-+		ret = match_string(sync_pin_modes, ARRAY_SIZE(sync_pin_modes), sync_pin_mode);
-+		if (ret < 0)
-+			return -EINVAL;
-+
-+		sync_pin = ret;
-+	}
-+
-+	ret = device_property_read_u32(dev, "shunt-resistor-micro-ohms", &sense_res_micro_ohms);
-+	if (ret && ret != -EINVAL)
-+		return ret;
-+
-+	if (ret == -EINVAL)
-+		sense_res_micro_ohms = LM51772_SENSE_RES_DEFAULT_UOHM;
-+	else
-+		if (!sense_res_micro_ohms)
-+			return -EINVAL;
-+
-+	ret = device_property_read_u32(dev, "ti,ivp-thres-microvolt", &ivp_thres);
-+	if (ret && ret != -EINVAL)
-+		return ret;
-+
-+	if (ret == -EINVAL) {
-+		ivp_thres = LM51772_IVP_VOLTAGE_DEFAULT;
-+	} else {
-+		ret = linear_range_get_selector_low_array(
-+			ivp_ranges, ARRAY_SIZE(ivp_ranges), ivp_thres,
-+			&selector, &found);
-+		if (ret || !found)
-+			return -EINVAL;
-+
-+		ret = linear_range_get_value_array(
-+			ivp_ranges, ARRAY_SIZE(ivp_ranges), selector, &uv);
-+		if (ret)
-+			return -EINVAL;
-+
-+		if (uv != ivp_thres)
-+			return -EINVAL;
-+
-+		ivp_thres = selector;
-+	}
-+
-+	if (iset_pin) {
-+		vout->ops = &lm51772_reg_iset_ops;
-+	} else {
-+		unsigned int curr_uV = LM51772_ILIM_MIN_UV;
-+
-+		for (size_t i = 0; i < LM51772_ILIM_NSEL; i++) {
-+			priv->vout_curr_table[i] =
-+				LM51772_ILIM_UV_TO_UA(sense_res_micro_ohms, curr_uV);
-+
-+			if (i >= LM51772_ILIM_MIN_SEL && i < LM51772_ILIM_MAX_SEL)
-+				curr_uV += LM51772_ILIM_STEP_UV;
-+		}
-+
-+		vout->csel_mask = LM51772_ILIM_THRESHOLD_MASK;
-+		vout->csel_reg = LM51772_REG_ILIM_THRESHOLD;
-+		vout->n_current_limits = LM51772_ILIM_NSEL;
-+		vout->curr_table = priv->vout_curr_table;
-+
-+		vout->ops = &lm51772_reg_default_ops;
-+	}
-+
-+	ret = regmap_update_bits(
-+		regmap, LM51772_REG_MFR_SPECIFIC_D3, LM51772_EN_IVP | LM51772_SEL_IVR,
-+		FIELD_PREP(LM51772_EN_IVP, ivp) | FIELD_PREP(LM51772_SEL_IVR, ivr));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D0, LM51772_IMON_LIMITER_EN,
-+				 FIELD_PREP(LM51772_IMON_LIMITER_EN, 1));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D6, LM51772_CONFIG_SYNC_PIN_MASK,
-+				 FIELD_PREP(LM51772_CONFIG_SYNC_PIN_MASK, sync_pin));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D8, LM51772_EN_CDC,
-+				 FIELD_PREP(LM51772_EN_CDC, cable_drop_compensation));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D9, LM51772_SEL_ISET_PIN,
-+				 FIELD_PREP(LM51772_SEL_ISET_PIN, iset_pin));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(regmap, LM51772_REG_IVP_VOLTAGE, ivp_thres);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int lm51772_setup_irq(struct device *dev, struct regmap *regmap, int irq,
-+			     struct regulator_dev *rdev[LM51772_N_REGS], bool nint)
-+{
-+	int common_errs = REGULATOR_ERROR_OVER_TEMP | REGULATOR_ERROR_OVER_TEMP_WARN |
-+			  REGULATOR_ERROR_FAIL;
-+	int per_rdev_errs[] = {
-+		REGULATOR_ERROR_OVER_CURRENT | REGULATOR_ERROR_OVER_VOLTAGE_WARN,
-+		0,
-+	};
-+	struct regulator_irq_desc irq_desc = {
-+		.name = "lm51772-irq",
-+		.data = regmap,
-+		.map_event = lm51772_irq_map_event,
-+		.irq_off_ms = 1000,
-+	};
-+	void *retp;
-+	int ret;
-+
-+	if (!nint) {
-+		irq_desc.renable = lm51772_irq_renable;
-+		irq_desc.reread_ms = 200;
-+	}
-+
-+	ret = regmap_update_bits(regmap, LM51772_REG_MFR_SPECIFIC_D1, LM51772_EN_NINT,
-+				 FIELD_PREP(LM51772_EN_NINT, nint));
-+	if (ret)
-+		return ret;
-+
-+	retp = devm_regulator_irq_helper(dev, &irq_desc, irq, 0, common_errs, per_rdev_errs, rdev,
-+					 LM51772_N_REGS);
-+
-+	return IS_ERR(retp) ? PTR_ERR(retp) : 0;
-+}
-+
-+static const struct regmap_range lm51772_readable_ranges[] = {
-+	regmap_reg_range(LM51772_REG_CLEAR_FAULTS, LM51772_REG_CLEAR_FAULTS),
-+	regmap_reg_range(LM51772_REG_ILIM_THRESHOLD, LM51772_REG_ILIM_THRESHOLD),
-+	regmap_reg_range(LM51772_REG_VOUT_TARGET1_LSB, LM51772_REG_VOUT_TARGET1_MSB),
-+	regmap_reg_range(LM51772_REG_USB_PD_STATUS_0, LM51772_REG_USB_PD_STATUS_0),
-+	regmap_reg_range(LM51772_REG_STATUS_BYTE, LM51772_REG_STATUS_BYTE),
-+	regmap_reg_range(LM51772_REG_USB_PD_CONTROL_0, LM51772_REG_USB_PD_CONTROL_0),
-+	regmap_reg_range(LM51772_REG_MFR_SPECIFIC_D0, LM51772_REG_IVP_VOLTAGE)
-+};
-+
-+static const struct regmap_access_table lm51772_readable_table = {
-+	.yes_ranges = lm51772_readable_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(lm51772_readable_ranges)
-+};
-+
-+static const struct regmap_range lm51772_writeable_ranges[] = {
-+	regmap_reg_range(LM51772_REG_CLEAR_FAULTS, LM51772_REG_CLEAR_FAULTS),
-+	regmap_reg_range(LM51772_REG_STATUS_BYTE, LM51772_REG_STATUS_BYTE),
-+	regmap_reg_range(LM51772_REG_ILIM_THRESHOLD, LM51772_REG_ILIM_THRESHOLD),
-+	regmap_reg_range(LM51772_REG_VOUT_TARGET1_LSB, LM51772_REG_VOUT_TARGET1_MSB),
-+	regmap_reg_range(LM51772_REG_USB_PD_CONTROL_0, LM51772_REG_USB_PD_CONTROL_0),
-+	regmap_reg_range(LM51772_REG_MFR_SPECIFIC_D0, LM51772_REG_IVP_VOLTAGE)
-+};
-+
-+static const struct regmap_access_table lm51772_writeable_table = {
-+	.yes_ranges = lm51772_writeable_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(lm51772_writeable_ranges)
-+};
-+
-+static const struct regmap_range lm51772_volatile_ranges[] = {
-+	regmap_reg_range(LM51772_REG_USB_PD_STATUS_0, LM51772_REG_USB_PD_STATUS_0),
-+	regmap_reg_range(LM51772_REG_STATUS_BYTE, LM51772_REG_STATUS_BYTE),
-+	regmap_reg_range(LM51772_REG_CLEAR_FAULTS, LM51772_REG_CLEAR_FAULTS)
-+};
-+
-+static const struct regmap_access_table lm51772_volatile_table = {
-+	.yes_ranges = lm51772_volatile_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(lm51772_volatile_ranges)
-+};
-+
-+static const struct regmap_range lm51772_precious_ranges[] = {
-+	regmap_reg_range(LM51772_REG_CLEAR_FAULTS, LM51772_REG_CLEAR_FAULTS)
-+};
-+
-+static const struct regmap_access_table lm51772_precious_table = {
-+	.yes_ranges = lm51772_precious_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(lm51772_precious_ranges)
-+};
-+
-+static const struct regmap_config lm51772_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.rd_table = &lm51772_readable_table,
-+	.wr_table = &lm51772_writeable_table,
-+	.volatile_table = &lm51772_volatile_table,
-+	.precious_table = &lm51772_precious_table,
-+	.max_register = LM51772_REG_IVP_VOLTAGE,
-+	.cache_type = REGCACHE_MAPLE
-+};
-+
-+static const struct regulator_ops lm51772_fixed_ops = {
-+	.enable = regulator_enable_regmap,
-+	.disable = regulator_disable_regmap,
-+	.is_enabled = regulator_is_enabled_regmap
-+};
-+
-+/*
-+ * For < 24V, voltages are set in 10mV monotonous steps.
-+ * For >= 24V, voltages are set in 20mV monotonous steps.
-+ */
-+static const struct linear_range lm51772_voltage_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(LM51772_DIV10_MIN_UV, 0, 99, 0),
-+	REGULATOR_LINEAR_RANGE(LM51772_DIV10_MIN_UV, 100, 2400, LM51772_DIV10_STEP_UV),
-+
-+	REGULATOR_LINEAR_RANGE(LM51772_DIV20_MIN_UV, 0, 164, 0),
-+	REGULATOR_LINEAR_RANGE(LM51772_DIV20_MIN_UV, 165, 2400, LM51772_DIV20_STEP_UV)
-+};
-+
-+static const unsigned int lm51772_voltage_ranges_sel[] = { 0,  0, 1, 1 };
-+
-+static const unsigned int lm51772_ramp_delays[] = { 40000, 20000, 1000, 500 };
-+
-+static const struct regulator_desc lm51772_regulator_template[] = {
-+	{ .name = "vout",
-+	  .of_match = of_match_ptr("vout"),
-+	  .of_parse_cb = lm51772_vout_of_parse,
-+	  .regulators_node = of_match_ptr("regulators"),
-+	  .id = 0,
-+	  .type = REGULATOR_VOLTAGE,
-+	  .owner = THIS_MODULE,
-+	  .linear_ranges = lm51772_voltage_ranges,
-+	  .linear_range_selectors_bitfield = lm51772_voltage_ranges_sel,
-+	  .n_linear_ranges = ARRAY_SIZE(lm51772_voltage_ranges),
-+	  .n_voltages = 100 + 2301 + 165 + 2236,
-+	  .vsel_reg = LM51772_REG_VOUT_TARGET1_LSB,
-+	  .vsel_mask = LM51772_VOUT_TARGET1_MASK,
-+	  .vsel_reg_oversize = true,
-+	  .vsel_range_reg = LM51772_REG_MFR_SPECIFIC_D8,
-+	  .vsel_range_mask = LM51772_SEL_FB_DIV20,
-+	  .active_discharge_reg = LM51772_REG_MFR_SPECIFIC_D2,
-+	  .active_discharge_mask = LM51772_DISCHARGE_CONFIG1 | LM51772_DISCHARGE_CONFIG0,
-+	  .active_discharge_on =
-+		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG1, 1) |
-+		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG0, 1),
-+	  .active_discharge_off =
-+		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG1, 0) |
-+		  FIELD_PREP_CONST(LM51772_DISCHARGE_CONFIG0, 0),
-+	  .ramp_reg = LM51772_REG_MFR_SPECIFIC_D2,
-+	  .ramp_mask = LM51772_DVS_SLEW_RAMP_MASK,
-+	  .ramp_delay_table = lm51772_ramp_delays,
-+	  .n_ramp_values = ARRAY_SIZE(lm51772_ramp_delays)
-+	},
-+	{
-+		.name = "vcc1",
-+		.of_match = of_match_ptr("vcc1"),
-+		.regulators_node = of_match_ptr("regulators"),
-+		.id = 1,
-+		.type = REGULATOR_VOLTAGE,
-+		.owner = THIS_MODULE,
-+		.ops = &lm51772_fixed_ops,
-+		.fixed_uV = LM51772_VCC1_LDO_UV,
-+		.n_voltages = LM51772_VCC1_LDO_NV,
-+		.enable_reg = LM51772_REG_MFR_SPECIFIC_D0,
-+		.enable_mask = LM51772_EN_VCC1,
-+	},
-+};
-+
-+static int lm51772_probe(struct i2c_client *client)
-+{
-+	struct regulator_dev *rdev[LM51772_N_REGS];
-+	struct regulator_config config = {};
-+	struct device *dev = &client->dev;
-+	struct lm51772_priv *priv;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	memcpy(priv->desc, lm51772_regulator_template, sizeof(lm51772_regulator_template));
-+
-+	ret = devm_regulator_get_enable_optional(dev, "vin");
-+	if (ret < 0 && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "unable to get vin regulator\n");
-+
-+	regmap = devm_regmap_init_i2c(client, &lm51772_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "unable to init regmap\n");
-+
-+	config.dev = dev;
-+	config.driver_data = priv;
-+	config.regmap = regmap;
-+
-+	ret = lm51772_of_parse(priv, dev, regmap);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "unable to parse dt node\n");
-+
-+	for (size_t i = 0; i < LM51772_N_REGS; i++) {
-+		rdev[i] = devm_regulator_register(dev, &priv->desc[i], &config);
-+		if (IS_ERR(rdev[i]))
-+			return dev_err_probe(dev, PTR_ERR(rdev[i]),
-+					     "unable to register regulator %s\n",
-+					     priv->desc[i].name);
-+	}
-+
-+	ret = lm51772_setup_irq(dev, regmap, client->irq, rdev, priv->nint);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "unable to request irq\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id lm51772_of_match[] = {
-+	{ .compatible = "ti,lm51772" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, lm51772_of_match);
-+
-+static const struct i2c_device_id lm51772_id[] = {
-+	{ .name = "lm51772" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(i2c, lm51772_id);
-+
-+static struct i2c_driver lm51772_driver = {
-+	.driver = {
-+		.name = "lm51772",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.of_match_table = lm51772_of_match,
-+	},
-+	.probe = lm51772_probe,
-+	.id_table = lm51772_id,
-+};
-+
-+module_i2c_driver(lm51772_driver);
-+
-+MODULE_AUTHOR("Paul Louvel <paul.louvel@bootlin.com>");
-+MODULE_DESCRIPTION("TI LM51772 I2C regulator driver");
-+MODULE_LICENSE("GPL");
+Benjamin
 
--- 
-2.56.0
-
+> --
+>
+> commit 01cb871eca78a3c506a85dce8f3e949939c4a0cb
+> Author: Benjamin Hahn <B.Hahn@phytec.de>
+>
+> dts: imx95-phyflex-libra-rdk: Add dts for phyFLEX-i.MX 95 Libra RDK
+>
+> This commit adds the device tree source files for the PHYTEC phyFLEX Libra
+> RDK baseboard (revision 1618.2) and phyFLEX-i.MX 95 FPSC Gamma SoM (revision
+> 1620.3).
+>
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
+>> new file mode 100644
+>> index 0000000000000..4b37d76cced1b
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-fpsc-g-som.dtsi
+>> @@ -0,0 +1,736 @@
+> [ ... ]
+>
+>> +&scmi_iomuxc {
+> [ ... ]
+>
+>> +	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
+>> +		fsl,pins = <
+>> +			IMX95_PAD_SD2_CD_B__USDHC2_CD_B		0x31e	/* CD */
+>> +			IMX95_PAD_SD2_CLK__USDHC2_CLK		0x158e	/* CLK */
+>> +			IMX95_PAD_SD2_CMD__USDHC2_CMD		0x138e	/* CMD */
+>> +			IMX95_PAD_SD2_DATA0__USDHC2_DATA0	0x138e	/* DATA0 */
+>> +			IMX95_PAD_SD2_DATA1__USDHC2_DATA1	0x138e	/* DATA1 */
+>> +			IMX95_PAD_SD2_DATA2__USDHC2_DATA2	0x138e	/* DATA2 */
+>> +			IMX95_PAD_SD2_DATA3__USDHC2_DATA3	0x138e	/* DATA3 */
+>> +			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
+>> +		>;
+>> +		bootph-all;
+>> +	};
+>> +
+>> +	pinctrl_usdhc3: usdhc3grp {
+>> +		fsl,pins = <
+>> +			IMX95_PAD_SD3_CLK__USDHC3_CLK		0x159e	/* SDIO_CLK */
+>> +			IMX95_PAD_SD3_CMD__USDHC3_CMD		0x139e	/* SDIO_CMD */
+>> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0	0x139e	/* SDIO_DATA0 */
+>> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1	0x139e	/* SDIO_DATA1 */
+>> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2	0x139e	/* SDIO_DATA2 */
+>> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3	0x139e	/* SDIO_DATA3 */
+>> +		>;
+>> +	};
+>> +
+>> +	pinctrl_usdhc3_100mhz: usdhc3-100mhzgrp {
+>> +		fsl,pins = <
+>> +			IMX95_PAD_SD3_CLK__USDHC3_CLK		0x159e	/* SDIO_CLK */
+>> +			IMX95_PAD_SD3_CMD__USDHC3_CMD		0x139e	/* SDIO_CMD */
+>> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0	0x139e	/* SDIO_DATA0 */
+>> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1	0x139e	/* SDIO_DATA1 */
+>> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2	0x139e	/* SDIO_DATA2 */
+>> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3	0x139e	/* SDIO_DATA3 */
+>> +		>;
+>> +	};
+>> +
+>> +	pinctrl_usdhc3_200mhz: usdhc2-200mhzgrp {
+>> +		fsl,pins = <
+>> +			IMX95_PAD_SD3_CLK__USDHC3_CLK		0x159e	/* SDIO_CLK */
+>> +			IMX95_PAD_SD3_CMD__USDHC3_CMD		0x139e	/* SDIO_CMD */
+>> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0	0x139e	/* SDIO_DATA0 */
+>> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1	0x139e	/* SDIO_DATA1 */
+>> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2	0x139e	/* SDIO_DATA2 */
+>> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3	0x139e	/* SDIO_DATA3 */
+>> +		>;
+>> +	};
+> [Severity: High]
+> Should pinctrl_usdhc3_200mhz be named usdhc3-200mhzgrp instead of
+> usdhc2-200mhzgrp?
+>
+> Because both pinctrl_usdhc2_200mhz and pinctrl_usdhc3_200mhz use the node
+> name usdhc2-200mhzgrp under &scmi_iomuxc, dtc merges them into a single
+> node and overwrites the SD2 fsl,pins array in pinctrl_usdhc2_200mhz with
+> the SD3 pins from pinctrl_usdhc3_200mhz.
+>
+> When usdhc2 (which has sd-uhs-sdr104 enabled) switches to its state_200mhz
+> pinctrl state, it will attempt to claim the SD3 pads instead of configuring
+> the SD2 pads, breaking 200MHz SD card operation and conflicting with usdhc3.
+>
+> Also, both pinctrl_usdhc2_200mhz and pinctrl_usdhc3_200mhz appear to use
+> 100MHz pad settings (0x158e/0x138e and 0x159e/0x139e) rather than 200MHz
+> slew rate settings (such as 0x15fe/0x13fe used in pinctrl_usdhc1_200mhz).
+>
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+>> new file mode 100644
+>> index 0000000000000..55d49f8109567
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-phyflex-libra-rdk.dts
+>> @@ -0,0 +1,558 @@
+> [ ... ]
+>
+>> +	m2-key-m-connector {
+>> +		compatible = "pcie-m2-m-connector";
+>> +		clocks = <&rv3028>;
+>> +		i2c-parent = <&lpi2c5>;
+>> +		vpcie3v3-supply = <&reg_vdd_3v3>;
+>> +	};
+>> +
+>> +	m2-key-e-connector {
+>> +		compatible = "pcie-m2-e-connector";
+>> +		clocks = <&rv3028>;
+>> +		i2c-parent = <&lpi2c3>;
+>> +		sdio-reset-gpios = <&gpio_expander2 6 GPIO_ACTIVE_LOW>;
+>> +		sdio-wake-gpios = <&gpio_expander2 5 GPIO_ACTIVE_LOW>;
+>> +		uart-wake-gpios = <&gpio_expander1 13 GPIO_ACTIVE_LOW>;
+>> +		vpcie3v3-supply = <&reg_vdd_3v3>;
+>> +		w-disable1-gpios = <&gpio_expander1 9 GPIO_ACTIVE_LOW>;
+>> +		w-disable2-gpios = <&gpio_expander1 10 GPIO_ACTIVE_LOW>;
+>> +	};
+> [Severity: High]
+> Are the OF graph ports missing from m2-key-m-connector and
+> m2-key-e-connector?
+>
+> When pwrseq_pcie_m2_probe() in drivers/power/sequencing/pwrseq-pcie-m2.c
+> probes m2-key-e-connector, it requests w-disable1-gpios and w-disable2-gpios
+> with GPIOD_OUT_HIGH, asserting the active-low W_DISABLE1# and W_DISABLE2#
+> lines and disabling the M.2 module's Wi-Fi and Bluetooth radios:
+>
+> drivers/power/sequencing/pwrseq-pcie-m2.c:pwrseq_pcie_m2_probe() {
+> 	...
+> 	ctx->w_disable1_gpio = devm_gpiod_get_optional(dev, "w-disable1",
+> 						       GPIOD_OUT_HIGH);
+> 	...
+> 	ctx->w_disable2_gpio = devm_gpiod_get_optional(dev, "w-disable2",
+> 						       GPIOD_OUT_HIGH);
+> }
+>
+> Those lines are only deasserted when a consumer matches via
+> pwrseq_pcie_m2_match(), which walks the connector's OF graph endpoints via
+> for_each_endpoint_of_node(ctx->of_node, endpoint). Without the ports nodes
+> linking m2-key-e-connector and m2-key-m-connector to the PCIe Root Ports,
+> UART, and SDIO controller (which are also required by
+> pcie-m2-e-connector.yaml and pcie-m2-m-connector.yaml), no consumer can
+> match and the radios remain permanently disabled.
+>
+>> +	osc_mclk: oscillator-mclk {
+>> +		compatible = "fixed-clock";
+>> +		#clock-cells = <0>;
+>> +		clock-frequency = <19200000>;
+>> +		status = "disabled";
+>> +	};
+>> +
+>> +	osc_mclk_gated: oscillator-mclk-gated {
+>> +		compatible = "gpio-gate-clock";
+>> +		#clock-cells = <0>;
+>> +		clocks = <&osc_mclk>;
+>> +		enable-gpios = <&gpio_expander1 8 GPIO_ACTIVE_HIGH>;
+>> +		status = "disabled";
+>> +	};
+>> +
+>> +	fan: pwm-fan {
+>> +		compatible = "pwm-fan";
+>> +		interrupt-parent = <&gpio1>;
+>> +		interrupts = <4 IRQ_TYPE_EDGE_RISING>;
+>> +		#cooling-cells = <2>;
+>> +		/* startup 35%, duty cycle 30%-100%;
+>> +		 * polarity inversion does not appear to work
+>> +		 */
+>> +		cooling-levels = <255 166 96 0>;
+>> +		/* fan-supply = <&reg_vdd_5v0>;  probe fails with this set */
+>> +		pwms = <&tpm5 3 86958 0>;
+>> +		pulses-per-revolution = <2>;
+>> +	};
+> [Severity: High]
+> Will cooling-levels = <255 166 96 0> turn the fan off when the thermal zone
+> reaches its highest temperature trip point (trip4 at 75C)?
+>
+> In drivers/hwmon/pwm-fan.c, __set_pwm() treats a PWM value of 0 as fan
+> power-off rather than driving a 0% duty cycle:
+>
+> drivers/hwmon/pwm-fan.c:__set_pwm() {
+> 	...
+> 	if (pwm > 0) {
+> 		...
+> 		state->duty_cycle = DIV_ROUND_UP(pwm * (period - 1), MAX_PWM);
+> 		ret = pwm_apply_might_sleep(ctx->pwm, state);
+> 		if (ret)
+> 			return ret;
+> 		ret = pwm_fan_power_on(ctx);
+> 	} else {
+> 		ret = pwm_fan_power_off(ctx, false);
+> 	}
+> 	...
+> }
+>
+> When cooling state 3 selects cooling-levels[3] == 0, pwm_fan_power_off() sets
+> state->enabled = false. In drivers/pwm/pwm-imx-tpm.c, pwm_imx_tpm_apply_hw()
+> disables the TPM5_CH3 output driver when state->enabled is false, allowing the
+> pad pull-up on IMX95_PAD_GPIO_IO26__TPM5_CH3 (0x51e) to pull the inverted PWM
+> line high and stop the fan at 75C.
+>
+> Additionally, pwm_fan_probe() sets the initial state to
+> cooling_levels[pwm_fan_max_state] (0), so the PWM channel is not enabled at
+> boot, and pwm_fan_update_state() expects cooling-levels to be ordered in
+> ascending order. Using a non-zero minimum value (such as 1) or configuring
+> active-high/inverted PWM handling would avoid disabling the channel at state 3.
+>
+> [ ... ]
+>
+>> +&gpio2 {
+>> +	gpio-line-names = "", "", "", "", "",
+>> +			  "", "", "", "", "",
+>> +			  "", "", "", "", "",
+>> +			  "", "RGMII2_nINT", "GPIO4", "RTC_INT", "",
+>> +			  "LVDS1_BL_EN";
+>> +};
+>> +
+>> +&lpi2c1 {
+>> +	temperature-sensor@4f {
+>> +		compatible = "nxp,p3t1755";
+>> +		reg = <0x4f>;
+>> +		vs-supply = <&reg_vdd_1v8>;
+>> +	};
+>> +};
+>> +
+>> +&lpi2c3 {
+>> +	status = "okay";
+>> +
+>> +	gpio_expander2: gpio@21 {
+>> +		compatible = "ti,tcal6416";
+>> +		reg = <0x21>;
+>> +		interrupt-parent = <&gpio2>;
+>> +		interrupts = <17 IRQ_TYPE_LEVEL_LOW>;
+>> +		#interrupt-cells = <2>;
+>> +		gpio-controller;
+>> +		#gpio-cells = <2>;
+>> +		gpio-line-names = "CAN1_STBY", "CAN2_STBY", "NC",
+>> +				  "KEY-E_nALERT", "KEY-M_nALERT",
+>> +				  "SDIO_nWAKE", "SDIO_nRESET", "HDMI_EN",
+>> +				  "RTC_nINT", "LVDS1_BL_EN", "SFP_TX_FAULT",
+>> +				  "SFP_TX_DISABLE", "SFP_MOD_ABS", "SFP_RS0",
+>> +				  "SFP_RX_LOSS", "SFP_RS1";
+> [Severity: Medium]
+> Should the &gpio2 gpio-line-names override in imx95-phyflex-libra-rdk.dts be
+> dropped?
+>
+> On the SoM (imx95-phyflex-fpsc-g-som.dtsi), GPIO2 lines 18 and 20 are muxed to
+> SPI3_CS and SPI3_MOSI for lpspi4, while on the baseboard RTC_nINT and
+> LVDS1_BL_EN are on gpio_expander2 lines 8 and 9. Keeping "RTC_INT" and
+> "LVDS1_BL_EN" on &gpio2 duplicates the "LVDS1_BL_EN" line name and causes
+> userspace lookups by name to match gpio2 line 20 instead of gpio_expander2
+> line 9.
+>
+> [ ... ]
+>
+>> +/* M.2 Key-E PCIe */
+>> +&pcie0 {
+>> +	external-facing;
+>> +	supports-clkreq;
+>> +	wake-gpios = <&gpio_expander1 11 GPIO_ACTIVE_LOW>;
+>> +	status = "okay";
+>> +};
+>> +
+>> +&pcie0_port0 {
+>> +	reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+>> +	vpcie3v3-supply = <&reg_vdd_3v3>;
+>> +};
+>> +
+>> +/* M.2 Key-M PCIe */
+>> +&pcie1 {
+>> +	external-facing;
+>> +	supports-clkreq;
+>> +	wake-gpios = <&gpio_expander1 12 GPIO_ACTIVE_LOW>;
+>> +	status = "okay";
+>> +};
+>> +
+>> +&pcie1_port0 {
+>> +	reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
+>> +	vpcie3v3-supply = <&reg_vdd_3v3>;
+>> +};
+> [Severity: Medium]
+> Should external-facing and wake-gpios be placed on &pcie0_port0 and
+> &pcie1_port0 rather than on &pcie0 and &pcie1?
+>
+> In drivers/pci/of.c, pci_set_bus_of_node() only checks external-facing when
+> bus->self is non-NULL (reading from the Root Port node rather than the host
+> bridge node), and pci_configure_of_wake_gpio() requests wake-gpios from the
+> enumerated pci_dev's OF node (&pcie0_port0 and &pcie1_port0). The
+> fsl,imx6q-pcie.yaml binding also only allows pci-pci-bridge.yaml properties
+> like external-facing and wake-gpios on the Root Port child node.
+>
