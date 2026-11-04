@@ -1,96 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.135
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793811424;
-	b=OecTw9UjmUc+g7E3ADqMymEPZxPD/NDVsJDIOYPWZtiMnihF/Q8fdlnKTSDOevWNnhCD
-	 IDB6dLRF4HqRD/eSyIJGA9llpZ7fIHS12kJmAp2eYyoSY0BpZkrswDx4xS5ppvuNy+ILi
-	 kgXfK+Jeo1sTa+Haya7GrIQGMw7QiUzOaSw9a3FVheLagn1DJjuJBgpSpxVnA+UCMUK2N
-	 GcLtZ6UrjrD19KgnuqzuW/+W3w5xlJTXATjlJolTMXDBFZcYW5soXlYOLQhN9PuCncN6J
-	 CtHHVaUz0lVEFwHGyXNohbx7JsMHDVEjOr263+3NFoc0A5iozVmXBG5j7e53UYahHIw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811424;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zp5NOqgLPhQYOmzP6/lTOtehqFXh1jWUd8b9Dyowwzg=;
-	b=HJ6K1sthXt4+ZvasM6wVlKf3OXLztSBnI8qhqLH2Stph8RSxdITDdpfoXcpyB7cGisL/
-	 DbInITQ5SEHc+Q49bIXOQgjJHSrieyWPUpacUJEGiDsWLnqU+aUZzFyD7SIdY0wEzn5Lc
-	 ZGcSix/6Zhhlmj+/FiYFhX8E6A6rTabk9zYbc/inZ0PouljDbNR3v7ldxffLY+hTL5TOg
-	 rGbTXLciXKHIjk/Wy2t1hF5IVW3RX4BggFDw95A56dlP31IYI/2ho7ePlKWr6JagKQjyu
-	 xTp6lzq0wBI04ZdjfEt58RWnnTL6dOagd0gaHNZgeEMA9yuuG9KWpj39kJ5kfE/I7tQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=phytec.de;
-	spf=pass smtp.mailfrom=phytec.de;
-	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b="E2/G4xW5";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.135
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021135.outbound.protection.outlook.com [52.101.70.135])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793811661;
+	b=fr20tJ7itW9P8niHfUqOsUI+7wmYBk7HBC/NNRFdUP6Ky0u5pBemmbxqopmMh7T601dT
+	 XkFMWDXU4phg4keH4eg/KPhmoTq+ElOs8sjYOXWlv093OW6DHrWkkh65WUp4NvWTidbmx
+	 jzIqnVpW+vPn6sxcxscIEYIcG9NLhet5xiaB7O9DtfjSGC/1LJNwY6O2pKgPdb75AsRo3
+	 9BU3v+hf40BWkI4qGVZd+D17ibU+w0wAkccsG0+YR/C/V2fjXmZzsUZPeSB3JSyBiDelH
+	 tKvNr9zv/GMxOtxaSXq3E7Rsl0rv0Hk/s/QoI7srqrgk+0cyjJ2QqOIkwjTTOm5iiWg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811661;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=dj3v6PGR4CYxS3sTtclppkSA23sMBuJFXpAdYEpjL3Q=;
+	b=LyMDjNzW+3K2HMuQqVhYbayVYm+AmoPXpN2r92ksrbH10QaRbIBXeLTUPYBJGq/eAMq0
+	 QX6e8PA3anoIuxxn2l5wSM0OR/bafNmpcczehz0gr8T8zi9re9BdmqtrXbhizAlchEzpR
+	 jrOR9uL/pzSPzLU8C0gCSBca09gPNNzKW9f6xcqGdoj1dFxX1ZmRnvQMVVwOThYAOF611
+	 idE3Gw01hAq1bVoicvh5wyC1VQNl1CA3JfVqldeD95OU23n1GRNMRgURn9DltfHAV0fXK
+	 Z75qFxS6TR170/A+DxeyS2AVF3lwS3OL9R62LGKEzuZzV8ukRt5hqLUNNdaHItMkSmw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Z6XZ3Ffn;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C6F606D82D
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13C6F606D82D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CF5606A32F
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20CF5606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=E2/G4xW5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EQzcfmw5MiSZqzcn5cMEhCWzqNQhUoH/+BUDNJGAXVF4jqtr0rImEf0/MlKpp970MI6ug34+IJ4Ned17QL0MT22/teIEXd1JBAc6GYAdyq/OxuIhu1g5mOcgcBBtUY0WoO6EAUV5nd3tUi8FI4cv2RajOG6h6hrBYTLUIzTGEbP68YdFvdJeLCUjWN02JjAWomnb1osNFg1Sdcwbkiyf9VaS0/wwXokERIO3isN2TanbKXNyBbd7pJ0uNHjt/4fOgC66jwaKEWDCfqLdccg6yKyZ+sy1IzihdTEUQV8hSVtzIC34CVV8uYZ62VPEIE1sSPItXxtZNBOxTENvwg3hGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zp5NOqgLPhQYOmzP6/lTOtehqFXh1jWUd8b9Dyowwzg=;
- b=IdPC7+HZPqWNUiag2+XpTQm5qhi8UsaRLVkp7PUt7n7drirpPnTNtkQOPPmdXkmzNvH+gWkVywurIwu83EQQ0nECwJNtwCjzhDQaHVAxb2VSVapc8kpjEX+3LL7OfwkGDRJWQWEUC32xQOfdqj561Bil+krBKPG5d7lRHsi/QAUhyvxG/i0Nc352S29mIrSc5rlc9MWD3jmV783PyiV/ynozrBtAmCCefMBW8ZYtmmxioso1M5ja9Y3yHozz30Nbb5EgTPBwSoC6sR0Iuooi6HAiny1yNwliBe+EljnChhUG2rpSgrLnLSlUlUMk/UflgH/kac93rQh2mJzBtVcHiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
- dkim=pass header.d=phytec.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zp5NOqgLPhQYOmzP6/lTOtehqFXh1jWUd8b9Dyowwzg=;
- b=E2/G4xW5CL6TYMOpNGN6S1A2/D/lxPL7au9KgZxwcVLuDkCeDLcKxrkdcgtuck/H2NtkdQcyyE7o/7Vm/jYcdf8ownsqsRX/R3ze5uzQ6uZyIiuoMLxlVr2Dh/0ZJHW6nztU+pzipCvb3uQiZ4s0Lgg2DTn0d6g0DqTWalDRYajZ2P9ht+0Bu1Ztsenzie3Aimgi9Vn4lV2Gr5mE/1knyvBZAJUYIg4ISnFk936EbTsvhk0ek1DLIzLcNCyZ8YPenQe4pWQFiC5zlo/cuDImIqbRhv2XIK8m+nLB+LUDExASHKvAekM8G5IUFsRMdRyNTvY8UP0eobifFRSOUXwjHw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=phytec.de;
-Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:159::10)
- by DB9P195MB1730.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:399::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 16:56:58 +0000
-Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
- ([fe80::2f8:67bc:a785:6894]) by VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
- ([fe80::2f8:67bc:a785:6894%7]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 16:56:52 +0000
-Message-ID: <cb8f678b-a173-4831-8d89-abed7b4497f2@phytec.de>
-Date: Wed, 4 Nov 2026 17:56:51 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] bindings: remove unused binding from old Libra
- version
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org
-References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
- <20261030-wip-bhahn-imx95_upstreaming-v1-5-1c1cebb5be99@phytec.de>
- <sashiko-outbox-191081@kernel.org>
-Content-Language: en-US
-From: Benjamin Hahn <B.Hahn@phytec.de>
-In-Reply-To: <sashiko-outbox-191081@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::20) To VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:800:159::10)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Z6XZ3Ffn
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 627634E41401;
+	Wed,  4 Nov 2026 17:00:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 200BF60770;
+	Wed,  4 Nov 2026 17:00:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B693C10329205;
+	Wed,  4 Nov 2026 18:00:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793811651; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=dj3v6PGR4CYxS3sTtclppkSA23sMBuJFXpAdYEpjL3Q=;
+	b=Z6XZ3FfnL6c+D7drCD+0HKikY+mzclOleQQezkUHgs6B/TD6a+Pnb4Kbcr2N8R2DxTSY3h
+	ZwcziQvBa1z9qM6oAs1GV9ARQiJSKHXN1ChVi2qUgBZhFUnKCSDbWsSETUFr5VGUJLc65n
+	1CkLjNKTNJxAxF+MLCFCzGD2Za4IgcoHt7cmGjNZfuTRm3cHeQViDgCroClLvvmsH8qMLA
+	kWUFi3arKLt9yQBqNsCpw9VXROQHzVxoQ+HgSeJvgbfltNEaPShxSBywaDqJiMjSi4cU9k
+	ovlgiLOsmzfd1AopRTTegLBA/qvxKs85OpMgWGAHmlmjeh4FQYJj4ekh20xPng==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v4 0/3] Add TI LM51772 buck-boost voltage regulator
+Date: Wed, 04 Nov 2026 18:00:32 +0100
+Message-Id: <20261104-paul-lm51772-v4-0-494eab808581@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,133 +63,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1P195MB0623:EE_|DB9P195MB1730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a3c6949-2610-4a7d-47ba-08df3a94a037
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|261022105027099003|4143699003|11063799006|56012099006|261021121427099003|261009223027099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	omuslpNiNTSsCkzLQ0W5NyXkqOKQVQgc9ytCGjVEd0hFHgb+QnIwNqXQm84ZLD+ZqLV3HTrymjhVE3WrDFVCaIwMmZMXAf1FMPUPG8Rv5xgDn+pL/abP4JbuKeMa1U7iHG1QecSO04+ajHGE8OUZYBFJKaj9wTH330uGZMjbtVAAw8oqWNNz8JL5t9/ECzkmbK+c5aJmXLX1P/UKXeqnLk2PscVS6R4REKbQoYfE9AiC5GmYQTmetUIKqDVyI1y6+d2zOaXZtCuC7El72bTURJYsAicfY6O0lQ9NWygz7e9BetVrSsWBZOguHtfaEMJl/89MZkENSIRnLLkh2RL8Hnf9U2okWe7zVNcMc9w5dMSiC9Gxs0qYFeYj9MIn5LzPWgNpCKAzqzBM7cOR5/kSPBPjgZVV7yCuUSBw5UZ7d9NRDBldM6fguRv9/jvO4y6nnnl8TAuz4npHyzb3da03ft9SMLS2cn7VzFQG3kdiRpj6jiw2vxJS58o741asEOB34iujqkGKxlg4qAyeCJNGPU4xnE9ORCeohTlcpSkWgsB7p0g4MEhQcrQW+/mrBR9aoZw0HbwpqTkz1pFjuK/jAzknNFZXx1sxFOWtEo/EBvT5KG3yfYnpTkck8Qyaj1D5nP6U/Q1CfudOpbkBw0N4IFGojDESV7k2eW4O/16APUc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1P195MB0623.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(261022105027099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cWNUR2t3UW1kZElTMGg4RU9OVFpHQTVTSjJwVTd3dHp2YmpralVlUmdYcmxT?=
- =?utf-8?B?MVJXS1JvZFVDb2NyYjBydTcxTXhDQ1dnK1JwYUFneUQvSk5nYzI5YzFhNFBM?=
- =?utf-8?B?SnRGY1pFOXBUWkJlMUE0K2MrbFA0c3dyS1dXT1N2T0NDQXlYK2t3emZ3Vmd5?=
- =?utf-8?B?dmhtdkZxSGc5UzhhcWFTemNGTEFXd1NadFNCYm53MXNoNmI2aGdBM0FDT0xv?=
- =?utf-8?B?ZkVkWjVrdlFHSjVWZy9aVURYRFhnOUlvaitaRUxDdk1iWm16THNEVzFUUTcr?=
- =?utf-8?B?dkY2cTZyUWJHaXd2aUNWc2tqMkRPQXRZZGlORytFdkNzZHNJUTdTbjVvcDRB?=
- =?utf-8?B?Ty9PWjRTRk4zcGxzZCtSZHhsdTA1ZkQvY0RNYkxRVklDQndiMW15QngvUEdW?=
- =?utf-8?B?VGtWak5ZeTdleEJGdlVJbnFmWlRJQXdocmFFZDRpcDhnaDZCblVJZ2hEdzNy?=
- =?utf-8?B?VG9KTVZOOEZlbDhlL1kvQkVveWxDTFhJaGIzbHoreHpHbEtSY1BnUVJMamg5?=
- =?utf-8?B?bWxxa0thVVFhWVp5eUlMZEhZWjlxcDBKZ1NRRGQ4NVpoMzkvSnRZb0hJelBH?=
- =?utf-8?B?dmVJQk1NUVgvZmZOVks4OHZhZlJ4OVI4REFuVFZzNTUzWUh3azM0dkFROEZx?=
- =?utf-8?B?cDJxaWlwU3p5UjdCam5BQyt5SnUyMTRMOG9zbHdCRVJ4L0I4SkZDdTEzdk95?=
- =?utf-8?B?Y1RHa0pkVkJSbVJCQ1lQZSsxTXpEandmWU9JNmFhL3lKYTcxWFdKTHRkNXJY?=
- =?utf-8?B?SU5zSmhET01ONXJoMUtKdHg1c3lkakVXSlRvYkovQjZlSTE3TzgwZVJST1ds?=
- =?utf-8?B?d3ZpeU5HN29oU0x3eGVrTkFHTU1WMktyeGZ6aUpveHNsTUVTV3R1eTB6MzJV?=
- =?utf-8?B?NmY3WGdnTHpybkgranlkK1dtTHRnZ1hxRzNRZkdNREorY3RxUys5MFJCcHN1?=
- =?utf-8?B?MW1JOHFOR0lCVS84djBvdzhxbmd0RzEwQVlvZUJqa3ZKbHc4bnhBeE00ZW5Q?=
- =?utf-8?B?cFNXUEFzMktacUk0K1JFQ1dtcytIUm1CRGNZYjVkQTFmY290ZTZoVjhJaEk3?=
- =?utf-8?B?UHpqaE92MTFMcHZ3dEJocmdMcTBsV3NyZlVBSzdnT2tpLzk2MHJyd1pNVms2?=
- =?utf-8?B?eHdZRUpIWU5mc2xjdklUcElpUG56ckd6SEtraHNBV1JBUStkait4TU9RbnFL?=
- =?utf-8?B?SFFkdVJiSzhpeVhPQVBxYmlVWnlUT0I1Z05qaDRibC9maUFDZitIUFZpTHVR?=
- =?utf-8?B?K1A4cWt4RitBRW14Y1FMbTZKQkFINytNdnFreU8rTHdYR1dtRGl4T2Jza2Jm?=
- =?utf-8?B?R2JEQ0d0MVBQOVl6dnh3YnRXYWxLWVVkNjVlZGhveXVXS3lNSkpLdVcrY0hP?=
- =?utf-8?B?dmVQWnVVa3J1eE5XeHFoY0RDUXBNeE8rMVlqazBmRVFreXlldzBncG9KcHZ1?=
- =?utf-8?B?WitTcm5hZ3ZKeUtuWHF0WDZ4ZkhVM084OGI0TS92R3RSaGVobXY3a2RPTFky?=
- =?utf-8?B?TXJucXdNK1piSVhPWWs1OEFqODl0VElKZFNnU21qeXlVUWlNZUhYOTFRVFN5?=
- =?utf-8?B?aXI2d0hDSmJPeGo3ZmZuY2pXVXAxa3IxZzJtWEhEbUdPVXJPWEtRUUJRRWxw?=
- =?utf-8?B?Mms3TjAzK1FMNVUzTE9rSEp5NU5DbkY0aS8rNW5HY2FDMHhuMk9ST0syRDFL?=
- =?utf-8?B?MjFDdXZHV2lxYk5LSFdvSHRUUHlsbGdPZE5DT2xMR2pLWk9CZWVNVS9VUjFM?=
- =?utf-8?B?V2prVXRIV3dOUVkrM0ZNTXZid3pOUEsrSGhGMSt0THh1KzJvY2c3cGpBa21I?=
- =?utf-8?B?aHBTRzg1Qmp1QW5BT1E3WTdXRk5zcmY1ODR0MmxMa0FidFpiVE1HSCtiNkFL?=
- =?utf-8?B?UXNxVjQwdXJZUTAzZE45d3VpS3AzbVk1TldIWnAxSUlDelYvTTl6K0o2S1FO?=
- =?utf-8?B?aHRVN2RrOE1xczFWWXk3UnBhaUY2eFFDL1g0OHJ2TXg4SFNpZitobnduRXhE?=
- =?utf-8?B?WEdmVDl2ejcveFVjMU81Zk9yZzZrNFlPc3Uwd0F2TzFkMzlXeFdzQ3d5Um05?=
- =?utf-8?B?TkpuUXR4d2h2bFpzeDMveW9GdUV4SWVQZnh6eWNOd2gweFJianhyN2EreHNK?=
- =?utf-8?B?OGRrK3lCQm5WdE03bDBtak1LRXNIaHdLc2o0S0hsWXE1TXkwa0hMNy9TME9Q?=
- =?utf-8?B?bEs0eElQSENIQnNucEVWejdKRUcyL1g1bGxqR2dTc3hjYmZEd0d5WXFTaVRt?=
- =?utf-8?B?b0dMOW5rTmkrOTJxaGFFd1ZDVGswQ2cwZXhTYVk5SStTcEl0U2FUdUlVc2Nz?=
- =?utf-8?Q?Vr5FWvP/nL9AJu0rFY?=
-X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a3c6949-2610-4a7d-47ba-08df3a94a037
-X-MS-Exchange-CrossTenant-AuthSource: VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:56:52.8504
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LVfVOQIY93BYykugsrZJAD6j3N/s9nRUqaGPryGt1A3WtwHlY14ZHvJAU55Yk48qrypgo/T3w3W84gztT62fnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1730
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQ7CIBCF4as0rMXAUKG68h7GBdBBMbU00Daap
+ neX6sbUuHzJfP9MJGH0mMihmEjE0Scf2jzKTUHsVbcXpL7OmwADyRlw2umhoc19x5UCavfSGIt
+ Kgq5IJl1E5x/v3On82WkwN7T90lgurj71IT7f/0a+3P1Jj5wyCjvHnDPO6ao+mhD6xrdbG+5ki
+ Y/wzdWKQ+YGtJIKRakAfrn44oKtuMic1SjBAjhRrvg8zy+PwYYQOgEAAA==
+X-Change-ID: 20261021-paul-lm51772-c96bbce762a8
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793811647; l=4536;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=FxMh/tnJHv3bqpeOnH9+cXdQUV6vjwr8pCO5bWd6IBg=;
+ b=3DB+3mrHerocEqY/E0WMvf0bvtp36ASv8uIfQGM35aloPTmH55OZUJHFB7sqaP+E0Sg5a98pc
+ Q78F60zKQl8DvHuDnU7d2LmMWSaHJsy3r8ikFsaCP7vVJuZqkVlQ9eu
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Am 30.10.26 um 14:47 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dt-bindings: arm: fsl: missing ABI removal rationale in commit message
-> --
+Hi,
 
-Will update commit description with more detailed description for v2.
+This series provides support for the LM51772, a buck-boost controller
+from TI with I2C control, designed for USB Power Delivery applications.
+The output voltage is software-configurable from 1 V to 48 V, and the
+peak current limit threshold is programmed through software. The
+LM51772 also provides an auxiliary fixed 5 V regulator output (VCC1).
 
-Benjamin
+Core changes
+------------
 
->
-> commit 59deabe3729dc9f9716dfd3c6cfdb69f11310abd
-> Author: Benjamin Hahn <B.Hahn@phytec.de>
->
-> bindings: remove unused binding from old Libra version
->
-> This commit removes the PHYTEC i.MX 95 FPSC board and SoM compatible entries
-> from the Freescale/NXP arm devicetree binding schema.
->
->>      bindings: remove unused binding from old Libra version
->>      
->>      Remove unused devicetree binding from old Libra board version.
->>      
->>      Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
->>
->> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
->> index f917ae7202e96..dec6e22719b5d 100644
->> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
->> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
->> @@ -1544,13 +1544,6 @@ properties:
->>                 - fsl,imx952-evk            # i.MX952 EVK Board
->>             - const: fsl,imx952
->>   
->> -      - description: PHYTEC i.MX 95 FPSC based Boards
->> -        items:
->> -          - enum:
->> -              - phytec,imx95-libra-rdk-fpsc   # Libra-i.MX 95 FPSC
->> -          - const: phytec,imx95-phycore-fpsc  # phyCORE-i.MX 95 FPSC
->> -          - const: fsl,imx95
->> -
->>         - description: PHYTEC phyFLEX-i.MX95 FPSC-Gamma SoM based boards
->>           items:
->>             - enum:
-> [Severity: Medium]
-> This isn't a bug in the schema syntax, but since devicetree bindings form an
-> external ABI (Documentation/devicetree/bindings/ABI.rst and
-> Documentation/devicetree/bindings/submitting-patches.rst section I.9), is
-> being unused in the kernel tree sufficient justification on its own for
-> removing phytec,imx95-libra-rdk-fpsc and phytec,imx95-phycore-fpsc from
-> properties.compatible in Documentation/devicetree/bindings/arm/fsl.yaml?
->
-> The current commit message only restates the subject line without explaining
-> why breaking or removing this binding ABI is acceptable. In the companion DTS
-> commits 4a096b093cf5 ("dts: imx95-libra-rdk-fpsc: remove devicetree for old
-> Libra") and 01cb871eca78, it is explained that the old baseboard (1618.0) and
-> SoM (1620.1) were alpha-only hardware based on i.MX95 silicon revision A1 that
-> are no longer available, built, or supported, and have been superseded by
-> hardware revisions 1618.2 and 1620.3 using phytec,imx95-phyflex-libra-rdk and
-> phytec,imx95-phyflex-fpsc-g.
->
-> Because devicetree binding patches and DTS patches are often reviewed and
-> applied through separate trees, could the commit message be expanded to
-> include this hardware rationale, mention both the i.MX95 SoC family context
-> (as fsl.yaml also documents phytec,imx8mp-libra-rdk-fpsc) and the removed
-> phytec,imx95-phycore-fpsc SoM compatible, and use the standard
-> "dt-bindings: arm: fsl:" subject prefix?
->
+Patch #2:
+
+The voltage selector helpers can now handle regulators that keep their
+selector in two consecutive 8-bit registers. The implementation
+preserves bits outside the selector field.
+Rejects the unsupported case where an oversized selector shares a
+register with the range selector.
+
+Thanks,
+
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+Changes in v4:
+- Add STATUS_CLEAR_FAULTS to precious register to avoid debugfs
+  interfering.
+- Instead of checking vsel_reg_oversize configuration coherency at each
+  read/write, do it once when registering the regulator.
+- Use DISCHARGE_CONFIG{0,1} instead of FORCE_DISCH, to avoid extra power
+  drain for no reason when Vout regulator is enabled/disabled.
+- Nit fixes.
+- Remove dev_dbg() calls as they where only useful during testing.
+- Set EN_ACTIVE_DVS bit.
+- Link to v3: https://patch.msgid.link/20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com
+
+Changes in v3:
+- Dropped the fixed OVP core patch. The driver now sets the OVP threshold
+  before ramping up and after ramping down, so the core change is no
+  longer needed.
+- Fall back to the lowest OVP selector when the requested limit is below
+  the supported range, instead of failing the voltage change.
+- Reworked the current limit to use the standard regmap helpers and a
+  table computed from the shunt resistor value, avoiding custom helpers.
+- Moved ti,iset-pin and shunt-resistor-micro-ohms to the chip level in
+  the binding, and replaced ti,ivp and ti,ivr with ti,input-voltage-mode.
+- If the iset pin is used, do not provide .{set/get}_current_limit()
+  callback.
+- Fixed the regulator subnode schemas and removed the current limit
+  range from the binding description.
+- Write the nINT configuration before requesting the IRQ.
+- Enabled the IMON limiter, dropped the register defaults.
+- Link to v2: https://patch.msgid.link/20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com
+
+Changes in v2:
+- Dropped the regulator-boot-force-off binding and core patches.
+  After discussion, this property should not be in the binding because
+  it is Linux specific. Also, the situation described in the v1 cover
+  letter can be resolved by the driver getting exclusive ownership of
+  the regulator it uses.
+- Added the fixed OVP core change. The custom .set_voltage_sel callback
+  for the LM51772 is no longer needed since this case can be handled by
+  the core now.
+- Updated the LM51772 binding to the standard unit suffixes and
+  property names, and fixed the schema and example issues found.
+- Reworked the two-register selector helper so it preserves unrelated
+  bits. Make it atomic by using a bulk read and write instead of two
+  separate regmap_update_bits().
+- Cleaned up the driver around units, current-limit validation,
+  volatile fault status, IRQ fault reporting, voltage timing, and nINT
+  handling.
+  The .renable callback is not really needed when the nFLT/nINT pin is
+  used as nINT, as the device drives the pin low only when a change to
+  the status byte occurs.
+- Link to v1: https://patch.msgid.link/20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com
+
+---
+Paul Louvel (3):
+      regulator: dt-bindings: Add TI LM51772 support
+      regulator: core: Support regulators where the voltage selector spans two registers
+      regulator: Add TI LM51772 support
+
+ .../devicetree/bindings/regulator/ti,lm51772.yaml  | 230 ++++++
+ MAINTAINERS                                        |   6 +
+ drivers/regulator/Kconfig                          |  11 +
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/core.c                           |   8 +
+ drivers/regulator/helpers.c                        |  67 +-
+ drivers/regulator/lm51772-regulator.c              | 913 +++++++++++++++++++++
+ include/linux/regulator/driver.h                   |   2 +
+ 8 files changed, 1228 insertions(+), 10 deletions(-)
+---
+base-commit: 0785f7172040512cba759838b27286646773c735
+change-id: 20261021-paul-lm51772-c96bbce762a8
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
