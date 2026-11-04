@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800175;
-	b=HT8Za4L6+GJ0iX9vQgBd+yvOQSEeMhfL+3CREjEmlQVKme3CA/nAcV/K/ELveL/7cmCA
-	 7xvUqv/hklhBH5UqepNzQN7Y4wGpofKE8ppNVE+VBQ1me0Pwx3JeHaILLIVV+/aZ1ZxHS
-	 muKffslKjdFSnz98diZoODh/moUncVnLkk9MxRUUsXocpRhV/iu1PqSAXw0QXAOoly/Vz
-	 L8/hLEQPy8kTolN/vmhIyZW+PZQaVVu4d/b4DbHeGFA22J1z0BuY6zqD/99PYjn4ZUdYk
-	 xy9MsH9capQl+fDsgCRSnJVLnc0KIeUNWKLPo6+GsWpBqEV99hhQvoxuVCOsCDzt9ig==
+	t=1793800339;
+	b=Jn9SnMXHYDOUoa5qOyykd8NQzYBJeAL8Nq9khImDUkFheLvPK2vYCZ4YKqRqloGeI/1w
+	 MwvF+ARGQRuuN9OKiWOyu/eIEK2fDB0VL3y58d9AbLGpJiJM5t9lakcmXwwdvIwQqqc9k
+	 MupjUBPqvZ0NJj4O5Xnw5myUKeeuxZ1+R8oV9jOc6JCBcEyWybAYZxqJA7YNcUBlPou3p
+	 mHp3l4tx3m85y7O+cwyUBlscKLUds5Z1Rwf5gPVu3n9HG/m1j+1pziMPti6BnAazvau32
+	 Mlddf81KhGf0iQhiPrnh76kWVPZ3D2JAabNua54C56XM039b+H3IME1lHbcCfmkLx5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800175;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xh/GEp2c7zYgIWG8y5Hydozqk2C8+o7JeISPlaQEupY=;
-	b=YhW/ex9UPDt/G7Lit1fRk6Yyd4DbgiS9yjMgGA9Pd/erOS8jZ3R5/LxtJn61fue+inDa
-	 l1Vzrs6ZT16pc7OlII25auZE8M7pZqG/G+ZJypNvXX+CJrLyitSGJKWFb2fX7j3LthgEF
-	 KwzkHj5S54ZyCfc7Yg7oaVZtqj53g/jlBqEP1pNxfEd6vWiXaWTOPboIpe02iFIvxN1Ok
-	 lVWDIRpJYUR/yBsF7MTHC8Kt3xv3+kmsrovkFC4Px7Jd4VxXf1hd4iYqbwzH/VY1Yo0xf
-	 RI+xySVAVHj1SAHN1byydClZ07ego9tYSaQKNCW1FbuDOCluYc1wxZY/j9V09IbwHig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800339;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=L08zm0MxRAbICXM5Pq7hBf1HfDXnV4iQwIZ+irkmHUE=;
+	b=nbQzXQy0umGSbkL6JNfM83v2YTPmJS2f5COa2ouNTrEdhkwNEa0wYq1zdz4pf8VJLaJV
+	 nXlyRQWxgVi/l09sajbsjXbzv2sqygF26vKsAEI5H2KCDCWnjcoW3CDekoaN9LOFfvCan
+	 t6U5xcKUpYZPzzzvnuOC/os7ftaUcOAHtaurICgA6xhjESWmRuqatQTtCBuMfKgUn8fGO
+	 xq4kcg+AUvoAaBEsggwuDv8eCqbIpZAp/8tNk3G48svocdDpHtLhTHA/BBDzQc3DAoWfW
+	 +3wscpgflkg8vg7SCIufBDcfKppix/rXDuNOaMgqjSVeNdRI+iuhEpF1VauUaz2Exjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ax2k85fQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jUFz8/W0";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD38606A31B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:49:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A6F606A32D;
+	Wed,  4 Nov 2026 13:52:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ax2k85fQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96B21F000C1
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUFz8/W0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F201F000C1;
+	Wed,  4 Nov 2026 13:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793800174;
-	bh=xh/GEp2c7zYgIWG8y5Hydozqk2C8+o7JeISPlaQEupY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ax2k85fQ/GPwwFEnF0c2ksgEYkv2siBK4xaOdobJMhC1SQoOgtEquppNpz9om+WPJ
-	 2HighJ8Ah8IddaDfAvxhiJWT039TtBrMWFg/kKOa6Quzg7FmNht3VSVTFuuj9wuMYW
-	 UPIe8W7UFsH8Vuh5Ma5Ve0PKuL6e/7Kk4TS0/aQWTq9Rq/ACHPTxsXycz0iGWOEChb
-	 6fT076Gqv6EKNe77wUihUEJtSh7DdSVUVRWPpuSa2cu2elLVCc1dx7j+5NbdciBph6
-	 DHgwasp8tavBk9cvLmW2zcdOYrKGVimvDUQIcSZKfLcY+3fm9LNK/12waef5sIFa8Z
-	 9RexZ4fguU0BQ==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so866474e87.1
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:49:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwF6Eik2ypgPGvQZpE5vBGdxSZYbCaN2lNaklaWPc3lEFCgXcMIOEi0uY0z8NJ3aVT9r9IgRNnedRoq@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Wv71c6obWy8plQjTdA/eZ0SFcaOwxc7pfh5sciuVPjTPo1nxg
-	SDjxF/1VJ/HfiT5jV9ZVawZbAfPJfUIzfczvcPkIOTyh/VE3RqbUOmEJbUDpiEwGGhi/uM+ewNG
-	sMUmD3S8WhaoLfPvLJ4JskCJJBSYr3ZQ=
-X-Received: by 2002:a05:6512:3e0e:b0:5bf:9fc1:3938 with SMTP id
- 2adb3069b0e04-5bfd957bcc7mr5494867e87.38.1793800173643; Wed, 04 Nov 2026
- 05:49:33 -0800 (PST)
+	s=k20260515; t=1793800339;
+	bh=L08zm0MxRAbICXM5Pq7hBf1HfDXnV4iQwIZ+irkmHUE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jUFz8/W0i+pfEy47Olrl+lxd9xVV0xhr4/Vl5C5XXqcJYSAXJ7iPIBzdbdq+vjcrK
+	 pAQiEqoSLtZN0ZTSMpN+IK4lxFKFILM+3DDboHL/C242v4qXrTU3OcRwTWoXn8JAZL
+	 BQ0BIVWUmqFYxYyxtLuqGgWnBVh7qaoJZ9HnGekCBPg8E8kaSmSkeX97N+9oyRly0s
+	 hRbvpw1nDZWU1KokJUOJ8HN+M7uHJ7wHQqj3QPoW/BD9HG4eAWh8NJ3w+WCnWRWGpp
+	 +WNMe0dDffwNL8CvG/ZEyZy0BWFfsu//Rg8yaRsCWCz1QknmlqonQyck31SiSHvuTG
+	 1BAMJatMz1ORQ==
+Date: Wed, 4 Nov 2026 14:52:14 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+Message-ID: <20261104-real-nebulous-ostrich-017e92@quoll>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,38 +63,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com> <20261027-cv75-gpio-v12-7-c22555400e18@ambarella.com>
-In-Reply-To: <20261027-cv75-gpio-v12-7-c22555400e18@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 4 Nov 2026 14:49:21 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=yuKLqcpABypsd1icKUYesX=uiaJvUW28xUZoF2k5yjQ@mail.gmail.com>
-X-Gm-Features: AclHuK9neIpLEL2dp-ulhGPwQf0eKyJA8-7rsKU-aX6vjOndnPekJ1Twq9QUMqM
-Message-ID: <CAD++jL=yuKLqcpABypsd1icKUYesX=uiaJvUW28xUZoF2k5yjQ@mail.gmail.com>
-Subject: Re: [PATCH v12 07/11] gpio: pl061: keep the parent device in a local
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	Michael Walle <mwalle@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
 
-On Tue, Oct 27, 2026 at 5:19=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+On Mon, Nov 02, 2026 at 02:20:57PM +0530, Nihal Kumar Gupta wrote:
+> Glymur describes CSI2 PHYs as standalone nodes, but the CAMSS binding
+> still models CSIPHY4 as port@3 from the X1E80100 csiphy_res[] layout,
+> where entry 3 carried CSIPHY id 4.
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> IRQ logging uses gc->parent. Keep that device in a local so the
-> gpio-regmap switch can change where it comes from without rewriting
-> every log line.
->
-> Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+You also remove port 2 without explanation.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Yours,
-Linus Walleij
+> 
+> Describe the hardware connection directly by allowing ports 0, 1 and 4,
+> and using port@4 for CSIPHY4.
+
+All this is confusing, why do you introduce gaps? What is the reason?
+Your datasheet naming does not matter.
+
+Best regards,
+Krzysztof
+
