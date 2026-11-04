@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793776957;
-	b=geihjqE3qzpbS+lHioC62Uq6yJ48ndo/n20tMF3nJ8CMrAjFfstp+i3GyAru8KfZoh8i
-	 Uif6HvbOF2agGZWNrpzYUmqsVvz54zqFzA28gQLGH3jg9DWHN5SJLbj/ALtJSy3YAEPgq
-	 Ks4HNrAUykYfXj3cPM/GCMkai79XOV2+MSPl17dTpV846LEvVruhR0QAomJK4OKizdsy1
-	 3nABvlmQ3mhQNKEMis7mkXlX6ztDcJ6MI+GkoaV3YAviquXEKDnQhXO+sVm/8yXrlOQti
-	 SpDqn+JK1/hp0DtzYFV7ctdHs+6MOgdKgy4mAKboKIx7dS/xYopGbhZ8oCy9Z0hFKDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776957;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=p8ts80LviUGClPDc+CzAUBQMvTPSUXFtWsdkH5RwrIQ=;
-	b=v/WK46t82OXF5WDHGUTBSh2pquLMpDKesScx+oOnK5GKlhGVdd/dGZLRBhtkjdY6dNlO
-	 oJFszX8X9q3ZpuNjNim9OtLv4g36uK4XBPSt4luT1flWyWM7cJtUarQmrOs+1scBEhbYU
-	 U2CvGTFiZbnfULuj358SnmH6/A+mU+FRYARiLqK3KI/ec4h9nIA0BF8irX5uEr5xvqmC+
-	 O745eK9d3p1MqlCgt+CwlQRRq/dXQ0cQ7Z5pVF/5dZ7HRJmdk9Q2EaXPfMrtcLvn7hbCs
-	 C8NIyI30iSrb5dqwKqsc7WQuil8+CG1+JUuTAA8vMnvtCHlksGXIMZzSx1KzoaWqOqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BH14mN4R;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793776967;
+	b=k1nymbl+pPXwJ1bPpveW7/YFTZajPImMHdmWDSTsLEyryCAis2p8is2uJnuPcVwVUE8k
+	 tTNQY7sUMRk9CY6K/mW7u8IYpKLyGqrquZ9+pC1yGrXoQPKI7c+Ei1sHui+dbFCEH/nZO
+	 Gt2b09u8CkU/AkTpB8MiHe6PyKU+cHIkcF0qE6EW2ul8TgMc5BWRsKyQcDQgXJyQY4b3A
+	 LRI1FSsGpcesgwIo+sI6xMGpIFW6w7t7uolFCN47yaJ0kHrGOuTS1wtSx6PqU6ASIpMEy
+	 DSwXJj6B2S53Wmx6loHt11XxNNRd5anLh/vbfIiwFXjQc8dAXq0iTwsuUmAOOxsdctA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776967;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=/9jz584ynBu7Sj7Ps+BcnxDJbg/SJ0jjq9P9M+C3V3Y=;
+	b=f1XM8eAEt9OxHq9+oCsTI8a/2c+q5W/cOHjpRgwodBzVByc7GWW3ovhyfm4E9xJd/Hb6
+	 KQZQolypN4mgPvdjbpo+IWCFyckgul20UZ4mb1JNqsHFLn7BuOqeJa80qqFP3fZQ6V21U
+	 Ac3hbRf9MJCjFBZpaaqN7Mb2xank0NjELMi7UD6Itt0rqoDUMNi+nvtFFXvh8VfUPq9lD
+	 ZsmXuZj1MMZTNyrSTu3yoPcCjko466x6fLkSfIZAdCzTpLHZGr4YYBJucM+srd2Ex2iMg
+	 42BVB1nG/lBUAJiEuVRI2E+aiTmXyBbhkCFsz5JIqvIDk7Y6UplzIkmfnxJt4k4TiUg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePMyMMdo;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB52606A32F;
-	Wed,  4 Nov 2026 07:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3467606A33B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:22:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BH14mN4R
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793776957;
-	b=wvbrLnFFA0rVbNM7t+6kR98FdKmUmHratE3rCQsn/IZdza031Uba9exO1f4Llv9JFfCc
-	 J1p3kUD9GoxFrucUYNpZLqnh1zC/PRCAO7i3vKzlPkH3EyCwDFqhIiylzU8MwdsdfiUnu
-	 k6yTxgMaPuN3FoQh562GN6Gc1OMzVUWOlfAfmMATxAE8r+c53awCSxBt3A3dEsj6OEiSl
-	 yiYejSWVQGVlWYG0Pjq5MqZ41nNpXeykAO79JtjpjoKjN+KgYbEjqAlRvQPlVx5apIxh1
-	 46UEgYCGT/JcIMGZi7m2YigzMihlslxJOoR6sdcVLarFdTvJeQdMMmbDZTOt1mxjynw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793776957;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=p8ts80LviUGClPDc+CzAUBQMvTPSUXFtWsdkH5RwrIQ=;
-	b=gBugSeqlzO/ntwxlLkwNHD+QhPclr/sI5mm/oFk5XzsZEhU+er1B3DRYYA+AXAfnAd/w
-	 LqvUuEv9ra8OG3dStocmF72qMVuMO1DBhoR8c8t0Ekkj4lT1Ys9anDBod2dgMLAlc56G7
-	 LRjqSygf0cNFm+ZO0EIq0CgtJU+tgvle0WOYx9D6IpP/zH3NM6jtgfgtym48SZEgEPy4r
-	 uSdLkoIbKSyqaGQRGRisDZ6QblboY/Tw7xv0tiEd1ZU/4+SVbdy6M3bBb/yYDHeBEyaeM
-	 WZZKHReUQO7KLmu+8JGf5rLvR7QDUJDVWqmfRpGtqt32cT8BCl1CPz7d6ET3tbdAzGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8CF8D1F000C1;
-	Wed,  4 Nov 2026 07:22:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePMyMMdo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052431F00A1C;
+	Wed,  4 Nov 2026 07:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776957;
-	bh=p8ts80LviUGClPDc+CzAUBQMvTPSUXFtWsdkH5RwrIQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=BH14mN4Rc/V+Rjt2J2qqDRJ7v6esZjCOYZVOEJPS0dkI+ooPIz2BTmsR0zMSGCBA5
-	 7z+DcccTdfHB8thy714aPE+mjiv2hvJo9nsgXCaEVQswbzKo3mxQ81khJsPuNCZ0Xt
-	 3hFmwhi3AhdsUCwqohB0S85cEK/BezgCZ6g27rdBG/lVQoNUK4Fq4mgCLFarQLFSEU
-	 wdm4SX8xtURrcWUUjyY7MrLc14+t/LcBxarBev6ScedvR1vtldbjW1OUbSLTff+Up0
-	 +P5mz7vBBJFhqAvIK7gcYPXJaDqhOcNw2egJuCEVWClCPmOux88NU1ADoznt+1YCx3
-	 /74BDjfcTw1Rw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2071146CED;
-	Wed,  4 Nov 2026 07:22:36 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Subject: [PATCH net-next 0/2] net: stmmac: Add the Siflower SF19A2890 glue
-Date: Wed, 04 Nov 2026 02:22:23 -0500
-Message-Id: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+	s=k20260515; t=1793776967;
+	bh=/9jz584ynBu7Sj7Ps+BcnxDJbg/SJ0jjq9P9M+C3V3Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ePMyMMdon30PgoY5hLv+8Y2mN8q3A4t6qfdzqX+LSFqxqduT6YFyRAJrh4ZuV7xKR
+	 1/9v21VWKF5cS1b8aB6d0SYXTLztbH0QkYpHBVjdV6gXcafBDn65IPHA1u3GiHfm6y
+	 z/tpTrMvNFFSa0L8JgQGQ2hpD/045FQ49G2Gwmhe61/VqQvmy1QbD46+ec/YsYTX9S
+	 mPSx8PmLmumMqkvbNrZDnz65oDHedoIRd3viV3Assr2yTgzuuQedemnYKGFgA5Pd7V
+	 FYMzIRQ6kBPLA6lz/20D0nQYd291Qy6uZou33NHaaCj4fYnoEkREAQNNgNL5dWWBSg
+	 Z6erdvzjDdo+g==
+Message-ID: <sashiko-outbox-196784@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: mips: Add Siflower SF19A2890 based
+ boards
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joseph Telaak" <joseph@telaak.dev>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev>
+References: <20261104-sf19a2890-mips-v1-0-eae80820af68@telaak.dev>
+ <20261104-sf19a2890-mips-v1-1-eae80820af68@telaak.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 07:22:46 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,95 +60,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC/d6moC/y2NwQqDMBBEf0X23IUkiCT9leIhphu7gmmbjSKI/
- 9609jjMvDc7CGUmgWuzQ6aVhZ+pBn1pIDx8Ggn5XjMYZTqtlUGJ2nljncJx9gHbOLRW2Wg7F6B
- Cr0yRt5/wBokKJtoK9GcjyzBRKF/ff5vpvdTPcgL9cXwAoL3q7ZEAAAA=
-X-Change-ID: 20261102-sf19a2890-gmac-4fb4808f869c
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Chuanhong Guo <gch981213@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793776955; l=2659;
- i=joseph@telaak.dev; s=20261104; h=from:subject:message-id;
- bh=4aX1WuQkiEXgDzkE3OQjN92P69c1uJb0rksZC2QCI/c=;
- b=5W2C6p3JKlr/OYkYYzwVZ7Y5b/m53N4KDQeoxViOd9QSaRTx62D8T06k382412ER3M30amjJg
- EQ22G8hgj8LDsd9xPfExPXtkSI+BUGn7ruvO4K5Ikn+zcvgJNRsHte8
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=oQI+UfddlZ0wK2ac4WKOGNjUl1ZEN8j9ZVFSqEDoNP0=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261104 with
- auth_id=1404
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
 
-The Siflower SF19A2890, a MIPS SoC for home routers, has a DesignWare
-GMAC 3.73a. Its interface type and RGMII clock delays are set in a
-small configuration block next to its clock and reset manager. This
-series adds a binding and the glue.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: mips: dangling drivers/gpio/gpio-siflower.c in MAINTAI=
+NERS
+--
 
-The glue is based on Chuanhong Guo's driver, which read the RGMII delays
-from a factory flash cell in the delay line's own units and always
-applied them. Here the delays come from rx-internal-delay-ps and
-tx-internal-delay-ps and are applied only when those are present. The
-interface type is set through set_phy_intf_sel.
+commit bd8c11a7f9d608cf21a8f34b06b16b91d2058197
+Author: Joseph Telaak <joseph@telaak.dev>
 
-The delay line's step is not documented, so I measured it: sweeping
-each delay register over 0-255 with the link at 1000 Mb/s, the working
-windows repeat every 145 steps (TX) and 144.5 steps (RX), which is one
-8 ns period of the 125 MHz RGMII clock. So a step is about 55 ps. The
-TX eye is about 3.1 ns wide and the RX eye about 1.75 ns; the delays the
-bootloader programs, 17 and 10 steps (935 and 550 ps), sit inside both.
+dt-bindings: mips: Add Siflower SF19A2890 based boards
 
-On the GL.iNet GL-SFT1200 the GMAC is the CPU port of a MaxLinear GSW150
-switch over RGMII with no delays on the board; the GMAC adds both.
+This commit adds the device tree binding schema for Siflower SF19A2890
+MIPS SoC based boards, including the GL.iNet GL-SFT1200, and adds a
+corresponding entry in MAINTAINERS.
 
-The MAINTAINERS entry that covers these files comes with the MIPS series
-"MIPS: Add support for the Siflower SF19A2890"; this series applies on
-its own. That entry is also why checkpatch's question about updating
-MAINTAINERS for the new files is left unanswered here.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 93abbb315065d..2a7a083f2c470 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25698,6 +25698,14 @@ N:	sifive
+>  K:	fu[57]40
+>  K:	[^@]sifive
+> =20
+> +SIFLOWER SF19A2890 SOC SUPPORT
+> +M:	Joseph Telaak <joseph@telaak.dev>
+> +L:	linux-mips@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/mips/siflower.yaml
+> +F:	drivers/gpio/gpio-siflower.c
 
-Tested on a GL-SFT1200 with the GSW150 driver:
-- each of WAN, LAN 1 and LAN 2 links at 1000 Mb/s full duplex and
-  passes iperf3 both ways (160-205 Mb/s out, 262-273 Mb/s in, well
-  under line rate; I have not looked into where the limit is);
-- 10 GB each way through LAN 1, after which every CRC, alignment,
-  error, drop, overflow and underflow counter on eth0 and lan1 is 0;
-- 50 link down/up cycles, after which the link and traffic recover;
-- the MAC address from the factory partition, and ethtool reporting the
-  link with no PCS workaround.
+[Severity: Low]
+Should the F: entry for drivers/gpio/gpio-siflower.c be deferred until
+the commit that actually adds that driver?
 
----
-Joseph Telaak (2):
-      dt-bindings: net: Add Siflower SF19A2890 GMAC
-      net: stmmac: Add Siflower SF19A2890 glue
+Because drivers/gpio/gpio-siflower.c does not exist in the repository yet,
+running scripts/get_maintainer.pl --self-test=3Dpatterns triggers a warning
+in self_test() when checking the SIFLOWER SF19A2890 SOC SUPPORT section in
+MAINTAINERS:
 
- .../bindings/net/siflower,sf19a2890-gmac.yaml      | 110 ++++++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
- drivers/net/ethernet/stmicro/stmmac/Kconfig        |  11 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
- .../net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c  | 158 +++++++++++++++++++++
- 5 files changed, 281 insertions(+)
----
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
-change-id: 20261102-sf19a2890-gmac-4fb4808f869c
+  MAINTAINERS: warning: no file matches	F:	drivers/gpio/gpio-siflower.c
 
-Best regards,
---  
-Joseph Telaak <joseph@telaak.dev>
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-sf19a2890-=
+mips-v1-0-eae80820af68@telaak.dev?part=3D1
