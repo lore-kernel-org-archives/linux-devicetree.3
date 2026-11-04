@@ -1,56 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827462;
-	b=YpyFKNLJu4jYkugX3tqqdMPkv38U65CK9aPtluyoLMBR6P7i4E4JFJBORJz2/tpSd244
-	 gRNsjNfxi90h5aiKIvwOalETCdJiUoFnzez6e2ebrNAzW6Dxi+9MAJ6tuCx6mQ+eYxgdk
-	 agfG557HZF14jywYBAj3axNQUKxLRLvZJk3oNFkWy9NgpaEjiUFgMIndX3/V0Uxzn0ReL
-	 gPvHiwwtNSxtcSJs8H6P6KCNSxcAdzzA2t8uJtZEcESNQKC+MPT8N1MJtXTBgzAuCY7EA
-	 yLcHdrWDGn9Syp5TVPvAoyfZ0NJGowy0BfRvfTJf7aOu6CK4o0nUQBm4UF7Lupfo6qw==
+	t=1793827767;
+	b=z5U5LINF+uI640utwFZx6uNqTiGvpD/krCQCZkxCE1hucrcVpmR3ooQFUAI3YwZQB5RY
+	 sKDNbvUUhyDxWYId01fMzwuNigdeReFklxwSIQsXhUlJjPi/lCVWDY26I/Xe5c7A7eKpA
+	 PW6VmNW3mKLCPnSnmwWRboMAQXNUe3nQLjO2oNR60CMfGe4DmOCicc0qiCGTWWXp0KRRp
+	 zvk6U2DkutkZm5SYAuOaj8ql58fY/BecIvVbN3um+o5Za/Q5Rp9rNLvzJb5mJLuvARk+2
+	 dzrGXb7Dbx6na8yC0iiP9V2PEfMh792SbHBPa/eWYJpqFQJmwQSfyB1VEa46+VFuvBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827462;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FmqVmkvrXgFBO0d2eTVEOzrjPLPKRKtUjX9ui+s4dEw=;
-	b=HGG3XxbvHlBJZlsJckV+GR7JNAI7Q2DEqEvhz3og19pGUyQoKrqQXIb8X74Z5ibkdcje
-	 nqMvHdUnR9BUZuCQsox4ywKKp0l0IvEhCU3KpVXlNRQuGbtaiVxuvMJdw6cR1sCoamKWh
-	 20MQtyaGOe/UPrGUB+EihwehKuVAFAjyaMpwuEGJ/S/wCagCVmO7sGoCu9CulChLAC7pa
-	 4ICOrtKWZpCNMMFm3cPdMvrf6xEk+4w6tYQeX/hbvtzGqsBO2z0MrYUUp7zZbCDgZAhgP
-	 Hz7SMb9NFL0hg7DU3I4pir+jJXirUxHUytM8Lp6MBym4J8SQ35h3oLUjPiX1wA3tF4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827767;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Z5JEWAHX8HIT/y9bERySyCdVuC9uxNIx0YOcG+Jkvv0=;
+	b=MUQ7ziU4EJoW7sEVY+QZAXZQ3m1bOALU5nz4mx8A3hYEOkIt5z/dWlopvxbBhtXIzMjK
+	 jWqnoyZvarJHLHegejtC7oxEw2nndjiH9cGdMsR9BO/otWpJhiwsCoj77yvgRj6lBSS7p
+	 zZ8AhejaVpC2bS2aE9f9dmJU/hICzuYVC5+vthXPLTmGAg0k/RnRNCJtR8/wQnIfwdVIr
+	 uGmexxtSYT/bP+tCgEB3Wisy1gy7WQ89jvcGYzfSZhqlN1ShjSQ/SKkd4rPBX1YK2uIbP
+	 i7amepin6HqMUz2qNJMLVFQmyqmshDOJXD2/TOq9eem/wYE7q6YHz6F4sBqBRI9X67w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=oJ6oEXQ5;
-	arc=none smtp.remote-ip=91.218.175.131
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=i26NWnj+;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537BA606B2FA
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 21:24:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 537BA606B2FA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE245606BA3D;
+	Wed,  4 Nov 2026 21:29:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE245606BA3D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=oJ6oEXQ5
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8Sgmh8+jBx+h+cYd/aQ5qDa2nD/34St3AocupyWUxT0=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793827459; v=1; x=1794432259;
- b=oJ6oEXQ5LSQsraOH3wxd4O/tvDPl4Afynh1Kp3SWfSUFQrnwIdHs0eoAxnjepwIP/II8T/Li
- lgpEaAlnzG+kI0ZgCVs0VqnrQ0h1b04Pf0t3jd85doT4nq8BrtuJTLwV16HNv5YVl8pBAkloDz0
- 0jfaFfkvzq0/nJmLNm61w+wipgWcoMM7ctt48f5hWKLN5hsjFhxwbb47XiD9kp1i3nYFoLrl5jK
- AoUjwvvDHTobmSOpNR/GuzIOe8eht0hBSi3beblh41SEEaUfvDva8y560quahSVDJhFfZoO2rDh
- DFf4gzvHQ84uzWJlqdpqqN0ed/xMzf5qj1F+iNq8ukHag==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5365014f21263c45;
-	Wed, 04 Nov 2026 21:24:19 +0000
-X-Mizu-Trace-ID: 5365014f21263c45
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ef120d58-fb97-4c67-a29b-6b9b07839227@packett.cool>
-Date: Wed, 4 Nov 2026 18:24:10 -0300
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=i26NWnj+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Z5JEWAHX8HIT/y9bERySyCdVuC9uxNIx0YOcG+Jkvv0=; b=i26NWnj+huXIiWxNXO7EvLj08L
+	dpWAOUvdfL/BjVLhLZa9UB9Y6lVKooJS3wov0erHqIbKb8nrhToeu3GBLuiNNksYk4T1yQVbzKkgD
+	Y1Xb8/BoUJPnygFcAh5QHLr5/mvJbMZJv9xH9SJR1VI8xfNE9Iwe7KavNZ0C7QZg/2xM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xOiXe-00EOKk-TI; Wed, 04 Nov 2026 22:29:10 +0100
+Date: Wed, 4 Nov 2026 22:29:10 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: joseph@telaak.dev
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Chuanhong Guo <gch981213@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890
+ GMAC
+Message-ID: <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,64 +80,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sm8550: Add missing CPU7 3.36GHz OPP
-To: nacht@dxdmail.cc, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261104-sm8550-prime-3p36ghz-v1-1-c72630265379@dxdmail.cc>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261104-sm8550-prime-3p36ghz-v1-1-c72630265379@dxdmail.cc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev>
 
+> +  rx-internal-delay-ps:
+> +    description:
+> +      Applied in steps of about 55 ps, rounded to the nearest step.
+> +    maximum: 14025
 
-On 11/4/26 4:41 PM, Nizat Mikayilli via B4 Relay wrote:
-> From: Nizat Mikayilli <nacht@dxdmail.cc>
->
-> The cpufreq LUT on the Samsung Galaxy Tab S9 Wi-Fi has a 3.36GHz boost
-> entry for CPU7 without a matching OPP, so the frequency is dropped:
->
-> cpu cpu7: Voltage update failed freq=3360000
-> cpu cpu7: failed to update OPP for freq=3360000
->
-> Fixes: 3f5dcc05cd33 ("arm64: dts: qcom: sm8550: add cpu OPP table with DDR, LLCC & L3 bandwidths")
-> Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
-> ---
->   arch/arm64/boot/dts/qcom/sm8550.dtsi | 5 +++++
->   1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> index 03f6d40edea7..ed6e34ac8d56 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> @@ -752,6 +752,11 @@ opp-3187200000 {
->   			opp-hz = /bits/ 64 <3187200000>;
->   			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
->   		};
-> +
-> +		opp-3360000000 {
-> +			opp-hz = /bits/ 64 <3360000000>;
-> +			opp-peak-kBps = <(933000 * 16) (3686000 * 4) (1689600 * 32)>;
-> +		};
->   	};
->   
->   	pmu-a510 {
->
-This seems variant/speedbin dependent and does not apply to all sm8550.
+Please add minimum, and multipleOf.
 
-In fact a quick web search shows that your device has a "Snapdragon 8 
-Gen 2 for Galaxy" which is a customized chip for Smasnug.
+I've not looked at the code yet, but default: 0 would also be good.
 
-You should just add the OPP in your tablet's .dts I think.
+> +        rx-internal-delay-ps = <550>;
+> +        tx-internal-delay-ps = <935>;
 
+These values are odd. The RGMII standard says 2ns is required. Where
+is the rest coming from.
 
-Thanks,
-~val
+> +        fixed-link {
+> +            speed = <1000>;
+> +            full-duplex;
+> +        };
 
+Does this mean there is a switch on the other end? Maybe look at what
+the switch is doing for RGMII delays.
+
+	Andrew
