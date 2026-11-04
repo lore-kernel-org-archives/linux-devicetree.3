@@ -1,107 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796084;
-	b=d7lWH3wcuy+JU0Mlr6H2aI7jXakZVNf7Z5yeSZrLrVPAQ7SMNqRGbtUU+FvzTEHOhN+r
-	 URZkJfjtc+2rE0ggoARO/JjMD5PyRBXj0b0eqtm3D7oQvd/Cm3exGrM5HW/3vLhOb4QwN
-	 5kMqlx/1+bpJMC1jqTseYGCi1VeuCYVIY8uq7JQHSO1oiu3YJEx18r2WdirzNwIKk2dJy
-	 CFaTjIzHqfZu58kXUEyjclqZOJpwlaRqxlWCuRzvRmK8NreMt6unea2AWEKQp2H2ZIG+c
-	 MN7oGhqIW/lqY8U4qEYH5fQXqxdqDtDqdtaYYmbr1+RInniW0xj+utwqvvAGASWIUkg==
+	t=1793796138;
+	b=1fpRv7j4+XEvascNfjdxPYsECnS45yJToBj7bkJAzPvdmI2PQAufo4piV+nok/u1fgW8
+	 jCfGowIiO9o51hcP9rDQQA/bDbd4chjVVSdTRzNZThnD+189yFcNQbN5RsdDp65cPDgW2
+	 NgANAQaXLPVRwVbak4WNyB1QnddLrAtu6r4xz/Z6iALCNA4eN9qvztiMW0gy0Bbijg06Q
+	 F0Yr4mIXSsrddx/0E3gWNM2raf+ZsLH58U3ZalRl5Z43otcqeA9cEDX+FJ+Rvx18KtxAt
+	 dVM3DyOxX/NZ49lA55jZrNo2++ItLLTgAgd2SaswuWz/0yeMK/QKNUQpTf+jQBk6cMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796084;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=RX5JkljdDqaMIqrBDcx4CTusbOfYgX4R/O3KQl4nKGc=;
-	b=TJwzUhjXhANUSKJeeEL9Gew9cnxonFqU1BtJ5Tarptnsqt6XiWp6eE/ototiqZEQeVlP
-	 7yR/9sAsAewxWyL9/BHFhMUalmJyMUx88br06OG38RsBeOhN6BNpFvJWIN1axadR5dBB1
-	 yxJM1kPmOtNiCvXZVfqE/z/RQ93ljTAJsFViT5Fb6h5cbUhUdh+DJN684wKWYw5tKvN4a
-	 Ky6UfA0MxjUbm8es6PFsjQXp7KWY+FYC6JuzClgZ+RP6ZRRWvLPHSb6LrQ1iMCmD1goy9
-	 wbC8uDCjNyi5op+XbCQPjOifU2WHOMIAE+RiPAaMHYnf5PtPiGyKZfFErzrqunERtyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796138;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hn0+1ocYLLGWHtUKY+oUvVlgS3nw9sVblusFHim9GqA=;
+	b=e2eUiIVJNHb5BqXlsq5Bypyoempa3nZGJFDGZRzZ8z3FYk8K+KNhm4niIlNl3k6rS4uO
+	 eEu5OoOCEhsBsa2P4XQEseYEwvkbj9VOy38mGG7vyRu5648CuAjBNtw9W21gGeP/WJrZg
+	 AUCWNcqdkpwlet7vnWaQ80Dmu3n8dYzgzevSwPXl4TO6EeuA2y17q+nlVCV01Egj64X2o
+	 snAOslQO+3fQUQuwaeGcKsdEM1Gxe84lktfpTGjHSyYQq+Z2ZkS6eQsWVb6JVmrCSeD2F
+	 nM10rDDO4yNcOU044yLjY2OqWhTdIeFI6xpJvlRSsc/oRVTXyH5kW4jXf8ckapfKNLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zKY4OQFF;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UiT1E2wl;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fG0FhS9J;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0143C606A32D
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:41:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0143C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109CA606A328
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:42:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 109CA606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zKY4OQFF
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso6602635e9.1
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:41:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UiT1E2wl;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fG0FhS9J
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BZsgB1700282
+	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 12:42:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hn0+1ocYLLGWHtUKY+oUvVlgS3nw9sVblusFHim9GqA=; b=UiT1E2wlC4LPns21
+	26JaTaMG0ZJ88knZvaPJ1cjuUkiOUawIQ7KxFarPy69PPOKkCaXNAQlE0u7DIQuS
+	UpVXFrJDfRDK5nJBxe7V+mme0U2o+LPtytdGCG+LAH7QTc4zoYX1d7oo0I0D2bl5
+	EHt5jm4z9yNyAhMQiXS2NJ3sqcM2etlzI7kbRdUkgS6rJdz6+JFds1f/FtcOCTP8
+	He4yS2TmDqblmBUI8hJhQ4PZCWVZitBT8Rv4QTidQwZj39euTYfhwYMazKwhe02E
+	DPFkeAGSu7BlGqeJsN5H7bJMI6W7TnILGDT/OteKDH3uGvxZYGgBPIDxEsccreDh
+	u5MkAw==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr3pygahx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 12:42:17 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-70377b23231so319049eaf.2
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:42:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793796082; x=1794400882; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RX5JkljdDqaMIqrBDcx4CTusbOfYgX4R/O3KQl4nKGc=;
-        b=zKY4OQFFhb/TWccWcZhqYME7NpIAKPOvuGo90LadGTQ9KTewXXAS6ZMqyBs9/GbbeX
-         dxvYTXHKTf50H7XwFnzmj/n0IskHBp6LAGq3FsIUYyeu9uQbyDAhoJkqDpTyWJ13Zd8y
-         ByBJhwGZmuj9RAhkz9Fsg+3QUKA1efAoAKu3R96Vh/CQh6jJe6GjJNEBFFrFHhBDnGCe
-         qcQaPwTejmhNGlx2Bp+QxdtBslS5MlHoWKn+TP+C1KexTC7MWacYIAmgwJUNNEOd3hiZ
-         PUuhY9fcR7zI3HofX78Sjik+H0gm1HTG8NYZ+RIMgs0QSIdVHpTjMnRJHqifPpTUkcu2
-         sLNQ==
+        d=oss.qualcomm.com; s=google; t=1793796136; x=1794400936; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hn0+1ocYLLGWHtUKY+oUvVlgS3nw9sVblusFHim9GqA=;
+        b=fG0FhS9JQn+BozO3evXFHnriArZEZZkC5l7152CZW2R27fK7q5pwkldr5KIXaccyxZ
+         ktUvXU1x5GvctESAKnjb+WPO+l5rQEK8psMAsnDUFoAUZDIBA6tbK3Pw3nvW2ChPZO1G
+         H5+SQU0EhZ9jZIcwwz+z5pHzfI9M4SzSilzDtoL+4hFPKLge5rwk/if9X8GUntqzkwVS
+         Hq231NGU1Xr2+GoLRSa2ebBpFkWdIf3H77vasOjnxVfjytBdsXTYH/Art2wUuAnIKvh0
+         o2ILH8JpqXx6bPS0EcOHq3/OkLJfox24t5oddyblrnzUW+ksp4cdL0lrUQeAjXqdEv68
+         6o7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793796082; x=1794400882;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RX5JkljdDqaMIqrBDcx4CTusbOfYgX4R/O3KQl4nKGc=;
-        b=cic98sLVwcjLyTevNBMNI8nDDtVR7yk/rYKbfkPtptHV8xKPNlztUo/4e7urbfiBA8
-         HqsNU0ptfAKSYsy6AvmK0BXJvHkXZVl2E9n5SxFApICIO1+zObjcRptm37bi9UBe8ms8
-         iQDr6viqyTBt2Glc+xKghz5E9Vt2YO2EcGuAkdy5m7bJ+yjHjabegrRkR1yiS0aEfMFZ
-         vqCS8jF92XGeN6hrP2vYP+9Sl0KKA83DYEtRNk7TzK9me7HEgXeDdIKlorNJwKwX05v0
-         pYn8hVjnVAkgSkMLCbZ0AnpKsO8C+rj5T3b464RDFYE0+zdKZljki/IT5NAm/UpFG2oa
-         YlGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxHxteeMPuACTHF+6b1BrqSD1PvLJSprWS7bFmNkJLs5Q/bla4nrVBwjRO8WYfMD3RZpbUaH5oRvSnQ@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fy/qkp8jKQCxtrRLagVABtBHobEj2BlTqAIYHJhHNrHXnxBbu
-	NOMDPDOHG/zrPEM/J1wR9E+V2mCK+GmfBEfgmq6vhRp6tbyMkE/Ghvgt
-X-Gm-Gg: AYBFou1jLnZWpwZegRFgR9TRaaYB6gOXQOD/AOZ4HFDgVatGOFVzkaPWoQJ1iiKW7H7
-	G7GRzhBVkSg9FVLaWXtrPLYOpykBppFlh/cccf8MKVRPJZ249asX5/9u+FBdbGWNcZzywMYmBXj
-	9lcyRlGX/n8AJ/wTPpyw8bxS855PozcmMJ154gB5VdRGteplkbDLyCvshO950jN+ESxTa4sCp/T
-	8RLBWv3T7pae/XcCbjKX3Ody1kPHNMYt72p1DfXkVKdQoWbd2hZ2rbOyaK2K8gl74upSYnoapPw
-	i/6sQGTWGF1xok805WJbNHoxWceLoJdlIHjMlN1zBMk8qjT2VlDcR0d8f3jTfbvllxugZxzJa4Q
-	OM9MrAw7ACHRpM1Sl1pk3+7gEvJV4tZgPFqW9qMpCAN6I1P98RpWYbJfL493Q8rONjA1VyTdTVh
-	tePc83EKjTKnt9ti20YD6EaSa47RfFoDHe/Jgxz8LveEY1Xld04JczCc1J14PGLe6JtdJoBFNbW
-	fNpxrwtgQXELHR+tXvgEYDZNO9peL49vTZf+rshy3edxMehUFprOmwBuoZAXbjVBzPnNhnPyD5i
-	KcZgxBHKpvE2M3jEYscyyyEflCRZnlUFQdsTOcomd15E6qzzaWGC/zle0jS2DmDlOysbvpY=
-X-Received: by 2002:a05:600c:c0d4:b0:4b1:2026:6b31 with SMTP id 5b1f17b1804b1-4b12026723bmr142181145e9.28.1793796082303;
-        Wed, 04 Nov 2026 04:41:22 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm46347145e9.3.2026.11.04.04.41.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 04:41:21 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Animesh Agarwal <animeshagarwal28@gmail.com>
-Cc: patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH v2 7/7] ARM: tegra: Add '#sound-dai-cells' property for audio-related nodes
-Date: Wed,  4 Nov 2026 14:40:57 +0200
-Message-ID: <20261104124057.240288-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104124057.240288-1-clamor95@gmail.com>
-References: <20261104124057.240288-1-clamor95@gmail.com>
+        d=1e100.net; s=20260707; t=1793796136; x=1794400936;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hn0+1ocYLLGWHtUKY+oUvVlgS3nw9sVblusFHim9GqA=;
+        b=1fPTr8mxb/g9lEellG52xWqn2xBw52dSjfIc8AyGgx7QUB+F2q3ZEe6TGSM7hCegTT
+         io4XHrMkUn07mtsjtUtkKDy0PeW4hsT1bKH+YS7+xB8DYK2vH03obzDcrHVmqbvLUs1e
+         DRVeMXxoRLaztXk3xHcTbnWUZJP7LJ0sDnkBQIH+p0XpxptDR9jjNwelU3lMBINnk2M9
+         2ccGq63y7ko9CM/szmHQuS32uGfZjDw+cq+RMHHjNFfWRdMJTYKxL8bY1uNTqdIYz/jG
+         rZOQqvTL7kRtiq5nUzLEwPdjG8Ct2MwDwCVLkDxXf51UsZNls55sdiuqt8WwoJgydm4S
+         lHLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwhF9gIGLmcWXq4cI2/u2c+JP48IV6WB7IbMDTK+V0I3IkDtKDJnzJJC0efbq+jl5CiIls0QfLfG4f@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BXAeT3OZ0LTlM+eK11fSuUA5UQgzMzToTATzFpcWlpUZ64Oew
+	LjXwlx9MVpOWqhY2YszLBVj/OXmGIHjTDGflR5Gxgn1iwmzFyOZzRlCoUq0h/6BG2/+wgW2ajsE
+	9vN0b+ooDSp7k02VVxpXyaC0T6vQHeskyPkh1r9stMSFonfPZauFVIVYusSlU8YQA
+X-Gm-Gg: AYBFou38psXZr+5LECSqTfBJSZTjQnlVKpXClP7MBMPl1FQDT5gQnjV2c2ibicR2dEQ
+	/S+bRG5aoagy48Kweo98bX//c9S1c7nl9Sp7CEVUzskCdnGLbJKXzyz3kdimpsvJLniPqQPNUGa
+	ZlKtQRYQlJRsOVHD66bXPrrOASWg5NoKZevZQtrRJtboRcxnwawmpl2S4XAp8CituQYBbu7c16G
+	mhujW4cIn/WusOizImf+J9p2vyAafBckR/VnJi1anl7bMw2wmylOtGZzSkYXX5a9CrSVF6gXb3O
+	5YDtUAT3Lz371dql76MBEnuZDcERRzYbvIFNJftF+D3e8pSrocBkUSeNuoAGVcYomFNK77OgJaf
+	GAgG/+JTavvcfecRN9n4hgqpdh3t3jfjj1HrtHeNN93JMkxZYnF28dUGXQbZWm574WIMlXcvPA7
+	L5i0VtAw==
+X-Received: by 2002:a05:6820:1c99:b0:70a:6888:2288 with SMTP id 006d021491bc7-714f2a22e1emr8458519eaf.63.1793796136316;
+        Wed, 04 Nov 2026 04:42:16 -0800 (PST)
+X-Received: by 2002:a05:6820:1c99:b0:70a:6888:2288 with SMTP id 006d021491bc7-714f2a22e1emr8458498eaf.63.1793796135837;
+        Wed, 04 Nov 2026 04:42:15 -0800 (PST)
+Received: from [10.92.198.106] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c1317c7dsm1497063eaf.13.2026.11.04.04.42.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 04:42:14 -0800 (PST)
+Message-ID: <f9ff9954-8e80-470f-aedf-6dd415b0e1e4@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 18:12:07 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,205 +116,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 12/12] arm64: dts: qcom: smb2370: Enable BCL sensor
+ node
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mfd@lists.linux.dev, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
+ <20261005-qcom-bcl-hwmon-v4-12-50b9a8c730b7@oss.qualcomm.com>
+ <6b6f7287-d919-4d29-b7cb-fa94aaf4dc9b@oss.qualcomm.com>
+Content-Language: en-US
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+In-Reply-To: <6b6f7287-d919-4d29-b7cb-fa94aaf4dc9b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ZbmIpcVA c=1 sm=1 tr=0 ts=6aeb2829 cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=Uwc5bU2mXagv8lUGyjYA:9 a=QEXdDO2ut3YA:10
+ a=rBiNkAWo9uy_4UTK5NWh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MCBTYWx0ZWRfX1HP65JQCzNwL
+ t7LRBpxhnxzGPMGaIhXAwXflCKG3mweIF2k5OANh90Nv91rq2WgEnWbPMNoGHZiaNYTn9KJQ+ZV
+ Prjs7GvmnI88YXfEcvgWfObl/wZaUpButHCKEDT5v6IUQxFA6fnbrwPcIyZLVX+GML/TG3OiARC
+ dfO3Z4q3G9V1ZtLhqEhT7B7bPEAhRSIbxnOkfZDjrfrgvztU7l/Rpf74Gj6wwPycEUuixhn2FyF
+ ivvwBJYlTHEcXlMhz80n6zURZm72xnObcughFDf8AJ8iTYwpeZ7TL1kdY+EP/RJdgTh0KX3h/GZ
+ 8+DrDaHCTo3A5kauAw1lvzNnC+u94Fs77cFjH9JnAMtOqpFC8v+0oZbZvAbB7ddOojWjLhVabsm
+ nKz4Jjj+VG05HmkWKgXvpIxhEnb4qjCeDJYz4DJIVrxKSES1jCcROBFgF3/4YI+9W2eLZiR2IY7
+ acoQwU27qgxfrAhUfqA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MCBTYWx0ZWRfX4fEUTyJ1KBLv
+ RPPMlGOfkX9ttc768OgrAw25yJWKI6wL/2SDcA2KfbpBIywZYbnkSpDgfi4+TiFbsH8TI0clJMG
+ UsCDFk4Z4X8ZPbMNzu/D5A/jNaht6nE=
+X-Proofpoint-ORIG-GUID: SJtgDtnu6_S47ndIMdgDGDqyFwljheJG
+X-Proofpoint-GUID: SJtgDtnu6_S47ndIMdgDGDqyFwljheJG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 suspectscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040050
 
-Add the '#sound-dai-cells' property to audio-related nodes to support more
-advanced audio routing configurations.
+Hi Konrad,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- arch/arm/boot/dts/nvidia/tegra114.dtsi | 10 ++++++++++
- arch/arm/boot/dts/nvidia/tegra124.dtsi | 10 ++++++++++
- arch/arm/boot/dts/nvidia/tegra20.dtsi  |  7 +++++++
- arch/arm/boot/dts/nvidia/tegra30.dtsi  | 10 ++++++++++
- 4 files changed, 37 insertions(+)
+On 10/19/2026 8:23 PM, Konrad Dybcio wrote:
+> On 10/5/26 2:24 PM, Manaf Meethalavalappu Pallikunhi wrote:
+>> Add Battery Current Limiting (BCL) hardware monitor node for smb2370
+>> PMIC. The BCL monitors battery voltage and current, providing hardware
+>> interrupts when configurable thresholds are violated.
+>>
+>> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+>> ---
+> 
+> 
+>>   arch/arm64/boot/dts/qcom/smb2370.dtsi | 11 +++++++++++
+>>   1 file changed, 11 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/smb2370.dtsi b/arch/arm64/boot/dts/qcom/smb2370.dtsi
+>> index 1e02578e4ee3..4809b3d8cfe2 100644
+>> --- a/arch/arm64/boot/dts/qcom/smb2370.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/smb2370.dtsi
+>> @@ -10,6 +10,17 @@ smb2370_j_e2: pmic@9 {
+>>   		#address-cells = <1>;
+>>   		#size-cells = <0>;
+>>   
+>> +		sensor@4700 {
+>> +			compatible = "qcom,smb2370-bcl";
+> 
+> Like on Hamoa, why just one instance?
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114.dtsi b/arch/arm/boot/dts/nvidia/tegra114.dtsi
-index a5958f3a965b2..f2766c11ee6c3 100644
---- a/arch/arm/boot/dts/nvidia/tegra114.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra114.dtsi
-@@ -881,6 +881,8 @@ tegra_i2s0: i2s@70080300 {
- 			clocks = <&tegra_car TEGRA114_CLK_I2S0>;
- 			resets = <&tegra_car 30>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -891,6 +893,8 @@ tegra_i2s1: i2s@70080400 {
- 			clocks = <&tegra_car TEGRA114_CLK_I2S1>;
- 			resets = <&tegra_car 11>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -901,6 +905,8 @@ tegra_i2s2: i2s@70080500 {
- 			clocks = <&tegra_car TEGRA114_CLK_I2S2>;
- 			resets = <&tegra_car 18>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -911,6 +917,8 @@ tegra_i2s3: i2s@70080600 {
- 			clocks = <&tegra_car TEGRA114_CLK_I2S3>;
- 			resets = <&tegra_car 101>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -921,6 +929,8 @@ tegra_i2s4: i2s@70080700 {
- 			clocks = <&tegra_car TEGRA114_CLK_I2S4>;
- 			resets = <&tegra_car 102>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/nvidia/tegra124.dtsi b/arch/arm/boot/dts/nvidia/tegra124.dtsi
-index 86956b94ca0b0..920b1329a4dcb 100644
---- a/arch/arm/boot/dts/nvidia/tegra124.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra124.dtsi
-@@ -1125,6 +1125,8 @@ tegra_i2s0: i2s@70301000 {
- 			clocks = <&tegra_car TEGRA124_CLK_I2S0>;
- 			resets = <&tegra_car 30>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1135,6 +1137,8 @@ tegra_i2s1: i2s@70301100 {
- 			clocks = <&tegra_car TEGRA124_CLK_I2S1>;
- 			resets = <&tegra_car 11>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1145,6 +1149,8 @@ tegra_i2s2: i2s@70301200 {
- 			clocks = <&tegra_car TEGRA124_CLK_I2S2>;
- 			resets = <&tegra_car 18>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1155,6 +1161,8 @@ tegra_i2s3: i2s@70301300 {
- 			clocks = <&tegra_car TEGRA124_CLK_I2S3>;
- 			resets = <&tegra_car 101>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1165,6 +1173,8 @@ tegra_i2s4: i2s@70301400 {
- 			clocks = <&tegra_car TEGRA124_CLK_I2S4>;
- 			resets = <&tegra_car 102>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 	};
-diff --git a/arch/arm/boot/dts/nvidia/tegra20.dtsi b/arch/arm/boot/dts/nvidia/tegra20.dtsi
-index e4be3b62a51fe..b7102e6317ab1 100644
---- a/arch/arm/boot/dts/nvidia/tegra20.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra20.dtsi
-@@ -405,6 +405,8 @@ tegra_ac97: ac97@70002000 {
- 		reset-names = "ac97";
- 		dmas = <&apbdma 12>, <&apbdma 12>;
- 		dma-names = "rx", "tx";
-+		#sound-dai-cells = <0>;
-+
- 		status = "disabled";
- 	};
- 
-@@ -419,6 +421,7 @@ tegra_spdif: spdif@70002400 {
- 		dmas = <&apbdma 3>, <&apbdma 3>;
- 		dma-names = "rx", "tx";
- 		#sound-dai-cells = <0>;
-+
- 		status = "disabled";
- 
- 		assigned-clocks = <&tegra_car TEGRA20_CLK_SPDIF_OUT>;
-@@ -434,6 +437,8 @@ tegra_i2s1: i2s@70002800 {
- 		reset-names = "i2s";
- 		dmas = <&apbdma 2>, <&apbdma 2>;
- 		dma-names = "rx", "tx";
-+		#sound-dai-cells = <0>;
-+
- 		status = "disabled";
- 	};
- 
-@@ -446,6 +451,8 @@ tegra_i2s2: i2s@70002a00 {
- 		reset-names = "i2s";
- 		dmas = <&apbdma 1>, <&apbdma 1>;
- 		dma-names = "rx", "tx";
-+		#sound-dai-cells = <0>;
-+
- 		status = "disabled";
- 	};
- 
-diff --git a/arch/arm/boot/dts/nvidia/tegra30.dtsi b/arch/arm/boot/dts/nvidia/tegra30.dtsi
-index ed1bbf86434ce..1e51da329f310 100644
---- a/arch/arm/boot/dts/nvidia/tegra30.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra30.dtsi
-@@ -1043,6 +1043,8 @@ tegra_i2s0: i2s@70080300 {
- 			clocks = <&tegra_car TEGRA30_CLK_I2S0>;
- 			resets = <&tegra_car 30>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1053,6 +1055,8 @@ tegra_i2s1: i2s@70080400 {
- 			clocks = <&tegra_car TEGRA30_CLK_I2S1>;
- 			resets = <&tegra_car 11>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1063,6 +1067,8 @@ tegra_i2s2: i2s@70080500 {
- 			clocks = <&tegra_car TEGRA30_CLK_I2S2>;
- 			resets = <&tegra_car 18>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1073,6 +1079,8 @@ tegra_i2s3: i2s@70080600 {
- 			clocks = <&tegra_car TEGRA30_CLK_I2S3>;
- 			resets = <&tegra_car 101>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -1083,6 +1091,8 @@ tegra_i2s4: i2s@70080700 {
- 			clocks = <&tegra_car TEGRA30_CLK_I2S4>;
- 			resets = <&tegra_car 102>;
- 			reset-names = "i2s";
-+			#sound-dai-cells = <0>;
-+
- 			status = "disabled";
- 		};
- 	};
--- 
-2.53.0
+The BCL peripheral is enabled only on the first SMB2370.
+
+Thanks,
+Manaf
+
+> 
+> Konrad
+> 
+>> +			reg = <0x4700>;
+>> +			interrupts = <0x9 0x47 0x0 IRQ_TYPE_EDGE_RISING>,
+>> +				     <0x9 0x47 0x1 IRQ_TYPE_EDGE_RISING>,
+>> +				     <0x9 0x47 0x2 IRQ_TYPE_EDGE_RISING>;
+>> +			interrupt-names = "max-min",
+>> +					  "critical",
+>> +					  "emergency";
+>> +		};
+>> +
+>>   		smb2370_j_e2_eusb2_repeater: phy@fd00 {
+>>   			compatible = "qcom,smb2370-eusb2-repeater";
+>>   			reg = <0xfd00>;
+>>
 
