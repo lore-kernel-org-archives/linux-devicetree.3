@@ -1,57 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793792115;
-	b=CGAGmpBjNFBl4WX9J+WZGMAVaRgqXZO7mCvtbCUEYvgZrhkJ94izD0zGD8+kmMFaV0Zn
-	 HQ/GZ/jY4DDOI4K6Dxdh8VZo6afkxZTdH6a3+Ts4CmFviRp+011U/0Ta9t+I6v9QZxk7V
-	 93Q2Q2eh0Q6vdfDox4oGziXDM3cdKElI2e/NrVxjorChCCgXBUWZP31RmbXPlyqfXlj9g
-	 pqcpIGhoxcSyhoJdJSypaStn2Rp1aJjYWTTRdilr51fS+1RX2+iitQVisXGUAb+bnHWXS
-	 Rh+7shdnoD5t6/rLvFhC19VRJsaYxnZlmrh6nrqkIl4SFAyknxETdVu3nCPt51aNRFA==
+	t=1793792142;
+	b=ll06QFMvyyRqxysbRcB7pz1vWT63RJKcNuoXPoBY4QIXij45JT4kGeBYOJEkFG9cjNWu
+	 uhuX98Vt3faQrYX8ZMJZZ+iltgmtXv2MlrUMtda6nxxkpyMjXkQsp8g6CH3N2oAPkm7Ar
+	 3NqEZ/tJuPk6hGMcsM+/2Shs/Bf3padLgTX8Pg89qbZp58SEnZQSQVgKCk+Axgrs/pDFj
+	 yrKJt/MVIzHQaKous54dw2s0vuFBjBe8Gv6ws64iL2psaBSSw1pPWJXEEXitpcWPWs6rD
+	 SHJu/hS/OtZz9eHfLr5F4ywQvhuT3QY4Gq1UAvFCV5KMxYHekH/PCMbtEbxs+0vyizw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793792115;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=xJv/oiRzdmeibJ9w9yvraEizZsEUoDznFS9/SeW9Wk8=;
-	b=FC4fWvIjO0ddt07ck2jZ4/N9nesBGassXeebjp/VVBLYltA2V97o5GxdQ1wmilw9fqcz
-	 PpNwOE/E24UGwz5HwEnbYOx73d8swQsjSqAHvl9JDP1k3VDoQW5hx2hfWkR0IYB+OzqyO
-	 PQqQTl9N7zjX0G12hzUA+EMpfdgz6y4Y5/Y2qH31mzmUWHVPgh6VR9O1tZ/ymgW1pJZha
-	 NBPa83AgRZVHZNgNGd1nszyWTSUeItNqr4DERaPvVEyzW5cnaeM09Nbh+PrbRwPCbDVUF
-	 JQHAn9N/3Vgc4QdlcCnln9apCHTiaX7DDwqcNiKuIhF7BrIwX4JYSyUuJVcHrcyD5yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792142;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=txitwvcbrK3UUlmG/sF+VNbr8sls515kGNNrpbN6uNk=;
+	b=1lM3iLTaxZgbw13Bk6diYaWAhLbcsxBGkA/l/6gPKcHGiZogbaRqEylnCTlDjJbCOp0Y
+	 AA1Bg1xnovs+oB+vg9QDnRQmGNJagOYpFilGr4q/bTTTjFschMmROmAzx8GtACtzVsddp
+	 bClhNGq2hPRFMF3VyhnCzLhCN3Dg8zzOn9tp7JA9JceE50ZTwRkGzbSMYriwYD8w6n+c9
+	 rBokcBRmRKaSpODpJXJbp6GPgnVqFrRvc8bqlWfQZDVf4pZKh5e6g1uik7RKItWf2zWVh
+	 so/vmL1egmsJlynl5rs8BB+8h+H4NIPo36OZ1Rhu0vS+hknYUletPOjRQB+KDdQzYXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVmArwiX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ck02Y+UJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NDuh9B3F;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0754E606A31B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 11:35:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87787606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 11:35:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87787606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVmArwiX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308291F000C1;
-	Wed,  4 Nov 2026 11:35:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793792114;
-	bh=xJv/oiRzdmeibJ9w9yvraEizZsEUoDznFS9/SeW9Wk8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LVmArwiXTuc0pTqyP4MbWXdAes0sF3OvoT/YGPOcy/NQHPQFBofhS3apibdsSxy+G
-	 bWU8FeizcrxRxyojnMZ/44qS0z4ZdGdz4yc7dM0M//EfDLQDwzlpAwyrVfHTvTO0rl
-	 RmM6okWUFe/9hKarZOPJTwwp96rhGb5DDfHLc6Q61Bff/8OaSGaNkQQxg7MCDFnBs3
-	 ARsJVrP6lYDAr4mA908HyXN9sFo46AZfToMj0s6gQll1y/ukmXKjR3Gy5SHFyZGk9g
-	 4bW+hXaOzXgAoOlOfdIEz7AwniSPT4diPDg/r3K/v4CuBD4UrMW37Ac+LhSg0zpzsK
-	 O1OaCp9f0DP5g==
-Message-ID: <sashiko-outbox-197177@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] dt-bindings: i3c: Add support for Qualcomm I3C
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mukesh Kumar Savaliya" <mukesh.savaliya@oss.qualcomm.com>, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
-References: <20261104111610.3739095-1-mukesh.savaliya@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 11:35:13 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ck02Y+UJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NDuh9B3F
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4B5Sgo2243087
+	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 11:35:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	txitwvcbrK3UUlmG/sF+VNbr8sls515kGNNrpbN6uNk=; b=ck02Y+UJvwJSSmFS
+	M55HtH/FtnsUGn9Tbee4EBYAz+jiBvjtOuOhvidebv/aZCR4K9F6bFyWTu6Tsg6q
+	eliAVRowRn4LyU93XUJbaX2uTm6MOITccmE+N5GYNH/sp8PrnDIwCeitpIME8rKR
+	sT6OFiTlqGJRVoamGQ0E9B3f9UVC6RklxeUyjcyRQnCnclYS9L1IXK9Y/271a4tC
+	jwTwMQX7G+KkBv2ulIFSZmN/ql6UJ5f8THjzCGWBSrvEMD+8ksvwo2mOfr7Idd4B
+	Vw4cytVN6dqxdtlS9Wit2Q89X45rz6VtcI5TqXAnKanyuOfAvzqPYEUmfJAaXCAZ
+	OAIliw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqn8mumh7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 11:35:40 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed08b07232so5823165ad.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 03:35:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793792139; x=1794396939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=txitwvcbrK3UUlmG/sF+VNbr8sls515kGNNrpbN6uNk=;
+        b=NDuh9B3F8w0RRQbk4DOFCTn6/pF/Q/Yc63kQVlkQXByE6x0t7x2MSnPnWfoOxkGSQF
+         dF0UiccXhotfXe/MF2aS+8uyapCV9O2oojioOQZ+UwjoQSuZoI51pVqlKPeOpsr7iu1s
+         prslK+7+tIp6F0Tb9Oxhl6xfmUkr0VQu+Wa1gGJUcH3e5EIO6M/qmSuFcw9HrACfCW6y
+         c8HYiPqMO3V+IGm/z4TRhT5Eahk5zVoDME+6IoaZj9+oGkTuRCGDxudetjDRcv5Mhypi
+         ly8WY8VL5Qw8uV5XRrNPmNX/2B0trrXe16JJxenzmNeYPbHcX5G33FUuievp81LFLZa2
+         Ym9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793792139; x=1794396939;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=txitwvcbrK3UUlmG/sF+VNbr8sls515kGNNrpbN6uNk=;
+        b=QB46LjDsXq6VK+aZ7KvpwARa7HkpRW0fyPFp8ZtW15sCk9wur0uzxqQw0Qe8adGsZr
+         LrlIzXhEHxICyGs/SDWiidtySnPGlplJQAht7ScUTccb/y6XW79WYMTT7ppt42B4b4Ri
+         /+i8Okn+7ZaNLfSKASV7NuN9dvlhiERVceFMUSB0iJwzFAsz6wp+2jWxwl0152iQ9G2i
+         Wbo87riJmJRCjs26WgYiY7Br+V0r3oVGwe7CQxT6kFEUSsOcZoJMeBqZZebaOhS/RY6q
+         PndAaq8MQ6Wf6X2OIOWJDd7ocBvAfnisqFfA4oNCHFsND6R4641oeKcH5I1W5yO9SI2K
+         sTGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzFYUYWKInCCN9vAf68gL62JfzKP8qh8LFev26nMa7dr3IPFm5CFuncr+uUmBhV60S1guOaL0MZpZA@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aStpO8VlPwhzdH6e36ESCFh5JvoeYuHh6zNUWAuW2P4Oz3oUR
+	TCr7kjAeu1gxIoKYECzFZAoeayxqwuTV1U0cpdS9+wdtsAP9KAGXvITF4FzBFkxhKlCA+hmMY+Z
+	nRYQoLulTcNz4XKiAy+0oZ3+nSnpKBrgHuw0nN3MTX+A71x8QcwmJo/LKB5xKNbGX
+X-Gm-Gg: AYBFou1UcIX492jWB8tmgI8gNoNpVUkfn3XlTFNxIhLdlt0c/szpFoFL2kh6zRJMMJo
+	NbYwxzHCM82uvqsopOrDHmvtB8UodLCJ6UUXKAw8pEEk3LZUwQIC4RijgAp+PemnKgGk3P36/qa
+	KlkH1ZFB+3FuwVpf6AlYuLSkQdPDvIPCwBvRABsFZAU6QJNb5lUipodUhGHpYMa8/y1246DO7qS
+	ND7NcazgV83NHi8HJ0hwXK55hy5xF4YIdxA1VtVQlAcrIhqbRXA1t4YvCqLLdIOYVIRKNli2QCY
+	JPVtz7gfmQPyDjgEjrVarKEdXOFB2dG9HlArUnrDDYKaIcyic7tUQ+zPUs5EPRKwU/QeRWPd708
+	km/5N/nx1WE2hTUcNhO+9n1aEm/FFsGQyl8IqwR/RCnkiwRFsHt7uYquMdO5jj05LK04psuiGyH
+	w=
+X-Received: by 2002:a17:903:388b:b0:2df:9d04:403b with SMTP id d9443c01a7336-2eb364b5c40mr142899255ad.32.1793792139075;
+        Wed, 04 Nov 2026 03:35:39 -0800 (PST)
+X-Received: by 2002:a17:903:388b:b0:2df:9d04:403b with SMTP id d9443c01a7336-2eb364b5c40mr142898975ad.32.1793792138559;
+        Wed, 04 Nov 2026 03:35:38 -0800 (PST)
+Received: from [10.218.30.203] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed08bd5845sm6106805ad.2.2026.11.04.03.35.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 03:35:38 -0800 (PST)
+Message-ID: <402ecf6a-357a-4404-985c-9540f6851f8e@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 17:05:33 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,188 +115,136 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: remoteproc: qcom,shikra-pas: Allow 3
+ IOMMUs for LPAICP
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org
+References: <20261005-shikra-el2-v3-0-618f7343695c@oss.qualcomm.com>
+ <20261005-shikra-el2-v3-1-618f7343695c@oss.qualcomm.com>
+ <20261005153737.opzzuflsioi6cxqo@hu-mojha-hyd.qualcomm.com>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20261005153737.opzzuflsioi6cxqo@hu-mojha-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Ah7Igyv3FgX4l4nHj6UW9C7enijyyEkx
+X-Proofpoint-ORIG-GUID: Ah7Igyv3FgX4l4nHj6UW9C7enijyyEkx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA0NSBTYWx0ZWRfX87mr82Lgd57C
+ LV4e1H6Nc4Nd04/bp/hnZ7MC9g+QTPnYZBKtipn6yOsR1AnyBewy7aquJfBUXgauI6fRM4XyKpu
+ xgdKqYbBDVpBrQfjNArfhhA36mBkLIEFZtN/Z6sq9RLiB+PsMfeNjq3o80Hw/XiVhDTD5sXrK0H
+ ukx0+UMI8thWCdj3q+2oVorNSGIRq3frtgqWWuhkaxm6P8DgjMxmPerlanr3lpoOdx58XeMq/C0
+ rb57W2K+9Y0FBxL/0F+nxKweYF4NOUXxpWIn3pySma3SfbZJOpSqzVHzbDxUl3YXNxHDoHnHaRg
+ ycMvuVyp18OKKjh/jItYWD5ioVcgCsdhQ+lYrDtALdIEtEFRJ7q/8pKO2ZxHYKImB5h3gGfuVbA
+ Ho7kuKqZfE1y9LsGRm/NNiBJy4oKbCk2N1DZT0Cue1N3Jyj7Nv+DyPeJWVKa/rsGeBJB75MOzhH
+ tXiEiySoVfZOu1JagxQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA0NSBTYWx0ZWRfX435xgaY8c5nL
+ ma18glHJQqGPlOVfvKZAqIl3t8Lf+ep8mlmeE2cVgDS2TcAg7z/9tNYFZlBB4dTh0nEpi3fNm74
+ SQHNGcbPYx8/L+dNuTQVkSgVvvyGI3I=
+X-Authority-Analysis: v=2.4 cv=HbWB3SE8 c=1 sm=1 tr=0 ts=6aeb188c cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=49plGf3O2Pee3ShZFYoA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_03,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 spamscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040045
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: i3c: missing i3c child node pattern in qcom,geni-se=
-.yaml
-- [Medium] dt-bindings: i3c: required pinctrl-1 contradicts pinctrl-names m=
-inItems: 1
-- [Medium] dt-bindings: i3c: missing power-domains and operating-points-v2 =
-properties
-- [Low] dt-bindings: i3c: example uses QUP wrapper address for IBI_C and mi=
-xes SoCs
---
+On 10/5/2026 9:07 PM, Mukesh Ojha wrote:
+> On Mon, Oct 05, 2026 at 04:44:45PM +0530, Komal Bajaj wrote:
+>> The Shikra LPAICP PAS requires three IOMMU entries. However,
+>> qcom,shikra-pas.yaml inherits the `iommus` schema from
+>> qcom,pas-common.yaml, which limits property to a single entry.
+>>
+>> As a result, the LPAICP-specific `maxItems: 3` constraint conflicts
+>> with the inherited `maxItems: 1` constraint, and a valid LPAICP node
+>> fails schema validation.
+>>
+>> Remove the pas-common schema reference and specify IOMMU entry limit
+>> for each Shikra PAS compatible: one entry for CDSP and MPSS, and
+>> three entries for LPAICP.
+>>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/remoteproc/qcom,shikra-pas.yaml   | 15 +++++++++++++--
+>>   1 file changed, 13 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+>> index 34a2f15e9361..4196f61a8ba0 100644
+>> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+>> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+>> @@ -32,6 +32,9 @@ properties:
+>>       items:
+>>         - const: xo
+>>   
+>> +  interconnects:
+>> +    maxItems: 1
+>> +
+>>     memory-region:
+>>       minItems: 1
+>>       maxItems: 2
+>> @@ -92,10 +95,14 @@ required:
+>>     - compatible
+>>     - reg
+>>     - memory-region
+>> +  - clocks
+>> +  - clock-names
+>> +  - interrupts
+>> +  - interrupt-names
+>> +  - qcom,smem-states
+>> +  - qcom,smem-state-names
+>>   
+>>   allOf:
+>> -  - $ref: /schemas/remoteproc/qcom,pas-common.yaml#
+> I think the right approach would be to remove iommu from the common binding
+> and let the corresponding target put the constraints.
 
-commit 53511a9ac0238442394253f95c17db4e7c486559
-Author: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Agree, that makes more sense. I will move iommu constraints to the 
+corresponding target-specific bindings in next revision.
 
-dt-bindings: i3c: Add support for Qualcomm I3C controller
+Thanks
+Komal
 
-This commit adds the device tree binding schema for the Qualcomm GENI-based
-I3C controller and its associated In-Band Interrupt (IBI) controller block.
+>
+>> -
+>>     - if:
+>>         properties:
+>>           compatible:
+>> @@ -112,6 +119,8 @@ allOf:
+>>             maxItems: 1
+>>           firmware-name:
+>>             maxItems: 1
+>> +        iommus:
+>> +          maxItems: 1
+>>           power-domains:
+>>             items:
+>>               - description: CX power domain
+>> @@ -134,6 +143,8 @@ allOf:
+>>             minItems: 2
+>>           firmware-name:
+>>             minItems: 2
+>> +        iommus:
+>> +          maxItems: 3
+>>           power-domains: false
+>>           power-domain-names: false
+>>   
+>>
+>> -- 
+>> 2.34.1
+>>
 
-> diff --git a/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml b/D=
-ocumentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-> new file mode 100644
-> index 0000000000000..bab89aeee23f4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/qcom,geni-i3c.yaml
-> @@ -0,0 +1,115 @@
-> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i3c/qcom,geni-i3c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Geni based QUP I3C Controller
-> +
-> +maintainers:
-> +  - Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-> +
-> +description:
-> +  Qualcomm GENI-based I3C controller implementing an MIPI I3C bus master.
-> +  The controller supports SDR transfers in mixed bus mode with both I2C =
-and
-> +  I3C target devices present on the same bus.
-> +
-> +  The controller consists of a GENI Serial Engine (SE) responsible for I=
-3C
-> +  bus transactions and an associated dedicated IBI controller(IBI_C) blo=
-ck
-> +  used for Hot-Join, In-Band Interrupt (IBI) handling and management of =
-GPII
-> +  resources associated with the I3C controller.
-> +
-> +  I3C controller nodes must be child nodes of a GENI-based Qualcomm Univ=
-ersal
-> +  Peripheral(QUP) wrapper. Refer to the GENI QUP wrapper binding describ=
-ed in
-> +  Documentation/devicetree/bindings/soc/qcom/qcom,geni-se.yaml.
-
-[Severity: Medium]
-Since I3C controller nodes must be child nodes of the GENI QUP wrapper node,
-will dtbs_check fail unless Documentation/devicetree/bindings/soc/qcom/qcom=
-,geni-se.yaml
-is also updated to permit i3c@[0-9a-f]+$ child nodes?
-
-Currently, qcom,geni-se.yaml sets additionalProperties: false and only allo=
-ws
-spi, i2c, and serial children in patternProperties:
-
-  patternProperties:
-    "spi@[0-9a-f]+$":
-      ...
-    "i2c@[0-9a-f]+$":
-      ...
-    "serial@[0-9a-f]+$":
-      ...
-  additionalProperties: false
-
-Should qcom,geni-se.yaml be updated to reference /schemas/i3c/qcom,geni-i3c=
-.yaml#
-under patternProperties (and disallow it under qcom,geni-se-i2c-master-hub)?
-
-[ ... ]
-
-> +  pinctrl-names:
-> +    minItems: 1
-> +    items:
-> +      - const: default
-> +      - const: sleep
-> +
-> +  dmas:
-> +    maxItems: 2
-> +
-> +  dma-names:
-> +    items:
-> +      - const: tx
-> +      - const: rx
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interconnects
-> +  - interconnect-names
-> +  - pinctrl-0
-> +  - pinctrl-1
-> +  - pinctrl-names
-
-[Severity: Medium]
-Does requiring pinctrl-1 here contradict setting minItems: 1 on pinctrl-nam=
-es
-above?
-
-If a board or SoC DTSI only defines the default pinctrl state (pinctrl-0 and
-pinctrl-names =3D "default"), schema validation will fail because pinctrl-1=
- is
-unconditionally listed in required. In addition, sibling GENI bindings such
-as Documentation/devicetree/bindings/i2c/qcom,i2c-geni-qcom.yaml do not
-require pinctrl properties in the controller schema.
-
-> +
-> +unevaluatedProperties: false
-
-[Severity: Medium]
-Should operating-points-v2 and power-domains also be permitted in properties
-before setting unevaluatedProperties: false?
-
-Neither i3c.yaml nor qcom,se-common-props.yaml defines these properties,
-whereas sibling GENI Serial Engine bindings (qcom,i2c-geni-qcom.yaml,
-qcom,spi-geni-qcom.yaml, and qcom,serial-geni-qcom.yaml) declare:
-
-  operating-points-v2: true
-  power-domains:
-    maxItems: 1
-
-Because Qualcomm SoC DTSI files (such as arch/arm64/boot/dts/qcom/sm8550.dt=
-si)
-populate power-domains and operating-points-v2 on QUP Serial Engine nodes a=
-nd
-the common helpers in drivers/soc/qcom/qcom-geni-se.c consume them, won't
-dtbs_check reject those properties on qcom,geni-i3c nodes?
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,sm8550-gcc.h>
-> +    #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
-> +
-> +    i3c@884000 {
-> +        compatible =3D "qcom,geni-i3c";
-> +        reg =3D <0x00884000 0x4000>,
-> +              <0x008c0000 0x10000>;
-> +        clocks =3D <&gcc GCC_QUPV3_WRAP2_S1_CLK>;
-> +        clock-names =3D "se";
-> +        interrupts =3D <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 796 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 797 IRQ_TYPE_LEVEL_HIGH>;
-> +        interconnects =3D <&clk_virt MASTER_QUP_CORE_2 &clk_virt SLAVE_Q=
-UP_CORE_2>,
-> +                        <&gem_noc MASTER_APPSS_PROC &config_noc SLAVE_QU=
-P_2>,
-> +                        <&aggre2_noc MASTER_QUP_2 &mc_virt SLAVE_EBI1>;
-
-[Severity: Low]
-Is 0x008c0000 the intended register address for the IBI controller in this
-example, and are the headers meant to mix sm8550 and kaanapali?
-
-In arch/arm64/boot/dts/qcom/sm8550.dtsi and kaanapali.dtsi, 0x008c0000 is t=
-he
-register base of the parent QUPv3 wrapper node (geniqup@8c0000):
-
-  qupv3_id_1: geniqup@8c0000 {
-          compatible =3D "qcom,geni-se-qup";
-          reg =3D <0 0x008c0000 0 0x2000>;
-
-which geni_se_probe() in drivers/soc/qcom/qcom-geni-se.c maps via
-devm_platform_ioremap_resource(pdev, 0). The example also includes both
-qcom,sm8550-gcc.h and qcom,kaanapali-rpmh.h while referencing &aggre2_noc.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104111610.3739=
-095-1-mukesh.savaliya@oss.qualcomm.com?part=3D1
