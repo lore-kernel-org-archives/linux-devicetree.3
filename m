@@ -1,57 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793769371;
-	b=eg1y2oqTG7F4KumOJhlEGEM1UZFnFp9AC41xW91E2fBcO3YA4re/8sDtxL9TD1REKWGN
-	 YWC3k967OuMYDKNFLSbeQEZIpQxBPqXWOqJ3X/yedwk10NmtTw5zkQ575zoVbaGZb3wkR
-	 LKRlklo+ANTBomzX3r9tKze5A+pXDDsot/fQB50qR66fKWgMtAfgDt0dHlqXvCafwHyi0
-	 5/IDKXO75cZqIT7vZ5K5o1Ez/uBIWB/L+G+tNi2g5M+qyGKIWaqk58kFSySFrHqc0cvT5
-	 XAWQ2g8ITiUYjsW7aTFdjSdY0STGqqu6ImP51YXV8msrq3HWvFZfGZNeaeL+Zzc+Vbg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793769371;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=0Ak9eAsOwO7vFn5aFbQNxGssCD/R19WWBLKGleUljFo=;
-	b=wjNB35LZrmtg04YC7aPLl53r0XbDZYQP1I5HzlWYgbdoBduIPDu6O1TGTrNEnDsB+Lk/
-	 Q23dWtVKYsjPXY9EBtlsuKY+ng0CfUeQP9S/OVSApR+9Z1hJuQBjgWM74WF4FYoVJkWOV
-	 XCbVUurVxktvn+9aYW299ISAxNlrC0KBFFgoxZKsR7jUidLJERPPlUZIuUYr+zNGvMemh
-	 NtDz4oVw7JmwuWjD0dd4/zXDebamfK2BJbmxmlL4YWiHID+bad/L6wQJvoumTQnyx4Chp
-	 dJbg2lIZb60RQV7qfMeLi3f+KmGXaBK12T4vL+F0KpCAYKpr0tOCWBcta5B+ZLxBm8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvuhvOs9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793769536;
+	b=unDY0p8AZ29JVZ8cNh2P5iNOrjsKYlJHhRX5EXy2IpQ2Oqasky5m34ZOjttGqsnmWJso
+	 yTVU+crRV6v6GRiN5RIQ6QNYAH2drMqJKlDr1uqfMQ6+ciUFwgnURyulei/Wg+sFBpmZk
+	 l//Bprgnw1oFuixZIdX4S2QOOTr0wShIF/2u7uMOxo9Mh675g1HSI9D4yHBy+Chjbl819
+	 znc0p36gdM5SR84MDoncW8SeKdr4oQfU9sgX4qh8UzTRpRilX89YcEFp/AA6HOTUgpEpV
+	 CMNjQ2RmKhzIDvNCHg/M1jUKEYKiZeuYM72S4WgXoFFLX++HvWoy96nwDMDnGALduTA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793769536;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=3zw7mODbL60TzsxJg3cHiPzGSN6gF0uMBrvSx8x/wa8=;
+	b=4S8AoSjcxO0Fxme3zWYnoBoig33Ngvnaig3qDvdX7qr6pWnXTU3MSHk/asT4SAI//s0v
+	 TNCa16TKEkX1cHa9mBnbTdgd/H3QSUOOutEymg0M+/sSAiMwz1KNXZ4nLw7t/U0G8+CiQ
+	 ySpxcHB4Xf8N3l318LgcGHaL6LckSVJuX5lAJ4MeYx2ijYJTgtXBxVwfEsRCV+f4NA0Dh
+	 BvbM6QAE2iTJDoUoYbJaH9Bkq9GK54DDDnLmnho2oH/5fkAWgI1mRzgTixgBODs6hwp6Q
+	 MWqX0mpNoF5oXqihGHF1eFMqwI+CzjIYQnk3TyUMKjoxaw/tYoG8fxuQVtwlQ9uvUFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=gkL3UzfT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.77
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023077.outbound.protection.outlook.com [40.107.44.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DD9606A31B;
-	Wed,  4 Nov 2026 05:16:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956FD606A329;
+	Wed,  4 Nov 2026 05:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 956FD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvuhvOs9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31B671F000C1;
-	Wed,  4 Nov 2026 05:16:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793769370;
-	bh=0Ak9eAsOwO7vFn5aFbQNxGssCD/R19WWBLKGleUljFo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TvuhvOs9BWyGoG0RU6AVF8nAgl6JDeXq4fhx6X3gxGyu5LaisJ66o5rb6UEsO5yxx
-	 uy7gdOkcH2WUE7YOwki2WGClB6sI2u51jxINUSPNXMSZoPNb66tvN9YwuiBZ9MtJIp
-	 mTXyojiA8MDilwwrcrKoj5NrTgzmyjG1ts+dUD6cku8/Qt3dBMVblLhABoIEkKORj+
-	 STy/v5M5DVqzUJHe2EmBgYpFfBwyh0zexOSeHgWvO47wQ6rX1E8rneygwnjPMh/9Ym
-	 TTKf6bEh/yd08WoC3gUBoeSEOMIAhNDPRJEBRV5wLyMXc7wwbx+yLohR/imWHF+685
-	 OorzcU5aXXV4A==
-Message-ID: <sashiko-outbox-196672@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v7 2/2] input: misc: Add Qualcomm SPMI PMIC
- haptics driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261103-qcom-spmi-haptics-v7-2-418de67ef84a@oss.qualcomm.com>
-References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
- <20261103-qcom-spmi-haptics-v7-2-418de67ef84a@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 05:16:09 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=gkL3UzfT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PT51n5CHMhXcAbCiKeP3A2vDhbGYUHV+BxgQcIa1VQ5LTOYzCXHPEcI1oom71YEAivSlLYw8nZDsoxQ1C0Oe4I/hOKNtolLv7qm5rwDoyufQAINmL7oQrpv5hHdjCeAEO8qtsZ/Q4sPA+vNzXXKP1gZPCH9oNoF0TRwc/VxAu3OcsUbJpNanv09AxdShB2ws+BehKGSAJARK8GT3DkBXG+Zpjtgu2gKxSrasCXloc8F1y3bgL+3tMI3MU9eZyQLcXkJdjS2DBiOGuMB9Vq6FvS+Bsf0/683oAifEc1JlwTzkpR6HXs3FMiCBg5GKyQjAH3pIeXyklSXmcFC3+3scKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3zw7mODbL60TzsxJg3cHiPzGSN6gF0uMBrvSx8x/wa8=;
+ b=eL5cqWRpzJ6ZOba+QWptvNqqKvVlD8msigggQMGyY/OSi1Fx77peon5vQFyluHnqfXkG7h6UFXELaSqLebCJxjmpEQebQXMrzPnhlFpBj7vuBBZSmb2D3EeDci0jBo1k4KXv0hNb9xYF8gBcNKQ/uDf/lq1tHfFGTyHTGIe1cHQmVCIIu+fd1nU165GXoQYQy8yQd1oLwYnDTbGxUhNVkY7k+s+bGrURQkgSLQjq2VBp7ppmfThdTme0xAlO/npuQUbJ14znCR9FcnLCvsA8ktzPxNYuipMOjoFnmuMw3ttBvk5EAOPzhSZyhstCMu14eDPTBr/WRYyJW8nwbMJprg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3zw7mODbL60TzsxJg3cHiPzGSN6gF0uMBrvSx8x/wa8=;
+ b=gkL3UzfTCgXkufcy6nEvPCQuB1eIUZI+FMg7F1WmOO6U7arJw+69uvwNinPj5+3sJbtXyXz6xwhmzw2VTwCjt9ua0nv+sO15WAnRXWHAuu/Ad/Kjmqz4H6ZE++cpbmf25WEq1t0FuctPeWEiib+4EdZJiOZ8M6oTo2StH0ShXuUqmsXyHKRKYkaT2CIeCPogaVGipbv7/Yghki7r7PoIcjT1q/uC6s9v2y1s23gw/5UitPgmFe+mY3d3q4F7ZONLWqPDeFm9eatlDXdUxCzUZaab4LbkhV+18tKZw+s4E3vIdi0BSqGXOvcwggyGbBGgOGn6V5E6pZHqTQkMxLZRQA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB5743.apcprd03.prod.outlook.com (2603:1096:400:74::7)
+ by SEZPR03MB6569.apcprd03.prod.outlook.com (2603:1096:101:74::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 05:18:50 +0000
+Received: from TYZPR03MB5743.apcprd03.prod.outlook.com
+ ([fe80::7f51:5771:90c4:8c40]) by TYZPR03MB5743.apcprd03.prod.outlook.com
+ ([fe80::7f51:5771:90c4:8c40%3]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
+ 05:18:49 +0000
+Message-ID: <e2b65a8f-a1c3-47f6-896d-22884907d7b1@amlogic.com>
+Date: Wed, 4 Nov 2026 13:18:45 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] i3c: master: svc: Add amlogic a9 support
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+ linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
+ Kelvin.Zhang@amlogic.com
+References: <20261102-a9_i3c-v2-0-0c474bfccffa@amlogic.com>
+ <20261102-a9_i3c-v2-1-0c474bfccffa@amlogic.com>
+ <aukKRUYfEABgIruC@lizhi-Precision-Tower-5810>
+ <2210c679-0577-49b9-b8c9-fffe1d88baed@amlogic.com>
+ <auqkKAKRZZ0pA-R3@SMW015318>
+Content-Language: en-GB
+From: Junyi Zhao <junyi.zhao@amlogic.com>
+In-Reply-To: <auqkKAKRZZ0pA-R3@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI1PR02CA0020.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::9) To TYZPR03MB5743.apcprd03.prod.outlook.com
+ (2603:1096:400:74::7)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,433 +111,158 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR03MB5743:EE_|SEZPR03MB6569:EE_
+X-MS-Office365-Filtering-Correlation-Id: df342855-50f4-4565-6d2c-08df3a331bd7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|261102123227099003|11063799006|4143699003|56012099006|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261026140227099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	NhcrMH284r1KyuDLas8MM18ijMVBzeYQ/LKCykFlw7FRLvuE0nCeME5Dqai5LxdUtClc9aaIq05cmV9TYF8+SG/68Txb7BGHNZWtD//h4SKSy0x8wmkO1dOX+5PHevbkFpZYdHvewl9zaSs2jAbaap2LtXnbYuXDrirbm+IlVy3tKRitPK5S86758+QFk4AbfITTCp+zVS3qhC88q9XCSJ4eLJBrwUwScQSTWv8ocWDDYFJFIJx6/tKxw6nBxSwLKNgwo4Q+FDI4Einby+F67r2BjvphTEFg48hP8gByjdYIdfAGgnffKTjEm4BDgaV0gPPjLywfpsUqfE4SRcCqyaFO/NtmSq5M/L8Yomn7MiRDab43/Np1to6zcWFQx0Kh/8ZHqK7Th1EpwB3hAd7jH/XOMeKmqgHRg0BJFDwMfW25aq3E5JWX/NAeTS3oXqhrO/CuagykSWlo+lKSnLbjS23NIlGHNU1OnHf+O/Bip24A9aGi8w3O96hSYn/9QbeHjq9vRDUmsIhV9TXMXjAMLYy9aP2Lw+WLLOVsAaTf49wbJ2V9VJFNDDGHIjBg4taRC7IfLe44D+aNbx9iRH+RXyOqUoSwXeQYOnbJvaAyUckOX5mbVVWkvzifeNvikQ0UgPdU3D7OdOss2lJotzHPX/kEzJxAqFHq0m/QMx8eULA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB5743.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(261102123227099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261026140227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MmlNNmk0b015bzZhendlejN0a2ZvRjdpbk90Tk9YclA0VmdWRnAwT3orQVlw?=
+ =?utf-8?B?Yy9nTW1ibkxkVVIrZFFxbGpuSHhKMkNvQlpZSWN2am4wM0JuR0hUc0l2MTVq?=
+ =?utf-8?B?NVkvVW1SMDF4emVVZmZXZGZWeTczY1B1c0NMdVI4RXlqb0dqTTFYZkFERlRu?=
+ =?utf-8?B?clhLenh2L2k4TXhickh2YVBZY2t1bS93dGNrZVVhYWs3dVBSb3NOTUdmVUR5?=
+ =?utf-8?B?NUNzQmJEWFYyVDBxUitRRjNuSXEzVDVCb0gwN2J6VGh0akVDQnFna2hwWWZk?=
+ =?utf-8?B?dHlubndhR1hOM290L28weFVCWklKR2RIT2liUjdYY3RMUEcxaC9OQzRwdDhP?=
+ =?utf-8?B?Q1p0UWVDMmM2ZTZNeGFqMXBHMFRVU0pqdE1zc2tCSjlKblRWendSNWRTMjZ3?=
+ =?utf-8?B?aTVUdzBTWmQ3UDBhV2E1L1FuUmxUcDhyUUtVOTVNRC9lWUxJbTBCQXlac3J4?=
+ =?utf-8?B?bHdWdk96akNZTXNOL0lRWERFcFhkWThnbFJuVVhvMno0ZENIeVFjSms3ZHBL?=
+ =?utf-8?B?cldLYW10eER6V3ZKS2JlNElkWTJic3pGcnJEeWxFM3NnZmQvckgxbEprc0Z6?=
+ =?utf-8?B?Z1FsOWlMVTlXb2lwcUxCdFhrbDJQV1dCam5vd211MnFndS84cHNHQnh4V2R4?=
+ =?utf-8?B?UEhCc0NuVzhoQWZDLzVLaGlacDRGVWFvQ3NXNVl3cTNGVkJsTnhaZFN5bThJ?=
+ =?utf-8?B?c0hlakY0Mjlsd3NOejNvSEdiWUFFZ3pnNDA3QmhHN2lwWFBXbmR4aEx4NFNo?=
+ =?utf-8?B?M1BVcFdhN3NEOUtYaGVhQlNZdm9oeFJHdUd0T2JSb3lMTzFRV2tYekFKWlUx?=
+ =?utf-8?B?VDR3dlRONmpWMk54ekpIQW0zRTJQbHorYTJRQThKdEY1SHkycUt1QUx2RTZV?=
+ =?utf-8?B?TlcwMGx2L1pVRktRSGFmaGJ4VUh6aWk3cG9wS0NlQU5jOWdSUndOU2pzeGRq?=
+ =?utf-8?B?eXRrRVNNMHlITFNjZHpRcTFienhHM3hsaDlqUlJmYjZyUk5hc2VwYUxOUDUy?=
+ =?utf-8?B?TzJ2OGMrcEdmeFRTcVNFd2NaMDJPZmQ4czJWaXoyVHErUkRCdGtxZUFSOHBP?=
+ =?utf-8?B?ZldxMjkzMXJFMXR4YUhXdmNPRUI4RnM2bjNEMitWNXhFakVDcWxkVzZibTNt?=
+ =?utf-8?B?c25PTlJzNWYvUnlNVVBpMGN3dUhNRHViSUFTQnlIeWJxOXRrTWN4YTJhN2Rt?=
+ =?utf-8?B?Q3VkWmtlWEp2RWd2RmYwVG5oS21NNWI0bUUxZ0dEZVhjUTdhNVo0OVQzSFlF?=
+ =?utf-8?B?eHliWFBkWHdHZ0VMYnowbkNJQWRrc2NtSzA3ZC9SWUxNUm1sZUxvMlBoSFpD?=
+ =?utf-8?B?VnVTRldjMVl3Z0JDc1JXMmxsNWFFM2JISVdnY2NnYzdlNk5NOVVjRitPSGpJ?=
+ =?utf-8?B?RUJiTjBZSzhGNVd1OTdlSXpCNmc4SlBMOERkSG4rakRRV3cxV0s0eDBzdXh0?=
+ =?utf-8?B?K3c0TmJGV2xvWjRmS3RpelF2dVVGYWY3MExpd08yYmJla1BtSUpVSFRqM2RO?=
+ =?utf-8?B?YXg4NEJPSDc4LzBmdDRNVjdlNStIVjFJd0RxSVMxZHdTYVR3S2ZQZlkxWGND?=
+ =?utf-8?B?QzJsajlTTHhBb1NIeFV2RWVFQXkyOUlWZkZqcm1XL2NCQ29MNnVESmVFdkh0?=
+ =?utf-8?B?dmxkd09vVEtUYUJ3dmE2VUJPR050RkNzM2d4bWJsNkp0ZDhBZFNKMnBYQi9z?=
+ =?utf-8?B?ZDY1d2I4VFNOenhSbWhhVUQwQy91VFpUeFh0amJ2OFZNN3lGMHNmSkRHYWp6?=
+ =?utf-8?B?d2xIamdaaEVoWmltUDlSZDBBaXBKUi9qZGR6WlR0TzYwYXN5RWtWOGtTdG1S?=
+ =?utf-8?B?Q1pwQ3FDUDhxZUJGK2JqTU9ZQzVuS21EZ04yekYxRVdNeEg3ZmxoSGs1VlVk?=
+ =?utf-8?B?RWsycTN1N2x2WHVVWGVNcDBqTEw1MTl0U3h4LzVTN0ZwZ3k0NzYwa1BYTFhX?=
+ =?utf-8?B?NU93SVBuTFBuQzhrYk5sQ1Rua0ZQc1BoaDJMMVRVVUdIVjlDd0Jkbk52ajho?=
+ =?utf-8?B?b3lHOHhyNDJwRFpFRzdrcm5GdThrVEFwRFlnWHVXaXMzazZtRmgxUlg2Vnpm?=
+ =?utf-8?B?RWd2R2NWbzZYT2YzOGNRcDVzWmRKTzYwb3JnVmt4eWx2MU5HNE9aOUFTV2ds?=
+ =?utf-8?B?ZEtxTVJ1aTMxaUFNT04zbVdFMENvNGhaSVg0Z2dxOHJkSm8wL3oxbzJDRE5N?=
+ =?utf-8?B?UmVFU082MU1QZk9ZY01ycjZFT3Z2ZGEvSXE3bEhmVlBFYkY2WnZtazFkNmVj?=
+ =?utf-8?B?MXJqUTA0WFZ0UTFsYzQ0U3RzQWhhTnZYazVQZzVjNUNTNSt5bUVsOUNwSlhr?=
+ =?utf-8?B?aXlzbUpmMHRldkRGOFlkTFQwTHFvQmhuSE52azY5ZnBZRWRHSEREQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: df342855-50f4-4565-6d2c-08df3a331bd7
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB5743.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 05:18:49.8478
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kv6POOZ1Skfw5P17xWvu+gaGVCogkZ9TmhDhiZdFJQ+AxYYX/p4phazTg5TuwMxnUwla1OL9ifzACZm7NRkXFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB6569
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] input: qcom-spmi-haptics: race between haptics_play_work() and hap=
-tics_erase()
-- [Medium] input: qcom-spmi-haptics: haptics_upload_effect() ignores pendin=
-g play_queue
-- [Medium] input: qcom-spmi-haptics: haptics_start() stops active effect on=
- 0-length play
-- [Medium] input: qcom-spmi-haptics: module never enabled when CONFIG_PM is=
- disabled
-- [Medium] input: qcom-spmi-haptics: in-place coalescing in haptics_enqueue=
-_play_req()
-- [Medium] Input: qcom-spmi-haptics: enable works after pm_runtime_force_re=
-sume()
-- [Medium] Input: qcom-spmi-haptics: clear fifo_data before synchronize_irq=
-()
-- [Medium] input: qcom-spmi-haptics: premature devres registration and inco=
-mplete cleanup in qcom_haptics_cleanup()
-- [Low] Input: qcom-spmi-haptics: add struct qcom_haptics kernel-doc descri=
-ption
---
+Hi Frank,
+	thanks for your detail.
 
-commit 9bdc6e8e22b52d3a790e636976b51c47c4d72435
-Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+On 04/11/2026 11:19, Frank Li wrote:
+> [ EXTERNAL EMAIL ]
+> 
+> On Wed, Nov 04, 2026 at 10:44:59AM +0800, Junyi Zhao wrote:
+>> Hi Frank,
+>>
+>> Thanks for the review.
+>>
+>> On 03/11/2026 06:10, Frank Li wrote:
+>>> [ EXTERNAL EMAIL ]
+>>>
+>>> On Mon, Nov 02, 2026 at 07:05:39PM +0800, Junyi Zhao wrote:
+>>>> Amlogic a9 SoCs integrate the Silvaco I3C IP, and their peripheral
+>>>> clocks vary from the vanilla implementation:
+>>>>
+>>>>     - The EE-domain controller (amlogic,a9-i3c) takes two clocks,
+>>>>       "pclk" and "fast_clk", and the fast clock rate must be
+>>>>       programmed before the controller can be used.
+>>>>
+>>>>     - The AO-domain controller (amlogic,a9-ao-i3c) exposes only "pclk":
+>>>>       its bus clock is generated by an internal divider located in the
+>>>>       controller's own register space.
+>>>>
+>>>> Add a vendor_init callback to handle this clock setup.
+>>>> Add a vendor_quirks field to describe AO-specific behavior.
+>>>>
+>>>> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
+>>>> ---
+> ...
+>>>> +     int (*vendor_init)(struct svc_i3c_master *master);
+>>>> +};
+>>>> +
+>>>
+>>> why need move this struct
+>>
+>> because callback need param struct svc_i3c_master *master， and if not，
+>> compile error. undefined.
+> 
+> Most likely svc_i3c_master need save a point for drvdata in future.
+> 
+> You add forward declear before drvdata
+> 
+> struct svc_i3c_drvdata;
+> 
 
-input: misc: Add Qualcomm SPMI PMIC haptics driver
+will do.
 
-This commit adds a driver for the Qualcomm PMIH0108 SPMI PMIC haptics module
-(HAP530_HV), supporting DIRECT_PLAY and FIFO streaming play modes through t=
-he
-input force-feedback framework.
+>>
+> ...
+>>>> +static int aml_ao_i3c_tail_clocks(struct svc_i3c_master *master, struct clk *parent)
+>>>> +{
+>>>> +     struct device *dev = master->dev;
+>>>> +     struct aml_i3c_ao_clk *ao;
+>>>> +     struct clk_init_data init = {};
+>>>> +     char name[64];
+>>>> +     int ret;
+>>>> +     struct clk_bulk_data *new_clks;
+>>>> +     struct clk *fclk;
+>>>
+>>> keep revise Chemistry order
+>>>
+>> will change order：
+>>        struct aml_i3c_ao_clk *ao;
+>>        struct clk *fclk;
+>>        struct clk_bulk_data *new_clks;
+>>        struct device *dev = master->dev;
+>>        struct clk_init_data init = {};
+>>        char name[64];
+>>        int ret;
+> 
+> 
+> longest is first
+> 
+> struct device *dev = master->dev;
+> struct clk_bulk_data *new_clks;
+> struct clk_init_data init = {};
+> struct aml_i3c_ao_clk *ao;
+> struct clk *fclk;
+> char name[64];
+> int ret;
+> 
 
-> diff --git a/drivers/input/misc/qcom-spmi-haptics.c b/drivers/input/misc/=
-qcom-spmi-haptics.c
-> new file mode 100644
-> index 0000000000000..f589ac137403a
-> --- /dev/null
-> +++ b/drivers/input/misc/qcom-spmi-haptics.c
-> @@ -0,0 +1,1251 @@
+will do. thanks the detail.
 
-[ ... ]
+> 
+> Frank
 
-> +/**
-> + * struct qcom_haptics
-> + * @dev:          underlying SPMI device
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc header for struct qcom_haptics is
-missing the hyphen and short description after the struct name, which will
-trigger a scripts/kernel-doc warning during W=3D1 builds.
-
-[ ... ]
-
-> +static int haptics_enqueue_play_req(struct qcom_haptics *h, int effect_i=
-d, bool play)
-> +{
-> +	struct haptics_play_req *req;
-> +
-> +	guard(spinlock_irqsave)(&h->play_queue_lock);
-> +
-> +	/*
-> +	 * Coalesce with an already queued request for
-> +	 * the same effect instead of appending.
-> +	 */
-> +	list_for_each_entry(req, &h->play_queue, node) {
-> +		if (req->effect_id =3D=3D effect_id) {
-> +			req->play =3D play;
-> +			return 0;
-> +		}
-> +	}
-
-[Severity: Medium]
-When haptics_enqueue_play_req() coalesces a request with an existing entry =
-in
-h->play_queue, it updates req->play in place without moving the node to the
-tail of the list.
-
-If h->play_queue contains requests for two effects, such as effect 0
-(play =3D false) followed by effect 1 (play =3D true), and userspace then s=
-ubmits
-a start request for effect 0 via haptics_playback(), updating effect 0 in
-place causes haptics_play_work() to process effect 0 (play =3D true) first =
-and
-effect 1 (play =3D true) second. That immediately stops effect 0 and plays
-effect 1, reversing the chronological order of userspace requests.
-
-Should this call list_move_tail(&req->node, &h->play_queue) when coalescing?
-
-[ ... ]
-
-> +static irqreturn_t haptics_fifo_empty_irq(int irq, void *dev_id)
-> +{
-> +	struct qcom_haptics *h =3D dev_id;
-> +	u32 sts, to_write;
-> +	int err;
-> +
-> +	err =3D regmap_read(h->regmap,
-> +			  h->cfg_base + HAP_CFG_INT_RT_STS_REG, &sts);
-> +	if (err || !(sts & FIFO_EMPTY_BIT))
-> +		return IRQ_NONE;
-> +
-> +	guard(mutex)(&h->fifo_lock);
-> +
-> +	if (!h->fifo_data)
-> +		return IRQ_HANDLED;
-> +
-> +	/* Refill: write the next chunk */
-> +	to_write =3D min_t(u32, h->data_len - h->data_written,
-> +			 h->fifo_len - FIFO_EMPTY_THRESH);
-> +	err =3D haptics_write_fifo_chunk(h, &h->fifo_data[h->data_written], to_=
-write);
-
-[ ... ]
-
-> +static void haptics_stop(struct qcom_haptics *h, bool put_noidle)
-> +{
-> +	lockdep_assert_held(&h->play_lock);
-> +
-> +	cancel_delayed_work(&h->stop_work);
-> +
-> +	cfg_write(h, HAP_CFG_SPMI_PLAY_REG, 0);
-> +
-> +	if (h->active_mode =3D=3D HAPTICS_FIFO) {
-> +		ptn_write(h, HAP_PTN_FIFO_EMPTY_CFG_REG, 0);
-> +		scoped_guard(mutex, &h->fifo_lock)
-> +			haptics_fifo_irq_enable(h, false);
-> +
-> +		/*
-> +		 * Wait for an in-flight FIFO-empty IRQ thread to finish before
-> +		 * clearing fifo_data below, so the handler can't touch it
-> +		 * after it's freed.
-> +		 */
-> +		synchronize_irq(h->fifo_empty_irq);
-> +
-> +		scoped_guard(mutex, &h->fifo_lock)
-> +			h->fifo_data =3D NULL;
-> +	}
-
-[Severity: Medium]
-If haptics_fifo_empty_irq() has already passed the HAP_CFG_INT_RT_STS_REG
-check when haptics_stop() runs, haptics_stop() disables the IRQ under
-h->fifo_lock, releases h->fifo_lock with h->fifo_data still non-NULL, and
-waits in synchronize_irq().
-
-At that point, the in-flight haptics_fifo_empty_irq() thread acquires
-h->fifo_lock, sees h->fifo_data is still non-NULL, and writes up to 7936
-bytes into the hardware FIFO over SPMI after playback has already been
-stopped.
-
-Since haptics_fifo_empty_irq() only accesses h->fifo_data while holding
-h->fifo_lock, could h->fifo_data =3D NULL be moved into the first
-scoped_guard(mutex, &h->fifo_lock) block before synchronize_irq()?
-
-[ ... ]
-
-> +static int haptics_start(struct qcom_haptics *h, int effect_id)
-> +{
-> +	struct qcom_haptics_effect *eff =3D &h->effects[effect_id];
-> +	unsigned long timeout;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&h->play_lock);
-> +
-> +	if (h->active_effect_id !=3D -1)
-> +		haptics_stop(h, false);
-> +
-> +	/* Ignore the play if the length is 0 */
-> +	if (eff->length_ms =3D=3D 0)
-> +		return 0;
-
-[Severity: Medium]
-In haptics_start(), if an effect is currently playing (h->active_effect_id =
-!=3D
--1) and a start request arrives for an effect whose eff->length_ms is 0,
-haptics_stop() is called before checking eff->length_ms =3D=3D 0.
-
-Doesn't this abort the active effect instead of ignoring the zero-length pl=
-ay
-request?
-
-[ ... ]
-
-> +static void haptics_play_work(struct work_struct *work)
-> +{
-> +	struct qcom_haptics *h =3D container_of(to_delayed_work(work),
-> +					      struct qcom_haptics, play_work);
-> +	struct haptics_play_req *req =3D haptics_dequeue_play_req(h);
-> +	int ret;
-> +
-> +	if (!req)
-> +		return;
-> +
-> +	scoped_guard(mutex, &h->play_lock) {
-> +		if (req->play) {
-> +			ret =3D haptics_start(h, req->effect_id);
-> +			if (ret)
-> +				dev_err(h->dev, "play haptics failed, ret=3D%d\n", ret);
-> +		} else if (req->effect_id =3D=3D h->active_effect_id) {
-> +			haptics_stop(h, false);
-> +		}
-> +	}
-
-[Severity: High]
-Can haptics_play_work() race with haptics_erase() here?
-
-haptics_play_work() calls haptics_dequeue_play_req(h) before acquiring
-h->play_lock. During the window after a start request (req->play =3D=3D tru=
-e) is
-popped from h->play_queue and before h->play_lock is acquired, that request
-is neither in h->play_queue nor reflected in h->active_effect_id.
-
-If userspace concurrently erases the effect (via EVIOCRMFF or closing the
-device), erase_effect() in ff-core calls:
-
-  ff->playback(dev, effect_id, 0)
-    -> haptics_playback()
-      -> haptics_enqueue_play_req(h, effect_id, false)
-
-Because the start request was already dequeued, the stop request cannot
-coalesce with it and is appended as a new entry. When erase_effect() then
-calls haptics_erase(), if haptics_erase() acquires h->play_lock first:
-
-  haptics_erase()
-    haptics_queue_remove_effect(h, effect_id); /* deletes the stop request =
-*/
-    if (h->active_effect_id =3D=3D effect_id)      /* false */
-        haptics_stop(h, false);
-    haptics_clear_effect(h, priv);
-
-When haptics_play_work() subsequently acquires h->play_lock, it runs
-haptics_start(h, req->effect_id) on the erased effect slot. That will either
-stop an unrelated active effect in haptics_start(), or start playing a newly
-uploaded effect if the slot was reused in the meantime.
-
-Would dequeuing from h->play_queue inside the h->play_lock critical section
-avoid this window?
-
-[ ... ]
-
-> +static int haptics_upload_effect(struct input_dev *dev,
-> +				 struct ff_effect *effect,
-> +				 struct ff_effect *old)
-> +{
-> +	struct qcom_haptics *h =3D input_get_drvdata(dev);
-> +	struct qcom_haptics_effect *priv;
-> +	int id =3D effect->id;
-> +	u32 data_len, level;
-> +	u64 length_us;
-> +	s8 *fifo;
-> +
-> +	guard(mutex)(&h->play_lock);
-> +
-> +	if (id < 0 || id >=3D HAPTICS_MAX_EFFECTS)
-> +		return -EINVAL;
-> +
-> +	if (id =3D=3D h->active_effect_id) {
-> +		dev_err(h->dev, "effect %d is under playing\n", id);
-> +		return -EBUSY;
-> +	}
-
-[Severity: Medium]
-Because haptics_playback() queues start and stop requests asynchronously to
-h->play_work, how does haptics_upload_effect() interact with requests still
-pending in h->play_queue?
-
-If userspace stops an active effect via write() (value 0) and immediately
-updates it via ioctl(EVIOCSFF) before haptics_play_work() runs, the stop
-request is still queued in h->play_queue while h->active_effect_id is still
-equal to id, causing haptics_upload_effect() to fail with -EBUSY even though
-userspace already stopped the effect.
-
-Conversely, if userspace starts an effect and immediately updates it before
-haptics_play_work() runs, h->active_effect_id is not yet id, so
-haptics_upload_effect() will overwrite h->effects[id] and free its FIFO
-buffer while a start request for id is pending in h->play_queue.
-
-[ ... ]
-
-> +static void qcom_haptics_cleanup(void *data)
-> +{
-> +	struct qcom_haptics *h =3D data;
-> +	int i;
-> +
-> +	cancel_work_sync(&h->gain_work);
-> +	cancel_delayed_work_sync(&h->play_work);
-> +	cancel_delayed_work_sync(&h->stop_work);
-> +
-> +	for (i =3D 0; i < HAPTICS_MAX_EFFECTS; i++)
-> +		haptics_clear_effect(h, &h->effects[i]);
-> +
-> +	haptics_enable_module(h, false);
-> +}
-> +
-> +static int qcom_haptics_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D devm_add_action_or_reset(h->dev, qcom_haptics_cleanup, h);
-> +	if (ret)
-> +		return ret;
-> +
-> +	irq =3D platform_get_irq_byname(pdev, "fifo-empty");
-> +	if (irq < 0)
-> +		return dev_err_probe(h->dev, irq, "failed to get fifo-empty IRQ\n");
-> +
-> +	ret =3D devm_request_threaded_irq(h->dev, irq, NULL,
-> +					haptics_fifo_empty_irq,
-> +					IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +					"qcom-haptics-fifo-empty", h);
-> +	if (ret)
-> +		return dev_err_probe(h->dev, ret, "failed to request fifo-empty IRQ\n"=
-);
-> +
-> +	h->fifo_empty_irq =3D irq;
-> +	platform_set_drvdata(pdev, h);
-> +
-> +	pm_runtime_use_autosuspend(h->dev);
-> +	pm_runtime_set_autosuspend_delay(h->dev, HAPTICS_AUTOSUSPEND_MS);
-> +	ret =3D devm_pm_runtime_enable(h->dev);
-> +	if (ret)
-> +		return dev_err_probe(h->dev, ret, "enable runtime PM failed\n");
-
-[Severity: Medium]
-In qcom_haptics_probe(), devm_add_action_or_reset(h->dev,
-qcom_haptics_cleanup, h) is registered before devm_request_threaded_irq(),
-devm_pm_runtime_enable(), and input_register_device(). Because devres unwin=
-ds
-in reverse order on unbind, devm_input_device_unregister(), runtime PM
-disable, and IRQ release will all run before qcom_haptics_cleanup() cancels
-h->gain_work, h->play_work, and h->stop_work.
-
-In addition, if an open input device with uploaded effects was inhibited via
-sysfs before unbind, devm_input_device_unregister() -> evdev_cleanup() ->
-input_flush_device() -> input_ff_flush() -> erase_effect() calls
-haptics_playback(dev, effect_id, 0), which queues a request and schedules
-h->play_work, and input_close_device() skips calling qcom_haptics_close()
-because dev->inhibited is true. When qcom_haptics_cleanup() finally runs, it
-does not call haptics_queue_flush() or haptics_stop(), leaking queued
-haptics_play_req entries and running work items after runtime PM and the IRQ
-have already been torn down.
-
-Should qcom_haptics_cleanup() also flush h->play_queue and stop playback, a=
-nd
-be ordered so work items are stopped before runtime PM and IRQ teardown?
-
-> +
-> +	input =3D devm_input_allocate_device(h->dev);
-
-[ ... ]
-
-> +static int qcom_haptics_runtime_suspend(struct device *dev)
-> +{
-> +	struct qcom_haptics *h =3D dev_get_drvdata(dev);
-> +
-> +	return haptics_enable_module(h, false);
-> +}
-> +
-> +static int qcom_haptics_runtime_resume(struct device *dev)
-> +{
-> +	struct qcom_haptics *h =3D dev_get_drvdata(dev);
-> +
-> +	return haptics_enable_module(h, true);
-> +}
-
-[Severity: Medium]
-haptics_enable_module(h, true) is only called from
-qcom_haptics_runtime_resume(). If the kernel is built with CONFIG_PM
-disabled, devm_pm_runtime_enable() and pm_runtime_resume_and_get() in
-haptics_start() become no-ops that return 0 without invoking
-qcom_haptics_runtime_resume(), leaving HAPTICS_EN_BIT in HAP_CFG_EN_CTL_REG
-cleared and the hardware module disabled.
-
-Should qcom_haptics_probe() enable the module (or set runtime PM active as
-appropriate) so the driver works when CONFIG_PM is disabled?
-
-> +
-> +static int qcom_haptics_suspend(struct device *dev)
-> +{
-> +	struct qcom_haptics *h =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	cancel_work_sync(&h->gain_work);
-> +	disable_delayed_work_sync(&h->play_work);
-> +	disable_delayed_work_sync(&h->stop_work);
-> +	scoped_guard(mutex, &h->play_lock) {
-> +		haptics_queue_flush(h);
-> +		haptics_stop(h, true);
-> +	}
-> +
-> +	ret =3D pm_runtime_force_suspend(dev);
-> +	if (ret) {
-> +		enable_delayed_work(&h->play_work);
-> +		enable_delayed_work(&h->stop_work);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int qcom_haptics_resume(struct device *dev)
-> +{
-> +	struct qcom_haptics *h =3D dev_get_drvdata(dev);
-> +
-> +	enable_delayed_work(&h->play_work);
-> +	enable_delayed_work(&h->stop_work);
-> +
-> +	return pm_runtime_force_resume(dev);
-> +}
-
-[Severity: Medium]
-In qcom_haptics_resume(), h->play_work and h->stop_work are re-enabled befo=
-re
-pm_runtime_force_resume(dev) is called.
-
-Because pm_runtime_force_suspend() disables runtime PM on the device and
-pm_runtime_force_resume() only re-enables it before returning, if
-h->play_work is scheduled and runs before pm_runtime_force_resume() finishe=
-s,
-pm_runtime_resume_and_get() in haptics_start() will fail with -EACCES. Also,
-if pm_runtime_force_resume() fails, the delayed works are left enabled on a
-suspended device.
-
-Should qcom_haptics_resume() call pm_runtime_force_resume(dev) first and on=
-ly
-re-enable h->play_work and h->stop_work on success?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103-qcom-spmi-=
-haptics-v7-0-418de67ef84a@oss.qualcomm.com?part=3D2
