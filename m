@@ -1,73 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826973;
-	b=ulYtFqmglGpgML9VckQuU40lvKP7pQWSKXQz0oX8GdukuMhgYINpktixWHCOasAnxsWj
-	 7Ek62SIvJSDlVIDdtfNRhpX+PmBlGpIWaTlt5Id/GXD4Cojxc4PqohtBjkwP0cWojhMT7
-	 TAIsfxvBtx/OwNeXdvnl4GHZCFbmTXapZvAMwzH6gR+nbK1x8EF1l2tPNlV+2OjI1riT4
-	 JoUfhnNehi8HO+oP8S8UwrTU8dgpEf5sRU5Ja9BODfLhfOgy8RMuOtYursctqmMjQQTjF
-	 9A3dkgL5MzKmZvEJeQIuHunE+TdjKUPYWcKDym2ee59hXxSysvKqIvU3Of61F7HXQaw==
+	t=1793827066;
+	b=AI6w0l38ZzrcOnoP7YLTi/C3TMpIPKlNVMX7tT2FP/6iYHB4by93Vn6bCgVfeDxMI6nk
+	 hKVqz1qn8J0cw0Tc+9bNjgUAaqPq88eahu49v1qcHX0v2iJc6S2a1Cu61iQ3G7qK+u0bx
+	 BPrX/cVwzTlu5tanXlQRBzw770lQnjgETNFFkIvwFypIloxj+R8pRVgmkoar/fSNJsAfb
+	 Th44mEymK8qtI42NnzEG5hgx/JEyvineKvUcSQlIix4yt1ogl7trwQJs2mgfC3mOE/10j
+	 QqwRRBqxXqmjQsNqXrl48N/kjB3hqL57PJfDvdV3xgruX0KFFaKwmAaeHqpiZuHnCCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826973;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=E0amS/985lEuA/641nlWSjwLQ/LPYEzaMW2+uW18C48=;
-	b=VesdSblhAdjjGaxgBP1o3r9aV/RO+A2WufU13+iitdRdRL3MdD+9P+d6tIFwRnW8k6lK
-	 ZoIUxWJV0UGXkbaYoWBoQ6m1cw/JH3Vdz+h3YwZNQwJyL0NSF2ws7YRzqWCEBsMNzpN6N
-	 hrcNB/GzJbBH61GKGUj71CfeCAkb/8j+Bznk2HDttgpvFcZILLS52WSa1qEaku5SA3vUw
-	 NXRokC4Y7+ycQ+a4I7U1z25aqwDckuxXeAYnGsm5RSFa6nfJeSGIgun5HLWnhnGDzicfp
-	 PyU2+Q+/jkpzCEKzxt4A2+HX6ATK+JbWTBEd8+UXw2Dj4dtp5RPXbAg8ucYlRJwteqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827066;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=mI96Y8ShDpKzHCEcP2OgiUqcR+z8DiP4BqJSlsmOoSE=;
+	b=cEVmQ5bEi8twbaI89NdeGg1+UYCQruBmZY1B3W8UpbRxdj8t3QVHT3WUyPo+ORwt29RN
+	 wGhZn9BeZuG7zlxtJP41vy9hsiYBz4qeiywOC6qxiEUouQsWWf5mkOCzHFEHMYeuJGnu2
+	 qZzjOFQYe8guKNRKC83syJKDyrPvzB+5jSwrUln3KcYP3Q3y48c/3BL8atsbPVI0/FBww
+	 gsQS2u78BFRODQIeu7q4FHcKvUBhM3ZUKpPanK5avMaeTmLyodgHawp/c393DmTZSk1PB
+	 WuU2T3Z8HogWBv+6oaUpXSsj0w9NZ7xfFC2aMq+6fBoZBdypUlSnZKfK2CnJcEKMfFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kIyTVelH;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TsBCnEka;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBD860BC548;
-	Wed,  4 Nov 2026 21:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BBD860BC548
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAEE606AE17;
+	Wed,  4 Nov 2026 21:17:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AAEE606AE17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kIyTVelH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=E0amS/985lEuA/641nlWSjwLQ/LPYEzaMW2+uW18C48=; b=kIyTVelHs7ZyeksgK64eNJxXc7
-	7XDnyK5BAGb07K70+4umsiUIAQa0uMwlx+epvyMTi5GaAEWEiF5OCBqhwJ6MsdfZYSReQVKOV5sbw
-	HfPDyWC8Jb7wpGA9JGU/Mb3QAfYhDvyc2rptefd8TI/PZthm8wUp9bZ0Nh10LOn/a76Q=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xOiKx-00EOD1-CE; Wed, 04 Nov 2026 22:16:03 +0100
-Date: Wed, 4 Nov 2026 22:16:03 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: Iustin Stolniceanu <iustin.stolniceanu@analog.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ciprian Regus <ciprian.regus@analog.com>
-Subject: Re: [PATCH net-next 5/5] net: phy: adin1100: Skip the soft reset on
- ADIN1110/ADIN2111
-Message-ID: <309a1eb9-8255-42f0-a510-b40bf3302bbd@lunn.ch>
-References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
- <20261103160918.409701-6-iustin.stolniceanu@analog.com>
- <autAidTgykOObtzp@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TsBCnEka
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793827066; x=1825363066;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OxFD2y0vi2PbpMdz5Za1fUdK4ldU1V6rTl4KYYCPlCQ=;
+  b=TsBCnEkaakiPbPe6ANqqfntg++d5y3jlJz6k6zBT2+XSEEUNuQw5V0kX
+   VsJHGk5s5ExnA1PaxcPNDXVky0PyA3/kqduBlGo45fbsMsEMNRlJQzsBS
+   dP9FL4SyWJfzn/8/WQ9fOlm8gzdwxvcWO7YqfrMfXqfLfkOsPHZjvLn07
+   dvlavMZzWI516Xv9E2kToV9tVRWv7y60ehW0lgKCdidQvWD8f9IJsHQ/x
+   AjxdDNQBBDsrrtCtpdsNCpY4VkG/RDZzvLWVelVJXJZcSp9JH7rE0sUvq
+   gQqVvq3177Qt5JrVk42WwpkbNmed2OfNZ9hwP2mldweNFxlIGWsSxe1db
+   g==;
+X-CSE-ConnectionGUID: dF6hgHKDRR2Xed/zfqnxKg==
+X-CSE-MsgGUID: dXJuVqIRQye2KKkd7xKWnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2505018"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2505018"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:17:45 -0800
+X-CSE-ConnectionGUID: 82oTkYOsSO2+b2xk6C7VnA==
+X-CSE-MsgGUID: kwSFyqLDR6iZxkWvyXwKVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6841615"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:17:40 -0800
+Date: Wed, 4 Nov 2026 23:17:37 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
+Message-ID: <auug8QoQ62ETGg1D@ashevche-desk.local>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -79,59 +95,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <autAidTgykOObtzp@analog.com>
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> > @@ -232,6 +232,15 @@ static int adin_soft_reset(struct phy_device *phydev)
-> >  {
-> >  	int ret;
-> >  
-> > +	/* On the ADIN1110/ADIN2111 MAC-PHYs, CRSM_SFT_RST resets the whole
-> > +	 * chip, undoing the MAC driver's setup, and MDIO reads return stale
-> > +	 * data until it completes. The MAC driver has already reset the
-> > +	 * chip, so skip it here.
-> > +	 */
-> > +	if (phy_id_compare_model(phydev->phy_id, PHY_ID_ADIN1110) ||
-> > +	    phy_id_compare_model(phydev->phy_id, PHY_ID_ADIN2111))
-> > +		return 0;
-> 
-> It seems more common to have a separate struct phy_driver entry in the
-> array passed to module_phy_driver() with a more precise
-> phy_id/mask. Then for ADIN1110/ADIN2111 you'd omit the
-> .soft_reset. Maybe Andrew knows what is preferred here?
+On Wed, Nov 04, 2026 at 03:03:46PM +0100, Bartosz Golaszewski wrote:
+> Provide fwnode_property_get_names() - a new fwnode function that allows
+> callers to retrieve the list of all properties of given firmware node.
 
-Humm...
+...
 
-#define PHY_ID_ADIN1100				0x0283bc81
-#define PHY_ID_ADIN1110				0x0283bc91
-#define PHY_ID_ADIN2111				0x0283bca1
+>  #include <linux/device.h>
+>  #include <linux/err.h>
+>  #include <linux/export.h>
+> +#include <linux/minmax.h>
+>  #include <linux/of.h>
+>  #include <linux/property.h>
+>  #include <linux/phy.h>
+>  #include <linux/slab.h>
 
-static struct phy_driver adin_driver[] = {
-	{
-		.phy_id			= PHY_ID_ADIN1100,
-		.phy_id_mask		= 0xffffffcf,
-		.name			= "ADIN1100",
+>  #include <linux/string.h>
+> +#include <linux/string_helpers.h>
 
-That phy_id_mask is funky.
+You can replace string.h with string_helpers.h.
 
-static const struct mdio_device_id __maybe_unused adin_tbl[] = {
-	{ PHY_ID_MATCH_MODEL(PHY_ID_ADIN1100) },
-	{ PHY_ID_MATCH_MODEL(PHY_ID_ADIN1110) },
-	{ PHY_ID_MATCH_MODEL(PHY_ID_ADIN2111) },
-	{ }
+We already rely on the fact that the latter includes the former
+elsewhere in the kernel.
 
-And this contradicts it.
+>  #include <linux/types.h>
 
-Please leaf through the datasheet for these devices and check how the
-ID is defined. Often the lowest nibble is the revision, so 0x0283bc81
-and 0x0283bc8f would be the same device, just different bugs.
-However, they can be different devices. This is why we have:
+> +/**
+> + * fwnode_property_get_names - get the list of all properties of this fwnode
+> + * @fwnode: Firmware node to get the list of properties for
+> + * @props: Pointer to an array of strings. It will contain the address of the
+> + *	   string list containing the property names.
+> + *
+> + * Return: Number of property names written into *props. If > 0, the caller must
+> + *	   free the array with kfree_strarray(). *props is only valid for
+> + *	   a positive return value.
+> + *	   %-EINVAL if arguments are not valid
+> + *	   %-ENXIO if no suitable firmware interface is present
+> + *	   %-ENOMEM if memory allocation failed
 
-#define PHY_ID_MATCH_EXACT(id) .phy_id = (id), .phy_id_mask = PHY_ID_MATCH_EXTACT_MASK
-#define PHY_ID_MATCH_MODEL(id) .phy_id = (id), .phy_id_mask = PHY_ID_MATCH_MODEL_MASK
-#define PHY_ID_MATCH_VENDOR(id) .phy_id = (id), .phy_id_mask = PHY_ID_MATCH_VENDOR_MASK
+> + * The list also includes the properties of the secondary firmware node, if
+> + * any. Properties present in both nodes are listed once.
 
-Since they are different devices, it would be good to have multiple
-struct phy_driver, if that can be done without breaking backwards
-compatibility.
+I don't know if this paragraph is for Return section or not. If not, it should
+go before as the Return section must be the last one in the kernel-doc (it's
+documented). Otherwise I'm not sure it belongs to the Return section. I think
+it would be better as a part of the description which should elaborate on the
+returning values in the parameter.
 
-	Andrew
+> + */
+> +int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
+
+Triple indirection is rare. Do we really need it?
+
+> +{
+> +	int ret1, ret2 = -ENXIO, n1, n2, i, j, count;
+> +	char **prim = NULL, **sec = NULL, **merged;
+> +
+> +	if (IS_ERR_OR_NULL(fwnode))
+> +		return -EINVAL;
+> +
+> +	ret1 = fwnode_call_int_op(fwnode, property_get_names, &prim);
+> +	if (!IS_ERR_OR_NULL(fwnode->secondary))
+> +		ret2 = fwnode_call_int_op(fwnode->secondary, property_get_names, &sec);
+> +
+> +	if (ret1 == -ENXIO && ret2 == -ENXIO)
+> +		return -ENXIO;
+> +
+> +	n1 = max(ret1, 0);
+> +	n2 = max(ret2, 0);
+> +
+> +	CLASS(strarray, prim_props)(prim, n1);
+> +	CLASS(strarray, sec_props)(sec, n2);
+> +
+> +	if (ret1 < 0 && ret1 != -ENXIO)
+> +		return ret1;
+> +
+> +	if (ret2 < 0 && ret2 != -ENXIO)
+> +		return ret2;
+
+> +	if (n1 == 0 && n2 == 0)
+> +		return 0;
+
+Shouldn't these checks be before any CLASS()? Otherwise seems strange to me.
+
+> +	merged = kcalloc(n1 + n2, sizeof(*merged), GFP_KERNEL);
+
+Shouldn't here be something from overflow.h?
+
+> +	if (!merged)
+> +		return -ENOMEM;
+> +
+> +	/* The strings are now owned by merged, only free the container. */
+> +	for (i = 0; i < n1; i++) {
+> +		merged[i] = prim_props.array[i];
+> +		prim_props.array[i] = NULL;
+> +	}
+> +	count = n1;
+> +
+> +	/* Properties from the primary node take precedence. */
+> +	for (i = 0; i < n2; i++) {
+
+> +		for (j = 0; j < n1; j++) {
+> +			if (!strcmp(merged[j], sec_props.array[i]))
+> +				break;
+> +		}
+
+match_string() ?
+
+> +		if (j >= n1) {
+> +			merged[count++] = sec_props.array[i];
+> +			sec_props.array[i] = NULL;
+> +		}
+> +	}
+> +
+> +	*props = merged;
+> +	return count;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
