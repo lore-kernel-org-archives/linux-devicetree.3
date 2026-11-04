@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806646;
-	b=bX+HmGrzL+K8L4rt3xN6qZ/oJZ3XrOJIrikH8ZvY8kyPTKZHdwLoxG3FVK0zZ7C+5kT7
-	 z3EV+FSRlyxGqloq3lcSMQPydd5EvcCSU4t913+yz+r7BmIKh+JbatjUj/qWAAxvWlgFW
-	 hgKnBf56cW166ezJpVDDcy2c7EZHrLnAHEFHjZoY9+15FsnBcIndHogTIe46t+g7CQ1gR
-	 d9D72eur+YnJCDuHD7nLmYOkStCURIK3yShrlBtD7XiIDjcHPg55VMxZKW9t1snmIa70N
-	 yQtRPmcU0F+98t/JgoK5V751r2JqdAdfGo1ypfIQNMzFrk3nJQiJWYoityW/W8n1+sA==
+	t=1793806753;
+	b=evFA7Z7kiqVwAQO91r+/LEQvPf0iurisk6Sm2Rc/RIhH73HssNpkpTziJ5daitEe/7wL
+	 agu5p6fri7XpwEx772KM0ZgB890wgdK9V+scW0M3EK3hoVwzDFATFyQ7rQfXsThGr8YO/
+	 5S3RIGfOAlqcyaT/oHlVNzi4f/B/aSinggMWNkMZ09PwS6sUer1TP6SMBrj+yqScHO4zM
+	 4s+7DzuVSZ5UJXakya/znfqRAZewEdxVTRV8qSi4dpxQJQOfQd33lNnYdr7jQumSSbYtS
+	 yEBtM1hNVZpFJcqAdYp682Nofm2EO+NzFVMJNWEvwprii5rnPXpRJuSZpnB0dKhuTAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806646;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=6gr+1hN5mr88TUb6c1EFHl/+fcbV3ZF/wh6O3QIfUwQ=;
-	b=mlhvJ03Iw3Kbzu24xooY26BZoJj58e1j8T8Kzf6orWt6v5M24PXLwyCRCWub14d1PzEo
-	 +orPcDaZGC/8KtyB9bW7zORMTchhFnR4gSn9q0wMSsUMsZE9IFKdWItPKzuxkCPukS6Rv
-	 1M8x757hjaRk3AiGrr1btsI+rtiLVeNe4+BlqkGTzHwlW+AAfpZWCChiyd8PPy6HHMLmJ
-	 nnHGUVzhlIsdHaKH6jybYoD6uhZx968KCupKljYczCG4viNe370Z6mn8GLe0BwcvS08qD
-	 iRUmZaGEi6BiCvRkVMWjDJNZZ2ClnBT4Mu+310gBHCDFUbMM+rbBVq3UdqO0lzAzaSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806753;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=VqTyygYcyL9JjxXhEJLzrY8mAqjnpLWpzC4C5OeUAxs=;
+	b=JHX/tZhqYU48Mrh0CcslFzqrlJO8yfGkx/b97KfACrjisCinziIKem3FSsvAtEPyaVZa
+	 0Z9GtGwmlx5Ur64cYDWugUAc6nyAREZgBBqEawc6Z0b/rFdOxmMT6EIkJoxMMuv4mGTGJ
+	 jlw2LCIQ49XLUy7+79kSA0GxwJwTtXkn3n/0DwvroWcqXZNmTu0lq1mMvielI3wA5IFIu
+	 rPBS6ojypr0bdI8ipIC7kiK58IATMUB1agCPEnAAxZLw8hskr1LL4r0y+eRk+ZgX66uNM
+	 u9uGrz4HMfqmb+By621agrCXe9HL+mbqs+rSl+RJiKk763ENqvGlzTCkNNji5g16vwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W0wn3z2B;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EotTsjAE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178D860A5BE5
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 178D860A5BE5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EB7606A33A
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:39:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W0wn3z2B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793806645;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6gr+1hN5mr88TUb6c1EFHl/+fcbV3ZF/wh6O3QIfUwQ=;
-	b=W0wn3z2BOvAbc0oeEJkHqkX2S0LSRx/eThaPn5jZL1pRaps1oGZSQqY6VV+fQdBfLFPZxh
-	qhNosmDxIFHbiZQ2ryCWQe/4RkRbU1JeGmz9ZD85jnkwSTr3S9pn78Al9r3hp5Zdk1vyYk
-	oGdHsjsGl+7qXQtH71WBwZ1CVIOwChc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-498-khiY1PBXPvuBLjBHwqeKGA-1; Wed,
- 04 Nov 2026 10:37:19 -0500
-X-MC-Unique: khiY1PBXPvuBLjBHwqeKGA-1
-X-Mimecast-MFC-AGG-ID: khiY1PBXPvuBLjBHwqeKGA_1793806624
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8F010180059B;
-	Wed,  4 Nov 2026 15:37:02 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D01FD1955F06;
-	Wed,  4 Nov 2026 15:36:38 +0000 (UTC)
-Message-ID: <8f74bba9-6484-4faf-a409-ce31cb42a63c@redhat.com>
-Date: Wed, 4 Nov 2026 16:36:37 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EotTsjAE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7701F00A18;
+	Wed,  4 Nov 2026 15:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793806753;
+	bh=VqTyygYcyL9JjxXhEJLzrY8mAqjnpLWpzC4C5OeUAxs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EotTsjAEA4ioV+VPdnf0tfAeSjlXrqj8qN/M2wPGZwkegI3Kyx4+gqshK4MSJVfbC
+	 jJpLq3cbF051vZdVtpv6CmVDPXtnnMlP6qoX0MVlCH1lYJNWcKXS/2utYmXeVGJmMZ
+	 V3A57bEOUM0xTU5k2hWRPO2Wg4A6WYUm4/n7DbD02LVzx/SL5xYnOtBA4gpXhliBI8
+	 MqVf6Ud1RZzSILBp6RlfJp9TfEvv8GFXUZUmhjoF0yQAHFVxauleyxVPPEvu+IXaC9
+	 MmTWEMLT1jcmZ82uzj+5oS+FRE5prKJVQwNCI/tD9KIw399kItVSNdSLF43smSyGgL
+	 NdlHPIi1nI8qQ==
+Message-ID: <sashiko-outbox-197522@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
+ node for syscon
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Patrice Chotard" <patrice.chotard@foss.st.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
+References: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
+ <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 15:39:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,84 +60,160 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-To: "Rob Herring (Arm)" <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Benson Leung <bleung@chromium.org>,
- Guenter Roeck <groeck@chromium.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Ulf Hansson <ulfh@kernel.org>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Shawn Guo <shawnguo@kernel.org>, Chanh Nguyen
- <chanh@os.amperecomputing.com>, Alistair Francis <alistair@alistair23.me>,
- Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>,
- Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, Ray Jui
- <ray.jui@broadcom.com>, Scott Branden <scott.branden@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-gpio@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-sound@vger.kernel.org, linux-input@vger.kernel.org,
- linux-tegra@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
-References: <20261102135330.2493332-1-robh@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On 11/2/26 14:53, Rob Herring (Arm) wrote:
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->   .../bindings/display/xylon,logicvc-display.yaml      |  2 +-
->   .../devicetree/bindings/dpll/dpll-device.yaml        |  2 +-
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: arm: stm32: requiring ranges on tamp breaks childle=
+ss nodes
+- [Medium] dt-bindings: arm: stm32: unwieldy conditionals and #size-cells r=
+elaxation
+- [Low] dt-bindings: arm: stm32: truncated sentence in commit message
+--
 
-Reviewed-by: Ivan Vecera <ivecera@redhat.com>
+commit 955fce49004502ff39ca0c0307ffc1b3b2ac4184
+Author: Patrice Chotard <patrice.chotard@foss.st.com>
 
+dt-bindings: arm: stm32: allow TAMP nvram child node for syscon
+
+This commit updates Documentation/devicetree/bindings/arm/stm32/st,stm32-sy=
+scon.yaml
+to allow addressing properties (#address-cells, #size-cells, and ranges) and
+an nvram child node on st,stm32-tamp nodes.
+
+>     dt-bindings: arm: stm32: allow TAMP nvram child node for syscon
+>    =20
+>     The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mf=
+d")
+>     exposes its backup registers through an nvram child node described by
+>     nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
+>     "#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
+>    =20
+>     st,stm32-syscon.yaml uses "additionalProperties: false" and only allo=
+wed
+>     into the DTSI made "make dtbs_check" fail on every STM32MP TAMP node:
+>    =20
+>       tamp@5c00a000 (st,stm32-tamp): 'nvram@5c00a100', 'ranges' do not ma=
+tch
+>       any of the regexes: '^pinctrl-[0-9]+$'
+>    =20
+>     Allow the addressing properties and the nvram child, gated on the
+>     st,stm32-tamp compatible so the other syscon variants stay strict.
+>     "#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
+>     (an empty "ranges" requires the node to match its parent) while the
+>     other STM32MP SoCs use one.
+>    =20
+>     Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+[Severity: Low]
+This isn't a bug, but it looks like a line starting with #address-cells was
+stripped as a comment by git commit in the second paragraph, leaving a
+truncated sentence ("and only allowed into the DTSI made").
+
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.=
+yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> index a559f8b03b842..51cb565e05edb 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> @@ -43,13 +43,19 @@ properties:
+>      const: 1
+> =20
+>    "#size-cells":
+> -    const: 1
+> +    enum: [1, 2]
+> +
+> +  ranges: true
+> =20
+>  patternProperties:
+>    "^phy@2[48]00$":
+>      type: object
+>      $ref: /schemas/phy/st,stm32-usb2phy.yaml
+> =20
+> +  "^nvram@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/nvmem/st,stm32-tamp-nvram.yaml
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -84,11 +90,37 @@ allOf:
+>          - phy@2800
+>      else:
+>        properties:
+> -        '#address-cells': false
+>          '#clock-cells': false
+> -        '#size-cells': false
+>          phy@2400: false
+>          phy@2800: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32-tamp
+> +    then:
+> +      required:
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +        - ranges
+
+[Severity: Medium]
+Does unconditionally requiring #address-cells, #size-cells, and ranges for
+st,stm32-tamp cause a dtbs_check regression on existing device trees without
+child nodes?
+
+In arch/arm/boot/dts/st/stm32mp151.dtsi, the tamp@5c00a000 node has no child
+nodes and does not specify #address-cells, #size-cells, or ranges:
+
+		tamp: tamp@5c00a000 {
+			compatible =3D "st,stm32-tamp", "syscon", "simple-mfd";
+			reg =3D <0x5c00a000 0x400>;
+		};
+
+Additionally, properties.compatible in st,stm32-syscon.yaml allows the
+two-item form without simple-mfd:
+
+      - items:
+          - enum:
+              - st,stm32-tamp
+              ...
+          - const: syscon
+
+where bus addressing properties would not apply when no child node is
+present. Should #address-cells, #size-cells, and ranges remain optional (or
+only be required when child nodes are present) so childless st,stm32-tamp
+nodes stay valid?
+
+> +    else:
+> +      properties:
+> +        ranges: false
+> +      patternProperties:
+> +        "^nvram@[0-9a-f]+$": false
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - st,stm32-tamp
+> +                - st,stm32mp23-syscfg
+> +                - st,stm32mp25-syscfg
+> +    then:
+> +      properties:
+> +        '#address-cells': false
+> +        '#size-cells': false
+
+[Severity: Medium]
+Because top-level #size-cells in properties was widened from const: 1 to
+enum: [1, 2] without restricting 2 to st,stm32-tamp, doesn't this also allow
+#size-cells =3D <2> on st,stm32mp23-syscfg and st,stm32mp25-syscfg?
+
+Also, with st,stm32-tamp now needing its own ranges, nvram@... child patter=
+n,
+and #size-cells rules alongside the existing USB2 PHY conditionals for
+st,stm32mp23-syscfg and st,stm32mp25-syscfg, would it be cleaner to split
+st,stm32-tamp into a separate binding schema document rather than adding mo=
+re
+per-compatible if-then blocks to st,stm32-syscon.yaml?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-upstream_n=
+vram_reworked-v4-0-144024496a44@foss.st.com?part=3D2
