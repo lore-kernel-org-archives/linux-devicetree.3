@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814941;
-	b=DgGLeCmEedyUS8gYVfqc41gJHsfGM+rjoMm0g/AA6GtsJ9c+SKc1aQEA51Td4fJKRSpB
-	 wgzC/K01PO+weLCug+CYtq5KamW4wDhczbHMq+WRBlY3+QQatcMOAIeAkmwU+YMDk/SZO
-	 RINRC7nLVYNlVfJt9Av1WJBNvAKZC3wDtF9mFPifXey/GGrDlY729GeXmq10+IDibmSVY
-	 UQNznB1kN7nVBfPd45N40nb1hcnnnjP6I3TF1NA8cDeZJhH3frKi+qS3Ay0GHhbnkBvnA
-	 VLoGtJdzJoahHqQJkUUKFOwEwqhWzVBrv8bW+XsTOOV3FxSzoQHmRhR2Xs6y4wD2ezg==
+	t=1793815599;
+	b=c7mr0GsJLKPcv028G6MGsbhX3ZVAt32C/ldIwcGCUVilHR7mVY7iikJ2PjI9ijVjhnbm
+	 Z/5UMS7bMjuBuiFSLZ9AxCIQDIABrDLnTJCW/EYvoDRW5oeT9Nikm0SRJ3YAM2nVB45+k
+	 8Gd0t1OYQacQE8HlCj4w3MqBwSZQZ2gzQqxBqQtv95FLBSspI+mvkpZNxqfqjOKkvgKZ3
+	 186Ds+eppUtvfTxARh0JT9yu+LzgVG4ue1vH9CKEYNzTM3BdKswmp/r9NYbZRAXmVniDY
+	 5W/Nb+il3eWH01+CS7CgGgui4+7rbLuaeG3Z7ZuZ+evy8Nw2ZuVLtIc6zpnawmvb5lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814941;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Tl26Zi3X/30LAaDKpJUZxDgW2vXPEOAWHzOkBFL5r8Y=;
-	b=h5Ok2o8paHcr//syOiKsQPRqtksaMod2111W4ku6jZ/+glm6gjUeVYFjxvvDEvmDusB6
-	 EelQJqcXRbg3937ZGX5itNYBywEaIfMUHEquB4piK4tbU2QNknYpVnM0yiAahaA4h8g4z
-	 wVUq+XsSsf52NPHS34DgBzk+aawa3ZWyoW0nF8Wwzaal03Mef/6WUr/4lZBBdF2lu40rv
-	 Yn7hMKZlI5ggikDa3rvYenSGBFL8yKUna8Ddc1zDeD9ss352FNvoziItY3IqgzWOqnx9Q
-	 hmrRmrBegWVF+2/4Yyks/wAhFkfsjZTJ7ra3dFacb8dk/+ctuo8yG4WBVAP7DCnA00Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815599;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=JYnILKMZUQQ2qcf11fz0nOgyjnPywaDnZ+5Jo4mb0H4=;
+	b=MKWTy8SqNBE6fTUnSacQG3QMKjbpWQIBydyL5N0H0B+A/eTQgmjVzTR0MWoe8fAOo7LK
+	 dJyWof1KCgdpo2nlCeg8SgacFwxwIu6V4a63kwm+10fsKRdrDzpINGVj2bJd4qMxRyj0f
+	 rjYZV+p9vEXwZc2qMRcXpkH+7JkylICvE0WrxA5Zu6sdptujsd4NSIVMWzR3HjZPK0tQY
+	 1AyFNUDu2JSKXHOcFv2doYBbw8ZxY5p0rHxGeX4qk+6/vmJnR2L3VYAUfHqlvoJU6UZgX
+	 C3zH3TtBdPCxzM6nNACNUuqIZjPNmTTGdPBpvyKHzaCaJLgkt0nVkrz6d99crpt9PiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCpBmCt8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="XsS9wk/K";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F4860A263A;
-	Wed,  4 Nov 2026 17:55:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA0F606D83F
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AA0F606D83F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BCpBmCt8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EC11F00A18;
-	Wed,  4 Nov 2026 17:55:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814940;
-	bh=Tl26Zi3X/30LAaDKpJUZxDgW2vXPEOAWHzOkBFL5r8Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BCpBmCt8yC5kDaQIcLZDjedCre9WEyKLxi5aYAIlAFxwm/pQKm9Fl2Jd7ejUYh9DF
-	 gF1kc1ZyHaxv1NDBRwbL9T6+gWaRz2ymrIlRf7T8bI9+vTKxGoH8N9AHBiQz6j48/T
-	 i97IJQG877OYF92ZfRch5kAF8hfUP/J7Ohve7AWPxeciLk803vH9DhanzzjnBJnB86
-	 ISp+iA4WeTLlTY+XHvn5HolGZjQYysmmuqoW1LaR8xnqZcb6/1xf38bFq4XsZd9dlQ
-	 QYAg5+qiwg/PAm88BqTQZ23OQTezRwzptHLeTSs8NHX8h7ccOfHQT6CragUMRB7lil
-	 77wTmL7EC+mIw==
-Date: Wed, 4 Nov 2026 17:55:37 +0000
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v4 4/4] mfd: max8907: Convert to use device managed
- poweroff handler
-Message-ID: <20261104175537.GD1650678@google.com>
-References: <20261027114634.79706-1-clamor95@gmail.com>
- <20261027114634.79706-5-clamor95@gmail.com>
- <sashiko-outbox-186485@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XsS9wk/K
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7D087C8F46B;
+	Wed,  4 Nov 2026 18:07:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4FE5960770;
+	Wed,  4 Nov 2026 18:06:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9E71110329205;
+	Wed,  4 Nov 2026 19:06:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793815593; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=JYnILKMZUQQ2qcf11fz0nOgyjnPywaDnZ+5Jo4mb0H4=;
+	b=XsS9wk/K+3MnYk2ZviDuOyRdciIrNf/G6bpo1TAnnDdxOY5EXX4guoJqQ/ePMKWhHV2shM
+	Fig3dQL+ImMwlhpLYLsWPQ+/+Ku/n4/UuHVoV/JaST62i/xk3zcIzKYxnhw8N7J2x2JKBj
+	4B/I5x/WDey2atSKT4TflgCxtgzlRhGPNeh+leZAp+T1CTpq/U7BaerDFfl4fJ26m6o+AC
+	m1RcnoVxroCGDAvngU/qYezzl0ZjNESJj9jQ1FUfuTq6ydtXQKrVRvpRmrF88yUQmtGtwY
+	90XLvh8crZAdbA7fkGuDgPzusRIHoYYm0DWv3YBQJf+ldsoJ+3eTRqx2bH2hgg==
+Message-ID: <ac9f57f7-cb96-4a2c-85c0-5369b3bb0a64@bootlin.com>
+Date: Wed, 4 Nov 2026 19:06:25 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,89 +62,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-186485@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] iio: adc: add driver for Texas Instruments TLA2528
+ adc
+To: Joshua Crofts <crofts@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matti Vaittinen <mazziesaccount@gmail.com>,
+ Rodolfo Giometti <giometti@enneenne.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Angelo Dureghello <adureghello@baylibre.com>,
+ Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>,
+ Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+ Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+ duje@dujemihanovic.xyz, herve.codina@bootlin.com,
+ thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261104125726.1754980-1-maxime.chevallier@bootlin.com>
+ <20261104125726.1754980-3-maxime.chevallier@bootlin.com>
+ <20261104145641.000070f2@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261104145641.000070f2@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 27 Oct 2026, sashiko-bot@kernel.org wrote:
+Hi Joshua,
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] mfd: max8907: max8907_i2c_probe() drops maxim,system-power-controller check
+On 11/4/26 14:56, Joshua Crofts wrote:
 
-Did this get an answer?
+[...]
 
-> commit 5deb6448298f2829c11e1c8af86067bd08a79d7f
-> Author: Svyatoslav Ryhel <clamor95@gmail.com>
+>> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+>> +{
+>> +	__be16 data;
+>> +	int ret;
+>> +
+>> +	guard(mutex)(&tla2528->lock);
+>> +
+>> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+>> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
+>> +	if (ret < 0)
+>> +		return ret;
+>>
 > 
-> mfd: max8907: Convert to use device managed poweroff handler
-> 
-> This commit replaces the global pm_power_off assignment in the max8907
-> MFD driver with devm_register_power_off_handler().
-> 
-> > diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-> > index 2a38e00a10c3b..e282dd82ece69 100644
-> > --- a/drivers/mfd/max8907.c
-> > +++ b/drivers/mfd/max8907.c
-> 
-> [ ... ]
-> 
-> > @@ -185,8 +192,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
-> >  	struct device *dev = &i2c->dev;
-> >  	struct max8907 *max8907;
-> >  	int ret;
-> > -	bool pm_off = of_property_read_bool(dev->of_node,
-> > -					"maxim,system-power-controller");
-> >  
-> >  	max8907 = devm_kzalloc(dev, sizeof(*max8907), GFP_KERNEL);
-> >  	if (!max8907)
-> > @@ -237,9 +242,10 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
-> >  	if (ret)
-> >  		return dev_err_probe(dev, ret, "Failed to add MFD devices\n");
-> >  
-> > -	if (pm_off && !pm_power_off) {
-> > -		max8907_pm_off = max8907;
-> > -		pm_power_off = max8907_power_off;
-> > +	if (of_device_is_system_power_controller(dev->of_node)) {
-> > +		ret = devm_register_power_off_handler(dev, max8907_power_off, max8907);
-> > +		if (ret)
-> > +			return dev_err_probe(dev, ret, "failed to register power-off handler\n");
-> >  	}
-> 
-> [Severity: High]
-> Does replacing the maxim,system-power-controller property check with only
-> of_device_is_system_power_controller() break system power-off on existing
-> DTBs?
-> 
-> In include/linux/of.h, of_device_is_system_power_controller() only checks
-> for the unprefixed property:
-> 
-> static inline bool of_device_is_system_power_controller(const struct device_node *np)
-> {
-> 	return of_property_read_bool(np, "system-power-controller");
-> }
-> 
-> In Documentation/devicetree/bindings/regulator/maxim,max8907.yaml (added in
-> commit c254fcc966ae), maxim,system-power-controller is still documented as a
-> deprecated property for backward compatibility alongside
-> system-power-controller:
-> 
->   maxim,system-power-controller:
->     type: boolean
->     deprecated: true
->     description:
->       Telling whether or not this PMIC is controlling the system power.
-> 
->   system-power-controller: true
-> 
-> Should max8907_i2c_probe() check both
-> of_device_is_system_power_controller(dev->of_node) and
-> of_property_read_bool(dev->of_node, "maxim,system-power-controller") so
-> existing DTBs using the vendor-prefixed property continue to register the
-> power-off handler?
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261027114634.79706-1-clamor95@gmail.com?part=4
+> As rare as short reads may be, perhaps add a check whether the expected amount
+> of bits have been returned from the device?
 
--- 
-Lee Jones
+True yes, I'll address that. Got a sashiko review about that too :/
+
+I'll also address the other comments in V4, thanks a lot for reviewing,
+
+Maxime
