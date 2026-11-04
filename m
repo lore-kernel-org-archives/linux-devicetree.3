@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793821646;
-	b=dSBgxr3CS9Dc8gJFTS14rgBGc+Vix9fi39O2reFKN14SDnZlfajcMqdpyrtqBwRw+pOF
-	 Anvsu+ADs94R+SgVm1UJ2MXN+el/apOP0y2ppZ59y91nZ2VyKF6Zlgqd6FE+xdHycQnT3
-	 dH3OaVkf3tM0AUPG6LROR2GzAXfItv3tG1XRCjpOgu3HtkbcNPF0F7O9bbQYWUKwDZA1d
-	 j+dqYHtz0DxQSX1vNx5sXfurf2Is58l8/DdgWJngmMAoKkuzo/N2HUs3gphu8i967R9fg
-	 gc5fD8jxC/ksh6sSIOMJ5mQMG76JhoitjRG/zpqTDrPt1GhGYFzX8tjVvGpw5KFCpqg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821646;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Rrf+kVmCO0z1UsxrXw/fe80OEQycBZNbliT/WblnX+I=;
-	b=X5A/8R64uO78lO4XTksJOz7MpvQeCuss60LF93Mbybao/eCeAYwZDvciriWgaRISsEcN
-	 SW+sCxYbYncETjq5a99ycMtcGvnkWfZ1UrDFmXvV99rD6BQvkRd+u9d1Xhvez7Qs5Zk8p
-	 DQjaaot4icunIy3B127O7+SnxXA38Lqj0BP6XLc1sW146m9Uiar2Gu7f8qtlwjmlEqAxC
-	 SAXFjESK2T7D7Dmvy9qrqq1v8mcG/BxIdXqhJuQpRw1bc9bx9AE9yQieijG/1FQ+ad+OX
-	 ISh37y4ngxNy0576z/99FzvsrXryP/P0JLQ6nAfBqMWB0BupGZm/JQT+W4/OViHhgTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mf9M7avU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.31
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013031.outbound.protection.outlook.com [52.101.83.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793821901;
+	b=3PdbV0eq/Q7/uyYzYCK54mMhXb26+PFqPtb8qkS+fAYM2LXtzNzuKLR4zegCmTUn/piw
+	 qMi1O+g5r5bjdFHSSjio2rUZF1wNd/I9AtpMPtVqNn/jcibpIDQdxl7jHt/6oDpFCIPa5
+	 KYUgEI4g5VJ9di+he/PQOpJ2mwnCo1P5u8MMpphTaWao45EM7hzUa1SHB4P0Lw+dLzku3
+	 p05m5LhWaRflVB4/mvqu/klLVW0lU/SmqfY8Pt1hAXrfpSwC5i+tVf52+N8V8eWmEroVN
+	 rAKWa/zeSHtLWUqu9IR3K4uv0074QN2ncKlw4MOr03EyGVn1HW7pSvFDWYmGV/gNRgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821901;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Jo6LUuSRpij3XruLJxd10qKw5M+aELp0/drD1Vsxzoo=;
+	b=3rWPqC9stZnlxkOuHXYAqw3wsEHbQw8Ml2ugJ7rhP7b4HUTizTj4icIaZReNpKY2nEmf
+	 LN9+sZUiv2u92A3Rc/rZqYE6sxOq5JPAhcK9+bxjj/3pu8YOnqNCvqyLSBIPCN5RfMxPn
+	 VJoD3bqoAkOyBPUg2j87t8RdDFeacCUOqUXaXmV+obqfpx55BWfMCFVwnHcWUP8Dv+shM
+	 mEdQ2jpGxOph07rdRVFzKlSuqNkTTrg8USZQlnjVnkmJAE3FvdWYeJOb9JxuvGOFx4+GT
+	 PEjZg5ck2LsopY9/TTRdP/1vEopFAPkep7pzV1Wt9ZesYKtdK75uZ+vbEZVAbSEZkcQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPJsetu8;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B825E6074F84
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 19:47:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B825E6074F84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103AE6094217;
+	Wed,  4 Nov 2026 19:51:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103AE6094217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=mf9M7avU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WJjzdiTk9OXs86MbkFo1u0nCUxYAtEMBr/8ileBLCTP7CsWK16TlC9bWpjnvaNzKh9o0Ci89kHND6bFxfGO5k7rXaH16K88mYxrKhe1h1CLwO/AMFobfw65HLDklPPRuMYsUrVkqMxQk/5y7JivezTNtHDml5sbwZ11diBofukT1LXnZEuQexnZ4cgWXP0Omj2wTDXyKCDUJJRAKxW5d6i8E1r5//ti+lF81/DjPR9ZoQoquo0b+wqpb8k+v1JfrlKC4Jhn/dOsn9UqI11GlM/OyEGAIIjR6sq8OYruH0dz6L+LhZ5ZW2qurohjRUzNjxuWHXglG1QzX9av1CPcR0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rrf+kVmCO0z1UsxrXw/fe80OEQycBZNbliT/WblnX+I=;
- b=Z1fpaJPetfgITAyp4BMXToe1emc628QjpTdSTgo6uiKoYsc6zFhm2U5d7aZGLWOfYBOC1XpcP+CEJ+434rzpH5lQlO5M//V0/VAujGBJfWVEDoW3+ej66j7aFlhtI39xqlcNYi19mBd2O2M5khnGqvVItvKSnyQ8cXCtkEDu9evU2lv1U9BpM8BXZmZ2fvdfIvBidC2j13Fq0xaV5i6c6cJf0ixYhG1k5TMWeVPQxkssgppGOlnNlPQW9MwUyThUH0s5934HjhP30InrC2kkjNihGPK/EXUXwhDRG6vXOGLiq3YCeb7pdv3AdboHAdJKIKyMRTYQjdDpY8QPts4VRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rrf+kVmCO0z1UsxrXw/fe80OEQycBZNbliT/WblnX+I=;
- b=mf9M7avUubBq8EaS2nKF3cfcPM2hE3BZvJEchs/3y1fpTDzUJZMq8qaQlps3IXvlamSPSF/vYRfzRnC0dcQWjyi2GmYz4aiLzOre0Y+zr782R0huR5NrLR9mnNrErT+Rl9K1XMURz1bpmTeEQO6n2OOqMSIUvF8CAKo26Dzto/1GYLY0SzoDlHJFMCqqdGrDCTG68KAXubyglTCMM520C08uIePGK9tS1O+DbO4rH/W/HHjxK919rGny2NbWhZiTAwJ7b/XWXGcWRSyHx7FwAYmIbhpjF9fUH83O6AmLFuVAciwz5pHHKr6ufv6i8L/0+uSTyWBdVokqubPzyXLsTA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by GVQPR04MB658120.eurprd04.prod.outlook.com (2603:10a6:710:108::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 19:47:22 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 19:47:22 +0000
-Date: Wed, 4 Nov 2026 14:47:14 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH v7 2/3] i3c: master: Add Qualcomm I3C controller driver
-Message-ID: <auuLwl3lHwAYPS74@lizhi-Precision-Tower-5810>
-References: <20261104122155.3789346-1-mukesh.savaliya@oss.qualcomm.com>
- <20261104122155.3789346-3-mukesh.savaliya@oss.qualcomm.com>
- <sashiko-outbox-197287@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-197287@kernel.org>
-X-ClientProxiedBy: PH7P221CA0058.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:33c::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPJsetu8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793821899; x=1825357899;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Vw6wfWuQFg8TuBapyurRLVHhY0f29ONkPajEuId3aA4=;
+  b=nPJsetu8F+fSFMEK7vr/2XTMFnqHhVvTC9LkLucCdg5zTtASUVSDi+cn
+   O+JaoJpLVFmgbkQL5mCIEjONfhjicqSy9p/9mIVW6Cj1Srz4vMfDPh59g
+   dI8beuj5fgiITxjJ4PLkJdLZ3tzhh27VyDNEBBmSdP0qtTdAsImH3Bk9g
+   gvVFsMWx7T8WMMHzjWEAnT59upW2hW497ganBvlTjGRvWjDDTbw8GB9dA
+   z1WKZ9JfDWwA13+luPjCFsWRuccLqb+PemJLzcTFMB124VzAFHPuL370U
+   nXXC4qqSydvI6i0YCu4XV5k4OogxCWNYF409Powc7mrTDjq+2FadPwXwy
+   A==;
+X-CSE-ConnectionGUID: UHKgvokfTsGDzAv3oNuzyw==
+X-CSE-MsgGUID: zpOX2XSqRFy/0/WnBrYeLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2471383"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2471383"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 11:51:38 -0800
+X-CSE-ConnectionGUID: aeSZwbVjQWuALIH+TorRGw==
+X-CSE-MsgGUID: PH89EB/PSSag23IZdZvlwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7348819"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 11:51:34 -0800
+Date: Wed, 4 Nov 2026 21:51:31 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <michael.hennerich@analog.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>,
+	Joshua Crofts <crofts@kernel.org>,
+	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] pwm: core: add pwm_get_waveform_step_might_sleep()
+Message-ID: <auuMw8tKvGynTKsr@ashevche-desk.local>
+References: <20261104132143.215581-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261104132143.215581-2-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,77 +92,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVQPR04MB658120:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80a3bbce-2f5f-4bb2-196e-08df3aac7190
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261026140227099003|261026121527099003|261022105027099003|261028144727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	xVX1axrJtWghU8bBq/ghBXth06Qw8uCEp8P5z2kgqa87OS111eCHiK46ZcHnhhGuwj5fXPGUGsK16GGWEZ0Lotoz7DRQWagGmJdJ3f5cSwpkgOgxxPzZy/O7GFB19LlHXadS7OgVylF81hjbyyHdf5amGBnZr5pwXGa/WQ7fk+DmyQZC/TL1OZXdRE58/DNbdj3/9ZdjxOfIVOYJW4e1+vapgjhttI+sVgKCsLmip0dtcbGyJntU79oNzDGyOGKtiI3K9k0rNggkS+E7lEww7WMq+Trh+WUm95IdG6h8VA1bnDgzYwsli9ati6eToOzLGkNQCsPgA+YCGkzAxocF2ekcAc+bCyvfqdvg7Ose2+7gPMLRv8ctsFbTOUuX0sdpplpm8H+pa4vxnqOb8iVGphvK3qLAFvI0TMFKfx1M22lPvOYDtgBRjjLAE6vACw7jDtded6GD+Wq+TNTI5CPkOQo4nm/Zctzgd00ZBZTfewKwW/loRPM167M+obbKLio3kDjfWWgOnjRekNq9sDi6qdJxXoIK0nNcnIhHA3QUNWUKuppofmKkrLBwxDLM5oeWvRxlOZVSDOdi4L4jGbWR5MDOtxAUR2jZGYPRhoy6Yw37EgPllJDXQjbAWOiQ4uXK61ac/stm3Dfkm4nrf8P4NaUPy5a2QVBLD1+KA6fihSg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261026140227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?jEFylqyOSaVwN8i1z1oEiPCIBHYOEVemPmZZzFqTYskg6SDjStvpF84RAC6z?=
- =?us-ascii?Q?0vt/PsQIpy+zrsT4TX53j3rTWBY1v2zJTVVdQwUJkmp4evNu+YgEde3iXLQG?=
- =?us-ascii?Q?Q3V1Vdv3sE2gqqlCDInIbhrNOtcWnq3b+vr8I05stD/MH5hJWTKAxpAzH9wg?=
- =?us-ascii?Q?ziPzbXcp0Rce7w8hKM7SI4ldqr2j7Sw+CQlakNxdFq9+iJylM1if12aNwWAe?=
- =?us-ascii?Q?7MJJiLIqja4M6PRDt6Th0w1I0P7PvNLZfS4XFes6yMxkdmejdzFxJ8JwQaHB?=
- =?us-ascii?Q?f+on2VtK+GtyXX1l4iheedlUs01WqjMuLTJE+sZ5E7c67lNn/cBYYmAu4zIL?=
- =?us-ascii?Q?5Z3KOXTQlAfpKE8TC7sj8seIYYJG4GTMBYADjftSa5Uw0F0S3Fi6uc6jnD9m?=
- =?us-ascii?Q?otE+GUFh+BwQtsXcnpcfTo2lhFW/BdNIh04VuhmhNi2+XKvDRv5+hrIKkoWv?=
- =?us-ascii?Q?hV0pABdF438WpqFhUR9GBBeLpe8HNQoKKAEWG+IXRcciypBXCHxwI7/bFXKE?=
- =?us-ascii?Q?KRIXmZV1kGfawdR2gnf4PAGwKGyi80I7XGHJE32UU5VVi080LR8+O+OpHiZh?=
- =?us-ascii?Q?SnDRRlsamtHEnVAUVNBZNTNpZiP4TgEzczci3RATKuAxnPuTaVA8mS2woH6t?=
- =?us-ascii?Q?8zbWygz1QkLx1c7KPlArtu7ftrlcrNFCiw4dI/96Iyq8cjUS3fRRYwLk10PA?=
- =?us-ascii?Q?rRL0Mbx/FB+hd8KUTJAvcXI5JPrNXO9h7dFKk8skmXapKz9ymvC8zME3dTAl?=
- =?us-ascii?Q?Sv7blq/V+flfvo1UiUpBnc2FfIJdnepv2vB/lnvVNLA2hQQFvQ8L+LiaTOOf?=
- =?us-ascii?Q?A+BOYNP7aXkkp/ontotRbKjONQNwrBdP/aU7vXMIYHlcj4KTe93gGI8vl5rG?=
- =?us-ascii?Q?nxFRQnzXKXSsGm3kku3JQBasmOS3CyTVzODnNOS2l/pN/xtd0SepCkhy+KZl?=
- =?us-ascii?Q?VubZX9FJ+HVgeHGFu2z3eKpZC+cW5QN0RONM1Wf1ov+sEJGG8As9U0aWIgSF?=
- =?us-ascii?Q?BBFrSmaLXrpq73zRQOPenZgRSaKrhFDp9vyDL8cp5rGgdq7scy43+w0Qorrg?=
- =?us-ascii?Q?+jrUOfapuSQ2N87/CEBtlVnNeddKvDEwSRz+MLbDvktUuWNsKUQRaqKsS6KK?=
- =?us-ascii?Q?GQwI+9mbvo6rF3qPOSVeW7jUQiEO0FtVMLBgipX32YWu4njbhw8tB+8ZSq0r?=
- =?us-ascii?Q?x94LeuHuPdzvdM8UVkPNd15zTga1Hmrf6SggWp4j2gEWvoBOWCu9RasAcO6d?=
- =?us-ascii?Q?MADo2IJK6OR+CRqBSNYTf8iTJjFIkAaeGInB3JhSwN5iDgbwSOsWF6B/ros9?=
- =?us-ascii?Q?iYgFrvSGB9a6uaMmHrV+f/1RJDhIPFvxBPZT0Kq3QC/C9ik6WR+lhqqFwUR7?=
- =?us-ascii?Q?tEeBHRl8S+f/zeBVgLuJLV0qOjmg+nOmbt/c3fiUo7ZFecDC/SuX7GeL34C0?=
- =?us-ascii?Q?7Zj/rC26mf/fKt2/Z1TzYxSCj4iDt8EqUNrZj6HBrUmhhrEY+0X/AI7sjQbN?=
- =?us-ascii?Q?ytx+sqqyDGYizyELn1DqjsDOusVS9JGc1cVai3tPcxMdwZxi1oAS9L8s8TMA?=
- =?us-ascii?Q?qZ6VD/8fej0u8ulgdXe5pnuNizzWhF5MQL1tUX14yZkCdEHnftHn7Ee0Bce4?=
- =?us-ascii?Q?xNNNYswCeW434+bXCjK19OQIF5Q2wsoNbcfMsPrb6XQsmVlXgdCDbcBT7z4S?=
- =?us-ascii?Q?lszwhB0IXlIs6Oh+vZJFoQBak/YRARB5cIrOD4emncZst2sBaaBe+4jY17oZ?=
- =?us-ascii?Q?4j+Oa43H9LwM3pWJMwytmI+oHOXXJhyQqVIzjVqaJsC4nDHx/bel?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80a3bbce-2f5f-4bb2-196e-08df3aac7190
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 19:47:22.4647
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +0fvhEh5UHYCoEXFWPR6tO0n7+lXRYVZc4/gfCyuVCBGKdCvzWvRpxGwTiBX/HfkmStCnFo3qRmLinw9X+DqEOzGSw/EnvXjwJu4Gfsve6QtXyIGktHjPBPKaCg47n57
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVQPR04MB658120
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104132143.215581-2-Nicolae-daniel.Deaconescu@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Nov 04, 2026 at 12:43:28PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 12 potential issue(s) to consider:
-> - [Critical] i3c: master: unsafe DMA mapping of i2c_msg in geni_i3c_master_i2c_xfers()
-> - [High] i3c: master: clock lookup failure in geni_i3c_clk_map_idx()
-> - [High] i3c: master: 6-bit address truncation and DAA bugs in geni_i3c_perform_daa()
-> - [High] i3c: master: use_7e is never set in geni_i3c_master_priv_xfers()
-> - [High] i3c: master: NACK clobbering and DMA reset bugs in geni_i3c_irq()
-> - [High] i3c: qcom-geni: missing reinit_completion() and TX_RESET_DONE in DMA xfer
-> - [High] i3c: qcom-geni: broken short read and RX_LAST handling in geni_i3c_irq()
-> - [High] i3c: qcom-geni: unclocked register access and disabled IRQ when !CONFIG_PM
-> - [High] i3c: qcom-geni: unlocked command start and TX watermark IRQ storm race
-> - [Medium] i3c: master: double geni_se_resources_off() on geni_i3c_hw_init() error
-> - [Medium] i3c: qcom-geni: unchecked geni_se_resources_off() in runtime suspend
-> - [Low] i3c: qcom-geni: unused variable m_stat_mask in geni_i3c_irq()
-> --
+On Wed, Nov 04, 2026 at 03:21:39PM +0200, Nicolae-Daniel Deaconescu wrote:
+> A consumer that has to meet minimum times, or place an edge relative to
+> the cycles of a clock that a PWM gates, cannot do that with the waveform
+> API alone. The rounding functions round down, so a minimum has to be
+> requested with some margin, and the size of that margin is the step of
+> the PWM, which only the provider knows.
+> 
+> A provider can report the rate of the clock its timing is derived from
+> and how many cycles of that clock one step lasts. A consumer can then
+> work in whole steps, convert them to nanoseconds rounding up, and get
+> that waveform back from the hardware. Without this, a consumer has to
+> read the rate from a clock it gets on its own, which describes
+> a relationship the hardware doesn't have, and is wrong if
+> PWM divides the clock.
 
-Please fix these issue before I start review.
+...
 
-Frank
+> +/**
+> + * pwm_get_waveform_step_might_sleep - Query the granularity of the waveforms
+> + * Cannot be used in atomic context.
+> + * @pwm: PWM device
+> + * @step: output parameter
+> + *
+> + * Stores in @step the clock rate the timing of @pwm is derived from and how
+> + * many cycles of that clock one step lasts. Period, duty length and duty
+> + * offset are multiples of that step, so a waveform asked for in whole steps
+> + * is not changed by rounding. Compute the length in nanoseconds of n steps
+> + * as n * @step->clk_cycles_per_step * NSEC_PER_SEC / @step->clk_rate_hz and
+> + * round it up, because pwm_round_waveform_might_sleep() and
+> + * pwm_set_waveform_might_sleep() round down.
+> + *
+> + * The values can change when a clock changes its rate, so they are only valid
+> + * as long as the provider's input clocks are not reconfigured.
+> + *
+> + * Returns: 0 on success, -EOPNOTSUPP if the provider doesn't report it or a
+> + * negative errno
+
+> + * Context: May sleep.
+
+This is incorrect. The Returns section has to be the last one in the
+kernel-doc. It's documented.
+
+> + */
+
+> +int pwm_get_waveform_step_might_sleep(struct pwm_device *pwm,
+> +				      struct pwm_waveform_step *step)
+> +{
+> +	struct pwm_chip *chip = pwm->chip;
+> +	const struct pwm_ops *ops = chip->ops;
+> +	int ret;
+> +
+> +	if (!pwmchip_supports_waveform(chip) || !ops->get_waveform_step)
+> +		return -EOPNOTSUPP;
+> +
+> +	might_sleep();
+> +
+> +	guard(pwmchip)(chip);
+> +
+> +	if (!chip->operational)
+> +		return -ENODEV;
+> +
+> +	if (IS_ENABLED(CONFIG_PWM_DEBUG) && chip->atomic) {
+> +		/*
+> +		 * Catch any drivers that have been marked as atomic but
+> +		 * that will sleep anyway.
+> +		 */
+> +		non_block_start();
+> +		ret = ops->get_waveform_step(chip, pwm, step);
+> +		non_block_end();
+> +	} else {
+> +		ret = ops->get_waveform_step(chip, pwm, step);
+> +	}
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!step->clk_rate_hz || !step->clk_cycles_per_step ||
+
+The second check is unneeded, the third one covers it.
+
+> +	    step->clk_rate_hz > (u64)step->clk_cycles_per_step * NSEC_PER_SEC)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +/**
+> + * struct pwm_waveform_step - granularity of the waveforms a PWM can generate
+> + * @clk_rate_hz: rate of the clock the PWM's timing is derived from
+> + * @clk_cycles_per_step: number of those clock cycles one step lasts
+> + *
+> + * The period, the duty length and the duty offset of a waveform are multiples
+> + * of one step, which lasts @clk_cycles_per_step / @clk_rate_hz seconds. A PWM
+> + * that divides its input clock in hardware has @clk_cycles_per_step > 1.
+> + *
+> + * The step is the same for every waveform and for the period, the duty length
+> + * and the duty offset, so a provider whose granularity depends on the
+> + * requested period (for example through a prescaler) can't describe itself
+> + * with it. One step also has to last at least 1 ns, otherwise rounding a
+> + * length in nanoseconds up can add a whole step.
+> + *
+> + * A consumer that needs a minimum time, or that has to place an edge relative
+> + * to the cycles of the clock a PWM channel gates, can use this to ask for
+> + * the next possible value instead of one that is rounded down, and to compute
+> + * the frequency a rounded period results in without the error of the
+> + * nanosecond resolution of struct pwm_waveform.
+> + */
+> +struct pwm_waveform_step {
+> +	unsigned long clk_rate_hz;
+
+_Hz ?
+
+> +	unsigned int clk_cycles_per_step;
+> +};
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
