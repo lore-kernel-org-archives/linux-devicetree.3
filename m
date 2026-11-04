@@ -1,48 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798639;
-	b=xlvS3mOYqpCFXbtBvKvmoFO5FJsw7+oJOKpA9NW+bp5LNTzl8Ya58Y57AQ0ZYQBZZ8T4
-	 NNm7iMt0so33hTjdc0WNtGKjoPO98dw4JDxCghNdzAtYmLcoUlaNmauQp6dpSCFvaNFN2
-	 e6LXtc5L0G45igDSsIezVx/sunPlEcEQwpmXuDwcPSmWtDChurqcdtT2OvXPFBbJ1jUlp
-	 jq7T8WovOAiJLT0FC+uUf41p6Lm8rASXmUoe3DFI+DRzPNEJl3XydK6MljicUcOO9KOgw
-	 CWKlEtyGM5HXr7RDoBh5r1uoMMLoOej0SU0FuaaKd3w+VQ6QqT5+/dFF+c1+xbp9yTg==
+	t=1793798779;
+	b=RDq9wsghQvA9UFukwfcgOFO8yVjNYfaZDfC9aF2/AnaLfvq3ZFbTslsQPJprXFqq94er
+	 VtlH5IH10Ceo99zm/O7g/Xr95qAfp7/dKTqL/qZktjJkAYW9pNwA6vz1/O4/4t/6Fc733
+	 RVayp41sHZC6no/cy4PxQ//EK28l8o8k5goL3cp/fzFg00reJV8Z+qYhWigwjSJZoJyBU
+	 JoKv/aW99vchebEhWFrWWnLo6jORDTY0GX9zL9EEWLBv9m858bE0dbbdU/VOF8nfQgT1B
+	 X2WiJecEWNGBoXdOr36Ghyjwcyd5nmhDw6LQYjkEudwAtGjVv2txwtTgruKBrcPrLLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798639;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=9kKsClYkSV6j9g4wIu2ceDVjMDKxVBDVIFPSvVyISHM=;
-	b=WmrO/+osg3wYOX/ZaaDnooyu6MQBS2A9qGoVi/6FoFwMDgd+WlgU/j45Ti/pX0cexbBU
-	 iX7s1xfhi84rnbNT+PsCf4ZfXDX/uc2C+TqzNppx4G+68edx7xZY2qaqSRfPxtkiQnNMY
-	 Y9jthbZfBl9ZF1SMfJmN81TK6f1iucQdKv6cSeVK7/d5qtKegJbZth9k6npwByQ90Cp9Y
-	 X2ExYIWn305K7xwzYCqDrUYwZ3axWLABHFusSpwimfNP4FAXzzrSUI+SCoOXc0vWroPS3
-	 sQT8Y3DugTEtalTkLsCt+oW5G5BibYKx9JM4oBMyft9Zsc6MZxOv+QtEDe92rQ7PObQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798779;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TP+uy8U+BoHk6m91wbN8oDBqNKswR9Rez4P1JHA2FlE=;
+	b=24FhQuq3b+KbxxBZNK4hr2/TsQyuIZ2zfNcN6NivFeWaYFgxkAM+r4bmbjYhdqoZACur
+	 tTe9Ad5wqkQT1eBlu49ePOhjp+DBvJwXNAfI35gKeVTljizvMEeRY3qOYWu4aBfeRTG7K
+	 zWOPY+s1JV53xOCFV/fTBuhNnURwhjPe79ZFKFWPr5VDdFmk4tjYMw+P3fjcXsYgMMMkF
+	 mEwBLZZrVbUbHTpHKog3XNqTtO5XKAjHufIBprImzrFBobF5pou2Hek1Zp15CtJdswuyC
+	 gJ1x368YBC2oK0Ox7w/QB5FRxl7oUITM5stzVs3HgO1mlm79AO2fyRzs5H9+wngDpTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAI45QX4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXKUXtV+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C13D606A32D;
-	Wed,  4 Nov 2026 13:23:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FFB606A31B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAI45QX4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFCD91F00A02;
-	Wed,  4 Nov 2026 13:23:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXKUXtV+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9039B1F00919
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 13:26:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793798639;
-	bh=9kKsClYkSV6j9g4wIu2ceDVjMDKxVBDVIFPSvVyISHM=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=FAI45QX4yCfOOm/wPruuAr++bgb8HAkJ5XDV/XFVrjxggayyF9jCmSkDXpzsT5Ikv
-	 LUXwf7ItSagQ0+U3IiOObWdM/v76gs7DlCunMAsbevBQHsCBiQI2TBDlSlzaHEWest
-	 avJ611T5ZbhiiZmnFsZtLS+5ZPwB9eQk30fciZXr62b7r8R7ZDTyHw/+IRxze3JpC+
-	 iCGVU/kGAuc1eJSprdmMIHEBsWF83CpVojGADG8KihY8qtvQFBhHpWgdvf0FQTrMVa
-	 KkKopNTo0PRfCkqP8XQLbG4mEDlnWy56iy0kn5jRGiUVxN+FB/XfxcULbr9/r8CfKZ
-	 tfQ8TQZyjAfJQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 988BA260DFAE;
-	Wed, 04 Nov 2026 13:23:56 +0000 (GMT)
+	s=k20260515; t=1793798778;
+	bh=TP+uy8U+BoHk6m91wbN8oDBqNKswR9Rez4P1JHA2FlE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MXKUXtV+2kBALAGhXjlScCQ7lz12DrKspvJFN4o0JSebDs3WhkLqjSO6R4I5Xn8Md
+	 aTvkYUcBklFsUF9tL5HjPVhynLtMaNDp4xDmIPC1djTftgpqevJOx5Igz5XdHl5ry2
+	 /RYB2a/2OcAmBxQwC3B69yhB68l6dgzBjC0xLv+pRkTNCx90rUNTIqa9PVXz14xIDJ
+	 YfYPimPNAJl/xG8COmq4aqEW7DDjJ2YHrDpJWxxZkjUZ57lghXX0YZhMEsOG5rt25F
+	 TCUj10k+WpidXyjNIrgcFLPn6nrFqlHtYhAv46HGkVuki2Zw7ZN/7l0R5aW1KYEM0v
+	 tB67QcxWKLqXQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be416e603cso426010e87.2
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 05:26:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxeOUqRK0U0g+gRp9nBXJ3N18Oaui8aDc8HGAiUM1No3wJPHB0C1mcWW3dUQO04SBt9cHOaXx6pUtc1@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6OVMQmYr39wAWfNXs6kbIvguGJk00/6MXtBco7J+gAgj3BDpH
+	Q5NVnlrqGLSF9oy3dZ2b0+QHsVegB5AMO6b4WZ7jp/z/YzU7/taOdFucuakxV/dMsoJMthHtDSc
+	zUsFcjC6Uo4OUXs/WePZ/efI72qUeouQ=
+X-Received: by 2002:ac2:4e11:0:b0:5bf:b952:e57f with SMTP id
+ 2adb3069b0e04-5bfd9576f92mr5749815e87.59.1793798777361; Wed, 04 Nov 2026
+ 05:26:17 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,45 +59,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/2] regulator: rpi-panel-v2: Add vcc-supply support
-From: Mark Brown <broonie@kernel.org>
-To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20261104-rpi_reg-v4-2-3578e794ff45@oss.qualcomm.com>
-References: <20261104-rpi_reg-v4-0-3578e794ff45@oss.qualcomm.com>
- <20261104-rpi_reg-v4-2-3578e794ff45@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 13:23:55 +0000
-Message-Id: <179379863543.2456854.16005010652989263089.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=468; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ZthENp19pWMGxtxJS1cIyBw7fS2qfEp0vkEsABCxp44=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeG76Z1fC86Wbuw4jcxTePHj635XHbFN6nF/yczjo03
- 2F4OHVhb0cpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmwvmQkWGLvBRn1JTepq6P
- ZhOOv3q6eqfEnkvnvO/cN2kyXJi7p+MuI8My2T1hpf5evWv+zr18srK2PJH365EYo1WXlkgfO+2
- sepsdAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20261023115652.700765-1-ansuelsmth@gmail.com> <20261023115652.700765-2-ansuelsmth@gmail.com>
+In-Reply-To: <20261023115652.700765-2-ansuelsmth@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:26:03 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmZHskQet0TtY=zp993B-z2bnQubCHXsMNk6d-AUZbUEA@mail.gmail.com>
+X-Gm-Features: AclHuK92QR6RS6JYlLXEO0knuwKdn91VeGZ-EOJ44t8yL3U3eoA4ndZiquqIhz8
+Message-ID: <CAD++jLmZHskQet0TtY=zp993B-z2bnQubCHXsMNk6d-AUZbUEA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: 74x164: add support for 74lv164 shift register variant
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> The Raspberry Pi 7" touchscreen panel V2 MCU is powered from an external
-> power rail which has to be enabled before any I2C register access is
-> attempted. Use devm_regulator_get() to obtain the vcc supply and enable
-> it at the start of probe.
+On Fri, Oct 23, 2026 at 1:57=E2=80=AFPM Christian Marangi <ansuelsmth@gmail=
+.com> wrote:
 
-> +	ret = regulator_enable(vcc);
-> +	if (ret)
-> +		return dev_err_probe(&i2c->dev, ret,
-> +				     "Failed to enable vcc supply\n");
+> Add compatible and spi define to support 74lv164 shift register variant.
+> These work the same way as the 59x chip family with the only difference o=
+f
+> not having a "storage" feature by directly changing the outputs as bits a=
+re
+> shifted in without having to toggle extra pins.
+>
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-Nothing ever undoes this enable.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
--- 
-Mark Brown <broonie@kernel.org>
+Yours,
+Linus Walleij
