@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783523;
-	b=o5NjOt9fHbo2cD2f150SouIBofswc70jdugKSKcJC6gp9RITF5wWZIfZusP0y4F2TWBG
-	 TBCE59bdyqTu/xJ/GlvBZUi5YYk6u12xfGL9xJVbNNV5oPP0fUpcSTG+RQTfsbnj6KK5W
-	 sidEfXVyXBm94ogfayyfz58qhLOp0BH3A0XHoLuN40v5GUFyaWgM3V1dlHmHcEA+5fvny
-	 7UsaoZI0rldStbXGr3McShO4xyje0oziYZs2rrXKOENSJYU0LIzGkprFXC/bYbquJcgAm
-	 NYXaGhjv4BaIMbbt2LlVOZdMstcryqc3i1LEp1jJJJVnFJIYlIruBUm9a00iyhpPzSQ==
+	t=1793783534;
+	b=Qxa+ntKDMDZn0lxjdzZr6l0B5LGS5mVoN/ClfCW6dwbfTzjjEAPATUxkbDL9/AS/XvAm
+	 nPuhMCqaOHu6r2qm/Cvjk7aXzBXDB11iO6s7auDckBzwy28iT1q14Kg/uOERtnKnnPazi
+	 zdeRf760W3YunoaHynkKNzctsOv1M/LvO/RvhrjLqrlxqT7rXtIKzb/1VnEelUJvYCEaR
+	 JZmF9mE6FDcZJhx9ypZBdbCbaCWKlY207jkqkMD8Mp+HP8vXrlSh+jwT+IMFv+wzI5qVr
+	 uKlAXq3+VKF7sj16eJTByZU5aZ6lwNwwYzpWpPybdhVZAu0W4mQOcRJzUB8u6MJqAjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783534;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZRQErjs2YgeDf8s5xj884w9gADjkocnjTDloPkEx5rw=;
-	b=I+vhLcR5d3QjTF/hwn5GhcLF8oc3YvP17Nvs6osxy8SjumHTWD6aoN7DjcI/JiWSJtyk
-	 6aHv/NORuz+I2ficY9h6DVp0cIAJYLEQgaQgPYxRSSXj88sV+yYgJfciHNS+y5oTUxRsI
-	 I3lMW7MaINYK5jd73MEpJlqnQHC5GVYZf6sPUuM1wa7xBnkuCXdrcHxbFjlXoWQFtlyfa
-	 QlJoQaxHyZz0XbIFOiYyXySixco+6QGMG+pRK7DkYehFLNlaA31r6gLTnwcyqW5AmyXMD
-	 PFWeHbhJNiWMLvZUEzxmFcynOfvtJ3+mKRXI+R453LeFrU7PS9qTCnHap/lkcNyI1ew==
+	bh=HHeTP5N2ktsLISpPHAP/KIrZhGMfCA2o06QoNXCSwig=;
+	b=AS9lCD0zCvOWxUPfo3mACTScIcsZ/nABOqsmLFWjbSvVxP3QkT4F7kTXM7iKqqTb3Q7Y
+	 tBau6FN75g/V5/knnoP1QTPQVuZJsLJWyZeJiMDT8HcvQJ/TPukq9DU7dtUfpAPaVwITG
+	 RtcfO6HKP7IcC8x9emn+X+eJiYRcWhdLOPfmwWOS7OnmTpVP5mMcfX3AcbP1vg7GViYfb
+	 QeU2nU7XxZttOZyFfFivZymAkZ7jxTZEaScjCQqW2RtHDE2kTmX79L78w5kTBAdE0o814
+	 po2iPW1dm9e8mX5pIrza5N9mvSMbBFdh3do3CfliHlHkSdmmKe3C+mMREAL7arrrjnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NPx0TTzM;
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmZPF+6K;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616BB606D80F
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:12:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 616BB606D80F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4505B606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:12:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4505B606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NPx0TTzM
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd6a7b62ce8so179443a12.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:12:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmZPF+6K
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso362039a91.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:12:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793783523; x=1794388323; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793783533; x=1794388333; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZRQErjs2YgeDf8s5xj884w9gADjkocnjTDloPkEx5rw=;
-        b=NPx0TTzME4v9IhTPB7tIMVNxniMALp6xCidYN5AwnJycBTkqqFjJZOyibn/MMvqNMe
-         9VLCc6txK/ECFU3RWxPwWWAAuhbvZ6GJbDM0DCKSLiFpPwZ2xyji6n7epw9h6qF9jYif
-         0p3UYCqYy1pvFwmicFXGl20fLdsMJl3BQ8ZJDZvIsASOzvaf/eZCeujx2ShvvRPh/5uC
-         7NmKz8ZzowyVPkt3Os1YUKW9VhCxZpaVHHtr2IK+4nAbRyboE0UmswCsG0b3sMyY1Gvd
-         Gf3JTPAQb1GpwnxMbzOCAdeoWNnXJq7p2YOL9+TKpvdN1/NxG9Q2hFDi0ZY5iqm9eDy/
-         QQjQ==
+        bh=HHeTP5N2ktsLISpPHAP/KIrZhGMfCA2o06QoNXCSwig=;
+        b=mmZPF+6KX8Aq0O0OP6M0HZQmfmbNZduQ2Idgee+vFzBEoOtoKqy+q12N7yAQ4aRST1
+         wlmdF/44NWxbpPNoGXkpYXeENBsprJMLWjiK9/0IDOsQXEupyqwboql6SCvKYT0f0QJs
+         hA8cyKdKVY+w+Jzqd5WWrotSRy9BDGLBgADI2IS+8HZrh8QGN/8VautJOBHQ+rTpsOq8
+         dg/kraV3iE7HxL3Q8x2vy81Re6guJvytEa82QvWxUWzKwIXxzwi4PU60POdxBH7T+Mu4
+         U8S6cpLFQTFge/YI5ddbBy4sODwY+SzGc6S0xdqsLMMu9eq4TALnQwG7+Y2kF9pIBDAZ
+         aQGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793783523; x=1794388323;
+        d=1e100.net; s=20260707; t=1793783533; x=1794388333;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZRQErjs2YgeDf8s5xj884w9gADjkocnjTDloPkEx5rw=;
-        b=D3rrkkeBIIQd5P9mo+G5BVsaK3bkqUFuGVw5laAfum4bS+NfOGkSvK5i5DC3VAiojD
-         0huSFgtKu0+xYL3WA6H0we/Ami9C0RzJHUkfnWKjw0Sr7h9SMF39IXsPqhLF8/2UUNhn
-         nNJb8pTLhD+yoHk7QS9aKdLzBMMJ+xnMhJ4H+DQZ6DXw27vcNxWO1sbO2TEQnOwAz5nV
-         3mVgjOCE0WiyCWhgryzRQ9crkb6TmdQq2UeA+VIM5lDLeLiRc6gqoNqXtTVVUa3QDGc6
-         DuFCE+nKor/14LbD+tY8/9TjrAMjiwOqaZwLjELYBiBvgY2VnadZzwKdQCTf7V8H+q6/
-         x3FA==
-X-Forwarded-Encrypted: i=1; AKwUvBzT339Og0UOqIElJsPis5pe9Pih1pMRnnwe3xo1LDJ+ZQgP47uJHaDvqeNLEvSbq5sW2ckk0id8QrDZ@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KGHCvRUMvtaf7moHWai6UWNoLcHyLdhtRmrKPITTFt6CIEqNp
-	EtFnoctR2IedJYrXOfj1uTTDWbKCFmDLljm5tVM1b9L9HmkQy/KAVWNg
-X-Gm-Gg: AYBFou1rI2CmHzCLSU3gOJ4PPvbAdSUFfr+7jhyquu2sXjwlg45wUVUL0DiFkIu8cRV
-	TdF+CxLWTbRnGFzb+rb9YB+kt/ERA7f6R7sHGJmx3HmF1uhhJel3iWUNtk9cqQXdNmxLHiG8SvB
-	yzCtb02heJKYVkN9xi6LGofDHsAr01gzCRDJ6UvLmkrzkEG+EvsBWK0JagzLfhErGfghCDVoZsy
-	ZtRh4Q+uTIqt1fI0O1KzVXUE/4Z+yfqgVT2KNE1sAfidOeXe6M2hW0iDCzjoeZuJEd+aHAM03mL
-	VX0XaC508NEOkDSPPYw/arqR7lvgUQr63oE+MZdiaDN1sPX3O7tEBJ3DDc6yqYT9n2plbP4y7wm
-	/JuGGRzHjp6x6QI2h0EWDW2Iqd8nvGZSi2DoFhq4/BsDXK2Uf1uFcm0P9rC9z4ZZbCmtBVICMNy
-	KNvz21lX8ocrAeyPeUR1WHwKB9mIWb2AHbJIYfV9R5bEMB4prh/UpFdI3JPxHT7egp0r6/49vGI
-	DYC6C3BMmkrnlfBQNaCVAampBdSibnKPZd23XVpuHMWMzkF4hB3a0RY6eUhRPNINqVgv6oPauLi
-	eq8PphyUHdaCj8tYVU+C/16b8uCiifxM4fpW0yfdOEx4tuSyIFBXeq3/AOQvmVKWaS0gQ6/gk6u
-	qSxZD6lnYR9nMxDY=
-X-Received: by 2002:a17:90b:33cb:b0:3a0:ace4:d2b4 with SMTP id 98e67ed59e1d1-3ae8973643cmr10988729a91.23.1793783522643;
-        Wed, 04 Nov 2026 01:12:02 -0800 (PST)
+        bh=HHeTP5N2ktsLISpPHAP/KIrZhGMfCA2o06QoNXCSwig=;
+        b=YhlbfaQtc+2SreALo7WnLgkvdB7SXlZ9+K5h7/GGh1I/3gtIbTjQeWM9Z8sLz+y371
+         K49OSS8HaL5V8rL0w0o42vfxqv2osWpdxFrL5UMbEFjZAYanpLU13Nm6wgIQ+ivJQVXo
+         UoV3WcDZKiKEMjm8d+9nr87DocbaqDgiFA7/qIaPEtCVUPbAkYhmzJGBNVRlxLmIvUQg
+         nmj4AfTwwHQOupiBFRswUuUIir4QAafusiDOBYXiQSM8j+o+k3Y5aLcSP5jtR4KM2wJa
+         /kVsE1Qjcf90TE2wtiUxCJjtScX99x5CTb6+KSp23cpFBG175KXf9sjaEdeXOv8tPu1p
+         XItA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIWEUcwfnSa2oq41GuDvkO7fYwAgalN18OYHlRSwZtdF4kxm0CeADNZb+tiSmz8B3PT0yl2lwWjfu6@vger.kernel.org
+X-Gm-Message-State: APuU4Z/269d5PHNDDa/+v4pBxv1X/uCmpE/x6MrB6Ukmyfd6k3UbFCAq
+	JZ1Umii1GoCW06qDX5fLz2hTTA3ynRjr5zt2d7XIJmCgAS92qKFSGzcH
+X-Gm-Gg: AYBFou0eVje9oIArGx/ZxjIcdsasM3TLUeV/WcLOVlV6TCsCGLXlSY94L2cPm/GB0t+
+	IYRzMD6uiMAkOKMuBPXsI8Ibmc/CiytUP4lTDNL2dFr2uDtg8EuQJIS6EjKySqfmkzeu42DWoem
+	uEn27pBDhouZtUmTIF/6LDFJbgWUYbtJEPkx00IjBohKaoGpJWDUi8SVkjyQOtzCrJ8OiYpxweP
+	C+5rYAGEKRxD0j+z/MobrC79nMMja9LGERUPYLtNWHW+/7ByX4bqIjuWIM+DcaMWU4mkWi1+8cT
+	HPyGsB2KkY3ASydn88Q+ehnMpdZ6dPYQ4mWZk6rBnkL096ohjRBDlHtRYGpRXT+6559gOv6zsXa
+	bQFIh4zYMsabsPszrEqVEjuyWKs0C643EoAhsZDmbjVXcuP4rcovP9jjqwszQcidd5CFdDHydGh
+	MxeWI4gGvmO9rbjlfg3cA6+K+lprPrArqreazCIHZ71sSjFnQaJ1tMVbywnz49hcpmpZw4ssHBq
+	yPdKLczLqeJ9JM+yVYf76hppi1+wk0PZfEZmvt/2ObUhntADC+6VHRT8tRjh/6BrXii9SUX4Z0Q
+	guqSsrfkuWgTeAq1WyoQ7OfskK9rlQBlpwYGjgtZ8ev9kn4JIjH465qj1hVQI0sp+NYuOnY0pYB
+	nh2q5aksTvv5Rp9M=
+X-Received: by 2002:a17:90b:560e:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3ae8957d04bmr13588942a91.7.1793783532518;
+        Wed, 04 Nov 2026 01:12:12 -0800 (PST)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09369c638sm3167257a91.0.2026.11.04.01.11.59
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09369c638sm3167257a91.0.2026.11.04.01.12.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:12:02 -0800 (PST)
+        Wed, 04 Nov 2026 01:12:11 -0800 (PST)
 From: Chi-Wen Weng <cwweng.linux@gmail.com>
 To: jic23@kernel.org,
 	robh@kernel.org,
@@ -93,9 +93,9 @@ Cc: dlechner@baylibre.com,
 	linux-kernel@vger.kernel.org,
 	cwweng@nuvoton.com,
 	cwweng.linux@gmail.com
-Subject: [PATCH v4 1/2] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-Date: Wed,  4 Nov 2026 17:11:35 +0800
-Message-Id: <20261104091136.151269-2-cwweng.linux@gmail.com>
+Subject: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+Date: Wed,  4 Nov 2026 17:11:36 +0800
+Message-Id: <20261104091136.151269-3-cwweng.linux@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261104091136.151269-1-cwweng.linux@gmail.com>
 References: <20261104091136.151269-1-cwweng.linux@gmail.com>
@@ -112,191 +112,979 @@ Content-Transfer-Encoding: 8bit
 
 From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-Add a binding for the Enhanced Analog-to-Digital Converter found on
+Add an IIO driver for the Enhanced Analog-to-Digital Converter found on
 Nuvoton MA35D1 SoCs.
 
-The controller has eight external analog inputs. They can be used as
-single-ended inputs or as the four fixed differential pairs 0-4, 1-5,
-2-6 and 3-7.
+Support single-ended and fixed differential input pairs, direct
+conversion, and triggered buffered capture using sample module 0.
 
-Use the common ADC channel properties to describe the physical input
-independently of the logical channel index.
+The hardware supports multiple sample modules, but this initial driver
+uses sample module 0 only and therefore supports one active voltage
+channel per buffered scan.
 
 Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
 ---
- .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 163 ++++++++++++++++++
- 1 file changed, 163 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+ drivers/iio/adc/Kconfig       |  14 +
+ drivers/iio/adc/Makefile      |   1 +
+ drivers/iio/adc/ma35d1_eadc.c | 912 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 927 insertions(+)
+ create mode 100644 drivers/iio/adc/ma35d1_eadc.c
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index a802d8ee4dd9..6868b67d852f 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -1032,6 +1032,20 @@ config LTC2497
+ 	  To compile this driver as a module, choose M here: the module will be
+ 	  called ltc2497.
+ 
++config MA35D1_EADC
++	tristate "Nuvoton MA35D1 EADC driver"
++	depends on ARCH_MA35 || COMPILE_TEST
++	depends on HAS_IOMEM
++	select IIO_BUFFER
++	select IIO_TRIGGERED_BUFFER
++	select REGMAP_MMIO
++	help
++	  Say yes here to build support for the Nuvoton MA35D1
++	  Enhanced Analog to Digital Converter.
++
++	  To compile this driver as a module, choose M here: the module will be
++	  called ma35d1_eadc.
++
+ config MAX1027
+ 	tristate "Maxim max1027 ADC driver"
+ 	depends on SPI
+diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+index 9e82c21dbd37..a478fef5d0b7 100644
+--- a/drivers/iio/adc/Makefile
++++ b/drivers/iio/adc/Makefile
+@@ -88,6 +88,7 @@ obj-$(CONFIG_LTC2471) += ltc2471.o
+ obj-$(CONFIG_LTC2485) += ltc2485.o
+ obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o
+ obj-$(CONFIG_LTC2497) += ltc2497.o ltc2497-core.o
++obj-$(CONFIG_MA35D1_EADC) += ma35d1_eadc.o
+ obj-$(CONFIG_MAX1027) += max1027.o
+ obj-$(CONFIG_MAX11100) += max11100.o
+ obj-$(CONFIG_MAX1118) += max1118.o
+diff --git a/drivers/iio/adc/ma35d1_eadc.c b/drivers/iio/adc/ma35d1_eadc.c
 new file mode 100644
-index 000000000000..85b0feac0236
+index 000000000000..b45ad3ef5264
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-@@ -0,0 +1,163 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/nuvoton,ma35d1-eadc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/iio/adc/ma35d1_eadc.c
+@@ -0,0 +1,912 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Nuvoton MA35D1 EADC driver
++ *
++ * Copyright (c) 2026 Nuvoton Technology Corp.
++ */
 +
-+title: Nuvoton MA35D1 Enhanced Analog-to-Digital Converter
++#include <linux/bitfield.h>
++#include <linux/bitmap.h>
++#include <linux/cleanup.h>
++#include <linux/clk.h>
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/jiffies.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/overflow.h>
++#include <linux/platform_device.h>
++#include <linux/pm.h>
++#include <linux/property.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/reset.h>
++#include <linux/time.h>
++#include <linux/types.h>
++#include <linux/units.h>
 +
-+maintainers:
-+  - Chi-Wen Weng <cwweng@nuvoton.com>
++#include <linux/iio/buffer.h>
++#include <linux/iio/iio.h>
++#include <linux/iio/trigger.h>
++#include <linux/iio/trigger_consumer.h>
++#include <linux/iio/triggered_buffer.h>
 +
-+description: |
-+  The Nuvoton MA35D1 Enhanced Analog-to-Digital Converter (EADC) is a
-+  12-bit successive approximation converter with eight external analog
-+  inputs and one internally connected VBAT input.
++#define MA35D1_EADC_DAT(n)		(0x000 + (n) * 0x004)
++#define MA35D1_EADC_CTL			0x050
++#define MA35D1_EADC_SWTRG		0x054
++#define MA35D1_EADC_SCTL(n)		(0x080 + (n) * 0x004)
++#define MA35D1_EADC_INTSRC0		0x0d0
++#define MA35D1_EADC_CMP(n)		(0x0e0 + (n) * 0x004)
++#define MA35D1_EADC_STATUS2		0x0f8
++#define MA35D1_EADC_SELSMP0		0x140
++#define MA35D1_EADC_REFADJCTL		0x150
 +
-+  The external inputs can be used as eight single-ended channels or as
-+  four fixed differential pairs: 0-4, 1-5, 2-6 and 3-7. The internally
-+  connected VBAT input is not described by a channel child node.
++#define MA35D1_EADC_CTL_ADCEN		BIT(0)
++#define MA35D1_EADC_CTL_EADCRST		BIT(1)
++#define MA35D1_EADC_CTL_ADCIEN0		BIT(2)
++#define MA35D1_EADC_CTL_ADCIEN_MASK	GENMASK(5, 2)
++#define MA35D1_EADC_CTL_DIFFEN		BIT(8)
++#define MA35D1_EADC_CTL_DMOF		BIT(9)
++#define MA35D1_EADC_CTL_VREFSEL_MASK	GENMASK(11, 10)
++#define MA35D1_EADC_CTL_VREFSEL_1V6	FIELD_PREP(MA35D1_EADC_CTL_VREFSEL_MASK, 0)
 +
-+  The controller provides four interrupt outputs, ADINT0 through ADINT3.
++#define MA35D1_EADC_SCTL_CHSEL_MASK	GENMASK(3, 0)
++#define MA35D1_EADC_SCTL_TRGSEL_MASK	GENMASK(21, 16)
++#define MA35D1_EADC_SCTL_INTPOS		BIT(22)
 +
-+properties:
-+  compatible:
-+    const: nuvoton,ma35d1-eadc
++#define MA35D1_EADC_RESOLUTION		12
++#define MA35D1_EADC_DIFF_SCALE_BITS	(MA35D1_EADC_RESOLUTION - 1)
 +
-+  reg:
-+    maxItems: 1
++#define MA35D1_EADC_DAT_RESULT_12BIT	GENMASK(MA35D1_EADC_RESOLUTION - 1, 0)
++#define MA35D1_EADC_DAT_OV		BIT(16)
++#define MA35D1_EADC_DAT_VALID		BIT(17)
 +
-+  interrupts:
-+    items:
-+      - description: ADINT0
-+      - description: ADINT1
-+      - description: ADINT2
-+      - description: ADINT3
++#define MA35D1_EADC_INTSRC0_MASK		GENMASK(8, 0)
++#define MA35D1_EADC_INTSRC0_SPLIEN0	BIT(0)
++#define MA35D1_EADC_STATUS2_ADIF0	BIT(0)
++#define MA35D1_EADC_CMP_EADCMPIE	BIT(1)
++#define MA35D1_EADC_REFADJCTL_PDREF	BIT(0)
++#define MA35D1_EADC_SELSMP0_SMPT0_MASK	GENMASK(1, 0)
++#define MA35D1_EADC_SELSMP_LONG		FIELD_PREP(MA35D1_EADC_SELSMP0_SMPT0_MASK, 3)
 +
-+  clocks:
-+    maxItems: 1
++#define MA35D1_EADC_MAX_EXT_CHANNELS	8
++#define MA35D1_EADC_NUM_DIFF_PAIRS	4
++#define MA35D1_EADC_NUM_SAMPLE_MODULES	9
++#define MA35D1_EADC_NUM_CMP		4
++#define MA35D1_EADC_INTERNAL_VREF_mV	1600
++#define MA35D1_EADC_TIMEOUT		msecs_to_jiffies(1000)
++#define MA35D1_EADC_RESET_DELAY_US	10
++#define MA35D1_EADC_REF_STABLE_US	(1 * USEC_PER_MSEC)
 +
-+  resets:
-+    maxItems: 1
++struct ma35d1_adc {
++	struct regmap *regmap;
++	struct clk *clk;
++	struct reset_control *rst;
++	struct completion completion;
++	/* Protect conversion state and register accesses from PM transitions. */
++	struct mutex lock;
++	const struct iio_chan_spec *scan_chan;
++	unsigned int vref_mV;
++	int irq;
++	bool clk_enabled;
++	bool external_vref;
++	bool suspended;
++};
 +
-+  vref-supply:
-+    description:
-+      Optional external reference voltage connected to the VREF pin. If this
-+      supply is absent, the controller uses its internal 1.6 V reference.
++static const struct regmap_config ma35d1_adc_regmap_config = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++	.max_register = MA35D1_EADC_REFADJCTL,
++};
 +
-+  dmas:
-+    maxItems: 1
++static int ma35d1_adc_disable_irq(struct ma35d1_adc *adc)
++{
++	return regmap_clear_bits(adc->regmap, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
++}
 +
-+  dma-names:
-+    const: rx
++static int ma35d1_adc_setup_reference(struct ma35d1_adc *adc)
++{
++	struct regmap *map = adc->regmap;
++	int ret;
 +
-+  '#io-channel-cells':
-+    const: 1
-+    description:
-+      The cell selects the logical EADC channel identified by the reg value
-+      of the corresponding channel child node.
++	/*
++	 * MA35D1 TRM EADC reference control: PDREF selects the external VREF
++	 * pin. With the internal reference selected, VREFSEL = 0 selects 1.6 V.
++	 */
++	if (adc->external_vref) {
++		ret = regmap_set_bits(map, MA35D1_EADC_REFADJCTL,
++				      MA35D1_EADC_REFADJCTL_PDREF);
++		if (ret)
++			return ret;
++	} else {
++		ret = regmap_clear_bits(map, MA35D1_EADC_REFADJCTL,
++					MA35D1_EADC_REFADJCTL_PDREF);
++		if (ret)
++			return ret;
 +
-+  '#address-cells':
-+    const: 1
++		ret = regmap_update_bits(map, MA35D1_EADC_CTL,
++					 MA35D1_EADC_CTL_VREFSEL_MASK,
++					 MA35D1_EADC_CTL_VREFSEL_1V6);
++		if (ret)
++			return ret;
++	}
 +
-+  '#size-cells':
-+    const: 0
++	fsleep(MA35D1_EADC_REF_STABLE_US);
 +
-+patternProperties:
-+  '^channel@[0-7]$':
-+    type: object
-+    $ref: /schemas/iio/adc/adc.yaml#
-+    description: |
-+      External EADC channel description. The reg property identifies the
-+      logical IIO channel index.
++	return 0;
++}
 +
-+      A single-ended channel may use single-channel to select an external
-+      analog input independently of reg. If single-channel and diff-channels
-+      are both absent, the external analog input is selected by reg.
++static int ma35d1_adc_reset_control(struct ma35d1_adc *adc)
++{
++	struct regmap *map = adc->regmap;
++	unsigned int val;
++	int ret;
 +
-+      A differential channel uses diff-channels to select one of the fixed
-+      hardware input pairs: 0-4, 1-5, 2-6 or 3-7. Each single-ended input
-+      and each differential input pair may be described at most once.
++	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_EADCRST);
++	if (ret)
++		return ret;
 +
-+    properties:
-+      reg:
-+        maximum: 7
++	return regmap_read_poll_timeout(map, MA35D1_EADC_CTL, val,
++					!(val & MA35D1_EADC_CTL_EADCRST),
++					1, 1 * USEC_PER_MSEC);
++}
 +
-+      single-channel:
-+        maximum: 7
++static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
++{
++	struct regmap *map = adc->regmap;
++	unsigned int i;
++	int ret;
 +
-+      diff-channels:
-+        oneOf:
-+          - items:
-+              - const: 0
-+              - const: 4
-+          - items:
-+              - const: 1
-+              - const: 5
-+          - items:
-+              - const: 2
-+              - const: 6
-+          - items:
-+              - const: 3
-+              - const: 7
++	/*
++	 * EADCRST resets the control circuits but preserves register values.
++	 * Quiesce interrupt sources first so firmware configuration cannot
++	 * generate an interrupt while Linux takes ownership of the block.
++	 */
++	ret = regmap_clear_bits(map, MA35D1_EADC_CTL,
++				MA35D1_EADC_CTL_ADCIEN_MASK);
++	if (ret)
++		return ret;
 +
-+    allOf:
-+      - not:
-+          required:
-+            - single-channel
-+            - diff-channels
++	for (i = 0; i < MA35D1_EADC_NUM_CMP; i++) {
++		ret = regmap_clear_bits(map, MA35D1_EADC_CMP(i),
++					MA35D1_EADC_CMP_EADCMPIE);
++		if (ret)
++			return ret;
++	}
 +
-+    required:
-+      - reg
++	ret = ma35d1_adc_reset_control(adc);
++	if (ret)
++		return ret;
 +
-+    additionalProperties: false
++	/* Drop trigger and interrupt routing inherited from firmware. */
++	ret = regmap_update_bits(map, MA35D1_EADC_INTSRC0,
++				 MA35D1_EADC_INTSRC0_MASK, 0);
++	if (ret)
++		return ret;
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - '#io-channel-cells'
-+  - '#address-cells'
-+  - '#size-cells'
++	for (i = 0; i < MA35D1_EADC_NUM_SAMPLE_MODULES; i++) {
++		ret = regmap_clear_bits(map, MA35D1_EADC_SCTL(i),
++					MA35D1_EADC_SCTL_TRGSEL_MASK);
++		if (ret)
++			return ret;
++	}
 +
-+additionalProperties: false
++	ret = ma35d1_adc_setup_reference(adc);
++	if (ret)
++		return ret;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
++	ret = regmap_update_bits(map, MA35D1_EADC_SELSMP0,
++				 MA35D1_EADC_SELSMP0_SMPT0_MASK,
++				 MA35D1_EADC_SELSMP_LONG);
++	if (ret)
++		return ret;
 +
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
++	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
++	if (ret)
++		return ret;
 +
-+        adc@40430000 {
-+            compatible = "nuvoton,ma35d1-eadc";
-+            reg = <0x0 0x40430000 0x0 0x10000>;
-+            interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
-+                         <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&clk EADC_GATE>;
-+            resets = <&sys MA35D1_RESET_EADC0>;
++	return regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
++}
 +
-+            #io-channel-cells = <1>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
++static int ma35d1_adc_hw_disable(struct ma35d1_adc *adc)
++{
++	struct regmap *map = adc->regmap;
++	int ret;
 +
-+            channel@0 {
-+                reg = <0>;
-+                single-channel = <2>;
-+            };
++	ret = ma35d1_adc_disable_irq(adc);
++	if (ret)
++		return ret;
 +
-+            channel@1 {
-+                reg = <1>;
-+                diff-channels = <0 4>;
-+            };
-+        };
-+    };
++	return regmap_clear_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
++}
 +
-+...
++static void ma35d1_adc_hw_disable_action(void *data)
++{
++	struct ma35d1_adc *adc = data;
++
++	if (adc->clk_enabled)
++		ma35d1_adc_hw_disable(adc);
++}
++
++static int ma35d1_adc_reset(struct ma35d1_adc *adc)
++{
++	int ret;
++
++	if (!adc->rst)
++		return 0;
++
++	ret = reset_control_assert(adc->rst);
++	if (ret)
++		return ret;
++
++	fsleep(MA35D1_EADC_RESET_DELAY_US);
++
++	return reset_control_deassert(adc->rst);
++}
++
++static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
++				     const struct iio_chan_spec *chan)
++{
++	struct regmap *map = adc->regmap;
++	unsigned int mask;
++	int ret;
++
++	mask = MA35D1_EADC_CTL_DIFFEN | MA35D1_EADC_CTL_DMOF;
++	ret = regmap_assign_bits(map, MA35D1_EADC_CTL, mask, chan->differential);
++	if (ret)
++		return ret;
++
++	/*
++	 * INTPOS = 0 generates ADIF0 at end of conversion. TRGSEL = 0 disables
++	 * the hardware trigger; conversions are started through SWTRG0.
++	 */
++	mask = MA35D1_EADC_SCTL_CHSEL_MASK |
++	       MA35D1_EADC_SCTL_TRGSEL_MASK |
++	       MA35D1_EADC_SCTL_INTPOS;
++	ret = regmap_update_bits(map, MA35D1_EADC_SCTL(0), mask,
++				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
++					    chan->channel));
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(map, MA35D1_EADC_INTSRC0,
++				  MA35D1_EADC_INTSRC0_MASK,
++				  MA35D1_EADC_INTSRC0_SPLIEN0);
++}
++
++static void ma35d1_adc_abort_conversion(struct ma35d1_adc *adc)
++{
++	struct regmap *map = adc->regmap;
++	struct device *dev = regmap_get_device(map);
++	int ret;
++
++	ret = ma35d1_adc_disable_irq(adc);
++	if (ret)
++		dev_err(dev, "failed to disable ADC interrupt: %d\n", ret);
++
++	/*
++	 * Reset the EADC control circuits to terminate a conversion which may
++	 * still be in progress. EADCRST is cleared automatically by hardware
++	 * when the reset completes and the EADC register values are preserved.
++	 */
++	ret = ma35d1_adc_reset_control(adc);
++	if (ret)
++		dev_err(dev, "failed to reset timed out conversion: %d\n", ret);
++
++	/* Drain an interrupt which may already have been latched by the GIC. */
++	synchronize_irq(adc->irq);
++
++	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
++	if (ret)
++		dev_err(dev, "failed to clear ADC interrupt status: %d\n", ret);
++}
++
++static int ma35d1_adc_read_conversion(struct ma35d1_adc *adc,
++				      const struct iio_chan_spec *chan, u16 *raw)
++{
++	struct regmap *map = adc->regmap;
++	unsigned int val;
++	long timeout;
++	int ret;
++
++	reinit_completion(&adc->completion);
++
++	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
++	if (ret)
++		return ret;
++
++	ret = ma35d1_adc_config_channel(adc, chan);
++	if (ret)
++		return ret;
++
++	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(map, MA35D1_EADC_SWTRG, BIT(0));
++	if (ret)
++		goto disable_irq;
++
++	timeout = wait_for_completion_timeout(&adc->completion,
++					      MA35D1_EADC_TIMEOUT);
++	if (!timeout) {
++		ma35d1_adc_abort_conversion(adc);
++		return -ETIMEDOUT;
++	}
++
++	ret = ma35d1_adc_disable_irq(adc);
++	if (ret)
++		return ret;
++
++	ret = regmap_read(map, MA35D1_EADC_DAT(0), &val);
++	if (ret)
++		return ret;
++
++	if (!(val & MA35D1_EADC_DAT_VALID))
++		return -EIO;
++
++	if (val & MA35D1_EADC_DAT_OV)
++		return -EOVERFLOW;
++
++	*raw = FIELD_GET(MA35D1_EADC_DAT_RESULT_12BIT, val);
++
++	return 0;
++
++disable_irq:
++	ma35d1_adc_disable_irq(adc);
++
++	return ret;
++}
++
++static irqreturn_t ma35d1_adc_isr(int irq, void *data)
++{
++	struct iio_dev *indio_dev = data;
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	struct regmap *map = adc->regmap;
++	unsigned int status;
++	int ret;
++
++	ret = regmap_read(map, MA35D1_EADC_STATUS2, &status);
++	if (ret)
++		return IRQ_NONE;
++
++	if (!(status & MA35D1_EADC_STATUS2_ADIF0))
++		return IRQ_NONE;
++
++	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
++	if (ret)
++		dev_err_ratelimited(regmap_get_device(map),
++				    "failed to clear ADC interrupt status: %d\n", ret);
++
++	complete(&adc->completion);
++
++	return IRQ_HANDLED;
++}
++
++static int ma35d1_adc_sign_extend(u16 raw)
++{
++	return sign_extend32(raw, MA35D1_EADC_DIFF_SCALE_BITS);
++}
++
++static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
++			       const struct iio_chan_spec *chan,
++			       int *val, int *val2, long mask)
++{
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	u16 raw;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW: {
++		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
++		if (IIO_DEV_ACQUIRE_FAILED(claim))
++			return -EBUSY;
++
++		guard(mutex)(&adc->lock);
++
++		if (adc->suspended)
++			return -EBUSY;
++
++		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
++		if (ret)
++			return ret;
++
++		if (chan->differential)
++			*val = ma35d1_adc_sign_extend(raw);
++		else
++			*val = raw;
++
++		return IIO_VAL_INT;
++	}
++	case IIO_CHAN_INFO_SCALE:
++		*val = adc->vref_mV;
++		/* Differential mode has a VREF / 2048 LSB; single-ended uses /4096. */
++		*val2 = chan->differential ? MA35D1_EADC_DIFF_SCALE_BITS :
++					       MA35D1_EADC_RESOLUTION;
++		return IIO_VAL_FRACTIONAL_LOG2;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
++				       const unsigned long *scan_mask)
++{
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	int bit;
++
++	adc->scan_chan = NULL;
++	iio_for_each_active_channel(indio_dev, bit) {
++		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
++
++		if (chan->type != IIO_VOLTAGE)
++			return -EINVAL;
++
++		adc->scan_chan = chan;
++	}
++
++	if (!adc->scan_chan)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int ma35d1_adc_buffer_postenable(struct iio_dev *indio_dev)
++{
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++
++	guard(mutex)(&adc->lock);
++
++	if (adc->suspended)
++		return -EBUSY;
++
++	if (!adc->scan_chan)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int ma35d1_adc_buffer_predisable(struct iio_dev *indio_dev)
++{
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	int ret;
++
++	guard(mutex)(&adc->lock);
++
++	ret = ma35d1_adc_disable_irq(adc);
++	if (ret)
++		return ret;
++
++	synchronize_irq(adc->irq);
++
++	return regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
++			    MA35D1_EADC_STATUS2_ADIF0);
++}
++
++static void ma35d1_adc_trigger_capture(struct iio_poll_func *pf)
++{
++	struct iio_dev *indio_dev = pf->indio_dev;
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	struct {
++		u16 channel;
++		aligned_s64 timestamp;
++	} scan = { };
++	u16 raw;
++	int ret;
++
++	guard(mutex)(&adc->lock);
++
++	if (adc->suspended || !adc->scan_chan)
++		return;
++
++	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
++	if (ret)
++		return;
++
++	scan.channel = raw;
++	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan), pf->timestamp);
++}
++
++static irqreturn_t ma35d1_adc_trigger_handler(int irq, void *p)
++{
++	struct iio_poll_func *pf = p;
++
++	ma35d1_adc_trigger_capture(pf);
++	iio_trigger_notify_done(pf->indio_dev->trig);
++
++	return IRQ_HANDLED;
++}
++
++static const struct iio_buffer_setup_ops ma35d1_adc_buffer_ops = {
++	.postenable = ma35d1_adc_buffer_postenable,
++	.predisable = ma35d1_adc_buffer_predisable,
++	.validate_scan_mask = iio_validate_scan_mask_onehot,
++};
++
++static int ma35d1_adc_fwnode_xlate(struct iio_dev *indio_dev,
++				   const struct fwnode_reference_args *iiospec)
++{
++	if (iiospec->nargs != 1)
++		return -EINVAL;
++
++	for (unsigned int i = 0; i < indio_dev->num_channels; i++) {
++		const struct iio_chan_spec *chan = &indio_dev->channels[i];
++
++		if (chan->type == IIO_VOLTAGE &&
++		    chan->address == iiospec->args[0])
++			return i;
++	}
++
++	return -EINVAL;
++}
++
++static const struct iio_info ma35d1_adc_info = {
++	.read_raw = ma35d1_adc_read_raw,
++	.update_scan_mode = ma35d1_adc_update_scan_mode,
++	.fwnode_xlate = ma35d1_adc_fwnode_xlate,
++};
++
++static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
++				     struct device *dev)
++{
++	DECLARE_BITMAP(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
++	DECLARE_BITMAP(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
++	DECLARE_BITMAP(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
++	struct iio_chan_spec *channels;
++	unsigned int scan_index;
++	int num_channels;
++	int ret;
++
++	bitmap_zero(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
++	bitmap_zero(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
++	bitmap_zero(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
++
++	num_channels = device_get_child_node_count(dev);
++	if (!num_channels)
++		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
++
++	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
++		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
++
++	channels = devm_kcalloc(dev, size_add(num_channels, 1),
++				sizeof(*channels), GFP_KERNEL);
++	if (!channels)
++		return -ENOMEM;
++
++	scan_index = 0;
++	device_for_each_child_node_scoped(dev, child) {
++		bool has_diff, has_single;
++		u32 reg, vinp, vinn;
++
++		ret = fwnode_property_read_u32(child, "reg", &reg);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "missing channel reg property\n");
++
++		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
++			return dev_err_probe(dev, -ENOSPC,
++					     "invalid ADC channel index %u\n", reg);
++
++		if (test_and_set_bit(reg, used_regs))
++			return dev_err_probe(dev, -EEXIST,
++					     "duplicate ADC channel index %u\n", reg);
++
++		has_single = fwnode_property_present(child, "single-channel");
++		has_diff = fwnode_property_present(child, "diff-channels");
++		if (has_single && has_diff)
++			return dev_err_probe(dev, -EINVAL,
++					     "channel %u has conflicting input properties\n",
++					     reg);
++
++		if (has_diff) {
++			u32 inputs[2];
++
++			ret = fwnode_property_read_u32_array(child, "diff-channels",
++							     inputs, ARRAY_SIZE(inputs));
++			if (ret)
++				return dev_err_probe(dev, ret,
++						     "invalid diff-channels for index %u\n",
++						     reg);
++
++			vinp = inputs[0];
++			vinn = inputs[1];
++			if (vinp >= 4 || vinn != vinp + 4)
++				return dev_err_probe(dev, -ECHRNG,
++						     "invalid differential inputs %u-%u\n",
++						     vinp, vinn);
++
++			if (test_and_set_bit(vinp, used_diff_pairs))
++				return dev_err_probe(dev, -EEXIST,
++						     "duplicate differential inputs %u-%u\n",
++						     vinp, vinn);
++
++			channels[scan_index] = (struct iio_chan_spec) {
++				.type = IIO_VOLTAGE,
++				.indexed = 1,
++				.differential = 1,
++				.channel = vinp,
++				.channel2 = vinn,
++				.address = reg,
++				.scan_index = scan_index,
++				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++						      BIT(IIO_CHAN_INFO_SCALE),
++				.scan_type = {
++					.format = IIO_SCAN_FORMAT_SIGNED_INT,
++					.realbits = MA35D1_EADC_RESOLUTION,
++					.storagebits = 16,
++					.endianness = IIO_CPU,
++				},
++			};
++		} else {
++			if (has_single) {
++				ret = fwnode_property_read_u32(child, "single-channel",
++							       &vinp);
++				if (ret)
++					return dev_err_probe(dev, ret,
++							     "invalid single-channel for index %u\n",
++							     reg);
++			} else {
++				vinp = reg;
++			}
++
++			if (vinp >= MA35D1_EADC_MAX_EXT_CHANNELS)
++				return dev_err_probe(dev, -ECHRNG,
++						     "invalid ADC input %u\n", vinp);
++
++			if (test_and_set_bit(vinp, used_single_inputs))
++				return dev_err_probe(dev, -EEXIST,
++						     "duplicate ADC input %u\n", vinp);
++
++			channels[scan_index] = (struct iio_chan_spec) {
++				.type = IIO_VOLTAGE,
++				.indexed = 1,
++				.channel = vinp,
++				.address = reg,
++				.scan_index = scan_index,
++				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++						      BIT(IIO_CHAN_INFO_SCALE),
++				.scan_type = {
++					.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
++					.realbits = MA35D1_EADC_RESOLUTION,
++					.storagebits = 16,
++					.endianness = IIO_CPU,
++				},
++			};
++		}
++
++		scan_index++;
++	}
++
++	channels[scan_index] = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
++
++	indio_dev->channels = channels;
++	indio_dev->num_channels = scan_index + 1;
++
++	return 0;
++}
++
++static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
++{
++	int ret;
++
++	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
++	if (ret == -ENODEV) {
++		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
++		return 0;
++	}
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
++
++	if (!ret)
++		return dev_err_probe(dev, -EINVAL, "invalid VREF voltage\n");
++
++	adc->external_vref = true;
++	adc->vref_mV = ret / (MICRO / MILLI);
++
++	return 0;
++}
++
++static void ma35d1_adc_clk_disable_action(void *data)
++{
++	struct ma35d1_adc *adc = data;
++
++	if (!adc->clk_enabled)
++		return;
++
++	clk_disable_unprepare(adc->clk);
++	adc->clk_enabled = false;
++}
++
++static int ma35d1_adc_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct iio_dev *indio_dev;
++	struct ma35d1_adc *adc;
++	void __iomem *regs;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	adc = iio_priv(indio_dev);
++	init_completion(&adc->completion);
++
++	ret = devm_mutex_init(dev, &adc->lock);
++	if (ret)
++		return ret;
++
++	regs = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(regs))
++		return dev_err_probe(dev, PTR_ERR(regs),
++				     "failed to map registers\n");
++
++	adc->regmap = devm_regmap_init_mmio(dev, regs, &ma35d1_adc_regmap_config);
++	if (IS_ERR(adc->regmap))
++		return dev_err_probe(dev, PTR_ERR(adc->regmap),
++				     "failed to initialize regmap\n");
++
++	adc->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(adc->clk))
++		return dev_err_probe(dev, PTR_ERR(adc->clk),
++				     "failed to get ADC clock\n");
++
++	ret = clk_prepare_enable(adc->clk);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable ADC clock\n");
++
++	adc->clk_enabled = true;
++	ret = devm_add_action_or_reset(dev, ma35d1_adc_clk_disable_action, adc);
++	if (ret)
++		return ret;
++
++	adc->rst = devm_reset_control_get_optional_exclusive(dev, NULL);
++	if (IS_ERR(adc->rst))
++		return dev_err_probe(dev, PTR_ERR(adc->rst),
++				     "failed to get reset control\n");
++
++	ret = ma35d1_adc_reset(adc);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to reset ADC\n");
++
++	ret = ma35d1_adc_init_vref(adc, dev);
++	if (ret)
++		return ret;
++
++	indio_dev->name = "ma35d1-eadc";
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->info = &ma35d1_adc_info;
++
++	ret = ma35d1_adc_parse_channels(indio_dev, dev);
++	if (ret)
++		return ret;
++
++	ret = ma35d1_adc_hw_init(adc);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to initialize ADC\n");
++
++	ret = devm_add_action_or_reset(dev, ma35d1_adc_hw_disable_action, adc);
++	if (ret)
++		return ret;
++
++	adc->irq = platform_get_irq(pdev, 0);
++	if (adc->irq < 0)
++		return adc->irq;
++
++	ret = devm_request_irq(dev, adc->irq, ma35d1_adc_isr, 0,
++			       dev_name(dev), indio_dev);
++	if (ret)
++		return ret;
++
++	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
++					      iio_pollfunc_store_time,
++					      ma35d1_adc_trigger_handler,
++					      &ma35d1_adc_buffer_ops);
++	if (ret)
++		return ret;
++
++	platform_set_drvdata(pdev, indio_dev);
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static int ma35d1_adc_suspend(struct device *dev)
++{
++	struct iio_dev *indio_dev = dev_get_drvdata(dev);
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	struct regmap *map = adc->regmap;
++	int ret;
++
++	ret = iio_device_suspend_triggering(indio_dev);
++	if (ret)
++		return ret;
++
++	mutex_lock(&adc->lock);
++
++	ret = ma35d1_adc_disable_irq(adc);
++	if (ret)
++		goto resume_triggering;
++
++	synchronize_irq(adc->irq);
++
++	ret = regmap_clear_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
++	if (ret) {
++		/*
++		 * ADCIEN0 is enabled only while a conversion is active. Holding
++		 * adc->lock here guarantees that no conversion is in progress, so
++		 * leave it disabled. The next conversion enables it again.
++		 */
++		goto resume_triggering;
++	}
++
++	adc->suspended = true;
++	clk_disable_unprepare(adc->clk);
++	adc->clk_enabled = false;
++	mutex_unlock(&adc->lock);
++
++	return 0;
++
++resume_triggering:
++	mutex_unlock(&adc->lock);
++	iio_device_resume_triggering(indio_dev);
++
++	return ret;
++}
++
++static int ma35d1_adc_resume(struct device *dev)
++{
++	struct iio_dev *indio_dev = dev_get_drvdata(dev);
++	struct ma35d1_adc *adc = iio_priv(indio_dev);
++	int ret;
++
++	mutex_lock(&adc->lock);
++
++	ret = clk_prepare_enable(adc->clk);
++	if (ret)
++		goto unlock;
++
++	adc->clk_enabled = true;
++	ret = ma35d1_adc_hw_init(adc);
++	if (ret) {
++		clk_disable_unprepare(adc->clk);
++		adc->clk_enabled = false;
++		goto unlock;
++	}
++
++	adc->suspended = false;
++	mutex_unlock(&adc->lock);
++
++	return iio_device_resume_triggering(indio_dev);
++
++unlock:
++	mutex_unlock(&adc->lock);
++
++	return ret;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_adc_pm_ops,
++				ma35d1_adc_suspend, ma35d1_adc_resume);
++
++static const struct of_device_id ma35d1_adc_of_match[] = {
++	{ .compatible = "nuvoton,ma35d1-eadc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ma35d1_adc_of_match);
++
++static struct platform_driver ma35d1_adc_driver = {
++	.probe = ma35d1_adc_probe,
++	.driver = {
++		.name = "ma35d1-eadc",
++		.of_match_table = ma35d1_adc_of_match,
++		.pm = pm_sleep_ptr(&ma35d1_adc_pm_ops),
++	},
++};
++module_platform_driver(ma35d1_adc_driver);
++
++MODULE_AUTHOR("Chi-Wen Weng <cwweng@nuvoton.com>");
++MODULE_DESCRIPTION("Nuvoton MA35D1 EADC driver");
++MODULE_LICENSE("GPL");
 -- 
 2.25.1
 
