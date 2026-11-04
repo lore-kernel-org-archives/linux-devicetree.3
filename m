@@ -1,72 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832990;
-	b=kpBNoX/IgH94RBfMJR58xyglY8U2KOMDrRGEX7iG5uEApSmFhGi/LxrlLcipKtP7vgvT
-	 mZ+hjTA6ge/pnox3VNzF8DFNYD+wsxI77Dmm+d0l76YZJ5rtyGm5VTuX2EYruLWKCLeJC
-	 zM5r4tnr+BgLU9WtlSv4+ELlLqlkbPLr4N/bNf6CZ8nfCjkHgGpR4uqpeciUTQX70J//X
-	 IL0cxZrnFHvtc8S0if3NtphElJ30iPxwbM1tXPd0UBKkAUQJjr0fTqJ215Bk7YsuW8mCS
-	 zbiL0Nrw5+TxazYF3DY1htzilleStrXBZ8pOUyNNKuOyY6cv2OKE+KYTawd+9rnfYjQ==
+	t=1793833120;
+	b=Jr4rKdSMPzwVLUIu2MbrYaRM+Vq/1YOgJS7EXd+VsIe/tu04ckq9PdbiwO9AF/UzTCiv
+	 eXSnlQ2vVAzfQHSri9CSDxXMe8ap9hldU9Ei0S8AKdx4BBsMx2asMOZkT/pJLyUxN3nbr
+	 CX9WUyR4y4x1SxkbVwiEK1xLWdHl0+xRq0Rr2kNQlZIewd8K+zveDp7XlZUaugZ6UfVwl
+	 QCMAcQzG0P1LtOZguOgRFOUG3AJ5XQp4p28qEXENja+VWl77Umu7NHgeuzZQbEUkzN1fH
+	 Co01RIgobbdThkZ+zildeyPtXXD/Tz8cPzY8fDQLaqMZsyPoDb6JsWggwmRq7kUWQEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832990;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=BVSlivO0NT5LNZI1ueIGCNvTYScZ1EWmEWcTYGB4ijY=;
-	b=XtKsBVLZMSDkTf5oAox1oMEfLh7kgvQVUAuENy9df9i+wHPFrlfAORrq9VRwY6BXaY4q
-	 BDILGuzh3fL/+aX8eAf7RHqAQa7uEMJcSBC2iEa51/tJYjzTwJSyQNgHAQYH5I9cNZUnX
-	 e8GjbNWlOJGRYfk+079Bo/X/baQrQNgHwEVO9HUNmNTE0m/6cDPd3BD3Vldrbj8QL0IeJ
-	 ESj2VwzYNt9iD/LQpkF6IcaocGhZzqYyPbq8C1Lh8TyKxTWKXsx4rWyDBZsScKYJ70Wdr
-	 RqVBkNrftPp2gGoakcElELkHFR0ywbvy9paCRg3uADlycAtu1CtNQIp97v3LfpE+cnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833120;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=eiBJTBFQf9YAHwnC/I4w5TIHr7VLqlllu3kFhUbXiHo=;
+	b=R1d0Yq+gEzc2NYdHH0bTEspynsJfhIoOY2hAK9Ql5lu6k95juI/KQo4LlE05RItfp4Pe
+	 Bmd/8mm82Dxg2pRcKFx12IqAnC22F/TpuuKB6UGG85oDGOaj8faSnuj4v/iK0lZPPCFHX
+	 x2G3stzL4mydtv4wfs1aB41He/kDp/Avva6sJ90Rd+gvrIxlILPKr4z6ST1sa5Ad/XwlU
+	 uTzKgRXTyy4pyeecU7SWYi1rWHWU4Hk+CHaGRNkNLwM6yvvReBQNuIGWYvYqnD7kvyScR
+	 T1hajcn7qsh6OxNeY+DzyWj/956r+Q9jPaOVtliSl97XqItyxsdD0pn6f/pmMDpWNsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=k3wfvMt4;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QBp+Q/qh";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0791606A32C
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 22:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0791606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532E8606A31B;
+	Wed,  4 Nov 2026 22:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=k3wfvMt4
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id OjfExuJ4Pyb4YOju9xDFQ1; Wed, 04 Nov 2026 22:56:29 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Oju8x5Ev1BdeUOju8xJngZ; Wed, 04 Nov 2026 22:56:29 +0000
-X-Authority-Analysis: v=2.4 cv=AaexH2XG c=1 sm=1 tr=0 ts=6aebb81d
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=iox4zFpeAAAA:8 a=A5ctjimnlw7kqC9GiE4A:9 a=QEXdDO2ut3YA:10 a=LP3-5Lh9zdkA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=BVSlivO0NT5LNZI1ueIGCNvTYScZ1EWmEWcTYGB4ijY=; b=k3wfvMt43HLH
-	o5IG+l01Z2G80GAZzp/PNoN/sIzKUSjCy4c4j0ca8xEsdSXfoydWJVjhMvt9ib1gkXxGnRuKR/xZY
-	f/h5zhJuv8K4RfJRImTi68GLumWVPTGbK1gzcQx4UbxOlYHOqHngO09zT5G9Er9S54vxr1PH2v4z1
-	v0a8EeYu9jTvOgvOjKZmNddYvfwICDLgMo+cEbFY+jobEvAT1F8SWk7XqSeIMe5KsifMege2KGx8f
-	eU9xwGE8gA0ITVUtdDBbpQzbSI+tH9WGsiIks6bNznPpxnDsA/ZbkEtEmXLcT9gKUphc3VV5Dbw/u
-	wx3owxMD58aIMaf7ay8wrQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54826)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOju5-00000001O41-43MB;
-	Thu, 05 Nov 2026 04:26:26 +0530
-Message-ID: <ae9a4df9-b1f2-4f00-ab86-d9cf8d9bc387@roeck-us.net>
-Date: Wed, 4 Nov 2026 14:56:22 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBp+Q/qh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B8611F00919;
+	Wed,  4 Nov 2026 22:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793833119;
+	bh=eiBJTBFQf9YAHwnC/I4w5TIHr7VLqlllu3kFhUbXiHo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=QBp+Q/qhkqA49iE7hiEg/DOPNKq5TQ1YfoV6HAYBX9eLL8IncwIhpt2MS6U7l2iyb
+	 inRB6aD3jPHr56MTukOaxT9I1PKFaGi7Ff3cMXzp4t1cSBS3rmEoqrHvb0PZOXlDgt
+	 Wu/4JJpphQPXkNab1PPV3SILD29P2dA4PgZPU3krN+JPumBkRkmc2OVip5Y8B5Bd+3
+	 sm2RRs7FDpCjahRKFcW0cgBLaZFJbxFuPBmIfGUhdEc6xATf1MWMe7NK2o0j77fJUT
+	 5f4rWlEbhIINIBUzAoXT5KijQC4tPhRVNRqcu3fnIC/BIw4ewQ9M7tq8dhZKDYVeTA
+	 c7/JwA/ckXsYg==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -76,191 +49,259 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
- Pi RP1
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Gary Guo <gary@garyguo.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Gregor Herburger <gregor.herburger@linutronix.de>,
- Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-References: <cover.1792748690.git.andrea.porta@suse.com>
- <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
- <auBzvB8TsvIK8Hik@apocalypse>
- <53a4b4bb-271c-4d2d-a9e4-cec4e0ce214b@roeck-us.net>
- <DMFPE71J8205.3FZKD5BKW3U7C@garyguo.net>
- <b02b4f0b-ad2c-453a-b69c-a0865a333d62@roeck-us.net>
- <auIotAwnOWKNApjp@apocalypse> <aus2Ra_sLySMZU1i@apocalypse>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <aus2Ra_sLySMZU1i@apocalypse>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOju5-00000001O41-43MB
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:54826
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 23
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAu21bbGypZeiPwQMqWIX7ol80WQHpV1f5mlBwXs2rkJIowfUX9LRgqvRv366HEsAD+HJ7yCOajGWtcbmfvoguR4cvDtt8olm2dVfRGAz4a/MznVkpVG
- SRteisDm4RcigYcVf+CGnvfA0RqRHuLRFOnT7DaJUJHTFOIhirB/s9B38nHRUfbJOdfwTNbPxnXMeNPvV6L/yyMYJ27D01tXwBT76WJpoAbyqt66VIfXdkfG
+Subject: Re: [PATCH v2 5/7] clk: stm32mp25: add clock for D3 peripherals
+ allocation for Cortex-CM0
+From: Brian Masney <masneyb@kernel.org>
+To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Gwenael Treuveur <gwenael.treuveur@foss.st.com>, 
+ Brian Masney <masneyb@kernel.org>
+In-Reply-To: <20261023-ups_mp25_clk_update-v2-5-398d348ea8fd@foss.st.com>
+References: <20261023-ups_mp25_clk_update-v2-0-398d348ea8fd@foss.st.com>
+ <20261023-ups_mp25_clk_update-v2-5-398d348ea8fd@foss.st.com>
+Date: Wed, 04 Nov 2026 17:58:29 -0500
+Message-Id: <179383310949.724795.2248553531492904727.b4-review@b4>
+X-Mailer: b4 0.17-dev-7ca47
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7845; i=masneyb@kernel.org;
+ s=20250903; h=from:subject:message-id;
+ bh=SEVQkXUfKjajYOiqgWTGq0lvvrHvIZ320IKGWJ0E/t8=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJe75iZFKDqefrMc177a1eCL614ctqoMDojSGOHmOSZ9
+ c131GbodpSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjCRDcYM/6y95VJDpxf9kl5/
+ 0uvverfNe+a2/hYK/s3J8+xp31/ZaiGGv/IMrMJHjOaHP3Ca0bzr5pXp8Vs59WPK6hilvruwzjg
+ xgw8A
+X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-On 11/4/26 05:42, Andrea della Porta wrote:
-> Hi,
+Hi Gabriel,
+
+> GATE_<IP>AM allows to enable the Autonomous Mode of the D3 peripherals.
+> GATE_<IP>C3 allows to enable the allocation of the peripherals to CPU3.
 > 
-> On 17:54 Wed 28 Oct     , Andrea della Porta wrote:
->> On 09:13 Tue 27 Oct     , Guenter Roeck wrote:
->>> On Tue, Oct 27, 2026 at 10:51:15PM +0800, Gary Guo wrote:
->>>> On Tue Oct 27, 2026 at 9:48 PM CST, Guenter Roeck wrote:
->>>>> On Tue, Oct 27, 2026 at 10:49:48AM +0100, Andrea della Porta wrote:
->>>>>> Hi Guenter,
->>>>>>
->>>>>> Yes, I also proposed that in the cover letter because auxbus seems also a viable
->>>>>> solution.
->>>>>>
->>>>>> The current implementation is a consequence to the discussion about the companion
->>>>>> PWM driver, from here (and the revisions that followed):
->>>>>>
->>>>>> https://lore.kernel.org/all/cover.1775223441.git.andrea.porta@suse.com/
->>>>>>
->>>>>> To give a short and hopefully coherent view of the decisions, here's a breakdown:
->>>>>>
->>>>>> - first proposal: PWM driver + fan hwmon (to read the RPM), all in the same driver
->>>>>>
->>>>>> - V2: Uwe preferred to split the PWM driver from the hwmon one, so the hwmon was
->>>>>>    dropped from teh PWM driver in favor of a future (fan) driver. To accomplish this,
->>>>>>    I moved from readl/writel to regmap + syscon.
->>>>>>
->>>>>> - V8: Gary proposed to export a function to read the fan RPM as a viable
->>>>>>    solution. As a result, the regmap/syscon was dropped as it was no longer needed
->>>>>>    and the function has been exported from the PWM driver
->>>>>>
->>>>>> - new patchset for fan driver: the now independent hwmon moodle just call the
->>>>>>    exported function from thw PWM driver.
->>>>>>
->>>>>> If the auxiliary bus is indeed the preferred approach, I'd like to ensure we are
->>>>>> all aligned, as this would also require refactoring the PWM driver.
->>>>>>
->>>>>
->>>>> Let's say it that way: If you don't want to implement the auxiliary driver,
->>>>> and you insist using the exported function, I would prefer for you to go back
->>>>> to the first solution. The one thing I really dislike is conceptually broken
->>>>> code, and I consider the current approach broken. Your call, but the one thing
->>>>> I won't accept is the code with the exported function.
->>>>
->>>> I agree on the auxiliary driver part. However, I don't think EXPORT_SYMBOL_NS is
->>>> an issue, and regmap is not the right fit here:
->>>>
->>>> - Previous version of the PWM1 patch series publish regmap using
->>>>    of_syscon_register_regmap, but this cannot be undone -- which needs to happen
->>>>    on PWM device unbind (the RP1 PWM device is itself platform device, but RP1
->>>>    chip itself is PCIe device which must be removable).
->>>>
->>>> - The tachometer register is not its own separate register, but rather (re)using
->>>>    the phase control register. The phase control is not implemented in the RP1
->>>>    PWM driver on the list yet, so this is currently a simple register read -- I
->>>>    can see that RP1 PWM driver need to take special care to about the tachometer
->>>>    reading if the phase control is implemented.
->>>>
->>>>    For the two reasons above, I think the way that tachometer is read should
->>>>    really be an implementation detail of the PWM driver and not for the hwmon
->>>>    driver to worry about, so I suggested using EXPORT_SYMBOL_NS.
->>>>
->>>> - EXPORT_SYMBOL_NS is the documented way for exposing functionality from parent
->>>>    device to auxiliary drivers: https://docs.kernel.org/driver-api/auxiliary_bus.html
->>>>
->>>
->>> Let's agree to disagree, and keep the code in the pwm subsystem.
->>
->> And auxiliary bus it will be. I propose the following:
->>
->> - drivers/pwm/pwm-rp1.c: create an auxiliary device for the fan. The function to read
->>    the RPM will not be exported, but a function pointer will be passed through the
->>    private data to the fan driver. No need for regmap. To be taken by Uwe.
->>
->> - drivers/hwmon/rp1-hwmon.c: The auxiliary driver is probed against the device registered
->>    by the pwm driver. No imported function. To be taken by Guenter.
->>
->> In this way, we decouple the two drivers and we leverage the auxiliary bus paradigm.
->> Also, no DT node needed for the fan.
->>
->> Do we all agree on this approach?
+> For any D3 peripheral allocated to CPU3 (CPU3 domain is used and AMEN),
+> MSIKERON must be set to allow the Stop modes. That is why all the
+> autonomous clocks have the MSI KER clock as their parent.
 > 
-> A gentle reminder about this inquiry. Before refactoring both the PWM and the fan
-> driver I'd like to be sure that the proposed approach is at least acceptable.
+> Add the HSI KER, HSE KER and MSI KER clocks as new RCC input clocks and
+> register the C3 reset.
 > 
+> Update the number of clocks of the provider to cover the new IDs.
+> 
+> Signed-off-by: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>  drivers/clk/stm32/clk-stm32mp25.c | 176 +++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 175 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/clk/stm32/clk-stm32mp25.c b/drivers/clk/stm32/clk-stm32mp25.c
+> index 59abac0cc56a..3199cf18f4d3 100644
+> --- a/drivers/clk/stm32/clk-stm32mp25.c
+> +++ b/drivers/clk/stm32/clk-stm32mp25.c
+> @@ -18,7 +18,7 @@
+>  #include <dt-bindings/reset/st,stm32mp25-rcc.h>
+>  
+>  /* Number of clock identifiers of the binding, SCMI ones excluded: highest ID + 1 */
+> -#define STM32MP25_LAST_CLK	(HSE_DIV2_CK + 1)
+> +#define STM32MP25_LAST_CLK	(CK_SPI8_AM + 1)
+>  
+>  /* Clock security definition */
+>  #define SECF_NONE		-1
+> @@ -38,6 +38,7 @@
+>  /* Register: RIFSC_SEMCR */
+>  #define RCC_SEMCR_SEMCID_MASK	GENMASK(6, 4)
+>  
+> +#define MP25_RIF_RCC_C3		72
+>  #define MP25_RIF_RCC_IS2M	107
+>  #define MP25_RIF_RCC_MCO1	108
+>  #define MP25_RIF_RCC_MCO2	109
+> @@ -126,6 +127,9 @@ enum {
+>  	TIMG2,
+>  	PLL3,
+>  	DSI_TXBYTE,
+> +	HSI_KER_ON,
+> +	HSE_KER_ON,
+> +	MSI_KER_ON,
+>  };
+>  
+>  static const struct clk_parent_data adc12_src[] = {
+> @@ -225,6 +229,10 @@ enum enum_gate_cfg {
+>  	GATE_ADC12,
+>  	GATE_ADC3,
+>  	GATE_ADF1,
+> +	GATE_ADF1AM,
+> +	GATE_ADF1C3,
+> +	GATE_C3,
+> +	GATE_C3AM,
+>  	GATE_CCI,
+>  	GATE_CRC,
+>  	GATE_CRYP1,
+> @@ -249,6 +257,7 @@ enum enum_gate_cfg {
+>  	GATE_ETHSWMAC,
+>  	GATE_ETHSWREF,
+>  	GATE_FDCAN,
+> +	GATE_GPIOZC3,
+>  	GATE_GPU,
+>  	GATE_HASH,
+>  	GATE_HDP,
+> @@ -260,22 +269,35 @@ enum enum_gate_cfg {
+>  	GATE_I2C6,
+>  	GATE_I2C7,
+>  	GATE_I2C8,
+> +	GATE_I2C8AM,
+> +	GATE_I2C8C3,
+>  	GATE_I3C1,
+>  	GATE_I3C2,
+>  	GATE_I3C3,
+>  	GATE_I3C4,
+> +	GATE_I3C4AM,
+> +	GATE_I3C4C3,
+>  	GATE_IS2M,
+>  	GATE_IWDG1,
+>  	GATE_IWDG2,
+>  	GATE_IWDG3,
+>  	GATE_IWDG4,
+>  	GATE_IWDG5,
+> +	GATE_LPDMAC3,
+>  	GATE_LPTIM1,
+>  	GATE_LPTIM2,
+>  	GATE_LPTIM3,
+> +	GATE_LPTIM3AM,
+> +	GATE_LPTIM3C3,
+>  	GATE_LPTIM4,
+> +	GATE_LPTIM4AM,
+> +	GATE_LPTIM4C3,
+>  	GATE_LPTIM5,
+> +	GATE_LPTIM5AM,
+> +	GATE_LPTIM5C3,
+>  	GATE_LPUART1,
+> +	GATE_LPUART1AM,
+> +	GATE_LPUART1C3,
+>  	GATE_LTDC,
+>  	GATE_LVDS,
+>  	GATE_MCO1,
+> @@ -285,6 +307,7 @@ enum enum_gate_cfg {
+>  	GATE_PCIE,
+>  	GATE_PKA,
+>  	GATE_RNG,
+> +	GATE_RTCC3,
+>  	GATE_SAES,
+>  	GATE_SAI1,
+>  	GATE_SAI2,
+> @@ -303,6 +326,8 @@ enum enum_gate_cfg {
+>  	GATE_SPI6,
+>  	GATE_SPI7,
+>  	GATE_SPI8,
+> +	GATE_SPI8AM,
+> +	GATE_SPI8C3,
+>  	GATE_TIM1,
+>  	GATE_TIM10,
+>  	GATE_TIM11,
+> @@ -354,6 +379,10 @@ static const struct stm32_gate_cfg stm32mp25_gates[GATE_NB] = {
+>  	GATE_CFG(GATE_ADC12,		RCC_ADC12CFGR,		1,	0),
+>  	GATE_CFG(GATE_ADC3,		RCC_ADC3CFGR,		1,	0),
+>  	GATE_CFG(GATE_ADF1,		RCC_ADF1CFGR,		1,	0),
+> +	GATE_CFG(GATE_ADF1AM,		RCC_ADF1CFGR,		3,	0),
+> +	GATE_CFG(GATE_ADF1C3,		RCC_C3CFGR,		23,	0),
+> +	GATE_CFG(GATE_C3,		RCC_C3CFGR,		1,	0),
+> +	GATE_CFG(GATE_C3AM,		RCC_C3CFGR,		3,	0),
+>  	GATE_CFG(GATE_CCI,		RCC_CCICFGR,		1,	0),
+>  	GATE_CFG(GATE_CRC,		RCC_CRCCFGR,		1,	0),
+>  	GATE_CFG(GATE_CRYP1,		RCC_CRYP1CFGR,		1,	0),
+> @@ -378,6 +407,7 @@ static const struct stm32_gate_cfg stm32mp25_gates[GATE_NB] = {
+>  	GATE_CFG(GATE_ETHSWMAC,		RCC_ETHSWCFGR,		1,	0),
+>  	GATE_CFG(GATE_ETHSWREF,		RCC_ETHSWCFGR,		21,	0),
+>  	GATE_CFG(GATE_FDCAN,		RCC_FDCANCFGR,		1,	0),
+> +	GATE_CFG(GATE_GPIOZC3,		RCC_C3CFGR,		24,	0),
+>  	GATE_CFG(GATE_GPU,		RCC_GPUCFGR,		1,	0),
+>  	GATE_CFG(GATE_HASH,		RCC_HASHCFGR,		1,	0),
+>  	GATE_CFG(GATE_HDP,		RCC_HDPCFGR,		1,	0),
+> @@ -389,22 +419,35 @@ static const struct stm32_gate_cfg stm32mp25_gates[GATE_NB] = {
+>  	GATE_CFG(GATE_I2C6,		RCC_I2C6CFGR,		1,	0),
+>  	GATE_CFG(GATE_I2C7,		RCC_I2C7CFGR,		1,	0),
+>  	GATE_CFG(GATE_I2C8,		RCC_I2C8CFGR,		1,	0),
+> +	GATE_CFG(GATE_I2C8AM,		RCC_I2C8CFGR,		3,	0),
+> +	GATE_CFG(GATE_I2C8C3,		RCC_C3CFGR,		21,	0),
+>  	GATE_CFG(GATE_I3C1,		RCC_I3C1CFGR,		1,	0),
+>  	GATE_CFG(GATE_I3C2,		RCC_I3C2CFGR,		1,	0),
+>  	GATE_CFG(GATE_I3C3,		RCC_I3C3CFGR,		1,	0),
+>  	GATE_CFG(GATE_I3C4,		RCC_I3C4CFGR,		1,	0),
+> +	GATE_CFG(GATE_I3C4AM,		RCC_I3C4CFGR,		3,	0),
+> +	GATE_CFG(GATE_I3C4C3,		RCC_C3CFGR,		27,	0),
+>  	GATE_CFG(GATE_IS2M,		RCC_IS2MCFGR,		1,	0),
+>  	GATE_CFG(GATE_IWDG1,		RCC_IWDG1CFGR,		1,	0),
+>  	GATE_CFG(GATE_IWDG2,		RCC_IWDG2CFGR,		1,	0),
+>  	GATE_CFG(GATE_IWDG3,		RCC_IWDG3CFGR,		1,	0),
+>  	GATE_CFG(GATE_IWDG4,		RCC_IWDG4CFGR,		1,	0),
+>  	GATE_CFG(GATE_IWDG5,		RCC_IWDG5CFGR,		1,	0),
+> +	GATE_CFG(GATE_LPDMAC3,		RCC_C3CFGR,		25,	0),
+>  	GATE_CFG(GATE_LPTIM1,		RCC_LPTIM1CFGR,		1,	0),
+>  	GATE_CFG(GATE_LPTIM2,		RCC_LPTIM2CFGR,		1,	0),
+>  	GATE_CFG(GATE_LPTIM3,		RCC_LPTIM3CFGR,		1,	0),
+> +	GATE_CFG(GATE_LPTIM3AM,		RCC_LPTIM3CFGR,		3,	0),
+> +	GATE_CFG(GATE_LPTIM3C3,		RCC_C3CFGR,		16,	0),
+>  	GATE_CFG(GATE_LPTIM4,		RCC_LPTIM4CFGR,		1,	0),
+> +	GATE_CFG(GATE_LPTIM4AM,		RCC_LPTIM4CFGR,		3,	0),
+> +	GATE_CFG(GATE_LPTIM4C3,		RCC_C3CFGR,		17,	0),
+>  	GATE_CFG(GATE_LPTIM5,		RCC_LPTIM5CFGR,		1,	0),
+> +	GATE_CFG(GATE_LPTIM5AM,		RCC_LPTIM5CFGR,		3,	0),
+> +	GATE_CFG(GATE_LPTIM5C3,		RCC_C3CFGR,		18,	0),
+>  	GATE_CFG(GATE_LPUART1,		RCC_LPUART1CFGR,	1,	0),
+> +	GATE_CFG(GATE_LPUART1AM,	RCC_LPUART1CFGR,	3,	0),
+> +	GATE_CFG(GATE_LPUART1C3,	RCC_C3CFGR,		20,	0),
+>  	GATE_CFG(GATE_LTDC,		RCC_LTDCCFGR,		1,	0),
+>  	GATE_CFG(GATE_LVDS,		RCC_LVDSCFGR,		1,	0),
+>  	GATE_CFG(GATE_MCO1,		RCC_MCO1CFGR,		8,	0),
+> @@ -413,6 +456,7 @@ static const struct stm32_gate_cfg stm32mp25_gates[GATE_NB] = {
+>  	GATE_CFG(GATE_OSPIIOM,		RCC_OSPIIOMCFGR,	1,	0),
+>  	GATE_CFG(GATE_PCIE,		RCC_PCIECFGR,		1,	0),
+>  	GATE_CFG(GATE_PKA,		RCC_PKACFGR,		1,	0),
+> +	GATE_CFG(GATE_RTCC3,		RCC_C3CFGR,		26,	0),
 
-This is just as bad as the exported symbol, as it creates a cross-module dependency
-which I would strongly prefer to avoid. Given that this is actually suggested
-in the guidance for auxiliary drivers (shiver), lets just keep the EXPORT_SYMBOL_NS
-approach after all.
+In enum_gate_cfg, GATE_RTCC3 comes after GATE_RNG, but here it is
+placed before GATE_RNG. Keep the same order.
 
-Guenter
+>  	GATE_CFG(GATE_RNG,		RCC_RNGCFGR,		1,	0),
+>  	GATE_CFG(GATE_SAES,		RCC_SAESCFGR,		1,	0),
+>  	GATE_CFG(GATE_SAI1,		RCC_SAI1CFGR,		1,	0),
+> @@ -432,6 +476,8 @@ static const struct stm32_gate_cfg stm32mp25_gates[GATE_NB] = {
+>  	GATE_CFG(GATE_SPI6,		RCC_SPI6CFGR,		1,	0),
+>  	GATE_CFG(GATE_SPI7,		RCC_SPI7CFGR,		1,	0),
+>  	GATE_CFG(GATE_SPI8,		RCC_SPI8CFGR,		1,	0),
+> +	GATE_CFG(GATE_SPI8AM,		RCC_SPI8CFGR,		3,	0),
+> +	GATE_CFG(GATE_SPI8C3,		RCC_C3CFGR,		19,	0),
+>  	GATE_CFG(GATE_TIM1,		RCC_TIM1CFGR,		1,	0),
+>  	GATE_CFG(GATE_TIM10,		RCC_TIM10CFGR,		1,	0),
+>  	GATE_CFG(GATE_TIM11,		RCC_TIM11CFGR,		1,	0),
+> @@ -518,6 +564,77 @@ static struct clk_stm32_gate ck_ker_adf1 = {
+>  	.hw.init = CLK_HW_INIT_INDEX("ck_ker_adf1", FLEXGEN_42, &clk_stm32_gate_ops, 0),
+>  };
+>  
+> +static struct clk_stm32_gate ck_ker_adf1_am = {
+> +	.gate_id = GATE_ADF1AM,
+> +	.hw.init = CLK_HW_INIT_HW("ck_ker_adf1_am", &ck_ker_adf1.hw, &clk_stm32_gate_ops, 0),
+> +};
+> +
+> +/* C3 */
+> +static struct clk_stm32_gate ck_cpu3 = {
+> +	.gate_id = GATE_C3,
+> +	.hw.init = CLK_HW_INIT_INDEX("ck_cpu3", ICN_LS_MCU, &clk_stm32_gate_ops, 0),
+> +};
+> +
+> +static struct clk_stm32_gate ck_cpu3_am = {
+> +	.gate_id = GATE_C3AM,
+> +	.hw.init = CLK_HW_INIT_HW("ck_cpu3_am", &ck_cpu3.hw, &clk_stm32_gate_ops, 0),
 
+Should these two clocks have CLK_IGNORE_UNUSED? set?
+
+Brian
+
+-- 
+Brian Masney <masneyb@kernel.org>
