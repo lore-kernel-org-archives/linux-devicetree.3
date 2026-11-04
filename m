@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.83.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793763240;
-	b=ToBYJ5MkfHdXgTctqW82eNFNPM2pNW3gjgHcGlRKHQJkH2OJWNLHKtimo/j/54XtQBhT
-	 SI4MM1ABkE0Gt7DsjYWXP5e96q1vun+UcD6gGlQ6Qioa6wE6uaf9kqmRxjG8kSPxovHX/
-	 TGk5DbK8Qr5OuzCYI1mI0W7nJpcwg4nzXwjhjs8au5lRSqUInEIRktEAJ79R/iitgD36j
-	 kB0rg+6BE9HOJfhw0OHSCfPdPE4VNIFEuZPImek/BdxSxAi8sDkMdmrHnpJ5vQ5GTLa6m
-	 TupWXiYNJX5U7WuXo1DHyRdM/JdbK+OqmYyCIjU7V4rua/Yry07Coy6hY49OX1+UjpA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763240;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=HZpxqQ27CgLlc6gGXPJH+JRCjxgBupNXWZLzMDDqkp0=;
-	b=XRSoPXL5XiIOoB+R0pwN94TsJ0PbGfYzxFbnCkSOrZcSqeIKNZ1bhN1OWmI1GNxk/ZPo
-	 ZIsrRTivoRK/2g6l3EsBmljIRPMhFhNaC3Lk/la28p5V+k4NFkVoDSFppHA0oXl+Urr8s
-	 +/h3mgdRI4FF7pe0QSIt1h5Lb/ea8gTonBVHhfet1NEKbatZIX/BLFF436vWdNkfUpdVC
-	 aXvsp/X9FVFw+nTJOHIgWjQR5HzT8WT3pUBU59ily+5EAASdagNnikRI+Ik+5ZNrhbA/v
-	 b6+r4oeAFqZsFszwh1cQGfbAvOKlrjZAOBNPa8kNRZ4xX69T+8gljQkvexCt39iaZ7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="GvA7sn/+";
-	arc=fail smtp.remote-ip=52.101.83.71
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013071.outbound.protection.outlook.com [52.101.83.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793763536;
+	b=Yp7/0kvIjodRUpN2WurpwlzXhaR+Qt0dzaqkA2m1DfIiBfqXO8ZkbaUozbcoX2kDQYmd
+	 i17TRavGlPrw+xR1+SLfROPcU6iDCLiyUK7kEKD9wrmZ28scdcu3JPM4bFVA0p9bBXRvz
+	 +to+IGDREYITyu0UUrEpZb3pCL4J5W25aNtciPVKSLVH7FUu+moE0Y+AdyJVlnKhLwECe
+	 y/bGojeWmIA9Jx+2XAlcJdohUcB7UblugiRhYrSxK9jLF3BSYZfwp86nTH5+69NPyyCdW
+	 opazS0tNPOCCIZZEjAeRav3l8pASutF63vRFimz0xEyapl006lfeZ1upegveviJWmNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763536;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=SwAKSeXNfc2+XjvA2jErPYJH8LVIp2vkgrI+L0V6HEI=;
+	b=PweyQP/T6DRul4Yr8dzQsSHjOce6nmbBNNxLpjPZbmYfpKr208Eay7wbE3xxyWBG3Svr
+	 HOxkTJBQuC7bLk1y3DmmeTQjvw1LMJFJsZwlPMs2otwl2omDOr1RK7GyiUJDccvta/VDS
+	 fndl0q2LlTQZWuIZqUZyYE3uVL5HxVek79LA+HPYuYbIzekUDxAr4V74jTZeqkHnmkDyQ
+	 fQl7/QBdQsK1NJccRgVaLNc1eVGKkXD46HGgmzfpHl7KK+zqt+6KitGAijwGVS/1RJbMj
+	 IhldZ972vtbVXTSX8xuhSegkYQGsW0Sl+0z3NfFIztwwF+2xvqiUxFmiw/s08rN8TwQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9Ams4Ig;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FA1606A31B;
-	Wed,  4 Nov 2026 03:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FA1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1FB606A338
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 03:38:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=GvA7sn/+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IySKAncn68ZL8F7+UUn2iYlGuZ8jIL0PjAGfqouuf6hq33813ufrS0C4A3b4mbyiUVGfNmzraNQ+7bqKy7KNXSusmRkkRYO8Oa8gcWiqqFp+hu2UCCYveJC+cZrIszPPMF0EhBAQbz0MJuM+6pikuHqiqctICz7pwv4eOJS96R9wlFznO6lM4eplVsSVfkDlEEvxTEB2KaRuItGaAU02ezf2ij805Xk/1UdbyqEcxS0wz6AzClM0eIi/G7KTjtqlwRnjmLOSV2MeZMUwgCBBFuRT9o0DzuZ92n/gB+Ua+okD/s7QV0t6i774uReYmX8XO1wl0RP4YGyE6yh7PtbunQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HZpxqQ27CgLlc6gGXPJH+JRCjxgBupNXWZLzMDDqkp0=;
- b=BRVSj7TuSbx60OSX8+wsCRzzSVE0sCNOFyL2aF/XQu8aNhJOECNZ0+0/EjQoOID+MLsK4oiu8LoQ+igpGUkINUmrccOBqSy9xxdwLc6NUTpVyeP33SfsWu5cU0hWrIHkNZ0tN3MlLRmvylSij/WpzztEuZiYYUfo6stVon6udJdzaAvJevS5fgQvH0FvN4lb9dyLZi8IdEyMdb9URyY7WYGQa/rGUKNtbY8EZ1rJxgzGVG+NhqPjd1XUTXYFa+2Ui52XIqd7ywTuuSBPpoCWq/8FXTmUUYCvE3XSKZDwcqnC3hMXoeEs4ROjHogosAYv/JX8sEIVojk+TGJ2Kfbz6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HZpxqQ27CgLlc6gGXPJH+JRCjxgBupNXWZLzMDDqkp0=;
- b=GvA7sn/+wjUVF7umaKyYhzB9oZSxmcYVxohpGFzQ/asCtEcLlY1aAmbfcZ+kTP0mo2/KoXts9GmrRNWUtB/4HyvrTjJChUS8Emgh5OWNC3VQrA4xZC7BIISCOdnvGLWrJP0Mm08ZamLI+k5lAFTrbZuJwTK23aHXHj6e+4A6T3clUdVINAiNN11eiT+XuO/nt8FHm5P5DvozQN20X1TNwpxcPI9EHfFCm3D7saFGzFpCloGDS/dGhqwPZfwwABeqOKUQbsrSwAWFKRlHpla+W96PmN8ELtAtn23IPPczZdH+hkze6Y7rZWJgkvNdRHcMCHf3K28uAvm98mQEPRxvBQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DBBPR04MB7868.eurprd04.prod.outlook.com (2603:10a6:10:1f1::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 03:33:56 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 03:33:56 +0000
-Date: Tue, 3 Nov 2026 21:33:46 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: connector: Add fsl,aud-io-slot
- binding
-Message-ID: <auqnmulXoW-iFYJI@SMW015318>
-References: <20261103070433.2307145-1-chancel.liu@oss.nxp.com>
- <20261103070433.2307145-2-chancel.liu@oss.nxp.com>
- <aun9Hj1Ypc_xSYtL@SMW015318>
- <5815460c-f8f7-48d6-a0f2-3ed56e20bba7@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5815460c-f8f7-48d6-a0f2-3ed56e20bba7@oss.nxp.com>
-X-ClientProxiedBy: PH8P221CA0056.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:349::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9Ams4Ig
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489491F0093A;
+	Wed,  4 Nov 2026 03:38:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793763535;
+	bh=SwAKSeXNfc2+XjvA2jErPYJH8LVIp2vkgrI+L0V6HEI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=C9Ams4Ig7t1XpFD/82LzY8PYq06koGfBR+kPQCxop/ni36kOeoSI/tPJpczjUBe5L
+	 EqcTUeFltiOErP9EeX6DE+gWOUOtL1OBzVYYfOuzAF+Y+etV5MD9/cUBGtOEsrR6N6
+	 bKM1UWvVfTE4mjmTLVLZdSid+URiNWlgXZKT3yEEGr363CRJYI4xM2EZ42QGa4x8Sl
+	 xJOc9lWLZtrlbOGyzwe+T1UdbYhTI55tdpklmZG3UYZCuumIc4HunOfVvwkmpPvUT0
+	 wFSHNyEQuYwrSKRBd2OTbeMnIiJG6PIaIK7plCvwgJ2Enp80gamlE2zE4gLyLT4r+M
+	 4VXaX0A2+fl8g==
+Message-ID: <sashiko-outbox-196615@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/5] regulator: willsemi,wl2868c: add the WL2868C
+ camera PMIC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104032648.209747-3-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261104032648.209747-3-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 03:38:51 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -101,193 +60,237 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBBPR04MB7868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64662fed-f9b7-4583-0185-08df3a247483
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|19092799006|11063799006|4143699003|56012099006|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	3TnPq5X5SiQVvp9Iywv38VrZfrYvpOTUCZGUIQ3DlovCzuYSrVSvSnMITW9Mk2jxJfWH08LUuneRNRpv+3Pb7CmRcTrHkdwRAXyr7yhE5aexjUhylI8h17cL4Q3F/gfWQNwAcC6DBdPgoHS2MkhloG4ru3zImm/A9Lty2q/ehT0vWJJMTu0+NY8MSj93b1UQ24O0uU5MkuRotuwlGHA0T1n6fWToprjZJ8EbN1TVuvgdoPlFKUroDvwcBRwrWEAYhpmi8VYHjYGU8K2Z1kK/iawKz43QYHnKKEbWsu8k3HUz2s3wTB1dF+cTs0s8Q2v/b/gwEZNnJDd9XEwf83URIsU2727dggp32eO8jpnt9799jfkr/d+bFK0Zz2cHHkJJc6Lyi60CsNdAxXw48hNgTc5VMuGV7kA30+8pODLynn1DaU0DWe5Q1TCoY0J7L/2CZ+AJd8jrJFKRLdRSCExGNz+vkW6gYRYQZKvhiHtwpzpdfgAE2eWfqptg/YmRFfyQX8EHtYkw498IciYnxcCoorwVJ7BIIUN8m35Heo+bqI/jEkjHTqHFHnSXHXV8YX4bvFE7oVkuRWZvYBIoXAZAOKcgz6s8Tl0EoI3IU9w7emAgiXvs00b0OAb3FMca4j7z
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(19092799006)(11063799006)(4143699003)(56012099006)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?y7p988niKBm3+s92K28meIirz5OhEc3I4moKSp3V59yJUhgBrZLZKeXOW7m7?=
- =?us-ascii?Q?nHzyh2vwWMEr+A/Eo22BioDoKW3TwcGTSPXCN7tzaJAG3vK3bMHS/ebzbPZ6?=
- =?us-ascii?Q?XSK8Tg/jtVrXpuX2222sfQybBv+3UemZLyD5hHwFpo+Ux6cmlKNmQLkwIr9P?=
- =?us-ascii?Q?n0XHMpkD/fjrrkXpgSDAzhltGcRevqfxMGuinQWn9Z1W1i1NLNlNWcLwlgxw?=
- =?us-ascii?Q?llwk8nYIcefN6Ip6iG8nQCXg/lCaTwjyb7OdE3IH3fMgbY7OQJ+V49A5fnam?=
- =?us-ascii?Q?XMmBEZU37nwh3AMjY3YT+7H9aPpk37x9kbSYO7HvN4sYhffnAhlUSzuBMBA8?=
- =?us-ascii?Q?xSkEOgDitguOW5gRjM5HlZre1V6DR5G8B/y1j0UlPXoQ7vgWDI34hDKW/f3X?=
- =?us-ascii?Q?njAxc8Dc6u2K/+VX2bi3GZLPUBsQHZtq/pg9UK2LMz5KRLx9+cUbsFEx/dLE?=
- =?us-ascii?Q?CpLWyxEUB7wnH72GTNdQ7HiJaT27EyPgGDkqem1UCMp0dkCeWx0c0rTC5qhX?=
- =?us-ascii?Q?NjJC5RaczFdeyqGmDXO/qL+PUsuRPvsIqV8za2ZseRoL1jMYBWr6P6Sht5ev?=
- =?us-ascii?Q?gnY8HtYF/W2PnVsau1R6cSQnhfvx0R5HYeaGAxXU9BLgpR73UKWtrLOlvPFu?=
- =?us-ascii?Q?Mcwa01lBnjczzSdS7/ub3M8FzQuJSEmE8mxm/x4CJ9Nh/bykHcJe+WaXB/Zo?=
- =?us-ascii?Q?4R2DxmR14oBLp/h0eHVGN0oA0grXJNxaxk9zpXksKxJaMCc4JSMokXODuOTu?=
- =?us-ascii?Q?NYYjikzOu+8Zz6RP/u7R2ejj519l7RcfMOOWJPouhIlF/ISexk++Ay7ONY+4?=
- =?us-ascii?Q?b38t1/lBmoQ97JKL0OKOya6unNhtDjMkoPDD22wiGhkNy7lQyVvYbnOgkEfO?=
- =?us-ascii?Q?wlXE7/ObdwvFoU7/gW+/2oz/QL7qkbNDTd62nWUZX0f/0ZB0aH5FI3ryk0Hb?=
- =?us-ascii?Q?2qc/Iz8nnZMfC9RRVePTlLlnkYZk5qDVAzdaeEnistTIuIq3dONH1qY3JZuH?=
- =?us-ascii?Q?B9E5Fsxa3ryH6zSgwatu8StqkpU8vA9+09y9QnCre+lwfJwqGURw05Ps+hVW?=
- =?us-ascii?Q?9o6zn1xaijHLigqjJW8x0uw+h9XbYkTxv1sU+6deMnwwb5GzLfznDvOhBZTq?=
- =?us-ascii?Q?gublEqJk1bUDFANkGgQ/JY5AQXJDar3HC6+ssumk55gJgwkYqr3OSAV6Gu+g?=
- =?us-ascii?Q?VSa8njUN/9K3Y18lResVwDYn4iSdbPvdL2nbOnm5NqJHIRmu8CY71lj2T8IN?=
- =?us-ascii?Q?Aj3y1I5K9m3mNNdKsQjjqs4rG8vF6S46FP14QUCATqBMGukc7Ic5ducbjjAL?=
- =?us-ascii?Q?xrqNaKQ4ClfHEriA6DxDePecQYevI0s7kxUoFNjiuSJmQA73bJy5lE1oVDTm?=
- =?us-ascii?Q?dfJei+/gvxKnqEMsURgQGtWdcuN74URyFg212zYK9v6FVLpE+ABnCrM/GO92?=
- =?us-ascii?Q?CnYqALK05FUy/PdMsP2JoL/2mEmF3MhSdyMrkQqNv59Ydw9mE+Q+qU6/CqaD?=
- =?us-ascii?Q?xt2oSK0RFUrC7ZlivH6W8r0XQdEKTbaGA3djiDgPXRcau0hOVr8AvVeD14n5?=
- =?us-ascii?Q?IZqqYqXXeRt7LRqVr5zXknJC50gJ6TvP3wWw9q8gBnZ+uIkrd0zGZydXZ5r3?=
- =?us-ascii?Q?hb/FBL1EAoUl1nn0Bxukyr6O6w/aRZoGv5T5JkY2Cv7WRyCtBcI/YF3qKRuf?=
- =?us-ascii?Q?oj6mxtXm76yEhGB/k16taQGZ+cBN+lSCzeRzAZLYKYbpMOoZD6+xQ5pOR8QH?=
- =?us-ascii?Q?bOtgZgVmDdfGIWDv3DNCd8olhEHIN5honwsT1ZcUq6Hsv7t1fz6c?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64662fed-f9b7-4583-0185-08df3a247483
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 03:33:55.9977
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +f06lhOZJbJyoVminBGSB62YGTvpVn81RuEVfrEWkjM0xhBdppxfkIG6307ZUw3QEwuJmxa18ChHnXNL2eI60uEcdEVWHdDakgNKow1W8nK4FL4cde64ZfpX061P7Mmj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7868
 
-On Wed, Nov 04, 2026 at 10:13:30AM +0800, Chancel Liu wrote:
-> >> +properties:
-> >> +  compatible:
-> >> +    oneOf:
-> >> +      - items:
-> >> +          - enum:
-> >> +              - fsl,imx952-evk-aud-io
-> >> +          - const: fsl,imx95-19x19-evk-aud-io
-> >> +      - const: fsl,imx95-19x19-evk-aud-io
-> >> +
-> >> +  gpio-controller: true
-> >
-> > I remember Rob said needn't gpio-controller if gpio-map exist
-> >
->
-> gpio-controller is really confusing in such nexus node. However if
-> remove this property, dt_binding_check reports:
-> linux-next/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml:
-> properties: 'gpio-controller' is a dependency of '#gpio-cells'
->         from schema $id: http://devicetree.org/meta-schemas/gpios.yaml#
->
-> Based on Rob's explanation:
-> https://lore.kernel.org/all/20260918192012.GA1465432-robh@kernel.org/
-> that a controller property and its corresponding map are mutually
-> exclusive, I think interrupt-controller should be dropped as well.
->
-> >> +
-> >> +  '#gpio-cells':
-> >> +    const: 2
-> >> +
-> >> +  gpio-map:
-> >> +    minItems: 1
-> >> +    maxItems: 3
-> >> +
-> >> +  gpio-map-mask:
-> >> +    items:
-> >> +      - const: 0xf
-> >> +      - const: 0x0
-> >> +
-> >> +  gpio-map-pass-thru:
-> >> +    items:
-> >> +      - const: 0x0
-> >> +      - const: 0x1
-> >
-> > I think you should pass thru whole u32 0xffffffff in case GPIO add
-> > new flags in future.
-> >
->
-> I found this was also been clarified by Rob:
-> https://lore.kernel.org/all/20260918192012.GA1465432-robh@kernel.org/
-> Okay. I will use 0xffffffff to match the GPIO index exactly and to pass
-> through the entire GPIO flags cell.
->
-> >> +
-> >> +  '#clock-cells':
-> >> +    const: 1
-> >> +
-> >> +  clock-map:
-> >> +    minItems: 1
-> >> +    maxItems: 2
-> >> +
-> >> +  '#address-cells':
-> >> +    const: 0
-> >
-> > There are not child node, why need #address-cells?
-> >
->
-> Otherwise:
-> Documentation/devicetree/bindings/connector/fsl,aud-io-slot.example.dts:20.19-32.11:
-> Warning (interrupt_map): /example-0/connector: Missing '#address-cells'
-> in interrupt-map provider
->
-> >> +
-> >> +  interrupt-controller: true
-> >> +
-> >> +  '#interrupt-cells':
-> >> +    const: 2
-> >> +
-> >> +  interrupt-map:
-> >> +    minItems: 1
-> >> +    maxItems: 2
-> >> +
-> >> +  interrupt-map-mask:
-> >> +    items:
-> >> +      - const: 0xf
-> >> +      - const: 0x0
-> >> +
-> >> +allOf:
-> >> +  - $ref: /schemas/gpio/gpio-nexus-node.yaml#
-> >> +  - $ref: /schemas/clock/clock-nexus-node.yaml#
-> >> +
-> >> +required:
-> >> +  - compatible
-> >> +  - gpio-controller
-> >> +  - '#gpio-cells'
-> >> +  - gpio-map
-> >> +  - gpio-map-mask
-> >> +  - gpio-map-pass-thru
-> >> +
-> >> +additionalProperties: false
-> >> +
-> >> +examples:
-> >> +  - |
-> >> +    #include <dt-bindings/interrupt-controller/irq.h>
-> >> +
-> >> +    connector {
-> >> +      compatible = "fsl,imx95-19x19-evk-aud-io";
-> >> +      gpio-controller;
-> >> +      #gpio-cells = <2>;
-> >> +      gpio-map = <0 0 &gpio1 8 1>;
-> >> +      gpio-map-mask = <0xf 0x0>;
-> >> +      gpio-map-pass-thru = <0x0 0x1>;
-> >> +      #clock-cells = <1>;
-> >> +      clock-map = <0 &clk 1>;
-> >> +      #address-cells = <0>;
-> >> +      interrupt-controller;
-> >> +      #interrupt-cells = <2>;
-> >> +      interrupt-map-mask = <0xf 0x0>;
-> >> +      interrupt-map = <0 0 &gpio2 27 IRQ_TYPE_LEVEL_LOW>;
-> >                                                           ^  missed count?
->
-> Sorry I don't understand what you mean by "missed count". With
-> #interrupt-cells = <2>, I understand the two cells before &gpio2 to be
-> the child interrupt specifier, while the two cells after it are the
-> parent interrupt specifier. Could you please clarify which cell is missing?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] regulator: wl2868c: uninitialized chip->enabled in wl2868c_probe=
+()
+- [Medium] regulator: wl2868c: missing vsys-supply enable in wl2868c_probe()
+- [Medium] regulator: wl2868c: premature state update in wl2868c_disable()
+--
 
-forget it. I confused with msi-map.
+commit 43e6bd60d4f6c3f0ce8478df036a5927be90da6e
+Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-Frank
+regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
 
->
-> Regards,
-> Chancel Liu
->
+This commit adds a regulator driver for the Will Semiconductor WL2868C I2C
+camera power management IC supporting its seven LDO outputs.
+
+> diff --git a/drivers/regulator/wl2868c-regulator.c b/drivers/regulator/wl=
+2868c-regulator.c
+> new file mode 100644
+> index 0000000000000..35bcdc3971eca
+> --- /dev/null
+> +++ b/drivers/regulator/wl2868c-regulator.c
+> @@ -0,0 +1,212 @@
+
+[ ... ]
+
+> +static int wl2868c_disable(struct regulator_dev *rdev)
+> +{
+> +	struct wl2868c *chip =3D rdev_get_drvdata(rdev);
+> +	unsigned int bits =3D rdev->desc->enable_mask;
+> +	unsigned int ldos;
+> +
+> +	guard(mutex)(&chip->lock);
+> +
+> +	chip->enabled &=3D ~bits;
+> +
+> +	/*
+> +	 * SYS_EN stays set while at least one output is enabled; the per-LDO
+> +	 * bits of the other outputs stay clear so that setting it cannot
+> +	 * switch anything else on.
+> +	 */
+> +	ldos =3D chip->enabled & WL2868C_LDO_ENABLE_MASK;
+> +
+> +	return regmap_write(chip->regmap, WL2868C_LDO_ENABLE,
+> +			    ldos ? WL2868C_SYS_ENABLE | ldos : 0);
+> +}
+
+[Severity: Medium]
+If regmap_write() fails in wl2868c_disable(), does chip->enabled get out
+of sync with both the hardware and the regulator core?
+
+In wl2868c_enable(), chip->enabled |=3D bits is only updated after
+regmap_write() succeeds. Here in wl2868c_disable(), chip->enabled &=3D ~bits
+is cleared before calling regmap_write().
+
+When ops->disable() returns a negative error code in _regulator_disable():
+
+drivers/regulator/core.c:_regulator_disable() {
+    ...
+    ret =3D _regulator_do_disable(rdev);
+    if (ret < 0) {
+        rdev_err(rdev, "failed to disable: %pe\n", ERR_PTR(ret));
+        _notifier_call_chain(rdev,
+                REGULATOR_EVENT_ABORT_DISABLE,
+                NULL);
+        return ret;
+    }
+    ...
+    rdev->use_count =3D 0;
+}
+
+the regulator core aborts the disable and keeps rdev->use_count at 1 while
+the LDO remains enabled in hardware, but chip->enabled has already lost
+that LDO's bit. A subsequent wl2868c_enable() or wl2868c_disable() on
+another LDO will then overwrite WL2868C_LDO_ENABLE with that bit cleared,
+shutting off the still-enabled output.
+
+Should chip->enabled only be updated after regmap_write() succeeds,
+matching wl2868c_enable()?
+
+> +
+> +static int wl2868c_is_enabled(struct regulator_dev *rdev)
+> +{
+> +	unsigned int mask =3D WL2868C_SYS_ENABLE | rdev->desc->enable_mask;
+> +	unsigned int value;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(rdev->regmap, WL2868C_LDO_ENABLE, &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return (value & mask) =3D=3D mask;
+> +}
+
+[ ... ]
+
+> +static const struct regulator_desc wl2868c_regulators[] =3D {
+> +	WL2868C_LDO(1, "vin12", 496000, 128, 0x03, 0x7f, BIT(0)),
+> +	WL2868C_LDO(2, "vin12", 496000, 128, 0x04, 0x7f, BIT(1)),
+> +	WL2868C_LDO(3, "vin34", 1504000, 256, 0x05, 0xff, BIT(2)),
+> +	WL2868C_LDO(4, "vin34", 1504000, 256, 0x06, 0xff, BIT(3)),
+> +	WL2868C_LDO(5, "vin5", 1504000, 256, 0x07, 0xff, BIT(4)),
+> +	WL2868C_LDO(6, "vin6", 1504000, 256, 0x08, 0xff, BIT(5)),
+> +	WL2868C_LDO(7, "vin7", 1504000, 256, 0x09, 0xff, BIT(6)),
+> +};
+
+[ ... ]
+
+> +static int wl2868c_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct regulator_config config =3D { .dev =3D dev };
+> +	struct regulator_dev *rdev;
+> +	struct gpio_desc *reset;
+> +	struct wl2868c *chip;
+> +	unsigned int id;
+> +	int ret, i;
+> +
+> +	chip =3D devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
+> +	if (!chip)
+> +		return -ENOMEM;
+> +
+> +	mutex_init(&chip->lock);
+> +	config.driver_data =3D chip;
+> +
+> +	reset =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset GPIO\n"=
+);
+> +
+> +	if (reset) {
+> +		ret =3D devm_add_action_or_reset(dev, wl2868c_reset, reset);
+> +		if (ret)
+> +			return ret;
+> +		fsleep(1000);
+> +	}
+> +
+> +	chip->regmap =3D devm_regmap_init_i2c(client, &wl2868c_regmap_config);
+> +	config.regmap =3D chip->regmap;
+> +	if (IS_ERR(config.regmap))
+> +		return dev_err_probe(dev, PTR_ERR(config.regmap),
+> +				     "Failed to create regmap\n");
+> +
+> +	ret =3D regmap_read(config.regmap, WL2868C_DEVICE_ID, &id);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to read device ID\n");
+
+[Severity: Medium]
+Does wl2868c_probe() need to request and enable vsys-supply (or the
+control logic supply) before accessing the chip over I2C?
+
+Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml defines
+vsys-supply and notes that the internal control logic is powered from the
+higher of VIN7 and VSYS, requiring at least one of vin7-supply or
+vsys-supply.
+
+However, vsys-supply is never requested or enabled by the driver, and
+vin7-supply is only registered as the supply_name for LDO7. On systems
+where the control logic is powered by a switchable vsys-supply (or
+vin7-supply when LDO7 is not enabled), the chip may not be powered when
+regmap_read() reads WL2868C_DEVICE_ID in wl2868c_probe(), or
+regulator_late_cleanup() may disable an unclaimed vsys-supply while LDO1
+through LDO6 are in use.
+
+> +	if (id !=3D WL2868C_DEVICE_ID_VALUE)
+> +		return dev_err_probe(dev, -ENODEV, "Unexpected device ID: %#x\n", id);
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(wl2868c_regulators); i++) {
+> +		rdev =3D devm_regulator_register(dev, &wl2868c_regulators[i], &config);
+> +		if (IS_ERR(rdev))
+> +			return dev_err_probe(dev, PTR_ERR(rdev),
+> +					     "Failed to register LDO%d\n", i + 1);
+> +	}
+
+[Severity: Medium]
+What happens if WL2868C_SYS_ENABLE and one or more LDO bits are already
+set in WL2868C_LDO_ENABLE when wl2868c_probe() runs (for example, when the
+optional reset GPIO is not present or was already deasserted by the
+bootloader)?
+
+In wl2868c_probe(), chip->enabled starts at 0, whereas
+wl2868c_is_enabled() reads WL2868C_LDO_ENABLE directly from the hardware
+and returns 1 for any LDO that is already active alongside
+WL2868C_SYS_ENABLE.
+
+When a consumer calls regulator_enable() on a boot-enabled LDO,
+_regulator_enable() checks _regulator_is_enabled(rdev):
+
+drivers/regulator/core.c:_regulator_enable() {
+    ...
+    if (rdev->use_count =3D=3D 0) {
+        /* The regulator may on if it's not switchable or left on */
+        ret =3D _regulator_is_enabled(rdev);
+        if (ret =3D=3D -EINVAL || ret =3D=3D 0) {
+            if (!regulator_ops_is_valid(rdev,
+                    REGULATOR_CHANGE_STATUS)) {
+                ret =3D -EPERM;
+                goto err_consumer_disable;
+            }
+
+            ret =3D _regulator_do_enable(rdev);
+            if (ret < 0)
+                goto err_consumer_disable;
+
+            _notifier_call_chain(rdev, REGULATOR_EVENT_ENABLE,
+                         NULL);
+        } else if (ret < 0) {
+            ...
+        }
+    }
+
+    rdev->use_count++;
+    ...
+}
+
+Because wl2868c_is_enabled() returns 1, _regulator_enable() skips calling
+_regulator_do_enable() -> wl2868c_enable() and increments rdev->use_count
+to 1 while that LDO's bit remains 0 in chip->enabled.
+
+When any other LDO is subsequently enabled in wl2868c_enable() or disabled
+in wl2868c_disable() (including regulator_late_cleanup() turning off an
+unused LDO), the driver writes WL2868C_LDO_ENABLE from chip->enabled and
+clears the boot-enabled LDO's bit while its consumer is actively using it.
+Similarly, if multiple LDOs are already enabled at boot and marked
+regulator-always-on or regulator-boot-on, registering the first one calls
+wl2868c_enable() with chip->enabled =3D=3D 0 and powers off the others.
+
+Should wl2868c_probe() initialize chip->enabled from WL2868C_LDO_ENABLE
+when WL2868C_SYS_ENABLE is already set?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104032648.2097=
+47-1-xiaqinghuan@mail.ustc.edu.cn?part=3D2
