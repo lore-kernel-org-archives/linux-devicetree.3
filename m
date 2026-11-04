@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778873;
-	b=ME/eBRpyLEyAg+DA5BKzsoHaEll+QLAj9PuAKdkN8qASZNETe/wrYcZrTJ4g8QIYfUhD
-	 LvSbUsbvcDoC58PsnFIWSPb8n84FlknU/JfMF5qLCw6//XfKqqKtP8OhduSmAibsAHs8H
-	 5Wz7F5vv9yXZvxJQ1FuUd2V+UYIxU3mjubCwargdOg5FVuVy4CJRTrVSOvst91U3V09Yy
-	 N8js5aC5ydbAOxAXC/L8kyjWEvHLfZEU+pPYkfc2Jb6XkMSGPObOVZV5rvpmCbgt8NJPP
-	 Gwa67AyXUow+R+BSn1puV4DTmkGdfbEA8DXFkwbq2GHTIIp48Nw8Ci8pjG10E8htQug==
+	t=1793778922;
+	b=rJR84yVi7QjW6pKfp71apJI1QEF0cDMmRkemRvT7/ibd4SjIEfTODdRBQeTPQtXP6EPt
+	 qTzXWmO7L3VPxM7tiv4Bt7SBlMFRMAUoRzUH2emU2++HdQ6OP9RyvUry3fEjgimuItr5Z
+	 aaP6WWlL8peeKvx7qDyg8OuSKNlhr30KDEf628WLXEBhzy1KgucPydgxRdYOCAgz+eCAc
+	 I9rtYr28fexQGzIOwN0E6NPWb8G02g7wZtiqPsdnFZuLwnMFc1mKOGnPbxrKdhoTgXeFP
+	 2udH8QBm9GGy6HFhkHVhQss4EfD+RBDjB9ykXLPZPrmXwf1q+fPq4Gk3wo5eSKB+Qmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778873;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bMhQ8DbH8YprQQtk+DeoV/O9noCHpNTfYAfjMaX8Kxs=;
-	b=s8hzGrJovk4Lewt+8BHeNMwESPsUWPyhRNZxH7366rgzE4QgpGuqEwXDILnHUAMx9Son
-	 mU0t7GCNd1Q1HZRrFpGi1qW3VVcT+4C7HV2ISSVe8/1lPdxltH1p2dkh5au+uURoRLzod
-	 eh3+CIUijaKbaJ/4/R+1sxVLHj3wyklxpeV3RsIvxjN20VicyiIqzs0U2+Ns9IQ1qB0Tp
-	 +qvlYReMS7FFM9bemWZpVooRpxDA08FjbjLcnndsTtWUqFxo0tyzEQhuPngSPP4/4vUCw
-	 b0l3IJsZRiFyTazWfNgOiL3W+WOiVES/zN7igXn1BpaPeLsgQpFN22Vp4JZw78KdAdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778922;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=BiD2iT1S2BZCzUM56UymswLPef8+m8/elGiVUqIMfAI=;
+	b=RNKzVKztnnkyoyCgFS+SiOHR+VcNV/b0JHMWtix4hhbROxOmkiDq5k/3tX6w6HK3acAV
+	 Jrr+eY+rmOZBBkL9frhafIBj4v3rI8b2Km4DfgmGRRIoRztY5ZqNuzdsW5hN2eUkt44u2
+	 6KmT74H0uywO4QnPCgBEZc+Ceh0dGHgonpeNhARApMbF9ph+WD+sIxRifQuxxLvk84Igr
+	 ulJxjVzG3OcbG0JTjH1yCly6u38xYfwveJo/74IlVAxo23OpkhIAH9L/356HzkeEuCV31
+	 CBvZjIrKp0QZsMOm6ZogndkLerqlDk8ICyZmHeru+Hmdh93MBt5M/Bsh+P4j2K1RHjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAyLHS8K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQPnSbAt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D940606A32E;
-	Wed,  4 Nov 2026 07:54:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5346606A328;
+	Wed,  4 Nov 2026 07:55:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAyLHS8K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BA61F00919;
-	Wed,  4 Nov 2026 07:54:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQPnSbAt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A5C1F000C1;
+	Wed,  4 Nov 2026 07:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778872;
-	bh=bMhQ8DbH8YprQQtk+DeoV/O9noCHpNTfYAfjMaX8Kxs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SAyLHS8KaxxdieI0W2Mkl49Kr7Ijil77TWsDEUno0l/2ro8neCxtPIJH70kzAeQi0
-	 EyM3iaG9m4y/TJVzX0V0r/DK4GrVNDtm+P4FUQNMN/R1BBScd+wtCNo38mbDbIZM5B
-	 8WWpAW4aGyyDgsdHkHWcrQVESIqCGd06A/dW+AUKYgrbJ7Zym6DIyMXIc0HqCM50Yb
-	 sc4xrM0uY4LN9BVEjLHybe0g0lOvb4f+bo6Q2Yrgst4E1TuAboQH1zRsUO6k83Eeru
-	 RLh8RstvnySHlo7SLArZ9JhX47+Uak+tq3woJQANT50ystp42+DkajxWCBGNAvmUS4
-	 Cza9HPCiVFMxA==
-Message-ID: <6029d402-7916-4076-a463-6ed27dcdcba9@kernel.org>
-Date: Wed, 4 Nov 2026 08:54:25 +0100
+	s=k20260515; t=1793778921;
+	bh=BiD2iT1S2BZCzUM56UymswLPef8+m8/elGiVUqIMfAI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dQPnSbAtr1l/W9UeGda/hGa2++Wupsy4e7JPfhpA9Ok7js1S1vdFdRV3lB1QbJo6A
+	 b+5uT7CS99HHuk1Hqa+SkFDtP4oqv7lRII+K8DBYw2gOf9TjWbCi9czmpdxEmHbekx
+	 9K3l5M8zbojQ7qtpile4M+lb10FXGydS1kYhKIzYbsc0bLSyBA+0cNX3Wht0vmgcJN
+	 uMubAfgaaOETv0Xg+cRmW5oFuKYoSBE+Eb4l1zHjb2i7Rj1CNNbHgGQEDWd+CzGxiV
+	 NWRLhQyGIILylaHW0O7VoxLbMVQotPfDFCY6Z2QNLeSdrr78eAyXrc5lC17tdayP8Z
+	 5/UJwhh8ueO3w==
+Message-ID: <sashiko-outbox-196840@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/10] ARM: dts: imx6ulz: Add SPI display and touch
+ overlay for BSH SMM-M2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Haoning Cheng" <Haoning.CHENG@cn.bosch.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261104-add-bsh-smm-m2-v1-10-369f0a77e021@cn.bosch.com>
+References: <20261104-add-bsh-smm-m2-v1-0-369f0a77e021@cn.bosch.com>
+ <20261104-add-bsh-smm-m2-v1-10-369f0a77e021@cn.bosch.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 07:55:20 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,118 +60,181 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] usb: cdns3: Add CIX Sky1 glue driver
-To: =?UTF-8?B?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?=
- <hongliang.yang@cixtech.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>,
- Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- =?UTF-8?B?R2FyeSBZYW5nICjmnajmlrDkvJ8p?= <Gary.Yang@cixtech.com>,
- =?UTF-8?B?RnVnYW5nIER1YW4gKOauteWvjOWImik=?= <fugang.duan@cixtech.com>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-References: <20261103074929.1971195-1-hongliang.yang@cixtech.com>
- <20261103074929.1971195-3-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103074929.1971195-3-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 03/11/2026 08:49, Hongliang Yang (杨宏亮) wrote:
-> +	data->rcsu_axi_base = devm_platform_ioremap_resource_byname(pdev, "axi");
-> +	if (IS_ERR(data->rcsu_axi_base))
-> +		return PTR_ERR(data->rcsu_axi_base);
-> +	data->rcsu_ctst_base = devm_platform_ioremap_resource_byname(pdev, "status");
-> +	if (IS_ERR(data->rcsu_ctst_base))
-> +		return PTR_ERR(data->rcsu_ctst_base);
-> +	data->reset = devm_reset_control_get_exclusive(&pdev->dev, "core");
-> +	if (IS_ERR(data->reset)) {
-> +		ret = PTR_ERR(data->reset);
-> +		dev_err(dev, "get reset error:%d\n", ret);
-> +		return ret;
-> +	}
-> +	data->preset = devm_reset_control_get_exclusive(&pdev->dev, "apb");
-> +	if (IS_ERR(data->preset)) {
-> +		ret = PTR_ERR(data->preset);
-> +		dev_err(dev, "get reset error:%d\n", ret);
-> +		return ret;
-> +	}
-> +	platform_set_drvdata(pdev, data);
-> +	data->dev = dev;
-> +	ret = of_alias_get_id(dev->of_node, "usb");
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] ARM: dts: imx6ulz: active-high pendown-gpio breaks ads7846 touch
+- [Medium] ARM: dts: imx6ulz: backlight pad mux placed on display@0 instead=
+ of backlight
+- [Low] ARM: dts: imx6ulz: open-coded fragment and __overlay__ nodes in ove=
+rlay
+--
 
-NAK, undocumented ABI. Drop entire alias and do not sneak such stuff in
-the future.
+commit bebf64c08aefd84526e08136a534cf0657beb477
+Author: Simon Holesch <simon.holesch@bshg.com>
 
-> +	if (ret == -ENODEV) {
-> +		if (device_property_read_u32(dev, "id", &ret))
-> +			ret = -ENODEV;
-> +	}
-> +	if (ret < 0 || ret >=  SKY1_USB_S5_NUM) {
-> +		dev_err(dev, "get alias failed.\n");
-> +		return ret;
-> +	}
-> +	data->id = ret;
-> +	data->usb_syscon = syscon_regmap_lookup_by_phandle(dev->of_node,
-> +							   "cix,usb-syscon");
-> +	if (IS_ERR(data->usb_syscon)) {
-> +		dev_err(dev, "Unable to get cix,usb-syscon regmap");
-> +		return PTR_ERR(data->usb_syscon);
+ARM: dts: imx6ulz: Add SPI display and touch overlay for BSH SMM-M2
 
-From where did you copy such syntax of error handling?
+This commit adds a Devicetree overlay for an SPI-connected ILI9486 display
+and ADS7846 touchscreen on the BSH SMM-M2 board.
 
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-ws13506-ads7846=
+.dtso b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-ws13506-ads7846.dtso
+> new file mode 100644
+> index 0000000000000..869443dd648e8
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-ws13506-ads7846.dtso
+> @@ -0,0 +1,99 @@
+> +// SPDX-License-Identifier: (GPL-2.0+)
+> +/*
+> + * Copyright 2024 BSH Hausgeraete GmbH
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include "imx6ul-pinfunc.h"
+> +
+> +/ {
+> +	fragment@0 {
+> +		target-path =3D "/";
+> +		__overlay__ {
 
+[Severity: Low]
+This isn't a bug, but could this overlay use the standard DTC target
+reference syntax (&{/}, &ecspi1, and &iomuxc) rather than open-coding
+fragment@0, fragment@1, fragment@2 and __overlay__ nodes, matching
+Documentation/devicetree/overlay-notes.rst and other .dtso files in
+arch/arm/boot/dts/?
 
-Best regards,
-Krzysztof
+> +			backlight: backlight {
+> +				compatible =3D "gpio-backlight";
+> +				gpios =3D <&gpio3 21 GPIO_ACTIVE_HIGH>;
+> +			};
+> +		};
+> +	};
+> +
+> +	fragment@1 {
+> +		target =3D <&ecspi1>;
+> +		__overlay__ {
+> +			pinctrl-names =3D "default";
+> +			pinctrl-0 =3D <&pinctrl_ecspi1>;
+> +			cs-gpios =3D <&gpio3 26 GPIO_ACTIVE_LOW>,
+> +				<&gpio2 15 GPIO_ACTIVE_LOW>;
+> +			status =3D "okay";
+> +
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			display@0 {
+> +				compatible =3D "waveshare,rpi-lcd-35", "ilitek,ili9486";
+> +				pinctrl-names =3D "default";
+> +				pinctrl-0 =3D <&pinctrl_lcd>;
+> +				reg =3D <0>;
+> +				spi-max-frequency =3D <32000000>;
+> +				dc-gpios =3D <&gpio1 31 GPIO_ACTIVE_HIGH>;
+> +				reset-gpios =3D <&gpio3 6 GPIO_ACTIVE_HIGH>;
+> +				backlight =3D <&backlight>;
+> +				rotation =3D <180>;
+> +			};
+> +
+> +			touchscreen@1 {
+> +				compatible =3D "ti,ads7846";
+> +				pinctrl-names =3D "default";
+> +				pinctrl-0 =3D <&pinctrl_touchscreen>;
+> +				reg =3D <1>;
+> +				interrupt-parent =3D <&gpio3>;
+> +				interrupts =3D <18 IRQ_TYPE_EDGE_FALLING>;
+> +				pendown-gpio =3D <&gpio3 18 GPIO_ACTIVE_HIGH>;
+
+[Severity: High]
+Should pendown-gpio in touchscreen@1 use GPIO_ACTIVE_LOW instead of
+GPIO_ACTIVE_HIGH?
+
+The ADS7846 PENIRQ line is active-low (pulled low when touched), which
+matches the 100k pull-up in pinctrl_touchscreen (0x1b0b0) and
+IRQ_TYPE_EDGE_FALLING.
+
+In drivers/input/touchscreen/ads7846.c, ads7846_setup_pendown() requests
+the descriptor via devm_gpiod_get(&spi->dev, "pendown", GPIOD_IN), and
+get_pendown_state() calls gpiod_get_value(), which applies the Devicetree
+polarity flag:
+
+drivers/input/touchscreen/ads7846.c:get_pendown_state() {
+	if (ts->get_pendown_state)
+		return ts->get_pendown_state();
+
+	return gpiod_get_value(ts->gpio_pendown);
+}
+
+drivers/input/touchscreen/ads7846.c:ads7846_hard_irq() {
+	struct ads7846 *ts =3D handle;
+
+	return get_pendown_state(ts) ? IRQ_WAKE_THREAD : IRQ_HANDLED;
+}
+
+With GPIO_ACTIVE_HIGH, gpiod_get_value() returns 0 while GPIO3_IO18 is
+physically asserted low on touch, causing ads7846_hard_irq() to return
+IRQ_HANDLED without waking the threaded IRQ handler ads7846_irq().
+
+[ ... ]
+
+> +	fragment@2 {
+> +		target =3D <&iomuxc>;
+> +		__overlay__ {
+> +			pinctrl_ecspi1: ecspi1grp {
+> +				fsl,pins =3D <
+> +					MX6UL_PAD_LCD_DATA20__ECSPI1_SCLK    0x100b1
+> +					MX6UL_PAD_LCD_DATA22__ECSPI1_MOSI    0x100b1
+> +					MX6UL_PAD_LCD_DATA23__ECSPI1_MISO    0x100b1
+> +					MX6UL_PAD_LCD_DATA21__GPIO3_IO26     0x0b0b1     /* SPI CS.0 */
+> +					MX6UL_PAD_ENET2_RX_ER__GPIO2_IO15    0x0b0b1     /* SPI CS.1 */
+> +				>;
+> +			};
+> +
+> +			pinctrl_lcd: lcdgrp {
+> +				fsl,pins =3D <
+> +					MX6UL_PAD_LCD_DATA01__GPIO3_IO06       0x180b1     /* LCD_RST */
+> +					MX6UL_PAD_UART5_RX_DATA__GPIO1_IO31    0x180b1     /* LCD_DC */
+> +					MX6UL_PAD_LCD_DATA16__GPIO3_IO21       0x180b1     /* backlight */
+> +				>;
+> +			};
+
+[Severity: Medium]
+Should MX6UL_PAD_LCD_DATA16__GPIO3_IO21 be moved into its own pinctrl group
+and referenced via pinctrl-0 on the backlight node rather than on display@0?
+
+In drivers/gpu/drm/tiny/ili9486.c, ili9486_probe() calls
+devm_of_find_backlight(dev) and defers with -EPROBE_DEFER until the
+backlight device has finished probing. On i.MX6UL, imx_pmx_ops in
+drivers/pinctrl/freescale/pinctrl-imx.c does not implement
+.gpio_request_enable, so requesting GPIO3_IO21 in gpio_backlight_probe()
+does not mux the pad or apply its pad configuration.
+
+As a result, when gpio_backlight_probe() in
+drivers/video/backlight/gpio_backlight.c runs before display@0 binds
+pinctrl_lcd:
+
+drivers/video/backlight/gpio_backlight.c:gpio_backlight_probe() {
+	...
+	if (!of_node || !of_node->phandle)
+		/* Not booted with device tree or no phandle link to the node */
+		bl->props.power =3D def_value ? BACKLIGHT_POWER_ON
+					    : BACKLIGHT_POWER_OFF;
+	else if (gpiod_get_value_cansleep(gbl->gpiod) =3D=3D 0)
+		bl->props.power =3D BACKLIGHT_POWER_OFF;
+	else
+		bl->props.power =3D BACKLIGHT_POWER_ON;
+
+	ret =3D gpiod_direction_output(gbl->gpiod, !bl->props.power);
+	...
+}
+
+gpiod_get_value_cansleep() and gpiod_direction_output() execute while
+MX6UL_PAD_LCD_DATA16 is still unmuxed and unconfigured.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-add-bsh-sm=
+m-m2-v1-0-369f0a77e021@cn.bosch.com?part=3D10
