@@ -1,104 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783534;
-	b=Qxa+ntKDMDZn0lxjdzZr6l0B5LGS5mVoN/ClfCW6dwbfTzjjEAPATUxkbDL9/AS/XvAm
-	 nPuhMCqaOHu6r2qm/Cvjk7aXzBXDB11iO6s7auDckBzwy28iT1q14Kg/uOERtnKnnPazi
-	 zdeRf760W3YunoaHynkKNzctsOv1M/LvO/RvhrjLqrlxqT7rXtIKzb/1VnEelUJvYCEaR
-	 JZmF9mE6FDcZJhx9ypZBdbCbaCWKlY207jkqkMD8Mp+HP8vXrlSh+jwT+IMFv+wzI5qVr
-	 uKlAXq3+VKF7sj16eJTByZU5aZ6lwNwwYzpWpPybdhVZAu0W4mQOcRJzUB8u6MJqAjw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HHeTP5N2ktsLISpPHAP/KIrZhGMfCA2o06QoNXCSwig=;
-	b=AS9lCD0zCvOWxUPfo3mACTScIcsZ/nABOqsmLFWjbSvVxP3QkT4F7kTXM7iKqqTb3Q7Y
-	 tBau6FN75g/V5/knnoP1QTPQVuZJsLJWyZeJiMDT8HcvQJ/TPukq9DU7dtUfpAPaVwITG
-	 RtcfO6HKP7IcC8x9emn+X+eJiYRcWhdLOPfmwWOS7OnmTpVP5mMcfX3AcbP1vg7GViYfb
-	 QeU2nU7XxZttOZyFfFivZymAkZ7jxTZEaScjCQqW2RtHDE2kTmX79L78w5kTBAdE0o814
-	 po2iPW1dm9e8mX5pIrza5N9mvSMbBFdh3do3CfliHlHkSdmmKe3C+mMREAL7arrrjnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmZPF+6K;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793783562;
+	b=xmu2okI5/6/AvdckRX4cvx0aaT+BJEKBNaOY6O3tZDZRsfwHwIktlmrvELQLVnhAwnHt
+	 F/FyEyjPk7PkZFKe57nRedvuRGSTOEg11ChBHdehxRJMhtbH+Ev8y3zb/yISP8q4zl9kr
+	 jSlSuyucSJbYfXUCAAlfW7mM1rMQ1zrZyWN0Nmjl56Na1gelK8gC+tRXv3xKJc1qaW66/
+	 VO/XzPZGkOZYnyuaSPzfUeLr9/Jp2WasorkEINFiAIcorsW0NbbB6W0gMxt4xf8WzzVpo
+	 GCqg3UbNe5No+Yjo1wx1bkj9ZVPPpPZQzZKcT0fEST4bhOFxQPxwZhrn8+6BPQbGFRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783562;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=2R1gNZLN1hJ4LSn6OOKlccVNHzTPuKUuY49NdzVSUgY=;
+	b=LN539rq59kYfHYD7b8oUwOv9TPTlxR/w3veIxNHwTulXLInaDHa3+f6j8lGxRmnUp+TH
+	 SIOeuYJOpsgK60dZn9jVKfr0UXcSKr3p8V6Nt+CMiCp0skC0DT3Nnzj+3SW4h4k9CGaIg
+	 a3LqBK7JBH6k0O9HIIxx29DLRGuMNTGXLhidgxzVbZ6MVEgJ7HnBfauSWKQGx8/UHSWoh
+	 PharpH/Wc3YwPhLqj2Ia/TqYemv0hUC/kTBrYAGNrn90tR1xSuCmUWqXMXjtIS47nwHVj
+	 FKq5Oecm0rjeFZtUxvBNLfKNwytUS8GBscBZXIJhPwNlQ8JwNjT2PCmwz+j04fMy8VQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PygTu6EZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4505B606A326
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:12:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4505B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC3F606A31B;
+	Wed,  4 Nov 2026 09:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAC3F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmZPF+6K
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso362039a91.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:12:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793783533; x=1794388333; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HHeTP5N2ktsLISpPHAP/KIrZhGMfCA2o06QoNXCSwig=;
-        b=mmZPF+6KX8Aq0O0OP6M0HZQmfmbNZduQ2Idgee+vFzBEoOtoKqy+q12N7yAQ4aRST1
-         wlmdF/44NWxbpPNoGXkpYXeENBsprJMLWjiK9/0IDOsQXEupyqwboql6SCvKYT0f0QJs
-         hA8cyKdKVY+w+Jzqd5WWrotSRy9BDGLBgADI2IS+8HZrh8QGN/8VautJOBHQ+rTpsOq8
-         dg/kraV3iE7HxL3Q8x2vy81Re6guJvytEa82QvWxUWzKwIXxzwi4PU60POdxBH7T+Mu4
-         U8S6cpLFQTFge/YI5ddbBy4sODwY+SzGc6S0xdqsLMMu9eq4TALnQwG7+Y2kF9pIBDAZ
-         aQGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793783533; x=1794388333;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HHeTP5N2ktsLISpPHAP/KIrZhGMfCA2o06QoNXCSwig=;
-        b=YhlbfaQtc+2SreALo7WnLgkvdB7SXlZ9+K5h7/GGh1I/3gtIbTjQeWM9Z8sLz+y371
-         K49OSS8HaL5V8rL0w0o42vfxqv2osWpdxFrL5UMbEFjZAYanpLU13Nm6wgIQ+ivJQVXo
-         UoV3WcDZKiKEMjm8d+9nr87DocbaqDgiFA7/qIaPEtCVUPbAkYhmzJGBNVRlxLmIvUQg
-         nmj4AfTwwHQOupiBFRswUuUIir4QAafusiDOBYXiQSM8j+o+k3Y5aLcSP5jtR4KM2wJa
-         /kVsE1Qjcf90TE2wtiUxCJjtScX99x5CTb6+KSp23cpFBG175KXf9sjaEdeXOv8tPu1p
-         XItA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIWEUcwfnSa2oq41GuDvkO7fYwAgalN18OYHlRSwZtdF4kxm0CeADNZb+tiSmz8B3PT0yl2lwWjfu6@vger.kernel.org
-X-Gm-Message-State: APuU4Z/269d5PHNDDa/+v4pBxv1X/uCmpE/x6MrB6Ukmyfd6k3UbFCAq
-	JZ1Umii1GoCW06qDX5fLz2hTTA3ynRjr5zt2d7XIJmCgAS92qKFSGzcH
-X-Gm-Gg: AYBFou0eVje9oIArGx/ZxjIcdsasM3TLUeV/WcLOVlV6TCsCGLXlSY94L2cPm/GB0t+
-	IYRzMD6uiMAkOKMuBPXsI8Ibmc/CiytUP4lTDNL2dFr2uDtg8EuQJIS6EjKySqfmkzeu42DWoem
-	uEn27pBDhouZtUmTIF/6LDFJbgWUYbtJEPkx00IjBohKaoGpJWDUi8SVkjyQOtzCrJ8OiYpxweP
-	C+5rYAGEKRxD0j+z/MobrC79nMMja9LGERUPYLtNWHW+/7ByX4bqIjuWIM+DcaMWU4mkWi1+8cT
-	HPyGsB2KkY3ASydn88Q+ehnMpdZ6dPYQ4mWZk6rBnkL096ohjRBDlHtRYGpRXT+6559gOv6zsXa
-	bQFIh4zYMsabsPszrEqVEjuyWKs0C643EoAhsZDmbjVXcuP4rcovP9jjqwszQcidd5CFdDHydGh
-	MxeWI4gGvmO9rbjlfg3cA6+K+lprPrArqreazCIHZ71sSjFnQaJ1tMVbywnz49hcpmpZw4ssHBq
-	yPdKLczLqeJ9JM+yVYf76hppi1+wk0PZfEZmvt/2ObUhntADC+6VHRT8tRjh/6BrXii9SUX4Z0Q
-	guqSsrfkuWgTeAq1WyoQ7OfskK9rlQBlpwYGjgtZ8ev9kn4JIjH465qj1hVQI0sp+NYuOnY0pYB
-	nh2q5aksTvv5Rp9M=
-X-Received: by 2002:a17:90b:560e:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3ae8957d04bmr13588942a91.7.1793783532518;
-        Wed, 04 Nov 2026 01:12:12 -0800 (PST)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09369c638sm3167257a91.0.2026.11.04.01.12.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:12:11 -0800 (PST)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: jic23@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Date: Wed,  4 Nov 2026 17:11:36 +0800
-Message-Id: <20261104091136.151269-3-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261104091136.151269-1-cwweng.linux@gmail.com>
-References: <20261104091136.151269-1-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PygTu6EZ
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 934FE2008BB;
+	Wed, 04 Nov 2026 10:12:37 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793783557;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2R1gNZLN1hJ4LSn6OOKlccVNHzTPuKUuY49NdzVSUgY=;
+	b=PygTu6EZx3iFJx/QNNaYQBb9JJn/lBHo15FEALOZTOoXoTURpjF9mElqTSdr53bRuHwSd8
+	NZUe/Oye8Y7oBr+p8+tTyLzE3aSKuaRNH5z3sOTqbDqjjWarGT3BlMb0yyOcyIwygicjna
+	jNKSGTtDjnOi1Ig4BMqHXcyUOZaG264CzzE3SzclfSsn1Wv7D6hK0TPTnt5FuuweIN7rOQ
+	McVzd0uPhV2uYAZCHFeNwktypkaP/OWMzWs0WzAuBtT8dVmEoESBbLwW+CMJs9GS+0mlEH
+	7eT5T5tQkYll/gvlDIyetT023EfHvVEv5g9ZbOrZOgQZpXtDAO9Xbwhlnkbabw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793783557;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2R1gNZLN1hJ4LSn6OOKlccVNHzTPuKUuY49NdzVSUgY=;
+	b=EGdQKTN8bRNxKFWzFRfYy643yccWI3ajFIjdRa9ExlhJkDdrxDpT8QB7o7hMqVXd+PCPSp
+	rrQuvbQHZY2hZHid9B58DJTuWsKLgbfZJNvSmm6wPUR+GzmUvTr/mDHu96Oi3dYh4sgR+o
+	YVbesxDeGaZB3Hm34QwViVFj09Fx3RCrxGGKFU++b/ZZ6F0lBymtO1y3oS4xR7lc5ifsRs
+	dlWOSVSyxM6Le4klEYwTorMzwhm/e2hNMyYSrMXCr7554YdiMRCp7DGqVIvpiBMZkfE1Ly
+	51HKsELD1vnpSV2YJfg/dxt3S3C/02yGiZDxnz/0LKJQgRXM4jHDifx/A0o8wA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793783557; a=rsa-sha256;
+	cv=none;
+	b=TJp1fiSWScxi9NmfMwQ14hYdLzLfPA0uxwlLNzsS11PBCJ4NL0BilN7btNV7M6YoEBpnEp
+	PwQEYQZbzJXNb4vFIpLg+Eo9ag/qAHOfm9wxsGm46SrELqZ/D10aYTANDCgkTPF1vCaXR4
+	vzCZXefzOAEW4Y5Xk3ItUHLcHXcW/uihgzekUEYLkdtiGOj+PTwZGrYTxf2ktqoZ6V9BE6
+	snD7wei5xk9GsgFTgHZ8gEDTVPeVJ8c2H2Psyhv43s6NHH1XAQoA79EeTwDZL6pGFpIzCv
+	U3D2ImjCqhHzo9In9NQJs0NSazqT3LfDhjAx0YZ7lYHb0/Ye8lAz78Yom8+6GQ==
+Message-ID: <bd0d89d16c9effa60088131aa81b6d5786738c0c.camel@pengutronix.de>
+Subject: Re: [PATCH 2/2] gpio: Add Siflower GPIO controller driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: joseph@telaak.dev, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski	 <brgl@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Qingfang Deng <dqfext@gmail.com>, 
+	linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Qingfang Deng
+	 <qingfang.deng@siflower.com.cn>
+Date: Wed, 04 Nov 2026 10:12:37 +0100
+In-Reply-To: <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev>
+References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
+	 <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,983 +97,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
+On Mi, 2026-11-04 at 02:21 -0500, Joseph Telaak via B4 Relay wrote:
+> From: Qingfang Deng <qingfang.deng@siflower.com.cn>
+>=20
+> Add a driver for the GPIO controller on Siflower SoCs.
+> This controller is found on all current Siflower MIPS and RISC-V
+> chips including SF19A2890, SF21A6826 and SF21H8898.
+>=20
+> Signed-off-by: Qingfang Deng <qingfang.deng@siflower.com.cn>
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> [jt: from Chuanhong's siflower-7.1 branch; depend on MACH_SIFLOWER_MIPS,
+>  longer Kconfig help, assert the reset through a devm action instead of i=
+n
+>  .remove, which ran before the GPIO chip was removed, drop .owner and the
+>  unused drvdata, drop the irq_set_affinity callback, which reached the
+>  parent through irq_to_desc() (not exported with SPARSE_IRQ), call
+>  gpiochip_disable_irq() and gpiochip_enable_irq() from mask and unmask as
+>  an immutable irqchip must, find the group by its parent IRQ instead of
+>  assuming consecutive numbers, return 0 or 1 from .get, read ngpios with
+>  device_property_read_u32(), linux/math64.h and sorted includes, "Siflowe=
+r"
+>  spelling, subject]
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  drivers/gpio/Kconfig         |  11 ++
+>  drivers/gpio/Makefile        |   1 +
+>  drivers/gpio/gpio-siflower.c | 325 +++++++++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 337 insertions(+)
+>=20
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index 55e428002..6125a8452 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -721,6 +721,17 @@ config GPIO_SIFIVE
+>  	help
+>  	  Say yes here to support the GPIO device on SiFive SoCs.
+> =20
+> +config GPIO_SIFLOWER
+> +	tristate "Siflower GPIO support"
+> +	depends on OF_GPIO
+> +	depends on MACH_SIFLOWER_MIPS || COMPILE_TEST
+> +	select GPIOLIB_IRQCHIP
+> +	help
+> +	  GPIO controller driver for Siflower MIPS and RISC-V SoCs
+> +	  including SF19A2890, SF21A6826 and SF21H8898. Each line can be an
+> +	  input or an output and raise an interrupt on either edge or level,
+> +	  and inputs can be debounced in hardware.
+> +
+>  config GPIO_SIOX
+>  	tristate "SIOX GPIO support"
+>  	depends on SIOX
+> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> index 88f748846..bde618108 100644
+> --- a/drivers/gpio/Makefile
+> +++ b/drivers/gpio/Makefile
+> @@ -171,6 +171,7 @@ obj-$(CONFIG_GPIO_SCH311X)		+=3D gpio-sch311x.o
+>  obj-$(CONFIG_GPIO_SCH)			+=3D gpio-sch.o
+>  obj-$(CONFIG_GPIO_SHARED_PROXY)		+=3D gpio-shared-proxy.o
+>  obj-$(CONFIG_GPIO_SIFIVE)		+=3D gpio-sifive.o
+> +obj-$(CONFIG_GPIO_SIFLOWER)		+=3D gpio-siflower.o
+>  obj-$(CONFIG_GPIO_SIM)			+=3D gpio-sim.o
+>  obj-$(CONFIG_GPIO_SIOX)			+=3D gpio-siox.o
+>  obj-$(CONFIG_GPIO_SL28CPLD)		+=3D gpio-sl28cpld.o
+> diff --git a/drivers/gpio/gpio-siflower.c b/drivers/gpio/gpio-siflower.c
+> new file mode 100644
+> index 000000000..6eb560da7
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-siflower.c
+> @@ -0,0 +1,325 @@
+[...]
+> +struct sf_gpio_priv {
+> +	struct gpio_chip gc;
+> +	void __iomem *base;
+> +	struct clk *clk;
+> +	struct reset_control *rstc;
 
-Add an IIO driver for the Enhanced Analog-to-Digital Converter found on
-Nuvoton MA35D1 SoCs.
+rstc seems to be unused outside of the probe function.
 
-Support single-ended and fixed differential input pairs, direct
-conversion, and triggered buffered capture using sample module 0.
+[...]
+> +static void sf_gpio_reset_assert(void *data)
+> +{
+> +	reset_control_assert(data);
+> +}
+> +
+> +static int sf_gpio_probe(struct platform_device *pdev)
+> +{
+[...]
+> +	priv->rstc =3D devm_reset_control_get_optional(&pdev->dev, NULL);
+> +	if (IS_ERR(priv->rstc))
+> +		return PTR_ERR(priv->rstc);
+> +
+> +	ret =3D reset_control_deassert(priv->rstc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D devm_add_action_or_reset(dev, sf_gpio_reset_assert, priv->rstc)=
+;
+> +	if (ret)
+> +		return ret;
 
-The hardware supports multiple sample modules, but this initial driver
-uses sample module 0 only and therefore supports one active voltage
-channel per buffered scan.
+Consider replacing this with
+devm_reset_control_get_optional_exclusive_deasserted().
+rstc can be a local variable then.
 
-Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
----
- drivers/iio/adc/Kconfig       |  14 +
- drivers/iio/adc/Makefile      |   1 +
- drivers/iio/adc/ma35d1_eadc.c | 912 ++++++++++++++++++++++++++++++++++
- 3 files changed, 927 insertions(+)
- create mode 100644 drivers/iio/adc/ma35d1_eadc.c
+Don't use devm_reset_control_get_optional().
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index a802d8ee4dd9..6868b67d852f 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1032,6 +1032,20 @@ config LTC2497
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called ltc2497.
- 
-+config MA35D1_EADC
-+	tristate "Nuvoton MA35D1 EADC driver"
-+	depends on ARCH_MA35 || COMPILE_TEST
-+	depends on HAS_IOMEM
-+	select IIO_BUFFER
-+	select IIO_TRIGGERED_BUFFER
-+	select REGMAP_MMIO
-+	help
-+	  Say yes here to build support for the Nuvoton MA35D1
-+	  Enhanced Analog to Digital Converter.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called ma35d1_eadc.
-+
- config MAX1027
- 	tristate "Maxim max1027 ADC driver"
- 	depends on SPI
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 9e82c21dbd37..a478fef5d0b7 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -88,6 +88,7 @@ obj-$(CONFIG_LTC2471) += ltc2471.o
- obj-$(CONFIG_LTC2485) += ltc2485.o
- obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o
- obj-$(CONFIG_LTC2497) += ltc2497.o ltc2497-core.o
-+obj-$(CONFIG_MA35D1_EADC) += ma35d1_eadc.o
- obj-$(CONFIG_MAX1027) += max1027.o
- obj-$(CONFIG_MAX11100) += max11100.o
- obj-$(CONFIG_MAX1118) += max1118.o
-diff --git a/drivers/iio/adc/ma35d1_eadc.c b/drivers/iio/adc/ma35d1_eadc.c
-new file mode 100644
-index 000000000000..b45ad3ef5264
---- /dev/null
-+++ b/drivers/iio/adc/ma35d1_eadc.c
-@@ -0,0 +1,912 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Nuvoton MA35D1 EADC driver
-+ *
-+ * Copyright (c) 2026 Nuvoton Technology Corp.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitmap.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/jiffies.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/overflow.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/iio.h>
-+#include <linux/iio/trigger.h>
-+#include <linux/iio/trigger_consumer.h>
-+#include <linux/iio/triggered_buffer.h>
-+
-+#define MA35D1_EADC_DAT(n)		(0x000 + (n) * 0x004)
-+#define MA35D1_EADC_CTL			0x050
-+#define MA35D1_EADC_SWTRG		0x054
-+#define MA35D1_EADC_SCTL(n)		(0x080 + (n) * 0x004)
-+#define MA35D1_EADC_INTSRC0		0x0d0
-+#define MA35D1_EADC_CMP(n)		(0x0e0 + (n) * 0x004)
-+#define MA35D1_EADC_STATUS2		0x0f8
-+#define MA35D1_EADC_SELSMP0		0x140
-+#define MA35D1_EADC_REFADJCTL		0x150
-+
-+#define MA35D1_EADC_CTL_ADCEN		BIT(0)
-+#define MA35D1_EADC_CTL_EADCRST		BIT(1)
-+#define MA35D1_EADC_CTL_ADCIEN0		BIT(2)
-+#define MA35D1_EADC_CTL_ADCIEN_MASK	GENMASK(5, 2)
-+#define MA35D1_EADC_CTL_DIFFEN		BIT(8)
-+#define MA35D1_EADC_CTL_DMOF		BIT(9)
-+#define MA35D1_EADC_CTL_VREFSEL_MASK	GENMASK(11, 10)
-+#define MA35D1_EADC_CTL_VREFSEL_1V6	FIELD_PREP(MA35D1_EADC_CTL_VREFSEL_MASK, 0)
-+
-+#define MA35D1_EADC_SCTL_CHSEL_MASK	GENMASK(3, 0)
-+#define MA35D1_EADC_SCTL_TRGSEL_MASK	GENMASK(21, 16)
-+#define MA35D1_EADC_SCTL_INTPOS		BIT(22)
-+
-+#define MA35D1_EADC_RESOLUTION		12
-+#define MA35D1_EADC_DIFF_SCALE_BITS	(MA35D1_EADC_RESOLUTION - 1)
-+
-+#define MA35D1_EADC_DAT_RESULT_12BIT	GENMASK(MA35D1_EADC_RESOLUTION - 1, 0)
-+#define MA35D1_EADC_DAT_OV		BIT(16)
-+#define MA35D1_EADC_DAT_VALID		BIT(17)
-+
-+#define MA35D1_EADC_INTSRC0_MASK		GENMASK(8, 0)
-+#define MA35D1_EADC_INTSRC0_SPLIEN0	BIT(0)
-+#define MA35D1_EADC_STATUS2_ADIF0	BIT(0)
-+#define MA35D1_EADC_CMP_EADCMPIE	BIT(1)
-+#define MA35D1_EADC_REFADJCTL_PDREF	BIT(0)
-+#define MA35D1_EADC_SELSMP0_SMPT0_MASK	GENMASK(1, 0)
-+#define MA35D1_EADC_SELSMP_LONG		FIELD_PREP(MA35D1_EADC_SELSMP0_SMPT0_MASK, 3)
-+
-+#define MA35D1_EADC_MAX_EXT_CHANNELS	8
-+#define MA35D1_EADC_NUM_DIFF_PAIRS	4
-+#define MA35D1_EADC_NUM_SAMPLE_MODULES	9
-+#define MA35D1_EADC_NUM_CMP		4
-+#define MA35D1_EADC_INTERNAL_VREF_mV	1600
-+#define MA35D1_EADC_TIMEOUT		msecs_to_jiffies(1000)
-+#define MA35D1_EADC_RESET_DELAY_US	10
-+#define MA35D1_EADC_REF_STABLE_US	(1 * USEC_PER_MSEC)
-+
-+struct ma35d1_adc {
-+	struct regmap *regmap;
-+	struct clk *clk;
-+	struct reset_control *rst;
-+	struct completion completion;
-+	/* Protect conversion state and register accesses from PM transitions. */
-+	struct mutex lock;
-+	const struct iio_chan_spec *scan_chan;
-+	unsigned int vref_mV;
-+	int irq;
-+	bool clk_enabled;
-+	bool external_vref;
-+	bool suspended;
-+};
-+
-+static const struct regmap_config ma35d1_adc_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = MA35D1_EADC_REFADJCTL,
-+};
-+
-+static int ma35d1_adc_disable_irq(struct ma35d1_adc *adc)
-+{
-+	return regmap_clear_bits(adc->regmap, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
-+}
-+
-+static int ma35d1_adc_setup_reference(struct ma35d1_adc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	int ret;
-+
-+	/*
-+	 * MA35D1 TRM EADC reference control: PDREF selects the external VREF
-+	 * pin. With the internal reference selected, VREFSEL = 0 selects 1.6 V.
-+	 */
-+	if (adc->external_vref) {
-+		ret = regmap_set_bits(map, MA35D1_EADC_REFADJCTL,
-+				      MA35D1_EADC_REFADJCTL_PDREF);
-+		if (ret)
-+			return ret;
-+	} else {
-+		ret = regmap_clear_bits(map, MA35D1_EADC_REFADJCTL,
-+					MA35D1_EADC_REFADJCTL_PDREF);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_update_bits(map, MA35D1_EADC_CTL,
-+					 MA35D1_EADC_CTL_VREFSEL_MASK,
-+					 MA35D1_EADC_CTL_VREFSEL_1V6);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	fsleep(MA35D1_EADC_REF_STABLE_US);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_reset_control(struct ma35d1_adc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_EADCRST);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_read_poll_timeout(map, MA35D1_EADC_CTL, val,
-+					!(val & MA35D1_EADC_CTL_EADCRST),
-+					1, 1 * USEC_PER_MSEC);
-+}
-+
-+static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	unsigned int i;
-+	int ret;
-+
-+	/*
-+	 * EADCRST resets the control circuits but preserves register values.
-+	 * Quiesce interrupt sources first so firmware configuration cannot
-+	 * generate an interrupt while Linux takes ownership of the block.
-+	 */
-+	ret = regmap_clear_bits(map, MA35D1_EADC_CTL,
-+				MA35D1_EADC_CTL_ADCIEN_MASK);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < MA35D1_EADC_NUM_CMP; i++) {
-+		ret = regmap_clear_bits(map, MA35D1_EADC_CMP(i),
-+					MA35D1_EADC_CMP_EADCMPIE);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = ma35d1_adc_reset_control(adc);
-+	if (ret)
-+		return ret;
-+
-+	/* Drop trigger and interrupt routing inherited from firmware. */
-+	ret = regmap_update_bits(map, MA35D1_EADC_INTSRC0,
-+				 MA35D1_EADC_INTSRC0_MASK, 0);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < MA35D1_EADC_NUM_SAMPLE_MODULES; i++) {
-+		ret = regmap_clear_bits(map, MA35D1_EADC_SCTL(i),
-+					MA35D1_EADC_SCTL_TRGSEL_MASK);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = ma35d1_adc_setup_reference(adc);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(map, MA35D1_EADC_SELSMP0,
-+				 MA35D1_EADC_SELSMP0_SMPT0_MASK,
-+				 MA35D1_EADC_SELSMP_LONG);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-+}
-+
-+static int ma35d1_adc_hw_disable(struct ma35d1_adc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	int ret;
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_clear_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-+}
-+
-+static void ma35d1_adc_hw_disable_action(void *data)
-+{
-+	struct ma35d1_adc *adc = data;
-+
-+	if (adc->clk_enabled)
-+		ma35d1_adc_hw_disable(adc);
-+}
-+
-+static int ma35d1_adc_reset(struct ma35d1_adc *adc)
-+{
-+	int ret;
-+
-+	if (!adc->rst)
-+		return 0;
-+
-+	ret = reset_control_assert(adc->rst);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(MA35D1_EADC_RESET_DELAY_US);
-+
-+	return reset_control_deassert(adc->rst);
-+}
-+
-+static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
-+				     const struct iio_chan_spec *chan)
-+{
-+	struct regmap *map = adc->regmap;
-+	unsigned int mask;
-+	int ret;
-+
-+	mask = MA35D1_EADC_CTL_DIFFEN | MA35D1_EADC_CTL_DMOF;
-+	ret = regmap_assign_bits(map, MA35D1_EADC_CTL, mask, chan->differential);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * INTPOS = 0 generates ADIF0 at end of conversion. TRGSEL = 0 disables
-+	 * the hardware trigger; conversions are started through SWTRG0.
-+	 */
-+	mask = MA35D1_EADC_SCTL_CHSEL_MASK |
-+	       MA35D1_EADC_SCTL_TRGSEL_MASK |
-+	       MA35D1_EADC_SCTL_INTPOS;
-+	ret = regmap_update_bits(map, MA35D1_EADC_SCTL(0), mask,
-+				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
-+					    chan->channel));
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(map, MA35D1_EADC_INTSRC0,
-+				  MA35D1_EADC_INTSRC0_MASK,
-+				  MA35D1_EADC_INTSRC0_SPLIEN0);
-+}
-+
-+static void ma35d1_adc_abort_conversion(struct ma35d1_adc *adc)
-+{
-+	struct regmap *map = adc->regmap;
-+	struct device *dev = regmap_get_device(map);
-+	int ret;
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		dev_err(dev, "failed to disable ADC interrupt: %d\n", ret);
-+
-+	/*
-+	 * Reset the EADC control circuits to terminate a conversion which may
-+	 * still be in progress. EADCRST is cleared automatically by hardware
-+	 * when the reset completes and the EADC register values are preserved.
-+	 */
-+	ret = ma35d1_adc_reset_control(adc);
-+	if (ret)
-+		dev_err(dev, "failed to reset timed out conversion: %d\n", ret);
-+
-+	/* Drain an interrupt which may already have been latched by the GIC. */
-+	synchronize_irq(adc->irq);
-+
-+	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-+	if (ret)
-+		dev_err(dev, "failed to clear ADC interrupt status: %d\n", ret);
-+}
-+
-+static int ma35d1_adc_read_conversion(struct ma35d1_adc *adc,
-+				      const struct iio_chan_spec *chan, u16 *raw)
-+{
-+	struct regmap *map = adc->regmap;
-+	unsigned int val;
-+	long timeout;
-+	int ret;
-+
-+	reinit_completion(&adc->completion);
-+
-+	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_config_channel(adc, chan);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(map, MA35D1_EADC_SWTRG, BIT(0));
-+	if (ret)
-+		goto disable_irq;
-+
-+	timeout = wait_for_completion_timeout(&adc->completion,
-+					      MA35D1_EADC_TIMEOUT);
-+	if (!timeout) {
-+		ma35d1_adc_abort_conversion(adc);
-+		return -ETIMEDOUT;
-+	}
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(map, MA35D1_EADC_DAT(0), &val);
-+	if (ret)
-+		return ret;
-+
-+	if (!(val & MA35D1_EADC_DAT_VALID))
-+		return -EIO;
-+
-+	if (val & MA35D1_EADC_DAT_OV)
-+		return -EOVERFLOW;
-+
-+	*raw = FIELD_GET(MA35D1_EADC_DAT_RESULT_12BIT, val);
-+
-+	return 0;
-+
-+disable_irq:
-+	ma35d1_adc_disable_irq(adc);
-+
-+	return ret;
-+}
-+
-+static irqreturn_t ma35d1_adc_isr(int irq, void *data)
-+{
-+	struct iio_dev *indio_dev = data;
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	struct regmap *map = adc->regmap;
-+	unsigned int status;
-+	int ret;
-+
-+	ret = regmap_read(map, MA35D1_EADC_STATUS2, &status);
-+	if (ret)
-+		return IRQ_NONE;
-+
-+	if (!(status & MA35D1_EADC_STATUS2_ADIF0))
-+		return IRQ_NONE;
-+
-+	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-+	if (ret)
-+		dev_err_ratelimited(regmap_get_device(map),
-+				    "failed to clear ADC interrupt status: %d\n", ret);
-+
-+	complete(&adc->completion);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int ma35d1_adc_sign_extend(u16 raw)
-+{
-+	return sign_extend32(raw, MA35D1_EADC_DIFF_SCALE_BITS);
-+}
-+
-+static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
-+			       const struct iio_chan_spec *chan,
-+			       int *val, int *val2, long mask)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	u16 raw;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+		if (IIO_DEV_ACQUIRE_FAILED(claim))
-+			return -EBUSY;
-+
-+		guard(mutex)(&adc->lock);
-+
-+		if (adc->suspended)
-+			return -EBUSY;
-+
-+		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
-+		if (ret)
-+			return ret;
-+
-+		if (chan->differential)
-+			*val = ma35d1_adc_sign_extend(raw);
-+		else
-+			*val = raw;
-+
-+		return IIO_VAL_INT;
-+	}
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = adc->vref_mV;
-+		/* Differential mode has a VREF / 2048 LSB; single-ended uses /4096. */
-+		*val2 = chan->differential ? MA35D1_EADC_DIFF_SCALE_BITS :
-+					       MA35D1_EADC_RESOLUTION;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
-+				       const unsigned long *scan_mask)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	int bit;
-+
-+	adc->scan_chan = NULL;
-+	iio_for_each_active_channel(indio_dev, bit) {
-+		const struct iio_chan_spec *chan = &indio_dev->channels[bit];
-+
-+		if (chan->type != IIO_VOLTAGE)
-+			return -EINVAL;
-+
-+		adc->scan_chan = chan;
-+	}
-+
-+	if (!adc->scan_chan)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_buffer_postenable(struct iio_dev *indio_dev)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+
-+	guard(mutex)(&adc->lock);
-+
-+	if (adc->suspended)
-+		return -EBUSY;
-+
-+	if (!adc->scan_chan)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_buffer_predisable(struct iio_dev *indio_dev)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	synchronize_irq(adc->irq);
-+
-+	return regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-+			    MA35D1_EADC_STATUS2_ADIF0);
-+}
-+
-+static void ma35d1_adc_trigger_capture(struct iio_poll_func *pf)
-+{
-+	struct iio_dev *indio_dev = pf->indio_dev;
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	struct {
-+		u16 channel;
-+		aligned_s64 timestamp;
-+	} scan = { };
-+	u16 raw;
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	if (adc->suspended || !adc->scan_chan)
-+		return;
-+
-+	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
-+	if (ret)
-+		return;
-+
-+	scan.channel = raw;
-+	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan), pf->timestamp);
-+}
-+
-+static irqreturn_t ma35d1_adc_trigger_handler(int irq, void *p)
-+{
-+	struct iio_poll_func *pf = p;
-+
-+	ma35d1_adc_trigger_capture(pf);
-+	iio_trigger_notify_done(pf->indio_dev->trig);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static const struct iio_buffer_setup_ops ma35d1_adc_buffer_ops = {
-+	.postenable = ma35d1_adc_buffer_postenable,
-+	.predisable = ma35d1_adc_buffer_predisable,
-+	.validate_scan_mask = iio_validate_scan_mask_onehot,
-+};
-+
-+static int ma35d1_adc_fwnode_xlate(struct iio_dev *indio_dev,
-+				   const struct fwnode_reference_args *iiospec)
-+{
-+	if (iiospec->nargs != 1)
-+		return -EINVAL;
-+
-+	for (unsigned int i = 0; i < indio_dev->num_channels; i++) {
-+		const struct iio_chan_spec *chan = &indio_dev->channels[i];
-+
-+		if (chan->type == IIO_VOLTAGE &&
-+		    chan->address == iiospec->args[0])
-+			return i;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static const struct iio_info ma35d1_adc_info = {
-+	.read_raw = ma35d1_adc_read_raw,
-+	.update_scan_mode = ma35d1_adc_update_scan_mode,
-+	.fwnode_xlate = ma35d1_adc_fwnode_xlate,
-+};
-+
-+static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
-+				     struct device *dev)
-+{
-+	DECLARE_BITMAP(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
-+	DECLARE_BITMAP(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
-+	DECLARE_BITMAP(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-+	struct iio_chan_spec *channels;
-+	unsigned int scan_index;
-+	int num_channels;
-+	int ret;
-+
-+	bitmap_zero(used_single_inputs, MA35D1_EADC_MAX_EXT_CHANNELS);
-+	bitmap_zero(used_diff_pairs, MA35D1_EADC_NUM_DIFF_PAIRS);
-+	bitmap_zero(used_regs, MA35D1_EADC_MAX_EXT_CHANNELS);
-+
-+	num_channels = device_get_child_node_count(dev);
-+	if (!num_channels)
-+		return dev_err_probe(dev, -ENOENT, "no ADC channels configured\n");
-+
-+	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-+		return dev_err_probe(dev, -ENOSPC, "too many ADC channels\n");
-+
-+	channels = devm_kcalloc(dev, size_add(num_channels, 1),
-+				sizeof(*channels), GFP_KERNEL);
-+	if (!channels)
-+		return -ENOMEM;
-+
-+	scan_index = 0;
-+	device_for_each_child_node_scoped(dev, child) {
-+		bool has_diff, has_single;
-+		u32 reg, vinp, vinn;
-+
-+		ret = fwnode_property_read_u32(child, "reg", &reg);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "missing channel reg property\n");
-+
-+		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
-+			return dev_err_probe(dev, -ENOSPC,
-+					     "invalid ADC channel index %u\n", reg);
-+
-+		if (test_and_set_bit(reg, used_regs))
-+			return dev_err_probe(dev, -EEXIST,
-+					     "duplicate ADC channel index %u\n", reg);
-+
-+		has_single = fwnode_property_present(child, "single-channel");
-+		has_diff = fwnode_property_present(child, "diff-channels");
-+		if (has_single && has_diff)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "channel %u has conflicting input properties\n",
-+					     reg);
-+
-+		if (has_diff) {
-+			u32 inputs[2];
-+
-+			ret = fwnode_property_read_u32_array(child, "diff-channels",
-+							     inputs, ARRAY_SIZE(inputs));
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "invalid diff-channels for index %u\n",
-+						     reg);
-+
-+			vinp = inputs[0];
-+			vinn = inputs[1];
-+			if (vinp >= 4 || vinn != vinp + 4)
-+				return dev_err_probe(dev, -ECHRNG,
-+						     "invalid differential inputs %u-%u\n",
-+						     vinp, vinn);
-+
-+			if (test_and_set_bit(vinp, used_diff_pairs))
-+				return dev_err_probe(dev, -EEXIST,
-+						     "duplicate differential inputs %u-%u\n",
-+						     vinp, vinn);
-+
-+			channels[scan_index] = (struct iio_chan_spec) {
-+				.type = IIO_VOLTAGE,
-+				.indexed = 1,
-+				.differential = 1,
-+				.channel = vinp,
-+				.channel2 = vinn,
-+				.address = reg,
-+				.scan_index = scan_index,
-+				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+						      BIT(IIO_CHAN_INFO_SCALE),
-+				.scan_type = {
-+					.format = IIO_SCAN_FORMAT_SIGNED_INT,
-+					.realbits = MA35D1_EADC_RESOLUTION,
-+					.storagebits = 16,
-+					.endianness = IIO_CPU,
-+				},
-+			};
-+		} else {
-+			if (has_single) {
-+				ret = fwnode_property_read_u32(child, "single-channel",
-+							       &vinp);
-+				if (ret)
-+					return dev_err_probe(dev, ret,
-+							     "invalid single-channel for index %u\n",
-+							     reg);
-+			} else {
-+				vinp = reg;
-+			}
-+
-+			if (vinp >= MA35D1_EADC_MAX_EXT_CHANNELS)
-+				return dev_err_probe(dev, -ECHRNG,
-+						     "invalid ADC input %u\n", vinp);
-+
-+			if (test_and_set_bit(vinp, used_single_inputs))
-+				return dev_err_probe(dev, -EEXIST,
-+						     "duplicate ADC input %u\n", vinp);
-+
-+			channels[scan_index] = (struct iio_chan_spec) {
-+				.type = IIO_VOLTAGE,
-+				.indexed = 1,
-+				.channel = vinp,
-+				.address = reg,
-+				.scan_index = scan_index,
-+				.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+						      BIT(IIO_CHAN_INFO_SCALE),
-+				.scan_type = {
-+					.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-+					.realbits = MA35D1_EADC_RESOLUTION,
-+					.storagebits = 16,
-+					.endianness = IIO_CPU,
-+				},
-+			};
-+		}
-+
-+		scan_index++;
-+	}
-+
-+	channels[scan_index] = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
-+
-+	indio_dev->channels = channels;
-+	indio_dev->num_channels = scan_index + 1;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
-+{
-+	int ret;
-+
-+	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-+	if (ret == -ENODEV) {
-+		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-+		return 0;
-+	}
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to get VREF supply\n");
-+
-+	if (!ret)
-+		return dev_err_probe(dev, -EINVAL, "invalid VREF voltage\n");
-+
-+	adc->external_vref = true;
-+	adc->vref_mV = ret / (MICRO / MILLI);
-+
-+	return 0;
-+}
-+
-+static void ma35d1_adc_clk_disable_action(void *data)
-+{
-+	struct ma35d1_adc *adc = data;
-+
-+	if (!adc->clk_enabled)
-+		return;
-+
-+	clk_disable_unprepare(adc->clk);
-+	adc->clk_enabled = false;
-+}
-+
-+static int ma35d1_adc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct iio_dev *indio_dev;
-+	struct ma35d1_adc *adc;
-+	void __iomem *regs;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	adc = iio_priv(indio_dev);
-+	init_completion(&adc->completion);
-+
-+	ret = devm_mutex_init(dev, &adc->lock);
-+	if (ret)
-+		return ret;
-+
-+	regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(regs))
-+		return dev_err_probe(dev, PTR_ERR(regs),
-+				     "failed to map registers\n");
-+
-+	adc->regmap = devm_regmap_init_mmio(dev, regs, &ma35d1_adc_regmap_config);
-+	if (IS_ERR(adc->regmap))
-+		return dev_err_probe(dev, PTR_ERR(adc->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	adc->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(adc->clk))
-+		return dev_err_probe(dev, PTR_ERR(adc->clk),
-+				     "failed to get ADC clock\n");
-+
-+	ret = clk_prepare_enable(adc->clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable ADC clock\n");
-+
-+	adc->clk_enabled = true;
-+	ret = devm_add_action_or_reset(dev, ma35d1_adc_clk_disable_action, adc);
-+	if (ret)
-+		return ret;
-+
-+	adc->rst = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(adc->rst))
-+		return dev_err_probe(dev, PTR_ERR(adc->rst),
-+				     "failed to get reset control\n");
-+
-+	ret = ma35d1_adc_reset(adc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to reset ADC\n");
-+
-+	ret = ma35d1_adc_init_vref(adc, dev);
-+	if (ret)
-+		return ret;
-+
-+	indio_dev->name = "ma35d1-eadc";
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->info = &ma35d1_adc_info;
-+
-+	ret = ma35d1_adc_parse_channels(indio_dev, dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_hw_init(adc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize ADC\n");
-+
-+	ret = devm_add_action_or_reset(dev, ma35d1_adc_hw_disable_action, adc);
-+	if (ret)
-+		return ret;
-+
-+	adc->irq = platform_get_irq(pdev, 0);
-+	if (adc->irq < 0)
-+		return adc->irq;
-+
-+	ret = devm_request_irq(dev, adc->irq, ma35d1_adc_isr, 0,
-+			       dev_name(dev), indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
-+					      iio_pollfunc_store_time,
-+					      ma35d1_adc_trigger_handler,
-+					      &ma35d1_adc_buffer_ops);
-+	if (ret)
-+		return ret;
-+
-+	platform_set_drvdata(pdev, indio_dev);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static int ma35d1_adc_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	struct regmap *map = adc->regmap;
-+	int ret;
-+
-+	ret = iio_device_suspend_triggering(indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&adc->lock);
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		goto resume_triggering;
-+
-+	synchronize_irq(adc->irq);
-+
-+	ret = regmap_clear_bits(map, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-+	if (ret) {
-+		/*
-+		 * ADCIEN0 is enabled only while a conversion is active. Holding
-+		 * adc->lock here guarantees that no conversion is in progress, so
-+		 * leave it disabled. The next conversion enables it again.
-+		 */
-+		goto resume_triggering;
-+	}
-+
-+	adc->suspended = true;
-+	clk_disable_unprepare(adc->clk);
-+	adc->clk_enabled = false;
-+	mutex_unlock(&adc->lock);
-+
-+	return 0;
-+
-+resume_triggering:
-+	mutex_unlock(&adc->lock);
-+	iio_device_resume_triggering(indio_dev);
-+
-+	return ret;
-+}
-+
-+static int ma35d1_adc_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	mutex_lock(&adc->lock);
-+
-+	ret = clk_prepare_enable(adc->clk);
-+	if (ret)
-+		goto unlock;
-+
-+	adc->clk_enabled = true;
-+	ret = ma35d1_adc_hw_init(adc);
-+	if (ret) {
-+		clk_disable_unprepare(adc->clk);
-+		adc->clk_enabled = false;
-+		goto unlock;
-+	}
-+
-+	adc->suspended = false;
-+	mutex_unlock(&adc->lock);
-+
-+	return iio_device_resume_triggering(indio_dev);
-+
-+unlock:
-+	mutex_unlock(&adc->lock);
-+
-+	return ret;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_adc_pm_ops,
-+				ma35d1_adc_suspend, ma35d1_adc_resume);
-+
-+static const struct of_device_id ma35d1_adc_of_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-eadc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ma35d1_adc_of_match);
-+
-+static struct platform_driver ma35d1_adc_driver = {
-+	.probe = ma35d1_adc_probe,
-+	.driver = {
-+		.name = "ma35d1-eadc",
-+		.of_match_table = ma35d1_adc_of_match,
-+		.pm = pm_sleep_ptr(&ma35d1_adc_pm_ops),
-+	},
-+};
-+module_platform_driver(ma35d1_adc_driver);
-+
-+MODULE_AUTHOR("Chi-Wen Weng <cwweng@nuvoton.com>");
-+MODULE_DESCRIPTION("Nuvoton MA35D1 EADC driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
-
+regards
+Philipp
