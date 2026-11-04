@@ -1,79 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793796943;
-	b=X37dai5K7T7vGfO2P2ANv+8xcal91YSwQGCvG4yru8JaQ0PueDcWvMy61SbnzeySUhBX
-	 Fo7mdWGc7iMb1Y9kA+h4O6IYhqGXdA5O4VMsd75zN7ghli2pvYQKqh+tTSCNgn+E+a+4X
-	 h5FEhkT48DPAdQqW5UCxPuLGYELHWUJ2R5LwvgeIYo3qsNjb3Z6AMO8y8BRvZVeZXhsZj
-	 3fLaNDQ+U4HSZSIA3VCuID/xhX1wvmAT2lgCsWcAebN8W5PITDPy0EXlUsVAdPryCk58I
-	 eUzRhgoARLfFPYARgXbC/6RqZmPpimeU5pnLr4LJQMyhjbeWxo4Iur/bXTs61qyVW4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796943;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qi8G9UvFtYoe7/NNMKSW69kt3Fc1EXVO1pwg69nVuFo=;
-	b=hEyufO3c+2jjf+p/+8R3nMztRlUA7g3Uqmj0JHM7bdR04C4tFq/FnwF8AEEyrBax2Ws3
-	 5j5tmcP+WVSKzXYP1uro8Fnmq/Yqwc6GBCg87T5wgyblE5rwcUUjLG3Q5TAYL7u44IDB9
-	 Lei61pm7dVEzeXjRAvWNY7QxOEIkDWo7SUlTU9O2NWv59Zs7eXlEIetx0sCR4QzSek4Qj
-	 CFvoTMHmjFjU7MvkBwuELLHewE5nscu846gvQAQYyBMMSpDJPAhqGaV5xLXu3+Ddwm4Ck
-	 yX3jE7tGAmlinCGvUsbgyQTjl5GQbKKVomJEKefEeSZ3Xik/Ma5TDG+1RxGeo0/p9Rg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVdFEz7d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A056E606A329;
-	Wed,  4 Nov 2026 12:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVdFEz7d
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793796943;
-	b=gAjlQyQKkYX3VZt594y6wxQGhNFE4NBjj9hTdXX5nRe8lD4kfD5lr9kG1pGLG4UkOWD7
-	 yV2Aq0LpNf696j/IYXn8aMM70iAFtGygLvmFrQVynAt+3V2+v65ceRt8xad7AjD/A72pF
-	 YoQgvEqbMVY1lH3PisulhlQVaRX7cI+o4+nDrYKe79eVWkY0VC26Mi/0inD61jm4nOX2B
-	 JNDBmHSYlnzIKN7HWZcoN2v3q6B0Id797U9V1NAjc5h3j9jkrmfhlBdy16TpLcD3/XZD9
-	 SoLc/28cAqSvLgQLos7gGv54tqH6tiADCYXmtLM+C0kmDuR1OgjN//LeVLbVbk8BBvA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793796943;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qi8G9UvFtYoe7/NNMKSW69kt3Fc1EXVO1pwg69nVuFo=;
-	b=MNsLESujETidpsWGLoGZ2oKtTKcEm5Fkfm5raBkcnZ0KUscHgp1eONLqVG8SL8hLPh30
-	 LMorCwev8rREH2BAZZRetBe/DViwePVol2F9zHy9H68Ek+me/KGijaXIMzXpQZioQW1c3
-	 kvibBTPpYv/CAXvTGLpJeTGPogtLLCONdi11YtNJYxeozkerP1cJqNsEiBxMbA0qhUwJS
-	 xEs6aEaw/bJK9/+q0HbWKzHZVvAqdSkFHHcjkGR/V1aEHBeL1kN56/Q12sAL+oK7SHb1y
-	 pJWiujwWqkn1P0aVa7UU4UYc3G0FrSPfnk6IyMkCB87qq+wG4tMstlwvCY5wmfBdgtw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793796986;
+	b=DJ0WEIz+fa39Dp8KbfSxAD5ArxvivzFz8eZIFdwgo1qEwBZ4d7af3x/A0wrfgvPQ6PGv
+	 PMrP6F9kdp8KujMos2eFaPK8QG8FOyPAGbbbkQUNjI08qAKx6Z/5bYuvxmK9NqMP/6XTW
+	 /bupLGbOI5dKdnaN5nK3XbhGZXrOzf67vG9unFutXsObJEjF7McRukH5xE8mD9Y4AFh8W
+	 MGxCFGzrZFxavAvlZvT2+ecpta7bQXkk9cnaec6qu7+NtriMVZw7lVcPgqKGW+MighWUN
+	 LaiN267/zmWwpeNtnKwRJdJm3XS5NQJuYO+65n6nfS3PJEqlOSXirQYZH2LlHk8x7lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796986;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=a3viuefWVHlkOcjcyLognlTI0g9S7LK7g5mw2hwAeX8=;
+	b=a9aUtQ+gfFiugUMBWFvlNpjV3P5smN/FZrDtajLHB53xtchmOA0x5AP9HGCJb/+0vFi1
+	 eipVOhkojbkqFBLU9sngsCEnkKTSIfKXjhW7jVsdl2V/a+L/iobJMwtipjnSjLoBaRubn
+	 FKKvYRqLsvYEXOpf9DX2jC5jUMhuYeEEDVumim/bdr5j5oGHkuP0F1krfg3DTYK83dU9z
+	 oRyunf99sI8wWb5SQ38FOgCDKzg0CAYmwxDKAt250rTk7xH/cwnItUhKysBYHb3RgPpcy
+	 FkyQvdoGwbF9r5hDCsuYE4iuTFZkQjPl8OCXSGoLEuTM9oh/tXo+UV2HIR0X/7LPVYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=tomeuvizoso.net;
+	spf=pass smtp.mailfrom=tomeuvizoso.net;
+	dkim=pass header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=E1HS4KvD;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5537D1F00A02;
-	Wed,  4 Nov 2026 12:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793796943;
-	bh=qi8G9UvFtYoe7/NNMKSW69kt3Fc1EXVO1pwg69nVuFo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=MVdFEz7dYH0yB+r3y2TT/KjcqCXOoaPFdgMDpJwU0JP1q8jOgMH7JLHklZMXpI2w8
-	 qVfixBnjyHUe1K9ZiLOqBrM50ciffBz8+897/GuX7gQ9ZWo7tvYDsYtx+vpdZ+B3z+
-	 4GljQfYdceHkzz66fP7EYw9yt52EJ0sK/LByJr9ff6+MdkStlCwzuXddoTXmMBlQrH
-	 3EJD9Qxcvv2qWmyXILQO8kxvxYrM85NoB/84+oqxqBsCHC8Pt6YJEjoMt4WWh5dHqT
-	 B8o/8uhvTjszZrRF/4lDvHyTg4qnU+UrKfCDsoH8pDo4UIySb4dtcYpHvtgc0pu/qb
-	 seQ8KH76Jx8wg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D4CE946E3D;
-	Wed,  4 Nov 2026 12:55:41 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 04 Nov 2026 13:54:45 +0100
-Subject: [PATCH RFC 3/3] arm64: dts: qcom: sdm845-shift-axolotl: Wake the
- system on a touchscreen double tap
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21BB606A329
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:56:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A21BB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tomeuvizoso-net.20260707.gappssmtp.com header.i=@tomeuvizoso-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=E1HS4KvD
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso4022625e9.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:56:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tomeuvizoso-net.20260707.gappssmtp.com; s=20260707; t=1793796984; x=1794401784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a3viuefWVHlkOcjcyLognlTI0g9S7LK7g5mw2hwAeX8=;
+        b=E1HS4KvDMJ6h45stv1yXcg6I/LLEE/c9MaF6ggenro1/m0w4QKXVE9y6xXyOpyL8I1
+         29B115DvRQVFT2gq1ICuxfvi5sQcPumezfbyddX1fyWCeBLKcAlcXd9gZ6sezLvemTVh
+         WA21r+rWy83sQ/m6kgUSl2ALr1nRvpPTT8KofRZrcuEGlZYgSVrJ9ZMZV7qwYtO4LHF7
+         HzcCk0kdgJHlo2eL/5FbAbPCSVJ9QEk2LNE5mgFuUPOqAvKxeef40wNrU/qf5+6SgSJN
+         3jbWRt/ekMkLMiHRPqmhKWKA0LoSJTKgkQPcFG6EvmyifG5TyT8j3FPqrmkp5R6NonH4
+         EG6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793796984; x=1794401784;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a3viuefWVHlkOcjcyLognlTI0g9S7LK7g5mw2hwAeX8=;
+        b=gNA5DZv57M0KDhkvO8ZuCHgHFmEwyI3G8xzHp4Y7voh3/nBwrP/aVp2QkAwriUB6rn
+         ak41mBGsMwKji01BXxRyV8dQcLWawmOQ8NIYlO18au8IMTpnS+Ikub/gXdi5LRBV5QSJ
+         y4AedyxXnOTEEs+qo9BiRDU2/IQ/E8eD2yXq01NVjVvFYLkkSmRFr1iqh7/RyaPsG6rC
+         KRoNAjUyh8hKRkP7Uh/J+fqxkwJ/IZmoVP3RqW+Zgz1ltDZCSCwdo1U3aPdqG80Ulmah
+         I07Iuj47GhqG3ubYUQMVf+DzlwWF9qr4NjN1x+zAZaH7fKnE41e6nA0UNp1P0zeJMlny
+         BNbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzw2nM2NrKamuDe90/6yAKi52OnGKcyBcZQ/WrqMEXwKY/nCTOw56Kp4NJpdAMD5VYVAO3GkJ8UZH+Q@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rpNiJTOH7T5jN0YQnatjSa1q6duWOe6gFUgnkRHHX7iJ2m3aZ
+	XtyMGe/+ycemtNKvKViqoQZbAS4ih91ZBXrP+gqXO43gZWysHYFqg4BM3vOJpJmnB6I=
+X-Gm-Gg: AYBFou3wZfYm4GiC6+7LbjrsHjSUyaaaymYUoZdQgPQaLJw6SMriqpqrThTM0zCr07c
+	iyll883KlAMZVtv2Ye0cs/wSWCaSo1oKzacZonTeMm5KOxQCg19UzxghjI2LetioogfH9a0LaC9
+	kcUBhW3kGH/XHVPItJSnoFTEBrcT6Av6tOwtl1DS8t1u1I5WlsfTTZuKI8jtocpDmBBHSQAXF5O
+	mBfQQ57OuJnGQZcw9QzH4QI4di8zxsk6q+bIgJt6ewYxmNJsKtCrmSGwETpWTlsZW6E3A3vMwSg
+	Qullpm44+zBJ74fU5ZVf8bKji7eWse8hxqF5zSqO16sAwGmGuFr38ZiRIL9nO5MwsEaDRpWtk4w
+	j6EXREphDEyHopb0KrK/QnCAYtruLbytZ1bu3P0W+y0CV8zO46KA08mAH+sTrMeC9fgM1ujNRGA
+	BtJmHmpb8U2CLJpXRofXfWc8zhBYAEZ1k4sn8LCob0ViLgCXrPjpQkIPp2bDXQ45VzkHzuHixog
+	ZMmw5GkJmtKrU/+8lMDScFhuyG8Smp6/9Pcr1Es4ipp+nYJB6LAGzLjQNWGvV+MQpSm9H14vPe5
+	0P+fa6ZgIwog1jNnCc0p7VjYXTQhRc6IbTSSbpL9j5441lE2zgDGWqoTVF/S12AjYF/J3JA+/l8
+	tWUXPGrxJz/Rw3mXw5B7iQYUnVuHvVP9HmFZaedTyasGtR3fvUDm6zWe/VhX/vBNHR0qaoVA=
+X-Received: by 2002:a05:600c:1d28:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4ac1793fb6bmr425311395e9.16.1793796983815;
+        Wed, 04 Nov 2026 04:56:23 -0800 (PST)
+Received: from alcachofa.home (cst-prg-36-190.cust.vodafone.cz. [46.135.36.190])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20935sm3705844f8f.54.2026.11.04.04.56.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 04:56:23 -0800 (PST)
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com,
+	royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v15 03/15] accel/rocket: wait for a running IRQ handler before resetting a core
+Date: Wed,  4 Nov 2026 13:55:18 +0100
+Message-ID: <20261104125529.3229301-1-tomeu@tomeuvizoso.net>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261101082307.151957-4-gahing@gahingwoo.com>
+References: <20261101082307.151957-4-gahing@gahingwoo.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,81 +126,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-ft5x06-double-tap-v1-3-5a1bd80449cc@ixit.cz>
-References: <20261104-ft5x06-double-tap-v1-0-5a1bd80449cc@ixit.cz>
-In-Reply-To: <20261104-ft5x06-double-tap-v1-0-5a1bd80449cc@ixit.cz>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1038; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=gVCDyYfuQzZ+YQquXafcJW7FFenl4GNi6oZKBwhfrWI=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq6ytMe815RX1a0N0eshGYgGeLRlEwiMcSDon56
- mBRBAXxnT6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCausrTAAKCRBgAj/E00kg
- cqm4D/9hDSLf2LwEVC9LRzcuRML9wLXa9giF1R67yIzc+wlg0RuW6V+WNfwYs2VAWREjIsYemqx
- 1RwzoA46JMZEhNgxSxM8hGauxekMiuuJ76lBpBg2hiRIo78V8sdjiR3S2VftxQUzry2IhDlDO5X
- q4yRTKnaknvOTBIy/dQsldPRWqusokHEf6Fif/HnE3MUxSDcApky/o+ZaEZvgr4k1ODn3DbQVZ/
- ygwhqwH0HmP382ABkLUfQ0LEV+Ml2W1mv//ftrj78qlcpMFAKbixuM6Ssz4vR+JssMW110XmgYZ
- Z6t/7zwotfdbfd61wLiGnLeyGlRhNEhMn6elfCiFXR0HEUW0YVyz9SCNv0h7tEnTP/fXV0sh+DD
- wIDpNF73S6xMNjZ1giIi+BFu2G1cI8HwUdHnDoZtImte4AtfDhoUi9ECq4a6DOmjf0U1KLiQ47h
- NBWSPPWMqbi7IFxlEK/B8AyqNhy4GTcvYBa3DJ6zDci72pmftDYF1adtMVT545gnXcxkP1BpQCD
- sGvCAU8c1xhr6TF6lWPBTEexm6axM/9Xr8Hc+1pLmNgwjTFURn3zXCowdiBL3+Fidi2263oKA3T
- GtgQOdnsDHJF0lMg7owte2up+yHxR6txVhA+Hit+o6UxTYeudJM+nH6qfSzsIcNS9E1uJXTqy8P
- xdTasBdQuiARQPg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+On Sun, Nov 01, 2026 at 09:22 PM, Jiaxing Hu <gahing@gahingwoo.com> wrote:
+> drm_sched_stop() does not wait for a threaded handler that is already
+> running. Call synchronize_irq() after it, outside job_lock, which the
+> handler takes.
+>
+> Before the sync, mask the block's interrupt and clear its raw status, so
+> that an active core cannot signal a completion after it. Do that under
+> job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
+> and only when pm_runtime_get_if_active() returns a positive count: the
+> reset holds no runtime PM reference, and with the domain down a register
+> access takes an async SError.
 
-The touch interrupt on GPIO 125 is routed to the PDC, so the panel can
-wake the phone. Report the controller's double tap gesture as
-KEY_WAKEUP.
+The above I understand.
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+> Igor Paunovic's induced-reset runs on RK3588, including a two-task job that
+> puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
+> does not show the race is closed".
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-index 1b0eaeafbd517..e4eef60271c55 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-@@ -504,16 +504,22 @@ touchscreen@38 {
- 		iovcc-supply = <&vreg_l14a_1p88>;
- 
- 		pinctrl-0 = <&ts_int_active &ts_reset_active>;
- 		pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
- 		pinctrl-names = "default", "sleep";
- 
- 		touchscreen-size-x = <1080>;
- 		touchscreen-size-y = <2160>;
-+
-+		wakeup-source;
-+
-+		event-tap-double {
-+			linux,code = <KEY_WAKEUP>;
-+		};
- 	};
- };
- 
- &i2c10 {
- 	/* SMB1355@0x0C */
- };
- 
- &i2c11 {
+This is completely out of context for a commit message. How is somebody who is
+reading git log know who Igor is, and what his "induced-reset" is?
 
--- 
-2.55.0
+> Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
+> Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8HoMtHD5U1g@mail.gmail.com/
+> Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail.com/
+> Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmail.com/
+> Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gmail.com/
+> Suggested-by: Igor Paunovic <royalnet026@gmail.com>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+> ---
+>  drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
+>  1 file changed, 68 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+> index 03e5f094f60b..5b2abf40b618 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -401,9 +401,74 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
+>  	drm_sched_stop(&core->sched, bad);
+>  
+>  	/*
+> -	 * Remaining interrupts have been handled, but we might still have
+> -	 * stuck jobs. Let's make sure the PM counters stay balanced by
+> -	 * manually calling pm_runtime_put_noidle().
+> +	 * Mask the block before waiting. hw_submit() arms INTERRUPT_MASK on
+> +	 * every submit and only the hardirq clears it, so on an ordinary
+> +	 * timeout it is still live and a completion can arrive after the sync
+> +	 * returns. The next submit re-arms it, so nothing is lost here.
+> +	 *
+> +	 * Only when the device is already awake, though. This function holds no
+> +	 * runtime PM reference of its own: the only one in the window belongs to
+> +	 * in_flight_job, and the completion path may have put it and cleared the
+> +	 * pointer before the timeout worker got here. drm_sched_stop() above can
+> +	 * block for a long time, and it drops every pending job's credits, so
+> +	 * rocket_job_is_idle() is true and nothing keeps the core resumed. On
+> +	 * this hardware a register access with the domain down takes an async
+> +	 * SError, so a reset must not be the thing that causes one.
+> +	 *
+> +	 * Only a positive answer will do. pm_runtime_get_if_active() tests
+> +	 * power.disable_depth before power.runtime_status, so -EINVAL MASKS a
+> +	 * suspended device rather than excluding one: pm_runtime_force_suspend(),
+> +	 * which is this driver's own system suspend callback, disables runtime PM
+> +	 * first and turns the clocks off second, and rocket_core_fini() suspends
+> +	 * the core and disables before it cancels the timeout worker. Both leave
+> +	 * the domain down with -EINVAL on offer.
+> +	 *
+> +	 * The cost is the other half of that ambiguity. A core that is still up
+> +	 * with runtime PM disabled (pm_runtime_force_suspend() before its
+> +	 * callback has run, or CONFIG_PM=n under COMPILE_TEST) is left unmasked,
+> +	 * because writing to it would mean writing to the half that is down as
+> +	 * well.
+> +	 *
+> +	 * Clear the raw status along with the mask, the way the completion path
+> +	 * does. Masking alone leaves the DPU bit latched until
+> +	 * rocket_core_reset(), and the hardirq decides on raw status alone, so a
+> +	 * fault from the IOMMU that shares this line would wake the thread again
+> +	 * and what the comment below asserts would stop being true.
+> +	 *
+> +	 * UNDER job_lock, because rocket_job_hw_submit() arms this same
+> +	 * register and always runs under that lock. reset.pending is set here
+> +	 * without the lock and read there with it, so a submit that has already
+> +	 * passed its check can re-arm the mask after this clears it, and then
+> +	 * the synchronize_irq() below fences a handler that is no longer the
+> +	 * one that matters: the block is left running a task with its
+> +	 * interrupt live. rocket_job_handle_irq() avoids the same race on
+> +	 * OPERATION_ENABLE by making its completion writes under this lock.
+> +	 *
+> +	 * pm_runtime_get_if_active() does not invoke a callback -- it only
+> +	 * takes a reference on an already-active device -- and
+> +	 * pm_runtime_put_autosuspend() is asynchronous, so neither can re-enter
+> +	 * this driver's runtime PM callbacks while the lock is held.
+> +	 */
 
+This is just absurd. The driver will quickly become unmaintainable if we merge
+this kind of comments. 
+
+Please remove all LLM-generated text (cover letter, commit messages, and code
+comments) from the accel/rocket patches in this series, and replace it with
+your own.  I don't mind if you write it first in your native language and use a
+LLM to translate it to english, but I need for you to understand the code you
+submit and write yourself any communication with humans.
+
+If you don't understand anything in the code well enough to write the commit
+messages, cover letter and comments, then I suggest you use the LLM to assist
+you in acquiring the knowledge that you are missing.
+
+Also, please read:
+
+Documentation/process/coding-assistants.rst
+Documentation/process/generated-content.rst
+
+Thanks,
+
+Tomeu
 
