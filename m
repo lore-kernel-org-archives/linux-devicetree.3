@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818468;
-	b=ckZ+G525YhgKfxn0P68cT4pz5E4zCgfcGk5BoTwtYFHqUmUXr7oGwkHeQK+39AXoJv6F
-	 x+TNbN2kYkH5wUn199LoZG6nXYijsXhvbix/L138AdlfhjH6Jx41/eko3xE6BwYqUqCu8
-	 uY5zJ7AN3hXLtfQbidwnNthyflIcSw/ZU/JcVFsDszyq93aHoA5VUJgFZTYkI92iQ9cT0
-	 79MdZ0JsN8nw2vjQ2pXK7m1RTPG/luU6lXWxFIPTWq+1+gisd/hxNGnasT3dQNmAs20WP
-	 gkFlSso7TlssfMQ16yOq9WWGCPRijT/1Y/YEa9fy2gvDaGv6qHcTFtLymeKhaWMHLPw==
+	t=1793818580;
+	b=r1bnyeDb4Ov1+ENlRIDtpa9TU3tTOZhuG5hV79XA6G7C7LpNP544dQPq6k+DyUbnpB3V
+	 GE4EoJ+WXMm7W/OerU+NeV52wh9lK63RMsKSuxR5lxIDGQEIB4UuhvW9rV4cIgre/Lw3K
+	 lspBlS+3wef6uUBDek0moQAZymjwj5WbjbXO7oiYUdF8ml7bnLpHtBUPg33+olfRJm7px
+	 pdtj6Hfd/BZp1sQ8htzNCpc613h+yIObLEVO0sDobuMn8ff15dyaQ+9UVYd8yRwLEiHiI
+	 Qhr0G16BviLicTxIUpfoe1HQolUQLlKJLe1SYOhOgUDlbwSG0GS0ju8lf4DAcQlX69g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818468;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=a95SNiiT7dZBSQfEZM84dekyTvPeES9MfG8l19eIfTc=;
-	b=0+h+FpUV2MJddgqt91DmvYNjzVoAwfcax8gGdIDBCFbSZ1Bemd2Xauo3Oe7SG2rxkPlD
-	 CkRX/vlmZeIbt1gvBsnYPxje947zxPfJetMEB28E0f5D7YsoWfodljYb7w8TOR/znvXv+
-	 93Vlc0Ep/3rosp0DSbpiuEFoFRsfK+/TeSBLneRu4aE5fLcEhP/t2MkpLn40pOCbV3QVr
-	 cGSok8ObEwovXWTs8v+hsTIv5ORIxJGkm8ciYpuO5FjpR065Lu1pD3h2/dVVWL7szLd37
-	 PmC+vxFNjn+ugy9Jfz1aFCllSGGfOZRx7oCcXJ2UBcq1dNAROOcCNS9TpZbATZQCpsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818580;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PoEnk5w0FeXgmUszIA38mVTO0/9NRJVsUtjtCXZXtvk=;
+	b=zM1AZL4Acom/gJ+6cTb+Z+cS1C2IfsVH2iUMufVoAs0GZlrF83LZ92byf4jhjpCyvEB5
+	 AO5IVMSDo7Kapiy3Uvmp/XJ+38IZzGukO8J88x/5/17ms1VkVNtFXBAIYtvsraoj7vPR0
+	 jNNnGuACB/Ll+ntm5xZWk+obglzBSIPegdFxrhpoC7PFBUHI4KwejsHfob8JXltAua0mj
+	 eMvYobkPUrggP146EHCQCmaXO3yrYDoiczcxF2p6T8ZdoliBTwGHYVtcPsemXQDlRPlyU
+	 LpWeFnnQTDKtE7yvxMt5qWVw7T1OQFK7Vvo4DCyWQGMthw0uczQn6fWlnrWozfJQgqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7hwtTTC;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=protonmail.com;
+	spf=pass smtp.mailfrom=protonmail.com;
+	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=qGr2NKGN;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32438606EEBC
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:54:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32438606EEBC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BB6606A32C
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 18:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53BB6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7hwtTTC
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so8102585e9.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 10:54:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818467; x=1794423267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a95SNiiT7dZBSQfEZM84dekyTvPeES9MfG8l19eIfTc=;
-        b=E7hwtTTCqW2epiO/054BcrJ5x+cx7VA4DDCSjg0uECfKGnWtS+FKv10b2UhxUHAJ53
-         ouFEx7jKZLBPxA5L2DQlcC46nwWS5hnkER8yfh/6Q+XJA6UcFp5dLzJTgNb1p1uIhgxN
-         gcR44tb/rk2c0jqHuE999JuHKTSdfhaA21Iniy5ur/Zw/bqCRyAezkt4xyxZtuB3jVTp
-         eWFlP68kpNDF3hJilTGg862+xpObQmlrGRPNux3gpQ27bifH7dk9eu5ui4I7jcC85SYf
-         n28h1w3CPbLT/7LJIqxuM028n9ZeWS/z8AMirzKJiBF71pimXtWCHaUFMvlADY985Wv+
-         YCnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818467; x=1794423267;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a95SNiiT7dZBSQfEZM84dekyTvPeES9MfG8l19eIfTc=;
-        b=Kyv+TYzgVouju7DZSt4QTFdjd8QfCdUp2QwDWu/bloIfvgYl4X5SB5ZqwtogvRDSX+
-         cQCsZizAlzxq8231Gbnfionzs1wJVmsldwunQrHh42XEz4uIEm9zCRwRN5d/08GYinHf
-         L93SnNCORDydriA+OL+iDfvq0hfaKr16xrgi2yUYvjAD4PbWGR1mo5H3Fi74DelGKFK1
-         tQugALDiPZTzDiPypoAC0Hx62sjCcPYqOdUbCMoJF53VHmSnP4jXk+EkN0BG4ocX9Guq
-         XSta8paO4fkufD/CoPSMog4GiLa++5s1oDwOuTktJq5tuM/Ufd8fhvACNByYMhI8wZxe
-         7SDA==
-X-Gm-Message-State: APuU4Z8zGXMTX6jkmCZPvjru5EUyo7hoJMsU0u+cK8sQkAz/BJyCHYRF
-	mm8idM+9mp2/rIuaWdBcK84BT4MncstsmWDV6SLnmmyCeiPNxqzhvrpB
-X-Gm-Gg: AYBFou2TUocBViatBe4rNo6DKGbL+8DpIJtYjZ//tHStZ2PhsaVezHJxVrb9l+ZQoPZ
-	4+QNrIu1SrFrgZoDbN+rbRMvsHGOlYXw9vWGs7B9V0Rq0jXDKir95HLiv8Xpmr5k3T6L7xmfYcW
-	mNA03OW+fhk0gciN28SXBX8lTqb2ceuBb+Xq/+g9Vt1Nd8O+3PhkedoNG5i3+4HN+RJp1qshaOE
-	r/pfwkl7/Hktiol9NRMHSLYHCA0qssMv15Lrf5rALRQ4Es5MD6MdsHC7+YKS2nqt8h9vwBCkr1a
-	W7AOq21yYLHTYi0kThNnnPDSpCbFe4Wnu92p5dz/voESP9MIkc/gw6LFc4NOk2YKGrS8/yj+JaA
-	TNJcmSX911y6Houl/EA6goc2/1UlMkFl+ZEaJiGHA9fh/1a+mUSfvO8Pgji9xsQAIf9TxN7vDGy
-	OdWAcivBYWvFp9qsv6MF1zcMFqr7LinDTH/77nHk/U3mE/UCr46cqD0hM1kBn7nlpbJEKltu9CB
-	zAmxyvkBZmfZezE1X30GaDzR/527tPBgI+YTZdoUu9lsB+Cx4EuSdaNN7mS+a9gRQfubux+jMHI
-	EHV0Sa5XRGgHGZA4p7SzfY5udij+Y2TU9naRBnUo9AMzIGjfM5K0vIderU+dgO2vxpavAXnBBZl
-	tuQlZUUlXqUlEQ6ofhW5H4oBWuKdjyaZO5ivH6wtp1snbEoctSSxwYa3Sqi2QL3RHnqA2LC/orR
-	YxFehTtVX1n8S+G4HWEFl1GsjXerMuzasVkTzDmTRswzsDlmHMTWtmT20tymySAgIQBsITSsNNv
-	i9c4O/LwPG6XBcgrecm4yo6mJKCunLASAJv6AgkMxGqWpwjmyEeMoCZB5A5ZhGMLg==
-X-Received: by 2002:a05:600c:46d1:b0:4ab:cc03:7f60 with SMTP id 5b1f17b1804b1-4ac18993780mr378666935e9.18.1793818466426;
-        Wed, 04 Nov 2026 10:54:26 -0800 (PST)
-Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65b0sm4687805e9.11.2026.11.04.10.54.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:54:25 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] arm64: dts: allwinner: h616: Add CPU cooling map
-Date: Wed,  4 Nov 2026 19:54:21 +0100
-Message-ID: <20261104185421.883883-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=qGr2NKGN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1793818576; x=1794077776;
+	bh=PoEnk5w0FeXgmUszIA38mVTO0/9NRJVsUtjtCXZXtvk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=qGr2NKGNyA8oQsQN5aT4QbA2ipKJFBAk8gaR7VbT56KzBAQptM3M/5H80lBsj1Z6y
+	 st0Heiowa4h9BebEodOu+qHAiYNvhldpzxLdsK25Znd6fzCkoYv2HflgHYT2ALeb5S
+	 KfMc19qLA2Ryo1oPN4cI9zmoOSpiLCC0edOufl2dfT4JD+lalPs66QLXzlg//+EZ4w
+	 sPUK0j1IYsw17fZ3ghLls+jifpHIM9woX2ZgFi7X84+DHRuGfiBQ22AZN26xuQjaIP
+	 j6RtAb6MW/4H6BMwrV1oisuevt3F2ZPdGKJOHESBKDo9wSWnRkQKp6bC9bhM2p99R/
+	 +zZ5hAWz9jNsg==
+Date: Wed, 04 Nov 2026 18:56:12 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com, dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kernel@collabora.com, justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, CK Hu <ck.hu@mediatek.com>
+Subject: Re: [PATCH v9 05/13] drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+Message-ID: <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
+In-Reply-To: <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com> <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 1252c7109e566e88ba7843d515915c4f14738510
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,41 +64,127 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The CPU thermal zone has passive trip points, but no cooling map, so
-nothing throttles the CPUs and only the critical trip point ever acts,
-by shutting the system down. Throttle the CPUs above the 70 C trip
-point.
+On Wednesday, September 16th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <=
+angelogioacchino.delregno@collabora.com> wrote:
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+> Having the DSI interrupt enabled before actually binding the DSI
+> component to the display controller driver is both useless and
+> dangerous: the main purpose of this interrupt is to signal CMD
+> done, LP RX data ready, or VideoMode done, or to reset the HW
+> engine if this doesn't come.
+>=20
+> Should this interrupt come too late (during probe), the HW will
+> be reset only at the next occurrence of a timeout, which slows
+> down boot and may render artifacts to the DSI display.
+>=20
+> Moreover, clearing the DSI interrupt while the display controller
+> is not ready yet, may result in an interrupt storm.
+>=20
+> In order to prevent this from happening, request the interrupt
+> with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+> display controller component master.
+>=20
+> Reviewed-by: CK Hu <ck.hu@mediatek.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index c6b3a3f8359a..e4e0b999473e 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -1105,6 +1105,16 @@ cpu_critical: cpu-trip-2 {
- 					hysteresis = <0>;
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu_target>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		gpu-thermal {
+This was necessary on mt6595, otherwise it would get stuck.
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Acked-by: Roman Vivchar <rva333@protonmail.com>
+Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
 
+> ---
+>  drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
+>  1 file changed, 13 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 28ba532210ff..6ac6daa61e68 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -225,6 +225,7 @@ struct mtk_dsi {
+>  =09int refcount;
+>  =09bool enabled;
+>  =09bool lanes_ready;
+> +=09int irq;
+>  =09u32 irq_data;
+>  =09wait_queue_head_t irq_wait_queue;
+>  =09const struct mtk_dsi_driver_data *driver_data;
+> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct =
+device *master, void *data)
+>  =09=09return ret;
+>  =09}
+>=20
+> +=09enable_irq(dsi->irq);
+> +
+>  =09return 0;
+>  }
+>=20
+> @@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, stru=
+ct device *master,
+>  {
+>  =09struct mtk_dsi *dsi =3D dev_get_drvdata(dev);
+>=20
+> +=09disable_irq(dsi->irq);
+> +
+>  =09drm_encoder_cleanup(&dsi->encoder);
+>  }
+>=20
+> @@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pd=
+ev)
+>  {
+>  =09struct mtk_dsi *dsi;
+>  =09struct device *dev =3D &pdev->dev;
+> -=09int irq_num;
+>  =09int ret;
+>=20
+>  =09dsi =3D devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+> @@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pd=
+ev)
+>  =09if (IS_ERR(dsi->phy))
+>  =09=09return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-D=
+PHY\n");
+>=20
+> -=09irq_num =3D platform_get_irq(pdev, 0);
+> -=09if (irq_num < 0)
+> -=09=09return irq_num;
+> +=09dsi->irq =3D platform_get_irq(pdev, 0);
+> +=09if (dsi->irq < 0)
+> +=09=09return dsi->irq;
+>=20
+>  =09dsi->host.ops =3D &mtk_dsi_ops;
+>  =09dsi->host.dev =3D dev;
+> @@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *=
+pdev)
+>=20
+>  =09platform_set_drvdata(pdev, dsi);
+>=20
+> +=09ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
+> +=09=09=09       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+> +=09if (ret)
+> +=09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
+");
+> +
+>  =09ret =3D mipi_dsi_host_register(&dsi->host);
+>  =09if (ret < 0)
+>  =09=09return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+>=20
+> -=09ret =3D devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+> -=09=09=09       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+> -=09if (ret) {
+> -=09=09mipi_dsi_host_unregister(&dsi->host);
+> -=09=09return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n=
+");
+> -=09}
+> -
+>  =09dsi->bridge.of_node =3D dev->of_node;
+>  =09dsi->bridge.type =3D DRM_MODE_CONNECTOR_DSI;
+>=20
+> --
+> 2.55.0
+>=20
+>=20
+> 
