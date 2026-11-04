@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793778865;
-	b=l2xbMlv+FLWUz+b9wFGZF8t6w9Juk/gSklqRXgN+Xjqkhl6a+JoIhsLCrP3QLleSVzrj
-	 3uiutkQQMH4tL5AWCjJ5PrGg5JmR34sW4LcaXAn6S+DKwlCORmclBIRvUYnmNeT/oQJoa
-	 m3jrGiiEOwkJZSIJx3VJMgeuvVwbSb/QTQZs+BmWoPM6wkpq9IEkZoFuST1qzQcdqnevp
-	 /K7dssqzwd2DAByYyDe8PVGSnZiQRovWU12eIydWJN4Z6H9fHLORKfISUjtdG8yqZPsbn
-	 +lJ/FbZqVb/Rh1EVljhVY+Ska72K305r8SkQCn1feSz1ToeE8BD7NXuiSSJwWvTlFOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778865;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
-	b=hMKF5RdfmwexrlyR7z4W//Fo3PhnNUYO+jIwNMXeKJxxTIP4uiRV/FvaGYMV6urA1AX4
-	 cRYPnqZ/4oNBRXoan4v7FWf9ONpiftqiEjGGg/DbxNqpivqqSeuPoFWDsuJoBxnJP/2+G
-	 BNos/48fIoT3iBGGVqHmWmfxXlJKNHGXYQc8pzpH019ifxkVNi2Esr8eQvGYmUwnOUWDn
-	 JtLtvwbLacw1443MBJR8Ai4TF7d0rQ421bYb3ToZa50qe9+Ez6m/SWQE68SJH5z5WV3hT
-	 xTTeBnbv0j/lI2aLpapf31jOJx6qSsZLdkBwxIKFpSZL1+k2S4THPbrd15r6CyTsZYQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793778856;
+	b=dZRkTiy/rmf+8JpYUNhenAaeVFWTSSSAAXSQwjVqkNXgU42Pze37b0om4D/xrZrCAzYC
+	 OqiWonVatOcWh3N0fcxPvAIFubLXTvcTfPsolGhlJE1lI0cU0RJ9B814izjHgVoOWob3B
+	 wVbP8sPP11MvuJq1mOrlMmDUrUjQgrIWmOax9V5mXyYOJT8G+j5sSPMrbG/rHKgvlFJQ9
+	 6FiaEmYo3peTeayeheyWNCWjoJQjV2KqdGM9hgfLRLDQNA3jIcP0JryWqCKWqUmA0UQmU
+	 OAUkCfD1DghLvzcK13+vBgp+FA3xYBQRh2lUkHnI6Pjl5BTsq95gePtLUB/F9YCvPsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778856;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=T6QrPN+n248/1fXugyZOfzAMq/V+IWfxaE7Jd1ynvKI=;
+	b=cISmuwiLxzYDUOwC9I9osVMiza7onP7V1xdLck9vPtiEnjMCxFdqVHqTKbur1Wsl44z2
+	 gKKOK6CZ14R9qcUogma7Y8bPRDxj17kUZDd4c0Et5ER/B1wwVAULRTYNH1vB9Ex/D6JMr
+	 v0JblF8aSfHMwJTksjZfyrRxhZdnIdM8CamDb9Qh1rDKGjwKyhPeP13gHY5dD9tEv1KYv
+	 KxjkABNCdHKrjHrfEM32N8L/h1S8OyIrYZt8A410IYayfzEt50Q7G09eL14upRZbjNR5X
+	 Z/v6AabJ17Vmdqk10phLzjGoVaczjaFIszaisH5Bh6d1NKFnCWfrNW11X2ogUdyqIEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lOdylO79;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700F7606A333;
-	Wed,  4 Nov 2026 07:54:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7ABA606A326;
+	Wed,  4 Nov 2026 07:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7ABA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLB5jRJH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793778865;
-	b=MK7NojtCwLDROdzNkc/0U/bWQY3FElUlCc8J/W1e1OJieQO/KVHE4+2BvxL8CVB8mWYV
-	 jFL1tJmqDJ2x7l2Bv2kjw114fT2Q1Sbh/ZcWcsrbpFaRULCyib8UdW8/z6fw/eknfK3SL
-	 BXxImKaLijcDxDw4JMYhZqOOTdrQooEhh/GCaJxnqAOTmAfNKnH9/kLGVj3R1VpEcNqrS
-	 EwSVVSggcJbRGwM0h+COB8zo0Ey4o7d1XId8eHIGMshag4yVrnIXFTfvnd94nQFHjWoiK
-	 0Ef2d4N+fgWYHzm9GwrmZUwWxGO+lVCutprAiTzykzgsJWHfeZsUobZ9EW4xeVQqD1A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793778865;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
-	b=JBXAM0niG15zTG8o9WWoQ5AJBuyIVub2pCkmzitq+Xf6IWfmOU7iLhbOO2AoJzbnnYhR
-	 NVPBdxAaewdupEqTppru26seLgMMM8Hj16/lNXFGhNiyRq4JShZX6MnleIUK/cGvIEZ4p
-	 O6Ri8LQHQHjjqbUPYfmEAlqZCWe+0ePLrRZIc7LN//JfyGQg9bS6Pf26dBXicUvsdhwul
-	 Lv14uMI5J8x7nBx94ZA+P2tr8gLpPsWh9TSfzheezkdDompOsRQwvbF4h7rt4SbfqMwLv
-	 fZe3urQXVAmrHpHbXKdXFolq6gvOBEGThx/9FZ2X5jLdADpsvaxOhCEs+jqtef28MRg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id C8C791F00919;
-	Wed,  4 Nov 2026 07:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778865;
-	bh=Of08z6Vz8zX3aCMA4M/zY4MdFGWoIDjVyq3Rd8DU6CE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VLB5jRJH6ANTcDNh/MxCplOqJlp/+2F/W778/hWLNovUE6myojf/A/3vrHDBbjQHj
-	 7EpPLarmxGnsWEpRjF5Q280Drj8sY/6SV0YF1MHc4jaFGkSwomoiKZsAlLw4rBve2S
-	 dnt0IP7jxJk03xYjatd0yNTUOv1op3bcZJ2TwTSLENJaNnWmRoZm42PAW3wZa6S1Bj
-	 yX4rtC6BrEdz4mkU+yCw5kZ/1NpcwMDPcYoE8rrA+7yCoCaCAm0y2B9csuX2vg0TRa
-	 /F+HtguXqxKXoerOWjE1NcE8ZyzyvlxLauc8zNYJ15XJySIJqvX4EWd9Aro95xk2UJ
-	 6f92BkDTdPjWw==
-Date: Wed, 4 Nov 2026 08:54:16 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-hwmon@vger.kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Marius Cristea <marius.cristea@microchip.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 1/5] unaligned: introduce be56 unaligned accessors
-Message-ID: <20261104085416.00004b55@kernel.org>
-In-Reply-To: <20261103-pac1711-v5-1-71c20101a52e@microchip.com>
-References: <20261103-pac1711-v5-0-71c20101a52e@microchip.com>
-	<20261103-pac1711-v5-1-71c20101a52e@microchip.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lOdylO79
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E61954E413F5;
+	Wed,  4 Nov 2026 07:54:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A500D60770;
+	Wed,  4 Nov 2026 07:54:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0F56103291CE;
+	Wed,  4 Nov 2026 08:54:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793778850; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=T6QrPN+n248/1fXugyZOfzAMq/V+IWfxaE7Jd1ynvKI=;
+	b=lOdylO79h+90XVatYM2+an+NnBnVD+SYHclZfF/YT1gMnnJoJXQSfHDtahgdG9yMlua6nW
+	BgbJpCYSn3d+BuVZjwP6kqZu94E9B+T3VcDH/mJp4bTshL6qS5SwmgkD//WoxtxP9XuuBp
+	dtiPiVyLabHJqljgWc/OoO9WaThKSF/7ZnxZq56AhQi9upGyJ8PUgAF19kPJyJGalwuQok
+	5372tjz8s3mTwqv93El4OBN2w/9Pj+e2Gk1Arblolxp3X7PUg8lcfMFu6vYjImuleKodsQ
+	OABZte/UyUvrwzhLeFdEyWnwsRxvbJNuCMCN6Bu+j0+wq8c7njtTlHDG8iN4xg==
+Message-ID: <6e8d69e3-9404-4a80-874e-0133f942229e@bootlin.com>
+Date: Wed, 4 Nov 2026 08:53:59 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,26 +62,269 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 2/2] net: stmmac: Add Siflower SF19A2890 glue
+To: joseph@telaak.dev, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Chuanhong Guo <gch981213@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 3 Nov 2026 16:37:11 +0200
-Ariana Lazar <ariana.lazar@microchip.com> wrote:
+Hi Joseph,
 
-> From: Marius Cristea <marius.cristea@microchip.com>
+On 11/4/26 08:22, Joseph Telaak via B4 Relay wrote:
+> From: Joseph Telaak <joseph@telaak.dev>
 > 
-> The MAX34417, IIO driver, is using some unaligned 56 bit registers.
-> Provide some helper accessors in preparation for the new driver.
+> Add the glue for the DesignWare GMAC of the Siflower SF19A2890. The
+> interface type is set in the GMAC's configuration block through the
+> set_phy_intf_sel hook, and so are the RGMII clock delays, which the
+> MAC adds only where rx-internal-delay-ps or tx-internal-delay-ps is
+> present.
 > 
-> Signed-off-by: Marius Cristea <marius.cristea@microchip.com>
-> [narmstrong: update commit message and move to include/linux/unaligned.h]
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> The delay line's step is not documented. Sweeping each delay over its
+> whole range with the link at 1000 Mb/s, the working windows repeat every
+> 145 steps, one 8 ns clock period, so a step is about 55 ps; the driver
+> rounds to the nearest step.
+> 
+> Based on Chuanhong Guo's driver from OpenWrt and his siflower-7.1
+> branch, which read the delays from a factory flash cell in the delay
+> line's own units and always applied them. That driver also set
+> STMMAC_FLAG_HAS_INTEGRATED_PCS, because the core reports a PCS that
+> does not work in RGMII mode; stmmac now uses the integrated PCS only
+> for SGMII, and the flag is gone.
+> 
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
 
-This patch is missing your Signed-off-by tag. Even if you're just
-carrying someone's patch, the SOB serves as proof that you have the
-right to do so.
+Looking good, I have a small nit below :)
 
--- 
-Kind regards,
-Joshua Crofts
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig        |  11 ++
+>  drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c  | 158 +++++++++++++++++++++
+>  3 files changed, 170 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index c6559e749..78efe7859 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -201,6 +201,17 @@ config DWMAC_S32
+>  	  SOCs GMAC ethernet controller, ie. S32G2xx, S32G3xx and
+>  	  S32R45.
+>  
+> +config DWMAC_SF19A2890
+> +	tristate "Siflower SF19A2890 GMAC support"
+> +	default MACH_SIFLOWER_MIPS
+> +	depends on OF && (MACH_SIFLOWER_MIPS || COMPILE_TEST)
+> +	help
+> +	  Support for the Ethernet controller of the Siflower SF19A2890 SoC.
+> +
+> +	  This selects the SF19A2890 glue layer support for the stmmac
+> +	  device driver. It sets the interface type and the RGMII clock
+> +	  delays in the GMAC's configuration block.
+> +
+>  config DWMAC_SOCFPGA
+>  	tristate "SOCFPGA dwmac support"
+>  	default ARCH_INTEL_SOCFPGA
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> index b16a456b7..9330de094 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> @@ -26,6 +26,7 @@ obj-$(CONFIG_DWMAC_RENESAS_GBETH) += dwmac-renesas-gbeth.o
+>  obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
+>  obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
+>  obj-$(CONFIG_DWMAC_S32)		+= dwmac-s32.o
+> +obj-$(CONFIG_DWMAC_SF19A2890)	+= dwmac-sf19a2890.o
+>  obj-$(CONFIG_DWMAC_SOCFPGA)	+= dwmac-altr-socfpga.o
+>  obj-$(CONFIG_DWMAC_SOPHGO)	+= dwmac-sophgo.o
+>  obj-$(CONFIG_DWMAC_SPACEMIT)	+= dwmac-spacemit.o
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c
+> new file mode 100644
+> index 000000000..41bfe7a4a
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c
+> @@ -0,0 +1,158 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Siflower SF19A2890 GMAC glue
+> + *
+> + * The SF19A2890 has a DWMAC 3.73a. Its interface type and RGMII clock
+> + * delays are set in a register block of their own.
+> + *
+> + * Based on the driver by Chuanhong Guo <gch981213@gmail.com>.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/io.h>
+> +#include <linux/math.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/stmmac.h>
+> +
+> +#include "stmmac_platform.h"
+> +
+> +/* GMAC configuration block */
+> +#define SF19A2890_GMAC_MISC		0x0
+> +#define  SF19A2890_PHY_INTF_SEL		GENMASK(2, 0)
+> +#define SF19A2890_GMAC_TX_DELAY		0x4
+> +#define SF19A2890_GMAC_RX_DELAY		0x8
+> +#define SF19A2890_GMAC_RX_DELAY_EN	0xc
+> +#define  SF19A2890_DELAY_MAX		0xff
+> +
+> +/*
+> + * The delay line's step is not documented. Sweeping a full 8 ns RGMII clock
+> + * period at 1000 Mb/s takes 145 steps, so one step is about 55 ps.
+> + */
+> +#define SF19A2890_DELAY_STEP_PS		55
+> +
+> +struct sf19a2890_gmac {
+> +	struct device *dev;
+
+This is only used during the probe sequence, you can simply pass it as
+function parameters, this avoids using up memory to store that :)
+
+> +	void __iomem *cfg;
+> +};
+> +
+> +static int sf19a2890_gmac_set_phy_intf_sel(void *bsp_priv, u8 phy_intf_sel)
+> +{
+> +	struct sf19a2890_gmac *gmac = bsp_priv;
+> +	u32 val;
+> +
+> +	if (phy_intf_sel != PHY_INTF_SEL_GMII_MII &&
+> +	    phy_intf_sel != PHY_INTF_SEL_RGMII &&
+> +	    phy_intf_sel != PHY_INTF_SEL_RMII)
+> +		return -EINVAL;
+> +
+> +	val = readl(gmac->cfg + SF19A2890_GMAC_MISC);
+> +	val &= ~SF19A2890_PHY_INTF_SEL;
+> +	val |= FIELD_PREP(SF19A2890_PHY_INTF_SEL, phy_intf_sel);
+> +	writel(val, gmac->cfg + SF19A2890_GMAC_MISC);
+> +
+> +	return 0;
+> +}
+> +
+> +static int sf19a2890_gmac_get_delay(struct sf19a2890_gmac *gmac,
+> +				    const char *prop, u32 *steps)
+> +{
+> +	u32 ps;
+> +
+> +	*steps = 0;
+> +	if (of_property_read_u32(gmac->dev->of_node, prop, &ps))
+> +		return 0;
+> +
+> +	*steps = DIV_ROUND_CLOSEST(ps, SF19A2890_DELAY_STEP_PS);
+> +	if (*steps > SF19A2890_DELAY_MAX)
+> +		return dev_err_probe(gmac->dev, -EINVAL,
+> +				     "%s too large: %u\n", prop, ps);
+> +
+> +	return 0;
+> +}
+> +
+> +/* The MAC adds an RGMII delay only where the device tree asks for one */
+> +static int sf19a2890_gmac_set_delays(struct sf19a2890_gmac *gmac)
+> +{
+> +	u32 tx, rx;
+> +	int ret;
+> +
+> +	ret = sf19a2890_gmac_get_delay(gmac, "tx-internal-delay-ps", &tx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = sf19a2890_gmac_get_delay(gmac, "rx-internal-delay-ps", &rx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	writel(tx, gmac->cfg + SF19A2890_GMAC_TX_DELAY);
+> +	writel(rx, gmac->cfg + SF19A2890_GMAC_RX_DELAY);
+> +	writel(!!rx, gmac->cfg + SF19A2890_GMAC_RX_DELAY_EN);
+> +
+> +	return 0;
+> +}
+> +
+> +static int sf19a2890_gmac_probe(struct platform_device *pdev)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat;
+> +	struct stmmac_resources stmmac_res;
+> +	struct device *dev = &pdev->dev;
+> +	struct sf19a2890_gmac *gmac;
+> +	struct clk *clk;
+> +	int ret;
+> +
+> +	gmac = devm_kzalloc(dev, sizeof(*gmac), GFP_KERNEL);
+> +	if (!gmac)
+> +		return -ENOMEM;
+> +
+> +	gmac->dev = dev;
+> +
+> +	gmac->cfg = devm_platform_ioremap_resource(pdev, 1);
+> +	if (IS_ERR(gmac->cfg))
+> +		return dev_err_probe(dev, PTR_ERR(gmac->cfg),
+> +				     "failed to map the configuration block\n");
+> +
+> +	clk = devm_clk_get_enabled(dev, "byp_ref");
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "failed to enable the byp_ref clock\n");
+> +
+> +	ret = sf19a2890_gmac_set_delays(gmac);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> +	if (ret)
+> +		return ret;
+> +
+> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> +	if (IS_ERR(plat_dat))
+> +		return PTR_ERR(plat_dat);
+> +
+> +	plat_dat->bsp_priv = gmac;
+> +	plat_dat->set_phy_intf_sel = sf19a2890_gmac_set_phy_intf_sel;
+> +
+> +	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+> +}
+> +
+> +static const struct of_device_id sf19a2890_gmac_match[] = {
+> +	{ .compatible = "siflower,sf19a2890-gmac" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, sf19a2890_gmac_match);
+> +
+> +static struct platform_driver sf19a2890_gmac_driver = {
+> +	.probe = sf19a2890_gmac_probe,
+> +	.remove = stmmac_pltfr_remove,
+> +	.driver = {
+> +		.name = "sf19a2890-gmac",
+> +		.pm = &stmmac_pltfr_pm_ops,
+> +		.of_match_table = sf19a2890_gmac_match,
+> +	},
+> +};
+> +module_platform_driver(sf19a2890_gmac_driver);
+> +
+> +MODULE_DESCRIPTION("Siflower SF19A2890 GMAC glue");
+> +MODULE_LICENSE("GPL");
+
+Thanks :)
+
+Maxime 
+
