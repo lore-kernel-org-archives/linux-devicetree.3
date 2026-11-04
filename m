@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782887;
-	b=xtQ7rs6xjpIcf469cDlnBIT0jKFMk/shjUqKK1cueJKoraeElREeMraCTRHyw7CSmJMx
-	 B3Mme1hhRjuApenNZZA5bdmND368bpdmcELXtZQnRk6rKJ4vsVZ8eKI+1rfRYy6tdIv7y
-	 Hy164lNEYiZ8S74w5pMit0Vim2ubOO2UfWIJKtXrbo0G2WgkqidMYRt3Lge0MEMtHkL4R
-	 j5N0mQH7MS1+rFCpSNISLsNW2iN3D6fBgk2nIm3xgp9hEX7/CYPG8oaPRUfVQ+OpYSrhV
-	 0YEHryvN0bTA2HFulkabb6OH659Ev/+whHf1AoTnaqTw7FxLsfbqwEHO4yQX68WLE6w==
+	t=1793782894;
+	b=13NrkX0JhJ3wRnvxZTS6DaYbjRdwgJ6mGVurstXCIxF4aYlTomulXAdaSCunpcUo22Dq
+	 zfZ7uFSAfWfiqfXFh7uk3pz4RckQii8Pyxedzzm8kv9DWfgsYW9YXnfYhmkRCheWcRPfC
+	 1PSErfvgVlIi+DiCmDOxvLy3vbiI+fST8d1HHqoavxVmymcnc3b1lULZo4pYgM0fqVHQY
+	 7L06F90gObKvDhv+VV6j5V3N6qZRYjBhFIPp/5Rqj6z4HBhGMRcq3lvWMPl5wJ70jpVyp
+	 pNIjUUlgbt+qP6Y4NmTznJji9RqXcVvb87CZzCjU28vLnxqplUVQPY/xD0d6k3fxBZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782887;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=AaKiM9W+fdOJ7e3/KZVbbDmGDM/hjoRoSVQ8Q/hFZsc=;
-	b=c2gclsYSexp1vV4Wn0JiQznzC4Zkz0faRYbfuXxlaUjXStqWyTg/7k2K/Q65QRW2PEQP
-	 BeoLH3jzpAP4V2VVQ7WAiISgKyjuuMlR2xmdKmIVQZPJklI8gYn40d06O9D5/Ch68AQfv
-	 NLXUfZVz216UeIdgGqf5kVp1QNn2wE9ByuoHK6rzYZ6tZAZxShaA13Xm9yjWz8uJjbVkU
-	 dlcsih8X8/VqWX67wHghA/3G3g7R6YoYg7OfqN+tv1RKc2e4QIhPc/kz9k7rMnLFICIcX
-	 iBX6rMIORZ1c8jkzYxJdAJFW18WFt5ttaSuI15d7997eDtEPeRXQip/cIhrCH37LcVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782894;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=C6wcb+7zbg4WCt6Ir989ES5F2Km1kGXwhQCTmFUdnG0=;
+	b=msO/D4YFtw/07u7FxxVx0j4IaDjylDR+zD8aXc7ZCpN7j+joFC9VmQgB/V4+cpV3LhYb
+	 +dJy4fQpo6uXU5Dza5cHoJETnXNAB7SF0lIuDM/k9vxfdsOrsoYLLnZok+TqakUdmfnp6
+	 hLuEEC7LhxeOJVt+bsC1tVcv6hLnj2D66nguhH/aPp7rymrWXZdQ20nii6OeuCeqAZ8ca
+	 wYsJlUP2RQSjOX1NwpbCRErbzT6aSYjVjG+U3CPYItf6JiQqB9pcqKM4zrnrQFrvu0Jiy
+	 KTVZ/RoIsqG8UHCQg9V/9g6ekPVZnFu4gKNJWsNX4Pm5d7zsfC8j/qXHkVHKl5irhuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22AE606A329
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:01:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C22AE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2eb18f4da15so1539135ad.1
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:01:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793782886; x=1794387686;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AaKiM9W+fdOJ7e3/KZVbbDmGDM/hjoRoSVQ8Q/hFZsc=;
-        b=SqYdU8jc1NXwMyJytsFcyaKAlRb5Rj5iHahS9P17vGkIdB1KR+n7BczEjINCMVn64X
-         O+lr52e6+K/08Ps5LLgmva9HkmZpt+HywRyimPwur29jXs2KjRDWKbfgVu4SlBoB22/E
-         ee2CVkvaLjwemCHpRdM03w3l1umFWmzNNOPWEeD1e6zlRyPCytt+UNx/G/w4Ul3bpkD2
-         +lObRlDHh4LT6kcTqTONZ5y0c+RX7o0hZ3l3K7niJ4485UwrR3uvX+vRUVSqu/GOr4pu
-         E1UUmEozxW+vZvWj9beLMGiH0ShpkKAEvg7FTskHkTI2d0x4YPVd2iS3WM18uMEwB1ZW
-         KnuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMsuHV4/cJBHTf8qUK3pbRrM2qeMTVfb7RadypeNocoLrHlxEUt3yOtpwGlvZNOQRgrcwemG5ni45C@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TZz05xmpOWmwd4ouWt1s+LrZmpAL6jrhkJKtI0qOISOGLQfMi
-	pLDvh1rnA0uX0ufpoRvrf5rSEBE2c5L+vDopLhE+12MMnG/lH8YPdZMGcgJwXmVe
-X-Gm-Gg: AYBFou1OqKNEVzt2ECPG/RllIQmq0vJrKyA+vBWcuEvtZmpYgdn41+M3639/Sr22dLU
-	sdQoJ2tTay5QyMCTficdPVobqQbdl7WRukFwo+AzKqAuRKH6LCbonq3Nh1x7z1WuZX4IBegEpBU
-	WSwMJJVROYy5Xx8pKqq9AHq03Ck+rk+CRVQmB9VXcP2hiyl6xndiM0/1vi74v723Upw0L3W9O7U
-	so68uxNRtIugsqo2N7iBtSVtXxk8RPaZq+aWvIzn7dXdBHSCwNZftq65fo3u90C4HW9ownBaJxN
-	VBF0nCfWj01kwjdNmM0ZXPdOYfO/uXeIcoCD3zROg6vSXMQ1wXFFTQG/lpTPHPYArN5Ka17rwcK
-	EaNp5KLOM8tKz/K2tuLQr93z/YFFTvsX2s0x06YyIIQIJj2IiVsGoQRV6Y+ZQRDw6T4iGA7FU4l
-	qyNYHTgUmhvtyWrSO5DiIGDRcQlJEyb/RsoouGHnpplchjAA04sR99fIZ6os+uys1jImIR+QWhB
-	vofRu87zr6A5rnbIMN8swTOq5nqFuoGaJ/4kHpdKso+tyZaUEOteY0w6RWJ0Qv7Wzmo2KP6MqiL
-	5KtfBgxxAFVQ608Ixt7PqzBiKIiDtOvGihhwXnwlNIj7fTxy93NjV4ulHAJdz3+ymocnHmwke25
-	f0KxXxXn6Bcei/uLmpc81oCojo4HgJO+wGFeH0qZmxIk=
-X-Received: by 2002:a17:902:d50e:b0:2e9:628d:e9a6 with SMTP id d9443c01a7336-2eb364f35f2mr133910655ad.57.1793782886174;
-        Wed, 04 Nov 2026 01:01:26 -0800 (PST)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com. [74.125.82.178])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed091a62d4sm4972655ad.60.2026.11.04.01.01.25
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 01:01:25 -0800 (PST)
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a18fc7a38so992536eec.1
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:01:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz1exPXkcZhNTcHdjFPqgRKq1YKoaVjQkaqYsFco2IoRWL+kPJzSQXU8ZBxjcj4K07oydaj6rAC1Lrb@vger.kernel.org
-X-Received: by 2002:a05:693c:4144:10b0:35d:4185:5395 with SMTP id
- 5a478bee46e88-36a423a205fmr27260638eec.16.1793782884949; Wed, 04 Nov 2026
- 01:01:24 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC83F606A328;
+	Wed,  4 Nov 2026 09:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC83F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.98])
+	by APP-01 (Coremail) with SMTP id qwCowAA3YPpe9OpqUE9CAA--.34579S2;
+	Wed, 04 Nov 2026 17:01:20 +0800 (CST)
+Message-ID: <73fd01b87381e2ed33d52edc4f4bb7ee9ba578d1.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 0/2] phy: add support for TH1520 USB PHY
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam
+ <mani@kernel.org>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel	
+ <p.zabel@pengutronix.de>, Wei Fu <wefu@redhat.com>, Drew Fustini	
+ <dfustini@tenstorrent.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, Han Gao
+	 <rabenda.cn@gmail.com>
+Date: Wed, 04 Nov 2026 17:01:17 +0800
+In-Reply-To: <ee28bd16-11fc-4b78-b1ee-e0e20bb0cfdb@kernel.org>
+References: <20261103081444.1983071-1-zhengxingda@iscas.ac.cn>
+	 <ee28bd16-11fc-4b78-b1ee-e0e20bb0cfdb@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,30 +62,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
- <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev> <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
- <CAPY4CJ4cm117fjoZa302TKRmok_NnO62HhBWTSpNEzD8qAacdg@mail.gmail.com> <4fb6c428-85fd-4674-8480-919191db1277@kernel.org>
-In-Reply-To: <4fb6c428-85fd-4674-8480-919191db1277@kernel.org>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 04:01:13 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ7CY6hitrp7xk6=r65EEQNYc74RYg-BjVSJo=6UBLq36g@mail.gmail.com>
-X-Gm-Features: AclHuK9uQeJIR1NfXJqyf9nbtbfdJiELHYiw7wy3ZTo2enB8PX2i4vU_7m4oveI
-Message-ID: <CAPY4CJ7CY6hitrp7xk6=r65EEQNYc74RYg-BjVSJo=6UBLq36g@mail.gmail.com>
-Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-CM-TRANSID:qwCowAA3YPpe9OpqUE9CAA--.34579S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKw4DGw45KFW5Ww1UKFWkXrb_yoWfKrb_u3
+	Z8Zr1a9w4Iq3s3AFs8Kr4DWF4DK3yYyw1vvry8Xry3C34jyr4ru34DGw4Fyr15ZFZ8GF1f
+	Crn3ZayrW3y7WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbsxYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07j8KsUUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-> No, it is not. It has clear and obvious checkpatch warning.
+=E5=9C=A8 2026-11-04=E4=B8=89=E7=9A=84 09:26 +0100=EF=BC=8CKrzysztof Kozlow=
+ski=E5=86=99=E9=81=93=EF=BC=9A
+> On 03/11/2026 09:14, Icenowy Zheng wrote:
+> > This patchset is split from the "Add TH1520 USB support" patchset,
+> > with only the PHY binding/driver part.
+> >=20
+> > Icenowy Zheng (2):
+> > =C2=A0 dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+> > =C2=A0 phy: add a driver for T-Head TH1520 USB PHY
+>=20
+>=20
+> Considering how vulab@iscas.ac.cn=C2=A0is ignoring reviews/comments and
+> spams
+> with a lot of unthreaded emails, completely disregarding any tries of
+> contact over last 1.5 months, shall we ignore all contributions from
+> @iscas.ac.cn?
+>=20
+> Maybe this will be the only way to actually be heard?
+>=20
+> Icenowy, do you have any possibility to reach to bot spammers from
+> vulab?
 
-Sorry, my wording was ambiguous. I meant that I've fixed it in v2,
-which I haven't sent yet, and v2 passes checkpatch --strict; v1
-doesn't.
+Unfortunately as I am not in Beijing, I am not able to physically reach
+the persons; I have reported this incident to my supervisor and I am
+also feeling quite bad on this.
+
+Thanks,
+Icenowy
+
+>=20
+> Best regards,
+> Krzysztof
+
