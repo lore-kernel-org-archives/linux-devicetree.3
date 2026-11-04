@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801196;
-	b=FRtN8qIQY9MgXp+ng3oCGjzQft5CE8qiLOmdSg3z+M8JXx482b8lC9qmGjsKor1IeQvN
-	 3dpD02ZNJJxt/5iUsRqhc5azetCYs8iyJcEWSMpXJAVZhTeXdG/SRQ8ziREiH/nlCbim3
-	 fsHiejn6vdj0XVa84gvdslyMzI14XxmH6SP+o2umysqHIob8AucRCayUZv5HCyqu1EcOq
-	 wC6gCVD9YGA6nlK21s6lcBryZM+e6oWBNLa0BfwQcfSukUx3PtZjFbov5uKZK+42ChJSv
-	 tOqr3xYKSlFZCpg8PYdQPXZENfbVLV1T0fnPj4ByjNavZFdFh89n8inNGE5uyfqq9Ow==
+	t=1793801235;
+	b=nIEEShr1T4QBEOZt6KbunPO6W9OPeMDPeY9GAph54nRlGpD7KjCNL0pKl3fgQhVRM4oI
+	 jfrslkrdm9vtHm8sq8Ekv24PO7cRmVRuiDdND/3a+g1lGfO+w1b7DRpKV5OPF3fIMjq0Y
+	 VQA05fB9LZVdFwzmguxcIhBj9DdU46/zphh27zMVZgMhU89YMnG3e9KFAvIT/1f0Zzoxb
+	 rZK1FMmSID0AmpeV9TRUMjvPGUq17x7rF/ZcOWSU7MTs+ClS1HJVBtdkfZWxyp6tDfCTk
+	 SZokXarabjpHPdPxUdLJdxl3sEZIG6s57vhcmSdXPGdwacT4nqcSf5f4Y4dEaIe/c2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801196;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
-	b=bVQl6nN1aqJpXTKFkiHbqK5BsNQS/0m+t4dxPBzTFUQIz64hjbeb7ZRAw8zssafIF81U
-	 1A4ulSQ6V8Xrq5+c1tWq+qbGiqEc/KyJbiZ+7hrPixdYv5o0Ibmrm6xxAEVa/YDSGHuEf
-	 FOWE0vdqWLBNd2nq5CbqObyWBPjD/Li7uZjqzSZkiO4bwuoVk/pu22NApmYMxpyE9zAmA
-	 uQRe1icaKpH7U0zmLbAW2DSRa2AI5PUl1rWwtobWf+6sOptS7y6iTTXhaPuh1JxILVPWd
-	 tn0ytqs/DDwkrZ5BE/ya5p+XYnY1j2VmWIfVWQt3Ikk5MU420Dk8/SHIVgtIaN7LdkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801235;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7KdmzCMxpx265Yf+6eArSomaCxxIsqK3NySacZhOFFc=;
+	b=i64PlST9fIrKJEjd1XO/febzgskLpz243uUOBS4felBrrSf/1W1TRbaABPOrl3+enVPE
+	 /WWJq00RjilOL4IhiMTpRYiX4QdWjm62Bz4oie1wHRsjW44x2pKfh38MYihE6EV7x5k9i
+	 l9zHxPudUu/mox+mAE8udU336wEP8aUVo0LZRYHAA65yuJ/DHeqmKqxbt+FWmpfDvh0Qb
+	 oaW0NjuaAL3CCCuNzqc5UcOjAVXBbjFiRbJBQPx0Q/45QfUk3GQO140euBomN1SrSzCGe
+	 Q4Ujn/Ri2QiW2jxe+wcGmciUjy7+mrKqi6VhFxXFIKKvKQi/y7+u1VlpNRPzmR5iYEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfY2Fkvx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1B9606A31B;
-	Wed,  4 Nov 2026 14:06:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BB8606A31B;
+	Wed,  4 Nov 2026 14:07:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDAinQV7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3943A1F00919;
-	Wed,  4 Nov 2026 14:06:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfY2Fkvx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126CC1F00919;
+	Wed,  4 Nov 2026 14:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801195;
-	bh=aXWAiVoz/GShbNgnrlETN1gpMxMxX7DmXCvxpsTV6/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bDAinQV78kjJGiRao2RlWwJ7qdRGHIzm8KQao4PrDV/PUop6ZnJhhSCnZ7zWFaZXj
-	 izuvBAY15eKrmx8/0Dg52D3yuOCzfzA47CKA0osbIpS7Jnpu0T+kekKoIm4z1KoT98
-	 8XO41cC7jSYiuEYnKQIKDFs0Y6lx3rxnA3lATzL37Lo5t+seairFqy4rw99vURD6SV
-	 Nl24+LErs1Xhnr1zFtPP/QIW9neMElBYB0zIMokMaU/BGgXzYIvIubR/ok/X1uiimI
-	 Ie7Qffgec1FYRixwAld/q/0zdZy/911jv68Utp9WjeVJBZs4m6krRAQTTp2XnX9EKE
-	 8TnxLsUXIxwIg==
-Date: Wed, 4 Nov 2026 15:06:31 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shan-Chun Hung <shanchun1218@gmail.com>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
-	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
-Message-ID: <20261104-airborne-vivid-caterpillar-991425@quoll>
-References: <20261103022202.2139674-1-shanchun1218@gmail.com>
- <20261103022202.2139674-3-shanchun1218@gmail.com>
+	s=k20260515; t=1793801234;
+	bh=7KdmzCMxpx265Yf+6eArSomaCxxIsqK3NySacZhOFFc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IfY2FkvxwU5rQPtG7BriJGEgXPopOKUGIVmTT9jN19hU9c8xvgE4K2l+EV9ePaGdI
+	 sk1vQwjzCorGrIMKwOP/KjpW/stC2sdqDVRlabuqKdC0YQgVBd5HoN0K+Qbbh2Keql
+	 XHwMh7hBzA5cJ8gQGjKx4mxTMYYoqo2QkNY7sx1Fbb+u3DruvIhARjF30ZhgyofuOn
+	 DlXOpuOErlMm12IV9vGrEqQxFpDoN7FPiyvxN4UjuC/3WiCTvtFK7wB6VerreylYP8
+	 +rak/5bLdixx9lrMhrdaQkgo6E7jfpWQawvVq0EgypGtxjgwRiQ3P9zth7+X/mtTK7
+	 tkIrtRnM3+76Q==
+Message-ID: <ef0ce951-109c-4423-9a1a-e84c1d40e3be@kernel.org>
+Date: Wed, 4 Nov 2026 15:06:56 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,215 +51,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103022202.2139674-3-shanchun1218@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v3 00/17] riscv: add initial Zhihe A210 support using
+ SCMI clocks and resets
+To: Han Gao <rabenda.cn@gmail.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>,
+ Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Anup Patel
+ <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>,
+ Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ linux-clk@vger.kernel.org, linux-serial@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20261104140031.1172491-1-rabenda.cn@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261104140031.1172491-1-rabenda.cn@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
-> +#include <linux/align.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/compiler_types.h>
-> +#include <linux/container_of.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/device.h>
-> +#include <linux/dma-direction.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/dma/ma35d1-pdma.h>
-> +#include <linux/dmaengine.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/gfp_types.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/irqreturn.h>
-> +#include <linux/limits.h>
-> +#include <linux/list.h>
-> +#include <linux/math.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_dma.h>
-> +#include <linux/overflow.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/scatterlist.h>
-> +#include <linux/slab.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/spinlock_types.h>
-> +#include <linux/stddef.h>
-> +#include <linux/string.h>
-> +#include <linux/types.h>
-
-Do you use all these defines?
-
-I don't see usage of header with bindings, though.
-
-> +
-> +#include "dmaengine.h"
-> +#include "virt-dma.h"
-> +
-
-...
-
-> +static int ma35d1_pdma_probe(struct platform_device *pdev)
-> +{
-> +	int i, irq, nr_chans, ret;
-> +	struct clk *pdma_clk;
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *node = dev->of_node;
-> +	struct ma35d1_chan *ch;
-> +	struct ma35d1_pdmadev *pdmadev;
-> +	void __iomem *reg_base;
-> +
-> +	pdma_clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(pdma_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pdma_clk), "Failed to get clk\n");
-> +
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-> +	if (ret)
-> +		return ret;
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	ret = of_property_read_u32(node, "dma-channels", &nr_chans);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get dma-channels\n");
-> +
-> +	if (nr_chans > PDMA_MAX_CHANS) {
-> +		dev_warn(dev, "dma-channels %d exceeds max %d, clamping\n",
-> +			 nr_chans, PDMA_MAX_CHANS);
-> +		nr_chans = PDMA_MAX_CHANS;
-> +	}
-> +
-> +	pdmadev = devm_kzalloc(dev, struct_size(pdmadev, channels, nr_chans), GFP_KERNEL);
-> +	if (!pdmadev)
-> +		return -ENOMEM;
-> +
-> +	pdmadev->nr_chans = nr_chans;
-> +
-> +	reg_base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(reg_base))
-> +		return dev_err_probe(dev, PTR_ERR(reg_base),
-> +				     "Failed to map pdma global registers\n");
-> +
-> +	dma_cap_zero(pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_SLAVE, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_PRIVATE, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_MEMCPY, pdmadev->ddev.cap_mask);
-> +	dma_cap_set(DMA_CYCLIC, pdmadev->ddev.cap_mask);
-> +
-> +	pdmadev->ddev.dev = dev;
-> +	pdmadev->ddev.src_addr_widths = PDMA_SLAVE_BUSWIDTHS;
-> +	pdmadev->ddev.dst_addr_widths = PDMA_SLAVE_BUSWIDTHS;
-> +	pdmadev->ddev.directions = BIT(DMA_MEM_TO_DEV) | BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_MEM);
-> +	pdmadev->ddev.device_prep_dma_memcpy = ma35d1_prep_dma_memcpy;
-> +	pdmadev->ddev.device_prep_slave_sg = ma35d1_prep_slave_sg;
-> +	pdmadev->ddev.device_prep_dma_cyclic = ma35d1_prep_dma_cyclic;
-> +	pdmadev->ddev.device_free_chan_resources = ma35d1_free_chan_resources;
-> +	pdmadev->ddev.device_issue_pending = ma35d1_issue_pending;
-> +	pdmadev->ddev.device_tx_status = ma35d1_tx_status;
-> +	pdmadev->ddev.device_config = ma35d1_slave_config;
-> +	pdmadev->ddev.device_terminate_all = ma35d1_terminate_all;
-> +	pdmadev->ddev.device_synchronize = ma35d1_synchronize;
-> +
-> +	spin_lock_init(&pdmadev->lock);
-> +	INIT_LIST_HEAD(&pdmadev->ddev.channels);
-> +	for (i = 0; i < nr_chans; i++) {
-> +		ch = &pdmadev->channels[i];
-> +		ch->dev = dev;
-> +		ch->pdmadev = pdmadev;
-> +		ch->id = i;
-> +		ch->base = reg_base;
-> +		ch->vc.desc_free = ma35d1_pdma_desc_free;
-> +		vchan_init(&ch->vc, &pdmadev->ddev);
-> +	}
-> +
-> +	ret = devm_request_irq(dev, irq, ma35d1_pdma_interrupt, 0, pdev->name, pdmadev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-> +
-> +	ret = dmaenginem_async_device_register(&pdmadev->ddev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = of_dma_controller_register(node, ma35d1_of_xlate, pdmadev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "of_dma_controller_register failed\n");
-> +
-> +	platform_set_drvdata(pdev, pdmadev);
-> +
-> +	return 0;
-> +}
-> +
-> +static void ma35d1_pdma_remove(struct platform_device *pdev)
-> +{
-> +	struct ma35d1_pdmadev *pdmadev = platform_get_drvdata(pdev);
-> +	int i;
-> +
-> +	of_dma_controller_free(pdev->dev.of_node);
-> +	writel(0, pdmadev->channels[0].base + PDMA_INTEN);
-> +
-> +	for (i = 0; i < pdmadev->nr_chans; i++)
-> +		tasklet_kill(&pdmadev->channels[i].vc.task);
-> +}
-> +
-> +static const struct of_device_id ma35d1_pdma_match[] = {
-> +	{ .compatible = "nuvoton,ma35d1-pdma" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ma35d1_pdma_match);
-> +
-> +static struct platform_driver ma35d1_pdma_driver = {
-> +	.probe = ma35d1_pdma_probe,
-> +	.remove = ma35d1_pdma_remove,
-> +	.driver = {
-> +		.name = "ma35d1-pdma",
-> +		.of_match_table = ma35d1_pdma_match,
-> +	},
-> +};
-> +module_platform_driver(ma35d1_pdma_driver);
-> +
-> +MODULE_DESCRIPTION("PDMA controller driver for Nuvoton MA35D1");
-> +MODULE_AUTHOR("Shan-Chun Hung <shanchun1218@gmail.com>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/include/linux/dma/ma35d1-pdma.h b/include/linux/dma/ma35d1-pdma.h
-> new file mode 100644
-> index 000000000000..13f1410d74da
-> --- /dev/null
-> +++ b/include/linux/dma/ma35d1-pdma.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Header file for the MA35D1 PDMA Controller driver
-> + *
-> + * Copyright (C) 2026 Nuvoton Technology Corp.
-> + */
-> +#ifndef _MA35D1_PDMA_H
-> +#define _MA35D1_PDMA_H
-> +
-> +/**
-> + * struct ma35d1_peripheral - PDMA peripheral configuration
-> + * @prescaler: timeout prescaler value
-> + * @counter: timeout counter value
-> + *
-> + * Slave device drivers fill in this structure and pass it via
-> + * dma_slave_config.peripheral_config/peripheral_size to configure
-> + * the MA35D1 PDMA engine's per-channel timeout detection block.
-
-Hm? Confusing, how is it supposed to be used? Do you just reimplement
-board files?
-
-> + */
-> +struct ma35d1_peripheral {
-> +	unsigned int prescaler;
-> +	unsigned int counter;
-> +};
-> +
-> +#endif /* _MA35D1_PDMA_H */
-> --
-> 2.25.1
+On 04/11/2026 15:00, Han Gao wrote:
+> Hi, Krzysztof
 > 
+> On Wed, 4 Nov 2026 09:24:15 +0100 Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> 
+>> On 02/11/2026 20:45, Han Gao wrote:
+>>> This adds initial support for the Zhihe A210 SoC and the Melon Pi V1
+>>> and V2 boards.
+>>>
+>>> The A210 has four C908V and four C920V2 cores, plus an E902 management
+>>> core. The E902 firmware handles clocks, resets, power, the PMIC and
+>>> CPU DVFS, so Linux uses SCMI for clocks and resets. The only new SCMI
+>>> piece is the mailbox to the E902. [2] explains why I picked SCMI over
+>>> RPMI.
+>>>
+>> Considering how vulab@iscas.ac.cn is ignoring reviews/comments and spams
+>> with a lot of unthreaded emails, completely disregarding any tries of
+>> contact over last 1.5 months, shall we ignore all contributions from
+>> @iscas.ac.cn?
+>>
+>> Maybe this will be the only way to actually be heard?
+> 
+> Apologies, I am unable to communicate directly with the team at vulab,
+> but I have passed the relevant information on to them;
+> I trust they will handle the matter appropriately.
+
+Thank you.
+
+Best regards,
+Krzysztof
