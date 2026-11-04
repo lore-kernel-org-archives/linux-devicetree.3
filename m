@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784913;
-	b=C8NtnrFYSi4KmH+lATevzsR3H2LcnA/HOH8TGhh+YhoOu+ckLfsg/rRTnosxFdCVUkfu
-	 DLKf3qrWcrj8hwfPTAoICioVENcMEvAQ01wGS63MUT9ndCfNvRichQMcF4Ch4qUk/EyHY
-	 RgjZWD/3dZNgE6r/XM3iMJkbyIzbpdxQuEBqHZQf0KVsd/ahbZqsbTaFo6yQ44QZJHhrV
-	 5mFpVr/cLZdh6Vhdks3VxrCI9KwLmAkTT7pnLWKmJhBZUxXzbUPHnZzXBVBE8eKqtniSY
-	 /J49KSBEWPbdgycvlybWm16yVlV4P74U5/4LcBv74YPTp5NKQRLvCPik9BEF3TzsBCQ==
+	t=1793784937;
+	b=0Xk3vPS725SLDYjXdL1WBjxLWOmd0wmkPySx3J4PE9VMEP7ScefuQ39DD0IA2NI4CZa3
+	 MqdR+OLmjBs/1t5IwiWEC14ahOm85Jz3+1JrhkqQZ/b6hCwJf0LrBLCo7qcJ/H3k/ju+s
+	 KkKP/sCtrMjzxtVXtdCJEKdP0ifKMuqj7c6WuEsD3yUrV1uCzEx18X7/MDhCcr4BD/J4E
+	 0xySq3Zntbs+NXQ9qGW0gsMFVCSywfe9KhiN5pHcGHYXxLrRq1znj6ozc/GrlwpSc/o9v
+	 fssPh85IHqOpd+ihuIjeY0rcBA7wj/G0+kyhH8XimfAgA+y2/a64H+lFzn7VYqkfvXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784913;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=/9UwIzdIAMbX7ysUUVFgkx4wDbhFfnUMKlcNU4rUfN8=;
-	b=Q/CFIErMYj+0Zuu2MGVdoSYv/2rD23uCNvksBaJ2X81sUvXjBpnQcZFjivD3erewMslg
-	 iRMmKMX+W1WNIFJSJPFhzj7H6dlrkXsi0TIClKlnr0mds95KNm3Wl9ntKtExB9VyVQXy0
-	 yzqKZPmzCnLmkl19Ng040EJxxsdp2hLAHj0GSFvjBHy0DotPckT7EWThaD/BN5eLW8pad
-	 NjWS7bbDLvYCAM5z5vHhKQx5b2FTT4okvSdBVWjfII4Br4/ZYLayJcls4FVX2Dirl4/Cw
-	 XBvfvu9R8C4DFqB0/ZqjwOi1wdxv+pz2QlYAYRSLF2zqIVvZKuqcCeQ7q1+ECj+5+yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784937;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=o10ez3oKAyY7/DQg9ITlG7hQMuT0WwV1t5DaJPX3Q/s=;
+	b=PSUfo2schDcnMM3QjtzYmMPrhN1QvNwX+G9eA8E+13x2njsFFaV2WLA4FHVa6AkbUaXT
+	 Y2IDArxRGfeAz9TnxZqG8byxdRsRUAw2iGblik31fAn4/VuZC7w6vWVH1uDLN3fPTmo2b
+	 o/cOsRiltl9k+XJPbEci+C1DsVSKX7WXH1clXQNi0JQmKJvWgt8eD/Cqkn2OR4OemE8w+
+	 +2NnXk/NIm3rGNtTzLP2Po+U+9oiUyQiu+GZ1Btq6XxG0B6sKamKZVcZ4MiSDwYcePn4M
+	 WkQXRWNhUcYaF59ROItOUNB82d1AL7LeFfTnN7ib3jimRS5whiOFN4vCuh3+FmpRa8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ieMt/5Gc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAZAHuCz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D9D606A326
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:35:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70503606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieMt/5Gc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403AF1F000C1;
-	Wed,  4 Nov 2026 09:35:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAZAHuCz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330CF1F00A1B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793784912;
-	bh=/9UwIzdIAMbX7ysUUVFgkx4wDbhFfnUMKlcNU4rUfN8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ieMt/5GcJxY+rLDUOx3U73hpOW30tgrLNU0CvKTJjOrKd1mGuFLdir5p1cTvQnFGW
-	 LHqVkN6O+GVROBtmWj05VXDR8mxSXPlsOobuNiRja0WHYC0LrtT57PbM/bcEV0/EbY
-	 VjbSdPvamLg377b3GMST3GOFD9RXW+MROa6MaOPI2uKyh9B0G78rA1v9wF+S4ODZ4o
-	 GxIEkDkVAPcWlKsNUdvVz7lHWQKdoJCz6EeSFsrMwflsdWw8zRXCmhQNCsuU2Urg7q
-	 9Xdq+Pd5ArCFMhPeIm+rt9TTNNTXdIvmj2cCJBsTK6UChTjFAofcXrKxQtWXjx/ode
-	 RuDCsIyWWg8ew==
-Message-ID: <sashiko-outbox-196968@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: Add driver for Novatek NT37802
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
-References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
- <20261104-jshekhar-nt37802-v1-2-58e5e7fb2556@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 09:35:11 +0000
+	s=k20260515; t=1793784937;
+	bh=o10ez3oKAyY7/DQg9ITlG7hQMuT0WwV1t5DaJPX3Q/s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FAZAHuCzmhgkfOw7vmJQYav2xKAHNlQsli+mf7WieR+rL7SxqE0Ty2IGm5t19a++W
+	 zHWfi3g4tw0y4BwawaQysuJZc/1QCzJ4UiiObUMZKAEhtMp4GxPClFh3QTi9Ib3QUn
+	 khdpAXgQ1GY42xPG5fBueK4q8jf1dI0zXQBhBIZ/MDNh0XmKsb5uFL+d+o8ncqFpKY
+	 TgPma+TsNtMV6Ae6oDjzwg3zVN9KmZcy4gkzXQc/iEcL/4AszDDdfq+VOUp5rM/wwO
+	 wolih07qG+Pahg0Ab7f2efonl/qO+Z6MEPdeS8dEdP2s/rKZ9wRnE2TnKVYNVCaDxy
+	 tIkZzkvkL25KA==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so667913a12.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:35:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzJ/6zHl5FY4heGs2uZwvRcOiMwaelmnRHsaUv2MlvU7UU+8RYfH2Cz2DgFOe9RyTA3TI28da3aads2@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KwKjJGzj1b3RLeOuKsInt2swr3E9KHF2AliEySw1SVIxYWD8P
+	VNFT+mZMAX7gs8ZU4jGbWEVTkxNJW7r7OvVObvtpPWE7xiqN3eGcxkI9+zj5hn48jkasm3ZpzDC
+	WZdk9Tasf8+YGzthrv3uOCaxkbVjTwqM=
+X-Received: by 2002:a05:6402:543:b0:6aa:f809:ef44 with SMTP id
+ 4fb4d7f45d1cf-6b4d497f272mr8302572a12.19.1793784935620; Wed, 04 Nov 2026
+ 01:35:35 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,274 +58,187 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <cover.1793690276.git.zhoubinbin@loongson.cn>
+In-Reply-To: <cover.1793690276.git.zhoubinbin@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 4 Nov 2026 17:35:23 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4R1eJ08PFzFDPK9VZZKwdzTcC+ttF=eVCKP9k6TT5MeA@mail.gmail.com>
+X-Gm-Features: AclHuK8wStkOlY_ZaRD_iGQLa7IK6kHakkz--62p0mmX43ie-RVsYBXeaxCxYr4
+Message-ID: <CAAhV-H4R1eJ08PFzFDPK9VZZKwdzTcC+ttF=eVCKP9k6TT5MeA@mail.gmail.com>
+Subject: Re: [PATCH v8 0/7] thermal/drivers/loongson2: Fix trip programming
+ and add Loongson-2K0300 support
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yinbo Zhu <zhuyinbo@loongson.cn>, zhanghongchen <zhanghongchen@loongson.cn>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] drm/panel: nt37802: state desync on DSI errors in disable and un=
-prepare
-- [Medium] drm/panel: nt37802: asymmetric display-on/off across prepare and=
- disable
-- [Medium] drm/panel: bogus voltage ranges in novatek_nt37802_set_supply_vo=
-ltages()
-- [Low] drm/panel: nt37802: use mipi_dsi_dcs_write_seq_multi() for init com=
-mands
---
+For the whole series:
 
-commit a4454941919dc768e5c78cce0316ea1f0954d638
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-drm/panel: Add driver for Novatek NT37802
-
-This commit adds a DRM panel driver for the Novatek NT37802 AMOLED DSI
-command-mode panel running at 1440x3200@120Hz with DSC 1.2 compression
-and enables it as a module in the arm64 defconfig.
-
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37802.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt37802.c
-> new file mode 100644
-> index 0000000000000..632520f04ffad
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37802.c
-> @@ -0,0 +1,544 @@
-
-[ ... ]
-
-> +struct nt37802_cmd {
-> +	u8 len;
-> +	u8 data[32];
-> +};
-> +
-> +#define NT37802_CMD(...) \
-> +	{ .len =3D sizeof((u8[]){ __VA_ARGS__ }), .data =3D { __VA_ARGS__ } }
-
-[ ... ]
-
-> +static int novatek_nt37802_set_supply_voltages(struct novatek_nt37802 *c=
-tx)
-> +{
-> +	int ret;
-> +
-> +	ret =3D regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDDIO].consu=
-mer,
-> +				    1800000, 2000000);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VDD].consume=
-r,
-> +				    1100000, 1950000);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regulator_set_voltage(ctx->supplies[NT37802_SUPPLY_VCI].consumer,
-> +				     3000000, 3544000);
-> +}
-
-[Severity: Medium]
-Should the voltage constraints be defined in the board Device Tree via
-regulator-min-microvolt and regulator-max-microvolt rather than calling
-regulator_set_voltage() with wide ranges in
-novatek_nt37802_set_supply_voltages()?
-
-The upper bounds (2000000 uV, 1950000 uV, and 3544000 uV) appear to be
-Qualcomm PMIC5 LDO hardware maximums from downstream
-qcom,panel-supply-entries rather than exact panel requirements.
-
-In drivers/regulator/core.c, regulator_set_voltage() selects the lowest
-voltage permitted by the intersection of the consumer request and the
-regulator's constraints:
-
-regulator_set_voltage_unlocked()
-  regulator_balance_voltage()
-    regulator_get_optimal_voltage()
-    _regulator_do_set_voltage()
-
-If a board's PMIC LDO constraints allow a voltage down to 1.1V while the
-panel expects 1.2V on vdd, requesting (1100000, 1950000) will lower the
-rail to 1.1V, and novatek_nt37802_probe() will also fail with -EINVAL on
-boards using fixed regulators without voltage adjustment constraints.
-
-[ ... ]
-
-> +static int novatek_nt37802_write_init(struct novatek_nt37802 *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(nt37802_init_cmds); i++)
-> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx,
-> +						nt37802_init_cmds[i].data,
-> +						nt37802_init_cmds[i].len);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-
-[Severity: Low]
-This isn't a bug, but could novatek_nt37802_write_init() use
-mipi_dsi_dcs_write_seq_multi() and standard DCS helpers (such as
-mipi_dsi_dcs_set_column_address_multi(),
-mipi_dsi_dcs_set_page_address_multi(), and mipi_dsi_dcs_set_tear_on_multi())
-with the caller's struct mipi_dsi_multi_context instead of defining the
-custom struct nt37802_cmd with a fixed 32-byte array for every entry in
-nt37802_init_cmds?
-
-> +
-> +static int novatek_nt37802_prepare(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	int ret;
-> +
-> +	if (ctx->prepared)
-> +		return 0;
-> +
-> +	ret =3D novatek_nt37802_enable_supplies(ctx);
-> +	if (ret)
-> +		return ret;
-> +
-> +	novatek_nt37802_reset(ctx);
-> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D novatek_nt37802_write_init(ctx);
-> +	if (ret) {
-> +		novatek_nt37802_set_reset(ctx, 1);
-> +		novatek_nt37802_disable_supplies(ctx);
-> +		return ret;
-> +	}
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-> +	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
-> +	if (dsi_ctx.accum_err) {
-> +		novatek_nt37802_set_reset(ctx, 1);
-> +		novatek_nt37802_disable_supplies(ctx);
-> +		return dsi_ctx.accum_err;
-> +	}
-> +
-> +	ctx->prepared =3D true;
-> +	return 0;
-> +}
-> +
-> +static int novatek_nt37802_enable(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +
-> +	if (!ctx->prepared)
-> +		return -EPERM;
-> +
-> +	if (ctx->enabled)
-> +		return 0;
-> +
-> +	ctx->enabled =3D true;
-> +	return 0;
-> +}
-> +
-> +static int novatek_nt37802_disable(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	if (!ctx->enabled)
-> +		return 0;
-> +
-> +	/* The off sequence sends display-off in HS mode, then waits 10 ms. */
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 10);
-> +
-> +	ctx->enabled =3D false;
-> +	return dsi_ctx.accum_err;
-> +}
-
-[Severity: Medium]
-What happens if drm_panel_disable() is followed by drm_panel_enable()
-without an intervening unprepare and prepare cycle?
-
-novatek_nt37802_prepare() sends both mipi_dsi_dcs_exit_sleep_mode_multi()
-and mipi_dsi_dcs_set_display_on_multi(), while novatek_nt37802_enable()
-does not send any DSI commands. On the teardown side,
-novatek_nt37802_disable() sends mipi_dsi_dcs_set_display_off_multi() and
-novatek_nt37802_unprepare() only sends
-mipi_dsi_dcs_enter_sleep_mode_multi().
-
-If a disable/enable cycle occurs without unprepare/prepare, the panel will
-be left with the display turned off while the backlight is enabled;
-conversely, if prepare is followed by unprepare without enable/disable,
-the panel enters sleep mode without sending display-off.
-
-Should mipi_dsi_dcs_set_display_off_multi() and
-mipi_dsi_dcs_enter_sleep_mode_multi() both be handled in
-novatek_nt37802_unprepare() (dropping the enable and disable callbacks,
-similar to panel-novatek-nt37801.c), or should display-on be paired in
-novatek_nt37802_enable() with display-off in novatek_nt37802_disable()?
-
-> +
-> +static int novatek_nt37802_unprepare(struct drm_panel *panel)
-> +{
-> +	struct novatek_nt37802 *ctx =3D to_novatek_nt37802(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-> +
-> +	if (!ctx->prepared)
-> +		return 0;
-> +
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	/* Assert the active-low reset after the downstream sleep delay. */
-> +	novatek_nt37802_set_reset(ctx, 1);
-> +	ctx->prepared =3D false;
-> +	novatek_nt37802_disable_supplies(ctx);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-
-[Severity: Medium]
-Can a DSI error in novatek_nt37802_unprepare() or novatek_nt37802_disable()
-permanently desynchronize ctx->prepared and ctx->enabled from the core
-panel->prepared and panel->enabled state?
-
-In drivers/gpu/drm/drm_panel.c, drm_panel_unprepare() and
-drm_panel_disable() already track panel->prepared and panel->enabled, and
-skip clearing them when the driver callback returns a negative error:
-
-drivers/gpu/drm/drm_panel.c:drm_panel_unprepare() {
-	...
-	if (panel->funcs && panel->funcs->unprepare) {
-		ret =3D panel->funcs->unprepare(panel);
-		if (ret < 0)
-			goto exit;
-	}
-	panel->prepared =3D false;
-	...
-}
-
-If mipi_dsi_dcs_enter_sleep_mode_multi() fails in
-novatek_nt37802_unprepare(), the driver still asserts reset, sets
-ctx->prepared =3D false, disables all four regulators, and returns the
-negative dsi_ctx.accum_err. Because drm_panel_unprepare() then leaves
-panel->prepared set to true, the next drm_panel_prepare() call returns
-early without calling novatek_nt37802_prepare() to re-enable the
-regulators, and novatek_nt37802_enable() then fails with -EPERM because
-ctx->prepared is false.
-
-Similarly, in drm_panel_disable(), backlight_disable() runs before
-panel->funcs->disable(). If mipi_dsi_dcs_set_display_off_multi() fails in
-novatek_nt37802_disable(), ctx->enabled is cleared and the negative error
-is returned, leaving panel->enabled set to true so subsequent
-drm_panel_enable() calls return early without re-enabling the backlight.
-
-Since struct drm_panel already maintains prepared and enabled state in the
-core, can ctx->prepared and ctx->enabled be dropped, and should
-novatek_nt37802_unprepare() return 0 after powering down the hardware (with
-mipi_dsi_dcs_enter_sleep_mode_multi() already logging the DSI error)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-jshekhar-n=
-t37802-v1-0-58e5e7fb2556@oss.qualcomm.com?part=3D2
+On Tue, Nov 3, 2026 at 3:24=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn>=
+ wrote:
+>
+> Hi all:
+>
+> This series fixes trip-point handling in the Loongson-2 thermal driver,
+> refactors the driver around per-SoC chip data, and adds support for the
+> Loongson-2K0300 thermal sensor.
+>
+> The first three patches are fixes and are marked for stable:
+>
+> - Patch 1 fixes signed division when converting negative milli-degree
+>   trip points to degrees Celsius.
+> - Patch 2 fixes the arguments to clamp() so trip points are limited to
+>   the supported sensor range.
+> - Patch 3 fixes Loongson-2K2000 trip-point programming by adding a
+>   per-SoC register callback and handling the split HI_GATE register.
+>
+> Patches 4-5 are cleanups and preparation work:
+>
+> - Patch 4 removes the unnecessary multi-sensor registration loop.
+> - Patch 5 moves the per-SoC ops and hardware initialization into chip
+>   data.
+>
+> Patch 6 adds the Loongson-2K0300 DT binding, and patch 7 adds driver
+> support for the Loongson-2K0300 thermal sensor.
+>
+> The patchset have been validated on the Loongson-2K series development
+> boards.
+>
+> Thanks.
+> Binbin
+>
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+> V8:
+> Patch (1/7):
+>  - Use MILLIDEGREE_PER_DEGREE macro instead of explicitly casting MILLI;
+>
+> - Split patch-4 into two parts: the bitfields section will be merged into
+>   patch-3, and the remaining changes will be merged into patch-6 as
+>   preparation for introducing the new SoC.
+>
+> Link to V7:
+> https://lore.kernel.org/all/cover.1791512067.git.zhoubinbin@loongson.cn/
+>
+> V7:
+> Patch (1/8):
+>  - New patch;
+>  - Fix negative temperature conversion in set_trips;
+> Patch (3/8):
+>  - Use writew()/writeb() in loongson2_2k2000_set_trips_regs;
+> Patch (4/8):
+>  - Rewite the thermal sensor registration loop to clearer;
+> Patch (5/8):
+>  - Fix `loognson2_thermal_set_trips` typo;
+> Patch (8/8):
+>  - Read CHIP_ID1 only when EXTERN_ID is set;
+>  - Simplify the Internal ID calculation;
+>  - Add the necessary comments.
+>
+> Link to V6:
+> https://lore.kernel.org/all/cover.1790561983.git.zhoubinbin@loongson.cn/
+>
+> V6:
+>  - Rebase on linux-pm/thermal;
+> Patch (2/7):
+>  - New patch;
+>  - Fix incorrect clamp() argument order for thermal trip points;
+> Patch (3/7):
+>  - New patch;
+>  - Fix Loongson-2K2000 trip point programming by adding a per-SoC
+>    set_trips_regs callback and handling the split HI_GATE registers;
+> Patch (4/7):
+>  - New patch;
+>  - cleanup: use GENMASK/FIELD_* helpers, add named constants, and factor
+>    common trip point setup;
+> Patch (5/7):
+>  - New patch;
+>  - refactor: move thermal_zone_device_ops into chip_data and replace the
+>    Loongson-2K2000 flag special case with an optional init_extend_resourc=
+e
+>    callback;
+> Patch (7/7):
+>  - Updated the 10-bit output to 11-bit in commit message;
+>  - Temporarily remove the implementation of `set_trips`;
+>  - Remove unnecessary header files;
+>  - Rewrite `get_temp`, separating `read_calib` and `detect_old_fuse` into
+>    new functions to be called during the probe;
+>  - Use macros to define the relevant numbers.
+>
+> Link to V5:
+> https://lore.kernel.org/all/cover.1789546118.git.zhoubinbin@loongson.cn/#=
+t
+>
+> V5:
+>  - Rebase on linux-pm/thermal;
+>  - Drop patch-3 for it was applied.
+>
+> Link to V4:
+> https://lore.kernel.org/all/cover.1785829933.git.zhoubinbin@loongson.cn/
+>
+> V4:
+>  - Rebase on linux-mfd/for-mfd-next;
+> Patch (3/5):
+>  - Remove the operation that adds `compatible` to the `select` node.
+>
+> Link to V3:
+> https://lore.kernel.org/all/cover.1785480242.git.zhoubinbin@loongson.cn/
+>
+> V3:
+> Patch (2/5):
+>  - New patch for moving thermal_ops to chip_data;
+> Patch (3/5):
+>  - Correct spelling errors;
+> Patch (4/5):
+>  - Add Acked-by from Conor, thanks;
+> Patch (5/5):
+>  - Keep loongson2_thermal_data->chip_data as const, and use
+>    data->flags as the private data.
+>  - Renmae LOONGSON2_THSENS_OUT_10B_MASK ->
+>    LOONGSON2_THSENS_OUT_11B_MASK;
+>
+> Link to V2:
+> https://lore.kernel.org/all/cover.1784619512.git.zhoubinbin@loongson.cn/
+>
+> V2:
+> Patch (1/4):
+>  - New patch form Sashiko;
+> Patch (2/4):
+>  - New patch for adding chipid syscon compatible;
+> Patch (3/4):
+>  - Use `loongson,chipid` phandle replace reg property;
+> Patch (3/4):
+>  - Refact `calib_offset` calculate routing;
+>  - Add LS2K0300_OLD_FUSE_FLAG flag.
+>
+> Link to V1:
+> https://lore.kernel.org/all/cover.1783670011.git.zhoubinbin@loongson.cn/
+>
+> Binbin Zhou (7):
+>   thermal/drivers/loongson2: Fix negative trip conversion in set_trips
+>   thermal/drivers/loongson2: Fix clamp() usage for thermal trip points
+>   thermal/drivers/loongson2: Fix Loongson-2K2000 trip point programming
+>   thermal/drivers/loongson2: Simplify thermal sensor registration
+>   thermal/drivers/loongson2: Move per-SoC ops and init into chip data
+>   dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for
+>     Loongson-2K0300
+>   thermal/drivers/loongson2: Add Loongson-2K0300 support
+>
+>  .../thermal/loongson,ls2k-thermal.yaml        |  73 +++-
+>  drivers/thermal/loongson2_thermal.c           | 359 ++++++++++++++----
+>  2 files changed, 332 insertions(+), 100 deletions(-)
+>
+>
+> base-commit: 4358090906b01806ee483229e8d7163b806bd116
+> --
+> 2.52.0
+>
+>
