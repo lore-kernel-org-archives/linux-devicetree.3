@@ -1,112 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783514;
-	b=VLOgaDg2LeziPUnS0mbUYwfNAlyA26wCLgMBNXEbp3Km9PGujdukHPZQ4MutpSer/EsE
-	 MQQ1sR6x5WYeyPJfEu1iFnEvQJGLmnI3MKdGoMTPK+uQdwiY7JkoD5sCW5CmrZeq2eOxk
-	 AAX7FC10zmK5XT85WHGWTZTpGmDE+LI9kqFt44VPlPdsQCUoO/SIZ0gXtNZQOBNHMO7cb
-	 g28vZeel0GaqDJnCwHqKhspI7PwIGLegBis7lLTO7ZKYlNK/2bbHknK34c4MHC0yoSlu2
-	 BWgy0XM66RFONY0AO8nQET7DkgZ7pECzHwxOE+Oy7CAUVNnxlFY/NWvhEI1oOIGn1Gw==
+	t=1793783518;
+	b=tp2NrxIJpBjoniCYK27XuZdMM+gd1ObgW1i+jKJcENBL31785rJmwQSQaNOUO3WSuo58
+	 dUUe2NYnOF3jFREn6Ph+20jYJrT041gKJ59rkQqADYGOiEfGt1FTbTut86YBinvPi9fFZ
+	 TioUrdHMDjHp8YH65quc+aFc0my8SybD2kKe9HHSlCokH0edSUTq6wyVfPQ7H3KPsxNOs
+	 egkYTYMKAJhWWtoBqbtcDeS18nWPhsblMwtAMqIF7igHDdRO5lUlBZl08rf+YS0z7tttl
+	 mmbDD1u1ArMOqUuF98H2/p6uUQlrYG5N7A5Rgr5RlXWRQMCSaVYnakUmfb88eONs39g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783514;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6GuykzzLpkH56pQe4JsMmTWSBVarOy+Q20aNwDP3d4s=;
-	b=lXP5hOahY3WiQZx8T3i8cjh1QEuJCo5b+UsJYo8XqpPYGg3xXL7LLvePca40XTetTZlz
-	 YRn7CGMY+bqICCudRhKF0jWuDkJPW2+sckc++wqGUX5pDds5i7flyX0VwrR4Yt0fhkIho
-	 6mO7XvUmcXZOGICn+h1Uz3pRmfjWgNmyJFekdos1b2mktsamNWSfIq9qmYVCsXuhPI+zp
-	 eBHcCZknwpxAqh9gdlchBSvVXw/7HoSqwa260DizYFvHC4PyFwKNgIwKcA3ilc25oIfcQ
-	 OL9GfDxkpoJKHfDWzWlDtGy7nUqtSGbmuPCSAq2lizYIPwotCNB68PdiwBfz4fq3mWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783518;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jhKXBgg1sGJn3Jt16h2wqToqL6AFAOLSOJl/Bs/EcRQ=;
+	b=EY6NrhdbN8WTbIXLRxWEmltP4aOZw6M6EqDtVl084/9euJDAwgQQKqyGpJY9lW+UZP0u
+	 /tc6MCpOerspp+td55mkrnLcGKIPXDkzQNVzDtgP4HT3S7n3R7vVkvFAm+wJco1nanEah
+	 Yi9eYHbQJwg96BbNR8CTnTzzao7wbC05BU+OjedvHiCO39J3NEvOdM28F6ZkGC8YZjt0x
+	 3yemHq/Pfr4ZhslBVJgnXGM4N6F+IQ23jkY75HZueGnfcyM3r75zxVAUFB2Fap11HamEX
+	 gARB3YiC2yYSe2AqNGi44dFshKe8q4rUcw+ez6hKl84mIHThPEFdfddTIqmZp52h2sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ly2+CodM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HDCGwwyn;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="V+MVO5/H";
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A45606A31B
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A45606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CEA606A333
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 09:11:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7CEA606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ly2+CodM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HDCGwwyn
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A48KZAE2231990
-	for <devicetree@vger.kernel.org>; Wed, 4 Nov 2026 09:11:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6GuykzzLpkH56pQe4JsMmTWSBVarOy+Q20aNwDP3d4s=; b=ly2+CodMQxIjSAiJ
-	tyHWVL6T//F0JJuiaYBeQW3qlj6C5Ae1PtXVCSRjupmXQd67VrwccNZPvvmuUcHr
-	0hoMVUxykUke5b61mH3JNJSeciZLfBvc6felfvih/zsYtpUI2Cyk566oSGthXciC
-	HmkVpkzWhTk0Xz7Im+ihuwO6THW8ix2Fg/+8i7Yaz2hpwsEY7BK1CUmfN8JWIUSH
-	kKI9RVIVluLKrGZVwnY4oZYQXZ52WxzN+S4nk9il79uvfcNN5wsfWxlCi2/2Vnpx
-	2a2oq7TCPZ9jbDlXjC2NgjqKBEbYdzkLN93souFSGtv2LUMoVFTAmNHd6SuQGrox
-	ctl8uQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqm2pkayg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 09:11:53 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ada8bc8575so1006342a91.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:11:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V+MVO5/H
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ad787b79ffso366985a91.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 01:11:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793783513; x=1794388313; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6GuykzzLpkH56pQe4JsMmTWSBVarOy+Q20aNwDP3d4s=;
-        b=HDCGwwynk63AQQ48SOxeC1KjVJO8Nee9tGxplLlkZ4slG6rwCFwRWN0JAxlYsmS9PA
-         +DdzAn21sMw9QOvP+FnghCowaik6NDc4SxukJWj5UfcxlVvFaNIOTolvuVLBC1ETLQ4d
-         fNK9LBj1DiipW5vjzI/s4KBA8M8rHmGBSIqEhIA2HOlPRYf3M+egkug8B603MWcDvrGy
-         m4gle2FLAuoJzfoYj7+QIifYvfePJ6zpbgUMdJyzNEoB4o3Lrhw2qT5PELwit2IWrSPH
-         ef0CYTQmzRSLyOS7QxqybFQ7FVAZLQmyg7djsoWETZ50nm62Y0KzTfMzpGL9v1yE0ld7
-         9TRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793783513; x=1794388313;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793783517; x=1794388317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6GuykzzLpkH56pQe4JsMmTWSBVarOy+Q20aNwDP3d4s=;
-        b=Vlv/pTaJHYGzhlaVHJ3njonptCKpTt9dyE/ZbPcXe848KyOoG4P+ypnSt8bkpLqNZT
-         pj2ZNWoBuiWMRXY7LoSIZzY1xZXdEwmJysvs6RmBL6Ah13UWN3EF4n/4Jnjaosw0kFU7
-         AiN0rwB3P2BuUKhdPHnNtAoqM0u1EN/ZveO8GME2e1qMvtRuKKn0vjbQRtTVOLiImOfu
-         935FTBncs3IN78IGwIkSLqt2SMWzc4O0udZuFk/ryLXKcKYCVSQtv3BFJui9xG0Mwnm3
-         9A3gaSVaNsLVlqTcWNzPGnd3axsFJPO9hToZIUBZrW17BoxvAPFwNp3RRPRnwwurc6wz
-         +4LA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXQFv99rfpBeAPWEz2DNP9bpAzPbPQ99zMHMH8CNibhuWzoCEE+IuAj84x/KO6s1T0XptcWyrtovJV@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hGK6lNiAbaJw4aF+Le66dpSrOptOglEa0DAG9vVc3oO052Ue3
-	OBI/XcMylXCzve/VFtxBj8X+PAdM9c0AGJjgwCeMp43lLWicgRqwX5lPYcGhlVfuC/DNsrdPyi/
-	eewyH0DHmiCil9rXA2YJtfEVHlTor7QKNVYBw0p7OrdeA2d9g1J4eQgXpWp5D2uV/
-X-Gm-Gg: AYBFou3huyVF2MM0uQGKuZOQNKOPoKx0eFGsWH4mRJkmaRDZCwDQCMG8HJX0tYX0U6l
-	Aj+OuKmvpVRqVt99Rv2CZ+OYZGaCLjNEKY2bw//YSf/kJEp2KJi5RJpTUYECKbaS9hZ0kL2RHyi
-	6NzhrU0Dg2hOioFY8Gg7238LSdg/2WoUR35DBu6jhbvz7Wiq98eX2Ab/qK6jJDTCkpMG8rLQnnV
-	i4x7m4x65dWATv0q+tFRJ3LjXI7+04ji5KTY2OUGT64IvSawjjMYdsNyYdaiFAEPw7Vrck+HoG8
-	s5v2rtudSE3gYn63SzmRseq5iUExGXTyycCWYOsoNyQaeELyfnnculKp216hITqog8gzoJYEty8
-	qqV4Qa44aHVSn6qIQ28CA/TdkRxIi4YMvup42Vb9LKRIgxSoBPe4fLwUGT+z8sspUTNt8XyR2Xk
-	QaTgFf2TYR
-X-Received: by 2002:a17:90b:562d:b0:3ad:a462:f07f with SMTP id 98e67ed59e1d1-3ae8982c1ffmr13983267a91.45.1793783512636;
-        Wed, 04 Nov 2026 01:11:52 -0800 (PST)
-X-Received: by 2002:a17:90b:562d:b0:3ad:a462:f07f with SMTP id 98e67ed59e1d1-3ae8982c1ffmr13983233a91.45.1793783512186;
-        Wed, 04 Nov 2026 01:11:52 -0800 (PST)
-Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c896cc6sm8253877a91.9.2026.11.04.01.11.46
+        bh=jhKXBgg1sGJn3Jt16h2wqToqL6AFAOLSOJl/Bs/EcRQ=;
+        b=V+MVO5/HOUMXtW+/hWueRfgYYSpNHXYFNqTWJ9hFYaAepDbyaIcWGBP0lq/7ECVyiz
+         pu5ak9PTxbqAGtMCCGCkV4JYyp0LgHh6H2R9nAlPNTTMRRexRBzPpCwFy2cau+8uXLQN
+         TWc4mS0s+LEXUJULMmh3PSj1vKBzFNch0PSuHxECSEMeHRYXAYj+RRi7Co+jurN/OYIG
+         ofNcMpIQYtODaVmYwJiqI/8DxXzF/v3htZX9HjivxERIhYgRr/1lQqzMVk0phwNuPT57
+         Wt4KTLx6AfKCvSr4ZJuRvscVA/B6s++LnOaOiL7sLuNLVSX6oGmu6m03ehWAz3OP8y8D
+         Y4xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793783517; x=1794388317;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jhKXBgg1sGJn3Jt16h2wqToqL6AFAOLSOJl/Bs/EcRQ=;
+        b=TtTZLl+zR/ezI9kt6ncYmG+dY+rmJltJnTVYDZSCWZQTX6XnlW+wlnsHcLX5ev6EiB
+         P/u76yRMPyPUo9W3pN82efXXUjutv/WNRANQHvwugwbAz+kVcwKg8fddrfZ4RpH9+8/B
+         UWdL39gxJgPLE8C602y4Z+Yzw+qdlbEAmCKmPpnM1Tb52svEtGqb3x9IJa2EYeychEe6
+         k46YNwPqWwhWCnFv1Eomlc9txhO2YtZMNPYnFFUlAf6FonDm0hcYILI161mKa5opECUB
+         xQzT9OU5bKF1CZ9xs8o+G1Nm8WwnOY7zwjzmxQvpK9/3zWHOaNO+Zxoj9PTTSnzKq6IW
+         15SQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzf/BN+axAH1oyb7wQMIdgVR/B6nFAXXxal7GHNt5nG00IhLDVL4qISqAzx3pEpY2tr6qLGDui/KQS9@vger.kernel.org
+X-Gm-Message-State: APuU4Z8T2KLp8XQ/mGgE9q07AAyx5gLczuUd6o3vxHzU4uXfrKDw4REA
+	I1pLSV5it71wjUhcUpXROrlYUOw2EZEp7Gz0luL65ON/rNA7Ax7J9rna
+X-Gm-Gg: AYBFou3sv779TDXX+K+ohWwYKwNOK+Rl+HTsYiBH88FE61Y0NJqWSz6ir3vD3gVpiaX
+	0qz128nJC5nFf3vr+Dj4nLBmrClDVVQGVM1Zc/8Orjdkik6fAiilx8QffV3sc0RSdNaEhfG3IUZ
+	b3HGoTjpQhxXqnIC1YiGFYMIxQ/VMYBgqn4Emernsi4SGnjLcVrW5ByU1dv1LYuj0SnRLNB78qW
+	w9FVRoa/NOQ3egx+j6khxFlqXJbe1jc/lvKR88aNQIIxchKh+HKwws4rJKwVXuZldFLh3G0Ursm
+	TkGZCmh0jo2RF2nffeRucgrIvb+0zng9SpNpZ/rO/Cn4ULsD2DhepiqignKScRffflf2RfTTcR1
+	K2QMCiZhZGgRPGEkb/BjtU19PHE9UAQYRBGe0EaCgI2SGhhKgUrgh1wsfkOeSl/tSToPaoq3lVu
+	wcf4YwiAA30cNAAlOSljzUWYXbkh7KPG9EZaGYGiP4ZTnlts86RRFkFTxepQneGzbDR1lgj0nRu
+	W88i3bmMDKSCCOxeeVtkIgt0Fhv+56ts1H0PI89WStDchJbvD/t7xYF2p0uGSVDuMlXul7ajh0r
+	jjwgsjh0EMdO4YEj6nWEa+l958jyBHQcSCmYIMJsBe+3x0r2+ifDni2pYShqx3Xu3s6LGVr92jY
+	QxWMb1BI1HUtcNpA=
+X-Received: by 2002:a17:90a:e187:b0:3ac:77c8:ac29 with SMTP id 98e67ed59e1d1-3ae896f862emr12115163a91.15.1793783517097;
+        Wed, 04 Nov 2026 01:11:57 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09369c638sm3167257a91.0.2026.11.04.01.11.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:11:51 -0800 (PST)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 14:41:36 +0530
-Subject: [PATCH 1/2] dt-bindings: display: panel: Add Novatek NT37802
+        Wed, 04 Nov 2026 01:11:56 -0800 (PST)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: jic23@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH v4 0/2] iio: adc: Add Nuvoton MA35D1 EADC support
+Date: Wed,  4 Nov 2026 17:11:34 +0800
+Message-Id: <20261104091136.151269-1-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,144 +106,137 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-jshekhar-nt37802-v1-1-58e5e7fb2556@oss.qualcomm.com>
-References: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
-In-Reply-To: <20261104-jshekhar-nt37802-v1-0-58e5e7fb2556@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jayant Shekhar <jshekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793783500; l=2222;
- i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=8A0ZKqgwoan8Smk+YA31w0++rT/VvW9+pTsfyOAxJv8=;
- b=7X5FqluwOB8V7OwMt2jW5i8pgUVH300hw1vXITg/Cr3uXrREPTcpNQ4GW0VFYlCaalow7mQVv
- ConL3h9588gCjSGxkOT10ExM5HWosSKPkHE+EN+vc5CKV6Z4XZ52jRD
-X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
- pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAzNiBTYWx0ZWRfX7ITmQbex9qZz
- ff1DKAaMIs52cYuUWZY5askT3rSfZ3SvqFm9www3O90Sxs348+1HohkEFxm/21lbI+v5lcFLaSd
- 3cITKzc4LVatJh2aiwTXHCd5nUM3xaQ2mKVmsVUxBCP5CyqVCEcAHXu0jHZIjpExcA2DCX3wGAx
- cRRIw4Q3V+Ms8H4tjelm8J8HwqTvfnIJu6CsruGPOP24KMJ/GkSugyHp4hRn0leI5cISnATvva4
- 9emkKiBpGqM90gpanlGrCcstw8CH494vKdHZcMd1tHtRCZpscdf8xRTp310J4f3CNRV0f1x3ZNz
- 1abQufnLyypm745yZonUBcpkgj5yTmTgRoxkjaSg54FJT4JHb7+Y3XExdUOQhZfqsO7TSkGb/dj
- Hqukq+zSZVVnnWUjbF27QXJz2DUdkeOrqFmqrFBb+p/xO901uK+6cEBMd8j/Q7CA3rvNDbJ4X+g
- KhuCVQftz5QrAxyOiuQ==
-X-Proofpoint-GUID: dn5--emMtwRw8OWJvxmu0bN7hYmoNC0m
-X-Proofpoint-ORIG-GUID: dn5--emMtwRw8OWJvxmu0bN7hYmoNC0m
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAzNiBTYWx0ZWRfX9W4C37iSEs5o
- 1tlnZ26/uHZu8sV/5gjF0ullcGJfZTrA/ADJN+ptdhOUdEk112FnxqwcwZY0wAG3MilmtYll4/Y
- 0Vu/FDoEDS1COWsXIGCLlzi4hf22CGY=
-X-Authority-Analysis: v=2.4 cv=c64+0h9l c=1 sm=1 tr=0 ts=6aeaf6d9 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=RPLscFmMtlOloyN4f_4A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_02,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040036
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Document the Novatek NT37802 AMOLED DSI command-mode panel.
+From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
----
- .../bindings/display/panel/novatek,nt37802.yaml    | 69 ++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+This series adds IIO support for the Enhanced Analog-to-Digital
+Converter (EADC) found on Nuvoton MA35D1 SoCs.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37802.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37802.yaml
-new file mode 100644
-index 000000000000..14a59a9b0fec
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37802.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/novatek,nt37802.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT37802 AMOLED DSI Command-Mode Panel
-+
-+maintainers:
-+  - Jayant Shekhar <jshekhar@oss.qualcomm.com>
-+
-+description:
-+  The Novatek NT37802 command-mode AMOLED panel described by the Maili/Pebble
-+  platform. The downstream panel description identifies the module as CSOT.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: novatek,nt37802
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel number
-+
-+  exvdd-supply: true
-+  vci-supply: true
-+  vdd-supply: true
-+  vddio-supply: true
-+  reset-gpios: true
-+  port: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - exvdd-supply
-+  - vci-supply
-+  - vdd-supply
-+  - vddio-supply
-+  - reset-gpios
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "novatek,nt37802";
-+            reg = <0>;
-+            reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
-+            vddio-supply = <&vreg_l12b_1p8>;
-+            vdd-supply = <&vreg_l11b_1p2>;
-+            vci-supply = <&vreg_l13b_3p0>;
-+            exvdd-supply = <&display_panel_vdd>;
-+
-+            port {
-+                endpoint {
-+                    remote-endpoint = <&dsi0_out>;
-+                };
-+            };
-+        };
-+    };
+The EADC provides eight external analog inputs which may be used as
+single-ended inputs or as four fixed differential pairs: 0-4, 1-5,
+2-6 and 3-7.
 
+The initial driver supports direct conversion and triggered buffered
+capture using sample module 0. Although the hardware provides multiple
+sample modules, this version of the driver uses only sample module 0
+and therefore supports one active voltage channel per buffered scan.
+
+The series is based on Linux v7.4-rc1.
+
+Changes in v4:
+- Use the common ADC diff-channels property to describe differential
+  inputs and keep reg as the logical channel index.
+- Restrict differential inputs to the four hardware-supported pairs.
+- Restrict channel child nodes to the ADC properties supported by the
+  MA35D1 EADC.
+- Prevent single-channel and diff-channels from being specified
+  together.
+- Document that each single-ended input and differential input pair
+  may be described only once.
+- Remove interrupt-names and simplify the interrupt descriptions.
+- Update the binding example to demonstrate separation of the logical
+  channel index from the physical ADC inputs.
+- Update channel parsing to match the revised binding semantics.
+- Store physical ADC inputs in the IIO channel/channel2 fields and use
+  address for the logical DT channel index.
+- Reject duplicate physical single-ended inputs and differential input
+  pairs.
+- Use the physical positive input when programming the sample-module
+  channel selection and the logical index for firmware-node channel
+  translation.
+- Use interrupt index 0 instead of looking up ADINT0 by name.
+- Add the standard one-hot scan-mask validation callback.
+- Use iio_for_each_active_channel() when selecting the buffered
+  channel.
+- Use a fixed scan structure for the single-channel buffered layout.
+- Limit conversion results to the 12-bit ADC data width.
+- Always report -ETIMEDOUT when a conversion times out.
+- Make timeout recovery best effort so interrupt disable, control reset,
+  IRQ synchronization and stale status cleanup are all attempted even
+  if an earlier recovery step fails.
+- Use devm_regulator_get_enable_read_voltage() for the optional
+  external reference supply.
+- Rework clock management to explicitly balance prepare/enable state
+  across probe, suspend, resume, error paths and driver teardown.
+- Improve suspend and resume error-path handling.
+- Remove the redundant explicit REGCACHE_NONE setting.
+- Split interrupt status read failures from interrupt-source checks and
+  handle failures when clearing the interrupt status.
+- Use symbolic definitions for the ADC resolution and differential
+  scale width.
+- Use cleanup guards for mutex handling in buffered capture and keep
+  trigger notification outside the locked section.
+- Use more specific error codes for channel capacity, duplicate channel
+  definitions and out-of-range physical inputs.
+- Apply the requested regmap, control-flow and coding-style cleanups.
+
+Changes in v3:
+- Document all four ADINT0 through ADINT3 hardware interrupt outputs and
+  add interrupt-names.
+- Document ADINT3 as the shared conversion and result-compare interrupt
+  output.
+- Remove the redundant minItems/maxItems constraints from the fixed
+  interrupts items list.
+- Rework the channel binding for the fixed differential pairs and use
+  single-channel for single-ended inputs.
+- Add #io-channel-cells so the EADC can be referenced by DT IIO
+  consumers, and define the cell as the logical channel index.
+- Add firmware-node channel translation so sparse or reordered channel
+  child nodes are mapped by their logical channel index.
+- Restrict unsupported generic ADC channel properties including bipolar,
+  common-mode-channel, settling-time-us and oversampling-ratio.
+- Explicitly configure INTPOS for end-of-conversion interrupt
+  generation.
+- Explicitly configure the ADINT0 sample-module source and clear unused
+  sample-module routing.
+- Reset the EADC control circuits during hardware initialization and
+  clear inherited ADC interrupt enables, result-compare interrupt
+  enables and sample-module trigger sources.
+- Add timeout recovery using the EADC control-circuit reset, followed by
+  IRQ synchronization and stale status/completion cleanup.
+- Use iio_push_to_buffers_with_ts() for triggered buffered capture.
+- Avoid mixing cleanup guards with goto paths in the trigger handler.
+- Add ARCH_MA35 || COMPILE_TEST and HAS_IOMEM Kconfig dependencies.
+- Drop redundant linux/bitops.h and linux/mod_devicetable.h includes.
+- Use direct regmap helpers, explicit REGCACHE_NONE and
+  regmap_assign_bits() where appropriate.
+- Use fixed-width register offsets and kernel time/unit helpers.
+- Use size_add() for channel array allocation.
+- Request ADINT0 by interrupt name.
+- Improve system suspend and resume handling.
+- Address review comments from Jonathan Cameron, Rob Herring,
+  Andy Shevchenko, Uwe Kleine-König and automated review/testing.
+
+Changes in v2:
+- Reworked the driver to use regmap.
+- Added optional external reference supply support and IIO scale
+  reporting.
+- Added optional reset handling.
+- Added externally triggered buffered capture.
+- Added signed differential conversion handling.
+- Added fixed differential-pair validation.
+- Added system sleep support.
+- Added optional DMA properties to the binding.
+
+Patch 1 adds the devicetree binding.
+Patch 2 adds the IIO driver.
+
+Chi-Wen Weng (2):
+  dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
+  iio: adc: Add Nuvoton MA35D1 EADC driver
+
+ .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 163 ++++
+ drivers/iio/adc/Kconfig                       |  14 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ma35d1_eadc.c                 | 912 ++++++++++++++++++
+ 4 files changed, 1090 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
+ create mode 100644 drivers/iio/adc/ma35d1_eadc.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.25.1
 
