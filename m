@@ -1,109 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829537;
-	b=hHwrV1msx/8e6Fb25CwMTflj6m5UgxCYb0aX2ZP67dOBghBaGHc2YOaOrPszWUzbIGPh
-	 3jS0Ly2Mn7xerZKXi1QuPKO8yUBlg4wUuMp7b3CK/ASDsEzPXCrY3imyyxrWgjLvpBhEb
-	 tBv0rv8BgtRKBC8XBWkpGzp4tH1IeJy4uFB2acsaMAMf08aOvjFVPCWnbo3WTqQGNHxAH
-	 Facd1O9KeO0Q4uVveBhrTZDez5fozxzvQ34/8PS5V9V35JbXrD2HfwcAWGl+bor/udm4P
-	 gbYQmH2fncNK9Pr5AoABxY16agVS7WcBmYWYFbKOkzbL7h20kc9evGAwBgYJGrAXJ2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829537;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4G69hUeaYVdLPSM1kzRF/+eQpXIfqCXeSZLLSkxOSAI=;
-	b=tcFS3nHKC1gR5G2XlLjgo5njw9AJ3TJEHwtmB42BI/DjWFHm8d+CBwg0P4vu+yHe38zb
-	 Lx0sVolBjK4AGN6dqmxCsvapSleR87FobiTkhJKhSEhF4SDrfEufy1l6tz2aKIQPH5b7C
-	 0CXrqCEdGuehca/GN6WqNjc83XxJFKVMiHR5AIBDwLt/Nusg3sXy3NpoHRj0116ffy2sI
-	 m+8w9P+QZtM//whgALeWrFbRsVjXigwJ3Ln51i+2Z7V+RYMdvjHXOqorSsOL21i/ULGRa
-	 AJvjxHWSMZL7RGCzVprIlv7ZBpU+vw6GlCxSQr5LjbH4MJGfAw+DGcWmNFQNCw7aNOw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FX6QCTb+;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.27
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793829930;
+	b=i3CiL+F6lFzyWBviNY8qQ1nQlwBge9M63cndfQOHHWAX4RZVTd+r9bW46H8fQ6Puwv6F
+	 vO7nGoJAjN//s78qADa8d+yoyiiwIFuDZZiq9eIbbtxh02TVml70q4uQ8rYPcV07B59q8
+	 PkWNG55ntYOGMZlnMZ8N2j+uAGr+6Bl4IUpDJKhPFC8S8KX3uI6yNoWihwkB74viAoHJQ
+	 Am7x+BB3hM5iXFlxZO8YbVGY1jjrftPHz4tRdqhq1pJOZfN6JGT3SAAU0RHocKTtVfg5Q
+	 az/V4ctCH+BowWge1LTm9KILMDgmpjG4uoRyeg2HcJBXW6m8vyWJpm6yiWrkRunZExw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829930;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=LtNOnRLBQaKMleWwAnKI9VntOedJNjcagImHWVSQxDs=;
+	b=jHVIJaWijCdKj2/3DJx5WMN0Hqik1xPzrzFQvW+OyCDmFyFzAs5ScYxYPwNGiLuhKOwm
+	 h+hsaVcm5Vv/n2sQD0vL7hJgqbm0SoKPzc3A2zYw8CmwSJ0ektJvhUNkRve7O5Ly/Rucz
+	 PSTFaAwfFaz2tVwdGIfccb9JKcv6coCSFvPerFNSkISdclYFmuN/jDrd69v0hYu0RUsm7
+	 8DaDiJDUZgiF+/pddc27OJWrxGsCEOr6QsNCbnFFhlPOYEyQpEaXa8QFR89j1YCV71mor
+	 gLL4Zj8zSvx8ihkA6+j/ac6N9cxbIKmq8rlKfQv5NrvqdCtIDME6qVVaVEYHYc51vlQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bqGnJ6PW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.27
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012027.outbound.protection.outlook.com [52.101.66.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49486074FBD
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 21:58:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E49486074FBD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94139606A331;
+	Wed,  4 Nov 2026 22:05:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94139606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FX6QCTb+
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso9562445e9.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 13:58:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793829535; x=1794434335; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4G69hUeaYVdLPSM1kzRF/+eQpXIfqCXeSZLLSkxOSAI=;
-        b=FX6QCTb+7hQ7a49k2he+cXjZ+2kMQvzj3kmIs1IniS/nLeDTKVLHUpzkD1SsnHFDaq
-         piKWHM6u4NhFFeoMQbWWGdYBKECHcIxDTbdQvL7W396dkj3SMzJkv/bsjHHi0l0EODUf
-         QSuee+c+9eI596+lJ4l5R560zoZcph8gZe3wXDHdNLjNBDyr4MkFF3X9QejxJmmfJ78m
-         VfQh+MXRA6rqfLdIM8RGR/Hh1DYtoqlmjwVs+beuGrN2r3nUcX0gEXCy/uF6KNSg45/s
-         NP7K7fXkxDm9n7loE1MmknICig4qnZZ0BPAw+pt15CtvItWWKolSimPXLlQnOjHn3JKE
-         ZySQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793829535; x=1794434335;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4G69hUeaYVdLPSM1kzRF/+eQpXIfqCXeSZLLSkxOSAI=;
-        b=L7J4nZ1psAs/BhK16iQJ+Bk5gRnRWtABaCW0h2oq2Csu+J0/rivEZNKzHXaz/hxPRh
-         8nmGN9QIDBvNMFOz8L3gAI2o3lxg5YtoMPH6y2GKabHfrHogzHc43iFVmpXT+j0JDv0c
-         kjo4znQBns2/cZ1YnL0yUmQ13PwZZxL3y0wQRCBALIYP7Ktd8y55UyeAL6ivkaPzRRrp
-         5CRi/Q9jvPTcT5GrZoWOLvcZ2/SB5M0UdtJRYZWPB9yN2b0n54eLh3GACSnAS/ix0VoZ
-         rTNEqQERtcCNFU2m85hYZisV4lE0QyfkMZ2O4Cs5ViWv3DqvaXubkCWWwtL1gh/6Tvh+
-         HbTQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLooI3MV3y0r2VZAAcYJOMq2AP3f4Rs0QmOsfIZs2pkWddrtAgFWHUpiANIOb0zlJ2RtTuUzzAKbwh@vger.kernel.org
-X-Gm-Message-State: APuU4Z99lVxQFYxU1libI7lJ/aK0BMaNFLxsDF4VBhd3lmEZuQfjTC4S
-	LbAqRWy0xSXUruQ3HS/qBgZLc+7Zya9Xky53Ly6vDlLcM75HsiDKr/pQ
-X-Gm-Gg: AYBFou06T/TaSSbZx3RquAYiqkBz6fkSizKArcij+DBW9opY1mQmTyx+DnGpGqyZB7c
-	jQNM0kl0N0OdTIC/EOlCtvLWyJ3Wmfxun8BVMCziO1ahKb1aCDjnLiUMVT+4cmmcs+LtSID81lR
-	G/j/Nskiu0VjCtDF5K8BlhNZFSPrAOTtLa8TwPH05NiVyqRLaymwVNy8GOX3/Su5lk/vROomPGx
-	K7a619dRkGgBRMoi2BD/b8U/tMKxGarHRLWwsEISPQEqD6dUIFUrQdh9i60k47H6DmSluHuFyz8
-	PJ+thAb97MdKMCcn3zYDIXDxH+7+K3tx1Enzl/2yZW5X7v/ZyGx6MRWOKRVRjKIQRdnX6AYfDSt
-	kT6mzBV59ozfAFu+2s9c3SaQsL4M2HUFMpMmlTyRV/sfzWOGn4ocgxMLBB4go/Z48VxXbROnPfF
-	Mk62i2QvQZpwfs+BLsOdsBHGP8FIZsSA2Y6IbF2IhWO6g/nHnKHoKq5M/TFb3CaBh8Od/c7l7EE
-	dIzxQdLIfO5Q2KQt7+YNTuToUunTWiP+tZDlY06+6wgolNaEPjNxzONJTsGZ5mN/LM2kWKb348u
-	C7M4DEy5wFA4fZdbRkgEmZea3cSydLh4IdcvIiuIXmSXgETw1pK1d0uRaycXauiqHH+iryTioUJ
-	LJg8YzZc9YG6SnR4SiwW8hFS2KzqiWRdLGEyF9ywh6RTWD6lWnJHPYBsiQpM5HgD90sM=
-X-Received: by 2002:a05:600c:8b04:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4ac17a3683bmr393088445e9.18.1793829535234;
-        Wed, 04 Nov 2026 13:58:55 -0800 (PST)
-Received: from tachyon.internal (2.155.41.158.dyn.user.ono.com. [2.155.41.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e65b0sm15526735e9.11.2026.11.04.13.58.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:58:54 -0800 (PST)
-From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-To: shawn.lin@rock-chips.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	bhelgaas@google.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	heiko@sntech.de,
-	dlemoal@kernel.org,
-	iav@iav.lv,
-	devicetree@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bqGnJ6PW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pBAviJSxSGNrfhjyVMxgcP+7ciAK2uDnb50Qq/Ov4ukdU5hBtqhb3TwLOxFSTxroZJAUHjA5H3vWvu/R+3UO/EL1zf+w8hemcQI5OLCn0m2WAYzQudomF4+rORaxf3Md0LqQRcAP7gGwD5veuYbPWNp5mcqRS4XuWQIwNanmAaAz/Weyh+NqytDNt6T9R4meQIoLiOJULUrNOKJbvpGixXyHDu50FqW5l41LdRoFiqn/5gTANIRqNlnvZN1hmSKv1eUIWhch/FX5CeLAkzoBVu9bnYUvBWn/0urXfTgCIv2ZezP7iVma2eJGDHW/LmVUKb0oZakgjqOjIx9Tp7MC7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LtNOnRLBQaKMleWwAnKI9VntOedJNjcagImHWVSQxDs=;
+ b=lf2ZIEoZ80RP57MVLUjM+G/6H19G98yzOWWpLRjOvO4kmq116cuXvBTg3855N0X6quMSS+/noMzDNg2NrUl4HP8iYo9N88H3GPPZ+brmUBN01aBNFKIGRI4XLrbx3T9e2bfEXYwNhAknTO6VcPN5BBFpKofULol24o9ohCengunw1AOdmxc+SJENELDwyK0el4ac2IDzhjgS1gZxVsRFj5xJKsuk2iM0Z0iQ1/VhOzkaNNXTnWNPLNBVIWebVjj+0QVnpaCUlhKIx9WIW4IR4au7LLwfhwsPtwK5/hmRj9kVn1WgZsu1AGDf4P3z2xYJmY5r9U6g8nVQzR3zu6oR2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LtNOnRLBQaKMleWwAnKI9VntOedJNjcagImHWVSQxDs=;
+ b=bqGnJ6PWbIg3oNZmXXEwScidPw/eHamUVaUK7sgTbx2c+NoB8RnsGOOw03kXpx7MpRwRNYws6rhUf+NX/zV2ShIzFQ8X/H2txNHV4TPSFaDPREnlerR2zTDRNXJIYnXyPTZoaQEdu2ihbOUmQFdSGr+6xkpGubOrUZnDeJO8Kquq78EJ7hg8whSh7HYJ9WG/MQlcAzEakUD9JedCxPg1Xk9ZuL9wbuo0KX/yKgX0uY2GzphVmcWi2Ir5ut/+r8lvIuEcl5FUMSvSe2wmKEuGe62IbIqMfAw0N4UtFSK/UeM1f2MopEN4nODqiBk6y3DE2rkPEO/YZ05r3YmecSpujA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI0PR04MB10162.eurprd04.prod.outlook.com (2603:10a6:800:244::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 22:05:25 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 22:05:24 +0000
+From: Frank.Li@oss.nxp.com
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Li Yang <leoyang.li@nxp.com>,
+	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-Subject: [PATCH v5 2/2] PCI: rockchip-host: Make the PERST# inactive delay configurable
-Date: Wed,  4 Nov 2026 21:58:47 +0000
-Message-ID: <20261104215848.2087944-3-ehbello@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104215848.2087944-1-ehbello@gmail.com>
-References: <20261104215848.2087944-1-ehbello@gmail.com>
+	Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] ARM: dts: ls1021a-twr: disable USB2 by default
+Date: Wed,  4 Nov 2026 17:05:17 -0500
+Message-ID: <179382991080.3910338.3974877778964499241.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261021205018.4037171-1-Frank.Li@oss.nxp.com>
+References: <20261021205018.4037171-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS7PR03CA0358.namprd03.prod.outlook.com (2603:10b6:8:55::7)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -113,136 +105,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI0PR04MB10162:EE_
+X-MS-Office365-Filtering-Correlation-Id: d322a8fa-d79b-4d09-824c-08df3abfba29
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|921020|56012099006|11063799006|261009223027099003|261028144727099003|261022105027099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Kxr+0mTiuD9Gpr3ZVguxZS2c3xHwc+JKHIkoL2U4jZhfkRTZ94lI2cxDkIq2V5W4p19je+i5HOPDmwob8/E1AotznpRi/avJ2woum7qkNPnN5fabjbv0Af61EJbMr0GqMj4YP4fQ/KWQ8IFbEbRvJhbIKbGW53KmhPqzJ1v1Yk8rSAnOv0IVRcN5oCaFxEEcaKcqtQqwoFG51A3a6D7fn9hgdvYuRaocO/MExE6vpULTV3cZjzMaQdjZx6DgQaohmyomTpL1mtvWID4mMV7HUIVcBzk0YM4ciS0JRH+fyt7tfO7KNX8jsXqjAjJsM00PCDRZTWl4yA5NvHLwO6McMoZ00d5u4Dm16/CsoCckbRZymeK8+Y26PpHvJvdALdv+k0Z3Lf1at7o/YkOjncXF1EyQAmOogDAwr28NqNsi2bR1xLMNI5eLLlW4A94CiOO8caDN7ocybsqrbMSU4WO/Nyb7WXfFlsXiv04flz2ngFhU+YwQlcMhTIlsZCeCQ/ydUZst4Gh7xjR6B5tz+D7DEl+Pofb7OGMqx3ekrE382BGnlOXbP9uFSU/GO8WyN0FyRbaTFNkGNy93x85De0KSFETrcYbIMbiyx6cCo0bUZsJ5sRGhKOyUPj4z/XS0LCtWWeb4OEvn6fz//mjxNvUzR1gOV1KHlgKmQp98+by5cImyNfoP1YbTRkkplE5oEnXGYujWAD2n3S2aGHLVLQ2ooQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(921020)(56012099006)(11063799006)(261009223027099003)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?djJ2ZFNtQ0JYRW5veGpKVXVybnVmckZSYW12cUVIT2ZOOVVwN3pGRTBhSGht?=
+ =?utf-8?B?UW9xcEZKWmJnZEZaeU5Sb0JaOFViejdjb1B0NVgxMVNYNWhYTGpEb1lVVnlq?=
+ =?utf-8?B?RDY3bW9CcllnV3VQTDY3ZTZuVE54emdGU2NBc0xad3NzT0o1YnJ4UUt5bldQ?=
+ =?utf-8?B?YU1BdXQzd2pUZ3JjRHFSYzdUOTAzclhSOUF5emV3ejZtcnlQZlFsem1PZmRN?=
+ =?utf-8?B?aWZOTUpJNy81ellQQUZDeEI4cWhFR0pLQ1BDTHpSMlFsL0hIMjVlcGlMOUIz?=
+ =?utf-8?B?L2tKMnl1TFlQemFXZCtKNkI0N1dNUWFYamFmTVdtWGp0aGlic0ZGVFFsVFpu?=
+ =?utf-8?B?WG1GQWtrMTVRZVdwdWhIY3c0WEVRNjVBKzZRbjhmQ2N5cVBNRXF3RGNudjN2?=
+ =?utf-8?B?OEJUbHJkWmdEdHlMWTZWVzV2dUFlbzdxczZuWUtDWHRlZUVuTzRKaFlvZ1Y0?=
+ =?utf-8?B?RWdkcFZOMkpGUlJGUHl3elRXbWJySXlaMm9TeE16MlEyOGVJNEhlalBLb3Q1?=
+ =?utf-8?B?RE9WWjhna0FKbUhoNkxZUmtTVGtUR1R6WXFLV3hkeDBnZDBlanhiOU5vRkVX?=
+ =?utf-8?B?bW1NUFAzVDRzT1BDNTJQa0diMURub2N3bWJxcWxXc2hXVWVVcWFzbTZsSmt0?=
+ =?utf-8?B?QnRla3FIUzV0ZFJkZ2ZQV2xGQVlLNXBDV0JaaXhiZjRlT2ZnV1pHZ1VPNDQ2?=
+ =?utf-8?B?T09YbGo3Wm45U3ZVVHA1RFdRUWV3NDEwZkVyNE9vdEsrSEJvL0ZVR1drUW03?=
+ =?utf-8?B?bmduak1ldStKNnRCUG0xY3ZmQkoyUWo3ZVNSK3NETDBYdzZYUTh5a1JvTml3?=
+ =?utf-8?B?ZDh1bjlSbmJHK3hucGxFR0tsWURzaldhVVlpSDBJTi9nVTVCNDhWRnlVNmNF?=
+ =?utf-8?B?VU1DaVFLVTFJNytkRTk1VTl3L0RkWktVTUJwYlJpZmNWbGpoWkFBUUt3aHBx?=
+ =?utf-8?B?Y1IyTDZRRjF6ODVWMTNYaUpOekhsOE9jZEU0aGl2TklZZXJFaUxJZmpCMXRh?=
+ =?utf-8?B?c082U3VaWVVaTUZ2NDJ6VnJNYXo5bzdTTGFLdWlKM21wTlJraE9pbTBUcmht?=
+ =?utf-8?B?VzZzMmlRK2NWajk1QWo2U2w1eWYvS3ZQMTIyMUR0L05pZEtSdXNQTDlQVkFT?=
+ =?utf-8?B?RHFiRzNFbFNmOW8wMTE5OFFDb2IyRnF5WlFRdUh3dHJRam0zUkhjSTlXU005?=
+ =?utf-8?B?YVF6RzEzQStBU2t0L0N6UkxqSk9xbEpCbmtwZWUrcnc3ZEg0MWdXdjA4T0tv?=
+ =?utf-8?B?VTRLVnFrYmRpN1Rwc1NVTGJHdXFFSjBuTjFZeUw1VGRzRkF5cFFIMEpNeHlq?=
+ =?utf-8?B?QXVLTUNlTXVWN3N5U2VQRTVPQ3dtaitpVmUwOGUyMVlHZHFnWXJwdkErYkps?=
+ =?utf-8?B?ZFdhVFlTaDBvTVJQZVVKVERKbm4ramY5YWQ5RTB3VEhPTC9velZnNnE3Y3dD?=
+ =?utf-8?B?cE9PUGdSYnloRW5kS0hPYXFVL3JhUkFZOUkxSlQwZEJadFc3eGlpck92L2hB?=
+ =?utf-8?B?TFpOellKU0pQSTdiS0hxZUF1czFhYVJ4VUdMczBCaGtRUU1xeSs3RzdXd1Qr?=
+ =?utf-8?B?dUpVMHVPaFdIb3A1UUFrWUUxcmJHVXBrWXAxUk9JUzFRWHJhc0VqL3R2Q0Vm?=
+ =?utf-8?B?SUtVUUY5bWRqWHlRblg3MHJLKzUvMStrcFZqbkJDSDc4clE5Zmg1ejBYcGsz?=
+ =?utf-8?B?aWVyTklaZnRTMGtzcHJtbVJvMGxXMUEyUUlqUlVRZ1lCMWtiK3Z3T1JwQUdu?=
+ =?utf-8?B?bDlSRXhWbnpQNVNuQkh5NUladzlNeXNRS0JMNG12TDUza1NFaDR3ODQzQ3Zz?=
+ =?utf-8?B?Q2RLNFRFaGhlMEt2VjM3RkY2a1pMZ3Aza283SmNNV2QzOE11Vnc5R200SWJ5?=
+ =?utf-8?B?MTl3SHUzT2hIQkRPMzJHS2xiWFZrZnZ2dkxPSUV4TWx4cFU2Z3JMTkhhQ0c4?=
+ =?utf-8?B?THZGTVBjZ1B6bFc5Z2xuOUppOUNBTjB1L0Q2TTNqUWZ1endRZm1RSFB3TUxx?=
+ =?utf-8?B?L084em1sU3hDeEQyUDZDVDdoaFJIalhwbGZUdEhNVm5OWjcxY29sbzR5T3JG?=
+ =?utf-8?B?dDR5MlRaUTZ5b01IdzhRUTRNWDhSQTFwaUR4Rk9JZXlKRmZMQ2VDd1ZhQnJ0?=
+ =?utf-8?B?ZlV6Q2Jxc2tJS0hlMWQ1c0lobGh2VmRNb1NYcEh5SmVFRXhGSHNaMzlZdU9S?=
+ =?utf-8?B?aTR6THJoMXBiaFh4aXpwUHk1ZFg2YjhJTzVUWmxPQ1c2S3QyVklxbVZLenNY?=
+ =?utf-8?B?RS8wLzhEWU1CMGVXZmlUUHZNb0hEQ016cEdKc3NsYlBuWG01bjF4U3JOUEhY?=
+ =?utf-8?B?OXZNVkFvRE9pb2NSVWszeXJETldMSWM0THZzNk1VOHh0ZGhlenNBbHI5dWV4?=
+ =?utf-8?Q?bOGHDJOueMuon3p3DZdpoGnq0hDOT8fhz5MCF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d322a8fa-d79b-4d09-824c-08df3abfba29
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 22:05:24.7322
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W7WgneQxfViQlO2XmoSZMNB352G9dnLJ+8FJDuBtRsBV9NlGbMW/xc/S6udSI6U+uFEolDGIdCUmVNEC7ml+Apz5cbqg+AvHaGDXU7toH4qv8vXB6ejjAv142VuzpW5E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10162
 
-rockchip_pcie_host_init_port() waits T_PVPERL, 100 ms, before releasing
-PERST#. The GPIO is acquired with GPIOD_OUT_LOW early in probe, so PERST#
-is already asserted when that wait starts, and the wait therefore sets the
-reset pulse width as well.
+From: Frank Li <Frank.Li@nxp.com>
 
-That suits a board which powers the slot at the moment it asserts PERST#,
-but endpoints do not agree on what they want. On a ROCK Pi 4C carrying a
-JMB585 SATA controller, a pulse that long stops the endpoint answering
-configuration reads at all. Measured on that board with a single kernel and
-two module parameters, one sleeping before the GPIO is acquired and one in
-place of the wait, timing the pulse with a ktime delta across the two
-gpiod_set_value() calls:
 
-  pre (ms)  post (ms)  pulse      trials  enumerated
-  0         0          1-11 ms    5       5
-  0         10         ~18 ms     3       3
-  0         15         24-47 ms   4       4
-  0         20         ~28 ms     3       1
-  0         100        ~108 ms    4       0
-  200       0          6-11 ms    5       5
-  200       100        ~108 ms    1       0
+On Wed, 21 Oct 2026 16:50:15 -0400, Frank.Li@oss.nxp.com wrote:
+> The TWR-ls1021a board doesn't have the USB2 port natively.  However the
+> USB2 pins are routed to the ELEV expansion ports and only available with
+> TWR-SER2 board connected.  So disable the USB2 by default and users
+> of TWR-SER2 board should update the dts to enable it or apply an
+> additional overlay.
+> 
+> 
+> [...]
 
-Delaying the assertion changes nothing, while widening the pulse decides
-everything. The slot supply on this board is regulator-always-on, so power
-had been valid for seconds in every row above, the failing ones included.
+Applied, thanks!
 
-Rather than change the delay for every board, read it from the device tree,
-reusing the property names the Rockchip vendor driver already carries for
-the dwc-based controllers in pcie-dw-rockchip.c. The default is unchanged,
-so a board that describes nothing behaves exactly as before. Whatever the
-board asks for, PERST# stays asserted for at least the 100 us minimum the
-specification sets, which covers T_PERST and T_PERST-CLK.
+[1/1] ARM: dts: ls1021a-twr: disable USB2 by default
+      commit: 5fdbf005500113e7d09038125de10152a484189f
 
-Suggested-by: Shawn Lin <shawn.lin@rock-chips.com>
-Link: https://lore.kernel.org/all/95aeecc0-2794-4cc6-a635-5c042afc1405@rock-chips.com/
-Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
----
- drivers/pci/controller/pcie-rockchip-host.c | 26 +++++++++++++++++----
- drivers/pci/controller/pcie-rockchip.h      |  2 ++
- 2 files changed, 24 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index 5b071bd..5f78cd6 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -24,6 +24,7 @@
- #include <linux/of_pci.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/regulator/consumer.h>
- 
- #include "../pci.h"
-@@ -280,8 +281,10 @@ static void rockchip_pcie_set_power_limit(struct rockchip_pcie *rockchip)
- /**
-  * rockchip_pcie_host_init_port - Initialize hardware
-  * @rockchip: PCIe port information
-+ * @perst_inactive_ms: how long to hold PERST# asserted before releasing it
-  */
--static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
-+static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip,
-+					u32 perst_inactive_ms)
- {
- 	struct device *dev = rockchip->dev;
- 	int err, i = MAX_LANE_NUM;
-@@ -315,7 +318,12 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- 	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
- 			    PCIE_CLIENT_CONFIG);
- 
--	msleep(PCIE_T_PVPERL_MS);
-+	/*
-+	 * PERST# has been asserted since the GPIO was acquired, so this wait
-+	 * is also the reset pulse width. Never go below the specification
-+	 * minimum, which covers both T_PERST and T_PERST-CLK, each 100 us.
-+	 */
-+	fsleep(max(perst_inactive_ms * USEC_PER_MSEC, PCIE_T_PERST_CLK_US));
- 	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
- 
- 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-@@ -587,6 +595,14 @@ static int rockchip_pcie_parse_host_dt(struct rockchip_pcie *rockchip)
- 	if (IS_ERR(rockchip->vpcie0v9))
- 		return PTR_ERR(rockchip->vpcie0v9);
- 
-+	if (device_property_read_u32(dev, "rockchip,perst-inactive-ms",
-+				     &rockchip->perst_inactive_ms))
-+		rockchip->perst_inactive_ms = PCIE_T_PVPERL_MS;
-+
-+	if (device_property_read_u32(dev, "rockchip,s2r-perst-inactive-ms",
-+				     &rockchip->s2r_perst_inactive_ms))
-+		rockchip->s2r_perst_inactive_ms = rockchip->perst_inactive_ms;
-+
- 	return 0;
- }
- 
-@@ -881,7 +897,8 @@ static int rockchip_pcie_resume_noirq(struct device *dev)
- 	if (err)
- 		goto err_disable_0v9;
- 
--	err = rockchip_pcie_host_init_port(rockchip);
-+	err = rockchip_pcie_host_init_port(rockchip,
-+					   rockchip->s2r_perst_inactive_ms);
- 	if (err)
- 		goto err_pcie_resume;
- 
-@@ -938,7 +955,8 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
- 		goto err_set_vpcie;
- 	}
- 
--	err = rockchip_pcie_host_init_port(rockchip);
-+	err = rockchip_pcie_host_init_port(rockchip,
-+					   rockchip->perst_inactive_ms);
- 	if (err)
- 		goto err_vpcie;
- 
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index b5da156..c773f74 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -315,6 +315,8 @@ struct rockchip_pcie {
- 	struct	regulator *vpcie1v8; /* 1.8V power supply */
- 	struct	regulator *vpcie0v9; /* 0.9V power supply */
- 	struct	gpio_desc *perst_gpio;
-+	u32	perst_inactive_ms;
-+	u32	s2r_perst_inactive_ms;
- 	u32	lanes;
- 	u8      lanes_map;
- 	int	link_gen;
+Best regards,
 -- 
-2.56.0
-
+Frank Li <Frank.Li@nxp.com>
