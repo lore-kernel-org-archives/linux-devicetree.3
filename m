@@ -1,44 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793769273;
-	b=gG/NkCYXKQulHyhvHTu9gPFaQyyXXTQuTdp2oKqiD0n6D8qBIhygsy0NIX8s56mJKUBG
-	 LNqU7FAGeBQMwTN8IH7znZRODTP7eRK9RjJRhkT1xoM2ayTL7SdHYSeNmYImIIkJDlOox
-	 hPUgyzAryxM9TVNGGG1NfRX1wRW5WDv+CXYH/JpthCJpk4jAzr8epxdYcoJ0U4p69vR7l
-	 nxLc1nYoZtmho7weYY2AR3qv1BEku4rxVf6gRLJljoi4Cs5Hl0MVPDjtFlF3qzf/X7Doo
-	 YyrcNh7PjptABYVNV4pUyxK7Idwgzz/jGMI/Fxt+8hHGPlxncI6SNbszAwuzVV/4EmQ==
+	t=1793769353;
+	b=G9sF54cl2gRk5Xp8JUEcWLH3RQ5FJMrMc07keWMrr8RHQBG35ookBYKjwT/tb8W1Uxy3
+	 rbc67pyeqhwABf7wQ8uwtmQXsOLaPszVnSbVC9v+jFPGHZXR2ryTwmXcVMr0qB+NRGeyk
+	 e6aBs+Q8oXVIzvpnCLLyt8h5tTRmV7UyD0rOvX/zntrIKxDdq89x3yjELhQr/CaPdFILt
+	 5DocN/gBgMfOhCCjZIQd6lBQ+0dcukLWmVPwC3AF1fxsNY4/ngLCYC8C/9CINb+ph7Hec
+	 EJJaGjOyoxy9OEfgrcSs4lGm15jrEX5CQPPD+n8r6m1iC/EGLKFzNwpUk54zKM4xs6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793769273;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
-	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YDPaXizwmC/JpiKEr55NlOYCnlfjA2XwAZhmjmD4s7A=;
-	b=mXpC/LKOC/TMi/d11Lfk0DOFdBUulzApZRGE3l0u1qY+Kg8DiKDXhf1sKpIUi26xEe9s
-	 eVKyt4uroRSZoS66JNxqX+apDVeQsi97qn4zAkwGeGT+RX8LvOY61YIHZ/U/ciZjG/6PG
-	 RTYvDk3ZvM/PWSYPspVGIKpsgF0vWvZrtpQoiYAthYa3/us+a8u8jwUXaWjnsWSFxTDmd
-	 ELmUTkUGDI4fNFq9VexMzqknJ7aK6f13ttAKPgK5WSfDoV1zqTSrnmf/2NJp+whakd+ew
-	 3V+OrwmIGw0xMcmCWrUQD/rrbY5lZkeVNAdq04fAHg5Tk+7tBjvq4tqHxBYWHypCW7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793769353;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=aAyOJH+/ySUK2zDeQ1iJyBQlLl9h4Z339aF8GGL69Nc=;
+	b=KQl9c1anhMf8ZVB2DMbKgjeh+Nke/cC4pwOjGHsYh5ls97MTMqW076BABZ6+E+9vMsQ0
+	 6yHNXJVYTVPLqC71zG9FrwMHJWEVqSs8ioSDZidcrkYdY0iVnLAIpMHseY5u7TGqSa3T0
+	 T/pVwPs5dvRod2/kbJoXpgLKjXq3sk8LEJZoIa5unLE/ATrRUYAHmJGK6bMFvgIxuoUzj
+	 kV5ivaura0Ks0Idpazip+GXwmI5SDA/h+7hUL9fq0CjtW6AsGWv3vJAq5SwXqwj+/TA2c
+	 k1dyDtBHXH0k4pIn1fu7vWhaCmeQSiqg0LRRJm1+z820Z1eIn5Ym7lKNgMkM+aHjJHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=KPPHPiA5;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AC0606A33A;
-	Wed,  4 Nov 2026 05:14:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56AC0606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 4 Nov
- 2026 13:14:10 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 4 Nov 2026 13:14:10 +0800
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Wed, 4 Nov 2026 13:14:00 +0800
-Subject: [PATCH net-next v5 7/7] net: ftgmac100: Allow building on ARM64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE480606A31B;
+	Wed,  4 Nov 2026 05:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE480606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=KPPHPiA5
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E6D5010C77E;
+	Wed, 04 Nov 2026 06:15:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793769346;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=aAyOJH+/ySUK2zDeQ1iJyBQlLl9h4Z339aF8GGL69Nc=;
+	b=KPPHPiA5pbU96CImUfhV+zlP7ollSTQxoGH0hIQmwd2QQMNQXfYSNDLPNJc2EfpSbA+ZaP
+	XpZ1pXUiygayD8zxhFa1wDVUz5Y4kA/kvgS69YV76OSSJtwnJFd9ee/TJggCREGUDnzdWU
+	tuZrocCnH+wD3tpjT3WYsNadZn3NqImc2LEngdeoy9rTDbYkaUwax+YUP4u4DRHsqNqcKL
+	iGTQA4DAETamvoxcyGm50shyXjuxOASraMZ+XVnNGZn+qIlrTOPhkpA6ito/XAj3F9AzhW
+	Fv7E6iePpOmKluAsBDeYk6qUH1rHO9qVar8Y6jt57goCfy72Bv8cmBas/NRerw==
+Message-ID: <c64b91f4-3f4e-43ce-ab81-8a233211c8ea@nabladev.com>
+Date: Wed, 4 Nov 2026 06:15:43 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -48,110 +56,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] phy: stm32: Add support for ST STM32MP25
+ USB2-FEMTO PHY
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>
+Cc: Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260902141312.649406-1-marex@nabladev.com>
+ <20260902141312.649406-2-marex@nabladev.com>
+ <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261104-support_ast2700-v5-7-44057f4dde75@aspeedtech.com>
-References: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
-In-Reply-To: <20261104-support_ast2700-v5-0-44057f4dde75@aspeedtech.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
-	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>,
-	Andrew Lunn <andrew@lunn.ch>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793769249; l=3621;
- i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=b4nuOAGj7hDll45AfQpS7jJIfXwEMU2no6rHulerEMM=;
- b=ycTrYe09/7qJ8UtK6Iscl6+3st9GBPj2Tl2F/2X/USQLgC11MPUTCW2wA/U3Uqc60S9EIhm9L
- zoOxcbUAAe0ANe/DGWHFAHUW9zFUuGL6wymHya65F0v0ljIhw5+ekRI
-X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
- pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Allow the Faraday vendor menu and FTGMAC100 driver to be selected on
-ARM64 so AST2700 platforms can enable the MAC. The driver now programs
-the upper DMA address fields, so it no longer needs to be marked BROKEN
-for 64-bit builds.
+On 9/3/26 12:19 PM, Fabrice Gasnier wrote:
 
-AST2700 has no dedicated MACH_ASPEED_G7 symbol; unlike the 32-bit
-generations it is only gated by the common ARCH_ASPEED symbol. On
-32-bit Aspeed platforms, arch/arm/mach-aspeed/Kconfig nests
-MACH_ASPEED_G4/G5/G6 under "if ARCH_ASPEED", so MACH_ASPEED_G6 already
-implies ARCH_ASPEED and is redundant once ARCH_ASPEED is part of the
-condition. Drop it and select MDIO_ASPEED directly on ARCH_ASPEED.
+Hello everyone,
 
-This does widen the MDIO_ASPEED select beyond AST2600: it is now also
-selected for AST2400/AST2500, which keep driving their embedded MDIO
-controller from FTGMAC100 itself and have no MDIO node for this driver
-to bind to, so it is built but stays unused there. Update the
-MDIO_ASPEED help text to describe this.
+>> Add USB2 PHY driver for STM32MP25 USB2 controllers, which includes the
+>> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+>> Two such PHYs in total are present in STM32MP25 SoC, they both are
+>> slightly different, therefore they use different compatible string
+>> to discern them.
+> 
+> Hello Marek,
+> 
+> I'm not sure if/how this fit with all below tags. For all the
+> contributions you've made, you can add my:
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Would it be possible to get some review on this FemtoPHY patch?
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
- drivers/net/ethernet/faraday/Kconfig |  7 +++----
- drivers/net/mdio/Kconfig             | 16 ++++++++++------
- 2 files changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/faraday/Kconfig b/drivers/net/ethernet/faraday/Kconfig
-index 474073c7f94d..9acc2d260c1f 100644
---- a/drivers/net/ethernet/faraday/Kconfig
-+++ b/drivers/net/ethernet/faraday/Kconfig
-@@ -6,7 +6,7 @@
- config NET_VENDOR_FARADAY
- 	bool "Faraday devices"
- 	default y
--	depends on ARM || COMPILE_TEST
-+	depends on ARM || ARM64 || COMPILE_TEST
- 	help
- 	  If you have a network (Ethernet) card belonging to this class, say Y.
- 
-@@ -28,11 +28,10 @@ config FTMAC100
- 
- config FTGMAC100
- 	tristate "Faraday FTGMAC100 Gigabit Ethernet support"
--	depends on ARM || COMPILE_TEST
--	depends on !64BIT || BROKEN
-+	depends on ARM || ARM64 || COMPILE_TEST
- 	select PHYLIB
- 	select FIXED_PHY
--	select MDIO_ASPEED if MACH_ASPEED_G6
-+	select MDIO_ASPEED if ARCH_ASPEED
- 	select CRC32
- 	help
- 	  This driver supports the FTGMAC100 Gigabit Ethernet controller
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index d44278f26fab..d784782c230f 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -50,12 +50,16 @@ config MDIO_ASPEED
- 	depends on OF_MDIO && HAS_IOMEM
- 	help
- 	  This module provides a driver for the independent MDIO bus
--	  controllers found in the ASPEED AST2600 SoC. This is a driver for the
--	  third revision of the ASPEED MDIO register interface - the first two
--	  revisions are the "old" and "new" interfaces found in the AST2400 and
--	  AST2500, embedded in the MAC. For legacy reasons, FTGMAC100 driver
--	  continues to drive the embedded MDIO controller for the AST2400 and
--	  AST2500 SoCs, so say N if AST2600 support is not required.
-+	  controllers found in the ASPEED AST2600 and AST2700 SoCs. This is a
-+	  driver for the third revision of the ASPEED MDIO register interface -
-+	  the first two revisions are the "old" and "new" interfaces found in
-+	  the AST2400 and AST2500, embedded in the MAC. For legacy reasons,
-+	  FTGMAC100 driver continues to drive the embedded MDIO controller for
-+	  the AST2400 and AST2500 SoCs. AST2700 has no dedicated MACH_ASPEED_G7
-+	  symbol and is only gated by ARCH_ASPEED, so FTGMAC100 now
-+	  unconditionally selects this driver on every ARCH_ASPEED platform,
-+	  including the older AST2400/AST2500 SoCs where it has no MDIO node to
-+	  bind to.
- 
- config MDIO_BITBANG
- 	tristate "Bitbanged MDIO buses"
+Thank you for your help !
 
 -- 
-2.34.1
-
+Best regards,
+Marek Vasut
