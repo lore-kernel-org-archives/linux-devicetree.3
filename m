@@ -1,58 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793795814;
-	b=kdF8+nCegbGPZwIO4AVz1Yh30mD0uHyexTEUnP9HvrVa+zUBql8YWr7UnZ5VGo4LFI+e
-	 lweHd0erqhjaniqWKjKw1cIWRs2849he05DMCdg+kAmGZplxSvnKgsCXVAS/HzGzZQdky
-	 7Xv/1kDzr8DbwRyoOUDFkzIRcJydqWdiDjqH9g1LPbkFvNzYLwAmYlmWTR3MzY3eGg6vI
-	 F2DAzoFpzz7pOUp5t02Q+nLw0Jtt3Af/jhnpcJFADP7lWRyoJWOMIiq4knwdwVBkWQvJM
-	 qcRSflfBaojtbOJ4bP7lkpsUB2FGin+WGQ2t9dk1Ame98pxXHATdHyrS5fetWbGOq8w==
+	t=1793795846;
+	b=ez8bcKr1q7sF8ncAEGIEvJEub5U0nerFNZ/36tAhWniUw7iy5TeGPvV+CNbft5Rhh6Ar
+	 ILHL8z7XMSr8hGc0KEknMBVQGvMbKmXgyEvHytpDLiao7HTy8tnhBaFFdiilxUYL68VN2
+	 d0SJATNnIwRGdc6fPis0D2ZpiOpJK+jSxhuaTWJYrO21jztVZdq9BpZO8WPgMa/xiZRzQ
+	 x3NLiWmXkor2fp48Bu8H5QhnydJWionYI7MAeO2pMVeOjyEojnwjle/NGQ2QrabthGWNs
+	 724sBkUNksWyjRnDY5Tj/nk9MBAjRF6zOMc/PbUmanDROeUANhM9KgPfgMQGXKNSDCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793795814;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=m2q5zprOd1HlfNJGZr5kfMMxRfdDFLnmMobPdffdDHQ=;
-	b=17UFa2vKieP2m48KdpdkqklmNQONzamAkhVEQQAFQSA/lTyikekU+p82nx9wzk926Nf0
-	 61yhzRFjnHXi2BN2yKVzCBA0ofPhPOwBoFkh3FsQWSy53Xs7WUZxaWspNnrXhb08WkvXm
-	 NlwmzqRe13MexMH33W61K9gV1MEenPHTzI4/baNgJfuLaQq2wDgSNgMMBKqSuSskHhr3M
-	 ZUCfdpawxhMKVO5AFt6mjuEcLMyH+DT2qc7J2nTfiA4ifWi4mqtFEE/4rm+PajLId7Fel
-	 xQ0md1V2ElTcbNBwxlx3Y0Nyt65bHCgbOlAldajTZLcbkg8Jn22JTO4VY7W2+t2foAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793795846;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=74V3jje9GT/TZJsW05wIZrY30Lopn0gs+JfNYxexip8=;
+	b=DbOzDDAHpt41/PbvJ8zLT6r+GS7U1ZC4LkiX5aE2D9qfc17dLlT8JfTxsP4IQk5UL9KS
+	 6UMg0wy0Ppodq9ki8nCcn7NdtrbBCxNLEBv0xAsSSd6Yehg9pcxEFRbkF/1x1ybG7NXw/
+	 l+3nG3XOvfe+HZvvppsSXMoaRowcHa9aROXXcrrXrZV7SkGKdVNXDUlm3FWplWMblATyb
+	 1kYEOMR5rF9Vm2qIm26YRPp43jv+AeXaE5xNN+8YWtwsbAeM0mqrHI6mDNY75XuiuNSaZ
+	 1G9k60VxDn0O4f6fgNVjoGpH/iG/BF/NAMYurWyMDhXk0+GRYnOVhsLB+EFXk003Y+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QN5FGuoG;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KI1fnD9u;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CDE606A326;
-	Wed,  4 Nov 2026 12:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63CDE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88C3606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 12:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B88C3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QN5FGuoG
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 72C69C8F46F;
-	Wed,  4 Nov 2026 12:37:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 70EFD60770;
-	Wed,  4 Nov 2026 12:36:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D33CF103291D1;
-	Wed,  4 Nov 2026 13:36:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793795804; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=m2q5zprOd1HlfNJGZr5kfMMxRfdDFLnmMobPdffdDHQ=;
-	b=QN5FGuoGBU8EK/D8Ta5MqTqxt7iivT2JbjzmWJP8NCrtXBFPM3wQbQERdll8Nyh8be5YkZ
-	iD2b3TErWXdJPkY0+ZS2iqlzVkDQmaCV3SYJ+OuQ7SAnzU83fwrFJE6gb9wHW6a94fvC+0
-	ECqAxa5m5BFVKlw+BIpq4tydMCC5tlNJBAeoiRJ4kZ8FTKIEQKd8vTGbdZlkncjq0BK0Kl
-	skxzauoqpAoJhzmKTyqI9Da51N8aK/Z2TmmWET7bsdHPRURIvkM7mNLdPMVyIElsKtviuC
-	MP8U1QSlNjCZT6q1BBV75gPx9D0fgREUvSy/xuwnOWyr4K/a8h402dCF+xnVUw==
-Message-ID: <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
-Date: Wed, 4 Nov 2026 13:36:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KI1fnD9u
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d885929so529688f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 04:37:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793795844; x=1794400644; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=74V3jje9GT/TZJsW05wIZrY30Lopn0gs+JfNYxexip8=;
+        b=KI1fnD9u5hRLJSh528+5RgPH+B6BuXEsua+yxCr1VK4w73hltwPhHIGF7s/Fa67ftO
+         dYnUdAwZmfhfnymgo8uPMS2IncIOIgRjUQOrbTFd+nMD1Tbxj/sXz466qpNffWMy8vht
+         oCVKswanKnTEV7asx6O6Eii5ZQxTOjCOaeXMzihaAZBHh45cQ573/JfhtZKnme437EMF
+         +wHr3K3BH6yhBAqAXHBoT+yr0MDGuXqtw0CcjloG2bYl6EQtOBDl4H7MfhymZmqIgEvW
+         LWr5J4Y8qR34UYq0hAcCcy+K4DOarrBQy6U7GA2idfvll90gPbc2UmhM7lPzOCC+uS3I
+         Q5aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793795844; x=1794400644;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=74V3jje9GT/TZJsW05wIZrY30Lopn0gs+JfNYxexip8=;
+        b=ZG2GpKzJVfdSbjX0RdgoQ/k3gSjRrasBN1UX1h6A/VC5GQTT5cerzIFfjmFJEx/4QS
+         IOEgQXaY7u/Uhwyv2oY8SLGnmy/7sfwKsxdrq/S7QZxF7Y0goEHW1v6EFW1q//vNWUgW
+         KmG7e4i2MyIBBflJOnq5I0CCRNhEqn30oG1LcO9xVjzgqVGpdjO5rVH0LcnvX0guMbVj
+         xSHZOdidAu9fynYxhEwFltBXOqkqRetLo0GQ2PoMMcBuz8QFMCJd6rsmrdk4dPpsyBqq
+         ZG/zNsg+eJdSDD84//M7luqxKBCbDbBKnJ+CE+u6Fp9zthoBu+qNX3+AQCwWW8FKId9r
+         edng==
+X-Forwarded-Encrypted: i=1; AKwUvBzScasKizPa/Pf5sQh0icT5Swlyn8fI6iI2tTQsgZrMl9vXPlxou2dfN4SrjzdXOwVTRo+es0nRLWTs@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fOxcoY1L9xmOOlA6VN3zfLggGcs4HiaIxBGbD6Fv2eRLdz+2c
+	mARX4qYBmJiRaP5VJmOizZkwRzMyra0R7Ar12so+eAsUOhZZbVMgYtWe
+X-Gm-Gg: AYBFou3b32NeM9Uht2QmGz6EWAO7DllWRRrkT/pWbg30I8Fa7Befnx7ehvkMB/V63y1
+	/BIw/Js0TeXP6EGf0tGakh6kWtSpsFNflouqX3Xpl/Z1M92OZOUzQvqq4cltbdXe9+FRzP9vR2m
+	xILMidnODW7kBpMe8jdoeTeXOzHKjDSI+yEl65PdvfD8d0h/wJudvkpIFPsjrQgKd7KVsgYsVPn
+	KrZbf/O9ZA7zr4aZ8WfR6vLKYJ2DWSue2QB88g+RC8P6pPx3yvAC4xXPJriuiIJHZ7m7/GrSNi4
+	ZKEym888qqXQ0X/qKtOsCUSjMiap9Lc4sX6M1e4C9ih1sYYjdcNkehKcboFDBPQf0h6aSYFj0Mg
+	sc/fB72D+joUFdI0MCbD0wKVi+l0xXXmwLFT27zfeu5LGOZWqPzETm46zlSRzEo7I7a5rgmXAMX
+	laF+pnOXWaU52FHZFo29/1jE/fiQXXvYIA3JSgIb5eDiIUc1LXfA/LEJkU+R9tsFFtPPxe33SAT
+	yHM+KD2ge13ndV7qcjopDjnfjIjVHBhPKkVnLEmmJObQh6Gk6cQhH7WrJ66pItFFWlrnUWOahlZ
+	RP6UbGFwl8In26kycV+CXJG2yC1gUhZGrNUe+sgSDjRiBx3vmw==
+X-Received: by 2002:a05:6000:2c09:b0:48d:ff06:c626 with SMTP id ffacd0b85a97d-48e6e50089emr35262303f8f.35.1793795843957;
+        Wed, 04 Nov 2026 04:37:23 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed553441sm3386155f8f.43.2026.11.04.04.37.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 04:37:22 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v6 0/4] mfd: aat2870: Convert to use OF bindings
+Date: Wed,  4 Nov 2026 14:37:10 +0200
+Message-ID: <20261104123714.234634-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,111 +106,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
- global power budget
-To: Jonas Jelonek <jonas@jonasjelonek.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Sander Vanheule <sander@svanheule.net>,
- Russell Senior <russell@personaltelco.net>
-References: <20261103220312.860629-1-jonas@jonasjelonek.de>
- <20261103220312.860629-4-jonas@jonasjelonek.de>
- <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
- <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
+Document Skyworks AAT2870 into schema, convert existing driver to
+use OF bindings and remove platform data, add support for
+in-supplies.
 
+---
+Changes in v2:
+- fixed led-max-microamp scaling
+- fixed max_brightness parsing
+- fixed regulator init_data and of_node passing
+- of_platform_populate > devm_of_platform_populate
 
-On 11/4/26 13:20, Jonas Jelonek wrote:
-> Hi Kory,
-> 
-> On 04.11.26 12:32, Kory Maincent wrote:
->>
->>
->> On 11/3/26 23:03, Jonas Jelonek wrote:
->>> Use the optional VMAIN regulator power budget to configure the MCU's
->>> aggregate PoE power limit during probe. Quantize the available budget to
->>> the protocol's 100 mW units and reserve exactly that amount through the
->>> regulator core.
->>>
->>> The regulator budget represents the usable PoE allowance. Program zero
->>> reserved power so the previous firmware guard band does not further reduce
->>> that allowance.
->>>
->>> Require a finite budget of at least one protocol unit when vmain-supply is
->>> provided. Program the budget before selecting dynamic power management and
->>> ungating the ports, so enforcement starts with the regulator-derived limit.
->>>
->>> Enable VMAIN before hardware initialization and register one managed cleanup
->>> action to free any reserved budget and release the enable reference on probe
->>> failure and driver removal. Record each successful reservation immediately
->>> so subsequent initialization failures are covered by this action.
->>>
->>> Read the current budget index before programming the MCU. Retain the
->>> programmed MCU limit on probe failure and driver removal, as reducing that
->>> limit to zero would interrupt ongoing power delivery.
->>>
->>> Boards without vmain-supply retain their existing firmware-managed
->>> budget.
->>>
->>> Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
->>> ---
->>
->> ...
->>
->>>    +static void rtpse_mcu_cleanup_vmain(void *data)
->>> +{
->>> +    struct rtpse_mcu_ctrl *pse = data;
->>> +
->>> +    if (pse->requested_budget_mW)
->>> +        regulator_free_power_budget(pse->vmain, pse->requested_budget_mW);
->>> +    regulator_disable(pse->vmain);
->>> +}
->>
->> Following patch 4 logic, you might not want to disable the PSE controller power supply,
-> 
-> I added it because of the requirement that regulator_enable() calls must be
-> balanced with regulator_disable() calls. Accepting that this may power off the
-> rail in theory, something outside of the driver would need to keep the supply
-> enabled. Concretely, I'm thinking of "regulator-always-on". And all boards
-> I've seen so far which can use this driver do not provide a provide to really
-> power off the PoE rail. Sure this is no finite guarantee.
-> 
-> What is the correct way? I see either droping the enable call too, just relying on
-> that it is correctly handled outside of this driver, or I keep enable + disable and
-> the continued delivery is ensured with "regulator-always-on".
+Changes in v3:
+- removed max-brightness property
+- switched from dedicated max_brightness property to dynamically
+  calculating brightness steps
+- update regulator registration to use mostly core regulator framework
 
-Indeed if you use "regulator-always-on" it does not turn off the power 
-supply when we call regulator_disable().
-https://elixir.bootlin.com/linux/v7.3/source/drivers/regulator/core.c#L3269
+Changes in v4:
+- set max_brightness form aat2870_bl->max_current instead pdata->max_current
+- switch gpiod_set_value() > gpiod_set_value_cansleep()
+- constify aat2870_regulators
+- max_current in bl switched from int to u32
 
-Does the PSE controller needs this supply to start, or is it only 
-required to power the PSE PIs?
+Changes in v5:
+- drop max_current from aat2870_bl_driver_data entirely
+- remove legacy gpio and mfd core headers
+- headers in aat2870 sorted alphabetically
 
-If it is the first you will need to enable it in the driver.
-If it's the latter, you could describe it as the PI's regulator parent 
-supply. An enable of any PI will enable this vmain regulator.
+Changes in v6:
+- led current set to default matching driver behavior
+- max_current initialized with same default value as pre conversion
+---
 
->> this will lead to a power off of all your PIs.
-> 
-> Is this enforced by PSE-PD or just based on the rail really being turned off?
+Svyatoslav Ryhel (4):
+  dt-bindings: leds: Document Skyworks AAT2870
+  backlight: aat2870: Derive brightness steps from max current
+  mfd: aat2870: Convert to use OF bindings
+  mfd: aat2870: Add support for VIN and IN-LDO power supplies
 
-If you call regulator_disable() on the main PSE power supply it will 
-turn off the power rail which will turn off you PIs.
+ .../bindings/leds/skyworks,aat2870.yaml       | 124 ++++++++++++++
+ drivers/mfd/aat2870-core.c                    | 133 ++++-----------
+ drivers/regulator/aat2870-regulator.c         | 160 ++++++++----------
+ drivers/video/backlight/aat2870_bl.c          |  78 ++++-----
+ include/linux/mfd/aat2870.h                   |  95 +----------
+ 5 files changed, 264 insertions(+), 326 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
 -- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+2.53.0
 
