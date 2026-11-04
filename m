@@ -1,96 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.130
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793810330;
-	b=DLixZieg691MewPCoXMSbZ05scPEh+JTMHku3ZSFhOlkTTjZ7HZHIydIYDjyaHwqGqM8
-	 gavLrG/lObpeB48c47CiYATqG1VDClLE3LeL2VGUn6dPGVd6AZ2fzM2y84Tc6t3rCFvR9
-	 M4zcr3lWTZHEOwgePpGPYGxgfDK5+0BJV6grvS+tRscrZ/t9j6mmjbMj1MMFZWOzsa0Mo
-	 /G/UMDm/aDuvH6pCQndsHlKhcUBW5peEd/2ByxvAvoQrLzxY2o6XzE2j10QaACRNY6fGU
-	 darVcni5p3qABv61xZCPjMb7+LPcnoggOviWjN5FsJRknc9GOQ2qBC4xNg+LiRA+JkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810330;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=M0aoeKpwFlDVUfix0hsz+ARJFtYG/eUi+3bjIRsuZ/M=;
-	b=pSq/SMyvZuTl/nHfZgB2d3SwDJr+RcSdLXsnT2FreL2R0DJ4MVBgaVuuG8HM+Rob3Pry
-	 Nq4TEOPPDrirgT1B8YB3OLqaGd3m/Chf7BevgP+aaZ4iZVHxPok7KsUACCBYdwT9W7UU0
-	 csrLBBEiBPD+dU2niLHSIyOQapMC4QymK+f4ddndwu47pfFQsp3zyOvIrwQwdwKJegBZ9
-	 0dQP2t6oE4DjXxQuqcQLMAbrkwtmEH9VAAN9K1Mh/qqjeiwhD1OMf6i3H7Oz48YTGe7WK
-	 Z2/2oZgsKGQDK8mPSV5PnWIZI4X/23LCx8usP2zWV9oR9ibdqkU4oOS3iOb4fccgMag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=phytec.de;
-	spf=pass smtp.mailfrom=phytec.de;
-	dkim=pass header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=AZw0hUPz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.130
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021130.outbound.protection.outlook.com [40.107.130.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793810382;
+	b=RIig0zCW6Y/wcFzL1vFM8vsgth/13qTmDOjWY1yk7vEcXm4W/TZkIA4Olk4tb0KEb+j5
+	 ZxEmAxSvIxNoNmnqau0dP2TgoDab0hUoMLNYCGj6D9hvE9m6WG56FVKgjE0o1qn91jsFU
+	 6vJtek2feT+BJesqSL1Du60NH4zL7mH2lCjOUXIphXuogR/1ovqED7EgRF46yZNPNcCEx
+	 GfG7QGda6wnhalwREVSi62o61k+hPCm9/EvqpL2phvN8GPXimWMqv76ZE08M1pZgywz3p
+	 8WEtGGVUCl8Z8GYlb2KHcfkc+zw0LcROYbK4OiYRcZ/wzLKlE8kKI5P0WLLbaMvp92Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810382;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=j/qonkLTfSJS6fOcfIBVACKrRZK2oHEhnPOu7N9/zz8=;
+	b=MvziktQNupkWvYz6ssEg2MlH1qd4z1n+0JiXnAudVvekS5yzgVByhO40ghnQ2f1ddB9J
+	 6wyBkTVs6ukdoNvfqOkpM3ir2NtL4cBoSxYbMsSnSyX8OwKUzMASh+EkM0R0QSNZopYTX
+	 64W+ihDvVog0k+eLcQfhhf01kbNm5g3avOQ7OF17lQH55nnOCHRFJl+pl7808HPGDCJw5
+	 4XCd9W0y2UGXA++3mx6+gUgX0yirhyEYhQfVY0xUiPZacAyvoTgNQNbR9eCCdwEESH+S6
+	 Bnkn0HgXbp7Z/umiUheT5vUCp0Y2zN63sjRtC771dJmY4/4izwwhsWhrCOzG8IyiCaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rP2S6qUD;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5334606A326
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5334606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC13E606A326
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC13E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256 header.s=selector2 header.b=AZw0hUPz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pfxh8D8jmUkwPJMla7ar/95GS9/mcYgXyFwRWBc7Ybtp1TYOiBk6e1nf5DY7vRe9zr8Q/wlYN5ebHo5dTRQB7wzwS3pD4lZC20GQ5OvCT8dtMF6fW/sHUV/cA3BGGDp3Psjf8Uj1ZXFqpiZnOHmwe0M7cU4PKwwH+DiP5bddD5qLh7/w8DK0ih9LmBCPVYQekKJjqOqDihaR/wn0rd5AFVNAf5kfF1Ec+QuZGmusQLjCj1PgTZreCzImb/4ZF79jUyFFnbSFtPXhLoxto40aJCRdg/W7F25sYK030YaQkenN3F9OipKBak8ERDvUxUXheoKT2rigwdmRMcQACja10g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M0aoeKpwFlDVUfix0hsz+ARJFtYG/eUi+3bjIRsuZ/M=;
- b=AzoMDnPAcuPfryZsdts1lLj+H2+6Gd6RGjG4pdg5lnohXn3nksbejkNdyo7aZD3ntxijRYQB/ZPFjSZcN7wi2pUFeVAnYAPTXjTuY1sSeCXGP6Pm56HTmD5n0XO6CAUNyoq5wRo8Jm5Ux0O9Rb4zBfg1JX7e2aA1dF0BMESxd1atDkX+5pU93VuDAIzck1xZO29Bav9S4rh+1to+mRN5F/NcazOWOKOdhrqIGWIIGLPTEHrMRXmwMguFzLpb1dCEws43SbnyAN25Ci2YomM9okr778EdKZK54MyQFKefNCLzQs4Qo4xLXjO2zFytVkPAV8FeVYp3AlSVLjDUDLhPeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
- dkim=pass header.d=phytec.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M0aoeKpwFlDVUfix0hsz+ARJFtYG/eUi+3bjIRsuZ/M=;
- b=AZw0hUPzGzD5RURsUe2+rB2XucQaOv7R5+ure7rWkeldN/jNfT06NtQ0SQq8aUIwImznfxXEyozW4VHIay0UwJqzVB983AxM69SAZ5jK+JDva7XXnRwYG7LFeoLPH0+Cv3177ZIXvEzLnR63k4pMQ0CzVba55vUq4BK/8Ka4Ut5q5Nq8uTh8zfQ0lJHWvGx/G/BUKTzNJExIwfZOKxGPSZT4jFIvnQWpe931UMfkukq8IdXG8j9yfD5KJzBqlxz9tTND81M2oNtmao1LdlJ9XA0xkQxgVaUTitXC7b6a3aoFSeJe1LTweoG/1Xt7+ZgkkL2CHNHdSIp/uCEIx5DGoA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=phytec.de;
-Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:159::10)
- by PAWP195MB2227.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:341::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 16:38:45 +0000
-Received: from VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
- ([fe80::2f8:67bc:a785:6894]) by VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
- ([fe80::2f8:67bc:a785:6894%7]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 16:38:45 +0000
-Message-ID: <5b546ff3-f887-4de8-b5d7-ea252e8c2d62@phytec.de>
-Date: Wed, 4 Nov 2026 17:38:43 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] bindings: Add devicetree bindings for new
- phyFLEX-i.MX 95 Libra RDK
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org
-References: <20261030-wip-bhahn-imx95_upstreaming-v1-0-1c1cebb5be99@phytec.de>
- <20261030-wip-bhahn-imx95_upstreaming-v1-1-1c1cebb5be99@phytec.de>
- <sashiko-outbox-191073@kernel.org>
-Content-Language: en-US
-From: Benjamin Hahn <B.Hahn@phytec.de>
-In-Reply-To: <sashiko-outbox-191073@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0075.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::17) To VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:800:159::10)
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rP2S6qUD
+Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
+	by cmsmtp with ESMTPS
+	id OaayxVYUS4vCDOe1PxWQU1; Wed, 04 Nov 2026 16:39:35 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Oe1NxxnYT0w3mOe1NxunYL; Wed, 04 Nov 2026 16:39:33 +0000
+X-Authority-Analysis: v=2.4 cv=ZtntK87G c=1 sm=1 tr=0 ts=6aeb5fc7
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=p-LfKV-GAAAA:8 a=14k-HqQmNQMTK8QvfVQA:9 a=QEXdDO2ut3YA:10
+ a=97BuGM4RKn6GwmfqMd6i:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=j/qonkLTfSJS6fOcfIBVACKrRZK2oHEhnPOu7N9/zz8=; b=rP2S6qUD2i+9
+	HPp78wilmv51lPsJeYeSL2+Q992YgG8wmyBV8UHhCQaaCj+XNlWTLP49bOIFZlJxpMJQqskrNV1cI
+	PnTqxVJwwABcrId1lVrr/DIfCTfHBeaYZBbzneINJzlpbM++M9QyYMRYTTe77kBfZlZUCGiW6h3T8
+	pp7jO8yQ2iIZ4KouhqodhcjpbtQqWeWdXPDNUaOspyXHA0WeCD4sVWY5dvra1xuVF3+2KohwcuLWA
+	1qnlbIlhrbog65pGimvDtWupyLt3sdpY8Q/WySQSASpiHIzybLVSuQHa+8QjB5ZHN0k5V9BHb14eA
+	EW8CJ9wtFqUJa++7UoaqDg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44006)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOe1K-00000002Xpu-1SC1;
+	Wed, 04 Nov 2026 22:09:30 +0530
+Message-ID: <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
+Date: Wed, 4 Nov 2026 08:39:28 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,118 +76,163 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1P195MB0623:EE_|PAWP195MB2227:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4314624b-d306-4c2a-62d4-08df3a9217ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|18002099003|22082099003|261028144727099003|56012099006|4143699003|11063799006|261026121527099003|261009223027099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	XPjcJobqtPiLkjaUzqbak9ezVYp28I/9ggyXO0fCYnbRv/F9ruKmQQePrAhO1fERdSxGlUPyHmqtWUSJ0ZpuyzOr2F8mz1hRZZ8TCPj/4AfFtZ9gFcG6FjxZxaqN2bx60ba9g69RR5YOQWaUg1jEyW4OGq6iNo0fHMUyEPwRgNewVKyho8IPCn7AQ/wfPDSJx5TrBW7QTmfas5jsI4kpDM3m3ZEb1FAPbXjC+GFPfL+h1S1BMBND/ft5JbCNsABrqAT4jaWGsiH+rGNSbg2tYJ6L1IufGk/O4XXV1vjQwOGSbnFGP7E1PucB+SS0l/69AaYGl6HcosWZ1w7+iMJAtbnwYnL8JfOZq7v8yHpaVuA3n7h+fIbJ3rPfdMdplV594sZfpmuZ8o/1ZpQ6byRnVZH+1nJHvhNSAa2QX6+WOMNo48ebyCicr+TPdPqzsoPBk3a0PZ/6HPNV4M2POIQlRRWPPm+se7pa40kNJCYbm3O1HqGfrTKoDkLza+5QYw1n2JEy62bxVCDOETQt73GXwypjN1RM8BQ/qsl3yqQM9ZsAMiAWc2cisKAZfeWs2JYW25xBGfbDa+7ZiKOd+sbBxf8nM7RrBfT1rBnfRakFQ7hDjYglN7Qt9BILcNdxElRjhZruO6QrLr5upKt3ERLGOOTynwO5b2GQPI+K1GT5VLM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1P195MB0623.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(261028144727099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261009223027099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OFhjR3c1aWxocU5PSzJxTHhhQUFRN3d5L05uUHl5VXFJMTMyb2xmVW82d2xJ?=
- =?utf-8?B?T2hzNjNFbndEdC9TbGhyenB0T0E5V2hjenZGV3NjZnlSRHlTTi9TNTAyNHFx?=
- =?utf-8?B?YVpXN0NuZHJ5ZFJMbmlMSTVnQWZDNmVxODdJVVNRWGZUNG5mNUcwS1JmR3Fm?=
- =?utf-8?B?YWpSUFNCR0JteDF6R1JyaHpZWTFxQUpObWFzR2xTMHkxODJXUHFWSjRORGdG?=
- =?utf-8?B?OUVNbmRkVnVOaWs5aGsvMGM0TWJoRjd0V3Jwbnp3a1R1K1FIZHhqVThwL1N5?=
- =?utf-8?B?RzNCN2xRQXVMVmNrRU9sdUJOYktaUVpmdVdmYmF5Uk1YYXIwK2RoOXQwU2d6?=
- =?utf-8?B?VmxvK0U5RFpxaG51TmdsQ0hnQVZ4WWswOGxoWjlVU0JxbGphRmFiZHhFcDZ3?=
- =?utf-8?B?NWRFOE9aVCtsSktWdUNKazhmck1iQ3pZT3QwalNMU1V1bjUvYzFqcFRQSU96?=
- =?utf-8?B?WTFxbjRCY1l2RlRpc3pTL3BPUDlVN3pBTG8rb3UwMVVsM0R4YWZhK3ZlUGQ3?=
- =?utf-8?B?REViZFgzYkRTVGtlNGM1VlBxNDQxZlo5Mk8zVkwrSVEyWHpmQ08yTUEwQ1NX?=
- =?utf-8?B?TUltOGJLWEY4VmRjWUE1UXAveSsxRm9qUGY3a2RiNU85YnZjRTZhaGZDR1lO?=
- =?utf-8?B?d2hnNUFIOEFSY0VFazRaZVlONS9PL2ZLaExqZWJWdTU2K1dpU2tsSDlEd2Z5?=
- =?utf-8?B?TzFuTnJUZ3dKZjFmckFzbkRQdDkyZ2FPektFOEtPK1cxcXNVMjFEYndDcDN4?=
- =?utf-8?B?bkNZdmtCMGlYY2R3eHBkVjBLcGxCTzVFelh2YjFiamxGZERXcTdBNHVaRUl1?=
- =?utf-8?B?bjZrVlVYRVhIR01JOGxKU0h1VG9weDVuWWI0d0F3WDVENTVnY3pwMk5xQVQ2?=
- =?utf-8?B?eWRMeWk0dGhheWlGa2MvK1BmVzF0ZGhoWXoxNHpna0JYME0vMm9GZmQ1K1l6?=
- =?utf-8?B?S1l2bHdlWTU2WWwzRUZoY0huV2EzTUc1WHNla25FZkE5QSt6M3daVWxxY0tI?=
- =?utf-8?B?WTI1blZTZlBtOFlGVFlUNmtnN0owd2swc1JiSTdQb0pycmtxMnlsS0pVemt5?=
- =?utf-8?B?bXYyZFA4bm5ONS81dytnaXczUjJhVWhEcGx6Y25ORUduSGVkT04wSXgvejNr?=
- =?utf-8?B?U280NVN2bmU0MUR1Unh4MVh6Nm5oNFc0MTBTS3Q4NWR4ZDRleStYQ2ZpczN5?=
- =?utf-8?B?SGRBZkxKZ21HbGJPdnRDWmd2enNHb0JsTGV5bWxSQnQraWdDbVkybEt0aytF?=
- =?utf-8?B?a1VmWjNCQ0R6ajVEUytzTy83VjU4ajBLNk1qb1F5c0xnd1lRNUdMZzV2MXFa?=
- =?utf-8?B?MnhibGJaQXB4UUZCdWEyc043cmp3bzJKVUFJRGJPQzdZVlBOZEJNaFRWRzBy?=
- =?utf-8?B?Rm9EMVpCNjRrMlVhZ2FKSXk1Q2FFSXZPb0xnZ0NUZi9RdzE4V0hGampJeis3?=
- =?utf-8?B?bllsUTAzV3pZY0Z4dm5lOXMzbzlnZ3RxcG5oVmxmUklBR0VRcWdoeldKVmNP?=
- =?utf-8?B?aTVyaUdCTlBDcElxZ1FmOGErSE5IbmIyUll0MllRelBsb2l1bG1PN2d6aUlw?=
- =?utf-8?B?WUVKWHRmdElhVnYzZVpNd1A5WVZHOExEVW9vT3JvOVRKd0dIMGhzNVgyOGln?=
- =?utf-8?B?azZlZCt2TEFSNFpkY0c3aG1Qc0Jib1lveHpYbmN0b00rR0JmU2Q2TEZsb0NP?=
- =?utf-8?B?RS9rbm8rcFJ5RlRLRUJ2U3ZmM0NEYWZCSWllQUd3VVRHVWlJZkFnbVhvaXJl?=
- =?utf-8?B?YzIxZU8vUHF3V3ZyS05uL00vb2EzdldTeHUyUlVMbXJ1Z3liaWk0U3gxTXdt?=
- =?utf-8?B?Vnl2N2JXSnpnV2xyOThwOVVmUldjTVZGYlFTcDBtZ1FJZmMwSHd2RFU4TlRt?=
- =?utf-8?B?UUg3SjB6azhLOWFremZPNHdnaENHZVFQMDRsL3RRK0RsOTgwRDBLTHpDZWNx?=
- =?utf-8?B?Rm5VNUlQV0dzSzF1Q0VLemVxMWJKYk9KdVgyaFhkOUhOMUNkTjFIUFlwYjFF?=
- =?utf-8?B?SjB0WXUvLzVpWlBDMngvcmRsRUJzSXdSTkIvUlBDZVRuNGZsbFlNWnpsTFJO?=
- =?utf-8?B?akxiZEJNa1Rmdk1VWnA2VVpvUTdHV2ZUaXFob2RDdHl5a3AwWGhOSVkza3ZR?=
- =?utf-8?B?TGlVSkhnY0pCdTVpRDZ6SXZlWEw2OGRlQ2ZRQ3FvZXlTNXZxWFNRVTh0N2ZI?=
- =?utf-8?B?UHVkT3ZiQURWeFBIUGFyWlJ6UDlJODd6SklCekgxUG9udDYxck9vcmllUzlX?=
- =?utf-8?B?ZFZ2aSt0cWNPQzFwN0hwNURvWHZ5QVhKT3BlQTZQajFaNTNlTGlQK0dNczhR?=
- =?utf-8?Q?7wt3DqAGY9dYIUp9e7?=
-X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4314624b-d306-4c2a-62d4-08df3a9217ee
-X-MS-Exchange-CrossTenant-AuthSource: VI1P195MB0623.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 16:38:45.2409
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: umEharj1l0mgfJeOg3ZC/LwRCPWgeNPSy0zjzD/I1E5LD43d4ceY3/ZzIDN4XllDlblE7B102VfJL1jsvRaBhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWP195MB2227
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/3] watchdog: arm_smc_wdt: allow a list of SMC
+ function ids
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org
+Cc: Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Antonio Borneo <antonio.borneo@foss.st.com>, Marek Vasut
+ <marex@nabladev.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOe1K-00000002Xpu-1SC1
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44006
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 14
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLVqFObkUo1xGfcxCddQ0srHejGDGLe6Sm57+pqMcYHIsGHprrpcAl6vmOsyXJqwUap9L3a7aszE3kfN0MbKHyu01ArAhWSxgpJzZPoICOmAAPcslj+h
+ BGw/Lt5R2x/O85SdrmOls0G4/5WFyR0txjp3z1Tph/Eon6jWtl5vUE+C8zwDkRITc96WCvgMSPCqyW15X5MCJxUEJDUbhz2Buch8oi/j96QpSby4r4sr9O4Y
 
-Am 30.10.26 um 14:37 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: arm: fsl: wrong enum sequence indentation breaks yamllint
-> --
+On 11/4/26 08:16, Mateusz Nowicki wrote:
+> Hi all,
+> 
+> this follows up on Marek's report about the stm32mp2 watchdog [1].
+> 
+> A quick recap: the arm,smc-wdt driver talks to the firmware through one
+> SMC function id that it reads from the device tree, and there is no way
+> to ask the firmware which id it uses. On the STM32MP2 SoCs that id
+> changed over time. ST's OP-TEE from ecosystem v5 expects 0xb200005a,
+> their 4.0.0 fork accepts both, and the 4.8.0 fork as well as upstream
+> OP-TEE only accept 0xbc000000.
+> 
+> My earlier patch, commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id
+> of the SMC watchdog on stm32mp2"), switched the dtsi to 0xbc000000. That
+> made the watchdog work with current OP-TEE, but it broke boards that run
+> the older firmware. So today 6.18.y uses one id and 7.4 the other. When
+> the kernel and the firmware disagree, nobody pets the watchdog that the
+> bootloader started, and the board resets after 32 seconds. Marek hit
+> this even with a recovery kernel, which is about the worst place for it.
+> 
 
-will update for v2.
+So the DT on the board is updated to use the new ID but the firmware itself
+isn't ? That seems a bit odd; I would have assumed that the DT on a board
+is kept in sync with its firmware. Is that not the case here ?
 
-Benjamin
+> The idea from that thread: let arm,smc-id be a list. The driver tries
+> the ids one by one and keeps the first one the firmware accepts. Older
+> kernels only read the first cell, so they behave exactly as they do
+> now. For stm32mp2 the list is <0xbc000000 0xb200005a>. Calling an id
+> that belongs to some other firmware service would be bad, so the
+> binding says the list may only hold ids known to be this watchdog.
+> 
 
->
-> commit 46ee5c7fdee02b781beb27b96a47fddb125b6299
-> Author: Benjamin Hahn <B.Hahn@phytec.de>
->
-> bindings: Add devicetree bindings for new phyFLEX-i.MX 95 Libra RDK
->
-> This commit adds devicetree bindings for the phyFLEX-i.MX 95 Libra RDK board
-> and the phyFLEX-i.MX 95 FPSC Gamma SoM to fsl.yaml.
->
->> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
->> index 656f2596e1d53..f917ae7202e96 100644
->> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
->> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
->> @@ -1551,6 +1551,13 @@ properties:
->>             - const: phytec,imx95-phycore-fpsc  # phyCORE-i.MX 95 FPSC
->>             - const: fsl,imx95
->>   
->> +      - description: PHYTEC phyFLEX-i.MX95 FPSC-Gamma SoM based boards
->> +        items:
->> +          - enum:
->> +            - phytec,imx95-phyflex-libra-rdk    # i.MX 95 phyFLEX Libra RDK
-> [Severity: Low]
-> In Documentation/devicetree/bindings/arm/fsl.yaml under
-> properties.compatible, the sequence entry phytec,imx95-phyflex-libra-rdk
-> under enum is indented with 12 spaces instead of 14 spaces.
->
-> Because Documentation/devicetree/bindings/.yamllint configures the
-> indentation rule with:
->
->    indentation:
->      spaces: 2
->      indent-sequences: true
->
-> does this cause yamllint and make dt_binding_check to fail with an
-> indentation error?
->
-> Should it be indented by two more spaces to match the surrounding compatible
-> entries:
->
->            - enum:
->                - phytec,imx95-phyflex-libra-rdk    # i.MX 95 phyFLEX Libra RDK
->
+Would it possibly make sense to check keep a list of known IDs in the
+driver ? It already checks 0x82003D06, so it might as well check a sequence.
+
+Thanks,
+Guenter
+
+> Why RFC: arm,smc-id already exists in firmware/arm,scmi.yaml as a plain
+> uint32, and dt_binding_check complains when another binding turns it
+> into an array:
+> 
+>    arm-smc-wdt.yaml: arm,smc-id: multiple incompatible types: uint32-array
+>    arm,scmi.yaml: arm,smc-id: multiple incompatible types: uint32
+> 
+> DT folks, is there a way to keep the list in arm,smc-id that you would
+> be fine with? If not, I can move the extra ids into a new property,
+> something like:
+> 
+>    arm,smc-id = <0xbc000000>;
+>    arm,smc-alt-ids = <0xb200005a>;
+> 
+> The driver side would stay the same, it would just read the fallback
+> ids from the other property.
+> 
+> One more question: should patches 2 and 3 go to stable as well? Then
+> 6.18.y would also work with both firmware generations. The 6.18.y
+> version of patch 3 would turn its 0xb200005a into the same list.
+> 
+> [1] https://lore.kernel.org/all/1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com/
+> 
+> Mateusz Nowicki (3):
+>    dt-bindings: watchdog: arm-smc-wdt: allow a list of SMC ids
+>    watchdog: arm_smc_wdt: try every id of arm,smc-id
+>    arm64: dts: st: list both watchdog SMC ids on stm32mp23 and stm32mp25
+> 
+>   .../bindings/watchdog/arm-smc-wdt.yaml         |  9 +++++++--
+>   arch/arm64/boot/dts/st/stm32mp231.dtsi         |  2 +-
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi         |  2 +-
+>   drivers/watchdog/arm_smc_wdt.c                 | 18 ++++++++++++------
+>   4 files changed, 21 insertions(+), 10 deletions(-)
+> 
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+
