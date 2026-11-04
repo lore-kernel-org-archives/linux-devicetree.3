@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793797719;
-	b=Cx3EvIlB8axxyg5GOE+wqB3Zc/SSBW2KcqXVDLzF8Yz7wWBe/j5gPdyDSSy1avzKtnCf
-	 Fvx03OrItjChO0JxVKanrQKc5QPdq6NDea2n4bss9wybssgQlj+vReGUgNtoI6yDdiQoF
-	 RXFFxumsujq+VQmbv/LoO5bSigkccTMyaeeB6D5/qLko0p6w0EX7kTXRv5WT2Lx20HB0g
-	 niKMB7OfrJNSYjtLjArbt/PJhh1m+gdf21tTPEM6IPUgXQJBrqPSF0LOd32RELWJn+i0F
-	 WkDV3CgRdlf/vqIDNTXWGBvSA/DXhKSCLeuQfRfpXN+/wz3Mu9ro9akZWafc102u/Ow==
+	t=1793797813;
+	b=zB/9uWePppAVswPV3Yz5VepBCSxCkmPJWCYMK44etGV6jDu6x/ugw02Vxdav9gn3hNJm
+	 52Kl76Av+mp7xn+8DYRjGTky9AwcN4p2CKOVHmupX2K+6/BCaPlSZj4WLYF+aB+JFqy8o
+	 t9bhaDnnfl3O+zq/4vab06ndJjVQcoOqFFEf6l4oRDqWgapAo13cGdwI/h/Bnj/Dpxtu8
+	 xSpVtQZofljwzuewGNIFv130VXp4buHEsXbV9neX07XQUUhfbRIFNTTxecitpuH0Fkrfs
+	 AJ/9SHViAgC2jl+8JsZohomG8NdQGVDIG8treZNY5+JiOlcx7Bcoy7teGsKldx83SwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793797719;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=iSfIUyfCKRc55EWDt6I8EFOvGiqA3QTQENqRfeCCvks=;
-	b=xvpUx5ojOZAqSrewX25YT1dGt3p4LEq0fC9SFCnqW8w28/ldsK+z/X2p3jVPwywVlFzD
-	 DTuyMavL91HYjW78y1IE1nC010xXW55tDXRrgXfLF7s/Z4xhUGDyUlGQRqwr3/wXcTPK7
-	 ld0Hc/6qTp0a+qKi1zW25YeNtVB6XSffxe+11sZWEsz2deAao+kes5cx5tmS1sOqaL5R2
-	 8pAr+TcEP/5WvBQnIHYRX1/0xNjl0KU2lxREj73P+eI4r4zLUmDAD6DnmfBsGLSTgfSeb
-	 g66BC9mhS8upGohcwRSeCh1GyrtB9dmkIKzFrydlasUnL6Ikkmp9BObwdxCizXWSdPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793797813;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=EaXRoxZs9PRx2wo2tzSq0ef3gNUQ37to3HPL9EgpspY=;
+	b=UzsuQOYE9wywmhLLhBK9jLwTVPPojBBh6HPUMi8E1MO98ob67n5hCacU6YrAGpuv9ilM
+	 tt6zJz7q/dmQ7DvBom9dnRG1wRDHvpYO6eLlVtp1EoLts9w3QdFXXrE1B33XzpPo8454M
+	 smra1ce8tU9LrRiMGS7ktjj7npWLTfn5UkrksntNZ4of7CdPMALY1wSPAtb4SR7pUsO4A
+	 xwRIkt9oam3eaNZmyviRUmtsQCNTLvyBdmsnuTEAMDddwbXyDDXJplkE0fG/1/EyTtGzB
+	 bK2JcccIYWan61Q0GLxblBsrggNJ4/qOuTNAJyGsKHTWZzdkCDY7OERAScMPg1DRxLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9sZd8bJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k+5OJid/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC183606A328;
-	Wed,  4 Nov 2026 13:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9125606A31B;
+	Wed,  4 Nov 2026 13:10:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V9sZd8bJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162851F000C1;
-	Wed,  4 Nov 2026 13:08:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+5OJid/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE8B1F00919;
+	Wed,  4 Nov 2026 13:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793797718;
-	bh=iSfIUyfCKRc55EWDt6I8EFOvGiqA3QTQENqRfeCCvks=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V9sZd8bJIFxMrU7+WNcU0VPC7l3364cc6ALuq7BG2BwHJvDC8+wA2Spdou3w+EpG1
-	 /wLJrYKBUz2KeQQ4kWKWHIJ7ISG3lh1m5QxbQlJ4OZra119sh1wic2hhYZvlsSsWZu
-	 46vppfPBHAos0S1f/3AY0aUcJ9b0AXl7ra9wDpo9o3M7YetQpnlyDnvem39vdQseaZ
-	 D1PuKZWR4JS+x8shlCkPKeRUL2snRyWKy8SE14qhT0wdBw4Tmz+kbUdfuqASryLTBj
-	 eHlORmOISZSBpY2NUIq5egOGtgXSsvjReS0K39hoBP/Qf9HQd+qMNmt7EHObmajOXo
-	 HOQhtYjsSy2EA==
-Message-ID: <sashiko-outbox-197326@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/5] dmaengine: arm-dma350: Add slave and cyclic
- transfer support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jelly Jia" <Jelly.Jia@cixtech.com>
-Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261104124411.296640-3-Jelly.Jia@cixtech.com>
-References: <20261104124411.296640-1-Jelly.Jia@cixtech.com>
- <20261104124411.296640-3-Jelly.Jia@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 13:08:36 +0000
+	s=k20260515; t=1793797812;
+	bh=EaXRoxZs9PRx2wo2tzSq0ef3gNUQ37to3HPL9EgpspY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k+5OJid/VkQ3swVXuHLrFLBfnJA0PGG4Zhrv9HJAGwkQmMgt/6YaCL5KMQvwLXSTF
+	 O9yMB5ZVpxaDNFY4Gz5VlJRtuFBs8Spl04eVXVRaHh4A/crCFbpkkZwaFg+TBJbMPY
+	 vG3hd8gbd64DkQGvbZH/qqqZoliTbayqqN5ENZvW84oEUeDAiEibS//xfiPUMi/WgJ
+	 bjjMPfdSoFojto5KvVbOrF/ct72w7DU7ipswheAm3qrSYvTB7QTCFe5XPOIFWv4RDg
+	 CeUYyoRMyVEz+VmfdJaGKIhmqsxD8HhL+5loiTZuLac9VHAJTmxp9qev2Bn/My2oSb
+	 juzgE1wLbSUZA==
+Date: Wed, 4 Nov 2026 14:10:08 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Xing Zheng <zhengxing@rock-chips.com>
+Cc: broonie@kernel.org, heiko@sntech.de, linux-sound@vger.kernel.org, 
+	luca.ceresoli@bootlin.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
+	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, huangtao@rock-chips.com, sugar.zhang@rock-chips.com, 
+	lxt@rock-chips.com, xing.zheng@rock-chips.com
+Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: rk3308-codec: describe
+ detection and ADC routing
+Message-ID: <20261104-russet-stingray-of-penetration-fef32e@quoll>
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-2-zhengxing@rock-chips.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,165 +62,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261101044149.2018744-2-zhengxing@rock-chips.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dmaengine: arm-dma350: uninitialized sentinel and reset for dch-=
->req
-- [Medium] dmaengine: arm-dma350: clearing dch->desc on error in d350_irq()=
- loses error
---
-
-commit 84e756dbc528524c6cc746a33846d36d67c475ad
-Author: Jelly Jia <Jelly.Jia@cixtech.com>
-
-dmaengine: arm-dma350: Add slave and cyclic transfer support
-
-This commit adds peripheral scatter-gather and cyclic DMA transfer support =
-to
-the arm-dma350 driver, including trigger configuration, coherent command po=
-ol
-management, period callbacks, and residue calculation.
-
-> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
-> index fdc4cd2245798..cfe3bacfab687 100644
-> --- a/drivers/dma/arm-dma350.c
-> +++ b/drivers/dma/arm-dma350.c
-
-[ ... ]
-
-> @@ -207,14 +252,489 @@ static inline struct d350_chan *to_d350_chan(struc=
-t dma_chan *chan)
-
-[ ... ]
-
-> +static int d350_slave_params(struct d350_chan *dch,
-> +			     enum dma_transfer_direction direction,
-> +			     phys_addr_t *dev_cpu_addr,
-> +			     enum dma_data_direction *dev_dir,
-> +			     enum dma_slave_buswidth *width, u32 *maxburst)
-> +{
-> +	struct dma_slave_config config;
-> +	unsigned long flags;
-> +	int ret;
+On Sun, Nov 01, 2026 at 12:41:47PM +0800, Xing Zheng wrote:
+> Describe the optional detect-GRF phandle and named interrupt resources
+> used by the B/C headphone detector. Retain the legacy interrupt order
+> and index-based lookup when names are absent. Document the detector
+> disable and reversed-jack properties and their resource dependencies.
+> 
+> Describe the ADC stereo-group routing consumed by the codec driver.
+> Require four unique group IDs in the range 0-3, in I2S2 SDI order,
+> matching the driver's validation. Leave GRF routing unchanged when
+> the property is absent.
+> 
+> Extend the example with headphone-detection resources and ADC routing.
+> Keep machine-driver amplifier GPIOs and debug interfaces outside this
+> codec binding.
+> 
+> Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
+> ---
+> Changes in v2:
+> - Retain the original detection descriptions and legacy IRQ ordering.
+> - Keep the binding change in its own patch before the codec change.
+> 
+>  .../bindings/sound/rockchip,rk3308-codec.yaml | 55 +++++++++++++++++++
+>  1 file changed, 55 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+> index 2cf229a076f0..60c6140dc5df 100644
+> --- a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+> +++ b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+> @@ -36,6 +36,49 @@ properties:
+>      description:
+>        Phandle to the General Register Files (GRF)
+>  
+> +  rockchip,detect-grf:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the detection GRF used for headphone insertion and
+> +      removal interrupts on codec revisions B and C.
 > +
-> +	spin_lock_irqsave(&dch->vc.lock, flags);
-> +	config =3D dch->sconfig;
-> +	spin_unlock_irqrestore(&dch->vc.lock, flags);
+> +  interrupts:
+> +    description:
+> +      Keep the legacy interrupt order. If interrupt-names is omitted,
+
+What is legacy interrupt order? There are no interrupts here, so how
+could there be anything legacy?
+
+> +      the driver uses the second interrupt for B/C headphone detection.
+> +    items:
+> +      - description: Legacy codec headphone detection interrupt
+> +      - description: Detection GRF headphone interrupt for revisions B and C
 > +
-> +	ret =3D d350_check_slave_config(dch, &config);
-> +	if (ret)
-> +		return ret;
-> +	if (dch->req >=3D d350_chan_to_dmac(dch)->nreq)
-> +		return -EINVAL;
+> +  interrupt-names:
+> +    items:
+> +      - const: codec
+> +      - const: hpdet
 
-[Severity: Medium]
-Can this check in d350_slave_params() ever evaluate to true?
+Why same device has both GRF to detect headphones and interrupts?
 
-In d350_probe(), dmac is allocated with devm_kzalloc(), which zero-initiali=
-zes
-dch->req to 0 for all channels. Because d350_check_slave_config() already
-verifies d350_slave_supported(dch) (which requires nreq > 0), and the only
-place that updates dch->req is d350_of_xlate() after checking req < dmac->n=
-req,
-dch->req is always less than dmac->nreq. If a channel is requested without
-d350_of_xlate(), slave and cyclic transfers will silently use hardware trig=
-ger
-request line 0 instead of being rejected here.
+> +
+> +  rockchip,no-hp-det:
+> +    type: boolean
+> +    description: Disable the internal headphone detector.
+> +
+> +  rockchip,hp-jack-reversed:
+> +    type: boolean
+> +    description: Reverse the headphone detection polarity.
+> +
+> +  rockchip,adc-grps-route:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description: |
+> +      ADC stereo-group mapping to the four I2S2 SDI inputs. Each entry
+> +      selects the ADC group connected to the corresponding SDI input,
+> +      in SDI0 through SDI3 order. Group IDs 0 through 3 represent
+> +      MIC1/MIC2, MIC3/MIC4, MIC5/MIC6 and MIC7/MIC8 respectively.
+> +      All four groups must appear exactly once. For example, <1 2 3 0>
+> +      connects groups 1, 2, 3 and 0 to SDI0, SDI1, SDI2 and SDI3.
+> +      If omitted, the GRF routing is left unchanged.
+> +    minItems: 4
+> +    maxItems: 4
+> +    uniqueItems: true
+> +    items:
+> +      enum: [ 0, 1, 2, 3 ]
 
-In addition, d350_free_chan_resources() does not reset dch->req or clear
-dch->sconfig when freeing channel resources:
+Why are all the rockchip properties before clocks, not next to other
+rockchip properties? What logic drives this placement?
 
-static void d350_free_chan_resources(struct dma_chan *chan)
-{
-	struct d350_chan *dch =3D to_d350_chan(chan);
+> +
+>    clocks:
+>      items:
+>        - description: clock for TX
+> @@ -72,6 +115,12 @@ properties:
+>  
+>      enum: [ 50, 55, 60, 65, 70, 75, 80, 85 ]
 
-	writel_relaxed(0, dch->base + CH_INTREN);
-	d350_terminate_all(chan);
-	d350_wait_for_stop(dch);
+Best regards,
+Krzysztof
 
-	free_irq(dch->irq, dch);
-	vchan_synchronize(&dch->vc);
-	vchan_free_chan_resources(&dch->vc);
-}
-
-Should dch->req be initialized to an invalid sentinel such as U32_MAX (or
-dmac->nreq) in d350_probe(), and should d350_free_chan_resources() reset
-dch->req and clear dch->sconfig so stale request and slave configuration st=
-ate
-is not retained across channel release and reallocation?
-
-[ ... ]
-
-> @@ -487,22 +1193,28 @@ static irqreturn_t d350_irq(int irq, void *data)
->  		else
->  			vd->tx_result.result =3D DMA_TRANS_ABORTED;
-> =20
-> -		vd->tx_result.residue =3D d350_get_residue(dch);
-> -	} else if (!(ch_status & CH_STAT_INTR_DONE)) {
-> -		dev_warn(dev, "Unexpected IRQ source? 0x%08x\n", ch_status);
-> -	}
-> -	writel_relaxed(ch_status, dch->base + CH_STATUS);
-> -
-> -	spin_lock(&dch->vc.lock);
-> -	vchan_cookie_complete(vd);
-> -	if (ch_status & CH_STAT_INTR_DONE) {
-> -		dch->status =3D DMA_COMPLETE;
-> -		dch->residue =3D 0;
-> -		d350_start_next(dch);
-> -	} else {
-> +		residue =3D d350_get_active_residue(dch);
-> +		vd->tx_result.residue =3D residue;
->  		dch->status =3D DMA_ERROR;
-> -		dch->residue =3D vd->tx_result.residue;
-> +		dch->residue =3D residue;
-> +		dch->desc =3D NULL;
-> +		if (desc->cyclic)
-> +			vchan_terminate_vdesc(vd);
-> +		else
-> +			vchan_cookie_complete(vd);
-
-[Severity: Medium]
-Does clearing dch->desc =3D NULL on the error path in d350_irq() cause error
-status to be lost?
-
-When CH_STAT_INTR_ERR is raised for a non-cyclic descriptor, d350_irq() sets
-dch->status =3D DMA_ERROR and dch->desc =3D NULL, and calls
-vchan_cookie_complete(vd), which sets chan->completed_cookie to the failed
-descriptor's cookie.
-
-Because dch->desc is now NULL, a subsequent call to d350_issue_pending() se=
-es
-!dch->desc and starts the next descriptor:
-
-	spin_lock_irqsave(&dch->vc.lock, flags);
-	if (vchan_issue_pending(&dch->vc) && !dch->desc)
-		d350_start_next(dch);
-	spin_unlock_irqrestore(&dch->vc.lock, flags);
-
-d350_start_next() overwrites dch->cookie and sets dch->status =3D
-DMA_IN_PROGRESS. If the consumer then queries d350_tx_status() for the fail=
-ed
-cookie, dma_cookie_status() returns DMA_COMPLETE, cookie =3D=3D dch->cookie=
- is
-false, and d350_find_queued_desc() returns NULL, so d350_tx_status() reports
-DMA_COMPLETE with a residue of 0 for the failed transfer.
-
-Clearing dch->desc in d350_irq() also prevents d350_terminate_all() from
-resetting dch->status back to DMA_COMPLETE:
-
-	if (dch->desc) {
-		if (dch->status !=3D DMA_ERROR)
-			vchan_terminate_vdesc(&dch->desc->vd);
-		dch->desc =3D NULL;
-		dch->status =3D DMA_COMPLETE;
-	}
-
-Should dch->desc remain set (or should d350_issue_pending() and
-d350_terminate_all() check dch->status =3D=3D DMA_ERROR) so that the error =
-state
-is preserved until the channel is terminated or queried?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104124411.2966=
-40-1-Jelly.Jia@cixtech.com?part=3D2
