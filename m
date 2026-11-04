@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779821;
-	b=xu2+AFfBPH+HPZ6FIZsUnc1YQCqUEjxr0IX6VUjxGfrTTSn42vXEpDN2fDGbA64wVySv
-	 L7WYz/8a+DN+/BfRcI7fDhi9MsqlvIS5VX3Vsp1JSofxPjTAY8RcIe9juwYaRn4l8mjkl
-	 RMYuBAOgPSGbsRgOAlMWX1WtshXK88v3k4tpOhIJccaC2Aj5qLoYGrx/u6baXL/IUzBYQ
-	 SdIhLhqmNqLxBnGV4fZh/DuRXwH9fHiKTuZFEZPaZZVIzAud6Kx5GzQlkzrFV8tdilnvh
-	 AgruqfRPOZ1armI6ZwJ2wnDYg9PHJmPtjDcXKonI8nezN2Z9Dy63OtIR/rUK9sSv8rg==
+	t=1793779814;
+	b=Bpmji+D1lE8MWkzwhpWo4bSndOcVU8yF10SDMzRjHWBJUL+/StzFzz/p8p5uKqDUxe6d
+	 o/0lsc6YWdMawHpe5gWg3KR5w9k+BMBctyR14j0sS9Gr9fXwByLrn8vEB7iORTEBiikAb
+	 90pKOrBsfv7v/4kmvAmibR/jHR22XmcMoPA1GyRkxjcQ6412+NSkC35ZaRFkICIaQtuz4
+	 WyL2h68pRNvWexrfUUc7hKgw0/LTurNFJQ1Djcm0wvTWsHalkrZxT5KRT0XgLzNZeDABN
+	 cm3qDvTAwBRccGo9x6+x9CerL0QYN8sb8xTlDcu0c3XpqMQGw8K1ens3fvQFLbcO8iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779821;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IOB/DMG8E0H1LG/g/S6WJ7zKwN49Fb8gn4W1dEispPc=;
-	b=mtU7r2c5nBhFbdZHhhXnpe8EWT4IOQj8fKTCXbbN7iqSsk9riwcmdqviAmwMGZ+IY2mw
-	 +5TLtH8JQK+TBmwrHAMb+B7HsRpzWnE0IdIJH94RfRvPUxBUI1w5QJ6+4uSoUH0jpPcjh
-	 dBHeoefR2SS1qFepEZoGe7aeLUunPzjg3YYHk39ObPXy30+2kjFcmn1eWUE0M6zYCvIBF
-	 B5CMW0FGoWoJ5bicW84j2+vL49tB2L2/0+oDI0S7RuIX3K/4RT7HgF3Sy5sjWH71rTf8/
-	 4LiOAvZf4mJfbBUim8WOymyU2ZC5eCtZeeR9mqkjhLLE55xiZ4A9ImSk4YYev7MYXEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779814;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ig4cNXieuTOvvTi83XT+rrmuyz/PrNyQl1mTni3mESc=;
+	b=dA3srioPJS2gP2BPbaqtJ9VfjjxNOw6idPSOcIeiYEX9r3xt5hLFIHDd7E1a+uoLUUQq
+	 kBqo7aocjQ0K7Y0NcsDdEmHoBTYMESbiQaehV5A41rH5SW80+kT3UFSfRu1MzmsPGnYGB
+	 x6JdgNQESLVxWshJQ8fgO+zwqDd5K2XGLp+tJNaSPmJDandZX0qpvb572fHjL5BOt1JLL
+	 1l5Fuq5LM6/l4dOhCQHMNPbT7Fv7uF7jaBiXFziTJczlqgnzzYzCyeXnjkbTEPQqUu4nI
+	 Kr96LIOFgSiDroLsl1zgV8Wo2aVKtJXqxMpqQc4+gJGijKwNlV0T7LUpDwYZSyAuy3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.171
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwExKOP3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC0B606A330
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 08:10:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC0B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eafb65e163so281918e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 00:10:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793779819; x=1794384619;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IOB/DMG8E0H1LG/g/S6WJ7zKwN49Fb8gn4W1dEispPc=;
-        b=PPhL1Z5an0FkGyr5fshGuOrTzKNOSJqNDjSbZmX50Y285FfKweBKT7t7NixIxzfgoP
-         9wAy4avAmMzBcTebJwKVvFVzJckl2dt15vcqEE2GLYSEde6tbgb9ZalGotuWu2Te3UQg
-         99aAUMIdUkTKFOSYuRsEcEy9u15xSSDI7xaMEezVQ6DDybDDj9mjtHglZY15VCwVqbJb
-         6r/g718mdYuqUHTLsFwqgjglrSnXyfCrTVr/e6C7Jjd0f0G0FPMlb66LwK7aKSP0eUXV
-         IoOl3TCRTad8P5fXCwwU/KELLYT96+AsY4D0AAJu3insQmXfrEDnq7HNuNXZSvCkDyTR
-         jeUw==
-X-Forwarded-Encrypted: i=1; AKwUvByf+bADSAzdcqoBZM2yFSE/5Sf732yq+HE9zjpJ2ddy6QLOQgzl+aYnX9QKIGsqaBQ2vmI3TtN2Cu6C@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Vv5dciuPUKc1YNVO/njPHV4R5EFuD6GhAu4v5jipnSCiYFxdl
-	BqZCDwL4o/jVop3vcc+STQBdE+cDNlfw7aVPd7oSqzS8NfGXEw31mHnRL4rS5ODsf2M=
-X-Gm-Gg: AYBFou0F+cUYnMjuZXHIBDZdfJQiRmmunOciYxBROJKDzh2bifwJaePGLnMiB89IVe/
-	9PahJbst+fs8p8sv8ueWmTNKRStlGrQ/hOk77RerA3GrpbtrhipBEn9fG9mFDtmFHbEiqrsP8ae
-	Q4UU2/aehtcooysqK0NiP/JD0eoseUtOr5gzIqjraKXlxrbZmkalE9FbXyFPyU5EML9fsOMK7tX
-	4XGXVmLNybVo6uzu6Zt5g8leXhIC5JXfRaimmQW992Hu6/jHtMxubLbgTfxfqtGOHABcXei7lsO
-	wIncnvSxNe0132Y9NfrERXke6xqfPqFqjFWJF4GJEij8kyz/QXZbbeUNMa6/hph3JVPHOrUA73/
-	EvIAyDFGlpwt1sEFhVc8lWH67hCw2RKed0W4QNRkocntUQauHWMxRwpt7VbeSjQ/9XCPV/hNGTh
-	iOHbJGaQpBFHALr1JQr37OBN+H6l7yeivdhhu2vXqIVBVCfOjryLIG8rEPh4gpYhthBF8OfVdOD
-	j0BmNvDZurPs60CLVlRXWj/QXLKhdGKs+wbkvVsY15dW6kDqSa3tslxWLU85u+oSAWrrMPJja4h
-	6y9m4Mny2UZ75n8RjTHmB8b4X5EFFtzhH/wawCjgEvkpRi+rcnXFO/edhJg1Fe9EKH1XO/9OBW9
-	7H6wj35XyMcfWeOC2JV4wcCUW1UixQKCXEy+6TnFIzh6p
-X-Received: by 2002:a05:6122:398b:b0:5ea:e052:2ef0 with SMTP id 71dfb90a1353d-5ec68976f9emr6996772e0c.9.1793779819446;
-        Wed, 04 Nov 2026 00:10:19 -0800 (PST)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com. [209.85.221.178])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eca889381asm1155756e0c.0.2026.11.04.00.10.18
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 00:10:18 -0800 (PST)
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so288770e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 00:10:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx4JUFiEKt9Ei+X2MqLqAU6utvBBACGiRdsBml0pwCpuUfEk3s76Nl7ZDdJEJq7RxmnHOXickSf3Qep@vger.kernel.org
-X-Received: by 2002:a05:693c:42d3:b0:369:faa2:1fb2 with SMTP id
- 5a478bee46e88-36a4236a650mr23219527eec.8.1793779365508; Wed, 04 Nov 2026
- 00:02:45 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9DB606A31B;
+	Wed,  4 Nov 2026 08:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jwExKOP3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0D71F000C1;
+	Wed,  4 Nov 2026 08:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793779814;
+	bh=ig4cNXieuTOvvTi83XT+rrmuyz/PrNyQl1mTni3mESc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jwExKOP3QR6CYk53tnJfDHsm1P7S4Y5BvypI44fOhaK5rS33YU2JrdfZzJ+Nb8Mt0
+	 oKwsW37DpM/ec3AcgIvPELrMmO+2GBY66G/5JWTUH6Ls1FkjBn+Ym2k8Er26n/o/Dd
+	 To8kGaXLdEEtXjK5MaxBNYxzPxsEieFLOLYyirvH513RNZ6qlHkjuf9gmEBdDVjFiF
+	 8XDjR9MUD1RvttjWjDCCycpgfiVbDO/cT4YJjAqY9QzUHwFrul2JRFZomd0M2Mb6bN
+	 SrdUkY1gkpWMyLtxEjmVsmSezzPgXQg5aJSgD2dqHlBFDjb/cCOS6rtAndRgNIcY5e
+	 uRBGYsqfyX82A==
+Message-ID: <742ef130-6c59-497e-821d-00ab7f2082cc@kernel.org>
+Date: Wed, 4 Nov 2026 09:10:07 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,127 +51,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev> <963ddb89-fada-4340-b767-285ce9362d1e@bootlin.com>
-In-Reply-To: <963ddb89-fada-4340-b767-285ce9362d1e@bootlin.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 03:02:34 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4Y3Zgq7OV00LedV=wty-pqR=4t70XgWYTbdfzCeaH-Cg@mail.gmail.com>
-X-Gm-Features: AclHuK8VH8JEq69kYaCOOBuUsCrdovmtS3uWzk_R-GaR7GJ1IVUq8iGvFERmNvs
-Message-ID: <CAPY4CJ4Y3Zgq7OV00LedV=wty-pqR=4t70XgWYTbdfzCeaH-Cg@mail.gmail.com>
-Subject: Re: [PATCH net-next 0/2] net: stmmac: Add the Siflower SF19A2890 glue
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chuanhong Guo <gch981213@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 8/8] arm64: dts: allwinner: a523: describe the UART
+ integration
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev
+References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com>
+ <20261029-submit-h616-uart-fifo-v1-v5-8-53b433aebbf8@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-8-53b433aebbf8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/4/26 08:53, Maxime Chevallier wrote:
->> The MAINTAINERS entry that covers these files comes with the MIPS series
->> "MIPS: Add support for the Siflower SF19A2890"; this series applies on
->> its own. That entry is also why checkpatch's question about updating
->> MAINTAINERS for the new files is left unanswered here.
->
-> hmm not sure this is the common practice, usually you update MAINTAINERS
-> along with the driver introduction. This should be part of this series.
+On 29/10/2026 19:47, James Hilliard wrote:
+> Identify the Allwinner UART integration on all eight CPUX controllers.
+> The specific compatible selects FIFO-depth discovery through FCC and the
+> Allwinner receive-trigger mapping. Each controller supplies its own depth,
+> so the same compatible covers the different FIFO capacities.
+> 
+> Retain snps,dw-apb-uart as a fallback. The common SoC description supplies
+> these UART nodes to the A527 and T527 boards as well.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
 
-Makes sense, v2 will add a MAINTAINERS entry for the glue and its
-binding.
 
->> - the MAC address from the factory partition, and ethtool reporting the
->>   link with no PCS workaround.
->
-> no PCS workaround ? what's that about ?
+DTS cannot be combined in this patchset and must be split. Don't mix
+patches from independent subsystems when you send something explicitly
+targeting only one subsystem.
+See also: Documentation/devicetree/bindings/submitting-patches.rst
 
-The OpenWrt driver this is based on set STMMAC_FLAG_HAS_INTEGRATED_PCS,
-because the core reports a PCS whose link status doesn't work in RGMII
-mode. stmmac now only uses the integrated PCS for SGMII and the flag is
-gone, so the glue needs nothing for it. That line was only meant to say
-the link is reported correctly without it; I'll word it better in v2.
 
-On Wed, Nov 4, 2026 at 2:59=E2=80=AFAM Maxime Chevallier
-<maxime.chevallier@bootlin.com> wrote:
->
-> Hi Joseph,
->
-> On 11/4/26 08:22, Joseph Telaak via B4 Relay wrote:
-> > The Siflower SF19A2890, a MIPS SoC for home routers, has a DesignWare
-> > GMAC 3.73a. Its interface type and RGMII clock delays are set in a
-> > small configuration block next to its clock and reset manager. This
-> > series adds a binding and the glue.
-> >
-> > The glue is based on Chuanhong Guo's driver, which read the RGMII delay=
-s
-> > from a factory flash cell in the delay line's own units and always
-> > applied them. Here the delays come from rx-internal-delay-ps and
-> > tx-internal-delay-ps and are applied only when those are present. The
-> > interface type is set through set_phy_intf_sel.
-> >
-> > The delay line's step is not documented, so I measured it: sweeping
-> > each delay register over 0-255 with the link at 1000 Mb/s, the working
-> > windows repeat every 145 steps (TX) and 144.5 steps (RX), which is one
-> > 8 ns period of the 125 MHz RGMII clock. So a step is about 55 ps. The
-> > TX eye is about 3.1 ns wide and the RX eye about 1.75 ns; the delays th=
-e
-> > bootloader programs, 17 and 10 steps (935 and 550 ps), sit inside both.
-> >
-> > On the GL.iNet GL-SFT1200 the GMAC is the CPU port of a MaxLinear GSW15=
-0
-> > switch over RGMII with no delays on the board; the GMAC adds both.
-> >
-> > The MAINTAINERS entry that covers these files comes with the MIPS serie=
-s
-> > "MIPS: Add support for the Siflower SF19A2890"; this series applies on
-> > its own. That entry is also why checkpatch's question about updating
-> > MAINTAINERS for the new files is left unanswered here.
->
-> hmm not sure this is the common practice, usually you update MAINTAINERS
-> along with the driver introduction. This should be part of this series.
->
-> >
-> > Tested on a GL-SFT1200 with the GSW150 driver:
-> > - each of WAN, LAN 1 and LAN 2 links at 1000 Mb/s full duplex and
-> >   passes iperf3 both ways (160-205 Mb/s out, 262-273 Mb/s in, well
-> >   under line rate; I have not looked into where the limit is);
-> > - 10 GB each way through LAN 1, after which every CRC, alignment,
-> >   error, drop, overflow and underflow counter on eth0 and lan1 is 0;
-> > - 50 link down/up cycles, after which the link and traffic recover;
-> > - the MAC address from the factory partition, and ethtool reporting the
-> >   link with no PCS workaround.
->
-> no PCS workaround ? what's that about ?
->
-> Besides that, nice and simple glue, thanks ! :)
->
-> Maxime
->
-> >
-> > ---
-> > Joseph Telaak (2):
-> >       dt-bindings: net: Add Siflower SF19A2890 GMAC
-> >       net: stmmac: Add Siflower SF19A2890 glue
-> >
-> >  .../bindings/net/siflower,sf19a2890-gmac.yaml      | 110 +++++++++++++=
-+
-> >  .../devicetree/bindings/net/snps,dwmac.yaml        |   1 +
-> >  drivers/net/ethernet/stmicro/stmmac/Kconfig        |  11 ++
-> >  drivers/net/ethernet/stmicro/stmmac/Makefile       |   1 +
-> >  .../net/ethernet/stmicro/stmmac/dwmac-sf19a2890.c  | 158 +++++++++++++=
-++++++++
-> >  5 files changed, 281 insertions(+)
-> > ---
-> > base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
-> > change-id: 20261102-sf19a2890-gmac-4fb4808f869c
-> >
-> > Best regards,
-> > --
-> > Joseph Telaak <joseph@telaak.dev>
->
->
+Best regards,
+Krzysztof
