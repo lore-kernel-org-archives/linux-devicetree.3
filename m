@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835962;
-	b=AOFfkqMIHKUpfmb37rXGFIRolV8+/yqmn8AsWYn7gyOdVWTda3NsSKhFSxWkATcbhhE4
-	 iyOdimNAwXxKFalTDr/KBAk68GtEcY6g7iEc3+x/QWQL0vmAsmkn7ZS4NO0RzaFyTgAzO
-	 YVwD5/u0Ahc3HSz6eUYEwnVeUbBphq2ByNQIG5kDL4utxt6SWQXD2aowRzZnM/AMYWKeV
-	 HJpOlk+0dJyNueMJQT6DPBpzENyo6kWN/vRAmbdxp9oh9/gh06097CC9x7EaSP9Vg2N0o
-	 lrniNRBe6H7Jjp8u2AWZEetDV7rUBY43NngAFX7XcLNW1FTbSLYa7yi056XZWVpq0bw==
+	t=1793835955;
+	b=O0lb18oDMFHW9Rut4hPOh1H+jJjhkr5ajjZciPQ+sYxbV7tpH8a5i2dFf52cC8OIIsn9
+	 bxEix+azKtRkNkuqke58DDkULIKvpyEqX3zgbNvT3rTlSwMP/qHahQBQDZb6OxdPZbuLf
+	 m/ezO4iS9iif6J5LKLv48mR3ho2l0WVsWIN5WQ2IsRx5nuOcDFviJhbyjvIhJ3BtAhrZ6
+	 J4bYGhWHS118iuMswrig9xu75pusjjoXPcpBpvElU9naJ3FAcQTaqPCQYeqYVCdcjzPnR
+	 zUInThsb8556BTbHWO41RTfoEZ53K7J9wJM2rhIRpecTOVdo31ifVxM2VTkmWv/9RHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835955;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5iiuLumBEpUklHaQ5dUGicAl21u+KK+gUr9I9ovSmJk=;
-	b=5NrxRPoh+eLZoy7eXTAZiaSVM4MZk5dH+XGl9y7jgz1QfGH9gChAD1dvgDymkoZ3TEYe
-	 4isnQDXuxZ9NjGA9DbI6Bc36keh43hYlXfhgVcbSSOm7eLAhTZvkWYC2Z9YM7QfK2vI5U
-	 MEBCtI6h/yuMEgptMdj7B/hhf/LhUP6pkHlp35bFWPPs/a2qZiw3v45E1Jm6vj65wA5RD
-	 UCikqYWXDXkE9xczAq+QUxO6VS2NVvfrvsTOnsb7A2sJsGjQUf5ytxcCW7p+4xiCCetwd
-	 f7M5d80KcqSQw9QyYzFp8SOrhmw5nfDFIqG6Oc7lmp/AMsbmwRYhJcRMmJhU+Klqpyg==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ve6b2UVHi7FP2TZ+y7CmR1QFKaOIvCRQOPuTaJx8TDM=;
+	b=LBuOu9v3vJeVe6bzvpgfe6WF1CNIWjfDP1HxU/z7qnEI8IsuS43q07IsxperscjV838Q
+	 kuxirUTdPbTgw/7R5hdMq52GB9eDPQD/WyHWv4+CDPwboUMBgqK6HC96Npqp3r5nhLRe2
+	 ZeY7GdF2v5CM3F7NQTy20O4J+7yx2cKE2MZn8UgRHhiaxVkGFWMOgdy8LOGFuk8J0LsSf
+	 YHryc06mPlxzCgg8cikvzLQLOpBcYsWdcL/rJ+PSEaK62+7YqXn/A4lGoq19xxtFFNuom
+	 u4XK/TO786UdntsSoVe8YgUUj+rwXwG9VgWWTBwoI2VzxCRgd1gmB/3YB9rYJcs9bVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+yFEjE1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=homWY4Pi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4B1606A326;
-	Wed,  4 Nov 2026 23:46:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0EF606A31B;
+	Wed,  4 Nov 2026 23:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+yFEjE1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02BDF1F000C1;
-	Wed,  4 Nov 2026 23:45:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=homWY4Pi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595E91F000C1;
+	Wed,  4 Nov 2026 23:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793835961;
-	bh=5iiuLumBEpUklHaQ5dUGicAl21u+KK+gUr9I9ovSmJk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A+yFEjE14WlS9JIFy2ruxYZ1ZFEPcPKyNPzu7xzxG51GihicNgUrg+RX0LDRYze1C
-	 F4U8pHw6JeOh+KQGanJrpX3yveQTLO9acp1ZaypKihoOXupn1HNOiyJMH9sqRrBHg0
-	 h+rP7eFC6lLmkwqAbfq2jNchz/JzEc2KHBCyrkCmBrzRyTaGEwiU1ZJwRvOUR9XP0H
-	 ptmOBu2l4JX1qh5qloE7HdG8S89v1P4/9gU9c5TJw6odyzvLfvyEuKZ3SykBFpGO66
-	 qMxoB2XGY8WvwjTVFpZFlM/CZAj6iVzNjbY+XQ3L9Y64TR6Ov01qe4PfvSw6/ftzTF
-	 k/UXlNh4flJMg==
+	s=k20260515; t=1793835955;
+	bh=ve6b2UVHi7FP2TZ+y7CmR1QFKaOIvCRQOPuTaJx8TDM=;
+	h=From:To:Cc:Subject:Date;
+	b=homWY4PiLhY+HW2qKiJlPvCcnL12tR3laLxERSh1/mDlzJ+XpspTrPleLYfQEZKTO
+	 OfSujol8UwTdRL93wGYwWaix1l0lrxD+3hO93ck5PVxQzTd3b1504lQHaycbMyQ3pH
+	 pryO47MN1y/xKGDXf7Wt4wZNwMp3nPfrogZdIChl9PFmFup16QOMDUqMpmA36pmoGE
+	 zRZ1PWPeQLJOtF1c8hjCEpnIjN54V186zkYsjVS8JLVvlHruh0AVTTMu2oxeReH/xa
+	 qPVNqXGOMzaYd3dGgdQiQZ2+VgU93At/tt6qTXOAjDUUX1p1SXqteD/C+QYLNAUMXf
+	 bCwpPSMANGnGg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Loic Poulain <loic.poulain@oss.qualcomm.com>,
@@ -53,12 +53,10 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 2/4] media: qcom: camss: Select Titan 480 CSID offset by VFE type
-Date: Thu,  5 Nov 2026 01:45:31 +0200
-Message-ID: <20261104234533.3044265-3-vz@kernel.org>
+Subject: [PATCH 0/4] media: qcom: camss: Add SM8350 CAMSS support
+Date: Thu,  5 Nov 2026 01:45:29 +0200
+Message-ID: <20261104234533.3044265-1-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261104234533.3044265-1-vz@kernel.org>
-References: <20261104234533.3044265-1-vz@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,30 +68,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Titan 480 CSID register spaces are placed inside VFE register spaces,
-and the offset of CSID registers differs between VFE and VFE lite blocks.
+Add support of the camera subsystem (CAMSS) found on Qualcomm SM8350
+SoC containing:
+* three CSID and two CSID lite blocks,
+* three VFE and two VFE lite blocks.
 
-Instead of the assumption that all VFEs starting from the third one are
-VFE lite blocks, check the VFE type in the platform VFE resources.
+The SM8350 CSID and VFE block are programmed like on SM8250.
 
-Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
----
- drivers/media/platform/qcom/camss/camss-csid.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The series depends on the SM8350 camera clock controller support and
+on the change from SM8450 CAMSS series, which allows CSI2 PHY devices
+without CSIPHY resources:
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index a00791b00feb..9e64e8d44926 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -1119,7 +1119,7 @@ int msm_csid_subdev_init(struct camss *camss, struct csid_device *csid,
- 		 * between the VFE "top" and "bus" registers. this requires
- 		 * VFE to be initialized before CSID
- 		 */
--		if (id >= 2) /* VFE/CSID lite */
-+		if (camss->res->vfe_res[id].vfe.is_lite)
- 			csid->base = csid->res->parent_dev_ops->get_base_address(camss, id)
- 				+ VFE_480_LITE_CSID_OFFSET;
- 		else
+  https://lore.kernel.org/all/20261104001704.2744766-1-vz@kernel.org/
+  https://lore.kernel.org/all/20261026224957.1115370-4-vz@kernel.org/
+
+SM8350 CSIPHYs are described as separate CSI2 PHY devices, and their
+support will be added separately along with their connection to
+the CAMSS input ports.
+
+Tested on SM8350-HDK with the CSID internal test pattern generator,
+the GCC camera HF AXI and the IFE lite AXI clocks are described in the
+device tree bindings, but apparently they are not needed to stream
+from TPG:
+
+  media-ctl -d /dev/media0 -r
+  media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
+  media-ctl -d /dev/media0 \
+      -V '"msm_csid0":0[fmt:SRGGB10_1X10/1920x1080 field:none]'
+  media-ctl -d /dev/media0 \
+      -V '"msm_vfe0_rdi0":0[fmt:SRGGB10_1X10/1920x1080 field:none]'
+  CSID0=$(media-ctl -d /dev/media0 -e msm_csid0)
+  VID0=$(media-ctl -d /dev/media0 -e msm_vfe0_video0)
+  v4l2-ctl -d $CSID0 -c test_pattern=9
+  yavta -B capture-mplane -c10 -n5 -I -f SRGGB10P -s 1920x1080 -F $VID0
+
+Vladimir Zapolskiy (4):
+  dt-bindings: media: Add Qualcomm SM8350 CAMSS
+  media: qcom: camss: Select Titan 480 CSID offset by VFE type
+  media: qcom: camss: Add SM8350 CAMSS support
+  arm64: dts: qcom: sm8350: Add CAMSS device tree node
+
+ .../bindings/media/qcom,sm8350-camss.yaml     | 262 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8350.dtsi          | 110 ++++++++
+ .../media/platform/qcom/camss/camss-csid.c    |   5 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
+ drivers/media/platform/qcom/camss/camss.c     | 213 ++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h     |   1 +
+ 6 files changed, 591 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8350-camss.yaml
+
 -- 
 2.51.0
 
