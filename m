@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778663;
-	b=vY8aMHtzJfSnLNR7ESAnMpv3waGX6C6Fx6dJS9XfiF3xOeWBEbcJZ9IdFED8i2twevuE
-	 nqHgO6Xug6VECGKZCx1JnBGvv/WpaLBcV4ZjvszZqeAv/xLbqlDCbJTGM7i58KTaThTI6
-	 ToZ9DvYNwAE8n2R6IxMPOBwF8kdZaEF2ZrJMCD8djUeATIBtREJmqwYyBh/Nf2EvaKUV1
-	 iHvrLLgNX7rLokamlymH5+F3WU8hNXM29njaGjPEND9KsPpw2TC45s2WrHSJMuYziWUV3
-	 7cpUSiGAmaSKr0khFjCp7ay/axNnLTDXaIlVRUQLlqw/m6o8O2UqIIBxBctbeVhyEJA==
+	t=1793778662;
+	b=3p/zYWXbRCuRcQoJ1d2zKBZ1w1iUmUSTOl/lWifYmhiQUO//Ja6rbKLwHE1vw+qolVba
+	 SIVoXGaQawjz7BXWs4wp7CI8PfoOqFrciiYrIXLYniLMQH2iZMNsG246lL51ed6r/xFrM
+	 ZvPg99CgMU/J2dbu4y2h6uXWfoDIYLEGmVmUDDiigsK2ej7U9reXpXYNm5UGT57aVEtsN
+	 /kuVVwbtPR63Tc7tlwejXdEeznS4y50saqSZJUc4nE6QU26pMDxqsdlsadIjxhCfYAVUr
+	 qbwuHXVDlcrG+FAKFV5eWl9YdGG0Q7YNogjiNCL3Hb6yDkfNAGGveTFvQFVq6B2tXqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778663;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Pd1LeG4YSyVzhkAEDrQRjo9EK9eodI/Jl3tuo5xNq2A=;
-	b=D8ujTwXFlMZuyA9+Monzdiwlf7VJDYyBxzUkrqwn9dPeSvimfWtkUWDuG+EYMGC8Tiyx
-	 v/Mt9J/lF/CccIGZCzyg4M4W/Ud6fPQxhRjTQY7zAmbjqHaZYo6ErCNRUjWCv/0rK/HaD
-	 Crh+sKkpYh2Et0T0ThXE8s2er+02Wa1T5A6Dpi+0Ff0EqPQqFsccA+20jezTaGmuZIB3F
-	 QapEEfUZ7KWHAGFe9rrjy9yhfIIMRxDEScaQBPtGZLo0SIqMS4FFEMmq4lA+tUupRNYpI
-	 nu/KPwcQern2HDCpGbfd4mbBuPLq1M8zaCg+tOx1QSdh13oWuo51xodGSrJY7ingprw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793778662;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wib53BzBWIQ/iei6dV6vU1OpXkGrKSEW+nY3L1O5OIg=;
+	b=ILi0QyNJfON0tWv1F5WAuShSIzTrnSVa8DKi4/HDkiJRyDxZHgAe7ak3cCTHWaZpuaOe
+	 vWLED5B3/7B9NagoRDkppLV5XsjtPBxJIlrEmm7lUTd9E08mdftMhJOAryr6V8QVCqcEh
+	 4olHnmHm1jbAHh4H0GAw8/puBZ3z4mOikutORqh6DB7DpfE/C57CxzZo3UiXza8d8YIP/
+	 8EOG9IOi/ilvvukDkRxyMCLnp9B2b36YOKVJGSNC1yA0pH56KIm59XRmd7U3RRawRfXFs
+	 wMWw1Otl8EZzSxJ9vJRsJS4W7feBvGKm+oz3xhDUrOqXl61LxX0ZYO8S2gBpvdPDreg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE9Py9Tr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuCZxDfw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F07E606D805
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:51:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC808606A332;
+	Wed,  4 Nov 2026 07:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE9Py9Tr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B167D1F00A02;
-	Wed,  4 Nov 2026 07:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuCZxDfw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A1B1F000C1;
+	Wed,  4 Nov 2026 07:50:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778663;
-	bh=Pd1LeG4YSyVzhkAEDrQRjo9EK9eodI/Jl3tuo5xNq2A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bE9Py9TrIWlL4Z8pJU+Mlk3LorzHI7WnypNpD9drkkqFqGWDbVYjRD7N5s4oowRsy
-	 fPFIUrMoZY2hHPHvwIIYLo0HX+zMm5fJK/G4CR9vsYNPE8DVbvr6Xi4BQ8yJlUzZWf
-	 930618CPfb7hqMJG2czqhwxgIY6mSW3I2H8hPeHJdpiWB/OaYOEiIaAHqWXg4+ZzCp
-	 xqAw93FNvm+mQXlIfYjcz5uZ23uMtk0F3FSa45C3bO7m1aXbBFjWZKBLryYkRkTE+Y
-	 s6amxXAlpq4CIOAbDUrv6ocHZIsjfiEmQhTfcYzJfPUJ4Uo7hK7JjYD+2/oZ474+KD
-	 3dlWZMdP/mlSg==
-Message-ID: <sashiko-outbox-196833@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sc8180x: Add SLPI remoteproc node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Val Packett" <val@packett.cool>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104074200.123842-1-val@packett.cool>
-References: <20261104074200.123842-1-val@packett.cool>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:51:02 +0000
+	s=k20260515; t=1793778661;
+	bh=wib53BzBWIQ/iei6dV6vU1OpXkGrKSEW+nY3L1O5OIg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kuCZxDfwwPYseCHjmRpB6DbMkv90BKj1wP/P+k6wp9pXFCc3d7gpULh8ZvDONi26Z
+	 1QubdnZHY+p7Xn5BjIX6HGpbscbtgK8sQnmh1uaWkwG5X6NXmY/IY18YW7bVkTyb5N
+	 z0TGdc2bltmyKQfEYHh7oQibC1QOlmkVlPIemf8qOiPdVMjLPWDDJ9ukexoMMZIzDM
+	 ZXNLmp0OF9yZ0CogbjG1PVlDCaQZwCAFzahPBawICH39VvjOaoG7RyOsecjXqCR4V7
+	 QZF5umCpj2rXRh55TTqaFh1ah3TsyHwX3KlNvkq+v9Xq18XdD8u6Wc5cGE3ud91YjG
+	 nBGF0LvJCzabA==
+Message-ID: <b28d5657-8491-41ae-821e-2b8c4d212244@kernel.org>
+Date: Wed, 4 Nov 2026 08:50:53 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,78 +50,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+To: =?UTF-8?B?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?=
+ <hongliang.yang@cixtech.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>,
+ Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?B?R2FyeSBZYW5nICjmnajmlrDkvJ8p?= <Gary.Yang@cixtech.com>,
+ =?UTF-8?B?RnVnYW5nIER1YW4gKOauteWvjOWImik=?= <fugang.duan@cixtech.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+References: <20261103074929.1971195-1-hongliang.yang@cixtech.com>
+ <20261103074929.1971195-2-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103074929.1971195-2-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] arm64: dts: qcom: sc8180x: remoteproc_slpi compatible violates DT b=
-inding
---
+On 03/11/2026 08:49, Hongliang Yang (杨宏亮) wrote:
+> Add device tree binding for the CIX Sky1 Cadence USBSSP controller
+> glue layer. Each controller has an AXI bus attribute configuration
+> register and a controller status register. The glue registers of the
+> two controllers are interleaved inside a shared RCSU region, which is
+> represented as a simple-bus container node with an address-translating
 
-commit 0d379b187776a8ea6d877b7ca4de413f6a03989d
-Author: Val Packett <val@packett.cool>
+Shared region is not a simple bus. Simple bus is a simple bus, so
+obviously is not a shared region.
 
-arm64: dts: qcom: sc8180x: Add SLPI remoteproc node
+> ranges property; each glue node describes its registers as offsets
+> inside that region. Mode strap controls are programmed through the
+> Sky1 S5 system controller referenced by the cix,usb-syscon phandle.
+> The CIX glue node wraps a Cadence USBSSP core as a child node.
+> 
 
-This commit adds the Sensors Low-Power Island (SLPI) remoteproc device tree
-node to sc8180x.dtsi.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/=
-qcom/sc8180x.dtsi
-> index a85e3211958d1..18f03aa62d85e 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
-> @@ -2259,6 +2259,67 @@ tcsr_mutex: hwlock@1f40000 {
->  			#hwlock-cells =3D <1>;
->  		};
-> =20
-> +		remoteproc_slpi: remoteproc@2400000 {
-> +			compatible =3D "qcom,sc8180x-slpi-pas", "qcom,sm8150-slpi-pas";
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        usb-rcsu@91c0300 {
+> +            compatible = "simple-bus";
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +            ranges = <0x00 0x00000000 0x00 0x091c0300 0x00 0x150>,
+> +                     <0x00 0x091d0000 0x00 0x091d0000 0x00 0x20000>;
 
-[Severity: Low]
-Does this two-entry compatible property pass dtbs_check against
-Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml?
+Drop node. Not relevant.
 
-In Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml,
-qcom,sc8180x-slpi-pas is only permitted as a single standalone enum entry
-under properties:compatible:
 
-      - enum:
-          - qcom,sc8180x-adsp-pas
-          - qcom,sc8180x-cdsp-pas
-          - qcom,sc8180x-slpi-pas
+> +
+> +            usb@14 {
 
-Additionally, the allOf conditional block in qcom,sm8150-pas.yaml that sele=
-cts
-the lcx and lmx power-domains checks compatible with enum rather than
-contains, which does not match a two-item compatible list:
+So this is @14
 
-  - if:
-      properties:
-        compatible:
-          enum:
-            - qcom,sc8180x-slpi-pas
-            - qcom,sm8150-slpi-pas
+> +                compatible = "cix,sky1-usbssp";
+> +                reg = <0x00 0x14 0x00 0x10>,
+> +                      <0x00 0x100 0x00 0x10>;
+> +                reg-names = "axi", "status";
+> +                ranges;
+> +                #address-cells = <2>;
+> +                #size-cells = <2>;
+> +
+> +                clocks = <&scmi_clk CLK_TREE_USB3A_H0_CLK_SOF>,
+> +                         <&scmi_clk CLK_TREE_USB3A_0_AXI_GATE>,
+> +                         <&scmi_clk CLK_TREE_USB3A_H0_CLK_LPM>,
+> +                         <&scmi_clk CLK_TREE_USB3A_0_APB_GATE>;
+> +                clock-names = "sof", "axi", "lpm", "apb";
+> +                resets = <&src SKY1_USBC_SS2_PRST_N>,
+> +                         <&src SKY1_USBC_SS2_RST_N>;
+> +                reset-names = "apb", "core";
+> +                cix,usb-syscon = <&src>;
+> +
+> +                usb@91d0000 {
 
-Looking at qcom_pas_of_match in drivers/remoteproc/qcom_q6v5_pas.c, the oth=
-er
-SC8180X remoteproc nodes use standalone compatible strings, while
-qcom,sc8180x-slpi-pas is not yet in the match table:
+But this is at @91d0000
 
-	{ .compatible =3D "qcom,sc8180x-adsp-pas", .data =3D &sm8150_adsp_resource=
- },
-	{ .compatible =3D "qcom,sc8180x-cdsp-pas", .data =3D &sm8150_cdsp_resource=
- },
-	{ .compatible =3D "qcom,sc8180x-mpss-pas", .data =3D &sc8180x_mpss_resourc=
-e },
+You have completely fake representation of hardware.
 
-Should Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml be
-updated to allow qcom,sm8150-slpi-pas as a fallback for qcom,sc8180x-slpi-p=
-as
-(and use contains in the power-domains conditional), or should remoteproc_s=
-lpi
-use a single compatible string with qcom,sc8180x-slpi-pas added to
-qcom_pas_of_match?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104074200.1238=
-42-1-val@packett.cool?part=3D1
+Best regards,
+Krzysztof
