@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801606;
-	b=PAUT/0fLdqjyFHbhNjOHG4om4w/8jf3RDWyWxIZBC0sRK5+0GxKrJLATeMahjxJl3gL9
-	 mdZmabA59QF6AOhLxj3pPLEeQTUw5ykwQsGvsJy3Ft0qfulVFQXnKhzh64gRY1Ig4ClLJ
-	 9aLG1gxYpBj0IHEu1RnoxalvyznQJ3+6k0D2kLF0fy4T3//cBXfG2S3EDcCQDAJPjiX4E
-	 CI/qse3Z71kI+Of/tV+jcdt0lCB8Y9YUvyNlAOuvuh7C8OPlMmJZOY2qvhsLBx90CSbav
-	 vKjP4vGCOL8EoVGnVVa62CPTfkcsqAekjVL6WHYryVLsZqgkBy6FfuBM2tohySMDkag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801606;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=iUHOBjNtLmRZQXhPYVgTk3a0efFKRJVz6WaQ1KW3eT4=;
-	b=3VJnsEuIvu15mE/PvXArpNrbRf7YJvhawsbpD94fVePXrUlg/GerIhvhaHTiVnGh8L/u
-	 Dgji1hNZ66ZZiDZZa964D1ep78Rq/h0f219rbv7aKxuUf+5GexeOLDA2vXYQ6EQUdvEhV
-	 eKtjOPTcNfdIrgaZVrIMwh2W5GRk6GtFlKxuP/E2vDZsTyTqZP3MP+k0700EgXypJxcaS
-	 IANkGmy1OnLjmuWbA8X1jwfJD20zoRLzJnEmMbsXKijBpwbsVUN067+i5hkmQsLXzxvp7
-	 ajwPkw6H9koUH5aJ5/tYEtfVR+CvXkQdtwTC55MZ4kh7/BWs7NUwdg1c77cEw5qbE1A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=epTZ1ZtY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793801615;
+	b=MAl5GbbG6ZQ0XGo4F1IYgDwQRK3qSGPE3VjsFfHaoKqYhSX8JaB0e227/zlPmmU42IgW
+	 /iPnYtrCsm376Mrga8fhMHTJ5Tx52PiwlasKbEXDJlQA6o9IthDYiQellahGHy+RwW2bG
+	 BHTlaToTqSmf2wXBJRFtKixHKlFgn5vFRVEtujmX36sSamrLiooFdAP3ahU94t3ZpHm6u
+	 3jB9whrhXQxWQgV/WJxk3Kc76KzojLyi5q6n1HHcvFxMKojHEQy0S6dFcI2UVQT/tS40V
+	 UR7KmLXkXRySc1lQf1ODf0uhmG5Zp76ef0lTDoxqSP+IABzm8REV1I8YbrHTcmmm6Bg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801615;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=c6a767/UZmFqeqicph2FjLmatlUG4Khixey5lXqULRc=;
+	b=2znAuaxMIdOi+jXcGqeK2h6aiTzV5OdhABYCbA+S78zOQHS7sXOCzJ834rbBvigRoJpG
+	 L/IB2ZLOsUOFIBetr5VO2X9fH+oFXPZPYqTPgjCWDSMwqOKZqeOGvUfZwiGRcmtLAfZHF
+	 4ZhWVl4LQ8W4NB4kAX8ntGveWBwWlpvONL+7pjVc8vUAVYUq4QHCgO6TnN5dQF6my613O
+	 YBetrZo5iUDfVehvjEmirM9h66tSt38cHAdmsD4BvfBQjzgM5psh2ah3S6yf5f9il4g+u
+	 PNVYYRMPcuJokr70dQ2M4Ggk/iST2CnwkTF7hbfnn1i+8HDx47/BkyLfWm2dYGb1hMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L7/aAmnB";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59032606A33C;
-	Wed,  4 Nov 2026 14:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59032606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259C5606A330
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 14:13:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=epTZ1ZtY
-ARC-Seal: i=1; a=rsa-sha256; t=1793801566; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HR8mwVxxXtpqO3r5Mh6STjyO33UMYReHL+LW03uGIJ42PHrOOk8mnWy6qLD+bTcqRbsC8tfHqW3PU9M2+7YAUaJCVc6PyIZmw/jEjpnaaulsQIUB96s3EzPBJPgUC38rgHcK5vA6pcth1KxQc91N1a3obHXBaic974yH5Nl1JKQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801566; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iUHOBjNtLmRZQXhPYVgTk3a0efFKRJVz6WaQ1KW3eT4=; 
-	b=YRCXcDHSr8ze7HAdvryNIFILWz8EvfVoUKFzgAtOzCyInJIwkrSl3YPpr1sa/0nxjtbnrSy23b0y+20XbklrNnIUvzdXIzB3A2C+TEXpys2Zjvo87Mea2nfgr/7Nz+k32xy27r8u9uX/uhE2bj9f2TrpZT35Wb3g7FHqBXfnOF4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=epTZ1ZtYUMoSD8ZmVaH8FgLmjZ334h/xw98WqpzVo1vlVk7izWHVCzEYGdK/d5ZtiQnIH+F9sskRRuBH4UQ/HxVCv0QPIgSeWzimT8V2YNFtAlBYU0xTuJ71tZZvRgJR5N1AssSf9b0y23OL7DSOP8nxk4jhRKVPfe2vdpUW+ss=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=iUHOBjNtLmRZQXhPYVgTk3a0efFKRJVz6WaQ1KW3eT4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793801562925226.44317889922638;
-	Wed, 4 Nov 2026 06:12:42 -0800 (PST)
-Message-ID: <ae39979a-70c2-4f73-abed-bf5699a0addf@collabora.com>
-Date: Wed, 4 Nov 2026 17:12:39 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7/aAmnB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905ED1F00A15;
+	Wed,  4 Nov 2026 14:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801614;
+	bh=c6a767/UZmFqeqicph2FjLmatlUG4Khixey5lXqULRc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=L7/aAmnB/kLhYkjW3sC2kXWbbUHHeT25esznN50GuMVJU5MnFiyvEErqMoUGuz4Ok
+	 i9EDdAdWeaqNxJRXagX9cCsvei5VrpOPxQGFzAECkEWk20SPBmrEsGE+FYcz4gDF1y
+	 H8mvNVYGNuIw5NbxIu0gnNwKcHCLajGWEvduURytFtb2ComMW99RM1N/YYAX5upXYd
+	 Mg3y29p6D54NjUvZvyb3deskWKCGo+uuh2tKADPrS1SF0dEzNXa6f8WM8LxNkFP6sy
+	 GO+i6ZbHkfhnAbMTIfEdN+2vb0QPlLUUlE/LblIa3q6JRYu53twZhmabac3CSibxC+
+	 kQsxHKm2ub8ZA==
+Message-ID: <sashiko-outbox-197413@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: remoteproc: Move iommus constraint
+ to SoC-specific bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-shikra-el2-v4-1-97e7019debff@oss.qualcomm.com>
+References: <20261104-shikra-el2-v4-0-97e7019debff@oss.qualcomm.com>
+ <20261104-shikra-el2-v4-1-97e7019debff@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 14:13:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -57,119 +60,131 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] media: synopsys: hdmirx: skip the 5V detect
- interrupt without a GPIO
-To: Sascha Hauer <s.hauer@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-7-71a11a2e3e76@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-7-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 10/5/26 16:28, Sascha Hauer wrote:
-> From: Gerald Loacker <gerald.loacker@wolfvision.net>
-> 
-> The hpd GPIO is fetched with devm_gpiod_get_optional(), so a board that
-> does not wire 5V detect to the receiver leaves detect_5v_gpio NULL.
-> hdmirx_setup_irq() then calls gpiod_to_irq() on it anyway, which returns
-> -EINVAL for a NULL descriptor, and probe fails. The GPIO is only
-> optional as far as the fetch goes.
-> 
-> Set the interrupt up only when the GPIO is there. det_irq then keeps the
-> zero devm_kzalloc() gave it, so hdmirx_enable_irq() and
-> hdmirx_disable_irq() skip it as well.
-> 
-> Nothing else has to change for such a board to probe: 5V is then never
-> reported as present, which is what gpiod_get_value_cansleep() on a NULL
-> descriptor already returns. Getting the state from somewhere else is a
-> separate matter.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 34 ++++++++++++----------
->   1 file changed, 19 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index a28eb86e0b83c..a937ee23e230c 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -2521,7 +2521,8 @@ static void hdmirx_disable_irq(struct device *dev)
->   {
->   	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
->   
-> -	disable_irq(hdmirx_dev->det_irq);
-> +	if (hdmirx_dev->det_irq > 0)
-> +		disable_irq(hdmirx_dev->det_irq);
->   	disable_irq(hdmirx_dev->dma_irq);
->   	disable_irq(hdmirx_dev->hdmi_irq);
->   
-> @@ -2535,7 +2536,8 @@ static void hdmirx_enable_irq(struct device *dev)
->   
->   	enable_irq(hdmirx_dev->hdmi_irq);
->   	enable_irq(hdmirx_dev->dma_irq);
-> -	enable_irq(hdmirx_dev->det_irq);
-> +	if (hdmirx_dev->det_irq > 0)
-> +		enable_irq(hdmirx_dev->det_irq);
->   
->   	queue_delayed_work(system_dfl_wq,
->   			   &hdmirx_dev->delayed_work_hotplug,
-> @@ -2619,21 +2621,23 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
->   		return ret;
->   	}
->   
-> -	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
-> -	if (irq < 0) {
-> -		dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
-> -		return irq;
-> -	}
-> +	if (hdmirx_dev->detect_5v_gpio) {
-> +		irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
-> +		if (irq < 0) {
-> +			dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
-> +			return irq;
-> +		}
->   
-> -	irq_set_status_flags(irq, IRQ_NOAUTOEN);
-> +		irq_set_status_flags(irq, IRQ_NOAUTOEN);
->   
-> -	hdmirx_dev->det_irq = irq;
-> -	ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
-> -			       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
-> -			       "rk_hdmirx-5v", hdmirx_dev);
-> -	if (ret) {
-> -		dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
-> -		return ret;
-> +		hdmirx_dev->det_irq = irq;
-> +		ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
-> +				       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
-> +				       "rk_hdmirx-5v", hdmirx_dev);
-> +		if (ret) {
-> +			dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
-> +			return ret;
-> +		}
->   	}
->   
->   	return 0;
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: remoteproc: qcom,sm8550-pas: missing iommus for Gly=
+mur PAS
+- [Low] dt-bindings: remoteproc: duplicated iommus rules and unwieldy condi=
+tionals
+--
 
-Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+commit 95697c560209b6d85ebaddcbbc163e85e3f0686b
+Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
--- 
-Best regards,
-Dmitry
+dt-bindings: remoteproc: Move iommus constraint to SoC-specific bindings
+
+This commit removes the common iommus maxItems: 1 constraint from
+qcom,pas-common.yaml and adds per-SoC iommus constraints to
+qcom,sa8775p-pas.yaml, qcom,sm8150-pas.yaml, and qcom,sm8550-pas.yaml.
+
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pa=
+s.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> index dda2d144b7206..711c2f723b179 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml
+> @@ -106,6 +106,8 @@ allOf:
+>            items:
+>              - const: lcx
+>              - const: lmx
+> +        iommus:
+> +          maxItems: 1
+> =20
+>    - if:
+>        properties:
+> @@ -126,6 +128,8 @@ allOf:
+>              - const: cx
+>              - const: mxc
+>              - const: nsp
+> +        iommus:
+> +          maxItems: 1
+> =20
+>    - if:
+>        properties:
+> @@ -144,6 +148,8 @@ allOf:
+>            items:
+>              - const: cx
+>              - const: mxc
+> +        iommus:
+> +          maxItems: 1
+
+[Severity: Low]
+This isn't a bug, but since every compatible in
+Documentation/devicetree/bindings/remoteproc/qcom,sa8775p-pas.yaml matches =
+one
+of these three allOf branches (covering qcom,sa8775p-adsp-pas,
+qcom,sa8775p-cdsp0-pas, qcom,sa8775p-cdsp1-pas, qcom,sa8775p-gpdsp0-pas, and
+qcom,sa8775p-gpdsp1-pas), could iommus with maxItems: 1 be defined once und=
+er
+the top-level properties block instead of duplicating it across all three
+allOf branches?
+
+Also, in Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml =
+and
+Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml, adding m=
+ore
+per-compatible if-then blocks into allOf makes those single binding schemas
+increasingly unwieldy as variant differences grow. Would it make sense to
+split divergent variants into separate schema documents rather than piling =
+on
+more conditionals?
+
+[ ... ]
+
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas=
+.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> index 99e9aeeb4f62c..dd81ecdb8dc49 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> @@ -317,6 +317,18 @@ allOf:
+>              - const: mx
+>              - const: nsp
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,x1e80100-adsp-pas
+> +              - qcom,x1e80100-cdsp-pas
+> +    then:
+> +      properties:
+> +        iommus:
+> +          maxItems: 1
+
+[Severity: Medium]
+Does removing iommus from
+Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml while only
+allowing iommus for qcom,x1e80100-adsp-pas and qcom,x1e80100-cdsp-pas here
+cause dtbs_check regressions for Glymur?
+
+Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml also cove=
+rs
+qcom,glymur-adsp-pas and qcom,glymur-cdsp-pas and sets unevaluatedPropertie=
+s:
+false. In arch/arm64/boot/dts/qcom/glymur.dtsi, both remoteproc_adsp and
+remoteproc_cdsp specify iommus:
+
+    remoteproc_adsp: remoteproc@6800000 {
+        compatible =3D "qcom,glymur-adsp-pas", "qcom,sm8550-adsp-pas";
+        reg =3D <0x0 0x06800000 0x0 0x10000>;
+
+        iommus =3D <&apps_smmu 0x1000 0x0>;
+        ...
+    };
+
+    remoteproc_cdsp: remoteproc@32300000 {
+        compatible =3D "qcom,glymur-cdsp-pas", "qcom,sm8550-cdsp-pas";
+        reg =3D <0x0 0x32300000 0x0 0x10000>;
+
+        iommus =3D <&apps_smmu 0x2400 0x400>;
+        ...
+    };
+
+Should qcom,glymur-adsp-pas and qcom,glymur-cdsp-pas also be included in th=
+is
+conditional so iommus remains evaluated on those nodes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-shikra-el2=
+-v4-0-97e7019debff@oss.qualcomm.com?part=3D1
