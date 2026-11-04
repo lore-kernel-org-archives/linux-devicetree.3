@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793796943;
-	b=UB4Egqj0B3ArgeThPNP+RkyqwSf8b/bCV9Snd/i/wIObTUOckkUFmO7IV7YCNM10zmnC
-	 jbAiIo7ord4gRqnnzmCUVmicm/ghV3rJ2LRiNqjInU+GXNwSMSD8e3ZmlqnDQ2O4D5T5P
-	 O4+/+hTR9IlTzBp2dvh39z9jLXupDaldCQQhleL38W+AsBHiOpwQawUSBJD0cpFrnurSl
-	 Ww/T49pqaDTwTRpPSPmgoz9/eqQvO56gnBcJ9SxYUVFt+T90m11nGnHwcJvqX82zDohWy
-	 ZayS6JIv8iEI+Ql9Nv3LwYc5YE3Z8eLnDtzSXryND3E4NBsJGTppQcVWoLW+iJmzqCg==
+	b=X37dai5K7T7vGfO2P2ANv+8xcal91YSwQGCvG4yru8JaQ0PueDcWvMy61SbnzeySUhBX
+	 Fo7mdWGc7iMb1Y9kA+h4O6IYhqGXdA5O4VMsd75zN7ghli2pvYQKqh+tTSCNgn+E+a+4X
+	 h5FEhkT48DPAdQqW5UCxPuLGYELHWUJ2R5LwvgeIYo3qsNjb3Z6AMO8y8BRvZVeZXhsZj
+	 3fLaNDQ+U4HSZSIA3VCuID/xhX1wvmAT2lgCsWcAebN8W5PITDPy0EXlUsVAdPryCk58I
+	 eUzRhgoARLfFPYARgXbC/6RqZmPpimeU5pnLr4LJQMyhjbeWxo4Iur/bXTs61qyVW4A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793796943;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vTGqihwmGzrNuZflxgULY5U2b4s93bfhFCTQi2W61pw=;
-	b=0/nC8fFltU/rF4r/JV3GEpIXDutv12fyqzq+iRyjfKG1rWf2QB3x4c+zGgdCug9kbgn4
-	 yVRmHwUB33NbMzlSb3M+EsCBl+uAQnm20/csJb6cbaF8Qqnln1T5N+hvIVva79jdJTgZz
-	 d0J5xNFypRRpks2HK3hh+WyoPjtqyyfUMQo0PsebJvU4R54k4yO6Bmv4Dxdc0ocUXJrYx
-	 4+6od+p1BJJYqQSS9Iq9ZXBddVQ5MLttR7KwcwQwVcruh6xBfBiZPabXRNw7nd5TVxvho
-	 lLO35wIgKak88wxs8RxNOnvHbuAYEAVOcU4tltGJSoCQe2/rY5IabTaSVB82uNH7Khg==
+	bh=qi8G9UvFtYoe7/NNMKSW69kt3Fc1EXVO1pwg69nVuFo=;
+	b=hEyufO3c+2jjf+p/+8R3nMztRlUA7g3Uqmj0JHM7bdR04C4tFq/FnwF8AEEyrBax2Ws3
+	 5j5tmcP+WVSKzXYP1uro8Fnmq/Yqwc6GBCg87T5wgyblE5rwcUUjLG3Q5TAYL7u44IDB9
+	 Lei61pm7dVEzeXjRAvWNY7QxOEIkDWo7SUlTU9O2NWv59Zs7eXlEIetx0sCR4QzSek4Qj
+	 CFvoTMHmjFjU7MvkBwuELLHewE5nscu846gvQAQYyBMMSpDJPAhqGaV5xLXu3+Ddwm4Ck
+	 yX3jE7tGAmlinCGvUsbgyQTjl5GQbKKVomJEKefEeSZ3Xik/Ma5TDG+1RxGeo0/p9Rg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYbyRHFH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVdFEz7d;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1D5606A328;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A056E606A329;
 	Wed,  4 Nov 2026 12:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYbyRHFH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVdFEz7d
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793796943;
-	b=DVNvmaLoadpzbJWFyKoCjTh5t1hzknKUc9pwPKJ7jn8Su4HSvvvMXTN069M2yBJQZ6Rg
-	 zweB7Ty0gMLyPj6H+qRALJD9CjumHIji/FUv8bQtS9P0UUWAWiLpgPrReXI1tSR9D764E
-	 Bp6zl0rL4n65wJrnP+MRlixLTB6XuUDendPAWekAEWh9IN9d3u4cKNKuaSG0ru8baGL/p
-	 fPXujhSnAm17BO9lw3zDrhQjBOPCzk3KWoQmLWoQ6QpQM9l52EHZfvpqjuBJYkEDwnekR
-	 jdy89KZ1acpiNP+SGtCkJgaPbRpMipGxUUBMUXPQb6YnBksp1Kkas2ucL2Sof3RWw5Q==
+	b=gAjlQyQKkYX3VZt594y6wxQGhNFE4NBjj9hTdXX5nRe8lD4kfD5lr9kG1pGLG4UkOWD7
+	 yV2Aq0LpNf696j/IYXn8aMM70iAFtGygLvmFrQVynAt+3V2+v65ceRt8xad7AjD/A72pF
+	 YoQgvEqbMVY1lH3PisulhlQVaRX7cI+o4+nDrYKe79eVWkY0VC26Mi/0inD61jm4nOX2B
+	 JNDBmHSYlnzIKN7HWZcoN2v3q6B0Id797U9V1NAjc5h3j9jkrmfhlBdy16TpLcD3/XZD9
+	 SoLc/28cAqSvLgQLos7gGv54tqH6tiADCYXmtLM+C0kmDuR1OgjN//LeVLbVbk8BBvA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793796943;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vTGqihwmGzrNuZflxgULY5U2b4s93bfhFCTQi2W61pw=;
-	b=sk4ZI8YAzAwrDueMg88ZmlGzu4hSO0O2oKskayclrM00YkNqKt89rj5FHaPmI3ytFKCB
-	 dCFg0f13hSIcd9oBlv9PTQW3BhPUD9+Rh2/FPZ8vmXdk+FoMWbVviG21RvpYCU94whLfH
-	 K0UpWEg0pBEMGj92fR39qO9D7Dmih0CpkZrPxjHNSWwrZdsZ6Crfw+OXvcj7Ax9VNZt8Z
-	 YGNBPIThz2QkV3DH3wSuiG6rib1DYBUliPxRgoI1org79AgjBi9c5ixvylBu1ID61K8r2
-	 rE0feh1TaBeW7KEdGF9sB7K4ljcaYW3JM5LtSWOLL7V0QrSXsyXf/louaRCds2OPw/Q==
+	bh=qi8G9UvFtYoe7/NNMKSW69kt3Fc1EXVO1pwg69nVuFo=;
+	b=MNsLESujETidpsWGLoGZ2oKtTKcEm5Fkfm5raBkcnZ0KUscHgp1eONLqVG8SL8hLPh30
+	 LMorCwev8rREH2BAZZRetBe/DViwePVol2F9zHy9H68Ek+me/KGijaXIMzXpQZioQW1c3
+	 kvibBTPpYv/CAXvTGLpJeTGPogtLLCONdi11YtNJYxeozkerP1cJqNsEiBxMbA0qhUwJS
+	 xEs6aEaw/bJK9/+q0HbWKzHZVvAqdSkFHHcjkGR/V1aEHBeL1kN56/Q12sAL+oK7SHb1y
+	 pJWiujwWqkn1P0aVa7UU4UYc3G0FrSPfnk6IyMkCB87qq+wG4tMstlwvCY5wmfBdgtw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 501A71F000C1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5537D1F00A02;
 	Wed,  4 Nov 2026 12:55:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793796943;
-	bh=vTGqihwmGzrNuZflxgULY5U2b4s93bfhFCTQi2W61pw=;
+	bh=qi8G9UvFtYoe7/NNMKSW69kt3Fc1EXVO1pwg69nVuFo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cYbyRHFHki2MHX07ISexVK4LL5cJ8lRx/pHcdnWBeFBfKA/dDXj0JT+PznmgzBkyj
-	 9MMjKFisyelh0oBWnJ6nM8bY5SF+SVSjs/fpjJVjWVa9tt3mYSLoQNRiwdOTP5s4kT
-	 V8/AgvCucrwobSmklLfXJTWCANf63dM0NQrjCElNIWWaL2IGNRfPZ0MBfs+gVurA5h
-	 6+1B/BCSczLC7YNrYCXdbZIBeJ612/NGS0rE782MtQVak/Mw9yE88iG21S6OBZR0Y3
-	 0CQLW2GtM0jEpnnmi98q7xo8FGeeMWsSBQEmhwJLuSOdUop5yLKogOkLH/DHCARF49
-	 GuPDYue1wLm7A==
+	b=MVdFEz7dYH0yB+r3y2TT/KjcqCXOoaPFdgMDpJwU0JP1q8jOgMH7JLHklZMXpI2w8
+	 qVfixBnjyHUe1K9ZiLOqBrM50ciffBz8+897/GuX7gQ9ZWo7tvYDsYtx+vpdZ+B3z+
+	 4GljQfYdceHkzz66fP7EYw9yt52EJ0sK/LByJr9ff6+MdkStlCwzuXddoTXmMBlQrH
+	 3EJD9Qxcvv2qWmyXILQO8kxvxYrM85NoB/84+oqxqBsCHC8Pt6YJEjoMt4WWh5dHqT
+	 B8o/8uhvTjszZrRF/4lDvHyTg4qnU+UrKfCDsoH8pDo4UIySb4dtcYpHvtgc0pu/qb
+	 seQ8KH76Jx8wg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B7AE346E11;
+	by lkml.kernel.org (Postfix) with ESMTP id D4CE946E3D;
 	Wed,  4 Nov 2026 12:55:41 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 04 Nov 2026 13:54:43 +0100
-Subject: [PATCH RFC 1/3] dt-bindings: input: touchscreen: edt-ft5x06: Add
- wakeup gestures
+Date: Wed, 04 Nov 2026 13:54:45 +0100
+Subject: [PATCH RFC 3/3] arm64: dts: qcom: sdm845-shift-axolotl: Wake the
+ system on a touchscreen double tap
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-ft5x06-double-tap-v1-1-5a1bd80449cc@ixit.cz>
+Message-Id: <20261104-ft5x06-double-tap-v1-3-5a1bd80449cc@ixit.cz>
 References: <20261104-ft5x06-double-tap-v1-0-5a1bd80449cc@ixit.cz>
 In-Reply-To: <20261104-ft5x06-double-tap-v1-0-5a1bd80449cc@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -96,21 +96,21 @@ Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2704; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1038; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=CWVg/HPnzh79xLHK286mGUAsBwZwcwLqhHu3WsPOxsc=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq6ytMDofKtjnbQG0UW/hiJk4rmQoFmHnSJZOc2
- tOPq7B7Jw2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCausrTAAKCRBgAj/E00kg
- cofEEACZXxqt5oBzQbhOB7g5IHLixtw7MUeaM42qTTdhn5j7Fb+V61I+tEsdB2QfiQXv/AW1NrG
- jU+XpngB3wStXsi4+9tn9GdGhfTs+q0GQb0gJ0WUaMFbnG3tbHC+oUdjY8sbYypMN3fABIvBALV
- nuR5Vxc0LFV9R5OG7Tlm9g++E0V0xEQeGtVksWP6gK7qzJ+NUOSJkgt222KJR3IpZfvb5/yrXyJ
- +XIxA25BdSoDXCxrKKms6q9L0CrzolCbQsIDJJe5osnjv7NNQiJVssJQtIsomt2rikm6JUxei4a
- f6jn3PZx9j1fKKNpmHcJkZMySBef7a71gVemWmJ1XHi0iLpAmblLna6w0pC5uynWxsgYGQ3y1YE
- n8GKhnn0ikhYvQx9J9DAEll8L0uc5uUID7N1bpFfOXAi7GYK1wyhBNf0Xl4S+lEhz4ykt6b4/qb
- GjUKpDzuwW3THwPHyflsy+wu3gllWlrCWe43/OmUMcZ2c6v4Vj/6XH3GqBj0YUlh37NB8dIvUy5
- uovuwmXymPEoirWXKmfHKj4bsZGb7dIhrmN0nG2cnnhGnvn6ybdeO/jPj6BR44MX+Fjaw3vo7Qt
- oRWt2gaEtmge5GGIfQOakj8c6M82xSgyy1IeiY/aMdZMEWKDPa2S+9MmCzaJPvcr2yj14+Mwt5D
- 0dPgu7e+jufiMTw==
+ bh=gVCDyYfuQzZ+YQquXafcJW7FFenl4GNi6oZKBwhfrWI=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq6ytMe815RX1a0N0eshGYgGeLRlEwiMcSDon56
+ mBRBAXxnT6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCausrTAAKCRBgAj/E00kg
+ cqm4D/9hDSLf2LwEVC9LRzcuRML9wLXa9giF1R67yIzc+wlg0RuW6V+WNfwYs2VAWREjIsYemqx
+ 1RwzoA46JMZEhNgxSxM8hGauxekMiuuJ76lBpBg2hiRIo78V8sdjiR3S2VftxQUzry2IhDlDO5X
+ q4yRTKnaknvOTBIy/dQsldPRWqusokHEf6Fif/HnE3MUxSDcApky/o+ZaEZvgr4k1ODn3DbQVZ/
+ ygwhqwH0HmP382ABkLUfQ0LEV+Ml2W1mv//ftrj78qlcpMFAKbixuM6Ssz4vR+JssMW110XmgYZ
+ Z6t/7zwotfdbfd61wLiGnLeyGlRhNEhMn6elfCiFXR0HEUW0YVyz9SCNv0h7tEnTP/fXV0sh+DD
+ wIDpNF73S6xMNjZ1giIi+BFu2G1cI8HwUdHnDoZtImte4AtfDhoUi9ECq4a6DOmjf0U1KLiQ47h
+ NBWSPPWMqbi7IFxlEK/B8AyqNhy4GTcvYBa3DJ6zDci72pmftDYF1adtMVT545gnXcxkP1BpQCD
+ sGvCAU8c1xhr6TF6lWPBTEexm6axM/9Xr8Hc+1pLmNgwjTFURn3zXCowdiBL3+Fidi2263oKA3T
+ GtgQOdnsDHJF0lMg7owte2up+yHxR6txVhA+Hit+o6UxTYeudJM+nH6qfSzsIcNS9E1uJXTqy8P
+ xdTasBdQuiARQPg==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -120,87 +120,42 @@ Content-Transfer-Encoding: 7bit
 
 From: David Heidelberg <david@ixit.cz>
 
-The FocalTech controllers have a gesture mode in which the firmware
-keeps detecting a configurable set of gestures and signals them on the
-interrupt line, so they can wake the system. Describe the gestures as
-event child nodes carrying the key code to report, like the Azoteq
-IQS7211 binding does, so that the mapping is the board's choice and
-more gestures can be added later without changing the driver
-interface.
+The touch interrupt on GPIO 125 is routed to the PDC, so the panel can
+wake the phone. Report the controller's double tap gesture as
+KEY_WAKEUP.
 
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../bindings/input/touchscreen/edt-ft5x06.yaml     | 37 ++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml b/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
-index 68b2f16016543..bfc540665a2d2 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
-@@ -106,16 +106,35 @@ properties:
-   threshold:
-     description: Allows setting the  "click"-threshold in the range from 0 to 255.
-     $ref: /schemas/types.yaml#/definitions/uint32
-     minimum: 0
-     maximum: 255
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index 1b0eaeafbd517..e4eef60271c55 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -504,16 +504,22 @@ touchscreen@38 {
+ 		iovcc-supply = <&vreg_l14a_1p88>;
  
-   interrupt-controller: true
+ 		pinctrl-0 = <&ts_int_active &ts_reset_active>;
+ 		pinctrl-1 = <&ts_int_suspend &ts_reset_suspend>;
+ 		pinctrl-names = "default", "sleep";
  
-+patternProperties:
-+  "^event-(tap-double|swipe-(up|down|left|right))$":
-+    type: object
-+    $ref: ../input.yaml#
-+    description:
-+      A gesture the controller keeps detecting in its gesture mode, reported
-+      as a key on a separate input device. Gesture mode is entered when the
-+      touchscreen input device is closed or the system suspends, provided
-+      the device may wake up the system. Only controllers whose firmware
-+      implements the gesture registers support these nodes.
+ 		touchscreen-size-x = <1080>;
+ 		touchscreen-size-y = <2160>;
 +
-+    properties:
-+      linux,code: true
++		wakeup-source;
 +
-+    required:
-+      - linux,code
-+
-+    additionalProperties: false
-+
- unevaluatedProperties: false
++		event-tap-double {
++			linux,code = <KEY_WAKEUP>;
++		};
+ 	};
+ };
  
- required:
-   - compatible
-   - reg
-   - interrupts
+ &i2c10 {
+ 	/* SMB1355@0x0C */
+ };
  
- examples:
-@@ -130,9 +149,27 @@ examples:
-         reg = <0x38>;
-         interrupt-parent = <&gpio2>;
-         interrupts = <5 IRQ_TYPE_EDGE_FALLING>;
-         reset-gpios = <&gpio2 6 GPIO_ACTIVE_LOW>;
-         wake-gpios = <&gpio4 9 GPIO_ACTIVE_HIGH>;
-       };
-     };
- 
-+  - |
-+    #include <dt-bindings/input/input.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      touchscreen@38 {
-+        compatible = "focaltech,ft5452";
-+        reg = <0x38>;
-+        interrupts-extended = <&tlmm 125 IRQ_TYPE_EDGE_FALLING>;
-+        wakeup-source;
-+
-+        event-tap-double {
-+          linux,code = <KEY_WAKEUP>;
-+        };
-+      };
-+    };
-+
- ...
+ &i2c11 {
 
 -- 
 2.55.0
