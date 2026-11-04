@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793808968;
-	b=T21fD6bMuzNitSVnhUcquGAy1xsSzoH3kOeyOQi9mz/37iYP5sgjDYp2KAHuNIYayK9j
-	 lj/v8dUbqcVQRcCVmfoLFNsZ9ekEeOqBjEQ94bJt8qQn5vHLipFpp5ZCbo0frmIXWMhhC
-	 GGFsuLF3bxDgE8FzxXLIDSt1P7zyzhRjHitUnXZQNJOse/NlXU4DMWqu1WmzYH5HwNYcK
-	 7NBIicFdf9ahW3qdzgIDYYb5xD99FcTRJxRbA9dfedRyiGi8ktRUgNQvcyX2N0suS2J0h
-	 EBISHGmRRYRcWgUGL0z0qEG0kkLk/CKjnN4AhaozM4dFPQRO66rBtwBuycV/r1GR3Jw==
+	t=1793808971;
+	b=Yw7gEUobngf3QIVvPc3uL1UW9XeYwWe9aJ+z9RZmlLKgzyXNQ/ydb5/IxBkW4SU7VtXh
+	 ngZ7q9uFFhAiOZUto4iXIi2gpDE44GbnZvf3FeSdSOrJzBciMc+68nZnp1ehe4lRkAf8s
+	 TuOeq5Un1/FPJT3/nT1/zjuNY3qwi+V8XIx9iGIIPvLJxicBAhi+1PhN/ltONw8J624hy
+	 FUEMJSjt2V2dk7wm+d8MTVHSKj5Fcdro/zxcC6E585hPTEVij7oQqwFg/RBtqEZdZEpoD
+	 YmgOKCgCLqzq1LsYrraKtObpNpTuqzXVzVbZ7PFVBBWzcg5OI2ZxTyVxzZvhatZ6GuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793808968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793808971;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cZO12q2rUYGTJsRBXXjfwgfWq9/ftofCaITTyvCFUto=;
-	b=sw5tzIiZTrwviHj4qs1GhyBwNgv0jKrpiFyAFszRjpPNhc2QPbcDxXk6HmkXbq+6N97J
-	 qvPqU3y8WNwJh+S9GywVjTWUIDWtFk6iSxKeeaEkKWcbQ+TS1j6FkANI4UivXJOIUj8iR
-	 AjwgP5i+DypldHW49sJLAkdJyE1w/uPsHrnGG5Rv0qAAd4WDLNeOP3ly9dGMPnbZ5SocV
-	 EltxF/C9ISSaqaQ9O7urUaVi5tuLSznuV7Zr+wIEJIqPcv9lliATe43iAFk+vqn1XxLkg
-	 NSggwtQkYR0TZMcgkRTPBx/1e3NcFrSTVK5g56ra5ANuckac8hsWbenelz4mcS7G2gA==
+	bh=wIuWNWPmiP+GNfu0cVbxFPeeVlExF/grvtfoQgXSHo4=;
+	b=MJqoIkjolk/EbBi+MQjnFYKV9WJ3q8L5HEpj6ZJSKLNMig+HSoN9cqmRtKqXKinwlhrx
+	 6gRxgpV8JBIJ97MocToyz3MK2BRMOTobQmBrpNh8yS0xU0sKryk+sRg9FqntcK4d8j3B4
+	 31cpaGKx2LvpAGbE2ikXO/ePHgLlIKlP8kjxmL8y7y4vj2FHQDdj+QzOYnBQTZsVLuJkC
+	 Fh8A9exCMgu1+9G1P0DD78hWy42iw8umJO8hvtrjrU0FGhnwnwmpINbg6YCdFzddO9fKy
+	 aUPHTVoDdTUhasOqJOWcN0/x8dK96EiOFc5Y+vYx5RZbxFsyGvR9wGpzQp8AAtBdGCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b="KOLG1A/V";
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=R+eJCw6M;
 	arc=none smtp.remote-ip=185.67.36.66
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6012606A330
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:16:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6012606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAE4606D80B
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAAE4606D80B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=KOLG1A/V
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=R+eJCw6M
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 51586240103
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:16:05 +0100 (CET)
+	by mout02.posteo.de (Postfix) with ESMTPS id 2E6A9240101
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 17:16:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793808965;
-	bh=cZO12q2rUYGTJsRBXXjfwgfWq9/ftofCaITTyvCFUto=;
+	s=1984.8680eb; t=1793808968;
+	bh=wIuWNWPmiP+GNfu0cVbxFPeeVlExF/grvtfoQgXSHo4=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=KOLG1A/VP/BYjsOCqYOiudOKWdcUDUf0h6xyndjEuoqPFAg7estkXYby474OLgno4
-	 Rx5w1hYLvHknmBQlKmV9wk/PUNCKlI3chOwcUIpFcaRsSFTIyEAph6qS4Mzzft3Cha
-	 Ui/Ysjvq9s8ytfuTBRZSCD72bNMDHixzERVhK/JBE6CcxTTHz66z/OiZ2Llg+0h8bi
-	 fbc052edij+AoHTzX2i0I+cHtstnjO5Mx+jPW6KtY0gko9ACXYEbtXI8mtjQr9bpgZ
-	 TdPD4LiuIryRTCvWQ91cH56P9zo7GbDeJEBUsg4iHelK24xDB97Zo1CM0A/kS55AxD
-	 ya/yQ+y3luFLQ==
+	b=R+eJCw6M8/Nw/75QDJVrXpSmBh7JLoqXQmQwg5FlV4XvdGikMIieCGB9+uEyNxLfw
+	 NoTIAILP69+BjIB2oLlYJN/mUq29mZF1ylXqTnHmSdvC81InjxbaAK9bDXs1rZHfmM
+	 K+DdKYbSOY/Up59my2KmKiZAA9mFmLCz5CgkRePs0RvTmHEd4Zgjtfhz9zNCYa1TJg
+	 3CC+w22lpccNfmxzxean/pHLj3iouL0mFnGD62nYoBL6TI67ya2vL+39KG7XXxqGuP
+	 W30GXah40hqOHCPK4mhkO926we1fsbISUzMJuZsrJTrU3nWylmqzcH2wx81NEOUc/l
+	 ysxupYYZmuSDQ==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKVtB6Cxdz6tsg;
-	Wed,  4 Nov 2026 17:16:02 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jKVtD6Xh8z6v0j;
+	Wed,  4 Nov 2026 17:16:04 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>,
@@ -68,9 +68,9 @@ Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/3] dt-bindings: watchdog: arm-smc-wdt: allow a list of SMC ids
-Date: Wed, 04 Nov 2026 16:16:04 +0000
-Message-ID: <20261104161553.30115-2-mateusz.nowicki@posteo.net>
+Subject: [RFC PATCH 2/3] watchdog: arm_smc_wdt: try every id of arm,smc-id
+Date: Wed, 04 Nov 2026 16:16:06 +0000
+Message-ID: <20261104161553.30115-3-mateusz.nowicki@posteo.net>
 In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
 References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: devicetree@vger.kernel.org
@@ -84,37 +84,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The SMC function id of the watchdog service is not discoverable and
-differs between firmware versions for the same SoC. Let arm,smc-id hold
-a list of ids that the driver tries in order, so a SoC dtsi can name
-every id used by firmware for that SoC. A single id stays valid.
+The SMC function id of the watchdog service is not discoverable, and
+firmware for the same SoC does not always use the same one: on the
+STM32MP2 SoCs it is 0xbc000000 (the OP-TEE default for the platform) or
+0xb200005a. With a single id in the SoC dtsi, every board whose firmware
+uses the other id loses its watchdog.
+
+Read arm,smc-id as a list and use the first id for which SMCWD_INIT
+succeeds. Go to the next id on any error: OP-TEE answers an unknown
+function id with 0xffffffff in a0, which smcwd_call() reports as -EIO,
+not -ENODEV. A missing property still means 0x82003D06.
 
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
- .../devicetree/bindings/watchdog/arm-smc-wdt.yaml        | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/watchdog/arm_smc_wdt.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-index 8e9d0b7e8244..9844b23ef51c 100644
---- a/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-+++ b/Documentation/devicetree/bindings/watchdog/arm-smc-wdt.yaml
-@@ -18,9 +18,14 @@ properties:
-       - arm,smc-wdt
+diff --git a/drivers/watchdog/arm_smc_wdt.c b/drivers/watchdog/arm_smc_wdt.c
+index c73ed1dcdfcb..993c8f92c871 100644
+--- a/drivers/watchdog/arm_smc_wdt.c
++++ b/drivers/watchdog/arm_smc_wdt.c
+@@ -113,8 +113,9 @@ static const struct watchdog_ops smcwd_timeleft_ops = {
  
-   arm,smc-id:
--    $ref: /schemas/types.yaml#/definitions/uint32
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 1
-+    maxItems: 4
-     description: |
--      The ATF smc function id used by the firmware.
-+      The ATF smc function id used by the firmware, or a list of ids for
-+      firmware versions that use different ones. The ids are tried in order
-+      until the firmware accepts the init call, so only ids that are known
-+      to be this watchdog service on the platform belong in the list.
-       Defaults to 0x82003D06 if unset.
+ static int smcwd_probe(struct platform_device *pdev)
+ {
++	struct device_node *np = pdev->dev.of_node;
+ 	struct watchdog_device *wdd;
+-	int err;
++	int err, i, n;
+ 	struct arm_smccc_res res;
+ 	u32 smc_func_id;
  
- required:
+@@ -123,12 +124,17 @@ static int smcwd_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 	platform_set_drvdata(pdev, wdd);
+ 
+-	if (of_property_read_u32(pdev->dev.of_node, "arm,smc-id",
+-				 &smc_func_id))
+-		smc_func_id = 0x82003D06;
+-	watchdog_set_drvdata(wdd, (void *)(uintptr_t)smc_func_id);
++	/* The id is not discoverable: take the first one of the list the firmware accepts */
++	n = of_property_count_u32_elems(np, "arm,smc-id");
++	for (i = 0; i < max(n, 1); i++) {
++		if (of_property_read_u32_index(np, "arm,smc-id", i, &smc_func_id))
++			smc_func_id = 0x82003D06;
++		watchdog_set_drvdata(wdd, (void *)(uintptr_t)smc_func_id);
+ 
+-	err = smcwd_call(wdd, SMCWD_INIT, 0, &res);
++		err = smcwd_call(wdd, SMCWD_INIT, 0, &res);
++		if (!err)
++			break;
++	}
+ 	if (err < 0)
+ 		return err;
+ 
 -- 
 2.56.0
 
