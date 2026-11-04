@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793793367;
-	b=Leytl2P6fj8uSpu+d26yi3dsx6pW1EcISNbrO2ze4A0Amng5jB+4nqgz0YAmjRSr0fzM
-	 qzURgF/L62q7jC0+DB5gqEUZYxzrDRfPNdqV/m6NZRiD+SO2KwestHd/wvo03Yhxkjn9Z
-	 LXnWkJuAzCpx6SfZ/WaqPmej60ulorTKcs5SCFqxPD6rBUBd0VdU9nHE4KIyQYzDuoY/N
-	 OCgVaYomPfo7pGlLvWLjjFU6j5bJ79fypSqNMGGukns8VFqOpLesvCWNYumz6SiSxZDs+
-	 0Vz9HE2G3ccw8bcNuDhrBMlFW7XdmzhXhELGHMAIgaJWnKGHuLF0a1XEBfw1OSgKpQg==
+	t=1793793484;
+	b=cYCkUMGu3qOIuOjU+HpGmBNIoVWMgHWXm9J235PTKPZz6dxRWykRUX2Pp0s0g26ds7Rj
+	 R9wuDNOEum9A3FQYQkdaEN7GKils7Th8La6Mgz979yWr7SuIENDq6TOO/RjRiuUtl8hua
+	 PQtoB+Vi0F7QDap+LzRowbC7F09mNF1EGWhclpD0hsCHYxZ51KatCMF6vWypIx+RFuwL+
+	 0P9cUn/iqAAFwpVmVvgF2+YtcdKk/OFdnh6ImN3GfqUXvLxGv3172Fk3Hao+F/LSerWir
+	 99gY9LnSCyWxPcfwLhJp4AzwQ0DeZOym/NAEUYPsccEq58m+QKhSnLLQ9p7ux8wWyJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793793367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793793484;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=3Z+J6zTwOue/WyhMWlH2EQxFTfzHjqxqklWPoKUJkxE=;
-	b=KsCRnlKluZctQ9qcHWxhiyxu/uXCCIKhpZYexqJlGID27HNiD744VXIR+pwSwXqf5nWR
-	 GWMEOa7XECOzkqFLjT8ZKMD4cMXJFAaxbHrDr/sw0y62vHblB5EBMd5GyEPCSvtq8kXTI
-	 yJDkhkLNHUrAFTV5zYPq0OO2gZCHbrvR9R44XOKRYYxdDgcXUNiSwxtUq2BBSQRgAL3r/
-	 Zz/gBd/Q5QFgT/a9Ag6+5aX5Wn2+zq67UgDVaDLikTIJgYc7QsD1GzLNOVopPO3OhBIPN
-	 0jtvFFFVnqfxFXIhMjqWClWTIWTokbbnFdTKT8XThy1VqxlsZZCKylJDlsddQX4Lxpw==
+	bh=IQPe/8n3kf/tTgG8PT+0AhVGgGf6prJxujXP+35PqOA=;
+	b=l2vupKuSsL/f80mdQOR7QqBr9clXBmLjyEZpFGDVCZynDN5Onwxr/YIoC/Mw45vPo118
+	 5lE4m5aW2J0ql+npjD/wdq6T49kkxE9Mq1dEOvbxAJl2WBNwBgn9tBxJV/AUX9AzGCXFL
+	 AhsXezfOoDSongvce7kX7VYOvEern+2lbTlDjaDaL5CJYqQ+YTSSvIacOia2wOqAGix3+
+	 YXbzL1UsBtSLEUQ7725o0Qv3kR8IRNdC6SPKGSteXrP5a5RnklZo5uyG5D95tO0ikdX0s
+	 mEE86MHMF0ucF2rIDit+zw4gz7g8CIWALvNadvDAaTjyxP/oqoAevJ/KcYxKxuz4WYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZXxVFsb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9XBSkKr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24275606A326;
-	Wed,  4 Nov 2026 11:56:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67B6606A31B;
+	Wed,  4 Nov 2026 11:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZXxVFsb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03C21F000C1;
-	Wed,  4 Nov 2026 11:56:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9XBSkKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668761F000C1;
+	Wed,  4 Nov 2026 11:58:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793793367;
-	bh=3Z+J6zTwOue/WyhMWlH2EQxFTfzHjqxqklWPoKUJkxE=;
+	s=k20260515; t=1793793483;
+	bh=IQPe/8n3kf/tTgG8PT+0AhVGgGf6prJxujXP+35PqOA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NZXxVFsboZQ9i6wav6VayYf0Uj/DEK428CnCaG8eU+Xf5UvYHRU5nGsUF+iAGQwsl
-	 lB5Z50Pgks/Jz/C8Yzlx8rpIzUk/Wl2KB+jWJNXKAb8fRtRucf6xsFCgkG51NkrmJJ
-	 XBA1svZkEQimwZ7qrNTGWOL0AOyJ5gAa5tqkxtCkPQrrj7mIgnT/Xd6WBw3N2FP3Op
-	 eVCvInG4hfiKMg4OIOwiiYfUhjvPYEDPMB0iNY9oLvaJPiIFyTqO7zli78Oc4pT+WG
-	 zQjiI3vzWYGx9pXBRL/xnmHtyK1jcQEerBGxx2xRkJJ9xqKpgMJV/xCFF6t9V3QLEz
-	 VpHxTVXBzJUnA==
-Message-ID: <sashiko-outbox-197215@kernel.org>
+	b=T9XBSkKrgdMX8toBgtyyd19uIsW7eGGisbRF6nwPkqk+4UYrR3NQmHwMIiNSlxBla
+	 5s7bSf3ddcywoO6qylQKrBkLs6WGLCNTUgqsLZzXusu2gk6hMwaXBKKT9vlDJp6PQj
+	 l7HsNTLB/dcaRTUhLrOn076wLx2EUmAgDKEFzf0z3ghrYzXm+a6D34PQ+cQAc+6g5a
+	 +hMIgMrFrQGtWAvJ4K5YDo3ZvexHSF4hNyZI0aglgOm+5xPcJ/TAhBcSmRcOykYQCM
+	 l1qgwb3PoZ4dIJWXsrNtt7ydZauRENCg6ulMF/S3SsLDsyuMdn3JiZ2x/f1NXK12SX
+	 +4O/KM9UF1vJQ==
+Message-ID: <sashiko-outbox-197217@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 RESEND 2/4] ASoC: cdns: Add Cadence I2S-SC controller
- driver
+Subject: Re: [PATCH v2 3/3] arm64: dts: apple: t600x: Add PCIe pwren gpios
 Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104113342.3660269-3-joakim.zhang@cixtech.com>
-References: <20261104113342.3660269-1-joakim.zhang@cixtech.com>
- <20261104113342.3660269-3-joakim.zhang@cixtech.com>
+To: "Yureka Lilian" <yureka@cyberchaos.dev>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104-apple-pcie-pwren-v2-3-216a4066965f@cyberchaos.dev>
+References: <20261104-apple-pcie-pwren-v2-0-216a4066965f@cyberchaos.dev>
+ <20261104-apple-pcie-pwren-v2-3-216a4066965f@cyberchaos.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 11:56:06 +0000
+Date: Wed, 04 Nov 2026 11:58:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,204 +60,340 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] ASoC: cdns: unbalanced clock enable in cdns_i2s_sc_probe() and o=
-n unbind
-- [Medium] ASoC: cdns: wrong devres ordering for IRQ and PM in cdns_i2s_sc_=
-probe()
-- [Medium] ASoC: cdns: cdns_i2s_sc_set_tdm_slot() rejects slots =3D=3D 0 to=
- disable TDM
+- [High] arm64: dts: apple: t600x PCIe regulators break PCIe power on t602x=
+ boards
+- [Medium] PCI: apple: missing pwrctrl power-off and cleanup on error in ap=
+ple_pcie_init()
+- [Low] arm64: dts: apple: undocumented power-supply property on PCIe bridg=
+e nodes
+- [Low] PCI/pwrctrl: missing !CONFIG_PCI_PWRCTRL stubs for per-device pwrct=
+rl APIs
+- [Low] PCI/pwrctrl: mismatched kernel-doc parameter names in drivers/pci/p=
+wrctrl/core.c
 --
 
-commit 8608e01e4e2208a8765fd0b404456a7e98eea27f
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
+commit fc220e60fe2546bbee22affe9598f38be84ac7dc
+Author: Yureka Lilian <yureka@cyberchaos.dev>
 
-ASoC: cdns: Add Cadence I2S-SC controller driver
+arm64: dts: apple: t600x: Add PCIe pwren gpios
 
-This commit adds an ASoC driver for the Cadence I2S-SC controller found in
-the CIX SKY1 audio subsystem, supporting full-duplex stereo I2S and up to
-16-slot TDM modes with dmaengine PCM and runtime/system PM support.
+This series exports per-device PCI power control helpers, integrates them i=
+nto
+the Apple PCIe controller driver, and adds SMC GPIO-controlled fixed
+regulators for PCIe root ports on Apple T600x devicetrees.
 
-> diff --git a/sound/soc/cdns/cdns-i2s-sc.c b/sound/soc/cdns/cdns-i2s-sc.c
-> new file mode 100644
-> index 0000000000000..160a0ec573d72
-> --- /dev/null
-> +++ b/sound/soc/cdns/cdns-i2s-sc.c
+> diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/=
+boot/dts/apple/t600x-j314-j316.dtsi
+> index caded1636f3d2..4f9dccf839ad0 100644
+> --- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+> @@ -55,6 +55,20 @@ led-0 {
+>  			default-state =3D "keep";
+>  		};
+>  	};
+> +
+> +	vreg_pcie0_port0: regulator-pcie0-port0 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "pwren-pcie0-port0";
+> +		gpio =3D <&smc_gpio 13 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	vreg_pcie0_port1: regulator-pcie0-port1 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "pwren-pcie0-port1";
+> +		gpio =3D <&smc_gpio 26 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+>  };
+
+[Severity: High]
+Will adding these regulators to t600x-j314-j316.dtsi and t600x-j375.dtsi cut
+power to PCIe endpoints on T602x systems?
+
+Both files are included by the T602x board files:
+
+arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi:
+    /*
+     * These models are essentially identical to the previous generation, o=
+ther than
+     * the GPIO indices.
+     */
+
+    #include "t600x-j314-j316.dtsi"
+
+arch/arm64/boot/dts/apple/t602x-j474-j475.dtsi:
+    /*
+     * These models are very similar to the previous generation Mac Studio,=
+ other
+     * than GPIO indices.
+     */
+
+    #include "t600x-j375.dtsi"
+
+Because vreg_pcie0_port0, vreg_pcie0_port1, and vreg_pcie0_port3 do not set
+regulator-boot-on, reg_fixed_voltage_probe() requests each SMC GPIO with
+GPIOD_OUT_LOW and immediately drives the pin low via macsmc_gpio_set().
+
+However, port00 through port03 in arch/arm64/boot/dts/apple/t602x-die0.dtsi=
+ do
+not have compatible =3D "pciclass,0604":
+
+arch/arm64/boot/dts/apple/t602x-die0.dtsi:
+		port00: pci@0,0 {
+			device_type =3D "pci";
+			reg =3D <0x0 0x0 0x0 0x0 0x0>;
+			reset-gpios =3D <&pinctrl_ap 4 GPIO_ACTIVE_LOW>;
+
+As a result, pci_pwrctrl_is_required() returns false on T602x, no pwrctrl
+device binds to re-enable the regulators after reg_fixed_voltage_probe() tu=
+rns
+them off, the T602x files note that GPIO indices differ from T600x, and
+arch/arm64/boot/dts/apple/t6020-j474s.dts has an unused port01 where sdhci0=
+ is
+deleted (/delete-node/ &sdhci0;) while vreg_pcie0_port1 still claims smc_gp=
+io
+26.
 
 [ ... ]
 
-> +static int cdns_i2s_sc_set_tdm_slot(struct snd_soc_dai *cpu_dai, unsigne=
-d int tx_mask,
-> +				    unsigned int rx_mask, int slots, int slot_width)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
-i);
-> +	struct device *dev =3D i2s_sc_priv->dev;
+> @@ -176,6 +190,7 @@ &nco_clkref {
+>  /* PCIe devices */
+>  &port00 {
+>  	/* WLAN */
+> +	power-supply =3D <&vreg_pcie0_port0>;
+>  	bus-range =3D <1 1>;
+>  	wifi0: wifi@0,0 {
+>  		compatible =3D "pci14e4,4433";
+> @@ -195,6 +210,7 @@ bluetooth0: bluetooth@0,1 {
+> =20
+>  &port01 {
+>  	/* SD card reader */
+> +	power-supply =3D <&vreg_pcie0_port1>;
+>  	bus-range =3D <2 2>;
+>  	sdhci0: mmc@0,0 {
+>  		compatible =3D "pci17a0,9755";
+
+[Severity: Low]
+Should port00 and port01 here (and port00, port01, and port03 in
+arch/arm64/boot/dts/apple/t600x-j375.dtsi) use a documented PCI slot supply
+property such as vpcie3v3-supply instead of power-supply?
+
+Documentation/devicetree/bindings/pci/apple,pcie.yaml sets
+unevaluatedProperties: false and references /schemas/pci/pci-host-bridge.ya=
+ml#
+for child bridge nodes, where power-supply is not a documented property and
+causes dtbs_check warnings, whereas vpcie3v3-supply is defined by the PCI s=
+lot
+schema and consumed by pci-pwrctrl-slot via of_pci_supply_present() and
+of_regulator_bulk_get_all().
+
+[ ... ]
+
+> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller=
+/pcie-apple.c
+> index c2cffc0659f44..2d32092e2122b 100644
+> --- a/drivers/pci/controller/pcie-apple.c
+> +++ b/drivers/pci/controller/pcie-apple.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/msi.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/pci-ecam.h>
+> +#include <linux/pci-pwrctrl.h>
+> =20
+>  #include "pci-host-common.h"
+> =20
+> @@ -825,6 +826,28 @@ static int apple_pcie_init(struct pci_config_window =
+*cfg)
+>  	if (WARN_ON(!pcie))
+>  		return -ENOENT;
+> =20
+> +	// Ensure all ports can be powered on before attempting initialization
+> +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> +		ret =3D pci_pwrctrl_create_device(of_port, pcie->dev);
+> +		if (ret) {
+> +			dev_err(pcie->dev, "Failed to create pwrctrl device: %pe\n", ERR_PTR(=
+ret));
+> +			return ret;
+> +		}
 > +
-> +	dev_dbg(dev, "tx_mask =3D 0x%x, rx_mask =3D 0x%x, slots =3D %d, slot_wi=
-dth =3D %d\n",
-> +		tx_mask, rx_mask, slots, slot_width);
-> +
-> +	if (slots < 1 || slots > 16) {
-> +		dev_err(i2s_sc_priv->dev, "TDM mode supports 1 to 16 slots\n");
-> +		return -EINVAL;
+> +		ret =3D pci_pwrctrl_power_on_device(of_port);
+> +		if (ret) {
+> +			if (ret !=3D -EPROBE_DEFER) {
+> +				dev_err(pcie->dev,
+> +					"Failed to power on device: %pe\n",
+> +					ERR_PTR(ret));
+> +				for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> +					pci_pwrctrl_destroy_device(of_port);
+> +				}
+> +			}
+> +			return ret;
+> +		}
 > +	}
 > +
-> +	if (slot_width < 8 || slot_width > 32) {
-> +		dev_err(i2s_sc_priv->dev, "TDM slot width must be 8 to 32 bits\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if ((tx_mask >> slots) || (rx_mask >> slots)) {
-> +		dev_err(i2s_sc_priv->dev, "TDM slot mask has bits outside the slots\n"=
-);
-> +		return -EINVAL;
-> +	}
-> +
-> +	i2s_sc_priv->tdm_config.slots =3D slots;
-> +	i2s_sc_priv->tdm_config.slot_width =3D slot_width;
-> +	i2s_sc_priv->tdm_config.rx_mask =3D rx_mask;
-> +	i2s_sc_priv->tdm_config.tx_mask =3D tx_mask;
-> +
-> +	i2s_sc_priv->is_tdm_mode =3D true;
-> +
-> +	return 0;
-> +}
+>  	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+>  		ret =3D apple_pcie_setup_port(pcie, of_port);
+>  		if (ret) {
 
 [Severity: Medium]
-As reported by Sashiko on v4 [1], snd_soc_dai_set_tdm_slot() allows callers
-to disable TDM mode by passing slots =3D=3D 0, in which case tx_mask, rx_ma=
-sk,
-and slot_width are ignored.
+What happens to already-enabled port regulators if a subsequent port fails =
+or
+defers in apple_pcie_init()?
 
-In cdns_i2s_sc_set_tdm_slot(), checking slots < 1 rejects slots =3D=3D 0 wi=
-th
--EINVAL, and nothing ever clears i2s_sc_priv->is_tdm_mode back to false.
+Once an earlier port succeeds in pci_pwrctrl_power_on_device(), its regulat=
+or
+has been enabled via slot_pwrctrl_power_on().
 
-Should cdns_i2s_sc_set_tdm_slot() handle !slots by setting
-i2s_sc_priv->is_tdm_mode =3D false and returning 0?
+1. If a later port returns -EPROBE_DEFER from pci_pwrctrl_power_on_device(),
+   apple_pcie_init() returns without calling pci_pwrctrl_power_off_device()=
+ on
+   the ports that were already powered on. On the next probe retry,
+   pci_pwrctrl_power_on_device() will enable those regulators a second time,
+   leaking regulator enable reference counts.
 
-[ ... ]
+2. If pci_pwrctrl_power_on_device() fails with an error other than
+   -EPROBE_DEFER, apple_pcie_init() calls pci_pwrctrl_destroy_device() on a=
+ll
+   ports without calling pci_pwrctrl_power_off_device() first, which unbinds
+   the slot pwrctrl device and runs devm_slot_pwrctrl_release() ->
+   regulator_bulk_free() while the regulator is still enabled, triggering
+   WARN_ON(regulator->enable_count) in _regulator_put().
 
-> +static int cdns_i2s_sc_probe(struct platform_device *pdev)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv;
-> +	struct resource *res;
-> +	void __iomem *base;
-> +	int i, irq, ret;
+3. If pci_pwrctrl_create_device() fails on a later port or
+   apple_pcie_setup_port() fails in the second loop, the previously created
+   and powered-on pwrctrl devices are neither powered off nor destroyed.
 
-[ ... ]
+Could apple_pcie_init() use pci_pwrctrl_create_devices() and
+pci_pwrctrl_power_on_devices() (which already unwind previously powered-on =
+or
+created child nodes on error), and call pci_pwrctrl_power_off_devices() and
+pci_pwrctrl_destroy_devices() if apple_pcie_setup_port() fails?
 
-> +	pm_runtime_get_noresume(&pdev->dev);
-> +	pm_runtime_set_active(&pdev->dev);
-> +	ret =3D devm_pm_runtime_enable(&pdev->dev);
-> +	if (ret) {
-> +		pm_runtime_put_noidle(&pdev->dev);
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable runtime PM\n");
-> +	}
-> +
-> +	ret =3D cdns_i2s_sc_clks_enable(i2s_sc_priv);
-> +	if (ret) {
-> +		pm_runtime_put_noidle(&pdev->dev);
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
-> +	}
-> +
-> +	cdns_i2s_sc_rst(i2s_sc_priv);
-> +
-> +	irq =3D platform_get_irq(pdev, 0);
-> +	if (irq < 0) {
-> +		ret =3D irq;
-> +		goto err_disable_clks;
-> +	}
-> +	i2s_sc_priv->irq =3D irq;
-> +
-> +	ret =3D devm_request_irq(&pdev->dev, irq, cdns_i2s_sc_isr, 0,
-> +			       dev_name(&pdev->dev), i2s_sc_priv);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
-> +		goto err_disable_clks;
-> +	}
-
-[Severity: Medium]
-As reported by Sashiko on v4 [2], devm_pm_runtime_enable() is registered in
-cdns_i2s_sc_probe() before cdns_i2s_sc_clks_enable(), before
-i2s_sc_priv->irq is initialized, and before devm_request_irq().
-
-Because devres cleans up in reverse registration order, devm_request_irq()
-will free the IRQ before devm_pm_runtime_enable() disables runtime PM on
-unbind or probe failure. While runtime PM is still enabled after the IRQ is
-freed, can cdns_i2s_sc_runtime_suspend() or cdns_i2s_sc_runtime_resume() run
-and call disable_irq() or enable_irq() on i2s_sc_priv->irq?
-
-Similarly, if cdns_i2s_sc_clks_enable(), platform_get_irq(), or
-devm_request_irq() fails in cdns_i2s_sc_probe(), pm_runtime_put_noidle()
-drops the usage count to zero while runtime PM is still enabled and marked
-active, before devres disables runtime PM.
-
-Would it be safer to request the IRQ and enable clocks (for example via
-devm_clk_get_enabled() or a devm action) before enabling runtime PM?
-
-> +
-> +	/*
-> +	 * Let pm_runtime_put_sync() disable the clocks, and take regcache effe=
-ct.
-> +	 * If CONFIG_PM is not enabled, the clock will stay powered.
-> +	 */
-> +	pm_runtime_put_sync(&pdev->dev);
-> +
-> +	ret =3D devm_snd_soc_register_component(&pdev->dev, &cdns_i2s_sc_compon=
-ent,
-> +					      &cdns_i2s_sc_dai, 1);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to register soc componen=
-t\n");
-> +
-> +	return 0;
-> +
-> +err_disable_clks:
-> +	cdns_i2s_sc_clks_disable(i2s_sc_priv);
-> +	pm_runtime_put_noidle(&pdev->dev);
-> +	return ret;
-> +}
+> diff --git a/drivers/pci/pwrctrl/core.c b/drivers/pci/pwrctrl/core.c
+> index 0e2387cf46577..b59dbedf251bc 100644
+> --- a/drivers/pci/pwrctrl/core.c
+> +++ b/drivers/pci/pwrctrl/core.c
+> @@ -191,7 +191,16 @@ static int __pci_pwrctrl_power_off_device(struct dev=
+ice *dev)
+>  	return pwrctrl->power_off(pwrctrl);
+>  }
+> =20
+> -static void pci_pwrctrl_power_off_device(struct device_node *np)
+> +/**
+> + * pci_pwrctrl_power_off_device - Power off pwrctrl devices
+> + *
+> + * @device_node: PCI port or device to operate on
+> + *
+> + * Recursively traverse all pwrctrl devices for the devicetree hierarchy
+> + * below the specified PCI port or device and power them off in a depth
+> + * first manner.
+> + */
+> +void pci_pwrctrl_power_off_device(struct device_node *np)
 
 [ ... ]
 
-> +static struct platform_driver cdns_i2s_sc_driver =3D {
-> +	.probe =3D cdns_i2s_sc_probe,
-> +	.driver =3D {
-> +		.name =3D DRV_NAME,
-> +		.pm =3D pm_ptr(&cdns_i2s_sc_pm_ops),
-> +		.of_match_table =3D cdns_i2s_sc_of_match,
-> +	},
-> +};
+> @@ -245,11 +255,21 @@ static int __pci_pwrctrl_power_on_device(struct dev=
+ice *dev)
+>  	return pwrctrl->power_on(pwrctrl);
+>  }
+> =20
+> -/*
+> +/**
+> + * pci_pwrctrl_power_on_device - Power on pwrctrl devices
+> + *
+> + * @device_node: PCI port or device to operate on
+> + *
+>   * Power on the devices in a depth first manner. Before powering on the =
+device,
+>   * make sure its driver is bound.
+> + * Recursively traverse all pwrctrl devices for the devicetree hierarchy
+> + * below the specified PCI port or device and power them on in a depth
+> + * first manner.  Before powering on the device, make sure its driver is=
+ bound.
+> + *
+> + * Return: 0 on success, -EPROBE_DEFER if any pwrctrl driver is not boun=
+d, an
+> + * appropriate error code otherwise.
+>   */
+> -static int pci_pwrctrl_power_on_device(struct device_node *np)
+> +int pci_pwrctrl_power_on_device(struct device_node *np)
 
-[Severity: Medium]
-As reported by Sashiko on v4 [3], clk_hst and clk_i2s are acquired with
-devm_clk_get() and enabled via cdns_i2s_sc_clks_enable() in
-cdns_i2s_sc_probe(), relying on pm_runtime_put_sync() to invoke
-cdns_i2s_sc_runtime_suspend() and disable the clocks.
+[ ... ]
 
-When CONFIG_PM is disabled, or when runtime suspend is prevented (such as
-via sysfs power/control), pm_runtime_put_sync() leaves clk_hst and clk_i2s
-prepared and enabled. If devm_snd_soc_register_component() then fails, or
-when cdns_i2s_sc_driver is unbound while runtime-active or with !CONFIG_PM
-(since there is no .remove callback and devm_pm_runtime_enable() only calls
-pm_runtime_disable()), won't clk_hst and clk_i2s remain prepared and
-enabled, leaking their clock enable references?
+> @@ -335,7 +356,17 @@ int pci_pwrctrl_power_on_devices(struct device *pare=
+nt)
+>  }
+>  EXPORT_SYMBOL_GPL(pci_pwrctrl_power_on_devices);
+> =20
+> -static int pci_pwrctrl_create_device(struct device_node *np,
+> +/**
+> + * pci_pwrctrl_create_device - Create pwrctrl devices
+> + *
+> + * @device_node: PCI port or device to operate on
+> + *
+> + * Recursively create pwrctrl devices for the devicetree hierarchy below
+> + * the specified PCI port or device in a depth first manner.
+> + *
+> + * Return: 0 on success, negative error number on error.
+> + */
+> +int pci_pwrctrl_create_device(struct device_node *np,
+>  				     struct device *parent)
 
-Also, on the error paths in cdns_i2s_sc_probe() before pm_runtime_put_sync(=
-),
-should pm_runtime_set_suspended(&pdev->dev) be called to undo
-pm_runtime_set_active(&pdev->dev)?
+[ ... ]
 
-[1] https://lore.kernel.org/r/20261019122048.1107179-3-joakim.zhang@cixtech=
-.com
-[2] https://lore.kernel.org/r/20261019122048.1107179-3-joakim.zhang@cixtech=
-.com
-[3] https://lore.kernel.org/r/20261019122048.1107179-3-joakim.zhang@cixtech=
-.com
+> @@ -396,7 +428,15 @@ int pci_pwrctrl_create_devices(struct device *parent)
+>  }
+>  EXPORT_SYMBOL_GPL(pci_pwrctrl_create_devices);
+> =20
+> -static void pci_pwrctrl_destroy_device(struct device_node *np)
+> +/**
+> + * pci_pwrctrl_destroy_device - Destroy pwrctrl devices
+> + *
+> + * @device_node: PCI port or device to operate on
+> + *
+> + * Recursively destroy pwrctrl devices for the devicetree hierarchy below
+> + * the specified PCI port or device in a depth first manner.
+> + */
+> +void pci_pwrctrl_destroy_device(struct device_node *np)
+
+[Severity: Low]
+In these four kernel-doc comments in drivers/pci/pwrctrl/core.c, the parame=
+ter
+is documented as @device_node instead of @np, pci_pwrctrl_create_device() is
+missing @parent, and pci_pwrctrl_power_on_device() repeats "Before powering=
+ on
+the device, make sure its driver is bound." twice. Could these be updated to
+avoid W=3D1 kernel-doc warnings?
+
+[ ... ]
+
+> diff --git a/include/linux/pci-pwrctrl.h b/include/linux/pci-pwrctrl.h
+> index 1192a2527521d..f27be6489b50f 100644
+> --- a/include/linux/pci-pwrctrl.h
+> +++ b/include/linux/pci-pwrctrl.h
+> @@ -59,6 +59,10 @@ int pci_pwrctrl_create_devices(struct device *parent);
+>  void pci_pwrctrl_destroy_devices(struct device *parent);
+>  int pci_pwrctrl_power_on_devices(struct device *parent);
+>  void pci_pwrctrl_power_off_devices(struct device *parent);
+> +int pci_pwrctrl_create_device(struct device_node *np, struct device *par=
+ent);
+> +void pci_pwrctrl_destroy_device(struct device_node *np);
+> +int pci_pwrctrl_power_on_device(struct device_node *np);
+> +void pci_pwrctrl_power_off_device(struct device_node *np);
+>  #else
+>  static inline int pci_pwrctrl_create_devices(struct device *parent) { re=
+turn 0; }
+>  static void pci_pwrctrl_destroy_devices(struct device *parent) { }
+
+[Severity: Low]
+Should include/linux/pci-pwrctrl.h also provide static inline stubs in the
+#else (!CONFIG_PCI_PWRCTRL) branch for pci_pwrctrl_create_device(),
+pci_pwrctrl_destroy_device(), pci_pwrctrl_power_on_device(), and
+pci_pwrctrl_power_off_device(), along with a struct device_node forward
+declaration?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104113342.3660=
-269-1-joakim.zhang@cixtech.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-apple-pcie=
+-pwren-v2-0-216a4066965f@cyberchaos.dev?part=3D3
