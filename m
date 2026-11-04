@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820658;
-	b=pqYLQ8FEXHlByIvA47XHgw2H3+GMP1vY/dPJnuNlvCYrbRZBw9ZMV1BQ2CWXNHXsvTTV
-	 mp6bmMGxIonO3Hg9URfFXl7t0xZ2m+bho3MlrYe2OSp9HEVN7wIVWSp6pmtRxMUd49met
-	 fsRgca0BYKbdHZ1FgEtxH/4kjNnw1wGhRRYdVDzSWyYf8CZe8wMp4QdwZ9BnMSExgTah5
-	 q7LaaMFCEZ7qQqo8ucQ0x1QP9jJDA0X61T0V4e17Fl//5+tsSNIwHwh6B7vRcQs0ziWeK
-	 WiQQaDjS5ePlFUuadwQLu0An2ohC08VXXmnT3Ya6M0NqF44etXUM+l+6OTHkUHqi7eA==
+	t=1793820708;
+	b=cAYRqLaRtmjftpV0Vm4tv/EsbUQP04N/B1ErM7fy70Juv1sYdIE0NbWwLwVrCRYsqmSj
+	 +jRwy5W08c9vMhgMQ8hs2Jx0BmCMvKJWh/C93QPmjia9l4T0zMQNuv6ayUHjPNm8kKWOj
+	 S1RgnzZLscuHFM0lMhdbAia+LBKX51dbxDUAcrKwDiGzfXybbgkuzfFdiYNAqmUp37RdE
+	 2SCs/eqo9Efik+N06g3Bb6Af+wo0eraxpxQS7Nfd3Zd+XG3A09VB3U4+2boDGMp/EumLE
+	 Svp2Z8YuTI7k/Z8dRQ9VTKJ1Y+BBQE36XIL0NO3O4ilWQp+2x/hmyfYvNYxvxPsWN/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820658;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820708;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=LRxZ+PD0QvAQBzngCJHI2Ilyab16QmbXx/WX06J+POc=;
-	b=Zz6rJoiOcB7FqmDwUS7hg8xm+1bk1lvuP1tMVHNFbWZlxroKatvooGO3hJU+pWi0TW+g
-	 OmxY3bDS06pdlfgo/c0pg110sCY9RNV8sSUBggW1J7DKEauKhjN5BAWbGeAukUsoeUzIs
-	 GgVy4A5z6AxC3Viv40pJ+EStBPpJGC71yjR2mR5EQ6/yFAoMESESvG7nd4+IUWyg1ZEUa
-	 h5FC4SUJm0PmWpJKE0MmHcYHxb6gpkJOap/Pr/eC2eyDCqf4GQQXOkB7RcMsi4RgYnWoo
-	 x+jwTqoPp2De5QctVcJVejcHq8UUuxwlgLDpjZrMgYJ/Q9kVGGjYW5ZpLvv3Sc0VxjA==
+	bh=pu+6nJHRWzu5DmYTz5hrEJkJSz+341qHqWf4WcosOnY=;
+	b=uM74l3yVLAn1UIlmslKrwtNKDEcayGaVbU71xktZ6P4i3q6v+8H9Osp7lMVxh6IUtyqs
+	 /fyt/p3/aoD8ZCQp2Znn/55U0IjfZqrSsY0E4uuUZOiushvc51fcNBsXLWcdxWmdcmn5w
+	 SXD3nyQIJoVCVjIkBUu8FIkf3bHPiIiIfsOdU7XgoSiul7e7nu2QWsfC2mLQbmWrD7M1N
+	 E35gDSJOOEuj4wmu6XYWjCZmGHumY5btjA6DVNSQ4sk5VWhYFuAZVH8OMCwFTNSfuYWJk
+	 Y8IrpR5NllZdTHJe1mI9ENXxILzQRFgBrZA5lIJzgkQDkFLXYP+PF/JMZp2IjlHfjkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=a2TaL0cb;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=HyM6junJ;
 	arc=none smtp.remote-ip=62.149.156.56
 Received: from smtpcmd0756.aruba.it (smtpcmd0756.aruba.it [62.149.156.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B486F606C5B3
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 19:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B486F606C5B3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FCB6078737
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 19:31:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76FCB6078737
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=a2TaL0cb
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=HyM6junJ
 Received: from [192.168.1.237] ([94.34.125.0])
 	by Aruba SMTP with ESMTPSA
-	id Ogh3xxDlIuuRMOgh4xJX7j; Wed, 04 Nov 2026 20:30:46 +0100
+	id Ogh3xxDlIuuRMOgh5xJX9D; Wed, 04 Nov 2026 20:30:47 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793820646; bh=vRXnCPyQqazJMe4CaE/Snp/qunhVMLOAO1TQqfxzl9Y=;
+	t=1793820647; bh=R6vo2ZVstSoaH11TyX/V60vwdcI9Qd37oiQ9RRJwb8A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=a2TaL0cbOm+FC2KZuOaNmylR5+OH8za1Ska/8s2ARjEfqufwpL0yvQHeHTa5OEW/F
-	 +MEVW6yBCfXwTZIq1DqlHQ7YEHvvhmuY9/wp0ANNpY0XC8fRhA//7rKOgPx6NxBoNr
-	 ai06wdFJ2t/85naMx21bgClb3AyAbU76WKFIrWhejw6jiYaIPGcMPkvrYC+GdHCPvf
-	 TSLeTqK2CzUMq0ntcSquwS9KvNxvc2kDkjGitRQ0jSe9eznPiWW6i9yP0cGskXayyk
-	 btZ4M3St3y6OjCJYMw94eZX6IiEdBXqYSDd9AAyjDYypwQuHxrNAKQShmiMOfJwtU/
-	 /v7n4oFX35ESw==
+	b=HyM6junJKfjMGHqIJuH4zwfzL7C2vvaKA9fIgnaJiEIPrSTt23vpHKPuGG8Ob10/I
+	 pcVy8Nncen7UbUbk+Pl3J9qm6ETxhMMoW3PqnaWAPqrb+/24/X80KNQtRfZ2VyxMp6
+	 q3NRp90v1JfrUszqd44x/9AAPR+8bnY5NIVFSnKjtwMkuuqifp6zwbK5+WVW8Aj+bB
+	 XyBKQcjrdcVLo+WkOxCjfyvKp+n1mFfrFgfn8imy9xicL7c9sBiJT+FQ3tDC+dAqAr
+	 sa/ZdulcgcPN0e1JPnJos03fyP3Jh2jYEdReMyL7TcTOhxmdg5/UmQxyblKjjUKqFq
+	 a4fGd/ea2eFzA==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Wed, 04 Nov 2026 20:30:45 +0100
-Subject: [PATCH v4 2/5] bcma: scan: support big-endian backplanes
+Date: Wed, 04 Nov 2026 20:30:48 +0100
+Subject: [PATCH v4 5/5] MIPS: dts: bcm6362: add the integrated WLAN
+ backplane
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-bcm6362-wlan-v4-2-f001f6d75dc3@mythread.it>
+Message-Id: <20261104-bcm6362-wlan-v4-5-f001f6d75dc3@mythread.it>
 References: <20261104-bcm6362-wlan-v4-0-f001f6d75dc3@mythread.it>
 In-Reply-To: <20261104-bcm6362-wlan-v4-0-f001f6d75dc3@mythread.it>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -74,68 +75,54 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
  Alessio Ferri <alessio.ferri@mythread.it>
 X-Mailer: b4 0.14.3
-X-CMAE-Envelope: MS4xfIRwhac84wbXo9VECU0DHaAKnY1rE1DV2KeJfsIi4OYJeMrh9+umvn813y1/n5XC2FHQ4GVjf8Pj5aciqrxd9dax3j2nPWj8q4X3RBqR7cK/jBhExe3m
- QXePPBXU1w7etHk9Wcz3oKxWa5QaDRiCgiA8XKAucsxI5QI0v9Lpwv1gGdZmmeQSGkuBsYLez/R67p8m12cFXMprNa5alhVR6Oz5b6EzzFKUrSa5U8U5mSiv
- mPuEjdWZPuG62z8D2AkU4keIle9hRKxMnImCZ3xWOZgWiLI/kBriRWYIi/IaVxNLVPoqFNS/Cdz8NcDL62wPYLs6QG6Uw/MBnjO2aaALV+a59Epy5y3HUnkQ
- m/H+cwr9sa+O5Bj5QFbmmGXa6FXi1jKk9PNnakVm4aF+qEHT0BjgFwO1L+xJcNGf6HqBdFJAuoCJ7FRKY8Bnw/WA0zkhCJX19wm4N9TRLZJsd0mCrNHexu2h
- hnK+docw7bDqz5ppBlUzlI0hBf9DRlrXeE+i9klhtJgpYCCz0LxwYtqWkme4GgYhjcVJ/0UL7UnGHYqbsBELxIdkkRDdTeJpMeQnAVQgUwPHcVjXOB/c++wv
- 3NpKCUVxnGNXxIgO4GsE1LnTCy6IB2piIlPiMBVLhrBh/N5nFOWzRbVduTaRW0UGSx4BDFrYGycCi/wc+Nun3lPF9q5ye3XgZfUjtnaTwXPz9w==
+X-CMAE-Envelope: MS4xfBvkpWepbH7IU9x6gOlcj2XdseRrzIEwzb8aMq9Ie9uZi12I486TIMfZq51vhX63e5Jkoijj9q3DFpapXqB7SAE/cGbhf1JOjRdHXt1KHRrQjv4HvgX7
+ a2bhn/2Mt7wiWjSdUPCUJoFsIh0SaMOOmifuPAAnzzPnBpkMCmKv68cj7qByu8X2F7+MAqabVLBdwah15tr9nPXAnZRjBmTNhv3+Q7NYFhYmMhwkYUnuMKsl
+ iYt/pKbevs+YSC3tNq/R0Tgo1aY6Q2h47we/NOfJ5gGSitnGVZYyNhD8dNDHbN7UEe3t/onYdmSbeDZY+KBCFNWcc48pKnKBL5KXeiFQN18KgiD/OdOUgMAn
+ 30xmGiSOKg/k78firSUfV2VAyeg/UPaPMKk5/57Q51oFqZOUU5Vbiy4pxAoZIwUaFQTU4RbPC0Uy2KCJtOF7C4AkBdzd2sjPuUoRwBJwY4Vs+M/O0iVaylVY
+ MUF6kkr0sxPe+2BDqQp3PpNJ9RmSBeDjsC2zoAL8Biw5V1A8fsY6mianKpCFbItWDiZvqPb3esRnpQ52TtOzF5+Av4EPNxA0evbhG8B235dxlbYgNJ0DAImg
+ AogSxD7bUubk9Wenez8RMtlZ70BebuhviSzfHzmSnzi+bsKPf4zmDDLzUZ3hWpGVw0uVsN+5qa8hRIsxqA8UUpCkiPiIwzXQpt6ZPo4VJl/dZA==
 
-On some SoCs the bcma backplane is a big-endian peripheral, so the
-ChipCommon ID/EROM pointer registers and the EROM itself read wrong
- with readl().
-
-Add a big_endian flag to struct bcma_bus, set by the host driver
-before bcma_init_bus(), and use ioread32be() for scan-time accesses
-when it is set. Core register accesses after the scan already go
-through the host ops, which the host driver provides with the right
-endianness.
-
-Nothing changes for other devices.
+Describe the bcma backplane of the integrated WLAN macro,
+with its clock, resets, power domain and the interrupt of the 802.11
+core. It is default disabled, boards having the WLAN need to
+enable it.
 
 Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/scan.c       | 4 +++-
- include/linux/bcma/bcma.h | 3 +++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ arch/mips/boot/dts/brcm/bcm6362.dtsi | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/bcma/scan.c b/drivers/bcma/scan.c
-index 84742408a59c..983a62ddeebb 100644
---- a/drivers/bcma/scan.c
-+++ b/drivers/bcma/scan.c
-@@ -143,6 +143,8 @@ static const char *bcma_device_name(const struct bcma_device_id *id)
+diff --git a/arch/mips/boot/dts/brcm/bcm6362.dtsi b/arch/mips/boot/dts/brcm/bcm6362.dtsi
+index d74021925c53..c6de39588840 100644
+--- a/arch/mips/boot/dts/brcm/bcm6362.dtsi
++++ b/arch/mips/boot/dts/brcm/bcm6362.dtsi
+@@ -261,5 +261,25 @@ usbh: usb-phy@10002700 {
  
- static u32 bcma_scan_read32(struct bcma_bus *bus, u16 offset)
- {
-+	if (bus->big_endian)
-+		return ioread32be(bus->mmio + offset);
- 	return readl(bus->mmio + offset);
- }
- 
-@@ -155,7 +157,7 @@ static void bcma_scan_switch_core(struct bcma_bus *bus, u32 addr)
- 
- static u32 bcma_erom_get_ent(struct bcma_bus *bus, u32 __iomem **eromptr)
- {
--	u32 ent = readl(*eromptr);
-+	u32 ent = bus->big_endian ? ioread32be(*eromptr) : readl(*eromptr);
- 	(*eromptr)++;
- 	return ent;
- }
-diff --git a/include/linux/bcma/bcma.h b/include/linux/bcma/bcma.h
-index 17fc50190014..7ab2b21e7238 100644
---- a/include/linux/bcma/bcma.h
-+++ b/include/linux/bcma/bcma.h
-@@ -362,6 +362,9 @@ struct bcma_bus {
- 	/* We decided to share SPROM struct with SSB as long as we do not need
- 	 * any hacks for BCMA. This simplifies drivers code. */
- 	struct ssb_sprom sprom;
+ 			status = "disabled";
+ 		};
 +
-+	/* Backplane registers, EROM included, are big-endian */
-+	bool big_endian;
++		wlan: bus@10004000 {
++			compatible = "brcm,bcm6362-wlan-bus-axi";
++			reg = <0x10004000 0x1000>,
++			      <0x10007000 0x100>;
++			reg-names = "chipcommon", "wlan-ctrl";
++
++			#address-cells = <1>;
++			clocks = <&periph_clk BCM6362_CLK_WLAN_OCP>;
++			#interrupt-cells = <1>;
++			interrupt-map = <0x00005000 0 &periph_intc 7>;
++			interrupt-map-mask = <0x000fffff 0xffff>;
++			power-domains =
++				<&periph_pwr BCM6362_POWER_DOMAIN_WLAN_PADS>;
++			resets = <&periph_rst BCM6362_RST_WLAN_SHIM>,
++				 <&periph_rst BCM6362_RST_WLAN_UBUS>;
++			reset-names = "wlan", "wlan-ubus";
++
++			status = "disabled";
++		};
+ 	};
  };
- 
- static inline u32 bcma_read8(struct bcma_device *core, u16 offset)
 
 -- 
 2.56.0
