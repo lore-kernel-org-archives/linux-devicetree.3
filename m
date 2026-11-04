@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806046;
-	b=4N1OlUfHus/v0j278Vl4VEsMg6ZLTPPVq7cVEsDsIKnnjl3dYdr6izLJmpcWIMrXip9b
-	 xflXpG/xLgQRM3RYSuxIGhA9Sy/FtBNPbPg2X4Q+BLfYF08KY1/Drjjfkj0YBSXxwq/SV
-	 Z/z2ikdcg1gETYlOCHCV8neeNdkPeUKmvEIgHZRQH95KdzTqkL3el3QuzkJqL/CeVKCyb
-	 ngJkGcwjsduZ/UnUsEgJK4C3WnXtCQcbcMnK9VK/TDVtA1twhi0UEWtoVZYXLbmdHIRqg
-	 lDr4SQOe4RJ8KzWLg/se+7lrc97X3PCzL91uDEj668vctyh8SDyuL5G/BzHPhcBSTxQ==
+	t=1793806047;
+	b=kcEIxtO5l8jWYo7cVmmDdAkc+HyfZPHcI9fEojV2n0HP19maBGvyF4WEC+DqlBr9JNG+
+	 Wjqop0RjCihOvHKgz3OCE7+o5ob2k45X1a2AK0nzBscKiTG9nE6Rz+N8N2tj9JCv00C/1
+	 QNr8vu6CP+mbyloEu1WjI1gG4XDCVoxXZDhOaVk8ibyKeCzTUfB+sMzFwHdWeJTTMnRSs
+	 nx0c1FRXnMw7cO3eDxJYsXkU/8+djAd677AitH1vENPVEmgcVjZfrq05GloKDgEXtzO9E
+	 Qg4RDQy+7/U1haHBPa7j96l4jtHDJW+xm9lPge2dgr+avgUaNRxsfRtoRoz5MtyKvKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806046;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806047;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sb8csLTb54AiSajPEMKOf5a4QjgIr+ASzkGpD5GyLyY=;
-	b=xS0vIWBqhTRNHfHGx6ITGgvRvBu9mWtp6ItLXDraDA/XwydYGkVL5nQZZujf90sbjYQy
-	 LfN4ZY8QxX21CBrhDF63nbOx53EDR0Cqt9+8uYWyi7dDUg8ObQX7H6KVg8GA9yTQJHko9
-	 BBPHzi1+RsYUuifhUsXwLzjjambvDMAJY3xV1UPMnbYFG2CAoQ1dgNVOAonj9TGoXhgRM
-	 gx3tWVTHwSrkifRsWIXB05aCT2RFfsfz5aW/ncRZwyvWl/4VxeA1cN9TTIAc87n4DUvHi
-	 maYyc14JDPTK54rjij6tMulAAgbK/3qxaJR3YzcpftG6rPj1Qkp95SUavGl8W3jrd3w==
+	bh=Ux6OxlGrhrdw3ZXA1Gnjmo5HO2HQkPqq4M1z1Nbcc0M=;
+	b=jpuVUiK4rnrl9OjocUPb1GJ97S++VcBbMyFyvcUyVVvGwx42ndKAPvNhHoyH4O2hcqQC
+	 DS1sDKlaXtetvm+/hwOXAaLdwcGWTnPbcXa0Z9xdpWQ9xuKirsQYzWkA4pwAh3CNPno5q
+	 zftX7FqDFP2m9XGyTsBy1wVDBH5gdrV612uRww9JfHEt4gTBIg6yR9SgrAKRn9vLSb14t
+	 At99bLLo+/ayr4hAN/Z2rSjYcoNwSSIyXtCIlISmQfpOZ/VSVDOMBSc8SnKAU0beLzNzc
+	 YR2frKc2QaaLwxTdS5exwN9xsyBmSL+HjGfhOFE+iT8lD/Qtou/Y+7Jr8emk6Myh+6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=mtUGKV5l;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=F1ZTjfF0;
 	arc=none smtp.remote-ip=185.67.36.66
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60891606A33C
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60891606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A349B606A32D
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A349B606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=mtUGKV5l
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=F1ZTjfF0
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id BEE1A240107
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:27:23 +0100 (CET)
+	by mout02.posteo.de (Postfix) with ESMTPS id 28A10240103
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:27:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793806043;
-	bh=sb8csLTb54AiSajPEMKOf5a4QjgIr+ASzkGpD5GyLyY=;
+	s=1984.8680eb; t=1793806045;
+	bh=Ux6OxlGrhrdw3ZXA1Gnjmo5HO2HQkPqq4M1z1Nbcc0M=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=mtUGKV5l1vWz9FL79nOJ8L+ZokY4TmBmRbi54B5F0a90FICXMu/9STlt1efOKhsut
-	 iaEfmAjE7lhe8wGfZe6vWGWAAk5MmqMA6hsvb+zKVCRH8d63NLaD/QVLq6GL4J7dRK
-	 IEwlFHspBrnqgxHuqTWmlDaNGzz6l4xcX5lOikgawRQn8b7JE2++TUh7N3PcQfI7Zk
-	 tjmMZgQ3n5oKLyu0o0VjUcdakioOAQyZrUnYX3y/B1qeXBRpAvzIj0dih1T6slt6oe
-	 nGjzlbKWaaAKdV1Qf8UBC/P8fh31wpAhcVf4Z6IE6Ct9t5SaaLuIlfEUawi7iNL3nw
-	 Ap0EVBcfqSSPw==
+	b=F1ZTjfF0Qv23wFDY+WzM++6mKq+twJgK7DGdhWY91iOsL8kzEt7usdI6NNHy9TEEg
+	 OKcFSMFHRZ60wLbsrMxMct4gSHWJNnsOoxS3vcYbLC48jqy5EV54dLtwvkQQqH5dpe
+	 gzqPf6K3u2SsYQlwJyyX9XNkh+jaWv8FY7Q73ldj+b+R1mU/c/vM1cMgINww6e4QD0
+	 cxtekUtm8UNUKAnB8zH74HATlGeBOTZ/yYZyzmREXSmFAPRlvIuRLHyKd1sbiHfbky
+	 RhiM8sQWrlI/IMcJBED2l7C0GvKel6K2QHR+yAr2b0+hEDdfSIYk5up+fLHpr5HrAo
+	 HozVgvi6ORmvA==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKTp14Xr9z9rxN;
-	Wed,  4 Nov 2026 16:27:21 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jKTp30yDcz9rxM;
+	Wed,  4 Nov 2026 16:27:23 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Ulf Hansson <ulfh@kernel.org>,
 	linux-mmc@vger.kernel.org
@@ -67,9 +67,9 @@ Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/5] arm64: dts: st: use sdmmc2 pins_a on stm32mp257f-dk
-Date: Wed, 04 Nov 2026 15:27:23 +0000
-Message-ID: <20261104152657.14909-5-mateusz.nowicki@posteo.net>
+Subject: [PATCH v2 5/5] arm64: dts: st: remove sdmmc2 pins_b from stm32mp25
+Date: Wed, 04 Nov 2026 15:27:24 +0000
+Message-ID: <20261104152657.14909-6-mateusz.nowicki@posteo.net>
 In-Reply-To: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 References: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: devicetree@vger.kernel.org
@@ -83,44 +83,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The eMMC of the STM32MP257F-DK was moved to the faster sdmmc2 pins_b
-groups because HS200 at 100 MHz returned corrupted data with pins_a. The
-cause was the delay block, which was used at 100 MHz, not the slew rate
-of the pins. With "mmc: mmci: stm32: use the delay block above 100 MHz
-on stm32mp25 SoC" HS200 works with pins_a at 100 MHz, and at 150 MHz
-with the delay block.
+The sdmmc2 pins_b groups were only added for the eMMC of the
+STM32MP257F-DK, which uses pins_a again. Nothing else references them,
+remove them.
 
-Use pins_a again. Their slower outputs avoid overshoots on the SDMMC2
-clock, which can disturb other blocks such as USB.
-
-Fixes: 94911ce62b45 ("arm64: dts: st: enable eMMC on stm32mp257f-dk")
 Suggested-by: Christophe Kerello <christophe.kerello@foss.st.com>
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 58 -------------------
+ 1 file changed, 58 deletions(-)
 
-Notes:
-    This needs patch 3 of the series: without it HS200 at 100 MHz loses writes
-    with pins_a. With it, the eMMC of the DK passed every 832 MiB write and
-    read-back run on pins_a at 100 MHz and at 150 MHz (see the cover letter).
-
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-index a8f18508db3e..3776bf915160 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-@@ -357,8 +357,8 @@ &sdmmc1 {
+diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+index 56c2c99a05d4..75d08fe33ec5 100644
+--- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+@@ -757,51 +757,6 @@ pins3 {
+ 		};
+ 	};
  
- &sdmmc2 {
- 	pinctrl-names = "default", "opendrain", "sleep";
--	pinctrl-0 = <&sdmmc2_b4_pins_b &sdmmc2_d47_pins_b>;
--	pinctrl-1 = <&sdmmc2_b4_od_pins_b &sdmmc2_d47_pins_b>;
-+	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
- 	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
- 	non-removable;
- 	no-sd;
+-	/omit-if-no-ref/
+-	sdmmc2_b4_pins_b: sdmmc2-b4-1 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('E', 13, AF12)>, /* SDMMC2_D0 */
+-				 <STM32_PINMUX('E', 11, AF12)>, /* SDMMC2_D1 */
+-				 <STM32_PINMUX('E', 8, AF12)>, /* SDMMC2_D2 */
+-				 <STM32_PINMUX('E', 12, AF12)>, /* SDMMC2_D3 */
+-				 <STM32_PINMUX('E', 15, AF12)>; /* SDMMC2_CMD */
+-			slew-rate = <2>;
+-			drive-push-pull;
+-			bias-pull-up;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('E', 14, AF12)>; /* SDMMC2_CK */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-disable;
+-		};
+-	};
+-
+-	/omit-if-no-ref/
+-	sdmmc2_b4_od_pins_b: sdmmc2-b4-od-1 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('E', 13, AF12)>, /* SDMMC2_D0 */
+-				 <STM32_PINMUX('E', 11, AF12)>, /* SDMMC2_D1 */
+-				 <STM32_PINMUX('E', 8, AF12)>, /* SDMMC2_D2 */
+-				 <STM32_PINMUX('E', 12, AF12)>; /* SDMMC2_D3 */
+-			slew-rate = <2>;
+-			drive-push-pull;
+-			bias-pull-up;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('E', 14, AF12)>; /* SDMMC2_CK */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-disable;
+-		};
+-		pins3 {
+-			pinmux = <STM32_PINMUX('E', 15, AF12)>; /* SDMMC2_CMD */
+-			slew-rate = <2>;
+-			drive-open-drain;
+-			bias-pull-up;
+-		};
+-	};
+-
+ 	/omit-if-no-ref/
+ 	sdmmc2_d47_pins_a: sdmmc2-d47-0 {
+ 		pins {
+@@ -914,19 +869,6 @@ pins {
+ 		};
+ 	};
+ 
+-	/omit-if-no-ref/
+-	sdmmc2_d47_pins_b: sdmmc2-d47-1 {
+-		pins {
+-			pinmux = <STM32_PINMUX('E', 10, AF12)>, /* SDMMC2_D4 */
+-				 <STM32_PINMUX('E', 9, AF12)>, /* SDMMC2_D5 */
+-				 <STM32_PINMUX('E', 6, AF12)>, /* SDMMC2_D6 */
+-				 <STM32_PINMUX('E', 7, AF12)>; /* SDMMC2_D7 */
+-			slew-rate = <2>;
+-			drive-push-pull;
+-			bias-pull-up;
+-		};
+-	};
+-
+ 	/omit-if-no-ref/
+ 	spi1_pins_a: spi1-0 {
+ 		pins1 {
 -- 
 2.56.0
 
