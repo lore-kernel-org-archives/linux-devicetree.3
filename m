@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793763721;
-	b=Lw0jWf1Ozuqr3YcYqlr5Sh1Ufs208f/NVEIw5h8N3Co96/GIooAxawVHErBwzjW8Gg3s
-	 xRP8AzUvCc3n5boE4f1C9wO5GUL5xI3sRK2nfLUQPv61gJETIdRrmNHTJem4Hy1+yh4Ez
-	 lU4wZ+G7BxOmbns/ON1oNkb+6EWbDI5s4/NqnIrPQpMo/oIMDaIuS8uXlT73coy8mBdVP
-	 /i/EZ/q/tZKZ+nh8mqCZ6zxZX5ZBUR7438R4+aUGHgfaJTZKXY22rwEkAhgRYOr81gczg
-	 4nEb2xvXzmZFyW67HAvoc63E+UBPuUk6nsuDNLKj9DvcTASab0B5pp+7dk08W1U0HWQ==
+	t=1793763850;
+	b=k9jTwS0fnraGhfgipNQXzEUwm1J8QEggDjNzrsw4dgxxT2CPJAtYcOU/SBDdMEe6S0Gg
+	 4GTTKlco5XJj/tbdsJ7+MOd1dHCFu7BrzAy9NT/Egu9tbQvrxVFFStrrQ211iV/OHs+hL
+	 MCz61ZckgW8HwMxsxyFmLyogz/mAMpJgBGdkHFS0AF+P3PiRWskomPoqiDv3UXo3rCzbS
+	 gkuFFOyQiNNIG8Wbe5oLUrewhDRclZ9CAREJE4E88qjqAV2tn1VzUE/0Vifo8hlUMkqUl
+	 F0wlIxHk4JOIjVRIe/H8EJdUfEynC2nON2LcUlCltSjRKm9+oIELA3r38aPi0RsMKxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763721;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763850;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=MpQSlEuCqgSpTiaTvFc80QC3rvg/qymfbvDiFyQwvSA=;
-	b=TXMximByxUGPe9F+cL61KDtbdhiz6Hf6kVTWpWWDOb/WHkdttwkwOJ/fBzIZKBBIQc+5
-	 sjR7pTpZzibJ0Hy90EqwuKrIox22A2acARAPprlthJ0iw1k8ANdEtlespIAz1xaATNzKh
-	 QBvM92O4bdRfUsF7OmkfmcJic/2MPs8NMEzt6GjVrXNTB4E1cVu1JZwKqfn/AC0o17h3R
-	 A+gk4pFSgx1/oKmiNaYO7o3jektklZKXPWL46+JYje54mWsSZNfIutaqQV+LCmkUH3zEM
-	 lHNGt1cs+MOKwMf44DYTGAXpv9t6SptMoIUql9JEArYfVzW+EAu4zhyuZNtheEmh9jg==
+	bh=fcaxj8UGs+YEMMEKn3vFhIj6c3YALyunoCEOO3lNzvU=;
+	b=XcWG7AAXrSALKILeiXTW1MYgEjV3kiPMsxj1bQWmRfU6QHCSlfc9S9Fzmg6HhmWOhXUR
+	 Z7p5qGkQTLLBdWZQPEU2Hv0VijZYoKuGg/eHu8qaMnnZL6nw6EW6NPaLq7OsXN0k80ThV
+	 Bk660kdz26T0pYcGdBiZYuUBlwMvROuQ44QFg7taM52yqSvGEyRBRmF0PUbHanYvg7Ab2
+	 OzJ3XPEB1vOuUsFqUcuuRHnlERx15ibIuPd5UFko12QCbYH+EENMRixHAFsfnyDLRUvHU
+	 z+6sq24DTyZjF+0jVih8JTeWfY0/YJ+9sHuAPtJ9UlTptNT0cmoRYLtPAXqyli308UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deWgzyni;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3uFwb60;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBED2606A328
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 03:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8386B606A31B;
+	Wed,  4 Nov 2026 03:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deWgzyni
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71AA91F00A02;
-	Wed,  4 Nov 2026 03:42:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3uFwb60
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5831F000C1;
+	Wed,  4 Nov 2026 03:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793763720;
-	bh=MpQSlEuCqgSpTiaTvFc80QC3rvg/qymfbvDiFyQwvSA=;
+	s=k20260515; t=1793763850;
+	bh=fcaxj8UGs+YEMMEKn3vFhIj6c3YALyunoCEOO3lNzvU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=deWgzyniJw4NGOqnOyg3w5CnqL5KsQbnx7KhhnvzSO1pwLgy75D69rhx25M8R/KD7
-	 xjItBFcsSF3utlzJ50f8wpQSyLyvMF+bN5iyRgaaJeAzes1cU42r0ZyWCEHLXa91/h
-	 SDScUQ7NmvYHaUoyVJmMNiADM8rg/pwBYvEYzgjqoqmeWx7aM2sO/5JxmMt3T50JM5
-	 0oHfPN2vOGVk3WD4sRE5/BPX/FBFGXi/wnxC3gJ11SMTEB2vSegEqZSB1gNhJqV9z+
-	 TLYTr5zA75PlTgojgXtl/Sbjcd+yM01hwnmyY0l9+ohWAq1vS+Fyd54lEIj7jAtxH2
-	 TrRSKsve23PDQ==
-Message-ID: <sashiko-outbox-196621@kernel.org>
+	b=Y3uFwb60yMFu7qMk9xCeUsKM5nrfnNX5AXNdoRWhQ1P6zBwUuuSQZfQUapbY95Yec
+	 iE0Si94N9h4adQi5X9LqhB8DyKxnQ12nEuELkvbW5WFbNBm3kbr0SphnoXkuvhnVGV
+	 YpdBZ+Hi6+Re7pRhVu0fbKIThl0Bh5q+Pu9e3NQgZAySj8qa8g/I8xREQSNnP4GtpU
+	 Kj7QvNaNFbCBpNuBIHTyClyYFic7cu/OsnMzPg9vS9kJa6K/1jH43HvtyeyvKxGZ1D
+	 cUGLJocMIkqYYwqpENc7QGDvEDzZ1LFH1IiQKk4OtNR0GxAy+kzM+M0iZVNCgWqaGv
+	 OCAj6DXnA6YwQ==
+Message-ID: <sashiko-outbox-196628@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/5] arm64: dts: qcom: sm8750-lenovo-elden: describe
- the WL2868C regulators
+Subject: Re: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS
+ data bus
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104032648.209747-6-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261104032648.209747-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261104032648.209747-6-xiaqinghuan@mail.ustc.edu.cn>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261104032706.210042-4-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261104032706.210042-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261104032706.210042-4-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 03:42:00 +0000
+Date: Wed, 04 Nov 2026 03:44:09 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,107 +61,225 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: qcom: sm8750-lenovo-elden: incomplete WL2868C suppli=
-es on stub DT
+- [High] usb: dwc3: race and reversed teardown order in dwc3_role_mux_init()
+- [High] usb: dwc3: torn port and role state in dwc3_mux_role_set()
 --
 
-commit 0758c044c3db5c70cf435a167f553582f960cdb2
+commit cac2c305bab06e293cb082a796ad2c865c932a9d
 Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-arm64: dts: qcom: sm8750-lenovo-elden: describe the WL2868C regulators
+usb: dwc3: support two connectors sharing one HS data bus
 
-This commit enables gpi_dma2, qupv3_2, and i2c10 on the Lenovo Legion Y700
-Gen4 devicetree and adds the WL2868C camera PMIC node along with its LDO
-regulators and a fixed VSYS supply.
+This commit adds support for DWC3 controllers where two USB connectors share
+a single High Speed data bus via a GPIO-controlled mux while using separate
+Super Speed PHYs. It registers a usb_role_switch per connector endpoint and
+arbitrates role requests and GPIO port selection between the two ports.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm6=
-4/boot/dts/qcom/sm8750-lenovo-elden.dts
-> index 821950715c8e4..73f4452f46120 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
-> @@ -5,6 +5,7 @@
-> =20
->  /dts-v1/;
-> =20
-> +#include <dt-bindings/gpio/gpio.h>
->  #include "sm8750.dtsi"
-> =20
->  / {
-> @@ -43,8 +44,86 @@ bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
->  			clock-div =3D <2>;
->  		};
->  	};
+> diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
+> index f3e37d383627a..53106bed3eb95 100644
+> --- a/drivers/usb/dwc3/drd.c
+> +++ b/drivers/usb/dwc3/drd.c
+
+[ ... ]
+
+> @@ -501,10 +502,254 @@ static enum usb_role dwc3_usb_role_switch_get(stru=
+ct usb_role_switch *sw)
+
+[ ... ]
+
+> +static int dwc3_mux_role_set(struct usb_role_switch *sw, enum usb_role r=
+ole)
+> +{
+> +	struct dwc3_role_port *port =3D usb_role_switch_get_drvdata(sw);
+> +	struct dwc3 *dwc =3D port->dwc;
+> +	struct dwc3_role_mux *mux =3D dwc->role_mux;
+> +	unsigned long flags;
+> +	enum usb_role selected_role;
+> +	int selected;
+> +
+> +	if (role > USB_ROLE_DEVICE)
+> +		return -EINVAL;
 > +
 > +	/*
-> +	 * VSYS of the camera PMIC is the always-on system rail of the tablet.
-> +	 * The SPMI PMICs that generate it are not described yet, so it is
-> +	 * modelled as a fixed regulator without a voltage constraint.
+> +	 * The request order and the mode request it implies are decided under =
+one
+> +	 * lock, so a second connector cannot change desired_port between the
+> +	 * selection and the dwc3_set_mode() call that consumes it.
 > +	 */
-> +	wl2868c_vsys: regulator-vsys {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "wl2868c_vsys";
-> +		regulator-always-on;
-> +	};
-> +};
+> +	mutex_lock(&mux->lock);
+> +	spin_lock_irqsave(&dwc->lock, flags);
+> +	/*
+> +	 * A role change between two non-NONE roles of the same connector must =
+not
+> +	 * give that connector a new request ticket: it would otherwise steal t=
+he
+> +	 * data path from the connector that asked first.
+> +	 */
+> +	if (port->role =3D=3D USB_ROLE_NONE && role !=3D USB_ROLE_NONE)
+> +		port->seq =3D ++mux->seq;
+> +	port->role =3D role;
+> +	selected =3D dwc3_role_mux_pick(mux);
+> +	mux->desired_port =3D selected;
+> +	selected_role =3D mux->ports[selected].role;
+> +	spin_unlock_irqrestore(&dwc->lock, flags);
 > +
-> +&gpi_dma2 {
-> +	status =3D "okay";
-> +};
+> +	/*
+> +	 * Notify the glue layer before touching the controller, in the same or=
+der
+> +	 * as the single-connector path.  It may sleep (the Qualcomm glue calls
+> +	 * pm_runtime_resume_and_get()), so it runs outside of dwc->lock -
+> +	 * dwc3_set_mode() takes that lock itself and a recursive take deadlocks
+> +	 * the controller on the very first role change.
+> +	 *
+> +	 * Pairing with the selection above is provided by mux->lock: a second
+> +	 * connector blocks in mutex_lock() until this request has been issued.
+> +	 *
+> +	 * Same asynchronous semantics as the single-connector role switch: the
+> +	 * data path and the controller are reprogrammed from __dwc3_set_mode().
+> +	 */
+> +	dwc3_pre_set_role(dwc, selected_role);
+> +	dwc3_set_mode(dwc, dwc3_role_mux_mode(dwc, selected_role));
+
+[Severity: High]
+Can __dwc3_set_mode() observe a torn update between mux->desired_port and
+dwc->desired_dr_role here?
+
+In dwc3_mux_role_set(), mux->desired_port is updated under dwc->lock, and
+then dwc->lock is dropped across dwc3_pre_set_role() (which may sleep) befo=
+re
+dwc3_set_mode() re-acquires dwc->lock to update dwc->desired_dr_role.
+
+Meanwhile, __dwc3_set_mode() in drivers/usb/dwc3/core.c does not acquire
+mux->lock when snapshotting those two fields:
+
+	mutex_lock(&dwc->mutex);
+	spin_lock_irqsave(&dwc->lock, flags);
+	desired_dr_role =3D dwc->desired_dr_role;
+	if (mux)
+		mux_port =3D mux->desired_port;
+	spin_unlock_irqrestore(&dwc->lock, flags);
+
+If dwc->drd_work is already pending on system_freezable_wq from an earlier
+dwc3_set_mode() call and starts executing __dwc3_set_mode() while
+dwc3_mux_role_set() is sleeping in dwc3_pre_set_role(), wouldn't
+__dwc3_set_mode() read the new mux->desired_port paired with the previous
+dwc->desired_dr_role, switching the port-select GPIO to the new connector
+while initializing the controller in the old role before dwc3_pre_set_role()
+has completed?
+
 > +
-> +&qupv3_2 {
-> +	status =3D "okay";
-> +};
+> +	mutex_unlock(&mux->lock);
 > +
-> +&i2c10 {
-> +	status =3D "okay";
+> +	/*
+> +	 * A data-path switch failure is reported through the console and count=
+ed
+> +	 * per connector; it is not returned here.  This call has already updat=
+ed
+> +	 * the request state, so a stale error from another connector must not =
+be
+> +	 * reported as the result of this (successful) request.
+> +	 */
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static void dwc3_role_mux_exit(struct dwc3 *dwc)
+> +{
+> +	struct dwc3_role_mux *mux =3D dwc->role_mux;
+> +	unsigned int i;
 > +
-> +	pmic@2f {
-> +		compatible =3D "willsemi,wl2868c";
-> +		reg =3D <0x2f>;
-> +		reset-gpios =3D <&tlmm 126 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&camera_pmic_default>;
-> +		vsys-supply =3D <&wl2868c_vsys>;
+> +	if (!mux)
+> +		return;
 > +
-> +		regulators {
-> +			/* Voltages include the offsets programmed by stock firmware. */
-> +			camera_ldo1: ldo1 {
-> +				regulator-name =3D "camera_ldo1";
-> +				regulator-min-microvolt =3D <1128000>;
-> +				regulator-max-microvolt =3D <1128000>;
-> +			};
+> +	for (i =3D 0; i < ARRAY_SIZE(mux->ports); i++) {
+> +		if (mux->ports[i].sw)
+> +			usb_role_switch_unregister(mux->ports[i].sw);
+> +		mux->ports[i].sw =3D NULL;
+> +		fwnode_handle_put(mux->ports[i].fwnode);
+> +		mux->ports[i].fwnode =3D NULL;
+> +	}
+> +}
+> +
+> +/* Returns 1 when the optional two-connector mux has been set up. */
+> +static int dwc3_role_mux_init(struct dwc3 *dwc, u32 mode)
+> +{
 
-[Severity: Medium]
-As reported by Konrad Dybcio on v5 [1], does adding the pmic@2f node to
-sm8750-lenovo-elden.dts before the board SPMI PMICs, RPMh regulators, and
-camera consumers are present provide a complete or usable hardware
-description beyond what the DT binding example in
-Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml already
-covers?
+[ ... ]
 
-In drivers/regulator/wl2868c-regulator.c, wl2868c_regulators[] defines
-supply_name as "vin12" for ldo1 and ldo2, "vin34" for ldo3 and ldo4, "vin5"
-for ldo5, and "vin7" for ldo7. When wl2868c_probe() registers each regulator
-via devm_regulator_register(), the regulator core resolves those parent inp=
-ut
-supplies on pmic@2f.
+> +	mutex_lock(&mux->lock);
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(mux->ports); i++) {
+> +		snprintf(name, sizeof(name), "%s-port%u", dev_name(dwc->dev), i);
+> +		desc.name =3D name;
+> +		desc.fwnode =3D mux->ports[i].fwnode;
+> +		desc.set =3D dwc3_mux_role_set;
+> +		desc.get =3D dwc3_mux_role_get;
+> +		desc.driver_data =3D &mux->ports[i];
+> +		mux->ports[i].sw =3D usb_role_switch_register(dwc->dev, &desc);
+> +		if (IS_ERR(mux->ports[i].sw)) {
+> +			ret =3D PTR_ERR(mux->ports[i].sw);
+> +			mux->ports[i].sw =3D NULL;
+> +			mutex_unlock(&mux->lock);
+> +			goto err;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * The controller is only started in its default role once both switches
+> +	 * are registered: before that a connector driver cannot request a role,
+> +	 * so nothing can race with this initial mode request.
+> +	 */
+> +	dwc3_set_mode(dwc, mode);
+> +
+> +	mutex_unlock(&mux->lock);
+> +
+> +	return 1;
+> +
+> +err:
+> +	/* A mode request queued before the failure must not run on freed state=
+. */
+> +	cancel_work_sync(&dwc->drd_work);
+> +	dwc3_role_mux_exit(dwc);
+> +	dwc->role_mux =3D NULL;
+> +	return ret;
 
-Because sm8750-lenovo-elden.dts does not yet describe the SPMI PMICs or RPMh
-regulators (nor the basic board infrastructure to boot), pmic@2f omits
-vin12-supply, vin34-supply, vin5-supply, and vin7-supply and only provides a
-placeholder regulator-fixed wl2868c_vsys node without voltage constraints,
-causing all six registered LDOs to fall back to dummy parent supplies with =
-no
-consumers attached.
+[Severity: High]
+What happens if usb_role_switch_register() succeeds for port 0 and fails for
+port 1 in dwc3_role_mux_init()?
 
-Would it be better to introduce this node together with the board PMICs and
-camera consumers once the parent supplies can be properly wired up?
+Once mux->ports[0].sw is registered, port 0's connector driver can immediat=
+ely
+look it up and call usb_role_switch_set_role() -> dwc3_mux_role_set(). While
+dwc3_role_mux_init() holds mux->lock, that call blocks on
+mutex_lock(&mux->lock).
 
-[1] https://lore.kernel.org/r/dddc808a-6407-4db1-aa72-0ebe5652f97c@oss.qual=
-comm.com
+When registration of port 1 fails, dwc3_role_mux_init() unlocks mux->lock
+while mux->ports[0].sw is still registered, and at the err label calls
+cancel_work_sync(&dwc->drd_work) before dwc3_role_mux_exit(dwc) unregisters
+mux->ports[0].sw.
+
+Doesn't that allow a blocked or concurrent dwc3_mux_role_set() on port 0 to:
+
+1. Queue dwc->drd_work via dwc3_set_mode() after cancel_work_sync() has
+already returned, leaving __dwc3_set_mode() queued or running on devm-manag=
+ed
+struct dwc3 and struct dwc3_role_mux after probe fails and frees them?
+
+2. Enter dwc3_mux_role_set() just before usb_role_switch_unregister() in
+dwc3_role_mux_exit() (which does not synchronize with mux->lock) and read
+dwc->role_mux after err sets dwc->role_mux =3D NULL, dereferencing a NULL m=
+ux
+pointer in mutex_lock(&mux->lock)?
+
+3. Run __dwc3_set_mode() before cancel_work_sync() finishes and initialize
+host or gadget mode (dwc3_host_init() / dwc3_gadget_init()), which is never
+cleaned up because dwc3_core_probe() -> dwc3_core_init_mode() jumps to
+err_exit_debugfs on failure without calling dwc3_core_exit_mode() or
+dwc3_drd_exit()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104032648.2097=
-47-1-xiaqinghuan@mail.ustc.edu.cn?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104032706.2100=
+42-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
