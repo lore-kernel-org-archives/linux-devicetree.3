@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819141;
-	b=BuhxPqdKLnJH3/bR8sB1m7yzFb8H44n1E8zoPeMSlV0EWBakxONeMprsAcdoGsWgZ+od
-	 yaqGWwxfkmC0tdF6OkzqYHTr7lkrP3iW9HrcL1lbdLNt9dH4Py68708TB7V7+7NgC8csq
-	 HH1DF31FcwLWVgCoq7AQ8xxPtoiLGiTuL50RKsBwx0bKEC5umwhwfCqwL2Zq8Am284eAm
-	 B9jw0MIvcn1hUxPxiy6Oz3PGeGRPYm9EqtHTzbN1PJCWlIawVfSUTQpOLbAoV2u28SvGg
-	 zRRpUpmn0/cnBrsGGvPZRMMGN66tUM6BixQFbAfh3jsToE4bpVwHR7tkkNot4I40zZA==
+	t=1793819716;
+	b=l+sRbg0Sd9urE43IVyqtioVijgpWuoMJrmdYMrU2Ex7mf0JHgDAAPUYs03rZlsnaDT+c
+	 3tMzXC6zBhodenWZy+UN1LSZsKMaD9K6C4kwGwlJsA1uIuZJ6oQNaYY/5bdezeoEOfQUr
+	 harEQ7QofvdR2PdSVGYQmWHMK4HUYBzCo0XaqI8Dm6Zif5NC82Jr8fMGrrQD5vvwMHn7Y
+	 QoeTMVkCDJrh+IyaPcm55JjlFqx/LJdQDRLrTB1EOlbC9x4eK4kujm57u0rqdPuaKbEak
+	 C0nDwmYqYjYW589jw1YCy+jmYe2Op2vpnBaioXqPrbUfeGrhjM8Sd5Iul7mYD9iRjVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819141;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gR5uI1cPt3Tr0Xz+ubUXALHUnd/ie9gEemiGlXHNy64=;
-	b=2uJwhQrAcPHRkvSsIDJ3eN52fGYnXLMg4X/di4+k0LLbqx8umqQP5PivWNOre6LL6HTV
-	 X5S9EwWnM136uX8P+zBZWzJBQEdjtSSGBD5CkHW5uJarCwL6nZVWEx523YgFjiBCKikcs
-	 vUQM17O2pXngje28she4iYs0ANN1kr/3aTukA36ENy0ECR0DmL4GA5cmU0jUPfUnGxr/8
-	 01HqQRkuBa5mathUMF120ezT0zHHqimLFwY0w3qnhQ/NaZlIlsA90ofxvHB/L/M3B1yGn
-	 54A5Ncn4n8oZFewU4/Lp+Fq/iAXKzHFcMPhSTLMB05jKTLVKS3KVgn38Q2NPWqcy9Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819716;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=n7BS530HV1lVozfJXYDPjT1FuSJaYmtiEdjDoPBh4cQ=;
+	b=C+KjbN2ssJIfGFKc50Wzh+l372bEVBjtg2EnDWERj/EZQ5Lcov0+jGCcDSYvIzzAuec3
+	 u6ayasmApUTC/jKrI6ZPDzH46F05EQ88FYeP7Fs7cRtK38w+5XS6bNR9EFvI4CmSSQ/UU
+	 y7j1Es5v6P8VC9LcRFbgDP3+uYeLWcjFf5KX+Wxgwu6rF+Pdki5tJhLe4rQtnxwNzgnqb
+	 oOCTRrlEM/QgAfTfXCCzKQm2WlK72LMy3TDBLhDo4JnRIaY5MamTDPftN/jMseOkm1HXU
+	 ai/6q543OmIIvgO5sjyVmIGPLnGCPMkkgOJCIFWchXTl2XMTCdIvvvQBOWGBoNR4wKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxVWdjvG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=UgiGrhuQ;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B88606A335;
-	Wed,  4 Nov 2026 19:05:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E2F606D808
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 19:15:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3E2F606D808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BxVWdjvG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C3B1F00919;
-	Wed,  4 Nov 2026 19:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793819141;
-	bh=gR5uI1cPt3Tr0Xz+ubUXALHUnd/ie9gEemiGlXHNy64=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BxVWdjvGtSfebF+2wEtFaRveknqXlFgKIgd/Y5U++WDklfEDK57827kX4k0PGe9TD
-	 ql4+hM2bt1xJeHing2nbrAtRJFLOUP/RcNFUm4nfd0CKUeaOqUbeigPIeYWO+Qtmqh
-	 i3gwbpBEk+VFaWxKtfLTQ5GFaYpbx4PeVhjzqWe/O4gNjEHW6OP11gcnQswchG/Iop
-	 AC/ZFbckvZ3t+czyoeT6XFgUD0AGv2t6yohTLc4d5eaVh4xzhNvZRmcHiordXGYNcf
-	 Q1ewPI27xTfmvHdczL00fgajPRASJ2w7rXH+T25p5dHGtnFrDJUo6xahJ+0i/inKdE
-	 dR873V2dRQtrA==
-Message-ID: <sashiko-outbox-197915@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: allwinner: h6: orangepi: Enable CPU
- frequency scaling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104184940.882833-3-jernej.skrabec@gmail.com>
-References: <20261104184940.882833-1-jernej.skrabec@gmail.com>
- <20261104184940.882833-3-jernej.skrabec@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 19:05:40 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=UgiGrhuQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=n7BS
+	530HV1lVozfJXYDPjT1FuSJaYmtiEdjDoPBh4cQ=; b=UgiGrhuQy/mGgu5Jhrxw
+	U4iW26+36DDe3grM+u14/NvLDCpHeZ0xiuEvuDfDUqellkU1LwhONVcAqHtWqrir
+	+SR14FFVUQSG5N8j9hT4Cqak0uszM2oARxHzVMCg+ItnXftQckX/LD8VCM+MbgJc
+	OtVMgXRPjBzQAIuW9E6952rvSrTqZbNRihe/dNbxKmeIUosago8yE7dRio1e5h1I
+	7r89PejZOdMx37FuhZ3BUIHM1jqAtG2m+yjmE90HpRiC97xM4UAvVvWl+2AQIqkd
+	Vyu6ZJYFPFaN7JKPddkG2Jo+0Hsgr4JxwNT/o2TWXoegl8VH2SscRRg4OhSg9R/h
+	jw==
+Received: (qmail 833035 invoked from network); 4 Nov 2026 20:15:09 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Nov 2026 20:15:09 +0100
+X-UD-Smtp-Session: l3s3148p1@LaeQMnhfGLvAwtcC
+Date: Wed, 4 Nov 2026 21:15:08 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com, Chris Brandt <chris.brandt@renesas.com>,
+	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: i2c: renesas,riic: Drop clock-frequency
+ from required
+Message-ID: <auuEOFZ8Vo1OUTw6@shikoro>
+References: <20260806111018.782380-1-tommaso.merciai.xr@bp.renesas.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,102 +69,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="glWaHYKG2SMFiRw0"
+Content-Disposition: inline
+In-Reply-To: <20260806111018.782380-1-tommaso.merciai.xr@bp.renesas.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: allwinner: h6: missing regulator-ramp-delay in orang=
-epi.dtsi
---
+--glWaHYKG2SMFiRw0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 756d3d30d1a6d15f42bf1d5d2b8437c122fdde4e
-Author: Jernej Skrabec <jernej.skrabec@gmail.com>
+On Thu, Aug 06, 2026 at 01:10:13PM +0200, Tommaso Merciai wrote:
+> clock-frequency is described as optional, with 100 kHz assumed when
+> absent, yet it is also listed as required.
+>=20
+> The description is correct: i2c-riic calls i2c_parse_fw_timings() with
+> use_defaults set, so the core falls back to I2C_MAX_STANDARD_MODE_FREQ
+> when the property is absent.
+>=20
+> The stale requirement only produces dtbs_check noise on boards relying
+> on the default:
+>=20
+>   i2c@14400800 (renesas,riic-r9a09g047): 'clock-frequency' is a
+>   required property
+>=20
+> Drop it.
+>=20
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-arm64: dts: allwinner: h6: orangepi: Enable CPU frequency scaling
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-This commit includes sun50i-h6-cpu-opp.dtsi and sets cpu-supply on cpu0 to
-reg_dcdca in sun50i-h6-orangepi.dtsi to enable CPU frequency scaling on the
-Orange Pi One Plus and Lite2.
+Putting it into my for-andi branch.
 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi b/arch=
-/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> index 2948369cd659b..b7351b1db97c5 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi.dtsi
-> @@ -5,6 +5,7 @@
->  /dts-v1/;
-> =20
->  #include "sun50i-h6.dtsi"
-> +#include "sun50i-h6-cpu-opp.dtsi"
->  #include "sun50i-h6-gpu-opp.dtsi"
-> =20
->  #include <dt-bindings/gpio/gpio.h>
-> @@ -65,6 +66,10 @@ reg_vcc5v: vcc5v {
->  	};
->  };
-> =20
-> +&cpu0 {
-> +	cpu-supply =3D <&reg_dcdca>;
-> +};
 
-[Severity: Medium]
-Should reg_dcdca (and reg_dcdcc) in sun50i-h6-orangepi.dtsi also specify
-regulator-ramp-delay =3D <2500>; now that voltage scaling is enabled on
-reg_dcdca?
+--glWaHYKG2SMFiRw0
+Content-Type: application/pgp-signature; name=signature.asc
 
-In sun50i-h6-orangepi.dtsi, reg_dcdca and reg_dcdcc currently omit
-regulator-ramp-delay:
+-----BEGIN PGP SIGNATURE-----
 
-			reg_dcdca: dcdca {
-				regulator-always-on;
-				regulator-min-microvolt =3D <810000>;
-				regulator-max-microvolt =3D <1080000>;
-				regulator-name =3D "vdd-cpu";
-			};
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrrhDgACgkQFA3kzBSg
+Kbag2w/+Ppbl0Sufx7faX4uyhGSaA898V2UbRRgfxY7pqzPN4eaighcl3Y4DMLH9
+KQauzZK95aseWVDMJn2Q6OhVSxSV+aPLMnGKICp9LORM2rrfO8j7TbV0SrTUrl4R
+0YUEJ1tB0wlBZqOjx5PQkbfAhZTSQLzjtwX+m0pZ4vf00O2q1q60dxJGCay3tmbJ
+F6DqENIdCVXeZBNTy3g2+ZWtZvZWoPM3Sq5HBboMogQAYlfmSjinIlwgxxtNAbXj
+1nwZyrmBtMZmdb6TUeEGB1wRxUaFhUrxx5KOqEox3Zvrvt7bzK6X5dAik8y+EzX3
+Q34yblqCZ6g9+h1Em98vgc2i4M2NgEQKKhCCqCuKBkFGvR3C+TG8GXMsLtuYT/4g
+MTGPvQaX+N/uMGCw+fF2BQY20DXsYj7Cc6vDeAycAxM3pnH4CeUAhc6OmImM1clc
+rTPueTxD7uWJ6brrziz4wXHQEX7pYcGoDTbqtr4ORbJW8PNeroznAGtYVv+swR0b
+Ki7W+6l5+oyaoBHkAWDWctyilzhlo5kC9tayAFkjiZR9tBG3R21gBRnbvWVhl8Fg
+q1PHlIRIiqCeSyK3+iRAxrKizOz8hjafmf/nnI5oyvom6omsrFSm87q8s3trDi6J
+9F0+uO9FXfemivdmB1gu4yPfrzw1WK31Wdm4l+0SfMwtY+p2uC0=
+=UmDj
+-----END PGP SIGNATURE-----
 
-			reg_dcdcc: dcdcc {
-				regulator-enable-ramp-delay =3D <32000>;
-				regulator-min-microvolt =3D <810000>;
-				regulator-max-microvolt =3D <1080000>;
-				regulator-name =3D "vdd-gpu";
-			};
-
-In drivers/regulator/axp20x-regulator.c, the AXP806 DCDCA and DCDCC
-descriptors are defined with AXP_DESC_RANGES(), which leaves desc->ramp_del=
-ay
-at 0 and uses axp20x_ops_range without set_voltage_time or
-set_voltage_time_sel callbacks.
-
-When cpufreq-dt (or panfrost devfreq) scales up to a higher OPP via:
-
-  dev_pm_opp_set_rate()
-    -> _set_opp()
-      -> _opp_config_regulator_single()
-        -> _set_opp_voltage()
-          -> regulator_set_voltage_triplet()
-            -> _regulator_do_set_voltage()
-              -> _regulator_set_voltage_time()
-
-_regulator_set_voltage_time() checks:
-
-	if (rdev->constraints->ramp_delay)
-		ramp_delay =3D rdev->constraints->ramp_delay;
-	else if (rdev->desc->ramp_delay)
-		ramp_delay =3D rdev->desc->ramp_delay;
-
-Without regulator-ramp-delay in the device tree, _regulator_set_voltage_tim=
-e()
-returns 0, so _regulator_do_set_voltage() skips waiting for the AXP805 buck
-converter output voltage to ramp up before _opp_config_clk_single() calls
-clk_set_rate() to switch the PLL to the higher frequency.
-
-Other AXP805-based H6 board device trees (including sun50i-h6-orangepi-3.dts
-in commit ebae33c3f6cee9, sun50i-h6-beelink-gs1.dts in commit 67533f873ad7e=
-2,
-sun50i-h6-pine-h64.dts in commit fe79ea577be81e, and
-sun50i-h6-taiqicat-a01.dts) set regulator-ramp-delay =3D <2500>; on reg_dcd=
-ca
-and reg_dcdcc.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104184940.8828=
-33-1-jernej.skrabec@gmail.com?part=3D2
+--glWaHYKG2SMFiRw0--
