@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824896;
-	b=Abkh+NaqNS0jrWlB5U93BKxoh9NvHK9en1/xZysyrsjNX6tCOGGRe7YDzTTTfu1vfVQl
-	 o/JiaNKzCAX8VJhPVSlt4MLxidReyYlK8qDbhXSSkvkRSjpSLuWQn59lTbsjOLCCFtxx/
-	 4l/gEx+ZIrlc1CksAA2kYx6QdRTsqzxpazW0/i9i3ZQmg1tvkCPxDV2oXJU3njfAYLH/i
-	 +KyxQVnNsMB7Oj3zu/25xmBPszbBhZmGmei15sXf+wwLLoZjSgB0J2c0rqO6k+JPTYE6P
-	 p2NF90o9MvHG2pIyQig/j3STAu4vrpfnnF+6X42CmA15L3bv3makwbvUYY5AlDTn+rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824896;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=laTt9f2kh1KxkIIaLJpGIucT8RynHKwMeYwSgdrJ1mg=;
-	b=Eek7RDmrUXVsQlHDANR9N8LGQk/E16Cy4/ZZ/rkf65RJ32Cl3eYB0uHTWDIl04ts+j9m
-	 L6VExumCZKdo/aqwOjgFFbXiOZaIAd6k5UAHHobSEMVmOMcg6dH3lJUoBOPMTD8xUbVER
-	 +AWFHQ+4fS7Vok9bYEOuTl5uJUFsicqpoFCstVupMuoNcTnkIowa5ewVV/wTmQi5ysTGl
-	 JEGyNp9ftbp20+a1Ffbs3FdxWNoocqWFuKUoo2CTBVU3guQ7e8FD+M8zbsWt5AUxULemQ
-	 VzJSBEXDP91qaDi0Q+fzSq4dmHDH/2qJVxczKEuuRP95D302dcyg1PNAE3N/1yNgYUg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SceBkl2q;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793825662;
+	b=UAkQk/gxQu7Die7PTGsqF0PjqKh1kZUDQ0dZU36EUedKhEcl8b1U17cAGqFDHPekV1bZ
+	 H43sfrbTRl2HG9bQ0CNL+XjTDr6smpBNMS1HWh2hmUvERTi80NBOEqOnLk9v8+gWKalKe
+	 BIzBwM7N4VJQv7ZAgpZLOiPk8uRvGFGE3z1h1nBu82TYd7S2nNJKnC7zM4fEUh0ZcDj5d
+	 qFgu72ON85Cl9Df7Y6E5tJ0jRdGo5nBNTTrtQfSsVIUBx5tpjU22t5PpZ2YVBql8oT54A
+	 WuHev1oq3C4gytp41mnr7J7BS9ZVqnZhemLZBw3k/fqSaeY1ECGJSuu6ebCKQp6roUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825662;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0spVq1KfEjBelIQmBdQYHBFemwr7GfRtl30xj3cCpBw=;
+	b=IloJ/63xuZFBzLJYS7mCGDr9Cz4q5UGkAafrU1h3Eg1uAXyA+2HCxEMXCYBj8S3fzhZ5
+	 mqhWrwskLIJygDhdj9a+v3ag01GkOTE3S/coYspKdpyN2Fl0laY3i0Zbrp+/RJpP7yMAc
+	 F5gjSp5LmLsBh7Bka1AzMmUUB6a+IISkUpltUHmtC7NVWr51XQLThLzpQN7DqmvdXNPsA
+	 iFvXRz5yUw6ZkY8HZsvtLlRwjR1k5CotdbbAV0VOiCQ8/YicYVFJIV9Po/Q7TDxx7wqar
+	 E9Wh0/56FUWhUztCvEpry8y3BPFB5g40mI+j68+9bJc0TtTq89drc1srE89WBFJc3lQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOvstBtt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADD06076367;
-	Wed,  4 Nov 2026 20:41:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ADD06076367
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AE8607845F;
+	Wed,  4 Nov 2026 20:54:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=SceBkl2q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793824894;
-	bh=PpUF5FeUDFxgLSUk2eaNhcEnE1VL1oGMMqbduOOt5aQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SceBkl2qXpx4gWkii9Brb6gEEq2A9y0Rv6SkPOO8FalvkdaMMRdHL/o7PN1FUBf7n
-	 qF76GpHaaSOjf7ytYmafBWZvJPz2A7n2SNxCF90I+XoYHSbX5sbN0eOo1Mh0BQ+QVL
-	 IpUrXGK2bQ+BFWA38RW7iDMyctxPsYYmIoBcjmnizuOmJcW030BlarDZOt2mi8fyh/
-	 /fGDquWqBN7WaTxV6WxC3ZKS1byvVg0wsKOQk/L5U4bh25PyrO0OwJ4AJWZASwM4Oe
-	 EY4KEndAT7a53bOXbpxajaQ1eevqot8zW9dCICn67QbsIb6MTADiXcrbd4lSoKyFVd
-	 DI0qR1DjCIhAw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOvstBtt
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793825661;
+	b=1Dn82NlnC63jTOfihaO7KEsJcgn1X2gn+LhndpCP/8owixV3mmKXHa+1TmWBBJMVvCCn
+	 /rqGDA9lfvxB2NNa9aAtjQMnET9Q/BnseCzYfzSvGnKLIxukFSjf/XC4GOcToGJ2UPgPP
+	 DWXMJxABTzrzBcv4GLCmbSv1hZRe787BpoUp4vhNDhXd0DYnwOnXIGIfCJTbbHaEItrcg
+	 QOccb7+JFhUA9WN+iU8n9+y6Y5Y1qjV3otis/QmuF0cvaio+yf2uQn1UGZ7IfINRH4QPW
+	 YVFgdiKZhBReN3UW5UGa1/8gLXRghU2+e+Of+nQ1GyhIvynlVJm95Gido/r4ibZtoPA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793825661;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0spVq1KfEjBelIQmBdQYHBFemwr7GfRtl30xj3cCpBw=;
+	b=vGr/CxZ88e/m+pidt4NC55+CeyEM7DgBYiPKEsgU8aVHqWSaX9nSNgCbHEq8bt4klZoy
+	 y0lgsK+svdn2/Yw/EpqsLKzFDDapzZWpFZIPbBUs4/S/0FRwZBM8X8MH8JmpUI0Bm6hRb
+	 tkqm9SIaGA+7RRHoQCqlRxiUx040xQPNf0OKKYGkV94E0rokZGexmt7R1/ticJTF9M5cR
+	 Hq1XRYP1DDGWWP5LIsalQcqxfV8WBRhMpuVvDrEHq7sQHzgYCq16LwXumawgf1NYgZvll
+	 yJzJwKoBqll4GX2+yl7p/LFKV8RjaneN0sgrFsS2yf0PTMdRyWX5vXJpT5QL7TD3+2g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 62A3117E0564;
-	Wed, 04 Nov 2026 21:41:33 +0100 (CET)
-Message-ID: <fdbcdbbf-08a2-4788-bb96-a911cf8c3534@collabora.com>
-Date: Wed, 4 Nov 2026 22:41:33 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id A13951F00A15;
+	Wed,  4 Nov 2026 20:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793825661;
+	bh=0spVq1KfEjBelIQmBdQYHBFemwr7GfRtl30xj3cCpBw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=MOvstBtt0wOVtJoRdFMGYoTxt4E1IHRON1qFLwFjYBnPJAQx/mknzDieQL5xgYsjn
+	 hQESrcpTi5VEoXpGmpgtobG1QKFiHUSOO0WETWaVMPpHzhGls9vYKQwYCV1VbU0k6t
+	 Zh94qUhQ9unPUTDbacR4IIxBwcmYbvHJt8afLmT+vXGtS+uhSBH5OORZa0jy/cYA4l
+	 V9IJwVZq4drXnlBY7MTkuDeDqY+O3o/YnfE88lTm0J3KBX6/W5uh52m6C/45mxCpaC
+	 Br9OLSt/vo3GBbTX/pOqOjRSDlDivPWeVxRnoCd5XLcEAmdgNHbG9HjA10Gt/3Z6M1
+	 Um+dLo+0kfX1w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2DCFF46F8C;
+	Wed,  4 Nov 2026 20:54:20 +0000 (UTC)
+From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
+Date: Wed, 04 Nov 2026 20:54:14 +0000
+Subject: [PATCH 1/4] dt-bindings: i2c: qcom-cci: Document SM8150 compatible
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,51 +82,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
- clock parent switch
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Daniel Stone <daniels@collabora.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
- Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Igor Paunovic <royalnet026@gmail.com>
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-9-6fab0fe43a9b@collabora.com>
- <CAPj87rPEz=Y+dZayouddZRn2ZHSVNk9BAjBqz34PJyjDRba5=Q@mail.gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAPj87rPEz=Y+dZayouddZRn2ZHSVNk9BAjBqz34PJyjDRba5=Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-sm8150-v7-4-rc1-camss-v1-1-7a9534a9a22f@andrewgigena.dev>
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793825658; l=824;
+ i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
+ bh=XVSLS9H6xwSBH2lGXYB71v3KO52SQ4m6el0XgpZLD1k=;
+ b=Z915qNsq3qCvxOBE7gkhR7XJf/ioLSll1yK9FC+POQEjF9HH38j/ZL/3XvZmMy3EqAWQRS3Sq
+ vBZ0NOuYh+8D+nx8hRof2+J7yfsHzCJI4BizwxBUV+DJJAxS5hMabsH
+X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
+ pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
+X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
+ auth_id=1402
+X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
+Reply-To: mail@andrewgigena.dev
 Content-Transfer-Encoding: 7bit
 
-On 10/30/26 1:44 PM, Daniel Stone wrote:
-> Hi,
-> 
-> On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-> <cristian.ciocaltea@collabora.com> wrote:
->> +                       if (!vp->dclk_src)
->> +                               vp->dclk_src = clk_get_parent(vp->dclk);
-> 
-> Why not do this at init, where we setup the rest of our clock tree?
+From: Andrew Gigena <mail@andrewgigena.dev>
 
-Ack. I don't recall the reasoning for not doing this in the first place.
+Add qcom,sm8150-cci as a CCI v2 compatible, with qcom,msm8996-cci as
+the fallback.
 
-> The rest is:
-> Reviewed-by: Daniel Stone <daniels@collabora.com>
+Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+---
+ Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks,
-Cristian
+diff --git a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+index 1e8def25ec0e..b545fd2378da 100644
+--- a/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
++++ b/Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml
+@@ -39,6 +39,7 @@ properties:
+               - qcom,shikra-cci
+               - qcom,sm6150-cci
+               - qcom,sm6350-cci
++              - qcom,sm8150-cci
+               - qcom,sm8250-cci
+               - qcom,sm8450-cci
+               - qcom,sm8550-cci
+
+-- 
+2.56.0
+
+
