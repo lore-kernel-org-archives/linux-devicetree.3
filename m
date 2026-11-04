@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806041;
-	b=E14UYRy2h8dXeSqEc8V+0CVECGwlh4Vanq49ORpSzL+hTVMC63xHSY5LP/kE5OAk+tf2
-	 Zu9wnanuywGqbRVM2lMWKUIPhNnYEyv4Y17JloPI2bIVE9xna3L5AnqwFixQsP42Lx8YG
-	 0uc/5ar4L1x7vy8/aoKJ7KW1Qb3MfzvH32/ALIzPuR24WqIC8b0wcfh8vaOVW2btYR9GO
-	 foZFBg0gFJ5Uc8uf5M5waJMK1UlO5yscfnCpXegyG3bD0t97Ag2VBYgwJfSoywLy6YOWD
-	 QLdDfICuGomXbcgjr4PNTfMXCj6nfOThVaEafZSN8gO7podSxGBSJf8/UoHVhgdgfSw==
+	t=1793806046;
+	b=4N1OlUfHus/v0j278Vl4VEsMg6ZLTPPVq7cVEsDsIKnnjl3dYdr6izLJmpcWIMrXip9b
+	 xflXpG/xLgQRM3RYSuxIGhA9Sy/FtBNPbPg2X4Q+BLfYF08KY1/Drjjfkj0YBSXxwq/SV
+	 Z/z2ikdcg1gETYlOCHCV8neeNdkPeUKmvEIgHZRQH95KdzTqkL3el3QuzkJqL/CeVKCyb
+	 ngJkGcwjsduZ/UnUsEgJK4C3WnXtCQcbcMnK9VK/TDVtA1twhi0UEWtoVZYXLbmdHIRqg
+	 lDr4SQOe4RJ8KzWLg/se+7lrc97X3PCzL91uDEj668vctyh8SDyuL5G/BzHPhcBSTxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806046;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=iq05/Yj1rzuvCwAU0PCj1CRnJwTNnmq7BvvVMNO0EdU=;
-	b=LFg6/cRluhDOMWa+SPalCtyWBqb0mfgF8P9z5uLTNvrar8IgEmdKs7e3jz/mlFPXd5aR
-	 kp6XtSVBK3pIcWNcDZ34R7Qnq3otSVnt5qOV3T5PeE1+OF+hnFzPPQjUl8Lk9LwiCq5xU
-	 GJ2iMpoyUe/uVIod7JbRHg73xkKdgNv6O7M2ESWa0ZJJmo+s1PVJwyYxMGEfGy9Cockn2
-	 u3e9+W3XOWWD5ErFZ9ckkBoBeuKw4t4oLrxA6CIFJutAh9bAxYgF+b9n4URDHWGVqZPfB
-	 z1ISiTdX97YSaiFJ7NUGQ1iicPiuo2aQM1ipdJ9sfr1ITB28/MUQ7wXx83M9pJJ6GEQ==
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sb8csLTb54AiSajPEMKOf5a4QjgIr+ASzkGpD5GyLyY=;
+	b=xS0vIWBqhTRNHfHGx6ITGgvRvBu9mWtp6ItLXDraDA/XwydYGkVL5nQZZujf90sbjYQy
+	 LfN4ZY8QxX21CBrhDF63nbOx53EDR0Cqt9+8uYWyi7dDUg8ObQX7H6KVg8GA9yTQJHko9
+	 BBPHzi1+RsYUuifhUsXwLzjjambvDMAJY3xV1UPMnbYFG2CAoQ1dgNVOAonj9TGoXhgRM
+	 gx3tWVTHwSrkifRsWIXB05aCT2RFfsfz5aW/ncRZwyvWl/4VxeA1cN9TTIAc87n4DUvHi
+	 maYyc14JDPTK54rjij6tMulAAgbK/3qxaJR3YzcpftG6rPj1Qkp95SUavGl8W3jrd3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=CBHyxZSC;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=mtUGKV5l;
 	arc=none smtp.remote-ip=185.67.36.66
 Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565FE606A329
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:27:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 565FE606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60891606A33C
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 15:27:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60891606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=CBHyxZSC
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=mtUGKV5l
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 3A4A9240104
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:27:17 +0100 (CET)
+	by mout02.posteo.de (Postfix) with ESMTPS id BEE1A240107
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:27:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793806037;
-	bh=iq05/Yj1rzuvCwAU0PCj1CRnJwTNnmq7BvvVMNO0EdU=;
+	s=1984.8680eb; t=1793806043;
+	bh=sb8csLTb54AiSajPEMKOf5a4QjgIr+ASzkGpD5GyLyY=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=CBHyxZSCLmVhF+IEET0yBhJUYCg99wYQhD8qx1LZvJALwMUNYt6kC8+b3K74Q6eyH
-	 nsV4WM/QwUAygsa/AlNQZ6I+0kHmDyBum/6t/ScjaKfZytqJ6bpzB7u0V/U9TIa2br
-	 22WIZlfPGmRBJ79eTeoCgkahkJmND2m7D+FtoWLtY32ktjELXcJX+w4hvoGgEMiOMu
-	 imc4hOUHQv+AiDLj2w3OZ7WQwD5ZiLaCdtnDJ800jgw6lFZseQCVhzn+efK9kTyvic
-	 TCA6XPSKpFjZUcCRwCXCxxoCPT+M/OUr27ffF8X/7y7p7YDZl9fYdLP/Mk2BbakogT
-	 rYcPfSh42D68g==
+	b=mtUGKV5l1vWz9FL79nOJ8L+ZokY4TmBmRbi54B5F0a90FICXMu/9STlt1efOKhsut
+	 iaEfmAjE7lhe8wGfZe6vWGWAAk5MmqMA6hsvb+zKVCRH8d63NLaD/QVLq6GL4J7dRK
+	 IEwlFHspBrnqgxHuqTWmlDaNGzz6l4xcX5lOikgawRQn8b7JE2++TUh7N3PcQfI7Zk
+	 tjmMZgQ3n5oKLyu0o0VjUcdakioOAQyZrUnYX3y/B1qeXBRpAvzIj0dih1T6slt6oe
+	 nGjzlbKWaaAKdV1Qf8UBC/P8fh31wpAhcVf4Z6IE6Ct9t5SaaLuIlfEUawi7iNL3nw
+	 Ap0EVBcfqSSPw==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jKTnv22nLz9rxM;
-	Wed,  4 Nov 2026 16:27:15 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jKTp14Xr9z9rxN;
+	Wed,  4 Nov 2026 16:27:21 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Ulf Hansson <ulfh@kernel.org>,
 	linux-mmc@vger.kernel.org
@@ -66,9 +67,11 @@ Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/5] mmc: mmci: stm32: silent data corruption and HS200 fixes
-Date: Wed, 04 Nov 2026 15:27:16 +0000
-Message-ID: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
+Subject: [PATCH v2 4/5] arm64: dts: st: use sdmmc2 pins_a on stm32mp257f-dk
+Date: Wed, 04 Nov 2026 15:27:23 +0000
+Message-ID: <20261104152657.14909-5-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
+References: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,63 +83,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The eMMC of the STM32MP257F-DK in HS200 returned stale data and lost
-writes without any error. Patch 1 makes data CRC errors visible to the
-core again. Patches 2 and 3 are the fixes of the ST downstream kernel
-for the causes seen on the DK, as Christophe pointed out. Patches 4 and
-5 move the eMMC of the DK back to the sdmmc2 pins_a groups and remove
-the pins_b groups I added for it in 7.4: the corruption came from the
-delay block, not from the slew rate, and the slower pins avoid
-overshoots on the SDMMC2 clock. Patches 1-3 are for the mmc tree, 4 and
-5 for the STM32 device tree, patch 4 needs patch 3.
+The eMMC of the STM32MP257F-DK was moved to the faster sdmmc2 pins_b
+groups because HS200 at 100 MHz returned corrupted data with pins_a. The
+cause was the delay block, which was used at 100 MHz, not the slew rate
+of the pins. With "mmc: mmci: stm32: use the delay block above 100 MHz
+on stm32mp25 SoC" HS200 works with pins_a at 100 MHz, and at 150 MHz
+with the delay block.
 
-Tested on the STM32MP257F-DK with a v7.3-rc6 based kernel with the same
-changes, each run writing 832 MiB to the eMMC and reading it back:
+Use pins_a again. Their slower outputs avoid overshoots on the SDMMC2
+clock, which can disturb other blocks such as USB.
 
-- SDMMC2 kernel clock 200 MHz, HS200 at 100 MHz as in mainline: without
-  patch 3 the writes failed with I/O errors in all 9 runs (sdmmc2 pins_a
-  or pins_b, with or without NEGEDGE), with it all 6 runs were correct
-  (pins_a and pins_b).
-- SDMMC2 kernel clock 150 MHz, HS200 at 150 MHz with the delay block:
-  all 6 runs correct (pins_a and pins_b), the tuning picked the same
-  phase in all 10 rebinds on each pin group.
+Fixes: 94911ce62b45 ("arm64: dts: st: enable eMMC on stm32mp257f-dk")
+Suggested-by: Christophe Kerello <christophe.kerello@foss.st.com>
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
 
-Build tested on v7.4-rc1 (arm64 defconfig, W=1). Not tested on
-STM32MP1x.
+Notes:
+    This needs patch 3 of the series: without it HS200 at 100 MHz loses writes
+    with pins_a. With it, the eMMC of the DK passed every 832 MiB write and
+    read-back run on pins_a at 100 MHz and at 150 MHz (see the cover letter).
 
-Changes in v2:
-- Drop "mmc: mmci: stm32: do not use NEGEDGE in HS200 mode". NEGEDGE
-  has no effect with CLKDIV = 0 and is valid with a divider, I misread
-  RM0457 (Christophe). The writes at 100 MHz fail because of the delay
-  block, not NEGEDGE.
-- Replace "mmc: mmci: stm32: lock the STM32MP25 delay block again before
-  tuning" with the same change from the ST downstream kernel, "mmc: mmci:
-  stm32: release the delay block before enabling it" (Christophe).
-- Add "mmc: mmci: stm32: use the delay block above 100 MHz on stm32mp25
-  SoC" from the ST downstream kernel (Christophe), with dlyb checked
-  before reading min_freq from it.
-- Add "arm64: dts: st: use sdmmc2 pins_a on stm32mp257f-dk" and
-  "arm64: dts: st: remove sdmmc2 pins_b from stm32mp25" (Christophe).
-- Rebase on v7.4-rc1.
-- Link to v1: https://lore.kernel.org/r/20261031120700.42576-1-mateusz.nowicki@posteo.net
+ arch/arm64/boot/dts/st/stm32mp257f-dk.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Christophe Kerello (2):
-  mmc: mmci: stm32: release the delay block before enabling it
-  mmc: mmci: stm32: use the delay block above 100 MHz on stm32mp25 SoC
-
-Mateusz Nowicki (3):
-  mmc: mmci: do not count a data CRC error as a complete transfer
-  arm64: dts: st: use sdmmc2 pins_a on stm32mp257f-dk
-  arm64: dts: st: remove sdmmc2 pins_b from stm32mp25
-
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 58 -------------------
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts     |  4 +-
- drivers/mmc/host/mmci.c                       |  5 +-
- drivers/mmc/host/mmci_stm32_sdmmc.c           | 28 +++++++--
- 4 files changed, 27 insertions(+), 68 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
+index a8f18508db3e..3776bf915160 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
+@@ -357,8 +357,8 @@ &sdmmc1 {
+ 
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc2_b4_pins_b &sdmmc2_d47_pins_b>;
+-	pinctrl-1 = <&sdmmc2_b4_od_pins_b &sdmmc2_d47_pins_b>;
++	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
++	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
+ 	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
+ 	non-removable;
+ 	no-sd;
 -- 
 2.56.0
 
