@@ -1,72 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810382;
-	b=RIig0zCW6Y/wcFzL1vFM8vsgth/13qTmDOjWY1yk7vEcXm4W/TZkIA4Olk4tb0KEb+j5
-	 ZxEmAxSvIxNoNmnqau0dP2TgoDab0hUoMLNYCGj6D9hvE9m6WG56FVKgjE0o1qn91jsFU
-	 6vJtek2feT+BJesqSL1Du60NH4zL7mH2lCjOUXIphXuogR/1ovqED7EgRF46yZNPNcCEx
-	 GfG7QGda6wnhalwREVSi62o61k+hPCm9/EvqpL2phvN8GPXimWMqv76ZE08M1pZgywz3p
-	 8WEtGGVUCl8Z8GYlb2KHcfkc+zw0LcROYbK4OiYRcZ/wzLKlE8kKI5P0WLLbaMvp92Q==
+	t=1793810504;
+	b=OxoOOJYhUy+6hvcYihhxJGINDXy8hC0EWRicIGfe/ealz4fXzYTt6i9P+/0a3MfBdDes
+	 TNvaD6WbsXhEy5w58//3e+hS72kJDzp0PWLQFo23U7gUSsZCfWrWAShFEcnK2x6xS/jcu
+	 /Sr2H/JnxtkjzTUqylPHnqCawFaF1HW2tTDeauYE6mMGmLjrbyVhf+nX//U3uPKck7V4L
+	 i1jB7rIHmf7mrZP2hnulZhO2kyHux170pPKj5f0KgYY6uDNZWzGgrIImWOJoKUTZY5/XL
+	 BVUiH4WFI3EdpOgI2g+r7RTqV3OdhFW82NMMkD7g3gnMZz7XwPWPzFUTdzwLnvnLBIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810382;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=j/qonkLTfSJS6fOcfIBVACKrRZK2oHEhnPOu7N9/zz8=;
-	b=MvziktQNupkWvYz6ssEg2MlH1qd4z1n+0JiXnAudVvekS5yzgVByhO40ghnQ2f1ddB9J
-	 6wyBkTVs6ukdoNvfqOkpM3ir2NtL4cBoSxYbMsSnSyX8OwKUzMASh+EkM0R0QSNZopYTX
-	 64W+ihDvVog0k+eLcQfhhf01kbNm5g3avOQ7OF17lQH55nnOCHRFJl+pl7808HPGDCJw5
-	 4XCd9W0y2UGXA++3mx6+gUgX0yirhyEYhQfVY0xUiPZacAyvoTgNQNbR9eCCdwEESH+S6
-	 Bnkn0HgXbp7Z/umiUheT5vUCp0Y2zN63sjRtC771dJmY4/4izwwhsWhrCOzG8IyiCaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810504;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=rYvC6+49TX167R0ReJbHBPyR2n96oGtOYT7s7nqBIX8=;
+	b=fOQwP2IXBaoIjo18lCSAyC1uana+QMvPm0igRlkW8kKgg5Vh3O+ZbBer9cgSdY6q/jpR
+	 NgIrWgEXgw6fktUlv9gAaMreWxPEK0/dHAqxCPQyK3SvFtCb2cFZWGx9FR2vu2NaxmHML
+	 vinHK8+GbP5x/OQ1ZBDx1/xDMQ+FxVFzi0dk9T46iq/dl7O5sytVaai3c/mBdoosN5/Y6
+	 tg+CoCQL7DcS6I2MtVC4syjYijGRWD3ti0WuIOCC9tLzhPZ3uvN4uKjH+zci0tNeTP3kg
+	 NrFuFNyh8KRwsihIxQX9zzhr9uXCm8vDbhAmhV7Szs4JU0DmZnBzhvNdmf/F8/6oKPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rP2S6qUD;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+q3ivEn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC13E606A326
-	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:39:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC13E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C493F606A338
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 16:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=rP2S6qUD
-Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
-	by cmsmtp with ESMTPS
-	id OaayxVYUS4vCDOe1PxWQU1; Wed, 04 Nov 2026 16:39:35 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Oe1NxxnYT0w3mOe1NxunYL; Wed, 04 Nov 2026 16:39:33 +0000
-X-Authority-Analysis: v=2.4 cv=ZtntK87G c=1 sm=1 tr=0 ts=6aeb5fc7
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=p-LfKV-GAAAA:8 a=14k-HqQmNQMTK8QvfVQA:9 a=QEXdDO2ut3YA:10
- a=97BuGM4RKn6GwmfqMd6i:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=j/qonkLTfSJS6fOcfIBVACKrRZK2oHEhnPOu7N9/zz8=; b=rP2S6qUD2i+9
-	HPp78wilmv51lPsJeYeSL2+Q992YgG8wmyBV8UHhCQaaCj+XNlWTLP49bOIFZlJxpMJQqskrNV1cI
-	PnTqxVJwwABcrId1lVrr/DIfCTfHBeaYZBbzneINJzlpbM++M9QyYMRYTTe77kBfZlZUCGiW6h3T8
-	pp7jO8yQ2iIZ4KouhqodhcjpbtQqWeWdXPDNUaOspyXHA0WeCD4sVWY5dvra1xuVF3+2KohwcuLWA
-	1qnlbIlhrbog65pGimvDtWupyLt3sdpY8Q/WySQSASpiHIzybLVSuQHa+8QjB5ZHN0k5V9BHb14eA
-	EW8CJ9wtFqUJa++7UoaqDg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:44006)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOe1K-00000002Xpu-1SC1;
-	Wed, 04 Nov 2026 22:09:30 +0530
-Message-ID: <c742c878-d4b2-48d8-972e-a09aa4d215c7@roeck-us.net>
-Date: Wed, 4 Nov 2026 08:39:28 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+q3ivEn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1199D1F000C1;
+	Wed,  4 Nov 2026 16:41:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793810503;
+	bh=rYvC6+49TX167R0ReJbHBPyR2n96oGtOYT7s7nqBIX8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K+q3ivEnCbKwTNfzgmQETIF7/vpJrZ1/8wtp5IG5UeyYq00ZZNXYWtGrW5CJTBU3C
+	 uA+Lkbxlut//MkKPBeQiIDX6z6sJx+OS3h/fzLDtbnUFyMkqFpvXuhAskz+jVInahv
+	 0cP95CCEUYF6MC1OHivmlypmnJGKHo7e7vPf6vj+SeqWuNRwiQEGeWnHq8R8D0b93o
+	 mPnoGoSscUt97uj5U3zqqgzfNDudMoZNFM3ho/UjTwjnU42lJC3uDFSis+lHxmfmIg
+	 G6bfH32i7P7wtEm0HYaW4uGqK2xZPoq+cg/9eQdLtugXxmGrhoAnScjDKyVygjqup5
+	 /5fRmMbjCMW1Q==
+Message-ID: <sashiko-outbox-197643@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lucas Tanure" <tanure@linux.com>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261103163715.385394-3-tanure@linux.com>
+References: <20261103163715.385394-1-tanure@linux.com>
+ <20261103163715.385394-3-tanure@linux.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 04 Nov 2026 16:41:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -75,164 +60,141 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] watchdog: arm_smc_wdt: allow a list of SMC
- function ids
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org
-Cc: Julius Werner <jwerner@chromium.org>, Evan Benn <evanbenn@chromium.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Antonio Borneo <antonio.borneo@foss.st.com>, Marek Vasut
- <marex@nabladev.com>, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261104161553.30115-1-mateusz.nowicki@posteo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOe1K-00000002Xpu-1SC1
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:44006
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 14
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLVqFObkUo1xGfcxCddQ0srHejGDGLe6Sm57+pqMcYHIsGHprrpcAl6vmOsyXJqwUap9L3a7aszE3kfN0MbKHyu01ArAhWSxgpJzZPoICOmAAPcslj+h
- BGw/Lt5R2x/O85SdrmOls0G4/5WFyR0txjp3z1Tph/Eon6jWtl5vUE+C8zwDkRITc96WCvgMSPCqyW15X5MCJxUEJDUbhz2Buch8oi/j96QpSby4r4sr9O4Y
 
-On 11/4/26 08:16, Mateusz Nowicki wrote:
-> Hi all,
-> 
-> this follows up on Marek's report about the stm32mp2 watchdog [1].
-> 
-> A quick recap: the arm,smc-wdt driver talks to the firmware through one
-> SMC function id that it reads from the device tree, and there is no way
-> to ask the firmware which id it uses. On the STM32MP2 SoCs that id
-> changed over time. ST's OP-TEE from ecosystem v5 expects 0xb200005a,
-> their 4.0.0 fork accepts both, and the 4.8.0 fork as well as upstream
-> OP-TEE only accept 0xbc000000.
-> 
-> My earlier patch, commit ae4d08bbe3f4 ("arm64: dts: st: fix arm,smc-id
-> of the SMC watchdog on stm32mp2"), switched the dtsi to 0xbc000000. That
-> made the watchdog work with current OP-TEE, but it broke boards that run
-> the older firmware. So today 6.18.y uses one id and 7.4 the other. When
-> the kernel and the firmware disagree, nobody pets the watchdog that the
-> bootloader started, and the board resets after 32 seconds. Marek hit
-> this even with a recovery kernel, which is about the worst place for it.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: net: amlogic,meson-dwmac: unwieldy per-compatible cond=
+itionals
+--
 
-So the DT on the board is updated to use the new ID but the firmware itself
-isn't ? That seems a bit odd; I would have assumed that the DT on a board
-is kept in sync with its firmware. Is that not the case here ?
+commit bbd012595ac6470b2960164c914c68e801ea5738
+Author: Lucas Tanure <tanure@linux.com>
 
-> The idea from that thread: let arm,smc-id be a list. The driver tries
-> the ids one by one and keeps the first one the firmware accepts. Older
-> kernels only read the first cell, so they behave exactly as they do
-> now. For stm32mp2 the list is <0xbc000000 0xb200005a>. Calling an id
-> that belongs to some other firmware service would be bad, so the
-> binding says the list may only hold ids known to be this watchdog.
-> 
+dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
 
-Would it possibly make sense to check keep a list of known IDs in the
-driver ? It already checks 0x82003D06, so it might as well check a sequence.
+This commit adds the amlogic,t7-dwmac compatible string to the Amlogic Meson
+DWMAC device tree binding schema, specifying its five-clock list and
+restricting its delay properties to rx-internal-delay-ps.
 
-Thanks,
-Guenter
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.ya=
+ml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index e769c9bb70d84..6de013e3e8f63 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
 
-> Why RFC: arm,smc-id already exists in firmware/arm,scmi.yaml as a plain
-> uint32, and dt_binding_check complains when another binding turns it
-> into an array:
-> 
->    arm-smc-wdt.yaml: arm,smc-id: multiple incompatible types: uint32-array
->    arm,scmi.yaml: arm,smc-id: multiple incompatible types: uint32
-> 
-> DT folks, is there a way to keep the list in arm,smc-id that you would
-> be fine with? If not, I can move the extra ids into a new property,
-> something like:
-> 
->    arm,smc-id = <0xbc000000>;
->    arm,smc-alt-ids = <0xb200005a>;
-> 
-> The driver side would stay the same, it would just read the fallback
-> ids from the other property.
-> 
-> One more question: should patches 2 and 3 go to stable as well? Then
-> 6.18.y would also work with both firmware generations. The 6.18.y
-> version of patch 3 would turn its 0xb200005a into the same list.
-> 
-> [1] https://lore.kernel.org/all/1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com/
-> 
-> Mateusz Nowicki (3):
->    dt-bindings: watchdog: arm-smc-wdt: allow a list of SMC ids
->    watchdog: arm_smc_wdt: try every id of arm,smc-id
->    arm64: dts: st: list both watchdog SMC ids on stm32mp23 and stm32mp25
-> 
->   .../bindings/watchdog/arm-smc-wdt.yaml         |  9 +++++++--
->   arch/arm64/boot/dts/st/stm32mp231.dtsi         |  2 +-
->   arch/arm64/boot/dts/st/stm32mp251.dtsi         |  2 +-
->   drivers/watchdog/arm_smc_wdt.c                 | 18 ++++++++++++------
->   4 files changed, 21 insertions(+), 10 deletions(-)
-> 
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+[ ... ]
 
+> @@ -57,6 +58,59 @@ allOf:
+>              - const: clkin1
+>              - const: timing-adjustment
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amlogic,t7-dwmac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GMAC main clock
+> +            - description: First parent clock of the internal mux
+> +            - description: Second parent clock of the internal mux
+> +            - description:
+> +                clock of the pipeline stage inserted in the bus path bet=
+ween
+> +                the controller and the DRAM. Without it, the controller =
+cannot
+> +                complete DMA transfers.
+> +            - description:
+> +                clock of the register block holding PRG_ETH0 and PRG_ETH=
+1.
+> +                Without it, the block reads as zero and ignores writes.
+> +
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: clkin0
+> +            - const: clkin1
+> +            - const: pipeline
+> +            - const: pclk
+> +
+> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yam=
+l.
+> +        # The RX delay line of this glue is fine tuning in 200ps steps,
+> +        # added on top of what phy-mode describes. The TX side has no fi=
+ne
+> +        # tuning: its only step is a quarter of the clock period, the fu=
+ll
+> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+> +        tx-internal-delay-ps: false
+> +
+> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
+> +        # properties instead.
+> +        amlogic,tx-delay-ns: false
+> +        amlogic,rx-delay-ns: false
+> +
+> +  # Delay definitions for Meson8b and newer
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amlogic,meson8b-dwmac
+> +              - amlogic,meson8m2-dwmac
+> +              - amlogic,meson-gxbb-dwmac
+> +              - amlogic,meson-axg-dwmac
+> +              - amlogic,meson-g12a-dwmac
+> +    then:
+> +      properties:
+>          amlogic,tx-delay-ns:
+>            enum: [0, 2, 4, 6]
+>            default: 2
+
+[Severity: Low]
+This isn't a runtime bug, but the per-compatible if-then conditionals under
+allOf in Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml are
+getting quite unwieldy with the addition of amlogic,t7-dwmac.
+
+The T7 variant differs substantially from the older variants in this bindin=
+g:
+it uses snps,dwmac-5.10a instead of snps,dwmac-3.70a, has a distinct five-c=
+lock
+list (stmmaceth, clkin0, clkin1, pipeline, pclk without timing-adjustment),=
+ and
+disallows tx-internal-delay-ps as well as amlogic,tx-delay-ns and
+amlogic,rx-delay-ns.
+
+Inserting the amlogic,t7-dwmac block into the middle of allOf also splits t=
+he
+existing conditional for the five Meson8b-through-G12A compatibles into two
+separate if-then blocks with identical enum lists:
+
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - amlogic,meson8b-dwmac
+              - amlogic,meson8m2-dwmac
+              - amlogic,meson-gxbb-dwmac
+              - amlogic,meson-axg-dwmac
+              - amlogic,meson-g12a-dwmac
+
+Furthermore, because amlogic,tx-delay-ns and amlogic,rx-delay-ns are only
+defined inside that second Meson8b-through-G12A conditional and not in the
+top-level properties block (with unevaluatedProperties: false at the bottom=
+ of
+the schema), setting them to false in the amlogic,t7-dwmac block is redunda=
+nt,
+while leaving rx-internal-delay-ps: default: 0 inside the Meson8b-through-G=
+12A
+block omits that default for amlogic,t7-dwmac.
+
+Would it be cleaner to split amlogic,t7-dwmac into a separate binding schema
+document rather than adding more per-compatible conditionals to
+amlogic,meson-dwmac.yaml?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261103163715.3853=
+94-1-tanure@linux.com?part=3D2
