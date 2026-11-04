@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801890;
-	b=OZntVfSFjFZ7HalM8YWc9XPrcqnGPmlbfItyFyBDkgQZy5ZjeiAjZwqTztgpOKRccUIP
-	 uz5pCwh5HpsMNAmqJ6GdffKl6gfstatb0fpiMowlWAVKXz8a9TZ4z3Rpr0/1oR4P8Wxy3
-	 dAfKMNLMNftDcyFXeIk7zAZaHkZqbp+EdOXS40cUnqu0eRAZrrKyRrdHCMS3iAoYKuRGh
-	 EYbtwZ2AWjs86ql+Qa5ELhJTFUs99Sxd2JfkBIuFPiX3n7+STakZVVFxmgc7HsBFfiNyq
-	 pET1ZXdX8otgOYUWiLv7/zt3uPbfeg7xvLsiA+zeWEB2zN/dl5f5AmWR2VvLrJt6sSQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801890;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HEnB2vagbE+GQ4HUJUIxSWiabg4KfDtQr3zgSqFbaGM=;
-	b=lQvHt2OWPci73FdOzCMNae8zHs7Yi9xp5EcJPDFmF7QRTpmzByfaVgkcVPRPG8Zdanw3
-	 0q2ArWkZudvELK8wawJOua9cIzhtqsIXqbbWbiBqLo3KJnJEN1G9ebIL9QfHvCYKs41n4
-	 vd+xd1Q9648U0KuS18akMs2yvqNauDEWeUCO61GYSZ36m/I/qe4Fspg3EaPTQiQDZk+2x
-	 GjxzNgrkFebhYn2FAc7nGrwDdnGuqSEPeB54SHXyeHdm9DVscBVyi7GZLMW2N3+qLQ+xk
-	 buwpqRetgNcLT3swpZfKhYBXiE1ScaedQ/UheY7ISWXPoucjUIfrtH4VAWNxVuCq0vg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XXMnpipK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793801956;
+	b=xl8ac4drzou9ANdZvtSlyT3RZeA5iF0H0YxY8aQuSNkZEsde2lty32kQ9AeiukrXfTNw
+	 ulIIiws8X/OV1LQpOvm2VV4Hi01kNStPXwPLpdlCxZ6OcED+XJdIavVB7YGVsQuIPEt8H
+	 Cy3v5a5jsLUNuL/F/FimA43z4+3IVIYpKb1j4+UsGW2e7FHuq0Dcqj7HT5KP2Jb9145wD
+	 RcYMeO5wBsG7q9r+ES3dsbyvMBF7ruzYKKtk/QDrfVRSgExc2C8fDYUb/jI2sgosEtk5A
+	 igtXC3wEKj/uQutD6y5uSIYcX5H9vun6AvujCh5/d9ddFfvL2pGa9Tp/8mrn/JhTYBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801956;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=;
+	b=5o6m4yUvRoPLPHuqi4hLPEYGWmE5aUc7c73YC9Vv9Xk+lHpd6ZI7VVKZWh4ji/+Y/EfI
+	 zRhElWcd1DY7u2lbNYiFfFWHan7Hk4DwLkoQ5s34jbRLT2GS0Uc3yfSnQl79WJx35/MYN
+	 wi7wO1XwrtPrMknSLOTYtWgAaM1vzS1dTQpw5xJdZFue2HxCrcbIeyQQlc90IUvdhq1NJ
+	 66ISlW5x4Fr2Olbb5CiJrjecQ0tFh+nR8uoTpdIqDG336vyNnQUnDJLCJH8w9ZaOLTzMp
+	 3g7KB7dDmvhjmP7eA1qEeS8Pb3UKkDB3wgW3zf1M7314sm5xpJBKc6Ur0SJCfN5qeFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C720A606A32C;
-	Wed,  4 Nov 2026 14:18:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC96B606A31B;
+	Wed,  4 Nov 2026 14:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC96B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XXMnpipK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4549A1F00919;
-	Wed,  4 Nov 2026 14:18:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801889;
-	bh=HEnB2vagbE+GQ4HUJUIxSWiabg4KfDtQr3zgSqFbaGM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XXMnpipK1aXyoY/jZmgT2QO+t92lTUpyhLBem6klw2e+0JALe3skFHvtvfz7jAbW+
-	 KNkXhXKke/Qw3WDXFYtGGH6myhnaHyXCNMD4X9zQollUoq0tyGyZ70VYbhuid9boLL
-	 nXSUGGA7lkdVCL7NuRM2mR+7BJo2UBjr2NM8G/23CSoiRZYBe6tQcJDo+l8VFa6Y9X
-	 TIRO/VeBJNYnCFYd91v5Pklm2XWHdgduZrTJpsgkd7zhW3JM7IgFSw41yIEoG5xAuw
-	 I9MeIfGMLbHcwLrgaEpFkhPlYcZePsbQUfVo4+NdGx+NGyl3/63g964juIhLUrL8km
-	 S3hAVc1OrLTFA==
-Message-ID: <sashiko-outbox-197420@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 14:18:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4
+ARC-Seal: i=1; a=rsa-sha256; t=1793801923; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DBVfeNLfXabUNMkp7xC611fcDiXKusM2FO/lvSYIBEVfX5vEOlG99/wAEPA2nn1CmXMhxquDhJ/w5GiywA6nmhAZAQ9qR7kF6ZMUae4yoaMtdtjL/LGafcmjiO9taQ12h2QoIBl8gE01pgR0qC7/J9C60lBls5dFPBBjTHoReTc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793801923; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; 
+	b=WxF7Md9n/6T9oMxYLFDsCmJnDW/IVHf1shql+aBVA+9q2NfoaI/L64IpgZYtqsbS4nQtM+ZrIZCIztHXGJb13T0oOh68+mJYaFG71d450cuEDwWUOjOtOyPApLWKQN5hcHlBesm+jTEPcMIJCXvZ8vOMh2TWSDVOzaxvNU8s+Mc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=d5kQAnW4pZPZT28S914Jp3/gQri6eNKfx76LfGqS26FI8NDKAKizKE03J94JN31BLLMGtJqpZ4NljQxcfbqngsOJCZWEN3Rorwv+kFPTrd3s+wdboiqeHH4x75d872lLsCLbIpGrxdV42MtiOzOwR2Nn548ghSLKKgX/gyLo3cw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801921669437.63445022416045;
+	Wed, 4 Nov 2026 06:18:41 -0800 (PST)
+Message-ID: <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
+Date: Wed, 4 Nov 2026 17:18:36 +0300
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,87 +57,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
+ when the last user is gone
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+ <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
+ <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] of: property: of_fwnode_property_get_names() sets *props to ZERO=
-_SIZE_PTR
---
+On 10/16/26 14:06, Sascha Hauer wrote:
+> Hi Dmitry,
+> 
+> On 2026-10-07 14:20, Dmitry Osipenko wrote:
+>> On 10/5/26 16:28, Sascha Hauer wrote:
+>>> @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
+>>>   	hdmirx_disable_irq(dev);
+>>>   
+>>>   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+>>> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+>>>   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+>>>   
+>>> -	/* touched by hdmirx_disable()->hdmirx_plugout() */
+>>> -	hdmirx_dev->rgb_range = NULL;
+>>> -	hdmirx_dev->content_type = NULL;
+>>> -
+>>>   	hdmirx_disable(dev);
+>>>   
+>>>   	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
+>>> +
+>>> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
+>>>   }
+>>
+>> This is uncommon v4l driver removal pattern, I suspect it's either not
+>> correct or needs to be fixed in the core code.
+> 
+> The pattern looks uncommon because many drivers in the tree are affected
+> by the same issue ;)
+> 
+> Just like many other drivers the hdmirx embeds a struct v4l2_device in
+> its private data struct which is allocated with devm_*, thus freed
+> during driver removal. With an opened file descriptor the video_device
+> outlives the driver removal, and v4l2_release(), called on
+> the last file descriptors close then references the already freed memory
+> via vdev->v4l2_dev
+> 
+> This is a long standing problem. See [1] for example for an attempt to
+> fix it in the core. It seems consencsus at that time was that it must be
+> fixed in the drivers which is what this patch does for the hdmirx.
+> 
+> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@linux.intel.com/
+> 
+>>
+>> What is the user-visible or sanitizer-visible problem? How to reproduce it?
+> 
+> It can be reproduced with Kasan on affected drivers, below on the hdmirx
+> driver, but it should be reproducible like this on hantro and others as
+> well.
+> ...
+Thanks, the patches are good to me (tested on 5b with no problems found) 
+apart from this one that feels like it's not a proper solution.
 
-commit 9f35cc327cc9ae6d6d25a8e2fba2753d5485053e
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Will be good to have input from the v4l core maintainers, or have this 
+fix made separately from the series to not hold rest of the patches.
 
-of: property: implement the .property_get_names() fwnode operation
-
-This commit implements the .property_get_names() fwnode callback for OF
-nodes by iterating over the device node properties and returning a newly
-allocated string array of property names.
-
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 45e55f6184880..16c9c307633bd 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-
-[ ... ]
-
-> @@ -1120,6 +1121,34 @@ of_fwnode_property_read_string_array(const struct =
-fwnode_handle *fwnode,
->  		of_property_count_strings(node, propname);
->  }
-> =20
-> +static int of_fwnode_property_get_names(const struct fwnode_handle *fwno=
-de,
-> +					char ***props)
-> +{
-> +	const struct device_node *node =3D to_of_node(fwnode);
-> +	struct property *prop;
-> +	int count =3D 0, i =3D 0;
-> +	char **names;
-> +
-> +	for_each_property_of_node(node, prop)
-> +		count++;
-> +
-> +	names =3D kcalloc(count, sizeof(*names), GFP_KERNEL);
-> +	if (!names)
-> +		return -ENOMEM;
-> +
-> +	for_each_property_of_node(node, prop) {
-> +		names[i] =3D kstrdup(prop->name, GFP_KERNEL);
-> +		if (!names[i]) {
-> +			kfree_strarray(names, i);
-> +			return -ENOMEM;
-> +		}
-> +		i++;
-> +	}
-> +
-> +	*props =3D names;
-> +	return count;
-> +}
-
-[Severity: Medium]
-What happens in of_fwnode_property_get_names() if node->properties is NULL
-(for example, on a dynamically created empty node from
-of_changeset_create_node() or a node whose properties were removed via
-of_remove_property())?
-
-When count is 0, kcalloc(0, sizeof(*names), GFP_KERNEL) returns
-ZERO_SIZE_PTR, which passes the !names check and sets *props to
-ZERO_SIZE_PTR before returning 0.
-
-However, the documentation for struct fwnode_operations in
-include/linux/fwnode.h states:
-
- * @property_get_names: Retrieve the list of all properties of this firmware
- *			node. On success: returns the number of properties and
- *			sets *props to an array of NULL-terminated strings that
- *			must be freed by the user with kfree_strarray(). If
- *			there are no properties, 0 is returned and the props
- *			pointer is not changed. Returns negative error number on
- *			failure.
-
-Should of_fwnode_property_get_names() return 0 early when count is 0 so
-that *props is left untouched?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-fwnode-for=
--each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com?part=3D5
+-- 
+Best regards,
+Dmitry
