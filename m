@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793778922;
-	b=rJR84yVi7QjW6pKfp71apJI1QEF0cDMmRkemRvT7/ibd4SjIEfTODdRBQeTPQtXP6EPt
-	 qTzXWmO7L3VPxM7tiv4Bt7SBlMFRMAUoRzUH2emU2++HdQ6OP9RyvUry3fEjgimuItr5Z
-	 aaP6WWlL8peeKvx7qDyg8OuSKNlhr30KDEf628WLXEBhzy1KgucPydgxRdYOCAgz+eCAc
-	 I9rtYr28fexQGzIOwN0E6NPWb8G02g7wZtiqPsdnFZuLwnMFc1mKOGnPbxrKdhoTgXeFP
-	 2udH8QBm9GGy6HFhkHVhQss4EfD+RBDjB9ykXLPZPrmXwf1q+fPq4Gk3wo5eSKB+Qmw==
+	t=1793779113;
+	b=Du2kvPgHuCVAJ2+Lp5SHYExOEb8+wF09whYq4PXiAXVcxSHSxbirhWOOqt6w0lw+31au
+	 EBtaQakwhwPr3gbBILUIhRRJ2RGIM2natSmqLLWI1m9OigJ0c3DUu++aluJIPOZMc1nuH
+	 G8siypAEvtGsS6NY2ZbbtkeRtgPdlg87KOUnpM6LKV3W6/yKL/xNMIjXyhiZgUT/lzMqs
+	 ZIh++t2BVuHkN7H/S7WA+a/aUQde3+msmKHtwB85alVJh/nr+IFLn0VC0set29kGrpjZ1
+	 jZIlkUx7vWV2Bob6E9zS/YHDLzAVcOJdCSA3yOPRv/pdAh0b6wFALeJeC7NIUnqLgfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793778922;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=BiD2iT1S2BZCzUM56UymswLPef8+m8/elGiVUqIMfAI=;
-	b=RNKzVKztnnkyoyCgFS+SiOHR+VcNV/b0JHMWtix4hhbROxOmkiDq5k/3tX6w6HK3acAV
-	 Jrr+eY+rmOZBBkL9frhafIBj4v3rI8b2Km4DfgmGRRIoRztY5ZqNuzdsW5hN2eUkt44u2
-	 6KmT74H0uywO4QnPCgBEZc+Ceh0dGHgonpeNhARApMbF9ph+WD+sIxRifQuxxLvk84Igr
-	 ulJxjVzG3OcbG0JTjH1yCly6u38xYfwveJo/74IlVAxo23OpkhIAH9L/356HzkeEuCV31
-	 CBvZjIrKp0QZsMOm6ZogndkLerqlDk8ICyZmHeru+Hmdh93MBt5M/Bsh+P4j2K1RHjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779113;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Yzs3TvTUyCNgvkC1v8i5/KukWGuWF2PDxlQsJeMPHXU=;
+	b=HdWZeVm21aolYjhlNLLa2Xt3FDsMk/i1Bt3aGVP79pQ+zRVlZP2XXN1+b7CujwrEVBYY
+	 ElNCJ8q5Gxa0FgG0vVue03AX4lWR/PrY4Iz5hL26awUOrRejkE8+w8BUt4MiKJTabmTcJ
+	 Qsck0MUqCHHbboUPHL1fQJHr5UDuiuPOKKXh9REoo21z0oUHkN2y8mon31AZnV/Rc67kr
+	 McdZ43A/UgkO0fCZD3KgDndKU5EnfBUJaIeRyFQNsYwRJC6Gyl7+lHMqKSVvGy6OGat9e
+	 n9eAJrPF+Teeg/Odw47lc1MClGoWIoIM3676ZAm6rmDAv9XYu+LmK+ihYTROvzqrrww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQPnSbAt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APD3QMfW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5346606A328;
-	Wed,  4 Nov 2026 07:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08CD606A328
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:58:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQPnSbAt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A5C1F000C1;
-	Wed,  4 Nov 2026 07:55:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APD3QMfW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE551F00A1E
+	for <devicetree@vger.kernel.org>; Wed,  4 Nov 2026 07:58:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793778921;
-	bh=BiD2iT1S2BZCzUM56UymswLPef8+m8/elGiVUqIMfAI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dQPnSbAtr1l/W9UeGda/hGa2++Wupsy4e7JPfhpA9Ok7js1S1vdFdRV3lB1QbJo6A
-	 b+5uT7CS99HHuk1Hqa+SkFDtP4oqv7lRII+K8DBYw2gOf9TjWbCi9czmpdxEmHbekx
-	 9K3l5M8zbojQ7qtpile4M+lb10FXGydS1kYhKIzYbsc0bLSyBA+0cNX3Wht0vmgcJN
-	 uMubAfgaaOETv0Xg+cRmW5oFuKYoSBE+Eb4l1zHjb2i7Rj1CNNbHgGQEDWd+CzGxiV
-	 NWRLhQyGIILylaHW0O7VoxLbMVQotPfDFCY6Z2QNLeSdrr78eAyXrc5lC17tdayP8Z
-	 5/UJwhh8ueO3w==
-Message-ID: <sashiko-outbox-196840@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/10] ARM: dts: imx6ulz: Add SPI display and touch
- overlay for BSH SMM-M2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Haoning Cheng" <Haoning.CHENG@cn.bosch.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261104-add-bsh-smm-m2-v1-10-369f0a77e021@cn.bosch.com>
-References: <20261104-add-bsh-smm-m2-v1-0-369f0a77e021@cn.bosch.com>
- <20261104-add-bsh-smm-m2-v1-10-369f0a77e021@cn.bosch.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 04 Nov 2026 07:55:20 +0000
+	s=k20260515; t=1793779112;
+	bh=Yzs3TvTUyCNgvkC1v8i5/KukWGuWF2PDxlQsJeMPHXU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=APD3QMfWSKD1BEqDuFPXE3+ohbtpJ6xbOkKF6/O6IX/sFmf/WP6tCTDPkk7Blzesk
+	 9AEVKiwcntw99HFpLfc/vRRK6t0gNxTIHcHq6gE7VkH0GGGP9gA6kD74UuMoPnvQ0d
+	 aeM08aciNUWSsTLf6qfTtyp8IerYG5yHTVghZ8eNRM61BcV9BHFMi22/mNmPB4rybU
+	 KF5Nvz87trX80hDjstvXlqRP/RjVqVM6sTq+llZVdRujHeg3C+ozXR41e2+7gr+L2C
+	 Kwjz4N1LwdZIcYXIK4HaVufFg8C/SwduBh5RJqtnmLsAfz/WtWsIWMBcNzUdGkFzHC
+	 5L2yR8fY5rTXA==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b488586facso463677a12.2
+        for <devicetree@vger.kernel.org>; Tue, 03 Nov 2026 23:58:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwuolXPikojgKH40kXnTI2ZY83NLQ8tne2/uNognKH/0sPQvQnVo2+bnge3iMC5v60GrtZV5T58RhC7@vger.kernel.org
+X-Gm-Message-State: APuU4Z/P/yxvPNEB6tw7U4AU9AapdWJ1cLwa5U2g4TExDo8CzWgFS1n4
+	nfmzQV+cmPimFLv2ed62oEONP+lzFrXatehjdW/cp5FnUhkmdfwYvmneZE8rcvrJOeoaH3Ta52A
+	VnhzsLcp8+gpertkDpSU+jGi3ZMFxylo=
+X-Received: by 2002:a05:6402:4608:b0:6b3:dd6e:3dca with SMTP id
+ 4fb4d7f45d1cf-6b4d4d82589mr10723248a12.28.1793779111329; Tue, 03 Nov 2026
+ 23:58:31 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,181 +58,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <cover.1793776192.git.zhoubinbin@loongson.cn>
+In-Reply-To: <cover.1793776192.git.zhoubinbin@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 4 Nov 2026 15:58:19 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5xomk3dwDScquwWWCD3_FCoJG8dur0b09j68QUqPT3VQ@mail.gmail.com>
+X-Gm-Features: AclHuK9cpjirvuwWJw1GRdeY1qyvEyu7MaMSjIH4ln9noIFTiQtqfBK6yL3oNPQ
+Message-ID: <CAAhV-H5xomk3dwDScquwWWCD3_FCoJG8dur0b09j68QUqPT3VQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] serial: 8250: Add Loongson-2K0300 and Loongson-2K3000
+ UART support
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Haowei Zheng <zhenghaowei@loongson.cn>, Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] ARM: dts: imx6ulz: active-high pendown-gpio breaks ads7846 touch
-- [Medium] ARM: dts: imx6ulz: backlight pad mux placed on display@0 instead=
- of backlight
-- [Low] ARM: dts: imx6ulz: open-coded fragment and __overlay__ nodes in ove=
-rlay
---
+For this series:
 
-commit bebf64c08aefd84526e08136a534cf0657beb477
-Author: Simon Holesch <simon.holesch@bshg.com>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-ARM: dts: imx6ulz: Add SPI display and touch overlay for BSH SMM-M2
-
-This commit adds a Devicetree overlay for an SPI-connected ILI9486 display
-and ADS7846 touchscreen on the BSH SMM-M2 board.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-ws13506-ads7846=
-.dtso b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-ws13506-ads7846.dtso
-> new file mode 100644
-> index 0000000000000..869443dd648e8
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-ws13506-ads7846.dtso
-> @@ -0,0 +1,99 @@
-> +// SPDX-License-Identifier: (GPL-2.0+)
-> +/*
-> + * Copyright 2024 BSH Hausgeraete GmbH
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include "imx6ul-pinfunc.h"
-> +
-> +/ {
-> +	fragment@0 {
-> +		target-path =3D "/";
-> +		__overlay__ {
-
-[Severity: Low]
-This isn't a bug, but could this overlay use the standard DTC target
-reference syntax (&{/}, &ecspi1, and &iomuxc) rather than open-coding
-fragment@0, fragment@1, fragment@2 and __overlay__ nodes, matching
-Documentation/devicetree/overlay-notes.rst and other .dtso files in
-arch/arm/boot/dts/?
-
-> +			backlight: backlight {
-> +				compatible =3D "gpio-backlight";
-> +				gpios =3D <&gpio3 21 GPIO_ACTIVE_HIGH>;
-> +			};
-> +		};
-> +	};
-> +
-> +	fragment@1 {
-> +		target =3D <&ecspi1>;
-> +		__overlay__ {
-> +			pinctrl-names =3D "default";
-> +			pinctrl-0 =3D <&pinctrl_ecspi1>;
-> +			cs-gpios =3D <&gpio3 26 GPIO_ACTIVE_LOW>,
-> +				<&gpio2 15 GPIO_ACTIVE_LOW>;
-> +			status =3D "okay";
-> +
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			display@0 {
-> +				compatible =3D "waveshare,rpi-lcd-35", "ilitek,ili9486";
-> +				pinctrl-names =3D "default";
-> +				pinctrl-0 =3D <&pinctrl_lcd>;
-> +				reg =3D <0>;
-> +				spi-max-frequency =3D <32000000>;
-> +				dc-gpios =3D <&gpio1 31 GPIO_ACTIVE_HIGH>;
-> +				reset-gpios =3D <&gpio3 6 GPIO_ACTIVE_HIGH>;
-> +				backlight =3D <&backlight>;
-> +				rotation =3D <180>;
-> +			};
-> +
-> +			touchscreen@1 {
-> +				compatible =3D "ti,ads7846";
-> +				pinctrl-names =3D "default";
-> +				pinctrl-0 =3D <&pinctrl_touchscreen>;
-> +				reg =3D <1>;
-> +				interrupt-parent =3D <&gpio3>;
-> +				interrupts =3D <18 IRQ_TYPE_EDGE_FALLING>;
-> +				pendown-gpio =3D <&gpio3 18 GPIO_ACTIVE_HIGH>;
-
-[Severity: High]
-Should pendown-gpio in touchscreen@1 use GPIO_ACTIVE_LOW instead of
-GPIO_ACTIVE_HIGH?
-
-The ADS7846 PENIRQ line is active-low (pulled low when touched), which
-matches the 100k pull-up in pinctrl_touchscreen (0x1b0b0) and
-IRQ_TYPE_EDGE_FALLING.
-
-In drivers/input/touchscreen/ads7846.c, ads7846_setup_pendown() requests
-the descriptor via devm_gpiod_get(&spi->dev, "pendown", GPIOD_IN), and
-get_pendown_state() calls gpiod_get_value(), which applies the Devicetree
-polarity flag:
-
-drivers/input/touchscreen/ads7846.c:get_pendown_state() {
-	if (ts->get_pendown_state)
-		return ts->get_pendown_state();
-
-	return gpiod_get_value(ts->gpio_pendown);
-}
-
-drivers/input/touchscreen/ads7846.c:ads7846_hard_irq() {
-	struct ads7846 *ts =3D handle;
-
-	return get_pendown_state(ts) ? IRQ_WAKE_THREAD : IRQ_HANDLED;
-}
-
-With GPIO_ACTIVE_HIGH, gpiod_get_value() returns 0 while GPIO3_IO18 is
-physically asserted low on touch, causing ads7846_hard_irq() to return
-IRQ_HANDLED without waking the threaded IRQ handler ads7846_irq().
-
-[ ... ]
-
-> +	fragment@2 {
-> +		target =3D <&iomuxc>;
-> +		__overlay__ {
-> +			pinctrl_ecspi1: ecspi1grp {
-> +				fsl,pins =3D <
-> +					MX6UL_PAD_LCD_DATA20__ECSPI1_SCLK    0x100b1
-> +					MX6UL_PAD_LCD_DATA22__ECSPI1_MOSI    0x100b1
-> +					MX6UL_PAD_LCD_DATA23__ECSPI1_MISO    0x100b1
-> +					MX6UL_PAD_LCD_DATA21__GPIO3_IO26     0x0b0b1     /* SPI CS.0 */
-> +					MX6UL_PAD_ENET2_RX_ER__GPIO2_IO15    0x0b0b1     /* SPI CS.1 */
-> +				>;
-> +			};
-> +
-> +			pinctrl_lcd: lcdgrp {
-> +				fsl,pins =3D <
-> +					MX6UL_PAD_LCD_DATA01__GPIO3_IO06       0x180b1     /* LCD_RST */
-> +					MX6UL_PAD_UART5_RX_DATA__GPIO1_IO31    0x180b1     /* LCD_DC */
-> +					MX6UL_PAD_LCD_DATA16__GPIO3_IO21       0x180b1     /* backlight */
-> +				>;
-> +			};
-
-[Severity: Medium]
-Should MX6UL_PAD_LCD_DATA16__GPIO3_IO21 be moved into its own pinctrl group
-and referenced via pinctrl-0 on the backlight node rather than on display@0?
-
-In drivers/gpu/drm/tiny/ili9486.c, ili9486_probe() calls
-devm_of_find_backlight(dev) and defers with -EPROBE_DEFER until the
-backlight device has finished probing. On i.MX6UL, imx_pmx_ops in
-drivers/pinctrl/freescale/pinctrl-imx.c does not implement
-.gpio_request_enable, so requesting GPIO3_IO21 in gpio_backlight_probe()
-does not mux the pad or apply its pad configuration.
-
-As a result, when gpio_backlight_probe() in
-drivers/video/backlight/gpio_backlight.c runs before display@0 binds
-pinctrl_lcd:
-
-drivers/video/backlight/gpio_backlight.c:gpio_backlight_probe() {
-	...
-	if (!of_node || !of_node->phandle)
-		/* Not booted with device tree or no phandle link to the node */
-		bl->props.power =3D def_value ? BACKLIGHT_POWER_ON
-					    : BACKLIGHT_POWER_OFF;
-	else if (gpiod_get_value_cansleep(gbl->gpiod) =3D=3D 0)
-		bl->props.power =3D BACKLIGHT_POWER_OFF;
-	else
-		bl->props.power =3D BACKLIGHT_POWER_ON;
-
-	ret =3D gpiod_direction_output(gbl->gpiod, !bl->props.power);
-	...
-}
-
-gpiod_get_value_cansleep() and gpiod_direction_output() execute while
-MX6UL_PAD_LCD_DATA16 is still unmuxed and unconfigured.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-add-bsh-sm=
-m-m2-v1-0-369f0a77e021@cn.bosch.com?part=3D10
+On Wed, Nov 4, 2026 at 3:46=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn>=
+ wrote:
+>
+> Hi all:
+>
+> This series adds UART support for two Loongson SoCs.
+>
+> The Loongson-2K0300 UART is the same as the one found on the
+> Loongson-2K1500, so it is documented as falling back to
+> "loongson,ls2k1500-uart" and then "ns16550a". No driver changes are
+> needed.
+>
+> The Loongson-2K3000 UART differs from earlier Loongson UARTs in that it
+> does not require MCR/MSR signal inversion. It also supports a fractional
+> baud rate divisor. A dedicated compatible and driver data are added so
+> the driver can distinguish it.
+>
+> Thanks.
+> Binbin
+>
+> Binbin Zhou (3):
+>   dt-bindings: serial: 8250: Document Loongson-2K0300 UART compatible
+>   dt-bindings: serial: 8250: Add dedicated Loongson-2K3000 UART
+>     compatible
+>   serial: 8250_loongson: Add Loongson-2K3000 UART support
+>
+>  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+>  drivers/tty/serial/8250/8250_loongson.c            | 7 +++++++
+>  2 files changed, 11 insertions(+)
+>
+>
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> --
+> 2.52.0
+>
