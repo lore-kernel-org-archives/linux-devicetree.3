@@ -1,115 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793790624;
-	b=obFux4YukzGK+Qg8WCrVDMI5jbNTZol7mJl+SlQoSgUjQcN9bPSydgqTyA3jEMp1+Hw1
-	 NsaY/GpA5+kIrxFFd3fhn8lH5a2AVnTdolBM9Jv4aNtrlczARajX60BrfcTEV5F/3UrZn
-	 D71hspNbAd9DS0U9+ZYbSibrnhzPMZCuL8Ri+T78FE+0FA3D1sopXI33XTIPqJvFxGTkG
-	 vdmpSOZkd3kpJy4McBMVBtkrvkywyb6Wf9qJqbBlB1l+4Ae7almMXjb03abZuZ3hL6Mj+
-	 tpBtsn+f+nTGQuB3Y05SCpIbzVdcnqXV33tYHzlxuRZC4qGDEGggRVoDXnenTpSjirA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790624;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793790733;
+	b=izeXEJGIFaufyFvVe7CTahS5wXhRI0YCIm88zJjazlF4SCsJMdghcXO3x0v2Xyk+Xurk
+	 7A+I+Mjg6JHebqv+DKDtsYU3/V7GX0WbxodbtqthMfXxQaAdvJS1hgoicDQVRiCtdmEke
+	 5Smz7IcGIxoBCi9PgxZlB/foghFR4Zmghn0ihn5Yb3w/Ziw75POjETwFjOyU4qOoOXMQo
+	 xS+UTOro7NYANQSs3rXJluoMJ3HFS2GvQnqOG9DLuJUNGqT7iHCQcQwPhF3LUbvhuMWHH
+	 TNf/+CBsSFH0KTXw9jDPihLU2RsXTwTPku1VxqW1OamukR+SOkSru9FT7cnQUWYu/QQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790733;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=MU6o1qg08IXkz9CRv61UvB4t27knTE5k1VivPe3sQhs=;
-	b=Yq4E0UDAqjEtTH7M5ldF3iJIElpL1zGG2HmSO8blOaRXNa8EVm9j+rIHT3APca43jaZx
-	 veC3PgQHQiDuDo/DK860IH5c6gpMJiUU6SvwQsiTTtjX4V/fcRxh/JNfnQS0zkmq/8CsQ
-	 vgrH7xLVgnwLt+EF0mSwvI4/FD6uYNxkn2xn404nDODGyqMG2pr+zc4hDwdOWP6KFq14Z
-	 NXAPIvT8qd7pTQF0CaPxRAYx98DiNHuGmXDSZHLmWkeL2lNW8vL+IuBb+s/8k9Pk8zQhG
-	 YC/tgMntyL/nviZkrHn86s45nQ9cYpNU67vfNKrz+zaxkU/DysAvLVtOxIYo0Y8w6/Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QXGpE9dz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.55
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010055.outbound.protection.outlook.com [40.93.198.55])
+	 Content-Type;
+	bh=Sq72/jE1QWYRdcK1hoiu7bRYxYUswJNBNRjBOWyiKL8=;
+	b=T702f8n8TnF2pmd0HJgPkGZeNBzKOfbWjWb6LfE/bOuDNrdvxUIZhPIO43Jh96Eg7Sin
+	 H0aZnb4NOvb+vrj6BPaRNEKkhjvRPfmQqb2Ztwz7+E4I3qq9N3oDscIqY7nWSlgnIBuxN
+	 SxFEpZR0U+eHm0iDQapb/IzmxpWt+O2wqZ0sDnKg7go67xUyO3wLfBYSr1HphxgcUsl4Y
+	 FX3zABvAJr65c0OF/DBvLEYTgpzZfUVi9pQXkS0nfTyOUZ1zGpFFjwnHYMUd2jYIbupqJ
+	 nkD4caVVT3gn2bXjftu44vyPZ8d6s0/CboGebg1dTCaV6pCmbvea5Q0RzNdgMqv5ahg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=2HPcvgDB;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0932F606D81C;
-	Wed,  4 Nov 2026 11:10:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0932F606D81C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C30F606A31B;
+	Wed,  4 Nov 2026 11:12:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C30F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QXGpE9dz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hFxfBRZr/77QyE1x5ND5vBk2LHGYcw0CKUWZDxoYw1dNooqCD9GC5n+wRTSfxR+tDoMULnbQipPkafvN/tO9sV/aDSPw8bCoctxshYUE8+QgL6HYD+oGIQiNWwE31IX8JJQetZGyWY9ZAih3TFcfJYKNf9ExTq19sW7upXfufQ+f9mi7V8QLg1xNfCfYC026/7E4pcm3nU7PQVqj9XA6DlytMFb5NcBKnjDU3/5Im6zXSCWztnp2+Kpx/e5rvxwgc+V8OJcIuFiBEjINvkmKk/oWQgcxiIlreANqxfmOi3K5dWmJ46PaicEoyZojFN01ZcXBp/6OmP0u2GWHXyLuZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MU6o1qg08IXkz9CRv61UvB4t27knTE5k1VivPe3sQhs=;
- b=yD3azij/nuB6Hw7NetVOQp/eyarlofff77Xca9B0AkXeEjMpOuLWEZK44/EmHvoucgFgbhYC3YE7V4beETdvY7rTpIKgOqmOHuZ0RWm9Dop6EqO1mRUh2QXUZloMIhG9gqPogxIjvdAIHS9vebs2BnYw8YoEDfpUakaZJLeqAw4Dbz9JN5tjiZWfm6cU9rGa2eCVHMUHueYCGj86okEz5Ahlt2ei8smCf+MAfzGBehTZFuGhia0/j6B1Zcj3F5ZUcy/SHUNEq006jsEKuuPW5Of2JiOKkVgaXmIcCA30UabiDAE6zAYRb6EhWYl3W4MzcrHRXHm4Dpuattce8W2/HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MU6o1qg08IXkz9CRv61UvB4t27knTE5k1VivPe3sQhs=;
- b=QXGpE9dztw6ybDqLi4A6jQBYXNJlAC4Rzaq8LTEb0YDZ+iseFchhUiI6Je33bMPn1+qJXcEZIiuzK5GEGWyYjaGS+e1HeSyEfam2f9FRWhR7PIIvBaXMmvdtc6MDzBJPELLKNyV2u+nR3nyHHNFcZzFZnABvD6IIKufoTATG/4YX/iS6a6kG4m8oW6mEnGJvUxToYXNb6VMyVE+FLDwbcAHznsHJgIP6XgeskwULPV+2KMWCItujzj1UjCNTl2zO5f9UrRc7wSyb8VUhtib8rbnPgm29dy7Dze9Fn3bPBbESEkirnxsHHKbcHpsdt3a/oIhz2pf8X0fASii4MdNv4A==
-Received: from CY5PR04CA0025.namprd04.prod.outlook.com (2603:10b6:930:1e::28)
- by DM6PR12MB4433.namprd12.prod.outlook.com (2603:10b6:5:2a1::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 11:10:19 +0000
-Received: from PH3PEPF0005961B.namprd05.prod.outlook.com
- (2603:10b6:930:1e:cafe::69) by CY5PR04CA0025.outlook.office365.com
- (2603:10b6:930:1e::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 11:10:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- PH3PEPF0005961B.mail.protection.outlook.com (10.167.243.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 11:10:19 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 03:10:03 -0800
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 4 Nov
- 2026 03:10:02 -0800
-Received: from build-sheetal-noble-20261014.internal (10.127.8.14) by
- mail.nvidia.com (10.129.68.9) with Microsoft SMTP Server id 15.2.2562.56 via
- Frontend Transport; Wed, 4 Nov 2026 03:10:02 -0800
-From: Sheetal <sheetal@nvidia.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Frank Li <Frank.Li@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, Thierry Reding
-	<thierry.reding@kernel.org>, Mohan Kumar <mkumard@nvidia.com>, Sameer Pujar
-	<spujar@nvidia.com>, <dmaengine@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Sheetal <sheetal@nvidia.com>
-Subject: [PATCH 2/3] dmaengine: tegra210-adma: Make Tegra264 FIFO size explicit
-Date: Wed, 4 Nov 2026 11:09:31 +0000
-Message-ID: <20261104110932.1097294-3-sheetal@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104110932.1097294-1-sheetal@nvidia.com>
-References: <20261104110932.1097294-1-sheetal@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=2HPcvgDB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Sq72/jE1QWYRdcK1hoiu7bRYxYUswJNBNRjBOWyiKL8=; b=2HPcvgDB89z9MCCbZPrKTjDdSe
+	a2iOhzncH45XWbpf9h5Z8prpD2YftEz7/e5hwuvWn+QuCeuR+A985T/5nMETf+5nDv4C/OGiEYWiN
+	yHNn/W7mCluK0Avj86ssbgeDhbC5MybjVA9WWWhZe6nnpnYsMAqhE8dncxIx4P5Sw9H0FPt3JwUjA
+	V2dW8uAPnS6oH6s/atFbE1YQM3BrqEBVTBRoCa6Px+Gf2R9yjpHPLpIRsFY0/nmSSP+QIih6+Ebkj
+	gVyTKzfad0lXgE4JzqsC3FtSmP5P7yTqCtINcMmCiSDl37j6H7J+F/DKy534XRIjzr18Rpw0TYvFZ
+	34n1vy7Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Igor Paunovic <royalnet026@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Sidong Yang <sidong.yang@furiosa.ai>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>,
+ =?UTF-8?B?SMO8c2V5aW4=?= BIYIK <boogiepop@gmx.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v2 05/11] accel/rocket: request the core clocks by name
+Date: Wed, 04 Nov 2026 12:11:52 +0100
+Message-ID: <13701281.ZYm5mLc6kN@diego>
+In-Reply-To: <20260922080114.44662-6-royalnet026@gmail.com>
+References:
+ <20260922080114.44662-1-royalnet026@gmail.com>
+ <20260922080114.44662-6-royalnet026@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,114 +72,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH3PEPF0005961B:EE_|DM6PR12MB4433:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06388c55-6a2d-4a9b-34e2-08df3a643659
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|10067099003|18002099003|22082099003|56012099006|11063799006|261022105027099003|261026140227099003|261102123227099003|261028144727099003|261009223027099003|261021123027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	tc3SfXyJgOhs1hFgBByir6ymButAbJJK02CeilnElvKiyQWXzjqmKpOHDq0lq/eH5WvpRR69nj3jT9Lkcitp1Db1QzAIS0hB65KbdGetazt4uPOl/fem/kTNxz5ku/zQiBTNGJWCKz5XUe3zySrDGpXwIQMHmYxuSqC9PoNzwmmDZwXAy9mI4OrPkfHczN+EYOWjizUECd1Sjh1pnTVhK+4ix5vRuHaH32531+iRDQ1ebp/TbUTBKAfGuAtZ0KjRXCsb3QSzH2Xz4h7VmBCSWuXOyo6C/V5AMGvSODrRDTEU5t8kjxN5rsaBTi2ZcGULXKRbfm/E93YmKO7XvQYModmqj/MFD9F5stuMLh5N0AY0DJdmyGERxwVH6YebuZg1S10gIQFi1f4ojk35ncaVhdZxkjFc61sWMBezjkJQgRey3SGS06pUB37fIFDl/YIv06OztT99m7kKdUbsRceUH1vOfQMMNcMc7P4qjw83szbQ9dcqgWPiO9qNHMiJGZDko8C0BrmrC5BdQ+CdDr74+Iq+L6G6GFT80sYeAT+6rbG2dFJc0RHxqmYrfJqQyXmp1acDsQT9BsHf0Cc5fH4kkak1VIV41FXc8T9D6KM4X+ztBHxaG+1pf2rB5NRH+8uJErP6gNYYlrzhNk00UGheOv4eBrbOcDIYtyhJOrPqWR6qsvtKxz3qwLBb/skIfy1UJRvSG8TImHLAVIB81M/s6A==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261022105027099003)(261026140227099003)(261102123227099003)(261028144727099003)(261009223027099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lTqg1emMTSE5vdJPKuOjd8WAVh2jdGeVr5ptURyFFIU0zlKdV0IrUR3axHX3Ibg6naql/Z+eMewlmxuUX9uY/NxjASl0L43cgyXO2ChiYoV8/ge8dgP0IAVS7BXzmsTXNLwbJ+nRPwNcMvUqTzTXbXhvZZXrZ0KkK45EIBnFprNxOeRw81NhZLiv39nyKXErZhPq+5u0SO9dqw8fzRjyzvetUSn+zaCxBfhlYCsTmf0pdhvPz2fbr4qMf5m2kwpIYtPHN/zzu/C9+ad0gxC6PLh88L28UTCAaZyrRIo2AeRqY4T31Z4TzQGWS0a4DHU2wKO8Cr9gAd2oH7/oqJOj/cbRpkx9HqRETDSIF6lDQtfbxJrJumfs+TCXZOilBbIQ6RL/ctexw/sCcAUREqZUKLk5CClusJqP55HcpPCc0JUVV/KZWI7IAbCbdmHz/PeB
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 11:10:19.1870
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06388c55-6a2d-4a9b-34e2-08df3a643659
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH3PEPF0005961B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4433
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Tegra264 uses the same ADMA FIFO size for every ADMAIF request. The
-driver currently obtains this by setting sreq_index_offset to zero,
-which makes every valid request select a FIFO size of 2.
+Am Dienstag, 22. September 2026, 10:01:08 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Igor Paunovic:
+> rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
+> setting the .id members. The rocket_core array is allocated with
+> devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
+> .rdev, .dev and .index, so all four clk_bulk_data entries are requested
+> with a NULL con_id (unlike core->resets, whose ids are set a few lines
+> above).
+>=20
+> clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
+> of_parse_clkspec() only consults "clock-names" when a name was passed,
+> so the index stays 0 for all four entries. Every entry therefore ends up
+> holding a handle to the *first* clock of the DT "clocks" property, i.e.
+> ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
+> four different clocks.
+>=20
+> The consequence is that rocket_device_runtime_resume() prepares and
+> enables the AXI clock four times, while hclk, pclk and - most
+> importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
+> never prepared or enabled by this driver at all. The NPU still works
+> only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
+> its attach_dev() callback walks the device node with of_clk_get() and
+> adds every clock to the pm_clk list, so genpd happens to keep the
+> remaining clocks running. The bug is therefore latent today, but it
+> means the driver holds no reference to the clock that actually feeds the
+> NPU, which stands in the way of any future frequency scaling
+> (OPP/devfreq) work.
+>=20
+> Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
+> /sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
+> handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
+> two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
+> "fdab0000.npu" consumer at all - their only consumers are the
+> "npu@fdab0000" handles created by the power-domain driver via
+> of_clk_get().
+>=20
+> Set the ids explicitly, in the order mandated by the binding
+> (Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
+> aclk, hclk, npu, pclk. After the change the driver holds one handle per
+> distinct clock and clk_bulk_prepare_enable() covers all four.
+>=20
+> Note that this is a user-visible tightening for out-of-tree DTs: the
+> old NULL-id requests resolved by index and succeeded no matter what
+> "clock-names" contained, while the named requests fail probe with
+> -ENOENT when one of the four names is missing. That is the right
+> outcome for in-tree users - the binding requires exactly these four
+> clock-names and rk3588-base.dtsi carries them on all three cores - but
+> a DT that relied on the permissive lookup goes from silently running on
+> the wrong clock handles to not probing at all, so record the change
+> here where git log will find it.
+>=20
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+> Assisted-by: LLM sparse checkpatch
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, N=
+anoPC-T6 Plus
+> Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+> Same diff and the same message text (his copy re-wraps the lines) as
+> 01/14 of Jiaxing Hu's RK3576 series, which carries this patch as well;
+> whichever lands first, the other drops it. The trailers differ: Jiaxing
+> asked me to drop his Signed-off-by from my own posting of it, as he did
+> not pass this copy along, and Assisted-by is added because an LLM helped
+> with the checks on this v2.
+>=20
+>  drivers/accel/rocket/rocket_core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index b3b2fa9ba645a..5dd260bacbff6 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
+ore->index);
+> =20
+> +	core->clks[0].id =3D "aclk";
+> +	core->clks[1].id =3D "hclk";
+> +	core->clks[2].id =3D "npu";
+> +	core->clks[3].id =3D "pclk";
 
-Add a SoC data field for the uniform FIFO size and set it to 2 for
-Tegra264. Retain the request-index-based FIFO selection for earlier
-SoCs. This preserves existing FIFO programming and allows devices
-with a different uniform FIFO size to specify it in their SoC data.
+additionally, while reading the followup patches, please introduce some
+constants for the indices. ROCKET_CLK_ACLK, ... or some other name.
+Because when you access them later by index, that makes things harder
+to read and follow (especially in the future)
 
-Signed-off-by: Sheetal <sheetal@nvidia.com>
----
- drivers/dma/tegra210-adma.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/dma/tegra210-adma.c b/drivers/dma/tegra210-adma.c
-index 21a381d022cf..293a1119e07a 100644
---- a/drivers/dma/tegra210-adma.c
-+++ b/drivers/dma/tegra210-adma.c
-@@ -101,6 +101,7 @@ struct tegra_adma;
-  * @ch_reg_size: Size of DMA channel register space.
-  * @nr_channels: Number of DMA channels available.
-  * @ch_fifo_size_mask: Mask for FIFO size field.
-+ * @ch_fifo_size: FIFO size for devices with uniform channel FIFO size.
-  * @sreq_index_offset: Slave channel index offset.
-  * @max_page: Maximum ADMA Channel Page.
-  * @set_global_pg_config: Global page programming.
-@@ -125,6 +126,7 @@ struct tegra_adma_chip_data {
- 	unsigned int ch_reg_size;
- 	unsigned int nr_channels;
- 	unsigned int ch_fifo_size_mask;
-+	unsigned int ch_fifo_size;
- 	unsigned int sreq_index_offset;
- 	unsigned int max_page;
- 	void (*set_global_pg_config)(struct tegra_adma *tdma);
-@@ -725,18 +727,28 @@ static int tegra_adma_set_xfer_params(struct tegra_adma_chan *tdc,
- 	 *
- 	 * ADMA FIFO size is set as per below (based on default ADMAIF channel
- 	 * FIFO sizes):
-+	 * For Tegra264:
-+	 *    fifo_size = ch_fifo_size
-+	 * For devices prior to Tegra264:
- 	 *    fifo_size = 0x2 (sreq_index > sreq_index_offset)
- 	 *    fifo_size = 0x3 (sreq_index <= sreq_index_offset)
- 	 *
- 	 */
--	if (tdc->sreq_index > cdata->sreq_index_offset)
-+	if (cdata->ch_fifo_size) {
- 		ch_regs->fifo_ctrl =
--			ADMA_CH_REG_FIELD_VAL(2, cdata->ch_fifo_size_mask,
--					      fifo_size_shift);
--	else
--		ch_regs->fifo_ctrl =
--			ADMA_CH_REG_FIELD_VAL(3, cdata->ch_fifo_size_mask,
-+			ADMA_CH_REG_FIELD_VAL(cdata->ch_fifo_size,
-+					      cdata->ch_fifo_size_mask,
- 					      fifo_size_shift);
-+	} else {
-+		if (tdc->sreq_index > cdata->sreq_index_offset)
-+			ch_regs->fifo_ctrl =
-+				ADMA_CH_REG_FIELD_VAL(2, cdata->ch_fifo_size_mask,
-+						      fifo_size_shift);
-+		else
-+			ch_regs->fifo_ctrl =
-+				ADMA_CH_REG_FIELD_VAL(3, cdata->ch_fifo_size_mask,
-+						      fifo_size_shift);
-+	}
- 
- 	ch_regs->tc = desc->period_len & ADMA_CH_TC_COUNT_MASK;
- 
-@@ -1018,7 +1030,7 @@ static const struct tegra_adma_chip_data tegra264_chip_data = {
- 	.ch_reg_size		= 0x100,
- 	.nr_channels		= 64,
- 	.ch_fifo_size_mask	= 0x7f,
--	.sreq_index_offset	= 0,
-+	.ch_fifo_size		= 2,
- 	.max_page		= 10,
- 	.set_global_pg_config	= tegra264_adma_global_page_config,
- };
--- 
-2.43.0
+Heiko
+
 
