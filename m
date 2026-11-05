@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840478;
-	b=dFiod2OFpvYcGDvoruizj6GxFCZi43PwO8vZdDR2wlJokwCZ1BD46aCZvlxwoC8YUv6q
-	 zpI2bVS6H8jDhqfi3QS8XDRv0RZQjRFx0PQumYCU9NgAE6nx2LzMq9E/0Qr2wD+oAxdfi
-	 nugtOurfqXEEq5P3kbYZFyeTV1AEILUV8vGod8G5P6tbz1AgeHYF2rwGWU0f6mmy64Xf4
-	 dvEAc9LgQg1zHhuHYAnzyjlo1GgApwhlnQo7e20bThxZCL0v14UH9OZQO/MuDyfMRX7oy
-	 lMcNoHywORAJzQqOyIkjpKeOlQmAdP7avvCm3j9U2en0iwNML78EeIEJZbjY3feP1lw==
+	t=1793840479;
+	b=XTXpLsUe4ZF61hi0BXe0UAbQ9l2MsmqrNnhjHzlz6lijhuWm3Bv51PnXl1ECYNjqGbh9
+	 t04IsyE5C/RBdywA+neyb+Sn66SYJZhlIscYlHjPhbOQJE0Y3FYKMHxnkW1KAhACo/CWP
+	 9r6pl9LOsJU6eRGcopYt5csJL306QrXdG8ZPJdV7ZxgccuRe37t1MF/FSo23nbLKdbwqC
+	 f2ZaXBIrdMhn0YN2/yJBK3fnI6H/iKPhcbH54MIlDMsRbZOjx2Haggf5jXit69rNjerpf
+	 RZY4RWWP4O/fa/k/FiSI7p6AlRgGSyVe1GZrc+/gQmLQg794s80F0RqGguPL8kc3SiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840479;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=IE+CwyGmVpK9kCq38wcc2HM4ElfDFOxunpUNRJr2ayk=;
-	b=qUwaMdU2Hn6tKFOMHVQ/3l6d78JDnt8G4K+ReksOfqyJlg6HxXyR/jIPpRD0a3rjGmdx
-	 KQgq+CTKXHXB3o8lZIsh9dvxudBAmmuFzbplOVNxjOm1TC/jnLDvFLg3E6gb9CmAf6H0C
-	 p8+ynKoYC6wI137yFqDpGUcTNM2ShVaZO5GbueJD+CbNkdE5yZq4FVEjavsPavUauzFfI
-	 /4Lgg6aQhbhXO3Fxi3UUgCmv8jfm/8XvUdvTVs0u808gpU1IWA7FBfe5MYzmNM2tmvRPm
-	 9hSjbcfQzqC88/7W9hMHJnVjhbU82KZVpeMQYX4Cg2d+XarkEEPt/uZB2sc2YYWMvrw==
+	bh=cX+DbcJmmg9QakyYJpWVZ77VZJzicnM6ehZMoDfPJjw=;
+	b=HSdO+7SJ6oDwYX2YvZmXt0PhIoJVudjLoEU/DZwzvpFHfDvbt41ZGmxmT3K5Ax5r/glS
+	 nQwYZJO88XER44kw1zBVVa7wOz10RYIk39DYaz/RbNQvUZ/2rQ8bMKWUy8kHtpaMLyIOm
+	 BmbKw+ukXN2m7n7+4/HTrcd1vZx14L/2GBvicqUyy1hoidy90oY5D3WkNJELR4m41D0yh
+	 xOvC2I++RX0lEzpZa4bs98CfiD+FjQUHL89+Xn88dis0+GRKO2iF/ZxhKXYQ6Aj9sGP4a
+	 H3eaHzv5mv2MLYnxo/9iK3L1yn9XFcpjKHbFeQy4E8E0q6zpufbbIcR9QDXsBC3VNVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VR855FDp;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=MDWWwlXC;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7742A6082BD2;
-	Thu,  5 Nov 2026 01:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7742A6082BD2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF5A6082BC0;
+	Thu,  5 Nov 2026 01:01:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCF5A6082BC0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VR855FDp
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=MDWWwlXC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793840475;
-	bh=fYsBZY+jSikNub85K8e0+OdnyNo7wwxjd1+6YCys8OA=;
+	s=mail; t=1793840477;
+	bh=JzGzUfuhfcfeEnoYFB9FfGGdw4SszHeIH0PSK2/hZUc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=VR855FDpiojGQjntT7bGe/YYaibGfjJX7V2GMMa1wh0eDU9HRJWoEHKN6i4sLB/lb
-	 zGMzeRVnZWAZ/WAcP0279QRqq3Y1I6wJP24NTK688ZtIFiRPB43R+WKXAKsZtvbmui
-	 au6XKiWXwoPdyC7t1qswazUzjstRgBKySeboUzGwMh1JFEWJ00+jn6hN+ooledOunF
-	 G/3CQBu4nvEp4nBC6+Owet9wLXq1YalTwkcBqamBWhTzUFmr2hwuqesIEGTHfUJXeh
-	 xDv/HyJo2MwiwyJ39eGbPpCFKggTuDmyReErY+s1+HJkYwftoiiDdM9T0Mjmumtdf1
-	 cxBNyyW98SaQg==
+	b=MDWWwlXCSlM0agj9tA9e8bWmz22nJlYyA7++e/F5OFCJeSxeCQ20bW8gFLiyn+KLF
+	 cgdWstVA7e4YNZ4Ph0OAHAqkF3illG7cXvSnxAeSGKcJxEdqRZ7LnlCmeC+K/B/koH
+	 /nG5ruGhKF9cSxRC+FasKNfRClJ0z+wnsmCioobILURMDIAgjKtD+Fb1CDcuvFOuuG
+	 9yff9O5ycWppvGl8xLaFwRsi6sZ1R+NSiaBDvFgmrGhSdlK2XMwGJprvYvaIHToB4O
+	 JtdftT+5VFwz//BUSU3KxDOG6F6u3bIvSDr/6hp7EFrtXQDai+5OcbImDmPHTceKHi
+	 sKd9iyGkkOtKg==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B9B1A17E0CF7;
-	Thu, 05 Nov 2026 02:01:15 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 447E517E0D48;
+	Thu, 05 Nov 2026 02:01:17 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 05 Nov 2026 03:00:47 +0200
-Subject: [PATCH v6 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
- output format
+Date: Thu, 05 Nov 2026 03:00:49 +0200
+Subject: [PATCH v6 15/15] arm64: dts: rockchip: Add RK3588 VOP2 resets
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,7 +64,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dw-hdmi-qp-yuv-v6-13-1bb63ef5766e@collabora.com>
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-15-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -88,76 +87,42 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>
+ Igor Paunovic <royalnet026@gmail.com>, Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.15.2
 
-Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
-ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
-MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
-MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
-cycle on a 20-bit wide bus.
+Add the missing reset properties to VOP2 on RK3588.
 
-The HDMI PHY scales its PLL output by 8/bpc to undo the deep color
-packing, such that it matches the DCLK rate expected by VOP2.  However,
-YUV 4:2:2 is never deep color packed, as it always transmits two 12-bit
-components per pixel, regardless of the color depth.  From a clock-rate
-perspective this is equivalent to three 8-bit RGB components, so
-configure the HDMI PHY with 8 bpc when YUV 4:2:2 is in use to keep its
-output clock aligned with the TMDS character rate.
-
+Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index db1933d75ced..7f05d26f8d76 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -190,6 +190,25 @@ static int dw_hdmi_qp_rockchip_get_vop_format(struct drm_encoder *encoder,
- 	return bstate->output_bus_cfg.format;
- }
- 
-+/*
-+ * The HDMI PHY scales its PLL output by 8/bpc to undo the deep color packing,
-+ * such that it matches the DCLK rate expected by VOP2.
-+ *
-+ * YUV422 is never deep color packed, as it always transmits two 12-bit
-+ * components per clock cycle, regardless of the color depth.  Hence, as for
-+ * drm_hdmi_compute_mode_clock(), use 8 bpc to keep the PHY PLL output aligned
-+ * with the TMDS character rate.
-+ */
-+static unsigned int
-+dw_hdmi_qp_rockchip_phy_bpc(const struct rockchip_crtc_state *s,
-+			    const struct drm_connector_state *conn_state)
-+{
-+	if (s->output_mode == ROCKCHIP_OUT_MODE_YUV422)
-+		return 8;
-+
-+	return conn_state->hdmi.output_bpc;
-+}
-+
- static int
- dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 					 struct drm_crtc_state *crtc_state,
-@@ -218,6 +237,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 		break;
- 	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
- 		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
- 		break;
- 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-@@ -229,7 +249,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 	}
- 
- 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
--	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
-+	phy_cfg.hdmi.bpc = dw_hdmi_qp_rockchip_phy_bpc(s, conn_state);
- 
- 	ret = phy_configure(hdmi->phy, &phy_cfg);
- 	if (!ret) {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index aa69fd3793fd..d0f364547ae5 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1651,6 +1651,18 @@ vop: vop@fdd90000 {
+ 			      "pll_hdmiphy0";
+ 		iommus = <&vop_mmu>;
+ 		power-domains = <&power RK3588_PD_VOP>;
++		resets = <&cru SRST_A_VOP>,
++			 <&cru SRST_H_VOP>,
++			 <&cru SRST_D_VOP0>,
++			 <&cru SRST_D_VOP1>,
++			 <&cru SRST_D_VOP2>,
++			 <&cru SRST_D_VOP3>;
++		reset-names = "axi",
++			      "ahb",
++			      "dclk_vp0",
++			      "dclk_vp1",
++			      "dclk_vp2",
++			      "dclk_vp3";
+ 		rockchip,grf = <&sys_grf>;
+ 		rockchip,vop-grf = <&vop_grf>;
+ 		rockchip,vo1-grf = <&vo1_grf>;
 
 -- 
 2.55.0
