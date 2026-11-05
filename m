@@ -1,52 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883879;
-	b=ko7CajpIMSgcI34m4ESTRIBIMvj7KpGB4j2xPJqv8lhHvVCsr/L40TzZRevqsoGv50Vq
-	 8DqPRBuKLsdxc48olp+s8CR0ElrtcWu6wSETi6587rYoFqCCm8gagwjZcSinDFOZIgYjy
-	 kOyhaMxj295vUQ02b8bwmDg5hgrXpWRr616rB3WCbWz9aLoZM10FfmofUkYRR1AWGO9EM
-	 ekOLZ1w7DXzM+gXUP+Lq7DX735G+XZGVrVc6XVneKHybMvqIPVfuxvKcLq6V3vWeKLx4+
-	 hEHJRMf5Lj+xnjZ+ftrLj6x5eE2nOwCWXgY7Nnk97V70X8k7iEDwRZ5ZcmmS3icWIMw==
+	t=1793883928;
+	b=dM/B9MAyewfVfvDWIYygQC3b/N91Tjv5w7rwLKcU6a/3EEks9VkxHrQXamPETFmFbuXK
+	 JyVrGARDY3yyn+R5buYP/acogBc72xt2fHzi7UHTyc/8pNrV0gFPv/x0nrDTji1jF4n/4
+	 SDpH1zLs7OydsPyG+rnELBOt6BKEwchcjYxjnqsP0mxjdW0hoe1PXscgX2dks6gmCrUTl
+	 9BE5aJfeNz/utwIoIAq4ymPoP0vOEd2yBRkMs8PWYGHiFNpBjhx6HRX9KhrNxtVT2ZtfA
+	 zcmr1FncrMro6bRCSM1O7FPEuI9S1112OkmP4vCAnKWbB/idLkcTPLU3FB1mSyZ6oRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883879;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=oIQ2mdaegpafaksDeX1yjnFF1ZlqGsdtXcF828uy7SA=;
-	b=mBtjLnq+yEFN7TQkVSL7Hj7mcsZdeBpJ3WLSTLwiwliDEAuNtdIIoW1x3CCJGfDt/k9H
-	 TUVJUi26fFi+fPJywCTPt2tmjWWNmnuu5qzCQ8YX1QsDVK4K+xWqIZ9LhSADx2r5e4F/R
-	 iYBx5JeHdF0BORDIIQOlNedBPW4XHBTBpEqN9tPgjRcS7OL9xZ+kBNnv4kIQ+/p1sMsFw
-	 416cxMy23KNwBbQXZvC+zh9oH/WMicFHpRA9TQTO2o57H0jI4deUQXXtAVuZ9EQ0H6F2G
-	 /CJtt6QpHHSHLGwoMokOk8EOSQrf9/uQ6cvmgIYWy221KDQ2+qfwZgCV3RbejV5fdaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883928;
+	h=Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ME3C+3I1moR9zuX6vPDKVLw16xDyzhIK7WbtwWzTCfE=;
+	b=K/Rxx1vdijiHPEqY/WWTKaHNNe5BCV4XMNE1uuYNVJ8kyaVhXW06d5ErUwqoivUUMKHd
+	 GvWKRKBIqABV472sExWlW7b959N1G1u0ZYp+GS6WMF0Q1VIWb7gK10CN6sUF+VDRoLVMQ
+	 e4lMB270gOZQdij2BoggBBophbhOkRa/jVJJ8toBHFEruBidRnoRmXFFrh0flaZsSiNZ7
+	 dLArs7Fcn+sjksb145mLaW9BUi3RzC2bW5flzhHBHlFPbthYy3mtuU9Q8wSJMb6HBz8jT
+	 d2v7hrkxs/m9L2BVesRS2H7+TlVF2hA2+qUyReNk+awzFKiwsoIGFa/MkSMEpcSML5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jhkWdtPK;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC78606A33C;
-	Thu,  5 Nov 2026 13:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC78606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jhkWdtPK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
-	Content-Type:To; bh=oIQ2mdaegpafaksDeX1yjnFF1ZlqGsdtXcF828uy7SA=;
-	b=jhkWdtPK6p1loENU2B3AUiJs7sxe7jwuTjczLDKttPEdIEy8gZXH+1xPTcRqsH
-	WCI35Fj3i0FzGwHvchkySUTuAAOBIq0PSHjuM15R7NfiDOutjowausPlBGOAtLtJ
-	z7rkBAK9OCr6J5VywmSHbQhyYWVwTGKxgLfGBO5h0Eegs=
-Received: from 4F-GAME.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD39xKpfuxqIBOEEw--.52808S2;
-	Thu, 05 Nov 2026 21:03:38 +0800 (CST)
-From: Bob Hui <bg9oxa@163.com>
-Subject: [PATCH v16 0/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-Date: Thu, 05 Nov 2026 21:03:29 +0800
-Message-Id: <20261105-quarkpi-ca2-v16-0-b48eacb64a60@163.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD02606D830;
+	Thu,  5 Nov 2026 13:05:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002811F000C1;
+	Thu,  5 Nov 2026 13:05:23 +0000 (UTC)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: laurent.pinchart@ideasonboard.com
+Cc: bmasney+clk@redhat.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	geert+renesas@glider.be,
+	jbrunet+clk@baylibre.com,
+	kieran.bingham+renesas@ideasonboard.com,
+	krzk+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	magnus.damm@gmail.com,
+	mchehab@kernel.org,
+	p.zabel@pengutronix.de,
+	paul.elder+renesas@ideasonboard.com,
+	robh@kernel.org,
+	sboyd@kernel.org,
+	ulfh@kernel.org
+Subject: Re: [PATCH DNI v3 04/15] arm64: renesas: r8a78000: Add FCPV[BI] nodes
+Date: Thu,  5 Nov 2026 14:05:21 +0100
+Message-ID: <20261105130521.85109-1-geert@linux-m68k.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030211225.GA3144851@killaraus.ideasonboard.com>
+References: <20261030211225.GA3144851@killaraus.ideasonboard.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,156 +62,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKF+7GoC/33QS07DMBAG4KtUXhM0Hj+HFfdALPwKNYimJG0Eq
- nJ37CLUxItK3ow13+8ZX9iUxpwm9rS7sDHNecrDoRRcP+xY2LvDW+pyLBcMATUHkN3X2Y0fx9w
- Fhx3yiE5RUBAEK+I4pj5/X+NeXv/q6ezfUzjViNqxz9NpGH+u782m9v0nm03ybOqBzlkZdFRRp
- 14/cy0ew/DJavRs72BbpLeCE/oUwfitpJVEvpVUpVEA2iP6oLaSw5qKLeVQLEVPIDnJBKKx/GY
- LbiwvNnmUGox2FvvG4j2LxUYjKZL36HtqrFjbdmZR/zjaICBEr01qrLxnZbFIQGVhCQU3Vq2ta
- qyqVkijwUbDjbvZZVl+AXTgiV+WAgAA
-X-Change-ID: 20261004-quarkpi-ca2-21d2a59c50c3
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>, Andrew Lunn <andrew@lunn.ch>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Conor Dooley <conor.dooley@microchip.com>, Bob Hui <bg9oxa@163.com>
-X-Mailer: b4 0.15.2
-X-CM-TRANSID:_____wD39xKpfuxqIBOEEw--.52808S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WFW7ArWUJw4DZw15KFWktFb_yoWxur1UpF
-	ZxCFs8GrsrtryI9rs7Ww1xurWxAFs7JrW5tFn5J345Za15ur1Iyr9akw1Fv3Z8Crn5AFyU
-	tr15W3yrWF9xArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREApUUUUUU=
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+QufDWrsfqvJsgAA3I
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S based
-single board computer. The binding patch documents the board, the DTS
-patch describes the hardware.
+	Hi Laurent,
 
-The DTS was rebuilt from scratch against the vendor 5.10 BSP device tree
-and then translated to current mainline bindings, so that every node and
-property has a vendor-side or schematic origin instead of being carried
-over from the earlier revisions.
+On Fri, 30 Oct 2026 at 23:12:25 +0200, Laurent Pinchart wrote:
+> On Thu, Oct 15, 2026 at 04:51:44PM +0900, Paul Elder wrote:
+> > Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+> > 
+> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> 
+> I need to reconsider this...
+> 
+> > Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > ---
+> >  arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
+> >  1 file changed, 72 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> > index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
+> > --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> > @@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
+> >  			bootph-all;
+> >  		};
+> >  
+> > +		fcpvi0: fcp@c5030000 {
+> > +			compatible = "renesas,fcpv";
+> > +			reg = <0 0xc5030000 0 0x1000>;
+> > +			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
+> 
+> ... as this may not be the correct clock.
+> 
+> The user manual lists the following SGD clocks for the media-related IP
+> cores:
+> 
+> - CSI[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ,
+> 			SGD4_VIO_CSI[0123]φ, SGD16_VIO_CSI[0123]φ
+> 
+> - VIN[012]:		SGD1_VIO_CSI0φ, SGD4_VIO_CSI0φ
+> - VIN[345]:		SGD1_VIO_CSI1φ, SGD4_VIO_CSI1φ
+> - VIN[678]:		SGD1_VIO_CSI2φ, SGD4_VIO_CSI2φ
+> - VIN{9,10,11}:		SGD1_VIO_CSI3φ, SGD4_VIO_CSI3φ
+> 
+> - ISP CS[0123]:		SGD1_VIO_CSI[0123]φ, SGD2_VIO_CSI[0123]φ
+> - ISP Core[0123]:	SGD1_VIO_ISP[0123]φ, SGD2_VIO_ISP[0123]φ
+> 
+> - FCPV[BI][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+> - FCPVD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+> - FCPVX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+> 
+> - VSP[BI][0-9]:		SGD1_VIO_DP_OTHERφ, SGD4_VIO_DP_OTHERφ
+> - VSPD[ab][0-9]:	SGD1_VIO_DP_TXφ, SGD4_VIO_DP_TXφ
+> - VSPX[0123]:		SGD1_VIO_ISP[0123]φ, SGD4_VIO_ISP[0123]φ
+> 
+> - VCON[0123]:		SGD1_VIO_DP_OTHER0φ, SGD4_VIO_DP_OTHER0φ
+> - VCON[4567]:		SGD1_VIO_DP_OTHER1φ, SGD4_VIO_DP_OTHER2φ
+> - VCON[89]:		SGD1_VIO_DP_OTHER2φ, SGD4_VIO_DP_OTHER2φ
+> 
+> - DPTX[012]:		SGD2_VIO_DP_TXφ, SGD16_VIO_DP_TXφ
+> 
+> Those IP cores are connected in four types of pipelines:
+> 
+> - FCPV[BI] -> VSP[BI]
+> - FCPVD -> VSPD -> VCON -> DPTX
+> - FCPVX -> VSPX -> ISP Core
+> - CSI -> VIN -> ISP CS
+> 
+> It would be quite logical for all IP cores in the same pipeline to use
+> the same clock. This would be
+> 
+> - FCPV[BI] -> VSP[BI]:			SGD*_VIO_DP_OTHERφ
+> - FCPVD -> VSPD -> VCON -> DPTX:	SGD*_VIO_DP_TXφ
+> - FCPVX -> VSPX -> ISP Core:		SGD*_VIO_ISP[0123]φ
+> - CSI -> VIN -> ISP CS:			SGD*_VIO_CSI[0123]φ
+> 
+> This mostly matches the clocks listed in the user manual, except for
+> 
+> - FCPV[BI] that is listed as using SGD*_VIO_DP_TXφ
+> - VCON that is listed as using SGD*_VIO_DP_OTHER[012]φ
+> 
+> Now, note how in the clock diagram document the VIO "ISP" and "CSI"
+> hierarchies both show 4 groups of SGD clocks (respectively named
+> SGD*_VIO_ISP0 and SGD*_VIO_CSI0 in the first group), the VIO "DP"
+> hierarchies show 3 groups of SGD clocks (named SGD*_VIO_DP0 in the first
+> group) and the VIO "DP_OTHER" hierarchy shows a single group of SGD
+> clocks (named SGD*_VIO_DP_OTHER).
+> 
+> This makes me believe that, wherever the user manual lists
+> SGD*_VIO_DP_TXφ, it actually means SGD*_VIO_DP[012]φ. Similarly, where
+> the user manual lists SGD*_VIO_DP_OTHER[012]φ for VCON, I believe it
+> should be SGD*_VIO_DP[012]φ, both because there is a single
+> SGD*_VIO_DP_OTHERφ, and because the rest of the VCON pipelines (FCPVD,
+> VSPD and DPTX) all use SGD*_VIO_DP[012]φ.
 
-Changes in v16:
-- Drop the direct LOUT1/ROUT1 routes to the headphone jack, as the Sashiko
-  bot suggested on v12, v14 and v15.  The jack was silent without them in
-  an earlier test, but that test predates v13, which moved the amplifier's
-  enable-GPIO pinctrl from the sound card to the amplifier node, so the pin
-  was never muxed and the amplifier could not be enabled.  With the pin
-  configuration in place the amplifier path alone drives the jack, and the
-  DAPM graph no longer has a parallel unamplified path.
-- Link to v15: https://patch.msgid.link/20261105-quarkpi-ca2-v15-0-2347608d717a@163.com
+The clock diagram has 3 VIO_DP[012] hierarchies and a single
+VIO_DP_OTHER, while the clock list has 3 VIO_DP_OTHER[012] hierarchies
+and a single VIO_DP_TX.
+The clock diagram has VIO_MAIN (system bus) clocks, while the clock list
+has VIO_OTHER and VIO_BUS clocks.
 
-Changes in v15:
-- Rebase onto v7.4-rc1 and re-check the DTS with that tree's dt-schema.
-- Move the Ethernet PHY reset from the MAC to the MDIO bus, as the Sashiko
-  bot suggested on v14: snps,reset-gpio, snps,reset-active-low and
-  snps,reset-delay-us are deprecated, and stmmac_resume() pulses that
-  reset while the YT8531 clock is only programmed once in probe, so the
-  link may not come back after a resume.  &mdio1 now carries reset-gpios,
-  reset-delay-us, reset-post-delay-us and a pinctrl group for the GPIO.
-- Drop the &sata0 node, as the Sashiko bot suggested on v14: rk3588-base
-  .dtsi already leaves sata0 disabled, so the override only repeated the
-  default.
-- Drop cap-mmc-highspeed from &sdmmc, as the Sashiko bot suggested on v14:
-  with no-mmc set mmc_of_parse() never initialises MMC mode, so the
-  capability could not take effect.
-- Describe the USB-C data path with the graph the drivers parse, as the
-  Sashiko bot suggested on v14: rk_udphy_probe() looks its DisplayPort
-  output up with fwnode_graph_get_endpoint_by_id(dev, 3), so the Type-C
-  connector, the USB 3.0 host controller and the USBDP PHY now use ports
-  with port@N and reg, and the endpoints are connected through labels.
-- Fix the indentation of the added graph nodes and the SPDX line.  No
-  property is changed by that.
-- Link to v14: https://patch.msgid.link/20261103-quarkpi-ca2-v14-0-290990440b67@163.com
+> For full consistency, I also suppose that the FCPV[BI][0-9] instances
+> match the corresponding VSP[BI][0-9] and use the SGD*_VIO_DP_OTHERφ
+> clocks, not the listed SGD*_VIO_DP_TXφ clocks.
+> 
+> This being said, in practice this probably makes no difference, as all
+> those clocks derive from the same SGD1_VIO_MAIN clock and none of them
+> are programmable or gateable.
 
-Changes in v14, addressing the Sashiko bot's suggestions on v13:
-- Drop the unused media/video-interfaces.h include.
-- Write the ramoops zone sizes as powers of two.  ramoops_probe() rounds
-  record_size and pmsg_size down, so 64 KiB and 128 KiB are the sizes the
-  driver already used and the layout does not change.
-- Link to v13: https://patch.msgid.link/20261103-quarkpi-ca2-v13-0-ad8c30cdb67e@163.com
+Probably, but it would be good to have that confirmed.
 
-Changes in v13:
-- Add a link to the board schematics and the Reviewed-by tag from Shawn
-  Lin, who reviewed the sdmmc, sdhci and PCIe parts.
-- Move the pin configuration of the headphone amplifier's enable GPIO from
-  the sound card node to the amplifier node itself, as the Sashiko bot
-  suggested on v12: pinctrl is applied per device, so the amplifier can
-  probe before the sound card and request that GPIO while it is not yet
-  configured.
-- Drop the leftover Assisted-by tag from the bindings patch.
-- Link to v12: https://patch.msgid.link/20261102-quarkpi-ca2-v12-0-d749d9bb2bf9@163.com
+> If the above explanation makes sense to you (and to Geert), we can ask
+> Renesas to check if the issue I suspect are errors in the documentation.
 
-Changes in v12, addressing the Sashiko bot's suggestions on v11:
-- Sort the PMIC regulator nodes in natural order, so that dcdc-reg1 comes
-  before dcdc-reg10.
-- Sort the phandle references in natural order, so that pwm7 comes before
-  pwm14.
-- Put simple-audio-card,codec before simple-audio-card,cpu.
-- Add the blank lines between sibling nodes that were missing.
-- Link to v11: https://patch.msgid.link/20261102-quarkpi-ca2-v11-0-eb246076a82f@163.com
+Agreed.
 
-Changes in v11, addressing Heiko Stuebner's review of v10:
-- Trim the commit message down to the board description and the list of
-  supported peripherals.
-- Drop the Assisted-by tag.
-- Note on the Reviewed-by line which nodes were reviewed.
-- Sort the properties in aliases alphabetically.
-- Sort the nodes without unit addresses alphabetically, everywhere.
-- Drop the deprecated regulator-suspend-microvolt properties.
-- Sort the phandle references alphabetically.
-- Keep a single root node and merge the extra root nodes and the &{/}
-  block into it.
-- Link to v10: https://patch.msgid.link/20261023-quarkpi-ca2-v10-0-9db904194e03@163.com
+Current SCMI firmware does not have the CSI3 group.  It does have
+VIO_IM[012], which was replaced by DP_OTHER{012] according to the
+"Differences" sheet in the clock list.
 
-Changes in v10:
-- Add the Acked-by tag from Conor Dooley, which I missed.
-- Add the missing domain-supply for the GPU and NPU power domains.  Without
-  it the power domain driver falls back to a dummy regulator for both.
-- Enable the three NPU IOMMUs the enabled NPU cores reference.  Without them
-  opening /dev/accel/accel0 fails with -ENODEV.
-- Link to v9: https://patch.msgid.link/20261021-quarkpi-ca2-v9-0-b75006b22bc5@163.com
+I guess we really need to know if e.g. all these SGD* clocks are the
+same, and if they can be gated individually.  Same for the various DIV6
+clocks, as there is only a single register to control them (which
+probably controls the parent/singleton in reality).
 
-Testing: boots from microSD with this series on a v7.3 kernel, and the
-on-board hardware (microSD, eMMC, HDMI, USB-C DP altmode, USB 3.0 and
-USB 2.0, PCIe Wi-Fi, Bluetooth, GbE, ES8388 playback, PWM fan) works;
-"make CHECK_DTBS=y" is clean.  The NPU works on this revision (all three
-cores detected, IOMMUs attached, /dev/accel/accel0 opens, MNIST classifier
-95.00% correct on 200 images).
+Gr{oetje,eeting}s,
 
-Note: the debug console is ttyS2 and there is no fiq_debugger node, so
-console=ttyS2,1500000 has to be added to the bootargs manually, and capture
-from the headset microphone needs the separate ASoC series for
-sound/soc/codecs/es8328.c, which does not affect playback.  PWM14 has no
-consumer, because it is only described with the pinctrl group for pin 33 of
-the 40-pin header, and it is enabled so that user space can drive it
-through the pwmchip interface.  The unconsumed combophy_avdd0v85 and
-combophy_avdd1v8 regulators are kept as well, because they document the two
-PHY rails of the board and the combphy driver has no supply property to
-attach them to.  The connector's port@0/port@1 numbering stays as it is and
-the v14 suggestion to swap it is not applied, because that numbering
-matches rk3588-evb1-v10.dts, and rockchip,dp-lane-mux stays too because the
-other RK3588 boards that route DisplayPort over USB-C set it as well.
+						Geert
 
-Please review.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
----
-Bob Hui (2):
-      dt-bindings: arm: rockchip: Add ALIENTEK QuarkPi-CA2
-      arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-
- .../devicetree/bindings/arm/rockchip.yaml          |    5 +
- arch/arm64/boot/dts/rockchip/Makefile              |    1 +
- .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts      | 1238 ++++++++++++++++++++
- 3 files changed, 1244 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261004-quarkpi-ca2-21d2a59c50c3
-
-Best regards,
---  
-Bob Hui <bg9oxa@163.com>
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
