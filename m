@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869233;
-	b=cQucyMFBKyPeLgRM1zE7xTw/E0VVoFVgYUVDV8eGseSCAgiHmsoDSR5T1kkfn4DjAIhb
-	 3FVnQpbriCrct+3H/ujajt3IXMgqrbIJoE5TB3XmVvsfJmA5dCP2PlU85T5he6HE2+JxA
-	 TZfw6FL0Z4mkqsW73fSTTv+QLdtMGw5U+c0ifZj9qEbO2Kx46NdvNCB0gLz4T/03BQUt5
-	 jMdj43GEmxEt0QiFjfrWKqE1w5WbANF7+r5LCrU3LpKS5yE6AQN/bDw0siqp+NKm6eJ3J
-	 Ew1xIlua1ZjVvx6mZSNEk0Ow9sVaw9LFI+ZVoOcIK+BmcJouLjN1A/5PuD/8EmieFtg==
+	t=1793869276;
+	b=sNu/F9x4Mgp/wjdhaQ5SDZZWCmGCag0jmLmANe2gTWB282ulv3Dcvz7U4uoNZmDi3a7V
+	 DrgITtDg/9SA6C8pSD3n+5fdrn9/Y4Uju2T4/pqrgmXQTD2neL5OPDkDbw6PPYn/78sst
+	 qpXW2bb9xvXwd1PMXMNNpVKZKbSPg8bxF+ZXK7+pkYmc7jXES/qT3AGVvetpbnB3myKFU
+	 ZGoZfbcEBaYa3Fnb8PRnK2VwdYakBml+dA2kgn7V6070NutWa/hGRIHTIWVGl6vCf2jOF
+	 fUidl5qb7x9MByvR5JLaaGykdtI6I+9LApy3FmgbP57crUPOPuSSdGiQJK04/oAidbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869233;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=C7KvMZPRU76PPXEPvoU8lYiUrmsq36mfhVdKnn0oTEA=;
-	b=0ujDnoMKE89Mb1Q0RwYgLBO9O2OTXAa9qDXMQbHf0YnhCsk3ApXebcHYGwcnCjO/5n4G
-	 YE2L0AM7nPkXjBzk0I9QYdcw0/lR+pTdG/7WbgXirePbPy9M4Z3jGsQt07HRGsuNZHb7Y
-	 WGX6wd/45tf5YNzIQpU2BV8rP6SR2XSpeAmf+/7nyKPyljLIVEl4U1WKVKN0QOQ9hx65D
-	 EIbw1z8LvWHIp4KR/PjuFlJgxWpVWpnTp98fow7lpQo8AM1QFhvuVshhPxadTm7jdDyVF
-	 fGKfuSoVqynYZPg2QOcy0sTLFtICaPPo8zZaYjRYs/ko+vaMub/cnnAAl9iONGRpPBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869276;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=NceYa3NZayFxuHHB+QmpGXbPguwXwvX7k5dpGHlALec=;
+	b=y9erbQWUUPKWWLWokx+GF6VYarxN68PL5r4bm12s3oA4n5MQpur+6IqMdpUpwaf3zfyf
+	 GFqTF1i0XQEXXpVZVKbf33L5cH5b7v4SWsgR3HXa0qAu3Fa0+T3HvQZzM0UIm5xkEH50R
+	 H7u6ySB8OQM2MeqshxL2NRHuSfLCNk02oONO/l5zQ9k4/K4uNtCdAY2ZCUYownqU22GUc
+	 G5eLj293+JuMp5FhMaXWB3CaQZ42o13ZCty0fUx2WXDGXU/8TYRZNEH9ctGzcE1OvxhbD
+	 71td52/hQSCoSS5gqoiIkSRdfFqnR+sDehNGQaSVaZMnjlN219IhXbypNnE0n8HkIlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHEVG93S;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kw0M1BnE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD0F606A31B;
-	Thu,  5 Nov 2026 09:00:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD0F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B67C606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 09:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHEVG93S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793869229;
-	bh=xUW3p4976DC2PBpXz3aw+f2y1/CP/AUXZ42/p8PrJHQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EHEVG93SvO2MRQ9DqlNGT69xnJHgOChAl4GvABrnxnu6DRTM20aBAKXu0iZVBoxNv
-	 KgRR9dSB3fYPc+YlhHcfxLX53M6BHsy/9oQDScMSfFjYaYHhL2nSglo49d9x5GErIe
-	 bQPFlOCxfeacr6lrbh0FDCh/6J0IY9bN95uq0FkOij2bqZgIRQcnEDeERmlMx4Yf7p
-	 wloqNvk9ClFSjuJgZ0+3R8wa2SXSqfgUdwfST9EG9SNAQBV5kEmWnnQeutK/smBy07
-	 Q8MYyN30HYpN1yHXJh2+b01UP275QGYgKs441XpqVuQTXTXbqW1wgvWODZ8itTSBls
-	 Ti1iVBcoKMi1Q==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C676117E05D6;
-	Thu, 05 Nov 2026 10:00:28 +0100 (CET)
-Message-ID: <1c0e5b1a-b1a8-42a3-8dd1-75fceee078a2@collabora.com>
-Date: Thu, 5 Nov 2026 10:00:28 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kw0M1BnE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3A91F000C1;
+	Thu,  5 Nov 2026 09:01:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793869275;
+	bh=NceYa3NZayFxuHHB+QmpGXbPguwXwvX7k5dpGHlALec=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Kw0M1BnExzPwaBnZ7Xyad9+a0J277W3l2fS0SmYCeFST97fiqz8ghyTfbT83DErZP
+	 c+bz3QVhQmO4n9lurexB72yiBKWBawHHWxKERChQENMsU10t70scHm+MnuOkUhNNaI
+	 wWP0gFa50mk1L0mur5Ph5rRhE2jNwArpY0hO0Z8GwNvohwJwnylUGcKk3CqXWBqx6/
+	 GBiAB0BCqqGei1r224Z8F8Nsru6araoBV7c5rjmcvZfWHof6f5Nru+6+JHOtQuGiss
+	 meSfwVY7cv5kMLQCG9LAG7C/3HUklN0D6Uy9SjjZ8kVMnvY63bxh2ALbRxYnz9YCpj
+	 UDy6eTc36YmuA==
+Message-ID: <sashiko-outbox-198746@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] i3c: dw: Track the transmit and receive buffer
+ depths separately
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubham Patil" <shubhamsanjay.patil@amd.com>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20261105085425.3418230-3-shubhamsanjay.patil@amd.com>
+References: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
+ <20261105085425.3418230-3-shubhamsanjay.patil@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 09:01:14 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,146 +61,114 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 05/13] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
- CK Hu <ck.hu@mediatek.com>
-References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
- <20260916110825.102631-6-angelogioacchino.delregno@collabora.com>
- <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <hXDHNenOxP_1Fjv3k-eSNDIFG2yGsdvlxFOCpn0SMdRImzGWQfDVFE-0px1K0-Z472dL3IuLWE5BWIQeOo_U12SjzZOeJ3FNLIxus-KoGNE=@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/4/26 19:56, Roman Vivchar wrote:
-> On Wednesday, September 16th, 2026 at 2:08 PM, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> wrote:
-> 
->> Having the DSI interrupt enabled before actually binding the DSI
->> component to the display controller driver is both useless and
->> dangerous: the main purpose of this interrupt is to signal CMD
->> done, LP RX data ready, or VideoMode done, or to reset the HW
->> engine if this doesn't come.
->>
->> Should this interrupt come too late (during probe), the HW will
->> be reset only at the next occurrence of a timeout, which slows
->> down boot and may render artifacts to the DSI display.
->>
->> Moreover, clearing the DSI interrupt while the display controller
->> is not ready yet, may result in an interrupt storm.
->>
->> In order to prevent this from happening, request the interrupt
->> with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
->> display controller component master.
->>
->> Reviewed-by: CK Hu <ck.hu@mediatek.com>
->> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> This was necessary on mt6595, otherwise it would get stuck.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] i3c: dw: u8 truncation of rxfifodepth in dw_i3c_common_probe()
+--
 
-Yep, I guess it was getting stuck before this because your platform's bootloader
-has continuous splash functionality and leaves it on while booting Linux, right?
+commit c93cc6843b57993d053db03cc3f7cee25dbd4371
+Author: Shubham Patil <shubhamsanjay.patil@amd.com>
 
-Just a curiosity... ;-)
+i3c: dw: Track the transmit and receive buffer depths separately
 
-Cheers,
-Angelo
+This commit splits caps.datafifodepth into caps.txfifodepth and
+caps.rxfifodepth, populates caps.rxfifodepth from the QUEUE_SIZE_CAPABILITY
+register, and exposes the FIFO capacities via base.tx_fifo_bytes and
+base.rx_fifo_bytes.
 
-> Acked-by: Roman Vivchar <rva333@protonmail.com>
-> Tested-by: Roman Vivchar <rva333@protonmail.com> # mt6595, mt6768
-> 
->> ---
->>   drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
->>   1 file changed, 13 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> index 28ba532210ff..6ac6daa61e68 100644
->> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> @@ -225,6 +225,7 @@ struct mtk_dsi {
->>   	int refcount;
->>   	bool enabled;
->>   	bool lanes_ready;
->> +	int irq;
->>   	u32 irq_data;
->>   	wait_queue_head_t irq_wait_queue;
->>   	const struct mtk_dsi_driver_data *driver_data;
->> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
->>   		return ret;
->>   	}
->>
->> +	enable_irq(dsi->irq);
->> +
->>   	return 0;
->>   }
->>
->> @@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
->>   {
->>   	struct mtk_dsi *dsi = dev_get_drvdata(dev);
->>
->> +	disable_irq(dsi->irq);
->> +
->>   	drm_encoder_cleanup(&dsi->encoder);
->>   }
->>
->> @@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
->>   {
->>   	struct mtk_dsi *dsi;
->>   	struct device *dev = &pdev->dev;
->> -	int irq_num;
->>   	int ret;
->>
->>   	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
->> @@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->phy))
->>   		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
->>
->> -	irq_num = platform_get_irq(pdev, 0);
->> -	if (irq_num < 0)
->> -		return irq_num;
->> +	dsi->irq = platform_get_irq(pdev, 0);
->> +	if (dsi->irq < 0)
->> +		return dsi->irq;
->>
->>   	dsi->host.ops = &mtk_dsi_ops;
->>   	dsi->host.dev = dev;
->> @@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
->>
->>   	platform_set_drvdata(pdev, dsi);
->>
->> +	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
->> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
->> +	if (ret)
->> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
->> +
->>   	ret = mipi_dsi_host_register(&dsi->host);
->>   	if (ret < 0)
->>   		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
->>
->> -	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
->> -			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
->> -	if (ret) {
->> -		mipi_dsi_host_unregister(&dsi->host);
->> -		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
->> -	}
->> -
->>   	dsi->bridge.of_node = dev->of_node;
->>   	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
->>
->> --
->> 2.55.0
->>
->>
->>
+> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
+3c-master.c
+> index d1119f203d1b6..dd5462b129514 100644
+> --- a/drivers/i3c/master/dw-i3c-master.c
+> +++ b/drivers/i3c/master/dw-i3c-master.c
+> @@ -203,7 +203,10 @@
+>  #define BUS_IDLE_TIMING			0xd8
+>  #define I3C_VER_ID			0xe0
+>  #define I3C_VER_TYPE			0xe4
+> -#define EXTENDED_CAPABILITY		0xe8
+> +#define QUEUE_SIZE_CAPABILITY		0xe8
+> +#define QUEUE_SIZE_CAPABILITY_RX_BUF(x)	(((x) & GENMASK(7, 4)) >> 4)
+> +/* Sizes are encoded, 0 meaning 2 DWORDs and every further step doubling=
+ it. */
+> +#define QUEUE_SIZE_TO_DWORDS(x)		(2U << (x))
+>  #define SLAVE_CONFIG			0xec
+> =20
+>  #define DYN_ADDR_LO_MASK GENMASK(4, 0)
+> @@ -978,8 +981,8 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_des=
+c *dev,
+>  			ntxwords +=3D DIV_ROUND_UP(i3c_xfers[i].len, 4);
+>  	}
+> =20
+> -	if (ntxwords > master->caps.datafifodepth ||
+> -	    nrxwords > master->caps.datafifodepth)
+> +	if (ntxwords > master->caps.txfifodepth ||
+> +	    nrxwords > master->caps.rxfifodepth)
+>  		return -EOPNOTSUPP;
+> =20
+>  	struct dw_i3c_xfer *xfer __free(kfree) =3D dw_i3c_master_alloc_xfer(mas=
+ter, i3c_nxfers);
+> @@ -1136,8 +1139,8 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_d=
+esc *dev,
+>  			ntxwords +=3D DIV_ROUND_UP(i2c_xfers[i].len, 4);
+>  	}
+> =20
+> -	if (ntxwords > master->caps.datafifodepth ||
+> -	    nrxwords > master->caps.datafifodepth)
+> +	if (ntxwords > master->caps.txfifodepth ||
+> +	    nrxwords > master->caps.rxfifodepth)
+>  		return -EOPNOTSUPP;
+> =20
+>  	struct dw_i3c_xfer *xfer __free(kfree) =3D dw_i3c_master_alloc_xfer(mas=
+ter, i2c_nxfers);
+> @@ -1738,7 +1741,14 @@ int dw_i3c_common_probe(struct dw_i3c_master *mast=
+er,
+>  	master->caps.cmdfifodepth =3D QUEUE_STATUS_LEVEL_CMD(ret);
+> =20
+>  	ret =3D readl(master->regs + DATA_BUFFER_STATUS_LEVEL);
+> -	master->caps.datafifodepth =3D DATA_BUFFER_STATUS_LEVEL_TX(ret);
+> +	master->caps.txfifodepth =3D DATA_BUFFER_STATUS_LEVEL_TX(ret);
+> +
+> +	ret =3D readl(master->regs + QUEUE_SIZE_CAPABILITY);
+> +	master->caps.rxfifodepth =3D
+> +		QUEUE_SIZE_TO_DWORDS(QUEUE_SIZE_CAPABILITY_RX_BUF(ret));
+> +
+> +	master->base.tx_fifo_bytes =3D master->caps.txfifodepth * 4;
+> +	master->base.rx_fifo_bytes =3D master->caps.rxfifodepth * 4;
+> =20
+>  	ret =3D readl(master->regs + DEVICE_ADDR_TABLE_POINTER);
+>  	master->datstartaddr =3D ret;
+> diff --git a/drivers/i3c/master/dw-i3c-master.h b/drivers/i3c/master/dw-i=
+3c-master.h
+> index f5b4491b247a0..e23554bfc5e49 100644
+> --- a/drivers/i3c/master/dw-i3c-master.h
+> +++ b/drivers/i3c/master/dw-i3c-master.h
+> @@ -14,7 +14,8 @@
+> =20
+>  struct dw_i3c_master_caps {
+>  	u8 cmdfifodepth;
+> -	u8 datafifodepth;
+> +	u8 txfifodepth;
+> +	u8 rxfifodepth;
+
+[Severity: High]
+Can master->caps.rxfifodepth overflow u8 and truncate to 0 in
+dw_i3c_common_probe()?
+
+In the DesignWare I3C controller, QUEUE_SIZE_CAPABILITY_RX_BUF(ret) can
+return up to 0x7 (256 32-bit words, or 1024 bytes). When that happens,
+QUEUE_SIZE_TO_DWORDS(7) evaluates to 256 (0x100), which truncates to 0 when
+stored into the u8 rxfifodepth field in struct dw_i3c_master_caps.
+
+With master->caps.rxfifodepth set to 0, master->base.rx_fifo_bytes also
+becomes 0 in dw_i3c_common_probe(), and the nrxwords >
+master->caps.rxfifodepth check in both dw_i3c_master_i3c_xfers() and
+dw_i3c_master_i2c_xfers() will reject every non-empty read transfer with
+-EOPNOTSUPP.
+
+Should rxfifodepth (and txfifodepth) in struct dw_i3c_master_caps be u16
+instead of u8?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105085425.3418=
+230-1-shubhamsanjay.patil@amd.com?part=3D2
