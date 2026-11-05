@@ -1,57 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883869;
-	b=aICx+YPKBsTrZk+APtBBtZUjcvtruBdRlLyOdND0W9Wj5EKRnRS4l0MeVbSvOJZZImQJ
-	 r6f0C5ozILklwE+itcTP7pPErw8TIyTzOtAlr2swGAaeYMjRA/NtVwWHuMsFNbHoESRZg
-	 jcesFAnX9QaMzWVgZhwDo0volqvOPT/2Yds8Rzoq/TjO23X9gwejiRQeCJ5Jg2rWtSbX/
-	 MJA9hfs13N2SFLj7d6CxjTfojxXt+O4uaI50ye6IeQqS/IV+lRk2eUskafI+5Ck1XgNhg
-	 8SzAyCRXmz3v71cg/7MQ1uTkIIDR8a+WRYxtVwqQmN1tRdAJS62bZiB7T0PdBo3z8bw==
+	t=1793883871;
+	b=eiD5TiAjXUfWGOgUH/UxZsrDTUaaDqKafSm84UkAXH/2YAZb7VfOQGo5F/Vupu0KeVBu
+	 bXlDzkhan13E4T1b0bMJuvLRslF9IgmXySoekc6gAHkn1kGKyJh1IpGpEXIL/V//5Rxj4
+	 pEHcvCVtekYmw7rVpbKR4pLBCNWnqLLYIUi84gju3lC103yyiZr+np/Y2lSk9ffxJaD8u
+	 iUWPkMLrXL6K0WU4vf3RSd+0TywXYeNSeKYyW/1ZHaKlDImm5PaeqeDBZSHgUL8ST1eof
+	 8vFhQRniRT4DtJvurgJR1xPn9TH4wTa1QCkEXyDTxbsy2MPTN3k7FFmW8Fe+0xxOMlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883869;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Qp4gNV/QeSPIL1RjfW+0FhMZ3zNgqpXftPwRkYLSa4g=;
-	b=FOH/Xj9IRIAiuH4bcpwk+eYTfNg34ZDBtBA7RjbXc3HaBKObEMOWirQeZav8QisCpPL+
-	 x2WW0kdK1kwZsq2v0T2kA4aJj03F7J/373xsQsSDzDBQM0i2C4KF1EkPbJnpDTdlsVPzM
-	 5gVf89cqLMUWl5iOAZaVF51rmYm+3QULljOIgQ7JxgnkqYc8xuJRSUoHWM/+dY/pb6Jnl
-	 stXTIjfixLfK5bolJ3p1JI21rNh2zAy6Pp190ItKgwlCmiwTalajVFG9SXn4vDIntYRhl
-	 l6FY1Dpk4OaKtKLfay2TtjRqxN++GS4IND7Lt6EsL5Uq8AZCDkt5SW9C1K++AEpvW6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883871;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=qUQJdCDrRqnIvXLVpD8XTl0Bo54PvOPr/Tpz53Dd6Nc=;
+	b=CshmXmOnwh7aAJ5pCiboCT6+/smHICAf3HaOMx9cRG2wAiNE6L4C8SxZGJJ5517zhYPm
+	 /1arrkXOSqIcdcrxmFQq+y5Mj2FkcOLeVgWbmqd9BRv/BpGM1X6tH74Kf+9bHbVAK5oka
+	 yA9fNs3llGPlMRha0hrosbe/Zi0LZGv98IfAd58edoCfOdkpkpuvkYsPvjUZawo6/pvbm
+	 SOkqLYtniNEa+2ApdNXJVgvzOVntF3I8IZNOyXTVBFI7axn6pwrStTgAvWk9158YbDddx
+	 5PTZItlcLdvfxoKrYOT4x0VbHAGsuInjBxR3KSLHlhaq2TMe9LLL/zHIUkdYbqXIn0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WttVKCZ8;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="eHvUG/zO";
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA900606A326;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBDB606D81B;
 	Thu,  5 Nov 2026 13:04:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA900606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BBDB606D81B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WttVKCZ8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793883867;
-	bh=IBsoZ1Vp7gsgzVEtbu51c9eHaEQR+2eUZSh26ar6Ris=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WttVKCZ8v63kNXP9SLbHEi8Y0ZpduE4V1tcnKbCSthLJxNsH2uQDloZRquWB9sc9I
-	 +pPRAb06OWgbC4MsbcTO+tOTGaZWU+u+0YBKWfxG+QtDZ98ymzX8cFXI/w5IiOQXfD
-	 eAr9YLKMlZvTOHSE8N3mNu0yR8sisg+VEsz6ibB6BdIZ6ycriCirAFT+S8QjxBSJn2
-	 Zht9YlCSULNsA4kb9Ovikn5EKr5vC3rUyF6uBeSnxZcSp+CGgWUvm+9/dx+9alfQr6
-	 YpQ3OJlpXFqz1XaA/eREQOt+Ht3ZMr/nNmAN7gJ9X4aJdrQATmJKXueSSt4Nb8aGhN
-	 F2/e0M3TtztnA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E16A617E05D6;
-	Thu, 05 Nov 2026 14:04:25 +0100 (CET)
-Message-ID: <81fbb960-abde-44ea-82ab-3adc054da836@collabora.com>
-Date: Thu, 5 Nov 2026 15:04:25 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eHvUG/zO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
+	Message-Id:To; bh=qUQJdCDrRqnIvXLVpD8XTl0Bo54PvOPr/Tpz53Dd6Nc=;
+	b=eHvUG/zOMLNjImA0Rm6/V64Xc5uaPJYmRa5PTGSz0/FgAAb2PiY7RzWHNX5ukR
+	u33pC/CYSMOqoa/qgyV6T5K20S4Yg1UKBjKcw/Vf+/wYicVXpkn63+c1EBNaeWHy
+	zqezkhLhL99oLUCBIY4VRuj8tc8jQzSMH+eG7HM/r1rXM=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD39xKpfuxqIBOEEw--.52808S3;
+	Thu, 05 Nov 2026 21:03:39 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Date: Thu, 05 Nov 2026 21:03:30 +0800
+Subject: [PATCH v16 1/2] dt-bindings: arm: rockchip: Add ALIENTEK
+ QuarkPi-CA2
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,84 +56,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
- format on DW HDMI QP
-To: Daniel Stone <daniel@fooishbar.org>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Daniel Stone <daniels@collabora.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
- <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261105-quarkpi-ca2-v16-1-b48eacb64a60@163.com>
+References: <20261105-quarkpi-ca2-v16-0-b48eacb64a60@163.com>
+In-Reply-To: <20261105-quarkpi-ca2-v16-0-b48eacb64a60@163.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>, Andrew Lunn <andrew@lunn.ch>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>, Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wD39xKpfuxqIBOEEw--.52808S3
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xr43WF17Ww13tr1xKFykKrg_yoWDXFbEka
+	4xZF15uFWrJFyFgw45Aa1xGryqvw42krn7AF1UAF1kA34qkws3tFZ5t342kFyxWr43urn3
+	Crn5Ar97XFnxGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sR_pVbDUUUUU==
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3QufDWrsfqu13QAA3-
 
-Hi Daniel,
+Document the ALIENTEK QuarkPi-CA2, an RK3588S based single board
+computer.
 
-On 11/5/26 2:25 PM, Daniel Stone wrote:
-> Hi Cristi,
-> 
-> On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
-> <cristian.ciocaltea@collabora.com> wrote:
->> Changes in v6:
->> - Added new vop2 patch "Disable core clocks before dropping runtime PM
->>   reference" (Sashiko)
->>
->> Changes in v5:
->> - Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
->>   atomic_check()" to fix a pre-existing issue reported by Sashiko
->>
->> Changes in v3:
->> - Updated patch 3 to skip any hardware programming in the callbacks
->>   gated by drm_atomic_helper_commit_planes() after powering down VOP2 on
->>   an atomic_enable() error (Sashiko)
->> - Ensured VBLANK events are sent immediately when atomic_enable() fails,
->>   hence preventing userspace processes waiting for the page flip
->>   completion to hang indefinitely (new patch 4, Sashiko)
->>
->> Changes in v2:
->> - Addressed several issues reported by Sashiko
->>   * Reset AXI before detaching the IOMMU domain, to close a theoretical
->>     window where stale or in-flight DMA transactions could fault or
->>     access memory untranslated after the domain is detached (patch 6)
->>   * Fixed resource leak on vop2_enable() error path (new patch 2)
->>   * Balance state on atomic_enable error paths (new patch 3)
->>   * Avoided division by zero when computing max_dclk (new path 4)
->>   * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
-> 
-> I think everything in here should now be solidly reviewed. 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Bob Hui <bg9oxa@163.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Thanks a lot for checking this out!
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a24949b163cf..db93d97eaa95 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -187,6 +187,11 @@ properties:
+           - const: alientek,clrv1126f
+           - const: rockchip,rv1126
+ 
++      - description: Alientek QuarkPi-CA2 board
++        items:
++          - const: alientek,quarkpi-ca2
++          - const: rockchip,rk3588s
++
+       - description: Edgeble Neural Compute Module 2(Neu2) SoM based boards
+         items:
+           - const: edgeble,neural-compute-module-2-io   # Edgeble Neural Compute Module 2 IO Board
 
-> But if this> series keeps on collecting unrelated patches until Sashiko decides all
-> of VOP2 is bug-free, we will never get this series merged. Could we
-> please keep this series focused on the useful bits at the end, and not
-> keep on adding speculative new Sashiko-pleasing as artificial
-> dependencies?
+-- 
+2.34.1
 
-Yeah, sorry for that.  I'll stop here with regard to addressing further Sashiko
-findings, unless there is really something wrong introduced by this series
-(which doesn't seem to be the case).
-
-Regards,
-Cristian
