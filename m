@@ -1,77 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840079;
-	b=c+S6MHZSs3kWKFKPZ2FalHWfIo/urHdNqYRKXNfhks9YUGvSNDpQe4jGiPxaNBFxASHT
-	 ka6pefXajIKT98dxmjLyd/AZwifFO4Iksih6/0DFCi6IzJXw3pMmbzXTb27PRok2TdKQ1
-	 jLNlSGyd/n5OFCPNWVkb+Ec8HXRnC7OwnGa82a3D2xsEEWYmgl+z4U9L/q30rLiPeWR5F
-	 AIHKBtds5Ice/5hVZj33qQwH8bpQLMhDKKURQ0flDde4RQAxwfRViNNbj0EUgmy33JZfx
-	 F1BGSyR6IVaBMJKn6zFKnM0Ir5xnFqnIWmBdalufj33ZscOSVR7IvXc5xCdwwbqmE8A==
+	t=1793840468;
+	b=U7/P3qCbvCEWIZprfYhe3frMtt3kbcPD2F9+BV8HhGz+HHZNB1epiZ9amQGW+t0i8hbZ
+	 bqvbkvWA+4p0pyMhcKeglPxwWn6r9wp8CR66D6E4aOTJueDRZUcfjqK6wkqUwMiRnEzKi
+	 M8EjFAd0NmnuKkVjTOP0TueJaG8fqGF0T61/KYwfWmOkiXE/YcvpEHt6uCysbyJhcCk4I
+	 oDA2MiZyVuxMX7pRLptvEYf8yTA12R5o1vHf1NQreoBIfdWU/UzmwIZnxuqsKWPCzUYw7
+	 iXFRL90AomMIjZgCQSazttGEAClqgVJezo6y9ZYtBvpGOr6SzhHIk28g8dk8pk12xcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840079;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=rQ+p97tJCO0QpCOaOSbeRKfH3OuUlnjbT3rJGvag/9I=;
-	b=jGbEWKAW5EsgrVhGbpJczavm9T0IofRXYIfHfaOHnTmqPYJIsEKs0eVjcOWFsMBhp9nJ
-	 34CofwJw+No7IvXmyAsDfXJ36/seg5VTdV7RljI8KRqtqAUh0nLeCVcBZhy+IpP8xamwX
-	 W48uciD8QhiX5qTCHQBY/l7RInAzMbuUbEhbyX3tp7oLo58E6EyRN2h+/qAJrjZTaJbq+
-	 0mpmig0J1MR5So3JMKQajdBwVV7OLiEIjFWL0+IcMBLO5GXb73NBV8AJ9UHGYTyLcb8MQ
-	 pM8pDd3paycx4ClQymrqJRUvVKlKHdgTS1DSAMmvrJnVLmZlMTs3bDN7U5fnbYBXVyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840468;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=9kFciGhBRBZC+asblLfrGlxWKAn1dzNN6FaX7c9heOs=;
+	b=jdD3LjDUDiaMkGQ0kZxmY8OYejU3M/grQ9ZmXzD1c+f8jGzxsGQcYWnNtoXyUny6IWM9
+	 Dta05iI4qraVkCBopNoMeHFO4Q2caon7qkP4zXu2rsJPCKXVRZI9Zj/brSj8tmoR20heM
+	 /12sBUS3GPp9WzCSjxWN3RBqq2kiFCuxnuWbOeJ0F8Tz5U5WpdG2+348LTrcFFvQHn9/i
+	 oRAI+RM9oFR9Q2lMTgYOxCYRy88BZi0Iq39BaE8ohfvF0MNOxQbeLNvfi4sldBrzGclTU
+	 oJ6CC0p6+zSwEEdD9Qh/l9ehiV865JMeAtS0A3ksqy/QIAAqsfWMMmB9FDYySjEGfxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KXx2WsyE;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8C7606A32E
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 00:54:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA8C7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ed2bfe3252so138445ad.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:54:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793840078; x=1794444878;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rQ+p97tJCO0QpCOaOSbeRKfH3OuUlnjbT3rJGvag/9I=;
-        b=csjVmusK6GiXmAfuWTKhX33rj02D1Pn60bBt718fUkr9fd2Ijma3cjNJPPzXh5T97s
-         SRipRZGpVrncJ76rej6k0UZR+OsiV0w1vnuqUQK/13ncFkX4z4WtegqFBQOwWKk/KtR+
-         LxLqZAbKHQ7MsGYLkmzFw6WtAYvn/ADYKt6uyImVlM8hHWvBxfwCS+J0PQiW/IALHSLU
-         m8lDf4miQ+C1AxoUyH5E9BSlokFLMT1iLuKO+T4cklIanl7TgJytVaeaoArJwOrCchgJ
-         KpurKKsTLfpdpibZ6XSnzBWgC3TmTixWMsZRs4SnEWdjpz+TjBKzd0l3UnMtPZ4bJOnp
-         IMSg==
-X-Forwarded-Encrypted: i=1; AKwUvByb0oeNEYdGJYV0iQ0iW48S29icehEs6wvJ0wHTtPlt5eQFgKQPloCJUqHxIAA64hpM3/+AjoxuA4W4@vger.kernel.org
-X-Gm-Message-State: APuU4Z+s7xEI1GY+b0NIvl/4YN3qjkVh+tmKVdh/7e0cMfVC6Gj52u/k
-	6F3lLMvRZBvBbDQ2OeP5M4AYi22+663EDpqLfiCWI2ZbDUS4JvN0Um2CNNJddQNW
-X-Gm-Gg: AYBFou2BP9RxVr/nOVomq9LBtWPeJBxZOM9j0PkqPfE5+/w6VE8uBFvlBESmDZ8NVJy
-	bBm8ZHWiHPcWl610Mx3ZuNwygnJC99nFX/XK1oaIstTW12t8TUAhDTcoIgzGVV8NcDqU7JlmRoE
-	Pz9P9hRyzML4vHsvCM9qr48YDoHJPgNlM6xvCHGasHrVfSsXzJgufj90i7fujPpg9MUR3kIkMhg
-	Bvpo2vGg8eHdkZjK9NcYRq+SRa6QWmQ0cF6dRL0AgJPauYdC4W3CgjMEyoltx4RsyedNHTUdJIm
-	t+gW8/+LaPArgRrCZvAT0IjL9RyLFMQW/75lblL0JWWntjCFA/EcDMDBcXkwFk+RqTGvL72DXX9
-	c0ZPAxfzRkwojNA9YNfJQOF2y/xKcvtXMqTOVhNHlwJGoVfPIhQI7qjMkeBcXMK1nPZRIMbPjtC
-	fWz3LFIPS4yuKBhdNu1ncLy1Pbw6R5ybGMqWG67Z6nXee1Q5y7YPCzVjsPYHHAPQQhjAZ9HiMO8
-	PltP20IWKWqaGgpo/6O6Rr6znvWrsYG9CvzzEpLqe0tzCG30VKc/owgidc0ZK8a36QH4KR9GLtT
-	Sx0/1k3rEogTTlBJJe5cPz4izF07FU0zg3QsXqtbwj/V9X5GPpTROSdZDt5BRT/1KoYKnQu7g9b
-	k2/+9nHPINizlJbMHWtlzRQY8CB9bwHPlbbZ3+ik0Xng=
-X-Received: by 2002:a17:90b:3b4c:b0:3ab:1b1c:8a70 with SMTP id 98e67ed59e1d1-3ae89765c3bmr14032489a91.38.1793840078049;
-        Wed, 04 Nov 2026 16:54:38 -0800 (PST)
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com. [74.125.82.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3131f8csm1163828a91.2.2026.11.04.16.54.37
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 16:54:37 -0800 (PST)
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36dbde64409so801388eec.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:54:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxAZbdDQfOicodmX+SJjHWHSsEGvzLrD88k6icLbOH6JGRYiTe21B6tgbNGvChhC2aPChmMWXigVWuZ@vger.kernel.org
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id
- 5a478bee46e88-36a42437876mr26853707eec.34.1793840077202; Wed, 04 Nov 2026
- 16:54:37 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01DC606A31B;
+	Thu,  5 Nov 2026 01:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F01DC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KXx2WsyE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793840466;
+	bh=84a+IYBILuhpZX+k0ipvweU/l0G2TkLtg047ssnB/Xs=;
+	h=From:Subject:Date:To:Cc:From;
+	b=KXx2WsyE8VFTdzA8DG7qoZ53i6TECTZ+PcdmUZcE2tVtU0AFOaVrJWAmiV9BOsd86
+	 imGiywghPMfKV2/26+OtyZtE9DqXN1HdAUfU2wWPGPVEskXF/yCUOuaXSJwSdG5ILS
+	 43kjtHYmXM5EJXdkN7O+6QSKhKv/G+J3qPqMB/Zlk+Nk9lz73rsV+U5E18rx9EPMeh
+	 IEdxfHJk9/Lf3xymOpZF2KB17SnV8Fag3+05eQn/2gcoMGsymfrOJne7vzG2O5AY9S
+	 MkBiKHjoYMT+bh2hSLs5H/SJQ/jKYrAzgDidFXh8CmDuDOiQoNAUpqxjiNFvMv/UHe
+	 PEki4lEIx/nJg==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F27A217E02F2;
+	Thu, 05 Nov 2026 02:01:05 +0100 (CET)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
+ format on DW HDMI QP
+Date: Thu, 05 Nov 2026 03:00:34 +0200
+Message-Id: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,27 +64,151 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
- <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev> <20261104-geiger-handler-f6688647819c@spud>
-In-Reply-To: <20261104-geiger-handler-f6688647819c@spud>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 19:54:25 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ5pBrypa1PKaKRPxb9uvaJBor+FzUXY0+gxLHOUy7W-Ow@mail.gmail.com>
-X-Gm-Features: AclHuK-Z6NSKmUV0ZPuPw18jk94Az1xuvLsjfOJ7Ac2Y0GWV6yFDmJA_PUWlBBE
-Message-ID: <CAPY4CJ5pBrypa1PKaKRPxb9uvaJBor+FzUXY0+gxLHOUy7W-Ow@mail.gmail.com>
-Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
-To: Conor Dooley <conor@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XQ3U4DIRAF4FdpuBbDP8Ur38N4wcDgYtpS2Xa1a
+ fbdZWtiTVgvTzLznclcyYg140ieNldSccpjLocWzMOGhMEf3pDm2DIRTBhmuKXxkw5xn+nHkV7
+ OExXAkgXQ4LectKVjxZS/buDL608ez/CO4bQoy8SQx1Opl1vjxJe5f/GJU0a9MTqkyEy08TmU3
+ c5Dqf4xlD1ZCiZxJywzHSEaAY4DgpQRY1oj5F/CdYRcrlDebYV3SaBdI9SdcEx2hGpEAqUhKa4
+ swhqhfwnOuOoI3QiTfPs3KuldR8zz/A2WH5kKzgEAAA==
+X-Change-ID: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Andy Yan <andyshrk@163.com>
+X-Mailer: b4 0.15.2
 
-> Can you just use pinctrl_generic_pins_function_dt_node_to_map here and
-> dynamically create the groups at runtime (and also make use of the
-> generic get_groups_* implementations)?
+This series extends the output color format support of the Rockchip DW
+HDMI QP controller to cover 10-bit YUV 4:2:2 and 8/10-bit YUV 4:2:0.
 
-Yes, I'll switch to them in v2. One consequence first: the helper reads
-"pins" as pin numbers, so the binding's pins would change from names
-like "UART_TX" to numbers, as in microchip,mpfs-pinctrl-mssio. The
-function names stay as they are. Is that change fine with you?
+Patches 1, 7 & 15 improve VOP2 robustness on RK3588, helping recover
+from exceptions and preventing random display output glitches observed
+when switching modes that also change the color format, e.g. from RGB to
+YUV 4:2:0 and vice versa.
+
+Patch 8 avoids an incorrect DCLK source switch for 10-bit YUV 4:2:2 by
+forcing 8 bpc in the bandwidth check.
+
+Patches 2-6 address a few vop2 related issues reported by Sashiko, while
+9-12 are additional cleanups/improvements.
+
+Patch 13 adds MEDIA_BUS_FMT_UYVY10_1X20 for 10-bit YUV 4:2:2 output,
+configuring the PHY with 8 bpc.  YUV 4:2:2 always transmits two 12-bit
+components per pixel regardless of color depth, so from a clock-rate
+perspective it is equivalent to three 8-bit RGB components.
+
+Patch 14 advertises YUV 4:2:0 output, now that the bus-format and VOP2
+support are in place.
+
+Tested on Radxa's boards ROCK 5B (RK3588) and ROCK 4D (RK3576).
+
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v6:
+- Dropped vop2 patch "Send pending event when atomic_enable()" since
+  atomic_enable() is not supposed to fail, and sending the event right
+  away turns the vblank/flip_done timeout WARNs into a silent false
+  success (Daniel)
+- Added new vop2 patch "Disable core clocks before dropping runtime PM
+  reference" (Sashiko)
+- Captured dclk_src at init in "drm/rockchip: vop2: Consolidate HDMI PHY
+  PLL clock parent switch" (Daniel)
+- Reworked "drm/rockchip: vop2: Avoid DCLK source switch for 10-bit
+  YUV422 output" into "drm/rockchip: vop2: Use TMDS character rate to
+  select DCLK source" and further improved DCLK source switch handling
+- Replaced the ternary with a helper in "drm/rockchip: dw_hdmi_qp:
+  Support 10-bit YUV422 output format"
+- Rebased series onto v7.4-rc1
+- Link to v5: https://patch.msgid.link/20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com
+
+Changes in v5:
+- Rebased onto latest drm-misc-next and fixed the conflicts introduced
+  by the recent addition of HDMI 2.0 support to the DRM infrastructure
+- Updated patch "drm/rockchip: vop2: Reset AXI and DCLK to improve
+  robustness" to also assert the AXI reset in the bind path, fixing DSI
+  panel support on RK3588 EVB1 (Sebastian Reichel)
+- Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
+  atomic_check()" to fix a pre-existing issue reported by Sashiko
+- Link to v4: https://patch.msgid.link/20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com
+
+Changes in v4:
+- Collected T-b tags from Igor
+- Rebased onto the latest drm-misc-next, which now contains the HDPTX
+  PHY driver fixes, so the runtime dependency has been dropped
+- Link to v3: https://patch.msgid.link/20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com
+
+Changes in v3:
+- Updated patch 3 to skip any hardware programming in the callbacks
+  gated by drm_atomic_helper_commit_planes() after powering down VOP2 on
+  an atomic_enable() error (Sashiko)
+- Ensured VBLANK events are sent immediately when atomic_enable() fails,
+  hence preventing userspace processes waiting for the page flip
+  completion to hang indefinitely (new patch 4, Sashiko)
+- Rebased onto latest drm-misc-next
+- Link to v2: https://patch.msgid.link/20260706-dw-hdmi-qp-yuv-v2-0-b91beb33dedf@collabora.com
+
+Changes in v2:
+- Collected R-b from Krzysztof on the binding patch, while also fixed
+  the property ordering in the example
+- Renamed vop2_clk_reset() to vop2_reset_assert_deassert() and used to
+  devm_reset_control_get_optional_exclusive() in patch 6 (Philipp Zabel)
+- Addressed several issues reported by Sashiko
+  * Reset AXI before detaching the IOMMU domain, to close a theoretical
+    window where stale or in-flight DMA transactions could fault or
+    access memory untranslated after the domain is detached (patch 6)
+  * Fixed resource leak on vop2_enable() error path (new patch 2)
+  * Balance state on atomic_enable error paths (new patch 3)
+  * Avoided division by zero when computing max_dclk (new path 4)
+  * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
+- Rebased onto latest drm-misc-next
+- Link to v1: https://patch.msgid.link/20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com
+
+---
+Cristian Ciocaltea (15):
+      dt-bindings: display: vop2: Add missing reset properties
+      drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
+      drm/rockchip: vop2: Disable core clocks before dropping runtime PM reference
+      drm/rockchip: vop2: Balance state on atomic_enable() error paths
+      drm/rockchip: vop2: Avoid division by zero when computing max_dclk
+      drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
+      drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
+      drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
+      drm/rockchip: vop2: Use TMDS character rate to select DCLK source
+      drm/rockchip: vop2: Switch to enum vop_csc_format
+      drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
+      drm/rockchip: dw_hdmi_qp: Do not mask error code in atomic_check()
+      drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
+      drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+      arm64: dts: rockchip: Add RK3588 VOP2 resets
+
+ .../bindings/display/rockchip/rockchip-vop2.yaml   |  46 +++-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  12 ++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  10 +-
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     |  27 ++-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       | 231 +++++++++++++++------
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h       |  10 +
+ 6 files changed, 263 insertions(+), 73 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260617-dw-hdmi-qp-yuv-2b0f7bb5ba81
+
