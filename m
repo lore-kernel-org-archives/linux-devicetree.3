@@ -1,103 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880690;
-	b=B58HV2mlvSwQyaNOdHbeci+YLTEWLMKtGkC1kLLZNlFXwQkT+7PwCpGORNpaiIDqErNp
-	 6ub3llBC1khdXFYmWME3zyQehiYeGYrM9lCvBCfSAr/2VC+WprCoUshqe6ZwU1N0RrKnY
-	 Ga8OPDbXDf3kJGcMhO3MQJVVDpMHHKPdZjEwnTCalI6OAyJyaS0F8PmaAo1Z22Fwwc/q8
-	 73NC07BF4Nrfq7qflOad7DVgUDRz7e6D26MFJhCxtkPI+Jl2Gd/+Tqyl0ycgjv9eI00rk
-	 ZQGfbFJd4O3e1lCC1LBXQiXKXNPqHMrCQCCd1i/BixBWUDeS2yOMNSZMDtegGIiUixQ==
+	t=1793880877;
+	b=UGgpZOkakPRuuoOxO/FFFsik3lA/Zz15tB4mmgG+R06IYhxUlCdkvwRoY8cRdUN8vIiG
+	 SPjGPrdAFRvWJIVeqQnpG8OEhkJ3WLJ6+Y3ggIGMdHK7T0PvUOxHphzmmQxeiXgfqykKb
+	 SpGy0q6WQNeQ6V49f5V4gvuBETyZ+sZGASpQAP1kR16XBnrlVv9zLbbmtgJqq4WU1uTUj
+	 2T8tEboMnsCGcXYPo3gCjIGoIqHNA+4ImkQyZKwgfHO/blBQnaD+iX8x7AkTg9YU/Gfu6
+	 re4AwYQHBL1pAdIC7dyxfyV9pQ0b838ZKI8S4/bxWJ9q6eEGf6Ta2YYiLT436Yr3qlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880690;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NK/khkk0YHVKOYK9Egb+wYboRXW4TUYyNVtUBHR24As=;
-	b=S4TWutrlbE/7BGXU+bEKV0IF5Vco/DY8twopQQuG00vykl3GmVRup87M/T6VXa6ooaS6
-	 RVYjLWsMld56CX0w9/QGKdtAqejCEXG01/m0LH9gDKikJNni9U7RGYLfVYGAcm3SwI2QB
-	 RYiQH0wVx4HdVimthvqtLTRoGFGORXWEWBj43YOI4Ih9embl1a+UrhjuYHFAG3piEUS4h
-	 WW0SCYu3MVftwxWYwLPXul0rgIb6HLJiZNPFkVuFytNNQL8mblR63cV1XC45KNoGc9VKQ
-	 bMo813mN9DXbrVLiOH2Nim/zrqV8Pl8Z8Br4zfZ/Vmxaytx3zvd4XY/u66wIocGIB9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880877;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=wj5nZozJQCUk77xJuRTCNGYRyYXNzGvjve+qA6nxMLQ=;
+	b=l1DX2Ra2rROM2GAOwcZNdi410OBdyysqH2NVlhFenTGNWwDkZBkwDk+LQdDctPwzBiNW
+	 Rh572gRrjNo+LCcpGfKpudadYpNjzffeUgHpsTxRbmSNeIWlfG4/nKPzXfpDaYdIVU4+0
+	 aqprI6D+rnSreMEt2ID3C/3OMqGTiC1hD3PFML99zKo8f735aDWtbAOJ4Wl94Ryw0O98r
+	 n0lgNgwYoG24A1/dQxLAdzB181j5nClTFOJOjRXFIt0FKpfmmVPnwxMi5AH3yWhS4Uh2X
+	 ZMgmVD07bsHCOi1Pfgw31gADHIosnwZnyZAedclpx52JDWWF1VeRVh6Fr3czpL1zpRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eFLj/20d";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KlciE+qb;
+	arc=none smtp.remote-ip=203.254.224.24
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CA0606EEB3
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:11:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05CA0606EEB3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79696606D805
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79696606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eFLj/20d
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso12126595e9.2
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 04:11:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793880688; x=1794485488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NK/khkk0YHVKOYK9Egb+wYboRXW4TUYyNVtUBHR24As=;
-        b=eFLj/20d7E2DhTKN1/H5dQL1wAaW9l7kKU6DASPZtMSkPfQLdjdW/L3oEmftPW9Cp0
-         C1FgeYN+0EzLmsuISaxp8bX2yTUGV206JdTNp0BuhQOWr+Q8Yj2ByOpwWIG2ICpR+mpH
-         S3366mmWA8dx6qknIV+vy8PU9LtO3O3S4A+cbKhUMIHjUgKybRco89YSjlHBfuoolVY8
-         iEAYvjOIzOhZjSb+ni/HmnWnecUmT8Be8c5gNEqbUGizu+TMzY28h3Z7ueILKap7hkUo
-         oXUwyVw0HPOKz1vWfAHoJ8myDCcsOzLisrTGf0KFcGiQBvHA1tehDWR/B9/sFEE4LbCL
-         6eaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793880688; x=1794485488;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NK/khkk0YHVKOYK9Egb+wYboRXW4TUYyNVtUBHR24As=;
-        b=ybRZ5nWZUyQAiJ1RlXU406sgRqfy9BBDCyq2aSgDZcJM85ZnwVozNSByqC1/U1fslQ
-         ZSsAgCYcOpWmlap+M575Uf4KQWioo+qvnzF1l6MxyAX8gDc6EGxjxpIrqbWgQ2ju9UCS
-         VyBxYAAhwC53ynTvRWIonP14qTxjCy/exbv3RaBBS+RClkhKEvHk1yBg9mTPdV7gc+vc
-         NRKlZG3RmYD4CWtF3PvNM2UBNCn+5Tw1Z7+P+t0Oc6WH3WUqKEVxthkigwHo921fX1qf
-         bcpeeuDPr8XzuedGmOqrpsapFmGS1/EhfzDa6pkrvGAWygH+fOR61/sEHBMqoef5xp1A
-         RSRg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4n9HyEY3CBZFX9UkAxoDAyWnRGuo8EimvIPjG8p8MT+b2nFBSuEBnNy4qgaE7xXLvSJld0tQtnFzr@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3TKIPfDB9sn9RB2/UD1Trd/IVS33OZhxkp8Lmhr1KVm+LKEKg
-	YInq0iTbkB9jFi9JV4S/BV01TPss7UZUVFJNpK6lWWyWqkq467sOvYHq
-X-Gm-Gg: AYBFou18OIWdtPq1SOOqljMvSU6wQRwuw9MCqvC6sS/OTS5EcOm8mYHW0s/XHpn9Plq
-	x8y8XP+ZnncRvidoOLycDWHSZS+EZq1TgGmF/EwqHq/9+z7H3lckHYAo0dxYoTwO7kIV2f93EzK
-	MIGVAuY6V6oZpBBGun5pQvnFYsy8f7BLyv3vsaarOGhN8mcLVDUC/uv8Di2yK4fcSqMcBSRnX5s
-	rPcM9q+KRXjHeSb0odG3mloDGvl3dP7RK5n8at6KZQr812c2Tiu1KRTNlyE7NvZoymbCJpNhZY0
-	eR22KPX56v6v93/INHU1rMSFFE4sGQ2YTuMFfV+tLY6f3gcFJwKV6zc4rVnuVVat5pqyDDny1/u
-	yJc+sTd6UhI5QM9zz+RD/ZcFMGVaWtsRL/sendqEfODaFeIIfRMD8U4XF8hLzOC3xiwkVZk4Vrd
-	2gy2WZNxF0DusP9h6XuuG0USIbEZR7g7sMnXrSWYHIVw/MD2Nmq1/NX55SeBxopGIEq1HcCDUg3
-	Vod23lCQYoxdA6bcE89UF3EDFBnou2OrLry/pXTFsec4obwWVEhLli35ElbPW4HJGTP4Cl/G4fx
-	zVGasvlQSeKBmKDg61GrBFW6ZwLNDV+lJZuWPRlalTVnapF2D00hnvl4fd3XfVg8PC4iEpaiNgE
-	8m5H7bXQFL9aUYEVaBFu7ciF3
-X-Received: by 2002:a05:600c:8b0a:b0:4a2:e0c:2b0a with SMTP id 5b1f17b1804b1-4ac1709a200mr433001995e9.16.1793880688427;
-        Thu, 05 Nov 2026 04:11:28 -0800 (PST)
-Received: from Ansuel-XPS24.lan (93-34-90-148.ip49.fastwebnet.it. [93.34.90.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4b56f02386bsm58869885e9.7.2026.11.05.04.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:11:28 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KlciE+qb
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261105121428epoutp01070256af2091283b9339dc7fbeae5b9a~lJSVB3Lx11949919499epoutp01g
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:14:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261105121428epoutp01070256af2091283b9339dc7fbeae5b9a~lJSVB3Lx11949919499epoutp01g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793880868;
+	bh=wj5nZozJQCUk77xJuRTCNGYRyYXNzGvjve+qA6nxMLQ=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=KlciE+qbCMkaUOkUK4D6Sae2H1DMmlQb8F3DOM9NJiRUnIAt96sAGAs04WIsiH8NW
+	 ufxEEtGKMxIIExRcdicKTupmUuDc97jai8wghV/YPgLfT+42Jkb01a9dfTexuuFrlg
+	 RJmmnbFbtV+KiyWkOJN9blHkKG3ldOEv86FI7xZY=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261105121427epcas5p228003b6804cbca3ff690f95a0510d951~lJSULzkdS1965619656epcas5p2T;
+	Thu,  5 Nov 2026 12:14:27 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jL1Sy6N4wz3hhT7; Thu,  5 Nov
+	2026 12:14:26 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d~lJSSwS8Wu2770827708epcas5p4R;
+	Thu,  5 Nov 2026 12:14:26 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121423epsmtip1e06534b46800136188631e62189b7cd7~lJSP7nXCS3043930439epsmtip1f;
+	Thu,  5 Nov 2026 12:14:22 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	Thinh.Nguyen@synopsys.com, selvarasu.g@samsung.com,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v10 3/5] clk: en7523: protect concurrent access to reset and PCI register
-Date: Thu,  5 Nov 2026 13:10:56 +0100
-Message-ID: <20261105121059.11201-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261105121059.11201-1-ansuelsmth@gmail.com>
-References: <20261105121059.11201-1-ansuelsmth@gmail.com>
+Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
+	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
+	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
+Subject: [PATCH v5 0/2] Add USB DWC3 support for Samsung Exynos8855
+Date: Thu,  5 Nov 2026 17:43:59 +0530
+Message-Id: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-CMS-MailID: 20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d
+References: <CGME20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d@epcas5p4.samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,240 +89,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Use spinlock for concurrent access to reset and PCI register to catch case
-when clock is enabled/disabled while a reset is also operated at the same
-time.
+The Samsung Exynos8855 SoC implements a Synopsys DesignWare USB3 DRD
+controller. The DWC3 core on the Exynos8855 is instantiated with the
+generic DWC3 platform driver using a flattened model, where the
+controller is directly addressable without a separate glue layer.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+This is the first Samsung Exynos binding using the flattened
+representation, and this series adds the device tree binding and
+platform driver support for this configuration.
+
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
 ---
- drivers/clk/clk-en7523.c | 66 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 65 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index 2baec734df9f..c05d0bfa2340 100644
---- a/drivers/clk/clk-en7523.c
-+++ b/drivers/clk/clk-en7523.c
-@@ -123,6 +123,8 @@ struct en_clk_desc {
- 
- struct en_clk_gate {
- 	void __iomem *base;
-+	/* protect SCU register */
-+	spinlock_t lock;
- 	struct clk_hw hw;
- };
- 
-@@ -130,6 +132,8 @@ struct en_rst_data {
- 	const u16 *bank_ofs;
- 	const u16 *idx_map;
- 	void __iomem *base;
-+	/* protect SCU register */
-+	spinlock_t lock;
- 	struct reset_controller_dev rcdev;
- };
- 
-@@ -577,44 +581,78 @@ static u32 en7523_get_div(const struct en_clk_desc *desc, u32 val)
- static int en7523_pci_is_enabled(struct clk_hw *hw)
- {
- 	struct en_clk_gate *cg = container_of(hw, struct en_clk_gate, hw);
-+	unsigned long flags;
-+	u32 val;
-+
-+	spin_lock_irqsave(&cg->lock, flags);
-+	val = readl(cg->base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
- 
--	return !!(readl(cg->base + REG_PCI_CONTROL) & REG_PCI_CONTROL_REFCLK_EN1);
-+	return !!(val & REG_PCI_CONTROL_REFCLK_EN1);
- }
- 
- static int en7523_pci_prepare(struct clk_hw *hw)
- {
- 	struct en_clk_gate *cg = container_of(hw, struct en_clk_gate, hw);
- 	void __iomem *np_base = cg->base;
-+	unsigned long flags;
- 	u32 val, mask;
- 
- 	/* Need to pull device low before reset */
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val = readl(np_base + REG_PCI_CONTROL);
- 	val &= ~(REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT);
- 	writel(val, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	usleep_range(1000, 2000);
- 
- 	/* Enable PCIe port 1 */
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val |= REG_PCI_CONTROL_REFCLK_EN1;
- 	writel(val, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	usleep_range(1000, 2000);
- 
- 	/* Reset to default */
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val = readl(np_base + REG_RESET_CONTROL1);
- 	mask = REG_RESET_CONTROL_PCIE1 | REG_RESET_CONTROL_PCIE2 |
- 	       REG_RESET_CONTROL_PCIEHB;
- 	writel(val & ~mask, np_base + REG_RESET_CONTROL1);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	usleep_range(1000, 2000);
-+
-+	spin_lock_irqsave(&cg->lock, flags);
-+	val = readl(np_base + REG_RESET_CONTROL1);
- 	writel(val | mask, np_base + REG_RESET_CONTROL1);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	msleep(100);
-+
-+	spin_lock_irqsave(&cg->lock, flags);
-+	val = readl(np_base + REG_RESET_CONTROL1);
- 	writel(val & ~mask, np_base + REG_RESET_CONTROL1);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	usleep_range(5000, 10000);
- 
- 	/* Release device */
-+	spin_lock_irqsave(&cg->lock, flags);
- 	mask = REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT;
- 	val = readl(np_base + REG_PCI_CONTROL);
- 	writel(val & ~mask, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	usleep_range(1000, 2000);
-+
-+	spin_lock_irqsave(&cg->lock, flags);
-+	val = readl(np_base + REG_PCI_CONTROL);
- 	writel(val | mask, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	msleep(250);
- 
- 	return 0;
-@@ -624,11 +662,14 @@ static void en7523_pci_unprepare(struct clk_hw *hw)
- {
- 	struct en_clk_gate *cg = container_of(hw, struct en_clk_gate, hw);
- 	void __iomem *np_base = cg->base;
-+	unsigned long flags;
- 	u32 val;
- 
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val = readl(np_base + REG_PCI_CONTROL);
- 	val &= ~REG_PCI_CONTROL_REFCLK_EN1;
- 	writel(val, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
- }
- 
- static struct clk_hw *en7523_register_pcie_clk(struct device *dev,
-@@ -646,6 +687,7 @@ static struct clk_hw *en7523_register_pcie_clk(struct device *dev,
- 		return NULL;
- 
- 	cg->base = np_base;
-+	spin_lock_init(&cg->lock);
- 	cg->hw.init = &init;
- 
- 	if (init.ops->unprepare)
-@@ -660,10 +702,15 @@ static struct clk_hw *en7523_register_pcie_clk(struct device *dev,
- static int en7581_pci_is_enabled(struct clk_hw *hw)
- {
- 	struct en_clk_gate *cg = container_of(hw, struct en_clk_gate, hw);
-+	unsigned long flags;
- 	u32 val, mask;
- 
- 	mask = REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
-+
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val = readl(cg->base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	return (val & mask) == mask;
- }
- 
-@@ -671,11 +718,15 @@ static int en7581_pci_enable(struct clk_hw *hw)
- {
- 	struct en_clk_gate *cg = container_of(hw, struct en_clk_gate, hw);
- 	void __iomem *np_base = cg->base;
-+	unsigned long flags;
- 	u32 val, mask;
- 
- 	mask = REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
-+
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val = readl(np_base + REG_PCI_CONTROL);
- 	writel(val | mask, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
- 
- 	return 0;
- }
-@@ -684,11 +735,16 @@ static void en7581_pci_disable(struct clk_hw *hw)
- {
- 	struct en_clk_gate *cg = container_of(hw, struct en_clk_gate, hw);
- 	void __iomem *np_base = cg->base;
-+	unsigned long flags;
- 	u32 val, mask;
- 
- 	mask = REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
-+
-+	spin_lock_irqsave(&cg->lock, flags);
- 	val = readl(np_base + REG_PCI_CONTROL);
- 	writel(val & ~mask, np_base + REG_PCI_CONTROL);
-+	spin_unlock_irqrestore(&cg->lock, flags);
-+
- 	usleep_range(1000, 2000);
- }
- 
-@@ -791,18 +847,21 @@ static int en7523_reset_update(struct reset_controller_dev *rcdev,
- 	u32 offset = rst_data->bank_ofs[id / RST_NR_PER_BANK];
- 	void __iomem *addr = rst_data->base + offset;
- 	bool inverted = false;
-+	unsigned long flags;
- 	u32 val;
- 
- 	/* For PCIC reset logic is inverted, 0:assert 1:deassert */
- 	if (offset == REG_NP_SCU_PCIC)
- 		inverted = true;
- 
-+	spin_lock_irqsave(&rst_data->lock, flags);
- 	val = readl(addr);
- 	if (assert ^ inverted)
- 		val |= BIT(id % RST_NR_PER_BANK);
- 	else
- 		val &= ~BIT(id % RST_NR_PER_BANK);
- 	writel(val, addr);
-+	spin_unlock_irqrestore(&rst_data->lock, flags);
- 
- 	return 0;
- }
-@@ -826,13 +885,17 @@ static int en7523_reset_status(struct reset_controller_dev *rcdev,
- 	u32 offset = rst_data->bank_ofs[id / RST_NR_PER_BANK];
- 	void __iomem *addr = rst_data->base + offset;
- 	bool inverted = false;
-+	unsigned long flags;
- 	u32 val;
- 
- 	/* For PCIC reset logic is inverted, 0:assert 1:deassert */
- 	if (offset == REG_NP_SCU_PCIC)
- 		inverted = true;
- 
-+	spin_lock_irqsave(&rst_data->lock, flags);
- 	val = readl(addr) & BIT(id % RST_NR_PER_BANK);
-+	spin_unlock_irqrestore(&rst_data->lock, flags);
-+
- 	return inverted ? !val : !!val;
- }
- 
-@@ -866,6 +929,7 @@ static int en7581_reset_register(struct device *dev, void __iomem *base,
- 	rst_data->bank_ofs = rst_reg_ofs;
- 	rst_data->idx_map = rst_map;
- 	rst_data->base = base;
-+	spin_lock_init(&rst_data->lock);
- 
- 	rst_data->rcdev.nr_resets = nr_resets;
- 	rst_data->rcdev.of_xlate = en7523_reset_xlate;
+Changes in v5:
+- Drop the alphabetical reorder of dwc3_generic_of_match and
+  just add the new entry, to avoid conflicts with the existing queued
+  changes, per Thinh's feedback.
+- Drop the Acked-by (Krzysztof Kozlowski) from patch 2 as the patch
+  changed. Re-requesting it.
+- Link to v4:
+  https://lore.kernel.org/all/20261026135715.33071-1-selvarasu.g@samsung.com/
+
+Changes in v4:
+- Drop redundant "binding" from the subject.
+- Reorder properties, interrupts after clocks, power-domains after
+  interrupts.
+- Reorder interrupt property in the example as well.
+- List clocks with per item descriptions.
+- Link to v3:
+  https://lore.kernel.org/all/20261023131501.3157463-1-selvarasu.g@samsung.com/
+
+Changes in v3:
+- Drop the MAINTAINERS patch.
+- Drop the samsung,snps-dwc3 generic fallback compatible. The binding
+  now uses the SoC specific compatible samsung,exynos8855-dwc3 only.
+- Binding file is renamed to match the compatible string.
+- Remove the "select" from the binding.
+- List the clocks (ref, bus) explicitly and drop the redundant if/then
+  block.
+- Update the driver patch to use the new compatible string.
+- Drop the v2 Reviewed-by (Alim Akhtar) and Acked-by (Thinh Nguyen)
+  tags as the patches changed. re-requesting them.
+- Link to v2:
+  https://lore.kernel.org/all/20260916122229.2604003-1-selvarasu.g@samsung.com/
+
+Changes in v2:
+- Commit 2/3: Clarify this is the first Samsung Exynos binding using
+  the flattened node representation.
+- Commit 3/3: Add the compatible entry in alphabetical order in the
+  of_match_table.
+- Link to v1:
+  https://lore.kernel.org/all/20260903071250.3421499-1-selvarasu.g@samsung.com/
+
+Selvarasu Ganesan (2):
+  dt-bindings: usb: Add Samsung Exynos8855 DWC3 controller
+  usb: dwc3: Add Exynos8855 to the generic platform driver
+
+ .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
+ drivers/usb/dwc3/dwc3-generic-plat.c          |  1 +
+ 2 files changed, 72 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
+
 -- 
-2.55.0
+2.17.1
 
