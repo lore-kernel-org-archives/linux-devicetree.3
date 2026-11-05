@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904682;
-	b=08Jrm5AzEg2SGI7Kj9lXXsgb+a2XGRhCetrIGQ3pZIp4SW5EqAQJhJStskh0YSyC9XKs
-	 CrtAA8q1YM/QU/T1RLwswQUdwI7kHUCCaMsDe4X1hVfsm1LpusOUnw5nD7WbM1K55Wo1b
-	 6eB7utGmv3k2JU+6hRRf45Xkk4wni5try4ETHKvDF400isN5yp3lxhhf97+CmybJZKN3o
-	 PkT6UYbsOiKIyK3sGPbPk4kcXjIpT0f6e6FyFse7I6yl+wJLTR1AvE5rKommZNLsrFbGP
-	 gJ1a/3vJRhK5Tdj6dFBpmbhfheEsgU6zw4YB8peX6CYZbM1NoYMi/M8JSmFmI5TjY1A==
+	t=1793904872;
+	b=1lDZemIfuzpPW/3OzhaBepa2u9Udy/W2Yppkbm6SOcNlpdu3ennNpoV7lJ+rg5jcjT+6
+	 YSB6IfJB1Nj7RzvXKSSAH95mKEy93Xzy6D0+aYc0SxrvhZzLLNsw5D5u31LQv0iEwAsw3
+	 Uf1oWJQZ7jfoJDj/kQiGIXj7RkfTb2gfVDoXbcWAFoB91pXrkHL+9/T0IUoAhCojRPXf0
+	 oWTyAv3m8xfrBKoUR2h6PtPO9X9YpeUpuIdbGBywqiiVL7KwlyA/hDCV9w3tWz6m8qYxk
+	 5xU+HqdXldhQQOl5oK9Mjo2Dz1RGnLdKVlel5H9z2XPGGtKrWJ80yrzmnNN6cTgP2SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904682;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jnWVUTUnlmsJEpFB8nhtjDbr8Y+ZTWe/nqHnts4RQXs=;
-	b=xsIkw+HEeG4G0YM8W2OmCRsfAl0yD2kjf86SQGwkPmk9fXIdp2qxJK0K/6Ggl9U7/oSF
-	 XSl3/4X+JXNdolY2OM5lYYjQaw5GVXG9yFjrfFVrBhpO5cRUkO7XhvK4GI0TgaerOPijW
-	 B+czQBpy2CaWI7p5W9jCfkK6Xl4S5G+Uoqn73m9aB+A54fEdnu4EqridXB8b9NU2cj3Xk
-	 GCSlm39QA6CfAIMnkJn9LrrYkkz6hn/DdCLPto15shZtSwQlxNJ0aI6HVSZARQbwjylMY
-	 L8CfpYsmFBq0+Ltn2FsODMRQHvjuHpZZm1WLCrIDGPnw1H/wgIamvcL6qSxyY/maigA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904872;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UdclqZLMN8B5DrcYZKdaCch6tVOM2QIot5gM9jwffKU=;
+	b=4kXY2fb3rn30U7StfZ6Iswu7cPY0FjEe1u8ptsQ02enPttYIHCsnsiIbGoVUfV/H5T53
+	 /w2Ea2Nw3yoWLLVwYckzZQ4SWYa9E5uE/EEdGkZq+UW059/lmphW2yfopOFq58/SIkxNE
+	 eFcLifWWZtu4oT5zfv9meTHMEtKF9L4Jc/4XTkZVLeFEJg1uTUSArHFqGbRIJDyDnGG+U
+	 ZjI03UvdRj1knBrw5fYY3+/aiFOIE8WzsmhDFlYEufG/xbOAkBWOpxSIraz9t+NzezTC6
+	 BhSFuM6yVaqFRJGAEOsXVym/dVzC8GLK5WOA7LmaEVldUIJxyTEpx9luniih9BVaCzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="X8eqe9u/";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCGjVmcZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA67606A328
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 18:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BA67606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6947A606A326;
+	Thu,  5 Nov 2026 18:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X8eqe9u/
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so21004265e9.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 10:51:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793904680; x=1794509480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jnWVUTUnlmsJEpFB8nhtjDbr8Y+ZTWe/nqHnts4RQXs=;
-        b=X8eqe9u/Aq1FrN4sMxD/pefIzG+YXzeOqvrZ8COqfqapO8Q/M1H0Sj1aD0TqhpMLI2
-         AmrBQacAjif6fdKpEU+BLEmLC+oewe604mdifwCPdOv8erlIeU5oNwnF3Iy9LL7J8sxq
-         PlQgueiT1Olwo5efl/bu6lKuYT85HXTali5gc9szgbGNdqyUrkeDjRdP7E95sVtqCTQI
-         VhOsWyufCye5KbdgYYFgpgWSlNKXELlW5y+xgS+Jikcq8fro9a4x/lZSZch5LBeP9NQn
-         Jg1xlrjJKhFDmxd+OR1rys5baX34Jvcf5xBAagOLSWMOBBAGXDlgEIq9UvZKeNhb4woY
-         BURg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793904680; x=1794509480;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jnWVUTUnlmsJEpFB8nhtjDbr8Y+ZTWe/nqHnts4RQXs=;
-        b=ptd9+46USnVdfrFl6iJu2lABhOkend178sQ39iznfyhhkfeKjMOGK+Lop3si+Nqad1
-         TFm9osF0EiR8iCLUqgX6tG9mZGTrNdwBGAEAUF0Tqexi+CtSJTpmUhuaKWtbu5MAQ+Hi
-         iZmsug1rwP/CvZFBN0E1B9VyWCnksErEC6mkzeCgEItasdfv8uRXyP9u3/5EURjRySHV
-         paF5yaM+4G+Az6E+G1Ov/GLos0hORHjkSy9+z/9RClfU2PaacZB2jE2th1Jss6LIQcnw
-         L2hG88LciCZCV0WsxFjAa0RdDsR/cOZs0SGYMcf6dXb9OXoPDJh3wm+aMvykA6Wvvk6t
-         xZqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpS/1NJNnulTefTMmWbqITpFp1qBCYAeWh2bVM5kxy5nzgo9286ddQfNwN4i8m0BJ6TjiLnQSECoK7@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MRpVFG2a0FIPSsTI2WpaNlcWLcvtZyDZQGV635ojTVsEUHYV9
-	Iz5l9b0Ik4i9gPo3XayR72aOtn5t6TqszGAnw9seVA9dwmrv/rHqG5sL
-X-Gm-Gg: AYBFou0yA2j8o1RxUnv+BIZ2uUHI5T5CtRC0rC8VMsmkyGts6hoVLsNk9NDjp5GoYAT
-	gH/vTqg4qSvFXechcAIu5EVFIw8w2xwfr8GkEQ3e/OxfijT//we7hDZjljlO6OP9WhOv6oprvkU
-	w2hMCyrKvk56eGYHYgPlv6nMv+Xgsgth6IBPwVzJfwh+eoJDKf13NjXoT9lVerIV50O7qqms7cC
-	i6Y5x4jnUhmBsWeusFTXKE6Ipcc2vn+NVXdulmcvauL7ZdYsOzhiDPv/0AcriDQ1Hl/kkI+uAfK
-	GrhNh8X6P+XqdCEZXZux7WbeIfvose6UmalrbFbN2wxV004UfpWCRIOhZ2VjJvkD9g1BNBVphdY
-	IPAzHB4yXHuktfERUfiDPF9/L1cMNUNDR38+lqpXytLwo7EjEEWjPlqbiCFXalUKDo9EUvqvt7C
-	MVLueMdP1GF/CEyeEpurX6AUFEpk448zAXD9FJAORC1V/yH9cBfNSMDu0v8EnMb9LiJxnrlICbJ
-	Cz53AQGow6d2qY5EXXtfTMMwGmcy5sDfCzBtxE5HtfstsnipEASc7eP1fLFPH9KI7XttGcAu9b4
-	wMc4pSNYiIrIE+s//tX7d3JqsgGYUCo3ceytWQAZ/qgYc0yLj5LfaPuFveyN9At4uUqKjvraWtG
-	WAZ78wKxhhSCaXLeq5T/tWMvLVzx/LsPPU+2SXD2V+5NqfxRZRWtOjpp9On1foGyKwJVf9lU9b/
-	BAMhmaN9s8qAL+Uj62CIA6i8DRfUOp0hqUCj+ypon4v8g3MYlqR/8Y6fWQrb5Y4rkRvm0bClu2Q
-	ZY=
-X-Received: by 2002:a05:600c:46c8:b0:4a3:59c9:a744 with SMTP id 5b1f17b1804b1-4b6dd82aa22mr395975e9.7.1793904680202;
-        Thu, 05 Nov 2026 10:51:20 -0800 (PST)
-Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-88bf-3a8a-f542-868c.ipv6.o2.cz. [2a00:1028:8388:a84e:88bf:3a8a:f542:868c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae72dsm137150875e9.3.2026.11.05.10.51.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 05 Nov 2026 10:51:19 -0800 (PST)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
-	=?utf-8?q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rong Zhang <i@rong.moe>,
-	=?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] leds: turris-1x: Add support for CZ.NIC Turris 1.x LEDs
-Date: Thu,  5 Nov 2026 19:51:17 +0100
-Message-ID: <20261105185117.83189-1-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104150229.GA1650678@google.com>
-References: <20261104150229.GA1650678@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCGjVmcZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644061F00919;
+	Thu,  5 Nov 2026 18:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793904872;
+	bh=UdclqZLMN8B5DrcYZKdaCch6tVOM2QIot5gM9jwffKU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WCGjVmcZqY+BxtWg2dhw9Yy/V28eGIQkYuKoqsLQHtRAz3NuW7BuFuJhFX91MZ4X3
+	 i+mXrBQDbjXs9GjdrptYpEkMcV0ei6Nh8X5wz0Y5junD0G0NmwtDTZoA+wjkW9Fvxt
+	 nq3prAoEKk5RRGTz+tVQ1OGsn9QN5zeNJBf6LEVqxC5hyTnwE3krNryI2JJ3ke1T1w
+	 WYSQdSuDuIT/NFIXh3zy4RhkSXPmeeycjljDpdg8jGDH4BjzeDUAKO+yhYYSPyqFKP
+	 wKvdi8U7kCCZIFXadRTf1TQu+3DUjZNU7i1MpETgQwh932OpQzbfbnqNWVR7UJANRV
+	 C07pmgQ+1uU3w==
+Message-ID: <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
+Date: Thu, 5 Nov 2026 19:54:22 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,35 +51,178 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
+ binding
+To: Brian Norris <briannorris@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Peter Griffin <peter.griffin@linaro.org>, devicetree@vger.kernel.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+ linux-arm-kernel@lists.infradead.org,
+ Mariano Marciello <mmarciello@google.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+ =?UTF-8?Q?Jakub_G=C5=82owacki?= <jglow@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll> <aulIoq2oVjJ3DVzL@google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <aulIoq2oVjJ3DVzL@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Lee,
+On 03/11/2026 03:36, Brian Norris wrote:
+> On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
+>> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
+> 
+>>> --- /dev/null
+>>> +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
+>>> @@ -0,0 +1,16 @@
+>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>>> +/*
+>>> + * This header provides constants for CPM IRQ.
+>>> + *
+>>> + * Copyright 2025-2026 Google LLC
+>>> + *
+>>> + */
+>>> +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+>>> +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+>>> +
+>>> +#define CPM_IRQ_RTC_ALARM_NO			0
+>>
+>> Keep naming consistent. Clocks has _CLK suffix, so this should not use
+>> prefix.
+>>
+>>
+>>> +#define CPM_IRQ_AOC_MIN				7
+>>
+>> Anyway, ABI constants should be indexed from 0 and incremented by 1.
+> 
+> What do you mean by this? Do I need to make up names for the
+> unused IDs between 0 and 7? On an initial search, I don't believe they
+> have any meaning at all. Does that mean I should make up some kind of
+> "RESERVED_<N>" naming here?
 
-Thanks. v5 incorporates your style and driver name changes,
-dev_ext_attribute, and the layout of brightness_set(). It also drops
-led->on and the fixup. All includes are used, and string.h is new.
+No, I meant CPM_IRQ_AOC_MIN is 1.
 
-The global brightness files stay. Generic brightness is per LED, while
-this is a single CPLD dimmer for the whole panel, similar to
-device/brightness on Omnia. The level files expose the eight steps of
-its button.
+> 
+> Between 7 and 156, these are just ... 150 different "service numbers"
+> within the AOC (Always On Connectivity) subsystem. I can name them
+> AOC_0, AOC_1, ... AOC_149 if that helps.
+> 
+> Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
+> into 0-151? I thought it was valuable to directly use the firmware
+> indexing where possible; if I change those, then the indexing loses its
+> inherent meaning, and we also have to add another layer of translation.
 
-The reset flag also stays. The LED core reads LED_RETAIN_AT_SHUTDOWN
-only during unregister and calls led_classdev_suspend() only on PM
-suspend. At reboot, software triggers therefore keep writing after
-.shutdown. Unregistering the LEDs in .shutdown, as leds-sun50i-a100
-does, would also work. Let me know if you prefer that approach.
+We do not use hardware numbers as bindings and ABI, because that's
+pointless - no benefits, only risks. Similarly you do not define GIC
+interrupt numbers, pinctrl pin numbers, MMIO addresses as bindings. None
+of these bind anything between DTS and software, so not a binding.
 
-The devm ordering stays as well. A failed probe unwinds like an unbind,
-with the LEDs released before the reset.
+There are some exceptions like SCMI firmware, but that's not the case here.
 
-v5 also preserves a dim level set before activating the hardware
-trigger, including across a colour change underneath it. This follows
-the behaviour of leds-turris-omnia, which I used as the implementation
-pattern.
+> 
+>>> +#define CPM_IRQ_AOC_MAX				156
+>>> +#define CPM_IRQ_AP_GDMC_WAKE			157
+>>> +
+>>> +#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
+> 
+> 
+>>> --- /dev/null
+>>> +++ b/include/dt-bindings/soc/google,lga-lpcm.h
+>>> @@ -0,0 +1,54 @@
+>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>>> +
+>>> +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+>>> +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+>>> +
+>>> +/*
+>>> + * LPCM IDs of each SSWRP.
+>>> + */
+>>> +#define LGA_LPCM_CPM			0
+>>
+>> What are all these?
+> 
+> The binding doc says:
+> 
+>       Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
+>       See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+>       <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
+> 
+> and
+> 
+>       Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
+>       2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+>       <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
+> 
+> These are the IDs used in the firmware interface to talk about these
+> things, as many of the SoC resources involved (clocks, resets, power
+> domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
+> with indexing within each subsystem).
+> 
+> In reading again, I see that the definitions and explanation of these
+> terms and the SoC organization are split a bit between the pmdomain
+> commit message and the binding doc. Where would you prefer I elaborate
+> more? In the binding doc, the comments here, or both?
 
-Finally, scripts/checkpatch.pl reports only the 75-character warning
-from your list on the mails I sent. It is on a URL line in the cover
-letter.
+I just try to understand their placement. Bindings should not be in the
+soc directory, except a few things without clear subsystem owner. If
+this applies for both clocks and resets, maybe this could be firmware,
+but another point is that you should not need these in DTS. Somehow you
+split one clock/reset ID into two - LPCM ID and clock/reset ID. Just
+don't, unless you want to say that for example LSION_CLI16_UART_CLK is
+in multiple LPCM places?
 
-Josef
+Best regards,
+Krzysztof
