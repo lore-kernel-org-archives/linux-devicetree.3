@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883633;
-	b=18a63A+34HILpWHEq838bijvY3ugSiGPa/O9SHDo1GsyDmzJf8DU0Q3LBeaKVSMxXNf0
-	 MZz/BMn7x0+V2dpXUyvc05QmsWKYcMe8OXQ1RhR7YLlSySQX8GCSglnBVaNkGGsuU46N5
-	 RXEdYBcHHpwMoONymbPXcU1nnE9HyjMfsqUKta464z+AqrBhUiSKfuQ65IfURj+Dh9td1
-	 9sRaMacy1N/wHAFo49w0WFJAbekk5z6MHy5DoKG7yuPdzeTsVfx2d8j+HEznqGCW1efx2
-	 nz7A23m/HuxpLGllfXMNtTNRmUKAfbs56RKv849BrQD3NRk51GIPEdwg4ngWgLm4L/w==
+	t=1793883700;
+	b=N45OSS/jMaqsuXJpbkrRqM6vnu+q/aoBNGL/6NEqlH1B9ttOWZFU0NYjzgUyGUouWEez
+	 IUjVG9OfGq+SLSKh/siP8J/JShxHFaHyEzEzgg2EXhjdlA9BXHe4dZ7CHA2CqIJ9jH5f6
+	 1jUc4q5pmVyhcu+/VxLSAsIN0gfLub51puHInZhwGvoYuJ7eL/8DxS8jH3wqX42s2bbrg
+	 jkNZPDoHtrsFG6W0LmVc+p4vY+523w0C12zCdfYjnKjvPB48r23SZaNUmnfzkQAYfoE4H
+	 D3SGahNDKc2mbt7iGykzj5zC7d8tjuCnCNDsTCoqVpr7FrBqWvRrGUSv9jN3Be0Joyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883633;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=J96OsuBjLSNeA3D2jOIRJ0YfmmxlmMH0TVMBjsYgm8E=;
-	b=rc2RRHEwIzS+C5gr9l5o19i/aJiC0Bl8KdRjdszhXvexgUhVma3UbKQVv8FY6YSuJKFx
-	 isBRqiPcq6ZZjEOg4ZMtXIEiQd9lK8tFmhWhtIcU6uTVaDpk4Z93wQ92ZJQgDIthBbrgA
-	 cl/9pjg2Y8ZUDojZkaXwGQ8YCBKVbAWqPM1Se7TgY2wmT2l0EPsTlRimH0OdvPeVtc+m0
-	 zF3W78/HP6qDHDWZTIVo7a7h6UqhIozlUsVuW/YequLnLh8uF+4gsXLFYXHvy/XhumfU5
-	 ZVRBC+KaJRJ5DAyu8OyvI3amBB5kc8CuuUrPaayhYeAkITDaXCibVbw1wIFBoScCDSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883700;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TXkiYmKjLKAJ/dlWVLBxwVO/Mvm8wUpWYMxhKT2yAJw=;
+	b=ve/ILmAqi/pi6cOpqawqwWgkkXPT9eHnm0NQEB4GfuI7m/BRNABfTvXFvaGi8ykQVUDB
+	 gm3cpHAHEJHEYKPy6AlXBOWru16FU2ltEmZDLlxQG44tVmFU8UjWCyW+FWG0brGa5/Rhz
+	 N4yi/zu53KX7pvuzDyfjcELZg1/t7uBsyJOw4FYUjVSdOSYWaNJvdt85Sb81EVOnTJU+q
+	 WyLpmH94SYTe/AUPpgMd9sulVY+DzILxAcCaw6ed2CoVzGrpVCYFjY0FBCL4abP4yAmyn
+	 6/J343f15fGi2tDPp+obpnl1gaP/cZlbeVfdAFbSgravVEqI1HtimOrQFP2EU49Y03w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+dsiX+z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83106606A326;
-	Thu,  5 Nov 2026 13:00:33 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=A19P6xzE;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1BFD2606A32E;
+	Thu,  5 Nov 2026 13:01:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BFD2606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+dsiX+z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14591F000C1;
-	Thu,  5 Nov 2026 13:00:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883633;
-	bh=J96OsuBjLSNeA3D2jOIRJ0YfmmxlmMH0TVMBjsYgm8E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D+dsiX+zrv08QcgNApY6QdYr+2GMS5hwFzRlpvricDjZuZcCVL1ycfI7d6pbPdccx
-	 c0+3MMjunsCUx8F6VZfT62YUCe+tcpOebOeI+qK5jQw2AejHgK4XZ88tj4wJVp7SAC
-	 g7v6i9x60jQz/0Xtxru7AM4KFG4jkgxh2BwLNDp8cgFW8EZ5PLGPemugExkJaHLvml
-	 Tl1Lmf/7TaJ1EgyB1SG9m8vBIa63m1De2qE7jVFVfyd5Aq8ZOwqrMRxSYDwSa3cJxz
-	 xjvvkHRLCefoqn/x2vWqdrefGg1Vc+YP937r5rKNeLWs89ogIYU9kcMm0MHwt7PrBl
-	 M2dk+Pv4n0TVA==
-Message-ID: <sashiko-outbox-199091@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
-References: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
- <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 13:00:32 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=A19P6xzE
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B7A852F;
+	Thu,  5 Nov 2026 05:01:34 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC14E3F673;
+	Thu,  5 Nov 2026 05:01:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793883697; bh=vEh3zJqo/KGR30L6jPVxWFZR07rHwEaGECGJkVsECAs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=A19P6xzEj/ScejmvlfV+RMYMuBsgGpdaLAxrZVdyU3WH5jILvpXZc5lP5ZXvXUy71
+	 5VdKLLQljBXO8WGcNsJFWV2h2g/CxoT87xc1VcEAWUABDNLYt2u/R3Lbt01+U3HcQ4
+	 ijob0GDoWGyw2spRaTEhk/TX4XjVbL7eARpN8Wgg=
+Message-ID: <9d450f18-2300-4ead-981b-94bd9eea9126@arm.com>
+Date: Thu, 5 Nov 2026 13:01:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,329 +52,509 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 3/7] qcom-tgu: Add signal priority support
+To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
+ alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
+ konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+ Jie Gan <jie.gan@oss.qualcomm.com>
+References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
+ <20260730080704.2903540-4-songwei.chai@oss.qualcomm.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260730080704.2903540-4-songwei.chai@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] iio: adc: max34417: energy scale underflows to zero in max34417_=
-read_raw()
-- [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/e=
-nergy read
-- [Medium] iio: adc: max34417: missing 1 ms delay and premature UPDATE on r=
-ead/setup
---
-
-commit b2b3b8bbfcafc2973680f358dc7e0d74750a2a05
-Author: Neil Armstrong <neil.armstrong@linaro.org>
-
-iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power=
- Accumulator
-
-This commit adds an IIO ADC driver for the Analog Devices MAX34417
-four-channel power accumulator, supporting single-shot voltage and power
-readings as well as continuous accumulation mode for average power and
-energy measurements over I2C/SMBus.
-
-> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-> new file mode 100644
-> index 0000000000000..f12d0e8ef1a68
-> --- /dev/null
-> +++ b/drivers/iio/adc/max34417.c
-
-[ ... ]
-
-> +static int max34417_check_ovf(struct max34417_data *max34417)
+On 30/07/2026 09:07, Songwei Chai wrote:
+> Like circuit of a Logic analyzer, in TGU, the requirement could be
+> configured in each step and the trigger will be created once the
+> requirements are met. Add priority functionality here to sort the
+> signals into different priorities. The signal which is wanted could
+> be configured in each step's priority node, the larger number means
+> the higher priority and the signal with higher priority will be sensed
+> more preferentially.
+> 
+> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
+> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+> ---
+>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
+>   drivers/hwtracing/qcom/tgu.c                  | 189 +++++++++++++++++-
+>   drivers/hwtracing/qcom/tgu.h                  | 133 ++++++++++++
+>   3 files changed, 328 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+> index 36ab64f1e301..7dd24314592d 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+> @@ -7,3 +7,10 @@ Description:
+>   		Accepts only one of the 2 values -  0 or 1.
+>   		0 : disable TGU.
+>   		1 : enable TGU.
+> +
+> +What:		/sys/bus/amba/devices/<tgu-name>/step[0:7]_priority[0:3]/reg[0:17]
+> +Date:		August 2026
+> +KernelVersion:	7.2
+> +Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
+> +Description:
+> +		(RW) Set/Get the sensed signal with specific step and priority for TGU.
+> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
+> index 9c7dd4a09f02..0e88b437f191 100644
+> --- a/drivers/hwtracing/qcom/tgu.c
+> +++ b/drivers/hwtracing/qcom/tgu.c
+> @@ -15,14 +15,144 @@
+>   
+>   #include "tgu.h"
+>   
+> +static int calculate_array_location(struct tgu_drvdata *drvdata,
+> +				    int step_index, int operation_index,
+> +				    int reg_index)
 > +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	u32 control;
-> +	int rc;
+> +	return operation_index * (drvdata->num_step) * (drvdata->num_reg) +
+> +		step_index * (drvdata->num_reg) + reg_index;
+> +}
 > +
-> +	rc =3D regmap_read(map, MAX34417_CONTROL_REG, &control);
-> +	if (rc)
-> +		return rc;
+> +static ssize_t tgu_dataset_show(struct device *dev,
+> +				struct device_attribute *attr, char *buf)
+> +{
+> +	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
+> +	struct tgu_attribute *tgu_attr =
+> +			container_of(attr, struct tgu_attribute, attr);
+> +	int index;
 > +
-> +	if (!(control & MAX34417_CONTROL_OVF))
+> +	index = calculate_array_location(drvdata, tgu_attr->step_index,
+> +					 tgu_attr->operation_index,
+> +					 tgu_attr->reg_num);
+> +
+> +	/*
+> +	 * Serialise against tgu_dataset_store() and tgu_enable(), which read
+> +	 * and write the same priority array, so the value is not observed
+> +	 * while being updated concurrently.
+> +	 */
+> +	guard(mutex)(&drvdata->lock);
+> +
+> +	return sysfs_emit(buf, "0x%x\n",
+> +			  drvdata->value_table->priority[index]);
+> +}
+> +
+> +static ssize_t tgu_dataset_store(struct device *dev,
+> +				 struct device_attribute *attr,
+> +				 const char *buf, size_t size)
+> +{
+> +	struct tgu_drvdata *tgu_drvdata = dev_get_drvdata(dev);
+> +	struct tgu_attribute *tgu_attr =
+> +		container_of(attr, struct tgu_attribute, attr);
+> +	unsigned long val;
+> +	int index;
+> +	int ret;
+> +
+> +	ret = kstrtoul(buf, 0, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&tgu_drvdata->lock);
+> +	index = calculate_array_location(tgu_drvdata, tgu_attr->step_index,
+> +					 tgu_attr->operation_index,
+> +					 tgu_attr->reg_num);
+> +
+> +	tgu_drvdata->value_table->priority[index] = val;
+> +
+> +	return size;
+> +}
+> +
+> +static umode_t tgu_node_visible(struct kobject *kobject,
+> +				struct attribute *attr,
+> +				int n)
+> +{
+> +	struct device *dev = kobj_to_dev(kobject);
+> +	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
+> +	struct device_attribute *dev_attr =
+> +		container_of(attr, struct device_attribute, attr);
+> +	struct tgu_attribute *tgu_attr =
+> +		container_of(dev_attr, struct tgu_attribute, attr);
+> +
+> +	if (tgu_attr->step_index >= drvdata->num_step)
+> +		return SYSFS_GROUP_INVISIBLE;
+> +
+> +	if (tgu_attr->reg_num >= drvdata->num_reg)
 > +		return 0;
 > +
-> +	rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
-> +			       MAX34417_CONTROL_OVF);
-> +	if (rc)
-> +		return rc;
+> +	return attr->mode;
+> +}
 > +
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
+>   static void tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
+>   {
+> +	int i, j, k, index;
 > +
-> +	/* Save the timestamp for the next read */
-> +	max34417->last_update =3D ktime_get();
+>   	TGU_UNLOCK(drvdata->base);
+> +	for (i = 0; i < drvdata->num_step; i++) {
+> +		for (j = 0; j < MAX_PRIORITY; j++) {
+> +			for (k = 0; k < drvdata->num_reg; k++) {
+> +				index = calculate_array_location(
+> +							drvdata, i, j, k);
 > +
-> +	return 0;
+> +				writel(drvdata->value_table->priority[index],
+> +					drvdata->base +
+> +					PRIORITY_REG_STEP(i, j, k));
+> +			}
+> +		}
+> +	}
+>   	/* Enable TGU to program the triggers */
+>   	writel(1, drvdata->base + TGU_CONTROL);
+>   	TGU_LOCK(drvdata->base);
+>   }
+>   
+> +static void tgu_set_reg_number(struct tgu_drvdata *drvdata)
+> +{
+> +	int num_sense_input;
+> +	int num_reg;
+> +	u32 devid;
+> +
+> +	devid = readl(drvdata->base + TGU_DEVID);
+> +
+> +	num_sense_input = TGU_DEVID_SENSE_INPUT(devid);
+> +	num_reg = (num_sense_input * TGU_BITS_PER_SIGNAL) / LENGTH_REGISTER;
+> +
+> +	if ((num_sense_input * TGU_BITS_PER_SIGNAL) % LENGTH_REGISTER)
+> +		num_reg++;
+> +
+> +	if (num_reg > TGU_MAX_PRIORITY_REGS) {
+> +		dev_warn(drvdata->dev,
+> +			"DEVID reports %d priority regs, clamping to %d\n",
+> +			num_reg, TGU_MAX_PRIORITY_REGS);
+> +		num_reg = TGU_MAX_PRIORITY_REGS;
+> +	}
+> +
+> +	drvdata->num_reg = num_reg;
+> +}
+> +
+> +static void tgu_set_steps(struct tgu_drvdata *drvdata)
+> +{
+> +	u32 devid;
+> +
+> +	devid = readl(drvdata->base + TGU_DEVID);
+> +
+> +	drvdata->num_step = TGU_DEVID_STEPS(devid);
+> +
+> +	if (drvdata->num_step > TGU_MAX_STEPS) {
+> +		dev_warn(drvdata->dev,
+> +			"DEVID reports %d steps, clamping to %d\n",
+> +			drvdata->num_step, TGU_MAX_STEPS);
+> +		drvdata->num_step = TGU_MAX_STEPS;
+> +	}
 > +}
 
-[ ... ]
+Why not combine setting the num_step and num_regs in one go ? You are 
+reading the DEVID anyways, and such macro level functional split is
+useless.
 
-> +static int max34417_read_voltage(struct max34417_data *max34417,
-> +				 const struct iio_chan_spec *chan, int *val)
-> +{
 
-[ ... ]
+> +
+>   static void tgu_enable(struct tgu_drvdata *drvdata)
+>   {
+>   	tgu_write_all_hw_regs(drvdata);
+> @@ -104,6 +234,38 @@ static const struct attribute_group tgu_common_grp = {
+>   
+>   static const struct attribute_group *tgu_attr_groups[] = {
+>   	&tgu_common_grp,
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(0, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(0, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(0, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(0, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(1, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(1, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(1, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(1, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(2, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(2, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(2, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(2, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(3, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(3, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(3, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(3, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(4, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(4, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(4, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(4, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(5, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(5, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(5, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(5, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(6, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(6, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(6, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(6, 3),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 0),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 1),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 2),
+> +	PRIORITY_ATTRIBUTE_GROUP_INIT(7, 3),
+>   	NULL,
+>   };
+>   
+> @@ -111,6 +273,8 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
+>   {
+>   	struct device *dev = &adev->dev;
+>   	struct tgu_drvdata *drvdata;
+> +	unsigned int *priority;
+> +	size_t priority_size;
+>   	int ret;
+>   
+>   	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
+> @@ -128,8 +292,31 @@ static int tgu_probe(struct amba_device *adev, const struct amba_id *id)
+>   	if (ret)
+>   		return ret;
+>   
+> -	drvdata->enabled = false;
 
+> +	tgu_set_reg_number(drvdata);
+> +	tgu_set_steps(drvdata);
+
+As mentioned above, combine both ?
+
+> +
+> +	drvdata->value_table =
+> +		devm_kzalloc(dev, sizeof(*drvdata->value_table), GFP_KERNEL);
+
+Could we not embed this in the drvdata without dynamic allocation ?
+> +	if (!drvdata->value_table)
+> +		return -ENOMEM;
+>   
+> +	priority_size = MAX_PRIORITY * drvdata->num_reg * drvdata->num_step;
+> +
+> +	priority = devm_kcalloc(dev, priority_size,
+> +				sizeof(*drvdata->value_table->priority),
+> +				GFP_KERNEL);
+> +	if (!priority)
+> +		return -ENOMEM;
+> +
+> +	drvdata->value_table->priority = priority;
+> +
+> +	drvdata->enabled = false;
 > +	/*
-> +	 * Move the new UPDATE data into the SMBus read registers.
-> +	 * This will also reset the accumulators, returning the
-> +	 * power accumulated since the last UPDATE.
+> +	 * Create the sysfs groups only after the backing storage is fully
+> +	 * allocated, otherwise userspace could open a priority attribute and
+> +	 * have tgu_dataset_show() dereference an uninitialised value_table.
+> +	 * This also keeps the error paths above free of sysfs teardown.
 > +	 */
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
+>   	ret = sysfs_create_groups(&dev->kobj, tgu_attr_groups);
+>   	if (ret) {
+>   		dev_err(dev, "failed to create sysfs groups: %d\n", ret);
+> diff --git a/drivers/hwtracing/qcom/tgu.h b/drivers/hwtracing/qcom/tgu.h
+> index ebba49402a20..7a3e1161c4cf 100644
+> --- a/drivers/hwtracing/qcom/tgu.h
+> +++ b/drivers/hwtracing/qcom/tgu.h
+> @@ -6,10 +6,137 @@
+>   #ifndef _QCOM_TGU_H
+>   #define _QCOM_TGU_H
+>   
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
 > +
-> +	/* Save the timestamp for the next read */
-> +	max34417->last_update =3D ktime_get();
+>   /* Register addresses */
+>   #define TGU_CONTROL		0x0000
+>   #define TGU_LAR		0xfb0
+>   #define TGU_UNLOCK_OFFSET	0xc5acce55
+> +#define TGU_DEVID		0xfc8
 > +
-> +	if (max34417->cam_mode) {
+> +#define TGU_DEVID_SENSE_INPUT(devid_val) \
+> +	((int)FIELD_GET(GENMASK(17, 10), devid_val))
+> +#define TGU_DEVID_STEPS(devid_val) \
+> +	((int)FIELD_GET(GENMASK(6, 3), devid_val))
+> +#define TGU_BITS_PER_SIGNAL 4
+> +#define LENGTH_REGISTER 32
 > +
-> +		/* Retrieve all channels to avoid missing data for other channels */
-> +		rc =3D max34417_save_accumulators(max34417);
-> +		if (rc)
-> +			return rc;
+> +/*
+> + *  TGU configuration space                              Step configuration
+> + *  offset table                                         space layout
+> + * x-------------------------x$                          x-------------x$
+> + * |                         |$                          |             |$
+> + * |                         |                           |   reserve   |$
+> + * |                         |                           |             |$
+> + * |coresight management     |                           |-------------|base+n*0x1D8+0x1F4$
+> + * |     registers           |                     |---> |priority[3]  |$
+> + * |                         |                     |     |-------------|base+n*0x1D8+0x194$
+> + * |                         |                     |     |priority[2]  |$
+> + * |-------------------------|                     |     |-------------|base+n*0x1D8+0x134$
+> + * |                         |                     |     |priority[1]  |$
+> + * |         step[7]         |                     |     |-------------|base+n*0x1D8+0xD4$
+> + * |-------------------------|->base+0x40+7*0x1D8  |     |priority[0]  |$
+> + * |                         |                     |     |-------------|base+n*0x1D8+0x74$
+> + * |         ...             |                     |     |  condition  |$
+> + * |                         |                     |     |   select    |$
+> + * |-------------------------|->base+0x40+1*0x1D8  |     |-------------|base+n*0x1D8+0x60$
+
+minor nit:                       ^^^
+s/base+0x40+1*0x1D8/step[0] + 0x1D8 and so on, for the above
+
+> + * |                         |                     |     |  condition  |$
+> + * |         step[0]         |-------------------->      |   decode    |$
+> + * |-------------------------|-> base+0x40               |-------------|base+n*0x1D8+0x50$
+> + * |                         |                           |             |$
+> + * | Control and status space|                           |Timer/Counter|$
+> + * |        space            |                           |             |$
+> + * x-------------------------x->base                     x-------------x base+n*0x1D8+0x40$
+
+Also for each frame, you don't have to describe "base+n*..." that makes
+it unnecessarily crowded and complicated to read.
+
+> + *
+> + */
+> +#define STEP_OFFSET 0x1D8
+> +#define PRIORITY_START_OFFSET 0x0074
+> +#define PRIORITY_OFFSET 0x60
+
+ From the diagram, it is CONDITION_SELECT ? Having two offsets named 
+after PRIORITY is confusing.
+
+
+> +#define REG_OFFSET 0x4
+> +
+> +/*
+> + * Upper bounds on the DEVID/DEVID2-derived per-region counts. The TGU register
+> + * layout is fixed by the offset macros above and mirrored by the static sysfs
+> + * attribute tables in tgu.c, so these are the largest counts the driver can
+> + * both address within the mapped window and expose to userspace:
+> + *
+> + *   TGU_MAX_STEPS            static tables define step0..step7
+> + *   TGU_MAX_PRIORITY_REGS    STEP_PRIORITY_LIST defines reg0..reg17
+
+What are these ? PRIORITY regs is 0-3 ? Do you mean each priority has 
+0-17 registers ? (See, the description using base+n*.. for the "step" 
+frame is making this worse). You may move it down as a separate figure.
+
+ From my maths:
+For pritority[0] -> 0xD4-0x74 = 0x60 => 0x18 => 24 registers! not 18!
+
+What am I missing ?
+
+
+> + *
+> + * A device whose DEVID reports counts above these bounds is clamped, so writes
+> + * never fall outside the ioremap()'d window or spill into an adjacent region.
+> + */
+> +
+> +#define TGU_MAX_STEPS                  8
+> +#define TGU_MAX_PRIORITY_REGS          18
+> +
+> +/* Calculate compare step addresses */
+> +#define PRIORITY_REG_STEP(step, priority, reg)\
+> +	(PRIORITY_START_OFFSET + PRIORITY_OFFSET * priority +\
+> +	 REG_OFFSET * reg + STEP_OFFSET * step)
+> +
+> +#define tgu_dataset_rw(name, step_index, type, reg_num)                  \
+> +	(&((struct tgu_attribute[]){ {                                   \
+> +		__ATTR(name, 0644, tgu_dataset_show, tgu_dataset_store), \
+> +		step_index,                                              \
+> +		type,                                                    \
+> +		reg_num,                                                 \
+> +	} })[0].attr.attr)
+> +
+> +#define STEP_PRIORITY(step_index, reg_num, priority)                     \
+> +	tgu_dataset_rw(reg##reg_num, step_index, TGU_PRIORITY##priority, \
+> +			reg_num)
+> +
+> +#define STEP_PRIORITY_LIST(step_index, priority) \
+> +	{STEP_PRIORITY(step_index, 0, priority), \
+> +	 STEP_PRIORITY(step_index, 1, priority),  \
+> +	 STEP_PRIORITY(step_index, 2, priority),	 \
+> +	 STEP_PRIORITY(step_index, 3, priority),  \
+> +	 STEP_PRIORITY(step_index, 4, priority),  \
+> +	 STEP_PRIORITY(step_index, 5, priority),  \
+> +	 STEP_PRIORITY(step_index, 6, priority),  \
+> +	 STEP_PRIORITY(step_index, 7, priority),  \
+> +	 STEP_PRIORITY(step_index, 8, priority),  \
+> +	 STEP_PRIORITY(step_index, 9, priority),  \
+> +	 STEP_PRIORITY(step_index, 10, priority), \
+> +	 STEP_PRIORITY(step_index, 11, priority), \
+> +	 STEP_PRIORITY(step_index, 12, priority), \
+> +	 STEP_PRIORITY(step_index, 13, priority), \
+> +	 STEP_PRIORITY(step_index, 14, priority), \
+> +	 STEP_PRIORITY(step_index, 15, priority), \
+> +	 STEP_PRIORITY(step_index, 16, priority), \
+> +	 STEP_PRIORITY(step_index, 17, priority), \
+> +	 NULL                   \
 > +	}
 > +
-> +	rc =3D regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
-> +	if (rc)
-> +		return rc;
+> +#define PRIORITY_ATTRIBUTE_GROUP_INIT(step, priority)\
+> +	(&(const struct attribute_group){\
+> +		.attrs = (struct attribute*[])STEP_PRIORITY_LIST(step, priority),\
+> +		.is_visible = tgu_node_visible,\
+> +		.name = "step" #step "_priority" #priority \
+> +	})
+
+Please could you move these macro magic to the .c file ?
+1. Nobody else reuses them ?
+2. It is really difficult to go back and forth to check what each macro 
+means, given how complex it is.
+
 > +
-> +	/* Ignore first byte which contains the Byte Count & data starts at Bit=
- 2 */
-> +	*val =3D get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
+> +enum operation_index {
+
+why are we calling it operation_index ?
+
+> +	TGU_PRIORITY0,
+> +	TGU_PRIORITY1,
+> +	TGU_PRIORITY2,
+> +	TGU_PRIORITY3,
+> +};
 > +
-> +	return IIO_VAL_INT;
-> +}
-
-[Severity: Medium]
-As reported by Sashiko on v5 [1], in drivers/iio/adc/max34417.c, can the
-MAX34417_UPDATE_REG sequencing in max34417_check_ovf(),
-max34417_read_voltage(), and max34417_setup_cam_mode() violate the 1 ms
-minimum interval between UPDATE commands or overwrite latched voltage data?
-
-In max34417_read_voltage(), max34417_read_power(), and
-max34417_read_energy(), the caller writes MAX34417_UPDATE_REG and then
-immediately calls max34417_save_accumulators() -> max34417_check_ovf(). If
-MAX34417_CONTROL_OVF is set, max34417_check_ovf() clears OVF and writes
-MAX34417_UPDATE_REG a second time without waiting 1 ms after the caller's
-UPDATE command.
-
-Furthermore, in max34417_read_voltage(), max34417_save_accumulators() is
-called before regmap_noinc_read(map, chan->address, &buf, sizeof(buf)). If
-MAX34417_CONTROL_OVF was set because an accumulator saturated and stopped
-measuring, won't the second UPDATE write inside max34417_check_ovf()
-overwrite the latched SMBus registers before the voltage register is read?
-
-Similarly, in max34417_setup_cam_mode():
-
-	} else if (!max34417->cam_mode && val) {
-		rc =3D regmap_clear_bits(map, MAX34417_CONTROL_REG,
-				       MAX34417_CONTROL_CAM);
-		if (rc)
-			return rc;
-
-		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-		if (rc)
-			return rc;
-
-		rc =3D regmap_set_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_CAM);
-		if (rc)
-			return rc;
-
-		rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-
-the function does not check max34417->last_update before its first write to
-MAX34417_UPDATE_REG, and when enabling CAM mode it writes
-MAX34417_UPDATE_REG twice back-to-back without a 1 ms delay.
-
-> +static int max34417_read_power(struct max34417_data *max34417,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2)
-> +{
-
-[ ... ]
-
-> +	if (max34417->cam_mode) {
-> +		s64 acc_count;
-> +		s64 acc_power;
+> +/* Maximum priority that TGU supports */
+> +#define MAX_PRIORITY 4
 > +
-> +		/* Retrieve all channels to avoid missing data for other channels */
-> +		rc =3D max34417_save_accumulators(max34417);
-> +		if (rc)
-> +			return rc;
-> +
-> +		if (max34417->overflow[chan->channel]) {
-> +			max34417->overflow[chan->channel] =3D false;
-> +			max34417->acc_power[chan->channel] =3D 0;
-> +			max34417->acc_count[chan->channel] =3D 0;
-> +			return -EOVERFLOW;
-> +		}
-> +
-> +		/* Get current channel power, counter and reset them */
-> +		acc_power =3D max34417->acc_power[chan->channel];
-> +		acc_count =3D max34417->acc_count[chan->channel];
-> +		max34417->acc_power[chan->channel] =3D 0;
-> +		max34417->acc_count[chan->channel] =3D 0;
-> +
-> +		if (acc_count =3D=3D 0) {
-> +			dev_warn_ratelimited(&max34417->indio_dev->dev,
-> +					     "unexpected zero accumulator count\n");
-> +			power =3D 0;
-> +		} else {
-> +			power =3D div64_s64(acc_power, acc_count);
-> +		}
-> +	} else {
-> +		rc =3D max34417_read_acc_power(max34417, chan->address, &power);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	iio_val_s64_decompose(power, val, val2);
-> +
-> +	return IIO_VAL_INT_64;
-> +}
-> +
-> +static int max34417_read_energy(struct max34417_data *max34417,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2)
-> +{
-> +	struct regmap *map =3D max34417->regmap;
-> +	s64 delta_us =3D ktime_us_delta(ktime_get(), max34417->last_update);
-> +	s64 acc_power;
-> +	int rc;
-> +
-> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
-> +	if (delta_us >=3D 0 && delta_us < (1 * USEC_PER_MSEC))
-> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
-> +
-> +	/* Move the data to the SMBus registers */
-> +	rc =3D regmap_write(map, MAX34417_UPDATE_REG, 1);
-> +	if (rc)
-> +		return rc;
-> +
-> +	/* Save the timestamp for the next read */
-> +	max34417->last_update =3D ktime_get();
-> +
-> +	/* Retrieve all channels to avoid missing data for other channels */
-> +	rc =3D max34417_save_accumulators(max34417);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (max34417->overflow[chan->channel]) {
-> +		max34417->overflow[chan->channel] =3D false;
-> +		max34417->acc_power[chan->channel] =3D 0;
-> +		max34417->acc_count[chan->channel] =3D 0;
-> +		return -EOVERFLOW;
-> +	}
-> +
-> +	/* Get current channel power and reset them */
-> +	acc_power =3D max34417->acc_power[chan->channel];
-> +	max34417->acc_power[chan->channel] =3D 0;
-> +	max34417->acc_count[chan->channel] =3D 0;
-> +
-> +	iio_val_s64_decompose(acc_power, val, val2);
-> +
-> +	return IIO_VAL_INT_64;
-> +}
+> +struct tgu_attribute {
+> +	struct device_attribute attr;
+> +	u32 step_index;
+> +	enum operation_index operation_index;
 
-[Severity: Medium]
-As reported by Sashiko on v5 [2], when cam_mode is enabled in
-drivers/iio/adc/max34417.c, won't reading average power in
-max34417_read_power() and reading energy in max34417_read_energy() clobber
-each other's state for the same channel?
+u8 priority ?
 
-Both functions consume and zero the shared per-channel fields
-max34417->acc_power[chan->channel], max34417->acc_count[chan->channel], and
-max34417->overflow[chan->channel]. As a result, reading in_powerX_mean_raw
-discards the energy accumulated in software for channel X since the last
-energy read, and reading in_energyX_raw resets the accumulated power and
-sample counter needed for the next average power calculation (as well as
-resetting the energy reading itself on every read instead of accumulating
-monotonically while CAM mode is enabled).
+> +	u32 reg_num;
 
-[ ... ]
+u8 reg_num ?
 
-> +static int max34417_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-
-[ ... ]
-
-> +		case IIO_ENERGY:
-> +			/*
-> +			 * Scale to Joules
-> +			 * P=3D((Power Accumulation / Counter) * Correction) / 2^30
-> +			 * t=3D(Counter / Samples per Second)
-> +			 * E=3D(P * t)
-> +			 * Can be simplified to:
-> +			 * (Power Accumulation * Correction) / (2^30 * SPS)
-> +			 * But the denominator won't fit in 32bit and is not power of 2.
-> +			 * But we can divide the numerator by SPS and shift both terms
-> +			 * by a large power of two number and still use IIO_VAL_FRACTIONAL_LO=
-G2
-> +			 */
-> +			*val =3D div_u64(max34417->input_correction[chan->channel] << 19,
-> +				       MAX34417_FAST_SPS_CAM);
-> +			*val2 =3D MAX34417_PWR_AVG_FULL_SCALE_BITS + 19;
+> +};
 > +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		default:
-> +			return -EINVAL;
-> +		}
+> +struct value_table {
+> +	unsigned int *priority;
+> +};
+>   
+>   static inline void TGU_LOCK(void __iomem *addr)
+>   {
+> @@ -36,6 +163,9 @@ static inline void TGU_UNLOCK(void __iomem *addr)
+>    * @lock: Mutex serialising enable/disable and the associated PM runtime
+>    *        reference counting against concurrent sysfs access
+>    * @enabled: Flag indicating whether the TGU device is enabled
+> + * @value_table: Store given value based on relevant parameters
+> + * @num_reg: Maximum number of registers
+> + * @num_step: Maximum step size
+>    *
+>    * This structure defines the data associated with a TGU device,
+>    * including its base address, device pointer, the lock serialising
+> @@ -46,6 +176,9 @@ struct tgu_drvdata {
+>   	struct device *dev;
+>   	struct mutex lock;
+>   	bool enabled;
+> +	struct value_table *value_table;
 
-[ ... ]
+Why this ? why not
 
-> +static u32 max34417_calc_input_correction(u32 rsense_uOhm)
-> +{
-> +	/* Derived from Table 14. Correction Factors for Various Current-Sense =
-Resistor Values */
-> +	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_u=
-Ohm;
-> +}
+	struct value_table value_table ?
 
-[Severity: Medium]
-As reported by Sashiko on v5 [3], doesn't the IIO_ENERGY scale calculation =
-in
-max34417_read_raw() underflow to zero in sysfs for almost all supported
-shunt resistor values?
+Surely, we seem to be dynamically allocating the priorities etc from 
+there. But do we need dynamic allocation for value_table field as
+such ?
 
-In max34417_probe_channel_node(), shunt-resistor-micro-ohms is accepted in
-the range 1000 to 100000 micro-Ohms. max34417_calc_input_correction()
-computes 2400000 / rsense_uOhm with integer division (which also truncates
-non-integer correction factors such as 2400000 / 90000 =3D 26 instead of
-26.667), yielding input_correction in the range [24, 2400].
+Suzuki
 
-In max34417_read_raw() for IIO_CHAN_INFO_SCALE on IIO_ENERGY, *val is in the
-range [8192, 819200] and *val2 is 49 with IIO_VAL_FRACTIONAL_LOG2. When
-__iio_format_value() in drivers/iio/industrialio-core.c formats
-IIO_VAL_FRACTIONAL_LOG2:
+> +	int num_reg;
+> +	int num_step;
+>   };
+>   
+>   #endif
 
-	case IIO_VAL_FRACTIONAL_LOG2:
-		tmp2 =3D shift_right((s64)vals[0] * 1000000000LL, vals[1]);
-		tmp0 =3D (int)div_s64_rem(tmp2, 1000000000LL, &tmp1);
-
-because 2^49 is 562,949,953,421,312, any rsense_uOhm >=3D 1456 micro-Ohms
-produces vals[0] <=3D 562517, so (s64)vals[0] * 1000000000LL < 2^49 and tmp2
-becomes 0, causing in_energyX_scale to read as 0.000000000. Even at 1000
-micro-Ohms, tmp2 truncates to 1 (0.000000001 instead of 0.0000000014551915,
-losing 31.3% precision), and in-kernel consumers such as
-rescale_process_scale() in drivers/iio/afe/iio-rescale.c cast ULL(1) << *va=
-l2
-to int, truncating 1ULL << 49 to 0. Would returning a 64-bit decimal scale
-type such as IIO_VAL_DECIMAL64_FEMTO via iio_val_s64_decompose() avoid this
-underflow?
-
-[1] https://lore.kernel.org/r/20261102-topic-sm8x50-iio-max34417-adc-v5-3-0=
-ffa5e5f2d5c@linaro.org
-[2] https://lore.kernel.org/r/20261102-topic-sm8x50-iio-max34417-adc-v5-3-0=
-ffa5e5f2d5c@linaro.org
-[3] https://lore.kernel.org/r/20261102-topic-sm8x50-iio-max34417-adc-v5-3-0=
-ffa5e5f2d5c@linaro.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-topic-sm8x=
-50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org?part=3D3
