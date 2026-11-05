@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793861258;
-	b=sE7Zb9dTR0Z+HOgoPPvyT6WwZcry+KOetv7iMofUzWWaE6JjF7p+eDpz1bXhdWj18Yjm
-	 WIariOOldTbocGWNPTHcFYUXialyCjN8mC6Xnc9BzeQNHG5qPy+Xe4JlFJ2PAPT1pGkNG
-	 eZeeO/OVxgEzSas6+wAqfz/l9Y+DOsAYIRli0erdpiYjD1w04rFj1Oady0qIxv7s16N0k
-	 NAq+tS31Uk9JF7aezJZ+/dcfIOoGLx1pxQAtssIlSMKA1o0OEgySE56VrH73u1v9IZFYP
-	 QcM7HSvIOb3JDri8lguAgUFn8cU2W1WHlRzF5y04kX0OVb+EI+MnHYhglwzTtn8dxsQ==
+	t=1793861946;
+	b=dM+SyAsznrLUZ9MAk7oJ6ai0uksJu2WDBRIZaAPtBrDx6/bF8XmcRG0+0r3bRDDiDjXB
+	 8PpPs+BuCbcq4O0S5eBOzCGtHi0b659LvPfKC3rSrJSU1u43rNqAqVW9X1a5gQH9/2VjV
+	 zc1r6jHsLXUhxmnz7JwjJVEiEJ52xjCJ+M9m/Xv2Mc7M7IQEQBlDwiBiI9DWdMMutRgHi
+	 /j2RAYHXUu2crIYzVUd9/nP/+K5HjsRphq5XjVMYD+mJxmA6HIpbUO3dFEQMMmUTi26yW
+	 2fVms0PE2c55DHHT8rC2Si6+MHM0dFj8/Menb24Ffro7zGORjEFTxnMfhupcC0QigaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793861258;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=y8vL7kxoR7SzZztx/rZLqHDEEm7PeYDs33h2gMA1c9c=;
-	b=IEdttekGtFcGMxLmO27ycj+JNhgB5HIrzFLzrAIZldbwkMlxbtx3eq9INh5tjtRE+3NX
-	 RQpRGWMCpG0UCfL1nQYsIyoyFSOr1UdizZmWJxTbjCTinXC3C7Ydx7AE4by767LQucij4
-	 iCY+9lHIAuMMKz6mIDzg9rEaWqeMc/9hn2YavcsP9r9L7ympIcNsf32cIIXBWXhbyci+4
-	 pH1Q1Xej+WfGsqL5e+hE7LoJ6hq+Y5g+/7fOLd7eu6htxz7eq13BLbklWnZVhFgM9qfFw
-	 9QhD2/AtIY6qwKNECimxy5tzIHuLxbjwpB/sgqP3WnWfUhe5sXsOAcolQ/hde5+bU0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793861946;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=yjgn+T9A78MuXsRZ9T8vNdmzoVes2gZWY0ZRrkqv9Dw=;
+	b=SBjKAqJjTMCV0cILTtINO97Y7lgrO6h7smmXaJfkfqjUzROHhRXnZDrhi6oY8iXiCi2X
+	 i1fGUJ+muDGlQ+PYlQVc9Hdj1L6ZHRBKnXPNCBk3yBqLuC4sFVgUSclLykbKGJK5lNZ+G
+	 e3f2BExU1ZHYqU4SKz0Dk1wM0lW5Ul/MttgnPp6jUe5dWOwHcrmJP5DidWy8Bx805p8Xv
+	 n0SEW+dvQygukN1efXzVQ9R+BUfD+9+yASCE4T9Md+RdAV+ABBeVN3WpgslkZzturMrzj
+	 PH8RU5gMwjSm9IXTvcXt8In5034D4kKiAsaLy+K017Ka2SvRESQdPKkCQh7TvGbpScg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=xO0yIJpw;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ivAYKxoA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117EE606A31B;
-	Thu,  5 Nov 2026 06:47:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 117EE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76539606A31B;
+	Thu,  5 Nov 2026 06:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=xO0yIJpw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793861237;
-	bh=y8vL7kxoR7SzZztx/rZLqHDEEm7PeYDs33h2gMA1c9c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=xO0yIJpwSl31rfU+maDi4+Z7UWjq2wnsglLv84FL+/cT80gL+TKbbFCYi+pVLWv7I
-	 7w6J9UjLpq/SyAi6mrofOA39vhJJARbKOcz0U1EmggqGj/e83w06iSH5MHssVaExUx
-	 fZwNWNYOnQBNvVn+KCESRm6Uo3HiQpczRy2axeVU=
-X-QQ-mid: esmtpgz16t1793861235t37038cbf
-X-QQ-Originating-IP: InQ75TYjDrWjVR1HZK+vsqw7EkBc6FPy3QXlMoZVjZE=
-Received: from [127.0.0.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 14:47:12 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13246700401697265975
-Message-ID: <BC03A4A81DF1016A+99de9ff1-0e4e-45ad-a8c2-1a65a6d96afe@linux.spacemit.com>
-Date: Thu, 5 Nov 2026 14:47:11 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ivAYKxoA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BABFA1F000C1;
+	Thu,  5 Nov 2026 06:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793861946;
+	bh=yjgn+T9A78MuXsRZ9T8vNdmzoVes2gZWY0ZRrkqv9Dw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ivAYKxoANFb3uqOxfgROCJDscFMs662/NIAsEXr1++a48cHJVichgfFi+JBRiAG6K
+	 O2WDE+BroKOjGLN9E4W2fLdZPWe1EM2Okp8M6KBC6Sh9d2cBjXV4A8qSAQl1Z9s59F
+	 4BOMYs7pYszQuTrfTLkYDSlcKyoeCWgolxkiLS8XLIW3H6oEpwd4M875+9Mzz9jfo7
+	 iTFJXLplkYGukiBpJ3fjQ0wGmdQTTmYgRt0Y6Y9OlPRk9weDXVRB7y0JMck5GNEBE9
+	 0Hf4gQKKDwFINMrKAMd4RxJi8klzeINKeZRWw6Z+KD9iMTUKKwX7uGgfxJeoSiKIyI
+	 jiYyktXYDd56g==
+Message-ID: <sashiko-outbox-198641@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] dt-bindings: connector: Add fsl,aud-io-slot
+ binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chancel Liu" <chancel.liu@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261105064117.277495-2-chancel.liu@oss.nxp.com>
+References: <20261105064117.277495-1-chancel.liu@oss.nxp.com>
+ <20261105064117.277495-2-chancel.liu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 06:59:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,71 +60,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/14] gtrace: Add RISC-V platform driver for the
- gtrace framework
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ian Rogers <irogers@google.com>
-Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti
- <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
- Atish Patra <atish.patra@linux.dev>,
- Andrew Jones <andrew.jones@oss.qualcomm.com>,
- Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
- <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
-From: Zane Leung <liangzhen@linux.spacemit.com>
-In-Reply-To: <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MsUXo4bJCvPOBDKLj6nEUzRfjbHe/qcpf2PTqlAtLYP9LIvM4bKHwZT5
-	ZQtc9Ya7eziGLadL9lBOcenzrXb7mtdhlXkAahSKAy9ba9P9Q836MhDarcQFosvu6qpZlG4
-	4+eaJgk8LqfJ9GBKrk+QNgtf8DMSxTdcC8bA1Vzo9G4NdVuL759N5w0nm47OTfsPLdZjGOI
-	Gj5rnvR4+ybhmgaRp4J07mroZXsLQk/VbDyDBxMdfViHxhUJUmftBfyhuNd1zIKSfbW62kj
-	HJlkHNiceJNsiPG79AlWEGM0vcC5OFVBN3vqOJ2C2MThYi3V6xCp7dgSUwM/1tGUZKenns3
-	5/Ni0q/DwmjcLA+8CpayZK0ASpbEhOeXSajf/gurGeGwA6biC1O2v1r+hNplyyeJwPouCtT
-	RYoaQva/NymWIDoaQZidvPVg+r6ksHN/HyZTx8Yu2C0umPfHyZPLRYkylXE8UeunUisyBOA
-	VYattvXPmOO1l005Gw+i1LReyAdGsfNm5AlOUR0PEEdnHj49oVXu4G3ZHAZN5fMj7JheTDW
-	xwd7JFIM5sN3efOaEr3BHnF2fswUwT5prK3DyAF8VYU0QYz15puvaVTpmbVmBwhUKxZW58N
-	55OWdx8LJ0jrMbVdSQ00RCHQU9Lq5xXzwqz91SnhXHMZTNU1WcJb/eSElzN47wqIuLG1AJZ
-	dzPhYIt1zIpWte2wDk3v81MA/INI7GPsCKfnWr7nP/V8TogyGuxOaXu4eJ031s31wIP6HWy
-	Rdh2VZWHDLxKbiDD566OR8iRg8PzYvjh6PaOnt0ePCwLO/Cb4sUWiXCaER8SFuZ2QiVib3a
-	7zFF087mRjYTf9SyJWXx76bocNe3zcbrQ8tWrdPRKecS41TMMhrZzt+LX5UBLDp9tIWq9TS
-	A4UdgCCs+Vl//xbdHqPK49fwBAX/kRRKNFi4Pzt/dF/rYMSr2Y9yvIUyeN8IqpKliz/wfcG
-	lyGy6riHBEjbp0++aMUNF86L3PH33Od9dCY+ZCUYlVv9wVsN32sxzXAsxVllOvgo4DSDfb+
-	QCK7IKB0pgrD6CoqknPSbG7iaTIu4=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: connector: broken 2-cell interrupt-map-mask in fsl,=
+aud-io-slot
+- [Low] dt-bindings: connector: missing constraints and docs in fsl,aud-io-=
+slot
+--
 
-On 10/1/2026 1:22 PM, Mayuresh Chitale wrote:
-> +static const struct of_device_id rvtrace_platform_match[] = {
-> +	{ .compatible = "riscv,trace-component", .data = (void *)GTRACE_FORMAT_ETRACE },
-> +	{}
-> +};
+commit 1ab07ded804d101088853f33b8efa1603244b3a0
+Author: Chancel Liu <chancel.liu@nxp.com>
 
-The current implementation with hardcoded .data = (void *)GTRACE_FORMAT_ETRACE prevents RISC-V N-trace
-from working properly without extending the of_device_id table in the future.
-This directly contradicts what you stated in the cover letter:
-"The RISC-V trace component drivers are designed to be agnostic to the underlying trace protocol hence both
-RISC-V E-trace and RISC-V N-trace should work fine. The discovery of trace protocol parameters are left to
-user-space trace decoder."
-Since the kernel driver is intended to be protocol-agnostic, and a specific in-kernel decoder is not yet implemented
-at this stage, deferring the trace protocol discovery seems to be a much better approach. Once the sysfs interface is
-introduced in future patches, the user-space trace decoder can naturally query and obtain the exact trace protocol
-from it. Therefore, I suggest removing this E-trace specific hardcoding from the match table to keep the driver truly
-protocol-agnostic as originally designed.
+dt-bindings: connector: Add fsl,aud-io-slot binding
 
+This commit adds the Device Tree binding schema for the NXP AUD-IO slot
+connector found on i.MX95 19x19 EVK and i.MX952 EVK boards, defining
+nexus mappings for GPIOs, clocks, and interrupts.
 
+> diff --git a/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.=
+yaml b/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml
+> new file mode 100644
+> index 0000000000000..6e1e3f1b6a330
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/connector/fsl,aud-io-slot.yaml
+> @@ -0,0 +1,96 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/connector/fsl,aud-io-slot.yaml#
+> +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> +
+> +title: NXP AUD-IO Slot
 
+[ ... ]
+
+> +  '#interrupt-cells':
+> +    const: 2
+> +
+> +  interrupt-map:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  interrupt-map-mask:
+> +    items:
+> +      - const: 0xffffffff
+> +      - const: 0x0
+
+[Severity: Medium]
+Does masking out the second interrupt cell with 0x0 in interrupt-map-mask
+work as intended when #interrupt-cells is set to 2?
+
+For GPIOs, of_parse_phandle_with_args_map() in drivers/of/base.c supports
+gpio-map-pass-thru =3D <0x0 0xffffffff> to forward the consumer's second
+cell (flags) to the parent GPIO controller while masking it during lookup.
+
+However, interrupt-map is parsed via of_irq_parse_one() ->
+of_irq_parse_raw() -> of_irq_parse_imap_parent() in drivers/of/irq.c,
+which does not support an interrupt-map-pass-thru mechanism and replaces
+out_irq->args entirely with the parent interrupt specifier from
+interrupt-map. With #interrupt-cells =3D <2> and interrupt-map-mask =3D
+<0xffffffff 0x0> (as in the example's interrupt-map =3D <0 0 &gpio2 27
+IRQ_TYPE_LEVEL_LOW>), the consumer's second cell is required in the DT
+but silently masked out and ignored during interrupt resolution.
+
+Should #interrupt-cells be 1 with a 1-cell interrupt-map-mask for an
+index-only interrupt nexus (similar to microchip,mpfs-irqmux.yaml and
+renesas,rzn1-gpioirqmux.yaml), or should interrupt-map-mask avoid masking
+out the second cell?
+
+> +
+> +required:
+> +  - compatible
+> +  - '#gpio-cells'
+> +  - gpio-map
+> +  - gpio-map-mask
+> +  - gpio-map-pass-thru
+
+[Severity: Low]
+Since the clock nexus properties (#clock-cells and clock-map) and
+interrupt nexus properties (#address-cells, #interrupt-cells,
+interrupt-map, and interrupt-map-mask) are optional in required:, can
+omitting dependentRequired allow incomplete nexus nodes to pass schema
+validation?
+
+If a board defines interrupt-map without #address-cells =3D <0> or
+#interrupt-cells, of_irq_parse_raw() in drivers/of/irq.c walks up to the
+parent node and inherits the parent's #address-cells, breaking the
+interrupt-map lookup. Likewise, #clock-cells and clock-map both need to
+be present together for of_parse_phandle_with_args_map() to translate
+clocks.
+
+Also, should $schema at the top of fsl,aud-io-slot.yaml reference
+http://devicetree.org/meta-schemas/core.yaml# instead of base.yaml#, and
+should gpio-map, clock-map, and interrupt-map document which physical
+connector signals correspond to each index so add-on board overlays and
+base boards agree on the index ABI?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105064117.2774=
+95-1-chancel.liu@oss.nxp.com?part=3D1
