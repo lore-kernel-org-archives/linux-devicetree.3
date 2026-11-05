@@ -1,90 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793875189;
-	b=xAUTzTLvDmcia3uJDpwusQsWnkLfs5p4nQc01C0RsVVTiTQDcUcML+v/Kua6hZnLJ5P2
-	 SUuiy0EuDCVGr6sD5qcKp+rC64Q1WAtYdAOozKeWAAqkeq0NsLOHwBvg3fGJ5r/2hP8hA
-	 7Qqmd0zrJ7uhqP4gPkFihBunW46mjyOlvsBj1E+VC8Q0m1ToqT6zjIfKXD5KVMwCIhYe0
-	 EsJsj0XLrKE4tiRxXnICt0kWwF7m7hYQmkTPYTp2/ubVks5X/oU91AOX8xJSsMDGs6WHm
-	 yUzDakgtj+Zjr3rP8eMOoga7j1Tyhn5PJAT5bl3K08vaFUXyh1ZxJPLEmHkMYzioX+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875189;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-	b=HRSG0tPr0pViNDJDHBcquyMUbwromPObOigFH+2p+jaN/Cz5cXFqbIpARIPezsmG9CsA
-	 Y5Pbdy0ggg8kYmkwYUu811/je81B7k1scFwsFA8vGSduktZZghoLu8sfreakNe/YtzmU6
-	 NEKRcUE70hdxellXlBcBU+oCwWtD14sMoHmhksk4TKlKuPm2MnTrh9uSQ2tnvQpZ5Tf1Q
-	 M4dhw3mhVHdyLW7VP7IOq5aB/YdR2DouAokYJbOK0uSo1K/iedFnlo1WGqhFmT520Qn67
-	 yfP2yje83nzX5n2IKmesxdj4qt+XMU6RzFVJik6j7Y8R5ubdjp8xjJdj9zxOiQ08ckA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="m1189d/x";
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=fKDLwEQv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.168
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793875285;
+	b=tf7k6G8t7Ayn/JaSjNs+S8NsX36GCtfdiKxzfbXEQsptMuceG258XPWILhnHHGMY1P7L
+	 1fLxeyYcNYKBjK/o0LsVo/udFSazvS3fmitOEMkB9XaX7FB/ElKTY/UB1387zgyHe/emN
+	 5x9GJRrz2iA57wm3UNxzb5NgEdqdJ5NcMw+i6bkbZKylLK4vAGgAgd0WXXwX9QAK7Zo7y
+	 4wbr11K625g6emUpO9cBMXT0KJ70ZB65LnhqvAl1OdL8YbQ4qPF+qUuzgoRlWpmBg863A
+	 oasYGElLDPKZqyWAlxQ3HLSJFMtJCYSRs6QvY4jNwKRk6TAvaGG3KEl+yH91T8d9AUA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875285;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=w5+vY3QtLg9+12kLzTFqSPaOQLR8R3JaD7j2zs6Hcrg=;
+	b=JgECattWqoQg67+hthz0QaEh+oQoAJfpwFMqHaDi4YikRfhdw76VUlEeXphGVRZVMDTE
+	 AY0Uvmv2nkm7zlhYOKujJ0xfGMNpymVhaEWL7XvwU2ud9rNEug6aY87zIPoQ2uQQbLWbv
+	 7GyehXCclXPttL99q8IQFS8/W1THQhzD+xEn6Ynvx0ytR3gO44bu4VHgageJ8Tfv2pH/t
+	 zTDSQ3FJREPHTmXl9ScuK5Kuc6RnvFeQeGWNRCEbL5AZnJVZ3Go9Oi9th2hU3qw9TDoSL
+	 ODjBJfIck547ra0qLW4AJS6nv1fI8ePUKD/8NqvHyRmLjOvJzZGYiFFhKGggks6OdNQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c7nl7MHJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC917606A329;
-	Thu,  5 Nov 2026 10:39:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC917606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BB4606A330
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=m1189d/x;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=fKDLwEQv
-ARC-Seal: i=1; a=rsa-sha256; t=1793875171; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=fqZXSa3JLwhAJbmgfOUrRrxwkeIGE3lE1q20elPby10KpnbZHXfL/LB/MGl4b+OOnJ
-    b/knkOhtNSolKY9ApR+hWNd5tj3WVjHJOmt+xQVqmbtrtv3MqiZOr8685NdBE41iMByD
-    vIU/DVOkK2FAdmTZNTQKm9olRgmR6E0WRxfwUCl2ecIKSOiQTs0+Omhih9RCPl7YUaN6
-    I+tCNY654skNsyJedk8wKex26tUm9DQMYDb7t0qoHz6/8L21ffS7Q4n9CT3fZOFM/fGr
-    6vQO+2Qk246vIpXWmX/rRYTC1xxypoVwAoO0mZNczGubHpregv3bdtas3u9M78V95tvN
-    sRCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793875171;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-    b=G3Foc2BD79VIefqwHGNlNBhfO/7j6snsfirdyZYxqkIrkuIrTmwvPH0Ri77DQbpXkn
-    hjbEsq6Gp9q6/qt8Twod/VYwJCkdIMokM9yOeJJcCfOLaEpsWawrH1giZyMzgzcBwZX0
-    joKM53tXFM2WPOb2rDTMKbDDCbvr33RSKOIGFMIN/J9FrlA0J5EqJ7qlrn52S2S/r2Kf
-    CwvPv0DTnEqLuynw6en+wZzKIJ9h/PlrKlk8rwz8IEz9muGdKjRpTzXVfpJ7Z+2aCQtj
-    x/uftRMIHeuxb9hfYlgNxGYMNTUrFVKan/qkuJSY/0vaAzx9ZEUkmFJLPXMuApEjCsJm
-    /1xQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793875171;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-    b=m1189d/xqAFdGFmoXldTi0i5Eo27ENr6L5NVWGBWy53nCDyx/E1PcbNKdPmHSKl5Ge
-    eSMl4N0lco2K431q6nLjKZZHRf+9862H7kk4uK7DU22xiliR//KmqT+wjMKHUZCWMSh5
-    w0vHc5I/e8kcULkNETzI84JuAs+fzmHUqrBRGVDb42u2T/JAVWvIf49wmnT+nhiIANuf
-    QxrZHHvtqaLUvMXyLzlpka4HLtpdjEZGlLSey/ZfvGJNzNDCi5T4s6t/znDRWm/A9wYY
-    wBrWjfYDxPezQHlehb7SAyRbWsAOkCfVFsk07/jHos7UhCuKKNO7wWgt1ARDv25431M0
-    F/+w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793875171;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=QOY1/Aph5M+b+uiCncBnpfm/tHXQ4aDgVh2l56B30Yc=;
-    b=fKDLwEQvq/Rg2H4E/PZr7f233E8WJCFHd8QaYBjs3JX2jUjAKLBhNa/w6eIIGAtuBV
-    LF1DWtLmOAIo+0LIE1Cw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A5AdUiJQ
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 11:39:30 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c7nl7MHJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A6E1F0093A;
+	Thu,  5 Nov 2026 10:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793875284;
+	bh=w5+vY3QtLg9+12kLzTFqSPaOQLR8R3JaD7j2zs6Hcrg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=c7nl7MHJkJ0e+LNsUF00go2S9vGvuOjAjjMVmxt/GA/+Ql55P/pEoMa98+Q2kk5n+
+	 ZSi+1vmc8SyGjaghX5f06yNseJV/yc9HiXIHYjKHTbb/rc9nwDnWWopOTXtpiKugAB
+	 2gwcF+iObRlF0SCp088gC0m3LAETm1hck/qf2XF90QbktzR6cbhxz3jt3J7WRNu8Va
+	 ydBUHkz4MjS6jI7rbJ5xgdvWm7ptqkuREp2jZH1KwdPrSDmMdVRl9Gf6ZJSoWj0puT
+	 tk19MfN6bGQREeIzusX6gAoGBO1UgyzJ/xGmMGfSOUll/UBcCky2QI79JZNOstQgqI
+	 AY8bl9pbTubgQ==
+Message-ID: <sashiko-outbox-198872@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: Fix
+ DW9800K support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261105-b4-dw9800k_cleanup-v3-3-6850ee6a5a5a@fairphone.com>
+References: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
+ <20261105-b4-dw9800k_cleanup-v3-3-6850ee6a5a5a@fairphone.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 10:41:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,160 +60,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v2 4/5] dt-bindings: display: panel: Add the HiBy LG35583
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261025191640.13592-5-olivier@mgcrea.io>
-Date: Thu, 5 Nov 2026 11:39:00 +0100
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6DFF1C7F-E1B7-4B06-BA1C-372F5C5984E2@goldelico.com>
-References: <20261025191640.13592-1-olivier@mgcrea.io>
- <20261025191640.13592-5-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] dt-bindings: media: dw9800k: invalid dongwoon,vcm-presc property in=
+ example
+- [Low] media: i2c: dw9719: declaration after case label in dw9719_power_up=
+()
+--
 
-> Am 25.10.2026 um 20:16 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> The 480x800 parallel RGB panel of the HiBy R1, set up over a 3-wire =
-SPI
-> bus with 16-bit words.
->=20
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
-> ---
-> .../bindings/display/panel/hiby,lg35583.yaml  | 71 +++++++++++++++++++
-> MAINTAINERS                                   |  5 ++
-> 2 files changed, 76 insertions(+)
-> create mode 100644 =
-Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
->=20
-> diff --git =
-a/Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml =
-b/Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
+commit 3e8104f7ee643adcd7e1f98dbb0c3e1ed1a9c762
+Author: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+
+arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K support
+
+This series splits out the device tree binding documentation for the Dongwo=
+on
+DW9800K voice coil motor controller, updates the dw9719 driver with proper
+register programming for the DW9800K, and updates the Fairphone 5 device tr=
+ee
+node to match.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k=
+.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
 > new file mode 100644
-> index 000000000000..19498910629c
+> index 0000000000000..f5bae7b287f1b
 > --- /dev/null
-> +++ =
-b/Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
-> @@ -0,0 +1,71 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/hiby,lg35583.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: HiBy LG35583 480x800 panel
-> +
-> +maintainers:
-> +  - Olivier Louvignes <olivier@mgcrea.io>
-> +
-> +description:
-> +  The 480x800 parallel RGB panel of the HiBy R1, which HiBy calls the
-> +  LG35583. It is set up over a 3-wire SPI bus with 16-bit words.
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
 
-I have discussed with the Google AI and it hints at that the controller
-is a Novatek NT35510 / NT35580 family or derivative.
+[ ... ]
 
-It is possible to locate data sheets for comparing the lg35583_init[]
-table...
+> +  dongwoon,vcm-prescale:
+> +    description:
+> +      Indication of VCM internal clock dividing rate select, as one mult=
+iple
+> +      factor to calculate VCM ring periodic time Tvib.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum:
+> +      - 0 #  Dividing Rate -  2
+> +      - 1 #  Dividing Rate -  1
+> +      - 2 #  Dividing Rate -  1/2
+> +      - 3 #  Dividing Rate -  1/4
+> +      - 4 #  Dividing Rate -  8
+> +      - 5 #  Dividing Rate -  4
+> +    default: 1
 
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: hiby,lg35583
+[ ... ]
 
-But based on the scarce information I think it is the best solution to
-stay with the hiby,lg35583 compatible.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vcc-supply:
-> +    description: Panel power supply
-> +
-> +  vccio-supply:
-> +    description: I/O power supply
-> +
-> +  reset-gpios: true
-> +  backlight: true
-> +  port: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vcc-supply
-> +  - vccio-supply
-> +  - reset-gpios
-> +  - port
-> +
-> +unevaluatedProperties: false
+> +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    spi {
+> +    i2c {
 > +        #address-cells =3D <1>;
 > +        #size-cells =3D <0>;
 > +
-> +        panel@0 {
-> +            compatible =3D "hiby,lg35583";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <1000000>;
+> +        actuator@c {
+> +            compatible =3D "dongwoon,dw9800k";
+> +            reg =3D <0x0c>;
 > +
-> +            vcc-supply =3D <&vcc_lcd>;
-> +            vccio-supply =3D <&vccio_lcd>;
-> +            reset-gpios =3D <&gpa 31 GPIO_ACTIVE_LOW>;
-> +            backlight =3D <&backlight>;
+> +            vdd-supply =3D <&pm8937_l17>;
 > +
-> +            port {
-> +                panel_in: endpoint {
-> +                    remote-endpoint =3D <&lcd_out>;
-> +                };
-> +            };
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 57313163e59e..e65500a70c9d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8152,6 +8152,11 @@ S: Maintained
-> T: git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> F: drivers/gpu/drm/tiny/gm12u320.c
->=20
-> +DRM DRIVER FOR HIBY LG35583 PANEL
-> +M: Olivier Louvignes <olivier@mgcrea.io>
-> +S: Maintained
-> +F: Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
+> +            dongwoon,sac-mode =3D <4>;
+> +            dongwoon,vcm-presc =3D <0>;
+
+[Severity: Low]
+Should this property in the actuator@c example node be dongwoon,vcm-prescale
+instead of dongwoon,vcm-presc? With additionalProperties set to false in
+Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml,
+dongwoon,vcm-presc causes make dt_binding_check to fail schema validation.
+
+> diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+> index 3b7ba88fd67c0..3b99c5492522c 100644
+> --- a/drivers/media/i2c/dw9719.c
+> +++ b/drivers/media/i2c/dw9719.c
+
+[ ... ]
+
+> @@ -185,14 +196,50 @@ static int dw9719_power_up(struct dw9719_device *dw=
+9719, bool detect)
+>  		/* Optional indication of VCM prescale */
+>  		device_property_read_u32(dw9719->dev, "dongwoon,vcm-prescale",
+>  					 &dw9719->vcm_freq);
 > +
-> DRM DRIVER FOR HIMAX HX8394 MIPI-DSI LCD panels
-> M: Ondrej Jirman <megi@xff.cz>
-> M: Javier Martinez Canillas <javierm@redhat.com>
-> --=20
-> 2.39.5
+> +		/* Optional indication of SAC timing */
+> +		device_property_read_u32(dw9719->dev, "dongwoon,timing-control",
+> +					 &dw9719->sac_time);
+>  	}
+> =20
+>  	switch (dw9719->model) {
+>  	case DW9800K:
+> -		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
+> +		int ring, sac;
 
+[Severity: Low]
+In dw9719_power_up(), can the declaration of ring and sac be moved to the t=
+op
+of the function or wrapped in a compound statement block for case DW9800K?
 
-BR and thanks,
-Nikolaus
+Under -std=3Dgnu11 prior to C23, placing a variable declaration directly af=
+ter a
+case label without braces causes a build failure on older supported GCC
+versions (such as GCC 8 through 10) and sparse when building
+drivers/media/i2c/dw9719.c.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-b4-dw9800k=
+_cleanup-v3-0-6850ee6a5a5a@fairphone.com?part=3D3
