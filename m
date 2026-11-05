@@ -1,86 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876628;
-	b=4bvf91G2RIeNYr9dEMwAr6tIARLcy0jI4dsCJW6H/1rZ9gSxDf0YXp62sA0UwQ2Xpy4K
-	 IqOEy7eiwromR0WQL2y21OjlsVq4J3z7kRNODebab5hyezoL1r20j26Psx72mu4mf9IM1
-	 gib4qqQRVmOO9dGkv1gMy0buHcUpanemCh02dejIEEG+lW9ix5Rrz+TkhRvvVIg0bJLoC
-	 RKWQ4LvgmsZSCkfh9XoluXPCn2yIzALWDkYkgQrE/SmU8OzIQEALLAejHSeJzxpiCT30H
-	 hOspbJE4cncPiedd2YsaxG0EsG7dWBCCX+ypp+pZTSJ68Rmrz4fSyjZwsqI5Oy7U5Ow==
+	t=1793876747;
+	b=xjnvEWvPHvLWj1cUDGibk/lnMWfOiUneBvP8fEBYrUabKhJT8rE1oODEYnwIoSZrb0Zd
+	 unMYMxqdJEi5mLAz20VeE3ChL0VuVIAtr5aQVrWL8mosNne7f7q23LpIK/sm5pS40Iyes
+	 GfGhIX6dkW2JGRnaqJVMfbHtBr0yX2+PHYLc4cMH956lT7kb3D1yDWgiicBCU5A5m1xmR
+	 rUieeTQm0XfRQ2VePUFvn7JA9OoJPBLDSw/7BWX+DGUJjd7nVUHvuWQYVr1jTM32mMLvj
+	 5/DW9pB5vgJLwIlEQblgrZLZO9/Do6pNyCVAmj27CeDuXsTUixhH0JoLs/E9p2UjyiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876747;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Gap8H+IWEcYnPmZ+NpEifKFD4ejmr9XNlelO2dmBy3s=;
-	b=fnK+7+p73aemFLOjvv3dLYXL0o8WQ2xw5rhevGm3/ZBTTKKrJvH7kifCTA/3XknwrE5C
-	 8Ad9WGKUaySskXvp+zNYgss2WFtxxjt6nZVKDUpTeJU4FiU+H/M5TmUp/DowDwSuRtx6B
-	 OiMp0Ms+tOT93HmJI/lmnKZcXXv9Eds39AW6lzH01er2QafRkuP96fZIIJftiouCsG7vp
-	 tM9kypQPfkLx5IGrVcQQmzg8nIpiXeJ5ivQ3mZFJZp6jPVC1neHQIDCL7hNl9pJ2egWKR
-	 UrWEXru7M0GU6nVvTj/075fjOxtwqnnuz5Q+lIDHg/u6bdMpKS40CWH2Mv+Djj3BKBg==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JN0h7SeXPERjAEMznolQ48k3OWsfixBRlrh/PkvU79k=;
+	b=yZUT2n77ERv60XbQDuLCHmWNIm+35a2mG2REDu2gEJCV+xhRWHi3GnDNAcM0N8+KvJbO
+	 b3BwG+6xa0KaHxQk8dHF33pe3Gb978NYhZfwJRDzdWynZZ/mND9KUyPESKbxNOeDpVuMA
+	 DwjdWKVjxJF63PW00FbQ4PJTYeP/zHM/DzzrozDlgtn0U8N1JUFG1loqCGIM1FjH5xaRz
+	 5F3X0yS0V6xvp2KTT4LzeS5apKsd/Bir2T01xVB4Bme72bBKxZrUpw+6eqw1WY9jK++iu
+	 iWLwopjkBsbXB8TmxqWgXYpDMf/2qE3bU8NWNyujahdcBE4LCKSs6SsNquyoNDuR2hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZS6D4tKb;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kws39dw7;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9270606A332
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:03:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9270606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2631B606A32C
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:05:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2631B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZS6D4tKb
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1546059f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 03:03:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kws39dw7
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso755902a91.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 03:05:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793876626; x=1794481426; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gap8H+IWEcYnPmZ+NpEifKFD4ejmr9XNlelO2dmBy3s=;
-        b=ZS6D4tKbZiEH2mERnF+Ya/FotzT7AxXe9zZq6uitUC0iNulayZCb5AVtqeul+gaxjm
-         Es6ERyVhbVZEVyshBUWs6W7AqPdzHtb3qURAq//6k1LUnB0f9cJ69onPW2nADa0b/AQ9
-         RH8/TSuC/cmert5IvEsC3GDqI7Tip4oLqVEOuVpRk2HdPrSnm0nnyWXQbQgrqHY0Vjsj
-         9yyliiv9jT11HqITClzAJrvZIdAXiqmc5tyIxFoO4RVXA8u9AAH3sS0jouyXvj7eZc6z
-         JozuF292Oup3gUb15/SmhnZX3XHaq/VLHz/DST2va+7cGmRneaiFVG00jMGn0xE6ASPy
-         C6Aw==
+        d=gmail.com; s=20260707; t=1793876746; x=1794481546; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JN0h7SeXPERjAEMznolQ48k3OWsfixBRlrh/PkvU79k=;
+        b=Kws39dw7eQ3kZp132JgUegkj1UJMNcWAmDavCayW7p+4EzXtSjiMjpOu14eGanq0CA
+         FR2oKytqK+Aye8O50js3m9AxPehTyjqRRKgWnuHrQdz8LFTrRiY/kHXDlq8EoJ8+mQ7Z
+         kxWNltVLsO4JK8VTxMsjnwVZadW5ycNasCHvd9uM6IWwvEOwhI+hTAFyk6CtQU43/vaW
+         U0DQp9Ab9voItrQzj4OqdCzXBBHjr0tkIPhOO3pxXnngVr8CfUiNL96tyCmEipjnRNff
+         /UdJyJODefVYVMQv6YAY1rRwh4Zy7O5Ook2uh+ekNZaAI6x2uIiqJsZD0nF0Qyyi+MkQ
+         N3JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876626; x=1794481426;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793876746; x=1794481546;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gap8H+IWEcYnPmZ+NpEifKFD4ejmr9XNlelO2dmBy3s=;
-        b=C8vc8kZ4HR6IZ1PklDTkOxJd74n65OxFM1uLZpGlKT8u/rzonENkSkkSSDoKDJMI86
-         E/JVReW0pOU1mtOqxZXg1J2e96JZcBick71qQuLxJII17PkqMvVHiRXDLzpFu+jOo1nX
-         hHbCY5A9EsWPvcCnwjXpzAlNq6yQpS6RQ6Y7j+Sacf8yQcExyZ/IkfZOUMRo5TF3iflO
-         p5vtkeYTuQZCpTA4WMKXYlyxYmeOfNcrbrhPUZFGEvAXkL2w0TdbrWrKmXhURXvJFO9V
-         DxH3SHxB8ZNHgrHjzZ4wZgCdVDC0uwR5bJYmC8Ni2hOlehY1qAPuggnEcJQxZ5aQIvsp
-         aJKw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfkOiRbKhY20v6j0IeNPSlpDgbg0O+OfLbaSwm/T+Lr8bIu529XaUk09Bh2cbYMObe9B3DIJRPZtgV@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XQPRA8U1ldird49nAbACHyuyMWEDUJ2eI6a66Sndr9WhM9ltL
-	38cKGkBlHSRLabicPnmnBfoLATNm/DnBPDk74qQLZlt04vUiw9xn2yK5lnbKuTsaoPk=
-X-Gm-Gg: AYBFou2yvZpjK/obNW7L9X4bb1UuK13bwRDQRSJRWeSXXtifIKntcn4FvYRW8jEW434
-	UFke9xCl0HnFVEoC1PxCqP8cHw1XPkpLsSTzrUEdkXh4Eo+OfIfc2PgTclA6p/RrEcFw/pQmup9
-	cvqx2JfvsPLWOsKnf1Q7tuCe+saaNSAKpbiyoV6z497Ld39rNzRQsZrVovsPmWe65JF/GcEjOrN
-	4LEDqrHq8Vv+/xXXVSfls0WjRUFvZQus5epzjuwWaz8psWABpOxVewzf/LhtL5ih2MU+0x8MciM
-	/9lQOLudl2btsqAHsnW0yq3mVBJgY8bcptQYdSOr2TOsF09ggfbfU7+MvoanJvle+qNKWaii+VA
-	R5bNLJ6AChJ2da7HwwwWDY77xfAAc0YWtG9DjAZ+7Tmutby9A7VqtGlHHuS/JA3sXKa24eZtlgx
-	VpAATKve6XepamtbYhaQJc/3Zo7VQlqLM6HN7uFrdMT+84yb7AwZXWpcm/vChgsT18az95RqA0e
-	OgtrmO1UucEoBX2KkaAVUniRKoGVx9j7tRPsf2TdM7UsFItdbuKJi28KJj2C4LSxOPHSQ0xmgK1
-	Izuee2w0ysBf0RI/CG8yQxFCNgUe34LwU6qznL93
-X-Received: by 2002:a05:6000:4202:b0:48f:bcdf:6f83 with SMTP id ffacd0b85a97d-48fbcdf713emr12222197f8f.22.1793876626103;
-        Thu, 05 Nov 2026 03:03:46 -0800 (PST)
-Received: from [192.168.0.167] ([51.37.126.136])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm9321835f8f.21.2026.11.05.03.03.45
+        bh=JN0h7SeXPERjAEMznolQ48k3OWsfixBRlrh/PkvU79k=;
+        b=u7tPpMr6duxPMsPUy9WETx6vPG58PTgUSIK0wZA14zWukXCQl6VpxlIbsZnuDDuHx/
+         YNWTHUpldQZ6w1OzerbBn9+MnXmux91Z8rTBQjUScJQnwrAg6oPv5XUXg2dWcI//Tty1
+         PJ+PfZ04wC7kMYL/Vvq+G/d8vA4WJ350Of4dGoi6H1AQT3lovrWg4U+c0KwZhj3iaQdp
+         OXvD6j/sP+jAwz3DXHHo6+bhQszzU9WD7d35kqO50mGwfGkKpR3/QtRPt8nfoS8zICPf
+         Kkl6OzaiUadXNcZkiA2FLrtKFkMtNvExbX5Q6CC5tRX/PHCSDdtCiaFXmoPxrZ55P8Cd
+         CtGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPu4bFw0a81u9eq8sj4ReNo2CWtoKEaAFFCvhLDv1Uj3YIXMxvCZbVr4UeV5AnNSWNK3kQSGa0YqAV@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mOIhfV1DKnJVER22FSKcUgCTVqDrSFcJPt1Yk678O4TB6SJHk
+	xDmpNTX53aWgRwBOENLngEmfeXFpTxHGlD6/EdkPzk/kcmkHJMPdt9+R
+X-Gm-Gg: AYBFou19yyQN9GL9eFdsBvMD5Sih3xDVRIGnl+cVL6U/gsua3I9RDav7jtTGbME8ZnX
+	heqFxjXcOsrU0aJUnKlO41FVOO+PtD765c3WkqY3v2i8aCLUv/AbP9AD9XrMQ+1X8WNdyh5wx+U
+	1cThRcC4rdrnHaCH7Mbv2719Z7HQMAMTQFHsInz/KQ+gcjmpXWrx0KxVKppuOl0H3mEKflEwqSZ
+	UZ6R+Eviqh7oTApb4+q0BV0L1VA3LGLwE/E5MBXRPBDPgCP2Mvd73S0mr0lXoPvpO+LUe5gt6AM
+	qTu/Fp7mPiK5tEWaXQpU/fm/2X2Bzfb7D4z/sCy1ToJlcJG6GaFSV1K3wgLCS6qCaODBiVpH1nm
+	6kJNMbHPHiybsw4uAOhWhriClHnETLBZx4A/0vPLuZ4Qr6JlkjmxkquvSNXJzxID5mUIljzE2QE
+	TJEUBTzClbLfJ2JjR5RqEJbl9EWJuPHbfz6UJicGoPao5bEMGox7DFGUZ3wdP9GUmfXLhLqTxaq
+	AodPQNj3/AsuzEMNMyU3JOTHLiqsYFtuhAkrW2Pq+zTcMdiE68RvoqjKi/ZzpQbPVTrFHg53n/v
+	VxDGMA1KJQLi317TDwrcKSmqH6iUljJeEnrQhAaTQWUGR4xPwGsmktPBy3rvrf2wWBM6zyJlKOV
+	7gT8=
+X-Received: by 2002:a17:90b:4a84:b0:3b0:97bc:62d with SMTP id 98e67ed59e1d1-3b097bc076emr4500305a91.32.1793876746390;
+        Thu, 05 Nov 2026 03:05:46 -0800 (PST)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31aa128sm3474817a91.11.2026.11.05.03.05.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 03:03:45 -0800 (PST)
-Message-ID: <a59cdf0a-cb91-4c18-af0a-2e49e93ae620@linaro.org>
-Date: Thu, 5 Nov 2026 11:03:43 +0000
+        Thu, 05 Nov 2026 03:05:45 -0800 (PST)
+Message-ID: <67823831-cb47-42e4-8af0-1331a3f73ef5@gmail.com>
+Date: Thu, 5 Nov 2026 19:05:42 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,76 +94,35 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
- indices for ports
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
- <20261104-real-nebulous-ostrich-017e92@quoll>
- <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
- <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
- <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
- <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
- <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
- <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
- <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
- <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
+Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20261104091136.151269-1-cwweng.linux@gmail.com>
+ <20261104091136.151269-3-cwweng.linux@gmail.com>
+ <ausb-YqIJM0mI65Y@ashevche-desk.local>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <ausb-YqIJM0mI65Y@ashevche-desk.local>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/11/2026 10:45, Krzysztof Kozlowski wrote:
-> On 05/11/2026 10:53, Loic Poulain wrote:
->> So some chipsets share the same IP blocks, with some block/phy
->> instances disabled. As a result, we need to decide whether we're
->> numbering based on active instances or on the actual hardware instance
->> index/offset. If we use active-instance numbering, then yes, it should
->> be @2 (CSIPHY4 being the third active instance). Alternatively, if the
->> port numbering is intended to reflect the hardware instance offset,
->> matching the register prop, then @4 would be more appropriate. It also
->> has the advantage of directly identifying the underlying hardware
->> instance, without requiring any additional driver-side mapping. In any
->> case, @3 is incorrect.
->>
->> That said, since the bindings have already been merged in its current
->> form, we'll need to preserve backward compatibility when addressing
->> this.
-> 
-> This is the input port to camss, so how is it called in camss, not the
-> csi phy?
-> 
-> 
-> Best regards,
-> Krzysztof
 
-When you have legacy PHYs the port number indicates the PHY - this has 
-been the case since 2015.
+ > Repeats what __clk_is_enabled() provides.
 
-With standalone PHYs the port number just means "input data port here" 
-with no specific hardware mapping
+I would prefer to keep the local flag here. It tracks this driver's
+clk_prepare_enable()/clk_disable_unprepare() balance, while
+__clk_is_enabled() reports the clock core/hardware state. For a shared
+clock, it may still return true after this driver has disabled its own
+clock reference.
 
-Which to me implies the correct port numbering for systems which have a 
-standalone PHY is {0, 1, 2}
+The flag is also used to avoid EADC MMIO accesses after this driver has
+disabled the clock during suspend.
 
-On hamoa which supports both legacy and new we have to stick to the old 
-way of {0, 1, 2, 4}
+Thanks,
+Chi-Wen
 
-Since any PHY can mux to any CSI decoder the old port scheme should IMO 
-be dropped for new standalone PHY DTs.
 
-Not sure what to do about Glymur since the example is upstream already.
-
----
-bod
