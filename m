@@ -1,88 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897074;
-	b=oKnoEqixE7XhNyj9nLlMV31ynrv12ytcQR5C0+u7RX7hhTh0CfdfRpluOmzr0sl2T4Jc
-	 lD0p3Vy3Hsvc8axsRbjS37TQBvj8hxyB0FSlTlighBgLKLpY2WfxqdQb9lchw95lq+Ouw
-	 mJK1BXsmVHFuydJE+hhNlhVcjI5jSc4/C6kJh5W2eSWd1PwpnqyOqsOdy9BmZGF+2Fe7N
-	 dR/QU9YorkjkyN5TShqjMML3B2tkEyoH3j/8BflBcLIkAwYWMnRi1TWAsa5VOpiFcnv37
-	 zYtaSZUMPb1PcRWivfrLZi78RbX14c4qki9dU/O6ouUe/H5JaS1KWYwlteh7BOXwDKw==
+	t=1793897111;
+	b=xKhedoYr10oE7gTZc6KbnRhkt/11F5PScD2az3UYslJaKWJ47df6DHQal4Hs440qHTUB
+	 k2kTmOEPcKKOEZHToJZf8CFWagWQSHKkepRtzPTivwVm/JKi43kVQYd9GswiqzadosNxG
+	 ItManaiGsALo+N9Prwokc41X5guh9oHGUGzi105wcT8TmXx8x3/lwhFDVIX5z7fITRqSE
+	 gsUHBfJE39MWUKvhvrs2BIY98f6OPD2+kPaoBDXRJiRTNHQ5EFks8NVs0FDQzbIoQl2qt
+	 AZn9fXaCfQsXsU0Ep5WP9kJcMXGKVCR3yAL3d6aWrIP5swa2m86Dz7Wx3WL5mCWYZZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897074;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
-	b=gXvUddEk7l7cxvNGy9LsoMpH7d5VGoPFCNVvoq/SwBP41oSdd9PJ0g29xbBh4acb0YeQ
-	 qM2KFLO/+FxyqEYp5O/a/T2XsfGRTsVqyI7MS6DNXAA0Cr92/X93TNOsb502lTkEzCoca
-	 1BMxQ2llIw+LzMCZQ3O05xBPOnDrvCMTWSc+kgB1hIRkEmoQzpm7xEbzJuhVsNV0KxbOv
-	 O3a4V9Un0kDgEahfq/gsRyc1HLproGoqahjvKmqQYJq9EenC/Zc99niNMs+xS83jzJ6Uh
-	 +IXo1aQat+VHS6XYRTf0tXs0SrJkFK+WDBf+GNhv1dNgVWVEIFu3qwfbbOtVxnaRMnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897111;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=lcWS3mM7T+8n/U0+o4X26sVqge8x1PjsV6A6vYeShO4=;
+	b=MKyr/sEg7AIYByPbcVVO4K4jMV5pHC4xuAr4WCIJBrOiBOwxGnKL8TrBGs9sv8yTiZhz
+	 nm0evpW85YAhSKzFoaHZZdYd2CjHsuE/N6w4YqbkWsP3ONpdJxeb+a5hTgoGDFz0qYxlz
+	 jY62DCaHXE2taXvGUv3Vx7yuOxyg3YHIp1vF5CR4j3w/mnlYvA+WRvOH6ROf5+9XyFpy/
+	 KA11JSv/62032oyv0SR22FXRR6+zORQDDMi+WOeNwlh+DC/hvytoToIT1Z8Flert7yBXL
+	 xEOWMM/U4Hhq12LDiBKpRGOjHDCTfZKlGgtwDNo0eY0KzS6+xWGM4lQXaCfH5NlFbFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xfIfLYcP;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mg/OuWZn";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFDE606A32D
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 16:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DFDE606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F629606A336
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 16:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xfIfLYcP
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c40e30c26a4so181594266b.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 08:44:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793897072; x=1794501872; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
-        b=xfIfLYcP64DFbq+WXEUe9TYpwTOFTkySIMUElL9UJ0zJsmsGjdUUciQoXTGP3wKcCo
-         1XYgvft/Fv/0vFCllUsu0rxITDqYRLwtlkrRR7lIvP4FEHCYwhjN3uVlvnDpoqXCTdyN
-         796+LDnAGjm+fL5Sc/0IWvBT8ZuXds9TSREtvCM9VKinLLCn5CVRD8puQMFZIfIpsyxY
-         DxrA4lYIWf7bvJINbPD2tmaONSHIK0aPYwRxhwRUeH8y+C8Wkj2JkauvpVoHxozWKDnk
-         nV7NMzCd0VIT9n6AQ2vl2kNPmXustP6x5H/QcsdvSfm9ao9GLQvFQHw54wGY/ZXrDpOQ
-         zuJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897072; x=1794501872;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
-        b=fQbAqdgTzmKyc7XCRM6Rl3hMXXVS7AXdEzl15LUol6W5kjDNKVMkQXtU3JjsQ/9MkV
-         R5ZeErAlZ2oqCwY/NvCCCLNGZL3HzHgzgkVpWOJ/9lpsZ+XHbozQgR7ZM73LYVXP+/DO
-         wieSguhcvgRnnvd8+ZoWfuFud2TYNxHUfjwKqJhhrAqNbMZMnRBNNjqkY7mXnjqhnTJ/
-         t6cgWUnHl3Emc8sReQe/LEKpuHKg1Jn2b+4m/haa5JauVEB5PJlidjFLj4G1BE+CqzGx
-         vVtHrd20xMRTXfIra77nsIEALwMMcbdMgrk8FVkexmVjs9RfvuC8MoBFUT3NrDHZ/x3v
-         Hs0w==
-X-Forwarded-Encrypted: i=1; AKwUvBz64QxGwFrAC1q38yL/8Tb/1hYe8RXXcCJtonag9RSV91bJR+jn9bCNK7Nf/oCNPm/ONCUJt75MrFdv@vger.kernel.org
-X-Gm-Message-State: APuU4Z+N1ebv3UYyWynD04FisUyaoOjTm+fUTHJPXBF/KRt91wwOMswT
-	D+W/P5+adqTb+elJS5f52A5aM4AC1GfVLnsEcN6qqU9KcH/y5wyAT4avGVrMs9FJiSs=
-X-Gm-Gg: AYBFou2RF8lzIpE8ns4MiAUEFE71RouzDAvGn82c2e1bxfqprYGB9C0PKUyK4bggFLb
-	idjkbpzwVcDazq1Q1FnQPualB0EdilvXgs7Ekx8kyPY+3MaHGEs3oBvvB/Zc0KAI4r2CfnIMk4p
-	dCPSFlgKPsm24Fr1jiD2HlFkzQZmbVI2x4ZC2WxcT+fd3uj4orpG/xZYRGlOB6SmeVtb8IEICq/
-	+ZlBnHJhk0TioJhJ4Z3iauDvchQGUGeSr0XYxs4uPnQm7nNY1n3mhrXkZTCz8AblUltZosnbCJq
-	+LDYUSoSA/EEcfugPVKlWIu9qF/nKO4gxPVTFSCNouhmluCt+UBaiqr/THGFNz0Z+L5JbUxYCGe
-	dlce8OmzoBZhJnSM1RK9s3SEUo8tqCjv+iV2Mr6k45U4fliztZaidEnpfHzhnnByB7Xdg1TQWSq
-	T3CBifvfozEFblgA8PfurIcXjP6JRV1oMQmI4sQovRXzL4t8SDcrbh5K8dkW746+PclfE/GKpBj
-	GnJLCv0vEQv/xr/n5wj+fczB9u2bQhTxjZO2BUHf0EhGGuosQIhgRHg3LaUXaD2DJFRKPESFynh
-	irMBhOa/kijAVnWhMQpPGZUdFqjPYG63P9GvHQhaSjfWluuezT6onyTPfdPhAdM9irRugQBX4RY
-	QiWK42dE8E6QMvkp8xetl
-X-Received: by 2002:a17:907:86a3:b0:c46:9745:ac13 with SMTP id a640c23a62f3a-c4d207ef40cmr272696766b.32.1793897071769;
-        Thu, 05 Nov 2026 08:44:31 -0800 (PST)
-Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e48d0dcsm186593666b.70.2026.11.05.08.44.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:44:31 -0800 (PST)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Thu, 05 Nov 2026 16:44:29 +0000
-Subject: [PATCH] Revert "arm64: dts: exynos: gs101-oriole: add pd-disable
- and typec-power-opmode"
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mg/OuWZn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C277C1F00919;
+	Thu,  5 Nov 2026 16:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793897111;
+	bh=lcWS3mM7T+8n/U0+o4X26sVqge8x1PjsV6A6vYeShO4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mg/OuWZnhYSnvU3+t1WtlQ1iFzTc9rSOFUX9vgTcCx9IscC3ljdAigGHkQM4Hek6q
+	 b1Xi/ECkZGP5jTTMvGdeDf+lX4UnMhMzSx1UHJZzCiPe4ZHdz2CYtWNw9avXXJ/ak8
+	 NgvgVEZAsGFv6dsEcie+USS4fZTWwOxggw48XskICy5rp1xcvUiIcmUQdnKq4gIlIW
+	 WqsR5oRnkShHUmhO60Px6LS6KNXH6hL6F9de+MBPrEsvL8/rm+xcbx5VLhG1RXLP6P
+	 4yIRevlyhMp0UKukqafbUZTQVClHfSXtQyYemoiovN0OWCyFBxBMoHsR2h7kbjTCCy
+	 hoL3PYbDU/pNg==
+Message-ID: <sashiko-outbox-199523@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 RESEND 5/6] firmware: smccc: lfa: Register DT
+ interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andre Przywara" <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102165421.3651202-6-andre.przywara@arm.com>
+References: <20261102165421.3651202-1-andre.przywara@arm.com>
+ <20261102165421.3651202-6-andre.przywara@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 16:45:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,74 +60,238 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261105-gs101-tcpci-bootloader-dt-v1-1-4b7e373778f2@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAG2y7GoC/x2MywqAIBAAfyX23IIuRY9fiQ6mWy1EhkoE0r8nz
- W0OMxkiB+EIY5Uh8C1R/FlE1xXY3Zwbo7jiQIpaXcAtaqUx2csKLt6nwxvHAV1C6hpue9PTQAp
- KfwVe5fnf0/y+H+0rQNNrAAAA
-X-Change-ID: 20251111-gs101-tcpci-bootloader-dt-274e58a82920
-To: Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
 
-This reverts commit 817473b6ddaf9eb5f2bc7d6dce9fa13a921477a0.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [Critical] firmware: smccc: lfa: probe success treated as error in lfa_sm=
+ccc_probe()
+- [High] firmware: smccc: lfa: invalid IRQF_COND_ONESHOT in lfa_register_dt=
+()
+- [High] firmware: smccc: lfa: infinite retry loop in prime_fw_component()
+- [Medium] firmware: smccc: lfa: unconditional devm_free_irq() in lfa_smccc=
+_remove()
+- [Medium] firmware: smccc: lfa: missing kobject cleanup on lfa_smccc_probe=
+() error
+- [Low] firmware: smccc: lfa: missing linux/interrupt.h include in lfa_fw.c
+--
 
-The Pixel 6 / 6 Pro bootloader version 17.0-15681480, part of the
-Android 17.0.0 release, knows about the upstream DT and disables power
-delivery itself when the serial console is enabled. The workaround is
-therefore not needed anymore and can be reverted, as anticipated in the
-commit message of the above commit.
+commit 336251e18192897c278c68cc88128e6b0243d876
+Author: Andre Przywara <andre.przywara@arm.com>
 
-Since then, the node has moved to gs101-pixel-common.dtsi, so this now
-applies to both Pixel 6 (oriole) and Pixel 6 Pro (raven).
+firmware: smccc: lfa: Register DT interrupt
 
-With older bootloaders, enabling the serial console will again result
-in endless TCPCI interrupts.
+This commit adds support for finding an arm,lfa devicetree node and
+registering its threaded interrupt handler to trigger pending Live
+Firmware Activation updates when ACPI is disabled.
 
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
- arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa=
+_fw.c
+> index 65f28ffc9d108..3ff368dca9497 100644
+> --- a/drivers/firmware/smccc/lfa_fw.c
+> +++ b/drivers/firmware/smccc/lfa_fw.c
+> @@ -46,6 +46,8 @@
+>  #include <linux/list.h>
+>  #include <linux/module.h>
+>  #include <linux/nmi.h>
+> +#include <linux/of.h>
+> +#include <linux/of_irq.h>
+>  #include <linux/psci.h>
+>  #include <linux/rwsem.h>
+>  #include <linux/stop_machine.h>
 
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-index e5736c39d1e0..dc908dd7e1c6 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-@@ -662,6 +662,7 @@ connector {
- 			self-powered;
- 			try-power-role = "sink";
- 			op-sink-microwatt = <2600000>;
-+			new-source-frs-typec-current = <FRS_5V_1P5A>;
- 			slow-charger-loop;
- 			pd-revision = /bits/ 8 <0x03 0x01 0x01 0x08>;
- 			cc-debounce-time-ms = <170>;
-@@ -704,12 +705,6 @@ VDO_DFP(DFP_VDO_VER1_1,
- 						0, 0, 0x18d1)
- 					VDO_CERT(0x0)
- 					VDO_PRODUCT(0x4ee1, 0x0)>;
--			/*
--			 * Until bootloader is updated to set those two when
--			 * console is enabled, we disable PD here.
--			 */
--			pd-disable;
--			typec-power-opmode = "default";
- 
- 			ports {
- 				#address-cells = <1>;
+[Severity: Low]
+As reported by kernel test robot on v2 [1], does drivers/firmware/smccc/lfa=
+_fw.c
+fail to build when CONFIG_ACPI is disabled?
 
----
-base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-change-id: 20251111-gs101-tcpci-bootloader-dt-274e58a82920
+The new code uses irqreturn_t, IRQ_HANDLED, IRQF_COND_ONESHOT,
+devm_request_threaded_irq(), and devm_free_irq(), which are declared in
+linux/interrupt.h. When CONFIG_ACPI=3Dy, linux/acpi.h pulls in
+linux/interrupt.h transitively, but with CONFIG_ACPI=3Dn neither linux/of.h
+nor linux/of_irq.h includes it, resulting in implicit function declaration
+and undeclared identifier errors. Should linux/interrupt.h be included
+explicitly here?
 
-Best regards,
--- 
-André Draszik <andre.draszik@linaro.org>
+[ ... ]
 
+> @@ -913,6 +916,31 @@ static void lfa_remove_acpi(struct device *dev)
+>  }
+>  #endif
+> =20
+> +static irqreturn_t lfa_irq_handler_thread(int irq, void *dev_id)
+> +{
+> +	activate_pending_components();
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: High]
+When lfa_irq_handler_thread() invokes activate_pending_components() ->
+prime_fw_component(), can prime_fw_component() get stuck in an infinite
+loop if priming requires at least one retry?
+
+In drivers/firmware/smccc/lfa_fw.c:prime_fw_component():
+
+	bool retry =3D false;
+	...
+	do {
+		...
+		if ((regs.a1 & LFA_PRIME_CALL_AGAIN)) {
+			if (ktime_before(ktime_get(), end)) {
+				if (msleep_interruptible(LFA_PRIME_DELAY_MS)) {
+					ret =3D -EINTR;
+					break;
+				}
+			} else {
+				pr_err("LFA_PRIME for component %s timed out",
+				       kobject_name(&comp->kobj));
+				ret =3D -ETIMEDOUT;
+				break;
+			}
+			retry =3D true;
+		}
+	} while (retry);
+
+Once LFA_PRIME_CALL_AGAIN is set on an initial ARM_SMCCC_LFA_PRIME call,
+retry is set to true. On a subsequent iteration where firmware finishes
+priming and returns regs.a0 =3D=3D 0 with LFA_PRIME_CALL_AGAIN cleared in
+regs.a1, the if ((regs.a1 & LFA_PRIME_CALL_AGAIN)) branch is not entered
+and retry is never reset to false, causing while (retry) to spin
+indefinitely issuing SMC calls without sleeping or checking the timeout.
+
+> +
+> +static int lfa_register_dt(struct device *dev)
+> +{
+> +	struct device_node *np;
+> +
+> +	np =3D of_find_compatible_node(NULL, NULL, "arm,lfa");
+> +	if (!np)
+> +		return -ENODEV;
+> +
+> +	lfa_irq =3D irq_of_parse_and_map(np, 0);
+> +	of_node_put(np);
+> +	if (!lfa_irq)
+> +		return -ENODEV;
+> +
+> +	return devm_request_threaded_irq(dev, lfa_irq, NULL,
+> +					 lfa_irq_handler_thread, IRQF_COND_ONESHOT,
+> +					 NULL, NULL);
+> +}
+
+[Severity: High]
+As reported by Sashiko on v2 [2], will devm_request_threaded_irq() in
+lfa_register_dt() always fail with -EINVAL on standard Arm GIC interrupt
+controllers?
+
+Passing NULL as the primary handler causes request_threaded_irq() to assign
+irq_default_primary_handler. In __setup_irq(), IRQF_COND_ONESHOT only sets
+IRQF_ONESHOT when joining an already-shared interrupt line whose existing
+action has IRQF_ONESHOT set. Because this interrupt is not shared,
+IRQF_ONESHOT remains unset, and __setup_irq() rejects the request:
+
+	} else if (new->handler =3D=3D irq_default_primary_handler &&
+		   !(desc->irq_data.chip->flags & IRQCHIP_ONESHOT_SAFE)) {
+		pr_err("Threaded irq requested with handler=3DNULL and !ONESHOT for %s (i=
+rq %d)\n",
+		       new->name, irq);
+		ret =3D -EINVAL;
+		goto out_unlock;
+	}
+
+Since standard Arm GIC irqchips do not set IRQCHIP_ONESHOT_SAFE, this
+returns -EINVAL and aborts lfa_smccc_probe(). Should this pass IRQF_ONESHOT
+instead of IRQF_COND_ONESHOT?
+
+> +
+>  static bool lfa_smccc_has_all_functions(void)
+>  {
+>  	struct arm_smccc_1_2_regs regs =3D { 0 }, res;
+> @@ -980,6 +1008,10 @@ static int lfa_smccc_probe(struct arm_smccc_device =
+*sdev)
+>  		err =3D lfa_register_acpi(&sdev->dev);
+>  		if (!err)
+>  			pr_info("registered LFA ACPI notification\n");
+> +	} else {
+> +		err =3D lfa_register_dt(&sdev->dev);
+> +		if (!err)
+> +			pr_info("registered LFA DT notification interrupt\n");
+>  	}
+> =20
+>  	/*
+
+[Severity: Critical]
+When lfa_register_dt() or lfa_register_acpi() succeeds and returns 0 in
+lfa_smccc_probe(), doesn't the immediately following error check tear down
+lfa_kset and fw_comps_update_wq while still returning 0 from probe?
+
+In drivers/firmware/smccc/lfa_fw.c:lfa_smccc_probe():
+
+	/*
+	 * An ACPI notification or an interrupt are optional, but we must
+	 * handle errors that occurred during their setup.
+	 */
+	if (err !=3D -ENODEV) {
+		kset_unregister(lfa_kset);
+		destroy_workqueue(fw_comps_update_wq);
+		return err;
+	}
+
+When err is 0, (err !=3D -ENODEV) is true, so lfa_smccc_probe() unregisters
+lfa_kset, destroys fw_comps_update_wq, and returns 0. Because probe returns
+0, the device remains bound with the DT interrupt or ACPI notify handler
+registered, leading to a use-after-free on lfa_kset and fw_comps_update_wq
+when a notification fires or when lfa_smccc_remove() runs. Should the
+condition be if (err && err !=3D -ENODEV)?
+
+[Severity: Medium]
+As reported by Sudeep Holla on v4 [3], when lfa_smccc_probe() fails after
+update_fw_components_tree() (for example when lfa_register_dt() or
+lfa_register_acpi() returns a real error, or if update_fw_components_tree()
+fails after adding components), does the error path leak the allocated
+fw_component kobjects and race with fw_comps_update_work?
+
+Unlike lfa_smccc_remove(), the error cleanup in lfa_smccc_probe():
+
+	if (err !=3D -ENODEV) {
+		kset_unregister(lfa_kset);
+		destroy_workqueue(fw_comps_update_wq);
+		return err;
+	}
+
+does not call clean_fw_components_tree() to drop the child fw_component
+kobjects added under lfa_kset, and it calls kset_unregister(lfa_kset)
+before flushing and destroying fw_comps_update_wq while
+remove_invalid_fw_components() may still be accessing lfa_kset.
+
+> @@ -999,6 +1031,7 @@ static void lfa_smccc_remove(struct arm_smccc_device=
+ *sdev)
+>  {
+>  	if (!acpi_disabled)
+>  		lfa_remove_acpi(&sdev->dev);
+> +	devm_free_irq(&sdev->dev, lfa_irq, NULL);
+>  	clean_fw_components_tree();
+>  	flush_workqueue(fw_comps_update_wq);
+>  	destroy_workqueue(fw_comps_update_wq);
+
+[Severity: Medium]
+In lfa_smccc_remove(), won't calling devm_free_irq() unconditionally
+trigger a WARN_ON() when ACPI is used or when the optional DT interrupt
+was not registered?
+
+On ACPI systems (!acpi_disabled) or DT systems where the arm,lfa node or
+its interrupt is absent, devm_request_threaded_irq() is never called and
+lfa_irq remains 0. Calling devm_free_irq(&sdev->dev, lfa_irq, NULL) in
+lfa_smccc_remove() causes devres_release() in kernel/irq/devres.c to fail
+to find a matching devres entry and trigger WARN_ON(). Should
+devm_free_irq() only be called when lfa_irq is non-zero (or omitted since
+the IRQ is managed via devm on &sdev->dev)?
+
+[1] https://lore.kernel.org/r/202603181913.NFRwBsN4-lkp@intel.com
+[2] https://lore.kernel.org/r/20260317103336.1273582-8-andre.przywara@arm.c=
+om
+[3] https://lore.kernel.org/r/20260921-aloof-sympathetic-python-54aa7d@sude=
+epholla
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102165421.3651=
+202-1-andre.przywara@arm.com?part=3D5
