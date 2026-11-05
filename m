@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886750;
-	b=ofWAecSNemiUZP4nzlPxhzGinOc5szR+op3UhPiVndsSgEgO09V5kGU6ylTzzbVyrIZ0
-	 cdwWqa3P5XFGL8E4Mxbh3I4hM+1HnvoL20iIZ6QCXykD+5LNo/+nhedDUv/PWvmNzc9CO
-	 mcoL78IA5QO7NvZPCQ1m1t0sJgquA48fjLEUD3OKX9s64eMKzRKpaKULacLFclIfj/Ae1
-	 LyCtk/LtaH2Sp30Yy23HUbm7FVBIzzqkNIUluygqCSLm0SgbuJAn3iJBbekGzi1f0WhHx
-	 DulRRJJ8cZ2BE3XHdR75OhiOzioRZgriHno6aISvuT/k/0Jz+/oUg1rY+26M/Nc3+Pw==
+	t=1793886953;
+	b=JqQXiyE6xgGE2bW14dq7QeNB/6R2lWqYdBEwguWNbVARe3T7aDyK7oabUeMms1JWl7Dd
+	 0CpI+FDL8aiuvzfhLCeMc0NbzlW5ylKO0LtAmrWmeERPDq1UMnIthh/JV7nGHhuB4qmR0
+	 14yr4bqX+xU7i+qVvtr+nzNlYHiGtUCoTrn/XqLcxOc6KQMgOllCY1MtKO+GmoNL55eD7
+	 Ae+MYrKgXbq9yVnm0Vzmk0jG2sfIRSCeDjugs8mXE9l023Uxtv2uKISRjEBw4ub5DH0Ma
+	 fGL++pp0LOjE6vQT7IYByw8C+b4ZfGHgQT/+ICVlOau7MrKCg5NMPU5oOBMh7UQ6swg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886750;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JeahCgBrqhQ8oPAtWJnblBFX1NrAxRVlymvspDmA96g=;
-	b=SFavQJXoNFqk2o0NC4tZjeoTUpCbaxaHbdA6LbkPf/0CHayBM08vHGJ24WVa9N3R8lpE
-	 /8KVzsoBesC66ENw6lSfgaq8kSYrFl1VDjg1a8b9dc184KSNrvy3YQ4l9u6jjhzK4NrpZ
-	 Oeu0GJm8Obzd3sLpk90P3GV71j1KBaJOVmNR5nmTps2m2YLdAhCIjJTLeMItCGQdXZJKK
-	 qlQRwRAg7dydEtbuXvDlMb9iT5BzAESuV1ieM6851WUBB3R3KtmKMCKL1jsceNPx+simM
-	 JO1xMp+ybf/uo7KZwqBnwOv9lm5CaLfeQkzFlpk0C3SIQ+P+zbgGc1uh5x3FnA1ClrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886953;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=qKUd6EjLpHcXUrNvXO+ZwKaNS+U+wzwD2sx40H3WfWY=;
+	b=UAaE7+WVEWbN/OJcmVaIMQUwfbUpArhxet7O6u4kiAKSvfUb6JZnUewgdvkhXqs5mrvg
+	 MsnIeF9tNs/DjibFLDJW2IPB5kv8sYiqc4cEBVmh6KzFA/b+j7oFICImG0Yb6vtIGwkA8
+	 qNGFGn7IzxjxnS0Yoi81gGB5Uc/b0Pc27n6p2UnWaSuH6ABaQLTl8ys5nT97DxGHRWAtk
+	 Z8dEPTv1dvtO8eqaCUdroo48glVs3BSYkkbuDETBmg9lnrPfMoxwRGeCaOskh9kHVN6wS
+	 ne09wCaiTBD4dSTjfSWNoGgx+ekg/JqTyf9Zmm/Ov0xaFfbkbP+y7WN4YKjqngzbyHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys5A0nML;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkfWrImF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBCD606A32C
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC52606A326
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:55:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys5A0nML
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A32641F00A02
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:52:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MkfWrImF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095E81F0093A;
+	Thu,  5 Nov 2026 13:55:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793886749;
-	bh=JeahCgBrqhQ8oPAtWJnblBFX1NrAxRVlymvspDmA96g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ys5A0nMLDZtcc2L4EmxW5mFU4qrY0ip3kpiKLblrYSYJaq70vYZP5oERDrKuMwxnk
-	 uJUxriEtqugBLdHD8i5MvFdIMUfvSrU68tpbl6bmfIlifR3ZqLtQ9X6CMra4KXRpNt
-	 PlMAWdXOJ0Hla7ZUpwjGVvaR9k0TmY0n/gqV04gEDvna+HkADy1p5ZRaBgq1QgJZfp
-	 6BlJ8sgOVzxs7RtKSofDyOm4CnGiEo4X/EiJXROq/ABYOozmwtKRViqcQ7WJAxyoNX
-	 EuoP8TyEjZCECXWlPkcF5bcsks0D7RXDeBIgS9Xpqr88zPEX8TgHpt8RZ3uC7H7N4S
-	 q+4AbZqy+r1xw==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so1798753e87.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 05:52:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwLD8VYZZdXrkQnj58jrf5x68ZE4+teHOUwV0cYSumUkImByAmHlmHkLVSKTULf1XQ1dGXayKtskzYm@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qAmrZzB8XqCTp6tmBZo00/SH6ImLhwyKnF1K6OEELFpugrP7V
-	WGL7m7FeH7B7322qBRkrcemCgdjq7EguXBFISbr0t9KFKv35GpdrSM7tdkic9QZez3wjR2vksP+
-	TR11XiFOwARv9Y8UgcGrQc4tKqGB3Zz4=
-X-Received: by 2002:a05:6512:4286:b0:5c0:165:16c3 with SMTP id
- 2adb3069b0e04-5c001651b15mr124760e87.64.1793886748448; Thu, 05 Nov 2026
- 05:52:28 -0800 (PST)
+	s=k20260515; t=1793886953;
+	bh=qKUd6EjLpHcXUrNvXO+ZwKaNS+U+wzwD2sx40H3WfWY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MkfWrImFOHJ5wJoZfqjDL9flKCmOk5Szlu0HOskgAZKCVy49JRxtXI3YHQpiQFv1N
+	 z+nieAb4d5RvSEEBhHG/AwOgwNHkigLYDYFxixCki9rv4I6Gxem/7x1zYuAiUqsx4a
+	 WqlHP95UEL9HySht6SZ8Gg+Qxpfkj9ZuSw4nAkZtutCuJhmFx9eoPrGjkLv+S4Mr6w
+	 Us0B+WNm1mmxYcnlIfrBWyRaowEckCPdFLc9yNNpvs8ZkM/o1+nKE83nt7DIp4qC03
+	 0Z8N/sQB4gUVm0VJ9nuN8sw8hmb2GXzsv7s3yDgrtW5Ci1MeaHAXYgWjD8/iouf5Zh
+	 PmPyOIXv1X3Ow==
+Message-ID: <sashiko-outbox-199178@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] ARM: dts: broadcom: Use CFE CPU bring-up on the
+ XG6846B
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-3-7477b2b4675d@kernel.org>
+References: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-0-4103df2588d3@kernel.org>
+ <20261105-genexis-xg6846-smp-v7-3-rc1-v5-3-7477b2b4675d@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 13:55:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,76 +60,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
- <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
- <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
- <CAD++jLn_3X65zu8q-DfWbn4xjyPrSfp5BVH4SO96XCxmegcvXg@mail.gmail.com> <auxUgg0PP9xXqA68@zed>
-In-Reply-To: <auxUgg0PP9xXqA68@zed>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 14:52:14 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnHymVvk1i1o0vC1PBguQ_-Cpc4tCH4P2ztn8cF7G-izw@mail.gmail.com>
-X-Gm-Features: AclHuK9aWghSgGPgEAyeqdT4fh_Hp97d1wLRufm5X27_o_R8h01yfuAkz9ZEscE
-Message-ID: <CAD++jLnHymVvk1i1o0vC1PBguQ_-Cpc4tCH4P2ztn8cF7G-izw@mail.gmail.com>
-Subject: Re: [PATCH RFC v5 7/7] media: mali-c55: Sequence resets explicitly
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 5, 2026 at 11:10=E2=80=AFAM Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
-> On Thu, Nov 05, 2026 at 09:58:09AM +0100, Linus Walleij wrote:
-> > Hi Prabhakar,
-> >
-> > thanks a lot for your help!
-> >
-> > On Tue, Nov 3, 2026 at 2:47=E2=80=AFPM Lad, Prabhakar
-> > <prabhakar.csengg@gmail.com> wrote:
-> >
-> > > I tested on the RZ/V2H EVK with the clocks and DT left untouched,
-> > > changing only the reset order.
-> > >
-> > > The hang comes from the reset assert order in __mali_c55_power_off().
-> > > Asserting vresetn (the ISP core reset per the RZ/V2H manual) before
-> > > hresetn/aresetn wedges the ISP. The next power-on then stalls on its
-> > > first register access. The deassert order doesn't matter.
-> >
-> > OK I will drop the clock patch and keep this one.
-> >
-> > > Asserting h->a->v (deasserting v->a->h) passes repeated runtime-PM
-> > > cycles and also works with the IVC enabled. So 7/7 gives the right
-> > > reset sequence, 6/7 isn't needed for this, and the existing DT mappin=
-g
-> > > (0xd3 =3D vresetn =3D ISP core reset) is correct.
-> >
-> > So this is a Tested-by for this patch?
-> >
-> > > A smaller alternative keeps the bulk API and only reorders the names:
-> >
-> > I guess that works, but I'm not sure the reset bulk API in the
-> > kernel guarantees any order, so we better keep this patch as-is if
->
-> I was under the same impression as I have memories of quite some
-> conversations around this and I recall a workqueue was used to
-> schedule bulk reset operations.
->
-> Now that I re-looked at the implementation of
-> reset_control_bulk_deassert() and its history I don't see any trace of
-> it and the documentation says
->
->  * Deassert the reset lines for all provided reset controls, in reverse o=
-rder.
->
-> Was I hallucinating when I first suggested no ordering was guaranteed ?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ARM: dts: broadcom: xg6846b partial no-map removal breaks lowmem s=
+etup
+--
 
-No idea... Lad showed me it is guaranteed so I sent a considerably
-less intrusive patch now, check it out!
+commit 59829f1abd4c733fd749211767c1df938a47fd66
+Author: Linus Walleij <linusw@kernel.org>
 
-Yours,
-Linus Walleij
+ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
+
+This commit disables the inherited PSCI node on the XG6846B board and
+configures the CPUs to use the brcm,bca-smp enable-method with CFE's
+holding pen release address on CPU1. It also removes no-map from the
+secondary-boot reserved-memory node so the reservation does not fail
+when overlapping the kernel's initial page tables.
+
+> diff --git a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts b/arc=
+h/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> index a3616fb7b3a8d..45d4df5231109 100644
+> --- a/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> +++ b/arch/arm/boot/dts/broadcom/bcm6846-genexis-xg6846b.dts
+> @@ -34,7 +34,7 @@ reserved-memory {
+>  		ranges;
+> =20
+>  		secondary-boot@0 {
+> -			no-map;
+> +			/* Includes the kernel's initial page tables. */
+>  			reg =3D <0x00000000 0x00008000>;
+>  		};
+>  		pmc3-firmware@8000 {
+
+[Severity: High]
+As reported by Sashiko on v3 [1], does removing no-map from secondary-boot@0
+while leaving no-map on the adjacent pmc3-firmware@8000 node cause an early
+boot crash when booting a multiplatform kernel where TEXT_OFFSET is above
+0x00108000 (such as multi_v7_defconfig, where CONFIG_ARCH_BCMBCA=3Dy and
+CONFIG_ARCH_MESON=3Dy set TEXT_OFFSET to 0x00208000)?
+
+On bcm6846_defconfig (TEXT_OFFSET =3D 0x00008000), arm_memblock_init() rese=
+rves
+[KERNEL_START, KERNEL_END) starting at physical 0x00008000 before scanning
+reserved-memory. When early_init_dt_reserve_memory() processes
+pmc3-firmware@8000 with nomap set, memblock_is_region_reserved(0x8000,
+0x100000) is true, so the reservation is rejected with -EBUSY and
+memblock_mark_nomap() is never called.
+
+However, when TEXT_OFFSET is 0x00208000, the kernel image and initial page
+tables sit at physical 0x00204000 and above. During
+early_init_fdt_scan_reserved_mem(), secondary-boot@0 ([0x00000000, 0x000080=
+00))
+is reserved without MEMBLOCK_NOMAP, while pmc3-firmware@8000 ([0x00008000,
+0x00108000)) does not overlap the kernel reservation and succeeds in calling
+memblock_mark_nomap(). This leaves [0x00000000, 0x00008000) as the first
+mappable memblock.memory region ahead of the MEMBLOCK_NOMAP region at
+[0x00008000, 0x00108000).
+
+In arch/arm/mm/mmu.c:adjust_lowmem_bounds(), the second loop then checks
+whether the end of that first usable range is aligned to PMD_SIZE:
+
+	for_each_mem_range(i, &block_start, &block_end) {
+		if (block_start < lowmem_limit) {
+			if (!memblock_limit) {
+				if (!IS_ALIGNED(block_start, PMD_SIZE))
+					memblock_limit =3D block_start;
+				else if (!IS_ALIGNED(block_end, PMD_SIZE))
+					memblock_limit =3D lowmem_limit;
+			}
+
+Because block_end is 0x8000, memblock_limit is set to 0x8000, rounded down =
+to
+PMD_SIZE (0), and passed to memblock_set_current_limit(0).
+
+Subsequently, in paging_init(), prepare_page_table() computes end from
+memblock.memory.regions[0]:
+
+	end =3D memblock.memory.regions[0].base + memblock.memory.regions[0].size;
+	if (end >=3D arm_lowmem_limit)
+		end =3D arm_lowmem_limit;
+
+	for (addr =3D __phys_to_virt(end);
+	     addr < VMALLOC_START; addr +=3D PMD_SIZE)
+		pmd_clear(pmd_off_k(addr));
+
+With end =3D=3D 0x8000, prepare_page_table() clears all kernel PMDs from
+__phys_to_virt(0x8000) up to VMALLOC_START, unmapping the running kernel, a=
+nd
+map_lowmem() then underflows map.length =3D end - start when advancing star=
+t to
+kernel_sec_end while end remains 0x8000.
+
+[1] https://lore.kernel.org/r/sashiko-outbox-180435@kernel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-genexis-xg=
+6846-smp-v7-3-rc1-v5-0-4103df2588d3@kernel.org?part=3D3
