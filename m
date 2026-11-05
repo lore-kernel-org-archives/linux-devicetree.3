@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880566;
-	b=4dpszUej4zHcvMguJfpya9CMpcKZ0LelXH8+j7Q5rD8bhptiNoZhLRQf0j0kyOjTyzHi
-	 VqQKm39BLSLxaMNel/irM0hn0PXWnxsUUCHc1Dkrtlm93PFfI07efdEBFt6c5snvAqbdx
-	 ETlgJCFGeXYxl6s2F0MYnOKrhqN3EDENx6hsvABHzFuvHtX3f/eTR/KbYxPZegbQSq2Vl
-	 PMHkA4ePPgvfaFcCBb2u+aVJfXTJ+kyw9ZXnYkOe6p74LBaKMIXCl5ZtrUd3o/t/kGs1M
-	 KxXypgfWQAIkE+5fsBhF6TYqb8iWUjdJgCCG6HpXNy+w7wplUAcu24ZLbcUl7/PaxYQ==
+	t=1793880567;
+	b=qHZ+7TrdU50e3cva8MgaYEqe9wFcf5HcKa+cW3TiGH5iuQNzT7EXQmQiMFWY1xOkQVGl
+	 Jp84CvDZyUWm9311ha4uMj0gRYPtBgG0WmBvo88p96QP4kFZ0LgXRmVSuCZYdi1oV5dWy
+	 v5Bmdbl6mltVSY4RMXOpyWYY/RdvLm9gLfbvQljqsFOhn4jSwFvTrZadzDNibzANFAhAJ
+	 meZ0GAagryVJAHg/Eh+zpmg8hAxIcB9F86Tgr0Q3H+lkRki6CVisHVUanfqx9qYYlhqvH
+	 k8EEQIgqSMumDuh647zL35rkQbWgkIU0WBtde7I+HQQFv3gbIOgevTK40NTrknGofEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880567;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=YpZccUebiwLvkcSt+36evL7VK3urd4ZWtr16WFWktIc=;
-	b=VVXR+KQEs8//JgXT9a2P2fmAxRvkgrA7hJLTwcHw/DbNZUnU0YKCSERjRHdYsl+BRyP2
-	 dFfWBO0RUuQ9/jKvlnVjQC6LJuZimaVRDcb6Q0c4eGuwYOvS+CSlvi+do8FZTT5hksgxZ
-	 7+cFzBQw3QvCNLZeMqDsAuCd7U7UhVB97TcenAYXsT6W2vztsYGx+rUpk75RJKi+EVXOy
-	 qRVjAeJFv4KwRP0m8p80OuGJWoh6VT3JeMfB6F5n3hzlgG4xbQHDACPkC7an4WW4bYI/+
-	 RXK74lfrCRYBHEDqkyOiEz8vGjoCCheJ7mMDl+sxLwVeJn/HEukpoDz4TPG2ty9OW7w==
+	bh=IE2EXi4hrSJEGdlIas7SFiNTlxXFjX2s+WzRPhDdqpU=;
+	b=FFum5TEAi80ZFfocEf4Cf/cLLfR59LmYBrmCtLPfnvEAMBaQ2LAS1+VC0BpQijNvmBGs
+	 1TLy2uIrgTyaBBvssPje61M74DCeVXY8F64GtQ4FDBAUUNc+5OmzazbljH3c4g1l6sEie
+	 +i3PZk1x/EoD9OpCY++ja+DOv4cEPnspH04LHj/i33cJxO2oOUimLpyV6uxzh5NkfbB6s
+	 Ziqt/1QLDyTVHk5U3Y+IPJbqeEklTaRKVhp3ii3ElshWjGsr7jlOjlRtzpr9GKxzEUMXD
+	 vc25BeRF/4LIr5vMb35iokIN8FfM3vtc8Vc/JDm63C44WXUdE0JruXQtXHpVcLfNpPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=thorsis.com;
 	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=F62jzXyu;
+	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=J6FeY78Q;
 	arc=none smtp.remote-ip=217.92.40.78
 Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE5F606A331;
-	Thu,  5 Nov 2026 12:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EE5F606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD158606D80E;
+	Thu,  5 Nov 2026 12:09:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD158606D80E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=F62jzXyu
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6902149656B;
-	Thu, 05 Nov 2026 13:09:58 +0100 (CET)
+	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=J6FeY78Q
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3502C14966AF;
+	Thu, 05 Nov 2026 13:10:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793880599; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1793880600; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=YpZccUebiwLvkcSt+36evL7VK3urd4ZWtr16WFWktIc=;
-	b=F62jzXyuXB1IS5lwHAwrMrIE0XRsNhJi3/xuJnYTq1IRIieM/PkFMxbt2YQOGsnIt5tbb9
-	cd+zbKrduazgcxKRNX0xvZIVIFSpr0Pfoy16wQC0k1RRvJECrouaKFN10BXoEFpLoka1Zt
-	Wahzdo4/8MWDil/SR6pJPNY4/hEfvjVQSO/vx5EJExtKYuVxyMTvTRrE8vjIyN00P6VjY5
-	dICpj7qo9ArhN8Z9YqJMwvLTpvuQgWaWNB+mWCKgkRlrm8TRfeGmeup0th7gS1zXRsueX0
-	EZnybYX4YZzTvOuyyb+y5D71Jf8fa2LBdbazL7kCFTItBJux+fIoElsk1L8iBw==
+	bh=IE2EXi4hrSJEGdlIas7SFiNTlxXFjX2s+WzRPhDdqpU=;
+	b=J6FeY78Q2ba31pSIw6qKhpyrjCakNjNJzkJfrYFrhUxJqjPSv8B1VDnUJv9KC54lLQvbla
+	K9FwHqSUC8tlFsJRVUQOM5xp9QFDiJi/NCiewYku358Az/ISg/qFN5nylbheEoxnb/r722
+	HY+6/M60GT8th85mMR6zMO5d8GV1whVWi0iBYezTE+TXWzOvUTTPOyFQsylDCThgtBJFyn
+	yccaEFII3MkGoT+FYpnkjbElGYaRaMcBPllZ2NNVn4FeefmOC0X+tB50l1YyC8mlTDgUFC
+	PQl/fFJj2leHMwTV0WEhVybilgOgXdLAnnEIezT/rsfNXEUjZFBdqUvOQ73csA==
 From: Alexander Dahl <ada@thorsis.com>
 To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -53,13 +53,12 @@ Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org,
+	stable@vger.kernel.org,
 	Srinivas Kandagatla <srini@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH v4 07/16] dt-bindings: nvmem: microchip-otpc: Add required clocks
-Date: Thu,  5 Nov 2026 12:06:43 +0100
-Message-ID: <20261105110715.2486432-8-ada@thorsis.com>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v4 09/16] nvmem: microchip-otpc: Fix swapped 'sleep' and 'timeout' parameters
+Date: Thu,  5 Nov 2026 12:06:45 +0100
+Message-ID: <20261105110715.2486432-10-ada@thorsis.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
 References: <20261105110715.2486432-1-ada@thorsis.com>
@@ -75,74 +74,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The OTPC requires both the peripheral clock through PMC and the main RC
-oscillator.  Seemed to work without explicitly enabling those clocks on
-sama7g5 before, but did not on sam9x60.
+Makes no sense to have a timeout shorter than the sleep time, it would
+run into timeout right after the first sleep already.
+While at it, use a more specific macro instead of the generic one, which
+does exactly the same, but needs less parameters.
 
-Older datasheets were not clear and explicit about this, but recent are,
-e.g. SAMA7G5 series datasheet (DS60001765B),
-section 30.4.1 Power Management:
-
-> The OTPC is clocked through the Power Management Controller (PMC).
-> The user must power on the main RC oscillator and enable the
-> peripheral clock of the OTPC prior to reading or writing the OTP
-> memory.
-
-Confirmed by Microchip based on vendor internal documentation (see link).
-
-Link: https://lore.kernel.org/linux-clk/ec34efc2-2051-4b8a-b5d8-6e2fd5e08c28@microchip.com/T/#u
+Fixes: 98830350d3fc ("nvmem: microchip-otpc: add support")
+Cc: stable@vger.kernel.org
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 Signed-off-by: Alexander Dahl <ada@thorsis.com>
 ---
 
 Notes:
     v4:
-    - Add clocks to the required section of the binding (Claudiu)
+    - Add Reviewed-by tag (thanks Claudiu)
     
     v3:
-    - Removed clock-names (led to confusion, and not used by the driver anyways)
-    - Removed redundant example
+    - Reorder tags
+    - Add stable tag
     
     v2:
-    - new patch, not present in v1
+    - Add Fixes tag
 
- .../bindings/nvmem/microchip,sama7g5-otpc.yaml           | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/nvmem/microchip-otpc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml b/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
-index cc25f2927682e..bef0246a79f16 100644
---- a/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
-@@ -27,14 +27,22 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/drivers/nvmem/microchip-otpc.c b/drivers/nvmem/microchip-otpc.c
+index e2851c63cc0b4..bf7e5167152cb 100644
+--- a/drivers/nvmem/microchip-otpc.c
++++ b/drivers/nvmem/microchip-otpc.c
+@@ -85,8 +85,8 @@ static int mchp_otpc_prepare_read(struct mchp_otpc *otpc,
+ 	writel_relaxed(MCHP_OTPC_CR_READ, otpc->base + MCHP_OTPC_CR);
  
-+  clocks:
-+    items:
-+      - description: main rc oscillator
-+      - description: otpc peripheral clock
-+
- required:
-   - compatible
-   - reg
-+  - clocks
+ 	/* Wait for packet to be transferred into temporary buffers. */
+-	return read_poll_timeout(readl_relaxed, tmp, !(tmp & MCHP_OTPC_SR_READ),
+-				 10000, 2000, false, otpc->base + MCHP_OTPC_SR);
++	return readl_relaxed_poll_timeout(otpc->base + MCHP_OTPC_SR, tmp,
++					  !(tmp & MCHP_OTPC_SR_READ), 2000, 10000);
+ }
  
- unevaluatedProperties: false
- 
- examples:
-   - |
-+    #include <dt-bindings/clock/at91.h>
-+    #include <dt-bindings/clock/microchip,sama7g5-pmc.h>
-     #include <dt-bindings/nvmem/microchip,sama7g5-otpc.h>
- 
-     otpc: efuse@e8c00000 {
-@@ -42,6 +50,7 @@ examples:
-         reg = <0xe8c00000 0xec>;
-         #address-cells = <1>;
-         #size-cells = <1>;
-+        clocks = <&pmc PMC_TYPE_CORE SAMA7G5_PMC_MAIN_RC>, <&pmc PMC_TYPE_PERIPHERAL 67>;
- 
-         temperature_calib: calib@1 {
-             reg = <OTP_PKT(1) 76>;
+ /*
 -- 
 2.47.3
 
