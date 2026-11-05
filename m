@@ -1,77 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793853679;
-	b=3MoF60atvkp2rdPidp7aVh7W5WkA07UzMWkIyrB2Vgz++jo2xQZByGlixP45XORpZ4SA
-	 4Ca2Z28LkjBNxCbL05nP+LjKdI2+BFIlPlEld4pPqAILv30855vhHXWTIIpNbR3FNn9ua
-	 OR82Hqo7DGrIJSGFfLxDl4tFB0KyII+73fEnjt1oyb6pmUFrKglXD6M2SiwVGURv4cec2
-	 zC+0uF0DGuTnWmNRvOwhqjHls1c6QY85gqz/6WtcADFbLe78XGEnAswzpyYUpwWYUSDT2
-	 zqzKYuv/ySUxqkZqSvNnb94jSKhktptKN9VAEpDJoedGBNMfLK4JoVTODtHUbdqk2Kg==
+	t=1793853778;
+	b=RU6q4FE0ZF29tb+MH40bzzF4RI/i4ILNpea1uCVE/F/L/x5RmgE/3q7XzZIji5I6oLsJ
+	 riVGuxpbUaaUBuSUcTb9Jo27b4vrE+p17c+Brwv8yqxJWQojSjyceaIf7N4LpnbRdN3oM
+	 h9+XiZ71FjXapVKJg/v+d2oqK7C2PtnQuyX9BGvciA41Fr5EdJAeCWDnzos4sW0z82b77
+	 zQDh8jArfgJYDEWcNWzKP7a7fC0EHUJwQ4oUyMs+kdMxrNrZNQsrHskkenrRPvEx2ZX9n
+	 Hox2H3Qbk/wklnrhVrBBUvvaGfHqRn+vNECbMjZATFAaJjbJgVhtgjiEyHgAD7j/ozw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853679;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
-	bh=CEkGvy3aLrxRjLGdl8tfvu1ARW7upt4AeWpWqbv3z/w=;
-	b=C1uv+PKasxErl0YcsXAVVabxe9qdiWvQIqTchp8ILy+IuwPepU5x3wrlU8ai+vOadMLH
-	 qhbbr9eT1ELsttHYRIBPV+nQ0x+46FwJRB6fvFTdHVMitnMp6J/rG3KGlRTOexBZRVGn/
-	 EaEK3KB6FekzWtm1AliwtmFS2l3SgBSAD1ksQUSquvfHoxihIO0bHmGfuSwQ9fj15iSEu
-	 0xcnvyXfzBW9/ZDRBCPd9PEqJgp5ShGVGQNKvRiPE/XLBtHAniHdWGvoR4DsmUfjUOXCP
-	 lHYCvVLlWvF5MROvJQzCxcew6iGL1s3NcYX+7zSB+Wu9+M7UXCD1awbVKSGCT0NyBkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853778;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=cN6YJ1UnxOE16ti8xYaxD9MJqzQpgNzKBI/Qx70ZbgA=;
+	b=tO2LrnImKw6+RZYAiU4KUJCujQ62BNqC5c2ZcKp5rl6C5VsYQxTPWwGruVq+NPAKSqdk
+	 bsKi+e6QV//y4HezfN0CvgpQwBBgL4OcoU05ObhgcY8HaQNc36vo4w5KCLCFigjGhcymc
+	 1LyOhoF60vwT60AK6S0VTa4Uf6qWeGPTJpg3I4qm+9l7i01yCE3VQJxFykmFILzRqf3DK
+	 +CWLtHlozcCp1FPQ5wvyNd1ak5iMMvuul85nIe47jYD358PBUNoe18G7vi/w9WI2OA7Lr
+	 cZ0NCFHEg5QQpIIIdEnK214rHJ7pxkFgiosP0jB0H9UYiK0h0sKXA8mTkSBvHYVKKEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=pass smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=fq7og1EW;
-	arc=none smtp.remote-ip=185.132.183.11
-Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1UXq+0k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4D76082BC5;
-	Thu,  5 Nov 2026 04:41:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B4D76082BC5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578FA606A32C;
+	Thu,  5 Nov 2026 04:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=fq7og1EW
-Received: from pps.filterd (m0209328.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A50nVid1016127;
-	Thu, 5 Nov 2026 04:40:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=p1; bh=CEkGvy3
-	aLrxRjLGdl8tfvu1ARW7upt4AeWpWqbv3z/w=; b=fq7og1EWFwS2tdP+kAw0gCO
-	qhEwXgxhadkeHvq8Ihg7I56wT21B3hH5EylqCn/89vYaFp4pBq6mcJL0AxHLtPJi
-	57+PGKG96bZeZnq8TziCKgT0ZGdqY/BQJ/uEKiyJJKFJ4hePeLWWF1xGMWRULU8Q
-	iK5/uJfnbbKsOQyFTGl1TqH+ZQYY5RE220qL1Najr5DSfytrHZGPpJ6VHrDSC/UY
-	bHP6Rm7HqIft7WE6hZ00a9IUSeQaQmmuKFFqhsuS0BmmVpWi5KPcKzcCfWVoR/+F
-	aInfX4hWj/WOSPcVSK9W68mT0myEaqlQXDWjpchdLTxKEb8IXr6T1uNh+Z00d6g=
-	=
-Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hn9gg6d2d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Thu, 05 Nov 2026 04:40:50 +0000 (GMT)
-Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A54SYk83638969;
-	Thu, 5 Nov 2026 04:40:48 GMT
-Received: from sgppsba03v.s.gdce.sony.com.sg ([146.215.113.220])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9dh1q57-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 04:40:48 +0000 (GMT)
-Received: from pps.filterd (SGPPSBA03v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA03v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A54W6El1849964;
-	Thu, 5 Nov 2026 04:40:47 GMT
-Received: from [43.3.252.132] ([146.215.113.251])
-	by SGPPSBA03v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9djmvgc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
-	Thu, 05 Nov 2026 04:40:47 +0000 (GMT)
-Message-ID: <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
-Date: Thu, 5 Nov 2026 13:40:45 +0900
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1UXq+0k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A8B1F000C1;
+	Thu,  5 Nov 2026 04:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793853777;
+	bh=cN6YJ1UnxOE16ti8xYaxD9MJqzQpgNzKBI/Qx70ZbgA=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=D1UXq+0kLGwHk/Lgm8ny/UprJEvxodjQXYpqXFGEDngiNmZ9FKC6LxLhTtegM4UFq
+	 FEnJpiKLoWtNmCfzFZyNdlzFaaVzHgsvKfJVSUYyhBi2vMCxup7eyLHtVtW0bRhs3m
+	 I1FkmaQ28ws5+xIm4wugUR14+tTJUEDY6BpzZ2dxvmWJbkK99W8J4uBU7YLRmFupF+
+	 /l0nHrcday7jYHaTgOPMu/V2OFQs/dOjwcaiJpZJA9amvjjgV5LA3ETHe/bu3JKeDi
+	 oLgX3Ak0lmY3X04kIHYm1cfJI80+V8KEGGNVa4Vy+OGwm1lvnBdDtnkAxmKQcD2/k2
+	 XKpoFhl5/OPkA==
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,81 +49,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
-To: Conor Dooley <conor@kernel.org>, sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org,
-        laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-        jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-        Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-        Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-References: <20261029050002.3880-1-lachlan.michael@sony.com>
- <20261029050002.3880-2-lachlan.michael@sony.com>
- <20261029-distress-stimulant-cd5bb18f5ae8@spud>
-Content-Language: en-US
-From: Lachlan Michael <Lachlan.Michael@sony.com>
-Organization: Sony Semiconductor Solutions Corporation
-In-Reply-To: <20261029-distress-stimulant-cd5bb18f5ae8@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: Z7YAkeai05ddJsO0Mm1AR6NGAsst_H7c
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
-X-Sony-EdgeRelay-GUID: C4xOC7c57qqHBZJODKPno-vOV6sTDYs9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAxOCBTYWx0ZWRfX/1iVh4q3VmC5
- Ht8QB0QZYAgtemnpSZlDVv3gj66FJb6CyXw9nrUXefbG6CNqXmfL/uGDmkmdt45HEytuI18hOta
- B2aZjMGRmh358MWn9m+mt4jP7qtO41y646bQVdhqB33CMgOa/bEevFrU3LYHbcTjkv4B19Plk4Q
- XQTc5HYy+0uP3NAq6dm+voNPvAxYV2orhNQlbTk2dNU6W/gDs74TIgeDVcy3Rlpz5y23d2x5/DW
- YEVx4s7xCeugDrRlL/IsiOC+Lmt3pDtln1P0O6yrrA5H62xJ86qjJBFSda/baVBRXB3c89Y6eZi
- +hB22CwM45na3QgJsyHdLRBgT4WN4b7xMykr6dHj2o0VbGcUBGBN9VNxS9EYpyRRqzpK69Xr8i+
- bFQ19hu+iYDL+v+GpFXBF9jK2k5GdCftc26cPTmI812c9nqOpxAFWAnD5uJ9r2fproRipptnq5t
- hMFJBP8n+BuenVRF3Ug==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAxOCBTYWx0ZWRfX/3FoIYbIeZa9
- l6QdFy9ztWXt6j9cBn/VucEjnI2gFSrqT0IQT7zL+LTs9oW0WYbD9pAlDSv0KuEHAm7JnWGSyIt
- S5ogkYgA7UHRdBFHwsvkrf2GGV83KmtV/amZWSJM8+SWbKP6pEl4
-X-Authority-Analysis: v=2.4 cv=Z5t5j3RA c=1 sm=1 tr=0 ts=6aec08d2 cx=c_pps
- a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KAb5x4SsHD3PzxGk7EmX:22 a=jHItnBwsj8f3cr25iGAb:22 a=VwQbUJbxAAAA:8
- a=P1BnusSwAAAA:8 a=XYAwZIGsAAAA:8 a=yb2DqlCEcBRr1FvsFXUA:9 a=QEXdDO2ut3YA:10
- a=D0XLA9XvdZm18NrgonBM:22 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
-X-Proofpoint-ORIG-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
-X-Sony-Outbound-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
+Subject: Re: [PATCH] kbuild: dtbinst: Create destination directories before
+ installing
+From: Nathan Chancellor <nathan@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Masahiro Yamada <masahiroy@kernel.org>, linux-kbuild@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261016-topic-dtbs_install_fix-v1-1-8cf50b642cba@oss.qualcomm.com>
+References: <20261016-topic-dtbs_install_fix-v1-1-8cf50b642cba@oss.qualcomm.com>
+Date: Wed, 04 Nov 2026 21:42:49 -0700
+Message-Id: <179385376961.826739.14151847592351019006.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1081; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=cpRbEdk5DsK63rlgJb74umfHVwDwiUBoMgEzBYQ/bcU=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlvOH1Pa76eXBvW9l0rhcdZ8Oyb2+VHZ5svDT+8svTqk
+ rscpUkLOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEMpcwMhxUPDir819t/8OY
+ wjPHTFuSs3p5r8ypW/E9V1gyn8s6+RYjw+G4Xp1p/Zu63+u5/Nf6N7uyKUPowfXTB4Ll858sf1B
+ XxwYA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 10/30/2026 3:41 AM, Conor Dooley wrote:
-> On Thu, Oct 29, 2026 at 02:00:01PM +0900, Lachlan Michael wrote:
->> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
->> with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
->> over 2 or 4 data lanes.
->>
->> Add device tree bindings for the sensor.
->>
->> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->> Acked-by: Conor Dooley <conor@kernel.org>
+> dtbs_install installs each DTB with 'install -D', which creates the
+> parent directory of the destination on demand. With a parallel build,
+> two DTBs that share a not yet existing directory are installed
+> concurrently and both try to create it. The loser fails, which aborts
+> the whole build:
 > 
-> This is not the tag I provided, I never provide tags using this email
-> address. Tags must be used without modification.
-> https://lore.kernel.org/all/20260828-hedging-olive-eaea0b4027a0@spud/
-Conor, my bad. I honestly missed that the mail address was different.
-I understand that it is important that review work is attributed to the 
-correct person and organization.
+>   install: cannot create directory 'debian/linux-image-7.1.0/usr/lib/linux-image-7.1.0/arm'
+>   make[6]: *** [scripts/Makefile.dtbinst:23: .../arm/foundation-v8-gicv3.dtb] Error 1
+> 
+> The failure depends on job scheduling, so it shows up as a build that
+> fails for no apparent reason and passes when re-run.
+> 
+> Create all destination directories up front, the same way
+> scripts/Makefile.modinst does for modules, so the install rules no
+> longer race.
+> 
+> Fixes: aefd80307a05 ("kbuild: refactor Makefile.dtbinst more")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Sakari,do you have further comments on the current v6 IMX908 driver?
-If so, I will fix this issue in a v7.
-If not, can you attribute to Conor correctly when picking up the patches?
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Seems reasonable to me.
 
-Best Regards,
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-Lachlan
+Rob, do you want to take this or should we take it via Kbuild?
+
+-- 
+Cheers,
+Nathan
+
