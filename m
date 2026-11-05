@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890404;
-	b=Vf7MnbLTZo50nYxbHIkyMqWx6wh57D9nzpI24h5xaV/7ISbOP5utwpkdguZ0WRzeUGzv
-	 SKu5bz82h3PbPnIEP03HorvNg/rd3O7sKL54VbQcbsbINag7cqAXSiBFlFM8qV7ZPMyOa
-	 Ovr0pIxCUmewdYI3kRTlmLIWvvGbFgKeskx8JfrOrQbYI12K+M8WyUJFwhbbA7/f95XL7
-	 jq55qecI8BjeWunloJ24ymBN6g2v8VXl7Bie2d+LcACeQ3LeYbS+C+ZkcxT/QNmGsH5wS
-	 TiLpcbA4vxTZqAaDgzX5H/IGhwjcJmkVee0t7xIfAmlb3ShgpU4ZUZRCZoUHBxm2IPQ==
+	t=1793890747;
+	b=PY4PnhCZXazW9UkmU6NddkU4eEdJbFr46as34KVsjrwtHRQc2Lw88W7JBuDGhWLz2Hfb
+	 1mEXeoAFBXLw411RgbY6tR9+yfdHhTklVpHyeOLmEgWlWzQk5irT18kWFmROiKSl1dDX7
+	 MI0O2UMutHUeGN8TQyCQnk9kBC7Ww7tb6lMbZ5sX9YDUFzz0xDE5z9aydPdSvTUxLA0Hq
+	 MVknA4InBiu5KhS0c/gsQcBVCkq1pKygeTk1KaF3HqjYQ5/JeoXq9s/EHv5IXaPg1b6FL
+	 8Keow8euD4NcJJltY8ZF7yJWhnUhLkw7wGRxuLZdj2/wHjxM/VGSGsaCZ0VhcMezExg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890404;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fGSRYjsDRIPHde1RyCd2bqv9F6MK6hgC71FGb/Xh81E=;
-	b=FK+93pJ+ycFQlP2l5/uPqjA0O1m8VtfMWhKWWlO8CEPzRSKV2x+qV7SyGzIewtjY0jXG
-	 X5kdiQFdrLwWmlV+oZLP4v6nL2qCWHsl2hPyibkYJcEe0pQJoYGyCyZ1HuCClNac01HLK
-	 JtfK/E55BOHvat2JqPcHaAUc4B9tj0Ew9xfjCOabHmH5EcYyFjKKC/oBoIPMH3pS3pQWI
-	 ab42mRQWv8v+RF1iYagaq0jnO3YusPqbZXoIGJcCbzvrzCR7BCl/5Zq1N7wJ9HJ0tz0mi
-	 vYCmz/xc/gLnh6TV/QgqYCxi8Is/hbNmZ2vsKq3OsAqPOj51fiGOnbi9+nwmBBNVcHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890747;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=XerAQQRSevSE4QkhqKdUzETATECEoWdnGYMmCc1jtYI=;
+	b=EJ5eWF7ALMbHuqyjkrCYyN4Co8P8aCbK/OVFhbERzEeSQD4GO/TZIvgdc+1gfdZInSOH
+	 ikcGjDHJ8pl0mEhIPfXZtJF6Zr4O2BTHFI6Qp4JfV78mJ1bv/A9Pg36JqqMcrefCU7Zqj
+	 P5sGnp5wwgiqXykBOizW/SXReo6OyZO7sVr9qDWaf2UIoxCyh7vox6RzZLAXLTu36XCs8
+	 DIpqsINOWNsmcDmyGbSNUeyo9/I10+wQaH2q3iqG3GSbuJuxTEENAxT6cv67yFyeZoPtM
+	 pjvVmQ8XeifS+dx94zZ0/U+0MKb3qkvbPgM1Mr87dhBxpizn6HAJG1riwB++B4Raf2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HBFO+UzD;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81D94606A328;
-	Thu,  5 Nov 2026 14:53:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81D94606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8xiE840;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64BE606A331;
+	Thu,  5 Nov 2026 14:59:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HBFO+UzD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CED98168F;
-	Thu,  5 Nov 2026 06:53:19 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0996E3F673;
-	Thu,  5 Nov 2026 06:53:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793890402; bh=0pp+iOkW01SlRmFBGgUsE3T2F2TU+P0ZCidd5+2nbNs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HBFO+UzD9u6FDVPqNq8nvE48ssjNEXul3ct0YSAw1XXlSXk5pL6TFy5aYawFRuJuZ
-	 C7eu/6ecS7T7bhepEEZZUPs7mCBaW+pHdpK/j7WUbqwx7ETJswQe+Ys+RlZuCvRZ8S
-	 OWod7O+v/hFP1ivwbsgM4JfWcXKMwJ+Q8qjdz36U=
-Message-ID: <d4ee8d56-9ae9-4fb3-ab70-2deaba3a5d0c@arm.com>
-Date: Thu, 5 Nov 2026 14:53:19 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8xiE840
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27E31F000C1;
+	Thu,  5 Nov 2026 14:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793890746;
+	bh=XerAQQRSevSE4QkhqKdUzETATECEoWdnGYMmCc1jtYI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i8xiE840FQLwyfQlkNIO1LoZf24MnCFPpe9VpEJ5SZTmI3JXUoDlT1aL3+9hFAPb4
+	 Ymk9yQBYhj0BZVGl0OmsqUM+v4QYh5g8wFVCClCNVxJtok3ZdO6py/PPzzp6ECeROn
+	 hnvrSMtxpHwYWvi6jVi4ADgbFIxUMl+Wrj8bv9auypbJJdqB1gjNRepBtq1xkhdpZd
+	 IoNvQeV/6evui9S6xUstZ12CirXjp9Mn8G493R+ss4Izs1ZjYz7bYorB9SUOYcgr7H
+	 LkqwOvJJ8kGApVtD3mv6BceV3DOkV8d6r1UUQtLtcuCLCtAy/t/yFtGPB496wCVs8Q
+	 85KLiGr8fYw+Q==
+Message-ID: <sashiko-outbox-199279@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261105144920.2796623-2-robh@kernel.org>
+References: <20261105144920.2796623-2-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 14:59:05 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,181 +58,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 7/7] qcom-tgu: Add reset node to initialize
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
- alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
- konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- Jie Gan <jie.gan@oss.qualcomm.com>
-References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
- <20260730080704.2903540-8-songwei.chai@oss.qualcomm.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260730080704.2903540-8-songwei.chai@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 30/07/2026 09:07, Songwei Chai wrote:
-> Add reset node to initialize the value of
-> priority/condition_decode/condition_select/timer/counter nodes.
-> 
-> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
-> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
->   .../ABI/testing/sysfs-bus-amba-devices-tgu    |  7 ++
->   drivers/hwtracing/qcom/tgu.c                  | 84 +++++++++++++++++++
->   2 files changed, 91 insertions(+)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> index a0cad2f16310..5c928a5fa033 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
-> @@ -51,3 +51,10 @@ KernelVersion:	7.2
->   Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
->   Description:
->   		(RW) Set/Get the counter value with specific step for TGU.
-> +
-> +What:		/sys/bus/amba/devices/<tgu-name>/reset_tgu
-> +Date:		August 2026
-> +KernelVersion:	7.2
-> +Contact:	Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei Chai <songwei.chai@oss.qualcomm.com>
-> +Description:
-> +		(Write) Write 1 to reset the dataset for TGU.
-> diff --git a/drivers/hwtracing/qcom/tgu.c b/drivers/hwtracing/qcom/tgu.c
-> index ea83273a628c..d65a68faa741 100644
-> --- a/drivers/hwtracing/qcom/tgu.c
-> +++ b/drivers/hwtracing/qcom/tgu.c
-> @@ -228,6 +228,18 @@ static ssize_t tgu_write_all_hw_regs(struct tgu_drvdata *drvdata)
->   	int i, j, k, index = 0;
->   
->   	TGU_UNLOCK(drvdata->base);
-> +
-> +	/*
-> +	 * Quiesce the detection engine before mutating any comparison input.
-> +	 * This function is also reached from reset_tgu_store() while the TGU is
-> +	 * already running (TGU_CONTROL == 1); rewriting the priority/condition/
-> +	 * timer/counter registers register-by-register on a live engine could
-> +	 * feed a transient, half-updated match into CTI/interrupt consumers.
-> +	 * Programming with CONTROL == 0 and only re-enabling at the end keeps the
-> +	 * program-then-enable ordering for every caller.
-> +	 */
-> +	writel(0, drvdata->base + TGU_CONTROL);
-> +
->   	for (i = 0; i < drvdata->num_step; i++) {
->   		for (j = 0; j < MAX_PRIORITY; j++) {
->   			for (k = 0; k < drvdata->num_reg; k++) {
-> @@ -459,8 +471,80 @@ static ssize_t enable_tgu_store(struct device *dev,
->   }
->   static DEVICE_ATTR_RW(enable_tgu);
->   
-> +static ssize_t reset_tgu_store(struct device *dev,
-> +			       struct device_attribute *attr, const char *buf,
-> +			       size_t size)
-> +{
-> +	struct tgu_drvdata *drvdata = dev_get_drvdata(dev);
-> +	struct value_table *vt = drvdata->value_table;
-> +	unsigned long value;
-> +	int i, j, ret;
-> +
-> +	if (kstrtoul(buf, 0, &value) || value != 1)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Hold the mutex across the whole sequence so it cannot race with
-> +	 * enable_tgu_store()/tgu_dataset_store(): the enabled check and the
-> +	 * hardware access stay consistent. No PM reference is taken or dropped
-> +	 * here - the shadow tables are plain memory, and the hardware is only
-> +	 * touched when the device is already resumed via the enable reference.
-> +	 */
-> +	guard(mutex)(&drvdata->lock);
-> +
-> +	if (vt->priority) {
-> +		size_t bytes = MAX_PRIORITY * drvdata->num_step *
-> +				drvdata->num_reg * sizeof(unsigned int);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] ARM: dts: imx6: Deleting Dwarf and Nymph .dtsi omitted by copy-p=
+aste in .dts
+--
 
-Please could you add a macro to compute "number" of each array ? 
-Something like :
+commit 22f4920daa7995325841819b6b25c37d2efd2b30
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-#define TGU_PRIORITY_SIZE(drvdata)	
-	(MAX_PRIORITY * (drvdata)->num_step * (drvdata)->num_reg)
+ARM: dts: nxp/imx6: Drop unused .dtsi
 
-So that we use the same size calculation for allocation and reset ?
-You may scale it by sizeof(*vt->priority)
+This commit removes four i.MX6 device tree include files that are not
+currently included by any in-tree device tree sources.
 
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi b/arch/arm=
+/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+> deleted file mode 100644
+> index 3a968782e854b..0000000000000
+> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+> +++ /dev/null
+> @@ -1,45 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> -//
+> -// Copyright 2017 NXP
+> -
+> -#include "imx6qdl-pico.dtsi"
 
+[ ... ]
 
-> +		memset(vt->priority, 0, bytes);
-> +	}
-> +
-> +	if (vt->condition_decode) {
-> +		size_t bytes = drvdata->num_condition_decode *
-> +			       drvdata->num_step * sizeof(unsigned int);
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi b/arch/arm=
+/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> deleted file mode 100644
+> index 3d56a42164482..0000000000000
+> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> +++ /dev/null
+> @@ -1,54 +0,0 @@
+> -// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> -
+> -#include "imx6qdl-pico.dtsi"
 
-Same as above
+[Severity: Medium]
+Should imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi be wired up to
+their existing board device trees instead of being deleted?
 
-> +		memset(vt->condition_decode, 0, bytes);
-> +
-> +		/* Initialize all condition decode registers to NOT (0x1000000) */
+Unlike the Kontron files, the corresponding board files for Dwarf and Nymph
+already exist in the tree and are built by arch/arm/boot/dts/nxp/imx/Makefi=
+le
+(imx6dl-pico-dwarf.dts, imx6q-pico-dwarf.dts, imx6dl-pico-nymph.dts, and
+imx6q-pico-nymph.dts).
 
-then why do the memset above ?
+When commit 98670a0bb0ef ("ARM: dts: imx6qdl: Add imx6qdl-pico support")
+added support for the Dwarf, Hobbit, Nymph, and Pi baseboards, a copy-paste
+error left the Dwarf and Nymph .dts files including imx6qdl-pico-pi.dtsi:
 
-> +		for (i = 0; i < drvdata->num_step; i++)
-> +			for (j = 0; j < drvdata->num_condition_decode; j++)
-> +				vt->condition_decode[calculate_array_location(
-> +					drvdata, i, TGU_CONDITION_DECODE, j)] =
-> +					TGU_CONDITION_DECODE_NOT;
+arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts:
+    #include "imx6dl.dtsi"
+    #include "imx6qdl-pico-pi.dtsi"
 
-Then, we could simplify the above to:
+    / {
+            model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Dwarf b=
+aseboard";
+            compatible =3D "technexion,imx6dl-pico-dwarf", "fsl,imx6dl";
+    };
 
-	for (i = 0; i < TGU_CONDITION_DECODE(drvdata); i++)
-		vt->condition_decode[i] = TGU_CONDITION_DECODE_NOT;
+arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts:
+    #include "imx6dl.dtsi"
+    #include "imx6qdl-pico-pi.dtsi"
 
-Same for everything below.
+    / {
+            model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Nymph b=
+aseboard";
+            compatible =3D "technexion,imx6dl-pico-nymph", "fsl,imx6dl";
+    };
 
-Suzuki
+(and similarly in imx6q-pico-dwarf.dts and imx6q-pico-nymph.dts).
 
-> +	}
-> +
-> +	if (vt->condition_select) {
-> +		size_t bytes = drvdata->num_condition_select *
-> +			       drvdata->num_step * sizeof(unsigned int);
-> +		memset(vt->condition_select, 0, bytes);
-> +	}
-> +
-> +	if (vt->timer) {
-> +		size_t bytes = drvdata->num_step * drvdata->num_timer *
-> +				sizeof(unsigned int);
-> +		memset(vt->timer, 0, bytes);
-> +	}
-> +
-> +	if (vt->counter) {
-> +		size_t bytes = drvdata->num_step * drvdata->num_counter *
-> +			       sizeof(unsigned int);
-> +		memset(vt->counter, 0, bytes);
-> +	}
-> +
-> +	/* If the TGU is running, apply the cleared configuration immediately. */
-> +	if (drvdata->enabled) {
-> +		ret = tgu_write_all_hw_regs(drvdata);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	dev_dbg(dev, "Qualcomm-TGU reset complete\n");
-> +
-> +	return size;
-> +}
-> +static DEVICE_ATTR_WO(reset_tgu);
-> +
->   static struct attribute *tgu_common_attrs[] = {
->   	&dev_attr_enable_tgu.attr,
-> +	&dev_attr_reset_tgu.attr,
->   	NULL,
->   };
->   
+As a result, the Dwarf and Nymph board DTBs are currently built with the Pi
+baseboard description (which disables HDMI and routes the LED to GPIO5_IO18)
+rather than their own baseboard descriptions in imx6qdl-pico-dwarf.dtsi
+(GPIO5_IO31 LED, mpl3115@60 on i2c1, and pca9554 io-expander@25 on i2c2) and
+imx6qdl-pico-nymph.dtsi (GPIO5_IO31 LED, adc@52 on i2c1, pca9554
+io-expander@25 on i2c2, ds1337 rtc@68 on i2c3, and PCIe enabled).
 
+Would it make sense to keep imx6qdl-pico-dwarf.dtsi and
+imx6qdl-pico-nymph.dtsi and update the four Dwarf and Nymph .dts files to
+include them?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105144920.2796=
+623-2-robh@kernel.org?part=3D1
