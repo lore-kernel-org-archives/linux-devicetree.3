@@ -1,77 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839373;
-	b=oF3uiD0BS3CkLrlqfubheDIwh4W7qR+2DG0XgjBwF9BCCIq4NcFE8opkU0agZS6PiXdE
-	 amkDzPD6pBQWQMHRTz//YupWPm3lKUXhnr3mIEbnt5yv87uBIVG7Lao6yPfMS/WoykjWB
-	 dcw4nLh8gM1sOjjpQ7NNURUn5MVm3PflNZ6k8wHdxI9Zbs0VYnDEXaeOS25ZAQzyu2va7
-	 JEv4elBIZBgmxXjK3XWCYBxP7a9lyHEh7HnEomHNpMlIE/n6DjUbYwAJs5q1HLQ7tT9lt
-	 +BFjrh2ISw4tHJr0s9qHeSOoVjrgE54VFmIDG2Nty/KIW/mDPDMqZA9zvjRrMXAUqZQ==
+	t=1793839397;
+	b=ENwfEPgYltos+ET1Zi1xeHnsc7QHK2Qbp/uaibdcWGWP6PXmRJr9TwOS5CtRSzYtVFus
+	 XXznoBBFR0ClnkkK93BLrre6W04323D3/pAz9Nk/gDwHu+xBIsTXvm4Q5UaynF2IMlDLw
+	 WVf7wrudx8VVOrLHRSn/LnROPL01rYFCpbkS8DKsnaZ3YqS4bMen38+iVwKS/BVS7BF+l
+	 OA6nzOmUa8J7OMJTY9tbdY9ep1PPeCJzc7oKjO1BOucciSsnmweMFAXaV2h1xfc/EEssi
+	 AmXAUPO5NXuZ/8ftDL8DVnPmo17vOKgZcrDvUp6WFS+/08BLDc29RBUydXtELBW27dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839373;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=dlcvkUVMW/9VrLP4zZpdDbI5u+zIZh6oyaHuXCV8ZD4=;
-	b=5qkxBYlXjKvpSp5wKv6Cpy9OAamLPUF7bhixD5iIkDL+3cXxfXd4SgpB5afPwiIiXUEz
-	 IF3/IK0vEPavlLyeV85SIyltrtwyjbeXwbUvkIxk8ll80dLZY5hyNC3iYjjfCgmeJZok5
-	 bbAYewXXCg5BzE+UDSRGost4VXPrURV7Q2aqg4jncvPTni6IUtZ9PHfffU+T+La6v6jvv
-	 2XQNMsjxyXHbvxijOUhUM2MApDzMupDc1aAAy8qbD1PaMDCmZ3Tl2MCSdYjVk0kIK4okA
-	 0Zx02mfx0wRH/eB0r8vGmlkRYJYVumI1nL8buiT5+aa9JId57MC5TvjiH/Ez4K4R8UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839397;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
+	b=MLlH2+DS+EifW8iv4thVCKnx4iJV97EsC8z6bbSeBmCncsmSNExyIBm2AJGzdPRNd6oE
+	 rupPDfXwq85JpYCHMSRldm4nygTkgyets4/IHuii2chewBvwExde1K/iIsDxEjqVzxD4G
+	 LgKgfplCqdSnVYJL5q3cXGsh73cXXVw9DDuFNP0le7LhUHzCKFe8qR0EXEn2Gh1aX1yQ5
+	 iDoBWQXCMYqdRe8G6kX27Zct2NrsorP9vw+SIQnUg1pPhuuPK935wWxCf087hPzLBx/vC
+	 Fpf/PKcFP8Ee6WQC/QIMGWw+NjnC5caK7Ck6PFY10HX4g+xXDXZnGZGvEZ2aBiDMrwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHBe0KMV;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB69606A32D
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 00:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB69606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032CC606A326
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 00:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 032CC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso699474a12.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:42:53 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHBe0KMV
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so10496965e9.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:43:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793839395; x=1794444195; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
+        b=VHBe0KMV+u5jMRSkLnXNHnK0mTosWLIroj2ejLHi5ZRnZUiscTEHSsspxPZulOp8Gn
+         twYUDF3uIMUTxDhmLF1w6238je3baH01ZhSyQDC6ZmRr4vyT+AB/GjGQg+akFB9mxQio
+         RD6blvWxlg260yKErdKEoqZXyXooOcTCGpAV1Fv2hYh0A1WlqsItwIv5OwI1pjC5B6jn
+         jfczZTroBf0+gHZxte1FnTzXjIiaDirC9Xx9ex0EFXvZVl2crZUSX1XJYZ2cWDaJWRaf
+         oYokvnvRrbkIY0Srp+Kxnsx5LrxlPvUbftXS6lyO4VevEQqFLnFlERvZozojCI3rvulY
+         fKWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839373; x=1794444173;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dlcvkUVMW/9VrLP4zZpdDbI5u+zIZh6oyaHuXCV8ZD4=;
-        b=cLPrXKy7ZlQVVJVB9x9GPmFgej6zPmrBHwKkfa4HQqlHlDIp+kjKP7yPGzQOPCD0kq
-         GoKpHZwfoHYXo4zlGGujlOfzcPrDABzEqyhbDaAHyOzfck69xMn9xHjMrjm5EKzoRbxD
-         aU6LBd676J7O5D2M3ax/swrPaTHPlRj7uoKx2Iyav+dNmolrf+z+INg1M+yXSq1SJuVS
-         +EER7l/7yF3ctTGLYCzxWQSyHDdjtW9M1FR304vNt1+OOv9pwYjHfpOOy+9RllvaaVCt
-         IfJwLQFs3Hwgk8Sa/mEk0dguDVTcTcBjXq5tGbntfUXfhi71wLBgc5UxSC8UblMVB6p9
-         Ne/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwldv+WNz4gb6IqMZrBHBsTTh0vMoXEC+AAqcZ433kdLNinnDm9ODWWiQcothSSwi0KameyDXYUXx6I@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JBk6MOjJ/GlQLNYOPGh3jp2qTyymiRZcuAY4pkRjyg/XAoYeI
-	ixX9UBTYVH1qzLi2uAznBIYWgvdyvsUpP61IuDBio40nbIXyGzKF2gJiO6cIaLRB
-X-Gm-Gg: AYBFou31s8dfYVHi2OA2r/CQsL9XVUB4QJn02rvVqnq/8c8kSvTqVWYkyL7AfF0Ll//
-	/FJCYO0B3IxdsxtE8hJVy2bndOIk9YzyC9P5OxZ5lW2uWOX30XCRaR/gImCBpfFerg4gBa7I4/5
-	KFnBTRdaG2VWtwZPLzLlPlSkWjwha09NbnK6SuaPfCxCUNFOt8G2g1qdKfHurDX9l5KKx5y/yoP
-	1EcEyFGuHCqHx4K9qKuB7BIwF7YSg6z5Zc6VJLiRib3Zd5yHf7BOtjwTE1VhxS8VVuyF13NXL9U
-	XQROlqQifLtCv87BLlo579Bek6znBWGkuYn7W9RTsBrpsjoHri70IvjJsUJV7CjRtEDtdJdf4Bi
-	vEHJZE3aAzZXi8RAmwUz6S0l5k8CMsUe8XnShRw8nt8vJAH+j5E9Xo4DO2rUOIKuKhSZudjBucR
-	Y/12mrwo9FTTqZijY+N7od6BXWqQMF8/uNSq8gzixiMEg0M50ZKNAJAK/UwzkUlgk0DBYY+QHns
-	WUJbr78bat9DhysGfjtHAhVXOAwOeV4LLNp3o8/RVnKG+1OM4j2NjDeUF6u6BuKC1v3gumw6KeH
-	Ceo7eGfMPXrQIdgJ18RahqlozeZRU7ugu+CBraC+YLgJNc/+ugbBgWHx8a/j609fwcJTR4l8qM/
-	NuN+NMFLAzdNf5waRM77cVjnwLjInGg3wb73UnOAu+3SCFU2q0kLTImNZ4F3iIMru
-X-Received: by 2002:a17:90b:4c44:b0:3ad:9ecf:2b88 with SMTP id 98e67ed59e1d1-3ae897356e2mr14059461a91.19.1793839372685;
-        Wed, 04 Nov 2026 16:42:52 -0800 (PST)
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com. [74.125.82.171])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b312e45dsm1286458a91.3.2026.11.04.16.42.51
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 16:42:52 -0800 (PST)
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35b2c599f43so782635eec.0
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:42:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwgN9iJ+YIQaXsxvtSCNLKgdJz9shTx8HFefdec/pUbPVfLCjaOzc0tiY4qtNueO6xR7jVXROLl5/8U@vger.kernel.org
-X-Received: by 2002:a05:693c:6092:b0:369:1084:8ee3 with SMTP id
- 5a478bee46e88-36a423e52c8mr30753485eec.23.1793839370626; Wed, 04 Nov 2026
- 16:42:50 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793839395; x=1794444195;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
+        b=XuOHUNiVS2yET/5UyjxqNKsUxdOrqUwzCRQdcIwDqOlRLAqNn+I1ID1megc+2eiblU
+         qQGKtqtAHr9mZhjYAQ8jKoAKA4Cw12+NTiwgEdbMqol0H6QBRUuNoe6HFKoHmZpUSPA9
+         rbYwjlsr6Zi233jFvW90fxQ1WRVS9YJr03GD3C5tjJQec3zqXmCAft2QANLGCQ+DnGYk
+         qhhjgAm8FsmAyhx6KhDaIPNvydzjiKPWwveReofrHFkIqacm3E/uKCL4WFOQlGIZRemt
+         1VdRWyKZjj9rxoVnpBJ3tFQo9Hsmsl8E2BIwPhXDeQvTJx+eOb+4d5pX1Kjz5cLp+Gi5
+         6a/g==
+X-Forwarded-Encrypted: i=1; AKwUvBy/zFMOVIwVutK9PgavJThwDaMaTF5urltcQ2ZAlrgTR/ZlSBs7Tf8pQdPFH8hX1co0aGbpubt/HCYs@vger.kernel.org
+X-Gm-Message-State: APuU4Z+S+jOFr7So6EdAwfgy6vCmH6rPG/6nacUJwv6Cd20P/uReVhVs
+	3MYIWGsbaYhd9Vx/u60U/fSiIKNT1rB8qVllMqU8YH67G3MWOWGyflbs
+X-Gm-Gg: AYBFou3Wz3HDhoBUAu8Cx3WMhOSb7GcNsSmOpzHXnTy5UPJDqcdqURzlhYmJdN2I8Mf
+	AAlqUGLIv4WziQzV1q2TTl9bLOCIGUBahE8i7sLWvbxJV+vN12qTj16qbG/uG9plyciLW3WLLY1
+	KXkzaVyu7bRsl3GfMxF3FAUwxooKSL7Ky/ycrLiPAiA9IAV2sRJDV+rcWAfbaWgp31kPP533MMi
+	I59TKMkFszfh51gL3tSoNvTbJHxmoXoW7YLyMZXsmImqBBZ02hlm5fJ5hk4ASpVH41CRHwIXCXy
+	G6TGD1TcyxUneMiL+MbzN2tyb1zVdCE2YIzzS4WyaDgHdyFUhWbwmE3hgkZW+UlrTZY8HCAkwjM
+	enUEpjlNXmsnMqGwUMmYKZ8ziWClhfdHjv49abXvOQnPctanwhc4cIZb90bY5+02I7L0neLi6pf
+	KgK+VH2Bd9Mz1jsKxyJtkkMBlEeXAxsdovoIxQwlHYoXrxsjFy7fuULHn16BRDA7o2cy08Yc+pr
+	h55YpdI7B7jqY63ukrb9msHVFl/X3OS77T/uh+ZjQeOByfRGWB0eQuOpYh2KPu8p2rbpr8dRIHr
+	KivvJs4TgmkRuoSaR4PQvSXBoSpbEaHnKoSjY3gCO8T71r8s4sjNePnpNEiodcp85tJlzGInjD1
+	inUxTpX8H
+X-Received: by 2002:a05:600c:8b2c:b0:4a2:5267:3cd4 with SMTP id 5b1f17b1804b1-4ac151a8c26mr415678795e9.3.1793839395161;
+        Wed, 04 Nov 2026 16:43:15 -0800 (PST)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b414b170d0sm62276595e9.1.2026.11.04.16.43.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 16:43:14 -0800 (PST)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Marshall <pm@petermarshall.ca>,
+	George Neacsu <geocausa@gmail.com>,
+	Hao Yao <hao.yao@intel.com>,
+	"D. Manresa" <dmanresa@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] media: Add the ST VD55G0 global shutter sensor
+Date: Thu,  5 Nov 2026 00:43:10 +0000
+Message-ID: <20261105004311.144035-1-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
+References: <20261103103235.94397-1-lsa.uz@pm.me>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,47 +113,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
- <20261104-sf19a2890-gpio-v1-1-45e463c48728@telaak.dev> <20261104-judiciary-fool-05c4157a7cc7@spud>
-In-Reply-To: <20261104-judiciary-fool-05c4157a7cc7@spud>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Wed, 4 Nov 2026 19:42:39 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ7SZAqNm55Wz6yC0_HP_DCVeDbr8b76+p73c484t7q8ug@mail.gmail.com>
-X-Gm-Features: AclHuK9UIWS9fpedIq3oDi0GN4EX_Euc3hJiZbuLEwPXjtpIZ-TUvM_M3RT-lRw
-Message-ID: <CAPY4CJ7SZAqNm55Wz6yC0_HP_DCVeDbr8b76+p73c484t7q8ug@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: Add Siflower SF19A2890 GPIO controller
-To: Conor Dooley <conor@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
-	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> FYI, these other devices need their own compatible strings when a dts
-> for them is added.
+Hi Sergey,
 
-Understood. v2 describes only the SF19A2890, and support for the others
-will come with compatibles of their own.
+On the Surface Pro 9 (Alder Lake, IPU6 8086:465d), on a 6.19-based
+kernel, with 3/4 and 4/4 in the bridge and 2/4 adapted only for 6.19 (no
+v4l2_subdev_client_info argument, and the "dvdd" supply name this tree's
+int3472 uses), plus an int3472 that passes 0 to the clock _DSM as on
+Hao's thread:
 
-> > +  reg:
-> > +    maxItems: 1
->
-> Move this below compatible.
+ - 4/4 gives the sensor st,leds: led_mode appears without the GPIO 1
+   fallback I used for v1, and at manual exposure 600 and analogue gain
+   8 the frame mean goes from 15.9 with it off to 32.7 with flash;
+ - with the clock now at a real 24 MHz and the link at 396 MHz, R8, R10
+   and R10_CSI2P at all four sizes run at 59.14 fps, as the controls
+   give, except R8 at 320x240, which now delivers no frames rather than
+   the third it gave with v1: the IPU6 limit on narrow packed lines from
+   my v1 report;
+ - v4l2-compliance 1.26.1 on the subdev passes 44 of 44 in both exposure
+   modes.
 
-Will do.
+This covers 2/4 to 4/4. I did not test unloading ipu-bridge, since a
+warm reload of the IPU6 needs a cold boot to recover on this machine. If
+v3 changes 2/4 only as in your reply to Sashiko's review, feel free to
+keep the tag.
 
-> > +  ngpios:
-> > +    description:
-> > +      The number of GPIOs available on the controller implementation.
-> > +    minimum: 1
->
-> With no maximum?
+Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6
 
-v2 drops ngpios instead, since the compatible implies it: the driver
-will take the 49 lines from its match data, and the binding will take
-exactly four interrupts, one per 16 lines.
-
-> Please fix the ordering here too.
-
-Will do, in the same order as the properties.
+Fernando
