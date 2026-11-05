@@ -1,84 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880984;
-	b=dbTNsXpEqKwrjtIET6ieEZQs2hJBTK9PEQOKwNcq475kXJd0jWkkAyo1HZaqudVAp60V
-	 5SvzpOs1CthxushaYDMrIWXxqUCO1jU47pAfC2PgBro1Kzf7Q5JEJdSpTxjnjCGce5yjI
-	 1c41mP/rQt24jRMy4P0LPacaFYlJjS8Jr5o7/TQY1S/OKJ/e8qvAMz8+eTmPkzZucANhB
-	 d0NvO04MDHrsaE8zvwQGj5+xKpUdfin90OhVZ/hgHblNLTzsC4/hFYMi0CIpyMNOu/ru8
-	 mirquzoVnzzdz03pBrBkXXNzy0e4gSKAYhY5EeOKCpumIImQ/ftELfnPTyt3AeSKi9Q==
+	t=1793881011;
+	b=pRCJmAtsuV31tKdrVjJN7kUUtU5BKW8parYfz9jfX/Vibv2i081TDAO/uKLOsReZDkRC
+	 y1DQ+2NA38juJoewMt28kF4oiZI8d1yyqTaSsKDoyrwSzTA67q16/Pz+zO0DXDdB2zshi
+	 a5nCZsvR2AA12jrqzE4sQ9hl/DAM/JSdkTIEomjjf70s4tnG//RBZOO2K6MzYcae7aNSE
+	 z9oOzPr87tSby/y6mHi2ugmuaEB2dWghVF9aCn+i5neibzYEEuXTwYvIDSNWItG/T5VW2
+	 fAx2l9IC8ZigdARW7j1LEPwDdp99mJY+peJGWT8eRj/67GGutcaiMXw7H7YaCsmCCcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880984;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=Rok9y466uiAnE7+/08y7ZZu4eo0bVUdHlL7+Y3vBUYM=;
-	b=EMaQ3UzHtgP+BLAJFrWBMjumVPPn8o+IkVJ2Dfs0d11ZbONIGHZVziYSQNY2eDr6UISA
-	 s/Nm4FERLe2B/46+rP9+HoFwWWZbuI66R5W99h9xYCAUD84IwmfNi57sZtCWu6IWt5TRF
-	 4SmJkX1Uof1cF8bBCSCWM4ubCxdgbzhFDFIqZB51KXJOItXe0AODDQP8T2rrQpNG+VVkT
-	 TpzmJXOevmUOZVUBQCz5Z62BrnsqTW/p2FikwDFRUlA8IKu9SoAeD/alttYLWHfCrgLSd
-	 DX7qRW0lwf5LZcO/C5VJOirFx75sa7d380J3LzTbmhTua7YPlS/LgtMMrjQefUCrvtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881011;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=JTSjfoMA+kGpbLg+09oTKfrhtL9KMZD6MOmCmLMheBU=;
+	b=pgoQYMJHYLcKpzFnsY+Gw722RxmBm2Ipl9HrCZx6696A+7BH3bikaZ2lTqBlsnx5ML2C
+	 29Tuk6Z93x0n4Bh4pca2Xw650/SrrUY6o9RckAwMyQQIJz+7TSqZXkrjVafJ75XDh1OsY
+	 u67KxjnekfR9egKg7gD9P3/IWAkVJtWlQIfD5QD04Pcq80lMdRoMSzqUWnItT4lb84SOQ
+	 /beGDFpWyLGvkIg+csrT2EXDCPJ+LZ4AyCf4KDfNWCKS02h0kCtCaFhXJbXfoPPxZWTBB
+	 XbkSLnUsEd1VziGSgCcwX84nSDfc/pHSnXt45Sz/zs7YwHobc15TplV3ys8fDraikvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdxOm3st;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZnuKeIh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FBE606A329;
-	Thu,  5 Nov 2026 12:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84FBE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE5D606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:16:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdxOm3st
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793880984; x=1825416984;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=d3FPpE0PAVKvJcm9KCS0u8FKppycCkr6BvUrJr0nJvU=;
-  b=IdxOm3stJwgVyx85vZc4zW7hwqmAyxcg8fOrt20FzMXNM7M7plqUydf8
-   mJtlWD1Jd25gIZZhyGxjBeHIEqGndS9f1qp3HbN+ah8AqChG4LgvfRZzC
-   yKWnh81n3FYYE6DNEE3i6XfnPRbsBfDU7BOYM4wZbe+OD8qDGWuZsxrGo
-   uDyL4hU38yjdxLzDBV4+sAcYRbzot82GdPTvlGIE9WXwZDsImUIRzz+NL
-   ukP31S+PnL4GqLZIAnYDJxvuIxeYb3H4cineSitcIl7cr3zcJnnw2IFY0
-   FXNecH/xFnaB2ogZ/haaYPbEcRBcrJCfqqaQIUQu/hnSD3MQQpRgx9l85
-   A==;
-X-CSE-ConnectionGUID: Pa4mvpmYStS/BEF7Eqty9w==
-X-CSE-MsgGUID: 9BmKnDdoTrqQTfkkOvLwNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2550359"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2550359"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:16:24 -0800
-X-CSE-ConnectionGUID: ZKcPsXtrQtSIhU6MjnwIfw==
-X-CSE-MsgGUID: nL1LzVOSQS6LI3AF41/kRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7320751"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:16:20 -0800
-Date: Thu, 5 Nov 2026 14:16:17 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
-Cc: jic23@kernel.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dragos Bogdan <dragos.bogdan@analog.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: ad7405: Add support for
- ADuM7801/7802/7811/7812
-Message-ID: <auxzkfpzV2Zr9QSo@ashevche-desk.local>
-References: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
- <20261105093531.7562-3-pop.ioan-daniel@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZnuKeIh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CBE1F000C1;
+	Thu,  5 Nov 2026 12:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793881010;
+	bh=JTSjfoMA+kGpbLg+09oTKfrhtL9KMZD6MOmCmLMheBU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OZnuKeIhZqd1cum3u9WPQKY8JIL3VjYL4RUQxLkzwnFay5yTUOWWQhFOpRhnZOZUM
+	 MY2toU06BHHhG0mtkM2LAwu3u6BLl0lmvR0TIrB1uP3m72joxr11grAzdULyZP6Jop
+	 yutME5eq3/ryvl85OaOnvD7ud8UX1YyVS85a8GdPpoQzp1879PpMZDhJsinkcdMIuY
+	 v8GfH0zRUeDTqDYnK2RnBs06KrIi/QBhjf8HaMIzFBz36PlNCNgwt1PFTZ36+Rwj64
+	 +8QKMTCKS1npKGd2oojr5iRHoMVA3BZHtx4RczbJ0GVf8ewKwirkWejCrgFCy4hx/4
+	 bVdYmLGiOc9oA==
+Message-ID: <sashiko-outbox-199006@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/8] nvmem: stm32: add TAMP nvmem driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Patrice Chotard" <patrice.chotard@foss.st.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105-upstream_nvram_reworked-v5-3-ddf7dbf1b298@foss.st.com>
+References: <20261105-upstream_nvram_reworked-v5-0-ddf7dbf1b298@foss.st.com>
+ <20261105-upstream_nvram_reworked-v5-3-ddf7dbf1b298@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 12:16:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -87,42 +59,187 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105093531.7562-3-pop.ioan-daniel@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Nov 05, 2026 at 11:35:31AM +0200, Pop Ioan Daniel wrote:
-> Add a chip information structure and a device tree match table entry
-> for each of the ADuM7801, ADuM7802, ADuM7811 and ADuM7812. These parts
-> are handled the same way as the existing ADuM770x devices and differ
-> only in their full-scale input range: ±320 mV for the ADuM7801 and
-> ADuM7811, and ±64 mV for the ADuM7802 and ADuM7812.
-> 
-> The device tree binding lists the ADuM7701 and ADuM7702 as fallback
-> compatibles, so the driver can handle these parts through the fallback
-> alone. The dedicated entries are added so that the IIO device reports
-> the real part name instead of the name of the fallback part.
-> 
-> Rework the Kconfig help text to list one supported part per line, so
-> that new parts can be added without rewrapping the text, and make the
-> prompt generic instead of naming only the AD7405.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] nvmem: stm32: broken empty zone handling in stm32_tamp_nvram_bkp=
+reg_get_zone()
+--
 
-> -	tristate "Analog Devices AD7405 ADC Driver"
-> +	tristate "Analog Devices AD7405 and similar isolated sigma-delta modulators driver"
+commit cc344e612aad158ca9ed69f02f411f367bdfd26a
+Author: Simeon Marijon <simeon.marijon@foss.st.com>
 
-Update the top comment of the driver along with MODULE_DESCRIPTION() so that
-all three have the same (or quite similar text, like without word 'driver').
+nvmem: stm32: add TAMP nvmem driver
 
-...
+This commit adds an nvmem provider driver for the STMicroelectronics STM32
+TAMP backup registers on STM32MP1 and STM32MP25 SoCs, checking hardware
+protection zones and compartment isolation rights before accessing the
+backup registers.
 
-Otherwise LGTM.
+> diff --git a/drivers/nvmem/stm32-tamp-nvram.c b/drivers/nvmem/stm32-tamp-=
+nvram.c
+> new file mode 100644
+> index 0000000000000..81096a5d02829
+> --- /dev/null
+> +++ b/drivers/nvmem/stm32-tamp-nvram.c
+> @@ -0,0 +1,680 @@
 
--- 
-With Best Regards,
-Andy Shevchenko
+[ ... ]
 
+> +static int stm32_tamp_nvram_bkpreg_get_zone(struct stm32_tamp_nvram_priv=
+ *priv, int reg)
+> +{
+> +	int *idx_bkpreg_zones_end =3D priv->idx_bkpreg_zones_end;
+> +	int nb_zones =3D priv->data->nb_zones;
+> +	int protection_zone_idx;
+> +
+> +	if (reg < 0)
+> +		return -1; /* negative reg is the boundary of an empty zone */
+> +
+> +	for (protection_zone_idx =3D 0; protection_zone_idx < nb_zones; protect=
+ion_zone_idx++) {
+> +		if (reg <=3D idx_bkpreg_zones_end[protection_zone_idx])
+> +			break;
+> +	}
+> +
+> +	if (protection_zone_idx >=3D nb_zones)
+> +		return -1; /* the reg is not a part of any zone */
+> +
+> +	return protection_zone_idx;
+> +}
 
+[ ... ]
+
+> +static int *stm32_tamp_nvram_get_backup_zones(struct stm32_tamp_nvram_pr=
+iv *priv)
+> +{
+> +	struct device *dev =3D priv->dev;
+> +	struct regmap *tamp_regmap =3D priv->config_regmap;
+> +	u32 offset_field;
+> +	int nb_zones =3D priv->data->nb_zones;
+> +	int zone_idx;
+> +	int *idx_bkpreg_zones_end;
+> +
+> +	idx_bkpreg_zones_end =3D devm_kcalloc(dev,
+> +					    nb_zones,
+> +					    sizeof(*idx_bkpreg_zones_end),
+> +					    GFP_KERNEL);
+> +	if (!idx_bkpreg_zones_end) {
+> +		dev_err(dev, "Can't allocate registers zones\n");
+> +		return ERR_PTR(-ENOMEM);
+> +	}
+> +
+> +	/* Get the n-1 frontiers of zone within the tamp configuration register=
+s */
+> +	for (zone_idx =3D 0; zone_idx < nb_zones - 1; zone_idx++) {
+> +		const struct reg_field reg_field =3D priv->data->config_reg_fields[zon=
+e_idx];
+> +		struct regmap_field *field;
+> +		int ret;
+> +
+> +		field =3D devm_regmap_field_alloc(dev, tamp_regmap, reg_field);
+> +		if (IS_ERR(field)) {
+> +			dev_err(dev, "Can't allocate registers zones\n");
+> +			devm_kfree(dev, idx_bkpreg_zones_end);
+> +			return ERR_CAST(field);
+> +		}
+> +
+> +		ret =3D regmap_field_read(field, &offset_field);
+> +		devm_regmap_field_free(dev, field);
+> +		if (ret) {
+> +			dev_err(dev, "Can't read field for registers zones\n");
+> +			devm_kfree(dev, idx_bkpreg_zones_end);
+> +			return ERR_PTR(ret);
+> +		}
+> +
+> +		idx_bkpreg_zones_end[zone_idx] =3D offset_field - 1;
+> +	}
+> +
+> +	/* The last zone end is defined by the number of registers in TAMP */
+> +	idx_bkpreg_zones_end[zone_idx] =3D priv->data->nb_regs - 1;
+> +
+> +	return idx_bkpreg_zones_end;
+> +}
+
+[ ... ]
+
+> +	if (priv->data->nb_zones =3D=3D NB_ZONES_STM32MP2) {
+> +		priv->bkpreg_access =3D stm32_tamp_get_access_rights_mp2x(priv);
+> +
+> +		if (IS_ERR(priv->bkpreg_access))
+> +			return PTR_ERR(priv->bkpreg_access);
+> +
+> +		dev_dbg(dev, "\n"
+> +			"Zone 1-RIF1 %3d - %3d %c%c\n"
+> +			"Zone 1-RIF2 %3d - %3d %c%c\n"
+> +			"Zone 2-RIF1 %3d - %3d %c%c\n"
+> +			"Zone 2-RIF2 %3d - %3d %c%c\n"
+> +			"Zone 3-RIF1 %3d - %3d %c%c\n"
+> +			"Zone 3-RIF0 %3d - %3d %c%c\n"
+> +			"Zone 3-RIF2 %3d - %3d %c%c\n",
+> +			0,
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
+> +						true) ? 'R' : '-',
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
+> +						false) ? 'W' : '-',
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF1] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
+> +						true) ? 'R' : '-',
+
+[Severity: Medium]
+Can stm32_tamp_nvram_get_backup_zones() and
+stm32_tamp_nvram_bkpreg_get_zone() misclassify backup registers or misreport
+zone boundaries when one or more TAMP protection zones or RIF subzones are
+empty?
+
+In STM32MP1 and STM32MP25 TAMP hardware, the zone boundary fields in
+TAMP_SECCFGR and TAMP_BKPRIFRx (BKPWRIF1, BKPRWSEC, BKPWRIF2, BKPWSEC,
+BKPW3RIF1, BKPW3RIF0) define cumulative register offsets from TAMP_BKP0R.
+
+A zone k > 0 is empty when its offset equals the preceding zone's offset (so
+zones_end[k] =3D=3D zones_end[k - 1] >=3D 0), or when a subzone offset fiel=
+d is
+left at 0 (so zones_end[k] =3D=3D -1 while zones_end[k - 1] >=3D 0). In add=
+ition,
+on STM32MP25, BKPWRIF1 only subdivides Zone 1 (bounded by BKPRWSEC) and
+BKPWRIF2 only subdivides Zone 2 (bounded by BKPWSEC); if BKPWRIF1 >=3D
+BKPRWSEC or BKPWRIF2 >=3D BKPWSEC, Zone 1-RIF2 or Zone 2-RIF2 is disabled a=
+nd
+Zone 1 or Zone 2 remains capped at BKPRWSEC or BKPWSEC.
+
+In stm32_tamp_nvram_get_backup_zones(), idx_bkpreg_zones_end[zone_idx] is s=
+et
+to offset_field - 1 without clamping BKPWRIF1 to BKPRWSEC or BKPWRIF2 to
+BKPWSEC and without normalizing empty zones.
+
+If BKPWRIF1 > BKPRWSEC or BKPWRIF2 > BKPWSEC,
+stm32_tamp_nvram_bkpreg_get_zone() checks
+idx_bkpreg_zones_end[BKPREG_PROTECTION_ZONE_1_RIF1] or
+idx_bkpreg_zones_end[BKPREG_PROTECTION_ZONE_2_RIF1] before the parent zone
+end (BKPRWSEC - 1 or BKPWSEC - 1), which would place registers beyond
+BKPRWSEC or BKPWSEC into Zone 1-RIF1 or Zone 2-RIF1 and apply the wrong
+access rights during stm32_tamp_nvram_read() and stm32_tamp_nvram_write().
+
+Furthermore, stm32_tamp_nvram_bkpreg_get_zone() assumes an empty zone always
+has a negative end index (reg < 0). When zone k > 0 is empty because
+zones_end[k] =3D=3D zones_end[k - 1] >=3D 0, calling
+stm32_tamp_nvram_rights(priv, zones_end[k], ...) in stm32_tamp_nvram_probe()
+matches zone k - 1 (the first zone with idx_bkpreg_zones_end >=3D reg) rath=
+er
+than treating zone k as empty. Conversely, if a subzone k > 0 has
+offset_field =3D=3D 0 (zones_end[k] =3D=3D -1) after a non-empty zone k - 1,
+stm32_tamp_nvram_probe() logs the start of zone k + 1 as zones_end[k] + 1
+(0) instead of zones_end[k - 1] + 1.
+
+Should stm32_tamp_nvram_get_backup_zones() clamp the RIF1 subzone offsets to
+their parent zone boundaries, and should empty zones be tracked explicitly
+rather than relying on zones_end[k] < 0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-upstream_n=
+vram_reworked-v5-0-ddf7dbf1b298@foss.st.com?part=3D3
