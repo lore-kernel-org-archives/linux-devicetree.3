@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879547;
-	b=hdKTHql/XDXus4iCKJNxuObu/qfCQzAiUuMLEN/d32w9OGGr2JNEfF2MdAGifdQxtJKO
-	 IJbcxN4KKDJ/yXXY9b9NqnEzx2D9W/C8RUQ35VFRGltAV3ncSPOd8d3mbLmQwSD+v9R0X
-	 M0iMIkBGT4H4DTOZTHNmnHA9VSWoEkA85gZkjOVebQISINkW5OudJP0flZkFggdT2iLIf
-	 m8XfL51XToosV8hoRk0imI0mVQhum5PXOdLwEQ+yP8QWgny89q+Qaa5LMqjmV1/a7s4TZ
-	 qkEx7d6UDm6aNXnodmlkSEn0xya97xeZUaSvsLaoUIUaqxfP51Hu4MPCdoQIRI5UZdA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879547;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=0yf/VBr9PgSD2TLcROBoj1QltxuNWALI4+9T58rMh/k=;
-	b=Mx9dwDzxG4ewBcliAzl/YkWk/YJIlj6TtrceqL5EUY+Fj2QARRvXyrEhqmF3+zD1xBNl
-	 d2huRM8xK5W0/7P8Y0G7IfFWx6ltt0cq0ebhWZqw4+Wq41bn8/zG1tBZbVY5qR9yOJmOg
-	 vYnXcWPI0K6nEd3IepesDWbE7iH1XEstzjyvyqbK5GD8ZH5MGEuNL18PH/aadcXTt4sQU
-	 LarRm+ilmgfNNxcIwC/aDFHFPHiwbDYJD2dTSAeVvssFPJ0ib4CflZGQbDG4nwfxzbMKz
-	 pdDM3n/ICKR9mYsh8X5WK71T8E1u8rCVR2eXvMNNbiJ/Fm7b+gfxgF1IvD4LoEDDSJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XcJht3bK;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793879764;
+	b=hTYqrDHKzj8iUvuWgQjIGbjVxpQ4sDroGIObC1vZsYAmfuTxXAASV26xSx95tjV3pnof
+	 nIGvWGj/22kWFsKgvdmjcvpikzcvb+GpaT2kTqT+HzUAPOAfIu2ODSwuO+O70urzdWAGh
+	 8sdu23uoFvoxi9tPJx2vHknQdTM24Kh+v/nJPwbPXVqZw4Sdj48qu3MAbAm/x1xPZT9OL
+	 A3QGHM9SoeiPlg8k4QOAiP7rvXchKCptMuIdZeClWTZs3nINoW+8S+XiIfV8yPfhjJYbx
+	 NSIOm/1VujL4h/gKNaxwNq271TzqwxDGRj2cmcsU9eIdLlRJFFRp1m29UgqjzsiHTPQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879764;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+	b=o6wdb4wXFygGeSfUjt3HU17uGjjkW2FOEpxrLRm8cVeH060WgusZeAWp6rKC8pxKYDSx
+	 SWTJ/HzcfoLfwTuiKHOWsKnI3wkvvpC/lJZ5QsZB9vFEDMpxwmvT657AbI6QK9P1GT8+X
+	 aqJcjUUxQ7SpSl2dfdiwcjmzVT8AI5sxM73OeDaSzI0Z9Kpu67y2sYVIMoQcJk3aeJwg0
+	 oqVH3tez7PiVhGdAPLD8cDe90v1kOy2dYAN5LVarsE6J6Wpj22mERzLCnF/pFoovQRQaV
+	 eSBJ8sMj3UtR+7+leSuNDaTMoXC8FmYv+8KiO8uqMs4Ku5eqpax40o76vypB8LBeYsw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ZWNvpwl8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179C9606A901;
-	Thu,  5 Nov 2026 11:52:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 179C9606A901
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663CE606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:56:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 663CE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XcJht3bK
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261105115223euoutp02401577e35fde163e971d044c1a1e6b40~lI-CoNlxl3120631206euoutp023;
-	Thu,  5 Nov 2026 11:52:23 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261105115223euoutp02401577e35fde163e971d044c1a1e6b40~lI-CoNlxl3120631206euoutp023
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793879543;
-	bh=0yf/VBr9PgSD2TLcROBoj1QltxuNWALI4+9T58rMh/k=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=XcJht3bKEcPNl4tHHo0odfzx0/lNUxBnLjQzrpY0jOOiwxhPsGfsqK6zkDMziJeFv
-	 Qa9BFEFIB6kRiXQpuLwEsLm8qIDP6PxCFVDC8Rd63QgkFyuflwg44q2A6q0CQBu/OW
-	 9hsCh/wnbjl4C3owfDiOalFk4sUorY1dq/NYOu7o=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105115222eucas1p13e1fdfcf650934bf98ae67a9ceba38a7~lI-B4ePgq1887918879eucas1p1B;
-	Thu,  5 Nov 2026 11:52:22 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105115220eusmtip1dbbc5e03d0addbdca200fe0d0fffba71~lI-ANWOBC0047900479eusmtip1V;
-	Thu,  5 Nov 2026 11:52:20 +0000 (GMT)
-Message-ID: <54a2c7d1-f8d4-425e-966c-ae11ca03e13c@samsung.com>
-Date: Thu, 5 Nov 2026 12:52:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ZWNvpwl8
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1414722a91.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 03:56:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793879763; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fq6MWQHMFkhNUAgSu/N2e8cV3IAzdiKlSVsKdq3xIp9dEeqD7iNvgCUtRKwCotAo/p
+         CHUKOryqde8m1G0sj6EFKgn4CSklB2D3IPu76q/mVGBHBt2wZOl82L4Lmc2Q4ENWSTir
+         lUg82CXZbxTT9nmrxDUCWOnQ1uOhztzyD31ZLRT+xNv4iGmZqR19zajlGakmlXOViV86
+         NItAOG3yDY3LeeQwMiHVdLxNmchxtFjFljrzf9J9lIZK/TrDX+bSC55C/POCiTXrXAgc
+         JQ0GcZUJQK3B9kTFTtV6Tk0hUrYnh4nU9tCsQXUK1syi0HyGQETolkGy7bn2SMQz+p8T
+         SE5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+        fh=8vWZxSDed6ZnN4lMvCIuRPd7pCv1hmIfW3w2u0oj9tM=;
+        b=a+wPYTTVCpVKI052QWo+RM5LxWYvIbb1v9gKtZ2QDDfk3rhCO/EuHdU35MnNjVv2/n
+         hKP9xefxZhHQVhs/MBLIY/ZudT1FUJuDufO075BhIVdILOq05Py5U05BaC9FLQMKaixT
+         EXqZzxYjUqdmEq1AtByx+OJIt61/dLdUNbcB3q8exh0wLHbZ2P4LMnvEttatLhS+r097
+         0PXDRgEWduXHyEVUXcDQ4jcGo56FeqD27AZj4SnwwDieoaewkFJyTvdqfnUpe88x/fw3
+         nNux4iMq1skKEG/NGStk3fe1GhiWBGtXPcMYeQvvYtohO/wR0nHsdqRm8vBhMDvt6i+j
+         LypQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793879763; x=1794484563; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+        b=ZWNvpwl8JhILyTVSbTkRTaBTLVZ7JjOfhCR2xdaoogR5HQKIXSEFWL/ay0ob5rHOnQ
+         bbAS2bOh2TibflBHMrpCUztkxHaOB8TTeHumBu57vauYSY6tFgzb/Q8bKhHb71Ys/FJR
+         vd0s1LsZWJcl2zpxO62xN/r/Xww/z/D4zBh01Ob2rzHx4TnqmyGcaudlKg5DYmlHi8F4
+         MB7dPe6YX9aN/f+0uZKhvZa1+fFYQKDS+oIx3ZZEWjrCn4tEgSU7EC8ncuA1rFBEcXD6
+         zcrhHxCvR+tRxuUMQG6+basHl/gvPyoJgySuKOngpo0XRUP8rj1A1QbkU/y9U1BrLWpY
+         RL5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793879763; x=1794484563;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PaO3mUrvyrlxLx6T6FMLOlGYCy2w7sWQHAyzdDwn7S0=;
+        b=m7qj0gY7hB5om3c00az0OM6xKaVM3xbcqPZdP/1ywqWqzqxF6LfPf+U7/z+8jligFu
+         CBY91DzlQBtfWHQoukzrSfI5af/GI7YifGtJtfvzPNp7h1EUEoOEKF7SCfP4zx5Gv7LG
+         kmHDrzD4v3rU22/NfEg1RicqIoJcn0Tx/oxUEQVgeFx1JiGV9ak5AbbUUWyutJ59krvv
+         9oUVK1yDx1PM6D5sGNj2DRq6oqnJP8wJyZebTcQRZX+b2WNzqm9euTqZ/HfTTej0tspF
+         iyYnYqhS2+9+FSij87UOpvSRYPgMbzCUEwnyhzuoED1NU1S0OHDFiPdOzm1MeOo7ejaf
+         OUZA==
+X-Forwarded-Encrypted: i=1; AKwUvByfCxi6ENXflv9urdX0m32gG/RBm4if3SgLywfScAWseblkludW1dGID2d7Cf/nVSQyPZBBwkVKTgfD@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PQBWp8EQKDZz/BMgylDICZ59LUql19URLitSuoBA5wjhntExH
+	Mh5F/glLMyHH8dOL0ntG8d8K9udwdQpbXX+z+CZSzAdGzi9h1t3IBO0ZmKzOtZEOSdv9hyDrV+7
+	Oe7w0KiTmxF/k1C/gPFklSlUE/7EuEeNZ+gj6FL/AkQ==
+X-Gm-Gg: AYBFou3QEEBF6FYIBussdCX7vTUegLnIJPhoHaks+ijs9QCSM6Xgskd2Po3nl6hbGjF
+	URRBGToc9klFqvNWwATGvrtLvwDR2HQlIpxABHTNRPJrsxzRerwv6J/ANyAbElggE46UQWyAWdQ
+	Ejs91REHcRoNPbbzCEN+a8Eu5ANPe747+yBKbsXz4UJuA3X45bzKBBrEzXaSvCC+INUKYU3KfYG
+	coDlUQOnLoW2k9akjrf44pNbV2VEcMkthG64rd+apmogij22LjZ7HOptsnTrPe38sOCtTYgmsf9
+	GQJVZJ/Hw5WdkgbMoxqZOW5GdzKEJmI2WvyXTxl5GsHmLTJ3QSCca82tweheEfDRM3b/9y0zqRs
+	ivJg7C3JIhzMgXKU8Q1eHRCqgGIOxrzpcc4F0
+X-Received: by 2002:a17:90b:3b83:b0:3a8:5d1f:59ad with SMTP id
+ 98e67ed59e1d1-3ae89819ff5mr17083778a91.43.1793879762611; Thu, 05 Nov 2026
+ 03:56:02 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,156 +103,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 09/18] drm/bridge: inno-hdmi: Allow the register map
- to come from a parent
-To: Heiko Stuebner <heiko@sntech.de>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
-	Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
-	<hal.feng@starfivetech.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
-	<andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
-	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
-	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
-	Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>, Byron Stanoszek <gandalf@winds.org>, OOHehir
-	<oo.hehir@gmail.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <3194397.687JKscXgg@phil>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261105115222eucas1p13e1fdfcf650934bf98ae67a9ceba38a7
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029075407eucas1p1c9b0d887cafa4c3c10bb34fa3ef3c4b7
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029075407eucas1p1c9b0d887cafa4c3c10bb34fa3ef3c4b7
-References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-	<CGME20261029075407eucas1p1c9b0d887cafa4c3c10bb34fa3ef3c4b7@eucas1p1.samsung.com>
-	<20261029-jh7110-clean-send-v6-9-759594e43acf@samsung.com>
-	<3194397.687JKscXgg@phil>
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com> <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-12-1bb63ef5766e@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 5 Nov 2026 11:55:50 +0000
+X-Gm-Features: AclHuK8Jj7G6el-i8_82b6TJ0oa9AUPdN0owTnb0JTIANqcEHa0Ic8C9cFJ1sYI
+Message-ID: <CAPj87rOAjcLZeKsKCMr84NoN89VzRDLV7Z8LySHK-DVyRW=u2Q@mail.gmail.com>
+Subject: Re: [PATCH v6 12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code
+ in atomic_check()
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> dw_hdmi_qp_rockchip_get_vop_format() calls
+> drm_atomic_get_bridge_state(), which takes the bridge private object
+> lock through the atomic state's ww acquire context and may therefore
+> fail with -EDEADLK when the lock is contended.
+>
+> The DRM core expects -EDEADLK to be propagated up from atomic_check()
+> so it can drop all held locks and restart the commit.  Replacing it
+> with a hardcoded -EINVAL defeats this backoff mechanism, making
+> otherwise valid commits fail spuriously when multiple threads perform
+> atomic commits concurrently.
+>
+> Propagate the error code returned by the helper instead of
+> unnecessarily overriding it.
 
-
-On 10/30/26 19:01, Heiko Stuebner wrote:
-> Am Donnerstag, 29. Oktober 2026, 08:53:43 Mitteleuropäische Normalzeit schrieb Michal Wilczynski:
->> On some SoCs the HDMI controller does not own its register window. The
->> StarFive JH7110 documents one 64 KB block, u0_hdmitx, that holds both
->> the controller and the PHY, so the parent device maps it and owns the
->> regmap while the two children share it.
->>
->> Use a regmap supplied by the parent device when there is one, and keep
->> mapping our own resource when there is not, so platforms that own their
->> register window are unaffected.
->>
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->> Tested-by: Byron Stanoszek <gandalf@winds.org>
->> Tested-by: OOHehir <oo.hehir@gmail.com>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  drivers/gpu/drm/bridge/inno-hdmi.c | 31 ++++++++++++++++++++++++++++---
->>  1 file changed, 28 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
->> index 222f6522844ee60ae9a07ab2dcca748dbf7403e4..a8905bf627a224d7e3918514195f1810164dc26f 100644
->> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
->> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
->> @@ -397,6 +397,7 @@ struct inno_hdmi {
->>  	struct clk *pclk;
->>  	struct clk *refclk;
->>  	void __iomem *regs;
->> +	struct regmap *regmap;
->>  	struct regmap *grf;
->>  
->>  	struct inno_hdmi_i2c *i2c;
->> @@ -470,11 +471,25 @@ static int inno_hdmi_find_phy_config(struct inno_hdmi *hdmi,
->>  
->>  static inline u8 hdmi_readb(struct inno_hdmi *hdmi, u16 offset)
->>  {
->> +	u32 val;
->> +
->> +	if (hdmi->regmap) {
->> +		if (regmap_read(hdmi->regmap, offset * 4, &val))
->> +			return 0;
->> +
->> +		return val;
->> +	}
->> +
->>  	return readl_relaxed(hdmi->regs + (offset) * 0x04);
->>  }
->>  
->>  static inline void hdmi_writeb(struct inno_hdmi *hdmi, u16 offset, u32 val)
->>  {
->> +	if (hdmi->regmap) {
->> +		regmap_write(hdmi->regmap, offset * 4, val);
->> +		return;
->> +	}
->> +
->>  	writel_relaxed(val, hdmi->regs + (offset) * 0x04);
->>  }
->>  
->> @@ -1101,9 +1116,19 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
->>  	hdmi->dev = dev;
->>  	hdmi->plat_data = plat_data;
->>  
->> -	hdmi->regs = devm_platform_ioremap_resource(pdev, 0);
->> -	if (IS_ERR(hdmi->regs))
->> -		return ERR_CAST(hdmi->regs);
->> +	/*
->> +	 * On platforms where the controller shares a register space with
->> +	 * other blocks, the parent owns the regmap. Fall back to mapping
->> +	 * our own resource where it does not.
->> +	 */
->> +	if (dev->parent)
->> +		hdmi->regmap = dev_get_regmap(dev->parent, NULL);
->> +
->> +	if (!hdmi->regmap) {
->> +		hdmi->regs = devm_platform_ioremap_resource(pdev, 0);
->> +		if (IS_ERR(hdmi->regs))
->> +			return ERR_CAST(hdmi->regs);
->> +	}
-> 
-> why can't you just also use a mmio regmap here? Because with this change
-> the driver now has 2 competing register interfaces and you need those
-> conditionals all the time.
-> 
-> Just convert the existing user to also use a regmap please.
-
-OK. In v7 inno-hdmi will use a regmap.
-
-Parent's where one exists, and otherwise a devm_regmap_init_mmio()
-covering its own resource. hdmi_readb()/hdmi_writeb() can then drop
-the conditionals.
-
-That also switches rockchip hw from readl/writel over to regmap. I
-can only build test those two so a Tested-by from anyone with the
-actual hardware would be appreciated.
-
-> 
-> 
-> Heiko
-> 
-> 
-> 
-> 
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
