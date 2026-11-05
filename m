@@ -1,105 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873887;
-	b=taV/w0Qls3ZpYVUvcXKRvu4O0TvvEPtsHETJbA6yA7x/hH8jEWb7RjfP2X8oNWnm5zxt
-	 CLJrfPChlpx4ultk1alzjr16iFF3LJfG8VtbZjYbeOaHL23Ofpqnq+2KfjnLaTY0KbtcU
-	 ZOnoZf8yJcueMGcBY8Vq1G3jtJTY567lyerO+bbhPaiRJdRJzKhr1kQQ/nPP6m0BF6HME
-	 vX1TyOJvE3KtiMBgkpU3sPCaAaLCVGJY0+4Y0sOGOLl9kFCgLC/ajlqQsjt4MWGfQTdbh
-	 j6WD+bhK17+S55HnFIaC6jvY6mPICiVoqev0CCXGBjOKcYXAa09apz3gzIEwLHjb5cQ==
+	t=1793874007;
+	b=uMVrrMpO0uBcidFiMKBF9U6Lu7nskbycl9ETcm/csc/Iw0sNVcHT04inKzZ5pO0Nfi1J
+	 p7xDGIs9gnjkjw9CtbbCgD/4QK0YJq4fQCvpxihKbYwFhXQ96F0PtZdtpig66NANbsWqc
+	 8HkyyewcFEX0KBWCrjw1swM1wpTNy+qiZOQmseEhJmCrhE7OTAx/dECGrzegkXJ7Z+0Vk
+	 5AODSLvzcl0qDFgfu0k0fqR36amI7VDrW4b+DciyZJGcysTLHIzI2v4xUeUiZ+7eLitLY
+	 E8klqVLWvEmU5TkZfJSrGmeRC5ehooNGCO4pzABfvQaZEZWAp9DdFurmVz/OsBgr/fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873887;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NgGSt8h/WNnYW96twK1QcR8mvYOaOPJ4mg8us3LTyWY=;
-	b=mAwZWjy1E91tFD8eT7eSgwVZeTJT/B9jeecKV9SduyWGrFUtM8nZH4XER8C3ZFQJcGy4
-	 E5shlFpSCv2RtJ2ErVYX2pOrR8cAMbIBGTY3sqmgJkLUZTM4vIToLu+4oZQ0LenON8ymT
-	 9+Q/SntdIfcZ9DHGAXFQnYCl5e7IWJcEwlrHQOnRwO7rdTd4Y+VGZerdiB2Qz7wb5uA6G
-	 EF6Y5UDe+Kd5btXMplZjXR3nX96LuJr+JagsqMAZfkVD+Qg4AJFAk3kPCKR1qmHAStk3v
-	 gBaiWbY3q6GPn8GxOuut3bX4jHo2zCdslS2eczEpIHls8HNVDRIfUgQDVgKXg5EKzsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874007;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xbEXO/Ngm9jeafq/5uyGx+v2CtkgTISFS/vJlPqiL/I=;
+	b=XIoNw94pXuvvZaHjG6oqgzSfabaCRbgHQi8Q79TYGo4ecke+D/MdQc03dnNsHB3oXKip
+	 1O0bcj0ghU4+GQU7VsGOyn4pk6TwbeTXpV4mhZlCrJZ+sQGWd7JdeTFRmheuk00DI1ZwG
+	 KNk2u6Oeh2HEB/J/T5BmSpr7jB5MH/es1iYMlilbPX6tBYYgFL+NGzteE+GRwJMdtoLU6
+	 TU082/57jxbsw2e63hr8Fd4c/TwnRR8VkGZUCyCJ4mQllcqA4J7rdbCua8rrWFa0FjX2d
+	 aRSR4t03pWXNo8xr0y36eLtvxqAXBHGN+QRVH8p0tnd+Rd2uavsmheVboHWH1c8iVYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fzhWZum6;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fqJTKMBh;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MKCykvVc;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56AA606A339
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:18:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E56AA606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D968A606A330
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D968A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fzhWZum6
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so15013915e9.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 02:18:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fqJTKMBh;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MKCykvVc
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tJkj3684598
+	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 10:20:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=xbEXO/Ngm9jeafq/5uyGx+v2CtkgTISFS/v
+	JlPqiL/I=; b=fqJTKMBhW4aavmTcQ0VMupvk2GhmzYCL2OcT6vje1EbdODUGgny
+	DX0PylBe9xVUfhlz3yU66mFmhhZ7SjN5H/8gtFf61txmTEVhsbIqKkcO0LK5YdHI
+	sPeqkjPTMhks7Byo5eFsHS/QNZ9itxzJRbcXSoqsZrPh2y3iMETwe7013a7FKNaU
+	A4I3M57QT3wEyT3U8s061gEYyf8O+wIcY0SPvVuIH9SzbUzPWS9EqRjpAniLqmBb
+	oBa+fhpgECJpZJ4cELFBaxGBslCVVEGDluCU5VMDIVs6tqf4ZeG/dNn78fXAf9BI
+	X5y3Y7oSCk9pXi7WYHDYws8lmp8WMErucQg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrj43hhfq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 10:20:06 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1af203073e0so2900808c88.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 02:20:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793873885; x=1794478685; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793874006; x=1794478806; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NgGSt8h/WNnYW96twK1QcR8mvYOaOPJ4mg8us3LTyWY=;
-        b=fzhWZum68XDcz1+w7vFXdqqJhjlSHjqQr4vD9a3TuutvGZvrj5aQ0khmicXbbxdVUW
-         bgnNYBDBNzWTRKEe0EP+wT+XKNH8l9YhmqNzePbrFDxKzyklQGM9Yz2heyTRFRi6GsFU
-         zQQ7KJ1TDJ3C3Ra9YiDnGVvl7pkiU/lnDh06YXB4+yAanQfyo3sxHs4uarIzASHADCV2
-         XU3eeCPv6G09231PUgwFi8hvDIdEgJyI9BLjWwHT9IGqhEw/8kgGL7Oa6KKAqlshnopA
-         h5AEXol4jjDbRJxko2PPQyZGQWyIGlsWl0AkV8Cy830PsR9EDwAIG9rELYY+ovbBAfLZ
-         FHUQ==
+        bh=xbEXO/Ngm9jeafq/5uyGx+v2CtkgTISFS/vJlPqiL/I=;
+        b=MKCykvVcNhQegd4+Gj02Sp/Q+XwH6fKK/BS1d6Rh3DwhadTjoG50ek+7kEqEot/5pO
+         D2Ocpys08g6l/p7CAYfJX39343Gg766oSMWj2luRlkFbym6eMDikgXBzfCBz2Ak280yg
+         jBCraBtEKH19EVHdMPJ7Rv1LxFj/+qYRdtcaXTPUwHEmkDkRNG/P2M/quxBUw4mlfiM0
+         4gCt/2N4P5AqfDWfE16nxyH0hmpI2+tHL4erRhO30mwUeyIiLwzQ9cgRvEAVUCHhICDU
+         EubS6VLtM6Cs45Zsvgx1xLDeCHXKTYDVZhpbyCHHh0N1TLgdPdG//D19mPrtGgCrddSF
+         Nrig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793873885; x=1794478685;
+        d=1e100.net; s=20260707; t=1793874006; x=1794478806;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NgGSt8h/WNnYW96twK1QcR8mvYOaOPJ4mg8us3LTyWY=;
-        b=0ZGL3rgBFMyld6SOhl9JUveRaP6sA3uSNiw4HxIBSU/8TxYferREHFgQngOPqegNVD
-         kCkdMDxHB9nzINTcNLT/Ivma/ymADuAE+e29JVAPvT/zC7q236Pg3H+rz4sRcfqC8Krg
-         dem8Gb/ZwJbNp54qsFQNm6XtWr02YN7qL5IUibBEcBaIEvj/ZmY7beAED4NpZVJQT/tg
-         gfb1aV86kezrKHKq2CkTwVo+O+t/5TvTgGXhsZzvJcaLGlfGgKdUNvxStruiiD7biwO/
-         K20IR7EVsvZL6Lu8ArVO8DNuUusOr36xm7OpMjWLYt4V577FuXfWfoJ+f4oMwQxnJYF9
-         YWEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBww+myse24F6PRJUBQIKJMx3+s4szPwhAZYm5xHBMT5NqvhE3Vvjm8bltr/jyc9Zmi7neKBf4KFwo/o@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Kjef8d7DTKVuZ9HN4cj5L3wStKnxyrPjucU+AkNzs10cTuNiO
-	pmmaLz01JYt4Jm7hjKRZYMe8PvvJE8/tmA6Sff410TkP6g9ltBQQw8MY
-X-Gm-Gg: AYBFou3zaBz9WqGcldYQQqfUcXaU6GWvN//fPM+TD6ltNgwk/sJ4jLUnd/BhcEP/9Ak
-	TC+z3splX9z8wFdRp0Y6v2bsfC9xy4k1PWE5xV49noFbbrde2h/hvl9S67Yf55mInxuWVq2Cew2
-	wJg2pEpRd5sA02nP4jRauNmKrp9y/MSsBlP4N8qdDABs0JELfwiX0GintHf0QgdiesTm2EbRmKp
-	V7AxFrnCLX+6D/zWdKaaPyQGdaVNeOGxApGt+CFg0ieHtL3gPxsYIOUP6maeIeRDQ8rQ5QD4TP2
-	kfA6kFo2G+eSJHhy5LtTElAcwP9E7Bc3wrfjr5VcWnHy6gjkWMdJbI2JCAd4AMsEhz7Iha6o61e
-	JM5HH9ViyL11bv/PCiSyPvm1FnYXOvnPCkGSQKoBL8M2AJXhWISqGMNW0gm+AxFuKmWqXWOixjN
-	EqFL+KCn9Ru60o5plLtyOfh4/CmGRhLU5LN3eK+OrTg9TlzLpiWpM+hndChxDrjp0cca8KfslHx
-	BlHZoK7H6CxzeSvae6kcPo3zIrV3lMz4lgSghmU67hnJue23Q8B2rNJOg71RDZrbQvaZwqyGq5l
-	x5ROIh8lB4Wk/sfmuokolN07W6vSfqvhv1BybP29VzfN19BodJYrW/tZI4v6QGjUlwAyHXlQ9Ua
-	O1AHk9Kt3Xeo6SwaFSHs3ldcYZaSCYfHUeB+jtWlZGK70us4jSZCD
-X-Received: by 2002:a05:600c:4704:b0:4a3:12fb:1ef1 with SMTP id 5b1f17b1804b1-4ac18992a21mr374298825e9.29.1793873884933;
-        Thu, 05 Nov 2026 02:18:04 -0800 (PST)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f5e59d3sm59305215e9.10.2026.11.05.02.18.03
+        bh=xbEXO/Ngm9jeafq/5uyGx+v2CtkgTISFS/vJlPqiL/I=;
+        b=Yk9nndz55T1U413VaAkJtX4+RizzRHefm7cdC+tmXvj5baUqOzTZlWDn/P1dzlYV6i
+         wFOeeo/nzM1TnDzU29FBYwGKbJZLqyY9K2Jd/b/rPTJj1usVrwebEdxLFafJXCpPD/lw
+         7EQEsPK0nwQfLTwejV7uUWcNbt0RxrCTMsrh1kvJ+qDN+oxHt1/Xas72zdxmc7Hirkk9
+         OkESa0YvM/z+KVsDgw9p4ZQ76T0mTis7VY9AfdzcVO8H7wYmGw+biKPEPA4n0UWfjYD2
+         Ld9N5UjBkWXhLm3uV+9t+khHeQtgsFuY+y7RbjmeJY/ET7yKsykyU5WsgtyAKvW6A41J
+         CGJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxliqNxpGx9kPq1xEPi+TREzr0+Ud6mAYDYWo4uAWgMcD261x5KvuVvZSvE5+LkkIQBEBUPlGyBEPWy@vger.kernel.org
+X-Gm-Message-State: APuU4Z/B9mXMJzztM4dFm5PY63Te1BEbWBdUkYdnWg7yVKJ3lTWM4UJz
+	wBCXCh/W2T2beheYp/ALFChuAyR9xwE1HErZRJzkNMEvlzjFa3YKfec0ySTtPnMOA4W49Wc8b5H
+	2viOUkU1C7SKjhKAngV8d9rHpwD/J3EMdzScRtrHGZAXNdhZ85XW74roFtf6TFFPh
+X-Gm-Gg: AYBFou3ZcTugR8zfqwljJLloXeVZYLkbVU00bDE3etGWJ0VCxPFb7tuRf/MJ1vbghoi
+	reQcjJi8Vm2IAvG4/YioPcZcl5pVuuxVf7/2hadN52YkPLtnIBDr/UWHkLI+VCiv47tPXc2Zh4W
+	TqIz3JDzPzIrCbY+LKDZCWzCF7IQ9iBLH16OTteyg7PAoYQHh/7j6LDwCZWXiIxJTFvJ9HbdYMN
+	JB3RghS63v8kpE8gxm+yukkGPpBCRGK2gN2uq6tmEMWZq6e7AI4jy1c37QWWQJ5GJ60/EXuzf6y
+	BolBaFhRis7AP67TOFHje4MIygza7mNO37ZyDMiw7Xj5PFtbsGOBbxzIXPXWeOggWtf7jb5pvm9
+	aAxEoThC1XA3B87ERgGq7xI4BSORsbm78ZNe9TVVIKlZ8iq0l4cRgdK6UYY3Frbjkmk2z98OVsY
+	levVlYvNrQ
+X-Received: by 2002:a05:7023:a5c:10b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1ac5e6f4f90mr25354573c88.30.1793874005179;
+        Thu, 05 Nov 2026 02:20:05 -0800 (PST)
+X-Received: by 2002:a05:7023:a5c:10b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1ac5e6f4f90mr25354538c88.30.1793874004436;
+        Thu, 05 Nov 2026 02:20:04 -0800 (PST)
+Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm14115330eec.9.2026.11.05.02.19.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:18:04 -0800 (PST)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Nate.D@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>
-Subject: [PATCH v1 1/1] arm64: dts: freescale: Move Variscite Ethernet LEDs to carrier boards
-Date: Thu,  5 Nov 2026 11:17:39 +0100
-Message-ID: <20261105101739.10614-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+        Thu, 05 Nov 2026 02:20:03 -0800 (PST)
+From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+To: andersson@kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, mani@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, sarthak.garg@oss.qualcomm.com,
+        pradeep.pragallapati@oss.qualcomm.com, nitin.rawat@oss.qualcomm.com,
+        shiraz.hashim@oss.qualcomm.com, monish.chunara@oss.qualcomm.com
+Subject: [PATCH V6 0/3] arm64: dts: qcom: Monaco: Enable SDHCI storage support
+Date: Thu,  5 Nov 2026 15:49:52 +0530
+Message-Id: <20261105101955.3732723-1-monish.chunara@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,330 +122,86 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: OwOfAX2XHhChieBJr_BaW1Pz3sQwAxY5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MSBTYWx0ZWRfX+3CiCgCdH2tt
+ ssz6suUhGuo58wag59a3+VEErnZo1Ke5kr0S+KZ6U3AXmGCrZse7nK6mwJGuPw4RiKGjUW9sLTQ
+ G4Ao5Z8h5I7CdNsEshn2QN+MLzx07RymhogETcN66bSFwvsAFDiGTwSV5gYXTz5Ovk38rTSBjNp
+ qrQgK9g6/mtiFKn69jjhqFyRJa8l3ZHw8vLGH4inS1LL/bPFbvSCDyWfqZvOaK+RHbXy3vBJZVM
+ tUIDJsT0VnLYzJGEH7NLCBo0Zw/iC4AX+KwwX91Qd2vylWyeDb3xOJSiQNfy2v2c+XCuh8EQM4/
+ UANw5uq89GYu/CcpFsmdgF1eE28VdoqG6iZAlDSHyOsojIbM8MdxVkkn4emA+Ww/wKYaoeYHx+A
+ i+oK9wF4ey+LZr5VhZgKSC5rbdBWhNL/2m+87KWDraJJzQeKI2BVJVqDGc5WXj6iVAmLRJ0O/qN
+ bLqzjtICHrB0Pcw09iQ==
+X-Proofpoint-GUID: OwOfAX2XHhChieBJr_BaW1Pz3sQwAxY5
+X-Authority-Analysis: v=2.4 cv=SZdi5fRu c=1 sm=1 tr=0 ts=6aec5856 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=Q5OXD4evTFBxQrppJ00A:9 a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MSBTYWx0ZWRfX2o7JcwWG9WQG
+ bAUOp2qSm+2KUxJDGrfE9fnOEQhuzsQutHq0PAWdKMxgxSpo0ulwK4sJsPosdceCrd107vEeww0
+ 98sD52ii/JmKAndFwBjY271qDmEdhf0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1011 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050041
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Respected Maintainers,
 
-The Ethernet LEDs are physically on the carrier boards, but the
-VAR-SOM-MX8MP, DART-MX91, VAR-SOM-MX93 and DART-MX95 module descriptions
-include their LED nodes. Other carriers therefore inherit LED definitions
-that may not match their wiring.
+This is v6 of the Monaco SDHCI storage support series.
 
-Move the LED nodes to the Symphony and Sonata board descriptions through
-ethphy0 references, along with the LED binding includes where needed.
-Keep the existing LED properties unchanged.
+Changes in v6:
+- Propagate Reviewed-by tags (Konrad)
+- Rebase the changes on latest tip.
+- Link to v5: https://lore.kernel.org/all/20260826112456.482982-1-monish.chunara@oss.qualcomm.com/
 
-Fixes: c277a3d535bb ("arm64: dts: freescale: imx8mp-var-som: Add EQoS support with MaxLinear PHY")
-Fixes: d3ad2ce2116f ("arm64: dts: freescale: Add support for Variscite DART-MX91")
-Fixes: 947771d00bdc ("arm64: dts: freescale: imx93-var-som: update eqos support for MaxLinear PHY")
-Fixes: bec2988b470e ("arm64: dts: freescale: Add support for Variscite DART-MX95")
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- .../dts/freescale/imx8mp-var-som-symphony.dts | 22 +++++++++++++++++++
- .../boot/dts/freescale/imx8mp-var-som.dtsi    | 20 -----------------
- .../dts/freescale/imx91-var-dart-sonata.dts   | 22 +++++++++++++++++++
- .../boot/dts/freescale/imx91-var-dart.dtsi    | 20 -----------------
- .../dts/freescale/imx93-var-som-symphony.dts  | 21 ++++++++++++++++++
- .../boot/dts/freescale/imx93-var-som.dtsi     | 19 ----------------
- .../dts/freescale/imx95-var-dart-sonata.dts   | 22 +++++++++++++++++++
- .../boot/dts/freescale/imx95-var-dart.dtsi    | 20 -----------------
- 8 files changed, 87 insertions(+), 79 deletions(-)
+Changes in v5:
+- Rearrange the Makefile entries in alphabetical order. (sashiko-bot)
+- Rebase the changes on latest tip.
+- Link to v4: https://lore.kernel.org/all/20260716142445.2767955-1-monish.chunara@oss.qualcomm.com/
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-index e928a3d44b1d..49d20db7de5f 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-@@ -3,6 +3,7 @@
-  * Copyright 2024 Variscite Ltd.
-  */
- 
-+#include <dt-bindings/leds/common.h>
- #include "imx8mp-var-som.dtsi"
- 
- / {
-@@ -129,6 +130,27 @@ ethphy1: ethernet-phy@5 {
- 	};
- };
- 
-+&ethphy0 {
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@0 {
-+			reg = <0>;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+	};
-+};
-+
- &fec {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_fec>;
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi
-index 61786eee0e82..cbf58aed180a 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi
-@@ -8,7 +8,6 @@
- /dts-v1/;
- 
- #include <dt-bindings/phy/phy-imx8-pcie.h>
--#include <dt-bindings/leds/common.h>
- #include <dt-bindings/usb/pd.h>
- #include "imx8mp.dtsi"
- 
-@@ -155,25 +154,6 @@ ethphy0: ethernet-phy@4 {
- 			reset-assert-us = <10000>;
- 			reset-deassert-us = <100000>;
- 			vddio-supply = <&reg_phy_vddio>;
--
--			leds {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				led@0 {
--					reg = <0>;
--					color = <LED_COLOR_ID_YELLOW>;
--					function = LED_FUNCTION_LAN;
--					linux,default-trigger = "netdev";
--				};
--
--				led@1 {
--					reg = <1>;
--					color = <LED_COLOR_ID_GREEN>;
--					function = LED_FUNCTION_LAN;
--					linux,default-trigger = "netdev";
--				};
--			};
- 		};
- 	};
- };
-diff --git a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-index f7e32f9375f5..0f2be56ff7ca 100644
---- a/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-var-dart-sonata.dts
-@@ -10,6 +10,7 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/leds/common.h>
- #include "imx91-var-dart.dtsi"
- 
- / {
-@@ -173,6 +174,27 @@ led@1 {
- 	};
- };
- 
-+&ethphy0 {
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@0 {
-+			reg = <0>;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+	};
-+};
-+
- &fec {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&pinctrl_fec>;
-diff --git a/arch/arm64/boot/dts/freescale/imx91-var-dart.dtsi b/arch/arm64/boot/dts/freescale/imx91-var-dart.dtsi
-index a9e44efad13f..ec65cd42c195 100644
---- a/arch/arm64/boot/dts/freescale/imx91-var-dart.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx91-var-dart.dtsi
-@@ -10,7 +10,6 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/leds/common.h>
- #include <dt-bindings/usb/pd.h>
- #include "imx91.dtsi"
- 
-@@ -81,25 +80,6 @@ ethphy0: ethernet-phy@0 {
- 			reset-gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <15000>;
- 			reset-deassert-us = <100000>;
--
--			leds {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				led@0 {
--					reg = <0>;
--					color = <LED_COLOR_ID_YELLOW>;
--					function = LED_FUNCTION_LAN;
--					linux,default-trigger = "netdev";
--				};
--
--				led@1 {
--					reg = <1>;
--					color = <LED_COLOR_ID_GREEN>;
--					function = LED_FUNCTION_LAN;
--					linux,default-trigger = "netdev";
--				};
--			};
- 		};
- 	};
- };
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-index 1f0954620195..477f31a4cf88 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-@@ -189,6 +189,27 @@ vddio1: vddio-regulator {
- 	};
- };
- 
-+&ethphy0 {
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@0 {
-+			reg = <0>;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+	};
-+};
-+
- &fec {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_fec>;
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi
-index b0ffcb534cb6..d9ecbc3e9a6d 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-som.dtsi
-@@ -75,25 +75,6 @@ ethphy0: ethernet-phy@0 {
- 			reset-gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <10000>;
- 			reset-deassert-us = <100000>;
--
--			leds {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				led@0 {
--					reg = <0>;
--					color = <LED_COLOR_ID_YELLOW>;
--					function = LED_FUNCTION_LAN;
--					linux,default-trigger = "netdev";
--				};
--
--				led@1 {
--					reg = <1>;
--					color = <LED_COLOR_ID_GREEN>;
--					function = LED_FUNCTION_LAN;
--					linux,default-trigger = "netdev";
--				};
--			};
- 		};
- 	};
- };
-diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-index 9344a0d99418..ed3e2e1b995c 100644
---- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-@@ -8,6 +8,7 @@
-  *
-  */
- 
-+#include <dt-bindings/leds/common.h>
- #include "imx95-var-dart.dtsi"
- 
- / {
-@@ -163,6 +164,27 @@ &enetc_port2 {
- 	status = "okay";
- };
- 
-+&ethphy0 {
-+	leds {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		led@0 {
-+			reg = <0>;
-+			color = <LED_COLOR_ID_YELLOW>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+
-+		led@1 {
-+			reg = <1>;
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_LAN;
-+			linux,default-trigger = "netdev";
-+		};
-+	};
-+};
-+
- &flexcan1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_flexcan1>;
-diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-index b4c55bd33858..92ff09fe64a7 100644
---- a/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-var-dart.dtsi
-@@ -10,7 +10,6 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/leds/common.h>
- #include <dt-bindings/usb/pd.h>
- #include "imx95.dtsi"
- 
-@@ -193,25 +192,6 @@ ethphy0: ethernet-phy@0 {
- 		reset-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;
- 		reset-assert-us = <10000>;
- 		reset-deassert-us = <100000>;
--
--		leds {
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			led@0 {
--				reg = <0>;
--				color = <LED_COLOR_ID_YELLOW>;
--				function = LED_FUNCTION_LAN;
--				linux,default-trigger = "netdev";
--			};
--
--			led@1 {
--				reg = <1>;
--				color = <LED_COLOR_ID_GREEN>;
--				function = LED_FUNCTION_LAN;
--				linux,default-trigger = "netdev";
--			};
--		};
- 	};
- };
- 
+Changes in v4:
+- Remove the redundant regulator node - vreg_s2s, which is already defined in
+  base file via another merged patch. (sashiko-bot)
+- Update the base monaco-evk.dts file to make it storage-agnostic by removing
+  conflicting eMMC specific properties. (sashiko-bot)
+- Link to v3: https://lore.kernel.org/all/20260701081715.2580329-1-monish.chunara@oss.qualcomm.com/
+
+Changes in v3:
+- Update the patch to handle the supports-cqe property for monaco-monza-som
+  platform which also extends the monaco SoC DT.
+- Link to v2: https://lore.kernel.org/all/20260616130347.3096034-1-monish.chunara@oss.qualcomm.com/
+
+Changes in v2:
+- Avoids using the reference to direct supplies as dummy
+- Updates the eMMC overlay to remove the static UFS host disablement and
+  vreg_l8a voltage override, allowing DT-fixup to manage the UFS-eMMC mutual
+  exclusion dynamically for flexible UFS/eMMC configurations.
+- Link to v1: https://lore.kernel.org/all/20260227105055.2364348-1-monish.chunara@oss.qualcomm.com/
+
+Validated on Qualcomm Monaco EVK with both SD card and eMMC modules.
+
+
+Monish Chunara (3):
+  arm64: dts: qcom: monaco: Move eMMC CQE support from SoC to board DT
+  arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
+  arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
+
+ arch/arm64/boot/dts/qcom/Makefile             |  8 +++
+ arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso | 27 +++++++
+ .../boot/dts/qcom/monaco-evk-sd-card.dtso     | 72 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/monaco-evk.dts       | 11 ---
+ .../arm64/boot/dts/qcom/monaco-monza-som.dtsi |  1 +
+ arch/arm64/boot/dts/qcom/monaco.dtsi          |  1 -
+ arch/arm64/boot/dts/qcom/qcs8300-ride.dts     |  1 +
+ 7 files changed, 109 insertions(+), 12 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
+
 -- 
-2.47.3
+2.34.1
 
