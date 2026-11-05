@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793846519;
-	b=dR9dYwP6yZcGhLJZakR/QqtT5qMpPH9KmEe0xdnusaDXKKWQvtIKks8y28LHDEoMwblY
-	 2RxCUiuoC/0asb/7sp0eLocF5lFrZwKRkcwZUZtDX/iCydYSu6/V/dW5sgw72plVhwSKa
-	 Al3tbMf9qwQa1xRgbYhHrXmVy7qSZel5GJk9aMGk9OhzzGWbsU8PTguysl8bG1hOB7L1e
-	 p5l0zYhiwfsd4GPTabhptC43Xt6BIYkIOU548/zTsJkF0d7+EuegRSMUHjpKFYDsH91bH
-	 E492tsOZ5GW4umXhkrg3y3KL9sZ4bY18HX1IVPRDOlcMeaX2UUfpjJhlyQrs+YhCeRg==
+	t=1793846527;
+	b=gKN+VErydhJxInAh58vnnqxK1UAGNEJQIBv7+QChdXst49z1CiIiZpgUYBKY3HhZw5JV
+	 pI5SPxDYFJitWai0GNhVrZgAGs/ZTg8/LfxZmM0fMqqaDc/hDU0G5LVBp6cTJrMm+jGaA
+	 UWabFd2lEFVYCStoMpSy677ZQNAtRAxU5lA7+/amveJNaWQ7ahVXelrLJnpD7z6p+LifK
+	 k9je7OtYI28ud23Z+08KDlMTJBno3FicE61BTxcvVGGSTthIni1PYfYUKcFYvUKhfuLLv
+	 PeTndPHSkaYeeNkHtrw4m9aQCarr2qMpSlRIW+VGsk3Cf0LwV/vdWhJZaQfMtVh9oow==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846527;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
@@ -27,76 +27,74 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=p/IvhXsMUaf93bbrw5waW02mepdm0IHSOaVM3XyUYZA=;
-	b=lrrD/TNlfXXgWHoMz0t518DXbsiN996jJODFAW23sUv5Rx0mZFoJDaClWkK7t7Vl82CR
-	 WsZbpq4Gam7zZP3eIjVtcsM5rZOudkwcUtFyKfWy9qV0Z5AdTnNRWS9aizat2w8Agrz+w
-	 Iyr+fpexomOx7Rqc6jJ3z/zFj2iLh1Q1I8Ls5mYnkdIc6ou3kuGu4kduvmF3j0NXHHljQ
-	 ot2XVH6C7kfKnPymqQz6mXlFaeRTO1r8NiQt1iYQqqObWM3LxBWqYn1LqRjC3geIdhIMG
-	 VG5WRcQEU+N7ljCYbY/dzJIoX9jVkNn7v5r33Cy9eVyUuddYlc7U1qnsOsIRSfOO6xw==
+	bh=RsNUOT/l/vZFz8nmdnrEFwA5r7M6uFFAuP56TPAVC00=;
+	b=YCXiEvqW8uTiMrBANspPgNwKBGRAO2strTbKpc2HRn8xH8zeswqVmgxsfokc/X6dAFJT
+	 3NK28DDC3shT2bsulkaY2C9mHSGGAiMCEXWUq4cK13ZPr9gv7/dmtjjfXJWh+6oKckD8j
+	 qvWxyum69mJGOre099cJR8ecNv4O8V6jyO2Kyu4H+MOs2mLgSZcQ0vbCazxOdhiP/OT2M
+	 hNXdhXgxj9HrUaYbUYArVx6UBzqPJdk09/O3PIGinQQfH0WcvSDKG/1nSV5Gdp5klnOuI
+	 0LpdQFWL8xBngIQioEAFBygkj0tOg7N2J5wJFxg6cMV93qFiascpLai8qgGOCX28FGw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cn.bosch.com;
 	spf=pass smtp.mailfrom=cn.bosch.com;
-	dkim=pass header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=ItTr7uin;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.15
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011015.outbound.protection.outlook.com [40.107.130.15])
+	dkim=pass header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=EjYWfnMY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.43
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013043.outbound.protection.outlook.com [40.107.162.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0CD606A328;
-	Thu,  5 Nov 2026 02:41:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E0CD606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0F0606A337;
+	Thu,  5 Nov 2026 02:42:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E0F0606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cn.bosch.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cn.bosch.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=ItTr7uin
+	dkim=pass (2048-bit key, unprotected) header.d=cn.bosch.com header.i=@cn.bosch.com header.a=rsa-sha256 header.s=selector2 header.b=EjYWfnMY
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iuTvdKQUPtpoZiYlH7Utg/iMo2u14TwUiXskHz8/PvVhmN2zszHOdDSi1qVg/BoRApKH430sJHwA0tPeYrqg6QH8+xfpMlgyzlt+Il7T7zFVxGiYG9gh10JfmeTbBW+Kt+yAKrhJgpNvTHy6cVZLELQsCifJPj0g5NBhnZG8lJ7y8djdKXp0+8Kk4qqNLJ1RRfE+q6j5dZuR7GFDRw/oi6Lw8Z/12MT+T+dN9hBnmyqGLc3mhaGLhwMUptuUbBJe4uB1GkafJJiTZh+DaOqAylirGSIVcZKhGB2Go3cYUbsKA9hrDrImgUFISGIQL7IxLhO9aDh+s6Yfe+MmrPdf3A==
+ b=Y4BC4nMMQEOqrxCtvKHf/mzILfs21/aJx0yGP1y3OQMqYYIxTeBP8Ul/jXl1QmI+jbyTIoMpBHqqqEb6IZ0guM1XQSpOVJmCES6We4KvL/r9Uc5q/Pv/Bi6DtzoLYk8+koy1+nMDFyA85Wi+4Zfxev1aOekeBfOHj6AmQMYt4pleguAGfLhgJt6SnyyUwzJF2CxdQXBEc+Tdughe18xB4kgJtFNAQqvvj1OfQXEKNFCm3uyyh1S4RW9h/6+4BnzKV2PyM0HaAap8shvm47UmBjYMGkrptQ5e4ct33/FYs8lBr1yL1RsZGME5I+X+GR4HOwZYffy9lk0IxO+a8fkxcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p/IvhXsMUaf93bbrw5waW02mepdm0IHSOaVM3XyUYZA=;
- b=dvDe1YNNNDKvOR5mmZFhduPhUxIiRubDXNoI3G7j4ly9MDqUO+x7D160om2kQAzRqKQqxHW3FudxLm3Fm4+ERZdEOOfOmc7+EhDfI3AS11kI7cNilPASfC4xGTwRiSMV9ItChGVkbNfApruuOi0flLd+aSJk+rdzGY3trvtCUhjsr3f6+qbkG48ujqEpRex3VXxIes6K0rUenulzAxObctXzu+Vo24VS0nT+4ebq5yRZShMfUWO3gj6sJVlvB3BVgPHALONMj8WeagljPndH6KCUJX/CRGt2UwGh7b1N+BXgnRz/zCWKwux5rZCT0tz23ODPwEAlY6JO5zz/GKGbBw==
+ bh=RsNUOT/l/vZFz8nmdnrEFwA5r7M6uFFAuP56TPAVC00=;
+ b=YkQ8aqkf/7NVAih50gfs7IiwnnJcqetH13nkz/U6c1hRd3QegwBVQayMQ5Fl4MS714wcurXTbZQv0nCyN/cqWxryut6jBBa2SqCOIlDUheRsNDwgLRVfE/Ol4FfLdhYcycV2IL+Y0cSPhLAT+JRKoVXtLtonr4nGWq69y+tcpUE8FTsLQE/kqy1qITPUwsPxCqIqQXRZvXA9H5t0ygDbGZ/V87RKwfr9zEGYYlh+b8p2x77q8Q7PsvS3Qhfk8fxd0uFw91g4+Qp5iOADGoIU6Pf0lJ8UjsL8utWmwQY4E+AiJ3ZY7SjGt3zCVDRDwdlA70Wn24JhFiSaln/K86tE0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 139.15.153.206) smtp.rcpttodomain=kernel.org smtp.mailfrom=cn.bosch.com;
+ 139.15.153.205) smtp.rcpttodomain=kernel.org smtp.mailfrom=cn.bosch.com;
  dmarc=pass (p=reject sp=none pct=100) action=none header.from=cn.bosch.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cn.bosch.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p/IvhXsMUaf93bbrw5waW02mepdm0IHSOaVM3XyUYZA=;
- b=ItTr7uin/gJX03Td9wOfIkIKZjp+X8rjzn7ybqycRKs2WN6QzYWcGp4hKSmep7mBn+7CZTDbRE6mhAxpMiDrGbQhHQ8H3Mp40tbnE5zp841S70kCTNAqdFL/J3Ihq8SLWvfXzhGo5pv0u2gyilezJdn4+egLOATYsb5PdFOcn0vvUynn/IMc6qL3rpjOvf4srW8SlV5kjVt7RB63Ydmw9ueTLtUxoFm/BOhkJrLel8xRHZLepM4pnvaJ9qfxdxtS3HVS471Mf4eysuFYhvgtDidX4POQFjV5qCGbyeO99k9uRQik4VjvaCHnsOk8S5JZ8RS5vqcBu+2YcWEdbhUErg==
-Received: from OS6P279CA0044.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:32::13)
- by GV1PR10MB8755.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1cc::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=RsNUOT/l/vZFz8nmdnrEFwA5r7M6uFFAuP56TPAVC00=;
+ b=EjYWfnMY4kv07TMNNfLoHsZK8lTYxZSqNwiB/GyXTnKlW/SS9AWF3CY2wa+t0FzykG6/XTaQzC5o4VuJ5xF03DkR9wzy/dFGwLEE5XdH4cC7t7mQJ8K/WVDd7B2KPJiRfvvusKP86JiIQDNYjZJqf5Wl+B1KwVSdLTHjbHx/bF4GNhMzxczcjnD9jC5DBRu+WgY1Ec5QhZMFa1TmE7Wt633mPu7fbZZFoXMaOiXD/sW/7L1E1eB7N4Kt2YxMAMw4ssMMppBhkvt7m2v8YZDGUxcBWIElcj9uXs1D/xJJeBRrZ5SKDXqCPPvDKrS0o9o9UJRRlGveRBWAoMvcKSkvmQ==
+Received: from GV3PEPF0001DBFD.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::314) by BESPR10MB992322.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:b10:146::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
- 02:41:53 +0000
-Received: from CPH1EPF00000520.eurprd04.prod.outlook.com
- (2603:10a6:e10:32:cafe::94) by OS6P279CA0044.outlook.office365.com
- (2603:10a6:e10:32::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 02:41:53 +0000
+ 02:42:03 +0000
+Received: from WA1PEPF00009B3A.eurprd05.prod.outlook.com (2603:10a6:1d8::118)
+ by GV3PEPF0001DBFD.outlook.office365.com (2603:10a6:158:400::314) with
+ Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.21.592.10 via Frontend Transport; Thu, 5 Nov 2026 02:42:03 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 139.15.153.206) smtp.mailfrom=cn.bosch.com; dkim=none (message not signed)
+ is 139.15.153.205) smtp.mailfrom=cn.bosch.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=cn.bosch.com;
 Received-SPF: Pass (protection.outlook.com: domain of cn.bosch.com designates
- 139.15.153.206 as permitted sender) receiver=protection.outlook.com;
- client-ip=139.15.153.206; helo=eop.bosch-org.com; pr=C
-Received: from eop.bosch-org.com (139.15.153.206) by
- CPH1EPF00000520.mail.protection.outlook.com (10.167.241.235) with Microsoft
+ 139.15.153.205 as permitted sender) receiver=protection.outlook.com;
+ client-ip=139.15.153.205; helo=eop.bosch-org.com; pr=C
+Received: from eop.bosch-org.com (139.15.153.205) by
+ WA1PEPF00009B3A.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 02:41:53 +0000
+ 15.21.592.5 via Frontend Transport; Thu, 5 Nov 2026 02:42:02 +0000
 Received: from RNGMBX3003.de.bosch.com (10.124.11.208) by eop.bosch-org.com
- (139.15.153.206) with Microsoft SMTP Server (version=TLS1_2,
+ (139.15.153.205) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 03:41:53 +0100
+ 2026 03:41:57 +0100
 Received: from WX8-V-0008J.wx.apac.bosch.com (10.190.167.205) by
  smtp.app.bosch.com (10.124.11.208) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 03:41:49 +0100
+ 15.2.2562.56; Thu, 5 Nov 2026 03:41:53 +0100
 From: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
-Date: Thu, 5 Nov 2026 10:41:19 +0800
-Subject: [PATCH v2 5/8] ARM: dts: imx6ulz: Factor out BSH SMM-M2 common
- device tree
+Date: Thu, 5 Nov 2026 10:41:20 +0800
+Subject: [PATCH v2 6/8] ARM: dts: imx6ulz: Add BSH SMM-M2B board support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,7 +106,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-add-bsh-smm-m2-v2-5-fb5ffc7da486@cn.bosch.com>
+Message-ID: <20261105-add-bsh-smm-m2-v2-6-fb5ffc7da486@cn.bosch.com>
 References: <20261105-add-bsh-smm-m2-v2-0-fb5ffc7da486@cn.bosch.com>
 In-Reply-To: <20261105-add-bsh-smm-m2-v2-0-fb5ffc7da486@cn.bosch.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -119,286 +117,90 @@ CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>, Haoning Cheng
 	<Haoning.CHENG@cn.bosch.com>, Qiu Guochang <guochang.qiu@cn.bosch.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6649;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1625;
  i=Haoning.CHENG@cn.bosch.com; h=from:subject:message-id;
- bh=z6faOTLoJb7dE87hm1QqKnI0Bs+XHQBfuRdp9QSTWBE=;
- b=owGbwMvMwCV2Lz9jvnXEsVWMp9WSGLJev7mx33jJypJv2n8y+F++fLpHcsmqU9rTdCfvm5Gvy
- 7U7bQrTxY5SFgYxLgZZMUUW1QTvs5JXA0ynzayGm8PKBDKEgYtTACbim8PI8EQ9qEU10Hbe54rr
- VcwpT5cuuVYjpfittmHPSosbkxdafmP4Kyzj+aXRLsLk7NVZ7RHrTkvtjj4j82C79jH3gueFD/Y
- f4gEA
+ bh=Wu4+NJU1Wqab+k0K/gKL2a12YrgZQpuITcxOXPjHLfs=;
+ b=owGbwMvMwCV2Lz9jvnXEsVWMp9WSGLJev7nRWya048jZb2937jgfrvRlS+iNAs0VzPELSh6li
+ /5Ke1eU3lHKwiDGxSArpsiimuB9VvJqgOm0mdVwc1iZQIYwcHEKwERSEhj+F6uHbX25x3cmo4n0
+ 2ahlrNYLXvzNnbJxfeLXIqPdEpKlyxgZ+tncw3h/OrGrlKpOfqZSfml2jHCm+X9zLa/d7DXfDVf
+ xAwA=
 X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=openpgp;
  fpr=25604BCD19D5503596997B16DE6F689F3B58C6AA
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF00000520:EE_|GV1PR10MB8755:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8ba8b1f-0b59-475a-ed8a-08df3ae659e1
+X-MS-TrafficTypeDiagnostic: WA1PEPF00009B3A:EE_|BESPR10MB992322:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa40a00d-631d-4a42-dc7a-08df3ae65f9b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|7416014|376014|1800799024|6133799003|22082099003|18002099003|10067099003|11063799006|56012099006|261022075727099003|261026121527099003|261102123227099003|261009223027099003|261021121427099003|261021123027099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|11063799006|56012099006|261021123027099003|261009223327099003|261009220027099003|261009221227099003|261009221727099003|261009223027099003|261021121427099003|261102123227099003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ma3Nxb8bMupE8G4Oeew/+5wYWM37MpN9fthfDnzehrX4t+gD8ZinZrCehphlyIFqe9j1EGuEu14VWl+Kc+/qcjENC4Pkur/yvDaTczpB+SfTXwqZ0mlW5Q9TMK1MesLmtRJ6LrhZTy5Fqtq/lCiwo7HnIA8w34DAZpkNccWBsQL8alL7xxBjwAyqN5Ka8uyeplovCAO4SP4F4/f/5yaXHeVIZ320YMKtjxNCuWDwu+S6G9P80xTcwBCnGc4HGH7+ZEhxAG7Fo+eTXZzOAiLukjaCeiLsdWsxipRqo+UzMQ4MVJ9lZB9b8L0p+rUyDyccY5yq6kYeYDB785C+uH/Uc/UUwXHzGUTW8hw+5H/A6X3MqjztFTjnDsqpYB04HE/2D1WQK+DusD+qEnzp5Bj1thCbZT/gNryG23T5JCHFL49xfYH/8gxbZRUMHH5gA0b1EpMEnGbAi8eIrDp/1kSuAZqZyLHn1cK/T2zO6nRAQonJGUOlJC5Gf+R8PaS++uEkqslFEnSU2Ejl+A++lOVMJszul+5JXMT4nRsOIGon+GRT2KeiEH+t837wLRdB10vR2KriD5jtGTztWQ9A2RWBgHyPBbEFqTlZrytubZr427m6FaFpU2zGiQkEdwNOJas66IFN6eEsoErsKlIdW501KuHnnSFptToIEj8UXCAn+AXbBwNKxXK7E0PWtqf2qvyIBgMdJ9AVWQYzQqF8CA+OjA==
+	bH3bWl1ch4GUGX7CTc2AsEeFssoe7Tq/nMW6dabid0n42Nbznf07AQTSOTraHtPXJq8k1SkZxhPvQbXLgap7SKsbqOi7kX8gazLfimDQaT0u/Wr8lxjeiGDVy4L3okcnqwBCieMAPb/wgt2qHCcssepCPVjidw4Yswqim6wkW+uPDOArap3tNRCY9VK+IFtuLuEuf5i01EZpUaw0aR4S1a2gz6x34ED3kU9qHO2kPzZMai+R4IqjkQFqj+7T3KD3enRHd6Pu64Xq6o0yIEK+f+f0hwvc6JaZwiOQ4dbD4+zSaBzmN9qGnI1zfs+dsXYmW1NmeOIk4tiTRkxHOt/RIhoXfDwWIIxFkGsw0FidvnDJqYNYLkhq7/G3PxT8SHX/2OfjgNBc0zlhCHY31FEWZf6ZegYBqELUBOguHuj+5Ubx/WapJVlty96DurFRrkX23TKGRM79/doCSrkU2PAYuNYLfhXVmGiiBaAgkjwoUeM21VYqH/Nf5IfQwYwU9+xN3XMPXGtl9a5/0uOu1cS+PIMLqYuYO4v+GQdp9Nz3NyV5ZigK6zRgS7D0CsNY6DyMAbAHbcd4wbeT+uNHWRxqpDP5iB7COiHZEyN0BfNzWnmAGeZU0JkmuYO+de+LlIPmlEbvENfgJVVLNz7RMdjI8OZqPzG4avNnhM9RKTUuQTlObZUGm5by2psRN0GuSJkT2suwMN4eDyvBFs9z4l6rHQ==
 X-Forefront-Antispam-Report:
-	CIP:139.15.153.206;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eop.bosch-org.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(261022075727099003)(261026121527099003)(261102123227099003)(261009223027099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
+	CIP:139.15.153.205;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:eop.bosch-org.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(11063799006)(56012099006)(261021123027099003)(261009223327099003)(261009220027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261021121427099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	AmgAfEK7RH5ON01FR3FdGpPayVwQjrwFHpJ8kDpCYQeaxZVSIzWtvbWDZ6efAEkm82tXffleGCyqXzUFOzau/QSfyao3gLaMYyogFUYAZ+uTZGV77EUpV/OIvwJxgZ75pO3F1PNefj27jgKl9ULKP4lCOggE6N9Sy1PWuLrZka84M6YQVDD9eonu+O3ln2z05tDnT7OBpVQkddXntj57XclJN7uBxnvyVYZ+dW3Hwzrgme0+D/x8J8t108mD4oJJDZjDvmYDudmhbMuOfleHmLXTzn77/bst9TCHtV9BNi/vJkpfIwHbqC3sFbiU3827YXBTzAfOnv5iLhBFaNJSRAkTgvGfe3kFkFHmA+EOsuJ+rjSvZLDe9X8c+npNbwkZz9Ae2he43h1N5LYSXopiwJLMs0aTuQHdIciqbd8j/ZGyo2Y4vV3kTDsR4q9T2bR4
+	t2SeaQc4CxgjpYdBTsRMoDcT8hGHwOI5bV1IL1R6luFDF9hmnhZw2PeItR7VMNDCTMnuW1wy49JodF3O4mC2zhFTKYo5wQvOw/2VaTLyL5/mxbyHkIotOu7HUepPu/qHgHIsTipvZwaTlVSUmtqtDp6wl8HvYU5ioQCJ2281eEEtnAzTTG/leOnnF+vqSOG8EXlFBf62wOKPOx1VmKhJECBBsUFGCLmM2r1TQN4Vzt2C52ySNlUbIlmf9ai6HeANaiGYzpJh7twoRtOqkB//dSPk6FgSHpupUSGBC56RwZLxqNpwgmnxzI7Q/oJqkmITtev0aL2Q7cnCCcxPfwBjvdITsI5GHiRepFDGZltNX8GDC5Moz+ZRZdjySAzKtlY0TmKSxAXF5Bi8qdHhpZz5FaStt7N8LZSP2k/0MriaS6xNMUdsAExTqZJVOckq1HiC
 X-OriginatorOrg: cn.bosch.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:41:53.4007
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 02:42:02.9947
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8ba8b1f-0b59-475a-ed8a-08df3ae659e1
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa40a00d-631d-4a42-dc7a-08df3ae65f9b
 X-MS-Exchange-CrossTenant-Id: 0ae51e19-07c8-4e4b-bb6d-648ee58410f4
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0ae51e19-07c8-4e4b-bb6d-648ee58410f4;Ip=[139.15.153.206];Helo=[eop.bosch-org.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0ae51e19-07c8-4e4b-bb6d-648ee58410f4;Ip=[139.15.153.205];Helo=[eop.bosch-org.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF00000520.eurprd04.prod.outlook.com
+	WA1PEPF00009B3A.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB8755
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESPR10MB992322
 
 From: Qiu Guochang <guochang.qiu@cn.bosch.com>
 
-Move the hardware definitions shared by the BSH SMM-M2 and SMM-M2B
-variants into a common device tree include file.
+Add basic device tree support for the BSH SMM-M2B SystemMaster,
+a hardware variant of the BSH SMM-M2.
 
-Update the existing SMM-M2 device tree to include the common file
-while keeping board-specific configurations separate.
+Reuse the common SMM-M2 hardware definitions and provide the
+board-specific model and compatible strings.
 
 Signed-off-by: Qiu Guochang <guochang.qiu@cn.bosch.com>
 Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
 ---
- .../dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi     | 80 +++++++++++++++++++
- arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts   | 93 ++++------------------
- 2 files changed, 95 insertions(+), 78 deletions(-)
+ arch/arm/boot/dts/nxp/imx/Makefile                |  3 ++-
+ arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2b.dts | 13 +++++++++++++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index b5fad2ba764c..de9a317132ed 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -420,7 +420,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+ 	imx6ull-var-som-concerto.dtb \
+ 	imx6ull-var-som-concerto-full.dtb \
+ 	imx6ulz-14x14-evk.dtb \
+-	imx6ulz-bsh-smm-m2.dtb
++	imx6ulz-bsh-smm-m2.dtb \
++	imx6ulz-bsh-smm-m2b.dtb
+ 
+ imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
+ 	imx7d-colibri-emmc-aster.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2b.dts b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2b.dts
 new file mode 100644
-index 000000000000..83df5c696748
+index 000000000000..9dc92da6ace9
 --- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2-common.dtsi
-@@ -0,0 +1,80 @@
++++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2b.dts
+@@ -0,0 +1,13 @@
 +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
 +/*
 + * Copyright (C) 2021 BSH Hausgeraete GmbH
 + */
 +
-+#include <dt-bindings/input/input.h>
-+#include "imx6ulz.dtsi"
++/dts-v1/;
++
++#include "imx6ulz-bsh-smm-m2-common.dtsi"
 +
 +/ {
-+	chosen {
-+		stdout-path = &uart4;
-+	};
++	model = "BSH SMM M2B";
++	compatible = "bsh,imx6ulz-bsh-smm-m2b", "fsl,imx6ull", "fsl,imx6ulz";
 +};
-+
-+&gpmi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpmi_nand>;
-+	nand-on-flash-bbt;
-+	fsl,use-minimum-ecc;
-+	status = "okay";
-+};
-+
-+&snvs_poweroff {
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart4>;
-+	status = "okay";
-+};
-+
-+&usbotg1 {
-+	dr_mode = "peripheral";
-+	srp-disable;
-+	hnp-disable;
-+	adp-disable;
-+	status = "okay";
-+};
-+
-+&usbphy1 {
-+	fsl,tx-d-cal = <106>;
-+};
-+
-+&wdog1 {
-+	status = "okay";
-+};
-+
-+&iomuxc {
-+	pinctrl_gpmi_nand: gpminandgrp {
-+		fsl,pins = <
-+			MX6UL_PAD_NAND_CLE__RAWNAND_CLE		0xb0b1
-+			MX6UL_PAD_NAND_ALE__RAWNAND_ALE		0xb0b1
-+			MX6UL_PAD_NAND_WP_B__RAWNAND_WP_B	0xb0b1
-+			MX6UL_PAD_NAND_READY_B__RAWNAND_READY_B	0xb000
-+			MX6UL_PAD_NAND_CE0_B__RAWNAND_CE0_B	0xb0b1
-+			MX6UL_PAD_NAND_RE_B__RAWNAND_RE_B	0xb0b1
-+			MX6UL_PAD_NAND_WE_B__RAWNAND_WE_B	0xb0b1
-+			MX6UL_PAD_NAND_DATA00__RAWNAND_DATA00	0xb0b1
-+			MX6UL_PAD_NAND_DATA01__RAWNAND_DATA01	0xb0b1
-+			MX6UL_PAD_NAND_DATA02__RAWNAND_DATA02	0xb0b1
-+			MX6UL_PAD_NAND_DATA03__RAWNAND_DATA03	0xb0b1
-+			MX6UL_PAD_NAND_DATA04__RAWNAND_DATA04	0xb0b1
-+			MX6UL_PAD_NAND_DATA05__RAWNAND_DATA05	0xb0b1
-+			MX6UL_PAD_NAND_DATA06__RAWNAND_DATA06	0xb0b1
-+			MX6UL_PAD_NAND_DATA07__RAWNAND_DATA07	0xb0b1
-+		>;
-+	};
-+
-+	pinctrl_uart4: uart4grp {
-+		fsl,pins = <
-+			MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX	0x1b0b1
-+			MX6UL_PAD_UART4_RX_DATA__UART4_DCE_RX	0x1b0b1
-+		>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-index 91c76909c086..66ea70d93590 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ulz-bsh-smm-m2.dts
-@@ -5,39 +5,18 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/input/input.h>
--#include "imx6ulz.dtsi"
-+#include "imx6ulz-bsh-smm-m2-common.dtsi"
- 
- / {
- 	model = "BSH SMM M2";
- 	compatible = "bsh,imx6ulz-bsh-smm-m2", "fsl,imx6ull", "fsl,imx6ulz";
- 
--	chosen {
--		stdout-path = &uart4;
--	};
--
- 	usdhc2_pwrseq: usdhc2-pwrseq {
- 		compatible = "mmc-pwrseq-simple";
- 		reset-gpios = <&gpio2 21 GPIO_ACTIVE_LOW>;
- 	};
- };
- 
--&gpmi {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_gpmi_nand>;
--	nand-on-flash-bbt;
--	fsl,use-minimum-ecc;
--	status = "okay";
--};
--
--&snvs_poweroff {
--	status = "okay";
--};
--
--&uart2 {
--	status = "okay";
--};
--
- &uart3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_uart3>;
-@@ -53,24 +32,6 @@ bluetooth {
- 	};
- };
- 
--&uart4 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_uart4>;
--	status = "okay";
--};
--
--&usbotg1 {
--	dr_mode = "peripheral";
--	srp-disable;
--	hnp-disable;
--	adp-disable;
--	status = "okay";
--};
--
--&usbphy1 {
--	fsl,tx-d-cal = <106>;
--};
--
- &usdhc2 {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
-@@ -93,47 +54,19 @@ brcmf: wifi@1 {
- 	};
- };
- 
--&wdog1 {
--	status = "okay";
--};
--
- &iomuxc {
--	pinctrl_gpmi_nand: gpminandgrp {
--		fsl,pins = <
--			MX6UL_PAD_NAND_CLE__RAWNAND_CLE		0xb0b1
--			MX6UL_PAD_NAND_ALE__RAWNAND_ALE		0xb0b1
--			MX6UL_PAD_NAND_WP_B__RAWNAND_WP_B	0xb0b1
--			MX6UL_PAD_NAND_READY_B__RAWNAND_READY_B	0xb000
--			MX6UL_PAD_NAND_CE0_B__RAWNAND_CE0_B	0xb0b1
--			MX6UL_PAD_NAND_RE_B__RAWNAND_RE_B	0xb0b1
--			MX6UL_PAD_NAND_WE_B__RAWNAND_WE_B	0xb0b1
--			MX6UL_PAD_NAND_DATA00__RAWNAND_DATA00	0xb0b1
--			MX6UL_PAD_NAND_DATA01__RAWNAND_DATA01	0xb0b1
--			MX6UL_PAD_NAND_DATA02__RAWNAND_DATA02	0xb0b1
--			MX6UL_PAD_NAND_DATA03__RAWNAND_DATA03	0xb0b1
--			MX6UL_PAD_NAND_DATA04__RAWNAND_DATA04	0xb0b1
--			MX6UL_PAD_NAND_DATA05__RAWNAND_DATA05	0xb0b1
--			MX6UL_PAD_NAND_DATA06__RAWNAND_DATA06	0xb0b1
--			MX6UL_PAD_NAND_DATA07__RAWNAND_DATA07	0xb0b1
--		>;
--	};
--
- 	pinctrl_uart3: uart3grp {
- 		fsl,pins = <
- 			MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
- 			MX6UL_PAD_UART3_RX_DATA__UART3_DCE_RX	0x1b099
- 			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
- 			MX6UL_PAD_UART3_CTS_B__UART3_DCE_CTS	0x1b099
--			MX6UL_PAD_GPIO1_IO01__GPIO1_IO01	0x100b1		/* BT_REG_ON */
--			MX6UL_PAD_SD1_CLK__GPIO2_IO17		0x100b1		/* BT_DEV_WAKE out */
--			MX6UL_PAD_ENET2_TX_EN__GPIO2_IO13	0x1b0b0		/* BT_HOST_WAKE in */
--		>;
--	};
--
--	pinctrl_uart4: uart4grp {
--		fsl,pins = <
--			MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX	0x1b0b1
--			MX6UL_PAD_UART4_RX_DATA__UART4_DCE_RX	0x1b0b1
-+			/* BT_REG_ON */
-+			MX6UL_PAD_GPIO1_IO01__GPIO1_IO01	0x100b1
-+			/* BT_DEV_WAKE out */
-+			MX6UL_PAD_SD1_CLK__GPIO2_IO17		0x100b1
-+			/* BT_HOST_WAKE in */
-+			MX6UL_PAD_ENET2_TX_EN__GPIO2_IO13	0x1b0b0
- 		>;
- 	};
- 
-@@ -145,10 +78,14 @@ MX6UL_PAD_CSI_DATA00__USDHC2_DATA0	0x17059
- 			MX6UL_PAD_CSI_DATA01__USDHC2_DATA1	0x17059
- 			MX6UL_PAD_CSI_DATA02__USDHC2_DATA2	0x17059
- 			MX6UL_PAD_CSI_DATA03__USDHC2_DATA3	0x17059
--			MX6UL_PAD_SD1_DATA3__GPIO2_IO21		0x3029		/* WL_REG_ON */
--			MX6UL_PAD_UART2_CTS_B__GPIO1_IO22	0x100b1		/* WL_DEV_WAKE - WiFi_GPIO_4 - WiFi FW UART */
--			MX6UL_PAD_UART1_CTS_B__GPIO1_IO18	0x130b1		/* WL_HOST_WAKE - WIFI_GPIO_0 - OOB IRQ */
--			MX6UL_PAD_ENET1_RX_EN__OSC32K_32K_OUT	0x4001b031	/* OSC 32Khz wifi clk in */
-+			/* WL_REG_ON */
-+			MX6UL_PAD_SD1_DATA3__GPIO2_IO21		0x3029
-+			/* WL_DEV_WAKE - WiFi_GPIO_4 - WiFi FW UART */
-+			MX6UL_PAD_UART2_CTS_B__GPIO1_IO22	0x100b1
-+			/* WL_HOST_WAKE - WIFI_GPIO_0 - OOB IRQ */
-+			MX6UL_PAD_UART1_CTS_B__GPIO1_IO18	0x130b1
-+			/* OSC 32Khz wifi clk in */
-+			MX6UL_PAD_ENET1_RX_EN__OSC32K_32K_OUT	0x4001b031
- 		>;
- 	};
- };
 
 -- 
 2.43.0
