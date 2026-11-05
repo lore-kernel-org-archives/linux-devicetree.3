@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793913858;
-	b=VImwOj3jn5Ps+2YmXpgLq0vzGP11XMUjyi9VH8447WXPUp0i8A02wFOpZq0LEuUxwVbe
-	 ABtkUZGe8tTbZe3jGi3qCH0DxkElv3a1b/V2nKhdfolwirCZBKJnj8QWrhXe06F/Xo77C
-	 FBEYQrsD1bTBAIurRUstDqs2Ba1FY4CfGIDEibAJFWMvGIbWePNAVS6Dui9MAIRm9KSxK
-	 dtCKKC3O/N/FUp3p/z8cA+e8HzGExfwMQ2nxn8gfjjneAezyNTZ0ud+nhiu7ff0gjRkUA
-	 JPR+o6i8zIHzSUpHCpGwxEvbO3DFAPQK11TeDbV3TYWSWThz8SeXBwsociLkxeloV3w==
+	t=1793913859;
+	b=0T+rwOX7AEGCR3MRE7WT2BBTALCETYIlTKBPQ4osqf6O8ON5mYN8M6ZUJUnB7ekC9FjK
+	 6yBqrPKvxLmwMLTH9obOQPUSlO7hgpz5bY3TeaQ7em5mNvRBvw0JwgEj+cZF0xzQmK2xt
+	 jQmRrV2OzcLKckKXMHViiL750+imuRo8T0C5/2tMpXfV6lsl9u6stu7v50l06gXpiI0in
+	 X/5bZthaooINUGNx8hNDNUq8bxl7z+uw1vjY0r9XCY34VM8xKa8Hr4nrcTXQYWxZhiPpi
+	 /8vt7yiut/K1tTEpaDuwt3zVZodO0qJUGqyFGpLy0AAaDapxA54Y8S8d9WBnOjyurng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913859;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ujncORWDeCOfsZj4SRemsHJX2GcQyFLH9QWEU5Hn73Q=;
-	b=wGhQsyH+aaf+vkckhGFXd3+CkHfATL87bzIed/MpqKqIQ0dioTFXtKp8pwEwdZbL2pVh
-	 Y7d2vkqLtnOO9QEmZt8SNAFB8VmNuBMASCWI6+xkcpzqblzDwGM5N1D7KvtgX/SGw5qG0
-	 F063tlsT3mmAf/sd9Z5nFk5ARNooTNagsWLwjIRy1gi1S/tL6I0CoIBHkv2ei6VZRAK8z
-	 8soQyan89SB6ntJk3/qa5la/C3ouU1WejFgkWiy1YlUY/Iz8KYlAjdaXtly1LpjzoHtax
-	 5/GG/3JKzvcJd/Ua2LBjBv+tbHDfVLQn6zDQjY1cAwFZWUxuCOtZ0URLPIa1I71ZvHQ==
+	bh=647ljXCJztGicp7YV3FS/mcGU5fzbToeSjHEko7ri7o=;
+	b=0y3m8nOilFevd3z6yEWX0T+RR1w4+32ZHmupTRBEIc7J2xkc41Qap7qxhCLYwZ+r4JP/
+	 +4I0RpAxaThPGtt9tQaGkduLwAWsNFAD3pw7dzSeNl7i2Y7TSzHitU4QAQUMmJKPH163O
+	 LDldbOG68PnmkMomJhSo98hWHNZmxt+HWMvJmtIaDCo0+lHBZAnCny0T7muKT4z4pa6FT
+	 Rpn9mCbPZVoGY/RcuRjLqh2iFktW+Uh4Le8stRoYZye4GJ/9vbd74LFBbiYV2/DfxGvJV
+	 NoOL9sxObO5WPPSHtlGub/4QKEwdRgYwM7X/zpqXjy3JNF1AhWlkM9VGdyAl3fWNn1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=riscstar.com;
 	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=NRC6Poj4;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=3tixUHaC;
 	arc=none smtp.remote-ip=209.85.210.49
 Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9970606A33D
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 21:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9970606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229BF606D814
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 21:24:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 229BF606D814
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=NRC6Poj4
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8470d7d430fso10467a34.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 13:24:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=3tixUHaC
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-854b6e2e41fso20001a34.3
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 13:24:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1793913857; x=1794518657; darn=vger.kernel.org;
+        d=riscstar.com; s=google; t=1793913858; x=1794518658; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ujncORWDeCOfsZj4SRemsHJX2GcQyFLH9QWEU5Hn73Q=;
-        b=NRC6Poj4RTXJ7vTSrHkVjVxSPEMYyFLBTW9hZbReACOcrd8vd8wc0H3//dp8FOMDLY
-         Qb9pjE1OZ0fpX6qC5oIw8eszTwaHM7ofAFQ02b90nyUI+sn0BjbszhOEFVX8lUAYh1KB
-         vaq6QM/h+WFTFeoacrNKg/IiarYvg2sdsn7MP7ANvbWpUCt2izvjnoWP7gbtr92c7PS/
-         VpbXpCxHiEDK4dfRfjOOAHND26gp596iNREXKK4HwHGp8dc2vHlgdYUO+XDj4YRUu6w5
-         h3V/8LhF9GkiwVl213uSUF87QD9QsXjYsFYFciSYwcf0KJrDxmKZtFAbLWCGLEzKEvaE
-         F2yA==
+        bh=647ljXCJztGicp7YV3FS/mcGU5fzbToeSjHEko7ri7o=;
+        b=3tixUHaCUkrk9WS78wwur2uKuD+nh8UofCPfmONePQb1e545u7gspVfjUByNQsDtcs
+         5P9/y5AtsfVxU19INadG09sT5oSuMRFFc6pnECgDuV6SRMyGnudpVhLdf5YW1VR7qqSW
+         Slej3GUUy5vbd+z52OIUdYqVPcfzdWQtRpJ7jv6XnQxQZNxbjwSxg7UFDugz0eQY612d
+         SDpe3QwRW7bFxMBxGUuG9Hoa2ZDj4AnQCERnj3nGSKrAxbgtPXGf0z3OM6nTBnDwHeeB
+         bn9PqfCikqyhAeqw2Xo/ZQGCgIxyxgIf30VThPjyzecZ2sYtEdNIj/eeSCoMHCqZYGGU
+         4E+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793913857; x=1794518657;
+        d=1e100.net; s=20260707; t=1793913858; x=1794518658;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ujncORWDeCOfsZj4SRemsHJX2GcQyFLH9QWEU5Hn73Q=;
-        b=aflIF7iT6rgzWSQyDmaqrGgTEcbh7neWlfTNQ5HIjSJ43y7+UUZNhOnb18IZLAjfwg
-         uAfkFPI3VWwn6AYG8fFDNXpxn66pIJY+q8PQ2A38Qi+KJRhUYXKjrl5ZEOIh/g2otwpB
-         /K7JMZFIqXc+EtCPUeSK0CCRuNG9MUi4VwXs/Vm1Snv24hs+qPmrucpbIJp/xmzEKM3H
-         /izNRnKyRaoMSVKegDxAc2b9jnqt+jKbBtD6wDaBiD5JDtXTEG8eBQiHU8ySBqfva6TH
-         pZnRU5YS1ZPO/7lk/oXo7apDw1jqoFbWokAz3mAzi8Dv4D9+6p8rrP1/8SaDYyMEm4KE
-         X+qA==
-X-Forwarded-Encrypted: i=1; AKwUvBzsqr1oNl7it7baV5Q5HokfjDHsKvloiPBy5P3YhOWQkHUgOAyjjRGYLXydEnvA1iNMrdqZcoTcZSKg@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AKgsOoFVCVByUSXTDMT8Jc327HYhhoOoVDRnLgLsYVOn4I73g
-	gKNuxC+DOloNPOvL48aDeCkKsOnL60c3cAmz2ruZlyrFa1aWspdu6++5s9Z+3dwWWL0=
-X-Gm-Gg: AYBFou11OAlo9PHG3Bktt6lfaCXfymrNXljf6iWvj29J6wRJ5dFi+sYxFe2YRUq03fy
-	YgpHxaGA5JtFm0nsGufz61ZQRNCbea0MPLRU0KL/4mRoc5WbKBRfjMPFgr+UeGM5MsPpEOkMPci
-	odJ5Huk4LJwfDwXnlFWA2NlVcaX40OIWso4E2V0Ycfw3AsuKA+ZqhU7V9x/W5DN1C426TFNd57G
-	D5GgTd3l8yhx+0zy3NvYZsd3AFEqHov0GkN1Bru37u2tjEKVa3q7O+zCuehUdf91fmmqy4i1gyX
-	UGRuhVCOAPStwSh2RypSenjr2ixDxZsOlPfJSSZV2uWAu8UvzIh1N/g/BdK9Rvt5X5dvyQ9TdNg
-	FkQBe4MC28ocsV2Erbyt/lTqxGWIyP5yjbwVk3J9keIa+mc0FOo2qmohYbtq6YjwM0NnClT5GrO
-	jE69xhtywGAKlZqyrMcbH/fxk24hQp4RCqB8EeH/zQ6pB11Lw0jNXvlSGMbEsr+Lh+3swvfe7QK
-	bwOaC/zuQz3SlIwnOg5Y+qFg2JbfZKRXRoW+kHtUkhXxdFQnVzrEcv/NFip0bYuhXgidds2If2S
-	kpq+CyTdXCkDwzI9TWFxVOOsKBNcr6ID2g==
-X-Received: by 2002:a05:6808:10c6:b0:4d6:90f3:74b3 with SMTP id 5614622812f47-567e167dda3mr307509b6e.51.1793913856883;
-        Thu, 05 Nov 2026 13:24:16 -0800 (PST)
+        bh=647ljXCJztGicp7YV3FS/mcGU5fzbToeSjHEko7ri7o=;
+        b=bnG/AsIiZ0bmr9Y2My64daWzfQXeZKXEjdgGG/yeoXM9nm270K/kIDapsuszhbYTjW
+         8R/5CEsdCTDRbUz0h/39a30kk+fk1yjeeSGDFrwkffDzWDkK6C0KZnjRGVHwR3jNr2wI
+         y8+wBvX6xhO4bR2HuLlkD/bsggaXykcJJX8TWu/Dhzn5Cvl0WhUn4uYU5c+fRE0cX8nC
+         AH1OSPCzwpnD5iNye/uWPHE2pcIteGDCFz+nWtzhNtRYjyXNDVNd7QcnKackqbGpmkeF
+         vom0UeyWqeOkzP9tDuZBfaIj9XE+a7i/+aGfcD/bcpVvRy9D/GISlvpaAW9JR6JeKISg
+         Z6HA==
+X-Forwarded-Encrypted: i=1; AKwUvBwovh8B9YJLyrxSI23VZ4b97OLkR5Xt9pTM2SskfssZve/hnXbe9on3hk1FEkadll27UWOs8OdpWegU@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wgLEIVBk/oZWqWV3DPfw9uhU8JFqLjOpX6Xs7oWgtFBj1Pe1D
+	otHl6vECk3ZzoVWJgM7Od/ujPnC1NwWNmuGHB9ufsPXpVweovmIw9KRfIa8XorbgGfU=
+X-Gm-Gg: AYBFou3vX0d5oXLc4k8mGCMGyoq4VNw/ktG/qVfVRN1DvhPrynCNHxyj5zWzLMeOUP7
+	TqKSJcsnVsyl0XvC4uRBbeB3ITS8YvDOEaoQaOzFvEfMKoH2rqON+PmClxIcwgX3GjEfFqba15/
+	c1vfYyCps9wOA1EGwAciiO6LMhhlUbO4tC+pbzCOLCquAIz4EsvXIA+/s2f1SFInheB39Gmp3iM
+	Hpx10UfNiWkyDfwIf+f7Hg0RzNHppRbxcvzrhy0HmMdxxaSKwAUxRdo7ADfJCJtcBh9mx/StE+Q
+	mp5Wyr6kUJzT/G4/886u0W3dB3KpRytELARlVwdLyKYJtta06ynvc7qOTR1xuIZ2zjzNi5xxoQ9
+	0DvFDyrYuROFPb/G1ErJe+J1cFHWXlKN6vnWCPB4xR6+gj4nG/FjdHMov6ITeaKnHRBz02UJpy+
+	Mr5yPeeRGsUYVy/vIuvTTUHkqDdnwycQnGdUQ2WJA6h5E91XYJpnbNmC0jo3ISCxaX0LZ1FtbyG
+	/3M8PsvENgE9MBxC/F5KsO8Tl4cZXWdhqKIE7LQ/U0q8HRVN2KbFiLu8gd/2G091aOZY0N2ImVv
+	lgE1d9cEJighgEbk/2kPGqW5yyLdNJBAYhjlFpY0w9VkXq2xFIEmVYI=
+X-Received: by 2002:a05:6808:4f6c:b0:4f5:e13:95e2 with SMTP id 5614622812f47-567e0f327abmr531990b6e.9.1793913857962;
+        Thu, 05 Nov 2026 13:24:17 -0800 (PST)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef58b1sm5349897b6e.3.2026.11.05.13.24.16
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef58b1sm5349897b6e.3.2026.11.05.13.24.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 13:24:16 -0800 (PST)
+        Thu, 05 Nov 2026 13:24:17 -0800 (PST)
 From: Alex Elder <elder@riscstar.com>
 To: bhelgaas@google.com,
 	robh@google.com,
@@ -90,9 +90,9 @@ Cc: daniel@riscstar.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v4 1/2] PCI: of: introduce of_pci_build_prop_ranges()
-Date: Thu,  5 Nov 2026 15:24:11 -0600
-Message-ID: <20261105212412.591931-2-elder@riscstar.com>
+Subject: [PATCH v4 2/2] PCI: of: introduce of_pci_update_endpoint_node_ranges()
+Date: Thu,  5 Nov 2026 15:24:12 -0600
+Message-ID: <20261105212412.591931-3-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261105212412.591931-1-elder@riscstar.com>
 References: <20261105212412.591931-1-elder@riscstar.com>
@@ -107,175 +107,210 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the bulk of what happens inside of_pci_prop_ranges() into
-a helper function that builds up the value to be passed to
-of_changeset_add_prop_u32_array().
+Commit 407d1a51921e9 ("PCI: Create device tree node for bridge")
+introduced the PCI_DYNAMIC_OF_NODES Kconfig option, which creates
+a devicetree node for a PCI bridge as part of pci_bus_add_device().
+Its successor commit ae9813db1dc5a ("PCI: Add quirks to generate
+device tree node for Xilinx Alveo U50") shows how to use a PCI final
+fixup quirk to also create a devicetree node for a non-bridge PCI
+device.  In both cases, of_pci_make_dev_node() uses an OF changeset
+to dynamically create a node populated with appropriate properties
+and apply it to the live devicetree.
 
-This helper will be used in the next commit to build the ranges
-property for a statically-defined PCI endpoint devicetree node
-when it has a "pci-ep-bus" sub-node.
+The dynamic devicetree node for a PCI device will include a "ranges"
+property, and a new type of 3-cell address is introduced for use
+within an endpoint.  The endpoint's ranges property will contain a
+range entry for each of the endpoint's BARs.  The "child address"
+portion of each range will use the BAR number in the "flags" (first)
+cell in the address.  This allows addresses within the endpoint to
+be expressed relative to whatever address gets assigned to each BAR.
+
+Unfortunately, if a PCI endpoint device had a devicetree node set
+up statically, its "ranges" property (if present) will be static,
+and it cannot contain the addresses assigned to the endpoint's BARs
+during enumeration.
+
+This means that the "BAR number" based addressing scheme doesn't
+work for PCI endpoints whose devicetree nodes are created statically.
+
+To remedy this, modify of_pci_make_dev_node() to dynamically create
+a "ranges" property even if the device already has a devicetree
+node--just as is done when the endpoint has none.  A few conditions:
+  - A PCI bridge node's ranges property is never updated
+  - If a PCI endpoint node defines a ranges property with a
+    non-empty value (i.e., it's not just "ranges;"), that
+    ranges property is preserved
+
+Otherwise a new ranges property is created using assigned addresses,
+and it replaces (or adds) that property to the PCI endpoint node.
+
+As a result, "BAR number" addresses work correctly even when the
+endpoint's devicetree node is created statically.  This has been
+verified by Andrea della Porta (with both static and dynamic ranges
+properties) on the Raspberry Pi 5 RP1.
 
 Tested-by: Andrea della Porta <andrea.porta@suse.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- drivers/pci/of_property.c | 126 +++++++++++++++++++++++++-------------
- 1 file changed, 83 insertions(+), 43 deletions(-)
+ drivers/pci/of.c          | 97 +++++++++++++++++++++++++++++++++++----
+ drivers/pci/of_property.c |  2 +-
+ drivers/pci/pci.h         |  1 +
+ 3 files changed, 91 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 702675672fbc5..b202f45b3660b 100644
---- a/drivers/pci/of_property.c
-+++ b/drivers/pci/of_property.c
-@@ -8,6 +8,10 @@
- #include <linux/of_irq.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/ioport.h>
-+#include <linux/slab.h>
-+#include <linux/wordpart.h>
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+index 5a040ed836744..fa9e9377c3eb9 100644
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -17,6 +17,9 @@
+ #include <linux/of_pci.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_wakeirq.h>
++
++#include <asm/byteorder.h>
 +
  #include "pci.h"
  
- #define OF_PCI_ADDRESS_CELLS		3
-@@ -104,60 +108,96 @@ static int of_pci_prop_bus_range(struct pci_dev *pdev,
- 					       ARRAY_SIZE(bus_range));
+ #ifdef CONFIG_PCI
+@@ -742,20 +745,98 @@ void of_pci_remove_node(struct pci_dev *pdev)
+ 	of_node_put(np);
  }
  
--static int of_pci_prop_ranges(struct pci_dev *pdev, struct of_changeset *ocs,
--			      struct device_node *np)
-+/*
-+ * Build a "ranges" property value that defines the mapping between
-+ * child and parent PCI address space for each of the given PCI
-+ * device's resources.
-+ *
-+ * Returns a dynamically allocated array of u32 devicetree cells, or
-+ * a null pointer if allocation fails.  The cell array is built as a
-+ * of_pci_prop_ranges structure consisting of 8 32-bit cells in host
-+ * byte order.  It is suitable for use as the value of a PCI device
-+ * node "ranges" property passed to of_changeset_add_prop_u32_array().
-+ * The total number of cells in the array is returned in *count.
-+ *
-+ * Caller is responsible for ensuring the returned pointer gets freed.
-+ */
-+static u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count)
- {
--	struct of_pci_range_entry *rp;
-+	bool bridge_device = pci_is_bridge(pdev);
-+	struct of_pci_range_entry *entries;
-+	struct of_pci_range_entry *ep;
-+	u32 resource_count = 0;
- 	struct resource *res;
--	int i, j, ret;
- 	u32 flags, num;
--	u64 val64;
-+	u32 first;
-+	u32 i;
- 
--	if (pci_is_bridge(pdev)) {
-+	if (bridge_device) {
-+		first = PCI_BRIDGE_RESOURCES;
- 		num = PCI_BRIDGE_RESOURCE_NUM;
--		res = &pdev->resource[PCI_BRIDGE_RESOURCES];
- 	} else {
-+		first = PCI_STD_RESOURCES;
- 		num = PCI_STD_NUM_BARS;
--		res = &pdev->resource[PCI_STD_RESOURCES];
- 	}
- 
--	rp = kzalloc_objs(*rp, num);
--	if (!rp)
-+	/* First count how many resources will get a range property */
-+	res = pci_resource_n(pdev, first);
-+	for (i = 0; i < num; i++, res++)
-+		if (resource_size(res) && !of_pci_get_addr_flags(res, &flags))
-+			resource_count++;
++/* Returns true if the ranges property was added or updated successfully */
++static bool of_pci_update_endpoint_node_ranges(struct pci_dev *pdev)
++{
++	struct device_node *np = pci_device_to_OF_node(pdev);
++	struct property *prop;
++	u32 *value;
++	u32 size;
 +
-+	entries = kzalloc_objs(*entries, resource_count);
-+	if (!entries)
-+		return NULL;
++	prop = kzalloc_obj(*prop);
++	if (!prop)
++		return false;
 +
-+	ep = entries;
-+	res = pci_resource_n(pdev, first);
-+	for (i = 0; i < num; i++, res++) {
-+		u64 size = resource_size(res);
-+
-+		if (!size || of_pci_get_addr_flags(res, &flags))
-+			continue;
-+
-+		/* Record the size in the range entry */
-+		ep->size[0] = upper_32_bits(size);
-+		ep->size[1] = lower_32_bits(size);
-+
-+		/* Record the parent bus address from the resource */
-+		of_pci_set_address(pdev, ep->parent_addr,
-+				   pci_bus_address(pdev, first + i),
-+				   flags, false);
-+
-+		/*
-+		 * For a bridge device, the child address matches the
-+		 * parent address (including its flags cell).  For an
-+		 * endpoint device, the (flags) cell contains the BAR
-+		 * number, and the two address cells are zero.
-+		 */
-+		if (bridge_device)
-+			memcpy(ep->child_addr, ep->parent_addr,
-+			       sizeof(ep->child_addr));
-+		else
-+			ep->child_addr[0] = i;
-+
-+		ep++;
++	value = of_pci_build_prop_ranges(pdev, &size);
++	if (!value) {
++		kfree(prop);
++		return false;
 +	}
-+	*count = resource_count * sizeof(*ep) / sizeof(u32);
 +
-+	return (u32 *)entries;
++	prop->name = "ranges";
++	prop->length = size * sizeof(u32);
++	prop->value = value;
++
++	/* The property value needs to be in big-endian byte order */
++	while (size--)
++		cpu_to_be32s(value++);
++
++	/* of_update_property() consumes the allocated property */
++	of_update_property(np, prop);
++
++	return true;
 +}
 +
-+static int of_pci_prop_ranges(struct pci_dev *pdev, struct of_changeset *ocs,
-+			      struct device_node *np)
-+{
-+	u32 *value;
-+	u32 count;
++/*
++ * Create a devicetree node for a PCI device.  If the device is a bridge
++ * and it already has a devicetree node, there's nothing further to do.
++ * If it is a bridge without an existing devicetree node, one is created
++ * dynamically.
++ *
++ * This function can also be called (via PCI quirk) for a PCI endpoint
++ * (function) that implements a PCI endpoint bus.  As with a PCI bridge,
++ * if the endpoint has no existing devicetree node, one is created
++ * dynamically.  The node will include a ranges property that maps
++ * BAR-relative addresses in the child to the PCI address ranges
++ * assigned to the PCI endpoint BARs.
++ *
++ * If an endpoint already has a devicetree node, and it includes a
++ * "pci-ep-bus" sub-node, its ranges property must still be dynamically
++ * populated so that it can take into account the BAR ranges assigned
++ * during PCI enumeration.
++ */
+ void of_pci_make_dev_node(struct pci_dev *pdev)
+ {
+-	struct device_node *ppnode, *np = NULL;
++	struct device_node *np = pci_device_to_OF_node(pdev);
++	struct device *dev = &pdev->dev;
++	struct device_node *ppnode;
++	struct of_changeset *cset;
+ 	const char *pci_type;
+-	struct of_changeset *cset;
+ 	const char *name;
+ 	int ret;
+ 
+-	/*
+-	 * If there is already a device tree node linked to this device,
+-	 * return immediately.
+-	 */
+-	if (pci_device_to_OF_node(pdev))
++	/* See if the PCI device already has a devicetree node */
++	if (np) {
++		struct device_node *child;
++		unsigned int rlen = 0;
 +
-+	value = of_pci_build_prop_ranges(pdev, &count);
-+	if (!value)
- 		return -ENOMEM;
++		/* Nothing further needed for a bridge */
++		if (pci_is_bridge(pdev))
++			return;
++
++		/*
++		 * A ranges property is only needed if the endpoint's
++		 * devicetree node includes a "pci-ep-bus" sub-node.
++		 */
++		child = of_get_child_by_name(np, "pci-ep-bus");
++		if (!child)
++			return;
++		of_node_put(child);
++
++		/* If the ranges property is non-empty, just keep it.*/
++		if (of_get_property(np, "ranges", &rlen) && rlen)
++			return;
++
++		/*
++		 * Otherwise create a ranges property, defining an entry for
++		 * each BAR, and map BAR offsets to the PCI bus address based
++		 * on the BAR's assigned range.
++		 */
++		if (!of_pci_update_endpoint_node_ranges(pdev))
++			dev_err(dev, "failed to update ranges property\n");
++
+ 		return;
++	}
  
--	for (i = 0, j = 0; j < num; j++) {
--		if (!resource_size(&res[j]))
--			continue;
--
--		if (of_pci_get_addr_flags(&res[j], &flags))
--			continue;
--
--		val64 = pci_bus_address(pdev, &res[j] - pdev->resource);
--		of_pci_set_address(pdev, rp[i].parent_addr, val64, flags,
--				   false);
--		if (pci_is_bridge(pdev)) {
--			memcpy(rp[i].child_addr, rp[i].parent_addr,
--			       sizeof(rp[i].child_addr));
--		} else {
--			/*
--			 * For endpoint device, the lower 64-bits of child
--			 * address is always zero.
--			 */
--			rp[i].child_addr[0] = j;
--		}
--
--		val64 = resource_size(&res[j]);
--		rp[i].size[0] = upper_32_bits(val64);
--		rp[i].size[1] = lower_32_bits(val64);
--
--		i++;
--	}
--
--	ret = of_changeset_add_prop_u32_array(ocs, np, "ranges", (u32 *)rp,
--					      i * sizeof(*rp) / sizeof(u32));
--	kfree(rp);
--
--	return ret;
-+	return of_changeset_add_prop_u32_array(ocs, np, "ranges", value, count);
- }
+ 	/* Check if there is device tree node for parent device */
+ 	if (!pdev->bus->self)
+@@ -794,7 +875,7 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
  
- static int of_pci_prop_reg(struct pci_dev *pdev, struct of_changeset *ocs,
+ 	np->data = cset;
+ 
+-	ret = device_add_of_node(&pdev->dev, np);
++	ret = device_add_of_node(dev, np);
+ 	if (ret)
+ 		goto out_revert_cset;
+ 
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+index b202f45b3660b..44e169f4fbf4d 100644
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -122,7 +122,7 @@ static int of_pci_prop_bus_range(struct pci_dev *pdev,
+  *
+  * Caller is responsible for ensuring the returned pointer gets freed.
+  */
+-static u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count)
++u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count)
+ {
+ 	bool bridge_device = pci_is_bridge(pdev);
+ 	struct of_pci_range_entry *entries;
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index e93f602b9ca48..af21a46cfdb3c 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -1324,6 +1324,7 @@ struct of_changeset;
+ #ifdef CONFIG_PCI_DYNAMIC_OF_NODES
+ void of_pci_make_dev_node(struct pci_dev *pdev);
+ void of_pci_remove_node(struct pci_dev *pdev);
++u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count);
+ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
+ 			  struct device_node *np);
+ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge);
 -- 
 2.53.0
 
