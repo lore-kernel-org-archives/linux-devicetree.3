@@ -1,90 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793872256;
-	b=W1f3duFbw716crF/xXVYTB4iljeJpiX/R2NgxDi2p+jQOAu/QMnKLTaWrkBb9DJ2fxAL
-	 uIlFV63xJRi3lK/lS87NJTi3AovjC7L0lO73DFO3V33Hl2PhdISd4iE+lkZa5raHRxyif
-	 MDjxGSe9hpXR47ZUSDEEAsumDWDYjyPXAp5iD7VX+oHbj8NVPxdWsBevjNuktxIBA1bEq
-	 wqTJCwUASW4fCaiqVrEDxJ5Y0SR1c+yiSHtucKtUwaXXtqJ//hNclm8hDSxAH+5yGyeF8
-	 7V7haOVvq6wHcs7HuJfpv1xOoFx8nWPgwYPAP5Wz3aTlI0oamWI0fwbDS4oRAAN74OQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872256;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=XSaDscozYZ8SMksWFMf70AsI7Ua2SyLtwYoUK0Lk26Y=;
-	b=wh12bevWbaXJG6MQQveB+DwZYiP3SV2Spwhek+EaRclu1jiIzFgZGb9YD4J/JheGwgDC
-	 1JuqNveeLI9XXtB6jfdMlQ1BPSYyUVN5lu3zgQk81U8urB8m56fY+zAmb8zKdRq2d3/BF
-	 D1x5GYPqX6lYLoVxepd31YSXmCZUBcpH5Y4b+9FjtcHAYeAD1O3U9CaKP3qyG0KkEYg99
-	 r+lCxTsPqb8cseLAuMVscStKsglIXZ73FjSJBzfD7GFbj9I5MWxk1wu7D6KdtGrwLXD5S
-	 bqfrU9zdDW9OVuuLVJv9GAgCs3o2XNsSPlMihwi59g/XcJoCHrRZ/OBsX64xwPx9CvQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=nDO01GAL;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=zQtF6CQ7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793872257;
+	b=Z8QQPunSwJT/9rep5jmGAYIWvhFjd9ag8OIlJugGbL4IkPSdCkH5VBhIPwrWkmLvCg4/
+	 WI4NkpEUkH8QkWE1KbtZZJ3b3xkNNrDzrmBbtucnnMKD1JgT2kF4WS6hP5d7/51rO2PwF
+	 uQg5MO8XQIilUNmx4jraZ0RESPQs7gldolUsNR4ejhAJCuuJCzY027JJHpNIY2GEHL4Lm
+	 VuNEnf7p7te+eBW9bXgvj69RCt4OzZjkhxrk9FeysAoxP1VqDYgHiXbLG9A4M100KEE4e
+	 2L23XcVzi/l7CTPi07MtyOGxbyLlNnpHF+hHCNrTA3JyF5RiWIFUSOnbubjKXWS/vng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872257;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=tdN8BYMaeX7sTpIs2KSSI8cpoUWm37wgO48E1qU6ekw=;
+	b=EYiWppMeZvkgrgBOmKAQHHjw0juPdOahOXkOalUmblEOOb0sSDIYMi+v5XAq2xv04HiE
+	 W9lsdDJQE9s5qvachrg7KgKvK01s+wugR9+ccFNl2ksfPcayH4EM5MISrH/LC/GHKyDUw
+	 ovEyx7LEZJ8eT99hcwbQFOX87NubmZiayP98ZQODboahe6o0JVX4lW63i9csmhV8elZZe
+	 oUWDe9ktFwmTw7fU3BCe2VyZkcCytQUfZ5tracw9IVy5m7a4do/iNCXxF16QKLU0tWR96
+	 X/489bWnPaA962UUzQLnc7VENxnSMNLi+wK0BA0QgTZHFGcDkm0W8CMq9KNMkGpAQ7w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=vlChj5hA;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uwWBP3kN;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F94606A326;
-	Thu,  5 Nov 2026 09:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F94606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3816B606D81D
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 09:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3816B606D81D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=nDO01GAL;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=zQtF6CQ7
-ARC-Seal: i=1; a=rsa-sha256; t=1793872242; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=pqgbLHzJouvfrBA7VQI2YCkyciUIpXJFgMys0UJYRWWX2N6OakMN9CtnBseyo76Cgd
-    NhnI65dqDpxBdoqYilG4h1f8sAtMHxw4sLNT6s+Oo9nh8fUvakK749t6lQN606EJQK/l
-    68P+yNstwUOZiLwm8T+2urc6fEnBj2YoT//hvESd0xfazWm2pz0K1rHq2Y/iYAGex5kC
-    AzjDUVq3j/rp131Y87Znt6XBSLA1OiWmX4UCIRaHcu80J43vA8of1/NXWkNayynxgMYZ
-    waEmQecHO2J61Jpn7jsUOg+ZIGHd7ubsIahyW/o5ckOtal7oreBzX0K2Xs8cIsZWfAvc
-    z8BA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872242;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=XSaDscozYZ8SMksWFMf70AsI7Ua2SyLtwYoUK0Lk26Y=;
-    b=GJHqcBF3jA9j/KE/oKwCUurjjGdov88kKAI7b8axHAsGg0mX6xSPSiXyyM2xLAAAxY
-    pK/uXASqLNvVFB0L28EgPvlntblGMt5uzyRMWlcfT6uqDSj6qbeXTL4MFC3H0zA/ODJT
-    FP/SN8TVlYgrLdBerZa1qkpKsywQ8vyoZwXtXa3qylC8sF9WThFmkm/p+MrjrL0v5M/T
-    /ceETs0KHMTX0K4HDifKVs6I6iSkM4MyGr9VOZwPt6+AsdTuMLPfB2IXQ3OoQ1OTDOkj
-    /ArQamBQNdY2MIFadhVvUX9JM79kIaGzupNfo/0kxg1JfRMQqHON/Qsg+spN2ezzgrtS
-    IvbQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872242;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=XSaDscozYZ8SMksWFMf70AsI7Ua2SyLtwYoUK0Lk26Y=;
-    b=nDO01GALfOZDtxTEyMM7N+YDA5kHjugbfb7HFW6jIREXvPMeEj3p7BvRmB+G/+dHrq
-    OPanrFAWrDYlxjBaB2+gqcVZj9J/1pNJAB/7hN3GNNvUomQ5gN6sKZrZa5PrI/x9LDok
-    TKxucYHyqD4Cd6bWWDjyFEBfdYKN61z/MYLhoZpvVWd9nVOfA9/fbCuVQbxzStBaOZzv
-    j0PaXCGrJAEXtYFnvJ8Yp5wFMzQDuguBhRWS0Be9I8H/PYA/bjlBT2JEhzSurgr5N+az
-    uZlnAYlkwDC6k0Woef3J2rFyZRO0sHUPr/uptEAw4b//6nkUedVM1jDLE3ExNH/TovPz
-    mpxg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793872242;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=XSaDscozYZ8SMksWFMf70AsI7Ua2SyLtwYoUK0Lk26Y=;
-    b=zQtF6CQ7VTY0UC1XMsXZ1iWLjMg4IOt7ybyGDPRJ4h+YBGNsTmFnjT0rnUZBpnv22R
-    ox4SHccfSc/UDWLCEyBA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A59ogi16
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 10:50:42 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=vlChj5hA;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=uwWBP3kN
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 9C4EB7A01B3
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 04:50:50 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Thu, 05 Nov 2026 04:50:50 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793872247; x=1793958647; bh=tdN8BYMaeX
+	7sTpIs2KSSI8cpoUWm37wgO48E1qU6ekw=; b=vlChj5hAm+yauxECvQLZD4ueJs
+	sXpm11K2nkX/7f5Crn29If2tk6Wt7FCq/GUQf9ulMVw5pDGgrCXnSbqPGSfi/lGQ
+	fAgGhES4B2KCieRLE3g6TgLvXfM97cI5EZPW3IQg41ATQMOG0IsVDOPEaQX34if7
+	ZLcmLDjOcEsyG7OPpsktGZ6IWTxrRSvkKnu67H5+mwpF4g7+7zOFoF1+aZDnROp8
+	nILDggqf/5VZq5DqEVhyVhyExhLurP8DqhuoivPCb7vrAbdI36fmJAYK4qWTQTm0
+	EeUzcmKUdlPmDTXKn5mnLRzoFC/aHr++c7+33I29TG+Aheau7K5rKKhoN/4g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793872247; x=1793958647; bh=tdN8BYMaeX7sTpIs2KSSI8cpoUWm37wgO48
+	E1qU6ekw=; b=uwWBP3kN9w+75gBPbfgDC+qAvB7SNgPm8dkgsbCxW/RzBoBur/V
+	NSBmgCU5cN35/JXpkIyE48u3PaOkO9Us1CcJ4z7+cr5enGaSj4nmF3bAhrcwF1u+
+	DywjCfPk5FJFUn2/hceggfJJoAYo7E0sIFH9g3qb4hP0UNv6YRnzijd8PW3cBitC
+	hZpPsvc0vQC0fcZHRcqYGzYfW1Dbe3zL+CVMlVQ7wE5qZP2ghMssrQcFtukF0AaH
+	BmZPq39xM4wn2FQKC74UxAoTMqGxwwtp9QYNvFNkWGUUJtxA1r1aw7vQ+8Frr7Xl
+	3xmjr4oRbT6gOJ06JYPdCYOOaKXIVWQucxQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793872247; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:MVzJ05Gh1lnqFStXGU4+Q+G0xYFmxe0vsg+xm2RTaL0DVZu
+	v0YsMJveVwlNfF7ACrfW/XoJxt15ByEFnTWuHO5PhCoIboA8RS8qux26xv8eHqAl
+	SOoNK5yUwDifhJoGsILdQCnX1we/4R1nEdRn6qMvQMFn+H4LOofINTXL7RW/jprk
+	xK7HeWAfxFtwV86bJ9zoMX3jofbRGSVHr9dYjKZRofoTXYfwa21f9bl7bqbOhOeM
+	56gk/r8Awfwf2JEAj/W+mypFIBJucTNJwpk0PAWDd9R1S8JhHeAR2ZrfyXQWHT4N
+	YpZnrd5cFzHS1IMFAzno7yUuGQFkcmbdNQ2YlLw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:hcUY8h0j0LtFuIHMfF1T4A4PydzG7IsIpufK/aUTZRo=:y5J/XCGySFoLlnfhT9D2Nb1VIKNEe959FeusWkn1xjk=;
+X-ME-Sender: <xms:dlHsal-q-K4FO4cmAyi5YW6TQMGK3CVH7r1TMqWp5ZoxAkDK5Smqhw>
+    <xme:dlHsalL2zlmmZsYiTmVyRKTz8xEqu1aYCoLum_LeUNVmemMRYQxbvfjqbICktkBtY
+    x-HoAkYv_RkLUUqwnDU_pLXiVydNMxEyEv_kblaKwUk3amn4TuZwks>
+X-ME-Received: <xmr:dlHsahuz9a2sjqykIAMdqM4w9ZJYpxNbam8HwzbJmZXa4bm5DLmpo322LAakrI_-cN6jdZUVcSnTnk0szW1GJc3CB0D3NgoNN64>
+X-ME-Proxy-Cause: dmFkZTEWcDtu48AJclumAXMuoDVfzxGvw7WtcS7yPKlNeJeV7eS+ZMxg1/1zWE7bQKaaOk
+    D+TVX5AK/lO0Cf9aYmJ8QhYH9+qyl6KBZmLipS4bkViJE6/5Jeg8VZQnE6Y8OYycqhqLch
+    LWnimMTskM/ox+ldUNwjnkD63GBRi7SqBT32NYbZiBfiRjOR55w7mh6zO952HKwwP6BVeD
+    drvSOo8XpSDd5sskTY1zD73tvg8h9WVnE7glblYAk7kQ+WF6i66Z2G8frYTGDnyh9/EKqJ
+    +4+NntgA49kqO/jZg/+P9b9C4mLch6UI3o8MiiDVTT+qleOgJxiQqJ5GcSELQerQYqgxLh
+    7nWxfqV2Elgs2P98haba3C5bXb/hTXnVUwPe5KzxzIJmAtIRL7GB+mIaSxgYJ/jZmJMjpk
+    Y8VxwAJqhXs83HkDPPx3XqnGDGF0M/CUpT/AHetEHXunhWhhPVQ6YvZ5D+F4Q7kZv+xXNT
+    fQ3EWfn5+qnzstWLO/KaQwrlZJzdS40iBHfCkpNNeHUXgsKN5Dx4TvBibXEcJ0OHLzuTpn
+    VsbhOn/2ST6YBmYKXV1cf92AHzZAvXHh93SbPAckMBfwkwUdMcP7wTv5I+glV2f/AHY4V1
+    OlYBftkinl11LqeiIvwlFnbXUf1lokb+LtTU2ORCRsKPjIHtsyHEq/v3Yeyw
+X-ME-Proxy: <xmx:dlHsammzDbBgauPWNfWLqQLkF3r43NGFKnY02OMrGjvz8uB8ZJT0Iw>
+    <xmx:dlHsagkGHOD1j8KDc506ERhHc0iMoORsNWS33QPKvsf0swBGYZVvXg>
+    <xmx:dlHsahhDA4sXid3ylCG2QjfVg3lX4GOklxpqwfMU0zrMxkIwOS4Yxg>
+    <xmx:dlHsaiHSycWMrphYKELCoOtP6T6OeX5m7PjixscIA8fQegj51AOFFA>
+    <xmx:d1HsapZRIsrkinl_cSM2IRw6H6SoL0p2qGSJyXKaXPTs6un01ZHvmYCN>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 04:50:46 -0500 (EST)
+Date: Thu, 5 Nov 2026 10:50:44 +0100
+From: Janne Grunau <j@jannau.net>
+To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hector Martin <marcan@marcan.st>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Michael Reeves <michael.reeves077@gmail.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	iommu@lists.linux.dev, linux-input@vger.kernel.org,
+	Yureka Lilian <yureka@cyberchaos.dev>,
+	Julian Braha <julianbraha@gmail.com>,
+	Sasha Finkelstein <k@chaosmail.tech>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: (subset) [PATCH v4 00/10] Add support for Apple Silicon
+ DockChannel internal keyboards
+Message-ID: <20261105095044.GA1421246@robin.jannau.net>
+References: <20260925-apple-mtp-keyboard-final-v4-0-304c267518f4@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,131 +137,35 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v4 0/2] iio: adc: Add the Ingenic X1600 ADC
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261102201155.10948-1-olivier@mgcrea.io>
-Date: Thu, 5 Nov 2026 10:50:11 +0100
-Cc: Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Joshua Crofts <joshua.crofts1@gmail.com>,
- linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2B790159-827A-4699-A48E-2313C04E3413@goldelico.com>
-References: <20261102201155.10948-1-olivier@mgcrea.io>
-To: Olivier Louvignes <olivier@mgcrea.io>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
-
-Hi,
-
-> Am 02.11.2026 um 21:11 schrieb Olivier Louvignes <olivier@mgcrea.io>:
->=20
-> A driver for the SAR ADC of the Ingenic X1600: four auxiliary =
-channels,
-> 12 bits, one interrupt per channel. Tested on a HiBy R1, whose keys =
-are on
-> channel 0 behind adc-keys.
->=20
-> As in v3, this version is X1600-only. The X1830 and the X2000 have the
-> same register layout by their programming manuals, and a chip_info =
-with
-> the channel count and the resolution can add them later, with a test =
-on
-> either.
->=20
-> Changes in v4:
-> - The Kconfig prompt, the header comment and MODULE_DESCRIPTION() are
->  the same text (Andy).
-> - The read computes the data register's bank and half next to each
->  other, and the two macros take them (Andy).
-> - X1600_ADC_CLK_RATE_HZ (Andy).
-> - Read and write helpers that add the base (Andy). Plain MMIO rather
->  than regmap: nothing is cached or shared, and the only
->  read-modify-writes are under the conversion mutex or in probe.
-> - The device clock rate is clamped before dividing (Andy); the divider
->  comes out the same for every rate.
-> - Binding: the description's last sentence and clock-names dropped; =
-the
->  driver takes its one clock unnamed (Krzysztof on v2 and Conor on v1:
->  their reviews and v3 crossed).
-> - Joshua's Reviewed-by on patch 2: the changes to it are the points
->  above, with no change in behaviour.
->=20
-> Changes in v3:
-> - Cover letter (Andy, Joshua).
-> - MAINTAINERS: no list line; the binding's path in patch 1, the =
-driver's
->  in patch 2 (Joshua).
-> - Includes for what the driver uses, copyright line, MODULE_AUTHOR(),
->  reverse xmas tree, open-coded return, no message after
->  devm_request_irq(), a blank line (Joshua; Andy on the return).
-> - fsleep(2 * USEC_PER_MSEC) (Andy).
-> - The ADC clock divider is now even, as the X1600 programming manual
->  has it; v2 wrote the divider minus one, as the vendor kernel does. =
-The
->  divider fields are named as in the manual, and the two clocks only
->  repeated sampling uses stay at their reset values.
-> - The probe comment on staying powered up no longer names the keys
->  (Jonathan).
->=20
-> Changes in v2 (Jonathan):
-> - The comparison with the JZ47xx ADCs dropped from the file header.
-> - No mod_devicetable.h include.
-> - X1600_ADC_VREF_mV.
-> - The status declaration split from its readl() in the interrupt
->  handler.
-> - field_get() for the channel's result.
-> - fsleep(2000) instead of usleep_range().
->=20
-> v3: =
-https://lore.kernel.org/all/20261026083631.48406-1-olivier@mgcrea.io/
-> v2: =
-https://lore.kernel.org/all/20261024041357.34346-1-olivier@mgcrea.io/
-> v1: =
-https://lore.kernel.org/all/20261023204209.48556-1-olivier@mgcrea.io/
->=20
-> Olivier Louvignes (2):
->  dt-bindings: iio: adc: Add the Ingenic X1600 ADC
->  iio: adc: Add a driver for the Ingenic X1600 ADC
->=20
-> .../bindings/iio/adc/ingenic,x1600-adc.yaml   |  53 ++++
-> MAINTAINERS                                   |   6 +
-> drivers/iio/adc/Kconfig                       |  10 +
-> drivers/iio/adc/Makefile                      |   1 +
-> drivers/iio/adc/ingenic-x1600-adc.c           | 257 ++++++++++++++++++
-> 5 files changed, 327 insertions(+)
-> create mode 100644 =
-Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
-> create mode 100644 drivers/iio/adc/ingenic-x1600-adc.c
->=20
->=20
-> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-> --=20
-> 2.54.0
->=20
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260925-apple-mtp-keyboard-final-v4-0-304c267518f4@gmail.com>
 
 
-I have added this driver to our LX16 kernel and it appears to work. I =
-can see
-some slightly fluctuating voltage values at e.g. =
-/sys/bus/iio/devices/iio:device0/in_voltage0_raw.
-Since the BGA balls are not routed on the LX16 I can't test the =
-performance
-of the SADC and/or driver.
+On Fri, 25 Sep 2026 22:09:27 +1000, Michael Reeves wrote:
+> This series introduces support for the internal keyboards on Apple
+> Silicon M2 and M3 MacBook models.
+> 
+> On these platforms, built-in input devices are managed by a dedicated
+> coprocessor running an RTKit-based operating system. Communication
+> between this coprocessor and the main processor is carried out over a
+> low-latency hardware byte FIFO interface called DockChannel.
+> 
+> [...]
 
-for the series:
+Applied to local tree (apple-soc/dt-7.5), thanks!
 
-Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - driver =
-only, no real world test
+[03/10] dt-bindings: iommu: apple,dart: Add M3 compatibles
+        commit: 6c799b8c0df41869fa0d059f7e54f8f84b3989ee
 
+the changes from
+[01/10] dt-bindings: mailbox: apple: Add M3 ASC mailbox compatibles
 
+were picked up via "NVMe support for Apple M3, M3 Pro and M3 Max/Ultra devices" [1]
 
+Link: https://lore.kernel.org/asahi/20260925-apple-m3-nvme-v1-0-5e832e2f4aa9@jannau.net/ [1]
+
+Best regards,
+-- 
+Janne Grunau <j@jannau.net>
