@@ -1,103 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793908390;
-	b=3PbzhfSver65veFQilza+pve4eLbhTuzk+7t/UxVhkAWiwSuzWFkR/G/b3lgIhaHixAb
-	 aKI/bRimB04oGE51Vn67roiwvGEyQwmYbgYQRL5BiiWYYrSoVgzbyp7k23UcrREG6uRP7
-	 o98z8h2dcDEop2XOB9E6nFWML+8M71AIDhHZrY6iz88mo4DTkeAvCDgJ0iHwAcIkigf4v
-	 m34IYw8o0dIuoJqJmfyDavGMGD7HqV1dL6teaCqQ8rUTncj1e49e7a/tUsQINI5zhv9X5
-	 9FDEDdRWWpgxZ5mI/sgFaks40U/ujWSC2TQ7/5qZNgT0kR/V3OAOSBKImfI8O/PGoQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908390;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+x/mepePPF2MrqTVLqRo4ZUvfYti5CeyvZn8wNeKnaY=;
-	b=s5nONE2hnfsKvj+jhq5wXsiWJt4cz8I2nXvZTSMGJ57Rrjz2Tg/WY/JrXa5r9LAYFmkP
-	 DbDYPgMZgIdQ+SJu3wC+SFxUvs85XaEKMZfu2ittRewND/CcoKOLDR12o4/hiqAAZlPuI
-	 MQXlmqdvE3SQZZHkK9+sl4rVg3fALVu/zJ/INV5j6Hi9yIIge5PsoAauZbIZZPKYml2wo
-	 VjUUYKFCRbsXpKywG0PTNZwmalzFwpUtuea3KIeiy+pIExWM2PI4gMA5VZrHEuCME4pOj
-	 yQyT81KXMHRJ04R45HzHPGyocJUjNSN0spk4chppbdKMNHaOCgBpswFybtfXnPcqWkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=tPo1XaVL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.42
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011042.outbound.protection.outlook.com [40.107.130.42])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793908409;
+	b=KCikb0mc+e6TGr22V2EGQYeXH+IYatqbv5h/9Qs2UurcAKXtWq0qBR0oV/ZKsftOklUc
+	 0lvwFd4KicOWzQ7uosuJrwUE8Q5zrvx+hFyst24MBTCb136gE355uaXiAkLhZjELFW0RQ
+	 RkmJ+fxxzggfQvFYglMO6nSVlIWRsXNlqCfO223qmhbMKAKqNOY4HBx7u4FjvT02KMmXi
+	 Xh2vNvSE0+yo9qBNmceThQdFXbGG0gsLtfS6jeZjw6pJZ75nl9Ew2JUJuSO1BHw4BYTOo
+	 Co6U4L9mb8/I4PFBezte2OGfiPO16mjzSwGDnACpbUORqOm3uLwJ4QQnkP+icGXzo5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908409;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=++B6g1rkbix+J1oVVYsPSBASK99MRRkm+UybAj51+pk=;
+	b=ugaiWJ8XzSJtdKXRjDBhT87ZQqYJhjmzQY4eWqQoXtn8jmYANqE53KfzAgG9KjwEymh7
+	 fbCVTURkwSLavktY2d5v2jnE+GDBCBz3dUzzjxnuhJpjcp8aduKph6Pd/VSt0MXZs8pjP
+	 RtivNu5iTFsiI7P4McnddVTRnt+vGizdsGPxw+oBQtUlTEEXQRgI5NplBF2kUTPbk+CU9
+	 VGALxorZLYQwiSsRhg4yhBkc9jleAfJ25RP/D/2E7BBVyQOYppxX5ZnoKVdd3jdoC68Oa
+	 fMGgjphAu0nELZAiZY93NvSwMpFX+Y1UbopdJ/Q1KIcoySZKvhgHvqA2LALDk7rUPag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cjdns.fr;
+	spf=pass smtp.mailfrom=cjdns.fr;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=wSYtsYAs;
+	arc=none smtp.remote-ip=5.135.140.105
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317F8606A329;
-	Thu,  5 Nov 2026 19:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 317F8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EF4606B9C3
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 19:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76EF4606B9C3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=tPo1XaVL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BgSIDegPcWQlk+doR0WGdRecYu8cTJcLboKfLKsJjZBlolK68aExS25bUpR4UlIoPrHpdM8lx1DrN7a/ycXIi7GW5xem9mqRd3DuD2BG6fRhtGzAr2McCXRHZFmuXKDTvIXkfmlpjfui5c3xl+9WuF6cV44FAfKBWvybr3XcrxzWBybATYeukmh3JN9OQlSHBy1RZnHziZi4mvZnQF4hPBN+T16fium+713JAbrOlBDz6rLWOEh6NyzXq3U1Y3Eh+0SdVdrGdYbxetYZaBa2UGEAkgB4wHzA7MsziSF38rJehvi4rGcwGmy+eG6D7JUtRjAF0+equ5qh8g0jEYoRpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+x/mepePPF2MrqTVLqRo4ZUvfYti5CeyvZn8wNeKnaY=;
- b=aAVilq0hSVARglyAP4V8d9/+3uTqhc4VkaGtBo3TFvEbrB9C/B8Sf5OnL85zVvLVm+DR3AhHuvGzseNtSoBRzT0I1TIReipeHIIx+qOQJ3Qg+qh31sZG8IliWa4j9sz2MUrj82KaQXWl0E3FaIfwz8biRcvcuICZvoOepJJckOGKBpynoHigGsaauN7vt+i6duUQRHgigS7qi1opmXp+iPS9Z2HczrNXTvy9dN15bgaynVVFMYf24CWriPwqc4I2efpuv7UQwTqWkVWergXmf8YIlWSGZxLwmGl6uGgbD0TBDlTsSCzb2kIephSsnZ4y6Q29IvzEMLmiNu3sqJq5Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+x/mepePPF2MrqTVLqRo4ZUvfYti5CeyvZn8wNeKnaY=;
- b=tPo1XaVLexNPQ8ua7k6YQhYr8v07MwUc+r85nRYT9ZsLsrRVv3aiyEvJ2tmgpkwgy3v0+dnSsPIvISGCDxtTTrxhNqksHO4b2ma82YZFiyJViODg0jqvguqyPJ12xIQ8eXCySoRm+QRBdTJBrY4nJzu8U4Xjk0Pmymx4gf2leiVxXvLTU+m+oizlIq+lWp3qG2wlg3GjF5mhaCXYNVLz7nMW9SRomvdNHmZ/XZFd4csB0u/9SyGC8EBl7UOE3F8ON3muizvxirX3LE1D41LgqNNHdLVNr5WGDakNkc4Im9ry6+CG7y+JiFnXe0LdsgdiVNsVecDRY9pO6ygu6DX2wA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by FRWPR04MB11199.eurprd04.prod.outlook.com
- (2603:10a6:d10:172::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 19:53:07 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 19:53:07 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: freescale: imx952: Add GPIO5 lines 18 to 20
-Date: Thu,  5 Nov 2026 14:53:00 -0500
-Message-ID: <179390837687.1654031.13234650905983591985.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005172622.135725-1-francesco@dolcini.it>
-References: <20261005172622.135725-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA1P222CA0066.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:2c1::21) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=wSYtsYAs
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C18432B8FF;
+	Thu,  5 Nov 2026 20:53:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1793908405; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=++B6g1rkbix+J1oVVYsPSBASK99MRRkm+UybAj51+pk=;
+	b=wSYtsYAsUb960aUgA1GWBofzaiglpxSqSHq1WZ3WmAUxP4E7IoIIGUoSbVy70Dko1Kb3Cj
+	/qaAmF8es6fkxHBb65ZqgqUBt+uw3vpC0MBurUWP+fH2iRFqvlJOCT+EFUtGpjm0V7q461
+	U5XgUk4z5CxDPx6j/oiX8cgokyLqtCnuqqiEU8os9q8DAaUg4cUxDzpk+lEmwIoH3CJXRx
+	9fIbYpdnZ123ZKVrlHzJJ+gWz4TnGykpWtflvKARUQ8e/UwlGnBW8j1H+AJKDsOdYilw5r
+	kkZX/vK9rDWEIExB7OtbhUwVsbufZos5VrRG7Veyqp7AOK1/G7MBuxieMlVBAw==
+Message-ID: <4b77a67c-7dd3-4366-8fa6-802f57cc61de@cjdns.fr>
+Date: Thu, 5 Nov 2026 20:53:23 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,86 +55,377 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|FRWPR04MB11199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 816a0cd9-f515-4040-a626-08df3b766993
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|22082099003|18002099003|10067099003|56012099006|11063799006|261026121527099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	frmJGWnTC8+ffeKMsxAxPbDv66EFi9QRN8D9oNFCYAbfz8PejTSwfxks5Zjo32OY0oeNrDmYnvGAvOILumc0iExlMgaX3TVsfgv5BRAXnHGF6j6GClizBO8uMhQyFx979jV1I5c6Q7hY98rMI29XHcsA5c6ALNDHzokJuexWdnqAzm92FvztocJ4nyKRP19lKC7d/sM4UzDrhXwzk/YMJuu6CCz9LvxWD/SJuTnRqUi8X/G6pNqIkHblM1OPH6WNY05GQRJjE0WzBegWVQPlMej/sYxnFONM9GN66/UJE15u7kYIKElZiDOzS1g4t6nSP6JEj4E/hOy72bAh6uL0jr/MgtfWpyrWvw46puC0cK4gkuwdAyRp7vIQxv19My1U7YsvLBuHq29Cxtei10ftWXUoAIx3sOMcmSwMiaus4R4vsYKyMbk36HxQ9lw8Jt9hPf5ESMAfGBChT1sCYHvPxtTdX4UOA8I/fWLB+vAfRekYeF1YsXzkZ8wMOOMpZH/Xd+gEjAW59y9fQmm0O6FUSQ39TIOkpUgqBZiolhRN1uo/b0DSamQ1iEDv2JTz3XUJozj15bbQ8a9bu+8S6j24YZSG/RokS99oC2+R/6KmygyNhH9VOl2iJiHvMYMcTq2pVkaV+pKzAf2N9GsetYJldljID2DVwF6PWBEObS1jZOo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(261026121527099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MHd2ZVBpcWdpUmFJMEN3Q1l1MWNHdkRsUHFQdndPNGp3c0xRVG9hckV0TVFE?=
- =?utf-8?B?Lys0bDA0cDA2MFhHSmRyMVI4eENNTkgvOW5QY3phZnB5dm1OQ1ltVjZHZG41?=
- =?utf-8?B?WmgzQzFkUXZqZTMxZVRTbjhuK0M3ZXNTNjIwRkVKWnkwV3NkOEZHeXBkM0Rl?=
- =?utf-8?B?aDY2ekhVeEtNamVMdm53MjhjYS9VWS9uemVMVDBnQVE2c00vZUdUaG9wdkhT?=
- =?utf-8?B?c2c4RWlIVHlBc2NTVVBwcGhHQlNIVHhUK0JCNlZqNVp3Zi9yUDM1Z2NJVk52?=
- =?utf-8?B?akRkcUlCcy8rdU1SN1g0ZldLWmJmRm84OEJmM2JtNm5TcHpDb05HU1RqWWZV?=
- =?utf-8?B?RlFKVHZ0TjNCbUg0NGMzQ2pEeTZHQkg4VjlQYnI5N0MvSXlFaVFORTN6RnhT?=
- =?utf-8?B?eGJMRjVjRVhRU3ArdEpxc05Sa3VJVHZ5Y1NOUnZXT3IyZG4rNHFXVU1venJK?=
- =?utf-8?B?KytiQ2kxMEljeHNnWVE4c2V2VmpyQnNIaHZXaFhXZWJ3U042YWIzTjF6M3pN?=
- =?utf-8?B?d0NGeklDRmtwcEhLa3hyRVRjajAyR0xkalhFYnVGK01RbkhOTFJCMzhoZnhP?=
- =?utf-8?B?dktaZEhWYmtVTVdrbHVYcWM1OUhjVnY5YzAwLzkwRCtUM1hLa0NQemNOK0NH?=
- =?utf-8?B?U1FWbUZLN3FQeE5LR2xUWDJHV1hVTk5SZGhYcEVRNTJjbXIydzlFRmRHV00r?=
- =?utf-8?B?TjhObTlDdEVqQ2k0T3JYQjBFaGQxRnBvVXk0NzIvUnpra1UwM1JHc2ZNdHBp?=
- =?utf-8?B?UitkYTRHOVVhczFJQ243YlFIQ1VPZThpaElVQWRnK3lBMU90T2xyRHB5MUpm?=
- =?utf-8?B?OVFHUEtXSThWN0taY3NadGpIZy83VFp4UHZoRFR6RFZyQWZsR0F6OHVaRS8x?=
- =?utf-8?B?T1ZKMHg3eEZZNDRTQ3FQVTN0NSs4UDA0ZzJpWVVtRzhIbTFVeVdJRllHVjZX?=
- =?utf-8?B?OFBVR0l6cmUwSDNNbGYrazN5M1JxMnVndGZLTVg4bi9pUTlDaGFiT2JnVEQr?=
- =?utf-8?B?SEdqQ2gyaFNqVzloSEJSSENla2dTUlNrck1WbG1yVzU3T3RZY2FRMlRpb0pu?=
- =?utf-8?B?b21EL05wYk12UVJVaEdIMUdPQi93cGtjc3dtdEVySk4xbWNJWVN1S1ZBQWJT?=
- =?utf-8?B?aVE2a0wrQStqMVFiclI5WXIyaDRtWnE2Ui9aMy9FMDRzaTk2Y1JJMVNHT1Zw?=
- =?utf-8?B?bVBPK0o3SkEwZ2tTRUpCZmVnMkNFMU1rMTJsVVVwbTBLNU14S1dhb2FTSXFJ?=
- =?utf-8?B?MkdXUE85OE8yZ21IWExxQ0JuNGFHVUlhZXJBa0JPUmUrcDZxbGRLWEd1S1ZO?=
- =?utf-8?B?Qmt4T1Z2OG9HdG5pYzJCTjRJcVdjZW9wNGpRZEx2MnBndXUrcGhPQ2I3aVhs?=
- =?utf-8?B?YWFqTDJEZWh5VU81WG9zR3g5ZnVvNDM5R0MwV1BaMGJpdTlINWhNTyt3VXBJ?=
- =?utf-8?B?bEJQZXozWjNxYkc0cTNrUEN4ZWgzb09YNzFQWEdjdklMNllhc0kyK1RJY05m?=
- =?utf-8?B?OUxycldZc25ZdWJ2YmViZFZQQzgzcEcrQ0xRUnQyMUc1QXRjZHozZnRGYktH?=
- =?utf-8?B?YmU2MUFMNmJmbmExcytCS1lOV3ViV0ExQ1V2N1JHN1JPVGpmVDhZOTBoQ2tt?=
- =?utf-8?B?Sm9iRzVVU1lQVTVEbm0yQlF2WllMQ3BaRkhQZzZvR3p0YytCK2c2RW5RZmts?=
- =?utf-8?B?RWlHV2doYVJtZ0x3VFd4ZXRLVnV3L3ZZRmgwNzIyR0ZjM0Jvd2xQQzAxRHYz?=
- =?utf-8?B?N3NlRUplUHRVUXpVODhJR3pkQVQ2M0RGN0QwSUpXRm51dmdkOWhWMkVWM3Ba?=
- =?utf-8?B?aVF4c1Mzd1dyL1lIODI1dHJld2krN3B0U2pLWDBWdVJLTUd4Vy90VkREdG4x?=
- =?utf-8?B?bDVtK0VHU3BFc1lQZWx1ZXlxMkRZNkhvSGYybFh3bHA5dVNnL1l2UE9IYWdU?=
- =?utf-8?B?M0M3YzhvdUM2SjgxM3RYa2h5bG5VTUpINFBRN0hYbWVJQUZob21McHFFLy81?=
- =?utf-8?B?clVua3FNQ2h6SnhUVDFLN3RpMlBXYVhHTmFSMkpxL3laVlF1TCtaeFRDYUxr?=
- =?utf-8?B?cWlpNVZTRVBGRVMxcDhvYkY3QVFuVGhGYUVoWVpyY25nRnZkM3h4dExJYVFt?=
- =?utf-8?B?ZEhLN1JzQ0lsQWVJQ29WdTRiRFJ0c1oyRWM4d1hYWGp3UnRyVWd5cmhIdHlP?=
- =?utf-8?B?dUk4aXZCUGtxMCthM3QwTVdxdStXOGMrUmRBR3ZqSG1UMXNGd28wNlE2d1FI?=
- =?utf-8?B?RXB5SEtXYlJudUkzWUEreHdrL1BUOEdYMUk0LzM1VVMxNGZiV1JIcHJUZGdK?=
- =?utf-8?B?VkR2dlQ0bTZVUkZJN2h0Uy9Wcnd5VVJMaUxwMUhTRUgyYVdqWllFdDF6RXdl?=
- =?utf-8?Q?eqRtk8u9DeKHovLOr3S6+u1HxcBHPyR0cU+ch?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 816a0cd9-f515-4040-a626-08df3b766993
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:53:07.4242
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Ha8RPP+4lZMo6UP/zpoQPCyLA4hxwTErR+CEXxV1rUiTAwZuw285N0+pUat6KilISjpitxgS8ZZiZVZAqeiWoe7Gox9SjX0LtF8Yd7/c6zyS4CiwspeZL5CIszjdqHN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11199
-
-From: Frank Li <Frank.Li@nxp.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v4 7/7] net: dsa: mediatek: support EN751221 switch
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261029184202.1859843-1-cjd@cjdns.fr>
+ <20261029184202.1859843-8-cjd@cjdns.fr> <sashiko-outbox-191442@kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <sashiko-outbox-191442@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
-On Mon, 05 Oct 2026 19:26:21 +0200, Francesco Dolcini wrote:
-> Add missing GPIO5 lines, GPIO_IO38, GPIO_IO39 and GPIO_IO40 are
-> GPIO-only pads fixed to GPIO5[18:20], their SW_MUX_CTL registers have no
-> MUX_MODE field (IMX952RM Rev.1, 2026-07-08, sections 33.3.2.44-46 and
-> 33.3.2.184-186).
+On 30/10/2026 20:22, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] net: dsa: mt7530: missing MT7530_CHG_TRAP setup for ID_EN751221
+> - [High] net: dsa: mt7530: recursive reg_mutex lockdep class in MMIO-MDIO hierarchy
+> - [Medium] net: dsa: mt7530: swapped default_taps in en751221_trgmii_pair_setup()
+> - [Medium] net: dsa: mt7530: missing child_bus mdio_lock in core_write() and core_rmw()
+> - [Medium] net: dsa: mt7530: race with peer phylink in mt7530_cal_interswitch_trgmii()
+> --
+>
+> commit fcbb4fdaccb60b7ebd8ef125ae65f04744031511
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> net: dsa: mediatek: support EN751221 switch
+>
+> This patch adds support for the EcoNet EN751221 on-die MT7530 switch and the
+> optional external MCM MT7530 switch, along with startup calibration for the
+> TRGMII link connecting them.
+>
+>> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+>> index 24e4485624d39..447c80455460e 100644
+>> --- a/drivers/net/dsa/mt7530.c
+>> +++ b/drivers/net/dsa/mt7530.c
+>> @@ -49,6 +49,9 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
+>>   static int
+>>   mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
+>>   {
+>> +	if (priv->id == ID_EN751221)
+>> +		return 12;
+>> +
+>>   	if (WARN_ON_ONCE(!priv->mdiodev))
+>>   		return 0;
+>>   
+>> @@ -349,12 +352,19 @@ mt7530_setup_port6(struct dsa_switch *ds, phy_interface_t interface)
+>>   	regmap_read(priv->regmap, MT753X_MTRAP, &xtal);
+>>   	xtal &= MT7530_XTAL_MASK;
+>>   
+>> +	/* EN751221 on-die does not report clock speed in MTRAP */
+>> +	if (priv->id == ID_EN751221)
+>> +		xtal = MT7530_XTAL_25MHZ;
+>> +
+>>   	if (xtal == MT7530_XTAL_25MHZ)
+>>   		ssc_delta = 0x57;
+>>   	else
+>>   		ssc_delta = 0x87;
+>>   
+>> -	if (priv->id == ID_MT7621) {
+>> +	if (priv->id == ID_EN751221_EXT || priv->id == ID_EN751221) {
+>> +		/* PLL frequency: 362.5Mhz */
+>> +		ncpo1 = 0x1d00;
+>> +	} else if (priv->id == ID_MT7621) {
+> [Severity: Medium]
+> When mt7530_mac_config() calls mt7530_setup_port6() on ID_EN751221, it invokes
+> core_clear(), core_write(), and core_set() on control PHY address 12.
+>
+> On the MMIO-based ID_EN751221 switch, priv->bus is NULL and core_write() and
+> core_rmw() fall back to priv->child_bus:
+>
+> drivers/net/dsa/mt7530.c:mt7530_mutex_lock() {
+> 	if (priv->bus)
+> 		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
+> }
+>
+> drivers/net/dsa/mt7530.c:core_write() {
+> 	...
+> 	if (!bus)
+> 		bus = priv->child_bus;
+>
+> 	if (WARN_ON_ONCE(!bus))
+> 		return;
+>
+> 	mt7530_mutex_lock(priv);
+>
+> 	/* Write the desired MMD Devad */
+> 	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
+> 	...
+> }
+>
+> Because mt7530_mutex_lock() and mt7530_mutex_unlock() only check priv->bus,
+> priv->child_bus->mdio_lock is not acquired when priv->bus is NULL. While
+> mt7531_ind_c22_phy_read() and mt7531_ind_c22_phy_write() acquire
+> priv->reg_mutex for each individual Clause 22 transfer, can the multi-step
+> MII_MMD_CTRL / MII_MMD_DATA sequence and read-modify-write in core_write() and
+> core_rmw() interleave with concurrent MDIO transactions on priv->child_bus
+> (such as phylib polling or regmap accesses to the downstream ID_EN751221_EXT
+> switch)?
 
-Applied, thanks!
 
-[1/1] arm64: dts: freescale: imx952: Add GPIO5 lines 18 to 20
-      commit: 62c2671594cec8ef17d70d876753dff4f78e5ce6
+This issue was noted here: 
+https://lore.kernel.org/sashiko-reviews/492da787-471d-4923-b6ad-6f6cb113b19e@cjdns.fr/
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+It only affects MMIO chips using core_*() functions (i.e. the EcoNets) 
+and it is not showing trouble in testing. I think the correct fix is to 
+replace the guts of core_write and core_rmw with calls to 
+phy_write_mmd() but that affects everyone and needs to be validated - 
+and I'd be inclined to send such a patch, but I feel that adding it here 
+makes this patchset more difficult to review, not less. So I'm probably 
+going to leave this one alone for the moment.
+
+
+>
+> [ ... ]
+>
+>> @@ -471,6 +481,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
+>>   	usleep_range(25, 35);
+>>   }
+>>   
+>> +static bool
+>> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg)
+>> +{
+>> +	u32 val = 0;
+>> +
+>> +	regmap_read(rx->regmap, reg, &val);
+>> +	regmap_write(rx->regmap, reg, val | EDGE_CHK);
+>> +	regmap_write(rx->regmap, reg, val & ~EDGE_CHK);
+>> +	regmap_read(rx->regmap, reg, &val);
+>> +
+>> +	return FIELD_GET(RD_VALUE_MASK, val) == TGMII_TD_PAT &&
+>> +	       !FIELD_GET(RD_ERR_MASK, val);
+>> +}
+>> +
+>> +static void
+>> +en751221_trgmii_calibrate_direction(struct mt7530_priv *tx,
+>> +				    struct mt7530_priv *rx,
+>> +				    u8 *default_taps)
+>> +{
+> [ ... ]
+>
+>> +		if (best_tap > -1) {
+>> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
+>> +					   RD_TAP(best_tap));
+>> +
+>> +			log[best_tap] = 'X';
+>> +
+>> +			dev_info(rx->dev,
+>> +				 "TRGMII lane %d: %s tap %d old %d\n",
+>> +				 channel, log, best_tap, default_taps[channel]);
+>> +		} else {
+>> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
+>> +					   RD_TAP(default_taps[channel]));
+>> +
+>> +			dev_warn(rx->dev,
+>> +				 "TRGMII lane %d: %s calibration failed, preserving tap %u\n",
+>> +				 channel, log, default_taps[channel]);
+>> +		}
+> [ ... ]
+>
+>> +static void
+>> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
+>> +			   struct mt7530_priv *ondie, int ondie_port)
+>> +{
+> [ ... ]
+>
+>> +	/* BOTH: Collect and then zero every RX TAP */
+>> +	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++) {
+>> +		reg_val = 0;
+>> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
+>> +		default_taps_ext[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
+>> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
+>> +				  RD_TAP_MASK);
+>> +
+>> +		reg_val = 0;
+>> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
+>> +		default_taps_ondie[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
+>> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
+>> +				  RD_TAP_MASK);
+>> +	}
+>> +
+>> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
+>> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
+> [Severity: Medium]
+> Are default_taps_ondie and default_taps_ext swapped in these two calls to
+> en751221_trgmii_calibrate_direction()?
+
+
+Seems so, will fix.
+
+
+>
+> In en751221_trgmii_calibrate_direction(tx, rx, default_taps), default_taps is
+> used to log the previous RX tap value on rx->dev and to restore rx->regmap's
+> MT7530_TRGMII_RD(channel) register if calibration fails. Passing
+> default_taps_ondie when rx is ext (and default_taps_ext when rx is ondie) uses
+> the peer switch's saved RX taps instead of rx's own saved taps.
+>
+>> +
+>> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
+>> +}
+>> +
+>> +static void
+>> +mt7530_cal_interswitch_trgmii(struct dsa_port *dp)
+>> +{
+>> +	struct dsa_switch *ds = dp->ds;
+>> +	struct dsa_switch *peer_ds;
+>> +	struct dsa_port *peer_dp;
+>> +	struct mt7530_priv *peer;
+>> +	struct mt7530_priv *priv;
+>> +	struct dsa_link *dl;
+>> +	u32 pmsr = 0;
+>> +
+>> +	priv = ds->priv;
+>> +
+>> +	if (priv->id != ID_EN751221_EXT)
+>> +		return;
+>> +
+>> +	if (dp->type != DSA_PORT_TYPE_DSA)
+>> +		return;
+>> +
+>> +	regmap_read(priv->regmap, MT7530_PMSR_P(dp->index), &pmsr);
+>> +
+>> +	if (!(pmsr & PMSR_LINK))
+>> +		return;
+>> +
+>> +	list_for_each_entry(dl, &ds->dst->rtable, list) {
+>> +		if (dl->dp != dp)
+>> +			continue;
+>> +
+>> +		peer_dp = dl->link_dp;
+>> +
+>> +		if (peer_dp->type != DSA_PORT_TYPE_DSA)
+>> +			continue;
+>> +
+>> +		peer_ds = dl->link_dp->ds;
+>> +
+>> +		if (!of_device_is_compatible(peer_ds->dev->of_node,
+>> +					     "econet,en751221-switch"))
+>> +			continue;
+>> +
+>> +		peer = peer_ds->priv;
+>> +
+>> +		if (peer->id != ID_EN751221)
+>> +			continue;
+>> +
+>> +		en751221_trgmii_pair_setup(priv, dp->index, peer,
+>> +					   peer_dp->index);
+>> +	}
+>> +}
+> [Severity: Medium]
+> Can mt7530_cal_interswitch_trgmii() race with the peer port's phylink_resolve()
+> work item?
+
+
+Yes, this is indeed possible. Inter-switch calibration needs to touch 
+registers of both switches, that's unavoidable. Taking out the 
+dp->pl->state_mutex is impossible because it's private. The right 
+solution is probably to make mt7530.c take the reg_mutex *every* time it 
+touches the regmap, but that's another change - and a pretty invasive one.
+
+So while I don't like it, I think the best course of action is to leave 
+this as it is.
+
+
+>
+> When dsa_tree_setup_ports() enables the DSA ports on both switches, each port
+> schedules its own phylink_resolve() work item holding only its own
+> dp->pl->state_mutex. In mt753x_phylink_mac_link_up(), priv->regmap's
+> MT753X_PMCR_P(dp->index) has just been written with PMCR_FORCE_LNK right
+> before calling mt7530_cal_interswitch_trgmii(dp), so checking PMSR_LINK on
+> priv->regmap checks the local port rather than peer->regmap's
+> MT7530_PMSR_P(peer_dp->index).
+>
+> While en751221_trgmii_pair_setup() forces MT753X_PMCR_P(ondie_port) down and
+> sleeps in usleep_range(5000, 6000) twice during TX/RX reset, could peer_dp's
+> phylink_resolve() run concurrently on another worker and call
+> mt753x_phylink_mac_link_up() on ondie_port mid-reset? Also, when
+> en751221_trgmii_pair_setup() writes mcr_up to MT753X_PMCR_P on both ports,
+> does it overwrite PMCR_FORCE_TX_FC_EN and PMCR_FORCE_RX_FC_EN configured by
+> mt753x_phylink_mac_link_up()?
+>
+>> @@ -1459,7 +1714,8 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
+>>   
+>>   	mutex_unlock(&priv->reg_mutex);
+>>   
+>> -	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
+>> +	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
+>> +	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
+>>   		return 0;
+>>   
+>>   	if (port == 5)
+>> @@ -1486,7 +1742,8 @@ mt7530_port_disable(struct dsa_switch *ds, int port)
+>>   
+>>   	mutex_unlock(&priv->reg_mutex);
+>>   
+>> -	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
+>> +	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
+>> +	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
+>>   		return;
+> [Severity: High]
+> Do the updates to MT753X_MTRAP for ID_EN751221 in mt7530_port_enable(),
+> mt7530_port_disable(), mt7530_setup_port5(), and mt7531_setup_common() take
+> effect without MT7530_CHG_TRAP being set?
+
+
+Indeed this bit is not being set, I will add a new setup function for 
+EcoNet (i.e. MMIO mt7530 chips).
+
+
+>
+> In mt753x_table, ID_EN751221 uses mt7988_setup() -> mt7531_setup_common().
+> Unlike mt7530_setup(), which sets MT7530_CHG_TRAP in MT753X_MTRAP after
+> resetting the switch so that trap bits can be modified by software,
+> mt7988_setup() asserts and deasserts priv->rstc and then calls
+> mt7531_setup_common() without setting MT7530_CHG_TRAP in MT753X_MTRAP.
+>
+> [ ... ]
+>
+>> @@ -3817,6 +4122,28 @@ const struct mt753x_info mt753x_table[] = {
+>>   		.phy_write_c45 = mt7531_ind_c45_phy_write,
+>>   		.mac_port_get_caps = en7528_mac_port_get_caps,
+>>   	},
+>> +	[ID_EN751221] = {
+>> +		.id = ID_EN751221,
+>> +		.pcs_ops = &mt7530_pcs_ops,
+>> +		.sw_setup = mt7988_setup,
+>> +		.phy_read_c22 = mt7531_ind_c22_phy_read,
+>> +		.phy_write_c22 = mt7531_ind_c22_phy_write,
+>> +		.phy_read_c45 = mt7531_ind_c45_phy_read,
+>> +		.phy_write_c45 = mt7531_ind_c45_phy_write,
+>> +		.mac_port_get_caps = en751221_mac_port_get_caps,
+>> +		.mac_port_config = mt7530_mac_config,
+>> +	},
+>> +	[ID_EN751221_EXT] = {
+>> +		.id = ID_EN751221_EXT,
+>> +		.pcs_ops = &mt7530_pcs_ops,
+>> +		.sw_setup = mt7530_setup,
+>> +		.phy_read_c22 = mt7530_phy_read_c22,
+>> +		.phy_write_c22 = mt7530_phy_write_c22,
+>> +		.phy_read_c45 = mt7530_phy_read_c45,
+>> +		.phy_write_c45 = mt7530_phy_write_c45,
+>> +		.mac_port_get_caps = mt7530_mac_port_get_caps,
+>> +		.mac_port_config = mt7530_mac_config,
+>> +	},
+> [Severity: High]
+> When ID_EN751221_EXT is registered as an MDIO device on ID_EN751221's internal
+> MDIO bus (ondie->child_bus), both switches initialize priv->reg_mutex in
+> mt7530_probe_common() with the same lockdep class key.
+
+
+Noted here 
+https://lore.kernel.org/sashiko-reviews/492da787-471d-4923-b6ad-6f6cb113b19e@cjdns.fr/ 
+and will be addressed.
+
+
+>
+> When an operation on the downstream ID_EN751221_EXT switch holds
+> ext->reg_mutex and accesses ext->regmap, the regmap MDIO callbacks invoke the
+> parent switch's child_bus operations, which acquire ondie->reg_mutex:
+>
+> mt7530_setup() (on ext)
+>    mt7530_port_disable()
+>      mutex_lock(&ext->reg_mutex)
+>      regmap_update_bits(ext->regmap, ...)
+>        mt7530_regmap_write()
+>          bus->write() (on ondie->child_bus)
+>            mt753x_phy_write_c22()
+>              mt7531_ind_c22_phy_write()
+>                mutex_lock(&ondie->reg_mutex)
+>
+> Will this nested acquisition of ondie->reg_mutex while ext->reg_mutex is held
+> trigger a lockdep recursive locking warning?
+>
