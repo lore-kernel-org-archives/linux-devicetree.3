@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876062;
-	b=YkvKKhsyJPDU1dZIj+ycx4DLIUslO7NiyMjH4kXo15FwFjnSu7nXu5HRchC/HGHmnw6J
-	 +uWZWZgNF+KQqvjSnoKw3dR+OAq0VhPO7us+9vcB4Ul+ld0ZGoWrXakf9/nGekD/gKh01
-	 hEINnJJpaz6+AcarUUBbtA0zG6tH9c8mKqzwkEbOhZVE9aEaz2GfLxP9e2W0XgtcOP63K
-	 H3zymUci15madrDENIiLAOtRX6FOyB9apsEnSU3ac5sxkiq55d2Wcf590hFh24HpMYwt+
-	 vwplBNqOrIUW2gARGG/Rc1tV2DYjxQeTEtUW2wYncRbGakOTFJCG/FYy76J+NLl2xEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876062;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
-	b=SjMctE5ScClD6XNG0v+ugLEBfks/5vag7Vo03wZwkRpw+miep8HfVa7nT/8sGn35MjSQ
-	 moJun12bMy/DbfgfkY9I+N+qbRpqrB19FzToC5RgnbKB90h8bjrdW9u+eBaNTm8VIN0nS
-	 shGvMCruuK86MTJpL8gflXxJ6dHiVOGh2N1G2EbL5Espbdk103tI0afXcTNm1LOMCNaZp
-	 5ZjsBE3JgKKbFY5FdkK8tOpCs7V7HUBxm3WUZbxs6RqvOGKZ4KMSJ/ByHB+t909L40+Oq
-	 duROOfpsJfPpluu0shXj9uOr2KfiIpKPxDJrYYaQ5YQjwkvmMbA+kEOuffqFmgC7RNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793876105;
+	b=nvqLKPJ8ZojcSkrgfYlvbvPT+P5lEfRaW+m2V3dN1M4DrUB/tRNHD2f3urg7SOVPJOB3
+	 JSMtOAbJNJDro6g6EUmkX2yVy/bXc8A9bjWKlJbPqW6WEQjN6eXjLOSnxxa+0yyo9bs/7
+	 Mnqqr3g+T6e7f5guxgqH2oa2bQuyBODS8kjSVAjPbWzkJstI71W8UUshWHGm3VdeQxPtn
+	 jutDKOiiwMKi2T5DGF+aGI62Q8ONcfO/57qCYsuJ1Ncmi7nffex8T6L2v3umPhb+c3WTS
+	 KiCNyyzsIX1kworpp3E1yf7cFSymOq6DbtrWoEgE3zk4wr111069INv5TgPOgcRuYzA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876105;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=vrbFmRHg0Vwaa7wvCtJ83s9ZBgrN+iwSbrevpGKdNvE=;
+	b=eArZhpftv9sZzUFPBMG4oBX0Dy+7xwoJdQAenRlhp3ukHGujxIb9eWmLD5lTYYTSbYXk
+	 1WTHl8fMmYSKs5i2nnA3k9iHvKI5lKj5kGfXtmEbIInIUE8GLtlQ48XFU4bwlynJEbs9J
+	 vm7ZVoXo0puXRYHhg9gEPGoCO0wz28GrFGeAV2jW9sh7YyVcBSTdA3HNme7VoTdEt3/gb
+	 U5hDVhBqjbJqFyIofltfYisTcfcHRtqPaC3BiU4PdZiprBjsNDXrCtIEcErZN5tUZPJy0
+	 aIonF5B8SQmCHdknef09CwbugxJ/PFzpvsC6+IZNjqxP8OMGKUvhLah+JCzlKATiC+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbXuMzoe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B594C606A332;
-	Thu,  5 Nov 2026 10:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B594C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933B1606A329;
+	Thu,  5 Nov 2026 10:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C;
-	Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793876052;
-	bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=NcjEQpYMRbxhXBgzKnZDjzO9LLwfDGOaaIfPmI2qnt8v3BjyjGfN95aIsbRJ5WcAe
-	 pMYGKFT8Id4k/8Q0czZ/74nGUvslfN7Kw9FJOU7LmEuNez+Hz47vdPfnIMzS747B6m
-	 sW7Jr++9LwO+aS1wGDZxc4S00WHnS1MZnDI6ngsg=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf~lIMPucvWX2329723297eucas1p12;
-	Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105105410eusmtip15133e9a84efd244fc2a8fcab25cfa49a~lIMOGw1ty2761527615eusmtip1a;
-	Thu,  5 Nov 2026 10:54:10 +0000 (GMT)
-Message-ID: <204d333a-6f09-4498-b776-b2daee8d94b8@samsung.com>
-Date: Thu, 5 Nov 2026 11:54:10 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbXuMzoe
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793876104;
+	b=gu9rYsh6ltFvfJ9kIOQaXz5TfHoAokbA7Z3+j8j1+anAj0LkmKzBW64jTKkpWzuFXeIH
+	 alRR0prrODdBAmGi56FORllVYmac6EunxH8hiuoDTrSH43hSypI0RyN3tGAmlnfakx0+C
+	 Weu8owrJgFVt/pJ6vfQ/UocnQyJqTrTkUiWDUBzqdyb3PNAXhE1IA4RH7JAJz4hlomRy7
+	 TJ5x6JWlUVhyxup5s2tN3Io14lhubAtAE1MGGakVQeiBrOWE6FBl3MmMa2bHbchfiWZkf
+	 38lm8S5RhZT1HXbycntsxrgLf3Pn3UrssdfFmZP/jqm/mqwXjvyDxjceUqFFirffHrA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793876104;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=vrbFmRHg0Vwaa7wvCtJ83s9ZBgrN+iwSbrevpGKdNvE=;
+	b=Gk7N+ifED987xcgbZALAXQcc5YCeSH5j9S/+/GTAr/+0HVoQdr9iE3Z2SBSjNDxl/7NS
+	 sTdqR5qmsRmit3snDhFiHSfDlS/wV4uCUYUGvhr31AGaboLsm7x4mFINC/pHZA0PeFLJG
+	 G4qJB9lPsLtmvxr1sGsLbuwFBlNm/I6IbJtDMOj2de/bxDecaQFCNNK32Cak2PM98HGv+
+	 +W4aaQcuKS9X4pL/usM7s08e3C4w13BWOJmAtwG3Qs0jnNOjLnqBN9Ru2nq4vGMhQnyBR
+	 cbEsNF00qF90hAPEFXaG7XscLgb3HsX/CPAuUbz2+heHkGWbFo/ApGy321JZpEzsw8g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 820111F00A18;
+	Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793876104;
+	bh=vrbFmRHg0Vwaa7wvCtJ83s9ZBgrN+iwSbrevpGKdNvE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=CbXuMzoe5qU+uDFNip+1wLfiN8y70+UZhIAbf4BG2nkWV3I+9szWEz0mtsLevKdkG
+	 FyclFAcx7YjmAbaGaznHYS9d0NI8NHm9PvqA7A7wItZ/iOLpy5VMreSbqBDtPjR/zA
+	 3mm2X6TNug8j2K/DwsAvhKAgmEatuEf1Of4B+61k0GYxt6FAHN6VwX6BWpOY0H92dq
+	 7BCuwGnV+G4lHmsLD8kdZyrw5ijAaVB1lzNZedw7UfnUwQsuOh8ZWX3P/8yu9JbRv9
+	 eL4lnHTxoAyCehkIUpDrpVh05w1ALx3bOeXIzaTkErJCtcONuRO1SJCiWCqohmioZf
+	 ykVVLIpTzXGMQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0EB22471DE;
+	Thu,  5 Nov 2026 10:55:03 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Thu, 05 Nov 2026 13:54:06 +0300
+Subject: [PATCH v8 02/11] dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU
+ to SMMUv2 compatibles
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,126 +83,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/18] drm/bridge: inno-hdmi: Don't dereference a
- NULL drm_device on hotplug
-To: Heiko Stuebner <heiko@sntech.de>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
-	Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
-	<hal.feng@starfivetech.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
-	<andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
-	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
-	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
-	Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <2261991.3Lj2Plt8kZ@phil>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
-X-EPHeader: CA
-X-CMS-RootMailID: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
-References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-	<20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
-	<1844578.vCJZsxu672@phil>
-	<CGME20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1@eucas1p2.samsung.com>
-	<2261991.3Lj2Plt8kZ@phil>
+Message-Id: <20261105-msm8952-initial-support-v8-2-311ae8e8f14b@mainlining.org>
+References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+In-Reply-To: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876100; l=969;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=kpqMYq4BzsuyLclvUfDPu/lZin8icjEat8+zs0C5qZw=;
+ b=9WSZMwhPlP7hXbdYUrdG/vxs8AJkxR/4Y4m+tW62ZnC+XgNTxbi3GIJZbQk1BhG/fe7KSFTLw
+ l+RMCYRa2YmAT8BGxEcSw8QXMEyotCg21ySNJU5Y3cqphbNMnGQWJMH
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
+Content-Transfer-Encoding: 7bit
 
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
+Add MSM8952 compatible string with "qcom,msm-iommu-v2" as fallback
+for the MSM8952 IOMMU which is compatible with Qualcomm's secure
+fw "SMMU v2" implementation.
 
-On 10/30/26 18:44, Heiko Stuebner wrote:
-> Am Freitag, 30. Oktober 2026, 18:43:47 Mitteleuropäische Normalzeit schrieb Heiko Stuebner:
->> Am Donnerstag, 29. Oktober 2026, 08:53:36 Mitteleuropäische Normalzeit schrieb Michal Wilczynski:
->>> inno_hdmi_irq() passes hdmi->bridge.dev to drm_helper_hpd_irq_event(),
->>> which dereferences it in its first statement:
->>>
->>> 	if (!dev->mode_config.poll_enabled)
->>>
->>> bridge.dev is assigned only by drm_bridge_attach(), but inno_hdmi_bind()
->>> unmutes the hotplug interrupt in inno_hdmi_init_hw() and installs the
->>> handler well before it attaches the bridge:
->>>
->>> 	inno_hdmi_init_hw(hdmi);		/* unmutes hotplug */
->>> 	devm_request_threaded_irq(...);		/* handler goes live */
->>> 	...
->>> 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
->>> 	devm_drm_bridge_add(dev, &hdmi->bridge);
->>> 	drm_bridge_attach(...);			/* bridge.dev set here */
->>>
->>> The bridge is allocated by devm_drm_bridge_alloc(), which kzalloc()s it,
->>> so bridge.dev is NULL for all of that window, and a hotplug event
->>> arriving in it enters drm_helper_hpd_irq_event(NULL).
->>>
->>> Before the conversion to a bridge the ordering was safe:
->>> inno_hdmi_register() called drmm_connector_hdmi_init(), which set
->>> connector.dev, before the interrupt was requested.
->>>
->>> Drop hotplug events that arrive before the bridge is attached.
->>>
->>> Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
->>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->>> ---
->>>  drivers/gpu/drm/bridge/inno-hdmi.c | 8 +++++++-
->>>  1 file changed, 7 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
->>> index d7c33b92e2ddf4ced84d17304463f44be52270b8..d29832249b942dec84fb9d07a0b21ee751fc0486 100644
->>> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
->>> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
->>> @@ -929,7 +929,13 @@ static irqreturn_t inno_hdmi_irq(int irq, void *dev_id)
->>>  {
->>>  	struct inno_hdmi *hdmi = dev_id;
->>>  
->>> -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
->>> +	/*
->>> +	 * The interrupt is requested before the bridge is attached, and
->>> +	 * bridge.dev is only set by drm_bridge_attach(). Drop hotplug events
->>> +	 * that arrive before then rather than dereference a NULL drm_device.
->>> +	 */
-> 
-> nit: I don't think that huge comment is necessary for that
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ Documentation/devicetree/bindings/iommu/qcom,iommu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks, I'll trim the comment in v7
+diff --git a/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml b/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
+index 93a489025317..9952b9da9a6a 100644
+--- a/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
++++ b/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
+@@ -27,6 +27,7 @@ properties:
+           - const: qcom,msm-iommu-v1
+       - items:
+           - enum:
++              - qcom,msm8952-iommu
+               - qcom,msm8953-iommu
+               - qcom,msm8976-iommu
+           - const: qcom,msm-iommu-v2
 
-> 
-> 
->>> +	if (hdmi->bridge.dev)
->>> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
->>
->> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
->>
->> Most other callers of drm_helper_hpd_irq_event() also do exactly this.
->>
->>
->> Heiko
->>
-> 
-> 
-> 
-> 
-> 
-
-Best regards,
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+2.56.0
+
+
