@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864819;
-	b=H/SP79nlbOdmRxFGlAFYCUMaxoGSCOa4NauhWonNTvamya0drzu5mD9yB2PIGdLS2j88
-	 RBjsWWf6q41Uy0tFmVxhaX694dnH2L2jtI1+UlzBCSLExa+iKnHfx6gb2OS5wjng0ixod
-	 HEzany/6iWdI2hwIqYFCGiMOQGbYDcvosh2hvK+ajPS2PvsPfti6lkreytlirHna50Eik
-	 jzI0rhr/dgYwd4RsZhRhpHUcLYXDx6DudfBagN6RLPgJAPrmkJYKiUDncA1EBGjfFhqPK
-	 mnuQ0tTSaCVBEU0MojTAlMc/A5fdWVQbjXtD/fhEPQmFqO7dxiIXkXzpCPLCnYlEMQw==
+	t=1793864914;
+	b=LpuW7vrgNkQWwZebglJJoN4s/G7r5OnxYmsRcauJi21JeEhG0fBP2Zhr36xqugN7GQpv
+	 jk9OzyOZKDplondgtZ4fPgRRzrz00d9glzCGyY/ZHF+PpdDRuGderFotpbS2f/H5CwtGc
+	 Y9c1MwhYCve1zVgxEvpjduRS9CRem3EU8tE6Nb5BJv/AivXLWlXuXKZhOSDciq1BF0/oB
+	 rMxyeRQLni9ggDbeuCrEIMmsdSft0cP7GTrTGrR7nqH5bnBegxNHIWhlL8XdO2JXLX9VA
+	 vo6kiA71F2DN8rcuVjXl6qyHxQzIsfsisTnuwYuWtfir5dqHJ66srhZHW2yfhzXsrIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864819;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864914;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PU50rkTM7P9N/lvPiRkmpsgKA2mgcVLrq2zbVJoPex4=;
-	b=x1oHF6+fp0z9DdNiwl1h3C6V5N66vEEFKMpXgb3O1MzjpyBtgSgyILQnynb+CtF278aa
-	 GAaw7XDEBCHw2CNxBM8GDvtdUs0vwll2+h77XGOZ6pKyb5PoiA0CT3x9JdHloYW5l09jq
-	 bekRXL5uGjU+HVxBoP1x7fAX3e6ELsOEird5Vak2IQfVcGSgBt6eIDsq70hJ6xHy+McP8
-	 7XjhU/9j3bmdM5ApII2xTwkGoRFk4rnsS6Ft5bQBjEm2JOAWBdvhUGi2m4RuLU+a1jTQN
-	 tMfz2cGXs5SRlXH2V1bdOoVkkdTVfe3krIggQLjqv1xSdnJMdWZ5JfTV1YLyadrbPBA==
+	bh=s8wKTBhOQSZ8HcIzINfe5pzdBiZUh/d4z6gCUtG+v9A=;
+	b=vS31J9TQX+t0LoyTpwYmqdQRUhW18pzwljtH3sCwyLW7VKD2tvMHWIvreGGxQcVRUM4q
+	 QpIxG+tdlSfVhvui37/JpAmpIcJOOo5OVxuNQf8ovP+ZRIYiY08y+XciJ2BLC24RbGfiL
+	 7/Ff+sg4JwOLPZlyJtlGiirYkdiaX0OoQdlcS4YM4fM91ztBNl2H5vNTL6CdxaeixUkYy
+	 RepcBjPez9x15DdoatgapPl3mFMZ4avNrzSQJhkTrHdrSliTMVcnQEmj39yDcl25CtG9L
+	 KfTVbm9/khjGGDQ7WYiEjyYOEpD2M8YCIdR6w5JlJYK/W2kJayzzArAS1rJgstBKytA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fh/7Sh08";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCUhYSsD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D31606A328;
-	Thu,  5 Nov 2026 07:46:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEF8606A31B;
+	Thu,  5 Nov 2026 07:48:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fh/7Sh08
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3261F000C1;
-	Thu,  5 Nov 2026 07:46:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCUhYSsD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F161F000C1;
+	Thu,  5 Nov 2026 07:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793864818;
-	bh=PU50rkTM7P9N/lvPiRkmpsgKA2mgcVLrq2zbVJoPex4=;
+	s=k20260515; t=1793864914;
+	bh=s8wKTBhOQSZ8HcIzINfe5pzdBiZUh/d4z6gCUtG+v9A=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fh/7Sh08z2YJ1Yqdw8RZUNKty9ZCz/hgiv/J0VYHAxJHoE+0XM8dtRZgD6YYPFJdV
-	 q4Mqw/AE0dWFofaBAcYKlFYf/RefqB4PF5MOyXqfDIkxJJtQZJzqKipcxJIbpfDP8H
-	 9kg7IP7Y9MUuNPI/eWfDjQEE/EXtqtLY07nUyESiRtGORUROfsD4QDuGZoqaYei/KX
-	 mW/L2dc1IUUmVPDfzjs5nN+q80/7sHhDJJszahEvOn5T9myCeL9szljDSUqM9fVdNO
-	 RlIkwbhI4hK0UPtI3h7vhgmDvPEKbz/edinZukySfsuRvqnxNVZisUuSp+E/K43RHm
-	 I/g41vmHdx3Dg==
-Message-ID: <aee09c71-2f5f-49da-8cd6-09df3ba01fe1@kernel.org>
-Date: Thu, 5 Nov 2026 08:46:51 +0100
+	b=hCUhYSsDt6Z0eLMOX8DcNxX+eF94MgoD5saWOhYOSiXCMg5k/2Xo2O/z7QsvzoFci
+	 efOclXvsfLf2XYLtrX2b//zc9DRPAzBixr7n+WgC/VJ6SFmwyX49VlsGzjQIws2jcI
+	 htM2XFg3o3T0oAnohSfXfA+uWLCqDcCZ/wkIwJCIpDNNBX0zvbt74A9gvIQzxpgGQD
+	 rxGWHbIFDaG8SFtkJFBXxXf1nWpW5pgbrIKxyZYu3GkbxepqD6hacqPDNSRgyM5uW5
+	 rjEE0TjucHh54wTp6KZoKyZDhW0TAgaOJgkFDzzRhM/edH6a69bE0aZJnr9R+/6W/v
+	 K72SPPf7vaz0w==
+Message-ID: <7a3f7171-ee2f-41b7-b578-da602d95cbc6@kernel.org>
+Date: Thu, 5 Nov 2026 08:48:27 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,22 +52,23 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
-To: Cui Chao <cuichao1753@phytium.com.cn>, Will Deacon <will@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
- <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
- <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
- <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
- <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
- <c6af23c8-ee5a-47b7-bdf1-dc853ea388d9@phytium.com.cn>
+Subject: Re: [PATCH v6 3/3] arm64: dts: cix: Add USB4/USB5 nodes for Sky1
+To: =?UTF-8?B?SG9uZ2xpYW5nIFlhbmcgKOadqOWuj+S6rik=?=
+ <hongliang.yang@cixtech.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>,
+ Pawel Laszczak <pawell@cadence.com>, Roger Quadros <rogerq@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?B?R2FyeSBZYW5nICjmnajmlrDkvJ8p?= <Gary.Yang@cixtech.com>,
+ =?UTF-8?B?RnVnYW5nIER1YW4gKOauteWvjOWImik=?= <fugang.duan@cixtech.com>
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+References: <20261105011803.4058557-1-hongliang.yang@cixtech.com>
+ <20261105011803.4058557-4-hongliang.yang@cixtech.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -113,94 +114,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <c6af23c8-ee5a-47b7-bdf1-dc853ea388d9@phytium.com.cn>
+In-Reply-To: <20261105011803.4058557-4-hongliang.yang@cixtech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/11/2026 08:35, Cui Chao wrote:
+On 05/11/2026 02:18, Hongliang Yang (杨宏亮) wrote:
+> Add USB4 and USB5 controller nodes for the CIX Sky1 SoC. Enable USB4
+> and USB5 in host mode on the Radxa Orion O6 board.
 > 
-> On 11/4/2026 3:23 PM, Krzysztof Kozlowski wrote:
->> On 03/11/2026 03:57, Cui Chao wrote:
->>> On 11/2/2026 6:00 PM, Krzysztof Kozlowski wrote:
->>>> On 02/11/2026 10:51, Cui Chao wrote:
->>>>> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
->>>>> host bridges.
->>>>>
->>>>> By default, the 'linux,pci-domain' property must be unique across all
->>>>> host bridges. This property allows a host bridge to explicitly opt-out
->>>>> of this uniqueness check, permitting multiple host bridges to reuse the
->>>>> same software domain number.
->>>> Why isn't this deducible from the compatibles?
->>> Hi Krzysztof,
->>>
->>> Thanks.
->>>
->>> The compatible cannot express this. "pci-host-ecam-generic" only
->> You have vendor specific compatibles, no?
+> Each controller node is placed at the address of its glue registers in
+> the RCSU and contains the Cadence USBSSP core child node at the core
+> address. The mode strap register offset and bit position are passed as
+> arguments of the cix,usb-syscon phandle.
 > 
-> 
-> I used a tool to assist me earlier. I will now discuss directly.
-> The driver used by our hardware is not a vendor specific driver but
-> the generic "pci-host-generic" driver, so previously the compatible
-> in our DTS was only "pci-host-ecam-generic", with no vendor specific
-> compatibles.
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+> ---
+> Changes in v6:
 
-Why aren't you using vendor specific compatible?
+So you keep ignoring review or parts of review and never responding to it.
 
-> 
->>> describes how configuration space is accessed; it does not describe
->>> whether two host bridge instances may share one Linux PCI domain.
->>>
->>> The same compatible is used on systems where every host bridge must
->>> have a unique domain and on this system where two RCs intentionally
->>> share a domain with disjoint bus ranges and resource windows.
->>> Comparing the compatible strings of the nodes therefore cannot
->>> distinguish our case.
->> OK, so let's look at your DTS - where is it posted for upstream?
-> 
-> 
-> The DTS has not been uploaded upstream. Below is our DTS (with
-
-So do we need the property in upstream in such case?
-
-> irrelevant information such as interrupts and IOMMU omitted). Both
-> nodes use only "pci-host-ecam-generic", and their resources do not
-> overlap, but the domain is the same.
-> 
->   pcie0: pcie@80000000 {
->          compatible = "pci-host-ecam-generic";
->          device_type = "pci";
->          #address-cells = <0x3>;
->          #size-cells = <0x2>;
->          #interrupt-cells = <0x1>;
->          reg = <0x0 0x80000000 0x0 0x8000000>;
->          linux,pci-domain = <0>;
->          bus-range = <0x0 0x7f>;
->          ranges = <0x1000000 0x0 0x100000 0x0 0x10000000 0x0 0x100000
->                            0x2000000 0x0 0x20000000 0x0 0x20000000 0x0 
-> 0x10000000
->                            0x43000000 0x200 0x0 0x200 0x0 0x100 0x0>;
->   };
-> 
->   pcie1: pcie@88000000 {
->          compatible = "pci-host-ecam-generic";
->          device_type = "pci";
->          #address-cells = <0x3>;
->          #size-cells = <0x2>;
->          #interrupt-cells = <0x1>;
->          reg = <0x0 0x88000000 0x0 0x8000000>;
->          linux,pci-domain = <0>;
->          bus-range = <0x80 0xff>;
->          ranges = <0x1000000 0x0 0x200000 0x0 0x10100000 0x0 0x100000
->                            0x2000000 0x0 0x30000000 0x0 0x30000000 0x0 
-> 0x10000000
->                            0x43000000 0x300 0x0 0x300 0x0 0x100 0x0>;
->   };
-> 
-
-Anyway, I clearly see no usage of linux,pci-domain-reuse in above code,
-so I think this closes the case.
-
+NAK last time, I will be NAKing this.
 
 Best regards,
 Krzysztof
