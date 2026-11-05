@@ -1,94 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864114;
-	b=wrpkggXx/RwXKVixhtIGnoNUQUTxQX8fet54nzMjOtSQ9Ft2kedxkTzsN62HEGbBSB87
-	 x7tEbQXPSxaS8D/DgAUQlEgl7Sveq3A7C0VGruVHpqiaZbtZ/EMqtHg1aH9UVjRkecEj2
-	 sGUkIbBgC4MrV8+X0LXVTMsibHyKuXy0D8MAIU3K4egEksw3C6DTNxmK+joD4jP2tIFKr
-	 snh6tzB7AhUSHct4xqW4vX14r+wcTh0SOH4RlXhiWY4k71FlFma/jZqg2db0LUgV161x/
-	 QeBqPB1JNgbGVr1cZ9YXd+EwoqRp7amLVt1udLOWy7yzxV8vdYr4nzKwfPfryyeLhhw==
+	t=1793864134;
+	b=I5hVeURJg3tbAyB94mM22ume3f5B3GEtjaqABFZJddgJ7MZnoMx8JE0IseK8XqX16TUO
+	 EEPSnd2sYj4deR5HkIV62+0VgyXCC59g/O/usBv5vq37A0zkfuZmHa0CgXSjRcpPL/9Zw
+	 I+YeIm20eADK/wTvz7EcUO7CQOk7A+ax5s6D4mSmp5BipejjRhoclW5vx3D1oqB4PIWxM
+	 i8gmez9Wyl5UPjDSDzoj4eyH9tidTk07VSVTiLdfr5IEptk9tbhKIBkxwPQQYAtFOLbgy
+	 HUlPn+Tb28FguUbnj4W2tjUeFiltMOVvnHG6O0fK5FJ0YUgCX6lVfsx+fUiRFQiWbDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864114;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=fJrSMcznO+jXm0R/Gb4sVutzbYoC421vKFMchCji1M8=;
-	b=nOMjhQG7+Xl53SlePzTUsHgirbUX2lrMSEdnD8N+VFmfDGTxKvcyn24meoOKbMBnuUfk
-	 N0DFtwTv33vKk8RBjp/JpxUKdBJ5G2Bo6wNVrzidCxanjVZH7jvwsEHVTgTX3U3fJF9RS
-	 zAyurmhyCNmYpFYnzjuzO7UVggkMQht3L7ppsTlDwzk1W6ew+aIl1Lr+m/5fDMiOgrTTF
-	 1NrBmUVOKO7OBG6XJuLaE5uH08saYg97oNik5idrF5f6lQN9HaY/r7TfldB49/2rlM2lY
-	 Zt68f/IqeiSqV1W4VwLvsKHRAEBzDuCmvlxiblbtkVSP9MbCZ/oa9ArAeY13V+zjLHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864134;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=H32Q4xeGHAL5HVsaW0o1uw523KoBqyjwpUq440U+kXU=;
+	b=QelFGpM9H3LnViPWwyiCgYIVFiSxJ7T5F5X1MOJeslO+joNhbO1tprGfesJV64pssvBz
+	 SoQFpFJmm2d4+dRliRf8hvQMZSuc2COwVWu7K8fLTekY6rt7ZmamTaLkn7GyGhZHP3YL/
+	 sHFBbnpeLigBjNlhLj2Qdo69fpxGTCRAW9Fx0c5/94krsVJgLuOuEiHnMnI0VWk/v5fqR
+	 htPf2j089SlROLlUwPkmE4qbmO+LsfMC3rbySegZNN5xbOFKrJVDh5bap0OA1JZ/aj0bh
+	 8ta0UDRQ7vSyEp6FDpZ7TipXndWOBw9yXLG/hydAVEFFFnonK30BoLbt/nvrDk7yJOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMdqqgJ1;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C20B606A31B;
-	Thu,  5 Nov 2026 07:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C20B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mMdqqgJ1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793864114; x=1825400114;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/FfPBMUOPLe/QDkESDBHjFZFt+ydwEnQtH3CnagBhAQ=;
-  b=mMdqqgJ17Hm4OBGhcDS3oX0BE+t49VRKfRoSoxzEcrCj2+ipynCXUZP3
-   RqAvVn/RGtMCEd8PqEY3k0DsqJECn1V1XBKAStUiqgOLPHxVLEIfgnIaq
-   NQILUriG4m6tvyORDaLf4VLirbUV97TZqLgWsAYH9vxqkjDSV1r23fouW
-   rIhwSTptTaryYC/pOQ/r+NSQq0koQLYdl0VsswLAz1b5iu74V9aY6+wSN
-   tZ6XqEfN3CYBQZMDAZYhgnO+77WRl1kSuiXVZwo5UaldqWiRthERRzs/m
-   gQb9BEZa9D6EERHXB1ikRvmMGd74QdRMD/ud8jJlao7NduurDoPAKIRm1
-   g==;
-X-CSE-ConnectionGUID: A+V4Cj2fRFetiQEJHa9wuw==
-X-CSE-MsgGUID: MfjE4yDySxuYxO7KnmX/3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2676547"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2676547"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 23:35:13 -0800
-X-CSE-ConnectionGUID: tLiMaRPcTziaRantES99tA==
-X-CSE-MsgGUID: o10u2ZxSSZmlxdEUbRPtDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7099548"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 04 Nov 2026 23:35:06 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xOs00-00000000lrT-0h1L;
-	Thu, 05 Nov 2026 07:35:04 +0000
-Date: Thu, 5 Nov 2026 15:34:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Len Brown <lenb@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
-Message-ID: <202611051523.HtiYeAbK-lkp@intel.com>
-References: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
+	dmarc=none header.from=phytium.com.cn;
+	spf=pass smtp.mailfrom=phytium.com.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94E03606A31B;
+	Thu,  5 Nov 2026 07:35:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E03606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
+Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
+	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwD313y3Mexq6bTlAQ--.26457S2;
+	Thu, 05 Nov 2026 15:35:19 +0800 (CST)
+Received: from [10.22.77.56] (unknown [123.150.8.50])
+	by mail (Coremail) with SMTP id AQAAf8DwS3KyMexqcxb2AA--.18258S2;
+	Thu, 05 Nov 2026 15:35:15 +0800 (CST)
+Message-ID: <c6af23c8-ee5a-47b7-bdf1-dc853ea388d9@phytium.com.cn>
+Date: Thu, 5 Nov 2026 15:35:14 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -98,63 +45,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4@oss.qualcomm.com>
-
-Hi Bartosz,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Bartosz-Golaszewski/device-property-fix-fwnode_name_eq-for-empty-node-names/20261104-150343
-base:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-patch link:    https://lore.kernel.org/r/20261104-fwnode-for-each-prop-v1-9-6e28fe1c72c4%40oss.qualcomm.com
-patch subject: [PATCH 9/9] gpio: shared: generalize most code to firmware nodes
-config: sh-randconfig-1001-20261105 (https://download.01.org/0day-ci/archive/20261105/202611051523.HtiYeAbK-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051523.HtiYeAbK-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611051523.HtiYeAbK-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpio/gpiolib-shared.c:300:12: warning: 'gpio_shared_fwnode_traverse' defined but not used [-Wunused-function]
-     300 | static int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   Assembler messages:
-   {standard input}:165: Error: offset to unaligned destination
-   {standard input}:477: Error: offset to unaligned destination
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
+To: Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+ <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
+ <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
+ <b49779cf-5132-4539-86c2-e4f806b1675d@phytium.com.cn>
+ <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
+From: Cui Chao <cuichao1753@phytium.com.cn>
+In-Reply-To: <c0313537-532f-4c9c-86fb-067838829427@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAf8DwS3KyMexqcxb2AA--.18258S2
+X-CM-SenderInfo: pfxlux1drrlkut6sx5pwlxzhxfrphubq/1tbiAQAKAGrrh8gDWQAAsf
+Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=cuichao175
+	3@phytium.com.cn;
+X-Coremail-Antispam: 1Uk129KBjvJXoWxGr4xGrW3Wry3Wry5XrWfAFb_yoW5Kr1kpF
+	WFqFZxGrW8Xr18Jr4Utr1UJFy5JF4Fka1kJr15J3WDAF90vF1jqr4jgF409ryUWF48Xw1U
+	tFsrJryjvF4kXaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
+	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
+	UUUUU
 
 
-vim +/gpio_shared_fwnode_traverse +300 drivers/gpio/gpiolib-shared.c
+On 11/4/2026 3:23 PM, Krzysztof Kozlowski wrote:
+> On 03/11/2026 03:57, Cui Chao wrote:
+>> On 11/2/2026 6:00 PM, Krzysztof Kozlowski wrote:
+>>> On 02/11/2026 10:51, Cui Chao wrote:
+>>>> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
+>>>> host bridges.
+>>>>
+>>>> By default, the 'linux,pci-domain' property must be unique across all
+>>>> host bridges. This property allows a host bridge to explicitly opt-out
+>>>> of this uniqueness check, permitting multiple host bridges to reuse the
+>>>> same software domain number.
+>>> Why isn't this deducible from the compatibles?
+>> Hi Krzysztof,
+>>
+>> Thanks.
+>>
+>> The compatible cannot express this. "pci-host-ecam-generic" only
+> You have vendor specific compatibles, no?
 
-   299	
- > 300	static int gpio_shared_fwnode_traverse(struct fwnode_handle *curr)
-   301	{
-   302		int ret;
-   303	
-   304		if (gpio_shared_fwnode_ignore(curr))
-   305			return 0;
-   306	
-   307		ret = gpio_shared_fwnode_scan_properties(curr);
-   308		if (ret)
-   309			return ret;
-   310	
-   311		fwnode_for_each_child_node_scoped(curr, child) {
-   312			ret = gpio_shared_fwnode_traverse(child);
-   313			if (ret)
-   314				return ret;
-   315		}
-   316	
-   317		return 0;
-   318	}
-   319	
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I used a tool to assist me earlier. I will now discuss directly.
+The driver used by our hardware is not a vendor specific driver but
+the generic "pci-host-generic" driver, so previously the compatible
+in our DTS was only "pci-host-ecam-generic", with no vendor specific
+compatibles.
+
+>> describes how configuration space is accessed; it does not describe
+>> whether two host bridge instances may share one Linux PCI domain.
+>>
+>> The same compatible is used on systems where every host bridge must
+>> have a unique domain and on this system where two RCs intentionally
+>> share a domain with disjoint bus ranges and resource windows.
+>> Comparing the compatible strings of the nodes therefore cannot
+>> distinguish our case.
+> OK, so let's look at your DTS - where is it posted for upstream?
+
+
+The DTS has not been uploaded upstream. Below is our DTS (with
+irrelevant information such as interrupts and IOMMU omitted). Both
+nodes use only "pci-host-ecam-generic", and their resources do not
+overlap, but the domain is the same.
+
+  pcie0: pcie@80000000 {
+         compatible = "pci-host-ecam-generic";
+         device_type = "pci";
+         #address-cells = <0x3>;
+         #size-cells = <0x2>;
+         #interrupt-cells = <0x1>;
+         reg = <0x0 0x80000000 0x0 0x8000000>;
+         linux,pci-domain = <0>;
+         bus-range = <0x0 0x7f>;
+         ranges = <0x1000000 0x0 0x100000 0x0 0x10000000 0x0 0x100000
+                           0x2000000 0x0 0x20000000 0x0 0x20000000 0x0 
+0x10000000
+                           0x43000000 0x200 0x0 0x200 0x0 0x100 0x0>;
+  };
+
+  pcie1: pcie@88000000 {
+         compatible = "pci-host-ecam-generic";
+         device_type = "pci";
+         #address-cells = <0x3>;
+         #size-cells = <0x2>;
+         #interrupt-cells = <0x1>;
+         reg = <0x0 0x88000000 0x0 0x8000000>;
+         linux,pci-domain = <0>;
+         bus-range = <0x80 0xff>;
+         ranges = <0x1000000 0x0 0x200000 0x0 0x10100000 0x0 0x100000
+                           0x2000000 0x0 0x30000000 0x0 0x30000000 0x0 
+0x10000000
+                           0x43000000 0x300 0x0 0x300 0x0 0x100 0x0>;
+  };
+
+>> Adding a vendor-specific compatible only to trigger this Linux policy
+>> would not describe a different hardware programming model either.
+>> What actually makes reuse valid is the platform-level relationship:
+>> the bus ranges and resource windows are disjoint.
+>>
+>> If you prefer to avoid a new property, I can rework this to derive or
+>> validate reuse from the non-overlapping bus-range and resource layout
+>> instead. Would that be the preferred direction?
+>>
+> This one is clear paste of LLM output to a message.
+>
+>
+> Best regards,
+> Krzysztof
+
+-- 
+Best regards,
+Cui Chao.
+
