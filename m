@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885096;
-	b=w875VStxktWjNcx0wczXKDuMO3SJ4KxCNWyWbFltqcRmE3M53hmjjSaSnEA24Lsik/Fx
-	 l3JrhTTjH50dOgraIFRJU4+SSW0AHlZvV4HI27HP0P/CjR81kr4oe/dsoL3YpbO9q9I0b
-	 aUvDiL2RuCeUZlLW6JLeUy8wsoEPOy9GT3ZZSnTwu5E9BGtBIfavyGQesz6BCW/GiTM3Y
-	 HPd6JElgGmsZ6NGmo+2OBDeiHEYBwmHBma47BnpATILFsNY4KuYt5BmmD4RdFlkqtjcgW
-	 gT+RUq4qUf+2RXkMiDK6CcJqZAerM7sNnD2zaTJ2mVU4PRGfcmS744GPTbrBjQewFxw==
+	t=1793885099;
+	b=JOdiGMqRA8eHOTHS+7jqczelDm8QHO934LSCZlkuanqkVqa5fME8qogLlMty7gPjfHky
+	 sj3FsgxDTGWew7jb3jd+kOFnLA00s0fYCta4x4oiB8pZlmraNN+aDcRmtYAQn8Ia4Zyg9
+	 CEacy/60pdbjl0tLAPro8tegGYR6WUd/MQwZIph/MREMY7rLewJLfBBgu79QO8Go3MCrM
+	 jU1HrUgqVsF2eXDQLB27KOMmwZsM553kkSOuAo4EuKrpwDh0smjo7Ajjua6Y7JXH3GzIZ
+	 reYNYpEvjkIfheyDKPs7D/MpjVMG75nBzJqo3/3IsRW9YKZOwhcvb/2QCiwRJAPtvEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885096;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885099;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=lQK/52zyoZ1KJbfE9QA99o3oqHEpIh9THpXBfDC5/d4=;
-	b=B+meetBgs6RVm+jsIILGbZlUilAL5pg1RZWt7qJkAQkV3qTqtx0W6lIuvz1PnB/a/sqp
-	 NRxmJ8FifKANf1bCpTNurYxxSOykZV6duEFzzY6mHONoRp6NPRs1AxppW9Q0Dttwrg5/v
-	 OdYt2f66C7QCIluxffuIF2uXteeeM2pEx9oKwCiSxl7GXq6/1lCoLgc9sKas3jIsnyhib
-	 /Jgh6kCr9v5S9mMY7rChZ+DycOcaSV3XwmDIT9MYFlnqCmymfF3weK/BIKVregjEOGvFN
-	 U+aE58lClO7cgmHW9Ggfd8x0IVYPQI4x73oalrzDW3Hga0uATmlsrgO4WseYxvN+gEw==
+	bh=/Exo4AK19GTzwkvKo3vH6KeH1XDMwNptpNsby8IlEmA=;
+	b=RHCJu6YEszSf0AXiKV7LpjXRcNxCLXbBCyHSR8MNmG+zW9DLQNhaj02q+hRY9hCW0vBp
+	 /07obfBcuOspKK0CwVOThHrfNDlLdyrF3/aWuYC+KI/6tb+onDIgT5dsUuGQFwAfSKMxP
+	 6VuANeKaWy1vd527iFHdgkW6Xym2UP9b+zWYbMCUdCzUOxdL8tyI0zLLTbqZ2L226KzNf
+	 o+OYNHEnNCNVoZbttwjD90j1hc6qG+oPsEIPX24Jxng2qq/7A2aAsAazyMWjuVMY1KrmL
+	 az96z8zsz4PmY50hjFtV832LybcD4uv0Xhdx/SOlwV1A/deV2Jdnsd7t0OYwwSMbIrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9GDNgPi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfCTGnNI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB79A606A31B
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181F1606A326
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:24:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9GDNgPi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CF801F00919;
-	Thu,  5 Nov 2026 13:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfCTGnNI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DE51F00A15;
+	Thu,  5 Nov 2026 13:24:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793885095;
-	bh=lQK/52zyoZ1KJbfE9QA99o3oqHEpIh9THpXBfDC5/d4=;
+	s=k20260515; t=1793885098;
+	bh=/Exo4AK19GTzwkvKo3vH6KeH1XDMwNptpNsby8IlEmA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=i9GDNgPiT8vmuuKsFHPR3sOSJBusnsqYbZDloIIikcf3FmlNWiPFmKXXJyZy5YoGT
-	 lRlDR4gFEG/fV8KrvTqfcKPJ0eoLJd8ClSKbj7dZD2jzrkUIQiGMzKQ5TM2S3dU4Uq
-	 hVZzkd6Oy6WafDinDyzVqeDOM9Yndv3SCX4/u4RgrfihV6ykofwbC/4SYwec8OkYa2
-	 tvHu9K5xBR4GlnZeAubQTCGCGXHMX0Yu9ZpuC0rkxA/kKc8NHP994clcRIYTw1gLrB
-	 LxmcBehMW1IlykAN95l8U8HwVS7qGGfgwtwnhG/7ODyQqUIoirlJgrDJRU/jgEQ8wK
-	 M/lMgrOTnTH6w==
+	b=XfCTGnNIKcK4RPKWAnpfFeXDyrpGPd2lGlzxZe2AvXg9XUZeOwsHtXnTBmQJA0535
+	 FhpKWocy+A8173SRRd/WrCr43ixVqkKsQibCbGYkTih3mEmVdUh3VUi4/zMrpxRAJE
+	 Qzza3o4jMSfDkEu0s+qnIsn4eBEiGvljF8xiGxbG/dJ74AA0SH1z9M5jRBGmyZv0RC
+	 6si73t3i1a+4P4QD0UVL8x6ouk6njlSTiGBj6+JZVr963oLVuLAv0H+tmZtkMSY+BZ
+	 RBgiBeKihpJNiM+X3ItkisAUBlpRjTboetUaw6cuqYgQ8g52Kf4mLanGVU23cV6UJm
+	 fzdeeurWsaPbw==
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 05 Nov 2026 14:24:46 +0100
-Subject: [PATCH v5 1/3] dt-bindings: arm: cpus: Add brcm,bca-smp enable
- method
+Date: Thu, 05 Nov 2026 14:24:47 +0100
+Subject: [PATCH v5 2/3] ARM: bcm: Add CFE SMP support for BCMBCA
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-1-4103df2588d3@kernel.org>
+Message-Id: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-2-4103df2588d3@kernel.org>
 References: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-0-4103df2588d3@kernel.org>
 In-Reply-To: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-0-4103df2588d3@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -72,91 +71,128 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.16.0
 
-BCMBCA systems booted through CFE can release a secondary CPU by
-writing its ARM-state entry address to a 32-bit MMIO mailbox and
-sending a wakeup interrupt.
+The XG6846B CFE bootloader powers up CPU1 and leaves it in a holding pen
+waiting for an interrupt. After waking, the stub reads the GPIO
+GeneralPurpose register at 0xff800568 and branches to the stored address
+in ARM state. The vendor kernel uses this mailbox and a wakeup IPI.
 
-Document brcm,bca-smp and its single-cell cpu-release-addr property.
-Require the mailbox address on CPU1, which CFE leaves in a holding pen.
-CPU0 is already running and does not need a release address. Add a
-Cortex-A7 example with the mailbox address only on CPU1.
+Implement the brcm,bca-smp CPU enable-method for BCMBCA systems
+booted through CFE.
+Read the mailbox address from the secondary CPU's cpu-release-addr
+property. Map it as device memory, write secondary_startup_arm and
+complete the write before sending the wakeup IPI. CPU1 is already
+running, so no power or reset sequence is needed. Using the ARM entry
+also supports kernels built in Thumb-2 mode. Clear any Thumb function
+pointer tag before programming this ARM entry address.
+
+Register the operations with CPU_METHOD_OF_DECLARE() so the CPU
+nodes select CFE bring-up explicitly. Build the BCMBCA machine
+description independently of DEBUG_BCMBCA, keeping the debug UART
+mapping conditional. The generic ARM startup code retains PSCI priority.
 
 Suggested-by: William Zhang <william.zhang@broadcom.com>
 Reviewed-by: William Zhang <william.zhang@broadcom.com>
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- Documentation/devicetree/bindings/arm/cpus.yaml | 46 +++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+ arch/arm/mach-bcm/Makefile       |  2 +-
+ arch/arm/mach-bcm/board_bcmbca.c | 56 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 57 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/cpus.yaml b/Documentation/devicetree/bindings/arm/cpus.yaml
-index 96136b70dacd..b83c7785f656 100644
---- a/Documentation/devicetree/bindings/arm/cpus.yaml
-+++ b/Documentation/devicetree/bindings/arm/cpus.yaml
-@@ -263,6 +263,7 @@ properties:
-           - amlogic,meson8b-smp
-           - arm,realview-smp
-           - aspeed,ast2600-smp
-+          - brcm,bca-smp
-           - brcm,bcm11351-cpu-method
-           - brcm,bcm23550
-           - brcm,bcm2836-smp
-@@ -479,6 +480,30 @@ allOf:
-     then:
-       required:
-         - secondary-boot-reg
-+  - if:
-+      properties:
-+        enable-method:
-+          const: brcm,bca-smp
-+      required:
-+        - enable-method
-+    then:
-+      properties:
-+        cpu-release-addr:
-+          $ref: /schemas/types.yaml#/definitions/uint32
-+          description:
-+            Physical address of the 32-bit MMIO mailbox read by CFE after
-+            a wakeup interrupt. Required on CPU1, which CFE leaves in
-+            a holding pen. The kernel writes the ARM-state entry address
-+            before sending the interrupt. CPU0 is already running.
-+      if:
-+        properties:
-+          reg:
-+            items:
-+              - items:
-+                  - const: 1
-+      then:
-+        required:
-+          - cpu-release-addr
-   - if:
-       properties:
-         enable-method:
-@@ -720,4 +745,25 @@ examples:
-         cpu-release-addr = <0 0x20000000>;
-       };
-     };
-+  - |
-+    // Example 5 (Broadcom BCMBCA with CFE):
-+    cpus {
-+      #size-cells = <0>;
-+      #address-cells = <1>;
+diff --git a/arch/arm/mach-bcm/Makefile b/arch/arm/mach-bcm/Makefile
+index 6baedf4c6304..fcc4e0174adc 100644
+--- a/arch/arm/mach-bcm/Makefile
++++ b/arch/arm/mach-bcm/Makefile
+@@ -58,6 +58,6 @@ endif
+ 
+ # BCMBCA
+ ifeq ($(CONFIG_ARCH_BCMBCA),y)
+-obj-$(CONFIG_DEBUG_BCMBCA)	+= board_bcmbca.o
++obj-y				+= board_bcmbca.o
+ obj-$(CONFIG_SMP)		+= bcm63xx_smp.o bcm63xx_pmb.o
+ endif
+diff --git a/arch/arm/mach-bcm/board_bcmbca.c b/arch/arm/mach-bcm/board_bcmbca.c
+index b510d959870a..248b8bd77645 100644
+--- a/arch/arm/mach-bcm/board_bcmbca.c
++++ b/arch/arm/mach-bcm/board_bcmbca.c
+@@ -1,9 +1,15 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ // Copyright (C) 2024 Linus Walleij <linus.walleij@linaro.org>
+ 
++#include <linux/io.h>
++#include <linux/of.h>
++#include <linux/smp.h>
 +
-+      cpu@0 {
-+        device_type = "cpu";
-+        compatible = "arm,cortex-a7";
-+        reg = <0>;
-+        enable-method = "brcm,bca-smp";
-+      };
+ #include <asm/mach/arch.h>
+ #include <asm/mach/map.h>
++#include <asm/smp_plat.h>
+ 
++#ifdef CONFIG_DEBUG_BCMBCA
+ /* This is needed for LL-debug/earlyprintk/debug-macro.S */
+ static struct map_desc bcmbca_io_desc[] __initdata = {
+ 	{
+@@ -13,12 +19,62 @@ static struct map_desc bcmbca_io_desc[] __initdata = {
+ 		.type = MT_DEVICE,
+ 	},
+ };
++#endif
+ 
+ static void __init bcmbca_map_io(void)
+ {
++#ifdef CONFIG_DEBUG_BCMBCA
+ 	iotable_init(bcmbca_io_desc, ARRAY_SIZE(bcmbca_io_desc));
++#endif
+ }
+ 
++#ifdef CONFIG_SMP
++static int bcmbca_boot_secondary(unsigned int cpu, struct task_struct *idle)
++{
++	struct device_node *np;
++	void __iomem *mailbox;
++	u32 release_addr;
++	int ret;
 +
-+      cpu@1 {
-+        device_type = "cpu";
-+        compatible = "arm,cortex-a7";
-+        reg = <1>;
-+        enable-method = "brcm,bca-smp";
-+        cpu-release-addr = <0xff800568>;
-+      };
-+    };
- ...
++	/* CFE has already powered up CPU1 and left it waiting in WFI. */
++	if (cpu_logical_map(cpu) != 1)
++		return -EINVAL;
++
++	np = of_get_cpu_node(cpu, NULL);
++	if (!np)
++		return -ENODEV;
++
++	ret = of_property_read_u32(np, "cpu-release-addr", &release_addr);
++	of_node_put(np);
++	if (ret) {
++		pr_err("CPU%u: missing or invalid cpu-release-addr property\n", cpu);
++		return ret;
++	}
++
++	mailbox = ioremap(release_addr, sizeof(u32));
++	if (!mailbox)
++		return -ENOMEM;
++
++	/*
++	 * The CFE stub reads GPIO GeneralPurpose after an interrupt and
++	 * branches to it in ARM state. Clear any Thumb function pointer
++	 * tag and complete the MMIO write before sending the wakeup IPI.
++	 */
++	writel(__pa_symbol(secondary_startup_arm) & ~1, mailbox);
++	dsb(sy);
++	arch_send_wakeup_ipi_mask(cpumask_of(cpu));
++	iounmap(mailbox);
++
++	return 0;
++}
++
++static const struct smp_operations bcmbca_smp_ops __initconst = {
++	.smp_boot_secondary = bcmbca_boot_secondary,
++};
++
++CPU_METHOD_OF_DECLARE(bcmbca_smp, "brcm,bca-smp", &bcmbca_smp_ops);
++#endif
++
+ static const char * const bcmbca_dt_compat[] = {
+ 	/* TODO: Add other BCMBCA SoCs here to get debug UART support */
+ 	"brcm,bcm6846",
 
 -- 
 2.56.0
