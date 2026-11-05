@@ -1,74 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793913686;
-	b=MvnzI0kKR8e2onCQ/mlJoRsEqb4eN2v56oeRG0DfEDVwLSlmzbpnAkZ1PaE6Q25r1cE5
-	 ZDEK+LkYf9dR+Q+fT4GCjy//JOC1ocssdE7N9VXGcrGr8vvPkfNCc6nI0WkxSErm821iq
-	 wi6ipV3DD+mnxT8Z/AGmDUVqb77RRv0wwTfera5NXxwaVDSKXcOn+i6til0URfoCH3U+R
-	 jQ/IFUa/p7ix+KaEPgaQ/rUFbd1Isdfu0Eu09dn0jBvQ7+5LphPtTea4MeSnkBNIpfV4+
-	 3kApRNhwszHHmUjf3lw5hof9IPCfCbvYXKjIgotxuKO2m3O/a6QjhMDyld9NuibGv9w==
+	t=1793913857;
+	b=DsMHoSHyBd0OkLmH/iYb++9+hb0aWcJRDiNHoe9hZZHb4zOYjtxNHcfN8FFKH+ssJBDu
+	 NvIgXWKDhc0h0P9DOkXIis2T01zz+3PSUneQZ4CHykhtnoleyV3c2ZHXCTRXrgSnZF6bA
+	 a8GVacEWeSIjNS/EJYn1Q6vpRwZ2vwyLqzqoyTYH4xEfCrF1pKzZjLC0HnrzNW26f460y
+	 /2lONd9pCzcu5Xl1Rgn1jxHrRcMVbfKFDJ2SVNEWRukcU5JQrThtkTsHD8mQLSL2ehpqX
+	 ai2A/bFnSfxCX8TkjqUDT4DKllwlv/dhJKt4K7Bbw+2wDHmn8U2WGDUeX6KpmfvVLFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793913686;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=mYhI2qcOKmJVw5RCTn0YfKflDeIKtBajzcEsykn+w90=;
-	b=P/GwVq7c+M/ZpNvIDgwDJsZHQLotXV61v/VBz4H5Wx8uvyNhhiN4BtBAOf0H3733IpaU
-	 XPL4Ye76ysO4yLpxTa+qe1cFYXgJWXbjDlb+dakNJV4n6T3GDlZYq/ippag0rj+iTZJNL
-	 6YhQ7AtfzZLRJihVizfX6dSUOln/t/5V4dM1FYCSKYT6zjtCt4SAnYKvsDDn3YCY8LcXr
-	 8eg2RJjkHWXINNaNCY378O4t7/+F5+tLY54UuTNtctjDNl1V1xGt2m2z9Ua4e7XImPDvy
-	 VMU82dsckziUbaAyvyQNFgx53vo8IdOgqJH3WeHmAFq8iw1ztrRB8lwq/71aQMxsCzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913857;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jXM9i0x2nDS9j+rZWPBPawv/gGcnm2DhRQRnMf6xoMc=;
+	b=ZG/K9BMrdzt8fLd/FXq4cmmO78v6010nygCAb/TCDx01NkyzPsHBZ9tmvZT2MLwigtO8
+	 U2mQ4QHW++dL7VQhca/MUuYbDjcYoCCrZ/7xBBlbsx5hHWs94fdjU+R2x84amHR6UpUAP
+	 yjhOujp/8lpzbrGTvgWaRcw+udgY6lQoO/gbjxe0/MzPSxcq4/ORWoWCs2zolkCtDjlio
+	 kmre48RL25qzlXqfiriNv8rMaGB8zjztnkKAFg1c/LKYf/YnlWL4NRrwwAVyY8sNsY+oA
+	 rWtOLDsye/eny6Xfs69TFghA5rMlBGmC//f8Q/oKXCL0gCuv6WDOzHJ5GcCLO8lBg1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=fKiUei81;
+	arc=none smtp.remote-ip=209.85.210.48
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAAD606A31B
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 21:21:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAAD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b094e649d3so1579810a91.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 13:21:25 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04704606A332
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 21:24:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04704606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=fKiUei81
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-843cf077f10so50531a34.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 13:24:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar.com; s=google; t=1793913856; x=1794518656; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jXM9i0x2nDS9j+rZWPBPawv/gGcnm2DhRQRnMf6xoMc=;
+        b=fKiUei81luLqDunXx0uXFyfzq9l+RZI+4d7jsR6KRIGot9KXcyMSJK2FTExt6HmKcc
+         XntdaeBJc1d6fqQJnymjqu8PKa8fc4nYa4fqG7eX/JsMdNMlJnBVy852Gh8q62ybyEOb
+         mZVzq9KFeNtxxmgR8LbklUU+QhZ8ilj9czecGgSv+H09YZU9A32RfbQqILHXzIh4e9dh
+         5dR32UkV6vDAqKEp9NyMk9BcmFHAH2R3cEK5NXPu0IIf8stJlAoD184ByPZS/ZR04p4Q
+         VKvSyERo5fEQrYpfPL59OccEBoQY79qRWWj6eXQqoBCRb04YtKG9ffKtcUyypXJntSkr
+         schQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793913685; x=1794518485;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mYhI2qcOKmJVw5RCTn0YfKflDeIKtBajzcEsykn+w90=;
-        b=imju26PMqZpPCEJcqGk7f/yPu5u0z6icC1um2w7KqJIzP+KhauEMhFql1UBLBF0bNG
-         /gyfNEAyFSYLMuAicqHDw4h+GqRPaYgBHEtcMTjkpHiKR+oOmBovvwdBWvHigM+IBhH6
-         8K4OGoP3YzHqp+4PKlDbNMFk5En7sG/OSM3KLZsPr2o12y8tE1IONzH2NgJ3HAy3zD7W
-         Th7Eg7HX4b5P1tu3XayThVLmc08IORuFYyrZhJZzrG6NERk4T7oleOtBrGfYLkgNySJr
-         Xy/bPIIZOjM+cuorBd8zVkK+/blYxIgkd+panB6Yt5i4HstrphA2JIBYv7jTUcE65BV1
-         ojfg==
-X-Gm-Message-State: APuU4Z9vI74kzUn5imuCdySmCPZIY7oigFfvL5EWKNd7cW12WlK4LT3a
-	BfmB+9gf4OihFHZZV4cO32tiL3pxyeiEp1DZdtGBU0DOj5AOBxWUgPL3cqow0A==
-X-Gm-Gg: AYBFou0oy+3axsJzAjtmyIRNZ6Y/69Ov0LovclMRNsNOhBURCb3pXLemSIyd4czzl6U
-	qI/aLFpISqsjOtuSJI4FAFutTdMGTla+2adwsYYcB6pU/di7cWY0Avt+9CrDBNcmC/8gdfJQG75
-	fjH0nFYyF+0L1OAz/fvVtcL/uPrq6xr+RvbDzSjav4PTDzfXhJQ5C90OLKAjGktAz3QH21vOsa7
-	eI/CxDNdPVze95ZUvN3Fskc09hZgSZOAAJJzRe+RxsiX9zY8c5sLwwUKPbRiCotpcA3Da4fSI0q
-	cdy3zflm0k4XvSkdfm4ItGk4O4+r1czU5I9WWjGfIzdYLDHDXt6shGKVIVujoq4yzFAEalGqMuw
-	iyblmxoZzZJEfyILptM+9nP04s2jRW7fOsW6gHnLBqzHnHhlMlB7Ng9/PAESFLamM5TNXjnVpu6
-	g8zYBRDzMpZSrUWSSi6XHV1B+mWGTS8qXBkOhanGwOHwA4EFRinAJAOs0iPYReiYP4So0/KUv4y
-	yZsbntyp255Ab5a3K+kgeXHS3ftHZU7gukAaeq8K3snxCnnIktfMtGY4BMKNtbhBuWRZRr77GCO
-	CiPNQJ7VQXoLp+vsHsw+LY2CjCnFRjavzyFGfW1oLicRcjLm2rB/uu/djAW7cxTg0QhJjI+/cN5
-	pTimg+g+9KZMvBv/W/OzEXUVel7l8xNul77siMBB1k4s=
-X-Received: by 2002:a17:90b:314e:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3b0db70531fmr280808a91.52.1793913685175;
-        Thu, 05 Nov 2026 13:21:25 -0800 (PST)
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com. [74.125.82.173])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c8f2f0sm711655a91.11.2026.11.05.13.21.24
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 13:21:24 -0800 (PST)
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3835136eec.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 13:21:24 -0800 (PST)
-X-Received: by 2002:a05:7301:fc0c:b0:369:9af5:7bc9 with SMTP id
- 5a478bee46e88-36f75f25cecmr496793eec.23.1793913684120; Thu, 05 Nov 2026
- 13:21:24 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793913856; x=1794518656;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jXM9i0x2nDS9j+rZWPBPawv/gGcnm2DhRQRnMf6xoMc=;
+        b=XlcsP0QN/n0TSZ2c/5VSzGmwVTIPi52y0N1qYhDy5+sUkXRlDaivTnPiSohzngSHAf
+         CWQDzXTOxQSU+0W3qfMa4xN5OC/1bsZ9k3jMJLMh2ZNwYlEgdSf5Yw+dCYcvSNpmBbaQ
+         V5qkE3PLdGryKMl2eWALswdLtoBdq6pUC05tW+cZEYTEbaSSptRsgmA4680gu6WgpJSn
+         3RyT3aV5LIahc1JSvAPQvvJjH36jkg34VZQHRXu4hWIuQa/tRj8m1CZ7T2sv359hw8nH
+         TYW9W8hJ07hdIbWaLFikHkTW9R+vKbXN5pXHdh4Hkd70npsutwaUZ0ZfX88bJQ8AZ1Hx
+         Qguw==
+X-Forwarded-Encrypted: i=1; AKwUvBxX3ANErNhUckvrzsAn+DljNb6HQgCeeKmvikbhUSIMwfKdq2vrHvYn62nhiq7ckGBZDwSpgPT7rMdB@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Ju4s9FfiqmoE+uXknpiC5W2UD/9vnKB4SeSE71CeIQ0v1So2n
+	EJd+OtZvsT1Hrl1Bb5kFUkqGRa1Oo0sbJDC70sedlJZ4hmBE4+NZzlxAezJ2VjuYNqw=
+X-Gm-Gg: AYBFou1i9wi8KUSKGWZYvxpqiXNUqb046wvyMkJJ1HCdqQ70p8T8otoBcpea53zS0cp
+	2klr/KZIoVg7ouKP0MgzXqFppCjL6ft1q34jRjcsvHkHWHZQ7wC1rMVRw919F0CCrlTB5Zuh35A
+	R/D4nMjZgk8jyUz4ulGoKGFr3AMQLFbvXvt9XmssC4Uh7F6vlPDr4Byb9PZN4tom7o97hD1qRsA
+	4Sh1q0INPXHNkbVS1zdhGA4dvSKVHLrYwCd0+jX3U0I9v6bwRxwTccK6AcbxAtHr74VT3HVEsOL
+	M4AIrF83WpI59jBf8YE3yI+peQj9Jvnree9pv/IvzCwanlQoQQF3PeFlyBxPbJUW2pD2kXUdCOs
+	9IPixqemcGFLMEpjk+wfVsTc1vxLfTOXAjWNikRo3aa+2EVZ29C8jjaybHSDGOlnEYnwy5VUoB6
+	kGM0LWuIXFIFIErn81CSCEqwlPAJYJ526S5kRRjWjj24wiCROSmDkqbtCh+sbaQjV+sTsdDYX0U
+	6amiBTQZi0ym7nTw0/9zwTSx6/UZBxjxE5IhuPPqPlwV1DLwiJkCj9UMzi/KsI2yXCKZ3i1EIEQ
+	T9ep8TL06WMTdjWCt3o1VoDN0fzcIV4vzQ==
+X-Received: by 2002:a05:6808:14c6:b0:4f3:6c2b:5f22 with SMTP id 5614622812f47-567e105f241mr438912b6e.29.1793913855869;
+        Thu, 05 Nov 2026 13:24:15 -0800 (PST)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef58b1sm5349897b6e.3.2026.11.05.13.24.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 13:24:15 -0800 (PST)
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com,
+	robh@google.com,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] PCI: of: update endpoint ranges dynamically
+Date: Thu,  5 Nov 2026 15:24:10 -0600
+Message-ID: <20261105212412.591931-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,23 +101,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-mxl-gsw1xx-reset-v1-0-53839bf5c88e@telaak.dev>
- <20261104-mxl-gsw1xx-reset-v1-1-53839bf5c88e@telaak.dev> <sashiko-outbox-198649@kernel.org>
-In-Reply-To: <sashiko-outbox-198649@kernel.org>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 5 Nov 2026 16:21:13 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ6Yd4Kh06mE-vFMdZYTX4k+2oRxSgya77PDr-WB_Ha2Mg@mail.gmail.com>
-X-Gm-Features: AclHuK-Q-qGfrbnTxlEBViO6tL6sp-oj8M4F9597oktfM7WAx2-aqOXdw9ZfnJE
-Message-ID: <CAPY4CJ6Yd4Kh06mE-vFMdZYTX4k+2oRxSgya77PDr-WB_Ha2Mg@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: dsa: lantiq,gswip: add reset-gpios
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> Instead of adding more variant-specific exclusions to this conditional, would
-> it make sense to split the standalone GSW1xx and SoC-integrated GSWIP bindings
-> into separate schema files?
+This series fixes a bug in PCI devicetree handling code.
 
-This follows how the schema already limits reg, reg-names, mdio and
-gphy-fw per variant. Splitting the schema would be a separate cleanup,
-so I'll leave it out of this series.
+If a PCI endpoint function is represented in devicetree, and it
+implements a PCI endpoint bus, its ranges property must be created
+dynamically.  This is because the PCI function's BAR addresses are
+assigned during PCI enumeration, and a static ranges property cannot
+assume a particular static BAR address matches what was assigned.
+
+The solution is to dynamically generate a ranges property for PCI
+functions defined in devicetree that implement a PCI endpoint bus.
+
+					-Alex
+
+Note: this series depends on the patch "PCI: of: drop the reg_num
+argument to of_pci_set_address()" found in this series:
+  https://lore.kernel.org/lkml/20261105153801.435566-5-elder@riscstar.com/
+
+The entire series (based on v7.4-rc1 and including that series as
+prerequisite) is available here:
+  https://github.com/riscstar/linux/tree/outgoing/dynamic_ranges-v4
+
+Version 3 is available here:
+  https://lore.kernel.org/lkml/20260924222444.1351466-1-elder@riscstar.com/
+
+Between version 3 and version 4:
+- Dramatically simplified the description in this cover letter.  See
+  earlier versions for a more lengthy explanation.
+- Dropped the first patch, which allowed a null pointer for the flags
+  argument to of_pci_get_addr_flags().  This wasn't really necessary
+  and didn't really add value.
+- Indicated clearly that Andrea della Porta has tested this series on
+  the Raspberry Pi 5, which uses PCI endpoint bus for its RP1 chip.
+  The current statically-defined ranges property works for this system,
+  and when the necessary PCI quirk is enabled, the dynamically generated
+  ranges property works correctly as well.
+
+Between version 2 and version 3:
+- The ranges property for a PCI endpoint with an existing devicetree node
+  is only updated if its ranges property has an empty value (i.e., it is
+  "ranges;", or is not defined)
+
+Version 2 is available here:
+  https://lore.kernel.org/lkml/20260910021919.3421449-1-elder@riscstar.com/
+
+Between version 1 and version 2:
+- Included the first patch (which was previously posted in a different
+  series)
+- Modified the last patch so the ranges property is updated only for
+  PCI endpoints having at least one "pci-ep-bus" node
+- Rebased on v7.3-rc2 (and the prerequisite series)
+
+Version 1 is available here:
+  https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
+
+
+
+Alex Elder (2):
+  PCI: of: introduce of_pci_build_prop_ranges()
+  PCI: of: introduce of_pci_update_endpoint_node_ranges()
+
+ drivers/pci/of.c          |  97 ++++++++++++++++++++++++++---
+ drivers/pci/of_property.c | 126 +++++++++++++++++++++++++-------------
+ drivers/pci/pci.h         |   1 +
+ 3 files changed, 173 insertions(+), 51 deletions(-)
+
+
+base-commit: 8c786803613eb0d3352417509611d1db877c65af
+-- 
+2.53.0
+
