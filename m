@@ -1,56 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881011;
-	b=pRCJmAtsuV31tKdrVjJN7kUUtU5BKW8parYfz9jfX/Vibv2i081TDAO/uKLOsReZDkRC
-	 y1DQ+2NA38juJoewMt28kF4oiZI8d1yyqTaSsKDoyrwSzTA67q16/Pz+zO0DXDdB2zshi
-	 a5nCZsvR2AA12jrqzE4sQ9hl/DAM/JSdkTIEomjjf70s4tnG//RBZOO2K6MzYcae7aNSE
-	 z9oOzPr87tSby/y6mHi2ugmuaEB2dWghVF9aCn+i5neibzYEEuXTwYvIDSNWItG/T5VW2
-	 fAx2l9IC8ZigdARW7j1LEPwDdp99mJY+peJGWT8eRj/67GGutcaiMXw7H7YaCsmCCcg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881011;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=JTSjfoMA+kGpbLg+09oTKfrhtL9KMZD6MOmCmLMheBU=;
-	b=pgoQYMJHYLcKpzFnsY+Gw722RxmBm2Ipl9HrCZx6696A+7BH3bikaZ2lTqBlsnx5ML2C
-	 29Tuk6Z93x0n4Bh4pca2Xw650/SrrUY6o9RckAwMyQQIJz+7TSqZXkrjVafJ75XDh1OsY
-	 u67KxjnekfR9egKg7gD9P3/IWAkVJtWlQIfD5QD04Pcq80lMdRoMSzqUWnItT4lb84SOQ
-	 /beGDFpWyLGvkIg+csrT2EXDCPJ+LZ4AyCf4KDfNWCKS02h0kCtCaFhXJbXfoPPxZWTBB
-	 XbkSLnUsEd1VziGSgCcwX84nSDfc/pHSnXt45Sz/zs7YwHobc15TplV3ys8fDraikvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZnuKeIh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.215.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793881150;
+	b=ONx5/UArVevDiXVYGrKGWOBRKkWOZOBN37DXbaEDKRXwCBn2yv2VmyAzB90fNSViu112
+	 RkT0W6/RK1hdzQTJ/HSqTeJNb6ZlFprG5ZpkELagSjE14DXalbEmMRUrgRaqHTB21dSdZ
+	 5NxUN44A2r/wYNn0oBXB/XUCerYrJQNeQcOxFn9wawvikb7sRYFAc9ey0EhA/7V7IbkTf
+	 tzAnRRbLyWAh8kYk9WrwQ3j0ihXdjMI0GX2UIa7UQb3jrmQB4mZrVuWi6R+DNidlePiMB
+	 kmf38aYQjL/0OodJqSnMI6k+WixTK10niG+2H+c5X4c1bPBD3STzaWbaFiIuwGyZXcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881150;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=bt4DUf+UH7jk0+BorwFH3uFk7RSEIMOEju+OL5ej03Y=;
+	b=ECyvo5cVZb9myH9f9urLVlng4GOP/eD0zC9B0dDZAl0V93ScOHRIvfLIYjLSOmwyAGzU
+	 q4fqGgt5M9rS4Q+i2cUBdraq4fPlRfRz6YNiFEOfNlU2QyRJzwCO9MYDG4Y7AZm9lCbNP
+	 Ml7rsHbgTUS6w7mEzF+OO30NhGdOoaHUoi5Fak3CoQnIZV3OnsJC2NHzrkOqm/aPibL3T
+	 PHzJPMeFw2E11n7Ji5HnvgjQ6LIhDJYcxIu1evGroVvZOeDPEn67o+9USoExCKaAzHhUa
+	 R3V3QLU5I2XCu2fnAEoNRy/0xN/D0/hYoIzViNpgk1pLHShXeEztLl3881O4WDRLH3g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=pGveBj63;
+	arc=fail smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE5D606A31B
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:16:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46E6606A32E
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:19:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D46E6606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZnuKeIh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CBE1F000C1;
-	Thu,  5 Nov 2026 12:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881010;
-	bh=JTSjfoMA+kGpbLg+09oTKfrhtL9KMZD6MOmCmLMheBU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OZnuKeIhZqd1cum3u9WPQKY8JIL3VjYL4RUQxLkzwnFay5yTUOWWQhFOpRhnZOZUM
-	 MY2toU06BHHhG0mtkM2LAwu3u6BLl0lmvR0TIrB1uP3m72joxr11grAzdULyZP6Jop
-	 yutME5eq3/ryvl85OaOnvD7ud8UX1YyVS85a8GdPpoQzp1879PpMZDhJsinkcdMIuY
-	 v8GfH0zRUeDTqDYnK2RnBs06KrIi/QBhjf8HaMIzFBz36PlNCNgwt1PFTZ36+Rwj64
-	 +8QKMTCKS1npKGd2oojr5iRHoMVA3BZHtx4RczbJ0GVf8ewKwirkWejCrgFCy4hx/4
-	 bVdYmLGiOc9oA==
-Message-ID: <sashiko-outbox-199006@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/8] nvmem: stm32: add TAMP nvmem driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105-upstream_nvram_reworked-v5-3-ddf7dbf1b298@foss.st.com>
-References: <20261105-upstream_nvram_reworked-v5-0-ddf7dbf1b298@foss.st.com>
- <20261105-upstream_nvram_reworked-v5-3-ddf7dbf1b298@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 12:16:50 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=pGveBj63
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso756467a12.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 04:19:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793881149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p6CvPGwdCWHlR9qBmRCUkhIt3AlY1LfcUr0005llqri134CnNDpkB1saiaGLb6SzXU
+         rfn6ZMRekNjurHjuwn7Ihe0wAeZScV7NDQ5NTowxrBs5EuLGvTKqZPspdWtj1HCiHeNs
+         eFyMdxUWdKJi33a78RQqegFSqv2OyEqJTvF0DLJYLog9A6T76jR0Ca2JIigDEW8nUEin
+         14mD0xVNQ74VJXJ0s6cUmFv7/hsbCBEZzKNRdlbflzm6p+kjTCfk34X9WQP8qgmxqgqT
+         rE0RYTsihWp4Fo/l+SGi1vPxvQSY8FyFVypYx+GdOJhm8u3WT6XsEoqV/Ay+1vzIQWF3
+         IECA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bt4DUf+UH7jk0+BorwFH3uFk7RSEIMOEju+OL5ej03Y=;
+        fh=MN5BKT1hnv+rGkYwPy7A/3dmgb+3Pzl2y2uYCmqU2WY=;
+        b=et64uuNdd4MTY4nrdMM/Ub813xzlAX7WHJZ3bYU3m16Fmwur1ZlP7B8xmhlI6bH9QY
+         qxfQ4z369MX6EEW7xMh7hR1IjO6AKxSCuMootYEsCdaLydLxD+Yjxps/B7kFIUdoKbVn
+         rgZh6Xm6LoogBOkiKHpMJclUeKkZ1UDtRSI8wfEGaj31gmZDnooh1CjWQZwelByj6vB+
+         pMEk1pgeJiCwhv4m168QLME/Owo2Hr4MX03fH7PIjI7kHglvSPUDc7Ryc1RntFBcMr/w
+         l55Zb5923vJPlwVRRA5tWKtppKmZRDbqze9i0o/T9miq/HQk3MGJqavtkqTHWmwaEzKc
+         dWAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793881149; x=1794485949; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bt4DUf+UH7jk0+BorwFH3uFk7RSEIMOEju+OL5ej03Y=;
+        b=pGveBj63J8QKWRf+jhueXuB0ndPsWZfe7LfoalkUdNlsHOZ9fsYsqkqT8rGUpHJctn
+         fUipHFPEHKZDCMtm+V8vJFC0ZwtAS21AcIQQ08Oq3K4w6YLjBfHSLWfapxR3EAHLSONf
+         U+D+Auexv0At4mf1cLt3mcv3aHONwJuTkLq++LvA6yX5iUhX02j4AsQC9x2zxuCpwc9c
+         B95kJHOFl38wViqg+1WG06SuRaDrsF2S60UBOx4n8YDUcdoJaeGVhYEMkzDfiOuckzWA
+         HutJ3tTF6DgBoF7yplyl12feb/JaF7RHsVHFmW+4MXyQARMdGlOCu39ZZ/O5X90REnfk
+         STBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793881149; x=1794485949;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bt4DUf+UH7jk0+BorwFH3uFk7RSEIMOEju+OL5ej03Y=;
+        b=IpDUw4UOXWu1oEt/cAaZSnBB8XzCHwGALwxxC5wA0BP/+j8GRuX2NZvbTgykMrJyxM
+         ya/OBoGYqanTHkAzkfxAkf2zotGz6BZJnWzZr2dVUtMwNjSWvjjQeygyCvm2d3VoFbCB
+         lsW9fGh05TH4Y6McNlPvEZoPI0AWNnKB8VExSUgc/ynjTSMVo0eOFKye21rumaSDxtvj
+         3FGEXUfLCN/Z4uiyGDoOyGsJvocTnw+Wy6z44c69E6TLKNypU7KnwZyewUzv5aPek9kr
+         z23nDkPkKhZkgKvzMdkXEu79yiPQxdAbj7GRrtR1ZTAdGa3Gy0K13TJNElL4jJh0ZlNY
+         ZmYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyfr9tf22J3R2C+HiNSAXG366xlfchjQ9oY6cBEncR1BQNiNQq0vvojdkeKMHLUEVr3LK7dukq2s9w@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ozc2mxr0ezI0NZqX3pefI34/aDQhUtcLxjfi0C2wTd6OkU8Ha
+	N+atKT3R+iwuExRaFGZqiLldYGZjYu6XP6NECtN39iN8iMeq8E0Uh0WPq/nVnJn/lqFJFeQY257
+	bXcWTwg2XTKkfPXe+1OXDbV9eoScZR2VtZc6WnZuyMA==
+X-Gm-Gg: AYBFou3r8L3vgp/6MLtC84AmYjgWOlr52rllXei5K2aMF9Xlx+AUPpnsAj1uLMzLYVp
+	Z8xc/rQqwmNqSEM8H/+jA8n6Co/rmYmdeAywidoqALEWCPbvGHaMHBHTRz2x7IHF1CQbIln5Xzm
+	LRNNkPkiGupgaHHRuCador22uq230i7qYfIURI9o1rhz9xxmHCUZMWKYv0W9uhzEMOozi8gOQL0
+	Jpvfmc1EkB3uCCIz3G7rXOavtjF4wYGsT6BcuXnZKRjUnLH0P34Ba/EByQaZVlBjqXCTIm1Pe1t
+	NVut59vDJWb1QZCWt4QQbk0Hyiz9h6YfJZMlMf9SJScSvmdnMJ8lmLZuQ3Er8RGU+cgKYbbCxMn
+	iDvt3erPVQ3OEpPqciEZV9emsbL51nS2GWwip
+X-Received: by 2002:a17:90b:2741:b0:3a0:e4ce:31fd with SMTP id
+ 98e67ed59e1d1-3ae896f8304mr16451431a91.10.1793881149147; Thu, 05 Nov 2026
+ 04:19:09 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,187 +102,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com> <20261105-dw-hdmi-qp-yuv-v6-8-1bb63ef5766e@collabora.com>
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-8-1bb63ef5766e@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 5 Nov 2026 12:18:57 +0000
+X-Gm-Features: AclHuK_2VZ_bwNEEFECKGIAUHsyDmb8_QQvXN9pJrwLdMDPCY5CttgkKVemI1Rw
+Message-ID: <CAPj87rPk=girxTziKY5ROV3ZYqGhKRz471BLWpkCjtvNNseuog@mail.gmail.com>
+Subject: Re: [PATCH v6 08/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL
+ clock parent switch
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] nvmem: stm32: broken empty zone handling in stm32_tamp_nvram_bkp=
-reg_get_zone()
---
+Hi,
 
-commit cc344e612aad158ca9ed69f02f411f367bdfd26a
-Author: Simeon Marijon <simeon.marijon@foss.st.com>
+On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> +               if (pll_hdmiphy) {
+> +                       ret = clk_set_parent(vp->dclk, pll_hdmiphy);
+> +                       if (ret < 0)
+> +                               drm_warn(vop2->drm,
+> +                                        "Failed to switch DCLK to HDMI PHY PLL: %d\n",
+> +                                        ret);
+> +               }
 
-nvmem: stm32: add TAMP nvmem driver
+I'm confused ... if we have switched to the PHY for dclk, then a mode
+switch wants us to come back to the CRU source, don't we need to
+reparent to dclk_src?
 
-This commit adds an nvmem provider driver for the STMicroelectronics STM32
-TAMP backup registers on STM32MP1 and STM32MP25 SoCs, checking hardware
-protection zones and compartment isolation rights before accessing the
-backup registers.
-
-> diff --git a/drivers/nvmem/stm32-tamp-nvram.c b/drivers/nvmem/stm32-tamp-=
-nvram.c
-> new file mode 100644
-> index 0000000000000..81096a5d02829
-> --- /dev/null
-> +++ b/drivers/nvmem/stm32-tamp-nvram.c
-> @@ -0,0 +1,680 @@
-
-[ ... ]
-
-> +static int stm32_tamp_nvram_bkpreg_get_zone(struct stm32_tamp_nvram_priv=
- *priv, int reg)
-> +{
-> +	int *idx_bkpreg_zones_end =3D priv->idx_bkpreg_zones_end;
-> +	int nb_zones =3D priv->data->nb_zones;
-> +	int protection_zone_idx;
-> +
-> +	if (reg < 0)
-> +		return -1; /* negative reg is the boundary of an empty zone */
-> +
-> +	for (protection_zone_idx =3D 0; protection_zone_idx < nb_zones; protect=
-ion_zone_idx++) {
-> +		if (reg <=3D idx_bkpreg_zones_end[protection_zone_idx])
-> +			break;
-> +	}
-> +
-> +	if (protection_zone_idx >=3D nb_zones)
-> +		return -1; /* the reg is not a part of any zone */
-> +
-> +	return protection_zone_idx;
-> +}
-
-[ ... ]
-
-> +static int *stm32_tamp_nvram_get_backup_zones(struct stm32_tamp_nvram_pr=
-iv *priv)
-> +{
-> +	struct device *dev =3D priv->dev;
-> +	struct regmap *tamp_regmap =3D priv->config_regmap;
-> +	u32 offset_field;
-> +	int nb_zones =3D priv->data->nb_zones;
-> +	int zone_idx;
-> +	int *idx_bkpreg_zones_end;
-> +
-> +	idx_bkpreg_zones_end =3D devm_kcalloc(dev,
-> +					    nb_zones,
-> +					    sizeof(*idx_bkpreg_zones_end),
-> +					    GFP_KERNEL);
-> +	if (!idx_bkpreg_zones_end) {
-> +		dev_err(dev, "Can't allocate registers zones\n");
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	/* Get the n-1 frontiers of zone within the tamp configuration register=
-s */
-> +	for (zone_idx =3D 0; zone_idx < nb_zones - 1; zone_idx++) {
-> +		const struct reg_field reg_field =3D priv->data->config_reg_fields[zon=
-e_idx];
-> +		struct regmap_field *field;
-> +		int ret;
-> +
-> +		field =3D devm_regmap_field_alloc(dev, tamp_regmap, reg_field);
-> +		if (IS_ERR(field)) {
-> +			dev_err(dev, "Can't allocate registers zones\n");
-> +			devm_kfree(dev, idx_bkpreg_zones_end);
-> +			return ERR_CAST(field);
-> +		}
-> +
-> +		ret =3D regmap_field_read(field, &offset_field);
-> +		devm_regmap_field_free(dev, field);
-> +		if (ret) {
-> +			dev_err(dev, "Can't read field for registers zones\n");
-> +			devm_kfree(dev, idx_bkpreg_zones_end);
-> +			return ERR_PTR(ret);
-> +		}
-> +
-> +		idx_bkpreg_zones_end[zone_idx] =3D offset_field - 1;
-> +	}
-> +
-> +	/* The last zone end is defined by the number of registers in TAMP */
-> +	idx_bkpreg_zones_end[zone_idx] =3D priv->data->nb_regs - 1;
-> +
-> +	return idx_bkpreg_zones_end;
-> +}
-
-[ ... ]
-
-> +	if (priv->data->nb_zones =3D=3D NB_ZONES_STM32MP2) {
-> +		priv->bkpreg_access =3D stm32_tamp_get_access_rights_mp2x(priv);
-> +
-> +		if (IS_ERR(priv->bkpreg_access))
-> +			return PTR_ERR(priv->bkpreg_access);
-> +
-> +		dev_dbg(dev, "\n"
-> +			"Zone 1-RIF1 %3d - %3d %c%c\n"
-> +			"Zone 1-RIF2 %3d - %3d %c%c\n"
-> +			"Zone 2-RIF1 %3d - %3d %c%c\n"
-> +			"Zone 2-RIF2 %3d - %3d %c%c\n"
-> +			"Zone 3-RIF1 %3d - %3d %c%c\n"
-> +			"Zone 3-RIF0 %3d - %3d %c%c\n"
-> +			"Zone 3-RIF2 %3d - %3d %c%c\n",
-> +			0,
-> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
-> +			stm32_tamp_nvram_rights(priv,
-> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
-> +						true) ? 'R' : '-',
-> +			stm32_tamp_nvram_rights(priv,
-> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF1],
-> +						false) ? 'W' : '-',
-> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF1] + 1,
-> +			zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
-> +			stm32_tamp_nvram_rights(priv,
-> +						zones_end[BKPREG_PROTECTION_ZONE_1_RIF2],
-> +						true) ? 'R' : '-',
-
-[Severity: Medium]
-Can stm32_tamp_nvram_get_backup_zones() and
-stm32_tamp_nvram_bkpreg_get_zone() misclassify backup registers or misreport
-zone boundaries when one or more TAMP protection zones or RIF subzones are
-empty?
-
-In STM32MP1 and STM32MP25 TAMP hardware, the zone boundary fields in
-TAMP_SECCFGR and TAMP_BKPRIFRx (BKPWRIF1, BKPRWSEC, BKPWRIF2, BKPWSEC,
-BKPW3RIF1, BKPW3RIF0) define cumulative register offsets from TAMP_BKP0R.
-
-A zone k > 0 is empty when its offset equals the preceding zone's offset (so
-zones_end[k] =3D=3D zones_end[k - 1] >=3D 0), or when a subzone offset fiel=
-d is
-left at 0 (so zones_end[k] =3D=3D -1 while zones_end[k - 1] >=3D 0). In add=
-ition,
-on STM32MP25, BKPWRIF1 only subdivides Zone 1 (bounded by BKPRWSEC) and
-BKPWRIF2 only subdivides Zone 2 (bounded by BKPWSEC); if BKPWRIF1 >=3D
-BKPRWSEC or BKPWRIF2 >=3D BKPWSEC, Zone 1-RIF2 or Zone 2-RIF2 is disabled a=
-nd
-Zone 1 or Zone 2 remains capped at BKPRWSEC or BKPWSEC.
-
-In stm32_tamp_nvram_get_backup_zones(), idx_bkpreg_zones_end[zone_idx] is s=
-et
-to offset_field - 1 without clamping BKPWRIF1 to BKPRWSEC or BKPWRIF2 to
-BKPWSEC and without normalizing empty zones.
-
-If BKPWRIF1 > BKPRWSEC or BKPWRIF2 > BKPWSEC,
-stm32_tamp_nvram_bkpreg_get_zone() checks
-idx_bkpreg_zones_end[BKPREG_PROTECTION_ZONE_1_RIF1] or
-idx_bkpreg_zones_end[BKPREG_PROTECTION_ZONE_2_RIF1] before the parent zone
-end (BKPRWSEC - 1 or BKPWSEC - 1), which would place registers beyond
-BKPRWSEC or BKPWSEC into Zone 1-RIF1 or Zone 2-RIF1 and apply the wrong
-access rights during stm32_tamp_nvram_read() and stm32_tamp_nvram_write().
-
-Furthermore, stm32_tamp_nvram_bkpreg_get_zone() assumes an empty zone always
-has a negative end index (reg < 0). When zone k > 0 is empty because
-zones_end[k] =3D=3D zones_end[k - 1] >=3D 0, calling
-stm32_tamp_nvram_rights(priv, zones_end[k], ...) in stm32_tamp_nvram_probe()
-matches zone k - 1 (the first zone with idx_bkpreg_zones_end >=3D reg) rath=
-er
-than treating zone k as empty. Conversely, if a subzone k > 0 has
-offset_field =3D=3D 0 (zones_end[k] =3D=3D -1) after a non-empty zone k - 1,
-stm32_tamp_nvram_probe() logs the start of zone k + 1 as zones_end[k] + 1
-(0) instead of zones_end[k - 1] + 1.
-
-Should stm32_tamp_nvram_get_backup_zones() clamp the RIF1 subzone offsets to
-their parent zone boundaries, and should empty zones be tracked explicitly
-rather than relying on zones_end[k] < 0?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-upstream_n=
-vram_reworked-v5-0-ddf7dbf1b298@foss.st.com?part=3D3
+Cheers,
+Daniel
