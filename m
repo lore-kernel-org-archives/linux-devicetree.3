@@ -1,99 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793881541;
-	b=HE6IdOdnkKugyuyx1s91Wb2aITT5aqGyzvtDTLwtkZBuBICQlgroTKpFBH+/EM7/R15Y
-	 v1/+9kjJN9NLAMTSucde24khOFQ7LvLlcM4xrrf3YYJCrn1W71C1FNa1nHhWUQkH5a9HI
-	 gAO/MV9LkYKgRE1MWXxHVpfvBV+UYRVXaGKBKNTjQdUnEdBMZZJ+ZkgEqXe8969M7Jc4z
-	 8ke9E72CmGI4z/XKPuHSUQ3/JoJD4lmgmqhpFLca/XsGflGQl2slyT4cudpEc5NdNh0Gi
-	 JOsxVR4hKhLi0eRWNkGlz1tT1ZSnnsMcbd1Om/9rH815rTVjnGRiDBzPe9iyYm4i7Dg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881541;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
-	b=UKMSqGNlBdDC7pqv4oXCL4y9xgGUa5qpt3qCywf5BABmVZN0OvMFobWz43Gc/qov3WV0
-	 LF5vqBwz86ACyRPexMN+XVudlyiWEtfihgQlRHVjmbeSEruOgUXe+rERsVJGXaCh7h8+Q
-	 Aoj0nGk3nJmLZUEa+bhUwsmIN1l95c2qE7ezlU94aednv64fn8mMn4LaSlfYqnU8HQoPc
-	 k02wEh+NXpO/vP6dwREgOXMWdrC2jolnDvj5CYLCy90pW2aNsT1K1hailDpaNKzHS69mV
-	 vr9ibaDlNP4loToGqA4uUU/kx+16JLSv+kitD1EQuFtxzYwO0x0DYkXqqCiEpxFz8VA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fooishbar.org;
-	spf=pass smtp.mailfrom=fooishbar.org;
-	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=QhTzZ0CJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793881728;
+	b=lxLcaEc02ZTLggz9PbVJOoINvoiTwTkuM0DgNiRYnJ4QhDsdtxGyWa2mr7/XrLYU0nVR
+	 Y0iyatiom98pnFixCcuyShNQSxa7vQblxzcjhjVARZfkVKvlETajRXYI2R4qtCtOX7HR9
+	 QAnPJHlKissbWfSqDsGYhJKnVT3oqPNY+Yuluar5NXHRhtsRKL0E83xFvX8BjzfR1Vp1x
+	 m05HjPPZBqcFmLeMxP2FumZpCcAsmg7ByedMiOYZHowcC1+GTFjFEzDs70jTqQuvoR/X9
+	 7U+O4aako5d4qGEgtbNpe48s4x4ss+w+p2RI+mkNajTpdo8qyaloL7pHIVJNclgzh+A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881728;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=x1XJ/jEjgFqTAPzVVo351o8IaYkdQ0sV8TwMGCEATU8=;
+	b=13bHMb5J/Ibax0TvO1QjnYHpFrU4NKUVeWKSrsTM+vnXe6YP+wNY4OuDPFimkBHNy5Gq
+	 G7asX5WhHdgy1UH+lVXMcN2rTKgnX1Z/f2V8MEtXx26vuP1q8vBT6AJfKDepm6nlOn/UV
+	 GYsQkCXM0uwxqVDkm8/CvPKAoF/PzPEdYazj3jrVUZ2Ki1Hlo81HcCOZoB3H8Yk/2qguQ
+	 iQugsOFo80rdYWmdMPqCwNtuGDJ2iwyuHXFRZbPVMsFdcZ1ilzfBdQxi1Ezt0DdT97vBt
+	 Vb5cxPSa2YLkuFFeVIaTB+JZ+C7fejuUrphsh1MtMa7pgQq0FB0PNbNe0yDtaKHF0jg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A96V+hxi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980A1606A326
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980A1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B756606A326;
+	Thu,  5 Nov 2026 12:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=QhTzZ0CJ
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso1328837a91.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 04:25:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793881535; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Bsto6HrXx+2hNRDYjxIJG14gwqbJjCFOaYEtqKxz0W+I4W1coKS5dF0LY8sb6jwn9W
-         zghQzMhP10mdTNnjOJ52JG09KljWW1u0fJXNUGQ9j4wNmUzlN0UUCeAO94mtH6u6VEyv
-         b7j0/4KKMlSRmomq8u6LZ5oiyzyFOjCnG23wLCdKQb78xJkijDWPMp/a/PJmtzmqY+X0
-         JjtxA4kPXPCNzMtaICTJm9KRfCxt1BnDix1Oca9vU+AdM4bGq4bp4Ik4GOtYVi9uBtyi
-         hPOisgE2JEnBJq0QUf13M2UOdRLBZAXITcQWbnU7JulxPOLDd/TrP1xHqnq+BJQq3XCj
-         vK1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
-        fh=6frSyZiO9GkJk/wtCBzwQfxnQpZ25XfRDXZfDGUxTEE=;
-        b=Vw5wFKqoMr51/ID/X4UkLxIqMskvXsRo1J4Xsb29NKzguu/wcgr0Mh2VI7JnZrC7+7
-         HWsxWAM7nt7GwHklperhEm9pm4yTDxg4pnWQvMJIzNwMuMt4KW6cMZ7DW5zD3Wx7OTfX
-         m2HbouKhW01I02EITpRBGNOKvvIV3ZpU6CGrQFAY09ZqyQVTUM0vqTjOgM8i/93TQ8am
-         +7Pk+y9QfLt03/dNFzgGzWHMiCDRy5kuEJgwKxUIHWbK+aTsIqZA9nS6KT/4FW4NJY9D
-         +/b7CaiiajsZBVl7ZySUQPN0tp0YFXw+3bW8nmWWaOI0roJDGpQoSpulURnLrhFuQjre
-         vdig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1793881535; x=1794486335; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
-        b=QhTzZ0CJ18vLkaz4/b9eNpbTjjpIWb9eEpQqby32E8VHoWNkwTPt+qDR0h41DHaAj1
-         POjjjYtwWjlLaHhuiQ/2WdyQ8dv+GYBSuE8dBSrjlUc38TP1EpV+dBNgtJtCu7fmcAnj
-         P19c59+AldDvwORTc5My9TKoCDgosWl1WIXqBWZjtxGv/yz7ZPGmBcVUTWLOkCgHa15F
-         Of0Mh7EjLxGdfKiJxSAeMdhj+RVwrHCqTEyfsHfR+jPETRA6BTbpiXo1yjfVoXaZv6DH
-         U9PSoFomXerEqFFfkmLNRUK+7mf94Y9AE6/yqYiROD6uuQFJyQCtfYOAIBtLSLYjfQiE
-         g2GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793881535; x=1794486335;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
-        b=KzDfhKf3SZeP/QiNiN+RPb/j7NBYlW8TeyEpzSPvEloYTSwOxUxim/PgtKQNTs5190
-         4G35xffdiXpn8mHf5bzyN2bguxZ7gUe5jW0mK/m8Rxv3dcoqDfF1udkA2HrZDesydf9L
-         rSISGCiCj2oz6qwnj78KOm8tM6qFE0Zoobxk9HasuMyqYFM/xLtquYLi+TE2HKz5h9Sa
-         G8eA/zsyukK3tctk3NZDzTnuWIpgFF8veBL7FQiUo+ela5R0z0wrq+mOnjEGBTb3+chb
-         uGyySb+FRm3PprtMbHGE+ugvXJOXEWAtNUDKB1pR62lfMtzk2DZtJIh9vrdhBmVm/lDz
-         /vKw==
-X-Forwarded-Encrypted: i=1; AKwUvBw9HACVLEGvuG1kU9ZExdmmz9fMbVxgI0J/Rkb4YbkBubAXlKvZ6C5tkw9phczYdfTA+Y0bAm/lj33F@vger.kernel.org
-X-Gm-Message-State: APuU4Z/zEAzFDKIGFDupNzv+K55/nd3GuMmi/RpWDODw8BcOp6lBISFr
-	VZqsOFD+T5kG76c9/nkLoIY8AFcu9q++MTC0s5+Wx7+ikP5RnjS39S2ixdp8oNak2wkZqHger5Z
-	Zq3vbb4v0Ge9e3hTUenGZnL2svMtYiMgcd2lXsI2ctg==
-X-Gm-Gg: AYBFou08hinylQGcJ+W2SUQshuQbzxPZ55XBSXzm1GiOy4/Z3CFbuwYtiLCkGkr/DOv
-	bS+YxMeQf7hqTus7UQsN4OdEJq4x0Rwlu9HvfCBM6ac6WfJAt7x7mhYV7n2HxHYRM9AI0CORm82
-	3UAKd23cXzpgFii8bVKNhkTRIhOMD5mf/bwkBKtOVa4tVSIt3i4qxu/frRAH5s3oDzjtYeKI3Ge
-	ikYEOgQWqbdJyclfKsStikJCak+gMgmZfo5R0es9FEfmeOTN+iUwSsENcg9YDQHZzvPVeaZImc9
-	tZHSlLdoujDesNGb+trsZI/hH3sb4O9ELwKe9XYbOJWyrdTjkSxwG/sISO47nOloKZFC8EoN/uY
-	nh2LD9dhBab+bJieJ/So05lYGoZRnYhaldsiB
-X-Received: by 2002:a17:90b:180d:b0:3ab:2d46:1dd2 with SMTP id
- 98e67ed59e1d1-3ae895a5c46mr17306949a91.6.1793881534904; Thu, 05 Nov 2026
- 04:25:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A96V+hxi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FE41F000C1;
+	Thu,  5 Nov 2026 12:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793881728;
+	bh=x1XJ/jEjgFqTAPzVVo351o8IaYkdQ0sV8TwMGCEATU8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A96V+hxixBlQj/Nge02JdbafA8kB8Ax9X8TxvrZCtBuSwbEHUoP5/xJ8+uq2GaGpm
+	 ocdccQSSaf8S/CHqp2DZoc0EDb8gcgU2HaWZcp5Rx8p5HeKFavoG9M2qajh4WrkWIg
+	 sbygSSOwjvahIqhuzCqO8errwvJJSBtYhw3dReIVCRei0IlxLb18pdP5L1GvKVAhDi
+	 4KU6hHf4hvl/I+bS26EDNemGY0MzT5EXvzwcBnHmxQoTbBPY6s/J6gybkkXHb96Izj
+	 MDt/J608l83w+0PY/0V2INMYq3bTjv9jCp5oFibm6wYONLJ5jfTb1yGg8iu1uBfed4
+	 5F/1PgFtBDAPQ==
+Date: Thu, 5 Nov 2026 13:28:40 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <aux2SQeWcg1PAsna@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+ <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+ <CAHp75Veb=TsXJcjqQeD3ciNGRvLebGr8t8TnZju6FX5ANeVNTA@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,69 +71,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 5 Nov 2026 12:25:23 +0000
-X-Gm-Features: AclHuK94D60Hc87aFX4xe_hS9QfUHnTA410grumPTEjY5dxN4dgYm-_Kh7IGrsk
-Message-ID: <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
-Subject: Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
- format on DW HDMI QP
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Sashiko <sashiko-bot@kernel.org>, 
-	Igor Paunovic <royalnet026@gmail.com>, Sebastian Reichel <sebastian.reichel@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ztgabi3eeqld3thq"
+Content-Disposition: inline
+In-Reply-To: <CAHp75Veb=TsXJcjqQeD3ciNGRvLebGr8t8TnZju6FX5ANeVNTA@mail.gmail.com>
 
-Hi Cristi,
 
-On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> Changes in v6:
-> - Added new vop2 patch "Disable core clocks before dropping runtime PM
->   reference" (Sashiko)
->
-> Changes in v5:
-> - Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
->   atomic_check()" to fix a pre-existing issue reported by Sashiko
->
-> Changes in v3:
-> - Updated patch 3 to skip any hardware programming in the callbacks
->   gated by drm_atomic_helper_commit_planes() after powering down VOP2 on
->   an atomic_enable() error (Sashiko)
-> - Ensured VBLANK events are sent immediately when atomic_enable() fails,
->   hence preventing userspace processes waiting for the page flip
->   completion to hang indefinitely (new patch 4, Sashiko)
->
-> Changes in v2:
-> - Addressed several issues reported by Sashiko
->   * Reset AXI before detaching the IOMMU domain, to close a theoretical
->     window where stale or in-flight DMA transactions could fault or
->     access memory untranslated after the domain is detached (patch 6)
->   * Fixed resource leak on vop2_enable() error path (new patch 2)
->   * Balance state on atomic_enable error paths (new patch 3)
->   * Avoided division by zero when computing max_dclk (new path 4)
->   * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
+--ztgabi3eeqld3thq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab <schwab@linux-m68k.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-acpi@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <aux2SQeWcg1PAsna@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+ <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+ <CAHp75Veb=TsXJcjqQeD3ciNGRvLebGr8t8TnZju6FX5ANeVNTA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHp75Veb=TsXJcjqQeD3ciNGRvLebGr8t8TnZju6FX5ANeVNTA@mail.gmail.com>
 
-I think everything in here should now be solidly reviewed. But if this
-series keeps on collecting unrelated patches until Sashiko decides all
-of VOP2 is bug-free, we will never get this series merged. Could we
-please keep this series focused on the useful bits at the end, and not
-keep on adding speculative new Sashiko-pleasing as artificial
-dependencies?
+Hi Andy,
+
+> Date: 2026-11-05 13:27:15+0200
+> From: Andy Shevchenko <andy.shevchenko@gmail.com>
+>
+[...]
+>=20
+> This list is twice as long as the commit message! That's why I highly
+> recommend moving it under the '---' line below. The email headers will
+> get all the listed Cc and git history will be clean from this rather
+> noisy list.
+
+Oh, thanks!  I didn't know git(1) would pick 'Cc:' under ---.
+
 
 Cheers,
-Daniel
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--ztgabi3eeqld3thq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsdnIACgkQ64mZXMKQ
+wqkrWRAArC3jH5dRrU1V1wAcbh/CM0P6WPacL4gRihfKLWTWeWd+QsqmYNQBSakc
+oYVbtN0TJ31WSV6qX0HnCxeB01k8pamzmcV9H+Wotq+jPf8i3ZrjnfZh9x7C/Ozz
+wPYsX2SbtKNr8m9dFDJ5yR8rrFtKAnrxjvx7h2wIxDUBaAEnVj7HZDeXxg2epkG6
+z2aGLR9/MtJVAPoRqibeNTspsNcOWUVr+L2p/FIWGWo28uH7ptQFprfgnu0QScDY
+PJI9J75BHX5Nh9vcXha8h9Ft/6IFbaac/u/1IWpF2lytCOcjSpKxoGzLc7mnFn+k
+6B7rAu+Y7VA5J6TusxEE7RDn9G/drM9mz/gb+I3C8jil/OVfZcgfmC0WBE+xaAnF
+O6TznK3ltNCM+UOKmlCIxyUgkaJ7KbJFBAg4/M40rGCtcG5AGBZ/fSV4B1yG51u8
+dh47P66s1KzsBHCteA+xCGxfvAcGh5kiQkqZv3pJfc5/xVMmiRwsvTBUTNYuLeWw
+9oUd4snWoK51pLM9XEja4+dPCIqj0334RoDP/nPsj0eTAi2f87oVaBDjQt235yJP
+2CIVER2N4PVBWIr/nWGps8ojtGjq2KRurLJW80RlsotgwQCvMw7GypaYiXp1vbVz
+kiGwbVzT1lhQZAc3wWi/v61q0AsDN+WrIGhgiyVjqBAkR/Uw4hI=
+=4yBI
+-----END PGP SIGNATURE-----
+
+--ztgabi3eeqld3thq--
