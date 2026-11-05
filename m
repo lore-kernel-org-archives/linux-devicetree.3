@@ -1,191 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793841860;
-	b=DwPNUxJHOZtC5Gj//wpG+dPZDc9nqN7SajiNin3DZHTiXKYXJIx0c+/lnZtyaksM2THA
-	 W3o4FkBlyqGaEMvC85pR+Me2qy4hIUBr2esSMPzBRZVtQ8dnQ71+lS/LGyoVf8FQxNNfh
-	 iiVFbgxmfr8qMIol9t3awaSd86U4p610DRZ/aNrdDILZ5aBfbv6Ao4HIw8ppupJscd1Kg
-	 BH+Moy0lAipMgpja/eOuO32c5DnE8X8vNqRZ5pWuQXzxoDwu+tS8eyZPdZbFd7e1rcbSQ
-	 woGI08h0gyHvmqRDA8UUMqE3cW9M3SGVNoXytcBGn5XBJwfBgWloCA57BxKcRbRhYgA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793841860;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Tkm/YAkMGW1fPSINDNQ70uhQelLjk8og+UxVid5ym7I=;
-	b=zq1Ey1DN93nwdH/00WiW6ChoymWohYu+e4Uo/UMx8GvEbf61m86V5/7IOwe2E8KGThHu
-	 Yg6zRoQ8dmA1d303uCthFYoA2iqKsePrk1iR7Qnpty3x7l/lAMFcdBsRnx64pLxzWtumO
-	 zMmxuOkhqjusSeb7gq/sBa9M9++ncOvpXVXrD1XFoLMTzk802HZCuSw6ypScy9ifu881F
-	 NihfDFbw094RGISYHHAGVXoVe+MU3eTWIVmU8siwYNC1urCr377UvN7UpiY9nkCIZ5FPK
-	 L4oR9KrPi6V1hKqyRgKqMAN7gCyJ35yjiN4aQ1oV0APOwoX4XBE/ezlCcpXvB0GpETA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rLj48XMj;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b="XEk/exO8";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=47.251.158.245
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793841929;
+	b=yPoHlXImeufvN8NQSOJ3R8KvaeBfgd6tfK5gEFfxaSi6h6CHYHTLTGec0zThpnrnyTmS
+	 ec1aEguTNVWu9KKvUHp/DhhLjqBkpJTNodntCbweadOwLe/nI153JNWoFuigM9qbT9paY
+	 x/38fTXcC3ZaJPfuGYTT5aE2XMRJTNnrxowkGlZxbJZ9+z/QeODOvkpr9ZFHZoGOCnLSa
+	 4kUIdQzOnBj4iBm7WgA1bVfDlJg0Jdlm+2Lv2zrxW+6XKtXfx6/RszsnqJto1i72tRdZv
+	 CHpS4iUbpVFl2v6YNmjdtzQKTFjVR7jT9xCFB048JbxjQsldMGpy/ypUj9pzf/9OZ3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841929;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=47pBX+XIRrJ0Jv29ifqJcO1ihQ9vYRFpgynj99Xgx+U=;
+	b=G9VsGYjvXORGuiRD3tE0GdufF04mVx+NTpAHfGBCRvaiXCRQ9dBWS9cMQMoJALD1BrtH
+	 Dpv20gUbWsi8sxIt+7nkmOApLZ/U1qU5mwIId20QkrptwBGJSzdI0r47I0hSdyvbChjOa
+	 IUbN4SMCAgq+76eoi/hVAB2i7uARrOZSJyBGNu0QdlZCfOYUgib3M35ccAYPcd3jLXsbM
+	 26pg21Xn8voMz+QUJV1Y0wdaN3jdsKibK1jTzLGFN9CYhCYxp6NVg2SFi6O3geZXay//t
+	 k+PWw2ipdNDeLFDWNrftDKCzliuzWgKCWQcgZypfAwl5XJJFThe+15WwxutgiQxuLzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Jke6lpX2;
+	arc=none smtp.remote-ip=47.251.158.245
+Received: from mail-m158245.netease.com (mail-m158245.netease.com [47.251.158.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D8E606D80C;
-	Thu,  5 Nov 2026 01:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66D8E606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BED606A326;
+	Thu,  5 Nov 2026 01:25:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54BED606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rLj48XMj;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=XEk/exO8
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A50q7dj753989;
-	Wed, 4 Nov 2026 20:23:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=Tkm/YAkMGW1fPSINDNQ70uhQelLjk8og+UxVid5ym7I=; b=rLj48XM
-	jyRrltxQJmNJt4f2mlxSDF0aSc66dfQCUpUj/0lcLrdoBBuGArzGsq8j4GHSaBe9
-	zMXfV7UE51mvQ9OL2sezVcczjI79TFC2RpuL+osYcYeIUIZ1vTp9IjdJfuFpu27y
-	hpPcsdusL0H8GwKL0dGuaB1qxnXQbgmpCZIFvbiv+3Oseb4iQOxj+QpOVUyaRxGa
-	Yukd3OJ9QkcxCVcJ9sF8AFNbOMvXNz7lzPMeTWurbkQAN33+SKWUDYqPe31Men3Y
-	tamJadPqiDEcyJa7j+lvPWQVQ3pqGGzRv54cf+biKWiX1V8U4Y9DN3EJ5PApVytY
-	Vgzqnq6JxISv27w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=Tkm/Y
-	AkMGW1fPSINDNQ70uhQelLjk8og+UxVid5ym7I=; b=XEk/exO8d3nH+Odv1b8vL
-	qh+Za26oxNJMRoVDaB7VYCcBsNdX5N7rEDHh5hkEvn+PER0NTin4DWplVJSmkSPj
-	mFrTEDCy5KR3sr4K7ykRQmtoT7AZPvvn5R1Yl/ndiEOAF0BkYUdd9SZiTaKzeZFn
-	BeKXwlGPBeJgQ13onR22Lx8Wf51P7D/bd4yG4p/WrEF70egCfyJlBZHkmqQczOgc
-	YxvKq8FxaVrrimF2sut+wsyjj40IZ6aCLHd9DlAcFdVbxNhtURDVKwskZvO6FIq1
-	bjEwWrI0w+y2JY8ro2bKLaXE4z5o8STXllaBhC3HD6SjNbOgRSJGp+J51tv8buBI
-	g==
-Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010011.outbound.protection.outlook.com [52.101.193.11])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hr873am1x-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 20:23:57 -0500 (EST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q6vNGOfIi3yNs+wr8Dc0hkxBdsBQZjZDdwHR3C4HIJ4dpyxJj4jtnKkeehIya2jD03t8ruz5DmnWJJJBzhuQqc09LDS4dM63ar777BTzE5UuuPuWqN3gGokGRFxXSN88dswYccaNntwGksBZVJdVFQ66YpF8AXuHyT9fWkIbp2cAKXsmb9H1vTM5UQ/IgybVku4mB8j563YA/KqFZJidWbiIH7PAW/TjkE1PGx8ppEv1QudqDjaqYo4WQ7bkozY6iWBkOVeskV6cjnHVTiPrFrJ9rHS63B93wT8sLq4mt+p8UTcMyIA/zo4afhetcoHiTlkRUeXxJXNNbavFFb8csA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tkm/YAkMGW1fPSINDNQ70uhQelLjk8og+UxVid5ym7I=;
- b=x4XdwxchpP+2PZ6+h/3nryWjaK3cd/XEJXARVwPC8G74iPvP0uRvUo4sLWwaRBOgwbPy/vffq51CyGNyZZN3P7veOtSPmh3+Em+6bbi7HYhojBeHcgO1c2Gzh9+RUsxlyyE7TPtUX/FMFZ6doPpzPm6nxsXPLqAUQkM3uhUOG/Kg6gr7/tFYXpECtJu1/BT8nz+zx2fzdbayb5P4x5ej9WCRoBq3axF4fnhhOHjE2ojguEK3IExRycqhRlhyzLYuZqHmA6I6jIw2T63cMAF3MGk2JREPAQwdylTcRD7VNee9dWUxUVsdRthYpD9u6L//sv1qPRN5z8RuNoYqHpK+nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from PH0PR03MB6351.namprd03.prod.outlook.com (2603:10b6:510:ab::18)
- by CO1PR03MB5860.namprd03.prod.outlook.com (2603:10b6:303:9c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 01:23:55 +0000
-Received: from PH0PR03MB6351.namprd03.prod.outlook.com
- ([fe80::1578:4572:29b5:2442]) by PH0PR03MB6351.namprd03.prod.outlook.com
- ([fe80::1578:4572:29b5:2442%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 01:23:55 +0000
-From: "Torreno, Alexis Czezar" <alexisczezar.torreno@analog.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-CC: "Sa, Nuno" <Nuno.Sa@analog.com>, Guenter Roeck <linux@roeck-us.net>,
-        Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan
-	<skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Linus
- Walleij <linusw@kernel.org>,
-        "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>,
-        "linux-hwmon@vger.kernel.org"
-	<linux-hwmon@vger.kernel.org>,
-        "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>
-Subject: RE: [PATCH 3/3] gpio: gpio-ltc4283: Add support for the LTC4284 Swap
- Controller
-Thread-Topic: [PATCH 3/3] gpio: gpio-ltc4283: Add support for the LTC4284 Swap
- Controller
-Thread-Index: AQHdbAzjbMcQoC4NlUypndJOKMcOSbcd85gAgACyC0A=
-Date: Thu, 5 Nov 2026 01:23:55 +0000
-Message-ID:
- <PH0PR03MB6351939CC7F435D0576946D7F1772@PH0PR03MB6351.namprd03.prod.outlook.com>
-References: <20261104-staging-ltc4284-v1-0-49fce67ebc48@analog.com>
- <20261104-staging-ltc4284-v1-3-49fce67ebc48@analog.com>
- <qamxos4qxi24qqb3g644fgmap7yksoxlusszwoklmkdgexngtx@xfmd6iemag2h>
-In-Reply-To: <qamxos4qxi24qqb3g644fgmap7yksoxlusszwoklmkdgexngtx@xfmd6iemag2h>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR03MB6351:EE_|CO1PR03MB5860:EE_
-x-ms-office365-filtering-correlation-id: 99116239-be1a-4c43-b8f7-08df3adb7587
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|38070700021|4143699003|11063799006|261009223027099003|261028144727099003|261022075727099003|261026140227099003|261102123227099003|261021123027099003|56012099006|261021121427099003|261022105027099003;
-x-microsoft-antispam-message-info:
- ukPhVBteMtD28hm0kYQd30UfWTyikygYKv50NyIOCq4x0EIK2K2Ru75KbbbKfv33Hsyob6RPV8iFf1wRJX2ap1NVegB4Yc7fZ4BQ86bgzGCAEsRBOyf0z2csih0fFaX52rUwEVYF0Smzt3kZYNXd3YF6+ZkaoJY8kdqtv6FtZD+7l72v5JTFzVi6EnY0BgZZKs6wwfVUX97tDwOUopp1NCFcy0Hnj+LcnIYN+EsrbK1Fk5Cu0UIeNGN2aGu3yUjn06maY3jmUgfV1VgfT7BcT/ZVYrWxZ4KFDkWjYtnVgeKBQeb1VIoWWp8bdfKrNZtjkR0YIe6IydIEcMz3kVC5fwsvN+5mwMx7ndW6aD7NreiD/ha0Rhbt7IrDPvJ4//NYZqAMBfwNiPPOy4EKHagREZe7suBN8sLPKfp/yP+dlURq0IyzlB9PpDOQkGOAWzZtjBBRiz2KVOv4NonuXhS1Kc5kMn548v69p+Rpk2d8NpKpSBA3tnNQNm69yGT8MpMN9u3EAmKPvTBIhePVvqbjfvplWG6y676zeo0tuGIbZkDRzhkuCkniiEcrBKvU/a4Nt6eMjsOwhx6HKqBT/3m3UCFPAJ1jt1i58Dryk4Yy5GKFXqE2WW1fGKDQoq7ixBEJeB5JOg1UMsaXgoQvsfo2g5I35fMsfe9APKg9+qhMYLvN2r0zKYN2vWuRxo8FACXx6wie0WqWNECFM0nOqzQ306sQ1BAsIbAxfpckFZi07zk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB6351.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(38070700021)(4143699003)(11063799006)(261009223027099003)(261028144727099003)(261022075727099003)(261026140227099003)(261102123227099003)(261021123027099003)(56012099006)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?u7NEcmal8VBEtXB8z1TX2dwiwpgOBYnoUYFhvGMquUPbWIP2zcV77+m7ksDB?=
- =?us-ascii?Q?dVyswFMlvEEGHCJqlBm8fvzJGEVpSw09T/69TqbDdbCswk1MiO7R9UMAfk9R?=
- =?us-ascii?Q?wK4ZRyPwqzQUZez2dRHqyAdkfPypfBHglHP+aEEarUv2uPdyFmjbaxnupuoY?=
- =?us-ascii?Q?pbkdPROfzFSRjJlskzGY1682/RXLv0n2fFugybqPfXaSMdI4Qoa7P1eptHZW?=
- =?us-ascii?Q?Y0zkf8b50kp5dtX7LuIOfw6TeOMPk/CpvXGHN+2HYAqrq+aKnPZaTMRJSIgL?=
- =?us-ascii?Q?1i+b4PrksrTO8tMrcaIU0MlEZ2qnA2A6JE26DXA+kik1XlIDYKsdqwh2nOTU?=
- =?us-ascii?Q?pDSrXt9azgIOSowZ7N4fcRnvXspc+kZ+NTZABZv5YiwqGRuLs+mo3kg6QvkO?=
- =?us-ascii?Q?Hy/gY3IoiSM/rAo+0Cp4F7RLSL13EQhxA828HZWiCN8FFTg2u94S1fPIzGeh?=
- =?us-ascii?Q?LAlJKMkdoYnstIC+6sVhNTRwim/2HS4TRC446I392sQIXIHgBn+FeSot9U4+?=
- =?us-ascii?Q?FduRAfMVrriiG4PFd6faDdukCPww7sOrlOKB7g6Y8XfT6Qb9fe6i3ysBT2W/?=
- =?us-ascii?Q?Olw11MiDcQFm1PQCrGbodHbQx3Y3oo/DpEkXOCw96xQOCqjrBgPcuKKXmJZb?=
- =?us-ascii?Q?yse7WgMudApdakzAMxLIdkwMi4N3riOLSrVmk1bg7biym+kiSoutNOGeku4t?=
- =?us-ascii?Q?z6jPrltVuZpP6zyctZH6gVkicCdnaRsbjiUdylnLV9un9Y7eadCbt6L5QZ7G?=
- =?us-ascii?Q?LNCUMg/ynPFkbwGoad4Wcvm3/kH1QqV+OzpJd2FZbm9xPsquJQI/+AKfKWuB?=
- =?us-ascii?Q?E7sR+amVbtXt0Bww9ukF5QkyHDmDgTSDovfSFsUCALCcuFVjF2w9+932RCpG?=
- =?us-ascii?Q?UNDq5RmCeKIlhVOgkijLBk2Tugg5gUfC5mAiMvOxFxKss88SaumI86Gt3+b3?=
- =?us-ascii?Q?5ATmL2USIznM51jK9Bgz4nyqmEyiMCNzlVH/wVQMGAlNqZxzHjDp6t196vlw?=
- =?us-ascii?Q?gvEsdoHYpk3+UUzGPY24m87kRmkPmdpzrU0/bPDbUBJ1iTQ6V4a7sUtUkgU9?=
- =?us-ascii?Q?e1XBi9I3TvuVb/4wYc09xFUlolamHjMpVw7SU8b/Xq9I8b3Lwigfwi1j+iuI?=
- =?us-ascii?Q?ChZd6ZKchPVV34NwHnZ53AnHnnv90bTI02fdYw64C0NmECMfDdAX12LgZgTV?=
- =?us-ascii?Q?U5ASiqz6nFey0goOb+gsp4SQLPKeWtDBkSyxXPfU2/72GTVC8tNyqYtjbJ6v?=
- =?us-ascii?Q?CzQnS7RCiuBBa94gZ8WqypidnF1633zRHfb8hmMGzlixmKZgC+rRD0czMXAq?=
- =?us-ascii?Q?aiMnKWyCdMzwIpnTyOlGckNafVgcH5XJAzJ1CFrkRc3LFhZYXyd1yWYrUyLz?=
- =?us-ascii?Q?pjjFlhLvov6lLEU0jZ7xhsVZ3ZJh591/mAjM7ie3jZ66eJ+L/eM107xIMfWy?=
- =?us-ascii?Q?nsFYZ+pv6Rt/rZrhhLT1BYGlHSAz6FTeylKM4ioUsiWAh3y6LGm8EdoPh9iy?=
- =?us-ascii?Q?zi48Pii+p/ZCxOeFRSVSyzG4Eg+AX5Orv+CxC/kusGlmgEQuvkyub7CQjmtF?=
- =?us-ascii?Q?gFbvw72h4D4vsRn6lKOLcrSbAAzwfyVuiqj0g/C3BMw93ixOrJhK/bGvIdrg?=
- =?us-ascii?Q?oXKrbWo8C+EPD7RC2ficIbFzvhUVzUc53V/uYMqcrTqcuoqU2cklrtLDL2ok?=
- =?us-ascii?Q?yLDbDentn+WmNijfgRfzoVjtN9wTVe+JCjAN0holWCb/JFf2fM/Xj+hc+Lme?=
- =?us-ascii?Q?XiP3soS8iztyH+dOotBwnwM9jMIrjQ0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Jke6lpX2
+Received: from [192.168.10.59] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 538ad90f8;
+	Thu, 5 Nov 2026 09:25:14 +0800 (GMT+08:00)
+Message-ID: <b7a8d79a-e7aa-47fd-8e13-fcab3c569f3d@rock-chips.com>
+Date: Thu, 5 Nov 2026 09:25:14 +0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -195,92 +48,180 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	P7q8aPzTgHL4zTv5+x2RCKVgwyWxEXiduv5xgsq8pxMpITPYlC9qZy76ag7qvrDb0+aLM1xz52HWGWSoRf3vPdwn4vTpip5WYmGr6zMCJpZJvVZcHFOn4h3TE6G/uCQAlNnJf2ywuxwtX5ejF29ZsQzA6JxNtRjaSeoshYw4l2jEN0XESvXP+cFDefo1CbbHfpDy1F6TjvFzjgWYErPkDRoeu2g79jImOWcPLZmlv+BzZ2tn6bHyKeONliKwLuOIyHxDr4yh92I6yxZBosp3h5stDzNyFByjYH00vtS2IPf2oPm4vMY5nWZM/Jq9lVRooEJqC7B1/ZTFFQDPeSXG3w==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB6351.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99116239-be1a-4c43-b8f7-08df3adb7587
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 01:23:55.3681
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g9RSAUWJfy/u7N0dzoZhL30bTg3UGBrBYivSZ6w5EyB2AugQdFKetFIFvW0wPpFi9GlLPPvxQaIkyjSuFBDntEf5Fp5dhmL5CZIgcz5fQF8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5860
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAwNSBTYWx0ZWRfXykCcfATPj9jD
- 7ck9Elkwv/hprEoFQbTXl5+KpMeSw0z2ybgx3YfDmxNxwb9aPINsm7H65P97Ov3SEAyq6nhqAlT
- pUWrDLTGuq3Au7E2PXCp5ZmriQXCmt5N5nf/z8hWGsY+NNmL7yr0
-X-Proofpoint-GUID: jNJKZMAbs5FL7k9shUxN4Dl9aLCbDaEl
-X-Authority-Analysis: v=2.4 cv=S4tMU4sP c=1 sm=1 tr=0 ts=6aebdaad cx=c_pps
- a=OswsEo8IlqVTC7zrgcx7Gg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=BtkhRJChWNPZ7w67iCsA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: jNJKZMAbs5FL7k9shUxN4Dl9aLCbDaEl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAwNSBTYWx0ZWRfXx8TcnumjOhsR
- Xf3wMyLzrz92B2LDEaRy2KX4yhBD0flbPVziEi5Qjo/Pjj3va68a+L7hGegm1XebCo4dYc2MZx+
- W3WT0q0kxcReh/HWTIEHT6dRRHS+QXZavJObK+RhITfb8VHwq4sTXkX88ihF9l47laLi2183bST
- P/81DDTrsGr5f0tieWzJerau0Ja/UTZyevhI4TSmCiqckLCJHeo9qdcav6xZdiRJuZruHsD+Hqb
- wOtZLhYUwTcuMXqeyWcNlHXd36k6rsZAyq1mG6HpvxF+2GMaVOYOYo7QpXsCp85vJPYfS8LaecL
- q3NKLJLHQoNPJgg4jvncte8boy7hBH1g7HCpD09mEAGKF7Zs4kJkJ4Kq9sN1kY4z1MJchYSQlQM
- uSU7lZf3iHrlRYMC/k8f7d8E05pXozuUPgv3BxkJSTXV1Dfz0PXZzWbBTT81lIrVJqsaPHL3v5/
- Ca8QgEnHyiXCLViIYeA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050005
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: rk3308-codec: describe
+ detection and ADC routing
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: broonie@kernel.org, heiko@sntech.de, linux-sound@vger.kernel.org,
+ luca.ceresoli@bootlin.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, linux-kernel@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ huangtao@rock-chips.com, sugar.zhang@rock-chips.com, lxt@rock-chips.com,
+ xing.zheng@rock-chips.com
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-1-zhengxing@rock-chips.com>
+ <20261101044149.2018744-2-zhengxing@rock-chips.com>
+ <20261104-russet-stingray-of-penetration-fef32e@quoll>
+Content-Language: en-US
+From: Xing Zheng <zhengxing@rock-chips.com>
+In-Reply-To: <20261104-russet-stingray-of-penetration-fef32e@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1a94f62d503a8kunm3302c1553a4f86
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUlLVkIeTE5DSEJLTh8YHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Jke6lpX2hUcGBQW1uErFR7KPQfm1ZK26Tvfeft14fFOY+YOyR9WysNPgbUfvBBcCjye0a7+VabPo7cPaOqAIXAMF6SBhy/HScjGv77ILivjZ+Xyn0hHa/ItBbISUtyQ15qhOP2qnhMuSji9ndwVqdavDGA/wDAmGYjWwUhriFWw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=47pBX+XIRrJ0Jv29ifqJcO1ihQ9vYRFpgynj99Xgx+U=;
+	h=date:mime-version:subject:message-id:from;
 
->=20
-> On Wed, Nov 04, 2026 at 11:30:02AM +0800, Alexis Czezar Torreno wrote:
-> > Similar to LTC4283, LTC4284 has up to 8 pins that can be configured as
-> > GPIOs and behaves the same.
-> >
-> > Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
-> > ---
-> >  drivers/gpio/Kconfig | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig index
-> >
-> 55e4280029d86e7701d9a043c89537f60bb70c6e..de9226619ef2f77fdded12365
-> 7a1
-> > 4c15cbba07b1 100644
-> > --- a/drivers/gpio/Kconfig
-> > +++ b/drivers/gpio/Kconfig
-> > @@ -1864,11 +1864,11 @@ config GPIO_AD7768
-> >  	  called gpio-ad7768.
-> >
-> >  config GPIO_LTC4283
-> > -	tristate "Analog Devices LTC4283 GPIO support"
-> > +	tristate "Analog Devices LTC4283 and similar devices GPIO support"
-> >  	depends on SENSORS_LTC4283
-> >  	help
-> >  	  If you say yes here you want the GPIO function available in Analog
-> > -	  Devices LTC4283 Negative Voltage Hot Swap Controller.
-> > +	  Devices LTC4283 and similar devices Negative Voltage Hot Swap
-> Controller.
-> >
-> >  	  This driver can also be built as a module. If so, the module will
-> >  	  be called gpio-ltc4283.
-> >
-> > --
-> > 2.34.1
-> >
->=20
-> Is there something missing from this commit? The commit message suggests
-> there would be some code changes?
->=20
+Hi Krzysztof,
 
-LTC4284, at least in regards with the gpio stuff, is the same as the curren=
-t LTC4283
--- same number of pins, names, and registers. The commit simply edits the
-description in Kconfig to add LTC4284 as "similar devices". Will update the=
- commit
-message to be clearer on this.
+On 11/4/26 21:10, Krzysztof Kozlowski wrote:
+> On Sun, Nov 01, 2026 at 12:41:47PM +0800, Xing Zheng wrote:
+>> Describe the optional detect-GRF phandle and named interrupt resources
+>> used by the B/C headphone detector. Retain the legacy interrupt order
+>> and index-based lookup when names are absent. Document the detector
+>> disable and reversed-jack properties and their resource dependencies.
+>>
+>> Describe the ADC stereo-group routing consumed by the codec driver.
+>> Require four unique group IDs in the range 0-3, in I2S2 SDI order,
+>> matching the driver's validation. Leave GRF routing unchanged when
+>> the property is absent.
+>>
+>> Extend the example with headphone-detection resources and ADC routing.
+>> Keep machine-driver amplifier GPIOs and debug interfaces outside this
+>> codec binding.
+>>
+>> Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
+>> ---
+>> Changes in v2:
+>> - Retain the original detection descriptions and legacy IRQ ordering.
+>> - Keep the binding change in its own patch before the codec change.
+>>
+>>   .../bindings/sound/rockchip,rk3308-codec.yaml | 55 +++++++++++++++++++
+>>   1 file changed, 55 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+>> index 2cf229a076f0..60c6140dc5df 100644
+>> --- a/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/rockchip,rk3308-codec.yaml
+>> @@ -36,6 +36,49 @@ properties:
+>>       description:
+>>         Phandle to the General Register Files (GRF)
+>>   
+>> +  rockchip,detect-grf:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +    description:
+>> +      Phandle to the detection GRF used for headphone insertion and
+>> +      removal interrupts on codec revisions B and C.
+>> +
+>> +  interrupts:
+>> +    description:
+>> +      Keep the legacy interrupt order. If interrupt-names is omitted,
+> What is legacy interrupt order? There are no interrupts here, so how
+> could there be anything legacy?
+You are right. This ordering came from the downstream BSP, not from
+an existing upstream binding. There is no upstream compatibility
+requirement for it, and calling it "legacy" here was misleading.
+>> +      the driver uses the second interrupt for B/C headphone detection.
+>> +    items:
+>> +      - description: Legacy codec headphone detection interrupt
+>> +      - description: Detection GRF headphone interrupt for revisions B and C
+>> +
+>> +  interrupt-names:
+>> +    items:
+>> +      - const: codec
+>> +      - const: hpdet
+> Why same device has both GRF to detect headphones and interrupts?
+In the proposed B/C detector implementation, the detect-GRF phandle
+provides access to the detector's configuration, status and interrupt
+acknowledgement registers. The hpdet IRQ notifies the driver of an
+event, after which it reads and acknowledges the status through that
+regmap. These are register access and event notification for the same
+detector, rather than two independent detection mechanisms.
+
+Separately, the two-interrupt layout was copied from the downstream
+DT. The proposed driver only requests hpdet (or index 1 without names)
+and skips detector setup on revision A; it does not use the first
+"codec" IRQ. Retaining that layout merely for downstream index
+compatibility was not a sufficient justification for a new binding.
+>> +
+>> +  rockchip,no-hp-det:
+>> +    type: boolean
+>> +    description: Disable the internal headphone detector.
+>> +
+>> +  rockchip,hp-jack-reversed:
+>> +    type: boolean
+>> +    description: Reverse the headphone detection polarity.
+>> +
+>> +  rockchip,adc-grps-route:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    description: |
+>> +      ADC stereo-group mapping to the four I2S2 SDI inputs. Each entry
+>> +      selects the ADC group connected to the corresponding SDI input,
+>> +      in SDI0 through SDI3 order. Group IDs 0 through 3 represent
+>> +      MIC1/MIC2, MIC3/MIC4, MIC5/MIC6 and MIC7/MIC8 respectively.
+>> +      All four groups must appear exactly once. For example, <1 2 3 0>
+>> +      connects groups 1, 2, 3 and 0 to SDI0, SDI1, SDI2 and SDI3.
+>> +      If omitted, the GRF routing is left unchanged.
+>> +    minItems: 4
+>> +    maxItems: 4
+>> +    uniqueItems: true
+>> +    items:
+>> +      enum: [ 0, 1, 2, 3 ]
+> Why are all the rockchip properties before clocks, not next to other
+> rockchip properties? What logic drives this placement?
+There was no good reason for that placement. The vendor properties
+should be grouped consistently with the other rockchip properties,
+with the standard interrupt properties kept separate.
+>> +
+>>     clocks:
+>>       items:
+>>         - description: clock for TX
+>> @@ -72,6 +115,12 @@ properties:
+>>   
+>>       enum: [ 50, 55, 60, 65, 70, 75, 80, 85 ]
+> Best regards,
+> Krzysztof
+>
+I am putting this series on hold while I investigate playback and
+capture problems observed on our EVB with upstream codec changes
+backported to our downstream 6.12 kernel.
+
+Before these backports, sound/soc/codecs/rk3308_codec.c and .h matched
+the upstream versions at 2ba2d17170f9 ("ASoC: codecs: rk3308: fix
+building without CONFIG_OF"). On top of that codec baseline, I applied
+the following upstream commits:
+
+   2d8a091725e6 ASoC: codecs: rk3308: convert to snd_soc_dapm_xxx()
+   0c55552b5f5e ASoC: codecs: rk33*: use .auto_selectable_formats
+   157f7cba77a9 ASoC: codecs: rk3308: add support for codec revision B
+
+I also backported a1c99b6097af ("ASoC: soc-component: add
+snd_soc_component_to_dapm()") for the DAPM accessor used by the
+converted driver. These are upstream commit IDs; the rest of the
+kernel remains based on downstream 6.12.
+
+I have not yet determined whether the playback and capture issues
+are in the upstream driver or in the backport/integration.
+
+I will rework any necessary changes against the current upstream base
+and validate playback and capture on the EVB before resubmitting.
+Depending on the remaining scope, I will send either a revised v3 of
+this series or a separate, focused patch or series. In either case,
+the submission will start a new thread and reference the earlier
+series where relevant.
+
+Any binding changes retained in a future submission will address your
+comments above and include the relevant hardware justification.
+
+Thanks again for your time.
+
+Best Regards
+Xing Zheng
 
