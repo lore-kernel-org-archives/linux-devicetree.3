@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.16
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793893759;
-	b=K4sl5a2S/OnwcZgV8hAK5ktNQhkKyUoUK9oOTjZttW8u1YV6PazZPzd0for4aqIdXfgW
-	 IXenYyBRat5bh98ldGl5CGNy8kqzl3ykV7tmOxCXkLiHVFJpnui+HfeYHu4XFNltaE0iw
-	 S2pO1BWlJIYg1UNLuSWM0XMIJc2TE1MOX8XsyOszPjoWSff0Lc2waoGYEjEo8XuJRnKA5
-	 qZH1zLso4FJHfDzPavF0L8+eRpylH7C/+2M7Byr+/4S716FftaNcrp24AmJKB9ikdhe1+
-	 4m3eAAdltTCdN/d5118b7OzHtVDrqVTna5wgIx4KB5EOKzUnx/5nZGtVh/R0dczssOg==
+	t=1793893761;
+	b=zjQe9PUs3ORN528B7JeCQ12MFyJLMJmCBFqXED/H5B1xOUd1ob+sot+LHud47ByPLy/+
+	 byGlesLwJ3JGiC0UYOZo/GA8fmMGqQB6rgcqKd2YDODxJExft2gW46f+3lTig8lfZsQtn
+	 6pVO6rHuSt9LTMTAz26xVOTcVOjyX9UlT4j/GnVoCZXpAh/Ij5PYGJ6BuB+7opPHdfOtU
+	 KS3GtaIlCFSjj2DRBLtHY+9F4ue6V2XfVPmhOqs7SjXxeBHFvZbKjQyfADgyTL2MSQjbN
+	 OyP80xAjZo4qfWyTw4CtQBwPpg4R2hRU+p5M+2wW/HxwJPHRsDpRKdyu/h06LDU5PrQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893759;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893761;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Received:Received:From:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-ID:References:
+	 In-Reply-To:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -27,53 +27,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ysnkV25T936JkgD2a4uaivsOxkfJyFf5IHGhVuVh8H4=;
-	b=I+3sORxRDZIBuS4Eqevx4ZqKjCWf1rFDTVlxw7UF6Fwqv3e8Q6f/2ok1fY6km9KaJrK/
-	 qplEcQZLeqbOhYKkXJDvnwY6EPP9RMkUhbr/dNqtBH4wUEAYubfijxsbUFB5+pDmKWymf
-	 waKdzMQA/zCNwY2yTtNbWopwyJhkQUDnGPaqtreSU/Jh26Qbxrt7j6QdmUwqYpDxy4lcG
-	 7/ZkdjTgyHdu3eLXpe9rpV/8iZXpgYLZnKusaTprGJsan8angHsl8I5ZJqxmK1C8stIlq
-	 k/IeaRgNsdBX8Y3pzeYeOFt+2guxwF3tqxUAtPnTF9r0p7sR2Ofi3lFuQWp43kqMWJA==
+	bh=SwmR+EVtjENqkGc0OlZ4wD1fMTShg7VuU9RXSsxOVA0=;
+	b=0PFuoshebOLhWdBdvqfYZ2ZFWiM8vGLG/DxAMz2gUFpZidkHOS7TtDyC+o47GI41zgkd
+	 LkIyV+b+CbCLFQL2TTrUwWk592zCf6vC81ts5DZUSnS7luuIMA9TwkbCk70uyNh+nW7lf
+	 VuTUjiTjTsfbkOyJu73pxJStvzsnHuKOyRNIQTh1dJ16EVOlGavSWuLq2CeFNMI/j4L2q
+	 j/XUH7pW88JcbgX9Q/Yxqfjlc/3iGrPde3zQmmIigkLu6tcCEnGofO5+cpDdsmFy7Qz/9
+	 DLMBBAFRBsfsX6TItlFH2d4XvHIGIdfENSfivB7ArJCp5D39tGVxgcheQZkE6nKir0g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=axis.com;
 	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=SYNeanN8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.16
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012016.outbound.protection.outlook.com [52.101.66.16])
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=NLnvKSqJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011039.outbound.protection.outlook.com [40.107.130.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6475606EEB1;
-	Thu,  5 Nov 2026 15:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6475606EEB1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C1C606EE8E;
+	Thu,  5 Nov 2026 15:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70C1C606EE8E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=SYNeanN8
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=NLnvKSqJ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CeCL6LBfiJj2ZeyBG4FZ2kABtPnBrl80BTPN2g8TI43vwQQak5R0yHM2+THbaXn1v0KDmLDI9DYq4SUyk/0h6RRRN6CqN56V22bedGVnv+lvj8JwVTqkBPVrxpTJ5Nmnykiee5LiOQ4jKnhOtJsWoqo61OTD8KfGbn9h3kGvz4QhJHESC1pOnzrjZY7Tvr3DgcLkkn993TwcTKErNN3BjZvIHFTbqPf12Kq2hr4d1MuUDpqCqBFpvhMje9LyJVnH+P2zEs3USo05lWnsCjiP8JAQfiPcP0KYgeK3bESuflugerfwxfNW4V82CeHO63zJNxU4vx5oRo+U79NYwFSNlA==
+ b=gpWqgj9X8qjMvfZx1LTS+cRbC8Dw9EGfl1l1uK9dPPCK56knE9G3G3pWMu+96m4HikqEVnBYtQ/v0FkiyEP/4QHa0XaxJmiUuP0Vgrv4qCLGrH7S/b9VPyyQQIF0TteZALkLGN4/lRukYa53WTVfx+KB2LeSrGEbUmu/Yv6J1K18OfKod8mqy5MImSHZlBjbOrk7yJRjJzdAUazBrTyW6MNodCmSISWE2Gxa5D1v70NbOeU2uxkrIiyVhl3pUxJ8ACv2Q3KQGRQlU60rwKlrCFy9d1WTDUKkq/+g0i6R7KZsr53G1FEcpAlpHs/fYvYHROhUs7B08bdZYP+ASa3PjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ysnkV25T936JkgD2a4uaivsOxkfJyFf5IHGhVuVh8H4=;
- b=jNzChGK3HwlYJtPnegPoe8gBFtxirTca8MuNPHHLVnDMFdvjeHmyI5x1nApMMRp9vrWdbVWOaARJEiuF67Ova1BywLiWUsPK6u5hymxc1W3ySb+7FBx83D59htN3ek0Y1utxAqDWtcjKWPlj9AUoeVZuT7HzSdoXwEnin9TrGLtmTWMdO330AAo0g09H9KEB3psW4afB4yf8GEATZlYa/3h4KmJ9OwGGL2UbCX7KUgLQZk9QUE9Wdh7/NAx++Q00bCm30uqvcHVP4XjL10Ur+GFnccWjyuoJmq9wDpDuU5eYySq5lH9L52AzMzALKx15FTOaTWa5n9IpEnYrCNjyMQ==
+ bh=SwmR+EVtjENqkGc0OlZ4wD1fMTShg7VuU9RXSsxOVA0=;
+ b=ZFO+XeKp342aZCfIbZloGpHM3WCp2VoCzJN6E4wpduZ6rhHX0re3/0GufkwxZJYJ62B0C/JB8M+N2HVWfgy4e87x+4+PyxYkcxXewoF89rWDLS+oppdW+I6M/jvp/iBh2T56H5j5M/moRb7WvUbIVPuiJmQV8RJBInfb1l62zb8fZJlJEo3r8gFnbWIpO0ggrKUtcTuHy6K+Wzzd9A0ah8+tnKHl1qGGs3gZyz2DHFsouV6xp3H4Qc37sRD5mhUwPtUAjlawYCcCd1pOmbjSFPQDp/2I/Du2jDgCjPXOIcXmoWqIAPvch6czKhV4eMz6M6tU7Gxhxl3vg9EArdwx9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=analog.com smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ysnkV25T936JkgD2a4uaivsOxkfJyFf5IHGhVuVh8H4=;
- b=SYNeanN8d96gRmaUuHPJ1Xp69Ji4q4W9hG8213g9rLCibqVIBfARS7ZeFrzMmPwRbSb1zYt5OLN2sJeatXStFNvNfLCCYmzBfLDlI+Iwe6SMr8JEw+Wrx4DuO9+dPnacM069nyVqAqMaT8H528/yHLCl6DcE0sGTA6Mz0Iw2oQs=
-Received: from DUZPR01CA0199.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b6::28) by PA4PR02MB7117.eurprd02.prod.outlook.com
- (2603:10a6:102:10e::14) with Microsoft SMTP Server (version=TLS1_2,
+ bh=SwmR+EVtjENqkGc0OlZ4wD1fMTShg7VuU9RXSsxOVA0=;
+ b=NLnvKSqJnBaOwMGV632u+WOa9y/Q1cI2YQSqOIKJo2TuV8tcPh+LCb2jxe8PtmC/PQpvM899q1GllAQ+cbz+JiEzKmV4B5uoRWkXjkbiwRnRJR4bzVYoxcF17kxDQa3MpEgtOWMiixie75perqpHwFlNFD9mqvnbeBTzrMoxp4g=
+Received: from DUZPR01CA0200.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b6::10) by DBBPR02MB10842.eurprd02.prod.outlook.com
+ (2603:10a6:10:53d::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 15:49:10 +0000
+ 2026 15:49:11 +0000
 Received: from DB1PEPF000509F1.eurprd03.prod.outlook.com
- (2603:10a6:10:4b6:cafe::9b) by DUZPR01CA0199.outlook.office365.com
- (2603:10a6:10:4b6::28) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:4b6:cafe::89) by DUZPR01CA0200.outlook.office365.com
+ (2603:10a6:10:4b6::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 15:49:10 +0000
+ Nov 2026 15:49:11 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
@@ -83,28 +83,27 @@ Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
 Received: from mail.axis.com (195.60.68.100) by
  DB1PEPF000509F1.mail.protection.outlook.com (10.167.242.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 15:49:10 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 15:49:11 +0000
 Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail10w.axis.com
  (10.20.40.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.39; Thu, 5 Nov
- 2026 16:49:03 +0100
-Received: from se-mail11w.axis.com (10.20.40.11) by SE-MAILARCH01W.axis.com
+ 2026 16:49:04 +0100
+Received: from se-mail10w.axis.com (10.20.40.10) by SE-MAILARCH01W.axis.com
  (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Thu, 5 Nov
  2026 16:49:03 +0100
-Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Thu, 5 Nov 2026 16:49:03 +0100
 Received: from pc66231-2602.sto.se.axis.com (pc66231-2602.sto.se.axis.com [10.133.4.42])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 826234A9B;
+	by se-intmail02x.se.axis.com (Postfix) with ESMTP id A115F1BF2;
 	Thu,  5 Nov 2026 16:49:03 +0100 (CET)
 Received: by pc66231-2602.sto.se.axis.com (Postfix, from userid 21940)
-	id 74524305D5A8; Thu,  5 Nov 2026 16:49:03 +0100 (CET)
+	id 7BAD6305D287; Thu,  5 Nov 2026 16:49:03 +0100 (CET)
 From: Kanak Shilledar <kanak.shilledar@axis.com>
-Subject: [PATCH v8 0/7] Add support for InvenSense ICM-42370-P
- accelerometer
-Date: Thu, 5 Nov 2026 16:48:48 +0100
-Message-ID: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
+Date: Thu, 5 Nov 2026 16:48:55 +0100
+Subject: [PATCH v8 7/7] iio: imu: inv_icm42607: Add accelerometer calibbias
+ support
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,12 +115,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAGCl7GoC/23R3WrDMAwF4Fcpvp6HJduSs6u9xxgj8c/qiyYlG
- aaj5N3ndrCF1JdH8B2BdBVLnHNcxMvhKuZY8pKnsQb3dBD+2I+fUeZQs0CFpAg7ORiZx/KR/cm
- gZnWW3gdiUESDT6Ky8xxTvtwr395rPubla5q/7xsK3Ka/ZU7RY1kBqSSxcpqTdQbTa3/Jy7OfT
- uLWVXDjQTc8Vg/Qx5BCYgp65/W/7xQ0vK6e2XsNZBDA7rzZeOCGN9Wn0GnWCVD7buftnwelsOF
- t9Z4sOhjY2AdPW994RqHqo9XOmQTOpv39eOOxdX+uHhEjdtR7iGrj13X9AT2LVusvAgAA
-X-Change-ID: 20260629-b4-inv_icm42370p-ccd671066bcf
+Message-ID: <20261105-b4-inv_icm42370p-v8-7-b44eb96020b6@axis.com>
+References: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
+In-Reply-To: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
 To: Henrik Grimler <henrik.grimler@axis.com>, Jonathan Cameron
 	<jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
 	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
@@ -136,287 +132,336 @@ CC: Kanak Shilledar <kanak.shilledar@axis.com>, <kernel@axis.com>,
 	<jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
 	<krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10916;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10043;
  i=kanak.shilledar@axis.com; h=from:subject:message-id;
- bh=WohI+ObplGwzJcL3OHsXeWGqB027SGMU81OgdmTjka0=;
- b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsh6szR3DYf1hS9xL/6JXePpypiXmSBce/RF1zGhdy53v
- vT/XLI7s6OUhUGMi0FWTJHlnNH26P3J/3TnSDtdgpnDygQyhIGLUwAmwvSA4b9D7/H/dpqWRQVT
- Jx6NuP++Q21Sm1r4WRUOkT9/xM0+GZ1g+J9a9d2u6Kj5GQ3pzKlJEz/l+vybEnD1/qrjR6d8+XP
- vUhwbAA==
+ bh=l808AswoX/yWQRxeloPsn2Um2SJOV8hSSsSyupfITZ4=;
+ b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsh6szR/2VTH/QFWe/bGRO5Sc/i6S6e3RM+i/a/z1nzXm
+ +++7Elh6yhlYRDjYpAVU2Q5Z7Q9en/yP9050k6XYOawMoEMYeDiFICJfPjK8N/5l0LrprNXfzr6
+ nTW1cdpX3HFM32nSupr0cs9rH1/lrW9n+CtSvGqS0/pn+5q7XNU8zUuuhO3wcPkw6T93wYaV1zY
+ 4KDICAA==
 X-Developer-Key: i=kanak.shilledar@axis.com; a=openpgp;
  fpr=CDB0F1C8EAD5B522C7B3A77928221FF065DB55F9
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|PA4PR02MB7117:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9f381d0-7c90-4486-27f4-08df3b54556e
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F1:EE_|DBBPR02MB10842:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57e909b1-4006-4d9d-d026-08df3b545618
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|32650700020|1800799024|36860700016|82310400026|10067099003|921020|56012099006|11063799006|261021135927099003|261022075727099003|261021123027099003|261021130227099003|261009223027099003|261022105027099003|261021121427099003|261022113327099003|261022115727099003|261026121527099003|261026130827099003|261028144727099003|261026140227099003|261102123227099003|18002099003|6133799003|13003099007|3023799007;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|36860700016|32650700020|82310400026|3613699012|921020|261028144727099003|11063799006|261022113327099003|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|56012099006|261022075727099003|261026121527099003|261026140227099003|10067099003|22082099003|18002099003|6133799003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	R2aQhlitSduC46o5c/8utzUzdHttHM7Be+9Z5bMDs7y05HvmQWt0N+Gcpy4hBJtC2hrwf6b0i+501qDnu4a0B4itbMHkh1+Dr0cGIv/8EWt5RN39gTDGIkx6kaMkQSowLNgD/aGRXbULwO4HRf2k4BLQUkDwZV6DA8vK3nWW0Q56q26YZaSkDVhbzN4yX0XhBa3Xb03do4hqVjTuJc3OL4Ko9ebWST0PiAGR0MLSiBkHbtNmokIzjI7/L6ehMnA1OFVxZpNwpZ864Ky6pCLMHThl0fDvG4zSEyzWW5chlvpEpJL945MZ5YOQlLi3GG6F7TIonAwtmPpOf710Xqnoa7k0VHqCmAzJse81BGPLzREpxBHh5SeAX+qCztsqJSjPFfvHSuWESTEb8EkeZ5vrcY97Tc/EPCRmMVdVL+R5w7PCa1XgPFKewiK8L7vRX8KzfXeZh+9OkLdScNEnwc5Y88JvWRWhuy6f1ZukKGtKSNbgMdVmTL5G5rstxqJqPaxQnOkXc8b/jXU0qnIzCM9HdNtelckKDCTdd11JKf6cXRAtsGi9t7M3bCPANXiBPNzmAiN24UWMldd4NpeW6Y7MUVGU1Dnb6k/M5Cn801JmpdRmgFTg1WbwF0R+5rwMRuRL/6Ai12k2w7ousdDPQej6K9cUatooAA5Ug5p/6vHHUoEkWC6zn521jHbcblv1lgsN
+	9Q6i1qEiGX4gzn4KDvLDe6YALaN7i2SUhPcFriN4vNAH181UVZAcf1kM8I8nRTivqZJB/3hrWqIYo5mxFQPFdjr4hcyUkK1aJpUKHM0Xuy+zAEpCy6Z5Sm+VAWr6Z4S/ufgeMXgSsDL5ugNM/A0034/aOSxzcY8OWy0tZr7fgQ+zMjJVVdedwbFNS+Av0JYz48j69C/X4af3ePm1perLX7t7WGXx0dXijABPU9iUZMi73y5Xr3ssJTQ/oweoOZ81LMGArVi7gLygJkHxjzYPwyELMN/h0ycWc15XAhRpAG2qeYy5rB63bPtoK7v8bSOjvB8F8ABch5tjy3oW53OQGYlPOCBrNCuSgNRE8mN33TrqU953BGDkOI3A+LQjLX5Zdy10wmFYVL2o651Zb96YCNl0D/4H6Ku1/36ZqQjWme/7rFOeehPG42gQG8C3LkvPeFq4pUIppqTTPWBnResz+tzmTncXcZPeyy7qABuyO+cRqcNHGB5im/wumJjXibna3vDzsDSBzrYuz9dZjYK5iUoJRGPLaCxp/whfad2VTZhzXYla9czHLo2kvJgNtwqOx6BNmQgGDOUkzA1E/UxdnndCgzHlHEZnksgXyIs+lCvsCL3/md6jBWEdsgo/Jxw8i552WBx/8wxjVhVjRgMz4JCDEeh/bPSb+XVA4C+mqoSBa9Nf/rzdlmtUZ4h+9GyeoP8p93sfsiv0RQOv8hYyigh61kmFI8P2fiTXaC1DjNM=
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(32650700020)(1800799024)(36860700016)(82310400026)(10067099003)(921020)(56012099006)(11063799006)(261021135927099003)(261022075727099003)(261021123027099003)(261021130227099003)(261009223027099003)(261022105027099003)(261021121427099003)(261022113327099003)(261022115727099003)(261026121527099003)(261026130827099003)(261028144727099003)(261026140227099003)(261102123227099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(36860700016)(32650700020)(82310400026)(3613699012)(921020)(261028144727099003)(11063799006)(261022113327099003)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(56012099006)(261022075727099003)(261026121527099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	+QzabLpJael2fgeycvZRTCNmKbgX2czOx25N/NHN9uL5E4BuS5pvW9JeIXIXbfSssZk4b+zpUkvhl4nX7n83rafTnSwi2L429/ZfAS/yOynG4rNWoCo6LMsX85FylvUKPkpahuq3Ki5nWpBOQIeaTw1EZ2fiNESCRpFrx0EowCREcqXzbPFrVtPxLM72U3dpOPDL8qOanTTUGW0vRZhtcL1qXme8C3Mgi89l1qGt27xop6QB9i/fITOjGcO8hjEIb3FYYCZPax3LHC/8RgbqGsqGac2XCRMlyGGAMvo/CmM+wrZrt2+Z/K/iu4mKHvntLi78TiQbj2R3JOaWjOPcCZE0Fl2h9dYw4+53pmHoUHmRhClje3EyfvcQ+iUZP9q98cjG3T6thOgtZZJ9dt9rZ/ffsoLxuzdhLZQ8FYdNaYZdIm5rUkzCkXlqaClRuq4C
+	z1fDV+6RGNzuHp65rFYFdr9tiLfWEDriOwWiczx9so7FjzGz4vs8BKT+3eL+2jEtoYbqjmRBzQmexE+lnJrnCJ3S3aT3C4y/5B7/o9r2TVYW3e1aGC+GdXXQe4S11f4m32xVQYLxlRdIlB+ciU7ynFE8nHiy381MmbNyGNNdzDRx1tZX/VW6G+imBGH1+Me+hOBOcQlyHO8mac9BI1ipmXqhud4IenwiStQLVvcUbVV6//f7vZ9HvARFaqMkecZPPAk+AH2j55xX7xVzTC+p3ygLnONGBN8kra68ZW5Dyfdt7fgudWpiW6aYyWSky4IAQdF37MKV6pziZXGPpQhgemc6hAE8GD66ZyeGoQCvAbaf6B8+DTBuKj/MA/EDCfzTDeQ/bZTXNMb0ZL3Sm/HflI27gFGRFzcqLIwmVoXAj+k+do9HCmXULdcRTEw4VGA4
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:49:10.5960
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 15:49:11.7154
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9f381d0-7c90-4486-27f4-08df3b54556e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57e909b1-4006-4d9d-d026-08df3b545618
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	DB1PEPF000509F1.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR02MB7117
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR02MB10842
 
-InvenSense ICM42370P is a high performance MEMS MotionTracking 3-axis
-accelerometer. It supports I2C, I3C and SPI protocols. It has a 2.25kB
-FIFO and two programmable interrupts with support for ultra-low-power
-wake-on-motion support. It has a built-in temperature sensor. This
-patch series adds basic support for the sensor with functionality of
-performing raw reads and writes via the I2C interface.
-
-This device contains 4 register banks for configuring the device called
-MREG0, MREG1, MREG2 and MREG3. Unlike other devices from the same
-vendor, this contains a very different way of accessing the register
-banks apart from the default user bank 0 (MREG0). The register bank access
-procedure is mentioned in the datasheet Section 13. This is very
-similar to the existing InvenSense, ICM-42607-P driver. Thus, it
-improves the existing driver support and adds the ICM-42370-P device to
-it.
-
-While adding the support for new device, I tried to perform some fixes
-to the existing driver which were pointed out in the v2 of this patch
-series.
-
-The buffer support will be added in another patch series.
-
-Note: The datasheet for InvenSense, ICM-42607-P could not be found on the 
-official https://www.invensense.tdk.com/en-us website. Thus, I am 
-using the datasheet available at https://www.lcsc.com.
+Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
+registers are stored in MREG1. The calibration bias is written to
+OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
+limit calibbias values instead of clamping it.
 
 Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
 Datasheet: https://www.lcsc.com/product-detail/C5129967.html
+Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 ---
-Changes in v8:
-* [patch 1]
- - Drop orphaned link in the commit message.
-* [patch 4,7]
- - Fix indentation and alignment of code.
-* [patch 6]
- - Drop Assisted-by tag.
- - Add extra helper functions to implement bank switching to make the
-   code more readable.
- - Update the commit message to highlight, BLK_SEL_* should be restored
-   whenever, MREGx transaction is initiated. 
-- Link to v7: https://patch.msgid.link/20261026-b4-inv_icm42370p-v7-0-222e296ac1e0@axis.com
-
-Changes in v7:
-- Add reviewed-by tags.
-- Added a precursor patch to fix interrupts property in dt-binding.
-* [patch 4] Initialize gyro based on chip_info
-  - Use explicit comparison instead of implicit.
-  - Add a new wrapper for setting sensor modes depending on availability
-    of gyroscope.
-* [patch 5] Add support for ICM-42370-P
-  - Drop the dev_err_probe for WHO_AM_I failure, as it was unnecessary
-    and doesn't provide any extra useful information.
-* [patch 6] Implement MREGx register access
-  - Fix formatting issues
-  - Performed checks with lockdep and no issues were found.
-  - Added `use_single_write` to the virtual regmap (pointed out by
-    @sashiko).
-  - Moved the transport regmap to _core.c file such that, it can be
-    accessed in both _i2c.c and _spi.c.
-  - Handle error when clearing bits for IDLE bit.
-  - Rearrange fsleep in _mreg_read/write to sleep before entering the if
-    block in case of error.
-- Link to v6: https://patch.msgid.link/20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com
-
-Changes in v6:
-- Add reviewed-by tags.
-- Arrange ID tables based on compatible.
-- Reword some commit messages.
-* [patch 1] dt-bindings: Add ICM-42670-P
-  - Explain the new device properly in commit message and dt-binding
-    description.
-  - Remove invensense,icm42670p as required from interrupts.
-* [patch 3] Initialize gyro based on chip_info
-  - Fix conditional flow with if-else statements.
-  - Do multiple similar assignments in one.
-  - Fix inv_icm42607_set/get_pwr_mgmt0 functions with has_gyro condition.
-* [patch 5] Implement MREGx register access
-  - Elaborate more on the bank switching mechanism in commit message.
-  - Fix return on error handling in inv_icm42607_mreg_read/write functions.
-  - Fix code formatting and reduce priority of "failed to clear IDLE after
-    MCLK timeout..." to debug.
-  - Return early in inv_icm42607_mclk_put().
-  - Deduplicate regmap_config for i2c and spi regmaps.
-  - Remove MREGx registers from the list of volatile registers. There are
-    few volatile registers but they are not used currently and are not
-    being on planned on using in the near future.
-* [patch 6] Add accelerometer calibbias support
-  - Move the Note to end of the commit message after ---.
-  - Replace div_s64 with DIV_S64_ROUND_CLOSEST().
-  - Replace masking and shifting for accessing the USER_OFFSETx registers
-    with combination of FIELD_PREP/GET and GENMASK.
-  - Fix switch statement by combining similar return types.
-- Link to v5: https://patch.msgid.link/20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com
-
-Changes in v5:
-- Merge the dt-binding properties into icm42600 binding.
-- Revert the unnecessary moving of iio_chan_spec_ext_info struct
-- Move the addition of has_gyro property to a separate commit.
-- Reword the commit messages for few patches.
-* MREG bank access
-- Update the bank id defines.
-- Use graceful error handling when clearing mclk bits.
-- Use FIELD_GET macro whereever possible.
-- Change to get_unaligned_be16 wherever possible.
-- Revert removal of _is_readable and _is_writeable functions.
-* Calibbias support
-- Make _accel_calibbias array a static const int.
-- Fix casting of values throughout.
-- Link to v4: https://patch.msgid.link/20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com
-
-Changes in v4:
-- Drop the little endian ABI change patch.
-- Drop the odr formatting patch.
-- Drop the gyroscope calibbias implementation patch.
-- Reword commit subject for changes to the IIO channels macro.
-- Fix formatting across patch stack.
-* DT bindings
-- Reword the commit message of dt-bindings patch.
-- Drop the MAINTAINERS entry.
-* ICM42370-P support
-- Update the probe to select gyroscope functionality based on the
-  chipinfo struct based on the `has_gyro` member.
-- Drop setting gyro member in the `inv_icm42370_default_conf` struct to
-  NULL.
-* MREG bank access
-- Update the bank access as per @Jean's comment to make it similar to
-  icm45600 driver.
-- Use the regmap approach to handle bank access.
-- Dropped setting the default configuration for the ICM42370 to be
-  always start in the LOW_POWER mode.
-* Calibbias support
-- Add calibbias to `inv_icm42607_accel_read_avail()` function.
-- Instead of clamping out of range values reject them with -EINVAL.
-- Fix return handling of calibbias functions.
-
-- Link to v3: https://patch.msgid.link/20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com
-
-Changes in v3:
-- Updated the cover letter to match the implementation.
-- Add SPI properties to dt-bindings and fix typo (leave out I3C for now).
-- Move the implementation to inv_icm42607 driver as both are similar
-  devices.
-- Fix formatting of the drivers based on the comments received in v2.
-- Switch endianness of the driver.
-- Update mreg checking to perform bank access even if the device is in
-  OFF or LOW POWER state.
-- Implement mreg read writes and calibbias support for inv_icm42607
-  driver.
-- Drop buffer and interrupt handling implementation for next patch series.
-
-- Link to v2: https://patch.msgid.link/20260813-b4-inv_icm42370p-v2-0-11aedfdf76d3@axis.com
-
-Changes in v2:
-* Changes across all files
-- Update MAINTAINERS with company mailing list
-- Sort/Cleanup of includes
-- Use `guard(mutex)` and newer `pm_runtime` APIs
-- Fix code formatting and add empty lines
-- Be consistent in inv_icm42370_data variable name
-- Fix MODULE_DESCRIPTION
-- Drop secondary state struct and merge it's properties in
-  `inv_icm42370_data` struct
-- Update mreg_read/write function calls
-- Change the compatible and filename to `icm42370p`
-
-* Changes to dt-binding
-- Add dependencies property
-- Made vdd and vddio supply as required
-- Add description to drive-open-drain property
-- Add mount-matrix property
-- Add interrupt-names property
-
-* Changes to `inv_icm42370.h` and `inv_icm42370_buffer.h`:
-- Resturcture the file according to @Marcelo's advice
-- Move struct __aligned properties to the end
-
-* Changes to `inv_icm42370_core.c`:
-- Fix _accel_scale[] values
-- Add IIO_TIMESTAMP to channel spec
-- Update mreg_read/write to fix bank access
-- Replace usleep_range() with fsleep()
-- Use constants from linux/units.h
-- Call `_update_fifo_period()` after updating the ODR values
-- Fix mathematical error in offset calculation
-- Implement handling of mount matrix
-- Implement handling of named interrupts
-- Use devm_regulator_get_enable for the vdd/vddio regulators
-- Use better error handling
-- Move iio device registration after performing IRQ init
-
-* Changes to `inv_icm42370_i2c.c`
-- Change compatible string as per the binding
-- Use named identifiers
-- Add `id_table` to the i2c_driver struct
-
-* Changes to `inv_icm42370_buffer.c`
-- Update FIFO enable/disable logic
-- Update FIFO buffer to match the specification and handle increased
-  size dynamically.
-
-- Link to v1: https://patch.msgid.link/20260806-b4-inv_icm42370p-v1-0-670837f5842f@axis.com
-
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-To: Henrik Grimler <henrik.grimler@axis.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: kernel@axis.com
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
+Note: The accelerometer functionality is tested with Invensense,
+ICM42370-P development board.
 ---
-Kanak Shilledar (7):
-      dt-bindings: iio: imu: icm42600: Drop interrupt requirement
-      dt-bindings: iio: imu: icm42600: Add ICM-42670-P
-      iio: imu: inv_icm42607: Simplify IIO channel macros
-      iio: imu: inv_icm42607: Initialize gyro based on chip_info
-      iio: imu: inv_icm42607: Add support for ICM-42370-P
-      iio: imu: inv_icm42607: Implement MREGx register access
-      iio: imu: inv_icm42607: Add accelerometer calibbias support
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h       |   8 +
+ drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 189 +++++++++++++++++++++-
+ 2 files changed, 195 insertions(+), 2 deletions(-)
 
- .../bindings/iio/imu/invensense,icm42600.yaml      |  21 +-
- drivers/iio/imu/inv_icm42607/inv_icm42607.h        | 177 ++++++----
- drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c  | 202 ++++++++++-
- drivers/iio/imu/inv_icm42607/inv_icm42607_core.c   | 389 ++++++++++++++++++---
- drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c   |  13 +-
- drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c    |   6 +
- 6 files changed, 667 insertions(+), 141 deletions(-)
----
-base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
-change-id: 20260629-b4-inv_icm42370p-ccd671066bcf
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+index eecf4c46cbdb0..f4b46597a2bc5 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+@@ -437,6 +437,14 @@ struct inv_icm42607_sensor_state {
+  */
+ #define INV_ICM42607_SUSPEND_DELAY_MS			(2 * MSEC_PER_SEC)
+ 
++/* OFFSET_USERx shared registers two 4-bit MSB fields */
++#define INV_ICM42607_OFFSET_USER_NIBBLE_HI	GENMASK(7, 4)
++#define INV_ICM42607_OFFSET_USER_NIBBLE_LO	GENMASK(3, 0)
++
++/* 12-bit signed offset value split across two registers */
++#define INV_ICM42607_OFFSET_MSB			GENMASK(11, 8)
++#define INV_ICM42607_OFFSET_LSB			GENMASK(7, 0)
++
+ typedef int (*inv_icm42607_bus_setup)(struct inv_icm42607_state *);
+ 
+ extern const struct regmap_config inv_icm42607_regmap_config;
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+index 9a3ace3e7fcf9..be1b62e8fd224 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/array_size.h>
++#include <linux/bitfield.h>
+ #include <linux/bits.h>
+ #include <linux/cleanup.h>
+ #include <linux/device/devres.h>
+@@ -13,6 +14,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/types.h>
++#include <linux/units.h>
+ 
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
+@@ -22,9 +24,11 @@
+ 	.type = IIO_ACCEL,							\
+ 	.modified = 1,								\
+ 	.channel2 = _modifier,							\
+-	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),				\
++	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
++			      BIT(IIO_CHAN_INFO_CALIBBIAS),			\
+ 	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),			\
+-	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),		\
++	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE) |	\
++					      BIT(IIO_CHAN_INFO_CALIBBIAS),	\
+ 	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
+ 	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
+ 	.scan_index = _index,							\
+@@ -56,6 +60,16 @@ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
+ };
+ 
++/*
++ * Calibration bias values, IIO range format int + micro.
++ * Value is limited to +/-1g coded on 12 bits signed. Step is 0.5mg.
++ */
++static const int inv_icm42607_accel_calibbias[] = {
++	-10, 42010, /* Min : -2^11 * 0.0005 * 9.80665	   = -10.042010 m/s²	*/
++	  0,  4903, /* Step: 0.0005 * 9.80665		   = 0.004903 m/s²	*/
++	 10, 37106, /* Max : (2^11 - 1) * 0.0005 * 9.80665 = 10.037106 m/s²	*/
++};
++
+ static const int inv_icm42607_accel_scale_nano[][2] = {
+ 	[INV_ICM42607_ACCEL_FS_16G] = { 0, 4788403 },
+ 	[INV_ICM42607_ACCEL_FS_8G] = { 0, 2394202 },
+@@ -176,6 +190,166 @@ static int inv_icm42607_accel_write_odr(struct iio_dev *indio_dev,
+ 	return inv_icm42607_set_sensor_conf(st, &conf, IIO_ACCEL);
+ }
+ 
++static int inv_icm42607_accel_read_offset(struct inv_icm42607_state *st,
++		struct iio_chan_spec const *chan, int *val, int *val2)
++{
++	struct device *dev = regmap_get_device(st->map);
++	unsigned int msb_reg, lsb_reg, nib, byte;
++	int offset;
++	s64 val64;
++	s32 bias;
++	int ret;
++	u32 raw;
++
++	if (chan->type != IIO_ACCEL)
++		return -EINVAL;
++
++	switch (chan->channel2) {
++	case IIO_MOD_X:
++		msb_reg = INV_ICM42607_REG_OFFSET_USER4;
++		lsb_reg = INV_ICM42607_REG_OFFSET_USER5;
++		break;
++	case IIO_MOD_Y:
++		msb_reg = INV_ICM42607_REG_OFFSET_USER7;
++		lsb_reg = INV_ICM42607_REG_OFFSET_USER6;
++		break;
++	case IIO_MOD_Z:
++		msb_reg = INV_ICM42607_REG_OFFSET_USER7;
++		lsb_reg = INV_ICM42607_REG_OFFSET_USER8;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	guard(mutex)(&st->lock);
++
++	ret = regmap_read(st->map, msb_reg, &nib);
++	if (ret)
++		return ret;
++
++	ret = regmap_read(st->map, lsb_reg, &byte);
++	if (ret)
++		return ret;
++
++	/* 12 bits signed value */
++	if (chan->channel2 == IIO_MOD_Y)
++		raw = FIELD_PREP(INV_ICM42607_OFFSET_MSB,
++				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_LO, nib));
++	else
++		raw = FIELD_PREP(INV_ICM42607_OFFSET_MSB,
++				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_HI, nib));
++
++	raw |= FIELD_PREP(INV_ICM42607_OFFSET_LSB, byte);
++	offset = sign_extend32(raw, 11);
++
++	/*
++	 * Convert raw offset to g then to m/s²
++	 * 12 bits signed raw step 0.5mg to g: 5 / 10000
++	 * g to m/s²: 9.806650
++	 * Result in micro (1000000)
++	 * (offset * 5 * 9.806650 * 1000000) / 10000
++	 */
++	val64 = (s64)offset * 5LL * 9806650LL;
++	/* For rounding, add + or - divisor (10000) divided by 2 */
++	bias = DIV_S64_ROUND_CLOSEST(val64, 10000L);
++	*val = bias / (long)MEGA;
++	*val2 = bias % (long)MEGA;
++
++	return IIO_VAL_INT_PLUS_MICRO;
++}
++
++static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
++					   struct iio_chan_spec const *chan,
++					   int val, int val2)
++{
++	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
++	struct device *dev = regmap_get_device(st->map);
++	s32 min, max;
++	u8 msb, lsb;
++	s16 offset;
++	s64 val64;
++	int ret;
++
++	if (chan->type != IIO_ACCEL)
++		return -EINVAL;
++
++	/* inv_icm42607_accel_calibbias: min - step - max in micro */
++	min = inv_icm42607_accel_calibbias[0] * (long)MEGA -
++	      inv_icm42607_accel_calibbias[1];
++	max = inv_icm42607_accel_calibbias[4] * (long)MEGA +
++	      inv_icm42607_accel_calibbias[5];
++
++	val64 = val * (s64)MEGA;
++	if (val >= 0)
++		val64 += val2;
++	else
++		val64 -= val2;
++
++	if (val64 < min || val64 > max)
++		return -EINVAL;
++
++	/*
++	 * Convert m/s² to g then to raw value
++	 * m/s² to g: 1 / 9.806650
++	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
++	 * val in micro (1000000)
++	 * val * 10000 / (9.806650 * 1000000 * 5)
++	 */
++	val64 *= 10000LL;
++	offset = DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5);
++
++	/* Value is limited to 12 bits signed, return -EINVAL if out of range */
++	if (offset < -2048 || offset > 2047)
++		return -EINVAL;
++
++	msb = FIELD_GET(INV_ICM42607_OFFSET_MSB, offset);
++	lsb = FIELD_GET(INV_ICM42607_OFFSET_LSB, offset);
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	guard(mutex)(&st->lock);
++
++	switch (chan->channel2) {
++	case IIO_MOD_X:
++		/* OFFSET_USER4 upper nibble is shared. */
++		ret = regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER4,
++					 INV_ICM42607_OFFSET_USER_NIBBLE_HI,
++					 FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
++		if (ret)
++			return ret;
++
++		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER5, lsb);
++	case IIO_MOD_Y:
++		/* OFFSET_USER7 lower nibble is shared. */
++		ret = regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
++					 INV_ICM42607_OFFSET_USER_NIBBLE_LO,
++					 FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_LO, msb));
++		if (ret)
++			return ret;
++
++		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER6, lsb);
++	case IIO_MOD_Z:
++		/* OFFSET_USER7 upper nibble is shared. */
++		ret = regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
++					 INV_ICM42607_OFFSET_USER_NIBBLE_HI,
++					 FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
++		if (ret)
++			return ret;
++
++		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER8, lsb);
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int inv_icm42607_accel_read_raw(struct iio_dev *indio_dev,
+ 				       struct iio_chan_spec const *chan,
+ 				       int *val, int *val2, long mask)
+@@ -207,6 +381,8 @@ static int inv_icm42607_accel_read_raw(struct iio_dev *indio_dev,
+ 		return inv_icm42607_accel_read_scale(indio_dev, val, val2);
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		return inv_icm42607_accel_read_odr(st, val, val2);
++	case IIO_CHAN_INFO_CALIBBIAS:
++		return inv_icm42607_accel_read_offset(st, chan, val, val2);
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -231,6 +407,12 @@ static int inv_icm42607_accel_read_avail(struct iio_dev *indio_dev,
+ 		*length = (ARRAY_SIZE(inv_icm42607_accel_odr) -
+ 			   INV_ICM42607_ODR_1600HZ) * 2;
+ 		return IIO_AVAIL_LIST;
++	case IIO_CHAN_INFO_CALIBBIAS:
++		if (chan->type != IIO_ACCEL)
++			return -EINVAL;
++		*vals = inv_icm42607_accel_calibbias;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		return IIO_AVAIL_RANGE;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -250,6 +432,8 @@ static int inv_icm42607_accel_write_raw(struct iio_dev *indio_dev,
+ 		return ret;
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		return inv_icm42607_accel_write_odr(indio_dev, val, val2);
++	case IIO_CHAN_INFO_CALIBBIAS:
++		return inv_icm42607_accel_write_offset(indio_dev, chan, val, val2);
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -265,6 +449,7 @@ static int inv_icm42607_accel_write_raw_get_fmt(struct iio_dev *indio_dev,
+ 			return -EINVAL;
+ 		return IIO_VAL_INT_PLUS_NANO;
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
++	case IIO_CHAN_INFO_CALIBBIAS:
+ 		return IIO_VAL_INT_PLUS_MICRO;
+ 	default:
+ 		return -EINVAL;
 
-Best regards,
---  
-Kanak Shilledar <kanak.shilledar@axis.com>
+-- 
+2.43.0
 
