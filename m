@@ -1,79 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793892583;
-	b=WADyo/Gu/QV/H65Y9sTJQKf7sh/+MER2o4KTsILohpxj05k3YfsHUmUnLAIXv4xvAWvX
-	 Z+nMdpbiUv6wN4Rja7haazxmK48wSUZafT8mJycENVj/Nghht4tB00st/haaFCicGY5ek
-	 ouSq0vqCHNQsM7adtTf1Y9TKQWBMFpL/tA2Nkjs7oRudsv3ENuSRxInuhIR+Te4PJWbWe
-	 Q/lKhNp8N8v652LXu7aivcdzMlt1kYytM5u9Pt2535McqqNy4TnUMM10oVVJftvVk3Yim
-	 S2ebZyOXtT4Ww2wTY/kjBpgnce2xvooQhnhkhjtGV4urNIYh+B7eD2yifTJ9bDZYOVQ==
+	t=1793892593;
+	b=1n1p4Mz6qcUzy1EBDVi5FnUu5LMKNj74oVSz2uZdINzM+Ai/av2iZJhh9xbVjzzCh5du
+	 tcocHPYtkKAvTM7BPNILfhAmPd6huPFdIMZRM8zvaPLG5fC5cozDD7JAcIO4widCayISi
+	 yfDn32dOQ0d4h3tW1AgyBoP+2GojhKIjNChzmHXfuVa7jK/4aeSJBlUy/SY44GTWkhlL8
+	 7/zAu8ickoMV3/AE/F9JbVjUOqfJ7louu06ZM+wacBxUYx4Vo7tn3M3oo5pc60irPZK1O
+	 f92bIV7CN8esTs7sLUUgwVJvqR0lX0sfegPCIbOjfjk74PTcEkKtH4FO9FvbLm4Dqhg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892583;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=bizg8nXSrF877Om64bX/m79m7mPaW/iGKz1ARahMme4=;
-	b=z6ofG+xXSEtjRKcdEv7PlOaSq31X1yRbh3kvXLw2qUdunKZUeMGxkmZwnizX4+GzZvUn
-	 pCWwQ1CPXi8pIWCHlb37/HWhm13DBNOvIhqmWqPEE1y1RVPi+o6IExlSD2OYWAa47GfaW
-	 M2OwO53xuGdrZaq1KGG1AMIq7j4FbIEV/RuryIygVuY3wZR4nBSZfBiCwDjoXcT+bodnU
-	 eKRVK0ybNu2K9rGr2bQ60Ttta5d3Gbm1JrEbQSuRjTLZaq8hJgLJq0BH6G3O3InSgaDef
-	 hXkB3pVeBl2pGdFkT+dSupVp6CHHGFcRFO0O0gbnJcLXSTizLG8qiri/JTR8W+TTCDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892593;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=NBQpXzU3ySaI25xlrBMnFQxxVdhQdx3KwAIpbcylXis=;
+	b=QA483+klbzPmKHGbF2FucMPXhQEBEtrMJoB7xlzQo+XePErFKsHxDgqker20C6MiXdwI
+	 XCthN71oiumsvRiL2sWdJA/vdZiv6Xdf2BkKZNRFE6KhcDrXKVuGVXWdOAsxRix5qSjnb
+	 GsVP0Ze4E8f4CswKjrcfVv5/siTIOyjBsTWLa8RaabJlJcOstsCAmfNesqSE2UoIvphhm
+	 SFmo256DbOD8tcw6zPjc4vZQ1yvSddVcXa/PShVBWP4NCCtj0EGighJH5/RoTmEjQndlA
+	 YutxIeuVCXEZ/c1/FDA+kqzz9wks3wASFNxZyqsM4Rm1Ghcyi1zpdDoKGkVN7ys01SQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HywIhXfg;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1F7606D80A;
-	Thu,  5 Nov 2026 15:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HywIhXfg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AB9606D838;
+	Thu,  5 Nov 2026 15:29:42 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793892582;
-	b=gkj7+mO3SGT2LX+jODHlIsjpnPLF0iy2WCLpYsCkixxQoy1TvamgMQdzY5VvnYpX+yRE
-	 7VwNPdS27KnkAQBJSL8sUiTc+ht+NENfDIN0OTNhTCcYRd/dK1vOkjZSR9Q1yD0pCGE8u
-	 RIw/CXL54Cv9RS+LMmvfaO/7BaFh8fpfwU6/OfCI6fEj+Ug4PI4OmfiZ5OfUHVNzV6aCc
-	 /7PACSWwatJVHf5QT36ix4phWLcKIfBqpCP0ZJ0mQmp+SHLbr1zg7img4QdLld0Mb5wvM
-	 s9+/y/EYMLkY1P57zo7jAQG/fc2YV71wOzeMFOMZyECnSjEGH8+e9lBGmzgr74D59nQ==
+	b=mvAtLOFc+e1qS08pc2Qqw4+4boYg2KK6jF10uf1ddxNDqi0G8s/EqKRyPZEZQ4W6jTo7
+	 r1VPSMXjf6OdwUmrtXP7dqvWLQhZ8isYR5fJl3VGBfSvnaZkUe4E5gefYuxL9SSXJq0S5
+	 Q67jauLLdfU0lzVe6tTMqOi6RDalpuHGwtW+dCy2ndDFkyDnyInHWtZ9JDwkR4IHZhrXZ
+	 vuoB+z5USuZzM0YMbFs/qJqK04hbG+V8iY00rvaV3QhKbSrAe0gbqri2Wr6DqbHJv8Mew
+	 oOL2E5ACfbZmj8tcvJ1frGNP6XZUWIKhMx+t6cCm1R2+oMLtO+pK+GehnmCGHjLxWIg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793892582;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=bizg8nXSrF877Om64bX/m79m7mPaW/iGKz1ARahMme4=;
-	b=FPWIkTxnA2uAItRxC0tfwzcrBbbNwhm9lbzJwgrtjwOaZthbHxKcxOsaLxUtrCxlVWpQ
-	 gHJqBpvSaDYeug/xBClV8sRBnMBRYj8xS5Sn2/ynO1K9jNQ+c/r3F+9kRaeI7+0nqb5RJ
-	 UAsk33K7rHRr8GTettzj8Nczryboz8HeQfXMDt0Vu018MEXXNbpNrlq9hTDqZM/SLfcbZ
-	 U6DKk9SBfq7HsWyMakxgY1rt36xUPd8a3HeUHORkkhtA2VsVMBCYqlYhsdc8VcscTv3zX
-	 14a8yt3h9vpWe+yOXELLVkig2wf1dPeErEA/xxWqpY+8BVXVhK/ffwZ48DEHaA3SQ8A==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=NBQpXzU3ySaI25xlrBMnFQxxVdhQdx3KwAIpbcylXis=;
+	b=VqxRazaTOZFC1tLcCzgTUZf+87//HPs3n+Rbsp73jOOEQNYbET51Tvze1leKrMUgxDEO
+	 GYFNnnaPdbVe6AX4a2Vi9aAPbnoyWp0sS09k8mRZ4E/YE//nBhBP6W7robWSINbBh3LXQ
+	 fmYjWkU+tvRX3DD/kMNphkBvcinHGPAzd2VGkZigqGzwQs6m27nCeoYi3zMWgcb0GiSIQ
+	 Tr6CtfjED74R/8s5Thbrxh5VQijf855B6iQaOuhzUoPhv1NyYL8+7IiyFrPESjsjyhdAM
+	 nEjEi1ivC4HzDlTDxJgzH6F7YlmBhpaKm/uNhaNHz5qj976p6Yr38U3Urt4SG461q4A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BE8741F00A15;
+	by smtp.kernel.org (Postfix) with ESMTPS id BEBCC1F00A18;
 	Thu,  5 Nov 2026 15:29:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793892582;
-	bh=bizg8nXSrF877Om64bX/m79m7mPaW/iGKz1ARahMme4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=HywIhXfgYRoggo+52lGjkmJUxL0eVwZVh9S+f3uP4VA39QTSgy8jgRc9Oylz49d2Y
-	 6dzaXruy94t2hB7N/zHK/MwTBcNOPQN4eBIQKjasIatBpK4UJqVywXzUG0De04AoP3
-	 Dc0BoZ3Sdo4iNPSKGFwrFBRfOcGacgO+Aur4IJ7S5PkkPEp4OoJDYbb3tLkm6U+mID
-	 Ysqg1MrCErSWbo0IhkzyTNv8S7NUZYm0VKbAa4TJ2XL81hrTXfE7/FjGlvKW+4sPHP
-	 EakdQ1fVnQbFNnac+0asaEQ997HDPOECrRcYtKUtJ7BYmn0HFoJoX/rC69tSRsSLDl
-	 EmNF8E2DanuCQ==
+	bh=NBQpXzU3ySaI25xlrBMnFQxxVdhQdx3KwAIpbcylXis=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XuF4ZBNVdz49lUewD6UKTzbdXBvQuMDLqNLUEJ8IXhNiJ5IszqZo5s9jCjZjvn6ez
+	 86dRITNP3RGiigfXtllkAFCPK62OKrP/DWLxkad9d0rE/RYGxDW+ObAGJvTZbyCLW0
+	 s9gwvpp612v4Ll/QFWsOxT/KWNkn5nb4mj7zT5nclKYyAiCkCsE4GfLaP5q7k5LKV6
+	 Pd2izWjGjlU9k2P9mFA3BbnUETQesjziQawIYJK6QPWhf08ENoCqhBxGGxBmWhj56f
+	 TF2hg3Iw3R4XublNBFFY1LdFu55+KRzQ3pYhDvz3/PqiSnGN0BugXBSwFj35rA/c//
+	 B/BBcz3l8/FEw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 23F3D472EE;
+	by lkml.kernel.org (Postfix) with ESMTP id 46D16472F3;
 	Thu,  5 Nov 2026 15:29:41 +0000 (UTC)
 From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: qcom: sm8350: Add the inline crypto engine
-Date: Thu, 05 Nov 2026 15:29:29 +0000
-Message-Id: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
+Date: Thu, 05 Nov 2026 15:29:31 +0000
+Subject: [PATCH 2/2] arm64: dts: qcom: sm8350: Add the inline crypto engine
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,11 +80,9 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrB1IohHbq0gXGn91CrUlU0UQ7
- 25al9/ivZ0UUaB0z3aKWEXlPSfYPKMwtfMIlj6ZnHGVtcZzV7K+6sIblgDG0Palx61wlaPUfCI
- G2f6/5nFZl+6J8P1N6DhOIthlk3EAAAA=
-X-Change-ID: 20261105-b4-sm8350-ice-efad45e93262
+Message-Id: <20261105-b4-sm8350-ice-v1-2-f55e6ea8e1ca@fromdisposition.org>
+References: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
+In-Reply-To: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
 To: Abel Vesa <abelvesa@kernel.org>, 
  Herbert Xu <herbert@gondor.apana.org.au>, 
  "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
@@ -99,49 +93,66 @@ Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Demeter Barna <me@fromdisposition.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793892578; l=1321;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793892578; l=1535;
  i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=suhANv7bOMWCMhQ8xWZ6gPrL/h1+3YpM+oSA0xcQSBk=;
- b=Lit8UbrinNlhQJDYfrDII+oLqibmjgAWVno/4aiYqq5Nz9BX7KLkgZUl0bztXoJBkV5NCQPRs
- LQzq48Aekn2BdADzCUZsBQY5LTfjNg8Gd+bP+qKQvy6LHUJ4o3pR1gh
+ bh=D6BUds9SxEA685Rzubo4gGj7fm7khF99ZYP/XeTNyDQ=;
+ b=2jcu39RQqSrRH/baSy0Uj/GVFNQm+3yDZe3gZgVELwFkB0LyPD4QOAlhHB8RvqpaMH3dgQdZo
+ BKt2uFoUAhtDQXlxr2ZC6W+LP9fS7qH7HueyTkzQEVaZtRXHFssaTzb
 X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
  pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
 X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
  auth_id=1163
 X-Original-From: Demeter Barna <me@fromdisposition.org>
 Reply-To: me@fromdisposition.org
+Content-Transfer-Encoding: 7bit
 
-SM8350 has an inline crypto engine (ICE v3.2.0) next to its UFS host,
-but sm8350.dtsi does not describe it, so ufs-qcom runs without inline
-encryption. Add the compatible to the binding and the node to
-sm8350.dtsi, as on SM8450.
+From: Demeter Barna <me@fromdisposition.org>
 
-The region covers the engine (0x1d88000, 0x8000) and its key manager
-(0x1d90000, 0x9000), as in Qualcomm's SM8350 device tree; the clocks and
-the power domain are those of SM8450. The TrustZone offers the raw-key
-SCM calls but not GENERATE/PREPARE/IMPORT_ICE_KEY, so qcom-ice uses raw
-keys.
-
-Tested on a Razer Edge 5G with fscrypt v2 on ext4: "AES-256-XTS using
-blk-crypto (native)", and files written with and without inlinecrypt
-read back correctly either way. dtbs_check is clean for all SM8350
-boards.
+Describe the UFS inline crypto engine at 0x1d88000 and hand it to the
+UFS host controller with qcom,ice. The region covers the engine and its
+hardware key manager (0x8000 + 0x9000), as in Qualcomm's SM8350 device
+tree; it is clocked by the UFS ICE core and AHB clocks and powered by
+the UFS PHY GDSC, as on SM8450. Without it the UFS driver logs
+"Disabling inline encryption support" and fscrypt has no hardware path.
 
 Signed-off-by: Demeter Barna <me@fromdisposition.org>
 ---
-Demeter Barna (2):
-      dt-bindings: crypto: qcom,inline-crypto-engine: Add SM8350
-      arm64: dts: qcom: sm8350: Add the inline crypto engine
+ arch/arm64/boot/dts/qcom/sm8350.dtsi | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
- .../bindings/crypto/qcom,inline-crypto-engine.yaml          |  2 ++
- arch/arm64/boot/dts/qcom/sm8350.dtsi                        | 13 +++++++++++++
- 2 files changed, 15 insertions(+)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261105-b4-sm8350-ice-efad45e93262
+diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+index 55b32050c..2b258c4b4 100644
+--- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
+@@ -1782,6 +1782,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 				<0 0>,
+ 				<0 0>,
+ 				<0 0>;
++			qcom,ice = <&ice>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -1807,6 +1809,17 @@ ufs_mem_phy: phy@1d87000 {
+ 			status = "disabled";
+ 		};
+ 
++		ice: crypto@1d88000 {
++			compatible = "qcom,sm8350-inline-crypto-engine",
++				     "qcom,inline-crypto-engine";
++			reg = <0 0x01d88000 0 0x11000>;
++			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
++				 <&gcc GCC_UFS_PHY_AHB_CLK>;
++			clock-names = "core",
++				      "iface";
++			power-domains = <&gcc UFS_PHY_GDSC>;
++		};
++
+ 		cryptobam: dma-controller@1dc4000 {
+ 			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
+ 			reg = <0 0x01dc4000 0 0x24000>;
 
-Best regards,
---  
-Demeter Barna <me@fromdisposition.org>
+-- 
+2.53.0
 
 
