@@ -1,93 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793843476;
-	b=wC0ug/6kQNt3hq3SwHpHTIHAsm+bUfCKxxXZ5HIv8ED7P6Y0tUOhw2I5TX8lNseAApkC
-	 cYVkIIC/cynNithgidIUlxxNKibb2M+TX3zQPltBxyNwF5v0wWwm8wKFI5pvQpqYsvOX8
-	 Y1cYM7iYTYjttrdkVN74WpkS7xjTKgxuZ1uuFGu3BPMHp2Dr8M5+RjW4ob+GHpSpYN13N
-	 rHBziW8jsyEgGNQynOPGAgaw8fyB0bS/T3F9sGDNi0beliubORmSqY6m6rrzaRidqQcKL
-	 tC50ag3/+lDcpTtBjLIAhNMPceTj8euYC5XDNL1ZbbbfEULPjnVFAALQT41w/VTUG2Q==
+	t=1793844565;
+	b=jIyaYUlBGq4vsZlXTxpPEQd4N5dTX6uCIdvE3NJEOiawTuecJxyX/sE3OmrIUuqgz3M1
+	 hyi4gVW9jGpw25oGDQ3FBFMYwbm+O4g9jtfO9njcsW1kWkx5MJ+IM8mSis74HBMFZs0Wr
+	 pIsckyW5Ofa5VhYcfX4I693irVumcN0RJEi75lmxsaxyXQk8AjylOOEQhFm6FeAOkE25L
+	 C5Pca17Ck9XLwPsL93LZC1uTC+mK0SjvE5RDn8ybEky3tLq7iCRE/cFiNYeFI3xG98WPE
+	 ItFOuibVOVvc+seHGhsgjOptmoeVuAEQodjSkr2HLnJ9AWDby09cDmNhs1y5FWZynPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843476;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:x-tm-snts-smtp:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
-	bh=LbT+cDt3x5H3RSlP6PJ6sjoErQEa3773tcGsgbYPWQg=;
-	b=JnGWYFuU2UJUyB7F9/r6UZFX7dmP/d1c+ly0uAOJPRA0z3aamrijRM+GGKjm9VT2wFXX
-	 vL2pR4MBUeQqnQxNByYLEIsYcz1H0Zr9zTl2m532wtEnF0zk5b97DJZAIy6i7LlDl3vfR
-	 N3AnLrddVVhDNJ/7LhgzDtDXvWiVGq+vCWDA5Xwdd2GqDuRlQfNgUNwX7IT8MHnz/0TIR
-	 utaTf7260EbV41BLn8aX1RGPkNeh40Je57QZMKBc6k1eOZbisV75yBskDY3eFqlaksdCt
-	 uGjs6m/vBICz7NjxIaIYcIsCyrBQ7mrsjANg0WWpLWCgGNqT6fPp25qfunrkFnWhBIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jDAfiOlVrfcIrnBYrikcNDpkrwfsc7W/pzfCEuEFbJk=;
+	b=vC08MSctFcf2L/eIGbKFT15QrIEKHSli3FHs/pIM9Rdcr3n9bc1HmP5owvOgn4aszLYS
+	 BdcRvQneiOKBmeiPo39PF8oY6aiT+iWzrZkE0ERRjfkM1RykyBiZO8hhxL3JaIRD/MWcF
+	 3p6fqMGjZE7NXaBI2gIRMUc7z03XV8Ln+UZt44qQgQgrqMk5NeLQzPxabLpumbgCRSgKc
+	 uLiYSb6Lg5qPESkGtSo1Dwnh4OxskUvbbCz4CC2lhgYpmJZXz3NnhE6G4GuNIQyb4P4U/
+	 7ifprnP7qONWiA/XxwaLju/GeV+sa7F+C6Cp9bYiD5RlTywoNViArz2jba0h7tJCLcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ite.com.tw;
-	spf=pass smtp.mailfrom=ite.com.tw;
-	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GSTl0NbS;
-	arc=none smtp.remote-ip=219.87.157.213
-Received: from ironport.ite.com.tw (unknown [219.87.157.213])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar-com.20260707.gappssmtp.com header.i=@riscstar-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bQKdoPaY;
+	arc=none smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B542606A31B;
-	Thu,  5 Nov 2026 01:51:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B542606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9ED606A32E
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 02:09:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C9ED606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GSTl0NbS
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20260707.gappssmtp.com header.i=@riscstar-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bQKdoPaY
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-833e671ee9fso1369766a34.0
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 18:09:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=LbT+cDt3x5H3RSlP6PJ6sjoErQEa3773tcGsgbYPWQg=;
-  b=GSTl0NbSoL/bHoZShCiPCDOG4zpZkxuRpvMHuPrnq3vYGbDmrRHWjqKq
-   eafc1tcP4CaV4ozd+rkW6ADyXAwYksMlN87/bKH65qbI5g8vGbpTfj6Yq
-   CxIa8UrxdVGWiJnsKyrnxR+hMxl3I3/YQmkT8A7Obt2T99RzoJnQdQfH6
-   MVzNTTxfuZ6ZTYQsqURR55dFI7yLiHkqnfo/oO8XMqykRhn2cTa9PCDVt
-   mc8540/jQb4136i20P2YT01bdcZrEXQfhXSfyQ85xF5VYoSZZZvJHZot0
-   Rx09yeqSfqN5O8wrdq2dVTJ7wO/1C0FcukJxV9rvaYCybfS2+Gt+VeMQA
-   w==;
-X-CSE-ConnectionGUID: Ho0X/4iXTfe1+B0p127BJw==
-X-CSE-MsgGUID: bvNrJYKpQJudTrTDXMPhAQ==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 05 Nov 2026 09:51:04 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 6A51owQl083341;
-	Thu, 5 Nov 2026 09:50:58 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 5 Nov 2026 09:50:57 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Thu, 5 Nov 2026 09:50:57 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <krzk@kernel.org>
-CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <hverkuil+cisco@kernel.org>,
-        <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
-        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
-        <linux-api@vger.kernel.org>
-Subject: RE: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
- properties
-Thread-Topic: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
- properties
-Thread-Index: AQHdbGgxolHeqP/vkkmm0FEYfk19CbcetuOg
-Date: Thu, 5 Nov 2026 01:50:57 +0000
-Message-ID: <01818606697f4504b67d6f461d04ae57@ite.com.tw>
-References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
- <20261103-upstream-it6625-alsa-i2s-v1-1-bb91e2879b01@ite.com.tw>
- <20261104-sparkling-icy-hound-fd0dac@quoll>
-In-Reply-To: <20261104-sparkling-icy-hound-fd0dac@quoll>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: 0A64C475197B0BD3ADEB90642EE49E854F58658056F55C1F726BA9C9AD51143C2002:8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+        d=riscstar-com.20260707.gappssmtp.com; s=20260707; t=1793844564; x=1794449364; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jDAfiOlVrfcIrnBYrikcNDpkrwfsc7W/pzfCEuEFbJk=;
+        b=bQKdoPaYIBZlncDH+3xR78NU4SZUy1UNzYe4/3iE/eTtE3fc1boBVnfn1qAh43yNoS
+         Yv5rHw9B+zMsENMqNuSO21592z1vYg7F1Vb1HUPUBdPXtD9BbCv+q2xYF/6n43abhPLo
+         P28bN+i/ukbP2L97wRtjJUFA2G0hg8hcmztmrqIfwwPIm1DkyKgR834K4zCUMjXKhssv
+         TFNluPBDfBn1byhqxr1I546yDOtxyARPVZcWaXqv3T7oHOf591/5YXxH8guy8TAXg0pt
+         z3lGong9nI1CVZqT9ZnY7VtfMLaXAJeWRqjP0GKbqsphQ7oy+C6eiupBdbyjtT9Qatro
+         W/lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793844564; x=1794449364;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jDAfiOlVrfcIrnBYrikcNDpkrwfsc7W/pzfCEuEFbJk=;
+        b=sHVSJVl/J6oCRtyjvXe1jYGJtBTxXIRG/+CTgMrjzCoMO+njl3Fuxn14tLDdZmx5go
+         mrBO03DEZzftn2ZOZtl/fRJBGDXVdZ1kup8Q35Ogbh6MZZ416TlfUi4OUsGjJ1Em2Dsw
+         9OyrEyx8GZUF4X8Ztcg3el23TGMH4Y1pMvjC7JDLYaWL9PT8aY8Teg76wzr9hbzTiVXa
+         sf2sa0f6v5Ouqf45AKSp3G2T0ehzYPqNdZ2AJ3/Am8estdWv/11D6VGFRrqlwKv/f6B6
+         eXVnIjALeVHiMWr4Rqhp7ZxOXS2oyRDjCwr+DWWNcZuV7v1cxRZEI89hWVYqMAgCczsc
+         NwTA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3qYkwHnGcjrPPqY+6gX5xSyQGWYyBnZzUmTII/+gQTCG9NolIyJ29oHOubV34Vliyf39w8C1VV2yD@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bEJrY9MumpT/PAYQkCTtLgF9djnQmFeQzylBpICkc1pUcM361
+	8+RxReeceEQE0AxBpQTMNrE3L1w40TUh5m50wk1RT7fEr1IRxh2ddbOw8WF6oP8M980=
+X-Gm-Gg: AYBFou0Jo+L2uGxhDrAuHH3jJganL1pkKFXbOpEsuabVz2b5K3ULtuGLxVNBCy6gpjw
+	qexkaE8XBdET+egpWgVNYkFBxD0EB5CigSFUc2ZepV7heO5DaK9TsUhx8ti2yGsmjpKFXJZd+ZB
+	VyK2K03mx8m4ZmFaeXabR4hXMttRmO7fN6ptvxHFDq1V6NiGeeMclmGXYDnodx6v2CtJbiiiYQe
+	PUh/UsqVjXfMpZLycsGq7H+wxJKr7qSto4OLcd062zleBY7rewyPg7odVO+qNJA3pSfxOHuYf+o
+	YJ6i7qwVonT1o87BfJ2BETEktyG3SYR1JOddPXhMHTdV5Vumys93AkYF8vrBuBTr2y7eynBgwLx
+	/D8zSGbNNQO7eZltNAi1bh+2H6H0s5OiKYklxNq+/uRwoFR46tnjvGoQbTM8XLeP69jXZCu8cAr
+	S4JC2zj35B+369GrBGIamI7tpYhokysfDpPgKMdnJ13chw2wnBggZf98VI5cytpJrrZtWgfubqj
+	0+/reGxJUSUhWSKrHV8hrEZS0JU/IRg1MSQL1zvVQZq3dVMl7wutjslivnA356n2VEpUtJM2FYN
+	9acmiG/GubwZiaRXeHH4YNEXcZRLpw==
+X-Received: by 2002:a05:6808:11cb:b0:55b:f88d:6ebb with SMTP id 5614622812f47-5640df0a2eemr12633362b6e.54.1793844563998;
+        Wed, 04 Nov 2026 18:09:23 -0800 (PST)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f9115csm3235689b6e.11.2026.11.04.18.09.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 18:09:23 -0800 (PST)
+Message-ID: <8feef6c7-df8a-468f-863a-fb2f83c5e478@riscstar.com>
+Date: Wed, 4 Nov 2026 20:09:21 -0600
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -97,33 +92,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 6A51owQl083341
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: soc: introduce
+ toshiba,tc9564-config-syscon.yaml
+To: Conor Dooley <conor@kernel.org>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
+ alexandre.torgue@foss.st.com, marex@nabladev.com,
+ changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261104004332.2141282-1-elder@riscstar.com>
+ <20261104004332.2141282-2-elder@riscstar.com>
+ <20261105-irregular-awaken-b329b9c37e70@spud>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20261105-irregular-awaken-b329b9c37e70@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgS3J6eXN6dG9mDQo+DQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBLcnp5
-c3p0b2YgS296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+IA0KPlNlbnQ6IFdlZG5lc2RheSwgTm92
-ZW1iZXIgNCwgMjAyNiAxMDoyNCBQTQ0KPlRvOiBIZXJtZXMgV3UgKOWQs+S9s+WujykgPEhlcm1l
-cy5XdUBpdGUuY29tLnR3Pg0KPkNjOiBNYXVybyBDYXJ2YWxobyBDaGVoYWIgPG1jaGVoYWJAa2Vy
-bmVsLm9yZz47IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93
-c2tpIDxrcnprK2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5v
-cmc+OyBIYW5zIFZlcmt1aWwgPGh2ZXJrdWlsK2Npc2NvQGtlcm5lbC5vcmc+OyBsaW51eC1tZWRp
-YUB2Z2VyLmtlcm5lbC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJu
-ZWxAdmdlci5rZXJuZWwub3JnOyBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5lbC5vcmc+OyBMaWFt
-IEdpcmR3b29kIDxsZ2lyZHdvb2RAZ21haWwuY29tPjsgbGludXgtc291bmRAdmdlci5rZXJuZWwu
-b3JnOyBsaW51eC1hcGlAdmdlci5rZXJuZWwub3JnDQo+U3ViamVjdDogUmU6IFtQQVRDSCAxLzVd
-IGR0LWJpbmRpbmdzOiBtZWRpYTogaXRlLGl0NjYyNTogYWRkIGF1ZGlvIERBSSBwcm9wZXJ0aWVz
-DQo+DQo+T24gVHVlLCBOb3YgMDMsIDIwMjYgYXQgMDI6NTA6MTlQTSArMDgwMCwgSGVybWVzIFd1
-IHdyb3RlOg0KPj4gSVQ2NjI1IGFuZCBJVDY2MjYgZGVjb2RlIHRoZSBIRE1JIGF1ZGlvIHN0cmVh
-bSBhbmQgb3V0cHV0IGl0IG9uIGFuIEkyUyANCj4+IGludGVyZmFjZSwgZHJpdmluZyB0aGUgYml0
-IGFuZCBmcmFtZSBjbG9ja3MgdGhlbXNlbHZlcy4gVGhlIGJyaWRnZSBoYXMgDQo+PiB1cCB0byBl
-aWdodCBJMlMgZGF0YSBwaW5zLg0KPj4gDQo+PiBBZGQgJyNzb3VuZC1kYWktY2VsbHMnIHNvIHRo
-ZSBicmlkZ2UgY2FuIGJlIHJlZmVyZW5jZWQgYXMgYW4gYXVkaW8gDQo+PiBjb2RlYyBEQUksIGFu
-ZCAnaXRlLGkycy1kYXRhLWxhbmVzJyB0byBkZXNjcmliZSB3aGljaCBkYXRhIHBpbnMgYXJlIA0K
-Pj4gY29ubmVjdGVkIHRvIHRoZSBhdWRpbyByZWNlaXZlciwgaW4gSERNSSBjaGFubmVsLXBhaXIg
-b3JkZXIuIFdpdGhvdXQgDQo+PiB0aGUgcHJvcGVydHkgb25seSBTRDAgaXMgY29ubmVjdGVkLg0K
-Pj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBIZXJtZXMgV3UgPEhlcm1lcy53dUBpdGUuY29tLnR3Pg0K
-Pj4gLS0tDQo+PiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0ZSxpdDY2MjUu
-eWFtbCAgfCAyMyANCj4+ICsrKysrKysrKysrKysrKysrKysrKy0NCj4+ICAxIGZpbGUgY2hhbmdl
-ZCwgMjIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPlJldmlld2VkLWJ5OiBLcnp5
-c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQG9zcy5xdWFsY29tbS5jb20+DQoN
-ClRoYW5rcyBmb3IgeW91ciByZXZpZXcuDQoNCj5CZXN0IHJlZ2FyZHMsDQo+S3J6eXN6dG9mDQo+
-DQo+DQo=
+On 11/4/26 6:28 PM, Conor Dooley wrote:
+> Actually, can you mention the other features that this provides - the
+> service it provides to the mac, for example.
+
+Yes I will add that in the next version of the series.
+Thank you.
+
+					-Alex
