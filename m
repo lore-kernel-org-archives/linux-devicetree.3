@@ -1,99 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793880530;
-	b=i/LRQqTR+2eaMLLuq+1RJ1DeQuWaum+RqLikdo9ulaFfah1WxHNDvvd27ZqoeB8j9rTj
-	 X/uqIUwmrQP1L68ZKVeiHcHK421/C1gphNg+oSHTdT7x0sV70OwUQO7YMsVr64aFpzUGf
-	 eX5iMpV6B6lCn6EH8MywXfuUEj4KlBTblBiNu7yokG15P649+ptAInuVLqvEVCbGzGbHP
-	 QE+9uy8WFWPqy7GQOLpSy48ZeRyT38AvQsq8Ym2w+TSOYQRhEkvIRc2zjrkGNfPM+YSZ5
-	 zoS+cJfdIeWhNhSSGL/mugh/OGf8aju399pbtaSwpNpo/4jUnp0lzOPHiggRYgbkHVA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880530;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/0iceX90IqV9oL5wqkzDxra2XjMzLEXwA9jTMie2zR4=;
-	b=v0W02/Cu0XEC6aO2O+y1m/6AWJOqRTPJkBRMVALf7OoIBid2pwOIDY985Ix0Yx2QwVq2
-	 Ak6+2NWjB236vKBHWHByDFPW7szBGF8vwzHEOIJ/I42k37VEtQuxgz/jqqfpQaresUC0g
-	 7MAUSkm6Zxv4NT3N1mR9zKGh/hXe+OGN7WKhVV+4irwLMxBQLOSbWFAcA4qFf7Fd2JxQy
-	 am0+QHOiebrHRT5bMYZDVxDiLoLzGKF00jwSa8Np1EkQi8SCQAjr82Z45X0izgVSRPZFG
-	 frAGT/g8trEDPQGIZvlCFXWeHLvjszRIc/nDx3HEdPBOJBEp32AcWxrk3x0NfMAQ6Pw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fooishbar.org;
-	spf=pass smtp.mailfrom=fooishbar.org;
-	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=NI+Tnm0+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793880562;
+	b=cZlmU83+OFt6aMdQbxMeoSOQ/NajqELXDk8PM6YUi+WoYsKaQPM1MOqfavj95/h/wxtC
+	 ffQLP45cVjwBQ3MQjcF/2oMgSvwGuMlVhQqBDfNmy6dFw7mAuWYcDFCNO2f/vhA8aZCsO
+	 WIc/jxgsqkE4U5O7Mm/erod6k/OSD8+znctcAqFGPjSAtZkYFwduxQOIHFUhwzBgH0o0a
+	 QPc8LU7AnO1wSUyd9mrXIkXONe6NaZSAmID2DLLw6t4LVC2EFvo7k+bOrYTE1HJO4voQ+
+	 J/ZX+iFww+bTaokwT9+PS+uTMxKQpYE7su9KdsiJ/tYA5CBedDAcN5DizDUbWPLcw6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880562;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=ZJCmDBLnwO5EsL5HYpEqr+WuYOsrmebyyb4WDJ9SpxQ=;
+	b=olmAjI5o9FKYyAR7OPEa65M68MSCqypDnMYy6aCFbdfRzg0764MEu3szWr2wxIlVr/BV
+	 SJLgZ7675G/W5snbl1h8WcOCrJqYiLrPfF2qSMUunkwBGSQvrDjODXs7t08qHReIvbkL/
+	 Ne6TEdgrrAt1Mf/D9vFbeaANrpe8NlxP1M0b0CrML7a3BEhSDszMgO+wDZwdlhu0inypT
+	 AX2NclvD1DsUIrQqkxgPR7SER5DIobVHexcaNegeRki+SLsGpclIIH3quyVy4MBhlpO5d
+	 a6rdR+W53Z2O+RuPr1uQrtFc7TEtOFObqkSCIpuvRqlQ5qgo25m2aN73xv/ZOmr2xLg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=thorsis.com;
+	spf=pass smtp.mailfrom=thorsis.com;
+	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=oewv6xxY;
+	arc=none smtp.remote-ip=217.92.40.78
+Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C81606D83C
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:08:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C81606D83C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0EFE606A329;
+	Thu,  5 Nov 2026 12:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0EFE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=NI+Tnm0+
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so868811a12.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 04:08:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793880529; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NUvpDCQZJaIke7QKOyMMLCo03bVclQrol5bID6sK9U6gltxE+QVPVIDmTBps5jJBuM
-         MalsKSl59dFYlWL+4yINbhF5tHRAo6Y86X90GC81nfq3u6XNFNRkgdan8YwLHDjTTZNK
-         kfE6jyUSKEotSxQdPuPHG9FWBUIonxdAEf1w3gd78e5hMn7wuQRRCLoYk+fQP7+q2CYz
-         p53RvsHITz5hIxe7CjUSFA0gQD0hLRs3L2i8I5VXoWCLkRKU/1WVQHrE9KQ3eD2CaKrF
-         OBHtq6u7rfJuJmm/ua55b+ZUFbZRnjnYTLPAxWBqduZxEKglPov1LGC3+gj7fxqMxXPC
-         8DPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/0iceX90IqV9oL5wqkzDxra2XjMzLEXwA9jTMie2zR4=;
-        fh=TTgsLazHOl8VfryAcilkDlYhfu1Z5sTdlJWHuIC7G44=;
-        b=nF7RpmItXMOYX/0GYg8dxO3FbOGc+2eBgMye9qbGXsE17HO7a49D9gNGDiHyrnASuA
-         QmIouqMeZoWVpBp+Xpk/Kw8ThMDYKtuUh4lS6jKyiS65JjmwXrMVmNTgagkP7lkXBPvD
-         dij7IqtM57Mp/415DmXYv+ZAclXW3N8Iu0zAqR0vksyKMH7b2DSmpYTbfQfzVT3uNgWZ
-         680yk8YTBB1g+tx0uIiWPOyeiq77UH++tb2UYqMA30rX9/QV1RQzYD3FyVz4i6Jk8Y1Z
-         deuhjyHiB1Mk7ws5RDmdPRBZcIBr56qgSx43sHuyaEkmp3JrWRNqa2edWlw9Cf5Ta2Qo
-         qOkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1793880529; x=1794485329; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/0iceX90IqV9oL5wqkzDxra2XjMzLEXwA9jTMie2zR4=;
-        b=NI+Tnm0+iB8mmC4dR6qzPqkzbrgseLMU00deWh1JGnVPk0oWXMyXTi/PDOFPhbZFb3
-         eVqSqKbVvudM5YXGUGcVRSMqzrmJy4aAoLHhs3tpEkYcp09Ja1qw95hVPXHWkyZvLjMR
-         n6LW29D9imLKa8RQc6kAbvXLChjAki8xtlpXVjMAOJtqFHvkKYfSuxVuTqA94aKiTOCh
-         +bKq8DluefDVFX5kL/d8uuVoumva9dIu/1DrwA/9JuJONX8qsEFm90Ecv6bcww8bfDxA
-         jJBZSpD/Vnx6YHZCJ+Qx+gCIn2t/XzB2D5eU4cdg4wS+JGNEO6wKMJbfjuc12f7KHlCF
-         qTDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793880529; x=1794485329;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/0iceX90IqV9oL5wqkzDxra2XjMzLEXwA9jTMie2zR4=;
-        b=wRgKfOIuPR314SEfqkmTGEGACflM+i2O505zWhIGfPWVOrTBqBaAUXjEAJLMku8wV2
-         NhHJLnLWUA/dcMGHq2vUAXqGB6NHJ5jeC4vZ72Fr7w/PfM8bxf9rtSuFU3JkmvvM7UJv
-         XzQou3UPK1i4J2UtCA/blp609+OoQaUHOAv/eCIsHbwysI2ZxZkYFyJqRsUMnufI0X1A
-         oF9hplUoP0lxtOnz5smajolOWACou/0IK1Z8KYszF3K9PTBeuGFVgx/pij72VBNQeyXR
-         +52K3xduyfZZEGu3XAxmkRVxlXS1a3tFlH9EnJmoVLXYSAQGR3qsZ/qRkTZAZQyOY5ED
-         srAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCjB60nOeSHHQs6jwgYcNuase+4lrXhCiO+fM7UBLLxg9juyJ+VNA6wP67pnsKyFsDmVyHOxJSpMZH@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+Y0iSgiLTpaG1SQsA0jUG6V41q6GmVss9QBUyvDjUA7p0Y4lG
-	RFBX/TryBnRuSYqsl6e8nb+BtpYAv8XQIA0kt7UyLi5eXaWzr7c6Y1ZYiM9LD/lv6YkMy3gj+LP
-	d8/vtkqmGtmS5F+6WbJCgfaJSpAsnEK7hqce1xrD2Ig==
-X-Gm-Gg: AYBFou3zDm5VTvvXPly75Q5XkhqvDIZimmDaHNwo4Pr2wzSt7SG0q/3bDRm4oOcZIlY
-	7lvWRU9SSpZYqOIlNT7G8w+Hj6OHcMieZWWMTdneofq24/1w6ZxDryMVpm5QU+AyiwhNee9mtP+
-	Bx7OmGAVx+VS6hJTLhv1j9DCAYTYgL9O0dgsQbz5SVx5uGXzXELU5Vj+pbl53gXU7ZXmQ1qlJIf
-	M27+jcyFCCnQT0AM2pgc7TFTKvIDeYa4qVDdjMTUIiypHX4D34b+K33+JWPfCbVxTNVkVhrV7JB
-	Lez9OcB8yAjh71A0ZZi/81+/suweRf6vKKd4Id7ymASmpWsmcUEoZ6RLkJg5pXW26NEMGzi8RVF
-	qI4MY7ouaArQPo1hCWhibHinYbVVbVuIJKQV5
-X-Received: by 2002:a17:90a:ec90:b0:3b0:c11a:902d with SMTP id
- 98e67ed59e1d1-3b0c11a91c6mr1036738a91.10.1793880529265; Thu, 05 Nov 2026
- 04:08:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=oewv6xxY
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF64614966A6;
+	Thu, 05 Nov 2026 13:09:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
+	t=1793880594; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZJCmDBLnwO5EsL5HYpEqr+WuYOsrmebyyb4WDJ9SpxQ=;
+	b=oewv6xxYHvL1L2lScGSJnNAUassh0vm2QEd1glWUNbxE4+b0OioSybfE+dvS7ZLqmXRJ7c
+	yVaT+QQCH2Zdq54RpQFKM3iASkOggJ8ZRw1CC09zdSe9ftU29klrh2NY+aIJPUBJdbnLKu
+	BdOcXLSscjCUyATxqhTxJKNo+BufWZNxZpfWbh6o4vjFYsnBO8Zb1XIu5qeuNxxqpMWicf
+	zWrrVeWt0e4XgdL4iwsVpm8HjGq7FQ7YfJnQO+hoye2tuc+xojh9WgeVt/Jo42OqfRCxFl
+	AIooHTmz5R2TgQ7ngyXGUSiDdjNLlJNpiTUGYiv348WpwzKcUf0fPI1j4F5quQ==
+From: Alexander Dahl <ada@thorsis.com>
+To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Ryan Wanner <ryan.wanner@microchip.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Mihai Sain <mihai.sain@microchip.com>,
+	Manikandan Muralidharan <manikandan.m@microchip.com>,
+	Durai Manickam KR <durai.manickamkr@microchip.com>
+Subject: [PATCH v4 05/16] clk: at91: Allow enabling main_rc_osc through DT
+Date: Thu,  5 Nov 2026 12:06:41 +0100
+Message-ID: <20261105110715.2486432-6-ada@thorsis.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
+References: <20261105110715.2486432-1-ada@thorsis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -103,45 +74,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com> <20261105-dw-hdmi-qp-yuv-v6-13-1bb63ef5766e@collabora.com>
-In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-13-1bb63ef5766e@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Thu, 5 Nov 2026 12:08:38 +0000
-X-Gm-Features: AclHuK9SHkBLRSAoFwhG6L3qgKeNZAN0mhWE5mO5no7yjWFPSRU-9JZ6TzN2VOg
-Message-ID: <CAPj87rM=D4h-EfkTdqbumrM159M9Mb89nJt0K1AgcTrqwAqM6w@mail.gmail.com>
-Subject: Re: [PATCH v6 13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
- output format
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
-> Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
-> ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
-> MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
-> MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
-> cycle on a 20-bit wide bus.
->
-> The HDMI PHY scales its PLL output by 8/bpc to undo the deep color
-> packing, such that it matches the DCLK rate expected by VOP2.  However,
-> YUV 4:2:2 is never deep color packed, as it always transmits two 12-bit
-> components per pixel, regardless of the color depth.  From a clock-rate
-> perspective this is equivalent to three 8-bit RGB components, so
-> configure the HDMI PHY with 8 bpc when YUV 4:2:2 is in use to keep its
-> output clock aligned with the TMDS character rate.
+SAM9X60 Datasheet (DS60001579G) Section "23.4 Product Dependencies"
+states:
 
-Reviewed-by: Daniel Stone <daniels@collabora.com>
+    "The OTPC is clocked through the Power Management Controller (PMC).
+    The user must power on the main RC oscillator and enable the
+    peripheral clock of the OTPC prior to reading or writing the OTP
+    memory."
+
+The code for enabling/disabling the main rc oscillator clock is already
+present, however, after the at91 clock device tree binding rework in
+2018 (kernel v4.19), it was no longer possible to hook it up via DT.
+
+Export the main RC oscillator for all SoCs featuring an OTPC controller
+where the main RC oscillator is required for proper operation.
+
+Signed-off-by: Alexander Dahl <ada@thorsis.com>
+---
+
+Notes:
+    v4:
+    - reword commit message
+    
+    v3:
+    - no changes
+    
+    v2:
+    - split out dt-bindings changes into separate patch
+    - extend to drivers for other SoCs providing the OTPC
+
+ drivers/clk/at91/sam9x60.c  | 1 +
+ drivers/clk/at91/sam9x7.c   | 1 +
+ drivers/clk/at91/sama7d65.c | 1 +
+ drivers/clk/at91/sama7g5.c  | 1 +
+ 4 files changed, 4 insertions(+)
+
+diff --git a/drivers/clk/at91/sam9x60.c b/drivers/clk/at91/sam9x60.c
+index eba6e8c16044d..4a7ff559522eb 100644
+--- a/drivers/clk/at91/sam9x60.c
++++ b/drivers/clk/at91/sam9x60.c
+@@ -227,6 +227,7 @@ static void __init sam9x60_pmc_setup(struct device_node *np)
+ 					   50000000);
+ 	if (IS_ERR(hw))
+ 		goto err_free;
++	sam9x60_pmc->chws[SAM9X60_PMC_MAIN_RC] = hw;
+ 
+ 	hw = at91_clk_register_main_osc(regmap, "main_osc", mainxtal_name, NULL, 0);
+ 	if (IS_ERR(hw))
+diff --git a/drivers/clk/at91/sam9x7.c b/drivers/clk/at91/sam9x7.c
+index 1fc4b01a04abf..194a8e44aa0ec 100644
+--- a/drivers/clk/at91/sam9x7.c
++++ b/drivers/clk/at91/sam9x7.c
+@@ -763,6 +763,7 @@ static void __init sam9x7_pmc_setup(struct device_node *np)
+ 					   50000000);
+ 	if (IS_ERR(hw))
+ 		goto err_free;
++	sam9x7_pmc->chws[SAM9X7_PMC_MAIN_RC] = hw;
+ 
+ 	hw = at91_clk_register_main_osc(regmap, "main_osc", mainxtal_name, NULL, 0);
+ 	if (IS_ERR(hw))
+diff --git a/drivers/clk/at91/sama7d65.c b/drivers/clk/at91/sama7d65.c
+index 0b5356467fa52..ef54d2fa6cf40 100644
+--- a/drivers/clk/at91/sama7d65.c
++++ b/drivers/clk/at91/sama7d65.c
+@@ -1138,6 +1138,7 @@ static void __init sama7d65_pmc_setup(struct device_node *np)
+ 						   50000000);
+ 	if (IS_ERR(main_rc_hw))
+ 		goto err_free;
++	sama7d65_pmc->chws[SAMA7D65_PMC_MAIN_RC] = hw;
+ 
+ 	bypass = of_property_read_bool(np, "atmel,osc-bypass");
+ 
+diff --git a/drivers/clk/at91/sama7g5.c b/drivers/clk/at91/sama7g5.c
+index 99b4c1d9bdcca..9a6f0f30b2b7e 100644
+--- a/drivers/clk/at91/sama7g5.c
++++ b/drivers/clk/at91/sama7g5.c
+@@ -1014,6 +1014,7 @@ static void __init sama7g5_pmc_setup(struct device_node *np)
+ 						   50000000);
+ 	if (IS_ERR(main_rc_hw))
+ 		goto err_free;
++	sama7g5_pmc->chws[SAMA7G5_PMC_MAIN_RC] = hw;
+ 
+ 	bypass = of_property_read_bool(np, "atmel,osc-bypass");
+ 
+-- 
+2.47.3
+
