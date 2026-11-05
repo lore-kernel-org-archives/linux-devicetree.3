@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878231;
-	b=KZiKdWyGS51LwWRFTchnt1TxIiWIe0CBbNl0JedJl6a3FLUD5ZSG3nUU95uXAwqb6gPu
-	 Vg7z+R++WyrsE1RSbBUeLfeVvrT0NJuHRRLGukWlqbjKzQsidMc4zQqcrzaWwfJMLYSIo
-	 hvTJd3j6Ifvdl4E2D0WwgH9q2QURjfn/HTEAqKw5ISPwY61v0w1oYHzxydV6BQSv0QfH8
-	 oRGQxKLesk7DXfj+2/E/U3GvZwSGaNCxjOFLYaxg6FDERYx3rUwfwVASfAQRCuOC1Sdzx
-	 /kBZ+sdAWsgkJg/Y0GXGis45jmp/QNE5rLjfrC5NN8lsgWUld4Iey8q/67bAu1jACAw==
+	t=1793878278;
+	b=r8M+zPDcbljZ8Wgw2tIXUu+0kacYj4sphGzAF1PdSYCs3cIg5wLfPzNgUTRpuA4VGBpN
+	 tAtJVoteseWd2/7EB/Q7SfpzVB+VbP7k65Ke3v1R/RxGSUqNffBuKzg9NQectMIQcQ7Qb
+	 VQmSTY21eRMK3fPWOueSiVMU3cDNszrQKGBUx8vT9uaZjJS02ZVYE6AAXiym9eZcHTqaJ
+	 B6i92PFocuFBWTiLxNgbhFeY3wDnIcAfBCni8c+yh4Yul0RDFzwLvyz1Ar3qjmUm2W5tD
+	 LnuAINx9HebXZOp6qt88ZsMgjMRcwvRh+Wpbw9VIq3EU+cjdzTn2RQV8JUO75kw0VuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878231;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=JQmg4zxeUYL2PPa+vgHQ5g1Y2E23WzFCydvT5jQRgwE=;
-	b=0rTAIEQQDcFa8PS74SPOSsSUf+LV7PXWKJ337VYBg4PbBF7YGmnmRnTg6r4i5lV8EwwX
-	 732nTmKkwjd8QLnVOpREOVSj82TJYFc5oVx8VovOgk0D15xkQK50QxFzGm35IpdwaKUjB
-	 UAHZgW+CfIg85+CvUrDEPto2P0Dae9iMhSoMmazLehvbZ+ru4sFN3ltUXizyi709eDLKm
-	 cPr7NDSZ0llGxGvKNWdwyEkIMKLEgsR8eC9Eiz75huDY52xNeiV5qA4OW+CyhXkPxitzd
-	 d8Viw1ch4hdYU3Hh7UrcROnrwL/Ke60W44Qfe5oerlFAvqy+8LvJCqv8hbht0grKSbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878278;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Madmrg/Uo0DX2tmp+oGazWf0+/gvovwqd3iWeTOJMDE=;
+	b=r5bIWqwH6u79Si1V2C1zVSG4ubkK3AEI4gEJNtaImMf/jVTAtIhk3GIzz/8bAKZx9m5M
+	 uDKOFnSq2tfIn6TRMat4lQnJNlSZOhBMCx1RPcmUtCQDYKE4wkFzU2gR7SvsvuzkI5FzD
+	 7NxQAkuDh5LBUpjquITnKNy6z4DDXJId1Qlnwwwp9wVbAIYU3LLklK9EiwRMQ6dBepdRA
+	 J1F15xElRn+slVivs8C2CUxfQmkcUgAbxCu7ndYnlFIzjlEVMWXqLo/Up8kuBUWik7wdP
+	 t7DmNN6NkcdoYc5ZCR66vqR3ugkLvQhq2+/+EpqOXWAd2Xt4WP/92CWHE1g4Z9z1rwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RC6nnou3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12CAD606A31B;
-	Thu,  5 Nov 2026 11:30:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12CAD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d02zMs42;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0B8606A330
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RC6nnou3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3854715A1;
-	Thu,  5 Nov 2026 03:30:27 -0800 (PST)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6E943F628;
-	Thu,  5 Nov 2026 03:30:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793878230; bh=C0b3O6W1wzcNoRzD4HqefcZG2lnlYH/+Xnqj36zkkwo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RC6nnou3GWdlDGhCm9PHgWnLnyV3Titnp/aOc2ba+ADA92hOXYckqG8IGQoQ6DJiQ
-	 Sf/GPRNpCKJfsM1gSmSuOXwh7DnCcpvXZEWb7pkvK+nllUkZ4FeWcqxwqnRiE2TO8P
-	 VvBbzKqwuj3MHj1ZGd8Fip2yPX3KcqvQnSGOQV8U=
-Message-ID: <d4d89cf9-884d-424b-927d-5b6692f50327@arm.com>
-Date: Thu, 5 Nov 2026 12:30:14 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d02zMs42
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085B61F00919;
+	Thu,  5 Nov 2026 11:31:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793878277;
+	bh=Madmrg/Uo0DX2tmp+oGazWf0+/gvovwqd3iWeTOJMDE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d02zMs42ob4rDW1+Ts6OKAHUxyjDIfl6nK51TVtG5Ao5pn8JpDyObXh4VpPIocqA6
+	 G63thMqu0ECKypiSoMNo1K33pPrkFtwheQ1KODLSmD71VpakkiAS5D/61pFRZyzl/6
+	 38f5p7dXh4tjsZYabmGqWcO+hMVrdTHcSquUbInIlbk9XbEoeS/YCayFFZBiAurpvB
+	 VBl78FPbtmhsQhF2WLKf1B8zU4r0e2DJQYugqA7hZag+aNJLE3Q51UHKYBX64K0c5E
+	 zRJeiJXfyeEXTKe4buhbEa3N2BCrhINY1MKYkqOkZExfyaL2KE02mYkH0ojC0dZtDJ
+	 QxA7NShwpvFUA==
+Message-ID: <sashiko-outbox-198953@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 16/19] mtd: spinand: negotiate optimal controller
+ operating point before dirmap creation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Santhosh Kumar K" <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com
+Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org, praneeth@ti.com, sebin.francis@ti.com, u-kumar1@ti.com, srikanth.boyapally@amd.com, m-shah@ti.com
+In-Reply-To: <20261105105832.2134313-17-s-k6@ti.com>
+References: <20261105105832.2134313-1-s-k6@ti.com>
+ <20261105105832.2134313-17-s-k6@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 11:31:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,137 +60,361 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] sunxi: A133: Add CPU speed grade detection and OPP
- table
-To: rajanyadav0307@gmail.com, Yangtao Li <tiny.windzz@gmail.com>,
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, Cody Eksal <masterr3c0rd@epochal.quest>,
- Alexander Sverdlin <alex@sverdlin.org>, Paul Kocialkowski <paulk@sys-base.io>
-References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Rajan,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] mtd: spinand: spinand_create_dirmap() overwrites per-op max_freq l=
+imits
+- [High] mtd: spinand: missing configure_chip() call in spinand_try_ranked_=
+variant()
+- [High] mtd: spinand: spinand_op_find_best_variant() ranks and overclocks =
+low-freq ops
+- [Medium] mtd: spinand: broken cont_read_cache matching in spinand_op_shap=
+e_matches()
+- [Medium] mtd: spinand: missing cont_read_cache shape check on initial tun=
+ing success
+--
 
-many thanks for putting this together, especially for really going deep 
-into the problem, and trying to sort out the messy ID scheme that 
-Allwinner employs here.
+commit 8733b92e8d67a304d901c8ece339d2fe4c54f7ad
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-Jumping straight to the questions you asked below:
+mtd: spinand: negotiate optimal controller operating point before dirmap cr=
+eation
 
-On 11/5/26 05:40, Rajan Yadav via B4 Relay wrote:
-> Andre asked [1], in his review of my A100 thermal trips patch [2], to
-> look at the A133 speed bin selection and OPPs. Mainline treats the A133
-> as an A100: it reads only the CPU bin field and picks one of three A100
-> voltage tables. The vendor BSP for this family (sun50iw10, KickPi A133
-> Linux SDK, linux-4.9) picks one of 11 grades from the chip marking ID,
+This commit introduces spinand_optimize_controller() to perform PHY
+calibration and ranked variant fallback before creating direct mappings in
+spinand_probe(). It also re-pairs continuous-read templates by protocol sha=
+pe
+when falling back to another read variant and embeds the calibrated max_freq
+into the dirmap operation templates.
 
-[ ... ]>
-> Questions:
-> 
-> 1. 1.6 GHz. Andre mentioned the nominal 1.6 GHz OPP. The SDK's code
->     and table select b2 for this chip and stop at 1512 MHz. The factory
->     kernel on this board (built January 2026) has a newer table: there
->     1608 MHz exists only for b0 and b1, the revision A-E high speed
->     grades, at the same voltage as their 1512 MHz OPP (1.18 V and
->     1.13 V), and 1416 MHz is added for a0-a2. That kernel selects b0 for
->     this revision F chip; its boot log suggests that its cpufreq code
->     does not read the revision (the revision is first read about 110 s
->     after boot). With the series' rules this board stays b2, so adding
->     1608 MHz for b0/b1 would not change it, and I have no revision A-E
->     part to test. With the b0 voltages forced by a test DTB (6.18), the
->     K5C was stable for an hour but sat at the 90 C trip, cycling between
->     1416 and 1608 MHz, with less than 1% more work than b2. The A133
->     datasheet says 1.6 GHz in V1.1 and 1.5 GHz in V1.5. Should 1608 MHz
->     be added for speed6/7 (b0/b1), as in the factory table?
+> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+> index 9dc43c8c4162d..645528b6c2d77 100644
+> --- a/drivers/mtd/nand/spi/core.c
+> +++ b/drivers/mtd/nand/spi/core.c
+> @@ -1300,6 +1300,7 @@ static int spinand_create_dirmap(struct spinand_dev=
+ice *spinand,
+>  	info.length =3D nanddev_page_size(nand) + nanddev_per_page_oobsize(nand=
+);
+>  	info.primary_op_tmpl =3D *spinand->op_templates->update_cache;
+>  	info.primary_op_tmpl.data.ecc =3D enable_ecc;
+> +	info.primary_op_tmpl.max_freq =3D spinand->max_write_op.max_freq;
+>  	desc =3D devm_spi_mem_dirmap_create(&spinand->spimem->spi->dev,
+>  					  spinand->spimem, &info);
+>  	if (IS_ERR(desc))
+> @@ -1310,9 +1311,11 @@ static int spinand_create_dirmap(struct spinand_de=
+vice *spinand,
+>  	/* Read descriptor */
+>  	info.primary_op_tmpl =3D *spinand->op_templates->read_cache;
+>  	info.primary_op_tmpl.data.ecc =3D enable_ecc;
+> +	info.primary_op_tmpl.max_freq =3D spinand->max_read_op.max_freq;
+>  	if (secondary_op) {
+>  		info.secondary_op_tmpl =3D *spinand->op_templates->cont_read_cache;
+>  		info.secondary_op_tmpl.data.ecc =3D enable_ecc;
+> +		info.secondary_op_tmpl.max_freq =3D spinand->max_read_op.max_freq;
+>  	}
 
-So I read about the 1.6GHz somewhere, might just be a marketing claim 
-about some max frequency. If the common speedbins do not support 1.6GHz, 
-that's fine, but apparently some do, so I'd keep them in, for people who 
-happen to have those SoC revisions.
+[Severity: High]
+Does unconditionally overwriting info.primary_op_tmpl.max_freq and
+info.secondary_op_tmpl.max_freq in spinand_create_dirmap() discard the
+per-variant datasheet frequency limits defined by flash drivers?
 
-> 2. A100. The BSP uses the same rules for the A100, and the mainline A100
->     table has the a0-a2 voltages, but at 1080 MHz where the BSP has
->     1008 MHz. U-Boot starts the CPU at 1008 MHz, so mainline now logs
->     "unlisted initial frequency". Should the A100 table move to
->     1008 MHz too, or the A100 board to the new compatible? I can only
->     test an A133.
+When mem->spi->post_config_max_speed_hz is 0, or when
+spi_mem_execute_tuning() is unsupported (-EOPNOTSUPP) or fails in
+spinand_optimize_controller(), spinand->max_read_op.max_freq and
+spinand->max_write_op.max_freq remain 0.
 
-I don't think we have ever seen A100s in the wild really, reportedly 
-they got phased out very early in favour of the better performing A133. 
-A100 is just used as a name because it was the only name back then when 
-support was upstreamed, and in the kernel we tend to not care too much 
-about vendors' marketing and naming strategies too much ... ;-)
-I think if we can be sure that the current mainline OPPs still apply 
-with this series, that's good enough.
+In spinand_create_dirmap(), info.primary_op_tmpl and info.secondary_op_tmpl
+are first initialized from *spinand->op_templates->update_cache,
+*spinand->op_templates->read_cache, and
+*spinand->op_templates->cont_read_cache, which carry per-variant frequency
+caps in drivers such as drivers/mtd/nand/spi/winbond.c (e.g., 54 MHz,
+80 MHz, 86 MHz, 104 MHz, 105 MHz, 120 MHz, 124 MHz, 133 MHz, and 162 MHz).
 
-Regarding 1008 MHz: This was just some frequency close to 1GHz picked by 
-U-Boot, that should be low enough to not cause any trouble, even with 
-the default voltage. How critical is this "unlisted initial frequency" 
-message? If it causes trouble, we can add a made-up 1008MHz OPP with 
-some safe voltage, otherwise I'd say we just leave it.
+Overwriting max_freq with 0 causes spi_mem_adjust_op_freq() during
+dirmap creation:
 
- > 3. SOC_ID. Would you rather have the driver read the revision from> 
-   SYSCON+0x24 itself (the system controller is already in the DT)?
->     Then it would not depend on the firmware, and parts would never run
->     below the vendor voltage for lack of it. And do the Teclast P80 and
->     the Helperboard run a TF-A with SOC_ID?
+drivers/spi/spi-mem.c:spi_mem_adjust_op_freq() {
+    ...
+	if (!op->max_freq || op->max_freq > mem->spi->max_speed_hz)
+		op->max_freq =3D mem->spi->max_speed_hz;
+    ...
+}
 
-We simply do not support non-mainline firmware, both TF-A and U-Boot, 
-with a mainline kernel. For older SoCs they were just not compatible, 
-but I don't know about the exact situation with newer parts.
-So like for the H616, please just use the SoC ID call, that's a clean 
-solution. Maybe just make sure that it can fail somewhat gracefully 
-(read: not crash).
+to raise the operation frequency all the way up to mem->spi->max_speed_hz
+(for instance, clocking an 80 MHz 1S-4D-4D or 120 MHz 8D-8D-8D op at
+166 MHz). Even when tuning succeeds, stamping spinand->max_read_op.max_freq
+onto the dirmap templates ignores any lower per-variant max_freq ceiling on
+read_cache or cont_read_cache.
 
-> 4. A133P. My SDK has no A133P data, and Andre expects it to go
->     higher. An A133P whose marking ID is in the BSP's high speed list
->     gets b grades with A133 voltages; otherwise it gets a grades (at
->     most 1464 MHz). If someone has a newer BSP (5.4) with A133P tables
->     and marking IDs, I can add them.
+> @@ -1559,22 +1562,51 @@ static int spinand_init_odtr_instruction_set(stru=
+ct spinand_device *spinand)
+>  	return 0;
+>  }
+> =20
+> +/**
+> + * spinand_op_shape_matches() - Check whether two ops share the same pro=
+tocol
+> + *				 shape.
+> + * @a: first op
+> + * @b: second op
+> + *
+> + * Compares cmd/addr/data buswidth, addr.nbytes, and DTR-ness, ignoring
+> + * dummy cycle count and address value. A continuous-read op and its
+> + * corresponding read_cache op are expected to differ only in those igno=
+red
+> + * fields: continuous read typically needs fewer dummy cycles, and always
+> + * targets an internally tracked address rather than the caller's.
+> + */
+> +static bool spinand_op_shape_matches(const struct spi_mem_op *a,
+> +				     const struct spi_mem_op *b)
+> +{
+> +	return a->cmd.buswidth =3D=3D b->cmd.buswidth &&
+> +	       a->cmd.dtr =3D=3D b->cmd.dtr &&
+> +	       a->addr.nbytes =3D=3D b->addr.nbytes &&
+> +	       a->addr.buswidth =3D=3D b->addr.buswidth &&
+> +	       a->addr.dtr =3D=3D b->addr.dtr &&
+> +	       a->data.buswidth =3D=3D b->data.buswidth &&
+> +	       a->data.dtr =3D=3D b->data.dtr;
+> +}
 
-I have just read that the "P" allegedly stands for "performance", and 
-this it can clock up to 1.8 GHz. So again, just use what the BSP OPP 
-table tells us. We are in no position to qualify enough parts to make 
-such a decision. And we can always extend the table later should new 
-data appear.
-I think some of those handheld gaming consoles use the A133P variant? 
-Maybe there are some tables in "their" source code?
+[Severity: Medium]
+As reported by Sashiko on v4 [1], can spinand_op_shape_matches() ever match
+an SSDR continuous-read variant in spinand_find_cont_read_variant(), or pair
+the right dummy-cycle sub-variant in ODTR mode?
 
-> 5. Testing. Patch 6 changes the Helperboard A133, Liontron H-A133L and
->     Teclast P80, which I cannot test. A boot log with
->     dyndbg="file sun50i-cpufreq-nvmem.c +p" on the kernel command line,
->     and the contents of
->     /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies,
->     from those boards would be very welcome; no fuse dump is needed. On
->     the P80 (secure boot), could someone also check SID bytes 0-1 (the
->     marking ID)? If they read as 0 from Linux, a high speed part is
->     treated as a normal one: it gets 1464 MHz instead of 1416 and
->     1512 MHz and, if its bin extension bit is set, up to 20 mV less than
->     its b grade would give.
+In drivers/mtd/nand/spi/winbond.c (the only driver defining cont_read_cache
+variant tables), all SSDR read_cache variants use a 2-byte address
+(addr.nbytes =3D=3D 2, dummy.nbytes =3D=3D ndummy), whereas all SSDR contin=
+uous-read
+variants convert one address byte into dummy cycles:
 
-Thanks, I will try to get those logs, I have the Liontron board and the 
-Teclast tablet.
+#define WINBOND_CONT_READ_FROM_CACHE_1S_8S_8S_OP(ndummy, buf, len, freq) \
+	SPI_MEM_OP(SPI_MEM_OP_CMD(0xcb, 1),				\
+		   SPI_MEM_OP_ADDR(1, 0, 8),				\
+		   SPI_MEM_OP_DUMMY(ndummy - 1, 8),			\
+		   SPI_MEM_OP_DATA_IN(len, buf, 8),			\
+		   SPI_MEM_OP_MAX_FREQ(freq))
 
-Thanks,
-Andre
+Because spinand_op_shape_matches() requires a->addr.nbytes =3D=3D b->addr.n=
+bytes,
+spinand_find_cont_read_variant(spinand, best, SSDR) rejects every SSDR entry
+and always returns NULL, which causes spinand_try_ranked_variant() to set
+spinand->cont_read_possible =3D false on every SSDR fallback.
 
-P.S. Since you mention the KickPi: can you please work with Paul (in 
-CC:) to upstream the DT for this board? Seems to be one of the more sane 
-and available devices with this SoC. I think Paul has plans to submit 
-DTs upstream, but I guess he will be happy to have taken some load off 
-his chest on this.
+Conversely, for ODTR variants where WINBOND_CONT_READ_FROM_CACHE_8D_8D_8D_OP
+also has addr.nbytes =3D=3D 2, spinand_op_shape_matches() ignores dummy cyc=
+le
+counts and spinand_find_cont_read_variant() passes skip_mask =3D=3D 0 to
+spinand_op_find_best_variant(). If read_cache falls back to a different
+dummy-cycle sub-variant, won't spinand_find_cont_read_variant() still pick
+the first cont_read_cache sub-variant with a mismatched dummy cycle count,
+even though both ops share a single hardware VCR dummy clock register?
+
+[ ... ]
+
+> @@ -2073,6 +2144,199 @@ static void spinand_cleanup(struct spinand_device=
+ *spinand)
+>  	kfree(spinand->scratchbuf);
+>  }
+> =20
+> +/**
+> + * spinand_try_ranked_variant() - Try controller optimization on variant=
+s in
+> + *				  performance order.
+[ ... ]
+> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
+> +				       struct spi_mem *mem,
+> +				       enum spinand_bus_interface iface,
+> +				       u32 *tried_mask)
+> +{
+> +	const struct spinand_op_variants *variants =3D spinand->all_read_varian=
+ts;
+> +	struct spinand_mem_ops *templates =3D iface =3D=3D ODTR ?
+> +		&spinand->odtr_op_templates : &spinand->ssdr_op_templates;
+> +	const struct spi_mem_op *best;
+> +	int ret;
+> +
+> +	if (!variants)
+> +		return false;
+> +
+> +	while ((best =3D spinand_op_find_best_variant(spinand, variants, iface,
+> +						    *tried_mask, NULL))) {
+> +		*tried_mask |=3D BIT(best - variants->ops);
+> +		spinand->max_read_op =3D *best;
+> +		spinand->max_read_op.max_freq =3D 0;
+> +		spinand->max_write_op.max_freq =3D 0;
+> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +					     &spinand->max_write_op);
+> +		if (ret && ret !=3D -EOPNOTSUPP)
+> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
+> +				iface =3D=3D ODTR ? "ODTR" : "SSDR", ret);
+> +		if (!ret && spinand->max_read_op.max_freq) {
+> +			templates->read_cache =3D best;
+> +			if (spinand->all_cont_read_variants) {
+> +				templates->cont_read_cache =3D
+> +					spinand_find_cont_read_variant(spinand, best, iface);
+> +				/* Only clear; never re-enable a denied capability. */
+> +				if (!templates->cont_read_cache)
+> +					spinand->cont_read_possible =3D false;
+> +			}
+> +			return true;
+> +		}
+> +	}
+> +	return false;
+> +}
+
+[Severity: High]
+Doesn't spinand_try_ranked_variant() need to update templates->read_cache a=
+nd
+call spinand->configure_chip(spinand, iface) for each candidate variant
+before running spi_mem_execute_tuning() (and restore it if all candidates
+fail)?
+
+On ODTR-capable Winbond flashes (W35N01JW, W35N02JW, and W35N04JW),
+spinand->configure_chip (w35n0xjw_vcr_cfg() in drivers/mtd/nand/spi/winbond=
+.c)
+inspects spinand->odtr_op_templates.read_cache or
+spinand->ssdr_op_templates.read_cache to program the flash chip's Volatile
+Configuration Registers with that variant's exact dummy clock count
+(W35N01JW_VCR_DUMMY_CLOCK_REG) and I/O mode (W35N01JW_VCR_IO_MODE_REG:
+OCTAL_DDR, OCTAL_SDR, or SINGLE_SDR):
+
+drivers/mtd/nand/spi/winbond.c:w35n0xjw_vcr_cfg() {
+    ...
+	switch (iface) {
+	case SSDR:
+		ref_op =3D spinand->ssdr_op_templates.read_cache;
+		break;
+	case ODTR:
+		ref_op =3D spinand->odtr_op_templates.read_cache;
+		break;
+	default:
+		return -EOPNOTSUPP;
+	}
+
+	dummy_cycles =3D ((ref_op->dummy.nbytes * 8) / ref_op->dummy.buswidth) /
+		(ref_op->dummy.dtr ? 2 : 1);
+    ...
+}
+
+In spinand_optimize_controller(), configure_chip() is only called once befo=
+re
+Pass 1 (during spinand_init_flash()) and once before Pass 2 using the initi=
+al
+read_cache template. When spinand_try_ranked_variant() iterates across
+variants in read_cache_octal_variants that have different dummy cycle counts
+(e.g., 24 vs 16 dummy bytes in ODTR, or 20, 16, 12, and 8 dummy cycles in
+SSDR) or a different VCR I/O mode (1S-8S-8S OCTAL_SDR vs 1S-1S-1S
+SINGLE_SDR), the flash hardware remains programmed for the initial template=
+'s
+dummy cycles and I/O mode both during spi_mem_execute_tuning() and after
+templates->read_cache =3D best is committed.
+
+> +
+> +/**
+> + * spinand_reset_max_freq_ops() - Copy op templates and zero max_freq on=
+ both.
+> + * @spinand:    SPI NAND device
+> + * @templates:  op template set to copy from
+> + *
+> + * Called before execute_tuning so max_freq starts at zero; execute_tuni=
+ng sets
+> + * it to the validated clock rate only on success. A non-zero max_freq m=
+eans
+> + * controller-optimized; zero means the base rate applies.
+> + */
+> +static void spinand_reset_max_freq_ops(struct spinand_device *spinand,
+> +				       struct spinand_mem_ops *templates)
+> +{
+> +	spinand->max_read_op =3D *templates->read_cache;
+> +	spinand->max_read_op.max_freq =3D 0;
+> +	spinand->max_write_op =3D *templates->write_cache;
+> +	spinand->max_write_op.max_freq =3D 0;
+> +}
+
+[Severity: High]
+As reported by Miquel Raynal on v3 [2], won't evaluating variants at the
+pre-config base clock in spinand_op_find_best_variant() and then zeroing
+max_read_op.max_freq before spi_mem_execute_tuning() select low-dummy-cycle,
+low-frequency variants and overclock them at post_config_max_speed_hz?
+
+When spi-max-post-config-frequency-hz is set in DT, mem->spi->max_speed_hz
+holds the lower pre-configuration base clock (e.g., 25 MHz) while
+mem->spi->post_config_max_speed_hz holds the high-speed target (e.g., 120 M=
+Hz
+or 166 MHz).
+
+In spinand_op_find_best_variant(), spi_mem_adjust_op_freq() clamps every
+candidate in variants->ops[i] (such as Winbond's read_cache_octal_variants:
+8D-8D-8D with 24 dummy bytes @ 120 MHz vs 16 dummy bytes @ 86 MHz, or
+1S-8S-8S with 20 dummy bytes @ unlimited, 16 @ 162 MHz, 12 @ 124 MHz, and
+8 @ 86 MHz) down to the 25 MHz base rate in mem->spi->max_speed_hz.
+
+At the same 25 MHz frequency, same-buswidth ops differ only in dummy cycle
+count, so spi_mem_calc_op_duration() ranks the variant with the fewest dummy
+cycles and lowest frequency limit (e.g., 86 MHz) as the fastest variant, and
+ranks the 20-dummy-cycle 166 MHz variant last.
+
+Then spinand_reset_max_freq_ops() and spinand_try_ranked_variant() zero
+spinand->max_read_op.max_freq =3D 0, discarding the 86 MHz limit and allowi=
+ng
+spi_mem_execute_tuning() to set max_read_op.max_freq to
+post_config_max_speed_hz (120 MHz or 166 MHz), violating the flash datashee=
+t's
+minimum dummy cycles for that clock rate.
+
+> +
+> +/**
+> + * spinand_optimize_controller() - Negotiate the optimal controller oper=
+ating
+> + *				   point for the SPI NAND device.
+[ ... ]
+> +static void spinand_optimize_controller(struct spinand_device *spinand,
+> +					struct spi_mem *mem)
+> +{
+> +	u32 tried_mask;
+> +	int ret;
+> +
+> +	/* Skip entirely when no post-config target is configured. */
+> +	if (!mem->spi->post_config_max_speed_hz)
+> +		return;
+> +
+> +	spinand_reset_max_freq_ops(spinand, spinand->op_templates);
+> +
+> +	ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +				     &spinand->max_write_op);
+> +	if (ret && ret !=3D -EOPNOTSUPP)
+> +		dev_dbg(&mem->spi->dev, "Controller optimization failed: %d\n",
+> +			ret);
+> +
+> +	/*
+> +	 * Any non-zero return or a set max_freq means we are done (error,
+> +	 * unsupported, or success). Fallback only for the op-specific "skip"
+> +	 * signal: ret =3D=3D 0 with max_freq still 0.
+> +	 */
+> +	if (ret || spinand->max_read_op.max_freq)
+> +		return;
+
+[Severity: Medium]
+As reported by Sashiko on v3 [3], if the initial spi_mem_execute_tuning()
+call succeeds here, doesn't spinand_optimize_controller() return without
+verifying that spinand->op_templates->cont_read_cache matches the protocol
+shape of spinand->op_templates->read_cache?
+
+In spinand_match_and_init(), cont_read_cache is selected independently from
+info->op_variants.cont_read_cache without checking addr.nbytes equality
+against read_cache. When the initial tuning succeeds, spinand_create_dirmap=
+()
+stamps spinand->max_read_op.max_freq onto info.secondary_op_tmpl even when
+cont_read_cache has a different addr.nbytes (e.g., 1 address byte instead of
+2 address bytes on Winbond SSDR variants) or a different protocol shape that
+was never validated by spinand_op_shape_matches().
+
+[1] https://lore.kernel.org/r/20260618080209.5701E1F000E9@smtp.kernel.org
+[2] https://lore.kernel.org/r/87mrxjg9zi.fsf@bootlin.com
+[3] https://lore.kernel.org/r/20260527190440.9DB221F000E9@smtp.kernel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105105832.2134=
+313-1-s-k6@ti.com?part=3D16
