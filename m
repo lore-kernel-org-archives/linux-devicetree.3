@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838509;
-	b=xFuBqAofmTmsa1x+zJNMWXzHTPZsrghCLikI3aS+8t5Zi9NCtk0l4PbJqRtw+XnJ4M2z
-	 f/AG+27+go2P2EWPDh1Du3AUK+HXtC27BgbsRIoHtt7Ekvex2GvRDx66wiktjq/wi+yqW
-	 lr+/y3sl0+SHr+sOaXmYXAvTUqsysl2sOlHE26gj3YGSBeq2kovQbTIxtYWPM3w+FwrUw
-	 SOYSiUz7YuDxxspYELP/QWfoVbvkO+Cs27cPk9Xzk2XP9euGpVsCjM/Cu/EurfsijIsr1
-	 0KfrCfPFeoFPQ69KjhfLBn6upcCxzqGOu6t5FAaLXTm54JM0Di17Bx64ElxRisUt2hw==
+	t=1793838899;
+	b=xGb1A8ApkAxbA49E2ElegmTMiEUAzJ6/B+sagpoVG7XgrmB7DqkVDjQEmZN/4ZGwbD5V
+	 iRAp7/gaxHmZGTPsPwBGiPrEI+JggjyNa8YBhJPMK9hll0BTzoJOxf5gTKxz2UEyRgmma
+	 wSJmLnMmw7FwhhvQs+DblL2etYNWHM1Zynk5DHeborGT9jN4nu9CDTzDqHUsUX29ftgNn
+	 4ZFKH16APpsJIi8k5gm28pEJQxanEDw/lzzObTVRt6eXNBpR506NPzmK41IjD2LMYrklZ
+	 kmhRFerVtf8ljBr5KyuvB12K+dv0JSLma939ZqxJxBgAOO8y9kXL0B6SsU/kHvQsoXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838509;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=K81hV8Ixa+KD7zZugzJFDJ9AdB7vh7U6NocjAnsxnFI=;
-	b=Mz54DBBlOnnWM/I27h6Q14MDS/l7ru8PonQXyGp/3kBRgeXmaSzhvAHGg8opCoyjh7n5
-	 3ixQIAyFrKaVPdWBwJvUAf12GbHiUuSDtXIpJLO8k9QvFlomzk8+207QrBwea47vDibgi
-	 SAtysP0kS8oRzYWoGFPGXDuTAsVYEf+GT6z+1XcI6Ct1PvOGTeQw6C5xuY8rv0WMGpZqv
-	 RIAh6eDKiDD8fPXLjH5XuPS8fMWf+Z1kGFYuM4OE/htD6fGSCXaxehC9kl7GghekMh4fB
-	 24gQkxW5Y4Usebw4rkz/Lo6hu6H/rtPwgMHP4o/yZ7aMp6fmEyJFI6V54hrZpAlkG1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838899;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=B55JhhT59YGsjYWJgV+XXad7EG0ayDNShVoZf8DxBWQ=;
+	b=bmCiC1tV56M2oK7ME8vytqAuy4LvvViwougN0pbosYn5HLE/AX3O+l45rm1tM2hw6LiH
+	 JcJyqml5QzHMi9GlGWa4+ru2+iMyxeTA2Ww3N0UVfjHT2sQCPRAUAZWq9xZDYjFcO4mHV
+	 hijfDsFtW/B0AoWPAFNTzm8Ge/p8uT/OXXNOVS5sA8cgLIw31g7WPqFWestf6Jeat9ZFc
+	 FET0JOgL79I03TZuTJMyY22moQBog0uRi+PViFeB3W43etT83fG3RKMCSaAR8aSYLP423
+	 YABJJZplffrJOxS0GnJKz2MSMmuMNXPHfZYAHr9cmmvEBcncD2aG4mQIqCHai1x3Iug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUqC6ZVv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A951606A31B;
-	Thu,  5 Nov 2026 00:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mUqC6ZVv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6C91F00A02;
-	Thu,  5 Nov 2026 00:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793838508;
-	bh=K81hV8Ixa+KD7zZugzJFDJ9AdB7vh7U6NocjAnsxnFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mUqC6ZVvPYSI3j/QKkEzXYxzLhy/k7FQZrisVQmdsk3ePveecJDKmmGUXBVyLxCd1
-	 hapkQmyqdBxkchSUpAOg3fkLs1GEz0OpyUEO2lClqof3eWtxZOVC0L2wMq9koJYi+u
-	 tuTnb4z4OZ9D31NjdrvVTcys4YCQUcPLECLabNRM0GyW7S8PBGOW+xOwklaxZim/xB
-	 +uLYaASZbVhUTxrk6ZdSHQxHMWfV329oJz88+b4R6FAdo7n2+6BUEnOupPeNgtJZET
-	 GKxluBEh57kKeOh0u8DCJGrVFkRJYYXorij+fjqB9PXe00XWnF4L7t5oeWpcxbnbep
-	 4v3EtJ6aiQXrA==
-Date: Thu, 5 Nov 2026 00:28:23 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
-	p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	fabrice.gasnier@foss.st.com, alexandre.torgue@foss.st.com,
-	marex@nabladev.com, changhuang.liang@starfivetech.com,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: soc: introduce
- toshiba,tc9564-config-syscon.yaml
-Message-ID: <20261105-irregular-awaken-b329b9c37e70@spud>
-References: <20261104004332.2141282-1-elder@riscstar.com>
- <20261104004332.2141282-2-elder@riscstar.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378CA606A32E
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 00:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 378CA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso593870a12.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:34:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793838899; x=1794443699;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B55JhhT59YGsjYWJgV+XXad7EG0ayDNShVoZf8DxBWQ=;
+        b=ZHJBaFsh2vUbj8nJzI2pCRq2RqBB1TfukwFJGjcBV73tHAQJL+d8I3WIWZjaoE7blU
+         6V/i5R7/QkZdYtBbQW+dlrDR2ZP7YC7kuAMLx9n5kjpMeI2s6BTWpU3UUeae/UVL4YOL
+         rYbJHKVRqahtkLv1Du518pk3sRotdS7s2jF5dr/w1WRUdYSRepqHskDd4PmWCe7HW8wr
+         eb0uhH7FR2GhVGjUIGkTLjjOoxbyIHke2pOT/o+0kG3Pt34Z6hFyJ2wMKZdviFYO6ENx
+         Hg+TDUBVzXlEZVBwx37cPA0Xd1s/qZrKeDk3N0lvdNI07l2UczkBBTtAEa7lgYwhq6rr
+         4PGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0ywtVrLnHeTxIM9DmbwRmxA+aVcZ1stcL2p8KitwLUvHEyZvykrHDZS6eGK1wzSCp4Y0c15cDdWGC@vger.kernel.org
+X-Gm-Message-State: APuU4Z99kqIPqTIWDQZX9yFREeBL1cCAouD71GX8hSqTq8gO4h6eag8t
+	3vRgYmCEzAW5jItKJOs6jg+eZd7KtRJw5TSHti/LEV1sRll4qBiBsa7BWI+wjrsb
+X-Gm-Gg: AYBFou0YtLupOxp7TruuPFmcFbKcZ8iC28ejn13JygDxFrvis9JLln6AFi2wHDSB4bR
+	8yX014nRhEYG462IJ179TgtTeTSExMPQyp/XCEpgSOm5MJ+Z2QEw+k2JFbNq/F5POHhQq6gZGqp
+	89H2AUjQQkmt7JVBX17BfzOzzNjjw9hZxuTMZ+O+7LTYIF4x+IiL6Jp+T3vPR383WETySNfqDkO
+	czCTBRunEd4FECYA0S6pnufohxH8Ko9/ya7ygEQNaFD7DVfrephTbU0eiztGq+34c+npbs4aysi
+	ni/vonVgY5MG+GN/B6OKA8xQrRmdkFoc++f78EwkntZJuCY9S51Shpj84KHXsvgKJ9SFgxm5XWZ
+	pxeGBybyPtHwcpzTzkIyDF2p+YtiWl8/gKbZx+AE8B1Rt6b4mh/69u8P5qrDaZ3ihsVCEDN9TV+
+	uu4ZZfp8LFwAIrsdFf2hvi8moNqn5V+C0YqR+eztSt9TtI7E/I9fwQVCIhGtzD3L7ZfQnREvmCj
+	gLfwdEJax40StHkW/nTT7Zg1tIDQ4WhwL+DaPk/z9k+g+IB0sUc2XWFWcB9dcNhhDNkfpYbPiZT
+	D+eGxBvULYjRWN7KlSK9CiVBX9P5mWAMe2t+C2ae/vkLGVIW4vBmj4KFYZnVeZLeNAo2snZEuXu
+	cJNwzF7Exkm82nC62gRpwkctp6mlnp1M4Ss2EsBG0S4g=
+X-Received: by 2002:a17:90b:2252:b0:3b0:aaed:48d0 with SMTP id 98e67ed59e1d1-3b0aaed5d87mr1618563a91.37.1793838898405;
+        Wed, 04 Nov 2026 16:34:58 -0800 (PST)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com. [74.125.82.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32baf86sm936065a91.17.2026.11.04.16.34.56
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 16:34:58 -0800 (PST)
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535a54bed9so1741831eec.1
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 16:34:56 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByWcBfhr75qvmdIOB7oq6Y8lEwS2nQZDkJL2/0/IYbl7zy9bmFZRCN+WKdn8XKO6PAtJZ0G+ms1p4wK@vger.kernel.org
+X-Received: by 2002:a05:693c:42d3:b0:36a:1452:8dad with SMTP id
+ 5a478bee46e88-36a4244dbfcmr25290212eec.20.1793838896251; Wed, 04 Nov 2026
+ 16:34:56 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,204 +81,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Scd5SOQBnLzS3Aso"
-Content-Disposition: inline
-In-Reply-To: <20261104004332.2141282-2-elder@riscstar.com>
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+ <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
+In-Reply-To: <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Wed, 4 Nov 2026 19:34:44 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ4RRuZcsObkF5r_bDacR3d0yjP4e6GWESksDPKHxK2u2g@mail.gmail.com>
+X-Gm-Features: AclHuK-1vO168WRWmJd07mz7tA0jKpT7PGyfi_yQuj1AayEjOBkR4gYRSMoaS_A
+Message-ID: <CAPY4CJ4RRuZcsObkF5r_bDacR3d0yjP4e6GWESksDPKHxK2u2g@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
---Scd5SOQBnLzS3Aso
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> They are the values the vendor bootloader programs, and I checked them
+> against the hardware.
 
-On Tue, Nov 03, 2026 at 06:43:28PM -0600, Alex Elder wrote:
-> Define the binding for the system controller that implements the clock
-> and reset controller functionality present in the Toshiba TC9564 SoC.
-
-Actually, can you mention the other features that this provides - the
-service it provides to the mac, for example.
-
-Cheers,
-Conor.
-
->=20
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  .../toshiba/toshiba,tc9564-config-syscon.yaml | 68 +++++++++++++++++++
->  MAINTAINERS                                   |  8 +++
->  include/dt-bindings/soc/toshiba,tc9564.h      | 46 +++++++++++++
->  3 files changed, 122 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/toshiba/toshiba=
-,tc9564-config-syscon.yaml
->  create mode 100644 include/dt-bindings/soc/toshiba,tc9564.h
->=20
-> diff --git a/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564=
--config-syscon.yaml b/Documentation/devicetree/bindings/soc/toshiba/toshiba=
-,tc9564-config-syscon.yaml
-> new file mode 100644
-> index 0000000000000..5a241a9c915d1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config=
--syscon.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/soc/toshiba/toshiba,tc9564-config-sys=
-con.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Toshiba TC9564 Multifunction System Controller
-> +
-> +maintainers:
-> +  - Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> +  - Alex Elder <elder@riscstar.com>
-> +  - Daniel Thompson <daniel@riscstar.com>
-> +
-> +description:
-> +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> +  upstream PCIe port on the PCIe switch it implements.  The switch
-> +  includes an embedded PCIe endpoint that provides access to various
-> +  SoC peripherals via its BARs.  These peripherals include a simple
-> +  controller to gate internal clocks, as well as a reset controller.
-> +
-> +  The clock controller uses registers within the same page as a reset
-> +  controller, so this system controller controls access to both.
-> +
-> +  A total of 21 simple gated clocks are implemented within the SoC.
-> +  At this time, support for enabling and disabling only a subset of
-> +  them is provided at this time.  Similarly, the SoC implements 13
-> +  resets, but currently not all of them can be controlled.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: toshiba,tc9564-config-syscon
-> +      - const: syscon
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +    description:
-> +      Clock ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +    description:
-> +      Reset ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#clock-cells"
-> +  - "#reset-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    syscon@0 {
-> +        compatible =3D "toshiba,tc9564-config-syscon", "syscon";
-> +        reg =3D <0x0 0x2000>;
-> +        clocks =3D <&tc9564_xo_board>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 93abbb315065d..2b1b29169e0e9 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28339,6 +28339,14 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
->  F:	drivers/misc/tc9564-pci.c
-> =20
-> +TOSHIBA TC9564 SYSTEM CONTROLLER DRIVER
-> +M:	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> +M:	Alex Elder <elder@kernel.org>
-> +M:	Daniel Thompson <danielt@kernel.org>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-s=
-yscon.yaml
-> +F:	include/dt-bindings/soc/toshiba,tc9564.h
-> +
->  TOSHIBA WMI HOTKEYS DRIVER
->  M:	Azael Avalos <coproscefalo@gmail.com>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/include/dt-bindings/soc/toshiba,tc9564.h b/include/dt-bindin=
-gs/soc/toshiba,tc9564.h
-> new file mode 100644
-> index 0000000000000..66bcdf837f958
-> --- /dev/null
-> +++ b/include/dt-bindings/soc/toshiba,tc9564.h
-> @@ -0,0 +1,46 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights res=
-erved.
-> + */
-> +
-> +#ifndef __SOC_TOSHIBA_TC9564_H__
-> +#define __SOC_TOSHIBA_TC9564_H__
-> +
-> +/* Clock IDs */
-> +
-> +#define CLOCK_PLL		0
-> +
-> +#define CLOCK_62_5M		1
-> +#define CLOCK_125M		2
-> +#define CLOCK_250M		3
-> +#define CLOCK_312_5M		4
-> +
-> +#define CLOCK_MSIGEN		5
-> +
-> +#define CLOCK_MAC0_TX		6
-> +#define CLOCK_MAC0_RX		7
-> +#define CLOCK_MAC0_125M		8
-> +#define CLOCK_MAC0_312_5M	9
-> +#define CLOCK_MAC0_ALL		10
-> +
-> +#define CLOCK_MAC1_TX		11
-> +#define CLOCK_MAC1_RX		12
-> +#define CLOCK_MAC1_125M		13
-> +#define CLOCK_MAC1_312_5M	14
-> +#define CLOCK_MAC1_ALL		15
-> +#define CLOCK_MAC1_RMII		16
-> +
-> +/* Reset IDs */
-> +
-> +#define RESET_MSIGEN		0
-> +
-> +#define RESET_MAC0_MAC		1
-> +#define RESET_MAC0_PMA		2
-> +#define RESET_MAC0_XPCS		3
-> +
-> +#define RESET_MAC1_MAC		4
-> +#define RESET_MAC1_PMA		5
-> +#define RESET_MAC1_XPCS		6
-> +
-> +#endif /* __SOC_TOSHIBA_TC9564_H__*/
-> --=20
-> 2.53.0
->=20
-
---Scd5SOQBnLzS3Aso
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvNpwAKCRB4tDGHoIJi
-0nPsAP4koOrvtWUPoUrqXiTiCzsqa9eVCeyJFRvIGaSzg4kN/AEA0HgkBnYYSRIC
-4qTvlim6KCBhs2Yq56DQL1AM/mK+6wo=
-=PRtR
------END PGP SIGNATURE-----
-
---Scd5SOQBnLzS3Aso--
+Correction: they are the board's factory calibration, stored in its
+factory partition as 17 and 10 steps; the vendor bootloader leaves 23
+steps in both, also inside the measured windows. The rest stands.
