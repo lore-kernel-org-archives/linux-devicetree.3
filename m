@@ -1,106 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887578;
-	b=ibP2lWjXxxYOZfV6SRC8unpswcHm1+sfJx3wb6vwK9Zf6qvLlqMxocmceIZhY4UcWwYm
-	 UI+NdlZiDUdWH+rBaGM7M0b2rZgZokm32NNfBMJiG7gfws/LXQdJSuRFbhY35BOnApzTy
-	 T9O9bnvuWKFHd7FaMGHOqimXsrO7BTuZ8GkQgPnxnUU8c+08jnt00w4HnHGJCnMH7/6Rc
-	 e4PVRS4KeB1e83ZEikErzJUvKH6pS+u/XAy3L8OOcdMvxBf6426QBEMlkkAMGiL0i5U/n
-	 Yf/Jqmtr5UDd+JgXiPZ+j2xtN5iyn6AgfiWy255D93KOouCe3zO3Grx/joLnwrmWuWQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=UJCvvH2LVzLLKKiKlCpu1moOiFoxJyhCDFLz6en74v0=;
-	b=CVC2Zer6zvfTliqC2+urztEgAxNQYYaPHQ6jHDsTjdWjoEyVPimGf604yNEjzYXdNTrN
-	 XTQGBMDMuAU59o8DhVbW67YY6Sgp6NX/FKtymyRIA9ezDlMkgHXej+6GASketdTtM67vt
-	 gPbtTpp2Eb9VNd5smO3kIiULDccn4pQ1sgSDzURBTmZsp75wtbTCjQ2BtKBBKvGU0Dgt1
-	 KOPYtCqvRRlJ6t+55rsGEaRjzHWUAHPiwdXLugGlBxbFPw71RTZN14zMhdWP9wE2+F/b9
-	 EWjzj1NlInzdj39rEWo5apLjSW6aAuhjZLz5aK0qEHpDd61LfKsb4iLl8zACHiLiyXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=riscstar.com;
-	spf=pass smtp.mailfrom=riscstar.com;
-	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b="fOD/4HlG";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793887602;
+	b=VwxUqElTPkl67mv/WlpcSZY8k/ngY2TI2vxGJaPymcXiEaIg7cm3rzY2fqYRH6skSER1
+	 g4L9l+GMFpAtiaFkXHD9vnBIaVDLrvuWVGoajPeBV1eWgGaAEm3b0Fe61DuXxoMU+kmXx
+	 ZWZ4GrK2XDYmQfbkL2Fjeja+e2eVgVBs5vV+DkSBSJ5JBJXlvaHsd6G9cbOYAqBIoD7U/
+	 FFZfeJ03RvOa29NScRjqxTNABddWjdLrWuv1ZE6nb+MbT4DmwsER0JKn4/3tM2r+sqF+y
+	 Q/U7dCoQF4V5Mg/a6ykdQ7tInxR2sjvO/0bwbx70ymm1mXSws4jUVDsdplIHH0zdRkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887602;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=onIgHLIVAs7MX99o13Ov7v+hJtEInFTXwUejUAfUW20=;
+	b=IdMLYTAxE6DFd67RkS3WcaKTtYLau/G2KIf+3aB+isRro+eo0TDo53aXVZSuzbNqWHOw
+	 gstnkeM8824a318FQuRJrKsiCA1diqxFMZAEJiCPEg1daOjAW5z9gBffZc+pMRfcMe1+4
+	 2R5od+biRASh++AhSM++tytBg5feqkIrxBu0UuCk4R6WWe+aHPLL5Lm9d4uk4e9Kq6dAp
+	 cA4/C8oNw1XHEU9y33n9icSnMVFRP9NGjR2rplkyYNIgepLNToAD7/k2nwq3xCgFxL8Av
+	 yIsVbS+YiLlT5G0e8IisRUkKui7loXIApucxV1pgfjn24heSnkQSpqTy7/GwpXH74QA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KJWksXtv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B0B606D80D
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 14:06:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8B0B606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97016606EEB8;
+	Thu,  5 Nov 2026 14:06:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97016606EEB8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=fOD/4HlG
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a214af2076so13907365e9.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 06:06:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar.com; s=google; t=1793887576; x=1794492376; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UJCvvH2LVzLLKKiKlCpu1moOiFoxJyhCDFLz6en74v0=;
-        b=fOD/4HlGPz3p6ReV4CfAWtPZfVdjBTvS80aQFytCHG+6jvIftCSh6f33hBH74qDKMD
-         ftCb2VZnl35ODwucMVWosLYjOo+gqKLVsfL4wRp+2ScgKMOo4xVnCgqfr8/3m8l+r9/B
-         kC2ereSHyGhSuzM9TwXN52enpcQLEgnTub3nyrkWfpPQWnf+4jt6m9gFA7NjfG3ZXmlA
-         NYhJmxex+zpzci+DTQCBHdH1/s5ASBB7wxqC0XO8zKYB6o4ySvfD4DC6PLVDtU69CbjI
-         8siL3N2z7ShBjJzbX7zhb9ks3cqC79+P2To5mG7LESNlNW+mdoKOvw+RX/ntmvhwfP6S
-         0Z4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793887576; x=1794492376;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UJCvvH2LVzLLKKiKlCpu1moOiFoxJyhCDFLz6en74v0=;
-        b=z6NQmOPgsTGLNdOfTDgmGW7IAJBZXrD/tgKwTKpLcZY6TIYXiP4ndQTcy7frR4IVrm
-         vIhS1q9OYuIFEdPuws8GJlC3/FApAYMmjSFTzs4YfBpeHgV/jBmekG4LaiwGCyL5Juq5
-         knZo9aifZWRuoawe91Akoi6dhW4jJgu6hIHofqRtkmizP9TuzWfAMbMFPuSthWIv07js
-         UPZvL3+6mZizxYiimhxwTiQde8CiJkOVnCaDL6UlmUZiiT9h4PBwitOnKK0Oc1sLQZF5
-         ebz4TExdwhfAdJESjabi7c5kUKC6NXF7b05jtdVbpkQJ5O+q9xQke2aHeffNvMzOBPY2
-         TMuA==
-X-Forwarded-Encrypted: i=1; AKwUvBxns5I9ywbPNG+CZOPd3ZAxcz6VeS7N9twFGo5pigcM5QGV8bBRafxW0CQfPKAq7bu+BLwV8b3jBcQp@vger.kernel.org
-X-Gm-Message-State: APuU4Z8v69WKDZJ6guo6CtP0t5dXw+pBC9Z87CqiAE+Z9aKc/PxpsV3A
-	z4CTyzr8McSa7j+Jf9OxIXZ8XVmak3JM/vwcG4lXL2YcC4fdR/a0Pac9lZtOAiL2N1E=
-X-Gm-Gg: AYBFou1mIjU5j7NZUPffKOnL0Ce46nsCYEySD9vDWIoweif0H1SST5Z3Tqg636EZrSi
-	FeAfHbb2m/XWXxkujNElXnmvC4B03fCkYzFpoFR2iaFnVXVblcJfLA17nfsf0cBVexCUMv8Tuo0
-	OjlJKUBaLctUheOqAikK1F9T4SJMTOhw5eIWDh3KAsD9UMPJyodL0KMh7ylgGvWKJexwCWTAy6I
-	pG0sf0HA8xZu5989dnu/AQUsztTz89wqbZwf0GblUFWpBVkfOFlewJ7/LjG+NWiSyFrhM+9xz6Q
-	dkfl2wejQCRTJWyN05TrwvkSykhefo6iF2MhU/IKreVWKL6Ez0yPfgzmsn9eccU2/sONLnmQvsB
-	j0hGWsT3WDGaqyIKY7ssb2XUdLi577r/0UrkqQ/po3rMwLhaAWDf40XbU/4tFZL53duxqBNEYgq
-	plCBQ5Z4ygsF9Y2JxLG3h7OfJcY2XUTf+pVcgDpKek7AYbxEYsECULrc0PVfKWIBnNjpf+4myPY
-	LSdLoOE4ItiHAzW69ZZzF5+jzAMVOmaexPpbOASVM0/ei6eBFxrlvwrlpHHcittRzVcWtjLdmJf
-	jUh10ffkoPUPN6M9/dk5Go7dtFY6T5E2j6QdvgHNAwvjGnska4XBozjZ7zjDuqn81+5Pax6i6Ns
-	aubGfq+d4NCH/A9DfZzA1TTczyaS1tAey1YQ0g5VdN0h6rzY7bX4LPx4CYtebacHTrdHe4I2zeb
-	Zjbuuy+v93ySXU
-X-Received: by 2002:a05:600c:83c5:b0:4a2:148b:c88c with SMTP id 5b1f17b1804b1-4ac17191017mr399753615e9.8.1793887575774;
-        Thu, 05 Nov 2026 06:06:15 -0800 (PST)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm59048765e9.4.2026.11.05.06.06.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 06:06:15 -0800 (PST)
-Date: Thu, 5 Nov 2026 14:06:12 +0000
-From: Daniel Thompson <daniel@riscstar.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, richardcochran@gmail.com,
-	p.zabel@pengutronix.de, peppe.cavallaro@st.com,
-	joabreu@synopsys.com, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 5/5] net: stmmac: support the TC9564 SoC
-Message-ID: <auyNVNo2I_Xunxi-@aspen.lan>
-References: <20261019030129.1470307-1-elder@riscstar.com>
- <20261019030129.1470307-6-elder@riscstar.com>
- <3d0b17c6-3b94-4e36-b7bc-700211c83273@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=KJWksXtv
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6AB0A2022CC;
+	Thu, 05 Nov 2026 15:06:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793887594;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=onIgHLIVAs7MX99o13Ov7v+hJtEInFTXwUejUAfUW20=;
+	b=KJWksXtvrQkeHBB2QG3hlukLeXYtgKGn49r+HNdv+H61dtiBtgukpM1pnBu4xDWcQu7LUF
+	AJWVLZcoYavm/lMfN/KCOrvw/23mZfMUqDlpKVnBRsJMPnUajR2FjPRiy0pD2ILKWN46mc
+	kT835SAcncSxHpdCi1D5waQ97c169fQ71qG8Fq93S6PvN1LibzLMaGsTk7TwaGWXoMwnaH
+	Q6l3vdvoRsAMxChmcPB1Vnu94yJNLMRYIjpF7MfE3jIUUsXZaNnooTIJsVlhfcFnij2TSq
+	nBLSSo/gO5Xf50JUofbacG31eIz9oq48d9FO7Cti6sdYamye2tCfELCeBbCmCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793887594;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=onIgHLIVAs7MX99o13Ov7v+hJtEInFTXwUejUAfUW20=;
+	b=WY79QNjwoQ2bd8W2IccevfvDFHKxEM5EmG1MFmnVt/njesvffBqiOvSYWbAC0gAV5xaXua
+	LGXzm3Y+DIFCDf4Z7jSjRaReFEZdAGopxaebA1iw6VJDJ8J1eM/GI+4tCoOGx00QhKY5F/
+	fWG9HIUUE7E/rAWqQkcC/CLLo866ZS5HZBDU20xCQO/c4lIa0k39eywkg8t9Dj5/Wwfc+M
+	W2rNzH2bqjfhLAgU/a5TigA5gD+Ih5/IFYicRK4UXpEZVvs07GDQ0qT3RzoI8B3ttrL6k9
+	j/U3l/lKuDjmwQWZX5wNhT/vtIS19muPWqU+cL5gWycyhcMZ0PefbApr1HOphQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793887594; a=rsa-sha256;
+	cv=none;
+	b=SIrXT7f+EFYsrxfLyYrcXmzbUECmt3zbRWvxd9zUpBwt/NnlIu6UvlOe9h+NArWorHBLKg
+	LVknmoKvgYZltI53e8XXEeagXRI2jXgvCadcL9Luk/uMPiuOLiaAzyJHP2NRwm7y21vjWp
+	tG+fYANNl4kB/o2BFrfnluwN3xtrG7eDBDk5zmMA9W4DSQHkuj86Zoew0/X37f/yAVyz7U
+	xHQkusR/fbWNynYH8EtovlOODoiSG8+CxG48PQgqK3jq0f5eFNMxVhRFu46YxAENcsnHVS
+	0wYDWMWCj9HbQhbg9QWeuqi4TaOgzquPN4KPxhn/udpYGoLydw8CUexvcU9sbA==
+Message-ID: <dfdd4e30f31ebda533c1bc05d4578a5d23e31320.camel@pengutronix.de>
+Subject: Re: [PATCH v3 09/15] media: rcar-fcp: Handle resets
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>, Geert Uytterhoeven	
+ <geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
+ Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley	 <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Ulf
+ Hansson	 <ulfh@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Kieran Bingham
+ <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org, Laurent Pinchart
+	 <laurent.pinchart+renesas@ideasonboard.com>
+Date: Thu, 05 Nov 2026 15:06:34 +0100
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-9-e052903a3832@ideasonboard.com>
+References: 
+	<20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+	 <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-9-e052903a3832@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,48 +104,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3d0b17c6-3b94-4e36-b7bc-700211c83273@bootlin.com>
 
-Hi Maxime
+On Do, 2026-10-15 at 16:51 +0900, Paul Elder wrote:
+> On some versions of the FCP, such as the one on the X5H, reset control
+> is required to operate the FCP. Add support for handling resets
+> optionally, to continue supporting versions that do not require it.
+>=20
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>=20
+> ---
+> Changes in v2:
+> - handle errors
+> ---
+>  drivers/media/platform/renesas/rcar-fcp.c | 30 +++++++++++++++++++++++++=
++++--
+>  1 file changed, 28 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/pl=
+atform/renesas/rcar-fcp.c
+> index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b5=
+4ad923748df79f6 100644
+> --- a/drivers/media/platform/renesas/rcar-fcp.c
+> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+[...]
+> @@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *p=
+dev)
+> =20
+>  	fcp->dev =3D &pdev->dev;
+> =20
+> +	platform_set_drvdata(pdev, fcp);
+> +
+>  	fcp->base =3D devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(fcp->base))
+>  		return PTR_ERR(fcp->base);
+> =20
+>  	dma_set_max_seg_size(fcp->dev, UINT_MAX);
+> =20
+> +	fcp->rstc =3D devm_reset_control_get_optional(&pdev->dev, NULL);
 
-Actually, this might be more for Alex to find when he works through the
-review feedback but...
+Please use devm_reset_control_get_optional_exclusive() directly.
 
+Otherwise,
 
-On Mon, Oct 19, 2026 at 09:52:58AM +0200, Maxime Chevallier wrote:
-> > +static struct tc9564_mac_speed mac_speed[] = {
-> > +	{ PHY_INTERFACE_MODE_2500BASEX,	SPEED_2500,  SP_SEL_2500BASEX },
-> > +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_1000,  SP_SEL_SGMII_1000M },
-> > +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_100,   SP_SEL_SGMII_100M },
-> > +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_10,    SP_SEL_SGMII_10M },
-> > +};
-> <snip>
-> > +static int tc9564_mac_speed_select(struct tc9564_data *td,
-> > +				   phy_interface_t interface, int speed)
-> > +{
-> > +	int i;
-> > +
-> > +	for (i = 0; i < ARRAY_SIZE(mac_speed); i++) {
-> > +		if (mac_speed[i].phy_interface != interface)
-> > +			continue;
-> > +
-> > +		if (speed == mac_speed[i].speed || speed == SPEED_UNKNOWN)
-> > +			return mac_speed[i].sp_sel;
-> > +	}
-> > +	dev_err(td->dev, "%s/%d unsupported\n", phy_modes(interface), speed);
->
-> Is that "mac_speed" lookup table actually needed ? maybe a simpler switch/case
-> based on the speed alone would be enough, or do we really need to validate
-> the phy_interface_t each time ?
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Once we add 10G PHY support I don't think it can be based on link speed
-alone (for 10G PHY we have to write the same value to SP_SEL regardless
-of link speed).
-
-However even when that happens we could still code it up using switch/case
-and ifs.
-
-
-Daniel.
+regards
+Philipp
