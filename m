@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793850563;
-	b=ghcBYE5mC7yuVKhTI7DEUvKrJh3T+TYP5vy/X0SwiXj/ZMYJ3AcNjNRKKeaTYHFdywJp
-	 ULRniDkHU5AGo7sLyCqOyimnO1KHjmqG/87dcsxqcgswo1DYas6H5h/F+xfLIb8KyfeTY
-	 GCvbgy3fc0Gb+IG58Dr6Rn5Q2xnPhIIzTwNkdqOREavjEXSU88nEN4ZtwGtVPpNwFEbeX
-	 hwjRB9nJP8DOftBi2tnSFDCutaVjJeBpJ+PZ6C5Te1nAMOksvHMCebH8iGQdnN537JY1n
-	 KbWXABwFaO+d2budOwRfojy+75Uj5cCRTdSe+KI2QQCc+ONRbxRaWlttrTeZvSGnywg==
+	t=1793850629;
+	b=HEb58IKcF9nRlTifkYE06dZT2UlWq4YTpqYso9M6isLAkbxeUGkNX8sYj+T28Lxo8hWA
+	 j0+beQicUoVnRmKpjIGYMNTTbU46Mnwh/FPaVH9mjCPcvwarwO3NmFA67yf/KOQjcQ8i5
+	 ST141mLcXv0czCg3VYn55u2gEDkZGBFNWrcOhpGoqgc9s8iG+N8ksPyx1VZ5VNw2915Mm
+	 Al1mv6IgXcpWjD52XUNtYifr4oYEs4qhRxZxHpWzUVr8yllseCklg4YNOtKdfvPM+VO2k
+	 DT9vGclSyhJa8XXoI8GriIOkY9cwdUSEbRo9iQKFFuvEYSxwcynsJBC+ObZwyyNQMWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793850563;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793850629;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
 	bh=FTQt/DKzExkg2Hajv9Ngnf1BFMIHptWE7Rva4W1+tQA=;
-	b=av21GkNV675qu/ZVjLpkYd32Kgyb9L8z3GPYloLNNXybKp1X05XX53fePwKy87H8kSjl
-	 n5R6kOJK9mUlSXeyEL+7xYmHb+u6LzVzSs0LsecGJBR80SJ2P9VB8URqfdxlSEib9sS7F
-	 Ob7QchLASVGqgTEQFPfFjdHbwr9xaO/87gEZ1MWLlaF8V3DqB9fa5/sdjEQUPOYQq8arO
-	 HsdXso2wE+KvcVAWF6wR3VKsZ1T2GKFKMaCCiZqJPMLQaixx8Wyw7cW7wrHCoSf9wQY6V
-	 OkZN0RwdS19Dl+Ni8rjc0QDj9H9rl0tPA5+H/kAfIut2RD+bVRZgartJB/JLiF41ewA==
+	b=bVS98DrxbhxBxr+9MtpVX8lE22UOrrysiOVg0ogvzefZn0yJPRHqKj4cCZYpDtDTXOAV
+	 DNAikGejVZ9lGMDs5lhUktZOU9PRT1AR5bfOKuN5ME82F+sTRSHvzPS17yIrAIkyzLRiO
+	 p2faQonIvL6JHhNDftR3rGBRmw6nL0EOiARxF+ZMpxaXudtMLS6O5MWNfdDvuJuzdhe0T
+	 vLx7c4nPtTbJt67209eTRLxN+MpYropwBgxKqPfu6DKT64e0v0DUOHtmcL5nCoLunmC/6
+	 PL6j+M03Jd9Eze+Xt7po/Yg5kj/Eq8OEGx4zVSUGDBAAyDpQ2JrNd3JaVXIbgYnbzGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=reznichenko.net;
 	spf=none smtp.mailfrom=dpplabs.com;
-	dkim=pass header.d=reznichenko.net header.i=@reznichenko.net header.a=rsa-sha256 header.s=google header.b=lih9eOOT;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dkim=pass header.d=reznichenko.net header.i=@reznichenko.net header.a=rsa-sha256 header.s=google header.b=XhTSqVuP;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99441606A329
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 03:49:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99441606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAF9606A32E
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 03:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAF9606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reznichenko.net
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dpplabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=reznichenko.net header.i=@reznichenko.net header.a=rsa-sha256 header.s=google header.b=lih9eOOT
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso670173a12.2
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 19:49:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=reznichenko.net header.i=@reznichenko.net header.a=rsa-sha256 header.s=google header.b=XhTSqVuP
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e60f9af6e6so14165635ad.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 19:50:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=reznichenko.net; s=google; t=1793850557; x=1794455357; darn=vger.kernel.org;
+        d=reznichenko.net; s=google; t=1793850628; x=1794455428; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
         bh=FTQt/DKzExkg2Hajv9Ngnf1BFMIHptWE7Rva4W1+tQA=;
-        b=lih9eOOTmw1z0fUo7FCWm1oacDIHX4dduaVV5EV5pZmV11z7jsruGIlv+QsQ3Z1bSt
-         W4fMqBpMHXM/J0ZmJ6Eoc+dU4en1t5mS+5XH85blXagVK5pjuaiooTlHkpUnqaSa3Xg5
-         l3PA6O2P9O3uO+OWm33skUnh801r/qgWQb7Agoe3h6tnG8HDTYJyOkf3fcdMzQ/h+Qrz
-         +NkHmyTrIsX7VhLKUX10FvErp+45ZsN08oI5zhpmzVeB5YiaVxoXzhtuCfxCsKT7zWsc
-         2cmPGIt0mbUJC58koO3bPZ/5E7w8XtXfNX4R4o0IrulwVeFlxfjKBrNiU5tLCGiJe1Hn
-         JVIA==
+        b=XhTSqVuP6b7wmG3fCST5e6yEpNUMui+C4gZ9yAqbx7VgdY58JLigd2gj0n8nc7+lh1
+         obKGkywYM8Csp3aZbaf3JSSaAkvnAVN0hz5BTpMZtpvn9pc6P+8Luft6bldOCd6DLsVl
+         OWJo2PYnmY4AfyreJbgw5mjLOAwRWtlKIEQ/63GY13wRDUR4P1emC0L9V+ahc2kngu5F
+         9GuPDIzqKzW426v9ZYrN/wiGxpzOvDKFMO6UduJocp/En34Q+d1Oyr9jBgPiEwHCzw4R
+         0i99Wc5zlMx9mLPR0YHTKsAxU5rnZmagkUs5y/V9d/5Px7pdwABSYs09fMCVH73uW7rG
+         SNVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793850557; x=1794455357;
+        d=1e100.net; s=20260707; t=1793850628; x=1794455428;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
         bh=FTQt/DKzExkg2Hajv9Ngnf1BFMIHptWE7Rva4W1+tQA=;
-        b=RUoAMD7IdmJWT1p2JhHUVWDhQaaquLRjHOTE1411ty3rOYoVqh0pQE9vkIcaXQHuU+
-         wRj0w9mzeXKw9fm5Xw1OdkcMdDyYxTB/U3a1r9d4/c1DKtj7AMDJYb1C1GcagOMsQpbA
-         +20w1b16wx2pIEqfFewH1fRVWmqunJAFttJHn4nO1cQGaTbX0YbUC1eQ3Sgv2kmsAaNC
-         3uEg0yThDGFvyY7JIkkgmXB5wLkZrJtc/zAC9KKmZsTYkUS8rDHUh2FUhvM8lHLuMiRf
-         Nrc3G2tlaXzwuknNW/k/xcyAnWPujpwNzKN/KoD6b6XTqjSQmXNLO2p4do6rCibkV41T
-         7j1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwcgkU9Y/mm9UVX2v/k1Bf/Oc042suQ9rJmTH3RblA5y/s9L0iBm5mWnjGvwuRMneRUjoBe/X54tpkx@vger.kernel.org
-X-Gm-Message-State: APuU4Z88JadYwdoYVB3eD2PifGMHqLRHjs5/+weRRSMSyKDxIvUUsHYx
-	J4Th3zsOIj4r8VWHLHcvusfg6MG0fyrKzMZTWOrZf0vw8MNPVAxS4ycqV+f98T1lgRk=
-X-Gm-Gg: AYBFou24T9BjGBNHfrFazbd4q0F6YmfMpBnaV10psN0BoiMLFR/UdXN6+cBNDoElLxT
-	bFrPmvPeG+fZ52g8/zD+Phn8xHKlWFQBt1owVaAqKVzx1LvGl7W3u7FwkaER//IteqD0dn25lq4
-	vw4aStOB9BWkKvxar/iEuUaIC0mNWPJjfAGgaR+ETX3f9xBuPToLcHWthiujb7X1Rs/4yl1WT1N
-	JLQ7VB/jfboihHVRB7V9VhRmW10BqY38EMwLVGohULnGVceRegVKPvIH1xVkE10XVP9ykYeY2kP
-	wfmr0KiqC4dypEX1BUJ/UDJHNxNQiQX85gDfYYfKOW91lkzq/hkB9kkp3EwEC9Xxuh2w+EEHKlu
-	EDQZjRCXCw6ddsxLgkyaYSgq0RMiBA4lbct+YcMX9tPDJFaHt86C+R+XN2Ti2PcBmfN7BizlaoO
-	DNIvh/JQr3JDc4jo7iN0lb75mWEtQ0Tf+/QGlJ8a4wIhxrqb3SeP4I3+X20cIF35Hm/ZgeYz4br
-	1OYpnN0MtKAxSdn5Baknhuxv+DtsvHDrI5UivH7gD3aCYVEQGGpxgPDMt/FmPBmHEoyHXEHZKMZ
-	bTecroOfJVEHKUyqbMnwJkLgm7VADdk34qii6D4wpw==
-X-Received: by 2002:a17:90b:540b:b0:3ad:eb15:aed9 with SMTP id 98e67ed59e1d1-3ae8957cffdmr14128129a91.9.1793850556806;
-        Wed, 04 Nov 2026 19:49:16 -0800 (PST)
+        b=GeArcf6jtfovy3Edy5+bF8+8O8IRMI7iYFN7fESk6EDuKXTNMTxXdXCmY8QIW7wRKD
+         ilJePJM7knkiIysfwmx54Rgv8MdxzWTDkt14zJV5j/Egtd9EL2QTjjdxjz1jdM94wRWN
+         wXpLU9LKrDHUrTZrS2xhODd1JQan/hmfejb5Vqw/ygZKGWPWeWAkDoTtOwVhYAPq0Ogu
+         pbMhVND2xhIuWtzDFcrpEwAqA38lcCZ8C/ujfsLzv1WKDP7nKJV+kZSUXif7RS8eBlwN
+         6CB2Un0qw0I6GLYZyHckPB+skDSg/gQib1hh+NcWpwK1OetrpU7kbPi/2/1Fm6ErtPoT
+         SOyQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhT3zfEYjyOPJzVZbLh8VxTeFiiFwzYCj7nUoolrleyco4d72IC4q/tx9vIYUXFL2bkmOIOmSWbCvA@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tqLLRF1YYumcCr2Qnj2R469wE+O1mrarNBF+ziEka5pL266u5
+	9yie4h2RYez0HxR2MUe4nDhmP1fIk24arv+Bl/l/EvMRQlqVFWZWChtRJn44dYucRMI=
+X-Gm-Gg: AYBFou0PKjwqf8sT+kUjAOpN0dYJmu/C7bn2Ld+tIm05EqJfLzOj7NYi6nJLu5XneHd
+	oWHwXkzf01mj1ZeUyNa701jlQXrulzvfGEkqgns9V/n4t8cGUFEhNKOsAmwPbZFxLox9/69LgW0
+	xyzDV16MpBwc+AYSpf8gJjbB59FNx4JGvTeYQ6SPQhJt5NrWmASc0CfOlgF3ZHcBrMRAxzGqtW+
+	ibMrFb1FjgcyfCcDsHgkZBksmZpc7BauihDZAhVzQQtBvY8RrOOEV88GtSCMzfykcgzBW6HOK8x
+	nKS90cA2JFBrU3PmhjNZBq1kYuru/lmcuOovp0Ok9QWVVoGKgdMwlCxeUtzkn6GpxnLGzc7917U
+	UF5BREqasHvquC/NtmeEylyPHMKBwm47pUB/LLpYrgwU0ryh0vyjIzwSN2GhEvFRYZTHu2QJfHg
+	ebRGvrjhJga83atvNgnoCoExlfG4qIUBOo6W38VgczJaPu1dX2pjAO+87SY7u9Hgqb4dmnHTC0T
+	Z8eXhm2Hn1nKFma+5i89qbSUPeqQc5Pa6gSoVnMCivOZOE77fRExTwp2Ny3s0378mHBCZz0/7ZY
+	3zydJoWtjLoa9LtvYXlAUqE=
+X-Received: by 2002:a17:902:ec85:b0:2e9:a23b:643d with SMTP id d9443c01a7336-2eb364d253fmr159592395ad.35.1793850628135;
+        Wed, 04 Nov 2026 19:50:28 -0800 (PST)
 Received: from z440.. ([24.21.231.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b094ce9f65sm3564391a91.1.2026.11.04.19.49.15
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed09127d9fsm12557955ad.51.2026.11.04.19.50.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 19:49:16 -0800 (PST)
+        Wed, 04 Nov 2026 19:50:27 -0800 (PST)
 From: Igor Reznichenko <igor@reznichenko.net>
 To: romain.tisserand@gmail.com
 Cc: airlied@gmail.com,
@@ -95,12 +95,12 @@ Cc: airlied@gmail.com,
 	sashiko-reviews@lists.linux.dev,
 	simona@ffwll.ch,
 	tzimmermann@suse.de
-Subject: Re: [PATCH 2/4] dt-bindings: display: panel: ilitek,ili9488: make the port optional
-Date: Wed,  4 Nov 2026 19:49:13 -0800
-Message-ID: <20261105034913.25463-1-igor@reznichenko.net>
+Subject: Re: [PATCH 3/4] dt-bindings: display: panel: ilitek, ili9488: add the PocketGo S30 panel
+Date: Wed,  4 Nov 2026 19:50:25 -0800
+Message-ID: <20261105035025.25540-1-igor@reznichenko.net>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103110524.2812831-3-romain.tisserand@gmail.com>
-References: <20261103110524.2812831-3-romain.tisserand@gmail.com>
+In-Reply-To: <20261103110524.2812831-4-romain.tisserand@gmail.com>
+References: <20261103110524.2812831-4-romain.tisserand@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
