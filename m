@@ -1,51 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793908409;
-	b=KCikb0mc+e6TGr22V2EGQYeXH+IYatqbv5h/9Qs2UurcAKXtWq0qBR0oV/ZKsftOklUc
-	 0lvwFd4KicOWzQ7uosuJrwUE8Q5zrvx+hFyst24MBTCb136gE355uaXiAkLhZjELFW0RQ
-	 RkmJ+fxxzggfQvFYglMO6nSVlIWRsXNlqCfO223qmhbMKAKqNOY4HBx7u4FjvT02KMmXi
-	 Xh2vNvSE0+yo9qBNmceThQdFXbGG0gsLtfS6jeZjw6pJZ75nl9Ew2JUJuSO1BHw4BYTOo
-	 Co6U4L9mb8/I4PFBezte2OGfiPO16mjzSwGDnACpbUORqOm3uLwJ4QQnkP+icGXzo5A==
+	t=1793908458;
+	b=fxqONP/EQPNT5gIRJrNhWVLSoBpyjizkhlstclAOm+iJYFcSZPY8gdAqyK1j+TFHoVVE
+	 002ZqnsIKywd8ldkYMSW0+iPDEMO7P72nBSfWSfxsoO56y5fI1gUQaXi5O/f9Fox+pCUi
+	 Vtsek925KCfr4YlxLcSZUMl/IgFSYscx8W+flI2O3YEiYdg0ANdl4pWAWUh0Vrtj+UjHg
+	 yMHJwqUcGL8eWAOzLVO4F1Zedq0EdurF1qHvm2neQln0r9vHU6/e1r3Upp04sD2Nw29rH
+	 1+VrsssSWNOieOviKYhHGQDMiDY9/+dMjBuuwNLJne82R+wlIV9nRJoSff0VI0p6qBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793908409;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=++B6g1rkbix+J1oVVYsPSBASK99MRRkm+UybAj51+pk=;
-	b=ugaiWJ8XzSJtdKXRjDBhT87ZQqYJhjmzQY4eWqQoXtn8jmYANqE53KfzAgG9KjwEymh7
-	 fbCVTURkwSLavktY2d5v2jnE+GDBCBz3dUzzjxnuhJpjcp8aduKph6Pd/VSt0MXZs8pjP
-	 RtivNu5iTFsiI7P4McnddVTRnt+vGizdsGPxw+oBQtUlTEEXQRgI5NplBF2kUTPbk+CU9
-	 VGALxorZLYQwiSsRhg4yhBkc9jleAfJ25RP/D/2E7BBVyQOYppxX5ZnoKVdd3jdoC68Oa
-	 fMGgjphAu0nELZAiZY93NvSwMpFX+Y1UbopdJ/Q1KIcoySZKvhgHvqA2LALDk7rUPag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908458;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F23t8iLTcn/LXqN2lEEgBTUnPAkeyO0taUnuYVGHe48=;
+	b=KGQqDEAG1kyb+JplEK69K86vroVMeO+QMFwQz3+UiwOtu728Wpq7Gj6EYd+qXfsDhY3b
+	 EqAeITdDBA7mzjBGgRTSEiSYLGhTTRKEwsIPG7YUUdk7/Dd2AkJGTqxmgZFfH/2GRCB6c
+	 H4ckzncGLEYV15Ipcnih13+tU4OI/1Yfdb305JvcrVKaa+iGur14b/SQBzvvCXHKsKG75
+	 zCp7KR5zy/lsWshTbM+csL6h1fcxmcK/NYhXzV5EJBrGjHzMu3GJfhiG8HvXKEiWRD3rh
+	 1J1FNBVU7wVMEyi4AHAHyqkWfULLTzdjyP6mpmmoffT07/+ZFwHex/z5sO8sQkLM96g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cjdns.fr;
-	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=wSYtsYAs;
-	arc=none smtp.remote-ip=5.135.140.105
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLSAlbea;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EF4606B9C3
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 19:53:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76EF4606B9C3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBA4606B9F1
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 19:54:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FBA4606B9F1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=wSYtsYAs
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C18432B8FF;
-	Thu,  5 Nov 2026 20:53:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1793908405; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=++B6g1rkbix+J1oVVYsPSBASK99MRRkm+UybAj51+pk=;
-	b=wSYtsYAsUb960aUgA1GWBofzaiglpxSqSHq1WZ3WmAUxP4E7IoIIGUoSbVy70Dko1Kb3Cj
-	/qaAmF8es6fkxHBb65ZqgqUBt+uw3vpC0MBurUWP+fH2iRFqvlJOCT+EFUtGpjm0V7q461
-	U5XgUk4z5CxDPx6j/oiX8cgokyLqtCnuqqiEU8os9q8DAaUg4cUxDzpk+lEmwIoH3CJXRx
-	9fIbYpdnZ123ZKVrlHzJJ+gWz4TnGykpWtflvKARUQ8e/UwlGnBW8j1H+AJKDsOdYilw5r
-	kkZX/vK9rDWEIExB7OtbhUwVsbufZos5VrRG7Veyqp7AOK1/G7MBuxieMlVBAw==
-Message-ID: <4b77a67c-7dd3-4366-8fa6-802f57cc61de@cjdns.fr>
-Date: Thu, 5 Nov 2026 20:53:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLSAlbea
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so27487285e9.3
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 11:54:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793908455; x=1794513255; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F23t8iLTcn/LXqN2lEEgBTUnPAkeyO0taUnuYVGHe48=;
+        b=TLSAlbeaansg0obWrRFjVue5VIj8K54CuD58TZVYawDVa4jC5Uz9kGlj6X+bQBpoU0
+         RMBDWWyagEX6GxxiTtav2lZiMx51AzWiDd242sMFyg0JYKbuAIclvNHGXMYeBoaF+GEj
+         dO6CXIPqvt5I+wkTxKYuSbW45HO2URYgVgVt/5cuL14Mh4l1eNjAHwZeeXdu/qLd+0yr
+         Ou9zJcL2JKJD9DPQKkK5QUMeAHOxDNl//pWvCBpXDBjwS9uRqP2i5lNvSNr35i6QXNoR
+         vUexFPZPxi0E/3kIuJbVbmK6ODD6pGq+a/aARv0alyMkBu7IIi6a3cwcKGqYTJpDrKXL
+         Sr+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793908455; x=1794513255;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F23t8iLTcn/LXqN2lEEgBTUnPAkeyO0taUnuYVGHe48=;
+        b=YUuxOUPeI6stWWf9iL/FX5T8WyqgKOhBAPr2YnpH1zzPllMJYTWn8TRezvMEVrD22o
+         TEVhOGyTWjUrQ2j45yCNSdXEtAy6vXs6/tenD8ERD9covLvJSuj7uFSXCm6vKnbcDmrY
+         KBth6saXPcsqW3adtkSz11LqMxUEuZhdYty+XQWJdHiASKjBY3novQQAXamhx0uwLWrO
+         LLp6xye8ehDt9llIC6Nf9GEAdnctbBCKH4Dz2q32FC+89LJf7arwHvO0XCSvgJtTMk1+
+         R9xfhAJaqlLyrybP/3anfb2MdBOQOuf0QXKW0RmgWxBs21d8xXzvnn6vRzddMpoB3nqY
+         gSTg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfHxQosg3TIkrNPUnbXfVnFjuuJTUVk9sT/dWjvk/VLigT1u46oxRB9KrpnFqNOq7NwJctrCtHtg+3@vger.kernel.org
+X-Gm-Message-State: APuU4Z87NxapZTwfQYT+UKu6tVAY+RCVH0d91LNy7mFFOuQZiegiB0dY
+	l8vwsXixS0djdJfS50AumOfKizbOjhCa6PRy/0b4YA0ifG62mDHJK3Ks
+X-Gm-Gg: AYBFou2YlvXO0MQjmW4+IdppYkC7xdi0MXwWSwRYIejgCxctQ/9WI+Hp7BQ3pec6G3J
+	BhBy6q9G0y1R09UmgzzbZbk3oidfMsS5nYuk7N3a/BjJT02ttifOAifaHycXcYg4IXUatH1gPoa
+	sfAWsPkpyQ3d6wZHPq7VaIc0xIXurLM5Lcj5//gx7JBxSyfY1NjRFQx/bJrqr0dZwP2QVaGkJbR
+	0FgvJ2VkDYfkL0nA5nZgKzv+EJuVj4jrYv60PJqQMwcxg6QMKgkUdU1zP8P6M/NE2U7aYaUZVwi
+	hKDskOaBD5JCw2QnJSqHDR6K/Gl6gUT0zLDqCZP175un4G6CVaOE3IcibC6x2iBkghq3SK4rcFF
+	cxTLnRD3R65ym3dDsDBLe7zW4J8xPvImu2sEPDGvG+QjvpGE5qglyjrKvy9GPVD3zA+4E0/HdGe
+	2j6MYBL5vB/5BpzbJmZYjFoffKgTwyn0yMZa9EGpKViLeejjqFFqdbhSXK2nrisOYSQkOWGalBv
+	O85blU8ecqcWLik0KBOOCXRzZbuGKDd3aMVby6ZP2Z4XTpmWTQgJT1lR5RKP8DH1QVC00Qmeo2n
+	fLyR6UQsgtSUxx7RknEpWXcbvuoJTydJGS1s45p4PCpHVw==
+X-Received: by 2002:a05:600c:3f10:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4b6dea69280mr3035835e9.14.1793908455226;
+        Thu, 05 Nov 2026 11:54:15 -0800 (PST)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725fb0d1sm83862895e9.8.2026.11.05.11.54.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 11:54:14 -0800 (PST)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Sean Wang <sean.wang@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Val Packett <val@packett.cool>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v12 3/8] regulator: dt-bindings: Add MediaTek MT6392 PMIC
+Date: Thu,  5 Nov 2026 20:50:23 +0100
+Message-ID: <20261105195206.3440-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,377 +114,168 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v4 7/7] net: dsa: mediatek: support EN751221 switch
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20261029184202.1859843-1-cjd@cjdns.fr>
- <20261029184202.1859843-8-cjd@cjdns.fr> <sashiko-outbox-191442@kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <sashiko-outbox-191442@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+Add bindings for the regulators found in the MediaTek MT6392 PMIC,
+usually found in board designs using the MediaTek MT8516/MT8167 SoCs.
 
-On 30/10/2026 20:22, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] net: dsa: mt7530: missing MT7530_CHG_TRAP setup for ID_EN751221
-> - [High] net: dsa: mt7530: recursive reg_mutex lockdep class in MMIO-MDIO hierarchy
-> - [Medium] net: dsa: mt7530: swapped default_taps in en751221_trgmii_pair_setup()
-> - [Medium] net: dsa: mt7530: missing child_bus mdio_lock in core_write() and core_rmw()
-> - [Medium] net: dsa: mt7530: race with peer phylink in mt7530_cal_interswitch_trgmii()
-> --
->
-> commit fcbb4fdaccb60b7ebd8ef125ae65f04744031511
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> net: dsa: mediatek: support EN751221 switch
->
-> This patch adds support for the EcoNet EN751221 on-die MT7530 switch and the
-> optional external MCM MT7530 switch, along with startup calibration for the
-> TRGMII link connecting them.
->
->> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
->> index 24e4485624d39..447c80455460e 100644
->> --- a/drivers/net/dsa/mt7530.c
->> +++ b/drivers/net/dsa/mt7530.c
->> @@ -49,6 +49,9 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
->>   static int
->>   mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
->>   {
->> +	if (priv->id == ID_EN751221)
->> +		return 12;
->> +
->>   	if (WARN_ON_ONCE(!priv->mdiodev))
->>   		return 0;
->>   
->> @@ -349,12 +352,19 @@ mt7530_setup_port6(struct dsa_switch *ds, phy_interface_t interface)
->>   	regmap_read(priv->regmap, MT753X_MTRAP, &xtal);
->>   	xtal &= MT7530_XTAL_MASK;
->>   
->> +	/* EN751221 on-die does not report clock speed in MTRAP */
->> +	if (priv->id == ID_EN751221)
->> +		xtal = MT7530_XTAL_25MHZ;
->> +
->>   	if (xtal == MT7530_XTAL_25MHZ)
->>   		ssc_delta = 0x57;
->>   	else
->>   		ssc_delta = 0x87;
->>   
->> -	if (priv->id == ID_MT7621) {
->> +	if (priv->id == ID_EN751221_EXT || priv->id == ID_EN751221) {
->> +		/* PLL frequency: 362.5Mhz */
->> +		ncpo1 = 0x1d00;
->> +	} else if (priv->id == ID_MT7621) {
-> [Severity: Medium]
-> When mt7530_mac_config() calls mt7530_setup_port6() on ID_EN751221, it invokes
-> core_clear(), core_write(), and core_set() on control PHY address 12.
->
-> On the MMIO-based ID_EN751221 switch, priv->bus is NULL and core_write() and
-> core_rmw() fall back to priv->child_bus:
->
-> drivers/net/dsa/mt7530.c:mt7530_mutex_lock() {
-> 	if (priv->bus)
-> 		mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
-> }
->
-> drivers/net/dsa/mt7530.c:core_write() {
-> 	...
-> 	if (!bus)
-> 		bus = priv->child_bus;
->
-> 	if (WARN_ON_ONCE(!bus))
-> 		return;
->
-> 	mt7530_mutex_lock(priv);
->
-> 	/* Write the desired MMD Devad */
-> 	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
-> 	...
-> }
->
-> Because mt7530_mutex_lock() and mt7530_mutex_unlock() only check priv->bus,
-> priv->child_bus->mdio_lock is not acquired when priv->bus is NULL. While
-> mt7531_ind_c22_phy_read() and mt7531_ind_c22_phy_write() acquire
-> priv->reg_mutex for each individual Clause 22 transfer, can the multi-step
-> MII_MMD_CTRL / MII_MMD_DATA sequence and read-modify-write in core_write() and
-> core_rmw() interleave with concurrent MDIO transactions on priv->child_bus
-> (such as phylib polling or regmap accesses to the downstream ID_EN751221_EXT
-> switch)?
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../regulator/mediatek,mt6392-regulator.yaml  | 112 ++++++++++++++++++
+ .../regulator/mediatek,mt6392-regulator.h     |  23 ++++
+ 2 files changed, 135 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+ create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
 
+diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+new file mode 100644
+index 000000000000..d74721d8f2ff
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+@@ -0,0 +1,112 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/mediatek,mt6392-regulator.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek MT6392 regulator
++
++maintainers:
++  - Luca Leonardo Scorcia <l.scorcia@gmail.com>
++
++description:
++  MT6392 is a power management system chip containing three buck converters and
++  23 LDOs. All voltage regulators provided by the PMIC are described as
++  sub-nodes of this node.
++
++properties:
++  compatible:
++    items:
++      - const: mediatek,mt6392-regulator
++
++  vproc-supply:
++    description: Supply for buck regulator vproc
++  vcore-supply:
++    description: Supply for buck regulator vcore
++  vsys-supply:
++    description: Supply for buck regulator vsys
++  avddldo-supply:
++    description:
++      Supply for AVDD LDOs (vm, vio18, vcn18, vcamd, vcamio). According to the data sheet
++      this is an internal supply derived from vsys.
++  ldo1-supply:
++    description: Supply for LDOs group 1 (vaud28, vxo22, vaud22, vadc18, vcama, vrtc)
++  ldo2-supply:
++    description: Supply for LDOs group 2 (vcn35, vio28, vmc, vmch, vefuse, vdig18)
++  ldo3-supply:
++    description: Supply for LDOs group 3 (vusb, vemc3v3, vcamaf, vgp1, vgp2, vm25)
++
++patternProperties:
++  "^v(core|proc|sys)$":
++    description: Buck regulators
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes:
++        description:
++          BUCK regulators can set regulator-allowed-modes to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        items:
++          enum: [0, 1]
++        minItems: 1
++        maxItems: 2
++      regulator-initial-mode:
++        description:
++          BUCK regulators can set regulator-initial-mode to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        enum: [0, 1]
++
++  "^v(adc18|camio|cn18|io18|xo22|m25|aud28|io28|usb)$":
++    description: LDOs with fixed output and mode setting
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes:
++        description:
++          LDO regulators can set regulator-allowed-modes to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        items:
++          enum: [0, 2]
++        minItems: 1
++        maxItems: 2
++      regulator-initial-mode:
++        description:
++          LDO regulators can set regulator-initial-mode to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        enum: [0, 2]
++
++  "^v(cama|dig18|rtc)$":
++    description: LDOs with fixed output without mode setting
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes: false
++      regulator-initial-mode: false
++
++  "^v(aud22|camaf|camd|cn35|efuse|emc3v3|gp1|gp2|m|mc|mch)$":
++    description: LDOs with adjustable output and mode setting
++    type: object
++    $ref: regulator.yaml#
++    unevaluatedProperties: false
++    properties:
++      regulator-allowed-modes:
++        description:
++          LDO regulators can set regulator-allowed-modes to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        items:
++          enum: [0, 2]
++        minItems: 1
++        maxItems: 2
++      regulator-initial-mode:
++        description:
++          LDO regulators can set regulator-initial-mode to values specified in
++          dt-bindings/regulator/mediatek,mt6392-regulator.h
++        enum: [0, 2]
++
++required:
++  - compatible
++
++additionalProperties: false
+diff --git a/include/dt-bindings/regulator/mediatek,mt6392-regulator.h b/include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+new file mode 100644
+index 000000000000..2e1f41e0ebfe
+--- /dev/null
++++ b/include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef _DT_BINDINGS_REGULATOR_MEDIATEK_MT6392_H_
++#define _DT_BINDINGS_REGULATOR_MEDIATEK_MT6392_H_
++
++/*
++ * Buck mode constants which may be used in devicetree properties (eg.
++ * regulator-initial-mode, regulator-allowed-modes).
++ * See the manufacturer's datasheet for more information on these modes.
++ */
++
++#define MT6392_REGULATOR_MODE_NORMAL	0
++#define MT6392_BUCK_MODE_FORCE_PWM	1
++
++/*
++ * LDO mode constants which may be used in devicetree properties (eg.
++ * regulator-initial-mode, regulator-allowed-modes).
++ * See the manufacturer's datasheet for more information on these modes.
++ */
++
++#define MT6392_LDO_MODE_LP		2
++
++#endif
+-- 
+2.43.0
 
-This issue was noted here: 
-https://lore.kernel.org/sashiko-reviews/492da787-471d-4923-b6ad-6f6cb113b19e@cjdns.fr/
-
-It only affects MMIO chips using core_*() functions (i.e. the EcoNets) 
-and it is not showing trouble in testing. I think the correct fix is to 
-replace the guts of core_write and core_rmw with calls to 
-phy_write_mmd() but that affects everyone and needs to be validated - 
-and I'd be inclined to send such a patch, but I feel that adding it here 
-makes this patchset more difficult to review, not less. So I'm probably 
-going to leave this one alone for the moment.
-
-
->
-> [ ... ]
->
->> @@ -471,6 +481,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
->>   	usleep_range(25, 35);
->>   }
->>   
->> +static bool
->> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg)
->> +{
->> +	u32 val = 0;
->> +
->> +	regmap_read(rx->regmap, reg, &val);
->> +	regmap_write(rx->regmap, reg, val | EDGE_CHK);
->> +	regmap_write(rx->regmap, reg, val & ~EDGE_CHK);
->> +	regmap_read(rx->regmap, reg, &val);
->> +
->> +	return FIELD_GET(RD_VALUE_MASK, val) == TGMII_TD_PAT &&
->> +	       !FIELD_GET(RD_ERR_MASK, val);
->> +}
->> +
->> +static void
->> +en751221_trgmii_calibrate_direction(struct mt7530_priv *tx,
->> +				    struct mt7530_priv *rx,
->> +				    u8 *default_taps)
->> +{
-> [ ... ]
->
->> +		if (best_tap > -1) {
->> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
->> +					   RD_TAP(best_tap));
->> +
->> +			log[best_tap] = 'X';
->> +
->> +			dev_info(rx->dev,
->> +				 "TRGMII lane %d: %s tap %d old %d\n",
->> +				 channel, log, best_tap, default_taps[channel]);
->> +		} else {
->> +			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
->> +					   RD_TAP(default_taps[channel]));
->> +
->> +			dev_warn(rx->dev,
->> +				 "TRGMII lane %d: %s calibration failed, preserving tap %u\n",
->> +				 channel, log, default_taps[channel]);
->> +		}
-> [ ... ]
->
->> +static void
->> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
->> +			   struct mt7530_priv *ondie, int ondie_port)
->> +{
-> [ ... ]
->
->> +	/* BOTH: Collect and then zero every RX TAP */
->> +	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++) {
->> +		reg_val = 0;
->> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
->> +		default_taps_ext[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
->> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
->> +				  RD_TAP_MASK);
->> +
->> +		reg_val = 0;
->> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
->> +		default_taps_ondie[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
->> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
->> +				  RD_TAP_MASK);
->> +	}
->> +
->> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
->> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
-> [Severity: Medium]
-> Are default_taps_ondie and default_taps_ext swapped in these two calls to
-> en751221_trgmii_calibrate_direction()?
-
-
-Seems so, will fix.
-
-
->
-> In en751221_trgmii_calibrate_direction(tx, rx, default_taps), default_taps is
-> used to log the previous RX tap value on rx->dev and to restore rx->regmap's
-> MT7530_TRGMII_RD(channel) register if calibration fails. Passing
-> default_taps_ondie when rx is ext (and default_taps_ext when rx is ondie) uses
-> the peer switch's saved RX taps instead of rx's own saved taps.
->
->> +
->> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
->> +}
->> +
->> +static void
->> +mt7530_cal_interswitch_trgmii(struct dsa_port *dp)
->> +{
->> +	struct dsa_switch *ds = dp->ds;
->> +	struct dsa_switch *peer_ds;
->> +	struct dsa_port *peer_dp;
->> +	struct mt7530_priv *peer;
->> +	struct mt7530_priv *priv;
->> +	struct dsa_link *dl;
->> +	u32 pmsr = 0;
->> +
->> +	priv = ds->priv;
->> +
->> +	if (priv->id != ID_EN751221_EXT)
->> +		return;
->> +
->> +	if (dp->type != DSA_PORT_TYPE_DSA)
->> +		return;
->> +
->> +	regmap_read(priv->regmap, MT7530_PMSR_P(dp->index), &pmsr);
->> +
->> +	if (!(pmsr & PMSR_LINK))
->> +		return;
->> +
->> +	list_for_each_entry(dl, &ds->dst->rtable, list) {
->> +		if (dl->dp != dp)
->> +			continue;
->> +
->> +		peer_dp = dl->link_dp;
->> +
->> +		if (peer_dp->type != DSA_PORT_TYPE_DSA)
->> +			continue;
->> +
->> +		peer_ds = dl->link_dp->ds;
->> +
->> +		if (!of_device_is_compatible(peer_ds->dev->of_node,
->> +					     "econet,en751221-switch"))
->> +			continue;
->> +
->> +		peer = peer_ds->priv;
->> +
->> +		if (peer->id != ID_EN751221)
->> +			continue;
->> +
->> +		en751221_trgmii_pair_setup(priv, dp->index, peer,
->> +					   peer_dp->index);
->> +	}
->> +}
-> [Severity: Medium]
-> Can mt7530_cal_interswitch_trgmii() race with the peer port's phylink_resolve()
-> work item?
-
-
-Yes, this is indeed possible. Inter-switch calibration needs to touch 
-registers of both switches, that's unavoidable. Taking out the 
-dp->pl->state_mutex is impossible because it's private. The right 
-solution is probably to make mt7530.c take the reg_mutex *every* time it 
-touches the regmap, but that's another change - and a pretty invasive one.
-
-So while I don't like it, I think the best course of action is to leave 
-this as it is.
-
-
->
-> When dsa_tree_setup_ports() enables the DSA ports on both switches, each port
-> schedules its own phylink_resolve() work item holding only its own
-> dp->pl->state_mutex. In mt753x_phylink_mac_link_up(), priv->regmap's
-> MT753X_PMCR_P(dp->index) has just been written with PMCR_FORCE_LNK right
-> before calling mt7530_cal_interswitch_trgmii(dp), so checking PMSR_LINK on
-> priv->regmap checks the local port rather than peer->regmap's
-> MT7530_PMSR_P(peer_dp->index).
->
-> While en751221_trgmii_pair_setup() forces MT753X_PMCR_P(ondie_port) down and
-> sleeps in usleep_range(5000, 6000) twice during TX/RX reset, could peer_dp's
-> phylink_resolve() run concurrently on another worker and call
-> mt753x_phylink_mac_link_up() on ondie_port mid-reset? Also, when
-> en751221_trgmii_pair_setup() writes mcr_up to MT753X_PMCR_P on both ports,
-> does it overwrite PMCR_FORCE_TX_FC_EN and PMCR_FORCE_RX_FC_EN configured by
-> mt753x_phylink_mac_link_up()?
->
->> @@ -1459,7 +1714,8 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
->>   
->>   	mutex_unlock(&priv->reg_mutex);
->>   
->> -	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
->> +	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
->> +	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
->>   		return 0;
->>   
->>   	if (port == 5)
->> @@ -1486,7 +1742,8 @@ mt7530_port_disable(struct dsa_switch *ds, int port)
->>   
->>   	mutex_unlock(&priv->reg_mutex);
->>   
->> -	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
->> +	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
->> +	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
->>   		return;
-> [Severity: High]
-> Do the updates to MT753X_MTRAP for ID_EN751221 in mt7530_port_enable(),
-> mt7530_port_disable(), mt7530_setup_port5(), and mt7531_setup_common() take
-> effect without MT7530_CHG_TRAP being set?
-
-
-Indeed this bit is not being set, I will add a new setup function for 
-EcoNet (i.e. MMIO mt7530 chips).
-
-
->
-> In mt753x_table, ID_EN751221 uses mt7988_setup() -> mt7531_setup_common().
-> Unlike mt7530_setup(), which sets MT7530_CHG_TRAP in MT753X_MTRAP after
-> resetting the switch so that trap bits can be modified by software,
-> mt7988_setup() asserts and deasserts priv->rstc and then calls
-> mt7531_setup_common() without setting MT7530_CHG_TRAP in MT753X_MTRAP.
->
-> [ ... ]
->
->> @@ -3817,6 +4122,28 @@ const struct mt753x_info mt753x_table[] = {
->>   		.phy_write_c45 = mt7531_ind_c45_phy_write,
->>   		.mac_port_get_caps = en7528_mac_port_get_caps,
->>   	},
->> +	[ID_EN751221] = {
->> +		.id = ID_EN751221,
->> +		.pcs_ops = &mt7530_pcs_ops,
->> +		.sw_setup = mt7988_setup,
->> +		.phy_read_c22 = mt7531_ind_c22_phy_read,
->> +		.phy_write_c22 = mt7531_ind_c22_phy_write,
->> +		.phy_read_c45 = mt7531_ind_c45_phy_read,
->> +		.phy_write_c45 = mt7531_ind_c45_phy_write,
->> +		.mac_port_get_caps = en751221_mac_port_get_caps,
->> +		.mac_port_config = mt7530_mac_config,
->> +	},
->> +	[ID_EN751221_EXT] = {
->> +		.id = ID_EN751221_EXT,
->> +		.pcs_ops = &mt7530_pcs_ops,
->> +		.sw_setup = mt7530_setup,
->> +		.phy_read_c22 = mt7530_phy_read_c22,
->> +		.phy_write_c22 = mt7530_phy_write_c22,
->> +		.phy_read_c45 = mt7530_phy_read_c45,
->> +		.phy_write_c45 = mt7530_phy_write_c45,
->> +		.mac_port_get_caps = mt7530_mac_port_get_caps,
->> +		.mac_port_config = mt7530_mac_config,
->> +	},
-> [Severity: High]
-> When ID_EN751221_EXT is registered as an MDIO device on ID_EN751221's internal
-> MDIO bus (ondie->child_bus), both switches initialize priv->reg_mutex in
-> mt7530_probe_common() with the same lockdep class key.
-
-
-Noted here 
-https://lore.kernel.org/sashiko-reviews/492da787-471d-4923-b6ad-6f6cb113b19e@cjdns.fr/ 
-and will be addressed.
-
-
->
-> When an operation on the downstream ID_EN751221_EXT switch holds
-> ext->reg_mutex and accesses ext->regmap, the regmap MDIO callbacks invoke the
-> parent switch's child_bus operations, which acquire ondie->reg_mutex:
->
-> mt7530_setup() (on ext)
->    mt7530_port_disable()
->      mutex_lock(&ext->reg_mutex)
->      regmap_update_bits(ext->regmap, ...)
->        mt7530_regmap_write()
->          bus->write() (on ondie->child_bus)
->            mt753x_phy_write_c22()
->              mt7531_ind_c22_phy_write()
->                mutex_lock(&ondie->reg_mutex)
->
-> Will this nested acquisition of ondie->reg_mutex while ext->reg_mutex is held
-> trigger a lockdep recursive locking warning?
->
