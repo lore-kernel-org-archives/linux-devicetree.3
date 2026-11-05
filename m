@@ -1,123 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793884635;
-	b=ZtUKAdqcex2wmogoPTUGiqKb4ulpwgjCGuD2Vnny6rpDoZ7UMb3DP5JmcE4HRgeClDCi
-	 AlDlTN9z4PkQ8Wv6ZUsNxp8T2OFnDC7leQ4LTALllthxreEQbLYOXPEKTkppBBDRAQ2C8
-	 odAqkQzM0SUP+j5sJTWW557a9ErVV7FMWg4yjjdiiGcUXyQqeEdAIT9mbTCRtcwACP3qe
-	 4Yo5R/WyTnZuKmwUMCrj1rgyxb+eBQT1K5w037IombYY1khaxYTIwDZ24NJvGAxqgK1NI
-	 Df2E0g3bRCvLcONhhmbmEMUMo3F61dco6QjDnwnZKlEbTqfH7vWPQ7FWED/i67HH3HA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793884635;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=qc2jMiL6eFsHz6iqLjg5VRSuJjQ4citqkfgQCMTvunU=;
-	b=k/wbheLIu2P1s8s47lApZ5WUCOqJIK0fyAlWy6qJUGkpo4R2FSULj2tqohqf3OSzVQ6V
-	 C4qGbFuGt23s3CYQ3iSFSRBRib+dR0VY5AxEeiG7pojfFyJDuYTm7Pyp3AmbnAY/FgiF5
-	 wNe2cz2gLVmO2ycEwMaD//kI+pMmnPUw/RmEG/9K5QknduC5vRHjHrwYqnyt3nomo9x3c
-	 iyA3a5oGf7g72XbxGlDTieC+HoCkuYM0BSvQIcIyjDrMhBP0hH2DeT9KIgcePQW+SxNht
-	 fi/6IyKxSg2xYA6TQqIHbBL0jedSYfu2jKISL/mpYWMO2FCgC8KG3mRVYkEa13YLKoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Dbi5h6Jl;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DP8KHpP3;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793884783;
+	b=b8Sx9yqSXwHCFSa5T+ESYjFGdes/ORainSPQaXG48QnxVwUdJkSdIinwY5FJ7aajrUT4
+	 JNXjRYjw/YhMIay+IM1+/EeDoaeyoJaUIUFzEdGiGJaic2xem1/PvdPcmbPxgPhGZG3O5
+	 N5UCpEzqKFXfJfsSbH7nZjmVBYksr5DXoZDX+C9mSomVH8v1egjj9fzwxzxY13OrYfMc+
+	 RtiPUl6/VeTLAbg6/NcFDqPczFb7OU2/3ax7uaZq1zgL5Rr/BlMNkQpJ93x3Dmq6MLBTh
+	 NGhrkvcGNEmG5FpAd/dPXQDo+RmmEvFDDX17BcVtLM2U6ThrUo/nCZ8fQUpDoOZEvIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884783;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=X3HsR7cVgu3ipBSTvvqrABHt1wBQEWRLRrgvsHdFKuQ=;
+	b=IsLveEqp3x1gMM4pxoppkMFQCHBw/CG3CsJVR65EyOri9wRjNWXk3TGe/cj6V45UlL31
+	 2p8va/AeC3bhPqTJmoqYKwMdj08uF51UmV/cnyvosSeDdL3YQ2ilTvItNny2QBgFXc2lX
+	 gw3j/SwJ5+x3qvKyy80QiFJuvQkJz7G1tMNoa9zhRMXVJ992PyKtN6Lo/I4JFvXy2AP+3
+	 5qzOnHjhVQqs+B07xtRs33VH87cyRU8jkzTvf6RoTqOarpmobuVMUeMDCRwtAvIuJqYas
+	 9Xteo8AbhTtVoNVQxXGB9uWdXWZa2DOuoNOo1on21ToG4noGfW6OoncsHKv52uClRAQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=QNG8Ji3o;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b="/RUgeeYo";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4552C606A326
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:17:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4552C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8F4606A328;
+	Thu,  5 Nov 2026 13:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED8F4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Dbi5h6Jl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DP8KHpP3
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tKQY4084474
-	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 13:17:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=qc2jMiL6eFsHz6iqLjg5VRSu
-	JjQ4citqkfgQCMTvunU=; b=Dbi5h6JlWjaYOfWrjQOqoghNj8LtnOidFwmRK8Tw
-	WQKoiSsm0M0HDqYhlm+SMdoVcX8lXGD31qAlQlyNi14mpK95Y8AZfriSb/O/GTUw
-	S0Cfh8SqnH8Wk34PlActYR5ETtWPhz23Bi/+7dChj9pwPfBiJydp+ThP7jKO0m++
-	F6fg6PHAu6qWSrDU9gl5XZjUKlQwk2edaoohKu4CKpru8PvEvHf7Q3JggV+bBJZP
-	6mWyYQvARxIHiNUe9gRcWTUzXa2DdIrxE+8DihXH7+hIu4ZUD/KcQ+yWFcgXzUNw
-	TDFF/GkRXID9Ahjwfv8tgDPyanV/eqb7ioX0qQIa0qe+FA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrqhkrteb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 13:17:14 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9179a2035a4so13059046d6.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 05:17:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793884633; x=1794489433; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qc2jMiL6eFsHz6iqLjg5VRSuJjQ4citqkfgQCMTvunU=;
-        b=DP8KHpP3danA6xMDBFzNHjt3t+xXO/zlMXwHE6VcUl5TPfUIohjgS95qE0PV6V1Js7
-         5x5oRFhDVJyl5Juq3jKRH/uma0VvdyzBcpBWSuWBIX+Mh4STxoBd2Wi84gBfRGnJwP5i
-         z+WMV8ze8uGDpgyWeglCxF2ps5cc8dqWE43G+gqlV3WGgA/p+lKuz50mvg+Notsrd4gm
-         JTZ8hVw19t7xo7990ASHO3vbS6YHXOCkRuqlU8DmYg0vu5+hTgluVUEje/aXririZDRy
-         IG1UVay+1zUjcLjxfAgCwaBZ4AWLluIqJ9M2XUFgkMIiNnGzFvP2MrtV0NmdjDkb/z2D
-         KLDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793884633; x=1794489433;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qc2jMiL6eFsHz6iqLjg5VRSuJjQ4citqkfgQCMTvunU=;
-        b=pzaixbSIrDDFNRmqORa5YoDBFJZnW+2D6mnkId1RYOd1dGGgAhzK6oe0N1tZEuGTLS
-         3pF5hHGiuKVJvQPdkpeQlG0KsMeiKP7Q7NgTwvONLnHlXCv2wXHLaW8iu5JXMpEvNCAa
-         Ft1/mrOOanjgiYLiruJUstD8IJZyB5ciJNdJmZUSjn3+bvtpbgvUWJt5NOln6Rkrbgqu
-         zrsvmDOhWFIIsr26c04geIN2nZYoQVwNkeHz/HAy1Jx0ZuTeEhZt5OUfMNH+A5ekDM5R
-         1CkhOns6O42sUWbvum1Vw0AekcGm1jQtzc6pmAl3e4RV0I/3pAxf4TlYjPdzsn9QFhqe
-         lefw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFOXw2aIoI4QFF/3Fq5p8C2Ch9rtkzv0q6QkGkGBvINc/CUqwL49wfVQ9oRF4wkpQRvIQ8e6tpzbSU@vger.kernel.org
-X-Gm-Message-State: APuU4Z86+eEAJ7U5B95vALYw14Xfee25GT/zoGm4bxUSpwV9kUDhx3QF
-	++cpPAnmI8KTJULYgJ04agCqiwXFCUN+tafnQnCvAzBsv5A1byXl/ikXnb+hEPaU3lX7NCVnhAq
-	+oqBv+7QDu3Jg4N8YgwNI9mEZhKGu1+RXmKXT6E8i2Pg//JDcID21jxQGfydGy1lC
-X-Gm-Gg: AYBFou3CifswtSB4S5pUqCCC5dBuRQr/cFB/VVQaCBTxJpWKYFv6Ph1ySGktS9clA8+
-	Ctxx+D99nQApHvfr14Cba7N1x1u0ueDaj+mfbcw2hOExmWwG3aCt1wgD+JZeSyBmz5/qcO8ueTf
-	VfbeAs8ohfqqEFqvcLAMlBkw24IBhU3NzzKXiEUI2CJHnnwOW7Z4krAqPB/afUzZhLbuxcOIQZQ
-	60B59t+SQVLujgaK2kb74ZkBuZdmLUqHWm0tX9uNddQylfQbxMtDPGiAU2MV3ZOiFkL5agOe4y+
-	7qbLVjATpg2UoL/KA8Sw3fANdpdDVu9MIxG38beRUe7l07XUaW2quB+0Uwr6540Lu3iW+2EocY5
-	l/oXo9wjm4NQuvQ7k4K+v9+QuQGYiWtg5qrefGX1d6ljNgTRgDQv125/gzuZlIRI=
-X-Received: by 2002:a05:620a:7102:b0:93e:c12d:4ec7 with SMTP id af79cd13be357-945e17e2cbamr398575785a.39.1793884633348;
-        Thu, 05 Nov 2026 05:17:13 -0800 (PST)
-X-Received: by 2002:a05:620a:7102:b0:93e:c12d:4ec7 with SMTP id af79cd13be357-945e17e2cbamr398571085a.39.1793884632740;
-        Thu, 05 Nov 2026 05:17:12 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae73csm67759415e9.1.2026.11.05.05.17.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:17:12 -0800 (PST)
-Date: Thu, 5 Nov 2026 15:17:10 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Gustave Monce <gustave.monce@outlook.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: eliza: Correct number of TLMM pins
- in gpio-ranges
-Message-ID: <rotiram4b5ah7luhhwd7f5hzhoz25p5qwz7yi4m6riu6spvxep@y7hwfdbmtcp2>
-References: <20261104191700.676773-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20261104191700.676773-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=QNG8Ji3o;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=/RUgeeYo
+ARC-Seal: i=1; a=rsa-sha256; t=1793884770; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=XZ/4lDAgqQ98Y53SaAfy9KBA+Nwn+VMONigDqGjJ0S73ok+wELw/hIiwJp/XE4Mb03
+    uvLHOWakjTKPKKphQHfFuswZcS2P1wIU7UWFfqXohwT8gzt+XMZeOEYcF0m4KFT+EcCF
+    UTKz8g6zw0ZXv4GueSrFK+gyhCMBl0zOD6VNVy/sPtntZki44PJbklHvn7SC7lZqrYA3
+    wosPhBQWtIpihuGn9WC7Ziw0uS+fnqE4DU1OyLbcSUFSyFAvgUDORjNmgpvUaHh2brBc
+    byUXurR2XOLYr45xf7WRJOhssm+evhonwr6q0eftNwfxyNo858r/tiMbobk5UdYLh3JU
+    rmdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793884770;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=X3HsR7cVgu3ipBSTvvqrABHt1wBQEWRLRrgvsHdFKuQ=;
+    b=LPIYOGg/MfbPCRD+IMyeKfEy09tckkFPjeDJSi7KSUv7f07OZgd2Ly/1FnvjDaCKvT
+    4gD+U+V54qy9qhwoTEzs02mtiUo/btjlkVnRbNN0z5DsO1GukkcJ6ZkVwfujHQzwJeZu
+    3Aq7ZnRaHTvvEfSuIFgTzBhfyr9xP/poZXNrKm9fsyOJKYACOMVsE9Yf9rM1heGvzbr+
+    rMGS7d8lScyACYkB0aAQal+zDgQ0DGdC5L42KCcASi23sL+2+Q/rLdvw3tU2h2C8kq5x
+    h0VZ89FU02oFhyn0XOvUfcZCOcCweJMU5lFSV/g0joujpDsWh6QIML1w5G3J1WrPyTIC
+    2rtQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793884770;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=X3HsR7cVgu3ipBSTvvqrABHt1wBQEWRLRrgvsHdFKuQ=;
+    b=QNG8Ji3oZZA6c760+KacT+2g4xj9m1teecPkuV/o0VkN5hc83k9Cjqc4NiF7E3Wzdb
+    yL56644pyqVUx+m0nj5b47xEuGnPuhmgyhezYtgHwdBRjLbB/QC1HnZ8VEOixPUIogIQ
+    utegApBvyT2FLVDYgG43Z3q+HQKo/OEnFoEuJoOcAd3uWAgFKEKQ18i1rmtd7c8nJoca
+    x/15JtOo48seBdDeMepJkspdp8C3Bdk8sa2CD2lxWLhmssh7tAT55z0Yo9SfqE8ywRvJ
+    H0zNHNbgpnrA6z37pwVYAr4uHNaIwmy+CbDtnFYvPCgy/qampxmPZz1lpMOTch9+b4sG
+    +dYw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793884770;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=X3HsR7cVgu3ipBSTvvqrABHt1wBQEWRLRrgvsHdFKuQ=;
+    b=/RUgeeYoheTfss6h70YIM2WvebI+oIU0dG2IAfl9WmCIuva0Lk069hkMvWVlR5zlld
+    VnVInAMW9+gXqKuURKCQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A5DJUj9n
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Thu, 5 Nov 2026 14:19:30 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -126,47 +93,197 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104191700.676773-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MiBTYWx0ZWRfX7RhjKfRF4Whs
- yRE5Da+hCg2/Fq9zxCoinXodtTiQCE2F42rJv05yh6rbG6DeYYsd8029IBqGe5fgFhNTBpQm18f
- LZnjMTUlq3hK3Yklnq+rX4xJnJTkxhwhIbSFgJDLY4HQrfzwHqEKJwxL65pdjYSRozvETMc2k5W
- H19NB2Qz7goJFXitIutfqAOEZ2FEzUdfqyzIDQ+dq2q2WPxSjp50heXBUOzIzekfzY1+stB7cwH
- emBRqHKbO/72xTJP/o6fV/0ULDtAOxLEpE8CaTaQ3iAVXUIfs938tEIDJeHeqMo38YmMYtWoz2q
- POJSTUwbJWC7lkBOyA141MZT8fSWHpYJpIEQA32KsOPtB28tU+WVRpyRMstg6Et4RJ1d5gnS71d
- MU4zsxiKEcB9cwHeK7lAS90IZKmcIDtW/s8KNwi2KidfncqvcNZuu+EDuvtnWY6VruKv2AfSHM1
- yDwlHJA3EY3eZcquIaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MiBTYWx0ZWRfX4qGk5wuRXHiR
- pkXcbfwW8ScjG6Ueo7VTk29wC1U9YMD/QWltEkeI+D3uIJfKOui+fvFqARWD7CxmP07aGxg2SCY
- yHurwaZ8tdR1mg1B2dr1e2a0qhenDz8=
-X-Proofpoint-ORIG-GUID: y86LN-ny2eYh5ikkeUxH5bpI253LNGLm
-X-Authority-Analysis: v=2.4 cv=a4+lZkSF c=1 sm=1 tr=0 ts=6aec81da cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EGeSfPnbYMIGY1KhdJMA:9
- a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: y86LN-ny2eYh5ikkeUxH5bpI253LNGLm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 impostorscore=0
- phishscore=0 spamscore=0 suspectscore=0 adultscore=0 clxscore=1015
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050052
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
+Date: Thu, 5 Nov 2026 14:18:59 +0100
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Joshua Crofts <joshua.crofts1@gmail.com>,
+ linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <06B5F20D-1FFA-49B6-9688-4DDE68356BCE@goldelico.com>
+References: <20261102201155.10948-1-olivier@mgcrea.io>
+ <20261102201155.10948-2-olivier@mgcrea.io>
+ <20261102-salute-cylinder-22c9a8896ca9@spud>
+ <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
+To: Olivier Louvignes <olivier@mgcrea.io>,
+ Conor Dooley <conor@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-On 26-11-04 20:17:02, Krzysztof Kozlowski wrote:
-> TLMM on Eliza SoC has 185 GPIOs and UFS_RESET line, thus the last number
-> in gpio-ranges, representing the number of pins in pinctrl, should be
-> 186 so the last pins can be configured in pinctrl.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-0e88535a-02d3-4a42-9f3c-ca4f9bdd3b11
-> Fixes: af20af39fc09 ("arm64: dts: qcom: Introduce Eliza Soc base dtsi")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+> Am 05.11.2026 um 10:57 schrieb H. Nikolaus Schaller =
+<hns@goldelico.com>:
+>=20
+> Hi Olivier, Conor,
+>=20
+>> Am 02.11.2026 um 21:48 schrieb Conor Dooley <conor@kernel.org>:
+>>=20
+>> On Mon, Nov 02, 2026 at 09:11:54PM +0100, Olivier Louvignes wrote:
+>>> The X1600's SAR ADC has four auxiliary channels and none of the
+>>> touchscreen or battery engines of the JZ47xx ADCs in =
+ingenic,adc.yaml,
+>>> so it gets a binding of its own.
+>>>=20
+>>> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+>>> ---
+>>> .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 =
++++++++++++++++++++
+>>> MAINTAINERS                                   |  5 ++
+>>> 2 files changed, 58 insertions(+)
+>>> create mode 100644 =
+Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+
+one more:
+
+why not call it x1600-sadc as in the documentation of the chip vendor?
+
+>>>=20
+>>> diff --git =
+a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml =
+b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>>> new file mode 100644
+>>> index 000000000000..f6356ea97980
+>>> --- /dev/null
+>>> +++ =
+b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>>> @@ -0,0 +1,53 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Ingenic X1600 ADC
+>>> +
+>>> +maintainers:
+>>> +  - Olivier Louvignes <olivier@mgcrea.io>
+>>> +
+>>> +description:
+>>> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
+channels
+>>> +  measured against a 3.3 V reference.
+>>=20
+>> The wording here makes me wonder if a 3v3 supply is missing here? Or =
+is
+>> this some internal supply on the soc?
+>=20
+> It is an external SADC_VREFP input pin (ball P12) which is usually =
+connected to
+> the 3v3 supply. But it is specified to be min=3D0V .. typical=3D3.3V =
+... max=3DVADC
+> voltage levels.
+>=20
+> VADC is indeed the power supply for the SADC on a separate ball. It =
+must
+> be in the range of 2.97V .. 3.3V .. 3.63V so that it is extremely =
+likely to be
+> connected to the system 3.3V rail.
+>=20
+> Therefore I do not see a necessity to require a separate regulator =
+reference here.
+>=20
+> I would suggest:
+>=20
+>  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
+channels
+>  measured against an external SADC_VREFP reference (typically 3.3 V).
+>=20
+>>=20
+>> Otherwise, this looks fine really.
+>>=20
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: ingenic,x1600-adc
+
+same here.
+
+>>> +
+>>> +  reg:
+>>> +    maxItems: 1
+>>> +
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +
+>>> +  interrupts:
+>>> +    maxItems: 1
+>>> +
+>>> +  '#io-channel-cells':
+>>> +    const: 1
+>>> +
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - clocks
+>>> +  - interrupts
+>>> +  - '#io-channel-cells'
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    adc@10070000 {
+>>> +        compatible =3D "ingenic,x1600-adc";
+>>> +        reg =3D <0x10070000 0x30>;
+>>=20
+>> That said, the 0x30 looks suspiciously small - but the region is =
+aligned
+>> neatly so I suppose it's probably not problematic..
+
+The last register offset used is ADRETM at base + 0x0028. So it will =
+fit.
+
+On the other hand the programming manual defines
+
+1.3 IO Devices Physical Memory Map
+Module  Start Addr End Address Description
+SADC    0x10070000 0x10070FFFSAR A/D Controller
+
+>>=20
+>> Cheers,
+>> Conor.
+>>=20
+>>> +
+>>> +        clocks =3D <&cgu 28>;
+>>> +
+>>> +        interrupt-parent =3D <&intc>;
+>>> +        interrupts =3D <11>;
+>>> +
+>>> +        #io-channel-cells =3D <1>;
+>>> +    };
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index ecc22d1149d1..fd4bb5c6bf16 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -12925,6 +12925,11 @@ F: include/linux/mfd/ingenic-tcu.h
+>>> F: sound/soc/codecs/jz47*
+>>> F: sound/soc/jz4740/
+>>>=20
+>>> +INGENIC X1600 ADC DRIVER
+>>> +M: Olivier Louvignes <olivier@mgcrea.io>
+>>> +S: Maintained
+>>> +F: Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+>>> +
+>>> INJOINIC IP5xxx POWER BANK IC DRIVER
+>>> M: Samuel Holland <samuel@sholland.org>
+>>> S: Maintained
+>>> --=20
+>>> 2.54.0
+>>>=20
+>=20
+> BR and thanks,
+> Nikolaus
+
+
