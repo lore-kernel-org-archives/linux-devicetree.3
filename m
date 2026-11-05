@@ -1,90 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874547;
-	b=d1qiTuCAoCw6idaDpXM5myYuAHhZT1fFuV1GczolglmYTTlA/sv26TKYZ4MVraTtx0mR
-	 2e86D7ijuWC/LWB6nT7oSd2WHVnbyBgLU+VgXB0yS9sXN/IsQf7/93Dvdi0zWQNiiyVZC
-	 Acs8Lv6Y4bcwxCo5VroldmbjSQWM9PdAIjKyvsycPF48iRybzAErnym30Pnap3DkYKQFN
-	 5l27Nu+KLKZq+ivmSPHjALNSWYwh0sDZPVLjrux6754ZWm4Xoi9U1uSDWUuyInWnfqfJV
-	 REEZTQWEiwJ7cXcCq4MCF1+Z82d2CYFxuhayTObxLciak9EsEXPORt0V3C3RA/0cv6w==
+	t=1793874649;
+	b=Y/AIB/KyOCDrjkQ0UcgHJIvbYmAmQGSv51dBlT1ssF8gHKCTuLPcToKcHzrmzly3Bdis
+	 Uu5V1bu9R63jRk4jszbH3cjDt+3X3J51tPssXTNY5m/foZXY7u/hJPAUj9fqcDPu9bnkN
+	 WnP3NuIZD64ExSfTOQOt0s3w0+0feuZFzBAK/czsc9Vl6JEFzjwSBz/JZkIupvTCBueea
+	 CHWx6K9mdsBiHLosFnkyDWw3NaBL0SZPZx/D8Dti6tukR0yPq1KJlRaPCqCbczphida1O
+	 H7RHJfqrrcZMKfY0N0w3d2XFOU6kgOxzL++aE1Qn7WtnwnU/HsFEtT1eGz2VKnTrRlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874547;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=lzDU21F2EHLB7rOP/VYbDq+2X8MhT5hkKO20Bmq0VFU=;
-	b=o/lR3U8T/i1VKLM4Q4fhQonZmdF/6V3j/NkCIzOSUTxku528PaYxLz7P/kRlSQ57Eukm
-	 PGZbcauhXewRvgWTSiPAiEe961yt51+b/D36FqY5M0Ih5rYB45LMcYk8VTfSoVh2mQvLA
-	 WI3hXsUKXFr8IDoEETM8d3vExgLu7uN+cmqzCDu4f3TPIW1BBIfYaFO33DihkE6o2L09G
-	 061d9dPpY6LhtQ5iFZlz2ASz9eCdwfkeS1qfhjU5N4ExGkA3v5Ldal3hI5JbWtTlbhvsK
-	 S55c+zFi9lbF37fiJmiN4ZAsGdq2361xYllT0Vfy6OWps+zW1ucvvljVCVWQ6JNRxMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874649;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=g4eh26VIvLph9rixscA5Qk9+BXI22FApx034GLz9Kzo=;
+	b=YCNfFuBHvP/p+UwlLXNqWOvb2sxcHq2x4GIgYftGZSwunSTdvHMR6lccbQRGHkgFp2I/
+	 JDJ3A6by+lWVLDUZxlKPr+gxZ8zRbmg0jwl46wt7map4uzy9dbVvlyE0cf4bmpyEdLZ4P
+	 hDbOHPRMPb6TeF1h4lbecSr9MQoGNnvzyJOiKraZZtMhxITez0/zuFu2Vc5HFAO0myHyZ
+	 ulhvwOjubghpjMcvPM1UDCzUVvZK0Th2G4rR1KcGDSPz7Wb8sAUMTDVAxo7NPSZDs/Sad
+	 oEtxwllbsYrbck8DIW4Z8TZbkAptZRTnPJP0wElX0SdwckEBvLqQ9pQjTpszwqI18YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b="a/6um+d0";
-	arc=none smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nwAkK7cO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iaFFcR1V;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6BE606EE90
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6BE606EE90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6775F606A329
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6775F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=a/6um+d0
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so2712453a12.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 02:29:06 -0800 (PST)
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nwAkK7cO;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iaFFcR1V
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tajn3044032
+	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 10:30:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	g4eh26VIvLph9rixscA5Qk9+BXI22FApx034GLz9Kzo=; b=nwAkK7cO6SzNaNRI
+	eWRZfMBrewvD8gZN1WvfIQyNbkUSb4wBs7PsEeYlWpacGKmt8gvqjN0hP1HggBsr
+	VfTmzWqzU/Z+HANEZmH6NtLJ9TZrd6ydK94eJRoCcR6ZYc0YKvQwamb9xOxLSmq7
+	XySB7fzbxESdJPAYSTFif3208JPPqt7bUOMOd2KRjCF79f/VdCvODj5iS7rmdcU4
+	F+nDSYfNqP+pEs8HqwH6P1mo1WmGJmTR30FScrUmjlwE9bi+rbSF5k+Qv3naLvEQ
+	2Q08KJjGvVt/gZxwv9/vMzVM7ffI/RH4IWT0LiAO3W4/HpyMWdzc7ugQ4Qk0DvRR
+	+8ckFA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr89sv14r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 10:30:47 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so1747946a91.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 02:30:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1793874545; x=1794479345; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lzDU21F2EHLB7rOP/VYbDq+2X8MhT5hkKO20Bmq0VFU=;
-        b=a/6um+d0uQTISqAYWjTSS9HtqKug8rg9E2rLH1wkEJ1y4a735hhrmhCOCiwFHxJ3nq
-         A6zcqbb/g9Cvv42ERK/gzGNhSpFHNnP3IaxS8FusHfvgiVP5qUxfyDvsmsyN2dl8Wefu
-         VckCYwBXoSy9paRds05qrzde8Csv1gyyZSxsRpcSxK9cAn0AAWc2SNpBRxBIuckufczm
-         UqU4cZODqkx7b33OgQ6E/1hs7Blozqhb7/xi3/1GtZ9I8dS4qe8Z7m2EHgUxSLW4O6xA
-         iqTHsyrS3gW5/HJxkGiV8JwkUV46y1WBvhA4S3tjiqgwztJPNW39oEQZKY0s7NRUH+rn
-         Gs3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793874545; x=1794479345;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793874647; x=1794479447; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lzDU21F2EHLB7rOP/VYbDq+2X8MhT5hkKO20Bmq0VFU=;
-        b=wy0iLBGWzzhllCOnPe7gjwuBc5KbMNb8OoosVGJIiJnI1Scsy8sL9ZiIvSf55G7WZN
-         IZwHgAXnNpaz5j2PX0pq6BnmncpcIIXbLHxH4hIqZFhatpLO1Q8QnFQQhkpTZEvR4OKw
-         o6AMUDIjp6oeum+9vtAaJW0LlAEjGckWt7d74uNDhybEkIxqcM/1nvpvk6bXKgI/2EqB
-         4bfHJOr4fqSoz90eSUFbTIZEU5Bi+tsOCuqbDRSy0DiBYeY6jYg/4/jh/DOXD4lPENpB
-         v5JD0+pgFoPQp8wwHW1/7ed1gqlypViP8aorj5xi0SPn3dmA/irFQ9t6ZH6Dldxlw0rk
-         7sWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwP4Ox93ypXkL9dcOIuTrSh1ZTUMsihZozmtPcwR/WRvhHipHTcHKhv4aRyF7KoNoXrJzlxxAv81XeL@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vfQGKTJFikIRiJ+zJPs2OXEJbgqS3qMPe6WE7LLLYoD/aEdOs
-	DwLFgTbEHveb72pFUrseS4ZABoE8DzhY931gbekBkZURBznmTbMe+rXbUlmojx74Sps=
-X-Gm-Gg: AYBFou1wLHXwbzRavQx3zUTRt4X67VtRsgJ8vhDqJmmSwwAyb1KWsNcypw0JAw6MzXl
-	eO/J0d6Uv0EhfWhudPT2pDbXkmJ4bL2UFFuVeXxAgYvyaYKVnkOmSO/oL/JpdCMpzBDdVWRDRee
-	qciKEskdmipUvivMSHHKtt9ozJBSyTiHnEj7U6vMRsDVRaGfEOyMPoecFTGV3S1izaG5AZDC0RY
-	JCr6N+1SfY3CFYx1MFMNxbp70S7I+bebEjDHUwwLFGP5HpdHB9dZyv30OCp6pMQrX5GORVwYD72
-	65BaXH3cEDu4zQOro5etyHgViiQZYfclGfp0EYSZRotx78zyGpDZixWmU+VyFmXXfGfmgXPT+cU
-	H7URBrxZ9hXX/t0lNFVwMTrrJrpKrxfOvZaKGiUjCUT1xpZQ+P8+NquwazuAA6llX+zTjn1FZiK
-	1ybZjW63Fe6Vd9Yk4Go9+s28vCg13yMZY33NhTARLOo5MxsFhDWXaV5EiG8dR1Mwrz422VFvKOk
-	44PX7RL38CEXHXj5f7rFP0K9VREG00Y/0Ed5S2c0EKL34AVVtCHID07UldVwTQnI821XuX6WNi7
-	MMBCr+0pYG+O+1SeS0SavNF94fp7oH1k7IHbvCuuV65s19y1wEiTnKrXglr2HGQtq1i1lrCBkFv
-	YfRXz0FrcJd8=
-X-Received: by 2002:a05:6402:2b96:b0:6b3:bca6:b480 with SMTP id 4fb4d7f45d1cf-6b4d65a8fb5mr13928684a12.44.1793874543883;
-        Thu, 05 Nov 2026 02:29:03 -0800 (PST)
-Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b5864a87c1sm278665a12.2.2026.11.05.02.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:29:03 -0800 (PST)
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Date: Thu, 05 Nov 2026 11:29:02 +0100
-Subject: [PATCH v3 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: Fix
- DW9800K support
+        bh=g4eh26VIvLph9rixscA5Qk9+BXI22FApx034GLz9Kzo=;
+        b=iaFFcR1Vk8m+zKODmIzMhEgra52DEYtUr+SJsMQPvhXcDaxu8Eiau6WLq6yn6RCu/5
+         7eCwNYzNqQzmgDNHK3bdffm9QRqPdf4SPVHbWOyPvNK5W/q/GDj3VoScrf48SB5CTycc
+         5ttQwioQ6kztqb5nnfj956Vgjf4IGd4X0qLUL89knBtw12P+kONF9TTmDL7iUEyySR85
+         Ym/UA3xKRnV2xOHzOFaxMdnhSvnPw1+rjVOn2rULFPLSztM7etUvGxZKg0+FwPr2vsMO
+         qgl2Qs/yQ7SUpKLoy4Z0OuZntWBo5EdRxyOdvNlUl/tfEODQK3GTgF3S8cznK/ZhtP3g
+         SesQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793874647; x=1794479447;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g4eh26VIvLph9rixscA5Qk9+BXI22FApx034GLz9Kzo=;
+        b=rS4zGmFVIXF3LO89X4dAnGiXSBqaDyfcib9ddPWqFcsLNK8PAhuVSPRIFZNb51PlLb
+         v5gjaEnmZrJ0kdCaX8LLpXTHe3kMx8d96WBKiHdvxGCBWn29kEpenn4nSjEpQkDiJog/
+         uKlwT0IvLORZV6/KbXV5H1nPMw2GQBk6Je5Mcz+0OLPpAYRueMZ3PGrNo85CiCSPMik5
+         6u6n44/eNaeTeDC8+dObh7bytjidGY+zBlUZbqskKn/OlFYNIqWIa8R5amZZzqsQCpxc
+         vyIOLGiJXjRJ0mP0B16JQLyKrotJBf1+9K0U34kqH2ikyBl60RG2izhCMCqm61fblUd0
+         tXPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzClobT01XD1NQHZ1P4ICREw5g2/UH3S+zu4EtiUhZKMM1k6OLodz8L28LocyGKOGLjQEri6SsKWb8e@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oLj4Wrdf82HR2o/uzSR0mJbv5V2jFVpWri8dtM2mnQT8zlq+y
+	NossGTLko2jt9xTKCbv3/M9rX8VvYZVzSSQxsXiSN4lGWXmPHBq+FRv8ZR8ILxbuZ57z+9G9P5i
+	2Wvz9D9CP5uWqTLywo9t/SZnhi1lKRfjYSlX8gKs1M+0h5LdOQujbPZN9BCHyNYH5
+X-Gm-Gg: AYBFou3JoxhQ87bfEY1rPvmALEDmLgWx9xM9w3vOGKKAUlcmYijQaPfggW6+IiVpyWU
+	Kt7fxK1TzZmSgpDB7K5P/wcQMT+o2bcCpambf8H4SnhBdDKcKAw7DCJLd57V1o+pi5vN7zEb/pK
+	Zsng5SRdhmZSw++d+4yFn6CFKPH19XT7wF8OIfOOJaGO/F8mtH64GrjITFXFYns3QO3JN+w8VGL
+	w7EWXvO5m6FavXEVoENx06cvtUFcApBe3hT0ppjyMnFSQWHSWcNtfAkYCY5H4b04cB5QYE+BfJO
+	fsJfJ+fmbYfC8vb9iiM2emLC75yy4FlK51W7UcYfY1n9l323vo43KkPcRqGDLnSNv5KplKQfXTy
+	x/JVyl8OnBl+j0WJA615qecgCD4TtEJXant1t8jM9YLideVr9mICxUQK3Eo9oFFf3y0Or1wektg
+	UvxLXRwA==
+X-Received: by 2002:a17:90b:4d01:b0:3a7:cffb:8b96 with SMTP id 98e67ed59e1d1-3ae8970ef3fmr15692686a91.18.1793874646670;
+        Thu, 05 Nov 2026 02:30:46 -0800 (PST)
+X-Received: by 2002:a17:90b:4d01:b0:3a7:cffb:8b96 with SMTP id 98e67ed59e1d1-3ae8970ef3fmr15692668a91.18.1793874646235;
+        Thu, 05 Nov 2026 02:30:46 -0800 (PST)
+Received: from [10.217.241.50] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31cd6c0sm3232520a91.13.2026.11.05.02.30.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 02:30:45 -0800 (PST)
+Message-ID: <2b5c5216-40d6-41e1-b79a-76c56c702348@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 16:00:40 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,65 +116,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: qcom: Add Talos Lyra EVK board
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
+ <20261027-talos-lyra-evk-v2-v3-1-658fd5a7ec99@oss.qualcomm.com>
+ <20261027-whimsical-russet-marmoset-f248ba@quoll>
+Content-Language: en-US
+From: "Avaneesh Kumar Dwivedi (avani)" <avaneesh.dwivedi@oss.qualcomm.com>
+In-Reply-To: <20261027-whimsical-russet-marmoset-f248ba@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-b4-dw9800k_cleanup-v3-3-6850ee6a5a5a@fairphone.com>
-References: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
-In-Reply-To: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793874541; l=1266;
- i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
- bh=mcLSV3KKUJrX2Vt1xs2+yh4YAv9r2QOuUzb8TrvhqBU=;
- b=ijW9VPm7EHX86RDK200oj2lBmSMCAHlv42lvi+mFyiDqBGXFEZsOlxeuP2TZN1evalrtRLzuc
- zQ50VXLhpNbBVipwIcRAQN4VF/7J7Tb8Z9rXnYHls9BF6UrdAHwp2sx
-X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
- pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
+X-Proofpoint-ORIG-GUID: SH_I5hS5fzkYZPZsLCVztDO3G8sS6EGa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MSBTYWx0ZWRfX6rPcMU1CX9e8
+ 98NMMJxj1pxWftOl4Ef4Zn9lxJ0FZje6TX48wJE2wlGn8lgBKEN+gsb33nTJo5fjLoT4yTKnnn7
+ lWTQa1IpQ9N3OC2eOAhkHr2IKqoEddfmDf+K7a/2PKrt3SyWglSacViMzZmVAkavKwUokj1x8dU
+ LeEI6mbnhPZlh7JCmF0tGiM6KnUTIGn68QYox6egHnrZtz8DpF2gD+yzYTzHH55MsZ7mxCx5G//
+ TQOMo0s86Pwk95KUXp21J/fQrFWCD5t1MGdAC4Ji/ntQLj4pLwTL4wHZHMg8MfibveWxroa53C/
+ KYVESdaHGCJKtOA/YhlzaDDbT1mPMQAbyX2irAJyZWUBk+US8rcq8/YMAkHODYnFGqvKBholO96
+ zfBjHAAcIP1q80+NsWLrCfqhlJ9neh7OCeGai0AbuPdyQDTXg5qCCtg3xQZN3svntjkfb2RDR2j
+ bEmCfTYt8ubckAHAX5w==
+X-Authority-Analysis: v=2.4 cv=N628hG9B c=1 sm=1 tr=0 ts=6aec5ad7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=OzfGJC1uvw-XEFatyoQA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: SH_I5hS5fzkYZPZsLCVztDO3G8sS6EGa
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MSBTYWx0ZWRfX0Ra1aAs6XhHT
+ VebvTUMuG9t0q8ixXgN7olnYMpQV8kCfn3z2QWwmSfnQjEyWML5f0oSw1hLLRDtnU07ophniiGL
+ zxKbUSG3jH1Pc2NOHsIRfPzVbpA5i38=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050041
 
-Update the node for the DW9800K for correctness.
+Re sending as earlier reply was rejected due to HTML formatting.
 
-Now we correctly select SAC3 mode and enable timing-control with the newly
-updated device tree bindings.
+On 10/28/2026 12:11 AM, Krzysztof Kozlowski wrote:
+> On Tue, Oct 27, 2026 at 05:01:55PM +0530, Ruchira Revdekar wrote:
+>> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+>>
+>> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
+>> board. The Talos Lyra EVK pairs the Talos Lyra SoM with a carrier board.
+>> The SoM uses the same QCS615/SM6150 SoC as the existing Talos EVK, so
+>> qcom,talos-lyra-evk is grouped under the existing talos-evk block rather
+>> than introducing a SoM-specific compatible.
+> I do not understand this logic at all. Usage of same SoC has nothing to
+> do with having or not having SoM compatible. Every SoM uses same
+> compatible as some other device, so we should drop all SoM-compatibles
+> in the future?.
 
-This is a breaking change for a part that was previously functioning,
-but only due to manual register writes in the driver. Now that we have
-the correct documentation we are able to update everything to ensure
-functionality with other devices using this part.
+Thank you Krzysztof for your review comments, and you are right. Sharing 
+same soc (QCS615/SM6150) can not be the reason to omit a SoM compatible.
 
-Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
----
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+v3 commit was misleading suggesting that this was the reason for change, 
+will fix it.
 
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index f41ad446a39e2308abaea68a6b31a7e387881bf2..a657a5dcba9cdf750fab2478ca319f3a592ea295 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -665,8 +665,9 @@ camera_imx858_dw9800k: actuator@e {
- 		reg = <0x0e>;
- 		vdd-supply = <&vreg_afvdd_2p8>;
- 
--		dongwoon,sac-mode = <1>;
--		dongwoon,vcm-prescale = <16>;
-+		dongwoon,sac-mode = <3>;
-+		dongwoon,vcm-prescale = <0>;
-+		dongwoon,timing-control = <16>;
- 	};
- 
- 	/* IMX858 @ 29 */
+>
+> So if you have a SoM then it can be used with different boards, thus it
+> should have its own compatible.
 
--- 
-2.43.0
+In v1 patch, the EVK root compatible list also included Lyra SoM 
+compatible. And as per earlier review comment that there is no value in 
+EVK claiming compatibility with SoM, we removed SoM compatible from EVK 
+compatible chain and added qcom, talos-lyra-evk directly to existing 
+QCS615/SM6150 group.
 
+If there is no value in EVK claiming compatibility with SoM, then is it 
+fine that i do not have a fallback SoM compatible in Talos Lyra EVK root 
+compatible list while I retain qcom, talos-lyra-som compatible for SoM 
+itself?
+
+>
+> Again, explain properly the hardware if this is the chosen design.
+
+H/w toplogy wise Lyra is reusable SoM containing SoC and module specific 
+components. The Talos Lyra EVK consist of this Talos Lyra SoM plugged 
+into Talos Lyra carrier board. But The Talos Lyra SoM can be used 
+independently with different carrier board.
+
+We will take care of above things in new patch.
+
+>
+> Best regards,
+> Krzysztof
