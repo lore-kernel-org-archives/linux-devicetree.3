@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.118
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.107
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793873486;
-	b=dKV8L/dP+b8TdJYjL9OGx8+8CPhwhd/r0BWJ3uxY4kdSfwOluWUdvC87JzhD+OC/V5kU
-	 f2ex9Um0MpMjbEpSUnZOJjO3hK6lpTkbMxjEkRN8ToV2eONRfeFyE9rvQsA0W4pFJTLfh
-	 6wGUSJ55AE+/8uDk4384HoV9hRHmv0H66+EdH3EUDXc0/1N08Qh/QiIXPVq/UcY9/m0B/
-	 vudS0kUo0RWRr8tdpaogdq7Jvhu9p5zdgpokTWILsM1g84RKdGNrS0PiXYep1tkjI6gku
-	 6avaaM4bUZ3k2CoC9xEjOfc12K3R9aY27em0y4K9vNFU7j8xI/dNCW4qcWAaNOwKDTw==
+	t=1793873494;
+	b=bOq1LERnn6P1LUGI38pNilCdobFBVIDCFFcbi3r6ZSl8T7vfLI660m4vLtHZ9BdaV115
+	 QVDqlzdVn95K8Isuqb1aahdy0TTTdhIXje6y3gd/ZtCLrR2XdQ9bEquJMa2AidyWvNhR4
+	 JAYNskCsctweqdp9jdwIvkMFpyIuidJVLc+xudiHvmB7Bs1ggMcjke4emw4NWMz+IvIeu
+	 HQKgS50QMMu99vsy6V/LhOxQi9y87BVAFfnZifrCUW/qpuBWrPYjYgjT8BgN0AlQHvNYr
+	 pmreyt2OiDb0pi4qxGUdZnCQbU6B6EXKCUY3bzigFOkJt3UBSwMaXCZpwJc6lT+st1g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873486;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873494;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
@@ -25,60 +25,60 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
-	b=KwbYxM+28VnpoVAHgW0l+I+zQNvVkvOBII6IXaMXlWIhwl9E+Vv3F1Erea6J+jY128PP
-	 U1jPMoacNnvfDDAy97bVutDUHJxt1o+pLHQ/wesPZ28Tfdy9S8cHfL8XCkBLIRaM9cPGL
-	 uARgmTleh9tfdeTD4THfNr7f/MbZCD8h+oO5j8PHcVNpRg3qb0BnWEhaVMchzj9i+bcyo
-	 1bbG9Tqarz5/G7C8N+h7gwnYcUgCwsrjrlYqRQuJSCvEO/F/KL5jFwyPK3T1BgQl/xaVh
-	 hbdeqb2JbVCtZxkQbB0eUEZUF5ga1u+skD/rcwVLsmcXtdCHr1IkJU2nUDEQda+y38w==
+	bh=edWvdqgTsBCErxpmnz+fY4QoEhA1kOBzuNQxr84jpS8=;
+	b=k2fwt3+Jiyx6k13swWaEX9TQZyXkwE3Xcbs/13YYm/Z14MsvqVNqva/sEvxwGmTrEqjW
+	 uoRadNu1F3x1PV85r2f+tDWIRhKhd89uTdRGXISBNHexe9BL4dh5JaJVPR21WuiuNVVmB
+	 x8sKXSssDWc34jFFsOzE0A10uF54vJnKZEMS+8WamdtUzZq1/R2Y5KUslGcpeUUJpIm5J
+	 o4oM3y/4UsJoXVe0Jjz3KIAJpj2GgCcWafM7eCODm/7gsOqxA/KOaK7If8iFmuhzW7DxW
+	 qlS7L8ELDDjw34zbNG4KcnKwYrV50D+qbi7G4h91ro0PYB9OKriH0ZWvO/mPvxzgTLQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=vaisala.com;
 	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b="iKyS//Ik";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.118
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023118.outbound.protection.outlook.com [40.107.162.118])
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=1PJQZCQ1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.107
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023107.outbound.protection.outlook.com [52.101.72.107])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E49B606A329;
-	Thu,  5 Nov 2026 10:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E49B606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8C7606AA67;
+	Thu,  5 Nov 2026 10:11:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA8C7606AA67
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=iKyS//Ik
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=1PJQZCQ1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fdZPyxt+hhKXZ1V5iOFpEwhb7P3l/OVuU7dRGKa9GHxXA8TfNucQmFSPkL8Rm/dq2domEGk4veOjS3S2ErI5kVIXx9M0LoFMB32EjqXiH1OSzrOHW8xmCnvOR0Pe65r/tqsaB/NJXvo3HFgnrSb7ySXKpfstketSJoX8CcbTmdBQ2ck8Sts2lcgn5YIdZiGjqkOyGKYVcnqrP49mCArp9pf86fI3yrSWCu4Vi139vYVW0uPnvGwQaQDHCtkrUI6TvDUw6U1VvdAh/aJyCtBAcO6n1FFklsVrDqwE94aHHIYpXtBJcYhZOoMa7KKuBGrTVCtnc1H19YPCT/k0fcTioA==
+ b=Wvr/sbyQRQOjt1xE0VIdnBQhKVzKLjViWz6Tk4wol0R2XzWFyyh/dZ3xL/jY8Uqf68mSMPoCtREGzdVMW5faML2UIPi8V5/kaq72uMBzO901V5csY1RdWwXtJaHJck8OeMe7XVM/3Mq+HWkEctm1haDXz3506jYdLA18sEQT5/cbIIjfYqJyQzmUWMnQI+W0UCYKCW7IcoDKn427lplMGe3n9tWC6nUyITwziXkjbTVbqxmP+UzsyT+zFNwQ/aYCBWW9wpzeEweHOwAhT2wo3u3EIstS55t8Zmu5AEMFqj+TV2RIiwwfwpLLol8zLWmb87z3PIQJd0GQ9BvTQOIhSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
- b=JXV/MTaxWo32ZPjURbTv0D5LPjocNn/nQSbplT57Qu9CPBO47WajwwuzWcI/DzAWDcMNJlOvkc9BNQVFezMj/rn6FGdpvazP1Z3aYMu99WlpC4GHr94ZralClkh/X06c6TFPBbcBLSzHuQjZm+7eI9Ylyo5IoX6XO7HQtiTBaQdDYfcUUT4LHAp40CT0oCd63LSDuoKg28Kw/jFJlVX+wFYVaWxnEHgui8cyzDGBIImukSJI9Jk3JQboiB/YagfdLFjqfcBRgJRNNRdT69vqYIua4IzQoy01Ul6rcWkPe4vRIFB+DLb613FUTlNkumBWOWEfarC2CUh9FPdUbmvHQw==
+ bh=edWvdqgTsBCErxpmnz+fY4QoEhA1kOBzuNQxr84jpS8=;
+ b=glCG7tRHuP3kkjrV3D5eYEvmiNHKZtVLGugskLvbZIo7fS8UkvDqPFtM2C3E2hMfhNA5KVwkdVTE2j1qpIZVlAd2NdjaVoc/vd1beBY1Yzt1RXrZDr851xp6pjjUkk1Ik9ZwMxMIjUHGNDOTbGrU/7f36xx1duIWH28tsNrJXtfOvd8kvhkF1V9vasU8jFkWOxo1lR5thN7Nz/gl9cw8b9fY/duKraWGWBZoZSKLXaOcFJ/wBleHCDKTQ+IP/AuvOxW12lLOdRBOfC16OeELrgfTc4Mh/kst1AKZx2qU3ikC55PXcyWP6URiXSSf6VuklW5qpX6V+BQZoPDSklqlUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
  dkim=pass header.d=vaisala.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FomJC/bDvIu+G8jOMN4BGbvG9MVjlFR4kAKl2WreOzs=;
- b=iKyS//Ikhek1HHejc6JESh3FvNvshNXw3nJHRG2I0wQek40pyabWkW/svSxX/1Ul3+WFwgQIX5TUAuaLdb45S1OHFGvLF2prZVZoZ8G9Acg+yZ+Ee0ekdCgOrLR+vCCxfvW1IR1UW9umZ/pMEe7JWfJX8VUfp3bb0K8or0pKp/90G48jbkWg4h+qCh38Ldvsv3lOtCfHvvbARXoU5iYjM4120Oe6h3HqhwsZmUMeCMPXsb51DcvDhGzr8U50GM/uNoxodVz5VAPbyZAqz7CnL/B8ucWTeIWKGax2JlV6AJUqeIRIDFbt0UlrsKCHAiF9JbaygKhna9FdYV9a/Q6dWQ==
+ bh=edWvdqgTsBCErxpmnz+fY4QoEhA1kOBzuNQxr84jpS8=;
+ b=1PJQZCQ1UEUZKcBP1Dg1iPkXqPG9yzvpvuBlL+Hx+NX5AIDRStVrrn68hypNJQ9782tcgE9En0PlLzcHTahoH8QX2EYmXw/YgX3w8x/DuTKVahAt1B5XLCw8JJLoRMjbUeo1K9MKjAPyRuUXn77tCRc4NN3eLJ+SMmE8TpMqFfuyQ6O1H/pszvJaXVicBet/Xr1UUiFSA2LBLE1ruwBOQbtbp3O95iA4wZQzK+YCiFXQjy5Gpg2/1OestEkfg/CjK0dRutu7FJIM1Tl2QN1t/CQheJTcO1AMGoWvXz/nCiUiayP0FD4VhecDC3LXKJXYbK7N1u79GKyY2U4OTkaedg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vaisala.com;
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
- by PA4PR06MB7197.eurprd06.prod.outlook.com (2603:10a6:102:f8::17) with
+ by DU4PR06MB9644.eurprd06.prod.outlook.com (2603:10a6:10:564::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 10:11:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 10:11:28 +0000
 Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
  ([fe80::b6d:8160:d324:3bfc%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 10:11:12 +0000
+ 10:11:13 +0000
 From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Date: Thu, 05 Nov 2026 10:11:04 +0000
-Subject: [PATCH v5 1/2] dt-bindings: mux: gpio-mux: Add enable-gpios
+Date: Thu, 05 Nov 2026 10:11:05 +0000
+Subject: [PATCH v5 2/2] mux: gpio: Add optional enable gpio
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-add-external-mux-enable-gpio-v5-1-96c5b62c86ea@vaisala.com>
+Message-Id: <20261105-add-external-mux-enable-gpio-v5-2-96c5b62c86ea@vaisala.com>
 References: <20261105-add-external-mux-enable-gpio-v5-0-96c5b62c86ea@vaisala.com>
 In-Reply-To: <20261105-add-external-mux-enable-gpio-v5-0-96c5b62c86ea@vaisala.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -86,14 +86,13 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tapio Reijonen <tapio.reijonen@vaisala.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793873471; l=2577;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793873471; l=4433;
  i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
- bh=Gr1YAJALi3AouD4e5XuzJ0v8KAWvpwPWlcL6zTI5+54=;
- b=aFMROVSEXhKjOL04VZLkeCFAqeqVgU6o264o+KYgkOxzPfSz1Wisu+MeINRhPw8XaIO7VHjK1
- C4Y2HuFz/L3CdTnF9iRk8b/1ipdCnj1XhEgf9JyFYWAUt7exKk2OGFD
+ bh=3zDsm6/mVWsHL/hcVn3mAQKepiAKwAqQe/FYpDGyQ00=;
+ b=TELWPyzbEn+FlAfJJIrctR6XNVxoFK6VEGAryz7yDTdZ3IP8CX1rgujeD+3/4W96WoGIgFXo3
+ EOYSzSPGYZ7DnF65EhMz1bbFROo8+hBWOgrwOYGBexAWou/mYxhuget
 X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
  pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
 X-ClientProxiedBy: GV2PEPF00046794.SWEP280.PROD.OUTLOOK.COM
@@ -109,143 +108,182 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|PA4PR06MB7197:EE_
-X-MS-Office365-Filtering-Correlation-Id: e230fb35-97eb-4f68-3a0e-08df3b251ec1
+X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|DU4PR06MB9644:EE_
+X-MS-Office365-Filtering-Correlation-Id: b572e101-515a-4397-e1d7-08df3b251f3b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|366016|1800799024|23010399003|10067099003|18002099003|22082099003|56012099006|11063799006|261026140227099003|261102123227099003|261028144727099003|261021121427099003|38350700014|261009223027099003|261022105027099003|261026121527099003;
+	BCL:0;ARA:13230040|366016|23010399003|376014|52116014|1800799024|22082099003|10067099003|18002099003|38350700014|11063799006|56012099006|261028144727099003|261022105027099003|261026140227099003|261021123027099003|261021121427099003|261009223027099003|261022075727099003|261102123227099003;
 X-Microsoft-Antispam-Message-Info:
-	Jf80YcPGLlqVoMlUpMq+AIRIcS315Ubz+zxOaYgC0sKndm+YCZ5oTWcck/52D28vt+j0zf8AP6C266DuVwY1eF/E1Hhvxv5K3ioTkFcHcD4+f6X50okrKRKFtwQD+Gskl/Co6EuZEbYj+dY7Cr/kx7dQiYcOrElvZdlUatQ3SRTqsbWqZqCsnH5e+LkGE1Xz0rovt3nTCn5tkIQ0uTHgiSQ45ifNAtPTvFvkIqfts9JwgG8wEs2j2jj96SK0jsrhj4UbcdEnK+TnBx/DuatiJXJuZRT+EvAEuwl+FmgYHykxshyDyMbaLGPRuiFmhZnScmF0SOWlMQKc0fMXkfNPswuLb6YcRP4hNZ7kVTMygCNPARmVeNBA9GlyrwJPpP5JrMMTZb/sUO7FMTyaY6wZU4kjor9RvxBHFAYn6Nwh3vRi4vmN+lPGvL0YvsZDG09opz/JHMXlRq/rce0eLHqlz12gdne7JfaRmkODOGT+S5ymC0UFNOnDEMP0UVSmvKGK7JrTpDTZEXfTjwBq5ukWwos07J5nAk1ojAlKr2knCO+w2CSYr/n80JQ8TgLG6ZOR8VRZDI5fhe/5HODLiYy20PSunAdRI3TpRa9kfKPZ/FnPGJZg1WlCqFQEulfqbwbWmdrb7E6mSb38gLjjhLsQgNHOUvBpX6sE9wq2PahiuUq3VEbIpu5bC6VT2mQZlo6hJRXx/clGUYdU/Te1AMr1eA==
+	HxeP5naW9t+zHxLbqh4w9YkIGfUEhn2xIdLP3sONJEz2GvWFk/pLux+m4ptjGZdWoxAzXnL1gtFjKvAYK/QAWZb8fYZVe9OE9kKPOTpx1Q049sbzG3t85n9qKCl+1MGjZUvRMVN5T3HiEoIkyE5TE4iBuMlSJaO1mxuY69APepimWslqFOXUppFpZYgKiwgBYhoKNj1myspb31CFZKMUWksbIFBsnZggr3TlPP7NRIPzqeKVzPd1xmAa580mnPmRtj+fPwgZgJLOhTckdLYr0RH8pKNT5Ywm95FtJXVbEZtzr52D7XoUiN+jkKMgZ4Kf3q+5d2tGTUr0gHL9o9MG1IBkchSR6OmBO7qgfh4IfIwTxBk1134JFBBJ9XETGrhWTOwjWEYqCsq22FtPLyqn3anTgEJXVRq/QGRG1rg5Vnnf+H7srMlpq+Zvkep6dchwo4PtN8zq90h43vo69GhHT5wzDLa74bSO4LqjrKxrrg8FX5dA+hbfALeplOpQwtloaQXSqGG7+N141P9rgIi/ZN9TqWw5v/F4XctDBVc/oBXnL+KdiA43uvu9jlPd6rbV4pH46stiCQP0WJU/ewv1TJRe1ObYsr26bBmAvLCqU1ebzJW2mT0absep0/A6wFBRlkJ0znpH22aSPucz6B9Zho/L7Cp1JqF/cT+tM8cTW7eCxyOxFbTq5cFrq2cr7nkjiZ9lAIlIAwXrAOI01RzJE9O1r3OEtRs1qYht8+dn8tQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(366016)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(261102123227099003)(261028144727099003)(261021121427099003)(38350700014)(261009223027099003)(261022105027099003)(261026121527099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(52116014)(1800799024)(22082099003)(10067099003)(18002099003)(38350700014)(11063799006)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261021123027099003)(261021121427099003)(261009223027099003)(261022075727099003)(261102123227099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?djJBamgzY2M0NVp6VkhLWG9IRjRHdm1IaWdJYlVjUmo1TXpJQXVRRG9BM0Vs?=
- =?utf-8?B?RkZJblE2dHVhUVh5TERtcTBDY3RkZ2duVEllS093Z3JTMUJyWkhocFdQa3JN?=
- =?utf-8?B?Qis4eHc3ajEvcFlhZDEydERqYVhBQ3pPWUdWdHNzdm5lbW8zY3hNUlI5YmR6?=
- =?utf-8?B?TWwrR1ovS2c2OHNxVmRIRDFmU2UwbGFwNHpSMnEzbEh5OE9NbWFoZzdndEtk?=
- =?utf-8?B?RTdRRlhsY2pOMXRCRFFWSGhOYm1UQU1hSm8yd3c2ODJBK2dSR2Y3MHVYNjVV?=
- =?utf-8?B?Sk96Yi9iRkxMVzhHbXlidjJrd3pzS2xxSGV4M09UQXZaVjhkbUpKQUxjdDl1?=
- =?utf-8?B?S0FuQzNPUzVISFBJRGprd3gzT0pzS0J2cGRsNmN3WVowR3AzR1pLVkdmQmY0?=
- =?utf-8?B?NDZkUklUYmNYSllRZU0vWWY1OWw0V0RnckFSbThsQzRjTnMxRzAvb3RCdHpY?=
- =?utf-8?B?ckVBYVBLMmIrbmwyS2NTVTdIZ2RXVVBub3kxWWdPWHd2Y2VhR0wyOEl0aU14?=
- =?utf-8?B?Q3NkZ3dIbEdNemo4alBQdnBYNDhNb1pWdFF2MzJvazF4ZGhzS3hqUWV1VHZV?=
- =?utf-8?B?Q2M0NThyTllaR1dKRHErYndNN2xIby8vT3NFZWhiTnBoay9KOWpCd2RiZEda?=
- =?utf-8?B?YlZpUXNrRzZ1TWVqaFB3c0RWUi9MSmNpd0dVN3h3bTZHbTU4T1ozZFVOOWFH?=
- =?utf-8?B?cDAvSlZZbjZKaXZha1QzdFNDSjdhRWNWTU80MHlDYXljY2JwMDRZODhTUHBI?=
- =?utf-8?B?UER6VlNEcnZLZE5QNmZ1UW5xK08wMkN3MHIvL3p1Q2xpWllVc2k4cm42c241?=
- =?utf-8?B?R1pDblMzZ2Z0OUJzOG55VGlzQWtFQkJ0Qk5sMDgwaGxiMWRLOStpYUlad2ZT?=
- =?utf-8?B?dTNZTG9iV0NNbTlIRFA1V0VZMDZtS3dyckJZZkcwSmxyZzVKTjBmMmdmVzFv?=
- =?utf-8?B?bUM4NW5PU1ZHQ0ZKWE9zcTBOZ3IvVjB0SWxzemo3dGluQVlpNzg3cG1ZeEJl?=
- =?utf-8?B?T2hicHJ1VytvOXQwNE1nc2c4dFQzem40WTBkVGhUeGEzQ05iWTVYQW5XbVRj?=
- =?utf-8?B?OWloWTNNNGI2RTF4THhtWHM1NHdhTUlmV0xYTHoydkpzdlVUWUpTbVF5alRo?=
- =?utf-8?B?ZFpkcUNBN3BQbDdMRldYYzFDYkZ1b01TWkFyanZCUFNYUFlhbkEzNHdPRjJR?=
- =?utf-8?B?UHovUnhvdlJuZ3BYbXJDcHRESzdtbG01V0VWMWxqZWJtR0dqamlvcUM4QkEr?=
- =?utf-8?B?SGYwYXBlSXI1bnFHQTR4aGNNaHZpUDIrdDliYmdZWFBxTllrYUsvRFFTYVBz?=
- =?utf-8?B?aC9uKzc2RnFkZFUvMHkzbDVFWUFXTnBhdk0zVnErSjNnUjNtcXluOEpFWEVO?=
- =?utf-8?B?WjhteFoxVHNiakZxUXFwYzVqbFdwNi9na3lEb1hCeDdpbFd6NXYwK2hvNVVL?=
- =?utf-8?B?UVlrYXBWWlJxb0liS3dPQnprZ0xYak1Kd2VYMEJEZmUzTDFvdko0eE1mSEJy?=
- =?utf-8?B?cWR3NnBRMDE2RUMvQWFITFo0ZkIrVmtlWHlaRjFwZ1ZGWUIyR0J4VG1Nd21z?=
- =?utf-8?B?VkJjbmU3NzlJRjZ0ZHNyWjJTUTVkd0hmdTFGVVp4R3NGWGIzOW8xQy9ob01a?=
- =?utf-8?B?aU5ZNjJTNnoyZGNCbUlQSTcvUWt3T3djQ21rSUxwZTFpZlZTOWRHOVpnVDBi?=
- =?utf-8?B?cHNaRVpzcEdWZERiK1U4Y3UzYnh5WTZRelVzZllabFVTNEVBVmltUFlKenMx?=
- =?utf-8?B?VUtoMlBYUDR5YTNIMlJqbE5TQmFoWGlaekV3TGxEQlFqRVVUNE9DWWVLcEgz?=
- =?utf-8?B?M2ZsZWphYks0TzhTTlYrSGVnWG9KalRtenFXNTlOME9IR1JIUytjbW9ZSXZm?=
- =?utf-8?B?Q2hKcVdMcVlRK1B6bEowNXNzSnhjcVJRYytERXI3bGI5RFQySkpjSytVeDE0?=
- =?utf-8?B?NlZZbEJkOGdYUWt5ZGovUjF0T0xMVHNTbFdzOStOVFNUVDhsTVo4cGhaOXhr?=
- =?utf-8?B?am8xT1BRZ052eTUxR3dXeEU3MUppZVFWK2JvUmQzMHltTHVRRUJsZC9CMXJa?=
- =?utf-8?B?dDAwNnJrdGtuRkwrLzNpT0dDdVB4Z2pCV2lPQUNjaklpWHVmbEs3VkEvOEJG?=
- =?utf-8?B?a1QvaVJNZWhKbk1JNXdBYnRuR3I5OUNILzZTa2RuSmFTMlUydUJ1ZVhIMlhY?=
- =?utf-8?B?ZFd2a3hJbi9JSUdDRnlPNVdPcTZnZnc4NFNzODZvNkU5Z05JVG1LZzRPYjJo?=
- =?utf-8?B?aWNmVjVtRFE1a2ZVbXQ0bVF0Ui9YblhpM2VHWkxVTUVsaVdRWE5BOXhyeC9y?=
- =?utf-8?B?eXJzamZDRHh5MmcvSU9kM1lVNDMvMWxuVzNSZGpMQXJtVHUxWWIzRzZ4Ynl2?=
- =?utf-8?Q?yhysX4kW/qHwR9dw=3D?=
+	=?utf-8?B?eVdDZXo4U3JWcktEblZKU2c0WWJ5TUJqd2RSNEVNNTFHL3NEbTFTckFjT3RR?=
+ =?utf-8?B?QjhEWEhsNFFFZmtaYmJtTTBGQXFCSjVwWjF2bWErQi96QkE5ZFNJT0kyeCs4?=
+ =?utf-8?B?YUFrTzY4bklKZit3YjNDUXhjMlZiaWltaGtTdmVLMEdpTkVIS3hYTXcrVWhQ?=
+ =?utf-8?B?cTBGUDFNeTlJSWtZeEJ6eXo1Y3J0YXVKVlJpTkdrZzZPRmFmNGZXMi9xQU9i?=
+ =?utf-8?B?cDlORUZlOXZjZ1p1d1pSSFhCdGpnc1J6MUptVittRW9SVWtoUGQxaFhCUHY1?=
+ =?utf-8?B?dGJlZ0RkNG1obzRab0xjYm9KMHJBSU42TGMweWc4SmpPWWs4RWt2eDAyWitC?=
+ =?utf-8?B?OGhsbElvZTlLM3VycG5obnFaN3JoTjhFS1g2QkNBcTV6TDJxK3VTYWtDK1Ro?=
+ =?utf-8?B?blg3MEZURHMyR0ZtamM4c242WWFtUEVHRklyRFpLNEgxM004cFpBWGFDb1px?=
+ =?utf-8?B?OTY1UGt1amJNNlZRUDBvZHdxc1lweUpuN29kWExQbUtERTdkUHQzbDdxTjN2?=
+ =?utf-8?B?YmNsSGQyd1lDQnZZVzFJUllZdTVIc2tzZ2MzdWdjMjB0emE4SE5Lb3RHOTFk?=
+ =?utf-8?B?SjgxWlgxOWdVVGxmVU1pTjdlL2F2c0VoVWlMRUE4YU9Pa3RkdzllU0VLNW5K?=
+ =?utf-8?B?WWVZcEdMdVY5UERvcVZiVHRVZUJTbmhZelkwWC9US1dhU3hrUG5JdkxzdU13?=
+ =?utf-8?B?elFRSi9sVmg3WXBIWUxITTNiVGc4Skh4U1N4RWpnUG9JNUlBaVNjZ1pjSFdW?=
+ =?utf-8?B?Y2ptMVZsOGdRZDhUL3JSWnhRcGRoQzdjOGFYQ3NWQUJJNmw3TEpHZTlVcDdG?=
+ =?utf-8?B?RmVWTnJLN2t0OFNMVExNTG1hVEFUU0JVSzBFT2ozTmsrU09WQTZRSEdheDhh?=
+ =?utf-8?B?amhUclhWcUlSMXhpOWp2U1lSc1Q5TGRlWXFKNWhIN1JsYk1jRmx6N1ZidFUw?=
+ =?utf-8?B?aGtxZFlzc2pVK2wwdlk0VTNmRmdHTVJQeUFaQmVVOFF4UHZubFU3UmVuT1FB?=
+ =?utf-8?B?SXpDbEtCNnFzQmw4VitkbFJQdkhFMjdoRFVJN0NpZmpPd1ZnOHdlVk9wWEtK?=
+ =?utf-8?B?MzY3OTJGRU1NdjVzQmR2Q3lLTmhCMExwTllRRjdoTWZ2TFBlb3BUTFd6R3pw?=
+ =?utf-8?B?M2NFWU1kZDd4MWI3cFpJbUVtcjB2dnpaOFhreFBWT0JyekZLNC9jcEhTYzlO?=
+ =?utf-8?B?Nm1RMkVXV0pJRVl3SFhKY3gxNUtSNkNxS1BjeVpob3YvaGFrcjZsQUd4cE4w?=
+ =?utf-8?B?M01MMzk4ZFJuSDZERnBDc3dTaXdpYUt6aTg2UUhNMHladUxjdk1IR1pCUEU3?=
+ =?utf-8?B?QTlVYVBlelp0ME1QeXNNRUNYaER4MDEwQ21ROEVFL2FuckVuSUYrdFJMc0FC?=
+ =?utf-8?B?MnNrclQzY0s1NE1PTzFYbHBaL20vZ2ZWdFBXVXRxNHlKdTNNL0I5SnpSRHF5?=
+ =?utf-8?B?ODJWblFKU3VwckJsSjdHUjFUaG9JRGVWUTVqVit6eVJFMEpuNk5ZMWMyY3l5?=
+ =?utf-8?B?YlVBY1c5TjRLQnA2dkJOdldNc3dKUWlDckRYTm1jbmpUbi9jRWsxV2xQd21o?=
+ =?utf-8?B?OE14VVpPeENvRHA2aCtCSlcydmJObTR2VnMwS3BPbEVMWHQzNjZQbHNYSkRT?=
+ =?utf-8?B?ZnlXTHMvR2dKMDc2ZVdwbWt4SDhoRTNPZHhnTjZhZm9qL1cvZ0tVamhtamla?=
+ =?utf-8?B?VUttV3h0blhlUmhRb2oyVFdFZ2ppU0dOUHlBZVR2R3NhOStOS2RFeGhPc1FL?=
+ =?utf-8?B?NVErbW1aQXU4WXZMd05kVUkvZkhBQ054WXdrZkpidmZzd0JEdFNPSTV6Q0g4?=
+ =?utf-8?B?VGlpV0xpOWp4eHMyL3Znc015Vk1IWjFuU2tuQ3M0N1RhL2R1L3NvelRBczJm?=
+ =?utf-8?B?dU1EZ0dkelRHbkpNRUpGVGtBbGlhRkdCU1Qzakd2amgxVE1xMVZ6TGV0Nzl0?=
+ =?utf-8?B?UHZIWFdNZytUVkNtait3bDFvQVdJbWRpNHRBTGc1VU1PR0JJTTQ4SFZCdmlh?=
+ =?utf-8?B?aXJxTWsxUHdSb0lENlZTSnhDeVgxVU5vaTluR3JLQzVYNmRTblBjSVdXWnJh?=
+ =?utf-8?B?OTJwcGpUZk1ZbHBwcVZjbzB1aERrQWNnSWVXSlhMMU8yWk1vdGNyMGFva1g1?=
+ =?utf-8?B?L3lPMGtNaXBmcjliL2NlcTBoTXhSVTVqc2RCSzNzNFF3Z1QrVWMyeXIyeTYz?=
+ =?utf-8?B?ZjczS3AxRkxQNlNVemhYSmJncnlNR0Vac0l4dlRMcUZJNWlnb1RkREVMR3VI?=
+ =?utf-8?B?Q0hJdXhIV0JWS1ZWY3FaSmNRVmZ0enNPdWtuUTI0YTZSdlk4cm1HbU5oSWFw?=
+ =?utf-8?B?KzYyQjIyRDA5OEN4LzZySW5iYTVBSnRja0FYNTN2NEtUaE9iQ1E3ajB1RS80?=
+ =?utf-8?Q?ye7ht6N42/eROzzw=3D?=
 X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e230fb35-97eb-4f68-3a0e-08df3b251ec1
+X-MS-Exchange-CrossTenant-Network-Message-Id: b572e101-515a-4397-e1d7-08df3b251f3b
 X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:11:12.6980
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:11:13.5012
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G+qLq430s8onIcXpP+EN4YqyRCVYygIcov1mEL0kCxAlAxS3y2Ubhbvif2bmhWmf3MP+g2+5Ohw5V7Am60aePz9a0x1spw5RpdSwyOdjjT8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR06MB7197
+X-MS-Exchange-CrossTenant-UserPrincipalName: ejWW0h9dvDdQHdmhFBq6VkyP+uHkIkats4S6+OrjW1DftUkQSzSi7WLcPgujTXeficTunXeRCHdeluenM0jNatPgpT/I52zEripop3D+61U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR06MB9644
 
-Analog multiplexers have an enable input besides the address inputs. On a
-74HC4051 it is the E input: with E high, all eight switches are in the
-high-impedance off state, independent of S0 to S2. A 74HC4067 works the
-same way with four address inputs.
+Some analog multiplexers have an enable input that disconnects all
+channels when deasserted, independent of the address inputs; on a
+74HC4051 it is the E input. Add it as an optional gpio.
 
-Two things need that input. The mux-controller binding describes an idle
-state of disconnect, which a gpio-mux cannot reach today because the
-address inputs always select a channel. And the address inputs are plain
-gpios that may live on different gpio controllers, so they are not
-updated in one go and the mux passes through the intermediate addresses
-on every channel change unless it is disabled meanwhile.
+The mux gpios are not guaranteed to be updated atomically.
+gpiod_multi_set_value_cansleep() groups them per gpio controller, and
+only controllers implementing set_multiple() can possibly update theirs
+in a single write, so a mux with its address inputs spread over two
+controllers passes through the intermediate addresses on every change.
+Deassert the enable gpio for the duration of the update and assert it
+once the address is settled.
 
-Add enable-gpios to describe the enable input, and require it for an idle
-state of disconnect.
+The enable gpio is also what makes an idle state of MUX_IDLE_DISCONNECT
+possible, which the mux core applies when the chip is registered and after
+every deselect: it leaves the enable gpio deasserted and the address
+inputs alone. Refuse that idle state without an enable gpio, because the
+address inputs cannot disconnect anything on their own and mux_gpio_set()
+would instead drive them to the bit pattern of MUX_IDLE_DISCONNECT.
+
+Return the status of the gpio writes instead of zero. For a gpio on an
+i2c expander the write can fail, and mux_control_set() only invalidates
+the cached state when set() reports an error, so a failure reported as
+success would leave the mux on the previous channel with later selects
+of the same state skipping the write entirely.
 
 Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../devicetree/bindings/mux/gpio-mux.yaml          | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/mux/gpio.c | 43 +++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 35 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/mux/gpio-mux.yaml b/Documentation/devicetree/bindings/mux/gpio-mux.yaml
-index ef7e33ec85d479ce57c5fe4a780f81a08a6ab6ba..2dd94704fd7bde238af4e84af87c2ad8e955eb14 100644
---- a/Documentation/devicetree/bindings/mux/gpio-mux.yaml
-+++ b/Documentation/devicetree/bindings/mux/gpio-mux.yaml
-@@ -29,6 +29,14 @@ properties:
-     description:
-       Regulator to power on the multiplexer.
+diff --git a/drivers/mux/gpio.c b/drivers/mux/gpio.c
+index f9c7863e51b82fb76ed03cf17308fae74716cf6d..cb2f38c1a9e247478f97fffaf1d5ddae4315d1a7 100644
+--- a/drivers/mux/gpio.c
++++ b/drivers/mux/gpio.c
+@@ -18,6 +18,7 @@
  
-+  enable-gpios:
-+    maxItems: 1
-+    description:
-+      Enable input of the multiplexer, which disconnects all channels when
-+      deasserted, independent of mux-gpios. Deasserted while the mux-gpios
-+      are updated and for an idle state of disconnect, which cannot be
-+      reached with the mux-gpios alone and thus requires this gpio.
+ struct mux_gpio {
+ 	struct gpio_descs *gpios;
++	struct gpio_desc *enable;
+ };
+ 
+ static int mux_gpio_set(struct mux_control *mux, int state)
+@@ -25,12 +26,26 @@ static int mux_gpio_set(struct mux_control *mux, int state)
+ 	struct mux_gpio *mux_gpio = mux_chip_priv(mux->chip);
+ 	DECLARE_BITMAP(values, BITS_PER_TYPE(state));
+ 	u32 value = state;
++	int ret;
 +
-   '#mux-control-cells':
-     enum: [ 0, 1 ]
- 
-@@ -47,11 +55,23 @@ anyOf:
-   - required:
-       - "#mux-state-cells"
- 
-+allOf:
-+  - if:
-+      properties:
-+        idle-state:
-+          const: -2
-+      required:
-+        - idle-state
-+    then:
-+      required:
-+        - enable-gpios
++	/*
++	 * The gpios might not be updated atomically, disable the mux
++	 * meanwhile.
++	 */
++	ret = gpiod_set_value_cansleep(mux_gpio->enable, 0);
++	if (ret)
++		return ret;
 +
- additionalProperties: false
++	if (state == MUX_IDLE_DISCONNECT)
++		return 0;
  
- examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/mux/mux.h>
+ 	bitmap_from_arr32(values, &value, BITS_PER_TYPE(value));
  
-     mux: mux-controller {
-         compatible = "gpio-mux";
-@@ -59,6 +79,8 @@ examples:
+-	gpiod_multi_set_value_cansleep(mux_gpio->gpios, values);
++	ret = gpiod_multi_set_value_cansleep(mux_gpio->gpios, values);
++	if (ret)
++		return ret;
  
-         mux-gpios = <&pioA 0 GPIO_ACTIVE_HIGH>,
-               <&pioA 1 GPIO_ACTIVE_HIGH>;
-+        enable-gpios = <&pioA 2 GPIO_ACTIVE_LOW>;
-+        idle-state = <MUX_IDLE_DISCONNECT>;
-     };
+-	return 0;
++	return gpiod_set_value_cansleep(mux_gpio->enable, 1);
+ }
  
-     adc-mux {
+ static const struct mux_control_ops mux_gpio_ops = {
+@@ -63,6 +78,11 @@ static int mux_gpio_probe(struct platform_device *pdev)
+ 	mux_gpio = mux_chip_priv(mux_chip);
+ 	mux_chip->ops = &mux_gpio_ops;
+ 
++	mux_gpio->enable = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
++	if (IS_ERR(mux_gpio->enable))
++		return dev_err_probe(dev, PTR_ERR(mux_gpio->enable),
++				     "failed to get optional enable gpio\n");
++
+ 	mux_gpio->gpios = devm_gpiod_get_array(dev, "mux", GPIOD_OUT_LOW);
+ 	if (IS_ERR(mux_gpio->gpios))
+ 		return dev_err_probe(dev, PTR_ERR(mux_gpio->gpios),
+@@ -71,15 +91,22 @@ static int mux_gpio_probe(struct platform_device *pdev)
+ 	mux_chip->mux->states = BIT(pins);
+ 
+ 	ret = device_property_read_u32(dev, "idle-state", (u32 *)&idle_state);
+-	if (ret >= 0 && idle_state != MUX_IDLE_AS_IS) {
+-		if (idle_state < 0 || idle_state >= mux_chip->mux->states) {
+-			dev_err(dev, "invalid idle-state %u\n", idle_state);
+-			return -EINVAL;
+-		}
++	if (ret < 0)
++		idle_state = mux_chip->mux->idle_state;
+ 
+-		mux_chip->mux->idle_state = idle_state;
++	if (idle_state == MUX_IDLE_DISCONNECT && !mux_gpio->enable) {
++		dev_err(dev, "idle-state disconnect requires enable-gpios\n");
++		return -EINVAL;
+ 	}
+ 
++	if (idle_state != MUX_IDLE_AS_IS && idle_state != MUX_IDLE_DISCONNECT &&
++	    (idle_state < 0 || idle_state >= mux_chip->mux->states)) {
++		dev_err(dev, "invalid idle-state %d\n", idle_state);
++		return -EINVAL;
++	}
++
++	mux_chip->mux->idle_state = idle_state;
++
+ 	ret = devm_regulator_get_enable_optional(dev, "mux");
+ 	if (ret && ret != -ENODEV)
+ 		return dev_err_probe(dev, ret, "failed to get/enable mux supply\n");
 
 -- 
 2.47.3
