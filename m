@@ -1,63 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906298;
-	b=3tJXLhYQ+idr8KFOHX1iEQ4Lz/MmbK5yMjPxKhEhSM6HNbLb2yZ3VVpNL/hFxyTulRfK
-	 s9rjylFAO+sWNnwxUGdgH7lFbOtbzhVOtoMr8nkLtG29fZGZ6FqcMHxdn8tIQN1uwi+/i
-	 M3HXv24XFHHkZAByqeKHCM/BqzNWblSMMJsvoIciQJIhwGANrQD+hE2UW6BZS9vcl6ZEN
-	 4CC6sczk2epngG2GPkHAdJAj4blnd/VuonzsLDDs89PbFV9IewKTuacGsnvR8ZDkmF6wu
-	 Ak19nkNWmSNZjMQXBPnj4iErirxSBn52zpZmzn3LeeYRj9llbgkVgZBqWKEOmH2EtNQ==
+	t=1793906344;
+	b=0a1ck+jkzxaMLQbWqvJ44gPOYCy2RDncwA+awvfMcO9ho+dfrqq+RsJ4mwwHCtxVbxJe
+	 0uIiwtzF4JLjz/G1G7BRgd/zkMXsNb9BuRzjyQrfyqUskDfiIZs9TyWGqwaiam+FDl4zd
+	 l9KdjfSx9+sZJwiEvA7vTf6TqCg2Dacvm1bfPOvAjVkPizHt/I9qWSyDmWTpGxn9Vep5z
+	 2DmiCyMgPQaORJ9DHhyGS7qYkIullRARw0xaNoDXnqYk8eNIHN7FQABW0Yyy67KfW2QOM
+	 4F7ZhD9H6bJZwVVWSzqGCnNYN9t9Daz2hTiZ0zarjGMAYr6Q4XRuYz7nW8EBDFx7HZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906298;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XD1Rm+iGqF06DKo2ufDJiE26layU8M+F3N4dQIPcMnQ=;
-	b=Yu5mCVY4opQz3yJrL5BVrmXvBp7S4gUSujVg1KtjtmK1FxGt39fRloqR1M48LqEq55o6
-	 f4eo1upm5Tvhc4wQn4p5LzHk28EEoQFXXbEpC6ozezFdCQFWwOEhscXJptNxrZFdjwmSe
-	 9ZmHNQYyXb/uugEvrvXPNsqK4l8mcJYW+TKJRe9mW5ORFXmMQiDKeShjHLjwwqR20StBG
-	 0OPuQ8eR3VAZwn2IfPpmCH+N+qZ45hHtvkNrF6gCahEnX7Qq0ROw6HruCdBO+uX2U9VKL
-	 1xllFDX/7zghxd1zihtj8pKGVplZC2iAz/Q5tD8/niGBj471abeBO4NWTSXPhGjopig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906344;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
+	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
+	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=lyHmLqn8ijLHBmt1owCnh5tVnYJUzqZCnxC11EY2PbU=;
+	b=tBDcEagPaKB/lBC4+XTqw5X+Quha55dHMteGruPHEFichgCCazZ0qzkjUiN4BCeMUCwl
+	 X9xqGCtrcco66T4EH0r5Cl7nWrZxilFp+0zvvwiYy//+/BaW9PqTKkswolMmtVaJ5BkXG
+	 AY9LXkUsQxdIMEayygu3tcscK0S8QHS726fjq0JZjHisEfdESxuX/iUbxKMEhx0yVrTdN
+	 l5lfJP4Lcb35xHvs/XH3Lr2uKe41rtn0VX2CGkLD+lWJ+ZDKyxFxtcYeZbge0DKpw+WAv
+	 VuIYXv5/mflZaiDuHKEMKD87nm8T+FEX71IFbsK9jCl1HUn4PGzvHGFA/SAU4ABqOZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL5hLUwk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=fqwqf.xyz;
+	spf=pass smtp.mailfrom=send.fqwqf.xyz;
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=0KU0FlZJ;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=c7tt9CFi;
+	arc=none smtp.remote-ip=23.251.234.50
+Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944B0606A31B;
-	Thu,  5 Nov 2026 19:18:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7227606A331;
+	Thu,  5 Nov 2026 19:19:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7227606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL5hLUwk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01A21F000C1;
-	Thu,  5 Nov 2026 19:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906298;
-	bh=XD1Rm+iGqF06DKo2ufDJiE26layU8M+F3N4dQIPcMnQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lL5hLUwkxIEo+DdtEPhhyGUDjYZ/mqvi7E1mpsRNbQY6sAmzotey2EfNE84CYdqeA
-	 n8MRfrJrjOAwcNBinA0i2s//nahSVK+0tD9WboGj6Hb66RtNJDJz7nRFfvRXV4TvN/
-	 FMxdDfN4G0CN1M2wHB8VynPd8ULeTEwfi7zUwGWxNPYgawFCNbdphIx9V8kzSjZTns
-	 AN2VsJ/5biQ8mfSA//Gx7Fu3kf9Mw+2T1whck9xyZdOOCoalUm0JHsfb7Kh/Lp7Opj
-	 KIPjiep9zOAODo2OjWuF+3zgLbdg35OpG8IsXKkHsUAbz4MaOFREJLQAVntAzWa3f+
-	 FoXQwxrLeNBow==
-Date: Thu, 5 Nov 2026 19:18:13 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=0KU0FlZJ;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=c7tt9CFi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1793906342;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=lyHmLqn8ijLHBmt1owCnh5tVnYJUzqZCnxC11EY2PbU=;
+	b=0KU0FlZJdhZleU3v9l0Nh7UxyH76EpHxTPQdiLmC5lft0PH3DVOD+RojCyguA2kc
+	AtmZLkTehPWi0sXCabWQuuYt/77gkZgnGJdxyL1UCT1jhu9VajlQLGK9kb9HwU1bWlD
+	cQHZ0+cmWukLEA5L0C+fP1YnzUpBkjopYA3zMCD8=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906342;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=lyHmLqn8ijLHBmt1owCnh5tVnYJUzqZCnxC11EY2PbU=;
+	b=c7tt9CFiZMKUQ62BR8HOC4s0ZYZIer2zhSXkewzar6/N13dEUHr0CP+XqaCzxefW
+	Nos6hI6jfiypQH00P65WHxpcRYuoiJYP64FXzUsBm2W3UtkbIwK/Eo7BakJWeyAU0sE
+	LWqaSXIDAk+y8c1PSoSI+MXe1xDETXkJF+QGrHlI=
+In-Reply-To:
+ <010601a0f11b66f4-60579998-13bc-4174-93cc-c5338145611e-000000@ap-northeast-1.amazonses.com>
+References:
+ <010601a0f11b66f4-60579998-13bc-4174-93cc-c5338145611e-000000@ap-northeast-1.amazonses.com>
+X-Mailer: git-send-email 2.53.0
+From: Jizhou Tong <fqwqf@fqwqf.xyz>
+To: andersson@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: Add Siflower SF19A2890 USB 2.0 PHY
-Message-ID: <20261105-shampoo-osmosis-6975c7cf734d@spud>
-References: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
- <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev>
- <20261104-unscented-armory-4dc756ab95cb@spud>
- <CAPY4CJ5g+e4iu8p5s+Vf7XmEjB9cYX9xYyzHd0Fz8GEbmFm4hw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] arm64: dts: qcom: microsoft-romulus13: enable
+ touchscreen
+Message-ID: <010601a1ad267a52-953da632-a358-4ded-a9bb-68d3031acb2c-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: 7bit
+Date: Thu, 5 Nov 2026 19:19:02 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,51 +73,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fkTf2+Z1l1LqlU4y"
-Content-Disposition: inline
-In-Reply-To: <CAPY4CJ5g+e4iu8p5s+Vf7XmEjB9cYX9xYyzHd0Fz8GEbmFm4hw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.11.05-23.251.234.50
 
---fkTf2+Z1l1LqlU4y
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Bjorn, Konrad,
 
-On Wed, Nov 04, 2026 at 07:39:32PM -0500, Joseph Telaak wrote:
-> > > +        reg =3D <0x19e0c040 0x60>;
-> >
-> > That's a weird offset and size.
-> > What lies in the regions around this device?
->=20
-> It sits in the 1 KiB from 0x19e0c000 up to the next block at
-> 0x19e0c400. At 0x0, 0x4 and 0xc are the reset, clock gate and bus output
-> enable registers of the USB clock and reset manager, which the clk
-> series describes as siflower,sf19a2890-usb-crm; 0x8 holds a value I
-> have no documentation for. The OpenWrt port gives the PHY 0x40-0x9f,
-> and its driver only uses 0x44, the PHY's sleep control. Read from
-> U-Boot, registers between 0x40 and 0x8f hold non-zero values I have no
-> documentation for either, and the rest reads as 0. The GMAC's
-> configuration registers sit the same way, at 0x40 past its clock and
-> reset manager at 0x19e04400.
->=20
-> If you'd prefer one node for the whole region, providing the clocks,
-> resets and the PHY, I'll restructure it that way for v2.
+Could you clarify the pickup status of this touchscreen enablement patch?
+Patchwork marks v2 as Handled Elsewhere, but I could not find it in
+Qualcomm for-next at f5672a3dff02 or mainline at 05441d697f7f.
 
-No, not asking for that. Just making sure this wasn't some sort of
-syscon being hidden by the offsets and size.
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+The existing v2 applies unchanged to both trees and keeps the addition
+in the Romulus13 board DTS. Touch and multitouch work on my 13.8-inch
+machine with this configuration.
 
+Is the patch already queued in another tree, or does it need further
+review before pickup?
 
---fkTf2+Z1l1LqlU4y
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzWdQAKCRB4tDGHoIJi
-0htFAQCpfD/ATW+Oh8iIXCWIFJJ9g6tE4XFONhEBugZlFfDZ8gD9GLc6+0RrUu63
-KYjkd0LAmVIcn/ACklIrnrIlzsL5sQ4=
-=PI9i
------END PGP SIGNATURE-----
-
---fkTf2+Z1l1LqlU4y--
+Best regards,
+Jizhou Tong
