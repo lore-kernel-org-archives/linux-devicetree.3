@@ -1,115 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878608;
-	b=edul910ahvshlRbyX9C0IiljDZJYHh/GWj5a2XCacBUQ32ufE6QgGwbYf9UNR9DeKV5W
-	 kaV3iovK1e5O9/RAiOGYm/uHJ0k4jH2Fwn2s+6Bel+3v9cfd6IoGK435ppmTh6KPxL/5d
-	 2nvGQqO97/YHpd3XmaA4uVx/aLk0Q1gZa7k5+ny9tYIU6qkY7xvHssfUc0P+9CI0En1HZ
-	 8xKFzfdqzskMOWmIEHSoHDt4gLJ86nUkPBEcGXrqUlQS1oe5bA6lEC4elU6iya1MuHHGv
-	 R5HLGP7hvIv8DNjAnUPFnsznYLu09Fn+LvJEfQkdnZNoA5waU0UgmDibzMqFSWrjTHg==
+	t=1793878648;
+	b=aN6pwvXLUEWrqAnlDG3RFmeS6eTugHO3BQVAMoA76/VEllaoaKX2eRkdlK+HfMtzeoba
+	 Ewft79RgDZjLZbrOA0hGViyCjlOC6iLA/cv5LQ5/UWXIMnaa0JLqqsVrGcU8fWYEi8h1o
+	 evv0n9KRXyQEgz/PlVx+/qOhkFIWwFl3CL1u1+CppZ24lvEiuo0TlU59m3etC+E0rOGzs
+	 FtO1i2yDXmYiVNgjwH4BB+JXdcVH/HPlT23x26pswBHJcEt0b0vo2beTvP5H55hRNo6Dg
+	 C16rQ2StdU5MyHYss6DJXDoABMvD4lqScZ1Gk9lo6Ku5jJFhQ3cf5BlaKB47l8hYvCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878608;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=XSVyiFNYfW4Nl2FRS/OfflMk2nhb+NruofA5umsuAro=;
-	b=TMarxG9J0zQUDG36kHSNkGUUCvn/At0FlgI9DCta9nu9hMUpXpxBUETVhajFW5BNg/p6
-	 zqW8w1RJ+sbGpcIbgpBJ8jV1Aw/+238uOKS8rXbprQYHT0aqEZ2C7ZAJV/h4ySP2GbxoX
-	 KFCNyiYLJW0EYUYK30v9u5jg17vyvl1dE02UfN9F9PZ5EEi8X0XyQUgcRqFgm6J3CFHCX
-	 vBM58G37Ph+Pj2ZyvXHw0VC4hxfbTVz0cIyN7FDE4Fz04o85INGr2dmvX45X3HQk4uOxY
-	 UiqRrMRbv/l18ZOHrabAXIzzNSmpkjqNh+/MfgYiYlAN8U8520xXz/ZPw2fMIKZsCug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878648;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=VMhnWUVSQ2tILOB4G/emtQlgU+NR+argJ27mPCGNL+4=;
+	b=TT1rHMVZFzdo4e25CnMDgAG4yZ6BgXsCIAUBI7BDW8UDaO8FAGpwnT43dy/mjQdTWvfF
+	 Jup+a4tormNOHjlJAseG5aGA+CKo8mI/YFoftsW7g4o6hFsuSznqFBFEUEojGmVSnUXO0
+	 46DeCgwjLRE3i3fCtYMn1UmneSpwDBGMoe2QIcirtgo6ohCqHQDH5N5zMb+SV6bGNCR0W
+	 LgIXRvY7dRXhfYsogZbBDA+7a/qCm7w8yckh4jrKTrrCJf52WfOJOiJGSmckLw2XLxxPv
+	 IfDM3iHHpg2ofzHe0G7Z7Ab5YOkokyP8B7550FEDRTHhM9GhaE7eg/D9Mof0n8Ov0mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b="dh/oXJNr";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Cs3KuY0G;
-	arc=none smtp.remote-ip=202.12.124.148
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ovcCqlh7;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3088D606A332
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3088D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FE0606A31B;
+	Thu,  5 Nov 2026 11:37:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49FE0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=dh/oXJNr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Cs3KuY0G
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 566C21D00172
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 06:36:47 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Thu, 05 Nov 2026 06:36:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793878605;
-	 x=1793965005; bh=XSVyiFNYfW4Nl2FRS/OfflMk2nhb+NruofA5umsuAro=; b=
-	dh/oXJNrMQ4QHPKSA2At6GLG5sLPFxNacET7lbATMxmwGPBpCNqm3sUCN9eEeLJg
-	z7S1d5xHfIC0iHC2dt3W/2VBLgCixFORkc/wj1bVOQW6KzxOoXz/QjBb5v5oau3U
-	l3Tt6WT5bWE83Hj7uE/PxsN2ncZTr6GAXh8AlKJ6uJlQRsbb8fEODLPfNKhb16Lz
-	WA25victdm40cA6Jv9FK3qqrWSQoU03NjcTfbOJBtW4QOvhJoKCkmZ9C5zYgxyCt
-	NiKV3nHIKyQvbudbZtkALqrlWd8iT+4JAwTSOfbyNJSP+2F74Rwh5ShLYnuvXD23
-	WgbT9ck6XpiIKtTwvlVM7A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793878605; x=
-	1793965005; bh=XSVyiFNYfW4Nl2FRS/OfflMk2nhb+NruofA5umsuAro=; b=C
-	s3KuY0GaEPsIOzxBW/FWhk/El/EPehtKxaq6hNyqZvW/xri4n7ixLqMqWWHgUMQv
-	vNUt/7ZjLMbGzwXdHFeSc+MAA+K1VJV/9PLOqANuDDjH9kSjSAiBFLlqD/VxWA8S
-	CQ5UrKuf5gGkau9DrMmDbWpmOHFrAKb9EVU5ozAGzIN3aWXEC7UmHIfysixm3OUo
-	kUtYVw2D7q2YwWZdHKeDtMxVCmFHREmLgeiJm6ArLK21pgdLyf8bV1adEsKXdeV2
-	1djv+KBg1lVaGKbquguVHoEno3QLm1nUs6BN3qCc/2lEvbPPf0O8u5q+q3PXGpdw
-	/4P+IneD4pMx5Wv12CcwQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793878605; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:urWbGxBJ2FMrfLGSUBJLBnbbusRZgqaEbrfc17wBAwERc3i
-	e6DjTABfmudX/C8btRePnmq45L83wx8FiUG4GOxanLLk794nhm5cFTzrnZY+qZRE
-	kHiufloCjfVTaqLVvqP/8IqhnASxEGQBYfnYAze6lfnL3wFswB4LM60244ZfxAYT
-	+z2b7x+Ff6YDwiG+W0twLQb9Vy1RO/m94gYDXbd6FNx/HLkG77lsPvbmUe6J+HR+
-	ztXJ7oLtWQH6Pk965qaDv/DldpL453TTQjDXhlvNPgE1OLW1mSKoL0M4/2cry2Us
-	FW0iQrH0DYNb97D/+3gft2fvBoZKith+I9Tm5oQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:DIBoRpfwqRRRshR4iYw1v5Xig0iN2s5xbz1SxXao2l0=:5Ax+Tnl941iU4lcsG1LAxygu5i9bnuL5n1jpXo8dSZ8=;
-X-ME-Sender: <xms:TWrsagHne1mwFQfErcgrJM5jrmwaMwhuNVoRdKkncYFSUtNy0GcMwg>
-    <xme:TWrsaqvYUqAFHUvCSQYppozMdN2WPs3CYXypAZ3hfYTF_zdVI4e9bFO5Ys14vPswd
-    EbnCICXz0gWbAefqZK6a01ervDmqWOO3B9InrowdTkf_UTCvr11CP-X>
-X-ME-Received: <xmr:TWrsajaiSlXpEU92FeOTqlIix4pRZD572e44jqrVP5nCsi7KAPaG09yH6uELFM6B07X5447zpcR-ZzpdPci_8zsG5R1gQ_cP7dY>
-X-ME-Proxy-Cause: dmFkZTFxL6fPj/83KjW+fPrzD7XIhU0ugn9J7NLmcT7qkhSOHV6Af82MPa5XBOzqpSBIeN
-    Pp7p8OyM+TI/GES+hrNz1pWoLtoPr0PQyTaY9NPuTzBRGPiAAcJ3TBtaGIGFJ6EIOXXhvi
-    OmWkGixLiwFSU5Ji8fLekxxR6EJsv6volK4Aa+XkeiLpTkZTvhHs0PqHDFrfqL/zb/0ZP3
-    9znFWT6W8alLK2f1H3T6MWoAM3iYPGn74enSenY1WYKm4dI7WWKEv57BXjNOh+/gVX8bJw
-    C1jhLxJz5rZaO//peRzsXKtK782l6mQSftbsv/PkoCji5Zyj+60teGD5l3K8E1b3VAFAjI
-    sepznW++v/oO8DQNDri5/2KZRaYnF4UXUN2PgpunE0prH7Q+qtl8QGYkTkwDXchUeh3pTe
-    PXX8W1I00vXFDogD3e/Bko60udJtrKCJMYFPHxm1qXvep9kTJ1BNx28YkqzyTCDIZjsv+q
-    FzLDCV0/utyRnSGUWuDtxC2oBO7EtMxUk0Uo2DpaZxOzmJ/ZJO+8ERU4QrKw1ZCV689JKS
-    oeIsZIenpmL6SmNQ6gGh3/2pJGA5gGYR8Zk28W608WtSXSyKHCn7QxwQE7yGljMtWTpOwj
-    NJRmMYiTkbHdsKuXsKW1QwFVtQoB7TSo0y8CvdufhFgaIzezPPBT06EzgCVQ
-X-ME-Proxy: <xmx:TWrsaqVLQsB0tIQg3zU0dVM3f7q2GTUs2PIso7JwpkIOZ2dPtkTHuw>
-    <xmx:TWrsatJ88lONKSGcmNmwlYMb3g71e-ToVH2uZ0UudqdKlWrixYyVFQ>
-    <xmx:TWrsagEv39xFJweqIlWFgl_tebdrMpFFQsW8VJAQB6_LYfruE8XxIA>
-    <xmx:TWrsaqw7HXTwz0af7U7EruXkFIyLRDtgKrZpSqxSZChxOL-N80PnGA>
-    <xmx:TWrsakFJbMP7m8cSCSgmB3G2wSBQw7Ar33lLeUI3gOqJf3FuhmUBJTzu>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 06:36:45 -0500 (EST)
-From: Janne Grunau <j@jannau.net>
-Date: Thu, 05 Nov 2026 12:36:04 +0100
-Subject: [PATCH 7/7] arm64: dts: apple: t6032-j575d: Add PCIe device nodes
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ovcCqlh7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=VMhnWUVSQ2tILOB4G/emtQlgU+NR+argJ27mPCGNL+4=; b=ovcCqlh7VrjwANEc7//D13mAC7
+	VksmRuZHZ/2GBLXZhGPO/i9gLDz/Uh4ZlTcJfTilOWw4jrcidB6sCY0aa2IDhhiBXBMCcei44br/N
+	xQcZJKGqIHwaf9qXFMnN9G1DRw6VnLyoS0iZFFUu2jLH/Xz4t1VU84HUJEOlSjsk5uPc1FSiF9//a
+	lEDTZWM7pNflmGJh4AhEWFG4WpBUlVTUQzFQLASEFPXmGwpbNlEcFN5iFwV1S8Ysu/S4uFy6V6NOx
+	jycjBSr6knqI86H0o3xwoslL8tbZgX14BtXg+ll1GWEPWB5wwgB5v+5iErkUTxlZlxEbrwGuHsdB/
+	Qt56sqfg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Yaozhong Li <yaozhonguwl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ Jonas Karlman <jonas@kwiboo.se>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Yaozhong Li <yaozhonguwl@gmail.com>
+Subject:
+ Re: [PATCH v2] arm64: dts: rockchip: enable SD UHS-I on Firefly-RK3399
+Date: Thu, 05 Nov 2026 12:37:13 +0100
+Message-ID: <3342569.D8ZAKjAxdT@diego>
+In-Reply-To: <20261105102556.1365-1-yaozhonguwl@gmail.com>
+References: <20261105102556.1365-1-yaozhonguwl@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -119,132 +63,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-apple-m3-pcie-v1-7-e00a72a604f8@jannau.net>
-References: <20261105-apple-m3-pcie-v1-0-e00a72a604f8@jannau.net>
-In-Reply-To: <20261105-apple-m3-pcie-v1-0-e00a72a604f8@jannau.net>
-To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
- Joshua Peisach <jpeisach@ubuntu.com>, 
- Michael Reeves <michael.reeves077@gmail.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2348; i=j@jannau.net;
- h=from:subject:message-id; bh=5Ax+Tnl941iU4lcsG1LAxygu5i9bnuL5n1jpXo8dSZ8=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqw3WZpzHHXSnps/rf+7TKpM+tbxf95ZR43F5euUvJb7i
- ZaseGnfMZGFQYyLwVJMkSVJ+2UHw+oaxZjaB2Ewc1iZQIZIizQwAAELA19uYl6pkY6Rnqm2oZ6h
- kY6xjhEDF6cATLX6b4b/fncrU9+zsgRWRVkHy00ue7zsrezrzZ86GZYnnQ8Rj2MzZ/ifzNSpaaR
- z+99qr/UTowzX8Mp/yWzx7TXvm79V7MMbTgYWAA==
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Add WiFi, Bluetooth, SD-Card reader, ethernet NIC and USB xHCI device
-nodes for M3 Ultra Mac Studio.
-The bootloader will fill MAC addresses for the network devices, add
-Wifi and Bluetooth calibration data and set "apple,antenna-sku".
+Am Donnerstag, 5. November 2026, 11:25:56 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Yaozhong Li:
+> Contrary to its name, vcc_sdio is the IO supply of the SD card slot: the
+> schematics route it to SDMMC0_VDD. It is listed as the vmmc-supply
+> of the WiFi SDIO node instead, and that consumer keeps the rail from
+> switching to 1.8V.
+>=20
+> The WiFi module's main VBAT input comes from vcc3v3_sys, and its IO
+> supply stays vcc1v8_s3.
+>=20
+> Fix the supplies of sdio0 and sdmmc accordingly and enable SDR104, which
+> now becomes possible.
+>=20
+> With UHS enabled, sequential read from a 64GB SDXC card inserted after
+> boot goes from 22 MB/s to 60 MB/s. WiFi remained associated at 5 GHz,
+> with no WiFi errors.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+> ---
+> Changes in v2:
+> - Point the sdio0 vmmc-supply at vcc3v3_sys, the WiFi module's VBAT input,
+>   instead of dropping it (Heiko)
+> - Rewrite the commit message (Heiko)
+> - Link to v1: https://lore.kernel.org/all/20260922055011.14972-1-yaozhong=
+uwl@gmail.com/
+>=20
+> A note on testing: with a card in the slot at boot, the first
+> initialisation fails tuning ("All phases bad") and the card comes up in
+> high speed mode, as it does without this patch. A card inserted after
+> boot, or a rebind of the controller, comes up in SDR104; the numbers
+> above were taken that way.
+>=20
+> The GRF io-domain device binds about 250 ms after fe320000.mmc here, so
+> SDMMC0_VDD is still configured for 3.3V when the card switches to 1.8V.
+> Forcing that GRF_IO_VSEL bit to 3.3V with the io-domain driver unbound
+> reproduces the same failure on demand. This looks like the probe
+> ordering issue Jonas described for the ROCK 3B [1]. It also happens with
+> SDR50, with a second card, and with sdio0 left without a vmmc-supply as
+> in v1.
+>=20
+> If you would rather not enable UHS until that is solved, I can send the
+> supply changes on their own.
+>=20
+> [1] https://lore.kernel.org/all/e9ff5387-b3c1-41a7-b251-a12789d25a70@kwib=
+oo.se/
+>=20
+>  arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64=
+/boot/dts/rockchip/rk3399-firefly.dts
+> index 0568dfa..fe1f8d7 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
+> @@ -777,7 +777,7 @@ &sdio0 {
+> =20
+>  	/* Power supply */
+>  	vqmmc-supply =3D <&vcc1v8_s3>;	/* IO line */
+> -	vmmc-supply =3D <&vcc_sdio>;	/* card's power */
+> +	vmmc-supply =3D <&vcc3v3_sys>;	/* card's power */
+> =20
+>  	#address-cells =3D <1>;
+>  	#size-cells =3D <0>;
+> @@ -804,6 +804,8 @@ &sdmmc {
+>  	max-frequency =3D <150000000>;
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&sdmmc_clk &sdmmc_cmd &sdmmc_bus4>;
+> +	sd-uhs-sdr104;
 
-Signed-off-by: Janne Grunau <j@jannau.net>
----
- arch/arm64/boot/dts/apple/t6032-j575d.dts | 72 +++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
+=46rom the schematics vcc3v3_sys also supplies the sd-slot (via an
+always-on regulator / page 20 for me),  so adding
 
-diff --git a/arch/arm64/boot/dts/apple/t6032-j575d.dts b/arch/arm64/boot/dts/apple/t6032-j575d.dts
-index 12991546d4bb..f99fd47dfc8d 100644
---- a/arch/arm64/boot/dts/apple/t6032-j575d.dts
-+++ b/arch/arm64/boot/dts/apple/t6032-j575d.dts
-@@ -16,7 +16,10 @@ / {
- 	model = "Apple Mac Studio (M3 Ultra, 2025)";
- 
- 	aliases {
-+		bluetooth0 = &bluetooth0;
-+		ethernet0 = &ethernet0;
- 		serial0 = &serial0;
-+		wifi0 = &wifi0;
- 	};
- 
- 	chosen {
-@@ -46,3 +49,72 @@ memory@10000000000 {
- &serial0 {
- 	status = "okay";
- };
-+
-+/* PCIe devices */
-+
-+/*
-+ * Force the bus number assignments so that we can declare some of the
-+ * on-board devices and properties that are populated by the bootloader
-+ * (such as MAC addresses).
-+ */
-+&port00 {
-+	/* WLAN */
-+	bus-range = <1 1>;
-+
-+	wifi0: wifi@0,0 {
-+		compatible = "pci14e4,4433";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		/* To be filled by the loader */
-+		local-mac-address = [00 10 18 00 00 10];
-+		apple,antenna-sku = "XX";
-+		brcm,board-type = "apple,aruba";
-+	};
-+
-+	bluetooth0: bluetooth@0,1 {
-+		compatible = "pci14e4,5f71";
-+		reg = <0x10100 0x0 0x0 0x0 0x0>;
-+		/* To be filled by the loader */
-+		local-bd-address = [00 00 00 00 00 00];
-+		brcm,board-type = "apple,aruba";
-+	};
-+};
-+
-+&port01 {
-+	/* SD card reader */
-+	bus-range = <2 2>;
-+
-+	mmc@0,0 {
-+		compatible = "pci17a0,9755";
-+		reg = <0x20000 0x0 0x0 0x0 0x0>;
-+		cd-inverted;
-+		wp-inverted;
-+	};
-+};
-+
-+&port02 {
-+	/* AQC113 10 Gbit Ethernet */
-+	bus-range = <3 3>;
-+	status = "okay";
-+
-+	ethernet0: ethernet@0,0 {
-+		compatible = "pci1d6a,04c0";
-+		reg = <0x30000 0x0 0x0 0x0 0x0>;
-+		/* To be filled by the loader */
-+		local-mac-address = [00 10 18 00 00 00];
-+	};
-+};
-+
-+&port03 {
-+	/* USB xHCI */
-+	bus-range = <4 4>;
-+	status = "okay";
-+};
-+
-+
-+&pcie0_dart_2 {
-+	status = "okay";
-+};
-+
-+&pcie0_dart_3 {
-+	status = "okay";
-+};
+	vmmc-supply =3D <&vcc3v3_sys>;
 
--- 
-2.56.0
+would be nice, so that the declaration becomes more complete.
+
+> +	vqmmc-supply =3D <&vcc_sdio>;
+>  	status =3D "okay";
+>  };
+
+
+Thanks
+Heiko
+
 
