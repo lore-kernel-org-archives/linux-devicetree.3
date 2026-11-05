@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895825;
-	b=GvSpG8s7ydqPFNSpeV7Wa/IUKB/ayFKA10+Clm3HEfi8q2LEPOHoTNxFgFJt7YsF6Ok3
-	 3/7teZ77y1DXfLPcyxQwDgSRw6fhSbgZ03DiME04uL3kP0m+ICMF3dtvVKbyE5B32WPUi
-	 rJYSYNubR8YbPH9wES9yydcOjEgN4zveIf/IIZzDHoX5mrzzn90V8vZxQ9av+ifttF1g6
-	 sP5JKOqBL7rux2UQiJD26aypVBYwegkSLl7IJtrKs/SA/E8YQqVu54u6b7b/BmMU+pxso
-	 CqRC/8NE7ogaHTBCm18oO2/C1EAgEIqtl4h2P+Iqr2lzpYlIs8DwZMeIm0gbRaM+HaA==
+	t=1793895910;
+	b=bqFLtEkFkQd26jlyY3Y17G6XEfXWbgVn01kN5ypUlXyFhHFosAgcyzxFM+REw2rfk9hf
+	 LU2JjITX0/D3nX0drP79JFTQ2pOVPLTJVmios1LoiOnWkBc7Vx+I8XyfNG879GbfqV25Y
+	 ABIyw0X8BJGYi0htiWWt2I6nRYZbTyXHO0l/8IAgz94ba8PkhWNtB4hmqbV4YuduvtKH3
+	 JlgAbZQOLmCWLDrWGHv554fgV6KS4NfLl7wYaq1/1CKg9V56zJS2RZqYkk+q3k4Vtcv39
+	 l7b3q8kdyUfKp+pZIGAwo/yb7KkG+U5qeJHjmTukCc9Xoiac/hW6dP/XAFU64aDEfGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895910;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=K1e2dOjqRBfUKuAGafPvzfKLxQYNFmTRPRHpViH+AXc=;
-	b=hhewfaucJ+qg+wCrwLcDNEvNSBR0xh16vG3gD5e/bHXwoyxy7oK09b/LEnKMGoXDKE4n
-	 fdnBQJujMZAdlbxESfNDxidZmt3y9N28eIQTDG9Ch2vb/umdE9KHJyq6RLGHtXZG3Dhxe
-	 N4l180nah5aXCb7D6WPG3/+O9oGFORMW0/fyoXK/TXsl5GW1tO7sVBK3K5rQ57kQ87XMf
-	 p9cIQXJX9X/q4NXjarEaSO4v3fBrffLNZ3tEH4PpHBFcjN6mtpX5Mhx6f7SRUo4J6x00/
-	 oCu94xCBFQ6leoczlMytjcJUqSFSW+vscPUy1TOdIPkcuqEDJtGXG8BWk2fsFa8EFOw==
+	bh=oCWdR4dL23WniGGSm3TS3NPw+N1CT7+4r/yqchbW3m8=;
+	b=O51EzkDjqYP82u0FEa9GC7gnmUJrfxx/sZ1zHdym05cj8Le008p+qampAtZWH0/VvjXg
+	 /vV4Lfsasup33L4C0/03m7MD+urIEJiJmCcTAH2qHHxWRnHKll0tIwZSv+74krlJ2Jg/k
+	 enfOUpuMC76In4cbZT5NKnfLFV9G9RgQ22bp6nBulPch5O+W+WrCXm/SpNy6V+CY0AD6W
+	 gPinU+iSzZwNwP7UHjpbLopXyA5STgPBpNK75MXUDsvph3l+kSQVrk+wI6/AoTvL56aP3
+	 9/S5gFoiW3kNqyfuxGe7qoKTBhH+JTE+iZOF2sOWhqbeww2EDGw7fg2v/TkTUQNO5EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D8tYPuGT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjUwWOuQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6DC606A32C
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 16:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33563606D804
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 16:25:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D8tYPuGT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1362B1F000C1;
-	Thu,  5 Nov 2026 16:23:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjUwWOuQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2DCD1F00919;
+	Thu,  5 Nov 2026 16:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793895825;
-	bh=K1e2dOjqRBfUKuAGafPvzfKLxQYNFmTRPRHpViH+AXc=;
+	s=k20260515; t=1793895910;
+	bh=oCWdR4dL23WniGGSm3TS3NPw+N1CT7+4r/yqchbW3m8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D8tYPuGTQeD+ElOraCAehxXbv/kpnSrkY3WEq12r8APH+NgS5mlftI1eQUKg1GvUE
-	 m4dMHpqcSoAMNnysZtMUntbsPX/NDAIH1BuCgQ5D4XNK6kX2XqvVhwSGVqWW9ciY5S
-	 7blZc88H7Am6zUgpmmrFP0rpbU1vPb4daDaj4+dyEAclS2ME6Nrhxj1ufhf7xVaDYB
-	 aWXm59/qfaBJBQo6dCw8EHQTRQkHtDXv/8UXWC2YGLc5zIUrBltcZLc8fRy2MUkNUb
-	 Fan16fEHtBPURSJpcMyXULe5BrQNIu/9g8IfSFb5vyi1yRopNe6tGIKJTW4E7Bde4q
-	 p9PQQMItc0CPA==
-Message-ID: <sashiko-outbox-199478@kernel.org>
+	b=WjUwWOuQArBwVRvRRqgWKcKari+qyItPY/KauQGB93yx0nt5f1Pg70aF0kse1pJ3L
+	 67/Q+yF8lm6btTzJBzubVXl3lp9WS0n4K6+BM60ybkWfgIE1UHKKil95/Wu4QwhWC/
+	 nPoQia2b+oa2lpC1G6XjHLtNzjLWAge3tVVAivzdVFa0O7T4IHNKfCalEvxiA7R2Bh
+	 EL/O5d7CD2VAA+69yXi8ZOJmXhML+S+zBDzLBpEyfCfH8FOgt2yaSIMqdvuKhfoH8u
+	 QSFGksgKjpKT9HLxOf5KrpMtI+YB/AsQIWQH3uG11QvPCM6qW8nZHcG3CTT2Z3v237
+	 P75NyJLpCa58g==
+Message-ID: <sashiko-outbox-199486@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/7] iio: imu: inv_icm42607: Initialize gyro based on
- chip_info
+Subject: Re: [PATCH v5 RESEND 4/6] firmware: smccc: lfa: Add auto_activate
+ sysfs file
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kanak Shilledar" <kanak.shilledar@axis.com>
+To: "Andre Przywara" <andre.przywara@arm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105-b4-inv_icm42370p-v8-4-b44eb96020b6@axis.com>
-References: <20261105-b4-inv_icm42370p-v8-0-b44eb96020b6@axis.com>
- <20261105-b4-inv_icm42370p-v8-4-b44eb96020b6@axis.com>
+In-Reply-To: <20261102165421.3651202-5-andre.przywara@arm.com>
+References: <20261102165421.3651202-1-andre.przywara@arm.com>
+ <20261102165421.3651202-5-andre.przywara@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 16:23:44 +0000
+Date: Thu, 05 Nov 2026 16:25:08 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,87 +61,169 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] iio: imu: inv_icm42607: missing has_gyro check in inv_icm42607_t=
-emp_read()
+- [High] firmware: smccc: lfa: teardown on success in lfa_smccc_probe()
+- [High] firmware: smccc: lfa: infinite loop in prime_fw_component() on ret=
+ry
+- [Medium] firmware: smccc: lfa: kobject leak in update_fw_components_tree()
 --
 
-commit bf4e9cd0c7e66bdca94f78eae37c6d71ba866c11
-Author: Kanak Shilledar <kanak.shilledar@axis.com>
+commit 9e007983d149d16e1c362d811e6caba071d543eb
+Author: Andre Przywara <andre.przywara@arm.com>
 
-iio: imu: inv_icm42607: Initialize gyro based on chip_info
+firmware: smccc: lfa: Add auto_activate sysfs file
 
-This commit adds a has_gyro boolean to struct inv_icm42607_hw to guard
-gyroscope register accesses and initialization on accelerometer-only device=
-s.
-It also replaces implicit sensor mode boolean checks with explicit comparis=
-ons
-against INV_ICM42607_SENSOR_MODE_OFF.
+This commit adds a per-component auto_activate sysfs attribute to control
+whether platform-initiated notifications automatically trigger firmware
+activation in activate_pending_components().
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index f4ef75da22c76..84a7a7718dc2e 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa=
+_fw.c
+> index 4b4daf79611bb..65f28ffc9d108 100644
+> --- a/drivers/firmware/smccc/lfa_fw.c
+> +++ b/drivers/firmware/smccc/lfa_fw.c
 
 [ ... ]
 
-> @@ -160,7 +162,11 @@ int inv_icm42607_get_pwr_mgmt0(struct inv_icm42607_s=
-tate *st,
->  	if (ret)
->  		return ret;
+> @@ -306,6 +308,7 @@ static int update_fw_components_node(char *fw_uuid, i=
+nt seq_id,
 > =20
-> -	*gyro =3D FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
-> +	if (st->hw->has_gyro)
-> +		*gyro =3D FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
-> +	else
-> +		*gyro =3D INV_ICM42607_SENSOR_MODE_OFF;
-> +
->  	*accel =3D FIELD_GET(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, val);
-> =20
->  	return 0;
+>  	comp->kobj.kset =3D lfa_kset;
+>  	comp->cpu_rendezvous_forced =3D true;
+> +	comp->auto_activate =3D false;
+>  	set_component_flags(comp, seq_id, comp_flags, reg_current_ver,
+>  			    reg_pending_ver);
+>  	if (kobject_init_and_add(&comp->kobj, &component_ktype, NULL,
 
 [Severity: Medium]
-Should inv_icm42607_temp_read() in drivers/iio/imu/inv_icm42607/inv_icm4260=
-7_temp.c
-also use inv_icm42607_get_pwr_mgmt0() and explicit comparisons against
-INV_ICM42607_SENSOR_MODE_OFF?
+As reported by Sashiko on v2 [1], if update_fw_components_node() fails after
+earlier iterations of the loop in update_fw_components_tree() have already
+registered fw_component kobjects:
 
-Currently, inv_icm42607_temp_read() open-codes reading INV_ICM42607_REG_PWR=
-_MGMT0
-and unconditionally extracts INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK without
-checking st->hw->has_gyro:
-
-drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c:inv_icm42607_temp_read() {
+drivers/firmware/smccc/lfa_fw.c:update_fw_components_tree() {
 	...
-	ret =3D regmap_read(st->map, INV_ICM42607_REG_PWR_MGMT0, &val);
-	if (ret)
-		return ret;
-
-	accel_mode =3D FIELD_GET(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, val);
-	gyro_mode =3D FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
-	if (!gyro_mode && !accel_mode) {
-		/* enable accel sensor */
-		conf.mode =3D INV_ICM42607_SENSOR_MODE_LOW_NOISE;
-		ret =3D inv_icm42607_set_sensor_conf(st, &conf, IIO_ACCEL);
-		if (ret)
-			return ret;
+	for (int i =3D 0; i < num_of_components; i++) {
+		...
+		if (res.a0 =3D=3D LFA_SUCCESS) {
+			...
+			ret =3D update_fw_components_node(comp_id_str, i, res.a3,
+							res.a4, res.a5);
+			if (ret)
+				return ret;
+		}
 	}
 	...
 }
 
-When reading the temperature channel via inv_icm42607_accel_read_raw() ->
-inv_icm42607_temp_read_raw() -> inv_icm42607_temp_read() on an
-accelerometer-only device where st->hw->has_gyro is false, if the reserved
-gyro mode bits in INV_ICM42607_REG_PWR_MGMT0 read as non-zero while the
-accelerometer is off, inv_icm42607_temp_read() would skip enabling the
-accelerometer and fail with -EINVAL when INV_ICM42607_REG_TEMP_DATA1 returns
-INV_ICM42607_DATA_INVALID.
+and lfa_smccc_probe() then unwinds on that error:
 
-Could inv_icm42607_temp_read() call inv_icm42607_get_pwr_mgmt0() instead of
-open-coding the register read?
+drivers/firmware/smccc/lfa_fw.c:lfa_smccc_probe() {
+	...
+	err =3D update_fw_components_tree();
+	if (err !=3D 0) {
+		kset_unregister(lfa_kset);
+		destroy_workqueue(fw_comps_update_wq);
+		return err;
+	}
+	...
+}
+
+does this leak the fw_component kobjects (and their references on lfa_kset)
+created in prior iterations because clean_fw_components_tree() is never
+called before kset_unregister(lfa_kset)? Also, if this fails during runtime
+activation, returning before queue_work() skips removing components whose
+fw_seq_id was invalidated to -1 at the start of update_fw_components_tree().
+
+[ ... ]
+
+> @@ -791,7 +817,8 @@ static void activate_pending_components(void)
+>  			continue; /* Invalid FW component */
+> =20
+>  		_update_fw_component_pending(comp);
+> -		if (comp->activation_capable && comp->activation_pending) {
+> +		if (comp->activation_capable && comp->activation_pending &&
+> +		    comp->auto_activate) {
+>  			kobject_get(&comp->kobj);
+>  			all_comps[nr_comps++] =3D comp;
+>  		}
+
+[Severity: High]
+When an ACPI notification triggers lfa_acpi_notify() ->
+activate_pending_components(), can lfa_kset already be unregistered and
+freed after a successful probe?
+
+In lfa_smccc_probe(), after update_fw_components_tree() succeeds with
+err =3D=3D 0, either acpi_disabled is true (leaving err =3D=3D 0) or
+lfa_register_acpi(&sdev->dev) succeeds and returns err =3D=3D 0:
+
+drivers/firmware/smccc/lfa_fw.c:lfa_smccc_probe() {
+	...
+	if (!acpi_disabled) {
+		err =3D lfa_register_acpi(&sdev->dev);
+		if (!err)
+			pr_info("registered LFA ACPI notification\n");
+	}
+
+	/*
+	 * An ACPI notification or an interrupt are optional, but we must
+	 * handle errors that occurred during their setup.
+	 */
+	if (err !=3D -ENODEV) {
+		kset_unregister(lfa_kset);
+		destroy_workqueue(fw_comps_update_wq);
+		return err;
+	}
+
+	return 0;
+}
+
+Because 0 !=3D -ENODEV is true, doesn't lfa_smccc_probe() tear down lfa_kset
+and fw_comps_update_wq whenever probe succeeds, while returning 0 with the
+driver still bound and the ACPI notify handler still installed (as well as
+leaking the child fw_component kobjects without calling
+clean_fw_components_tree())? Note that this remains present at the end of t=
+he
+series when IRQ setup is added in commit 93a930701ee9.
+
+[Severity: High]
+When activate_pending_components() (or activate_store()) calls
+prime_fw_component(comp), what happens if ARM_SMCCC_LFA_PRIME returns
+LFA_PRIME_CALL_AGAIN on the first call and then succeeds with regs.a1 =3D=
+=3D 0 on
+a subsequent iteration?
+
+drivers/firmware/smccc/lfa_fw.c:prime_fw_component() {
+	ktime_t end =3D ktime_add_ms(ktime_get(), LFA_PRIME_BUDGET_MS);
+	bool retry =3D false;
+	...
+	do {
+		...
+		if ((regs.a1 & LFA_PRIME_CALL_AGAIN)) {
+			if (ktime_before(ktime_get(), end)) {
+				if (msleep_interruptible(LFA_PRIME_DELAY_MS)) {
+					ret =3D -EINTR;
+					break;
+				}
+			} else {
+				pr_err("LFA_PRIME for component %s timed out",
+				       kobject_name(&comp->kobj));
+				ret =3D -ETIMEDOUT;
+				break;
+			}
+			retry =3D true;
+		}
+	} while (retry);
+	...
+}
+
+Since retry is initialized before the do-while loop and never reset to false
+when LFA_PRIME_CALL_AGAIN is cleared, won't the loop spin indefinitely
+calling ARM_SMCCC_LFA_PRIME without sleeping once priming finishes?
+
+[1] https://lore.kernel.org/r/20260317103336.1273582-7-andre.przywara@arm.c=
+om
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-b4-inv_icm=
-42370p-v8-0-b44eb96020b6@axis.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102165421.3651=
+202-1-andre.przywara@arm.com?part=3D4
