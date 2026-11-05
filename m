@@ -1,57 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875311;
-	b=nmcTOus/mG6WFlJON2puTxMEJ2pGXGo+mWPjgCkk45z9+Kpp9E6Tls6pcvGyXhhdB/eO
-	 F1z+hXQjXSCITLH2omUb85HuBxSfeZ2uOldFNN6kboD0JF/wfgfaoqmbarxGBgBoW6Wz9
-	 DXAFK5lZZ8dT+TcvDiSAu0I1R+aT7dV4b5XJraswNaQDCEL6wGiu5rCEOsyjTEoXaF/C+
-	 8sYMG6QqWMiyCWJrkSTdGa5Osq9k7tLbUN3BWs6OO1KEe3pOVsI5936KoRDsJp5gUKuD4
-	 lR0NDGAqeUIJhGRXmXZEE5l1kpMimSbFTgiwj47ZRoMMN0ank1bnjrP4lcqf1erpv0Q==
+	t=1793875360;
+	b=aQSJqluckE2gdOTil/dlfWZWOySw0LIqfcbc6Gj0DqT+OIMWaNi+xpTC9uBFJKRGuG1h
+	 a5ba1bSsoUI/IxCL94ZIglKUQ4THdV9+u+HVhvhQmOum6bwWqzijOv49AFLxey5ycdD4W
+	 4gALYSgBJgt6zl5+mSrNo+LdWXY5zWrxedAEBOCbSiaYhHzHwwzc2tTW66end3/pISCU4
+	 tNnWQcYs73ZUY2VllVrB/GNU6T2ZTG0ES+xYl83yQdbF9rMaJ4dUfEO44L16wcrpeZDfB
+	 Y+fwN90p2Q0QlyVnw8350QrpyExTaYxVj6ZvDL+xaGa3bJEBqrbIgOJVpwbkygWSUMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875311;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=HjG75y2yOUsODrYwVpEvQ5Gd7uB/mzkfHH5+DQgeKLI=;
-	b=hqcjLFRnpd3QCEQWNah7/8XvFJsszVgqm9v3tjspFtuHppsUPcWoPCb3bDIi+bfIWDKA
-	 utuJaIg/bvvQCTqWLCwYpVqMq3h7nEvEc/xDGdQMKmlmGZ4nEbUISSS11vI5J+DWrenCZ
-	 YfhJyi8/Mm4VxMP97Sw99s0vQ5Vunf4gHPIVDEKOjfK9DGGQX9a9CBOYcF4CK2x2hW2+s
-	 0rFhKkgN6AsvOjCVQznofKHPoDdJlNr3Zj6rySHdE/2lX+NBIa8KjjMZWs4MzoB0kMcgN
-	 AYLbLl9WEkMmddrd4u3TAtmYZCMkVD8SCYZdTVWvAQPwxc94MroXxCB5fJJlNNJ4OZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875360;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=RtvncIFsq/HT0jaZfObAVDtccQW79JWO7vjbeDJaK5M=;
+	b=LvnMXNjWhs3QoTcdqGfoErwEXpCphwLn+x1idxNKAx06HBV+hldpGeDTMya6Z8DMm7ZV
+	 Qx/8UuUMsS3i1EuUPdDQfLewz681nqrn4T8MJp9pF+KCJ2e5F63y0VUApZVz/Fic8ddcD
+	 ZzK4oxfQq0eJpO8gau9pMVrxS3my+KYiXpjKoizcCaAMXbHhJ2Bh1XE9Z6281tnjBwhdH
+	 BX/maMoyKt+9u1WDkyOL8K7/3zUbFcN34exfGX4ZB8mqf0MtAzQh4isqVStDHwOCLgUvp
+	 h5BpTBCoTWkwQwV/AHO8fML/6H7Lg8vgIV6aqT4/EhG4DfjrWt7bjsXzn4L4STviqyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkN4xK3r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Je1UjuMl;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V40Tt5tv;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD95606A31B
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:41:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FD1606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:42:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7FD1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkN4xK3r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFD51F00A15;
-	Thu,  5 Nov 2026 10:41:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793875310;
-	bh=HjG75y2yOUsODrYwVpEvQ5Gd7uB/mzkfHH5+DQgeKLI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VkN4xK3rupMsVD+MEb1D5HEeCfGc3jJ1D8Zi+npdjzSS8K7DLNshdt5BNgn0VzlRk
-	 /U3vJ76JH3sKsLqj+jVYBYJ2ZtODSNuxP6NGZ5cxfCjITzlvVvvxUVDh4yOkzjv5rF
-	 iCjBU1BZHA7eGlHCRzXnq+fofY5+Dn0I1FGz9HcR7R3fnaDTW0oIXCjWvAYSFxiLM3
-	 ao1cJasjZY2gMCzSDJIE9BOwPNORECBmBWq5r75N3zZHVPQKgcXvh3s2XTZGgh4Waq
-	 UyOSxPCPRB24LtHm4LUSSPQrXT2t73yrV6szDNJ9lGjgdDR/7quUEkncfGL3GeRwS/
-	 N4uLRyRDjRk/A==
-Message-ID: <sashiko-outbox-198873@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V6 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI for
- SD Card via overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105101955.3732723-3-monish.chunara@oss.qualcomm.com>
-References: <20261105101955.3732723-1-monish.chunara@oss.qualcomm.com>
- <20261105101955.3732723-3-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 10:41:49 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Je1UjuMl;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V40Tt5tv
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tbPo1028243
+	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 10:42:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=RtvncIFsq/HT0jaZfObAVD
+	tccQW79JWO7vjbeDJaK5M=; b=Je1UjuMlRBKGyx2x8gp+g/xnUmUvggC1eqxsXj
+	YqsCwUTQLhc3B2JodHxmBjM+UT27+/yQUM0riCdKXlPJRB+sZZ2nFl6kj9jvN0Q6
+	bnl+vKBETcbEnZDWawDEE90cjot0VJREJeIFtM2eND5OCk7mTOfcTuXMNHuMKNxQ
+	YxhCdkr9uQF1qzoHlEiRFyGx1ScE3CRttCIdD2hDIucTfHiUJKPY1gVFa1Zws8IU
+	LEvKIzHtZJxdc10JYl3hKYYopFzxo1Iu7cREqStiRcD/1XTUzJyEjBmlXitf6CbL
+	AV76rl8oUUmkjMdmy5eJROjc9hhDdHtuUN8N9j3ZFrwrnqqA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrkaq9b0n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 10:42:38 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0a7cbf164so1221458a91.3
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 02:42:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793875358; x=1794480158; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RtvncIFsq/HT0jaZfObAVDtccQW79JWO7vjbeDJaK5M=;
+        b=V40Tt5tvY1jhk5Py/5925FkI4SIjdtfRE34kCYeAqClsQFfxwvQttTbxkIlwXbprmL
+         zJv5cqRrfmszQFmZqZcXwkFMMBPvAccLtjPOcDVhvAFpNZ5RZ5ecMduFK26hYsxYfli3
+         2eFwA5jtV8NndygcOWeTNzqgXcweJJCbfB76YHsKCcxOWg9h/TNdUQgLpHdUXZPtaRG+
+         0DTm4kzsDLlG1LFbvr3NwAdqQ72BietX+P9mr9U92H8IIJr0gpESij2F9WKwgFcmf+tR
+         aezyZENRNW02O/LJiX9vXZH4qtgoJotim9NUNT+RQ2CDV9KBAkJfpz0XqWERPXk9B2vi
+         AACA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793875358; x=1794480158;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RtvncIFsq/HT0jaZfObAVDtccQW79JWO7vjbeDJaK5M=;
+        b=Q183jBAnuYTlwa6lYAzNjRFNPkUR8z+RWEO5Y1rP+V0CxODQLl0/0QbYZbXVsMSAmo
+         iAqgYiLhIlmr5exKnnT4V/ZSxbcc0Lu36NPBYdaNc/lqKpXYySdXMfHrkh3sDs8jrsbf
+         BVmKMkSBmOJvqgX6ryClf4gQPBzm/RDy4pbKE/NVBj9q5pdpxfeMRB8OCuzPuGNKRf/K
+         C/pHemRHR8wIEdUWFFjoJNvOIS5ezX0krhJ/aQmmQHywmh7LXFdYwhv0XBfQuSZaOQdf
+         z6bYkqAbe67z5/WewWiqjlamOexhBcKa8/uji8x6B/nmfUNaYMN5hHivtVemU1lVvLTR
+         YGDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2tAo6XE8DTTTu6iWD+SBqivzdmrKJcP1CSQ2qOA81cDQXk7EWqHb/u7Z60M2Es84MoK+/oz+I/JMt@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6fjfV8C3i29YHxBrYlVlrVXJxTApPNf4/WD58V+c3hmvucAE4
+	rqkekb52fXUBX8efXsi/6xkX70bo8c6nbup6nnhufczPc7SwiQt5elAPOHazYUN8v5Oyz2hqMJq
+	HdMJw3qTKEhGKlXPkLZDAObhgwu+vxlCKwQ8ft9Al6Pzv1ZkiJQ9kHd1tempM10js
+X-Gm-Gg: AYBFou3rdecfgk5yTBQ+XqQC+/2aCCp0oh14z7ZyNsXmUNNJyijmf74S0jSH6MhJTSl
+	qlYblryc4oW1BkGKQtwvFv1CBNtFLP7pIFZ1UimGP0oLmn1GN+WxK9Jq3GwS1PiJEIOiJYEsFOm
+	xa64rdir5ZlQFPV7OBBVfTxNHUZv42WYkijQGbi3YsAWzT9C+wD7BvfU0lJ+UDu8jVuTFbnTbL5
+	OmGDA30dS8VoNMcSmJwxRTM+qug/is0z/vfNaziQAEi/OiCHxB+un/hp+f/CbxmjaUxfO4NKsKR
+	FtQj+K2Q3CaaUPX9sBdel/PpKE26gKSVJSiJQmDiHMLsVjFa+hwjMJO7sOHpPIaoUkL9HnX9lOR
+	omtCa1WPTg768WC8hyThb//g6GNQxwbs1DG2tl1dIWd8a/x3pODyFI+DUS01CPq6aKDQf5xcYuK
+	qZ13IMBH4xuQ==
+X-Received: by 2002:a17:90b:51c7:b0:3a8:c0cd:57fb with SMTP id 98e67ed59e1d1-3ae89819925mr16870826a91.42.1793875357667;
+        Thu, 05 Nov 2026 02:42:37 -0800 (PST)
+X-Received: by 2002:a17:90b:51c7:b0:3a8:c0cd:57fb with SMTP id 98e67ed59e1d1-3ae89819925mr16870801a91.42.1793875357220;
+        Thu, 05 Nov 2026 02:42:37 -0800 (PST)
+Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31601b7sm3266934a91.5.2026.11.05.02.42.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:42:36 -0800 (PST)
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Subject: [PATCH net-next v5 0/2] net: wwan: qcom_bam_dmux: Add restricted
+ DMA pool support
+Date: Thu, 05 Nov 2026 16:12:27 +0530
+Message-Id: <20261105-qcom-bam-dmux-vmid-ext-v5-0-5c7903385b4b@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,208 +115,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJNd7GoC/4XPwW7DIAwG4FepOM8VhjSEnfYe0w4UzIo0kjWkK
+ FOVd5+Xw3oZ2sWS5Z/P5i4KzYmKeD7cxUw1lTSN3JyeDsJf3PhOkAL3QknVS4MdXP2U4ewyhHx
+ boeYUgNYFglWDDWeN0qPgx58zxbTu8KsYaYGRU+KNJ5dUlmn+2jdW3Of/4RVBgo7KBme8d6Z/m
+ Uo5Xm/ug/P5yGWXq3poVsmmplijePJOoRm0GRqa/tVQKmxqmjVPIWDsB+RkQ+seGkrd1Lqfn/Z
+ Wes/3yRj+0LZt+wYJcOuctwEAAA==
+X-Change-ID: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
+To: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Eric Dumazet <edumazet@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793875351; l=3475;
+ i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
+ bh=rZHB61+U1enCoVgD3Wfz8apEgkCU8t6fCPzBoMzY3sc=;
+ b=/kNEKecvuQY9s7+H78k/PUYmxSYX4p6AyTQx8mGfbCT51OgDpuaeJBGNgyrexX6Q2+BB8mn7P
+ vkrB22Ib9ReBXlf9z+NSRm0dQo9vrMZwPA6UYQIE5m4ZBRpJ9/iIymG
+X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
+ pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
+X-Proofpoint-GUID: C-VHx5LBX2jIOzmbICP3IWnOvugyjoGE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MiBTYWx0ZWRfXwK6X8onYc37m
+ QwHgeZNlUSByJFRYHjQkVpx/sMDsnYcNGUYrj1fYZBQIglEaB/Kj+0D51ntWmRjA0YUpT+jrnWf
+ kyYMw9/OlvDp92P+CHlLldcprN46ikA=
+X-Proofpoint-ORIG-GUID: C-VHx5LBX2jIOzmbICP3IWnOvugyjoGE
+X-Authority-Analysis: v=2.4 cv=OZoNnRTY c=1 sm=1 tr=0 ts=6aec5d9e cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=u9u05p8RAF7SMS7wY-sA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MiBTYWx0ZWRfX5+553QHDnwe2
+ KZ7/2m4MGHdDJVHmeFebk3U+1TcYAHjQPav7M7QD8fL08tMYdyOp4fgYbvLyAGWeJSkusHmyM2v
+ UIKtv3ruDitJhYT0A337TUGjc6hRucaUNyx1oulg9AYuhVC2lZs3CXV2L8wN7lZ1BpKXlFZAQA8
+ S4qvQe78CDOgZDZhzCXhGUfCja/TYgS6cQbR18VVFbi7RgigDHhLZnfwytCCA9Z5N7vb4xnwU+g
+ wDVOZtJh7ND6poyzUQVFa1XoEQl1Wdqlie2lJFhI0eMIDAit8G0x/1NQ2jyVAWO6icE9r3lagPB
+ LUFwLo+cFtUHzHbSk9dvYHjmY7/UjFO0A2YS/eFOuyVXJMW633orCmhZeZigVtCzo2PL8EYAiux
+ okBrP4b/oKthTUoqP0BswfQgS5l/3UhatXQ9ifuu1HxZ7gFhDWolGqD1iJj+75dwTADUSdOf7Ww
+ FLHUyrzfFvmRsR0DQaw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050042
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: monaco-evk-sd-card: invalid root syntax drops re=
-gulators
-- [Medium] arm64: dts: qcom: contradictory no-1-8-v property in monaco-evk-=
-sd-card.dtso
-- [Low] arm64: dts: qcom: monaco-evk: invalid sdhc1_opp_table overrides in =
-SD overlay
---
+Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
+domain with restricted access to system memory. BAM-DMUX DMA mappings
+and BAM descriptor FIFOs must therefore be constrained to a designated
+memory region that can be shared with the modem. Accesses outside that
+region can trigger an XPU violation.
 
-commit 6648a626b1d62a283e700d9a648c1b8158385e14
-Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
+Add memory-region and qcom,vmid properties to the BAM-DMUX binding, and
+a qcom,shikra-bam-dmux compatible that requires them. When qcom,vmid is
+present, the driver SCM-assigns the entire restricted DMA pool to the
+local and remote execution environments before requesting the DMA
+channels.
 
-arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
+The restricted pool then contains the BAM-DMUX mappings. When the BAM DMA
+controller references the same pool, its descriptor FIFOs are covered by
+the assignment as well.
 
-This commit removes the eMMC-specific sdhc_1 configuration from the base
-monaco-evk.dts and introduces the monaco-evk-sd-card.dtso overlay to
-configure sdhc_1 for SD card storage.
+A related binding change allows the BAM DMA controller to use the same
+restricted pool for descriptor FIFO allocations:
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso b/arch/arm6=
-4/boot/dts/qcom/monaco-evk-sd-card.dtso
-> new file mode 100644
-> index 0000000000000..bc4ea12587a2e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
-> @@ -0,0 +1,72 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +/ {
-> +        vmmc_sdc: regulator-mmc-sdc {
-> +                compatible =3D "regulator-fixed";
-> +
-> +                regulator-name =3D "vmmc_sdc";
-> +                regulator-min-microvolt =3D <2950000>;
-> +                regulator-max-microvolt =3D <2950000>;
-> +        };
-> +
-> +        vreg_sdc: regulator-sdc {
-> +		compatible =3D "regulator-gpio";
-> +
-> +		regulator-name =3D "vreg_sdc";
-> +		regulator-type =3D "voltage";
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-max-microvolt =3D <2950000>;
-> +
-> +		gpios =3D <&expander1 7 GPIO_ACTIVE_HIGH>;
-> +		states =3D <1800000 1>, <2950000 0>;
-> +
-> +		startup-delay-us =3D <100>;
-> +        };
-> +};
+https://lore.kernel.org/all/20261021-qcom-bam-dma-vmid-ext-v3-1-299355e8dd3b@oss.qualcomm.com/
+("dt-bindings: dma: qcom,bam-dma: Allow memory-region property")
 
-[Severity: High]
-Should this root node block use &{/} instead of / (like
-monaco-evk-ifp-mezzanine.dtso does)?
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+---
+Changes in v5:
+- Drop the redundant restricted-dma-pool compatible check, since
+  is_swiotlb_for_alloc() already covers it (Loic)
+- Link to v4: https://lore.kernel.org/r/20261103-qcom-bam-dmux-vmid-ext-v4-0-3690cc5ca0fd@oss.qualcomm.com
 
-In a /plugin/; overlay, dtc places child nodes defined under / { ... };
-directly at the root of the .dtbo blob rather than wrapping them inside a
-fragment@N node with an __overlay__ subnode.
+Changes in v4:
+- Decide the pool reclaim on the remote power vote after disabling the
+  PC IRQ (Sashiko)
+- Link to v3: https://lore.kernel.org/r/20261021-qcom-bam-dmux-vmid-ext-v3-0-cedd1f681102@oss.qualcomm.com
 
-When fdt_overlay_apply() merges monaco-evk-sd-card.dtbo into
-monaco-evk.dtb, overlay_merge() in scripts/dtc/libfdt/fdt_overlay.c skips
-any top-level subnode that lacks an __overlay__ subnode:
+Changes in v3:
+- dt-bindings: Add qcom,shikra-bam-dmux, with qcom,bam-dmux as fallback,
+  and require memory-region and qcom,vmid for it (Krzysztof)
+- dt-bindings: Drop minItems from qcom,vmid (Krzysztof)
+- dt-bindings: Drop the example changes (Krzysztof)
+- dt-bindings: Drop the statement about the local VMID from the
+  qcom,vmid description (Sashiko)
+- Reuse remove() on late probe failure, since the PC IRQ may already
+  have powered up the RX path (Sashiko)
+- Skip the pool reclaim when the remote did not acknowledge the
+  power-down (Sashiko)
+- Fail probe if the restricted pool is not attached to the device
+  (Sashiko)
+- Link to v2: https://lore.kernel.org/r/20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com
 
-	fdt_for_each_subnode(fragment, fdto, 0) {
-		int overlay;
-		int target;
+Changes in v2:
+- Replace the Shikra-specific compatible and coherent RX allocation with
+  memory-region and qcom,vmid properties.
+- Use a restricted DMA pool for BAM-DMUX mappings and BAM descriptor FIFOs.
+- SCM-assign the complete pool before requesting the DMA channels.
+- Validate the remote VMID and restricted DMA pool configuration.
+- Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com
 
-		overlay =3D fdt_subnode_offset(fdto, fragment, "__overlay__");
-		if (overlay =3D=3D -FDT_ERR_NOTFOUND)
-			continue;
+---
+Vishnu Santhosh (2):
+      dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid properties
+      net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
 
-Similarly, init_overlay_changeset() in drivers/of/overlay.c ignores
-top-level nodes without an __overlay__ child when applying overlays at
-runtime.
+ .../devicetree/bindings/net/qcom,bam-dmux.yaml     |  36 ++++++-
+ drivers/net/wwan/Kconfig                           |   1 +
+ drivers/net/wwan/qcom_bam_dmux.c                   | 108 ++++++++++++++++++++-
+ 3 files changed, 142 insertions(+), 3 deletions(-)
+---
+base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
 
-As a result, both regulator-mmc-sdc (vmmc_sdc) and regulator-sdc
-(vreg_sdc) are silently dropped from the merged device tree, while
-vmmc-supply and vqmmc-supply in &sdhc_1 are rewritten to dangling phandles
-that cause regulator lookup to fail in
-sdhci_msm_probe() -> sdhci_msm_register_vreg() ->
-mmc_regulator_get_supply() -> of_get_regulator().
+Best regards,
+-- 
+Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-> +
-> +&sdhc_1 {
-> +	vmmc-supply =3D <&vmmc_sdc>;
-> +	vqmmc-supply =3D <&vreg_sdc>;
-> +
-> +	pinctrl-0 =3D <&sdc1_state_on>, <&sd_cd>;
-> +	pinctrl-1 =3D <&sdc1_state_off>, <&sd_cd>;
-> +	pinctrl-names =3D "default", "sleep";
-> +
-> +	cap-sd-highspeed;
-> +	no-1-8-v;
-
-[Severity: Medium]
-As reported by Sashiko on v3 [1], is no-1-8-v intended here?
-
-The overlay defines a 1.8V state on the vreg_sdc GPIO regulator for
-vqmmc-supply:
-
-	states =3D <1800000 1>, <2950000 0>;
-
-and also adds 100 MHz and 202 MHz OPPs to &sdhc1_opp_table for UHS-I
-modes.
-
-However, setting no-1-8-v on &sdhc_1 causes
-sdhci_msm_probe() -> sdhci_get_of_property() -> sdhci_get_property() to
-set SDHCI_QUIRK2_NO_1_8_V, which in sdhci_setup_host() clears
-SDHCI_SUPPORT_SDR104, SDHCI_SUPPORT_SDR50, SDHCI_SUPPORT_DDR50, and
-MMC_CAP_UHS. That prevents 1.8V signaling switches in mmc_sd_init_card(),
-caps the SD card at 50 MHz High-Speed mode, and leaves the 1.8V regulator
-state and higher-frequency OPPs unused.
-
-> +
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&tlmm 11 GPIO_ACTIVE_LOW>;
-> +	no-mmc;
-> +	no-sdio;
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&sdhc1_opp_table {
-> +	opp-100000000 {
-> +		opp-hz =3D /bits/ 64 <100000000>;
-> +		required-opps =3D <&rpmhpd_opp_low_svs>;
-> +	};
-> +
-> +	opp-202000000 {
-> +		opp-hz =3D /bits/ 64 <202000000>;
-> +		required-opps =3D <&rpmhpd_opp_svs_l1>;
-> +	};
-> +};
-
-[Severity: Low]
-As reported by Sashiko on v4 [2], why does this board overlay modify
-&sdhc1_opp_table?
-
-In arch/arm64/boot/dts/qcom/monaco.dtsi, sdhc1_opp_table already defines:
-
-	sdhc1_opp_table: opp-table {
-		compatible =3D "operating-points-v2";
-
-		opp-50000000 {
-			opp-hz =3D /bits/ 64 <50000000>;
-			required-opps =3D <&rpmhpd_opp_low_svs>;
-		};
-
-		opp-100000000 {
-			opp-hz =3D /bits/ 64 <100000000>;
-			required-opps =3D <&rpmhpd_opp_svs>;
-		};
-
-		opp-200000000 {
-			opp-hz =3D /bits/ 64 <200000000>;
-			required-opps =3D <&rpmhpd_opp_svs_l1>;
-		};
-
-		opp-384000000 {
-			opp-hz =3D /bits/ 64 <384000000>;
-			required-opps =3D <&rpmhpd_opp_nom>;
-		};
-	};
-
-And in drivers/clk/qcom/gcc-qcs8300.c, ftbl_gcc_sdcc1_apps_clk_src (which
-uses clk_rcg2_floor_ops) only provides 100 MHz, 192 MHz, and 384 MHz at
-the top end, with no 202 MHz entry:
-
-	static const struct freq_tbl ftbl_gcc_sdcc1_apps_clk_src[] =3D {
-		...
-		F(50000000, P_GCC_GPLL0_OUT_EVEN, 6, 0, 0),
-		F(100000000, P_GCC_GPLL0_OUT_EVEN, 3, 0, 0),
-		F(192000000, P_GCC_GPLL9_OUT_MAIN, 4, 0, 0),
-		F(384000000, P_GCC_GPLL9_OUT_MAIN, 2, 0, 0),
-		{ }
-	};
-
-Because device tree overlays merge child nodes without removing existing
-ones, &sdhc1_opp_table in monaco-evk-sd-card.dtso lowers the SoC-defined
-voltage corner for opp-100000000 from rpmhpd_opp_svs to
-rpmhpd_opp_low_svs, leaves opp-200000000 and opp-384000000 in place, and
-adds opp-202000000.
-
-When dev_pm_opp_set_rate() calls clk_round_rate() and looks up the ceiling
-OPP via _find_freq_ceil(), any 200-208 MHz request rounds down to
-192000000 Hz and always matches the existing opp-200000000 entry before
-opp-202000000, while sdhci_msm_probe() calling
-dev_pm_opp_set_rate(&pdev->dev, INT_MAX) still selects opp-384000000.
-
-[1] https://lore.kernel.org/r/20260701083148.0F8341F00A3A@smtp.kernel.org
-[2] https://lore.kernel.org/r/20260716144010.1DC4F1F000E9@smtp.kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105101955.3732=
-723-1-monish.chunara@oss.qualcomm.com?part=3D2
