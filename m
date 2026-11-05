@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903063;
-	b=JbaKR1OmHvLzkGn7D0/WNp01jBRsZKEfspnPzIg/J5hKhALwj0g2jvYzABztXPZ8nBN0
-	 RWYIl/y7PDGoLIXryAf2EYYG015YCsmyBuunh+vNlDciRo3F2EAAnLaR0TWs48GGh4ISn
-	 AsaWdswZzkPmfon+QhwvwyDrDHP+fMxltOGWPh/5lBKKNVGqmmAVWq86TgUfYDA4MGRzH
-	 CFxZHNWt1vrgFn55CL8r+2m60McO+BTzVpEbSqTRXpKcew7OuEjQvPXd6pt9mkFJ1EnDL
-	 stv79qscxiGvX9MbmnNsM0LLkQyGOLrcxcZt4Uefh7ulWS5zSB2/OKs6s5qb7yukDdg==
+	t=1793903304;
+	b=BXHWafGFnzNl5xx4uPeUYGnnW7RMqAlmQrgIv0UF9pY0tsPpgwkq6uE/d4BcIBBVVC7M
+	 lF46VQ9FaPRxm0hb85zPHsu+2ozoXsaHgkfYTlW6EbVa9+VRvSukxte7q3jRgBHVCfsSv
+	 P3M0qGOvN1ycWcsQT1yH7hJoNqNOVlxb/10S/Z946PNHGfSN7Z+nBnIUyA1+JMRa5SJmJ
+	 1v3ivpnFy0rGH0aETJn03Uymd/1M7whxehEuD2EgCU16gWk5+Vph5MU/B/jWVoXZw5vmY
+	 YgjgUEcKJe0o11RhjJQ++3DQ1pFXnckLE13IkC6zaSX3dYqTP5xns5QPrxmNDfLz/ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903304;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=cjUElBqzPluT7QSjt/7lModkJ2Ig4dFvcYSz+eg2RbU=;
-	b=E3RnQFP4bUzfUvnqUkxlkVR6EtOp2ZRmOC1tK6dIpQMz6dV69B7whBU0UyJrzOiV+Iot
-	 8Kc2XyzzrbBCoFx2q9lvr7RT7Uef75JzeVFSUtvH6qJR5WzToM87GZcATh/MoOfwMIGIk
-	 fx+M9KnPEOBGuiwffUDVAZnUNjOp/gRI4pdqbvQ2KzX+2bUitg6WTuU0JUo8JwSh3hgoT
-	 OqY9hY8vvRsNZAKdNV2wUGKOqvtmwBQzcN0M5KASkW4b3cfaoJSf8G1Bk7q41Lxb2EyZQ
-	 tlnt9OIyK67Z/ng2PSMM8gymKl1MGQHpe9DiNe7zLNXp9If6ViHLjZ5wfoKW0NpJMeQ==
+	bh=wt8NtzWkUoD77pSQ3HWtMFr8j0qEO58xGArUP0qZP38=;
+	b=RoIZl83xKhXj4WVO4kNPLJGs7QqGRQpfriwgQJ1uPOJVhPZ3Pllevk3VatnMkxVq85Lm
+	 C2oSwJ7yQNhz3VI7k3mn1G/RsVIQeBFSThwRVFc0sK6VSViWYAe+7+ARbxiJ/dS1Sw1Fh
+	 rh7rvtEaRM7i7vMLEfvCcMQbwEn3yGf+DbO9jiUIs6q6z+iof5wWglNAR8GtxuZxNz8hl
+	 ooXVal2VjyMthlb9ahooRbCq4qVKuhtLn1Vr4xd7lCGW4N5/faNHMbf8HybStuqzOeXJA
+	 s848wTxt2yWj+XAkgSC7Bv4iI2OR+T3pN73NUjtzdyTtz3/jEwaLQxKo39rQZ/PfL/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BD2aCl8r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbRs5WKB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F67606A31B;
-	Thu,  5 Nov 2026 18:24:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAE4606A31B;
+	Thu,  5 Nov 2026 18:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BD2aCl8r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C4E1F00919;
-	Thu,  5 Nov 2026 18:24:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbRs5WKB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BEC1F00A02;
+	Thu,  5 Nov 2026 18:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903063;
-	bh=cjUElBqzPluT7QSjt/7lModkJ2Ig4dFvcYSz+eg2RbU=;
+	s=k20260515; t=1793903304;
+	bh=wt8NtzWkUoD77pSQ3HWtMFr8j0qEO58xGArUP0qZP38=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BD2aCl8ryPB4H4ifilP0HoKNxJrE3LkzDcHnc1GOhqqO09ag549Bc6WQDr5ixwtS8
-	 zkyMJkM9JwQ62U/YHXrczFfQ6L0mWX5u67BFPPe2elik8/x/0otCRECNlx6FLnOJtw
-	 GQ6eUI8iYMkN+re4rVqNG2LZ9wnG1lWgTK4Q2EuGFc/P2poedu5vTRLq8XNFK2U0yR
-	 4XTrfa2AKVSgz7Cx0/OqJqptghvWSLDYxND7Of6dlboNOaRVRgPGu1knF54Ykc7sh/
-	 tuuVC+LvthIg1J11BJp5xuGAYjDxPNnTsHT3UpynFhly7WBkbWugbX4l1ZR5mT/E32
-	 051o+m+YKGn+g==
-Message-ID: <b865a3ef-3a69-4bc0-be25-29d3ddfb3385@kernel.org>
-Date: Thu, 5 Nov 2026 19:24:15 +0100
+	b=UbRs5WKBsVX9j30Il5Ddj6BTcZ8OL1qzPl7Wvy+COIoffnHiiz3v347EY1N264v+B
+	 cj/r+cbdE7l88yVvaV9YeXDCrEjwWdr1phWLZ4JNuZpUVdIBeMhlGeXe45oS/jPqYV
+	 GZWwmBOC8EZVuWajR4R18m+k0akrydUEg1tchVpEHzRhBj3V7JZSNVj4YJs6ycbhEi
+	 Wk+x41HadxOruMv3Jm3aeZZLIxO0RsMPkTqy+qscH62wkuqHfK3kctt0yeJGjUxcX0
+	 zJDGVbCzLtJfrcB7vBQyieixwbjYXWWQSxwv5ICuHHhesN8axnuDx+DDfvShngqGh6
+	 1ZNIsft7TmmGg==
+Message-ID: <0820de78-679a-45c2-baf1-2905490ea926@kernel.org>
+Date: Thu, 5 Nov 2026 19:28:14 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,19 +52,30 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: PCI: rockchip,rk3399-pcie: Add PERST#
- inactive delay properties
-To: =?UTF-8?Q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
-Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
- mani@kernel.org, bhelgaas@google.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, heiko@sntech.de, dlemoal@kernel.org, iav@iav.lv,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261104215848.2087944-1-ehbello@gmail.com>
- <20261104215848.2087944-2-ehbello@gmail.com>
- <20261105-exuberant-finch-of-domination-3fbd6c@quoll>
- <20261105174042.2307139-1-ehbello@gmail.com>
+Subject: Re: [PATCH v10 08/11] dt-bindings: ufs: Add NXP S32N79 UFS host
+ controller
+To: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+ Stanley Jhu <stanleyjhu@google.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Can Guo <quic_cang@quicinc.com>,
+ Asutosh Das <quic_asutoshd@quicinc.com>, imx@lists.linux.dev,
+ linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ clizzi@redhat.com, aruizrui@redhat.com, eballetb@redhat.com,
+ echanude@redhat.com, Frank Li <Frank.Li@nxp.com>
+References: <20261103133215.1385823-1-larisa.grigore@oss.nxp.com>
+ <20261103133215.1385823-9-larisa.grigore@oss.nxp.com>
+ <20261104-holistic-loon-of-agreement-db7b8f@quoll>
+ <4e82a4bf-e2db-4a3b-bebd-9f9c473817a3@kernel.org>
+ <17b24b80-c3bb-40a1-ad12-06242ca09c22@oss.nxp.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,56 +121,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261105174042.2307139-1-ehbello@gmail.com>
+In-Reply-To: <17b24b80-c3bb-40a1-ad12-06242ca09c22@oss.nxp.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05/11/2026 18:40, Enrique Hernández Bello wrote:
-> On Thu, Nov 05, 2026, Krzysztof Kozlowski wrote:
->> Vendor driver does not matter, it is antipattern. Do not mention it here
->> as reason to do such change.
->>
->> No need to repeat the diff.
+On 04/11/2026 10:41, Larisa Ileana Grigore wrote:
+> On 11/4/2026 10:40 AM, Krzysztof Kozlowski wrote:
+> v8: 
+> https://lore.kernel.org/all/20261013103003.373156-1-larisa.grigore@oss.nxp.com/
+> v9: 
+> https://lore.kernel.org/all/20261024122533.3609180-1-larisa.grigore@oss.nxp.com/
+> v10: 
+> https://lore.kernel.org/all/20261103133215.1385823-1-larisa.grigore@oss.nxp.com
 > 
-> Understood, both go in the next version.
+> Regarding your comments on v9:
 > 
->> us or ms?
-> 
-> ms. The 0 case is badly worded: the driver never holds PERST# for less
-> than 100 us, whatever the value, and 0 just ends up at that floor. I will
-> describe the floor instead of giving 0 a meaning of its own.
-> 
->> What is the nature of this timing? 100 ms is a lot. Are you sure you are
->> not describing RC delay (we have bindings for that already)
-> 
-> The 100 ms is not something the board needs. It is the driver's current
-> wait, T_PVPERL from the CEM spec, applied on every board. Because PERST#
-> is already asserted when that wait starts, it is also the width of the
-> reset pulse.
-> 
-> On my board (ROCK Pi 4C) the slot supply is regulator-always-on, so power
-> has been stable for seconds before probe and there is nothing left to
-> settle. The problem goes the other way: the JMB585 behind it stops
+> Frank's Reviewed-by was given publicly on v8 [1]. The series only looked 
+> like a v1 because of the wrong version number.
+> The tag ordering was changed in v10 since the patch was changed.
+> The single 0 Hz OPP entry: as discussed on v8 [2][3], the clock rate is 
+> set outside Linux and is not scaled. The OPP table lets the UFS core 
 
-So maybe that's JMB585 issue? Arguments so far are rather against
-controller-based property.
+That is not the purpose of OPP table. OPP defines performance point.
+Performance point of 0 makes no sense. You cannot use Linux limitations
+as reason to add some DTS, because answer is simple: fix your Linux
+limitations.
 
-> answering configuration reads when it is held in reset that long. A wait
-> of 0 to 15 ms enumerated 17 times out of 17, 20 ms once out of 3, and
-> 100 ms never in 5. So the board needs a shorter value, not a longer one.
-> I do not know why this endpoint behaves this way.
-> 
-> Which binding did you have in mind for the RC delay? If an existing one
-> fits, I would rather use it.
+> enable and gate the clock. As you suggested, v10 explains this in the 
+> commit message. Let me know if you would like more details there.
 
-The RC delay binding, gpio-delay.
-
-> 
-> I also plan to drop rockchip,s2r-perst-inactive-ms, since it describes
-> an OS power state rather than the hardware.
-> 
-> Thanks,
-> Enrique
 
 
 Best regards,
