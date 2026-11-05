@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793919507;
-	b=0M8+i8RUQVNNEEo67JYW/cLneIv4oCbJUpY+TYbFj6yBGeoK9dOXM8D1d3VL9m7w9Hn9
-	 EQdmzL3Oiz8cDr/8TPOYckFwnDjiuPa44wC/Uj26gkmN8tUJEGhG6f3Emr+N3Q4DajKVg
-	 kJH4jAz+prZGRPhSUxjta57jg8Rj7yWOeuSNON3nT0wyjdIO7U/vxXztqfzB7WIElqTFI
-	 Y5xmhnnHdMPiVeAxOhVlo1g3eYPSBHQkQ0UeZ8Ti34nyjq7CslZFKTwJqv0Lo4qUW6orf
-	 mrWcG13cxbO25hJlYxdQmSazZtUFXOsGYyUMwxL9N08M1uwXpEqiMUpk1GZUNwFYyBQ==
+	t=1793919993;
+	b=KOjk63fSB7MbUENkJrGwZFdHyUPZyJYUAs9rArRSte6WV7MYLol9r1Oc86OnDYO+O3KL
+	 +k8zMxbw9OlcOfmOUiMvwoQIi0phj5DlwAsj8K91y1pU+9qjPNTEdpjQ0MOmC2RyYzchC
+	 Xz3rjZEfngnI1QTjD8yXuZKlOSr09vTzguXnihQg89cifxAuhoCLlqwm4grWUWWT4+1g7
+	 A0meKRmax2ff/a/wSle+IU0iztY5k90vvXlPUwo3KllQPZnHpS8e0rPt++utW5kMyaFnU
+	 3f7oWoul7BrKc9t0+5IIWmRwNdx42AFc2QlNQoZRADI+/46I+EVjuWeat6YxYwYqBsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793919507;
-	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
-	bh=tAeSYJKxv49Um8YvczKpMyCnEqXgAVDRGgOKsRK/LrI=;
-	b=m1JE+Py1aixn1sJ50IwGrODE9BfeDGD9Wr3PzoAWoDawriVhX12+YTkwRWCHkA80UHQC
-	 dQ4KC2pKic1VLxZvwdKGUrrUYmXIywrhodj1/82K7Lw9xDgTtNTFdAnNOWNv9m/Kj37lu
-	 UNQ4tSOpFia7GH1rhCJOnI4lSsORuj2nLLVB5x+9qvw6uPohbxp+aNCWzjFG5aDxMNG0O
-	 1F8yirexLrzxbSr8Go0s+ZZgpQp7FGPG7E6rF3XC3UqMf2Dae90PcqLEIT2jcIKiup5JP
-	 /X71Ohl9M0AOznpAt1PyawxPWKq+zG3FrWA9rzmuaFuFXZFGJYbvU7E0htYecyYRDsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793919993;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YaBcuTS2/J1mzNJ1LILtsklT83XrE9jGAVFB2V2Mc28=;
+	b=SMPiD6TH2YHbEsJ/ZfxJ02zGnF0rjPHdEduqjSFfSewTO+3ghB6jpzMaFw8+w/48umJk
+	 qfnq/eUTKNV92jpopOtT/6aqZY5CfU46hiau9yc+nvizDcC5ShKh4yigE4gEB9BmvJMi8
+	 nxfvJF6KlN49tPSmnVW24G6Jlsi5YTLpB/HTCiDwckoYNH+EjpL36VDCkCxiz8PvQMIQM
+	 Y1moZUrR4mgntMD3hBUJIUPnYVeYHU6oasK2ikiW5xA064g8WXisLn1iIIHjFkJrmSAiZ
+	 TrEsmwDGX14qtS9ab62zxa29ILBS8luaUNJh3qPsGtsVn3QaKCzMsxGk42TCef019iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgxAofaN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfCU20bl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB58606A31B;
-	Thu,  5 Nov 2026 22:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980CB606A328
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 23:06:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgxAofaN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5707D1F0089F;
-	Thu,  5 Nov 2026 22:58:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfCU20bl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742941F008A2
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 23:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793919506;
-	bh=tAeSYJKxv49Um8YvczKpMyCnEqXgAVDRGgOKsRK/LrI=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=KgxAofaNpa26Q+CnGGNaQb47+2HxNekzMYJb/WbMGKCE4E2RE1WXFHWJQQKESatbY
-	 e+4JYe9yPAMopLt4Q4R8Ik9D0F1KGwX+m8TTUDDuEg0O3lZFIErEgCvolp6at+enHw
-	 yOAaWONE0zQLlLchjRPaD5yGqYv5iB7MQoP+H5uLCdP5wI5LMLxgsdcS/bzFjnXcCp
-	 sMaR9U2+5/O1YuU+5i4NGp6aEqsnc8//2PLn1KZkTWfl3OTuRP5A7MUMPq0R3z5SDB
-	 aBVxMITnOI4Xcq1qZ6c4X8UM0jp8UrwsLOgAQTuoU+6xvhz6Hygb+jkiCy/qsJc5Wv
-	 csG0qUXkK9xEw==
-Date: Thu, 05 Nov 2026 16:58:23 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793919993;
+	bh=YaBcuTS2/J1mzNJ1LILtsklT83XrE9jGAVFB2V2Mc28=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YfCU20bl5BO8wiSlNqEOUlaPEOjSEKdEZ1tP0SQeC+sbSm8Ylz2A1J83L573TwGJj
+	 LRYptvU5PS1s7p/S6vUmxHEC9jOz8zU9563xmG8dDB7Kq4PrSzY+aKwvPaeXADd7xT
+	 ytS9Hh08EYRFfPsRu6Tt7NLI137BqSqFSx9hSQVq6cHyV8xdTDK21jPBCR2/IquQWQ
+	 JbxDbaTwHWnmcDr/Tw3W7JSEieJIFbr9m4JV8+k41O8TPbUVNCS33PnKEbuTZm2gOl
+	 O5kuf4FmNB4pUYdjvsKOTXBO89ukTb26mXnqfzrlrGm8vv9daUIlIVQikqiN9a4gsK
+	 yZduW67QlWtQg==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso40199e87.2
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 15:06:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwz6e5RK4EEtYpGU5Jty11PAMkLOSKg9VEO2pymM283LgnlsKcYsfbijwfVonUCQV9k1nr9RoZiT+hp@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DnY0d6OmaoprRCxVWL3bB9jdnQrxOa/5SDIUqGM0Bx38IgdpR
+	dG33cEQFbgxyggsT29JZu0TCa8uV7jTq4VrZNB+YRbXCZnOE+C9pCrsXGqnbw5Zz6LE4EEEUTNW
+	KXiDU2BXL7Ae1VxiO7DeOiGTSMzrvjPA=
+X-Received: by 2002:a05:6512:12d6:b0:5bf:d072:fa3f with SMTP id
+ 2adb3069b0e04-5c003aedaf5mr130898e87.54.1793919991966; Thu, 05 Nov 2026
+ 15:06:31 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,60 +59,109 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org, 
- Jessica Zhang <jesszhan0024@gmail.com>, dri-devel@lists.freedesktop.org, 
- Simona Vetter <simona@ffwll.ch>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-In-Reply-To: <20261105140510.165165-10-clamor95@gmail.com>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-10-clamor95@gmail.com>
-Message-Id: <179391948182.1745061.4582577989237353337.robh@kernel.org>
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit
- CPU parallel interface
+References: <20261101-xg6846b-bcmbca-xrdp-reset-v2-0-455fe9eed5ee@kernel.org>
+ <20261101-xg6846b-bcmbca-xrdp-reset-v2-5-455fe9eed5ee@kernel.org> <179383086680.620422.9240673673295480953.b4-review@b4>
+In-Reply-To: <179383086680.620422.9240673673295480953.b4-review@b4>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 6 Nov 2026 00:06:20 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnKQof8mO1KNRvZxE6Tin65w8jdSaZT5OqV_O7pwVD_8g@mail.gmail.com>
+X-Gm-Features: AclHuK9TCTCv47BMRDRzDvAaOOJPAOA3SDISY1H9ALtJZ7Baq-LrE9h49u9eXP8
+Message-ID: <CAD++jLnKQof8mO1KNRvZxE6Tin65w8jdSaZT5OqV_O7pwVD_8g@mail.gmail.com>
+Subject: Re: [PATCH v2 5/7] clk: bcm: Add BCMBCA PMB clocks
+To: Brian Masney <masneyb@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	William Zhang <william.zhang@broadcom.com>, Anand Gore <anand.gore@broadcom.com>, 
+	Kursad Oney <kursad.oney@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Guenter Roeck <linux@roeck-us.net>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Brian,
 
-On Thu, 05 Nov 2026 16:05:09 +0200, Svyatoslav Ryhel wrote:
-> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> Tegra20/30 SoCs display controller.
-> 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++++++++
->  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
->  2 files changed, 135 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
-> 
+thanks for reviewing!
 
-My bot found errors running 'make dt_binding_check' on your patch:
+On Wed, Nov 4, 2026 at 11:21=E2=80=AFPM Brian Masney <masneyb@kernel.org> w=
+rote:
 
-yamllint warnings/errors:
+> > +static int bcmbca_pmb_clock_prepare(struct clk_hw *hw)
+> > +{
+> > +     struct bcmbca_pmb_clock *clock =3D to_pmb_clock(hw);
+> > +     const struct bcmbca_pmb_clock_desc *desc =3D clock->desc;
+> > +     unsigned int shift =3D (desc->channel % 2) * 16;
+> > +     unsigned int reg =3D BCMBCA_PMB_REG(desc->bus, desc->device, desc=
+->reg);
+> > +     u32 value;
+> > +     int ret;
+> > +
+> > +     switch (desc->type) {
+> > +     case PMB_PLL_CHANNEL: {
+> > +             unsigned int regs[] =3D {
+> > +                     BCMBCA_PMB_REG(desc->bus, desc->device, desc->pll=
+->status),
+> > +                     BCMBCA_PMB_REG(desc->bus, desc->device,
+> > +                                    desc->pll->ch01 + desc->channel / =
+2),
+> > +             };
+> > +             u32 values[ARRAY_SIZE(regs)];
+> > +
+> > +             ret =3D regmap_multi_reg_read(clock->regmap, regs, values=
+, ARRAY_SIZE(regs));
+> > +             if (ret)
+> > +                     return ret;
+> > +             /* Firmware owns PLL power and reset. */
+> > +             if (!(values[0] & PLL_LOCK))
+> > +                     return -EAGAIN;
+>
+> Should this be -EPROBE_DEFER instead?
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.example.dtb: /example-0/dc@54200000/dbi@0/panel: failed to match any schema with compatible: ['hit,tx10d07vm0baa']
+Not here since it is a .prepare() callback which is called at runtime,
+it would be weird to get this return code from preparing a clock?
 
-doc reference errors (make refcheckdocs):
+> > +static int bcmbca_pmb_clock_probe(struct platform_device *pdev)
+> > +{
+> > +     struct device *dev =3D &pdev->dev;
+> > +     struct regmap *regmap =3D dev_get_regmap(dev->parent, NULL);
+> > +     struct clk_hw_onecell_data *data;
+> > +     struct bcmbca_pmb_clock *clocks;
+> > +     struct clk *ref;
+> > +     unsigned int i;
+> > +     int ret;
+> > +
+> > +     if (!regmap)
+> > +             return -ENODEV;
+> > +
+> > +     ref =3D devm_clk_get(dev, "ref");
+>
+> This is never used. Is this to defer probe until the ref exists?
 
-See https://patchwork.kernel.org/project/devicetree/patch/20261105140510.165165-10-clamor95@gmail.com
+Yep.
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+> > +     for (i =3D 0; i < data->num; i++) {
+> > +             const struct bcmbca_pmb_clock_desc *desc =3D &bcm6846_clo=
+cks[i];
+> > +             struct clk_parent_data parent =3D {};
+> > +             struct clk_init_data init =3D {
+> > +                     .ops =3D &bcmbca_pmb_clock_ops,
+> > +                     .flags =3D CLK_GET_RATE_NOCACHE | CLK_IGNORE_UNUS=
+ED,
+>
+> The CLK_IGNORE_UNUSED has no effect since there's no disable /
+> disable_unused ops.
+>
+> Also why CLK_GET_RATE_NOCACHE on all clocks?
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+The latter is only needed on PLL outputs as they need to read
+the state of some hardware dividers. I'll restrict it to those.
 
-pip3 install dtschema --upgrade
+I fixed the rest!
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Yours,
+Linus Walleij
