@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889774;
-	b=v18IACOw+FzfYBu41UkfYh+hpSqGTp1pPIm76ijVi2gGitEFu7LGEKOksZ3AUdmqkPZr
-	 mEla1rhw93R/o5I3h8fv0aB18H6ztfETjUUs6hVGkoLqKhF9x6pjVRYVkzjJbR8cZVzlj
-	 KnFda5kDS1PKCct6zJ8TNNGxVgMQfXK2nlNs09Yp7J8vOQ5Nt/Foz0ZO0ImMs4/pFeinZ
-	 6DjUUqhhwUl/915+8DNfpH9u/WFdclwxqYm312ceQfmocGyjQF/rryGCnprbvh/HVX16m
-	 0b/DbgK7lkUJPDcFfjaQfOrty5q6FmnKE/5BDb7fv3GZvw5Ltp4JOlTfAyzsTYi7EtQ==
+	t=1793889791;
+	b=TcLhbWSwjdTODU2r4/q+GOyp2TXgEd4KSJ7E8AzXWvp5gRlbBpKvYbEqVhhRfwH1wnVj
+	 ITLJd2kcXtAo+tiqubojV6mIXL+HiJruvAhj9lIck9vLiJTx/I521dXT7+2tpT0sRmsgh
+	 /poVXpaVipTqBxz0xywp+LQvgqheaEk05qBDricfkHKKZBK0tjjk21qWqD1pg+tmLh/ej
+	 hKfagtxhDq+/KjIlxwb/uHWDtz4QEFyysI4iss4nblpL22IYHdLEkdh8IUHnnWKL/m3+S
+	 MiGCZSDCjDRE8hM7uZMnVmsVgPnPmwAqXxCxSYasd0hMidMBc/BrYq/ZfV0nB+/Fq6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889774;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=c9Qf0MhLQySpDb0sxxGf8i7JyLqINcuxDoFglNVjBEk=;
-	b=zdlj7OyU062fGJSfO0V8gzJfP67uVmre8Z9MnnBNjivrzY9uhw1lTlLsdUGoWOxOK9xa
-	 5pIRsuVXiVPJ01pB5iS5tXmb8sVtyE2OyXR+8cb36QfgJMESbgM6BnmCNp0CmuN6PCjKB
-	 OgE0AI8wr31J3t7TC24GCKxTIsEuArtpD2gGzTmQ8ydLqgJLa62L1trhgFeZrHI8elo/s
-	 k1t0BA1k/Fj9+le06cj+FiRv6TjXdI6uhQpF7MKCi1Ey5SReXERb27n5eLnfzisAIeF0s
-	 p062mINFsqH6XjDImlgV70TBP1vVKCjc9tGFw0ZaIIhVHbIwkrCy1J6xuaqz4zEMblA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889791;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=43u83yv3y/AcUm7j7VuycPlBvarwqlz0nqyYMrh0YN0=;
+	b=YoOzA8KfzcGtbqclIsPfupsNeLIv44v43A/okG/QT5BLeOJikUY3bYrJxGw/ywO7JSyD
+	 JwzPSTUFpqjmJqfN3oEGImMmkYpMZMhSZ4Wyf30lBXDuGQ4AkwBZEVuabzUxfqDs7cwMS
+	 AeqARUf6XXWCW96Td3JN6VPBnzKaH+Ft2DQnsGhoJmdJyMWtDSG9CE0vkR6AgfKaMGngZ
+	 mlXfrhGm+TqqqmFzE5nRXvSNh7m9Wj+OI8PTKaPlK8eYTVlaIVRCFjcyubHQ3sZ9no1wD
+	 jUqTPQ8xSmrOSLFw8vuUrzIQofAzht6ww4+PW5lB80ot7ZRhlqfBBR8G5YdPXpe/GHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TtNHb+cv;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRytBMn7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A21606A333;
-	Thu,  5 Nov 2026 14:42:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A21606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E8B606A31B;
+	Thu,  5 Nov 2026 14:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TtNHb+cv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793889772; x=1825425772;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=q1Pf8PUf4xOcPF8BGZqTYGEzo2UCfvkkF5uSVw81asg=;
-  b=TtNHb+cvhkcf/bVYIY15eH9A49MHzcUPcV/CG/mzmgOwuRNiKipn3HPP
-   PUl2UPivlxtiknv2RVaYaidHiu58t2fKZQzCrKNTkHstzXEUGjR5+gtZc
-   +c5SXdp3FJN6GU49DrItOIdXjRxiUfqinpc1DlZVuY8PPuIRScDAk7TGa
-   Zp56oAeLBa7HkB0WlGKL72y49PE7rf4Z11DhWtJX1QQLnjIm3j/7s5cOQ
-   a7s4/kL0SHQIu5THeyY5t5+Wrw/EZI5Utxv/irZ9FKw/9V4swY9xUjRky
-   jRx2EFVhSOzeTEpQuu76yjkJ23EQsJnIPzStihoCbGtlLPdk0yguuYu4i
-   A==;
-X-CSE-ConnectionGUID: ImdYJx8TQV+AxUY4FRqxgA==
-X-CSE-MsgGUID: 5+oK8vNwTCe4J04yZbcFcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2698340"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2698340"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:42:52 -0800
-X-CSE-ConnectionGUID: XAthWtFQSBCLu97ShSJCOg==
-X-CSE-MsgGUID: DhogsxNKSDyJ0JhxnZuhSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7198542"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 06:42:45 -0800
-Date: Thu, 5 Nov 2026 16:42:43 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Len Brown <lenb@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <auyV47xUCr1EJ7A3@ashevche-desk.local>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRytBMn7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050811F00919;
+	Thu,  5 Nov 2026 14:43:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793889791;
+	bh=43u83yv3y/AcUm7j7VuycPlBvarwqlz0nqyYMrh0YN0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KRytBMn7WE4zqViJdmdoQXyyFqxbev9jSjI1U08L/4sYzKNsz5xBJKuycHlXHHPSO
+	 gI51Qe7j7iRRjrBrkCQWArCf//9afnl7kWaIMMfzuy2gVEa+93eLI25aOvm7LJDYKe
+	 qe8AwTJIazJr+r5iCVmXkGeUuCbOTLbtjnwrXLJu78RcGbJhjLMKJ2KwNhZR34fzCM
+	 Ac2wdZDZDoZ0WysCcTAwhzXTNZg8iU+Og/cVvYpGPx5DRraSMs7LVyjIQun/WkpfpB
+	 ///R7urHQg0J67GCaxPNYjTndXTQuUxmSu+KkStGXhyJCUnQaUzJRiaRP+dhEZo5tw
+	 m+o1Eb6CYQkfQ==
+Message-ID: <sashiko-outbox-199259@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/6] arm64: dts: mediatek: Add basic support for
+ MT8163 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ben Grisdale" <bengris32@protonmail.ch>
+Cc: devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-5-e68d7d428f99@protonmail.ch>
+References: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+ <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-5-e68d7d428f99@protonmail.ch>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 14:43:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -102,65 +60,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auyOkL1Vb1iKicS9@devuan>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Nov 05, 2026 at 03:16:45PM +0100, Alejandro Colomar wrote:
-> > Date: 2026-11-05 15:01:22+0100
-> > From: Bartosz Golaszewski <brgl@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: mediatek: undocumented and unmatched mt8163-wdt comp=
+atible
+- [Medium] arm64: dts: mediatek: mt8163: wrong IRQ trigger type on watchdog=
+ node
+--
 
-[...]
+commit 67e669b8d381b252cd1f347ad5f9a9a92a7b5322
+Author: Ben Grisdale <bengris32@protonmail.ch>
 
-> > I have no idea what causes it but I'm getting so many patches lately
-> > that are subsequent iterations of a series sent with In-Reply-To: header
-> > pointing to a previous thread.
-> 
-> I don't know what others do, but in my case it's a conscious manual
-> action.  I use --in-reply-to in git-format-patch(1) to make all
-> revisions of patch sets be descendants of the cover letter of v1.
-> 
-> We do this in the Linux man-pages, as it helps me keep track of all
-> revisions of a patch set easily in mutt(1), without having to follow
-> links or use more-complex tools like b4(1).
+arm64: dts: mediatek: Add basic support for MT8163 SoC
 
-Exactly the same reason on my side to *not* put everything into a single
-thread!
+This commit adds the base device tree include file for the MediaTek MT8163
+SoC, defining the CPUs, caches, PSCI, interrupt controllers, timers, PMU,
+watchdog, and UART nodes.
 
-> > Don't do this. Each new iteration must be a separate thread. Please use
-> > b4 to manage patch series.
-> 
-> I won't use b4(1); I like bare git-send-email(1) and git-format-patch(1).
-> But yeah, I can send them as separate threads, if that's the preference
-> here.
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8163.dtsi b/arch/arm64/boot/d=
+ts/mediatek/mt8163.dtsi
+> new file mode 100644
+> index 0000000000000..645f4e15587bf
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/mediatek/mt8163.dtsi
+> @@ -0,0 +1,243 @@
 
-Yes, in Linux kernel majority of the maintainers (a bit of speculation,
-I haven't counted, but it feels like this to me) do want separate threads.
-IIO with a huge traffic is one of them, tty/serial IIRC also does because
-it's how Greg's workflow is set up.
+[ ... ]
 
-> Out of curiosity, what's the benefit of having separate threads?
+> +	soc {
+> +		compatible =3D "simple-bus";
+> +		ranges;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +
+> +		watchdog: watchdog@10007000 {
+> +			compatible =3D "mediatek,mt8163-wdt";
 
-^^^ See above.
+[Severity: Medium]
+Does the watchdog@10007000 node fail to bind and fail dtbs_check with only
+"mediatek,mt8163-wdt" in its compatible property?
 
-> (Or the converse question: what's the main problem of using a single
->  thread?)
+Unlike the timer, sysirq, and uart nodes, "mediatek,mt8163-wdt" is not
+documented in Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.y=
+aml
+and is not present in mtk_wdt_dt_ids[] in drivers/watchdog/mtk_wdt.c:
 
-In mutt for tracking I often delete the old email threads when they are
-considered closed to me (or archive, if you wish), I don't want a blast
-from the past for this. It's like starting fresh on each Monday :-)
+static const struct of_device_id mtk_wdt_dt_ids[] =3D {
+	{ .compatible =3D "mediatek,mt2712-wdt", .data =3D &mt2712_data },
+	{ .compatible =3D "mediatek,mt6589-wdt", .data =3D &mt6589_data },
+	...
+	{ .compatible =3D "mediatek,mt8195-wdt", .data =3D &mt8195_data },
+	{ /* sentinel */ }
+};
 
-> They're morally a continuation of the previous threads, which is why it
-> makes sense to me to have them as subthreads.
+Without a fallback compatible such as "mediatek,mt6589-wdt" (and a
+corresponding binding entry) or a driver match entry, mtk_wdt_probe() will
+not match this node, leaving the hardware watchdog, system restart handler,
+and TOPRGU reset controller unavailable. Should this include a fallback
+compatible and binding update?
 
-The email thread with big patch-series and discussions looks awful
-in such a setup (my opinion).
+> +			reg =3D <0 0x10007000 0 0x1000>;
+> +			interrupts =3D <GIC_SPI 128 IRQ_TYPE_EDGE_FALLING>;
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Medium]
+Should the interrupt trigger type on watchdog@10007000 be IRQ_TYPE_LEVEL_LOW
+instead of IRQ_TYPE_EDGE_FALLING?
 
+Because the parent interrupt controller is sysirq, mtk_sysirq_set_type() in
+drivers/irqchip/irq-mtk-sysirq.c inverts the polarity and forwards
+IRQ_TYPE_EDGE_FALLING to the GIC as IRQ_TYPE_EDGE_RISING:
 
+	if (type =3D=3D IRQ_TYPE_LEVEL_LOW || type =3D=3D IRQ_TYPE_EDGE_FALLING) {
+		if (type =3D=3D IRQ_TYPE_LEVEL_LOW)
+			type =3D IRQ_TYPE_LEVEL_HIGH;
+		else
+			type =3D IRQ_TYPE_EDGE_RISING;
+		value |=3D (1 << offset);
+	}
+
+However, the MediaTek TOPRGU watchdog bark interrupt is level-triggered (as
+described in commit 311f6c4bba24 ("watchdog: mediatek: acknowledge pretimeo=
+ut
+interrupt") and Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt=
+.yaml),
+and mtk_wdt_deassert_irq() in drivers/watchdog/mtk_wdt.c acknowledges the
+pretimeout interrupt by toggling WDT_MODE_IRQ_LEVEL_EN twice across a delay:
+
+	reg =3D ioread32(wdt_base + WDT_MODE);
+	reg ^=3D WDT_MODE_IRQ_LEVEL_EN;
+	iowrite32(reg | WDT_MODE_KEY, wdt_base + WDT_MODE);
+
+	udelay(WDT_IRQ_LEVEL_SYNC_US);
+
+	reg =3D ioread32(wdt_base + WDT_MODE);
+	reg ^=3D WDT_MODE_IRQ_LEVEL_EN;
+	iowrite32(reg | WDT_MODE_KEY, wdt_base + WDT_MODE);
+
+With edge triggering configured, wouldn't toggling WDT_MODE_IRQ_LEVEL_EN in
+mtk_wdt_deassert_irq() cause spurious re-triggering or missed pretimeout
+interrupts?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-arm64-init=
+ial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch?part=3D5
