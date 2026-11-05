@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858824;
-	b=cgkj76Kh1zBP3xH7zVJvclnjNP4yZresZ7y0XNqfdySW8xRg7mEzN75jFuItMt+jlXxg
-	 vG9hLCXIjskcAXzAGD/udOrUM18yb4ZJoppJsYl/7BxO79xsrN6DLsYSBQXJyFzJ0QirD
-	 2GSNZQqrfYY9S/3uSthKUi6ptUykRhaT40LIYHfT+xD1IDWu7XzXO7H1AU/ZpQLGu93x9
-	 YPjyyIxHBxMah+Iss5eW5oaJ4nYoB56hQvPT70ysBTJ83K1umvpWrx26AeAKRhn7ONivi
-	 ghd0CS/gz25W9ziYr2s0usg53hDdfs9ZS87TbSHxjFLJX8Ggyfi9zadXkAbidny8tfw==
+	t=1793859216;
+	b=GliASOAMAoC7WbsZ3IzOVcO8smeSBxuNgIGeW1U/CcpznfX7eu4v0o916sinnV0ePGRf
+	 HjbMJfFY5ArPy+5gteVXOQaotzDLZVxaOBdQEx5MIsLOlPUDfZ/Kh5+I9rkqvHVjsYpri
+	 XzmGZ6OyCkg0mXqk/7t8tyP1wiZuLbbMYqUOXII5TfTrcn+ve5M7RVSGmz6lBzCw1xTUQ
+	 N66BNFo9eRx36TKKxFAsSIFzS41dZAXWzVADBMRv5SL7wvSzpEC+8q3oB9QD0/eqzDf0p
+	 hClMWB+Yha51bdqh1LXvBSCFszeayDSC/1AVvJe2mNbC1ZV271Eiy6PdIxjpy2xdbvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858824;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5emfJlVxiRFWWi2A/8Yj2MXzvJ+Kkn8hJKVoehj4HvI=;
-	b=Ujpn/t6wQXJKZGvDjjoaxlvYvpnHm3NlrPFInA1QsReO9LfDJzE3hsCOgjzWAtCtvrPq
-	 rXSWQwvxX2Ho7NM+tCYZ9Wz+jsFjoHje+S0knCD1pKiFwEnqu4KHFOsxhvMD7Xo9THyOM
-	 k2zuW4mAb2Tmsg9aD98hp8VKj2Vi9YgqrQ4YhEEKmxVLGDhHi79GjTgD4wTfO8nlj2b+t
-	 lSUwHq3Yg1832N2THvVxhfl2laiFmQ3h27wPNvoPGWjt0cW5hR0HlbCZjUEC+PxfsqY3s
-	 rlXEsmNormbUzfktC/Zox86HhoJoN1ofU2wmmXTz/vuRj+MkefmSEedZ0Du8A1dz2cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793859216;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=IsVYhkYmat1UQepem2v+UOttRyhojY3oE8jtpbiYWrU=;
+	b=HqHAo+/26216UulaFMx6cxX/11DnIRT+hkPA8hmee+/MHZnyEBziy7u83pGDXzKCC+TI
+	 HR8ouXP1g3saXTeJZhNeLjQFNjBb3BN/Bxg913vXLk9yxfFi3JcqXgUei7iT4tUm4A3+n
+	 oZZ+G7Yeas93W4JXsgXTAg69JwFbHvvTsgbstd//gfp4Q5H7BzsR064KYtFSH7x+9KGE5
+	 JKPyF/mHbQqkxWkq5SxBSsMDBach3fTRGMjCAZw4O57jTrl33YXksM4e/zz+WzkAHrkla
+	 FryhmNbn5cgYfttgu8u/5uAK+IdTqyUmnhH9wwiSe/CdXcTCTZLD4Gvz/afmQLWGrNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeSIeGgJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=bK0phown;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dKXH7slU;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C81606A31B
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 06:07:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD92606A31B;
+	Thu,  5 Nov 2026 06:13:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BD92606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeSIeGgJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6641F000C1;
-	Thu,  5 Nov 2026 06:07:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793858823;
-	bh=5emfJlVxiRFWWi2A/8Yj2MXzvJ+Kkn8hJKVoehj4HvI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NeSIeGgJyYYu3JDGF+Skrg2vesXZNDOHdt3thPO+TUtyfEk4LVBaV0iDzrmyTllvW
-	 +p36T30YG/xNsReS0K1AdHM2vyWsWdWfmv8R7RuC2U7Z1Z7sm6nLznHEKRaBr9yE8j
-	 QFjpk7Rws5NvIhw3Qda8nGHN2epIlJNLVZVVJsZLKiu+3Uu18hpLYS7qMoWTyri29g
-	 PUk/ECnTpTMBWtp7pW5mqFhZw9PWxBNruBUR85/qTdUJ3lTqmum+IWPuz9eLzJy7lR
-	 n9eVQJpcejZkx++ZbV7wg4AloAlRApDkNceob3qTFh5bP1HE6cUBk24sl2Y9OIpAMQ
-	 /sJGZd4mPrxjw==
-Message-ID: <sashiko-outbox-198613@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v28 3/3] net: phy: Add driver for Motorcomm
- Quad 2.5GbE phy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Switch" <kyle.switch@motor-comm.com>, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104060636.3901918-4-kyle.switch@motor-comm.com>
-References: <20261104060636.3901918-1-kyle.switch@motor-comm.com>
- <20261104060636.3901918-4-kyle.switch@motor-comm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 06:07:02 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=bK0phown;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=dKXH7slU
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A53olOr306154;
+	Thu, 5 Nov 2026 01:13:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=IsVYhkYmat1UQepem2v+UOttRyhojY3oE8jtpbiYWrU=; b=bK0phow
+	npGZ9ntvxxp56b74h1y9ziG1tnIfYj0f2cu8HTfrc5dFQ2qlKu1C0cNoUhWuOYrx
+	w0zm2JY4M1cvBA0vIwt1uCZ3fnGLCDbgehhDUeYID9W2soov2JhXD8pDFGDXukO5
+	0tMwWfEMfa+wZc4t5SSsy81vhVUpN5HxJS8MFtX3+c6BF0zlmYYnydAag6p9S3cC
+	lxD+ae7z7UIKJnx1HUR6UVaQ0p9ysyEBH1Jg2rMEqb1Ij7Ayr7jDw5TyZiEbhbI6
+	8mT7sgTrkWIx71B/M31UeL+vAZonWJmrlTTXRLlavsN7eDT1lz2Tz1skzS3Qf9+b
+	rFuFr7tQCxNTmzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=IsVYh
+	kYmat1UQepem2v+UOttRyhojY3oE8jtpbiYWrU=; b=dKXH7slU+YXgSla+u/saV
+	yKvttlpS23YoriboFOJpAP+GHmvOdxlblIiVzLhOdFGymBDDKZiVpBFgEO9JxxTy
+	Wq2ybHUhpGdwMsUvRcBWXnNjKlBe89ERkpzrKi+sFH2TZTOEZc3p2z1Cfp+3nSv1
+	SnDtqezfUiCu3D/CvOD6TrXKZgSx7TTqQq2wkV7iK+isVc/VA4Ju8q2ietE6/Y63
+	LeIzKXwT1sSRDS7GfQohvvtaAjLK36mLkZt9jJIZUoCWsJaQjZVYGqNfTGaL94Sj
+	BVtG+6PEQhDO/sLKntYrpytRLz+AZ1JW6TTLvyQxVhNX2h76+5U1qOY/ggk9+/8h
+	w==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hre3mj4g9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 01:13:19 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A56DIMb018455
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 5 Nov 2026 01:13:18 -0500
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 5 Nov
+ 2026 01:13:18 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 5 Nov 2026 01:13:18 -0500
+Received: from JGERONI2-L01.ad.analog.com ([10.66.6.193])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A56Cw0s008937;
+	Thu, 5 Nov 2026 01:13:01 -0500
+From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+To: Guenter Roeck <linux@roeck-us.net>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <krzk+dt@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+        <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>,
+        <andy@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+        <joshua.crofts1@gmail.com>, <linux-hwmon@vger.kernel.org>
+Subject: Re: [PATCH v5 0/2] Add support for Analog Devices MAX30210
+Date: Thu, 5 Nov 2026 14:12:49 +0800
+Message-ID: <20261105061250.1691-1-johnerasmusmari.geronimo@analog.com>
+X-Mailer: git-send-email 2.44.0.windows.1
+In-Reply-To: <dd1f8bf4-0dc7-4d89-9eee-8a08e2d5832e@roeck-us.net>
+References: <dd1f8bf4-0dc7-4d89-9eee-8a08e2d5832e@roeck-us.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,163 +101,62 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAyNCBTYWx0ZWRfX14pQHbk8Gb6U
+ gCPA0erUVz5VSg2KTTfRcv5zUWqAOt1F88AZHlbRWDqc3wvtvI5HUESyvNfFNCrbNQ39FJu0hPq
+ WCYyVI36BpduwqOQMfvsCXkdgxgL2fGmZkLRM03DPkFc9cTFNBwgCpX7Q2xDs8nQIw8cSq+6w4x
+ N7UbXKx43Agtc19akMU/sv2jzhrnZreMEO8uzCtS7wzOom21vYMbp3pbtrs0XuH/aT6827Gfdqc
+ Tpp0gK3z281p7/CwlXQSademl5oAzrYZWTvnCNsZvK/Yrhi30jcHEcDjoUjB96AbG65vQYW20GC
+ JRckZSapvCCz9TbdC87i23JZ39qQ1bSkDZW7oMp9VTYkNvz9DXuxoDZt+Q4gJriN7Xb/C0PvlrY
+ G31i5P2z6DrZ3nsSQVhMqd9ArHpsQVQ3GDzvkwOoXlXm4m1cMDngToF7SdaoYO5y9GAaoyQMS94
+ ToU22wLcicrMXZp1jJg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAyNCBTYWx0ZWRfX7pLkqvaJ1wQt
+ 9JLFhWeVZqKFWi0XJMck0siDOQCF98Eo7NQ0Xi/1l+r82BJ4o/ZBYY5m0/jOc/dKnkmgV2AIffV
+ 2eoyjJKUhpCV6J5ThShtJ+ANYTsthlMk/bVYrTayOn/NzKUYkDMR
+X-Proofpoint-ORIG-GUID: uonwnaqbgPoWe9t-lnyytBWp9ATJOwfV
+X-Authority-Analysis: v=2.4 cv=BvgIUoX5 c=1 sm=1 tr=0 ts=6aec1e7f cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=eqFOLOu6k0bbPPXzj5QA:9
+X-Proofpoint-GUID: uonwnaqbgPoWe9t-lnyytBWp9ATJOwfV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ suspectscore=0 clxscore=1015 malwarescore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050024
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] net: phy: motorcomm: broken sds_initialized tracking in yt8824_res=
-ume()
---
+On Sun, Oct 25, 2026 at 05:10:05PM -0700, Guenter Roeck wrote:
+> On 10/23/26 01:06, John Erasmus Mari Geronimo wrote:
+> > The device provides a 16-bit temperature output and includes
+> > features such as a hardware FIFO, programmable sampling rate,
+> > threshold alarms, and interrupt support. These capabilities map
+> > naturally to the IIO subsystem, particularly the buffered interface
+> > and event framework -- hwmon has no equivalent buffered-capture
+> > framework, and its alarm attributes are polled rather than
+> > interrupt-driven, so there is no path to supporting the FIFO or the
+> > autonomous threshold comparators there.
+>
+> Oh, please, do not make up stuff. The hardware monitoring subsystem
+> does support interrupts, but it is not mandatory. Sure, most drivers
+> don't implement it, but that does not mean it is not supported.
 
-commit 4e05c00d9c48d262e045a1a6c3ea0d87e1c1718c
-Author: Kyle Switch <kyle.switch@motor-comm.com>
+You are right, sorry about that. hwmon does support alarm interrupts
+(for example via hwmon_notify_event()); they are just optional. My
+claim that alarms are polled only, and that there is no path for the
+threshold comparators in hwmon, was wrong. I will remove it from the
+cover letter.
 
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+The reason I went with IIO is narrower than what I wrote: the MAX30210
+has a 64-sample hardware FIFO with a watermark interrupt, and I want to
+expose it as buffered capture (IIO kfifo buffer). As far as I can see
+hwmon has no equivalent for streaming samples out of a hardware FIFO.
+The related MAX30208 is an IIO driver as well.
 
-This commit adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-motorcomm driver, using phy_package helpers to manage the shared top
-extended register space.
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index 463e1ea3efc93..492e236ec9e31 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-
-[ ... ]
-
-> @@ -642,11 +950,1168 @@ static int ytphy_set_wol(struct phy_device *phyde=
-v, struct ethtool_wolinfo *wol)
-
-[ ... ]
-
-> +static int yt8824_config_init(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv =3D phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	if (priv->package_mode =3D=3D PHY_INTERFACE_MODE_INTERNAL) {
-> +		ret =3D yt8824_config_utp_init_paged(phydev);
-> +		if (ret < 0)
-> +			goto err;
-> +	} else {
-> +		if (!priv->sds_initialized) {
-> +			ret =3D yt8824_extern_config_sds_init_paged(phydev);
-> +			if (ret < 0)
-> +				goto err;
-> +			priv->sds_initialized =3D true;
-> +		}
-> +		/*
-> +		 * Configuring the MII registers of the SDS,
-> +		 * which are private to each channel.
-> +		 */
-> +		ret =3D yt8824_extern_sds_softreset(phydev);
-> +		if (ret < 0)
-> +			goto err;
-> +
-> +		ret =3D yt8824_config_utp_init_paged(phydev);
-> +		if (ret < 0)
-> +			goto err;
-> +	}
-> +	mutex_unlock(&priv->shared_lock);
-> +	ret =3D yt8824_soft_reset(phydev);
-> +
-> +	phydev_dbg(phydev, "%s done, phy addr: %d\n", __func__,
-> +		   phydev->mdio.addr);
-> +	return ret;
-> +err:
-> +	mutex_unlock(&priv->shared_lock);
-> +	return ret;
-> +}
-
-[ ... ]
-
-> @@ -3240,6 +4705,455 @@ static int yt8821_resume(struct phy_device *phyde=
-v)
-
-[ ... ]
-
-> +static int yt8824_resume(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv =3D phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	ret =3D yt8824_power_on(phydev);
-> +	if (!ret)
-> +		priv->sds_initialized =3D false;
-> +	mutex_unlock(&priv->shared_lock);
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-Does clearing priv->sds_initialized in yt8824_resume() cause the shared
-SerDes to be reset and recalibrated repeatedly as each port in the package
-is attached or started, while also inverting the initialization order on
-system resume?
-
-In struct yt8824_shared_priv, sds_initialized is a package-wide flag meant
-to ensure yt8824_config_init() runs yt8824_extern_config_sds_init_paged()
-only once for the 4-port package when priv->package_mode is
-PHY_INTERFACE_MODE_10G_QXGMII.
-
-However, during normal port attachment in phy_attach_direct(), phylib calls
-phy_init_hw() followed immediately by phy_resume():
-
-drivers/net/phy/phy_device.c:phy_attach_direct() {
-	...
-	err =3D phy_init_hw(phydev);
-	if (err)
-		goto error;
-
-	if (phydev->mdio.bus->notify_phy_attach) {
-		err =3D phydev->mdio.bus->notify_phy_attach(phydev);
-		if (err)
-			goto error;
-	}
-
-	phy_resume(phydev);
-	...
-}
-
-When the first port is attached, phy_init_hw() -> yt8824_config_init() runs
-yt8824_extern_config_sds_init_paged() and sets priv->sds_initialized =3D tr=
-ue,
-and then phy_resume() -> yt8824_resume() immediately resets
-priv->sds_initialized =3D false. Bringing an interface up via phy_start() ->
-__phy_resume() -> yt8824_resume() also resets priv->sds_initialized =3D fal=
-se.
-
-As a result, when each of the remaining three ports in the YT8824 package is
-attached, priv->sds_initialized is false again, so yt8824_config_init()
-re-runs yt8824_extern_config_sds_init_paged() on each port. That function
-asserts the shared SerDes global reset (YT8824_CSR_US_GLB_RESET_N =3D 0) and
-restarts SerDes calibration (YT8824_CALIB_SEQ_SW_RST and
-YT8824_RESTART_CAL_CTRL_REG) while sibling ports in the package are already
-initialized or active.
-
-Conversely, during system resume in mdio_bus_phy_resume(), phylib calls
-phy_init_hw() before phy_resume():
-
-drivers/net/phy/phy_device.c:mdio_bus_phy_resume() {
-	...
-	ret =3D phy_init_hw(phydev);
-	if (ret < 0)
-		return ret;
-
-	ret =3D phy_resume(phydev);
-	...
-}
-
-Because yt8824_suspend() does not clear priv->sds_initialized, if
-priv->sds_initialized is true prior to suspend, the first port to resume
-sees priv->sds_initialized =3D=3D true in yt8824_config_init() (skipping Se=
-rDes
-re-initialization) and only clears priv->sds_initialized =3D false afterward
-in yt8824_resume(), causing the second port to re-run package-wide SerDes
-initialization after the first port has already completed
-yt8824_config_init().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104060636.3901=
-918-1-kyle.switch@motor-comm.com?part=3D3
+Thanks,
+John Erasmus
