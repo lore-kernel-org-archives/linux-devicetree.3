@@ -1,66 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890864;
-	b=e5Grbhq8BLDQj561krfI1EJ+0wBefiwjJtldhtbRMnW6ITy+qPB48sV5inEPVwWBmwBa
-	 f6fLJ67M7ZQGBlMccTdfOy171ER4rzYO++rTMEE6UKlb6YkyoB93V5JfPpcudyFivm29w
-	 LiK2FDHkZrWPDPEo83ufxay/G0Y2CcY59HJX4Ig71z2YRwDnVDUPcHf3u617nIkFKDFv0
-	 O95HnLbHepw7oE570lvbWmhaGvXNpN8Xmw1Hxh+A7CYO4AgQZ7guXKNZTRwgcXmaiEDuZ
-	 mYBZygSSr7WtVjpiWJSOk2qKgiBk+bj2lUk09P5vLL3vB/u3nZ62ipYlur7XuncAAXQ==
+	t=1793891066;
+	b=FkLTcpMczExMTWo44ddzkJFWJ5kM8Aoe1P5tlB1L0KkrybBxXhluFvDYBQsdK+Y1Asrb
+	 CXExAYJ8BePepfWPS534cCABhCeq+rxi/FEqNERiV8UgO+OY9BEoBzJ3lLKGos/Lkar4s
+	 hlEeL9WX5UXeudiwQPPLOTao4ZAp5UZFuleDnI5UnbQDfDf6iJuL8pqc4r3UWUzGZVvCJ
+	 HYTmblDNtn2EsUXLeM47PBRm/WP1/uK6nghO4rPy2JxkGAkwtOXii7UYDrMp0gRGadyVP
+	 ZBQL52F4T1XhCsOYgIjlBYj5KJXAnZUpW/jLPntGNFsA6WsTjg36++xvD2BW5JUAyNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890864;
-	h=Received:DKIM-Signature:Date:From:List-Id:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YikqpgDG8M78cXIlVxcKjaFkFjk+ChsNabRfS6Q9WEI=;
-	b=wpw6ruKXnHYjJgZQNOFkhER5MArRyzExmnoP1l4GOtLWhofyWpFs5jGOaJ2WHXhB/I5W
-	 PHDs0GWEhIz6LZDFthTT8y6zjFbUsGdh+ZAnAJrekKT0T7nRQzUWmTvqv+NENNn0x1uXP
-	 StPB5NAXFIquijZOwFs0x7SbW3Br6xvMLHt6zglqoreXhnpqIfFFVr+VBrosuOnJn6or/
-	 DOnLivvQ/cyy/B+kklZHjAbSDfo+Qy7VUrDEf9wJOtnXPNLx+Djrhf+eTmURhTzf/Euw7
-	 nnRTkDIcQrM127AMo4MpMhPE+gjtVGmjr4uqbcHrs+sd2tzLZqwwjDrW0qJZMbb1z4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891066;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6JpxKF69zra3KLEFXI7WNQ/Oicqi4O8hGXipJr7KSLw=;
+	b=mrNzPa3v5G9OIZnxCSNFEnMdsyv86TK31VRE4fef/d1zNE5EmBOxxNFneftt5RsocKCq
+	 CDjO+awgSSjE0Q+eG7gW2+kWkEg5IemUlfhuOzkivy6inrTwtwR3CTnYySxTh+rzRXYMw
+	 P8nqAezlHSFm9PcBQWJqFfkAOn/Q7AjxFTn+RWzSdwn+m7PFQk9Vz5Yqers4xd4f5obAS
+	 shCqybPG4x8RTlT49BfC0rxhfrbsCS6DLzlRq+DEEJYIMIEjfAZ7YUm9uwrguP5SdnnIV
+	 KLl6xwQJGv/Sr/R6KNSBwxZDAwNbTZVFoV+NGpotL+xvLp+Tx4C2EhA7vNTMoAVXM0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hZBF9q6/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMVUSQ5I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 38D46606A33E;
-	Thu,  5 Nov 2026 15:01:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CDF606A328
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 15:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZBF9q6/
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 722A11F000C1;
-	Thu,  5 Nov 2026 15:01:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMVUSQ5I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660E51F00A02
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 15:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793890863;
-	bh=YikqpgDG8M78cXIlVxcKjaFkFjk+ChsNabRfS6Q9WEI=;
-	h=Date:From:List-Id:To:Cc:Subject:References:In-Reply-To;
-	b=hZBF9q6/VKSxXP5docH2Gj5fq9m37zdZV7Col4OBl5xGxhd0vJHg/W//wBvX4OxoQ
-	 vFzJSUrZ0K6ehrM8xJuFmqbzqSvk4sZQpEk9m+h6dvAfXJuLLf2OdmCRjLxA47tVB4
-	 +XZak2u0kk3O9e5MHsAAFeNrURL44Q7RSPYX/D07JYHxTSmLgG/Q0fui+C+rwVv5YW
-	 JgJytYfRHBQwemqWR6Sq3oyQ0wip0u9td+EDJmYtkoy9UfXy71ypjOWrK+jLHpY7/h
-	 ZEVXG8oIYdPhjuPAAoe8CoFgGe8fkUbgeVXQs77VXKNRx1WebooUyqLNkdUMsUVtzn
-	 Cbo8o2w1QEyjg==
-Date: Thu, 5 Nov 2026 16:00:59 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] Add strprefix() and fix a bug with it
-Message-ID: <3lj2ivlwz6wpf66u3ifg5lxlmqbe5gulcr56rd7zxcgrhx2pj6@dxdqaxsp5hvu>
-References: <cover.1793876837.git.alx@kernel.org>
- <cover.1793882260.git.alx@kernel.org>
- <qwpovcqznx6eltou4inmj3v62qhh6ouvihqnze7bobnd7lmcbw@rcri4e623icb>
- <auyOkL1Vb1iKicS9@devuan>
+	s=k20260515; t=1793891065;
+	bh=6JpxKF69zra3KLEFXI7WNQ/Oicqi4O8hGXipJr7KSLw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RMVUSQ5IfrgcGJMldSq/TbxxdAUx3pkhJFBKkO7IfBnRL/J42kuDv4suUTCHOyltF
+	 aKPTg16cRtGFo7oNLoyxkSPZQATKQtxbmL6ToKXfJPSRfHoY56rCaxm8/17uLwpXEY
+	 i9MkW3XKnCYz45oE+Dd7fsU+miRrEoB9jUqBfPxBKgqJPv2/Eqxd1zSneu5ijTRk4o
+	 7E2UZaVD3QLtJ9J9ix31q1pp628Fi3f0cG2IKKhEPhiUENwbtpK3pdmJ6NZp4TRMFk
+	 a4ekxirHrBdftTwfqSGW0QiDXsrTUUNn7pc5/Ym12Qtgcx99fe0t2jtmFUvmM2ORPj
+	 QkYdUxiTrigCQ==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1464814a12.3
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 07:04:25 -0800 (PST)
+X-Gm-Message-State: APuU4Z8mCSU/sJykMJaF1xcm8gZOo84gC1QpRqhCwD8ys4sZU+nOcHw0
+	CE0zYYbYBMbyd608p8jQQDxow5tqGVcR2gPGpxp0/TdlwAL3rsFKiGQew7Zwp1Ut5mKZSLtB0G/
+	smBq2idUdVccNQ+c8RgOThSUUi4j/MQ==
+X-Received: by 2002:a05:6402:a512:20b0:6ac:b0fb:57b5 with SMTP id
+ 4fb4d7f45d1cf-6b4d4c74d91mr10007519a12.26.1793891064026; Thu, 05 Nov 2026
+ 07:04:24 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,60 +58,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auyOkL1Vb1iKicS9@devuan>
+References: <20261105144920.2796623-2-robh@kernel.org> <sashiko-outbox-199279@kernel.org>
+In-Reply-To: <sashiko-outbox-199279@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 5 Nov 2026 09:04:12 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+U2RUjj1SQ8F5=3R30GBqXDzgBSFgqLbO1KRei=Xiv0w@mail.gmail.com>
+X-Gm-Features: AclHuK-unT37pbZokmeKAjXq4HeyOtONEklLF2wD-ifUxqMj98lciCWNNlqIGF4
+Message-ID: <CAL_Jsq+U2RUjj1SQ8F5=3R30GBqXDzgBSFgqLbO1KRei=Xiv0w@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, 
+	Frank.Li@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 03:16:45PM +0100, Alejandro Colomar wrote:
-> Hi Bart,
-> 
-> > Date: 2026-11-05 15:01:22+0100
-> > From: Bartosz Golaszewski <brgl@kernel.org>
-> >
-> [...]
-> > 
-> > I have no idea what causes it but I'm getting so many patches lately
-> > that are subsequent iterations of a series sent with In-Reply-To: header
-> > pointing to a previous thread.
-> 
-> I don't know what others do, but in my case it's a conscious manual
-> action.  I use --in-reply-to in git-format-patch(1) to make all
-> revisions of patch sets be descendants of the cover letter of v1.
-> 
-> We do this in the Linux man-pages, as it helps me keep track of all
-> revisions of a patch set easily in mutt(1), without having to follow
-> links or use more-complex tools like b4(1).
-> 
-> > Don't do this. Each new iteration must be a separate thread. Please use
-> > b4 to manage patch series.
-> 
-> I won't use b4(1); I like bare git-send-email(1) and git-format-patch(1).
-> But yeah, I can send them as separate threads, if that's the preference
-> here.
-> 
+On Thu, Nov 5, 2026 at 8:59=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] ARM: dts: imx6: Deleting Dwarf and Nymph .dtsi omitted by copy=
+-paste in .dts
+> --
+>
+> commit 22f4920daa7995325841819b6b25c37d2efd2b30
+> Author: Rob Herring (Arm) <robh@kernel.org>
+>
+> ARM: dts: nxp/imx6: Drop unused .dtsi
+>
+> This commit removes four i.MX6 device tree include files that are not
+> currently included by any in-tree device tree sources.
+>
+> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi b/arch/a=
+rm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+> > deleted file mode 100644
+> > index 3a968782e854b..0000000000000
+> > --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
+> > +++ /dev/null
+> > @@ -1,45 +0,0 @@
+> > -// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> > -//
+> > -// Copyright 2017 NXP
+> > -
+> > -#include "imx6qdl-pico.dtsi"
+>
+> [ ... ]
+>
+> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi b/arch/a=
+rm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> > deleted file mode 100644
+> > index 3d56a42164482..0000000000000
+> > --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
+> > +++ /dev/null
+> > @@ -1,54 +0,0 @@
+> > -// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> > -
+> > -#include "imx6qdl-pico.dtsi"
+>
+> [Severity: Medium]
+> Should imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi be wired up to
+> their existing board device trees instead of being deleted?
+>
+> Unlike the Kontron files, the corresponding board files for Dwarf and Nym=
+ph
+> already exist in the tree and are built by arch/arm/boot/dts/nxp/imx/Make=
+file
+> (imx6dl-pico-dwarf.dts, imx6q-pico-dwarf.dts, imx6dl-pico-nymph.dts, and
+> imx6q-pico-nymph.dts).
+>
+> When commit 98670a0bb0ef ("ARM: dts: imx6qdl: Add imx6qdl-pico support")
+> added support for the Dwarf, Hobbit, Nymph, and Pi baseboards, a copy-pas=
+te
+> error left the Dwarf and Nymph .dts files including imx6qdl-pico-pi.dtsi:
+>
+> arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts:
+>     #include "imx6dl.dtsi"
+>     #include "imx6qdl-pico-pi.dtsi"
+>
+>     / {
+>             model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Dwarf=
+ baseboard";
+>             compatible =3D "technexion,imx6dl-pico-dwarf", "fsl,imx6dl";
+>     };
+>
+> arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts:
+>     #include "imx6dl.dtsi"
+>     #include "imx6qdl-pico-pi.dtsi"
+>
+>     / {
+>             model =3D "TechNexion PICO-IMX6 DualLite/Solo Board and Nymph=
+ baseboard";
+>             compatible =3D "technexion,imx6dl-pico-nymph", "fsl,imx6dl";
+>     };
+>
+> (and similarly in imx6q-pico-dwarf.dts and imx6q-pico-nymph.dts).
+>
+> As a result, the Dwarf and Nymph board DTBs are currently built with the =
+Pi
+> baseboard description (which disables HDMI and routes the LED to GPIO5_IO=
+18)
+> rather than their own baseboard descriptions in imx6qdl-pico-dwarf.dtsi
+> (GPIO5_IO31 LED, mpl3115@60 on i2c1, and pca9554 io-expander@25 on i2c2) =
+and
+> imx6qdl-pico-nymph.dtsi (GPIO5_IO31 LED, adc@52 on i2c1, pca9554
+> io-expander@25 on i2c2, ds1337 rtc@68 on i2c3, and PCIe enabled).
+>
+> Would it make sense to keep imx6qdl-pico-dwarf.dtsi and
+> imx6qdl-pico-nymph.dtsi and update the four Dwarf and Nymph .dts files to
+> include them?
 
-Yes. It's also the preference mentioned in the kernel documentation for
-multi-patch series.
+Seems like the correct analysis. If someone cares about those
+platforms, then they can send a fix. If not, we should delete them
+too.
 
-> Out of curiosity, what's the benefit of having separate threads?
-> (Or the converse question: what's the main problem of using a single
->  thread?)
-
-I may mark a thread in mutt as "done" for whatever reason and then all I
-see is a reply under something I've already processed so I may as well
-skip it. On the other hand: a new thread gets my full attention.
-
-Such sub-threads also can confuse tools like b4 that maintainer use to
-queue patches.
-
-> They're morally a continuation of the previous threads, which is why it
-> makes sense to me to have them as subthreads.
-> 
-
-That's what change-id is for in b4 tracking. That's also what the
-changelog should contain: links to previous versions. All this is
-already handled automatically by b4 which really is superior to manual
-git send-email in every regard.
-
-Thanks,
-Bartosz
+Rob
