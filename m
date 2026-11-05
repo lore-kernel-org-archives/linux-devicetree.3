@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.155.65.254
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888476;
-	b=C84nFjbd1y91P4v+WGK/c+D5QhWzr4E9KYv2AZk8IkI8tbW+WNiq85n0Q1ytAIWZ3lip
-	 GDgEOpoogPIXWZbt7wY2oi10bd2PyapABfAsaw86jLa9CFHSzX3etsgG01aOhwl2FSeei
-	 OotOHjJTYwqf2+L9gT6C2sV1e6muOvgGC5HqQC85N0SY5/RWH/zOPjbDGY+jZTrJsp9h8
-	 eoqR1wUVR8ii+i59hSnYx/j+35OXY1xs/grrZaloDlBJIKzViw/gkmoiOeFCZ51iULbIs
-	 KOkaonZ95rAs7TcaQv4oIBm6Opz/7tiYg0lIeBMdVi8lTJx2dJsxsDchQCVfOeP4NiA==
+	t=1793888510;
+	b=VSkUcFjpNwv1wslCJzrd3QTHQQBtAWCkMRhUPcMOSn9rNNcROmoKFGgvAhyX+yDyNiyO
+	 28ySCF5FkCfP4cp5zwc2QvJ3r7k5d5VB8HY+EA6FHAYEfUqLsrPbCBh58cw6S56hnUxO+
+	 L9NX1uGNBtbL4kQJEC4WEw5aJ65RKzb6+kzw8tTfyikPZpnfuN97T0303au+ajmW7QYmq
+	 oLKUx5++rZ0gJlNIUoEzyi9trUgeZDCT1Yb8HQfQOomcdkn9xqyYLmybziX7CceHhA/P5
+	 OnTX6ZHF4kl4oD34yT4XH07RyBU2GcrrKdOKhmNQudVFWGiKjp5U6fe8F4r+sCvHrHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888476;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 Content-Transfer-Encoding:X-Mailer:References:In-Reply-To:
-	 X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-SPAM:
-	 X-QQ-RECHKSPAM;
-	bh=Qj6ko1N3dgjOtQtUQnSyDi9DsI3Oyz7n8DZ/lHsW7LY=;
-	b=L+AmAPZWk2CQKeohClcR5lixIAEiwMZ45qU1GOeHYSZzkRkK9k27NkSe9yMUqiCU6ACh
-	 eb5Qv+SS05WbAMHtRdz/S2zsUp2OnnNgMvcG/OMKoHa6RISaDj3kcGZQ7dlf9lFYiYWyT
-	 3bWLP2eeyAJ4Fvkjsg/UCZoeihq0uw2VMNSwRSXPFU+pogFuZtGnun078zgr3YYmf6r/M
-	 GxxtMbhgB8cjSpqcVkiQI9H9oeoqQN5gaYs1TgxjAAStz42ATzKgvxKkKolC+XCHykwaw
-	 r4eJ77Goqs4GXcov0uERbZvtk5DiS/QbsU8M2B3vAgpyHFSqDghhCwShrqB11Yqi9iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888510;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=eRO0we/jv1u/NCKEYpjhxs0l4uxNRSe89AWbOp+pBrw=;
+	b=U99c7RJ0lIvGDqsQRt++9mUPPsGNQg2w5LZ3CKKMvoLoaFGD20U/faTur1Mlx8HivCu7
+	 xMg9+g09lfyVu5LAoALfRMtrlo2+0/fqPWS+cxsmmIEVO20aFn79UYkLei6hF9s0tlhmS
+	 gRpV5sZshOqQIM2mqRTI2n22OzQpZNXhLUY2CbmgOmMxRujwgRTbmscVNBIg6viVeRZUC
+	 QL+/u5E0p302R+NSQadAqOKSRh7VfsCY7XhZs94aXvRGSfKmZqMWRokK4dgMuDCWfQLFn
+	 ip9fo7PjzaM4aK5dalqql0gUG2uwcXsfSTUGm/DUyG5j5C0MzW5HGukWSUITI1I1i0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="tNWh3/k6";
-	arc=none smtp.remote-ip=43.155.65.254
-Received: from bg4.exmail.qq.com (bg4.exmail.qq.com [43.155.65.254])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbO2xRiV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C045606A31B;
-	Thu,  5 Nov 2026 14:21:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C045606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DAE606A326;
+	Thu,  5 Nov 2026 14:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=tNWh3/k6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793888458;
-	bh=Qj6ko1N3dgjOtQtUQnSyDi9DsI3Oyz7n8DZ/lHsW7LY=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=tNWh3/k6YRp0HcBvXBVUVuq4YORLFT/7XsjQBb9rwNIxUjWXnRZCgA2u5zh8wEQXm
-	 dXq9O+Ln/KyXBEkNukhWGdzpBTjbkr/rTEqMHgArO2pC+2Mn2Iuk2MjdzXL6oabKH4
-	 hvoK0FEA6VLUH6ucf+2chZH7CObK8QbS2OEJBlkA=
-X-QQ-mid: esmtpgz15t1793888456td5594c5b
-X-QQ-Originating-IP: yBFPL2ZTyWZz24PGoH1FCJQ1EtD4gvUo9iOr3+labVM=
-Received: from = ( [183.48.245.66])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 22:20:53 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9366842104901777624
-EX-QQ-RecipientCnt: 14
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbO2xRiV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836281F00919;
+	Thu,  5 Nov 2026 14:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793888509;
+	bh=eRO0we/jv1u/NCKEYpjhxs0l4uxNRSe89AWbOp+pBrw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZbO2xRiVBvQm9kyUUFV3bOo4038eVIY0BsSXGe/BHF89DX/E54SHsjkCT6kbOsUbw
+	 8mC4pY5HHLflZ0+/nLSkEiVw2rJHIiiSaggfXZFbnwQWOotIOtFe46QOX/iamWsiz3
+	 XPQhnj5zPHEXTcpWQ6r+qpjwsX4KWpcoqdCEuuqjs1rHMzU/yQVNa2kdUCcXxNSyTv
+	 4sbJm0PnlcLjXnbik2yZdJeZF/kt+++KYfLQEGfPiDX3LImcZi1feznP3i2ZLvcWLX
+	 jGBG39NKqrDEJFB3rwVGsPASmJvZuZAWar5DAy0IDx+WSY68QTw1nO7UgPvAjtk5sp
+	 hyp/mk6dN31FA==
+Message-ID: <sashiko-outbox-199233@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 02/16] dt-bindings: clock: at91: Split up per SoC
+ partially
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexander Dahl" <ada@thorsis.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, =?utf-8?b?b3Bl?=
+ =?utf-8?b?biBsaXN0OlVTQiBTVUJTWVNURU0=?= <linux-usb@vger.kernel.org>, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105110715.2486432-3-ada@thorsis.com>
+References: <20261105110715.2486432-1-ada@thorsis.com>
+ <20261105110715.2486432-3-ada@thorsis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 14:21:49 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,104 +61,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=dda49a7eb14547398a92cd8d13a7d78afa9d0d5b3d65ebe7063bbb21050d;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 05 Nov 2026 14:20:52 +0000
-Message-Id: <DMNCDUADFF3L.2ZLV0D2ZZ8CRB@linux.spacemit.com>
-Cc: <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/5] riscv: defconfig: Enable AT24 EEPROM and ONIE TLV
- layout
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "E Shattow" <e@freeshell.de>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com> <20261105-k3-com260-module-sd-nor-mac-v1-4-138b39d74602@linux.spacemit.com> <0c4b79f0-383a-4884-8132-59dcb3487cd3@freeshell.de>
-In-Reply-To: <0c4b79f0-383a-4884-8132-59dcb3487cd3@freeshell.de>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M2z/kxGgDm0n/d0ck7D7Wy7+LrazgwpDU7hS6yDw3UK5ewC+b/5uO+Gq
-	iM6zLuEOcmCP2iB0ze93/9myAu/90fCH8q46J0oNmlMqAG3O41HtewubMk6Mx8c16FkQEmS
-	M0MYfZGz4tLTf4GDfgunyBJ8+i+wqhTutVb2j2iZb45S8zEVbEvUBHF2cogNMhIqXCjsOTp
-	a7xhTQfXPw6eaM+SnFmUywcLuevDRuq8QbR2E6TCeMDZCA2Y6XXlii2Wo2pT+pLKLBoyKHI
-	FWo235+466LogsjrYK5UqoEgZRo4qTDnxdW+TW9685O+Cz4NndKwhuHgc7sF+NITJoNjNwC
-	4jLYzEqSxNUNVljA/vz+RYoT1jRJJN6CB1gQvkD46QfZTy/Nk4HcuX1oQL+dJYn2iPKSVEk
-	rzVSNBK3zxEtflwSifnXiGvBP5gmPUxooh6WZsViLw3zKw71oNYty+PqITPCOwAlnP2PxJ0
-	HGsEI3ZHITQBaGGYww6ZU1m63eKRSxSTQgDYAReJHRzDsRI/8puNtdDNCOsiQdQhvVL1qNJ
-	9TMpJcZkEd939OOBvJW9OAOmf0mAuo5Zv92HeKnJN1mEf1/m1xbCN73By4yHhkBG5ZWXxxI
-	XlhNWQ+MIbTE5s/BreNM/UOnlPVEKupXpEwvWKp1noxh7sGrhRkZueEq3AJ2rVLRjuAeJxr
-	1Lgncm5mE0TBEcjd6P4MqGZ+Wft62aA1F8yB8Xz8baYu910+T3UQyp5AhkKwl4FhiW4/Pfv
-	NDl87C+w7dRnKiDoSTdz5mfbtguvbEMGAlT2e1snZPgtuazL6nbah0yusZ3KatcGIKhetm/
-	NpdnWkWfbE8NNF3F/+rytMz7nP+lzxuFm/7z8xDurNpNoQts2suN2hRkja8gjP/+FdX5pB/
-	ECr/jvyeDW9IX96z0bMEFAQPbNZXZBdeDB1vCqKCFZ7razxSktKu4ofx4I3S+yrKlhQdRtI
-	rZqEwZJ2cawO968XitdRzGN0+VAIm0SaKThV1XwhUJxV4cIsswd5dZgIK1N91YiI4xUA9zy
-	EqCPkh39OWDugfa9LJBWxdu5/5sJXGjzcjJ7+WeImLHb34JFgwhDENmdVEvwmnbqZiQadV8
-	zGpyXi4MMA3UII4vBls2dCb7cISCexH3mR+4ni6IUaFEhnkgZB0Y9Zyr+2WFleWO4KZ875d
-	rOvGbkNJ7BIwUTwNhUMUCZH50Q==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-SPAM: true
-X-QQ-RECHKSPAM: 3
 
---dda49a7eb14547398a92cd8d13a7d78afa9d0d5b3d65ebe7063bbb21050d
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: usb: at91sam9rl-udc: SAM9RL clock macro in SAM9G45 exa=
+mple
+--
 
-On Thu Nov 5, 2026 at 10:42 AM GMT, E Shattow wrote:
-> On 11/5/26 00:23, Troy Mitchell wrote:
->> The OrangePi RV2 and R2S device trees take the Ethernet MAC address from
->> the ONIE TLV data in an AT24 EEPROM, and the K3 CoM260 module stores its
->> MAC address the same way. Without the EEPROM driver and the ONIE TLV
->> layout, the MAC address lookup keeps returning -EPROBE_DEFER and the
->> Ethernet controller never probes unless the bootloader passes a MAC
->> address in the device tree.
->>=20
->> Enable both drivers as built-in so the MAC address is available as soon
->> as the Ethernet driver probes, including for network root file systems.
->
-> This does not make sense for platforms which have no use for EEPROM
-> driver in Linux userspace.
->
->>=20
->> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
->> ---
->>  arch/riscv/configs/defconfig | 2 ++
->>  1 file changed, 2 insertions(+)
->>=20
->> diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
->> index 04ae305d5511..a76f801d8eed 100644
->> --- a/arch/riscv/configs/defconfig
->> +++ b/arch/riscv/configs/defconfig
->> @@ -276,6 +276,8 @@ CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=3Dm
->>  CONFIG_PHY_STARFIVE_JH7110_PCIE=3Dm
->>  CONFIG_PHY_STARFIVE_JH7110_USB=3Dm
->>  CONFIG_LIBNVDIMM=3Dy
->> +CONFIG_NVMEM_LAYOUT_ONIE_TLV=3Dy
->> +CONFIG_EEPROM_AT24=3Dy
->
-> Enabled as module, please.
-Yes, you are right. Will be module in the next version.
+commit 42b3b9bce6c46bb748afcf89b465e4d50b66ad5b
+Author: Alexander Dahl <ada@thorsis.com>
+
+dt-bindings: clock: at91: Split up per SoC partially
+
+This commit splits core PMC clock index definitions into per-SoC device
+tree binding headers for the AT91/Microchip family and updates two device
+tree binding examples to use the new SoC-specific macros.
+
+Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc=
+04ee90e05@thorsis.com/T/#u
+
+> diff --git a/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.y=
+aml b/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
+> index cdbbd17f80363..15f5bb51fd8a7 100644
+> --- a/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
+> +++ b/Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml
+> @@ -61,13 +61,14 @@ examples:
+>    - |
+>      #include <dt-bindings/interrupt-controller/irq.h>
+>      #include <dt-bindings/clock/at91.h>
+> +    #include <dt-bindings/clock/atmel,at91sam9rl-pmc.h>
+>      #include <dt-bindings/gpio/gpio.h>
+>      gadget@fff78000 {
+>          compatible =3D "atmel,at91sam9g45-udc";
+>          reg =3D <0x00600000 0x80000
+>                 0xfff78000 0x400>;
+>          interrupts =3D <27 IRQ_TYPE_LEVEL_HIGH 0>;
+> -        clocks =3D <&pmc PMC_TYPE_PERIPHERAL 27>, <&pmc PMC_TYPE_CORE PM=
+C_UTMI>;
+> +        clocks =3D <&pmc PMC_TYPE_PERIPHERAL 27>, <&pmc PMC_TYPE_CORE AT=
+91SAM9RL_PMC_UTMI>;
+
+[Severity: Low]
+In Documentation/devicetree/bindings/usb/atmel,at91sam9rl-udc.yaml, the
+example node gadget@fff78000 has compatible "atmel,at91sam9g45-udc" with
+interrupt 27 and peripheral clock 27, matching the USBA controller in
+at91sam9g45.dtsi.
+
+Should this example include dt-bindings/clock/atmel,at91sam9g45-pmc.h and
+use AT91SAM9G45_PMC_UPLLCK instead of AT91SAM9RL_PMC_UTMI?
 
 --=20
-Troy Mitchell
-
-
---dda49a7eb14547398a92cd8d13a7d78afa9d0d5b3d65ebe7063bbb21050d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauyQxCEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9ZSwD6AxJbBe8W18yH
-nr4KCfjIsJCOqNmdf0vzp8XWweapmi4A/1NGR2u7q/A/7Ho7/TlsOtBYjUmXNKZ4
-lwAjGYrg+mAL
-=AhUC
------END PGP SIGNATURE-----
-
---dda49a7eb14547398a92cd8d13a7d78afa9d0d5b3d65ebe7063bbb21050d--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105110715.2486=
+432-1-ada@thorsis.com?part=3D2
