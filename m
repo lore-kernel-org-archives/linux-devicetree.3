@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793872163;
-	b=jTfExC97Op5EE7RKwka8zD4G/0/M19CwffghXJ84JNeJ8lz4R3n9iYIpqx3WHonNMlKB
-	 CTxy3z0O2p8y+4dvLDr5Q9d8GIxGU5XKRYxr609R5e+zcWm50ygM2NRM12LZXwMn5cCjJ
-	 Ypb2miKFjOVJPJa3MfzVkauYNfyvKpfsYIF9fQwsmhmBBsoP3wtd2EQcUgbYJHYl8mFuZ
-	 Mk6qwT1uX+U7EUbk3gFfMyVdqNaNiYBW95YlZrBZTW4rAGYjuQy1tav617YseOTgDUI6Y
-	 bP1cXQDQtCKc6eo3t+n3ex1JSWLfz/y4X1VVK3yTb6i2AJTmvany0RA5X8b1COS7rEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872163;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=xklg3CjbZrUzyh4Xo0rBGxi7VDiGIt84+18sPwP1vr8=;
-	b=HCWOsfvl4PmmgrnklzWwgkXMkV+LPw4C8m2rf04j8UT+iLslZk1A6nEOEcLadfbt2lFu
-	 Z/tzZpMQYHiawuDsFK/7c7v7pRNpDWmwTfnfQzEdN2nqvzpBZhDBoiIQ2FOzPvPCTcQ+A
-	 QI9NfVd2I0gQLUXzpAmZzTluMsMRxqIp6zECUkRGlwXLvFy1+Ls28joazteltWe9znOqo
-	 dFLFsqHYYuDUrDg6mxyJEyQizAQ9aOwOjCv0DCzydjI/yyp7doCerhmkXZR/ulvOYe8Dd
-	 v3K/FDOItCUbG1bCfVJYOmHkrTc2Rv0Ul1dOXhJj0nf9VEj0Y8jdjhx8m5YfzmWGIew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTYMuv1C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F77606A32D;
-	Thu,  5 Nov 2026 09:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTYMuv1C
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793872162;
-	b=k6PNlmSXBSlArn+tCnzDgrPUy4GWcHKtOJtK0gViGki9l0CwJgRcLvt3oTuLswEqLDIr
-	 Nd0AnSCjO4H0Yhb4E/XM8eS26IfHimbDikinWDqri1StKGP6o95bsCzst69td1Emmk0SB
-	 85FSYjv36igYeJhvOg5ZIKEyoF0rOCvMh7638r2z387WrGNhFfwSTMAnbZ+O9rCM41A5x
-	 Vgd7GIAdsB3cnYkQQ9Yd/2244T5VLx/LVdPKSN4/oQKFhyJq/8LMaorO6CWBxBFQ/EZln
-	 VapOD26Bjf+w7fZhNpSADq/1OXRuMn/dcxB80CVzbYn8IMslF2gdVdTNukDlmN5uj1g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793872162;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=xklg3CjbZrUzyh4Xo0rBGxi7VDiGIt84+18sPwP1vr8=;
-	b=aBWqPXSj65S5ntVjv7NFFiM65IoEVRbkLzQhaJ/FkGEK6fjGF3316GVglvQW1o/0aMYQ
-	 7eFo3Mng8sD6CBpCC1uRLVDfNGfx5B261og0BeD85dMNptf5Rs4PE4OlAFPrtONkgaYYL
-	 xR3nqW88CEAmTvnYsdrzwCXblDg2PA+mQkyndwFFj2P23L/mWT59KT1mHSK0nIYCL4JII
-	 m4ciTca8mq/Hwtgzt5nyBRbYVDw3TkRMCD12gQsESx3B3ac8JyHjqSbj7H5Li8cYIhmG6
-	 bNzJA5QEl4xLcAetIGyOLcDd9Oqjoa5xbboaZtVp7Zxi2jAall/28VTaeBVNk/aFefQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793872257;
+	b=4M92WmWdw5TS3J9NFyc65Gu6gTYro6EHQxIOO1K6JaQs8itaPaM321qQVITSH/9/pbgA
+	 hVFazWtdkE6b+o3KVrzoSuc1qBX2BeadIbDMEH6NJaeFCTWGSZhk4DV4yY35vbTudZ/1x
+	 FmIQps9O2+8iTt/TGeiT+cnnBK01LtD2Z9zhpetAbZiwVS3LDh0KjbTtx1kSlBqh+nwRt
+	 3Mt4657VJDAskg1u+DmLJT41UoNOvUfP0iEnnLNsuLiueHudy7ZVgt9rdk4c5HRbM86VA
+	 ZUrGH7cltIOVqOZME0PViEm+Skzf3CGejrSkEabNqa9TqrwOxxvomDWouslMVk0rmRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dyBthqcbOdm0JBXumEJTj6vVAKyTrhFZS6V5YGIPQiQ=;
+	b=odF8FSsRG8wTCpQV7VhMkt4h8GTAg3C62l6xLoQK+zxKwvG0GBZiZEyxavJDllm5PoFi
+	 +TViGs3IMxQ2yJdHDLohDN7iTDOET51EKdyOs3zVWf3niy0QITbFxD5fDk/3ZBpEPhJ5x
+	 AEaz8zr2znAVpQthqpP8s+QoD1433ZzSYlrLPhaDioCVwhJ8eqGsKL6+YGnIf9n+Yvlky
+	 c7DHqR5U7oCJqLvTl36oyVoBMfjcFSrwggXUTxDgD1zWm+lxYqkk8m2VnJLrkpO6MeC6C
+	 dFGzX4yUTHioE5at/cVwxN1RzqpbsCp92yJC2i79Vn82lCF63SPJWeqjPdwi077mqtw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuatEXYp;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4221D1F000C1;
-	Thu,  5 Nov 2026 09:49:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793872162;
-	bh=xklg3CjbZrUzyh4Xo0rBGxi7VDiGIt84+18sPwP1vr8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=bTYMuv1CC/lOhj7xCXmd/z+E6F6qXaHfVZmkFzTZQlaf0SrOIGa1uPna5H3VhTpUX
-	 +TUw2rPOlN89xq1BlW+L1P2tD2bBYnpPe0hV/r7fDa0O49rEi24An/sMEvmz2RFpHl
-	 kuc4NZEITO+dYQ4dQERIgYPwG1RFlMR0Qhu0PDoNJ73mCxnM25hKJ93lVTEFMI0oRe
-	 DBUHHvxkMrXEroO026uRElgwVzRpj5juade5Bp6ZpmvqnP+oiQyDo3ufaB6Ig/4z5H
-	 h0pqBBmtcsJHcU7iRT5oeiu47nnK2IGZWlj6o+9La8dMmRxKafC0EaUAmVH5XvDqlJ
-	 FRG3ukbJmH4TQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9750E471A6;
-	Thu,  5 Nov 2026 09:49:21 +0000 (UTC)
-From: Eric Yang via B4 Relay <devnull+eric.yang.wiwynn.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 09:49:21 +0000
-Subject: [PATCH] ARM: dts: aspeed: yosemite4: Remove Floating Falls board
- nodes
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC28606D83B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 09:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC28606D83B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuatEXYp
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df54150dfso1128873f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 01:50:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793872256; x=1794477056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dyBthqcbOdm0JBXumEJTj6vVAKyTrhFZS6V5YGIPQiQ=;
+        b=MuatEXYpYw5XB606NqlQPnOrhLM+ru/tYWtVbN/B2SnvQlfzf5rLbz2XYhFsx5mFxz
+         CFMhcUVhCGgDe3tZCFlynn0RuDRRoMY4DnZcB4jkCuOCmuYm+B4MTy8Am6omYrJ1BxNa
+         JQQBCEaU0BSP6/nDQeb9Dzst5j1pYTT4NYcmCiNQpqi7C52qLAXPG7FFy1LPReoselXj
+         kQR/EPVR3+Pzf96RkzGWCh6wIa3t/uYdxfpRURkMnwxJQEALfb2zh1wM2wF+O9FPszHY
+         4pUdGYaX34ysNMqvTf6RkQDYDl2EiFPE4Wm3ybIq1tjH96F85EfqvBDU05xr7i2X9Ecy
+         j6SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793872256; x=1794477056;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dyBthqcbOdm0JBXumEJTj6vVAKyTrhFZS6V5YGIPQiQ=;
+        b=EpwZ/dQy/v4EDljo9U3havMrui22Ba0Li8Y8+K9su6Dml3k8JBPaGOjcuRCUyc2s6I
+         7SAql6brVcC4VSNkw54c+mCAxsDPHjmGRZpdi2IFz0A/F/1rhF9n7qWzk4e4FaCfDbv/
+         lvocPoAwVkmkmg5/ohNYHLcKfx1dB/u35ZQAhcwIOn1UrFu72WUscZd11wHSyg0L7ibZ
+         34KgruT49U4uFo2nxewASaaYHhgqrGqnkGO7I7MBj50tUGeUWmQSK68M70GxbP2gHYrZ
+         jYRuaq5Nkj419XGR+EtnnD9kmM79RBBh/wn5EI1tSBj7IGtUs2VZX7vkMK2+ok4ktmXf
+         LXQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwD0aXEazwBPoBdgFr04TdopqISIfnHL+uVdqYcmdhxA2ccA/V0coNFVMJn+UDPv4nb7b/oUyXy1X55@vger.kernel.org
+X-Gm-Message-State: APuU4Z8x0tRfdUVDNO0KCBRCIkuVtn6V1EhIVjzCuVzP/9GKJ57bcsIS
+	8OBxjRYnE1A4xXTiGKCcmCuplfvWGs5sS+gD49G3QX/ggDIHOTs5Xhq1
+X-Gm-Gg: AYBFou2ytQfVaCQWQT4WmmCBEdnlRzwp6i+4itc0mOWtVyhm6RoU6U3ktnEN+PhHEKG
+	9rdRPjZ5DFKrd72XPh36Dys0sfk6RE8oWPrm/X9x1GqsrK8PrnCoWLxqYIaWBl1dCwFHaXem4S9
+	kPmO37mGEIqWW4JbdDdgUN4yYubtYHo4M/vGpsJSGfiHbylyWDpC53w8kP7h5EAtEPwwAbfHmh5
+	0wE4ob/wXzcMtaqM5pI6NhTzpp6jY7hnJEZQycLFz367UOvJa9KAWKyM4sm8d/NdOS2vnZ/LOZr
+	Tg3tALyEddjwsJbBeYDoZV1Fpc1FNEhOYNyUojp/FA0eATsNXcA0lGDAL0kB2wAzde5gKiHTpS4
+	P0CMZv3mNDGcp+VPGebCFThsGzlimGBbdgXULGy6Gh8sHEqAM5cw+2WlZXF8Uin3ewLlCXEByl1
+	Q6qHviDbb2aLzFEncHA77RgQc1/3lh0RkCWupud5+pxIAi4JZaDbGtMLovPjBQbHWs7iqGpxenO
+	YWMfjiPPHQBlSMrzU0qqF18CCnfDii6vs9crTVwrbdPkwchSyO6K8nArzYOgYhrRXLk+PkQapxJ
+	EcEtXJQQC//jNKoiMcB44WPDJh9PGUok92obl+xyivPP5oEN4vjHc3FIS4eSaD75NYFsJr4Y16b
+	wVTTqveTuJfKXjS0q5ypYfPQli/M=
+X-Received: by 2002:a05:6000:2282:b0:48d:f14a:9188 with SMTP id ffacd0b85a97d-48e73851611mr39371636f8f.17.1793872255636;
+        Thu, 05 Nov 2026 01:50:55 -0800 (PST)
+Received: from romain-ThinkPad-P14s-Gen-5-AMD.lan ([2001:861:39c2:e340:c87a:3b37:3ef1:5ced])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fe7189883sm9331056f8f.0.2026.11.05.01.50.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 01:50:55 -0800 (PST)
+From: Romain TISSERAND <romain.tisserand@gmail.com>
+To: Igor Reznichenko <igor@reznichenko.net>
+Cc: airlied@gmail.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	jesszhan0024@gmail.com,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH 4/4] drm/panel: ilitek-ili9488: add the PocketGo S30 panel
+Date: Thu,  5 Nov 2026 10:50:45 +0100
+Message-ID: <20261105095054.117210-1-romain.tisserand@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261105040526.26323-1-igor@reznichenko.net>
+References: <20261103110524.2812831-5-romain.tisserand@gmail.com> <20261105040526.26323-1-igor@reznichenko.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,221 +110,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-yv4-remove-ff-nodes-v1-1-aa707a9577b7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACBR7GoC/x3MQQqDMBBG4auEWXcgGUWwVxEXxfxpZ2FSEghK8
- O4Gl9/ivUYFWVHobRplVC2aYod7Gdp+n/gFq+8msTI5Zwc+68gZe6rgEDgmj8IzxDo7ehkmoV7
- +M4Iez3VZr+sGsiT61WUAAAA=
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, 
- Billy Tsai <billy_tsai@aspeedtech.com>, patrick@stwcx.xyz
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- Sean He <sean.he.wiwynn@gmail.com>, Eric Yang <eric.yang.wiwynn@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793872161; l=4662;
- i=eric.yang.wiwynn@gmail.com; s=20260911; h=from:subject:message-id;
- bh=T4XeuvV+KGamPG2baiyhX3Us0yn42pCuMdWIPVBaYz8=;
- b=L/oFlGYm96Adbk9JS+0cKrrf3+UCzEcvN0mp8Rny3aSD0XxKxLi5JYtosxQ6OaB05Ra+llXYm
- vmNZ0Uw3r65CjqW8GIlH6H/vGm8XPD3/HCNcfF8oaSDnA0xgoNGXcAX
-X-Developer-Key: i=eric.yang.wiwynn@gmail.com; a=ed25519;
- pk=XYQiwgPZNUCt1JCbsO7zX8ODEiRKocz7fYwt+aWnXBs=
-X-Endpoint-Received: by B4 Relay for eric.yang.wiwynn@gmail.com/20260911
- with auth_id=1023
-X-Original-From: Eric Yang <eric.yang.wiwynn@gmail.com>
-Reply-To: eric.yang.wiwynn@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Sean He <sean.he.wiwynn@gmail.com>
+Hi Igor,
 
-The Floating Falls (FF) board carries a pca9537 GPIO expander at address
-0x49 and a FRU EEPROM at address 0x50 on each slot I2C bus. FF was
-planned in the early Yosemite 4 design but has not been used since the
-DVT stage, so these addresses never acknowledge. The pca953x driver
-fails to probe all eight pca9537 nodes on every boot, and the at24
-driver does not bind to the eight EEPROM nodes either. Remove the nodes
-for both devices.
+On Wed, Nov 04, 2026 at 08:05:26PM -0800, Igor Reznichenko wrote:
+> Minor suggestion: please drop the implication that COLMOD 0x66 causes DSI to
+> display at 6bpc; the datasheet doesn't establish that causality.
+> I think COLMOD only applies to DPI and DBI, not DSI. The initialization
+> sequence can remain unchanged. Non-blocking.
 
-Signed-off-by: Sean He <sean.he.wiwynn@gmail.com>
-Signed-off-by: Eric Yang <eric.yang.wiwynn@gmail.com>
----
-The changelog was drafted with an AI assistant (Claude Code) and
-reviewed by the submitter.
+Thanks for the review. Agreed: the commit message should only say that the
+init sequence keeps the stock COLMOD value, without claiming an effect on
+the DSI path. If a v2 is needed I'll reword it there; otherwise maybe it can
+be fixed up when applying.
 
-Tested on two Yosemite 4 BMCs, baseline vs patched image: the eight
-pca9537 nodes and the sixteen 0x49/0x50 slot-bus clients are gone, while
-the 0x51/0x54 clients, gpio chips and FRU objects are unchanged.
-CHECK_DTBS=y W=1 shows no new warnings and the DTB diff is exactly the
-sixteen removed nodes.
----
- .../dts/aspeed/aspeed-bmc-facebook-yosemite4.dts   | 96 ----------------------
- 1 file changed, 96 deletions(-)
-
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-index e4172be84..4c7c96ce4 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-@@ -604,18 +604,6 @@ imux16: i2c@0 {
- 			reg = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -631,18 +619,6 @@ imux17: i2c@1 {
- 			reg = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -658,18 +634,6 @@ imux18: i2c@2 {
- 			reg = <2>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -685,18 +649,6 @@ imux19: i2c@3 {
- 			reg = <3>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -726,18 +678,6 @@ imux20: i2c@0 {
- 			reg = <0>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -753,18 +693,6 @@ imux21: i2c@1 {
- 			reg = <1>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -780,18 +708,6 @@ imux22: i2c@2 {
- 			reg = <2>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-@@ -807,18 +723,6 @@ imux23: i2c@3 {
- 			reg = <3>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			gpio@49 {
--				compatible = "nxp,pca9537";
--				reg = <0x49>;
--				gpio-controller;
--				#gpio-cells = <2>;
--			};
--
--			eeprom@50 {
--				compatible = "atmel,24c128";
--				reg = <0x50>;
--			};
--
- 			eeprom@51 {
- 				compatible = "atmel,24c128";
- 				reg = <0x51>;
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-yv4-remove-ff-nodes-9e20104d2362
-
-Best regards,
--- 
-Eric Yang <eric.yang.wiwynn@gmail.com>
-
-
+Romain
