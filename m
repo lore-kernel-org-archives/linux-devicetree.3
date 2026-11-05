@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881522;
-	b=pZQsd34lbVL9O55vNsoOibHtEHnGzkIbaPuq8m40XTZ53sgsgDsoavJIWaqS4A5cy03G
-	 MHSl0cXCRijxcH7LXnjXET/QRVborGUgAVPDnzAcWBpMt8tMaiWJWrYwHD3JsJE0JGrjo
-	 UP/jUow/YZTCa7cgqWW2dts1FBUFhOc0dMvFFdhZ3iCJ3V8Msx3PW36fBxZOw1J3vvY9O
-	 PcVuUzIW1MPIEmMqx/imtHjrW5EWQuk0cdDqkXkpqN74GFQEUVA2ox/fXmcNftnBEfJVL
-	 EoC0KbrKZl/ov7ZofQ/tGiTOvllYRXrsApoc4m70sUiL1WWGd49YlNsCFT7vo6h67ww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881522;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=24/F/ppruR6SBq0REtPbYpcEaxB60R1FOSfzxkLO4sw=;
-	b=DPZhE+1Y3y+rGXZ0Z/yIIgurS+Zi2vGt2k3tHBgd4V2nQULyMRZoiprvjEW7cTTcxPgM
-	 gq7FDqXy8BPJOAmYuSYT5f+1xXLD92ZPOurYOHgjAI2He+BqVmHZr2QgyTUeFsvWy4Xvk
-	 wEMfiZYRRdE2rmmoKFSIxwYn6wGeQVC6Bwh4wHU/RTgbnE7UBBXkHCWqao3VkfohvlSxM
-	 n/nD3UJPihWnsTQuv+P1MUMYJlpJ6R9KAzdYsJTOt2UsLrjl7GRS6PPa8dd8g2rt9tcN0
-	 GhL6/x12HwTq5DG/L1xTVVan99mv72L0odo7l5peK+6ib17tsCwTOeCmmOoP/2OHhyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFjhPmKA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793881541;
+	b=HE6IdOdnkKugyuyx1s91Wb2aITT5aqGyzvtDTLwtkZBuBICQlgroTKpFBH+/EM7/R15Y
+	 v1/+9kjJN9NLAMTSucde24khOFQ7LvLlcM4xrrf3YYJCrn1W71C1FNa1nHhWUQkH5a9HI
+	 gAO/MV9LkYKgRE1MWXxHVpfvBV+UYRVXaGKBKNTjQdUnEdBMZZJ+ZkgEqXe8969M7Jc4z
+	 8ke9E72CmGI4z/XKPuHSUQ3/JoJD4lmgmqhpFLca/XsGflGQl2slyT4cudpEc5NdNh0Gi
+	 JOsxVR4hKhLi0eRWNkGlz1tT1ZSnnsMcbd1Om/9rH815rTVjnGRiDBzPe9iyYm4i7Dg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881541;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
+	b=UKMSqGNlBdDC7pqv4oXCL4y9xgGUa5qpt3qCywf5BABmVZN0OvMFobWz43Gc/qov3WV0
+	 LF5vqBwz86ACyRPexMN+XVudlyiWEtfihgQlRHVjmbeSEruOgUXe+rERsVJGXaCh7h8+Q
+	 Aoj0nGk3nJmLZUEa+bhUwsmIN1l95c2qE7ezlU94aednv64fn8mMn4LaSlfYqnU8HQoPc
+	 k02wEh+NXpO/vP6dwREgOXMWdrC2jolnDvj5CYLCy90pW2aNsT1K1hailDpaNKzHS69mV
+	 vr9ibaDlNP4loToGqA4uUU/kx+16JLSv+kitD1EQuFtxzYwO0x0DYkXqqCiEpxFz8VA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=QhTzZ0CJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A03606D80A;
-	Thu,  5 Nov 2026 12:25:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980A1606A326
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:25:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980A1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFjhPmKA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3FC1F00A02;
-	Thu,  5 Nov 2026 12:25:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881521;
-	bh=24/F/ppruR6SBq0REtPbYpcEaxB60R1FOSfzxkLO4sw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CFjhPmKA1oSfBDtqCrm0xyf14WZcIqvQHGgHZZpCcm80eVSRmBvS+tjgC1CFwycht
-	 Aau900pQabKtM4QAKsTV3mawPJTAvbEqL+GKNeDvUCTI2a0T68S1VJRSg/jEsIovwC
-	 1QAzxr6RTHoSuLu86pe30Unt7L/uhC4jvJGKW0ht5gRGpmsRv9pJxX3sxxzyNOUhLw
-	 olpCemQ7zZAWiP8e72an3aPkBZ8qbKdBtzTnNpkg8QPpHtM4DFFGj2Z0SySuv54rNI
-	 K8q7CTQNsjRuZWHlQX/PUIqcOpM7qNY4zK8p9SR9klry/OTWWaDTObLBEHuiTfir9x
-	 y/BHZ1D32HLeg==
-Message-ID: <sashiko-outbox-199026@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 5/5] clk: en7523: add support for Airoha AN7583
- clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105121059.11201-6-ansuelsmth@gmail.com>
-References: <20261105121059.11201-1-ansuelsmth@gmail.com>
- <20261105121059.11201-6-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 12:25:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=QhTzZ0CJ
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso1328837a91.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 04:25:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793881535; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bsto6HrXx+2hNRDYjxIJG14gwqbJjCFOaYEtqKxz0W+I4W1coKS5dF0LY8sb6jwn9W
+         zghQzMhP10mdTNnjOJ52JG09KljWW1u0fJXNUGQ9j4wNmUzlN0UUCeAO94mtH6u6VEyv
+         b7j0/4KKMlSRmomq8u6LZ5oiyzyFOjCnG23wLCdKQb78xJkijDWPMp/a/PJmtzmqY+X0
+         JjtxA4kPXPCNzMtaICTJm9KRfCxt1BnDix1Oca9vU+AdM4bGq4bp4Ik4GOtYVi9uBtyi
+         hPOisgE2JEnBJq0QUf13M2UOdRLBZAXITcQWbnU7JulxPOLDd/TrP1xHqnq+BJQq3XCj
+         vK1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
+        fh=6frSyZiO9GkJk/wtCBzwQfxnQpZ25XfRDXZfDGUxTEE=;
+        b=Vw5wFKqoMr51/ID/X4UkLxIqMskvXsRo1J4Xsb29NKzguu/wcgr0Mh2VI7JnZrC7+7
+         HWsxWAM7nt7GwHklperhEm9pm4yTDxg4pnWQvMJIzNwMuMt4KW6cMZ7DW5zD3Wx7OTfX
+         m2HbouKhW01I02EITpRBGNOKvvIV3ZpU6CGrQFAY09ZqyQVTUM0vqTjOgM8i/93TQ8am
+         +7Pk+y9QfLt03/dNFzgGzWHMiCDRy5kuEJgwKxUIHWbK+aTsIqZA9nS6KT/4FW4NJY9D
+         +/b7CaiiajsZBVl7ZySUQPN0tp0YFXw+3bW8nmWWaOI0roJDGpQoSpulURnLrhFuQjre
+         vdig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793881535; x=1794486335; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
+        b=QhTzZ0CJ18vLkaz4/b9eNpbTjjpIWb9eEpQqby32E8VHoWNkwTPt+qDR0h41DHaAj1
+         POjjjYtwWjlLaHhuiQ/2WdyQ8dv+GYBSuE8dBSrjlUc38TP1EpV+dBNgtJtCu7fmcAnj
+         P19c59+AldDvwORTc5My9TKoCDgosWl1WIXqBWZjtxGv/yz7ZPGmBcVUTWLOkCgHa15F
+         Of0Mh7EjLxGdfKiJxSAeMdhj+RVwrHCqTEyfsHfR+jPETRA6BTbpiXo1yjfVoXaZv6DH
+         U9PSoFomXerEqFFfkmLNRUK+7mf94Y9AE6/yqYiROD6uuQFJyQCtfYOAIBtLSLYjfQiE
+         g2GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793881535; x=1794486335;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZvGn0TWxKmoxK6KM44Y6QgeDgPYc9rdxIcbth936aAY=;
+        b=KzDfhKf3SZeP/QiNiN+RPb/j7NBYlW8TeyEpzSPvEloYTSwOxUxim/PgtKQNTs5190
+         4G35xffdiXpn8mHf5bzyN2bguxZ7gUe5jW0mK/m8Rxv3dcoqDfF1udkA2HrZDesydf9L
+         rSISGCiCj2oz6qwnj78KOm8tM6qFE0Zoobxk9HasuMyqYFM/xLtquYLi+TE2HKz5h9Sa
+         G8eA/zsyukK3tctk3NZDzTnuWIpgFF8veBL7FQiUo+ela5R0z0wrq+mOnjEGBTb3+chb
+         uGyySb+FRm3PprtMbHGE+ugvXJOXEWAtNUDKB1pR62lfMtzk2DZtJIh9vrdhBmVm/lDz
+         /vKw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9HACVLEGvuG1kU9ZExdmmz9fMbVxgI0J/Rkb4YbkBubAXlKvZ6C5tkw9phczYdfTA+Y0bAm/lj33F@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zEAzFDKIGFDupNzv+K55/nd3GuMmi/RpWDODw8BcOp6lBISFr
+	VZqsOFD+T5kG76c9/nkLoIY8AFcu9q++MTC0s5+Wx7+ikP5RnjS39S2ixdp8oNak2wkZqHger5Z
+	Zq3vbb4v0Ge9e3hTUenGZnL2svMtYiMgcd2lXsI2ctg==
+X-Gm-Gg: AYBFou08hinylQGcJ+W2SUQshuQbzxPZ55XBSXzm1GiOy4/Z3CFbuwYtiLCkGkr/DOv
+	bS+YxMeQf7hqTus7UQsN4OdEJq4x0Rwlu9HvfCBM6ac6WfJAt7x7mhYV7n2HxHYRM9AI0CORm82
+	3UAKd23cXzpgFii8bVKNhkTRIhOMD5mf/bwkBKtOVa4tVSIt3i4qxu/frRAH5s3oDzjtYeKI3Ge
+	ikYEOgQWqbdJyclfKsStikJCak+gMgmZfo5R0es9FEfmeOTN+iUwSsENcg9YDQHZzvPVeaZImc9
+	tZHSlLdoujDesNGb+trsZI/hH3sb4O9ELwKe9XYbOJWyrdTjkSxwG/sISO47nOloKZFC8EoN/uY
+	nh2LD9dhBab+bJieJ/So05lYGoZRnYhaldsiB
+X-Received: by 2002:a17:90b:180d:b0:3ab:2d46:1dd2 with SMTP id
+ 98e67ed59e1d1-3ae895a5c46mr17306949a91.6.1793881534904; Thu, 05 Nov 2026
+ 04:25:34 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,200 +102,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 5 Nov 2026 12:25:23 +0000
+X-Gm-Features: AclHuK94D60Hc87aFX4xe_hS9QfUHnTA410grumPTEjY5dxN4dgYm-_Kh7IGrsk
+Message-ID: <CAPj87rMQdE3eeUxGSb4oQfB4Adry6UV8CvhGoTKtdKGQHdSo4Q@mail.gmail.com>
+Subject: Re: [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color
+ format on DW HDMI QP
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Sashiko <sashiko-bot@kernel.org>, 
+	Igor Paunovic <royalnet026@gmail.com>, Sebastian Reichel <sebastian.reichel@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] clk: en7523: sleeping in atomic context in en7581_pci_disable()
-- [High] clk: en7523: separate spinlocks fail to serialize shared SCU regis=
-ters
-- [High] clk: en7523: AN7583 MDIO clocks registered as fixed-rate clocks
---
+Hi Cristi,
 
-commit 0c38944a68dcbbf6c296bc45b4d9669bdee653fb
-Author: Christian Marangi <ansuelsmth@gmail.com>
+On Thu, 5 Nov 2026 at 01:01, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> Changes in v6:
+> - Added new vop2 patch "Disable core clocks before dropping runtime PM
+>   reference" (Sashiko)
+>
+> Changes in v5:
+> - Added new patch "drm/rockchip: dw_hdmi_qp: Do not mask error code in
+>   atomic_check()" to fix a pre-existing issue reported by Sashiko
+>
+> Changes in v3:
+> - Updated patch 3 to skip any hardware programming in the callbacks
+>   gated by drm_atomic_helper_commit_planes() after powering down VOP2 on
+>   an atomic_enable() error (Sashiko)
+> - Ensured VBLANK events are sent immediately when atomic_enable() fails,
+>   hence preventing userspace processes waiting for the page flip
+>   completion to hang indefinitely (new patch 4, Sashiko)
+>
+> Changes in v2:
+> - Addressed several issues reported by Sashiko
+>   * Reset AXI before detaching the IOMMU domain, to close a theoretical
+>     window where stale or in-flight DMA transactions could fault or
+>     access memory untranslated after the domain is detached (patch 6)
+>   * Fixed resource leak on vop2_enable() error path (new patch 2)
+>   * Balance state on atomic_enable error paths (new patch 3)
+>   * Avoided division by zero when computing max_dclk (new path 4)
+>   * Fixed VOP2_MAX_DCLK_RATE overflow on 32-bit (new patch 5)
 
-clk: en7523: add support for Airoha AN7583 clock
+I think everything in here should now be solidly reviewed. But if this
+series keeps on collecting unrelated patches until Sashiko decides all
+of VOP2 is bug-free, we will never get this series merged. Could we
+please keep this series focused on the useful bits at the end, and not
+keep on adding speculative new Sashiko-pleasing as artificial
+dependencies?
 
-This commit adds clock and reset controller support for the Airoha AN7583
-SoC, including its base clock descriptors, MDIO clocks, and reset line
-mappings.
-
-> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> index 979dd9c20a4f2..c1cc6fbc3c019 100644
-> --- a/drivers/clk/clk-en7523.c
-> +++ b/drivers/clk/clk-en7523.c
-[ ... ]
-> @@ -372,6 +381,138 @@ static const struct en_clk_desc en7581_base_clks[] =
-=3D {
->  	}
->  };
-> =20
-> +static const struct en_clk_desc an7583_base_clks[] =3D {
-[ ... ]
-> +	}, {
-> +		.id =3D AN7583_CLK_MDIO0,
-> +		.name =3D "mdio0",
-> +
-> +		.base_reg =3D REG_CRYPTO_CLKSRC2,
-> +
-> +		.base_value =3D 25000000,
-> +
-> +		.div_bits =3D 4,
-> +		.div_shift =3D 15,
-> +		.div_step =3D 1,
-> +		.div_offset =3D 1,
-> +	}, {
-> +		.id =3D AN7583_CLK_MDIO1,
-> +		.name =3D "mdio1",
-> +
-> +		.base_reg =3D REG_CRYPTO_CLKSRC2,
-> +
-> +		.base_value =3D 25000000,
-> +
-> +		.div_bits =3D 4,
-> +		.div_shift =3D 19,
-> +		.div_step =3D 1,
-> +		.div_offset =3D 1,
-> +	}
-> +};
-
-[Severity: High]
-Can AN7583_CLK_MDIO0 and AN7583_CLK_MDIO1 work as intended when registered
-via en7581_register_clocks()?
-
-In drivers/clk/clk-en7523.c, an7583_clk_hw_init() calls
-en7581_register_clocks(), which reads the initial hardware register value
-at probe time and registers every clock in soc_data->base_clks with
-devm_clk_hw_register_fixed_rate():
-
-    hw =3D devm_clk_hw_register_fixed_rate(dev, desc->name, NULL, 0, rate);
-
-However, in drivers/net/mdio/mdio-airoha.c, airoha_mdio_probe() calls
-clk_set_rate(priv->clk, freq) to divide the 25 MHz default MDIO clock down
-to 2.5 MHz. Since clk_fixed_rate_ops does not implement .set_rate,
-.round_rate, or .determine_rate, clk_set_rate() will return 0 without
-programming the 4-bit divider in REG_CRYPTO_CLKSRC2, leaving the MDIO bus
-clock running at its 25 MHz boot default. Should the MDIO clocks implement
-clockops that support setting the divider rate?
-
->  static const u16 en7581_rst_ofs[] =3D {
-[ ... ]
-> @@ -1152,6 +1351,43 @@ static int en7581_clk_hw_init(struct platform_devi=
-ce *pdev,
->  	return en7581_serdes_phy_register(&pdev->dev);
->  }
-> =20
-> +static int an7583_clk_hw_init(struct platform_device *pdev,
-> +			      struct clk_hw_onecell_data *clk_data)
-> +{
-[ ... ]
-> +	en7581_register_clocks(dev, clk_data, map, base);
-> +
-> +	val =3D readl(base + REG_RST_CTRL1);
-> +	val |=3D REG_PCIE_HB_RST;
-> +	writel(val, base + REG_RST_CTRL1);
-> +	val &=3D ~REG_PCIE_HB_RST;
-> +	writel(val, base + REG_RST_CTRL1);
-> +
-> +	ret =3D en7581_reset_register(dev, base, an7583_rst_map,
-> +				    ARRAY_SIZE(an7583_rst_map),
-> +				    en7581_rst_ofs);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-As reported by Sashiko on v6 [1], do cg->lock and rst_data->lock fail to
-serialize concurrent read-modify-write accesses to the shared SCU registers?
-
-In drivers/clk/clk-en7523.c, an7583_clk_hw_init() registers the PCIe clock
-via en7581_register_clocks() -> en7523_register_pcie_clk() (which allocates
-struct en_clk_gate with its own cg->lock) and registers the reset controller
-via en7581_reset_register() (which allocates struct en_rst_data with a
-separate rst_data->lock) over the same MMIO base.
-
-In an7583_rst_map, AN7583_PCIC_PERSTOUT0_RST and AN7583_PCIC_PERSTOUT1_RST
-map to bank 2 of en7581_rst_ofs, which is REG_NP_SCU_PCIC (offset 0x88).
-Asserting or deasserting these resets in en7523_reset_update() performs a
-readl()/writel() read-modify-write on base + 0x88 under rst_data->lock:
-
-    spin_lock_irqsave(&rst_data->lock, flags);
-    val =3D readl(addr);
-    if (assert ^ inverted)
-            val |=3D BIT(id % RST_NR_PER_BANK);
-    else
-            val &=3D ~BIT(id % RST_NR_PER_BANK);
-    writel(val, addr);
-    spin_unlock_irqrestore(&rst_data->lock, flags);
-
-At the same time, en7581_pci_enable() and en7581_pci_disable() perform a
-readl()/writel() read-modify-write on the same physical register
-REG_PCI_CONTROL (offset 0x88) under cg->lock:
-
-    spin_lock_irqsave(&cg->lock, flags);
-    val =3D readl(np_base + REG_PCI_CONTROL);
-    writel(val | mask, np_base + REG_PCI_CONTROL);
-    spin_unlock_irqrestore(&cg->lock, flags);
-
-Similarly, on EN7523 and EN751221, en7523_pci_prepare() modifies
-REG_RESET_CONTROL1 (offset 0x834) and REG_PCI_CONTROL (offset 0x88) under
-cg->lock, while en7523_reset_update() modifies REG_RST_CTRL1 (offset 0x834)
-under rst_data->lock. In addition, in en7523_pci_prepare(), after releasing
-cg->lock and sleeping in usleep_range(1000, 2000), the code re-acquires
-cg->lock and writes back the cached val without re-reading REG_PCI_CONTROL:
-
-    spin_lock_irqsave(&cg->lock, flags);
-    val |=3D REG_PCI_CONTROL_REFCLK_EN1;
-    writel(val, np_base + REG_PCI_CONTROL);
-    spin_unlock_irqrestore(&cg->lock, flags);
-
-Because cg->lock and rst_data->lock are separate spinlock_t instances, can
-concurrent clock and reset operations race and overwrite each other's bit
-updates in 0x88 and 0x834?
-
-[ ... ]
-> @@ -1305,6 +1541,18 @@ static const struct en_clk_soc_data en7581_data =
-=3D {
->  	.hw_init =3D en7581_clk_hw_init,
->  };
-> =20
-> +static const struct en_clk_soc_data an7583_data =3D {
-> +	.base_clks =3D an7583_base_clks,
-> +	/* We increment num_clocks by 1 to account for additional PCIe clock */
-> +	.num_clocks =3D ARRAY_SIZE(an7583_base_clks) + 1,
-> +	.pcie_ops =3D {
-> +		.is_enabled =3D en7581_pci_is_enabled,
-> +		.enable =3D en7581_pci_enable,
-> +		.disable =3D en7581_pci_disable,
-> +	},
-> +	.hw_init =3D an7583_clk_hw_init,
-> +};
-
-[Severity: High]
-As reported by Sashiko on v6 [1], does wiring en7581_pci_disable() to
-.disable in an7583_data cause sleeping in atomic context when the PCIe
-clock is disabled?
-
-When a consumer calls clk_disable() or clk_disable_unprepare() on
-EN7523_CLK_PCIE, the Common Clock Framework holds enable_lock via
-spin_lock_irqsave() in clk_core_disable_lock() and calls
-core->ops->disable(core->hw).
-
-In drivers/clk/clk-en7523.c, en7581_pci_disable() calls usleep_range()
-while enable_lock is held with interrupts disabled:
-
-    spin_lock_irqsave(&cg->lock, flags);
-    val =3D readl(np_base + REG_PCI_CONTROL);
-    writel(val & ~mask, np_base + REG_PCI_CONTROL);
-    spin_unlock_irqrestore(&cg->lock, flags);
-
-    usleep_range(1000, 2000);
-
-Should this sleep be moved to an .unprepare callback (which runs under the
-sleepable prepare_lock mutex, as in en7523_data and en751221_data), or use
-a non-sleeping delay such as udelay()?
-
-[1] https://lore.kernel.org/r/20260819222743.5044F1F000E9@smtp.kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105121059.1120=
-1-1-ansuelsmth@gmail.com?part=3D5
+Cheers,
+Daniel
