@@ -1,100 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793870287;
-	b=Aj4tUecrGronuXjKvdfgt238+atUQl6Wr5F5zy3NKmbiVbgw8/Votfg+BNee/9Wm0ZbH
-	 QeUA4bIp2MTQVu4u+VrJhbrfBs6bCVb7Kito+rosCsjjiGe9FHt06T/ONMszVX6Wt7edZ
-	 RMYsvgKbfl0Al6fGfR8V8rONdqcZ387LFzU73xWk7fxS5xV9q1AEIfS2p0YM4ZS9WiSty
-	 13Wg81sYW8fGEQEHt7+w10sIr0iYOP/ww+DdrInx2BrV5OUJnGhU/y53D4afmXoJFSbAm
-	 cfVxrbKKFYfQsiU3pjV0fLI0pVNWQXlBUHCDuf/oNd6HQJ+Mbxdkse8+Yukr9xnaZRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870287;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=b6lYT8H1APh9WNrwCcJMl6ao/iPwv1nmLTApfvwqcSU=;
-	b=orWPFJwkKUslN48mIf3TFUJMtC8wQ2KiqeecxKq98fAwFDb6O9W3UJ6ZJ4E/ALqgMaa0
-	 6Ww61GPizN5YrGU1C/cn3X0nKF5SQtwtny2j2fDIsI1l/bheWKbiFIUam620ycCqxEqo4
-	 XlHwSGgEX0+HP6p6btM3Fgaj2qRkWrblAq3zfh83RrNj7eNzqVPzfaSt85u1gNCI68ZXX
-	 N1ay11wJBOWBnXtwM16R0yMde4ugO9YJIGfxTuitJPIFikNNvWVgRz8Fa2QIW+TMlo8NQ
-	 m6xY5kSpB/8rfvl5bghkqWA6W62lkB3G/0PDQq7ijqbMXWeffOOrMxyv7kNc8ANtI2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XZdAXl7u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.36
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010036.outbound.protection.outlook.com [52.101.85.36])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793870314;
+	b=NURXhTkP6jDwq0q22GYLzM3Iy5yVa5KeIh5QJdk/GlKzFUTYojqdjxO8Xv7AVxhD5ewF
+	 SmTeGT01DyhbyRM4QUUpyNdboRatI0BrRhJLOq522bqcVwLci9LhBRoDre96swHuZIpZS
+	 wCYZw2G4Qc+oyQy/qoJ/Dd00Pf6mBvY0M66SnXuf9I2u0zgQltHrL2uTouCc5VxKBPUdk
+	 VxXY6MmR1kLfvJiErHN77n55Idj6lMrl06UlFkG54ZoiSzP6pkWIE+ICXB3mgMIHNJC6r
+	 A7clTWLADwbrWv5BDoplc6IaivtkUk0oHnOyYNPAZOhPbRtsJ4DhSQQwtB1UcECRG6Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870314;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Nu5Ld/1F/rbxABcDcq4NdZ7MxtKaTOVEMQnSf6SHCkY=;
+	b=qg7AN8J8NJZ63U8VZmBX3O29UjzVa6jbMqLW1Yyz0l3/8I0BU96Xts0lJzgTCjqVs0lt
+	 ixpsbBQWkshxvMeecm+2DQNJYNi3oZTBsFqMxc0aa9HQQOWY/pZEoDFFDDFf8hE1idiNW
+	 T0WLYYWeWYpNlo8QfyvdPkDXSUDtzKfhwjeVnfL4ymagtTW+7VZpHklYwz1PrID2BozYu
+	 tc75TJnvcXVFNIb8jmnN+Oq0j2TC8rRl59DA2b4xbyyUcFGXRSfvHgtH5TGuZdfPPeT6E
+	 i6vjhbQD9HiKTM8lNaa33T/MxBzdUORYlre1IKxbtttDQ9+puMgYBGCc2n1sgJVH9gA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EiZLXGt1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UyQWOc3p;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B37D606A31B;
-	Thu,  5 Nov 2026 09:18:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B37D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECFB606A335
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 09:18:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BECFB606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XZdAXl7u
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zP/I5UFNM/6M9iJ/+THIy/VY6P6gsR1pCdskXZ1nYFNX+Lqym8stN6HRjAjDfRTTOWgPzAZyhkQLMRRFBVe4ip4c1hsUVRTcBN29SLljFj479qj0PApqvchplc7mSTgdt0LNWuODzZOGjZNTindDjR6K6Y3cvVmeZroM5nC5kcaeqhtIKLv2FqXZUGviB8DjHCkxy6JVIwQOfdEtqgdji8TJmAz++AM6bBnpnQTH+gc0IXDxNDconHbKjRjGlHU1YEDONiivb1Cc6yzC9FdGqCBgcOmpw+LDaouLiBTDPb4ly59gK8GnPY/+PYx9SgtElmFUeZRSAXC0oTyqwqOBDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b6lYT8H1APh9WNrwCcJMl6ao/iPwv1nmLTApfvwqcSU=;
- b=o12Ku1tFyyjab/iefLdnWQhP7cDUBjQeUtTyUIlBhqJhGDT+Y9SREoiT2nYIMpnoCfbr7+Yn0sES8knYeYVOGBTm7bGpSl0yUlhlo0liuI1ve+bso6uHo7MNpX+i6aM1OQHcVgLcp7WoVxCgrkqmXzQt9gxtlM8LmZy6a8ysP9w6h83e0+TuSuipbF7Fud7Y4F6qqXJAliwiY8RBLjnpvEULlG1yeKnTloNajT+CHG4AMp/zmVriDutiu5gnhPxCBfpMDAmzhu4uVP22fnoc+omhG/1xOHFJuAa3pmBHGzApn6edoK4mrDSUz+pEeVUsaTNf2P4UbGV2MHY5BxGicQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b6lYT8H1APh9WNrwCcJMl6ao/iPwv1nmLTApfvwqcSU=;
- b=XZdAXl7uVN8o1sWS5k0TI0MXz4oXqkvUrhlbqi4+/RBxCAAGSdNA0WKSySYiBawRJpeey4YL+s49v7DGua1tm1xNTMx3Ry5uI/MBlmwTbDfC5dOzChrXDCxFnmPSc+2A4Odi+qwS4QDqXc7u0y90uZi8/zBI9c7RU3eT4LT5ktepAQKxOZpFFpS+22PRx7QOUwtQygkWfzpzaGRAQdXeEaIjKviVUfEtvWsGcQaZUO2Rltz87k3gGloHV1c5HG5Yrut4O5rLwYLAdecxlP5zywPG/eo8WLZ7s6L7hayHOFTFewl1our0mILkc2rIy1I3Ao7Jh0IKjhUnWAedUOxzJg==
-Received: from PH8PR02CA0027.namprd02.prod.outlook.com (2603:10b6:510:2da::18)
- by SA3PR12MB7922.namprd12.prod.outlook.com (2603:10b6:806:314::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 09:18:01 +0000
-Received: from PH7PEPF00000008.namprd04.prod.outlook.com
- (2603:10b6:510:2da:cafe::a5) by PH8PR02CA0027.outlook.office365.com
- (2603:10b6:510:2da::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 09:18:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- PH7PEPF00000008.mail.protection.outlook.com (10.167.243.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 09:18:00 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 01:17:45 -0800
-Received: from [10.191.53.38] (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 5 Nov
- 2026 01:17:41 -0800
-Message-ID: <8b794465-2032-46e3-a090-07d64e0b4146@nvidia.com>
-Date: Thu, 5 Nov 2026 10:17:39 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EiZLXGt1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UyQWOc3p
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56U2PR3073556
+	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 09:18:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Nu5Ld/1F/rbxABcDcq4NdZ7MxtKaTOVEMQnSf6SHCkY=; b=EiZLXGt1hJ/xxiV/
+	sN1+jAlyHPZbyj2AacOxHz1eean0ky98SRnWvdsCNvEgq5ta4v0sP14YT+Y23/oA
+	E7l72eTm+TibUI+BrqviZ8lDF4CiKLUH7dTIGqDOUHYd3C+u9tPwI/PBvUanKPTq
+	oQykZpwTANZXI0r9kbNkDHzm+W3sx8IsvZCjN9+gKbOfzdVTss2VlrlsvVEEYbBq
+	TA39MNHm3DnLtaBGky4aE1sCA8LWGjW95z1XlA9PVc4uFU5uHwUfUU/ToESV4OsL
+	Pt6Rhl2W+/WcZLBmNKrxg/ktw8yszXDGgBiveW3kJKEPj9uEWzd/Q9floDSh+UjW
+	A7tO2A==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksq8vd5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 09:18:32 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-351788121cfso2103052eec.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 01:18:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793870312; x=1794475112; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nu5Ld/1F/rbxABcDcq4NdZ7MxtKaTOVEMQnSf6SHCkY=;
+        b=UyQWOc3pZn/33nOWjgNlnzJ9xMl1aZoosvW9ZXEBkwZwlUJkvhLNT90vFh1rd9DqlW
+         cBT5jFjnI2pVWLNbqOTDcPhTlsBeQT9LR3L0kh5VBtdB7exSXZV5ej9QdrmsCX+7tlIz
+         F1Gdxjja3iKjAWQG2iF2U8WV3w8f5W/K5dNigQDARkbvAVDp65gKh3OYDIekRqcNuFat
+         mqHlA0rHm/pU49008grbjG8PEt4eL3rJ/3Zjvb4Ho2GGg1zOIMhEEV5r2F4drxf0/A7J
+         gHBIjawPPxSrnbSrOE+Ixpdl1RB4g4PZynD/CTGfHN5etFG/UgxzjO1eYBJVXb6Ghw0E
+         ScUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793870312; x=1794475112;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nu5Ld/1F/rbxABcDcq4NdZ7MxtKaTOVEMQnSf6SHCkY=;
+        b=ojJVCxzQFNtA9FUpVo8E+GrnouDGf2H0lPe2C5f3SL3JoxkAfpEzAVuy8x1r8usNLm
+         bT5vbp3C8UNdtlKA5H8rpTLeNt3ltlVjkbbwecHokIqbUboXzWj8TBGsPaFA95E+M30J
+         i4XDhXmmZAja68F+sfkvgNRzU0R7ribsmedUpEUiP48V8BXmhw4qFYilmZv/HFZEEHVn
+         HKhej7nTIDsY1EMevS75IYKRa1HvNd/6fT3Zmh7xmHK9+44xH2JE6Due6U2mFxsB5SdJ
+         /989JW7zIHMup5rriDHZ10GpjLv0X1W7X37rlkRKwmoIFsdGOmMnInANrLuWUUlTnNuj
+         MyBw==
+X-Forwarded-Encrypted: i=1; AKwUvByq/Z/Qx34EGYR7TT1/+9SbbXBkAvarAfbD2LrPygb1IG5OnOlDM8FhMD80FtJ6owwKGwO3HTIIz9af@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qlQQjzq71qeZp+Cs5/fIt12ON+fTbt7MSwnKTlYoZSxIUd2x3
+	RYnYSwe/Azt3vSWofvCsMooRJk9zBzl8rvK20llUJY+DMt9kJU2BhrYIGsiq9D5fifWdQ7VM+CZ
+	9p6LkgHz9o2ZjfeZgMXJZeyrblKauiTLIrwUU/sY8QNVx+54E2h26OBi2W6tJhaFs
+X-Gm-Gg: AYBFou2Uihg20FY7qntCMr8UzbKD6zbMufTBugtmroa61zD6aO5fQCHQ0X5YmmaCE5/
+	wHsv2KAdp9QRpc91DN+tz/vEewtos054nKsR14fyTshlckx82YhRIEmGhgBAEHWBTEKPNtCdyd8
+	mbbcKoaBqnmNnRWL/YssG8YU0Dgg45uqN5LXrHYuKw7P6iJkz5CcHZEDSqxxgffj/tIOc0B6gPr
+	UkfvkRDfkhktf6ug7jfQHKUZv+vwmCIiztQHdKBfdAJargZN6g3+YmOYXdHIStiYpNsOBiIlGny
+	ihEopbJwcJE3aGBjN5OKH2/C0ko4FnihiYDrydsZIjAB2gDwuhRl0wI45eVHMwmOExrloKGKHNB
+	4VBXdKZBGgl9a4e8Lg8Uuul/PwQ5gbS1IQTkyu3AqLzIVOwMkMr/+mgYu7P4rIxKF+TrEownabF
+	w=
+X-Received: by 2002:a05:701b:4594:10b0:1b2:559b:67ed with SMTP id a92af1059eb24-1b2559b698fmr593803c88.26.1793870311801;
+        Thu, 05 Nov 2026 01:18:31 -0800 (PST)
+X-Received: by 2002:a05:701b:4594:10b0:1b2:559b:67ed with SMTP id a92af1059eb24-1b2559b698fmr593784c88.26.1793870311273;
+        Thu, 05 Nov 2026 01:18:31 -0800 (PST)
+Received: from [10.206.111.19] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm18261870c88.15.2026.11.05.01.18.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 01:18:30 -0800 (PST)
+Message-ID: <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 14:48:25 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,266 +117,103 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 RESEND 0/6] Arm Live Firmware Activation (LFA) support
-To: Andre Przywara <andre.przywara@arm.com>, Mark Rutland
-	<mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, "Sudeep
- Holla" <sudeep.holla@kernel.org>
-CC: Salman Nabi <salman.nabi@arm.com>, Vedashree Vidwans
-	<vvidwans@nvidia.com>, Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	<vsethi@nvidia.com>, Varun Wadekar <vwadekar@nvidia.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Rob
- Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
-References: <20261102165421.3651202-1-andre.przywara@arm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
 Content-Language: en-US
-From: Nirmoy Das <nirmoyd@nvidia.com>
-In-Reply-To: <20261102165421.3651202-1-andre.przywara@arm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PEPF00000008:EE_|SA3PR12MB7922:EE_
-X-MS-Office365-Filtering-Correlation-Id: f96827d6-df82-477d-3ecd-08df3b1db06a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|7416014|376014|23010399003|1800799024|6133799003|10067099003|22082099003|18002099003|261102123227099003|13003099007|261009223027099003|261028144727099003|261022105027099003|11063799006|56012099006|261026121527099003|261026140227099003|261021121427099003|260925021311599003|261022115727099003|260925021911599003|261022075727099003|260925022911599003;
-X-Microsoft-Antispam-Message-Info:
-	OXZeQvm71sqAZacYQ/e5WnxWESr5zfqdjS0OaXcNjaPGE6j43PgIHlq0u9iPJ5iMkSnXaMCiZbpgYaanoZNbv3rndP1Beq8s69T+fTd9xun6IvIguXM4+38qE9WkTf9KQQOySQ7lwZstd7YlBrw3hDuTiMqlkyh69TvbVtLamwenxSBW3rpD4CQErs3i8StveI8iApVILKN10VsGUFOtPKuCjQCr6BjYdt53DL+4djOxbXpRr6+DqsKYJlkrndYRlh7wNhdI3ZVJtBRz62qj4hjdZlevXpD/RUw/B4z9IEU+XDnuXxdf99wt0mX2B0IyVnJFh+IRDNMVqynmYgahetO7VJ4xJfc8EEuzT8NziiVpwlawT72TXB6EmCph5v80ibH/WGsJLJxXZkiSi85F0FOsPL/iDumN5qnuRih4UIeKNh62gQqngVHs4xMP5aZBMAQUQfxIzS/73SjJQkOsyi01a7u4iMRlD0JVNRxBQpB01H32xEt0pQBG8sW4BL9h5UtGIZnKWruJW6lP3hkRgiLeT+cbjcumhaUAXH/xcPxnw7u+XlLgfHLlK3R/SV4vP21Olpg/WSSPhBhSOGm027S3N7Y9CfH45uXhrYYv+ROsolsM54/kNiTb4obK7OVN0WhFCYm5asAPIjDZAYezyNoNQLg8/MN6KrMHxOsZouaIVyaZ5Qxw7uSH04upiq7+6JrSKhE3t8PRmDflZg8Mig==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(7416014)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(261102123227099003)(13003099007)(261009223027099003)(261028144727099003)(261022105027099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261021121427099003)(260925021311599003)(261022115727099003)(260925021911599003)(261022075727099003)(260925022911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8nSyLyd8NHqhwsCtVTeFHTGfIZNeVXMv+n6KcnR/Bd+v69na9e9Z/owL6i7+Ps7j//7XJHxu/6pMf/Nvjv+1LkIWoz3bYGTI+EIUv3BnDPxPAjH57bdwBDH0x3kp7BRwKPxBX1Iu37to+MgwdYVYFwosO5t0+tKQ3AGdXczhwxnzVDZXN2Hn48+dYpc+0HimozU04+k3PLbLD7NGP/c7G1cQ7fKjZuYEOXiFSH6iTJLWHtCPx7DAm299iKmInMQ1CROEsQwT7HLS/gg1JNaGyBrCSNR9lyUQBY9vO/DBzPPuqRFN6eDD6JhcFNh4wmgyg63N0CHQkcnEfQUXdbhkrUhBeg7aW1tc6PeDfarWPOI00MNs7xbQB6Xrrzo4kPC3qytaVIKg2WwjsvFzez2KED3FONsuS0LeGDnXOVvA9AWukwomBmRXRQKCVMW6I6yn
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 09:18:00.9067
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f96827d6-df82-477d-3ecd-08df3b1db06a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH7PEPF00000008.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7922
-
-
-On 02.11.26 17:54, Andre Przywara wrote:
-> Hi all,
->
-> -------------------------
-> a resend of the v5 series posted two weeks ago, where our mailserver
-> swallowed one email. Just used the opportunity to rebase on v7.4-rc1,
-> so dropping the two extra patches I prepended to the post back then
-> (already merged). No changes to the patches themselves compared to the
-> other v5 post.
-> -------------------------
->
-> v5 is a decent overhaul of the series for the "Live Firmware Activation"
-> kernel support, based on feedback from Mark and Sudeep. Two patches have
-> been squashed into the main feature patch, the name attribute has been
-> removed, and documentation (hopefully) improved. Other than that quite
-> some smaller changes, renames and reworks, hopefully for the better.
->
-> For a high level overview of LFA see the rest of this commit message and
-> the commit message of the main feature patch (2/6). Some simplified
-> overview of the spec is in the top comment in patch 2/6. Also the sysfs
-> ABI documentation in the last patch contains some more information.
->
-> Based on v7.4-rc1. Changelog below.
-> ====================================
->
-> This series implements the kernel side support of the Arm Live
-> Firmware Activation (LFA) specification [2]. LFA enables the activation
-> of updated firmware components without requiring a system reboot,
-> reducing downtime and allowing quicker deployment of critical bug fixes
-> in environments such as data centers and hyperscale systems.
-> It requires explicit firmware support, both via an agent running in EL3
-> (for instance in TF-A, already merged), but also in the firmware
-> component to be activated. TF-RMM recently merged support for this.
->
-> Unlike the usual firmware update process (which may use tools like
-> fwupd), LFA focuses solely on the activation of an already updated
-> firmware component, called "pending activation" in LFA lingo. This works
-> by signalling the LFA agent (part of the EL3 runtime firmware) via an
-> SMC call, which then does the heavy lifting of the live update, in
-> cooperation with the to-be-updated firmware component.
->
-> Key features of the driver:
-> * Detects LFA support in system firmware (EL3).
-> * Lists all firmware components that support live activation, identified
->    by their UUID.
-> * Exposes component attributes (e.g., activation capability, and
->    activation pending) via sysfs under /sys/firmware/lfa/<UUID>/.
-> * Provides interfaces to:
->    - Trigger activation of an updated firmware component.
->    - Cancel an ongoing activation if required.
-> A more detailed list of features can be found in patch 2/6.
-> Based on v7.4-rc1.
->
-> This work is conceptually similar to Intel’s Platform Firmware Runtime
-> Update and telemetry (PFRUT) [3] and TDX module updates [4], but
-> targets Arm platforms. The driver has been used to successfully activate
-> a Realm Management Monitor (RMM) firmware image in a controlled test
-> environment. RMM is analogous to Intel’s TDX module.
->
-> There is effort on similar work from the OCP [5]. Future work may
-> include integration with utilities like fwupd to automatically select
-> the appropriate driver, based on platform architecture, for Live/Runtime
-> firmware updates.
->
-> Please have a look, test and comment!
-
-Hi Andre,
-
-Tested on our hardware with my 3/6 probe fix applied. Automatic 
-activation via the ACPI notification worked.
-
-Our internal AI reviewer flagged a number of issues, which Sashiko will 
-probably flag as well. Sashiko has shown this series as
-"In Review" since Nov 2, while series posted around it were reviewed. Do 
-you know whether it is still working on it, or does the series
-need a resend to get reviewed?
-
-https://sashiko.dev/#/patchset/20261102165421.3651202-1-andre.przywara%40arm.com 
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNiBTYWx0ZWRfX7ATD+dyraaMG
+ LLsTPvKfQy5r53gU0vivcXIbbz3rUVqyY2E6HgoiSOkSVJqw+7aTUip7yv9++IkKcCjuf968lPD
+ ojwYI6NsNDnQNXjdLVrv3MZJZ5QunvLnSgF+D3Ch+OPaf+qw/1me+xssrbMGyMe6/9Efsh2IbkT
+ ZhIwVkP2CfE2QbRKjaoFpLi0QQ193fs/6lKYo6gCJhSD9rzTcl4gejwLoX8PhwE9fpY87H838k2
+ WpJiuLBoLMh3M3Lmj9t2OvuJ1RlEksDP6YBuIS4d5Tjj18fCLzn+4sj4fsvx5ovNKMq/GC1a8Q8
+ YgJceB6+1iXVOpItxaLrPlG5ZFhZPPjb1XFfAQJ0vsFhwZpdQUKUyllETK6FeupOHugdAPu7Szn
+ Xnc7ylCx0Mo55q7MfpHcpDX4JQph9gpwtSlvg00JvLOgp8If6eoGRvEKrHfK0iscGb1YJ7EhwJT
+ iAZL5+3LzT9XkqB6Izg==
+X-Proofpoint-ORIG-GUID: 1wbsp0rwSDMATaoAhz_iMaqtJ2-Y6jUJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNiBTYWx0ZWRfX3UkrByk5G977
+ fs13M7Qj+3VZa1NGPxFtnPknY+n/Wlf+e+7OxU58tu6tPeUH13G8U82fH2KFhXaWTTag4jRQ1ry
+ PZZLmaWkqcmfWJZW3ycLfrk51+RgRXU=
+X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aec49e8 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=Ck8ZG94lijjEDa-JwdwA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: 1wbsp0rwSDMATaoAhz_iMaqtJ2-Y6jUJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050036
 
 
 
+On 05-11-2026 13:03, Krzysztof Kozlowski wrote:
+>>> What is the problem exactly you are solving?
+>>>
+>> The problem is that CSIPHY4 is connected to CAMSS interface 4, so the
+>> graph should describe it as port@4, not port@2.
+> Nothing like this is explained in commit msg.
+> 
+I will update commit message to explain it better.
+
+>> The previous port@3 description only worked through the X1E80100 resource
+>> table indirection:
+>>
+>>   port@3 -> csiphy_res[3] -> .csiphy.id = 4 -> CSID selects CSIPHY4
+>>
+>> New standalone PHY path:
+>>   port@4 -> no csiphy_res[] lookup -> port number is id 4 -> CSID selects CSIPHY4
+> Then this breaks existing users, no? Anyway, what stops you from having
+> there proper mapping?
+> 
+No existing upstream user should break here; this is still part of the Glymur
+CAMSS enablement.
+
+This follows the earlier discussion that CSIPHY4 should use the
+CAMSS-side interface index as its graph port number:
+
+https://lore.kernel.org/all/CAFEp6-23L+4+yzVxX815ZA2x1_tN8SpzL7ciNcb9b+gBT67AdQ@mail.gmail.com/
+
+> Did you find any existing practice of numbering ports logical numbering
+> in this device, but some other logic coming from datasheet? Where?
+> 
+
+Glymur has only CSIPHY0, CSIPHY1 and CSIPHY4; CSIPHY2 and CSIPHY3 are not
+present on the SoC. 
+
+Using port@2 for CSIPHY4 would require a Glymur-specific port-to-CSIPHY mapping.
+port@4 describes the CAMSS input directly and avoids introducing separate logical
+numbering for Glymur.
+
+-- 
 Regards,
+Nihal Kumar Gupta
 
-Nirmoy
-
->
-> Best regards,
-> Salman and Andre
->
-> Changes in v5:
-> - merge the timeout and the lock patch into original feature patch
-> - drop "name" attribute altogether
-> - rename firmware "image" to "component" everywhere
-> - add explanation of LFA concepts in top comment
-> - use switch/case for error strings and error mapping
-> - define error codes with negative numbers
-> - rename SMCCC register variable to from "reg" to "regs"
-> - don't open code bit masking
-> - use only one SMCCC register set where possible
-> - rewrite retry:/goto into do/while() loop
-> - make example IRQ to be edge triggered
-> - update activation_pending in pending_version_show()
-> - check SMCCC version to be v1.2 or higher
-> - check all SMCCC functions are implemented
-> - remove blank lines before return statements
-> - use UUID instead of GUID everywhere
-> - improve comments
-> - filter for ACPI notification 0x80 only
-> - update ABI doc to use "component", not "image"
-> - add activation_pending attribute
-> - fix IRQ/ACPI registration error handling
-> - add comments documenting lock requirements
-> - print LFA error number when printing error strings
-> - explicitly free IRQ in remove() routine
-> - reorder functions to avoid early empty prototype
-> - adjust SMCCC function ID names to match spec
-> - copy list of activatable images to avoid infinite loop
-> - update pending status when showing pending_version
-> - cast error returns to s64
-> - replace "N/A" error return with empty string
->
-> Changes in v4:
-> - streamline threaded IRQ handler (drop empty hard IRQ part)
-> - add lfa_to_linux_error() conversion function
-> - use Linux errno codes in more functions
-> - drop bogus LFA error numbers for -EAGAIN and -EBUSY
-> - clarify interrupt purpose and edge trigger requirement in binding
-> - honour signal related return from msleep_interruptible()
-> - call clean_fw_images_tree() first in driver teardown
-> - streamline ACPI and DT registration
-> - cache rendezvous status to avoid race during activation
-> - only trigger activation when writing 1/Y/true to sysfs file
-> - adapt to new version of Aneesh's SMCCC bus patches ([1])
->
-> Changes in v3:
-> - change node name in DT binding example
-> - move SMCCC function identifiers into generic SMCCC header
-> - rework to use the new SMCCC bus instead of a using a faux device
-> - add missing workqueue cleanup in probe() routine
-> - squash former patch v2 3/8 into base patch
-> - use get_image_name() more consistently
-> - also consider -LFA_BUSY return in activate call
->
-> Changes in v2:
-> - restrict build to arm64 (the LFA spec only supports AArch64)
-> - rename and extend central data structure to fw_image
-> - use separate GPR register sets for some SMC calls
-> - provide wrapper for error messages to prevent out-of-bound access
-> - return GUID in the "name" sysfs file when image is unknown
-> - fix wrong attribute in pending version number show function
-> - add missing include files and order them properly
-> - fix memory leaks in error cleanup paths
-> - handle lifetime using embedded kobjects and a kset
-> - drop global lfa_lock, use kset list lock and kobject refcount instead
-> - add DT binding documentation
-> - add timeout and watchdog re-arming (contributed by Veda)
-> - relax timeout period and do not block while waiting
-> - register ACPI notification (contributed by Veda) and DT interrupt
-> - refactor ACPI notification code to allow sharing with DT code
-> - use faux device instead of platform driver
-> - add auto_activate file to control automatic activation
-> - introduce rwsem mutex to prevent using stale sequence ID
-> - use labels and goto instead of infinite loop when retrying activation
-> - initialise workqueue only once (thanks to Nirmoy)
-> - various cleanups on reported messages and code formatting
-> - rebase on top of v7.0-rc1
->
-> Changes in v1:
-> - Updated SMCCC version 1.1 to 1.2 per the LFA specification requirement.
-> - Changed "image_props" array to a linked list to support the dynamic
->    removal and addition of firmware images.
-> - Added code to refresh firmware images following a successful activation.
-> - Added a work_queue to handle the removal of firmware image attribute
->    from it's respective kobject "_store" handle.
-> - Refactored prime and activate into separate functions.
-> - Kernel config for LFA now defaults to "y" i.e. included by default.
-> - Added individual kernel attribute files removal when removing the
->    respective kobjects using kobject_put().
-> - mutex_lock added to activate_fw_image() and prime_fw_image() calls.
-> - Renamed create_fw_inventory to update_fw_image_node.
-> - Renamed create_fw_images_tree to update_fw_images_tree.
-> - Added two more attributes due to specs update from bet0 to bet1:
->    current_version: For retrieval of the current firmware's version info.
->    pending_version: For retrieval of the pending firmware's version info.
-> - Minor changes such as, improved firmware image names, and code comments.
-> - do...while loops refactored to for(;;) loops.
->
-> [1] https://lore.kernel.org/linux-arm-kernel/20260914060511.277948-1-aneesh.kumar@kernel.org/
-> [2] https://developer.arm.com/documentation/den0147/latest/
-> [3] https://lore.kernel.org/all/cover.1631025237.git.yu.c.chen@intel.com/
-> [4] https://lore.kernel.org/all/20250523095322.88774-1-chao.gao@intel.com/
-> [5] https://www.opencompute.org/documents/hyperscale-cpu-impactless-firmware-updates-requirements-specification-v0-7-9-29-2025-pdf
->
-> Andre Przywara (4):
->    dt-bindings: arm: Add Live Firmware Activation
->    firmware: smccc: lfa: Add auto_activate sysfs file
->    firmware: smccc: lfa: Register DT interrupt
->    firmware: smccc: lfa: add sysfs ABI documentation
->
-> Salman Nabi (1):
->    firmware: smccc: Add support for Live Firmware Activation (LFA)
->
-> Vedashree Vidwans (1):
->    firmware: smccc: lfa: Register ACPI notification
->
->   Documentation/ABI/testing/sysfs-firmware-lfa  |  106 ++
->   .../devicetree/bindings/arm/arm,lfa.yaml      |   50 +
->   drivers/firmware/smccc/Kconfig                |   10 +
->   drivers/firmware/smccc/Makefile               |    1 +
->   drivers/firmware/smccc/lfa_fw.c               | 1057 +++++++++++++++++
->   drivers/firmware/smccc/smccc.c                |    5 +
->   include/linux/arm-smccc.h                     |   15 +
->   7 files changed, 1244 insertions(+)
->   create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
->   create mode 100644 Documentation/devicetree/bindings/arm/arm,lfa.yaml
->   create mode 100644 drivers/firmware/smccc/lfa_fw.c
->
