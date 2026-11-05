@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863639;
-	b=biHctMYEYMUa9boQ6IdO4kLjk1A1hMWU9Rdj9TTYH8HkmVxwz/emO1SKLwji4p5nhBBv
-	 MYlx4qaq+ZK65iUsyIXJ608nsP3I/ARDuwpXVrtWTGU2Iysryt5t29SlgJb7DHy1/TyX7
-	 t+IU6JVjo31wsU0LBArkzzVLu/HMrx3Pn8bgAyyhlo6nfwvVyYBZtVY0BoX5sTh0shApw
-	 a3mm+4oXrB0R8rX8jBHNdicSU1jSJJp01er1TuaWDpmltq8VmK/qfinPy1CMrlLorI+rE
-	 XgHy/dl2hxwNry9prYrIXkgYYvrDTyBzmsvS0lnojWfk2YOr0XUarZ8zLOxfmr5pz/Q==
+	t=1793864038;
+	b=yaGj1I8aLr0h96JZ/8TRGSmwMjSbZnt959T9hv5APffKNyG9LGjYBvSmNdoe/BAx5i2s
+	 A0uQGnn1JQ7W7/0n7STzI08z1utjjRs1eHKnOTxu3zjk64V0TeDU/n2uyO5qslGBW1OR9
+	 JiaIh7w7Veliq3aFF5MjAL9QMgOLSf3khQE27iuk7fvV39d+hey6sdvQBGA2lOvj6i+vy
+	 W6aCNPBeYySuMTLJlDBa+pkEmL+hNkt9rY0OjeqiCfS+KPMPT8L2LnJcuR2KENi5x3aZd
+	 J4y08Fro7BDhtDwl7KyGF8+9bttcJgJ1lAEigZ2hl0TRRx5Anjhe3r82s94y7szB9oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864038;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=KpjQzYHtWDGBnZmNqdBh6R7M2XsM2YwTNNTkLJaA5FI=;
-	b=BOL/916bsfVyd6/x3EMdjZb4NmYg0Pc0G3TVzeRK616HApZLYhrto8oZqIylQQ1du+M9
-	 jR5oHvD/i9Nvz2ouMSQHXMtbYZ3pFZ1ThtH0CYjn4ytw7nYAwUPksuwGnFUdofD7LIMvW
-	 rcBb+OP8Z0h8w5k20wJ2CGXj+Qz6Tph6YIJW8jwDZVF90mhtV7lK1FwB2FUr464vV7gil
-	 2RbHp8X+2RrYluAB/WHoWTGjU8dcHSzY7NpvL7CUL68ZW/yMQr867lZh2oEk6vQjsjA7E
-	 aZn/q8iqlrTuO6H2iL4YX6f/jFce3rMjLs47q96dW590h7p8z8XTNKBZ74xmSC/pGPQ==
+	bh=B19nIV9K0xEPo2iAEcn8v899eLpDp0L1RtVwQuDIX0w=;
+	b=1Z3xgZMFH+Ut9Bzd498+tZkeYJ94+nA9pSQ6RqwGFdiF8/SgwwZj+FaAhwFOC3Ke/iBh
+	 zawDyjEN+IAy/2RHFpHSzqSiby1Hxofjme6Wl2JNjge+AQ+MzLZhAiJe636K3ZeDDzrHd
+	 i1chA1gNB5mYc1rqh4bKGoN2RH8+BGMV6v898TT34YuIEiamW9ITUFSR6JB1ngFZXOTd4
+	 bq0jraCWyiSsomEblzMCsFy9qm19HGXrm/YxY/cxSy60QLNt8HmYQr4EmBjsecTPryhcO
+	 b00kJ+jTbqDRQN+1vwVBs/Ys5jYRYU/aVpiCAA2N3eHFxp3SjMyyUDCLSfFAV65yT3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2jnLjEj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+QIpQec;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74496606A31B;
-	Thu,  5 Nov 2026 07:27:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29A9606A31B;
+	Thu,  5 Nov 2026 07:33:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2jnLjEj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB5C1F00A02;
-	Thu,  5 Nov 2026 07:27:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+QIpQec
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8421F000C1;
+	Thu,  5 Nov 2026 07:33:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863639;
-	bh=KpjQzYHtWDGBnZmNqdBh6R7M2XsM2YwTNNTkLJaA5FI=;
+	s=k20260515; t=1793864037;
+	bh=B19nIV9K0xEPo2iAEcn8v899eLpDp0L1RtVwQuDIX0w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j2jnLjEjkWl2LhZJHOLAS/6VC9piRAm1loijPru7Bs+FP2PxCwGOsHajpjJl6YWac
-	 NFs3HqoZQVoO6umVEGAIKxHWgdp+xIRB8Marti9qql4EMJH2SPm1PpAIfzL+SaoikY
-	 rlQqtpU0Ut9oCGA/eoSPq8PqBQY8YtYpGG7DEn8BWLt9iAEYvNSl+1k08fP9EY7Hng
-	 dCEzRdOUn5SPRooTaieHD2YBgK4Y/v7iI4TcueFfJTtTipjnQdDpTmbtcWl1e+Zup4
-	 uKGpngabZLOnzm5IMIuI9uHHOyQaKB1mtaIZZyP1Y4ota4gk6h4CmYHl6Zq+YqbxHw
-	 SHHfem8z3w7ag==
-Message-ID: <1a83f9a4-73c8-4a13-bd53-2e779f6ade22@kernel.org>
-Date: Thu, 5 Nov 2026 08:27:11 +0100
+	b=j+QIpQecQ5scdMWhDQu5H5cjFkYW1MIwRBJeMnGKJTsS+H/k2I2HWpq2y9BTXjb6n
+	 9Zxw1cx/GxsXgWdBLDt3IeN3m64YlI3WtR3zOUYue3FtH0pkzQj9u4KQ4R0B028fVS
+	 EAgh6sd5IymsR8cNOzKS0JuF5IIcde2Jb2Kj/R/aP1UTiT5sl6UKoZwW/IQOoMwuJH
+	 jodr3XIinMzVMgn2KuKvGnrDXqJCpABQBGA6Sl0uDJiAyq+SPb/7JEUzoLv/kCvyaR
+	 lYG4zgmphBViQ2tqbwAYyaofMaD3LsShDY1BMxl2lMHIYCQJ0inKFQdwyT05yVzrhJ
+	 TF+RRa2S4menQ==
+Message-ID: <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+Date: Thu, 5 Nov 2026 08:33:49 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,26 +52,25 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v7 1/2] dt-bindings: input: Add Qualcomm SPMI PMIC
- haptics
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- David Collins <david.collins@oss.qualcomm.com>,
- Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-input@vger.kernel.org,
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- David Heidelberg <david@ixit.cz>
-References: <20261103-qcom-spmi-haptics-v7-0-418de67ef84a@oss.qualcomm.com>
- <20261103-qcom-spmi-haptics-v7-1-418de67ef84a@oss.qualcomm.com>
- <20261104-myrtle-kelpie-of-chemistry-de43cf@quoll>
- <6964d550-2ddd-463a-a142-9e8f72588803@oss.qualcomm.com>
- <4edbe80d-f1f0-4e85-9973-86da7649e9bf@oss.qualcomm.com>
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -117,38 +116,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <4edbe80d-f1f0-4e85-9973-86da7649e9bf@oss.qualcomm.com>
+In-Reply-To: <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/11/2026 01:48, Fenglin Wu wrote:
-> 
-> 
-> On 11/4/2026 4:44 PM, Krzysztof Kozlowski wrote:
->> On 04/11/2026 09:29, Krzysztof Kozlowski wrote:
->>> On Tue, Nov 03, 2026 at 08:51:17PM -0800, Fenglin Wu wrote:
->>>> Add binding document for the haptics module inside Qualcomm PMIC
->>>> PMIH0108.
->>>>
->>>
->>> Why are you ending this? On what sort of ancient, downstream fork are
+On 05/11/2026 06:32, Nihal Kumar Gupta wrote:
 >>
->> s/ending/sending/
+>> What is the problem exactly you are solving?
 >>
->>> you working?
->>>
->>>
->>> NAK
->> Best regards,
->> Krzysztof
 > 
-> What's the concern on sending them? I don't understand.
+> The problem is that CSIPHY4 is connected to CAMSS interface 4, so the
+> graph should describe it as port@4, not port@2.
 
-That they are based on 4 months old tree? Or half year old? Or longer?
-Try yourself. Does this apply?
+Nothing like this is explained in commit msg.
 
-No. And if you tried to work on recent tree, you would understand why I
-am asking.
+> 
+> The previous port@3 description only worked through the X1E80100 resource
+> table indirection:
+> 
+>   port@3 -> csiphy_res[3] -> .csiphy.id = 4 -> CSID selects CSIPHY4
+> 
+> New standalone PHY path:
+>   port@4 -> no csiphy_res[] lookup -> port number is id 4 -> CSID selects CSIPHY4
+
+Then this breaks existing users, no? Anyway, what stops you from having
+there proper mapping?
+
+Did you find any existing practice of numbering ports logical numbering
+in this device, but some other logic coming from datasheet? Where?
+
 
 Best regards,
 Krzysztof
