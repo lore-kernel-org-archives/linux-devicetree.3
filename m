@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894039;
-	b=hU+QxbFVErJoXzxhtVHKSuF6mxh6HEfYIGwtLqNa1eiG91R+XsPx5XVVIJsVQD1ATTDI
-	 Yk4Nwa7mg5dzLZ/73HsKiskKUoyjsQvF0+lGcTxCgfJmLEOtXjYrzdIjjJ9EvdLVAUCWu
-	 VXEw3B6z3zfkOwQcNPvN0QYPiJVZahgT84DeTopi6qZyu9LYHwCydOxZSfu7nIHLdEn9r
-	 JK+zBHPc4WR3N4s/otLQSwF2QHOmqPzv3AKHENuKeiSYiasNWuQN2P1in7gvQNZj76Vq9
-	 l9MvN9UxQnp2vlADUi9RzfrCvp1UMfeODN0nXeMgA2B4ma0fyG2nLfkJnhJL+QGzweg==
+	t=1793894049;
+	b=31EgoCD7mpFq2Ls4xtjeZNNbn/QGwnJ9DYplXV3OTTc2ly6aWrza7wzm4pQctwjjq0gP
+	 2/A/H8xUbXVjbYLPDgYTjJL5Lle/LzaUs4KHI4qcwYf+RdOJYDSXZh7xjk3Dh1G5/ypeP
+	 iICbCRkaq0AtiB3aDOHoLjab0jW5hUjDlCU6MFy39sgsOi9E8x/mKubdVQHeE4wf0krm/
+	 1QSVMXAdIgvcGTi5jboOl7QMTs2Y9qT+iZZ9dxGelpyWBk1obFKLNXgPzbtb6c6tJLjTl
+	 3QOc7MMIRilSljHvnnD7/ywpzt+ZqgQ7ti4w3zfo6ZiIIVp1TTfwKuQaeKcsvhaeo+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894039;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894049;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=dbmOJwNiA9U5ZN5yfEB01wzVScVRVlQu8hg29XoBtHc=;
-	b=2smKoTn5YQ96VxFicBIYWB0zq5DK2VsNwCHzH39u+5e+jTGfZm9Xo40NfYhqizYvd630
-	 MNLiQsycR2ruWNWQ0FdjS2L1cewVOUm2xPhbRTlI3zqhdWJ9Y/jr5N0uzg0aFyXv7iXoo
-	 TlIYt6bJJvQPXPsyuQWPy2HBkHFhwpGz8RD8jdHYH/6ltrC6bQF48L8P6433ucKHZpKB7
-	 T9V5NygsOMC9M+kaKseQUjXQ/UvImKQ4pMxNHiy9WVHQkZTdrTogNU4XCvSR1zQmP7OlQ
-	 /xiARlX9xfECwoxKG3fYXi0Gs0MX2ZY5JObKPtUZXS6yqYkZhqU61HknkBQ+apgTd+w==
+	bh=vG+kiUcI8jXtSbWnn1d3CF9thjX89SpUi6CqyyYVaVQ=;
+	b=sC3/jLKFAg+YDvJc0TYkZ+NDvqF0oHhq7PxXR+LfPWc01nqWTFm5sjxLn/ZtVxJ5jMAU
+	 qRTj2UOh0iz9MepPIFk1D0h48YhjWGZw5rTp6DVQ9PQT8T6DMRk36ZuZdT9pMpcmMugsC
+	 1jWZtsGbHikUXscDxo90t7DVz38nIUYWJfN4gEGpOst/8+DeJHxYDmxNJOmYiaYb4GGzA
+	 ruiT3WrpNL5Dv2coo9JHojLkmt2AO9PA6jkb0XBDv7DXwQDLXP9u+pC3RnfJdVu3j2fnm
+	 ARoJ2AXF8VOLGLZ6xEAluVmbiQ99Rl3W0QO1ueeWQoLiXSQtrrQc5vq2EvsFDeBt5/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3qaJxCB;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lR+ngPIl;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285FD606A608
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 15:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 285FD606A608
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6407E606BE9C
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 15:54:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6407E606BE9C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3qaJxCB
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so1370305a91.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 07:53:59 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lR+ngPIl
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso827546a12.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 07:54:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793894038; x=1794498838; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dbmOJwNiA9U5ZN5yfEB01wzVScVRVlQu8hg29XoBtHc=;
-        b=S3qaJxCBghpm3j1A57D8YpLSxqVSsD3JGGGJz+hQ57er/RdEFj+gaQJ52OfaeWEA+y
-         qc07bAhrgwTVTZddzIj0eHLJVchNtzuEOiuEMsSJX1SDw94OUJ2nKCcPSLClMxLifSvE
-         5577Uc6pjDGiEh/Nc/PjATY7RPlXNTeOr4lHk0/EOF/qnBZ210kBa8sQWno+GzY/ETtF
-         ViSZSiY+swk1puOo9d4JMt05B4gcdDSPw6a0/QmoRed9V+rVKS/voR2oVjSzFJsUJXb1
-         5UD6mSZNPQh9rUOjK3PFc8sXxCxRqknDHDRtuJ4MoikRPvC4ndcqUxLmtqI8T4/QbcoA
-         YObg==
+        d=gmail.com; s=20260707; t=1793894048; x=1794498848; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vG+kiUcI8jXtSbWnn1d3CF9thjX89SpUi6CqyyYVaVQ=;
+        b=lR+ngPIl3+81tn/MTkb7jPOWpRmEWFobGYQUszk0dJ4zqWDtW6YsLQIT3ZDx4+C7JC
+         b3yEImFmk6XGrP+vUk8dDrvWAx9n8bEcjg+iDAWSdonKRAsUF4cW36SBvk4S0O7v9NuW
+         gQTcamvQs85wT/SShGe75nHzjpjbFWbi3NU2HEWycSAKyR99LwMsDyDSUWo/H1PaQe5C
+         zuj/AHHMWUhKyHSgjnDxn2qDjEKpOWpdwI6XYMYjb7QCrWaomcXACc0eGX7L97ProeFK
+         Z7tAp/nEfwaZDOUtUn+DGV6vHtdSOKv3azsPa9ldfc0l6lSp2oVEsgomrBbkYm/6XdxP
+         eeTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894038; x=1794498838;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dbmOJwNiA9U5ZN5yfEB01wzVScVRVlQu8hg29XoBtHc=;
-        b=CL5pINnqtoQucJSQ5VYJhAGx2+ln7fVHdF2JHcsIeuH9bpVcvV5t2O1XuWUwfS8NHI
-         xEN2llMS13rtBdOKY68s1GJWF6UuwTDbSM5gYtzWmgImbvUW4BJOIRXjwUmFWP6XmLVH
-         J2lNMldTMfFhkNLll4X6E7BmmDdgg5PbEy2rtEVvlPvIIWpVPrzFNrW4fxILWILy2aiQ
-         rs0R/XfjdtPp3k1WaP8OG6jRvSbkPnlgc15Sl7Qk+jFTxU/m0yrc9LZWO73JIiJxiyAy
-         8tzeh1COFgBZGcLwF4TTmwKYbTppUg1HST/BU08aLePsJFUMQqjZX9M9IaJKz4e0aIIB
-         Jjnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKPx7AJv8xH7oTDC7+Ek/BoSqjRq/eBr35LwWv3OuuJjP0VuzA372ySb5q8zm1rAic+uKBAqzEUuak@vger.kernel.org
-X-Gm-Message-State: APuU4Z81cdXJh93302t9WIHQ/a1ULEO/C9m24qMoDUOoMbxUZaJ6YVBv
-	JeNVb2svcSS3N2K/Cm1DI7EvnT7ml4JkQeos3/ibt7ntlCxtD2DwMW+p
-X-Gm-Gg: AYBFou268RjMRD7SOiUn2yIJwDYwt77L/h+EIjoSkDOXpTsm8eq2l026skFgdwR55Vl
-	0mdySN3UsbZZAtP0YStFElVaM/itzLKnBuX0+Y7Zh03mjcYwpIO/OK7dQWy/Xuva69NuLbk8Jqe
-	U+TmNOCuAbFexImBi62g7xj4ja0wBdYfUse2BXZaeu9dnxrRJ8gr/EucBKyNvOg64RPEsDEzSc/
-	ovsHJh3zogY6r4rE66627ktzU7WW25ujwCOg7M4V/+gjH36Va+zpLpOssXql/ECDdp0fspN4LqQ
-	cOZYfcbrtYGeLfym5cPkpBNQ4JfIZWt6mgRH7RiyKhpUUCVNYFRUG3LVrjEHeUlVR9snxa88b+P
-	frsWwTLC6C2obQGrAo8BST1IphYUnvgtxk2ZaU/yKHKHPzcuU8xazambLLZVTYnJVOs9vqlpclc
-	IU3iYT23R+BhhKmOs63NznRPu2RyU43fVQ22nTCT42zEseQM8Pu8XC7AuFYi7lq08td4iLLr+jV
-	8tTKlnvhUg6yptDc+oE2TqO+e59U+XuNh0PoYlx5cGsbVR8wPxTM7c9/IG5YJVfn5wDbzytVuQa
-	m/jhsXMfwymklbIL6F1exVGjoDoQ+ECP
-X-Received: by 2002:a17:90b:2e4e:b0:3ac:9d83:8856 with SMTP id 98e67ed59e1d1-3ae895a5673mr16536437a91.9.1793894038354;
-        Thu, 05 Nov 2026 07:53:58 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793894048; x=1794498848;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vG+kiUcI8jXtSbWnn1d3CF9thjX89SpUi6CqyyYVaVQ=;
+        b=QTWty++hU/LP5oYMx965wwyM0yntbqiA+P29WJqemMNdTmrEm5ggKs5xaHc29F6U1g
+         ONUGir+m2xNsjDyDd3tPTEKDuEwH+1bwb+hoEda2odcuXBNt+pAvGM2w2OITo1l/U21R
+         0YwYDVfPVMHgSXQxJHnoALHeOJnp02FE3WKQ5FWYyaDFW3D+NIQHGC73LgaZqC+9fBgT
+         tSBm3Oi5QgYW+IFGkux88SQ0C8iQNeO8RR43wJlQ7feCyWIub+vnnQy2B6Fw2+4M2v7t
+         USweZ27S38rvRM3Yy3eWDyAbJnEneEJltdlnJc0XVs/5yTpbNGwXNes8gqlNYFNpRXAd
+         zoJA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhd3HgdZ9VivU8osLKibiBYakmJvuZTadM3usFlMja9kY4kHylN2n0+BToyWLg0Hg7ihCfW0DZocSv@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ydF33sxb7gCUOF4qEu3D4Jegd7SAVARaxWM8vfOKnSxBhSsWi
+	ek6gSHTD1pUUVbU8MJJCk9lfLJq5x/mhlXM2VF/Yz3OLzFcz4j/IzdW6
+X-Gm-Gg: AYBFou2CG9DX6pu4/Cc/YuOEITTHeaH/OPQDOEybsn2XCaMLCinGtsopFlaIJ98WJfo
+	k5qdd3dk1EKeD0J+AfrGOY7Ik+74AXo7ToVjKYLWZ2R2BL+lhQzop1zHk9jEY0phR2YLP8ltaGj
+	ZrbfJT2tEitNisXG/hT1+RkauVIUl1L5AmnpHNHtJPNDamnTpW55Z2Nbm6fm0+qeoHR8YGEeruf
+	wqVFWCUeJE3et8gK8bpNdaLRfB27BInCEm+maNUnK0nJ5rcenz1l+UZe/bfCBP7Eb2BIqUfbpcI
+	MCGg6ROrWT/09XzONCfcAzityyYveIiLyJ5skNr5MIRoPTyL816Dd/5UCYovBlX55I+WIZy++0c
+	qCnW+4Yb/Iu0SZKtKwFoAMbsscompj5S9t4R+6zJM69ZVUtFZuoL58RZ4NHI7K9M9kF8eQEJF8B
+	3yTMOKg78C4cg5EdD64/yxZ6DbMNq9nR5lcuZ2T7iay4ru3snHLRwZ7v9vccFAcXy6DtmP3SrrD
+	UVfpsyy/DL0/PC04KCGonGIAlu/I9e1Qq6mRMd4zUzY6mDNeYwR1picF3O1AVWE+W/eAJw5iFXP
+	6Tu7jvzFXpjd33vjBhdbWKt3Or24XTkljgkPizazMuITDQ2Cu2Qb7sA=
+X-Received: by 2002:a17:90b:2891:b0:3ac:7c52:fb04 with SMTP id 98e67ed59e1d1-3ae897ab44emr15711690a91.44.1793894047397;
+        Thu, 05 Nov 2026 07:54:07 -0800 (PST)
 Received: from [127.0.1.1] ([2405:201:201e:816f:e3c3:bcdb:ef3c:2956])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf80c9sm4518780a91.0.2026.11.05.07.53.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf80c9sm4518780a91.0.2026.11.05.07.54.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:53:57 -0800 (PST)
+        Thu, 05 Nov 2026 07:54:06 -0800 (PST)
 From: Viral Patel <viral8854@gmail.com>
-Subject: [PATCH 0/2] iio: magnetometer: add Infineon TLE493D-W2B6 support
-Date: Thu, 05 Nov 2026 21:23:46 +0530
-Message-Id: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
+Date: Thu, 05 Nov 2026 21:23:48 +0530
+Subject: [PATCH 2/2] iio: magnetometer: add Infineon TLE493D-W2B6 driver
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,9 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIum7GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyML3ZKcVBNL4xRdQ5NkY4s0o6QUI3NjJaDqgqLUtMwKsEnRsbW1AFL
- N4cZZAAAA
+Message-Id: <20261105-tle493d-v1-2-3246e91e6394@gmail.com>
+References: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
+In-Reply-To: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -106,121 +106,663 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Viral Patel <viral8854@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793894033; l=5107;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793894033; l=19824;
  i=viral8854@gmail.com; s=20261014; h=from:subject:message-id;
- bh=E5ABrNVOOLIPXc1azjaTAT+AtKnHce0xIEtXnuYn4Dk=;
- b=v3SnX26XMaaHHllG3roFdxbI5vmzdNDOgpk/dcq9v2qkisFxyrt5NOTOE3VPDJ3p2vNm2cqgs
- GRInWGmFFCmA2Sl1F+YOkLK/5peAKIrNSt6dHowzNWC/ydFxW7eqqx1
+ bh=hclzrlK+uOKUsANDzTVUXj+6ynqHTaFhVnIDc9SrKHU=;
+ b=i1zeqb2FKQ7T9UeeRPDw6x9Ja+hj+JTaNeDnEeaVGkW5qMqAM+1+I6mUq9StCxlOxz+F/WKF8
+ ggCe5J9fWAMAngJ3xeOt2ihGMnMzTrIdVbvCbfXWVRuZPmMNH2m8A83
 X-Developer-Key: i=viral8854@gmail.com; a=ed25519;
  pk=UC+UDB53t70pTK4wncXf3tfh0hsYMCqpxYnTaKX3MYA=
 
-This series adds support for the Infineon TLE493D-W2B6, a 3D
-Hall-effect sensor with an I2C interface, 12-bit X/Y/Z data and an
-integrated temperature sensor. It was tested with the TLE493D-W2B6
-Shield2Go board (variant A0, I2C address 0x35) on a Raspberry Pi 5.
+Add a driver for the Infineon TLE493D-W2B6, a 3D Hall effect magnetic
+sensor with 12-bit resolution per axis and an integrated temperature
+sensor, accessed over I2C.
 
-Why a new driver
-================
-The TLE493D-W2B6 is a second-generation sibling of the TLV493D-A1B6
-(drivers/iio/magnetometer/tlv493d.c). Only the X/Y/Z bit packing is
-shared; everything else differs, so this adds a new driver rather than
-extending tlv493d.c, as agreed with Andy in the RFC [1]:
+The sensor is run in master-controlled mode. Each measurement rewrites
+the Config register with the "trigger after write" bits set in the
+register address byte, which starts a single conversion, and then polls
+registers 0x00 to 0x06 until Diag reports a completed conversion with a
+new frame counter. Results with a fuse parity error, test mode flag or
+bad bus parity are rejected. FP and CP are recomputed on every write of
+MOD1 and Config, as a wrong FP makes the sensor release the bus until it
+is reset.
 
- - Writes: the byte after the I2C address is a register address that
-   also carries ADC trigger bits; tlv493d writes a raw stream starting
-   at write register 0.
- - Reads after reset: the sensor starts in a 2-byte read protocol that
-   Linux cannot drive, so the first access must be a write that sets
-   the PR bit to switch to plain reads starting at 0x00.
- - Register map: a single unified map, 0x00-0x16.
- - Mandatory odd parity bits (FP, CP). A wrong FP makes the sensor
-   release the bus until it is reset, so FP is recomputed on every
-   mode register write.
- - Data validity: a Diag register (PD0/PD3, frame counter, bus parity)
-   instead of the channel bits tlv493d polls in register 3.
- - Temperature: 10-bit, with a different encoding and scale/offset.
- - Different power modes and update rates, and a selectable short
-   range (X2); the A1B6 has a single range.
- - A dedicated I2C reset sequence.
+The /INT output shares a pin with SCL, so the interrupt is disabled and
+so is clock stretching. The sensor's reset sequence relies on
+zero-length messages which many I2C adapters reject, so it is sent on a
+best-effort basis during probe.
 
-The other Hall-effect drivers in drivers/iio/magnetometer (tmag5273,
-als31300, si7210) were also checked; none share the register map, the
-write format or the parity scheme.
+Raw I2C transfers are used rather than regmap: once PR is set a plain
+read always starts at register 0x00, and the register address byte of a
+write carries trigger bits.
 
-Scope
-=====
-v1 supports master-controlled single-shot measurements of X/Y/Z and
-temperature at full range, via sysfs and a triggered buffer with a
-soft timestamp.
+The X, Y and Z channels and the temperature channel are available
+through sysfs and through a triggered buffer with a software timestamp.
+Wake-up, self-test, low-power and fast modes, sampling frequency control
+and the short range are not supported yet.
 
-The temperature has 10 bits of resolution. It is reported as the
-12-bit aligned register value, so in_temp_raw moves in steps of 4 and
-the scale and offset follow the datasheet's 12-bit LSB.
+This is not added to the tlv493d driver: apart from the X/Y/Z bit
+packing, the two parts differ in write format, read protocol after
+reset, register map and parity scheme.
 
-Not supported yet (possible follow-ups): wake-up thresholds, the
-built-in self-tests, low-power and fast modes, sampling-frequency
-control, and the short range.
+Based on the TLE493D-W2B6 User Manual v1.11 and Datasheet v1.2.
 
-Testing
-=======
-The series is based on iio.git togreg and build-tested there. Hardware
-testing was done on a Raspberry Pi 5 running the downstream
-rpi-6.18.y kernel (6.18.59), with both patches applied unchanged apart
-from a Makefile context fix-up.
-
- - Probe: the module autoloads from the DT compatible and the Version
-   and ID registers match the A0 variant. With the sensor disconnected,
-   probe fails cleanly with -EREMOTEIO.
- - Raw reads via sysfs: with no magnet nearby, X/Y/Z read within
-   +/-3 LSB of zero; temperature reads 31.7-32.7 degC at room
-   temperature, matching a userspace bring-up tool.
- - Triggered buffer with an hrtimer trigger at 10, 100 and 500 Hz: no
-   missed samples (200/200 at 100 and 500 Hz), mean period 10.000 ms
-   and 2.000 ms with at most 3 us jitter. sysfs reads while streaming
-   work.
- - 10 rmmod/modprobe cycles and unbind/bind: no errors.
- - W=1, sparse, checkpatch --strict and dt_binding_check are clean
-   apart from the Datasheet: tag line-length/link warnings.
-
-Known limitation
-================
-After a sensor power-on reset while the driver is bound, reads return
--ETIMEDOUT until the driver is rebound. The reset clears PR, so the
-sensor is back in its 2-byte read protocol, plain reads return 0xff,
-the frame counter never changes and the driver times out waiting for
-a new frame. Recovery is planned as a follow-up.
-
-Use of AI tools
-===============
-Claude (Anthropic), used through Claude Code, assisted with this
-series. I gave it a specification of the hardware (register map, parity
-rules, I2C protocol, conversion constants and test vectors) based on the
-User Manual, together with the v1 scope and IIO style requirements. From
-that it produced the initial drafts of the driver, the binding and a
-userspace bring-up tool, and it reviewed my later changes. I did the
-hardware bring-up and all of the testing above on the Pi 5, including the
-device tree overlay and boot setup, analysed the power-loss behaviour, and
-fixed up and reviewed every patch. I take responsibility for all of it.
-
-[1] https://lore.kernel.org/linux-iio/atyPf0msZ85z2m19@ashevche-desk.local/
-
+Datasheet: https://www.infineon.com/assets/row/public/documents/30/49/infineon-tle493d-w2b6-datasheet-en.pdf
 Signed-off-by: Viral Patel <viral8854@gmail.com>
 ---
-Viral Patel (2):
-      dt-bindings: iio: magnetometer: add Infineon TLE493D-W2B6
-      iio: magnetometer: add Infineon TLE493D-W2B6 driver
+ MAINTAINERS                        |   1 +
+ drivers/iio/magnetometer/Kconfig   |  13 +
+ drivers/iio/magnetometer/Makefile  |   1 +
+ drivers/iio/magnetometer/tle493d.c | 552 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 567 insertions(+)
 
- .../iio/magnetometer/infineon,tle493d-w2b6.yaml    |  48 ++
- MAINTAINERS                                        |   7 +
- drivers/iio/magnetometer/Kconfig                   |  13 +
- drivers/iio/magnetometer/Makefile                  |   1 +
- drivers/iio/magnetometer/tle493d.c                 | 552 +++++++++++++++++++++
- 5 files changed, 621 insertions(+)
----
-base-commit: 1390ca4953a7400ca932cb49635f02c727f885a6
-change-id: 20261028-tle493d-14c38f2bd273
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c8916e1286d3..5282c0039abb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13115,6 +13115,7 @@ M:	Viral Patel <viral8854@gmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
++F:	drivers/iio/magnetometer/tle493d.c
+ 
+ INFINEON TLV493D Driver
+ M:	Dixit Parmar <dixitparmar19@gmail.com>
+diff --git a/drivers/iio/magnetometer/Kconfig b/drivers/iio/magnetometer/Kconfig
+index d359003b248e..bc26fc4d78e2 100644
+--- a/drivers/iio/magnetometer/Kconfig
++++ b/drivers/iio/magnetometer/Kconfig
+@@ -196,6 +196,19 @@ config IIO_ST_MAGN_SPI_3AXIS
+ 	  To compile this driver as a module, choose M here. The module
+ 	  will be called st_magn_spi.
+ 
++config INFINEON_TLE493D
++	tristate "Infineon TLE493D-W2B6 3D Magnetic Sensor"
++	depends on I2C
++	select IIO_BUFFER
++	select IIO_TRIGGERED_BUFFER
++	help
++	  Say Y here to add support for the Infineon TLE493D-W2B6 3D
++	  magnetic sensor.
++
++	  This driver can also be compiled as a module.
++	  To compile this driver as a module, choose M here: the module
++	  will be called tle493d.
++
+ config INFINEON_TLV493D
+ 	tristate "Infineon TLV493D Low-Power 3D Magnetic Sensor"
+ 	depends on I2C
+diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
+index 8f2205975c1b..31df6a49459c 100644
+--- a/drivers/iio/magnetometer/Makefile
++++ b/drivers/iio/magnetometer/Makefile
+@@ -25,6 +25,7 @@ st_magn-$(CONFIG_IIO_BUFFER) += st_magn_buffer.o
+ obj-$(CONFIG_IIO_ST_MAGN_I2C_3AXIS) += st_magn_i2c.o
+ obj-$(CONFIG_IIO_ST_MAGN_SPI_3AXIS) += st_magn_spi.o
+ 
++obj-$(CONFIG_INFINEON_TLE493D)		+= tle493d.o
+ obj-$(CONFIG_INFINEON_TLV493D)		+= tlv493d.o
+ 
+ obj-$(CONFIG_QMC5883L)			+= qmc5883l.o
+diff --git a/drivers/iio/magnetometer/tle493d.c b/drivers/iio/magnetometer/tle493d.c
+new file mode 100644
+index 000000000000..232f7680a02b
+--- /dev/null
++++ b/drivers/iio/magnetometer/tle493d.c
+@@ -0,0 +1,552 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Driver for the Infineon TLE493D-W2B6 3D Magnetic Sensor
++ *
++ * Copyright (C) 2026 Viral Patel <viral8854@gmail.com>
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/errno.h>
++#include <linux/i2c.h>
++#include <linux/iopoll.h>
++#include <linux/irqreturn.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/regulator/consumer.h>
++#include <linux/types.h>
++
++#include <linux/iio/buffer.h>
++#include <linux/iio/iio.h>
++#include <linux/iio/trigger_consumer.h>
++#include <linux/iio/triggered_buffer.h>
++
++/*
++ * The sensor is accessed with raw I2C transfers instead of regmap: once PR
++ * is set, a plain read always starts at register 0x00, and the register
++ * address byte of a write also carries trigger bits that start an ADC
++ * conversion. Neither fits the regmap I2C model.
++ */
++
++#define TLE493D_REG_BX		0x00
++#define TLE493D_REG_BY		0x01
++#define TLE493D_REG_BZ		0x02
++#define TLE493D_REG_TEMP	0x03
++#define TLE493D_REG_BX2		0x04
++#define TLE493D_REG_TEMP2	0x05
++#define TLE493D_REG_DIAG	0x06
++#define TLE493D_REG_XL		0x07
++#define TLE493D_REG_WU		0x0d
++#define TLE493D_REG_TMODE	0x0e
++#define TLE493D_REG_TPHASE	0x0f
++#define TLE493D_REG_CONFIG	0x10
++#define TLE493D_REG_MOD1	0x11
++#define TLE493D_REG_MOD2	0x13
++#define TLE493D_REG_VER		0x16
++#define TLE493D_NUM_REGS	0x17
++
++/* Measurement result and Diag, registers 0x00 to 0x06 */
++#define TLE493D_DATA_LEN	7
++
++#define TLE493D_BX2_X_LSB	GENMASK(7, 4)
++#define TLE493D_BX2_Y_LSB	GENMASK(3, 0)
++#define TLE493D_TEMP2_TEMP_LSB	GENMASK(7, 6)
++#define TLE493D_TEMP2_ID	GENMASK(5, 4)
++#define TLE493D_TEMP2_Z_LSB	GENMASK(3, 0)
++
++#define TLE493D_DIAG_P		BIT(7)
++#define TLE493D_DIAG_FF		BIT(6)
++#define TLE493D_DIAG_T		BIT(4)
++#define TLE493D_DIAG_PD3	BIT(3)
++#define TLE493D_DIAG_PD0	BIT(2)
++#define TLE493D_DIAG_FRM	GENMASK(1, 0)
++
++#define TLE493D_WU_WA		BIT(7)
++#define TLE493D_TMODE_TST	GENMASK(7, 6)
++#define TLE493D_TPHASE_PH	GENMASK(7, 6)
++
++#define TLE493D_CONFIG_CP	BIT(0)
++
++#define TLE493D_MOD1_FP		BIT(7)
++#define TLE493D_MOD1_IICADR	GENMASK(6, 5)
++#define TLE493D_MOD1_PR		BIT(4)
++#define TLE493D_MOD1_CA		BIT(3)
++#define TLE493D_MOD1_INT	BIT(2)
++#define TLE493D_MOD1_MODE	GENMASK(1, 0)
++#define TLE493D_MOD1_MODE_MASTER	1
++
++#define TLE493D_MOD2_PRD	GENMASK(7, 5)
++
++#define TLE493D_VER_HWV		GENMASK(3, 0)
++#define TLE493D_VER_HWV_B21	9
++
++/* Register address byte of a write frame */
++#define TLE493D_ADDR_TRIG	GENMASK(7, 5)
++#define TLE493D_ADDR_TRIG_WRITE	1
++#define TLE493D_ADDR_REG	GENMASK(4, 0)
++
++#define TLE493D_RESET_DELAY_US	30
++/* A full range conversion takes about 175 us */
++#define TLE493D_POLL_US		100
++#define TLE493D_TIMEOUT_US	1000
++
++enum tle493d_channels {
++	TLE493D_AXIS_X,
++	TLE493D_AXIS_Y,
++	TLE493D_AXIS_Z,
++	TLE493D_TEMPERATURE,
++};
++
++/* I2C addresses selected by IICadr, i.e. the default of variants A0 to A3 */
++static const u8 tle493d_i2c_addrs[] = { 0x35, 0x22, 0x78, 0x44 };
++
++struct tle493d_data {
++	struct i2c_client *client;
++	/* Serialises measurements and protects the register cache */
++	struct mutex lock;
++	u8 regs[TLE493D_NUM_REGS];
++};
++
++/* FP makes MOD1 together with MOD2.PRD odd parity */
++static u8 tle493d_mod1_fp(u8 mod1, u8 mod2)
++{
++	unsigned int ones;
++
++	mod1 &= ~TLE493D_MOD1_FP;
++	ones = hweight8(mod1) + hweight8(mod2 & TLE493D_MOD2_PRD);
++	if (!(ones & 1))
++		mod1 |= TLE493D_MOD1_FP;
++
++	return mod1;
++}
++
++/* CP makes registers 0x07 to 0x10 odd parity, ignoring WA, TST and PH */
++static u8 tle493d_config_cp(const u8 *regs, u8 config)
++{
++	unsigned int ones = 0;
++	unsigned int i;
++
++	for (i = TLE493D_REG_XL; i < TLE493D_REG_WU; i++)
++		ones += hweight8(regs[i]);
++	ones += hweight8(regs[TLE493D_REG_WU] & ~TLE493D_WU_WA);
++	ones += hweight8(regs[TLE493D_REG_TMODE] & ~TLE493D_TMODE_TST);
++	ones += hweight8(regs[TLE493D_REG_TPHASE] & ~TLE493D_TPHASE_PH);
++
++	config &= ~TLE493D_CONFIG_CP;
++	ones += hweight8(config);
++	if (!(ones & 1))
++		config |= TLE493D_CONFIG_CP;
++
++	return config;
++}
++
++/* Registers 0x00 to 0x05 together with the P bit have odd parity */
++static bool tle493d_data_parity_ok(const u8 *buf)
++{
++	unsigned int ones = hweight8(buf[TLE493D_REG_DIAG] & TLE493D_DIAG_P);
++	unsigned int i;
++
++	for (i = TLE493D_REG_BX; i < TLE493D_REG_DIAG; i++)
++		ones += hweight8(buf[i]);
++
++	return ones & 1;
++}
++
++static int tle493d_read(struct tle493d_data *data, u8 *buf, int len)
++{
++	int ret;
++
++	ret = i2c_master_recv(data->client, buf, len);
++	if (ret < 0)
++		return ret;
++	if (ret != len)
++		return -EIO;
++
++	return 0;
++}
++
++/*
++ * Write one register, updating its parity bit first. Only MOD1 and Config
++ * are written by this driver. The sensor drops off the bus until reset if
++ * MOD1 is written with a wrong FP.
++ */
++static int tle493d_write(struct tle493d_data *data, u8 reg, u8 val, u8 trig)
++{
++	u8 buf[2];
++	int ret;
++
++	switch (reg) {
++	case TLE493D_REG_MOD1:
++		val = tle493d_mod1_fp(val, data->regs[TLE493D_REG_MOD2]);
++		break;
++	case TLE493D_REG_CONFIG:
++		val = tle493d_config_cp(data->regs, val);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	buf[0] = FIELD_PREP(TLE493D_ADDR_TRIG, trig) |
++		 FIELD_PREP(TLE493D_ADDR_REG, reg);
++	buf[1] = val;
++
++	ret = i2c_master_send(data->client, buf, sizeof(buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(buf))
++		return -EIO;
++
++	data->regs[reg] = val;
++
++	return 0;
++}
++
++static bool tle493d_conversion_done(const u8 *buf, u8 last_frm)
++{
++	u8 diag = buf[TLE493D_REG_DIAG];
++
++	return (diag & TLE493D_DIAG_PD0) && (diag & TLE493D_DIAG_PD3) &&
++	       FIELD_GET(TLE493D_DIAG_FRM, diag) != last_frm;
++}
++
++static int tle493d_measure(struct tle493d_data *data, u8 *buf)
++{
++	u8 last_frm = FIELD_GET(TLE493D_DIAG_FRM, data->regs[TLE493D_REG_DIAG]);
++	u8 diag;
++	int ret, err;
++
++	/* Rewriting Config with the write trigger starts a single conversion */
++	ret = tle493d_write(data, TLE493D_REG_CONFIG,
++			    data->regs[TLE493D_REG_CONFIG], TLE493D_ADDR_TRIG_WRITE);
++	if (ret)
++		return ret;
++
++	ret = read_poll_timeout(tle493d_read, err,
++				err || tle493d_conversion_done(buf, last_frm),
++				TLE493D_POLL_US, TLE493D_TIMEOUT_US, true,
++				data, buf, TLE493D_DATA_LEN);
++	if (ret)
++		return ret;
++	if (err)
++		return err;
++
++	diag = buf[TLE493D_REG_DIAG];
++	data->regs[TLE493D_REG_DIAG] = diag;
++
++	if (!(diag & TLE493D_DIAG_FF) || (diag & TLE493D_DIAG_T) ||
++	    !tle493d_data_parity_ok(buf))
++		return -EIO;
++
++	return 0;
++}
++
++static int tle493d_get_channel_data(const u8 *buf, unsigned int ch)
++{
++	u32 val;
++
++	switch (ch) {
++	case TLE493D_AXIS_X:
++		val = buf[TLE493D_REG_BX] << 4 |
++		      FIELD_GET(TLE493D_BX2_X_LSB, buf[TLE493D_REG_BX2]);
++		return sign_extend32(val, 11);
++	case TLE493D_AXIS_Y:
++		val = buf[TLE493D_REG_BY] << 4 |
++		      FIELD_GET(TLE493D_BX2_Y_LSB, buf[TLE493D_REG_BX2]);
++		return sign_extend32(val, 11);
++	case TLE493D_AXIS_Z:
++		val = buf[TLE493D_REG_BZ] << 4 |
++		      FIELD_GET(TLE493D_TEMP2_Z_LSB, buf[TLE493D_REG_TEMP2]);
++		return sign_extend32(val, 11);
++	case TLE493D_TEMPERATURE:
++		/* 12-bit value whose two LSBs are always zero */
++		return buf[TLE493D_REG_TEMP] << 4 |
++		       FIELD_GET(TLE493D_TEMP2_TEMP_LSB, buf[TLE493D_REG_TEMP2]) << 2;
++	default:
++		return 0;
++	}
++}
++
++static int tle493d_read_raw(struct iio_dev *indio_dev,
++			    const struct iio_chan_spec *chan, int *val,
++			    int *val2, long mask)
++{
++	struct tle493d_data *data = iio_priv(indio_dev);
++	u8 buf[TLE493D_DATA_LEN];
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		scoped_guard(mutex, &data->lock) {
++			ret = tle493d_measure(data, buf);
++			if (ret)
++				return ret;
++		}
++		*val = tle493d_get_channel_data(buf, chan->address);
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		switch (chan->type) {
++		case IIO_MAGN:
++			/* 7.7 LSB/mT in full range, i.e. 10 / 7.7 Gauss per LSB */
++			*val = 100;
++			*val2 = 77;
++			return IIO_VAL_FRACTIONAL;
++		case IIO_TEMP:
++			/* 0.24 K per LSB of the 12-bit value */
++			*val = 240;
++			return IIO_VAL_INT;
++		default:
++			return -EINVAL;
++		}
++	case IIO_CHAN_INFO_OFFSET:
++		switch (chan->type) {
++		case IIO_TEMP:
++			/*
++			 * The 12-bit value is 1180 at 25 degC:
++			 * offset = -1180 + 25000 / 240 = -6455 / 6
++			 */
++			*val = -6455;
++			*val2 = 6;
++			return IIO_VAL_FRACTIONAL;
++		default:
++			return -EINVAL;
++		}
++	default:
++		return -EINVAL;
++	}
++}
++
++static irqreturn_t tle493d_trigger_handler(int irq, void *p)
++{
++	struct iio_poll_func *pf = p;
++	struct iio_dev *indio_dev = pf->indio_dev;
++	struct tle493d_data *data = iio_priv(indio_dev);
++	u8 buf[TLE493D_DATA_LEN];
++	struct {
++		s16 magn[3];
++		u16 temp;
++		aligned_s64 timestamp;
++	} scan = { };
++	int ret;
++
++	scoped_guard(mutex, &data->lock)
++		ret = tle493d_measure(data, buf);
++	if (ret)
++		goto out;
++
++	scan.magn[0] = tle493d_get_channel_data(buf, TLE493D_AXIS_X);
++	scan.magn[1] = tle493d_get_channel_data(buf, TLE493D_AXIS_Y);
++	scan.magn[2] = tle493d_get_channel_data(buf, TLE493D_AXIS_Z);
++	scan.temp = tle493d_get_channel_data(buf, TLE493D_TEMPERATURE);
++
++	iio_push_to_buffers_with_ts(indio_dev, &scan, sizeof(scan), pf->timestamp);
++
++out:
++	iio_trigger_notify_done(indio_dev->trig);
++
++	return IRQ_HANDLED;
++}
++
++#define TLE493D_AXIS_CHANNEL(axis)					\
++	{								\
++		.type = IIO_MAGN,					\
++		.modified = 1,						\
++		.channel2 = IIO_MOD_##axis,				\
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
++		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
++		.address = TLE493D_AXIS_##axis,				\
++		.scan_index = TLE493D_AXIS_##axis,			\
++		.scan_type = {						\
++			.sign = 's',					\
++			.realbits = 12,					\
++			.storagebits = 16,				\
++			.endianness = IIO_CPU,				\
++		},							\
++	}
++
++static const struct iio_chan_spec tle493d_channels[] = {
++	TLE493D_AXIS_CHANNEL(X),
++	TLE493D_AXIS_CHANNEL(Y),
++	TLE493D_AXIS_CHANNEL(Z),
++	{
++		.type = IIO_TEMP,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_SCALE) |
++				      BIT(IIO_CHAN_INFO_OFFSET),
++		.address = TLE493D_TEMPERATURE,
++		.scan_index = TLE493D_TEMPERATURE,
++		.scan_type = {
++			.sign = 'u',
++			.realbits = 12,
++			.storagebits = 16,
++			.endianness = IIO_CPU,
++		},
++	},
++	IIO_CHAN_SOFT_TIMESTAMP(4),
++};
++
++static const unsigned long tle493d_scan_masks[] = { GENMASK(3, 0), 0 };
++
++static const struct iio_info tle493d_info = {
++	.read_raw = tle493d_read_raw,
++};
++
++/*
++ * The reset sequence is four separate frames whose first bytes are 0xff,
++ * 0xff, 0x00 and 0x00, i.e. zero-length reads from address 0x7f followed by
++ * zero-length writes to address 0x00. Not every adapter can send zero-length
++ * messages, so the reset is best effort.
++ */
++static void tle493d_reset(struct tle493d_data *data)
++{
++	struct device *dev = &data->client->dev;
++	struct i2c_msg msgs[] = {
++		{ .addr = 0x7f, .flags = I2C_M_RD },
++		{ .addr = 0x7f, .flags = I2C_M_RD },
++		{ .addr = 0x00 },
++		{ .addr = 0x00 },
++	};
++	unsigned int i;
++	int ret;
++
++	for (i = 0; i < ARRAY_SIZE(msgs); i++) {
++		/* The reset frames are not acknowledged, so ignore NACKs */
++		ret = i2c_transfer(data->client->adapter, &msgs[i], 1);
++		if (ret == -EOPNOTSUPP) {
++			dev_dbg(dev, "adapter cannot send the reset sequence\n");
++			return;
++		}
++	}
++
++	fsleep(TLE493D_RESET_DELAY_US);
++}
++
++static int tle493d_init(struct tle493d_data *data, unsigned int iicadr)
++{
++	struct device *dev = &data->client->dev;
++	unsigned int hwv, id;
++	u8 mod1;
++	int ret;
++
++	/*
++	 * After reset the sensor uses a 2-byte read protocol which plain I2C
++	 * reads cannot handle, so MOD1 has to be written before any read. MOD2
++	 * is not known yet and FP is computed with its reset value, PRD = 0.
++	 * Clock stretching and the interrupt are disabled because /INT shares
++	 * the SCL pin.
++	 */
++	mod1 = FIELD_PREP(TLE493D_MOD1_IICADR, iicadr) | TLE493D_MOD1_PR |
++	       TLE493D_MOD1_CA | TLE493D_MOD1_INT |
++	       FIELD_PREP(TLE493D_MOD1_MODE, TLE493D_MOD1_MODE_MASTER);
++	ret = tle493d_write(data, TLE493D_REG_MOD1, mod1, 0);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to write MOD1\n");
++
++	ret = tle493d_read(data, data->regs, TLE493D_NUM_REGS);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to read registers\n");
++
++	hwv = FIELD_GET(TLE493D_VER_HWV, data->regs[TLE493D_REG_VER]);
++	if (hwv != TLE493D_VER_HWV_B21)
++		dev_info(dev, "unknown hardware version %u\n", hwv);
++
++	id = FIELD_GET(TLE493D_TEMP2_ID, data->regs[TLE493D_REG_TEMP2]);
++	if (id != iicadr)
++		dev_info(dev, "unexpected ID %u, expected %u\n", id, iicadr);
++
++	/*
++	 * Full range, temperature and Bz enabled, no trigger via Config. This
++	 * also sets a valid CP, which is not the case after reset.
++	 */
++	ret = tle493d_write(data, TLE493D_REG_CONFIG, 0, 0);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to write Config\n");
++
++	return 0;
++}
++
++static int tle493d_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct tle493d_data *data;
++	struct iio_dev *indio_dev;
++	unsigned int iicadr;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return dev_err_probe(dev, -EOPNOTSUPP, "plain I2C transfers not supported\n");
++
++	for (iicadr = 0; iicadr < ARRAY_SIZE(tle493d_i2c_addrs); iicadr++) {
++		if (client->addr == tle493d_i2c_addrs[iicadr])
++			break;
++	}
++	if (iicadr == ARRAY_SIZE(tle493d_i2c_addrs))
++		return dev_err_probe(dev, -EINVAL, "unsupported I2C address 0x%02x\n",
++				     client->addr);
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	data = iio_priv(indio_dev);
++	data->client = client;
++
++	ret = devm_mutex_init(dev, &data->lock);
++	if (ret)
++		return ret;
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable vdd regulator\n");
++
++	tle493d_reset(data);
++
++	ret = tle493d_init(data, iicadr);
++	if (ret)
++		return ret;
++
++	indio_dev->name = "tle493d";
++	indio_dev->info = &tle493d_info;
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->channels = tle493d_channels;
++	indio_dev->num_channels = ARRAY_SIZE(tle493d_channels);
++	indio_dev->available_scan_masks = tle493d_scan_masks;
++
++	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
++					      iio_pollfunc_store_time,
++					      tle493d_trigger_handler, NULL);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to set up triggered buffer\n");
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static const struct i2c_device_id tle493d_id[] = {
++	{ .name = "tle493d-w2b6" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, tle493d_id);
++
++static const struct of_device_id tle493d_of_match[] = {
++	{ .compatible = "infineon,tle493d-w2b6" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, tle493d_of_match);
++
++static struct i2c_driver tle493d_driver = {
++	.driver = {
++		.name = "tle493d",
++		.of_match_table = tle493d_of_match,
++	},
++	.probe = tle493d_probe,
++	.id_table = tle493d_id,
++};
++module_i2c_driver(tle493d_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Infineon TLE493D-W2B6 3D Magnetic Sensor driver");
++MODULE_AUTHOR("Viral Patel <viral8854@gmail.com>");
 
-Best regards,
 -- 
-Viral Patel <viral8854@gmail.com>
+2.43.0
 
