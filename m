@@ -1,78 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875731;
-	b=TQipriB250E3BqqdzrZf3kxdG+OOw5FeS0AnH6qfkPJamsoJJUbiY0auTHa71hjdZBKB
-	 FUXhjm1ETUWbaDv5yaEv0x9UBDJGIoTv7q+3EQGBmyVLUtzha6kFgyU4gtrO7SRnoUi6X
-	 FkG/eOZQM1IO3XH3d85KuYo/EQ7Kq4wm27YImUo4rkDiNP4ObCRQ+pC8kntzEXoyk7E21
-	 AM01YIv4b69fhyy/TXAxUHO4bqufChP7RYDzb7tlq7gapLwPy6EKvb654UfJdPMcCEKRj
-	 Sw76bv0bCDR16CV+nmJoSwoqwoW33OIgPtvgG1GwLTs2NM+Aaklk7ZNkDkS8I7WdJ3A==
+	t=1793876062;
+	b=YkvKKhsyJPDU1dZIj+ycx4DLIUslO7NiyMjH4kXo15FwFjnSu7nXu5HRchC/HGHmnw6J
+	 +uWZWZgNF+KQqvjSnoKw3dR+OAq0VhPO7us+9vcB4Ul+ld0ZGoWrXakf9/nGekD/gKh01
+	 hEINnJJpaz6+AcarUUBbtA0zG6tH9c8mKqzwkEbOhZVE9aEaz2GfLxP9e2W0XgtcOP63K
+	 H3zymUci15madrDENIiLAOtRX6FOyB9apsEnSU3ac5sxkiq55d2Wcf590hFh24HpMYwt+
+	 vwplBNqOrIUW2gARGG/Rc1tV2DYjxQeTEtUW2wYncRbGakOTFJCG/FYy76J+NLl2xEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875731;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=SGS+uUaJgKhVkuuwLh5hQt8xUhYx0sVgTDQx3gm9ICQ=;
-	b=dEv1BRfL83t2Q1yUOFmpnEBRB6qebdzG4XN+9Hnn6prtzlM1Ho+2gMAlNvqqu/FjWTj2
-	 3jPWsVoxbjr9aW+q5olRTi/qCBdwUo+W3FhpeIrjTKAhfWLry81HiSXq1AumoPqcGiN6m
-	 jD88MSPdIfxM5GvQv42Wgf4TKMw01lQN1ohz+xQSp5pDCghY/XmJg/2YbN9v2E3XFqVtQ
-	 hSQcPTPm4QdbgIH9TOc8MAeJXZGH1n87lz8iukQJ6hj/mpwpgAqZMdnHGDfeuzAB2MBnQ
-	 h+YJvqh6BQuDXHHfn4oqWlfwo+KVKd+1eRncPBvUucQQZOsDk7j3ESAC772ovgsGUzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876062;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
+	b=SjMctE5ScClD6XNG0v+ugLEBfks/5vag7Vo03wZwkRpw+miep8HfVa7nT/8sGn35MjSQ
+	 moJun12bMy/DbfgfkY9I+N+qbRpqrB19FzToC5RgnbKB90h8bjrdW9u+eBaNTm8VIN0nS
+	 shGvMCruuK86MTJpL8gflXxJ6dHiVOGh2N1G2EbL5Espbdk103tI0afXcTNm1LOMCNaZp
+	 5ZjsBE3JgKKbFY5FdkK8tOpCs7V7HUBxm3WUZbxs6RqvOGKZ4KMSJ/ByHB+t909L40+Oq
+	 duROOfpsJfPpluu0shXj9uOr2KfiIpKPxDJrYYaQ5YQjwkvmMbA+kEOuffqFmgC7RNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C5IQmBWH;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAE8606A328;
-	Thu,  5 Nov 2026 10:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CAE8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B594C606A332;
+	Thu,  5 Nov 2026 10:54:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B594C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C5IQmBWH
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tUvO3685694;
-	Thu, 5 Nov 2026 10:48:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=SGS+uUaJgKhVkuuwLh5hQt8xUhYx0sVgTDQ
-	x3gm9ICQ=; b=C5IQmBWHRYL9/kNtKd12wqii7Js9Vh2et5KrnLhn+tLk3ZIdSIf
-	Y3+F3XSsrlw25AxiljQ0y2S81akvOhX06M4bZiXZcwlDnI/kqicy+LKttcaRqIdF
-	dPDARGWRQx+un595aV2XTCQzZJTV0iIwct4BFW9MDFkAyoSW7UN9c9d+FqDOBStf
-	P71NUquohVPxp6a7DoVP3x7Vi2ZuDnc3NA546tSTdOe9ihFgI8Z8zHtOn9IQrVHk
-	SRWA0/ntTS99T6kFLxaEH4d6sZiocWonQrLJEit/PKK10cjkm5YBAqVmG7TL6QBb
-	twAB+3Vqd1TIZsKyPFl/atdASvoT6/wU6Ag==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrj43hmnb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 10:48:49 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AkAlf549507;
-	Thu, 5 Nov 2026 10:48:46 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-rchiluka-hyd.qualcomm.com [10.147.245.147])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A5Amk4K553508
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 10:48:46 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4746761)
-	id 9CD46669; Thu,  5 Nov 2026 16:10:16 +0530 (+0530)
-From: Chiluka Rohith <rohith.chiluka@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Chiluka Rohith <rohith.chiluka@oss.qualcomm.com>
-Subject: [PATCH v1] arm64: dts: qcom: glymur-crd: add DisplayPort audio DAI link
-Date: Thu,  5 Nov 2026 16:10:13 +0530
-Message-Id: <20261105104013.614413-1-rohith.chiluka@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NcjEQpYM
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C;
+	Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261105105412euoutp0221de3a5b7a4048d78194fc0f7afe1c16~lIMP-HPlY3044430444euoutp02C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793876052;
+	bh=8U+WQmu8jFLJh5cbm79ZPqM5GeKacWcEkDyhOz912oU=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=NcjEQpYMRbxhXBgzKnZDjzO9LLwfDGOaaIfPmI2qnt8v3BjyjGfN95aIsbRJ5WcAe
+	 pMYGKFT8Id4k/8Q0czZ/74nGUvslfN7Kw9FJOU7LmEuNez+Hz47vdPfnIMzS747B6m
+	 sW7Jr++9LwO+aS1wGDZxc4S00WHnS1MZnDI6ngsg=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf~lIMPucvWX2329723297eucas1p12;
+	Thu,  5 Nov 2026 10:54:12 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105105410eusmtip15133e9a84efd244fc2a8fcab25cfa49a~lIMOGw1ty2761527615eusmtip1a;
+	Thu,  5 Nov 2026 10:54:10 +0000 (GMT)
+Message-ID: <204d333a-6f09-4498-b776-b2daee8d94b8@samsung.com>
+Date: Thu, 5 Nov 2026 11:54:10 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,74 +64,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/18] drm/bridge: inno-hdmi: Don't dereference a
+ NULL drm_device on hotplug
+To: Heiko Stuebner <heiko@sntech.de>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+	Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+	<hal.feng@starfivetech.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
+	<andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
+	William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+	<xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
+	Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <2261991.3Lj2Plt8kZ@phil>
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: AOG7dRtrkgjNAeSlkbEo--de5FBH6Wcm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MiBTYWx0ZWRfX+VkJSmCVVS09
- K2uxHAjJ7Bm48oZ2LNVdFCH1Z5ri3C8KweBthZVGm+U/VSSS4dlxUaZ1IEgQUzHpGwcx89Z6nfM
- cgnh7lJDROsnZQaKTFVRenUDdfqDMwHUuafK0u+pY7UoBLUCgA3y1aEk9UZ+kA0ziwc24WyisHd
- fg8fPjx29YUMo3/vhLsxDqLxjiCyDP5fBhHAWEWj6bjN9p50eFmpHxq4oLlhA2//SFGtX8b7Uzz
- 9Cr1K70SJPwsWpEusN+vk6+UZ0vG1jQOj8q9mASFVwOWIZkQgwsTEcoH40du3Vrb8ZU9VVf6+Yp
- F97lb8TTsZZDDkv7gDCQlTRH8idbdJUYsieK78Cwmt67KG5BWDRTfvm/5eDvJWeU8j9uHreg1Aj
- yehYam8IAG3wo8rftJHukLJ23Ib1wDHRi/4K22HxqWTTZlDT1I4VmKLjDIDEtyaCpu1FwVLde+Y
- WLFBH8vIHStO+82ov5w==
-X-Proofpoint-GUID: AOG7dRtrkgjNAeSlkbEo--de5FBH6Wcm
-X-Authority-Analysis: v=2.4 cv=SZdi5fRu c=1 sm=1 tr=0 ts=6aec5f11 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=yOwtmJoGaEZMXqy6B8IA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MiBTYWx0ZWRfX4bA+NxFyL7K1
- RMeKLHiIV2jLc8VP/vJkeJdm9ct6uBBzwCU/S/sqanXwiefihnSFcREU0bQwB7yaieqr8WtgYeF
- mQLH/HN+Z4fk05RJJeOgk3hYtPaxbgo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050042
+X-CMS-MailID: 20261105105412eucas1p171b6bde174fb0b6700cc78deee9d7edf
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
+X-EPHeader: CA
+X-CMS-RootMailID: 20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
+	<1844578.vCJZsxu672@phil>
+	<CGME20261030174510eucas1p2f85c6d82738ce34b17bdcab27f914ac1@eucas1p2.samsung.com>
+	<2261991.3Lj2Plt8kZ@phil>
 
-Add a DAI link for the DisplayPort RX path so that audio can be
-routed over DisplayPort on glymur-crd. The link wires up the
-DISPLAY_PORT_RX_1 backend of the q6apm ADSP to the mdss_dp1
-controller, with q6apm providing the platform (DMA) component.
 
-Signed-off-by: Chiluka Rohith <rohith.chiluka@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-index 58158b51fe29..eee75da20198 100644
---- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-@@ -268,6 +268,22 @@ platform {
- 			};
- 		};
- 
-+		dp-dai-link {
-+			link-name = "DISPLAY_PORT-RX";
-+
-+			codec {
-+				sound-dai = <&mdss_dp1>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
- 		va-dai-link {
- 			link-name = "VA Capture";
- 
+On 10/30/26 18:44, Heiko Stuebner wrote:
+> Am Freitag, 30. Oktober 2026, 18:43:47 Mitteleuropäische Normalzeit schrieb Heiko Stuebner:
+>> Am Donnerstag, 29. Oktober 2026, 08:53:36 Mitteleuropäische Normalzeit schrieb Michal Wilczynski:
+>>> inno_hdmi_irq() passes hdmi->bridge.dev to drm_helper_hpd_irq_event(),
+>>> which dereferences it in its first statement:
+>>>
+>>> 	if (!dev->mode_config.poll_enabled)
+>>>
+>>> bridge.dev is assigned only by drm_bridge_attach(), but inno_hdmi_bind()
+>>> unmutes the hotplug interrupt in inno_hdmi_init_hw() and installs the
+>>> handler well before it attaches the bridge:
+>>>
+>>> 	inno_hdmi_init_hw(hdmi);		/* unmutes hotplug */
+>>> 	devm_request_threaded_irq(...);		/* handler goes live */
+>>> 	...
+>>> 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
+>>> 	devm_drm_bridge_add(dev, &hdmi->bridge);
+>>> 	drm_bridge_attach(...);			/* bridge.dev set here */
+>>>
+>>> The bridge is allocated by devm_drm_bridge_alloc(), which kzalloc()s it,
+>>> so bridge.dev is NULL for all of that window, and a hotplug event
+>>> arriving in it enters drm_helper_hpd_irq_event(NULL).
+>>>
+>>> Before the conversion to a bridge the ordering was safe:
+>>> inno_hdmi_register() called drmm_connector_hdmi_init(), which set
+>>> connector.dev, before the interrupt was requested.
+>>>
+>>> Drop hotplug events that arrive before the bridge is attached.
+>>>
+>>> Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
+>>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>>> ---
+>>>  drivers/gpu/drm/bridge/inno-hdmi.c | 8 +++++++-
+>>>  1 file changed, 7 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> index d7c33b92e2ddf4ced84d17304463f44be52270b8..d29832249b942dec84fb9d07a0b21ee751fc0486 100644
+>>> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+>>> @@ -929,7 +929,13 @@ static irqreturn_t inno_hdmi_irq(int irq, void *dev_id)
+>>>  {
+>>>  	struct inno_hdmi *hdmi = dev_id;
+>>>  
+>>> -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>>> +	/*
+>>> +	 * The interrupt is requested before the bridge is attached, and
+>>> +	 * bridge.dev is only set by drm_bridge_attach(). Drop hotplug events
+>>> +	 * that arrive before then rather than dereference a NULL drm_device.
+>>> +	 */
+> 
+> nit: I don't think that huge comment is necessary for that
+
+Thanks, I'll trim the comment in v7
+
+> 
+> 
+>>> +	if (hdmi->bridge.dev)
+>>> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>>
+>> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+>>
+>> Most other callers of drm_helper_hpd_irq_event() also do exactly this.
+>>
+>>
+>> Heiko
+>>
+> 
+> 
+> 
+> 
+> 
+
+Best regards,
 -- 
-2.34.1
-
+Michal Wilczynski <m.wilczynski@samsung.com>
