@@ -1,56 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793856716;
-	b=rLycMRnbNlmda4dMpAAsUBkym2t0MbfRIyagpcbpb7o+zEdR8fGkasc43pzyLRzL41tf
-	 kzM/d1+apVznyrky61uYY/k5f6oqlAKPPbvKTB5V0ZRzjgWKHrIyEgz3Dyd4zy5OifgRM
-	 bEoSr9Zt/l8I4mlCsfn5rB0JvHdaoamxofxKgIIwRXd8POvLaq2BIdvAg8rOOHYKvLznf
-	 nsekKU+hcBd8mOEvGqRHB1La9pcC+cGGcxpkJtCizOod1yFZXAhdxZ3G6UX01irp8JycL
-	 1AJLMjpf/3AqlZUu8+GQmSxTHXxSqnLNa6wpre9KAKftcqBPXTvFEqwEylYM+bNay3Q==
+	t=1793856760;
+	b=Y62Q5Vcnq7FOg4yWbYN90QVmVnsad38bt+3oV7hthlBOs6sVhURqk58J5zAdSfozztHt
+	 q0/LnU35UOqtAkBR1eqJWGDtmQLAmJC1KGcRIEzOSYan12DNw2Z98KHgeuZi/FJIyLYGs
+	 3C388zRsuNS5RtZroQsJmT/my5Fd7UCWMqAki2GtjvFNXTuz9LYMPMSx5hb2ZHO9WFdFu
+	 lZ8+RVkSbqAnwzeDfe8qi8tUMcFawZwZUGN7dyhH9kM6dVYt6Y66qMdfBL4wqOfp03PkS
+	 HJjlOD/FgeLzJnunS4L1zjt6qlZhR+Sx6gzlOW4iK6VvJUGlePrbSjY/EwzTJN9ttjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793856716;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=DwaT0bDtS3aEVeInFPzea5Q/NPR+4MSHF7Qf1jyDWsM=;
-	b=boyRQCFPdiKT7k6kCBCdp56sbt+m8LBo46hb66XXItXVWlCm56i+lWUOj+4Mlcs8oJZ4
-	 s5jgeoQS+u3tlZIrmPchDrpc4gCIlkCTcmU1WxCtkmCqD7DvelD7hpQRcDT8ZfvVY7BEO
-	 CGbkiaFlF+5WHiQ9CR8ikteHcEOyLsKL5ZQDu1BaSJDnicJOdNPOrqyqkOnEOq+gqa+Py
-	 JxoKhIOb+g+faC7hXaqECGlfK6yZpCG4eY3qEo95MgzD4gfqqS5mAF1lTFmvHQNKcGDS3
-	 ZBVMP/KUup9CjxO7r50bAwLl2/kVzN2beTojQ4bVg0Tjcc5/BwxfYzVTJiOxRm9SlGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793856760;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=;
+	b=qoWegp4LbA/ChHf2AxwEre/oB60+z2IGGddMk2+ErPkfPDgHwFQ61O/o1jyTj8SQIncp
+	 aUcUd9mHKYk6V+0CaC2jp8Ng4y16R1+6mBYkN0Cacg6wJ5KUY9ygqqsdfN9vNIz3dZtuZ
+	 0SLOqkq+qTYqGl9bYLBIocKUixJ/nSGawJ4EXR0OJetaQy8Z1Ww2KHFOz1rSIRgZSFVFR
+	 9nCKmpcYTT5IaiGbzG7DVec3PranmChuGgvhCgvbDigwduyZpiwSFAPGDk+Y+075vGjpx
+	 oq/TXIhBn4FTUOFvh+xzmJQn3NbKktGfaiY5Y+sstXgOhBctie3c8AvVLXGDjCBXqcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2oaUZ98;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ATiem9ng;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kNliE1pm;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCAF606A329
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 05:31:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77C2606A328
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 05:32:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E77C2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2oaUZ98
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35101F000C1;
-	Thu,  5 Nov 2026 05:31:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793856715;
-	bh=DwaT0bDtS3aEVeInFPzea5Q/NPR+4MSHF7Qf1jyDWsM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W2oaUZ98yw346+DQCWoggaWzPVHU0ri9fDGtk95COJlVRTCoFAgWy24ok6jRVK7Bh
-	 U55oand4cJJM8UVGXwQ0bWBSWsLeObRtz7wVoAUW0GfdtMskF1hUARj33uIJflqj6G
-	 8tqcpKhBHLwgUVzTBLddGSmLxWcraNeBMgNwmGKb6lJWdyLDgr9d0y0x88SY9Uj7YC
-	 VXuCGF6gkJnTqkF1O91wHEvieFhfc3D1zlbdkC6L4BSmKhHtB9xckvltwKQXRqsWMg
-	 bUc0dvpOUdTy4sP0oZjHepKbMpN6LDsV2pSSSZMQZ10bmNLUiQkrbb1BAHo+5kJC45
-	 hvAr4D4BICvTw==
-Message-ID: <sashiko-outbox-198598@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] mailbox: Add AMD PL Mailbox soft IP controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ben Levinsky" <ben.levinsky@amd.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105051902.1646651-5-ben.levinsky@amd.com>
-References: <20261105051902.1646651-1-ben.levinsky@amd.com>
- <20261105051902.1646651-5-ben.levinsky@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 05:31:55 +0000
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ATiem9ng;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kNliE1pm
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A553b6i378262
+	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 05:32:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=; b=ATiem9ngPBFH6YEx
+	TGjK/0BlMdYHEm/YHjSx8kFRH1vADGx+4lat/4D4RrG/lJCx7Vv6TsB5uIl1ztZY
+	vvbYEaovUAyzEncLlZCUgzwYiLrRN8y1CZ3bi+nyha1dyBmLkZAUxg+rVGVBtRpB
+	GDK093OwvevmdK1sbO0vgEGi+WMZtSKuLZe28ekdSamKDvTeBghnEquf/LiK07lu
+	Jt9rVj4/6XjALxkU+fLGSEvfT2v3A8r9dNOVcKV6v6zG8/8GOFCJAdViI97QhjOG
+	3pGfniZiocs2nudTu5Zhs1MdyuelEPZ1jy2Mn8pjp/ZTjIo2WstNWBJfgQkKkKNu
+	1TEPxQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrkaq831w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 05:32:28 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so1368823b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 21:32:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793856748; x=1794461548; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=;
+        b=kNliE1pmKLwz2WykxnqDvlJMJlzO0eUpA8/xPUmNS59RENLsPDBOu0+ZDg9ltqNVrD
+         VVWnIa90/HnXMqNXoxkDDeLLaklAV1iitzu2ZcQOVNMMbSBOxGdnN0JZcr0bHLabKcZ/
+         6wV5hGbNVdw1uWfBe4l+TCbJm16ymAnlhaZbHIuUu30jzqePCMPLYbfn649qpb6gJo8f
+         q7/cJ+xHaTnp4RYdT1kOFl+sTwSi+VkWi8Vao90Sr/30MHpf6bWBM9bwyWGYEq+QdFbZ
+         +bHhTGexU2zFXjb7oPRVwkc48gyAJD02TIn/CXfKvrpDdzUUz95yyzilabl4XBV6C1a2
+         M1jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793856748; x=1794461548;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=;
+        b=nypGEAMpWfKnwTaxXx9/GjiWNnPhdJJ2TivFpA26LEeogU/60yZkMZ5oeFaS3AyajB
+         BbgQ0dSV9sNh7jU3z8fiD9QZaZVf/u9G3SOGs0RwSQZlbhi3x8+npLSRKOg5DYglBHT4
+         1GXIy50tN3BdAQ/QOOnnXh9w+0fXcIPiIr3dxx98EWED+PLHVYY3RqwfHoQZ2n0z2qDL
+         XRamkVXd7iwZTWmTENlPJbn5O88NdaUcpKp5lVHwc6JRhtaBur3u0KKjRNFuaUjD2VQa
+         iBjGsRrqYsGEMbIM9OsNUy+grYtCpksa3sBbUiM0ujCFRMAk0DJ532CT5T6ODZ2hxah8
+         Whwg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1Q9YDLhTF0ONPyZ+tp9BafyTjpFOBJLfD+pcWrMlVFLftNUcrItluuqKFH9JNyvW+abNwAp34hdb0@vger.kernel.org
+X-Gm-Message-State: APuU4Z+LQOwhl0XrYv+ctA3js+wjTRv9fSMYDwPv4cr6xTJHQfBqM6og
+	KAFE6HbW07DgvO9Y/Xkv3gQXK3sffJbJEhDQfLW4v5wJ3XgCaGT32aW99NXXNZGqfcCOlrPusA7
+	aBW5Nn/8BqQvhD+WQOMyhDvv9QwNHTaBjRdEXZHgk0xiRCRjYb0NXZg6kt0qnhkyz
+X-Gm-Gg: AYBFou3MaHwjHKaOiv6vVhZkyi+5LBR6h/bkuY2Ayz4AvACYPosmWic5WNGCv30ifJn
+	Qt93ttPCwpgeUnOZT5No6CnM1jMaN+rlWslFNISKtP3pM/krPy9W1ViTUyzTLkUi9s3ovkNGE2v
+	kPl3zdDxrmOL4prrkEGTa0Sl26/xXZNZxdYb0SIhMo+p4pAco9Zarr1ULzPtnND4fDgcp83Kk6F
+	RD788ge+IrKE+rTUR4iz0qZPUXICZ8LsSymbgHp3phFWdzcgprndUvfCCTe0tSSRXNeQfiQOSEs
+	UsmatCsusM6swFjCbAtvytYjACMyedVAeQFIAyXdwCUQFKVD4P9iCDzAJpQMOPcJwZTpa8YuJBi
+	9zNt38qkSjaoboH6g+14A7YdmWSzVEA1/fcJhVIraU+ESRvAal+T8ycYpl4rHbwN/mylG3GQzhb
+	0=
+X-Received: by 2002:a05:6a20:9e4e:b0:3e2:95fb:8d03 with SMTP id adf61e73a8af0-3e928a845f3mr13341117637.69.1793856747821;
+        Wed, 04 Nov 2026 21:32:27 -0800 (PST)
+X-Received: by 2002:a05:6a20:9e4e:b0:3e2:95fb:8d03 with SMTP id adf61e73a8af0-3e928a845f3mr13341084637.69.1793856747307;
+        Wed, 04 Nov 2026 21:32:27 -0800 (PST)
+Received: from [10.206.111.19] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b569495sm1577758b3a.37.2026.11.04.21.32.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 21:32:26 -0800 (PST)
+Message-ID: <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 11:02:20 +0530
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,264 +115,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: D0NtyO3JNBSmhftAUIQ-nD6allDVLtl2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAyMSBTYWx0ZWRfX/WNg+r/5vCDC
+ d71mh2dHagheBzzdWztmCtOs8nCR9BWiOakdHUh/G4D2r9u27/D9EzoCTd1XJsf6mWyv6h6Qi/B
+ oDhh3yaW8MWJqMdKBMGcT8VJ+72bliw=
+X-Proofpoint-ORIG-GUID: D0NtyO3JNBSmhftAUIQ-nD6allDVLtl2
+X-Authority-Analysis: v=2.4 cv=OZoNnRTY c=1 sm=1 tr=0 ts=6aec14ec cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=iBD9WU1rH6yjH3nr7zsA:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAyMSBTYWx0ZWRfX8GXsnSnPuHqM
+ b+TPjUFYbIlBXeqoiQlx1s0z+R1/s/OXo/nY0pn3FIkr1GZlirB4fJEFCM3OtqXsE9IlvnOhSGH
+ XzbUIKBuT2VMf8ICD+QriD500nrhnAhs8kVOLBm4mpmDcAuioHbxYctWVXZTmA5yiylPCkPvB3r
+ O/OAo7LuOYo4xtNW7UHSsNqff+xuDWXohrF+sUeW+iZS4pLZxfdwIHed42+ZvquIH4Gd9GclDlN
+ jV93+y3NM+oqTo8a5PNNnhpzHwvSRoDFKrlegWcOt8l5vX/dWpfsaAl4/4+gPGm0VA8i/vDYuz7
+ LlN+48LKIP7mgCIjgPw9i1i7WeiXwNQg1qIZq07VbxrF3A5epGG3Ms2hVhWIdyyi0o3GeAA/LAw
+ bMekPpu9k/FJ30dA0UFCLlEN5VuKmZSgzwlwgBQ10xBEva/2RwUIRN30KmP8rMJ+ESDGZxnBo2r
+ XcIbK1mjSqllvugfpew==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050021
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] mailbox: partial FIFO write on TX busy in amd_pl_mbox_send_data()
-- [High] mailbox: lost RX threshold interrupt race in amd_pl_mbox_startup()
-- [Medium] mailbox: skipped error read in amd_pl_mbox_irq_thread() when rat=
-elimited
---
 
-commit f34934c4693ba6bdc80f192703145aea6291afe7
-Author: Ben Levinsky <ben.levinsky@amd.com>
 
-mailbox: Add AMD PL Mailbox soft IP controller
+On 04-11-2026 21:42, Krzysztof Kozlowski wrote:
+>>>> Glymur describes CSI2 PHYs as standalone nodes, but the CAMSS binding
+>>>> still models CSIPHY4 as port@3 from the X1E80100 csiphy_res[] layout,
+>>>> where entry 3 carried CSIPHY id 4.
+>>> You also remove port 2 without explanation.
+>>>
+>>>
+>>>> Describe the hardware connection directly by allowing ports 0, 1 and 4,
+>>>> and using port@4 for CSIPHY4.
+>>> All this is confusing, why do you introduce gaps? What is the reason?
+>>> Your datasheet naming does not matter.
+>> Glymur CAMSS has populated inputs for CSIPHY0, CSIPHY1 and CSIPHY4, so I
+>> used a sparse pattern for those ports only.
+> port@0 is CSIPHY0
+> port@1 is CSIPHY1
+> port@2 is CSIPHY4
+> 
+> What is the problem exactly you are solving?
+> 
 
-This commit adds a mailbox controller driver for the AMD Programmable Logic
-Mailbox soft IP, exposing separate transmit and receive FIFO channels using
-zynqmp_ipi_message payloads. It manages interface clock gating across chann=
-el
-startup and shutdown, polling-based TX completion, and threaded IRQ-driven =
-RX
-FIFO draining.
+The problem is that CSIPHY4 is connected to CAMSS interface 4, so the
+graph should describe it as port@4, not port@2.
 
-> diff --git a/drivers/mailbox/amd-pl-mailbox.c b/drivers/mailbox/amd-pl-ma=
-ilbox.c
-> new file mode 100644
-> index 0000000000000..dc95fe4eff9b6
-> --- /dev/null
-> +++ b/drivers/mailbox/amd-pl-mailbox.c
-> @@ -0,0 +1,378 @@
+The previous port@3 description only worked through the X1E80100 resource
+table indirection:
 
-[ ... ]
+  port@3 -> csiphy_res[3] -> .csiphy.id = 4 -> CSID selects CSIPHY4
 
-> +static int amd_pl_mbox_send_data(struct mbox_chan *chan, void *data)
-> +{
-> +	struct amd_pl_mbox *mb =3D chan->con_priv;
-> +	struct zynqmp_ipi_message *msg =3D data;
-> +	unsigned long flags;
-> +	size_t offset;
-> +	int ret =3D 0;
-> +
-> +	if (chan !=3D &mb->chans[AMD_PL_MBOX_CHAN_TX])
-> +		return -EINVAL;
-> +
-> +	/* The TX FIFO is empty here, since TX completion waits for it. */
-> +	if (!msg || !msg->len || msg->len > mb->fifo_len * sizeof(u32))
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * The mailbox core can submit a queued message after shutdown() has
-> +	 * started, while the interface clock is being disabled. Do not access
-> +	 * registers then.
-> +	 */
-> +	spin_lock_irqsave(&mb->tx_lock, flags);
-> +	if (!mb->tx_active) {
-> +		ret =3D -ENODEV;
-> +		goto unlock;
-> +	}
-> +
-> +	for (offset =3D 0; offset < msg->len; offset +=3D sizeof(u32)) {
-> +		size_t count =3D min(sizeof(u32), msg->len - offset);
-> +		u32 word =3D 0;
-> +
-> +		if (readl(mb->regs + AMD_PL_MBOX_STATUS) &
-> +		    AMD_PL_MBOX_STS_TX_FULL) {
-> +			ret =3D -EBUSY;
-> +			goto unlock;
-> +		}
-> +
-> +		memcpy(&word, &msg->data[offset], count);
-> +		writel(word, mb->regs + AMD_PL_MBOX_WRDATA);
-> +	}
-> +
-> +unlock:
-> +	spin_unlock_irqrestore(&mb->tx_lock, flags);
-> +	return ret;
-> +}
+New standalone PHY path:
+  port@4 -> no csiphy_res[] lookup -> port number is id 4 -> CSID selects CSIPHY4
 
-[Severity: High]
-In drivers/mailbox/amd-pl-mailbox.c, amd_pl_mbox_send_data() assumes the
-hardware TX FIFO is empty on entry and checks AMD_PL_MBOX_STS_TX_FULL before
-each word inside the loop. Can this corrupt or coalesce messages in the
-hardware TX FIFO if a previous transfer timed out or if the FIFO becomes fu=
-ll
-mid-message?
+>> That is confusing for the schema. I will allow the continuous range
+>> port@0 through port@4 and keep the example limited to the populated
+>> Glymur ports.
 
-In drivers/mailbox/mailbox.c, when a blocking transfer (cl->tx_block) times
-out in mbox_send_message(), it calls tx_tick(chan, -ETIME) -> msg_submit():
+-- 
+Regards,
+Nihal Kumar Gupta
 
-drivers/mailbox/mailbox.c:mbox_send_message()
-	ret =3D wait_for_completion_timeout(&chan->tx_complete, wait);
-	if (ret =3D=3D 0) {
-		t =3D -ETIME;
-		tx_tick(chan, t);
-	}
-
-tx_tick() clears chan->active_req and invokes msg_submit(chan) to submit the
-next queued message via ops->send_data() even if the remote peer has not yet
-drained the timed-out message from the hardware TX FIFO (and similarly if a
-client sets cl->knows_txdone).
-
-Because amd_pl_mbox_send_data() does not check that the TX FIFO is empty
-(AMD_PL_MBOX_STS_TX_THRESHOLD in AMD_PL_MBOX_STATUS) before writing:
-
-1. If unconsumed words remain in the TX FIFO and space is still available, =
-the
-new message's words are written directly behind the old words, coalescing t=
-wo
-messages in the unframed hardware FIFO.
-
-2. If AMD_PL_MBOX_STS_TX_FULL is hit after one or more words have already b=
-een
-written (offset > 0), amd_pl_mbox_send_data() returns -EBUSY after partially
-writing the message to AMD_PL_MBOX_WRDATA. In msg_submit():
-
-drivers/mailbox/mailbox.c:msg_submit()
-	err =3D chan->mbox->ops->send_data(chan, data);
-	if (!err) {
-		chan->active_req =3D data;
-		chan->msg_count--;
-	}
-
-When send_data() returns -EBUSY, the message is not dequeued and poll_hrt is
-not started, leaving the partial words in the hardware FIFO while the full
-message remains queued at the head of chan->msg_data[] to be sent again from
-offset 0.
-
-Should amd_pl_mbox_send_data() verify that AMD_PL_MBOX_STS_TX_THRESHOLD is =
-set
-before writing any words to AMD_PL_MBOX_WRDATA?
-
-[ ... ]
-
-> +static int amd_pl_mbox_startup(struct mbox_chan *chan)
-> +{
-> +	struct amd_pl_mbox *mb =3D chan->con_priv;
-> +	unsigned long flags;
-> +	u32 irq_enable;
-> +	int ret;
-> +
-> +	if (chan !=3D &mb->chans[AMD_PL_MBOX_CHAN_TX] &&
-> +	    chan !=3D &mb->chans[AMD_PL_MBOX_CHAN_RX])
-> +		return -EINVAL;
-> +
-> +	ret =3D clk_prepare_enable(mb->clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (chan =3D=3D &mb->chans[AMD_PL_MBOX_CHAN_TX]) {
-> +		writel(AMD_PL_MBOX_CTRL_TX_RESET, mb->regs + AMD_PL_MBOX_CTRL);
-> +		writel(0, mb->regs + AMD_PL_MBOX_SEND_THRESHOLD);
-> +
-> +		spin_lock_irqsave(&mb->tx_lock, flags);
-> +		mb->tx_active =3D true;
-> +		spin_unlock_irqrestore(&mb->tx_lock, flags);
-> +
-> +		return 0;
-> +	}
-> +
-> +	writel(AMD_PL_MBOX_CTRL_RX_RESET, mb->regs + AMD_PL_MBOX_CTRL);
-> +	/* Interrupt when the RX FIFO changes from empty to nonempty. */
-> +	writel(0, mb->regs + AMD_PL_MBOX_RECV_THRESHOLD);
-> +	writel(AMD_PL_MBOX_IRQ_RX_THRESHOLD | AMD_PL_MBOX_IRQ_ERROR,
-> +	       mb->regs + AMD_PL_MBOX_IRQ_STATUS);
-> +	irq_enable =3D readl(mb->regs + AMD_PL_MBOX_IRQ_ENABLE);
-> +	irq_enable |=3D AMD_PL_MBOX_IRQ_RX_THRESHOLD | AMD_PL_MBOX_IRQ_ERROR;
-> +	writel(irq_enable, mb->regs + AMD_PL_MBOX_IRQ_ENABLE);
-> +	enable_irq(mb->irq);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-In drivers/mailbox/amd-pl-mailbox.c, when amd_pl_mbox_startup() initializes
-the RX channel, can a word arriving from the remote peer between the RX FIFO
-reset and the AMD_PL_MBOX_IRQ_STATUS clear permanently wedge RX interrupts?
-
-As noted in the driver comments, with AMD_PL_MBOX_RECV_THRESHOLD set to 0,
-AMD_PL_MBOX_IRQ_RX_THRESHOLD is edge-latched only when the RX FIFO transiti=
-ons
-from empty to nonempty. In amd_pl_mbox_startup():
-
-	writel(AMD_PL_MBOX_CTRL_RX_RESET, mb->regs + AMD_PL_MBOX_CTRL);
-	/* Interrupt when the RX FIFO changes from empty to nonempty. */
-	writel(0, mb->regs + AMD_PL_MBOX_RECV_THRESHOLD);
-	writel(AMD_PL_MBOX_IRQ_RX_THRESHOLD | AMD_PL_MBOX_IRQ_ERROR,
-	       mb->regs + AMD_PL_MBOX_IRQ_STATUS);
-
-If the remote peer writes a word after AMD_PL_MBOX_CTRL_RX_RESET empties the
-FIFO, that 0-to-1 occupancy transition latches AMD_PL_MBOX_IRQ_RX_THRESHOLD.
-The subsequent writel() to AMD_PL_MBOX_IRQ_STATUS then clears that latched
-interrupt status bit while the received word remains unread in the RX FIFO.
-
-Because the RX FIFO is now already nonempty and amd_pl_mbox_startup() does =
-not
-reset or drain the FIFO after clearing AMD_PL_MBOX_IRQ_STATUS, neither the
-unread word nor any subsequent words written by the peer will cause an
-empty-to-nonempty transition, so AMD_PL_MBOX_IRQ_RX_THRESHOLD will never
-latch again.
-
-Should AMD_PL_MBOX_RECV_THRESHOLD and AMD_PL_MBOX_IRQ_STATUS be programmed
-before issuing AMD_PL_MBOX_CTRL_RX_RESET (or should the RX FIFO be checked
-after enabling the interrupt)?
-
-[ ... ]
-
-> +static irqreturn_t amd_pl_mbox_irq_thread(int irq, void *data)
-> +{
-> +	struct amd_pl_mbox *mb =3D data;
-> +	u32 pending_intr;
-> +	u32 irq_enable;
-> +	u32 irq_status;
-> +
-> +	irq_status =3D readl(mb->regs + AMD_PL_MBOX_IRQ_STATUS);
-> +	irq_enable =3D readl(mb->regs + AMD_PL_MBOX_IRQ_ENABLE);
-> +	pending_intr =3D irq_status & irq_enable;
-> +
-> +	if (!pending_intr) {
-> +		dev_warn_ratelimited(mb->controller.dev,
-> +				     "unexpected interrupt: status %#x enable %#x\n",
-> +				     irq_status, irq_enable);
-> +		return IRQ_NONE;
-> +	}
-> +
-> +	/*
-> +	 * Acknowledge before draining. The receive event latches when the RX
-> +	 * FIFO goes from empty to nonempty, so a word that arrives after the
-> +	 * drain has emptied the FIFO raises a new event.
-> +	 */
-> +	writel(pending_intr, mb->regs + AMD_PL_MBOX_IRQ_STATUS);
-> +
-> +	if (pending_intr & AMD_PL_MBOX_IRQ_ERROR)
-> +		dev_warn_ratelimited(mb->controller.dev,
-> +				     "mailbox FIFO error: %#x\n",
-> +				     readl(mb->regs + AMD_PL_MBOX_ERROR));
-
-[Severity: Medium]
-In drivers/mailbox/amd-pl-mailbox.c, amd_pl_mbox_irq_thread() passes
-readl(mb->regs + AMD_PL_MBOX_ERROR) directly as an argument to
-dev_warn_ratelimited().
-
-In include/linux/dev_printk.h, dev_warn_ratelimited() expands to
-dev_level_ratelimited(), which only evaluates its variadic arguments when
-__ratelimit(&_rs) returns true:
-
-#define dev_level_ratelimited(dev_level, dev, fmt, ...)			\
-do {									\
-	static DEFINE_RATELIMIT_STATE(_rs,				\
-				      DEFAULT_RATELIMIT_INTERVAL,	\
-				      DEFAULT_RATELIMIT_BURST);		\
-	if (__ratelimit(&_rs))						\
-		dev_level(dev, fmt, ##__VA_ARGS__);			\
-} while (0)
-
-When AMD_PL_MBOX_IRQ_ERROR fires frequently enough to be rate-limited, will
-skipping readl(mb->regs + AMD_PL_MBOX_ERROR) leave sticky error bits unclea=
-red
-in the hardware error register?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105051902.1646=
-651-1-ben.levinsky@amd.com?part=3D4
