@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.92.40.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876851;
-	b=2LZhvHh9c0gCshM9MjrNBSIfJRjj3PNTTYmLUcYa4cXwzdc1xVdT917rqZcwIpIt2kLy
-	 ufGvv/+A5QSHLuHy5x6nra6IgGCnmqAS6JHLosdEx3voklxwzPnRVv1n1OmA5wUCcOx//
-	 DxrnLwprb8mT7X449fEzhWco3KaXhINZBbHpNnvJj7LeX+Eit76Sld646juiu/W+LfDDu
-	 mspn+JMgZyZuDq9TXn983WJY+77908r7FE/xwkVMaCdz0KVjy7DD9hX7HUvuaO8iIlIfs
-	 rng7QX6nJ1wgYlcXrehzFEPXSjgbwJh+3APgv8ii0hm4CWcVbN6cFWXAnzHFXFnevMA==
+	t=1793876995;
+	b=4PUdT9pUoqY2ddmflKB71IBefVUQeXUqAwpQn2BXrRCEEK9eaht83kGuY68IUqfCYn1g
+	 YUxU2hLe7JpdXlU03Q9PkztCvGLelha7kYchNaUOt6SYwZwEFPeP5x/7tLyQUgIRCld8O
+	 SvckjV0G5oHvVP64fbAqCU4a5z3h8PMbwHo3u77aJ6DjiMb9AjswQgbnleiie0DVdnl1J
+	 ZElTybWxy1Oaik4hEul0u5jTZJp2NEkSA2IgIg+lKxDio6qQ7rkVvTxp9+qqIblU8FAAL
+	 b50xtEGpRXEbZfLC8bsZkI6A07VuRT4pYLbLFJ4lBMcmL4/MJjpTpnh/2a0iw9gN4vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876851;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=1cjL0JCpaDIHIZFe4xaYZge0ytMZ6yU98tvuRPdMz+g=;
-	b=yexX1jkFfRBJRQ1Bm2LW1N8d60J9gKxgxEaQYTZWOB9PZcfBPkqgBE399oUzzela1VhD
-	 nqTeK4zXoPY9fsmQHmcyCq5TB8T+ArCzJFTZ2JC+3W3oL636fyYT7LjELlSdlpiUjjVIJ
-	 KJsk1UskQj6L1N2IVyU49VkAV3zxY1GpY8pYvo0ql5k1q8Jy6KOdbpvpNQJTbMNUVy6UY
-	 rJpFJaP0CtSghl0DkiPHLrBy54ntmZ59KK1xvQ1qwdxdB+vXaGlnR2/Wd+hUp4k2Ipgb5
-	 wDPImtbwdcuMYb4hewSpr1SYOuSi41pf5myFAMHi3mSp6tLTtGoaYcZ5uSKGaS7sWVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876995;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
+	 Date:Message-ID:User-Agent;
+	bh=4UHIrg6NGC+slns24nqTvKAXnWRFIxoZbfAVKA0TEKg=;
+	b=Axpc8X6eEkBYk6x80vAoxerh+EZoNxD/awYWoCTkLJlhQ3+OFDH+UqMdDx3Seu5ykDOm
+	 46OBtTCmnVISHTUyYXcBEv5wdpyysIZn0EytclBcFx8Ji2SGmdgLj97WFxh/3unLxtRkP
+	 xL3X4Jfi9mqKIFWFNWIMqJ/ZgKyWXd9H1nPzbBQfeiXb0HbXmZ/O8mTEeozFuclzUImav
+	 rHYxaF4W3rRAl3ad8HpnrVl7/Pze/Z2fMUpV3WFJhf7aDqylDMiQU1KXv7lHJX7KUuYV8
+	 QPIj0TWTm5URHaKQ3JI9nbLVSGlcN1A/AWaGom80yPwKT9YotHOaSum+d97UMwHNTbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=thorsis.com;
-	spf=pass smtp.mailfrom=thorsis.com;
-	dkim=pass header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=knrI72jy;
-	arc=none smtp.remote-ip=217.92.40.78
-Received: from mail.thorsis.com (mail.thorsis.com [217.92.40.78])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MWxIkkSj;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F775606D81D;
-	Thu,  5 Nov 2026 11:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F775606D81D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=thorsis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thorsis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5BD606A328;
+	Thu,  5 Nov 2026 11:09:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD5BD606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thorsis.com header.i=@thorsis.com header.a=rsa-sha256 header.s=dkim header.b=knrI72jy
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0F95F1496635;
-	Thu, 05 Nov 2026 12:07:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thorsis.com; s=dkim;
-	t=1793876873; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1cjL0JCpaDIHIZFe4xaYZge0ytMZ6yU98tvuRPdMz+g=;
-	b=knrI72jy2XsW8GAfy6cErSlBfoXL3yRP4sNgRDtKypmi2sI4ke8VGz9ZCyNjhg+Nzr1L7G
-	hHaEFS4O2UTNnYeqA7VG8hXE7oDO4xMHIBM6YBe4hTsfdF3Bb2rGMe2sjDSd1j9QpzP1cd
-	9WUsOemv7EEVN7eTkRZ6EwJLjcsbT793H4Itl6zMt06UZiRKESvHdTeGnjTUhLHlWh37Cd
-	3VhD6nywiogQvtrb3Uvb62AVWrmGGy1WfbUR7RkkF7GF1LHwnklMkk385baTbb/I6sz0vL
-	4VeWBRlisK+u3bgbcjwWETijl8xaoinS8u8z7j0sF9EAFrNgtJY+F22tvrz8Uw==
-From: Alexander Dahl <ada@thorsis.com>
-To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH v4 01/16] MAINTAINERS: Add sam9/sama to (AT91) SoC support
-Date: Thu,  5 Nov 2026 12:06:37 +0100
-Message-ID: <20261105110715.2486432-2-ada@thorsis.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105110715.2486432-1-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MWxIkkSj
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9FEBB9A4;
+	Thu,  5 Nov 2026 12:07:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793876853;
+	bh=J9ImKc88GPgcB6D7fshmTuDUSz38NIgF+cMaexxCR2o=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=MWxIkkSjjIwpyc93MNB1pO7/3tDrI4qxEC8+GcwjHJrYAGSD/d0epfzzEdb/Ogt1G
+	 bnR0V9blnX8/zn87XrkCQIxFcglHmBVBb+FE6phFYB4BDGO87ReEWYiJBQNZSXtwZR
+	 2V7dvJFxOKQvTWJxEPfWX7NCZal4Bea44ZjIV728=
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,36 +53,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261105033224.2880607-1-t-lannynd@ti.com>
+References: <20261105033224.2880607-1-t-lannynd@ti.com>
+Subject: Re: [PATCH v2] arm64: dts: ti: k3-am62x-sk: Add orientation to IMX219 sensor node
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: b-brnich@ti.com, praneeth@ti.com, r-donadkar@ti.com, devarsht@ti.com, kieran.bingham@ideasonboard.com, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Thorsten Lannynd <t-lannynd@ti.com>, linux-arm-kernel@lists.infradead.org
+Date: Thu, 05 Nov 2026 16:39:46 +0530
+Message-ID: <179387698667.10051.17862177968667264461@freya>
+User-Agent: alot/0.13.dev199+g9722e8483
 
-Will catch previously unmatched files in include/dt-bindings/*
+Hi Thorsten,
 
-Signed-off-by: Alexander Dahl <ada@thorsis.com>
----
+Thank you for the patch.
 
-Notes:
-    v4:
-    - no changes
-    
-    v3:
-    - new patch, not present in v2
+Quoting Thorsten Lannynd (2026-11-05 09:02:24)
+> The IMX219 CSI2 expansion module is externally attached. Without the
+> orientation property, V4L2_CID_CAMERA_ORIENTATION (0x009a0922) is not
+> exposed and libcamera fails with:
+>=20
+>   ERROR CameraSensor camera_sensor_raw.cpp:465 'imx219 4-0010':
+>   Mandatory V4L2 control 0x009a0922 not available
+>=20
+> Set orientation =3D <MEDIA_ORIENTATION_EXTERNAL> to fix this.
+>=20
+> Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
 
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065d..3ca145c68e0e1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3283,6 +3283,7 @@ F:	include/soc/at91/
- X:	drivers/input/touchscreen/atmel_mxt_ts.c
- N:	at91
- N:	atmel
-+N:	sam[9a]
- 
- ARM/Microchip Sparx5 SoC support
- M:	Steen Hegelund <Steen.Hegelund@microchip.com>
--- 
-2.47.3
+Thanks,
+    Jai
 
+> ---
+> v2:
+>   - Use MEDIA_ORIENTATION_EXTERNAL instead of <2> (Kieran Bingham)
+>   - Add #include <dt-bindings/media/video-interface-devices.h>
+>=20
+>  arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso b/arch/a=
+rm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+> index 149c59c07182..70c2a197f1dd 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+> +++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+> @@ -8,6 +8,7 @@
+>  /plugin/;
+> =20
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+> =20
+>  &{/} {
+>         clk_imx219_fixed: imx219-xclk {
+> @@ -72,6 +73,7 @@ ov5640: camera@10 {
+>                                 VDDL-supply =3D <&reg_1p2v>;
+> =20
+>                                 reset-gpios =3D <&exp1 13 GPIO_ACTIVE_HIG=
+H>;
+> +                               orientation =3D <MEDIA_ORIENTATION_EXTERN=
+AL>;
+> =20
+>                                 port {
+>                                         csi2_cam0: endpoint {
+> --=20
+> 2.34.1
+>
