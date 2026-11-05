@@ -1,77 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910976;
-	b=Za5/zj+QzozRJZAR8zQDjuLNIbOCYlnXMjA+cyuY2qe76tPPFlHAlqcI79gwqKY5s9PZ
-	 qoqVoYCZrDRGRCos/xV4+Ifvjg2XUm1EdXQXSsJchp6060ZcZd7S7oEL1rTjjklCzIAGn
-	 aiznkUAQxv0Hrag3+uwJID8aRYgOXzQ3AU6fqy/7/ZmTzCAlzh1aQpUc2i4CMC0mFQrTN
-	 6LGgQyoSfIcpYeaVyo56TupIYIsKp9g5wPYrwrwYV2Yb8i29AFfFbsujD3ifmSeDMCiV/
-	 O6GeY136N9rvc1MAMCP1+gvGJ9sRj2hQNiYYP20safaszVh3LpqfnMG3+H8NiaZjaSw==
+	t=1793911625;
+	b=aF+N0AVDaUOKVr/laYSBmOgjbr1qVhwvFZh0ZR8hV6OZBtxLC131GojMan++JKuST6cn
+	 vYu42CZVZkkiUuOqlRtN1oKZMFkNlm59QOuF9WWrEtIYgwwlzNs0adRL69R0JQHP6xlob
+	 Fh7AL3hK9FLiTbhtZz6EEqvTzYQZSYsSeQoB8XHuuHOedt5IkpVPhAf48wd/bApa7AX1h
+	 tZd54/Nz2Pxztp+p/hIy7qaeQz+EA0PmJpSsfWj0QmP/ZAonQcKOR0ip36mN2rITYU4gf
+	 hUxvz+GmL9UoVqqP23CSf9cmhEcBTXuKTCa0sLAcMyBrFGHxpxEwim5unrb4FFa9Rcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910976;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=QQl1ERSY4wmOR1OEbq5mx2PtZRC9i6q9Gw0tuk7z0Is=;
-	b=liGjBJPHFC8hLvOcqv3ZTd8KiQSQ5434B2LUETRkvFXDXxd8ucdrWV605AwXvmoluL3J
-	 CKqknbOQLJZH//BzmNAwPapigwg5zFvliDrq8esExkReOx245deD7gP2T/CZSr6/kAUzA
-	 ohOgQgv/LHQ4M8A46aVimDbhap9Go3fvWaunLTGPrkz9bfOZBG0HpSC6c7/f/8Q5PZiZW
-	 WKcmhNl/MGjgPOjep4MSbNsQzLkErzb+KtD/wpKSkL69WXSJeWn5lzgBJ5huIslFMq4Xr
-	 sxGDBJ7BQaoaS+tGn7Gxbad/gVdz4INXpH8Wm3e6/GiCFZGrTbZcwj8DBbPEXii8HFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911625;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=iwSvkRkpOWBGW83akrluHEHwbKajB2SPuhhgAy7lKS4=;
+	b=LwLAMugKOyzUenfC7rb+rBW6GhnvqweT5nRNLuLZRm6J/ujxCHND6wVF3NXxroCWsY8H
+	 iGy5H4NK6aw6hu0HMOmFzFIpxGoN65cbTgevF6VoTkw59D6CrTE+sRpdzCqTizsBhgHVd
+	 T3oGgZ8D72cwn1irOIV6D+zqLxFckqmuNahNIdvOCEAPKvWDUvTqmAmc2z1NCNrz7OLD/
+	 tk7NIqoye91XW91EFORcaZIZln/SIgrFecCNV1MlMpHpQzfnfon2KmYJgy/zQWiAUzhkv
+	 P7MwZjfoCvHducvI2hzRLw/kArJf66o7KTeQu5Dt3o6nFr2JMpcRBWCz24wtwu6r9BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=giNRF5hd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA36F606A329
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA36F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so1383839a91.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:36:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793910975; x=1794515775;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QQl1ERSY4wmOR1OEbq5mx2PtZRC9i6q9Gw0tuk7z0Is=;
-        b=cTi9SkeUqRVjvcXtajzNsmP27WS0pNrTa3PHTthX4fy6lXBGnJJ/yQfieqmxa1Raxs
-         vlno5KcvWSX8Q44r6aFimkEcOqaZcTrnVZeDCrG9I03gjcUYthtLSqN1YScFG/Krxwat
-         iEQMvmzmbds84evhXypAuToIdReOMaCzwL01f9ubVN0MrsOfB+YTq/3bFfe9GFOE6QN9
-         E0xSgvieaSaLyIyryAru61xWKXp4B88pm4wTau6s7XF/P3rtcr4kUMVIJOjaLS4mSfRb
-         rcV9cwWUw7715oRRMBUF3l2l67tpOTWbv9Q6eqNmwO/Xdi11bZD/lqbTuHFmYB5fs6AY
-         l6XA==
-X-Forwarded-Encrypted: i=1; AKwUvByPvfwr1vJEEGPqn7xMYDHJ8rvWXV70k7K91U6mQxTKJ3V1yQDNkw5yvy198AxY52FCGim08l47NSsM@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AiX/X033c1xElHFuobZ/1HMwrCjy5olmlQH2vJ54fADWs4H5b
-	1vCtjQ4QuHwPkwPja1gN+33vZgL/3vw5Aa5dhedA5Nl+qJ6o5ECp2sTYSEAvtYje
-X-Gm-Gg: AYBFou2r0BTSRuW7Jyjv8Zh7nLIBm8G1xeg29lXttTmKlM2DL8r041uBjp2NqH39vio
-	TOPrbvPf4aIee7SSIRCOPn6Zjr+Y8F5l2BwiA0dc40Ubi744Cd/1yL6uo+4TuX6GeMShb2RX6cx
-	h2EDdoGEOaPq3620tTgavzenQMm0easdTueE9yg5apKWnfWY+aZJ7WZ00AXnJAn7ekUN0eeHL49
-	X7kG+1Ui6MTtzZ80AxWmI5GzI0mi6X/Y34aYasc+f8beKxkM4ZHeHk+UwqskL1w1YYdl+94GizH
-	uIW9lfnBKnePYQyET7a7h+MYgORWXJBxDA6QT4efn6WNDxxeag7xtjiDhr2cQIESNgLkFQZyy7z
-	QY1/nwkBZsEZWybfu0/AX2IoaACdVC8f4Eyevrl4xvn4zF57pPZcBVxn6pr5Zp9lU5vT4+jqE3q
-	tfgMcwE49rHsrUjxdXkpVfWPLMSGDDW4pgeLkj/90eU8GqZbnV9wbmo0t+yJweobtCcir7xFq6H
-	ozAPycq8OkaS2Jk4svzrN/FtvK+Lt/BzO9YsClMMsL52uoWl0X8zx/pA6UpocHjPObyHeIWpJci
-	tl1EZ/lu4Dhl4dlAADV1LrWb15h39Tw1bKWskqhjxukaxrQ5VMsmRo0fgtVfa42yzht6VKiukfY
-	Zx+A2Uq1mtQHgsFKeKZT/HM+5YOFX2OJ273fT8LV6Pp4=
-X-Received: by 2002:a17:90b:39ab:b0:3ae:a531:4e73 with SMTP id 98e67ed59e1d1-3b0db6210b3mr166812a91.7.1793910975210;
-        Thu, 05 Nov 2026 12:36:15 -0800 (PST)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42a7dsm603528a91.5.2026.11.05.12.36.14
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 12:36:14 -0800 (PST)
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3514b90bb89so4479832eec.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:36:14 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwoJtlUDb5hqSNV4CNU4oe5KgDsVhyi5Wx5aAIv4hNbDxX4+qxbWD/19X81hMBjAqW+ceRR4yUZRxaC@vger.kernel.org
-X-Received: by 2002:a05:693c:8008:b0:369:d486:457f with SMTP id
- 5a478bee46e88-36f73e72d61mr409769eec.2.1793910973768; Thu, 05 Nov 2026
- 12:36:13 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0462D606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=giNRF5hd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5451F0089F;
+	Thu,  5 Nov 2026 20:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793911624;
+	bh=iwSvkRkpOWBGW83akrluHEHwbKajB2SPuhhgAy7lKS4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=giNRF5hdOlfUKZoMn89w0g+ovzxvBC7sm4VXwW3l6X4uUaiiXrSHAJRbsaFe5tjgk
+	 hja0QnOeNDM/7ZShjz7C2/daLBuLXG4/JPr8vZYsiCpd9gzxca4+nn9zHeoo/1FnK7
+	 6iR5admW5tNOSofCppH1NFSQOMDpbnOGj4Zbmv1KFzyViNvyUKh0sKGEhpmIU/r2z8
+	 fY2s4Rd5S6LYcndJgkw20u+UxfVxibHUf1Gpg3TNnBi4+Vw5skNGpjpX1VsK9bCBpU
+	 Y5Cqc3PfOKP6+AoIrGSUwBHr5n3qnQUXKONLIshWDRmejFrlJbE+C37npO062MDRNk
+	 IIAF3FgrWFJCw==
+Message-ID: <sashiko-outbox-200133@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v4 2/3] arm64: dts: qcom: Add
+ sm8250-oneplus-common.dtsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frieder Hannenheim" <git@fhannenheim.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105-kebab_dts-v4-2-c6bbe6ded92e@fhannenheim.net>
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-2-c6bbe6ded92e@fhannenheim.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 20:47:03 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,26 +60,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
- <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev> <CAD++jL=Bhbm3eNafdRTSKcnjyivhdmp0Mk1iHZ=HKN9sy_3Ozg@mail.gmail.com>
-In-Reply-To: <CAD++jL=Bhbm3eNafdRTSKcnjyivhdmp0Mk1iHZ=HKN9sy_3Ozg@mail.gmail.com>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Thu, 5 Nov 2026 15:36:01 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4ExRTFJ+1q7GDw8ow=_ekk8urUqfC7ZtcYckwf1uO+vw@mail.gmail.com>
-X-Gm-Features: AclHuK_D3HUaJCQYumF5y8SooLOqbAC7H10kZ7apqTopxHnLZbvIW5XAq_-o6t4
-Message-ID: <CAPY4CJ4ExRTFJ+1q7GDw8ow=_ekk8urUqfC7ZtcYckwf1uO+vw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpio: Add Siflower GPIO controller driver
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
-	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Qingfang Deng <qingfang.deng@siflower.com.cn>
-Content-Type: text/plain; charset="UTF-8"
 
-> Completely pointless indirection, drop these functions, just use
-> readl/writel directly in the code.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: duplicate KEY_VOLUMEDOWN on gpio-keys and pon_=
+resin
+- [Low] arm64: dts: qcom: unused vreg_s6c_0p88 regulator in sm8250-oneplus-=
+common
+--
 
-Thanks, v2 will drop them and use readl() and writel() directly.
+commit 564ff98ec1e681e7bcc2a9e910efbd58280623b5
+Author: Frieder Hannenheim <git@fhannenheim.net>
+
+arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+
+This commit adds the common device tree include for OnePlus devices
+based on the Qualcomm SM8250 SoC.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi b/arch/a=
+rm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
+> new file mode 100644
+> index 0000000000000..6d7793c792f05
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
+
+[ ... ]
+
+> +	vreg_s6c_0p88: smpc6-regulator {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "vreg_s6c_0p88";
+> +		regulator-min-microvolt =3D <880000>;
+> +		regulator-max-microvolt =3D <880000>;
+> +		regulator-always-on;
+> +		vin-supply =3D <&vph_pwr>;
+> +	};
+> +};
+> +
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible =3D "qcom,pm8150-rpmh-regulators";
+> +		qcom,pmic-id =3D "a";
+> +		vdd-s1-supply =3D <&vph_pwr>;
+> +		vdd-s2-supply =3D <&vph_pwr>;
+> +		vdd-s3-supply =3D <&vph_pwr>;
+> +		vdd-s4-supply =3D <&vph_pwr>;
+> +		vdd-s5-supply =3D <&vph_pwr>;
+> +		vdd-s6-supply =3D <&vph_pwr>;
+> +		vdd-s7-supply =3D <&vph_pwr>;
+> +		vdd-s8-supply =3D <&vph_pwr>;
+> +		vdd-s9-supply =3D <&vph_pwr>;
+> +		vdd-s10-supply =3D <&vph_pwr>;
+> +		vdd-l2-l10-supply =3D <&vreg_bob>;
+> +		vdd-l3-l4-l5-l18-supply =3D <&vreg_s6a_0p95>;
+
+[Severity: Low]
+Is vreg_s6c_0p88 intended to be connected to regulators-0 via
+vdd-l1-l8-l11-supply =3D <&vreg_s6c_0p88>, or can smpc6-regulator be droppe=
+d?
+
+Right now vreg_s6c_0p88 is defined in the root node, but nothing in
+sm8250-oneplus-common.dtsi or sm8250-oneplus-kebab.dts references it.
+
+[ ... ]
+
+> +&pm8150_gpios {
+> +	vol_up_n: vol-up-n-state {
+> +		pins =3D "gpio6";
+> +		function =3D "normal";
+> +		power-source =3D <1>;
+> +		input-enable;
+> +		bias-pull-up;
+> +	};
+> +
+> +	vol_down_l: vol-down-l-state {
+> +		pins =3D "gpio7";
+> +		function =3D "normal";
+> +		power-source =3D <1>;
+> +		input-enable;
+> +		bias-pull-up;
+> +	};
+> +};
+> +
+> +&pon {
+> +	mode-bootloader =3D <0x2>;
+> +	mode-recovery =3D <0x1>;
+> +};
+> +
+> +&pon_pwrkey {
+> +	status =3D "okay";
+> +};
+> +
+> +&pon_resin {
+> +	linux,code =3D <KEY_VOLUMEDOWN>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+As reported by Sashiko on v3 [1], why is KEY_VOLUMEDOWN defined in both
+gpio_keys (on pm8150_gpios 7) and pon_resin?
+
+In gpio_keys, key-vol-down configures pm8150_gpios 7 with KEY_VOLUMEDOWN:
+
+	gpio_keys: gpio-keys {
+		...
+		pinctrl-0 =3D <&vol_down_l &vol_up_n>;
+		pinctrl-names =3D "default";
+
+		key-vol-down {
+			label =3D "Volume Down";
+			linux,code =3D <KEY_VOLUMEDOWN>;
+			gpios =3D <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
+			debounce-interval =3D <15>;
+			linux,can-disable;
+			wakeup-source;
+		};
+
+At the same time, pon_resin is enabled with KEY_VOLUMEDOWN. On SM8250 with
+PM8150, Volume Down is normally routed to PON RESIN_N, and
+Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml along with
+drivers/pinctrl/qcom/pinctrl-spmi-gpio.c list gpio7 as a pin hole on
+qcom,pm8150-gpio.
+
+Should key-vol-down and vol_down_l be removed so that Volume Down is only
+handled by pon_resin?
+
+[1] https://lore.kernel.org/r/20261017-kebab_dts-v3-2-5fc3ca52a383@fhannenh=
+eim.net
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-kebab_dts-=
+v4-0-c6bbe6ded92e@fhannenheim.net?part=3D2
