@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888837;
-	b=nN2WHrv05p2fA2m0Ir/1yrUljE1BFU4hbJXR0+f3O94unF/TbBuRabl9aR94nZNn9mEP
-	 Ha09RRDm0lIMbOH5NJGgomGOwJrL9qtkv7TbwzmjhRQj/sF8ZOhJDJljFB4ZmE/UmXvw+
-	 mMjtxsHHz98qChA5C1XD4aeMkJX5N4gTOZwyg2uPlPwVU1AOht2tSbsRBkmFs6CnP1jX0
-	 sGMZLbwE2q26/bl0WbZmACw1qECNKlzAqhnOApDahDgFHzR0YUDUz5XznP5nxkR6JuN/N
-	 1iIwntmA+A1UTtOAHCnUBBQAfbBA7HtwYRwHX801zvOOsRyP07zovnu4hbudkwlbjJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888837;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=PVN0ELGdMQ7giLb20G3NaioDb+tdO+OXxmlk7zkEwyw=;
-	b=hdVdgh0Tl2GRiL7/ZOoTYjTrcra0Djl/rB5TLDi4moRbG4FQUQ2l2EWhekPralVryRNd
-	 Y1sdKqyQy97C2DA6GhChBrFR1ZsoxH8JRetR4Jf4UltFdYitj0+8uftimPajR3x4ZozJm
-	 TfDhbNHY2IVPb5MknnCzbvEBLKljjluqM7i/v9bdqpaw7WSwbTo9rYXhLuXV/ZjVAnx+g
-	 zXrvuC7OnXxzVQf2eXsfbGOZmPQOnhA9V/6AUphEs+oclPK7HNQi5u1F9nUNqzLKzCP8m
-	 WAZQWd38vS/bZJfx4Cs9GxuhFoWEs6qn28MY/E/5JvI/2yUP3KSPs8IBgpBB9ctkR9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYScbl4d;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793888943;
+	b=rHrOO4YONi3eawZoCQBI1USp+lcXHFCdjUGdAfZWw7gjcC+njTwyIGs1twqrWOBr4xRY
+	 HKeK9mWz17KPA9FcxBPWVXRCBIyeTys7yw3Z/IRPlkmMAJNjSkAkyJ+KDChiclja6BJWg
+	 Rogyc7d6FMdiL6JIe/DflDXvay0n6ef0i0Zf77QhSLNsCh8P6uHYhPhzMm+jaoAv4MxK5
+	 wyBFr+Lsg3git2annv9IrXUfK76AIdP+VB3MNPwC3xUnZzUHuLTX01gOI304IjJUHaETN
+	 EzUC5iGuWBPOJNkrHBb8RvAaCv+r3s9or6MMhRXATp5eNxH9qoEq7xxjGL4tbsSalFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888943;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xyv5QiQC/fJR9Hi5C+KlTYMrVRwfl8cUX06VGdm38e0=;
+	b=i8RMjl0J3pYR/G7NxNzS3k5RTTZYRL0h34fD9f2xcFnQUrJTenAEAbJvHT0nmVPOWjnJ
+	 td580fSH0Ifi4rUomOpoVKFmrEDv0yNA7MWcsTMiYpsLdL5yN3GszsEVKlseDzVczqLaD
+	 h7LoKRhQILSaY8idoq9+0GAZCSt2SA30KJIPlY0KXaJV9GtrxLNPaedojvVgHpHq4yJX1
+	 O4HKteyw4eO8UVxPQSnZ3/L61OUqq2M54Lx2obTGcnjaejEM+qqrlVbYadHwPCN4wsRN/
+	 tid+ojsDZvZKJG+408Fc/pgU61M6W2nfWJm+7LPtCfqIJzktzGxZrocP6OPG/d3BmuA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ei9BOE0m;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECEA606A326;
-	Thu,  5 Nov 2026 14:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D42606A31B;
+	Thu,  5 Nov 2026 14:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYScbl4d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1191F000C1;
-	Thu,  5 Nov 2026 14:27:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ei9BOE0m
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793888943;
+	b=gCqvips0I34xCkLj3W0MVdoo2XPTwv4wEmnJOtGa9NmPbjDLJpDsaP74mLjX5d+NEpY7
+	 4tfFpwqwJ99QMS/vdMunL4MJUUA+24xYiFsHWf9lCKw0lzEIpfpWftB3LRkUFA863vpUu
+	 foiOreb8HY778X5iCZPy5jniE0M24ukYFX9kUEZP2PMd6ENlUc8duxBHoMWI7nzovD1Su
+	 Z6HZOgXsilOIeiWImnBVAkpAG+dUcZsYDExoKcLUq1RZNbn8pgVK3uhvj3FVMdM0QoHM4
+	 wm8Iu3GjNwlR3QCOUhEWN7eZb2QwCf0cBc1wzmU2wbADAWLl72tyINoYXtfspH20vRQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793888943;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xyv5QiQC/fJR9Hi5C+KlTYMrVRwfl8cUX06VGdm38e0=;
+	b=0uXEvwztY7fGRAnREyfc+YqO5czKejdz0QGy9pgeQFXDsQIDmlcuCcWBwikRYR7rqGp9
+	 yHHmnCbkmJ/Hf+0RWeL4UePIwGdO7LQZQ9JD0ncfR8EpkZpb5JjZ5blm7+YXQBmn+muNz
+	 /fH/0J4trfpFUjf1HjIKPvnqDmRMzfACZq0OWWsy2cLIOet71pbtQVAlKJOSZqDYfSDj7
+	 iqoUBOSj8T4pl72Dea/Kifr07BGhMOcQ3hFLvvtR+gBgR4zwqECRoE1hKkBBrtHokFEyv
+	 hljMlzPn80o4+WHXwUlpkMRgMXS/jC8sg0VTrF96JDNsQTE36ochxRj0rKJKM/arolw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id B01381F000C1;
+	Thu,  5 Nov 2026 14:29:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793888836;
-	bh=PVN0ELGdMQ7giLb20G3NaioDb+tdO+OXxmlk7zkEwyw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fYScbl4dzb1QovStScibOTtBy+bhwgpxHF5zQol7EmtxrvvgV33DyEpZWDUC+Djg0
-	 CTaYXLyNJYoh7aznaf0IFjiXX05rBy2ryY3H0PpjMHh1IhaPAQct2duZZZSm9DB66t
-	 CV3uCkYwdZrAYsHSpabwZr17XQfnwVRIVMvkrXzMa0aHBvatPbiuY1b7CwKE+TKRIa
-	 tLwK/sAja7iNDV/Y1leHaz2OSScw2IxW478K00WcF7hETqGIvhOATYcxrzZqVX70xO
-	 WE/JjKzwbyp4m4CNUlZxsLPv++2mJ6GBIH9toi6k4MozdH7K7EjKHZwjQiqNAEmXCj
-	 T7qIX98swl8rg==
-Message-ID: <sashiko-outbox-199240@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 15/16] ARM: dts: microchip: sam9x60_curiosity: Enable
- OTP Controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexander Dahl" <ada@thorsis.com>
-Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105110715.2486432-16-ada@thorsis.com>
-References: <20261105110715.2486432-1-ada@thorsis.com>
- <20261105110715.2486432-16-ada@thorsis.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 14:27:16 +0000
+	s=k20260515; t=1793888943;
+	bh=xyv5QiQC/fJR9Hi5C+KlTYMrVRwfl8cUX06VGdm38e0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Ei9BOE0mZ1H3E+5eZaJZjM2Z08TSMXaU432FQKSDeblHJRQOtJiF+Xxf5qBS859IV
+	 h6gtROO5BLaN77SHrsaJfvtAtpwzK+qq2VNExHXWZvtv2OSwohllBVLKSrm0Gzm4Y7
+	 vBudnY15PFRRkopf0C24Bjl4f9O6KU3cGZpByjm8d50mnFpdwG0dv/LDMBEphobjxu
+	 U6MNLmMbdH8ao0t/u3nF+qfSCnVFLcg6cOXyRpElcR+9RDEpPkqhQ4CFKq1nV8Dmzm
+	 UfBU9V8iogSxj1YGaGYIvCzBlz9J4iOeZJzqqIY6oVJN6Mxeehfx8tEl7NJ+vqdcqD
+	 92JBkalcpgjWQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 23D45472A3;
+	Thu,  5 Nov 2026 14:29:02 +0000 (UTC)
+From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
+Date: Thu, 05 Nov 2026 14:28:46 +0000
+Subject: [PATCH v2 1/6] dt-bindings: arm: mediatek: Add MT8163 Amazon Echo
+ Dot (2016)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,65 +82,65 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-1-e68d7d428f99@protonmail.ch>
+References: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+In-Reply-To: <20261105-arm64-initial-support-for-mediatek-mt8163-soc-v2-0-e68d7d428f99@protonmail.ch>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sean Wang <sean.wang@mediatek.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-serial@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793888941; l=964;
+ i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
+ bh=68O/KFoEd8IiZ5hJEtL4JTCzMFkMQ0kQN5eapp9a42s=;
+ b=wcE3Nn99jWzv7w1Dm9Rw94NFLpd/08GdQen1Di6JhiiMKBMGhEhqLbZz5u/In/9+1LTkJhft+
+ 0JHPerJVhL2AGcHe9vgNkx/oB0AJh3go+C+huLixrbfd7m2PN+ysRIj
+X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
+ pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
+X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
+ auth_id=1233
+X-Original-From: Ben Grisdale <bengris32@protonmail.ch>
+Reply-To: bengris32@protonmail.ch
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] ARM: dts: microchip: redundant otpc status in sam9x60_curiosity.=
-dts
---
+From: Ben Grisdale <bengris32@protonmail.ch>
 
-commit 3ab977663934498a6526ef5c90d107058dabd158
-Author: Alexander Dahl <ada@thorsis.com>
+Add compatible strings for the MediaTek MT8163 SoC and the Amazon Echo
+Dot (2nd generation, 2016), codenamed "biscuit".
 
-ARM: dts: microchip: sam9x60_curiosity: Enable OTP Controller
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
+---
+ Documentation/devicetree/bindings/arm/mediatek.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-This commit sets status =3D "okay" on the &otpc node in
-at91-sam9x60_curiosity.dts to enable the OTP controller on the SAM9X60
-Curiosity board.
+diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
+index 180e6e4948e7..15db402552c1 100644
+--- a/Documentation/devicetree/bindings/arm/mediatek.yaml
++++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+@@ -129,6 +129,10 @@ properties:
+           - enum:
+               - mediatek,mt8135-evbp1
+           - const: mediatek,mt8135
++      - items:
++          - enum:
++              - amazon,biscuit
++          - const: mediatek,mt8163
+       - items:
+           - enum:
+               - mediatek,mt8167-pumpkin
 
-> diff --git a/arch/arm/boot/dts/microchip/at91-sam9x60_curiosity.dts b/arc=
-h/arm/boot/dts/microchip/at91-sam9x60_curiosity.dts
-> index b9ffd9e5faacc..c110a8e87568a 100644
-> --- a/arch/arm/boot/dts/microchip/at91-sam9x60_curiosity.dts
-> +++ b/arch/arm/boot/dts/microchip/at91-sam9x60_curiosity.dts
-> @@ -252,6 +252,10 @@ ethernet-phy@0 {
->  	};
->  };
-> =20
-> +&otpc {
-> +	status =3D "okay";
-> +};
+-- 
+2.56.0
 
-[Severity: Medium]
-Is this status override needed, or is status =3D "disabled" missing from the
-base otpc node in arch/arm/boot/dts/microchip/sam9x60.dtsi?
 
-In arch/arm/boot/dts/microchip/sam9x60.dtsi (added in commit 35ed4513c16e),
-the otpc node is defined without a status property:
-
-		otpc: efuse@eff00000 {
-			compatible =3D "microchip,sama7g5-otpc", "syscon";
-			reg =3D <0xeff00000 0xec>;
-			#address-cells =3D <1>;
-			#size-cells =3D <1>;
-			clocks =3D <&pmc PMC_TYPE_CORE SAM9X60_PMC_MAIN_RC>, <&pmc PMC_TYPE_PERI=
-PHERAL 46>;
-		};
-
-Because __of_device_is_available() in drivers/of/base.c treats a node witho=
-ut
-a status property as enabled by default, the OTP controller is already
-enabled on all boards that include sam9x60.dtsi (such as at91-sam9x60ek.dts=
-).
-When mchp_otpc_probe() in drivers/nvmem/microchip-otpc.c probes the node, it
-calls devm_clk_bulk_get_all_enabled(), keeping SAM9X60_PMC_MAIN_RC and
-peripheral clock 46 permanently enabled.
-
-Should otpc in sam9x60.dtsi have status =3D "disabled" by default so indivi=
-dual
-boards opt in with status =3D "okay", or is this override in
-at91-sam9x60_curiosity.dts redundant?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105110715.2486=
-432-1-ada@thorsis.com?part=3D15
