@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.87.157.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793843196;
-	b=nmWunorea/6JVMXjnWilf8CIf74lslcUuN4K1+ibfbx0cfZZuWaJy3LnRaN8hPKSRSQh
-	 0WwiWj4iYXmzYxGNr+quol/VA3YO0ZWgk716kW+6QRpneciBzk3phtxVS0O1fAvVzRELW
-	 hI/cRliT5Kmkzh3TPvAJw9FQAO7Jx6Sta2OvjMMgbvioSDiN4Mg7ZtQkk4nJhfHx4egPK
-	 j/DLlntH3weN8l1k/ZtkaY+5VOzqfXD+RtQyutarzaKSlK0IjyakrsDxwgKM5efmH/ptw
-	 dtLzDnY89B0lv8mygDuBk9v+tblpDn9bc/xHrAybd77EkOKv72EqIJdxZqUZ8M8kdtw==
+	t=1793843476;
+	b=wC0ug/6kQNt3hq3SwHpHTIHAsm+bUfCKxxXZ5HIv8ED7P6Y0tUOhw2I5TX8lNseAApkC
+	 cYVkIIC/cynNithgidIUlxxNKibb2M+TX3zQPltBxyNwF5v0wWwm8wKFI5pvQpqYsvOX8
+	 Y1cYM7iYTYjttrdkVN74WpkS7xjTKgxuZ1uuFGu3BPMHp2Dr8M5+RjW4ob+GHpSpYN13N
+	 rHBziW8jsyEgGNQynOPGAgaw8fyB0bS/T3F9sGDNi0beliubORmSqY6m6rrzaRidqQcKL
+	 tC50ag3/+lDcpTtBjLIAhNMPceTj8euYC5XDNL1ZbbbfEULPjnVFAALQT41w/VTUG2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843196;
-	h=DMARC-Filter:DKIM-Signature:Date:Cc:Subject:In-Reply-To:
-	 Content-Transfer-Encoding:Message-Id:To:From:Mime-Version:
-	 X-Lms-Return-Path:References:Content-Type;
-	bh=mAEHk156ALRm/Yk38m2Sb6tcWOHC1b8Vy26wU1dgEA0=;
-	b=l+q3nYnP87V28MZO3ektaskmbu0BEVySlcS8LifMeMPP2+GMFuoUIUqtvktty+4balFc
-	 a8KZpxaw/GFpGQyEIbbTBX2xkf3NLt9iEpE38Mfa0zj8Uk8tc3mNkiUJiubs0hzilnWWi
-	 RLjlLUyAiz1752lqtUlfoObaciif+3SC4ADFbMzvVyydNRrDqf82tPEneFCWcVTeyyOrq
-	 eWro6xtV/5NqBM3gA3q+LdQ3T2cbSObS0xGME7HnenSH6zt5sk3hY12udi2lB+j/qTQDW
-	 +Z9J2v+DHkNqD5vxROsMe1G2UarJprfuy5gwEwaZXnsxqrDteWPm8vY6T6qN232tssw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843476;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-tm-snts-smtp:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
+	bh=LbT+cDt3x5H3RSlP6PJ6sjoErQEa3773tcGsgbYPWQg=;
+	b=JnGWYFuU2UJUyB7F9/r6UZFX7dmP/d1c+ly0uAOJPRA0z3aamrijRM+GGKjm9VT2wFXX
+	 vL2pR4MBUeQqnQxNByYLEIsYcz1H0Zr9zTl2m532wtEnF0zk5b97DJZAIy6i7LlDl3vfR
+	 N3AnLrddVVhDNJ/7LhgzDtDXvWiVGq+vCWDA5Xwdd2GqDuRlQfNgUNwX7IT8MHnz/0TIR
+	 utaTf7260EbV41BLn8aX1RGPkNeh40Je57QZMKBc6k1eOZbisV75yBskDY3eFqlaksdCt
+	 uGjs6m/vBICz7NjxIaIYcIsCyrBQ7mrsjANg0WWpLWCgGNqT6fPp25qfunrkFnWhBIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=SotxgQiF;
-	arc=none smtp.remote-ip=209.127.231.39
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ite.com.tw;
+	spf=pass smtp.mailfrom=ite.com.tw;
+	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GSTl0NbS;
+	arc=none smtp.remote-ip=219.87.157.213
+Received: from ironport.ite.com.tw (unknown [219.87.157.213])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D808606A326
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 01:46:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D808606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B542606A31B;
+	Thu,  5 Nov 2026 01:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B542606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=SotxgQiF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1793843190;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=mAEHk156ALRm/Yk38m2Sb6tcWOHC1b8Vy26wU1dgEA0=;
- b=SotxgQiF9ljVkzBcaF38B0g9igWK+Sm+1s6SPsJGdXH5mSb2fEUHnmh259S6ynBaULJxfK
- Czv6nKXHVNPctX2O28H/FaMNv10WEJ/nlW8lVxfCDQy9N2Pi0ulj9VyS2+XrWNBSnwNUrq
- 5N1NYFIip+5Uj5ucbVs46rOgd8gyZARBhmKOATJyQFZBmmnxxp2YF5xC8pfU7VJHQrHpDR
- b6is6TcK/261tUoAjao97baDkpGvZ9WbqxMzLvCaXnaelkWO7jewMdYpdAsyMce/gvP1oz
- ldmeaAQFjOL8RgxKpOxlZTVdyrXXyucP97jN26JpoaP4/XMWLK/6qCTuoVWxyg==
-Date: Thu, 05 Nov 2026 09:46:27 +0800
-Cc: <alex@ghiti.fr>, <aou@eecs.berkeley.edu>, <conor+dt@kernel.org>, 
-	<devicetree@vger.kernel.org>, <dlan@kernel.org>, <krzk+dt@kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<palmer@dabbelt.com>, <pjw@kernel.org>, <robh@kernel.org>, 
-	<spacemit@lists.linux.dev>, <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH v3 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator tree
-In-Reply-To: <5f595068-671e-4823-95af-da1702354a16@murena.io>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.4545f39b.8adf.4983.b26a.7df21480401c@feishu.cn>
-To: "Maud Spierings" <maud_spierings@murena.io>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GSTl0NbS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=LbT+cDt3x5H3RSlP6PJ6sjoErQEa3773tcGsgbYPWQg=;
+  b=GSTl0NbSoL/bHoZShCiPCDOG4zpZkxuRpvMHuPrnq3vYGbDmrRHWjqKq
+   eafc1tcP4CaV4ozd+rkW6ADyXAwYksMlN87/bKH65qbI5g8vGbpTfj6Yq
+   CxIa8UrxdVGWiJnsKyrnxR+hMxl3I3/YQmkT8A7Obt2T99RzoJnQdQfH6
+   MVzNTTxfuZ6ZTYQsqURR55dFI7yLiHkqnfo/oO8XMqykRhn2cTa9PCDVt
+   mc8540/jQb4136i20P2YT01bdcZrEXQfhXSfyQ85xF5VYoSZZZvJHZot0
+   Rx09yeqSfqN5O8wrdq2dVTJ7wO/1C0FcukJxV9rvaYCybfS2+Gt+VeMQA
+   w==;
+X-CSE-ConnectionGUID: Ho0X/4iXTfe1+B0p127BJw==
+X-CSE-MsgGUID: bvNrJYKpQJudTrTDXMPhAQ==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 05 Nov 2026 09:51:04 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 6A51owQl083341;
+	Thu, 5 Nov 2026 09:50:58 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 5 Nov 2026 09:50:57 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Thu, 5 Nov 2026 09:50:57 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <krzk@kernel.org>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <hverkuil+cisco@kernel.org>,
+        <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
+        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
+        <linux-api@vger.kernel.org>
+Subject: RE: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
+ properties
+Thread-Topic: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
+ properties
+Thread-Index: AQHdbGgxolHeqP/vkkmm0FEYfk19CbcetuOg
+Date: Thu, 5 Nov 2026 01:50:57 +0000
+Message-ID: <01818606697f4504b67d6f461d04ae57@ite.com.tw>
+References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+ <20261103-upstream-it6625-alsa-i2s-v1-1-bb91e2879b01@ite.com.tw>
+ <20261104-sparkling-icy-hound-fd0dac@quoll>
+In-Reply-To: <20261104-sparkling-icy-hound-fd0dac@quoll>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 0A64C475197B0BD3ADEB90642EE49E854F58658056F55C1F726BA9C9AD51143C2002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,76 +96,34 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+16aebdff4+94c4e6+vger.kernel.org+sandie.cao@deepcomputing.io>
-References: <20261102060105.100645-1-sandie.cao@deepcomputing.io>
-	<5f595068-671e-4823-95af-da1702354a16@murena.io>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+X-MAIL:mse.ite.com.tw 6A51owQl083341
 
-Hi Maud:
-
-> From: "Maud Spierings"<maud_spierings@murena.io>
-> Date:=C2=A0 Wed, Nov 4, 2026, 23:31
-
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts=
- b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > index b5d5112de358..804abc85602a 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-> > @@ -22,6 +22,161 @@ memory@100000000 {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0device_ty=
-pe =3D "memory";
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <=
-0x1 0x00000000 0x4 0x00000000>;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0reg_aux_vcc3v3: regulator-aux-vcc3v3 {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D=
- "regulator-fixed";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-name=
- =3D "AUX_VCC3V3";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-min-=
-microvolt =3D <3300000>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-max-=
-microvolt =3D <3300000>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-alwa=
-ys-on;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0reg_aux_vcc5v: regulator-aux-vcc5v {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D=
- "regulator-fixed";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-name=
- =3D "AUX_VCC5V";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-min-=
-microvolt =3D <5000000>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-max-=
-microvolt =3D <5000000>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-alwa=
-ys-on;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-> > +};
-> > +
-> > +&i2c8 {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default";
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&i2c8_cfg>;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0p1@41 {
->=C2=A0
-> I believe this should be pmic@41
-> If it needs a label it could be p1: pmic@41 but the node name should be=
-=C2=A0
-> more descriptive.
-
-This patch follows k3-pico-itx.dts, it uses p1@41. And k3-com260.dtsi uses =
-pmic@41.
-I will uses pmic@41 in next version.
-
-Best regards
-Sandie
-
->=C2=A0
-> Kind regards,
-> Maud
->=C2=A0
+SGkgS3J6eXN6dG9mDQo+DQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBLcnp5
+c3p0b2YgS296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+IA0KPlNlbnQ6IFdlZG5lc2RheSwgTm92
+ZW1iZXIgNCwgMjAyNiAxMDoyNCBQTQ0KPlRvOiBIZXJtZXMgV3UgKOWQs+S9s+WujykgPEhlcm1l
+cy5XdUBpdGUuY29tLnR3Pg0KPkNjOiBNYXVybyBDYXJ2YWxobyBDaGVoYWIgPG1jaGVoYWJAa2Vy
+bmVsLm9yZz47IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93
+c2tpIDxrcnprK2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5v
+cmc+OyBIYW5zIFZlcmt1aWwgPGh2ZXJrdWlsK2Npc2NvQGtlcm5lbC5vcmc+OyBsaW51eC1tZWRp
+YUB2Z2VyLmtlcm5lbC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJu
+ZWxAdmdlci5rZXJuZWwub3JnOyBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5lbC5vcmc+OyBMaWFt
+IEdpcmR3b29kIDxsZ2lyZHdvb2RAZ21haWwuY29tPjsgbGludXgtc291bmRAdmdlci5rZXJuZWwu
+b3JnOyBsaW51eC1hcGlAdmdlci5rZXJuZWwub3JnDQo+U3ViamVjdDogUmU6IFtQQVRDSCAxLzVd
+IGR0LWJpbmRpbmdzOiBtZWRpYTogaXRlLGl0NjYyNTogYWRkIGF1ZGlvIERBSSBwcm9wZXJ0aWVz
+DQo+DQo+T24gVHVlLCBOb3YgMDMsIDIwMjYgYXQgMDI6NTA6MTlQTSArMDgwMCwgSGVybWVzIFd1
+IHdyb3RlOg0KPj4gSVQ2NjI1IGFuZCBJVDY2MjYgZGVjb2RlIHRoZSBIRE1JIGF1ZGlvIHN0cmVh
+bSBhbmQgb3V0cHV0IGl0IG9uIGFuIEkyUyANCj4+IGludGVyZmFjZSwgZHJpdmluZyB0aGUgYml0
+IGFuZCBmcmFtZSBjbG9ja3MgdGhlbXNlbHZlcy4gVGhlIGJyaWRnZSBoYXMgDQo+PiB1cCB0byBl
+aWdodCBJMlMgZGF0YSBwaW5zLg0KPj4gDQo+PiBBZGQgJyNzb3VuZC1kYWktY2VsbHMnIHNvIHRo
+ZSBicmlkZ2UgY2FuIGJlIHJlZmVyZW5jZWQgYXMgYW4gYXVkaW8gDQo+PiBjb2RlYyBEQUksIGFu
+ZCAnaXRlLGkycy1kYXRhLWxhbmVzJyB0byBkZXNjcmliZSB3aGljaCBkYXRhIHBpbnMgYXJlIA0K
+Pj4gY29ubmVjdGVkIHRvIHRoZSBhdWRpbyByZWNlaXZlciwgaW4gSERNSSBjaGFubmVsLXBhaXIg
+b3JkZXIuIFdpdGhvdXQgDQo+PiB0aGUgcHJvcGVydHkgb25seSBTRDAgaXMgY29ubmVjdGVkLg0K
+Pj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBIZXJtZXMgV3UgPEhlcm1lcy53dUBpdGUuY29tLnR3Pg0K
+Pj4gLS0tDQo+PiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0ZSxpdDY2MjUu
+eWFtbCAgfCAyMyANCj4+ICsrKysrKysrKysrKysrKysrKysrKy0NCj4+ICAxIGZpbGUgY2hhbmdl
+ZCwgMjIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPlJldmlld2VkLWJ5OiBLcnp5
+c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQG9zcy5xdWFsY29tbS5jb20+DQoN
+ClRoYW5rcyBmb3IgeW91ciByZXZpZXcuDQoNCj5CZXN0IHJlZ2FyZHMsDQo+S3J6eXN6dG9mDQo+
+DQo+DQo=
