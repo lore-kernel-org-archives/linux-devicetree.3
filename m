@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894049;
-	b=pAtbexKGQ5w/toMSrRUprBIq+roHti3XqhbFCS8gD8k7j2MsC0yGplfYIbJHX7CF8DVu
-	 VHUmMiejTarPWuoFgdpHL9xg2y5/0e2e22FXxM1ZR0NxoG5T+Pirzwz3jiiNCrlDpDZ0Q
-	 W+TA+h+R6g6jPuB9aRVRsvKx/3aiMU9+dTYQ73eayV+r7IOQvUHcGGSGjtR99M0QSQroC
-	 OfGpJpRb4Udk7ah8DzQtu62GRo3R3W8Af+uwJMxayBvKTyFcNtwyUKGLfKAxjfwWB4wly
-	 F7O3hTR+6V8JiuWKTfBfSgXLEUN2WmNY0nGiMsqAmsjlXmVAAAwbisV6RbLxXknPHCg==
+	t=1793894056;
+	b=u/m6P7/DheBXPf0+nwrCXHU0Cz1QhA4qM693X3XhsLyrhYEsVEgUMRkss/91HRqEBpSQ
+	 kc/Ii/ul+Y/OTKm5sHIx5sJxe8TAG1IbUOyDTkQBdrnUJgRQiiwCe3eQMYHNSb7dJo42K
+	 iHEa8XndozscO7EdCYv/dpyJxOpcwWCRRGApdfLuBAlwGeAm1xMXe7jI+tjrGFV12Ft7S
+	 9bakripF4Qxni8G7TcqWU4w0P38H3JCkctgCO31fIOgYuAb3ItFG2YmCRqFBcLZ7AMRtj
+	 p9mgGsLov8TeHCml/7pl5/lh6+0CxX4wQHfwQU5AND+Q7TfaVQZzGnogIEs5y7fwjZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894049;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=7lRC6CWOVikwkZ28NfqI8YIi29jv4pscxSqAe8AOmBM=;
-	b=S23PcwwZVbILJwjNRzwu4HY+GjANiDVQv1nXUKRImEpJJ6Uzk1cYCh5BaNQQA7CuR5PH
-	 w5kBoa5IsTdyGIPsOVPts3fUiaxWsHrU3tphIRSOGAzAK6Qm2roresUJ5rzev6MhYyseU
-	 vWgiWZtqWMkWOgg3+0U3c0Kr4zAUwT1a8hTD0Lv6xgAXG93dfQ5KAuQAonx0crIb6rLHo
-	 M+b7y7Wy09whd0hDK+9IxwmeqT/fDZ6AuXbITyqWgp2lTLGzA7ao1AKl79UU0zBOarXjm
-	 3RZ1J882IUCw/7QdNVhgeJyO2t4hHgluHtNEdJKO7cqLXiMRLod6asYbaD6R8t2fFjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894056;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Qx04Fn5WCCUloxDGXEqPfWbEyZHIMrkGFVFAAcnvj1E=;
+	b=BZxuFbygl7aEY+fT9YQnvk6s2F+tLBDNA7oex1M+BLtbZz52hq2hdcFS0Ky0s7VFEJy/
+	 ZMRzYgAsSc6VVTqv1HFrG5aG8tlqFSLpUasOvQMDvVz2wm/TFeWoC1fk6ASrajB/+OQnN
+	 uDw/78jpOBJCI1n4xS+9OXQPpfh5lF27jGFjzSYSaWpSZyfw64ay4Mg3y/Yno2GgaOa9P
+	 YU6BpRJaz9q3Slnup9uDTdJ9/XO2Q3th4ltjKoz80oE1335A598CaFMSY5NWBR6Cpnsnm
+	 LjC1o7zfwec2mK4wKj1yh3KY1FrBWY3wGmpfILQ02uwmJ+OG8/CQjjyswb+BUAbwCfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ugt04DdM;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDbY6ecL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C991606A621
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 15:54:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C991606A621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF12606BEB3;
+	Thu,  5 Nov 2026 15:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ugt04DdM
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc7d154ec4fso949266a12.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 07:54:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793894043; x=1794498843; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7lRC6CWOVikwkZ28NfqI8YIi29jv4pscxSqAe8AOmBM=;
-        b=Ugt04DdMvXNIQi3CXkpq6YOCaNigKtVrwiH+cApbnptfKsc3875hQ8SLzdVvHnp1BT
-         dDJKJlt57BhJ/VRTJXF34zczoA/aVp5goduL7Ghdh5Us3RrGs3LoOL/AsaVHnWTxn1Yt
-         yWCn/Vb3vePRNkG3+cBgdBmV0XE4n0miN8b5mHWpzbyQRZ2XIoBZaiF0Iq54jw5ycBTL
-         atYFmOBbhhDiuO4wc3GLBxcxNsj/EgNPc8K2pi9jYNhuIshsfZQ5kGY9JrzJy83XlDZ9
-         Tbp26ETT/OdIgT2qr2LwwoiTDpKy9aEYZyrTmyiBc9jmm/JdJlTVst3dMSpSWDKet7UW
-         vIRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793894043; x=1794498843;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7lRC6CWOVikwkZ28NfqI8YIi29jv4pscxSqAe8AOmBM=;
-        b=iH/SXR3vSUwZ6vd9OZecJ446BFz/qgvba63l8p4L5HJQ5fWZziCjm1WVC7O2d8/1iP
-         xB9VsnHjsdUAg4EfcIhOnOPazzYXf6ARsDcOvlXmArMuZzK9uTGRg9vm2U8BN/v2bjhh
-         OZG8LsAR65jmBml5nk7uajxk9Mr8zMyAzaRd4upKcbgJ2LiKm+PU3+wjPqnQBK56qwDo
-         r6opNse7TI6mO9L0iHAWy5qOtficweilAopnBhJKUkhCgZAuPuuvsegJXuGz5s5ERnck
-         UoSxVDancJDo94VJo5ztbkzty+9imKDazfbWpaPbV4kSa/44ZnA0Py6fc/K0qtSFOyXK
-         Cu+g==
-X-Forwarded-Encrypted: i=1; AKwUvBy9oIgh5+Zg2Z8j+u/eAJiJlsTMQIu7k47ZRoQJSgAEbWWLKq5qeC0DcBhHkuqyyrsE55v93xEXKOAK@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CTnODt23tJ46+6DWnrzpweTzQyH2eUL++OqJ7xJ6kyAs9IWf+
-	fvpU2T2p6/ylp+DOuLSBZt03ikBzeH8vekxuhuQsD/Ym4pv+ZEEYjH12
-X-Gm-Gg: AYBFou2umo3w18x4NnlNlyLtwQiVKgel2H2y8eSWqLh1VXoCoexJUsOPSgKw8FxROPU
-	nKyuQ2V9vj7KlplC5ZjkMCKdsn/t3mU4+nkG72lwlSgYY66n3Nk7lag6ZoXuD+a/L/zCk6e8hui
-	SA8Wi5lOVyfj6oJClNzS83BjgBDfq1O/RZSo5KHNwrqdO1URJEimATrhZn6EHP5Ru29Dnd0bX5V
-	e6duBNBdP+2V7aGGz45Sq0ndX2POi3Ao+9KdWJIZQv9Ybp/86XSsR+u/q/8QusU/qPq23WsYdIw
-	FJjS0qQ7DOgtq0Ffu53unfb9M/9+3EVIEx4Nxaqq4MbxfOR3zynJwQfQpnyp91CAZPxqDS7pXb9
-	nvF2TcVmNSJBAJyhXjg5bDyvD1Pfptlyge99vZnAiw4Z6tnnwcXtymBmRJ/YYQEVHOpkOCLiLD4
-	hwI+hhMEF71zaJrMhKZbRkNdzIyonstaTey9FI7PDPZEJ0rM2nXTij9yt5bMXCnCB1h4uLyTpFU
-	QY8OMZ+c+wKXwWLTfX9HFs=
-X-Received: by 2002:a17:90b:4b90:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3ae89851099mr16476018a91.52.1793894042835;
-        Thu, 05 Nov 2026 07:54:02 -0800 (PST)
-Received: from [127.0.1.1] ([2405:201:201e:816f:e3c3:bcdb:ef3c:2956])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b2cf80c9sm4518780a91.0.2026.11.05.07.53.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:54:02 -0800 (PST)
-From: Viral Patel <viral8854@gmail.com>
-Date: Thu, 05 Nov 2026 21:23:47 +0530
-Subject: [PATCH 1/2] dt-bindings: iio: magnetometer: add Infineon
- TLE493D-W2B6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDbY6ecL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215C11F00919;
+	Thu,  5 Nov 2026 15:54:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793894056;
+	bh=Qx04Fn5WCCUloxDGXEqPfWbEyZHIMrkGFVFAAcnvj1E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FDbY6ecLi6mWL7FJRAbLrcM5KnAZ/8AO2YmGzmgM9tRu3xfgC1hqenhOxLYPMppzU
+	 RBtd8et/HLr1iC1EljSG1gqA6qqAffYRAQWOpO5LhWqPrhWDOfo1hv5JtBorkS3oiW
+	 IK8J9HmOVZ78eiUwoXzVMdTCufp3o/v0Ck/UHDWlEyFVr4auBLcoVgAAWEeHwa2PII
+	 nnBY0oMzO/kzNov6xN/g91eNuK6SWRU1lEOSZJarBuYx4np3FunuLl4Ay5BAG5tXj/
+	 PgdoITEzcLRV8qGuGrtg6t7SvtTXGBDf27lSFvGGMXw4GccsDCt6xCClzErPkJyh3Z
+	 yUpm42boZzeQw==
+Message-ID: <ef332a20-1ac8-4d48-a959-46564b2bac42@kernel.org>
+Date: Thu, 5 Nov 2026 15:54:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,115 +51,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+ <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+ <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
+ <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+ <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
+ <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
+ <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
+ <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
+ <NUja4NZnMkyTt6MD1zxOgyvaVUt4kYTyCBsAGVgEHmlKx1cF07IBzdof-mwD3kOQTYcrpu40iXn_2lIcTiHuww==@protonmail.internalid>
+ <4d656385-fd3b-426d-b326-b1d20ba1e2d7@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <4d656385-fd3b-426d-b326-b1d20ba1e2d7@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-tle493d-v1-1-3246e91e6394@gmail.com>
-References: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
-In-Reply-To: <20261105-tle493d-v1-0-3246e91e6394@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Viral Patel <viral8854@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793894033; l=2848;
- i=viral8854@gmail.com; s=20261014; h=from:subject:message-id;
- bh=FR1ySw/9hgFNGeOtC9yaVRejdNXl5U2rc2d5645AYE8=;
- b=ntwaFkEjnDHWypKRs0NxTxwu1QSP1xhgCTyTbCwd1OAgwx3t9TnJha+6oOgDTsPg4rA7tdYPf
- Y+fa81qBonxC/rkt5+A+zUBzE3QQJpP6QqS/vOgkxJHdZzHUwjSuw/P
-X-Developer-Key: i=viral8854@gmail.com; a=ed25519;
- pk=UC+UDB53t70pTK4wncXf3tfh0hsYMCqpxYnTaKX3MYA=
 
-Add a binding for the Infineon TLE493D-W2B6, a 3D Hall effect magnetic
-sensor with 12-bit resolution per axis and an integrated temperature
-sensor, accessed over I2C. The A0 to A3 variants of the part only differ
-in their default I2C address, so a single compatible covers all of them.
+On 05/11/2026 15:39, Vladimir Zapolskiy wrote:
+>> Today, the Glymur bindings define DT ports { 0, 1, 3 } to map to PHY
+>> indices { 0, 1, 4 }. One could argue that this is already an
+>> established convention, as it is documented in the bindings. However,
+>> it is somewhat confusing.
+>>
+> I believe it should be fine to have incontiguous port indices, because
+> there is no need to link unused phys to CAMSS on any particular board,
+> therefore there will be unavoidable "holes", and this can be set right
+> in the documentation of CSIPHY to CAMSS connection.
+> 
+> --
+> Best wishes,
+> Vladimir
 
-The sensor's /INT output shares a pin with SCL and cannot be wired to an
-interrupt controller as a separate line, so there is no interrupts
-property.
+I mean the port numbers currently mean absolutely nothing with 
+standalone PHYs so in that sense I agree.
 
-Signed-off-by: Viral Patel <viral8854@gmail.com>
+OTOH since the numbers mean nothing - they should probably be linear, 
+it's just confusing to have non-linear port numbering.
+
+For legacy PHYs numbering ports after the PHYs is something we inherited 
+and worked with. For the new scheme it serves no purpose.
+
 ---
- .../iio/magnetometer/infineon,tle493d-w2b6.yaml    | 48 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 +++
- 2 files changed, 54 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
-new file mode 100644
-index 000000000000..46f9c0e77e24
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
-@@ -0,0 +1,48 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/magnetometer/infineon,tle493d-w2b6.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Infineon TLE493D-W2B6 3D Magnetic Sensor
-+
-+maintainers:
-+  - Viral Patel <viral8854@gmail.com>
-+
-+description: |
-+  Infineon TLE493D-W2B6 3D Hall effect magnetic sensor with an I2C interface
-+  and an integrated temperature sensor. The A0, A1, A2 and A3 variants only
-+  differ in their default I2C address (0x35, 0x22, 0x78 and 0x44).
-+
-+  The sensor's /INT output shares a pin with SCL, so it cannot be routed to
-+  an interrupt controller as a separate line. The binding therefore has no
-+  interrupts property.
-+
-+properties:
-+  compatible:
-+    const: infineon,tle493d-w2b6
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        magnetometer@35 {
-+            compatible = "infineon,tle493d-w2b6";
-+            reg = <0x35>;
-+            vdd-supply = <&vdd_3v3>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0017755f593b..c8916e1286d3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13110,6 +13110,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/infineon,peb2466.yaml
- F:	sound/soc/codecs/peb2466.c
- 
-+INFINEON TLE493D-W2B6 DRIVER
-+M:	Viral Patel <viral8854@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/magnetometer/infineon,tle493d-w2b6.yaml
-+
- INFINEON TLV493D Driver
- M:	Dixit Parmar <dixitparmar19@gmail.com>
- L:	linux-iio@vger.kernel.org
-
--- 
-2.43.0
-
+bod
