@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.154.54.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874716;
-	b=rRQDuCsy5UU+NJ49A5OWy3D5qLhrDU1G6ZdZZ7kZl2xtECDYby471LTtvpAeO84J4NJs
-	 927uJUVzohK7z+Zj5VFmYjsoSR9dKTmKkXrZ6CO3coPnS5KwiiiqSuqmSlhS/dMHOvV6y
-	 a5WNdUiWQFE1QtzyS9GZL6ugIUporjzEu/laciSymMWQ6hWsLpJCBivBMOWAmAjjuHlx9
-	 nYqStd4oha6E2W7TGlhYAyr5QTzFpuEyTRZBEc644APRRZHxqED2Y/TJzqCCOJyntBvve
-	 L0BGQk87igSje4a5YssOn0oe20IknTXaoSVbJoed2trBBtj4WDzZw0enSQX5uk8RbWg==
+	t=1793874865;
+	b=qz/EzTUSx1QMKL985PaX4YsCJswfeUVeHMaeT8m+TfLDhgHpqYaYQy6BYXAkNCKeps+Q
+	 QxvvcR1IcoBP6fy32WKPFM/hhVgTBYA5CHCklkhn9rvWgPgYPQMElEfSzbVuX7XbqVia0
+	 1cIEFmX+idM0v2w7fFHpInOpdfeBz7rmdUxKLv4zxHTgtt38jzVUGlOnufLtbxc42gtEE
+	 r2kwyrowrtdzU2O04tyBL1gcnfCKJqze0CykBXe9GiQF+mz5scbN2YkhQaG8cnNivN0FM
+	 ksWD0wnfEZYETEM7s1XW0GxYnOb0dj/pezi/SjgDCVPMqQpgc+TREarySykF8ZG2/Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874716;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-SPAM:X-QQ-RECHKSPAM;
-	bh=QpryRELSGG80FrBTzrLF4Ebl/cDHIgqfhVdJfsX/2Ck=;
-	b=gmNjFEbcMtG7DC3eTnRf5dKA2d9y7+qqiwHUeb+DxGiz/HbbVaY1DVsL4+IqlU+8EfHd
-	 tStoZ9PI9WlrI/SEIPerYCPyWKJTtaiEviPbVvQIY4GVNqs+zSY/TxUBXebWYUKGwBdnD
-	 K4nKIQi9vnRWitVC/mGy0LZ7hCRERTEz8EzliKyBc4pZ8i/Xj+pezb+AEJ/jMenT6aQFa
-	 uESVx4szonUv6uyp6eMxxpJDAyK9PcReUqyyKV101m2XypycGkSyOkKw83v4zymJKNl9x
-	 /UGC2Qjh1xmEgKnX6+AmdxdI7GCBwwoL+L+pVNC8eJurfNEev+u9rtawxr2bsH3RcCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874865;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ChEGzgU3xU0J0WQ0/TumtbDMAQM01JtXZaOLDqrgf1c=;
+	b=ueGXsSMecgoZbHv2p1lh4jUzOc5YHZ5H66u+CUd1sEG5Nxv6PkHJ/pPnydw8Q4on9+xR
+	 AKswyNIw3YU89YvD841Zpd3K+ADAjvKi3OnSqvBXokXr6cIF/ex8v4zujwcUHU8hJV6Zf
+	 LSptX4AAOnwhQVMilAuDK3BKvgrUHvAaU3n77hXjULTikOuetcsc7YNX0YwLaWPNo9lnj
+	 GfNOzhDTTJNiH9bRa49VUSLBwsCnE6lV1MM676mGfFTP7XEl74eyW1almXZQ0PSk8yRUU
+	 /rv7FgedPvGNT9B+sYlj1MLr82tup5Y1t38zL+UcHJluQQSclPxCt2ctA8DMqmxo4ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Mcj63AoA;
-	arc=none smtp.remote-ip=43.154.54.12
-Received: from bg4.exmail.qq.com (bg4.exmail.qq.com [43.154.54.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9uVCUBS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05979606A31B;
-	Thu,  5 Nov 2026 10:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05979606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A45B606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 10:34:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Mcj63AoA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793874696;
-	bh=QpryRELSGG80FrBTzrLF4Ebl/cDHIgqfhVdJfsX/2Ck=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Mcj63AoALgifsDYgU9vBGy4J90Hp2sv2lyMKh/3DvDG/34+xGnOugdnR9jgDnH+g/
-	 kWVb9758lfeKO7nbcTeTpkO/ezCAgLyC+g4DBp9a75fSieeyoS4JMipM8uHTrVyFmX
-	 Jc14fF2SpNJa+2LxClMLzPjEs9u1OdFGxADRcJI4=
-X-QQ-mid: esmtpsz11t1793874693t02fac1d7
-X-QQ-Originating-IP: 4eTnkOOCAXSXOIckUgJdTR9LbDF8/V9x8+qSR90OPrc=
-Received: from snode5.. ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 18:31:30 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 313034118725653772
-EX-QQ-RecipientCnt: 14
-From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-To: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH V2] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
-Date: Thu,  5 Nov 2026 18:31:25 +0800
-Message-Id: <20261105103125.2727341-1-chunyan.zhang@linux.spacemit.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9uVCUBS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D142D1F000C1;
+	Thu,  5 Nov 2026 10:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793874865;
+	bh=ChEGzgU3xU0J0WQ0/TumtbDMAQM01JtXZaOLDqrgf1c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k9uVCUBSWR+vkjcMSO01yKkkRSureB4xdapbYxYdAlSUCVYGpO7C4NfoSR6nkQedn
+	 mffSxbqVb6GJCBKkZ0F21GZFY9j8oJHyZUXizQweZY/PerUgjLqmfJ6RNtqqAT+qVr
+	 4jm+7mNV12qJi+IJixPrAoThdemACrF8xH2d3WQRIkZ+O8HcE6NzACFQWlga2IVODe
+	 aqcInvHurXL2yrMLD4tQzNQQ3R4p0vSnSOaKpDorhUn8ypzXWRXk/KHqKQuKCU2Rry
+	 l737OoXb2dmZoQNhJncLgNq8cVslhuHAdE07CChlcDzA+dKR5lmIitpY8UnIHsRWHR
+	 egkdZUmtzpPHw==
+Message-ID: <sashiko-outbox-198862@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V6 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support
+ for eMMC via overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105101955.3732723-4-monish.chunara@oss.qualcomm.com>
+References: <20261105101955.3732723-1-monish.chunara@oss.qualcomm.com>
+ <20261105101955.3732723-4-monish.chunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 10:34:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -77,119 +60,194 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MIGuSZJZg3QGnuivF94uB/SQtZveRJWXwr9qj/ZN4VKL3ddLulf9HXVL
-	ev86CQAYYGkpNjg01/hPA/9CVdsd35q8rH9Nh0M7Lp9G44pCmcUy9UuPcgumLME7tEfj+ko
-	snuvJ0Yi5zp/pcCsW66hKaLbXtHuvg27RLRGBbQhgsirbXr9kEOwDzDXRqm28aDCJRWbPrk
-	45WH5hZAsW06jtDYQg84euE+L5kqSMBT4f2/0OSQ99fGHT6/jaqgzh9jBgNto7P+2b7n6uC
-	zNrUWkqOtPkG5Jy3dFE42TfW11Iim81iS614o3V+D38YNbCXCyBRlrLzg+fC3HSN1SIZUF2
-	/roy0ULTecSQLVur5tYoQsgviPnaPRqPTgkHn+oDyPplbL2i0lM/YuIgBsjnKMOaXdWlJCx
-	1C/HVW6Kdceq9kt+XcHEyq2h+YES8G7uprvbdeHHGtg0WXeDRiFM7XPBNbL/d+8CBwxRYcn
-	6dsaA1HwR0vlDRm/Ptbk8J5xJLHfJZhJyNMhy/MSGbLRxUsR+Ad8e/Jtn2Bm/nPD0tqP9g8
-	qHqClFgf+6jiBL2AukhklwVqNyJl68jjxycKgLjsyvyRxTIyVylz2icwjVmM0kORB5jro8K
-	RUeZToMOz6WDCHQNYpeBVA1wyoNYZnY/K8rGB/s6llKAM+ftYa5vHDFTv9zwiXSnGMPPZqX
-	zGRuStyVcKGujVREmszCynQCy95dz0KGeyL/82B6pNvG/zjIBZnUF6Mr0nYwWLZqYsQilKl
-	46caKi4jAJ7NPlCcg9wdcKJXAVDuvhQMJXFiw9FIux1LzizYz/HnAbzTSvGJmu9CMkc7fbd
-	KEjc4zDljnXif1aptdNcHDN1C5auhQ6x20wFNto8Gl0NeMovZQ/jM/3nZ5+hl5PhSMyFFdy
-	2S8CpGp+bzPLx7E1mgQwUrEFgkjna6PFS2ycMe44suVHQer9X4nDFk4hYGRRwUkidiAnlqf
-	l0CbgXWITpcqBXJNnuFFUgyPw6Rzx6De2K3JpRCbqIc/FBc9rZts1hFH6FoN/Jw0+S48sXU
-	jgmvFxeX10DOznwsAHG7M91kUVJY2ytjDU3mKzjTuKU3J6sGZlqbvyGOX6auYNkALRgzWPe
-	w==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-SPAM: true
-X-QQ-RECHKSPAM: 3
 
-Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
-of the K3 SoC.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: root node syntax in monaco-evk-sd-card.dtso drop=
+s regulators
+- [Medium] arm64: dts: qcom: missing supports-cqe on sdhc_1 in monaco-ac-ev=
+k.dts
+- [Medium] arm64: dts: qcom: invalid and duplicate OPPs in monaco-evk-sd-ca=
+rd.dtso
+--
 
-Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
-yet, so the port runs at high-speed (maximum-speed = "high-speed").
+commit 55ce3aa0fb14b29f7953daf1505d7c18f0d799da
+Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
 
-On the K3 Pico-ITX, Port A is a Type-C connector behind a FUSB301 CC
-controller, which is not described yet. Nothing configures the
-FUSB301, so the port relies on its power-on CC mode. Enable Port A
-with dr_mode = "peripheral"; it is device-only until the CC
-controller is described.
+arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
 
-Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
----
-Changes in v2:
-- Rebase onto v7.4-rc1.
-- Move phys/phy-names to the board dts, matching usb3b/c/d.
-- Add snps,dis_u3_susphy_quirk and snps,parkmode-disable-ss-quirk.
-- Note in the commit message that Port A is a Type-C port behind a
-  FUSB301 and is device-only until the CC controller is described.
----
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 12 ++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi         | 29 ++++++++++++++++++++
- 2 files changed, 41 insertions(+)
+This series moves the eMMC supports-cqe property from the Monaco SoC device
+tree to the board level and switches Monaco EVK SDHCI storage selection bet=
+ween
+SD card and eMMC to device tree overlays.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-index dda420900aa2..d0fbed23ccca 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-@@ -337,6 +337,18 @@ &usb2_phy {
- 	status = "okay";
- };
- 
-+&usb3a {
-+	phys = <&usb3a_u2phy>;
-+	phy-names = "usb2-phy";
-+	maximum-speed = "high-speed";
-+	dr_mode = "peripheral";
-+	status = "okay";
-+};
-+
-+&usb3a_u2phy {
-+	status = "okay";
-+};
-+
- &usb3b {
- 	phys = <&usb3b_u2phy>;
- 	phy-names = "usb2-phy";
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index e89d2cc5ca8c..2d2569cfe676 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -687,6 +687,35 @@ gmac2_axi_setup: stmmac-axi-config {
- 			};
- 		};
- 
-+		usb3a: usb@cad00000 {
-+			compatible = "spacemit,k3-dwc3";
-+			reg = <0x0 0xcad00000 0x0 0x10000>;
-+			interrupts = <118 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-parent = <&saplic>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-+			clock-names = "usbdrd30";
-+			resets = <&syscon_apmu RESET_APMU_USB3_A_AHB>,
-+				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
-+				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
-+			reset-names = "ahb", "vcc", "phy";
-+			phy_type = "utmi";
-+			snps,dis_enblslpm_quirk;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+			snps,dis-del-phy-power-chg-quirk;
-+			snps,dis-tx-ipgap-linecheck-quirk;
-+			snps,parkmode-disable-ss-quirk;
-+			status = "disabled";
-+		};
-+
-+		usb3a_u2phy: phy@cad20000 {
-+			compatible = "spacemit,k3-usb2-phy";
-+			reg = <0x0 0xcad20000 0x0 0x200>;
-+			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		pdma: dma-controller@d4000000 {
- 			compatible = "spacemit,k3-pdma";
- 			reg = <0x0 0xd4000000 0x0 0x4000>;
--- 
-2.34.1
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso b/arch/arm6=
+4/boot/dts/qcom/monaco-evk-sd-card.dtso
+> new file mode 100644
+> index 0000000000000..bc4ea12587a2e
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
+> @@ -0,0 +1,72 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +
+> +/ {
+> +        vmmc_sdc: regulator-mmc-sdc {
+> +                compatible =3D "regulator-fixed";
+> +
+> +                regulator-name =3D "vmmc_sdc";
+> +                regulator-min-microvolt =3D <2950000>;
+> +                regulator-max-microvolt =3D <2950000>;
+> +        };
+> +
+> +        vreg_sdc: regulator-sdc {
+> +		compatible =3D "regulator-gpio";
+> +
+> +		regulator-name =3D "vreg_sdc";
+> +		regulator-type =3D "voltage";
+> +		regulator-min-microvolt =3D <1800000>;
+> +		regulator-max-microvolt =3D <2950000>;
+> +
+> +		gpios =3D <&expander1 7 GPIO_ACTIVE_HIGH>;
+> +		states =3D <1800000 1>, <2950000 0>;
+> +
+> +		startup-delay-us =3D <100>;
+> +        };
+> +};
+> +
+> +&sdhc_1 {
+> +	vmmc-supply =3D <&vmmc_sdc>;
+> +	vqmmc-supply =3D <&vreg_sdc>;
 
+[Severity: High]
+Should the root node in monaco-evk-sd-card.dtso use &{/} { ... }; instead of
+/ { ... };?
+
+In a /plugin/; device tree overlay, defining nodes under / { ... }; places
+regulator-mmc-sdc and regulator-sdc directly under the root of the compiled
+.dtbo rather than wrapping them in a fragment node with an __overlay__ chil=
+d.
+
+When fdt_overlay_apply() -> overlay_merge() in scripts/dtc/libfdt/fdt_overl=
+ay.c
+(or init_overlay_changeset() in drivers/of/overlay.c) merges the overlay:
+
+	fdt_for_each_subnode(fragment, fdto, 0) {
+		overlay =3D fdt_subnode_offset(fdto, fragment, "__overlay__");
+		if (overlay =3D=3D -FDT_ERR_NOTFOUND)
+			continue;
+
+both regulator nodes are skipped and omitted from the merged DTB, while
+vmmc-supply and vqmmc-supply in sdhc_1 are left pointing at phandles that do
+not exist in the merged tree. When sdhci_msm_probe() -> sdhci_setup_host() =
+->
+mmc_regulator_get_supply() runs, resolving both supplies fails with -ENODEV.
+
+[ ... ]
+
+> +&sdhc1_opp_table {
+> +	opp-100000000 {
+> +		opp-hz =3D /bits/ 64 <100000000>;
+> +		required-opps =3D <&rpmhpd_opp_low_svs>;
+> +	};
+> +
+> +	opp-202000000 {
+> +		opp-hz =3D /bits/ 64 <202000000>;
+> +		required-opps =3D <&rpmhpd_opp_svs_l1>;
+> +	};
+> +};
+
+[Severity: Medium]
+Is this override of sdhc1_opp_table intended for sdhc_1 on Monaco?
+
+In arch/arm64/boot/dts/qcom/monaco.dtsi, sdhc1_opp_table already defines:
+
+			sdhc1_opp_table: opp-table {
+				compatible =3D "operating-points-v2";
+
+				opp-50000000 {
+					opp-hz =3D /bits/ 64 <50000000>;
+					required-opps =3D <&rpmhpd_opp_low_svs>;
+				};
+
+				opp-100000000 {
+					opp-hz =3D /bits/ 64 <100000000>;
+					required-opps =3D <&rpmhpd_opp_svs>;
+				};
+
+				opp-200000000 {
+					opp-hz =3D /bits/ 64 <200000000>;
+					required-opps =3D <&rpmhpd_opp_svs_l1>;
+				};
+
+				opp-384000000 {
+					opp-hz =3D /bits/ 64 <384000000>;
+					required-opps =3D <&rpmhpd_opp_nom>;
+				};
+			};
+
+And in drivers/clk/qcom/gcc-qcs8300.c, ftbl_gcc_sdcc1_apps_clk_src supports
+50 MHz, 100 MHz, 192 MHz, and 384 MHz, with no 202 MHz entry.
+
+Because overlay_apply_node() merges new subnodes without removing existing
+ones, applying monaco-evk-sd-card.dtso leaves opp-200000000 and opp-3840000=
+00
+in sdhc1_opp_table alongside the new opp-202000000 node, while also lowering
+the 100 MHz required-opps vote from rpmhpd_opp_svs to rpmhpd_opp_low_svs.
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
+com/monaco.dtsi
+> index 35fbee63d4c65..591ad233f90eb 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> @@ -4843,7 +4843,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+>  			qcom,dll-config =3D <0x000f64ee>;
+>  			qcom,ddr-config =3D <0x80040868>;
+>  			bus-width =3D <8>;
+> -			supports-cqe;
+>  			dma-coherent;
+
+[Severity: Medium]
+Should arch/arm64/boot/dts/qcom/monaco-ac-evk.dts also have supports-cqe ad=
+ded
+to &sdhc_1?
+
+monaco-ac-evk.dts includes monaco.dtsi and enables sdhc_1 for non-removable
+eMMC:
+
+&sdhc_1 {
+	vmmc-supply =3D <&vreg_l8a>;
+	vqmmc-supply =3D <&vreg_s2s>;
+
+	no-sd;
+	no-sdio;
+	non-removable;
+
+	status =3D "okay";
+};
+
+In drivers/mmc/host/sdhci-msm.c, sdhci_msm_probe() checks for supports-cqe:
+
+	if (of_property_read_bool(node, "supports-cqe"))
+		ret =3D sdhci_msm_cqe_add_host(host, pdev);
+	else
+		ret =3D sdhci_add_host(host);
+
+Removing supports-cqe from monaco.dtsi without adding it to monaco-ac-evk.d=
+ts
+causes sdhci_msm_probe() to skip sdhci_msm_cqe_add_host() (and
+sdhci_msm_ice_init() called from within it), disabling CQE and ICE on
+Monaco-AC EVK.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105101955.3732=
+723-1-monish.chunara@oss.qualcomm.com?part=3D3
