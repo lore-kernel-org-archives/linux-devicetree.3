@@ -1,78 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793853666;
-	b=PDsWJ5I1wS1zO3yyPBg/mFVdNiuSt0ZbPJ+eRZHhgrsRETC/G/na4UAPRCwY1YTjrf7/
-	 UntrFdBikmas5SvFgBRjdZ/lGrZ7NrIHn64Uu7eFDAnu3AVd4YYc0k+PRDcYZHpzGrZPH
-	 W5qq4QT0y8QHRTHjtWamdCuxAe7noyorm94MwrhI/K3xoBHcMcUoENcBFLnqnLmQifvq/
-	 XPJBhmNH5tGcq6r/s7cqtZthnNpSl5/zCAAkbfLonaZdng75o4WzjKeETTFFXFfmV1pIt
-	 g6mWX4W6eSofZFaia47eg2zXGy3BQk1p6AA7j1HbvOY13Kq+g8OH7vsitSomKVwXOvA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853666;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lTq/eEtJMVXA4t62oPNniVtfpsXTUIUiPejVT9OZchc=;
-	b=S4Nm98z/9rftKsfYBF51NCwg+V8yJ9Q96vIYu2LI0xyiDBFxj+0G3SLu0kz02F1Ps1HG
-	 IgwAXm3aQmn2OTUEvY32KK7b4cVS/4dQTkFX1nzlUyu3gKBOuMwvTseHqk6CkiZgPon7E
-	 EB68hHeP24vhAjVjxIOLrJfPysYOSI1QUmsholqDPAWLs0bg/vvZh64f+FQIFnGhO9JQr
-	 ZbbQ+DMo9LrPpv08Xx3Wjwk0JJle55rRsdCpWVCzqSAfTr1GBpI786WDCxyPI3DKkUTRD
-	 uYcFSDSaGzuHIJAmCgJxN2ZKoQLBuCOEERtQkDa5GSVxTotHP1jIkZt9rkX4BetSkeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WH1KlF1D;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65CE606D80F;
-	Thu,  5 Nov 2026 04:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WH1KlF1D
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793853665;
-	b=WnW3Q0fDgELgfqHKgahLV8AiWU05ndCDTaJungrEsQZx3GO033oeXYLSCXFch8smJ+ti
-	 YxZMSmcZiWU/3Tnq0vBYsFfHRka+b5f3bPxG7M8sNav2KGrBfbLklUEAoEFAjG679q0R4
-	 /atVwXpN6bSCcscWmC8sXViQv0jp1+JK1T4eCUJT0EzCzzYH7XUZ4Cnosbn5t9LY/KPGA
-	 80j1kckZSBBF5M5z6WOxnXa9EPU+O/ZdLXx401squ4MX3uTwjTpD/DzKuIvx2uAyNqSiY
-	 AoPxjHuY6t2oqyrxBI1nhz9So32Iys66pfm2g/Pqx+wNdQwl84If6E5bFhsCtP0qYww==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793853665;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lTq/eEtJMVXA4t62oPNniVtfpsXTUIUiPejVT9OZchc=;
-	b=fY1fZcpsBsVvaZUDtgb/bKLufgKzjpq5QRlWmbuzqiazEox3tKmDDCxS6h1y6ngoHi88
-	 6fqFLfG8bidVLGhDaSXcg6E+menejIqa+AjSpmTbMR7WOY30jWRYlExm1Zgve8Z6tRmda
-	 amJ8GFebJdGxdMzPpxf03aeLiOAh/drdGUHhRMq8xp3ZvN5jY/fKDBd28JA+E3ROiDiLU
-	 CwiDKoEFmZh64DihnkdiCyoVz+nbqeCCApJDdOWBTdtvfYohvzmxDkUKmsWWIac3IjyMX
-	 HD1Z3rbkDm4nKYY53mZ/K9ZosxYrpYStyWzTn4p55xtqw37rEIa3M3HWuWYAa4Dn//Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793853679;
+	b=3MoF60atvkp2rdPidp7aVh7W5WkA07UzMWkIyrB2Vgz++jo2xQZByGlixP45XORpZ4SA
+	 4Ca2Z28LkjBNxCbL05nP+LjKdI2+BFIlPlEld4pPqAILv30855vhHXWTIIpNbR3FNn9ua
+	 OR82Hqo7DGrIJSGFfLxDl4tFB0KyII+73fEnjt1oyb6pmUFrKglXD6M2SiwVGURv4cec2
+	 zC+0uF0DGuTnWmNRvOwhqjHls1c6QY85gqz/6WtcADFbLe78XGEnAswzpyYUpwWYUSDT2
+	 zqzKYuv/ySUxqkZqSvNnb94jSKhktptKN9VAEpDJoedGBNMfLK4JoVTODtHUbdqk2Kg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853679;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
+	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
+	bh=CEkGvy3aLrxRjLGdl8tfvu1ARW7upt4AeWpWqbv3z/w=;
+	b=C1uv+PKasxErl0YcsXAVVabxe9qdiWvQIqTchp8ILy+IuwPepU5x3wrlU8ai+vOadMLH
+	 qhbbr9eT1ELsttHYRIBPV+nQ0x+46FwJRB6fvFTdHVMitnMp6J/rG3KGlRTOexBZRVGn/
+	 EaEK3KB6FekzWtm1AliwtmFS2l3SgBSAD1ksQUSquvfHoxihIO0bHmGfuSwQ9fj15iSEu
+	 0xcnvyXfzBW9/ZDRBCPd9PEqJgp5ShGVGQNKvRiPE/XLBtHAniHdWGvoR4DsmUfjUOXCP
+	 lHYCvVLlWvF5MROvJQzCxcew6iGL1s3NcYX+7zSB+Wu9+M7UXCD1awbVKSGCT0NyBkw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sony.com;
+	spf=pass smtp.mailfrom=sony.com;
+	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=fq7og1EW;
+	arc=none smtp.remote-ip=185.132.183.11
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6F7601F00A1A;
-	Thu,  5 Nov 2026 04:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793853665;
-	bh=lTq/eEtJMVXA4t62oPNniVtfpsXTUIUiPejVT9OZchc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WH1KlF1DRis/ZpRTdnUrCtmv8/orAqV5b7ZjoUGbQDuyeRUFfAN4RGErSThtMs9jH
-	 Zlc1WU6bDWhuN7y7nJJEDCrR9dCipXUN5XN2SVXzxCgqKO8rHbfX8tMLbqRa7NFTqb
-	 t0jWbc/PgMkXTmAII/vFhK/6r6VkPsd00W8TaSzwgSXP3QnT4LCweCVvNqHVBZuDfB
-	 Kl0x7NUbtOy2f6SSZLoj+ukH8bltJ5ofugco7EY/EHdbFl5SzzeS8c2Oq4/o184Rfj
-	 S9iXERFmzhM1JXCxlcE3WDvhZXk26suR2E3kSz7oDrA6q4N0hOFtLvBE5GgfVNK7/3
-	 6XKMZ0QIdHJow==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F04534709F;
-	Thu,  5 Nov 2026 04:40:57 +0000 (UTC)
-From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 22:40:58 -0600
-Subject: [PATCH 3/6] cpufreq: sun50i: Add A133 speed grade detection
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4D76082BC5;
+	Thu,  5 Nov 2026 04:41:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B4D76082BC5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=fq7og1EW
+Received: from pps.filterd (m0209328.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A50nVid1016127;
+	Thu, 5 Nov 2026 04:40:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=p1; bh=CEkGvy3
+	aLrxRjLGdl8tfvu1ARW7upt4AeWpWqbv3z/w=; b=fq7og1EWFwS2tdP+kAw0gCO
+	qhEwXgxhadkeHvq8Ihg7I56wT21B3hH5EylqCn/89vYaFp4pBq6mcJL0AxHLtPJi
+	57+PGKG96bZeZnq8TziCKgT0ZGdqY/BQJ/uEKiyJJKFJ4hePeLWWF1xGMWRULU8Q
+	iK5/uJfnbbKsOQyFTGl1TqH+ZQYY5RE220qL1Najr5DSfytrHZGPpJ6VHrDSC/UY
+	bHP6Rm7HqIft7WE6hZ00a9IUSeQaQmmuKFFqhsuS0BmmVpWi5KPcKzcCfWVoR/+F
+	aInfX4hWj/WOSPcVSK9W68mT0myEaqlQXDWjpchdLTxKEb8IXr6T1uNh+Z00d6g=
+	=
+Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hn9gg6d2d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 05 Nov 2026 04:40:50 +0000 (GMT)
+Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A54SYk83638969;
+	Thu, 5 Nov 2026 04:40:48 GMT
+Received: from sgppsba03v.s.gdce.sony.com.sg ([146.215.113.220])
+	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9dh1q57-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 05 Nov 2026 04:40:48 +0000 (GMT)
+Received: from pps.filterd (SGPPSBA03v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBA03v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A54W6El1849964;
+	Thu, 5 Nov 2026 04:40:47 GMT
+Received: from [43.3.252.132] ([146.215.113.251])
+	by SGPPSBA03v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9djmvgc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
+	Thu, 05 Nov 2026 04:40:47 +0000 (GMT)
+Message-ID: <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
+Date: Thu, 5 Nov 2026 13:40:45 +0900
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -82,322 +81,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-a133-series-v1-3-58217cb33a87@gmail.com>
-References: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
-In-Reply-To: <20261104-a133-series-v1-0-58217cb33a87@gmail.com>
-To: Yangtao Li <tiny.windzz@gmail.com>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Andre Przywara <andre.przywara@arm.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Cody Eksal <masterr3c0rd@epochal.quest>, 
- Alexander Sverdlin <alex@sverdlin.org>, 
- Rajan Yadav <rajanyadav0307@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793853656; l=10145;
- i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
- bh=7tcNYG4615OVf5uE7/DnP8d9qCp7eIaFzts291Ediz0=;
- b=poQQ54BqWKdiyQCBjiJjAvIRt3F1oPpUP9qi71hjn0JThAG7yr9HSXcdWS2V4yLN7fVpnwu0+
- xtEbfYVpl9kBq2oMAQBgGOg3PJ8Y20QKMnxHU1nFgDYDxIWL9eKEVYX
-X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
- pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
-X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
- auth_id=1391
-X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
-Reply-To: rajanyadav0307@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+To: Conor Dooley <conor@kernel.org>, sakari.ailus@linux.intel.com
+Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org,
+        laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+        jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+        Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+        Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+References: <20261029050002.3880-1-lachlan.michael@sony.com>
+ <20261029050002.3880-2-lachlan.michael@sony.com>
+ <20261029-distress-stimulant-cd5bb18f5ae8@spud>
+Content-Language: en-US
+From: Lachlan Michael <Lachlan.Michael@sony.com>
+Organization: Sony Semiconductor Solutions Corporation
+In-Reply-To: <20261029-distress-stimulant-cd5bb18f5ae8@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Sony-BusinessRelay-GUID: Z7YAkeai05ddJsO0Mm1AR6NGAsst_H7c
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
+X-Sony-EdgeRelay-GUID: C4xOC7c57qqHBZJODKPno-vOV6sTDYs9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAxOCBTYWx0ZWRfX/1iVh4q3VmC5
+ Ht8QB0QZYAgtemnpSZlDVv3gj66FJb6CyXw9nrUXefbG6CNqXmfL/uGDmkmdt45HEytuI18hOta
+ B2aZjMGRmh358MWn9m+mt4jP7qtO41y646bQVdhqB33CMgOa/bEevFrU3LYHbcTjkv4B19Plk4Q
+ XQTc5HYy+0uP3NAq6dm+voNPvAxYV2orhNQlbTk2dNU6W/gDs74TIgeDVcy3Rlpz5y23d2x5/DW
+ YEVx4s7xCeugDrRlL/IsiOC+Lmt3pDtln1P0O6yrrA5H62xJ86qjJBFSda/baVBRXB3c89Y6eZi
+ +hB22CwM45na3QgJsyHdLRBgT4WN4b7xMykr6dHj2o0VbGcUBGBN9VNxS9EYpyRRqzpK69Xr8i+
+ bFQ19hu+iYDL+v+GpFXBF9jK2k5GdCftc26cPTmI812c9nqOpxAFWAnD5uJ9r2fproRipptnq5t
+ hMFJBP8n+BuenVRF3Ug==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAxOCBTYWx0ZWRfX/3FoIYbIeZa9
+ l6QdFy9ztWXt6j9cBn/VucEjnI2gFSrqT0IQT7zL+LTs9oW0WYbD9pAlDSv0KuEHAm7JnWGSyIt
+ S5ogkYgA7UHRdBFHwsvkrf2GGV83KmtV/amZWSJM8+SWbKP6pEl4
+X-Authority-Analysis: v=2.4 cv=Z5t5j3RA c=1 sm=1 tr=0 ts=6aec08d2 cx=c_pps
+ a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=KAb5x4SsHD3PzxGk7EmX:22 a=jHItnBwsj8f3cr25iGAb:22 a=VwQbUJbxAAAA:8
+ a=P1BnusSwAAAA:8 a=XYAwZIGsAAAA:8 a=yb2DqlCEcBRr1FvsFXUA:9 a=QEXdDO2ut3YA:10
+ a=D0XLA9XvdZm18NrgonBM:22 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
+X-Proofpoint-ORIG-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
+X-Sony-Outbound-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
 
-From: Rajan Yadav <rajanyadav0307@gmail.com>
+On 10/30/2026 3:41 AM, Conor Dooley wrote:
+> On Thu, Oct 29, 2026 at 02:00:01PM +0900, Lachlan Michael wrote:
+>> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+>> with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
+>> over 2 or 4 data lanes.
+>>
+>> Add device tree bindings for the sensor.
+>>
+>> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>> Acked-by: Conor Dooley <conor@kernel.org>
+> 
+> This is not the tag I provided, I never provide tags using this email
+> address. Tags must be used without modification.
+> https://lore.kernel.org/all/20260828-hedging-olive-eaea0b4027a0@spud/
+Conor, my bad. I honestly missed that the mail address was different.
+I understand that it is important that review work is attributed to the 
+correct person and organization.
 
-The A133 is handled as an A100 today: only the CPU bin field at SID
-offset 0x1c is read, which gives one of three A100 voltage tables.
-The vendor BSP for this family (sun50iw10) selects one of 11 grades
-from the chip marking ID, the CPU bin, the ICPU current, the PCPU
-field, a bin extension bit and the die revision:
+Sakari,do you have further comments on the current v6 IMX908 driver?
+If so, I will fix this issue in a v7.
+If not, can you attribute to Conor correctly when picking up the patches?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-- "high speed" marking IDs use the b0-b3 grades, which have 1416 and
-  1512 MHz instead of 1464 MHz
-- the other parts use a0-a6
-- die revisions 0, 3 and 4 ("A-E") use different grades from all other
-  revisions ("F and later")
-- revision A-E normal parts with ICPU and PCPU within fixed ranges use
-  a0
+Best Regards,
 
-On a KickPi K5C (A133, marking 0x1400, bin 0b010, revision 6), the BSP
-selects b2: 408-1512 MHz with 1.10 V at 1512 MHz. Mainline selects the
-A100 speed1 table instead. So the chip runs 40 mV below the vendor
-voltage at 408-816 MHz and 40 mV above it at 1200 and 1320 MHz, and its
-top OPP is 1464 MHz at 1.18 V instead of 1512 MHz at 1.10 V. Grades
-with 1416 and 1512 MHz cannot be described at all.
-
-Add the vendor selection for the new A133 OPP compatible. a5 and a6
-share their voltages, so the 11 grades map to speed0-9:
-
-  index:  0  1  2  3  4  5      6  7  8  9
-  vendor: a0 a1 a2 a3 a4 a5/a6  b0 b1 b2 b3
-
-The die revision comes from SMCCC SOC_ID, as for the H616. On the A133
-this needs TF-A with the sun50i_a133 platform, added in commit
-a584e8632a7a ("feat(allwinner): add support for allwinner A133 SoC")
-and not yet in a release; it reads the same SYSCON register as the
-BSP. Neither the A-E nor the F grades always have the lower voltage
-(for the same bin, A-E is mostly lower or equal up to 816 MHz and higher
-or equal from 1008 MHz). So without SOC_ID the driver keeps the A100
-selection, as before, adds the BSP's a0 rule for normal parts, which
-never lowers a voltage, and warns. Revision F parts then still run
-20-40 mV below the vendor voltage at 408 and 600 MHz, some of them also
-at 816 MHz.
-
-The error message for a missing named cell now names the cell.
-
-Testing:
-- the function, built on the host from the driver source with stubbed
-  cells and revision, matches a transcription of the BSP rules for
-  120,960 combinations of boundary and typical field values, and gives
-  the A100 selection with the BSP's a0 rule when the revision is
-  unknown
-- on the K5C it selects b2; the vdd-cpu regulator reads 0.94 V at
-  408 MHz, 0.96 V at 1008 MHz, 1.06 V at 1416 MHz and 1.10 V at
-  1512 MHz, as in the BSP table
-- one hour of full load held 1512 MHz without throttling (max 79 C,
-  with the 90 C trip from the A100 thermal trips patch)
-- with the revision forced to unknown it warns and selects speed1
-- the same kernel with the A100 OPP table gives the same OPPs as
-  before
-- a missing cell fails the probe with an error naming the cell, and
-  the system keeps running without cpufreq
-
-Claude Code (Anthropic) drafted this patch and its message from the
-selection rules in the vendor BSP cpufreq driver (no code copied) and
-from my test results; I reviewed and tested it.
-
-Suggested-by: Andre Przywara <andre.przywara@arm.com>
-Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
----
- drivers/cpufreq/sun50i-cpufreq-nvmem.c | 162 ++++++++++++++++++++++++++++++++-
- 1 file changed, 161 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/cpufreq/sun50i-cpufreq-nvmem.c b/drivers/cpufreq/sun50i-cpufreq-nvmem.c
-index 34c0897c22c..6bccea2887b 100644
---- a/drivers/cpufreq/sun50i-cpufreq-nvmem.c
-+++ b/drivers/cpufreq/sun50i-cpufreq-nvmem.c
-@@ -27,8 +27,10 @@
- 
- static struct platform_device *cpufreq_dt_pdev, *sun50i_cpufreq_pdev;
- 
-+/* Exactly one of the two callbacks is set */
- struct sunxi_cpufreq_data {
- 	u32 (*efuse_xlate)(u32 speedbin);
-+	int (*get_speed)(struct device *cpu_dev, struct device_node *np);
- };
- 
- static int sun50i_cpufreq_read_cell(struct device *cpu_dev,
-@@ -41,9 +43,14 @@ static int sun50i_cpufreq_read_cell(struct device *cpu_dev,
- 	__le32 tmp = 0;
- 
- 	cell = of_nvmem_cell_get(np, id);
--	if (IS_ERR(cell))
-+	if (IS_ERR(cell)) {
-+		if (id)
-+			return dev_err_probe(cpu_dev, PTR_ERR(cell),
-+					     "Could not get nvmem cell %s\n",
-+					     id);
- 		return dev_err_probe(cpu_dev, PTR_ERR(cell),
- 				     "Could not get nvmem cell\n");
-+	}
- 
- 	buf = nvmem_cell_read(cell, &len);
- 	nvmem_cell_put(cell);
-@@ -152,6 +159,149 @@ static u32 sun50i_h616_efuse_xlate(u32 speedbin)
- 	return value;
- }
- 
-+/*
-+ * A133 speed grades, as selected by the vendor BSP (sun50iw10): a0-a6 for
-+ * normal parts and b0-b3 for "high speed" parts. a5 and a6 have the same
-+ * OPPs and voltages and share an index. The index is the N of
-+ * opp-microvolt-speedN and the bit in opp-supported-hw. a0-a2 have the
-+ * same voltages as the A100 speed0-speed2.
-+ */
-+enum sun50i_a133_grade {
-+	SUN50I_A133_GRADE_A0,
-+	SUN50I_A133_GRADE_A1,
-+	SUN50I_A133_GRADE_A2,
-+	SUN50I_A133_GRADE_A3,
-+	SUN50I_A133_GRADE_A4,
-+	SUN50I_A133_GRADE_A5,		/* also a6 */
-+	SUN50I_A133_GRADE_B0,
-+	SUN50I_A133_GRADE_B1,
-+	SUN50I_A133_GRADE_B2,
-+	SUN50I_A133_GRADE_B3,
-+};
-+
-+#define SUN50I_A133_MARKING_MASK	0xffff
-+#define SUN50I_A133_BIN_SHIFT		12
-+#define SUN50I_A133_BIN_MASK		0xf
-+#define SUN50I_A133_ICPU_MASK		0xfff
-+#define SUN50I_A133_PCPU_MASK		0xfff
-+#define SUN50I_A133_BIN_EXT		BIT(31)
-+#define SUN50I_A133_REV_MASK		0x7
-+
-+/*
-+ * The BSP runs revision A-E normal parts at a0 when both the ICPU current
-+ * (in 0.1 mA) and the PCPU field are in these ranges (upper bounds
-+ * exclusive).
-+ */
-+#define SUN50I_A133_ICPU_A0_MIN		84
-+#define SUN50I_A133_ICPU_A0_MAX		160
-+#define SUN50I_A133_PCPU_A0_MIN		2900
-+#define SUN50I_A133_PCPU_A0_MAX		3100
-+
-+static bool sun50i_a133_force_a0(u32 icpu, u32 pcpu)
-+{
-+	return icpu >= SUN50I_A133_ICPU_A0_MIN &&
-+	       icpu < SUN50I_A133_ICPU_A0_MAX &&
-+	       pcpu >= SUN50I_A133_PCPU_A0_MIN &&
-+	       pcpu < SUN50I_A133_PCPU_A0_MAX;
-+}
-+
-+/* Marking IDs that the BSP treats as "high speed" parts */
-+static bool sun50i_a133_is_high_speed(u32 marking)
-+{
-+	switch (marking) {
-+	case 0x0200:
-+	case 0x0600:
-+	case 0x0620:
-+	case 0x0640:
-+	case 0x0800:
-+	case 0x1000:
-+	case 0x1400:
-+	case 0x2000:
-+	case 0x4000:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static int sun50i_a133_get_speed(struct device *cpu_dev,
-+				 struct device_node *np)
-+{
-+	u32 marking, bin_cell, pcpu, bin_ext, bin, icpu;
-+	enum sun50i_a133_grade grade;
-+	int ver_bits, ver;
-+	bool before_f;
-+	int ret;
-+
-+	ret = sun50i_cpufreq_read_cell(cpu_dev, np, "marking", &marking);
-+	if (ret)
-+		return ret;
-+	ret = sun50i_cpufreq_read_cell(cpu_dev, np, "bin", &bin_cell);
-+	if (ret)
-+		return ret;
-+	ret = sun50i_cpufreq_read_cell(cpu_dev, np, "pcpu", &pcpu);
-+	if (ret)
-+		return ret;
-+	ret = sun50i_cpufreq_read_cell(cpu_dev, np, "bin-ext", &bin_ext);
-+	if (ret)
-+		return ret;
-+
-+	marking &= SUN50I_A133_MARKING_MASK;
-+	bin = (bin_cell >> SUN50I_A133_BIN_SHIFT) & SUN50I_A133_BIN_MASK;
-+	icpu = bin_cell & SUN50I_A133_ICPU_MASK;
-+	pcpu &= SUN50I_A133_PCPU_MASK;
-+
-+	/*
-+	 * Neither the revision A-E nor the revision F grades always have the
-+	 * lower voltage, so there is no safe guess without the revision.
-+	 * Keep the A100 selection then (a0-a2), which these SoCs used so far,
-+	 * plus the BSP's a0 rule for normal parts, which never lowers a
-+	 * voltage. Revision F parts then still run 20-40 mV below the vendor
-+	 * voltage at 408 and 600 MHz, some of them also at 816 MHz, and "high
-+	 * speed" parts get 1464 MHz instead of 1416 and 1512 MHz.
-+	 */
-+	ver_bits = get_soc_id_revision();
-+	if (ver_bits < 0) {
-+		dev_warn(cpu_dev,
-+			 "SMCCC SOC_ID not available, using speed grades a0-a2\n");
-+		if (!sun50i_a133_is_high_speed(marking) &&
-+		    sun50i_a133_force_a0(icpu, pcpu))
-+			return SUN50I_A133_GRADE_A0;
-+		return sun50i_a100_efuse_xlate(bin_cell);
-+	}
-+
-+	/*
-+	 * The BSP treats revisions 0, 3 and 4 as "A-E" and all others as
-+	 * "F and later".
-+	 */
-+	ver = ver_bits & SUN50I_A133_REV_MASK;
-+	before_f = ver == 0 || ver == 3 || ver == 4;
-+
-+	if (sun50i_a133_is_high_speed(marking)) {
-+		if (bin == 0b100)
-+			grade = before_f ? SUN50I_A133_GRADE_B1 :
-+					   SUN50I_A133_GRADE_B3;
-+		else
-+			grade = before_f ? SUN50I_A133_GRADE_B0 :
-+					   SUN50I_A133_GRADE_B2;
-+	} else if (!before_f && (bin_ext & SUN50I_A133_BIN_EXT)) {
-+		grade = SUN50I_A133_GRADE_A5;		/* a6 */
-+	} else if (before_f && sun50i_a133_force_a0(icpu, pcpu)) {
-+		grade = SUN50I_A133_GRADE_A0;
-+	} else if (bin == 0b100) {
-+		grade = before_f ? SUN50I_A133_GRADE_A2 : SUN50I_A133_GRADE_A5;
-+	} else if (bin == 0b010) {
-+		grade = before_f ? SUN50I_A133_GRADE_A1 : SUN50I_A133_GRADE_A4;
-+	} else {
-+		grade = before_f ? SUN50I_A133_GRADE_A0 : SUN50I_A133_GRADE_A3;
-+	}
-+
-+	dev_dbg(cpu_dev, "marking 0x%04x, bin %u, revision %d: speed grade %d\n",
-+		marking, bin, ver, grade);
-+
-+	return grade;
-+}
-+
- static struct sunxi_cpufreq_data sun50i_h6_cpufreq_data = {
- 	.efuse_xlate = sun50i_h6_efuse_xlate,
- };
-@@ -160,6 +310,10 @@ static struct sunxi_cpufreq_data sun50i_a100_cpufreq_data = {
- 	.efuse_xlate = sun50i_a100_efuse_xlate,
- };
- 
-+static struct sunxi_cpufreq_data sun50i_a133_cpufreq_data = {
-+	.get_speed = sun50i_a133_get_speed,
-+};
-+
- static struct sunxi_cpufreq_data sun50i_h616_cpufreq_data = {
- 	.efuse_xlate = sun50i_h616_efuse_xlate,
- };
-@@ -171,6 +325,9 @@ static const struct of_device_id cpu_opp_match_list[] = {
- 	{ .compatible = "allwinner,sun50i-a100-operating-points",
- 	  .data = &sun50i_a100_cpufreq_data,
- 	},
-+	{ .compatible = "allwinner,sun50i-a133-operating-points",
-+	  .data = &sun50i_a133_cpufreq_data,
-+	},
- 	{ .compatible = "allwinner,sun50i-h616-operating-points",
- 	  .data = &sun50i_h616_cpufreq_data,
- 	},
-@@ -239,6 +396,9 @@ static int sun50i_cpufreq_get_efuse(void)
- 
- 	opp_data = match->data;
- 
-+	if (opp_data->get_speed)
-+		return opp_data->get_speed(cpu_dev, np);
-+
- 	ret = sun50i_cpufreq_read_cell(cpu_dev, np, NULL, &speedbin);
- 	if (ret)
- 		return ret;
-
--- 
-2.34.1
-
-
+Lachlan
