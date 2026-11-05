@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875493;
-	b=VnooTsDlpA5jf33WvopyZaAGgI16So7KxgX9akqjjrpApjOAiCr3ymJtvKwUP3ueiqDm
-	 GSRS7in7nB8hDPUQDI4PYsEJtWrHf2V7U3GHagwodQMeV7bNzxxXQi34Ykkb/faWwiJLW
-	 3cXYSFK1dqECdUPJd1M2pvayh4N4b4dPH3ObMVv3ZNknNWgsHgxG/QlHGpyRb64qYSn0D
-	 o3pgpGsB75fxrBskxrVRAbeeBf0ERyyubX47a2dzdwEgxsJ5UJ5PAHYuNyaFFYr+5yl2Q
-	 jw+2O2qV/mm8C8nAzN8NNgZaV+Mv81/dIeCMe8YVdbZjlhBsfRlYv9FxP4G/yth0B3Q==
+	t=1793875527;
+	b=AYcHK61l9EOM53SyXxNzU8fPsy0clYs6n3cPL6aZeH/rEb/Z+4cjcgOhfYpayYwQuin/
+	 dBTmaIjIqsOusqgFZuIgYACbSWxC7B3XEgwKtx+WTrvcVhPz7r/60CDE+CVmGsiVUq1mN
+	 NqFaICbo7zASWN+nS/3yF7ZkOs1RMTP9osU4Qu2ifryu8H9EqDq2NPiR4+k7iWYIg96dg
+	 7LGTO4ZTLV/CRDwors1afrcSCjBFx2MHQW0vvC8NTpznxRqanfDyxxcHctnmQRs5migkG
+	 +zOqZo43b2p8YGaSiI1SWXvBVuXu2CS0ZOMC2n443S9BWlUi4M4szvnSlGwAj+wjBAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875493;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/361YtGqsPyOKwIWksN+u2NxEOEqDW3UHp20AyisReU=;
-	b=vrZptwRejWqIw7+Wbz7BXU0jIwDp5yr4hzIjEyC8eQg54IvPXG3Vu7n5CQBM0i3xAd1S
-	 eo9OuJUD/C9YVRq9bHQkkv0Uf95w0Go7JMYhDyw2Js98moH3TeqhQZUmi+4f++86jHk+6
-	 E6twz2u97DvMjXx6QABrrsR7mK/ZoQrBvDSJtgqGdx/mnxGKMqUyvHVeUg72hPyIFgrWY
-	 UyH9OeThpIYWug2GM8Q3tP54+Nye5hbterqqu2z1hwSqwYXUBmcgUbWby0rEVO+RaySO4
-	 BIXH7sw1DEf9qt0AKY0fq+O1lHtkoUoPGgm18259CDHKJvG8r7GgpPIo3CWQ4YS9Kzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875527;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/7kPsLdKWImOygAQHRfPLIzErUc4FD4p3YlvTemSyDA=;
+	b=Kio83LS08QmD/enOL0WF+UzGqwRSPSTYpM1WHgiOaqMpHCN9EMb5/e32veT8CTegvml2
+	 MlE9KnLBZ8v0pqz6ZKJKpbYRdmW9jQbDf6Tft+saqcfbnamF6A3KQaPJ3JwW4brlqD3Hx
+	 4ajexo255zeXI+ZABLkBi2sH3u84ob+GoeiNgzLrfUD5MT9mQhgXzKjdhh+yrjfXqfhOn
+	 +9l7m0FXGDXGOs6/Z1D/iYxlFjgorBRGxilUSZ6f8x5xiCxJ0YQhefo3fM1qBCIPIOa0+
+	 jUMa7FS8eQgNCAl8lVqoGTdX9QDy4uEoPnXZbmu2w8tP3lmjFfNSVM6ZFhCqriza2sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e0CgSm1Y;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A0E5606A31B;
-	Thu,  5 Nov 2026 10:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A0E5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYvB+Jx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7DC606A32E;
+	Thu,  5 Nov 2026 10:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e0CgSm1Y
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 44D93143D;
-	Thu,  5 Nov 2026 02:44:47 -0800 (PST)
-Received: from [10.57.10.82] (unknown [10.57.10.82])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A2343F673;
-	Thu,  5 Nov 2026 02:44:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793875490; bh=IxjGppRiLkVgod0WaDW7XzKw99H8Qwfc7vGKAcV6TO8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=e0CgSm1Y7bxhpm4MerUzAFUUrD55l3h82sWS6NGbFBxG8DDhG3HDQ78PywiKVWGws
-	 4xaDwbQgOppazMyK7e8WBrTj8pACWEZ3VMWzPeYrKbWkOfN2alW663BHxhV3xM0Ff2
-	 lJdwJXgvf0NISzZpt9X6K60L1aLzU4D18LArDc3U=
-Message-ID: <a53ebde3-ca2b-46dc-b4bc-93379b05a1a8@arm.com>
-Date: Thu, 5 Nov 2026 10:45:20 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYvB+Jx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D871F000C1;
+	Thu,  5 Nov 2026 10:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793875526;
+	bh=/7kPsLdKWImOygAQHRfPLIzErUc4FD4p3YlvTemSyDA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZRYvB+JxvgceA4WuJqnxKivzalazLs8cV5MCDQEZHyTWSwDtMp/GdnwJ4nSgZ7xiJ
+	 vzu32sFGeKA0W4nptaQpCVbtBH1ZBM81d67Q31G1K63oZRkhtFfYEeSnukX5WhPYco
+	 dyC6xKJMxCqBJ7i2yalOSLfn35rFX8jJKULpeSwhHY4mBDjKtSoGuRa09iJ7FUUQWy
+	 nNmuU28m6xKGAYf2779U196aobPsD+HR0caIjW/dXHfmUhBh/tUi9cCP1FKgoi06oL
+	 F9b2AD5J6ztrWb8lhLeZIkhRpFxBHTYdx7066ba3jsqa+t+PGT4RtuJNf9ApSjn6Iw
+	 7bOpcdu63SMqA==
+Message-ID: <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
+Date: Thu, 5 Nov 2026 11:45:19 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -54,67 +52,97 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: thermal: Use signed integers for
- coefficients
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "open list:THERMAL" <linux-pm@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-References: <20261103214357.2700244-1-daniel.lezcano@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+ <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+ <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
+ <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20261103214357.2700244-1-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Daniel,
-
-On 11/3/26 21:43, Daniel Lezcano wrote:
-> The coefficients property describes the coefficients of a linear
-> equation used to derive a thermal zone temperature. Both the slope
-> and the constant offset can be negative, and the thermal core stores
-> them as signed integers.
+On 05/11/2026 10:53, Loic Poulain wrote:
+> So some chipsets share the same IP blocks, with some block/phy
+> instances disabled. As a result, we need to decide whether we're
+> numbering based on active instances or on the actual hardware instance
+> index/offset. If we use active-instance numbering, then yes, it should
+> be @2 (CSIPHY4 being the third active instance). Alternatively, if the
+> port numbering is intended to reflect the hardware instance offset,
+> matching the register prop, then @4 would be more appropriate. It also
+> has the advantage of directly identifying the underlying hardware
+> instance, without requiring any additional driver-side mapping. In any
+> case, @3 is incorrect.
 > 
-> Existing Device Trees already rely on signed values. OMAP4460 uses
-> an offset of -9301, while OMAP5 uses offsets of -1791 and -2992.
-> Broadcom platforms also use negative slopes. Declaring the property
-> as uint32-array does not represent these values correctly.
+> That said, since the bindings have already been merged in its current
+> form, we'll need to preserve backward compatibility when addressing
+> this.
 
-This looks like a good argument which was missed back then (that
-the negative values are possible).
+This is the input port to camss, so how is it called in camss, not the
+csi phy?
 
-> 
-> Change the property type to int32-array so schema validation decodes
-> the cells as signed 32-bit integers, matching their intended meaning
-> and the thermal implementation. The cell width and binary encoding
-> remain unchanged, preserving compatibility with existing Device
-> Trees.
-> 
-> Fixes: 1202a442a31f ("dt-bindings: thermal: Add yaml bindings for thermal zones")
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/thermal/thermal-zones.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> index 999ad40a20d5..72e419124f98 100644
-> --- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> @@ -101,7 +101,7 @@ patternProperties:
->             thermal zone.
->   
->         coefficients:
-> -        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        $ref: /schemas/types.yaml#/definitions/int32-array
->           description:
->             An array of integers containing the coefficients of a linear equation
->             that binds all the sensors listed in this thermal zone.
 
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
-
-Regards,
-Lukasz
+Best regards,
+Krzysztof
