@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793870352;
-	b=Ziy5GTlz2PzAKSMk2PXsXaWNBN5yFZ7+eGNtWrTrLL7LNbYs5W/WJXB5Fn+EVKwz6+8v
-	 W3AbreF2kCzgGw6NGEtuZxJt5cOs7xvRgxjvD+G2E/m0fQw8WrTWX/55/rJKyXkornyzj
-	 X/nntDaLUH8BJo3ofXQwpD8qncxxHznAd5LSxN2VjlWlMtMdbu51TDV0IUNnluVzLgY6G
-	 3u0PEfEclddh+7DcuDwUjBEC31oidbTXE71ml7DEZhV2BpyRLNtAy1WdV+PDDYXh4BeZM
-	 xb1cRA1tM0Mx9BITyAiF7ANTvWA0xjAO3p707ZIhmRSLSHLdNbz7c7tIGEU7GlGPiiw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793870352;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=isA7S8y39aOXwibZLyJnLNeWm5yvRencouZs9YKdLyo=;
-	b=GXBdmmcZcHaPN6eB0zrebMJzOqKN/3pUdErgASqBmAO/uWF3L6l7WRIu0fviK4f+YZ4q
-	 tlBAR5UIEzKOvtn/AXLoaCMgApfBMOPOlgcyUQzA8xzhCKtcp5K1PocYRO9Z8dhuRMRFc
-	 3yiDA67G46/esb8epy1MbYDB+5gfLmDYZEx3U1n384XZaiUUSt9UyMvEZAiByT9MO0qf1
-	 0LXNg3Ds6OaejSgd70c4i1cYaaJICVs1f558a4bMZIG38pHE+IwQVIFVo9Xd+Rh1yQ3fi
-	 kxt2UntYmA07KMW7suJ7TWFgKeT8qph4JJcNoDhasQXIsbeRc8pMWbPgaB5hZ0D2BYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5Pr4cRd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793870362;
+	b=q8McCuDABfT6rgHslpoSS1ThPhmoHm+u3IzsX+xihTLYeWtUCcHy8cCoSUFGJr+6ak3H
+	 W6kq4Svmm+8obcODFetRmFyF0Jisf2gpQqP62nm/YowF0ZV05FlXaxBSPuHQyBULr9Jas
+	 arTZyTKsRdXp+/I1siRDvUcRz4a5UHHHLHVBHslzhxfMsSE+Oj0qlv5qL3Ek37EHDKSTf
+	 3USdf/xhtFtAE4t1H9kDjqAUfKKHwThld0E+/ORMnqE+BJUkUkrdKu8Zf0c7m4wulNEis
+	 3I1ZIHIPFD3HF1v+vRYbbQ9jMPOqGKcNZtF4jUmrrcA+aGClPyXXZfwqybYdULv11aw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793870362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+	b=ZhdklZrAizzGu5TqQDYvu19WjaHyV6MdchEoYk71+EqvgRKthMRkrBQR4ZcOfzVoYDGE
+	 avuXt2eCCqctRb3xKPMbEBfc/qK4KNVH5PeFp6Kg2kOfLyhWVCR027cBji54fcyxY2PfY
+	 N5WUoeB9PTT7CKTlCYxf8N0NWC9htslQI3BVO9BydQTOtzJcF8IwD9dmpAs1DeiOA+uzS
+	 U98YYsZGa9cXbv0wX4nctEse/HBPxBJD6Wv0rkY2ocbPVQcaIiGLpOGz1iLrIsEHWG1eQ
+	 jdGli+9f4jiDwtZA5drG2UnVSxFD8aR+TlUHLINkEkOCVQkcsgXHx34hWiuO2jt54kg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lRDb94of;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.45
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC032606A33D
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 09:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB48606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 09:19:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB48606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5Pr4cRd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1831F0093A;
-	Thu,  5 Nov 2026 09:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793870351;
-	bh=isA7S8y39aOXwibZLyJnLNeWm5yvRencouZs9YKdLyo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q5Pr4cRd2GKcfQOEvVWJ5dGwrjjrh86O1aO6oO9bh8nLg0mraoKl7+fOvXIZInRoZ
-	 MXobxgMxLRqPb+Hkgdlqe3ZlWRLWVX/CWvo1ezqWImBYU5udgATKP/OnL7i6iVeYUP
-	 wzoprfExp8bBBNsEYl7VRuJ5taxORO2QyFKHCATwK8kqeFeY+9Yt2ZQGEoRH47RnT6
-	 JqXCmi+e3Fz03KC2s+7nI/qAOfQ+Iu6Wmv55sM5AGb7gcbFxVlEp26d0Y6SbLTtLQE
-	 D3Au+gcaOp+xxTJNcVp0eYj13MDAfd9gin1L/eVFaHVAtknTPTMVsjKGycw/q53Nls
-	 S7Ex75SQC4N0Q==
-Message-ID: <sashiko-outbox-198755@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-qcb: Add PCIe3a support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105-pcie3a_x8_1105-v1-1-d09aa0601186@oss.qualcomm.com>
-References: <20261105-pcie3a_x8_1105-v1-1-d09aa0601186@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 09:19:11 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lRDb94of
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-48eee44b908so953336fac.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 01:19:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793870361; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ew7jv/GPZZedXJLAsL5YwFaBaMWfSdIiDTXnQWwlDdBOq/VgifVzDqb0P/crX+bilN
+         kYRRWbxfM3Su7byKVj+eG5s4G6+SJmYqKGlA48reuvffNK0weP/MYIKPy075ematf3l6
+         EOOBIqEDLzcyNAOU0D2ExrQ5sVApRrgJc242j/gMYjc89biSGhI3cIc07dj/JBb2VTee
+         cUFy0//Pfo7GULoU2Dh7vJGZucVd3BvohGGw2lGpb7v9Sp4RsODU7aI/mn/c6cw1MSe7
+         66z4oeNgGxoY+z8r6GCduwDtjbJiQ53NwZr8rzHEqJRm1AqDO7Y520FzqsB99v8uOJIl
+         4v1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+        fh=KI5ASrB4yWF9UzGY/OrdoYYtCeeG9XmO/FCtY1c9gq0=;
+        b=CBtIfOIHFnWOiArwYTLDGLk1IYDSjb+CJv+RXRClU9ar3Ow7GytQ2X/b5S4PRLGYgD
+         8AmZnFVN40ENxknnWGIb+PO25qg3WaObMNgBMd8mDRr0Z03zsI3xmVenqavLRIYPdatF
+         b1UcTZhvBhFFY6/k4yKoE3i02XAJHLEXj6DLIZvgbH6G+IKcm8IRmGZ8RWYfqGaC5Y5X
+         8OC/RvofXQA4PJox84GISndC8HXP761sRoh2GFMKeq7oloAvLbnHzUjNT8eIDki5kUh8
+         m7HGRcLQqsKY79qXPNq8Bd16zbzJIp7S9nSJxttpuLpUelTEFmNVd5sxE832BV5B0Ytt
+         FDyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793870361; x=1794475161; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+        b=lRDb94ofVYHR+1WQwqiDrJVy5WTe2mWB/507MvM+fsdIOGBt3sRL5H/oft6UVGYBTi
+         DVmRcCepPEyAt4m40GJEhUuZEx32YrCy2Sdf3yqbSAzLyrlCN4NVfO+4IhIdmUXBPxJi
+         thvR8yCrwaPWAKopJovEadOcE/QJdQzTrJgcTEMEn0fmtmtTlfwTn8F+xcGHhD6/5sG1
+         AL+mrQy9EFmutVMdyy+JJ5ldiFvjiCihI0TkLrAHTM4QSFvsdnZe/I6+bQqTm9HoGUEq
+         vcGOlc6oQhacHGqfJPeiEYwQbI2r9B932gx28a2WeS+F3cT2W8OCtbPZXzVw0l7q9KH6
+         2S8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793870361; x=1794475161;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ndGzkCwTbGT2osVm60AE7H39WPe2NYufaCoY6UTi6Fo=;
+        b=X/sAxHMJ09xjBWK4l9gMGg+jK/q83XSKSDDuRHZgq+g6blElj02Pq8eJIGeNktJUzi
+         /kvW+iZ1djErgUdcvNjjSm5H8eQBIzQh7FvFXrL/wC2Hb56Z2yCEOvUOeZUbwE6XsHJ4
+         MqxaS1YJlwmPdA1DkPeouTBB+ZaYVo6Wo2r8K7SVIkUIVJGqc4FcyHspMoi+3m/l3fjk
+         jQouQhvgEAUUuWEzu0qs7VnlgOVCZ5EQ9QijqrdmieFu3A84nBEcM/ZeGE0EYVHOSH4+
+         aPzA/cw4lw6QS+2Tc1R6tpF7pxF+YM5XtwWj6njfz4TgczPkl9FdT95tsMUC/gyz92dg
+         b//w==
+X-Gm-Message-State: APuU4Z9fLXycuXhp3lcBQgLFZ2l7D17W7PsN36hbeD4yDbIwJ5kVlp16
+	3yMFKGdT7QFCzaTdFeDnO6paQuDr+X3tbsyeoezSsJV3iAFxLQIongHlDsb0GRm/d4Fvey0GjXw
+	TEWDycfR/CaX1Dja/dMoNEb/lT2tCDps=
+X-Gm-Gg: AYBFou01IJIU8/W3Pw07TnQr9+Eff7VCyZOZ3ZQIVl7PQLFHyJsBH3mBEFBLFXZjCPt
+	oTuoGCevSOy2dIsIKtUiQvLEGURAi0DlMchHk3sP2xzGHTloVJlBwJok/G2/EeOIuES4UotlFrE
+	zybL+XTRRPU3XK3e6OYnBAwidRjc3HfHzXfxQnkKiqhs/7axuLU9BtgN5AURfHsdvv4+vf37NMW
+	0HbQ/X1rfIXy3SIsgSZpujJX8QxJ6RVrqWT8+TOmWzo5NQLtdaqapoWo6kMEbR8Y5g/akeKnXbZ
+	hI5s9M/NdKCaWOmxKggf3+ayGLfwsJxfX7xM9M70ioiFCewWIxzH72Jl85gWcYKqW53WW4Oq2VD
+	JCiOkxUjXtWFVcErFkfwKETfDAuzsqfUKt6nOeg==
+X-Received: by 2002:a05:6808:4f61:b0:55c:836:597e with SMTP id
+ 5614622812f47-5640dd5ca51mr14606352b6e.31.1793870361392; Thu, 05 Nov 2026
+ 01:19:21 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,148 +102,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20260930111813.52396-1-chou.cosmo@gmail.com>
+In-Reply-To: <20260930111813.52396-1-chou.cosmo@gmail.com>
+From: Cosmo Chou <chou.cosmo@gmail.com>
+Date: Thu, 5 Nov 2026 17:18:45 +0800
+X-Gm-Features: AclHuK81XJ96pBCTYU7-hDy4yf8gIUQ_g9ciWuO0heyn1wGR422e790m2Wvg4ZU
+Message-ID: <CAOeEDyuRboYqBUOtLke=X0F66_A8NCHanc2iXt91duLRFGSU9A@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] ARM: dts: aspeed: bletchley: Cleanups and second
+ source devices
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
+	andrew@codeconstruct.com.au
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	cosmo.chou@quantatw.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: glymur-qcb: pinctrl output-high glitches PCIe =
-slot rails
---
+Hi Andrew,
 
-commit 396ad8048cc24879fc2c5466438a8ef1a184d1eb
-Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Gentle ping on this v3 series.
 
-arm64: dts: qcom: glymur-qcb: Add PCIe3a support
+Thanks,
+Cosmo
 
-This commit adds device tree nodes for the PCIe3a x8 slot on the Glymur QCB
-board, including fixed regulators, pinctrl states, and PHY/port power
-supplies.
-
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-qcb.dts b/arch/arm64/boot/dt=
-s/qcom/glymur-qcb.dts
-> index 17d8ff3aed23b..741a24454e80d 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-qcb.dts
-> +++ b/arch/arm64/boot/dts/qcom/glymur-qcb.dts
-> @@ -78,6 +78,48 @@ vreg_nvme: regulator-nvme {
->  		regulator-boot-on;
->  	};
-> =20
-> +	vreg_pcie_12v: regulator-pcie-12v {
-> +		compatible =3D "regulator-fixed";
-> +
-> +		regulator-name =3D "VREG_PCIE_12V";
-> +		regulator-min-microvolt =3D <12000000>;
-> +		regulator-max-microvolt =3D <12000000>;
-> +
-> +		gpio =3D <&tlmm 26 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 =3D <&pcie_x8_12v>;
-> +		pinctrl-names =3D "default";
-> +	};
-> +
-> +	vreg_pcie_3v3: regulator-pcie-3v3 {
-> +		compatible =3D "regulator-fixed";
-> +
-> +		regulator-name =3D "VREG_PCIE_3P3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +
-> +		gpio =3D <&tlmm 135 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 =3D <&pm_main_3p3_en>;
-> +		pinctrl-names =3D "default";
-> +	};
-> +
-> +	vreg_pcie_3v3_aux: regulator-pcie-3v3-aux {
-> +		compatible =3D "regulator-fixed";
-> +
-> +		regulator-name =3D "VREG_PCIE_3P3_AUX";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +
-> +		gpio =3D <&tlmm 136 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 =3D <&pm_aux_3p3_en>;
-> +		pinctrl-names =3D "default";
-> +	};
-> +
->  	vreg_wcn_0p95: regulator-wcn-0p95 {
->  		compatible =3D "regulator-fixed";
-> =20
-
-[ ... ]
-
-> @@ -659,6 +749,33 @@ wake-n-pins {
->  		};
->  	};
-> =20
-> +	pcie_x8_12v: pcie-12v-default-state {
-> +		pins =3D "gpio26";
-> +		function =3D "gpio";
-> +		output-enable;
-> +		output-high;
-> +		drive-strength =3D <16>;
-> +		bias-disable;
-> +	};
-> +
-> +	pm_aux_3p3_en: pcie-aux-3p3-default-state {
-> +		pins =3D "gpio136";
-> +		function =3D "gpio";
-> +		output-enable;
-> +		output-high;
-> +		drive-strength =3D <16>;
-> +		bias-disable;
-> +	};
-> +
-> +	pm_main_3p3_en: pcie-main-3p3-default-state {
-> +		pins =3D "gpio135";
-> +		function =3D "gpio";
-> +		output-enable;
-> +		output-high;
-> +		drive-strength =3D <16>;
-> +		bias-disable;
-> +	};
-
-[Severity: Medium]
-Does setting output-enable and output-high in pcie_x8_12v, pm_aux_3p3_en, a=
-nd
-pm_main_3p3_en while omitting regulator-boot-on in vreg_pcie_12v,
-vreg_pcie_3v3, and vreg_pcie_3v3_aux cause a power glitch on the PCIe3a slot
-rails during regulator probe?
-
-When each regulator-fixed platform device probes, really_probe() calls
-pinctrl_bind_pins() -> msm_config_group_set() before
-reg_fixed_voltage_probe(). Because pcie_x8_12v, pm_aux_3p3_en, and
-pm_main_3p3_en specify output-enable and output-high, msm_config_group_set()
-drives gpio26, gpio136, and gpio135 high and turns on the 12V, 3.3V_AUX, and
-3.3V rails.
-
-Immediately afterward, reg_fixed_voltage_probe() in drivers/regulator/fixed=
-.c
-checks config->enabled_at_boot:
-
-	if (config->enabled_at_boot)
-		gflags =3D GPIOD_OUT_HIGH;
-	else
-		gflags =3D GPIOD_OUT_LOW;
-
-Because regulator-boot-on is not set on vreg_pcie_12v, vreg_pcie_3v3, or
-vreg_pcie_3v3_aux, reg_fixed_voltage_probe() requests the enable GPIOs with
-GPIOD_OUT_LOW, driving gpio26, gpio135, and gpio136 low again and turning o=
-ff
-the rails until slot_pwrctrl_probe() later enables the supplies for
-pcie3a_port0.
-
-Should output-enable and output-high be dropped from pcie_x8_12v,
-pm_aux_3p3_en, and pm_main_3p3_en (matching wcn_sw_en and wwan_reg_en in th=
-is
-file) so the regulator core manages the GPIO direction and level, or should
-regulator-boot-on be added to the regulator nodes if these rails are expect=
-ed
-to remain enabled from boot?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-pcie3a_x8_=
-1105-v1-1-d09aa0601186@oss.qualcomm.com?part=3D1
+On Wed, Sep 30, 2026 at 7:19=E2=80=AFPM Cosmo Chou <chou.cosmo@gmail.com> w=
+rote:
+>
+> This series resolves dt-check-style warnings, sorts I2C nodes,
+> and adds second-source RTC/LED support for the Bletchley.
+>
+> Changes in v3:
+> - memory@80000000: keep "device_type" first, per dts-coding-style.rst.
+> - Link to v2: https://lore.kernel.org/all/20260729114312.3947300-1-chou.c=
+osmo@gmail.com/
+>
+> Changes in v2:
+> - Added patches to sort I2C nodes and fix DTS coding style issues.
+> - Carried over the second-source RTC and LED patches from v1.
+> - Link to v1: https://lore.kernel.org/all/20260714120816.1504058-1-chou.c=
+osmo@gmail.com/
+>
+> Cosmo Chou (4):
+>   ARM: dts: aspeed: bletchley: Sort i2c device nodes by address
+>   ARM: dts: aspeed: bletchley: Fix style warnings
+>   ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+>   ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
+>
+>  .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 1315 +++++++++++------
+>  1 file changed, 902 insertions(+), 413 deletions(-)
+>
+> --
+> 2.43.0
+>
