@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837704;
-	b=Dl3SKRk+ULyoxdOfGp1p1hSfFrScxl4kNkdGzRIr+atvQ5FBwRpCJG1X2NGmNgH9HX/J
-	 u0Q8i6egfsiuSzqAVENxUgNRVdB0Rxm6x1zKoxB2KBhqJbQ1q23yVZR0pJQGJQwvH+3QG
-	 +IUiErlKruHOG8p3jh8xDAJWO+cWHquwyvuCT2puwWhwrCClSkaKHeCFRMEyqsvO7wYlQ
-	 VuKz/pGQEhGmFxbCv4Oehqfdq4K8Euma6POj6drIw1TsPcTdOJBrfKBh0UGp1umCG1BQE
-	 LyHBIugTAnJ7T8iyJxwVclz/NezvvQXgLE3czvWkknX4xSQo1zH7iKIvidF3RevaZjg==
+	t=1793838118;
+	b=jQYkEAahSea3Law99/2Ukiprj79S1xZpONvJA5txDuKRvv/bggy5GSVneAlBy67P/mV+
+	 AlVyCir38v9ixF8PIUq7ha/9yan53NhUzovg1sbmhu34ett9aH7u8bl0I9LZv0evP86kF
+	 IEqFv2m+kQCqDLTxF3NySQ6Lgebt0MWNC4xrNYk4JTBYJpdo4bP/7KAtwQMW7YdmsKzLQ
+	 o8boAgb9RKvOFAo0vkrrQz8pJOUN2gzrSszqFK/3Q3L8dF0Velye2ISRQGtZvwq2XU5k+
+	 O6YNlV/5KuoldmCDi+e7g8ZHP6bozmVPmjRLYdA4y9ew2A5fPYD+8/SordyrhPMMe3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837704;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h8Fmxg7UPxc67bS2uxs2YzYplbP45zTEtp1G2uNOsoo=;
-	b=WAY9QRRJ1dCiSTEzQEKRvuGTEZp3iQZR8rkLuTqBcBN6BxCgmWdW1SL2XAC55+3p9eLI
-	 jPpsoOBCgcmoj+rw7OGc40H0fltJNHUtspkbJeSFwJNMos8GUmJHAbsqkP8Yvf2X6eu1N
-	 rM8beU3toXua3uuAme+iSwe/I3/uDtM4d1i5Q4NbaUMkdRAp0zE62lEqjIcYpPo3peh4K
-	 mPLWSGgBCflN21BdC5hMspbnIB8Q/NbmWQSv5oX75YeYRZ06t8TSjtH3fXqK7pWSNu2Bn
-	 LsJtRnOQz8qk5m+lrjZLBOAiuZKOeuKYz2u6K3CDpIzi/EofQwMJjq++PuFPCCbEBrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793838118;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=KJ+EWn5f31K8LTsipMRwE67SY96qb24TRG/ZZUgor4E=;
+	b=WA6HU/iClVzU88Crqx6oYymbjPob2ZyCP07/4RigjLNn0pJDXq4LLBcBDNju7KxlwkTi
+	 SbdopUddWY3TFQqV7fQKu9gjei+W0daKyXxYcSSaccVcRlZW/H2S7EcINGfklG243d6be
+	 mMUcC82bg3JF5B3VG2PqrxQ9QuCoDG7BLbdSKYb+ItCht4ZMqHQr7oYkapOnOGtljX03z
+	 +Gw2fqNarkB1lf9G/KQczb7/fZ++nPD2JfWs5NoibPSYRDnDqlPuqxzR+CXEjbwwGp5uB
+	 WbRhBUizO8Y4l6N1ZHTM9l85V0XPVIAloBRBIn6Hs2tfSz1Bm4NCShBFJGrT29LvKUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eyj1SBXP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFRjSZ3V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CDB606A32F;
-	Thu,  5 Nov 2026 00:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F0E606A31B;
+	Thu,  5 Nov 2026 00:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eyj1SBXP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079AF1F000C1;
-	Thu,  5 Nov 2026 00:15:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jFRjSZ3V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76DA51F000C1;
+	Thu,  5 Nov 2026 00:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793837703;
-	bh=h8Fmxg7UPxc67bS2uxs2YzYplbP45zTEtp1G2uNOsoo=;
+	s=k20260515; t=1793838117;
+	bh=KJ+EWn5f31K8LTsipMRwE67SY96qb24TRG/ZZUgor4E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Eyj1SBXP34nGkYF+2wuYVaD/j2oolhmzvd9LiQ48auwwAgnli3YmRHV6oAgegzkkX
-	 VYMbhgBXhgGzmP+v33I6oC9Rrvlytgr78RaSq4XWZjhopYumwhTpCeuFAS+F/Fncso
-	 /pVxQZjYLPraIu/4SIYVSbi3F66hrxL82BWc39O44QPi2BjF5AqrKKGQkYYMQLhHHJ
-	 BhNNHpiWz6Uv9Ds1ZaU5nYGQ7cU8TGJX9DPEVHeIqhnyJu+j43n3dzvzHmj4pdvLOn
-	 uP+wpHCp5h0WAqxzWU0Fq91+UhMieUnnEEjHEe0xt2JZKurh0Uj3RXjP4n1QKMxsYW
-	 AKdruPm5Tzbsg==
-Date: Thu, 5 Nov 2026 00:14:59 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Alessio Ferri <alessio.ferri@mythread.it>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	b=jFRjSZ3Vjg2/3aqnl3ftOlADfJwCoHEFZ89XEajUiiTXtFgUUus+uer+Ptdu3Ztuv
+	 lf4AgGKcAz1wf+1jPrFB4NwTgP+WFN+61Vok/HozH6p5F/KWFoHpAT3NlxM1cvSb2j
+	 C739jhTdTi0ZaI26Ajh1epVtVX/nxV5PbMJtrAlHD/4IARRMkmOIJNaH5wzYCHCFOD
+	 JshCoEPt0LG2qji65DxmVfd8SGBSTWIBAHPQsYg4nFSl/8Az77DBFilsC7adseC0rS
+	 53Np+hG5Y0J2o2lJcVU6zMCig0aY7vRVJVRxsqK8art1bQ/9lpfFSlNeFhnF3Y1gYf
+	 HY0LLms01dBgg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 514B1269328F; Thu, 05 Nov 2026 00:21:55 +0000 (GMT)
+Date: Thu, 5 Nov 2026 00:21:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Sheetal <sheetal@nvidia.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] dt-bindings: bus: add Broadcom BCM6362 WLAN AXI
- backplane
-Message-ID: <20261105-venomous-synergy-35533dee93fb@spud>
-References: <20261104-bcm6362-wlan-v3-0-e46562b2ac12@mythread.it>
- <20261104-bcm6362-wlan-v3-1-e46562b2ac12@mythread.it>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mohan Kumar <mkumard@nvidia.com>, Sameer Pujar <spujar@nvidia.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Anupama Kunkulagunta <akunkulagunt@nvidia.com>
+Subject: Re: [PATCH 1/2] dt-bindings: sound: Add Tegra268 AHUB support
+Message-ID: <eb487bb8-1d43-473b-8eac-c35f11aee6dd@sirena.org.uk>
+References: <20261104112055.1101243-1-sheetal@nvidia.com>
+ <20261104112055.1101243-2-sheetal@nvidia.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,26 +69,39 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BAb48XzL4ooHurrF"
+	protocol="application/pgp-signature"; boundary="/o0u/gJGJlEXgU5E"
 Content-Disposition: inline
-In-Reply-To: <20261104-bcm6362-wlan-v3-1-e46562b2ac12@mythread.it>
+In-Reply-To: <20261104112055.1101243-2-sheetal@nvidia.com>
+X-Cookie: Whoever dies with the most toys wins.
 
---BAb48XzL4ooHurrF
+
+--/o0u/gJGJlEXgU5E
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Wed, Nov 04, 2026 at 11:20:54AM +0000, Sheetal wrote:
+> From: Anupama Kunkulagunta <akunkulagunt@nvidia.com>
+>=20
+> Tegra268 AHUB supports five RX and five TX ADMAIF interfaces, five
+> I2S instances, two MVC instances, and one instance each of AMX, ADX,
+> MIXER and ASRC.
 
---BAb48XzL4ooHurrF
-Content-Type: application/pgp-signature; name=signature.asc
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+--/o0u/gJGJlEXgU5E
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauvKggAKCRB4tDGHoIJi
-0hVQAPUczhdTFcD3qKMUT/bDHMyvVJalz2jOijC0wpc4wOxxAPwLYoQkmaB9IQjs
-IsueimLnhXos0tSXub7hPAZRxDG/Cg==
-=Yh84
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCauvMIwAKCRAv73Ows9A4
+ic7YAPoDZZC/AHN6uGF95k8G1Y4mgrZ5on6qIUN2NaWY5Ek0EgEA7zCSlgtDmyRM
+NRssu04HoncgGiLJN5vUVjhl1RC+rAo=
+=s/In
 -----END PGP SIGNATURE-----
 
---BAb48XzL4ooHurrF--
+--/o0u/gJGJlEXgU5E--
