@@ -1,61 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892834;
-	b=BdV49bSko7GP+SMBwYHMMXiuzdc330QQiHmRMrKDMKOHHn8tf6/YYSfz0r3aewxsypME
-	 hFvHTD/xdzM9feKSgmnwfTzqvtUlleW8b0TyS2gYYinm1hCvh93geuCFIVhA4N20CIXhQ
-	 K0uAJaBV+AFbcJNmbLdcLB9Cjx3OPTdP0BurRUg+CfhJYV4CY/90FKztuKXMxDK2DTO58
-	 mHf+FFVuxAhKM9i2qiYSNCO8Li/MBix8iUJcPbfb2PthbRPpvqyMMkJ/bTlFpfeRqVtzv
-	 TJdquuo3c2Y+AN2PLNHsKc6LnV1sPO115tdyvFlex8Lo5LYIgrdCF/43QpLR5Zhvxtg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892834;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=NLJKjEyvSmlxD5pGqZml3zlQsg/e3rwimIqUw9fqZUo=;
-	b=ymrOJxeNF3xT5F2IOvngeFpEMIMjsaJbBNJrswg6IgRYPOK9lkbYwmtte0en2bXcmD6s
-	 emIlAuF8gMxVaRsTbGPjAr1S0U+0bX/wOKV3Kjh0pxU8WT8TqB8VraawrDtWAO1RsHhlI
-	 1EF7b/SYT3vWsgocU2x5fdTiCbcR3Y/jeZh+Gx+9xzI15hPjD/FJFdOpueF02vh1oV8jM
-	 sEdgh990H5heoCtoLq2SaQzk5J6eg6pcSxMfCYn+o5mqi70pvHBT9B8n+Wn3sXBGhRVbx
-	 /l+U9l6jldk8wVhHlagxZWrs4hKHR3pssQiDqh0hNLv4fvr8SNpaeCatAOioyn9edpA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeeZhdU8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793892919;
+	b=LovSomIhEptpo7qsZZJyfsPmspVBKIb/B2Gx2vRkucfNAbFikoK8D3a9yUoux2SvABjU
+	 uVDc5jotCoQZHTGSyE9rTXU5bo6ODe6w3tXZhG8XMWe6vKAU5ksic4sD8K7FhPdCVT3zg
+	 813iFTzayuziPOo7Cs/0G7X//UyvI6imb7EN64CjXV4kagchtQRWrvE0JFLKZutVLf0Ew
+	 eWAVYRZZp7xP0/fzTpA17OthlA1xtxKxDar1VhshaRBsgMGhlg3KR8YCQbk6FgfDw1N02
+	 Z6oyxjkygMtgAArK8ymOgO6SqQqbccq0zJecb9qO8SAvnBsBq4KpiHvY7b4pAs8a6SA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892919;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
+	b=KdoRq9CyHo1CiEcdB2SnhMxJUrWIkSUgGdCKzwOHmjKkVk3jWphOTsF/3P6sKNOlk8/M
+	 /7gmU2fKNp5WBgRt+Xv4hljw5gifN6GV3vLQQULfFdRNV1DgW0ST+k6WaiOGkyKx+wi28
+	 tFpk07NnbyOUbcUrmGArOx0M1dOLTMlMPF9UGo+K4Cvwn3vIOBZjP9v4QEoQEgJXz4wiw
+	 BWZIutoreto/5bAl9srAf0ciYJgTt/h3bivviPe2OYyXGzIZDczdiJRLFIGk1v2PaHm28
+	 ARLV1aYKOwdeiJFcBmmxJqfoUwoTF0SIPXrig98mbjv3YNenk4k0PKsvXfSz5dvAjog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XmDVUKYp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00295606A335;
-	Thu,  5 Nov 2026 15:33:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAACE606A31B;
+	Thu,  5 Nov 2026 15:35:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAACE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeeZhdU8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55131F00919;
-	Thu,  5 Nov 2026 15:33:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793892833;
-	bh=NLJKjEyvSmlxD5pGqZml3zlQsg/e3rwimIqUw9fqZUo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EeeZhdU8ebHExqiztrJaNJhGb1phacSHrRBOplJ+fQ1OznrQhSoLShLTOnT/rl3J1
-	 4Mv4qHenwyWlL0S3F0eBwhAZ34qY3SsgdElTuocC69MZ2KKXdVrbVna4MAVF/huuKL
-	 Pi9GYcQ5pUeXnUPZQgA2lLbKGyH8GFXYLhTnVPYYBd4bY1AvqrWnx13ZQqIl35MMdq
-	 iYu8zxxbgw5cOkX7bilRDJ9lePmKH8Ifz/JclOtinncnpusgA2RJBqU1BRTUTuEFmo
-	 XJwpCOoi9Uho7cDFPSGTADEm8ej8tYjnUMfYovtni7/6txAMq2j564DBHIaA7GUqfH
-	 pnmjl36cld9mA==
-Message-ID: <sashiko-outbox-199316@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
- SM8350
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Demeter Barna" <me@fromdisposition.org>, "Abel Vesa" <abelvesa@kernel.org>, "Herbert
- Xu" <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
- Dybcio" <konradybcio@kernel.org>
-Cc: linux-crypto@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261105-b4-sm8350-ice-v1-1-f55e6ea8e1ca@fromdisposition.org>
-References: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
- <20261105-b4-sm8350-ice-v1-1-f55e6ea8e1ca@fromdisposition.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 15:33:52 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XmDVUKYp
+Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.4.pengutronix.de [10.9.0.3])
+	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 029092001A4;
+	Thu, 05 Nov 2026 16:35:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793892912;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
+	b=XmDVUKYpjZcwC7b8SlEXCovgkE/JBQsHmhhVyAYs5zigkZ87oowPnVy5aj3Q89rUMSTsoa
+	FyNTbgM8GQKFolXErydMGzN0GKnXaLpIdxrYMOi5gcc4D28kiyjAKJlW/MkVsr/K3Pzpgw
+	gbQLZZWgVLw2PQSM3mtoxdFLCx4jHsTpgbAzi/CPiKqRe7dq3qyNyoHKCKpT3aOmUSOJul
+	nFyTSSq74Qb/hvmcL3oJU/CAF17hnBUFTuSlIWwAcBXqhVP7UmIJnQq2rFmIW8RY2ZVmBY
+	OA/ksBPvOrQFjNg8basVTflOnG0YdJ+Sy9WsCc6X1Ztmzhg14xF5ZTUbbuVRGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793892912;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=o9kwmng/ZKZ68oeV09M3Z/Ujx6g9XVfoDBXSDUdg1Nc=;
+	b=eIGmtle9gor9BJZPw2wpF6K1snehL6cGfp1+oFlwj4LMLugIgm+6bVtFxVR/Fqs3vYi77n
+	Myyq3rQHLsZUKYkGi9RRBC7pRfuiocb4N9YYTI6jIDXTywq4uSVz1bfJA5Rrqlr5bVyFn6
+	DpGsmL/8WH64BdR1VKUILhlamHop5oRDTDv07wULbTPerVF/leaAWdI2uLZnIBj+BtSu4m
+	6pXFLNmFw1moZScD4X4RudOcDTVU2K/h2ea7e/uryswPVNkq0XN7lJDofhrH5Kdua7X8zV
+	PHHVieSnhX2VCtfWfr6o+f0+lXoocJR/xf40S76c8qNFQUZpFUClmKQ2uUCy2w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793892912; a=rsa-sha256;
+	cv=none;
+	b=YBq/iClsbsm9V9sGw6to7W9CKWhSSAgQsh08spGFJmdt+gYRlYpVIzyvVsukUOe0/LuIW3
+	S7m7obN/ZnmCBrd+YIHVcraz4vGWal/gt6muIEGSepK3ZhDGU7Rftr2+4iUWUikAAv2VBa
+	ugWMDzIY2AoCv+Sjl2RAtG8Wm5qen+TpwJ6Ag/2D1gWoU9bmF5hTjajKxo0tZ7rVJ2nFP8
+	GIYLLO0G9BBQCPwI5XsM/SrW/8ViJY06U0hqB3uSAM05/JvPhaUBNADsdYQDmck5B9a7fw
+	xsGql6365IhC/14rsm0EobVq+6iq02Ybi1/bX8peEE0fdXjPY/GhkggSZQASEA==
+Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
+	id E15511BF56B; Thu, 05 Nov 2026 16:35:11 +0100 (CET)
+Date: Thu, 5 Nov 2026 16:35:11 +0100
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+	imx@lists.linux.dev, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] ARM: dts: nxp/imx6: Drop unused .dtsi
+Message-ID: <vvsd6rchs6wff2n7zxtcarxcvbnuxd7fx632xogm6hrcxxxqsl@dp5dvof3qa7c>
+References: <20261105144920.2796623-2-robh@kernel.org>
+ <krvg6bwsueypasvt6fqszh7itqr3gu3qsqbji2ernqqy6g3t4c@b7hqenmaugik>
+ <CAL_JsqLETyrx7ew0zirS9r6+3=GEFaRE0g96OZHYwqjxMCZKcQ@mail.gmail.com>
+ <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,75 +95,57 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <hvrfbvmyzsa6npzh6wpa6o3xxygslqc7g5ukt7ph7ty4povogh@wge2z4rejnf7>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: crypto: qcom,inline-crypto-engine: wrong allOf rule=
- for SM8350
---
+On 26-11-05 16:09, Marco Felsch wrote:
+> On 26-11-05 09:06, Rob Herring wrote:
+> > On Thu, Nov 5, 2026 at 9:00 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
+> > >
+> > > On 26-11-05 08:49, Rob Herring (Arm) wrote:
+> > > > These .dtsi files are not included anywhere in the tree and can't be
+> > > > tested.
+> > > >
+> > > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > > > ---
+> > > > v2:
+> > > >  - Rebased
+> > > >
+> > > > It's been nearly a year and these are still orphans. There was a promise
+> > > > to upstream something for the kontron ones, but that hasn't happened.
+> > >
+> > > That's unfortunate, but these includes are used at least by the barebox
+> > > bootloader [1,2], dropping these would cause a DT regresssion.
+> > >
+> > > Would it help to upstream [1,2]?
+> > 
+> > You said you were going to do that on v1:
+> 
+> Unfortunate no Kontron dev was chiming in. Will do it now!
 
-commit 6fe4d61044ad335d59b80ff5b3c25ea2445e069d
-Author: Demeter Barna <me@fromdisposition.org>
+Okay, after checking the current linux source tree I noticed that
+Kontron did upstream the carrier board .dts files but in a different
+manner:
 
-dt-bindings: crypto: qcom,inline-crypto-engine: Add SM8350
+ * arch/arm/boot/dts/nxp/imx/imx6dl-kontron-samx6i-ads2.dts
+ * arch/arm/boot/dts/nxp/imx/imx6q-kontron-samx6i-ads2.dts
 
-This commit documents the qcom,sm8350-inline-crypto-engine compatible in the
-Qualcomm Inline Crypto Engine DT binding schema.
+This means that barebox would need to adapt the includes. Can you please
+mention that the .dtsi are not used by linux mainline and instead a
+different approach was used?
 
-> diff --git a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-=
-engine.yaml b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-e=
-ngine.yaml
-> index 23bf98c2b9fa0..198002f582484 100644
-> --- a/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
-yaml
-> +++ b/Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.=
-yaml
+Regards,
+  Marco
 
-[ ... ]
 
-> @@ -74,6 +75,7 @@ allOf:
->                  - qcom,sa8775p-inline-crypto-engine
->                  - qcom,sc7180-inline-crypto-engine
->                  - qcom,sc7280-inline-crypto-engine
-> +                - qcom,sm8350-inline-crypto-engine
-
-[Severity: Medium]
-Should qcom,sm8350-inline-crypto-engine be omitted from this allOf list?
-
-The commit message states that this patch requires the power domain and clo=
-ck
-names for SM8350, However, the allOf block uses a negated condition to exem=
-pt
-legacy SoCs from requiring power-domains, clock-names, and two clocks:
-
-# Do not extend the list.
-# Legacy SoCs are allowed for single clock.
-# New SoCs must provide both clocks and power domains.
-allOf:
-  - if:
-      not:
-        properties:
-          compatible:
-            contains:
-              enum:
-                ...
-                - qcom,sm8350-inline-crypto-engine
-                ...
-    then:
-      required:
-        - power-domains
-        - clock-names
-      properties:
-        clocks:
-          minItems: 2
-        clock-names:
-          minItems: 2
-
-Adding qcom,sm8350-inline-crypto-engine under the negated if condition caus=
-es
-dtbs_check to skip the then clause, exempting SM8350 from those requirements
-instead of enforcing them.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-b4-sm8350-=
-ice-v1-0-f55e6ea8e1ca@fromdisposition.org?part=3D1
+> 
+> Regards,
+>   Marco
+> 
+> > 
+> > >> I will add the som.dts, please don't remove the kontron dtsi files yet.
+> 
+> 
