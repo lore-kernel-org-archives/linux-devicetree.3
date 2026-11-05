@@ -1,40 +1,40 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793888251;
-	b=yrC5QEXzor0VUl9HAG0uQYGWp9AZ0Z27MDifh2i41uOjp0CfgnS/axz7PmiJtQl7bo3t
-	 UcSUQcUQLjygH98fRBSQh4P5F06I4pcE52ZfWLKnR4SH08J1tyiHUTh7pekMaKiHeoyXm
-	 eY9IdqSKHkz1SWdJ9W3wal3murTSnbtmQ5yx7LhBn7p2kjJKD1eBoHb5FyNH1OdA5UEN0
-	 M1Xn+Vy+yEtXhHIDJvYWVaYl/P0gjBkP/wcugThjRGski/xb+FbaI4Ke46HU33bziC4b8
-	 U8kIsONs5hlkAi+VifTTtpgtTn7h2iIdS5vglySAVSLD0K5QVNp4oGy7Tr5bIlmwRlg==
+	b=c/MmxjYP5Gdku8LN6BUlrvdKCob2jXgfzncWcDG/nHdlfMlD+sC3TyFJcPqW1pzNEGJm
+	 e8yT4xX3POdETvLi6GLttHKUUoXSr+/3JmukTgBMQeCg3jS3I2N2m7LNmBBzCJTd+8qoq
+	 AoHGRbwBUzia7VWRuj3AtGjeAxdSiwS4m6//jaPKfYpsSp5kEJDWKzxUvTo3oPvTxq1v2
+	 Vxf9kCbHFajGlLi0t9Py7L5yV4fjfxJxG96YJAkJnDz4Vx8hUONEY+sUjJRT6BkEuVZ2A
+	 5X6kxHkSRNlDMhF/HE+GUV4KcQh1KLeejrjpN1ZN0ROPWR3DkYeOhpG9WGQV7lqwt+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793888251;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc;
-	bh=1WnOJVPULS3witEXn1mv3BjsOE3gttNrAIrndmIsRHg=;
-	b=MCcg8wnYKj2x3HCPX/OuWwpXyW6tsH1HjlI/pvzCMGWkpduBBZBL5DfyJ0Jn3jwXF2yt
-	 tLL2608G4vYPVUH7tKgO0gVUXcoDsgbW4LjdGXyTtEamZ5hSg3eVKZrxfu14hTzUKsC4x
-	 KojjVz3anGQlybEcNlzhdkzaa80oKa/nOI04PFfn9J7iU5n/o47CaiM9anzI4/P7f9qTQ
-	 EnQHRtAV5bNxQQ87NVXAk+nHGVUL6gmUKkTReJPCpTpQhG76KGSZa3NQJFZGSCn6giUVw
-	 R+VFBPnfHa6bhV1C16xW+NsztdnWfmeSqLq032XFmgdlm2foXbADVXmwIiQFTVBFWOQ==
+	bh=0ojaU2af7s7k3p1h0/a46ca/TLHHbqoTqMaN6YVck7s=;
+	b=YUcsageTqSEkPRf7lnuexpHrLS71mkbc/O8D9prvymP2Z7+zPHMzJpdO9daoMUtEUKgX
+	 yQRzB1KXRm7Sztu7+R71Xm8cROyo/rEA0qwjSAfIXs8/owzFuBNhEuMnDzC24BjL4UsgL
+	 ra1Qerd2K5w6N1ecnfKTgb1u2KcFJZgAHq22imTyq1ZQ6yw50J+z9+IqK5fjPGqA2KbPe
+	 JtyLcl1yO7Zx1GczQAciTHwu5mBPThkjp8UZs1wpge/jD6LfJRATX4sbomSPuZd+d2nZ6
+	 fq2Cc0qq6XrtseiicRvAH9kE65UP5EL6i/0/suyOandNb54TvmJRIxNLQpm0fe3VZ4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZnRqeFd1;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=qVg1wlVd;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=SbYbRhbs;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=X8DK0AH8;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40444606D81E;
-	Thu,  5 Nov 2026 14:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40444606D81E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FE1606D812;
+	Thu,  5 Nov 2026 14:17:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8FE1606D812
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZnRqeFd1;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=qVg1wlVd
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=SbYbRhbs;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=X8DK0AH8
 From: Vasilij Strassheim <v.strassheim@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1793888249;
@@ -42,24 +42,24 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1WnOJVPULS3witEXn1mv3BjsOE3gttNrAIrndmIsRHg=;
-	b=ZnRqeFd1ePTs7vnRt0estm1W1aS4tVl+JGTMa3VtNzrAO+rWHTru30cY5s9U7N6WyT+0rx
-	V2lQaMi14kss3FHJU+jWrSgdmfTF7zmppRMzYAgrF1XqHgiQUVCDKjq/BzO0UttyW1MSKS
-	whXqoHlaXxXBUVALvcXZamhAMtOzsT2+KPmlewbhTTVXjlZ4t7n87ewNOURTkkVr5/KpHn
-	CPE3n12ytpzzsMbi7tmvQmSi1oHjb1m7OTQV02e2TTL4dpSot3tc/Kgi7kLTsVzKCOXdXH
-	Ejxk62GLONjok7DfSjEmbrbwbw/KOvVRA7O1th4dI67n6Zjl7xAH0rDDDY7EHA==
+	bh=0ojaU2af7s7k3p1h0/a46ca/TLHHbqoTqMaN6YVck7s=;
+	b=SbYbRhbsoPfBSUgmr6/RJgdXLwaDVJRfUWPP3HcrFRrczlPaUwtnTOq5CWG3L9q1OmIHGZ
+	R3tRbeZx6OS2DOPoL/A3+6SIWzkqdiSKsIs/DSRMOyAYW7WWefsmcX23om2R1O8ldxFgaf
+	nuMpyuyfab+8jrJUpk3oHZ530fJBtdLZusyc/5fp51eixvpaXd+gvZyyM7Had2QhbDBt1Z
+	9sWQ90LSIM5oYwIJHD5k5D7VAyQwzJqc17JWIXMNcqMVQI5yRC8aOWUugbnFU5CrBsJi/v
+	i5TO8WleyRNHiO6k9EAjKWe54qgUG+Xdk+0zxLrnoOJctcKEacqdH7+QnGMApg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1793888249;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1WnOJVPULS3witEXn1mv3BjsOE3gttNrAIrndmIsRHg=;
-	b=qVg1wlVdNlxtrK7rzAOTQgI/Dh4YAoQBEC0B/tm6Q5BIIllh/u2P66zH5vAKnYKZX3YFU9
-	1+D3ofKHCMbMfJBQ==
-Date: Thu, 05 Nov 2026 15:16:50 +0100
-Subject: [PATCH net-next v4 6/8] net: mdio: Add SoC-e SWIP MDIO controller
- driver
+	bh=0ojaU2af7s7k3p1h0/a46ca/TLHHbqoTqMaN6YVck7s=;
+	b=X8DK0AH8eVxn/qIkEYPnM6fy/A3zz1ERTgel2B4vb3f1mlSwSwIcsbifUuNSbhSjc5+Lf7
+	6mbVkty8+1psaUBA==
+Date: Thu, 05 Nov 2026 15:16:49 +0100
+Subject: [PATCH net-next v4 5/8] net: dsa: Add tag handling for SoC-e
+ switches
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -71,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-devel-vstrassheim-soce-dsa-ml-v4-6-02f3cde2afa1@linutronix.de>
+Message-Id: <20261105-devel-vstrassheim-soce-dsa-ml-v4-5-02f3cde2afa1@linutronix.de>
 References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
 In-Reply-To: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -88,74 +88,94 @@ Cc: Vasilij Strassheim <v.strassheim@linutronix.de>,
  Martin Kaistra <martin.kaistra@linutronix.de>, 
  Benedikt Spranger <b.spranger@linutronix.de>
 
-Add a driver for the MDIO controller integrated into SoC-e Ethernet
-switch IP cores. Support Clause 22 transactions and the separate address
-and data cycles required for Clause 45 accesses.
+SoC-e switches exchange frames with the conduit using an 8-byte SDSA
+header inserted between the source MAC address and the original
+EtherType. The header identifies itself with EtherType 0xdcdc and
+carries the frame direction and a 10-bit source or destination port.
 
-The transaction control register is shared with the external MDIO bus
-selector. The selector occupies bits 26:16 and is managed by a generic
-MMIO MDIO mux through the upper 16-bit halfword. Access transaction
-control through the lower halfword to preserve the selector bits.
+Add transmit support for FROM_CPU frames and receive support for TO_CPU
+frames. Validate the EtherType, frame type, header length, and source
+port before accepting received frames.
 
-Check that the controller is idle before programming transaction
-registers and poll for completion after each transaction cycle. Return
--ETIMEDOUT if the controller remains busy. No abort or reset recovery is
-implemented.
+The SDSA header can also carry an 802.1Q TCI. Encode
+hardware-accelerated 802.1Q VLAN metadata into this field on transmit
+and clear the skb VLAN metadata to prevent subsequent VLAN insertion by
+the conduit.
 
-The idle check does not cover selector writes: the generic mux changes
-the selector before invoking the controller callback. After a timeout, a
-subsequent access to a different child bus may therefore change the
-selector while the previous transaction is still active. Whether the
-hardware latches the selector at transaction start is not documented, so
-such a bus change is not guaranteed to be safe. This limitation is
-accepted when using the generic MMIO MDIO mux.
+Leave existing in-band VLAN headers in the encapsulated frame, after the
+SDSA header. Whether an 802.1Q tag reaches the tagger as accelerated
+metadata or an in-band header depends on the VLAN TX features inherited
+from the conduit.
+
+Since SDSA carries no TPID, move accelerated tags with other VLAN
+protocols into the frame before inserting the SDSA header. On receive,
+the switch keeps an ingress 802.1Q header in the frame and duplicates
+its TCI in the SDSA header. Drop the in-band copy and restore the TCI as
+accelerated 802.1Q metadata.
 
 Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
 ---
- drivers/net/mdio/Kconfig     |  10 ++
- drivers/net/mdio/Makefile    |   1 +
- drivers/net/mdio/mdio-soce.c | 213 +++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 224 insertions(+)
+ include/net/dsa.h  |   2 +
+ net/dsa/Kconfig    |   6 ++
+ net/dsa/Makefile   |   1 +
+ net/dsa/tag_sdsa.c | 168 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 177 insertions(+)
 
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index d44278f26fab..b9bb9016b925 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -189,6 +189,16 @@ config MDIO_REGMAP
- 	  regmap. Users willing to use this driver must explicitly select
- 	  REGMAP.
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..8287fba8b107 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -62,6 +62,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_KSZ8463_VALUE		34
+ #define DSA_TAG_PROTO_MT7628_VALUE		35
+ #define DSA_TAG_PROTO_KS8995_VALUE		36
++#define DSA_TAG_PROTO_SDSA_VALUE		37
  
-+config MDIO_SOCE_SWIP
-+	tristate
-+	depends on OF_MDIO && HAS_IOMEM
-+	depends on MFD_SOCE_SWIP
+ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
+@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
+ 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
+ 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
++	DSA_TAG_PROTO_SDSA		= DSA_TAG_PROTO_SDSA_VALUE,
+ };
+ 
+ struct dsa_switch;
+diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+index 4f44bf3ede23..9b299cada316 100644
+--- a/net/dsa/Kconfig
++++ b/net/dsa/Kconfig
+@@ -194,6 +194,12 @@ config NET_DSA_TAG_RZN1_A5PSW
+ 	  Renesas RZ/N1 embedded switch that uses an 8 byte tag located after
+ 	  destination MAC address.
+ 
++config NET_DSA_TAG_SDSA
++	tristate "Tag driver for SoC-e switches using EtherType SDSA headers"
 +	help
-+	  This driver provides support for the MDIO controller
-+	  integrated into SoC-e SWIP Ethernet switch IP cores.  This option
-+	  will be selected if the configuration for the main switch
-+	  functionality of the FPGA IP core is selected.
++	  Say Y or M if you want to enable support for tagging frames for the
++	  SoC-e switches.
 +
- config MDIO_THUNDER
- 	tristate "ThunderX SOCs MDIO buses"
- 	depends on 64BIT
-diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-index 048586746026..d69f918313d3 100644
---- a/drivers/net/mdio/Makefile
-+++ b/drivers/net/mdio/Makefile
-@@ -23,6 +23,7 @@ obj-$(CONFIG_MDIO_OCTEON)		+= mdio-octeon.o
- obj-$(CONFIG_MDIO_PIC64HPSC)		+= mdio-pic64hpsc.o
- obj-$(CONFIG_MDIO_REALTEK_RTL9300)	+= mdio-realtek-rtl9300.o
- obj-$(CONFIG_MDIO_REGMAP)		+= mdio-regmap.o
-+obj-$(CONFIG_MDIO_SOCE_SWIP)		+= mdio-soce.o
- obj-$(CONFIG_MDIO_SUN4I)		+= mdio-sun4i.o
- obj-$(CONFIG_MDIO_THUNDER)		+= mdio-thunder.o
- obj-$(CONFIG_MDIO_XGENE)		+= mdio-xgene.o
-diff --git a/drivers/net/mdio/mdio-soce.c b/drivers/net/mdio/mdio-soce.c
+ config NET_DSA_TAG_LAN9303
+ 	tristate "Tag driver for SMSC/Microchip LAN9303 family of switches"
+ 	help
+diff --git a/net/dsa/Makefile b/net/dsa/Makefile
+index 1f9cc30e9988..a4c8d0e6bc0f 100644
+--- a/net/dsa/Makefile
++++ b/net/dsa/Makefile
+@@ -40,6 +40,7 @@ obj-$(CONFIG_NET_DSA_TAG_QCA) += tag_qca.o
+ obj-$(CONFIG_NET_DSA_TAG_RTL4_A) += tag_rtl4_a.o
+ obj-$(CONFIG_NET_DSA_TAG_RTL8_4) += tag_rtl8_4.o
+ obj-$(CONFIG_NET_DSA_TAG_RZN1_A5PSW) += tag_rzn1_a5psw.o
++obj-$(CONFIG_NET_DSA_TAG_SDSA) += tag_sdsa.o
+ obj-$(CONFIG_NET_DSA_TAG_SJA1105) += tag_sja1105.o
+ obj-$(CONFIG_NET_DSA_TAG_TRAILER) += tag_trailer.o
+ obj-$(CONFIG_NET_DSA_TAG_VSC73XX_8021Q) += tag_vsc73xx_8021q.o
+diff --git a/net/dsa/tag_sdsa.c b/net/dsa/tag_sdsa.c
 new file mode 100644
-index 000000000000..5350feb92d55
+index 000000000000..dcfa5de0ac6b
 --- /dev/null
-+++ b/drivers/net/mdio/mdio-soce.c
-@@ -0,0 +1,213 @@
++++ b/net/dsa/tag_sdsa.c
+@@ -0,0 +1,168 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (c) 2020-2026 System on Chip engineering, S.L.
@@ -164,211 +184,166 @@ index 000000000000..5350feb92d55
 + */
 +
 +#include <linux/bitfield.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/of_mdio.h>
-+#include <linux/platform_device.h>
++#include <linux/byteorder/generic.h>
++#include <linux/etherdevice.h>
++#include <linux/if_vlan.h>
++#include <linux/unaligned.h>
 +
-+#define SWIP_MDIO_TIMEOUT_US		1000
++#include "tag.h"
 +
-+#define SWIP_MDIO_PARAMS_OFFSET		0x0000
-+#define SWIP_MDIO_WRITE_OFFSET		0x0004
-+#define SWIP_MDIO_READ_OFFSET		0x0008
++#define SDSA_HLEN	8
 +
-+#define SWIP_MDIO_CTRL_TRANSTYPE_MASK	GENMASK(4, 3)
-+#define SWIP_MDIO_CTRL_TRANSTYPE_WRITE	0x1
-+#define SWIP_MDIO_CTRL_TRANSTYPE_READ	0x3
-+#define SWIP_MDIO_CTRL_CLAUSE		BIT(1)
-+#define SWIP_MDIO_CTRL_OPSTATUS		BIT(0)
-+#define SWIP_MDIO_PARAMS_REGDEV_MASK	GENMASK(12, 8)
-+#define SWIP_MDIO_PARAMS_PHYADDR_MASK	GENMASK(4, 0)
-+#define SWIP_MDIO_READ_DATA_MASK	GENMASK(15, 0)
++#define SDSA_NAME	"sdsa"
++#define ETH_P_SDSA	0xDCDC
 +
-+struct swip_mdio {
-+	void __iomem *ctrl;
-+	void __iomem *data;
++/* SDSA tag byte layout (after the 12-byte MAC header):
++ * Bytes 0-1: SDSA EtherType (0xDCDC)
++ * Bytes 2-3: Reserved
++ * Byte 4:    Frame type (bits 7-6), VLAN-info bit (bit 5), port[9:5] (bits 4-0)
++ * Byte 5:    Port[4:0] (bits 7-3)
++ * Bytes 6-7: PCP (bits 7-5) / CFI (bit 4) / VID (bits 3-0 + byte 7), only
++ *            meaningful when the VLAN-info bit is set.
++ */
++#define SDSA_TAG_FRAME_TYPE_MASK	GENMASK(7, 6)
++#define SDSA_TAG_VLAN_BIT		BIT(5)
++#define SDSA_TAG_PORT_HI_MASK		GENMASK(4, 0)
++#define SDSA_TAG_PORT_LO_MASK		GENMASK(7, 3)
++#define SDSA_TAG_PORT_HI_SHIFT		5
++#define SDSA_FRAME_TYPE_TO_CPU		0
++#define SDSA_FRAME_TYPE_FROM_CPU	1
++
++struct sdsa_tag {
++	__be16 ethertype;
++	__be16 reserved;
++	u8 frame_type_port_hi;
++	u8 port_lo;
++	__be16 vlan;
 +};
 +
-+static int swip_mdio_wait_for_idle(struct swip_mdio *priv)
++static struct sk_buff *sdsa_xmit(struct sk_buff *skb, struct net_device *dev)
 +{
-+	void __iomem *ctrl = priv->ctrl;
-+	u16 val;
++	struct dsa_port *dp = dsa_user_to_port(dev);
++	struct sdsa_tag *tag;
++	bool encode_vlan;
++	bool tag_present;
++	u16 vlan_tci;
 +
-+	return readw_poll_timeout(ctrl, val, !(val & SWIP_MDIO_CTRL_OPSTATUS),
-+				  10, SWIP_MDIO_TIMEOUT_US);
++	BUILD_BUG_ON(sizeof(*tag) != SDSA_HLEN);
++
++	/* SDSA carries no TPID, so only encode 802.1Q C-tags. */
++	tag_present = skb_vlan_tag_present(skb);
++	encode_vlan = tag_present && skb->vlan_proto == htons(ETH_P_8021Q);
++	/* Prevent the conduit from inserting a VLAN header ahead of SDSA. */
++	if (tag_present && !encode_vlan) {
++		skb = __vlan_hwaccel_push_inside(skb);
++		if (!skb)
++			return NULL;
++	}
++
++	skb_push(skb, SDSA_HLEN);
++	dsa_alloc_etype_header(skb, SDSA_HLEN);
++
++	tag = dsa_etype_header_pos_tx(skb);
++	tag->ethertype = cpu_to_be16(ETH_P_SDSA);
++	tag->reserved = 0;
++	tag->frame_type_port_hi =
++		FIELD_PREP(SDSA_TAG_FRAME_TYPE_MASK, SDSA_FRAME_TYPE_FROM_CPU) |
++		FIELD_PREP(SDSA_TAG_PORT_HI_MASK,
++			   dp->index >> SDSA_TAG_PORT_HI_SHIFT);
++	tag->port_lo = FIELD_PREP(SDSA_TAG_PORT_LO_MASK, dp->index);
++	if (encode_vlan) {
++		vlan_tci = skb_vlan_tag_get(skb);
++		__vlan_hwaccel_clear_tag(skb);
++		tag->frame_type_port_hi |= SDSA_TAG_VLAN_BIT;
++		tag->vlan = cpu_to_be16(vlan_tci);
++	} else {
++		tag->vlan = 0;
++	}
++
++	return skb;
 +}
 +
-+static int swip_mdio_read(struct mii_bus *bus, int phy_addr, int regnum)
++static struct sk_buff *sdsa_rcv(struct sk_buff *skb, struct net_device *dev)
 +{
-+	struct swip_mdio *priv = bus->priv;
-+	void __iomem *data = priv->data;
-+	u32 command;
-+	int ret;
++	enum skb_drop_reason reason;
++	struct sdsa_tag *tag;
++	u16 dummy_vlan_tci;
++	bool vlan_present;
++	int source_port;
++	u16 encap_proto;
++	u8 frame_type;
++	u16 vlan_tci;
 +
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
++	reason = pskb_may_pull_reason(skb, SDSA_HLEN);
++	if (unlikely(reason != SKB_NOT_DROPPED_YET))
++		goto out_drop;
 +
-+	writel(FIELD_PREP(SWIP_MDIO_PARAMS_REGDEV_MASK, regnum) |
-+	       FIELD_PREP(SWIP_MDIO_PARAMS_PHYADDR_MASK, phy_addr),
-+	       data + SWIP_MDIO_PARAMS_OFFSET);
++	tag = dsa_etype_header_pos_rx(skb);
++	if (unlikely(be16_to_cpu(tag->ethertype) != ETH_P_SDSA)) {
++		reason = SKB_DROP_REASON_DEV_HDR;
++		goto out_drop;
++	}
 +
-+	command = FIELD_PREP(SWIP_MDIO_CTRL_TRANSTYPE_MASK,
-+			     SWIP_MDIO_CTRL_TRANSTYPE_READ) |
-+		  SWIP_MDIO_CTRL_OPSTATUS;
-+	writew(command, priv->ctrl);
++	frame_type = FIELD_GET(SDSA_TAG_FRAME_TYPE_MASK,
++			       tag->frame_type_port_hi);
++	if (frame_type != SDSA_FRAME_TYPE_TO_CPU) {
++		reason = SKB_DROP_REASON_DEV_HDR;
++		goto out_drop;
++	}
 +
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
++	vlan_present = tag->frame_type_port_hi & SDSA_TAG_VLAN_BIT;
++	vlan_tci = be16_to_cpu(tag->vlan);
++	encap_proto = get_unaligned_be16((u8 *)tag + SDSA_HLEN);
 +
-+	return readl(data + SWIP_MDIO_READ_OFFSET) & SWIP_MDIO_READ_DATA_MASK;
++	source_port = FIELD_GET(SDSA_TAG_PORT_HI_MASK,
++				tag->frame_type_port_hi) <<
++		      SDSA_TAG_PORT_HI_SHIFT;
++	source_port |= FIELD_GET(SDSA_TAG_PORT_LO_MASK, tag->port_lo);
++
++	skb->dev = dsa_conduit_find_user(dev, 0, source_port);
++	if (!skb->dev) {
++		reason = SKB_DROP_REASON_DEV_HDR;
++		goto out_drop;
++	}
++
++	skb_pull_rcsum(skb, SDSA_HLEN);
++	dsa_strip_etype_header(skb, SDSA_HLEN);
++	if (vlan_present) {
++		/* The in-band tag duplicates the TCI carried in SDSA. */
++		if (encap_proto == ETH_P_8021Q) {
++			skb_push_rcsum(skb, ETH_HLEN);
++			skb_reset_mac_header(skb);
++			if (__skb_vlan_pop(skb, &dummy_vlan_tci)) {
++				reason = SKB_DROP_REASON_NOMEM;
++				goto out_drop;
++			}
++			skb_pull_rcsum(skb, ETH_HLEN);
++		}
++
++		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci);
++	}
++
++	dsa_default_offload_fwd_mark(skb);
++	return skb;
++
++out_drop:
++	kfree_skb_reason(skb, reason);
++	return NULL;
 +}
 +
-+static int swip_mdio_read_c45(struct mii_bus *bus, int phy_addr, int devad,
-+			      int regnum)
-+{
-+	struct swip_mdio *priv = bus->priv;
-+	void __iomem *data = priv->data;
-+	u32 command;
-+	int ret;
-+
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
-+
-+	writel(FIELD_PREP(SWIP_MDIO_PARAMS_REGDEV_MASK, devad) |
-+	       FIELD_PREP(SWIP_MDIO_PARAMS_PHYADDR_MASK, phy_addr),
-+	       data + SWIP_MDIO_PARAMS_OFFSET);
-+	writel(regnum, data + SWIP_MDIO_WRITE_OFFSET);
-+
-+	command = SWIP_MDIO_CTRL_CLAUSE | SWIP_MDIO_CTRL_OPSTATUS;
-+	writew(command, priv->ctrl);
-+
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
-+
-+	command = FIELD_PREP(SWIP_MDIO_CTRL_TRANSTYPE_MASK,
-+			     SWIP_MDIO_CTRL_TRANSTYPE_READ) |
-+		  SWIP_MDIO_CTRL_CLAUSE | SWIP_MDIO_CTRL_OPSTATUS;
-+	writew(command, priv->ctrl);
-+
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
-+
-+	return readl(data + SWIP_MDIO_READ_OFFSET) & SWIP_MDIO_READ_DATA_MASK;
-+}
-+
-+static int swip_mdio_write(struct mii_bus *bus, int phy_addr, int regnum,
-+			   u16 val)
-+{
-+	struct swip_mdio *priv = bus->priv;
-+	void __iomem *data = priv->data;
-+	u32 command;
-+	int ret;
-+
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
-+
-+	writel(FIELD_PREP(SWIP_MDIO_PARAMS_REGDEV_MASK, regnum) |
-+	       FIELD_PREP(SWIP_MDIO_PARAMS_PHYADDR_MASK, phy_addr),
-+	       data + SWIP_MDIO_PARAMS_OFFSET);
-+	writel(val, data + SWIP_MDIO_WRITE_OFFSET);
-+
-+	command = FIELD_PREP(SWIP_MDIO_CTRL_TRANSTYPE_MASK,
-+			     SWIP_MDIO_CTRL_TRANSTYPE_WRITE) |
-+		  SWIP_MDIO_CTRL_OPSTATUS;
-+	writew(command, priv->ctrl);
-+
-+	return swip_mdio_wait_for_idle(priv);
-+}
-+
-+static int swip_mdio_write_c45(struct mii_bus *bus, int phy_addr, int devad,
-+			       int regnum, u16 val)
-+{
-+	struct swip_mdio *priv = bus->priv;
-+	void __iomem *data = priv->data;
-+	u32 command;
-+	int ret;
-+
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
-+
-+	writel(FIELD_PREP(SWIP_MDIO_PARAMS_REGDEV_MASK, devad) |
-+	       FIELD_PREP(SWIP_MDIO_PARAMS_PHYADDR_MASK, phy_addr),
-+	       data + SWIP_MDIO_PARAMS_OFFSET);
-+	writel(regnum, data + SWIP_MDIO_WRITE_OFFSET);
-+
-+	command = SWIP_MDIO_CTRL_CLAUSE | SWIP_MDIO_CTRL_OPSTATUS;
-+	writew(command, priv->ctrl);
-+
-+	ret = swip_mdio_wait_for_idle(priv);
-+	if (ret)
-+		return ret;
-+
-+	writel(val, data + SWIP_MDIO_WRITE_OFFSET);
-+
-+	command = FIELD_PREP(SWIP_MDIO_CTRL_TRANSTYPE_MASK,
-+			     SWIP_MDIO_CTRL_TRANSTYPE_WRITE) |
-+		  SWIP_MDIO_CTRL_CLAUSE | SWIP_MDIO_CTRL_OPSTATUS;
-+	writew(command, priv->ctrl);
-+
-+	return swip_mdio_wait_for_idle(priv);
-+}
-+
-+static int swip_mdio_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct swip_mdio *priv;
-+	struct mii_bus *bus;
-+
-+	bus = devm_mdiobus_alloc_size(dev, sizeof(*priv));
-+	if (!bus)
-+		return -ENOMEM;
-+
-+	priv = bus->priv;
-+	priv->data = devm_platform_ioremap_resource_byname(pdev, "data");
-+	if (IS_ERR(priv->data))
-+		return PTR_ERR(priv->data);
-+
-+	priv->ctrl = devm_platform_ioremap_resource_byname(pdev, "control");
-+	if (IS_ERR(priv->ctrl))
-+		return PTR_ERR(priv->ctrl);
-+
-+	bus->name = "soce mdio";
-+	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-+	bus->parent = dev;
-+	bus->read = swip_mdio_read;
-+	bus->write = swip_mdio_write;
-+	bus->read_c45 = swip_mdio_read_c45;
-+	bus->write_c45 = swip_mdio_write_c45;
-+
-+	return devm_of_mdiobus_register(dev, bus, dev->of_node);
-+}
-+
-+static const struct of_device_id swip_mdio_of_match[] = {
-+	{ .compatible = "soce,swip-mdio" },
-+	{ /* sentinel */ }
++static const struct dsa_device_ops sdsa_netdev_ops = {
++	.name = SDSA_NAME,
++	.proto = DSA_TAG_PROTO_SDSA,
++	.xmit = sdsa_xmit,
++	.rcv = sdsa_rcv,
++	.needed_headroom = SDSA_HLEN,
 +};
-+MODULE_DEVICE_TABLE(of, swip_mdio_of_match);
 +
-+static struct platform_driver swip_mdio_driver = {
-+	.probe = swip_mdio_probe,
-+	.driver = {
-+		.name = "soce-mdio",
-+		.of_match_table = swip_mdio_of_match,
-+	},
-+};
-+module_platform_driver(swip_mdio_driver);
-+
-+MODULE_AUTHOR("Vasilij Strassheim <v.strassheim@linutronix.de>");
-+MODULE_DESCRIPTION("SoC-e MDIO controller driver");
 +MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("DSA tag driver for SoC-e SDSA protocol");
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_SDSA, SDSA_NAME);
++
++module_dsa_tag_driver(sdsa_netdev_ops);
 
 -- 
 2.39.5
