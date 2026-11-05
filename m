@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851779;
-	b=zfRh86FGjFiYgmY3F6IcwOsEiBpW0i7VQiEFGSloM80596gQSd9VHMfHKKqJutWHeBzU
-	 MhoGpu2tF514Zp5xMGipqiSwbyT/gkfm8Z6w89ZkfGyungoaamlIxPPNn4M6+191okpgr
-	 mDQTnxK0wVMq954zL1SAAuulm5eQOZ8lzOdsfjv3/Ujoypp+OdwvbbaS4p3mHoNPE1yrs
-	 WtS4J6B3aR7LEWgP+OuKxBTmBhTY/4pMg8UUT+N1ox9il0C4DUZdUHBMqjmPRJiiBeb07
-	 QXKFiDhXtT6iHBS2T4ZkAE4181POX4vAQuMCvvnqEg9C9AFEXGZ6Vvynx+zmWqmUTRQ==
+	t=1793851866;
+	b=FQJKEHp+dqg8yWxBMCqyz894Dt9wG1zLg6G5aGSzdVXtx1CYDfe/8tslshWmSB+vAR06
+	 WAvQFgQxBpIolOQ2z8RZhNjTs6HJaDPO1NtJPIJnoMgqwgxCfp32DIh6TSS6EqGEvCrcu
+	 yQEZvqCxPVX5+WXzN30rzgTkCIDj9fmnL4hquRAeTeGDOTwd44gzDxdRoRoHlsEEQZnen
+	 vY9XahBuZGCOMkOaezHbHzuEivegJTGQ+y+WL2natDETbRPYXg43+k4ZANnZZkWQnfjqb
+	 kxWk361L7hlJ0jMjCpT1YI2m+Vv0ypts/jCrAq+5l5+0Ed7EN3pWhdmBuitlf6T+UYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851779;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=gILZcq9VEcz3UUom4qJ/yX8BZAhWIY+hh9gyo4CF+Yw=;
-	b=CTWMsIYHrg2xgenT1d6ukDGvYB89ezWsGyW47zNun7wrgFXCPC6Fst2wxPXUQCPoaaNz
-	 nyyAS8djYaNp5I3Bq915ZNpB86wFHmuMCiJrxuWKNsLbc6RQd73nWihF0LfI8MzUkFoG8
-	 nuq3+beQ8liED3EK7jkN78b4sZiR0ofDuOGGXT7YcfIO4XYrbV5RSfXNy01v0Le91k4g+
-	 xnC2P/ne5/5weM/PSP+Hz/qWU4fYmYn+JOUalA3Acy9fidXBwcoUr1QtmuVlRgaJ43Ph6
-	 cHpvBSR1LtcsTXmXkMMpukWy9DxKaYIXZsnQJFQZIZShqcJl+RbtM8lW/3Hi8d7uxEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851866;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=7PjNp7M8NdbUtRzPqvcFMsqSbTh3bvkW+KbajXfpVq4=;
+	b=iXswcipfs2yw28EC2dL+I7waexZtYWOwLdZw+RcIzZIvdWxw0GKO4PJigi4WFbu3HIFG
+	 M8wTYS5AGyBXRh3iBqtVj8EpG/6x21vpzG7kcZDF5/9qAXRZkZbBCGPsGJcQhbi3+IIy8
+	 dd/fIRMgZQuvPwqD4tN+LNgWqg2BQh4IeLmstaZQq0k7HPtNUV7LUDvbkNNHVjoHwL5sh
+	 m9jfU2T+cLHbiDVRPV75A+CsNYRQ2RW3Zixw1MNDj5ZYwtCPmBLmohO7jZnX4dqGlkqCj
+	 XxorpxAA8AnkvIlLVZjrPp5/v7Sg5+uXaotYm6ijdRNO5tt9rif3NGvf+TGKZqBQSxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FL1ExOEL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=iGzJHpCh;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AD9606A326;
-	Thu,  5 Nov 2026 04:09:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F029B606A32C
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 04:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F029B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FL1ExOEL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D511F000C1;
-	Thu,  5 Nov 2026 04:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793851778;
-	bh=gILZcq9VEcz3UUom4qJ/yX8BZAhWIY+hh9gyo4CF+Yw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FL1ExOEL+gve6wWhxMpTqeBV+QlVI2GHgI0vuDRGndeiCnGT6PZ8JXYkFWsrePoCR
-	 z8kswVxNKcRSy1LZQqZONqqu2XZwr7R4LYEsft9PflEqxQvlFmEdkAVAFIymDYahbj
-	 lqYfMbY3Lo2PchQjQzqnBNzI5/5ih71KZL1YnlQpMJt3mKroYCpX3amzkHThUZKoS0
-	 C/tQ0RIE4SMuK1jGTTIFd0W9QbLuSAsjZ7nTnJ5AizKij0QCAXt2zEjiAiY8v43Nep
-	 9HtAvLW9tKxotMnpWhLeDSGL4rOrTI1XXVdJ2xpXKov/ab7PGUt1I12f20QCRa17gl
-	 Nfszu95pOwKhQ==
-Message-ID: <sashiko-outbox-198541@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/11] dt-bindings: gpio: vf610: fix clock
- requirements per SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
-References: <20261105-gpio-vf610-fixes-v3-0-504e19de5ad5@nxp.com>
- <20261105-gpio-vf610-fixes-v3-1-504e19de5ad5@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 04:09:37 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=iGzJHpCh
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id Oi7SxZcaoVK9UOoobxKgF3; Thu, 05 Nov 2026 04:11:05 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id OooaxhgJsVqSeOoobx57w6; Thu, 05 Nov 2026 04:11:05 +0000
+X-Authority-Analysis: v=2.4 cv=eLETjGp1 c=1 sm=1 tr=0 ts=6aec01d9
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
+ a=XYAwZIGsAAAA:8 a=4aXZcvZdyrIr42SlFlEA:9 a=CjuIK1q_8ugA:10
+ a=E8ToXWR_bxluHZ7gmE-Z:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=7PjNp7M8NdbUtRzPqvcFMsqSbTh3bvkW+KbajXfpVq4=; b=iGzJHpCht4IFVbLRS6RHrhQrno
+	UCa8ibCtOaEHTks65FDZOFwQ8WAb125ucllJJc1MDGPs8djNa4bCZZO9c2YeiAKlco6uAhZnSm62B
+	yighXyElarCViDxyaO7WRFLsT313zzMuVB4FlXGAlcjnt7sSRWWQP61tjV1TZFITD6UJX7qD/ofk2
+	lkfOjPwvNxQIWeBq3PAhoGzvhL/zHnY39CKjQAoWfPp4SZ++QdaLmgbpVY0fAhw2F9cESX19Jr4C9
+	NAYViyk6xarvDsByWvZKUGSMyIeLXF5OHnKzotuqiynguogEy/LKI93eMmUwTQxnyPkUtDLAh7pQd
+	7UbHV1Vw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:49824 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xOooa-00000004B1q-2U88;
+	Thu, 05 Nov 2026 09:41:04 +0530
+Date: Wed, 4 Nov 2026 20:11:03 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Carlos Jones <carlosjr.jones@analog.com>
+Cc: alexisczezar.torreno@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: max20830: Add MAX20810,
+ MAX20815, LTM4739, LTM4740
+Message-ID: <e947803b-3191-41d8-9620-53bbab6394a0@roeck-us.net>
+References: <20261103084331.449-1-carlosjr.jones@analog.com>
+ <20261103084331.449-2-carlosjr.jones@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,129 +85,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103084331.449-2-carlosjr.jones@analog.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xOooa-00000004B1q-2U88
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:49824
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 10
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNdT+oo5oSEhHnS9KBqbf27TAYcVnNsbwjdZb0kXE6XzSmBmh0WkBFQ83mZpdEnwRvnuZPVHsV3Fbr/VEIocqqvf2ilqVCAGlLlz+OhoRgC4DfM0l/HV
+ 5tnhFs6KoXcg6+AIQQ9vE3JlVeOCksHSVN0GNpjOrTcQ9e+u83mdNJ1Gtd9AJaxonlU+3e+CnJC3ZerFWDSIfR1L8bLWvIHR6CulL3E4ofPwxyal3z7nW3E5
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: gpio: vf610: unwieldy per-compatible conditionals in s=
-chema
---
+On Tue, Nov 03, 2026 at 04:43:30PM +0800, Carlos Jones wrote:
+> From: Carlos Jones Jr <carlosjr.jones@analog.com>
+> 
+> The MAX20810 (10A) and MAX20815 (15A) are members of the same device
+> family as the MAX20830, sharing an identical PMBus command set and
+> telemetry (VIN, VOUT, IOUT, TEMP). The LTM4739 and LTM4740 are the
+> LTM-series module equivalents of the MAX20810 and MAX20815 respectively.
+> 
+> All variants use the existing adi,max20830 fallback compatible.
+> 
+> Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-commit ea7be1f0505474b900ce5dd27177e80fd2222683
-Author: Peng Fan <peng.fan@nxp.com>
+Applied.
 
-dt-bindings: gpio: vf610: fix clock requirements per SoC
-
-This commit updates the gpio-vf610 device tree binding schema to enforce
-SoC-specific clock requirements for VF610, i.MX7ULP, and i.MX8ULP (and its
-derivatives) via conditional blocks in allOf.
-
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml b/Doc=
-umentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> index a31f64b6d40b4..d1d5315ee1648 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-vf610.yaml
-> @@ -57,11 +57,13 @@ properties:
->      maxItems: 32
-> =20
->    clocks:
-> +    minItems: 1
->      items:
->        - description: SoC GPIO clock
->        - description: SoC PORT clock
-> =20
->    clock-names:
-> +    minItems: 1
->      items:
->        - const: gpio
->        - const: port
-> @@ -117,6 +119,45 @@ allOf:
->            items:
->              - description: GPIO register base address
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: fsl,vf610-gpio
-> +    then:
-> +      properties:
-> +        clocks: false
-> +        clock-names: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx7ulp-gpio
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +        clock-names:
-> +          minItems: 2
-> +      required:
-> +        - clocks
-> +        - clock-names
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: fsl,imx8ulp-gpio
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        clock-names:
-> +          maxItems: 1
-> +      required:
-> +        - clocks
-> +        - clock-names
-
-[Severity: Low]
-As reported by Sashiko on v2 [1], this isn't a bug, but in
-Documentation/devicetree/bindings/gpio/gpio-vf610.yaml, the fsl,imx8ulp-gpio
-family (including fsl,imx93-gpio, fsl,imx94-gpio, and fsl,imx95-gpio) does
-not share a compatible fallback with fsl,vf610-gpio or fsl,imx7ulp-gpio, and
-almost every hardware resource property now differs across the variants:
-
-Documentation/devicetree/bindings/gpio/gpio-vf610.yaml:
-  - if:
-      properties:
-        compatible:
-          contains:
-            enum:
-              - fsl,vf610-gpio
-              - fsl,imx7ulp-gpio
-    then:
-      properties:
-        interrupts:
-          maxItems: 1
-        reg:
-          items:
-            - description: PORT register base address
-            - description: GPIO register base address
-    else:
-      properties:
-        interrupts:
-          minItems: 2
-        reg:
-          items:
-            - description: GPIO register base address
-
-Along with reg (2 items on VF610/i.MX7ULP vs 1 item on i.MX8ULP) and
-interrupts (1 item on VF610/i.MX7ULP vs 2 items on i.MX8ULP), clocks and
-clock-names are disallowed on VF610, require 2 items on i.MX7ULP, and requi=
-re
-1 item on i.MX8ULP.
-
-Rather than relaxing the top-level clocks and clock-names properties to
-minItems: 1 and adding three more per-compatible if-then blocks in allOf,
-would it be cleaner to split the fsl,imx8ulp-gpio binding into a separate
-schema document?
-
-[1] https://lore.kernel.org/r/20261103-gpio-vf610-fixes-v2-1-7c71fb36e184@n=
-xp.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-gpio-vf610=
--fixes-v3-0-504e19de5ad5@nxp.com?part=3D1
+Thanks,
+Guenter
