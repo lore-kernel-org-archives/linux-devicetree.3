@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885018;
-	b=q6EE+ojk46pmpAKRGkcFehQ1m8ulXmSGqan11DLI2BqM6XmSMZEyGaczQNSRJgT+pUay
-	 UIKsY9tOcaSSb7BNR7NLOSvPvGdFbMqRqa6BMtnfZICb3wak5P9fu4QGrnkz4PWR6nyiK
-	 8Hh/37C6tiIiS1EyI/+Ylud2xq8Ykgf+9Mq+CrsxtXvp3k6u4mITL5osZV08dudtx8r7C
-	 gWDxGrL01HjclTkQuNMSgsKX3Od4EYey3xpvOvrRvRWOZU07HXjc7VwUpYFPhfp1FaPXT
-	 Bg8h63eAf3HOvAlTsC9GuudA1x4cUdATX5k4dSCiqD45Uikb5JuzYBJE83b1aGit5gg==
+	t=1793885092;
+	b=BjQv/6A048KKPUgDw1ugl/VdKdj0CCUbyJNNZTIpIpaKMfrbgRHg4IJHpXqqNNwrt0nx
+	 tUrhwhSZFMnNMOOXwO6smAUkFHBf1BRGB16vOG66udLMWB9vBRpFah09v6bjt7aXJ9Npx
+	 BYDZpKPgkIFo5qblInlAD28vr/z56RwT0QZV1lEBn1rjz6su1sERdTXTCT+OkOLByQ67Q
+	 IYPTGyw2cNgsNW2y4hqVnDGp7PbtljnQKC/MIem2oUtjPvWZHDxqwzO6WO10ypZ/2EnRW
+	 OJac8m+1zCxVBaI3tnqQbk5aDLbzMonBOva+lB/9UBIUPUGxBmoD68KlpvzR1u9VRKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:References:
-	 Content-Language:Autocrypt:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tcSgyoXpYpv3jYcleunp4p8dBmT0szPkIR1F6BJiK18=;
-	b=ubs2GuYRoRf1Hwf+2RPkiy88hSRzFyzcsY+FD0NSMOar/frkBxBWhQgl/5jeiqa0elPp
-	 JVqO2cFT2lg0fS2SoXPj8ed0k2VBl3kjLb3aaqbXsT6QaBY9c+C3GVI1tpKZ3YgV0VEAb
-	 kTsVGzOdph0GJgzc3VeYxZPQ0rifJqMR0YOa0/MM1c167W6GLSCOclNmbGuE1Q0jmNukk
-	 2Yoooo4b/QriFeXgKfpgzCPuMP3IoVzASY1sFmCRQlttg6Eb723NQufuleGqxzgFY5Xhe
-	 R3Oqt2pgy+T2YPLnp+zHQOBNkc+lBifYELLWMvncNtZ8FPbIhaTmECQhm0ZGIKMoW6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885092;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=Fqv7c/hn250Ut0oSJafhwanSQJ8WrgQSQtv3/UY5Aho=;
+	b=ze2/c8bwfMnEvT5o0ho5nD0HizaZl2OlqRAUMVV0fWLvjAU+WPDO6t3nYacYTBP24iIf
+	 R1G/DE3JsrxQZovUBW0Bj1x42BrwFfi6C4XWj8HTrgV+tTbqM+njVy40hAjt+z82KVsUF
+	 9cojKCYab3YOK04gHjvvhFG9l3/IDBOemLwSc6SSvIevZlGNm9GRbZpTGGuZhixpKuFiN
+	 Y1w7iqRZuviH8l0i4lN16u9dzbNal4J35qIsok5nxEKpctQzFz36V0NrK3jt3KWQn7Agg
+	 tUkAX/frkv5o7ZzsvG85+ZD6QTSqwlEMyNOuK7lzspT3BYSYUC6/BhXP0MhYB73lkGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sazil1k9;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izpLILXh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68284606D815
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:23:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68284606D815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6865A606A328
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 13:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sazil1k9
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so14431575e9.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 05:23:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793885016; x=1794489816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tcSgyoXpYpv3jYcleunp4p8dBmT0szPkIR1F6BJiK18=;
-        b=sazil1k9VUQ/Frxc7/nFuvK/qoeYtlaA6TW2ZL0BBncKvHwojokhYxPe4/1rkskKuv
-         A3mBi5NLBFgUMFcrITGHr/uFqQl2NyiowN9HTv8ofbKBrtu+CjZNRk4X3TMRUtOMU56a
-         0BKLmnPUjNfTUXzqIJtlusScGHIRyAs2KSdkHE4Wan42JMqCrH/Om1DqZnHleFp9u4D9
-         xkXN5ukJAWc7OnFPYZegbUP72ZObfh6zsnXsizT13IZ1WCUKrJpOWJAHZURcQV0vvHxM
-         U8XvG98Labs/LAnjEvyY80uDOlCZLASesZa7dySnioHpF2GZr/VKj/hE+UBuS3ZNQ0E2
-         T8wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793885016; x=1794489816;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tcSgyoXpYpv3jYcleunp4p8dBmT0szPkIR1F6BJiK18=;
-        b=q2zmu1WA1qu49GNLch7Jdo7x92lh7O67/bDwmxUAGzg8mXAE9Ts2f3m07MdcoHFQS/
-         3D6tySWEGXruyz75WqlwqrlHvUJlHc7eTDqBJGQ/Epv/DcWjKNuAdqxpPQ1iiSKVWzIE
-         4AduulqgKqTPYz1LGRY671qTUP6qOGRv83GjtxXdPLq35XsLa7+5ENjw3L2Z7v8xY2wz
-         CHKodHr7E0OZklPsHTKeqhYIU94IhJQGxq91vQX+WPKw28fbQ4CYm3lMTI310r5uBF8I
-         4X8cnsxo8hwUH54ar6nP13/9k8TBOqy7BsMNNFqwBcV6RFnoqgpSjKx4xFJFQdgQixiZ
-         ig3w==
-X-Gm-Message-State: APuU4Z/psfzPHW++cOc0Og4qxuSd898ie/6sUyLUq3zZWZdlbYSSgjv8
-	uryBcgVtoN1jS8naUg5V8duuzQkd6XpceO9gU42Iqlol3Tc5MIvSKLHxiJJSwnEe8FZMG5u7nAa
-	JQ3Qo
-X-Gm-Gg: AYBFou2o91uP/gmUb8c7tN3n973kq7YCFM/SIRPW78xA6PafXtIMBtvgRwGou5VwYdg
-	3teOTkoFTmudGqNFOABJects9z3NuosdwMJWXB+u4ahHOrSZo+Q365Q6hTEsoNf+GS7zBog55ND
-	A87aCb+mls9TDSHXTe/VlR0MiRvb/fe9XQfrGagoMGIWmGKGk2IIkfrZAqSu3qgV5lnjJRsXp6l
-	ZhqFvU2cOvUZxtDrLilp0b8Bhce7+MSlGrKV3tCBf6eByRPDAIkvBteX4LfX19BPTCWdk3zwsIP
-	oYsgDjeMSSr67hAuL1IpKwTE2Be57Qe6A0g1nVmQmx+J2m7dwqLPme/7D5w6z+WJGI3yh/mbHUe
-	gq8tXF1yWo77WZSllw9noDAjU+WUE49xn/0IMZwF2DIscOpQNNcWYyrCt+4oMeQLzxizBjimo/U
-	j0F4/KJAf7tOC3c2G3u1OioIQ9rW4xpzVkZQC/g/TpeiMNLCw1WbASQSRcGG8a9R5wd9TcnJpwC
-	lVGVkNepgiacfm9Eju2ULsfQW3rUC4ljUyVu3LWai3RU4EVnBCTyzNrJekKgkwpV6H3Or1MlYSF
-	QTdr+xycHheAZI10Iqw5x+ywUd7hpsKeccoyW9WKGsmZcpcesr6X9sjsflB0vfvETMb97/8mnUz
-	RQc3GHZg=
-X-Received: by 2002:a05:600c:3ba0:b0:4a1:e0db:8cf8 with SMTP id 5b1f17b1804b1-4ac151a84f0mr429524235e9.3.1793885015401;
-        Thu, 05 Nov 2026 05:23:35 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9899:e54b:a2f2:3695? ([2a01:e0a:106d:1080:9899:e54b:a2f2:3695])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae73csm68119975e9.1.2026.11.05.05.23.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 05:23:34 -0800 (PST)
-Message-ID: <ae1fd659-7d29-4772-b4ee-0e4c821389b9@linaro.org>
-Date: Thu, 5 Nov 2026 14:23:33 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=izpLILXh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F70C1F000C1;
+	Thu,  5 Nov 2026 13:24:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793885092;
+	bh=Fqv7c/hn250Ut0oSJafhwanSQJ8WrgQSQtv3/UY5Aho=;
+	h=From:Subject:Date:To:Cc;
+	b=izpLILXhJw98RCEVdJwBA8WVd2Y8P2uIRjqMOuymdeApoAthVKdlyhx3Lvj0c0ABW
+	 2AtOR5aWy/tleljAI6M1rPhrIo+eGdX/B26LDBrx7G94Ud22ugUulDSexdFriL0jdL
+	 R4damb6009iMnb44/wmMFel/m1bZ18NwlwgQ23PO+WbC+Se/gl3ZFLn/7v9rCZuk1F
+	 qB9eEwd2lOU7maH2ZLao79Re4rSDBElDWYpkRB503CJrsdyCVlB6Ik3p9anc7nKF5e
+	 CpThJIP+CC/9qXgH88W1LdAhxFXLf4zYDYjuG+NJKJlSecPGNnTP+KgtKtmkWaoaH3
+	 stuXneJXWRglQ==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v5 0/3] ARM: bcm: Enable CFE SMP on BCMBCA
+Date: Thu, 05 Nov 2026 14:24:45 +0100
+Message-Id: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-0-4103df2588d3@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,374 +53,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v6 3/3] iio: adc: add driver for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
- <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
- <sashiko-outbox-199091@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <sashiko-outbox-199091@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PwWrDMAyA4VcpPlfDsmW79LT3GDvYiZyatUmxh
+ 8koefc5hUFGIcdfh0/SQxTOiYs4Hx4ic00lTWMLczyI7uLHgSH1rYWSyqJEhIFHnlOBebAnslB
+ ud6gONOQOIZCTUbKS5Ixowj1zTPNT//hsfUnle8o/z2UV1+mfq3bdiiDBG+zJx57Ju/cvziNf3
+ 6Y8iBWuaou5fUw1LEQbKGhHwfILpjeY2v+46oa57uQwojOmDy8YbTGzj9F6mTbKB0OR7H9sWZZ
+ fwwUD9K4BAAA=
+X-Change-ID: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ William Zhang <william.zhang@broadcom.com>, 
+ Anand Gore <anand.gore@broadcom.com>, 
+ Kursad Oney <kursad.oney@broadcom.com>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-On 11/5/26 14:00, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [Medium] iio: adc: max34417: energy scale underflows to zero in max34417_read_raw()
-> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
-> - [Medium] iio: adc: max34417: missing 1 ms delay and premature UPDATE on read/setup
-> --
-> 
-> commit b2b3b8bbfcafc2973680f358dc7e0d74750a2a05
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
-> 
-> This commit adds an IIO ADC driver for the Analog Devices MAX34417
-> four-channel power accumulator, supporting single-shot voltage and power
-> readings as well as continuous accumulation mode for average power and
-> energy measurements over I2C/SMBus.
-> 
->> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
->> new file mode 100644
->> index 0000000000000..f12d0e8ef1a68
->> --- /dev/null
->> +++ b/drivers/iio/adc/max34417.c
-> 
-> [ ... ]
-> 
->> +static int max34417_check_ovf(struct max34417_data *max34417)
->> +{
->> +	struct regmap *map = max34417->regmap;
->> +	u32 control;
->> +	int rc;
->> +
->> +	rc = regmap_read(map, MAX34417_CONTROL_REG, &control);
->> +	if (rc)
->> +		return rc;
->> +
->> +	if (!(control & MAX34417_CONTROL_OVF))
->> +		return 0;
->> +
->> +	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
->> +			       MAX34417_CONTROL_OVF);
->> +	if (rc)
->> +		return rc;
->> +
->> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* Save the timestamp for the next read */
->> +	max34417->last_update = ktime_get();
->> +
->> +	return 0;
->> +}
-> 
-> [ ... ]
-> 
->> +static int max34417_read_voltage(struct max34417_data *max34417,
->> +				 const struct iio_chan_spec *chan, int *val)
->> +{
-> 
-> [ ... ]
-> 
->> +	/*
->> +	 * Move the new UPDATE data into the SMBus read registers.
->> +	 * This will also reset the accumulators, returning the
->> +	 * power accumulated since the last UPDATE.
->> +	 */
->> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* Save the timestamp for the next read */
->> +	max34417->last_update = ktime_get();
->> +
->> +	if (max34417->cam_mode) {
->> +
->> +		/* Retrieve all channels to avoid missing data for other channels */
->> +		rc = max34417_save_accumulators(max34417);
->> +		if (rc)
->> +			return rc;
->> +	}
->> +
->> +	rc = regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* Ignore first byte which contains the Byte Count & data starts at Bit 2 */
->> +	*val = get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
->> +
->> +	return IIO_VAL_INT;
->> +}
-> 
-> [Severity: Medium]
-> As reported by Sashiko on v5 [1], in drivers/iio/adc/max34417.c, can the
-> MAX34417_UPDATE_REG sequencing in max34417_check_ovf(),
-> max34417_read_voltage(), and max34417_setup_cam_mode() violate the 1 ms
-> minimum interval between UPDATE commands or overwrite latched voltage data?
-> 
-> In max34417_read_voltage(), max34417_read_power(), and
-> max34417_read_energy(), the caller writes MAX34417_UPDATE_REG and then
-> immediately calls max34417_save_accumulators() -> max34417_check_ovf(). If
-> MAX34417_CONTROL_OVF is set, max34417_check_ovf() clears OVF and writes
-> MAX34417_UPDATE_REG a second time without waiting 1 ms after the caller's
-> UPDATE command.
+When booted through CFE and mainline U-Boot, the XG6846B has no PSCI
+provider. CFE powers up CPU1 and leaves it waiting in a holding pen.
 
-Yes because the measurement has stalled, so it's ok here.
+Add a BCMBCA CFE SMP method selected by enable-method = "brcm,bca-smp".
+It uses a GPIO mailbox and a wakeup IPI, with PSCI retaining priority.
+On the XG6846B, preserve the holding pen and disable the board's inherited
+PSCI setup.
+Tested on the XG6846B with both CPUs coming online.
 
-> 
-> Furthermore, in max34417_read_voltage(), max34417_save_accumulators() is
-> called before regmap_noinc_read(map, chan->address, &buf, sizeof(buf)). If
-> MAX34417_CONTROL_OVF was set because an accumulator saturated and stopped
-> measuring, won't the second UPDATE write inside max34417_check_ovf()
-> overwrite the latched SMBus registers before the voltage register is read?
+These patches were authored with the assistance of an LLM.
 
-No
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v5:
+- Rebased on v7.4-rc1
+- Revert to the earlier CPU1-only release address after review, keeping
+  cpu-release-addr required for CPU1 in the binding.
+- Link to v4: https://patch.msgid.link/20261025-genexis-xg6846-smp-v7-3-rc1-v4-0-b352ab54f46b@kernel.org
 
-> 
-> Similarly, in max34417_setup_cam_mode():
-> 
-> 	} else if (!max34417->cam_mode && val) {
-> 		rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
-> 				       MAX34417_CONTROL_CAM);
-> 		if (rc)
-> 			return rc;
-> 
-> 		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-> 		if (rc)
-> 			return rc;
-> 
-> 		rc = regmap_set_bits(map, MAX34417_CONTROL_REG, MAX34417_CONTROL_CAM);
-> 		if (rc)
-> 			return rc;
-> 
-> 		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
-> 
-> the function does not check max34417->last_update before its first write to
-> MAX34417_UPDATE_REG, and when enabling CAM mode it writes
-> MAX34417_UPDATE_REG twice back-to-back without a 1 ms delay.
+Changes in v4:
+- Require cpu-release-addr for brcm,bca-smp and provide a dummy release
+  address for CPU0, which is already online.
+- Link to v3: https://patch.msgid.link/20261021-genexis-xg6846-smp-v7-3-rc1-v3-0-7c871f1755db@kernel.org
 
-No because changing the mode will reset the counters, the 1ms is only
-to get valid data between UPDATE commands, not configuration changes.
+Changes in v3:
+- Use BCMBCA naming for the CFE SMP implementation.
+- Add the brcm,bca-smp binding and select CFE SMP through the CPU
+  enable-method, retaining PSCI priority.
+- Squash the holding-pen reservation fix into the CFE bring-up DTS patch.
+- Boot tested successfully on the XG6846B.
+- Link to v2: https://patch.msgid.link/20261017-genexis-xg6846-smp-v7-3-rc1-v2-0-bf6b4b374b6e@kernel.org
 
-> 
->> +static int max34417_read_power(struct max34417_data *max34417,
->> +			       const struct iio_chan_spec *chan,
->> +			       int *val, int *val2)
->> +{
-> 
-> [ ... ]
-> 
->> +	if (max34417->cam_mode) {
->> +		s64 acc_count;
->> +		s64 acc_power;
->> +
->> +		/* Retrieve all channels to avoid missing data for other channels */
->> +		rc = max34417_save_accumulators(max34417);
->> +		if (rc)
->> +			return rc;
->> +
->> +		if (max34417->overflow[chan->channel]) {
->> +			max34417->overflow[chan->channel] = false;
->> +			max34417->acc_power[chan->channel] = 0;
->> +			max34417->acc_count[chan->channel] = 0;
->> +			return -EOVERFLOW;
->> +		}
->> +
->> +		/* Get current channel power, counter and reset them */
->> +		acc_power = max34417->acc_power[chan->channel];
->> +		acc_count = max34417->acc_count[chan->channel];
->> +		max34417->acc_power[chan->channel] = 0;
->> +		max34417->acc_count[chan->channel] = 0;
->> +
->> +		if (acc_count == 0) {
->> +			dev_warn_ratelimited(&max34417->indio_dev->dev,
->> +					     "unexpected zero accumulator count\n");
->> +			power = 0;
->> +		} else {
->> +			power = div64_s64(acc_power, acc_count);
->> +		}
->> +	} else {
->> +		rc = max34417_read_acc_power(max34417, chan->address, &power);
->> +		if (rc)
->> +			return rc;
->> +	}
->> +
->> +	iio_val_s64_decompose(power, val, val2);
->> +
->> +	return IIO_VAL_INT_64;
->> +}
->> +
->> +static int max34417_read_energy(struct max34417_data *max34417,
->> +			       const struct iio_chan_spec *chan,
->> +			       int *val, int *val2)
->> +{
->> +	struct regmap *map = max34417->regmap;
->> +	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
->> +	s64 acc_power;
->> +	int rc;
->> +
->> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
->> +	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
->> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
->> +
->> +	/* Move the data to the SMBus registers */
->> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* Save the timestamp for the next read */
->> +	max34417->last_update = ktime_get();
->> +
->> +	/* Retrieve all channels to avoid missing data for other channels */
->> +	rc = max34417_save_accumulators(max34417);
->> +	if (rc)
->> +		return rc;
->> +
->> +	if (max34417->overflow[chan->channel]) {
->> +		max34417->overflow[chan->channel] = false;
->> +		max34417->acc_power[chan->channel] = 0;
->> +		max34417->acc_count[chan->channel] = 0;
->> +		return -EOVERFLOW;
->> +	}
->> +
->> +	/* Get current channel power and reset them */
->> +	acc_power = max34417->acc_power[chan->channel];
->> +	max34417->acc_power[chan->channel] = 0;
->> +	max34417->acc_count[chan->channel] = 0;
->> +
->> +	iio_val_s64_decompose(acc_power, val, val2);
->> +
->> +	return IIO_VAL_INT_64;
->> +}
-> 
-> [Severity: Medium]
-> As reported by Sashiko on v5 [2], when cam_mode is enabled in
-> drivers/iio/adc/max34417.c, won't reading average power in
-> max34417_read_power() and reading energy in max34417_read_energy() clobber
-> each other's state for the same channel?
-> 
-> Both functions consume and zero the shared per-channel fields
-> max34417->acc_power[chan->channel], max34417->acc_count[chan->channel], and
-> max34417->overflow[chan->channel]. As a result, reading in_powerX_mean_raw
-> discards the energy accumulated in software for channel X since the last
-> energy read, and reading in_energyX_raw resets the accumulated power and
-> sample counter needed for the next average power calculation (as well as
-> resetting the energy reading itself on every read instead of accumulating
-> monotonically while CAM mode is enabled).
+Changes in v2:
+- Read the CFE mailbox address from CPU1's cpu-release-addr property,
+  as suggested by William Zhang.
+- Link to v1: https://patch.msgid.link/20261012-genexis-xg6846-smp-v7-3-rc1-v1-0-a51d4afde4a7@kernel.org
 
-No, the hardware works like that, when calling UPDATE it resets the accumulators,
-so this simply emulates the hardware by accumulating in software for the other
-channels to avoid data loss.
+---
+Linus Walleij (3):
+      dt-bindings: arm: cpus: Add brcm,bca-smp enable method
+      ARM: bcm: Add CFE SMP support for BCMBCA
+      ARM: dts: broadcom: Use CFE CPU bring-up on the XG6846B
 
-> 
-> [ ... ]
-> 
->> +static int max34417_read_raw(struct iio_dev *indio_dev,
->> +			     struct iio_chan_spec const *chan,
->> +			     int *val, int *val2, long mask)
->> +{
-> 
-> [ ... ]
-> 
->> +		case IIO_ENERGY:
->> +			/*
->> +			 * Scale to Joules
->> +			 * P=((Power Accumulation / Counter) * Correction) / 2^30
->> +			 * t=(Counter / Samples per Second)
->> +			 * E=(P * t)
->> +			 * Can be simplified to:
->> +			 * (Power Accumulation * Correction) / (2^30 * SPS)
->> +			 * But the denominator won't fit in 32bit and is not power of 2.
->> +			 * But we can divide the numerator by SPS and shift both terms
->> +			 * by a large power of two number and still use IIO_VAL_FRACTIONAL_LOG2
->> +			 */
->> +			*val = div_u64(max34417->input_correction[chan->channel] << 19,
->> +				       MAX34417_FAST_SPS_CAM);
->> +			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS + 19;
->> +
->> +			return IIO_VAL_FRACTIONAL_LOG2;
->> +		default:
->> +			return -EINVAL;
->> +		}
-> 
-> [ ... ]
-> 
->> +static u32 max34417_calc_input_correction(u32 rsense_uOhm)
->> +{
->> +	/* Derived from Table 14. Correction Factors for Various Current-Sense Resistor Values */
->> +	return (MAX34417_MAX_RSENSE * MAX34417_PWR_CORRECTION_SCALE) / rsense_uOhm;
->> +}
-> 
-> [Severity: Medium]
-> As reported by Sashiko on v5 [3], doesn't the IIO_ENERGY scale calculation in
-> max34417_read_raw() underflow to zero in sysfs for almost all supported
-> shunt resistor values?
-> 
-> In max34417_probe_channel_node(), shunt-resistor-micro-ohms is accepted in
-> the range 1000 to 100000 micro-Ohms. max34417_calc_input_correction()
-> computes 2400000 / rsense_uOhm with integer division (which also truncates
-> non-integer correction factors such as 2400000 / 90000 = 26 instead of
-> 26.667), yielding input_correction in the range [24, 2400].
-> 
-> In max34417_read_raw() for IIO_CHAN_INFO_SCALE on IIO_ENERGY, *val is in the
-> range [8192, 819200] and *val2 is 49 with IIO_VAL_FRACTIONAL_LOG2. When
-> __iio_format_value() in drivers/iio/industrialio-core.c formats
-> IIO_VAL_FRACTIONAL_LOG2:
-> 
-> 	case IIO_VAL_FRACTIONAL_LOG2:
-> 		tmp2 = shift_right((s64)vals[0] * 1000000000LL, vals[1]);
-> 		tmp0 = (int)div_s64_rem(tmp2, 1000000000LL, &tmp1);
-> 
-> because 2^49 is 562,949,953,421,312, any rsense_uOhm >= 1456 micro-Ohms
-> produces vals[0] <= 562517, so (s64)vals[0] * 1000000000LL < 2^49 and tmp2
-> becomes 0, causing in_energyX_scale to read as 0.000000000. Even at 1000
-> micro-Ohms, tmp2 truncates to 1 (0.000000001 instead of 0.0000000014551915,
-> losing 31.3% precision), and in-kernel consumers such as
-> rescale_process_scale() in drivers/iio/afe/iio-rescale.c cast ULL(1) << *val2
-> to int, truncating 1ULL << 49 to 0. Would returning a 64-bit decimal scale
-> type such as IIO_VAL_DECIMAL64_FEMTO via iio_val_s64_decompose() avoid this
-> underflow?
+ Documentation/devicetree/bindings/arm/cpus.yaml    | 46 ++++++++++++++++++
+ .../boot/dts/broadcom/bcm6846-genexis-xg6846b.dts  | 16 ++++++-
+ arch/arm/mach-bcm/Makefile                         |  2 +-
+ arch/arm/mach-bcm/board_bcmbca.c                   | 56 ++++++++++++++++++++++
+ 4 files changed, 118 insertions(+), 2 deletions(-)
+---
+base-commit: ae43fb24a3dda77622157d3574d1ff71aaad20a5
+change-id: 20261011-genexis-xg6846-smp-v7-3-rc1-b470f0e20475
 
-Good point, will return FEMTO based value.
-
-Neil
-
-> 
-> [1] https://lore.kernel.org/r/20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org
-> [2] https://lore.kernel.org/r/20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org
-> [3] https://lore.kernel.org/r/20261102-topic-sm8x50-iio-max34417-adc-v5-3-0ffa5e5f2d5c@linaro.org
-> 
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
