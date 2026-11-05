@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877113;
-	b=jZRbVkh7VrJCL0JIlIwclGuBjFjsCXEtpqGZNFRksQH515oFGOl1EDiHsQggdEP+5I2i
-	 upTFf9ND7xzpS3vERKZUBEWWOR3DTCjR/xEtAnRXC4DUNH4WSmyVpaClndB59a8Przx+E
-	 jQEXWlCCR91f8ewqGE4KFg8m1Zkl7pJbUgD6XQBBVt2YkN0yWMEC1OKsDWrpVLomcmR4p
-	 BcJAWqo2qYimBXy4m/p4yryfTxZEfUHzhn12R8QudXbHG09zoypFepJxHEZsZbxxCMDJA
-	 cgXIb2iBwBe32Bk3o4ZIZXpM0Vu6xckDlXDKYeE7riRgPAhIlni7VW+yOgVnI/6kZ7g==
+	t=1793877143;
+	b=X1qg4GI5puUQwRzqH+wxeX94t5KA3UGGb+w6ec27GCxccdPTTlecjzbw4DdTE8FXOMEE
+	 p2Y6XHPg0h9djvb3sjGMp/xFCH8Mqz0p4BMIf8sM8fKQdeaqApoCXLHIdaSeSHGiKofOp
+	 jQDBCC8PK9wjTP6GGsKfW0GPhXhgv8Oum23EPRs0Ztn49bRjmEd1clnCuDUca+bQCV7jo
+	 rToGXNScpwjeAtdBfKZIqyEDXU47YA27lEu+p23Xo7u7uQAxUa8IithWzrrSQz9W0eO52
+	 JIrF0Zl0jNAILkEUooWXWdUYrvq8Z6i1FKECTddyOHCY43Y6NWIBjmC2QlRd4kdHN2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877113;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=J11xV2o3Vb0E7JyrpIkAKauDnv6xWZzEQhwWJ4zuOKI=;
-	b=3oV/Vr7tpsnfbnhyJad/yGsaqysiAcPly1IitkeihQp8WyLXX30Egf+fLTjtT+VLKXmz
-	 CuOr3KkigPWZRuPYnt/DB5YRXXwB5F7iNKycZMnZly4z+VmjW6F7Hdfse9K7+WE/JJ7B6
-	 2PPkKlRF6vb3/p6SudupXXCL/dCr/AW6tLUUtlHGoYtwbJyL/ndMZWIKlaNUZFEU4l+MH
-	 9Qr+TzKwyjeJuY4rC9y1Er1beQixeby6od1GE9s156AoxnBjqvDKTdG6HTzATudUAb9MH
-	 O653QCrtxkAvCA8nOz09MKdaDfPNcSdSBKUXN0q0FQH41hkDByFhWrmxhVufk3rFB4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877143;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vBz1e/DTkbeVLR+CgZnq/81MF85Dt9/oRuB9tLUw1f4=;
+	b=u2cOzSs4Tu1vZDvXijdwMJeIrKEd13y9bm9P2HF+MNRjgtqYoVvDwH+yjPEBzJbGhdmk
+	 c3S9s8NBBqIhfGEYl4jQaVCSSudAKLOXRYcafWloUJfhXHTJyWya5uCCmDS7WfkwUDv7B
+	 XUOzAob+zo0RPl6x8QlJ+d2GQEecOFQT3fWTryjxqdjutu7jsu5ZixYS1re7C+Zk+lEfV
+	 uUJ6DnnGXOVj6sjuMtUvg8djxHdGjt0+JVnhrFqBV2J+wybYqhqmQaNrCYGMDMk4z8H6u
+	 g2ZJrqL9S775Td8KBX6uvimlLK90OqfplaKTsiRPgPFnfARwAnIXCmJOqLnHz7YBJDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogVaQ8dH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiKDow4D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FDF606D82C
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:11:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A24606A31B;
+	Thu,  5 Nov 2026 11:12:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ogVaQ8dH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C381F000C1;
-	Thu,  5 Nov 2026 11:11:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiKDow4D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF801F00919;
+	Thu,  5 Nov 2026 11:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793877112;
-	bh=J11xV2o3Vb0E7JyrpIkAKauDnv6xWZzEQhwWJ4zuOKI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ogVaQ8dHPEgxX1WooKAHBMWNzKcoKBNt8xvcaIi3ULAzLZQdC5WhtbTryrjuXlHcx
-	 fQMPnNfvoaHO7bllYNqa1vRyt+3w6E+uYZhqifDRCDzCozVnWfcCjMx3rZz+Lq1Cpx
-	 QfeWjnxY/WjQxx3wqzpnXNT7/QoMNvIVKxUSPagyXStoJWmDODNTvKEJX7tzs5s8mz
-	 DgrKXycjE6WdfVfSiq9/SqxKcnNO3lBCT3qr5HjGMuvWB5DkMcvgHHgdbUgNjTU9BE
-	 c6C2/aZkRFd8gaDbg/LiQg75N6dd7CSa6duTU7pRaBGfGQo5FBpgz1keG77qSFERIP
-	 ufP4uk5Px9m0Q==
-Message-ID: <sashiko-outbox-198914@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] arm64: dts: qcom: glymur-crd: add DisplayPort audio
- DAI link
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chiluka Rohith" <rohith.chiluka@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105104657.621104-1-rohith.chiluka@oss.qualcomm.com>
-References: <20261105104657.621104-1-rohith.chiluka@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 11:11:51 +0000
+	s=k20260515; t=1793877142;
+	bh=vBz1e/DTkbeVLR+CgZnq/81MF85Dt9/oRuB9tLUw1f4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oiKDow4DVHPcbHYnfnI5K9cDwTYmcgUBZIFceXzoLTmNZKP6qSPC18kUFDy9lhCZD
+	 Dk8fzRSdLag5TXKw9HMmJs623EHxPfyCH/O3IgelwQ3Hl/G2U+5t+ULJoO1zpyz7OA
+	 TSp7E7ZUmFlLWvw6vzNOn+r+VeEhULraYnnDSQ7YP4bhKVKV9WpDarmsjQIsUwvrZ4
+	 eKxR9HqKhDSh/4RnY9kFWo7/6BOEORZxd8sDlblmKYRasnikTEg8SXSyIterYiPpmj
+	 Ktthx7Pcd5ooSaFAweMBN5CbosIM4LsNMYmR8t87biKW0HiJUSyk4ffP2eWWfnUn3S
+	 Tflu+n9Eoc46A==
+Date: Thu, 5 Nov 2026 12:12:14 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 1/9] device property: fix fwnode_name_eq() for empty node
+ names
+Message-ID: <auxXdlSWo2zG7iFP@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,149 +66,158 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="l2ze5nypzbxx3qxf"
+Content-Disposition: inline
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: glymur-crd: dp-dai-link breaks sound probe on ma=
-hua-crd
-- [Medium] arm64: dts: qcom: glymur-crd: incomplete and unenabled DP audio =
-DAI link
---
 
-commit bb4f3b10ef946c74b24095ec32db334ac56b222c
-Author: Chiluka Rohith <rohith.chiluka@oss.qualcomm.com>
+--l2ze5nypzbxx3qxf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 1/9] device property: fix fwnode_name_eq() for empty node
+ names
+Message-ID: <auxXdlSWo2zG7iFP@devuan>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
+MIME-Version: 1.0
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
 
-arm64: dts: qcom: glymur-crd: add DisplayPort audio DAI link
+Hi Bartosz,
 
-This commit adds a DisplayPort RX DAI link to the sound node in
-glymur-crd.dtsi, wiring the DISPLAY_PORT_RX_1 backend of q6apm to the
-mdss_dp1 controller.
+> Date: 2026-11-04 15:03:43+0100
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>
+> str_has_prefix() returns the prefix length on match and 0 on mismatch,
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
-ts/qcom/glymur-crd.dtsi
-> index 58158b51fe295..eee75da201983 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> @@ -268,6 +268,22 @@ platform {
->  			};
->  		};
+This is indeed a problem.  str_has_prefix() is a bad design.
+
+> so the mistmatch case can't be told from "empty prefix matched an empty
+> string".
+
+Indeed.
+
+The better solution would be to fix str_has_prefix().  In other
+projects, I've been using a similar function, but it returns a pointer
+to after the prefix, which is more useful *and* doesn't have this bug.
+
+	char *
+	strprefix(const char *s, const char *prefix)
+	{
+		if (strncmp(s, prefix, strlen(prefix)) !=3D 0)
+			return NULL;
+
+		return (char *) s + strlen(prefix);
+	}
+
+> For instance: the OF root node's name as returned by
+> fwnode_get_name() is "" and will return 0 for any name matched against
+> it and since len is 0 too, fwnode_name_eq() will return true.
+>=20
+> Do what OF code already does in of_node_name_eq(): check if the length
+> of the expected name matches the length of the actual node name before
+> comparing it.
+>=20
+> Fixes: a9c8c738066b ("device property: Add fwnode_name_eq()")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/base/property.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/base/property.c b/drivers/base/property.c
+> index 51109794d7275ddaf4571584d0e77d8573ebb475..a97575ff9199004b4f401f432=
+aed6c95e40d0c25 100644
+> --- a/drivers/base/property.c
+> +++ b/drivers/base/property.c
+> @@ -700,7 +700,7 @@ bool fwnode_name_eq(const struct fwnode_handle *fwnod=
+e, const char *name)
 > =20
-> +		dp-dai-link {
-> +			link-name =3D "DISPLAY_PORT-RX";
-> +
-> +			codec {
-> +				sound-dai =3D <&mdss_dp1>;
-> +			};
+>  	len =3D strchrnul(node_name, '@') - node_name;
+> =20
+> -	return str_has_prefix(node_name, name) =3D=3D len;
+> +	return len =3D=3D strlen(name) && !strncmp(node_name, name, len);
 
-[Severity: High]
-Does adding this active dp-dai-link node to the shared
-arch/arm64/boot/dts/qcom/glymur-crd.dtsi break probing of the entire sound
-card on mahua-crd?
+This would be going back to the stone age, and introducing code that is
+prone to bugs.  Please don't.
 
-arch/arm64/boot/dts/qcom/glymur-crd.dtsi is included by both
-arch/arm64/boot/dts/qcom/glymur-crd.dts and
-arch/arm64/boot/dts/qcom/mahua-crd.dts:
+I'd suggest adding strprefix(), and then simplifying all this into the
+following:
 
-arch/arm64/boot/dts/qcom/mahua-crd.dts:
-    #include "mahua.dtsi"
-    #include "glymur-crd.dtsi"
+	diff --git a/drivers/base/property.c b/drivers/base/property.c
+	index 51109794d727..7728116e2968 100644
+	--- a/drivers/base/property.c
+	+++ b/drivers/base/property.c
+	@@ -692,15 +692,12 @@ const char *fwnode_get_name_prefix(const struct fwno=
+de_handle *fwnode)
+	 bool fwnode_name_eq(const struct fwnode_handle *fwnode, const char *name)
+	 {
+		const char *node_name;
+	-       ptrdiff_t len;
+	=20
+		node_name =3D fwnode_get_name(fwnode);
+		if (!node_name)
+			return false;
+	=20
+	-       len =3D strchrnul(node_name, '@') - node_name;
+	-
+	-       return str_has_prefix(node_name, name) =3D=3D len;
+	+       return strprefix(node_name, name) =3D=3D strchrnul(node_name, '@');
+	 }
+	 EXPORT_SYMBOL_GPL(fwnode_name_eq);
+	=20
 
-In arch/arm64/boot/dts/qcom/glymur.dtsi, mdss_dp1 defaults to disabled:
 
-arch/arm64/boot/dts/qcom/glymur.dtsi:
-    mdss_dp1: displayport-controller@af5c000 {
-        ...
-        #sound-dai-cells =3D <0>;
+I'll send a pair of patches in a moment.
 
-        status =3D "disabled";
-    };
 
-While arch/arm64/boot/dts/qcom/glymur-crd.dts enables mdss_dp1, neither
-glymur-crd.dtsi nor mahua-crd.dts enables it.
+Have a lovely day!
+Alex
 
-When booting mahua-crd, x1e80100_platform_probe() -> qcom_snd_parse_of()
-iterates over all available child nodes of /sound and calls
-snd_soc_of_get_dai_link_codecs() -> snd_soc_of_get_dlc() ->
-snd_soc_get_dlc():
-
-sound/soc/qcom/common.c:qcom_snd_parse_of()
-    if (codec) {
-        ret =3D snd_soc_of_get_dai_link_codecs(dev, codec, link);
-        if (ret < 0) {
-            dev_err_probe(dev, ret,
-                          "%s: codec dai not found\n", link->name);
-            return ret;
-        }
-    }
-
-Because mdss_dp1 is disabled on mahua-crd, msm_dp_display_probe() never runs
-for mdss_dp1 and never registers its ASoC codec component, causing
-snd_soc_get_dlc() to return -EPROBE_DEFER permanently and preventing the
-qcom,glymur-sndcard sound card (including WSA speaker playback and VA DMIC
-capture) from registering on mahua-crd.
-
-> +
-> +			cpu {
-> +				sound-dai =3D <&q6apmbedai DISPLAY_PORT_RX_1>;
-> +			};
-> +
-> +			platform {
-> +				sound-dai =3D <&q6apm>;
-> +			};
-> +		};
-
-[Severity: Medium]
-Should this also wire up the first DisplayPort controller (mdss_dp0 with
-DISPLAY_PORT_RX_0) and follow the DisplayPort DAI link naming used by other
-boards handled by sound/soc/qcom/x1e80100.c?
-
-In arch/arm64/boot/dts/qcom/glymur-crd.dtsi, two DisplayPort-capable USB-C
-connectors are defined under pmic-glink (connector@0 routed via usb_0_qmpphy
-to mdss_dp0, and connector@1 routed via usb_1_qmpphy to mdss_dp1), and
-arch/arm64/boot/dts/qcom/glymur-crd.dts enables both controllers:
-
-arch/arm64/boot/dts/qcom/glymur-crd.dts:
-    &mdss_dp0 {
-        status =3D "okay";
-    };
-    ...
-    &mdss_dp1 {
-        status =3D "okay";
-    };
-
-However, this patch only adds a link for mdss_dp1 (DISPLAY_PORT_RX_1) and
-omits mdss_dp0 (DISPLAY_PORT_RX_0).
-
-In addition, other boards using sound/soc/qcom/x1e80100.c (such as
-arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts, which also
-uses compatible =3D "qcom,glymur-sndcard", as well as x1-crd.dtsi) name the=
-se
-nodes displayport-0-dai-link and displayport-1-dai-link with link-name set
-to "DisplayPort0 Playback" and "DisplayPort1 Playback" instead of
-dp-dai-link and "DISPLAY_PORT-RX":
-
-arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts:
-    displayport-0-dai-link {
-        link-name =3D "DisplayPort0 Playback";
-
-        cpu {
-            sound-dai =3D <&q6apmbedai DISPLAY_PORT_RX_0>;
-        };
-
-        codec {
-            sound-dai =3D <&mdss_dp0>;
-        };
-
-        platform {
-            sound-dai =3D <&q6apm>;
-        };
-    };
-
-    displayport-1-dai-link {
-        link-name =3D "DisplayPort1 Playback";
-        ...
-    };
+>  }
+>  EXPORT_SYMBOL_GPL(fwnode_name_eq);
+> =20
+>=20
+> --=20
+> 2.47.3
+>=20
+>=20
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105104657.6211=
-04-1-rohith.chiluka@oss.qualcomm.com?part=3D1
+<https://www.alejandro-colomar.es>
+
+--l2ze5nypzbxx3qxf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrsZI0ACgkQ64mZXMKQ
+wqlTQA//W1clNm9koD5im1+p/cxNw122A4ZOpbBKWZPs/sZzSx8bQ4B6Wx75n4Yr
+4GH4EwpC1263aOxO2wHydCz3+pCbfUL/HvRBw51llAASoKkVhz8UUELO86MmilA2
+1jETDaD5nBjmGBiCvpkeSAuirQvGncIbf8gvVcb1lrPOVYY+kHJ5dF+z2LGzPROR
+oiSdMHgPVSFo1jUS3egZWje2ImCcqVW1drh/7b2Z0TtGU9ieqEXLnyoftS/zmww8
+WV/miGSrWUDDPjvJRZisbp5Owp5RXlO5eCq08lNfdu0cVm7bDj6v9BLZ6gtNTN3v
+kt3a5n4kBsHQSUAl99u5Ve/MeMsHieFvfo8QbZIBiRzRqt9sBuW8jo7R3EB0tX2N
+JkJtYjrkObFAGo6TEAsMnrIEBJWiR/ArNHqqWMIfywNsk9QTDOz/S6sRJTwJx6+/
+HCFVlv9iMTe3UXvoDyz49XZgPYZfX3C9T9iob9iZ4JUM3gzJbGmXWH3G+YQfZ6xd
+GFlIRxCn9l/Bihr9VseAnKkLI6EV3ttykDwggL30UIfpWz8oviATlybgAHV1h9uh
+AKxPJqFM6w09GUjgsa01ERqYRRUgNiEGa3Sl1UIhX0xgBrLnaMdt7rSFfYNP31gh
+r+LjzY76L/iGmZUaBQmVGxHxbqQFJEN9jO5cU8i5L5qgt/cerdg=
+=j4iX
+-----END PGP SIGNATURE-----
+
+--l2ze5nypzbxx3qxf--
