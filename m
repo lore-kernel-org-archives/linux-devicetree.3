@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878278;
-	b=r8M+zPDcbljZ8Wgw2tIXUu+0kacYj4sphGzAF1PdSYCs3cIg5wLfPzNgUTRpuA4VGBpN
-	 tAtJVoteseWd2/7EB/Q7SfpzVB+VbP7k65Ke3v1R/RxGSUqNffBuKzg9NQectMIQcQ7Qb
-	 VQmSTY21eRMK3fPWOueSiVMU3cDNszrQKGBUx8vT9uaZjJS02ZVYE6AAXiym9eZcHTqaJ
-	 B6i92PFocuFBWTiLxNgbhFeY3wDnIcAfBCni8c+yh4Yul0RDFzwLvyz1Ar3qjmUm2W5tD
-	 LnuAINx9HebXZOp6qt88ZsMgjMRcwvRh+Wpbw9VIq3EU+cjdzTn2RQV8JUO75kw0VuQ==
+	t=1793878332;
+	b=wzBADttkZ/9yNciupObBqCSXPuKzJCtKA2AR2LEZpMsJv5+ZPG8Wlq04ZZWO4WuO7+Oa
+	 ninQDkyvnI6+l8r8XMVGElRSmiabh8/ARhogLAuFHEagr5/F4xDAzvmhjmONwyAXPNqml
+	 qHAWC4pe3aKqXMcsdNTu5d6PrXL2Oy54U0zQzcq5NVQeEqtQUTBhrAeSZFKjwmu0vWNiG
+	 EsjySuidMknVEHUqWD+CB4Yq0hvinsrgQznxAAts/romT4Q0w5EY8BSLRVMsvWHOHu1N/
+	 7ay2kV0cwLCuSD5s3ggkWk/1yuSh5yEVIHceCz+o1i/EMPXS0LutNQDgOG5rCiy5fbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878332;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Madmrg/Uo0DX2tmp+oGazWf0+/gvovwqd3iWeTOJMDE=;
-	b=r5bIWqwH6u79Si1V2C1zVSG4ubkK3AEI4gEJNtaImMf/jVTAtIhk3GIzz/8bAKZx9m5M
-	 uDKOFnSq2tfIn6TRMat4lQnJNlSZOhBMCx1RPcmUtCQDYKE4wkFzU2gR7SvsvuzkI5FzD
-	 7NxQAkuDh5LBUpjquITnKNy6z4DDXJId1Qlnwwwp9wVbAIYU3LLklK9EiwRMQ6dBepdRA
-	 J1F15xElRn+slVivs8C2CUxfQmkcUgAbxCu7ndYnlFIzjlEVMWXqLo/Up8kuBUWik7wdP
-	 t7DmNN6NkcdoYc5ZCR66vqR3ugkLvQhq2+/+EpqOXWAd2Xt4WP/92CWHE1g4Z9z1rwA==
+	bh=Cb1CKFhhxBGgG/rsEsSCdHt132nUF6RoCXJXzHzVYG8=;
+	b=VVt2kJz7Q5/IeNZimOWnk4dI/c4b0/AqEP1LKFQoxm3iBW26Eg78RzUdsK3sfWDnAaFm
+	 T4kF0UZ9zNzSsAtTwoDkh/x7mOvGfeXYTiIo+tfQL7adIbj/DIVyFO+lsLVkVrmVujFK/
+	 0pb8bIiFjDgrdFwLaddyu7M0W9KtPUBk/Bm6jroUcc1VkC/BueX4YRkw0xChXFmdwspXd
+	 6buqvWyjY9SjfesAnAd5w96LW/iy1e47QIrO/jdPO1XVPSVlhHNe9G+33fghey62GIKhS
+	 Oms69WntioDFAnNqCsm72sx08dscegxwqCD83Ck+dartlppdZAh7/sbQozEOmbi/lqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d02zMs42;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNwm7JSX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0B8606A330
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:31:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E0F606A31B;
+	Thu,  5 Nov 2026 11:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d02zMs42
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085B61F00919;
-	Thu,  5 Nov 2026 11:31:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNwm7JSX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033091F000C1;
+	Thu,  5 Nov 2026 11:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793878277;
-	bh=Madmrg/Uo0DX2tmp+oGazWf0+/gvovwqd3iWeTOJMDE=;
+	s=k20260515; t=1793878331;
+	bh=Cb1CKFhhxBGgG/rsEsSCdHt132nUF6RoCXJXzHzVYG8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d02zMs42ob4rDW1+Ts6OKAHUxyjDIfl6nK51TVtG5Ao5pn8JpDyObXh4VpPIocqA6
-	 G63thMqu0ECKypiSoMNo1K33pPrkFtwheQ1KODLSmD71VpakkiAS5D/61pFRZyzl/6
-	 38f5p7dXh4tjsZYabmGqWcO+hMVrdTHcSquUbInIlbk9XbEoeS/YCayFFZBiAurpvB
-	 VBl78FPbtmhsQhF2WLKf1B8zU4r0e2DJQYugqA7hZag+aNJLE3Q51UHKYBX64K0c5E
-	 zRJeiJXfyeEXTKe4buhbEa3N2BCrhINY1MKYkqOkZExfyaL2KE02mYkH0ojC0dZtDJ
-	 QxA7NShwpvFUA==
-Message-ID: <sashiko-outbox-198953@kernel.org>
+	b=dNwm7JSXc1K9tvskdBsI72Dnl7PlbfKkUH1FCP0pSZz+my/UKTECLRZsUQbWtJeX5
+	 LJWNMSFeJgmqmW4/lj9awstqfFDoK8PzonObJi/lqAOc9GJlH2tgAXnbbhJ3C6DEmm
+	 Ng0hvGkRvLcj2pcnPJEJYzGeklaP875gtL7PH9zG537HBFpG9G82866r4s8kWbgMx4
+	 PQLAz3tf3UdVNiELWGvYTihcjrJn80aba6Qvo7wl1o1H2zTGdRd4/+fFOdAa52c3DG
+	 uB/pCqbCXq1F3mVqu65LQ9w61pJIXAIHc6alfmMjYUrAoLJGxsyO56GIkpb5wdnMsq
+	 m63F1A4t1cwqQ==
+Message-ID: <sashiko-outbox-198958@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 16/19] mtd: spinand: negotiate optimal controller
- operating point before dirmap creation
+Subject: Re: [PATCH v8 09/11] arm64: dts: qcom: Add initial support for
+ MSM8952
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com
-Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org, praneeth@ti.com, sebin.francis@ti.com, u-kumar1@ti.com, srikanth.boyapally@amd.com, m-shah@ti.com
-In-Reply-To: <20261105105832.2134313-17-s-k6@ti.com>
-References: <20261105105832.2134313-1-s-k6@ti.com>
- <20261105105832.2134313-17-s-k6@ti.com>
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261105-msm8952-initial-support-v8-9-311ae8e8f14b@mainlining.org>
+References: <20261105-msm8952-initial-support-v8-0-311ae8e8f14b@mainlining.org>
+ <20261105-msm8952-initial-support-v8-9-311ae8e8f14b@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 11:31:16 +0000
+Date: Thu, 05 Nov 2026 11:32:10 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,360 +61,174 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] mtd: spinand: spinand_create_dirmap() overwrites per-op max_freq l=
-imits
-- [High] mtd: spinand: missing configure_chip() call in spinand_try_ranked_=
-variant()
-- [High] mtd: spinand: spinand_op_find_best_variant() ranks and overclocks =
-low-freq ops
-- [Medium] mtd: spinand: broken cont_read_cache matching in spinand_op_shap=
-e_matches()
-- [Medium] mtd: spinand: missing cont_read_cache shape check on initial tun=
-ing success
+- [High] arm64: dts: qcom: msm8952: missing bam_clk on cryptobam and usbbam
+- [Medium] arm64: dts: qcom: msm8952: missing polling-delay-passive on CPU =
+thermal zones
 --
 
-commit 8733b92e8d67a304d901c8ece339d2fe4c54f7ad
-Author: Santhosh Kumar K <s-k6@ti.com>
+commit ea3b840e26e24e5872598db9df083561eb669ac2
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-mtd: spinand: negotiate optimal controller operating point before dirmap cr=
-eation
+arm64: dts: qcom: Add initial support for MSM8952
 
-This commit introduces spinand_optimize_controller() to perform PHY
-calibration and ranked variant fallback before creating direct mappings in
-spinand_probe(). It also re-pairs continuous-read templates by protocol sha=
-pe
-when falling back to another read variant and embeds the calibrated max_freq
-into the dirmap operation templates.
+This commit adds the initial device tree source file for the Qualcomm
+MSM8952 SoC, including CPU clusters, clocks, pinctrl, storage, display,
+remoteproc, thermal sensors, USB, and BLSP peripherals.
 
-> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-> index 9dc43c8c4162d..645528b6c2d77 100644
-> --- a/drivers/mtd/nand/spi/core.c
-> +++ b/drivers/mtd/nand/spi/core.c
-> @@ -1300,6 +1300,7 @@ static int spinand_create_dirmap(struct spinand_dev=
-ice *spinand,
->  	info.length =3D nanddev_page_size(nand) + nanddev_per_page_oobsize(nand=
-);
->  	info.primary_op_tmpl =3D *spinand->op_templates->update_cache;
->  	info.primary_op_tmpl.data.ecc =3D enable_ecc;
-> +	info.primary_op_tmpl.max_freq =3D spinand->max_write_op.max_freq;
->  	desc =3D devm_spi_mem_dirmap_create(&spinand->spimem->spi->dev,
->  					  spinand->spimem, &info);
->  	if (IS_ERR(desc))
-> @@ -1310,9 +1311,11 @@ static int spinand_create_dirmap(struct spinand_de=
-vice *spinand,
->  	/* Read descriptor */
->  	info.primary_op_tmpl =3D *spinand->op_templates->read_cache;
->  	info.primary_op_tmpl.data.ecc =3D enable_ecc;
-> +	info.primary_op_tmpl.max_freq =3D spinand->max_read_op.max_freq;
->  	if (secondary_op) {
->  		info.secondary_op_tmpl =3D *spinand->op_templates->cont_read_cache;
->  		info.secondary_op_tmpl.data.ecc =3D enable_ecc;
-> +		info.secondary_op_tmpl.max_freq =3D spinand->max_read_op.max_freq;
->  	}
+> diff --git a/arch/arm64/boot/dts/qcom/msm8952.dtsi b/arch/arm64/boot/dts/=
+qcom/msm8952.dtsi
+> new file mode 100644
+> index 0000000000000..3739d1c25c035
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8952.dtsi
+> @@ -0,0 +1,2912 @@
+
+[ ... ]
+
+> +		cryptobam: dma-controller@704000 {
+> +			compatible =3D "qcom,bam-v1.7.0";
+> +			reg =3D <0x00704000 0x20000>;
+> +			interrupts =3D <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>;
+> +			#dma-cells =3D <1>;
+> +			num-channels =3D <16>;
+> +			qcom,ee =3D <1>;
+> +			qcom,num-ees =3D <4>;
+> +			qcom,controlled-remotely;
+> +		};
+
+[ ... ]
+
+> +		usbbam: dma-controller@78c4000 {
+> +			compatible =3D "qcom,bam-v1.7.0";
+> +			reg =3D <0x078c4000 0x17000>;
+> +			interrupts =3D <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
+> +			#dma-cells =3D <1>;
+> +			num-channels =3D <4>;
+> +			qcom,num-ees =3D <4>;
+> +			qcom,ee =3D <0>;
+> +			qcom,controlled-remotely;
+> +		};
 
 [Severity: High]
-Does unconditionally overwriting info.primary_op_tmpl.max_freq and
-info.secondary_op_tmpl.max_freq in spinand_create_dirmap() discard the
-per-variant datasheet frequency limits defined by flash drivers?
+As reported by Sashiko on v7 [1], both cryptobam and usbbam are enabled by
+default with qcom,controlled-remotely, but omit clocks and
+clock-names =3D "bam_clk". Can this cause unclocked register accesses when
+freeing DMA channels or unbinding the BAM driver?
 
-When mem->spi->post_config_max_speed_hz is 0, or when
-spi_mem_execute_tuning() is unsupported (-EOPNOTSUPP) or fails in
-spinand_optimize_controller(), spinand->max_read_op.max_freq and
-spinand->max_write_op.max_freq remain 0.
+For cryptobam, qce_crypto_probe() in drivers/crypto/qce/core.c enables
+runtime PM and calls devm_qce_dma_request(). Once the autosuspend delay
+elapses (or if probe fails after requesting DMA), qce_runtime_suspend()
+gates off the crypto clocks. When the qce driver is later unbound or
+unwinds, devres runs:
 
-In spinand_create_dirmap(), info.primary_op_tmpl and info.secondary_op_tmpl
-are first initialized from *spinand->op_templates->update_cache,
-*spinand->op_templates->read_cache, and
-*spinand->op_templates->cont_read_cache, which carry per-variant frequency
-caps in drivers such as drivers/mtd/nand/spi/winbond.c (e.g., 54 MHz,
-80 MHz, 86 MHz, 104 MHz, 105 MHz, 120 MHz, 124 MHz, 133 MHz, and 162 MHz).
+qce_dma_release()
+  dma_release_channel()
+    bam_free_chan()
+      pm_runtime_get_sync(bdev->dev);
+      ...
+      bam_reset_channel(bchan);
 
-Overwriting max_freq with 0 causes spi_mem_adjust_op_freq() during
-dirmap creation:
+Because cryptobam has no bam_clk, bdev->bamclk is null in bam_dma_probe(),
+so pm_runtime_get_sync() does not enable the crypto interface clock before
+bam_reset_channel() writes to the BAM registers at 0x00704000.
 
-drivers/spi/spi-mem.c:spi_mem_adjust_op_freq() {
-    ...
-	if (!op->max_freq || op->max_freq > mem->spi->max_speed_hz)
-		op->max_freq =3D mem->spi->max_speed_hz;
-    ...
-}
+Similarly, usbbam is enabled by default while usb@78db000 has
+status =3D "disabled", so unbinding usbbam runs bam_dma_remove() and writes=
+ to
+0x078c4000 while the USB interface clock is gated off.
 
-to raise the operation frequency all the way up to mem->spi->max_speed_hz
-(for instance, clocking an 80 MHz 1S-4D-4D or 120 MHz 8D-8D-8D op at
-166 MHz). Even when tuning succeeds, stamping spinand->max_read_op.max_freq
-onto the dirmap templates ignores any lower per-variant max_freq ceiling on
-read_cache or cont_read_cache.
+Should cryptobam and usbbam provide clocks and clock-names =3D "bam_clk"
+(similar to blsp1_dma and blsp2_dma), or should usbbam also be marked
+disabled until enabled alongside usb?
 
-> @@ -1559,22 +1562,51 @@ static int spinand_init_odtr_instruction_set(stru=
-ct spinand_device *spinand)
->  	return 0;
->  }
-> =20
-> +/**
-> + * spinand_op_shape_matches() - Check whether two ops share the same pro=
-tocol
-> + *				 shape.
-> + * @a: first op
-> + * @b: second op
-> + *
-> + * Compares cmd/addr/data buswidth, addr.nbytes, and DTR-ness, ignoring
-> + * dummy cycle count and address value. A continuous-read op and its
-> + * corresponding read_cache op are expected to differ only in those igno=
-red
-> + * fields: continuous read typically needs fewer dummy cycles, and always
-> + * targets an internally tracked address rather than the caller's.
-> + */
-> +static bool spinand_op_shape_matches(const struct spi_mem_op *a,
-> +				     const struct spi_mem_op *b)
-> +{
-> +	return a->cmd.buswidth =3D=3D b->cmd.buswidth &&
-> +	       a->cmd.dtr =3D=3D b->cmd.dtr &&
-> +	       a->addr.nbytes =3D=3D b->addr.nbytes &&
-> +	       a->addr.buswidth =3D=3D b->addr.buswidth &&
-> +	       a->addr.dtr =3D=3D b->addr.dtr &&
-> +	       a->data.buswidth =3D=3D b->data.buswidth &&
-> +	       a->data.dtr =3D=3D b->data.dtr;
-> +}
+[ ... ]
+
+> +	thermal-zones {
+> +		qdsp-thermal {
+> +			thermal-sensors =3D <&tsens 2>;
+> +
+> +			trips {
+> +				qdsp_alert0: trip-point0 {
+> +					temperature =3D <75000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "hot";
+> +				};
+> +			};
+> +		};
+> +
+> +		cpu4-thermal {
+> +			thermal-sensors =3D <&tsens 5>;
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu4_alert0>;
+> +					cooling-device =3D <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
+> +
+> +			trips {
+> +				cpu4_alert0: trip-point0 {
+> +					temperature =3D <75000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				cpu4_alert1: trip-point1 {
+> +					temperature =3D <85000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "hot";
+> +				};
+> +
+> +				cpu4_crit: cpu-crit {
+> +					temperature =3D <110000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "critical";
+> +				};
+> +			};
+> +		};
 
 [Severity: Medium]
-As reported by Sashiko on v4 [1], can spinand_op_shape_matches() ever match
-an SSDR continuous-read variant in spinand_find_cont_read_variant(), or pair
-the right dummy-cycle sub-variant in ODTR mode?
+As reported by Sashiko on v7 [2], cpu4-thermal, cpu5-thermal, cpu6-thermal,
+cpu7-thermal, and cpu0-3-thermal each define a single passive trip point at
+75000 mC mapped to the cluster CPUs, but omit polling-delay-passive. Without
+polling-delay-passive, will passive CPU frequency throttling stall after a
+single cooling step?
 
-In drivers/mtd/nand/spi/winbond.c (the only driver defining cont_read_cache
-variant tables), all SSDR read_cache variants use a 2-byte address
-(addr.nbytes =3D=3D 2, dummy.nbytes =3D=3D ndummy), whereas all SSDR contin=
-uous-read
-variants convert one address byte into dummy cycles:
+In drivers/thermal/thermal_of.c:thermal_of_monitor_init(), omitting
+polling-delay-passive leaves tz->passive_delay_jiffies set to 0:
 
-#define WINBOND_CONT_READ_FROM_CACHE_1S_8S_8S_OP(ndummy, buf, len, freq) \
-	SPI_MEM_OP(SPI_MEM_OP_CMD(0xcb, 1),				\
-		   SPI_MEM_OP_ADDR(1, 0, 8),				\
-		   SPI_MEM_OP_DUMMY(ndummy - 1, 8),			\
-		   SPI_MEM_OP_DATA_IN(len, buf, 8),			\
-		   SPI_MEM_OP_MAX_FREQ(freq))
+	ret =3D of_property_read_u32(np, "polling-delay-passive", pdelay);
+	if (ret =3D=3D -EINVAL) {
+		*pdelay =3D 0;
 
-Because spinand_op_shape_matches() requires a->addr.nbytes =3D=3D b->addr.n=
-bytes,
-spinand_find_cont_read_variant(spinand, best, SSDR) rejects every SSDR entry
-and always returns NULL, which causes spinand_try_ranked_variant() to set
-spinand->cont_read_possible =3D false on every SSDR fallback.
+When a CPU thermal zone crosses 75000 mC, tsens_irq_thread() triggers
+__thermal_zone_device_update(), which reprograms the hardware interrupt
+window to [72999 mC, 85000 mC]. Because tz->passive_delay_jiffies is 0,
+monitor_thermal_zone() in drivers/thermal/thermal_core.c never schedules
+polling while the passive trip is active:
 
-Conversely, for ODTR variants where WINBOND_CONT_READ_FROM_CACHE_8D_8D_8D_OP
-also has addr.nbytes =3D=3D 2, spinand_op_shape_matches() ignores dummy cyc=
-le
-counts and spinand_find_cont_read_variant() passes skip_mask =3D=3D 0 to
-spinand_op_find_best_variant(). If read_cache falls back to a different
-dummy-cycle sub-variant, won't spinand_find_cont_read_variant() still pick
-the first cont_read_cache sub-variant with a mismatched dummy cycle count,
-even though both ops share a single hardware VCR dummy clock register?
+	if (tz->passive > 0 && tz->passive_delay_jiffies)
+		thermal_zone_device_set_polling(tz, tz->passive_delay_jiffies);
 
-[ ... ]
+Under the step_wise governor, get_target_state() only advances the cooling
+state by cur_state + 1 on that initial trip crossing and never re-evaluates
+while the temperature remains between 73 C and 85 C, and under the
+power_allocator governor, pid_controller() divides by
+jiffies_to_msecs(tz->passive_delay_jiffies) which is 0.
 
-> @@ -2073,6 +2144,199 @@ static void spinand_cleanup(struct spinand_device=
- *spinand)
->  	kfree(spinand->scratchbuf);
->  }
-> =20
-> +/**
-> + * spinand_try_ranked_variant() - Try controller optimization on variant=
-s in
-> + *				  performance order.
-[ ... ]
-> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
-> +				       struct spi_mem *mem,
-> +				       enum spinand_bus_interface iface,
-> +				       u32 *tried_mask)
-> +{
-> +	const struct spinand_op_variants *variants =3D spinand->all_read_varian=
-ts;
-> +	struct spinand_mem_ops *templates =3D iface =3D=3D ODTR ?
-> +		&spinand->odtr_op_templates : &spinand->ssdr_op_templates;
-> +	const struct spi_mem_op *best;
-> +	int ret;
-> +
-> +	if (!variants)
-> +		return false;
-> +
-> +	while ((best =3D spinand_op_find_best_variant(spinand, variants, iface,
-> +						    *tried_mask, NULL))) {
-> +		*tried_mask |=3D BIT(best - variants->ops);
-> +		spinand->max_read_op =3D *best;
-> +		spinand->max_read_op.max_freq =3D 0;
-> +		spinand->max_write_op.max_freq =3D 0;
-> +		ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
-> +					     &spinand->max_write_op);
-> +		if (ret && ret !=3D -EOPNOTSUPP)
-> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
-> +				iface =3D=3D ODTR ? "ODTR" : "SSDR", ret);
-> +		if (!ret && spinand->max_read_op.max_freq) {
-> +			templates->read_cache =3D best;
-> +			if (spinand->all_cont_read_variants) {
-> +				templates->cont_read_cache =3D
-> +					spinand_find_cont_read_variant(spinand, best, iface);
-> +				/* Only clear; never re-enable a denied capability. */
-> +				if (!templates->cont_read_cache)
-> +					spinand->cont_read_possible =3D false;
-> +			}
-> +			return true;
-> +		}
-> +	}
-> +	return false;
-> +}
+Should these passive CPU thermal zones specify polling-delay-passive (such
+as <250>, matching msm8916.dtsi, msm8939.dtsi, and msm8953.dtsi)?
 
-[Severity: High]
-Doesn't spinand_try_ranked_variant() need to update templates->read_cache a=
-nd
-call spinand->configure_chip(spinand, iface) for each candidate variant
-before running spi_mem_execute_tuning() (and restore it if all candidates
-fail)?
-
-On ODTR-capable Winbond flashes (W35N01JW, W35N02JW, and W35N04JW),
-spinand->configure_chip (w35n0xjw_vcr_cfg() in drivers/mtd/nand/spi/winbond=
-.c)
-inspects spinand->odtr_op_templates.read_cache or
-spinand->ssdr_op_templates.read_cache to program the flash chip's Volatile
-Configuration Registers with that variant's exact dummy clock count
-(W35N01JW_VCR_DUMMY_CLOCK_REG) and I/O mode (W35N01JW_VCR_IO_MODE_REG:
-OCTAL_DDR, OCTAL_SDR, or SINGLE_SDR):
-
-drivers/mtd/nand/spi/winbond.c:w35n0xjw_vcr_cfg() {
-    ...
-	switch (iface) {
-	case SSDR:
-		ref_op =3D spinand->ssdr_op_templates.read_cache;
-		break;
-	case ODTR:
-		ref_op =3D spinand->odtr_op_templates.read_cache;
-		break;
-	default:
-		return -EOPNOTSUPP;
-	}
-
-	dummy_cycles =3D ((ref_op->dummy.nbytes * 8) / ref_op->dummy.buswidth) /
-		(ref_op->dummy.dtr ? 2 : 1);
-    ...
-}
-
-In spinand_optimize_controller(), configure_chip() is only called once befo=
-re
-Pass 1 (during spinand_init_flash()) and once before Pass 2 using the initi=
-al
-read_cache template. When spinand_try_ranked_variant() iterates across
-variants in read_cache_octal_variants that have different dummy cycle counts
-(e.g., 24 vs 16 dummy bytes in ODTR, or 20, 16, 12, and 8 dummy cycles in
-SSDR) or a different VCR I/O mode (1S-8S-8S OCTAL_SDR vs 1S-1S-1S
-SINGLE_SDR), the flash hardware remains programmed for the initial template=
-'s
-dummy cycles and I/O mode both during spi_mem_execute_tuning() and after
-templates->read_cache =3D best is committed.
-
-> +
-> +/**
-> + * spinand_reset_max_freq_ops() - Copy op templates and zero max_freq on=
- both.
-> + * @spinand:    SPI NAND device
-> + * @templates:  op template set to copy from
-> + *
-> + * Called before execute_tuning so max_freq starts at zero; execute_tuni=
-ng sets
-> + * it to the validated clock rate only on success. A non-zero max_freq m=
-eans
-> + * controller-optimized; zero means the base rate applies.
-> + */
-> +static void spinand_reset_max_freq_ops(struct spinand_device *spinand,
-> +				       struct spinand_mem_ops *templates)
-> +{
-> +	spinand->max_read_op =3D *templates->read_cache;
-> +	spinand->max_read_op.max_freq =3D 0;
-> +	spinand->max_write_op =3D *templates->write_cache;
-> +	spinand->max_write_op.max_freq =3D 0;
-> +}
-
-[Severity: High]
-As reported by Miquel Raynal on v3 [2], won't evaluating variants at the
-pre-config base clock in spinand_op_find_best_variant() and then zeroing
-max_read_op.max_freq before spi_mem_execute_tuning() select low-dummy-cycle,
-low-frequency variants and overclock them at post_config_max_speed_hz?
-
-When spi-max-post-config-frequency-hz is set in DT, mem->spi->max_speed_hz
-holds the lower pre-configuration base clock (e.g., 25 MHz) while
-mem->spi->post_config_max_speed_hz holds the high-speed target (e.g., 120 M=
-Hz
-or 166 MHz).
-
-In spinand_op_find_best_variant(), spi_mem_adjust_op_freq() clamps every
-candidate in variants->ops[i] (such as Winbond's read_cache_octal_variants:
-8D-8D-8D with 24 dummy bytes @ 120 MHz vs 16 dummy bytes @ 86 MHz, or
-1S-8S-8S with 20 dummy bytes @ unlimited, 16 @ 162 MHz, 12 @ 124 MHz, and
-8 @ 86 MHz) down to the 25 MHz base rate in mem->spi->max_speed_hz.
-
-At the same 25 MHz frequency, same-buswidth ops differ only in dummy cycle
-count, so spi_mem_calc_op_duration() ranks the variant with the fewest dummy
-cycles and lowest frequency limit (e.g., 86 MHz) as the fastest variant, and
-ranks the 20-dummy-cycle 166 MHz variant last.
-
-Then spinand_reset_max_freq_ops() and spinand_try_ranked_variant() zero
-spinand->max_read_op.max_freq =3D 0, discarding the 86 MHz limit and allowi=
-ng
-spi_mem_execute_tuning() to set max_read_op.max_freq to
-post_config_max_speed_hz (120 MHz or 166 MHz), violating the flash datashee=
-t's
-minimum dummy cycles for that clock rate.
-
-> +
-> +/**
-> + * spinand_optimize_controller() - Negotiate the optimal controller oper=
-ating
-> + *				   point for the SPI NAND device.
-[ ... ]
-> +static void spinand_optimize_controller(struct spinand_device *spinand,
-> +					struct spi_mem *mem)
-> +{
-> +	u32 tried_mask;
-> +	int ret;
-> +
-> +	/* Skip entirely when no post-config target is configured. */
-> +	if (!mem->spi->post_config_max_speed_hz)
-> +		return;
-> +
-> +	spinand_reset_max_freq_ops(spinand, spinand->op_templates);
-> +
-> +	ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
-> +				     &spinand->max_write_op);
-> +	if (ret && ret !=3D -EOPNOTSUPP)
-> +		dev_dbg(&mem->spi->dev, "Controller optimization failed: %d\n",
-> +			ret);
-> +
-> +	/*
-> +	 * Any non-zero return or a set max_freq means we are done (error,
-> +	 * unsupported, or success). Fallback only for the op-specific "skip"
-> +	 * signal: ret =3D=3D 0 with max_freq still 0.
-> +	 */
-> +	if (ret || spinand->max_read_op.max_freq)
-> +		return;
-
-[Severity: Medium]
-As reported by Sashiko on v3 [3], if the initial spi_mem_execute_tuning()
-call succeeds here, doesn't spinand_optimize_controller() return without
-verifying that spinand->op_templates->cont_read_cache matches the protocol
-shape of spinand->op_templates->read_cache?
-
-In spinand_match_and_init(), cont_read_cache is selected independently from
-info->op_variants.cont_read_cache without checking addr.nbytes equality
-against read_cache. When the initial tuning succeeds, spinand_create_dirmap=
-()
-stamps spinand->max_read_op.max_freq onto info.secondary_op_tmpl even when
-cont_read_cache has a different addr.nbytes (e.g., 1 address byte instead of
-2 address bytes on Winbond SSDR variants) or a different protocol shape that
-was never validated by spinand_op_shape_matches().
-
-[1] https://lore.kernel.org/r/20260618080209.5701E1F000E9@smtp.kernel.org
-[2] https://lore.kernel.org/r/87mrxjg9zi.fsf@bootlin.com
-[3] https://lore.kernel.org/r/20260527190440.9DB221F000E9@smtp.kernel.org
+[1] https://lore.kernel.org/r/20261030-msm8952-initial-support-v7-9-ad748ac=
+e375d@mainlining.org
+[2] https://lore.kernel.org/r/20261030-msm8952-initial-support-v7-9-ad748ac=
+e375d@mainlining.org
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105105832.2134=
-313-1-s-k6@ti.com?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-msm8952-in=
+itial-support-v8-0-311ae8e8f14b@mainlining.org?part=3D9
