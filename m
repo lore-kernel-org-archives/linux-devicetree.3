@@ -1,80 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915030;
-	b=f6KNntH5p4XVL5F54Q7+AOib3I9QfQtUzWHmE0fi6UzfThbKtDMgSqK9aECripjWTBSr
-	 RkbxIysE96Vq3H+6YZtx8w98nXbu5jSPv3cTFx3boCAkXlo1toFoaAvv57TQ3VtRe+NEU
-	 cuqeN1c2Do1AAhPSsaoGW2aRkfnx+5RJkcLVOraOJIYsNU4l/9kiF5F3MsmsDNHRqluk7
-	 3sDUoLP9IAnxna0PW1YIoRtQHr/3tgZBT34dzakYYkbqx1D1bWJsX3BYPiEI+VqO8f8Fi
-	 1oPUuuXIlktQg4lGfuKOEQ4Wq+KWbIbVkn5KOcR8v8XwufLxBbxmfLNmppW+JFeBuQw==
+	t=1793915232;
+	b=cy4iB5gLPJiY1sPWG0jlluypn2sgFmYA7ZxIcqKC7K8re2ZSzsR9hyhxZxIFkHBpBZv9
+	 /FcXu6a6tQfb083NieDDpOVQG/9uNDT7fpGALkoAVIofKAH2svIsa89W5kFG8KzkjiuK0
+	 XDvmLM0KSIx95tonkZlnQAKzcgN/6eyDTJYjZNs3qhitEmYiK05avltnFxItvL1TNwp2Z
+	 Kik+ZCR4KNJIuwgOcyHP4N6ZY9y0gCP8hktXNSLSyaDw/43Kwn5MzNdygiFE7UcxOtvRQ
+	 5XQss+py9eGOrSnMvmh05edSlRgAG45LyE5uQV+6hHyIuDGSiZLzYFw8p3qcXFgS7DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915030;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=kxFI2GFVoJa97jcX7ipRojoEPGOqoDfgUs9THsIEv3E=;
-	b=YC61/4gSoR4At21tlbPpEcsXlvApYXTjKYMGEqt00ZGd89zuW8YtA3DbNoq6OfX6Mxvz
-	 kdy6xYrvtK07v59huMGZDqvJVOn3o4YLKVjEKuMBXXvasLusEuqgZjKYJCBhIgnU0YBZZ
-	 1PNYFtoVs+Nq7Z/RZW0eE71JiiO53BwxC4o7pOg/DgrB85I0Mcse/Y+bbIkQ/oAG5EyF1
-	 aN/O7hxPTd9pT4qVfH6ZGC8Hq58mYfIiKAylIemKjn+98z+0+CE9HvOEgDkbjsRWldd24
-	 wES8QfE6LYtES5VKowfK/5lajyLphCZLiWgrzEi2Zf6/NIIwe5YcA1C4RiNmHlfHmBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915232;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=fWEq7ANjuAxT0SsQWCA6NNqlsk5fygPVddvQlmahPzI=;
+	b=z1VqrHeyYRUm9uww9UFUKJEALe2ueAFlWVKNAaF6gs/DCtiPcmj4JcZYK0XfR7axahot
+	 hLpyNyGLyfCpAnu63OR4JrYqgAyZXiioL28iUsNNxWDTVA9F1DOW8UXYXLP1NUOpZkh0d
+	 wFG9AeliQFaoijpQMDJ4CL0qHzVHDXaj8By7ME7O5AKitM8IRPFKfnd6/mpHHOQUsMBcs
+	 Izp1y97yyUclVzB4mRR8eoN0J2PUin26Q7fJZSLm41UMV48OhsKOOxXx7aZPx1Q8Q/FTB
+	 hAlmu0BLc5AFTKB1Vf0xlItRvNFQ6JMapsWl/HM9FYRC0lt0Oa2vIV6ES8pg6pMR8yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fUNscaPY;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=oY6hUsF2;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Kzv9OIGZ;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAA6606A31B;
-	Thu,  5 Nov 2026 21:43:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CAA6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5A5606A32D;
+	Thu,  5 Nov 2026 21:47:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A5A5606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=fUNscaPY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=kxFI2GFVoJa97jcX7ipRojoEPGOqoDfgUs9THsIEv3E=; b=fUNscaPYoByuVDnvTWOJzI2t3P
-	tQfqYdoz8/jhSoNjaY448mxxGESPJHSlLJqdLbie+hgCqO1wCuvza/inNNzl7HXZ/zDVvxoxUb8/g
-	0/LAdYqf1l5U+cjyDNEW6UsawkqeNjcv7xRJBqN/tyPOufxVNNBCAD5WpgBCOHbTYaOo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xP5F3-00Edw8-No; Thu, 05 Nov 2026 22:43:29 +0100
-Date: Thu, 5 Nov 2026 22:43:29 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Chuanhong Guo <gch981213@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890
- GMAC
-Message-ID: <7b4ab738-85c9-4747-bf89-1a5532af6901@lunn.ch>
-References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
- <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev>
- <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
- <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com>
- <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
- <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=oY6hUsF2;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Kzv9OIGZ
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793915229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fWEq7ANjuAxT0SsQWCA6NNqlsk5fygPVddvQlmahPzI=;
+	b=oY6hUsF2Jx+NRaoHk81kEfoNEY+zkReOYRbyvhWrJy4CqaCVDc/BA2X+16JJnZXeTPyy5K
+	rnI7LOgaXmNRBNvXnGM+EgGTyQOBt8xy/GPCJJQgaXzTHvc7YbxvJ4P6tk8gUAgkWAlsmf
+	sNr9aArKBucyyonucqvG9lGYA164GHmgyRp09lEuQIQWmaIW1MF/zmnBWSXF/Xj/QF5MUF
+	X4yocNFsZcXQ+IAchbLZ4X70PhEHRpRBxSGeefm1GAopDbSo8s3fyeOCVTnH/EEe1rA1ra
+	ApljPya+O4QdZIWd0iQpY1uie2Jn9IvWO6fry+v2OK1AqHjstIqp+DhfZfJCIA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793915229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fWEq7ANjuAxT0SsQWCA6NNqlsk5fygPVddvQlmahPzI=;
+	b=Kzv9OIGZXm3GfDja/e1kGOPpANmqPEdnG3/UWpLWsZ3yo+uGUbKbLNxSzBkZkOCvBFQ7qN
+	Yv7wNl+KWROkx+Aw==
+To: Daniel Matyas <matyasdaniel006@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Daniel Matyas <matyasdaniel006@gmail.com>,
+ linux-staging@lists.linux.dev, Andy Shevchenko <andy@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alex Lanzano
+ <lanzano.alex@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Conor Dooley <conor@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
+In-Reply-To: <20261105201154.37294-2-matyasdaniel006@gmail.com>
+References: <20261105201154.37294-2-matyasdaniel006@gmail.com>
+Date: Thu, 05 Nov 2026 22:47:06 +0100
+Message-ID: <874idv2bol.fsf@yellow.woof>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,48 +81,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+Content-Type: text/plain
 
-On Thu, Nov 05, 2026 at 03:57:45PM -0500, Joseph Telaak wrote:
-> > Do you have access to another board which has a PHY connected, not a
-> > switch?
-> 
-> No. The GL-SFT1200 is the only SF19A2890 board I have, and the only
-> other one I know of, the vendor's evaluation board in OpenWrt, also has
-> a fixed-link on this port.
-> 
-> > There are unexplained delays here. Is it the switch, this MAC, or the
-> > PCB?
-> >
-> > We need to understand if tx-internal-delay 0 really means 0, or it
-> > actually means 1065ps.
-> 
-> I can't tell that from this board. The sweeps measure the sum of the
-> MAC's delay line, the switch and the PCB, and I have no documentation
-> of the line's own delay at step 0.
-> 
-> What they do show, in the MAC's steps: the windows repeat every 8 ns,
-> which puts the start of both eyes about 4 steps (0.2 ns) below 0. TX
-> ends at step 51 and RX at step 28. So with every delay at 0 the link
-> works, but right at the early edge of both eyes.
-> 
-> Until that is known, how would you like v2 to describe this board?
+Daniel Matyas <matyasdaniel006@gmail.com> writes:
+> Questions:
+>  a) Is removing fb_ili9341 acceptable, pointing users of other ILI9341
+>     modules to panel-mipi-dbi? The KD233 node would then have no driver.
+>  b) Or should KD233 panel support go into a DRM driver first? I don't have
+>     its init sequence or physical size, or the board...
+>  c) Is removal of all of fbtft already planned?
+>  d) Several other fbtft drivers have drm counterparts. Should I inspect those
+>  to see if removal is needed?
 
-The delay value makes no sense to me. It probably works because
-something is broken somewhere, either the MAC or the switch.
+IIRC the main reason fbtft needs to stay is because it supports parallel
+interface which is missing in the DRM drivers.
 
-We have to be careful with what we accept, because we generally
-consider DT blobs ABI, old blobs need to work with new kernels.
-
-When we find out what is actually broken and need to fix it, we would
-normally have to do that without break running boards. And that is
-often very difficult and messy.
-
-So i think we need a get out from backwards compatibility. We need to
-be able to break running boards with old DT blobs, in the future when
-we fix whatever is broken. Maybe the best way to do that it make the
-MAC glue driver and the DSA driver depend on BROKEN.
-
-    Andrew
+Nam
