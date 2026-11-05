@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.83
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793872727;
-	b=pPMx8wcREH02fTMMxgqmBTB9DH3VFO/YaT8FsD9YkwLP4NhxGhKyOTGSJ1GTOkRjA7jW
-	 DADpOE7lSOfxQP//GbigkEDeuLwZTvZOFj6rDUL3YEJj0l3ac+X8VzEygKRSY9tdHGSqA
-	 0uRvdwJ8Qs26Ed/14CvT9+kWfELtB6DK3Iae6NPzF2t17a3JTWJGH7zqJxxdoHHrK7skf
-	 WX14h2pvOwzun2+GftDAUH1h2bzfVEj8kgxhcrcEspiB/FScJj8+pI1R0OEtEd1ElG7qW
-	 eioogIqactd7+IgMYo2gSDHBkUrsHB0PtZCyQZGB5UyFNuJZIBJtnhSyUXHrU3v/tqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872727;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-	b=gKIzWPgcjAzj/l+sKeyLrbt6qe6+UcQLLVS0oEuTJRaTodtNhODSQBAgv3qBx39CbRyJ
-	 HTOxm7qNukExMa9LoZkzOhpnbhT8VuncO++lFH2ImYAj2B6SjGo2/zI0rurH+i7bW/w61
-	 J+0F0pnQhnMvEFQVTI6xcLBgPgi29KmyKNJg5uh07cHcl804PBPl4kFpb4yu9bT6X9nzf
-	 uMqg4fAV5BvSf84Yg1J+Ca8l5rb8CaCdlNbAtTgORmjH+mDiiCPzZ5ZbuvSD6xMc8vLzD
-	 LkCwwaunVQhDfa2qXWlfo2Rdx4k5edu/NXEDPlF6HlLwehUg1MzoJhn8Jo7b+g5Og3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MuwPLE0E;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2C0YJTtJ;
-	arc=fail smtp.remote-ip=85.215.255.83
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793872843;
+	b=uO1CIpmV5L6utGfBTzDCbbKC2mIkAeVHo3+8IH1tf87UTILYpcrNHhnifSxTdW8w8UQf
+	 Sv+octsD2GyKORGcJoDPIZIzKpiVlKjQWD6C7FdJuVnAne07i6EOYuqgYCjD4CrzhO4QR
+	 J3ySU5LTtZPJ05L3ujSO0ALug7Vog5VJOPpYlhEh9dnG4wB+x3VtYRZxC862d4odTY2Xl
+	 auFgd36Gb0zkWl1kDVlPt7RCDH80ZTxF+BxR0dEyojg+VqXSNvQ6DnFw4mQiyfb/Ob9bX
+	 K9HytTfEUHC39cIIIwEplzl7xowjAzr2lupbgwbGex/Q7IZfdislBR+FLkwGtaw2Nxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872843;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9gWIZ556XELV/JZHPdAe42L4BaKxg02n4+cgVq+thzI=;
+	b=QF5uB6gapw0vvkAWpHczZWxDJJ49KnIS8T8tYQF4mcQoeeGzCAyPfhgn5c1BNq7x5LSu
+	 XC/M4ExhfzeFMrm2JUbmC64xJBxxWf4QWPuxoD0NptYr4C+3KplAaHJMMtBX13QmeooBs
+	 u3BP0dlS9Dkxtv4TaoGzPtDrYDBSXpM9RH8/JF9iqVm6HmFb54bGD3djlL3QhvN2VXIEs
+	 vq+dPWB7JzuzzgbWUr5R9O4H61ibujGSlwDiP5R/XTguBYoKv0ts/0x/lZApTypgR8/7A
+	 BjS3yq+8gkmmYJD5jy8LY7DdjB4Nyb/q8wHuK29VuN+2BA8CfUbXw93U6I5E+FqgmGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PBJmRi5k;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0652E606A31B;
-	Thu,  5 Nov 2026 09:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0652E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBADE606A339;
+	Thu,  5 Nov 2026 10:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBADE606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=MuwPLE0E;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2C0YJTtJ
-ARC-Seal: i=1; a=rsa-sha256; t=1793872709; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=UAU7tFL6ASXSY5WfQoE+EY69DFAylUSfjkk6FFe9/YueQKCpKq/39gu1XrB5rHzij+
-    08joy3O1CPyI3+LkEO8nba02voBPS5BufTkj+wEJBIHmNfcdILnrAo3A8t2Pa/rmNHpR
-    6ncPrFH0RwQ2mTNcJiPoGuYXtEzaatAfizzbRWNOxMwIy1KL+MWbihquB05Qdgn8uRAT
-    p2HNMa7cgWBVpO+U0BQ+tYRho9AhIk5cAYlyOqUHf8ougnGWJ+5VieW5JSVk9DqLy34I
-    F+929gQIsvIZrDISCuQWSTf9UWQNAKNjdqwXUhzWEvUqrNUeIOo6I48UCNuwNIuXGqR+
-    FkIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872709;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-    b=IyjgxLGHzWWsmhCtwfV0KSOWsqLb+VSKBTqivf7eXIpIyqH9NePtH/ciY79w8cPuuN
-    L9PgtkLcwlNqHuAdTlE2gE0kcJFuvXg/ZfGcBwlHd+mxZ9Qdvrrn8qYc7ZMpDcbwRGKZ
-    KV3iwZUT1TRtJz4fykc/Rxnv6q8T80sPn7gsl3M2/NW6G+sLh+xCIQD6NWPCiuhAjxR/
-    k6qz4kGKDB0gLDwq8RnEmyDoUSfmYrMuqcqOAMxtQ7/HokbVqpFrP4u+Q5TZMKPoABWC
-    CDXOhzmwEXmSEh9DL83GTRqNOyAZLIMJwHq7qqFca9NeRdkrAafukCkg0qxNJQ2U9LZp
-    ngKA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793872709;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-    b=MuwPLE0EP7Q+7BN6r8irxnxS+h8RNDUOmjqEy2bWkl5ebfyFrpO6PSLLZN4xruoShZ
-    Z9uZmrGWCk2Lh1z4xsv0UubYeucolyNWk6QABsM9DspFfcnFprbDH1QL4JJfzwEW7+74
-    qhffCfjCcbV+dJASNNDvBMN39PbINcxkQWQkAUfL4rxjtqdS+YzZsmHU4Z0Gr8cFOuyr
-    0dpVkxdrXNWLyT9tXj/iuG41ufCxTDQnWRVdcky/zpzrH6zPGczLrqWvtiTr2D86HKOd
-    zKc9lpDQ9s0vhTDv0ce+G0sktilgPJiGrwHlZ3bHq9SUm79ie6BZPtOX0rImsiCyMGE9
-    /YuQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793872709;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=etX0oM+NPUcyBj4GYfCMypykgn7tdOqFDk42EcZaMdU=;
-    b=2C0YJTtJ/OA1gU/RHPMXBtj7uxP9l+gu9vAVdXPPxKeDcMj02c3xpiqN9+Uf5S0nDA
-    RYCFZvcmV6xuVwnWHVBQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV25oGlMiNUOZNJoYXSTSpu/Ae46f1NE9YxyvD"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A59wSi3s
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 10:58:28 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PBJmRi5k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793872843; x=1825408843;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z2H65UprW7zW8X/iim3pTFZF4OSbKQfsuukCJNwgJ8k=;
+  b=PBJmRi5krXwXp/lWwIejtxGkwqeeUujHhzM4QhFGH4/9OVKYOGoy/FJY
+   GUwltGtFuD6ddm9NsUfJJmssn/VDuufi0IpkSIP/cINhOX0drNHriJsE8
+   YmmRSCHusbUXof7dh9MWDGQ3f6Zs0W1wuduDCWeDoTJh/001zjwQvkZ/r
+   ogbGV7QAVkaf7vZqAH8U8gYtHYJA4cuT6YGeahY/vJJ4ybjOJe9fYHohs
+   kRxAhg84cZICsgOtvfWfRjVsAAqQNuXrMnj7WiBlnInc+EkGTo2rfPnQ1
+   69z/oKXB5D1ooFYrR5TZ7lpHNhuPhlTTkBDW6+cJqGjsczZkmSmxdevkS
+   w==;
+X-CSE-ConnectionGUID: el5fV4B6Qt2d23gnI1aq5Q==
+X-CSE-MsgGUID: S1U+r8aLTLiX7xYibPZC8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2669792"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2669792"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:00:42 -0800
+X-CSE-ConnectionGUID: Ryrj45DQTF6F9fytzqA4ug==
+X-CSE-MsgGUID: CDdCSctqTauHKpXvMmTb7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="6862765"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.182])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:00:37 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3CC51121B97;
+	Thu, 05 Nov 2026 12:00:48 +0200 (EET)
+Date: Thu, 5 Nov 2026 12:00:48 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 1/9] device property: fix fwnode_name_eq() for empty node
+ names
+Message-ID: <auxT0Av4jDvcIGBS@kekkonen.localdomain>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,172 +97,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261102-salute-cylinder-22c9a8896ca9@spud>
-Date: Thu, 5 Nov 2026 10:57:58 +0100
-Cc: Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Joshua Crofts <joshua.crofts1@gmail.com>,
- linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C0C6F46A-45B7-4B1E-9398-71CD8A26FBD5@goldelico.com>
-References: <20261102201155.10948-1-olivier@mgcrea.io>
- <20261102201155.10948-2-olivier@mgcrea.io>
- <20261102-salute-cylinder-22c9a8896ca9@spud>
-To: Olivier Louvignes <olivier@mgcrea.io>,
- Conor Dooley <conor@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.10)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
 
-Hi Olivier, Conor,
+Hi Bartosz,
 
-> Am 02.11.2026 um 21:48 schrieb Conor Dooley <conor@kernel.org>:
->=20
-> On Mon, Nov 02, 2026 at 09:11:54PM +0100, Olivier Louvignes wrote:
->> The X1600's SAR ADC has four auxiliary channels and none of the
->> touchscreen or battery engines of the JZ47xx ADCs in =
-ingenic,adc.yaml,
->> so it gets a binding of its own.
->>=20
->> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
->> ---
->> .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 =
-+++++++++++++++++++
->> MAINTAINERS                                   |  5 ++
->> 2 files changed, 58 insertions(+)
->> create mode 100644 =
-Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->>=20
->> diff --git =
-a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml =
-b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->> new file mode 100644
->> index 000000000000..f6356ea97980
->> --- /dev/null
->> +++ =
-b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->> @@ -0,0 +1,53 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Ingenic X1600 ADC
->> +
->> +maintainers:
->> +  - Olivier Louvignes <olivier@mgcrea.io>
->> +
->> +description:
->> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
-channels
->> +  measured against a 3.3 V reference.
->=20
-> The wording here makes me wonder if a 3v3 supply is missing here? Or =
-is
-> this some internal supply on the soc?
+On Wed, Nov 04, 2026 at 03:03:43PM +0100, Bartosz Golaszewski wrote:
+> str_has_prefix() returns the prefix length on match and 0 on mismatch,
+> so the mistmatch case can't be told from "empty prefix matched an empty
+> string". For instance: the OF root node's name as returned by
+> fwnode_get_name() is "" and will return 0 for any name matched against
+> it and since len is 0 too, fwnode_name_eq() will return true.
+> 
+> Do what OF code already does in of_node_name_eq(): check if the length
+> of the expected name matches the length of the actual node name before
+> comparing it.
+> 
+> Fixes: a9c8c738066b ("device property: Add fwnode_name_eq()")
 
-It is an external SADC_VREFP input pin (ball P12) which is usually =
-connected to
-the 3v3 supply. But it is specified to be min=3D0V .. typical=3D3.3V ... =
-max=3DVADC
-voltage levels.
+Is there a need to cc this to stable? I'm not sure if anything is affected
+there, probably not, but it's hard to be sure.
 
-VADC is indeed the power supply for the SADC on a separate ball. It must
-be in the range of 2.97V .. 3.3V .. 3.63V so that it is extremely likely =
-to be
-connected to the system 3.3V rail.
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/base/property.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/base/property.c b/drivers/base/property.c
+> index 51109794d7275ddaf4571584d0e77d8573ebb475..a97575ff9199004b4f401f432aed6c95e40d0c25 100644
+> --- a/drivers/base/property.c
+> +++ b/drivers/base/property.c
+> @@ -700,7 +700,7 @@ bool fwnode_name_eq(const struct fwnode_handle *fwnode, const char *name)
+>  
+>  	len = strchrnul(node_name, '@') - node_name;
+>  
+> -	return str_has_prefix(node_name, name) == len;
+> +	return len == strlen(name) && !strncmp(node_name, name, len);
 
-Therefore I do not see a necessity to require a separate regulator =
-reference here.
+I'd test strncmp() first as it's more likely to return faster. I'd also put
+the variable on the right side as that's the typically preferred order,
+i.e.
 
-I would suggest:
+	return !strncmp(node_name, name, len) && strlen(name) == len;
 
-  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input =
-channels
-  measured against an external SADC_VREFP reference (typically 3.3 V).
+Either way,
 
->=20
-> Otherwise, this looks fine really.
->=20
->> +
->> +properties:
->> +  compatible:
->> +    const: ingenic,x1600-adc
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  '#io-channel-cells':
->> +    const: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - interrupts
->> +  - '#io-channel-cells'
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    adc@10070000 {
->> +        compatible =3D "ingenic,x1600-adc";
->> +        reg =3D <0x10070000 0x30>;
->=20
-> That said, the 0x30 looks suspiciously small - but the region is =
-aligned
-> neatly so I suppose it's probably not problematic..
->=20
-> Cheers,
-> Conor.
->=20
->> +
->> +        clocks =3D <&cgu 28>;
->> +
->> +        interrupt-parent =3D <&intc>;
->> +        interrupts =3D <11>;
->> +
->> +        #io-channel-cells =3D <1>;
->> +    };
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index ecc22d1149d1..fd4bb5c6bf16 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -12925,6 +12925,11 @@ F: include/linux/mfd/ingenic-tcu.h
->> F: sound/soc/codecs/jz47*
->> F: sound/soc/jz4740/
->>=20
->> +INGENIC X1600 ADC DRIVER
->> +M: Olivier Louvignes <olivier@mgcrea.io>
->> +S: Maintained
->> +F: Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
->> +
->> INJOINIC IP5xxx POWER BANK IC DRIVER
->> M: Samuel Holland <samuel@sholland.org>
->> S: Maintained
->> --=20
->> 2.54.0
->>=20
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-BR and thanks,
-Nikolaus
+>  }
+>  EXPORT_SYMBOL_GPL(fwnode_name_eq);
+>  
+> 
 
+-- 
+Regards,
 
+Sakari Ailus
