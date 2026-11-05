@@ -1,49 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793918077;
-	b=T8qcuLZ2Sw/EOHCL7Y3xZpdcBOEobbgeYr9e42xjD2owbVV3EaCR//tY3iog/xPLElPK
-	 QSQIT+pNBEXxBmQghg4xjAjzch4AS1l7rd2bqN6n3tRgHt1//Cn88OX4Ij6AoXxrHFU+F
-	 B0kRBWREWB3q7ped8DGbKWb+SGag/KBY8RRXZCZwBwKGN1ZnyGWIljbt9H9xcZ4Pi0Qx9
-	 mcHYs6x4+wk3JdgUK9aU3Y8ScXJDjC/UfEIyjOcebblKGGoE9VgO+4wERDN8ADEekkXlb
-	 rhoBdRpdWpX1jz2BDwD6XkTnOGiMMJ8KDQvyTIrxfbpZ2zimnZALmnbyWZ0ULfY54tw==
+	t=1793918396;
+	b=SzICgwoCtA4eq4361JUepdC+BVMAQ/vEBSwNQ8mJ0434R0WfLpfzmSIYXUi8MmHxIQ6U
+	 74juBIBAnONSdT4TDeNqmC/VGTcU7qhLXT5g20ichr86mrv2sFm5VDZoBGo7+eNvPh/7W
+	 6T/3trDgt2K+VaMlLy+Q7ksYZSiROwHz0guOx+lhVcMp0LHsCAlThIj0hrVmXK+1Xreyy
+	 uGDxmsq2wlDPhfivNQnWgEcohZ6iw7sII7pF+gY6S9iu3/y3rjwvgj+5HAo4T7d8Hua0Y
+	 nEt7UnNxLxMqT/gogkErFWgGzLEvtMvgsMOODnpRrANxlc9rka0wy+s0yodEhmo1CRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793918077;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=wFE5OccGT9k7Iu9igK8BTncgR6NdDYboc+wrbdQGo+Q=;
-	b=ulk7n1MF3/5QBY3mmvxHjOZ5hzux1lLTBJK/2yG+P+31iAlbDrPJEF19mNDalzD6vRPm
-	 ILOgPD+yfP2PDgU2xTdl+6DWgjhxIOqIoh9VU02JDKlLevN9ncx50R+wZdjfpPglnCvsC
-	 Ag7sYOY3HH8KJuZcOXi2WiTblNrJ4Ityro1RtUHmCYXAXdzYhEnF4q/jIynpkJK3p0RD2
-	 +aZC9wVRfTEJV3CHp0OqlK6I5vTFrbBk6aPmuPATLf43bYd38+KOw1gXfpoJN98PPUmmy
-	 9kYlg18vVAbbojKceObZJHCu/vm8rp/uDeVXgg22S8A8z0XGJ0AsbzxfzJpoeIRU5Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793918396;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9WLq9MEH+fVZqyNsdcL3aGsevvV+yItKilS3mcPRr4s=;
+	b=NVWdO8tqZjL4oqUMWPvpqdYdDznkHKB/W5Fwmpq0LHIRjUOrBiz/e7S30p+ac1aL6XIp
+	 5volSkx6j43uH3E7YWLtJs03GezsLF+UfFqXhOl0nZ8hKnAbZh9vDTMzxUNU8iQblmGYc
+	 CMFCT9iHgYJxNi9Y00q04cIN6H/zX7bqcbMxtqGUTGyC3sChfYmOsl2Bfvr5DxNJcg5x+
+	 2uFlZ9fYFq2QePieVLqg3z52JAAUViBGt34RMh2+geKBHFMpeuzE4tHOwxcj52p1q4u+7
+	 o6V4Crd+w6XpGxi5Dg5SlOZdlA15QuzkCwdC/8m8zPBS9DuyoAh6EiQu0gAXS71A5AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNa9+CKg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBL433Zr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128B3606A32F;
-	Thu,  5 Nov 2026 22:34:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06103606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 22:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNa9+CKg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D191F0089F;
-	Thu,  5 Nov 2026 22:34:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBL433Zr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9F91F008A4;
+	Thu,  5 Nov 2026 22:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793918076;
-	bh=wFE5OccGT9k7Iu9igK8BTncgR6NdDYboc+wrbdQGo+Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hNa9+CKgrefZrv1QfASZV+xCC+g6UJukrvZMgDY0b8maNLezZJ9eZyCY54Q+m5mM4
-	 LsRCtGlpd49+LHMXUQQtGkLwCsNveavKXUcGwFMdAx3ke/anj5TJUT4CIHhx7hsL38
-	 yqCxMO37x7u0fQ+HqKARTKESPeOBe/IOhr6P74zTkr99qJu7yi5vxYvdIYYDk4+LAh
-	 ZG0D+EYT0Euvppdd/RTeS7liNWCytO7MsOy6rSX36QlWAuvyrGWRWfunvm0iRZjsQA
-	 vi1aJ5Yh11Yr7zGcHoej4GPhh/SBe1mVAGztxLf9pQOee/SZVURF7h9KqIvyEKO2RY
-	 5d27TB+uc5ZGA==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 05 Nov 2026 16:34:20 -0600
-Subject: [PATCH 7/7] ARM: dts: arm-realview-eb-mp: Move "pmu" node to
- top-level
+	s=k20260515; t=1793918395;
+	bh=9WLq9MEH+fVZqyNsdcL3aGsevvV+yItKilS3mcPRr4s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PBL433Zr7hkI5QXFEqVl8eE5MLF0mqdFpInvcvuHVIuSf6WpnRAsqJBoP/uxRS/O0
+	 IUlPAPGyMK5B0WOG0nX4iSqjWjvNCE0KllmnSBMmTFm+q/rw2UV2D2yYrbMrIpCqsi
+	 J+F3Z5JE9ZzKtqjJeay8g9PXDRndl5bNLvcQAog99oq+Zkj6bqIVegzmZ2cwpuhwVm
+	 4j2dK8UcYWapQ4yg+9p3YtnZEqfNvEGog3TeEsIPENzTFN9v7vjeeUr1W1un+j6Qx1
+	 lQSb0R7Gov2DO2yJ4zfxhwUrYs+f0JNnnfMUUGatXUHdt/Z14I/WgPnX7Hsreedcnh
+	 DV2XDo3sYAE6g==
+Message-ID: <sashiko-outbox-200320@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/7] ARM: dts: arm/vexpress: Fix Cortex-A15 GIC
+ compatibles
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105-dt-vexpress-dts-fixes-v1-6-66615c3c8ec3@kernel.org>
+References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
+ <20261105-dt-vexpress-dts-fixes-v1-6-66615c3c8ec3@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 22:39:55 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,60 +60,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-dt-vexpress-dts-fixes-v1-7-66615c3c8ec3@kernel.org>
-References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
-In-Reply-To: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
- Sudeep Holla <sudeep.holla@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Andre Przywara <andre.przywara@arm.com>, Linus Walleij <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16-dev
 
-The PMU node is not an MMIO device and doesn't belong in "simple-bus" node.
-Move it to the top-level which is the normal location.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ARM: dts: vexpress: dropping arm,cortex-a9-gic breaks GIC init on =
+v2p-ca5s
+--
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+commit 35f1a8a2621e891a6464121f2faf6970b2efbbab
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi b/arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi
-index 55287a2a0654..1805c00a90e6 100644
---- a/arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi
-+++ b/arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi
-@@ -101,16 +101,16 @@ twd_wdog: watchdog@1f000620 {
- 			interrupt-parent = <&intc>;
- 			interrupts = <1 14 0xf04>;
- 		};
-+	};
- 
--		/* PMU with one IRQ line per core */
--		pmu: pmu {
--			compatible = "arm,arm11mpcore-pmu";
--			interrupt-parent = <&intc>;
--			interrupts = <0 17 IRQ_TYPE_LEVEL_HIGH>,
--			     <0 18 IRQ_TYPE_LEVEL_HIGH>,
--			     <0 19 IRQ_TYPE_LEVEL_HIGH>,
--			     <0 20 IRQ_TYPE_LEVEL_HIGH>;
--		};
-+	/* PMU with one IRQ line per core */
-+	pmu: pmu {
-+		compatible = "arm,arm11mpcore-pmu";
-+		interrupt-parent = <&intc>;
-+		interrupts = <0 17 IRQ_TYPE_LEVEL_HIGH>,
-+		     <0 18 IRQ_TYPE_LEVEL_HIGH>,
-+		     <0 19 IRQ_TYPE_LEVEL_HIGH>,
-+		     <0 20 IRQ_TYPE_LEVEL_HIGH>;
- 	};
- };
- 
+ARM: dts: arm/vexpress: Fix Cortex-A15 GIC compatibles
 
--- 
-2.53.0
+This commit drops the "arm,cortex-a9-gic" fallback compatible from the GIC
+interrupt-controller nodes in three Versatile Express device trees.
 
+> diff --git a/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts b/arch/arm/boot/=
+dts/arm/vexpress-v2p-ca5s.dts
+> index c716e60a8be0b..a5e0dde254ab3 100644
+> --- a/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts
+> +++ b/arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts
+> @@ -119,7 +119,7 @@ watchdog@2c000620 {
+>  	};
+> =20
+>  	gic: interrupt-controller@2c001000 {
+> -		compatible =3D "arm,cortex-a5-gic", "arm,cortex-a9-gic";
+> +		compatible =3D "arm,cortex-a5-gic";
+
+[Severity: High]
+Does dropping "arm,cortex-a9-gic" from gic: interrupt-controller@2c001000 in
+arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts break GIC initialization when
+booting V2P-CA5s?
+
+In arch/arm/mach-versatile/v2m.c, DT_MACHINE_START(VEXPRESS_DT) relies on
+init_IRQ() -> irqchip_init() -> of_irq_init(__irqchip_of_table) to match the
+root interrupt controller. However, drivers/irqchip/irq-gic.c does not decl=
+are
+a match for "arm,cortex-a5-gic":
+
+drivers/irqchip/irq-gic.c:
+    IRQCHIP_DECLARE(gic_400, "arm,gic-400", gic_of_init);
+    IRQCHIP_DECLARE(arm11mp_gic, "arm,arm11mp-gic", gic_of_init);
+    IRQCHIP_DECLARE(arm1176jzf_dc_gic, "arm,arm1176jzf-devchip-gic", gic_of=
+_init);
+    IRQCHIP_DECLARE(cortex_a15_gic, "arm,cortex-a15-gic", gic_of_init);
+    IRQCHIP_DECLARE(cortex_a9_gic, "arm,cortex-a9-gic", gic_of_init);
+    IRQCHIP_DECLARE(cortex_a7_gic, "arm,cortex-a7-gic", gic_of_init);
+    IRQCHIP_DECLARE(msm_8660_qgic, "qcom,msm-8660-qgic", gic_of_init);
+    IRQCHIP_DECLARE(msm_qgic2, "qcom,msm-qgic2", gic_of_init);
+    IRQCHIP_DECLARE(pl390, "arm,pl390", gic_of_init);
+
+Without the "arm,cortex-a9-gic" fallback or an IRQCHIP_DECLARE entry for
+"arm,cortex-a5-gic" in drivers/irqchip/irq-gic.c, of_irq_init() will not fi=
+nd
+a matching driver for the primary interrupt controller on V2P-CA5s.
+
+Also, the commit subject and message only mention Cortex-A15 and
+"arm,cortex-a15-gic". Was the change to vexpress-v2p-ca5s.dts unintended?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-dt-vexpres=
+s-dts-fixes-v1-0-66615c3c8ec3@kernel.org?part=3D6
