@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879220;
-	b=3umWfwylX/ay96IoLkRIIBLSqiwhc/fWbDSniDUle2Z+1zJ+Mu9YSQMLLG4Yz/1yuTkR
-	 zdRpXiN9KPd5jbhsG7EB1jo6L7XEG05OEFFwr1G7gT7X7gJbRUiucsoASPHVAgeLlmt6D
-	 ZGRTNrbk7Wp1hyINybcCvISwMEfTnIEFyueF+myet2a3ZifE3DNpMI/iiaqlZ2xCcYtQ8
-	 GgDd9EH2/gCUr+VKaoik8v6fGSEzD1nIcBrQR8FIEMnx13fvJSh2qUz1GtiMjHqhoanGy
-	 CWCh87oQPwxJQMGZyBLw1O45xNi0RpPGFo8PpU+okt2m0VYj3m56nHsdVeP59Zg2Q0A==
+	t=1793879466;
+	b=rdByK+hZUsOuI9F0J1V1iUmB4Mw2MyYCBrlA8jwcG2+lJDeq7nqh3F7JSiehSs5QBpbv
+	 gSNX6fCEO5A90uFQW/fyOq//zfQ4KUnPNktQ0WDCNDZ3H6EKHeYdxcNcnP/zckwGtgKX8
+	 ovPT6hemPXxG+Tu83kGdaL3F/hxfgzpuqZq4S21nx/+UeZKKwcU2+g87OP4QpPpbnMlWW
+	 awqqXj1xHdyjWhW3S52wZacqIbyfNlZ31HOYvoj6our7JAyzy3iqnpODcSIlgNPwgjd2z
+	 fOXtgtkrDH3WsTA3xifl5G4aFKW+u3+NUtIsTMy9GQtoWHlYoe6clju8H9e44j6mfbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879220;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=cMOX5EBfOyNRr2Oq99K3ZFUmNgaKXTiX7rtSTdwx/HI=;
-	b=kG6RzrO78caOOPZRNXptsNdsZq1kveaCnFe/to3ufkBQvftmHHHyFP4syHn5zw0GeXdD
-	 PMNXBhFgzG48RegkEeunNLi5lD18Ob+LXYNZVpfMIoaIGOdMHs+YPVloMn1d68zQk5MOA
-	 h4pqG9ZwgMzflz+lfWgbud7HBG3lsLkBiSCN+dzUokUzS3rqAydOKA3VyeZ+WR5FL4rq2
-	 B9PsHqXN15/ciQI9npJwgxd9Ge5znCIEPgf0/FbkTryVhGCHtKp84KTNuy8dG7cyErF2Z
-	 52A2AJskOoOHSfjCSRwUEdu9/rA5mxjqxwYCdoktf+/RDEK8JATIZDzPew1h4qMpqOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879466;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=4OS3i6eFd7tcdMjfachyyV6i3nKbEcsVPS6UTpVoEG0=;
+	b=tOHxZfTWp9S/jCcKqbhi1jo3prnHuPCfi39NRaheqZLhVQuAHN+0F3Vc0P4bf4z++1+c
+	 1AWAbQZFJgFhI6+yksFvIca2SsLPmUWngr7nrSSx2Y/+YrjGoXhzssavED1oz/LEaYd67
+	 +lHl7YbZC2HRzTd3ACSI9Xy0oDvHTTXvleGoOeXja6A4UcYkV1IGkNNNyS/Ga9ccIHO78
+	 +fLEZTfiTtQ5IVUp/6c9vacIgv2L8wqqhG8supMsoNEvVifwNeIvdPNDw01L8T/wxlItf
+	 9T4a+2ESIiwZVV6qYekcuLBpap6Au2ErfMzm7C7GblOldwi+fVnuT9MlS0/RqZuSnww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7Ia2o1I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGE+28uN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26716606A335;
-	Thu,  5 Nov 2026 11:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF64606D819;
+	Thu,  5 Nov 2026 11:51:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7Ia2o1I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DEF1F000C1;
-	Thu,  5 Nov 2026 11:46:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGE+28uN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F30D1F000C1;
+	Thu,  5 Nov 2026 11:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879220;
-	bh=cMOX5EBfOyNRr2Oq99K3ZFUmNgaKXTiX7rtSTdwx/HI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R7Ia2o1IO/2blC4gBnmMivRlGp7aphlRtAW7J6jItq9jZtAeHeeQAPfPgylvXM69c
-	 tqq4GMpING+df+uKdxplysPsNCcsRx/E2Ga3bZnjfCdolCXbsWCF9COADBJKVifaMc
-	 gkpHrK5Lu0Dc6cmGqtBcfHoUY2UajS6Xqyk5oO7RY3zwtho0pOwaGW/OcUnhfB6sUQ
-	 kGvAudVVftGF/HRmpvOAibI6wb4K0ogp1/8vAs+Al8XMDXtqSL0rNe7tkZro1caMDw
-	 d1x8uSoJuy7oRq8x5+MeMdh0EHk/lge6SpSVpSsm330srXkjZbLyk8LQxqwDHWYYEr
-	 1YkcIbkKroD7w==
-Message-ID: <sashiko-outbox-198972@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/7] arm64: dts: apple: t6032-j575d: Add PCIe device
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janne Grunau" <j@jannau.net>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261105-apple-m3-pcie-v1-7-e00a72a604f8@jannau.net>
-References: <20261105-apple-m3-pcie-v1-0-e00a72a604f8@jannau.net>
- <20261105-apple-m3-pcie-v1-7-e00a72a604f8@jannau.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 11:46:59 +0000
+	s=k20260515; t=1793879465;
+	bh=4OS3i6eFd7tcdMjfachyyV6i3nKbEcsVPS6UTpVoEG0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IGE+28uNn0cQzvWb3P23I+Y3Y9vuvK6VC6xP68IsCJD/M64adDVLKoG85s06au+G1
+	 J1Obn+d6Gm+CsWIH23qmxfKWtjQ0P9Ul4EIfHSTFHks5si+zlB3BjKVyxqbtJA0KV9
+	 RgnOsaRULKxZIRLpHjq28Z6fmqBclgfbuB3hL9AgqZvHVVjxQ7TVuMPDKi00AdIcDH
+	 bQxA0WJJEuNowi3dV+k79udSkhT5NK3lPeUH1B7xkzM5iS5szeFaG+IFgr1S6HFqIh
+	 U9aksm3FlI1cHrtihxazmZEWUsN4wicDI/UHDHJ39YRlfInMv35rprdxxUrA6/6WPA
+	 pHABR9k1OoZLg==
+Date: Thu, 5 Nov 2026 12:51:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hongliang Yang =?utf-8?B?KOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Gary Yang =?utf-8?B?KOadqOaWsOS8nyk=?= <Gary.Yang@cixtech.com>, 
+	Fugang Duan =?utf-8?B?KOauteWvjOWImik=?= <fugang.duan@cixtech.com>, "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
+Subject: Re: [PATCH v6 0/3] phy: Add CIX Sky1 USB3 PHY support
+Message-ID: <20261105-illegal-fervent-swift-3c05c2@quoll>
+References: <20261105011751.4058411-1-hongliang.yang@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,112 +62,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261105011751.4058411-1-hongliang.yang@cixtech.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: apple: t6032-j575d: wrong BCM4387 compatibles on wif=
-i0/bluetooth0
---
+On Thu, Nov 05, 2026 at 01:17:56AM +0000, Hongliang Yang (=E6=9D=A8=E5=AE=
+=8F=E4=BA=AE) wrote:
+> This series adds support for the USB3 PHY integrated in the CIX Sky1
+> SoC.
+>=20
+> Patch 1 adds the device tree binding, patch 2 the PHY driver, and
+> patch 3 the SoC node plus the board enablement.
+>=20
+> The PHY provides the SuperSpeed lanes for the Cadence USBSSP
+> controllers of the SoC. The block drives both USB3 lanes: it is
+> exposed as a single PHY provider with #phy-cells =3D <0>, and its
+> init/exit calls are reference counted so that both controllers can
+> share it.
+>=20
+> Tested on Radxa Orion O6 (Sky1) together with the USBSSP controller
+> series: the PHY probes and USB 3.x devices enumerate at SuperSpeed.
+>=20
+> The controller device tree nodes use the PHY phandle added here; the
+> USBSSP controller series is posted separately.
+>=20
+> The series applies on top of v7.4-rc1.
+>=20
+> Changes in v6:
+> - Drop the per-port child nodes; the PHY provider node itself is
+>   referenced with #phy-cells =3D <0> and the driver exports a single
+>   PHY instance shared by both controllers.
+> - Select REGMAP in the PHY Kconfig.
+> - Use dev_err_probe() for the reset, clock and regmap acquisition
+>   failures in the probe path.
+> - Corrected the mail sender name: v5 was sent with a non-ASCII
+>   display name in the From header, v6 uses the plain ASCII name
+>   that matches the Signed-off-by.
 
-commit a9db7fb0da8155ad8eed2129e9cc8ce52e4427e3
-Author: Janne Grunau <j@jannau.net>
+No, you did not.
 
-arm64: dts: apple: t6032-j575d: Add PCIe device nodes
+Best regards,
+Krzysztof
 
-This commit adds PCIe device nodes for Wi-Fi, Bluetooth, the SD card reader,
-Ethernet, and USB xHCI on the M3 Ultra Mac Studio.
-
-> diff --git a/arch/arm64/boot/dts/apple/t6032-j575d.dts b/arch/arm64/boot/=
-dts/apple/t6032-j575d.dts
-> index 12991546d4bb2..f99fd47dfc8d5 100644
-> --- a/arch/arm64/boot/dts/apple/t6032-j575d.dts
-> +++ b/arch/arm64/boot/dts/apple/t6032-j575d.dts
-
-[ ... ]
-
-> @@ -46,3 +49,72 @@ memory@10000000000 {
->  &serial0 {
->  	status =3D "okay";
->  };
-> +
-> +/* PCIe devices */
-> +
-> +/*
-> + * Force the bus number assignments so that we can declare some of the
-> + * on-board devices and properties that are populated by the bootloader
-> + * (such as MAC addresses).
-> + */
-> +&port00 {
-> +	/* WLAN */
-> +	bus-range =3D <1 1>;
-> +
-> +	wifi0: wifi@0,0 {
-> +		compatible =3D "pci14e4,4433";
-> +		reg =3D <0x10000 0x0 0x0 0x0 0x0>;
-> +		/* To be filled by the loader */
-> +		local-mac-address =3D [00 10 18 00 00 10];
-> +		apple,antenna-sku =3D "XX";
-> +		brcm,board-type =3D "apple,aruba";
-> +	};
-> +
-> +	bluetooth0: bluetooth@0,1 {
-> +		compatible =3D "pci14e4,5f71";
-> +		reg =3D <0x10100 0x0 0x0 0x0 0x0>;
-> +		/* To be filled by the loader */
-> +		local-bd-address =3D [00 00 00 00 00 00];
-> +		brcm,board-type =3D "apple,aruba";
-> +	};
-> +};
-
-[Severity: Medium]
-Should wifi0 and bluetooth0 under port00 in
-arch/arm64/boot/dts/apple/t6032-j575d.dts (and in
-arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi from the preceding patch in
-this series) use the BCM4388 compatible strings ("pci14e4,4434" and
-"pci14e4,5f72") instead of the BCM4387 compatible strings ("pci14e4,4433" a=
-nd
-"pci14e4,5f71")?
-
-In Documentation/devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml
-(commit 4fb80f2f90d6) and
-Documentation/devicetree/bindings/net/bluetooth/brcm,bcm4377-bluetooth.yaml
-(commit ef4d6ea11df0), pci14e4,4433 and pci14e4,5f71 identify BCM4387, wher=
-eas
-pci14e4,4434 and pci14e4,5f72 identify BCM4388 used on M2 Pro/Max/Ultra and
-later systems.
-
-On the M2 Ultra Mac Studio (arch/arm64/boot/dts/apple/t6022-j475d.dts), the
-inherited BCM4387 compatibles from t600x-j375.dtsi were overridden with
-BCM4388:
-
-    &wifi0 {
-    	compatible =3D "pci14e4,4434";
-    	brcm,board-type =3D "apple,canary";
-    };
-
-    &bluetooth0 {
-    	compatible =3D "pci14e4,5f72";
-    	brcm,board-type =3D "apple,canary";
-    };
-
-And the base M3 device tree in arch/arm64/boot/dts/apple/t8122-jxxx.dtsi al=
-so
-uses the BCM4388 compatibles under port00:
-
-    	wifi0: wifi@0,0 {
-    		compatible =3D "pci14e4,4434";
-    		...
-    	};
-
-    	bluetooth0: bluetooth@0,1 {
-    		compatible =3D "pci14e4,5f72";
-    		...
-    	};
-
-Did copying the port00 child nodes from the M1 template (t600x-j375.dtsi and
-t600x-j314-j316.dtsi) leave the older BCM4387 compatibles in place by mista=
-ke?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-apple-m3-p=
-cie-v1-0-e00a72a604f8@jannau.net?part=3D7
