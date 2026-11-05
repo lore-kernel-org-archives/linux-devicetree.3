@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879466;
-	b=rdByK+hZUsOuI9F0J1V1iUmB4Mw2MyYCBrlA8jwcG2+lJDeq7nqh3F7JSiehSs5QBpbv
-	 gSNX6fCEO5A90uFQW/fyOq//zfQ4KUnPNktQ0WDCNDZ3H6EKHeYdxcNcnP/zckwGtgKX8
-	 ovPT6hemPXxG+Tu83kGdaL3F/hxfgzpuqZq4S21nx/+UeZKKwcU2+g87OP4QpPpbnMlWW
-	 awqqXj1xHdyjWhW3S52wZacqIbyfNlZ31HOYvoj6our7JAyzy3iqnpODcSIlgNPwgjd2z
-	 fOXtgtkrDH3WsTA3xifl5G4aFKW+u3+NUtIsTMy9GQtoWHlYoe6clju8H9e44j6mfbg==
+	t=1793879535;
+	b=3zwxNpnu3/yRd2bcGaViXIlXiO90piRTP1PHyMEvfvLQZ8t95v+IQIrCXOsElxrlWVXy
+	 Smmjx3XFNvW/rDtQT1t9HJn5/VYXJ9RE2A1BTHk3yvmpLLh3RozH435z2CO8PuEdpUiZO
+	 1tduLX+9Vpb4eH5nnHbJdcqSuwM/QeCgwXKPOrnFh27rGPXUGuyBwU1OL6qlSV49D9GT0
+	 lipAXX+5uTbywvwxPKBHt/PGZfR4D4Cei7I28+mGtMmY/xvMugF9OYR8Vqy0POchn31PH
+	 I17ldTv0yteM4MMeIOF+dEIPysYumaEGw6m9Y8uNaA5negTkD+Akxd8oy6gtfsts8qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879535;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding:In-Reply-To;
-	bh=4OS3i6eFd7tcdMjfachyyV6i3nKbEcsVPS6UTpVoEG0=;
-	b=tOHxZfTWp9S/jCcKqbhi1jo3prnHuPCfi39NRaheqZLhVQuAHN+0F3Vc0P4bf4z++1+c
-	 1AWAbQZFJgFhI6+yksFvIca2SsLPmUWngr7nrSSx2Y/+YrjGoXhzssavED1oz/LEaYd67
-	 +lHl7YbZC2HRzTd3ACSI9Xy0oDvHTTXvleGoOeXja6A4UcYkV1IGkNNNyS/Ga9ccIHO78
-	 +fLEZTfiTtQ5IVUp/6c9vacIgv2L8wqqhG8supMsoNEvVifwNeIvdPNDw01L8T/wxlItf
-	 9T4a+2ESIiwZVV6qYekcuLBpap6Au2ErfMzm7C7GblOldwi+fVnuT9MlS0/RqZuSnww==
+	bh=rD8RmJQMPrsB8PneNmgZfAY2EXizpS1GrqOCM57L41Q=;
+	b=hLu3CTwaT6FSrbOXLFtHJbaFa9xVExIVEcuyVsXts6bRNUbBuJ0L/K0IcOggRN1Cgzwm
+	 2NOnNM/qsnmYkWXRHBzI/etPZB0j48ujMXa7YSF4kOTXFEL/3FKVUf+B+Jt9K8tBLy6Xh
+	 1kzbC2zDHXWZRtDeCuqi7vXqxExne2QDOQvZc+9CycnepApEzXkhLNm4rFt9dg2Cz58Dc
+	 Wt1Hjs2zYg7GPdW1L3BZdCJGuQaaLBGoeK6OCoNrjaoblQEeH0efebxy2n3Bg7+rOBJfH
+	 qRy3JTpN3+9ehl+24VKOAb9Rh9U5rY3PIcyXd355dLBO9Fp2Vi2ZIqtoiPG4ZlbpHIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGE+28uN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yckc27hE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF64606D819;
-	Thu,  5 Nov 2026 11:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DD2606A901;
+	Thu,  5 Nov 2026 11:52:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGE+28uN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F30D1F000C1;
-	Thu,  5 Nov 2026 11:51:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yckc27hE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BAF1F00A1E;
+	Thu,  5 Nov 2026 11:52:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879465;
-	bh=4OS3i6eFd7tcdMjfachyyV6i3nKbEcsVPS6UTpVoEG0=;
+	s=k20260515; t=1793879535;
+	bh=rD8RmJQMPrsB8PneNmgZfAY2EXizpS1GrqOCM57L41Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IGE+28uNn0cQzvWb3P23I+Y3Y9vuvK6VC6xP68IsCJD/M64adDVLKoG85s06au+G1
-	 J1Obn+d6Gm+CsWIH23qmxfKWtjQ0P9Ul4EIfHSTFHks5si+zlB3BjKVyxqbtJA0KV9
-	 RgnOsaRULKxZIRLpHjq28Z6fmqBclgfbuB3hL9AgqZvHVVjxQ7TVuMPDKi00AdIcDH
-	 bQxA0WJJEuNowi3dV+k79udSkhT5NK3lPeUH1B7xkzM5iS5szeFaG+IFgr1S6HFqIh
-	 U9aksm3FlI1cHrtihxazmZEWUsN4wicDI/UHDHJ39YRlfInMv35rprdxxUrA6/6WPA
-	 pHABR9k1OoZLg==
-Date: Thu, 5 Nov 2026 12:51:02 +0100
+	b=Yckc27hEL9olUgu869FUQCQ9mLJcNnti/uo61805ZdIL9ud0XP4WrNlW6ZRhmCsDU
+	 E7fI3BMRFZxKzMWFrz+MqsJAfTvE+aKYY5tG5+ThqSlFGqfjKbOoPNLncfPdVPHJ70
+	 Ll+YnrbD8Dm8KML02lcJH8mGPCH2dXuHorKsjB9C3dD0T6FtRy62uddEWYBIphwU40
+	 KCkJuhBECKiW03R5p2mjrlrEa+zWGIRsSYxHg63jVlYW8LYxmMOYcJfRN2Vo8mltbg
+	 3VLOZgxgcY+uqNvRDVWTZDpcVtoQpc3u89DhK20bBDTKf3NoJJE1pGgjyXAWRTJk6F
+	 0FGz6ZspxCuzg==
+Date: Thu, 5 Nov 2026 12:52:11 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Hongliang Yang =?utf-8?B?KOadqOWuj+S6rik=?= <hongliang.yang@cixtech.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -51,9 +51,10 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	Fugang Duan =?utf-8?B?KOauteWvjOWImik=?= <fugang.duan@cixtech.com>, "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>, 
 	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, cix-kernel-upstream <cix-kernel-upstream@cixtech.com>
-Subject: Re: [PATCH v6 0/3] phy: Add CIX Sky1 USB3 PHY support
-Message-ID: <20261105-illegal-fervent-swift-3c05c2@quoll>
+Subject: Re: [PATCH v6 1/3] dt-bindings: phy: Add CIX Sky1 USB3 PHY
+Message-ID: <20261105-kind-macaque-of-enhancement-ee0365@quoll>
 References: <20261105011751.4058411-1-hongliang.yang@cixtech.com>
+ <20261105011751.4058411-2-hongliang.yang@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,42 +67,23 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261105011751.4058411-1-hongliang.yang@cixtech.com>
+In-Reply-To: <20261105011751.4058411-2-hongliang.yang@cixtech.com>
 
-On Thu, Nov 05, 2026 at 01:17:56AM +0000, Hongliang Yang (=E6=9D=A8=E5=AE=
+On Thu, Nov 05, 2026 at 01:17:59AM +0000, Hongliang Yang (=E6=9D=A8=E5=AE=
 =8F=E4=BA=AE) wrote:
-> This series adds support for the USB3 PHY integrated in the CIX Sky1
-> SoC.
->=20
-> Patch 1 adds the device tree binding, patch 2 the PHY driver, and
-> patch 3 the SoC node plus the board enablement.
->=20
-> The PHY provides the SuperSpeed lanes for the Cadence USBSSP
-> controllers of the SoC. The block drives both USB3 lanes: it is
-> exposed as a single PHY provider with #phy-cells =3D <0>, and its
-> init/exit calls are reference counted so that both controllers can
-> share it.
->=20
-> Tested on Radxa Orion O6 (Sky1) together with the USBSSP controller
-> series: the PHY probes and USB 3.x devices enumerate at SuperSpeed.
->=20
-> The controller device tree nodes use the PHY phandle added here; the
-> USBSSP controller series is posted separately.
->=20
-> The series applies on top of v7.4-rc1.
->=20
-> Changes in v6:
-> - Drop the per-port child nodes; the PHY provider node itself is
->   referenced with #phy-cells =3D <0> and the driver exports a single
->   PHY instance shared by both controllers.
-> - Select REGMAP in the PHY Kconfig.
-> - Use dev_err_probe() for the reset, clock and regmap acquisition
->   failures in the probe path.
-> - Corrected the mail sender name: v5 was sent with a non-ASCII
->   display name in the From header, v6 uses the plain ASCII name
->   that matches the Signed-off-by.
+> Add device tree binding for the CIX Sky1 USB3 PHY, a multi-port
+> SuperSpeedPlus PHY supporting up to two USB3 lanes. The PHY block
+> drives both lanes and all consumers share the same initialization
+> sequence, so the PHY provider node itself is referenced with a
+> single #phy-cells =3D <0> specifier.
 
-No, you did not.
+So previously you had two phys, now you have only one. Confusing. Where
+did the second phy go?
+
+>=20
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+
+Same issue as last time.
 
 Best regards,
 Krzysztof
