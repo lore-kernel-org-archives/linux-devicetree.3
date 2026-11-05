@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793843122;
-	b=tqQZOYE66b9ORffW6qKiqY+iheX0939LVk5VA2g7G+tPFrVC6MeLUPqXgJzad4hdZbK1
-	 DYoKTRhJooXIN+1v/tWo3JWXDYIqYqyrOW3iK49Vmo5TvfXswb1L5XdDwIfEx10tJktvL
-	 ab7gcHm8VYGaq1WO8yz7fItffAzYuf+WvZPkDrN/W7Pu6JDDbtduB/cLbhK4rNZzipFaD
-	 Y5nbHo7sn3ZoQ0W0WpPRtd2WmUz/rel7MW7jtKZNvtWbG0VkiayabRVoPUNXAjDLbaD+A
-	 BFuO+PAeyhXtw4XBjmDNYw5zQb76HDidtEDcnuu4j7hK/s0KlSKGjmcEmmg+e6SxL2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793843122;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Qz2KgSvxs/QubGSn6ctkR3NuYfESAeObXcUr3tbspdM=;
-	b=QVCp7ncA13V4N7Rc73BINaXg8GbDpY48GNd1w/4/ehOJyTz1E7dmAU2z0/PV+cK+5gyK
-	 TNTKtCdxS/cg+tZXouyc4JveyApXgwdmNrnCdXQIKnyAm7BgfQlXOXrOMF+AWCFoBZBpG
-	 Ap/Djgt6P++xeqXoItY6UEf2S1+yw6DU2FV6ZaGjXD3fxdYff0e9MijVmPX9/o3KdDNN8
-	 lfRnsSAjlXttI0Oks0a6i5NoIfDSRQpQeWz5rpEd7uBwDuF2YqE4ZJcaViWx9hl0fqfVk
-	 tg/Jpja1YIGe8oahiambdUp7NAU0IBsOKYRL9aNFz3B0YUzCMllQ25BGUprOydh6RUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=by21JAX5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.39
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793843196;
+	b=nmWunorea/6JVMXjnWilf8CIf74lslcUuN4K1+ibfbx0cfZZuWaJy3LnRaN8hPKSRSQh
+	 0WwiWj4iYXmzYxGNr+quol/VA3YO0ZWgk716kW+6QRpneciBzk3phtxVS0O1fAvVzRELW
+	 hI/cRliT5Kmkzh3TPvAJw9FQAO7Jx6Sta2OvjMMgbvioSDiN4Mg7ZtQkk4nJhfHx4egPK
+	 j/DLlntH3weN8l1k/ZtkaY+5VOzqfXD+RtQyutarzaKSlK0IjyakrsDxwgKM5efmH/ptw
+	 dtLzDnY89B0lv8mygDuBk9v+tblpDn9bc/xHrAybd77EkOKv72EqIJdxZqUZ8M8kdtw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843196;
+	h=DMARC-Filter:DKIM-Signature:Date:Cc:Subject:In-Reply-To:
+	 Content-Transfer-Encoding:Message-Id:To:From:Mime-Version:
+	 X-Lms-Return-Path:References:Content-Type;
+	bh=mAEHk156ALRm/Yk38m2Sb6tcWOHC1b8Vy26wU1dgEA0=;
+	b=l+q3nYnP87V28MZO3ektaskmbu0BEVySlcS8LifMeMPP2+GMFuoUIUqtvktty+4balFc
+	 a8KZpxaw/GFpGQyEIbbTBX2xkf3NLt9iEpE38Mfa0zj8Uk8tc3mNkiUJiubs0hzilnWWi
+	 RLjlLUyAiz1752lqtUlfoObaciif+3SC4ADFbMzvVyydNRrDqf82tPEneFCWcVTeyyOrq
+	 eWro6xtV/5NqBM3gA3q+LdQ3T2cbSObS0xGME7HnenSH6zt5sk3hY12udi2lB+j/qTQDW
+	 +Z9J2v+DHkNqD5vxROsMe1G2UarJprfuy5gwEwaZXnsxqrDteWPm8vY6T6qN232tssw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=SotxgQiF;
+	arc=none smtp.remote-ip=209.127.231.39
+Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AD4606A32D;
-	Thu,  5 Nov 2026 01:45:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52AD4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D808606A326
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 01:46:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D808606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=by21JAX5
-ARC-Seal: i=1; a=rsa-sha256; t=1793843096; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Yuofk1O36nbwUk0teyUxBHcwFtB6oYbW8laHO1bPwqKjuaUVxh2pNk2cVRd6reWo2zokw7ekbkYk7qPOcBooOIq8RGAFinerkkj/EfmgsW9z70wMYNWznUIrZuY2OBIfiQfzpfEJQdmRU0X0e/4zPaI92fEqGq/CAfZmw8zBBNM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793843096; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Qz2KgSvxs/QubGSn6ctkR3NuYfESAeObXcUr3tbspdM=; 
-	b=cAqXRxjmIvDH9BHAkZOnilJaKMfbXcp+dX49vSKTW+vO6w8mErwWQseqw9YeV33p1StRXSVYMbce7q2+rRuGn2FYJpL68+OTG51tzfrP/L68GQBNbPf8MYSf+Q8nXLEIt7Dc73N94S+GCQzTgba/iHXgqY+oP4YFhfCRgW3h8dk=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=by21JAX5eS17IyPINnm3VUQLZdKacWLqLKfQqeNoPP+8mDh++WkkOA5DPxoDEywi2BQ1NgJXLJHkXLgv4NVRPbZ8hI1cJLWEgQcOBhn2J/qblujzvpAjDH/ehWy//ktm9ZEMGuuaI9akOSWIgfgOpygsDkfjvpuyuuqyXN7dKR8=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=Qz2KgSvxs/QubGSn6ctkR3NuYfESAeObXcUr3tbspdM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793843093919792.6849770156605;
-	Thu, 5 Nov 2026 02:44:53 +0100 (CET)
-Date: Thu, 05 Nov 2026 03:44:52 +0200
-From: Igor Velkov <iav@iav.lv>
-To: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-Cc: iav@iav.lv, shawn.lin@rock-chips.com, lpieralisi@kernel.org,
- kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- heiko@sntech.de, dlemoal@kernel.org, devicetree@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/2] PCI: rockchip-host: Make the PERST# inactive delay configurable
-Message-ID: <20261105-ehbello-perst-v5-tested-by-1@iav.lv>
-In-Reply-To: <20261104215848.2087944-1-ehbello@gmail.com>
-References: <20261104215848.2087944-1-ehbello@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=SotxgQiF
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1793843190;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=mAEHk156ALRm/Yk38m2Sb6tcWOHC1b8Vy26wU1dgEA0=;
+ b=SotxgQiF9ljVkzBcaF38B0g9igWK+Sm+1s6SPsJGdXH5mSb2fEUHnmh259S6ynBaULJxfK
+ Czv6nKXHVNPctX2O28H/FaMNv10WEJ/nlW8lVxfCDQy9N2Pi0ulj9VyS2+XrWNBSnwNUrq
+ 5N1NYFIip+5Uj5ucbVs46rOgd8gyZARBhmKOATJyQFZBmmnxxp2YF5xC8pfU7VJHQrHpDR
+ b6is6TcK/261tUoAjao97baDkpGvZ9WbqxMzLvCaXnaelkWO7jewMdYpdAsyMce/gvP1oz
+ ldmeaAQFjOL8RgxKpOxlZTVdyrXXyucP97jN26JpoaP4/XMWLK/6qCTuoVWxyg==
+Date: Thu, 05 Nov 2026 09:46:27 +0800
+Cc: <alex@ghiti.fr>, <aou@eecs.berkeley.edu>, <conor+dt@kernel.org>, 
+	<devicetree@vger.kernel.org>, <dlan@kernel.org>, <krzk+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<palmer@dabbelt.com>, <pjw@kernel.org>, <robh@kernel.org>, 
+	<spacemit@lists.linux.dev>, <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH v3 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator tree
+In-Reply-To: <5f595068-671e-4823-95af-da1702354a16@murena.io>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.4545f39b.8adf.4983.b26a.7df21480401c@feishu.cn>
+To: "Maud Spierings" <maud_spierings@murena.io>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,21 +63,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+16aebdff4+94c4e6+vger.kernel.org+sandie.cao@deepcomputing.io>
+References: <20261102060105.100645-1-sandie.cao@deepcomputing.io>
+	<5f595068-671e-4823-95af-da1702354a16@murena.io>
+Content-Type: text/plain; charset=UTF-8
 
-Tested on Helios64 (JMB585 behind a GPIO-switched slot supply) and
-ROCK Pi 4A (empty slot and a WD SN770 NVMe), 7.3.1 with the series
-backported, one s2idle cycle per boot:
+Hi Maud:
 
-  Helios64, no property:          resume 20/20, abort in rockchip_pcie_rd_conf() at probe on 1 of 21 boots
-  Helios64, <10> probe and s2r:   resume 20/20, the same abort on 1 of 21 boots
-  ROCK Pi 4A, empty slot, none/<10>:  10/10, 10/10
-  ROCK Pi 4A, SN770, none/<10>:       10/10, 10/10, NVMe readable after each resume
+> From: "Maud Spierings"<maud_spierings@murena.io>
+> Date:=C2=A0 Wed, Nov 4, 2026, 23:31
 
-The default behaves as before, and 10 ms changes nothing here; the
-slow JMB585 link on Helios64 shows up at the same rate with either
-pulse width.
+> > diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts=
+ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> > index b5d5112de358..804abc85602a 100644
+> > --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> > +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> > @@ -22,6 +22,161 @@ memory@100000000 {
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0device_ty=
+pe =3D "memory";
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <=
+0x1 0x00000000 0x4 0x00000000>;
+> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0reg_aux_vcc3v3: regulator-aux-vcc3v3 {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D=
+ "regulator-fixed";
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-name=
+ =3D "AUX_VCC3V3";
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-min-=
+microvolt =3D <3300000>;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-max-=
+microvolt =3D <3300000>;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-alwa=
+ys-on;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0reg_aux_vcc5v: regulator-aux-vcc5v {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D=
+ "regulator-fixed";
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-name=
+ =3D "AUX_VCC5V";
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-min-=
+microvolt =3D <5000000>;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-max-=
+microvolt =3D <5000000>;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regulator-alwa=
+ys-on;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0};
+> > +};
+> > +
+> > +&i2c8 {
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-names =3D "default";
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D <&i2c8_cfg>;
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D "okay";
+> > +
+> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0p1@41 {
+>=C2=A0
+> I believe this should be pmic@41
+> If it needs a label it could be p1: pmic@41 but the node name should be=
+=C2=A0
+> more descriptive.
 
-Tested-by: Igor Velkov <iav@iav.lv>
+This patch follows k3-pico-itx.dts, it uses p1@41. And k3-com260.dtsi uses =
+pmic@41.
+I will uses pmic@41 in next version.
+
+Best regards
+Sandie
+
+>=C2=A0
+> Kind regards,
+> Maud
+>=C2=A0
