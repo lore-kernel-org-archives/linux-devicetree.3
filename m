@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.63
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793880190;
-	b=LxZAd+OzxLKB/j8zkacdb2T2bA379UTM32NOH3kN4cbd4rdvPb/8pTl4fIxZFDeXRy0f
-	 B3gQWqZbFIBFrScB8DCLdda8KFLMjz70RXQ1rqqbcvnnGSKQeB7tqV2W7M6DoqJt6jDvp
-	 WlLzIxC5E0qjpzAFuMoedvGoWnkyMxnnwn9jQzyIOxbVcwopsPaWecA5ZEgYhGQoJGNDS
-	 UxW/z7e5Cb4MV4gIqd+p1l69LnIJiusZ+24ymFO1imZ2ebLPWB43IhJawNv/8LBF992gn
-	 SsZ8BoYs10ookgQpaLAoJ2ztKm/3Fb9IuBWBceQrjGZVcLbEGc5N4pUPrEJaCkYo2yw==
+	b=P0l283RXdnKsja/K8WtHBAkJU3IGKGbxCgHJ+y0nBwesOoPu5EhpBAA+dDGCZZPQcSjm
+	 wR30rA+xkMg6upjrfZs3jQvU0SIHPY86vYvXuMCdsGWz1KAsOvbi4fveV4unRbYfCa4er
+	 BLysi1KqG/9boiufgkKWZiZfxDkzHTu1rTxR8bwiOhQxkqeTdtxiwZgYmZD0oBPy66Ded
+	 xgu0RWjiy1zPAmMgq+odI2COY7hgp6VOHW5Y4FMyw6/dLZ/hdsW6GMen5Ke4LL/6kEmwl
+	 C9NsRj4gQWddsFKygn1Y15riVAALRMxTx3OAzkoqW2jp/0Orkn+s+FEQlKnM7qd11Bg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793880190;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 Received:From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
@@ -26,35 +26,35 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=POGRuviH5TlEzEUjx6xxRrSvo62+D+y2VRA4aXnjt5Q=;
-	b=Tg1h5fViy/YnE612uHgnFXgqGrpJhlRv1EcJKaUxWg81H/yN5evr40dgtNKjYlM3zR/R
-	 L837eL6XGvkoDHxjvtybVUXWXTCxhCpQ4KLtR+59B2oI/MPpphv8++9g3Ii4PMAl2ovZe
-	 6reeNWnJmdLeWpPOr3jJU0c0gNfN71p2ypPKXW58oabX0ibxVAbGN30nFp+edSBe73E5A
-	 vcoJLld50PMvtQdaDXClxW/zrx5cLmtetFFOaQRfNsHBsaiMF8br/EtzSA+nZdWX9D5vi
-	 EBE2Cy4upNqFETDeX7oN4aK3b/Yv6NaIRBuutnLC6mFxBKJzN+vddw+m4f2BI2XKKMg==
+	bh=yf1mUCSg8ddhkF6niOz1LOXPxL+agN9sqDLZsjq4Y7k=;
+	b=dNsRvhiwczaXA1robfZIacVkvAMmUfpAgkDpunOJcbGTOCFCfV8NybV8JGyl9IymRHR/
+	 BaVCIIsE0OwUCmhhNSVMjPWxMk2MwaDazhRsPF3ONqP8ZZgiNwyuEw+v24NfAimOukS6V
+	 ODp3shcbiT2C10nA4sJnxBDeI1SXhtw+JLfY/aeoLrvnVRaHrXUxXajVLTTUk3/xqniXV
+	 LOHmeHVigRESVLZW8w5hWtLHgLSADItL58XiDMBkuxV5fYhyL1iMgjB4ldFYAI0mRw6gA
+	 o2OAK503JcD+K7n9E5xXELv9HpGblQWeGG5uTbH5cGEKbYoQTVqlqoo93rJSdcuvFtg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ZYeY8RKH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.41
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013041.outbound.protection.outlook.com [40.107.159.41])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=YRWMZg8G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.63
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013063.outbound.protection.outlook.com [52.101.72.63])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B2E606D803;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EDC606D805;
 	Thu,  5 Nov 2026 12:03:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03B2E606D803
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11EDC606D805
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=ZYeY8RKH
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=YRWMZg8G
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YmeY5vq5WtGXIDUlJ8CnskTsKUbvJJ0eOeoSt7WI+kLXTHc9wnWlGgTN2MVz4CiKG3cXpSS+Rq9vdVoaG7sbPVAcsj/VPoMmlVURLwUS3ZjkFFYLAGJSZnC/50PFgcUUOgtg5QtFy7MmY3F0ttk45JNbQ8iCpvJntb6eJff4bN/cWm5WW+AK472pYwfq1ToHgbfWao9Z+XYKnlT/Fk3qmOqflh8CKy2hCjwCVfL3Hg0ZjSqHyIdaCaE3VRpS4LwlzcMk4kUuiOTrLl26tTi1cDYB/Bzf+YAkFCvf5gcu0yvucHvSu2wqFHZmxCpX+J+6evbz83esGYlLFfzrb1oi1Q==
+ b=w6lfPPm4dP5wfa1IHoEfWMCrYuBnlcvUTANAb+cx2pSzSU/2ulXxLKMYZJoogBaGymRwRH8i2ENmfKTQSsUkrjqiKO3j43J44f3Vuj+QJfrPwuGrDU2AO8HQS/zcNDo937gVXIaPwJddGea/k7y/pBiYMnxJKs8V3VHzINkYvy/Dv8oGsWsm6lBL3tChddHrDBz8IX54qjseAimzb2zOpvJN10Ky0lR4xz1qpgBx8X5D0b0vagJdNZbERl6Gi1vQtzA3T+Jr7KhAnA00dt9cUdV0u3x74ZcwGTvX0Gkm3IFPsXv4Nwy3DXy1pJrJskyW4zC6d4fR+oSQOypo6GFo/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=POGRuviH5TlEzEUjx6xxRrSvo62+D+y2VRA4aXnjt5Q=;
- b=NhKFwGyPpKn9zi4uttHZv7Tiky7UiHfRvhQLO2uhz92yt9kGJE7t1RjIKC6UJ4yajUZTqm1T921lLc30ztZkLDCq05b2jAalUgtpWglxpoEnXq1Wu+5Jkc6BhbZRnNZ/x8l/Nd1SZTaeik3mQXlQ5Q6zOvdLmDG7NazjiR+qEd8kLHocKbQZ1kpUm2McrHt3WQtDjfUrsxzHgYJGgyq5jbdo7e7ayiFXnnURwuiUq46nVuoaxdXQBM2VvqswUv0sBa1+Iq6IVSMhdzJAp9JnVleCAGz5NG8WZcjTkoQghgnIs+yM8Kw1VFn+Cspw1yPjZDddE5RFlvO0VeodiD7/jw==
+ bh=yf1mUCSg8ddhkF6niOz1LOXPxL+agN9sqDLZsjq4Y7k=;
+ b=OUebQhrDkf4tZsgXpmRgzkqfOaecn02OIhymkx2tRycHnThhk5fPk/EwrVOuGjGG7hPGBUA6E42nYgGNdcIfduEuTxNlC5RzYFQtXNKNamNgt1SOOmtnxJp6/p0Y8Zxo/9OUnYXsE1dZdKS305rNhoJ8aE8ZodQVOdfQmLUWTdUuo0EO8xHk4pyp6uOM83nmAjsolUr7lbJr6n8gKBMg7vZ5xpWA+yqYx8/uEFhPbX5SwzeEE+Nd9iWk172FVFAtQKGXLn/rSTM9PhTiDHuQoshgPap6BPsClGhpn8wfTFr0cTfIQ94uotrNg2Jx5dbBZ1JNPKbTA+beHf/N51zZNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
@@ -62,18 +62,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=POGRuviH5TlEzEUjx6xxRrSvo62+D+y2VRA4aXnjt5Q=;
- b=ZYeY8RKH4G1EbslnFDqV/MwmjqWkMIrwxljak1UJX2r1r9EsmMx3P2dHDAyJtaWMk4UwGon54E/IgCkjcaD7x3foRonxwVn3drtazjC8oHkgISKXGnzC/5TDTkFgd1u5lhsmAYCGin8TOhnIJ3O5jK5FzZZGN5FAEpK1Am7hM7laFidKJMjgBNegs2KXhByXfqGHCPZNfzj0KKunIhtC71RMb+DS9BuCvbMSANUxORmkm1Z/uT0s7O71juOWzyePW4xNoCNIVTX8xL71zvm50N+Ut/4V2QC3k/BcKEk44cARWInLOMaClHxOJ0z8fRonMcmiafDpWD/TIU+a4qcTQw==
-Received: from PAZP264CA0113.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1ef::7)
- by AS8PR10MB6200.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:54e::18) with
+ bh=yf1mUCSg8ddhkF6niOz1LOXPxL+agN9sqDLZsjq4Y7k=;
+ b=YRWMZg8GMenJC4jNyz0R9g0X4KFRbfuvjZatHASd8e27TIEoOJDFSxSY2gUUORGUMz8jFGWGI2KxeYhGsrxBKwZOtU3TSq/AuCyc+qRZHUvvrySgEYSvNza3+4SDFFCaOBN+G++0VJYCV1+fiHnELtfGVnzGFEh4m/GzA8kQcDJBO5oyT9pR4prs9Xv8i2p7FLU7wEI27eLs2j7+MGD5RQ/D3GjGbr6hCthjLvqKRr2B2gG+sdyMdaEB1hR95PH8cAe7aWhYy23EH+bHQZZ9UtxdySd7xehvcp+xZCaitR0pOdwDqDJhcdLVDJbg07AWvGFHMVfsnQ8xysVEXTe+mQ==
+Received: from PAZP264CA0112.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1ef::15)
+ by AS2PR10MB6639.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:55e::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Thu, 5 Nov 2026
- 12:03:06 +0000
+ 12:03:04 +0000
 Received: from MAD0EPF000008C5.eurprd05.prod.outlook.com
- (2603:10a6:102:1ef:cafe::2e) by PAZP264CA0113.outlook.office365.com
- (2603:10a6:102:1ef::7) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:102:1ef:cafe::ac) by PAZP264CA0112.outlook.office365.com
+ (2603:10a6:102:1ef::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 12:03:05 +0000
+ Nov 2026 12:03:01 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
  is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -83,19 +83,19 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
 Received: from smtpO365.st.com (164.130.1.59) by
  MAD0EPF000008C5.mail.protection.outlook.com (10.167.241.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 12:03:05 +0000
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 12:03:01 +0000
 Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 5 Nov
- 2026 13:03:31 +0100
+ 2026 13:03:30 +0100
 Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 5 Nov
- 2026 13:03:01 +0100
+ 2026 13:03:00 +0100
 From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Thu, 5 Nov 2026 13:03:00 +0100
-Subject: [PATCH v5 2/8] dt-bindings: arm: stm32: allow TAMP nvram child
- node for syscon
+Subject: [PATCH v5 0/8] Add STM32 TAMP nvram driver support
+Date: Thu, 5 Nov 2026 13:02:58 +0100
+Message-ID: <20261105-upstream_nvram_reworked-v5-0-ddf7dbf1b298@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -107,9 +107,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261105-upstream_nvram_reworked-v5-2-ddf7dbf1b298@foss.st.com>
-References: <20261105-upstream_nvram_reworked-v5-0-ddf7dbf1b298@foss.st.com>
-In-Reply-To: <20261105-upstream_nvram_reworked-v5-0-ddf7dbf1b298@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAHJw7GoC/33NTU7DMBAF4KtUXuNqxpnEMSvugVDlOGNqUJPKT
+ l1QlbvjFMSPIGxGetKb711E4hg4idvNRUTOIYVxKKG+2Qi3t8Mjy9CXLBSoBgwYeTqmKbI97IY
+ cy418HuMz99K3ZKmrdIvaifJ9jOzDy1W+f3jP6dQ9sZsWbmnsQ5rG+Hqdzrj0PlYQVlcySpC1Q
+ ocN6tqxv/NjSts0bd14EMtOVt+k6h9JFcn53moyzNDp31L1KSFgsy5VRfJNbaAlA87/IdGXhED
+ rEhUJiUARmcYS/ZTmeX4DH+wpEbABAAA=
+X-Change-ID: 20260909-upstream_nvram_reworked-f84a4b37817c
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
 	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -118,125 +121,124 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 CC: Simeon Marijon <simeon.marijon@foss.st.com>,
 	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+	Patrice Chotard <patrice.chotard@foss.st.com>, Gatien Chevallier
+	<gatien.chevallier@foss.st.com>, =?utf-8?q?Cl=C3=A9ment_Le_Goffic?=
+	<clement.legoffic@foss.st.com>
 X-Mailer: b4 0.16.0
 X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
  (10.75.128.132)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008C5:EE_|AS8PR10MB6200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e1f3628-ac1f-4ae3-9e6a-08df3b34c014
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008C5:EE_|AS2PR10MB6639:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bcd906e-f2ed-440a-655e-08df3b34bd8c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|6133799003|18002099003|22082099003|261009223027099003|3023799007|261022105027099003|261026140227099003|261026121527099003|261021123027099003|261021121427099003|261028144727099003|56012099006|10067099003|261102123227099003|11063799006;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|11063799006|56012099006|261022105027099003|261021121427099003|261022113327099003|261022075727099003|261021123027099003|261009223027099003|261021135927099003|261021133027099003|261102123227099003|261021130227099003|261022115727099003|261026121527099003|261026135527099003|261026130827099003|261026140227099003|261028144727099003|18002099003|6133799003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	JRYkbAUDszs2OSLp206B9NeQ/t4hFDx34yH6rW3p2efPJB9dkQ4/16TWPeKfO/9Woh42HigDFLSJx3O4ZsxNkDY8DnGPC6Sv2z7kNpiFbopwRGPRztFPK4nftxRiOxPqEo1QDjM1uDLKz6Z9zRup5f39x9SiNJd9fHAF2TPbPJDiAtHiCZG0/8MWXZMgJYwbcHhqBnsGGz46VZU/AWorkg4mC57q5QJt8d02QfF98PVrQah4A1/Ky3MVPZf58Y8wxSvG1FI+qx398t+FlW852rJHfGfslcycMA4Lphw8BiB25CFOrxMFZbYA3pgE+m7ZK+3AlKYrgzuFBq/tYEic/hRh5Smze0szWLiaCR2AeZl0IAIPYR9/Ng+PogbVQ5mhQYF0gQ/f9758A9wzzjcK+FJOwmfbCiQbL/1bZsKE0j977oKxdrMTwdK4wsGmSTfyUw9ROISfA0mQhps9WBpALGDsITCVJW6FY91Nk7HkVKhe9MDjC507v8X7OCIM8A+cKftxOLnm8+H3Ylej5iioFHFYtUYIwWxnY6hXwjG7OwIZZBqET+jfPJwkAX/D1Y7cMdKGtcDevPLOKQvHZ7o69ViHu/eZ/h76sV2DfKveuF+apREzFDUrHSgV90q6X9nb885ITsnT+smHU6O9ER68dTo9zrwmjtaoaXaPVFkq6//0S8Asepo7ncBLb72DLJ1bj9piZK6bwu/eJK8EK+tOlw==
+	KbBdUu6qOvHfQDW++Nug/iIRS46WGbrt4yrzs1ony3+TlinX7YRu3cw2cqKEYXPMphjFDpyKT3oA8bzvAYdaZ6+v2m+wbtAwynpUBonZ6rVFm63jfB3ROw1YKPIudcH+SgLI1aLl4c4mhrsv/91t00Xsk5AY2X7UUDCZClfmWfxYjwy1cO7J5ag7BAntBUh9ul6rJbv3Mx8QwKutMfT7wIZMuHorwhh5MBRg9g83lS4Dzq/6/EhtI7shJNic7vXC/6PoZfWrdjYLdEzVoP9sxThD6sxvAUlJeCxXnndTGD/TJsNRLK4yNib/yuI5mRv3/ibk+D4sDAGCh1lnLSvKyhNmlaU4cPH50ctekdLpgZDytTsr0RKe7vVBbwqVDx7bfWrbLaJ2C1rN9mGz73pcO6KBSwXmeYpH5pp9tOC3zyLexshFoHhjEbWHXtDWNAZn0u5VVNOx2PTApUSzgvkOp2J7Cr747wtEGm4xdIesEXclbl/7f95vUOqs3xFUOXZXyKLXbU7N0h4WWjrPYOTUpd+Y6sJZynIP2R8Q1yJ/bwHpOAZmpgnm4A4E9aNR/iZI5XWjisk5JpQAqUN5XuOO39nFWc3ub37fwtNOzg6Kbj326aij6XkzMH9r5W+p1N57DUSVkTddwYqdDXliMjMz5Q==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(6133799003)(18002099003)(22082099003)(261009223027099003)(3023799007)(261022105027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261021121427099003)(261028144727099003)(56012099006)(10067099003)(261102123227099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261022113327099003)(261022075727099003)(261021123027099003)(261009223027099003)(261021135927099003)(261021133027099003)(261102123227099003)(261021130227099003)(261022115727099003)(261026121527099003)(261026135527099003)(261026130827099003)(261026140227099003)(261028144727099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	uJpRrt+q5RDkmo569ZqsMKckNRAafoqIpae/mlHaOG+PxQWmsf2o0yQ1SpsGFtT4AMGBAyWiVSkMFYVXvoeUvdHSwE0ukETSWBNoi6U6nqYoey7/vyBDqjKz0Z7kY2FlqXKAkYSKLLTiJj7LTqBgr/QJmVnQo0pRbxhXX9F4z4F5s1nZvHU2XCjV8PgEiZZ8zPc0nDygPZkdsvz3N5XFRiY6NZE4Qljp5soiK1ho+ebuKKvy8eFHs/LbLYajWEKAMeMNr+JoxuPBB+q6PDMAIZHKvPFQutIo0jt2WvEvAogSvcqo8koSBG105Q7i4UFwzH1zzNa6fQHMTg0i6HIZJMZFVAX7FKRn0Sz6HHw2sS38/XG1QkrnKy2bgYZkkAFvn3uYKMHDuypZF+RlgISw6d7/g0u2UBXKJUr0ugEP8qYju3JHxTJ+1LK5dIbfwugs
+	EOotTUiQCJcxtJj8hU2RQ90xT4h16WbvFELktEdqWk/M1+bsDgRTjYr8pAG1r6Agb0lOWmX2eSvdkt/USXu14bNbVKUIR4XiyFwnlAi2MLNPQQ4GwMjvryWhFEjLEvxHWHFaZpVXw9BHB1zdeFy8lIB0mshqOJ2tMZKYuDF57UW0fvcKV+emo6MWqmXj6/bavihX/u48dBirKNi6v1vVVGEMk6X+ePsvPM5+EQE1MTKstFdxzh+F2OtwVtUOG/jbeMiCYFrjJfOuEvamPMEKP1hsQWkxFlIS128LhiSvWFoFaXM/1iZQujnhvShWY7BWeQ3saT+1pyJeLB+oCC8G63k4oZwBaW3zLI1fvz819e3nTAqMwxO3q4OkenCTJAPcS1oz5frIYd2Jt4DnsLifHp2auiJvERA7ysvgtwV1nu1MJsn9CMzJgnqzUUYtFZ2N
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 12:03:05.5779
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 12:03:01.3185
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e1f3628-ac1f-4ae3-9e6a-08df3b34c014
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bcd906e-f2ed-440a-655e-08df3b34bd8c
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	MAD0EPF000008C5.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6200
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB6639
 
-The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
-exposes its backup registers through an nvram child node described by
-nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
-"#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
-
-st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
-into the DTSI made "make dtbs_check" fail on every STM32MP TAMP node:
-
-  tamp@5c00a000 (st,stm32-tamp): 'nvram@5c00a100', 'ranges' do not match
-  any of the regexes: '^pinctrl-[0-9]+$'
-
-Allow the addressing properties and the nvram child, gated on the
-st,stm32-tamp compatible so the other syscon variants stay strict.
-"#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
-(an empty "ranges" requires the node to match its parent) while the
-other STM32MP SoCs use one.
+Propose bindings and driver to enable TAMP nvram driver
+support for STM32MP SoC's family.
+It allows to expose TAMP backup registers as nvmem cells.
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- .../bindings/arm/stm32/st,stm32-syscon.yaml        | 38 ++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 3 deletions(-)
+Changes in v5:
+- include DTS patches previously submitted separately in https://patchwork.kernel.org/series/1176665/
+- Link to v4: https://patch.msgid.link/20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-index a559f8b03b84..51cb565e05ed 100644
---- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-@@ -43,13 +43,19 @@ properties:
-     const: 1
- 
-   "#size-cells":
--    const: 1
-+    enum: [1, 2]
-+
-+  ranges: true
- 
- patternProperties:
-   "^phy@2[48]00$":
-     type: object
-     $ref: /schemas/phy/st,stm32-usb2phy.yaml
- 
-+  "^nvram@[0-9a-f]+$":
-+    type: object
-+    $ref: /schemas/nvmem/st,stm32-tamp-nvram.yaml
-+
- required:
-   - compatible
-   - reg
-@@ -84,11 +90,37 @@ allOf:
-         - phy@2800
-     else:
-       properties:
--        '#address-cells': false
-         '#clock-cells': false
--        '#size-cells': false
-         phy@2400: false
-         phy@2800: false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32-tamp
-+    then:
-+      required:
-+        - "#address-cells"
-+        - "#size-cells"
-+        - ranges
-+    else:
-+      properties:
-+        ranges: false
-+      patternProperties:
-+        "^nvram@[0-9a-f]+$": false
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - st,stm32-tamp
-+                - st,stm32mp23-syscfg
-+                - st,stm32mp25-syscfg
-+    then:
-+      properties:
-+        '#address-cells': false
-+        '#size-cells': false
- 
- additionalProperties: false
- 
+Changes in v4:
+- Make usage of of_device_get_match_data() wrapper.
+- Rework ioremap of syscon's memory region to avoid overlapping 
+  between parent and child node. This allows to remove 
+  bkpregs_regmap_cfg declaration for both STM32MP1 and STM32MP2.
+_ Add select MFD_SYSCON in Kconfig.
+- Link to v3: https://patch.msgid.link/20261016-upstream_nvram_reworked-v3-0-f65908490cf7@foss.st.com
 
--- 
-2.43.0
+Changes in v3:
+- Fix issue found by sashiko-bot:
+  - rely on the already resolved priv->data->nb_zones instead of 
+    of_device_is_compatible() to set priv->bkpreg_access
+  - Fix max_register of stm32mp1_tamp_nvram_regmap_cfg and 
+    stm32mp2_tamp_nvram_regmap_cfg
+  - Update zones_end type to int*
+  - Replace both memcpy by put_unaligned_le32 and get_unaligned_le32
+  - Link to v2: https://patch.msgid.link/20260930-upstream_nvram_reworked-v2-0-cfda749ee0b7@foss.st.com
+
+Changes in v2:
+- Update commit title of nvmem dt-bindings's patch.
+- Add required compatible for patternProperties in stm32/st,stm32-syscon.yaml.
+- Fix issue found by sashiko-bot:
+  - Add freeing compartment_owner.
+  - Replace regmap_read/regmap_write by regmap_update_bits in stm32_tamp_nvram_write_byte().
+  - Update error return in stm32_tamp_nvram_read_byte(), stm32_tamp_nvram_write_byte(),
+    stm32_tamp_nvram_read() and stm32_tamp_nvram_write() to return the actual regmap_read() /
+    regmap_write() error instead of -EIO.
+ - Add freeing field and update error return values for stm32_tamp_nvram_get_backup_zones().
+ - Update error return for stm32_tamp_nvram_probe().
+- Link to v1: https://patch.msgid.link/20260910-upstream_nvram_reworked-v1-0-521c16175cef@foss.st.com
+
+To: Simeon Marijon <simeon.marijon@foss.st.com>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Patrice Chotard (3):
+      dt-bindings: arm: stm32: allow TAMP nvram child node for syscon
+      arm64: dts: st: add TAMP backup register in stm32mp211.dtsi
+      arm64: dts: st: add TAMP backup register in stm32mp231.dtsi
+
+Simeon Marijon (5):
+      dt-bindings: nvmem: add STM32MPX TAMP backup registers
+      nvmem: stm32: add TAMP nvmem driver
+      ARM: dts: stm32: add TAMP backup register in stm32mp131.dtsi
+      ARM: dts: stm32: add TAMP backup register in stm32mp151.dtsi
+      arm64: dts: st: add TAMP backup register in stm32mp251.dtsi
+
+ .../bindings/arm/stm32/st,stm32-syscon.yaml        |  38 +-
+ .../bindings/nvmem/st,stm32-tamp-nvram.yaml        |  57 ++
+ MAINTAINERS                                        |   8 +
+ arch/arm/boot/dts/st/stm32mp131.dtsi               |  34 ++
+ arch/arm/boot/dts/st/stm32mp151.dtsi               |  83 +++
+ arch/arm64/boot/dts/st/stm32mp211.dtsi             |  31 +
+ arch/arm64/boot/dts/st/stm32mp231.dtsi             |  31 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi             |  31 +
+ drivers/nvmem/Kconfig                              |  11 +
+ drivers/nvmem/Makefile                             |   2 +
+ drivers/nvmem/stm32-tamp-nvram.c                   | 680 +++++++++++++++++++++
+ 11 files changed, 1003 insertions(+), 3 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260909-upstream_nvram_reworked-f84a4b37817c
+
+Best regards,
+--  
+Patrice Chotard <patrice.chotard@foss.st.com>
 
