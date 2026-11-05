@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904957;
-	b=Bl1qnlrIqvz6P0tEl+Qfn6zOgwR9LLJC7r/Vy+5EUnnFlbkgC0DOQxG0EyqDhxLxlln1
-	 VFAV2OiNOx/+nBZ2aRPxvzRb4gCd1WWXsVV8NMfhTYfbHfkVUMfSqhCJPzFaoPGZa364H
-	 r/aDygzIQ1eVRmqJURtTM2bCjAVTFjgyiRtpt7YOwUtr8aE6VQATnyiLoilF1B6Kycoks
-	 gPMiPhavEeItIqzsvI3Eiiva2lrxA6cnR5QtjTmMFzA/aR0W2IfMzgG/x+XfL9Ka7LguM
-	 w5VwpvM5B8K+tvc5YusiJ2AADXw9YwWHSzCkIb+hr0a+7WTgwK7tT69RiOyiQN8EXVQ==
+	t=1793904963;
+	b=JgTgGhQboTfDK7WPGsDXv4c5zC8nQS0OAsLr7M2NRUJBH4+LQMdfmMyD/9UYmTITVVzq
+	 Fnehxmc0QjdO4VTJ92oRDqCD8/nG+Dtb/dEB3HG2d17Hctpz+rT3qI4l9fQTrTA6ZEZlL
+	 LbBdSc9alXE9ncEz3swU3OwaU9CBlvb1I76F6vOryjq1UaigGvpbf1tBTLPeRpUAQ4Swf
+	 +WU/gm99aoo0lm5PxHxbClz3FSQ1KdvPD3efAQl3on6dKX2M3D5nVfMSegRuEDetOVLfn
+	 y2F8Hv0bgQv1PuI8GKq72+8XeRitEsrXOkndcrmMnuxmUhPbUmwFBH658POSewmA+Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904963;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=GNH0XGnfrH2iAn+70wl7xaYoYGRxFKFBAJ40rbga/P8=;
-	b=dsXVqprf6O/jO1xIc8JpSJioFHKaBDmGgStCwjJx6ake25M8ghjwiB6n8pWAclYr8X7z
-	 HFGMw2+9Xg6x/ZfBo/LEDYXKs3rOHABidnpdtl4zw6ybrAkYvr04gsuP0XV9IBhIl211r
-	 vMAPSdKzODYomoZTY2bqn2SO40h2a3TRJJHmil9p/GIqsQR+9FtjtzCiVuukQUE1WX8C9
-	 lWhbmkt0mIC1Q5UWuUpmvYUNemgeprilL62YcfaHGyuoyeXx95TXSpwCY0mbJSPcWrfrE
-	 48PIK7TaFHz+8QU2yB7PWRubT4dk0JulPhx5liKYhqLEfha+GJOhQMhLR+jeDjb6cUQ==
+	bh=fuAnLXLxkTRIWi+f3sZBwdM4q2MUL37Wpqf++mUfWMk=;
+	b=fuPTDyG/4Nboiw3fxsR2PDu2saIdZFXt46ThLL5jYCuMeCYtnBspu6rjk67wIXa+rhYF
+	 O8NIDwgwKsSe0Fa8W/UgdnbXO7yYNVvowBISTc+CP7BMPdAZJ5S9kj5dY/417BaTg2jLb
+	 HQxVmXO8x/aNjVWMLFeqkvi/uQoAgpquEUYWsFWXfxHuF0i1zUe4G5AnoFBEDevrUS1ME
+	 3SaKAUiSu0Qng7UT3Mb4xuB467o6uZYKmcoKxA3/2J3Ma2ZkY/qvdiS7mLR8wfJa6Tkcj
+	 ZnCzjOx34VGvW7uz11aS+n3Z/IuMGCitOshoVgzruNNoyeIra8dEu6X2Maqws1fbEPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OrjVBdin;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tzE9vvoW;
+	arc=none smtp.remote-ip=209.85.161.41
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37402606EE95
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 18:55:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37402606EE95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F48C606D80E
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 18:56:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F48C606D80E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OrjVBdin
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-716c0217635so977736eaf.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 10:55:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tzE9vvoW
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-716ea2598eeso24348eaf.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 10:56:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793904956; x=1794509756; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793904962; x=1794509762; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GNH0XGnfrH2iAn+70wl7xaYoYGRxFKFBAJ40rbga/P8=;
-        b=OrjVBdin07U0hmKvCMZ9PMclAx9H4+yb9/A04IwZlo6oZFG5NB6iWco4v6CHg/IClY
-         pIaoXTlQypSazq/H1ULpg60jyWy+B7KRZxz1QbtIHyaen7/OL/0T/r1S95pK6Y82E18N
-         yL7kOJN4qP8JZp2qbHBNRM45dxXROLyqKRUJTTROMXNH8Bnb5pPW5IwnpVQmZz/77bQQ
-         WKsQJ2njmA09y41Ri/qD/jjzZ3FJPfnLKnbvffsAd8d3Sdt5B8LG3PknEfGep/7HKDGH
-         vp/plFStZGbyIgWPdBsakRnDF2Gj75N0yHUcdMst/7zmvTo12G5aUBrwA76Mw54noigq
-         VmYg==
+        bh=fuAnLXLxkTRIWi+f3sZBwdM4q2MUL37Wpqf++mUfWMk=;
+        b=tzE9vvoWdwUEP8232GMXy5iPK/RwgbnZdEPSEeYdEQ3dG/wXcDgCtl4UtWr3Ny9KmT
+         I6I72gq7gx0bkb/QHwVRnzAV37IYydpoOcVLmTyDHlKucSTTNAuKloUFoTAujYWSxFKb
+         p2T6KvpOOAnXCh8J76LkH5LOx2BfFjoz89f30Q6gjrvOyaWV2vWZFV2j/9GwKi/6rWRH
+         ayfhPr6aEDNyFWGKkzjyA0hR9NTmIiDCWLFlvrkyUejKAowvdtJ2ZZOISXSO/XyMISPn
+         E+Ca6uAJ4rd27bE/0Bt1YUeTGI244/qRqAFBzaSi9I+LR+W/d9mm6wgp2EXQ5wTqgKpr
+         f3Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793904956; x=1794509756;
+        d=1e100.net; s=20260707; t=1793904962; x=1794509762;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GNH0XGnfrH2iAn+70wl7xaYoYGRxFKFBAJ40rbga/P8=;
-        b=IomRNkNGxOW4sG7fhEDgesd8SfCTRuBkFx6mizQPE7PMl9aX6QXg9ov60PhHIS1RXl
-         q/RWMgBDu6a5e+w9VhBaMVrCd3oJHZg+WgMIaVqX2FU3fN/qubjHfNPQ+LXykANLfOgL
-         zxvT17x97+eMSLei7A4fNgGGQ7unHNia9RWeJjh+N6HY9XmI0VHfhNzMRMyCU1bs7d80
-         BkyIv5xR92/QXjWBECuCfyUpqE4qwxLXEf5U2lV7ztPMy+rhOi2YxPMrKWt8KRAXKEBW
-         /TJA+bKbE8i1x81LLV3T2ElGDpYAFJNkVIJI3MDDWJteVfsmpBi4LliAkHor6aOHnJZ/
-         6enA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+Gl5bAAgH+sg7ms1wcjqNEgOPqT/7JcmlWGWVWQHcmqmr9onWE8alL5+tXxsHmntar9Q3lu7MVr/L@vger.kernel.org
-X-Gm-Message-State: APuU4Z+S6MoIQqMifG/jHLqvL4JD1hF0GjarUZUdJxFObmTw1wPc1i+K
-	N1b8ZIsibKgCdC8sjc6Rj8OJIFxRlWyzslMKJJQH3MNTy5AW2/GSCWp7
-X-Gm-Gg: AYBFou2hL5lj2ioijLA9JpFqs2YvsQgwlPDbR6Hv03U8VbdeQeqxKHe3GY+QFhMCpf2
-	WBE5XDeL7bvZdWP2bYoC0c61ok3CwmIT6NX875zpLT1MySjrSqUJU/o4kIznwtC5G0vH4z+Colt
-	hxUkoy0H6c8Ux/IlPXS305YOjTmHovSGaglPnWK5yqV2MpfEMjDw5KIVnsjDqqEecP7XePHZ9sl
-	h1EUTNe20dZGLIbb0+DXtT9/GAPGZMNxQy1Xt/+mLNZB8Xt1zltmMir9C5xtITC+Fs97wodhF9T
-	onX6+E/rNKCJXCjw+34bgOj5WNjZf/3h76UT4ai1fu/qC9ffZyKCDcGvHWYtHqfTpEVdnHjt9Np
-	pcDRJoOp3hy71QaXicN2RmGPMbZ9ZhFOo1qHfqBcYwZ91EY3lmj1NrI7QasJlg2TJdHbQ9FsQfH
-	rtJ5r195IxMr2GLFEH+90PxKxlBEyFLym93OZE0ZevNjKLw5l78eEF/HK3CQRgnhKQ8jy975mL3
-	m/MzV55tRIMYhXpOtmigOv3Sx+YorpNcj71vk2TdWJ6LsF19byvTQ4zxmEHq0OikXJcbDJovGtd
-	KECo3civLicqgrTo0O78602d56UjF29XQrSlSigjCYOpMTuot7MuuEPBcFGgPFO2yhyR8zAwKId
-	/KsSksBy5tBeZAIKuGOLDlw58tluSvfVZOMbIipIiHz3Zky81ZYzMKChMHiNuqixoERcypH3+wq
-	UHjXImceCCU8MIS1cmL+SoCWlGE2eqEsvUL5NhJSXpjHlNgHYsZBpcGg==
-X-Received: by 2002:a05:6820:a03:b0:6cd:3fdc:2669 with SMTP id 006d021491bc7-716e79e8336mr261121eaf.42.1793904956099;
-        Thu, 05 Nov 2026 10:55:56 -0800 (PST)
+        bh=fuAnLXLxkTRIWi+f3sZBwdM4q2MUL37Wpqf++mUfWMk=;
+        b=eqyOSalG5eukBe+/gFYOwDbJ2PY6i3OZxt2SpQrMcv4CR2FH73oK0g98EBvHm9GtUq
+         Im8JFz+zYGEtAdUNouqWZ0Zq5I2LA2+VIC1VKvg9EJUiWVYbRLDDsX+Qoveb3ujAXw2y
+         zLCQR7KQRCJLQ0Ogqgbua+Wh24EpM+YSJ/MckmaoQ8/jroe3Asbt3nkDSJ+gzo09eUH/
+         llfZIwUbrg8qBnCzlRxHbF5nATDJdB+6Kc2uC6ZrDDg1/4dHYdIeUNRJMf/5YnoVzH13
+         MNnSrFK0wYoIKyzzu+sKVIsYOAdpyPHDT4X4g5vd4lcddWEP7Y3F9tI+TOYSs4b2UZlr
+         FOTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbFtrinEOL71XvhImF2ZdXDZD8GcqQnjLpPNbhHdBdgIgklX37I828Gfwbc3dWrqRwrGNIXuv6Ab3D@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gVAeTtoGVHPdWeA8r+QcaIop9ssO7ymYavZbppppVWdyv8XYE
+	6LMUJ4lySk83bVOFVGYg6BFmFeMoV3I5hHcOFo+kAMIXQWn0f5zkhtgb
+X-Gm-Gg: AYBFou0/oYTwU5rb/OH30BuDplf/TPDFaOXJG28uEgNuCZrZvRgr1Zv512nSN5e0/97
+	3ywKw5jcZvCkBzjRQ4gJ8I9GUJVSFzQM8zXlZmwmxqTddrnGJAXZ3Bgr+5fQ+1QQBS41jKuZfeG
+	4XgLGeBXiM3qIPvPEAN/iEe8f/Ms9HZqJP6diVJuORb3xHrrRCn0Ou0BPeNL2wsbTIsHX3vZCdm
+	Z/WUAiuwnWdAUB49443SnfgiqtV1kbuNu+ehqe21IcMY++msMGNSp7rlmr1q6ez3gmiaF9/qApB
+	uZMhbh80mHJqfneMOPIi/49UkOZ45kcwufsqkzzr/xxs+d+1+K0qgzoaMqEL+ZnzAzBS7RZIO+V
+	NN6I1Nm+DU9AKYBAREgKJPZbELoTlmMYylRMz2U9bTr6A1OxQl7aQmfU71YjVJhLADhpq5GOK3l
+	Pu/wdplrsJ4qPGUpc03vzj26tkxgSESMMYB7tGLf6DV5D9LNnBmfIkx4O7eOjatJPsOk2t2ddBX
+	+fc7nuTIOsm9gKxcdNTQS9XCDMKQRPBwgbfirnU64Fn9AgJqW5YjHy3r7lRxrCW8qoITmf65qSP
+	bYrxEQWkt6azdmkOxZlU5C0wtL3v/bz3+Wpa4cDTSK2rkbaM9BmdpTgBHY9XQ4csaBQEvSb+7Qm
+	gyPm6YDtWbJgxIF2MJTSGQCN+VMRby2/1nn1PXvg6rz5leJPl3L8Q6+pBFo+lJcGgiyTK9fV/+y
+	eCiQRZSX1LtvkCQN7x1KSRg2TVbhA2iLEIlPg+e2hy9gzYGObbXlAx
+X-Received: by 2002:a05:6820:c91:b0:706:50ad:fd7f with SMTP id 006d021491bc7-716e7b33226mr291273eaf.87.1793904962431;
+        Thu, 05 Nov 2026 10:56:02 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716e99465dbsm115897eaf.0.2026.11.05.10.55.55
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716e99465dbsm115897eaf.0.2026.11.05.10.56.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 10:55:55 -0800 (PST)
+        Thu, 05 Nov 2026 10:56:02 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 05 Nov 2026 11:55:31 -0700
-Subject: [PATCH v10 15/26] mtd: rawnand: sunxi: send all address cycles in
- split operations
+Date: Thu, 05 Nov 2026 11:55:36 -0700
+Subject: [PATCH v10 20/26] dt-bindings: mtd: sunxi: require the H616 AHB
+ reset
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-15-dca1f6ed29a8@gmail.com>
+Message-Id: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-20-dca1f6ed29a8@gmail.com>
 References: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
 In-Reply-To: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -118,39 +118,33 @@ Cc: Chen-Yu Tsai <wens@kernel.org>,
  devicetree@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-nand_subop_get_num_addr_cyc() returns the number of cycles in the current
-suboperation, not the end offset in the original address instruction.
-Comparing that count with the start offset plus the loop index drops
-cycles when the parser splits an address instruction.
+The H616 NAND controller needs its AHB reset to stop internal DMA and
+restore data ordering after an aborted transfer. The controller's soft
+reset alone can leave the next read displaced.
 
-For example, an instruction with ten address cycles is accepted by the
-parser and split into eight cycles followed by two. The second
-suboperation starts at offset eight, so the old loop sends no address
-at all while reporting success.
+Require resets and reset-names for the H616 compatible so the binding
+describes the reset needed for recovery. The existing H616 SoC description
+already provides the named AHB reset.
 
-Use the returned count as the loop bound and retain the start offset only
-when indexing the original address buffer. The parser limits each
-suboperation to the eight cycles supported by the address registers.
-
-Fixes: df5057999f8c ("mtd: rawnand: sunxi: Migrate to ->exec_op()")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/sunxi_nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 54377f1789a3..0b92bbe19c0a 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -2518,7 +2518,7 @@ static int sunxi_nfc_exec_subop(struct nand_chip *nand,
- 		case NAND_OP_ADDR_INSTR:
- 			remaining = nand_subop_get_num_addr_cyc(subop, i);
- 			start = nand_subop_get_addr_start_off(subop, i);
--			for (j = 0; j < 8 && j + start < remaining; j++) {
-+			for (j = 0; j < remaining; j++) {
- 				u32 addr = instr->ctx.addr.addrs[j + start];
+diff --git a/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml b/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml
+index 9d061e2216cb..ccf616fabc91 100644
+--- a/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml
++++ b/Documentation/devicetree/bindings/mtd/allwinner,sun4i-a10-nand.yaml
+@@ -119,6 +119,9 @@ allOf:
+           minItems: 4
+         clock-names:
+           minItems: 4
++      required:
++        - resets
++        - reset-names
  
- 				addrs[j / 4] |= addr << (j % 4) * 8;
+ examples:
+   - |
 
 -- 
 2.53.0
