@@ -1,51 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910159;
-	b=h5pLAn5KwjfvPzoqXBAgT/xQkcBj9Qa+/wCzZ2hxPZbIuNLx8XS67Rtwa8rso8XTef9d
-	 JZ0iLTz30D6XEylqiyoxBrzohpndtZaNXGtbAI8//P9pxj8h3c0MMB2tlgRI7dzfMrUOu
-	 WUs9eISCSjWTFeiArXwKWGNVCYaDEADUcVj7+fQQLdyLdAz2jKXxDJrq1kDKQ4yh7kKDQ
-	 AFNEwGHY4zYOkXDGFc2j+Si/8tf2ToaJ7Rw2DPSu0gFHSF7gXOcd71ThhhQuYNk5V8lDB
-	 2IC5vJgv9KTDR73B8eSUVKpGGjMeOd0x017ptqTaLNgCpa+oVmtwEYgA7/p2VimOxWw==
+	t=1793910211;
+	b=LJKV5s1uF1br/fGyLHMSLS24/BnOd4JZs359Tq0NfhwoAKNUy1okm6zw8ajN3cV6RgSe
+	 tpppGY5DB1Zj2Bwnv5I5iYfdRhU5v0+Vd3bExHH1cJ1mMUVlTPQJaOj57gc3vUQ/T7zCC
+	 nqjOZXmoHkpURHkkbodxiZ6vhBWKmR6etumQxyOqHc9DUcGEi13vbVLEjoyPR5VlhsjvM
+	 7JQW787N9dRHdBhegcGyf7ceqgRZ42QTCoyQFrY+Xfiwr4qt/m0ammB4WdiZyBXQ/MrIb
+	 4O/ODtpzf4+R3SRTlPGFQ/L3Y5MJS1nvrERSeF0I3+6+ShXN4Snolxmz0RDYLahmdHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910159;
-	h=DMARC-Filter:From:DKIM-Signature:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:To:Cc:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=8KU9VBlCsvNAm+/QyNZkHl253tw2+cQljJ+6DtR2vJM=;
-	b=zpnRedFkHoEswBTtpfGtaxWMtTCTfm0SEb38Jrcp3jyCulXAOiSgfrdMi8/oZDwE8w6B
-	 R7Q9qRVeHU5VXZohAX4Levl3pG99PvmupiUBRybixbZTevTcKW0cC+dLBi06qnhu5/svB
-	 tl93R/D4XzYwJrlalBCgMsB18r3dTcaZLIbPBigFn4g5f9amA83hCRFARZ/Ue4EafGsTs
-	 GgVQinEoyYR7SgQsaExJlGMF+YmBUC8jPk8yeEUS+9y4Dn5MghRA4c9eCn3wOdfIz3jaO
-	 Ohe8OJC5qzLF/Y4ZqEHKUnWsunsQcB+3wS6G5qi/ifJC5KAfFs62rtCtm944gagv/Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910211;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=EW+t71jhy7LMxyaA2zPHlVI+DPJ5VusFQchtnKOjjO4=;
+	b=XCogHgPW/DSpv7BMVSkXfirB0hojc0L9frQe5ntjBaMCR64JvXYbMocp2IYAuZMd8x1O
+	 hiNpzYqzee98ITXIAOxpnv5DkUmzTWib3eGxON+G36aEgPKkOCuhd0IueDu81zdGY6rmI
+	 D/T8HPPdP4uN6JqTbVsd0w1ilRKF8vrK+88rn4d4kY3P3BRsJK+y0l+Ciqe1OhotevUIA
+	 v9iLbPL9ehCkoUPCUSxt+MIigqUQdgADrQTfPKCivAJ75TkfMYC8gAFM04ZBvCg+RC2Xe
+	 Sh8dpOpFAXuxQA2y6ofsctLpLXKBj4GEcrXtMVphuN+txS5dA7EydGt1z3b+zG6zRDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fhannenheim.net;
-	spf=pass smtp.mailfrom=fhannenheim.net;
-	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=Txf8t3Ul;
-	arc=none smtp.remote-ip=188.245.251.181
-Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WtYRHUl/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B1F606A326;
-	Thu,  5 Nov 2026 20:22:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13B1F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F80A606A329;
+	Thu,  5 Nov 2026 20:23:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=Txf8t3Ul
-From: Frieder Hannenheim <git@fhannenheim.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
-	s=mail; t=1793910143;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8KU9VBlCsvNAm+/QyNZkHl253tw2+cQljJ+6DtR2vJM=;
-	b=Txf8t3UlLgeHlaWECpylZ9qjhKQAZQzmfawDMjFwmfKyZ+Lbic3AjNO/fkECUw+GEK/NEf
-	Wn1vmbDy7P3SpIZifKdku4Ajfx86vpXIg1tbcw4T90dyfIXXIGWA1XImPaWgecVcgA8Yf8
-	9u6bv0UWPbzf5UL7mxA4eTndSVBBvZI=
-Subject: [PATCH RESEND v4 0/3] Add OnePlus 8T
-Date: Thu, 05 Nov 2026 21:20:00 +0100
-Message-Id: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtYRHUl/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698F61F008A1;
+	Thu,  5 Nov 2026 20:23:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793910210;
+	bh=EW+t71jhy7LMxyaA2zPHlVI+DPJ5VusFQchtnKOjjO4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WtYRHUl/waP6OoYRdcQo/GE3JvGS8fKocRo+cJOuPumx17rncEQclB5f8h6X68j3Q
+	 RW729mDnYA33mXjmRcPotZRj7xg011VRnbjMvwfcdijHAl9yl0tke8azO0LeAPVmCY
+	 JG7dkMPDjpaxxx/sgbJfnjuEQkPQaKzIGQD+NG4n2mTtPvNGx8v/rf/OejnIoAyUsO
+	 DP8dyNV6cLmeEC4F8jU09BY2MZ6eDBNCSEVd+PzH32dMzkqrvMxvamTQdtfJ9p9aZR
+	 s8NVrboS0XwdAsXv36hp3JILfnfsthzQFZQTrXG6FmQv5QOkrKI4li9q77DnH3em8B
+	 yLVv1IovvmBvw==
+Message-ID: <53323b7e-5169-4a36-a051-ed1eb1718b7d@kernel.org>
+Date: Thu, 5 Nov 2026 21:23:20 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,81 +51,165 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: soc: introduce
+ toshiba,tc9564-config-syscon.yaml
+To: Alex Elder <elder@riscstar.com>, sboyd@kernel.org,
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, p.zabel@pengutronix.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, fabrice.gasnier@foss.st.com,
+ alexandre.torgue@foss.st.com, marex@nabladev.com,
+ changhuang.liang@starfivetech.com, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261104004332.2141282-1-elder@riscstar.com>
+ <20261104004332.2141282-2-elder@riscstar.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261104004332.2141282-2-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>, 
- =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Frieder Hannenheim <git@fhannenheim.net>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2187; i=git@fhannenheim.net;
- h=from:subject:message-id; bh=/E0vGSITPd4LMa8OW7kOh4TcQjh9SDcCd6ZjfaN4N14=;
- b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFlvnqor1p76HPFoRWK55iZOP7n/P/c+nfLHrdyB9+rD3
- slXz8uUdpSyMIhxMciKKbI4T5f8YV8prKMf/k8RZg4rE8gQBi5OAZiIvjfD/0AtnsUJshO2StrG
- 6FwxvhpkIhXEu2LWUo8VZ/88Unblt2NkuNqb8o91qerB1U1zrbea/b1Yydi1ukYlKlqT4eIZzZx
- 2dgA=
-X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
- fpr=439719F83F79132C2F57FE216C0173C8B7931E53
 
-Adds a basic device tree for the OnePlus 8T (kebab). Common
-values for OnePlus devices using the sm8250 SOC are defined in
-sm8250-oneplus-common.
+On 04/11/2026 01:43, Alex Elder wrote:
+> Define the binding for the system controller that implements the clock
+> and reset controller functionality present in the Toshiba TC9564 SoC.
+> 
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  .../toshiba/toshiba,tc9564-config-syscon.yaml | 68 +++++++++++++++++++
+>  MAINTAINERS                                   |  8 +++
+>  include/dt-bindings/soc/toshiba,tc9564.h      | 46 +++++++++++++
+>  3 files changed, 122 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
+>  create mode 100644 include/dt-bindings/soc/toshiba,tc9564.h
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
+> new file mode 100644
+> index 0000000000000..5a241a9c915d1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/toshiba/toshiba,tc9564-config-syscon.yaml
+> @@ -0,0 +1,68 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/toshiba/toshiba,tc9564-config-syscon.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Toshiba TC9564 Multifunction System Controller
+> +
+> +maintainers:
+> +  - Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> +  - Alex Elder <elder@riscstar.com>
+> +  - Daniel Thompson <daniel@riscstar.com>
+> +
+> +description:
+> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> +  upstream PCIe port on the PCIe switch it implements.  The switch
+> +  includes an embedded PCIe endpoint that provides access to various
+> +  SoC peripherals via its BARs.  These peripherals include a simple
+> +  controller to gate internal clocks, as well as a reset controller.
+> +
+> +  The clock controller uses registers within the same page as a reset
+> +  controller, so this system controller controls access to both.
+> +
+> +  A total of 21 simple gated clocks are implemented within the SoC.
+> +  At this time, support for enabling and disabling only a subset of
+> +  them is provided at this time.  Similarly, the SoC implements 13
+> +  resets, but currently not all of them can be controlled.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: toshiba,tc9564-config-syscon
+> +      - const: syscon
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +    description:
+> +      Clock ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
+> +
+> +  "#reset-cells":
+> +    const: 1
+> +    description:
+> +      Reset ids are defined in <include/dt-bindings/soc/toshiba,tc9564.h>
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - "#clock-cells"
+> +  - "#reset-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    syscon@0 {
+> +        compatible = "toshiba,tc9564-config-syscon", "syscon";
 
-This basic device tree brings up a framebuffer, UFS, battery monitoring,
-volume keys and UART. Further functionality will be brought up in
-subsequent patch sets.
+I disagree this to be syscon.
 
-Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
----
-Changes in v4:
-- Order my signoff last in commits
-- correct sorting of dt-binding
-- Link to v3: https://patch.msgid.link/20261017-kebab_dts-v3-0-5fc3ca52a383@fhannenheim.net
+This is internal to the PCI device. I read Daniel Thompson answer:
+https://lore.kernel.org/all/auOI8LbZNWbNGJuN@aspen.lan/
+And I accept arguments that you want to re-use a lot of existing
+bindings like DWMAC and so on. Syscon does not count there.
 
-Changes in v3:
-- create a new commit for dt-binding addition
-- reorder /delete-node/s in sm8250-oneplus-common.dtsi
-- remove prototype revision msm id
-- remove zero-value board id
-- reorder pinctrl properies with name at the end
-- alphabetically order volume button nodes
-- rename vol-down-n -> vol-down-l
-- remove zero ecc size in ramoops
-- add comments describing reserved gpio ranges
-- correct pm8008 pinctrl
-- Link to v2: https://patch.msgid.link/20261015-kebab_dts-v2-0-e783463bffd3@fhannenheim.net
+I remember you posted somewhere full DTS, but now I could not find it
+again and I do not see it in the cover letter here.
 
-Changes in v2:
-- Add dt-binding for oneplus,kebab
-- rename power button gpios to match sm8250-samsung-common
-- remove unnecessary qup_i2c7_default and qup_i2c7_default nodes
-- remove qcom,kona from top-level compatible
-- enable i2c2 and add pinctrl to pm8008
-- remove unused pinctrl node in pm8008
-- Link to v1: https://patch.msgid.link/20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net
-
----
-Frieder Hannenheim (3):
-      dt-bindings: arm: qcom: Document OnePlus 8T
-      arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
-      arm64: dts: qcom: oneplus-kebab: new device
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 607 +++++++++++++++++++++
- arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts  | 130 +++++
- 4 files changed, 739 insertions(+)
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20261015-kebab_dts-f13f9665e9fc
+So again, why does it have to be a syscon, which is pure
+internal-register-access thingy?
 
 Best regards,
---
-Frieder Hannenheim <git@fhannenheim.net>
--- 
-Frieder Hannenheim <git@fhannenheim.net>
-
+Krzysztof
