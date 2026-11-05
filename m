@@ -1,57 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897111;
-	b=xKhedoYr10oE7gTZc6KbnRhkt/11F5PScD2az3UYslJaKWJ47df6DHQal4Hs440qHTUB
-	 k2kTmOEPcKKOEZHToJZf8CFWagWQSHKkepRtzPTivwVm/JKi43kVQYd9GswiqzadosNxG
-	 ItManaiGsALo+N9Prwokc41X5guh9oHGUGzi105wcT8TmXx8x3/lwhFDVIX5z7fITRqSE
-	 gsUHBfJE39MWUKvhvrs2BIY98f6OPD2+kPaoBDXRJiRTNHQ5EFks8NVs0FDQzbIoQl2qt
-	 AZn9fXaCfQsXsU0Ep5WP9kJcMXGKVCR3yAL3d6aWrIP5swa2m86Dz7Wx3WL5mCWYZZQ==
+	t=1793897438;
+	b=V6CyyDhvaYWYrT0UW21KbBl0Y3xOON+39PvINZif3rqBsx5h9u5VbWfglRd+NpRo2nZZ
+	 /7pO+240hHTkJYSvrIcLYpdnKEb0tifxd+Hvhe983pCX2n/wPi4oO2lumX1tlWxvBSsSP
+	 CU285vX9daXp6pw0Q8ZRRBzlUWJoOiC7OinnPZJdvrBFEB4rcDgms+zYuTu6eauIL9qkD
+	 AQSqgzAED523ulTr+FD0mqTJ5YOi/lgEOCOC1zQs0VXYvzCe42zfuquUu4MIqri8KgY+m
+	 wi05ce15MzEBd2AlcMnfONl2qezJ89wJMsTU8HMrVsCkDe1IDtxny9wWX0YFAxbM61w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897111;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=lcWS3mM7T+8n/U0+o4X26sVqge8x1PjsV6A6vYeShO4=;
-	b=MKyr/sEg7AIYByPbcVVO4K4jMV5pHC4xuAr4WCIJBrOiBOwxGnKL8TrBGs9sv8yTiZhz
-	 nm0evpW85YAhSKzFoaHZZdYd2CjHsuE/N6w4YqbkWsP3ONpdJxeb+a5hTgoGDFz0qYxlz
-	 jY62DCaHXE2taXvGUv3Vx7yuOxyg3YHIp1vF5CR4j3w/mnlYvA+WRvOH6ROf5+9XyFpy/
-	 KA11JSv/62032oyv0SR22FXRR6+zORQDDMi+WOeNwlh+DC/hvytoToIT1Z8Flert7yBXL
-	 xEOWMM/U4Hhq12LDiBKpRGOjHDCTfZKlGgtwDNo0eY0KzS6+xWGM4lQXaCfH5NlFbFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897438;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=5Zwkee7Eda/oQ5obU9MTZY8ne/gaSD2tfbbvFVf8sL4=;
+	b=cl2/lKZfdhLxLgHz+/o+QqHnEbr4tgFTD4HbuoJHhfdzb4WMSEF6BcBugJSD6iJsa0xK
+	 a5JxLFaRgCtAVFs9T3B6BKsJG/hdjR+lHYMHGEmXZ7/rJ7ffy0xfAvbhFluHllw65uDvC
+	 EIOWHaphmXElaMrEosYdRC1/9v6Zps5Xt3adqyg54AgnSGmIJw1ELOYXKxv4tmRedgEG8
+	 tBG5Ba6Xsj+ZRZkY/DJWWbxGaWDIXLUlRpCfD/5+6etrjkKEei2MvlDC0nSphsqlIBUst
+	 HF5yGIIotkmZk/DrDrfoCM+HCpBhZQodkhxU0NJqMxH9kfaa6++b+W9tBW+hrdXG2Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mg/OuWZn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bIOcdG4J;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F629606A336
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 16:45:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B94606D807;
+	Thu,  5 Nov 2026 16:50:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B94606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mg/OuWZn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C277C1F00919;
-	Thu,  5 Nov 2026 16:45:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793897111;
-	bh=lcWS3mM7T+8n/U0+o4X26sVqge8x1PjsV6A6vYeShO4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mg/OuWZnhYSnvU3+t1WtlQ1iFzTc9rSOFUX9vgTcCx9IscC3ljdAigGHkQM4Hek6q
-	 b1Xi/ECkZGP5jTTMvGdeDf+lX4UnMhMzSx1UHJZzCiPe4ZHdz2CYtWNw9avXXJ/ak8
-	 NgvgVEZAsGFv6dsEcie+USS4fZTWwOxggw48XskICy5rp1xcvUiIcmUQdnKq4gIlIW
-	 WqsR5oRnkShHUmhO60Px6LS6KNXH6hL6F9de+MBPrEsvL8/rm+xcbx5VLhG1RXLP6P
-	 4yIRevlyhMp0UKukqafbUZTQVClHfSXtQyYemoiovN0OWCyFBxBMoHsR2h7kbjTCCy
-	 hoL3PYbDU/pNg==
-Message-ID: <sashiko-outbox-199523@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 RESEND 5/6] firmware: smccc: lfa: Register DT
- interrupt
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andre Przywara" <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102165421.3651202-6-andre.przywara@arm.com>
-References: <20261102165421.3651202-1-andre.przywara@arm.com>
- <20261102165421.3651202-6-andre.przywara@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 16:45:10 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=bIOcdG4J
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id DCFD8A8A1E;
+	Thu,  5 Nov 2026 16:50:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id E64E280014;
+	Thu,  5 Nov 2026 16:50:20 +0000 (UTC)
+Date: Thu, 5 Nov 2026 11:50:19 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andreas Schwab
+ <schwab@linux-m68k.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Andy Shevchenko <andy@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches
+ <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook
+ <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Len Brown <lenb@kernel.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>,
+ linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <20261105115019.2fe7c91b@gandalf.local.home>
+In-Reply-To: <auyuINXEJKc1KoG7@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+	<9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+	<20261105111423.360f4ba8@gandalf.local.home>
+	<auyuINXEJKc1KoG7@devuan>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,238 +78,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: E64E280014
+X-Stat-Signature: jt6ge55y663npwc3oayseghzdtk7e3df
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19cl3Y/smj00nYIJMgPA2EZab7rnczjCaE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=5Zwkee7Eda/oQ5obU9MTZY8ne/gaSD2tfbbvFVf8sL4=; b=bIOcdG4J9j+16rixy1pyX/3+Km8E1J+gNaFcVTjGgYdWeCpzwVrKDrvCmTjHXmV1SmxYCuxDHAhfGHCafk0sO2et1SokUSAKCU4zUkjQyOJgaW8I+27HNX/DYqiiYYumoaJgQMC2uZsXGqgQ+2hUaPJmPrYo6p2L7tfHwgBcu54=
+X-HE-Tag: 1793897420-811383
+X-HE-Meta: U2FsdGVkX19bCecB5jioIhguq6rRgMe3rxF4TgEhqk9KP9NeKNMkUT+69RNNihc+daKgEKTqOXJQTs0rHkp15vWrQ3K+pvCwXnEYcFTSvqifAYR+m+FPHWu1d9zP7kvFElFCpDT8P78g6KnZxNm0r9p6JjBd+ViGmA1lo5/duRsnCadbZBGHHKc5/rqGhfV0FYIUh/TjJ1Tvz52bXk8eQ1YbHfPmZ6c8MyebafoN+YsfZYmzGr6UepNjTBEFsFDp4cZJfNtCcJsBaGpaCqaxKqUnFQPBIWjCJKjwkRi/gm8svcFm2yP2sU5oW/su03ZZRY6GYvn+nVCG3z+IsIxo6PgDUoCAwbrpo1jPUQAyX/DtL47Kb0zipc6wlaas3hUUdw8ZQTTtQ4x9zX17ar2qbz4fkpASG2qccBseCBJGprc=
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] firmware: smccc: lfa: probe success treated as error in lfa_sm=
-ccc_probe()
-- [High] firmware: smccc: lfa: invalid IRQF_COND_ONESHOT in lfa_register_dt=
-()
-- [High] firmware: smccc: lfa: infinite retry loop in prime_fw_component()
-- [Medium] firmware: smccc: lfa: unconditional devm_free_irq() in lfa_smccc=
-_remove()
-- [Medium] firmware: smccc: lfa: missing kobject cleanup on lfa_smccc_probe=
-() error
-- [Low] firmware: smccc: lfa: missing linux/interrupt.h include in lfa_fw.c
---
+On Thu, 5 Nov 2026 17:33:02 +0100
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-commit 336251e18192897c278c68cc88128e6b0243d876
-Author: Andre Przywara <andre.przywara@arm.com>
+> Hi Steve,
+> 
+> > Date: 2026-11-05 11:14:23-0500
+> > From: Steven Rostedt <rostedt@goodmis.org>
+> >
+> > On Thu, 5 Nov 2026 12:13:03 +0100
+> > Alejandro Colomar <alx@kernel.org> wrote:
+> >   
+> > > As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
+> > > between an empty prefix matching an empty string from a non-matching
+> > > prefix.  This is a fundamental design flaw in this API, and not
+> > > something that can be fixed.
+> > > 
+> > > As always, this is a consequence of choosing sizes instead of pointers.
+> > > Sizes are often the wrong choice.  In this specific case, pointers are
+> > > more capable of differentiating these cases, as NULL is a special
+> > > sentinel value that doesn't need to overload a valid value.
+> > > 
+> > > Let's implement strprefix(), a function that returns a pointer
+> > > right after the prefix if found, and a null pointer if not found.
+> > > 
+> > > We'll slowly migrate existing code from str_has_prefix() to strprefix().
+> > > 
+> > > Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>  
+> > 
+> > Is there a link to the report? Please add that.  
+> 
+> Message-Id: <20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com>
+> 
+> or in link format,
+> 
+> Link: <https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/>
+> 
+> Which one do you prefer?
 
-firmware: smccc: lfa: Register DT interrupt
+The correct method is:
 
-This commit adds support for finding an arm,lfa devicetree node and
-registering its threaded interrupt handler to trigger pending Live
-Firmware Activation updates when ACPI is disabled.
+ Link: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
 
-> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa=
-_fw.c
-> index 65f28ffc9d108..3ff368dca9497 100644
-> --- a/drivers/firmware/smccc/lfa_fw.c
-> +++ b/drivers/firmware/smccc/lfa_fw.c
-> @@ -46,6 +46,8 @@
->  #include <linux/list.h>
->  #include <linux/module.h>
->  #include <linux/nmi.h>
-> +#include <linux/of.h>
-> +#include <linux/of_irq.h>
->  #include <linux/psci.h>
->  #include <linux/rwsem.h>
->  #include <linux/stop_machine.h>
 
-[Severity: Low]
-As reported by kernel test robot on v2 [1], does drivers/firmware/smccc/lfa=
-_fw.c
-fail to build when CONFIG_ACPI is disabled?
 
-The new code uses irqreturn_t, IRQ_HANDLED, IRQF_COND_ONESHOT,
-devm_request_threaded_irq(), and devm_free_irq(), which are declared in
-linux/interrupt.h. When CONFIG_ACPI=3Dy, linux/acpi.h pulls in
-linux/interrupt.h transitively, but with CONFIG_ACPI=3Dn neither linux/of.h
-nor linux/of_irq.h includes it, resulting in implicit function declaration
-and undeclared identifier errors. Should linux/interrupt.h be included
-explicitly here?
+> 
+> >   
+> > >  
+> > > +/**
+> > > + * strprefix - string prefix
+> > > + * @s: The string to be tested
+> > > + * @prefix: The string to see if @s starts with
+> > > + *  
+> > 
+> > Needs a better description. Feel free to use the one for str_has_prefix().  
+> 
+> Ok.
+> 
+> > > + * Returns:
+> > > + * *  @s+strlen(@prefix) if @s starts with @prefix
+> > > + * *  NULL if @s does not start with @prefix
+> > > + */
+> > > +static __always_inline char *strprefix(const char *s, const char *prefix)
+> > > +{
+> > > +	size_t len = strlen(prefix);
+> > > +	return strncmp(s, prefix, len) == 0 ? (char *) s + len : NULL;
+> > > +}
+> > > +
+> > >  /**
+> > >   * str_has_prefix - Test if a string has a given prefix
+> > >   * @str: The string to test
+> > >   * @prefix: The string to see if @str starts with
+> > >   *
+> > > + * DEPRECATED: Use strprefix()  
+> > 
+> > No, it is still useful. Converting trace_event_filter() to strprefix()
+> > would be very painful, and likely error prone.  
+> 
+> What is trace_event_filter()?
 
-[ ... ]
+Oops, typo, I meant trace_event_filter.c
 
-> @@ -913,6 +916,31 @@ static void lfa_remove_acpi(struct device *dev)
->  }
->  #endif
-> =20
-> +static irqreturn_t lfa_irq_handler_thread(int irq, void *dev_id)
-> +{
-> +	activate_pending_components();
-> +
-> +	return IRQ_HANDLED;
-> +}
+> 
+> 	alx@devuan:~/src/linux/linux/master$ grep -rn '\<trace_event_filter\>'
+> 	alx@devuan:~/src/linux/linux/master$ grepc trace_event_filter .
+> 	alx@devuan:~/src/linux/linux/master$ grep -rn trace_event_filter
+> 	kernel/trace/trace_events.c:2833:static const struct file_operations ftrace_event_filter_fops = {
+> 	kernel/trace/trace_events.c:3222:			*fops = &ftrace_event_filter_fops;
+> 
+> If you point me to a specific line of code, I can attempt a rewrite.
 
-[Severity: High]
-When lfa_irq_handler_thread() invokes activate_pending_components() ->
-prime_fw_component(), can prime_fw_component() get stuck in an infinite
-loop if priming requires at least one retry?
+I rather not touch that code.
 
-In drivers/firmware/smccc/lfa_fw.c:prime_fw_component():
+> 
+> > > + *
+> > >   * A common way to test a prefix of a string is to do:
+> > >   *  strncmp(str, prefix, sizeof(prefix) - 1)
+> > >   *
+> > >   * But this can lead to bugs due to typos, or if prefix is a pointer
+> > > - * and not a constant. Instead use str_has_prefix().
+> > > + * and not a constant. Instead use strprefix().  
+> > 
+> > The above can be replaced with:
+> > 
+> >  * This is useful for testing for a prefix and returning the length.
+> >  * If you only need to test the prefix and perhaps get the pointer to the
+> >  * position of the string after the prefix, then use strprefix().  
+> 
+> Ok, conditional to being convinced that str_has_prefix() is
+> actually useful in some case.
 
-	bool retry =3D false;
-	...
-	do {
-		...
-		if ((regs.a1 & LFA_PRIME_CALL_AGAIN)) {
-			if (ktime_before(ktime_get(), end)) {
-				if (msleep_interruptible(LFA_PRIME_DELAY_MS)) {
-					ret =3D -EINTR;
-					break;
-				}
-			} else {
-				pr_err("LFA_PRIME for component %s timed out",
-				       kobject_name(&comp->kobj));
-				ret =3D -ETIMEDOUT;
-				break;
-			}
-			retry =3D true;
-		}
-	} while (retry);
+Note, the only "bug" is that it can't handle an empty prefix case, which
+was never what it was designed to do. The place that the above fixes, was a
+helper function that used this inappropriately.
 
-Once LFA_PRIME_CALL_AGAIN is set on an initial ARM_SMCCC_LFA_PRIME call,
-retry is set to true. On a subsequent iteration where firmware finishes
-priming and returns regs.a0 =3D=3D 0 with LFA_PRIME_CALL_AGAIN cleared in
-regs.a1, the if ((regs.a1 & LFA_PRIME_CALL_AGAIN)) branch is not entered
-and retry is never reset to false, causing while (retry) to spin
-indefinitely issuing SMC calls without sleeping or checking the timeout.
+Hence, the use of str_has_prefix() was never meant for an empty string. I
+should have added (and can still add)
 
-> +
-> +static int lfa_register_dt(struct device *dev)
-> +{
-> +	struct device_node *np;
-> +
-> +	np =3D of_find_compatible_node(NULL, NULL, "arm,lfa");
-> +	if (!np)
-> +		return -ENODEV;
-> +
-> +	lfa_irq =3D irq_of_parse_and_map(np, 0);
-> +	of_node_put(np);
-> +	if (!lfa_irq)
-> +		return -ENODEV;
-> +
-> +	return devm_request_threaded_irq(dev, lfa_irq, NULL,
-> +					 lfa_irq_handler_thread, IRQF_COND_ONESHOT,
-> +					 NULL, NULL);
-> +}
+	/* Empty prefix is undefined */
+	WARN_ON_ONCE(!prefix[0]);
 
-[Severity: High]
-As reported by Sashiko on v2 [2], will devm_request_threaded_irq() in
-lfa_register_dt() always fail with -EINVAL on standard Arm GIC interrupt
-controllers?
+The fwnode_name_eq() could have done:
 
-Passing NULL as the primary handler causes request_threaded_irq() to assign
-irq_default_primary_handler. In __setup_irq(), IRQF_COND_ONESHOT only sets
-IRQF_ONESHOT when joining an already-shared interrupt line whose existing
-action has IRQF_ONESHOT set. Because this interrupt is not shared,
-IRQF_ONESHOT remains unset, and __setup_irq() rejects the request:
+	/* Empty prefix always matches */
+	return name[0] || str_has_prefix(node_name, name) == len;
 
-	} else if (new->handler =3D=3D irq_default_primary_handler &&
-		   !(desc->irq_data.chip->flags & IRQCHIP_ONESHOT_SAFE)) {
-		pr_err("Threaded irq requested with handler=3DNULL and !ONESHOT for %s (i=
-rq %d)\n",
-		       new->name, irq);
-		ret =3D -EINVAL;
-		goto out_unlock;
-	}
+Instead.
 
-Since standard Arm GIC irqchips do not set IRQCHIP_ONESHOT_SAFE, this
-returns -EINVAL and aborts lfa_smccc_probe(). Should this pass IRQF_ONESHOT
-instead of IRQF_COND_ONESHOT?
+-- Steve
 
-> +
->  static bool lfa_smccc_has_all_functions(void)
->  {
->  	struct arm_smccc_1_2_regs regs =3D { 0 }, res;
-> @@ -980,6 +1008,10 @@ static int lfa_smccc_probe(struct arm_smccc_device =
-*sdev)
->  		err =3D lfa_register_acpi(&sdev->dev);
->  		if (!err)
->  			pr_info("registered LFA ACPI notification\n");
-> +	} else {
-> +		err =3D lfa_register_dt(&sdev->dev);
-> +		if (!err)
-> +			pr_info("registered LFA DT notification interrupt\n");
->  	}
-> =20
->  	/*
 
-[Severity: Critical]
-When lfa_register_dt() or lfa_register_acpi() succeeds and returns 0 in
-lfa_smccc_probe(), doesn't the immediately following error check tear down
-lfa_kset and fw_comps_update_wq while still returning 0 from probe?
 
-In drivers/firmware/smccc/lfa_fw.c:lfa_smccc_probe():
-
-	/*
-	 * An ACPI notification or an interrupt are optional, but we must
-	 * handle errors that occurred during their setup.
-	 */
-	if (err !=3D -ENODEV) {
-		kset_unregister(lfa_kset);
-		destroy_workqueue(fw_comps_update_wq);
-		return err;
-	}
-
-When err is 0, (err !=3D -ENODEV) is true, so lfa_smccc_probe() unregisters
-lfa_kset, destroys fw_comps_update_wq, and returns 0. Because probe returns
-0, the device remains bound with the DT interrupt or ACPI notify handler
-registered, leading to a use-after-free on lfa_kset and fw_comps_update_wq
-when a notification fires or when lfa_smccc_remove() runs. Should the
-condition be if (err && err !=3D -ENODEV)?
-
-[Severity: Medium]
-As reported by Sudeep Holla on v4 [3], when lfa_smccc_probe() fails after
-update_fw_components_tree() (for example when lfa_register_dt() or
-lfa_register_acpi() returns a real error, or if update_fw_components_tree()
-fails after adding components), does the error path leak the allocated
-fw_component kobjects and race with fw_comps_update_work?
-
-Unlike lfa_smccc_remove(), the error cleanup in lfa_smccc_probe():
-
-	if (err !=3D -ENODEV) {
-		kset_unregister(lfa_kset);
-		destroy_workqueue(fw_comps_update_wq);
-		return err;
-	}
-
-does not call clean_fw_components_tree() to drop the child fw_component
-kobjects added under lfa_kset, and it calls kset_unregister(lfa_kset)
-before flushing and destroying fw_comps_update_wq while
-remove_invalid_fw_components() may still be accessing lfa_kset.
-
-> @@ -999,6 +1031,7 @@ static void lfa_smccc_remove(struct arm_smccc_device=
- *sdev)
->  {
->  	if (!acpi_disabled)
->  		lfa_remove_acpi(&sdev->dev);
-> +	devm_free_irq(&sdev->dev, lfa_irq, NULL);
->  	clean_fw_components_tree();
->  	flush_workqueue(fw_comps_update_wq);
->  	destroy_workqueue(fw_comps_update_wq);
-
-[Severity: Medium]
-In lfa_smccc_remove(), won't calling devm_free_irq() unconditionally
-trigger a WARN_ON() when ACPI is used or when the optional DT interrupt
-was not registered?
-
-On ACPI systems (!acpi_disabled) or DT systems where the arm,lfa node or
-its interrupt is absent, devm_request_threaded_irq() is never called and
-lfa_irq remains 0. Calling devm_free_irq(&sdev->dev, lfa_irq, NULL) in
-lfa_smccc_remove() causes devres_release() in kernel/irq/devres.c to fail
-to find a matching devres entry and trigger WARN_ON(). Should
-devm_free_irq() only be called when lfa_irq is non-zero (or omitted since
-the IRQ is managed via devm on &sdev->dev)?
-
-[1] https://lore.kernel.org/r/202603181913.NFRwBsN4-lkp@intel.com
-[2] https://lore.kernel.org/r/20260317103336.1273582-8-andre.przywara@arm.c=
-om
-[3] https://lore.kernel.org/r/20260921-aloof-sympathetic-python-54aa7d@sude=
-epholla
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102165421.3651=
-202-1-andre.przywara@arm.com?part=3D5
