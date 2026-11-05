@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867047;
-	b=HelfVUvz0LeH2Ytz7OS1vUQVMn4Al/zXckqXecTjv1VGPWRjhh2QfsRFVSCQofGHgfsC
-	 wJRTFUxKeZnW0jCkwW1E2FA1Ga9sFfU3TosrBghA0DxSK+IbuxxDuoyvBePuaa7VBP4HS
-	 N9gcz6nWNWyWVo0YVcNxDQ7f827xvpw8OjKrgvhXBsCDJCwVfPJzdnVxI8TyeddRwAvSj
-	 kuR9bzI2VubyKQtIZd1sIwnfhzFKFD2YNQAuNSmUBAacd4ngnQyYpZtBntXApYYB9x/r6
-	 vgejxMD2/zOeTihVti7GWCAIqTOf/PLLH1TBAg7j3acTmgt8js4C9JUM/eJBaetf/yA==
+	t=1793867062;
+	b=dHPaBV9sy4o1gXe4uafeeT10r6R7fp3NjNmjrgwTRz5Pb/OV6rgs4EyUAhJspWcuLmpt
+	 wf55SXl6Llg4BPOl0z1j9Pp6qdsNZtp16wCkcudGXOktY/6szH+Sm+YDgQYfZE6rnoCN1
+	 FuSD2a9kTPx3zY5d/G1UvwcdDshPTeLfmX7KXNwAoim5qQgHH60H7JocRo57rSwc4oV/V
+	 8L3TBaAOTATmcPMFFhGQ90zpHX7vP2DTrnTojegV3OXt0M1je3Trb2ppbW50wCCRvAGXd
+	 4YpwK3+GYNdfGVk6Pj7uYH2hFYHO1gqlaeEblUmM+rc13J2UzVU0gt8VRZmqzlHMVvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867062;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=ex5QciF8HsRuD6/z7Bnz92BFaI2r9RvhM5A2PdC/ryk=;
-	b=S3lZQFe5FxOjlOCoIu3jEyskvRA5UnehViZHLQdVdeOQ5oiwVFwTgepyc6o7g5PZ/q/t
-	 2TZvx+Q5O62HqbXXHMoPsuFHCJx8hKk+NQDaePkOCJ/xcVvv+P4D7qTlkAkB2EEmmrZs3
-	 ANXVzHj9yjvXOWjS9IECoEo7TGK8yMfgC0JYosfiwmv0Gwdj7HSYtPSjatiVk2PErB7ra
-	 UD97fmWwsLF1LCXysIVb4Jk9Y03sf6APVRM8wlYgcovr9jznqxWIgyaaJ43s9ZSl5+347
-	 ZzgY/Dr4eNn/aNqUURPlKoSAUiPONg8rZOXqYDUAijAT0VZG00VH9+ln9H03VZEA7Lg==
+	bh=ZJ249AtmwSuCZsIIsSDb7ydrGHQ516oqgxihKKAwghE=;
+	b=R6BR4ybwhKZiSc4NNtEFS6b81w+7iLaSDXqkahc+DiWl9BdUUxnUj6Lrqmrz1yh0VYMw
+	 JeYQDOTZ7vtg0LYg2K2kjXgCm4CzO6uMeC5AVW8jZZXenK3271BxLyhdwyikdXHnPfXzJ
+	 jPVrXM1wnChBbBTW/EV2+I2vNnYBo4qRJCU+eb7E1FdOX0InFWJ7WtrhS8aaFFC8z4exF
+	 Ua2Ul+pq8VccsmFi/2wESuIIGp4s2dcy1CUeOQGKKuVka52OaV5dp+0o0j+I32i0n1sTq
+	 asNPdya8SSMiXLwCHvaaJUbnz08oqeKiSnPRbc2A1j2ZkUeMHK1sYCRRrf7zgorTJzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=linux.spacemit.com;
 	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Z7Gzv1pN;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Ejh5VaEX;
+	arc=none smtp.remote-ip=54.254.200.92
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5AF606A32C;
-	Thu,  5 Nov 2026 08:24:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C5AF606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F210606D805;
+	Thu,  5 Nov 2026 08:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F210606D805
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Z7Gzv1pN
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Ejh5VaEX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793867041;
-	bh=ex5QciF8HsRuD6/z7Bnz92BFaI2r9RvhM5A2PdC/ryk=;
+	s=mxsw2412; t=1793867049;
+	bh=ZJ249AtmwSuCZsIIsSDb7ydrGHQ516oqgxihKKAwghE=;
 	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=Z7Gzv1pNIRsi/RHiP4FKeCMUkVPycGpijYIRBNV9Sm5DI3aBOZQqehKfh0Sv5lSv3
-	 w32LwXTVCdCpycOpAAfPvRce78S0CWPJHoEEmteMwtz27vlXcCw+wccj6pbi8sPeYx
-	 iJ5yFiNdjF2vrth0utiGfNiOe4WW7rMFH0tKcPf4=
-X-QQ-mid: esmtpgz13t1793867040tc4a0437c
-X-QQ-Originating-IP: o6lwSprFVEZUSfcqPwVGLLBhBzK/F2cLTxbydJuQmYo=
+	b=Ejh5VaEXKo5X4pSwhBx9obfWqL9P31aPI11Z8vPwOdWDgIiPSdsj3O838TVlycE5B
+	 XmRRJtlJdAtKa6BKmya+EloOym8zhBTupABRfpjIpzD90kKp096C2c0/OHvMEp0z0l
+	 1UolzRd2jDfeRZ450u+TtKE8e2f3ptcHHdH/36aA=
+X-QQ-mid: zesmtpgz4t1793867048tf3e3ee76
+X-QQ-Originating-IP: iZG4yoHhf8J3fsBiHX52Fhia9VgMbLyclOKJK/7Bw84=
 Received: from = ( [58.254.68.27])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 16:23:57 +0800 (CST)
+	id ; Thu, 05 Nov 2026 16:24:05 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6585883940759934299
+X-BIZMAIL-ID: 18264579372122570667
 EX-QQ-RecipientCnt: 13
 From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Thu, 05 Nov 2026 08:23:47 +0000
-Subject: [PATCH 2/5] riscv: dts: spacemit: k3-com260: Move SD card to the
- module
+Date: Thu, 05 Nov 2026 08:23:49 +0000
+Subject: [PATCH 4/5] riscv: defconfig: Enable AT24 EEPROM and ONIE TLV
+ layout
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,7 +66,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-k3-com260-module-sd-nor-mac-v1-2-138b39d74602@linux.spacemit.com>
+Message-Id: <20261105-k3-com260-module-sd-nor-mac-v1-4-138b39d74602@linux.spacemit.com>
 References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
 In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -77,105 +77,66 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2076;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1163;
  i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=FW3v+X/LP3K9lLC4PILHOwlmTUeSvDKD94xp6NZYOuw=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlvbEU+GO6Z71S3biWL2vpfdyr33M1fULEsTOfj83188
- teffDO93FHKwiDGxSArpsjS/YBnW4FPlG2BQKEvzBxWJpAhDFycAjCR4GSG//lqBhuif75SK2DP
- b71lcDZhr8OHgH8zj/I9YYzX3zclN53hv4eEAX9EG9fedYWtMwKvOPJkBK/8bNzxWn5BTqPJ1AW
- mvAA=
+ bh=8xFU6VvJImZA2MbPgp1OYJlmNmjSbxKEyOFL+rbF1NI=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlvbEVuXHzh/eF4jYeN3aEbZnN2z9+6e9PPOymRP2vaG
+ PT2uMTP7ihlYRDjYpAVU2TpfsCzrcAnyrZAoNAXZg4rE8gQBi5OAZiI4haG/05XCvXD2T1Ul5Q9
+ ZPI917/yvnvX3r+HIwzj7vE837fK/BDD/9wTnzqnVZ+9/0n551w3g9eL7l/r4elw/z+lwnNfgdX
+ /CG4A
 X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OJbo4+U79zDvIBaq/Lp2hRBVs4PWVXwKoO5+Eg8Wz/eheP31kxVRyaAc
-	Bqh9D/uKG9LMXj+gUS8MyhIYfrSbIQlO0scSPwVynPtR+g8fD7HchvsqJIYdc3GRaX3ecM4
-	kaOstvSKS/Da7WFA1CtRDsOqUWrnxQPX5MY/kvMLtp/lrQF/NIy5C/jHZ+pCkQtdCWbHntZ
-	8LXxlL6OMjirK3JCgU/lJluu26HHRJwkY6LLdSIv2F7BU4n9Bvq+hvd/vfspiyvdBTekU/Q
-	AUtM2D8+gKjQ5n8AWorm4FY10Nde6wlcPwv9HwpgOVWpOfaWCsoTN3I0kPBlvG5Ar3OIQNz
-	Cd9HrG3strRRhcz80BAIlNnL9gy6MaePXY0QYBEFNCULejyFJgGRzUpne6iHwB6XNcicucr
-	P9faS2t6xmvee3jDX9d5XSVGhddC0AxVZhXeqtVUbDY1R/7uP+X7AXPq4XkWUPqp94RdVvq
-	RI+UDirsYznlCx0yBij8ZlwsyMgAz7vlqbmGKBvc00VLGRFfTxMWjn9NWPcJg7WBMcsp1O0
-	sCpEvSN+oZbY6wRp/0lZBoNad7QZikcrVr8cZQpi6JAjxPErd3rif3eF1/i/fDHHZn9n2Mo
-	xXenKIwF6MpMRzCrGRs7ZF4bwEQIaW70kydaUX5qqaxmCj4p2ZAqQiRKfgMpLv1TzwBotnS
-	nilq+KTz/8P9P4GPzfExg47WIK3eVe00soqrrmB65j0q9YT51w7xXtaVkQ1dZDqUm1MzB+7
-	NXgee5snv/UdTjFPlcSPY+DB8uLNjDoZ881Dz9kZBdEg6sS+Gx6tcK2FZ76kZR92XITs0Rq
-	/guzEZ0x2TToDszIBky/3XJ8KBHRXmAHgQIGMX59DCpCrt756rn0ZZx7bRBk9zRKBNt88LM
-	7sEmq1ZiYin9x41m90dZ/JrkGacizcLFge7ijl02pZ/binOyeHmKbMvc5hS/iCv1eLuSjsV
-	ycPpXbePvsIEBtY595DqjE/Gas4jm5nWAxZS8SGCDApw06xBHXlaY3dqJYO5i5OFqDqDODT
-	aBhPYvSJuhhaovqjlNex/2fG4qiPUqXuJku1cfvpbDt5ya6ln9DMuNgi3//aCS/zBh5FdSR
-	yWkcxlysBgqxphWCZIHYzCLd107np8K6gV/p5L5E74j2/9gacVpr3b859MVTb6DHsh4jOLY
-	hVhqE3W/EUv0WB4=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NafyJWIkf4MPGBhqAbi6cTpkeIcvBusEH0OWwBEx3TLNmMowmkiJy/WY
+	uZf+vpQHjkkc8rYDVzufdUaZKzBFfqZCViVYOhGRzQP0X/bRy2jDVVlcEddjLkZSEAml+dl
+	FDZ3gMCL0rrfHi3mzhppnKksn+cW5+63UIMj72BjoLDnRtb10s8mu8/aJQHTcZvZxGimlle
+	fnb8CppLqYad/daQgEwdVr30Ji+h20P2dBDta3TKV7hFIJtOy89Llq2CIKwHuzRllniWW9j
+	B/dYEoo+tOv6XumiXSoPNjQOhgFWZ/nxPDAvCjGescVPYKE0Q5ElQq1AOKOxLz4HReW1//H
+	8q+7PY70ljL9/RcSX7h43HgVyEDa2EuRTMzlqx0rfakptGZmxtmjPvtOg+kzY1b9BxYZCNE
+	K96to3y0z3grYAGROu0igr7M4uJQ6pYrVUbPsrAIvvYttACyU3ElvhSulXGsYKwdMF/9JkJ
+	BqDeI+Y+ih2IkD4ez1lSNIkGCQryjHiCQ/K0oebzFiizml0xXz1+NSaByLfP7VjO2BSEviz
+	RD6nu/z7W3v4A29DjT9jkZKkfglVGs8tpYztWbCrao/y0FmcmOJMzG4FdEWGStYF5sXWzAC
+	iZHIXa1xpcskKDImsHOX0GJwy/HaQxyStGqClF0cNZoU/Fmoban2eNvAkwihz/pmCWrBZVl
+	TLCr6vpTPXpMn6uU1Sm2gTYsgijSdbeogMLvt3hG3vvyuhd5cIM2U0Qo9S434xwYImT9xZS
+	9NDZd5jbEDaLEdWf7j7u//YtAe4NE7w0XNzK1Z18Rjb+a9tPkrItko3I2C4pPeieGihaZGE
+	Zz3Ctw+5309IZNLqRNnYUa6lajuw2tv6ZvMwHczYlo+Y/jS4aaKQajqB2/1ArCVON92t69p
+	Nrb/wYzDZgHZwmWCTABjy1nmeiDed04a4e/wIoyooQlnhOhR8e/jnl7HXuMO7y/9TWQjfIG
+	7ldUDGDtXmfl3swbsQbGco490GCrCPSGjn+ZvfqHWZ2cbRLi0Ja1slpqmwrQdlph8WIBbk1
+	rjkx6bkHjbi8m16bOy5Cjb/gaTaTmH5uEJ6KzLepW0rSjivTwDHnh0ynopKB/BWnQgUVqzS
+	jWq7f80P/dyC7Ow2NoxkOBCzX18mjo2T0FG1k7rGbtQ7zrO9KsNN7zYAZnW/N34gFiyu3tI
+	AYvt
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 
-The SD card slot, its power supply and the signal-voltage switching
-circuitry reside on the K3 CoM260 module. Describing the slot only in
-the IFX carrier board leaves other CoM260 carriers without this shared
-hardware description.
+The OrangePi RV2 and R2S device trees take the Ethernet MAC address from
+the ONIE TLV data in an AT24 EEPROM, and the K3 CoM260 module stores its
+MAC address the same way. Without the EEPROM driver and the ONIE TLV
+layout, the MAC address lookup keeps returning -EPROBE_DEFER and the
+Ethernet controller never probes unless the bootloader passes a MAC
+address in the device tree.
 
-Move the SD controller configuration into the module include without
-changing its properties, so every carrier using the module inherits it.
+Enable both drivers as built-in so the MAC address is available as soon
+as the Ethernet driver probes, including for network root file systems.
 
 Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 ---
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 17 -----------------
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi    | 17 +++++++++++++++++
- 2 files changed, 17 insertions(+), 17 deletions(-)
+ arch/riscv/configs/defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-index 6e295bc6f196..38809d01df82 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -111,20 +111,3 @@ hub_3_0: hub@2 {
- &usb3b_u2phy {
- 	status = "okay";
- };
--
--&sdhci0 {
--	pinctrl-names = "default","uhs";
--	pinctrl-0 = <&mmc1_cfg>;
--	pinctrl-1 = <&mmc1_uhs_cfg>;
--	bus-width = <4>;
--	cd-gpios = <&gpio K3_GPIO(4) GPIO_ACTIVE_HIGH>;
--	no-mmc;
--	no-sdio;
--	disable-wp;
--	cap-sd-highspeed;
--	vqmmc-supply = <&aldo1>;
--	sd-uhs-sdr25;
--	sd-uhs-sdr50;
--	sd-uhs-sdr104;
--	status = "okay";
--};
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index 054bfff7413a..f2df797a2c80 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -233,6 +233,23 @@ phy1: ethernet-phy@1 {
- 	};
- };
- 
-+&sdhci0 {
-+	pinctrl-names = "default","uhs";
-+	pinctrl-0 = <&mmc1_cfg>;
-+	pinctrl-1 = <&mmc1_uhs_cfg>;
-+	bus-width = <4>;
-+	cd-gpios = <&gpio K3_GPIO(4) GPIO_ACTIVE_HIGH>;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+	cap-sd-highspeed;
-+	vqmmc-supply = <&aldo1>;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_0_cfg>;
+diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+index 04ae305d5511..a76f801d8eed 100644
+--- a/arch/riscv/configs/defconfig
++++ b/arch/riscv/configs/defconfig
+@@ -276,6 +276,8 @@ CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=m
+ CONFIG_PHY_STARFIVE_JH7110_PCIE=m
+ CONFIG_PHY_STARFIVE_JH7110_USB=m
+ CONFIG_LIBNVDIMM=y
++CONFIG_NVMEM_LAYOUT_ONIE_TLV=y
++CONFIG_EEPROM_AT24=y
+ CONFIG_NVMEM_SUNXI_SID=y
+ CONFIG_EXT4_FS=y
+ CONFIG_EXT4_FS_POSIX_ACL=y
 
 -- 
 2.56.0
