@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793869103;
-	b=khOQHW2+DV5ximUNjZoIlCLBnFjUfT+ROrrgfkjavbirAsVlyN2594pyhVE1oRQcwiF6
-	 zeHui29qDvCxW1aYCFrcPEmuTpiui4UaLeVcU+qkHlu92xyCQdEzMd0DpGfWiA7zT6QTd
-	 hwabUGfi5VAieqfQoG6c1R/0rxb6ULhRf4B5xj3uA9bFI19Frh+MTkDfKqkjpdiMFTVlX
-	 ULfxxE6P4bglGEb3itR/bjUMERNSoJ9BfZd2VWRRUbnvmddiLfdHg1P4ZA4y+suQINcy+
-	 BZH99cITAsLqTTdGTyzLrrWu2Z5zF5GsMA8d4kexami7JvuIpZsQZjLZJafP+ZN/8ng==
+	t=1793869162;
+	b=ld6uL5pxWePXBAvHDfJ18rcyONe9TLWpho16MqMGQEwYlRfk5LQO7ceg0MHrhxLASWle
+	 +VChcFmrIKzGzj7H1EYXttvQj9sHwJ8BaHJi0yTRe/wdp5DGV8n/LBGX49LL+lk4vPVV6
+	 h6jSzZtp108NLG4uSEei3Yy95LhbG7sqbD8uvg57WOp/x0o0JyJ9N1uj401Ljb5sf5oez
+	 Flc0iSSRpljq4lPAv9adPX/qcHOu9gAeRaBmBv31ExUaePbvC3ZdrFNjVbTba0OJ5dZKD
+	 OFgQjLuvNg2RfJ/fvF6/qFleq3ciyDJ6zNjf7Us/fR2+gm7SL3SiV+kp/vwOsQ3y+HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793869103;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PKNly8UN9EHaaYP2x5RRnRjXy9kMnNoiMkXmJ60sgLU=;
-	b=oy7li3v5byBREGx6KOeMzLf8p0jlE0HLZRQa+Uxh8yFdy7yqGzz4kGiOVVwonbGRFRXg
-	 bXcWHBOfws0vHKRkldxfZFjoi6Z2nWFP8kFtJFmT8sQLi2jy0TxSHy2bffTy8YTOvKpvN
-	 vTNS3D97lvTmsI1D4M0mqfKL64FBrJrOYae2Z19p7fvV0fPq6NszMoh0SOgDauNuV5b0M
-	 FOQHV9R+VrXn9FOpKtc66mw9BbZbmzSf7kCoGnNkcIHQc/h/Ww9tLLAyC0k60/ZIgGsuw
-	 0c6QMXNTLXcI6usd86BB/ayXQvC4RALNlEJUWHtMKZpPW8GVSIa5hY+9ldqb4fsGl8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869162;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bBn1ykyRQWqMly5VMYEBKX4QjwJ5XVSM4rfTKbZt6Os=;
+	b=E4U+l3kF7Lm66XCmaXoO2C74rEpclYDqez/XlioEn9fugGkdAvrQWZf4QmZPHovTp4of
+	 I7WziZjfXE89jTx+MWhzC0DqO9d8+ZbzbG0yjggHJNAjBZZgzi6K/G+tRaWXhaC29xuvH
+	 Rsyqfb6ro4lGJwKEJdNjfE4ZNkMiE7KpoKJOpPxDAn/Th3XsQzXeBzN3h4UpuarhT9aDK
+	 MRtK3TZfOOTohvinMLZ4DFw+p5iOfiHy7EfVx3fpuWMi7U49XcFYmnWTtMxz4KdQvRe8X
+	 jhGVXHnFCBQKn9BFSlvSbOcGoLIp0I+mjFO/DZa+AlXCLBhkrVzc5g+0+vtAcnipq5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfqBdZFc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=D8hkm7cL;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23110606A328
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 08:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2402606A32C;
+	Thu,  5 Nov 2026 08:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2402606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfqBdZFc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99211F00A17
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 08:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793869102;
-	bh=PKNly8UN9EHaaYP2x5RRnRjXy9kMnNoiMkXmJ60sgLU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bfqBdZFcg1vlT9xo6LwjDU5axc25ZOYu5IeDBRpvqKcR5bUdGOo+kR7fbU4Z0z1ax
-	 dcca6Mk1trHKjDHRcBxWjU4DDbF1juP0jqJcMw3CyRs01tkfqR2K9LBq37fpzE0TFE
-	 rgftkXDmwBscUBDfcu7CO4GEIy+6Q9F0fUQLRgZnfJtsWTAvFraOUH7+1kS9/o/Dm+
-	 XecD0OTWxXl++bygASGRu+YeLllQi4FTDe73wWpsRv6TGnrQ91Y1X8upmNy3yd/3L2
-	 Crsj1QJ2N6KDl8482xRQbAObmc4nzqtQ5RJhcrk5mGdXSqtS7l8We+hp+WvR9ZVvwB
-	 AJ3ljOcsfoMHA==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so2038769e87.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 00:58:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzVnmiojLE4kjDsIXDp6fJdEi9n9wQ5KK/1FVlZRnF3FQzRmQg53Rjd6fQcx6iNp82CCBbsSRjKfjO8@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9ZC5yPxn0N52EZb2f+JVxYnC0BKtpKm6TQFBRqpVqEpvUkHYL
-	GxGg5fuUND+32Lt9+IoLpBMeQYWdMQ/UmJxiBeiZCQl6TDeg0BYjkIFgyfyq+TRgC8bt3t3oHKK
-	APg4krbuVGkqWevzZRFnWfi2bYVy41/c=
-X-Received: by 2002:a05:6512:304f:b0:5bf:cfcc:5444 with SMTP id
- 2adb3069b0e04-5bfd94cc790mr6486911e87.0.1793869101536; Thu, 05 Nov 2026
- 00:58:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=D8hkm7cL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793869160;
+	bh=ZKaZFFHipOBBEL4aN3JZCurDbr471IQ5mAHx+yt6YDI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=D8hkm7cLJ7S+YmF4PZLUoJwECskt1Lx2wBGPwMxKGB7U+y+B1ib+bRRjrhTYsxFfw
+	 uIHzv5kGUcdqzY7GQvciwIRUnjE6E1bjhIAm02/rvqjKZ4cMuSbwVViK78+8ioi4mp
+	 eds24T+OXz4w10VRzgrjCm/MNXaYzxHaTm/CjNuYotXypSNeel73uJThZZWhRkrGHb
+	 zYQghiYqQPaW8FT/Oc+6gAA7+/0J7UQTy9aPUips21sAW2f9qfwXovX73eEfDlXyK2
+	 qEJkPV5RCAnKVk4ouAglPbYCYECNTQKSLvYyyHXgWUEYrEZ4891C0BvrPwQ6SfXsc0
+	 LF7orzWiVgBsQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 50DF617E05D6;
+	Thu, 05 Nov 2026 09:59:19 +0100 (CET)
+Message-ID: <bff71c8f-9ea0-45a9-96ed-e66fc0896f3f@collabora.com>
+Date: Thu, 5 Nov 2026 09:59:18 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,54 +61,129 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
- <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org> <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
-In-Reply-To: <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 09:58:09 +0100
-X-Gmail-Original-Message-ID: <CAD++jLn_3X65zu8q-DfWbn4xjyPrSfp5BVH4SO96XCxmegcvXg@mail.gmail.com>
-X-Gm-Features: AclHuK8AQIjDmJmMWxQBLXnB8djEy8vqJf8iVobRFUYDEbaAMH5O2I21RMaJX7I
-Message-ID: <CAD++jLn_3X65zu8q-DfWbn4xjyPrSfp5BVH4SO96XCxmegcvXg@mail.gmail.com>
-Subject: Re: [PATCH RFC v5 7/7] media: mali-c55: Sequence resets explicitly
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+To: Roman Vivchar <rva333@protonmail.com>, chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com
+References: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <8fcdd2fa-7c9c-4af5-a7b4-45fb881d88a8@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Prabhakar,
+On 11/4/26 19:51, Roman Vivchar wrote:
+> Hi Angelo,
+> 
+> I have tested this series with my out-of-tree mt6595 (command mode
+> panel) and mt6768 (video mode) DRM. There's no regressions, but I
+> spotted an issue with kconfig.
+> 
+> On 9/16/26 14:08, AngeloGioacchino Del Regno wrote:
+>> Add a real driver for the Display Stream Compression (DSC) Display
+>> Controller IP, implementing support for DSC v1.1 to v1.2.
+>>
+>> In order to do this, it was necessary to remove the basic DSC IP
+>> bypass setup from mtk_ddp_comp: this functionality is retained in
+>> the new mtk_disp_dsc driver, which checks if DSC was actually
+>> requested by other components (with the only one that currently
+>> supports this being DSI) and, if not, it will set BYPASS mode in
+>> the DSC IP.
+>>
+>> Like before, the BYPASS mode is set before starting the DSC IP,
+>> but unlike before, this is being done in the component start
+>> callback instead of the config one.
+>> Notably, the config callback is called by mtk_crtc always
+>> immediately before the calling start callback, so the order of
+>> register writes is retained.
+>> The only real difference is that now this is being done through
+>> CPU writes instead of CMDQ, but since that's called only once
+>> and since it's just three registers, the performance impact will
+>> not be minimal and not even measurable.
+>>
+>> As anticipated, DSC handling was also introduced in the mtk_dsi
+>> driver: when performing dsi_host_attach, the driver now checks
+>> if the DSI panel adds the DSC configuration structure to the
+>> mipi_dsi_device structure and, if it does, it will store a
+>> pointer in the driver-local mtk_dsi structure's `dsc` member.
+>>
+>> The DSI driver will then check whether the DSC configuration
+>> that comes from the panel is valid (in regard to MediaTek DSI)
+>> and will call the DRM API's DSC helpers to calculate and set
+>> all of the const and RC parameters for the actual DSC setup.
+>>
+>> For the time being, even though the latest MediaTek SoCs do
+>> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
+>> as an initial contribution (which is rather big, and 1.2 would
+>> make it even bigger - but that can anyway be implemented later).
+>>
+>> As a last step for validation of DSC parameters in DSI, a check
+>> for the hdisplay against DSC slice sidth and one for vdisplay
+>> against DSC slice height was added to the mode_valid callback,
+>> making sure that H/V are, as expected, multiples of slice W/H.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> ...
+> 
+>> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> @@ -18,6 +18,8 @@
+>>    #include <video/mipi_display.h>
+>>    #include <video/videomode.h>
+>>    
+>> +#include <drm/display/drm_dsc.h>
+>> +#include <drm/display/drm_dsc_helper.h>
+> 
+> ...
+> 
+>>    static void mtk_dsi_config_vdo_timing_per_frame_lp(struct mtk_dsi *dsi)
+>> @@ -565,26 +610,68 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(struct mtk_dsi *dsi)
+>>    	writel(horizontal_frontporch_byte, dsi->regs + DSI_HFP_WC);
+>>    }
+>>    
+>> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
+>> +static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
+>> +{
+>> +	struct drm_dsc_config *dsc = dsi->dsc;
+>> +	struct device *dev = dsi->host.dev;
+>> +	int ret;
+>> +
+>> +	if (dsc->bits_per_pixel & GENMASK(3, 0)) {
+>> +		dev_err(dev, "Fractional bits_per_pixel not supported\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	if (dsc->bits_per_component != 8) {
+>> +		dev_err(dev, "%u bits per component is not supported\n",
+>> +			dsc->bits_per_component);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	dsc->simple_422 = false;
+>> +	dsc->convert_rgb = true;
+>> +	dsc->vbr_enable = false;
+>> +
+>> +	drm_dsc_set_const_params(dsc);
+>> +	drm_dsc_set_rc_buf_thresh(dsc);
+>> +
+>> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
+> 
+> If config doesn't have DRM_DISPLAY_DSC_HELPER (selected by few panels),
+> linking will fail with "error: undefined symbol: drm_dsc_set_const_params".
+> Should MediaTek DRM select it?
+> 
 
-thanks a lot for your help!
+Yes it should. I already spotted this a bit of time ago and fixed it locally, but
+hey, thanks a lot for that.
 
-On Tue, Nov 3, 2026 at 2:47=E2=80=AFPM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
-
-> I tested on the RZ/V2H EVK with the clocks and DT left untouched,
-> changing only the reset order.
->
-> The hang comes from the reset assert order in __mali_c55_power_off().
-> Asserting vresetn (the ISP core reset per the RZ/V2H manual) before
-> hresetn/aresetn wedges the ISP. The next power-on then stalls on its
-> first register access. The deassert order doesn't matter.
-
-OK I will drop the clock patch and keep this one.
-
-> Asserting h->a->v (deasserting v->a->h) passes repeated runtime-PM
-> cycles and also works with the IVC enabled. So 7/7 gives the right
-> reset sequence, 6/7 isn't needed for this, and the existing DT mapping
-> (0xd3 =3D vresetn =3D ISP core reset) is correct.
-
-So this is a Tested-by for this patch?
-
-> A smaller alternative keeps the bulk API and only reorders the names:
-
-I guess that works, but I'm not sure the reset bulk API in the
-kernel guarantees any order, so we better keep this patch as-is if
-it works so we explicitly show users that this is critical.
-
-Yours,
-Linus Walleij
+Cheers,
+Angelo
