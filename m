@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881323;
-	b=IgDJEvBNLmLMTVgEdr7fIQ9QudFvwCCcnuYMAau9gobKU2o4lGgckFTXDm6qA2MJY6ow
-	 MMm7LKpmjAmxyrTMffNccQcbXHtRjaeeZJWm02dypCJHleJLMgO40pB//E+x8BQp+Iasl
-	 xxbDR1M2qoC2q0cdNK0z2qwL7fLVi4GUXSFFEAzNNFcyQvPzza4z/yUlu75X9eUWE0e3P
-	 B2G/FWngWs0h+iiO9x3ywvmJJLCIENd1/qnGe2mrwvZLi0W1K1kO1j5nZfynetn5fY3Ml
-	 K28qjnIyy68OEPWL1osBFrwZGbVPd5OfyXDvUHO2OpG5+WVJjE/FZbL7ot/M3T1UqXg==
+	t=1793881333;
+	b=JhbbCS6911ajqWOIb5sm59G5paMOMUsx0vboZs7tCdFeqKZpYVTiTdXwbOfY4Vk8XnfV
+	 e0Dmok93foNGeDaQ3lbE8yhBOFrc2Qze5aXAx/d+2F0bQ+91F0L2oLuk/WNe825X8e3R5
+	 xEndNavxbABVjdxkJnVplGAhBlVJzOz9TEjRhC9rgUfe+i3/hUaZap5OI33aAuvQOF2HH
+	 7mkARk3TPbmlEhmJXU6oeg9S0qq98PuQJZnQcZzB2ZcL1fb7DteP3TyEsLc+dnF9foexb
+	 N/q3ot6BJB0URfqyi8BGf+FbtNgAmuwLGPaA0tyTQVtizFtiiIJdudd3qVaa5FWxy2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881323;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=cNjLxshjbldmtVi7ezW8lx2AJPpiQwNaAFoiNC9ElWA=;
-	b=ZQxmrgDQGKOjgcoL3ztmh39UpYafDwr9ycCEWXupOML7r1eBDFHSx9VfefsnjbdubySd
-	 zXmH7+elQDlYezGUu4J7l0YyzlGSVIaw3WVrAxiRuXMtr4NbtZK/EP90iPLLA/x7px15J
-	 3+pBMoMTam+HjjHKVGpclThP12F4nx7cyNIixQ9xE3EtX3NINBVU0pJSHgRz5/XL/1OCI
-	 iQ1Yo4I2QiExBrldVHC0Gz47lgmE68bdE/FoqNyX7DyFdfyQIx9FYbYwfbM3PMEC2A/69
-	 wxFN+SCdgU5pNZ4eefTuIjtSZWhlljLycTalRrjWxCnap+3nAD91Lp+ppK6ugxj4g6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881333;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=O0kqlkUgSmSoqBy9DLE4UWFhP6VuU5dzn+P+OCJY318=;
+	b=B80lW/ILl3y/9ArPlj7tuL0fTfs9rZTeJMkxslNR4VWyQ4DAooaCxxCmJqhgpoWhvCym
+	 z++Ra72wnHL/sLLkq6vFxl/nIFiOeyS7wOracESzjsXdnGXGa+QaAbW97mb6Ts1N9ccby
+	 toYKlfNUKp7t9oFhSLGwIr/FwAU13LGIOXYBUxZ/PaEHx/K8uTRXgLqzyg5SwvReXAvUD
+	 WPmV/+tVPO7SHlnuAd5wh8/mse1X3UuzUTc89SWx4aocJGxd7+p3eQN0QUdZjrn5xeLqm
+	 7xBtO55RDaIHj04ebe4Mc3ivb7/o3emYyIW2qWF74q2yDXDf6cprLxA9sgbRAGxgPBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=HTtx2Z5m;
-	arc=none smtp.remote-ip=203.254.224.33
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MgWstCB7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36202606A333
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:22:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36202606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02478606D809;
+	Thu,  5 Nov 2026 12:22:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=HTtx2Z5m
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261105122200epoutp036b063776e69c0b04131dc2125e80dd52~lJY5q3etF2805628056epoutp03d
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:22:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261105122200epoutp036b063776e69c0b04131dc2125e80dd52~lJY5q3etF2805628056epoutp03d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793881320;
-	bh=cNjLxshjbldmtVi7ezW8lx2AJPpiQwNaAFoiNC9ElWA=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=HTtx2Z5mL5rvw12jKQfhGYsXeW0lv32F1V8xMP3ap5FBhTtpo3kuHw1+yZzRg1wZV
-	 UwWZwe8TfhWpt3XO0P/UV0lTP43yhFt36z1VOjtPhD8H9td/Aus80y9xuD7TDgPfxt
-	 b9ohh/fSY/FipVYMt8BU/Qaqtfkr+dZWa1X0babg=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261105122158epcas5p41fe17543c8abcd4c86815bcdcfa554d8~lJY4Xi13h2387123871epcas5p40;
-	Thu,  5 Nov 2026 12:21:58 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.89]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jL1dd5nMXz3hhTC; Thu,  5 Nov
-	2026 12:21:57 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105122157epcas5p1320966a69d34521faeaabda354501162~lJY2_W1Ae2240322403epcas5p1F;
-	Thu,  5 Nov 2026 12:21:57 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261105122154epsmtip29c3fc114ce1213d5c87c233119230900~lJY0PNi8z0501305013epsmtip2l;
-	Thu,  5 Nov 2026 12:21:54 +0000 (GMT)
-Message-ID: <b68297b5-58cb-4dd6-ac2e-07d6bd408c1c@samsung.com>
-Date: Thu, 5 Nov 2026 17:51:46 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MgWstCB7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965FC1F00919;
+	Thu,  5 Nov 2026 12:22:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793881332;
+	bh=O0kqlkUgSmSoqBy9DLE4UWFhP6VuU5dzn+P+OCJY318=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MgWstCB7ROogpjdCV60VvhQMKLLr5tfHfFbstjKmVrfVP1P7VNbKRgNYc9Tphqbq+
+	 E+o6JxQtqsgnfwC6ZV6+YfTjVV3z7OYD4f7/ZdXRHszT7hILJQqnD5Y+HFyoZrQU0y
+	 ntO8x/nvxywx4uoyqSLOghFv+HyEEQQ3G8+LKXNJP2OqMG4b/cB3Fc2M4jcBn+fzEB
+	 n+wJrL2TijhWz3irQkN9GLt0Z2Ahc3bcj71XOpQZEL77+SLh0KX7zZgfBNLYjI9qnS
+	 jBEqaDT+yestXqLyyu4XxA2cgwdgtyzslBD4TFZ5Uu9ZtQkngq2uXjhpovl3VAyagV
+	 EsoPqvBPO2P2w==
+Message-ID: <sashiko-outbox-199018@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/5] clk: en7523: protect concurrent access to reset
+ and PCI register
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105121059.11201-4-ansuelsmth@gmail.com>
+References: <20261105121059.11201-1-ansuelsmth@gmail.com>
+ <20261105121059.11201-4-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 12:22:12 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,96 +60,107 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] usb: dwc3: Add Exynos8855 to the generic
- platform driver
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"peter.griffin@linaro.org" <peter.griffin@linaro.org>,
-	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
-	<linux-samsung-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "jh0801.jung@samsung.com"
-	<jh0801.jung@samsung.com>, "h10.kim@samsung.com" <h10.kim@samsung.com>,
-	"dh10.jung@samsung.com" <dh10.jung@samsung.com>, "akash.m5@samsung.com"
-	<akash.m5@samsung.com>, "hongpooh.kim@samsung.com"
-	<hongpooh.kim@samsung.com>, "eomji.oh@samsung.com" <eomji.oh@samsung.com>,
-	"shijie.cai@samsung.com" <shijie.cai@samsung.com>,
-	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
-	"thiagu.r@samsung.com" <thiagu.r@samsung.com>
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <auvcLYl-ZnagU-7H@vbox>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261105122157epcas5p1320966a69d34521faeaabda354501162
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261026135755epcas5p4efa15a5e7540d91b4411a7b324aeaa5d
-References: <20261026135715.33071-1-selvarasu.g@samsung.com>
-	<CGME20261026135755epcas5p4efa15a5e7540d91b4411a7b324aeaa5d@epcas5p4.samsung.com>
-	<20261026135715.33071-3-selvarasu.g@samsung.com> <auvcLYl-ZnagU-7H@vbox>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] clk: en7523: separate spinlocks fail to serialize shared SCU regis=
+ters
+- [Medium] clk: en7523: stale REG_PCI_CONTROL write after sleep in en7523_p=
+ci_prepare()
+--
 
-On 11/5/2026 7:04 AM, Thinh Nguyen wrote:
-> On Mon, Oct 26, 2026, Selvarasu Ganesan wrote:
->> Add the "samsung,exynos8855-dwc3" compatible string to dwc3-generic-plat
->> so the Exynos8855 DWC3 controller can probe through the generic DWC3
->> platform glue. While at it, alphabetically reorder the existing entries.
-> Please split the reordering into a separate patch, or just add the new
-> entry without it. There are other pending additions to this driver, and
-> the reorder will likely cause conflicts.
->
-> Thanks,
-> Thinh
+commit 5b2603a4978075ae29e211f7115d7f39dfefbc9e
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
+clk: en7523: protect concurrent access to reset and PCI register
 
-Hi Thinh,
+This commit adds spinlocks to struct en_clk_gate and struct en_rst_data to
+serialize concurrent read-modify-write accesses to the PCI control and reset
+registers.
 
-Thanks for your feedback.
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index 2baec734df9fe..c05d0bfa23400 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
+> @@ -123,6 +123,8 @@ struct en_clk_desc {
+> =20
+>  struct en_clk_gate {
+>  	void __iomem *base;
+> +	/* protect SCU register */
+> +	spinlock_t lock;
+>  	struct clk_hw hw;
+>  };
+> =20
+> @@ -130,6 +132,8 @@ struct en_rst_data {
+>  	const u16 *bank_ofs;
+>  	const u16 *idx_map;
+>  	void __iomem *base;
+> +	/* protect SCU register */
+> +	spinlock_t lock;
+>  	struct reset_controller_dev rcdev;
+>  };
 
-We posted new patchset with drop the alphabetical reorder of 
-dwc3_generic_of_match and just add our new entry.
+[Severity: High]
+Since struct en_clk_gate and struct en_rst_data each embed their own separa=
+te
+spinlock_t instance (initialized independently in en7523_register_pcie_clk()
+and en7581_reset_register()), do PCIe clock operations and reset controller
+operations still race with each other on the shared SCU registers?
 
-https://lore.kernel.org/all/20261105121401.1661711-1-selvarasu.g@samsung.com/
+Specifically, both structures point at the same SCU MMIO base and perform
+read-modify-write updates on the same physical registers:
 
+  - Offset 0x88 (REG_PCI_CONTROL / REG_NP_SCU_PCIC) is modified under
+    &cg->lock in en7523_pci_prepare(), en7523_pci_unprepare(),
+    en7581_pci_enable(), and en7581_pci_disable(), while
+    en7523_reset_update() modifies the same register under &rst_data->lock.
 
-Thanks,
-Selva
->
->> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> ---
->>   drivers/usb/dwc3/dwc3-generic-plat.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
->> index ca69ac0eb07c..d57496716204 100644
->> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
->> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
->> @@ -232,10 +232,11 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
->>   };
->>   
->>   static const struct of_device_id dwc3_generic_of_match[] = {
->> +	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
->> +	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
->> +	{ .compatible = "samsung,exynos8855-dwc3", },
->>   	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
->>   	{ .compatible = "spacemit,k3-dwc3", },
->> -	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
->> -	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
->>   	{ .compatible = "starfive,jhb100-dwc3", },
->>   	{ /* sentinel */ }
->>   };
->> -- 
->> 2.17.1
+  - Offset 0x834 (REG_RESET_CONTROL1 / REG_RST_CTRL1) is modified under
+    &cg->lock in en7523_pci_prepare(), while en7523_reset_update() modifies
+    the same register under &rst_data->lock.
+
+Should struct en_clk_gate and struct en_rst_data share a single spinlock (or
+a pointer to one) so that concurrent clock and reset operations actually
+exclude each other when accessing these shared registers?
+
+> @@ -577,44 +581,78 @@ static u32 en7523_get_div(const struct en_clk_desc =
+*desc, u32 val)
+[ ... ]
+>  static int en7523_pci_prepare(struct clk_hw *hw)
+>  {
+>  	struct en_clk_gate *cg =3D container_of(hw, struct en_clk_gate, hw);
+>  	void __iomem *np_base =3D cg->base;
+> +	unsigned long flags;
+>  	u32 val, mask;
+> =20
+>  	/* Need to pull device low before reset */
+> +	spin_lock_irqsave(&cg->lock, flags);
+>  	val =3D readl(np_base + REG_PCI_CONTROL);
+>  	val &=3D ~(REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT);
+>  	writel(val, np_base + REG_PCI_CONTROL);
+> +	spin_unlock_irqrestore(&cg->lock, flags);
+> +
+>  	usleep_range(1000, 2000);
+> =20
+>  	/* Enable PCIe port 1 */
+> +	spin_lock_irqsave(&cg->lock, flags);
+>  	val |=3D REG_PCI_CONTROL_REFCLK_EN1;
+>  	writel(val, np_base + REG_PCI_CONTROL);
+> +	spin_unlock_irqrestore(&cg->lock, flags);
+
+[Severity: Medium]
+In en7523_pci_prepare(), after dropping &cg->lock across usleep_range(1000,
+2000) and reacquiring it to set REG_PCI_CONTROL_REFCLK_EN1, could reusing t=
+he
+cached val without re-reading np_base + REG_PCI_CONTROL overwrite concurrent
+changes made to REG_PCI_CONTROL while the lock was released?
+
+The subsequent critical sections in en7523_pci_prepare() re-read the regist=
+er
+after reacquiring &cg->lock, but this block still modifies the local val re=
+ad
+before the sleep.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105121059.1120=
+1-1-ansuelsmth@gmail.com?part=3D3
