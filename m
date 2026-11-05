@@ -1,90 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911952;
-	b=aFsmXUuYt63NK5/dehF8rSXcXbu7sT/O6bsuguobO4USplUaEb4zN8SRnim0G7KnfCy9
-	 SgUX/ThsMjp/STjH6aRvJdiOavObsQkm96hQSlMBjuCyS/6Sk1PyoTyBkE3eXAEJCXryt
-	 R7l05/2HuEbmwMU9DzDwDAOJ+fWItLed/Fdl+Kp2Mg2KUCz3CcccSVTDGQ2olQAQF2RyB
-	 KBhkVq9pTsqKV+ZUgO2GyffuevpUl/aRdPlTHXF6ysShKX7GuU7QS+5RknfDeDd8jnJ1E
-	 7w2XcVUJHnFYXRxs2CL0UagiO0QorerFIUVwPdpmMINT+S/Ohz5gTKqRuBHOW+e4grA==
+	t=1793912279;
+	b=FILWsuDMcNXBqIhapqZWoowSMmHa+MmHmc4jQrRdyI4c3a7VLLBKmZfZSBgu4xbAW8+1
+	 K6+RXhTGe8sjqwUnU3osek29Yq0bTqfSjQ2K/OZA6fSRzia63x7qxfJHkxNihTMuWOnb6
+	 t6qvj2kEkH0nRuExKjBse0Ub9C/mScGyMdmrVwi/hjpx4h0BywptwxkWVlYrZ3mbv33vD
+	 3Flw+uHBJ04Ade4TKOJc6za3vt4QR1FxUJL5Qd/uTW5qLxIG/JZfPfa5ERQ+JKbQCffm5
+	 PzirK6bVumfNPPQY2qwZH/py4ZmXxDBria/Nuy002J5crqOst0FtbrDRyjiFYoJMoNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911952;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-	b=KAqIY8oYbgx9QVCE9utoGaQRgnyyNGyqwl19hPXCSIK2JTQJxYZH/CGudtaZqbkqFPIZ
-	 bVEhESlymPP92M0KQ93aMoQYRMguUS41W78chhYtqPe0QB1plv2DgdAd0Nb4Z95W2xaX2
-	 LPwo/+85NcWp7+BFS1Y+iyYE32iPSWsEM6yxB72gChNuFtXWJZvig7TzHPK8lB8lLvoR4
-	 dfgxLdLgahy24zYoRc9qYGy4ZUY7MBvUj3CCaX/zhjcFW2LYEklF4+cYbY8BCx/4cohnd
-	 cnMENgM69ewAp1tu+0rtdnwryIlWtLC2frK8sbqQ3IdpYOtTidOMUPUVcwC3FEeTQjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912279;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=y3OwD37SrGJresbxUK3F5nIZp/tIcgjb7IQgtuSfY9s=;
+	b=Hk8dTmckX3jdVsc+nJld/YUPEyk018eGRqXJmJnP1KFvEel04SIAMuWxGDnz5y7ebGQ+
+	 h2MB7wmVAxzlNNQjbWrwy0lTzWkUKssyYiWNqQB+1BEcXszG16aGb36xlqHD3FqUc1L6V
+	 ULuVauXm7vlCxoL7yjak+7cmg+edSvHJcveuEYxvpsl+IqKAPYMGf+4nNh8UbeY/wFawK
+	 Gs3A2WYEjJQ6kHtpNg8rbDHZ3/lxRFXIM/G/ggw67Z+UmdHcxDeBTqc0Yal4uOaUDkqvx
+	 CAd2KKNO3v2aAY1L1EECXsAQRslUanQokuGjlGtfAGx3ry6tOk6iUhWWq84965wAcGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oiI0U3KS;
-	arc=none smtp.remote-ip=209.85.210.48
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD982606D839
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:52:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD982606D839
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4423606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:57:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4423606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oiI0U3KS
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-843cf077f10so9729a34.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:52:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793911951; x=1794516751; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-        b=oiI0U3KSmCl5sRBZUwtFDePkiUrIoQmVmZ13H5QCiPiAm1OjSVuBtrsUOoyUH1NiDP
-         2PDIPcsXMAbo3IUxDfzkeBPWvvtvxg2WWdUwYaUZcYHnL+sdVPpU0eeQCAM91SGw5vZa
-         OXuT254k3dNSl6rVoJk0PuH4kTpkYA4TZ89sCV0cZVCCSMU3k/9vLxOAGaZtqKo0x2Rt
-         c3DUorYK3VtrLLGzRDn9WADGXMDtWPCuqqhHvAZ3eYcyQdSSabbmag5XSDKaLWbvr9ja
-         Waa+dfKp8Rfnexs6b9yjhsQLRgzLuKpCJIbY14v7HGPlZajDYdkGqKjXrEMjIC/2kvkP
-         gnBw==
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so1558212a91.3
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:57:58 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793911951; x=1794516751;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZsGYkHSaF8D1INVVG7IqcJD0MRHplG6cSUzvau3umEk=;
-        b=pSi/MEfkhTWzU3GXzWY3pgNgyTpgj6LOdgrbQXaH7Kp0GFXkDT4noYj9fUub4TAaBF
-         UeObVrD29NDAFxSD8tWEpHxIXA+8TEyR38rLcQXmgBmELWApxufo106TT6/d4DioPqBD
-         D2tleIadabFfL0rXaDH/S0SfNvcM7NgrPefawo9zFICJLgsQ1VwVuCOukqu4wEF2WEZB
-         8aYBq1dNcpnHwv8ja4JngJ6TIgOOlzYDQuURLYqGa2kSekCf0DmLfVo2u54QGQUuxjz/
-         deAXTFan9O0Dnmq4OrjCsEHVzIws5NFkWx3HuF5REoIgfdIEnzye6iX59cCKLR9u4h0B
-         K3xg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGyxYD1LCodCFG3NI8nNodJ6BnAuVObcqJkqYTGdseo3ITqj/f0nQEX9zawpslLXRpoJW2L7iPcdjG@vger.kernel.org
-X-Gm-Message-State: APuU4Z9t8M/vZe/jXmXxpfZg3uZOOs30dPkQwQ5h3YVKTX2MZEh0IMKE
-	uQb+BRAnIvsdeeuCiagebOWA9hPKcOGZrHOpsiEetksmf6ccnnVYwvDA
-X-Gm-Gg: AYBFou1AZiABHk+b/od8BzJLLcMqt3hwCZKreJahPKJbG2YC4JNwAJ+3XJ6dGN+GZe5
-	9aPK4r56jyHXM+H5T7XErc2YjivrAyb53yth+UAo2O+EWa+vjZxjnUxBFf2YUko6bG9Yf5WILoJ
-	Dq+NcmyLs/DZuwAKHnZp85Cu+I/HL6Z/cO0/YohaIlhuWN5xdTi170FmqvaO6WG6FyqwjE/PIGa
-	Z8J+ZrLBuBcKvVD9RyIJO0V9P8vZswRqyRMelTOAgKa8VQeWLXsW2IOQ0ZbWp628baMboeM+3Hj
-	t8NpWbC6QRGQLaqborEw+Uwm+bqyf0L4+j3bkiBbD+0eby820MyqMHes0Xy1lQeGCdVw22kDx5c
-	fYjcBzlSI7wCYVOFLRWHLus869EPLNdGuIIH+cz+YbeHz59NWPEsshgqMldngo6n/2dbFJ9JnUk
-	5b8A1yT4cseF0YkpqPYY1pGxkSf5itQoQOUNPCF2zm24PFqyFI4klkWJ6p+0Hdm9TAIYPJaNdLY
-	CgDYme56KVVfgjt75tw22V4cQcIjJAcC3vlkf03KmewVdlg7JX8T/XOYjSmyk/8CQnq5hku5l2b
-	29a7gQpXIZGS7dAnJVFq1oNAZU4cJZOllM2h7LiWhuk/0TgKwoHgZSbgMh6/MUFJjjPADhA/BIR
-	B52cx8MbDGQNM+padhAAEHNf8zfy4DgMB6HTHPwDJAY88wk+AKxEDoLqDXAf2CoUfzBivIv4ayQ
-	EnHR8aFqfbcE+KlBrxEym617dpVMOo6rSKEOdOdb46aIT+rxNvyqw=
-X-Received: by 2002:a05:6830:4c03:b0:81d:54f9:d6a3 with SMTP id 46e09a7af769-85f1ce073bfmr525242a34.4.1793911950589;
-        Thu, 05 Nov 2026 12:52:30 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dbb298fsm292276a34.6.2026.11.05.12.52.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 12:52:29 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 05 Nov 2026 13:52:10 -0700
-Subject: [PATCH v8 09/11] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner A523
+        d=1e100.net; s=20260707; t=1793912278; x=1794517078;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=y3OwD37SrGJresbxUK3F5nIZp/tIcgjb7IQgtuSfY9s=;
+        b=xIQZr7ensvIEJ1FfCqEdG8FM7bsL59yOC1vCGS+oK3cOfiKhp3xgJlAM/GSmA0mc75
+         sfA9aU7qEb94e0BWw442dLzxLey+Jr56JUeD8/2PhstfedePpc8lgbjnDRcdE6mHubAS
+         SAEmN4IH/m0C0gRzdVbh11VTkA17MiXyFwW4RzBu1qP59U+ESgywq37tFfGwfLV33i9b
+         PTBEUm89ia+rIOEp2H7ahPww/4NsTGqzyLyExeWH+IFOEihmoMoBOK5t9IKIz9OStJyn
+         Ut+6n+lNptty/lSopp+O1YZw2zr+8OsVx7pJJxNcF4iuc1MRNZGs1mboj0cMoZlLwxge
+         ghsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcimXck3Xk81pv71K/NYSrWcF02BaRuybz7P+4UBdvu+PX8t5zLgEYpEvOL8ciR8DvF18yew89HKQY@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gXKdLkNQotu80o+2hhFPcsuUZ1aZ8BgdCPepGQZjAqQ68CHS6
+	JHEjUsgTwFJEFEZws0/fhyHP71sXnZdf97XWoOjAyy/t8yzz6kNA0Bv9i1a5hqAr
+X-Gm-Gg: AYBFou1feg1BCi5yPfJx/1r89InRo6MicAdio496MjYpe9r7u80xvk4lI4a2FfVpS+R
+	ZVZfbwjGwUHyw+Rie+N8nsZt3cOajKV7+OnGfpMI4o1lMeuwFkPUDN10dCWy1LX560lyTHfC7kg
+	ZtUyMnwmLsIpSF1Euhqp2H/y82apECeJiEyaOixxujr7+yNOFRjpf/vingZa4oLPUleUA0QhjmV
+	akRkbE7ppmuvts15pKzLtXybE87d2Tkin+NSJuHKa/bDDd1Se6oeJiIuhB5RvfSXZt/M8fZEIdm
+	RgqxqB37RRqFWlI0YW295i8mK/tLWXEG60YNfNmmf70XNgj8GuGv2h/nd/3sCyJfwmewjKXxhYU
+	XNQNdCFO1e7cvsfLPjglgej2MSQWsEDGJVjW7uRO2NtQsL1YeHAcAP3svw/UMgb0kd9rnfy4QA7
+	bXNNembJgeIjaPhHbAM5VK8hRrjaDDoYEkXFwb7Ivk+bYrtm7iG5TDTmJ5ZX9LZlVE5aJcq0H7Y
+	s70aBb/lFNtNW+oZjkbmLRT3pq072kMIxtStKfulyocGYBC6fYReALDP326qciblK/MR8lHNL/U
+	UyePNlHJeUKLmou+HxhhbvFTR6FBZJOJrDnEU8iiAxtFwKPHZuKICIw4bYTIdjZtti+4DbGOyYw
+	fkpNt6Vg2WZWZupD8IfyO9KFpHJMiGF1SmI/ZIaqetusmYCNrO8MC6mBTL48DLK2e
+X-Received: by 2002:a17:90b:5585:b0:3ac:a7ee:6770 with SMTP id 98e67ed59e1d1-3b0db60979cmr245814a91.7.1793912278214;
+        Thu, 05 Nov 2026 12:57:58 -0800 (PST)
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com. [74.125.82.177])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d77c7ea3sm689028a91.0.2026.11.05.12.57.57
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 12:57:57 -0800 (PST)
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36d6765756fso3048971eec.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:57:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwSCCLUM4ACAM714T/0srALGXyYIjo/5GU9GHwFCv+CTxm5IxD4o7W8l000HYCzID6+lUiE3F+KsgbP@vger.kernel.org
+X-Received: by 2002:a05:7300:ea91:b0:36a:6d52:e16c with SMTP id
+ 5a478bee46e88-36f75253924mr438929eec.12.1793912277153; Thu, 05 Nov 2026
+ 12:57:57 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -94,53 +81,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-submit-h616-uart-fifo-v1-v8-9-14024d2b184b@gmail.com>
-References: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
-In-Reply-To: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, James Hilliard <james.hilliard1@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-1-a15965a49574@telaak.dev> <e134193f-ba1b-47c1-9a06-419b1b796ea0@lunn.ch>
+ <CAPY4CJ74O1tFVCpcN9seoeWDF0VR9GNfKuE+rWODQamN2sjL3g@mail.gmail.com> <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
+In-Reply-To: <ba32cd69-23a3-464f-a74b-68a29e7b8202@lunn.ch>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 5 Nov 2026 15:57:45 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+X-Gm-Features: AclHuK9hGSAdRKsJYKbyzOuaSV6hdi58LXaj_oUeX5Eo9bGiXxx_BR0j2WjKwyM
+Message-ID: <CAPY4CJ6mCc5HgQUZd2Mq3C=Tsmwp=-acAV8dsWcpO_J87Pr6rg@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: Add Siflower SF19A2890 GMAC
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Chuanhong Guo <gch981213@gmail.com>, Russell King <linux@armlinux.org.uk>, linux-mips@vger.kernel.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-The A523 UART integration has different FIFO depths across its controllers
-and reports each controller's depth in the FIFO Clock Control register.
-The receive thresholds follow the standard DesignWare FIFO-relative
-mapping, while the optional-register layout differs from the generic
-DesignWare integration.
+> Do you have access to another board which has a PHY connected, not a
+> switch?
 
-Add a compatible for this integration, also used by A527 and T527, with
-snps,dw-apb-uart as a fallback.
+No. The GL-SFT1200 is the only SF19A2890 board I have, and the only
+other one I know of, the vendor's evaluation board in OpenWrt, also has
+a fixed-link on this port.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+> There are unexplained delays here. Is it the switch, this MAC, or the
+> PCB?
+>
+> We need to understand if tx-internal-delay 0 really means 0, or it
+> actually means 1065ps.
 
-diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-index fc1289073241..ea6ce99178e3 100644
---- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-@@ -61,6 +61,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun50i-h616-uart
-+              - allwinner,sun55i-a523-uart
-               - anlogic,dr1v90-uart
-               - brcm,bcm11351-dw-apb-uart
-               - brcm,bcm21664-dw-apb-uart
+I can't tell that from this board. The sweeps measure the sum of the
+MAC's delay line, the switch and the PCB, and I have no documentation
+of the line's own delay at step 0.
 
--- 
-2.53.0
+What they do show, in the MAC's steps: the windows repeat every 8 ns,
+which puts the start of both eyes about 4 steps (0.2 ns) below 0. TX
+ends at step 51 and RX at step 28. So with every delay at 0 the link
+works, but right at the early edge of both eyes.
 
+Until that is known, how would you like v2 to describe this board?
