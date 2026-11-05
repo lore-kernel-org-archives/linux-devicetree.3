@@ -1,104 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793917484;
-	b=43tySkA77lGinf14kl7VvsgUCyaZmV3OLd6g+I0S+EwtAMaCBQWpXocTvc26je/Jd3lH
-	 J6pOVsoeAD6to5HZSk3yqgrlKE6WN2y1t1UiSGwEMFfX4/a3pQJt/VAP1SigwHMZUGNeC
-	 gXYhKmevGtwox1Lr8K3IFSJYxJxwU0ORbbCbu6zXZAtQkHiOyxEYGW1Z6RnsU71HBWH58
-	 fn8Y01uEJ1bhMNQWTh8VWKr6Trdl//cTZ+nVxSYYJcQLR85w8bhRoj2C7lMt1zVeYPfYD
-	 IOPtvRszqrl2LfzcNQEXqL6ulRmlVAlKfFnmaPLZE4JxDYfx9+ctUfvunvmFRYJRfYg==
+	t=1793917523;
+	b=KdkDx6aWDLhEzi00iyMxk/NKdeakuRjyg7x05TIE7pTjX28EMv/wBl+iOB22YcVrBEbN
+	 E33zWkb5llVVUBi0w3mSzAGK//NmmMrbVXdX5hMnsyKe5X/tJegvD1GK/rk0L9L5lZXbb
+	 GQuYz3p0dSXY/IZFARRbYZ2SsYs8zqJw7cUbb4eg3MAONx2AKE3Xuz9QIv6eBj5/NFABU
+	 EJIkTf5jIb/zRFZ3sPneHddeXyXtx/ZV4mn5wArVX0HKTCeUZC4pYJ4tJZ2nQ+wzp3qGs
+	 75JRoBwhqqcD14mYKIdN2ikC6Ylju/othmE4j1MhGdbKMrMgYGtm7bCJbFMOrs8t5Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917484;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Z9XTrE2yrR3HPAGKN8cfazsOZArS5Wy1dlBvlHzw8y0=;
-	b=bCzTkKq0/OaSkIdw1ISsYE4ets7HsHpxsiJK4cK57aaqEvMEWTAV2VwnCNnzX0bMnkAR
-	 8JiMfbWsbJMRD+RsFFGvNHGhRey50XMnVf2zcbZ6MDJijxyLb3vcnyYc+EcF2bHCJlQb2
-	 MYbEqwnnq7mNWtlRM0Cp8SJm8H+UZtss6Fq6uQi2pUhHwvYEGLFtt6cDeJezhGvVxs8pj
-	 385F85gzzaY0Or8DFBtDtQpMM9M8yqxddf0WO5URgQKUIEPvEwR3gaxogBKTbgepc+wEc
-	 tgKAypl5EZKXSg1gKaUh41SiH36G9RSGEMoO0pfyG2AEjLIULYUvRE8mJCvLRI8BpVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793917523;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6Np0cUB79EyEFeICv6zfCgUE71AE9FMZbFEnxyzvjSQ=;
+	b=gvojtOK+g6Kqb9mSnDjd2zArNJ4klp4i38B2HlDpqRpuHtglxf1U8pMe4fDJ8B7QKqqL
+	 KOLtTpewCI1FfvXpUUwx3hU+VfA5JW79kDQM2oZlQ5ZimP6RjnSmXTicHzbNTbTu2zaAR
+	 EC9B/mIBpmoqVS++qh0eYsvuenBh4sEvlMIb0Z0Oj5qFdr5GfjXyZ3A/8pWCJenvs0CJp
+	 5AgFbPQYoLW77zbMok+lF2jntxcGWjoqIh/mfYVY90aHjUoy8DOHZN4bhGOdKYqYDbFnH
+	 DPki5HoakT0FZKWhrE4TF5Tj7DFrsry2JYRxm+vos5gbHYbU7KPl3RFtEsOsnn4o+Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GnGWqdjO;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KPRDKmOF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72081606A328
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 22:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72081606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0620E606A326;
+	Thu,  5 Nov 2026 22:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GnGWqdjO
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b566cf56c1so2141886a12.2
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 14:24:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793917483; x=1794522283; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z9XTrE2yrR3HPAGKN8cfazsOZArS5Wy1dlBvlHzw8y0=;
-        b=GnGWqdjOEcjf/+4W8F+F9FVjds3+v932m9PLoYSn38RfJhSVzDzxwCGKWm04TwwmY6
-         VxL5eFs9njfpPRpQrH0Y6uCv5kXKpTPOWuNwZk7N+Yr+MMvOnPFCCmv9qskltSEdnJ7q
-         geBsjgL0myKHYhfZrQFSev+kBK7WaEBjO64OtPz2GnEun/eIdhSMVeDKOrF/XTFXgKTK
-         b7yALxR+N/CVuzhw2sHyro3oh7HpJwXH48xJDWMrLi7LLJ6EDhSy0Xb00kjqM+PJ/fXo
-         in6YoOuerlF62CFYLxYfNdcZhs+YnfdJfKBNhqmA6YvGL1WJvucqNPpXQEjArCIoP49u
-         Li7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793917483; x=1794522283;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z9XTrE2yrR3HPAGKN8cfazsOZArS5Wy1dlBvlHzw8y0=;
-        b=nAPewz9HNMq+Sszfxu9ZLTjM0H7Thv1y9eHoSnHF2ee4wGVWSekNELDMDZXTX7RA49
-         GyghQnvOGNV+bTDMHEsq1P83SOT+I3ph4xOlOZwyk2XwoK7p2ptrn766m5/KDJIEp/as
-         rzNBdDckw2Yd5B5OpzflJW2eEzRdG8IGTSFkeSfOfS3d/wwzf3/NaXdsBIFlj36n8Cw5
-         AqhwfjwGsWL/WFYcdJSTnTj5erxkj5BCsWQ4hVovXtb/HaXqlRx8WcupWR9iNGrbRsll
-         uPLc5OSExWd5GCSAQ6zR3YamWZ1qJ9dUnILKsc/puoWTKmPIR2r1bi//EeQjigDbPFIC
-         y3Yg==
-X-Forwarded-Encrypted: i=1; AKwUvBxHFAyqJql0aM/DJ+oGpJgwVWpPI6gwNVBOUW1jnd3rc04GmrlPmHgf9tztnJRSy3syLLcMoGW5ULY4@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HWL7N2yz3Z2zCaudv/Y7bPONCQ4Hjznw1KfEI89jcecMq3wr8
-	qhwcu60zfzBvg9YCN+aiDkHsZkJK+QqTJzkVClhsJyykmda9h7qiiASz
-X-Gm-Gg: AYBFou0KUNXb7XqXoACU//XkbnERn9uGONCTgDWH0YJ071d/LbdKawreXRNEHysZUNI
-	0nN54laEh3r+0uHBEugZp9dy/+wS9BrxbzCxV4fL4DZuVC81so5uBROtSC2mHts7ShtLtby4aVi
-	3CPAGmOKWMfvDYFVFAfCaosCYm7yBzDqjVfYWM2Hy45A1ctSYVnCYkf9Kr4K1jmSH614iUnpdNK
-	L3gYZpZSowHduF9zAMwcTIyCE2DRzGwqT8NKympgNa8XdMTNhxnAE9KRLuqp56ujmGv4nsOftMM
-	raV/IltZm46DBdQrXt4vB4amDoUGnvFfFfBPXn8SYth9q7DvQZQyYxpBzV3EJ2MWkgIhcIiT+dW
-	n89pFP+SMG8wWLcC2qQMoK705Cfsm3ZAlxsxAygR3Emsb2kXFIyxXuPecaNBCZ9wb1IfrzbiiXI
-	zQzkpR2Zam4fD2KJsYLYYs8XUy0LKWuTbQw/JKgcWF6+T4clgZbSJkApNjL0fbXzBcPsWOq7dVE
-	JHVOxG7+MZOekb21VwZMC7PXXqyHpNrGcUo3wNYTsvk+UDD4kZ+dISCkLxeqvk9jDbVBEg8C7Az
-	O1drvO+MNtR1b0splQqKbs4NewRCJ/M9ntAE1j4qpPXTmhJpnQ==
-X-Received: by 2002:a05:6402:5384:b0:6b4:d7fb:affd with SMTP id 4fb4d7f45d1cf-6b5977de20emr411756a12.12.1793917482391;
-        Thu, 05 Nov 2026 14:24:42 -0800 (PST)
-Received: from letov ([62.41.24.155])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac57b9csm2103697a12.15.2026.11.05.14.24.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 14:24:41 -0800 (PST)
-From: Alexander Letuchiy <asalde.le1@gmail.com>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Alexander Letuchiy <asalde.le1@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] dt-bindings: watchdog: mediatek,mtk-wdt: Add compatible for MT6895
-Date: Fri,  6 Nov 2026 01:24:34 +0300
-Message-ID: <20261105222435.571449-1-asalde.le1@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <xUMh3NwVp4cBhFsWWFE2Xng4h8YH95iJM37_I158WAyVmsRCPbirWT1iU8eMFeiSFw8xco0X45o-2NOeB6Jc4_nWAg25pFPgDMwK3mKzm34=@protonmail.com>
-References: <xUMh3NwVp4cBhFsWWFE2Xng4h8YH95iJM37_I158WAyVmsRCPbirWT1iU8eMFeiSFw8xco0X45o-2NOeB6Jc4_nWAg25pFPgDMwK3mKzm34=@protonmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KPRDKmOF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228ED1F008A1;
+	Thu,  5 Nov 2026 22:25:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793917522;
+	bh=6Np0cUB79EyEFeICv6zfCgUE71AE9FMZbFEnxyzvjSQ=;
+	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
+	b=KPRDKmOFG7dUNVBgmlAgES1Y92EiIHJY6uDZfPMhaaQq6n4GEg+QZl3FL0vI55qBD
+	 rDm4w6R6IJsC31Tizj35YmllUeBh6++/rvUajEjIKN0n1MllBslu5HAA9L025rI4gB
+	 iIrhdmPDKxH0kSWvnI9U7gVDdJUSgXwdukEwPU47aBkIONt2XOKLKJFBrD17iwm+tw
+	 OkjTgWoB5WN8IQdF7UBBjpPb0XxZ4Cb+t3Z/7DOdmBaiVe8/0BeMpfsmGRIL7lgqny
+	 O89zX/V5mVXrE572LdWo4oVKNDCYj7r8zST5/8FV48FxooexiNRS3XmZdAymIes3pY
+	 NTPUn5X6T43/Q==
+Date: Thu, 5 Nov 2026 23:25:15 +0100
+From: Alejandro Colomar <alx@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	linux-hardening@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <auz79Izf6Q5qOQPi@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+ <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+ <20261105111423.360f4ba8@gandalf.local.home>
+ <auyuINXEJKc1KoG7@devuan>
+ <20261105115019.2fe7c91b@gandalf.local.home>
+ <auy0O467UqOzqYub@devuan>
+ <auzGMV1YbO9DodBq@ashevche-desk.local>
+ <auzHFRzd86iV4-RA@ashevche-desk.local>
+ <auzxXyAU6zyHtMtn@devuan>
+ <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,29 +77,171 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lqrtrf3hhpuzbu5e"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
 
-Hi Roman,
 
-Thanks for looking.
+--lqrtrf3hhpuzbu5e
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+List-Id: <linux-hardening.lore.kernel.org>
+Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	linux-hardening@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Andreas Schwab <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Saravana Kannan <saravanak@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] string: Add strprefix(), and deprecate
+ str_has_prefix()
+Message-ID: <auz79Izf6Q5qOQPi@devuan>
+References: <cover.1793876837.git.alx@kernel.org>
+ <9c81f6f62fd0e908e683c4c08b09a1f95bc2ec9c.1793876837.git.alx@kernel.org>
+ <20261105111423.360f4ba8@gandalf.local.home>
+ <auyuINXEJKc1KoG7@devuan>
+ <20261105115019.2fe7c91b@gandalf.local.home>
+ <auy0O467UqOzqYub@devuan>
+ <auzGMV1YbO9DodBq@ashevche-desk.local>
+ <auzHFRzd86iV4-RA@ashevche-desk.local>
+ <auzxXyAU6zyHtMtn@devuan>
+ <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHk-=wjD-fQvBvozu7+TjXa4=arAFgVzyixw4W_A=14Y8rhSLA@mail.gmail.com>
 
-On Thu, Nov 5, 2026 at 11:50 PM, Roman Vivchar wrote:
-> Does mt6895 actually share the same reset layout as mt6589? Given the
-> generation leap between these, the former is very unlikely to use
-> the same resets.
+Hi Linus,
 
-The vendor kernel for this SoC binds the watchdog with the same
-compatible list ("mediatek,mt6895-wdt", "mediatek,mt6589-wdt") at the
-same address, and its register definitions are identical to mtk_wdt.c.
+> Date: 2026-11-05 13:48:18-0800
+> From: Linus Torvalds <torvalds@linux-foundation.org>
+>
+> On Thu, 5 Nov 2026 at 13:24, Alejandro Colomar
+> <alx+linux-hardening@kernel.org> wrote:
+> >
+> > I think it might indeed be that find(1) is slow at filtering, because
+> > using git-ls-files(1) is faster without piping to grep(1):
+>=20
+> No. Your find | grep" speedup is because you use two cores for this.
+> So it's slower, but does it in parallel, which is faster on a machine
+> with idle cores.
+>=20
+> The reason git ls-files is faster is different: it's because git
+> ls-files is just that fast.
+>=20
+> And it's so fast that now the pipe overhead is much much more
+> expensive than git itself, and so doing "git ls-files | grep" is
+> slower and only adds overhead even if you have idle cores.
+>=20
+> And the reason git ls-files is so fast is because it doesn't do any
+> directory searches. It just looks at the git index file.
+>=20
+> So git ls-files really does something very different from 'find'. It
+> just looks at the files that git already knows about, and it basically
+> only opens '.git/index' and parses it.
 
-The TOPRGU reset layout is the one thing I can't confirm, as I found no
-reset table for MT6895 there. This series does not use it: the DT has
-no #reset-cells and no consumers. If reset lines are needed later, I
-will add a dedicated mt6895_data to the driver.
+Oh, thanks!  That makes sense.
 
-I also tested the watchdog on the device: while userspace keeps
-kicking it, the system stays up, and once the kicks stop the watchdog
-resets the board after the timeout.
+[...]
+>=20
+> Anyway, if you search sources and don't want to care about object
+> files or other generated files etc, I'd heavily suggest using "git
+> ls-files" and "git grep" exactly because it's much faster.
 
-Best regards,
-Alexander
+Indeed, git-ls-files(1) seems more appropriate than find(1), especially
+after having built a kernel, which makes find(1) go turtle-slow and list
+the built stuff.
+
+> (Ok, "git grep" isn't always faster, the whole regex algorithm issue
+> can go both ways, but 'git grep' does do the same "just look at files
+> that are actually known to git" thing, and obviously it can look at
+> different revisions etc too, so it's really *good* at greapping the
+> actual committed history, although if you go back in history you'll
+> obviously be paying a much higher price because now the cost is often
+> not the regex, but the unpacking of the objects etc)
+
+I'm not a fan of git-grep(1), because it's easier to remember grep(1),
+as I already need to remember it for other stuff.
+
+But yeah, a pipe `git ls-files | xargs grep ...` seems what I'd be
+using.  After all, the slow thing is find(1), not grep(1).  And I like
+the separation of concerns, so that one program is listing files, and
+another one is searching their contents.
+
+I'm finding some issues with git-ls-files(1), though: it's listing
+symlinks, which grep(1) complains about.  I wish I could discard those
+with something like '-type f'.
+
+	$ time git ls-files | xargs grep ARRAY_SIZE | wc -l
+	grep: scripts/dtc/include-prefixes/arc: Is a directory
+	grep: scripts/dtc/include-prefixes/arm: Is a directory
+	grep: scripts/dtc/include-prefixes/arm64: Is a directory
+	grep: scripts/dtc/include-prefixes/dt-bindings: Is a directory
+	grep: scripts/dtc/include-prefixes/microblaze: Is a directory
+	grep: scripts/dtc/include-prefixes/mips: Is a directory
+	grep: scripts/dtc/include-prefixes/nios2: Is a directory
+	grep: scripts/dtc/include-prefixes/openrisc: Is a directory
+	grep: scripts/dtc/include-prefixes/powerpc: Is a directory
+	grep: scripts/dtc/include-prefixes/riscv: Is a directory
+	grep: scripts/dtc/include-prefixes/sh: Is a directory
+	grep: scripts/dtc/include-prefixes/xtensa: Is a directory
+	grep: tools/testing/selftests/devices/probe/boards/Dell: No such file or d=
+irectory
+	grep: Inc.,XPS: No such file or directory
+	grep: 13: No such file or directory
+	grep: 9300.yaml: No such file or directory
+	60570
+
+	real	0m0.819s
+	user	0m0.439s
+	sys	0m0.430s
+	$ time git grep ARRAY_SIZE | wc -l
+	60568
+
+	real	0m0.308s
+	user	0m0.443s
+	sys	0m1.172s
+
+When searching in old versions, I usually am git-blame(1)ing stuff, so
+I already know which file to list.  In that case, I tend to do
+`git show v6.0:some/file.c | grep something`.
+
+
+Have a lovely night!
+Alex
+
+>=20
+>             Linus
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--lqrtrf3hhpuzbu5e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrtAkAACgkQ64mZXMKQ
+wqlnwA//U2IIiZPQ4PdneZ0WRKyzeGHalEIn6Ix83qdUJCof9JoDaxARs/IF9afY
+84HhMxdmBNcMTP7POW+vCiW2cAOyDc7eXcZzKW/ourFbhhWDm07x+stN+piH0qG+
+ulQcoCcq7paBJabwJFO0CN6Ve0MpPR3/07uJizXhe/UL+zjcVKRaJv7l1xD3bRRk
+FvKbLNta+OcLw1NPJyHFuvXzSpQpurge2LRPBJrs3UbjRQOsqYAjs+t9IhtFTsPn
+2RvICzKDS22YARS+ILoZNvIZG0/rrERWuuZX7mrMaihSC/sq41iAwEl7rHYQ5xj+
+J9JQw4QA9iw3OPJ5y4HOENsvvkbzkEemwxmatilgSSr4qdmFujxbgUr1sHM9MZfY
+wiyHXsHL0aHTBigniHng+Gz9F0GEd20Z7HxnLri13JlrqBLZjvSf5QdXWGjlW5SG
+5qasMIn3DKcXjjZVdk+0cq1MnimrMzv5+CexDrwNjzOl1aVW3/iARgPhyvDrDzG2
+SQWwyG8k0rYaKPd7gSTXx9oCsM9nUlhZ95L6nXl7jjY2XsC0LobmtGk9xP7pmQtv
+NNTUSc0CerNaM4+MX87B/cTv70P0PwDgIQ+gFnMTcYN2mF3bsV0KSoszOzw4Pgsv
+ElIIrJTFEY5AOjPehpjau2GDLUF7q291TKbpzEecgPBA40j/vxw=
+=YfjE
+-----END PGP SIGNATURE-----
+
+--lqrtrf3hhpuzbu5e--
