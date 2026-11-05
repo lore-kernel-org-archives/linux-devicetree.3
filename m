@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906081;
-	b=l6QI+RLYuy7uytXI6rr8Reg2gpE8orjO0ikHZqDeI509ZSAmowS4V+2jQuqOz21msozU
-	 Ef2qv147WQfwNknkNReDgFFkNxvHFOMAgsLIEXpUhFnah0mTaXeItZu3doOenTDGjWTaw
-	 ZQXs37uP9yJnaZvBvjl91aRjJghr+UJFriSJgi+BBw1JjdDCcO1lPOZW2fKgAyIsUbZXt
-	 IJUQWsDtlzIaOT8pRXudtXLd1WFvJN3WDVLOmCwIAjlNPwDx1TvnwPnMiZfLXZsfNdM3t
-	 sWza8vo8i0yrQh4ClACkv2AdZB9NX4gt70ECSFTlKeW+HbBJZ1WLa4XF/YemI1LtpUw==
+	t=1793906298;
+	b=3tJXLhYQ+idr8KFOHX1iEQ4Lz/MmbK5yMjPxKhEhSM6HNbLb2yZ3VVpNL/hFxyTulRfK
+	 s9rjylFAO+sWNnwxUGdgH7lFbOtbzhVOtoMr8nkLtG29fZGZ6FqcMHxdn8tIQN1uwi+/i
+	 M3HXv24XFHHkZAByqeKHCM/BqzNWblSMMJsvoIciQJIhwGANrQD+hE2UW6BZS9vcl6ZEN
+	 4CC6sczk2epngG2GPkHAdJAj4blnd/VuonzsLDDs89PbFV9IewKTuacGsnvR8ZDkmF6wu
+	 Ak19nkNWmSNZjMQXBPnj4iErirxSBn52zpZmzn3LeeYRj9llbgkVgZBqWKEOmH2EtNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906081;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906298;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NAUY23P/8t0bmNcA3J0QS9bQ/pAXdYpwFgDeuwmYbKk=;
-	b=nDbqL6nH1E/sa7r1/D0HYDEtU5tHAtB2x6XbOHyLs2PhdNbJtHz5/fTToyH1P6AmKNfx
-	 /Oyegjf0xNzGMVyA0XQPsQjr4yVZRjFNRUrlG/xYiRoHyCnYZLq4+YyfD6r93Mutf/zGK
-	 bcQcAgQDRihpCjHLqkXlIBDQ8GWfZ9aEk8uGhv7Ep01vK5c+HtZlyFrCWX+xb9/6B2orZ
-	 womkBMON763iBXymbxRqgrsT/2/Lt6oNFA2e4hdmslz6kEFNCuJus1k66qFqmzwpFaAQc
-	 2okqxvSEi+0UUcxp44lqBj384hL6Ac0WUl5L/ybt5R0bmRISwO2uplUGvScGCWRG1vA==
+	bh=XD1Rm+iGqF06DKo2ufDJiE26layU8M+F3N4dQIPcMnQ=;
+	b=Yu5mCVY4opQz3yJrL5BVrmXvBp7S4gUSujVg1KtjtmK1FxGt39fRloqR1M48LqEq55o6
+	 f4eo1upm5Tvhc4wQn4p5LzHk28EEoQFXXbEpC6ozezFdCQFWwOEhscXJptNxrZFdjwmSe
+	 9ZmHNQYyXb/uugEvrvXPNsqK4l8mcJYW+TKJRe9mW5ORFXmMQiDKeShjHLjwwqR20StBG
+	 0OPuQ8eR3VAZwn2IfPpmCH+N+qZ45hHtvkNrF6gCahEnX7Qq0ROw6HruCdBO+uX2U9VKL
+	 1xllFDX/7zghxd1zihtj8pKGVplZC2iAz/Q5tD8/niGBj471abeBO4NWTSXPhGjopig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/o0NOAD";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL5hLUwk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C23606A31B;
-	Thu,  5 Nov 2026 19:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944B0606A31B;
+	Thu,  5 Nov 2026 19:18:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/o0NOAD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDFF1F000C1;
-	Thu,  5 Nov 2026 19:14:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL5hLUwk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A01A21F000C1;
+	Thu,  5 Nov 2026 19:18:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906080;
-	bh=NAUY23P/8t0bmNcA3J0QS9bQ/pAXdYpwFgDeuwmYbKk=;
+	s=k20260515; t=1793906298;
+	bh=XD1Rm+iGqF06DKo2ufDJiE26layU8M+F3N4dQIPcMnQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M/o0NOAD+2JcYZv8V+PJNEuXzZjfOOSY0bugLJGMeXYYx+nDnfn3RfBI0nD91BsI4
-	 FBEImlxS29cy26PiqRYqxOkgFIHMK5xu0kFetm+uSuuVt+EK3HpvaysBucIZHWpJ9P
-	 mERTZZidFVUYctgNcK7PDHr/JPu3lKk0hfY1auGeZUvi9koXO55P6HAhgzprxxCfzM
-	 LeBTjnTkTyC5tPkYwCn6pbZb7TKYIIO7Wxe1CLbo7K6a0XVDsOlGDr6tbIF9ucESgs
-	 AlWNJhxY20k+R1H9M+FuWe1q9H2QhbhD6fROu/+UTAiibapX350t7U8e054V7HUevV
-	 YSCeUfj95nXrw==
-Date: Thu, 5 Nov 2026 19:14:34 +0000
+	b=lL5hLUwkxIEo+DdtEPhhyGUDjYZ/mqvi7E1mpsRNbQY6sAmzotey2EfNE84CYdqeA
+	 n8MRfrJrjOAwcNBinA0i2s//nahSVK+0tD9WboGj6Hb66RtNJDJz7nRFfvRXV4TvN/
+	 FMxdDfN4G0CN1M2wHB8VynPd8ULeTEwfi7zUwGWxNPYgawFCNbdphIx9V8kzSjZTns
+	 AN2VsJ/5biQ8mfSA//Gx7Fu3kf9Mw+2T1whck9xyZdOOCoalUm0JHsfb7Kh/Lp7Opj
+	 KIPjiep9zOAODo2OjWuF+3zgLbdg35OpG8IsXKkHsUAbz4MaOFREJLQAVntAzWa3f+
+	 FoXQwxrLeNBow==
+Date: Thu, 5 Nov 2026 19:18:13 +0000
 From: Conor Dooley <conor@kernel.org>
-To: Lachlan Michael <Lachlan.Michael@sony.com>
-Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
-	hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
-	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com,
-	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
-Message-ID: <20261105-disposal-robust-9556e8357778@spud>
-References: <20261029050002.3880-1-lachlan.michael@sony.com>
- <20261029050002.3880-2-lachlan.michael@sony.com>
- <20261029-distress-stimulant-cd5bb18f5ae8@spud>
- <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chuanhong Guo <gch981213@gmail.com>, linux-mips@vger.kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: phy: Add Siflower SF19A2890 USB 2.0 PHY
+Message-ID: <20261105-shampoo-osmosis-6975c7cf734d@spud>
+References: <20261104-sf19a2890-usb-phy-v1-0-db0cad937614@telaak.dev>
+ <20261104-sf19a2890-usb-phy-v1-1-db0cad937614@telaak.dev>
+ <20261104-unscented-armory-4dc756ab95cb@spud>
+ <CAPY4CJ5g+e4iu8p5s+Vf7XmEjB9cYX9xYyzHd0Fz8GEbmFm4hw@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,57 +68,50 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x4lACau3DeBapw/v"
+	protocol="application/pgp-signature"; boundary="fkTf2+Z1l1LqlU4y"
 Content-Disposition: inline
-In-Reply-To: <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
+In-Reply-To: <CAPY4CJ5g+e4iu8p5s+Vf7XmEjB9cYX9xYyzHd0Fz8GEbmFm4hw@mail.gmail.com>
 
---x4lACau3DeBapw/v
+--fkTf2+Z1l1LqlU4y
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 01:40:45PM +0900, Lachlan Michael wrote:
-> On 10/30/2026 3:41 AM, Conor Dooley wrote:
-> > On Thu, Oct 29, 2026 at 02:00:01PM +0900, Lachlan Michael wrote:
-> > > The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-> > > with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
-> > > over 2 or 4 data lanes.
-> > >=20
-> > > Add device tree bindings for the sensor.
-> > >=20
-> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > Acked-by: Conor Dooley <conor@kernel.org>
-> >=20
-> > This is not the tag I provided, I never provide tags using this email
-> > address. Tags must be used without modification.
-> > https://lore.kernel.org/all/20260828-hedging-olive-eaea0b4027a0@spud/
-> Conor, my bad. I honestly missed that the mail address was different.
-> I understand that it is important that review work is attributed to the
-> correct person and organization.
-
-Just either copy-paste tags or use a tool to insert them (e.g. b4).
-Don't type them yourself based on what you thought someone used, it's
-probably slower and mistake prone..
-
+On Wed, Nov 04, 2026 at 07:39:32PM -0500, Joseph Telaak wrote:
+> > > +        reg =3D <0x19e0c040 0x60>;
+> >
+> > That's a weird offset and size.
+> > What lies in the regions around this device?
 >=20
-> Sakari,do you have further comments on the current v6 IMX908 driver?
-> If so, I will fix this issue in a v7.
-> If not, can you attribute to Conor correctly when picking up the patches?
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> It sits in the 1 KiB from 0x19e0c000 up to the next block at
+> 0x19e0c400. At 0x0, 0x4 and 0xc are the reset, clock gate and bus output
+> enable registers of the USB clock and reset manager, which the clk
+> series describes as siflower,sf19a2890-usb-crm; 0x8 holds a value I
+> have no documentation for. The OpenWrt port gives the PHY 0x40-0x9f,
+> and its driver only uses 0x44, the PHY's sleep control. Read from
+> U-Boot, registers between 0x40 and 0x8f hold non-zero values I have no
+> documentation for either, and the rest reads as 0. The GMAC's
+> configuration registers sit the same way, at 0x40 past its clock and
+> reset manager at 0x19e04400.
 >=20
-> Best Regards,
->=20
-> Lachlan
+> If you'd prefer one node for the whole region, providing the clocks,
+> resets and the PHY, I'll restructure it that way for v2.
 
---x4lACau3DeBapw/v
+No, not asking for that. Just making sure this wasn't some sort of
+syscon being hidden by the offsets and size.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+
+--fkTf2+Z1l1LqlU4y
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzVmgAKCRB4tDGHoIJi
-0io7AQDEzJEH/ZPLPlERnC6DwqZLWKDEb/6D5JRaT6TQIT0MkAD+JQd6JrcdRvE9
-TU60duI89Lg/6UyqWcAj7vKRW/2xngU=
-=Ri3s
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzWdQAKCRB4tDGHoIJi
+0htFAQCpfD/ATW+Oh8iIXCWIFJJ9g6tE4XFONhEBugZlFfDZ8gD9GLc6+0RrUu63
+KYjkd0LAmVIcn/ACklIrnrIlzsL5sQ4=
+=PI9i
 -----END PGP SIGNATURE-----
 
---x4lACau3DeBapw/v--
+--fkTf2+Z1l1LqlU4y--
