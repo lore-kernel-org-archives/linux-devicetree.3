@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906002;
-	b=HZy8ef0ooOBzf2vTOWYJSLU/YHUpBVvRuOgdd3Nybvw7pc9O0ITeU9HSHEDxApZuMmde
-	 OxnEl+wT7Y4TTCnvVj/nuPZAAd0wuvpkguPXJBkNpswPIeFCSujpP1UL6frJmQyVZRkLB
-	 1ABkQhs0kP52LFtGqDWu+z49b6KX+YELVX+f2DXs5cEQ4aTGiXyF8UC0UpmAF9Z4bFUDL
-	 XB08ASnr1s+bNWuWQFReIEQODLPQJVcFx8dJF6cDx2IipKdxuqDCkhJsUgQ+fOQxyD5ZG
-	 lyuClre7adKWFE6c9TcUIj0hqCvwTzMoS8Oq51Zt38vX1+c3IQwiZhY8004b/LNtH4Q==
+	t=1793906081;
+	b=l6QI+RLYuy7uytXI6rr8Reg2gpE8orjO0ikHZqDeI509ZSAmowS4V+2jQuqOz21msozU
+	 Ef2qv147WQfwNknkNReDgFFkNxvHFOMAgsLIEXpUhFnah0mTaXeItZu3doOenTDGjWTaw
+	 ZQXs37uP9yJnaZvBvjl91aRjJghr+UJFriSJgi+BBw1JjdDCcO1lPOZW2fKgAyIsUbZXt
+	 IJUQWsDtlzIaOT8pRXudtXLd1WFvJN3WDVLOmCwIAjlNPwDx1TvnwPnMiZfLXZsfNdM3t
+	 sWza8vo8i0yrQh4ClACkv2AdZB9NX4gt70ECSFTlKeW+HbBJZ1WLa4XF/YemI1LtpUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906002;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=bWoUw0v85zV3qDcWRLloegiWXI8H90sykJZsNR/TAqw=;
-	b=fWz4G9UmphQ3f4VyyvhrwwRpr6sdHHCyZ0J5Ha+g4m13MxcSpJp0QQgRGE2Tq7FnxZ+f
-	 3K51EfMvvmr7eDhylrvZnCajn3aUQ+5tZIqkT92em3xIYu/iaiNPr/EVjM0+6jX4yeBSU
-	 9CBLTuFekYV9GPBjo7+q1jCwJUyMZ8C/nf10hfGlmDXGg9WGceDnebsyGT73yfWWGMecl
-	 HJxWCoB2Kc18e60LMNaOYI3TL9CCn94kNKY1grNITD4zk28zCh48LUUar+kv8IOnoTaIk
-	 H1ebib96WHO3BFShuTXr5DaxYvJMJj4/dbqDGdNRq0leTEmTfNXPtMdptmy03hfTjzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906081;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NAUY23P/8t0bmNcA3J0QS9bQ/pAXdYpwFgDeuwmYbKk=;
+	b=nDbqL6nH1E/sa7r1/D0HYDEtU5tHAtB2x6XbOHyLs2PhdNbJtHz5/fTToyH1P6AmKNfx
+	 /Oyegjf0xNzGMVyA0XQPsQjr4yVZRjFNRUrlG/xYiRoHyCnYZLq4+YyfD6r93Mutf/zGK
+	 bcQcAgQDRihpCjHLqkXlIBDQ8GWfZ9aEk8uGhv7Ep01vK5c+HtZlyFrCWX+xb9/6B2orZ
+	 womkBMON763iBXymbxRqgrsT/2/Lt6oNFA2e4hdmslz6kEFNCuJus1k66qFqmzwpFaAQc
+	 2okqxvSEi+0UUcxp44lqBj384hL6Ac0WUl5L/ybt5R0bmRISwO2uplUGvScGCWRG1vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCgVm33R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/o0NOAD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A20606A31B;
-	Thu,  5 Nov 2026 19:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C23606A31B;
+	Thu,  5 Nov 2026 19:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCgVm33R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C151F000C1;
-	Thu,  5 Nov 2026 19:13:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/o0NOAD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDFF1F000C1;
+	Thu,  5 Nov 2026 19:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793906001;
-	bh=bWoUw0v85zV3qDcWRLloegiWXI8H90sykJZsNR/TAqw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lCgVm33RLYIh8TNpmuCn12/xAde129MgnsOWokB3gB6Rv91jNMzmtOSM257Ty9a7N
-	 2e/SKFKpw1DOZe70ojYG0BZqOUu/bOxnqFqPKtSfGkfEDaakQFFeoQ6C4uiT3eIX+m
-	 FUVnkJnAIULk52NAqho+YjViL9OsMWyVhVU6dKdskJOqEt7fpnQJVTyHjAO2V+nFDA
-	 dhgTSRbkn4RZzfNe+5+HAHoPmopQe0uGJn1ylama7Q1583QpQpqYqTguX4twG4mfvr
-	 dsr9nonV2SFJUqJAgK5Lewr2vtbCbR65T5vRCoLXUS23ND2em+CVCdH+J0b2uAkdZq
-	 FcztQSYXaouUA==
-Message-ID: <sashiko-outbox-199823@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 01/26] mtd: rawnand: sunxi: centralize OOB handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Philipp
- Zabel" <p.zabel@pengutronix.de>
-Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
- Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
- Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-1-dca1f6ed29a8@gmail.com>
-References: <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com>
- <20261105-submit-sunxi-nand-vendor-oob-layout-v1-v10-1-dca1f6ed29a8@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 19:13:20 +0000
+	s=k20260515; t=1793906080;
+	bh=NAUY23P/8t0bmNcA3J0QS9bQ/pAXdYpwFgDeuwmYbKk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M/o0NOAD+2JcYZv8V+PJNEuXzZjfOOSY0bugLJGMeXYYx+nDnfn3RfBI0nD91BsI4
+	 FBEImlxS29cy26PiqRYqxOkgFIHMK5xu0kFetm+uSuuVt+EK3HpvaysBucIZHWpJ9P
+	 mERTZZidFVUYctgNcK7PDHr/JPu3lKk0hfY1auGeZUvi9koXO55P6HAhgzprxxCfzM
+	 LeBTjnTkTyC5tPkYwCn6pbZb7TKYIIO7Wxe1CLbo7K6a0XVDsOlGDr6tbIF9ucESgs
+	 AlWNJhxY20k+R1H9M+FuWe1q9H2QhbhD6fROu/+UTAiibapX350t7U8e054V7HUevV
+	 YSCeUfj95nXrw==
+Date: Thu, 5 Nov 2026 19:14:34 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Lachlan Michael <Lachlan.Michael@sony.com>
+Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
+	hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com,
+	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+Message-ID: <20261105-disposal-robust-9556e8357778@spud>
+References: <20261029050002.3880-1-lachlan.michael@sony.com>
+ <20261029050002.3880-2-lachlan.michael@sony.com>
+ <20261029-distress-stimulant-cd5bb18f5ae8@spud>
+ <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,115 +64,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="x4lACau3DeBapw/v"
+Content-Disposition: inline
+In-Reply-To: <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] mtd: rawnand: sunxi: premature oob_ops selection in sunxi_nand_att=
-ach_chip()
-- [Medium] mtd: rawnand: sunxi: unaddressed maintainer NACK on vendor OOB l=
-ayout ops
---
+--x4lACau3DeBapw/v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 8fda5c99d9befa1771418516828f040de60c5845
-Author: James Hilliard <james.hilliard1@gmail.com>
+On Thu, Nov 05, 2026 at 01:40:45PM +0900, Lachlan Michael wrote:
+> On 10/30/2026 3:41 AM, Conor Dooley wrote:
+> > On Thu, Oct 29, 2026 at 02:00:01PM +0900, Lachlan Michael wrote:
+> > > The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+> > > with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
+> > > over 2 or 4 data lanes.
+> > >=20
+> > > Add device tree bindings for the sensor.
+> > >=20
+> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > Acked-by: Conor Dooley <conor@kernel.org>
+> >=20
+> > This is not the tag I provided, I never provide tags using this email
+> > address. Tags must be used without modification.
+> > https://lore.kernel.org/all/20260828-hedging-olive-eaea0b4027a0@spud/
+> Conor, my bad. I honestly missed that the mail address was different.
+> I understand that it is important that review work is attributed to the
+> correct person and organization.
 
-mtd: rawnand: sunxi: centralize OOB handling
+Just either copy-paste tags or use a tool to insert them (e.g. b4).
+Don't type them yourself based on what you thought someone used, it's
+probably slower and mistake prone..
 
-This commit centralizes hardware ECC result interpretation, protected OOB
-retrieval, erased-chunk checking, and user-data layout reservation behind
-per-chip sunxi_nfc_oob_ops callbacks for both PIO and DMA paths.
+>=20
+> Sakari,do you have further comments on the current v6 IMX908 driver?
+> If so, I will fix this issue in a v7.
+> If not, can you attribute to Conor correctly when picking up the patches?
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>=20
+> Best Regards,
+>=20
+> Lachlan
 
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index f41feebe42571..80006d1a33d68 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-[ ... ]
-> @@ -2066,6 +2096,58 @@ static int sunxi_nfc_maximize_user_data(struct nan=
-d_chip *nand, uint32_t oobsize
-[ ... ]
-> +/*
-> + * Both modes use the same layout and ECC policy. Scrambled transfers al=
-so
-> + * compensate the first two user bytes to keep the on-flash BBM unmodifi=
-ed.
-> + */
-> +static const struct sunxi_nfc_oob_ops sunxi_nfc_plain_oob_ops =3D {
-> +	.min_user_data =3D sunxi_nfc_oob_min_user_data,
-> +	.init_user_data =3D sunxi_nfc_oob_init_user_data,
-> +	.read_batch =3D sunxi_nfc_oob_read_batch,
-> +	.finish_read =3D sunxi_nfc_oob_finish_read,
-> +};
-> +
-> +static const struct sunxi_nfc_oob_ops sunxi_nfc_scrambled_plain_bbm_oob_=
-ops =3D {
-> +	.min_user_data =3D sunxi_nfc_oob_min_user_data,
-> +	.init_user_data =3D sunxi_nfc_oob_init_user_data,
-> +	.transform_bbm =3D sunxi_nfc_randomize_bbm,
-> +	.read_batch =3D sunxi_nfc_oob_read_batch,
-> +	.finish_read =3D sunxi_nfc_oob_finish_read,
-> +};
+--x4lACau3DeBapw/v
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Medium]
-As reported by Miquel Raynal on v6 [1], the series adding support for the
-vendor-specific Allwinner randomized OOB layout was declined due to
-maintainability concerns and kernel policy against vendor-specific NAND
-layouts, with an invitation to submit only the standalone fixes outside of
-the randomized layout support.
+-----BEGIN PGP SIGNATURE-----
 
-Here, sunxi_nfc_plain_oob_ops and sunxi_nfc_scrambled_plain_bbm_oob_ops use
-identical callbacks for min_user_data, init_user_data, read_batch, and
-finish_read, differing only in transform_bbm. The remaining indirection in
-struct sunxi_nfc_oob_ops is only used by the vendor-specific randomized OOB
-layout patch later in the series.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauzVmgAKCRB4tDGHoIJi
+0io7AQDEzJEH/ZPLPlERnC6DwqZLWKDEb/6D5JRaT6TQIT0MkAD+JQd6JrcdRvE9
+TU60duI89Lg/6UyqWcAj7vKRW/2xngU=
+=Ri3s
+-----END PGP SIGNATURE-----
 
-Could the PIO and DMA ECC read helpers be shared directly and the standalone
-fixes split out without introducing the struct sunxi_nfc_oob_ops vtable?
-
-[ ... ]
-> @@ -2254,6 +2303,9 @@ static int sunxi_nand_attach_chip(struct nand_chip =
-*nand)
->  	if (!ecc->size || !ecc->strength)
->  		return -EINVAL;
-> =20
-> +	sunxi_nand->oob_ops =3D nand->options & NAND_NEED_SCRAMBLING ?
-> +		&sunxi_nfc_scrambled_plain_bbm_oob_ops : &sunxi_nfc_plain_oob_ops;
-
-[Severity: High]
-Does selecting sunxi_nand->oob_ops in sunxi_nand_attach_chip() break bad
-block marker compensation for chips that set NAND_NEED_SCRAMBLING during
-nand_manufacturer_init()?
-
-In nand_scan_with_ids(), nand_attach() runs before nand_scan_tail():
-
-  nand_scan_with_ids()
-    -> nand_scan_ident()
-    -> nand_attach()
-      -> sunxi_nand_attach_chip()
-    -> nand_scan_tail()
-      -> nand_manufacturer_init()
-
-For ONFI-compliant chips where nand_onfi_detect() succeeds in nand_detect()
-and jumps to ident_done without setting NAND_NEED_SCRAMBLING, the flag can
-be set later in nand_manufacturer_init(), such as in
-drivers/mtd/nand/raw/nand_toshiba.c:
-
-  toshiba_nand_init()
-    -> tc58teg5dclta00_init()
-      chip->options |=3D NAND_NEED_SCRAMBLING;
-
-Because sunxi_nand_attach_chip() runs before nand_manufacturer_init(),
-sunxi_nand->oob_ops is latched to sunxi_nfc_plain_oob_ops (where
-transform_bbm is NULL). Later, during page and OOB reads and writes,
-sunxi_nfc_randomizer_config() and sunxi_nfc_randomizer_enable() dynamically
-check nand->options & NAND_NEED_SCRAMBLING and enable hardware scrambling,
-while sunxi_nfc_hw_ecc_get_prot_oob_bytes() and
-sunxi_nfc_hw_ecc_set_prot_oob_bytes() check sunxi_nand->oob_ops->transform_=
-bbm
-and skip calling sunxi_nfc_randomize_bbm().
-
-[1] https://lore.kernel.org/r/871p9v4a1x.fsf@bootlin.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-submit-sun=
-xi-nand-vendor-oob-layout-v1-v10-0-dca1f6ed29a8@gmail.com?part=3D1
+--x4lACau3DeBapw/v--
