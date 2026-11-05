@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910734;
-	b=5ZATI69OjFB6dNyPLUg0Bf3skzY3Rzv9FD+Oxasdeqpi7xW2PLvyDPysyZ66ntc7SS7D
-	 wBuKOpt0KPso07UVDjC9k7OBZ6Fni1D36ISBQoxQZsUcRSLwCFgTbbOI+vPhdy1n2gc/q
-	 dJ0xgxq60aZB3HmHdYzRWMKsG6aHhcUooEpJO89fjssZOe2WJ8B+6uLbjPaICueeWSpPm
-	 44SVQZs3ktYKKxUjjlR7ki66y3+IFNcR3DaP21+dBSQC0W+9WL4Aa/50R/EAVBSG4cZI+
-	 l44tO4CAtCUISnnvNHY4k4M27aQlzPTRieE1QEy9sTz7NirLWnZ/VRAAoeKH+c+uOxQ==
+	t=1793910976;
+	b=Za5/zj+QzozRJZAR8zQDjuLNIbOCYlnXMjA+cyuY2qe76tPPFlHAlqcI79gwqKY5s9PZ
+	 qoqVoYCZrDRGRCos/xV4+Ifvjg2XUm1EdXQXSsJchp6060ZcZd7S7oEL1rTjjklCzIAGn
+	 aiznkUAQxv0Hrag3+uwJID8aRYgOXzQ3AU6fqy/7/ZmTzCAlzh1aQpUc2i4CMC0mFQrTN
+	 6LGgQyoSfIcpYeaVyo56TupIYIsKp9g5wPYrwrwYV2Yb8i29AFfFbsujD3ifmSeDMCiV/
+	 O6GeY136N9rvc1MAMCP1+gvGJ9sRj2hQNiYYP20safaszVh3LpqfnMG3+H8NiaZjaSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910734;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=Z4vIFIPuDFiLGFfDxxuz3AZoANnEm7koIMt0swHWc+E=;
-	b=4OYxd45c6Bf+5LEA5LUFfMTh8ATIDOOhKGKPj40BUfghWb0vob4fy6rqEh+qpR1Vv6S4
-	 Hl1P2W4WT8s/ZAyeyybbgNnaPzHoRtZ26xF/s7xrcgMWolV7nIY8kpkrk7Dkf9eXXnkFw
-	 JpSb0CEoNY4lQsrjYa93UzzlSnpnCcqABnnBFxwG6OKsGh8ACETCFf7xsDEXUFiPMcClF
-	 NrD04qCslVaer9mMU6lOeRMW5wLrmMSVfNXVafGV7eMcCNUGGSN4dLbUFK+uqpT/2kEZY
-	 qFc7x9Y4d5Kh0kOuYONFkiT6ONurwxQ5Ymru2PSsWlg/bqD9rU3+lZsIG385RNm0GnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910976;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=QQl1ERSY4wmOR1OEbq5mx2PtZRC9i6q9Gw0tuk7z0Is=;
+	b=liGjBJPHFC8hLvOcqv3ZTd8KiQSQ5434B2LUETRkvFXDXxd8ucdrWV605AwXvmoluL3J
+	 CKqknbOQLJZH//BzmNAwPapigwg5zFvliDrq8esExkReOx245deD7gP2T/CZSr6/kAUzA
+	 ohOgQgv/LHQ4M8A46aVimDbhap9Go3fvWaunLTGPrkz9bfOZBG0HpSC6c7/f/8Q5PZiZW
+	 WKcmhNl/MGjgPOjep4MSbNsQzLkErzb+KtD/wpKSkL69WXSJeWn5lzgBJ5huIslFMq4Xr
+	 sxGDBJ7BQaoaS+tGn7Gxbad/gVdz4INXpH8Wm3e6/GiCFZGrTbZcwj8DBbPEXii8HFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmdSuRua;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B61D606A32E
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmdSuRua
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C35F1F008A4;
-	Thu,  5 Nov 2026 20:32:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910733;
-	bh=Z4vIFIPuDFiLGFfDxxuz3AZoANnEm7koIMt0swHWc+E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WmdSuRuaUuWzywwWxFGPiKCI2GNbRCMO/l6Sjz+guc8I7Kk2/n7YAKLRjU7aVUvJl
-	 QTzAXPTO41EEeSRJHNTH5+1OpTnBmpMyDj1bZ3odCPDKzV8PftOlzlpvgT7LcNEM7C
-	 qyFvr7jcTNlFouhWbs5+JSw+quzdvWJ1q74TFQ+nleV1DzziU2E0YCO35P9qffmKNP
-	 fj4YGmbp15FDmy+/0rAPttwuub7j+HSGJ/aOkbLV8SayjzFoIpQ/HHexa9vbUNW1ZS
-	 NPQm9wbTIkOj9zZvsGyK46tBTQkmiQrOHlk6ViedHO5wfVTEd3FZUdH0eaf7Q3tvza
-	 4Z142HhoaDJ1w==
-Message-ID: <sashiko-outbox-200108@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] i2c: omap: add DMA support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261105200556.34240-5-apokusinski01@gmail.com>
-References: <20261105200556.34240-2-apokusinski01@gmail.com>
- <20261105200556.34240-5-apokusinski01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 20:32:13 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA36F606A329
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA36F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so1383839a91.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:36:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793910975; x=1794515775;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QQl1ERSY4wmOR1OEbq5mx2PtZRC9i6q9Gw0tuk7z0Is=;
+        b=cTi9SkeUqRVjvcXtajzNsmP27WS0pNrTa3PHTthX4fy6lXBGnJJ/yQfieqmxa1Raxs
+         vlno5KcvWSX8Q44r6aFimkEcOqaZcTrnVZeDCrG9I03gjcUYthtLSqN1YScFG/Krxwat
+         iEQMvmzmbds84evhXypAuToIdReOMaCzwL01f9ubVN0MrsOfB+YTq/3bFfe9GFOE6QN9
+         E0xSgvieaSaLyIyryAru61xWKXp4B88pm4wTau6s7XF/P3rtcr4kUMVIJOjaLS4mSfRb
+         rcV9cwWUw7715oRRMBUF3l2l67tpOTWbv9Q6eqNmwO/Xdi11bZD/lqbTuHFmYB5fs6AY
+         l6XA==
+X-Forwarded-Encrypted: i=1; AKwUvByPvfwr1vJEEGPqn7xMYDHJ8rvWXV70k7K91U6mQxTKJ3V1yQDNkw5yvy198AxY52FCGim08l47NSsM@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AiX/X033c1xElHFuobZ/1HMwrCjy5olmlQH2vJ54fADWs4H5b
+	1vCtjQ4QuHwPkwPja1gN+33vZgL/3vw5Aa5dhedA5Nl+qJ6o5ECp2sTYSEAvtYje
+X-Gm-Gg: AYBFou2r0BTSRuW7Jyjv8Zh7nLIBm8G1xeg29lXttTmKlM2DL8r041uBjp2NqH39vio
+	TOPrbvPf4aIee7SSIRCOPn6Zjr+Y8F5l2BwiA0dc40Ubi744Cd/1yL6uo+4TuX6GeMShb2RX6cx
+	h2EDdoGEOaPq3620tTgavzenQMm0easdTueE9yg5apKWnfWY+aZJ7WZ00AXnJAn7ekUN0eeHL49
+	X7kG+1Ui6MTtzZ80AxWmI5GzI0mi6X/Y34aYasc+f8beKxkM4ZHeHk+UwqskL1w1YYdl+94GizH
+	uIW9lfnBKnePYQyET7a7h+MYgORWXJBxDA6QT4efn6WNDxxeag7xtjiDhr2cQIESNgLkFQZyy7z
+	QY1/nwkBZsEZWybfu0/AX2IoaACdVC8f4Eyevrl4xvn4zF57pPZcBVxn6pr5Zp9lU5vT4+jqE3q
+	tfgMcwE49rHsrUjxdXkpVfWPLMSGDDW4pgeLkj/90eU8GqZbnV9wbmo0t+yJweobtCcir7xFq6H
+	ozAPycq8OkaS2Jk4svzrN/FtvK+Lt/BzO9YsClMMsL52uoWl0X8zx/pA6UpocHjPObyHeIWpJci
+	tl1EZ/lu4Dhl4dlAADV1LrWb15h39Tw1bKWskqhjxukaxrQ5VMsmRo0fgtVfa42yzht6VKiukfY
+	Zx+A2Uq1mtQHgsFKeKZT/HM+5YOFX2OJ273fT8LV6Pp4=
+X-Received: by 2002:a17:90b:39ab:b0:3ae:a531:4e73 with SMTP id 98e67ed59e1d1-3b0db6210b3mr166812a91.7.1793910975210;
+        Thu, 05 Nov 2026 12:36:15 -0800 (PST)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42a7dsm603528a91.5.2026.11.05.12.36.14
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 12:36:14 -0800 (PST)
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3514b90bb89so4479832eec.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:36:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwoJtlUDb5hqSNV4CNU4oe5KgDsVhyi5Wx5aAIv4hNbDxX4+qxbWD/19X81hMBjAqW+ceRR4yUZRxaC@vger.kernel.org
+X-Received: by 2002:a05:693c:8008:b0:369:d486:457f with SMTP id
+ 5a478bee46e88-36f73e72d61mr409769eec.2.1793910973768; Thu, 05 Nov 2026
+ 12:36:13 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,170 +80,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261104-sf19a2890-gpio-v1-0-45e463c48728@telaak.dev>
+ <20261104-sf19a2890-gpio-v1-2-45e463c48728@telaak.dev> <CAD++jL=Bhbm3eNafdRTSKcnjyivhdmp0Mk1iHZ=HKN9sy_3Ozg@mail.gmail.com>
+In-Reply-To: <CAD++jL=Bhbm3eNafdRTSKcnjyivhdmp0Mk1iHZ=HKN9sy_3Ozg@mail.gmail.com>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Thu, 5 Nov 2026 15:36:01 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ4ExRTFJ+1q7GDw8ow=_ekk8urUqfC7ZtcYckwf1uO+vw@mail.gmail.com>
+X-Gm-Features: AclHuK_D3HUaJCQYumF5y8SooLOqbAC7H10kZ7apqTopxHnLZbvIW5XAq_-o6t4
+Message-ID: <CAPY4CJ4ExRTFJ+1q7GDw8ow=_ekk8urUqfC7ZtcYckwf1uO+vw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: Add Siflower GPIO controller driver
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, 
+	Qingfang Deng <dqfext@gmail.com>, linux-mips@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Qingfang Deng <qingfang.deng@siflower.com.cn>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] i2c: omap: stall and -ETIMEDOUT on bus error in omap_i2c_xfer_msg()
-- [Medium] i2c: omap: DMA channel leak in omap_i2c_probe() on adapter add e=
-rror
-- [Medium] i2c: omap: active PIO FIFO interrupts during DMA in omap_i2c_xfe=
-r_msg()
---
+> Completely pointless indirection, drop these functions, just use
+> readl/writel directly in the code.
 
-commit 4941414830d919c66f3a4ea17fab3a4dcf5a305e
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
-
-i2c: omap: add DMA support
-
-This commit adds TX and RX DMA support to the OMAP I2C controller driver for
-messages whose length is at least 8 bytes and a multiple of the configured
-FIFO threshold.
-
-> diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
-> index f02d294db42a6..59e633c80236b 100644
-> --- a/drivers/i2c/busses/i2c-omap.c
-> +++ b/drivers/i2c/busses/i2c-omap.c
-
-[ ... ]
-
-> @@ -742,8 +928,17 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
-p,
->  	 * into arbitration and we're currently unable to recover from it.
->  	 */
->  	if (!polling) {
-> -		time_left =3D wait_for_completion_timeout(&omap->cmd_complete,
-> -							OMAP_I2C_TIMEOUT);
-> +		time_left =3D OMAP_I2C_TIMEOUT;
-> +
-> +		if (use_dma)
-> +			time_left =3D wait_for_completion_timeout(
-> +						&omap->dma->complete,
-> +						time_left);
-> +
-> +		if (time_left)
-> +			time_left =3D wait_for_completion_timeout(
-> +						&omap->cmd_complete,
-> +						time_left);
-
-[Severity: High]
-What happens in omap_i2c_xfer_msg() in drivers/i2c/busses/i2c-omap.c if an
-I2C bus error such as a NACK (OMAP_I2C_STAT_NACK) or arbitration loss
-(OMAP_I2C_STAT_AL) occurs during a DMA transfer?
-
-When the target device NACKs or arbitration is lost before all msg->len byt=
-es
-are transferred, the controller stops generating FIFO DMA requests, so
-omap_i2c_dma_callback() will not be invoked to complete omap->dma->complete.
-
-Meanwhile, the interrupt handler path:
-
-omap_i2c_isr_thread()
-  -> omap_i2c_xfer_data()
-  -> omap_i2c_complete_cmd()
-
-records the error in omap->cmd_err and signals omap->cmd_complete, but does
-not signal omap->dma->complete:
-
-static inline void
-omap_i2c_complete_cmd(struct omap_i2c_dev *omap, u16 err)
-{
-	omap->cmd_err |=3D err;
-	complete(&omap->cmd_complete);
-}
-
-Won't waiting on omap->dma->complete first cause omap_i2c_xfer_msg() to sta=
-ll
-for the full OMAP_I2C_TIMEOUT, reset the controller, and return -ETIMEDOUT
-instead of handling omap->cmd_err and returning -EREMOTEIO, -EAGAIN, or 0
-(for I2C_M_IGNORE_NAK)?
-
->  	} else {
->  		do {
->  			omap_i2c_wait(omap);
-> @@ -753,6 +948,15 @@ static int omap_i2c_xfer_msg(struct i2c_adapter *ada=
-p,
->  		time_left =3D !ret;
->  	}
-> =20
-> +	if (use_dma) {
-> +		omap_i2c_dma_disable_req(omap);
-> +
-> +		if (!time_left || omap->cmd_err)
-> +			dmaengine_terminate_sync(omap->dma->chan_using);
-> +
-> +		omap_i2c_dma_cleanup(omap, time_left && !omap->cmd_err);
-> +	}
-
-[Severity: Medium]
-Could disabling DMA requests here race with the PIO interrupt handler in
-drivers/i2c/busses/i2c-omap.c?
-
-During a DMA transfer, omap_i2c_xfer_msg() still sets omap->buf =3D msg->buf
-and omap->buf_len =3D msg->len, and OMAP_I2C_IE_XRDY, OMAP_I2C_IE_RRDY,
-OMAP_I2C_IE_XDR, and OMAP_I2C_IE_RDR remain enabled in OMAP_I2C_IE_REG.
-
-If a DMA transfer times out or fails while the controller is still enabled
-(prior to omap_i2c_reset()), omap_i2c_dma_disable_req() clears
-OMAP_I2C_BUF_RDMA_EN or OMAP_I2C_BUF_XDMA_EN in OMAP_I2C_BUF_REG. Once the
-DMA request bit is cleared in OMAP_I2C_BUF_REG, can pending FIFO threshold
-conditions trigger XRDY/RRDY/XDR/RDR interrupts and cause
-omap_i2c_isr_thread() -> omap_i2c_xfer_data() to read or write
-OMAP_I2C_DATA_REG and omap->buf concurrently with omap_i2c_dma_cleanup() and
-omap_i2c_reset()?
-
-[ ... ]
-
-> @@ -1478,6 +1742,22 @@ omap_i2c_probe(struct platform_device *pdev)
->  		goto err_unuse_clocks;
->  	}
-> =20
-> +	if (omap->scheme !=3D OMAP_I2C_SCHEME_0) {
-> +		omap->dma =3D omap_i2c_dma_init(omap, (dma_addr_t)res->start);
-> +		if (PTR_ERR(omap->dma) =3D=3D -EPROBE_DEFER) {
-> +			r =3D -EPROBE_DEFER;
-> +			dev_err_probe(&pdev->dev, r,
-> +				      "can't get DMA channels\n");
-> +			goto err_unuse_clocks;
-> +		} else if (PTR_ERR(omap->dma) =3D=3D -ENODEV) {
-> +			dev_dbg(omap->dev, "DMA setup failed\n");
-> +			omap->dma =3D NULL;
-> +		} else if (IS_ERR(omap->dma)) {
-> +			r =3D PTR_ERR(omap->dma);
-> +			goto err_unuse_clocks;
-> +		}
-> +	}
-> +
->  	adap =3D &omap->adapter;
->  	i2c_set_adapdata(adap, omap);
->  	adap->owner =3D THIS_MODULE;
-
-[Severity: Medium]
-Does omap_i2c_probe() in drivers/i2c/busses/i2c-omap.c leak dma->chan_tx and
-dma->chan_rx if i2c_add_numbered_adapter() fails?
-
-omap_i2c_dma_init() acquires dma->chan_tx and dma->chan_rx using
-dma_request_chan(). Later in omap_i2c_probe():
-
-	r =3D i2c_add_numbered_adapter(adap);
-	if (r)
-		goto err_unuse_clocks;
-
-The err_unuse_clocks error path does not call omap_i2c_dma_free(omap) when
-omap->dma is set:
-
-err_unuse_clocks:
-	omap_i2c_write_reg(omap, OMAP_I2C_CON_REG, 0);
-err_put_pm:
-	pm_runtime_put_sync(omap->dev);
-err_disable_pm:
-	pm_runtime_dont_use_autosuspend(omap->dev);
-	pm_runtime_disable(&pdev->dev);
-
-	return r;
-
-Should the error unwind path release the DMA channels with
-omap_i2c_dma_free(omap) when omap->dma is non-NULL?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105200556.3424=
-0-2-apokusinski01@gmail.com?part=3D3
+Thanks, v2 will drop them and use readl() and writel() directly.
