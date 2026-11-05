@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793896986;
-	b=sYw4r/ixXpldsnpzDjfV4iexenDhOt+RYRldY3hWXb36ZyCTIG3Pqy/RPGIgLOxnYR98
-	 5ngMbciCTYzfkob/F672sm+mt/KvedRZ+QsVvce1d6HRS9gBflMB1qqgGi01Ch0IBZR0+
-	 AyPKJfVkRtTj1SriNHwEFRLVxt1FtzpdOaO7w0RbozuFid1t/wK8H9rgd4PHm9gZl3rCZ
-	 0GiCYbK7xJ4zcdHkxPQlmFa2iIoptazkMv7NJAgjuHWMPXo0Krcj6IJN6nD/A6gRNksXC
-	 NK4H6GMo9ZoWPybUc6P+/8bxqwr6RYkx58WWElWJizVibE9J3urBStjLaDciNG0z+Dw==
+	t=1793897074;
+	b=oKnoEqixE7XhNyj9nLlMV31ynrv12ytcQR5C0+u7RX7hhTh0CfdfRpluOmzr0sl2T4Jc
+	 lD0p3Vy3Hsvc8axsRbjS37TQBvj8hxyB0FSlTlighBgLKLpY2WfxqdQb9lchw95lq+Ouw
+	 mJK1BXsmVHFuydJE+hhNlhVcjI5jSc4/C6kJh5W2eSWd1PwpnqyOqsOdy9BmZGF+2Fe7N
+	 dR/QU9YorkjkyN5TShqjMML3B2tkEyoH3j/8BflBcLIkAwYWMnRi1TWAsa5VOpiFcnv37
+	 zYtaSZUMPb1PcRWivfrLZi78RbX14c4qki9dU/O6ouUe/H5JaS1KWYwlteh7BOXwDKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896986;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AJSPojTMD5FaksEtjWz2d1lbfmwj8ss6ZBjJxa7pTR0=;
-	b=Fz1noOqwSqGJiDAKUtGt46KDZFRBgUW7c4K78vSzl521yBEEkJwLvc8rwx5amZq+jP1o
-	 KqYZQa7mdEb746KbGP56sayUvGT2/vFGSYdMZyAGeGJOXsRg3rltF0s1B7uVw/GoKQ4RS
-	 QGu4/PEELjiNq5Nq4veGgV/sBw8kHirU/7S0IOAAtGS6ohelSFxxHy3HcfuFOwryeyv11
-	 Owbcp+lKMtP0Qq9aK1T/ELKk5TZ/rv0QE4C0gjV0zU0s+g104jDy5LWyxt5aILe2fGYO7
-	 jXrQKnktpPvHy6QaZcUcTWR0Ne33poi4hN+mfyaOFesU+nmepDHcACvca0HYQVdHV/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897074;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
+	b=gXvUddEk7l7cxvNGy9LsoMpH7d5VGoPFCNVvoq/SwBP41oSdd9PJ0g29xbBh4acb0YeQ
+	 qM2KFLO/+FxyqEYp5O/a/T2XsfGRTsVqyI7MS6DNXAA0Cr92/X93TNOsb502lTkEzCoca
+	 1BMxQ2llIw+LzMCZQ3O05xBPOnDrvCMTWSc+kgB1hIRkEmoQzpm7xEbzJuhVsNV0KxbOv
+	 O3a4V9Un0kDgEahfq/gsRyc1HLproGoqahjvKmqQYJq9EenC/Zc99niNMs+xS83jzJ6Uh
+	 +IXo1aQat+VHS6XYRTf0tXs0SrJkFK+WDBf+GNhv1dNgVWVEIFu3qwfbbOtVxnaRMnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iVwQ/kky";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xfIfLYcP;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87361606A92B;
-	Thu,  5 Nov 2026 16:43:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFDE606A32D
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 16:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DFDE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVwQ/kky
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89881F000C1;
-	Thu,  5 Nov 2026 16:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793896986;
-	bh=AJSPojTMD5FaksEtjWz2d1lbfmwj8ss6ZBjJxa7pTR0=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=iVwQ/kky9CNa8BZ8Pw8ciGpeOuW10hzVJ7jglN6j1zXY7nILyR8A7WNHOxZuhtOky
-	 vLYasOdsnjV7UnVmqg03D5ZsQq59dT9POEDCacPahnzz/xwwiEEv8OnfjAyIIFoJf5
-	 n2/mnxvWjeFJHzxVsAK1mh6Q+dO41ZDapyPgUHt0mXSwJ2JL4x4p2a1rOsxMoJkffk
-	 1KrKsiHWHqYYMwRCUaCwaIPQHLKc47WJlWFPgoauAucEvZ+sgHJ8mJ91OaFnBGapzX
-	 eKdnZfpNxQGydVoSDgmVO+jlqNUvhuIwuEUuuwig5DP8AFSeA1D8ueAlLuXAaSCZt5
-	 wsakPJ7AGQNKQ==
-Message-ID: <f8c6da62-057f-4795-b88e-273986ef79df@kernel.org>
-Date: Thu, 5 Nov 2026 17:42:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xfIfLYcP
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c40e30c26a4so181594266b.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 08:44:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793897072; x=1794501872; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
+        b=xfIfLYcP64DFbq+WXEUe9TYpwTOFTkySIMUElL9UJ0zJsmsGjdUUciQoXTGP3wKcCo
+         1XYgvft/Fv/0vFCllUsu0rxITDqYRLwtlkrRR7lIvP4FEHCYwhjN3uVlvnDpoqXCTdyN
+         796+LDnAGjm+fL5Sc/0IWvBT8ZuXds9TSREtvCM9VKinLLCn5CVRD8puQMFZIfIpsyxY
+         DxrA4lYIWf7bvJINbPD2tmaONSHIK0aPYwRxhwRUeH8y+C8Wkj2JkauvpVoHxozWKDnk
+         nV7NMzCd0VIT9n6AQ2vl2kNPmXustP6x5H/QcsdvSfm9ao9GLQvFQHw54wGY/ZXrDpOQ
+         zuJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793897072; x=1794501872;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yC83ESjOXOvwycANDHqMUIA/nyL5tEqJwdOrO5/UNYc=;
+        b=fQbAqdgTzmKyc7XCRM6Rl3hMXXVS7AXdEzl15LUol6W5kjDNKVMkQXtU3JjsQ/9MkV
+         R5ZeErAlZ2oqCwY/NvCCCLNGZL3HzHgzgkVpWOJ/9lpsZ+XHbozQgR7ZM73LYVXP+/DO
+         wieSguhcvgRnnvd8+ZoWfuFud2TYNxHUfjwKqJhhrAqNbMZMnRBNNjqkY7mXnjqhnTJ/
+         t6cgWUnHl3Emc8sReQe/LEKpuHKg1Jn2b+4m/haa5JauVEB5PJlidjFLj4G1BE+CqzGx
+         vVtHrd20xMRTXfIra77nsIEALwMMcbdMgrk8FVkexmVjs9RfvuC8MoBFUT3NrDHZ/x3v
+         Hs0w==
+X-Forwarded-Encrypted: i=1; AKwUvBz64QxGwFrAC1q38yL/8Tb/1hYe8RXXcCJtonag9RSV91bJR+jn9bCNK7Nf/oCNPm/ONCUJt75MrFdv@vger.kernel.org
+X-Gm-Message-State: APuU4Z+N1ebv3UYyWynD04FisUyaoOjTm+fUTHJPXBF/KRt91wwOMswT
+	D+W/P5+adqTb+elJS5f52A5aM4AC1GfVLnsEcN6qqU9KcH/y5wyAT4avGVrMs9FJiSs=
+X-Gm-Gg: AYBFou2RF8lzIpE8ns4MiAUEFE71RouzDAvGn82c2e1bxfqprYGB9C0PKUyK4bggFLb
+	idjkbpzwVcDazq1Q1FnQPualB0EdilvXgs7Ekx8kyPY+3MaHGEs3oBvvB/Zc0KAI4r2CfnIMk4p
+	dCPSFlgKPsm24Fr1jiD2HlFkzQZmbVI2x4ZC2WxcT+fd3uj4orpG/xZYRGlOB6SmeVtb8IEICq/
+	+ZlBnHJhk0TioJhJ4Z3iauDvchQGUGeSr0XYxs4uPnQm7nNY1n3mhrXkZTCz8AblUltZosnbCJq
+	+LDYUSoSA/EEcfugPVKlWIu9qF/nKO4gxPVTFSCNouhmluCt+UBaiqr/THGFNz0Z+L5JbUxYCGe
+	dlce8OmzoBZhJnSM1RK9s3SEUo8tqCjv+iV2Mr6k45U4fliztZaidEnpfHzhnnByB7Xdg1TQWSq
+	T3CBifvfozEFblgA8PfurIcXjP6JRV1oMQmI4sQovRXzL4t8SDcrbh5K8dkW746+PclfE/GKpBj
+	GnJLCv0vEQv/xr/n5wj+fczB9u2bQhTxjZO2BUHf0EhGGuosQIhgRHg3LaUXaD2DJFRKPESFynh
+	irMBhOa/kijAVnWhMQpPGZUdFqjPYG63P9GvHQhaSjfWluuezT6onyTPfdPhAdM9irRugQBX4RY
+	QiWK42dE8E6QMvkp8xetl
+X-Received: by 2002:a17:907:86a3:b0:c46:9745:ac13 with SMTP id a640c23a62f3a-c4d207ef40cmr272696766b.32.1793897071769;
+        Thu, 05 Nov 2026 08:44:31 -0800 (PST)
+Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e48d0dcsm186593666b.70.2026.11.05.08.44.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:44:31 -0800 (PST)
+From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+Date: Thu, 05 Nov 2026 16:44:29 +0000
+Subject: [PATCH] Revert "arm64: dts: exynos: gs101-oriole: add pd-disable
+ and typec-power-opmode"
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,94 +92,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 01/19] spi: dt-bindings: add
- spi-max-post-config-frequency-hz property
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Santhosh Kumar K <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, miquel.raynal@bootlin.com,
- richard@nod.at, vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org,
- takahiro.kuwano@infineon.com
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
- praneeth@ti.com, sebin.francis@ti.com, u-kumar1@ti.com,
- srikanth.boyapally@amd.com, m-shah@ti.com,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20261105105832.2134313-1-s-k6@ti.com>
- <20261105105832.2134313-2-s-k6@ti.com>
- <303eec47-bd2b-4ce2-b28f-aedbda21f91a@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <303eec47-bd2b-4ce2-b28f-aedbda21f91a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261105-gs101-tcpci-bootloader-dt-v1-1-4b7e373778f2@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAG2y7GoC/x2MywqAIBAAfyX23IIuRY9fiQ6mWy1EhkoE0r8nz
+ W0OMxkiB+EIY5Uh8C1R/FlE1xXY3Zwbo7jiQIpaXcAtaqUx2csKLt6nwxvHAV1C6hpue9PTQAp
+ KfwVe5fnf0/y+H+0rQNNrAAAA
+X-Change-ID: 20251111-gs101-tcpci-bootloader-dt-274e58a82920
+To: Peter Griffin <peter.griffin@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@android.com, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+X-Mailer: b4 0.14.3
 
-On 05/11/2026 17:41, Krzysztof Kozlowski wrote:
-> On 05/11/2026 11:58, Santhosh Kumar K wrote:
->> Add spi-max-post-config-frequency-hz, a generic property for SPI
->> peripherals that operate at two distinct clock rates: a conservative
->> rate always reachable without controller configuration, and a higher
->> rate achievable only after controller-side configuration.
->>
->> When both properties are present, spi-max-frequency gives the
->> conservative pre-configuration rate and spi-max-post-config-frequency-hz
->> gives the higher post-configuration target.
->>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> Tested-by: Srikanth Boyapally <srikanth.boyapally@amd.com>
->> Tested-by: Moteen Shah <m-shah@ti.com>
-> 
-> Drop tags, this did not happen. Please do not add blindly tags which are
+This reverts commit 817473b6ddaf9eb5f2bc7d6dce9fa13a921477a0.
 
-^ tested-by tags, I meant. Acked was correct.
+The Pixel 6 / 6 Pro bootloader version 17.0-15681480, part of the
+Android 17.0.0 release, knows about the upstream DT and disables power
+delivery itself when the serial console is enabled. The workaround is
+therefore not needed anymore and can be reverted, as anticipated in the
+commit message of the above commit.
 
-> obviously not applicable.
-> 
-> Best regards,
-> Krzysztof
+Since then, the node has moved to gs101-pixel-common.dtsi, so this now
+applies to both Pixel 6 (oriole) and Pixel 6 Pro (raven).
 
+With older bootloaders, enabling the serial console will again result
+in endless TCPCI interrupts.
+
+Signed-off-by: André Draszik <andre.draszik@linaro.org>
+---
+ arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
+index e5736c39d1e0..dc908dd7e1c6 100644
+--- a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
++++ b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
+@@ -662,6 +662,7 @@ connector {
+ 			self-powered;
+ 			try-power-role = "sink";
+ 			op-sink-microwatt = <2600000>;
++			new-source-frs-typec-current = <FRS_5V_1P5A>;
+ 			slow-charger-loop;
+ 			pd-revision = /bits/ 8 <0x03 0x01 0x01 0x08>;
+ 			cc-debounce-time-ms = <170>;
+@@ -704,12 +705,6 @@ VDO_DFP(DFP_VDO_VER1_1,
+ 						0, 0, 0x18d1)
+ 					VDO_CERT(0x0)
+ 					VDO_PRODUCT(0x4ee1, 0x0)>;
+-			/*
+-			 * Until bootloader is updated to set those two when
+-			 * console is enabled, we disable PD here.
+-			 */
+-			pd-disable;
+-			typec-power-opmode = "default";
+ 
+ 			ports {
+ 				#address-cells = <1>;
+
+---
+base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+change-id: 20251111-gs101-tcpci-bootloader-dt-274e58a82920
 
 Best regards,
-Krzysztof
+-- 
+André Draszik <andre.draszik@linaro.org>
+
