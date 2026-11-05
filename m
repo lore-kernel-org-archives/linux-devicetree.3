@@ -1,80 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851939;
-	b=BoQP3tiH7iHiS43+adaFpaBp1sEYuYmZGHu+qzkZVf1zZlL2epmw2/bicV+vnrGqg1HH
-	 OCzrhKaJnrjnSI1IZag8j/FVMwIvSKt50JBX1RFPJ8CCHM3nsntjVZZRJC/oTsmWkskGF
-	 q2wR49ezesWJWALfbWJ/Apaop3m+KxaV5Tu4Rns4mKuooMHnYPv8eX4KZ2XwX2jHbFygT
-	 X7KVWuD5AsPPYeDFyoR+5TlwUbR0sR3VKQIvQFF8pJs/zn0Hi01UxnG3VjjQESkBWcaFz
-	 SC6u4ZsabCDUIQl2W8xUT5L56gdyhf60d/cILlRUJudPz6AYVHePCU//IDJR0mnqvvQ==
+	t=1793853598;
+	b=ZV6r+6UL3SH2YSb2AX2SlcOlbC5nnjw0+boKjj3zy9W3ondFRBPOb61vr5/3drijaAwh
+	 W158uyqKDhu/RNYASeCV4gkOUyrSBEivyW6YwP7j8895EpWYM6rzIayDi6wuEaK+ipEnJ
+	 DXGMnX+sh3X2JV6Kmr0lbeEicSj5zOIQptrQtsgileD6b59ELg8aEnDL6M+9BEIk+d1w7
+	 lm+kiJ6HFfL7GNZAz9Fv5smDU4nvX//iRpvurTNK5ByQrFl+R+L75fV08y8JK/wOTzneK
+	 RfAIG9OGCr0O+LN7Pz1I4lamxRE8cw0aWcyfNV+P1Yl4Du06N8CGGN5yAatGJsZDTyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851939;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=c8m5MIJPDMmiDGEpNvB5AEdQQVP/9nxkivagAbmdY3E=;
-	b=n6/9nXaUX9lAyzJ/aaMswGF5bhEvats0anHupTmJc1YRMLNL99IwufHG8ZblnWBmFKl/
-	 /8RtgTSLRa85iIlgbKiSD/a57R8KUbHfoJ7iROE6jX0WayBlwD7n0Ml5o/ca94/Em5/if
-	 4zLU6bRWghWc0XSW+nZ+os4gh9ZO/ekTiB+btS0Y2Kmj3cbqV6iqZarvf867Ig0Mr8uGX
-	 JBVQkAsWhsiql/CRQ4LAEn5jVDc/McsTt+Os37hDDqKcXtOSVwnvwWU9LS9PvoxmF7nMB
-	 OfFqXKmEUxeRRydeF4fvIDyj/QN337cVnUOQYz0Qm89SEpJhhbbqf8p7x2tQyH2zoUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853598;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MeDyaM7Ldb/jBJFLWTN9dRjFKBDsuGkMRu8GnTO4uT0=;
+	b=lhTZhxmPebDXFde9OdUNSeNaP26lu2h3ASGr6Zb8Eiw5jDUS1m9TydxX3vo9z0fSNCpc
+	 qoTd8tUw8cWdEvmY3GPK/uVjdI70QH6p5K+BI4cIxqWyJWX3o0Gm4p5POhvko1brVWg6Q
+	 HcOuZN4ZgSi1CL6PJeT7tgsXyc0jXvxAzCebdgsrvFFTcySucq1sov3AQ59zwR7PmP2xp
+	 RsPk/n1mjdJpHlnGvoaYrf7/9vQNhSpTwQNOF6K/SbuY5v3dJvQ7gQwtbGuIuWXIevIkB
+	 LwF8coN2RlhSJAbdAClmIqFPcWwcDmyigYaqemXQBLFQye477GUOIS7Un5vIeMobvcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=drn8R2A+;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Li0adqlt;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3640C606A329
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 04:12:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3640C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C541606A33B;
+	Thu,  5 Nov 2026 04:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C541606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=drn8R2A+
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id OmEzxaS37VK9UOopmxKgWZ; Thu, 05 Nov 2026 04:12:18 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id OopmxE8J1BdeUOopmxR7oB; Thu, 05 Nov 2026 04:12:18 +0000
-X-Authority-Analysis: v=2.4 cv=AaexH2XG c=1 sm=1 tr=0 ts=6aec0222
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gAnH3GRIAAAA:8
- a=4dYrO911E-Z2Nd993hQA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=c8m5MIJPDMmiDGEpNvB5AEdQQVP/9nxkivagAbmdY3E=; b=drn8R2A++CY7/9cj26bKs6QiaD
-	J6pcWbAyKj9SHdAz892lRIdOdsexDxV48JWnpvyYaHeM8BXjCiktAO8SFWYJwG3raZXF4dGfc2Fzo
-	IB/quCSEYeyr5gOHKFl2NBIk23YSKpL/8ygJWK8ACNBOjXEQQESxhKF6VZHrr9mrMxt3EERFkdrra
-	slrNuoGUiAjeR+jmX8a4ebeDeRsBS6TQo5vM7omEKD5BugR2FDOOt/4NC2mQ0YFQxKt3gxehPAOLK
-	TcH6cJMz6HHd6fFV+6/885QELU4fSZWlg/j1OTRw62ySBJ22rtqzeV6ANpt806NpsO+kWSvuBh+Ly
-	LEY+ncnw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:46092 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xOopl-00000004BYe-4AfM;
-	Thu, 05 Nov 2026 09:42:18 +0530
-Date: Wed, 4 Nov 2026 20:12:17 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Carlos Jones <carlosjr.jones@analog.com>
-Cc: alexisczezar.torreno@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/max20830) Add support for MAX20810,
- MAX20815, LTM4739, LTM4740
-Message-ID: <777a34ee-aa9c-44ee-ba00-5bda32539324@roeck-us.net>
-References: <20261103084331.449-1-carlosjr.jones@analog.com>
- <20261103084331.449-3-carlosjr.jones@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Li0adqlt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793853597; x=1825389597;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Cg6TXdUQ/S/YEBupqmRpvnVcb10mKF5zLcGTufA14os=;
+  b=Li0adqltfZ43wHgMhw7yOPHMqFnrHfFXRr2V081k26J793x2CU/S60Vf
+   WYgft0xkOaomCSAz7AIgS4sdmH7mN/lb3zaPDwVWATqW3ysa5f2rzsajp
+   5IGDfzi5BCCbp0PX95a7HrXbFauo8Lkp0kD9licvLznNhkf5mLvU9YPcG
+   JXT49WxAWDQvpHyB/9plZAtrQWuqpnJPPeQBbA+aZ9EMvGPqqFxxtq5GU
+   aY67NXSRcmtpBCbBbzGuP8pOyzw6Zu588rbBzgklvrlL8vgbrRDOfssqf
+   2L2DVfb4kfH/bnrUhzyGqzlqrzJkS3aWTz7dN2+o0v/iNzc9WY5ndFTQk
+   A==;
+X-CSE-ConnectionGUID: h/jdbcGSQkWSyllVvH07gg==
+X-CSE-MsgGUID: dnb5CyjDQMOGo8o3tCrW+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2721216"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2721216"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 20:39:56 -0800
+X-CSE-ConnectionGUID: xMu0NX5JSZCSk9HnB+kG2g==
+X-CSE-MsgGUID: l1MXlwLESS+Vr3DdlRGzhw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="8669882"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 04 Nov 2026 20:39:50 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xOpGM-00000000leH-3jM7;
+	Thu, 05 Nov 2026 04:39:46 +0000
+Date: Thu, 5 Nov 2026 12:39:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@nxp.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, shubhrajyoti.datta@amd.com,
+	shubhamsanjay.patil@amd.com, adrian.hunter@intel.com,
+	manikanta.guntupalli@amd.com, linux-i3c@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com,
+	wsa+renesas@sang-engineering.com, alok.a.tiwari@oracle.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	konrad.dybcio@oss.qualcomm.com, andersson@kernel.org,
+	jyothi.seerapu@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+	aniket.randive@oss.qualcomm.com, praveen.talari@oss.qualcomm.com
+Subject: Re: [PATCH v7 2/3] i3c: master: Add Qualcomm I3C controller driver
+Message-ID: <202611051252.K0VIpVGq-lkp@intel.com>
+References: <20261104111610.3739095-2-mukesh.savaliya@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,57 +93,357 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103084331.449-3-carlosjr.jones@analog.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xOopl-00000004BYe-4AfM
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:46092
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 18
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMKBLRAwOMTN3kB3dgimc7ZLXeNsRg6h8QYJlvRtUb4eQDM4WgzkymtaYmzH/VCOX1jLO2OaHzQhgs9I+bJLWpXhOPZ1lB8mv9B2ei5iJgJlbu12TsFC
- oAnnab89Orhp2BNe0PduGhgVU66fva2ML/4fGxdkE6tjKVd/HRZ147QIMIpxvHQqj3oUwGGNkJ11639mQlBc1CY9K7jmaTEUU35nOC3b3CqEJQbK9B7t6Nnk
+In-Reply-To: <20261104111610.3739095-2-mukesh.savaliya@oss.qualcomm.com>
 
-On Tue, Nov 03, 2026 at 04:43:31PM +0800, Carlos Jones wrote:
-> From: Carlos Jones Jr <carlosjr.jones@analog.com>
-> 
-> Add support for additional members of the MAX20830 family:
-> - MAX20810: 2.7V-16V input, up to 10A output
-> - MAX20815: 2.7V-16V input, up to 15A output
-> - LTM4739:  3V-15V input, up to 10A output
-> - LTM4740:  3V-15V input, up to 15A output
-> 
-> The LTM4739 and LTM4740 are the LTM-series equivalents of the MAX20810
-> and MAX20815 respectively. All share the MAX20830 PMBus command set and
-> telemetry, so no new register handling is required; they are accepted by
-> matching their IC_DEVICE_ID.
-> 
-> The LTM4739 and LTM4740 are uModules built around the MAX20810/MAX20815
-> dies and report the die's IC_DEVICE_ID with a "B" suffix ("MAX20810B" /
-> "MAX20815B"), not the "LTM4739"/"LTM4740" names printed in their
-> datasheets (which are being corrected to match). Only the IDs observed on
-> hardware are matched; the plain datasheet IDs ("MAX20810", "MAX20815",
-> "LTM4739", "LTM4740") are not matched, as no part reporting them has been
-> observed.
-> 
-> Matching is via the existing adi,max20830 fallback compatible; no new
-> of_match entries are needed.
-> 
-> Signed-off-by: Carlos Jones Jr <carlosjr.jones@analog.com>
+Hi Mukesh,
 
-I'll make the change to Kconfig as suggested by Sashiko. No need to resend.
-Applied.
+kernel test robot noticed the following build errors:
 
-Thanks,
-Guenter
+[auto build test ERROR on i3c/i3c/next]
+[also build test ERROR on linus/master v7.3 next-20261030]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Mukesh-Kumar-Savaliya/i3c-master-Add-Qualcomm-I3C-controller-driver/20261104-164609
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/i3c/linux.git i3c/next
+patch link:    https://lore.kernel.org/r/20261104111610.3739095-2-mukesh.savaliya%40oss.qualcomm.com
+patch subject: [PATCH v7 2/3] i3c: master: Add Qualcomm I3C controller driver
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20261105/202611051252.K0VIpVGq-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 812626a41399a1d464a0d69627ab45c83b8ebfb9)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261105/202611051252.K0VIpVGq-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611051252.K0VIpVGq-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/i3c/master/i3c-qcom-geni.c:19:
+   include/linux/soc/qcom/geni-se.h:378:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     378 |         val = readl_relaxed(se->base + GENI_FW_REVISION_RO);
+         |               ^
+   include/linux/soc/qcom/geni-se.h:397:2: error: call to undeclared function 'writel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     397 |         writel(m_cmd, se->base + SE_GENI_M_CMD0);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:413:10: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     413 |         s_cmd = readl_relaxed(se->base + SE_GENI_S_CMD0);
+         |                 ^
+   include/linux/soc/qcom/geni-se.h:417:2: error: call to undeclared function 'writel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     417 |         writel(s_cmd, se->base + SE_GENI_S_CMD0);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:430:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     430 |         writel_relaxed(M_GENI_CMD_CANCEL, se->base + SE_GENI_M_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:443:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     443 |         writel_relaxed(S_GENI_CMD_CANCEL, se->base + SE_GENI_S_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:455:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     455 |         writel_relaxed(M_GENI_CMD_ABORT, se->base + SE_GENI_M_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:468:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     468 |         writel_relaxed(S_GENI_CMD_ABORT, se->base + SE_GENI_S_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:494:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     494 |         val = readl_relaxed(se->base + SE_HW_PARAM_0);
+         |               ^
+   include/linux/soc/qcom/geni-se.h:512:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     512 |         val = readl_relaxed(se->base + SE_HW_PARAM_0);
+         |               ^
+   include/linux/soc/qcom/geni-se.h:540:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     540 |         val = readl_relaxed(se->base + SE_HW_PARAM_1);
+         |               ^
+   In file included from drivers/i3c/master/i3c-qcom-geni.c:22:
+   In file included from drivers/i3c/master/../internals.h:12:
+   In file included from include/linux/io.h:12:
+   In file included from arch/s390/include/asm/io.h:93:
+>> include/asm-generic/io.h:288:20: error: static declaration of 'writel' follows non-static declaration
+     288 | static inline void writel(u32 value, volatile void __iomem *addr)
+         |                    ^
+   include/asm-generic/io.h:287:16: note: expanded from macro 'writel'
+     287 | #define writel writel
+         |                ^
+   include/linux/soc/qcom/geni-se.h:397:2: note: previous implicit declaration is here
+     397 |         writel(m_cmd, se->base + SE_GENI_M_CMD0);
+         |         ^
+   In file included from drivers/i3c/master/i3c-qcom-geni.c:22:
+   In file included from drivers/i3c/master/../internals.h:12:
+   In file included from include/linux/io.h:12:
+   In file included from arch/s390/include/asm/io.h:93:
+>> include/asm-generic/io.h:353:19: error: static declaration of 'readl_relaxed' follows non-static declaration
+     353 | static inline u32 readl_relaxed(const volatile void __iomem *addr)
+         |                   ^
+   include/asm-generic/io.h:352:23: note: expanded from macro 'readl_relaxed'
+     352 | #define readl_relaxed readl_relaxed
+         |                       ^
+   include/linux/soc/qcom/geni-se.h:378:8: note: previous implicit declaration is here
+     378 |         val = readl_relaxed(se->base + GENI_FW_REVISION_RO);
+         |               ^
+   In file included from drivers/i3c/master/i3c-qcom-geni.c:22:
+   In file included from drivers/i3c/master/../internals.h:12:
+   In file included from include/linux/io.h:12:
+   In file included from arch/s390/include/asm/io.h:93:
+>> include/asm-generic/io.h:407:20: error: static declaration of 'writel_relaxed' follows non-static declaration
+     407 | static inline void writel_relaxed(u32 value, volatile void __iomem *addr)
+         |                    ^
+   include/asm-generic/io.h:406:24: note: expanded from macro 'writel_relaxed'
+     406 | #define writel_relaxed writel_relaxed
+         |                        ^
+   include/linux/soc/qcom/geni-se.h:430:2: note: previous implicit declaration is here
+     430 |         writel_relaxed(M_GENI_CMD_CANCEL, se->base + SE_GENI_M_CMD_CTRL_REG);
+         |         ^
+>> drivers/i3c/master/i3c-qcom-geni.c:284:8: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     284 |         val = FIELD_PREP(CLK_DIV_VALUE_MASK, clk_idx->clk_div);
+         |               ^
+   drivers/i3c/master/i3c-qcom-geni.c:363:6: warning: variable 'm_stat_mask' set but not used [-Wunused-but-set-variable]
+     363 |         u32 m_stat_mask, dm_tx_st, dm_rx_st;
+         |             ^
+   drivers/i3c/master/i3c-qcom-geni.c:579:9: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     579 |                 pid = FIELD_PREP(GENMASK_ULL(47, 40), (u64)rx_buf[0]) |
+         |                       ^
+   drivers/i3c/master/i3c-qcom-geni.c:637:20: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     637 |                         xfer.m_param |= FIELD_PREP(CCC_HDR_CMD_MSK, cmd->id);
+         |                                         ^
+   drivers/i3c/master/i3c-qcom-geni.c:737:20: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     737 |                         xfer.m_param |= FIELD_PREP(SLAVE_ADDR_MASK, dev->info.dyn_addr);
+         |                                         ^
+   drivers/i3c/master/i3c-qcom-geni.c:791:19: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     791 |                 xfer.m_param |= FIELD_PREP(SLAVE_ADDR_MASK, msgs[i].addr);
+         |                                 ^
+   fatal error: too many errors emitted, stopping now [-ferror-limit=]
+   1 warning and 20 errors generated.
+--
+   In file included from i3c-qcom-geni.c:19:
+   include/linux/soc/qcom/geni-se.h:378:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     378 |         val = readl_relaxed(se->base + GENI_FW_REVISION_RO);
+         |               ^
+   include/linux/soc/qcom/geni-se.h:397:2: error: call to undeclared function 'writel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     397 |         writel(m_cmd, se->base + SE_GENI_M_CMD0);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:413:10: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     413 |         s_cmd = readl_relaxed(se->base + SE_GENI_S_CMD0);
+         |                 ^
+   include/linux/soc/qcom/geni-se.h:417:2: error: call to undeclared function 'writel'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     417 |         writel(s_cmd, se->base + SE_GENI_S_CMD0);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:430:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     430 |         writel_relaxed(M_GENI_CMD_CANCEL, se->base + SE_GENI_M_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:443:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     443 |         writel_relaxed(S_GENI_CMD_CANCEL, se->base + SE_GENI_S_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:455:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     455 |         writel_relaxed(M_GENI_CMD_ABORT, se->base + SE_GENI_M_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:468:2: error: call to undeclared function 'writel_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     468 |         writel_relaxed(S_GENI_CMD_ABORT, se->base + SE_GENI_S_CMD_CTRL_REG);
+         |         ^
+   include/linux/soc/qcom/geni-se.h:494:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     494 |         val = readl_relaxed(se->base + SE_HW_PARAM_0);
+         |               ^
+   include/linux/soc/qcom/geni-se.h:512:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     512 |         val = readl_relaxed(se->base + SE_HW_PARAM_0);
+         |               ^
+   include/linux/soc/qcom/geni-se.h:540:8: error: call to undeclared function 'readl_relaxed'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     540 |         val = readl_relaxed(se->base + SE_HW_PARAM_1);
+         |               ^
+   In file included from i3c-qcom-geni.c:22:
+   In file included from ./../internals.h:12:
+   In file included from include/linux/io.h:12:
+   In file included from arch/s390/include/asm/io.h:93:
+>> include/asm-generic/io.h:288:20: error: static declaration of 'writel' follows non-static declaration
+     288 | static inline void writel(u32 value, volatile void __iomem *addr)
+         |                    ^
+   include/asm-generic/io.h:287:16: note: expanded from macro 'writel'
+     287 | #define writel writel
+         |                ^
+   include/linux/soc/qcom/geni-se.h:397:2: note: previous implicit declaration is here
+     397 |         writel(m_cmd, se->base + SE_GENI_M_CMD0);
+         |         ^
+   In file included from i3c-qcom-geni.c:22:
+   In file included from ./../internals.h:12:
+   In file included from include/linux/io.h:12:
+   In file included from arch/s390/include/asm/io.h:93:
+>> include/asm-generic/io.h:353:19: error: static declaration of 'readl_relaxed' follows non-static declaration
+     353 | static inline u32 readl_relaxed(const volatile void __iomem *addr)
+         |                   ^
+   include/asm-generic/io.h:352:23: note: expanded from macro 'readl_relaxed'
+     352 | #define readl_relaxed readl_relaxed
+         |                       ^
+   include/linux/soc/qcom/geni-se.h:378:8: note: previous implicit declaration is here
+     378 |         val = readl_relaxed(se->base + GENI_FW_REVISION_RO);
+         |               ^
+   In file included from i3c-qcom-geni.c:22:
+   In file included from ./../internals.h:12:
+   In file included from include/linux/io.h:12:
+   In file included from arch/s390/include/asm/io.h:93:
+>> include/asm-generic/io.h:407:20: error: static declaration of 'writel_relaxed' follows non-static declaration
+     407 | static inline void writel_relaxed(u32 value, volatile void __iomem *addr)
+         |                    ^
+   include/asm-generic/io.h:406:24: note: expanded from macro 'writel_relaxed'
+     406 | #define writel_relaxed writel_relaxed
+         |                        ^
+   include/linux/soc/qcom/geni-se.h:430:2: note: previous implicit declaration is here
+     430 |         writel_relaxed(M_GENI_CMD_CANCEL, se->base + SE_GENI_M_CMD_CTRL_REG);
+         |         ^
+   i3c-qcom-geni.c:284:8: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     284 |         val = FIELD_PREP(CLK_DIV_VALUE_MASK, clk_idx->clk_div);
+         |               ^
+   i3c-qcom-geni.c:363:6: warning: variable 'm_stat_mask' set but not used [-Wunused-but-set-variable]
+     363 |         u32 m_stat_mask, dm_tx_st, dm_rx_st;
+         |             ^
+   i3c-qcom-geni.c:579:9: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     579 |                 pid = FIELD_PREP(GENMASK_ULL(47, 40), (u64)rx_buf[0]) |
+         |                       ^
+   i3c-qcom-geni.c:637:20: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     637 |                         xfer.m_param |= FIELD_PREP(CCC_HDR_CMD_MSK, cmd->id);
+         |                                         ^
+   i3c-qcom-geni.c:737:20: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     737 |                         xfer.m_param |= FIELD_PREP(SLAVE_ADDR_MASK, dev->info.dyn_addr);
+         |                                         ^
+   i3c-qcom-geni.c:791:19: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     791 |                 xfer.m_param |= FIELD_PREP(SLAVE_ADDR_MASK, msgs[i].addr);
+         |                                 ^
+   fatal error: too many errors emitted, stopping now [-ferror-limit=]
+   1 warning and 20 errors generated.
+
+
+vim +/readl_relaxed +353 include/asm-generic/io.h
+
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  285  
+9216efafc52ff99 Thierry Reding     2014-10-01  286  #ifndef writel
+9216efafc52ff99 Thierry Reding     2014-10-01  287  #define writel writel
+9216efafc52ff99 Thierry Reding     2014-10-01 @288  static inline void writel(u32 value, volatile void __iomem *addr)
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  289  {
+8327bd4fcb6c1da Varad Gautam       2025-03-30  290  	if (rwmmio_tracepoint_enabled(rwmmio_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  291  		log_write_mmio(value, 32, addr, _THIS_IP_, _RET_IP_);
+755bd04aaf4bf7c Sinan Kaya         2018-04-05  292  	__io_bw();
+c1d55d50139bea6 Stafford Horne     2020-07-29  293  	__raw_writel((u32 __force)__cpu_to_le32(value), addr);
+755bd04aaf4bf7c Sinan Kaya         2018-04-05  294  	__io_aw();
+8327bd4fcb6c1da Varad Gautam       2025-03-30  295  	if (rwmmio_tracepoint_enabled(rwmmio_post_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  296  		log_post_write_mmio(value, 32, addr, _THIS_IP_, _RET_IP_);
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  297  }
+9216efafc52ff99 Thierry Reding     2014-10-01  298  #endif
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  299  
+9216efafc52ff99 Thierry Reding     2014-10-01  300  #ifdef CONFIG_64BIT
+9216efafc52ff99 Thierry Reding     2014-10-01  301  #ifndef writeq
+9216efafc52ff99 Thierry Reding     2014-10-01  302  #define writeq writeq
+9216efafc52ff99 Thierry Reding     2014-10-01  303  static inline void writeq(u64 value, volatile void __iomem *addr)
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  304  {
+8327bd4fcb6c1da Varad Gautam       2025-03-30  305  	if (rwmmio_tracepoint_enabled(rwmmio_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  306  		log_write_mmio(value, 64, addr, _THIS_IP_, _RET_IP_);
+755bd04aaf4bf7c Sinan Kaya         2018-04-05  307  	__io_bw();
+d564fa1ff19e893 Vladimir Oltean    2023-01-09  308  	__raw_writeq((u64 __force)__cpu_to_le64(value), addr);
+755bd04aaf4bf7c Sinan Kaya         2018-04-05  309  	__io_aw();
+8327bd4fcb6c1da Varad Gautam       2025-03-30  310  	if (rwmmio_tracepoint_enabled(rwmmio_post_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  311  		log_post_write_mmio(value, 64, addr, _THIS_IP_, _RET_IP_);
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  312  }
+9216efafc52ff99 Thierry Reding     2014-10-01  313  #endif
+9216efafc52ff99 Thierry Reding     2014-10-01  314  #endif /* CONFIG_64BIT */
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  315  
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  316  /*
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  317   * {read,write}{b,w,l,q}_relaxed() are like the regular version, but
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  318   * are not guaranteed to provide ordering against spinlocks or memory
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  319   * accesses.
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  320   */
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  321  #ifndef readb_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06  322  #define readb_relaxed readb_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06  323  static inline u8 readb_relaxed(const volatile void __iomem *addr)
+8875c55437617fa Sinan Kaya         2018-04-06  324  {
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  325  	u8 val;
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  326  
+8327bd4fcb6c1da Varad Gautam       2025-03-30  327  	if (rwmmio_tracepoint_enabled(rwmmio_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  328  		log_read_mmio(8, addr, _THIS_IP_, _RET_IP_);
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  329  	val = __raw_readb(addr);
+8327bd4fcb6c1da Varad Gautam       2025-03-30  330  	if (rwmmio_tracepoint_enabled(rwmmio_post_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  331  		log_post_read_mmio(val, 8, addr, _THIS_IP_, _RET_IP_);
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  332  	return val;
+8875c55437617fa Sinan Kaya         2018-04-06  333  }
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  334  #endif
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  335  
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  336  #ifndef readw_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06  337  #define readw_relaxed readw_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06  338  static inline u16 readw_relaxed(const volatile void __iomem *addr)
+8875c55437617fa Sinan Kaya         2018-04-06  339  {
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  340  	u16 val;
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  341  
+8327bd4fcb6c1da Varad Gautam       2025-03-30  342  	if (rwmmio_tracepoint_enabled(rwmmio_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  343  		log_read_mmio(16, addr, _THIS_IP_, _RET_IP_);
+05d3855b4d21ef3 Vladimir Oltean    2023-01-09  344  	val = __le16_to_cpu((__le16 __force)__raw_readw(addr));
+8327bd4fcb6c1da Varad Gautam       2025-03-30  345  	if (rwmmio_tracepoint_enabled(rwmmio_post_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  346  		log_post_read_mmio(val, 16, addr, _THIS_IP_, _RET_IP_);
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  347  	return val;
+8875c55437617fa Sinan Kaya         2018-04-06  348  }
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  349  #endif
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  350  
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  351  #ifndef readl_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06  352  #define readl_relaxed readl_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06 @353  static inline u32 readl_relaxed(const volatile void __iomem *addr)
+8875c55437617fa Sinan Kaya         2018-04-06  354  {
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  355  	u32 val;
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  356  
+8327bd4fcb6c1da Varad Gautam       2025-03-30  357  	if (rwmmio_tracepoint_enabled(rwmmio_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  358  		log_read_mmio(32, addr, _THIS_IP_, _RET_IP_);
+05d3855b4d21ef3 Vladimir Oltean    2023-01-09  359  	val = __le32_to_cpu((__le32 __force)__raw_readl(addr));
+8327bd4fcb6c1da Varad Gautam       2025-03-30  360  	if (rwmmio_tracepoint_enabled(rwmmio_post_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  361  		log_post_read_mmio(val, 32, addr, _THIS_IP_, _RET_IP_);
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  362  	return val;
+8875c55437617fa Sinan Kaya         2018-04-06  363  }
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  364  #endif
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  365  
+e511267bc25e189 Robin Murphy       2016-04-26  366  #if defined(readq) && !defined(readq_relaxed)
+8875c55437617fa Sinan Kaya         2018-04-06  367  #define readq_relaxed readq_relaxed
+8875c55437617fa Sinan Kaya         2018-04-06  368  static inline u64 readq_relaxed(const volatile void __iomem *addr)
+8875c55437617fa Sinan Kaya         2018-04-06  369  {
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  370  	u64 val;
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  371  
+8327bd4fcb6c1da Varad Gautam       2025-03-30  372  	if (rwmmio_tracepoint_enabled(rwmmio_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  373  		log_read_mmio(64, addr, _THIS_IP_, _RET_IP_);
+05d3855b4d21ef3 Vladimir Oltean    2023-01-09  374  	val = __le64_to_cpu((__le64 __force)__raw_readq(addr));
+8327bd4fcb6c1da Varad Gautam       2025-03-30  375  	if (rwmmio_tracepoint_enabled(rwmmio_post_read))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  376  		log_post_read_mmio(val, 64, addr, _THIS_IP_, _RET_IP_);
+210031971cdd25a Sai Prakash Ranjan 2022-05-18  377  	return val;
+8875c55437617fa Sinan Kaya         2018-04-06  378  }
+1c8d29696f0d799 Arnd Bergmann      2014-11-11  379  #endif
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  380  
+9439eb3ab9d1ece Will Deacon        2013-09-03  381  #ifndef writeb_relaxed
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  382  #define writeb_relaxed writeb_relaxed
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  383  static inline void writeb_relaxed(u8 value, volatile void __iomem *addr)
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  384  {
+8327bd4fcb6c1da Varad Gautam       2025-03-30  385  	if (rwmmio_tracepoint_enabled(rwmmio_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  386  		log_write_mmio(value, 8, addr, _THIS_IP_, _RET_IP_);
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  387  	__raw_writeb(value, addr);
+8327bd4fcb6c1da Varad Gautam       2025-03-30  388  	if (rwmmio_tracepoint_enabled(rwmmio_post_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  389  		log_post_write_mmio(value, 8, addr, _THIS_IP_, _RET_IP_);
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  390  }
+9439eb3ab9d1ece Will Deacon        2013-09-03  391  #endif
+9439eb3ab9d1ece Will Deacon        2013-09-03  392  
+9439eb3ab9d1ece Will Deacon        2013-09-03  393  #ifndef writew_relaxed
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  394  #define writew_relaxed writew_relaxed
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  395  static inline void writew_relaxed(u16 value, volatile void __iomem *addr)
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  396  {
+8327bd4fcb6c1da Varad Gautam       2025-03-30  397  	if (rwmmio_tracepoint_enabled(rwmmio_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  398  		log_write_mmio(value, 16, addr, _THIS_IP_, _RET_IP_);
+05d3855b4d21ef3 Vladimir Oltean    2023-01-09  399  	__raw_writew((u16 __force)cpu_to_le16(value), addr);
+8327bd4fcb6c1da Varad Gautam       2025-03-30  400  	if (rwmmio_tracepoint_enabled(rwmmio_post_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  401  		log_post_write_mmio(value, 16, addr, _THIS_IP_, _RET_IP_);
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  402  }
+9439eb3ab9d1ece Will Deacon        2013-09-03  403  #endif
+9439eb3ab9d1ece Will Deacon        2013-09-03  404  
+9439eb3ab9d1ece Will Deacon        2013-09-03  405  #ifndef writel_relaxed
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  406  #define writel_relaxed writel_relaxed
+a71e7c44ffb7bae Sinan Kaya         2018-04-06 @407  static inline void writel_relaxed(u32 value, volatile void __iomem *addr)
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  408  {
+8327bd4fcb6c1da Varad Gautam       2025-03-30  409  	if (rwmmio_tracepoint_enabled(rwmmio_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  410  		log_write_mmio(value, 32, addr, _THIS_IP_, _RET_IP_);
+05d3855b4d21ef3 Vladimir Oltean    2023-01-09  411  	__raw_writel((u32 __force)__cpu_to_le32(value), addr);
+8327bd4fcb6c1da Varad Gautam       2025-03-30  412  	if (rwmmio_tracepoint_enabled(rwmmio_post_write))
+5e5ff73c2e5863f Sai Prakash Ranjan 2022-10-17  413  		log_post_write_mmio(value, 32, addr, _THIS_IP_, _RET_IP_);
+a71e7c44ffb7bae Sinan Kaya         2018-04-06  414  }
+9439eb3ab9d1ece Will Deacon        2013-09-03  415  #endif
+3f7e212df82ca04 Arnd Bergmann      2009-05-13  416  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
