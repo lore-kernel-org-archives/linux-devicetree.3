@@ -1,101 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.64
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793909445;
-	b=Z5OWJk16+f0tNc5vPmuCc5gHRzdYR1Il4yiR1YbbRPJJ+haVpcMVxfi1V3obuxK7agnJ
-	 R4H0xNkltdNnFLuYevTlcYbMEwEWNtY1vqE3hhaX68SE4cdLi/erOzREfnimmkYEQ7DmS
-	 B0WXCh8Pg1HiV0v4X0yN/DqAtZsuAd+Liv0/qBbdPFTTsAcCnhjhB+P7JQOToOEQwIDPh
-	 1R7PUbwdOOiidWZgg0w83cG1bATIeLdGj5Df78zCyB4oIBf2x3pq6pRSrshqVbwjfqFG6
-	 0LZRpV5PgFkkKTA4zCiPeaCcbBlxpbRKHYLa4oe7ihlKtDkT9Ux6OMMOGUSHPXXjRaQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909445;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WGA0hw5MEFWlovqQB0+2ufb8dch4lzXQdzsSegL88hM=;
-	b=LjNjzOC+SAgVES7U1aEZptW4JN1bJf9eaZw/MBlFFFubLkBYOioIyLW6tx3wnMdpUL9b
-	 ejikaHo1Om6Gu475yOhjdFMqrs3AEBl71VbwzanQ2T7PlWRbbz++GQfFwdwkZ3l06EFvq
-	 RGMOWahhZzehHsWgePsrO9jcIMGmmV0GUi1qmYCqAO2y11mSH+uzREm6N7/nPT6KMgCHl
-	 IA8/iR7jlRqaUKmkJZi9HJ8OIfUOaDxUHZPIEO5WhVxZbfe/dWVEf4Z0wFVLnADRYoRq4
-	 ZviU14CVm2oiSaQFXpAQgwIf8JxUR2JWNjC3DO1vTocfG3YSpqiQ4wPoIZlyNaaCe9w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fDQYx2CO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.64
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011064.outbound.protection.outlook.com [40.107.130.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793909545;
+	b=COqNDUcKQhto63VsvbHkMr9Mdh8XruC0mUnVEFenp4mSCefUTKB2kfxeeYCOh27gruNu
+	 OmACUQul7OlPi8327nOXft2JbVul/C5iPP0rnWA5HviW+4wazyrryOSCdUBZ86oUAp263
+	 wzjAPToQsKwnCg/hITkdrmBqrZCwJK36YvmyIQc0IxBkRkGtfXD/xHVAsQy4SVnGr8xn+
+	 rIGjXZwytpNv80fSBUY8rKpulxIzu2jRP/Ww6zq4+9hUBZYPntjgqi++l7Cw6FMGMtDoh
+	 5ZIEjz2qnVhoIrxWI/aTJVW0WMph4Ucdx4G4Ut8z8YeH9gPq2EKXmysOD1pZJCBo6Uw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909545;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oj4+ZYy6IPmEk7n48ZoOfVMyHB9K5zKwdNLmj5eS60A=;
+	b=Fo/HvBMKFSu9QISblKW4gLVjKujX+B7qLLICV/D08E3/n5NWiyAeJl0tIai4Wv7DoqzX
+	 jU7hFGj16u/duf1HYkwXh0SwzdIVgTMa91+bVtbNliTe7fAgJrz6Td2xyrOApFqqcdgU3
+	 AZradNcGoGiNj74U0AFKsjTaMUuPZCS0ae1RoLYMs0P+8dMJ+T9YjiIA7ubcQxw3q882q
+	 WpaOe+xTfwYSHlgK0AoGKwP+/cAEg3yEC5ghhsV0hQIIkStOMY4V6yRCCs4yBwC5FsLy5
+	 dZBTBP/F6o4/kfwRiBUCExZk/F37xmsD6rOVv5ajPGOBKYHO4J9gmJ30rZovjV5UpOA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WJW1RlPT;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1F7606A334;
-	Thu,  5 Nov 2026 20:10:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE1F7606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAB8606A32D
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 20:12:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BAB8606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fDQYx2CO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kkc6BbPObVX9+CZ8T76pNmbbce5VqukjfJVLj6H3fOQ2oGPw1SVRISTk0q1p28DbmM8CaQ0upnDAcGwoV+C5uutSabQHOhVRx8aZWGAugp9KKXqr13C28wZXRNJuQbvgKFtxVYtahUYmcGuzbp31QcCCOe8h+1jMRZOStmdt8ulmFdSOoMgBMy0G0SY5GiBZePndiMfwF/eq7vghlPvnJmcqGfJRTtM8HMM2D6d4zga4VnbYqouc4W6onaVv9AjHcpcZclJk6v3XurE/JXwABGUoYRUPMaQROBkmXzqrHdotKFkuYIuMxHp3hXjLvAzZKuVjKp3kr3tZhjb0/cigOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WGA0hw5MEFWlovqQB0+2ufb8dch4lzXQdzsSegL88hM=;
- b=MY+PxzFTFRMAeetMrK4S7FIzJ+c05FqhzQN1f7fWRFpWHD/HVte7oJHpVS7lBXwf9/kY+Ipd9xdNoOSXYQSO5ehxAGtx+VEU2zlJFwWAKLXfUt1am0XLPRKMnph+92NnyCOvDsKidJPr6FgCcn0YKTnfnl/p27NZgKO0eQ1Ies8dM0z6/g5ib1zjem3ssZvC9cmGzPGEGWt3U2/WvK09i/d95rKToccvbOARXwMER5MG13YGr6uTmb2u0LJw6qK8UC7VBDQFobPcRpdhyAME2QrKCWE0bVDG8LBObsP5Jg9nB//dozwX/rdvtQaXxqWhsRnYR1IhweaUliDqmhjodg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WGA0hw5MEFWlovqQB0+2ufb8dch4lzXQdzsSegL88hM=;
- b=fDQYx2COt4L3gYxVqSs1XoMpne3tW8Y4W25tA3qWxql5YpoeuZFEF66rhTPPB/xd2VQkwJJQXY+2ReICkO3cMAmeczqHBaRqID6/9arB/H6RQKjvNNG9Yx2Bf/dudPjjNMLNklcJwueb0ERmo/cdWNjRP7WXuHacUAKyzW/n8d/PymBj10czA9iQVka4E+g4qG6uUOxTlMqnNd8ZZbPHHl7sDYfroCRqvoFfG8BCt7OSoy1kOe+Qfc/cVpdwrRejHlhwBh16+n0rd7y/oeSlo7lyh0HaAa0E7H9pBzG6oHFsYG3Jsdx/JVZtbVcW9zJ0Phx/V6dVhgUZ2IVSLnHEvA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by AM9PR04MB8763.eurprd04.prod.outlook.com
- (2603:10a6:20b:40a::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 20:10:42 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 20:10:42 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WJW1RlPT
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-492690dd5daso272389f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 12:12:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793909544; x=1794514344; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oj4+ZYy6IPmEk7n48ZoOfVMyHB9K5zKwdNLmj5eS60A=;
+        b=WJW1RlPT4nBYc85BjmKGFu2S3pNJc9h7p7KxVzEu5ni8QwEhD6AZYZE1PHvNpvssVy
+         C5+q+IbtF7LYPXEPEBRaZkzdujhWyQ0fUe4f5Xz/c5Vqe9MDfRDZsDQt8IHtK49XKXLI
+         ae8sWtCDBYWI/5gseIUrC/+ZUjLbhQdgHuNQefnHAPOH+81+q7amXVCwCXPYDNrtW2sc
+         n9nLehpHgJ9SuJU8R6QuJDwXGiC8NpgU21mQc3O/SLnA6J1YXqXkQEA2Og9BpDp3KDq+
+         xEbiyGKqj+IBXKZBJU/daPFdn9kSiL/PN4Gn9LkJCkB4ihpud59kUVf35uGxaQaScdSC
+         pbFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793909544; x=1794514344;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oj4+ZYy6IPmEk7n48ZoOfVMyHB9K5zKwdNLmj5eS60A=;
+        b=bWedlxLdFPDM0VAkEGOrkNQdWWXR4+woW5S2/I0keNMvv20WPdyGX+An6aCa46rkxd
+         6RClMj4Rw0baw1awdkl7+freI0RK0MTN6sMyHx1AqH2460NPtvFCxeXiDconIZSdTnyW
+         06RA9lSvwb99bI6xUWHSoJ9x9FmMGRpNLyexuoLJ7okNDbhclYydWDYuil8ONtaET5b6
+         UgmPf3PZKwv6AT2tdTcBNL9RyERvZEjg0JiYOJ1bxbWT5DgX0J1IucRDZcAQeRQU7jlS
+         ts6z5EN2IkADmvUYbyGOBk2Sk8UfsrI4gVS3MrzzJ9Z3/HCUI9Y/KAAR1cR9pVkJYxC5
+         LpBg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5PCjphhz1La6MkFjRo5D959Z3KglvKrVNtFwJ8TMAwZWd05vO8LQ/0sv9QFlgQG8hL5hk5pR4a/wB@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0F+3ifNxtvD2QGqxbxJmLot0wsF55vw+KF4Sqtt2ItpHCjo2Q
+	wr2k68uNhC6cyos+lYJYBt4ACYazPgy0wIMMkad5pnR+3sC2HmGprTMYiWBsDQ==
+X-Gm-Gg: AYBFou0jZ0vvYAfMAbzd5pDivjqkI+Gunz8kQI9/KQkZSusJUZMFQ7pNaoYroLW5hzY
+	+mS/SEfIUaDjYQ7yQCkRA271JYwNXJXPrnaa8rcwLBFl+UMUe6hIvQ4uZXJ96N4CXsysALq9neg
+	M2q1D9zf39ZPfyw5/OpyUhwzkHw7jll5Gb+SKeTrv/Vw2ueP8nE93RUakijMQ5cTwgsGs3Rf+nu
+	oMSsvVQGu9UKmFQxWZPy3zybpmV4Csi8iRXWren9Hkw8xgEtG7H5azP3Ou4wvRPLs48DAbEeAzJ
+	csdLEC4a39CtplWNu4QS7B08TZqlbkNWIlN7n+8OUTiHY/qU4idQRWLIQXbRdThD0mcJMEB5cly
+	2RCl5O8qNhxQ1zEg+/7VpjwLiV5xetGPYFItDDlPFIvdACLXYw7N1w60rjcSAohDfiCu0JbInhT
+	n1yHdL1cqymWxSdmBOB0q5ZtvgKel/ncjvnzFiuOohO1LwZlRvZTtGXCrtBhpwv++dBTf8G6d86
+	8v/bZDzAUDXSmSk72gFHeXciFimqiGfamEhOh4dNxSxHbbuzBDWgmXns9Xx2NgBoWJCtCQO2f9i
+	iU2N/PQWBNcH6KryfcgPKZKmjw6H1H2EnrnSIfRWdANBbFfeJ/1FsiQ=
+X-Received: by 2002:a05:6000:2dc9:b0:48c:7f18:c85e with SMTP id ffacd0b85a97d-492778d2076mr1325704f8f.45.1793909543495;
+        Thu, 05 Nov 2026 12:12:23 -0800 (PST)
+Received: from localhost ([82.77.126.113])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac1caesm11108369f8f.17.2026.11.05.12.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:12:22 -0800 (PST)
+From: Daniel Matyas <matyasdaniel006@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Daniel Matyas <matyasdaniel006@gmail.com>,
+	linux-staging@lists.linux.dev,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Conor Dooley <conor@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank.Li@oss.nxp.com
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/13] ARM: dts: imx: cleanup some CHECK_DTBS warnings
-Date: Thu,  5 Nov 2026 15:10:33 -0500
-Message-ID: <179390941004.1697539.3517538199289414599.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019-arm_dts_cleanup2-v2-0-dcdcbe6389c1@nxp.com>
-References: <20261019-arm_dts_cleanup2-v2-0-dcdcbe6389c1@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P222CA0026.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Nam Cao <namcao@linutronix.de>,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
+Date: Thu,  5 Nov 2026 22:11:53 +0200
+Message-ID: <20261105201154.37294-2-matyasdaniel006@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,107 +114,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|AM9PR04MB8763:EE_
-X-MS-Office365-Filtering-Correlation-Id: 994b1dc8-6162-4d93-2a15-08df3b78dddd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|19092799006|366016|56012099006|11063799006|261009223027099003|261026121527099003|261022075727099003|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	V92deGp9L42pGgj4QXmqZxWtQcQVTANR5YXMUCqg64rw/qBitxvgfoOCPUcrUSuh/9pfddhzUJdB4tjNVBQXfA69G9bti26RKHRUjPjuaRhAA8Q2wO7OIl/G1vsVVqQlxr6gG28hrhPPEawAnqfsZ+AXKtCA0aT9X7wp0NmiH09izrxw1Ea0iZqlNNH6Ch7oTeTBYDGYocOeG+1dC260piCE8qDPtEzoPVILOKLJYuPawxrNkuEBHZNW0d7f4hvfZH4zhW/Dngy30CH+9PgvlmDo2TvdPHyZwAeilOU5NDfcEJLtaLlrZb8GZZqll9KUPk6Fc9yeYpdbQL1kGVGE8ZcOoRcmFVexGxTPXWYxuuxVnGcIh79xyl4bBEAN3qPwjuCpsVcMPB7iLRvsZGWjdKNjMY7uJq6W83yOZhhpmm6CpVWoa22J30jC7btAkEyKt4OUihLqwq5WAJQm2Q/1wZ48/dfyJ5eYYvPwQsLvEHmiFqj0rJ3ONk1YKUvfVQ3pFBKD6J5Vm9yZf3eiG46HZJ11MRa9Oip7H4SfVT4FUN6mWexnDte2Mpqnqa4n80mDPeGvEY39OuvBezl1GBcfb6Swbx66fDRfKKLcxqfMl5yK61enUUdl8AYXbtoY3BiEYQfIVnY+isRkOeIwzIhomB76boNIWHzPDKMYERsr7gk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(19092799006)(366016)(56012099006)(11063799006)(261009223027099003)(261026121527099003)(261022075727099003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TkpNU3pNbWFVTHg3cWZLWjBhUlppMGFGSUl1Sm5PTDExNE45ZnVOQkNRYXh5?=
- =?utf-8?B?WG5xWks2UlJRVXVnQU1CajNmSWJRYlRvVEpHS0xYL2RQdmNjVllFam1VYy9Q?=
- =?utf-8?B?ZFptcDBTdnd4VFluS0Z0Y3VPTU1OSGRKZEZxNjlRS0pvR29LTUZmYURKUEZj?=
- =?utf-8?B?U1Ruc1U4a2RLMUxxdnBVdHpzWUhKam9Oc3ZWRlFQdHk3UTZDTTRjZmkwaWhX?=
- =?utf-8?B?MTVvWi9sbzhzek5meWJnVTd6Q0RPdDZOWElmSyt3cjM0N3piNmRNWnEyZlo0?=
- =?utf-8?B?UXBYdXQwRnZOWnQ1aEJzOXlSN2dqakcwSkdqVmVqaWpVVkdlVk5nOHgwcGNa?=
- =?utf-8?B?T3NoODdpQ2lwRGc5a0NaWGsvZG40dWd5by9rMGhpSkRneTQ1bVdkUVFVcGxa?=
- =?utf-8?B?OGtDRG12Y2JGWkxXdi8rTGFsUFBaWllFWDRzY1dHZ0p5OTdZRVI1dEJGTEZM?=
- =?utf-8?B?UVpYM3c0c0ZOclc0MVV5dXdHRzhlMlBaTGlUR2xtdDU2UGNlT21kVXdpNE44?=
- =?utf-8?B?UVM5a3lTdE9RZ3BqeW4xV1BlaDdLUUpNTFF4dXBuY0QwZXZMU1M4N3RuRjk3?=
- =?utf-8?B?TkV4R0VaUHRTUGFOL2QzSkRZWXFLSnJEU1FYNnBTMXE5RUdmZ3VxWnlRZ0xX?=
- =?utf-8?B?UnVUU0hVWkhWbnRKZjdZQWFTZVlFWlR4UDN2emhZejdqNTFtRGtjMTdTYUZE?=
- =?utf-8?B?MnpQVXdJTDl2RDJ0TGl3RkxPWDdPR3lKRlljK3dxY3RoYllkVE94L3R0TTV3?=
- =?utf-8?B?RGZhUVpIUFVhd09WQ1dhQlU2S3hFSGxOUlFQVncxZlB0c05odDRhY3R1NDVH?=
- =?utf-8?B?dUZqZElDWnFOL3E3Q1NEWitqMDFoWGVQM1hDK3Z2QVRiQmI0NEdUYW1qT1hi?=
- =?utf-8?B?SXh6Rm1Zb21nZE9mVHhpeFlUN04wa3JoN2Y2MmI3c1pEcnhaSDFnVjlTR2Rj?=
- =?utf-8?B?blp3TlRQS2I4Z0NaQUVZbDBWRm0zYkJjSEtJc3J1RGpvQUJkZzE2WE50MFZ1?=
- =?utf-8?B?ZS9HWnBueE9SZVovR0NKVEJ0eVZhYzlKdFZzalN1NjNDYld1SVVnK0FUVExC?=
- =?utf-8?B?UGVNZFF1c1hESjRLdHEwd1pHMVM3empUOVhsYTIxMnRQaWlOWkhSV1JveXUv?=
- =?utf-8?B?UUtoTWVqVVpUQVpmTG1nM0RxUWFudmRINW1xYXJiWS8renhMMGk2cjZ6emh2?=
- =?utf-8?B?YmI2WnhrMmVYRUp0TlBZL0h6MVVnSkE2SzY4aVF0YllIVEFicXR3a0ZENDBi?=
- =?utf-8?B?MWJDWHhoMGtDd2JYcTQ4VHB4NXRNblErRURTQk1pSmR1VzdSeGxmQ1pvVUNL?=
- =?utf-8?B?eGVDeXNUb2hqaWpYV1JJeGFWRlB6ZkJVaFVDTEZYSVE1WVpOSDNKNlZ3TDJE?=
- =?utf-8?B?Y1RMU01GSVg4NXZ2Y2xCNVNwR3FNUUN1NmxTNUtEWTNkNFhaSFJ2RzBDWTNN?=
- =?utf-8?B?bzFhVHE2NUUvOUxhM2FOVERWdGt1K24vclJhMVdxUjkweUszMDJrY1ZQVi8y?=
- =?utf-8?B?Z0hOYlhDdC9TWmpiaytuK3FUeStiQmhPMER6TE9JWTZwMEhya1A4enpyYVdx?=
- =?utf-8?B?M1ZTaEZXNTBNUWwxQm43aGQ3SjZWVGo4VlEvOVZIOCsrMnN3RVQ5SlRuRTJZ?=
- =?utf-8?B?VWFNSkxPTnMyVFhad0hGbnJtQ2t6b1F6YmlycWVCQit5TU1zZXkxV3FCcVh2?=
- =?utf-8?B?Y0ZURnphRUhkUnBxQzV1Q2dveWJubVRFWEx2VnZsNnJwS3BFMjUyMldtWTNn?=
- =?utf-8?B?RG1kV1JkZ2I3a3hQek4vWnJNWDArdzUvci9uU0U4dG1ta05UQktMRk10M1h3?=
- =?utf-8?B?OC83Q21Lc2ZmZ2syV1BxVVZ4TWJsN09CWi9GOGxGK2wvVFhnekhDcjMyS3RB?=
- =?utf-8?B?MmJlWVBBQmlUV3preC9TdDhxRFpCZ0l2UDJGTlRUTEdObDNmZm42ME9HM21p?=
- =?utf-8?B?ZWwzc3crbTZkZGR5dnBlR0wwdWwwUDlSYjYvZjBVNFYyK1Z1SzIzL0ZKRTJk?=
- =?utf-8?B?a2xVWVZQYkdtUVBlaDFQVzNNdXo2T0JSaWFlSHY1eTQyNFluR2JLQ2Qrd05F?=
- =?utf-8?B?YU1YYmg1d2N6a0ZoeHlvSnhaZUIrclRSbC9GMWdBcFpESzcyUEFoRHVCeHNW?=
- =?utf-8?B?UkNzQmdsZEVEbWc1bGFLbm8vVlBlU3BHdEtESU9DZXZURWlxSDZQS0JqaWpZ?=
- =?utf-8?B?ZFRlODMwN1lEWm1NSm5FWTlObmt2ekoyaXhma3pPbTZkcmxDUGVtemNlOUw1?=
- =?utf-8?B?Y1ZpUW9UdmJtQjI2Wk5TRU1hOU9QcmhmNGVzV0xIem91Um40YkJLODhQQXJE?=
- =?utf-8?B?bTdRc200dk9MeDRYVTBJT0FRejRsS0lUK1ZKcFBRRkVGUHhIVTk4c2dSakwz?=
- =?utf-8?Q?52rAU2jhSNSvPadY0Wl5mWIdkc35XMt3KBlec?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 994b1dc8-6162-4d93-2a15-08df3b78dddd
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:10:42.0822
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2atFegLc7Q0RXk4DXKcCMvIR6RoJ3/j8fJ6NwTTqP+otJMmlAO1XY6uo8fuWWDhNCXv4AN/fxkrX2iOomt5AedizLqLVJ04QzlFQHVhQ/M+5dfTGJLXRjJbhGYnD1T7+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8763
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi,
 
+I'm looking at the fbtft TODO (convert drivers to DRM) and want to check
+whether fb_ili9341 can be dropped. Findings against v7.4-rc1:
 
-On Mon, 19 Oct 2026 14:26:15 -0400, Frank.Li@oss.nxp.com wrote:
-> cleanup more CHECK_DTBS warnings.
-> less than 90 line warns left, from 267 line.
+1. fb_ili9341's init sequence is the MI0283QT-9A one. Comparing register
+   writes with drivers/gpu/drm/tiny/mi0283qt.c, the values are identical,
+   including the default gamma tables. Differences I found:
+   - mi0283qt writes EN3GAM (0xF2) = 0x08; the fbtft write is commented out.
+   - mi0283qt always sets MADCTL BGR; fbtft makes it configurable (bgr=).
+   - fbtft rotate=270 also sets ML; mi0283qt does not.
+   - Rotation maps as DRM rotation = fbtft rotate - 90 (mod 360).
+   - fbtft also offers runtime gamma adjustment.
 
-Applied, thanks!
+2. fb_ili9341 registers the compatible "ilitek,ili9341", which is also the
+   fallback in the dt-schema binding, so it can match nodes that the DRM
+   drivers claim via their specific compatibles.
 
-[01/13] ARM: dts: imx6q-dms-ba16: remove undocumented property fsl,receive-dpll-mode
-        commit: 41862ecb7fa5ae640a6fe92ede8af34240b48a2d
-[02/13] ARM: dts: imx50-amazon-yoshi: remove undocument property min-frequency
-        commit: 25ca9d9319f8015b9b2dd8b29566e59cd0150435
-[03/13] ARM: dts: imx6dl-b155v2: add touchscreen size properties
-        commit: 837cf5110b272799fe55a282f6281a70621eef16
-[04/13] ARM: dts: imx6q-gw5400-a: fix SPI NOR flash vendor prefix
-        commit: 2821dabbaa483be4665834d170a4c38bbe881eee
-[05/13] ARM: dts: imx6dl-prtmvt: remove redundant panel compatible fallback
-        commit: 8e58551804d5ceac9fb8a414b69740529df0fdf9
-[06/13] ARM: dts: imx53-smd: change compatible string to dlg,da9053-aa
-        commit: 46b3bb4a6b2a6d431e1beac9743d52b42b413cf9
-[07/13] ARM: dts: imx6qdl-savageboard: remove undocument avic,tm097tdh02
-        commit: 6ff97f0b9625a08b6b522d8625a5a5db0eff11df
-[08/13] ARM: dts: imx6ul-tx6ul: remove front compatible string karo,imx6ul-tx6ul-sgtl5000
-        commit: 9efa8bbaf817382b29c42c95a2d4c1187bf261f8
-[09/13] ARM: dts: imx6qdl-tx6-mb7: remove redundant pixelclk-active for simple panel
-        commit: 65da26fbc79b0498ce7bf5ca9fc1fe00fdc53864
-[10/13] ARM: dts: imx6q-h100: rename port to port@0 for mipi_csi
-        commit: b2b4068cceb31a2a93fc5c1cc5fc24cb4a859e12
-[11/13] ARM: dts: imx6qdl-sabrelite: fix typo vync-active
-        commit: f14b604536ae82a2a5543765a437313cc7eaf190
-[12/13] ARM: dts: imx6q-novena: use interrupts replace irq-gpio
-        commit: 27a89535f51ec1b39b4cb65e50b4567fdf0f2249
-[13/13] ARM: dts: imx6sx-sdb-mqs: remove pinctrl-0 and pinctrl-names
-        commit: eb5579bd8186c9921b570344e704609cf5f40a84
+3. In-tree users: no defconfig enables FB_TFT. canaan_kd233 (62363a8e2f56, Feb 2021)
+   has a status = "disabled" panel node compatible with "canaan,kd233-tft",
+   "ilitek,ili9341". It predates the first DRM driver accepting ilitek,ili9341
+   (5a04227326b0, Jul 2021), and none of the DRM drivers match canaan,kd233-tft.
+   fbtft requests "dc" and "reset" GPIOs, which fits that node. I haven't tried
+   binding it. I suppose that, if the board is used, then it is built against the
+   fbtft driver.
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+4. fb_ili9341 has had only style/mechanical changes in recent years.
+
+Questions:
+ a) Is removing fb_ili9341 acceptable, pointing users of other ILI9341
+    modules to panel-mipi-dbi? The KD233 node would then have no driver.
+ b) Or should KD233 panel support go into a DRM driver first? I don't have
+    its init sequence or physical size, or the board...
+ c) Is removal of all of fbtft already planned?
+ d) Several other fbtft drivers have drm counterparts. Should I inspect those
+ to see if removal is needed?
+
+I have not tested on hardware.
+
+Thanks,
+Daniel M
