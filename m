@@ -1,112 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793856760;
-	b=Y62Q5Vcnq7FOg4yWbYN90QVmVnsad38bt+3oV7hthlBOs6sVhURqk58J5zAdSfozztHt
-	 q0/LnU35UOqtAkBR1eqJWGDtmQLAmJC1KGcRIEzOSYan12DNw2Z98KHgeuZi/FJIyLYGs
-	 3C388zRsuNS5RtZroQsJmT/my5Fd7UCWMqAki2GtjvFNXTuz9LYMPMSx5hb2ZHO9WFdFu
-	 lZ8+RVkSbqAnwzeDfe8qi8tUMcFawZwZUGN7dyhH9kM6dVYt6Y66qMdfBL4wqOfp03PkS
-	 HJjlOD/FgeLzJnunS4L1zjt6qlZhR+Sx6gzlOW4iK6VvJUGlePrbSjY/EwzTJN9ttjg==
+	t=1793857198;
+	b=Eq23Sk33ayeJkP6LPmOjbQRXOE1IRkKLbjgTAhtG/WWRc9HIoCXNkpEDQy/Mb0BOeYtA
+	 MnIdqAHuMxZOUQxbC28QQKkQQXoOgq2CIJknCF5j4ko/GyedMToBGQIZEjXNS016Vj1Sc
+	 odRQHxlqbEr/Hu1iYBlL78SlA4m2fXvwygo2JXMSvNJchpvd1bPUJgFP5jXrNh8mcbG8V
+	 PfAFHh2TkJgi6wOnQlsgVWIYJR2JAvQfoZt0+SMyXU0x+ZGsaJraJEcEOIdSEy63dAPiD
+	 ftnhCQQBh86Q9R4ObQjxWI69j7dx1uWqd2fQHQ59+aOICFN6a7G0p0mta27eLj+NEjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793856760;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=;
-	b=qoWegp4LbA/ChHf2AxwEre/oB60+z2IGGddMk2+ErPkfPDgHwFQ61O/o1jyTj8SQIncp
-	 aUcUd9mHKYk6V+0CaC2jp8Ng4y16R1+6mBYkN0Cacg6wJ5KUY9ygqqsdfN9vNIz3dZtuZ
-	 0SLOqkq+qTYqGl9bYLBIocKUixJ/nSGawJ4EXR0OJetaQy8Z1Ww2KHFOz1rSIRgZSFVFR
-	 9nCKmpcYTT5IaiGbzG7DVec3PranmChuGgvhCgvbDigwduyZpiwSFAPGDk+Y+075vGjpx
-	 oq/TXIhBn4FTUOFvh+xzmJQn3NbKktGfaiY5Y+sstXgOhBctie3c8AvVLXGDjCBXqcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793857198;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=sfesCLhQTCl0YuTyC2oNiPws7HoFlf3+O8By7ekW4eQ=;
+	b=LfZ8NI8iNPf+ffy/+OQ/OojP2/MjtkI5J28URL88w8fJbBhGwkr4ljDIb/GCcc7GuUZp
+	 NH0pisIQ22035TGwSGHySHe8LiTrnt7tSI4KDtXEkNAkcPNMKRXxY6yNnqP9+t+rz2pCx
+	 4R2+tH9hNB1rdhM366Ez9YFT5viBFs54CJ4AQ412Kch5o7VIwQmjWe1725z2L1xpel/sY
+	 fh5Wwm4/kot9m3Kr2Oh1Wa+jhgVyWR9MU4qm8cHTw1P7wUYu4C0rNOx6DPYdPpwqbE/Zj
+	 /iC6hnAPRjdw4r12HpRKWEuLkg9KRoieC8Uhy0n0w8G0Q/uJWfCe/6p7ajL72JMtexg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ATiem9ng;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kNliE1pm;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euThBoJn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77C2606A328
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 05:32:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E77C2606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33822606A31B
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 05:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ATiem9ng;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kNliE1pm
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A553b6i378262
-	for <devicetree@vger.kernel.org>; Thu, 5 Nov 2026 05:32:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=; b=ATiem9ngPBFH6YEx
-	TGjK/0BlMdYHEm/YHjSx8kFRH1vADGx+4lat/4D4RrG/lJCx7Vv6TsB5uIl1ztZY
-	vvbYEaovUAyzEncLlZCUgzwYiLrRN8y1CZ3bi+nyha1dyBmLkZAUxg+rVGVBtRpB
-	GDK093OwvevmdK1sbO0vgEGi+WMZtSKuLZe28ekdSamKDvTeBghnEquf/LiK07lu
-	Jt9rVj4/6XjALxkU+fLGSEvfT2v3A8r9dNOVcKV6v6zG8/8GOFCJAdViI97QhjOG
-	3pGfniZiocs2nudTu5Zhs1MdyuelEPZ1jy2Mn8pjp/ZTjIo2WstNWBJfgQkKkKNu
-	1TEPxQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrkaq831w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 05:32:28 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so1368823b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 04 Nov 2026 21:32:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793856748; x=1794461548; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=;
-        b=kNliE1pmKLwz2WykxnqDvlJMJlzO0eUpA8/xPUmNS59RENLsPDBOu0+ZDg9ltqNVrD
-         VVWnIa90/HnXMqNXoxkDDeLLaklAV1iitzu2ZcQOVNMMbSBOxGdnN0JZcr0bHLabKcZ/
-         6wV5hGbNVdw1uWfBe4l+TCbJm16ymAnlhaZbHIuUu30jzqePCMPLYbfn649qpb6gJo8f
-         q7/cJ+xHaTnp4RYdT1kOFl+sTwSi+VkWi8Vao90Sr/30MHpf6bWBM9bwyWGYEq+QdFbZ
-         +bHhTGexU2zFXjb7oPRVwkc48gyAJD02TIn/CXfKvrpDdzUUz95yyzilabl4XBV6C1a2
-         M1jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793856748; x=1794461548;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bW86C95W2VUa3TTtLDIwP6qoN9L9lbkIZbVnklP859U=;
-        b=nypGEAMpWfKnwTaxXx9/GjiWNnPhdJJ2TivFpA26LEeogU/60yZkMZ5oeFaS3AyajB
-         BbgQ0dSV9sNh7jU3z8fiD9QZaZVf/u9G3SOGs0RwSQZlbhi3x8+npLSRKOg5DYglBHT4
-         1GXIy50tN3BdAQ/QOOnnXh9w+0fXcIPiIr3dxx98EWED+PLHVYY3RqwfHoQZ2n0z2qDL
-         XRamkVXd7iwZTWmTENlPJbn5O88NdaUcpKp5lVHwc6JRhtaBur3u0KKjRNFuaUjD2VQa
-         iBjGsRrqYsGEMbIM9OsNUy+grYtCpksa3sBbUiM0ujCFRMAk0DJ532CT5T6ODZ2hxah8
-         Whwg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1Q9YDLhTF0ONPyZ+tp9BafyTjpFOBJLfD+pcWrMlVFLftNUcrItluuqKFH9JNyvW+abNwAp34hdb0@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LQOwhl0XrYv+ctA3js+wjTRv9fSMYDwPv4cr6xTJHQfBqM6og
-	KAFE6HbW07DgvO9Y/Xkv3gQXK3sffJbJEhDQfLW4v5wJ3XgCaGT32aW99NXXNZGqfcCOlrPusA7
-	aBW5Nn/8BqQvhD+WQOMyhDvv9QwNHTaBjRdEXZHgk0xiRCRjYb0NXZg6kt0qnhkyz
-X-Gm-Gg: AYBFou3MaHwjHKaOiv6vVhZkyi+5LBR6h/bkuY2Ayz4AvACYPosmWic5WNGCv30ifJn
-	Qt93ttPCwpgeUnOZT5No6CnM1jMaN+rlWslFNISKtP3pM/krPy9W1ViTUyzTLkUi9s3ovkNGE2v
-	kPl3zdDxrmOL4prrkEGTa0Sl26/xXZNZxdYb0SIhMo+p4pAco9Zarr1ULzPtnND4fDgcp83Kk6F
-	RD788ge+IrKE+rTUR4iz0qZPUXICZ8LsSymbgHp3phFWdzcgprndUvfCCTe0tSSRXNeQfiQOSEs
-	UsmatCsusM6swFjCbAtvytYjACMyedVAeQFIAyXdwCUQFKVD4P9iCDzAJpQMOPcJwZTpa8YuJBi
-	9zNt38qkSjaoboH6g+14A7YdmWSzVEA1/fcJhVIraU+ESRvAal+T8ycYpl4rHbwN/mylG3GQzhb
-	0=
-X-Received: by 2002:a05:6a20:9e4e:b0:3e2:95fb:8d03 with SMTP id adf61e73a8af0-3e928a845f3mr13341117637.69.1793856747821;
-        Wed, 04 Nov 2026 21:32:27 -0800 (PST)
-X-Received: by 2002:a05:6a20:9e4e:b0:3e2:95fb:8d03 with SMTP id adf61e73a8af0-3e928a845f3mr13341084637.69.1793856747307;
-        Wed, 04 Nov 2026 21:32:27 -0800 (PST)
-Received: from [10.206.111.19] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b569495sm1577758b3a.37.2026.11.04.21.32.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 21:32:26 -0800 (PST)
-Message-ID: <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 11:02:20 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euThBoJn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC361F000C1;
+	Thu,  5 Nov 2026 05:39:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793857197;
+	bh=sfesCLhQTCl0YuTyC2oNiPws7HoFlf3+O8By7ekW4eQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=euThBoJnsuFfB3QPvxCCMjp6PiJncfAkM4hhixVD+8BPoKtiY7DS7gCNw4UK0xcZO
+	 lZxn0J+MRTXE5Kw42yN4Uu9egYUgYuw2siLCmVBrjtvtCtsWUH9L3VaurEsFhZ8YPT
+	 14x9mEDP2HYkv0h6d1pX+xwWRSIJU8AiZXlwAOoAdc4rqG6m0QlyqM5Sir9kjEiJdC
+	 +ENoOcMZrnb3OMaLOJI4xRh5AgkW+SEdSTayI09yYM1bkH1teNjVBdStz8ZwJQ4Y+k
+	 FZNw03jvKovqWBvyWL4OI5zeN0RKSlMhteBJlECKPFH7MbZ6evjWC2pboPeMY06anI
+	 HqWmJHIkkP8tg==
+Message-ID: <sashiko-outbox-198601@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/6] remoteproc: amd_mbv_bram: Add RPMsg support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ben Levinsky" <ben.levinsky@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261105051902.1646651-7-ben.levinsky@amd.com>
+References: <20261105051902.1646651-1-ben.levinsky@amd.com>
+ <20261105051902.1646651-7-ben.levinsky@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 05 Nov 2026 05:39:57 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -115,100 +59,196 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
- indices for ports
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
- <20261104-real-nebulous-ostrich-017e92@quoll>
- <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
- <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: D0NtyO3JNBSmhftAUIQ-nD6allDVLtl2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAyMSBTYWx0ZWRfX/WNg+r/5vCDC
- d71mh2dHagheBzzdWztmCtOs8nCR9BWiOakdHUh/G4D2r9u27/D9EzoCTd1XJsf6mWyv6h6Qi/B
- oDhh3yaW8MWJqMdKBMGcT8VJ+72bliw=
-X-Proofpoint-ORIG-GUID: D0NtyO3JNBSmhftAUIQ-nD6allDVLtl2
-X-Authority-Analysis: v=2.4 cv=OZoNnRTY c=1 sm=1 tr=0 ts=6aec14ec cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=iBD9WU1rH6yjH3nr7zsA:9 a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAyMSBTYWx0ZWRfX8GXsnSnPuHqM
- b+TPjUFYbIlBXeqoiQlx1s0z+R1/s/OXo/nY0pn3FIkr1GZlirB4fJEFCM3OtqXsE9IlvnOhSGH
- XzbUIKBuT2VMf8ICD+QriD500nrhnAhs8kVOLBm4mpmDcAuioHbxYctWVXZTmA5yiylPCkPvB3r
- O/OAo7LuOYo4xtNW7UHSsNqff+xuDWXohrF+sUeW+iZS4pLZxfdwIHed42+ZvquIH4Gd9GclDlN
- jV93+y3NM+oqTo8a5PNNnhpzHwvSRoDFKrlegWcOt8l5vX/dWpfsaAl4/4+gPGm0VA8i/vDYuz7
- LlN+48LKIP7mgCIjgPw9i1i7WeiXwNQg1qIZq07VbxrF3A5epGG3Ms2hVhWIdyyi0o3GeAA/LAw
- bMekPpu9k/FJ30dA0UFCLlEN5VuKmZSgzwlwgBQ10xBEva/2RwUIRN30KmP8rMJ+ESDGZxnBo2r
- XcIbK1mjSqllvugfpew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050021
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] remoteproc: amd_mbv_bram: active mailboxes in amd_bram_rproc_stop(=
+) race
+- [Medium] remoteproc: amd_mbv_bram: leak of carveouts on amd_bram_rproc_pr=
+epare() error
+- [Medium] remoteproc: amd_mbv_bram: unmapped vdev0buffer added to coredump=
+ segments
+--
 
+commit 65a1b80207879c4cf9d647ab712871d29690bd39
+Author: Ben Levinsky <ben.levinsky@amd.com>
 
-On 04-11-2026 21:42, Krzysztof Kozlowski wrote:
->>>> Glymur describes CSI2 PHYs as standalone nodes, but the CAMSS binding
->>>> still models CSIPHY4 as port@3 from the X1E80100 csiphy_res[] layout,
->>>> where entry 3 carried CSIPHY id 4.
->>> You also remove port 2 without explanation.
->>>
->>>
->>>> Describe the hardware connection directly by allowing ports 0, 1 and 4,
->>>> and using port@4 for CSIPHY4.
->>> All this is confusing, why do you introduce gaps? What is the reason?
->>> Your datasheet naming does not matter.
->> Glymur CAMSS has populated inputs for CSIPHY0, CSIPHY1 and CSIPHY4, so I
->> used a sparse pattern for those ports only.
-> port@0 is CSIPHY0
-> port@1 is CSIPHY1
-> port@2 is CSIPHY4
-> 
-> What is the problem exactly you are solving?
-> 
+remoteproc: amd_mbv_bram: Add RPMsg support
 
-The problem is that CSIPHY4 is connected to CAMSS interface 4, so the
-graph should describe it as port@4, not port@2.
+This commit adds RPMsg support to the AMD MicroBlaze/V BRAM remoteproc
+driver by registering reserved-memory carveouts, exposing the loaded
+resource table, and using the mailbox framework for virtqueue kicks and
+notifications.
 
-The previous port@3 description only worked through the X1E80100 resource
-table indirection:
+> diff --git a/drivers/remoteproc/amd_mbv_bram_rproc.c b/drivers/remoteproc=
+/amd_mbv_bram_rproc.c
+> index da621f62f7df5..9c2694fd645a6 100644
+> --- a/drivers/remoteproc/amd_mbv_bram_rproc.c
+> +++ b/drivers/remoteproc/amd_mbv_bram_rproc.c
 
-  port@3 -> csiphy_res[3] -> .csiphy.id = 4 -> CSID selects CSIPHY4
+[ ... ]
 
-New standalone PHY path:
-  port@4 -> no csiphy_res[] lookup -> port number is id 4 -> CSID selects CSIPHY4
+> +static void amd_bram_rproc_release_mboxes(void *data)
+> +{
+> +	struct amd_bram_rproc *priv =3D data;
+> +
+> +	/*
+> +	 * Free the channels before cancelling the receive work. RX channel
+> +	 * shutdown disables the controller interrupt synchronously, so no
+> +	 * notification can queue the work again once it has been cancelled.
+> +	 */
+> +	amd_bram_rproc_free_mboxes(priv);
+> +	cancel_work_sync(&priv->rx_work);
+> +}
+> +
+> +static int amd_bram_rproc_add_reserved_mem(struct rproc *rproc)
+> +{
+> +	struct amd_bram_rproc *priv =3D rproc->priv;
+> +	struct device_node *np =3D priv->dev->of_node;
+> +	struct rproc_mem_entry *mem;
+> +	int count;
+> +	int ret;
+> +	int i;
+> +
+> +	if (!of_property_present(np, "memory-region"))
+> +		return 0;
+> +
+> +	count =3D of_reserved_mem_region_count(np);
+> +	if (count < 0)
+> +		return count;
+> +
+> +	for (i =3D 0; i < count; i++) {
+> +		struct resource res;
+> +		const char *name;
+> +
+> +		ret =3D of_property_read_string_index(np, "memory-region-names",
+> +						    i, &name);
+> +		if (ret)
+> +			return dev_err_probe(priv->dev, ret,
+> +					     "failed to read memory-region name %d\n",
+> +					     i);
+> +
+> +		ret =3D of_reserved_mem_region_to_resource(np, i, &res);
+> +		if (ret)
+> +			return dev_err_probe(priv->dev, ret,
+> +					     "failed to parse memory-region %d\n", i);
+> +
+> +		if (!strcmp(name, "vdev0buffer"))
+> +			mem =3D rproc_of_resm_mem_entry_init(priv->dev, i,
+> +							   resource_size(&res),
+> +							   res.start, name);
+> +		else
+> +			mem =3D rproc_mem_entry_init(priv->dev, NULL,
+> +						   (dma_addr_t)res.start,
+> +						   resource_size(&res), res.start,
+> +						   rproc_mem_entry_ioremap_wc,
+> +						   rproc_mem_entry_iounmap,
+> +						   "%s", name);
+> +		if (!mem)
+> +			return -ENOMEM;
+> +
+> +		rproc_add_carveout(rproc, mem);
+> +		rproc_coredump_add_segment(rproc, res.start, resource_size(&res));
 
->> That is confusing for the schema. I will allow the continuous range
->> port@0 through port@4 and keep the example limited to the populated
->> Glymur ports.
+[Severity: Medium]
+Should vdev0buffer be excluded from rproc_coredump_add_segment() in
+amd_bram_rproc_add_reserved_mem()?
 
--- 
-Regards,
-Nihal Kumar Gupta
+When name is "vdev0buffer", the entry is initialized with
+rproc_of_resm_mem_entry_init(), which leaves mem->alloc and mem->va as
+NULL. During boot, rproc_alloc_registered_carveouts() only allocates
+entries with an alloc callback, and rproc_add_virtio_dev() attaches the
+reserved memory region to the child virtio device without setting mem->va.
 
+Because amd_bram_rproc_ops does not provide a custom da_to_va callback,
+rproc_coredump() -> rproc_copy_segment() -> rproc_da_to_va() skips any
+carveout with a NULL va, logs an invalid copy request error, and fills the
+vdev0buffer coredump segment with 0xff bytes.
+
+> +		dev_dbg(priv->dev, "reserved memory carveout %pR\n", &res);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int amd_bram_rproc_prepare(struct rproc *rproc)
+>  {
+>  	struct amd_bram_rproc *priv =3D rproc->priv;
+> @@ -80,7 +292,7 @@ static int amd_bram_rproc_prepare(struct rproc *rproc)
+>  	rproc_add_carveout(rproc, mem);
+>  	rproc_coredump_add_segment(rproc, da, resource_size(&res));
+> =20
+> -	return 0;
+> +	return amd_bram_rproc_add_reserved_mem(rproc);
+>  }
+
+[Severity: Medium]
+As reported by Sashiko on v1 [1], if amd_bram_rproc_add_reserved_mem()
+fails in amd_bram_rproc_prepare(), does this leak the struct
+rproc_mem_entry and struct rproc_dump_segment entries already added to
+rproc->carveouts and rproc->dump_segments?
+
+In amd_bram_rproc_prepare(), the executable BRAM carveout and coredump
+segment are queued onto rproc->carveouts and rproc->dump_segments before
+calling amd_bram_rproc_add_reserved_mem(), which also queues entries in a
+loop over memory-region.
+
+In drivers/remoteproc/remoteproc_core.c, when rproc_prepare_device() fails
+in rproc_fw_boot(), execution jumps directly to disable_iommu and bypasses
+clean_up_resources and rproc_resource_cleanup():
+
+drivers/remoteproc/remoteproc_core.c:rproc_fw_boot() {
+    ...
+	ret =3D rproc_prepare_device(rproc);
+	if (ret) {
+		dev_err(dev, "can't prepare rproc %s: %d\n", rproc->name, ret);
+		goto disable_iommu;
+	}
+    ...
+}
+
+If amd_bram_rproc_add_reserved_mem() fails at of_reserved_mem_region_count(=
+),
+of_property_read_string_index(), of_reserved_mem_region_to_resource(), or
+carveout allocation, those queued entries remain on rproc->carveouts and
+rproc->dump_segments, causing duplicate entries on subsequent rproc_boot()
+calls and leaking them if the device is unbound while offline.
+
+>  static int amd_bram_rproc_start(struct rproc *rproc)
+> @@ -133,6 +345,9 @@ static int amd_bram_rproc_stop(struct rproc *rproc)
+>  		dev_err(priv->dev, "failed to assert reset: %d\n", ret);
+>  		return ret;
+>  	}
+> +	cancel_work_sync(&priv->rx_work);
+> +	bitmap_zero(priv->pending_notify_ids,
+> +		    ARRAY_SIZE(priv->notify_msgs));
+
+[Severity: High]
+As reported by Sashiko on v1 [2], since priv->rx_chan and priv->tx_chan
+stay active across amd_bram_rproc_stop(), can amd_bram_rproc_rx_callback()
+still fire during or after amd_bram_rproc_stop() and re-queue priv->rx_work?
+
+As the comment in amd_bram_rproc_release_mboxes() notes, shutting down the
+mailbox channels disables the controller interrupt synchronously and resets
+the hardware FIFOs. Because amd_bram_rproc_stop() keeps the channels open,
+any notification words still in the hardware RX FIFO or threaded IRQ handler
+(amd_pl_mbox_irq_thread() -> amd_pl_mbox_rx() -> mbox_chan_received_data()
+-> amd_bram_rproc_rx_callback()) can race with the non-atomic bitmap_zero()
+and call schedule_work(&priv->rx_work) after cancel_work_sync() returns.
+
+That allows amd_bram_rproc_rx_work() -> rproc_vq_interrupt() to run
+concurrently with __rproc_shutdown() -> rproc_resource_cleanup() ->
+rproc_free_vring() as the virtqueues and notify IDs are torn down.
+
+Keeping priv->tx_chan active across stop also leaves any unread kick word in
+the hardware TX FIFO while the remote processor is held in reset with its
+clock disabled, causing the mailbox core hrtimer to poll last_tx_done every
+1 ms while offline and deliver a stale kick on the next start, and loses PL
+Mailbox register state across partial reconfiguration (DFX).
+
+[1] https://lore.kernel.org/r/20261014213426.2957480-7-ben.levinsky@amd.com
+[2] https://lore.kernel.org/r/20261014213426.2957480-7-ben.levinsky@amd.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105051902.1646=
+651-1-ben.levinsky@amd.com?part=3D6
