@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793867049;
-	b=x0qKZT1VJ/JdnHN52FLH6W6IiQSeNs5VOLJOrr3EJfXg211iCYaecLB/5ZLzj90IgBJ9
-	 xT5OoWMobn0Ns39n7mSUsdIIHF1lUX2bvY5+OhxeMHIpGDl66CtDE5MjKPsy2Z08/1cc4
-	 GYgCKKmVU4Oyr/fmfpsmH0bAED9nE7uekRoa6ZdhNTXD9fFjW86S4VNghWJZWdsIzgcrI
-	 4WIrfbv/mq76hn6KgCmK3SlH5gsQuH3e+vophkb0qDaSxoDtxXTOVKzlLx0Q4FvO6M/xq
-	 5ERcUd92uXxzLnEBviu38DOY1Ut+m+7SJgRh66MdKAzk5R1ESjnB6J420hySelp15bw==
+	t=1793867048;
+	b=4TBL73qaGzJCttrSlHfW3qr9m91+Vz+YT/qjaGHCTVbY4dBQBvYs6pV8Bg07hNYsQNA8
+	 ZenLwdSAKXbmr/smZYz2NTiqwATcdx5L8iD+O4VMj7Ypx9IG4FcVFQRjekGn681YxIrN2
+	 Ohf+FDJHeVd2/zbek3jmRaRKSRrm5yQjmfCUqhULTTUOp8USHgW+hlgLcnYpe4YBEBpsI
+	 9loA5ToY4i8zXOGw/r+tcRN01+jB0Oo+97h7wU5+X+CEZAuhhuoiqAJMvrGcAD7DVlLU0
+	 webBqU7PIegpoN30O+ZkVIkuQZPH39Bmf4S8/fNctd8CSvRWrYOy6y1XXZwldK6EVzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793867049;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=AP0zRsZ9xsH1/txX8W8F6xW2ty4IlAtLIMu5KyXAlxg=;
-	b=TIsfsmAm3QVGInfsWaVy3PsQd3ZALVtAnwylOfOBbC3M85NCGfsx8fnytjjygwqL2Ev4
-	 EjRVrpTOCX6doFGrczPLOtZINu7ivRTpieja/zUvq5O7BaDNYx37XDdN/e0WwX1K78aGA
-	 1oMDcK/+CqVLjKH2T1gurbmdQ4E1t858Y3zVoijhgDHwQngUkMQf7wKxWEAWXZsf7dnDs
-	 PdYQ+zRnIJcRb+7V5OAxvX4xlP9ldFCJpuE+50fyao1zb+1VHwspz2CYdjj3NnKvss6t2
-	 VTDhdNZKxwkKQFSsoUercZWMUL4xQH0mE8Zn9eNzF6GwQ5NIMq4KZ+JAGVlpeoJO09g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793867048;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6+ADUqVtFDrfgQJ3OhV70TKxA4b9WrHMTSHdV9mWIWc=;
+	b=h72c1VEBHWej04vUn9SXfOBNZiHKY0/olE/gghGBQTbfecUXzm7HiM8q4OU7p2qr6Zit
+	 04MVwMAod+ctR3+56sby4BxU0GhI6hw2XjkTUesM773o06zcwDEQM3C/EJG+8JZkfLnWJ
+	 EdgIBxLL61BHDcjIF7RfmR2jB9RxxVXUri457uE2ShbcQMP5DXt0mg6aJmQEXAqgqwzPe
+	 88+MxDLiuPNmH4lFsFUwy/bOgrFFyvwe48DAsd24KQC+/Qh15RAHIg3VOp03Pj2KM2h9i
+	 szNIdb5aqqGIFWoZEw2gzbuIpRza7XywJKizxvLlbRqcYk4ai/0wjaM4xWYQHLiq2jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=LYkf6rgj;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nDz7CJiN;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BC6606A329;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0AE606A32D;
 	Thu,  5 Nov 2026 08:24:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93BC6606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D0AE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=LYkf6rgj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793867045;
-	bh=AP0zRsZ9xsH1/txX8W8F6xW2ty4IlAtLIMu5KyXAlxg=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=LYkf6rgjNTretPRfnoi8/fR1RUHn/u9LFqXZQpztQ4zJ+QjVFI6ZIWs5Yck+yiu4U
-	 73i70hevATpkluFfZLkg3QsiZw0MZ7GRVuZwUSOQ+qID2a76i9ZCprz0UhvscgpW9d
-	 lLzjQk9UtveRYfmyn+qGeo8UArMEsGo5Us9QRs7Y=
-X-QQ-mid: esmtpgz14t1793867044t097a89bc
-X-QQ-Originating-IP: bfC0YRYM6S4tUriZljan2rXWt1UUFrNrbDpzva5BQSo=
-Received: from = ( [58.254.68.27])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 16:24:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13664405851354263933
-EX-QQ-RecipientCnt: 13
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Thu, 05 Nov 2026 08:23:48 +0000
-Subject: [PATCH 3/5] riscv: dts: spacemit: k3-com260: Add SPI NOR flash
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=nDz7CJiN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793867046;
+	bh=RctHusTE/ZE8d6je51Pq4bj7K1e6qmeDSw38M5NLaVQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nDz7CJiNR0D0Np06ekAx7PhNA/r85Mx7xWEW0Vj82tl82q4NpdUkm+E1cC1TzEiTY
+	 93noRkqJ1HAppXU0XlTsMeRtHa/iia3BMl3YFhHf8GEVPbDbDyRdEWn3MISziq76qf
+	 k8Vs7TtY1samutFJh8KJSaYUpHrI+cD+9fkijoBaU12GP9AVdKC80YCrwrKoXKJad+
+	 gQVO+PbK+agADkozFxSuUB0Wxu4kcnKrYfhxNZfufoFFsLff5INcMGTgcq7qRzr2Nm
+	 etW85kcIC25PvpXZcXI/kFraVgNtnYg+zQXi/tVU6koxKeav7gHgsbxXAQAvr5YEU/
+	 Lxjrw/9LW6tfw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B90AE17E0048;
+	Thu, 05 Nov 2026 09:24:05 +0100 (CET)
+Message-ID: <b627d513-d587-43dd-b555-584b05e7d043@collabora.com>
+Date: Thu, 5 Nov 2026 09:24:05 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,129 +61,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-k3-com260-module-sd-nor-mac-v1-3-138b39d74602@linux.spacemit.com>
-References: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
-In-Reply-To: <20261105-k3-com260-module-sd-nor-mac-v1-0-138b39d74602@linux.spacemit.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1757;
- i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=BqkZaDMkvSW+3nj/8yfgq4f+zkX9e4PcXZEkcZcCU0M=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlvbEUm9z9SMv/FbyKj/Xzf16MNJ6R9XPhMmr63+VfP5
- fSoXMzaUcrCIMbFICumyNL9gGdbgU+UbYFAoS/MHFYmkCEMXJwCMBHLFkaGPcwxq+yWVZQsDPH2
- ZhTY+1O784t52t7WqIbUD/HL99tKMjIsTJeJWcTjKSU3zV0869bUbTyP2V7HTthjfSHCyHvhLSF
- OAA==
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OMj855exJEG1DY/tb0ug0EdOvINO8CRgjOyTj2xv3zryrdiUnerpY9f5
-	2dDgivBFdmR2Vp7bKc8+IubM/R943x+8I19q8vW3PY8jtqIevos/oN/dAMb9IqmEkrtsTM9
-	yqL7qe4CRhW1ZXXIV2+eUNBIhRVDGo0kkJtP09XXmsUMaxSr9lk5Lt+FgHh1/6kOvidMbt3
-	5b7/HKpkuax8ADlu4C4oeHNR2J/qiOfXhvFQ/9i8dCmE+C62id2qZWykfVEbOhVcO5iQ2s7
-	1UDHm9XIBz0n7lpHqlvzrQpPp+dN+0P5l4xpvldOITjtUw/SS1h7d+pWfXOJu1nwzZDMOLe
-	qkGmdzp4CjEGW9Mh55kA8YvBVl+h1t0WfGi8BUjWPHawmd0wd7dSCOC2mSYjacAdp24L/Iv
-	h4/wzmNWA2idhnMHaoNUbi2XnaVLDRxbocQVMZjq5YDiDWeNyDwBSbSLyAQdPC7hHlNirmg
-	kbEjRhFWbwGm7q+nSFwpl1J5M/RI68nVTQrZfOfKNAPOPOXJCluz9YJK9FgzMAme3qZ1TcF
-	be0iCn2xAeAx8XnuHHXZhWNBJ77mzYHRFHthP5L7v5y+7mMJKTXbv8hIyG6vSLT2o3SUZGq
-	t1mw7ow5wd/9UTxpMoEl3kYUU+qdToOzRiOc25eXrT93xTBdmq/BweEEsr4kF/gcGSNw2to
-	PsVgcPdUssrsGeay5Ou0KANGFSp4zcqP78/caXb+7fwjU+nC02JkGv/PQMCiCW8W215coiI
-	4bAqrRPXi+EOJ/y9Iy81PSwCIWxK5V2NS4FmAL4cpA+W9qjGL5VRafRrnRAABGW6CWj1j+8
-	q2JRwFcYSRu+BP1Q2tWpPXyoC2zXjByeG7EcxQBmdKMKCskGHHg5E3xkUuiaiwcHUzxGpS6
-	rjaRJu18ZrJhZM2w4oRxoPL3Dd2eJu6ERp+eI/S1gF12Ms+HErIJFahNEXxdTDWzBzCfOed
-	FEzi9MusgTw6VqlPwZjLRuWijmLCg19seXQV7y/xAFMMutQqMXTElIDLcoW6W+fAtH/NACa
-	uNr83muozhxcYEwLF8LmXqw7q3D4dQucKU0IYKpGREHDM+wtgMMZddivFRXTqioMHbSk8gG
-	zShqwNhsqIRZ/PVv+Jp1/1cxKvbuesfoFjiz2ev9U1UZOVTD3PQDrHWYlsXUMbIh11OHyLN
-	Fx9xOdPZHEdg+ZG0JBDJEnt9iw==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: mediatek: mt8188: Use
+ access-controllers in the power controller
+To: =?UTF-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>, ulfh@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261011184755.2058017-1-michal@nozomi.space>
+ <20261011184755.2058017-5-michal@nozomi.space>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261011184755.2058017-5-michal@nozomi.space>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The K3 CoM260 module carries the SPI NOR flash that holds the boot
-firmware. Enable the QSPI controller with its 1.8 V pin configuration
-and describe the flash together with the partition layout used by the
-boot firmware, so that every carrier using the module gets access to
-it.
+On 10/11/26 20:47, Michał Kopeć wrote:
+> List the blocks that the power controller accesses in access-controllers
+> instead of the deprecated per-domain mediatek,infracfg phandles, and add
+> MFGCFG, which the power controller needs to enable the GPU timestamp
+> counter whenever it powers MFG1 on.
+> 
+> Signed-off-by: Michał Kopeć <michal@nozomi.space>
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
----
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 55 +++++++++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index f2df797a2c80..f94607cb2eeb 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -233,6 +233,61 @@ phy1: ethernet-phy@1 {
- 	};
- };
- 
-+&qspi_cfg {
-+	qspi-pins {
-+		power-source = <1800>;
-+	};
-+
-+	qspi-cs0-pins {
-+		power-source = <1800>;
-+	};
-+};
-+
-+&qspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&qspi_cfg>;
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <26500000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <4>;
-+		m25p,fast-read;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			bootinfo@0 {
-+				reg = <0x0 0x20000>;
-+			};
-+
-+			fsbl@20000 {
-+				reg = <0x20000 0x80000>;
-+			};
-+
-+			env@a0000 {
-+				reg = <0xa0000 0x10000>;
-+			};
-+
-+			esos@b0000 {
-+				reg = <0xb0000 0x100000>;
-+			};
-+
-+			opensbi@1b0000 {
-+				reg = <0x1b0000 0x60000>;
-+			};
-+
-+			uboot@210000 {
-+				reg = <0x210000 0x5f0000>;
-+			};
-+		};
-+	};
-+};
-+
- &sdhci0 {
- 	pinctrl-names = "default","uhs";
- 	pinctrl-0 = <&mmc1_cfg>;
+....did you instead mean to send
 
--- 
-2.56.0
+https://gitlab.collabora.com/mediatek/aiot/linux/-/commit/01c35e0524c8adffb4c19f1005c5d71a347acb3b
 
+this commit that I forgot to send for a year?
+
+Regards,
+Angelo
