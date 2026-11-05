@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793885425;
-	b=3CqYS4dgqcaM7MoSLlaBU/6jk+BCBHqeb3GajtEzDyzxs/nC11HGlpH7OdSDRr037K7k
-	 d6i3b1AxFv0QodZriJcg8/2jpMDWsyiEkUrCY2MDFnCEwvkGCXRFmorlqbEVwOjqnVHSi
-	 BHhcz9xVI8QH/kDrDi3Oi4KgN8iHVWaj4kbAy41ZwypXi+xEaDJXQG7E7PuLy/0K2nOgt
-	 wRC1pjP0UbQThQpxTLDr1aEXXkd8G3e2zPSzcPpC6qYSplSYB1jgHlp/dcxvm5/PrO/mq
-	 pCnQmTu656mQnoWmGRzWy1I7oivOqQAMHBN95FN6JDQjxCOa8cuA+qnRY7caFdxIgHQ==
+	t=1793885426;
+	b=fAti5TwXqpkfvKqxuxUWIwU/lAB32LUX3r2+hZcxtuopjYns95RqaDcWlWKUIZFrKy62
+	 hPchWpRmJavhG5ozBDqK30GgM9kXJai3ROJkNWYzwqhxjhzIgniLPXPadG5+9TV6BD7Za
+	 zp2+zuFwSalCiwmhH0tRf3JRiYj0SfFN5ailokTnw6qC9iMDAdqq/0cpP0iyJWPjBBro9
+	 So/CNuCbjEVzQ8RAp0/Fr8ng2aG9viFcPXs00gHfd7fVzRJpRSSUUT1Syxp+WDCVMBqD9
+	 MmiDe1jxaw1dldrHzxXiwWBdsLYxDGI13ncaJ2QJfpPUvppRDv6+0yEgObKLJxrUZpg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885426;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=noWbOBqyGXZHg9mlOzTz3nMj1re9nbXum97ku+iklZs=;
-	b=5d82urPHkJna0ADfsycgktZbfy51fqKaa+IW8wzYvi3hyIYJbWvb1OJKkLC6cbYGLXJF
-	 Jvi+poMbv3IpEsbSd8/5GmfETuMZHmkFyhJI0daHNZuSl0qlc8lfOHaFmUPliED/b0HnF
-	 wECQN+QRK+e4/VBB7by5UcpvEiTW5fe1uD9u0CNA2PW9Iw1gPQ5kYI/IDqUrs6kfExmI5
-	 qTBkdPGUdNZshd/4QK7yEEd+9kIlehj7imY54EXlwlA0MF35vOsaSeFjQ7lHxHoa9rtOg
-	 bLGHzNnxeelIJtfSbRRfl+f0PYihn/jnE+S9uUvQ1GItXX2CvXJXgB9vKgzFnwoVm8Q==
+	bh=A59kBhYhVh2cwcGIS0Bice4IBYZ7xgZ31BmecGfB75k=;
+	b=gIPego9SccWqGoZoxV95O0TtOETb68kVP4/2MKwytaWGWezDCvoWvnZz7y1DXoAgsVu2
+	 FC3MTZVnTWlxOmHoDu3lH8N9eooUS/hs2YHqOcz41pS+O3n71Iv/M1K//+UkRRYFSSDkk
+	 PIWlwFdL7vAFUzNGxHldYHure6MMX0PMsHfivMpsXZP1Joas5gBIkB9WR0Nbf467XEdTX
+	 5Hp0Yy4b3qJ9KDYXKl0ItMuy9v2JHA4wu1FwGMdcDWrmjDaG2gsgd03F2LZTh8uABGfeu
+	 5zo08RdakYx1SSRHqlPwfZjDTutL1SH2aGFgQkD1Ay7gkQKtA37ju/sfMAX061wP4mg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W22762lv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShLVjeZ8;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87791606A33D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5529C606D806;
 	Thu,  5 Nov 2026 13:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W22762lv
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShLVjeZ8
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793885425;
-	b=cvGgGCXW5IFygaSP/dyulRicjXnwMHTBP1w8OByElEF5tdTwPa7BwCcfF3SVq4eNFg6i
-	 gRMwXQGAHArJ4buwtnAT8o8O4/apQRcRDJWXWmlUbSDs5OpjBCuNzFpDPG1LC/IYrZ+Lu
-	 0oQT5h0hrJHZ/E+U6ep9cBl9O1Xmo/j3nHUXooDb20VuFPoSSxOOAlz9+NoLVuLb5HedT
-	 bIpjzWXRBp5ffgDyrSkivOs6v5LGeJhIBcjBpFjsH7+ELyIZLFaXipD/1SnIku8SN4Zli
-	 1AHBq9YSlN6RQgmggBk2H53R1goPy3eB0IqeI3aJfT5o42gmIhEdOdtj3XltVsS+36w==
+	b=UrLBskcGwNVCgQwxBvLuZF0N3ICqazELH4La0tV+ZvQjsJNQ7/yj8H+N3UujNNLG/Ara
+	 yRGSWEbi0WyDZ5TrGVkcS/BaZERNiklijZ8WC6pCdmKJULvOqZQ9JJR6dAl4+Rq8l48Dd
+	 RTFsMdYIMKURl0jkoVNtH0JW/Cx/lBdr1rLDkEciIitBTKELQ+4KCZgkY0RkQujQJttt3
+	 Y9RV6bJrTrjzW2BLJct8jgzKJwXoYVmRsYHylk5xYhPh3mp4r9SDKWIPeyGvJtkang+0J
+	 twgyXEvNhYcaSBEMdFwI+iCITE+x1wEhKp1mtXYXn5VXgr8S3YCoWaFXlRbs/aqZpfg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793885425;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=noWbOBqyGXZHg9mlOzTz3nMj1re9nbXum97ku+iklZs=;
-	b=d2/SwIkKc2lmDwAwRUgknp4dyO6fwHA5Va/7Ydlyg/gWuytQa9xAz3rzUh/+bZWeKFft
-	 XJ9C2La4tmVGOynTr/BKMS8kuYzLzy6degFteb/3URBpE1kWHeAwS7MzS/MD0Q6AqfvWZ
-	 YX185S6iLgvzimB+sWG+1j3xoshRblt+Lpqsp25uvKN+OpLpPigRKbMul0GgHMFixsuVE
-	 qgBBReeFr0WPIayvT84jmaBPHIYflPwAHx5bYD1jzX64QHqodbKj6fT83Tu8DDuHsxT+R
-	 7TlR2YrF7m/c0H367mhP2P8tIuXlyWk9njF4auvPpbnO3essT1WMQyKMhydbgl1HEDA==
+	bh=A59kBhYhVh2cwcGIS0Bice4IBYZ7xgZ31BmecGfB75k=;
+	b=J4kvCsq2jV7wtXGaM9e5qFrVALKfWnAxqjBRlxZ7tndsOK5lGLhIiHMmP0jEWMEXNSM2
+	 rOCnJnGKUHgjJ1Os9S644hi1fiz/NU5MkogfMyqjUlb9PzE+1Y9c5YqKEzOW8QKXThmO1
+	 Mf//Bl1qVIU6p9I9vxOv0qex+X6eAzu0DvZtTL8N1zWw/2HCeHAD5Fycfwn+b53Y+lkFu
+	 bdBZKyYRoEUx0MmF7ZReuwCZpEV5sRcPofidpIc+MSI8jji4/dj9Q5BCbOJn9jr0kDNCe
+	 DJ7FN9reuTddgatoUNUfTaudVUn9uJpThibxDeBOBBnME9IowQ2YPCImdA9gmQAP20g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 80DB41F00A1D;
-	Thu,  5 Nov 2026 13:30:24 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 63B921F00A1C;
+	Thu,  5 Nov 2026 13:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793885425;
-	bh=noWbOBqyGXZHg9mlOzTz3nMj1re9nbXum97ku+iklZs=;
+	bh=A59kBhYhVh2cwcGIS0Bice4IBYZ7xgZ31BmecGfB75k=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=W22762lvbUuUoL9XRay2jjeJ2nbMYBsn3Lzp+Fussarv2Ga/Ynr5OoXgLQnxbZg2p
-	 Pdh+YKkDitAlFdVbzYh3+35gKcqXC7uhXVm/TwZ3wggcHeXy1wNbeaZnsHplrCu4KA
-	 j+dfcbePZkQiQToELLwTNU7+UW2mg6FxHQhZ0c25+y4GmDD7s2/WInx/TFczusBJqU
-	 GlOAHTgsaS1UkJdIR5l3rkye5EcLfTHqVVKwgBr/iwtbg8vPN6x66vvOslFoTse7K0
-	 rxSVxmFYmaK+UXKTnp2lvNtPmeoiljzoY62dMN+UJtX65AgTKCgJBWT3SusvQf/MRx
-	 td+LgqR88zIOA==
+	b=ShLVjeZ856HvQdF/PZZQP+Du+urtAQZ1fVs9zXThBLj+MfI+lNyuqs+2tjfhlakyq
+	 yWa8yErWMim4u3QJcfKgnUugYtKQ7N+YWmNHwIulY6k+3s2tbt1Flfkef7x7tWEqtv
+	 Gf0NLXzzdAxO8Oi7KyiOkEdGdQQMlfCnc5BwDIWDdzY3TppG0Ta/MMiKVfavQYiioM
+	 a2kiA3Asq227aDTlQwH30H2firUQTS5KuxwdWSSWbnzOxjxDnZ1/XzgjQtWLZ5NihW
+	 X8A99A7Ty0vi6XaCGz4ZuQXjuhnA8iMaXkVesY+lgTIZukCeWYiqO5rxpobsk15/wP
+	 PBgUZ8MvnCSOg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F356847297;
+	by lkml.kernel.org (Postfix) with ESMTP id E2A2547293;
 	Thu,  5 Nov 2026 13:30:22 +0000 (UTC)
 From: Demeter Barna via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Thu, 05 Nov 2026 13:30:04 +0000
-Subject: [PATCH 5/5] arm64: dts: qcom: sm8350: Add the GPU speed bins
+Date: Thu, 05 Nov 2026 13:30:03 +0000
+Subject: [PATCH 4/5] drm/msm/adreno: Add speedbins for A660 GPU
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-b4-sm8350-gpu-v1-5-a7175cdd6512@fromdisposition.org>
+Message-Id: <20261105-b4-sm8350-gpu-v1-4-a7175cdd6512@fromdisposition.org>
 References: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
 In-Reply-To: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -101,11 +101,11 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, Demeter Barna <me@fromdisposition.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793885419; l=4165;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793885419; l=1126;
  i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=Go4TFFoOKKLlrDXSMdwVz23UmppnG+cEaIIyTAUOMts=;
- b=gvMWWyHdYqIcfg4Bi9gJX8QdzZV6k9PsAiPTXeSbClueRJU9sTngpnC2INWztvFHcEOht2Urt
- woh7pBiCoX1DPEBa0KUdekh9/Nd9aBtGj640nasUrxAvuZKLV6YwK+I
+ bh=oTxpg/D+jgMPGwDowW4xu7/gXp7fpT5IY/GcQ0zhKx8=;
+ b=GtKovN95UpCfH5qWyBuGsZ9za1/hCqHtLIDArXBKbwZbdw5gl9dUiN/Oe/pd1G3Hp2tGiyp7a
+ 4AUL0ZNm6tVDmNcNu2ff4xE54HicFA9S81wb4KHBOoCJwJB8mrSFmQy
 X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
  pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
 X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
@@ -116,147 +116,40 @@ Content-Transfer-Encoding: 7bit
 
 From: Demeter Barna <me@fromdisposition.org>
 
-Today every SM8350 runs its GPU up to 840 MHz, including the parts that
-are validated only up to 738 MHz, and no part gets the 900 MHz level the
-best bin supports.
+The SM8350 GPU comes in speed bins, read from QFPROM 0x17b bits 7:5.
+Qualcomm's GPU tables for this SoC give:
 
-Describe the QFPROM with the GPU speed bin cell, as sm8250.dtsi does,
-let the GPU read it and mark each OPP with the bins that support it:
+  fuse 1, 3:     up to 900 MHz
+  fuse 0, 5, 7:  up to 840 MHz
+  fuse 4:        up to 738 MHz
 
-  900 MHz            bin 1 (new OPP, same bandwidth as 840 MHz)
-  840, 778 MHz       bins 0 and 1
-  738 MHz and below  all bins
-
-Drop the note about downstream binning above the OPP table, which this
-replaces.
-
-Reading the whole nvmem file needs the SM8350 keepout regions in the
-qfprom driver; without them it resets the SoC.
+The levels below are the same in every bin. Map these fuse values to
+speed bins 1, 0 and 2. An unknown fuse value falls back to speed bin 0.
 
 Signed-off-by: Demeter Barna <me@fromdisposition.org>
 ---
- arch/arm64/boot/dts/qcom/sm8350.dtsi | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-index 903b2968c..d488c9d64 100644
---- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-@@ -710,6 +710,18 @@ ipcc: mailbox@408000 {
- 			#mbox-cells = <2>;
- 		};
- 
-+		qfprom: efuse@784000 {
-+			compatible = "qcom,sm8350-qfprom", "qcom,qfprom";
-+			reg = <0 0x00784000 0 0x3000>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			gpu_speed_bin: gpu-speed-bin@17b {
-+				reg = <0x17b 0x1>;
-+				bits = <5 3>;
-+			};
-+		};
-+
- 		gpi_dma2: dma-controller@800000 {
- 			compatible = "qcom,sm8350-gpi-dma", "qcom,sm6350-gpi-dma";
- 			reg = <0 0x00800000 0 0x60000>;
-@@ -2057,6 +2069,9 @@ gpu: gpu@3d00000 {
- 			operating-points-v2 = <&gpu_opp_table>;
- 
- 			qcom,gmu = <&gmu>;
-+
-+			nvmem-cells = <&gpu_speed_bin>;
-+			nvmem-cell-names = "speed_bin";
- 			#cooling-cells = <2>;
- 
- 			status = "disabled";
-@@ -2065,68 +2080,84 @@ gpu_zap_shader: zap-shader {
- 				memory-region = <&pil_gpu_mem>;
- 			};
- 
--			/* note: downstream checks gpu binning for 670 Mhz */
- 			gpu_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
-+				opp-900000000 {
-+					opp-hz = /bits/ 64 <900000000>;
-+					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L2>;
-+					opp-peak-kBps = <12484375>;
-+					opp-supported-hw = <0x2>;
-+				};
-+
- 				opp-840000000 {
- 					opp-hz = /bits/ 64 <840000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
- 					opp-peak-kBps = <12484375>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-778000000 {
- 					opp-hz = /bits/ 64 <778000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
- 					opp-peak-kBps = <12484375>;
-+					opp-supported-hw = <0x3>;
- 				};
- 
- 				opp-738000000 {
- 					opp-hz = /bits/ 64 <738000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
- 					opp-peak-kBps = <12484375>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-676000000 {
- 					opp-hz = /bits/ 64 <676000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
- 					opp-peak-kBps = <10687500>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-608000000 {
- 					opp-hz = /bits/ 64 <608000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L2>;
- 					opp-peak-kBps = <6074218>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-540000000 {
- 					opp-hz = /bits/ 64 <540000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
- 					opp-peak-kBps = <6074218>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-491000000 {
- 					opp-hz = /bits/ 64 <491000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS_L0>;
- 					opp-peak-kBps = <6074218>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-443000000 {
- 					opp-hz = /bits/ 64 <443000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
- 					opp-peak-kBps = <6074218>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-379000000 {
- 					opp-hz = /bits/ 64 <379000000>;
- 					opp-level = <80 /* RPMH_REGULATOR_LEVEL_LOW_SVS_L1 */>;
- 					opp-peak-kBps = <3972656>;
-+					opp-supported-hw = <0x7>;
- 				};
- 
- 				opp-315000000 {
- 					opp-hz = /bits/ 64 <315000000>;
- 					opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
- 					opp-peak-kBps = <1761718>;
-+					opp-supported-hw = <0x7>;
- 				};
- 			};
- 		};
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 4ef2bd6e7..f1ae9932d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1096,6 +1096,14 @@ static const struct adreno_info a6xx_gpus[] = {
+ 			.gmu_cgc_mode = 0x00020000,
+ 			.prim_fifo_threshold = 0x00300200,
+ 		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0, 0 },
++			{ 1, 1 },
++			{ 3, 1 },
++			{ 4, 2 },
++			{ 5, 0 },
++			{ 7, 0 },
++		),
+ 	}, {
+ 		.chip_ids = ADRENO_CHIP_IDS(0x06060300),
+ 		.family = ADRENO_6XX_GEN4,
 
 -- 
 2.53.0
