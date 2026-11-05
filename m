@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878648;
-	b=aN6pwvXLUEWrqAnlDG3RFmeS6eTugHO3BQVAMoA76/VEllaoaKX2eRkdlK+HfMtzeoba
-	 Ewft79RgDZjLZbrOA0hGViyCjlOC6iLA/cv5LQ5/UWXIMnaa0JLqqsVrGcU8fWYEi8h1o
-	 evv0n9KRXyQEgz/PlVx+/qOhkFIWwFl3CL1u1+CppZ24lvEiuo0TlU59m3etC+E0rOGzs
-	 FtO1i2yDXmYiVNgjwH4BB+JXdcVH/HPlT23x26pswBHJcEt0b0vo2beTvP5H55hRNo6Dg
-	 C16rQ2StdU5MyHYss6DJXDoABMvD4lqScZ1Gk9lo6Ku5jJFhQ3cf5BlaKB47l8hYvCQ==
+	t=1793878697;
+	b=v0DOMaVtbVFzTZ2eBnQtB1XglJO8s8bSVBtC41B65Q1aZqLO8byvyEufKt9pFF+YXcLB
+	 7vhUJ7H8bS1DoQTr2dOSTsxm5eAJzNYeHUPCNsH9NndoRyTVyfE3awJ329l1WvTDe1dpn
+	 Gxu9beG5Re+hHNcyIGPmSgM99N9fv4MkpVk+6GKDDwYVfX+v5OrtimpczgrhUVmGyHj/+
+	 Gl0prOIo2CaUWaQbKeHIwn6vXjsyPLd1E98zjCgm5EAnM+GxymTF08ZA6zpPEmg/MnYnf
+	 XFN4MIEG/GAMX55LpvWgHQ1vaWfoU5XO3NV1ICdT3wlY8MoCUfTh5O804AodWYnx8aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878648;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=VMhnWUVSQ2tILOB4G/emtQlgU+NR+argJ27mPCGNL+4=;
-	b=TT1rHMVZFzdo4e25CnMDgAG4yZ6BgXsCIAUBI7BDW8UDaO8FAGpwnT43dy/mjQdTWvfF
-	 Jup+a4tormNOHjlJAseG5aGA+CKo8mI/YFoftsW7g4o6hFsuSznqFBFEUEojGmVSnUXO0
-	 46DeCgwjLRE3i3fCtYMn1UmneSpwDBGMoe2QIcirtgo6ohCqHQDH5N5zMb+SV6bGNCR0W
-	 LgIXRvY7dRXhfYsogZbBDA+7a/qCm7w8yckh4jrKTrrCJf52WfOJOiJGSmckLw2XLxxPv
-	 IfDM3iHHpg2ofzHe0G7Z7Ab5YOkokyP8B7550FEDRTHhM9GhaE7eg/D9Mof0n8Ov0mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878697;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=jRo6v1yesX88h7OcyNAcfI2+Tt+WAJUB3xSN50MgUos=;
+	b=DLXjQSDBkuDAfBUcLnJmcxdOLHvrr195Pa6vPzHcJU7K8X21ky5Ho4yGdgSugtYNuaSH
+	 o6oGIONn2T6PQB7xJb2jcVRtRkJMGDltDr9GO6cXPoWKxYFqDs3dfvZEaMjDETSeeP562
+	 baZCUl1TbpORqaalICQGXn/9E+7yDhQ7JGLC6+wfd7Xf2ecXS7hZOsXav3BNjTW3Esg1B
+	 VetrGB3+KOZYPidNIyLphjvEZlgAj+KMQqE2wRA/+1WXybjuhYKAc12zYfc206zbQZK0B
+	 C0QNBo+iXOo3KRsig1zz+/IpKfEeoJR46SVdyIn3GcMHsIW1HawZ4OzzR1JuSAdwlNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ovcCqlh7;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhlsZn4y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FE0606A31B;
-	Thu,  5 Nov 2026 11:37:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49FE0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818C2606A32F;
+	Thu,  5 Nov 2026 11:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=ovcCqlh7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=VMhnWUVSQ2tILOB4G/emtQlgU+NR+argJ27mPCGNL+4=; b=ovcCqlh7VrjwANEc7//D13mAC7
-	VksmRuZHZ/2GBLXZhGPO/i9gLDz/Uh4ZlTcJfTilOWw4jrcidB6sCY0aa2IDhhiBXBMCcei44br/N
-	xQcZJKGqIHwaf9qXFMnN9G1DRw6VnLyoS0iZFFUu2jLH/Xz4t1VU84HUJEOlSjsk5uPc1FSiF9//a
-	lEDTZWM7pNflmGJh4AhEWFG4WpBUlVTUQzFQLASEFPXmGwpbNlEcFN5iFwV1S8Ysu/S4uFy6V6NOx
-	jycjBSr6knqI86H0o3xwoslL8tbZgX14BtXg+ll1GWEPWB5wwgB5v+5iErkUTxlZlxEbrwGuHsdB/
-	Qt56sqfg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Yaozhong Li <yaozhonguwl@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
- Jonas Karlman <jonas@kwiboo.se>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Yaozhong Li <yaozhonguwl@gmail.com>
-Subject:
- Re: [PATCH v2] arm64: dts: rockchip: enable SD UHS-I on Firefly-RK3399
-Date: Thu, 05 Nov 2026 12:37:13 +0100
-Message-ID: <3342569.D8ZAKjAxdT@diego>
-In-Reply-To: <20261105102556.1365-1-yaozhonguwl@gmail.com>
-References: <20261105102556.1365-1-yaozhonguwl@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhlsZn4y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E63B1F000C1;
+	Thu,  5 Nov 2026 11:38:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793878697;
+	bh=jRo6v1yesX88h7OcyNAcfI2+Tt+WAJUB3xSN50MgUos=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KhlsZn4yFevLCGBPZ+LUQkIXowVSUHj6Hlf5vx5Sdk/TD3VsG4KJVK1HUPHe9iIYh
+	 FtLMqxBhPeL5wUOpWC9q4NqZ5oFUjOx6TZ+5dbMlHR82zDDytOWhWE0oVPrQ1dziSP
+	 9NQw6dcIH6Lz+19ELuWGLRo9CvvkI5x93WAxPB4mE8HnsHSwWrB1Tik5cewhSQnbNx
+	 Gegv7724y6vxHgg8dMCGuX4ZyhC4h2MKgaGi+NGp1KWpzoQmddvQAwYmXkdgUKq1uL
+	 PHMJCKTYcecy/HAX3SrKHOu8o8GyH4jc+fhfotTlZiln2sJH3Uce3tcPz5WdZluJqz
+	 ZvMqbzNGCQNhw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 421B3272E97B;
+	Thu, 05 Nov 2026 11:38:15 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+ Jason Wang <jasowangio@gmail.com>, Francesco Valla <francesco@valla.it>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
+References: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
+Subject: Re: [PATCH v3 0/2] Add devicetree bindings and maintainer for
+ spi-virtio
+Message-Id: <179383873171.2186205.18306069236737533511.b4-ty@b4>
+Date: Thu, 05 Nov 2026 00:32:11 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,92 +71,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1695; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=d/2HHn0oM1yVBytTovcK25fmEh8H6DrOdy6DAE4SDbU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeZC0XVd+1debfPX+5WkI2/wlkmKnILeN3IfGbaoZby
+ w23i+ksHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjIolsM/9RX3q1o3/pvh992
+ OSmH7Pa9pz2nNzJvenSA+7/kqnt8V7wY/kf+rmbslamrD32rPu1m35pqG5E5Zx/f3Vq1UXxa028
+ /Kz4A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Am Donnerstag, 5. November 2026, 11:25:56 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Yaozhong Li:
-> Contrary to its name, vcc_sdio is the IO supply of the SD card slot: the
-> schematics route it to SDMMC0_VDD. It is listed as the vmmc-supply
-> of the WiFi SDIO node instead, and that consumer keeps the rail from
-> switching to 1.8V.
->=20
-> The WiFi module's main VBAT input comes from vcc3v3_sys, and its IO
-> supply stays vcc1v8_s3.
->=20
-> Fix the supplies of sdio0 and sdmmc accordingly and enable SDR104, which
-> now becomes possible.
->=20
-> With UHS enabled, sequential read from a 64GB SDXC card inserted after
-> boot goes from 22 MB/s to 60 MB/s. WiFi remained associated at 5 GHz,
-> with no WiFi errors.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
-> ---
-> Changes in v2:
-> - Point the sdio0 vmmc-supply at vcc3v3_sys, the WiFi module's VBAT input,
->   instead of dropping it (Heiko)
-> - Rewrite the commit message (Heiko)
-> - Link to v1: https://lore.kernel.org/all/20260922055011.14972-1-yaozhong=
-uwl@gmail.com/
->=20
-> A note on testing: with a card in the slot at boot, the first
-> initialisation fails tuning ("All phases bad") and the card comes up in
-> high speed mode, as it does without this patch. A card inserted after
-> boot, or a rebind of the controller, comes up in SDR104; the numbers
-> above were taken that way.
->=20
-> The GRF io-domain device binds about 250 ms after fe320000.mmc here, so
-> SDMMC0_VDD is still configured for 3.3V when the card switches to 1.8V.
-> Forcing that GRF_IO_VSEL bit to 3.3V with the io-domain driver unbound
-> reproduces the same failure on demand. This looks like the probe
-> ordering issue Jonas described for the ROCK 3B [1]. It also happens with
-> SDR50, with a second card, and with sdio0 left without a vmmc-supply as
-> in v1.
->=20
-> If you would rather not enable UHS until that is solved, I can send the
-> supply changes on their own.
->=20
-> [1] https://lore.kernel.org/all/e9ff5387-b3c1-41a7-b251-a12789d25a70@kwib=
-oo.se/
->=20
->  arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64=
-/boot/dts/rockchip/rk3399-firefly.dts
-> index 0568dfa..fe1f8d7 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-> @@ -777,7 +777,7 @@ &sdio0 {
-> =20
->  	/* Power supply */
->  	vqmmc-supply =3D <&vcc1v8_s3>;	/* IO line */
-> -	vmmc-supply =3D <&vcc_sdio>;	/* card's power */
-> +	vmmc-supply =3D <&vcc3v3_sys>;	/* card's power */
-> =20
->  	#address-cells =3D <1>;
->  	#size-cells =3D <0>;
-> @@ -804,6 +804,8 @@ &sdmmc {
->  	max-frequency =3D <150000000>;
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&sdmmc_clk &sdmmc_cmd &sdmmc_bus4>;
-> +	sd-uhs-sdr104;
+On Thu, 29 Oct 2026 17:27:42 +0100, Francesco Valla wrote:
+> Add devicetree bindings and maintainer for spi-virtio
+> 
+> When a virtio transport exposes a non-discoverable bus, the devicetree
+> can be used to declare its child devices (if any) and/or other
+> properties. To allow for that, the virtio framework searches for a node
+> with a suitable compatible in virtio_device_of_init() when registering
+> a device [1]; such compatible takes the form "virtio,deviceXX", where
+> XX is the hexadecimal representation of the virtio device ID as defined
+> by the virtio specification.
+> 
+> [...]
 
-=46rom the schematics vcc3v3_sys also supplies the sd-slot (via an
-always-on regulator / page 20 for me),  so adding
+Applied to
 
-	vmmc-supply =3D <&vcc3v3_sys>;
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
-would be nice, so that the declaration becomes more complete.
+Thanks!
 
-> +	vqmmc-supply =3D <&vcc_sdio>;
->  	status =3D "okay";
->  };
+[1/2] dt-bindings: spi: add spi-virtio
+      https://git.kernel.org/broonie/spi/c/5e36c313bcba
+[2/2] MAINTAINERS: replace spi-virtio maintainer
+      https://git.kernel.org/broonie/spi/c/a64623716fa1
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Thanks
-Heiko
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
