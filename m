@@ -1,64 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880877;
-	b=UGgpZOkakPRuuoOxO/FFFsik3lA/Zz15tB4mmgG+R06IYhxUlCdkvwRoY8cRdUN8vIiG
-	 SPjGPrdAFRvWJIVeqQnpG8OEhkJ3WLJ6+Y3ggIGMdHK7T0PvUOxHphzmmQxeiXgfqykKb
-	 SpGy0q6WQNeQ6V49f5V4gvuBETyZ+sZGASpQAP1kR16XBnrlVv9zLbbmtgJqq4WU1uTUj
-	 2T8tEboMnsCGcXYPo3gCjIGoIqHNA+4ImkQyZKwgfHO/blBQnaD+iX8x7AkTg9YU/Gfu6
-	 re4AwYQHBL1pAdIC7dyxfyV9pQ0b838ZKI8S4/bxWJ9q6eEGf6Ta2YYiLT436Yr3qlQ==
+	t=1793880874;
+	b=WiI3WJ8W7q9fnMzogRzcUDWHxA1mYlIBYaLPeS+EYNVSf9oJ3yD5nYe1u6mMDc6nc/kx
+	 WU2DXdR9nRt1jzYiV7kJ73bll6rPDHaRl8pws1RpNBDnlsxDTR2RJfK5MFPo4l3ZDDiRF
+	 p6Zz2da9zrr3Syhmzb/tsOaUVTsWOn3995ZgyZRGyS9OSBFoNlP4gNa/eKbwaZz/4vUjz
+	 QDZLXbc6GT+2iFmQS6Y0hQU7v6I6GUftKqNfKYsJX/W+dehMii8+TropsKugpgCl3Yh8L
+	 WvSPZdDk2s4n6RmN1K0sv/0v9dm77aruefAKYHwyKRqQeM8XUH4DaIpWxHE3g6tkSUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880874;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=wj5nZozJQCUk77xJuRTCNGYRyYXNzGvjve+qA6nxMLQ=;
-	b=l1DX2Ra2rROM2GAOwcZNdi410OBdyysqH2NVlhFenTGNWwDkZBkwDk+LQdDctPwzBiNW
-	 Rh572gRrjNo+LCcpGfKpudadYpNjzffeUgHpsTxRbmSNeIWlfG4/nKPzXfpDaYdIVU4+0
-	 aqprI6D+rnSreMEt2ID3C/3OMqGTiC1hD3PFML99zKo8f735aDWtbAOJ4Wl94Ryw0O98r
-	 n0lgNgwYoG24A1/dQxLAdzB181j5nClTFOJOjRXFIt0FKpfmmVPnwxMi5AH3yWhS4Uh2X
-	 ZMgmVD07bsHCOi1Pfgw31gADHIosnwZnyZAedclpx52JDWWF1VeRVh6Fr3czpL1zpRg==
+	 In-Reply-To:X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=Sh8XuEouFSxM3Nere9HIciNOvbIlIxwEdyp0u63ZD0M=;
+	b=3cLhVmDh8SyzcHD/aYg7/VQyj1XTQnCfa+KUNpg8BGK8dodvB/8+dQUMIBI3qW0hAWKl
+	 g3iXE7GoswzafN83tyj4x9O0elaKMX22tOlwBrZEymWqUR0JnkLige+Qg+x96K6YFZsVx
+	 CvZMLgjOBYLBu4tObWWgIMrAuzIEK3dh+hAh0x4RjPApxAXr8/JrSodH6jn3kwWTyU/vl
+	 Qn2aX517nxhBhjgnKr1pUffPNSkzfIOOxhhDJIeNWJDG3LuzcjT3+/NZvgCiISRfDWoss
+	 JMEMKRftQfNQYu6I5sCKSzhT1/DHvu5qDFVhtrZWBaYmkWsJi+J+F7rzfyb8H7Za7bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KlciE+qb;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PDybQWtJ;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79696606D805
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79696606D805
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A039606A334
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:14:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A039606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KlciE+qb
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261105121428epoutp01070256af2091283b9339dc7fbeae5b9a~lJSVB3Lx11949919499epoutp01g
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:14:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261105121428epoutp01070256af2091283b9339dc7fbeae5b9a~lJSVB3Lx11949919499epoutp01g
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=PDybQWtJ
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261105121431epoutp03dfad0cd147079a0e0b80275b736488d2~lJSX0gUda2840828408epoutp03F
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 12:14:31 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261105121431epoutp03dfad0cd147079a0e0b80275b736488d2~lJSX0gUda2840828408epoutp03F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793880868;
-	bh=wj5nZozJQCUk77xJuRTCNGYRyYXNzGvjve+qA6nxMLQ=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=KlciE+qbCMkaUOkUK4D6Sae2H1DMmlQb8F3DOM9NJiRUnIAt96sAGAs04WIsiH8NW
-	 ufxEEtGKMxIIExRcdicKTupmUuDc97jai8wghV/YPgLfT+42Jkb01a9dfTexuuFrlg
-	 RJmmnbFbtV+KiyWkOJN9blHkKG3ldOEv86FI7xZY=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261105121427epcas5p228003b6804cbca3ff690f95a0510d951~lJSULzkdS1965619656epcas5p2T;
-	Thu,  5 Nov 2026 12:14:27 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.95]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jL1Sy6N4wz3hhT7; Thu,  5 Nov
-	2026 12:14:26 +0000 (GMT)
+	s=mail20170921; t=1793880871;
+	bh=Sh8XuEouFSxM3Nere9HIciNOvbIlIxwEdyp0u63ZD0M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PDybQWtJtaT7HN37J2PX4Ws4OFuscgdPQbVh8Efrhh4YTk8biaj49+hOvWkpkY3M7
+	 vuw6S6E2CD3toP5oXcs4wYxPamYgkt4L8WrAbtLRhbllk0nzfJqO3uh0dJrkBstrvk
+	 LF4RuyEfEwphJsWdcYwHWtkgQ+MTtz1Oj0BlcZL0=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261105121430epcas5p34f3ca1eb34c18b8da084aae5b60407af~lJSXKYc_Y2560125601epcas5p3B;
+	Thu,  5 Nov 2026 12:14:30 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.88]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jL1T15JsDz6B9m6; Thu,  5 Nov
+	2026 12:14:29 +0000 (GMT)
 Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d~lJSSwS8Wu2770827708epcas5p4R;
-	Thu,  5 Nov 2026 12:14:26 +0000 (GMT)
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261105121429epcas5p39d2113969a054d297cda76a67f309c14~lJSVreVaO2344923449epcas5p32;
+	Thu,  5 Nov 2026 12:14:29 +0000 (GMT)
 Received: from vega.samsungds.net (unknown [107.108.73.84]) by
 	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105121423epsmtip1e06534b46800136188631e62189b7cd7~lJSP7nXCS3043930439epsmtip1f;
-	Thu,  5 Nov 2026 12:14:22 +0000 (GMT)
+	20261105121426epsmtip1d622e1345811eb639be62820813704d9~lJSS_xApT3060130601epsmtip10;
+	Thu,  5 Nov 2026 12:14:26 +0000 (GMT)
 From: Selvarasu Ganesan <selvarasu.g@samsung.com>
 To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
 	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
@@ -69,18 +69,21 @@ To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
 Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
 	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
 	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Subject: [PATCH v5 0/2] Add USB DWC3 support for Samsung Exynos8855
-Date: Thu,  5 Nov 2026 17:43:59 +0530
-Message-Id: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+Subject: [PATCH v5 1/2] dt-bindings: usb: Add Samsung Exynos8855 DWC3
+ controller
+Date: Thu,  5 Nov 2026 17:44:00 +0530
+Message-Id: <20261105121401.1661711-2-selvarasu.g@samsung.com>
 X-Mailer: git-send-email 2.17.1
-X-CMS-MailID: 20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d
+In-Reply-To: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+X-CMS-MailID: 20261105121429epcas5p39d2113969a054d297cda76a67f309c14
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 CMS-TYPE: 105P
 cpgsPolicy: CPGSC10-542,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d
-References: <CGME20261105121426epcas5p4b41cf26c1a951083cb6f31cd29683c4d@epcas5p4.samsung.com>
+X-CMS-RootMailID: 20261105121429epcas5p39d2113969a054d297cda76a67f309c14
+References: <20261105121401.1661711-1-selvarasu.g@samsung.com>
+	<CGME20261105121429epcas5p39d2113969a054d297cda76a67f309c14@epcas5p3.samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -90,67 +93,99 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-The Samsung Exynos8855 SoC implements a Synopsys DesignWare USB3 DRD
-controller. The DWC3 core on the Exynos8855 is instantiated with the
-generic DWC3 platform driver using a flattened model, where the
-controller is directly addressable without a separate glue layer.
+Add the Samsung Exynos8855 DWC3 binding using a flattened node
+representation, where the DWC3 controller is directly addressable
+rather than nested as a child node of a glue layer.
 
 This is the first Samsung Exynos binding using the flattened
-representation, and this series adds the device tree binding and
-platform driver support for this configuration.
+representation.
 
+Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
 Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-
-Changes in v5:
-- Drop the alphabetical reorder of dwc3_generic_of_match and
-  just add the new entry, to avoid conflicts with the existing queued
-  changes, per Thinh's feedback.
-- Drop the Acked-by (Krzysztof Kozlowski) from patch 2 as the patch
-  changed. Re-requesting it.
-- Link to v4:
-  https://lore.kernel.org/all/20261026135715.33071-1-selvarasu.g@samsung.com/
-
-Changes in v4:
-- Drop redundant "binding" from the subject.
-- Reorder properties, interrupts after clocks, power-domains after
-  interrupts.
-- Reorder interrupt property in the example as well.
-- List clocks with per item descriptions.
-- Link to v3:
-  https://lore.kernel.org/all/20261023131501.3157463-1-selvarasu.g@samsung.com/
-
-Changes in v3:
-- Drop the MAINTAINERS patch.
-- Drop the samsung,snps-dwc3 generic fallback compatible. The binding
-  now uses the SoC specific compatible samsung,exynos8855-dwc3 only.
-- Binding file is renamed to match the compatible string.
-- Remove the "select" from the binding.
-- List the clocks (ref, bus) explicitly and drop the redundant if/then
-  block.
-- Update the driver patch to use the new compatible string.
-- Drop the v2 Reviewed-by (Alim Akhtar) and Acked-by (Thinh Nguyen)
-  tags as the patches changed. re-requesting them.
-- Link to v2:
-  https://lore.kernel.org/all/20260916122229.2604003-1-selvarasu.g@samsung.com/
-
-Changes in v2:
-- Commit 2/3: Clarify this is the first Samsung Exynos binding using
-  the flattened node representation.
-- Commit 3/3: Add the compatible entry in alphabetical order in the
-  of_match_table.
-- Link to v1:
-  https://lore.kernel.org/all/20260903071250.3421499-1-selvarasu.g@samsung.com/
-
-Selvarasu Ganesan (2):
-  dt-bindings: usb: Add Samsung Exynos8855 DWC3 controller
-  usb: dwc3: Add Exynos8855 to the generic platform driver
-
  .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
- drivers/usb/dwc3/dwc3-generic-plat.c          |  1 +
- 2 files changed, 72 insertions(+)
+ 1 file changed, 71 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
 
+diff --git a/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml b/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
+new file mode 100644
+index 000000000000..664c26c1a9ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/samsung,exynos8855-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung Exynos8855 DWC3 USB controller
++
++maintainers:
++  - Krzysztof Kozlowski <krzk@kernel.org>
++  - Selvarasu Ganesan <selvarasu.g@samsung.com>
++
++description:
++  Describes the DWC3 USB controller block implemented on the Samsung
++  Exynos8855 SoC.
++
++properties:
++  compatible:
++    enum:
++      - samsung,exynos8855-dwc3
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Reference clock for SOF/ITP generation.
++      - description: Bus (APB) clock for register access.
++
++  clock-names:
++    items:
++      - const: ref
++      - const: bus
++
++  interrupts:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    usb@13200000 {
++        compatible = "samsung,exynos8855-dwc3";
++        reg = <0x13200000 0x10000>;
++        clocks = <&usb_clk 0>,
++                 <&usb_clk 1>;
++        clock-names = "ref", "bus";
++        interrupts = <GIC_SPI 436 IRQ_TYPE_LEVEL_HIGH>;
++        dr_mode = "peripheral";
++        phys = <&usbdrd_phy 0>;
++        phy-names = "usb2-phy";
++        snps,quirk-frame-length-adjustment = <0x20>;
++        snps,dis-u2-freeclk-exists-quirk;
++        snps,gfladj-refclk-lpm-sel-quirk;
++    };
++...
 -- 
 2.17.1
 
