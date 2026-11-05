@@ -1,89 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876747;
-	b=xjnvEWvPHvLWj1cUDGibk/lnMWfOiUneBvP8fEBYrUabKhJT8rE1oODEYnwIoSZrb0Zd
-	 unMYMxqdJEi5mLAz20VeE3ChL0VuVIAtr5aQVrWL8mosNne7f7q23LpIK/sm5pS40Iyes
-	 GfGhIX6dkW2JGRnaqJVMfbHtBr0yX2+PHYLc4cMH956lT7kb3D1yDWgiicBCU5A5m1xmR
-	 rUieeTQm0XfRQ2VePUFvn7JA9OoJPBLDSw/7BWX+DGUJjd7nVUHvuWQYVr1jTM32mMLvj
-	 5/DW9pB5vgJLwIlEQblgrZLZO9/Do6pNyCVAmj27CeDuXsTUixhH0JoLs/E9p2UjyiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876747;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JN0h7SeXPERjAEMznolQ48k3OWsfixBRlrh/PkvU79k=;
-	b=yZUT2n77ERv60XbQDuLCHmWNIm+35a2mG2REDu2gEJCV+xhRWHi3GnDNAcM0N8+KvJbO
-	 b3BwG+6xa0KaHxQk8dHF33pe3Gb978NYhZfwJRDzdWynZZ/mND9KUyPESKbxNOeDpVuMA
-	 DwjdWKVjxJF63PW00FbQ4PJTYeP/zHM/DzzrozDlgtn0U8N1JUFG1loqCGIM1FjH5xaRz
-	 5F3X0yS0V6xvp2KTT4LzeS5apKsd/Bir2T01xVB4Bme72bBKxZrUpw+6eqw1WY9jK++iu
-	 iWLwopjkBsbXB8TmxqWgXYpDMf/2qE3bU8NWNyujahdcBE4LCKSs6SsNquyoNDuR2hQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kws39dw7;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793876826;
+	b=WHAvdEvaDzAhcoYjBx6/cZyrctlus2AAppOsJ7X67zDbdMik+RMNviNKFRmb5C2ieKDi
+	 FgRBzM7r5lJs9gYO6e8mev+OgybnB5BZDMplvF0ZcEPCHeGbUWMR5KdTRTBxhEm3iYnMo
+	 LVIXmzzO2D24F8bXYMytHeHhTLibTiAI9Epy8McW+CuEOR0+ntrGT77zpkVXMBvmxa/Ch
+	 t5r/IOEzCPqsziEb94P0i/glzqJ5W7bSj8m/PGGc7XIpn1eD8ztwMrVzNxIVzFRIfLTeX
+	 YYQFERyGvA5cpIaDWg6apFeC3FhCOIuQZglacyHmlbKclbQMBWnhmaSxusI9+NczcJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876826;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tBXbAkaPauO/t+CrWaIYHzrmfu0tKOxa9L0c762SX8c=;
+	b=YcqlFZHu9ep5OHF0qFv4Yx9cGApKhddd8yBImbQxV+TBmxXO7QMZB58/l2mOv1HS3M2R
+	 L58kdEqLcbNLKOSUncb0w0yVs/bYvtI9GbmUo2h02GG9h0GjOmM4EtlQKcnFjyZPvAF6n
+	 xhFy5t+hAc/aeojX8w2S6He/dKl0XV4NuAw2Nq0Nu+TLWnl7HsOsc9kxZGv7nySo0iOs0
+	 LlOLWudDRL7XCN3QYbdcLnRvZ3iTm6xu18tJ1+LPjbaSmLEWFlHEbEGKV4OxXjYHt+ZBh
+	 vszEazYjzZTohL0P0lSJFJ1110RU9N1PKB8SY3cLxHBSt95zSRe3TBH/Gxpw0pYjI+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2BMPAoc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0BA606A31B;
+	Thu,  5 Nov 2026 11:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2BMPAoc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793876826;
+	b=cs1HOWnn0QPOcKYr+3L9Ffu07/k8MJU97vpL0kySmjaX77w0IhANxhQhFO/X3MrK3fTh
+	 ein5SDySK07U2HPI6vA2o6Gknl58/FNAReX1vCygPn026zz2x/fTUC2ZkOcg9nlzAyxzQ
+	 b/FbIk18VOnVRW8noc/cUfjLqtvSe/+7BSicEwCxg5V6yX65ZG+m3sAsj1rdA6JMVarwM
+	 siFsI/4L2/u5riXJJEh526NUKAVGsTItWwfhMTdqlT8Y59vp95NjI6IKPZ8s5tR7lZZxB
+	 ph6MfDEg/rslSB3WxYs1eHDlsc7yJw3k0xuzUYmWPF6oEq2o5JxmLwbcIW/+On+OxMw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793876826;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tBXbAkaPauO/t+CrWaIYHzrmfu0tKOxa9L0c762SX8c=;
+	b=ScjYiDdQBi+JqWGntDMEAbB8UI+pwzg+OvwU9U1uOIB+wCgyGxtLEnQ/MstgC2ouNTfa
+	 56HCegQ206yr9Xxpa+rE8Lw31msvDnxajyoz+DmsfT07Ag4BuYyTHsL8OAMVvFo8LNbZH
+	 pB23H5SvxnZ9sUYhGptjH1RBz2wIT0/rFeB85zu7fQ/x4WP4UO3kJNAqXf1cR2PQuqg9K
+	 4j6QX7n+36HKZ5yfmZkLvNoTXNwZKA7w60EPYjWDvCWuG0jHeYU2C36Wl5MiODw9+/r0i
+	 d+YlfDY878LuW+UUu9rxOung7iQKZBw9uCLPORT7PJo5CLSjv0TPJKD7hIv4hLNqLag==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2631B606A32C
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 11:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2631B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kws39dw7
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso755902a91.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 03:05:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793876746; x=1794481546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JN0h7SeXPERjAEMznolQ48k3OWsfixBRlrh/PkvU79k=;
-        b=Kws39dw7eQ3kZp132JgUegkj1UJMNcWAmDavCayW7p+4EzXtSjiMjpOu14eGanq0CA
-         FR2oKytqK+Aye8O50js3m9AxPehTyjqRRKgWnuHrQdz8LFTrRiY/kHXDlq8EoJ8+mQ7Z
-         kxWNltVLsO4JK8VTxMsjnwVZadW5ycNasCHvd9uM6IWwvEOwhI+hTAFyk6CtQU43/vaW
-         U0DQp9Ab9voItrQzj4OqdCzXBBHjr0tkIPhOO3pxXnngVr8CfUiNL96tyCmEipjnRNff
-         /UdJyJODefVYVMQv6YAY1rRwh4Zy7O5Ook2uh+ekNZaAI6x2uIiqJsZD0nF0Qyyi+MkQ
-         N3JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876746; x=1794481546;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JN0h7SeXPERjAEMznolQ48k3OWsfixBRlrh/PkvU79k=;
-        b=u7tPpMr6duxPMsPUy9WETx6vPG58PTgUSIK0wZA14zWukXCQl6VpxlIbsZnuDDuHx/
-         YNWTHUpldQZ6w1OzerbBn9+MnXmux91Z8rTBQjUScJQnwrAg6oPv5XUXg2dWcI//Tty1
-         PJ+PfZ04wC7kMYL/Vvq+G/d8vA4WJ350Of4dGoi6H1AQT3lovrWg4U+c0KwZhj3iaQdp
-         OXvD6j/sP+jAwz3DXHHo6+bhQszzU9WD7d35kqO50mGwfGkKpR3/QtRPt8nfoS8zICPf
-         Kkl6OzaiUadXNcZkiA2FLrtKFkMtNvExbX5Q6CC5tRX/PHCSDdtCiaFXmoPxrZ55P8Cd
-         CtGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPu4bFw0a81u9eq8sj4ReNo2CWtoKEaAFFCvhLDv1Uj3YIXMxvCZbVr4UeV5AnNSWNK3kQSGa0YqAV@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mOIhfV1DKnJVER22FSKcUgCTVqDrSFcJPt1Yk678O4TB6SJHk
-	xDmpNTX53aWgRwBOENLngEmfeXFpTxHGlD6/EdkPzk/kcmkHJMPdt9+R
-X-Gm-Gg: AYBFou19yyQN9GL9eFdsBvMD5Sih3xDVRIGnl+cVL6U/gsua3I9RDav7jtTGbME8ZnX
-	heqFxjXcOsrU0aJUnKlO41FVOO+PtD765c3WkqY3v2i8aCLUv/AbP9AD9XrMQ+1X8WNdyh5wx+U
-	1cThRcC4rdrnHaCH7Mbv2719Z7HQMAMTQFHsInz/KQ+gcjmpXWrx0KxVKppuOl0H3mEKflEwqSZ
-	UZ6R+Eviqh7oTApb4+q0BV0L1VA3LGLwE/E5MBXRPBDPgCP2Mvd73S0mr0lXoPvpO+LUe5gt6AM
-	qTu/Fp7mPiK5tEWaXQpU/fm/2X2Bzfb7D4z/sCy1ToJlcJG6GaFSV1K3wgLCS6qCaODBiVpH1nm
-	6kJNMbHPHiybsw4uAOhWhriClHnETLBZx4A/0vPLuZ4Qr6JlkjmxkquvSNXJzxID5mUIljzE2QE
-	TJEUBTzClbLfJ2JjR5RqEJbl9EWJuPHbfz6UJicGoPao5bEMGox7DFGUZ3wdP9GUmfXLhLqTxaq
-	AodPQNj3/AsuzEMNMyU3JOTHLiqsYFtuhAkrW2Pq+zTcMdiE68RvoqjKi/ZzpQbPVTrFHg53n/v
-	VxDGMA1KJQLi317TDwrcKSmqH6iUljJeEnrQhAaTQWUGR4xPwGsmktPBy3rvrf2wWBM6zyJlKOV
-	7gT8=
-X-Received: by 2002:a17:90b:4a84:b0:3b0:97bc:62d with SMTP id 98e67ed59e1d1-3b097bc076emr4500305a91.32.1793876746390;
-        Thu, 05 Nov 2026 03:05:46 -0800 (PST)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b31aa128sm3474817a91.11.2026.11.05.03.05.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 03:05:45 -0800 (PST)
-Message-ID: <67823831-cb47-42e4-8af0-1331a3f73ef5@gmail.com>
-Date: Thu, 5 Nov 2026 19:05:42 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id D85711F00A02;
+	Thu,  5 Nov 2026 11:07:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793876826;
+	bh=tBXbAkaPauO/t+CrWaIYHzrmfu0tKOxa9L0c762SX8c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=j2BMPAocDYMQivjJRrMUmpL1QRkYiVIKg2ATMiKBheO9SDjdDBdKkxEyeW590ohl3
+	 BcTNT3IBfUH4UmiTgjjf231BT2wWVBdFEKvFC8ojxXzxTOJQNMXxmPXz7NgaeGiJJa
+	 0CokYhEsq29t6Q1WknMMilGOJPVpMJy93A+38ztdWSIN+0ZMos/EZlI0THMTjLUIQO
+	 C0ljCL62AW3DJABIWjR7I1cZjV0FjJ63NLE1bU23b28xT9gSD1nE8Fqh3wk6REfVIV
+	 n471E0Um+HAj6AHuy4qc1Idn8mCVXrpP8uHXoKPbuWYZ6V9KekGdkzmjTWQFTWFpBo
+	 948N1tEF0qbKg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 487A847204;
+	Thu,  5 Nov 2026 11:07:05 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Thu, 05 Nov 2026 19:06:35 +0800
+Subject: [PATCH v11 1/5] dt-bindings: arm: add Ambarella CV75 platforms
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,36 +82,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-References: <20261104091136.151269-1-cwweng.linux@gmail.com>
- <20261104091136.151269-3-cwweng.linux@gmail.com>
- <ausb-YqIJM0mI65Y@ashevche-desk.local>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <ausb-YqIJM0mI65Y@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261105-cv75-soc-v11-1-aa6ee0b2380d@ambarella.com>
+References: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+In-Reply-To: <20261105-cv75-soc-v11-0-aa6ee0b2380d@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org, 
+ Brian Masney <masneyb@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ devicetree@vger.kernel.org, Long Zhao <longzhao@ambarella.com>, 
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793876823; l=1278;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=3/nmC3518iJUv3pa+4TrYyrJ8fmY9AVoXsn+4KhycZM=;
+ b=sHGDFju4cllJ5Y9Odms3t4EBMsH4RYnVLSgBITJ0YNXgkrWA0vc7OuwcD2CK0z537nRpvXvgs
+ MyYgPxHpgikCDGR2JRfTWtgvNWqEFR1Es3ev8KIJtqodBbB2pQO2EnY
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 Content-Transfer-Encoding: 7bit
 
+From: Long Zhao <longzhao@ambarella.com>
 
- > Repeats what __clk_is_enabled() provides.
+Document the CV75 EVK board compatible for the initial SoC bring-up.
+The ambarella vendor prefix is already applied in the devicetree tree.
 
-I would prefer to keep the local flag here. It tracks this driver's
-clk_prepare_enable()/clk_disable_unprepare() balance, while
-__clk_is_enabled() reports the clock core/hardware state. For a shared
-clock, it may still return true after this driver has disabled its own
-clock reference.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ .../devicetree/bindings/arm/ambarella.yaml         | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-The flag is also used to avoid EADC MMIO accesses after this driver has
-disabled the clock during suspend.
+diff --git a/Documentation/devicetree/bindings/arm/ambarella.yaml b/Documentation/devicetree/bindings/arm/ambarella.yaml
+new file mode 100644
+index 000000000000..72946e94fa76
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/ambarella.yaml
+@@ -0,0 +1,24 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/ambarella.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ambarella SoC platforms
++
++maintainers:
++  - Long Zhao <longzhao@ambarella.com>
++
++properties:
++  $nodename:
++    const: "/"
++
++  compatible:
++    oneOf:
++      - description: Ambarella CV75 boards
++        items:
++          - enum:
++              - ambarella,cv75-evk
++          - const: ambarella,cv75
++
++additionalProperties: true
 
-Thanks,
-Chi-Wen
+-- 
+2.34.1
 
 
