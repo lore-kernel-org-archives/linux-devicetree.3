@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862968;
-	b=WvZq2gN//TLYQOXeM3z3aRb6k4dLRhrojy3HeiNxm7eIDDcPgl6F5DttHrIhreQgW6lo
-	 R1KZ80/w2kuK0UK0k7wEvMomtyIGQV27vTH/6fwATfhZa2NKKtVK4dgt1XPNjatqjGL1u
-	 /Mm6wd6H6MdTqB9y0X5nBPig2nn0kP0tuu/igrVtobfYHt0dgmDtG+zTErveyhgj55EeR
-	 bxv+ECyOIqjXFwLYtAnRU5wPMVMn6YeZSMxhHk0dkxFUeuw1CuY4rpPFB9hnpHgpLDg73
-	 RKc0IkOUf243jBFdO8M77x7BCh9h5MjcH8ShYEuD2eeV5K8djwd/cj2ORSLz5Byxqgg==
+	t=1793863369;
+	b=gl3hPdaQkgkALCN74xo+AdF3cz2WlggPejoI3/QUNMyphiZxZlzWhBnpJSVmeoIN3wvZ
+	 6Wkt9nusfrrCjH6Y8q79tu1x3jsBBC4vzOsFuZE4crQLEH2KpMWDMMNIw6tmBgBe0mYN6
+	 vIVgc6bMRIhRLQX1YXUaygpO3pHWYQrD8KoWdJixZsqG9gVa0B5BTlBLNVfkRhpzMOpAc
+	 GMHKkwjb2knlF6t61EfOOFJ2Vh0uW3etDjP13lYzleD/+IxZLplUjiM1yAr4FY+/uzWqN
+	 db+cUbewenmmCRRMjCIVjy+yQg73rmtVGGSOKl5UHNuRvOU9pkAN6fRk5/m5kfQYsJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862968;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863369;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+FmY+mgxFgqwkq7YPaDsVj4gsernncOhtiWLO4wZPi0=;
-	b=Du+Y5oKl50hy1UN6yJkoxZCd9MlMyHs55Dcw72C4BTLjYcpSzjwsQZRq1nw18+npWso6
-	 1h2oIM48MKEKiDRLy98nKKn6mJFk/2OzjM8Q7lWNYTkpehGutQN/lBcWW1lXlZXDV79eu
-	 E9r5BGB56CqY7VIwWAMURHQrxuKpOI/t7mgqA4QxgLQF1gdXngp6Qg/e0xMhUmYzTwwIJ
-	 GN9sjGfQy7uCrLUaBlXO2S4EKonCWwQAw7ljILK8FnpEHp53kOekP6IaXNc2YI8aIdQkn
-	 I3CKBNjtpZr5ktPgtW23zdoWlJJhZXDGTtkdGKmAEoJvQiuK6xLWkTWcgRpshXD+WNw==
+	bh=SHdRrrzzfk3KzxcEypxJwhTq5vxTGZWRotf454ZhvV8=;
+	b=jSxhxYEl/8MYZbAO7zn/iwuBxAG22QugvVmFLA455E9QQCDRcis3g11xkWQf7Dn6wL80
+	 0AeIUQ45yEDQyofHDurAAFr0DM5pwDmfqlE9QMdLRp3qAGcxC4sC37kmZBKbUA6j8+HF2
+	 ew/SPw64Mxt4ml3bpYRsv4pQbplkTdoE50lOZEXw1mv+wKOMCO+S62aILEeo4SKOWzOq+
+	 QH7PBcsyKS0Yfy6Z4MscbW8b9jy3qxAm5zc3I36XdGXVKSJDHqkv9U5pXKOAAe/dcK/7T
+	 uvyf7btJJNUDZpN+rXqVXpv4rd5HmbBwJH+QKxqcvvFLPP6WMnz6r74ZO8zobxLri0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5b4vtSV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZdPS8an;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7F3606A326
-	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 07:16:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18711606A326
+	for <devicetree@vger.kernel.org>; Thu,  5 Nov 2026 07:22:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5b4vtSV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65FB71F000C1;
-	Thu,  5 Nov 2026 07:16:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZdPS8an
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF7E1F000C1;
+	Thu,  5 Nov 2026 07:22:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793862967;
-	bh=+FmY+mgxFgqwkq7YPaDsVj4gsernncOhtiWLO4wZPi0=;
+	s=k20260515; t=1793863368;
+	bh=SHdRrrzzfk3KzxcEypxJwhTq5vxTGZWRotf454ZhvV8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l5b4vtSV/90aJHUM3xrKMCIAqAO/NIuQ/jMMeVcTqfqqIDDN0R5GTkoyvbGadgBSP
-	 +kYlVdgcWFEkvWTB2OYpLUjUUxIE56QSRfeRn+2+NlSn9cY2c6cj/joJup6tGyfxlA
-	 CQEFPgjsFEaE5Q2u5n5+c/RvWRSNtz0vaG4rsPKnQc7Tpgk/iSsuv8PDT/EptfU+Zk
-	 9EwICWm1oYQg8eph/ICuofTPf1C5zMLFykNgtg9i4vLbMQX1uOfST44UqXq5KqWaP2
-	 UT9Ube4sAySuhBoXWo8t4aK7YXfn7KCba5o7RkTLF+vb+8OvG4Rtu5GQyKqr6UQmbE
-	 3H40vehTv6O2A==
-Message-ID: <sashiko-outbox-198649@kernel.org>
+	b=WZdPS8anr/1XsnaGCDU73MioDW9D/otpofWCXd8bxdwDZXkkdfxKSpequSbkMHjzI
+	 1n+nr3Q1QwV3edK8XP5HPtq3dXRlXZrctA/4UgeH4EK5cgMd54UAeTeWecjr3TdAcl
+	 ye0bwqGcgr1j29xPMDENCaUohgKXvW1oV8/CedDwf703FqmhN0ohRFU8d1tGFrH+nt
+	 e+0qYQL09VtLCd2HX+F4kVbEq2F7qWe64DBxIIL59JiXsXwtghMTX8yzR9cTjbnolN
+	 q0PfBcma/yInJt8hZosoTFCHeIZVHe/AapeW9P6CsgMm2zI1Y+mn3HOHA1OjC+bVHc
+	 aTKNrW3L3Q5zg==
+Message-ID: <sashiko-outbox-198661@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: dsa: lantiq,gswip: add
- reset-gpios
+Subject: Re: [PATCH net-next 2/2] net: stmmac: Add Siflower SF19A2890 glue
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Joseph Telaak" <joseph@telaak.dev>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261104-mxl-gsw1xx-reset-v1-1-53839bf5c88e@telaak.dev>
-References: <20261104-mxl-gsw1xx-reset-v1-0-53839bf5c88e@telaak.dev>
- <20261104-mxl-gsw1xx-reset-v1-1-53839bf5c88e@telaak.dev>
+In-Reply-To: <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev>
+References: <20261104-sf19a2890-gmac-v1-0-a15965a49574@telaak.dev>
+ <20261104-sf19a2890-gmac-v1-2-a15965a49574@telaak.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 05 Nov 2026 07:16:07 +0000
+Date: Thu, 05 Nov 2026 07:22:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,87 +62,46 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: net: dsa: lantiq,gswip: split GSW1xx into separate sch=
-ema
+- [Medium] net: stmmac: DWMAC_SF19A2890 depends on undefined Kconfig symbol=
+ MACH_SIFLOWER_MIPS
 --
 
-commit 436a7ee0b7ce4df05ec852987339de64af0a633a
+commit 525b363248f5ebf2554b1d2d37b10b76ddf73d26
 Author: Joseph Telaak <joseph@telaak.dev>
 
-dt-bindings: net: dsa: lantiq,gswip: add reset-gpios
+net: stmmac: Add Siflower SF19A2890 glue
 
-This commit adds the reset-gpios property to the lantiq,gswip DSA switch
-binding for standalone GSW1xx switches and disallows it on SoC-integrated
-GSWIP variants.
+This commit adds the stmmac platform glue driver for the DesignWare GMAC on
+the Siflower SF19A2890 SoC, configuring the PHY interface mode and RGMII
+internal clock delays.
 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml =
-b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-> index 49af5573e452d..9a74ea2a6dcdd 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/lantiq,gswip.yaml
-> @@ -40,6 +40,11 @@ properties:
->        - const: mdio
->        - const: mii
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/et=
+hernet/stmicro/stmmac/Kconfig
+> index c6559e749c0ce..78efe78590220 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -201,6 +201,17 @@ config DWMAC_S32
+>  	  SOCs GMAC ethernet controller, ie. S32G2xx, S32G3xx and
+>  	  S32R45.
 > =20
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO connected to the hardware reset input of a standalone switch.
-> +
->    mdio:
->      $ref: /schemas/net/mdio.yaml#
->      unevaluatedProperties: false
-> @@ -173,6 +178,7 @@ allOf:
->          mdio:
->            required:
->              - compatible
-> +        reset-gpios: false
+> +config DWMAC_SF19A2890
+> +	tristate "Siflower SF19A2890 GMAC support"
+> +	default MACH_SIFLOWER_MIPS
+> +	depends on OF && (MACH_SIFLOWER_MIPS || COMPILE_TEST)
 
-[Severity: Low]
-This isn't a bug, but Documentation/devicetree/bindings/net/dsa/lantiq,gswi=
-p.yaml
-combines two distinct hardware integration models: SoC-integrated MMIO
-switches (lantiq,xrx200-gswip, lantiq,xrx300-gswip, lantiq,xrx330-gswip) and
-standalone MDIO-attached switches (intel,gsw150, lantiq,peb7084, and
-maxlinear,gsw1xx).
+[Severity: Medium]
+In drivers/net/ethernet/stmicro/stmmac/Kconfig, the DWMAC_SF19A2890 entry
+references MACH_SIFLOWER_MIPS in both its default and depends on lines.
 
-Because these two families sit on different buses and use different resourc=
-es,
-nearly every top-level property outside compatible and ports (reg, reg-name=
-s,
-mdio, gphy-fw, and now reset-gpios) has to be conditionally constrained or
-disallowed in the allOf if-then-else block:
+However, MACH_SIFLOWER_MIPS is not defined in any Kconfig file in the tree.
+Because undefined Kconfig symbols always evaluate to n, the default never
+activates and DWMAC_SF19A2890 cannot be selected unless COMPILE_TEST is
+enabled.
 
-  if:
-    properties:
-      compatible:
-        contains:
-          enum:
-            - lantiq,xrx200-gswip
-            - lantiq,xrx300-gswip
-            - lantiq,xrx330-gswip
-  then:
-    properties:
-      reg:
-        minItems: 3
-        maxItems: 3
-      mdio:
-        required:
-          - compatible
-      reset-gpios: false
-  else:
-    properties:
-      reg:
-        maxItems: 1
-      reg-names: false
-      gphy-fw: false
-
-Instead of adding more variant-specific exclusions to this conditional, wou=
-ld
-it make sense to split the standalone GSW1xx and SoC-integrated GSWIP bindi=
-ngs
-into separate schema files?
+Is there a missing architecture Kconfig patch defining MACH_SIFLOWER_MIPS, =
+or
+should this depend on a different symbol?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-mxl-gsw1xx=
--reset-v1-0-53839bf5c88e@telaak.dev?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261104-sf19a2890-=
+gmac-v1-0-a15965a49574@telaak.dev?part=3D2
