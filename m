@@ -1,106 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.101
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793934993;
-	b=io2YdxuNHudDEbabbw243qivtGLf0L4M1zM8C39LB+ex2SSKgUOxw9eIILfZDZqUP1j9
-	 UxM3qXTlfHd6c3Lo5Sb2pYyHRcAa68VGFbAbVR3sZi+YSTNhIisiTFuItxZReuiXgHUuv
-	 hFiRnqCHH9rczjvB7CBCYsNmcdtEpKVlFgWDyCrxDxXefvrgmC+R1Q5xWO8wfbAbkzFyP
-	 HAR2e0mWw0b3DESCX0BRNk0hxXZioIKiapxzCCaipYoI4HE8k7LGibQLC843ocAPQLjXR
-	 oFoFyO4pxPDuIJ9ORIl1nu+WAFlvZ+UrDZErKlgKPj1EXZmXVRpI35pmuXct1AnDs2Q==
+	t=1793935535;
+	b=Sj+WIbwZao7f5e2JhANBkzcWExb44LsB7jDHYt9/ZQeGdXt2IgJozv9sirM1x9ruwCic
+	 2dvmyKMl5n7Kk49BblO4V45YrJp2n/k6G7kgfPwBjVveBheMMn05ichbOxwo6jIDMUOS8
+	 8jllI3tIvde9NsmDCoSxqiURFEokfS7iCKNvJwF93BjN3qKHxMTUi5a8KXH/pem32A5EC
+	 XzEOXWwKCBL4PDZbdILfgK1jc3w/Ir9P6xWl9CugxtPPiKQVZyTSeSWfvlYuycNG8U2oB
+	 sHuzqu64oPFV2fiDa8BrIJpv7HeSbGz5+7kM4krqrHOaq99O0oFTl5Qaqxi907hLcpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934993;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dKQJ1hqxJMm5ufGt9cHkbgDEczEbIUAAlNGYNj6221E=;
-	b=BiXIF3bRNbZ+6gRO0J8xMOC9rj43mANcpR2vReIBRU+R5uT83JrQhpzKx4lRC9IW3C8G
-	 4NI8dPeS3ZKQAdwT3QCw65V1OQjUC3X3RwpL3/ZCEWAW5psq3QMpmisGyKoSQ4CLPl74Z
-	 NdC+2oneDoZVixqMdqX3CTBjgtU6RyoXu4Gll5EWXDuqFmtFOvTj2eP76jh49/rufmaLo
-	 HKrM+wibT03HDlJ/py8sMr3NGICBFdftJVT4kRdbAAhhMq4f39jUeQ/YUesDuWYJDVDNy
-	 eeJ0ylXbV/tB9aBExxWubWjYnASlnPNDuUjRFrtQDHO4hkP6zxZHu5EEFFCJstSMMsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935535;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	b=swYHMkTU/2a0om9RUitVXdiV6o7N/9RNBQWBxUboBUk8z8rp6hvF5ZBZNAmIOvREnyjS
+	 XXntrlo3p8NVWzuC7QEvcIX+nR2tySphwyTWChWNDzQ0+GxL1+1m6JVjnX50JMeGeAJNB
+	 rMNNpTWzJsv/C0EMxY4wdhrhAnzssPfjxhsb05Mn5EAgCyf1r13RZmN9KX3Dp0+DrF3yp
+	 BzrAXlIaK6cQduNtnuf9PWSjt1O2X4YgAK5Yftm9HyeUKDUeHkwwE5F23KDCW9fFo+MKF
+	 7Pp7B/zRI2nA4dIkhLlmOmt0qn5qO8O1bOlCNuEtEwOcz6gjt5Ch3OxECdA3QT7ByFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=HrsnGpPD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.101
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022101.outbound.protection.outlook.com [52.101.126.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzU9QK71;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82577606D804;
-	Fri,  6 Nov 2026 03:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82577606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB003606A326;
+	Fri,  6 Nov 2026 03:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=HrsnGpPD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CMTZvMyLw7LWtaA4GjKrnog57msSZAOHQVDgKWCQfSZxoPhsxHaWE1vXg7o326J4bZO4x/upiVlL9JvPoArMtpgjI2fj3YQ9uN7sbv2GirpE+B5AHtUH70gy6BRvxaPwumGFfCHv+FpEfI1Ad5yWWZMMw0ohYs6aKtYkO+zr7Sf94fwKyg2A9nAY13BNn/43XaEmIMaDBMVPMVd7z6aZKqbHmjECbSi/SAyKDVQI/oRvXTV1SYdPRsU2IaMNGEthDs3QCFTQ795gMWsMsyidpjr2ZZvFHYW1OkSyoOrRb8QQhb8ATY/akBVbUzba1Fn0dGP1UF0jn6+TrkmMZXPPeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dKQJ1hqxJMm5ufGt9cHkbgDEczEbIUAAlNGYNj6221E=;
- b=E/ANFnAcrN6oRYyN7maSGEe0zBflAlPXfbITxIMJFHkjxUgVt9TylkNna7Af7GQVxnY+v7FauNT+b9OPCmccbKOY1r1rLsQO/BlRi8A/mSBOktNeJkwntRyLDcLqKQI/3HF+lXg+4UJGgCXKRC9jBTm7ZiQJTqEod6/EAHVw3/j7cfcKUfhbJuOp3vxcOaB/WR+8oOCzwYhjgjFdQkI7l6/herouPk0YJyF/OPZWKsqCM9IDE+xj5aqauWuU/+eeQ0ROeLU1O1mSBbcConkBaGoS3Jt56YQ4I+bH2Fd5KXToeJ1Pr7Q/AVWuy5LyfwVVcfLICdY5swuER24nd/Rehg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dKQJ1hqxJMm5ufGt9cHkbgDEczEbIUAAlNGYNj6221E=;
- b=HrsnGpPD4CmNlbPEVL7Dq7DmuDRmBV0CsMJC/ltAWBIt4I3og/sRzWZb3TsY2cThGSvGP7JZSZhtgAj21n2WbK6orey4TgJhtrx/w7eaqGlETxzP/+KGXw3pgQFcCqWYjqicq62ocdBYlFN5zaIrDKMGBGV4KMaqteXiXWkaDSlCKRQH465O4zFowfLkK9xZ34ojOjcJtdvvrKNrW/pjGwrzUDyUr6TbZPGBVNjfbKYPazXQLf0hB1ZGUg0z5gTioVpOEbmR9cNcAOwxPh48qTvfNZazxRU5O9EetTIHeCfwW3mca4MOgguwzC4IDJxChAJPbuWA1ujCPwgGQpE+Pw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
- by TYZPR03MB6893.apcprd03.prod.outlook.com (2603:1096:400:286::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 03:16:29 +0000
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
- 03:16:29 +0000
-Message-ID: <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
-Date: Fri, 6 Nov 2026 11:16:21 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-To: Krzysztof Kozlowski <krzk@kernel.org>, Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261103163715.385394-1-tanure@linux.com>
- <20261103163715.385394-3-tanure@linux.com>
- <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
-From: Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0055.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:3::11) To KL1PR03MB5778.apcprd03.prod.outlook.com
- (2603:1096:820:6d::13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzU9QK71
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793935534;
+	b=Oall/iB4qLeI4mRD/Zp5aPdhXrWVRkNPdsb6tKQS1J1vLbXDso7BxKkuumsp82sQZlx8
+	 n5UcKuQgaB6Ji+2mWTyFHvPRkI5mXO3et7/7IltD2JW53ljxWySot+Es6Y0orE2BLFKy5
+	 V4Oi0SkLLtkuG+qiI9IDwVRmYluu6uzBeOKZwdDzLOvprEhmEyruWG/SRLeZJKgPsGAbo
+	 ZYFJDQ0cwvI13+ZHAJertTrVW8Kvw9ANoQYtyf/bRc+QFdiTCtmycRFxB3qxpxRYwaHjX
+	 lcJD+9n6vI6tecAg6UNh0xxHwLEaV4/mG4TeR2naWds0brp9i1NMOWgK/etodTIuh6w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793935534;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	b=nyPQR2uvZlXvs+ZWwVDp3usXcwD0J98e9eTs/yhr9Mdy9RFi5DkesymOrLAgnfs47V4Z
+	 iMLxZqNAtrYF1GLWKZvPM19K0iSkC2Onv7bMOESqblJ+g+FhuvJ4e9kweeyZ8JQQLbiOJ
+	 YS5YNqiKFN9PtOSdT4PqUyxy/Jas8cIT4jueAWwXX67B1dFEaXTVqCIe/bv6Ghb5fxIHA
+	 YmaR3cxgfucqqfCQjaBvODH8D+prb/Re7+jrAr0TLIsbmdyNuWR7MLGrOxWoqRcphSABQ
+	 dqO6lcdW7Fi/5I9YrcoyBF4mBKwQ3/jePRad8CO9l0iqD2k/I7HUHrP8gFgZQJeOrmg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 28D4E1F008A2;
+	Fri,  6 Nov 2026 03:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793935534;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GzU9QK71AlaYTzjyjJyYRcKBnkxMo1OZ+54aqyIMfEasKnEK9x14DnKpPXG+0dQjU
+	 RnmtKCWjIbhWckJirQc4NXIdqMi09HK1TJ9Fu8jG8kzqfwIYmV0kX9Ky8XGOUJPMxh
+	 IWDUSch24Bwl7wtloxL8RGaIPMAesrsmqcxgg4DFo7umVERMwdG0mcQWNWb9tQiK8Y
+	 BrQzGGaKW0HNElUr4zBggVvyRIi6FI6U69G5F383xC1uTvdVaijci3h43lYRmF/ckJ
+	 Yw+uFiaVo0GT/SgtwWc6KWOr/BbEECP2R9wa2VBv2oBKLzqouadusTBBmVwb6Z+uU4
+	 34A9vAn+FwLOA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 789DD45B8A;
+	Fri,  6 Nov 2026 03:25:32 +0000 (UTC)
+From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
+Subject: [PATCH v2 0/5] media: qcom: camss: Add SM8150 CAMSS support
+Date: Fri, 06 Nov 2026 03:24:51 +0000
+Message-Id: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,199 +83,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|TYZPR03MB6893:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5d1db88-85d7-42e6-b95b-08df3bb4594c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|22082099003|18002099003|10067099003|14125299003|11063799006|4143699003|56012099006|261028144727099003|261026121527099003|261021123027099003|261102123227099003|261022105027099003|261009223027099003|261021121427099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	ko1UReoZElL7bRcS5Y8cXY40TLHp2fud4HB0kEE96vUpwcldjvjYtSbJAD2FKfBMHSQZu6s8RSAYUZ/9hjNEzNR9uJgkVNl4U+1hhTzCTjum+pSIBaBRfLMf/SnWspiCyBDQ4W5c3x/gBaABWtaWScVJtXQSBoC7nqdIfAs5WcouEN0RWlGQKazZwI31cxvLZrb8kHBpOSObYvqwc3GkA0pHEjyIH1IeD2COV6MVHuHpr7e0mEvFBi4DkecEHYIz1a+GafpaiH4UKG70aaYLPz+LHhzmPQ4TfWsb+szQQuoRGId5RKUqZa588fM1zSH8PVhGKA3pCR+C+ceX6XPJwNkw+0X6XgmLsDKrCnfcCaBU+B4OgP1qDfdH6s6pN9zKleVlW98T29TrWK2Pn3aSevVPeYKPNI6nHd83vF4RnpH44Fx2MA2/OBlCgMDrLhaKqhh2lvuHLg9hsk5+94bS1wEK5FLMBVLGKHBchSCtpW1AhkhBNjxeG5OiM2nlNPGYNIwT4iRq9t0YnrMsHhcHplF02jgADOJaYtLL3l67DMiczlkJY6BF+sDnl6ikIiUfkEfVJTglJEheMHtXCDza66jYAa3l6rExhuQwYcNgdfoxBzegpIexOVvWzhNW20+Z+mdsW2yzoh2mVMcLFyJs0eZLbQatdwXe6dbjZ4P2MlA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(14125299003)(11063799006)(4143699003)(56012099006)(261028144727099003)(261026121527099003)(261021123027099003)(261102123227099003)(261022105027099003)(261009223027099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3hTNmNLNGdxOFVtNDczaUZEQ0JwL2REaW1RNit1YzdUQlUwZzZENndmVTdG?=
- =?utf-8?B?anZqaWYxNytXa0lhU0Qwd21aQlNrcE8vSzdsWVFVWDYwRC93NmRZVFhCcG8x?=
- =?utf-8?B?NVZPTlFuMjJualhWU3d0cXREMlZJMWpkcGtHOUpLNlFCRnVCdTVIc2lLQmNV?=
- =?utf-8?B?WTAyN3k0cXVZQmFrOFhKakc0c1JBREJTT2FWakhQREY2ejhiRVZCWnhwdURB?=
- =?utf-8?B?QTF3OWROSS9KaEsvY1FnU1NZdFpsazRQbGY2UXJQelg0elNLQ3oxaXlGbGIw?=
- =?utf-8?B?MVNmNmxZWUlPeG5UaDVwWjFXZUJjd2FNS20vek53cTJqdjNDcGRsckpkMnlC?=
- =?utf-8?B?dWl3OFViODhJUXY4cXFRSHcyeThLdi9mYmcyZ1RHZ1YyZ2VZazRUanNONXA1?=
- =?utf-8?B?a3pQc1krL3JxWUMrY0kwajYrVFpjREM0dTc2cjlpOU1aS04zY3pXUDVvSyty?=
- =?utf-8?B?TW5Wbi8yT1JxNno3WENBWkZ4eEQwSVlJT1NtSW9PRUdMeXgzUmxXck5QaDRm?=
- =?utf-8?B?bFQ3S3BQaTU2YmVqQU5IRC9jOUdjcFR0Vk0vZ1JVRUx5SCtxbk01c2x4QWR2?=
- =?utf-8?B?aDRTdUNEdkpsdUpVUVowbHVBWXZIam1BdVUrWmhWM3hHMlkybUsrVXRhNUEr?=
- =?utf-8?B?bnRKQTZHbVBwS3VVOEdvTDJubE93VDhDY1pKT3RhQUh4KzFSTUJxa3B4OTFm?=
- =?utf-8?B?Wlk0akdoZW9abmxWcDl3UDdnYTdpMWUxVmNGVVZYUnAxaHpyOXRJa0JXQXlI?=
- =?utf-8?B?blBRdE1xaGZkWUtqdCtMSXJiSm1uNW9mVnNab3VaT200aTVPNi9MZnN0QVoy?=
- =?utf-8?B?Uzc3V0xONVgzN3BkdlBxTEpwT0h3YWY5WEFZOTBBRFpocGJPc3lPOEQyRTZq?=
- =?utf-8?B?dlpDeGEyTFZuQjRvVHFDY2o1RnlVcTZZL3E1UkVHVlpEVVM3OStNVGdjK011?=
- =?utf-8?B?SGlZVUlCM0ZQK25zUU5sTzNlSlp1WGJ5UTMrdzIydks2MDh5bUZlbDVSaUp3?=
- =?utf-8?B?ZGgzQmxjUzFVdzZMeWh2TExiYklPNTFWVE5FUzRSUHIyYS9KTExSSXV0UW4v?=
- =?utf-8?B?NjYyZVpJT2tUY1FCTUFua3oyUFVXTlpJZ3BVMHcrUEZscVZSMnZJWjNrOXA4?=
- =?utf-8?B?dlJaMi9sY1hKc2Y3YnBveHVDOEJoc2NORjRESS9DRWZuQlh5dVl0M0Y1anRi?=
- =?utf-8?B?ZzlndjN2UEtlSnJvTEJ0dEdjT1RIMHdQZU9WYkZRNmdVYlM2TFNXWHp6Y3Vr?=
- =?utf-8?B?RzJpeW9XMklxOG9uZHFjNktpVjgrdlMzR1NkSTMxUFBCbjN2L0dmTERPVlhY?=
- =?utf-8?B?aVU0ZTNEU2tOYlRQbDQ5V3Z6KzVVSHE4R0lGN1ZURnVOK3RlblFTOEl4amtl?=
- =?utf-8?B?NGhBKzhwS3NCRVd6dE1rZ2wvOVVzU3J2NVlvWmkzMU5ad0Rxc3lscnFwMmRo?=
- =?utf-8?B?ZXl2amNHK2preElJUzJlTGQ1TXl0S2FLa1IrekRheFZuMXZQbWFLcnZRcFRi?=
- =?utf-8?B?WE9MR3JPN01KWllVaHR0K2ZLUFhqY3VqcnlHbklSNEU4YkVzcW5NcGZ5akxm?=
- =?utf-8?B?cG5zeE9OSVlOZFJpVzBaMGhkakMyVDVWMHVMVTNYR3lIYWpKbVFGL1Z4VEU2?=
- =?utf-8?B?NFRxL1RhemVYS1dFWEkrZkxyZ3JWSkdkU2dEMFdDV2JDbmF5MUNNakp2NDVY?=
- =?utf-8?B?Y1RJNG1UbEdOMTdwNUJmSzBIMHd0U2tlQ1lVWTA5QVZqVU9IZi9Iak1KT1FL?=
- =?utf-8?B?djRoMkdoeXM4TnhNellnL2FkdU83ZGM3clp5MTNGMDdoU3R0MEFVdkpnQXJB?=
- =?utf-8?B?ZmdCalVxWUliUjl4K0xiR1pIQWtSa0RYbE5hdG1MRzBXUnU0RXB0VGRjQ2FS?=
- =?utf-8?B?Z0s3UlhUZXgxdWM0MWVLZmU2RTNTUW1RM3dtYXAwenA5N0x6TDIvamFkbnRV?=
- =?utf-8?B?NkhUbzQ0dWJXTkNpaFNYUmx3alNJaHdLNG51Q1VMQ1kvRUo5WnFvc1ZnSlpQ?=
- =?utf-8?B?azFZczBIWEhSVTdCM2hjRjVXWjE3V01iWmkzdU5iYmpqTkwvZHdFMm9Sa3BB?=
- =?utf-8?B?a1N2MDRtYTYzWVlOczdwME1MVFRuQXp4MzJDMTMvN0E1NEJOQjJJcDRSR3pX?=
- =?utf-8?B?QW9hK2VTa0hwaTVjVkowRWh1UGZhSUNRL0tiZ1ZTcE1ybWRVYUxUY1RoeVR3?=
- =?utf-8?B?QXJkbit3S2ZUa205UEI5OG1ITUYwK2g5ZjJTTk1aSmVpcFhrTERXZWF4WFJV?=
- =?utf-8?B?dHRBdGllWWIzYWt1RUZWK2dZN1ZaREYrcWJhbXdxM3VuTFByd2NTb1Z6Y2ov?=
- =?utf-8?B?R2ZoOEZlc2FQU2RBV295RGFDOENPT3M1UnE2c1RvZVdqMFdCcGlNQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5d1db88-85d7-42e6-b95b-08df3bb4594c
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 03:16:29.1079
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kXhOdMJZu2nvsEapOzqjhowOstq/bh5cMtt93ac5zaD6XAjURMKDesWCPDpjTGlxI3SdDtHyNOK3KlSLmlNkvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB6893
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0K6dkhbQMSV9zAsxnaAmlBMB6uG9
+ O4CHsDlS95/fxFMwRGLc7aIQNGxm/wK+pAJM6DvCZxdWWipj0rJEng8qUpCrPMSglFgcGQGW1h
+ bkdSoainW7SNQ595799r+mJ+3O5l5i23G4Hiewmc/jmrz/n1EBRJqbKqixAa17i7obaBX73rym
+ FuKok0pfQFJ665r0wAAAA==
+X-Change-ID: 20261104-sm8150-v7.4-rc1-camss-d3dd5e02a170
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793935531; l=3089;
+ i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
+ bh=qLVJbZNBqU02j9nDuuDniRv57jjqg5cA/kA8QxuVntM=;
+ b=PYcC/EQh4zF8hn21EmdBlq17VpmgZQ2Cy3YQKqECxFxBxwEjdcRuRJvErOXRfOiPgGiLpqDCP
+ 3JJI6lxH6/GD/K7zuBWszqJYI4oiPWM9cN2uUitJrhKPBqzDL8LrtwQ
+X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
+ pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
+X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
+ auth_id=1402
+X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
+Reply-To: mail@andrewgigena.dev
 
-Hi Krzysztof, Lucas,
+This series adds SoC-level CAMSS support for the Qualcomm SM8150
+(Snapdragon 855), based on v7.4-rc1.
 
-On 11/5/2026 7:57 PM, Krzysztof Kozlowski wrote:
-> [ EXTERNAL EMAIL ]
-> 
-> On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
->>
->> Assisted-by: LLM
-> 
-> Drop this one.
-> 
->> Signed-off-by: Lucas Tanure <tanure@linux.com>
->> ---
->>   .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++++
->>   1 file changed, 59 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->> index e769c9bb70d8..6de013e3e8f6 100644
->> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->> @@ -23,6 +23,7 @@ select:
->>             - amlogic,meson-gxbb-dwmac
->>             - amlogic,meson-axg-dwmac
->>             - amlogic,meson-g12a-dwmac
->> +          - amlogic,t7-dwmac
->>     required:
->>       - compatible
->>
->> @@ -57,6 +58,59 @@ allOf:
->>               - const: clkin1
->>               - const: timing-adjustment
->>
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: amlogic,t7-dwmac
->> +    then:
->> +      properties:
->> +        clocks:
->> +          items:
->> +            - description: GMAC main clock
->> +            - description: First parent clock of the internal mux
->> +            - description: Second parent clock of the internal mux
->> +            - description:
->> +                clock of the pipeline stage inserted in the bus path between
->> +                the controller and the DRAM. Without it, the controller cannot
->> +                complete DMA transfers.
->> +            - description:
->> +                clock of the register block holding PRG_ETH0 and PRG_ETH1.
->> +                Without it, the block reads as zero and ignores writes.
-> 
-> This sounds like you take clock from other block. That's wrong, that
-> device should take its own clock.
+SM8150 contains four CSIPHY, four CSID (two full and two lite), two
+VFE and two VFE-Lite instances. The blocks are close to the existing
+SDM845/SM8250/SC8280XP implementations, so the driver change only adds
+platform data and hooks the SoC into the existing Gen2 CSIPHY, Gen2
+CSID and VFE 17x code paths. No new register programming sequences are
+introduced.
 
-I see that the clock in the dts patch corresponds to <&clkc_periphs 
-CLKID_SYS_ETHPHY>. This clock provides the working clock for the APB Bus 
-of the ETH PHY controller, and this clock will affect the register 
-reading and writing of the ETH PHY (including the ETH_PLL). See section 
-15.3.4.2 RegisterDescription in A311D2 Datasheet for details.
+The series documents the SM8150 CCI compatible, which the CCI nodes use
+with qcom,msm8996-cci as the fallback. The patches are ordered bindings
+first, then driver data, then the DT description. The series is
+intentionally SoC-level only: it does not add a board DTS, camera
+sensor drivers, or board-specific camera wiring.
 
-> 
-> 
->> +
->> +        clock-names:
->> +          items:
->> +            - const: stmmaceth
->> +            - const: clkin0
->> +            - const: clkin1
->> +            - const: pipeline
->> +            - const: pclk
->> +
->> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
->> +        # The RX delay line of this glue is fine tuning in 200ps steps,
->> +        # added on top of what phy-mode describes. The TX side has no fine
->> +        # tuning: its only step is a quarter of the clock period, the full
->> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
->> +        tx-internal-delay-ps: false
->> +
->> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
->> +        # properties instead.
->> +        amlogic,tx-delay-ns: false
->> +        amlogic,rx-delay-ns: false
->> +
->> +  # Delay definitions for Meson8b and newer
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - amlogic,meson8b-dwmac
->> +              - amlogic,meson8m2-dwmac
->> +              - amlogic,meson-gxbb-dwmac
->> +              - amlogic,meson-axg-dwmac
->> +              - amlogic,meson-g12a-dwmac
->> +    then:
->> +      properties:
->>           amlogic,tx-delay-ns:
->>             enum: [0, 2, 4, 6]
->>             default: 2
->> @@ -106,6 +160,7 @@ allOf:
->>             contains:
->>               enum:
->>                 - amlogic,meson-g12a-dwmac
->> +              - amlogic,t7-dwmac
->>       then:
->>         properties:
->>           rx-internal-delay-ps:
->> @@ -142,6 +197,10 @@ properties:
->>         - items:
->>             - const: amlogic,meson6-dwmac
->>             - const: snps,dwmac
->> +      - items:
->> +          - const: amlogic,t7-dwmac
->> +          - const: snps,dwmac-5.10a
->> +          - const: snps,dwmac
-> 
-> I see no such hunk in the code, so not sure how to review this.
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+Testing: with a local Pixel 4 (google-flame) board port and
+out-of-tree IMX363, IMX481 and IMX520 sensor drivers, the rear wide
+(IMX363) and rear tele (IMX481) cameras stream, and the front (IMX520)
+path has produced frames. The board port itself is not part of this
+series.
 
--- 
+checkpatch reports no errors. The only warning is the new-binding
+"MAINTAINERS needs updating" prompt, which is a false positive because
+the existing CAMSS entry already covers qcom,*camss* bindings.
+
+Changes in v2:
+- Address the review comments from Sashiko, Bryan and Val.
+- Drop the internal CAMCC *_src clocks from the binding, the example and
+  the DTS; the binding now lists 27 clocks instead of 42.
+- Remove clock-lanes from the CSI endpoints and use an unnumbered
+  endpoint in the example, matching the other CAMSS bindings.
+- Describe vdda-phy-supply as 0.88V and vdda-pll-supply as 1.2V.
+- Move the CSIPHY supplies from the CSID resources to the CSIPHY
+  resources, so they are enabled before the PHY is accessed.
+- Add a separate fix for the VFE lite clock rates
+- Tidy the CAMSS_8150 switch ordering.
+- Link to v1: https://patch.msgid.link/20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev
+
+Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+---
+Andrew Gigena (5):
+      dt-bindings: i2c: qcom-cci: Document SM8150 compatible
+      dt-bindings: media: qcom,sm8150-camss: Add SM8150 CAMSS
+      media: qcom: camss: Match VFE lite clocks by name prefix
+      media: qcom: camss: Add support for SM8150
+      arm64: dts: qcom: sm8150: Add CAMSS and CCI nodes
+
+ .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   2 +
+ .../bindings/media/qcom,sm8150-camss.yaml          | 412 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8150.dtsi               | 320 ++++++++++++++++
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   3 +
+ drivers/media/platform/qcom/camss/camss.c          | 267 +++++++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ 7 files changed, 1007 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-sm8150-v7.4-rc1-camss-d3dd5e02a170
+
 Best regards,
-Chuan
+--  
+Andrew Gigena <mail@andrewgigena.dev>
+
 
