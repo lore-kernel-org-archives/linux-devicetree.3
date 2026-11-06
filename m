@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975841;
-	b=wAgmvxcIlRI2QDdDSlPMxyQcr5ZYoYvQ9AYieW89Tk9qySzFJwBTlPMjFU3M0wQRt2Yr
-	 x2BWhNjEPIJ0b6/yl5kU1181yDI7/DTR2S5GdNvISBGi3j8uYKkeiv/lFUsIp2j/RaiAE
-	 2MFQIHP4fUTi2s9qsD4D4liqzX4gKvWBfr7B8h0Orw4oEmkX/JS8Lf4tCZNW6NTGkyf8c
-	 o1iGp4u5TGz2GxvZVqGHrfNIdMuN66D5K/4xOVWlBY7Q7KMwh/mZzhb2R+e8jI9UWck7E
-	 GN0d5Ff4XnbcN9cwFAJIko/i2E3YOMSEHu8kmFUmsL59mbRyH6aO1jqsD5yXhJxlJgQ==
+	t=1793975921;
+	b=j1r5UG8qCnELROVgXDrcI4RvZz0jxWKLqBJyWw/xVNNPVQNPoRY3pAqqNU2q5yZqzRtY
+	 vLyj3fPOS8aoBg2holDezLiJLae1ddimE2m6gQGEY5ROfrLmtzHbWQTkhcDAWA3mhunA5
+	 jTsEIv+8PfIlQH2cj3KSiX5V2MYfpoyrjVb+T7TTcDC1KcwiLnOuVj/bzeIrDF34ZZI+H
+	 BVimZRLQgnPIhGS+uaDtsc9vqoGOjRLm7pDR0H1DsXhrC0wWaWgDAmMaZc7giIAYJm0V/
+	 RlgyCCC+WSEoSOuT9AtGMAhT0dnQln6TX5G92PTEmEBOpJR1ueLlCLfTpS5W0SoXtUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975841;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=PTftgrRIvuZS6jPYK2UmQUHoNqh2xc4i2jwTl7CKl+U=;
-	b=HrUcKpseECCUzfCIa54pSmpJZNDU/VFwUvKxLc5I1tsABAv7aZYwAvXmTBchzLYIUPtO
-	 IFUfycva8jMoUiLKn2NGaCXCBXdrn2pHmWv08QaI3cl3PmDwtJ43YkSkogDwJmZacUoBn
-	 /CTWswbpdlDT8zd8a6Uqn3/SO6JWziJG+Rvd2Lf8Y9se9A/7k0Gy2YXROesP30pqbVtYt
-	 tRXABO/HI+Yu7Kg+/F8J0D0vrrYa7vW+s9e4eZcDBC6Ofhh4+RKqljAMbzEzbEAvQ08rB
-	 RxqFOksIu+7V1WfeqBir74JtLdfZ/JylJJHdgqWOVsW/XYtUnDjD6vWlqzyx0uudN7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975921;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
+	b=4msg7Vs6FfmJAuz0Oh4VcifjRdYT8vHOGqhdgXFU+4O/jQQlbZ0YBdENnNQW87ysQdKr
+	 3wC/sItt4KPBG/lZ1ZljOD4IHi/ojTMluj9g5h8kbb/1QnQcbyEZoG8J13AYHJX79UD93
+	 ZaCEg78PJUvMgOJG1JIJQSWUXJtjC2OqRPM/Xth6htBfnSnfiAmE9vQ5UgX5hBwKj6ml5
+	 JPXs195Vn5MZuwnQhizWngwt7FI8GUSkufQwgobJLs3Uj9bdX4AWVOAsf4RJwgxT2Othe
+	 90bORsOiuYJJpjaCvJQ7ubp8NmyfKRYQuzGuz9OtanN/z4/SelOp9t1yYlTUygxyMXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ITaRxLIW;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F460606D80D;
-	Fri,  6 Nov 2026 14:37:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F460606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE62606A326;
+	Fri,  6 Nov 2026 14:38:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ITaRxLIW
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF9BC25DD;
-	Fri,  6 Nov 2026 06:37:16 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D12963F673;
-	Fri,  6 Nov 2026 06:37:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793975839; bh=Rs7vS6jCCarCO9ConUTH9FKbanN78MJR48sHYFzphjk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ITaRxLIW5PQjbggPII2nff9HGJmeCfipa7K+TM65V/3AylgnECZVWeukks3S7wCVD
-	 HHuAEie2Xo9KreoHxpizsKxBmdpC6CJRDi6n7QEv3Z4N3JfVxpN/NScvVdzDvvGiam
-	 Dk9Q1jDhfvAt9A5YtJiRBHra5swpfWCS4xCfieT4=
-Message-ID: <e9dd0fb6-e811-449d-bfd6-033b63aa6500@arm.com>
-Date: Fri, 6 Nov 2026 14:37:16 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40C71F0089F;
+	Fri,  6 Nov 2026 14:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793975920;
+	bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TqzkEA0Vv6FiA/EyNHSGPazSRIxmze7NsRy2HS9UFnZLYngP5FU/k984j22IxxLSt
+	 G1mXSy3pJUZtcOX0uuCh0BGPfEtKxeqPMH7iMDq1BsZtJcBmY1BE0UVjD6CfBra6HG
+	 Ag+Be9z8npxA1OZxTFuN75Ezvh/jqeYPCyuiSOmri16kQEwfLaLejNUSC+x6slW0KF
+	 d5QZgMnG4JaXAkKum09Kqzk3Tq66QmT3NfSoU+yNr6XdAc6ce+jld5vFKHTk6MlHvd
+	 wjTgR+FYIcW4Gqo/TsLmp3ku1M5OmutAW9+ET0CKcI3MjvK/5ieNg8L0Aw5+JWl32a
+	 tAC9Z8tsKdIng==
+Date: Fri, 6 Nov 2026 15:38:37 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
+Message-ID: <au3fy-xiCqgSTB49@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-11-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,749 +63,361 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 0/7] Provide support for Trigger Generation Unit
-To: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
- alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
- konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: Songwei Chai <songchai@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, devicetree@vger.kernel.org,
- gregkh@linuxfoundation.org
-References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
- <ccf65ad9-b472-4fb1-871e-c0b1a09b5971@oss.qualcomm.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <ccf65ad9-b472-4fb1-871e-c0b1a09b5971@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi
-
-On 05/11/2026 12:19, Songwei.Chai wrote:
-> Hi Suzuki,
-> 
-> I wanted to follow up and see if you might have some time to take a look 
-> at this patch.
-
-Apologies for the delay in responding on this one. But I have now
-reviewed the series, please address the comments and repost them
-based on 7.4-rcX
-
-Cheers
-Suzuki
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bfslmjupan46ngr7"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-11-clamor95@gmail.com>
 
 
-> 
-> We’d really appreciate any feedback you may have, as it would help us 
-> determine the next steps and move this work forward.
-> Thanks for your time.
-> 
-> Best regards,
-> Songwei
-> 
-> On 7/30/2026 4:06 PM, Songwei Chai wrote:
->> From: Songwei Chai <songchai@qti.qualcomm.com>
->>
->> We propose creating a new qcom directory under drivers/hwtracing
->> to host this TGU driver, as well as additional Qualcomm-specific
->> hwtracing drivers that we plan to submit in the coming months.
->> This structure will help organize vendor-specific implementations
->> and facilitate future development and maintenance.
->>
->> Feedback from the community on this proposal is highly appreciated.
->>
->> - Why we are proposing this:
->>
->> TGU has the ability to monitor signal conditions and trigger debug- 
->> related
->> actions, serving as a programmable hardware component that enhances 
->> system
->> trace and debug capabilities. Placing it under drivers/hwtracing aligns
->> with its function as a trace generation utility.
->>
->> We previously attempted to push this driver to drivers/hwtracing/ 
->> coresight,
->> but did not receive support from the maintainers of the CoreSight
->> subsystem. The reason provided was: “This component is primarily a part
->> of the Qualcomm proprietary QPMDA subsystem, and is capable of operating
->> independently from the CoreSight hardware trace generation system.”
->>
->> Chat history : https://lore.kernel.org/all/ 
->> CAJ9a7ViKxHThyZfFFDV_FkNRimk4uo1NrMtQ-kcaj1qO4ZcGnA@mail.gmail.com/
->>
->> Given this, we have been considering whether it would be appropriate
->> to create a dedicated drivers/hwtracing/qcom directory for
->> Qualcomm-related hwtracing drivers. This would follow the precedent set
->> by Intel, which maintains its own directory at drivers/hwtracing/ 
->> intel_th.
->> We believe this structure would significantly facilitate
->> future submissions of related Qualcomm drivers.
->>
->> - Maintenance of drivers/hwtracing/qcom:
->>
->> Bjorn, who maintains linux-arm-msm, will be the maintainer of this
->> directory — we’ve discussed this with him and he’s aware that his task
->> list may grow accordingly. Additionally, Qualcomm engineers familiar with
->> the debug hardware — such as [Tingwei Zhang, Jinlong Mao, Songwei Chai],
->> will be available to review incoming patches and support ongoing
->> development.
->>
->> - Detail for TGU:
->>
->> This component can be utilized to sense a plurality of signals and
->> create a trigger into the CTI or generate interrupts to processors
->> once the input signal meets the conditions. We can treat the TGU’s
->> workflow as a flowsheet, it has some “steps” regions for customization.
->> In each step region, we can set the signals that we want with priority
->> in priority_group, set the conditions in each step via condition_decode,
->> and set the resultant action by condition_select. Meanwhile,
->> some TGUs (not all) also provide timer/counter functionality.
->> Based on the characteristics described above, we consider the TGU as a
->> helper in the CoreSight subsystem. Its master device is the TPDM, which
->> can transmit signals from other subsystems, and we reuse the existing
->> ports mechanism to link the TPDM to the connected TGU.
->>
->> Here is a detailed example to explain how to use the TGU:
->>
->> In this example, the TGU is configured to use 2 conditions, 2 steps, and
->> the timer. The goal is to look for one of two patterns which are 
->> generated
->> from TPDM, giving priority to one, and then generate a trigger once the
->> timer reaches a certain value. In other words, two conditions are used
->> for the first step to look for the two patterns, where the one with the
->> highest priority is used in the first condition. Then, in the second 
->> step,
->> the timer is enabled and set to be compared to the given value at each
->> clock cycle. These steps are better shown below.
->>                |-----------------|
->>                |                 |
->>                |       TPDM      |
->>                |                 |
->>                |-----------------|
->>                         |
->>                         |
->>      --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- 
->> ------
->>      |                  | 
->>                                                  |
->>      |                  |                          
->> |--------------------| |
->>      |    |---- --->    |                          |  Go to next 
->> steps  | |
->>      |    |             |                |--- ---> |  Enable 
->> timer      | |
->>      |    |             v                |         | 
->>                     | |
->>      |    |    |-----------------|       |         
->> |--------------------| |
->>      |    |    |                 |  Yes  |                    | 
->>            |
->>      |    |    |   inputs==0xB   | ----->|                    | 
->> <-------- |
->>      |    |    |                 |       |                    |      
->> No | |
->>      | No |    |-----------------|       |                    
->> v         | |
->>      |    |             |                |          
->> |-----------------| | |
->>      |    |             |                |          |                 
->> | | |
->>      |    |             |                |          |      timer>=3   
->> |-- |
->>      |    |             v                |          |                 
->> |   |
->>      |    |    |-----------------|       |          
->> |-----------------|   |
->>      |    |    |                 |  Yes  |                    | 
->>            |
->>      |    |--- |   inputs==0xA   | ----->|                    | 
->> Yes       |
->>      |         |                 |                            | 
->>            |
->>      |         |-----------------|                            
->> v           |
->>      |                                              
->> |-----------------|   |
->>      |                                              |                 
->> |   |
->>      |                                              |      Trigger    
->> |   |
->>      |                                              |                 
->> |   |
->>      |                                              
->> |-----------------|   |
->>      |  TGU                                                   | 
->>            |
->>      |--- --- --- --- --- --- --- --- --- --- --- --- --- --- |--- --- 
->> -- |
->>                                                               |
->>                                                               v
->>                                                      |-----------------|
->>                                                      |The controllers  |
->>                                                      |which will use   |
->>                                                      |triggers further |
->>                                                      |-----------------|
->>
->> steps:
->>      1. Reset TGU /*it will disable tgu and reset dataset*/
->>      - echo 1 > /sys/bus/amba/devices/<tgu-name>/reset_tgu
->>
->>      2. Set the pattern match for priority0 to 0xA = 0b1010 and for
->>         priority 1 to 0xB = 0b1011.
->>      - echo 0x11113232 > /sys/bus/amba/devices/<tgu-name>/ 
->> step0_priority0/reg0
->>      - echo 0x11113233 > /sys/bus/amba/devices/<tgu-name>/ 
->> step0_priority1/reg0
->>
->>      Note:
->>          Bit distribution diagram for each priority register
->>      
->> |-------------------------------------------------------------------|
->>      |   Bits          |       Field Nam   |    
->> Description              |
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |     29:28       |   SEL_BIT7_TYPE2  | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |     25:24       |   SEL_BIT6_TYPE2  | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |     21:20       |   SEL_BIT5_TYPE2  | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |     17:16       |   SEL_BIT4_TYPE2  | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |     13:12       |   SEL_BIT3_TYPE2  | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |      9:8        |   SEL_BIT2_TYPE2  | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |      5:4        |  SEL_BIT1_TYPE2   | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      |                 |                   | 00 = bypass for OR 
->> output   |
->>      |      1:0        |  SEL_BIT0_TYPE2   | 01 = bypass for AND 
->> output  |
->>      |                 |                   | 10 = sense input '0' is 
->> true|
->>      |                 |                   | 11 = sense input '1' is 
->> true|
->>      
->> |-------------------------------------------------------------------|
->>      These bits are used to identify the signals we want to sense, with
->>      a maximum signal number of 140. For example, to sense the signal
->>      0xA (binary 1010), we set the value of bits 0 to 13 to 3232, which
->>      represents 1010. The remaining bits are set to 1, as we want to use
->>      AND gate to summarize all the signals we want to sense here. For
->>      rising or falling edge detection of any input to the priority, set
->>      the remaining bits to 0 to use an OR gate.
->>
->>      3. look for the pattern for priority_i i=0,1.
->>      - echo 0x3 > /sys/bus/amba/devices/<tgu-name>/ 
->> step0_condition_decode/reg0
->>      - echo 0x30 > /sys/bus/amba/devices/<tgu-name>/ 
->> step0_condition_decode/reg1
->>
->>      
->> |-------------------------------------------------------------------------------|
->>      |   Bits          |    Field Nam        |            
->> Description                |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |For each decoded 
->> condition, this       |
->>      |      24         |       NOT           |inverts the output. If 
->> the condition   |
->>      |                 |                     |decodes to true, and the 
->> NOT field     |
->>      |                 |                     |is '1', then the output 
->> is NOT true.   |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> the associated|
->>      |      21         |  BC0_COMP_ACTIVE    |comparator will be 
->> actively included in|
->>      |                 |                     |the decoding of this 
->> particular        |
->>      |                 |                     | 
->> condition.                             |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> the associated|
->>      |                 |                     |comparator will need to 
->> be 1 to affect |
->>      |      20         |   BC0_COMP_HIGH     |the decoding of this 
->> condition.        |
->>      |                 |                     |Conversely, a '0' here 
->> requires a '0'  |
->>      |                 |                     |from the 
->> comparator                    |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> the associated|
->>      |      17         |                     |comparator will be 
->> actively included in|
->>      |                 |  TC0_COMP_ACTIVE    |the decoding of this 
->> particular        |
->>      |                 |                     | 
->> condition.                             |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> the associated|
->>      |                 |                     |comparator will need to 
->> be 1 to affect |
->>      |      16         |  TC0_COMP_HIGH      |the decoding of this 
->> particular        |
->>      |                 |                     |condition.Conversely, a 
->> 0 here         |
->>      |                 |                     |requires a '0' from the 
->> comparator     |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> Priority_n    |
->>      |                 |                     |OR logic will be 
->> actively              |
->>      |     4n+3        | Priority_n_OR_ACTIVE|included in the decoding 
->> of            |
->>      |                 |    (n=0,1,2,3)      |this particular 
->> condition.             |
->>      |                 |                     | 
->>                                        |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> Priority_n    |
->>      |                 |                     |will need to be '1' to 
->> affect the      |
->>      |     4n+2        |  Priority_n_OR_HIGH |decoding of this 
->> particular            |
->>      |                 |    (n=0,1,2,3)      |condition. Conversely, a 
->> '0' here      |
->>      |                 |                     |requires a '0' from 
->> Priority_n OR logic|
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> Priority_n    |
->>      |                 |                     |AND logic will be 
->> actively             |
->>      |     4n+1        |Priority_n_AND_ACTIVE|included in the decoding 
->> of this       |
->>      |                 |  (n=0,1,2,3)        |particular 
->> condition.                  |
->>      |                 |                     | 
->>                                        |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> Priority_n    |
->>      |                 |                     |AND logic will need to 
->> be '1' to       |
->>      |      4n         | Priority_n_AND_HIGH |affect the decoding of 
->> this            |
->>      |                 |   (n=0,1,2,3)       |particular condition. 
->> Conversely,      |
->>      |                 |                     |a '0' here requires a 
->> '0' from         |
->>      |                 |                     |Priority_n AND 
->> logic.                  |
->>      
->> |-------------------------------------------------------------------------------|
->>      Since we use `priority_0` and `priority_1` with an AND output in 
->> step 2, we set `0x3`
->>      and `0x30` here to activate them.
->>
->>      4. Set NEXT_STEP = 1 and TC0_ENABLE = 1 so that when the conditions
->>         are met then the next step will be step 1 and the timer will 
->> be enabled.
->>      - echo 0x20008 > /sys/bus/amba/devices/<tgu-name>/ 
->> step0_condition_select/reg0
->>      - echo 0x20008 > /sys/bus/amba/devices/<tgu-name>/ 
->> step0_condition_select/reg1
->>
->>      
->> |-----------------------------------------------------------------------------|
->>      |   Bits          |       Field Nam   |            
->> Description                |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This field defines the 
->> next step the   |
->>      |    18:17        |     NEXT_STEP     |TGU will 'goto' for the 
->> associated     |
->>      |                 |                   |Condition and 
->> Step.                    |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |For each possible output 
->> trigger       |
->>      |    13           |     TRIGGER       |available, set a '1' if 
->> you want       |
->>      |                 |                   |the trigger to go active 
->> for the       |
->>      |                 |                   |associated condition and 
->> Step.         |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will cause BC0 to 
->> increment if the|
->>      |    9            |     BC0_INC       |associated Condition is 
->> decoded for    |
->>      |                 |                   |this 
->> step.                             |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will cause BC0 to 
->> decrement if the|
->>      |    8            |     BC0_DEC       |associated Condition is 
->> decoded for    |
->>      |                 |                   |this 
->> step.                             |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will clear BC0 count 
->> value to 0 if|
->>      |    7            |     BC0_CLEAR     |the associated Condition 
->> is decoded    |
->>      |                 |                   |for this 
->> step.                         |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will cause TC0 to 
->> increment until |
->>      |    3            |     TC0_ENABLE    |paused or cleared if the 
->> associated    |
->>      |                 |                   |Condition is decoded for 
->> this step.    |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will cause TC0 to 
->> pause until     |
->>      |    2            |     TC0_PAUSE     |enabled if the associated 
->> Condition    |
->>      |                 |                   |is decoded for this 
->> step.              |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will clear TC0 count 
->> value to 0   |
->>      |    1            |     TC0_CLEAR     |if the associated 
->> Condition is         |
->>      |                 |                   |decoded for this 
->> step.                 |
->>      
->> |-----------------------------------------------------------------------------|
->>      |                 |                   |This will set the done 
->> signal to the   |
->>      |    0            |     DONE          |TGU FSM if the associated 
->> Condition    |
->>      |                 |                   |is decoded for this 
->> step.              |
->>      
->> |-----------------------------------------------------------------------------|
->>      Based on the distribution diagram, we set `0x20008` for 
->> `priority0` and `priority1` to
->>      achieve "jump to step 1 and enable TC0" once the signal is sensed.
->>
->>      5. activate the timer comparison for this step.
->>      -  echo 0x30000  > /sys/bus/amba/devices/<tgu-name>/ 
->> step1_condition_decode/reg0
->>
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> the associated|
->>      |      17         |                     |comparator will be 
->> actively included in|
->>      |                 |  TC0_COMP_ACTIVE    |the decoding of this 
->> particular        |
->>      |                 |                     | 
->> condition.                             |
->>      
->> |-------------------------------------------------------------------------------|
->>      |                 |                     |When '1' the output from 
->> the associated|
->>      |                 |                     |comparator will need to 
->> be 1 to affect |
->>      |      16         |  TC0_COMP_HIGH      |the decoding of this 
->> particular        |
->>      |                 |                     |condition.Conversely, a 
->> 0 here         |
->>      |                 |                     |requires a '0' from the 
->> comparator     |
->>      
->> |-------------------------------------------------------------------------------|
->>      Accroding to the decode distribution diagram , we give 0x30000 
->> here to set 16th&17th bit
->>      to enable timer comparison.
->>
->>      6. Set the NEXT_STEP = 0 and TC0_PAUSE = 1 and TC0_CLEAR = 1 once 
->> the timer
->>         has reached the given value.
->>      - echo 0x6 > /sys/bus/amba/devices/<tgu-name>/ 
->> step1_condition_select/reg0
->>
->>      7. Enable Trigger 0 for TGU when the condition 0 is met in step1,
->>         i.e. when the timer reaches 3.
->>      - echo 0x2000 > /sys/bus/amba/devices/<tgu-name>/ 
->> step1_condition_select/default
->>
->>      Note:
->>          1. 'default' register allows for establishing the resultant 
->> action for
->>          the default condition
->>
->>          2. Trigger:For each possible output trigger available from
->>          the Design document, there are three triggers: interrupts, CTI,
->>          and Cross-TGU mapping.All three triggers can occur, but
->>          the choice of which trigger to use depends on the user's
->>          needs.
->>
->>      8. Compare the timer to 3 in step 1.
->>      - echo 0x3 > /sys/bus/amba/devices/<tgu-name>/step1_timer/reg0
->>
->>      9. enale tgu
->>      - echo 1 > /sys/bus/amba/devices/<tgu-name>/enable_tgu
->> ---
->> Link to V15: https://lore.kernel.org/all/20260701055529.445819-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V16:
->> - Fixed enable/disable race and PM refcount handling.
->> - Fixed sysfs exposure before driver initialization.
->> - Fixed priority allocation and access races.
->> - Fixed uninitialized return value in condition decode.
->> - Fixed sysfs attribute naming collision issues.
->> - Added ABI documentation for the default node.
->> ---
->> Link to V14: https://lore.kernel.org/all/20260417073336.2712426-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V15:
->> - Add a maintainer for "drivers/hwtracing/qcom" in MAINTAINERS
->> ---
->> Link to V13: https://lore.kernel.org/all/20260402092838.341295-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V14:
->> - Fix some typos and formatting.
->> ---
->> Link to V12: https://lore.kernel.org/all/20260317032639.2393221-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V13:
->> - add ":" after "KernelVersion"
->> - add an enablement check in the enable function to avoid increasing 
->> the counter each time
->> ---
->> Link to V11: https://lore.kernel.org/all/ee1ca8e6-8e5f-47d8-8a24- 
->> f904ee2fc6d0@oss.qualcomm.com/
->>
->> Changes in V12:
->> - Remove the in-ports property from the bindings, as this device is 
->> decoupled from CoreSight.
->> - Update kernel version and date.
->> ---
->> Link to V10: https://lore.kernel.org/ 
->> all/20c5406d-3e9f-4fdb-84ba-4cbe629c79b5@oss.qualcomm.com/
->>
->> Changes in V11:
->> - Change the names of members in drvdata: max_xxx -> num_xxx, enable - 
->> > enabled
->> - Use "FIELD_GET" to replace "BMVAL"
->> - Use devm_kcalloc to replace devm_kzalloc once create members of 
->> value_table
->> - Keep a consistent \n above return
->> - Keep reverse-Christmas-tree style
->> - Add checks so that the enable and reset nodes only accept 0 or 1
->> ---
->> Link to V9: https://lore.kernel.org/all/20251219065902.2296896-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V10:
->> - Modified code formatting based on Jie's feedback to improve 
->> readability.
->> - Applied inverse Christmas tree order to the variables.
->> ---
->> Link to V8: https://lore.kernel.org/all/20251203090055.2432719-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V9:
->> - Decoupled the tgu driver from coresight header file and registered 
->> it as an amba device.
->> - Retained Rob's reviewed-by tag on patch1/7 since the file remains 
->> unchanged.
->> - Updated the sysfs node path in the Documentation directory.
->> ---
->> Link to V7: https://lore.kernel.org/all/20251104064043.88972-1- 
->> songwei.chai@oss.qualcomm.com/
->>
->> Changes in V8:
->> - Add "select" section in bindings.
->> - Update publish date in "sysfs-bus-coresight-devices-tgu".
->> ---
->> Link to V6: https://lore.kernel.org/all/20250709104114.22240-1- 
->> songchai@qti.qualcomm.com/
->>
->> Changes in V7:
->> - Move the TGU code location from 'drivers/hwtracing/coresight/' to 
->> 'drivers/hwtracing/qcom/'.
->> - Rename the spinlock used in the code from 'spinlock' to 'lock'.
->> - Perform the 'calculate_array_location' separately, instead of doing 
->> it within the function.
->> - Update the sender email address.
->> ---
->> Link to V5: https://lore.kernel.org/all/20250529081949.26493-1- 
->> quic_songchai@quicinc.com/
->>
->> Changes in V6:
->> - Replace spinlock with guard(spinlock) in tgu_enable.
->> - Remove redundant blank line.
->> - Update publish date and contact member's name in "sysfs-bus- 
->> coresight-devices-tgu".
->> ---
->> Link to V4: https://patchwork.kernel.org/project/linux-arm-msm/ 
->> cover/20250423101054.954066-1-quic_songchai@quicinc.com/
->>
->> Changes in V5:
->> - Update publish date and kernel_version in "sysfs-bus-coresight- 
->> devices-tgu"
->> ---
->> Link to V3: https://lore.kernel.org/all/20250227092640.2666894-1- 
->> quic_songchai@quicinc.com/
->>
->> Changes in V4:
->> - Add changlog in coverletter.
->> - Correct 'year' in Copyright in patch1.
->> - Correct port mechansim description in patch1.
->> - Remove 'tgu-steps','tgu-regs','tgu-conditions','tgu-timer-counters' 
->> from dt-binding
->> and set them through reading DEVID register as per Mike's suggestion.
->> - Modify tgu_disable func to make it have single return point in 
->> patch2 as per
->> Mike's suggestion.
->> - Use sysfs_emit in enable_tgu_show func in ptach2.
->> - Remove redundant judgement in enable_tgu_store in patch2.
->> - Correct typo in description in patch3.
->> - Set default ret as SYSFS_GROUP_INVISIBLE, and returnret at end in 
->> pacth3 as
->> per Mike's suggestion.
->> - Remove tgu_dataset_ro definition in patch3
->> - Use #define constants with explanations of what they are rather than
->> arbitrary magic numbers in patch3 and patch4.
->> - Check -EINVAL before using 'calculate_array_location()' in array in 
->> patch4.
->> - Add 'default' in 'tgu_dataset_show''s switch part in patch4.
->> - Document the value needed to initiate the reset in pacth7.
->> - Check "value" in 'reset_tgu_store' and bail out with an error code 
->> if 0 in patch7.
->> - Remove dev_dbg in 'reset_tgu_store' in patch7.
->> ---
->> Link to V2: https://lore.kernel.org/all/20241010073917.16023-1- 
->> quic_songchai@quicinc.com/
->>
->> Changes in V3:
->> - Correct typo and format in dt-binding in patch1
->> - Rebase to the latest kernel version
->> ---
->> Link to V1: https://lore.kernel.org/all/20240830092311.14400-1- 
->> quic_songchai@quicinc.com/
->>
->> Changes in V2:
->>   - Use real name instead of login name,
->>   - Correct typo and format in dt-binding and code.
->>   - Bring order in tgu_prob(declarations with and without assignments) 
->> as per
->> Krzysztof's suggestion.
->>   - Add module device table in patch2.
->>   - Set const for tgu_common_grp and tgu_ids in patch2.
->>   - Initialize 'data' in tgu_ids to fix the warning in pacth2.
->> ---
->>
->> Songwei Chai (7):
->>    dt-bindings: arm: Add support for Qualcomm TGU trace
->>    qcom-tgu: Add TGU driver
->>    qcom-tgu: Add signal priority support
->>    qcom-tgu: Add TGU decode support
->>    qcom-tgu: Add support to configure next action
->>    qcom-tgu: Add timer/counter functionality for TGU
->>    qcom-tgu: Add reset node to initialize
->>
->>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |  60 ++
->>   .../devicetree/bindings/arm/qcom,tgu.yaml     |  71 ++
->>   MAINTAINERS                                   |  11 +
->>   drivers/Makefile                              |   1 +
->>   drivers/hwtracing/Kconfig                     |   2 +
->>   drivers/hwtracing/qcom/Kconfig                |  20 +
->>   drivers/hwtracing/qcom/Makefile               |   3 +
->>   drivers/hwtracing/qcom/tgu.c                  | 782 ++++++++++++++++++
->>   drivers/hwtracing/qcom/tgu.h                  | 318 +++++++
->>   9 files changed, 1268 insertions(+)
->>   create mode 100644 Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
->>   create mode 100644 Documentation/devicetree/bindings/arm/qcom,tgu.yaml
->>   create mode 100644 drivers/hwtracing/qcom/Kconfig
->>   create mode 100644 drivers/hwtracing/qcom/Makefile
->>   create mode 100644 drivers/hwtracing/qcom/tgu.c
->>   create mode 100644 drivers/hwtracing/qcom/tgu.h
->>
+--bfslmjupan46ngr7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
+MIME-Version: 1.0
 
+On Thu, Nov 05, 2026 at 04:05:10PM +0200, Svyatoslav Ryhel wrote:
+> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+> that closely resembles the MIPI DBI Type B protocol and is referred to as
+> '8-bit CPU'. Each display controller provides two such interfaces, which
+> can be used to send MIPI DCS commands to initialize and control the panel
+> while image data is transmitted via 16/18/24-line RGB.
+>=20
+> The '8-bit CPU', although being the DC interface, is modeled using a
+> bridge framework for flexibility and convenience. This implementation does
+> not change the existing codebase besides registering the bus.
+>=20
+> Suggested-by: Mikko Perttunen <mperttunen@nvidia.com> # DC command transf=
+er
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/Kconfig  |   1 +
+>  drivers/gpu/drm/tegra/Makefile |   1 +
+>  drivers/gpu/drm/tegra/dbi.c    | 576 +++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/tegra/dc.c     |   4 +
+>  drivers/gpu/drm/tegra/dc.h     |   3 +
+>  5 files changed, 585 insertions(+)
+>  create mode 100644 drivers/gpu/drm/tegra/dbi.c
+>=20
+> diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
+> index 8a3b16aac5d68..6f57fd3985edc 100644
+> --- a/drivers/gpu/drm/tegra/Kconfig
+> +++ b/drivers/gpu/drm/tegra/Kconfig
+> @@ -12,6 +12,7 @@ config DRM_TEGRA
+>  	select DRM_BRIDGE_CONNECTOR
+>  	select DRM_DISPLAY_DP_AUX_BUS
+>  	select DRM_KMS_HELPER
+> +	select DRM_MIPI_DBI
+>  	select DRM_MIPI_DSI
+>  	select DRM_PANEL
+>  	select FB_DMAMEM_HELPERS if DRM_FBDEV_EMULATION
+> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
+ile
+> index e399b40d64a1d..ae7fccb3d6421 100644
+> --- a/drivers/gpu/drm/tegra/Makefile
+> +++ b/drivers/gpu/drm/tegra/Makefile
+> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
+>  	hdmi.o \
+>  	mipi-phy.o \
+>  	dsi.o \
+> +	dbi.o \
+>  	sor.o \
+>  	dpaux.o \
+>  	gr2d.o \
+> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
+> new file mode 100644
+> index 0000000000000..32d390f64ddbd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tegra/dbi.c
+> @@ -0,0 +1,576 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Nvidia Tegra20/30 MIPI-DBI Type B host driver
+> + *
+> + * Copyright (C) 2026 Svyatoslav Ryhel <clamor95@gmail.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/kernel.h>
+> +#include <linux/media-bus-format.h>
+> +#include <linux/module.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/property.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/string.h>
+> +
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_mipi_dbi.h>
+> +#include <drm/drm_mipi_dbi_bus.h>
+> +#include <drm/drm_of.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include "dc.h"
+> +
+> +enum tegra_dbi_dc_signal {
+> +	TEGRA_DBI_COMMAND,
+> +	TEGRA_DBI_DATA
+> +};
+
+These look like register offsets for sending DBI commands, so maybe just
+use defines for them?
+
+> +
+> +enum tegra_dbi_iface {
+> +	TEGRA_DBI_INTERFACE_PRIMARY,
+> +	TEGRA_DBI_INTERFACE_SECONDARY,
+> +	TEGRA_DBI_INTERFACE_MAX
+> +};
+
+The only place where this seems to be used is in the definition of the
+two interfaces. But in those cases PRIMARY and SECONDARY match the index
+into the array and MAX is the size of the array, which can be determined
+dynamically. Drop this.
+
+> +
+> +#define TEGRA_DBI_DATA_PINS_MAX			8
+> +#define TEGRA_DBI_DEFAULT_BUS_WIDTH		24
+> +
+> +struct reg_entry {
+> +	u32 offset;
+> +	u32 value;
+> +};
+> +
+> +static const u32 tegra_dbi_pin_regs[] =3D {
+> +	DC_COM_PIN_OUTPUT_ENABLE(0),
+> +	DC_COM_PIN_OUTPUT_ENABLE(1),
+> +	DC_COM_PIN_OUTPUT_ENABLE(2),
+> +	DC_COM_PIN_OUTPUT_ENABLE(3),
+> +	DC_COM_PIN_OUTPUT_POLARITY(0),
+> +	DC_COM_PIN_OUTPUT_POLARITY(1),
+> +	DC_COM_PIN_OUTPUT_POLARITY(2),
+> +	DC_COM_PIN_OUTPUT_POLARITY(3),
+> +	DC_COM_PIN_OUTPUT_DATA(0),
+> +	DC_COM_PIN_OUTPUT_DATA(1),
+> +	DC_COM_PIN_OUTPUT_DATA(2),
+> +	DC_COM_PIN_OUTPUT_DATA(3),
+> +	DC_COM_PIN_OUTPUT_SELECT(0),
+> +	DC_COM_PIN_OUTPUT_SELECT(1),
+> +	DC_COM_PIN_OUTPUT_SELECT(2),
+> +	DC_COM_PIN_OUTPUT_SELECT(3),
+> +	DC_COM_PIN_OUTPUT_SELECT(4),
+> +	DC_COM_PIN_OUTPUT_SELECT(5),
+> +	DC_COM_PIN_OUTPUT_SELECT(6),
+> +};
+> +
+> +struct tegra_dbi_priv {
+> +	struct device *dev;
+> +	struct tegra_dc *dc;
+> +
+> +	struct mipi_dbi dbi;
+> +	struct mipi_dbi_host dbi_host;
+> +
+> +	struct drm_bridge bridge;
+> +	struct drm_bridge *next_bridge;
+> +
+> +	const struct tegra_dbi_interface *interface;
+> +	struct reg_entry com_pin_backup[ARRAY_SIZE(tegra_dbi_pin_regs)];
+
+You can just make this a u32 array since you're always iterating over
+that tegra_dbi_pin_regs array anyway and can get the offset from there.
+No need to duplicate that data into another set of variables.
+
+[...]
+> +static void tegra_dbi_pin_set(struct tegra_dc *dc, const struct tegra_db=
+i_pin *pin, bool value)
+> +{
+> +	u32 val =3D BIT(pin->pos + 1); /* unmask is 1 bit above position */
+> +
+> +	if (value)
+> +		val |=3D BIT(pin->pos);
+> +
+> +	tegra_dc_writel(dc, val, pin->reg);
+> +}
+
+So the PIN_UNMASK exists for all registers. In that case, the definition
+should probably not be intermixed like it was in that header "refactor
+and expand" patch.
+
+> +
+> +static void tegra_dbi_write(struct tegra_dbi_priv *priv,
+> +			    enum tegra_dbi_dc_signal signal, u8 value)
+> +{
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	const struct tegra_dbi_interface *interface =3D priv->interface;
+> +
+> +	tegra_dbi_pin_set(dc, &interface->dc, signal);
+> +
+> +	tegra_dbi_pin_set(dc, &interface->cs, 0);
+> +	tegra_dbi_pin_set(dc, &interface->rw, 0);
+> +
+> +	for (int i =3D 0; i < TEGRA_DBI_DATA_PINS_MAX; i++)
+> +		tegra_dbi_pin_set(dc, &interface->data[i], field_get(BIT(i), value));
+> +
+> +	tegra_dbi_pin_set(dc, &interface->cs, 1);
+> +	tegra_dbi_pin_set(dc, &interface->rw, 1);
+> +
+> +	udelay(10);
+
+Umpf... I guess we're effectively bit-banging here, but a udelay() here
+is potentially a lot of spinning time. If I recall correctly this can
+end up being called a lot, on the order of 100 or so times during panel
+initialization.
+
+> +
+> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
+> +				    struct drm_atomic_commit *state)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	u32 value;
+> +
+> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
+> +	value &=3D ~DISP_CTRL_MODE_MASK;
+> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
+> +
+> +	/* Disable all options except cursor if enabled */
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
+> +	value &=3D CURSOR_ENABLE;
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
+> +
+> +	tegra_dc_commit(dc);
+> +
+> +	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
+> +	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
+> +
+> +	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
+> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
+> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
+> +
+> +	value =3D 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
+> +		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
+> +		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
+> +	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
+> +
+> +	/* Init cycle 1: WRITE_MEMORY_START, set LCD_PCLK and COMMAND */
+> +	tegra_dc_writel(dc, MIPI_DCS_WRITE_MEMORY_START, DC_DISP_SPI_INIT_SEQ_D=
+ATA_A);
+> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
+> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
+> +	tegra_dc_writel(dc, BIT(12) | BIT(14), DC_DISP_SPI_INIT_SEQ_DATA_D);
+> +
+> +	/* Set LDC pin to V Pulse 1 */
+> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
+> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
+> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
+> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
+> +
+> +	value =3D SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
+> +		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
+> +	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+> +
+> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
+> +	value &=3D ~BASE_COLOR_SIZE_MASK;
+> +
+> +	switch (priv->bus_width) {
+> +	case 16:
+> +		value |=3D BASE_COLOR_SIZE_565;
+> +		break;
+> +	case 18:
+> +		value |=3D BASE_COLOR_SIZE_666;
+> +		break;
+> +	case 24:
+> +		value |=3D BASE_COLOR_SIZE_888;
+> +		break;
+> +	default:
+> +		WARN(1, "%u bus width not supported\n", priv->bus_width);
+> +		value |=3D BASE_COLOR_SIZE_888;
+> +		break;
+> +	}
+> +
+> +	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
+> +
+> +	/*
+> +	 * Backup registers before unshadowing since actual register values
+> +	 * may differ and their state backed up now is the correct one.
+> +	 */
+> +	for (int i =3D 0; i < ARRAY_SIZE(tegra_dbi_pin_regs); i++)
+> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
+> +			priv->com_pin_backup[i].offset);
+> +
+> +	/* Unshadow to set up command and data pins */
+> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	if (priv->interface->interface)
+> +		tegra_dbi_init_secondary_interface(priv);
+> +	else
+> +		tegra_dbi_init_primary_interface(priv);
+
+Maybe hook this into priv->interface directly using a .init() callback.
+That way you don't need to branch based on interface index here.
+
+[...]
+> +int tegra_dc_dbi_probe(struct tegra_dc *dc)
+> +{
+> +	struct device *dev =3D dc->dev;
+> +	struct device_node *dbi_np __free(device_node) =3D
+> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
+> +	struct mipi_dbi_device *dbidev;
+> +	struct tegra_dbi_priv *priv;
+> +	struct device_node *np;
+> +	u32 reg;
+> +	int ret;
+> +
+> +	/* Missing node means that DBI is not used, continue DC probe */
+> +	if (!dbi_np)
+> +		return 0;
+
+Maybe this should have an extra check to see if dbi_np is available.
+That would help create this node in a DTSI file and just keep it
+disabled by default.
+
+> +
+> +	priv =3D devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
+> +				     &tegra_dbi_funcs);
+> +	if (IS_ERR(priv))
+> +		return PTR_ERR(priv);
+> +
+> +	priv->dc =3D dc;
+> +	priv->dev =3D dev;
+> +
+> +	ret =3D of_property_read_u32(dbi_np, "reg", &reg);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get reg\n");
+> +
+> +	if (reg !=3D 0 && reg !=3D 1)
+> +		return dev_err_probe(dev, -EINVAL, "Wrong reg value: %d\n", reg);
+
+Maybe sort these before the call to devm_drm_bridge_alloc()?
+
+Thierry
+
+--bfslmjupan46ngr7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt5msACgkQ3SOs138+
+s6HbVA/+Irze+1lgUBGNGoqgvX6eTzI5eAKi5CDyxwOvFOj2ceKp6ymnZ1d7jDvP
+FKC/P5Oy0uizKDGpl2KLQ1vt9VwPpNIj6MsUe1wLzSyQbRoFOULt/pcJArd+peZa
+N6pw+4kp91kyCVJ35aDl2BOntlDP7HltoDPkp2IkxINm43e167aQqDfOrqNycl46
+3TCaCum2+AidUfE2vIYqMkpPnLO8jJVDy6dExkgX9JYTFDrBQ418R6GGAb81HlSQ
+L+otESxpgz8INwiRHv0p121Bo4tCPI3N1qTgXBDQHPgLCB/SlkznF9MpHfg/7502
+v6UQo/Sto4n41S+lG/8NXv8GiRh/ydZyZ3TEBQZ9+u/HT9mGmM14dKFR36CPVGbr
+g9mKNrectQMVYs1Bdo6AT3U+z4NTr5u3yxQygDgSQSMotzFrp4K0B72ozq27aTw8
+1kZj8OpdJ5bVwZiiluwKpVhbfGtgbbIBAg8QS8Zej4P/q0x6nRidwflWplILvFKy
+eoArEGgOLnbiPHS1VNTpTrL54wou151WA2mlvvhN63V+Viqpfptk9FfyjiB89rhW
+jCrk7UQgnEwHL4h4j3LY3wRlquEAFyFE7CA65CSEhhaOiqSZaqFUIIVorkKsytRk
+4gsS8zUz9OslndEa0caVrPbd3rhDdMMZv9HB4fuJPOHcPpYEekM=
+=vBTH
+-----END PGP SIGNATURE-----
+
+--bfslmjupan46ngr7--
