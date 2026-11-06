@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.201.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793946805;
-	b=zU474UtploBUnI4QMTP86eZimMgzIACqQvHgOXrUxuOxV7vgRrrWQ/m1I7olDWZNaiUj
-	 dlqZIPNn+RchI5Mjs4WaEbzS8COph5P46j4y/vg2ZMkEPIWxX+uc8jA/DbsFYvvQPY87s
-	 zeXse3WD0oE8mYF6Go7hda3UOOnih1jWg4bL0ap22qYCNosEgAOzmbLfn2o5AENO1XSQQ
-	 jbx+n6dnizq5Pnwoe9LFCORX8sodJ8fh4XmkyEBxCLkmirAtl9D0DwyUE7Wy/DLOb83PQ
-	 DadvwzR8ck8VrP0dfERwVoTztUYbzmEwpVeH5QDPir3HxAuXqACGehlxsT0Wl7oDpsA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793946805;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vNVs6i3cY3ojfu3UYK1bwXO9RYXu1EamtFPpkeDb6fM=;
-	b=UBnjjIZAZd3c+rTgnNevEqCq49BDCcX1PYZkTUfJfBVqn7IqcPU1Mhc/K08ns0Ug7ehC
-	 kAXXb5rR/K5N6GoL6j3FGg/DtaSn1d6So8VUO6OKC/zJ8ZwsXxv1AdMeZqeI//AvwRD9X
-	 iWl44FLRq6B2gEEi6zAOqSRLt9Q8DeDJIClLjFWImM1JMkLGUe2J6AaOn7HXD2mYSlS3s
-	 Z7tKFYWMmjaanhae+mx1yuC5oetgwMId0X5XLns3Syq3k5vtZuo7skBs4xIYhTBW1+tbF
-	 VtRRxAtjjT1sz97H7rSjX9TOnDH2v6jII4rpTmlT2cTstDw/0J3oC6JbiZEGmVbnVSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mcgcsd+e;
-	arc=fail smtp.remote-ip=52.101.201.7
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010007.outbound.protection.outlook.com [52.101.201.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793947855;
+	b=wMWGStFelX+E5pHf1ngZ+MMCWyZYZI9TE/OfuuEiRuICu+wVmjLSGCmOvHzUMnuvRVVI
+	 sA697Hn0dAu1h06ki7xFrEsbgCroRZaeHz7iOgRpEhTIBkxhEy15Y+D/gxM03L3a8ApR/
+	 ARoogYZG8kxfSOaioSeTAopGz96eBp5zPwEIp2crSMqZZXx9VyV+gzBmKewkVstqiefME
+	 nd3pEkd5z3PL4Qx6aEPTCH08OQHptHHo49iR5OSpJon/EqN13nQJzW67TXCls12YDsEkF
+	 28NDNDHqrAtA+zSEhMi7gIwg6q7sjv5VwsLyvSbOdESJ3O63CCu+f3FOBOFpty9HvMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793947855;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=dNeDKXrKYOKFzYRUv5DD5Xm3IPsUxN2lQ1AkRqcvQfA=;
+	b=oRmYP8GN1s4GsbcWsYk9v1JmOPzLw2nj3GU9WPBbNnQlow0OrMMV37DgTgonz/dG67Yv
+	 0EMeJZaL3lu/CLzhbz7NcLa8C/GtGBGYtV3OzsswsBbGHyyHBp+iztKfqwFIHmJWnDGYj
+	 bltaSfYZhGUaz1ify3wDiduQD2QLuq9ENGYKO5350aa/2bBDqe8kM5TYVBOuHaXjzzKfX
+	 77Lqohtx6edXZQ2bg0RXbSqmVnIeWRG4NQhJT1zRwIHVvrXUrIoBGe509pQx2PNQUYDKw
+	 uwQ/5xxJWns7Z9wGQAg2lFY+dg59JtyMLWoUlbEdVxRE/UiL8zj9BW+Xb7ggKdpTqvA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V4ytrOeb;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AF5W1mG3;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F46606A328
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:33:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2F46606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F26F606A32D
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F26F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mcgcsd+e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dyztDK6T9a1HZLv5hX26eGnXoMqnY7Irwxh+/7era/DJi/nQ3QPymn4FO07adw2vJTVAaMmkcAkt1FFQO0GVeKSoYMGLesOcpZ6p6MftYTjTdjoCkChDqOw4EjAgK98Jduxcf0qg0fwbDa45HzhJKH5i+8uG+jlRWTp5cIvJN+/YAPgT7YaWEovX9r/A7lCw3cJR7YDdpwwuAGgxnlZoJnfA+JaZjsWOcFkdFH/OjCNnZxL29f21mG8TPqWbpoUlPGgJKTL/ewwQGVX1U7rDFPiZmYIIot+vtCiaILo0gtJFHhaxAC5gQ/MYCxVVyL2xjqXyoOqMy7zq6WUEPuJ+RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vNVs6i3cY3ojfu3UYK1bwXO9RYXu1EamtFPpkeDb6fM=;
- b=mun6q/43pFwfAsBxLSu85UyMvwbGhwOlGGkqOqdttv28RtRfPRtr1jVwI4GL7UBcICedscfKWd5UZrVZL7bRl+xK3zxPjBujWhy4BtQns13GuK4h9qPaAl2GVlxER4dIo1a9U8J0jsSejn/KSW0WMp0+MllYlxO7nGRJgyXyTvCkNO4DaEZGu8X4e6BfDlJ7HesJzWIF/ZQN0/9gwFXWr7gvES14lZJQj7PezfyI/zwSZuPH0Q1dES2DrOah9F+Cv1xAkg9B71A5+xunKyVg5GxyH/L4dQ+A8TnU1K3Y4YDc5fgDh74aKubhMF9rS8jajRvPR/YIKjA0bU9kfjrWuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vNVs6i3cY3ojfu3UYK1bwXO9RYXu1EamtFPpkeDb6fM=;
- b=mcgcsd+e5VxxmaC6txHyuonirys7HrU9f0D1+r6Husr1MmlxQ9J4ozp/FWJ/YNai6C101dkb3oe6pSsmjFoJq63I+CcEkG7ErcQRs96X2zVO3mUzqJNWwW5PegQ0UxEKnl1M/Isjeg9kplHB2U6rJ6B/Hihh1RMDyk4VeJpbHC4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB6942.namprd12.prod.outlook.com (2603:10b6:a03:449::13)
- by IA0PR12MB8976.namprd12.prod.outlook.com (2603:10b6:208:485::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 06:33:19 +0000
-Received: from SJ0PR12MB6942.namprd12.prod.outlook.com
- ([fe80::20d8:2aab:1836:8d69]) by SJ0PR12MB6942.namprd12.prod.outlook.com
- ([fe80::20d8:2aab:1836:8d69%4]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
- 06:33:19 +0000
-Message-ID: <daaec067-4628-4b2b-b7a1-a2a7fc8de843@amd.com>
-Date: Fri, 6 Nov 2026 12:03:13 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] i3c: dw: Track the transmit and receive buffer
- depths separately
-To: Frank Li <Frank.li@oss.nxp.com>, sashiko-reviews@lists.linux.dev
-Cc: Shubham Patil <shubhamsanjay.patil@amd.com>,
- linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org, Frank.Li@kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- "git (AMD-Xilinx)" <git@amd.com>
-References: <20261105085425.3418230-1-shubhamsanjay.patil@amd.com>
- <20261105085425.3418230-3-shubhamsanjay.patil@amd.com>
- <sashiko-outbox-198746@kernel.org>
- <auz-oTwusjUDhgh3@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: "Patil, Shubham Sanjay" <shubpati@amd.com>
-In-Reply-To: <auz-oTwusjUDhgh3@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0062.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ac::20) To SJ0PR12MB6942.namprd12.prod.outlook.com
- (2603:10b6:a03:449::13)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V4ytrOeb;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AF5W1mG3
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6403G02833685
+	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 06:50:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=dNeDKXrKYOKFzYRUv5DD5X
+	m3IPsUxN2lQ1AkRqcvQfA=; b=V4ytrOeb6YHVjP1HumxXidFfUIeGfE+OIm9Y6u
+	TDu/ELw4bEdSUPC0zoRlrdFH3yCthsnya7YKz+IwVceKKb5ZOACJzfvl8qvsNjwu
+	MJRLnU6eMjpHrUhPYpFukAF/AlVC7BHrtqALHujOcfkTxOtfWIFGLt7JJriFC61Q
+	bmRgUo0pLGXnDvPlMOa1fkmS0p0mWk0TrWAwq8s8g5vdFK+5WRhPe3ivC/oun+h7
+	w8HrEvdt0s9bzxr/WJR9LcCf5KkLFdQVW+wXoGvHfx39bFK1+/9LVGmMmANawKAV
+	10AftugoP4P9P1gY1W76ePgM+4s3gePs0RI+yx4UIdCzK0Mw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa1g8y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 06:50:53 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3b0a098dbc7so311046a91.2
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 22:50:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793947852; x=1794552652; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dNeDKXrKYOKFzYRUv5DD5Xm3IPsUxN2lQ1AkRqcvQfA=;
+        b=AF5W1mG3M4R5riU87bVWdJVje9BmFE1JkcWXhD26kd6Gxq8Rvi9mavidsVUh3ZgZ8X
+         ZApcki3yUZ+F9f50t3Mrp8z2qE6xIQgZZ9B3lX9C+J/EsBO2edmnxzxfP2ZxpIzF6BUr
+         Lh2pq1JCYGyzyyWGaL9b7ZY2TmXQ23dI8iJWC8XTfdWPtweppIQsEhYehtJar2hh8lTQ
+         levRDlBMti8o54h56ghUdzGQci+ZnKO0so6sTVeKxVvSiDppVeId6nVMdY/lyhho8ed0
+         /Gwvt2siyAT8XzBFYS6ZEiOgMoSmf1l+fEw8V6a5JAq1BHOPWDuSrjbIC767PB8q57eO
+         1xxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793947852; x=1794552652;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dNeDKXrKYOKFzYRUv5DD5Xm3IPsUxN2lQ1AkRqcvQfA=;
+        b=kik0+jT2g9R4C1I4bJZDXBmf/RhCsoSP828kk3mGtHOnHZeG5/9cJCEp5R3PcBN3Y1
+         th16w79ZMdVimIBMyYGHuXs6Qq4/NFEVzt3yjs/m4IdnfjofZYBf5oq21E816DqSUyBI
+         aFNfhFLsPNa3eO12nunIxuERR7+x8AgXd78TEUVwOcDzwaYa0iOv88Bo/JgplTa9a4Tg
+         b/SjDG52muGvQJ2rVLqPQoE/k2FEhFHxyV7a8UOny3pBheWNZsPj7sjuQO1qFEnaigrh
+         p+3+MuHnpVYLs0HUZu5ZbBDTDRollTnga3ece4qX0+5sjAJh04MHDeQLz4bE+WIBvgDn
+         xOqQ==
+X-Forwarded-Encrypted: i=1; AL+hErEqLNj6QpxmsAOAOWygG4vjKTBOBWWAqNFfaeU3QameVXF8BBZQ0/t2r3FLYhSot52yn3THs4j78DAb@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ALkPka+z4jOhKpc1i0B3d30zovQUOboO6qBoEhygmXtYtWn0x
+	FArVsHhyebd5t6U5UCr3QGtus+Ny0IDyiANYudkmILDynOvRh5mt5i0si1TQfEDr4uh5Jjm/rie
+	Yp0nhp7BUXKAFGR80jJKVDm2yPxpjEucwGKRZYG4PU+2eXxmfTVxTYLooxirBviZB
+X-Gm-Gg: AYBFou16NEjPwbuf/STwoCTHwHy54oajQ1MZ/18NFhJWzyVEd3QHhDy3AUHbGSBWJrV
+	+MxtYl894bd01gE/hz2G+GebM2N5v7inI59be0FWRKBUehlIrOVOfqIKMgfV0lROZB7P/xGU7ZQ
+	UCSvWvbcaipjHa9KYNChPdEMJceRkh1kN5aNecqfWURM4qwBXrXwxtBDS3vZGgAn7w++Zi1VqAi
+	cZneetwTmmyQs+O3OyXhPbIOJbf5ejm0mBj4JLCLGDwRBykWSNc8XHPRCGsJ2AXd3EGM5hd9AKG
+	pv4UhYqOAfZTVGtkrIfs7zvjNTSlhz16+HC/e34Dsqm/sHNFQttOHMbj/f9lbpl8K807JA8d8ub
+	+L4TFVIFP9UBdBBto+CmI8VOk8pe4bvjrj3jSOtayUW5TTnB8mgagqJk4REf5UKpfaHAKjn9G7T
+	e5x6NJ
+X-Received: by 2002:a17:90b:5585:b0:3ac:7749:2f0 with SMTP id 98e67ed59e1d1-3b0db70764fmr1557106a91.44.1793947851877;
+        Thu, 05 Nov 2026 22:50:51 -0800 (PST)
+X-Received: by 2002:a17:90b:5585:b0:3ac:7749:2f0 with SMTP id 98e67ed59e1d1-3b0db70764fmr1557068a91.44.1793947851343;
+        Thu, 05 Nov 2026 22:50:51 -0800 (PST)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b313c0dcsm6597274a91.1.2026.11.05.22.50.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 22:50:51 -0800 (PST)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH v4 0/6] Add CAMSS support for Qualcomm Hawi and Maili
+Date: Fri, 06 Nov 2026 12:20:41 +0530
+Message-Id: <20261106-hawi-maili-camss-v4-0-d528c7a797b4@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,190 +115,210 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB6942:EE_|IA0PR12MB8976:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b39c36e-1916-4fa2-9ed4-08df3bcfd8cb
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|261102123227099003|4143699003|11063799006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|56012099006|261022105027099003|261021121427099003|10067099003|6133799003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	3NLTYF+KNXc+iEsOTXRgSgPZTXDKPcgmgRGR1nBRaTUS3xXulcjnp4QjgM2dwZmESxb127NCz8PFj8eE/CByz9w5zdCdmwTFcnN6qWPHga94P6aUFnoKMinYjVSCdKgLv1MBdWxjrF19Muh2HeJPTuTjMcY3jUKsZQJIaTztJWoqxtfXe5g07TZgeZ6yTnEyPPfyw4sclvBvp3Ej/kmvc3xT4cuzR6j1BXizvmwGqMoIbI6nO59Cbr9ZFiy3Qf5VD4u+d2MqK3lpwlfIjoJohPG/57M+9cdDDtZoV+HALJ+DXpogUdKnkxgGzWFeZaO5P6ZE4Dvbl0SSpebeI2M1hpVCAkenU+Tq0/cnuvCsM4dd1OFLhqur1eMQmmZjMkpTpseLzKUCa/eC13nFyJWGuHk8DDORx73W/X/W6t7q+FYleCqGwExjTd2af54wV8nKiL0N21u7v7IfoGhdKMgg3oeEzwiPVMFrlFcIk8P2k/T8vGHsSu7IJ49p8BUoczaiYQrwIxyia0pBSR+YeW1w+Slum9NGly1icWiyFxw7Me9g8fyix3BWqRgywbBqAewAeSxP8ZwQRPpkg/3YIbJQ88xSM51SfUfgKaPmOn9P4eo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB6942.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(261102123227099003)(4143699003)(11063799006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(56012099006)(261022105027099003)(261021121427099003)(10067099003)(6133799003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Mml5UzhHYmw1TEcvN3RwRTdoZ0s2dnFhcjg3NE1VWGN5dWRqUE4xdHEzQUtI?=
- =?utf-8?B?WGpwWnRtbmRoa2k4Rk9CZ1V0K0IvKzExeFNXb1hSUEVMb0ZkQnRuYlNETytO?=
- =?utf-8?B?M1hDSU4vM0dpVlpueTNCL0hQWTEzZ0FCNHI4b0M3U0k1bitMVkdrWjUxMG1m?=
- =?utf-8?B?TWpUbldSYnU5dzF2ODJWMGlmd1N6K2lNcGFwL2hzd2c3dC9tczR2dkpzTU9t?=
- =?utf-8?B?OGFLYUZaNFIwNkd3NzBxOFBRL0hTUFByd2JpK05TOVkrUG9QcVlvUm5Yd01q?=
- =?utf-8?B?Qk9hV3dqRGQyVGlodDRBQ1RiNDlZOGJKYVlOYkV1N2szZzcyYnhiaDR0YjZ5?=
- =?utf-8?B?OU5hQXVJNGxkV1VEejQ5QTdScnBodzFMblF0VUcvSXFTMVBaVDZ4aDZ2cUdj?=
- =?utf-8?B?TW4vN3RVUEJlbjR3ZENLVFc0aC81djcrZERGOWNJVVR0U2ZQR2xVbk9zakYr?=
- =?utf-8?B?bHd0VGIyVXZTbmwrTTVscktEY0pIS1BqaGtleEpnOWxuMGZsdHpKczhMbEJC?=
- =?utf-8?B?VnVTY3BvUGc2YzY0d1ZIazlEK2szOFFBVzJ1VEkxN2hUV2xwUWhSSGRWOTlk?=
- =?utf-8?B?Y0Fseno2anR0aE1wYzA0TVlIWWwrdTZuSzNiNGcvQkk0TWtDZlVzSEdHNVJy?=
- =?utf-8?B?b1BueGtBZktmUFVRaU1qQWx5TTNYbmZVOEp6TFppbndFNlJlaUdZSmNUN0tn?=
- =?utf-8?B?aU8xOEZxbEZHdnlqQjRvNHA1RC85c290WEtTTlU0UmZ4Z2V0eEJtd1k5UVYr?=
- =?utf-8?B?T0xIL29KTjNSMGordGhEK2ptYWNtNlNlK1ZKemNyUmZnSDFsZnBlYXM2U1ZO?=
- =?utf-8?B?dDNBbVF2MlpVZlVDaEdGQ0RGT092TTJubi91cnlzKzhWK0phS2kyMGlGNk9u?=
- =?utf-8?B?ZFQ0OTZieHBsOGNvdm1nTHlIOWZNaUhYWXpreHZTcS9Mc2hvSlFxK3orazBH?=
- =?utf-8?B?WmN3YS9VWUI4aGk4VUtUNk5nZTJKTENOZlpzSnpTVmhjbG9WMis5RHdKRXVI?=
- =?utf-8?B?OWxuZGkyaEhjZW15YyswUGdvSWJxZ3g2NTF3YlB0aFJ5aFpFbEpFNEFFVHdF?=
- =?utf-8?B?cVVkMkJXSk13REF6WlhjVXJ4emVxL3V6YVZidVoxeVJXZmZSb0tDNGJLUURo?=
- =?utf-8?B?VzNiOCs4MS9GQWw0L3VUcXdvLzZBb3JGM1AwcU1Tenh1Wkw4ajZISE0zMHZ4?=
- =?utf-8?B?RHlhcDRRRWI4MGJPZDRsSXB5NVBjVitDZk1yZjBNWktRc3k5WUg4b01Lck5a?=
- =?utf-8?B?Mm54TGxwUldNQWQ0REhCQzRRODBSRlRnSG9ZMkZNUVpSN0xscktJb3lZUFpD?=
- =?utf-8?B?WGwvQkZlL3BxYmI4WTZsU09PVnRBU1RONWM4N25mSzEvVnJsdnBieWhEaFNF?=
- =?utf-8?B?U1lxbHBDbEhLMzJUclIvMEZ3bU5VN0ZPWWJwY0cvemtzclBXSG00ZWRqaW1X?=
- =?utf-8?B?YTQ1UTMxc1R1enNqOW1rbHBjd2dhbnVUajgxMENONUhYdzc5bFNXWDduOHdU?=
- =?utf-8?B?YklrUmZTQklwQTlid3NSTVl6RGFmNER0UjdhblhOelhuSERueGZ1YWxRRUpG?=
- =?utf-8?B?T0hRY2JpWnMydWloMURVTVBleE1nMzIrUnlva2kvVEJzWndGNE9aVC8rNkli?=
- =?utf-8?B?ZDA1d1EvRVFoMmZrbW5nYWNSb3B0WGMyUk1RYVh4Nkk2OHpPRWtoRUlJRmRl?=
- =?utf-8?B?YXp4ZGlteFpnM3NkRnM1ZU5ENXNwN2UycUVkeFh4RU5lRVd1T2RRa3FKUGxE?=
- =?utf-8?B?ZWJ2MXRBMVNDM2N3U2tmVnhrZVh0bWdCM1JuUGN2YlBaT29sV095NUl3L3dX?=
- =?utf-8?B?eTdpZnFrQmV1Nm00ZWpkbm9xR3pJNTRwQXVjWWo2TVpxZEpBOEJxeWFMVUh2?=
- =?utf-8?B?aTlxNHlYRDM2VGplWXFRbStmb1ZIa3dSNGI5VmYxYWNKRCs3MFIydjcraGRO?=
- =?utf-8?B?VGVVbjBheTlZTW8zQ2hMdWtkMEdXcVlXUllIU29ZZGVaUHFlOHJVZ2JES21P?=
- =?utf-8?B?Qk1kdm90aHBOMGhQVnlkSHBVcHYzNzZTU0RMeFJReGdENXNyeDlqaHY3Zksr?=
- =?utf-8?B?ZVMvcVlIZ0hEeFY2MGtmSGtObGRnWUl6Y2o4blR2SzNzaWRmQmR0V2VQQXIy?=
- =?utf-8?B?TlFMUStFbmVLSEx5eWdPRWh0bHZDcVFwK0dXVjc4RWpkOUVaS0h2MDdFTTBq?=
- =?utf-8?B?a0NTcmFoaHNFUDQyc1BsZzlmanA3bkxXWmw1MHFiWTRGMUtvYVlnODVUWmVW?=
- =?utf-8?B?NkdlTE1BdHhUVTZMOTlsTE5DbzZoc0hFT3h4K2RYK1NLeU9UeUVRcHBrYkcr?=
- =?utf-8?B?TncwNXZ3Z1NvcG9VU3U4MEpOcUpHaFNVRlNjQ0hoWlRqTmhQTktQQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b39c36e-1916-4fa2-9ed4-08df3bcfd8cb
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6942.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 06:33:19.4599
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +N/Nxfypj2uQAeKvbXxTDRoVO1JFWmRk2XixDhYayLzoAzr4HoespZZUebGA/hdTGzryhdpxiPll44PHflbAow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8976
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMF47WoC/32S0W7bMAxFfyXw81xQpCRKfdp/DHsQRWox0Cxrn
+ GYbiv776BYYlqwbDBug4Xsu75Wfp9VOi63T/e55OtllWZfjVx/ih93U9+3rF5sX9XlCwAwVad6
+ 378t8aMvDMvd2WNdZkvZIDcAUJ5d9O9lYfrwiP332eb+s5+Pp56vDJWxv/wO7hBnmLiIRLVG08
+ fG4rnePT+2hHw+HO39MG/OCvzkBwnscdM7olRBRW6n9Hxz6g0PwDoecUzmi9Fa6DXyH8/IW+mS
+ PT17f+S35JG21eftoOd/vinDgigEE3zpq5773Zu937luGtcIyajKsIQyoIsZW02iJcqduVPlaJ
+ RS5aYYeOQ0CSgLROmeOwWAESQ5JqcC1qlGBlEbXJIRDBvsFRBBaLBKbluxdlizXKl/Dxpa9pNQ
+ tj+2ksfMIboQpUjC1CC1eq1QHqG7K2FGhFL9HYLWiCCNLzbl5sJtcSVmyr6GRuteVCuUGmmAIs
+ joGSEGGlr86lADcGyUCEN+vmFtT0CE11RYThDFyvlY5yLz0nIjRmoQqTE1rxtqt11C5JkmJ200
+ uL0gtE1Zt0s3dHF+pRMUiAytYYC/55pQZ0LNKrX4s3re0bTWUWFrFQZQ4BS5KN6oYCTiWEkcNy
+ grI7pa9gx5qHY1jFu4ck/+CL78AdGl6lMkDAAA=
+X-Change-ID: 20260923-hawi-maili-camss-b5dc43a00ed2
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793947844; l=6623;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=NKAvzBeIOyHRorG+C7lkP9fG+SDdQ6NSAz4rK2NCADM=;
+ b=YSAZ3W9/SQK/lgTTj9ckkXJKOKrXvh20hMJNPshTLin+U6VdO7q4NAhci8Tj8lb3s9b8QlECK
+ vEc/Ab8xsS2Co+JCtGnkijBmJyDsReTN4+9D9jh/N0BWnmVb1Nal21/
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAyNyBTYWx0ZWRfXyKbj2xA3ZMcZ
+ pEvLIFWKziK2TTx7qukr/kSo4yoOohkv2D7+fgcKthLCzUT09uS/wwvT6YC+k1cfpymkgp/y1Hn
+ 1wUzr17npzBIPLCYNYDoaf7Cq8TOVnJXpgk+izlB8GWcfT+w1HRmvWTzcU80Zsw3P6BWQc3hsXi
+ TtwT04Yg5xMeSrJDJaFn+9olyE2P3NK1rmrRzZfwsaUq95l8lGuLZNrPgCxFNO9FeGtiSxBFYvC
+ XjjkAOseq7rI2Qm450pXWp0GYHgHJ05K7KF/IqTPPPj8ye+9++/HtoUruc+KJvu/cNwzWvEwyAP
+ 0ezE5E0+xY6LVMo2trLCMvQOdsmBwvFVSDDawpeeZmIAb9skg+n1e61st1TK+LeczEBM/dLLV1T
+ KgU58dV9ZC0wYEa1zY0mMV2Vmso6VIoOWdDAJNQ9Htld2OYOLXtX37UdbzwuF03MLzIYxjZb043
+ hLko1D9X5bCIwNyWCQA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAyNyBTYWx0ZWRfX9ARohPFLFls6
+ OISNsHmpW/xvIYxPFzbH3ovCeStJy6Ld+cUlFU4hmIdRTYnyelYLmmjsnJcT+GkulLBmFDcuZR2
+ opjdlx8suvRfftn2+KZ2dbqhNa0At7w=
+X-Proofpoint-ORIG-GUID: 71csfWpXw9-nfxhK2ieAmFL3clGdvQFe
+X-Authority-Analysis: v=2.4 cv=GpzXaU1C c=1 sm=1 tr=0 ts=6aed78cd cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=vswd6c7O-hQB6D7BPuYA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: 71csfWpXw9-nfxhK2ieAmFL3clGdvQFe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_01,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060027
 
+Hawi and Maili are recently announced Qualcomm Snapdragon SoCs [1].
+This series adds Camera Subsystem (CAMSS) support for the Qualcomm
+Hawi and Maili SoC's.
 
+[1] https://www.qualcomm.com/smartphones/products/8-series/snapdragon-8-elite-gen-6-mobile-platform
 
-On 11/6/2026 3:39 AM, Frank Li wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> On Thu, Nov 05, 2026 at 09:01:14AM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
->> - [High] i3c: dw: u8 truncation of rxfifodepth in dw_i3c_common_probe()
->> --
->>
->> commit c93cc6843b57993d053db03cc3f7cee25dbd4371
->> Author: Shubham Patil <shubhamsanjay.patil@amd.com>
->>
->> i3c: dw: Track the transmit and receive buffer depths separately
->>
->> This commit splits caps.datafifodepth into caps.txfifodepth and
->> caps.rxfifodepth, populates caps.rxfifodepth from the QUEUE_SIZE_CAPABILITY
->> register, and exposes the FIFO capacities via base.tx_fifo_bytes and
->> base.rx_fifo_bytes.
->>
->>> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
->>> index d1119f203d1b6..dd5462b129514 100644
->>> --- a/drivers/i3c/master/dw-i3c-master.c
->>> +++ b/drivers/i3c/master/dw-i3c-master.c
->>> @@ -203,7 +203,10 @@
->>>   #define BUS_IDLE_TIMING                    0xd8
->>>   #define I3C_VER_ID                 0xe0
->>>   #define I3C_VER_TYPE                       0xe4
->>> -#define EXTENDED_CAPABILITY                0xe8
->>> +#define QUEUE_SIZE_CAPABILITY              0xe8
->>> +#define QUEUE_SIZE_CAPABILITY_RX_BUF(x)    (((x) & GENMASK(7, 4)) >> 4)
->>> +/* Sizes are encoded, 0 meaning 2 DWORDs and every further step doubling it. */
->>> +#define QUEUE_SIZE_TO_DWORDS(x)            (2U << (x))
->>>   #define SLAVE_CONFIG                       0xec
->>>
->>>   #define DYN_ADDR_LO_MASK GENMASK(4, 0)
->>> @@ -978,8 +981,8 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
->>>                      ntxwords += DIV_ROUND_UP(i3c_xfers[i].len, 4);
->>>      }
->>>
->>> -   if (ntxwords > master->caps.datafifodepth ||
->>> -       nrxwords > master->caps.datafifodepth)
->>> +   if (ntxwords > master->caps.txfifodepth ||
->>> +       nrxwords > master->caps.rxfifodepth)
->>>              return -EOPNOTSUPP;
->>>
->>>      struct dw_i3c_xfer *xfer __free(kfree) = dw_i3c_master_alloc_xfer(master, i3c_nxfers);
->>> @@ -1136,8 +1139,8 @@ static int dw_i3c_master_i2c_xfers(struct i2c_dev_desc *dev,
->>>                      ntxwords += DIV_ROUND_UP(i2c_xfers[i].len, 4);
->>>      }
->>>
->>> -   if (ntxwords > master->caps.datafifodepth ||
->>> -       nrxwords > master->caps.datafifodepth)
->>> +   if (ntxwords > master->caps.txfifodepth ||
->>> +       nrxwords > master->caps.rxfifodepth)
->>>              return -EOPNOTSUPP;
->>>
->>>      struct dw_i3c_xfer *xfer __free(kfree) = dw_i3c_master_alloc_xfer(master, i2c_nxfers);
->>> @@ -1738,7 +1741,14 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
->>>      master->caps.cmdfifodepth = QUEUE_STATUS_LEVEL_CMD(ret);
->>>
->>>      ret = readl(master->regs + DATA_BUFFER_STATUS_LEVEL);
->>> -   master->caps.datafifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
->>> +   master->caps.txfifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
->>> +
->>> +   ret = readl(master->regs + QUEUE_SIZE_CAPABILITY);
->>> +   master->caps.rxfifodepth =
->>> +           QUEUE_SIZE_TO_DWORDS(QUEUE_SIZE_CAPABILITY_RX_BUF(ret));
->>> +
->>> +   master->base.tx_fifo_bytes = master->caps.txfifodepth * 4;
->>> +   master->base.rx_fifo_bytes = master->caps.rxfifodepth * 4;
->>>
->>>      ret = readl(master->regs + DEVICE_ADDR_TABLE_POINTER);
->>>      master->datstartaddr = ret;
->>> diff --git a/drivers/i3c/master/dw-i3c-master.h b/drivers/i3c/master/dw-i3c-master.h
->>> index f5b4491b247a0..e23554bfc5e49 100644
->>> --- a/drivers/i3c/master/dw-i3c-master.h
->>> +++ b/drivers/i3c/master/dw-i3c-master.h
->>> @@ -14,7 +14,8 @@
->>>
->>>   struct dw_i3c_master_caps {
->>>      u8 cmdfifodepth;
->>> -   u8 datafifodepth;
->>> +   u8 txfifodepth;
->>> +   u8 rxfifodepth;
->>
->> [Severity: High]
->> Can master->caps.rxfifodepth overflow u8 and truncate to 0 in
->> dw_i3c_common_probe()?
->>
->> In the DesignWare I3C controller, QUEUE_SIZE_CAPABILITY_RX_BUF(ret) can
->> return up to 0x7 (256 32-bit words, or 1024 bytes). When that happens,
->> QUEUE_SIZE_TO_DWORDS(7) evaluates to 256 (0x100), which truncates to 0 when
->> stored into the u8 rxfifodepth field in struct dw_i3c_master_caps.
->>
->> With master->caps.rxfifodepth set to 0, master->base.rx_fifo_bytes also
->> becomes 0 in dw_i3c_common_probe(), and the nrxwords >
->> master->caps.rxfifodepth check in both dw_i3c_master_i3c_xfers() and
->> dw_i3c_master_i2c_xfers() will reject every non-empty read transfer with
->> -EOPNOTSUPP.
->>
->> Should rxfifodepth (and txfifodepth) in struct dw_i3c_master_caps be u16
->> instead of u8?
-> 
-> Make sense, please fix it.
+Hawi's camera hardware topology:
+- 6x CSIPHY (CSI Physical Layer)
+- 3x TPG (Test Pattern Generator)
+- 3x CSID (CSI Decoder)
+- 2x CSID Lite
+- 3x VFE (Video Front End), 5 RDI per VFE
+- 2x VFE Lite, 4 RDI per VFE Lite
 
-  I checked the DesignWare I3C databook, section 11.1.58
-   (QUEUE_SIZE_CAPABILITY). RX_BUF_SIZE is in bits [7:4], and the
-   documented encodings are 0x0 through 0x5, representing 2 through
-   64 DWORDs.
+Maili shares the same IP as Hawi. The only difference is Hawi has 6 CSIPHY
+while Maili has 5.
 
-   These documented depths fit in u8. The overflow example requires
-   encoding 0x7, which is not listed in this section.
+Used following tools for the sanity check of these changes.
+- make -j32 W=1
+- checkpatch.pl
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=i2c/qcom,i2c-cci.yaml dt_binding_check
+- make DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=media/qcom,hawi-camss.yaml dt_binding_check W=1
+- make CHECK_DTBS=y W=1 dtbs
 
-> 
-> Frank
-> 
->>
->> --
->> Sashiko AI review · https://sashiko.dev/#/patchset/20261105085425.3418230-1-shubhamsanjay.patil@amd.com?part=2
+Dependencies
+------------
+[1] https://lore.kernel.org/all/20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com/ -- Kaanapali CAMSS driver and bindings
+
+Patch grouping
+------------
+I2C CCI bindings part for maintainer Loic/Robert/Andi (1):
+[1] dt-bindings: i2c: qcom,i2c-cci: Add Hawi compatible
+
+PHY driver part for maintainer Vinod Koul (2):
+[2] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Hawi and Maili compatibles
+[4] phy: qcom-mipi-csi2: Add Hawi support
+
+CAMSS driver and DTS part for maintainer Bryan O'Donoghue (5):
+[3] dt-bindings: media: Add CAMSS device for Hawi and Maili
+[5] media: qcom: camss: csid: Scale the clocks with the CSI-2 link rate
+[6] media: qcom: camss: Add support for Hawi
+
+---
+Changes in v4:
+- Rebase on next-20261104
+- Collected Krzysztof, Loic RB's tags
+- Added Loic patch to Scale the CSID clocks with the CSI-2 link rate
+- Use 8775p TPG resources instead of x1e resources
+- Align tpgX and csiphy_rx clock names with the 8775p platform - Vladimir
+- Remove redundant CSIPHY resource definitions by introducing
+  compatible-specific code and keeping .csiphy_num instead in the
+  resource list to denotes the CSIPHY number - Vladimir
+- Example Address should match your first reg addr in Hawi bindings - Loic
+- Link to v3: https://lore.kernel.org/r/20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com
+
+Changes in v3:
+- Rebase on next-20261029
+- Squash Hawi and Maili CAMSS binding as a whole - Krzysztof
+- Add description for IFE and IFE_LITE IOMMU in CAMSS binding - bod
+- Correct the lane count variable fallback path - Sashiko
+- Add CAMSS top region to binding and DT - Loic
+- Use split addr_update/reg_update in CSID and VFE 1190 - Loic/bod
+- Add SOF and EOF enable bits with top level RDI status offset to
+  allow their corresponding interrupts but not configured on - bod
+- Move the common CPAS/GCC AHB and AXI clocks to the pm_clks array
+  drop them from the VFE clock lists - Loic
+- Use the GPIO function with bias disabled for CCI sleep states - Loic
+- Collect RBs from Loic, Krzysztof and bod
+- Link to v2: https://lore.kernel.org/r/20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com
+
+Changes in v2:
+- Not an RFC anymore
+- Rebase on next-20261012 and drop the external CSI2 PHY series dependency. 
+- Drop DTS patches; they will be posted separately with Maili DTS dependency.
+- Collect Reviewed-by from Konrad, Abel, Bryan
+- Split CSID and VFE 1190 into individual files rather than in separate
+  combined Gen4 files - bod
+- Remove reduandant is_lite condition in CAMSS CSID and VFE resources - bod
+- Replace bias-pull-up and bias-pull-down with bias-disable for the
+  SCL/SDA pins of CCI nodes in TLMM, as internal weak pull is inproper
+  with existing board level pull up resistors - Loic
+- Drop the unused reg_update_after_csid_config flag
+- Add lane count fallback path for CSID RX configuration
+- Add Hawi DPHY support by tuning register table, which prevents
+  potential stream stalls and SMMU faults.
+- Add a standalone Hawi CSI2 PHY compatible and make Maili fall back to it.
+- Resolve conflicts introduced by Glymur in CSI2 PHY binding.
+- Link to v1: https://lore.kernel.org/r/20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com
+
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+
+---
+Hangxiang Ma (4):
+      dt-bindings: i2c: qcom,i2c-cci: Add Hawi compatible
+      dt-bindings: media: Add CAMSS device for Hawi and Maili
+      phy: qcom-mipi-csi2: Add Hawi support
+      media: qcom: camss: Add support for Hawi
+
+Loic Poulain (1):
+      media: qcom: camss: csid: Scale the clocks with the CSI-2 link rate
+
+Nihal Kumar Gupta (1):
+      dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Hawi and Maili compatibles
+
+ .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   2 +
+ .../devicetree/bindings/media/qcom,hawi-camss.yaml | 317 ++++++++++++++++
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       |   5 +
+ drivers/media/platform/qcom/camss/Makefile         |   2 +
+ .../media/platform/qcom/camss/camss-csid-1190.c    | 417 +++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-csid.c     | 208 ++++++++--
+ drivers/media/platform/qcom/camss/camss-csid.h     |   1 +
+ drivers/media/platform/qcom/camss/camss-vfe-1190.c | 217 +++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+ drivers/media/platform/qcom/camss/camss-vfe.h      |   1 +
+ drivers/media/platform/qcom/camss/camss.c          | 228 +++++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 136 +++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |   1 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |   1 +
+ 15 files changed, 1500 insertions(+), 39 deletions(-)
+---
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+change-id: 20260923-hawi-maili-camss-b5dc43a00ed2
+prerequisite-patch-id: 6108fea87bf95e2911f09bbe7e95fa536c3ce397
+prerequisite-patch-id: b347ad60c475f3035b04ec76741e0f1b5f095580
+prerequisite-patch-id: a38055fcd5b32fbf7f7f03301a48b4ad8601386b
+prerequisite-patch-id: 5faef8cef855ce6fa00e2c7f10f125431ede40a4
+prerequisite-patch-id: ddf0ddaef84c2d088d08f17de8d20f6b966ace37
+prerequisite-patch-id: 5d7b6860d43c9215836a0d50fb27d2d003d0bfd8
+prerequisite-patch-id: 610b107ca35300b00e8edae31dfb959a4501ff66
+prerequisite-patch-id: 0bfebf965372eab19b73ad9629cec919795b557a
+prerequisite-patch-id: d386de6329dabce0b0a459384d28bf290e170552
+prerequisite-patch-id: 702e37b99095301ba1dfb2b48a92f33575178d32
+prerequisite-patch-id: 443074884f91d7d027b0a603dc199fa746b7c745
+
+Best regards,
+-- 
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
