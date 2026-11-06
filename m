@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999605;
-	b=ls9txOj9W11jWfja19mX1nA1tN87cVMydJIuehs6JkxQwQr8W84HQP7MHHjMlhVEvkz8
-	 jqgDVPfKp3V4EJzgoYGE2lffExXcb4okANdBRYEWoBvsH3N/n5PVj0KyK+1+z+ZphXc0Z
-	 tX2/l9lC/itT2HZjEC9lZ8m77umPNAuZgJ4STjfgtSzcaBoY//Kq+ifLBn+FmeVMqZ/td
-	 rGSRTitE9CatsLxdq0zbMZfoYNUHBA2OW9gq8V6PHtArOKqWQNZ5DCHFAfbQhSacFkDdP
-	 S8ZfK0FyPNv++mTb38QSSOLxyWZPUsA+k7CUcZtxcrXtBeIEPN2VzzLhymtOzi6pd4Q==
+	t=1793999717;
+	b=Vt4h/7aoP4XDcEitR8P1hEcLfYLCfpLA2CG8uN3Yia8AhsfoXZJ2aO7D0/ave0N76thS
+	 szHQhW+i68ITRMmxVMuMxSAnj8mYp7FLS+1bctgzDLiTJ7M5lw3d3bdbKCfWKNIAQeg/4
+	 MyctGuTYagPPQZ4EnbjzPl7Mitzo1xfBu4dJnb5i5bji2MrMIy1UyaSIILaWhjQ6YEmTi
+	 4T2s1w9MbUEwKeRV0z42+H4mMkDYIPflxNy0uxHneW2A82QJmQvQJy4GfNzdg/fWU/MYv
+	 nCRBzPI2Q4hmynQwmpCiQLJYiowFcc3gSmHBy9tB91LLBwltVDH5gcz41bzo349UV4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999605;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
-	b=OTCrG0EzoakNKjH9yOhZaTqkXI9xGZlKjnfUYZ97u6rzxOXVXJimrqWryBELOuunrCC1
-	 w3zgYuIO7ID/IvPP/sdsZ9G20PKgPVIbH+L287fPSH22GTSHh7qisRe9us1h1pN2BEa/z
-	 mnojOWjkZzu+h6DXSd3932OIxOsFn2AXRqxAImCZspYWKlusYAOi5nhb9ssUuJGE28VLr
-	 mHZsHT+cAqCHs+j3pDAk8Os8mOw8wLTds7H5sKEnbJzz1+Oxj4Huo84kxcbunRBqWzsUi
-	 /HyXQ17Yih7szY/mvERSV6ghWfgv684bkiWphRfwrDxhGVmQZKtW9Sz4Wqzb/PezFkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999717;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cDsr5kKiBdFRv3e9B3EpFq9dfSXD/V/9SF4tGqKbj4M=;
+	b=zA+Vkkq6xy38V5s3I2ouAwnCQoJheAzjzpc6K7yA3NgYQlfyuUuCXg0gr3vXxqc4sy3Y
+	 0yYEi5ZaAiStQHo+KFw/P/OpQyLY2xo8UEXW5eQJt0uxywrLZLCdoe7KsTtSXOz1n24jP
+	 1/FL1q7NNYNdRZqpiJRXooiYpWZ18yv8TwRL/X/R95q4Z3p2AtutB9uvtyAz/S5j6I7NT
+	 ioC3XMAXW9NC9FUyyYVJmp+dLJ6yEsSkEHhSAXgChbmxvU6fjxKKd22thODrN1v3VoogQ
+	 wVYdI0tF3nOlQCV4BEQifllsP8nauyGfxX4XF1lYDw3R/vbFtzM/F/nm+A7Tu3xUT4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Bs7/5yc0";
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCv5OLM5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB8B606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 21:13:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EB8B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D16606A326;
+	Fri,  6 Nov 2026 21:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bs7/5yc0
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-491971ac844so973090f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 13:13:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793999604; x=1794604404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
-        b=Bs7/5yc05ayHXSEmEltmPv9usXB3iLJ0UIPKGnnUPLtEgiJXu4B8k6wHDv4TBhOAcN
-         tgLilyMtppezqIKxWKh8yHwMlSFWMPilP8OKolcj+vpJG0jm6dhM9KlYIdRqsVG76ZkD
-         e4bge8pSpAaR2jLhVnsVK84CAV/zEdHskcfyosoS9+FK41zPy94ZAf55XXK2sHHhB1LH
-         jHtUZXNW63rzRAqFlEbuhf+zGppUs34YvdK1Yp/Z2MW/95AUzL4HxVJ8JG7bQmguzxgF
-         LgC3vzv6dEL74Ceuctm0x5fGvAYFdv/bayDZCdSHS8Kh+xDM2aALyK5xxWSozuaID8Re
-         ELAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793999604; x=1794604404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
-        b=rz1lELlLtQDpSuwRWBG6/l+QpmU8emvaZZ9Oj6ihl/L3uMVMzf5vu/CHVVrKblHM8C
-         bBOO7I/5zMi5THFzlhjcsBoGEm1iSVDERiVXXBXsvbso4IunSb3mW76/uEuN58SpYUVQ
-         pq5TygUMOt0lwPvtS/OXzk6fSBmsrYpVD5Zy3k+i2pYCb6/AOuHRW4P5qNoEYssP+W3/
-         rz4OpNfMj40klCzYoZ1FiOIHYTvavIjHpdLiWacbkQ6uXA2gMXFKZcGZyDlv2Evie6q6
-         p4lpWIpWcgTAND6v3+5lwGdE04hKHtgnf02XkQ8Gh6rLv/08GmoWU4kAPwPdMOyjNAwJ
-         YvEA==
-X-Forwarded-Encrypted: i=1; AL+hErFP/+s/U4iq3G+5ZRrlcfC6ce9B+qmr+ILRoPm0zC2V+nVpyrUlZW9FRpXp9ABEdxv3oa7o5ULu9EVW@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SKhdtrHwihRqDpQpCRc6cMe+O6tHIVuo6Ub+ZA9Gvtx7MfrA4
-	OF12tMdl01pC3KJkw/G2dz1BEDs+61j4j4lpKbnN5p8KiLU5zCBL4FG2rCjuipVp
-X-Gm-Gg: AYBFou3l8AcgHxlvRhdTF/zpSNg4x2V7OeMDyXwJotElSsvRV7ynx5r9La+38CtfExu
-	g9awt/PnZ+uA6bd+V5wnlhnwMeNQ0FQF4YyS34zQXhXjOerb8M8hGnwsb1XDeWOP4M9GDdgZXZc
-	OBwQU3M2ftGmPVlLTYs3hEneneYPOOCtkLc5y7vtUEDwvRM0h+53szzvG00pR8VcJjc944zEHnl
-	GNGpeanZP5zwIu8G9WdO28MwuNCmHO4hWI1Y1domdwTCqZX2ulHKcvapOucMJNjdk1VgnNdVcGp
-	jpLWtT4tCdRQtSa5P+niNrcXGxlPKW/5yVKbGip1h5y9A6w62L7o0jVZjryxHG/kFSkz1X67mKd
-	gIW2r8qOnso4m3Ow4QulCaJa5brIS5wBnx69FuIXf+BOqJrX5GojKcKnZJjHcAQCaUiL5GPXj7R
-	ZJK6rFS8smMnHPWw2NZd0lMJ2zfxxLuwvqCdF8ahY0mMaEMoGEAxXpV+ewUatRkRg+xaT8K9lmF
-	zq1M1Ygyx488evQnIlRYZxeUd2AcnSxf26b3vWhBx0fPDhBX/PPMWn0O4J95gfdekOc7IIAeJHk
-	AP3Ymj2Gy5+HrOjjcc21xjEzUPzw8Rtu
-X-Received: by 2002:a05:6000:26c6:b0:48e:4a8a:e17f with SMTP id ffacd0b85a97d-49272d1c6e0mr6959875f8f.4.1793999603662;
-        Fri, 06 Nov 2026 13:13:23 -0800 (PST)
-Received: from hp-z640.fritz.box ([64.43.161.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7233297sm5824696f8f.27.2026.11.06.13.13.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 13:13:18 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: E Shattow <e@freeshell.de>,
-	Conor Dooley <conor@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCv5OLM5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374AE1F008A2;
+	Fri,  6 Nov 2026 21:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793999716;
+	bh=cDsr5kKiBdFRv3e9B3EpFq9dfSXD/V/9SF4tGqKbj4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NCv5OLM5WaIcpbmKIbDVp6HIAX/E1r/JtzFAqfxFUN1TJlPaaSUDTFIbCQNu0hLwQ
+	 E6UhgGHqLb7ULhd0Mb42PUVDpzMeZu56rJb8Qp2kYqLlUYva6WtX/5GPnupLk09vFP
+	 Seac2uQW4fwwgblBpzGqFfMFKnBMf7XFgjyPmXrVwsZyx1CZiyJ/O9xUtwO4naNSa+
+	 YahfVbCUkMoOXvxo4VPAnNi2Ljy7eJcTriX6knzPCXaQ9TutCmjb7TEH9h0Bwtvx48
+	 jcFuMD3RGnXQnSL5zDkPCblDgxQwvwjyXGSvFRzHQ2C7KR6JPgg44+WUBW/4Fp6Av9
+	 BO6BXYy1HgqkQ==
+Date: Fri, 6 Nov 2026 21:15:12 +0000
+From: Conor Dooley <conor@kernel.org>
+To: E Shattow <e@freeshell.de>
+Cc: Emil Renner Berthing <kernel@esmil.dk>,
+	Owen O'Hehir <oo.hehir@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
-Date: Fri,  6 Nov 2026 21:13:11 +0000
-Message-ID: <20261106211311.73460-1-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
-References: <20261106184055.3891621-1-oo.hehir@gmail.com> <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de> <20261106195945.4157095-1-oo.hehir@gmail.com> <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
+ power LED on
+Message-ID: <20261106-tumble-hurt-d1a0be3fddae@spud>
+References: <20261106184055.3891621-1-oo.hehir@gmail.com>
+ <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
+ <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,12 +66,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uxj3Bu3KA+9of06z"
+Content-Disposition: inline
+In-Reply-To: <181fdcd8-80ff-4486-ab16-9cbce16b0a29@freeshell.de>
 
-Hi E,
+--uxj3Bu3KA+9of06z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Ok, fair point.
+On Fri, Nov 06, 2026 at 11:06:22AM -0800, E Shattow wrote:
+> Hi Conor,
+>=20
+> On 11/6/26 10:54, Conor Dooley wrote:
+> > From: Conor Dooley <conor.dooley@microchip.com>
+> >=20
+> > On Fri, 06 Nov 2026 18:40:55 +0000, Owen O'Hehir wrote:
+> >> The firmware turns the status power LED on, but the node has no
+> >> default-state, so the LED switches off when leds-gpio probes and the
+> >> board looks powered down.
+> >>
+> >> Default the LED to on.
+> >>
+> >> Tested on a VisionFive 2 v1.3B.
+> >>
+> >> [...]
+> >=20
+> > Applied to riscv-dt-fixes, thanks!
+> >=20
+> > [1/1] riscv: dts: starfive: jh7110-common: keep the status power LED on
+> >       https://git.kernel.org/conor/c/68dbe2550bd4
+> >=20
+> > Thanks,
+> > Conor.
+>=20
+> I replied this a moment earlier:
+> https://lore.kernel.org/lkml/179fe9e8-322b-4745-8734-d5de5f1e8487@freeshe=
+ll.de/
+>=20
+> This disagrees with VisionFive 2 Lite schematic; if when this node is
+> consumed by a bootloader it will be evident we are not describing the
+> hardware correctly, no?
 
-Conor, could you please drop this patch? Apologies for the hassle.
+I am not sure if that's actually relevant though? If the visionfive2lite
+needs this gpio then it shouldn't be listed in a leds node. Changing the
+default status of it doesn't affect the fact that it is wrong to begin
+with, wrong before the patch and wrong afterwards. If there are some
+boards that include this common.dtsi but don't have these leds, they're
+not common and should be moved to the relevant dts files. If you know
+what those are, please send a patch doing the move.
 
-Owen
+> If you want the light on and it wasn't on at reset or due to boot ROM,
+> then that is userland stuff and not hardware description... but that is
+> your decision to make as maintainer.
+
+It's a power status led, I think it's pretty reasonable for it to
+actually represent power status without intervention in userspace, the
+alternative I guess could be something like setting the function
+property to "power" - but I'm not sure if that does anything for
+gpio-leds.
+
+Cheers,
+Conor.
+
+--uxj3Bu3KA+9of06z
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau5DYAAKCRB4tDGHoIJi
+0nrFAQDR7pn5SeJlvMs2Unksnuskzogpm5QCuq1mwU5NbmpKOAD/YTa+FWIjGV6W
+9G8YF1A1U6fNmtjrNz9b9so+HUo+ZQs=
+=IGxj
+-----END PGP SIGNATURE-----
+
+--uxj3Bu3KA+9of06z--
