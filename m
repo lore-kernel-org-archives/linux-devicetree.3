@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978418;
-	b=0CyOe16GhfiB4BWjGxqAMuT3I25vkgPbVPuJnSpmC/OWKCHSSwjHVmn9P6WhY1LDC4JK
-	 0OTmzFNFklNFCSdQ1j4yiCJ6tLoJXXcMIv+LutU5HYYx9KjXHhl/5mDSaBdqlOftM+szf
-	 d9huu24lzjQUqTrc/1v8qMzQJlOhu9UlUsOzWLYCwsP6+KQwWhTK1inwZRPFHIMvtU2+Q
-	 sKVuKaXfrxxFG1qrkbpYfg1y2xisL00sBC2iGQTeIDMy8QT1xsDFsOQu2xnw6zkNklPRR
-	 C65XKAZ54c7WQUA8zLlYdtOC+kY/9vcIrhRCbpO0ZO924b1J+raiYxvS9H9BmoEMOWg==
+	t=1793978772;
+	b=qCWfrSHF7H3uuN2YaxH9W1b7hjF9Xg93Ff77omi1ceNX9zVfVj7lWY4h3Hq4yw4W18x1
+	 7635o9eY6k3Ul3nxncQNspTOhu4gW8GQzWS1JsFp9jo3ojhjpOvqbdqhMj3NgwH8nx8LJ
+	 sKgLJtnWp6ORMaxcsiL3taxkzWaKlkYZuneCYcHTZ62ZvBalkVE0b94/HObIu8rpD5tkB
+	 fZgSgLoktO1H/xs4q1Op3N3XOcKhg1D3EezP3FQqZaCerwtUeEVjI5j7CT/OPd/QcwA/N
+	 tLU10OqMIpxLCzkjD9V4ruvnqmO81o8vogr4bYAA1ALdDIrpv7p3j3QCBcNFUPm0lMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978418;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=chljuawuQqoVUbkR6TZgo3ovuu5Trbmjx9rGpS1wdQ8=;
-	b=fwNJRvDEiJsK5UovzOc3ZcsQpmBqrtBsP5BEYl7YjEv1+qS7rWcPeuvgGq9cOEvzUBzG
-	 1pgr8QjOU1ZYVrUlXtGs/KpN+giurSPs48lQEYd1xSBLHQ3Fyuu799A7FI9RUh5IIIawm
-	 /zw3xtSq+jOwdo3aM3L1zakD4tVlSLuA3zqwHOpBmC4GxCLVxamdSPZe3YJtMRo8x2qNB
-	 SnQLIRuZ2F7cWU71iE4SNyFsm3G84tg1B4dAVkIwfkorUXDy8HKX4xyjYIOnsE3cnYkSk
-	 Nw7tdT4pvYwy9WGcM20q1pkFPKt8YTj2TrAou+wA6/UDZ3DKobVLnw9UblcHfgpBz4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978772;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=791jtVI/FiCvxKr+UIajb8iUBdDdnr9l0lcd66baFFc=;
+	b=tNuwGn/ozBkyMJnfRV+uqlYasfWnKrO1jEAq9/z0UeyAohQ+V4IiFPaxsRMrB+8foEGK
+	 a8MKj1fexu0KuvaODfZ29f1EiOI81AtRqrmbp1cs1/RnyTCtWiPWFmWCjcxGL1ws/XUAA
+	 /Bm9VbRGdwvJgHGztLzZR/3u+qnKf3Jy0/pUSRyQSRpAP2hwaD2y4Yg8sqeiCr2TOo4FJ
+	 QPr61qAgLm6kUgOyBLdUiv80ySCVwWsdOxZMjtOpcsgwCGx5Bj5SDcLYoSviDHccKG086
+	 eelux7159GRyKHScRNAYOIIFOkLUZRNAsT4rndvHrMvNZLq4dYvHWEUMgn07EhSwU6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Az/Miehr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI4S+TyZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A4A6082BF7;
-	Fri,  6 Nov 2026 15:20:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321F9606A326;
+	Fri,  6 Nov 2026 15:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Az/Miehr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84DCD1F008A2;
-	Fri,  6 Nov 2026 15:20:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hI4S+TyZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0B61F0089F;
+	Fri,  6 Nov 2026 15:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978417;
-	bh=chljuawuQqoVUbkR6TZgo3ovuu5Trbmjx9rGpS1wdQ8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Az/Miehr2813/EFLF7KkEjgqSxF7CigPWoMeQlkWi9a2S3L3mLyDkrE89UstWCiYQ
-	 RdkUKiWK8eud1v0maQrSTeniRTSkxXr+/1Z4qZ6mPAFxVlqCcJGN+o8T8eb1Znb8r+
-	 /h6gqWqqRBsyQlBF51u0nHENgAsrWRpZRnc3DYQCLes0fMGQAMUeWLCFSSR2D/CHof
-	 IvNipRR2CIvCo8RKNJAf1XaSIKffbGbBvNiUVvQAtemiTeCzMWYuuCuRwJiXRlZL8q
-	 PQeQtll/W9nbWYHr2xWho8toXmMfBS4cJnczRyRuEyeWhBs8aIDFDrCV6ZFA0Y9KBe
-	 RbKMS3THSARJQ==
-Message-ID: <sashiko-outbox-201663@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] spi: spi-geni-qcom: Add transfer_one_message()
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jyothi Kumar Seerapu" <jyothi.seerapu@oss.qualcomm.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261106-qspi_upstream_series-v1-1-21f43042dd60@oss.qualcomm.com>
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
- <20261106-qspi_upstream_series-v1-1-21f43042dd60@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 15:20:17 +0000
+	s=k20260515; t=1793978771;
+	bh=791jtVI/FiCvxKr+UIajb8iUBdDdnr9l0lcd66baFFc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hI4S+TyZD8dLdZm63gpV3tRRD5zDd9iiECcx40cwuPZ7FGkXRdpyb+XIF13nk17Up
+	 0dMl2zHRuk3iFGcJdzb7jvP1dGD/fPLV+tU+Gk+3nngsZYT7OsAAQ4FbsA1C0sUHaP
+	 TRz5J3zHRMOaSGAD/d/VCu8gAbh18O+U1YYHmkc1rAMPBUCHnP3WxHk8DTUqZcsCZS
+	 MVHhmrdu7U8NcxdQVvgzlrSLnWnB9+w6PWdLBgPPX6Q0vqZ8J1siuN15cyMkvFxyJ2
+	 rV7JPaH8IJMpZMKNFxTOra772W60OQlsdFF4BFog+RyoMPELbdRp6nXrQAiJT4BYUD
+	 LTKAVoinJOxGA==
+Date: Fri, 6 Nov 2026 16:26:09 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
+ MIPI DBI bus
+Message-ID: <au3w5Euhy-DyY5qQ@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-3-clamor95@gmail.com>
+ <au3TcHXFt5Yhs_V8@orome>
+ <CAPVz0n0ngn4nf9uTOsM6OKB9jgTnJN1FrPp0UyeHwuAwoL5_tA@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,173 +65,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p7lbsm6ewx54bynh"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n0ngn4nf9uTOsM6OKB9jgTnJN1FrPp0UyeHwuAwoL5_tA@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] spi: spi-geni-qcom: unreset started flag in
-  spi_geni_transfer_one_message()
-- [Medium] spi: spi-geni-qcom: double handle_se_timeout() call on target
-  abort
-It also noticed 1 related pre-existing issue this patch does not
-introduce:
-- [High] spi: geni-qcom: incorrect DMA timeout handling in
-  spi_geni_target_abort() [1]
+
+--p7lbsm6ewx54bynh
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 02/10] drm/panel: Convert Hitachi TX10D07VM0BAA to use
+ MIPI DBI bus
+MIME-Version: 1.0
+
+On Fri, Nov 06, 2026 at 04:00:45PM +0200, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:=
+19 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Thu, Nov 05, 2026 at 04:05:02PM +0200, Svyatoslav Ryhel wrote:
+> > > Switch from a generic platform driver to a dedicated MIPI DBI driver.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 167 ++++++++--------=
 --
+> > >  1 file changed, 78 insertions(+), 89 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/dr=
+ivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> > > index 83c2af1be9755..d5d7ba2096608 100644
+> > > --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> > > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> > > @@ -14,6 +14,7 @@
+> > >  #include <video/mipi_display.h>
+> > >
+> > >  #include <drm/drm_mipi_dbi.h>
+> > > +#include <drm/drm_mipi_dbi_bus.h>
+> > >  #include <drm/drm_modes.h>
+> > >  #include <drm/drm_of.h>
+> > >  #include <drm/drm_panel.h>
+> > > @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx1=
+0d07vm0baa_supplies[] =3D {
+> > >
+> > >  struct hitachi_tx10d07vm0baa {
+> > >       struct drm_panel panel;
+> > > -     struct mipi_dbi *dbi;
+> > > +     struct mipi_dbi_device *dbi;
+> >
+> > It's somewhat difficult to exactly see the difference between mipi_dbi
+> > and mipi_dbi_device. Maybe that should be explained better in the cover
+> > letter of patch 1? Or the documentation added in patch1.
+> >
+>=20
+> It is already documented in detail in the drm_mipi_dbi.h
 
-commit 3683cd703233401c535fc67323251b79d0c02313
-Author: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+That documents what the struct mipi_dbi is. I'm asking about the
+difference between mipi_dbi_device and mipi_dbi and mipi_dbi_dev. It's
+not clear to me why we have both mipi_dbi_device *and* mipi_dbi_dev,
+especially since they're very similarly named. People are going to
+easily confuse where to use which.
 
-spi: spi-geni-qcom: Add transfer_one_message() support
+Thierry
 
-This commit replaces the SPI core's default transfer_one_message() path in
-the Qualcomm GENI SPI driver with a driver-specific implementation that
-handles message sequencing, GPIO chip-select control, transfer delays, DMA
-buffer synchronization, and error recovery.
+--p7lbsm6ewx54bynh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 6c57f8309a3b2..25c03096ee23f 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt8ZEACgkQ3SOs138+
+s6GKSQ/8CO+1lWO38xYwHMKy3he1QZi7KnwlWMuqXSlkTnr70L03IIS91e9xT7y8
+ErXIomywS8xrLKQO01zd4QHj8WccK0/98EwwhIQ5x8BuYVl78PVW/QjvgjT/75Jf
+xRPbTK3T/mWao7bW5uGAv8z5QHVBF6f+Mks1jLvv4Lg1z7DxeHo2oC0Znz3DpaE8
+r4CfqX5aIig5TguQtyZlrZf4ZPKAslewfgW2ebu09knOM1utULbEBrRH+ljVrp4u
+eGjrbJ/GoziEBB4vzn9L2qYJMEei54YmBLgaLqhTgkoK+5sX5AvmteeqKUaqWGrr
+evGwrd0R0/nJ6kzUQtNqttLijm9YgRWdHHyFQcKI2ldkvZQrJ+MWiC5q7dE2hUHn
+RHbaS1Y1oJHX5VW3yiimkOnBeywVpxKMWJ1g4JB+tCIyfMDhDNlOP0yfSCQSxa3v
+s/RZHkIQ0NUzIJjmTru80SYyWwGwzl5bAcTJrZlOgFQVvqumn8AZ2YfUzwoH11jx
+UILAmqV2CNtD1VNNCfXtQJ4AfvcugHYHcXEPhUhyJo8q32hJHVUjf5apuPWah5fc
+8yjHaty6gQzn0hr8lSa8TRED1PiZVcpVD6/mGngUATv3DpRuImwyit+knR3H5dF7
+BW9zZOM8UA02PEPTP6AIiVGEVrrBfHvoGi1i+AqnYRVhMFOxp78=
+=Nriy
+-----END PGP SIGNATURE-----
 
-> @@ -935,16 +940,206 @@ static int spi_geni_transfer_one(struct spi_contro=
-ller *spi,
-
-[ ... ]
-
-> +static int spi_geni_transfer_one_message(struct spi_controller *spi,
-> +					 struct spi_message *msg)
-> +{
-> +	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
-> +	struct spi_device *spi_slv =3D msg->spi;
-> +	struct spi_transfer *xfer, *next_xfer;
-> +	bool keep_cs =3D false;
-> +	bool dma_synced =3D false;
-> +	bool started =3D false;
-> +	int ret =3D 0;
-> +
-> +	xfer =3D list_first_entry(&msg->transfers, struct spi_transfer, transfe=
-r_list);
-> +	spi_geni_set_cs(spi_slv, !xfer->cs_off);
-> +
-> +	list_for_each_entry(xfer, &msg->transfers, transfer_list) {
-> +		if ((xfer->tx_buf || xfer->rx_buf) && xfer->len) {
-> +			reinit_completion(&mas->xfer_done);
-> +
-> +			/* Synchronize buffers only for DMA; the SE FIFO path uses CPU access=
-. */
-> +			dma_synced =3D mas->cur_xfer_mode =3D=3D GENI_GPI_DMA ||
-> +				     ((xfer->tx_sg.nents || xfer->rx_sg.nents) &&
-> +				      xfer->tx_sg.nents <=3D 1 && xfer->rx_sg.nents <=3D 1);
-> +			if (dma_synced)
-> +				spi_geni_dma_sync(spi, xfer, true);
-> +
-> +			ret =3D spi_geni_transfer_one(spi, spi_slv, xfer);
-> +			if (ret < 0) {
-> +				dev_err(mas->dev, "Transfer failed: %d\n", ret);
-> +				goto out_err;
-> +			}
-> +			started =3D true;
-> +
-> +			ret =3D spi_geni_wait_for_xfer(spi, xfer);
-> +			if (ret)
-> +				goto out_err;
-> +
-> +			/* DMA errors and target aborts are reported through msg->status. */
-> +			if (msg->status !=3D -EINPROGRESS) {
-> +				ret =3D msg->status;
-> +				goto out_err;
-> +			}
-> +			if (dma_synced) {
-> +				spi_geni_dma_sync(spi, xfer, false);
-> +				dma_synced =3D false;
-> +			}
-> +		} else if (xfer->len) {
-> +			dev_err(&spi_slv->dev,
-> +				"Bufferless transfer has length %u\n", xfer->len);
-> +			ret =3D -EINVAL;
-> +			goto out_err;
-> +		}
-> +
-> +		msg->actual_length +=3D xfer->len;
-> +		ret =3D spi_transfer_delay_exec(xfer);
-> +		if (ret)
-> +			goto out_err;
-
-[ ... ]
-
-> +out_err:
-> +	if (!ret && msg->status !=3D -EINPROGRESS)
-> +		ret =3D msg->status;
-> +
-> +	if (ret && started)
-> +		spi_geni_handle_err(spi, msg);
-
-[Severity: Medium]
-Should started be reset to false after each transfer completes, just like
-dma_synced?
-
-In a multi-transfer message, if one transfer finishes normally and a
-subsequent transfer fails before starting hardware (for example, failing
-the bufferless transfer check or set_rate() in setup_se_xfer()), started
-remains true from the earlier transfer.  The out_err path then calls
-spi_geni_handle_err() on an idle controller, where handle_se_timeout()
-issues cancel and abort commands with no active transfer, waits up to two
-seconds on completion timeouts, and sets mas->abort_failed =3D true, causing
-later transfers to fail with -EBUSY.
-
-[ ... ]
-
-> @@ -1057,11 +1253,14 @@ static irqreturn_t geni_spi_isr(int irq, void *da=
-ta)
-> =20
->  static int spi_geni_target_abort(struct spi_controller *spi)
->  {
-> +	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
-> +
->  	if (!spi->cur_msg)
->  		return 0;
-> =20
-> +	spi->cur_msg->status =3D -ECANCELED;
->  	handle_se_timeout(spi);
-
-[Severity: High]
-This problem wasn't introduced by this patch, but spi_geni_target_abort()
-unconditionally calls handle_se_timeout() regardless of mas->cur_xfer_mode
-[1].  When operating in GENI_GPI_DMA mode, this skips
-handle_gpi_timeout() and dmaengine_terminate_sync(), and instead writes SE
-registers such as SE_GENI_TX_WATERMARK_REG while the GPI DMA engine is
-still active, leaving the controller in an unrecoverable state.  Should
-this call spi_geni_handle_err() or dispatch on mas->cur_xfer_mode?
-
-> -	spi_finalize_current_transfer(spi);
-> +	complete(&mas->xfer_done);
-> =20
->  	return 0;
->  }
-
-[Severity: Medium]
-Does setting spi->cur_msg->status =3D -ECANCELED here cause
-handle_se_timeout() to run twice on every target abort?
-
-spi_geni_target_abort() calls handle_se_timeout() and then completes
-mas->xfer_done.  When spi_geni_transfer_one_message() wakes up, it sees
-msg->status !=3D -EINPROGRESS, sets ret =3D -ECANCELED, and jumps to out_err
-with started =3D=3D true, which calls spi_geni_handle_err() ->
-handle_se_timeout() a second time on the already-aborted hardware.  Because
-mas->cur_xfer is already NULL on the second call, handle_se_timeout()
-issues a redundant abort command that can time out after 1 second and set
-mas->abort_failed =3D true.
-
-In addition, if wait_for_completion_interruptible() in
-spi_geni_wait_for_xfer() is interrupted by a signal at the same time as
-spi_geni_target_abort(), both threads run handle_se_timeout() concurrently
-without serialization on mas->abort_done, mas->tx_reset_done, and
-mas->rx_reset_done.
-
-[1] https://sashiko.dev/#/bug/linux-9f164df4-358b-4ab0-bbe7-3843965ed2e8
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-qspi_upstr=
-eam_series-v1-0-21f43042dd60@oss.qualcomm.com?part=3D1
+--p7lbsm6ewx54bynh--
