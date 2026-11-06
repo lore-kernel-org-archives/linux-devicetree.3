@@ -1,56 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991207;
-	b=MM3GPnmho55yBbgielgyigQLvL6e8Vnds9UfJ+KYurj3O+r/O7yVnY5LqQpJiq4LNbMt
-	 s1d8ml0kg7b8Hgszv2mnVlER/3hmAO6sYftJ0Xm7FSs2XF8jmgmMmA9SGETjxXiLVxC7K
-	 8jiCKqBwiAcYhRbnKqFP6dhA02yVfroStGxZWX+KnK8zV1eR9PgpGxDMxOwlkiF7y8Xh0
-	 HaQfa7Gx4qhSKMpu7lGfCzT4XVqkNauTXMRdwK+E03DtXTL83PnUSC619xdMBzm3cvsQl
-	 556LAA9wbwcQxyx+vNYKtSZdd280gIjgsHBQasEVQKaPxndCX0tEM1a8GSpiR6Hx7yg==
+	t=1793991293;
+	b=LxKtdiiHm17Ej3VPkveR0e0AfrPrF2suWAlAket0hClSykby1gPmnWsgkyRgT7bkcmzL
+	 VZrV9gVcUht78cXXlOcnluHrKljshWXX5ZVC7Iqxd5pX4UBg5YzL6IP9v3JUE+eu6ouu6
+	 J6bxQzK3WrRNir6/TVDX/Y+vv7bnb/cJ3Qs0zJ6AmtF8Yt43JL/xV+BW/YP9RbiG0uTih
+	 vK5eIjALILIjOh/WjENsjUQglDOtci5sEvjIoMZsLH5gR0wIxJX6OkQAVhq//8WfP0+sL
+	 RWyc6/694X/TFOEfiHvSD/9LkbUNGoo1Z+RcrwIzfuNjqeCgaZu1S0NzvkcxowwzmRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991207;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=nQSBuJnSxKPBm9btUkjMHj9x3ceqEHuHuYT+88WmS7w=;
-	b=tEFEovYyacQLMC755aRgH9Mg9D4XSgPReMcBHDxrLclZYv3mljVkpnSrDgFWIwcbUER2
-	 wcWLNDEEPeAewKcTqfE/Epl105R6kvQHijOKzvfZw4HNqnhq5jdZbeLaRP/GDvUEV5Bms
-	 5QRfTXYMUoQHQR8rLTLaedUsdnvzmHFDTh5a6BFicp2JyNm2Vg5NqWUBvuyp9Z8QR1rGe
-	 Nn+BrPQXehRcqkVq87XC4VW8Lzs7OuYzVaKPAnVBT2W+qb0DosVYCuLFFWM3H5N846mdQ
-	 OCXvYRLj278xnFX/pyBciNylo61ic+Ewt4skaa4ulZ1ejEIBnmt2EeGwWbVs2kUo9Ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991293;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=RMetCwXaRXymMxJ1no11BIY53svi4m6BzWuwI+r3+Yk=;
+	b=JxwuVyZWoowHZmoK6wtvga1FOjR7j8SX4HtWi1jaBHn4IGLcf5KMW5ZA+Mxj4l8ZBto4
+	 bGG79mwv07lY485iZLkdT0cV9CsSMfMcFp4hpdVMBQ+ErUapGrD4PyT0GzHeJVoBlSJsa
+	 EP5Rb7ZDdUSXdS2ug3jV4VC9oHuhGs0PQGlLRO22+eqVhyQHaOHxoLex523p/pqcpnuGa
+	 4BXKteEIAUXOil7mF792wqB4buHgjxdZaeHjRyj8JEcw231UO5c/L5upIu90GiQFhq0Ti
+	 Ean+qRoZUWe/0sEnq+aeXyfFM5r1o1QOFGVufaWPLOQEWCbymsJ/AKv6VuAGFBt85VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7RsnbG2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SXD1nRCq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F39606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42765606A329;
+	Fri,  6 Nov 2026 18:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7RsnbG2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE801F0089F;
-	Fri,  6 Nov 2026 18:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SXD1nRCq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F75C1F0089F;
+	Fri,  6 Nov 2026 18:54:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991206;
-	bh=nQSBuJnSxKPBm9btUkjMHj9x3ceqEHuHuYT+88WmS7w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W7RsnbG2AMG5scUPum90zBMB+dHTT1TwFRDk26q7nKVJc41j8+qum3D/QhsoR5NuX
-	 3Akg2EZS4izITCRnDyRr4W1bshnLpg9h03/HsUyfFZSX4TzchGV8s+F6hopahrFTUt
-	 LDHDpDQcehbWQMs58jVv1mS+voBmMu+EwVqBD3r/0iBFfYcIA4C6mllxLcxz9xmJVE
-	 FMGN6bu8LZMVHuun7nnice9V/y0JxEPIdzkIEuGFt49giwDhydIhE0H1v5LudchR/X
-	 n4v2i8mCEHwm9/FthX6xuycwZTRyMG/1720xFI1ZmMuKZCquyV9mbEpWdMx1XMGhnt
-	 WUNDZUurbwFxA==
-Message-ID: <sashiko-outbox-202114@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/7] media: qcom: camss: Add support for SM8150
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrew Gigena" <mail@andrewgigena.dev>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-5-0103e8a0bbcd@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-5-0103e8a0bbcd@andrewgigena.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 18:53:25 +0000
+	s=k20260515; t=1793991292;
+	bh=RMetCwXaRXymMxJ1no11BIY53svi4m6BzWuwI+r3+Yk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SXD1nRCq54irp9J3Hfs2YYDDkiieUeNvywxgPrZHddyLVMreqXE+BTopeC2rnOA9S
+	 t0QBBE8LiX5BEwVq/M+us1Zsq+347PwekAHKH+VsESMkthK7XdoAwz+Me5oq5KRvMm
+	 ZPXSNE3cUy91iLXJXEbWc5pOZtEepW76TCC3+PcClugDohWpFgTX6LkPoIXREb2CB7
+	 iGZc69fFQASDk1z0YVpWKecItYEeWEZvWr3WtKs4TaWbYxcjaA7nee2oPumgGM+bXH
+	 xg7LWXVPPhk/RLk7abTwiwQatq+fSpoT4XAnbWDO/TwDv1Iu/1MmqAFK4LLQukopvR
+	 QzpfIaUGTe1AA==
+From: Conor Dooley <conor@kernel.org>
+To: Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Owen O'Hehir <oo.hehir@gmail.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	E Shattow <e@freeshell.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
+Date: Fri,  6 Nov 2026 18:54:42 +0000
+Message-ID: <179399127414.1902073.729566010968054971.b4-ty@microchip.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106184055.3891621-1-oo.hehir@gmail.com>
+References: <20261106184055.3891621-1-oo.hehir@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,107 +69,29 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=490; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=eV68g8YH+NUab8Y375gkc9AMM08LiYaGELIC443mCNU=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFnvlAofsbYKnvK+cnTZZtdcCe0HsW8i/xxewX7WUrLM5 Vhs6mXujlIWBjEuBlkxRZbE230tUuv/uOxw7nkLM4eVCWQIAxenAEzkYg4jwwMRecWnp8I96le1 /87Te6erV37z0IeCxPs797e4ilvaijMyrLldfjE8VGvSaYf2ytX1K9b/cg3XqPaarV/6Sc7lzmY TXgA=
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] media: qcom: camss: NULL deref and dead code in
-  csiphy_res_sm8150
-- [Medium] media: qcom: camss: CAMSS_8150 used in parent commit before
-  definition
---
+From: Conor Dooley <conor.dooley@microchip.com>
 
-commit debc7cc0585d6af1f184ab66cdb3fb1863bba5d6
-Author: Andrew Gigena <mail@andrewgigena.dev>
+On Fri, 06 Nov 2026 18:40:55 +0000, Owen O'Hehir wrote:
+> The firmware turns the status power LED on, but the node has no
+> default-state, so the LED switches off when leds-gpio probes and the
+> board looks powered down.
+> 
+> Default the LED to on.
+> 
+> Tested on a VisionFive 2 v1.3B.
+> 
+> [...]
 
-media: qcom: camss: Add support for SM8150
+Applied to riscv-dt-fixes, thanks!
 
-This commit adds CAMSS platform data, resource definitions, and version
-handling to support the Qualcomm SM8150 SoC.
+[1/1] riscv: dts: starfive: jh7110-common: keep the status power LED on
+      https://git.kernel.org/conor/c/68dbe2550bd4
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/d=
-rivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> index dac8d2ecf7995..5e7c2e67ae887 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-> @@ -1133,6 +1133,7 @@ static bool csiphy_is_gen2(u32 version)
->  	case CAMSS_6150:
->  	case CAMSS_6350:
->  	case CAMSS_7280:
-> +	case CAMSS_8150:
->  	case CAMSS_8250:
->  	case CAMSS_8280XP:
->  	case CAMSS_8300:
-> @@ -1235,6 +1236,7 @@ static int csiphy_init(struct csiphy_device *csiphy)
->  		regs->lane_regs =3D &lane_regs_sm8250[0];
->  		regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sm8250);
->  		break;
-> +	case CAMSS_8150:
->  	case CAMSS_8280XP:
->  		regs->lane_regs =3D &lane_regs_sc8280xp[0];
->  		regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sc8280xp);
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index c54185c93a8a9..da4d2213fd3dc 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -1940,6 +1940,223 @@ static const struct resources_icc icc_res_sm6350[=
-] =3D {
->  	},
->  };
-> =20
-> +static const struct camss_subdev_resources csiphy_res_sm8150[] =3D {
-> +	/* CSIPHY0 - clocks/regs/supplies owned by PHY driver */
-> +	{
-> +		.csiphy =3D {
-> +			.id =3D 0,
-> +			.hw_ops =3D &csiphy_ops_3ph_1_0,
-> +			.formats =3D &csiphy_formats_sdm845
-> +		}
-> +	},
-
-[Severity: Medium]
-Can csiphy_res_sm8150 cause a NULL pointer dereference in
-platform_get_resource_byname() when no remote PHY endpoints are connected in
-Device Tree?
-
-camss_detect_legacy_phy() defaults camss->legacy_phy to true and only clears
-it when it finds an endpoint whose remote parent node is named "phy". If the
-CSIPHY ports are omitted in DT, camss_init_subdevices() takes the legacy pa=
-th
-and calls msm_csiphy_subdev_init_legacy(), which passes res->reg[0] (NULL
-here) to devm_platform_ioremap_resource_byname().
-
-Conversely, when camss->legacy_phy is false, msm_csiphy_subdev_init() and
-csiphy_v4l2_ops never use csiphy->res->hw_ops, making .hw_ops =3D
-&csiphy_ops_3ph_1_0 and the CAMSS_8150 additions in
-camss-csiphy-3ph-1-0.c unreachable dead code.
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
-atform/qcom/camss/camss.h
-> index 7dc2fd9f03e0d..74d8cc2921be9 100644
-> --- a/drivers/media/platform/qcom/camss/camss.h
-> +++ b/drivers/media/platform/qcom/camss/camss.h
-> @@ -89,6 +89,7 @@ enum camss_version {
->  	CAMSS_8x39,
->  	CAMSS_8x53,
->  	CAMSS_8x96,
-> +	CAMSS_8150,
->  	CAMSS_8250,
->  	CAMSS_8280XP,
->  	CAMSS_8300,
-
-[Severity: Medium]
-Does defining CAMSS_8150 here break the build on the preceding commit
-"media: qcom: camss: Match VFE lite clocks by name prefix"?
-
-That earlier commit already adds case CAMSS_8150: in vfe_src_pad_code() and
-vfe_bpl_align_rdi() in drivers/media/platform/qcom/camss/camss-vfe.c before
-CAMSS_8150 is added to enum camss_version, causing an undeclared identifier
-error during git bisect. Moving those two switch cases into this patch keeps
-both commits buildable.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-sm8150-v7.=
-4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev?part=3D5
+Thanks,
+Conor.
