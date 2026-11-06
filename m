@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985584;
-	b=D6l/Pueucys7tg8RyvkoSFrO1AWYYTC6iOUaBU3CzrUxOAGFIEyL0MvFJEfL6Zc6DTHC
-	 +DDzZV+6QTc4PxunQFFC5z6PgoBo7Kds7dz6ulyzX4cFBkF/eGcazh3h/fTjWYwb7asON
-	 /YLg1tHGuQ52X0MYP8CoWk1OBn7cqbS5IuCOswohrjW/+xiRbSIgwP1UokHfDHfynh82L
-	 g03ZgetDElKqb04GJDi1ZhUSg8+KceG4Oc/5J7I4Itm5eQjKws8zkDns2GNpwSFkenMhS
-	 ffSdlnYvD/vk1CfoGetElpUb2S2Cro8Z82WLe+VPMAuc13Lv3F8HUAbVbr5cyvi6I6g==
+	t=1793985591;
+	b=huPgb3Y/FtuAiEY7LIyrmjorf5BN+Z1WCLfuQYts+HTZqpVRyYH2WRy01RD8ML7flWBH
+	 mPrq29gSlIHsajWVM/SaDm92WDxKGEuKuEY1GRDqqHBqFiXGc4moaKOgymLyj5RZ42crC
+	 IOLGjtaKxaHHQfoab2pP7e292dCifgEAEp62sirFBNAtr2I77cmmdW+BDRa9B3pkuZSzw
+	 gPSfOAJc28lG73nEMZWqc0sFnZTM681cLuh4667BR5cGRuV+xH3uhQO8+uE0Ct9BmrJTy
+	 FNjZWQs8GiR3vzJgzNMIRWDtHsQj1JHuGl1XwCEgDuteEzp5WRKANMKbo38aNNPbIgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985584;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=+wwws9e1hdeNSE5v3XYCF7ze382+pNXAMb+VOr1nizs=;
-	b=joiWc7bgvZ7+Y6IDTsiEAbKCz7pmuZDp3bCtE1ONoB8LNKZFjJYzc8Z7bOQqfbhSx/zh
-	 /8cgatnwQt6cuuczdrOczheCIQuj5A0WhMHm0XSPWSqhhVOivbbKqQc5TkptxhMuCjact
-	 KWPaO+r1UX/0fbC09siXTTTywZO7GE4pPmA45laMMe5pkx4qtlcC0lyFC4V9JcEj4CEuF
-	 UOvk3kiPc6en77QRs33eS6nxIotYHT8bjHYhig1rlCGakXCcCtiWUGjgk5jPv2cRJTw+Z
-	 sVy09t3Fqj/tYevE0ClQGpIC4OWvq3lCvJjbuVZosQmo7UIDE/0fCk68p1GPFv9pJQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985591;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0iFTCwthtb4KQWJ3KgZO/eQr21RNoCfrtaNGVHe64Us=;
+	b=x1V9hOgCVbosvU4iPrEW+LRtIQ3B029u1oxFp1g1YiAjUIQy5g0YwiFv47YqtxlWdvKv
+	 eb/mTAyTsnBCl9a70/HLT3vnrH5ozJoHDcKE8dN440Iso25dYNfxVULOkl6QfU1m2DHZK
+	 2clSjyDt/mvjuObyoytEl8gb3YItgk8svKnZf7RR9w9HteRI6HOj1VAIoJ0fQgenufAPu
+	 JObVdpUW51WqMcwEyvZ3EOfLT0actSE0pwO7waMMVlfeywg3+lvSACQXgSLRYkByRgfuw
+	 +mt4FNCdpAsy1Megoj++gEkBTqopgNIG/88zk3iMtQFGArpX4Ka7ptFwhL7TI766crQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJ25ENK6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYSaZkGV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896A9606EEA5;
-	Fri,  6 Nov 2026 17:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207D8606EEA5;
+	Fri,  6 Nov 2026 17:19:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJ25ENK6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B3D1F008A2;
-	Fri,  6 Nov 2026 17:19:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYSaZkGV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1E61F008A1;
+	Fri,  6 Nov 2026 17:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985584;
-	bh=+wwws9e1hdeNSE5v3XYCF7ze382+pNXAMb+VOr1nizs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nJ25ENK60zr3aUbiilpTZ4CMW3lHO3jmwUoYRNEbh6lpKfvydTrM91PfpHh4SDcj0
-	 37fi4gRdSsUJhyGCPekoKE3skGTCuUY2ISqznWl2ljbMf8XhXLs1ZmFpNQAeNIR1LJ
-	 M/K/mL7s250eOBXuGrTk6gq/cUGuMiyPlQiBjgjKJX6MuIQpnU44FmyXsE6UmpJRFW
-	 ssFpyzxIud1kE8g7W+mrtlPGghx/8nlT6ss1bzYsIyMpIGAr9PMMxHGW0/PoRVlR9j
-	 ZdTlBx5RhhaEyTv3zjcn9pGeVedkN/wzQ3PFh4vgR949vTTgB8Wf89bRa/28uEPv8T
-	 gkI9pC7CkyGvQ==
-Message-ID: <sashiko-outbox-201910@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/13] ARM: stm32: enable arm smc watchdog on
- stm32mp1xx
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106163429.618392-5-antonio.borneo@foss.st.com>
-References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
- <20261106163429.618392-5-antonio.borneo@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 17:19:43 +0000
+	s=k20260515; t=1793985591;
+	bh=0iFTCwthtb4KQWJ3KgZO/eQr21RNoCfrtaNGVHe64Us=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nYSaZkGVHJuACXRFQhoLUAGx2gARxd2wREGPO2sCc1yXKN3RY46h7J5wDjOayccX6
+	 ++s4RgmjOlutg0e/O7i8kshnMl7BZ33JA2VknynORN5vKm54dpmRMwM0ZSTE7eXKis
+	 67cxNvgpIHRz0B4TKyHXXD/gjkI8DOldPxtIkBb2my9fuRqztQsV1wB7b0lGAdRwi0
+	 UmwMjlwomVzIsrh5D0Mouj6FFvLZQds7vivxE1bQcaxUmrsTC8Y85uRHieWDzZIzgV
+	 skz9Ek8c9DolL87XjnfHpm5A+8Cd1NfJSXWjiQiGrKsmnbP6c9jBXfnuT7Z171OmzB
+	 pYgt0jfrbH14w==
+Date: Fri, 6 Nov 2026 17:19:46 +0000
+From: Conor Dooley <conor@kernel.org>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	neil.armstrong@linaro.org, khilman@baylibre.com,
+	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
+Subject: Re: [PATCH 09/10] arm64: dts: amlogic: meson-s4: add the AO CEC
+ controller
+Message-ID: <20261106-walk-overload-3ffa489c0af1@spud>
+References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,46 +62,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pNM4qVg2gRPOW9R5"
+Content-Disposition: inline
+In-Reply-To: <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] ARM: stm32: selecting WATCHDOG and ARM_SMC_WATCHDOG forces
-  built-in config
---
+--pNM4qVg2gRPOW9R5
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 4450302b23f46b760d6b23f33c853eaddb3d821b
-Author: Antonio Borneo <antonio.borneo@foss.st.com>
+On Fri, Nov 06, 2026 at 11:46:58AM +0100, christian.koever-draxl@student.ui=
+bk.ac.at wrote:
+> From: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
+>=20
+> Add the AO_CEC_A controller and its pin group.
+>=20
+> Signed-off-by: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
+> ---
+>  arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 24 +++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
+dts/amlogic/meson-s4.dtsi
+> index 155997649dc3..dd51e786d29d 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> @@ -747,6 +747,14 @@ mux {
+>  					};
+>  				};
+> =20
+> +				ao_cec_a_pins: ao-cec-a {
+> +					mux {
+> +						groups =3D "ao_cec_a";
+> +						function =3D "ao_cec_a";
+> +						bias-disable;
+> +					};
+> +				};
+> +
+>  			};
+> =20
+>  			gpio_intc: interrupt-controller@4080 {
+> @@ -970,6 +978,22 @@ sec_ao: ao-secure@10220 {
+>  				amlogic,has-chip-id;
+>  			};
+> =20
+> +			cec_a: cec@44000 {
+> +				compatible =3D "amlogic,meson-gx-ao-cec";
 
-ARM: stm32: enable arm smc watchdog on stm32mp1xx
+This is an s4, not a gx, so you need a specific compatible.
+pw-bot: changes-requested
 
-This commit selects WATCHDOG and ARM_SMC_WATCHDOG from ARCH_STM32 when
-ARCH_MULTI_V7 is enabled.
+Thanks,
+Conor.
 
-> diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
-> index 4ac3384e397aa..de09b2afa0f2e 100644
-> --- a/arch/arm/mach-stm32/Kconfig
-> +++ b/arch/arm/mach-stm32/Kconfig
-> @@ -13,6 +13,8 @@ menuconfig ARCH_STM32
->  	select RESET_CONTROLLER
->  	select STM32_EXTI if ARM_SINGLE_ARMV7M
->  	select STM32_FIREWALL
-> +	select WATCHDOG if ARCH_MULTI_V7
-> +	select ARM_SMC_WATCHDOG if ARCH_MULTI_V7
->  	help
->  	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
->  	  cores. Note that support for the earlier Cortex-M based variants
+> +				reg =3D <0x0 0x44000 0x0 0x14>;
+> +				interrupts =3D <GIC_SPI 179 IRQ_TYPE_EDGE_RISING>;
+> +				clocks =3D <&clkc_periphs CLKID_CECA_32K_CLKOUT>;
+> +				clock-names =3D "core";
+> +				assigned-clocks =3D <&clkc_periphs CLKID_CECA_32K_DIV>,
+> +						  <&clkc_periphs CLKID_CECA_32K_SEL_PRE>,
+> +						  <&clkc_periphs CLKID_CECA_32K_SEL>;
+> +				assigned-clock-parents =3D <0>,
+> +							 <&clkc_periphs CLKID_CECA_32K_DIV>,
+> +							 <&clkc_periphs CLKID_CECA_32K_SEL_PRE>;
+> +				assigned-clock-rates =3D <32768>, <0>, <0>;
+> +				status =3D "disabled";
+> +			};
+> +
+>  			ir: ir@84040 {
+>  				compatible =3D "amlogic,meson-s4-ir";
+>  				reg =3D <0x0 0x84040 0x0 0x30>;
+> --=20
+> 2.56.0
+>=20
 
-[Severity: Low]
-Does selecting WATCHDOG and the tristate ARM_SMC_WATCHDOG from the boolean
-ARCH_STM32 force both symbols to y whenever ARCH_MULTI_V7 is enabled?  That
-prevents building arm_smc_wdt as a loadable module or disabling the driver
-and watchdog subsystem on multi-platform ARMv7 kernels with ARCH_STM32
-enabled.
+--pNM4qVg2gRPOW9R5
+Content-Type: application/pgp-signature; name=signature.asc
 
-Could ARM_SMC_WATCHDOG instead use a default in drivers/watchdog/Kconfig
-(the way STM32_WATCHDOG uses default ARCH_STM32) or be enabled in the
-relevant defconfig?
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
-92-1-antonio.borneo@foss.st.com?part=3D4
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4MMgAKCRB4tDGHoIJi
+0ntYAQDW1EKWgmTLaW09unAisYzkptD8uRbVDs3X4Om7xA7jpwEAqLxY4Kmoizv1
+p3w9XKAyw3cich6+tLlpCcPJ8D0vgAQ=
+=1s4Y
+-----END PGP SIGNATURE-----
+
+--pNM4qVg2gRPOW9R5--
