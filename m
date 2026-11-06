@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960500;
-	b=wehyHfV+XeDoFlgD69lad/HlCqo3peJX7wIbVOnB5UxGLTyU0Y80roUrahqcDQhNRgCV
-	 dUqmPukJU6Yma3NIFJzZNb9TkDquae9ak2zbZ26tltbmIeQruV9yO9649s50WXVGW5FT2
-	 fBcbiWDSsDxaICm462LP5yfzzlAQHrquZSTtPb0LJTXCItmZ9xht3kiZBaBXtVZMYUCy8
-	 oGapgnb6acUpsjh2VIfYkI5adWhhIIGq+B6Z+YDeHfbrfn3Mgloqd0mmqbo7ZeYzOcZt5
-	 kgZso7MaIohcZdHqMlaZl1iR8Kb2rS2g2asFd5RUoo4BKKnnpr2Hi3Uucq2e4UvOaQQ==
+	t=1793960508;
+	b=FqyDLSicskq98G/kADBRg93yNWF7dOVbBihFGV35unSbpbYsrwgUacMYn2jRnpyRPls+
+	 89VjyNl+0HVxLDGr0+zskqx+LwkxAHsiKn7TKtjuiV+pYPtr4Tzye88kfX56dZIS1ChEd
+	 YK61bsBBdp3pp/9yeaTN6pR2zWuqGhB/qU81bzqhEPJpTKSDYoLEQmqHzlHi40gQ+nslm
+	 DGBHK+ANga3UFAHMVjBNPCX+WWFgVRlg6GfIwUg4ToOQWMiIdAp2GxEPcpOvsPGYKLMd+
+	 1YIxpbrND92PRlk0d/6O3tjXARzd5DPh3rwF50mlSlPki0t8KGx1nkWyyZTmShuqQxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960500;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oCiDdG9uKBtwL1j/tc0kENtt1MdhR46jXVdAFzVfJO8=;
-	b=ayu8T+feRX81SeeFKARbjOWnGDYw6RZv+YbhSx/+GGMY4mcUFaTu/wnZDkwtoxXNieXV
-	 PxoVwtzIMUWD976a9VbRIRco9RT916IQdnu45gvllhDXN9NqDbAK3NjjkjE1ukqVXCLRk
-	 8sznfAFw2/VUDxIvRYoNIHi/s4uz75dJrYyIGEIlpW6gxad9DzH6zmFLWVqEv3bt8xker
-	 ptu8oiRDqUMjEznXGoPUf8S3QvZbXyd1aH3UpCAP/5lUaRk7Q6bOIyyupMuu1cao7NFy/
-	 ZTv436L9Ky7HAHSW2Pc548U8XznUvGgw0vZXU8hkVuVFbdo3LdKRMy+ZRhXkmHZQ3ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960508;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=n5MBbukJIzhEUn6elZkHrpAmlBmzYrRrq+n47iH5saU=;
+	b=R5Nt2eVR5w0v7JbyODKKvWtEvpPFBElCcaDwugRWOdg2GXEPQ4x79MblHe8gJ27bbBQ8
+	 Q2ONgYKoCIqudMjixpARbHGY1jIg/mquQI7PXOy5PLxQjAJL3KlY7TJHmNOANQarA5040
+	 fukTVWaBny2kWeGhHBFo+gNeJ72GGdmreRkQFl5jNoOkpLurTJYePJm9tGu4nTI+W10+S
+	 5Jc01oVeCN9yIn17BBVEENIV5H1Wg7xYO4WIp7SMG7BErf20Z0bienKjo98V/9zmTyuEd
+	 XczNy9ICbfyy72JJORxXLnbMA07lSHI3idIb9xlRLWyS/kerybIX3pILThR7Qh+1dRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzRbqro9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJm3zf5g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91109606D807;
-	Fri,  6 Nov 2026 10:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B545606D820;
+	Fri,  6 Nov 2026 10:21:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzRbqro9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FF91F008A5;
-	Fri,  6 Nov 2026 10:21:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJm3zf5g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFD71F008A1;
+	Fri,  6 Nov 2026 10:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793960500;
-	bh=oCiDdG9uKBtwL1j/tc0kENtt1MdhR46jXVdAFzVfJO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WzRbqro9+jgKZCOnxyV5Qf2FXBVqSRiUdrte9IIL+inQw1Asb9j9CaLguI3Q0K8y/
-	 Ps4Ef11TTWv9wmJkjrgZdyYBdXgrwh3FdgLXZF7EoT5g5ZYiPGk26tKrshMayt7jWa
-	 Oq9Nsj3tZDxojVnZriW71FFEGOBOa6ghfEhNgn+dlN5qWdjLDBRiNi5UKKsUu0F8Lj
-	 A7mTcOfayLNU0/TIYhQ7nh2+ldFWBZVPpG5p48rfVjHsG88Ezxd2YpvSKXfImwpg5U
-	 sZ5dJOir4gQVYIKs2/ymgFvIoXa8P5MPenH/eVBeevZ7L2CmFphhPmcTAZ1kp/0lx8
-	 Pu41zXcg4YKqA==
-Date: Fri, 6 Nov 2026 11:21:36 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla <srini@kernel.org>, 
-	Simeon Marijon <simeon.marijon@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
- node for syscon
-Message-ID: <20261106-tireless-cobra-of-passion-1fca1d@quoll>
-References: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
- <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
+	s=k20260515; t=1793960508;
+	bh=n5MBbukJIzhEUn6elZkHrpAmlBmzYrRrq+n47iH5saU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iJm3zf5gLnfOP+5iqzxPMDHGmigPCAkRapDq6b+zPMNGwl8W+3GARnUXryz7IVYGp
+	 aTX6tOVhAMEh7hJ+gxG7lSYzEWDBBdEiEgr3NH052v067pt+fw4SDKp9wA+DrOs9+d
+	 2GNtdqsbj01Lz5Sd/iSG/J3BKEt9Glr8H17sRzFePXIRPWuoR6ZfsP5yOCujgnCNva
+	 GzDFSBYYHWBKWM/sBNY7DN69I7eyXX63boWq/NhSLCd9d+YyD8iZBvLYEWf/6DWxrI
+	 mjQBV0d3F4WlEq9kkH0T0HqM988cYTLafRTuV9ZwJBPzVf2SHgcmNjGBZykjN3Ut7x
+	 Ma0DpCg15sOfQ==
+Message-ID: <sashiko-outbox-201200@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongliang Yang" <hongliang.yang@cixtech.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106101210.1059256-2-hongliang.yang@cixtech.com>
+References: <20261106101210.1059256-1-hongliang.yang@cixtech.com>
+ <20261106101210.1059256-2-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 10:21:47 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,92 +59,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
 
-On Wed, Nov 04, 2026 at 04:20:09PM +0100, Patrice Chotard wrote:
-> The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
-> exposes its backup registers through an nvram child node described by
-> nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
-> "#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
-> 
-> st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
-> into the DTSI made "make dtbs_check" fail on every STM32MP TAMP node:
-> 
->   tamp@5c00a000 (st,stm32-tamp): 'nvram@5c00a100', 'ranges' do not match
->   any of the regexes: '^pinctrl-[0-9]+$'
-> 
-> Allow the addressing properties and the nvram child, gated on the
-> st,stm32-tamp compatible so the other syscon variants stay strict.
-> "#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
-> (an empty "ranges" requires the node to match its parent) while the
-> other STM32MP SoCs use one.
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
->  .../bindings/arm/stm32/st,stm32-syscon.yaml        | 38 ++++++++++++++++++++--
->  1 file changed, 35 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> index a559f8b03b84..51cb565e05ed 100644
-> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> @@ -43,13 +43,19 @@ properties:
->      const: 1
->  
->    "#size-cells":
-> -    const: 1
-> +    enum: [1, 2]
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] dt-bindings: usb: cix,sky1-usbssp: overlapping reg windows in
+  RCSU block
+- [Medium] dt-bindings: usb: cix,sky1-usbssp: redundant unprefixed
+  disable properties
+--
+
+commit 96269a442880206984d4933991d01ca45a5cc83e
+Author: Hongliang Yang <hongliang.yang@cixtech.com>
+
+dt-bindings: usb: Add CIX Sky1 USBSSP controller
+
+This commit adds the Device Tree binding schema for the CIX Sky1 Cadence
+USBSSP controller wrapper and its child cdns,usb3 node.
+
+> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml b=
+/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> new file mode 100644
+> index 0000000000000..137ef9ac13356
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> @@ -0,0 +1,154 @@
+[ ... ]
+> +  The register range of an instance is a window in the USB30 Type-A DRD
+> +  RCSU block at 0x091c0000, starting at the AXI cache attribute strap
+> +  register of the instance and ending after its AXI clock status
+> +  register. The strap registers of the two controllers and of their PHYs
+> +  are interleaved in that block, so the ranges of the two instances
+> +  overlap.
+[ ... ]
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usbssp
 > +
-> +  ranges: true
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      Window from the AXI cache attribute strap register of this instance
+> +      up to and including its AXI clock status register.
 
-Addition of ranges should be separate commit, because you are fixing
-existing device which can have phy child.
+[Severity: Medium]
+Should reg describe non-overlapping register regions (or should the shared
+RCSU block at 0x091c0000 be modeled as a shared parent or syscon node)
+instead of overlapping windows across sibling devices on the same bus?
 
->  
->  patternProperties:
->    "^phy@2[48]00$":
->      type: object
->      $ref: /schemas/phy/st,stm32-usb2phy.yaml
->  
-> +  "^nvram@[0-9a-f]+$":
-> +    type: object
-> +    $ref: /schemas/nvmem/st,stm32-tamp-nvram.yaml
+Defining a single contiguous window from each controller's AXI cache
+attribute strap register to its AXI clock status register makes the two
+instances overlap in 0x091c0324..0x091c0403. In addition, the example
+below specifies reg =3D <0x00 0x91c0314 0x00 0x100> for usb@91c0314, which
+extends to 0x091c0414 and covers the second controller's STRAP_STATUS4
+register at 0x091c0410 (an inclusive window ending after STRAP_STATUS0 at
+0x091c0400 would be 0xf0 bytes). Because the two sibling nodes claim
+overlapping MMIO ranges, standard exclusive resource reservation via
+devm_platform_ioremap_resource() fails with -EBUSY on the second instance.
+
+[ ... ]
+
+> +  ssp-disable:
+> +    type: boolean
+> +    description: Disable SuperSpeed Plus mode of the controller.
 > +
->  required:
->    - compatible
->    - reg
-> @@ -84,11 +90,37 @@ allOf:
->          - phy@2800
->      else:
->        properties:
-> -        '#address-cells': false
->          '#clock-cells': false
-> -        '#size-cells': false
->          phy@2400: false
->          phy@2800: false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: st,stm32-tamp
-> +    then:
-> +      required:
-> +        - "#address-cells"
-> +        - "#size-cells"
-> +        - ranges
+> +  u3-port-disable:
+> +    type: boolean
+> +    description: The board does not route the USB3 port of the controlle=
+r.
 
-This has ABI impact and is not really necessary, as the child node is
-not required either. Drop these three.
+[Severity: Medium]
+Can the standard maximum-speed and phys properties in the child cdns,usb3
+node be used instead of introducing ssp-disable and u3-port-disable?
 
-> +    else:
-> +      properties:
-> +        ranges: false
-> +      patternProperties:
-> +        "^nvram@[0-9a-f]+$": false
+Both properties lack a vendor prefix and duplicate standard USB bindings
+already present on the child controller node: limiting the controller to
+super-speed or high-speed is covered by maximum-speed, and an unrouted
+USB3 port is represented by omitting cdns3,usb3-phy from phys/phy-names or
+setting maximum-speed to "high-speed".
 
-Best regards,
-Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106101210.1059=
+256-1-hongliang.yang@cixtech.com?part=3D1
