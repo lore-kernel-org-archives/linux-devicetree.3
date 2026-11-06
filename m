@@ -1,84 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794001870;
-	b=GKgkulfcLi9F/vobR6hkuE5gyNTNO0m3sdRKA6Cw4p7SWuP5a6LSC3PZL4SreohXBY3R
-	 5gUEBiwcO4GPgPUvzBl3ytPoQa8ok8KlOufUVulxagqZVCzgNlJJGeGvNn6EaGuhLhsjF
-	 0af4smTlbHe8CzvyUx9ILcNPUi7lqVKjnnWsZKA2W+g1Nb0pmAlqPrVcz0k0HmAa8AroH
-	 sWjthHa3WB6Ih1WVVvimVhqPm7/lpSPD9McEIO2vD2YH4W2Xg8a49uavSyiOjckGJwg64
-	 R4thmDAnCmbESIyZ6REBCQTS5M5X4+ZHFNewjwtMrKUjRKswJtaV/MtVxLPrQkWYmxg==
+	t=1794002248;
+	b=dNy3VBBU/xnX6uJ74jNDpwlRu5FsT5iLbrgQae+KiMz5VRLGzwg9iGW5H/ILK/VVywbV
+	 PjKdvDtra7O5QCSrW97l1Bx/L2kG59dM4YWnyCjMyI84n1CHriu2frj9KWf0l4fy6wjFu
+	 MXk20IxZO5Sr5DV2asheAiJBj7gm+tDeg6i1H15/fYGxZm7HnWul8kRmkeYvRYzhUyg5x
+	 47nguCsggv1IRjBBbVNkmNhKX2AtmSvtKojxMKkJAHryAlpkH6aGGbsqOvonOtEe05BfD
+	 4NHGbhewOS0xMVS1Go/o/dXKLW1O0ZDEBIJ3Nd57IrhVh9+Ge3nTFbiprJlZKVVKNeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001870;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
-	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Hrybu1qjS55wOR2ZvJDKFOTX4UO4y9/yg/EAiu9mOeQ=;
-	b=A9s/7mndhOwyB3FlOdWAQHcozUUoMmuQxrqn7QDGKT7fQFt0CP8kd+yorknOtHzuj1jK
-	 XOYP3maxyMC0kkMCcigKSrOzn5cZP9v1oFgfFg2WBrMZgcXDwG3uOtXJdJlXrTuSf6DCk
-	 cgu7pilPf9Hdn55//anFfPz20ua842lZtF9AzahrwZO/hyXm0CO7ZJlfjCBnS3OafxpX3
-	 6dT7upWGyWO1PzITnoB27zqRF9ag2W/trDAxD1FOeWxB+p5XxGmaAKhvHMlQwMA+UxHFG
-	 47T4dQTDSlIvVk4T9SxyhJm7jamW23q5WXHuzFAZhJhL5CDW85rcbSbficvGc4dQ78Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002248;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=LOpRR3SM0gOpsUi1esldJeDTln8WrcBJiq5/+cZZX3s=;
+	b=aSS4/6cJz69C3AonyEqUR6lzX7X8hBpm/rKAOk3c0zpZp0hvsC3n3U8zv6+g3CwzTZTY
+	 XcISfxzFq6wk+ACo9uq4q8JXDBJ7U2TWykyHOebNGEK1/ea04p1ICK1REYrqgHaj8JSzx
+	 M7Eg/wh6Oa3jelRG9sA8OM2REniWRptFvamV/jN/zv/JMQpssXiPuDibX3rzmpk5V9DNI
+	 16uy/sR1lkR3Dnmg+nQHUagy7QkDgQ2j0hQB19txE0vbrjWxjElNFhHlBcA+W69RbqU38
+	 XCWFbn6uImvzAM3Sm7EYyXuCGCByOBiWNZ6uCO3LYavAbKXyO9nNiUJOd77+s8HWujQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Qr+zythi;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=57L2AJeo;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=j66VxG5p;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771DA606A32F;
-	Fri,  6 Nov 2026 21:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 771DA606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57573606D803;
+	Fri,  6 Nov 2026 21:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57573606D803
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Qr+zythi;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=57L2AJeo
-Message-ID: <f5c7c9901aca84f0b814e5b6c153db84af826dd7.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794001867;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hrybu1qjS55wOR2ZvJDKFOTX4UO4y9/yg/EAiu9mOeQ=;
-	b=Qr+zythi7fd/WCMR/wC1lIwE26rtLXt2OGzMpWM7UzIMevSXxu0wb7MdigNzhn5jlurEQP
-	eKImHUsS0sH9Yoz3/1yMKgzB+uT0Fa3tsUp040h6x8bGtwwk/MJZL3d2I2n94v9Y+0tn50
-	XxfbSlqtzfCpltoqdh6xJWCUHQmKS3jqCH15dLCL8geld7+0GF9Cv2XtA/whES2lhOtFa0
-	Rdez2AbnhPofdvz2K5MM+uDPfsv+7vZ0xpxU89RTJkJ8wtClYlAuWI/vOWTh/ylrgxcTDC
-	2wwn60Jbhr282GJjbcWc+Bd5ISTMmn/dmZpANyjXbVuW7i71W86opPwMAH2qRA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794001867;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hrybu1qjS55wOR2ZvJDKFOTX4UO4y9/yg/EAiu9mOeQ=;
-	b=57L2AJeoNrxbbDcFsBAzZ/DFjdkvyDKP3GnGuqadUE36FX+Fv2BzCEN4iw/VSR8EzIzB2O
-	K3q3DWu42nW1QqDQ==
-Subject: Re: [PATCH net-next v4 4/8] dt-bindings: mfd: Add SoC-e SWIP parent
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
- Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Eric
- Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>,
- devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, mfd@lists.linux.dev,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Fri, 06 Nov 2026 22:51:04 +0100
-In-Reply-To: <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
-References: 
-	<20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
-	 <20261105-devel-vstrassheim-soce-dsa-ml-v4-4-02f3cde2afa1@linutronix.de>
-	 <20261106-judicious-penguin-of-enhancement-b28c8b@quoll>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=j66VxG5p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794002240;
+	bh=e/xBfo+fiNINWUlXj13cPgRnznqBSzqTdZXHzg5SYV4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=j66VxG5pNKXr4HAG0pU+jMFrkDj3VqmNuXZYErJB+HvjBUZMiUa1gYIW0Hqp23kCg
+	 jpOfZblExs1zvjSZaSueaj8Ebch2H72M3XVR5hMJlodiObxuhpF12e1c3m5WqctTEG
+	 ZtKyVYkiEy1QjPhMF81GmFgGRMwyuWerywd2aiKBDYIKA3vyezr/Nzh+Furpn3COPg
+	 pD2tKlhmX1eyhFaoSFaZeUQWW1pcAqXh3YDnyMs1usJu2g5dFKNvPB7z2g11hsAwRV
+	 4y+TLZjiT7A4NqqXXvDp4lju7HNlWrW3yAu4pfO+zjQopwZ0dO+6wyNAUH5L0o9HKX
+	 LmVOUR0WPVLHQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5F04317E09FA;
+	Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 17794480031; Fri, 06 Nov 2026 22:57:20 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 06 Nov 2026 22:57:09 +0100
+Subject: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -88,131 +65,185 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
+References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3770;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=e/xBfo+fiNINWUlXj13cPgRnznqBSzqTdZXHzg5SYV4=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGruTT+exGRRuRDMIgsWZ1FSOXAbWHue0ck1t
+ FQpv1U5xPgG+YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq7k0/AAoJENju1/PI
+ O/qainQQAJvg/Sj27GTzm9Dpix8sk0RKE12I4rGRqKfEtzM/DKs8dbSdF+O8VZJjERT4q3r/j0b
+ s8yu7o3cEx1rIxnD8V1RdAt3eQTzUVXYUSDFjpa3148K6XSOhnkhVs9KQsJa2EQGj+3nvvCgEmw
+ AfegsR+NpqXCDp180WTfrMu/d3rZ+CSssJ3Og3P+oUK+tkYSwFcnMapGgHrHDmxRylUbib926wa
+ 1v1sTZktU/2BR10nyThK2GMAFxN534Kas2RN8cjqfRjrFt8C/oOQMCqNZhDntyF7SEPUvluIWQ7
+ wHSzD8BheG02Me9g4YeguhJ54ujgiG1EzRX7aeGTYm1LxxojO7Pyj6ahivQ2L3o/sEwcWjncuKr
+ EkDPbzOqFDlHFciRFMPrILq5c8AksGQWD4E4HyiNP0SxOerGTP0dajnZfDnNaCyGTM3YT+BfPxQ
+ s83DDFXiQx+9CFNWRinKWkujVU+i4tfDM3qeUC6xQPLrIIORkohmHNBBq/Vw8bouwUuH2Kf6n0z
+ AMNh7JwRqUVoOnd0+4OIyQ2WzKxRbRo97Hk2uWbiEwoISHVzr+s/yckf/9R5tVT743102M+px4C
+ sAzTIoXQipxZIU/Z8Glga2ZegoU8oCOblwvcE6pXhurIWu05tcDtb6iMuGh9P3GnHhuimbqJwkz
+ ddPyISLQ6gfy2mSgDP0cpXg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Fri, 2026-11-06 at 12:13 +0100, Krzysztof Kozlowski wrote:
-> On Thu, Nov 05, 2026 at 03:16:48PM +0100, Vasilij Strassheim wrote:
-> > Add a binding for the SoC-e SWIP multifunction FPGA IP core.
-> >=20
-> > Describe the shared MMIO address space and address translation for
-> > the required Ethernet switch child and the optional integrated MDIO
-> > controller and MMIO-controlled MDIO multiplexer.
-> >=20
-> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > ---
-> >  .../devicetree/bindings/mfd/soce,swip.yaml         | 137 +++++++++++++=
-++++++++
-> >  1 file changed, 137 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/mfd/soce,swip.yaml b/Doc=
-umentation/devicetree/bindings/mfd/soce,swip.yaml
-> > new file mode 100644
-> > index 000000000000..625be299e262
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/mfd/soce,swip.yaml
-> > @@ -0,0 +1,137 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/mfd/soce,swip.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SoC-e SWIP multifunction Ethernet switch FPGA IP core
-> > +
-> > +maintainers:
-> > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
-> > +
-> > +description:
-> > +  SoC-e Switch IP (SWIP) cores integrate Ethernet switching logic, an
-> > +  MDIO controller, and an MDIO bus multiplexer in one memory-mapped de=
-vice.
-> > +  The MDIO bus multiplexer is wired to the integrated MDIO controller.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: soce,swip
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 1
-> > +
-> > +  ranges: true
-> > +
-> > +  mdio@204:
-> > +    $ref: /schemas/net/soce,swip-mdio.yaml#
-> > +    unevaluatedProperties: false
-> > +
-> > +  mdio-mux@202:
-> > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
-> > +    unevaluatedProperties: false
-> > +
-> > +  ethernet-switch:
->=20
-> Why are you mixing children with and without bus addresses? This is
-> discouraged and shows that device is not correctly represented, e.g. if
-> the ethernet-switch does not have resources, then THIS device is the
-> ethernet switch.
->=20
+The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
+combination. It contains a Wanchanglong W552793BAA panel and a
+Goodix GT1158 touchscreen. This adds the DT description of it.
 
-There is no hardware reason for leaving the switch child unaddressed.
-Just an error that occurred while converting the binding to the MFD
-model.
-I will describe the switch function as an ethernet-switch@0 child node
-with a reg property for it's register resources, like the ocelot MFD
-binding.
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++++++++++
+ 1 file changed, 90 insertions(+)
 
-> > +    $ref: /schemas/net/dsa/soce,swip-switch.yaml#
-> > +    unevaluatedProperties: false
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - '#address-cells'
-> > +  - '#size-cells'
-> > +  - ranges
-> > +  - ethernet-switch
-> > +
-> > +dependentRequired:
-> > +  mdio-mux@202:
-> > +    - mdio@204
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    ethernet-switch@80020000 {
-> > +        compatible =3D "soce,swip";
-> > +        reg =3D <0x80020000 0x10000>;
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <1>;
-> > +        ranges =3D <0x0 0x80020000 0x10000>;
-> > +
-> > +        mdio_parent: mdio@204 {
-> > +            compatible =3D "soce,swip-mdio";
-> > +            reg =3D <0x204 0xc>, <0x200 0x2>;
-> > +            reg-names =3D "data", "control";
-> > +            #address-cells =3D <1>;
-> > +            #size-cells =3D <0>;
-> > +        };
-> > +
-> > +        mdio-mux@202 {
->=20
-> Nodes are ordered by unit address.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+index 6a95a8bb6fb8..327ca13b60f0 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
+@@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
+ 		regulator-max-microvolt = <12000000>;
+ 	};
+ 
++	vcc3v3_lcd_mipi: regulator-vcc3v3-lcd-mipi {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc3v3_lcd_mipi";
++		regulator-boot-on;
++		enable-active-high;
++		gpio = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
++		vin-supply = <&vcc_3v3_s0>;
++	};
++
+ 	vcc3v3_pcie30: regulator-vcc3v3-pcie30 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc3v3_pcie30";
+@@ -338,6 +347,43 @@ &cpu_l3 {
+ 	cpu-supply = <&vdd_cpu_lit_s0>;
+ };
+ 
++&dsi0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	panel@0 {
++		compatible = "wanchanglong,w552793baa", "raydium,rm67200";
++		reg = <0>;
++		backlight = <&backlight>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&lcd_rst_gpio>;
++		vdd-supply = <&vcc3v3_lcd_mipi>;
++		iovcc-supply = <&vcc3v3_lcd_mipi>;
++		vsp-supply = <&vcc5v0_sys>;
++		vsn-supply = <&vcc5v0_sys>;
++		reset-gpios = <&gpio2 RK_PB4 GPIO_ACTIVE_LOW>;
++
++		port {
++			mipi_panel_in: endpoint {
++				remote-endpoint = <&dsi0_out_panel>;
++			};
++		};
++	};
++};
++
++&dsi0_in {
++	dsi0_in_vp3: endpoint {
++		remote-endpoint = <&vp3_out_dsi0>;
++	};
++};
++
++&dsi0_out {
++	dsi0_out_panel: endpoint {
++		remote-endpoint = <&mipi_panel_in>;
++	};
++};
++
+ &gmac0 {
+ 	clock_in_out = "output";
+ 	phy-handle = <&rgmii_phy>;
+@@ -495,6 +541,22 @@ hym8563: rtc@51 {
+ 	};
+ };
+ 
++&i2c6 {
++	status = "okay";
++
++	gt1x: touchscreen@14 {
++		compatible = "goodix,gt1158";
++		reg = <0x14>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&touchscreen_pins>;
++		reset-gpios = <&gpio0 RK_PD2 GPIO_ACTIVE_HIGH>;
++		AVDD28-supply = <&vcc3v3_lcd_mipi>;
++		VDDIO-supply = <&vcc3v3_lcd_mipi>;
++	};
++};
++
+ &i2c7 {
+ 	status = "okay";
+ 
+@@ -543,6 +605,10 @@ rgmii_phy: ethernet-phy@1 {
+ 	};
+ };
+ 
++&mipidcphy0 {
++	status = "okay";
++};
++
+ &pcie2x1l0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie2_0_rst>, <&pcie2_0_wake>, <&pcie2_0_clkreq>, <&wifi_host_wake_irq>;
+@@ -664,6 +730,12 @@ hym8563_int: hym8563-int {
+ 		};
+ 	};
+ 
++	mipi_dsi {
++		lcd_rst_gpio: lcd-rst {
++			rockchip,pins = <2 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
+ 	pcie2 {
+ 		pcie2_0_rst: pcie2-0-rst {
+ 			rockchip,pins = <4 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+@@ -692,6 +764,14 @@ vcc3v3_pcie30_en: vcc3v3-pcie30-en {
+ 		};
+ 	};
+ 
++	touchscreen {
++		touchscreen_pins: touchscreen-pins {
++			rockchip,pins =
++				<0 RK_PD2 RK_FUNC_GPIO &pcfg_pull_up>,
++				<0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
+ 	usb {
+ 		vcc5v0_host_en: vcc5v0-host-en {
+ 			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+@@ -1534,3 +1614,13 @@ vp1_out_hdmi1: endpoint@ROCKCHIP_VOP2_EP_HDMI1 {
+ 		remote-endpoint = <&hdmi1_in_vp1>;
+ 	};
+ };
++
++&vp3 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	vp3_out_dsi0: endpoint@ROCKCHIP_VOP2_EP_MIPI0 {
++		reg = <ROCKCHIP_VOP2_EP_MIPI0>;
++		remote-endpoint = <&dsi0_in_vp3>;
++	};
++};
 
-I will fix that.
-Sashiko mentioned scripts/dtc/dt-check-style to find this. I wasn't
-aware of this before and will use it more often in the future
-additionally to dt_binding_check.
-
->=20
-> Best regards,
-> Krzysztof
->=20
-
-Thanks,
-Vasilij
+-- 
+2.53.0
 
