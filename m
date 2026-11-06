@@ -1,59 +1,197 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964523;
-	b=vJ+FRIEgOpPU8Peq2qLbkXVPeERpEnTZwhrn59uSeZMOFXeny8gRmuFG7vgff9U2To2f
-	 AsiopzNQ3fBvkP8WXu4Guj+xtSFhVwLyod2KaJeTSrQqmOtvJHOh6eKrfVr65afkIPXP7
-	 ypDynfVA5/j2sWnXCC5a3/HJot0gPF86aLn4D/OWDTnGRNQ13y01e6Q/Mgwzik93Qc3AA
-	 LWO/VM8hll7UhfO3AJ1EXpnZaCaDSYqdHHXQbrRLZcVQZvTJwxu24pvddRAk3nLj+s8F7
-	 PZ1dQ8fvxenLWR5C5HExWFSP5OJX7RF6V2ugZRwtoaWJPLDodfKzIN+JzugmapD3jyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964523;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=CP8l2SxXylUDW7AB3qOB/HndDr3d+/QmIEuhRKCfG2M=;
-	b=KtX/b2Esf70nyJ8n6V/V0ENwWSjzX9HhCDVnV/GcgQSmigq8tVnijHz31VIfDEBca1mU
-	 adz0fEe0piYKWFiMGiNYwxuemXHmUsFiPZYBVB2yS4WxLCqumjzLSm9QH62/CpFGB5cJs
-	 8x+AJcw8blhgh0ldTfcImtiXlmpRxYHtcl+psJHNnl8pTty1cyCL8RsAW5CuhEf4ETObh
-	 nNsMKnjWR6Pj56F0lvsnUqj6ZCcl/lsMdifbR8IEfjSxImne3Zrc9vpbdVG38IgzztlZI
-	 bIa4VvqN0kWy2/zkTjV1LYde6QsjJgrOPPUXFqc0Mna72+vKSHVe8/uzk+cgmRYCuOg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 914E4606A326;
-	Fri,  6 Nov 2026 11:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 914E4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=CP8l2SxXylUDW7AB3qOB/HndDr3d+/QmIE
-	uhRKCfG2M=; b=oBQ7jRT255j0FvPadKgHIZ1BT+If5ArUM1ivu5N/pf0L0QLFuo
-	AKsBKckULT9stjovsxyvp9iBGWujdJn4BrtdDiVt6EEC482xHdScUI0poSN/Cwa+
-	IAmIzogbkbW7ewSpGhViKU/l7CEq3t9WJNnuOOVYViMVWOuM2/6bo1bew=
-Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.75])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgC3P0TLue1q1i6PAA--.473S5;
-	Fri, 06 Nov 2026 19:28:24 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: gregkh@linuxfoundation.org,
-	Thinh.Nguyen@synopsys.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS data bus
-Date: Fri,  6 Nov 2026 19:28:11 +0800
-Message-ID: <20261106112811.963923-4-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106112811.963923-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261106112811.963923-1-xiaqinghuan@mail.ustc.edu.cn>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793964567;
+	b=WoGIxmvI7APfZNfKYSUDx9muZAZgRUsDV0qxQcMY7gGiswkaORzTZab72kTmax14rj5o
+	 bDmqUaQk1avtw4dT+ZbDodX860OEutVXuQsSHQ8Y0SPRN4pqUBnJI0FZWC9s5w53EvkYE
+	 o2v/VARmZVjE7wdkmgzg/CxE+1DsWf5nFkNgiQ8tAHrpaNWamoK8gVsIi0kJtb1oQskAe
+	 31BZDjW3ZZANW/kYsKzqvwWr/GyK3TLR+PpdlOqZ/y06fQ+LIWfnVRCHvC1BllR2mg2ce
+	 hwcBlYO0InMaUvkBvo4OXM6fCmappqXYtoHivClagDCo9CZRGgkAgFZCAdxQPEYvPqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964567;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 X-MS-Has-Attach:X-MS-TNEF-Correlator:msip_labels:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=z6mTe+88Ot0zXuKJ/sRUhzIZ8JjadFByFxkgyOWJEYw=;
+	b=CeU4sjytNBE6OumSGmh6irIhk+7auBSzXvbUeEFKf5/hS438oUK3aQ4WxQOyR0ccPP7O
+	 Y69H2yD5EBkncx2vYlMOmhzsV5AHhiDSfsQN6FM12T0P1RMcLd/av1l4dXnJeZvk4DTof
+	 230ycQ1g9H9eMnEXICc7tpb4NaiE9NLh5mzuVK87CVMpmrqtp2f6i07bjVeTrFr44l3z7
+	 PCagGXTOJdemIE0nAhHmFkVSs1Y3SxDza3oHzc8lGx8Jhin+mjkzrCik1pZQLclci6alA
+	 r8dQuqB8d9wktZLtXdOEKn/SslkboKmgifqPCCGOQINkQBAk7+mYUGOB9g4Xo1KUlHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=temperror header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=YuSffwKe;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=l++cUbw9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3690606A329;
+	Fri,  6 Nov 2026 11:29:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3690606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=temperror header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=YuSffwKe;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=l++cUbw9
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6AR7M3264349;
+	Fri, 6 Nov 2026 06:29:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=z6mTe+88Ot0zXuKJ/sRUhzIZ8JjadFByFxkgyOWJEYw=; b=YuSffwK
+	evsiagHeh0pAYr0qAok17wykFTzXeAPYIpGi2jwYha+mNtNjJHHRCK/qMXPT1kK8
+	Aly2pOpSgnF2ANVdnq2zBu95Cz7CfkLLwAd7I7LH30sevTtporqFPloxkNETEbK2
+	z840gH15QlglL2ZbqNtvyYLtXXFSSJ8G63vvi1GTc6PV1jmOOQOgYMCnxK+72mOP
+	ukMnFFk3UN2Vmsw5eLDBNOd8ZmnGdA7T/Qq+8+o+rcINMP3Tki9nHF3gQjJjlZV1
+	v7REobCdqfDmbhh64Fl+WgnSqtU46Fpiz5DHklMXhYSlVgYVe9yN0hD9wu0Hgji+
+	3Z9RB7bue6bdkUQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=z6mTe
+	+88Ot0zXuKJ/sRUhzIZ8JjadFByFxkgyOWJEYw=; b=l++cUbw9ItpcXZtwjXyVY
+	Qm/PLw4zr2FAc+mj0mtLkZT93r7U3xJL3FcDJopdZZY25PKGEZrpaForluOrL4zw
+	pGKbh8z9+ApC4ggAOhdvJMBXX6JYZ38OZaLCz7LxZD4mmnbZgKNUhjWN5tLWsJAU
+	lwvN7emcqXR0sunJzPamKiMKFjGJrxKqNv4TEY095Y5R54sljjIwta4sDuNSS5F4
+	nY0HOa7bHkfG9mQDVvOmplHpUkEqeG44rwj/MrN5sChVpW6MNv5XBdh6s39LoLKV
+	Vhyon98epnEaQOY+yaV/u0Iwt6M90j8magjuZbVHwvE07SoG0piRmv+g3yeeh8kP
+	Q==
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hs3q03knx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 06 Nov 2026 06:29:04 -0500 (EST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HTuDkUSGRo0uL4kcpC4Aic0A8X0apvBWQIq83oOqVIRXRr7Vabe/w3+B2fepqO/HBvN/IrphWTsr9tumi1C1PhqtE+iHQyrfQz5t920wGsZHbd1i/a9wiOv5k1xvU5GXC3n1FgB7kY9s8IeoE69C6DPjLRSFdRdFQaSCy6HDLS/AfbjUS1ROFKq9cjxcKB77hxKir2/Y8qt5SpMW5MPeTjVO8aAfwZrTSvnXGgTMuSCEIp4ZvonNI3QOFHLDr3zKbR7nQXsjx8gntsLe0cHyZ1mWMLTWsVIMwKoKg/XD3AtaQCZsOQUv4xpQopCbvmSenfL1UUW37633Slh2NW1brw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z6mTe+88Ot0zXuKJ/sRUhzIZ8JjadFByFxkgyOWJEYw=;
+ b=lbOnCIyKtFdUWR3E4PpJi7yolCq9q7XXaYZmagGazIN7JpfXEU7DmQ3fDb6xiwuwyv4AwvAEkQ1+rZbN5Sf1ArD056Td8CWlDIdNXCh1oPE1LcO0DxgeGNAwZNOzCUPNlyEuwLASdc+RvadgZkHEL2iEFXHRt3+y3dDAJI9scqcH2ZkzSjKE5y1rW0MUYfFMrPJgS/e1MEaPuddgcusxQLfjJQQY/beE8sDcLOHIsC3WlsO7qK9qWGvcuIXpEqQzmSitzWf7fGCdEIax2ggftkWvFcwOWutRAZg1KG6ItPb9uhsVF3CWHdtboxgc3UC62XcRZbEcukXEwjcAkCKkvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from IA3PR03MB8453.namprd03.prod.outlook.com (2603:10b6:208:540::16)
+ by DSWPR03MB989143.namprd03.prod.outlook.com (2603:10b6:8:361::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 11:29:02 +0000
+Received: from IA3PR03MB8453.namprd03.prod.outlook.com
+ ([fe80::6e03:3221:b921:9c9]) by IA3PR03MB8453.namprd03.prod.outlook.com
+ ([fe80::6e03:3221:b921:9c9%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
+ 11:29:02 +0000
+From: "Stolniceanu, Iustin" <Iustin.Stolniceanu@analog.com>
+To: "Sipraga, Alvin" <alvin.sipraga@analog.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Parthiban Veerasooran
+	<parthiban.veerasooran@microchip.com>,
+        Heiner Kallweit
+	<hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        "Schmitt,
+ Marcelo" <marcelo.schmitt@analog.com>,
+        "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "Regus, Ciprian" <ciprian.regus@analog.com>
+Subject: Re: [PATCH net-next 3/5] dt-bindings: net: adi,adin1110: Add
+ adi,spi-oa-tc6
+Thread-Topic: [PATCH net-next 3/5] dt-bindings: net: adi,adin1110: Add
+ adi,spi-oa-tc6
+Thread-Index: AQHda63e5o/gI+lqiUiUfXIx+OzXp7cd9b+AgAL1+N4=
+Date: Fri, 6 Nov 2026 11:29:02 +0000
+Message-ID:
+ <IA3PR03MB8453870CB32D7E540C478F21F2762@IA3PR03MB8453.namprd03.prod.outlook.com>
+References: <20261103160918.409701-1-iustin.stolniceanu@analog.com>
+ <20261103160918.409701-4-iustin.stolniceanu@analog.com>
+ <aus899mJ-XZg6ZgF@analog.com>
+In-Reply-To: <aus899mJ-XZg6ZgF@analog.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=analog.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR03MB8453:EE_|DSWPR03MB989143:EE_
+x-ms-office365-filtering-correlation-id: 977119b8-5a0d-4d33-8b0a-08df3bf92872
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|38070700021|5023799004|11063799006|4143699003|56012099006|261021121427099003|261009223027099003|261102123227099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+x-microsoft-antispam-message-info:
+ AC+aeoKWfJoXSBWcQppYtXr7l/9kPbRceSvtoWz+VogCismA3xf9uP0CmWz8u16Vi87eskOsIcyefgXsSz+v44a7Jf19q3WudIK8DrXrVgl8pVXTMmUInu4HrEbNp5vlHegujIosf9Fpz3lJg9E7eSAiJwezD3mRfR6daNwoZolpoJPypDFm/RLXxY7beaNPv6JVCzJSjAf+wVmTEUQmDBzvlfzpAaVu2Ik8Kk7vOkm5tvtqjvkPPV0syhU4WIjEtKNrJUokZveYVjTk+FTibSg/6Y/AXVm68BwYqyDhRWlBwKyZzRpzd7ik0KOnf7Kwa44yKhZrp95e4KaT7WytJvJzGEWDNdj995dEwD4JvAjeDW5AWUrMykZNsYs5tHTsMP9zwzWuVyVYkNGSyS0MLwDiq74Dsoi9pLEvmm7wxzM7aOQcIM3R9Usezxgd59HFC3mhaVnmkajFgworRtQzXqrzj2q63Xap970OUBuZuRhGhFCMZZqlnWvSIDdXNxkqdhGLQD+BLakLfzwx6MH0qRORuOVmESU2uGvvsH/kEIlVxtjhvBE2ShWRkiQIvA4+h7aT0KgdpQtL204krsEuJahBWGzdkIRQ7UXdnnOyiFJH1EQsJFH0xJYqkQavygNJpHkLrA/xoSlkMhtyEKp1P+YyhdZ1MWRRVGzYlUzy94QJkSEQiLy2rkQRtGV4x1vVF3wjDc9BltX4Z+G2Ue5Pr38QlaEcaKMGIow+qLTTNk0=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR03MB8453.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(38070700021)(5023799004)(11063799006)(4143699003)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?Windows-1252?Q?p4ea6UU2CNUbfftUvMzXz2qkv2sRthHc2sQ0sGjMkmr5Y90jpSUYp09/?=
+ =?Windows-1252?Q?oMmqNg2WkbvB9XGJ2wJte471Y69faRRLyKXCPYzVzyjBifnbHd/Iu+xM?=
+ =?Windows-1252?Q?Mf0ZQAIRoEL1GhGfUY5HKpF2Wfdb06ND4ptkSITbzbPUuY9Dl7Qgy45g?=
+ =?Windows-1252?Q?vKPwoqXJS9992j17WRrnwlEd3KQ20IE3bDxshGUEKZr0PcksabX9nsUM?=
+ =?Windows-1252?Q?/bjqGUIfBxFF7g/+DpykawPiyySyjnIwV1B7RzP0ko+20CLYXjXsacYa?=
+ =?Windows-1252?Q?60lEYYTu//tQ+aqI2ZhhN4NoOP8gwZXIOt67kyrUzKOq/JgZg+ptCm+L?=
+ =?Windows-1252?Q?gcrz3MHHgH2vP6xk612kqoer2eoHdAE/zS1uYeKRLVrPEmo7gYir4i74?=
+ =?Windows-1252?Q?mmNwwzieOmCkr7wZ/j8HPPipkYRsTbHVmJ2IRz1fwbZLuwp4Fec1GgUS?=
+ =?Windows-1252?Q?mbtH/BxUiYf4id/zfsFe3e5raGacEYU0J/FW3t5RcNKrlRRGxa+9jPd5?=
+ =?Windows-1252?Q?Zf8D5DpxpZxLPpfAKlOpvm9rtgnA/3xBUchYYAzo4a60s4oLzCiFvb6G?=
+ =?Windows-1252?Q?IbpnnB2rdhorkoV1BRgGqlFI/SnpgssJsd/l8J4lNb+IItbwYhBaPzu3?=
+ =?Windows-1252?Q?PoYzCGpFlk0zxfeRvz8MafixQa67ogKmvG2vL9U/NipG/hgjw18cIh4e?=
+ =?Windows-1252?Q?d8fiR+kcHNh7dXW8HEQsCW/hLDmEnuiSwMkheRVQN/gHMGoLaosC48Ol?=
+ =?Windows-1252?Q?wvu/0gIFNNjndQH+YGODXbrWXZv1JlRAfNMO54hPKkogC2dgF9sksOt4?=
+ =?Windows-1252?Q?QZfB2LidW7AXJf05EEDdEYD6Ca6ruO8UI8GxflWcFrTDTifR1E3E6H6E?=
+ =?Windows-1252?Q?Uj/S0euPqaHK3wYb15I4vPA1MVl5S3WsW1NRV1m/BSl3lIoiiYP+aBks?=
+ =?Windows-1252?Q?ayc1ryP4uJgu1i6uK7R2sAGpLdj9mhqLwUrJkerMaGBAJCtdpkTNI+I4?=
+ =?Windows-1252?Q?CxCzeaj9uVES45dmaqF7G9OEhu/Op1Hm2UrDr0fzgODPNsQeFMoG6kOk?=
+ =?Windows-1252?Q?MyYokID0L9kHa+wusaBA7qHWPiwtXLv4AAjF65JKDXe5s1toneHphQQQ?=
+ =?Windows-1252?Q?kjMtvdnFo5uf0Q5IcKahk606awTPyi33xEBBNvvVIEbl8Q34H6DwFxg2?=
+ =?Windows-1252?Q?tQck6HKJ7O+TqBybOrnyaQj3tanZqlEbUU4nRCekCRbSmexvwtUykmZg?=
+ =?Windows-1252?Q?1kH2ZvpwPPdbT5tGxbvv4XJkEefqw9wDe9/bAwVNu9dKLrzPKxR2GQnW?=
+ =?Windows-1252?Q?wXoGnkPsdZHG4aRE5ayVBxbKR7XuP87DSpk9/ndYRE9hgzmDfJLe8BWl?=
+ =?Windows-1252?Q?rLJH721WJG7iaDwsNwGv6pEJHvYJRvlTOzLXizS+fHw7wJUhA6pX23Py?=
+ =?Windows-1252?Q?h4ROP80zwJCVvpt8wjljmUs+XOGjDIFkvvvOfWziNomlqi55Nam9Df9D?=
+ =?Windows-1252?Q?q4lCcuFGlPur0xixhHnt5z1vTWk1Nv3QOWWwJoUl9I7JkfuhwH1601M9?=
+ =?Windows-1252?Q?8MP56mo02SiyPn0xC5it/BD1PZ3CX64e83z0IFkafwh++Q5PQtZzNrBs?=
+ =?Windows-1252?Q?MZLvrDZiqEuZIpqdFE7OqTt8YQpUtZwuaVVVZsmN4Mt2OILKeSXwcn4i?=
+ =?Windows-1252?Q?YCbyZ9tqq3Dopwp9aaPhmy1WmwSyNNlUtXQNKkvVcJTdern8BlIPzf9f?=
+ =?Windows-1252?Q?eCSMNAHBS/FGLNxIy3IDOm3cqcZtrMQV3dV4G+uxEH0zB+Qk/bicRfnw?=
+ =?Windows-1252?Q?SnifUxlpTCWcloqZabO7DnoNZgf6FwnKWaMQK3nQb+Cs4Ba5yw6HEzKL?=
+ =?Windows-1252?Q?O2x0bexUoa0HqA=3D=3D?=
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,662 +201,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgC3P0TLue1q1i6PAA--.473S5
-X-Coremail-Antispam: 1UD129KBjvAXoWfXw18Xr1rXry5ZFyfJr4UCFg_yoW8trW3Xo
-	WfX3ykXw4kKryFgrWDCFn7GFyj9392kr1UAr1rZrsrZF1kXrWrK3srGw40qFW3JF4a9r15
-	Xay8ArsYgFWSy3s5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYZ7k0a2IF6w4kM7kC6x804xWl14x267AKxVWrJVCq3wAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87
-	I2jVAFwI0_JrWl82xGYIkIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY
-	1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20x
-	vEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
-	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
-	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgUPiUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAAgs+
+X-Exchange-RoutingPolicyChecked:
+	5NnSN9pJC8xn26fC4YxLp1MsbOT9JcHG2nUtbcdrqtalxR1zkG1ULFfXT+4V4NI9QUYp1JnldHrvTyT03eKwTieTtCOYE8DPwGmruxc7xIXzTuhnbMXyo34WEC/CVaiIOAswluEq0ds+QCSs/UWCX3Q4Ijq2TyY0bZSTZCQo7a0c2SosVRzzInx4psF9V3PBe//9S+OySCVIhHEGLqL0fyql0AUHLx6f5kLCLknhMN3Ma0oFS95pMyBKwGh5BrSWxqo0CE5lY94aAvQAYpuvttN/4/g/0iZUd/X3yvsmfshw0NRMIsW3Eq0nArvz7aA5Sem+fFYKCiqGlDDeKydOxw==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR03MB8453.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 977119b8-5a0d-4d33-8b0a-08df3bf92872
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 11:29:02.0725
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GWyF55x+PC9HgZ+b0CyRBbzADlzQ6Xw2UFdzEOQtf51jSPrKmTzIZdfF4I/0JP3xcnyq9UWhRPAgia7niFYBdzfIVWz5fEd8CFITWuYE3Z8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR03MB989143
+X-Proofpoint-ORIG-GUID: 8zcJvvMhOILk6eZzKQ3AKuTO_6X0_LOU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA0NSBTYWx0ZWRfX0tExww3vABIR
+ 5pXnCOfoqi9fWOYiPMwCf56P1lwDjB7MfxCpLiCW1520pbpqqgVlMLs9CmXOauT/Yh6FngxdJB6
+ udX+lI+xa4cSOfyVEgqGWwMwCrhC8PdptTBdhRvzRTcIx9LF57kl
+X-Authority-Analysis: v=2.4 cv=Lt8HWXdc c=1 sm=1 tr=0 ts=6aedba00 cx=c_pps
+ a=1kzZLs4G264k5kMmJ/E+Xg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=N659UExz7-8A:10
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=-0HdNglx9A_OYmkyANYA:9 a=pILNOxqGKmIA:10
+X-Proofpoint-GUID: 8zcJvvMhOILk6eZzKQ3AKuTO_6X0_LOU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA0NSBTYWx0ZWRfX2mUk4vXcwG0i
+ QRMNSXoBzGMCmRJDW3VOCOR9hcDtILMMGC2VTsToB4AKfXoODfrCfCAhhtwHn0PWohNVpXDUCtA
+ hGcnYEVX8pj2iDOqKML2QtjYFiUoNAdSQDvU0+oRY4Ea121rMat00ju/LKD1cjztXxIOM0qTAuz
+ Qx/UVA2FgBBzEyhlJvwi8ofzm0UPmm+bn5W2QNbLNa/7qKmiz5JsLMqFo5hUpcQqhofbDdDrfjL
+ TDvJrxgkyrJIOUTwBHvMgs0fH5BMHYcWJbjG3jfhLopYh4j5vRcMOnS7SlFeNIPbL/ddZfWVbIG
+ eVhCJSWqL2JbC5N0TxiAwKW4GDvGFRxGYcBH4dXNYB+n/SqR/ANwsJXq2rlEMyww0gn/7H/uI4a
+ mhwfA4tDFmFvb/ogfXHDnu3oZyJIm82qb0vggXYLtqpFaziUOXq64kSdG+4Nkju6eodd58FEJBE
+ UV3iYOw6KLzI5oVJbNQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-06_03,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060045
 
-On some boards a single DWC3 controller drives two receptacles: the Super
-Speed pairs are wired to separate PHYs, while the High Speed data lines are
-muxed to whichever connector is in use.  Such a controller has to service
-two independent role-switch inputs, and the shared data path has to be
-moved before the controller is reinitialised for the requested role.
-
-Register one usb_role_switch per connector endpoint described by
-"port-select-gpios" and the per-endpoint "mux-state" property.  Requests
-from the two switches are serialised by the mux lock, the oldest pending
-request wins, and the port-select GPIO is only changed once the previous
-host or gadget instance has been torn down, which is where
-__dwc3_set_mode() runs.  A same-role request that moves the data path to
-the other connector reinitialises the controller as well and starts it
-from the same SUSPHY state as a role change.
-
-The data-path selection and the mode request it implies are published
-together under the controller lock, so the mode worker can never pair the
-new connector with the role of the previous request.  Publishing happens
-after dwc3_pre_set_role(), which may sleep, so the worker cannot start
-before the glue layer has been notified.  A request that arrives while the
-worker is already running is picked up at the end of that run, because
-queue_work() does not re-queue a running work item.
-
-The switches become usable only once both are registered and the initial
-mode request has been issued; a request arriving before that is refused
-instead of racing with the initial mode request.  Teardown refuses further
-requests before unregistering the switches, and only then drains the mode
-worker, so a failed setup cannot leave a mode request queued behind the
-drain or dereference a mux that is no longer published.
-
-A connector reads back the role it requested, not the role currently on the
-bus: hiding a pending request behind the active port would leave the
-connector driver unable to release it, and the stale request would keep
-winning the arbitration after unplug.  The glue layer is notified with
-dwc3_pre_set_role() before dwc3_set_mode_port(), outside spinlocks, as the
-single-connector path does.
-
-A failed port-select write is logged and counted per connector; it cannot
-leave a torn-down role behind, because __dwc3_set_mode() is the only place
-that programs hardware and it never aborts half-way.
-
-While the two-connector mux owns role selection, the debugfs "mode" write
-used to force a specific role is refused instead of racing with it.
-
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/usb/dwc3/core.c    |  93 +++++++++++-
- drivers/usb/dwc3/core.h    |  43 ++++++
- drivers/usb/dwc3/debugfs.c |   4 +
- drivers/usb/dwc3/drd.c     | 287 ++++++++++++++++++++++++++++++++++++-
- 4 files changed, 424 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index fd5c2cd36c..45220a036f 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -21,6 +21,7 @@
- #include <linux/io.h>
- #include <linux/list.h>
- #include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/dma-mapping.h>
- #include <linux/of.h>
- #include <linux/of_graph.h>
-@@ -165,7 +166,10 @@ EXPORT_SYMBOL_GPL(dwc3_set_prtcap);
- static void __dwc3_set_mode(struct work_struct *work)
- {
- 	struct dwc3 *dwc = work_to_dwc(work);
-+	struct dwc3_role_mux *mux = dwc->role_mux;
- 	unsigned long flags;
-+	bool pending, port_switch;
-+	int mux_port = 0;
- 	int ret;
- 	u32 reg;
- 	u32 desired_dr_role;
-@@ -174,6 +178,8 @@ static void __dwc3_set_mode(struct work_struct *work)
- 	mutex_lock(&dwc->mutex);
- 	spin_lock_irqsave(&dwc->lock, flags);
- 	desired_dr_role = dwc->desired_dr_role;
-+	if (mux)
-+		mux_port = mux->desired_port;
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
- 	pm_runtime_get_sync(dwc->dev);
-@@ -184,7 +190,14 @@ static void __dwc3_set_mode(struct work_struct *work)
- 	if (!desired_dr_role)
- 		goto out;
- 
--	if (desired_dr_role == dwc->current_dr_role)
-+	/*
-+	 * Moving the shared data path to the other connector is a mode switch even
-+	 * when the role does not change: the running host or gadget instance has to
-+	 * be torn down while its own data lines are still selected.
-+	 */
-+	port_switch = mux && mux_port != mux->active_port;
-+
-+	if (desired_dr_role == dwc->current_dr_role && !port_switch)
- 		goto out;
- 
- 	if (desired_dr_role == DWC3_GCTL_PRTCAP_OTG && dwc->edev)
-@@ -233,8 +246,40 @@ static void __dwc3_set_mode(struct work_struct *work)
- 		dwc3_writel(dwc, DWC3_GCTL, reg);
- 	}
- 
-+	/*
-+	 * The previous host or gadget instance has been torn down above, so the
-+	 * shared High Speed data path can now be moved to the requesting
-+	 * connector.  A failure here must not abort the mode change half-way:
-+	 * the controller would be left with a torn-down role and a stale
-+	 * current_dr_role, which the next request would tear down a second time.
-+	 */
-+	if (port_switch) {
-+		ret = gpiod_direction_output(mux->select, mux_port);
-+		if (ret)
-+			dev_err_ratelimited(dwc->dev,
-+					    "failed to select USB port %d: %d\n",
-+					    mux_port, ret);
-+
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		if (ret)
-+			mux->ports[mux_port].errors++;
-+		else
-+			mux->active_port = mux_port;
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+	}
-+
- 	spin_lock_irqsave(&dwc->lock, flags);
- 
-+	/*
-+	 * dwc3_set_prtcap() only clears GUSB3PIPECTL.SUSPENDENABLE and
-+	 * GUSB2PHYCFG.SUSPHY when PRTCAP actually changes, but a same-role port
-+	 * switch reinitialises the controller too and must start from the same
-+	 * state: the instance created below would otherwise inherit the SUSPHY
-+	 * setting of the one torn down above.
-+	 */
-+	if (port_switch)
-+		dwc3_enable_susphy(dwc, false);
-+
- 	dwc3_set_prtcap(dwc, desired_dr_role, false);
- 
- 	spin_unlock_irqrestore(&dwc->lock, flags);
-@@ -283,24 +328,68 @@ static void __dwc3_set_mode(struct work_struct *work)
- 	}
- 
- out:
-+	/*
-+	 * A request that arrived while this work was running did not re-queue it:
-+	 * queue_work() returns false for a work item that is already running.  Pick
-+	 * such a request up here instead of waiting for the next connector event.
-+	 * The pair is compared with the snapshot taken above, so a data-path switch
-+	 * that failed is not retried in a loop.
-+	 */
-+	if (mux) {
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		pending = dwc->desired_dr_role != desired_dr_role ||
-+			  mux->desired_port != mux_port;
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		if (pending)
-+			queue_work(system_freezable_wq, &dwc->drd_work);
-+	}
-+
- 	pm_runtime_put_autosuspend(dwc->dev);
- 	mutex_unlock(&dwc->mutex);
- }
- 
--void dwc3_set_mode(struct dwc3 *dwc, u32 mode)
-+static void dwc3_queue_mode(struct dwc3 *dwc, u32 mode, int port)
- {
- 	unsigned long flags;
- 
- 	if (dwc->dr_mode != USB_DR_MODE_OTG)
- 		return;
- 
-+	/*
-+	 * The connector that owns the shared data path is published together with
-+	 * the mode request: __dwc3_set_mode() snapshots both under dwc->lock, and
-+	 * a torn pair would move the data path for the connector that asked last
-+	 * while bringing up the role requested by the one before it.
-+	 */
- 	spin_lock_irqsave(&dwc->lock, flags);
- 	dwc->desired_dr_role = mode;
-+	if (dwc->role_mux && port >= 0)
-+		dwc->role_mux->desired_port = port;
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
- 	queue_work(system_freezable_wq, &dwc->drd_work);
- }
- 
-+void dwc3_set_mode(struct dwc3 *dwc, u32 mode)
-+{
-+	dwc3_queue_mode(dwc, mode, -1);
-+}
-+
-+/**
-+ * dwc3_set_mode_port - request a mode and the connector that owns the data path
-+ * @dwc: pointer to our controller context structure
-+ * @mode: mode to be requested
-+ * @port: index of the connector that should drive the shared data path
-+ *
-+ * Same as dwc3_set_mode(), except that the data-path selection is published
-+ * atomically with the mode request, so the mode worker never pairs the new
-+ * connector with the previous role.
-+ */
-+void dwc3_set_mode_port(struct dwc3 *dwc, u32 mode, int port)
-+{
-+	dwc3_queue_mode(dwc, mode, port);
-+}
-+
- u32 dwc3_core_fifo_space(struct dwc3_ep *dep, u8 type)
- {
- 	struct dwc3		*dwc = dep->dwc;
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index f3dabb37f8..1beef73212 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -1008,6 +1008,46 @@ struct dwc3_glue_ops {
- 	void	(*pre_run_stop)(struct dwc3 *dwc, bool is_on);
- };
- 
-+/* Per-connector state of the optional shared-HS-data-bus mux. */
-+struct dwc3_role_port {
-+	struct dwc3		*dwc;
-+	struct usb_role_switch	*sw;
-+	struct fwnode_handle	*fwnode;
-+	enum usb_role		role;
-+	unsigned int		state;
-+	/* request order, see dwc3_role_mux.seq */
-+	u64			seq;
-+	/* data-path switch failures, for diagnostics only */
-+	unsigned int		errors;
-+};
-+
-+/**
-+ * struct dwc3_role_mux - optional data-path mux between two connectors
-+ * @select: GPIO selecting which connector drives the shared HS data lines
-+ * @lock: serialises role requests coming from both connectors
-+ * @ready: both switches registered and the initial mode request issued
-+ * @ports: per-connector state, indexed by the endpoint's "mux-state"
-+ * @desired_port: index of the connector that currently wins
-+ * @active_port: index of the connector currently driving the data lines
-+ * @seq: monotonic request counter used to order pending requests
-+ *
-+ * Two connectors can share the High Speed data lines of one controller while
-+ * keeping their Super Speed lanes separate.  Each connector then needs its own
-+ * role-switch input, and the shared data path has to be moved before the
-+ * controller is reinitialised for the requested role.
-+ */
-+struct dwc3_role_mux {
-+	struct gpio_desc	*select;
-+	/* serialises role requests coming from both connectors */
-+	struct mutex		lock;
-+	/* false until both switches are registered and the mode was requested */
-+	bool			ready;
-+	struct dwc3_role_port	ports[2];
-+	int			desired_port;
-+	int			active_port;
-+	u64			seq;
-+};
-+
- /**
-  * struct dwc3 - representation of our controller
-  * @drd_work: workqueue used for role swapping
-@@ -1064,6 +1104,7 @@ struct dwc3_glue_ops {
-  *		- USBPHY_INTERFACE_MODE_UTMI
-  *		- USBPHY_INTERFACE_MODE_UTMIW
-  * @role_sw: usb_role_switch handle
-+ * @role_mux: optional shared data-path mux plus per-connector role switches
-  * @role_switch_default_mode: default operation mode of controller while
-  *			usb role is USB_ROLE_NONE.
-  * @usb_psy: pointer to power supply interface.
-@@ -1265,6 +1306,7 @@ struct dwc3 {
- 	struct notifier_block	edev_nb;
- 	enum usb_phy_interface	hsphy_mode;
- 	struct usb_role_switch	*role_sw;
-+	struct dwc3_role_mux	*role_mux;
- 	enum usb_dr_mode	role_switch_default_mode;
- 
- 	struct power_supply	*usb_psy;
-@@ -1614,6 +1656,7 @@ struct dwc3_gadget_ep_cmd_params {
- /* prototypes */
- void dwc3_set_prtcap(struct dwc3 *dwc, u32 mode, bool ignore_susphy);
- void dwc3_set_mode(struct dwc3 *dwc, u32 mode);
-+void dwc3_set_mode_port(struct dwc3 *dwc, u32 mode, int port);
- u32 dwc3_core_fifo_space(struct dwc3_ep *dep, u8 type);
- 
- #define DWC3_IP_IS(_ip)							\
-diff --git a/drivers/usb/dwc3/debugfs.c b/drivers/usb/dwc3/debugfs.c
-index 01ebd73198..82e7a334b1 100644
---- a/drivers/usb/dwc3/debugfs.c
-+++ b/drivers/usb/dwc3/debugfs.c
-@@ -434,6 +434,10 @@ static ssize_t dwc3_mode_write(struct file *file,
- 	u32			mode = 0;
- 	char			buf[32];
- 
-+	/* The connector providers own both the role and the data-path selection. */
-+	if (dwc->role_mux)
-+		return -EBUSY;
-+
- 	if (copy_from_user(&buf, ubuf, min_t(size_t, sizeof(buf) - 1, count)))
- 		return -EFAULT;
- 
-diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
-index f3e37d3836..22dc8ad084 100644
---- a/drivers/usb/dwc3/drd.c
-+++ b/drivers/usb/dwc3/drd.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/extcon.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
-@@ -501,10 +502,287 @@ static enum usb_role dwc3_usb_role_switch_get(struct usb_role_switch *sw)
- 	return role;
- }
- 
-+/*
-+ * Index of the connector that should own the shared data path: the oldest
-+ * pending request wins, and the last selection is kept when neither connector
-+ * requests a role.  Requests are ordered by a monotonic counter rather than by
-+ * a timestamp, so a wrapped counter cannot be mistaken for an old request.
-+ */
-+static int dwc3_role_mux_pick(struct dwc3_role_mux *mux)
-+{
-+	int sel = mux->desired_port;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		if (mux->ports[i].role == USB_ROLE_NONE)
-+			continue;
-+		if (mux->ports[sel].role == USB_ROLE_NONE ||
-+		    mux->ports[i].seq < mux->ports[sel].seq)
-+			sel = i;
-+	}
-+
-+	return sel;
-+}
-+
-+static u32 dwc3_role_mux_mode(struct dwc3 *dwc, enum usb_role role)
-+{
-+	if (role == USB_ROLE_HOST)
-+		return DWC3_GCTL_PRTCAP_HOST;
-+	if (role == USB_ROLE_DEVICE)
-+		return DWC3_GCTL_PRTCAP_DEVICE;
-+	if (dwc->role_switch_default_mode == USB_DR_MODE_HOST)
-+		return DWC3_GCTL_PRTCAP_HOST;
-+
-+	return DWC3_GCTL_PRTCAP_DEVICE;
-+}
-+
-+static int dwc3_mux_role_set(struct usb_role_switch *sw, enum usb_role role)
-+{
-+	struct dwc3_role_port *port = usb_role_switch_get_drvdata(sw);
-+	struct dwc3 *dwc = port->dwc;
-+	struct dwc3_role_mux *mux = dwc->role_mux;
-+	unsigned long flags;
-+	enum usb_role selected_role;
-+	int selected;
-+
-+	if (role > USB_ROLE_DEVICE)
-+		return -EINVAL;
-+
-+	mutex_lock(&mux->lock);
-+
-+	/*
-+	 * The switches are registered before the initial mode request is issued and
-+	 * before mux->ready is set, so a connector can find its switch while the
-+	 * mux is still being set up.  Refusing the request keeps it from racing
-+	 * with the initial mode request and from queueing work that the error path
-+	 * would then have to undo.
-+	 */
-+	if (!mux->ready) {
-+		mutex_unlock(&mux->lock);
-+		return -ENODEV;
-+	}
-+
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	/*
-+	 * A role change between two non-NONE roles of the same connector must not
-+	 * give that connector a new request ticket: it would otherwise steal the
-+	 * data path from the connector that asked first.
-+	 */
-+	if (port->role == USB_ROLE_NONE && role != USB_ROLE_NONE)
-+		port->seq = ++mux->seq;
-+	port->role = role;
-+	selected = dwc3_role_mux_pick(mux);
-+	selected_role = mux->ports[selected].role;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+	/*
-+	 * Notify the glue layer before touching the controller, in the same order
-+	 * as the single-connector path.  It may sleep (the Qualcomm glue calls
-+	 * pm_runtime_resume_and_get()), so it runs outside of dwc->lock -
-+	 * dwc3_set_mode() takes that lock itself and a recursive take deadlocks
-+	 * the controller on the very first role change.
-+	 *
-+	 * Pairing with the selection above is provided by mux->lock: a second
-+	 * connector blocks in mutex_lock() until this request has been issued.
-+	 *
-+	 * Same asynchronous semantics as the single-connector role switch: the
-+	 * data path and the controller are reprogrammed from __dwc3_set_mode().
-+	 */
-+	dwc3_pre_set_role(dwc, selected_role);
-+	/*
-+	 * The selected connector and the mode are published by one call, under
-+	 * dwc->lock, so __dwc3_set_mode() cannot observe the new connector together
-+	 * with the role of the previous request.  Publishing happens after
-+	 * dwc3_pre_set_role() so the work cannot start before the glue layer has
-+	 * been notified.
-+	 */
-+	dwc3_set_mode_port(dwc, dwc3_role_mux_mode(dwc, selected_role), selected);
-+
-+	mutex_unlock(&mux->lock);
-+
-+	/*
-+	 * A data-path switch failure is reported through the console and counted
-+	 * per connector; it is not returned here.  This call has already updated
-+	 * the request state, so a stale error from another connector must not be
-+	 * reported as the result of this (successful) request.
-+	 */
-+	return 0;
-+}
-+
-+static enum usb_role dwc3_mux_role_get(struct usb_role_switch *sw)
-+{
-+	struct dwc3_role_port *port = usb_role_switch_get_drvdata(sw);
-+	struct dwc3 *dwc = port->dwc;
-+	unsigned long flags;
-+	enum usb_role role;
-+
-+	/*
-+	 * Report the role this connector itself requested, whether or not it owns
-+	 * the shared data path right now.  Hiding a pending request behind
-+	 * active_port makes connector drivers read back USB_ROLE_NONE, so they
-+	 * never send the set_role(USB_ROLE_NONE) that would release it; the stale
-+	 * request then keeps winning dwc3_role_mux_pick() after the connector has
-+	 * been unplugged and starves the other one.
-+	 */
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	role = port->role;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+	return role;
-+}
-+
-+static void dwc3_role_mux_exit(struct dwc3 *dwc)
-+{
-+	struct dwc3_role_mux *mux = dwc->role_mux;
-+	unsigned int i;
-+
-+	if (!mux)
-+		return;
-+
-+	/*
-+	 * Refuse new requests first.  dwc3_mux_role_set() takes this lock for its
-+	 * whole duration, so once it is held no request is in flight, and every
-+	 * later one returns before it can queue a mode request.  The work itself
-+	 * is drained by the caller, which is the only way to keep a request from
-+	 * being queued after the drain.
-+	 */
-+	mutex_lock(&mux->lock);
-+	mux->ready = false;
-+	mutex_unlock(&mux->lock);
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		if (mux->ports[i].sw)
-+			usb_role_switch_unregister(mux->ports[i].sw);
-+		mux->ports[i].sw = NULL;
-+		fwnode_handle_put(mux->ports[i].fwnode);
-+		mux->ports[i].fwnode = NULL;
-+	}
-+}
-+
-+/* Returns 1 when the optional two-connector mux has been set up. */
-+static int dwc3_role_mux_init(struct dwc3 *dwc, u32 mode)
-+{
-+	struct usb_role_switch_desc desc = {};
-+	struct dwc3_role_mux *mux;
-+	struct fwnode_handle *ep;
-+	struct gpio_desc *select;
-+	char name[64];
-+	u32 state;
-+	int ret, i;
-+
-+	select = devm_gpiod_get_optional(dwc->dev, "port-select", GPIOD_ASIS);
-+	if (IS_ERR(select))
-+		return PTR_ERR(select);
-+	if (!select)
-+		return 0;
-+
-+	mux = devm_kzalloc(dwc->dev, sizeof(*mux), GFP_KERNEL);
-+	if (!mux)
-+		return -ENOMEM;
-+
-+	ret = gpiod_get_value_cansleep(select);
-+	if (ret < 0)
-+		return ret;
-+
-+	mux->select = select;
-+	mux->desired_port = ret;
-+	mux->active_port = -1;
-+	mutex_init(&mux->lock);
-+
-+	/*
-+	 * Publish the mux before the first endpoint reference is taken:
-+	 * dwc3_role_mux_exit() is a no-op while dwc->role_mux is NULL, so every
-+	 * error path below would otherwise leak the fwnode references already
-+	 * acquired.
-+	 */
-+	dwc->role_mux = mux;
-+
-+	fwnode_graph_for_each_endpoint(dev_fwnode(dwc->dev), ep) {
-+		if (!fwnode_property_present(ep, "usb-role-switch"))
-+			continue;
-+
-+		ret = fwnode_property_read_u32(ep, "mux-state", &state);
-+		if (ret || state >= ARRAY_SIZE(mux->ports)) {
-+			ret = -EINVAL;
-+			goto err_put_ep;
-+		}
-+		if (mux->ports[state].fwnode) {
-+			ret = -EINVAL;
-+			goto err_put_ep;
-+		}
-+
-+		mux->ports[state].fwnode = fwnode_handle_get(ep);
-+		mux->ports[state].state = state;
-+		mux->ports[state].dwc = dwc;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		if (!mux->ports[i].fwnode) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+	}
-+
-+	/*
-+	 * Registering the switches makes them reachable from the connector
-+	 * drivers, so the initial mode request has to be issued inside the same
-+	 * critical section: a set() arriving in between would be silently
-+	 * overwritten by it while port->role keeps the requested value.
-+	 * dwc3_mux_role_set() serialises on the same lock.
-+	 */
-+	mutex_lock(&mux->lock);
-+
-+	for (i = 0; i < ARRAY_SIZE(mux->ports); i++) {
-+		snprintf(name, sizeof(name), "%s-port%u", dev_name(dwc->dev), i);
-+		desc.name = name;
-+		desc.fwnode = mux->ports[i].fwnode;
-+		desc.set = dwc3_mux_role_set;
-+		desc.get = dwc3_mux_role_get;
-+		desc.driver_data = &mux->ports[i];
-+		mux->ports[i].sw = usb_role_switch_register(dwc->dev, &desc);
-+		if (IS_ERR(mux->ports[i].sw)) {
-+			ret = PTR_ERR(mux->ports[i].sw);
-+			mux->ports[i].sw = NULL;
-+			mutex_unlock(&mux->lock);
-+			goto err;
-+		}
-+	}
-+
-+	/*
-+	 * The controller is only started in its default role once both switches
-+	 * are registered: before that a connector driver cannot request a role,
-+	 * so nothing can race with this initial mode request.
-+	 */
-+	dwc3_set_mode(dwc, mode);
-+	mux->ready = true;
-+
-+	mutex_unlock(&mux->lock);
-+
-+	return 1;
-+
-+err:
-+	/*
-+	 * Unregister the switches before draining the work: dwc3_role_mux_exit()
-+	 * refuses every further request, and a request that was already past that
-+	 * check has queued its work by the time the lock is released, so the drain
-+	 * below cannot miss it.  The reverse order would let a blocked request
-+	 * queue the work after the drain and run it on a half-torn-down mux.
-+	 * dwc->role_mux is left in place: it is devm-managed and freeing it here
-+	 * would only turn a late request into a NULL dereference.
-+	 */
-+	dwc3_role_mux_exit(dwc);
-+	cancel_work_sync(&dwc->drd_work);
-+	return ret;
-+err_put_ep:
-+	fwnode_handle_put(ep);
-+	goto err;
-+}
-+
- static int dwc3_setup_role_switch(struct dwc3 *dwc)
- {
- 	struct usb_role_switch_desc dwc3_role_switch = {NULL};
- 	u32 mode;
-+	int ret;
- 
- 	dwc->role_switch_default_mode = usb_get_role_switch_default_mode(dwc->dev);
- 	if (dwc->role_switch_default_mode == USB_DR_MODE_HOST) {
-@@ -513,6 +791,11 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
- 		dwc->role_switch_default_mode = USB_DR_MODE_PERIPHERAL;
- 		mode = DWC3_GCTL_PRTCAP_DEVICE;
- 	}
-+
-+	ret = dwc3_role_mux_init(dwc, mode);
-+	if (ret)
-+		return ret < 0 ? ret : 0;
-+
- 	dwc3_set_mode(dwc, mode);
- 
- 	dwc3_role_switch.fwnode = dev_fwnode(dwc->dev);
-@@ -526,7 +809,7 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
- 
- 	if (dwc->dev->of_node) {
- 		/* populate connector entry */
--		int ret = devm_of_platform_populate(dwc->dev);
-+		ret = devm_of_platform_populate(dwc->dev);
- 
- 		if (ret) {
- 			usb_role_switch_unregister(dwc->role_sw);
-@@ -541,6 +824,7 @@ static int dwc3_setup_role_switch(struct dwc3 *dwc)
- #else
- #define ROLE_SWITCH 0
- #define dwc3_setup_role_switch(x) 0
-+static inline void dwc3_role_mux_exit(struct dwc3 *dwc) {}
- #endif
- 
- int dwc3_drd_init(struct dwc3 *dwc)
-@@ -597,6 +881,7 @@ void dwc3_drd_exit(struct dwc3 *dwc)
- {
- 	unsigned long flags;
- 
-+	dwc3_role_mux_exit(dwc);
- 	if (dwc->role_sw)
- 		usb_role_switch_unregister(dwc->role_sw);
- 
-
+On Wed, Nov 04, 2026 at 03:12:41PM +0100, Alvin =8Aipraga wrote:=0A=
+> Should this disallow the adi,spi-crc property if set?=0A=
+=0A=
+Yes. adi,spi-crc only applies to the generic SPI protocol, so in v2=0A=
+the binding no longer allows it together with adi,spi-oa-tc6.=0A=
+=0A=
+> I also see that there's a similar protection concept in OA TC6, but that=
+=0A=
+> seems not to be supported here? Is that intrinsically the same as adi,spi=
+-crc?=0A=
+=0A=
+It is the same strap (SPI_CFG0) and the same bit (CONFIG0.PROTE), but=0A=
+it's a different mechanism. In OA TC6 mode every control word is sent=0A=
+together with its complement, whereas the generic protocol appends a=0A=
+CRC8. PROTE is read-only and latched from SPI_CFG0 at reset.=0A=
+=0A=
+It is supported, but it needs no DT property. oa_tc6_init() reads=0A=
+CONFIG0.PROTE (oa_tc6_check_ctrl_protection()) and enables control=0A=
+protection when the bit is set. I checked this on an EVAL-ADIN1110EBZ=0A=
+with SPI_CFG0 in both positions. With protection strapped, CONFIG0 reads=0A=
+0x8026 (PROTE set), every reply carries the complement, and the driver=0A=
+works without any extra property.=0A=
+=0A=
+That's also the difference between the two straps. SPI_CFG0=0A=
+(protection/CRC) can be read back through CONFIG0.PROTE, but SPI_CFG1=0A=
+(generic SPI vs OA TC6) has no register at all. So only the protocol=0A=
+needs a DT property, which is why adi,spi-oa-tc6 exists.=0A=
+=0A=
+Thanks,=0A=
+Iustin=0A=
