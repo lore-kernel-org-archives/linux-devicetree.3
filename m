@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971438;
-	b=1riAvx7482LwScsn6BEpC+b5AZIgwx9FIg5fBWrCAobQTp6qbebebdATv0YaZ2OoCBvO
-	 NlbrWNPls+jxkwdEnN1z2EU1THwRF3TCJVlJNZ0SQ8O430z+HnlhN0qd/XUZeXB4AJUSy
-	 VDp5kWeeWjXGbCrKTVHYbkHc2qvxGDFXZwNUkn7LXxaqepde3HdFlc4fVLNVMP4QT6BRP
-	 rjcK6skAOQx9NFC97i3BJcD0axrWHJS8TXg+HnObyOAaaE3W+V60rhOuTmDGASt4aYs80
-	 vcu2hd50KGTQpZ0UXYToPqij1Ym/GEV6WL/3+K/XqwC9qkBEzYgXB2uPzhRlZ4nMv+Q==
+	t=1793971477;
+	b=U+aAMJNuLqGLQSfekNXofprwRTsXr9Z3PjbmQirDIdr3UclEgLWPXbU7d2WhOGsxrofa
+	 mZ7wRHo+ku2Y47DKdbbBlzsiuVz68DmIKz8deLtk6J26QRWnZOO0a+Y3R+tJMyg1G7z+M
+	 LXdgLbe0rulQG1QHCSnrrculWazAvXAU+TNwqWmt/2FminI454FCXMd3PwdK09ibkOXLX
+	 F0GyDu5TZmk9GU/4sa14qwyaRN189VE7wFPpjb+v3p0ltfH7eE7Yh1f14cmJW9tZEvyA8
+	 AgIJif5NBMNpqH3AMM/wsgX4FxhqMAzBbQpHUDXBTgrFD2QqU9sGinM+PtduF+Ckm6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971477;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/kodSX96ujDziaB7lGvbVTnU34UOPakkV0ayfzL5L94=;
-	b=P+RSeAQg9gYKCN9pR9ChiviOXFq2woj7/8yabHwSagWVY1VzPcwMPiwS3Mtq3Kn9v1S+
-	 sW1Rd+V+RWqYqeIzycEA6muFfEQ7hnmCNvgHqQn7tShdG5HbX7vNqoN29BGahQu3VQR7T
-	 oMiOsOFt2N+zvIVaYz8rkPRXNr9rgBUxYZTuGXkp7Rn5XcEqlH/1v3KTXEwvD4Q2fbcUS
-	 dKniHUNMJmA1nLFPRswqoUsXUWMhemcR/knnmRNhJhp684rUgSCFs6bw/4Tcagks0tZeO
-	 CZB83cpIHjdxPVLh6YLMTnvGLj3fvPc9zpqTxWrk6+6oW1o28k8w2i1k03MJjRvSwnw==
+	bh=/j407pFFl2ICWto2yvFJdFRo1hJLCtsbM0PDUwpDaXo=;
+	b=CBv3Tou7QmDrTyebumZhKu0quoMJXoiuhwh17aFkgVxRhKFrAp+Hwc6cS8NKVILNKD1O
+	 hSLYPewuGuBATB8bEgUEP6vYm63F5xy/7GS7T3n10cunDhAD0psXLWF+DpIbIOOnmhPxb
+	 +BptJRgV3R4mVlQwgSzea7vZFHxdEZRdD0sdv3crrWKJiqIM9omnGP3MzFnPUFbzTJpIE
+	 4ni7nUzCl6G215XSiRFAkp4Zc9mWAmhTL+2o7XiXE+VqgHwu5jvqU+KU3mTLgeRxQJN2d
+	 usHHWrTTe44ZYqLEO09K27nX5tfCtnNjVNDKxICt1Wwt1IFroYf+NMPr3u2Uurmk/aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ho07j9cZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXQQYmsg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67629606D80A;
-	Fri,  6 Nov 2026 13:23:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88B4606A32C;
+	Fri,  6 Nov 2026 13:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ho07j9cZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812661F008BC;
-	Fri,  6 Nov 2026 13:23:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXQQYmsg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A101F008A1;
+	Fri,  6 Nov 2026 13:24:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971438;
-	bh=/kodSX96ujDziaB7lGvbVTnU34UOPakkV0ayfzL5L94=;
+	s=k20260515; t=1793971476;
+	bh=/j407pFFl2ICWto2yvFJdFRo1hJLCtsbM0PDUwpDaXo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ho07j9cZPpIFko6+b33h7hgp49r0Jv5esWt04CGV55mDgMi4ztV5nlxeGDNtFvvHQ
-	 wNc84qttMZ6c1HH0Wz4zic72EazVEMi7rlYABUchxcFNmNlQvH7Pe93nq06YKijeXa
-	 JuaaH1BWG2w29Cz++yEB9wUtMPOYRli8YR1S2nu990V/l5jAiJ5HyoyZD630l1AVlt
-	 +V4LQSJpTCgWlI1CinOeTcKa5E1CPyUPbkZBG7zn0f8FXYph3Nl+zBcFP9F2KgVc/t
-	 9c/ieaiLntkWOx4jCKTRFbe3IDSn947+zyciyMZFoz3hqn+Nllc4b/4zxOJPBGB/eq
-	 Mrquu4m3cIfcg==
-Date: Fri, 6 Nov 2026 14:23:55 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	b=oXQQYmsgnLmStFJTl0HH3An1UWye77GPwtSlmUBxIPEBGdNMjGV93Y3kMfIaBdLuE
+	 cx4Qn9d1VpxU+A0sJ9X5BzlEgT1180mRgzhHv507PoR/XkmLfjuG+GVBq577JptJtx
+	 mxRikDFTSoYQsFi6M/bFwPoPQT1ggW7OfHU1zgn5DxmRNOurUJuIxCkRiuygJtp35Q
+	 MmNHMQybxPxwxRmlyHyNUcod9ZfePBMKeRQI2TWvLiqcXLAHu3GB8zGlEu6GQIUX7/
+	 5GSF+s/Q57Lo02/GXZazEvBYT662J4K/ABorg6P1UDU7rDvW+MbeA3taednXuuD6jN
+	 JRsE1evm/ZymA==
+Date: Fri, 6 Nov 2026 07:24:32 -0600
+From: Rob Herring <robh@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Grant Likely <grant.likely@secretlab.ca>,
+	Grant Likely <grant.likely@linaro.org>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	David Daney <david.daney@cavium.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 03/10] drm/panel: Convert LG LH400WV3-SD04 to use MIPI
- DBI bus
-Message-ID: <au3UDDpLUmeIOwEH@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-4-clamor95@gmail.com>
+Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
+Message-ID: <20261106132432.GA2551143-robh@kernel.org>
+References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+ <20261105124030.GA1449284-robh@kernel.org>
+ <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,85 +67,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qkzlestmbzyulvpc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-4-clamor95@gmail.com>
+In-Reply-To: <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
 
+On Thu, Nov 05, 2026 at 06:11:14PM -0800, Abdurrahman Hussain wrote:
+> On Thu, Nov 05, 2026 at 06:40:30AM -0600, Rob Herring wrote:
+> > I'd rather have my added device working than refusing to probe because
+> > some arbitrary device index couldn't be used. There may be some user
+> > that has a working system today and then this change would break them.
+> > We can't really have that. I view aliases as a request, not a
+> > requirement. It's perfectly valid for an OS to just ignore them
+> > completely.
+> >
+> > I have no issue if we make the failure to use an alias louder, but I
+> > guess that's not your main issue.
+> 
+> OK. I'll drop that from overlay-notes.rst.
+> 
+> Watchdog and rtc already treat an alias as a request: they try the
+> aliased id and take a dynamic one if it is in use. The subsystems that
+> fail are the ones that keep their dynamic range clear of boot-time aliases,
+> which they cannot do for an overlay applied later: i2c, i3c, spi and
+> mmc. On x86/ACPI and other systems booting without a base DT there are
+> no boot-time aliases at all, so that range is empty and dynamic
+> numbering starts at 0, right where overlay aliases would land.
+> 
+> Would you like v9 to give those four the same fallback, with a warning,
+> so the behaviour is consistent across subsystems? For i2c, the alias
+> lookup would move into i2c_allocate_adapter_id(), so i2c_add_adapter()
+> just sets nr = -1:
 
---qkzlestmbzyulvpc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 03/10] drm/panel: Convert LG LH400WV3-SD04 to use MIPI
- DBI bus
-MIME-Version: 1.0
+What I would like is aliases are not supported in overlays (applied 
+after boot).
 
-On Thu, Nov 05, 2026 at 04:05:03PM +0200, Svyatoslav Ryhel wrote:
-> Switch from a generic platform driver to a dedicated MIPI DBI driver.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 103 ++++++++++------------
->  1 file changed, 46 insertions(+), 57 deletions(-)
+Don't we already have consistent naming on hotpluggable devices such as 
+network adapters? All that is solved in userspace. Why do we need DT to 
+solve this here?
 
-Same comments as for the previous patch.
-
-> diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/=
-panel/panel-lg-lh400wv3.c
-[...]
-> -#define panel_dbi_command(priv, cmd, seq...) \
-> +#define panel_dbi_command(dbidev, cmd, seq...) \
-
-This probably also applied to the previous patch, but there seems to be
-no reason for this change and the related changes below.
-
->  ({ \
->  	const u8 d[] =3D { seq }; \
-> -	struct drm_panel *panel =3D &(priv)->panel; \
-> -	struct device *dev =3D panel->dev; \
-> +	struct device *dev =3D &(dbidev)->dev; \
->  	int ret; \
-> -	ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
-> +	ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d))=
-; \
->  	if (ret) \
->  		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret,=
- cmd); \
->  	ret; \
-[...]
-> @@ -177,14 +166,13 @@ static int lg_lh400wv3_get_modes(struct drm_panel *=
-panel,
->  static const struct drm_panel_funcs lg_lh400wv3_panel_funcs =3D {
->  	.prepare =3D lg_lh400wv3_prepare,
->  	.enable =3D lg_lh400wv3_enable,
-> -	.disable =3D lg_lh400wv3_disable,
->  	.unprepare =3D lg_lh400wv3_unprepare,
->  	.get_modes =3D lg_lh400wv3_get_modes,
->  };
-
-It's not obvious, and also not documented, why .disable is removed.
-
-Thierry
-
---qkzlestmbzyulvpc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt1OsACgkQ3SOs138+
-s6E7RhAAhYaqjQpfxuR0l1ZuY4dmYeegPdxooSOgCYqYp6c11Rh7fip7s4vdJYqE
-emn9EvuSsZjwV0kF3BTkroWFkJBKtFZB1KpHqJMiUfB+l9zRZJEb1w1/rovBXP9n
-XhAroklrn494LRa5A6WMuSU35U5AXCOvY2PX3euu9HJlTjwO4tKqoXLy+JvjPifE
-LNCylIWfRgampR3y8wPzpjoon3e5QnIeK9yMOyLetAd1/dl9+pCH6ROlFc8eWiim
-+6dJ5V2p2kDuauD3CVGI7oPTDV+jscsaUV+PjkB1urv9TVEGvNC2P3vDz4gTZa1s
-FwnZNQqFj84PUho4vCZZKIffM7eV20S5jBPuzgWdagZVTY6wxKwsIH/OXY7E0FU0
-dCRqGabKG4a4v8iqSdB1f1IrxVK7Ic8aQgliAVdt4SjtNu+/GbVm/FcinEbu4Psz
-LbqDxv/T8HGc9YVhyqQdY7ni09OuEaTez7FdmmHZL1nzSaf0OjAHhqgCVyH+HDZo
-nIeWl1MxRe1q0cuwHeYMQj0uQ6JSenhDHEILix2i6AFt6w3pspErjxkb3Xo7Dm4G
-r+R9/oZPi/zcZ5oH0aCWQRTkK9a6WgVscbNh7K7dwQfPMMFZ51CWG1riVluLRxGf
-+rdrQlldQVhAEJrgw3lwjVerdbSRz76nVMwadaXh+lhcbeR+3tU=
-=TgBu
------END PGP SIGNATURE-----
-
---qkzlestmbzyulvpc--
+Rob
