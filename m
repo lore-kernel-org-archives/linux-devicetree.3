@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974761;
-	b=WU2kBCUq25oHRlZjj/f451dHMJG2FMf37feOcDMEV/ZUetpT8tmdQ9ILAoxfVdoMvOHJ
-	 roK9tlCk6XSpD4EHCtDF8SHuU7HTkklpYlvKmlpFmpYlj2RT1ZCY/nB56mKYNLM8zhWQf
-	 xM/5XX6trJZVA51I7pjs1pj9mk6aP5Q/ziEWUgZWXX/mWPLuM+1Tbsc4JnXclciwZgXTs
-	 N5cSCufTtrUx2lA5xjB4DZ3M1zVUH+k0KYVkXbQwNOvTozMR8wVzHVYAo0uWPhRnBq2QJ
-	 p8VFsEdGpuG7gnHPkHcdjiKzoY9Kmre+rY4ikMeRVvf+rFv70b5sgY+Spj1b6+Mi4sg==
+	t=1793975114;
+	b=zFDbAMXs/XLoyuupt4jhwyJrdBbc19BnRgNMSzSFhi0wF2ucjmrooR5oC/tGKxhfpZrf
+	 46FlGf0qbA3TuvAQFoRuH5LBEDuUrVr0QxVdU/Jyun9ONqqKV7qtvOOoS3OS5pBWCzJWQ
+	 2Dc7jr73cP0+B5Fi4PTc1mrRcr2ZNC6vmrD2NB39sIeUpzOYOF+gv5AFxpEOSFIfToMx9
+	 hGQUw0dklK4TYF/wk+PNR7mUwq3NsVejpperBDSMc9tDvCZwrBf4r4sEZ0ADuilDqWmK3
+	 ZxvRW+ODPglZMiA/xeB1L/zIQlP2edtEEjOjMpG+vItgoa2QaqwdWnAWhTohng5JAiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975114;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=FImo0Si6aBUJrvKYxmacsgGaoJNjRjIi7dZYfg0r/e4=;
-	b=iHaFa6cq4CsxBLV3c8C7xSLszoo3l4TCJyBjTYp4zmNODm4DLjuCjOujhoJU2V0ApMR3
-	 2tJYoKtSYESNSutP/lZgu5r6+/2x0Gq7VnXJioNarFymE75fTVZpKubKELf2MuJme8x5U
-	 G4QCYH0KvlrVE8T28ZJzpgitv443FK34e46bo9ErS7BheZqtOV3Ev0sbHrj9uX/8BoqHI
-	 TfFw/dweWEYWgEcwXkOgnrIVfj90uElR9A4LLKAWC0PmqKhplrGl28FV/dO9UJDVLbxUb
-	 2Kaz4XPwwOv07rEHZPBnT477fwRsOycB0LKc4NdpgMkSjGk4H5yDVRSH5UboFV9R8Ag==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=V1drwx/X81sFN4uek22troocxRg85PA6itzp1z0x/M4=;
+	b=X9WP7NoR1/XUV+XSXA3JIGT1PtHiEDlSnQXnJ9APpBiVPkWvTuRRfvDp3y0YX/GePN1F
+	 IEOKqn935J5u5K+u5iFB2MixRv+wpvx8UJgSf2yMagHTh+NAGxlMzE7+1ETTt7t7TJuqj
+	 sljYT8cQWJ+tmpaZDkEl8SQNgFll/yO9sxf9ytQ4UPF50psuCKNZ7L3SzGx6GpPfar3fq
+	 KVY6Jea/O6VT2utZlplypxDz7RgtIMqzu55NF2njMv5sOPwcC6EStqdm+KepCCsF9bX8z
+	 mYX2Dnw7y5U3XnvjKZaDkqBN5yFgS2XqrsZI5cH3h3/hfrTVhveMDUmJt5Hpd+AnScg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJfA1aDk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMWJJCVW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0872606A33C;
-	Fri,  6 Nov 2026 14:19:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A482606D826
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 14:25:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJfA1aDk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72411F0089F;
-	Fri,  6 Nov 2026 14:19:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMWJJCVW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B431F0089F;
+	Fri,  6 Nov 2026 14:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974760;
-	bh=FImo0Si6aBUJrvKYxmacsgGaoJNjRjIi7dZYfg0r/e4=;
+	s=k20260515; t=1793975114;
+	bh=V1drwx/X81sFN4uek22troocxRg85PA6itzp1z0x/M4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hJfA1aDkwM9ReyQLQZP8cqOlSvy1h87gvRMqTjepz3+KDmLSXJgdKFLkiEnThBUNQ
-	 yFrOdWj+FKJFL0F/ytYXlbcnN/Ld64cYCLhgfaL9oBZoWc8HCo5nNLGIUjWYkEkpMx
-	 g46iqqpmAfudUA2pifkLwrjRj9wMTORA2uH+1Eq3xuQdbmBDxSNJpUgKr/gjvieTLs
-	 FkeQghztvAnUBtiJfs7WGCstiOgV3VhrfWw4TW6cJHLF9mrtQ6nygNu7JmN0CebAnr
-	 Jw+/WTFqBWcwE44AwiPzuaggypRfN4BcXdg0Aee2xHn8fitBKR/hfz/9d+KPEftIKO
-	 ysTXRijEJpeCQ==
-Date: Fri, 6 Nov 2026 14:19:16 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
+	b=oMWJJCVWX70l+/j2ALWj/cXWIN4i6dij1rlDaEcmju9ItAD/BEuj5aYtoKl4mSYJ5
+	 1LjPH+dmdR2DQLfMajxdwIEJNQMJNMmz5Tbyd5qSMShqrxg+VSwXuqZr026tlt3rjE
+	 uOjV6LR9zd7UT31f07+1sUc+aJg7Tiosqx5HTTlpqHoKetKMBJdLpnIKBSAToZCy+v
+	 hrSjPp79C4q8/nw17IKXZUWHlrwSiyAsxJpjgsprYrNiO+RyJm/JclqTpZZ7F0xIrt
+	 0/w7Gy6dGtXYS8JXmP4URLoam8cWoGzSKRIjcEZEfKr+9MHJdeYhcqdEjNwt96AWkc
+	 MO78iVgcMQORg==
+Date: Fri, 6 Nov 2026 08:25:10 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Linus Walleij <linusw@kernel.org>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Anand Gore <anand.gore@broadcom.com>,
+	Kursad Oney <kursad.oney@broadcom.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] ARM: dts: arm: Another batch of warning fixes
-Message-ID: <20261106-wise-ochre-lionfish-25efc4@sudeepholla>
-References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
- <20261106-outstanding-turtle-of-opportunity-9fafcb@sudeepholla>
- <CAD++jLmYJM3VhKN00CjpRviQ4Zfr394c2o3xqZPqEZnq9yz-ig@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Russell King <linux@armlinux.org.uk>,
+	William Zhang <william.zhang@broadcom.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: arm: cpus: Add brcm,bca-smp enable
+ method
+Message-ID: <179397510943.3079042.13198240905595064216.robh@kernel.org>
+References: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-0-4103df2588d3@kernel.org>
+ <20261105-genexis-xg6846-smp-v7-3-rc1-v5-1-4103df2588d3@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,41 +67,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLmYJM3VhKN00CjpRviQ4Zfr394c2o3xqZPqEZnq9yz-ig@mail.gmail.com>
+In-Reply-To: <20261105-genexis-xg6846-smp-v7-3-rc1-v5-1-4103df2588d3@kernel.org>
 
-On Fri, Nov 06, 2026 at 02:41:20PM +0100, Linus Walleij wrote:
-> On Fri, Nov 6, 2026 at 12:03 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
+
+On Thu, 05 Nov 2026 14:24:46 +0100, Linus Walleij wrote:
+> BCMBCA systems booted through CFE can release a secondary CPU by
+> writing its ARM-state entry address to a 32-bit MMIO mailbox and
+> sending a wakeup interrupt.
 > 
-> > We can remove vexpress-v2f-1xv7-ca53x2.dts because it is highly outdated and
-> > relies on an FPGA tile setup. Replicating this environment is likely
-> > impossible since the original bitmap files may no longer be available
-> > easily.
-> (...)
-> > > Rob Herring (Arm) (7):
-> > >       dt-bindings: arm: vexpress-sysreg: Add "mcc" child node
-> >
-> > I assume you will take the DT bindings via your tree.
+> Document brcm,bca-smp and its single-cell cpu-release-addr property.
+> Require the mailbox address on CPU1, which CFE leaves in a holding pen.
+> CPU0 is already running and does not need a release address. Add a
+> Cortex-A7 example with the mailbox address only on CPU1.
 > 
-> Me too.
-> 
-> > Linus,
-> >
-> > Do you want to take this series via your tree or prefer me to take it ?
-> 
-> I think it's better if you do it because it seems you got thinking
-> you want to delete some files, so then it's better if you
-> queue all that in one go when you got track of it.
+> Suggested-by: William Zhang <william.zhang@broadcom.com>
+> Reviewed-by: William Zhang <william.zhang@broadcom.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/arm/cpus.yaml | 46 +++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
 > 
 
-Sorry for incomplete information earlier, I was actually referring to
-Arnd's deprecation of few old ARM platform support series which removes
-MPS2.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
--- 
-Regards,
-Sudeep
-
-[1] https://lore.kernel.org/all/20260914140821.1805449-1-arnd@kernel.org/
