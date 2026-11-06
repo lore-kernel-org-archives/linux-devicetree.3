@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962720;
-	b=p+tvZTCuipIMMqAXz/N8cQobI7TlsCm3YhUWCq3RZnRTviFdq/6mUnQysLQRkTde8Yib
-	 CRDefOiSNrzcNoDTqtdP/y/Sdn9JTJIVhj0vKbg97UzO18JXB67KiUekOcVN2WGuP2c6a
-	 O24veVeKogOpL++j9osCmjeUtUCf6y1hon0ItAHw1CyXAiG13OJ5AoPM2DxcEW+v4skrK
-	 OfmRZNO8Os+X+CiMIC2/US3avi8INKNaJDTaiy7TEG9bTR/iOWut6jnurVsnE6dllnMXw
-	 0zxSKq4+hWAf+0SSnSVqD+A73O9cmeWp+uYP7X3VZDzZlo4YUgzElF5BqQkoQEMw0bw==
+	t=1793962792;
+	b=keawglvdfjGeW/eswCbLgK/ufbrOwoaqnZro8vFLo1rZME+a7g/o1hjJF0Vl36Wy/KNv
+	 WQlKuGu5X/FGDoKziGH34nNfd7HCyV1GumjrhpEApRFGitC1qJfMFr26Z5Bnmk63ZsA8h
+	 kCMf/nKxFG5tUMFQKqlgqtHK9tl/ci53i1ZHezGwOmFpqmPS4HlAA4mSjyUKlL/d5HghR
+	 Wdul2MJ7InnEyByBD3+J+4QARAQAIIT8ZgqNAKbTPlt/Yixeg3dLhIz4dIImreaPoYKU/
+	 Si9FVOVEG5a9YrelNp3nO/PljGDZjNaKaFD0khjsYyruMT1+f5wYwpMJd4syz7SJwvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962792;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=F03PV+awTeyeZc1CPOrbfwMWziWjOIGLK1gby3UcZcg=;
-	b=viaqU75O8TRleal89lUiA/dYhYxRqc5OQdSl3ANGWJOWNfw/7k3xS5gibs7lVYzGkpPQ
-	 FRAHkkBwX7jx9hADxt/AJTW99JUWXmFNu0SEmBobmT9Mma9ZHQucwZ6JDYNMUHhG3gtBQ
-	 cYSornkRsiH2xQfbaczzsc6Papul6mdJouHDWitzBaSrnRL/gw1OuXnHXG/C10t6fT/H+
-	 pw5My+a245nryibZYxZ1SVBgNUks2T5QCxMW404x3/R0fD7rKy86s4DYJ1iPHzVtNeVoc
-	 Yn/aMRJaqBplvzwfJw5Jk+x4MpBaqYusbgQ+yOAYaGQ6RWREF1HBJZHyQO0AqtGjo8A==
+	bh=slv48Zzo7hdpis2W0rGmQzEpH7ISKDafg9bxgK1B+vc=;
+	b=EWJlyaFKUB5tkNQesnjk9/ZT2PzENgL8UoNCcgUQEcl5s4m1k+dJU37QxLYrPglw0LQX
+	 EclFmA0L6zj2zFN371EhMjoVEeaWPQP/kh5nbxO30DJY7ZYlBNcl3BDwflaCyh5qhT3dY
+	 74iGE9v3TmeRGXA5gj/w+kogUEs8/FsBi9k4mEYYiF1Yjhh15GiaPfWpfRPzFg4hSsA4Z
+	 e9l6CGeOK6ZJtxmR1xdptDbXVVXLQs9bGej9gPQkaCsBcTfBG39fs2PP4c662nEmujJZ6
+	 IEweOBhr0oZvoOYo96+q4ejz0zE1xExlFpbtylwxHClnNGemz4elOkZseoTtWJ9fzyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G6syX/6l";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GTfU6yHI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6E3606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2C5606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6syX/6l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B8A1F0089F;
-	Fri,  6 Nov 2026 10:58:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GTfU6yHI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4051F0089F;
+	Fri,  6 Nov 2026 10:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793962719;
-	bh=F03PV+awTeyeZc1CPOrbfwMWziWjOIGLK1gby3UcZcg=;
+	s=k20260515; t=1793962791;
+	bh=slv48Zzo7hdpis2W0rGmQzEpH7ISKDafg9bxgK1B+vc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G6syX/6lMaAFvLTayWGkeTgtCRSpyzhdynfTh8kqMsnc+MFNHWcX7fDOZluYi1QjK
-	 U+lfyzTdrQd4k4BeFiUH713gwKVTD3sbQCIxyB7pkxMFNDrS6QEAWeWu1PDYYvCH5Y
-	 V4X5ADSdSjzPHGxHe/KP9R/lRDp/TnLLtOOrsv+dX7Oexd4gvwFDUO6df6PhXC4Rw2
-	 A2xe0g0jHhKSXmjW0dB2wId5JlKSef0r3eL7Cu40YivuTjFCcZcZM5MZIOSkG7Gxm0
-	 lEOwyJu74z/qA1MlSpq8OXV/4r7jPsM1A0Vz5p1lSQg4eSF/akGYJ7MiKikC5w1h7I
-	 DhKD8Pguxn4KA==
-Message-ID: <sashiko-outbox-201259@kernel.org>
+	b=GTfU6yHIBP1ckYhPmEDQcojpcSG8ZnvV7Ed2UwehB/HLhlYxUAD0pnIo9SH8zdv1n
+	 snQ864Dsn4FOD7s+04ioAoQWqe1m+SXKc/QmtAQkKWknAjnXE+BnoguFjguJNIYINK
+	 G6uw4etlu7KlKTS4PZh4vXmAqKme6Mp/I0pyMEJoFLJfq3+eyD/Crcgq6qtSTlO5Jj
+	 WPpZXKHk0j+r2ifTZc/QJGaPUpH3gW+qH2qML10HgzGixE6JrWuIwulrSRZHiyxd5o
+	 MGYppK61/pOoIB+sxn+H0MNWscw8JO44H6q/64TQ47i6xBV0MOBpQs+aaLn80Sq2rG
+	 KfRdHazxZ+gBA==
+Message-ID: <sashiko-outbox-201261@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/panthor: Add initial support for CIX Sky1
+Subject: Re: [PATCH 08/10] arm64: dts: amlogic: meson-s4: add the USB host
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cunyuan Liu" <cunyuan.liu@cixtech.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261106104735.1651267-3-cunyuan.liu@cixtech.com>
-References: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
- <20261106104735.1651267-3-cunyuan.liu@cixtech.com>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261106104659.54656-9-christian.koever-draxl@student.uibk.ac.at>
+References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261106104659.54656-9-christian.koever-draxl@student.uibk.ac.at>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 10:58:38 +0000
+Date: Fri, 06 Nov 2026 10:59:50 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,70 +60,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] drm/panthor: memory leak and use-after-free in
-  panthor_devfreq_init() [1]
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] arm64: dts: amlogic: unmatched s4-usb2-phy compatible breaks
+  USB probe
+- [Medium] arm64: dts: amlogic: meson-s4 USB glue and xHCI violate DT
+  binding
+- [Low] arm64: dts: amlogic: meson-s4 USB2 PHY nodes out of address
+  order
 --
 
-commit a4d7e2c7598493163cc0be92c3c3410ed211540f
-Author: Cunyuan Liu <cunyuan.liu@cixtech.com>
+commit 52aac76c3162fb981eef1f4f1e554811e324a07e
+Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 
-drm/panthor: Add initial support for CIX Sky1
+arm64: dts: amlogic: meson-s4: add the USB host
 
-This commit adds SoC data and driver handling for CIX Sky1 to perform an
-external GPU reset on initial resume, program SYSC_ALLOC registers before
-L2 power-on, and skip devfreq initialization.
+This commit adds the two USB2 PHY nodes and the USB controller node with
+its child xHCI host node to the Amlogic Meson S4 SoC device tree.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c b/drivers/gpu/drm/=
-panthor/panthor_devfreq.c
-> index 2249b41ca4afe..1914549f7b1fb 100644
-> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
-> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
-> @@ -154,6 +154,12 @@ int panthor_devfreq_init(struct panthor_device *ptde=
-v)
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
+dts/amlogic/meson-s4.dtsi
+> index 8bbd70e52a299..155997649dc3a 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> @@ -770,6 +770,26 @@ cpu_temp: temperature-sensor@20000 {
+>  				amlogic,secure-monitor =3D <&sm 1>;
+>  			};
 > =20
->  	ptdev->devfreq =3D pdevfreq;
-> =20
-> +	/* Keep the firmware clock settings until Sky1 devfreq is supported. */
-> +	if (ptdev->soc_data && ptdev->soc_data->skip_devfreq) {
-> +		ptdev->fast_rate =3D clk_get_rate(ptdev->clks.core);
-> +		return 0;
-> +	}
+> +			usb2_phy0: phy@3c000 {
+> +				compatible =3D "amlogic,s4-usb2-phy";
+> +				reg =3D <0x0 0x3c000 0x0 0x2000>;
+> +				clocks =3D <&xtal>;
+> +				clock-names =3D "xtal";
+> +				resets =3D <&reset RESET_USBPHY20>;
+> +				reset-names =3D "phy";
+> +				#phy-cells =3D <0>;
+> +			};
 > +
->  	/*
->  	 * The power domain associated with the GPU may have already added an
->  	 * OPP table, complete with OPPs, as part of the platform bus
+> +			usb2_phy1: phy@3e000 {
+> +				compatible =3D "amlogic,s4-usb2-phy";
+> +				reg =3D <0x0 0x3e000 0x0 0x2000>;
+> +				clocks =3D <&xtal>;
+> +				clock-names =3D "xtal";
+> +				resets =3D <&reset RESET_USBPHY21>;
+> +				reset-names =3D "phy";
+> +				#phy-cells =3D <0>;
+> +			};
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but does panthor_devfreq_init=
-()
-leak the cooling device [1] and leave a dangling pointer to
-pdevfreq->devfreq on unbind?
+[Severity: High]
+Does "amlogic,s4-usb2-phy" have a matching driver or binding in the kernel,
+or does it need a fallback such as "amlogic,g12a-usb2-phy"?
 
-drivers/gpu/drm/panthor/panthor_devfreq.c:panthor_devfreq_init() {
-	...
-	pdevfreq->devfreq =3D devm_devfreq_add_device(dev, &panthor_devfreq_profil=
-e,
-						    DEVFREQ_GOV_SIMPLE_ONDEMAND,
-						    &pdevfreq->gov_data);
-	...
-	cooling =3D devfreq_cooling_em_register(pdevfreq->devfreq, NULL);
-	if (IS_ERR(cooling))
-		DRM_DEV_INFO(dev, "Failed to register cooling device\n");
+phy_meson_g12a_usb2_of_match[] in drivers/phy/amlogic/phy-meson-g12a-usb2.c
+and Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml only
+list "amlogic,g12a-usb2-phy" and "amlogic,a1-usb2-phy". Without a matching
+driver or fallback compatible on usb2_phy0 and usb2_phy1, no PHY provider
+is registered, so dwc3_meson_g12a_probe() -> dwc3_meson_g12a_get_phys() ->
+devm_phy_optional_get() returns -EPROBE_DEFER permanently when usb@fe03a000
+is enabled, and dtbs_check fails.
 
-	return 0;
-}
+> +
+>  			eth_phy: mdio-multiplexer@28000 {
+>  				compatible =3D "amlogic,g12a-mdio-mux";
+>  				reg =3D <0x0 0x28000 0x0 0xa4>;
 
-cooling is registered with non-devm devfreq_cooling_em_register() and
-never saved or unregistered, while pdevfreq->devfreq is managed by devres
-and freed when the device is unbound.  Any subsequent thermal governor or
-sysfs access to the cooling device will dereference the freed devfreq
-instance.
+[Severity: Low]
+This isn't a bug, but phy@3c000 and phy@3e000 are placed before
+mdio-multiplexer@28000 instead of after it in unit-address order under
+apb4.
 
-[1] https://sashiko.dev/#/bug/linux-aae5bae7-91d6-4e9e-9c28-1cbf604c1457
+> @@ -988,6 +1008,31 @@ mdio0: mdio {
+>  			};
+>  		};
+> =20
+> +		usb: usb@fe03a000 {
+> +			compatible =3D "amlogic,meson-s4-usb-ctrl",
+> +				     "amlogic,meson-g12a-usb-ctrl";
+> +			reg =3D <0x0 0xfe03a000 0x0 0xa0>;
+> +			interrupts =3D <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			ranges;
+> +			clocks =3D <&clkc_periphs CLKID_USB>;
+> +			resets =3D <&reset RESET_USBCTRL>;
+> +			power-domains =3D <&pwrc PWRC_S4_USB_COMB_ID>;
+> +			dr_mode =3D "host";
+> +			phys =3D <&usb2_phy0>, <&usb2_phy1>;
+> +			phy-names =3D "usb2-phy0", "usb2-phy1";
+> +			status =3D "disabled";
+> +
+> +			crg_xhci: usb@fde00000 {
+> +				compatible =3D "generic-xhci";
+> +				reg =3D <0x0 0xfde00000 0x0 0x100000>;
+> +				interrupts =3D <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks =3D <&clkc_periphs CLKID_USB1_TO_DDR>;
+> +				status =3D "okay";
+> +			};
+> +		};
+
+[Severity: Medium]
+Do the compatible strings on usb@fe03a000 and its child usb@fde00000 match
+Documentation/devicetree/bindings/usb/amlogic,meson-g12a-usb-ctrl.yaml and
+drivers/usb/dwc3/dwc3-meson-g12a.c?
+
+The binding only allows a single compatible entry from its enum (which does
+not include "amlogic,meson-s4-usb-ctrl") and restricts child usb@ nodes to
+dwc2.yaml# or snps,dwc3.yaml#, so both nodes fail dtbs_check. In addition,
+dwc3_meson_g12a_otg_init() looks up the host child via
+dwc3_meson_g12_find_child(dev, "snps,dwc3"), which returns NULL when the
+child uses "generic-xhci".
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106104735.1651=
-267-1-cunyuan.liu@cixtech.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106104659.5465=
+6-1-christian.koever-draxl@student.uibk.ac.at?part=3D8
