@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962013;
-	b=QwKg28699WYJTTVGuv/f4y6M1SHgdSgOPMmcxWwzuRDP84WYzRavn6gg16fEgZi7dYvg
-	 351WsoY5TTKKaAGYNdG/Gdeqs0zjMzID+eC7CTqKt23mQT0Km1fRRD5at23FxAejOSrBc
-	 TrnqYzoj6xruOpynbiovo4FezWYpErvpmaKm+slU6VZclqS0uySTvfLH1G1jVCtm5PI6v
-	 wBbEsvl/yx2w/XFLuAawxzwfeMOBxl5tJFgYJyinbKGDaqbzYTVGBc8LvXDZcBnprcann
-	 5fdxPsTXy2iLzU9pRBHwaFKaXUo6MAfsKx5mZgD5EVgxdOZaQweHs8GKzhuhxrJaMWA==
+	t=1793962034;
+	b=znlUsbiG1yoWtK8GCaoiIL8JDzyY0YrvU5Ea054NXG6LoRNwLtb6mPtUa62RQ07gxtn/
+	 hiB3/VGM9IuuQlq3dxq2YuGt1SVJ9eqb7sN84uwcJ7GRcES9QxebYkoUbz4SKY4D7vkjI
+	 UzGSdxcP7SXcBLEtFIhP2ASL9Q84yri9zIUN/OKSO4jO71cXbFwoW/my+SSy9ZJvdOOXo
+	 qu0xpw7TOa2gxcGavR4jVS9NkGPd10biTmy6Nq7CEItlffd8hsEGg26J02x13CI31X9Li
+	 Z/9uY1d3CsNcDrpKF/xDkV99kZeGZG8t/HbafWvT9UMVhdxYzQKMKDzTj4macxxOsrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962034;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=vLIUtL4Xr1f0AzzVPwVtBtZX/qzPi+fLoa0ubdM8I/0=;
-	b=dXQdT43z7jPp2jpUVdzd5lwP+hkDfZgupVp+sE/TyAfNdOu0oeq1d0VCQ48AyqCy/Nme
-	 lzhM7p2fGaoYLIprc1e6C3TVnycGBnqgdjhj/x3jf2cCA4Zosr8ZJsGuW8WS2RRoEhmE2
-	 q+bpPBe7F0tBHq5+SuVcJeTdMmYMswlAwVFkc6vthgXUxLHHSngZzmNFkolsDcYPeMWrV
-	 MSNKnvEQzPt0I4CEiqAMABtYErGmc0vrLjM3kLbd8SyTM6oOsv0tlBYuftpp2ALiyHVq5
-	 tFyygRb7SI/hnaIxbU+zInOZDN6yceq/YzVdL8cizKXMFNdfmdRZbttYAQXUvT9x2cg==
+	bh=6lyfZkMaV5efFDaQd+IxuIBt8CTl0E0w6j7qjN8lYSE=;
+	b=w/M4JUe+QHFhqJbCXHX2E0843LTkvRZcK1iIfJR0gJD/mNoQl9QQtPdurUSnFVNMi/0k
+	 kJqTv2B6u2E9cX/YvF3BS/3I72csVEcXSnOOx4A8XMFPEmPDF3ab0X+afvr6L1TgN8CRh
+	 00QKWPYRfwk4hBgUAiccPd52CT46wB64lWeMfDZWa3VAQUiN1ZkAVhJbmaROZhHokFY3t
+	 9dlHE85UstMyPXlJI1R2yHrJdYE2b8k/B4AzCe7phmZBzfKRtcwa5xsEj6VPQ6pN9V+x1
+	 ozU9TCfPxQWTGUTWmPdiNvcbcO66ohFUzir4cvkghmO/0rzH47r/z98bc5K17Y3hM+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=lEdvJLsu;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=Wq7bNyJI;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56F8606D80D;
-	Fri,  6 Nov 2026 10:46:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D56F8606D80D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13C2606D802;
+	Fri,  6 Nov 2026 10:47:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13C2606D802
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=lEdvJLsu
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=Wq7bNyJI
 Received: from surface-pro-5.uibk.ac.at (ydWLT-U1-3-167.uibk.ac.at [172.25.3.167])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AkYPC1953082
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6Al07F1953426
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Fri, 6 Nov 2026 11:46:36 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AkYPC1953082
+	Fri, 6 Nov 2026 11:47:02 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6Al07F1953426
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793961996;
-	bh=vLIUtL4Xr1f0AzzVPwVtBtZX/qzPi+fLoa0ubdM8I/0=;
+	s=prod24a; t=1793962023;
+	bh=6lyfZkMaV5efFDaQd+IxuIBt8CTl0E0w6j7qjN8lYSE=;
 	h=From:To:Cc:Subject:Date;
-	b=lEdvJLsuhqp1rYBqP/fHpIoWbBWw6vFYe1sKWY/sz09eVlro/MRtqV4ww1f0OWI01
-	 9W2Y4EEE5siqjvN63cc664O2oxyubc9W9RC22AgENL6kYRzcWvmt76/Le2qtscJL63
-	 vulL84EStzMnFE51xJLGxowN5AgBp4d6yw5gfvLQ=
+	b=Wq7bNyJISiqD46Vv+Cx/w4pTAF5EVD47JK+PiaLtg3hRh5M4Ydpm6SyyydhNvAE59
+	 vqwskoeRDqCvBUSJiOEqfGTLVy81l0p+dE7kEbNS5YUBRshgF/qq9IQ19qpuZsdwMC
+	 /osCFy+pii6znpq6aKE4hLilv8s9/xCP1bsUBiuE=
 From: christian.koever-draxl@student.uibk.ac.at
-To: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com,
-        jbrunet@baylibre.com, martin.blumenstingl@googlemail.com
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
+        martin.blumenstingl@googlemail.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org,
-        linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-amlogic@lists.infradead.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH] dt-bindings: usb: amlogic,meson-g12a-usb-ctrl: add S4 support
-Date: Fri,  6 Nov 2026 11:46:32 +0100
-Message-ID: <20261106104632.54161-1-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 00/10] arm64: dts: amlogic: S4 SoC additions and the Amediatech X98Q
+Date: Fri,  6 Nov 2026 11:46:49 +0100
+Message-ID: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,13 +74,26 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-The S4 USB glue is the G12A one, but it fronts an xHCI host controller
-instead of a DWC3 core, with two USB2 PHYs and no USB3 PHY. Add an S4
-compatible with the G12A one as fallback, and allow a generic xHCI
-child node.
+Patches 2-9 add S4 SoC blocks to meson-s4.dtsi, one feature per patch:
+caches, PSCI idle state, S4 secure monitor compatible, Mali GPU, CPU
+thermal sensor and zone, GE2D, USB host and AO CEC. Patch 10 adds the
+Amediatech X98Q TV box (S905W2) that all of it was tested on; patch 1
+its binding.
 
-Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
----
+The board has two USB ports, an SD slot, Ethernet, HDMI, a power LED
+and an IR receiver, and no analog audio output. CPU frequency scaling,
+audio and the video decoder are left out until their drivers and
+bindings are settled; the HDMI display path is not in mainline for S4.
+
+Dependencies (bindings, sent separately):
+ - amlogic,meson-s4-sm                     (firmware: meson: sm power-off)
+ - amlogic,s4-thermal                      (thermal S4)
+ - amlogic,s4-ge2d                         (ge2d binding)
+ - amlogic,meson-s4-usb-ctrl, s4-usb2-phy  (usb-ctrl, usb2 phy S4)
+ - amlogic,core-phase-degrees              (mmc core phase)
+ - wakeup-source on meson-ir, rc-x98q      (meson-ir, rc keytable)
+ - amlogic,shared-antenna                  (Bluetooth W1)
+
 Tool use (Documentation/process/generated-content.rst):
 This work was done with the help of an AI coding assistant, Claude
 (Anthropic), used through Claude Code over many sessions. It did a large
@@ -95,60 +108,25 @@ this board, fix it, test it on the box".
 Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
 vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
 
- .../usb/amlogic,meson-g12a-usb-ctrl.yaml      | 24 ++++++++++++-------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+Christian Stefan Kövér-Draxl (10):
+  dt-bindings: arm: amlogic: add the Amediatech X98Q
+  arm64: dts: amlogic: meson-s4: describe the CPU caches
+  arm64: dts: amlogic: meson-s4: add the PSCI CPU idle state
+  arm64: dts: amlogic: meson-s4: use the S4 secure monitor compatible
+  arm64: dts: amlogic: meson-s4: add the Mali GPU
+  arm64: dts: amlogic: meson-s4: add the CPU thermal sensor and zone
+  arm64: dts: amlogic: meson-s4: add the GE2D
+  arm64: dts: amlogic: meson-s4: add the USB host
+  arm64: dts: amlogic: meson-s4: add the AO CEC controller
+  arm64: dts: amlogic: add the Amediatech X98Q
 
-diff --git a/Documentation/devicetree/bindings/usb/amlogic,meson-g12a-usb-ctrl.yaml b/Documentation/devicetree/bindings/usb/amlogic,meson-g12a-usb-ctrl.yaml
-index da757c1155d4..186390f930f8 100644
---- a/Documentation/devicetree/bindings/usb/amlogic,meson-g12a-usb-ctrl.yaml
-+++ b/Documentation/devicetree/bindings/usb/amlogic,meson-g12a-usb-ctrl.yaml
-@@ -27,14 +27,21 @@ description: |
- 
-   The Amlogic GXL, GXM & AXG SoCs doesn't embed an USB3 PHY.
- 
-+  The Amlogic S4 uses the G12A glue in front of an xHCI host controller
-+  instead of a DWC3 core, with two USB2 PHYs and no USB3 PHY.
-+
- properties:
-   compatible:
--    enum:
--      - amlogic,meson-gxl-usb-ctrl
--      - amlogic,meson-gxm-usb-ctrl
--      - amlogic,meson-axg-usb-ctrl
--      - amlogic,meson-g12a-usb-ctrl
--      - amlogic,meson-a1-usb-ctrl
-+    oneOf:
-+      - enum:
-+          - amlogic,meson-gxl-usb-ctrl
-+          - amlogic,meson-gxm-usb-ctrl
-+          - amlogic,meson-axg-usb-ctrl
-+          - amlogic,meson-g12a-usb-ctrl
-+          - amlogic,meson-a1-usb-ctrl
-+      - items:
-+          - const: amlogic,meson-s4-usb-ctrl
-+          - const: amlogic,meson-g12a-usb-ctrl
- 
-   ranges: true
- 
-@@ -82,6 +89,7 @@ patternProperties:
-     oneOf:
-       - $ref: dwc2.yaml#
-       - $ref: snps,dwc3.yaml#
-+      - $ref: generic-xhci.yaml#
- 
- additionalProperties: false
- 
-@@ -102,8 +110,8 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          enum:
--            - amlogic,meson-g12a-usb-ctrl
-+          contains:
-+            const: amlogic,meson-g12a-usb-ctrl
- 
-     then:
-       properties:
+ .../devicetree/bindings/arm/amlogic.yaml      |   7 +
+ arch/arm64/boot/dts/amlogic/Makefile          |   1 +
+ .../boot/dts/amlogic/meson-s4-s905w2-x98q.dts | 310 ++++++++++++++++++
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi     | 246 +++++++++++++-
+ 4 files changed, 563 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
+
 
 base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 -- 
