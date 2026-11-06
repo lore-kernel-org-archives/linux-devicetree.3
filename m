@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969190;
-	b=2Kjx7iFzIWgUwcg0TweOajfpkumUW51v8eGt9CebKKZVxwV25vFOwUezdLNIY7Fo9zg5
-	 VrszUckspgVy69e6GUMidAOifIqtZbcLKMCymson3HHyjEI9uJrS/hQjm3Kr+zwF740Yb
-	 ggw0bnjgBCh0fS0qZG+soCyaQ4UPg3xh1lXQt6ROtf/W8a96gzhx60ywQMAFv2+RdPRjU
-	 PFJ0oqOIZr8W6QVHi5fXMTreL2+M0eo5QPsXlPkhuQNmD8MGcR1p7r9PDwCBKgR23OwxC
-	 wtiKfOD1VH7HoWDweM2WS9KSIePtO/XeSJ3d+kdrR2Ckc56VN6otHx1isipnPI610kg==
+	t=1793969203;
+	b=hjZLnmFCcGOnagFZ5/nYU2+Gy7knihVo1faI8NvbbSeX+mjYT9FCR6SPHDsMxNVXFTAy
+	 zudNqtV8xU2xnLhJk9AP1NsNY3wFzF0B4ZN8XUFhw/6yV7v2YslH4Y+PWsGq1XWsMrabj
+	 BUY6Lx0WtMqL09CGG0uKKo4J3SNOKOqa578OHQ2iei9e4PGtY44xAOdzyNKObxp9Q4w72
+	 Tfp+kK8EbjSJB8vq0cyAAS0PJLHMEm+KQD37PxMD4hLVF51KVcS8Sf1hJrISQONMicQ7G
+	 PdeDqEvKseYIWZQRAGhzR9z4XophKewJK3QH4wxKPNNIqPgkQJWCEjrfA4rGtQaweUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969190;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BPdc3G7jz54Uqtjn7AC8nrE7lGpl51rsY51aLrfVh0c=;
-	b=vK7CR8jj0FV152vNtnSxPTMAW5r7/jUbMCueEoo6g7tOe2uoCwIxz4Ctg4K0nQZff3Oa
-	 vMuik71cTsZ4NamTEZqoS4JeFkV3BZ44EG2bBCAKBUk6i7GDLdwu2XnTuHWJGhzDND7Xo
-	 a39UGU+VDjqAsldZIKKnNjhp/BZJZJK6BHtvMeAlP5tEV1AwNs3WZ6NloMznT1mrecyBZ
-	 YYl5ecZ27z3YCujcVEWf0U1pS/d7N/JhlV1SubIeVQusnpI3KkKfS48IvEtaqnA46QhUN
-	 Krbw0YVJDJ74eK+BFDQMs+Y92LdOV5jL4/gXmes+N/D0WB+MgInRE+CRAJqtVwz9+ZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969203;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=HUYID9OYVV79v5S1XOZwimXzL325GAo5Ig5is7Ew82k=;
+	b=NOtPAYQqshyBA0M12kl+ph5rYURvl3aMQ+8B0FvhCftA8Pn0CEBBvAAFcCoc5ZcnruI6
+	 Tv0fzSdxZXEVgHmPsRbMwGBgOCTdIpeOF4hnXhwgmKjEUbEKx+mRyzFZKGyoqrPcafDSQ
+	 IxdeBRp9occWvks2nsvy/uQWTl5wwNfbRXtcxEwee4losc1RRknuVRvq5dRS4MA/6FhNy
+	 JcdFdGUTqxMNP0FtH3lxZYKjpkslCit8AJ9KJ5haMn1/TeFouSKi7Y0KtHeXoVxEE9vgB
+	 stpaOjXtwrO6uyRCXGYhOWOiz7ikH2oUMez3bMz61GTzb5Hd5j/zHc5fzXIo+teRlWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfCNjwZv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaG9eFT2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3D9606A326;
-	Fri,  6 Nov 2026 12:46:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64902606A32F;
+	Fri,  6 Nov 2026 12:46:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfCNjwZv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFF01F0089F;
-	Fri,  6 Nov 2026 12:46:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaG9eFT2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5DC81F008A1;
+	Fri,  6 Nov 2026 12:46:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969190;
-	bh=BPdc3G7jz54Uqtjn7AC8nrE7lGpl51rsY51aLrfVh0c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QfCNjwZvG+CC3xe0eQ7y6UM6w726zb7ufYTmtI0p1Ftuu85DVYYfmSTmHBnmcWuph
-	 Y9PK5Jvm8k3OS2FeKPm56HB66JXa4HaEHqwIdNZ3BmlSLCcMz0lJHOvDAlRZ2v3/ay
-	 sXV/z8qIDvgNYf1DhjV3M26yY2Mf+CriYIIcS2FvcvbuRyhDyWW7AxmG6Lm0CfXEoj
-	 Ld6aB6yq5Z3kl+NIjJ5NcA9Xvhmt5p3aoEhbqM7hfgE9kJ9D1f7gFhPUBlqh73y3gS
-	 D+xoy3ZafBK3VqN1noxIZaktAn2p7Fqx2TO3cmzRwwvErOWtsZFvoNCXBQyqgA6fVr
-	 hhG8crctKJ0Qg==
-Date: Fri, 6 Nov 2026 13:46:26 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Hector Martin <marcan@marcan.st>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
-	Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v2 6/9] dt-bindings: pinctrl: apple,pinctrl: Add t8142
+	s=k20260515; t=1793969203;
+	bh=HUYID9OYVV79v5S1XOZwimXzL325GAo5Ig5is7Ew82k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WaG9eFT2ER/Zy/o130RcR8hkIpZl3EpiqI7v8YOC0CLi1kdIrOuq5HvbefwYB18Xo
+	 MBa5GL+8v6e2Sn7pQss19RJibZIzklYn72xqOHG3iarBsllXMCOFw4+ap9/ctkxAEd
+	 Ccwa52IUyHV+OeTA0oN1DbrRNvEWLVwvSQe4UawxNGVC6y3e9Rn+w5DjGDBnx1xvbq
+	 SXw/xluG3raHhWTzpw/hICpLRSSex6yLbV4xNV6TYZ6BhaspUAZRTvQD3sskV4WWuZ
+	 Co2DliU3roWmncXEFyksufvsMittBGrEMVTeZK0MfwOldvNhgySEdsvKjlzD/J+E9e
+	 CAaGXvvKDG1tQ==
+Message-ID: <sashiko-outbox-201411@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 v6 4/9] ASoC: qcom: lpass-va-macro: Add shikra
  compatible
-Message-ID: <20261106-undetectable-vicugna-of-advertising-6d048e@quoll>
-References: <20261104-apple-m5-initial-devicetrees-v2-0-fd727a82d380@cyberchaos.dev>
- <20261104-apple-m5-initial-devicetrees-v2-6-fd727a82d380@cyberchaos.dev>
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-add_shikra_support-v6-4-2cda302237cc@oss.qualcomm.com>
+References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
+ <20261106-add_shikra_support-v6-4-2cda302237cc@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 12:46:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,23 +60,71 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-apple-m5-initial-devicetrees-v2-6-fd727a82d380@cyberchaos.dev>
 
-On Wed, Nov 04, 2026 at 06:24:19PM +0100, Yureka Lilian wrote:
-> The pin controller on the Apple Silicon T8142 (M5) SoCs is compatible
-> with t8140. Add "apple,t8142-pinctrl" as SoC specific compatible under
-> "apple,t8140-pinctrl".
-> 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> ---
->  Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] ASoC: qcom: lpass-va-macro: missing input mux defaults in
+  va_4_1_defaults
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit f5d496a0928cc1f25e90cbab9d135b94a6556cb6
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+ASoC: qcom: lpass-va-macro: Add shikra compatible
 
+This commit adds compatible support and register configuration for the
+Qualcomm Shikra LPASS VA macro (LPASS codec v4.1), including adaptive
+filter (ADPT) blocks and a dedicated regmap default table.
+
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-v=
+a-macro.c
+> index 03d6434a4a126..db395674312c8 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+
+[ ... ]
+
+> @@ -357,6 +407,119 @@ static const struct reg_default va_defaults[] =3D {
+>  	{ CDC_VA_TX3_TX_PATH_SEC6, 0x00},
+>  };
+> =20
+> +static const struct reg_default va_4_1_defaults[] =3D {
+> +	/* VA macro */
+> +	{ CDC_VA_CLK_RST_CTRL_MCLK_CONTROL, 0x00},
+> +	{ CDC_VA_CLK_RST_CTRL_FS_CNT_CONTROL, 0x00},
+> +	{ CDC_VA_CLK_RST_CTRL_SWR_CONTROL, 0x00},
+> +	{ CDC_VA_TOP_CSR_TOP_CFG0, 0x00},
+> +	{ CDC_VA_TOP_CSR_DMIC0_CTL, 0x00},
+> +	{ CDC_VA_TOP_CSR_DMIC1_CTL, 0x00},
+> +	{ CDC_VA_TOP_CSR_DMIC2_CTL, 0x00},
+> +	{ CDC_VA_TOP_CSR_DMIC3_CTL, 0x00},
+> +	{ CDC_VA_TOP_CSR_DMIC_CFG, 0x80},
+> +	{ CDC_VA_TOP_CSR_DEBUG_BUS, 0x00},
+> +	{ CDC_VA_TOP_CSR_DEBUG_EN, 0x00},
+> +	{ CDC_VA_TOP_CSR_TX_I2S_CTL, 0x0C},
+> +	{ CDC_VA_TOP_CSR_I2S_CLK, 0x00},
+> +	{ CDC_VA_TOP_CSR_I2S_RESET, 0x00},
+> +	{ CDC_VA_TOP_CSR_CORE_ID_0, 0x00},
+> +	{ CDC_VA_TOP_CSR_CORE_ID_1, 0x00},
+> +	{ CDC_VA_TOP_CSR_CORE_ID_2, 0x00},
+> +	{ CDC_VA_TOP_CSR_CORE_ID_3, 0x00},
+> +	{ CDC_VA_TOP_CSR_SWR_MIC_CTL0, 0xEE},
+> +	{ CDC_VA_TOP_CSR_SWR_MIC_CTL1, 0xEE},
+> +	{ CDC_VA_TOP_CSR_SWR_MIC_CTL2, 0xEE},
+> +	{ CDC_VA_TOP_CSR_SWR_CTRL, 0x06},
+> +	/* VA core */
+> +	{ CDC_VA_TX0_TX_PATH_CTL, 0x04},
+
+[Severity: High]
+Should va_4_1_defaults include CDC_VA_INP_MUX_ADC_MUX0_CFG0 through
+CDC_VA_INP_MUX_ADC_MUX3_CFG1 like va_defaults does?
+
+va_4_1_regmap_config uses REGCACHE_MAPLE seeded from va_4_1_defaults, and
+va_macro_runtime_suspend() puts the regmap into cache-only mode.  Because
+those eight mux registers back the VA DEC0..3 MUX and VA DMIC MUX0..3 DAPM
+widgets, reading or updating those controls while the device is runtime
+suspended misses in the maple cache and fails with -EBUSY.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-add_shikra=
+_support-v6-0-2cda302237cc@oss.qualcomm.com?part=3D4
