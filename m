@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988824;
-	b=DtrGanO9CqosXXoixSY8Kwgc1u1fx6Q3IPmPoOnSPiqBDcBo6tg21DHqvneXeaBt/sH8
-	 HkwYmONYYeqVEXhbBHPS/+elRQB5+zdbzkDX4L1wKzF7OMEgAL/tJwIofObAnHyZwj2DI
-	 AsL+hiJwCK4PpMT53BdO5e8V/OnQf7Vfus1IP8mKLPJxIUUqDXJpkzOq8fSYv8R9BJ9GS
-	 4ej59ZHFUKVj6dBf3CioZ0+y7P4BfKTDlOVnGh3EtyNDXKTxsK2A0CDF9DUgUo/xWXzXI
-	 4DiM0XWo3s/KiIhqKhl6vg+A0K0hyLivuDXdOzm85OasBmxdyZYOirutWc7oOL1c2SQ==
+	t=1793989018;
+	b=bF2zbo/4/s6krRvfcwF0ARP85gIpNYimsCBssiBNX0F2/topAzsPqd6Flbu6soPTEGbv
+	 WsgK5LNboMikaZYcp14QmlarZaVjiyyfNUFwMzlghSana5al6A8dUN5rvQ/CDbQV/h2oP
+	 Y71mD4oqkl0IWchuqRAFmSDk7z01YM1ogUHNZK085OxQsci1/+3E1IweMASo7jdvysB5l
+	 kCIEDxmKIkFtrdiZCnh7NcNcZ0EWfsKNLFyo1tu++TACfc4mbQ6kc07vtz9u7hOzQJTac
+	 MEpkVEJ5BoMZP6P4Rn5TiNMqQm4y9T+hYJVAwurNfQjmZen2YffIei7THt4s08DWhvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988824;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=KMQDum6ro6+38J8GrwMjdFRm/rqOA0moDhFDYguzWLU=;
-	b=zKqBcv4MxrLcIiMWxiPzXyueg1P/hH0sMgjTkdGjE/Hcn83e02b72gY1PlwpjM7MMikP
-	 b1fRQIoE0F/nQxvGlnS1Rj/MyLW60UVA/eSRPjf0e+3Ng5l9UiSPtV7Y8svaK5tAEplrP
-	 73AMFJXNy+FO/IoQ9ni3C1STld+ehoZB60tHxDLuc1V5kzXfPTYDjWB2E2MkUXRu+8Zrc
-	 4UJJFtQS6dd18DiAMJZYRXR4dkyDKQHvhsxtxaPEUlri5rMQzm0DQ2WbUMC7w5MTFelPo
-	 6FGQRTL9pziOoaUVW03qHLzttkUlMQz86/X4T+06Lwt9FU0ONK2GhSuPQHTvRvKjQqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989018;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=w0VSteOSDHzDJMMZlPVFDnksNQwbIiA9tfmca7n6AqU=;
+	b=41qTnOb6Hbm1ycddOe+V7dAG3YinnqFchxnxf9vaGNzzkB47zQnyMW+Qgww7VhGBfRzQ
+	 9JSple0Xop7uAJjcyXph0+lfCG1hpTGicTOCjVVYPJVgYJub3qKFxqSufqd9IN/vER5qP
+	 VXZlH1j8+JSPQVQ9Xuis5KRSXrQdHun+FtDflwX9YxTykSvX9cvDFVW53tjCoHXZxuMqc
+	 ec7fM4q5/cjT3UAdVpB/dZ5Jw8CSAgvhAhHdh7/xYJK6GUzE2bZZI0RgnHYsDdU+2Zt+q
+	 5pgQgCjwXq4sZAbQAVHwW+2S0/X9y3UYpe05tN5YXWNrUheyAsin2gNncIEI9t76kpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTB8Cbwt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KavtPbl8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075EC606A326;
-	Fri,  6 Nov 2026 18:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B2C606A326;
+	Fri,  6 Nov 2026 18:16:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTB8Cbwt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5CA1F0089F;
-	Fri,  6 Nov 2026 18:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KavtPbl8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598931F0089F;
+	Fri,  6 Nov 2026 18:16:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793988823;
-	bh=KMQDum6ro6+38J8GrwMjdFRm/rqOA0moDhFDYguzWLU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WTB8CbwtC4uPmCt6p2VeAkonRR/+2WCGOCmXPSVjGk5MopoLe4purDz0Pa+ZWc3PU
-	 Z1a0z7d0FQ9Xlsxd18h9hR+qIngDahAeNAGphHfOqij4wXRenO5/Cv418BB5esX/Cx
-	 sqHEAvqMAyFWq95EBo/CCDv/9E88neFw54GCKXyAifHILHygqC5vNTFJqDuYr0D6NT
-	 qmNL2zmW87pCzg0Yb1sEB1I+j3knkCCdyFLtJbukp1gr4MtqIlifb3O4jrR+4DeJ9q
-	 5neAYdxKECSPgAgoXQ5E46vB78gCH6sW6ENazYShMNGKpSn4s8pyHN1RLQbCeZ8y+G
-	 3Zzc45Q0lNJDQ==
-Message-ID: <sashiko-outbox-201998@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/13] arm64: dts: st: add iwdg1 and iwdg2 support to
- stm32mp231
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106163429.618392-12-antonio.borneo@foss.st.com>
-References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
- <20261106163429.618392-12-antonio.borneo@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 18:13:42 +0000
+	s=k20260515; t=1793989017;
+	bh=w0VSteOSDHzDJMMZlPVFDnksNQwbIiA9tfmca7n6AqU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KavtPbl8UnPg1FIv7HRBd0pFzHPrSUQlTt90GE6CtORA4iOosOZ5mR/hdZk1+l/qi
+	 jageRticCNg+PWLnKMivdGaCUSOJIOipCBa6IBGCjd+nb+xP8+WAzNHfGLuyuqf/qg
+	 irUJtFT/yD4Epb5flnuVNtRdQodXHsR9RayaC40lLQJb3QBWlhalqflcPgNrZOiws1
+	 gHMrMvr7a8cNj+i1gZxHfPrDMMlH5TnQLIcavAoF3g5NLuA1R+LQyAz+Aj/K0vkYzK
+	 WdjA0pjHLtAA+VCHmYn8XnZ0W+RW6IGux+BKponKdsIErmvZyNzoEmoykp0z0ntVtA
+	 iHc/LHte9UBYA==
+Date: Fri, 6 Nov 2026 18:16:52 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Owen O'Hehir <oo.hehir@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	"ziv.xu" <ziv.xu@starfivetech.com>
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add StarFive JH7110 RTC
+Message-ID: <20261106-skyline-elaborate-1d30d5e99de5@spud>
+References: <20261106175600.3877614-1-oo.hehir@gmail.com>
+ <20261106175600.3877614-2-oo.hehir@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,56 +65,145 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Y+/7ryyc8QG4aH7I"
+Content-Disposition: inline
+In-Reply-To: <20261106175600.3877614-2-oo.hehir@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] arm64: dts: st: undocumented access-controllers in st,stm32-iwdg
-  binding
---
+--Y+/7ryyc8QG4aH7I
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 93c31545a492246bcc374e2c2022c94ad8a0467c
-Author: Antonio Borneo <antonio.borneo@foss.st.com>
-
-arm64: dts: st: add iwdg1 and iwdg2 support to stm32mp231
-
-This commit adds the iwdg1 and iwdg2 watchdog device tree nodes to
-stm32mp231.dtsi.
-
-> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts=
-/st/stm32mp231.dtsi
-> index fefbf6f4f1537..db19429896eb3 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> @@ -724,6 +724,26 @@ rng: rng@42020000 {
->  				status =3D "disabled";
->  			};
-> =20
-> +			iwdg1: watchdog@44010000 {
-> +				compatible =3D "st,stm32mp1-iwdg";
-> +				reg =3D <0x44010000 0x400>;
-> +				interrupts =3D <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-> +				clocks =3D <&rcc CK_BUS_IWDG1>, <&scmi_clk CK_SCMI_LSI>;
-> +				clock-names =3D "pclk", "lsi";
-> +				access-controllers =3D <&rifsc 98>;
-> +				status =3D "disabled";
-> +			};
+On Fri, Nov 06, 2026 at 05:55:58PM +0000, Owen O'Hehir wrote:
+> Describe the RTC in the always-on domain of the StarFive JH7110 SoC.
+>=20
+> Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
+> ---
+>  .../bindings/rtc/starfive,jh7110-rtc.yaml     | 85 +++++++++++++++++++
+>  1 file changed, 85 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/rtc/starfive,jh7110=
+-rtc.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.ya=
+ml b/Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml
+> new file mode 100644
+> index 000000000..95edddea1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/starfive,jh7110-rtc.yaml
+> @@ -0,0 +1,85 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/starfive,jh7110-rtc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +			iwdg2: watchdog@44020000 {
-> +				compatible =3D "st,stm32mp1-iwdg";
-> +				reg =3D <0x44020000 0x400>;
-> +				interrupts =3D <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-> +				clocks =3D <&rcc CK_BUS_IWDG2>, <&scmi_clk CK_SCMI_LSI>;
-> +				clock-names =3D "pclk", "lsi";
-> +				access-controllers =3D <&rifsc 99>;
-> +				status =3D "disabled";
-> +			};
+> +title: StarFive JH7110 Real Time Clock
+> +
+> +maintainers:
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-[Severity: Low]
-Does adding access-controllers to iwdg1 and iwdg2 cause dtbs_check to fail
-against Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml?
-That schema sets unevaluatedProperties: false and only references
-watchdog.yaml, neither of which documents access-controllers.
+Really, this should be you or someone that actually cares about the rtc
+on this device, not the subsystem maintainer.
+pw-bot: changes-requested
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
-92-1-antonio.borneo@foss.st.com?part=3D11
+Otherwise, this looks fine.
+
+Cheers,
+Conor.
+
+
+> +
+> +description:
+> +  The RTC in the always-on domain of the StarFive JH7110 SoC. It counts =
+BCD
+> +  time and date from a 32.768 kHz clock and has an alarm, a frequency of=
+fset
+> +  adjustment and millisecond and one-second pulse outputs.
+> +
+> +allOf:
+> +  - $ref: rtc.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jh7110-rtc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Millisecond pulse
+> +      - description: One-second pulse
+> +      - description: Alarm and calibration events
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: ms-pulse
+> +      - const: sec-pulse
+> +      - const: rtc
+> +
+> +  clocks:
+> +    items:
+> +      - description: APB bus clock
+> +      - description: Calibration reference clock
+> +      - description: 32.768 kHz counter clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +      - const: cal
+> +      - const: 32k
+> +
+> +  resets:
+> +    items:
+> +      - description: 32.768 kHz counter domain reset
+> +      - description: APB bus reset
+> +      - description: Calibration reset
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/starfive,jh7110-crg.h>
+> +    #include <dt-bindings/reset/starfive,jh7110-crg.h>
+> +
+> +    rtc@17040000 {
+> +        compatible =3D "starfive,jh7110-rtc";
+> +        reg =3D <0x17040000 0x10000>;
+> +        interrupts =3D <10>, <11>, <12>;
+> +        interrupt-names =3D "ms-pulse", "sec-pulse", "rtc";
+> +        clocks =3D <&aoncrg JH7110_AONCLK_RTC_APB>,
+> +                 <&aoncrg JH7110_AONCLK_RTC_CAL>,
+> +                 <&aoncrg JH7110_AONCLK_RTC_32K>;
+> +        clock-names =3D "apb", "cal", "32k";
+> +        resets =3D <&aoncrg JH7110_AONRST_RTC_32K>,
+> +                 <&aoncrg JH7110_AONRST_RTC_APB>,
+> +                 <&aoncrg JH7110_AONRST_RTC_CAL>;
+> +    };
+> --=20
+> 2.43.0
+>=20
+
+--Y+/7ryyc8QG4aH7I
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4ZlAAKCRB4tDGHoIJi
+0u3QAP9iXmVACPlMqrsukwxvGGlu7UXlmHrZIe49uW1XNeip+wD/cF9fDbYx11SI
+XVeLyV4S0JyXiW6UQiLkHm7vFH/qVQc=
+=uLvR
+-----END PGP SIGNATURE-----
+
+--Y+/7ryyc8QG4aH7I--
