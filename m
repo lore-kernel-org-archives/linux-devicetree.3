@@ -1,106 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945233;
-	b=dJKdmk60W98aiXYHLdIiXqwajUF5v8X03VqL5zzVWg9WQTDnjfE0WaG9yUOukFERje9h
-	 3wncJhEo563xtpX9uqeVgj2WTMEkGRLV2GA7e48k+88OSOaoinasofDmFQWtoENRnC4Gw
-	 T/nW3JD/YiXux5jLifePZhzwhapYOO0Uq0QxRnSzjUdDAQk3MxTj6GbOqitCnecDKBIRO
-	 9KXSuhndn+ALiHGNZYu/H+O5vOFRxl/B7ho6GFKE1uz7cQGeFXJXZUOQNO+QwbkgJz1EO
-	 QTjI6mlLnjkzLdVhbCBPeNbHzfZ2aHjaCURYc0AtNcvJssyfcL6rw4XKy134SkxoVGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945233;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6tf8e1TiIZCPiuqeGmQ9C1JUjOtS/N/aYWA/KP8sylw=;
-	b=Ci131sJt21jyE+EKqSfvHnQzrZvjIbNHxDkz/MG3w1jxa/DOWve7pi177NEPWdDRzFV8
-	 Hi1GbuM0Cl0S3x3TKNLpjMWZr5odvhbdZt6kK43cbCkk6Eex06bvV8MGGWYN+216BmJsJ
-	 EGRcKSOGYEvIxoSAA2PFrilxlYkmhVxlIKRnt245utWG2kPwC9HZnnuAX408UDXjNct5T
-	 TLQ5iZr/GO+TF0C2jrmsCXcesLjDX9IC+OJ0sf7I+1kKXT82sLIyQZpLrZCtF/hsQhhpk
-	 wrDLKbwQd2131iEpEYvK7RufJEXdBy4xRLQxfG4HCgxo4ClFNvyqRzuRx01QMX5Rddg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+dENenA;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.61
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793945833;
+	b=Jf4JH5wy7JNRGG/XFP2YCO3qmEtEJVPA8+JUnY/bYnA2Q9BmGLgI77fWXj2bP1cv1YmV
+	 UeJS1XQvySqTY8UL5mjhxJazPK31M0kEstwsDLDPGZTGHebsNXMECXBUGhctk/rGavH2V
+	 KQPRuNrowifgGSSkQl/m+ToX08lTAGZgHuLkg87LYjjuUJwl5LZOkzGtLWrJM0CM4Z1ke
+	 vqPkzw7xkbwjlTRl4nrTQPo8xw9ZBjcdtKCCw6QP8z2m92eWxZFde25TbGo6QnJwfYoCa
+	 17p9ehOJY9sGjCB6ItN8ikc2NhdTZ2TGe7E4fCkbw/nInBDNSK0P45kAl2apz9w+/qA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945833;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=f0X8uT4kDSHertddXJ8btm/b/CTzxHYjG/LWt4e9ksQ=;
+	b=V/7e1bHfUY9RLVY71KHF/zF9F0BOQ8q8030CISRJtazURLlwwv5Zdmz5H9HZpwOC2DNL
+	 ITUXuOexxtRGV9fRNUPKqSCBejlyuwASFM2tZMUat2vvJ0hvtijDtYZmzM8qFAfCKLhZR
+	 eFqZ+eDHgsWVPGrnr7iuAOI9Klvvu1hH3jes8qy+V18//agfXWc1Ri28HBqm/xxC8k1TM
+	 V0flGEG8vGDLpeFGEC8M/SBqBum2DpPHxg9apZk0e9VlyMvmBLxIllwS7btsNjw5it1nR
+	 UzXN3iTZw4b33SDuHoKsl+rDnIdDwg6HArhU/AUBFR40oYzVmy0hktSVlU807NGLqog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=altera.com;
+	spf=pass smtp.mailfrom=altera.com;
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=oXa6wzCi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.61
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011061.outbound.protection.outlook.com [52.101.62.61])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4F2606A32D
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F4F2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39B5606A32F;
+	Fri,  6 Nov 2026 06:17:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A39B5606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+dENenA
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14394530ec6so471845c88.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 22:07:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793945233; x=1794550033; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6tf8e1TiIZCPiuqeGmQ9C1JUjOtS/N/aYWA/KP8sylw=;
-        b=o+dENenAl6+UoTxTD/9ElA/bcVy/nkmYg+F7U/oXM7NhzPneSUIjAhN4TptYdehcUq
-         6Z0Nwyt4u4h3s5JFCuUfXIGGkDQ0G4llurynEVpHYedtVWsDGHfzocc3sWNLll2qSQYt
-         8edwYMEflEu/GPoE4EWZtJV92lqa+FQFC8J5hNhzWeRz1ZkseDoPD3b4bbG4pMfMpUS6
-         0L6PKQ8OcOgdODK8Tbremesxuc73GupJmWuW/T2JfIaGzAguO5JsZ2aNRk5ALCSd6x71
-         yHBV3w3q4z7FKe322HMIDlVJqExTsuGJWyYeElLvjvpMBtjUesyg4kCq8uqlEowKIpQU
-         dVbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793945233; x=1794550033;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6tf8e1TiIZCPiuqeGmQ9C1JUjOtS/N/aYWA/KP8sylw=;
-        b=RdLxoYfeFPkx47soNVSZpngeAR7kLRZbEtpXYSSRQQPpEQd5JmG+xps6z8x00AfOBx
-         jhHvQnf8zcXQlnhiwuAQrmjkbpjz4ffGKQqGODHcuOX366NwNYzv3kFsZJUuyXOxGKVi
-         wZUMFwGTuf1uRysUFNr2vt9/SfHPCEqvrYDVLFxE8+sAj4V0kU0iBu59lG6flagSyyU5
-         0hsOEWriOUU3ioejuAA9kB3xTYX8JX2aTxGvmutixIInnrsZyLrGrUoZ1tR+eJ0RU25r
-         FroBmJst4YG7O4Q7gmKmGLxtmrdxTX9KbfCnrBJooZYO+B1kW5P1r6I/ArawyOJ7ugGL
-         QiwA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4lChvJbNZRo/vKIT8s8pI4G7x+ssMs+48yZfN4RiFjdBFHPl+7cteu10f36J+wVCiMjhqasU7THeR@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MtoSDaWC63EvGJwNcdQwgOiVum+Bt5aPmMFoOYXtiIg8ZA7/n
-	7okVWHZKYhI2ghZkJJ4mC70ylEJBix3xcM38UJxbBa6MD3BnB1Z2ap7o
-X-Gm-Gg: AYBFou0yHkrSd1M+vCU1lwdHSLMA8N5r6WSVyrjnXXuBbN1a4vEa2Obf1XW3qoxuv9x
-	SZB4GCzhRcKa2ImvI9BqDWzN66k6+G8ZrJRT7yKWL+F12/GkHR4hlAWi/ZHNjY/pd4uv2mFm7Eb
-	bzg4V6M6klu3Bd8kpngRHsnJmtn/u35fFPYPcl+iVztUJDuWE1ElrdkQZXqirhyDm2vJc558n+o
-	5kLpIV41kf93lD6kSrL2IimwRzHW9ntpRzDkATK+kuPeGgqVKVXXW9pFkjI06C+YFo9rP7/zRgD
-	SoWtiUHFOolvCk4isQWBzy9qD3JPr66oHa7imrb99IIUmPqHdhUp1Tuneqy0Jpqo910ATJ/XQpS
-	LRj+3vilrHogpBTa0sW+2ejGY6qB1YmuT5uZc8Vj0fSo+fFDXYMexGxWvLrnKfOQVHLFbBDOzKQ
-	KQzJxW2kwmXnUxqMaFphRD0GsujNcKFJd0ZKyxGdDQxHi5WLwB5K6zWQ17gGXtWwu6C9N5gdldD
-	AsiEXj8ATHLkW8DbPK5BMM+kqAQ93oAUgS/Zs3a02wV/hWw9N8Bnc41iTaTpinxT84d4eTglKHw
-	hsARTo4octY8y3cxxku4KKmAaTZzT3+5sOK4R1GxYd5IO5jbzRbx
-X-Received: by 2002:a05:701a:c907:b0:182:6c6c:d876 with SMTP id a92af1059eb24-1b25d2fe798mr1729112c88.8.1793945232552;
-        Thu, 05 Nov 2026 22:07:12 -0800 (PST)
-Received: from duge-G3-3500.taila331c7.ts.net ([183.192.220.13])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4e079esm2780992c88.19.2026.11.05.22.07.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 22:07:12 -0800 (PST)
-From: Jiayu Du <duge1256@gmail.com>
-To: srini@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dlan@kernel.org,
-	troy.mitchell@linux.spacemit.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	p.zabel@pengutronix.de,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=oXa6wzCi
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DaOBNaQSoSMmNMx6Xy4t6UIVLTe/w3BiDnzx+YUjF++wBqEpC8au4Fq/nfgXngh1lIxW1r262FAKCaj8bPY2hyE7YqrBVcaL9bGwmywe6yagwJ4qG9BUI46NtAgLLrTn1cqS1867VauXtFZcLvsVFVUgZ3ceTNus7nhYYkxGN5U+fWtuSzjdIwfc8ViaJDCsFUi+gBODtKXSwsE8VBNR+eVy/as36AwNhxA3EzWRFUE2HngWYzy6ySkQbGwkJllgOL8BygHQ4IjnM27Q/CV0OtGJeOeosq/mad47RuYS70iXM4Yq24hzPoytrUT3xg7EUOJxWdkGd6h9BRs0fPt5Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f0X8uT4kDSHertddXJ8btm/b/CTzxHYjG/LWt4e9ksQ=;
+ b=fyFGJRxYqwNhWc1+l4RpHsuTLWOOOX7xZ0e8Yoy52j9/9IrI34Bb0vByybJMTGwMILRx56ebVTIcwwKK1yTYkUZu7RSGeee05ki2925fE6x5qeMI62GZlNt37zYVe0B8rTX30vcC0uLejgAVJS8PQ9gyF65X1PGg/MDAcA2q2OdwWFhGTfCh9XHb8Fl2JIV4TKrbZM/FaDCb5/kI8pKALtMMJfmlzYfIGz55SWXh0IRabmBrN7HfJzCDqOoP/mQ9UiFlur8JjSnFYkHTLWD6OmYAFkiPrqku6NALxr5kjCdT2MnpfZeL6xh/BZKj3TX+j01QZEN26Otnf30eCb57WQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f0X8uT4kDSHertddXJ8btm/b/CTzxHYjG/LWt4e9ksQ=;
+ b=oXa6wzCibN9HFPYWLalpkARydl1LZ1A1fpW9QGwiZ7kp5WYtsNIP+X+3qe221DJ+nInfhZ5Br/Kj7dLlJS5kpAbOsEnLOscc6W5yLhntcR3znDWa6ePQPZzXXTmCTpwsMqo7jqXsAf08qAWpyR2ZriaCRrF0YuPDOx9xLpUUaoj/EFUv8qAhupe5866DkK4OzijIwcNRT0ix5nvLEdDI/EdKok24cagtdfs6MMlJVNLCNBQa2aIhfgwosoNsdcMmz25UPJqDAqYJLK5sqjZTJldd9I/QaXRvYeX8H6vSnUAd6ZPY2FljOTx7VfGnLvbngFw2gHaxdK9f0CAgLFv2LQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by EA8PPF1471CA897.namprd03.prod.outlook.com (2603:10b6:30f:fff5::845) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
+ 2026 06:17:08 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 06:17:08 +0000
+From: tze.yee.ng@altera.com
+To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jiayu Du <duge1256@gmail.com>
-Subject: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
-Date: Fri,  6 Nov 2026 14:05:24 +0800
-Message-ID: <20261106060525.346873-3-duge1256@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106060525.346873-1-duge1256@gmail.com>
-References: <20261106060525.346873-1-duge1256@gmail.com>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>
+Subject: [PATCH v3 3/4] dt-bindings: mmc: cdns,sd6hc: add SD6HC DDR50 read-path tuning
+Date: Fri,  6 Nov 2026 14:16:54 +0800
+Message-ID: <20261106-sd_cadence_ddr50_v3-v3-3-cb50afece614@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261106-sd_cadence_ddr50_v3-v3-0-cb50afece614@altera.com>
+References: <20261106-sd_cadence_ddr50_v3-v3-0-cb50afece614@altera.com>
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR05CA0045.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::20) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -110,233 +104,155 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|EA8PPF1471CA897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a465612-46ae-45bb-4c24-08df3bcd9626
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|261028144727099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261009223027099003|261026121527099003|261026140227099003|11063799006|10067099003|261102123227099003|55112099003|22082099003|3023799007|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	uPVvRkCNykR8pNn4jkNFQfh5Xmd6taHXeJijdjPGDRl9ev2Eg0/G/bg+PJZjvH0Y7hzkkOHK7g5ht98L/v4DZEy6wzoHZlU5y1M+p3vfATAHgIxnMZkPSLFbbnxShkIP2fJYxPnPuNu3DaxV4ylXAyQQPJimyh7plHwHs5B3a9yvihV7ad/ZowhehXegCt1Rj92Sc++CYIY9O+U/xPGUxv+OEQHvqXkGxKF1bW/7UJxxIMt9X5jloiRPUOCtCp0P7G78SyyKJGH5nffbHWQtncH60uQZ3uG7lknhweWrXqQAyPnAHgM8asOHpWIqX8ZDFwq5Rccwlqy+yOP/ywwivZ/X/RDjX3HKtsXhrrd0M2/hnnMlfgagyU+H1OSAPL8tG0IQTrZweiRLPKC0KpTyqnqC8ryV32OMhEp9Dq2qoOqJnInrlg6FNFuPftMBnjXoq/viw2hqaL4LdTG6mj50FgapcizTKdfvvA1urz6HjmiROblx8u/VdnhA7dGrn7E9X2tPbsUIUOOF5k8lgY2f7rQexHn0eh369kiqhKqNrt09iOHEPSQG0/PzOHAlwAmWrYjJaFU6HpYiCiT7ssnp5FLqyKi6sn9QwXIfJ3eSn6ONbTAhoU6sWHTUlnuwddpNc0QoPSdAfLDv0zrW9KBkwFgEGWS6oWGHYGuEG9AKhow=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261028144727099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(261026121527099003)(261026140227099003)(11063799006)(10067099003)(261102123227099003)(55112099003)(22082099003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NFNZRFpMUDN0cHN2d2txQ1NuYysrU1ZUeXBra1VBNnRFUFVxVlBpZ1NwaDBG?=
+ =?utf-8?B?eWhrU0t6aEUraTlNOHJxSDF5SytpZ29qeStkLys2S0hzeVBDcmdHWGpsNHEw?=
+ =?utf-8?B?cmQ2cmpKVG0wcWJ5Y1BzVXJqNHNkYk4rZGFSTkNqSDIwSWVoK1NTczRxczhl?=
+ =?utf-8?B?bmo4eGpSRks5Q2orYStRVE9Sb0FIb2F0WWlhTTR2ejhSaXphTW8yemFGUEtZ?=
+ =?utf-8?B?TWJDWWdyWHNNNGVTU0YyZVVRUHJ1eU9JVkZPNmtMcXpJZVQ1c0Z6dDV3WW9r?=
+ =?utf-8?B?WlFKSFA5R1djVXBBcllKWTlmTWxUcUsvUEVTN3RMbk4vVkxoK28xOW1ndGhB?=
+ =?utf-8?B?RlhhallxbDRVMVord0dlWmlsUlVhcEZaNzRkZzV2RCtnM0FHY2JiY1hBR2pC?=
+ =?utf-8?B?b3hDTGxML2tSTnNCa1A1SlJCSnV0czFhNURiQmo5M0pka1ZZdUY3eEE3MjVC?=
+ =?utf-8?B?cW82TWFlSHF0SzhiTkpnOEJJZ25DUDBST2NRZGd3WGp6UXRMQlRLeXgybjlB?=
+ =?utf-8?B?M3R2RUJwQkZEYjdJcmN4Q2cwdHBMb0tXUTdoUzRFN1AybjNmaE5CTG80WGUz?=
+ =?utf-8?B?cHdHRU5XTm5KZVptR2ZMVzNZQmpJb1RoZDhiN0VENjUzOU8rS1JVTE96QWYr?=
+ =?utf-8?B?MWFXT1BOM3JuRUtqOTlVeDdBZ00zL3lXWnBsZ0xTRlZFNC80UU9jeEwvamR0?=
+ =?utf-8?B?SFE3ZDlEMU8rT05QT0NqUmFnY2ZERHh2Ukw4TFAwV3dsUExCYzBmZ09FcXds?=
+ =?utf-8?B?QTNNYUFJS01YT0tyTFNKQnhrL1VQOGRiN21uclVlQTRUNWRTb01rRno1QTB4?=
+ =?utf-8?B?Mmp6T3BGWGtXR0x2cndJOGRyWGVnTU5HRGp0VTBEU1EyWk80VzcrOWxvb0FE?=
+ =?utf-8?B?RmplSFZvcEp6QkhEeHdpVUVJRzFObGZTU1IzWXM5eUIzbUIvdXpCVmdaRDFO?=
+ =?utf-8?B?SmpaL1BiUkJXSllMR0JiR0s5YXJsZDJkZ1NhNWNHQm5OVW9vU3FZaGdhbjVH?=
+ =?utf-8?B?eWhlbUJzR1ZQU0h0MmFIbjRSSmNPcXRCSXpTTmdWSkFab1hrUmJ3c1NwR3FW?=
+ =?utf-8?B?UFVnVCtpNWlpSzNIeHlib2Nkay95TmxRTHU1Wnp6S2tYc0VCN1UvTXBGVS9J?=
+ =?utf-8?B?OUJJYVR1QnpyVDYyY3lCaHk1aWx6REo2bEJCcDdYaDF6K2hBS2ZGT2xRWmhr?=
+ =?utf-8?B?bWUwS0czZUI3dFFzVmM0bmtvYWpNM2wzcGIvdHhuYVhKcS9HY1daV0IxRWtl?=
+ =?utf-8?B?QitPb01zOUEyWm5ubktOUml1a0Era2ZIc3F0QWVJNThlUVRvQ09zRk8xZDdD?=
+ =?utf-8?B?MWpzdlQxRkpTNTVteUxRTFRCamNBVzRTNkNReFRxZjVsTXIvcUVTdnNyTHZT?=
+ =?utf-8?B?Ymo2anhZdFZVWXg3ZHBVMVBVZHB0K0F1TmZvT3BlamxPYjNaS0xxS2g3c3Zn?=
+ =?utf-8?B?c2JtWmNDYmRNdjVueFdBMXBhblVFQjU3VXR4NUhod3ZWUUFBK25YMlM5c0F1?=
+ =?utf-8?B?cHZ0ejNtRTlqWUdPM2ZQOHpTS0Rub1VRQVVVbnR2Q2xKbG94SThtUjc0T1lL?=
+ =?utf-8?B?MDZVMDRHakdHZExPc1hXNXp5Y0ljVUZyM1laa3JwTXk0MFJCTmxZRW1zRDZz?=
+ =?utf-8?B?R09EQ2xtT2kyVitwbGFRQUpsdmxyZ2s4em1NVmNpQ0Y2R2Z6alE1cmxwUGVh?=
+ =?utf-8?B?TGNTQVkxMzA3elVTZ3lyU2VWakd2U2hMSTJCeXc3SFN5c0g2K21xRGVxKytM?=
+ =?utf-8?B?V3NoSHVRTUZQSVkvZk1CM3l4QytDSERBMllRMEhOSURZZUdsRHNiL3UxRHJG?=
+ =?utf-8?B?WXZSYVlWczRROWNBcE5JOGxmZk80MzdpbVNCZGxLVDBBTEVsRldCQ1dYdm1D?=
+ =?utf-8?B?aU12YWVGQlJPd2EzSzdMZ3JCeGNXZ1d1YTJBc0h6RUI5WHVRUUViNDVZbkNV?=
+ =?utf-8?B?VkcxblVYZ2M3WUIySUV0Ulp3Y1J6VURvcUNqTkRkaHd5VStjVDRLVTdxU3Yw?=
+ =?utf-8?B?c21SZVk3emlJQUY2ODZ6cFpOOWV0SVJVdVlybS9BdkJzajI1SXBnOEJpWDNE?=
+ =?utf-8?B?NzdoSFFrc3VtbkxvRFphekxLQ0VYbDNuZ1VqYmllYnNIcDRVUk5VTlBLT0VD?=
+ =?utf-8?B?TVdub1BZOVhHcUsrY3NOSlh5V09weU1LcE43ZlR5VG1sUm9NbVcxUXowdmFq?=
+ =?utf-8?B?MktUUFdyQndlSHRoU3dNM2dmc3Y0VmRQVU9rN2xJa0E1eTZyM1IvVVFGKy9Q?=
+ =?utf-8?B?WnJkKy8vMXRRWUovMUNQZVczVnF6ZjFSbHRtWWtSNTlsNlQ3T3ZWYndvN3lM?=
+ =?utf-8?B?b2VNcGx3MVdIMytPNEJkREd1Q25nUmhDcmRiUEZEbXBSeFk0QnZWUT09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a465612-46ae-45bb-4c24-08df3bcd9626
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 06:17:08.5806
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9QCLYQtumK/t3DfD0v17r1JZYV4ba0kDzSE/5vXEVPSVskIYPQ/MwORV0LspIQyd5Ek1EqAEKcOVf4xJU6COrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA8PPF1471CA897
 
-Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
-controller. These banks contain temperature calibration parameters and
-other configuration data.
+From: Tze Yee Ng <tze.yee.ng@altera.com>
 
-Snapshot the shadow registers with aligned 32-bit reads and expose the
-data in little-endian order at controller-relative offsets. Serve reads
-from the snapshot and use keepouts for the remaining register ranges.
-Keep the AES_WTM clock enabled and its shared reset deasserted while the
-provider is registered.
+DDR50 has no CMD19 tuning, so the SD6HC read path must be centred by
+static, board/SoC-characterised PHY settings. Add three optional SD6HC
+properties for the extended-read DDR modes (SD DDR50 and eMMC DDR52):
 
-Signed-off-by: Jiayu Du <duge1256@gmail.com>
+  - cdns,ddr-read-dqs-delay:    read-DQS delay as a count of DLL delay
+    elements (0-255), each cdns,delay-element-ps wide, that centres the
+    read eye (default 0).
+  - cdns,ddr-no-lpbk-dqs:       disable the loopback DQS read strobe and
+    use the fabricated phony DQS instead. Loopback DQS is the recommended
+    default; set this only on boards that need the phony DQS read path.
+  - cdns,ddr-phony-dqs-timing:  PHY_CTRL[9:4] phony DQS assertion timing.
+    The driver derives this from the RE# pulse width; this property
+    overrides the computed value for boards whose flight time shifts the
+    DDR data return.
+
+Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
 ---
- MAINTAINERS                       |   1 +
- drivers/nvmem/Kconfig             |  14 +++
- drivers/nvmem/Makefile            |   1 +
- drivers/nvmem/spacemit-k3-efuse.c | 151 ++++++++++++++++++++++++++++++
- 4 files changed, 167 insertions(+)
- create mode 100644 drivers/nvmem/spacemit-k3-efuse.c
+Changes in v3:
+- Re-expressed cdns,ddr-read-dqs-delay-ps as cdns,ddr-read-dqs-delay: a
+  count of DLL delay elements (0-255, each cdns,delay-element-ps wide)
+  that maps 1:1 to the 8-bit PHY field, instead of a picosecond value.
+  (Krzysztof Kozlowski)
+- Added $ref uint32 and maximum: 255; dropped the redundant minimum: 0.
+- Used plain description: text for the three new properties.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0a9eb764ffee..e0af83ecee37 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26529,6 +26529,7 @@ SPACEMIT K3 EFUSE DRIVER
- M:	Jiayu Du <duge1256@gmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/nvmem/spacemit,k3-efuse.yaml
-+F:	drivers/nvmem/spacemit-k3-efuse.c
+Changes in v2:
+- Retitled to "dt-bindings: mmc: cdns,sd6hc:". (Tanmay Kathpalia)
+- Renamed cdns,ddr50-* -> cdns,ddr-*. (Tanmay Kathpalia)
+- cdns,ddr-read-dqs-delay-ps is now in picoseconds. (Krzysztof Kozlowski)
+- Replaced the read-DQS source selector with a cdns,ddr-no-lpbk-dqs
+  boolean. (Krzysztof Kozlowski)
+- Reworded the phony-dqs-timing text. (Krzysztof Kozlowski,
+  Tanmay Kathpalia)
+- Dropped the SD4HC note. (Tanmay Kathpalia)
+- Scope the new properties to the extended-read DDR modes (DDR50 and
+  DDR52). (Tanmay Kathpalia)
+---
+ .../devicetree/bindings/mmc/cdns,sd6hc.yaml        | 30 ++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+index d5ea2717904b..ee6a28ef2e34 100644
+--- a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
++++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+@@ -74,6 +74,36 @@ properties:
+     maximum: 1000
+     default: 24
  
- SPACEMIT RESET CONTROLLER DRIVER
- M:	Guodong Xu <docular.xu@gmail.com>
-diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-index d2f5bb236663..28d6c59fbd74 100644
---- a/drivers/nvmem/Kconfig
-+++ b/drivers/nvmem/Kconfig
-@@ -476,6 +476,20 @@ config NVMEM_SNVS_LPGPR
- 	  This driver can also be built as a module. If so, the module
- 	  will be called nvmem-snvs-lpgpr.
- 
-+config NVMEM_SPACEMIT_K3_EFUSE
-+	tristate "SpacemiT K3 eFuse support"
-+	depends on ARCH_SPACEMIT || COMPILE_TEST
-+	depends on OF && HAS_IOMEM
-+	depends on COMMON_CLK && RESET_CONTROLLER
-+	help
-+	  Say Y here to read configuration and calibration data from the
-+	  SpacemiT K3 eFuse shadow banks. The boot firmware must have loaded
-+	  the shadow registers before Linux starts. Programming and reloading
-+	  the fuses are not supported.
++  cdns,ddr-read-dqs-delay:
++    description:
++      Read-DQS delay (DLL_SLAVE[7:0]) that centres the read eye in the
++      extended-read DDR modes (SD DDR50, eMMC DDR52), which have no CMD19
++      tuning. Expressed as a count of DLL delay elements, each element
++      cdns,delay-element-ps wide, written directly to the 8-bit hardware
++      field.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++    default: 0
 +
-+	  This driver can also be built as a module. If so, the module will
-+	  be called spacemit-k3-efuse.
++  cdns,ddr-no-lpbk-dqs:
++    description:
++      Disable the loopback DQS read strobe and use the fabricated (phony)
++      DQS instead in the extended-read DDR modes (SD DDR50, eMMC DDR52).
++      Loopback DQS is the recommended default; set this only on boards that
++      require the phony DQS read path.
++    type: boolean
 +
- config NVMEM_SPMI_SDAM
- 	tristate "SPMI SDAM Support"
- 	depends on SPMI
-diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
-index 5e70bad9f0f9..d29716957faf 100644
---- a/drivers/nvmem/Makefile
-+++ b/drivers/nvmem/Makefile
-@@ -81,6 +81,7 @@ obj-$(CONFIG_NVMEM_SC27XX_EFUSE)	+= nvmem-sc27xx-efuse.o
- nvmem-sc27xx-efuse-y			:= sc27xx-efuse.o
- obj-$(CONFIG_NVMEM_SNVS_LPGPR)		+= nvmem_snvs_lpgpr.o
- nvmem_snvs_lpgpr-y			:= snvs_lpgpr.o
-+obj-$(CONFIG_NVMEM_SPACEMIT_K3_EFUSE)	+= spacemit-k3-efuse.o
- obj-$(CONFIG_NVMEM_SPMI_SDAM)		+= nvmem_qcom-spmi-sdam.o
- nvmem_qcom-spmi-sdam-y			+= qcom-spmi-sdam.o
- obj-$(CONFIG_NVMEM_SPRD_EFUSE)		+= nvmem_sprd_efuse.o
-diff --git a/drivers/nvmem/spacemit-k3-efuse.c b/drivers/nvmem/spacemit-k3-efuse.c
-new file mode 100644
-index 000000000000..d106053beae8
---- /dev/null
-+++ b/drivers/nvmem/spacemit-k3-efuse.c
-@@ -0,0 +1,151 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * SpacemiT K3 read-only eFuse driver
-+ *
-+ * Copyright (c) 2026 Spacemit Co. Ltd.
-+ */
++  cdns,ddr-phony-dqs-timing:
++    description:
++      Phony DQS assertion timing (PHY_CTRL[9:4]) for the extended-read DDR
++      modes (SD DDR50, eMMC DDR52). The driver computes this from the RE#
++      pulse width per the Cadence PHY guide; set it only to override that
++      value on boards whose DDR data returns shifted (e.g. longer flight
++      time on modular/SoM layouts). If absent, the computed value is used.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 0x3f
 +
-+#include <linux/array_size.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/nvmem-provider.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/unaligned.h>
-+
-+#define K3_EFUSE_REG_SIZE		0x400
-+#define K3_EFUSE_BANK_SIZE		0x20
-+#define K3_EFUSE_BANK0_OFFSET	0x104
-+#define K3_EFUSE_BANK7_OFFSET	0x190
-+
-+static const unsigned int k3_efuse_bank_offsets[] = {
-+	K3_EFUSE_BANK0_OFFSET,
-+	K3_EFUSE_BANK7_OFFSET,
-+};
-+
-+static const struct nvmem_keepout k3_efuse_keepouts[] = {
-+	{
-+		.start = 0,
-+		.end = K3_EFUSE_BANK0_OFFSET,
-+	}, {
-+		.start = K3_EFUSE_BANK0_OFFSET + K3_EFUSE_BANK_SIZE,
-+		.end = K3_EFUSE_BANK7_OFFSET,
-+	}, {
-+		.start = K3_EFUSE_BANK7_OFFSET + K3_EFUSE_BANK_SIZE,
-+		.end = K3_EFUSE_REG_SIZE,
-+	},
-+};
-+
-+struct k3_efuse {
-+	u8 data[ARRAY_SIZE(k3_efuse_bank_offsets)][K3_EFUSE_BANK_SIZE];
-+};
-+
-+static int k3_efuse_read(void *context, unsigned int offset, void *val,
-+			 size_t bytes)
-+{
-+	struct k3_efuse *efuse = context;
-+	unsigned int bank, index;
-+
-+	for (bank = 0; bank < ARRAY_SIZE(k3_efuse_bank_offsets); bank++) {
-+		if (offset < k3_efuse_bank_offsets[bank])
-+			continue;
-+
-+		index = offset - k3_efuse_bank_offsets[bank];
-+		if (index >= K3_EFUSE_BANK_SIZE || bytes > K3_EFUSE_BANK_SIZE - index)
-+			continue;
-+
-+		memcpy(val, efuse->data[bank] + index, bytes);
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int k3_efuse_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct nvmem_config config = {
-+		.dev = dev,
-+		.name = dev_name(dev),
-+		.id = NVMEM_DEVID_NONE,
-+		.owner = THIS_MODULE,
-+		.type = NVMEM_TYPE_OTP,
-+		.read_only = true,
-+		.root_only = true,
-+		.reg_read = k3_efuse_read,
-+		.word_size = 1,
-+		.stride = 1,
-+		.size = K3_EFUSE_REG_SIZE,
-+		.keepout = k3_efuse_keepouts,
-+		.nkeepout = ARRAY_SIZE(k3_efuse_keepouts),
-+	};
-+	struct reset_control *reset;
-+	struct nvmem_device *nvmem;
-+	struct k3_efuse *efuse;
-+	struct resource *res;
-+	void __iomem *base;
-+	struct clk *clk;
-+	unsigned int bank, i;
-+
-+	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	if (resource_size(res) != K3_EFUSE_REG_SIZE ||
-+	    res->start % sizeof(u32))
-+		return dev_err_probe(dev, -EINVAL, "Invalid register window\n");
-+
-+	efuse = devm_kzalloc(dev, sizeof(*efuse), GFP_KERNEL);
-+	if (!efuse)
-+		return -ENOMEM;
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "Failed to enable clock\n");
-+
-+	reset = devm_reset_control_get_shared_deasserted(dev, NULL);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(dev, PTR_ERR(reset), "Failed to deassert reset\n");
-+
-+	for (bank = 0; bank < ARRAY_SIZE(k3_efuse_bank_offsets); bank++) {
-+		for (i = 0; i < K3_EFUSE_BANK_SIZE; i += sizeof(u32)) {
-+			u32 val = readl(base + k3_efuse_bank_offsets[bank] + i);
-+
-+			put_unaligned_le32(val, efuse->data[bank] + i);
-+		}
-+	}
-+
-+	config.priv = efuse;
-+
-+	nvmem = devm_nvmem_register(dev, &config);
-+	if (IS_ERR(nvmem))
-+		return dev_err_probe(dev, PTR_ERR(nvmem), "Failed to register NVMEM\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id k3_efuse_of_match[] = {
-+	{ .compatible = "spacemit,k3-efuse" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, k3_efuse_of_match);
-+
-+static struct platform_driver k3_efuse_driver = {
-+	.probe = k3_efuse_probe,
-+	.driver = {
-+		.name = "spacemit-k3-efuse",
-+		.of_match_table = k3_efuse_of_match,
-+	},
-+};
-+module_platform_driver(k3_efuse_driver);
-+
-+MODULE_AUTHOR("Jiayu Du <duge1256@gmail.com>");
-+MODULE_DESCRIPTION("SpacemiT K3 read-only eFuse driver");
-+MODULE_LICENSE("GPL");
+ required:
+   - compatible
+   - reg
+
 -- 
-2.43.0
+2.43.7
 
