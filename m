@@ -1,88 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793974663;
-	b=GVWcTl2pHMf5J/Q+Xv/hr48HyAK+QSCinHJVLeKfQ7KFhd1zMQV+auR3f77zCq1hwyTi
-	 D9diUKHAv2XRErH3YxY3Q6M1qSRF2Lx7EIqPCmFLXzR+YA35zEE2OxRxTMr4hTymNgAB7
-	 ztEbtJlvHQdEJC6Jq7bR4aQ5EURgMDsbWDmWHvOdXyglFzHiiPOEyItEgaNuFiVVGPlOv
-	 Sj9WTVbQ/2EcUY7txlIuXYhKu9Tgl2K3hbcEKfwK5D7Jej10uYrgV9K/waFkHowcZVZTT
-	 QTAwEOFtRlhmDxQiAt00dxum1bwrsjUlND/QLLQrDdvZv14M1w9ksROD0AvL9Wee/JQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974663;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=oNk/+92uXl8dOvwXKZ6wIPcMVooX8k2/Jwa1RsSFgkU=;
-	b=3zGmS2Hw3Zkjjh1AfUW+oETELQUCiTnvTZYSf8LMxE8jweWN+axzyRjZlvr290uOF+5a
-	 rKP0MEkVX9iLQxu09u85L2LQ6xdS4OvTRYOhbkw+W+Ad/CEntkZQiGrPqTxhunuWrYMBS
-	 2eqitWCfEWqYqF7TK+K+g8sBQdTqTl/SwmlE7feNqRMoaBzOkJtaVFr+jssKq4vOve6Uc
-	 fUI5MEp1+vB4YH3tYdf4c6XOocjlp1HlDxTUg8FppGkw1dIGEGzRXthNicg+WM64yNNNb
-	 iGsqOqgmxHwWy3+pWu39mLWnQmVi4q1n7P+FoeYuew9I6GDm5+0npHvkEYVN+TG1Plw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bZCbjNp6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793974761;
+	b=WU2kBCUq25oHRlZjj/f451dHMJG2FMf37feOcDMEV/ZUetpT8tmdQ9ILAoxfVdoMvOHJ
+	 roK9tlCk6XSpD4EHCtDF8SHuU7HTkklpYlvKmlpFmpYlj2RT1ZCY/nB56mKYNLM8zhWQf
+	 xM/5XX6trJZVA51I7pjs1pj9mk6aP5Q/ziEWUgZWXX/mWPLuM+1Tbsc4JnXclciwZgXTs
+	 N5cSCufTtrUx2lA5xjB4DZ3M1zVUH+k0KYVkXbQwNOvTozMR8wVzHVYAo0uWPhRnBq2QJ
+	 p8VFsEdGpuG7gnHPkHcdjiKzoY9Kmre+rY4ikMeRVvf+rFv70b5sgY+Spj1b6+Mi4sg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974761;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=FImo0Si6aBUJrvKYxmacsgGaoJNjRjIi7dZYfg0r/e4=;
+	b=iHaFa6cq4CsxBLV3c8C7xSLszoo3l4TCJyBjTYp4zmNODm4DLjuCjOujhoJU2V0ApMR3
+	 2tJYoKtSYESNSutP/lZgu5r6+/2x0Gq7VnXJioNarFymE75fTVZpKubKELf2MuJme8x5U
+	 G4QCYH0KvlrVE8T28ZJzpgitv443FK34e46bo9ErS7BheZqtOV3Ev0sbHrj9uX/8BoqHI
+	 TfFw/dweWEYWgEcwXkOgnrIVfj90uElR9A4LLKAWC0PmqKhplrGl28FV/dO9UJDVLbxUb
+	 2Kaz4XPwwOv07rEHZPBnT477fwRsOycB0LKc4NdpgMkSjGk4H5yDVRSH5UboFV9R8Ag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJfA1aDk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1BB606A326;
-	Fri,  6 Nov 2026 14:17:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C1BB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0872606A33C;
+	Fri,  6 Nov 2026 14:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bZCbjNp6
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4CC3A2009D1;
-	Fri, 06 Nov 2026 15:17:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793974656;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oNk/+92uXl8dOvwXKZ6wIPcMVooX8k2/Jwa1RsSFgkU=;
-	b=bZCbjNp6/PLMCAoPaVW8xV5IW9O8bKWtOzj0tstm+s04lqRL5WtLhdw8YlfQmw5lbEIwz+
-	hwEjciM0piGZvSLh2bocxE1m5FGRxCyU9j1yFVi5qNJp5CfW+PhEqI6Ewr4npJPk1YYT+J
-	yspc24vYW+8ESFgfBHLhcV1zoJ9n888tjPNedeovvNwhZc/BP+ewHgGUODOc2+Lzf2bDDQ
-	rZMb958v1Vb23wo95SjL54hv/MddDEYcqrd6RubjQuByjjqkTVax3kZMUE/YMoiJ/MXxPH
-	T61yziozZSSaYyWruXzOgs4tnFwmFXGbirz8alkXICfnqY+1UR7eFjoiX6UcPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793974656;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oNk/+92uXl8dOvwXKZ6wIPcMVooX8k2/Jwa1RsSFgkU=;
-	b=OlhEOGbB/Yi6MX5uUPJiV4AF+UDvSUipu7TcOb9zfi2vcWuuPVjVG89qm1ZQNVNzrWYOKI
-	LH0eBW5UrYm5lGY/psEF43RsUkWtRyVTSzD6ak9LV0iuiQKmOa5c2F91vbcMGkcfxHje1l
-	ICoaqa43dBdSiX8p5JW2HOuIcIrQGCnKZLmmm+dqInSVihmtZbOBrt1Jolfm2mfYWt+6xm
-	Ey46IDIfNRi01f/3H6AWfEC2kE8+WB0reZJ5p7dECOaKbqZaSrRQrKjcGVWzyLeQBtpaFk
-	7YYymQ9hTvyykE6vETttz5t3E4XUAIUD7yAxc9jZI3BjUONZ54IUABCkotxZMA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793974656; a=rsa-sha256;
-	cv=none;
-	b=CD8avzH3zi50pEkkDukW6zcKOm2H2+/grSvEOpFShQRyRuExKfy3ZQm8PjVHMKp1Unyj08
-	Y2NEqC+zQrBbxuZB/sd/119ItAtwlwk5ZUgk9GKfCFpjv3hNtmXOy5Apz/s/3+jz5qeVgm
-	MFCDGyzN3XtgP9gsj89vj0TJ2wgGHxelM/B60UtfUAizILjgWaYsc9wU8YCK7E1USwSlum
-	dRJqC17pZfE7yA6PI7cTsoa39/1qfPACAB10FH8iocejRE35ygizTyaH6PHh7RfvrEW48I
-	TltFVWUv5by74o0CyLWhriYbTSoiHxJ+ubT2Phbp6NEGsrCDPbcmeJwEhRRcug==
-Message-ID: <9d4fb818685faad04f498ebdec419929db1880c4.camel@pengutronix.de>
-Subject: Re: [PATCH] dt-bindings: reset: Remove orphan bt1-ccu.h
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: "Rob Herring (Arm)" <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Date: Fri, 06 Nov 2026 15:17:36 +0100
-In-Reply-To: <20261105143542.2716484-1-robh@kernel.org>
-References: <20261105143542.2716484-1-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJfA1aDk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72411F0089F;
+	Fri,  6 Nov 2026 14:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793974760;
+	bh=FImo0Si6aBUJrvKYxmacsgGaoJNjRjIi7dZYfg0r/e4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hJfA1aDkwM9ReyQLQZP8cqOlSvy1h87gvRMqTjepz3+KDmLSXJgdKFLkiEnThBUNQ
+	 yFrOdWj+FKJFL0F/ytYXlbcnN/Ld64cYCLhgfaL9oBZoWc8HCo5nNLGIUjWYkEkpMx
+	 g46iqqpmAfudUA2pifkLwrjRj9wMTORA2uH+1Eq3xuQdbmBDxSNJpUgKr/gjvieTLs
+	 FkeQghztvAnUBtiJfs7WGCstiOgV3VhrfWw4TW6cJHLF9mrtQ6nygNu7JmN0CebAnr
+	 Jw+/WTFqBWcwE44AwiPzuaggypRfN4BcXdg0Aee2xHn8fitBKR/hfz/9d+KPEftIKO
+	 ysTXRijEJpeCQ==
+Date: Fri, 6 Nov 2026 14:19:16 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] ARM: dts: arm: Another batch of warning fixes
+Message-ID: <20261106-wise-ochre-lionfish-25efc4@sudeepholla>
+References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
+ <20261106-outstanding-turtle-of-opportunity-9fafcb@sudeepholla>
+ <CAD++jLmYJM3VhKN00CjpRviQ4Zfr394c2o3xqZPqEZnq9yz-ig@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -92,18 +65,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLmYJM3VhKN00CjpRviQ4Zfr394c2o3xqZPqEZnq9yz-ig@mail.gmail.com>
 
-On Do, 2026-11-05 at 08:35 -0600, Rob Herring (Arm) wrote:
-> The Baikal-T1 platform was removed, but the reset/bt1-ccu.h include was
-> missed. Remove it now.
->=20
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+On Fri, Nov 06, 2026 at 02:41:20PM +0100, Linus Walleij wrote:
+> On Fri, Nov 6, 2026 at 12:03 PM Sudeep Holla <sudeep.holla@kernel.org> wrote:
+> 
+> > We can remove vexpress-v2f-1xv7-ca53x2.dts because it is highly outdated and
+> > relies on an FPGA tile setup. Replicating this environment is likely
+> > impossible since the original bitmap files may no longer be available
+> > easily.
+> (...)
+> > > Rob Herring (Arm) (7):
+> > >       dt-bindings: arm: vexpress-sysreg: Add "mcc" child node
+> >
+> > I assume you will take the DT bindings via your tree.
+> 
+> Me too.
+> 
+> > Linus,
+> >
+> > Do you want to take this series via your tree or prefer me to take it ?
+> 
+> I think it's better if you do it because it seems you got thinking
+> you want to delete some files, so then it's better if you
+> queue all that in one go when you got track of it.
+> 
 
-Applied to reset/next, thanks!
+Sorry for incomplete information earlier, I was actually referring to
+Arnd's deprecation of few old ARM platform support series which removes
+MPS2.
 
-[1/1] dt-bindings: reset: Remove orphan bt1-ccu.h
-      https://git.kernel.org/pub/scm/linux/kernel/git/pza/linux.git/commit/=
-?id=3D45d18e4d608f
+-- 
+Regards,
+Sudeep
 
-regards
-Philipp
+[1] https://lore.kernel.org/all/20260914140821.1805449-1-arnd@kernel.org/
