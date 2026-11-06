@@ -1,47 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976171;
-	b=lPtKpLkTs3OVgZgIigVfbhNL3IIEt2iUlvk8aDPQXuIJzN7qAfMY5cRAqknJKFjHJl/l
-	 +HEtzeyzN6SviYKUsgEZAa8WY0UzQ5KE3voKMSZ/LRawamI6/eZ5XjDLWIrjtB5RQq8gL
-	 rGx9rWnxTIIPnOEPxRjmAK4TRglTB363y10xOCbIddnGEoY9+q4yJOS1YDH9dXhb0FmbW
-	 T2EIfp3LVWdSO1ULwlXa9O+FIFExo8WeNmxGl/UaEB8FZqGw4/nOI+KXamIsGQgWVDzD2
-	 Cxg8Ox8z9nqCdEW7guNcF+1oe/eYU25TSpINJNYdkLlc75OLZfge8OCEinjdfQvZZfA==
+	t=1793976366;
+	b=NiCcGbIyzVr6WGg1z5v0B4Hh4l49b5RJ2YGctFkFMx+AYoVVSonOARrsfJebgK0AehWT
+	 4q+gtpB6KcDd8tCYNaEfJDdNS3yE5Jro0uU4Oji2vRJtOSxsbBsJW6JncsLdRzkRLrDu6
+	 FTzj5kFARuSmyRzmLKF6+cLLr4970uskmmElQh62k3XwzhRkjf/+QI3dpL/89dzast5Nm
+	 EYb43+tSx1mXog0XCYcxDLq3bjhdbV3boEEzgrxQ67xLXiylVJzF5Ob5GcuFsFkvqLY3y
+	 LX+4ldfUtg/mRA1gPzopf24WeoU8ucv7PGACnGKJpATrNo9zb+2+fRRNqmEvE3GwrTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976171;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2nx4btjrzTIyOhcmjsp4Gmy2ZMmA3W+VBNA1Er2UBuw=;
-	b=uULXPYe+JPzrziYt4krrSqx70W1MYQ55Fhu3S3KGE/P13DOq93CmmtUascgu/xmvyMrl
-	 Eyft4gfPiH4e5KvIS7Y8fsxDTZqHmhqAiCJOTq0uhVNTu4vnfaq47BC6im5p/3/++Z/aT
-	 K+YisNDeecXZo3bpaE6ZVYRgBpnkMPYrYuy9kXofDKv9NO7FZEnJy0OapusFSu7lrrMV6
-	 UYMw5kwUFllMjOG3F2Z4Kclc+fAG9EtjxtB8zO81Uvao1yDHblLq/kdCdB0kMb/xTH8Or
-	 e9Zo1BRPYWDwib7uuq9fKU9QJdNGL/EU8F3i6Dd8nQxh1OwJRPt7R5gywjLrx3o1r6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976366;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=m4jzlpwnCHP/iJRE3j/cC9ctgB4TV/ZSpibJ2GNxpak=;
+	b=D2WpEyW4D/LthaeDOuHe2iJCuhach/6I7ZCGgtYVQJHf1Z6L1yVmSS0+6y2aYDAkSfwv
+	 t50y0dNWxNe0DvFyU/PfyYAYKWoZ1gJxHPt49Rn49pNfh3mInUpScbPgapUr4a3SJmFeX
+	 zwx6RrcEq3c0E6CR+2SzrRlfz2cjUS/oKAM58A9dszh5bDrfS4SxkiWNIy+FNmwwEaYhc
+	 oz0Uu1tkAe+XW+MFv8Z4MtnUHF5SdRN36TFl2rUZdczwWSBzIjecn5fft68KqE5SP96/q
+	 /t58Pq83SUGxe2ucnhT74SU4eJnZ2vZMZznx5GyCKMlepdVceD1O2pwh3WHFy5DKTaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OW+9Brl/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noIk3x1s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C2606A329;
-	Fri,  6 Nov 2026 14:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B52F606A326;
+	Fri,  6 Nov 2026 14:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW+9Brl/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB5E1F0089F;
-	Fri,  6 Nov 2026 14:42:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noIk3x1s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5021F0089F;
+	Fri,  6 Nov 2026 14:46:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793976170;
-	bh=2nx4btjrzTIyOhcmjsp4Gmy2ZMmA3W+VBNA1Er2UBuw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OW+9Brl/0wBK+AEHlYVNAg7A2106UP15/AZokd1oJDRfjrT9CZshwWAhMcVaJ/5NA
-	 h9unnC1g1ELGgJABWeJ9hq6WQSHcm2t6umStmmTx3CuiR9LZuThyBWsdPATe8rl+b5
-	 UPi4fjD1dgWB5oqceDj+hR01BoTqLVjdkC51TLVlYgXm1o2Ck7nR7HF0hY9+8lT1KV
-	 6TnfpLQtsGZTxMa4qCK5DPfzRo/cwXCmRNPdjZZFCr5qpbLUjjyqABfXwlzslP9+A9
-	 oLWtMo+l3M0X2w/YYUd9utlCs6tlevtyh9ch6bxaKkcmL+eVrs85ohcWgOAzUSU76M
-	 YgJos78nIgpOQ==
-Message-ID: <e1dca050-a82a-4c15-b8dd-ea88f6a69852@kernel.org>
-Date: Fri, 6 Nov 2026 14:42:45 +0000
+	s=k20260515; t=1793976366;
+	bh=m4jzlpwnCHP/iJRE3j/cC9ctgB4TV/ZSpibJ2GNxpak=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=noIk3x1s1aJaNOsWT2PiYRjaW3Fqgx2DaHi4yFS2pf6f9VK+xQ5IRYfDDgOnV7E+P
+	 oYfXNCxUlc7a4c0wCiJqf7PIKnRLulEpofSVUOv2RlMnuM7B1H2A9fLD78L7Pn28sU
+	 CXys6ABmH0zB1st1UCqlRo8SLytuaaYOlBt+wtYry/BL80RXiq9Mf2k2OT6pnASnKW
+	 e8DZDhfm8IBYPQr3jS17cZYkghZRBgAvTeLm4eEgHCCQMjKgC+DwUxwgYAsfbjhbtH
+	 1fPCvAp+Oivfy5+Oh3EJ8rPCq1jrJsQW3qmvoRQ+bxigKfgvlyxe0t6vtkGEfRDQ1l
+	 FEM6Lqomg9qug==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 2783F2882BFC;
+	Fri, 06 Nov 2026 14:46:02 +0000 (GMT)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,76 +52,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/8] dt-bindings: media: qcom: Add JPEG encoder binding
-To: Rob Herring <robh@kernel.org>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
- gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
- <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com>
- <W72h_ikFna43y3RzXvaORkVFJddI5yvhAb6XT0TEQPsYskZWMphYac7rIV2CfhUQxH7EE7jXKfg0wNs_-b9AtQ==@protonmail.internalid>
- <20261106133143.GA2705755-robh@kernel.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
- jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
- piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
- YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
- B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
- lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
- 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
- MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
- 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
- JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
- bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
- OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
- BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
- VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
- jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
- mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
- 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
- 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
- 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
- kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
- nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
- g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
- dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
- NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
- VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
- Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
- vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
- 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
- ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
- MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
- VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
- NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
- AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
- JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
- 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
- OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
- xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
- t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
- X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
- LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
- 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
- Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261106133143.GA2705755-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/3] regulator: Add RPMI voltage service
+From: Mark Brown <broonie@kernel.org>
+To: Joshua Yeong <joshua.yeong@starfivetech.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, rahul@summations.net, 
+ anup@brainfault.org, lftan.linux@gmail.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com, 
+ aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
+References: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
+ <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
+Date: Fri, 06 Nov 2026 14:46:00 +0000
+Message-Id: <179397636061.3231166.10683268235781980587.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2512; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=2ViexyKP3rKAYA4WhqMhgA31tYT59gK0ViKGcTvQbtQ=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLevtBU0po630513pvPrTrFEzlf8YWlzvFZLaU9Z2ra8
+ 40X72WqdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAipdkM/0yeuZx4e/rPVa7c
+ eo7fKo8nt7r8EbLabmLn7+GlczCzzYKR4V3UrOnfs2+d4Fb0O20r9nMOZ33QrU2s/1QDdx4ocdW
+ bxAgA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 06/11/2026 13:31, Rob Herring wrote:
->> +      - const: camnoc_axi
->> +      - const: camnoc_axi_src
-> These 2 don't sound like clocks that are part of this block. And 'src'
-> sounds like the parent clock? Use assigned-clocks for parent clocks (or
-> just retrieve the parent from the clk api).
+> The RPMI specification defines a voltage service group which can be
+> accessed via SBI MPXY extension or dedicated S-mode RPMI transport.
 
-_src is a parent clock indeed.
+> Add a mailbox client based regulator driver for the RISC-V RPMI voltage
+> service group. The driver enumerates the voltage domains advertised by
+> the platform microcontroller, reads their supported voltage levels and
+> registers each of them as a regulator.
 
----
-bod
+> +++ b/drivers/regulator/riscv-rpmi-regulator.c
+> @@ -0,0 +1,908 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * RISC-V RPMI Based Regulator Driver through SBI MPXY
+> + *
+
+Please make the entire comment a C++ one so things look more
+intentional.
+
+> +static int rpmi_reg_setup(struct rpmi_reg_domain *mpxy_reg)
+> +{
+> +	struct regulation_constraints *constraints = &mpxy_reg->init_data.constraints;
+> +	struct rpmi_reg_level_linear *linear_level;
+> +	struct linear_range *linear_ranges;
+> +	u32 i, linear_index, n_step, top;
+> +	u32 min_uV = U32_MAX, max_uV = 0;
+> +
+> +	mpxy_reg->desc.name = devm_kasprintf(mpxy_reg->dev, GFP_KERNEL, "%s", mpxy_reg->name);
+
+Do we need to take this copy?
+
+> +	/*
+> +	 * Everything a regulator constraint would describe is already known:
+> +	 * the levels come from VOLT_GET_SUPPORTED_LEVELS and the always-on
+> +	 * capability from the VOLT_GET_ATTRIBUTES flags. Build the constraints
+> +	 * from that rather than from a device tree node, which would only be a
+> +	 * second copy of the same facts. Without them the core leaves
+> +	 * REGULATOR_CHANGE_VOLTAGE clear and refuses every set_voltage().
+> +	 */
+> +	constraints->name = mpxy_reg->desc.name;
+> +	constraints->min_uV = min_uV;
+> +	constraints->max_uV = max_uV;
+> +	constraints->always_on = mpxy_reg->always_on;
+> +	constraints->valid_ops_mask = REGULATOR_CHANGE_VOLTAGE;
+
+No, the driver should not be specifying any constraints.  Those should
+come from the platform.  These regulators are described in DT, their
+constraints should come from DT as normal.
+
+> +		ret = rpmi_reg_get_attrs(rpmi_reg);
+> +		if (ret) {
+> +			dev_warn(rpmi_reg->dev,
+> +				 "voltage domain %d initialization failed\n",
+> +				 rpmi_reg->id);
+
+id is unsigned.
+
+> +
+> +	/*
+> +	 * One line for the lot. A domain that did not make it has already said
+> +	 * so above, so naming each one that did only buys a count.
+> +	 */
+> +	dev_info(dev, "%u MPXY voltage domains registered\n", registered);
+
+The core is fairly chatty...
+
+-- 
+Mark Brown <broonie@kernel.org>
