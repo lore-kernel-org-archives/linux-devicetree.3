@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955025;
-	b=sU9qcsbWu99cV+hBv8vRm5ZJgGa9oMeyCABVyGJw9wV167VaUk66uQKqmZ4VaqLQqsOg
-	 QV6lhAc8/3/3VDCb0GWpWXZkv9rI0zc7fokueKt1UefDotIeVb5HDgTUqULm1CvOGIaH3
-	 jxjQwIq8TYHlMKP3YJBJuxrfwNq+5kD86DwgbcvLsGFCZSswqenoc/Y9VayPYIHdZhPIy
-	 Vwt60ENkr93MqScFXed9vaM6nhHsnQobwDCUDLTP859e+gm7jauNJBFX/9D3ocdV6iwc3
-	 3eEfcyJB0oAKI/pM4GPJlKjlqPQA3rdwbNFXSQJ7fx3enE91rCCmNYw7YyE7qax2v+w==
+	t=1793955080;
+	b=wUWjFani3cLXoGfdKIYqAkIMcVJD6/15ey+X3HDwIP5smwSezPTaw0Ad6bU08UP7i3vP
+	 qTmNmTVlL2sn/4yG5eNp6Ea1rkkTNfziegbbAH4RANnlyO7vR8ExcY0l7wsYCQgw09DGl
+	 ogAjWQIqDys4tPcypb2Gb97A6GPK2KLahgc1oDMfI5tx3zGug4dkRwGYy5F0DXJhEBOa9
+	 RD+667TdRw799Vsz7s6xT+fIKKmlD/e14oJfr4kBH6hrTxJd5SKkTTlyD0wdhTuD1XBqK
+	 XpkQUSW7xWo/UTuZTCIBTtGQ8mtQujeB1ZWw8AOYKWrdZLKCtv1vSEuE8uYi/93RCKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955025;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4KseLiEBWMKMKEx4omaKpJSqCgu67BaInGBjJdgTfdM=;
-	b=4QERjJ/QsDInX5tGNPEOAQcs7hMWH0gqIv9pQPYeY0oTqsd5TErQbYRxc2KKLa8/VUtf
-	 Zc2SOPJU90xnetEHrJJ+3y5Akg2lnjDtpNxdoEWevc6Yl6vOvLV5gWlvrqpS/6O7FoP8G
-	 iVfC72AjGYAAh9BOto7kAsSKjnaZjqMpHFtjL/QXfx/FT9zPgcwGEmJh+zUU+kFcwpnKH
-	 /9UtzhsObP4ezyNsFZ5iaTRX5a6UGPEdwMnwZDFOPAJkMFe8ojUCL70/s04ggHkHetHhv
-	 YKNevXuSb8mBpgmKJFk0ul0mFbJZa71nhuThnnWFfKNv1Jg/l8OsoCVOPQXPcAPdBBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955080;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=ZPrMxi71NV9gjGGF2lBGP+8nq9DMZ0NgKsrzGDmzMVo=;
+	b=3m8lQ1FVHveoRo5ygfItiUmZJd16aTQhcrUOBVPfy6sqL22l+nFBBiQAuhYruJB8QX4P
+	 +oo3djCtOvF8D8fb6/lp7wSjqFxn//rhP/mPXKBeOM4s2cIdbX3KDHhxSU8Ccb38cnzoh
+	 FWBkPtm9TmDN0wYlt0s7Gm9LvXicRnVmhSZE68ZL6BE4lrQ0+g7RqW1PhI8m7Azbd4QBw
+	 upYB9OGSUkb4swpdJp0VLIPUCX/GatcLUzKW5gx7gFC/aBD4eYP9GLTSw+gwrJX50xwsz
+	 qkcMoZq/ITWJ9pYcX+TqjAr2zcUPT39OZkIjuPQTT3R/uL5uZf4TiX3t7qsDkjDwNMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d9ZLa/JG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfsoaVgX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEA2606A331;
-	Fri,  6 Nov 2026 08:50:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7648A606A329;
+	Fri,  6 Nov 2026 08:51:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9ZLa/JG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771331F0089F;
-	Fri,  6 Nov 2026 08:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfsoaVgX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 004E11F0089F;
+	Fri,  6 Nov 2026 08:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793955025;
-	bh=4KseLiEBWMKMKEx4omaKpJSqCgu67BaInGBjJdgTfdM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d9ZLa/JGZT6or8tOKU8/O3nPYCiPkCACpZUlioB89wkfa7M18Ke/75hB8gUisOFoL
-	 LtBjQijVcSaJfZtivfsR+SYheoXqCPqJiHSz3x4TecmILaqEgrxIl3bZxpnW77Ga0r
-	 vNLpam8s3DvDVuyw6sxS3M+ZiNjMdybsglCyNf+9Ilo57X2hzNKJFBUS7Elr4rWPh4
-	 JccxbKca5uA1e6WRMPnNNUTr4Y4JJ0VO1N5rFzGgAG/dSuHWWO+clk7Lj9vwxonKZK
-	 QSX10IvIDyJn8G14IBD/TQAhdaqQiQ8TG1YfKDFhC48bkuck+KcPBHtfjphQHFIRpS
-	 bAX/VBk6FQ/og==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xPFeQ-00000008NuF-38Yh;
-	Fri, 06 Nov 2026 09:50:22 +0100
-Date: Fri, 6 Nov 2026 09:50:22 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	songchai@qti.qualcomm.com, linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-	devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>
-Subject: Re: [PATCH v1] driver core: Demote "Fixed dependency cycle(s)"
- message to debug level
-Message-ID: <au2UzljzfMaiL7F6@hovoldconsulting.com>
-References: <20261106084034.1579494-1-songwei.chai@oss.qualcomm.com>
+	s=k20260515; t=1793955080;
+	bh=ZPrMxi71NV9gjGGF2lBGP+8nq9DMZ0NgKsrzGDmzMVo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lfsoaVgXm+zjdv8bk+icyZunADPHDj9zgn/y/eBZBkqG+CbludKkCD+kbdiKfzkWJ
+	 thHjsfR3WXEJgAmps0KhQ6k8u8ldnwkLWaI/A3kd0JFldwVXiPA+6JmZhSgvker/82
+	 j9/Wg0sC5xMLnvUyuX0hkNACLlei75o8lBXylWo073UCwqPMV9Hwo7VgNXyeeTsjxU
+	 WqHufSzNdv09ALHlSGt0ZUG/hxKOMJybt78MxZpZddj7hlKi3YEjihxl/u6AXcI858
+	 gXaVm8+7PBRsQfD1DpmnmxZbzBE/e18R7qJnc1ba9MqGub/MK200ChaKO6lOL07MhQ
+	 Ua2JxCqWZsjGA==
+Message-ID: <sashiko-outbox-201090@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/7] clk: amlogic: Add S7 PLL clock controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Carlo Caione" <ccaione@baylibre.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261106-upstream-s7-clk-v1-5-7d501d62621f@baylibre.com>
+References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
+ <20261106-upstream-s7-clk-v1-5-7d501d62621f@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 08:51:19 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,36 +59,127 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106084034.1579494-1-songwei.chai@oss.qualcomm.com>
 
-[ +CC: Saravana ]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] clk: meson: s7-pll: HDMIPLL_CTRL1 initialized after
+  s7_hdmi_pll_div0p5 rate
+--
 
-On Fri, Nov 06, 2026 at 04:40:34PM +0800, Songwei Chai wrote:
-> fw_devlink detects and relaxes dependency cycles automatically, so this
-> is not an error condition requiring user action. On complex DT
-> topologies (e.g. CoreSight), this message can fire for many node
-> pairs and adds noise to the boot log, even though it's primarily
-> useful for debugging. Switch pr_info() to pr_debug() so it stays
-> available via dynamic debug when actually needed, without cluttering
-> default boot logs.
-> 
-> For example, on sm8750 this produces 125 such lines in the boot log in
-> total, 80 of which are CoreSight-related, e.g.:
-> 
-> [    0.057190] /soc@0/funnel@10041000: Fixed dependency cycle(s) with /soc@0/stm@10002000
-> [    0.057211] /soc@0/stm@10002000: Fixed dependency cycle(s) with /soc@0/funnel@10041000
-> [    0.057229] /soc@0/funnel@10041000: Fixed dependency cycle(s) with /soc@0/tpda@10004000
-> [    0.057249] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /soc@0/funnel@10041000
-> [    0.057254] /soc@0/tpdm@1000f000: Fixed dependency cycle(s) with /soc@0/tpda@10004000
-> [    0.057260] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /soc@0/tpdm@1000f000
+commit 6a51c26cbe37d4a7e3b2407e903405378e1e348b
+Author: Carlo Caione <ccaione@baylibre.com>
 
-I reported this elsewhere a while back:
+clk: amlogic: Add S7 PLL clock controller driver
 
-	https://lore.kernel.org/all/Z6t45aOGDkotqM4Z@hovoldconsulting.com/
+This commit adds the PLL clock controller driver for the Amlogic S7 SoC,
+providing the fixed PLL and its dividers, the GP0, HIFI0 and HIFI1 PLLs,
+and the HDMI PLL.
 
-Are you sure it's not the coresight bindings that should be fixed?
+> diff --git a/drivers/clk/meson/s7-pll.c b/drivers/clk/meson/s7-pll.c
+> new file mode 100644
+> index 0000000000000..2aa253a5f2111
+> --- /dev/null
+> +++ b/drivers/clk/meson/s7-pll.c
 
-Johan
+[ ... ]
+
+> +static const struct reg_sequence s7_hdmi_pll_init_regs[] =3D {
+> +	{ .reg =3D HDMIPLL_CTRL0,	.def =3D 0x00881000 },
+> +	{ .reg =3D HDMIPLL_CTRL1,	.def =3D 0x2c6011cc },
+> +	{ .reg =3D HDMIPLL_CTRL2,	.def =3D 0x86801000 },
+> +	{ .reg =3D HDMIPLL_CTRL3,	.def =3D 0x00000000 },
+> +};
+> +
+> +static const struct clk_div_table s7_hdmi_pll_div0p5_table[] =3D {
+> +	{ .val =3D 0, .div =3D 1 },
+> +	{ .val =3D 1, .div =3D 2 },
+> +	{ /* sentinel */ }
+> +};
+> +
+> +static struct clk_regmap s7_hdmi_pll_div0p5 =3D {
+> +	.data =3D &(struct clk_regmap_div_data) {
+> +		.offset =3D HDMIPLL_CTRL1,
+> +		.shift =3D 19,
+> +		.width =3D 1,
+> +		.table =3D s7_hdmi_pll_div0p5_table,
+> +		.flags =3D CLK_DIVIDER_READ_ONLY,
+> +	},
+> +	.hw.init =3D &(struct clk_init_data) {
+> +		.name =3D "hdmi_pll_div0p5",
+> +		.ops =3D &clk_regmap_divider_ro_ops,
+> +		.parent_data =3D &(const struct clk_parent_data) {
+> +			.fw_name =3D "hdmi",
+> +		},
+> +		.num_parents =3D 1,
+> +	},
+> +};
+> +
+> +static struct clk_regmap s7_hdmi_pll_vco =3D {
+> +	.data =3D &(struct meson_clk_pll_data) {
+> +		.en =3D {
+> +			.reg_off =3D HDMIPLL_CTRL0,
+> +			.shift   =3D 28,
+> +			.width   =3D 1,
+> +		},
+> +		.m =3D {
+> +			.reg_off =3D HDMIPLL_CTRL0,
+> +			.shift   =3D 0,
+> +			.width   =3D 9,
+> +		},
+> +		.frac =3D {
+> +			.reg_off =3D HDMIPLL_CTRL3,
+> +			.shift   =3D 0,
+> +			.width   =3D 17,
+> +		},
+> +		.l =3D {
+> +			.reg_off =3D HDMIPLL_STS,
+> +			.shift   =3D 31,
+> +			.width   =3D 1,
+> +		},
+> +		.rst =3D {
+> +			.reg_off =3D HDMIPLL_CTRL0,
+> +			.shift   =3D 29,
+> +			.width   =3D 1,
+> +		},
+> +		.range =3D &s7_hdmi_pll_mult_range,
+> +		.init_regs =3D s7_hdmi_pll_init_regs,
+> +		.init_count =3D ARRAY_SIZE(s7_hdmi_pll_init_regs),
+> +		.flags =3D CLK_MESON_PLL_RST_ACTIVE_LOW |
+> +			 CLK_MESON_PLL_NOINIT_ENABLED,
+> +	},
+> +	.hw.init =3D &(struct clk_init_data) {
+> +		.name =3D "hdmi_pll_vco",
+> +		.ops =3D &meson_clk_pll_ops,
+> +		.parent_hws =3D (const struct clk_hw *[]) {
+> +			&s7_hdmi_pll_div0p5.hw
+> +		},
+> +		.num_parents =3D 1,
+> +	},
+> +};
+
+[ ... ]
+
+> +static struct clk_hw *s7_pll_hws[] =3D {
+
+[ ... ]
+
+> +	[CLKID_HDMI_PLL_DIV0P5]		=3D &s7_hdmi_pll_div0p5.hw,
+> +	[CLKID_HDMI_PLL_VCO]		=3D &s7_hdmi_pll_vco.hw,
+
+[Severity: Medium]
+Can s7_hdmi_pll_div0p5 cache a stale divide-by-2 rate before
+s7_hdmi_pll_vco initializes HDMIPLL_CTRL1?
+
+meson_clkc_init() registers s7_pll_hws[] in index order, so
+s7_hdmi_pll_div0p5 reads HDMIPLL_CTRL1 bit 19 and caches its rate before
+s7_hdmi_pll_vco runs meson_clk_pll_init() and writes
+s7_hdmi_pll_init_regs (which clears HDMIPLL_CTRL1 bit 19 to 0 when the
+PLL is not already enabled by firmware). Because s7_hdmi_pll_div0p5 uses
+clk_regmap_divider_ro_ops without CLK_GET_RATE_NOCACHE, its cached rate
+is never updated after HDMIPLL_CTRL1 is overwritten, which would leave
+s7_hdmi_pll_vco and all downstream HDMI PLL clocks calculating rates off
+by a factor of 2 if bit 19 was set prior to initialization.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-upstream-s=
+7-clk-v1-0-7d501d62621f@baylibre.com?part=3D5
