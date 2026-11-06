@@ -1,47 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793967365;
-	b=nADUlKATo4l0HutEE2Jj6ReBXPzyRvMR00deCvmmHffDZ+eWgEnQUJ4BYHx/Ywxc3sO7
-	 NAnDH4QQEsYk+duNEez5Yczi5sKHDTuo9SAiCC25Qzg24axo9JCGRPhuvAi46Ojs46+hU
-	 Q+9U7vGR6fZHSai+HsFufEO5N9j05nlCvlUZRcaT1AW82TSH7KPbVJZRYey/sBsghWX5T
-	 DqzDSFInt9YkLSLOZkSJ4DK9pUTlV2skAxsCfzVCp2z7FzKUUSRVy+rXTElTbjCEy3sL8
-	 yzEezfXC4In/rY7GqgzXFf+PyNMFzhZUsgn0aQIu/Ly9ns5xNH2BX4dYL7MPIiYMzWw==
+	t=1793967403;
+	b=LDUZ2lJCiX5CbqP+C9Gm+I2MaDfTHKnjEm4h2i3XnWlrzxg6nFVVCrNjH0vH6lnCn9SG
+	 BKXvkMet8c4aDCJa1ixpSRvuJF4E/SGiEEeQ+o2stucA7FrKPRPdjsXixvflz6dNoACy0
+	 8lZkztvbOZvAjuiHRRuvL88tPUVqnyZbhHjB6XKmE/zidvEJtHeKaB52bzcmP3TL7gs3W
+	 hNjK/sXpdkEuNop9MWe5kLGPhqiakS+NF44nJOULKnfkNdugQPtUE29HeVOzy5PQn/8yh
+	 NdOCQSoDXpjF2rWkKZSb6N0Df5D4OO7IimvV4dxR7WZsykDjKo6UU1obGbnK2pUcXHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793967365;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GeKamPVoZL1FTnpLfPJEoUo6MPgLXcn6L2ctH3dFkr0=;
-	b=Gmrln6kYRJJYWoY2Rmdhi31zeB9tw8jaIF3g0I7vsGODpX5eQH8De1qXgai3X0rMelE/
-	 YRbsq2HSOAW05kt6NaSMPcRCVPbfqAZprj5bo5RQIwas1Y3ZM6dBUrHgBKmfGhF6MoPOb
-	 5PFehuqXKFLJnjjPafPA09w9kLd0dARE+DbMVbCKRqU0TavbgQ+rtMGT9OJIJ2Y08ZXi1
-	 rCjy7JzlbdNN65K+nrIoZbqMu0CAZnU2P+ALBaVE1pkJo5pcwlJio5CAEFcEUr7IujN2w
-	 2toisDwl84g3WANMz3uxPnz52AtqLqgF4sw4dD4/0fB3exMOTcc3e/UUXnWCGHiIBKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967403;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=uPV41jSVh75rYc+JIJbUNHJbDDtf2LfeuBMNekJNoXI=;
+	b=DJzQzYRpW2jJ+CwFNTduJHUrgonFGjC5Bn9pZwVtTddc8E+Tk1PgfbQAB/Zu25PhHjQ1
+	 v5TLRg6j/uP2ihWpNF1VqW7IzN7EfbQjGF6cSVw0AGv8GG6CKeAnMNJUTDL7gk2xqsFW/
+	 cOBDoS4JW5rqZPMr6jOeXd7Vlo7whXd8Gf8lPQCaBGh8Q9P5Vr9GwcCYAxZY5wcskp9v6
+	 fxg/fgGNzTgxyv/Z+t9xPDIJEddEC5uPRFUnkqUVOmQGfG6kgz3MaZRG2ikaNxIQatpYC
+	 yqGTr/yBnbYbFPHwyFrtOFDhBhHah74Cd0Ty6eQ60uTIJWLwyEG3bFR+HcHrBpIXLMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyylqCIR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=aOiYjqch;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52646606A326;
-	Fri,  6 Nov 2026 12:16:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342D4606A326;
+	Fri,  6 Nov 2026 12:16:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 342D4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iyylqCIR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9785E1F0089F;
-	Fri,  6 Nov 2026 12:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793967364;
-	bh=GeKamPVoZL1FTnpLfPJEoUo6MPgLXcn6L2ctH3dFkr0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iyylqCIRzomWH2XFeQa6wTnmJI1ts49z3C5b+O/3nRHaqtfnGT97H35hFnhKoESO0
-	 I3fgriaOvtxO/mwXkh+oI4qzkVUBVlcuZOylBTxX5zGvjjAgk6NeTX0zFPZ3LJXs3d
-	 RgTfg7eor3INyJgKdZl4u8LOHb27d4lfSHlhz0XgJ/AH1tKJulSSctmQj3c5Tg2C95
-	 BJjJelPnzyf3cF4HVZNWMF3cNYm7oOR/JXeB+n/5znYa5t0ruakJF1/c+sQF3gisnx
-	 rZFigGUtXmJ1zy7cHyUMlRgBfuOodkq2W/uCxHhHPSASoG3Nkry+GPyQxexCY80xwB
-	 NQOnxbkiz8kFw==
-Message-ID: <b6295fd3-0cb2-40aa-8da7-237d456d5abf@kernel.org>
-Date: Fri, 6 Nov 2026 13:15:56 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=aOiYjqch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793967363;
+	bh=uPV41jSVh75rYc+JIJbUNHJbDDtf2LfeuBMNekJNoXI=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=aOiYjqchXoq+x7L4YmfMKFJdirrnFkXFaqMf2R0VSCuZzqYlLTNqZ4fqrVZ90uV0t
+	 qV2m1u4e3x87MINI53+v5h2FY/SE0PzxNVk1BoxiEEk784AFusOt2+KJV06V6NfmLr
+	 OKRG1CGrWNOkceXTzhhXZ0TMtWrSq95iL+oexfgM=
+X-QQ-mid: zesmtpgz5t1793967357t99f51f88
+X-QQ-Originating-IP: 5CM8gtx0OpiyIrvv908inz6iqEmJ5kK3cBL1mHMnBbk=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 06 Nov 2026 20:15:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 2384512835884255270
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -50,376 +58,126 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
-To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 06 Nov 2026 12:15:54 +0000
+Message-Id: <DMO4CP89Q1AA.17HKYA50DLY8L@linux.spacemit.com>
+Cc: <srini@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <dlan@kernel.org>,
+ <troy.mitchell@linux.spacemit.com>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+ <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <p.zabel@pengutronix.de>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Jiayu Du"
+ <duge1256@gmail.com>
+Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Jiayu Du" <duge1256@gmail.com>
+In-Reply-To: <20261106060525.346873-3-duge1256@gmail.com>
+References: <20261106060525.346873-1-duge1256@gmail.com>
+ <20261106060525.346873-3-duge1256@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NhOYPyditAFRQ5uYznxRKF8muA5nO+NaNcSH2Lhnac2NP9UG2XU0YBE7
+	NSNa1+V5moxihLAFuACLYPZMTmpTrJtV25ZxbhJtE2nn5Tw1kneqTBBmD42OfK9JbpJeZvZ
+	ESH9srt4i/zwtfgUQUERIuHzjHv6NO9wi7RYayeRNFYn4PGWvyRsudajNbSsRatHPoF8dN/
+	Wn/3rbjJOHrpQS7BNCWNwPw2v1ZGfK2dP+jxIFxHWe0FMzpGgtkBtewBVDiSWuk1vmf//KS
+	LtCxRhxfuQLT4AiBmtlb5bZyZ8/srxmqthG0pxwhmme2ZaES2ZNKnXgRzTnhhDOcCsGCib+
+	wSaaOm/xfTRGjbhxoxWr28dZXUJIMmQK6+6HkMVO96OvoeHLRhlf2buLSpzMCeEMAcJlpkL
+	wCCvQckU+2wWsi1uiFgUxzS46CTU2u7ctzE/CdJCyK/HFulq2tqxIYUfA1GZJG2fMFZW+st
+	vptgWr5H5swm9TTCB3n+O7OjQolt6g670D/MU4xhbaq1l+fGTfdy7uADKO3FinWqKRoQxhx
+	eeXaQ7Le6QAXloxWrP6eKVPtDEncmU6+7C4T7hjnK0EfBSV0ioLkFvqGs++J2qfui0LHUQE
+	0HoDXKpZ6eujIs2PXbagVp20SLUCk1OGj0XmxahHndmUFQYa7K+SDrQ4K4VFrUgQdbnste5
+	JAtM/Pn/7+3gMYRvC+lrBS63MIgBzN99F3eSCq3hLupML3kjdpLl1KA02IY0dj+2iSYK4mN
+	Y52Q00skO2k2vFopzP1cr66dP4+Fdx/nzsgwCmfQSXX1anQziDzcOlqSTnr8UdXGlO7K44q
+	F1IHau+ULbz4xQhpKjQ2mBb0aW4phraf6ODvHsZCG3FDf9jctl44sjqH1LedEKc/CON22QD
+	azJB2a68rjhAQ25XMavtQAt5wR27w5RID8DgIPCYSIuVqHVl5E30/wCb4WUTxFw9AjmN/IY
+	wZ5bfvgTb0YPCAZqfPypOiBtzkCIoZG5NGCUTVEpFY8f+7ACXXjs8NSHihe1RbXJ9CKQvvf
+	PX4V1NoCMkHKLdmjf5aoIHXqI7jS/g0wP6y9PbPSazfu9vFwk3U6eEUPN8iXzcnsxi0d+HW
+	hoEcGgT6R9kpGlhczNFJ34RVuOggf5J4TqsljIqCqcE
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
+
+--1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 06/11/2026 04:24, Andrew Gigena via B4 Relay wrote:
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
-> +
-> +maintainers:
-> +  - Andrew Gigena <mail@andrewgigena.dev>
-> +
-> +description: |
+On Fri, 6 Nov 2026 14:05:24 +0800, Jiayu Du wrote:
+> Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3
+> eFuse controller. These banks contain temperature calibration
+> parameters and other configuration data.
+The rest of the window holds the root key and the SSK, which is why
+only these two banks are exposed. Please say so here and in a comment
+above k3_efuse_keepouts.
 
-Do not need '|' unless you need to preserve formatting.
+> Snapshot the shadow registers with aligned 32-bit reads and expose the
+> data in little-endian order at controller-relative offsets. Serve
+> reads from the snapshot and use keepouts for the remaining register
+> ranges. Keep the AES_WTM clock enabled and its shared reset deasserted
+> while the provider is registered.
+Why keep the clock on? Reads are served from the snapshot and nothing
+touches the hardware after probe.
 
-> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sm8150-camss
-> +
+Tested on CoM260:
+- clock on only around the snapshot: probe and unbind/bind work, the
+  clock stays off (AES_CLK_RES_CTRL 0x00c30050), same bank 0/7 data.
+- this patch: unbind gates the clock and asserts the reset
+  (0x00c30070 -> 0x00c30040), rebind reads the same data.
+- this patch: 3s of WTM_RST or of clock gating leaves the shadow
+  values and FUSE_READY unchanged.
 
-Missing reg and reg-names.
+[...]
+>
+> +	depends on COMMON_CLK && RESET_CONTROLLER
+Not needed, both APIs have stubs.
 
+[...]
+>
+> +#define K3_EFUSE_REG_SIZE		0x400
+> +#define K3_EFUSE_BANK_SIZE		0x20
+> +#define K3_EFUSE_BANK0_OFFSET	0x104
+> +#define K3_EFUSE_BANK7_OFFSET	0x190
+Nit: the last two are not aligned with the others.
 
-> +  clocks:
-> +    minItems: 27
-> +    maxItems: 27
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camnoc_axi
-> +      - const: cpas_ahb
-> +      - const: csiphy0
-> +      - const: csiphy0_timer
-> +      - const: csiphy1
-> +      - const: csiphy1_timer
-> +      - const: csiphy2
-> +      - const: csiphy2_timer
-> +      - const: csiphy3
-> +      - const: csiphy3_timer
-> +      - const: vfe0_axi
-> +      - const: vfe0
-> +      - const: vfe0_cphy_rx
-> +      - const: vfe0_csid
-> +      - const: vfe1_axi
-> +      - const: vfe1
-> +      - const: vfe1_cphy_rx
-> +      - const: vfe1_csid
-> +      - const: vfe_lite0
-> +      - const: vfe_lite0_cphy_rx
-> +      - const: vfe_lite0_csid
-> +      - const: vfe_lite1
-> +      - const: vfe_lite1_cphy_rx
-> +      - const: vfe_lite1_csid
-> +      - const: gcc_ahb
-> +      - const: gcc_axi_hf
-> +      - const: gcc_axi_sf
-> +
-> +  interrupts:
-> +    minItems: 12
-> +    maxItems: 12
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: csiphy0
-> +      - const: csiphy1
-> +      - const: csiphy2
-> +      - const: csiphy3
-> +      - const: vfe0
-> +      - const: csid0
-> +      - const: vfe1
-> +      - const: csid1
-> +      - const: vfe_lite0
-> +      - const: csid_lite0
-> +      - const: vfe_lite1
-> +      - const: csid_lite1
+[...]
+>
+> +	if (resource_size(res) !=3D K3_EFUSE_REG_SIZE ||
+> +	    res->start % sizeof(u32))
+No need to validate DT here. Drop it and use
+devm_platform_ioremap_resource().
 
-Which schema did you take as starting point / example? Which one has
-similar order? Looks quite different than sm8250 and sm8650.
+[...]
+>
+> +	reset =3D devm_reset_control_get_shared_deasserted(dev, NULL);
+This asserts the reset on unbind, rmmod and probe failure. The fuse
+data survives, but WTM_RST resets the whole GEU (FUSE_SCLK_DIV_CNTR
+went back to its boot value). The driver does not need the block after
+the snapshot, so use devm_reset_control_get_shared() and only
+deassert it.
 
-> +
-> +  iommus:
-> +    maxItems: 8
-> +
-> +  interconnects:
-> +    maxItems: 4
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: cam_ahb
-> +      - const: cam_hf_0_mnoc
-> +      - const: cam_hf_1_mnoc
+[...]
+>
+> +		for (i =3D 0; i < K3_EFUSE_BANK_SIZE; i +=3D sizeof(u32)) {
+[...]
+> +			put_unaligned_le32(val, efuse->data[bank] + i);
+Please poll FUSE_READY (GEU_FUSE_STATUS bit 1, offset 0x184) before
+taking the snapshot, and fail the probe if it never sets.
 
-hf_1 should probably go to the end, to match similar devices schemas.
+--=20
+Troy Mitchell
 
-> +      - const: cam_sf_0_mnoc
-> +
-> +  power-domains:
-> +    items:
-> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
-> +      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
-> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: ife0
-> +      - const: ife1
-> +      - const: top
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    description:
-> +      CSI input ports.
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input port for receiving CSI data from CSIPHY0.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input port for receiving CSI data from CSIPHY1.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input port for receiving CSI data from CSIPHY2.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@3:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input port for receiving CSI data from CSIPHY3.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +  reg:
-> +    minItems: 12
-> +    maxItems: 12
-> +
+--1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Oh, oddly placed reg. Please move it to the top as expected by DTS
-coding style.
+-----BEGIN PGP SIGNATURE-----
 
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau3E+iEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8/6QEAllu4wjVxKXH3
+uf4Pn1BZKUjMfwLjUg+BimDFWivcETIA/007JxYadXwHPjWz8USoQQ1YsrDbubN+
+o3RBNq5Q4U0D
+=nbMm
+-----END PGP SIGNATURE-----
 
-> +  reg-names:
-> +    items:
-> +      - const: csiphy0
-> +      - const: csiphy1
-> +      - const: csiphy2
-> +      - const: csiphy3
-> +      - const: vfe0
-> +      - const: csid0
-> +      - const: vfe1
-> +      - const: csid1
-> +      - const: vfe_lite0
-> +      - const: csid_lite0
-> +      - const: vfe_lite1
-> +      - const: csid_lite1
-> +
-> +  vdda-phy-supply:
-> +    description:
-> +      0.88V supply to CSIPHY IP blocks.
-> +
-> +  vdda-pll-supply:
-> +    description:
-> +      1.2V supply to CSIPHY IP blocks.
-> +
-> +required:
-> +  - clock-names
-> +  - clocks
-> +  - compatible
-> +  - interconnects
-> +  - interconnect-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - iommus
-> +  - power-domains
-> +  - power-domain-names
-> +  - reg
-> +  - reg-names
-> +  - vdda-phy-supply
-> +  - vdda-pll-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,gcc-sm8150.h>
-> +    #include <dt-bindings/clock/qcom,sm8150-camcc.h>
-> +    #include <dt-bindings/interconnect/qcom,sm8150.h>
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        camss: camss@ac65000 {
-
-isp@
-
-And drop unused label
-
-
-> +            compatible = "qcom,sm8150-camss";
-> +
-> +            reg = <0 0xac65000 0 0x1000>,
-> +              <0 0xac66000 0 0x1000>,
-> +              <0 0xac67000 0 0x1000>,
-> +              <0 0xac68000 0 0x1000>,
-> +              <0 0xacaf000 0 0x4000>,
-> +              <0 0xacb3000 0 0x1000>,
-> +              <0 0xacb6000 0 0x4000>,
-> +              <0 0xacba000 0 0x1000>,
-> +              <0 0xacc4000 0 0x4000>,
-> +              <0 0xacc8000 0 0x1000>,
-> +              <0 0xaccb000 0 0x4000>,
-> +              <0 0xaccf000 0 0x1000>;
-> +
-> +            reg-names = "csiphy0",
-> +              "csiphy1",
-> +              "csiphy2",
-> +              "csiphy3",
-
-All this looks unaligned.
-
-
-Best regards,
-Krzysztof
+--1b3755cfd99b64d0a0dda969f37ac993ccdcbb4bdd501bc08f16b6da9e66--
