@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991019;
-	b=zw7n6q6Sjl1ji6va/VJABu9Bz5dCu4ub84yPdXwDW9htp5HieN+xwvnsOTmmqwdRPoIc
-	 7oZfQihT6cYP37+T4S6A17IDkv8XLp2LyEHA7m/d6uWTFrATc5RJE+ytUajUoCnJxMvOM
-	 UzGxcMwQs+eBcf6uiEtEbjiJKLuSbO2kESI2FN7tk94HHhlELM3wmIxkN1VHgTBmzeFUL
-	 AatJ7u5T7uJUNyjDgJpF8pxAxZPdDMSv5r/381s8NbSmFB8VCG8cRxwPttDcdua/u8y6Z
-	 AEQxHQiAp+Adh0z1FRsbAk/F51KWxkaIbELBsZ3Fv36K7Z1oSHPe3mbQyBRlwT27kHQ==
+	t=1793991077;
+	b=0VxLDOqT0nfodzVf2poudw/WQCfoVbI/JZdzDKnN7e/IMecmaYSE1o8xqey0GQHzmD/n
+	 iU+ODN1JdEjMPT3Y1awr20X3weHaZ4jhIR5apBDdVLh2kXYFwq0JG6qsTz/u8C9kat1mO
+	 LyTulKlQpiT7YLV9aKWnb2uB9eiOf71/eYQDrBamLekW0/NbkiGhxwmUM7uvdlOo89ZDi
+	 avWN5XZcZT5v1fAkk59c2LZ0QnaXcL91DDxUPU6igTNVoWP33OL8RopL3FmIv21wK+yuN
+	 MbLVPKS9C3l31goDuWUh5s8ie8a1waJOWI86ZRcppOWYh4uXcR4mY+3Uw69XwJ8xAmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991019;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XPLSi+DAAMgALOwx2pnSW/jNLcIadlw5dYi0ZDekG30=;
-	b=HdfnR43eK2l6JnT1+q1Mjjz+Sr5kRKEVuiaowPQe7oHv5/PiIHZ8jY/ZZ7dnZqwr+E+9
-	 mwiVWzAO5kBGTe3ZekMrdjVefHL6Cd0GMvUZ5puSzoxCggQGDjX1dEPeIf+tYxbkJnR9m
-	 0SJBrh0yV5i8ux3dPId1epkztHiWcFDO0l8b60OIyeT8VNiFPdaHqG31DOT3DJl7CXAtm
-	 5aFVCrvUeU/SbAtxh9eMkYi5goJMz8EIyuB/IHmv907wQ1Hd0nI2NgjJIWHpiXinwVoYB
-	 dVkMxb9CMpJd7tcEMKsq9t7BT8hCuXnFBNCvBUhD/6AeoJ3rxaJCQHLN2hbzfC/2Mog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991077;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=x7k6+irpFO+kuKSMRhYM/fUvtg+NGs0wJW0nzxfmETk=;
+	b=hKAJpZXC9WnTOzVjpCok4Lu5HaS2BnpeYhNBd1scMIqjC2rdREdLdRUYMK0pWrGEg2Zr
+	 9q79CNAEcU9azgNIf3HzK9A1pwfkN/N74nVhJstkH5kMfuO5+BGiLND359sdhJqbvghJh
+	 BfGOCc+jaXl3qiXiFvsnxtluYf5DuIhCPNaNSIAhKsf8G6/xaPYrulLxuGuZ8/eCnKdxT
+	 yMd6gDb7jAJOwk8A3hgsN/xTyLSFFCb0JugWzZtN/pAFqumzGMC9EupdDYEq9jdxNfSKa
+	 5tyZdjTB3hcPIkAl2Sx26ikjw3aJJvy88xQrQxCQaUFUYOZEuMbr8zobnF18KCOgUrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCiTxJNN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e42SqN0R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B03606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:50:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481DD606A326;
+	Fri,  6 Nov 2026 18:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCiTxJNN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910491F0089F;
-	Fri,  6 Nov 2026 18:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e42SqN0R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CB71F0089F;
+	Fri,  6 Nov 2026 18:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991019;
-	bh=XPLSi+DAAMgALOwx2pnSW/jNLcIadlw5dYi0ZDekG30=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DCiTxJNNWj8yScNmbKr2ZDp7CXOs0Ex5/GNRV3dpTrUPjUl5IhZ3iXrYFTsa6SnI+
-	 +t3H+w7scH9KYfWFSHyP4G1EuWZicT+Y0/Zu8Fe4Rb0ofcWR2vNa5LBvFm9rtpXdPj
-	 g/7KCrcv4HDDqOmLevkV9LKZ5Ltupl0LmVzZacWqWqtbq8ijzW/84qjkUR7+w303St
-	 C4RrWaqHjUK4gFPcmkLcSRDCHxQmkRs6OQdsxD0xDuxf7xj/ScKpsF21/uGKhhdZpx
-	 rnZcGnXQlJ3K+40ZzBUrYyW1+UArSmCtbZHY3WSSc/zrt/h+2/Ckm8UPyatNcpULU/
-	 by+88G53+BnUg==
-Message-ID: <sashiko-outbox-202106@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/7] phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrew Gigena" <mail@andrewgigena.dev>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 18:50:18 +0000
+	s=k20260515; t=1793991076;
+	bh=x7k6+irpFO+kuKSMRhYM/fUvtg+NGs0wJW0nzxfmETk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e42SqN0Rnw8QzZ9vOKRbLsR3sY5kOxAccXrVxgmgl0kBZhx5zOkdFL6HM4xDozJ9r
+	 K87JrYBqmhJv5CDolQNq5aunZwkV4QVixTJaaGLrRebeKDorM9TuPVjMEK4kwaTV/A
+	 +F0QUc0WZ36CUJkdD463VI02bw3ao6dnq2WQpyx+sogv9jmqGw25T0ZMRnhjauVYZm
+	 YZUtazo7cJ2DFVek+TwOLlrbWeP95e/o1nPZWQ3pbVeV6CNrQ4j6476XxgGiWQ8xyH
+	 q2G220UrPL5y40HBa6sqDHerln57smZrMpZ+lpEJad7bxEHnzd/05W40OQt4BTo4LU
+	 kxq3DMX5gn2Eg==
+Date: Fri, 6 Nov 2026 12:51:11 -0600
+From: Bjorn Andersson <andersson@kernel.org>
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	gjorgji.rosikopulos@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, 
+	jigarkumar.zala@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] arm64: dts: qcom: Add CSI2 PHY common-phy
+ providers for SA8775P, QCS8300 and SC7280
+Message-ID: <au4hdnq9rjM6RKG3@zenbook>
+References: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,92 +60,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] phy: qcom-mipi-csi2: wrong SM8150 lane polarity offsets in
-  lanes_enable()
---
+On Thu, Nov 05, 2026 at 07:02:09PM -0800, Anusha Arun Nandi wrote:
+> This series adds devicetree nodes for the generic Qualcomm MIPI CSI2
+> PHY driver on the three platforms whose compatibles/soc_cfg were added
+> by the companion "phy: qcom-mipi-csi2: Add D-PHY support for SA8775P,
+> QCS8300 and SC7280".
+> 
+> Each CSIPHY is exposed as a standalone generic-PHY provider node at
+> its existing register address, with its own OF graph (port@0
+> sensor-facing, port@1 CAMSS-facing), so that camss_detect_legacy_phy()
+> picks the non-legacy path once a board wires a sensor through one of
+> them. The camss node's own reg-names/clocks/interrupts for the
+> CSIPHYs are left unchanged, so boards that don't use a provider still
+> fall back to the legacy in-driver CSIPHY handling. All provider nodes
+> are added disabled by default; a board or camera overlay enables the
+> one(s) it actually uses.
+> 
+> The three patches are otherwise independent and split one-per-SoC
+> since each touches a different dtsi file:
+> 
+>  - Patch 1 adds the four SA8775P CSIPHYs (csiphy0-3) as
+>    qcom,sa8775p-csi2-phy nodes.
+> 
+>  - Patch 2 adds the three QCS8300 CSIPHYs (csiphy0-2) as
+>    qcom,qcs8300-csi2-phy nodes.
+> 
+>  - Patch 3 adds the five SC7280 CSIPHYs (csiphy0-4) as
+>    qcom,sc7280-csi2-phy nodes.
+> 
+> This series depends on the compatible strings and soc_cfg entries
+> introduced by the driver series referenced below and should be applied
+> on top of it.
+> 
+> Depends-on: https://lore.kernel.org/all/20261105235137.2635442-1-anusha.nandi@oss.qualcomm.com/
 
-commit 8f49680e61ed7e381ce9eb5db34d5783dd1ae930
-Author: Andrew Gigena <mail@andrewgigena.dev>
+Since patch 1 was dropped, I'm dropping this series from my queue.
 
-phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY support
+Thanks,
+Bjorn
 
-This commit adds SM8150 platform configuration and lane initialization tabl=
-es
-to the Qualcomm MIPI CSI2 DPHY driver, along with support for a fixed timer
-clock rate and single power domain attachment.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers=
-/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> index 966d79c98f9b2..b8b6589cee35d 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-
-[ ... ]
-
-> @@ -352,6 +419,36 @@ static const struct mipi_csi2phy_hw_ops phy_qcom_mip=
-i_csi2_ops_3ph_1_0 =3D {
->  	.lanes_disable =3D phy_qcom_mipi_csi2_lanes_disable,
->  };
-> =20
-> +static const char * const sm8150_clks[] =3D {
-> +	"core",
-> +	"timer"
-> +};
-> +
-> +static const char * const sm8150_supplies[] =3D {
-> +	"vdda-phy",
-> +	"vdda-pll"
-> +};
-> +
-> +static struct mipi_csi2_genpd sm8150_genpds[] =3D {
-> +	{ .name =3D "top", .scaled =3D false },
-> +};
-> +
-> +const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_sm8150 =3D {
-> +	.ops =3D &phy_qcom_mipi_csi2_ops_3ph_1_0,
-> +	.reg_info =3D {
-> +		.init_seq =3D lane_regs_sm8150,
-> +		.lane_array_size =3D ARRAY_SIZE(lane_regs_sm8150),
-> +		.common_regs_offset =3D 0x800,
-> +	},
-
-[Severity: Medium]
-Does phy_qcom_mipi_csi2_lanes_enable() write lane polarity inversion to the
-wrong register offsets on SM8150?
-
-In lane_regs_sm8150[], the physical lane register blocks use a 0x100-byte
-stride (data lanes at 0x0000, 0x0200, 0x0400, 0x0600 and the clock lane at
-0x0700) with common registers starting at 0x0800.  However,
-phy_qcom_mipi_csi2_lanes_enable() programs CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(=
-),
-which hardcodes X1E80100's 0x200-byte per-lane stride:
-
-drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c:
-    #define CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(n)		((0x200 * (n)) + 0x24)
-    ...
-    phy_qcom_mipi_csi2_lanes_enable() {
-        ...
-	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
-	for (i =3D 0; i < cfg->num_data_lanes; i++) {
-		if (lane_cfg->data[i].pol) {
-			u8 pos =3D lane_cfg->data[i].pos;
-
-			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos * 2));
-		}
-	}
-
-	if (lane_cfg->clk.pol)
-		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cfg->=
-clk.pos));
-
-When a board configures non-zero lane-polarities on SM8150, data lanes 1..3
-and the clock lane write to 0x0424, 0x0824, 0x0c24, and 0x0e24 instead of
-0x0224, 0x0424, 0x0624, and 0x0724, leaving those lanes uninverted and
-overwriting CSI_COMMON_CTRL9 at 0x0824 when data lane 2 is inverted.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-sm8150-v7.=
-4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev?part=3D6
+> Depends-on: https://lore.kernel.org/all/20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com/
+> 
+> Changes in v3:
+> - Patch 1 (lemans): moved csiphy_opp_table out of the soc@0 simple-bus
+>   to the root node (a simple-bus's direct children need reg/ranges,
+>   which an OPP table has neither of), dropped the opp-300000000 entry
+>   (SA8775P's camcc only defines a 400 MHz rate for this clock, so it
+>   was unreachable), and reordered csiphy0..3 after camss so soc@0's
+>   children stay sorted by ascending unit address.
+> - Patch 2 (monaco): same csiphy_opp_table root-node move, and dropped
+>   both the opp-300000000 entry and the extra "csiphy_rx" clock from
+>   csiphy0..2 (QCS8300 binds through the sa8775p soc_cfg, which only
+>   declares two clocks, "core"/"timer", for this PHY).
+> - Patch 3 (kodiak): same csiphy_opp_table root-node move; its
+>   opp-300000000 and opp-400000000 entries are both kept, since
+>   SC7280's camcc genuinely supports both rates for this clock.
+> 
+> Link: https://lore.kernel.org/all/20261103221026.3662383-1-anusha.nandi@oss.qualcomm.com/
+> 
+> Changes in v2:
+> - Patch 1 (lemans): dropped the extra "csiphy_rx" clock from
+>   csiphy0..3 (3 clocks -> 2: "core", "timer"), matching the driver's
+>   sa8775p soc_cfg, which only declares two clocks for this SoC family.
+> - The "undocumented compatible" and "camss_detect_legacy_phy() does
+>   not exist" comments on all three patches were resolved by the
+>   companion phy-driver/binding series and CAMSS work landing, not by
+>   a change to these dtsi patches themselves.
+> - Patches 2 (monaco) and 3 (kodiak) are otherwise unchanged from v1.
+> 
+> Link: https://lore.kernel.org/all/20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com/
+> 
+> Anusha Arun Nandi (3):
+>   arm64: dts: qcom: lemans: add CSI2 D-PHY common-phy providers
+>   arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
+>   arm64: dts: qcom: kodiak: add CSI2 D-PHY common-phy providers
+> 
+>  arch/arm64/boot/dts/qcom/kodiak.dtsi | 172 +++++++++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/lemans.dtsi | 136 +++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/monaco.dtsi | 104 ++++++++++++++++
+>  3 files changed, 412 insertions(+)
+> 
+> Best regards,
+> -- 
+> Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+> -- 
+> 2.34.1
+> 
