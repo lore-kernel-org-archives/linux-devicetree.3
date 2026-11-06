@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963468;
-	b=sOns8FQz5/p+Xw58cwSUYFVovRc3JaMzy9U3PKqP5dPGJ7y5nHmSDBfjYVlPbvKumske
-	 Xff4wHYd0qYYe12NVbO1JtxETnYYybOZZhxdeBk+bylDIe6e86pBiPN8y6H48mVr77Yhl
-	 EEC1ZIQte+KtYS01Y2cqxZUvxFv08+7XPah1JoBMeX5oqk0D8eKIh/X5/GlfqmGj2Hhfc
-	 lJSSyjFn+F7de+sli+RpCDjU0hpZej4rl3wTLDt6WpZM7UCIIPPgaM6IKxowIYR6R9HRa
-	 zxxWLSjDnSMlm0xjaxD3eZuuOK286g5KeX/JvpO0iu6yAaQlyraQypS6JIERUNQWavA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963468;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=04JNpn6MkvJfLD57bB0zOEm0p2RG76ittvWRrz6OcGA=;
-	b=GnX5CL43MGe/T6bfC0EuJHWZ944QoaZjFRkW+a/C7duDiJZ5OrH75JcmUAaNDbDcpXtR
-	 qr6/yQAN2yrj8niV/0Wv2aC1l77DK778/xBYPKZG5XKxcXMv4oDHUhz6N7EqbqV5qeBEg
-	 Qy3SzwzQifGPyfLsM2x6pe5E3THdnjfAi+Wec35Pv3Hpwt/k7/sDD2UuIIT72t33YqPJe
-	 1j1yNgV8MpFda6/YnlCIIXOrWcAvPzFPLUmqVOKeWkFsIIUGnmCFCA6FRtUK3my9z5Rnz
-	 ozbRe5KYnlyMYK6mPQYNN3l2UVdRtipE2XdAL+dUkmW+dC3wzlcr5H67xDp3WH2OL5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJFzx1bS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793963493;
+	b=Zl22if+JfKHCPDoZv3sSxYTjN9yEydnh9z+cCEOd6b6iA/UJNXEvbBTKFFr7PnyUcqrV
+	 +OTSsd/MaaU2ra4E52WdsK8UGEVKXPJhPZk6hF9LwXOnkPcyohuzfy1/xA1phEqideL7T
+	 5B3q8gQUGbnQ/elVS1ouUYZqn2iYlszMmRU5ITve9nGAfhD9d2BH5V88v5iC3pP4zSwwc
+	 t0rr8LYsKNQLYbTDDzBG+/MM42NkMtjLttiBhPSnL+TGwojJ6Yhj+vIzV0x5nUk6hi+dZ
+	 qEZ3Ku1mVvGQnM531ovbM6uF4iVDLo+wIp4nK9Tcvst3DTrjk7jdF+yqoa7f0xhxV1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963493;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vfNLgDxY0TENY+AK5INZiV1XX6LOM8FhEAWX2GQsqL0=;
+	b=xmQLZZLQ6kTRqzdIn9d76jhDP3R8pgaPXOnnpl9XKTyEGa3kk1KjJNn72mhJgsIScYBS
+	 yasGIwqQZYTsKeZvGXRMa5CM2FYFVGaEiO6C99KGtRSZD8HB0ev+RILb5DuoBIa10amks
+	 MQ4U+rcK+L7f+1ocywpkDNv3TUZNaewmim54DrdLXvcuiTvgzbULiMRNkSRlaOHW/LpCi
+	 EtMfbO7u78IqxrwNonq3313Blcvq/wvgpy0B7Vg8XhAYBb3IqnaxKmTP+ySX6lQ5HA/j/
+	 ICve+y8yDklbn87CYaN84bH/pkBkQ6iXqwRQ4IqCqYEQ8kwNQLO+fjiAxYgj3YvlilQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=a89AHA+c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.43
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013043.outbound.protection.outlook.com [40.93.196.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E3D606A329;
-	Fri,  6 Nov 2026 11:11:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC02606A326;
+	Fri,  6 Nov 2026 11:11:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CC02606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EJFzx1bS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3091F0089F;
-	Fri,  6 Nov 2026 11:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793963467;
-	bh=04JNpn6MkvJfLD57bB0zOEm0p2RG76ittvWRrz6OcGA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EJFzx1bSuaQT8jMj0HprCrvZtD7HfkqyCu8BAqRVeIISjooCSGndg1V//m9tszk2+
-	 a1nGo5C1HxcYPViXF1KWhaymR7nViSB5SB5rwUA4l6lp1ul8CGb3PgwDVEYpEFPI0a
-	 u1pU/acI2Ao90QpeXu5As34or8sxUELVtn6KUgPYbc4ICk9N2ia+kgL7eMp9Js+nvm
-	 Gy6SVjKqHNm7X+G/tdruqblPyhzO0x0qmrFRkuEicjLGVRRXngWWajdIaoMu6jypcp
-	 jL/5JJOYYsr2TGWuEWEK4pkL+7Mau0r2YBb51AVQjboK/4XV+ygVne03APOc6DXnhw
-	 dxNROhdd5y1Nw==
-Message-ID: <sashiko-outbox-201269@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] ASoC: cdns: Add Cadence I2S-MC controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106105208.1246554-5-joakim.zhang@cixtech.com>
-References: <20261106105208.1246554-1-joakim.zhang@cixtech.com>
- <20261106105208.1246554-5-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 11:11:07 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=a89AHA+c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t96Y6tjPSLVPOiuH1ZeCs8ymK/2sAoBbrZrAbN34S38gBQdDjG6Dcl4P2ORPok5bf8BeuLezvVi6IgtAPjzXB2807Oet35a7hFplxaIpKEQ4KxXV5hUiIdq1XBQ87g6CjMvTYxXPsqiICYpIH2i0GaLBlZxxfjX05FhP2CHEoFo27fpJHjUOS7co/twCAEOkLl7Ink7hhGqVR9hBVZfuVz9PR9FaKII0xxTZ5Kwr8yk93q2tS4NE7LdpMJ40EikW7G9+0OCcNofB6IzE4+XRPppi35HBagQIMMcTrD+Yt/K1X7BYjO2MRTvNX28XunWmU/JG/LPY/Xqvps0ZeNXK/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vfNLgDxY0TENY+AK5INZiV1XX6LOM8FhEAWX2GQsqL0=;
+ b=B8gXL7Rc9NLTNmYYc1u8HnS9apgGHsrFZ8LG0SHw7MppcqEg6IeUnnhRdv3Jvm5VJdK2sj6zRQ+Z0hVNV9SRMVQ9/x7II5Uw3S/KT+32GkVmYjJHCA++f0Tr5GDiEQOLlpNW+c5Ckk0Z+/7WHQph1RNYML1m+qgpwakP2PXXu7IS677zzwliJw6zOCrcnTDYtAoMfeUZDyoMwK01/FzWhPQVGo+XzZ8IIV3+aKfXxDe84qrMM6Lmor+eacUrXdmuntpV1djZF/fK3ANhF7K2myvr54qZlCxYCpZd9/TAq7ERhDASEF/UJpQD8kBTesqGpA5XkQuWx102owRCHvSRkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vfNLgDxY0TENY+AK5INZiV1XX6LOM8FhEAWX2GQsqL0=;
+ b=a89AHA+ciwB09HgSNoHNt0IK+B069p1qWo79lEpcnmlOPcPhp0OIRztsMTZn7raY56qSto6LFyfqkos4j6FW1lLIUzx7H8NcC8aEzbFA2kK/Ef+HGP7QzCGEidrDHCBVOWGOOhZoXT8jCNIZp3z5LqpS/COw3OkJcSlzX08qUKA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0SPRMB0124.namprd12.prod.outlook.com (2603:10b6:8:1fa::20) by
+ CH4PR12MB590718.namprd12.prod.outlook.com (2603:10b6:610:50f::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 11:11:29 +0000
+Received: from DS0SPRMB0124.namprd12.prod.outlook.com
+ ([fe80::24e7:97e0:923e:68d6]) by DS0SPRMB0124.namprd12.prod.outlook.com
+ ([fe80::24e7:97e0:923e:68d6%6]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
+ 11:11:29 +0000
+Message-ID: <be6bd8e6-27e4-4e9f-90a1-c8922846230f@amd.com>
+Date: Fri, 6 Nov 2026 16:41:21 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/4] dmaengine: zynqmp_dma: Add per-channel reset
+ support
+To: Golla Nagendra <nagendra.golla@amd.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Harini Katakam <harini.katakam@amd.com>,
+ Shyam Pandey <radhey.shyam.pandey@amd.com>, Abin Joseph <abin.joseph@amd.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, dmaengine@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, git@amd.com
+References: <20261106-adma_per_channel_reset_v5-v5-0-f9990669362f@amd.com>
+ <20261106-adma_per_channel_reset_v5-v5-4-f9990669362f@amd.com>
+Content-Language: en-US
+From: "Pandey, Radhey Shyam" <radheys@amd.com>
+In-Reply-To: <20261106-adma_per_channel_reset_v5-v5-4-f9990669362f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PNYPR01CA0021.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:23f::24) To DS0SPRMB0124.namprd12.prod.outlook.com
+ (2603:10b6:8:1fa::20)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,135 +105,123 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0SPRMB0124:EE_|CH4PR12MB590718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 962e7543-6257-4c00-3788-08df3bf6b500
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|921020|4143699003|11063799006|56012099006|261022105027099003|261021123027099003|261021121427099003|261009223027099003|261022075727099003|261102123227099003|261026140227099003|261028144727099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	YVT0fu2zU2j0ldZfe73uEM8DbJok560F6WmH0k/ZeVFfEFjG/bgtJ2cFJRSWk4zA4fnEG07a0Au2O1izM+Vb/xPB12cKGdevaUKhWqSi1PGxZJ+EIHGn+p+29XNxHqTqqywbAeOxiF1UxsVXwPDoY5ZcMGtdxbPDh11hsleiPVTbmKWeEi6b5usha9tZUwAXNkzdldPBwJe5yvJZtR1NyQLZD7GuOUANOyMxTa7thlemg982iRA1cIGpPdjOMhvAmAqDepBFoZIWEyLb6h2672Dfy15DlFcMPxo7FjkJscf8drInVMq+a/4uIiDw0UQuqFkMK0vy3XQubO/XrMlYqxonWP1gp/fw1mYT3CZqBw25q92GsIKjcY3+tWm5uIG21tz2fhElnTD9KrpPPfh9bpmIQ8MMQnIiz4AWBKPM7dRh+hLEenJyzdTWh3OSJPU4ESdVygxPUnTWOVkWd637hSW4NYZPhYh2HQeBOBzAyoUFLjnU6y6JxAJtfaxfA3381Db60JtCtvCNPH09+X+LJ9nUxe5prFAcO1vTaqSRbWuwnHlmB8E5xITIpzOkG7y3SPJqRw8/dt+7e3UbhUnjRO/ya7mqNI9Xa5cl054vTAcBcL1zYOAyPphlBvyc3xKrGT4SGQ0qPgS1eU1dLfauZuCql//QbpZ5xZAkxCnOFMwpF+rW+GiKGC+CUWb599tyuhnCthMjT+5FOwmkiqQxNg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0SPRMB0124.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(921020)(4143699003)(11063799006)(56012099006)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(261022075727099003)(261102123227099003)(261026140227099003)(261028144727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dGtnYVdHSWRDRTVlSzZNOW1iUjRMdFlQMk9YN3lFUlRDUW1XSWFNemdqUzk5?=
+ =?utf-8?B?ZjlzNGE3ckhCUDEyb3dZMGMwT01HT0ZsY0dvUTYzUVg0R0Y1c2pTeUlCNUtX?=
+ =?utf-8?B?NTNhbjBueFVjdDZINkVLYzJLYk5zK3R0enFrMk42ZHRHbmlRV0FrRjBFUnFI?=
+ =?utf-8?B?WndudVRzOC9HVFFDYUdmZitZOTBCWUc3QnpBSEVTTHoxTms1OWQ5b3FoR2sz?=
+ =?utf-8?B?Si9zRVhraGFCZklhcjV1eHRyUUpob1dmVW5UWWRVTER4RzJYVnN4d1lqYXNj?=
+ =?utf-8?B?bGxLVTNaN3AvRGJIMGpiNkJ6ZDlHZlJCUXFuYXo0bGZLdkhsWjFWU01YMHVz?=
+ =?utf-8?B?cmJJb2FWNmUwN1dyeGhSbmM5a1JrRWtzRWhxcmRaWVZ2ZDRMSU8veW5BTWpW?=
+ =?utf-8?B?RHhCQUxHLzNWOWlGWkFDLy9naU1sR01XZWFXdzNKZFd4Tm9CTHh1RzRGUExE?=
+ =?utf-8?B?M1hFSTVDZlo0cnA5QWk4djZNVG1QL2ppdlNpRkp1QnRTZmJra3lqbUdOY1c2?=
+ =?utf-8?B?YnllSVZZbFQxaVRvRzNvdlpMSzFhRFV2RTZFeHl2akZsY1hXdTBQbXoxL0RQ?=
+ =?utf-8?B?dkZZMldod2w2Z0I1UWtXV0VrVXVlMjNPVklCVjJwNzYxeHpBWERkU2xoaW9G?=
+ =?utf-8?B?SDliTWpBUUtzY0xPa0sxWUtBZi9CRS9OTFU5OUx2NFptVmk4T0lWU3pZa3NM?=
+ =?utf-8?B?VXZVK0VuVFo5b3F2ekhJVzVFMTlrVk1SMTgwSEZUZjV2UzhvK3VndUphaG9U?=
+ =?utf-8?B?Z0N6NEphUElmM1BWUmlXWGtVNVphSmhjR2dCT2kwSlZPZzhMV3pETjZsbkRQ?=
+ =?utf-8?B?RHQwUDZid09ZVEtwWlNCbWZGY1REbDRBRU5PRk5ma0JnM2VPd1ZWM1lRN1Ny?=
+ =?utf-8?B?czBLVm1kZWxnRjE5SG5LWjg2ajFFZkl0VWxEcTJFSENxKzNXSHYvQmdwMk5l?=
+ =?utf-8?B?aytJc1JGdEh2ajVjK2lhaUNhT29obmMvbE5UdVVXZ3ZYVnpTZGVsS1Znbm1p?=
+ =?utf-8?B?eTNWMGNYWGJ5d1NHU2l6K1Z4TGViclp5S3ZDbk9PQ1U4T1FEbHhQdXZTYlFI?=
+ =?utf-8?B?cWVaYmQrYytMZ0JWaTUwMyt1OU9JWE4yaGlGb0p2MG10ZUttWEdiNGxpY280?=
+ =?utf-8?B?L0U1M1A4bzlwM3ZncmI0OW0xUmZWWVlYVnBCOTNWU3VZQTQzL3A1VGlRQWZF?=
+ =?utf-8?B?MllDYThMTThxUDM4ZlRCZmRDQmxvd3ZmaFMwTi9TejAvYVpNR3RQYUNYV2Fo?=
+ =?utf-8?B?WlpYenVMcHdjY1dKM3NuWklMZjdXUlV4dlovRjBZQ3hTYXAxR3Rqd0lHSjc3?=
+ =?utf-8?B?cDBNTWticjdSN0Nrc3Z1Tnl5aVVtMkgreWJOS0JqNEZVaG9RYzNRQXNHQzl2?=
+ =?utf-8?B?YmxUN3pIK0t2b2RzNG1iL3ViKy9NYW9CR0NNcmRjOTZzOHFMaSt2U1d5VS9E?=
+ =?utf-8?B?T0tzeEt5VHAyRjhSM3kxQ29LQ3lUMnloYnFZT1JHVnliK0hLdGlGNlFMYzVh?=
+ =?utf-8?B?T1ZUc0U0M0dSZmFieUc0OE5RUU1NUzhMeHByY2FGeUplT3AwNklYMHFBT2V3?=
+ =?utf-8?B?cDZ3ZnQ2dkVZcmp5TWpPc1hDd3FOWVl2Y2FyMmY1QzhqRllGWStWV3BhTXQ3?=
+ =?utf-8?B?WjQrcmt2K01wZkozQ0ErZXVSODdldTZleDFjNWs2eFhDOEZZOWVzcUtkK052?=
+ =?utf-8?B?OUdlekdvczJVRjJjdC9hd1ZtcmtUeGxqYVh0VXR0dk5XZmRhOHFPSmI3ajVz?=
+ =?utf-8?B?R3gzYktyZlgvc0ZJZUc1MDdJZTV0SEtmNmcyeUdDd25VSktUMmRLSXJxSmlD?=
+ =?utf-8?B?VU5KSEw2UWxPU1pzVzBNdUJBT21rdlBwdThjVG9UVnNvcXc4bDhOakNFTEEz?=
+ =?utf-8?B?NzZHU0RPV3ZQT0JIMURCRmtNUlpkQnJ4bzNnNEduellvaEFIWmkyUytuMkZK?=
+ =?utf-8?B?TmFhallmbCtOMGRRZEl0bU1xWWFENjh0U2NQTkhjSk0xZnBSSGRuMWtFNW5N?=
+ =?utf-8?B?WHZkYTJYc0IwM1lEQ0pRc0YzSGRhZ2pRbEZGR2pEM2dvZkhvOU5hVk5QSG5l?=
+ =?utf-8?B?Zk03ZmNVL2pTV0hQQXIwa09HUVBnM1c4Y2dQZmJYTnZXd3RPdXdyaEhiU3JB?=
+ =?utf-8?B?alBLVGdNR2kwZWxlU3YydE5GQ0xjcWE0aGRuRE9JeS8ycnVKMFJqSWxsNjZ6?=
+ =?utf-8?B?Vk1EZ1ZZL3d5SVFTSXRDNTZBWExFTjEwaCt2ZWhKRGVFZ3ppYzFjdThVdlJY?=
+ =?utf-8?B?dDBycFNaVFNFamd3eXBDN1o4c2lCVm1HbkxuMmZwS3dMZm1OTGdMcElWWiti?=
+ =?utf-8?Q?U/CWxWlJTgXIFyZYpB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 962e7543-6257-4c00-3788-08df3bf6b500
+X-MS-Exchange-CrossTenant-AuthSource: DS0SPRMB0124.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 11:11:29.5437
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aR6oB0vV1PIFOLRoysQtqtdoYwuw4gp9EnqsDE71GTdMgS6y7U9AyHkX5HF2xC9A
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB590718
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] ASoC: cdns: premature -EBUSY in cdns_i2s_mc_hw_params() when
-  peer DAI is open
-- [Low] ASoC: cdns: i2s-mc: un-gated data pin clocks in
-  cdns_i2s_mc_dai_probe()
---
+On 11/6/2026 3:40 PM, Golla Nagendra wrote:
+> Versal Gen2 and Versal Net expose a dedicated reset line per ZDMA
+> channel. Trigger a reset pulse during probe using device_reset().
+> 
+> For Versal Net and Versal Gen2, reset is a required DT property, so
+> probe returns an error if the reset property is missing. For legacy
+> SoCs, the reset path is skipped.
+> 
+> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
 
-commit 020a5d5318e146daa2dd788c38c07f592ec9d4bb
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
+Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Thanks!
 
-ASoC: cdns: Add Cadence I2S-MC controller driver
-
-This commit adds an ASoC driver for the Cadence I2S-MC multi-channel
-controller in the CIX SKY1 audio subsystem.
-
-> diff --git a/sound/soc/cdns/cdns-i2s-mc.c b/sound/soc/cdns/cdns-i2s-mc.c
-> new file mode 100644
-> index 0000000000000..5bbac98101449
-> --- /dev/null
-> +++ b/sound/soc/cdns/cdns-i2s-mc.c
-> @@ -0,0 +1,1152 @@
-
-[ ... ]
-
-> +static bool cdns_i2s_mc_other_dai_active(struct snd_soc_dai *cpu_dai)
-> +{
-> +	struct snd_soc_dai *dai;
-> +
-> +	for_each_component_dais(cpu_dai->component, dai) {
-> +		if (dai =3D=3D cpu_dai)
-> +			continue;
-> +		if (snd_soc_dai_active(dai))
-> +			return true;
+> ---
+>   drivers/dma/xilinx/zynqmp_dma.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+> index cb0eb13f9b05..12696fa44c66 100644
+> --- a/drivers/dma/xilinx/zynqmp_dma.c
+> +++ b/drivers/dma/xilinx/zynqmp_dma.c
+> @@ -19,6 +19,7 @@
+>   #include <linux/clk.h>
+>   #include <linux/io-64-nonatomic-lo-hi.h>
+>   #include <linux/pm_runtime.h>
+> +#include <linux/reset.h>
+>   
+>   #include "../dmaengine.h"
+>   
+> @@ -937,6 +938,14 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
+>   	if (IS_ERR(chan->regs))
+>   		return PTR_ERR(chan->regs);
+>   
+> +	match_data = of_device_get_match_data(&pdev->dev);
+> +	if (match_data && match_data->has_reset) {
+> +		err = device_reset(&pdev->dev);
+> +		if (err)
+> +			return dev_err_probe(&pdev->dev, err,
+> +					     "failed to reset channel\n");
 > +	}
 > +
-> +	return false;
-> +}
-> +
-> +static int cdns_i2s_mc_hw_params(struct snd_pcm_substream *substream,
-> +				 struct snd_pcm_hw_params *params,
-> +				 struct snd_soc_dai *cpu_dai)
-> +{
-> +	struct cdns_i2s_mc_priv *i2s_mc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
-i);
-> +	struct device *dev =3D i2s_mc_priv->dev;
-> +	u32 rate, sample_rate =3D 0;
-> +	u32 slots, slot_width, resolution, ctrl;
-> +	unsigned long i2s_clk_rate;
-> +	u8 pin_tx_num, pin_rx_num;
-> +	struct clk *clk_parent;
-> +	bool is_master_mode;
-> +	int ret;
-> +
-> +	rate =3D params_rate(params);
-> +	slot_width =3D i2s_mc_priv->devtype_data->data_width;
-> +	dev_dbg(dev, "rate =3D %d, slot_width =3D %d\n", rate, slot_width);
-> +
-> +	/* switch clk mux to select the appropriate clk parent */
-> +	if (rate % 8000 =3D=3D 0) {
-> +		/* Sampling rate is a multiple of 8KHz, select "audio-clk0" */
-> +		clk_parent =3D i2s_mc_priv->clks[AUDIO_CLK0];
-> +	} else if (rate % 11025 =3D=3D 0) {
-> +		/* Sampling rate is a multiple of 11.025KHz, select "audio-clk2" */
-> +		clk_parent =3D i2s_mc_priv->clks[AUDIO_CLK2];
-> +	} else {
-> +		dev_err(i2s_mc_priv->dev, "Invalid sample rate\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (cdns_i2s_mc_other_dai_active(cpu_dai) &&
-> +	    !clk_is_match(clk_get_parent(i2s_mc_priv->clk_i2s), clk_parent)) {
-> +		dev_err(dev,
-> +			"i2s clock parent conflicts with active stream on the other DAI\n");
-> +		return -EBUSY;
-> +	}
+>   	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
+>   	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
+>   	chan->src_burst_len = ZYNQMP_DMA_MAX_SRC_BURST_LEN;
+> @@ -952,7 +961,6 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
+>   		return -EINVAL;
+>   	}
+>   
+> -	match_data = of_device_get_match_data(&pdev->dev);
+>   	if (match_data)
+>   		chan->irq_offset = match_data->offset;
+>   
+> 
 
-[Severity: High]
-Does checking snd_soc_dai_active(dai) here cause cdns_i2s_mc_hw_params() to
-fail with -EBUSY whenever both playback and capture substreams are opened
-before hw_params is configured?
-
-__soc_pcm_open() increments the DAI active count via
-snd_soc_runtime_activate() at open time and keeps it non-zero across
-soc_pcm_hw_free() until close.  When an audio server opens both playback
-and capture PCM substreams before calling snd_pcm_hw_params() on either,
-both DAIs are already marked active; if the requested rate requires
-switching clk_i2s to the other parent clock, cdns_i2s_mc_hw_params()
-rejects both streams with -EBUSY.  Should cdns_i2s_mc_other_dai_active()
-check whether the peer DAI actually has hardware parameters configured (for
-example via snd_soc_dai_get_symmetric_rate(dai) or driver state tracked in
-hw_params and hw_free) instead of snd_soc_dai_active()?
-
-[ ... ]
-
-> +static int cdns_i2s_mc_dai_probe(struct snd_soc_dai *cpu_dai)
-> +{
-> +	struct cdns_i2s_mc_priv *i2s_mc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
-i);
-> +	u32 ctrl =3D 0, cid_ctrl =3D 0;
-> +
-> +	/*
-> +	 * Transceiver disable
-> +	 * Transceiver clock disable
-> +	 * All interrupts masked
-> +	 * Reset for transmitter synchronizing unit
-> +	 * Reset for receiver synchronizing unit
-> +	 */
-> +	ctrl |=3D FIELD_PREP(I2S_CTRL_I2S_EN, 0);
-> +	ctrl &=3D ~(I2S_CTRL_TSYNC_RST | I2S_CTRL_RSYNC_RST);
-> +	cid_ctrl |=3D I2S_CID_CTRL_STROBE_TS | I2S_CID_CTRL_STROBE_RS;
-> +	cid_ctrl &=3D ~I2S_CID_CTRL_INTREQ_MASK;
-> +
-> +	regmap_update_bits(i2s_mc_priv->regmap, I2S_CTRL,
-> +			   I2S_CTRL_I2S_EN | I2S_CTRL_TSYNC_RST | I2S_CTRL_RSYNC_RST, ctrl);
-> +	regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL,
-> +			   I2S_CID_CTRL_STROBE_TS | I2S_CID_CTRL_STROBE_RS |
-> +			   I2S_CID_CTRL_INTREQ_MASK, cid_ctrl);
-
-[Severity: Low]
-Should cdns_i2s_mc_dai_probe() also set I2S_CID_CTRL_I2S_STROBE in
-I2S_CID_CTRL to gate the per-pin clocks initially?
-
-I2S_CID_CTRL resets to 0x00000000 (all clock strobes enabled), and
-cdns_i2s_mc_rxtx_config() only clears and sets the I2S_CID_CTRL_I2S_STROBE
-bits matching pin_tx_mask_adjust or pin_rx_mask_adjust, leaving unwired or
-unused pins with their clock gates enabled.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106105208.1246=
-554-1-joakim.zhang@cixtech.com?part=3D4
