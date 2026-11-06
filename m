@@ -1,86 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984735;
-	b=IUXX2DgVZ6/pTz/98INwDqBRZj0lR7/JCcOSBedvU1fZKt5oh30JzG149UZ7Ws0I83Rg
-	 H2wUNGo9XIB9w/J684Ry/wcvkyYiQIBucnTY9PlU0Ep82LkGtvvQ4zqucSiRJKn06uk/P
-	 JwLsIHZLn6LKrP777fwtZ5vzgGHKK0FN9S2miL9NvZJ/fwYKKiNqYhsoWYbpyNutvj7r9
-	 VaYOQOmS4xVKRnBl6e9DoIxL5a6eJ3pOKAIQoJFEfCYDyjQVMY6R6+5TIWSb94DiaLq3v
-	 2i+RVFGWDrlN86Qut7mwrZCt+LHkzHvE+ymrfy7Fr6HItxlyAiFDhvnPZyok7Gw9W4A==
+	t=1793984909;
+	b=dJlJPa6pDXxaqttEjn+K4r+Hg7maRAp7vbabOPeMTzbnXbfaEpQ6H1/fUTDAjp5wGMcY
+	 t4vtmUS+VeCdxyNC2WecTdpiiIlqJBxVzSUPIrGmq2kvg3F/UXjAsFd51cgP4RH6C3Hn5
+	 TwFCGVL75ojqAUS25JIhDLT9LAXhfxq+K6CEiH234MhnEhztui2ou6t1kdSIEyrwyUIDm
+	 kcvR9jbT5c7chSHNyqo23AOiw1ouFilwHBvBtMQ2mgF5b1eqdnIVm7g/Xa33IEVp4w0Iw
+	 8N9n9bUBoFolgWKEGKfjYiiwnfrSyrB7JzlOY1zP1N7NOcU7AvVQCY+JsmcD9j3e6zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984735;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=JTlEFod2cjgS0LbAQsWexRzCJ68NZr8rhNXABouJAQw=;
-	b=McODVV6NDtEmJ0rwrsb/6Hgl2V66ajgj6yFVTGoRorEK5YcFo3oUX55eJfZDz9C0izTI
-	 e2AE+IMD0nTiimbwEtjWHFSJizRoFf5iJZL4TFkLegIz5cLDrkQSb0etqEg5EEJpf0tNv
-	 aTcn2bvQ9tmiw6wl7XdlZSOygBoSLMv9Ybv/cyEOwy/StrkPOwxB0xv1N6AqxJsl2Rg25
-	 hypC6sbp6MTLQQasuUFSUJaSItqqJ4y6/HdD4+6/tMhuULIAhHa9UVkTWo/gritWQMuST
-	 B3t6WZ/CkWAHB6zjW0jhK+GAeQlIb4zSDmhjrpo9SdJzcuJcHFlixYR8CZ7ASnof2bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984909;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=9NkqfV90MF6vU8LdIkdapKwx5uT28pYX0IpqB7ywa0Y=;
+	b=tAOAC77gJ499IkNMgCLNGST4KxxUN3ohIc+Z0wao9x4Mk7fhB8QUsqVvYP0dOIDwJfar
+	 5c2xTjA556/9uJyKejWgFcZn2ARVCcfG7EX6d2A3qSWXMs8fT+KJP+atDDmx+J1Te+wmM
+	 6c8nwRHOxbNNCWVEA7A75E8XzaazKHj0ZnGnEB1OB0JjeXMqGXhPMO1h1XbkBwe+Ll/ra
+	 ojVKvdgBVxmIRAQ/IA7XTXOoyCnvvw3K2226zwweUjjcFw3E5E6swPwJCrl/APovLR4NZ
+	 lqSuutjipOiSdrae8DfRrB650AtynNKXe4xjZPMvSA+U2KVpj1SaQDx6wtTRnXzcYPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhgmYRf9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbumBLTg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF925606A337;
-	Fri,  6 Nov 2026 17:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F0C606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 17:08:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhgmYRf9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D2E1F008A5;
-	Fri,  6 Nov 2026 17:05:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbumBLTg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0BED1F0089F;
+	Fri,  6 Nov 2026 17:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793984734;
-	bh=JTlEFod2cjgS0LbAQsWexRzCJ68NZr8rhNXABouJAQw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LhgmYRf9RsD3jkt7XP0j5x6GVceyzZdxPZmBiATz86t4GWKKDfCr1RMuHVQsjnhKD
-	 K8hy6v4vBlzaZp8HABomM9YNM5Z2QB91duA/38Ni68uWbp1fKrWiZfq7CMnVN4/DQx
-	 4EQEtE84c9EfXGKcRhG88yib2HD5bjNrAgUmxjSfsrUNomwyyRUW6ENDJYFrI7sITI
-	 JoLR2yWeFvuJKN+DixGTRz0GQmsFknUviXNyag+oj13tq7yywSBdYxXvj69WU+OaYk
-	 2/hJ6Dh6lTz1ItTt+ownJdJdTjfELbifbUKhCJ/qeOOrj+uhKg5rw+Kzb6NkNfnrtH
-	 qA8BiWPOgyufQ==
-Date: Fri, 6 Nov 2026 09:05:32 -0800
-From: Drew Fustini <fustini@kernel.org>
-To: Zeng Heng <zengheng@picoheart.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	Tony Luck <tony.luck@intel.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, yang.yicong@picoheart.com,
-	geshijian@picoheart.com
-Subject: Re: [PATCH v10 2/6] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <au4I3E_qcPhIr-Qr@thelio>
-References: <20261104-dfustini-atl-sc-cbqri-dt-v10-0-1636a003a3c0@kernel.org>
- <20261104-dfustini-atl-sc-cbqri-dt-v10-2-1636a003a3c0@kernel.org>
- <02cf71f0-09d5-4dde-a8cf-3739583cc7fa@picoheart.com>
+	s=k20260515; t=1793984908;
+	bh=9NkqfV90MF6vU8LdIkdapKwx5uT28pYX0IpqB7ywa0Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LbumBLTgE5SOIAF7+Ss1uxHfYULNlx+RTyHLfHChigQwwlJwm6K1bTUTF9R7nKnSO
+	 tKJSsvRo9sz0rbfRE9a78A9HWTbhti0+ld+JLFdSJkL0x7o+ozodqliHqZCAJZuoxv
+	 LqIDPea4Tc+qpZwzykPBEtQxYC9RN3ikIBRBvzNV1BX8TiVCggEy2c2CjnT66gIsi/
+	 yhei3TadS6ds2Mbzr8eBOTBrGB1pokavrnS8ePbNakbkd/7ybDBLGikq8JKKAOvnJ2
+	 K+PSg1q9jEVNByxxxPSo25Wienau/2qQ618FnFvcYo1AqJUkctBSZkSiDAjaY61EXz
+	 tFwTWtje9b+Pg==
+Message-ID: <sashiko-outbox-201897@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: dts: apple: t8132: Fix ordering-related
+ dt-check-style issues
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yureka Lilian" <yureka@cyberchaos.dev>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-apple-dts-m4-dt-style-check-v2-4-1e715e80b066@cyberchaos.dev>
+References: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
+ <20261106-apple-dts-m4-dt-style-check-v2-4-1e715e80b066@cyberchaos.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 17:08:27 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,77 +60,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <02cf71f0-09d5-4dde-a8cf-3739583cc7fa@picoheart.com>
 
-On Thu, Nov 05, 2026 at 04:05:29PM +0800, Zeng Heng wrote:
-> Hi Drew,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Low] arm64: dts: apple: t8132: root model placed before compatible
+  breaks strict style
+- [Low] arm64: dts: apple: t8132: #address-cells after nonposted-mmio
+  and unsorted props
+--
 
-Hi, thanks for reviewing.
+commit 85a1def59cfd948af8883a7bded0a54104bc0b30
+Author: Yureka Lilian <yureka@cyberchaos.dev>
 
-> 在 11/5/26 上午12:35, Drew Fustini 写道:
-> 
-> ...
-> 
-> > +/*
-> > + * Fill the rdt_resource fields for one picked rid. An rid with no picked
-> > + * controller is left untouched so it stays out of resctrl_arch_get_resource().
-> > + */
-> > +static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
-> > +{
-> > +	struct rdt_resource *res = &cbqri_res->resctrl_res;
-> > +	struct cbqri_controller *ctrl;
-> > +
-> > +	if (!cbqri_res->nr_ctrls)
-> > +		return;
-> > +	ctrl = cbqri_res->ctrls[0];
-> > +
-> > +	switch (res->rid) {
-> > +	case RDT_RESOURCE_L2:
-> > +	case RDT_RESOURCE_L3:
-> > +		res->name = (res->rid == RDT_RESOURCE_L2) ? "L2" : "L3";
-> > +		res->schema_fmt = RESCTRL_SCHEMA_BITMAP;
-> > +		res->ctrl_scope = (res->rid == RDT_RESOURCE_L2) ?
-> > +				    RESCTRL_L2_CACHE : RESCTRL_L3_CACHE;
-> > +		res->cache.cbm_len = ctrl->cc.ncblks;
-> > +		res->cache.shareable_bits = 0;
-> > +		res->cache.min_cbm_bits = 1;
-> > +		res->cache.arch_has_sparse_bitmasks = false;
-> 
-> Currently, the driver sets arch_has_sparse_bitmasks to false, causing
-> resctrl to require a contiguous bits in cache allocation masks. For
-> example, L3:0=3 is accepted, whereas L3:0=11 is rejected because its
-> set bits are non-contiguous.
-> 
-> The default should allow both contiguous and non-contiguous masks,
-> provided they satisfy the other mask validity checks. A contiguity
-> restriction should only be imposed when a specific hardware
-> implementation can't support sparse masks explicitly.
-> 
-> So I propose enabling sparse cache allocation bitmasks by default.
-> Thanks.
+arm64: dts: apple: t8132: Fix ordering-related dt-check-style issues
 
-Good point, I will change arch_has_sparse_bitmasks to true. The spec
-defines cc_block_mask as one bit per capacity block and there's no
-contiguity requirement.
+This commit reorders nodes and properties in the Apple t8132 device trees to
+address strict dt-check-style warnings.
 
-> > +		res->cdp_capable = ctrl->cc.supports_alloc_at_code;
-> > +		res->alloc_capable = ctrl->alloc_capable;
-> > +		INIT_LIST_HEAD(&res->ctrl_domains);
-> > +		INIT_LIST_HEAD(&res->mon_domains);
-> > +		break;
-> > +	default:
-> > +		break;
-> > +	}
-> > +}
-> 
-> Apart from this,
-> 
-> Reviewed-by: Zeng Heng <zengheng@picoheart.com>
+> diff --git a/arch/arm64/boot/dts/apple/t8132-j604.dts b/arch/arm64/boot/d=
+ts/apple/t8132-j604.dts
+> index 93076cd923a93..ebf25fb1bd3cd 100644
+> --- a/arch/arm64/boot/dts/apple/t8132-j604.dts
+> +++ b/arch/arm64/boot/dts/apple/t8132-j604.dts
+> @@ -14,8 +14,8 @@
+>  #include <dt-bindings/leds/common.h>
+> =20
+>  / {
+> -	compatible =3D "apple,j604", "apple,t8132", "apple,arm-platform";
+>  	model =3D "Apple MacBook Pro (14-inch, M4, 2024)";
+> +	compatible =3D "apple,j604", "apple,t8132", "apple,arm-platform";
+> =20
+>  	led-controller {
+>  		compatible =3D "pwm-leds";
 
-Thanks!
+[Severity: Low]
+Does placing model before compatible in the root node introduce a
+dt-check-style --mode=3Dstrict regression here and in t8132-j623.dts,
+t8132-j624.dts, t8132-j713.dts, t8132-j715.dts, and t8132-j773g.dts?
 
-Drew
+Per Documentation/devicetree/bindings/dts-coding-style.rst and
+scripts/dtc/dt-check-style, compatible belongs to the first canonical group
+whereas model is a general property, so swapping them triggers a new
+property-order warning that compatible should sort before model.
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/apple/t8132.dtsi b/arch/arm64/boot/dts/a=
+pple/t8132.dtsi
+> index b1e77a8ae4066..e2e79c7e7fd07 100644
+> --- a/arch/arm64/boot/dts/apple/t8132.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t8132.dtsi
+[ ... ]
+> @@ -190,50 +197,44 @@ l2_cache_1: l2-cache-1 {
+>  		};
+>  	};
+> =20
+> -	clkref: clock-ref {
+> -		compatible =3D "fixed-clock";
+> -		#clock-cells =3D <0>;
+> -		clock-frequency =3D <24000000>;
+> -		clock-output-names =3D "clkref";
+> -	};
+> -
+>  	soc: soc {
+>  		compatible =3D "simple-bus";
+> -		#address-cells =3D <2>;
+> -		#size-cells =3D <2>;
+> =20
+>  		ranges;
+>  		nonposted-mmio;
+> =20
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+
+[Severity: Low]
+Should #address-cells be placed before nonposted-mmio in soc?
+dt-check-style --mode=3Dstrict sorts standard properties alphabetically by
+their #-stripped names (address-cells, nonposted-mmio, size-cells), so
+placing #address-cells after nonposted-mmio still triggers a property-order
+warning.
+
+Several other within-group alphabetical property-order warnings under
+--mode=3Dstrict also remain in these files: cpu_e0..cpu_p3 (cpu-release-addr
+after enable-method, and cache properties in reverse order),
+pinctrl_nub/smc/aop/ap (gpio-controller before #gpio-cells,
+interrupt-controller before #interrupt-cells, and power-domains before
+gpio-controller), l2_cache_0..1, i2c0..i2c4, fpwm1, serial0, and led-0 in
+t8132-j604.dts, t8132-j713.dts, and t8132-j715.dts.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-apple-dts-=
+m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev?part=3D4
