@@ -1,81 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990771;
-	b=woGVF7rY+VUyIPn1j9SpewmShDsIYC45fblmDipRT2mFoJCx+DBmQgM1rTwUilZ+L1Gr
-	 rU5tksvVyc0LS956LA/sy3ZbM+LlC44JlblUFCXsuzGnbtElybNzoLNatUP6CzUje+VNI
-	 Log9+XuN9VY5MvRFcnoBhiYzAy9J15Z0hj5/MQMompUnb/YYAHsDo1a3V37bFTRdpdl6w
-	 o+Lw6Ye3MEKUDvhtu/5KboVYeOiBX8AQcnUvu1E/9paz9wPc5OKDxWhgxblmvdiojCizY
-	 5ql3el2YdlR78ZhuvememeZtxcHyZcFQZXYXhMB5HzCn2VvE+5fMqRcA4su/3T83iCw==
+	t=1793990993;
+	b=ZMN3QDLqBbIN80jjTlUEyNg4d8i/XWqhIAgSfT0wBQK+4ziYp3YWmKHnClUDwQpmWDIT
+	 n0SmSfY18D3kj5rj2V1CTHtQRXxJHe8RZWOEd0K85LKk16qB4m5yvelXLdhIDuZkjE88y
+	 DNEbHjxmfuyLjzFPYDZrgAguUkGq9g/HxJZ2dA1Ym/ReH7VLNPHRYN9WFf3wkfAzr9BJi
+	 uwQ/Cp0SEshS2UVzYPQmwfm/7315U78He5YDd2Wf7M+vBueitxgCYXFWAKLYsXzSoY8Y8
+	 Z+uXPAL4zT8K1+zU6XNv1wKZDlKZ8NJsUa4RJhzb0thvWLC9Khsh/1YYx6wGUUp5Y9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990771;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6TYaT587yULVEsFdUlV21e0IlEIkrM/S8nTlyyj5duE=;
-	b=INVmNIV1jmM7AtGG51HlofAW7mmgs22h9X4OieZJVOT5ngbKoXpLLijOYtdcu/z2ZuzD
-	 0q4fhLQB8drxX73XrInQ/tx+VgA683rjLefewNbuSu7K6qS+YMyNKnCQcwbctUUxIQjni
-	 j+BBrs76SvU/12R4q2MPOkwKCDWacRq5i1xNOWUIHh+4LUyqWXeZOIVx0iBipyDgeAgAE
-	 TxHa3nxz7sr3xNjkZr/RCnD84feWOjPxuPANeQuHTI8NOhAauWiPCKe+6E/Md5uh6RLn+
-	 k9s52Rd4zdr+l/cDJ/ATzEhSTn1OXIX6lES9XjV9YcJzg5Ja7/YXz7Jgzesktv4YhAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990993;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=vV4vKNQIMcqzdAmCbyUaKDGDDzSxd9Nsc6ykZrOqeT4=;
+	b=bkVgz4QjGIBRe8AZM2/nyv/8GOUwJiRV15G3FzJDha3fyD6ZhjHfrxvap8mzTbFJD5Ad
+	 BxouXTLOCKV5NRL9OGK6KUmFDdIfD7Pxr52HzyyTBG4vOBlEHoiAXbUyYl33g4cd25Br5
+	 YLKrIleRMldopQ/pdSf9LgY0MT0m7zWIY6tYVz+HGDEgkSDEY4xpjXj267FD2jnbN/fcI
+	 KwCT/aGPwINU66Z8MS14uBF51de6RYYuj8NqAXE2qucsHiCzO5ECv4f+U7G/e2NEjqm2l
+	 NlCWBWgx8318PLreEKcltXlwAnfLygdXflovzGa/6uFze9LBUx9mUq73QGOsUgLzktw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ag0eQnT6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHBvsLeo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D457606A329;
-	Fri,  6 Nov 2026 18:46:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A24606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ag0eQnT6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74ED11F0089F;
-	Fri,  6 Nov 2026 18:46:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHBvsLeo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF5B1F008A1;
+	Fri,  6 Nov 2026 18:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793990770;
-	bh=6TYaT587yULVEsFdUlV21e0IlEIkrM/S8nTlyyj5duE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ag0eQnT68Qn48+lD/gKwyNvXHdwktPEYZRXu+mkFQY9vzL7wiMhYgWeuG+JY3KsEF
-	 gI3XCn0aWsviJENdO79ADtBJ4wfZIqOpW7bHvPyXu5Yx7OAaI64goY95XQoscGuga3
-	 RiRZJJ+z/HCAmj4OreqwgRKM+/JYt0+pMQU8Vi4xBe9mSgJSOH8KtXW9Mw/WQ3o4OY
-	 mrux7OQRSU/obswR+R8vfPypl/xQz/SLtQ2oRx1EySjeD+3V+DGTpGrrAHC+sqD+48
-	 zU0B/50JD3C7b1U4wU/hmZFCOReDSKirjZePi9z/7MbizoMhTqfACiM30W+Y2YprUi
-	 C/pdfJQ6qj/LQ==
-Date: Fri, 6 Nov 2026 18:46:01 +0000
-From: Conor Dooley <conor@kernel.org>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jun Chang <jun.chang@metanoia-comm.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Ben Zong-You Xie <ben717@andestech.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
-	CL Wang <cl634@andestech.com>, Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and
- MT5824 EVB
-Message-ID: <20261106-annotate-roundup-3cdf03205a91@spud>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+	s=k20260515; t=1793990993;
+	bh=vV4vKNQIMcqzdAmCbyUaKDGDDzSxd9Nsc6ykZrOqeT4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KHBvsLeogZWFkbbjcTRwnVQevb0YISl6+ioFX+lT1mHunF5IySh/6x9l99eXm1fSu
+	 H1xVWnFfTewtE46W/bpWWrRrAflGjR+yE1jALE1CPTXyAnHduVF4BaRI65RFRb2A4C
+	 eOPspfsBQVF9fanDg1jPmDXjVsFqgEauc8jO6HrCbPCTC++tHit91IhGuIVe3Q2fwd
+	 cHGe2yULhZ3VZfzpNc++u0DO0FcSJi6xxR4UQiPvcfjrmtEJD5sZlD63ZbPMHNSoXc
+	 cCbRLaYamHOu7gt0UcZfVSZw1/dLanNSITbfMdTLRINtEdjt3doHb3cgCaB1/yOV4N
+	 Gr+N2NV5/IraQ==
+Message-ID: <sashiko-outbox-202104@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/7] media: qcom: camss: Match VFE lite clocks by
+ name prefix
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrew Gigena" <mail@andrewgigena.dev>
+Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-4-0103e8a0bbcd@andrewgigena.dev>
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-4-0103e8a0bbcd@andrewgigena.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 18:49:52 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -84,131 +60,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O+KStvozO2m15yOI"
-Content-Disposition: inline
-In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
 
---O+KStvozO2m15yOI
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] media: qcom: camss: undeclared CAMSS_8150 in camss-vfe.c breaks
+  build
+- [Low] media: qcom: camss: missing Fixes trailer for
+  vfe_match_clock_names() bug
+- [Low] media: camss: unguarded lite clock checks in
+  vfe_match_clock_names()
+--
 
-On Fri, Nov 06, 2026 at 10:29:57AM +0100, Beno=EEt Monin wrote:
-> Hi all,
->=20
-> This series adds initial upstream support for the Metanoia MT2824 SoC
-> and its MT5824 evaluation board.
->=20
-> The MT2824 is a dual-core RISC-V SoC built on Andes AX45MP cores. It
-> integrates two 8250-compatible UARTs, the Andes PLIC/PLICSW/PLMT interrupt
-> and timer blocks, the AX45MP L2 cache controller, a simple reset controll=
-er
-> and a system reboot controller, the ATCWDT200 watchdog, one QSPI and eight
-> ATCSPI200 SPI controllers, a Synopsys DWC MSHC 2.00a eMMC/SD controller,
-> and a Synopsys DWC2 USB2 host controller with a reset-only USB2 PHY.
->=20
-> The series is organised as:
->=20
-> - patches 1-14 add the device tree bindings, the Metanoia vendor prefix,
->   the RISC-V board schema and the SoC block compatibles
-> - patch 15 adds ARCH_METANOIA and selects the AX45MP errata
-> - patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB changes
->   needed to build and probe on this SoC
-> - patch 24 adds the MT2824 SoC and MT5824 EVB device trees
-> - patch 25 adds the MAINTAINERS entry
->=20
-> The ATCSPI200 driver gains optional interrupt support for PIO transfers:
-> when the controller IRQ is wired, the FIFOs and the end of transfer
-> are serviced from the handler, with a fallback to polling when no IRQ
-> is available.
->=20
-> The DWC MSHC controller on the evaluation board is wired to either an
-> SD slot or an eMMC through a board jumper that the SoC cannot read. In
-> the absence of a fixed card type in the device tree, the driver probes
-> the eMMC first at 1.8 V and falls back to the SD slot at 3.3 V. The
-> controller also needs custom tuning and HS400 PHY DLL handling, which
-> is why it has its own sdhci_ops.
->=20
-> The MT2824 SoC contains other controllers not yet exposed (I2C, GPIO,
-> pinctrl, Ethernet, DSP, ...). This first series allows accessing the
-> evaluation board via its serial console, and all its storage options
-> (SPI-NOR, eMMC, SD card). The watchdog and the USB port are also
-> available.
->=20
-> The driver changes do not depend on the DTS at build time and are gated
-> on the new compatible strings. For merge ordering, the DTS depends on the
-> ARCH_METANOIA Kconfig entry (patch 15) and on the binding compatibles
-> being accepted. The patches can therefore go through their respective
-> subsystem trees, with the Kconfig, DTS and MAINTAINERS patches going
-> through the RISC-V tree once the driver and binding patches have landed.
+commit 304a59495a7a3eb87dc5d254ba4381a9abf0957b
+Author: Andrew Gigena <mail@andrewgigena.dev>
 
-I kinda pointed it out elsewhere, but that's not actually the path for
-the Kconfig, dts and MAINTAINERS bits. They go via the soc tree, after
-being applied by a metanoia specific maintainer.
+> media: qcom: camss: Match VFE lite clocks by name prefix
+>
+> vfe_match_clock_names() builds the expected lite clock name from
+> vfe->id, but vfe->id is the index of the VFE in the resources array.
+> On SoCs where the lite VFEs come after the full VFEs, the generated
+> name is vfe_lite2, vfe_lite3, ... and never matches the actual
+> vfe_lite0/vfe_lite1 clocks, so their rates are never programmed.
+>
+> Restrict the new prefix match to numbered "vfe_liteN" clocks (digit
+> check) to avoid matching aux clocks, leaving the pre-existing
+> vfe_lite_name and bare "vfe_lite" matches unchanged.
+>
+> This affects SM8150, SC7280 and SC8280XP. On a Pixel 4 (SM8150),
+> streaming through VFE-lite0 left cam_cc_ife_lite_0_clk at 19.2 MHz and
+> failed with "VFE reset timeout".
+>
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
 
->=20
-> The series is based on v7.4-rc1.
->=20
-> Signed-off-by: Beno=EEt Monin <benoit.monin@bootlin.com>
-> ---
-> Beno=EEt Monin (25):
->       dt-bindings: vendor-prefixes: add Metanoia Communications
->       dt-bindings: riscv: add Metanoia SoC-based boards
->       dt-bindings: reset: add Metanoia MT2824
->       dt-bindings: power: reset: add Metanoia MT2824 reboot
->       dt-bindings: phy: add Metanoia USB2 PHY
->       dt-bindings: cache: andestech,ax45mp-cache: add MT2824 compatible
->       dt-bindings: interrupt-controller: sifive,plic-1.0.0: add Metanoia =
-MT2824
->       dt-bindings: interrupt-controller: andestech,plicsw: add Metanoia M=
-T2824
->       dt-bindings: timer: andestech,plmt0: add Metanoia MT2824
->       dt-bindings: mmc: snps,dwcmshc-sdhci: add Metanoia MT2824
->       dt-bindings: spi: andestech,ae350-spi: make DMA and interrupts opti=
-onal
->       dt-bindings: spi: andestech,ae350-spi: add Metanoia MT2824
->       dt-bindings: usb: dwc2: add Metanoia MT2824
->       dt-bindings: watchdog: andestech,ae350-wdt: add Metanoia MT2824
+[Severity: Low]
+This fixes VFE lite clock matching on existing platforms such as SC7280 and
+SC8280XP.  Should this include:
 
-Other than the tag issues in most of these, riscv and dt wise this looks
-mostly fine. The reset/reboot stuff and probably missing clock support
-are the only real problems.
+  Fixes: bcd2adfef23a ("media: qcom: camss: Allow clocks vfeN vfe_liteN or =
+vfe_lite")
 
-Probably, I would split this series up into multiple smaller
-submissions. spi, mmc, phy, usb, watchdog at least should be their own
-mini series. clock/reset should probably be another, presumably also
-with the reboot thing. What's left (interrupts, timer, cache I think)
-can stay part of the dts series and probably go through the soc tree
-together. For interrupts and timer, the maintainers are usually not
-super responsive in terms of binding only series which is why they may
-go via soc.
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765f..29e04d0971163 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+[ ... ]
+> @@ -346,6 +347,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u3=
+2 sink_code,
+>  	case CAMSS_6350:
+>  	case CAMSS_7280:
+>  	case CAMSS_8x96:
+> +	case CAMSS_8150:
+>  	case CAMSS_8250:
+>  	case CAMSS_8280XP:
+>  	case CAMSS_8300:
 
-Cheers,
-Conor.
+[Severity: High]
+Does adding case CAMSS_8150 here and in vfe_bpl_align_rdi() break the build=
+ at
+this commit?  CAMSS_8150 is not declared in enum camss_version in
+drivers/media/platform/qcom/camss/camss.h until the following commit "media:
+qcom: camss: Add support for SM8150", where these two hunks belong.
 
->       riscv: add ARCH_METANOIA Kconfig entry
->       reset: simple: add Metanoia MT2824 support
->       spi: atcspi200: add optional interrupt support
->       spi: atcspi200: allow building for Metanoia SoCs
->       watchdog: atcwdt200: allow building for Metanoia SoCs
->       mmc: sdhci-of-dwcmshc: add MT2824 support
->       mmc: sdhci-of-dwcmshc: add MT2824 tuning and HS400 support
->       phy: metanoia: add USB2 PHY driver
->       usb: dwc2: add support for Metanoia MT2824
->       riscv: add Metanoia MT2824 SoC and MT5824 EVB support
->       MAINTAINERS: add RISC-V Metanoia SoC support
+> @@ -914,6 +916,9 @@ static int vfe_match_clock_names(struct vfe_device *v=
+fe,
+>  	return (!strcmp(clock->name, vfe_name) ||
+>  		!strcmp(clock->name, vfe_lite_name) ||
+>  		!strcmp(clock->name, "vfe_lite") ||
+> +		(vfe->res->is_lite &&
+> +		 !strncmp(clock->name, "vfe_lite", 8) &&
+> +		 isdigit((unsigned char)clock->name[8])) ||
+>  		!strcmp(clock->name, "camnoc_axi") ||
+>  		!strcmp(clock->name, "camnoc_rt_axi"));
+>  }
 
---O+KStvozO2m15yOI
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Low]
+As reported by Bryan O'Donoghue on v2 [1], should all lite clock checks in
+vfe_match_clock_names() be gated on vfe->res->is_lite?  Only lite VFE resou=
+rce
+entries use vfe_lite or vfe_liteN clocks, and once gated on vfe->res->is_li=
+te,
+the vfe_lite_name buffer and its snprintf() call are already covered by the
+numbered "vfe_lite" prefix check and can be dropped.
 
------BEGIN PGP SIGNATURE-----
+[1] https://lore.kernel.org/r/ac2e970b-1f3a-4aef-9a84-034d7e460c0f@linaro.o=
+rg
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4gaQAKCRB4tDGHoIJi
-0nenAQDXOOACr5dTLojlsekDLPEmerVvDKLX9MTt2AL32IK7ugD+NliqmV6l2V/K
-f/dhIRRWsafkCoQptXJ5wafLha8CkAM=
-=fT+J
------END PGP SIGNATURE-----
-
---O+KStvozO2m15yOI--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-sm8150-v7.=
+4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev?part=3D4
