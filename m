@@ -1,61 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960389;
-	b=C6MmJUloJu4RhG5wp8zDLmmwqPQCs1rd2SLItOgrgNIofiBKs5cY2N8/VCUde9ugi4py
-	 nAqOq8kjukqgoyZ1ym6JPa/J9SaXPMltruFXyKurNdxQJmBAkGvgJqY6m5N7xrqFTOv0X
-	 Kc57hcQOrOKiaskzuxYhjPVCNezGA1Cg3S7Mu+aFBPTGJhrYsHXODRLRV6rFYhG/uHETF
-	 pujkLc1mWfF5LurM5/c1GtT+nnBPvqJeMtz1U7zJ2TZbzm+ZjXgRQYm9sc/qsoSxVx9NV
-	 LMQTitshEgh+RB8k8dqQrjWP3xlDF2KVYzB8Oqv4y6Ai9xJMSeYNxZAUsXykk1oRGuw==
+	t=1793960412;
+	b=C8tPA8qLJky+uCg0kaF7AnLGF50VQC+if71AU8MsyWo8XXuRSQu8ThZn9rK6lpu9p1+E
+	 2Wz2d48ebh+B9P7ErqHNk+rWer7MdaOK2OdEjghaBvX/N7nrA4GHQEpM4BLuXYaXUlCfR
+	 2oCXjYIFA7l6mAnoLw3vRFnKtrZOoHJxw+blDY+uZnYtIS8oV3Av2/SK2HUpII2krFWug
+	 HpJUIALyh65P6UIP25NXr2cB3mIRp5Z2JxAMLR9dVmyMOz1tRgfyU0ACG4mC68Rrac0cv
+	 vVOHuEtJ09Vh7RneTPiFH7ck4BoTRY7YK0noIk+33cQKuQC+xP0vIAEK2mKQy/P+kiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960412;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=B4LJ/E2CNayxcnde10w3NEe0+jzbRDwBsFbsVBG7Tl0=;
-	b=itmYEHTT8kb3wyLgGz1DqRrV01ZRaM9jRGj6FlHUHLupLbFMvU1dhT6Ca5IPV2R4L7l7
-	 NRqeGHdaFyNTjEg0B6CY12bKdLzC2GW3BCa8zquy6YbdoI/C1y0H/dXgvYta8hztqAUB2
-	 0OkH31K5IkNzjEE5hvxmRdS0kYmsZzBH1dkfkLGMoEsc+X/gBsHD/q/a9sgUmH9N3789X
-	 sjUdmyIsAcjgT/RnrLpfTviP1SaugXFptuxJ/38hlmyRKGg5MZvUSap95OCigo7n1M07y
-	 YogpPO1nMafZMwUg//OVgqfKiNT2HwZPA3GB1M6fEsiQRi7P8XFhzBAQK0wo9KQBBYA==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
+	bh=3pN3R/UpUV10JfpQwTbJj5KhF2jJkL0dKbpgZQeGgeg=;
+	b=XYyu6qJwHpNszxbbUtK0uUmnt4WYv5BQWmXJtdXZr7OvP8XynC58XRL8+bRkqaYQgpaf
+	 qZElg89jr7tHW6XYmAfIenxL10qjjgEEzEdUYMQuWNpk7eYhWmm2WqsjR47/BcLmoHsgp
+	 tdeKRMauAVV77nfno7PW3TAN76tAYrOBwhWO/jXWRujf9SfehTZTzdVqHPQ9eGCn2pOW6
+	 dxWDHDN8Qa8y8kB+b5jH/+dSHaTNxrMDNBPBIscvNn6hmm719qzkS651wWYdy9iIPqKcy
+	 aFVhuGdWS9uYUxO2xHUlAXSstYGqmzdZRdr+jg+17SMs9Qjx4edgaofw7kKte2yQMPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b="L/WdqTbN";
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=rIrFWJIp;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0F2606D801;
-	Fri,  6 Nov 2026 10:19:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE0F2606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25574606D80A;
+	Fri,  6 Nov 2026 10:20:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25574606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=L/WdqTbN
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=rIrFWJIp
 Received: from surface-pro-5 (ydWLT-U1-95-184.uibk.ac.at [172.25.95.184])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AJaEC1864224
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AJteX1864372
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 6 Nov 2026 11:19:38 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AJaEC1864224
+	Fri, 6 Nov 2026 11:20:00 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AJteX1864372
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793960379;
-	bh=B4LJ/E2CNayxcnde10w3NEe0+jzbRDwBsFbsVBG7Tl0=;
-	h=From:To:Cc:Subject:Date;
-	b=L/WdqTbNaikvEwen+wMG8wZAlMDjoSPap+nH+YLn4wGByY+R7zdrU9ymS10kfAL1F
-	 +nFY7WK0XiEMjevUvy9Y1Bdoicm57cVjbesq0CL+NYcjKTqlErLPAq2CPz+6n0zJ3y
-	 9lHbCApdogmnZuSnZ0dY3HT6ilOj1Qn42cN/8B1k=
+	s=prod24a; t=1793960400;
+	bh=3pN3R/UpUV10JfpQwTbJj5KhF2jJkL0dKbpgZQeGgeg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rIrFWJIpUTZFKBF0D9Tv/kPHjQ4EgcwkRZHzoFXAyR/lLd43zhGdJo035EZP69irg
+	 q/OHAlyf6d6595RAizJaYiuydSkhg3R6CW7cgK2YsTQ1vLcwybx+LZEcW0cFyhVBZe
+	 8Cu3YNPDZEDxyxITCPh+V9MEc1lu6a34LwASfkZY=
 From: christian.koever-draxl@student.uibk.ac.at
-To: neil.armstrong@linaro.org, mchehab@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-media@vger.kernel.org, linux-amlogic@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+To: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com,
+        jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+        sean@mess.org
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH v2] dt-bindings: media: amlogic,axg-ge2d: add S4 support
-Date: Fri,  6 Nov 2026 11:19:35 +0100
-Message-ID: <20261106101935.46816-1-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH v2 2/2] media: rc: meson-ir: allow the receiver to wake the system
+Date: Fri,  6 Nov 2026 11:19:54 +0100
+Message-ID: <20261106101954.46907-3-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at>
+References: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,91 +72,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -14.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_RCPTS_11_PLUS
+X-Spam-Score: () -13.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_H_APTO_LONG,U_RCPTS_11_PLUS
 X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-Add a compatible for the S4 GE2D and allow a power domain, which the S4
-block sits in.
+The suspend callback switches the decoder off, so nothing is left to
+notice the remote and the receiver can never wake the system from
+s2idle, where only Linux interrupts can wake the CPUs.
 
-The AXG GE2D is a special version that does not use the canvas to read
-and write buffers, so the S4 one is not strictly compatible with it and
-gets no fallback.
+When the device is a wakeup source, keep the decoder running and arm
+its interrupt as a wake interrupt instead. Boards without the
+wakeup-source property keep the existing behaviour.
 
-Only the S4 block sits in a power domain of its own, so require one
-there and disallow it for AXG.
+This does not affect suspend to RAM on boards whose firmware watches
+the IR receiver itself while the SoC is down, as on S4 where BL31 wakes
+the board on the remote's power key.
+
+Tested on an S905W2 board in s2idle: the power key on the remote wakes
+it; with wakeup disabled for the receiver it does not.
 
 Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
-Changes in v2:
-- Separate compatible, no amlogic,axg-ge2d fallback: the AXG GE2D does
-  not use the canvas, so the two are not compatible (Neil).
-- power-domains is required for amlogic,s4-ge2d and not allowed for
-  AXG, which has none (Krzysztof).
-- Link to v1: https://lore.kernel.org/r/20261025192302.209354-1-christian.koever-draxl@student.uibk.ac.at
-
-Tool use (Documentation/process/generated-content.rst):
-This work was done with the help of an AI coding assistant, Claude
-(Anthropic), used through Claude Code over many sessions. It did a large
-part of the hands-on work: it read the vendor kernel and the firmware
-interfaces, probed registers on the board, drafted the code and the
-changelogs, and ran the builds, checkpatch, dt_binding_check and the
-tests on the hardware. I directed the work, reviewed every change and
-the final patches, and take responsibility for them. There is no single
-prompt to quote; the sessions were of the form "find out why X fails on
-this board, fix it, test it on the box".
-
-Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
-
- .../bindings/media/amlogic,axg-ge2d.yaml        | 17 +++++++++++++++++
+ drivers/media/rc/meson-ir.c | 17 +++++++++++++++++
  1 file changed, 17 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml b/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml
-index f23fa6d06ad0..f3fe99f1fc95 100644
---- a/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml
-+++ b/Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml
-@@ -14,6 +14,7 @@ properties:
-   compatible:
-     enum:
-       - amlogic,axg-ge2d
-+      - amlogic,s4-ge2d
+diff --git a/drivers/media/rc/meson-ir.c b/drivers/media/rc/meson-ir.c
+index 272ebb0d97c8..6b5b5f71a1b4 100644
+--- a/drivers/media/rc/meson-ir.c
++++ b/drivers/media/rc/meson-ir.c
+@@ -165,6 +165,7 @@ struct meson_ir {
+ 	const struct meson_ir_param *param;
+ 	struct regmap	*reg;
+ 	struct rc_dev	*rc;
++	int		irq;
+ 	spinlock_t	lock;
+ };
  
-   interrupts:
-     minItems: 1
-@@ -27,6 +28,9 @@ properties:
-   clocks:
-     minItems: 1
+@@ -475,6 +476,8 @@ static int meson_ir_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
  
-+  power-domains:
-+    maxItems: 1
++	ir->irq = irq;
 +
- required:
-   - compatible
-   - reg
-@@ -34,6 +38,19 @@ required:
-   - clocks
-   - resets
+ 	if (ir->param->support_hw_decoder)
+ 		ir->rc = devm_rc_allocate_device(&pdev->dev,
+ 						 RC_DRIVER_SCANCODE);
+@@ -523,6 +526,8 @@ static int meson_ir_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: amlogic,s4-ge2d
-+    then:
-+      required:
-+        - power-domains
-+    else:
-+      properties:
-+        power-domains: false
++	device_init_wakeup(dev, of_property_read_bool(node, "wakeup-source"));
 +
- additionalProperties: false
+ 	dev_info(dev, "receiver initialized\n");
  
- examples:
-
-base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+ 	return 0;
+@@ -571,6 +576,9 @@ static __maybe_unused int meson_ir_resume(struct device *dev)
+ {
+ 	struct meson_ir *ir = dev_get_drvdata(dev);
+ 
++	if (device_may_wakeup(dev))
++		disable_irq_wake(ir->irq);
++
+ 	if (ir->param->support_hw_decoder)
+ 		meson_ir_hw_decoder_init(ir->rc, &ir->rc->enabled_protocols);
+ 	else
+@@ -584,6 +592,15 @@ static __maybe_unused int meson_ir_suspend(struct device *dev)
+ 	struct meson_ir *ir = dev_get_drvdata(dev);
+ 	unsigned long flags;
+ 
++	/*
++	 * Leave the receiver running when it is meant to wake the system up,
++	 * otherwise there is nothing left to notice the remote.
++	 */
++	if (device_may_wakeup(dev)) {
++		enable_irq_wake(ir->irq);
++		return 0;
++	}
++
+ 	spin_lock_irqsave(&ir->lock, flags);
+ 	regmap_update_bits(ir->reg, IR_DEC_REG1, IR_DEC_REG1_ENABLE, 0);
+ 	spin_unlock_irqrestore(&ir->lock, flags);
 -- 
 2.56.0
 
