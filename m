@@ -1,52 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793984190;
-	b=EvRu3TLSdTa8++qfDmCpSEfYfjqYZJwyyGlLr4ZC/JcdY1R3u1/EPegP9eV1JIsORdeD
-	 1zwcACThDFHe55/0/ENNZXzlHd56qs+0IZUH3F5mLNsT0TeU8p1BIKS1zeamvE3FYcnFI
-	 6uwx8GlCxNqiy86Bt/VmJKwNsS0k4tApOIgA5+zMhnJdRIiB+5+zcd0S2WxeEVWOsgA6e
-	 zTi3SENqMKBoanEemns1CraMw47c3sGDf2pRSkpCv6q2DnJhBHZZTrQPwbAyKgCgoC4E/
-	 6LEyO6w6WGNRFEalLXeilM9bCSGF2YqaTridZTiS0LnE77A+V0DGojDEDKWf8BzJKEw==
+	t=1793984257;
+	b=gBui0rGj8n+99xEQaajQN5DP5MiSokP939fpdK/dBo3Gl5Bcx4UVGa9WSS0lkp3loslz
+	 /WV4TiFnUEiWQWswtneU/4bk7CfHGrXMwBZz0XMtYVQ/cR8FL7Vz+IlqhTbs8JguksUIV
+	 6Y8V2QBRn6HeD2bzugcStzZY9bedeVMdPaRb+LDFzoPcv7yQsdShkTEd878QzackhzCJH
+	 4RpuNMBND0lyo316pTYJ/GXPzeM+6O8Buvt4lSOBZe+borjkwop+8tJ1OKU8g35Hjq7I3
+	 tznvvB+zqBHrNGZ3X5W8YB/MeiU38P7jAz/hTxt39H74gss26CWUqxMiAHta24bT8xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793984190;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc;
-	bh=A0ueZbdutXIDB8BlM9vO73ShuZrV78krDehdwtiPnNo=;
-	b=PngkZtoMJWdGKTS/6RYYcy00CA6KxyyziF7U0/tODhW+aAZxQXaAZp8vExLu+VG1zoIU
-	 R9UHwWG59rCbfF+W06oNGDnaOnNnvJCFrZeNZ/SHEG1zvpAnCSZaiPiPIbjVLHStbu/Ap
-	 vLsk7bZFgbH3er+g7LNG11uuUjtW+ACFR/1trwjL4mU7h1QUho2Fjw5ncI+DCBQx/DhwS
-	 iaoWVzMbJrMLqeZhuZglTpEihJwr10k3XJTQeFPjsENvztIruhtqRSB4PbE6ta15hu+J+
-	 nU/+E6/ID6s7J7z2vtcFqN3Xy4NWtwDj39Z0+xMGitj4GA5uXBnEdgodIsMSe3JVr5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793984257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Dui2HnVpfjzkzxu9M35L+PlJD8C9n4WzI7XNWWzwiiw=;
+	b=lpWM7W78mN/bEj0d2EqiyyUV+0Dk5mGuAnLzYm7PNi/qs4KmpBboqLYjjpabM/oZPb1Y
+	 kD+fUfW7CfTWZfAkW0f4E0IMYhETNvo4FyQDkZMlYtDO6abic8FF3JrRE7FsjAJyscvUg
+	 ZmHdlIWYYZDrS8SkojPirGD8hPYZc5Sgw5EBtKAmT05xqgM8cegOGOaEycsON3J4ujJQ1
+	 ambzizpCAbI3E+qTbCI0d6ED5ZX5ErqTDrQs9RjlkTsdOyJRj9eYSlfSNSPVSUaZST0K4
+	 u8W7y/Q7aXjW6cucoxUD6p26UFxvAZ2bjjKBRXBNQCs3WpP3T/kYXIGPtZ7YN94tsww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=l2n3Ww+q;
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JOFE8Euv;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2CB606D812;
-	Fri,  6 Nov 2026 16:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B2CB606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1B1606A339
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 16:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B1B1606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=l2n3Ww+q
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793984183;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A0ueZbdutXIDB8BlM9vO73ShuZrV78krDehdwtiPnNo=;
-	b=l2n3Ww+qMYNYZnEOl5MJWYsGjh1k96ytz6u9g4ni081Vo8swU0V3TjT4zeR884wrnHLIbT
-	L6wQIghEjnV8IFPqT9hJL+zyUX2xS+2gclgG7XQA81Rt6QgQpvdJt4nRXnkJPrBi73Ugat
-	myq0U/+TBBL2ilWJv/L6bl9AL0+Ni3Y=
-Date: Fri, 06 Nov 2026 17:56:14 +0100
-Subject: [PATCH v2 2/4] arm64: dts: apple: t8132: Fix blank-lines-related
- dt-check-style issues
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JOFE8Euv
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so7539215e9.0
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 08:57:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793984255; x=1794589055; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Dui2HnVpfjzkzxu9M35L+PlJD8C9n4WzI7XNWWzwiiw=;
+        b=JOFE8EuvP/aiaExAz3zhbWKSmdofbIo2gyAi15JmBQowqrHdneLciitNKgOd/Rc1MY
+         TqlwQ0qZ6+zprLi8oRzpeZdfT9rm4Gk/2vmpzUyY+WYVrFq/4VnGWu0F92eSYknQ9eca
+         irv+2yYK4tyLv49lJoGUX8YQNNFvczC/QXgxtd5OBkAnr7myUkbuqiIoV2K3p4F1obdH
+         Hit0fyb+jSGiSyYi6k7b2PCp0Nplky8lQRcW62b9a1jHv9+1r6ph2IuIoqmuX0KV/xai
+         49KfI4QeYxnwjMZnTkPOQWP+BsrShNRyaJdZxDrxjQM18awoxYdnpxd7/h6wjQeogqtO
+         LtZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793984255; x=1794589055;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dui2HnVpfjzkzxu9M35L+PlJD8C9n4WzI7XNWWzwiiw=;
+        b=x49zF3ew4UggfAV2yb8rc8dzvlTzqaIj6esFpwOJ4oWDqvpWHkexI++Z2RALKggF79
+         prKYz94a36EYK7b06v6/ZXHO0QbErWFQLfPj/teLVkMfVszGg6OrMK0LySNTCD2dry5c
+         9cE9kDyXW/LwyStEzd8wi2R5RYpMhT1JQQZIJSRDWxksLlZQ917zoZ+RJoEHHaOwIqEN
+         HTyPIrqKGY5Ew7hA2yCBdlVrtQOwhEAxcsQs/e+xCH9aU32FNFAQfbQw0thlKLVmk5kU
+         f93Da2JWkcTaTdFnBOUzlyoG+xT0ZmGa0d+9rRhtz3O6nYDbCdkPs3n+IvsRvWH/JrKj
+         mITg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnQQwTsRuPMIvQUnc0uaAfSR6N/vuXZv+6/jo6hWSnHdWVgyk4kQsGmXHbK9AKUBDCIwCwhg94S3ml@vger.kernel.org
+X-Gm-Message-State: APuU4Z98uTGFxJXtlNa0WX/k7zm9UYfmyHoAD5ISZOpC6OJI6rMU9WVt
+	APXozDvABj88mZBNJq4NJF5psB3RAlL+TpSNkNTDimPkKm+PsGVv5rooIezI9b4qFvQ=
+X-Gm-Gg: AYBFou0Vp2DZU8hjWGhD5xLw6Xely2lhApX2i8k88jcIrtQ5Z2cxQwz291H/Y1Jn7bh
+	I7Hie3Nyo05B/1h4lC8hqBnCaNVUVEH0HFvAZJJAEJpUqZnWDaEA3uws9a0azanCBkDIB7niw1N
+	CpgCJcolXvA1LHIITlezAkF1dB/SZ/mKhy6GHtnc67VCxgTrrl9bXrE8Z+nhLaMPs3GRgqCiRu1
+	zqtsw640Hn2BPLNHvgXLvvxtrfM0iJhSlt08bHfJwh0CD2wBnCM+ZiQbfvNQqJxMBVCBiKaSGqz
+	s8K+Jk6jiBKkkDsGdyDHbs45AKjdgmLi6KaWiB5HU1TAHlTPgWbmvkKNQNEZ1Zfn13IZI/ayRKx
+	BdN58NKzupXIA1WPGGgHbnFLTCaiT9nIIyOAfpP66IEEU4ZHsVXqsgRkW4MvuaFGlFd8jTmmEoe
+	q5MNrWv9WMJPUpPjci1/u1nqe12zreTiSXhAN+tg4HyXkHft9l/cAFl4Z9gAve3Lk3xfGFknRPL
+	/H1WFJ/1QB1opo2DUNk+VgH5TcaZyzqV7gkSs4b1AV3sJuKTdNxr8YvYOaF9gN72h38/vfu6K5S
+	vAmfIy3N4MaHi+BDePpJm/+TuLjGYjHQ
+X-Received: by 2002:a05:600c:a013:b0:4a1:c6fd:4db0 with SMTP id 5b1f17b1804b1-4b6df5eabebmr51738615e9.19.1793984254955;
+        Fri, 06 Nov 2026 08:57:34 -0800 (PST)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4b571f46538sm144730095e9.5.2026.11.06.08.57.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 08:57:34 -0800 (PST)
+Date: Fri, 6 Nov 2026 17:57:32 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Shan-Chun Hung <shanchun1218@gmail.com>
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, vkoul@kernel.org, 
+	Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	kees@kernel.org, gustavoars@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+Message-ID: <au4GkvPTXmcvReoj@monoceros>
+References: <20261103022202.2139674-1-shanchun1218@gmail.com>
+ <20261103022202.2139674-3-shanchun1218@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -56,124 +100,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-dt-style-check-v2-2-1e715e80b066@cyberchaos.dev>
-References: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
-In-Reply-To: <20261106-apple-dts-m4-dt-style-check-v2-0-1e715e80b066@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yureka Lilian <yureka@cyberchaos.dev>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xgc4symavcbtq745"
+Content-Disposition: inline
+In-Reply-To: <20261103022202.2139674-3-shanchun1218@gmail.com>
 
-This fixes `dt-check-style --mode=strict` issues related to blank lines
-in the t8132 device tres.
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- arch/arm64/boot/dts/apple/t8132-j604.dts  | 1 +
- arch/arm64/boot/dts/apple/t8132-j713.dts  | 1 +
- arch/arm64/boot/dts/apple/t8132-j715.dts  | 1 +
- arch/arm64/boot/dts/apple/t8132-jxxx.dtsi | 1 +
- arch/arm64/boot/dts/apple/t8132.dtsi      | 8 ++++++++
- 5 files changed, 12 insertions(+)
+--xgc4symavcbtq745
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/2] dmaengine: ma35d1-pdma: Add MA35D1 PDMA driver
+MIME-Version: 1.0
 
-diff --git a/arch/arm64/boot/dts/apple/t8132-j604.dts b/arch/arm64/boot/dts/apple/t8132-j604.dts
-index c4be915cb33a..93076cd923a9 100644
---- a/arch/arm64/boot/dts/apple/t8132-j604.dts
-+++ b/arch/arm64/boot/dts/apple/t8132-j604.dts
-@@ -19,6 +19,7 @@ / {
- 
- 	led-controller {
- 		compatible = "pwm-leds";
-+
- 		led-0 {
- 			pwms = <&fpwm1 0 40000>;
- 			label = "kbd_backlight";
-diff --git a/arch/arm64/boot/dts/apple/t8132-j713.dts b/arch/arm64/boot/dts/apple/t8132-j713.dts
-index e1fc5d47f487..892a3812bc65 100644
---- a/arch/arm64/boot/dts/apple/t8132-j713.dts
-+++ b/arch/arm64/boot/dts/apple/t8132-j713.dts
-@@ -19,6 +19,7 @@ / {
- 
- 	led-controller {
- 		compatible = "pwm-leds";
-+
- 		led-0 {
- 			pwms = <&fpwm1 0 40000>;
- 			label = "kbd_backlight";
-diff --git a/arch/arm64/boot/dts/apple/t8132-j715.dts b/arch/arm64/boot/dts/apple/t8132-j715.dts
-index 2672914ea76c..212d194bd1ae 100644
---- a/arch/arm64/boot/dts/apple/t8132-j715.dts
-+++ b/arch/arm64/boot/dts/apple/t8132-j715.dts
-@@ -19,6 +19,7 @@ / {
- 
- 	led-controller {
- 		compatible = "pwm-leds";
-+
- 		led-0 {
- 			pwms = <&fpwm1 0 40000>;
- 			label = "kbd_backlight";
-diff --git a/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi b/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
-index 9882ea3f85e6..b0c5d71943b6 100644
---- a/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8132-jxxx.dtsi
-@@ -26,6 +26,7 @@ framebuffer0: framebuffer@0 {
- 			reg = <0 0 0 0>; /* To be filled by loader */
- 			power-domains = <&ps_disp_fe>, <&ps_dptx_phy>;
- 			/* Format properties will be added by loader */
-+
- 			status = "disabled";
- 		};
- 	};
-diff --git a/arch/arm64/boot/dts/apple/t8132.dtsi b/arch/arm64/boot/dts/apple/t8132.dtsi
-index 58805c6ab002..6d070306e29a 100644
---- a/arch/arm64/boot/dts/apple/t8132.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8132.dtsi
-@@ -24,18 +24,23 @@ cluster0 {
- 				core0 {
- 					cpu = <&cpu_e0>;
- 				};
-+
- 				core1 {
- 					cpu = <&cpu_e1>;
- 				};
-+
- 				core2 {
- 					cpu = <&cpu_e2>;
- 				};
-+
- 				core3 {
- 					cpu = <&cpu_e3>;
- 				};
-+
- 				core4 {
- 					cpu = <&cpu_e4>;
- 				};
-+
- 				core5 {
- 					cpu = <&cpu_e5>;
- 				};
-@@ -45,12 +50,15 @@ cluster1 {
- 				core0 {
- 					cpu = <&cpu_p0>;
- 				};
-+
- 				core1 {
- 					cpu = <&cpu_p1>;
- 				};
-+
- 				core2 {
- 					cpu = <&cpu_p2>;
- 				};
-+
- 				core3 {
- 					cpu = <&cpu_p3>;
- 				};
+Hello,
 
--- 
-2.56.0
+On Tue, Nov 03, 2026 at 10:22:02AM +0800, Shan-Chun Hung wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
 
+Please don't use <linux/mod_devicetable.h>. <linux/platform_device.h> is
+good enough to provide of_device_id already. If you insist on full iwyu,
+please use <linux/device-id/of.h> instead.
+
+Best regards
+Uwe
+
+--xgc4symavcbtq745
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmruBvIACgkQj4D7WH0S
+/k7itAf+LYAMF4hi693tZ3vEcl9qdHQIjdqKde20tlG9djgG8wsFu0VZ/opYIUir
+Ba2Ft+nXyZ+omHvukP/oarePmgmCz7dlRmpi6tKOAV+werJYpdagvT2ZHxjF2/eU
+SRq3hKVqHZVh/RS7hfRwxcPjy41xhU8PPT9ijH9syFoVtOUYbKKLjzdGTFdq0VNm
+TeXK1teYk1wcOc1zWnVsLIdMk2DtMOGpFMisNxIvSXPHr8CPqfQh3ZhDwVLC6WpK
+Jo3OwmvckiCe8ewY1FX7j/uIvM0c69sIBKKFnHgagXSTXFfhUgxYs4I/UgegsndF
+7ViQI0kKjp36E6n5RxerITZ5eDHGng==
+=zoc2
+-----END PGP SIGNATURE-----
+
+--xgc4symavcbtq745--
