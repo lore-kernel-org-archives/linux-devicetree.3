@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962993;
-	b=Myh+8K9rD4IMqNU05eTChEpOkSvF3YVCQ4igWwcU6MBYxbX43w5WNT4LrPieB7fkBLQe
-	 Q86dM7+3BL6ullCv3ou9RqwV0+q5toVeLdR5bgXzjU5050TTc05HSBP+xcaFE1fbZINOq
-	 wIdj5iSKB/b3kfWCLAOnau4zNxlb65aoadOp573W3E6Rh1jyqki8KGs3aCk250aMBcjvm
-	 ctHPUauUpOvBLvKVW2fFvqdinS0iVKDij6th54xyEbbM9iONtiRNGDuCsghrl6Wu3/Mh+
-	 P2KIiYhNQWBXBC6N/771iNUiNt7V3M/4TtJ2jLrs1uPNYpP1pLGqOpKSAnW8sBAkiGg==
+	t=1793963033;
+	b=QVmFgQJX4TIjDMgzTlJ4EznM2hFDpL3Dbokg1Wgi6IkL+WTx7A4gmSsu3gjTE8v+FS+q
+	 0IlR1sf6Nr5ezY2B650dlzGRMKg1B3C3hhVqh1fy7LAZjx+pZrOxTsfyQUr00JDF2dLsy
+	 GsZeBRUXf47s9XZ489w7cnIdLcnaZnb+TQq4kDnhE+bwGdih/U5U69EVJtN655oFpgqpn
+	 6nSyvWPxAugzyMxyXdqumxnlrsF2bRuXsKl/1yGesIpnU2C2FJnIoUp8g3skeMl96VNVN
+	 yXG2o1qtO19vHUraBeTagZJB9xUFGeEUkczi+w0+CBjpk3v4bHOWeowVmXLA/5T7MuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962993;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963033;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+AElvHQZoFGP9DlewYqnVP0xXdCddfuFHZpt/5Au+oI=;
-	b=cJ5CJl3Vc/2u7AxJaWfTsZr0l9V4GXiSaZwAvwQduo0jRMEqPC1D0SOaPm00kzdC74S9
-	 r6myGhGxr8AV7Qofuw0gXOpWZ6DA6BRjOAEf4hbzQh6itn8PpUVB3yyT4xLjAFHHZlRaG
-	 9kHRT/N7DRHY0XR/BJz+EW+8n2zIm4w6h+rCPmCLnbrobNRJ5Q4yOwk2u/Q8Mnbkegi+z
-	 eYfvhmWEZ5561/7HmDfR/PeL1uUV62sY9Ar306C3z5Q27OE0ZaXVjwMHmJZJXjLMx/0sW
-	 7l2cMqZo2TFCA7jJi0kxkTui4kIPOdikKVHwGdFhDd1BlxVNAnRZ7WaqtWhvA3wqhMw==
+	bh=1UC53npQZPQBqPO2Jxjhg1ObzLlkCePsQ0TzF6vvsAI=;
+	b=K+4dv2CyGnZL9awsVXVzizmu7QPXRbFsJoFHB10QYFRW48qaqDo43pI/TVVICkecSh3q
+	 Z2FMT2WRtVfnLIXFenGqFcqpTVD231151WJlaeop7HpqCr7afAo7HDP4zzy3WKfNUBi60
+	 +F9eMMyEeMylkCTnJhOq1uXnluxRR/G4kadcfCFxAvBrfiksbsTyr5SlSfzSey4vv58IE
+	 Frzp3WBt8gaLfv7pXXq8Rn2VSZdhq2b8pPA923IebAHFBy5kP42xkiz1nzL/x6zAgAmym
+	 I9xxhF/HV0eevOQ8EYyumLLsTUdMNwMspcvtBuP+tsWCNIUSCl2cesCozkEp8zhnLfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcTzmklI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y0fehbrx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E576E606A32C;
-	Fri,  6 Nov 2026 11:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8235B606A32D;
+	Fri,  6 Nov 2026 11:03:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcTzmklI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8140E1F0089F;
-	Fri,  6 Nov 2026 11:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y0fehbrx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6E9D1F0089F;
+	Fri,  6 Nov 2026 11:03:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793962992;
-	bh=+AElvHQZoFGP9DlewYqnVP0xXdCddfuFHZpt/5Au+oI=;
+	s=k20260515; t=1793963033;
+	bh=1UC53npQZPQBqPO2Jxjhg1ObzLlkCePsQ0TzF6vvsAI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RcTzmklIohIPhAtS55i7sWu8AM7F+O/qnYiKepi2J0WX8e/jteStCrqykHDiFmrLW
-	 ETw48LnQ4rv44dWuMvepFvpMME3YRe2lCfSfNvJRJhL3P2JFAXK9Hqu0QdLKkxjEU7
-	 mzm+1GHgSzYR8TcbW/lb4gxWfHV8OrX3nLIQT4V+eHJAJLuheREebDSnZBRiBeOH8Q
-	 phOAdDk20dLqAAgwUbd6Ej4d3sdkivQinhuZ/HXulqfry/jJF8pyFaAfrpqHWeMwCc
-	 3zjOSmtM6TZZhT+tkfcUEgLJHFAjqrgBSqjUH2YRfsNj1jr61cptGqKRTVywh6a3Ur
-	 91cXI9Rls0hCw==
-Date: Fri, 6 Nov 2026 11:03:08 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] ARM: dts: arm: Another batch of warning fixes
-Message-ID: <20261106-outstanding-turtle-of-opportunity-9fafcb@sudeepholla>
-References: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
+	b=Y0fehbrxZK4U1L6mbrsLPFee2Z4vhsiKCQDuZDDdR3IP0/KQ1BWj8iz65QCd4sIPU
+	 uj2J77yKUmt6TiFfH1cYb+yhDROniFN84dmSsQIZHKrwu3OpwAwHz1Jc52BUUjqUdr
+	 ThUvTcx1a6oBpc9VrSqnIGxTt8/Bv85FlxuGoW0FflMeQJTb6WUv2FXsY6PCk5Kusx
+	 hBM8RQRp5eSfPensMaUZJpQszG6Cb43fvAzIO31dMR1DleAr6rBTNEquLPnPZyT/NS
+	 e+5tKCqEQ0ykqvKQSBDDHdm/67jAW4xKYcmo1uy2W7aMr3Hrn3GIsTFt+MBmC3Elfo
+	 d4Oetw6U2C9bQ==
+Date: Fri, 6 Nov 2026 12:03:48 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexander Dahl <ada@thorsis.com>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Ryan Wanner <ryan.wanner@microchip.com>, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v4 03/16] dt-bindings: clock: at91: Allow referencing
+ main rc oscillator in DT
+Message-ID: <20261106-zippy-coucal-of-focus-ecf65f@quoll>
+References: <20261105110715.2486432-1-ada@thorsis.com>
+ <20261105110715.2486432-4-ada@thorsis.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,75 +63,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261105-dt-vexpress-dts-fixes-v1-0-66615c3c8ec3@kernel.org>
+In-Reply-To: <20261105110715.2486432-4-ada@thorsis.com>
 
-On Thu, Nov 05, 2026 at 04:34:13PM -0600, Rob Herring (Arm) wrote:
-> This is a batch of schema warning fixes mainly for 32-bit Arm, Ltd 
-> boards. While all these are 32-bit Arm fixes, vexpress-v2m-rs1.dtsi is 
-> included by vexpress-v2f-1xv7-ca53x2.dts which is 64-bit platform. Patch 
-
-We can remove vexpress-v2f-1xv7-ca53x2.dts because it is highly outdated and
-relies on an FPGA tile setup. Replicating this environment is likely
-impossible since the original bitmap files may no longer be available
-easily.
-
-> 2 fixes the last DT schema warning on 64-bit Arm Ltd boards. Yay! For 
-> 32-bit boards, this cuts the remaining warnings in ~half.
+On Thu, Nov 05, 2026 at 12:06:39PM +0100, Alexander Dahl wrote:
+> The main rc oscillator will be needed for the OTPC to work properly.
 > 
-> I verified the config-bus devices still probe after moving 'mcc' node 
-> with arm/vexpress-v2p-ca15-tc1.dts on QEMU.
+> The new index introduced here was not used on the four affected SoC
+> clock drivers before.
 > 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> Rob Herring (Arm) (7):
->       dt-bindings: arm: vexpress-sysreg: Add "mcc" child node
+> Link: https://lore.kernel.org/linux-devicetree/20250207-jailbird-circus-bcc04ee90e05@thorsis.com/T/#u
+> Signed-off-by: Alexander Dahl <ada@thorsis.com>
 
-I assume you will take the DT bindings via your tree.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
->       ARM: dts: arm/vexpress: Move "arm,vexpress,config-bus" node into sysreg node
->       ARM: dts: arm/vexpress-v2m: Move regulator and led nodes out of bus
->       ARM: dts: arm: Use standard node names
->       ARM: dts: arm: Add missing "#dma-cells"
->       ARM: dts: arm/vexpress: Fix Cortex-A15 GIC compatibles
->       ARM: dts: arm-realview-eb-mp: Move "pmu" node to top-level
-> 
->  .../devicetree/bindings/arm/vexpress-sysreg.yaml   |   8 +
->  arch/arm/boot/dts/arm/arm-realview-eb-mp.dtsi      |  20 +-
->  arch/arm/boot/dts/arm/arm-realview-eb.dtsi         |   8 +-
->  arch/arm/boot/dts/arm/arm-realview-pb1176.dts      |   8 +-
->  arch/arm/boot/dts/arm/arm-realview-pb11mp.dts      |   6 +-
->  arch/arm/boot/dts/arm/arm-realview-pbx.dtsi        |  10 +-
+Best regards,
+Krzysztof
 
-Linus,
-
-Do you want to take this series via your tree or prefer me to take it ?
-
->  arch/arm/boot/dts/arm/integrator.dtsi              |   2 +-
->  arch/arm/boot/dts/arm/integratorap-im-pd1.dts      |   2 +-
->  arch/arm/boot/dts/arm/integratorap.dts             |   2 +-
->  arch/arm/boot/dts/arm/integratorcp.dts             |   4 +-
->  arch/arm/boot/dts/arm/mps2-an385.dts               |   2 +-
->  arch/arm/boot/dts/arm/mps2-an399.dts               |   2 +-
->  arch/arm/boot/dts/arm/mps2.dtsi                    |   4 +-
-
-These MPS2 files may get deleted soon, but shouldn't be a problem.
-
->  arch/arm/boot/dts/arm/versatile-ab.dts             |  11 +-
->  arch/arm/boot/dts/arm/versatile-pb.dts             |   4 +-
->  arch/arm/boot/dts/arm/vexpress-v2m-rs1.dtsi        | 146 +++++-----
->  arch/arm/boot/dts/arm/vexpress-v2m.dtsi            | 322 ++++++++++-----------
->  arch/arm/boot/dts/arm/vexpress-v2p-ca15-tc1.dts    |   9 +-
->  arch/arm/boot/dts/arm/vexpress-v2p-ca15_a7.dts     |   9 +-
->  arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts        |   4 +-
->  arch/arm/boot/dts/arm/vexpress-v2p-ca9.dts         |   2 +-
->  21 files changed, 298 insertions(+), 287 deletions(-)
-
-In case, Linus W prefers to it, for the whole series:
-
-Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
-
--- 
-Regards,
-Sudeep
