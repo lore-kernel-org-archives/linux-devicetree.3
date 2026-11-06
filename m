@@ -1,113 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956916;
-	b=ItHPb6NClgpVAMCp0iuxwl9O830RB+87LAzVTzNIEk67ZL+f6QyI7XPiBOC0ucFyk+q8
-	 wVr8DmKEKQXwy4I+3R5owyXyyjGwnQbB9oKgDBsYuJCMW7F8QrDE9x7s2BM7hg1AgA2rw
-	 gWA6fWBvqvvSHxhz6YHM/+2x2NG6Bu2BMbRH3kn7pjezA8VRm+keGlwlEtVeDOZ/851fy
-	 nJsmoXGtHfsI8AKQu8c3UG71Ja7qCpEbzVH9yN1DuNuERsW+nIsMe+0P4OtFZs7nkjkyp
-	 iaWk+4z3DK4BQ2AS+2v/6Ug+ya9zHfTjD8onvlv0DdtZV4v/k4TwU21qQKIQXVd2PPA==
+	t=1793957166;
+	b=c8n4CrYEW4LmB5bLo7rxFgDmLX9EjrYUW2g1pKFqXhVinyRozyE1uwADFKS6X44Cvg/+
+	 XuC/MZxmvBK3wc55bSA0f840qAoV0AGXRC5Hebc4KugsTcgP5An+wmlZnYIOoGEYb86Yi
+	 Jrqx01shCxb1EO32QxdscZIpKBnkvqFRvgNMMifmqa7CvI9uompBya21T2wKSjtRkMtjr
+	 UfXI3EhHSZC0r+Zs4pyAKG+YVIKY3LyuXWqd6ymYczQmaPPDB/xi4evclAOi3H8EeX4rs
+	 Mxq2ucclZIsuIZpjDGYjfPDvqRj6VJ9m9AUcuWNyn0DBFZnO7zTM1aWt+Bd+GjUhGUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956916;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=9Q9bgnOsPt2pZGh1aS1ZuMPlyXR2OY5Sg5aeV9vhJ6c=;
-	b=G3A9iN2akx5Zd01NWzJRyMMuD5GobBlWGVR3NYh7r8zZY3UXk4WezVCqyZ/R/ItJA21u
-	 tpvxGd2YRjVTY6+XgH0gkONLssnHTiyHeDK7aZ60AeBtkW6fn7GOZl83qliM/vT7VS7gC
-	 04ZOYOuiiYRFtDm/uya+NgyIEi6UkUfyjfOZcy4QWvx/Wam8c+/Rw2YiEnN9zJX0cuci+
-	 8Gu8RtnEa94jnGbB47DJ2DyguFqYd7IKGcqhOK++wCDYmRLbpJWW27WkkJ+li1ceC6Ptu
-	 Qmw6iZeFpsmTC7GbIwGlRZQ31tTJt4BQecu9421Mbi8PRhCat/BqdTCC86y5WUHSSnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957166;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jrpVgRUslTPiehxcuRRm/s3XpNQuKu+K33dlXN26lMI=;
+	b=P/ymQx+EXsw8sWxWc9nEXsPmvmLRhkeDJVzTUfPKI8JUMKNWmfG3lYOfNYzLvNzh905u
+	 6BZzqm2YDD1zq74PR+5z+s2jSReNlbUBhI6MLJjMBDmuXwmJFbNJhSCOjN+nZ1DOlHILB
+	 xdI83bB82GM9QLpXMzXFD5/T4dBcBSZQsRBxJi7Mms6yxc4Pg/tmQg5DgXxw56XycH9f8
+	 q6esarCdlPeoWMbwZugo//MqPIJn2Oql4OnUbTlgWJqIowh7tLwL8RTRgMCw8EQ70r8AY
+	 HvIeQyVOuqAK04AOAnayYUTBPyqnzDNXX2B01/fe4EIuP1WfHf1zA7UZjQy8xcen9Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OKTG1eyn;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GGNkyDNm;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gZsJLVIS;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A491606D80A
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:21:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A491606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF15606A32D
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:26:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FF15606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OKTG1eyn;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GGNkyDNm
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67RTa42730737
-	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 09:21:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9Q9bgnOsPt2pZGh1aS1ZuMPlyXR2OY5Sg5aeV9vhJ6c=; b=OKTG1eyn9ccy50l5
-	I4RqtoTGWg0KsGtlON5NVsdmdZk24SeVUdA/tfqhZqhpFGw96srG0rGG8LZuxtH4
-	co2Sn22T9qRn3k+OGX20E7rpIJ4TEtGeo/SjSeAVgQyySHZqfX1+MiEhidUi45wi
-	7q586wxzf0N9v/awvQ0/mnwwMKGb0PXwAk6CvabaGkO58ye78fP4WqbSAeFPVBfm
-	6FUppPRCjA/VAR0e/xPYL9vjgOWosMxG2OsvCQuebrCjTuGnQkKj2zl6rxxj3Tgm
-	S+dT6vsWYc+jTqwhyRP73QwnJOvjaN8lfvB8iOXZDWtt0kyOgTB5+SEi8QIUu+I2
-	WBBvAw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9j22w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 09:21:55 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-370230d93efso549914eec.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:21:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gZsJLVIS
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e47347279so215148f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:26:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793956915; x=1794561715; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1793957164; x=1794561964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9Q9bgnOsPt2pZGh1aS1ZuMPlyXR2OY5Sg5aeV9vhJ6c=;
-        b=GGNkyDNme1DX6Lf/UOG7FHMSbMmkj7UlGeXCksbz+0PL43EPMaRdlvCdp1sIn1NzLz
-         R2Ajpfx4yuNP8zwmEcmp0g169c84JfOzx8R9dP8w7wX4a07rRbcrG9CPnww9w3xOt5XY
-         Nzw68+UmnNgIkpZ/0G/ilL2Bs4DK4TXhWmtDE8shn+WjAF+i9GcHe8FV0fM7L4w+2a1C
-         RqhNWolMJccT5FxWNPSoOi2C9W1P1stEtwyBbuzvUn0lkxvi4VqhNBlMTI7+LlHuAR6l
-         hop4wTKZbb6VNBfa3XNHVnJwWRXLLjQmTGMsCuEl444xCLesWjr40axUn23mktpivN+c
-         /9lw==
+        bh=jrpVgRUslTPiehxcuRRm/s3XpNQuKu+K33dlXN26lMI=;
+        b=gZsJLVIS+lm3r3p4h0s8rtNzNTnHnNBx8wghCSglvg6kzeIU18Mf87/k/aS3vndLLZ
+         lc7H5K2mr6jFbKUxKWYIQU12yyt6rZdDm511eCaN+lRCX3I7235elX3pB1ZBdulMDoGW
+         YUithY85HhKOkN1w3BF7ivpHg8cx0zWUWjwO8+ktXC3i1Hk5zsnTqT3tGNE/tWpZhTA/
+         +VwNrTzUkrvFx73HzqTdZcG+5O3JXeqhdqLR2hlDStqzOYnproZbQReDkW6TslWs+wr1
+         dOivHR/m/ssbZ/IfuFK0JNGAURquOrQrgWvRHKF6ESTg+3ep5z59A0RFWNFVLG5f9abC
+         lnaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956915; x=1794561715;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9Q9bgnOsPt2pZGh1aS1ZuMPlyXR2OY5Sg5aeV9vhJ6c=;
-        b=cIA3RIc5F3xeQkRnBRwMfQM3xCkF0X5K+KuooxLsawzrXar6VbMgPrudxjdUI2vztH
-         fmXy3Xa2gGGAB7x5gR+ME1l1ghPU+pgO9pTKPmsiCKZo60YYcRW7qFHDmmiDEm3hXky8
-         4uyATaK2cFUt4y8cI6Mq8pAf/z0l/g88xq0F9b7X7IMFxd1X2vGJo6xUepS5oBlCJxOe
-         pWrp2c+jDeK7nNcqIN6h2KalaIiRtwxuwydEk8adVIpKmDOTPeE//PfS4zANyYSwlswQ
-         iECMTrDh1PTjTtacxxYQNWOF4UnrRQjQ664fPmAmOmFmpWlUT18rfv/wRjWpPsziYtTi
-         CeTA==
-X-Forwarded-Encrypted: i=1; AL+hErHE0VMg2IDEJl2CFmFD9Kl3PlPReTLcmBe/u7JtLLungbPKMZ+fR6eMk84EY2G2Qt5sYiG0OEM9Fh21@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gfTki0Q3E5qgOAby0ucBe53RPMAZvhuZylFY2FnzqOgeT8BIH
-	aE6ryY2E6kphQEJQpwyiykbewZ7JHEhIwVS4GJeRZqUDdf0+7qmMQH21KszMtgRs77waY2cy9w6
-	o4VcbZKLBzNmXMBJ2VxsI4qGS3jOAz8CaCF02EzMqAi+dj/VCT0NVsbDKvUD4cS/a
-X-Gm-Gg: AYBFou2tS+2+H8VtiD7Gkqr9YN6t1Z91YdQuUbQQCG6p8tfVoCEUuRKSblM8qYzolf7
-	ZqMJxYQdsGwQx7AhbXeM9svSW4ozPRtO6LIq0fEL7+0R8I1uQaFcB1nLLEB3fy92fhzY2+tDeWm
-	9Kyje9Q1gcqpwaeRLjSMoPVdBDr1poUHCCDgteXw5jIDaTtagPKKE68CH8Uwwq6hhSpRu9I1Gtm
-	D6y4Dh6ChGoGZwWYmudEfFhkaSGgfdDBF5o5/9C91Ryi6sMw82HRZxBj4EBs9JSmJ0sXKI8ByUq
-	V4NnENW84cGxhJQk5r0yF9VuaQHdKiGZLvV6tRK8QSUQnCu5nSEpSm0I8THHpYas1AlNaFipbUu
-	Js5UVW/2kKSMCNnINH8KttrbmLWBofkyTLO12nIE7Av6bx/KhiJwzfg9OznXS3hM22FRmdgqifc
-	xJRnTgeiyEAhA0Zqn+BIH9bKgvKGW2zGPhrQKDCllQ8FrEGgZDaiKJSQbV7Upfnh6TghnpYelZm
-	IDmkA==
-X-Received: by 2002:a05:7301:4610:b0:36c:a281:1bc with SMTP id 5a478bee46e88-36f75a2b0cemr2640826eec.16.1793956914789;
-        Fri, 06 Nov 2026 01:21:54 -0800 (PST)
-X-Received: by 2002:a05:7301:4610:b0:36c:a281:1bc with SMTP id 5a478bee46e88-36f75a2b0cemr2640800eec.16.1793956914305;
-        Fri, 06 Nov 2026 01:21:54 -0800 (PST)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa96fe226sm4903912eec.12.2026.11.06.01.21.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:21:53 -0800 (PST)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 14:51:00 +0530
-Subject: [PATCH v8 11/11] arm64: dts: qcom: ipq5210: Add random number
- generator node
+        d=1e100.net; s=20260707; t=1793957164; x=1794561964;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jrpVgRUslTPiehxcuRRm/s3XpNQuKu+K33dlXN26lMI=;
+        b=hbvj1vBd1MMwFLSt2eZfikp0BUHzEqqy7Cs+RxnaKFaS6Z3TSzPO8cidNQ0sdG4XiG
+         oH1Bm/9iPk/r3s9V8pwtxRZHDL++gLWkXNzWn81Z3csMPaOIHDmW579CwWsyFDj68bmP
+         Kl0SPEwlfXT1nKNrzkeoN9DYRmKmlcUD55ngexcTjgE0FrsUDYR2VG2KUsIohGpp6f8Z
+         ABuvpk3x6lxQeLzg5315OsQqB4ZMyLHj2brqUjx/mzmy9D5HFw5KI5y4lqHhvtRgFTlt
+         7GaKkod5nuSpjinoG4/3Y4WpbO7hkjMwC+I5ZGZ6iFuDgYBuLrGBsScmz+If24Sg/tfs
+         3NqA==
+X-Forwarded-Encrypted: i=1; AL+hErHDVty3+GvloF4awrvTFwD8cM3I0KTY9p6HNMPk4BcPwM/b8KDEcLJe3S7mtQw6wriCSfi35/PsB24Q@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RBnuepEso/Kug5/hwgbt/+FkJ+SwN5zcn1GkzSgK6Y9yDAbvL
+	3gu6GprM3JHcg04MyDM6g9oVMxKNfbOci7rcmJQQaUMof/90Qjw/iHCBN7Xfx30VGAU=
+X-Gm-Gg: AYBFou3clkZx/7S3LUkGaatCdVkNgQE1rJm2diEhrRWbpqwhSWxe/pH8gr+DbrtzAcJ
+	IRUh/jcolycoWakqwTzEMpdX8viHFBKpVaiR5p+cSTqTI/AthDLEXn3OWHO+jHpwpuM5C7eAiXU
+	rVKEkmJfmb5ZQo8krwWsyajN1e9qp3emGNRpMxf5sIgy2v7n3AakzYy76xJSnLFOMkFv5aVPZQF
+	3qPIytY6cDsOFYqyZ3pMNPN9uCeb7WNPwKw6I8r+niLFC479e/Q8321XmMaN0qk+3FVx8FGRE4/
+	ENyfwq2Jbbk8y/ZhVIJsdk0pC0Cwzs1zcpNANjNEI5blJPK1EfAjy5TsJiTortOantLw9GKpjN2
+	06SfU8Qf7MfvaVsfcZTUHaK7WFLghxntdeVzxaUwtbJTDv0p+Dy0L4QoDeHVh8UbzBF6qq3hiRI
+	dKgyL1FBBZO0A+5jKDz9bQeJbPQWHn14ZugnDHB+8f8y9ZzpugEdA0CvHfXNDC4OowIUy9bj9WB
+	evIMxa+0Nd5cHb8t7XoqxSxF8BTPXyDPddOdvUUubHSOIeq9u3US3Yn58/IK8bWPhrBdHusq7LS
+	yhl0bEgwGy1uGVojt8m7LdrufeJ0V7Uk2sZvdOSTCuNgdfbsALGn5Og6C+1dE+xjD4urLORKG6U
+	jg3vwxn4=
+X-Received: by 2002:a05:6000:4693:b0:493:5d67:499 with SMTP id ffacd0b85a97d-4935d670512mr480307f8f.14.1793957163659;
+        Fri, 06 Nov 2026 01:26:03 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9df2:2e39:58f0:72ca? ([2a01:e0a:106d:1080:9df2:2e39:58f0:72ca])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc5e23sm2752679f8f.45.2026.11.06.01.26.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 01:26:03 -0800 (PST)
+Message-ID: <3be0c748-b840-4a22-b0eb-f6ac28380eb1@linaro.org>
+Date: Fri, 6 Nov 2026 10:26:02 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -117,75 +93,360 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-08-dts-v8-11-d91401955039@oss.qualcomm.com>
-References: <20261106-08-dts-v8-0-d91401955039@oss.qualcomm.com>
-In-Reply-To: <20261106-08-dts-v8-0-d91401955039@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-ORIG-GUID: kBsKCnnfigXXT7K_4Ztc2KZs4E3bHNkR
-X-Proofpoint-GUID: kBsKCnnfigXXT7K_4Ztc2KZs4E3bHNkR
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzNyBTYWx0ZWRfXzZfmHVLVIJrp
- 3HPgzFPv+kniP4a65PejA7y0iR/arS80Mc+RYm8Pykq0IyRimSieQ8ISEHVAjIfY4/z0na/ijrk
- UTah1ytBuuLMQ0q/zSwNGSMJU7Z6Wsc=
-X-Authority-Analysis: v=2.4 cv=XvNvqlF9 c=1 sm=1 tr=0 ts=6aed9c33 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=XHihiHp7Beehtrn9I_oA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzNyBTYWx0ZWRfX5IoBFqoqU+ry
- NJhTjGoarhtrSvzJ1FDflEMW1OQr98W0OYYrcPUdVsd3GqrcbI9M0K0D4SfcEUlRP049tnxdI/J
- P4dWOtYgXIzEZiTCAuqXuo2adWuPyNs4xZ3h5xqMZW48Vk3FHF6uDfO2gSjbHNFGaq0wTqAQ0Ik
- D7rTqZhEtKwaBaNUKOMO9My2oHC2VrUWnHO5Jra3lmRQkf9RXv40EAsKooanrzuuy+LN1CYsHyh
- 2P1E/7BUfxqCoo9AiluGCeih8UipS3vUDZzyzo3FGBpIjIvYiEbN92lGhVhnQ618hEzRSf1b0qc
- MZUmojTVmgxGDQDaVJM8CEEtUelwtLrmfeCodVDHgVY5WhdEPmF7yFIjkdmKnmJF4fNQLxYS9RF
- Ls6uaE2ByWXx+mOiXrIYapzBnAT3HNYyE4fADSbXbi4Uaq62dcJBGJJkxhSXzbSd6pFKekNWYMH
- AYdq4AuMvQ6xi7QTYrg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060037
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v6 3/3] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, linux@analog.com
+References: <20261105-topic-sm8x50-iio-max34417-adc-v6-0-63b4e8279633@linaro.org>
+ <20261105-topic-sm8x50-iio-max34417-adc-v6-3-63b4e8279633@linaro.org>
+ <auy9qPZopjJjZ3ZB@ashevche-desk.local>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <auy9qPZopjJjZ3ZB@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Add random generator node for the RNG block present in IPQ5210.
+Hi,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5210.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+On 11/5/26 18:32, Andy Shevchenko wrote:
+> On Thu, Nov 05, 2026 at 01:42:48PM +0100, Neil Armstrong wrote:
+>> The MAX34417 is a specialized current and voltage monitor used to
+>> determine power consumption of portable systems. The driver support
+>> getting the channels voltage, average power, accumulated average
+>> power and energy over an I2C/SMBUS serial interface.
+>>
+>> The MAX34417 datasheet only specified on how to calculate the
+>> accumulated average power, but with the Sample Per Second rate
+>> we can easily get accumulated Energy in Joules.
+>>
+>> By default the IIO driver only supports single-shot Voltage
+>> and Power sensing, but the accumulation can be enabled by
+>> enabling the Energy IIO channel which then enables the
+>> Continuous Accumulation Mode.
+>>
+>> The counter is common to all channels, so when reading a single
+>> channel we will copy all accumulators to registers, so in order
+>> to permit reading individual channels we must accumulate the
+>> other channels in the driver when Continuous Accumulation Mode
+>> is enabled.
+> 
+> I have a few nit-picks, mostly about the style. The only two seems more
+> important, actually the very first two (_uOhm suffix and use of a bitmap).
+> 
+> ...
+> 
+>> +#define MAX34417_MIN_RSENSE		(1 * MILLI) /* 1000 microOhm */
+>> +#define MAX34417_MAX_RSENSE		(100 * MILLI) /* 100000 microOhm */
+>> +#define MAX34417_DEFAULT_RSENSE		(1 * MILLI) /* 1000 microOhm */
+> 
+> Why not adding a unit suffix _uOhm and drop the comments?
+> 
+> Moreover the burden of a typo is now in the comments and in such a case may
+> confuse the reader.
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-index 61a58fd5d4ce..91ec7eac8a67 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-@@ -386,6 +386,13 @@ tsens: thermal-sensor@4a9000 {
- 			#qcom,sensors = <5>;
- 		};
- 
-+		rng: rng@4c3000 {
-+			compatible = "qcom,ipq5210-trng", "qcom,trng";
-+			reg = <0x0 0x004c3000 0x0 0x1000>;
-+			clocks = <&gcc GCC_QRNG_AHB_CLK>;
-+			clock-names = "core";
-+		};
-+
- 		tlmm: pinctrl@1000000 {
- 			compatible = "qcom,ipq5210-tlmm";
- 			reg = <0x0 0x01000000 0x0 0x300000>;
+Right, indeed it's better
 
--- 
-2.34.1
+> 
+> ...
+> 
+>> +struct max34417_data {
+>> +	struct iio_dev *indio_dev;
+>> +	struct regmap *regmap;
+>> +	struct mutex lock;
+>> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
+>> +	const char *input_label[MAX34417_CHANNEL_COUNT];
+>> +	s64 acc_power[MAX34417_CHANNEL_COUNT];
+>> +	s64 acc_count[MAX34417_CHANNEL_COUNT];
+> 
+>> +	bool overflow[MAX34417_CHANNEL_COUNT];
+> 
+> Why not a bitmap?
+> 
+> 	DECLARE_BITMAP(overflow, MAX34417_CHANNEL_COUNT);
+
+Yes, I'll switch to that
+
+> 
+>> +	ktime_t last_update;
+>> +	bool cam_mode;
+>> +};
+> 
+> ...
+> 
+>> +static int max34417_check_ovf(struct max34417_data *max34417)
+>> +{
+>> +	struct regmap *map = max34417->regmap;
+>> +	u32 control;
+>> +	int rc;
+>> +
+>> +	rc = regmap_read(map, MAX34417_CONTROL_REG, &control);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	if (!(control & MAX34417_CONTROL_OVF))
+>> +		return 0;
+> 
+>> +	rc = regmap_clear_bits(map, MAX34417_CONTROL_REG,
+>> +			       MAX34417_CONTROL_OVF);
+> 
+> It's precisely a single line
+> 
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Save the timestamp for the next read */
+>> +	max34417->last_update = ktime_get();
+>> +
+>> +	return 0;
+>> +}
+> 
+> ...
+> 
+>> +{
+>> +	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
+> 
+> It's better to split the assignment of the variable (that's going to be
+> validated) from maintenance p.o.v.
+> 
+>> +	struct regmap *map = max34417->regmap;
+>> +	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
+>> +	int rc;
+>> +
+>> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
+>> +	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
+>> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
+> 
+> 	struct regmap *map = max34417->regmap;
+> 	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
+> 	s64 delta_us;
+> 	int rc;
+> 
+> 	/* Sleep up to 1msec to make sure we have a measurement cycle done */
+> 	delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
+> 	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
+  		fsleep((1 * USEC_PER_MSEC) - delta_us);
+
+Yeah looks better
+
+> 
+>> +	/*
+>> +	 * When not in CAM mode, we use the default mode where each
+>> +	 * UPDATE command will move the current accumulated data to the
+>> +	 * SMbus registers, reset those accumulators and run a new
+>> +	 * measurement cycle.
+>> +	 */
+>> +	if (!max34417->cam_mode) {
+>> +		/* Reset the accumulators and perform a measurement cycle */
+>> +		rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+>> +		if (rc)
+>> +			return rc;
+>> +		/*
+>> +		 * UPDATE commands should be no less than 1msec apart for reliable
+>> +		 * measurements, since in Manual mode the SPS is 1kHz, we need wait
+>> +		 * for the measurement to finish before moving the data in the SMbus
+>> +		 * registers.
+>> +		 */
+> 
+> This comment goes up to 85 characters...
+> 
+>> +		fsleep(1 * USEC_PER_MSEC);
+>> +	}
+>> +
+>> +	/*
+>> +	 * Move the new UPDATE data into the SMBus read registers.
+>> +	 * This will also reset the accumulators, returning the
+>> +	 * power accumulated since the last UPDATE.
+>> +	 */
+> 
+> ...and this one only up to 67. Can you bring some consistency to that?
+> Same comment to other similar cases all over the code.
+
+Will fix
+
+> 
+>> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Save the timestamp for the next read */
+>> +	max34417->last_update = ktime_get();
+>> +
+>> +	if (max34417->cam_mode) {
+> 
+>> +
+> 
+> Redundant blank line.
+> 
+>> +		/* Retrieve all channels to avoid missing data for other channels */
+>> +		rc = max34417_save_accumulators(max34417);
+>> +		if (rc)
+>> +			return rc;
+>> +	}
+>> +
+>> +	rc = regmap_noinc_read(map, chan->address, &buf, sizeof(buf));
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Ignore first byte which contains the Byte Count & data starts at Bit 2 */
+>> +	*val = get_unaligned_be16(&buf[MAX34417_VOLTAGE_READ_OFFSET]) >> 2;
+>> +
+>> +	return IIO_VAL_INT;
+>> +}
+> 
+> ...
+> 
+>> +static int max34417_read_energy(struct max34417_data *max34417,
+>> +			       const struct iio_chan_spec *chan,
+>> +			       int *val, int *val2)
+>> +{
+>> +	struct regmap *map = max34417->regmap;
+>> +	s64 delta_us = ktime_us_delta(ktime_get(), max34417->last_update);
+> 
+> Split the assignment.
+> 
+>> +	s64 acc_power;
+>> +	int rc;
+>> +
+>> +	/* Sleep up to 1msec to make sure we have a measurement cycle done */
+>> +	if (delta_us >= 0 && delta_us < (1 * USEC_PER_MSEC))
+>> +		fsleep((1 * USEC_PER_MSEC) - delta_us);
+>> +
+>> +	/* Move the data to the SMBus registers */
+>> +	rc = regmap_write(map, MAX34417_UPDATE_REG, 1);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	/* Save the timestamp for the next read */
+>> +	max34417->last_update = ktime_get();
+>> +
+>> +	/* Retrieve all channels to avoid missing data for other channels */
+>> +	rc = max34417_save_accumulators(max34417);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	if (max34417->overflow[chan->channel]) {
+>> +		max34417->overflow[chan->channel] = false;
+>> +		max34417->acc_power[chan->channel] = 0;
+>> +		max34417->acc_count[chan->channel] = 0;
+>> +		return -EOVERFLOW;
+>> +	}
+>> +
+>> +	/* Get current channel power and reset them */
+>> +	acc_power = max34417->acc_power[chan->channel];
+>> +	max34417->acc_power[chan->channel] = 0;
+>> +	max34417->acc_count[chan->channel] = 0;
+>> +
+>> +	iio_val_s64_decompose(acc_power, val, val2);
+>> +
+>> +	return IIO_VAL_INT_64;
+>> +}
+> 
+> ...
+> 
+>> +static int max34417_probe_channel_node(struct device *dev,
+>> +				       struct max34417_data *max34417,
+>> +				       struct fwnode_handle *node)
+>> +{
+>> +	u32 rsense_uOhm, index;
+>> +	int rc;
+>> +
+>> +	rc = fwnode_property_read_u32(node, "reg", &index);
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failure reading reg property of %pfwP\n",
+>> +				     node);
+>> +
+>> +	if (index >= MAX34417_CHANNEL_COUNT)
+>> +		return dev_err_probe(dev, -ECHRNG, "invalid reg %d of %pfwP\n",
+>> +				     index, node);
+> 
+>> +	if (fwnode_property_present(node, "label")) {
+>> +		rc = fwnode_property_read_string(node, "label",
+>> +						 &max34417->input_label[index]);
+>> +		if (rc)
+>> +			return dev_err_probe(dev, rc,
+>> +					     "failure reading label property of %pfwP\n",
+>> +					     node);
+>> +	}
+> 
+> Can be
+> 
+> 	const char *propname;
+> 	...
+> 	propname = "label";
+> 	...
+> 	propname = "shunt-resistor-micro-ohms";
+> 
+>> +	if (fwnode_property_present(node, "shunt-resistor-micro-ohms")) {
+>> +		rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms",
+>> +					      &rsense_uOhm);
+>> +		if (rc)
+>> +			return dev_err_probe(dev, rc,
+>> +					     "failure reading shunt property of %pfwP\n",
+> 
+> ...and here you can refer to it in full using %s.
+> 
+>> +					     node);
+>> +
+>> +		if (rsense_uOhm < MAX34417_MIN_RSENSE ||
+>> +		    rsense_uOhm > MAX34417_MAX_RSENSE)
+>> +			return dev_err_probe(dev, -EINVAL,
+> 
+> -ERANGE?
+> 
+>> +					     "invalid shunt value %d of %pfwP\n",
+> 
+> Same here — use %s and propname.
+
+Good suggestion, will try
+
+Thanks!
+Neil
+
+> 
+>> +					     rsense_uOhm, node);
+>> +
+>> +		max34417->input_correction[index] =
+>> +			max34417_calc_input_correction(rsense_uOhm);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+> 
 
