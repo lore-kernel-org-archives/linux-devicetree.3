@@ -1,157 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.60
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793951617;
-	b=p8KgYp7ZsJ/Yvn4ilPSNmXTyCwPSwasQY0cnSB4XP3XyvZn6vTX3peeuLF4134pELBXv
-	 5huRVbHAh2ziIZPj85gpwlhTrAcOeAh8e1ltI1gP5X3BQp2Yq2TGR597kW8IYs7KCZ11d
-	 y1COj/PmC2hTzu4seiAecjTKYOYKwvzy84FakbMH12e6yILw91negvyUgC/3/NaAi/N6I
-	 +BYZCMBWAVpmB7fW/oWPwmAEfvtjdQWnooI8Xc6lnGUr6OVgkD+b/iMuoj+0iWZGlfoGW
-	 95+Jcviwg5lw18LZ4TiCfM+2cuNh0KNfdsTgd9dU/rToRml+ERos3+DT01xLofJYgyA==
+	t=1793951947;
+	b=TaffJHdvUFjAF/gnzEWRmrJbRHO70nSKweHCLJnNv4vPj+QjJjGL8uPC9vDOHsKb5pfS
+	 wDBM4HmLhBBOoMew7LgWEo+3Hnxd3VBs2FxuPZi3bVTXdXMCe/a/dfLymGu2wJ3owl0eI
+	 NOsv+5Y/niakaty5oJu1Anhhsm54p18Iya52I1E7hz7VXPryK/2x0BICF3OHZxgK3DAv/
+	 f450JFZf/2Y9MjDDC6QLhBcTyryWc/TXu1ynXtXrZb9kIHJ9Pv8nkHmVm80A8HcS/mci2
+	 HESOZzvoWS6xx6rGSyQSk836pHOiyZL5eDVSfS55MwlrOpKThy0AldC3aNO/YrI9eJw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951617;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-atpmessageproperties:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EPtksfaiQsxxOsas0H+1hKPRZRX8RSDJE3WLIiGROrI=;
-	b=2BG9Mgsr3UpOJThIjhcgUMdzoQ2M7Kx+akewP99JPMCpulDQqq88422VObA++tvxXNze
-	 xnslEHZ/QJW8ecYbRTwt6JfG/iibUXFAtGJRKg/kYcJsGQo1mt1F4j3IIUulZ5EQ5afVx
-	 CCFH8O/A+u26yrTBWU256OlNkTT3U6K6R1JFZEvDHhOuU0oGiBjyeFm0a8ArQpq44PM7R
-	 UPMxKoohhrZvhrUg8zRFBgSUlw9b+WUTtm2xafpA7c9Uav4bntv4FH9CiQmSa+4K/P7Ll
-	 3W2g1plKRD/POChLZP0SNqnMaveBTkFS7vQ+IwzzN4LIaUkU4UrVskarujAEKzqQr1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951947;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=eXbCjigGU5BS75dolvYG5VKNnOMuu6Ek4bzwOKxp0Ac=;
+	b=wGqZpkRIp0jk/9ALuut2qU27UeStWvqJHz1OIxEuzjWSOIT8NZiyW2GbSF+OY98ALY64
+	 yO6SwcE4SmN+uiMSf/eni57nTKdEmy+o4XOMTkTxmV7WcXpkaZ18EUmJrQOA2tLRJVu6W
+	 sR0hW9XMIGptVmKIZIhzD9jChpZBvqWGqYofqFnYG6FBEeZw0UIBc+L0JJduwbEfOcf8V
+	 QxsbOZTsI+68tu6qOtf8C0+A+h49oLEBtDDMy98vXUKm/lSgruP5j6HmycrbaSS6b0l0f
+	 mqbPy+P03G6pHSWskFMgm/GP9a1GRjmZQVRYJsYLJ1fdtDg43yS4Lrgktw71jXfYpeQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=einfochips.com;
-	spf=pass smtp.mailfrom=einfochips.com;
-	dkim=pass header.d=einfochips.com header.i=@einfochips.com header.a=rsa-sha256 header.s=selector1 header.b=UK7nbv7i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.60
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012060.outbound.protection.outlook.com [52.101.48.60])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gDLYvGNQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA52606A326;
-	Fri,  6 Nov 2026 07:53:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADA52606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CB4606A328;
+	Fri,  6 Nov 2026 07:59:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60CB4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=einfochips.com header.i=@einfochips.com header.a=rsa-sha256 header.s=selector1 header.b=UK7nbv7i
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oxlPHPkCfVRigQROR+K3qct/qdgjRGHRWGAn0svW6lnJKNGmaFDA2tYPxNQPotb6HR29R8ixCXRa/E+Gg1wC7R1TXGh6ZXg13ffiU7kFS5nMYkh9FUrCwpNvIRJN8uagfLFNrfIFkMg3nM+8FJxsKHr826ZQYoVw5KZ0lptYNQWFSdxjGgWVUl6Tho+cU36WJfzC/r4HGQ2C0KNp+Pil8DS0iSqDmYYqYTsHn0jsm9Gq5ctHkDyCP2bdusEGWNwmqZUcKnExe03cxQnmig5Bhvo86W5rYWORLrLVNAxpkE0o9oXqVfgYN0I7FMyKZX5OhCklVf7nKyWU0+66Yb/00A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EPtksfaiQsxxOsas0H+1hKPRZRX8RSDJE3WLIiGROrI=;
- b=vR0SAABhmVHMuRfngCMbOCkh4oH2YUKMzzB1LU16KoXXjOuBRZeUHJ0CivDAafM+MZ2uXWbKJ8ej25M24Zu1OuCZxk7fIR6ZO1zfBDixL3fhMPd/nUR0zKyNQfqaQqnf9xlsIT9/gLgQGoV48qbcgF6BGypxJDdpna5BXBFogtX4NoFXENnOIir+GHGfbwaZu2xaIpggyWZ8zYmEj178HUUwzT6jEa2LA3l7AhAC1FOksdx3Ag9/GzKUTBfMzezbVdl4ipLF5AjtQjJIe3718dwm+BdrCZ+LlYjMK/SI/EgSwJDKM2354eO1Ja00FKIGvvrZ2HnV6LWDTiyqn4tvUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=einfochips.com; dmarc=pass action=none
- header.from=einfochips.com; dkim=pass header.d=einfochips.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=einfochips.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EPtksfaiQsxxOsas0H+1hKPRZRX8RSDJE3WLIiGROrI=;
- b=UK7nbv7ilIJ8VK67i0m7pF3odP7hFnGB8DLyxchIIwJ0laa9eFBrjUtM25ZIhr+37e/gun21Kcu3a0clFeXkaOKM3ZKz/LEB06Kk6hLyCegm+ASndHMpMlGccXnC8da552NtxVHn/i6TMnGTc3CQ/tAL6EIvkeC9EUKOXv7laZk=
-Received: from BY5PR04MB7025.namprd04.prod.outlook.com (2603:10b6:a03:22f::17)
- by PH7PR04MB8754.namprd04.prod.outlook.com (2603:10b6:510:235::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 07:53:33 +0000
-Received: from BY5PR04MB7025.namprd04.prod.outlook.com
- ([fe80::97f1:60bb:2ae8:6f01]) by BY5PR04MB7025.namprd04.prod.outlook.com
- ([fe80::97f1:60bb:2ae8:6f01%4]) with mapi id 15.21.0546.021; Fri, 6 Nov 2026
- 07:53:33 +0000
-From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Andi Shyti <andi.shyti@kernel.org>, Mika Westerberg
-	<mika.westerberg@linux.intel.com>, "linux-i2c@vger.kernel.org"
-	<linux-i2c@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Min Lin <linmin@eswincomputing.com>
-CC: Yulin Lu <luyulin@eswincomputing.com>, Samuel Holland
-	<samuel.holland@sifive.com>, Darshan Prajapati
-	<darshan.prajapati@einfochips.com>, Pritesh Patel
-	<pritesh.patel@einfochips.com>
-Subject: RE: [PATCH v5 0/7] riscv: eswin: eic7700: Add support for clocks,
- resets, pinctrl, HSP bus, I2C and watchdog
-Thread-Topic: [PATCH v5 0/7] riscv: eswin: eic7700: Add support for clocks,
- resets, pinctrl, HSP bus, I2C and watchdog
-Thread-Index: AQHdXKRlUYF2T2bi0kumuFCJfQ/2RLcgziCA
-Date: Fri, 6 Nov 2026 07:53:33 +0000
-Message-ID:
- <BY5PR04MB7025AC1D7DF56B1F60B6E78A83762@BY5PR04MB7025.namprd04.prod.outlook.com>
-References: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com>
-In-Reply-To: <20261015125454.1381941-1-pinkesh.vaghela@einfochips.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ActionId=ead9e8f5-c11b-46c2-8a30-878c7b564e9e;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ContentBits=0;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Enabled=true;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Method=Standard;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Name=879e395e-e3b5-421f-8616-70a10f9451af;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SetDate=2026-11-06T07:52:01Z;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SiteId=0beb0c35-9cbb-4feb-99e5-589e415c7944;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Tag=10,
- 3, 0, 1;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=einfochips.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY5PR04MB7025:EE_|PH7PR04MB8754:EE_
-x-ms-office365-filtering-correlation-id: 1943339f-bbf8-4057-7818-08df3bdb0e76
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|921020|38070700021|11063799006|56012099006|261022115727099003|261022113327099003|261022105027099003|261022075727099003|261021135927099003|261021133027099003|261021130227099003|261021123027099003|261021121427099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|261102123227099003|261026135527099003|261026121527099003|261026140227099003|261026130827099003|261028144727099003|10067099003|55112099003|18002099003|22082099003|3023799007|4133799003;
-x-microsoft-antispam-message-info:
- l9IvN8wWLMKL1mcZaD+cDiyLsa8bbCuLpC6iDvGlynLzUXTJ7reNUBiMDW2NjnnQ2sWnMcSy3FR7dqEE5Yowh/XV6xFHBSCQh4qvz0bhbTJxniURdKp8QKfPmbS7TMFDasPa5zHwrXbqdXcikUzl7Fip/Jywuoea3E5DBZgm2BYvWTLv0gO5gIMRCVOkLM3CJLA3wRaoE4YaQ0WxtFlsbdi0VIlTklL5tHAUls3ssox6XidSogBtj6Y0ZscHcCDX3L5Yztp84zIhkqSwTuAbN08odSVmbpK4rrwXGIbf0LaIoiF38GSe0uxmRiyA5ZasFs5Q/3MM/NaBvuzdiD9xzeuz8QNMa8QWQnx9x0ldA1MxrIjzz+lQjovBUPicIKvp8NQnlhNMAOn/P0DTnIpf6YxVscMl00cYOJ6wgL5ViCl+DkEVI7dpaEOAe3TekIkjvSYSfSq3hK8K5KxPV2ilC0hdOklGu4GJcE/OC0VHtrd50pIh+a1jjrJHv3KPCKVtW68WjvdjyvKqbd7VPn9QGcu/l3w+29F4gw+99PPGBCVJEHi/o1nemkRVy9OowHpRd8Y7e3dIigOgua+fZAohggt0o12MBn8Zdgig+U+GsN+BK+GbCv90SIGGHIiGlgteoK3QGpSYgqtznrUWJa8hBRyRxLFHEXiO6+B3SnmnCJ21Dax+m/gtElMp6Kb0xPnk
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB7025.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(921020)(38070700021)(11063799006)(56012099006)(261022115727099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021135927099003)(261021133027099003)(261021130227099003)(261021123027099003)(261021121427099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(261102123227099003)(261026135527099003)(261026121527099003)(261026140227099003)(261026130827099003)(261028144727099003)(10067099003)(55112099003)(18002099003)(22082099003)(3023799007)(4133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fnMhp2CYcFTfM/GirQ4E6YZoTtE1q/n0o4qOGtaWmO2aqZW2a58CXerPT/rF?=
- =?us-ascii?Q?R52u4lCF6SoEXjO0ZreHQx5bM2lyUnFCol2YW6FTp5hCwVhAu/ia8TtFQZnb?=
- =?us-ascii?Q?4pI+1FU3riferd6k0Eu0ORN4WcpUnU/GNvXOMxPu71izMgYJGZVzRmLNnC/P?=
- =?us-ascii?Q?KrYrop2wwU3ELn70ZS1YtRAAsSwBrfxLQufT0thcX6FquL0NWe9TBPCCmf7S?=
- =?us-ascii?Q?uTj6DBEVc1H8IoQZtD2cQXjbwUeSpoFQtNAgM6TCOKORFvSltqZ3Dhf+riz2?=
- =?us-ascii?Q?CwAgolUNQWNpfi24pC+2VgwbxyeBbpkGx559gGmQr7pqnMi04Xf89T00JFwb?=
- =?us-ascii?Q?tOLcXSf8y8/xAC70iNknKuPfKSegDX5pECI7d48Qnvh2DXuD0NaDVtw+CY2Z?=
- =?us-ascii?Q?8ziSS+OnlEd3Q1njQkR4d8k1wykli0dy2bKckvyEQutfPhpT8Aq4AP0DzuGN?=
- =?us-ascii?Q?HjTcvQ7jr7wOZCcYxY3X5Q6DE2ml8PB/IDNk13ZVJ2eN0MJlsw/kmVrohByY?=
- =?us-ascii?Q?24+9W8qfyTUOBCVunKG4M2PLM7T/ITUah0yEeyeU7vHUe7EcT7KlF9KhGsio?=
- =?us-ascii?Q?n0vo0TVLuS5bOsGlDMncRKQcEZiTnHxNZkuXbTUPVBanqSBhZhwWWtKwbyuJ?=
- =?us-ascii?Q?IFgbniPqdbWPSKrZth6PondtTRM77PSky5M85QTA/UDg9cn5dvDnLxNIVwNZ?=
- =?us-ascii?Q?y7vCoJqWOCKs9vng0ut1cJg+OVlsMQETDsR8m6GX6tJ9ofsJlRSA5VLqCplp?=
- =?us-ascii?Q?RF11gnr3Gj3SZdFwbzVASVnwftDEVka89FRZ2ke1V4zRWMIFmUkT6Syk3bnC?=
- =?us-ascii?Q?N8prdZ7xW8U032+ZmHPmZWyoR5tN3ZUt88gFAyrFhXfY+DurDhWyVxLeVxAH?=
- =?us-ascii?Q?caQxfR3WFXA1+kObO7HYfj9Q0Yhi4E7SlT9kGXaTAffzMz68e1TSnlK+whSC?=
- =?us-ascii?Q?WpPO+rX2Ifnbi2NzQVf2vDT7FXd0aj/v5QkN41jf136qO1zFZ3xMzz1PYZNw?=
- =?us-ascii?Q?n8riWzeBUXzzee8xk5oQmU8CGkF0OKGCqcfcMQcQWuPqw/wrGvgtqcqT+urc?=
- =?us-ascii?Q?Kf3JQ4bTBp6khEpUpfGF1mJIy+URxX0ORwnu7ytOKr7+FiBNWKcmkIssGpQ0?=
- =?us-ascii?Q?SzBTgOUhsPhJRDYXLv2oLx4JEGxECxYARe8ukWcNbUBtdyHgCTcz2Peia4qM?=
- =?us-ascii?Q?+ABg06fEtATP5fmqSbKefY17KtuHRd4V4UpGRgF5MgA84QRmKQPI8Xx80Xc4?=
- =?us-ascii?Q?q92Z826OXR6QtDGBwo4chwY9zwvT/gQDrKg8OYnr+YgVR2pG0FOvFtPQJ3KR?=
- =?us-ascii?Q?HERfAFDoqromsVGV/or7d6YVOpk/C+7F8L2osTeETow3PqS3rsM5HNvZkQcz?=
- =?us-ascii?Q?DKtAKDuXjAEe1XvMT6UZ5YVxUMHjgfW6ibhO8c40kUve8QmvEH0vjqEKSwEN?=
- =?us-ascii?Q?XDMu0ViC3bj/gB2V+leOBIVpTWF1XMLRtQb75NENpbciuRauzpcw8pUl0Nt5?=
- =?us-ascii?Q?ky6ApmGq8dGYxGG3ZpNOHQFmkOu4gJ2mGNSi0fICEgCULIGfNxFu3/Irs/1u?=
- =?us-ascii?Q?ZLwkBloNjeHHAxPj97yQV1rigDfhEZ1ZVaVXNBvH7PqvCWnL44aeS++BtQxf?=
- =?us-ascii?Q?pqO3Z6PWKU2G+sGU01VZhx/j3uGggDALlcwKFHEnHNMLWTIHBYE7+qyuG+4u?=
- =?us-ascii?Q?kT0B6yfchb7bIAQtyGQWHie/wlGqsFhDerCEe8cpBQ3Y9RlFesNFM3RAvDjH?=
- =?us-ascii?Q?Hs0tqcGEug=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gDLYvGNQ
+Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
+	(Authenticated sender: str@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 66CB620178A;
+	Fri, 06 Nov 2026 08:59:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793951943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXbCjigGU5BS75dolvYG5VKNnOMuu6Ek4bzwOKxp0Ac=;
+	b=gDLYvGNQKrC0vSft805W2WWjHT75atIiGd8aK8pETwcsO5YDbouw+MZ9fj5fmrRutmldQ+
+	LE/9NQC6hGLPCuUVOUuXhqGysZehz+IQR7QB6IL2J2HmnJko8GV4R/+YNN75pGpMRfGtZM
+	TrzC3Pq/+K/qL9A/nGFTiJQ/xCPpwCduE+g2ujU2FcQVhAOT6y/7SN0rtSr3496vNftQc5
+	dmhCPoW1/iTNjGBOF1XprvHPgJcLresUxGbxFxY57uJYLIZYtsDUihGiil3noFlaBaWZ38
+	ivnIqw//la3AzzM+YJFCHAc21rW9l2DLXUrE1eTU+jzPr/6jL5JAxlzItmCqHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793951943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eXbCjigGU5BS75dolvYG5VKNnOMuu6Ek4bzwOKxp0Ac=;
+	b=W31InUM7Vkx4gbu9EAYsejRuJ2G21k8hpvdSgaqucK28vJEWjmwyqBb7KMF7tN4yV9Wqzw
+	xiGAq+ZLVUDl3ofYjoo+LwXzWFL3hQUxtFWdlPM1t0iPvQRr2fblrlW46q0qBoS1WDSN9A
+	yXXHynGge7qpdtD2A2b2oi4QTuJ3IRKD/NyQith4KzlorlqwjAW1+Yb18EDtvAhWDLN56g
+	nEvZaaWUzn6Jg27WWX18ZDQfb6kLlif2YC4dPM7zMyNyMjJM8i1D0f2GmFeeGANm02ufHB
+	DTsa6G/xe7Hba3RjUr8P0ezeEe1CaOdkW421HSUkckCo2vwaAMQcaEPAWXtEyA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793951943; a=rsa-sha256;
+	cv=none;
+	b=SbVbQcaoQhcofB8Qr1xkAGgqiq3TKkO+QRirDx1XwgK8NCuwmNcSikbh5lBz35qX7fyWqC
+	pFJ8wrLmpfdY/NTMNTAafjQn6A3Ape1SvGVK1KkYO38Ak4KPlAAMwIgxvGdiYaozc2HTqY
+	MXptJBl8u0HfTDwktM4O5vTBI8IPHSJ1NMDCGUHGA0w/k2y9pwosceam6Iym6X9w1Gnuev
+	7zDBp+pLjg0IWdjlgN530S3+erongjebbnbE9MaNNZWc+fqEtJHwbkcYTjYGtOltKEhn/6
+	KLIysmsfjgWzQEkUzzznRFhlj92cVe20I1O0huo9o2q7W1JTPXKlTEQsZ/uAew==
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Fri, 06 Nov 2026 08:47:26 +0100
+Subject: [PATCH net-next v3 2/5] dt-bindings: net: dp83867: add compatible
+ and reference ethernet-phy.yaml
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -161,84 +84,96 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: einfochips.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB7025.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1943339f-bbf8-4057-7818-08df3bdb0e76
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 07:53:33.6252
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0beb0c35-9cbb-4feb-99e5-589e415c7944
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: G3Z0LlvsMz6d14+fPzownRA8Hm3AjMNam86vPvrDXeo5343TT7yEBAvWuIL8710ROfKvmiywL73+yvx5htdlFbOwqWpxeQ1jkMTcPhHTcvE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR04MB8754
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-v7-2-topic-dp83867-v3-2-45e1d3adf1bf@pengutronix.de>
+References: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
+In-Reply-To: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Michal Simek <michal.simek@amd.com>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Steffen Trumtrar <s.trumtrar@pengutronix.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2212;
+ i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
+ bh=Sg2dYJ3IiZs2iqpA2t9cb0c8fY3JPwCcoA8EgjGoAdE=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bbjqNlhxj92Jal8ZRPzrGtm6n+6xdTu9iJfQaTvvCZr
+ 7/56lpORykLgxgXg6yYIovKwgo+UY8PnpHTRLhg5rAygQxh4OIUgInYCDIytM9Urk59NZnrycvM
+ 8z+Wsgs7ufJvy/0eKh2/0imRqyl5A8M/TaMpAVuEzsqbnG9/8Mb77MMz1Uvu7jSu9jjz+khkT2g
+ kJwA=
+X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
+ fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-Hi All,
+The binding has neither a compatible nor a select, so dtschema never
+applies it to a node: neither the example nor any devicetree is checked
+against it.
 
-Gentle reminder regarding this series. Any feedback or comments?
+Add the compatible of the PHY ID, optionally followed by the generic
+ethernet-phy-ieee802.3-c22, which several devicetrees use. Select on the
+PHY ID only, as the fallback alone would select every clause 22 PHY.
+Nodes without a compatible stay valid, but are not checked.
 
-We haven't received any comments yet, apart from the sashiko-bot
-(which are already addressed in previous versions).
+The binding also references ethernet-controller.yaml, which describes
+MACs; its node name pattern does not match a PHY node. Reference
+ethernet-phy.yaml instead, which also describes reset-gpios and the
+other generic PHY properties existing devicetrees use.
 
-I would appreciate any feedback or suggestions on how to proceed
-with this series, or if there is anything else required from my side.
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ Documentation/devicetree/bindings/net/ti,dp83867.yaml | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-Regards,
-Pinkesh
+diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+index 4bc1f98fd9fe..2cd8311ece5e 100644
+--- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
++++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+@@ -8,7 +8,16 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: TI DP83867 ethernet PHY
+ 
+ allOf:
+-  - $ref: ethernet-controller.yaml#
++  - $ref: ethernet-phy.yaml#
++
++# only the PHY ID, not every PHY with the c22 fallback
++select:
++  properties:
++    compatible:
++      contains:
++        const: ethernet-phy-id2000.a231
++  required:
++    - compatible
+ 
+ maintainers:
+   - Andrew Davis <afd@ti.com>
+@@ -28,6 +37,12 @@ description: |
+     https://www.ti.com/lit/gpn/dp83867ir
+ 
+ properties:
++  compatible:
++    minItems: 1
++    items:
++      - const: ethernet-phy-id2000.a231
++      - const: ethernet-phy-ieee802.3-c22
++
+   reg:
+     maxItems: 1
+ 
+@@ -130,6 +145,7 @@ examples:
+       #address-cells = <1>;
+       #size-cells = <0>;
+       ethphy0: ethernet-phy@0 {
++        compatible = "ethernet-phy-id2000.a231";
+         reg = <0>;
+         tx-fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
+         rx-fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
 
-> Changes in v5:
-> - Rebased the patches to master branch of linux-next tree having
->   latest tag: next-20261014.
-> - Updated dts file
->   - Arranged the nodes in alphabetical order.
->   - Removed the board-wide GPIO pinctrl state and attached GPIO84 to
->     its gpio-leds consumer.
->   - Moved the invariant I2C pinctrl states from board overrides into
->     the corresponding SoC controller nodes.
->   - Removed enabling watchdog nodes and describe them as enabled at
->     SoC level.
-> - Updated dtsi file
->   - Added pinctrl property to all I2C controller nodes.
->   - Sorted the always-on I2C controllers by unit address.
->   - Removed default property "disabled" from all watchdog nodes.
-> - Updated pinctrl.dtsi file
->   - Resolve missing space issue.
->   - Annotate all nodes with /omit-if-no-ref/.
->   - Removed duplicated base pins from the quad-SPI pin states.
->   - Split UART1 RTS/CTS from its TX/RX pin state.
-> - Added "Acked-by" tag of "Andi Shyti" for the I2C binding patch
->   (i.e. Patch 5).
-> - Link to v4:
-> https://lore.k/
-> ernel.org%2Flkml%2F20260814070007.1662455-1-
-> pinkesh.vaghela%40einfochips.com%2F&data=3D05%7C02%7Cpinkesh.vaghela%
-> 40einfochips.com%7Cb78c1508aaeb4bdb3b0e08df2abb846d%7C0beb0c359c
-> bb4feb99e5589e415c7944%7C1%7C0%7C639276657039833278%7CUnknown
-> %7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAi
-> OiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=3D
-> 0Q%2BILsWWcdMH%2FxKUR5Bb9%2Flc3eIl5UTMl18p1KxQIX4%3D&reserved
-> =3D0
->
-> Pinkesh Vaghela (1):
->   riscv: dts: eswin: add hsp bus node
->
-> Pritesh Patel (5):
->   riscv: dts: eswin: add reset generator for EIC7700 SoC
->   riscv: dts: eswin: add clock generator for EIC7700 SoC
->   dt-bindings: i2c: dw: add ESWIN EIC7700 SoC I2C controller
->   riscv: dts: eswin: add I2C controller support
->   riscv: dts: eswin: add watchdog support
->
-> Yulin Lu (1):
->   riscv: dts: eswin: eic7700: add pinctrl support
->
->  .../bindings/i2c/snps,designware-i2c.yaml     |    1 +
->  .../dts/eswin/eic7700-hifive-premier-p550.dts |   91 ++
->  .../riscv/boot/dts/eswin/eic7700-pinctrl.dtsi | 1065 +++++++++++++++++
->  arch/riscv/boot/dts/eswin/eic7700.dtsi        |  255 ++++
->  4 files changed, 1412 insertions(+)
->  create mode 100644 arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
->
-> --
-> 2.34.1
+-- 
+2.56.0
 
