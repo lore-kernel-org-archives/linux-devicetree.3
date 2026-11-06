@@ -1,48 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957393;
-	b=Ir+vqWt5YHVroY0CAFxnam5hF2kxVzCBGPtoyRm8+j9G03GtIvVs2zk/lWybWr+AAsV0
-	 d0JBRjmmfcvflM+wZ4ocSW1b9yiN4HlfPtfrE5jP3SA1QBikNvhqUE53c6ZsFey+wvYlJ
-	 5WzukHNhhaMyLn2vY6QsQTQaI/fDQ8dB+uA07viA8yN0KSfDJ/dXUCQmJKIvbq7kPyQab
-	 /6KZ/eI93WIVL78ZwOWn5tX9OpKzH9ZA+jXaRAv1jNKpKNI9yZXiKSG+fcUh0d3WcxRRW
-	 BbafNOJf7HjwbcwkFt0wRUaJfVjXeWXlwSS7WcpRop/Dv7EyScMzkxFbpnyXIfVpQEw==
+	t=1793957456;
+	b=DVeiDf8QJO11vKz/duTmi8zStB0cBIGexjv0YimCou6kZWag12HG+GJTjlCKgS6zotHa
+	 X0dUXMW8N1f/qCQSVmLKFaTjeRFqXU//tIS6Nge9UOkbfbu9Eq3xW1+41amJ6XV8HXz3z
+	 CPBa8IGXxSQx+mnV8i6ky8SvSydaPEbnnZLN73ZICzFbG+sG4NyN0awblH/ronGolRJle
+	 rFJOrLWXmqnRLCgqDSflLXkuWEcANet0a243p/YjC6qpQEugNgV4+eoQRgcGBPFNaCmNv
+	 zaR9Twt/DnmFXZC94ngTARRGjivXDFskT0TxRUCzc0fWuz7+Ne4QY5IqUue+NO/1ubg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957393;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MQ9OkB6wfqdTgcVkBd82n0DdBKm1PB/QvTWs0MZGpyw=;
-	b=xbLYefXowe7disDmo+ekVhODtps7xzsO3k9r047apzSTsUmub1QGUc53yGMIKZgSVj69
-	 h+W/zcXxnHUtWy3EfkeH/84b1Hkhkjmt/z8RKYznjtlHHZB8qsu0HczevqV8kCIuqGoQR
-	 sjqG8ojtP+BOP2Cq+DwzsigpDpYFxRCOOt+xUrS4L43HJPFIbBO2E6c4vqq5DBQMv3AsU
-	 Lr1IiTa94lhzfQrLgUx1TbmnA4+NGyKIVpHlBwgzxgFU6BJo0iq/iWH1+pT3/SAoGOloU
-	 /qOmb7zmPnnqS7kqtaEeYxMBc5osXI48Nlc91EaOtV+E+WKW9PnOHIjGtUNFXCNAIpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957456;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=SHm0AteFxuKOwxOjlVILodPtETBXP7hD3plfwEFTqSQ=;
+	b=QnQMqCXsNSCJ2RPNymbd4iTu0om5mBGW9qxq6rwkK72AFv0DolAFzJn3shacjAy1xrTX
+	 3brxVjdTQVWXfwQ7WpZ+TyQJDTlOiyF7BzfTE72h/XaLEsV4PgdniZhaBYboOICHavH21
+	 pNvBW2D2bvTjF0ilHPahKFevrI2dUD39HMdGS/0zaH0J6QFr0itBv4hl+lOmq7j3U2jWR
+	 Ajy6tUIMjwFWsHX8nrbniTTFzPiIig7ENh9vWREU+RphWDXvpKYLdDKO3ETwxc56xPmbd
+	 HzGqx471koza5MHrwdo4CvQjPQpxyoduDj/h5rxsJ8WI/5WJIt4KFBTV7U9MMuMHb9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+ynfFm1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=S2GzPxSj;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C756E606A335;
-	Fri,  6 Nov 2026 09:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF12606A329;
+	Fri,  6 Nov 2026 09:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CF12606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+ynfFm1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9401F0089F;
-	Fri,  6 Nov 2026 09:29:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793957392;
-	bh=MQ9OkB6wfqdTgcVkBd82n0DdBKm1PB/QvTWs0MZGpyw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=f+ynfFm1lMlvrWztprxCIOa3Xn+dvSau3++K8ZnlhqFYcBqHrMgvEooJsrxZFY6Br
-	 M4+t4QjhkKR7SOhV5J+V3IVh2OS9Ki0IvnzAMICx6vlPt1zkJfQc41xxCkleH4l8ce
-	 BwxEAJWpqHv4wLqD1Eo4DddcUrcDJMtYuHCLXHgiBW65CqsqEsshYbtNMma2IidzY6
-	 APCr0xl/aoZ+cev/aeWFculsP65dc1DruHSYR2L3c1GX534bcJvzg0hVBsuiZK81s+
-	 /OEX3I7t8MYipba7CcgJUPFtPq5+FfPgJGBgWWrW5WhwOpyehDkhSjnarC5uf82jDV
-	 upUR0D9AoUN9A==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 06 Nov 2026 10:29:09 +0100
-Subject: [PATCH v3 8/8] arm64: dts: qcom: Add Glymur SiP CRD
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=S2GzPxSj
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 582A41A0DA6;
+	Fri,  6 Nov 2026 09:30:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1CC8B5FFBC;
+	Fri,  6 Nov 2026 09:30:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D258E1032927D;
+	Fri,  6 Nov 2026 10:30:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793957444; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=SHm0AteFxuKOwxOjlVILodPtETBXP7hD3plfwEFTqSQ=;
+	b=S2GzPxSjpvUeXv9HhBo+yI8ELQmXQ1gLJRsLtHsc1gB4qMc2Cg/yer5MpNZINHYd6b9zmX
+	nq7LBhAvb2FeUUyUMweM3e69TEuOPH+PSjpqKP8iIBmmnTWtgmZWBLTQKaegy8Dvv3N+rl
+	I09tiujlzMrDJcp/I3frt3C8KJ7QmCnR1ULbnEnsF+SgF3g8BFvNWwSifnCe01AGTUaUky
+	hMAbU4DWJDyh6+CW5OHyxCAFIocJqTi6rSrx9SnrlMScKXNji3+G8d3dnG6Ha78Gt4fZs6
+	iDReX4aecjwx6eI576V4QcUYA9YgMNZ2qUDDnd4ILBtpiIRIgPODLAdE08gwUw==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Date: Fri, 06 Nov 2026 10:29:58 +0100
+Subject: [PATCH 01/25] dt-bindings: vendor-prefixes: add Metanoia
+ Communications
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -53,84 +65,65 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-topic-sip_cob-v3-8-52cd3826ab49@oss.qualcomm.com>
-References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
-In-Reply-To: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
- Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>, 
- Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
- Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261106-mt2824-v1-1-86087eaf5af4@bootlin.com>
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Ben Zong-You Xie <ben717@andestech.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Minas Harutyunyan <hminas@synopsys.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Randolph_Sheng-Kai_Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?= <randolph@andestech.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957348; l=1849;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=vI7NkJXkioSvW8rX6O7CD/xKKKlgwoa1oPgcQyYMCK4=;
- b=CJNa9AxG2ApR6KUIwz91Rf/xTdXnufAZcpZ9JOb5TiudvD3Vs2sqpMJMC6pY67zsPslhk3S0A
- 5vWodauWn7PDHgH7qMe72I9YQ0nQLEFsIrN1/aswgFbxcYcO/sGNj9+
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Add the vendor prefix for Metanoia Communications Inc., a fabless
+semiconductor company specializing in wireline and 5G radio access
+networking chips.
 
-The Glymur family of chips comes in two flavors: CoB (Chip-on-Board),
-where the SoC is soldered down to the PCB and SiP (System-in-Package),
-where an entire module is soldered down instead.
+Link: https://metanoia-comm.com/about-us/company-overview/
 
-The SiP flavor is used for the couple highest-power SKUs and brings
-with itself a different power grid. Add support for that.
-
-Build it on top of glymur-sip.dtsi for the power grid and reuse
-glymur-crd.dtsi for the rest of the board description.
-
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile           |  1 +
- arch/arm64/boot/dts/qcom/glymur-sip-crd.dts | 14 ++++++++++++++
- 2 files changed, 15 insertions(+)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 830c43000897..2684cac9f9c8 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -22,6 +22,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= glymur-hp-elitebook-x-g2q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= glymur-lenovo-yoga-slim7x.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= glymur-qcb.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= glymur-sip-crd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-advantech-som-db5830.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
- 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-sip-crd.dts b/arch/arm64/boot/dts/qcom/glymur-sip-crd.dts
-new file mode 100644
-index 000000000000..5b4c6f80cfab
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/glymur-sip-crd.dts
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "glymur-sip.dtsi"
-+#include "glymur-crd.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Glymur CRD (SiP)";
-+	compatible = "qcom,glymur-sip-crd", "qcom,glymur";
-+};
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..085749fb8a72 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1087,6 +1087,8 @@ patternProperties:
+     description: Cisco Meraki, LLC
+   "^merrii,.*":
+     description: Merrii Technology Co., Ltd.
++  "^metanoia,.*":
++    description: Metanoia Communications Inc.
+   "^methode,.*":
+     description: Methode Electronics, Inc.
+   "^micrel,.*":
 
 -- 
 2.56.0
