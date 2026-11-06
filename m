@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955483;
-	b=XJpkuiQQZU2AjtNxzYELbEYBkiuQuKeXFOX38VpkYxMOwjbs7L6DSIkuu1rBYt6PrrRY
-	 53rYoPRC4bDRwo8RT2XpevSnKRjzCo+ndjP8H5yxYu6pU7FrvPhsncn25XyLLW3NmzzyC
-	 rbCyRUNvSCkn5Kk7WQN8zC9ZO75RkAW0GHGo2SmII25061Tcbo0TJlsW4C92ZLO1kt8q9
-	 RObVmONuOb5osDl6Xrt5NbbofcNacP00XQSMeU7L8LMEVF+bW41bUvB5Ev70/3C1aAY7R
-	 NBPu2on0EVQYETnDxAyOuRcCPx8a1TeityG2OAX4pNN7zhwibtihL/qecbSnuVcXMBw==
+	t=1793955542;
+	b=SLfWV9wYuRC6UF+280Q0jtEZ9qunQG/AYLp++9U6mC/1REAvLACnjMVit/HGsMuOU+O2
+	 /XsoPBRziDZRtPGpvfk1f3Y/bv9L75Xy+rp936prkkSQ0Enq8trtzhKjtAEUOdPVW0SBi
+	 Jip2t+5lhiWN/6m6Syu5jSz1scZRSY/oM/lzZnA3L+hc+uaXv+5mDc1BxlkmhHV3X8hS4
+	 pLzgRBsTWuSctR0dAXFAjSu9PMv8iB7el4PrvNGPaIUgK+h/4DhakL1PZLLz1bb+hbk3R
+	 CIQnQ+PD5DkY0MSCmQzNRinP5zQrnseuLWjHAFQMDri9M+hIqLTzhnR86oGIyq2lzkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955483;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
-	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=PY61Bo/uNuMLQAjUINsDRBUGz2msaVpktNqybpo7zBY=;
-	b=IsobOgyL4PE5stBXW0fXarU/WnT42XYQSf5KInDCHQGhmEhzBSP2LSxNqT8zbeSvIL2T
-	 UZXtkl7h+8IKmZjytdx+7uKibg+bElfiexQRgWeFaMn6zCtlh9qHS7J/IOgXGZj+BZtka
-	 D8RwmPANXg4BCVI9+UVtCjzzEwp3Sm6i4/JSXrkHyre/T7Nq7JooyTZjw4TxZraUbWxGo
-	 EnInGWMfr3EDBSGrTQZLnDDxbrFtbGrZd9ELfESehhHxZykBqchkK5sV+rvynkA0sL8O+
-	 WFCwm8D0Rcxd1aMXlU+9S7uQ3U5pCEHjWCqU90hRtcd/7jtJCzT98CQUIq+bOs3hExg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955542;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=/zM5ypD0ZNehy65rGV5+3Er/ptcezwHYcPneahhLRUc=;
+	b=gFj4SDJiJ83umiD6VxA+eJ0l39R9/DyJvmzjUVtuP/Y5Frds6jiBl+m3DxNZWAxd1hqL
+	 EDn4VFYeTPIJvqejLEFKxMHhOaZAZgtzlMsyx2mZQH8JpI2YjBhuKGHTGpSkIXPnWRz4b
+	 G9St3zFhLd7/L94KhBajLJwVadFp5TglZGRaj8nIDfgUNd+POM4BlMkqeSJ9TItnVp1oa
+	 kvsE/aq9jA0GiyujVEtV3zA+Jy1F6yShzwV6RFDjb1qs3UNud2/Ny75X4tT04vw1RD1YC
+	 hkeH+IaTGx9rKMIcQ2UeXzorpoib6dOZHjTURahldoBBBc4umt5l7g/EjMo/icV7SHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jonasjelonek.de;
-	spf=pass smtp.mailfrom=jonasjelonek.de;
-	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=FFQHBnVT;
-	arc=none smtp.remote-ip=212.227.126.133
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2MHa6RD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC00606A326;
-	Fri,  6 Nov 2026 08:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC00606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC2A606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 08:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=FFQHBnVT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
-	s=s1-ionos; t=1793955461; x=1794560261; i=jonas@jonasjelonek.de;
-	bh=PY61Bo/uNuMLQAjUINsDRBUGz2msaVpktNqybpo7zBY=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=FFQHBnVTkTxqSyGYvENOxqZgBtSu14qP0PgPFeu1CtQ0iroTarTDlPmwPKNhDyos
-	 v1YvZqVN5maHwMZgAxm5/47gM6Z4YSJEze2292dD/aX720I6T5KDQFRd/ZHUzeN5H
-	 BT4nxXXjNCnvpjvsvZ8FVCyVTtuba0BQ3hSj40lmH10rK0Sxf2iw2cYuUd8E5bWXp
-	 71knUq6A/lA5px7dfTp0thhUsgUjdY21ZX1PP2GzeYTFnqnjJ1D2Zu6Zk8awiP1o1
-	 yKVloh0i7jQTmz+i35vDcNBPX5uSeq5TE1xZz9z4aic26Kj/9VAQdOutcrTzQ2bEG
-	 efP9luDRe5vxwUFlsg==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue010
- [213.165.67.97]) with ESMTPSA (Nemesis) id 1MT9zD-1wvw9S2rB1-00I00q; Fri, 06
- Nov 2026 09:57:41 +0100
-Message-ID: <61a81174-5c07-42fc-a5f2-0a57467c8675@jonasjelonek.de>
-Date: Fri, 6 Nov 2026 09:57:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2MHa6RD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7B51F0089F;
+	Fri,  6 Nov 2026 08:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793955541;
+	bh=/zM5ypD0ZNehy65rGV5+3Er/ptcezwHYcPneahhLRUc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M2MHa6RDCIg4zjKKvHts5VoPCOnSwr8aiwDCqdYcCc/M+Xsl226izLZY505D0V4jS
+	 ZNWAZyzReXLXy7B4yRzMZzVMuX5c9IGlx6cezE1BJTy4Yj4rULWSgrRsd3xXTzxYtX
+	 fjOfvn3ljib8Va0X/z8A25osavHHD0wfhzdcWdxx4dyYbbwJTKLIHodCgqKUkPmxqR
+	 xqs8Zk97Q/Eb01QZocBFIkM832apRdQe2kn6OsHa3Qd2D6amPzL5SR6uodIl+ESPhR
+	 VUgxImOkBXKtRTy3i6hQmTYcdTtsTpnb2cZxNKLT4ca56SoUItv4oQqV4vWFoYc7Fj
+	 F6KLOkPcqMSNw==
+Message-ID: <sashiko-outbox-201096@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 4/8] media: qcom: jpeg: Add Qualcomm JPEG V4L2
+ encoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261106082522.1448390-5-atanas.filipov@oss.qualcomm.com>
+References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
+ <20261106082522.1448390-5-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 08:59:00 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,169 +60,562 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
- global power budget
-Content-Language: en-US
-To: Sander Vanheule <sander@svanheule.net>,
- Kory Maincent <kory.maincent@bootlin.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Russell Senior <russell@personaltelco.net>
-References: <20261103220312.860629-1-jonas@jonasjelonek.de>
- <20261103220312.860629-4-jonas@jonasjelonek.de>
- <5e00fd7f-40f9-4041-8dfa-fff222b57b92@bootlin.com>
- <e0910567-999c-4c96-9b20-2e34434bec3d@jonasjelonek.de>
- <357f6311-7f00-42c3-8eec-e0fd0c35749e@bootlin.com>
- <86b137d440c29b92ea56a69fa6ad27970090f126.camel@svanheule.net>
-From: Jonas Jelonek <jonas@jonasjelonek.de>
-In-Reply-To: <86b137d440c29b92ea56a69fa6ad27970090f126.camel@svanheule.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-Provags-ID: V03:K1:zHZ0q1JwrQ8l0aabg3fUwosQCUR1lI8awwkcwo4VgIzWUL/Dsbu
- 4w6KI5TfDkuFY9YkplhpIrRG/0oc8w6nFnrxOguAck2cCfj3/AHvFQbzp7LeYhfLykWD/0l
- KXNFPphCst25n6kogfepmM7+xZy6AJt1a92IiOWBegw5yWw2ESDaMuM7ow254IJthxJSsed
- uPYr1rikXB+dJzbNCOrdg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:oUkByNIwEZg=;nQijZbTK963UEzjzaVxNTkZqNob
- 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
- R1ZA8aaL
 
-SGkgU2FuZGVyLA0KDQpPbiAwNS4xMS4yNiAyMjo1NCwgU2FuZGVyIFZhbmhldWxlIHdyb3RlOg0K
-PiBIaSBLb3J5LA0KPg0KPiBPbiBXZWQsIDIwMjYtMTEtMDQgYXQgMTM6MzYgKzAxMDAsIEtvcnkg
-TWFpbmNlbnQgd3JvdGU6DQoNCi4uLg0KDQo+PiBJbmRlZWQgaWYgeW91IHVzZSAicmVndWxhdG9y
-LWFsd2F5cy1vbiIgaXQgZG9lcyBub3QgdHVybiBvZmYgdGhlIHBvd2VyIA0KPj4gc3VwcGx5IHdo
-ZW4gd2UgY2FsbCByZWd1bGF0b3JfZGlzYWJsZSgpLg0KPj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxp
-bi5jb20vbGludXgvdjcuMy9zb3VyY2UvZHJpdmVycy9yZWd1bGF0b3IvY29yZS5jI0wzMjY5DQo+
-Pg0KPj4gRG9lcyB0aGUgUFNFIGNvbnRyb2xsZXIgbmVlZHMgdGhpcyBzdXBwbHkgdG8gc3RhcnQs
-IG9yIGlzIGl0IG9ubHkgDQo+PiByZXF1aXJlZCB0byBwb3dlciB0aGUgUFNFIFBJcz8NCj4+DQo+
-PiBJZiBpdCBpcyB0aGUgZmlyc3QgeW91IHdpbGwgbmVlZCB0byBlbmFibGUgaXQgaW4gdGhlIGRy
-aXZlci4NCj4+IElmIGl0J3MgdGhlIGxhdHRlciwgeW91IGNvdWxkIGRlc2NyaWJlIGl0IGFzIHRo
-ZSBQSSdzIHJlZ3VsYXRvciBwYXJlbnQgDQo+PiBzdXBwbHkuIEFuIGVuYWJsZSBvZiBhbnkgUEkg
-d2lsbCBlbmFibGUgdGhpcyB2bWFpbiByZWd1bGF0b3IuDQo+IEknbSBub3Qgc3VyZSBpZiB5b3Un
-dmUgc2VlbiBhIGRpYWdyYW0gYmVmb3JlLCBidXQgYWxsb3cgbWUgdG8gYWRkIG9uZSB0byBzaG93
-DQo+IHdoYXQgdGhlIGJpbmRpbmcgY3VycmVudGx5IG1vZGVscyAoZm9yIGEgVUFSVCBjb250cm9s
-bGVkIE1DVSk6DQo+DQo+ICAgICAgICAgICAgICAg4payVmRkICAgICDilrJWcHdyICAgICAgICAg
-ICAgICAgICAgICAgICAgICANCj4gICAgICAgICDilIzilIDilIDilIDilIDilIDilLzilIDilIDi
-lIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
-lIDilIDilIDilIDilIDilJAgICAgICAgICAgICANCj4gICAgICAgICDilIIgICAgIOKUnOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKU
-kCAgICAg4pSCICAgICAgICAgICAgDQo+ICAgICAgICAg4pSCICDilIzilIDilIDilLTilIDilIDi
-lIDilIDilJAgICDilIIgICAgICAg4pSC4pSM4pSA4pSA4pS04pSA4pSA4pSA4pSQIOKUgiAgICAg
-ICAgICAgIA0KPiAgICAgICDilIDilIDilLzilIDilrrilKRSWCAgU0RB4pSc4pSA4pSA4pSA4pS8
-4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pS84pSkICAgICAg4pSc4pSA4pS84pSA4pSA4pSA4pa6IFBT
-RS1QSTANCj4gICAgICAg4peE4pSA4pS8LeKUgOKUpFRYICBTQ0zilJzilIDilIDilIDilLzilIDi
-lIDilIDilKzilLzilIDilIDilLzilKQgICAgICDilJzilIDilLzilIDilIDilIDilrogUFNFLVBJ
-MQ0KPiAgICAgICAgIOKUgiAg4pSCICAgICAgIOKUgiAgIOKUgiAgIOKUguKUgiAg4pSC4pSCICAg
-ICAg4pSc4pSA4pS84pSA4pSA4pSA4pa6IFBTRS1QSTINCj4gICAgICAgICDilIIgIOKUgk1DVSAg
-ICDilIIgICDilJzilIDilIDilIDilLzilLzilIDilIDilLzilKRQU0UtMCDilJzilIDilLzilIDi
-lIDilIDilrogUFNFLVBJMw0KPiAgICAgICAgIOKUgiAg4pSU4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSYICAg4pSCICAg4pSC4pSCICDilILilJTilIDilIDilIDilIDilIDilIDilJgg4pSCICAgICAg
-ICAgICAgDQo+ICAgICAgICAg4pSCICAgICAgICAgICAgICDilIIgICDilILilIIgIOKUlOKUgOKU
-gOKUgOKUkCAgICAg4pSCICAgICAgICAgICAgDQo+ICAgICAgICAg4pSCICAgICAgICAgICAgICDi
-lIIgICDilILilIIgICDilIzilIDilIDilLTilIDilIDilIDilJAg4pSCICAgICAgICAgICAgDQo+
-ICAgICAgICAg4pSCICAgICAgICAgICAgICDilIIgICDilILilJTilIDilIDilIDilKQgICAgICDi
-lJzilIDilLzilIDilIDilIDilrogUFNFLVBJNA0KPiAgICAgICAgIOKUgiAgICAgICAgICAgICAg
-4pSCICAg4pSU4pSA4pSA4pSA4pSA4pSkICAgICAg4pSc4pSA4pS84pSA4pSA4pSA4pa6IFBTRS1Q
-STUNCj4gICAgICAgICDilIIgICAgICAgICAgICAgIOKUgiAgICAgICAg4pSCICAgICAg4pSc4pSA
-4pS84pSA4pSA4pSA4pa6IFBTRS1QSTYNCj4gICAgICAgICDilIIgICAgICAgICAgICAgIOKUlOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUpFBTRS0xIOKUnOKUgOKUvOKUgOKUgOKUgOKWuiBQU0Ut
-UEk3DQo+ICAgICAgICAg4pSCcmVhbHRlayxwc2UtbWN1LWdlbjEgICDilJTilIDilIDilIDilIDi
-lIDilIDilJgg4pSCICAgICAgICAgICAgDQo+ICAgICAgICAg4pSU4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
-4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYICAgICAgICAgICAgDQo+DQo+DQo+IFRoZSBvdXRlciBi
-b3ggaXMgd2hhdCBpcyBtb2RlbGVkIGJ5IHRoZSBiaW5kaW5nLCBidXQgcmVhbGx5IGNvbnNpc3Rz
-IG9mIGF0IGxlYXN0DQo+IHR3byBjaGlwcyBvbiB0aGUgYm9hcmQuIFRoZSAidnB3ci1zdXBwbHki
-IChWcHdyKSBvZiB0aGUgUFNFIFBJcyBpcyBjb250cm9sbGVkIGJ5DQo+IHRoZSBQU0UtbiBJQ3Mu
-IFRoZSBNQ1UgZG9lc24ndCB1c2UgVnB3ciBhbmQgZG9lc24ndCBjb250cm9sIGl0IGRpcmVjdGx5
-LCBidXQgaGFzDQo+IHRvIGRvIHRoaXMgdmlhIHRoZSBQU0UgY29udHJvbGxlcnMuIFRoaXMgaXMg
-c2ltaWxhciB0byBhIFBENjkyMDAgc2V0dXAuDQo+DQo+IExpa2UgSm9uYXMgc2FpZCwgVnB3ciBp
-cyB1c3VhbGx5IChhbHdheXMpIGFuIGFsd2F5cy1vbiBwb3dlciBzdXBwbHksIHdoaWNoDQo+IG1h
-dGNoZXMgd2VsbCB3aXRoICJyZWd1bGF0b3ItYWx3YXlzLW9uIi4gVmRkIGlzIHRoZSBzdXBwbHkg
-dGhhdCBhY3R1YWxseSBwb3dlcnMNCj4gdGhlIGxvZ2ljLCBidXQgdGhhdCBpcyBub3JtYWxseSBh
-bHNvIG5vdCBhIHN3aXRjaGFibGUgc3VwcGx5IGFuZCBoZW5jZSBub3QNCj4gbW9kZWxlZCBieSB0
-aGUgZGV2aWNldHJlZXMgZGVzY3JpYmluZyB0aGVzZSBQb0Ugc3dpdGNoZXMuDQo+DQo+IFRoaXMg
-cHJvcG9zYWwgYWRkcyBWcHdyIGFzICJ2bWFpbi1zdXBwbHkiIG9uIHRoZSBtYWluIERUIG5vZGUs
-IGJ1dCBJIHN1cHBvc2UNCj4gdGhhdCBhbHNvIG1lYW5zIGl0IHNob3VsZCBub3QgYmUgdXNlZCBm
-b3IgInZwd3Itc3VwcGx5IiBvbiB0aGUgUEkgc3Vibm9kZXM/DQoNClRoZSBpbnRlbnRpb24gaXMg
-bW9zdGx5IHRoYXQgdGhlIE1DVSB0YWtlcyBjYXJlIG9mIHRoYXQgYnVkZ2V0aW5nIGZvciB0aGUg
-d2hvbGUNCnN5c3RlbSB3aXRoIHdoYXRldmVyIGludGVybmFsIGFsZ29yaXRobSBzbyBpdCdzIGlu
-IGNoYXJnZSBvZiB3aGF0IHRoaXMgc3VwcGx5DQphY3R1YWxseSBzdXBwbGllcywgZXZlbiB0aG91
-Z2ggaXQgZG9lc24ndCBwaHlzaWNhbGx5IGNvbnRyb2wgdGhlIHJhaWwuDQoNCkkgaGVzaXRhdGVk
-IHRvIGFkZCBpdCBvbiAidnB3ci1zdXBwbHkiIGZvciBub3cgYmVjYXVzZSBJIGRvbid0IHJlYWxs
-eSBvdmVybG9vaw0KdGhlIGltcGxpY2F0aW9ucyBhbmQgYXNzdW1wdGlvbnMgYmVpbmcgdGllZCB0
-byB0aGlzLiBUaGVyZSBhcmUgc3RpbGwgdGhlIFBTRS1uDQpjaGlwcyBpbiBiZXR3ZWVuIHdoaWNo
-IHRoZW1zZWx2ZXMgYWxzbyBoYXZlIHBvd2VyIGxpbWl0cywgZm9yIHRoZSB3aG9sZSBJQw0KYW5k
-IGVhY2ggUEkuDQoNCj4gV291bGQgaXQgbWFrZSBzZW5zZSB0byBtb2RlbCByZWFsdGVrLHBzZS1t
-Y3UgYXMgYSByZWd1bGF0b3IgYXMgd2VsbCBhbmQgaGF2ZQ0KPiAidnB3ci1zdXBwbHkiIFBJIHBy
-b3BlcnRpZXMgcG9pbnQgdGhlcmUgKGluc3RlYWQgb2YgdGhlIGZpeGVkIHJlZ3VsYXRvcik/DQo+
-IEFGQUlDVCB0aGF0J3Mgc2ltaWxhciB0byB0aGUgYXBwcm9hY2ggdGFrZW4gYnkgdGhlIG1pY3Jv
-Y2hpcCxwZDY5MngwIGJpbmRpbmcsDQo+IHdoZXJlIHRoZSBQSSBub2RlcyBwb2ludCB0byBhIG1h
-bmFnZXIuIEJ1dCBJIGFsc28gZG9uJ3Qga25vdyBpZiB0aGF0IG9mZmVycyBhbnkNCj4gYWR2YW50
-YWdlcyBoZXJlLg0KDQpUaGF0IHNvdW5kcyBtb3JlIHN1aXRhYmxlLCBwb3NzaWJseSB3aXRoIHRo
-ZSBQU0UtbiBJQ3MgaW4gYmV0d2Vlbi4gSSd2ZSBwbGF5ZWQNCmFyb3VuZCB3aXRoIGFkZGluZyB0
-aGF0IGxheWVyIGhlcmUgYWxyZWFkeSBiZWNhdXNlIHNvbWUgc3dpdGNoZXMgdXNlIG11bHRpcGxl
-DQpQU0UgY2hpcCB2YXJpYW50cyB3aXRoaW4gYSBzZXR1cCB3aGVyZSB0aGlzIG1pZ2h0IGJlIHVz
-ZWZ1bCB0byBjb3ZlciBkaWZmZXJlbnQNCnBvd2VyIGxpbWl0cy4gQUZBSUNTIHRoaXMgd291bGQg
-cmVxdWlyZSBhZGRpbmcgdGhlIG1hbmFnZXJzIHRvIHRoZSBkZXZpY2V0cmVlDQpiaW5kaW5ncyB0
-b28sIHNpbWlsYXIgdG8gUEQ2OTJ4MC4gQnV0IGFwYXJ0IGZyb20gdGhlIG1lbnRpb25lZCB1c2Vj
-YXNlLCBJDQpoYXZlbid0IHNlZW4gdGhlIGFkdmFudGFnZSBvZiB0aGF0IHlldC4NCg0KPiBCZXN0
-LA0KPiBTYW5kZXINCg0KQmVzdCwNCkpvbmFzDQo=
+Thank you for your contribution! Sashiko AI review found 11 potential
+issues to consider:
+- [High] media: qcom: jpeg: missing hardware reinit in
+  qcom_jpeg_pm_system_resume()
+- [High] media: qcom: jpeg: use-after-free of m2m_ctx in
+  jpeg_finish_work()
+- [High] media: qcom: jpeg: stop_streaming() drains both queues and
+  releases HW early
+- [High] media: qcom: jpeg: unverified contiguous DMA length in
+  jpeg_store_fe/we_next()
+- [Medium] media: qcom: jpeg: unadjusted WE_BSIZE_0 limit in
+  jpeg_setup_we_size()
+- [Medium] media: qcom: jpeg: 1-bit MAL_BOUNDARY masks truncate 3-bit
+  boundary values
+- [Medium] media: qcom: jpeg: disjoint vdev->lock and vq->lock leave
+  ioctls unserialized
+- [Medium] media: qcom: jpeg: fop_jpeg_file_open() skips
+  v4l2_ctrl_handler_free()
+- [Medium] media: qcom: jpeg: unhandled IRQs unmasked in jpeg_init()
+  risk lost edge IRQ
+- [Medium] media: qcom: jpeg: non-exclusive IRQ status handling in
+  qcom_jenc_v420_irq_bot()
+- [Low] media: qcom: jpeg: 32-bit multiplication overflow in
+  jpeg_calc_optimal_clk()
+--
+
+commit 0f8ce3b457607190f1f36e252188757adec6db68
+Author: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+
+media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+
+This commit adds a V4L2 mem2mem driver for the standalone Qualcomm JPEG
+encoder hardware block on SM8250 and SC7280 platforms.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c b/drivers/m=
+edia/platform/qcom/jpeg/qcom_jenc_dev.c
+> new file mode 100644
+> index 0000000000000..da69c0bb3bbe7
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+[ ... ]
+> +static int qcom_jpeg_pm_resume(struct device *dev)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D dev_get_drvdata(dev);
+> +	int rc;
+> +
+> +	rc =3D qcom_jpeg_clk_on(jenc);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return 0;
+> +}
+> +
+> +static int qcom_jpeg_pm_system_suspend(struct device *dev)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D dev_get_drvdata(dev);
+> +	int rc;
+> +
+> +	v4l2_m2m_suspend(jenc->m2m_dev);
+> +
+> +	rc =3D pm_runtime_force_suspend(dev);
+> +	if (rc)
+> +		v4l2_m2m_resume(jenc->m2m_dev);
+> +
+> +	return rc;
+> +}
+> +
+> +static int qcom_jpeg_pm_system_resume(struct device *dev)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D dev_get_drvdata(dev);
+> +	int rc;
+> +
+> +	rc =3D pm_runtime_force_resume(dev);
+> +	if (rc)
+> +		return rc;
+> +
+> +	v4l2_m2m_resume(jenc->m2m_dev);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Does system suspend and resume while streaming is active leave the JPEG
+hardware uninitialized and JPEG_V420_REG_INT_MASK cleared?
+
+jpeg_init() is only called when qcom_jenc_v420_acquire() transitions
+jenc->ref_count from 0 to 1.  When qcom_jpeg_pm_system_suspend() runs
+pm_runtime_force_suspend(), the titan_top power domain can collapse and
+reset volatile registers, including JPEG_V420_REG_INT_MASK.  On resume,
+pm_runtime_force_resume() only enables clocks in qcom_jpeg_pm_resume()
+before v4l2_m2m_resume() restarts queued jobs, so subsequent jobs run with
+interrupts masked in hardware and hang VIDIOC_STREAMOFF or close() in
+v4l2_m2m_cancel_job().
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v420.c b/drivers/=
+media/platform/qcom/jpeg/qcom_jenc_v420.c
+> new file mode 100644
+> index 0000000000000..cd1501bca71a7
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v420.c
+[ ... ]
+> +static int jpeg_init(struct qcom_jenc_dev *jenc)
+> +{
+[ ... ]
+> +	jpeg_clear_planes_queues(jenc);
+> +
+> +	jpeg_io_write(jenc, JPEG_V420_REG_INT_CLR, JPEG_V420_IRQ_STATUS_ALL_BIT=
+S);
+> +	jpeg_io_write(jenc, JPEG_V420_REG_INT_MASK, JPEG_V420_IRQ_STATUS_ALL_BI=
+TS);
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can unmasking JPEG_V420_IRQ_STATUS_ALL_BITS here cause unnecessary
+threaded IRQ wakeups or a lost edge interrupt on SESSION_DONE?
+
+JPEG_V420_IRQ_STATUS_ALL_BITS enables RD_BUF_PLNS_DONE_MSK,
+WR_BUF_PLN0_DONE, RD_BUF_PLNS_REQ_ATTN_MSK, and WR_BUF_PLNS_REQ_ATTN_MSK,
+which neither qcom_jenc_v420_irq_top() nor qcom_jenc_v420_irq_bot()
+handles.  When one of those plane bits fires at the end of a frame,
+qcom_jenc_v420_irq_top() wakes the IRQ thread for a no-op, and if
+SESSION_DONE asserts in JPEG_V420_REG_INT_STATUS between jpeg_io_read()
+and jpeg_io_write(..., JPEG_V420_REG_INT_CLR, ...) while the plane bit is
+still holding the rising-edge interrupt line high, clearing only the
+earlier status bits leaves SESSION_DONE asserted with no new rising edge
+to complete the job.
+
+[ ... ]
+> +static int jpeg_store_fe_next(struct jenc_context *ectx, struct vb2_buff=
+er *vb2)
+> +{
+> +	struct qcom_jenc_queue *q =3D &ectx->bufq[TYPE2QID(vb2->type)];
+> +	struct qcom_jpeg_buff *buff =3D &q->buff[vb2->index];
+> +	u8 pln;
+> +
+> +	for (pln =3D 0; pln < q->vf.num_planes; pln++) {
+> +		buff->plns[pln].sgt =3D vb2_dma_sg_plane_desc(vb2, pln);
+> +		if (!buff->plns[pln].sgt || !buff->plns[pln].sgt->sgl)
+> +			return -EINVAL;
+> +
+> +		buff->plns[pln].dma =3D sg_dma_address(buff->plns[pln].sgt->sgl);
+> +		if (!buff->plns[pln].dma)
+> +			return -EINVAL;
+> +
+> +		buff->plns[pln].size =3D vb2_plane_size(vb2, pln);
+> +		if (!buff->plns[pln].size)
+> +			return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Can jpeg_store_fe_next() and jpeg_store_we_next() cause out-of-bounds DMA
+when a buffer is mapped as multiple scatterlist segments?
+
+Both queues use vb2_dma_sg_memops with VB2_USERPTR and VB2_DMABUF enabled,
+which does not guarantee a single contiguous DMA segment (for example, an
+unaligned userptr on arm64 where iommu_dma_map_sg() falls back to
+iommu_dma_map_sg_swiotlb(), or a multi-segment dmabuf).  Because the
+driver programs the hardware with sg_dma_address(sgt->sgl) for the whole
+plane without checking that sg_dma_len(sgt->sgl) covers
+vb2_plane_size(vb2, pln), the hardware will DMA linearly past the end of
+the first segment.  Should the queues use vb2_dma_contig_memops, or verify
+that sg_dma_len(sgt->sgl) >=3D vb2_plane_size(vb2, pln)?
+
+[ ... ]
+> +static int jpeg_apply_we_addr(struct jenc_context *ectx, struct qcom_jen=
+c_queue *q,
+> +			      struct vb2_buffer *vb)
+> +{
+[ ... ]
+> +	header_size =3D ectx->hdr_cache.layout.size;
+> +	if (vb->planes[0].length < header_size)
+> +		return -EINVAL;
+> +
+> +	memcpy(mptr, ectx->hdr_cache.data, header_size);
+> +	v4l2_jpeg_hdr_set_size(mptr, &ectx->hdr_cache.layout, q->vf.width, q->v=
+f.height);
+> +
+> +	dma +=3D header_size;
+> +
+> +	/*
+> +	 * Flush CPU writes to the header before handing the buffer to the
+> +	 * hardware DMA engine.
+> +	 */
+> +	jpeg_sync_sg(jenc->dev, frame, DMA_BIDIRECTIONAL, true);
+> +
+> +	jpeg_io_write(jenc, jpeg_v420_we_pntr[pln], dma);
+[ ... ]
+> +}
+[ ... ]
+> +static void jpeg_setup_we_size(struct jenc_context *ectx, struct qcom_je=
+nc_queue *q)
+> +{
+> +	struct v4l2_pix_format_mplane *dfmt =3D &q->vf;
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	u8 pln;
+> +
+> +	for (pln =3D 0; pln < QCOM_JPEG_MAX_PLANES; pln++)
+> +		jpeg_rw_bits(jenc, jpeg_v420_we_stride[pln], JPEG_V420_PLN_WR_STRIDE_M=
+SK, 0);
+> +
+> +	jpeg_io_write(jenc, JPEG_V420_REG_WE_BSIZE_0, dfmt->plane_fmt[0].sizeim=
+age);
+> +
+> +	dev_dbg(ectx->dev, "WE size=3D%u\n", dfmt->plane_fmt[0].sizeimage);
+> +}
+
+[Severity: Medium]
+Should JPEG_V420_REG_WE_BSIZE_0 be reduced by header_size?
+
+jpeg_apply_we_addr() advances JPEG_V420_REG_WE_PNTR_0 by header_size into
+the destination buffer, but jpeg_setup_we_size() programs
+JPEG_V420_REG_WE_BSIZE_0 with the full dfmt->plane_fmt[0].sizeimage.  If a
+compressed frame ever reaches sizeimage - header_size, the write engine is
+allowed to DMA up to header_size bytes past the end of a sizeimage-sized
+buffer, and out_size + header_size in qcom_jenc_v420_irq_bot() will exceed
+vb->planes[0].length.
+
+[ ... ]
+> +irqreturn_t qcom_jenc_v420_irq_bot(int irq, void *data)
+> +{
+> +	struct qcom_jenc_dev *jenc =3D data;
+> +	unsigned long flags;
+> +	u32 irq_status;
+> +
+> +	irq_status =3D READ_ONCE(jenc->pending_irq_status);
+> +
+> +	if (FIELD_GET(JPEG_V420_IRQ_STATUS_SESSION_DONE, irq_status)) {
+> +		struct jenc_context *ctx;
+> +
+> +		spin_lock_irqsave(&jenc->hw_lock, flags);
+> +		ctx =3D jenc->actx;
+> +		jenc->actx =3D NULL;
+> +		spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +		if (ctx && ctx->bufq[JENC_DST_QUEUE].buff_id >=3D 0) {
+[ ... ]
+> +			jpeg_stop(jenc);
+> +			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_DONE,
+> +					    out_size + ctx->hdr_cache.layout.size);
+> +		} else {
+> +			jpeg_stop(jenc);
+> +		}
+> +	}
+> +
+> +	if (FIELD_GET(JPEG_V420_IRQ_STATUS_SESION_ERROR_MSK, irq_status)) {
+> +		struct jenc_context *ctx;
+> +
+> +		spin_lock_irqsave(&jenc->hw_lock, flags);
+> +		ctx =3D jenc->actx;
+> +		jenc->actx =3D NULL;
+> +		spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +		dev_err(jenc->dev, "encoder hardware failure=3D0x%lx\n",
+> +			FIELD_GET(JPEG_V420_IRQ_STATUS_SESION_ERROR_MSK, irq_status));
+> +
+> +		jpeg_stop(jenc);
+> +		if (ctx)
+> +			jenc->enc_hw_irq_cb(ctx, VB2_BUF_STATE_ERROR, 0);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: Medium]
+What happens if both JPEG_V420_IRQ_STATUS_SESSION_DONE and
+JPEG_V420_IRQ_STATUS_SESION_ERROR_MSK are set in irq_status?
+
+The first block pops jenc->actx, completes the failed frame as
+VB2_BUF_STATE_DONE, and schedules finish_work, which can start the next
+job and set a new jenc->actx on another CPU; the second block then runs,
+calls jpeg_stop(jenc) without dev_mutex, and aborts that newly started
+job.  Checking JPEG_V420_IRQ_STATUS_SESION_ERROR_MSK first and using else
+if for JPEG_V420_IRQ_STATUS_SESSION_DONE would avoid both completing a
+failed frame and clobbering the next job.
+
+[ ... ]
+> +static unsigned long jpeg_calc_optimal_clk(struct qcom_jenc_dev *jenc,
+> +					   u32 width, u32 height, u32 fps)
+> +{
+> +	unsigned long ref_pixel_rate;
+> +	unsigned long optimal_clk;
+> +	unsigned long pixel_rate;
+> +
+> +	if (!width || !height || !fps)
+> +		return jenc->max_freq;
+> +
+> +	ref_pixel_rate =3D JPEG_REF_THROUGHPUT_MPPS * 1000000UL;
+> +	pixel_rate =3D (unsigned long)width * height * fps;
+> +
+> +	optimal_clk =3D DIV_ROUND_UP_ULL(pixel_rate * JPEG_REF_CLK_HZ, ref_pixe=
+l_rate);
+> +
+> +	return min_t(unsigned long, jenc->max_freq, optimal_clk);
+> +}
+
+[Severity: Low]
+Can pixel_rate * JPEG_REF_CLK_HZ overflow on 32-bit builds (such as
+COMPILE_TEST) before DIV_ROUND_UP_ULL() widens the product to 64 bits?
+Both pixel_rate and JPEG_REF_CLK_HZ have type unsigned long, so casting
+one operand to u64 (or using mul_u32_u32()) is needed to avoid 32-bit
+truncation.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h b/=
+drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
+> new file mode 100644
+> index 0000000000000..4fc5eb980c5f7
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
+[ ... ]
+> +#define JPEG_V420_FE_CFG_SIXTEEN_MCU_EN		BIT(21)
+> +#define JPEG_V420_FE_CFG_MCUS_PER_BLOCK		BIT(22)
+> +#define JPEG_V420_FE_CFG_MAL_BOUNDARY		BIT(24)
+> +#define JPEG_V420_FE_CFG_MAL_EN			BIT(27)
+> +#define	JPEG_V420_FE_CFG_PLNS_EN_MSK		GENMASK(18, 16)
+[ ... ]
+> +/* WE_CFG fields */
+> +#define JPEG_V420_WE_CFG_MEMORY_FORMAT_MSK	GENMASK(9, 8)
+> +#define JPEG_V420_WE_CFG_CBCR_ORDER		BIT(12)
+> +#define JPEG_V420_WE_CFG_PLN0_EN		BIT(16)
+> +#define JPEG_V420_WE_CFG_MAL_BOUNDARY		BIT(24)
+> +#define JPEG_V420_WE_CFG_MAL_EN			BIT(27)
+> +#define JPEG_V420_WE_CFG_POP_BUFF_ON_EOS	BIT(28)
+
+[Severity: Medium]
+Should JPEG_V420_FE_CFG_MAL_BOUNDARY and JPEG_V420_WE_CFG_MAL_BOUNDARY be
+GENMASK(26, 24) instead of BIT(24)?
+
+enum jpeg_mal_bounds defines 3-bit values 0x0..0x7, and for valid widths
+(256..8192) jpeg_get_mal_boundary() returns 0x3..0x7.  Passing BIT(24) to
+jpeg_rw_bits() masks out bits [2:1] of the boundary value, programming the
+MAL boundary as 32B or 64B instead of 256B..4KB.
+
+> diff --git a/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c b/drivers/=
+media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+> new file mode 100644
+> index 0000000000000..b068a9d2322ed
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+[ ... ]
+> +static void jpeg_v4l2_return_bufs(struct jenc_context *ctx, enum vb2_buf=
+fer_state buff_state)
+> +{
+> +	bool draining =3D ctx->fh.m2m_ctx->is_draining;
+> +	struct vb2_v4l2_buffer *vb;
+> +
+> +	/* Drain CAPTURE queue; signal EOS on last buffer if V4L2_ENC_CMD_STOP.=
+ */\n
+> +	while ((vb =3D v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx))) {
+> +		if (draining && !v4l2_m2m_last_dst_buf(ctx->fh.m2m_ctx)) {
+> +			vb2_set_plane_payload(&vb->vb2_buf, 0, 0);
+> +			v4l2_m2m_last_buffer_done(ctx->fh.m2m_ctx, vb);
+> +		} else {
+> +			v4l2_m2m_buf_done(vb, buff_state);
+> +		}
+> +	}
+> +
+> +	while ((vb =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx)))
+> +		v4l2_m2m_buf_done(vb, buff_state);
+> +}
+[ ... ]
+> +static void bop_jpeg_vb2_stop_streaming(struct vb2_queue *q)
+> +{
+> +	struct jenc_context *ectx =3D vb2_get_drv_priv(q);
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	bool do_release;
+> +
+> +	mutex_lock(&jenc->dev_mutex);
+> +
+> +	do_release =3D ectx->hw_acquired;
+> +	ectx->hw_acquired =3D false;
+> +
+> +	mutex_unlock(&jenc->dev_mutex);
+> +
+> +	/*
+> +	 * qcom_jenc_v420_release() calls jpeg_deinit() which issues HW_STOP and
+> +	 * waits for the STOP_ACK interrupt completion. It runs before any buff=
+er
+> +	 * is returned below and outside dev_mutex: the threaded IRQ handler ta=
+kes
+> +	 * dev_mutex, and with IRQF_ONESHOT the STOP_ACK interrupt stays masked
+> +	 * until that handler returns.
+> +	 */
+> +	if (do_release)
+> +		qcom_jenc_v420_release(ectx);
+> +
+> +	mutex_lock(&jenc->dev_mutex);
+> +	jpeg_v4l2_return_bufs(ectx, VB2_BUF_STATE_ERROR);
+> +	v4l2_m2m_update_stop_streaming_state(ectx->fh.m2m_ctx, q);
+> +	mutex_unlock(&jenc->dev_mutex);
+> +}
+
+[Severity: High]
+Doesn't calling VIDIOC_STREAMOFF on one queue in
+bop_jpeg_vb2_stop_streaming() fail all buffers on the other queue and
+power down the hardware while the other queue is still streaming?
+
+vb2_ops.stop_streaming() is called for a single vb2_queue q, but
+jpeg_v4l2_return_bufs() removes and completes buffers from both CAPTURE
+and OUTPUT (and if OUTPUT stops while draining with multiple CAPTURE
+buffers queued, jpeg_v4l2_return_bufs() fails all but the last CAPTURE
+buffer with VB2_BUF_STATE_ERROR and consumes is_draining before
+v4l2_m2m_update_stop_streaming_state() runs).  Likewise,
+jpeg_v4l2_work_stop() calls jpeg_v4l2_return_bufs() on a single job error,
+draining every queued buffer in both queues instead of just the active
+job's buffers.
+
+In addition, ectx->hw_acquired is a single boolean cleared on the first
+queue's stop_streaming(), so stopping one queue releases the hardware
+reference and disables the IRQ while the sibling queue remains streaming.
+
+[ ... ]
+> +static int jpeg_v4l2_init_queue(void *priv, struct vb2_queue *sq, struct=
+ vb2_queue *dq)
+> +{
+> +	struct jenc_context *ectx =3D priv;
+> +	int rc;
+> +
+> +	sq->drv_priv		=3D ectx;
+> +	sq->dev			=3D ectx->dev;
+> +	sq->type		=3D V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+> +	sq->io_modes		=3D VB2_MMAP | VB2_DMABUF | VB2_USERPTR;
+> +	sq->buf_struct_size	=3D sizeof(struct v4l2_m2m_buffer);
+> +	sq->ops			=3D &qcom_jpeg_v4l2_vb2_ops;
+> +	sq->mem_ops		=3D &vb2_dma_sg_memops;
+> +	sq->timestamp_flags	=3D V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> +	sq->lock		=3D &ectx->ctx_lock;
+> +	sq->min_queued_buffers	=3D 1;
+
+[Severity: Medium]
+Does setting sq->lock and dq->lock to &ectx->ctx_lock while
+jenc->vdev->lock is &jenc->dev_mutex leave format and encoder command
+ioctls unserialized against queue ioctls?
+
+In v4l2_ioctl_get_lock(), queue ioctls (INFO_FL_QUEUE: REQBUFS,
+CREATE_BUFS, PREPARE_BUF, QBUF, STREAMON, STREAMOFF) lock
+m2m_ctx->q_lock (&ectx->ctx_lock), whereas VIDIOC_S_FMT, VIDIOC_G_FMT, and
+VIDIOC_ENCODER_CMD lock vdev->lock (&jenc->dev_mutex) and never take
+ectx->ctx_lock:
+
+CPU0                                  CPU1
+v4l2_ioctl (VIDIOC_S_FMT)             v4l2_ioctl (VIDIOC_REQBUFS)
+  mutex_lock(&jenc->dev_mutex)          mutex_lock(&ectx->ctx_lock)
+  jpeg_v4l2_set_format()                bop_jpeg_vb2_queue_setup()
+    jpeg_v4l2_queues_busy(ectx)           reads q->vf
+    updates sq->vf, dq->vf                qcom_jenc_v420_queue_setup()
+    qcom_jenc_v420_src_fmt_update()         jpeg_header_init(&ectx->hdr_cac=
+he)
+      jpeg_header_init(&ectx->hdr_cache)      <-- data race on vf / hdr_cac=
+he
+
+Similarly, iop_jpeg_encoder_command() calls v4l2_m2m_ioctl_encoder_cmd()
+under jenc->dev_mutex while VIDIOC_QBUF and VIDIOC_STREAMOFF mutate the
+same m2m_ctx draining state and rdy_queue under ectx->ctx_lock.
+
+[ ... ]
+> +static int fop_jpeg_file_open(struct file *file)
+> +{
+[ ... ]
+> +	v4l2_ctrl_handler_init(&ectx->ctrl_hdl, 1);
+> +	ectx->quality_ctl =3D v4l2_ctrl_new_std(&ectx->ctrl_hdl,
+> +					      &qcom_jpeg_v4l2_ctrl_ops,
+> +					      V4L2_CID_JPEG_COMPRESSION_QUALITY,
+> +					      QCOM_JPEG_QUALITY_MIN,
+> +					      QCOM_JPEG_QUALITY_MAX,
+> +					      QCOM_JPEG_QUALITY_UNT,
+> +					      QCOM_JPEG_QUALITY_DEF);
+> +	if (ectx->ctrl_hdl.error) {
+> +		rc =3D ectx->ctrl_hdl.error;
+> +		goto err_fh_exit;
+> +	}
+> +
+> +	ectx->fh.ctrl_handler =3D &ectx->ctrl_hdl;
+> +
+> +	rc =3D v4l2_ctrl_handler_setup(&ectx->ctrl_hdl);
+> +	if (rc)
+> +		goto err_ctrl_handler_free;
+[ ... ]
+> +	return 0;
+> +
+> +err_ctrl_handler_free:
+> +	v4l2_ctrl_handler_free(&ectx->ctrl_hdl);
+> +err_fh_exit:
+> +	v4l2_fh_del(&ectx->fh, file);
+> +	v4l2_fh_exit(&ectx->fh);
+
+[Severity: Medium]
+Does the ectx->ctrl_hdl.error path leak ectx->ctrl_hdl.buckets by jumping
+to err_fh_exit instead of err_ctrl_handler_free after
+v4l2_ctrl_handler_init()?
+
+> +err_unlock_free:
+> +	mutex_destroy(&ectx->quality_mutex);
+> +	mutex_destroy(&ectx->ctx_lock);
+> +	kfree(ectx);
+> +
+> +	return rc;
+> +}
+> +
+> +static int fop_jpeg_file_release(struct file *file)
+> +{
+> +	struct jenc_context *ectx =3D jpeg_file2ctx(file);
+> +	struct v4l2_m2m_dev *m2m_dev =3D ectx->fh.m2m_ctx->m2m_dev;
+> +	struct qcom_jenc_dev *jenc =3D ectx->jenc;
+> +	unsigned long flags;
+> +
+> +	/*
+> +	 * Waits until a running job of this context completes: its
+> +	 * SESSION_DONE interrupt needs jenc->actx, and finish_work must not
+> +	 * be cancelled before, as it calls v4l2_m2m_job_finish().
+> +	 */
+> +	v4l2_m2m_ctx_release(ectx->fh.m2m_ctx);
+> +
+> +	/*
+> +	 * Ensure the threaded IRQ handler cannot dereference this context
+> +	 * after it is freed.  Clear jenc->actx under hw_lock before
+> +	 * cancelling work.
+> +	 */
+> +	spin_lock_irqsave(&jenc->hw_lock, flags);
+> +	if (jenc->actx =3D=3D ectx)
+> +		jenc->actx =3D NULL;
+> +	spin_unlock_irqrestore(&jenc->hw_lock, flags);
+> +
+> +	cancel_work_sync(&ectx->finish_work);
+
+[Severity: High]
+Can jpeg_finish_work() dereference ectx->fh.m2m_ctx after
+v4l2_m2m_ctx_release() frees it?
+
+v4l2_m2m_ctx_release() only waits for TRANS_RUNNING to clear before
+freeing m2m_ctx.  Once _v4l2_m2m_job_finish() clears TRANS_RUNNING and
+wakes m2m_ctx->finished (or if a prior STREAMOFF already cleared
+TRANS_RUNNING while finish_work was still pending), v4l2_m2m_ctx_release()
+frees m2m_ctx before cancel_work_sync(&ectx->finish_work) is reached:
+
+CPU0 (close)                          CPU1 (kworker)
+fop_jpeg_file_release()               jpeg_finish_work()
+  v4l2_m2m_ctx_release(m2m_ctx)         v4l2_m2m_job_finish(..., m2m_ctx)
+    v4l2_m2m_cancel_job()                 _v4l2_m2m_job_finish()
+      wait_event(m2m_ctx->finished)         clears TRANS_RUNNING
+                                            wake_up(&m2m_ctx->finished)
+    kfree(m2m_ctx)                        v4l2_m2m_schedule_next_job(..., m=
+2m_ctx)
+  ...                                       <-- use-after-free of m2m_ctx
+  cancel_work_sync(&ectx->finish_work)
+
+Since v4l2_m2m_job_finish() already defers the next job via
+schedule_work(&m2m_dev->job_work), calling v4l2_m2m_job_finish() directly
+in jpeg_v4l2_work_done() and jpeg_v4l2_work_stop() would avoid needing
+finish_work altogether.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106082522.1448=
+390-1-atanas.filipov@oss.qualcomm.com?part=3D4
