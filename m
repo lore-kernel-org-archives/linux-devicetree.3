@@ -1,168 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793956803;
-	b=XhCSnZwuVlRCQKAfyLu0Lps0ssIoToM+LXPNeU/bJk9tV1cCL4WHzM+MMTrsAobQmFbc
-	 iZQjNovE3HSwsljP5LbsFm5XcZ/ixdpYKk0h9/6701K7eU3DdvX7fH+s4yH2B4mjFukg7
-	 5BFz6/GD3rtOziCSPrTrfZrcVehbtcDFVbIP8/Td1IVvBIkO/EUXD5osoaj+v2TS/rT/G
-	 qsAt+3uWi7lyZ2QXpCh2RbL2bOUtQqvBcQRIEJfFMsrFfrP175snPgn+1Ns7lvbC21kAR
-	 5gv1l4Nqs9rzZXNsnF/5a0BTPS0qmd04UI/FFhNhinJ4MZg7TepP3/s97RE9NsO06Eg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956803;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-exchange-messagesentrepresentingtype:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-sharedmailbox-routingagent-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=D9XdajvFO6tAl8xfgibKdqUh65XFW5zZpKzSiWGedjQ=;
-	b=gw5ctQJ1s+zmm84l815YQQtIcS4b4Zsgl2TWtgCD/i8/yszfKOoJQRiLNQQW5hn5T7W5
-	 /IKUL6EZKgZ7EewnudQiDpJyUMt5MB8zIPQJfaO/3RXFKc4WATKjokXUV+VAovcpF54/x
-	 7CDG59bFc2uc8QIAfYxsnyqKdZQG5kiF3Mo957PJMfJ2arGeqdTpWf3oU7QLheR1EZj/S
-	 TQmYzeCshAERCK4a3AHtTTIbH6P4w9MLQA4Q1E8I4i3E5nVUFKy6wlWz2bfsR1PZ9XmKJ
-	 HxIx2p9UlJL2mjQTHVWbhTdOKiY0mYlhQj6MUnQ2bq57gKjq/1aNfkP6SebJeRovsew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JUYz+4NE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.3
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012003.outbound.protection.outlook.com [52.101.66.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793956814;
+	b=JRXjPHd3V5XCqcYArslGGycXkh6cLxBRRe/l9Et3S1YAZwVYqDfFjtpHdgAXi/VIowCw
+	 6ok14JwzqYBOTs/G8AT0LFhfcP8TRSVr8+FXvG/HyvWsdTGRLD0MQtvbGxY+paGrnfD8H
+	 RarUvZMnOt5YCm5bSTkWb8bcXt9uuXE5mn3Y7/Ode/1IVckjE4y9AEvSnH+ApTJbbllrk
+	 1+9YCb7xV9XQJg3yAhzJaQVvIPQ7gVGa6ZWOzAA5DFntJPBI8pyYPqVJ9KBbFWMYcO7l9
+	 6/U+LypQ5OFoE63banzRelimrCFVvcJiNJwaJS9nVPB0jBtAa8y/MJKVGkbdYwmV9Gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=p9yngXRQlhdY0K3IAiQSprScx4advF1zvS5JKRcEVLE=;
+	b=hguJBoFHCP6OtCS74s5Z0Ic37ZwgtKx6wnurYmyRMIXUQfm54EnnUgf8Q6pDqyEeja+G
+	 A6atS1KgbzgAYumyIXFVpZmyLnU7bg4bAcJ/Xw3wCamlXkTM9g/rdRJD7wgstmv3fiDOz
+	 Tw9j+jos69/mD+j+b218UIHhCiy+91PUwtEZZiFjx3GKUwPK5sJTMETK2wVFa8bh3+3wx
+	 3YD5Hny+7wt3AUrM9fVAY6SgI8uKmaKo6JGDM47WCB/EdBGKzAH6lv63Q+9Jlv6R5QjxW
+	 I5XTxmUI4+D83DbQB/sCIIAKyXOvZLXsKHf+wweubHu2Rlfq4HppM9QAeo0I3OeIE9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W0wmRzvc;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599D7606D805;
-	Fri,  6 Nov 2026 09:20:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 599D7606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD41606EE9B
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:20:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FD41606EE9B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=JUYz+4NE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=StSDKL1GMR7LKgrfwfcnAIc/zgzFVsFqQAVulIt0Kg6fPD7htrZKg94y9NvOPRbDso2Wot/n0582Y+5m9EoUztdHaruRZ96v3yMR9UnBk7+a8f0sWeWorCU5cYOrs92wwzWG25VI5a1YP2GxQPLpEhEMAOnHibLvc7KYA3svdmyQSVt3FXqgf09yGulb52no06c3NM1qpua2PJYgoOaQP26Z5ogrksLCPkDIiLXVOzXn/R+DAvvhi1XsuZNhclggOmQ9iaAs4t9DdjeQr9/PM9MvydDuLdspl7DyzMl/j9LBvvbmD4Ue3zVh8PNP29DPxZo1J8wmdFCJVYY3FOnoXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D9XdajvFO6tAl8xfgibKdqUh65XFW5zZpKzSiWGedjQ=;
- b=YzUqsHn5PE4mwApRWZR1CtT2YqiXbbz3uJBpKqe7v0JmM0m0Ni0ak6cZ3rNklXkyqI2J9UtixPHpLv9IIcq4KtfHlRciBXMXx7Dn0ZUZK/ON47wHqZ2Le6593Q9e7fOGGS+jZ2tUavASClpBsv6k+WG5phq6mfQgXE7VafHlLCtcv0PLIbNt4ZumvC/bzkawMDGX498rUTMGcqvTJpAz7vHww8qpXEiWMynVP/TbqvF8R9U4YWImsyuX8eSwdhWiOO834jwmRrb3tOABHSOR/v8MXlfgOwQ75/IoJHHw3hXSd+0lJjyKmPmE+beW3g6FotOy+EH5aEeW72gg+RORWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D9XdajvFO6tAl8xfgibKdqUh65XFW5zZpKzSiWGedjQ=;
- b=JUYz+4NEORf+LHKRw3AmEEVifmbSU8X2MF7QUmVO+vS30YxX+rkWAO74qiK99m5ojtrA0d/xr6kzrs11vuVVrovenurZqU4vxWIaX2cyu0ZQiTDMgqNT6xRvRzunKAXYShb4l1pPOJexYdcv1o9Q2kSjsrSiLm+RGpRsnqrWMldjDYuRJPmkbhh2a5KDyJGB+KRpK1BPYNoB3RzA9ElAaYYoLzkD0lLNnVz4p+sHR98fcKk3uNqkWa7JeMil4K6AIYTJ3R2TKyJFCAXT083vtNPqbIzMnSDYwJ8KENkVrSZ8KcEYeSk4jxc4ZVIw2JvlKMHqvC8rFgMdQGx3iiUV0A==
-Received: from ZR6PR04MB587880.eurprd04.prod.outlook.com
- (2603:10a6:910:e5::15) by GVSPR04MB157375.eurprd04.prod.outlook.com
- (2603:10a6:150:71d::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
- 2026 09:19:58 +0000
-Received: from ZR6PR04MB587880.eurprd04.prod.outlook.com
- ([fe80::2452:9c28:cc23:daeb]) by ZR6PR04MB587880.eurprd04.prod.outlook.com
- ([fe80::2452:9c28:cc23:daeb%3]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 09:19:58 +0000
-From: "Clark Wang (OSS)" <xiaoning.wang@oss.nxp.com>
-To: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>, "Clark Wang (OSS)"
-	<xiaoning.wang@oss.nxp.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Richard Cochran
-	<richardcochran@gmail.com>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Clark Wang
-	<xiaoning.wang@nxp.com>
-Subject: RE: [PATCH net-next 4/4] ptp: netc: use 133MHz as the default
- reference clock rate for i.MX952
-Thread-Topic: [PATCH net-next 4/4] ptp: netc: use 133MHz as the default
- reference clock rate for i.MX952
-Thread-Index: AQHdbD6tWf0KyIuLg0+fdG7qoOeinLcdqU+AgAMeLCA=
-Date: Fri, 6 Nov 2026 09:19:58 +0000
-Message-ID:
- <ZR6PR04MB58788099B26D95DC32A967ACA3F3762@ZR6PR04MB587880.eurprd04.prod.outlook.com>
-References: <20261104092217.1730351-1-xiaoning.wang@oss.nxp.com>
- <20261104092217.1730351-5-xiaoning.wang@oss.nxp.com>
- <80a22fef-2ed7-405d-b48b-75ec4316f6fe@oss.nxp.com>
-In-Reply-To: <80a22fef-2ed7-405d-b48b-75ec4316f6fe@oss.nxp.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZR6PR04MB587880:EE_|GVSPR04MB157375:EE_
-x-ms-office365-filtering-correlation-id: 80130aec-0047-4fea-3738-08df3be720a2
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|366016|1800799024|18002099003|22082099003|10067099003|38070700021|4143699003|11063799006|56012099006|261009223027099003;
-x-microsoft-antispam-message-info:
- mHjVbFuPuDvXi6xB1N+K+kCUNl5wzJRgF74FazgxCv0SqVAoBdNwIdq2EGUketvRokNsoo5CUZQ7jLhUTCAcG+pGBrhBvl0WZ40lDBXIPFnT32vFKRdIkkqT3tqTSSr6VaPhQ22QZ+7pn3kY3ClRtdQiufGcMW+c22Ta8/FvIBljrsLVSMQXOWdtGuz5rOa7qbR4RMztoMh+NNovi2VsDA/wsrLo2C8zsq5BSE6I3pJ7y3hG83JIb0N9W50T3NX5RHktmbaDHixrQgV7p2EJCmgsbeEzBqzfP316p3RlOvBvc71NO8EFebZGPmq2eNG6Tie/RsLry3q467JyBFG+lGPPYZAqSZ/TeLw9G1klnLgCoraEAoUEAhcceb2gT2X1a8catucG9vsj+I0U/YoP9lEHAEDuCjwdk3CUEL1g5T0efeniarPJBoSXNcRwT8Nz0JZ0kRsKV3Jo36c+1pUsd3wC99Uc2PEnysdzUPMD09Cq4CV/eqngiyV/oTzlrKVYODMGnJ3RJD2xcgR93RWA+IMqY8y4uQHK8hRkEPcGqxwC5v76vsXYo7zQIgjTr12ZyEe1R6hV3FbDMzMgBECHYvNRaG52Fi6fyes6HUzDEkDpKTMmNNOvv/okDgyF6PC4EGiRg+XYIfAhajQcXw1md5bqpPCK52bFDGmGEmsKLcHDG+cyU3681MSPemYeJWxshnzsdjoMO74OFcd3vTw3le6okMkHVuH7A0kNt90TQd0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR6PR04MB587880.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(38070700021)(4143699003)(11063799006)(56012099006)(261009223027099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RlVCMm0xaTdvWllHdk5RQjJUbmVHV3RlM3BQK1hvOE9qRHNvdjF6cVZGY0NN?=
- =?utf-8?B?R25QNVI4NFRPV1BFc0s0TUlzL0ViVVhhSmZrbGo0cEdUYWQzVTVCeTZmdUFo?=
- =?utf-8?B?WmFMRWpDMlkyNjhFdDZyOHFJT2pPMXJVc3NxMjNNN28wY1ZaOC9YMzhSZDZM?=
- =?utf-8?B?RHlHQkxyc0MrOWIrTllKUVlsbUZQdWNweExGMXJCdWlGZHA2dVM2aTV2eG9I?=
- =?utf-8?B?enNIQm0vY2kzQUR0aDdlamhjY1hwZUFZdzBsdW9xcnd0cGZUTER4cWhESi9W?=
- =?utf-8?B?cXhTVWtQYkVVVzFlMG5LUjVOR1hUNGdQc2lYRkNNc201Y3c2Nm4vWnkwajVY?=
- =?utf-8?B?R3h4NVFvNGpDVVNCV0ZsWG9lSyt0Z1JHeW5xcXhVSjJZL081MFp2anA4Wko0?=
- =?utf-8?B?ZEo4MytFeEtrUTVkcHpVS3cvWUZCOVBPcWNsZmN4NzQwWFU3T09qZkVyYkdO?=
- =?utf-8?B?OVRSdHdwYjlhZk1xeEFxT0lKTGd4ai9PWFROUElTVUtxNFRydU9IRFoxakNz?=
- =?utf-8?B?clh4TlYvM2ZFYU5FWnBUSVUxWHZUZW5WeDNkNm9BN0ZNTXUwYUI3WFMrOUNi?=
- =?utf-8?B?L0RWMTd0bC91WVUwUXc2YllseUVSSnpIZi9nU29hWTZsRWUza2IxbE1ZU1Vn?=
- =?utf-8?B?aG9COXd0UFZ2bDRIbG9ib2d6bGpxTTBvY1QvMHByTlhFT1AwT2ppZmgxYkla?=
- =?utf-8?B?WEs5M29rcFZFR2Z1MFp6RG8zUVJGWXhzWUhiR09NMnFjTTFMTFFDM2NFNTQx?=
- =?utf-8?B?TTlZUE9pNThYL0poV2ZOWVNKMkUvb085aVlOclFoNTdVYWdzdmcyRU1zRk53?=
- =?utf-8?B?SmloazBLRHBEWUMxRXNDZWFkYmRhVFM1T200WkxFR0pxUXk5cjlOcDNQNDN1?=
- =?utf-8?B?SW1hbWduYWlXNzdlRmR2Mm1udkVBdWxlQUp3ZExYN2FCeUplaXNkWTdWd2tD?=
- =?utf-8?B?VGtHQTlYUXNlejZQbnJ5cWEyYzhKdjNYTkJvdmxUQ1VXMGJJMlMzTXcvZk9C?=
- =?utf-8?B?c3dkVXMrbThDbm13c1liOTlZR1lyck9QOGlydVc5TTc5UU9peTN4MWJteXdO?=
- =?utf-8?B?UGlCbEZJakxTa3B4MWdIYjBsRGI1bHp0N3BkYUdpUGxTOTB0T0djZzBDakJw?=
- =?utf-8?B?ZjNGc2tnUWhtR0plbXN1c1VnbktIelNLZjBaOTI2OEhINUhOZTBTWGg3U3VL?=
- =?utf-8?B?ZWdMdmtUM3RUVTUvWU9MQkhiSmxzNWVMNS9hRWxNbm9LMUdRYkN6MUFET2x3?=
- =?utf-8?B?YWl3NmdMZUtWMHRMRGxTY2ROMzFIdnZnZU9udWsrUWMvR1U1SUl6aTh1cVdv?=
- =?utf-8?B?K09qWEFsNmdFb3MrUFJpS0FjSlpNLzFpL2VEVEdQd3N2Rmsra2syRCtMNzUz?=
- =?utf-8?B?VWVINXk1TkN4ejBqK0tjaWViZUhTVGJFalRQMndBSEw0R0tldWFrSXhTRThT?=
- =?utf-8?B?ajdTYklxdVEwY2tVQ3FMS0Y2QVFzMVNpMmFJZDN3cFRXYlNvNmcxVDFrRmdH?=
- =?utf-8?B?WER1NXpjZkk2TmhtTWhKaEIwbWp0azdGUE5sbkFGU3hYU2lBcWtLeWFGVUx0?=
- =?utf-8?B?ZVU3VW9SQTRBdjBTYkx4R3VFTFdZaVpFd2FWeTQzVkFxWXNhM2NHa2FYaG5a?=
- =?utf-8?B?VFdka2wrR1JKc1BYOXdMNUlOaDZZZlJvV1V1T0srYmNDTTlGZFBidnh3YVgy?=
- =?utf-8?B?MGEyTE9HbGpKUXdlZEtlTUdsR1RWTEVEenNSS2xVM2oza25rUVBRck5jVU1y?=
- =?utf-8?B?eTFqU0xMWmZKb0xOS3pwQTVUOEtHUTVDSWtFTTJ2VHlqZTRrTDJIRHdTR2JR?=
- =?utf-8?B?NDhZOU14Qi8yRFdabzN3THk4M2RVa0g0cTZQc20rMDJ6eW1ZenZaUGp3dUQx?=
- =?utf-8?B?cnIrSEF4K0xSN3lSWHBnK2p2OWJCM3V0SWE4YXdrWmhwYUhsMUtoQXh2THp2?=
- =?utf-8?B?TWhMV2JmWUxUdWo2dmVaRCtJaGlxNVlLTFhnU25FSDVwbm9MSnp6S0JuTlA0?=
- =?utf-8?B?QVVBcTgvdlhzOFZWT2FFYkpUbXg3TG5SdnBpbEZiQ2hWUndWa0pldUZ1Z3d2?=
- =?utf-8?B?SWpZOUxTd3BxKzRveHVHdDc3WDFTUTRrbmpadG9hRVcxbi8yK3NUL2RaTXgz?=
- =?utf-8?B?L0VLbldiUkwzQ1ROM2FNUEZGR3dKVXBxaE4zK2hYV2JObmJQdG1xVXkwUTEx?=
- =?utf-8?B?dHgzWnVyT3NOS0hLUGZueVpHSFBOWDZpTXJKUlV4S3lzOXBubDdlQm1uTkQ2?=
- =?utf-8?B?QWc1bTMyczZuckVaSEFqTXA1MndQMCtOWVQ2cVoxZm13NzVkQnlybFkvZ1Ba?=
- =?utf-8?B?Nk5oNVBQWjcwaVhNQVQ2blJRNHVwaTVTUmFrRzVqQWRSQzNjMWg0dz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W0wmRzvc
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49d05d51553so2120275e9.2
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:20:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793956812; x=1794561612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p9yngXRQlhdY0K3IAiQSprScx4advF1zvS5JKRcEVLE=;
+        b=W0wmRzvc2u9ak/YWdAwi7ePbK/k/Z5ld27hzZcZ+69z+95DeEos7Gc5qbdixNAUSGr
+         /guFC4QyITO1kI2K7uMrhE2cd2P82VoCri+8gkEdDm0taJFeewmC/tYT/p0k8kLK+++z
+         0TljBCVhqNogjFK+7V2Nk3tY53RP5DanN0NNc3u6a+JUy3Oy83OlxtmoS4U4wtM2j+qk
+         lTgsrq5JtnJSg8PYEso3ZxL5V5LSbBS2mLAVIdxnsvcoD9lwlZ9Jz3r/aZ2yEzOhhJ6f
+         zQ/0b93a3/5/LMTVbgthcWOCQUf3yEYah/K40NXuq3VBFLQeX4VZBlnK9o+Vcq/6tFsL
+         AryA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793956812; x=1794561612;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=p9yngXRQlhdY0K3IAiQSprScx4advF1zvS5JKRcEVLE=;
+        b=qVB5qiV40KHaF+pImflZ0WEFLFtDUr+L176szlkj7e9tmLxr8JIN3l/g/nDRIThI9t
+         /EeD2ETib9c/yGmZf0HHC0CbBj6XKyb4cZto0VZbD12AXQvU6V7GK9wAU3MCZxu8xonU
+         i1sITLxCbXxIy/zRCEbto7f80/jiDnl0TSt+JUdBPYa2dC9nK6kbcUxyPa695/hA/tda
+         to41hu7Dja9DLXTEelirnkMmmbCtFqDU6XE3hGX4rzwx6Alg4jeaB8JpP6HJA0WHMeB4
+         bhVwkQDm3usxGZLxrOGyDP+4GIxGZ0qrKlXHnH+9ICIIVZlg+SNyo/ODgsjI/gcnLQQl
+         OSJg==
+X-Forwarded-Encrypted: i=1; AKwUvBycawMBQsimFv6f7zkmOjY1zAftAsUQPdJAplsiIvyX+S1Ch0tRrlEJxuxTHGlSNFUSk5YdN48qdx0d@vger.kernel.org
+X-Gm-Message-State: APuU4Z82J6Im0ezlY0hS9kPBH7NlfZdwKicdqVw1eHkrLMVN9JMrp77a
+	9v9oyC108MePEAE4dLLblfeednW8O+zeotAWtlxyahoKSKMs2FXVyqLM
+X-Gm-Gg: AYBFou1TzjSZhIE9FWL6Zed5e62LQzX7UVGXDZJezea4TLGoZUs7IED7CODpbmoQ289
+	rVUi7VMqZn2f8qgief3OgA0PAwVew6AVBE0SBWAYAwjKLbfJrs93A5gBcI9U3fI4/FCmp+wBQ+P
+	au/rboXxHcwEss+JfyhtrJGCHQDPxKXKcqz+7ROkFTyXokK0li1pPCFsF8R55E9gIHrK4nU1pkW
+	kMnc+yZdX+f/3m4u9vLPm2gckU4R0mZY7SYCSipTJmLKASjq3OO7aOsDTZ6NjeaZyNfRVQqfX3B
+	4qPrDqxI/iDelD+QKqoOnRaChMcGhg2S0NEF9YLLTojABOW9ad9pHwPbkLNe8R5yQ1313Kuu9B1
+	WOZBMDYJAwYFlm+mzap0ZIGZv6zSgXJR1PtuF0Fe9jGqyS8qqnZg02mgvmtv+VHsUzi8/9k7SYm
+	VS9TMYXrpgCiPdLTro8QcEkfEahObyCvdrvTrLijy8Q36hYs3/9pAiVwbRt8s1tITtwrYpVllys
+	Cz0rfDeAW4eaPKnxfwzF5V6nq2ET749Ut9ALXgj1tC5j86j8vvZ3K0zOovtiRJiGDFGezyAtMmB
+	+/1OqKmvDF483AIqoDHt7CoUiw4dDlgUZuOuQGcTcKiYBbd8WnaZoi2KDteaGtM/xknW3OEPUpi
+	2X/jLfBN/dw==
+X-Received: by 2002:a05:600c:c085:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4b6e5ab7bdbmr22578535e9.2.1793956812200;
+        Fri, 06 Nov 2026 01:20:12 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 01:20:11 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Esben Haabendal <esben@geanix.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Nikita Travkin <nikita@trvn.ru>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/4] iio: light: ltr501: Switch to read_avail() op from manual attribute registration
+Date: Fri,  6 Nov 2026 11:19:40 +0200
+Message-ID: <20261106091943.35783-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106091943.35783-1-clamor95@gmail.com>
+References: <20261106091943.35783-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -172,25 +113,268 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZR6PR04MB587880.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80130aec-0047-4fea-3738-08df3be720a2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 09:19:58.0866
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0I9E/YhVaSaLY+cwJwZ0RknxEeiIz/6hIvZsWXouSLiK4YUofI2qTINZVW5pGqdIJayPuszTZbgp9veELDn+kQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVSPR04MB157375
+Content-Transfer-Encoding: 8bit
 
-PiA+DQo+ID4gICNkZWZpbmUgTkVUQ19UTVJfRklQRVJfTlVNCQkzDQo+ID4gICNkZWZpbmUgTkVU
-Q19UTVJfSU5WQUxJRF9DSEFOTkVMCU5FVENfVE1SX0ZJUEVSX05VTQ0KPiA+IEBAIC04OCw2ICs4
-OSw3IEBADQo+ID4gICNkZWZpbmUgTkVUQ19UTVJfRVhUX09TQwkJMiAvKiB0bXJfMTU4OF9jbGss
-IGZyb20gSU8gcGlucyAqLw0KPiA+DQo+ID4gICNkZWZpbmUgTkVUQ19UTVJfU1lTQ0xLXzMzM00J
-CTMzMzMzMzMzM1UNCj4gPiArI2RlZmluZSBORVRDX1RNUl9TWVNDTEtfMTMzTQkJMTMzMzMzMzMz
-VQ0KPiA+DQo+IA0KPiBJIHdvbmRlciBpZiB5b3Ugd2FudCB0byBrZWVwIHRoaXMgc29ydGVkIHNv
-IHRoYXQgeW91IGFkZA0KPiBORVRDX1RNUl9TWVNDTEtfMTMzTSBiZWZvcmUgTkVUQ19UTVJfU1lT
-Q0xLXzMzM00NCg0KVGhhbmsgeW91IGZvciBwb2ludGluZyB0aGlzIG91dC4gSSB3aWxsIG1ha2Ug
-dGhlIGNoYW5nZXMgaW4gdGhlIG5leHQgdmVyc2lvbi4NCg0KQmVzdCByZWdhcmRzLA0KQ2xhcmsg
-V2FuZw0K
+Switch to the read_avail() operation from manual attribute group
+registration. This eliminates the need for per-chip attribute_group
+structures and related ltr501_chip_info iio_info entries.
+
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/iio/light/ltr501.c | 153 +++++++++++++------------------------
+ 1 file changed, 52 insertions(+), 101 deletions(-)
+
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 302be2fc314c5..cc5d7af44d77c 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -133,6 +133,22 @@ static const struct ltr501_gain ltr559_ps_gain_tbl[] = {
+ 	{0, 15624},
+ };
+ 
++static const int int_time_avail[] = {
++	0, 50000,
++	0, 100000,
++	0, 200000,
++	0, 400000
++};
++
++static const int samp_freq_avail[] = {
++	20, 0,
++	10, 0,
++	5,  0,
++	2,  0,
++	1,  0,
++	0,  500000
++};
++
+ struct ltr501_chip_info {
+ 	u8 partid;
+ 	const struct ltr501_gain *als_gain;
+@@ -145,8 +161,6 @@ struct ltr501_chip_info {
+ 	bool no_irq_support;
+ 	struct iio_chan_spec const *channels;
+ 	const int no_channels;
+-	const struct iio_info *info;
+-	const struct iio_info *info_no_irq;
+ };
+ 
+ struct ltr501_data {
+@@ -590,6 +604,7 @@ static const struct iio_event_spec ltr501_pxs_event_spec[] = {
+ 	.channel2 = (_mod), \
+ 	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
+ 	.info_mask_shared_by_type = (_shared), \
++	.info_mask_shared_by_all_available = (_shared), \
+ 	.scan_index = (_idx), \
+ 	.scan_type = { \
+ 		.sign = 'u', \
+@@ -1111,111 +1126,56 @@ static int ltr501_write_event_config(struct iio_dev *indio_dev,
+ 	return -EINVAL;
+ }
+ 
+-static ssize_t ltr501_show_proximity_scale_avail(struct device *dev,
+-						 struct device_attribute *attr,
+-						 char *buf)
++static int ltr501_read_avail(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan,
++			     const int **vals, int *type, int *length, long mask)
+ {
+-	struct ltr501_data *data = iio_priv(dev_to_iio_dev(dev));
++	struct ltr501_data *data = iio_priv(indio_dev);
+ 	const struct ltr501_chip_info *info = data->chip_info;
+-	ssize_t len = 0;
+-	int i;
+-
+-	for (i = 0; i < info->ps_gain_tbl_size; i++) {
+-		if (info->ps_gain[i].scale == LTR501_RESERVED_GAIN)
+-			continue;
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
+-				 info->ps_gain[i].scale,
+-				 info->ps_gain[i].uscale);
+-	}
+ 
+-	buf[len - 1] = '\n';
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		if (chan->type == IIO_INTENSITY) {
++			*length = info->als_gain_tbl_size * 2;
++			*vals = (const int *)info->als_gain;
++		} else {
++			*length = info->ps_gain_tbl_size * 2;
++			*vals = (const int *)info->ps_gain;
++		}
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		return IIO_AVAIL_LIST;
+ 
+-	return len;
+-}
++	case IIO_CHAN_INFO_INT_TIME:
++		*vals = int_time_avail;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		*length = ARRAY_SIZE(int_time_avail);
++		return IIO_AVAIL_LIST;
+ 
+-static ssize_t ltr501_show_intensity_scale_avail(struct device *dev,
+-						 struct device_attribute *attr,
+-						 char *buf)
+-{
+-	struct ltr501_data *data = iio_priv(dev_to_iio_dev(dev));
+-	const struct ltr501_chip_info *info = data->chip_info;
+-	ssize_t len = 0;
+-	int i;
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		*vals = samp_freq_avail;
++		*type = IIO_VAL_INT_PLUS_MICRO;
++		*length = ARRAY_SIZE(samp_freq_avail);
++		return IIO_AVAIL_LIST;
+ 
+-	for (i = 0; i < info->als_gain_tbl_size; i++) {
+-		if (info->als_gain[i].scale == LTR501_RESERVED_GAIN)
+-			continue;
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%d.%06d ",
+-				 info->als_gain[i].scale,
+-				 info->als_gain[i].uscale);
++	default:
++		return -EINVAL;
+ 	}
+-
+-	buf[len - 1] = '\n';
+-
+-	return len;
+ }
+ 
+-static IIO_CONST_ATTR_INT_TIME_AVAIL("0.05 0.1 0.2 0.4");
+-static IIO_CONST_ATTR_SAMP_FREQ_AVAIL("20 10 5 2 1 0.5");
+-
+-static IIO_DEVICE_ATTR(in_proximity_scale_available, S_IRUGO,
+-		       ltr501_show_proximity_scale_avail, NULL, 0);
+-static IIO_DEVICE_ATTR(in_intensity_scale_available, S_IRUGO,
+-		       ltr501_show_intensity_scale_avail, NULL, 0);
+-
+-static struct attribute *ltr501_attributes[] = {
+-	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+-	&iio_dev_attr_in_intensity_scale_available.dev_attr.attr,
+-	&iio_const_attr_integration_time_available.dev_attr.attr,
+-	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+-	NULL
+-};
+-
+-static struct attribute *ltr301_attributes[] = {
+-	&iio_dev_attr_in_intensity_scale_available.dev_attr.attr,
+-	&iio_const_attr_integration_time_available.dev_attr.attr,
+-	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+-	NULL
+-};
+-
+-static const struct attribute_group ltr501_attribute_group = {
+-	.attrs = ltr501_attributes,
+-};
+-
+-static const struct attribute_group ltr301_attribute_group = {
+-	.attrs = ltr301_attributes,
+-};
+-
+ static const struct iio_info ltr501_info_no_irq = {
+ 	.read_raw = ltr501_read_raw,
+ 	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr501_attribute_group,
++	.read_avail = ltr501_read_avail,
+ };
+ 
+ static const struct iio_info ltr501_info = {
+ 	.read_raw = ltr501_read_raw,
+ 	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr501_attribute_group,
+-	.read_event_value	= &ltr501_read_event,
+-	.write_event_value	= &ltr501_write_event,
+-	.read_event_config	= &ltr501_read_event_config,
+-	.write_event_config	= &ltr501_write_event_config,
+-};
+-
+-static const struct iio_info ltr301_info_no_irq = {
+-	.read_raw = ltr501_read_raw,
+-	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr301_attribute_group,
+-};
+-
+-static const struct iio_info ltr301_info = {
+-	.read_raw = ltr501_read_raw,
+-	.write_raw = ltr501_write_raw,
+-	.attrs = &ltr301_attribute_group,
+-	.read_event_value	= &ltr501_read_event,
+-	.write_event_value	= &ltr501_write_event,
+-	.read_event_config	= &ltr501_read_event_config,
+-	.write_event_config	= &ltr501_write_event_config,
++	.read_avail = ltr501_read_avail,
++	.read_event_value = &ltr501_read_event,
++	.write_event_value = &ltr501_write_event,
++	.read_event_config = &ltr501_read_event_config,
++	.write_event_config = &ltr501_write_event_config,
+ };
+ 
+ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+@@ -1226,8 +1186,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0) | BIT(1),
+ 		.als_gain_mask = BIT(3),
+ 		.als_gain_shift = 3,
+-		.info = &ltr301_info,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1238,8 +1196,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0),
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+-		.info = &ltr301_info,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1251,7 +1207,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+ 		.no_irq_support = true,
+-		.info_no_irq = &ltr301_info_no_irq,
+ 		.channels = ltr301_channels,
+ 		.no_channels = ARRAY_SIZE(ltr301_channels),
+ 	},
+@@ -1264,8 +1219,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0) | BIT(1),
+ 		.als_gain_mask = BIT(3),
+ 		.als_gain_shift = 3,
+-		.info = &ltr501_info,
+-		.info_no_irq = &ltr501_info_no_irq,
+ 		.channels = ltr501_channels,
+ 		.no_channels = ARRAY_SIZE(ltr501_channels),
+ 	},
+@@ -1278,8 +1231,6 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+ 		.als_mode_active = BIT(0),
+ 		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
+ 		.als_gain_shift = 2,
+-		.info = &ltr501_info,
+-		.info_no_irq = &ltr501_info_no_irq,
+ 		.channels = ltr501_channels,
+ 		.no_channels = ARRAY_SIZE(ltr501_channels),
+ 	},
+@@ -1548,7 +1499,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 				     &data->near_level))
+ 		data->near_level = 0;
+ 
+-	indio_dev->info = data->chip_info->info;
++	indio_dev->info = &ltr501_info;
+ 	indio_dev->channels = data->chip_info->channels;
+ 	indio_dev->num_channels = data->chip_info->no_channels;
+ 	indio_dev->name = name;
+@@ -1573,7 +1524,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 		if (ret)
+ 			goto powerdown_on_error;
+ 	} else {
+-		indio_dev->info = data->chip_info->info_no_irq;
++		indio_dev->info = &ltr501_info_no_irq;
+ 	}
+ 
+ 	ret = iio_triggered_buffer_setup(indio_dev, NULL,
+-- 
+2.53.0
+
