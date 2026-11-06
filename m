@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931082;
-	b=Ayp5CKjZuM4qepgabeWqT0Vh12pfo/YscDqBEty+t5ksnGAIhYDpztpmB8GnT6NpTQe0
-	 GB5iHGCPGCgCqKoK5Doun4B7KDPjQg+E30jiN3O5bN6WPHQ7p/vE0Dd37ZLNkjrw9HmVt
-	 TTfvX+SCaomzqLhQ8cLG5yv8ihQduaVa25SwjAmmjOpSpIZPVFuBw3zgT6n/3aKG4hZjk
-	 l9hIn3AMKtXWUrjgLsQr72lu/9COrHrDrDpUz2H6OQ0uPMnzpwH7/HLp+1pqMzWXhlReo
-	 kXrVLeyVoNmgr9bo+q6foN5HvUYAIEQwW3dEIEmZfS1IQcJWxe92VkOrrTW2nBfilRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931082;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793931426;
+	b=VtTzwcsEI7pPYEMbvCW+qt2RileCzX+C/5JJ/qXG2MsSPzMAp3FTO8qZPu6XmPXNVyGJ
+	 44tRl0uIov8jOrbjoOuAWOkvYB6t2dsjQZfjF0W6DhFghQ4/xI5ih4q2PHvsg5id+sCik
+	 BmlGpxajVSwUX4c+LgZecFc4HVNY1mnRWpnbLvK+MO7WgPNYUEKFBDR3vm4AJ02wmYxtU
+	 HwBm9aOidKBn/n1Jk6Ptpub6/7e7etH+TmSoO666rXO+60H1U6oJ6xlo4URW8nvP3Jttl
+	 S+ekppwbqXXmUf9aOxHPisgLk5mBvfRYqiby8JrkqMTEhJNmQ2/4ezhsB1ZVOkYdD2w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931426;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 Content-Transfer-Encoding:In-Reply-To:References:MIME-Version;
-	bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
-	b=pA2ecDkXeq8QpbzWahtrYfdcG2BgXTgN7Ave21Fu7zlaV5kI0YeJhLcQwiy/QOJyf4Qc
-	 hRdcOmdFrP7/c8sQuveUKE5JznMu3SUrrJXE6khUk5RiO+5/201XthTAYYOr7Vig3Q3yW
-	 NepcA9I7Qdj7mokvKbfxVCLroeQt00ry9y3oGZJvQqmuxfb+in3feGQlNjG7ZIrIAb4sG
-	 0jhG+Cjec1McXLXEtvmiHi0DaICQTbZkAcEGelOQJTdAM2QBcTxv/o/nu/fj/cUwjRupm
-	 t2jXDK2B/gKr9TqoQXZQJtO9OklAEQesrZlH0fHyjE271zBs2r6FvJ1UhN1W/vLrhUg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b="bd/1gPIM";
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=brMY+OaA/TMsf3LmZkAREDA9GFOOeLxAwqMfVeCmlKI=;
+	b=It2JCsaL2hdRMVaIBWp1gn9Hd4UfV7MzukkPCk5xf/oHnSW4q/9xO0eMHLuBJPkivcMd
+	 GkVyVU871ddjEU3lBRL5FAxGqenwIgsR36iVmvcwD6t8JJEzqiV+UMgXXVopda9gimYRS
+	 Zmul1fJBRBh657DGLd7o2llFWvbZNd0Iom5rZ8bLQlrJXECcYb4YChkrv7wevHLKQOszC
+	 Kt8vTVCyy328wSLa1F+BAgNod+9Z4b+hSOFXRizA+rLpTkgd3VA8/XXSCiA0lWrxXLnUo
+	 IigEeaCEk7vmm4jIHdxwmQV3ByCQF/UNsWsf+c3Hc0x6pb6kLEROdshsDlSnTjYDzbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y52n66Gq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF70C606A328
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 02:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF70C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3B9606A328
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 02:17:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C3B9606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=bd/1gPIM
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso466768eec.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 18:11:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y52n66Gq
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bb7ad903d0so14968e87.3
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 18:17:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793931424; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qjbzYrXm8d+7s5DVOZ58eAFphKZZoI/EEUlJnHoHxWhvC9f2W6IX4aHVbwjcPOETxb
+         1ZEV/hmP3z49BF8KqQYHJLOVc8iFQoBRy67PDyNzuSf9b2LMsigg4A9DDN0+Km0FYPNI
+         6AXGolTi10gT1XcnVLBSzk9KTLJxyOZMvvEA8REWV9kiqhRToUbNMimIns9VgK2dj3/8
+         9KK7fk/BZHI5qGBKKhvnb80+I7qkb0ZEpiN76lJMf1hRwXih0L0mlx16FeC61wuh1/L7
+         LoMUw8iGfvdTyv+6qEQ5765OGtB6Ls1h9XZ70kkkleVleUS7LIBXOuCpmpW3NTy0iNKW
+         Gifw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=brMY+OaA/TMsf3LmZkAREDA9GFOOeLxAwqMfVeCmlKI=;
+        fh=0+d7GMwFreGjhaFREe3NYA84K797xDl7Q0SPQnRx084=;
+        b=LN2HDp2av3og8cVsGdHZn5ICNOeWX/xIzvdTfaJOWGZh1fN8jr7mlv9+iXaYRUrjbP
+         3EcixciKkks/Uj6py0TJZi6XKmVjpFv1KKxCD9VWPK6XELNuGdE4Uu4pmzKXK/MaayTy
+         WPqMCPDWchVu1+23Is5mZrLFd905u7HE+iwwoaZWMQ98HNQmBOA1so5o8D4xUcTS0ZXR
+         QyWFCy6+aicmncxajCeE4b5H9GjGJDzHvx6HTWKSm8kqmv1wTApFqCJL1Ifwsw8U1G+f
+         iW/GxxF3IGXhkTqcA42Yq/344oLGW9U/RsFIQ50tNmmy6NVzcGyCCogbawS90uzugLjO
+         bfQw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1793931076; x=1794535876; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
-        b=bd/1gPIMML4DE+FFEFx8J25j7lGYR+PX0sSnFmHkdk/bm6JCWrsXM9/nNxODkEmv7v
-         KYTrQjqwUOlS5hJ32SIXnTgqZRCQUFhel1fwmuxL1iV4oDrFFbxGRi3/GoS4Hr/l8V7u
-         tSLNPHRwD+6ezTizTFhHUmfV7in9PQDZmcVdoW+BOz98YatfDA9PaI8sFjVHMfVCj54+
-         0+IsgPM2bWdNTaY/6Dz/IqRsPD7ndLzUU4r2wG8Skit2rcjfYkmTvAJCxN1oiFQ+vBfC
-         hDxhM3rLfxnZ43TGzhYgEFDOscXW/0apUlg5ejiR/7bf9HwuKqb3YBc3gGzJFfxk6V/R
-         L3Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793931076; x=1794535876;
-        h=mime-version:references:in-reply-to:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793931424; x=1794536224; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jf62vaeUsY2yO43cSs/blH2TUhxnaYyy44Chrc7BGd4=;
-        b=oqG2YUQQAemrbDA0zyxhXPqSeXNXtsGuqLquaoB4LLdL1rBRdWAKYohxgiQDP6nOMc
-         GnXJpF5kPotE562cLfpP7+LucOgwDCP2rvPW1+de2aSN2F1eLrhkLWuDgkKB/46vcxU3
-         WtbYYdNJcfQyrsfOhvUk/rL+7d+t7TGh4CYKbqwLwv3c1ml+fhzO1xfVG4r8daww7wZG
-         ylkBOrX+nc7j6a3bF6ChicECdfuRtFKNjfBmm41C7E18j9Vxdv3iEX10l9g2OhYfmTTC
-         eAmPtYvxNR2EABM/aobAbJ2OiTxH82MDFlqVZVt5R0HRwEejeCHwej+rgeXae4uOdEcE
-         /YRA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Yx0mYzE0zcGoushBfJMyPTSaceEogoejC+70A0ukdP4p0M3fCOt7xbF1eWkuJ/+zX57nvjhprpde@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3gpggHF4PcW4HSiI0hCBI69vKf8Z0SgVblnagBaCM39ZRxbfU
-	b+Lub0ke029g+SL6RG8TX+RcUTYoxCQzH28GK3fkadEzgZmVEB4FQJxY3LpnEJ7jB+Y=
-X-Gm-Gg: AYBFou2m+4/5YyveApHlvRzRuXoqOASRLDVMr4ZWmCl0rCZgU1Uauf/hzT7mZT5H6Bc
-	50GE3Ylf7pNaVJyLJcRgwz5QwTZ0+pwF04WCt1ZYU1mRttqSEUzrH02u2Bv6vTK+9qChWlSACkE
-	8ZNpU7Uxa9O1fnTDIDVzeKFZn00WtdWeo4qz5ARInwzZBrHQft4R0aeR3RP8eeuC1SCWlfUCfe7
-	zPg3UAkOwUkGtX9EeicxQB5O2hngRmrGWFrwgGzN7iUH/W1hEbqdezYPXB9BnVVEmSNPO9qwmdy
-	JDf/0S067EKwgzmL6P9jK7SzrMhon/DwAFrtuSkGdIyeZ9lGXk+gCaQx8Nb9YhKTGNpEqsPPwl2
-	wc/beM/nHKVuaIUDWXEJfbZsff65SqVzmNODO3gwaVbuQMAUZ0FSwreTzJfsN8HXb31g+gZ3+DX
-	s0QvcBCdiXWkMnfoW3ECaFGKdK0RRKaPs+EshqYfOiJhJRklmTl4nxamwJ+hSWs+lXQLD5MSAgO
-	Tf8dzMGdUaLqddMatmEqH9EdUOvHYY6pRHls2E4QnpZrpn0cAPPaQPJZHF1h+TIJdYEyMKSakWI
-	oNGSBoSu2lRilGeOId5pG0PI0MX1nQ==
-X-Received: by 2002:a05:7301:18ac:b0:36e:c04b:53ca with SMTP id 5a478bee46e88-36f76c11206mr1366102eec.28.1793931075409;
-        Thu, 05 Nov 2026 18:11:15 -0800 (PST)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faaa8f1e9sm1136097eec.28.2026.11.05.18.11.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 18:11:14 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 18:11:14 -0800
-Message-Id: <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
-Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
- <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
- Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
- "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
- <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Rob Herring" <robh@kernel.org>
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105124030.GA1449284-robh@kernel.org>
-References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
- <20261105124030.GA1449284-robh@kernel.org>
+        bh=brMY+OaA/TMsf3LmZkAREDA9GFOOeLxAwqMfVeCmlKI=;
+        b=y52n66GqCM/IpK42JIjgWKkg1QPRKupRbssLQS0bhlgBZPtlxR22WdDf7Cb/WZZ2zK
+         OktRlBKYgEki+dEGCjO/1Rt67NRgA6dCn9IgpQnLV+k6riwYgBIpCuapbjHivFbuK6mQ
+         7wefPUZC9lsirgeFG+bcDsbL24fhbF32OWD/NhUQWa4n+YbFXmYFs8ewO3ZHNNIX3n9X
+         uv4zP0PHryB+Va0vIB2fCvxKuwmRCvP0Yfk9F4XobOGmUqz64LD0k8z/GS6h+DNe1srA
+         cGLsJtRNk6Uwy+gm3Xip0zxkFTErj3hrIIGYvXO3GPF8ulUbF4V5lewAPsU4LLU3UQh2
+         N6Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793931424; x=1794536224;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=brMY+OaA/TMsf3LmZkAREDA9GFOOeLxAwqMfVeCmlKI=;
+        b=wD7522E2kCInUsJo5OJxLWiqMU1qrcovyU9sS/1jKjPZq1i9fOwhuvtjw362qRDrCJ
+         63xa4e/fzDmhw6De5QiGWohcIBC1iH0Thl5MecyhDiQKaZZjvZeBb/h2xBYMMnnYaV/H
+         uqLrQhe7F8iQp2BxOJHNYNbjLAlrHLPpc8IvD0gheivGyMgzidvZ32DeD7g5qvH9alnc
+         gu00hE9i9nzCGVQzNXNjMKSXPeEh5rHX2koSUq9AN9S20CSun+qYaxqO4ZU9gGF6CQ3S
+         HdtxWP/DQlUfurK6rtS30IrzNF5zmKuW/FFV4TvKmaOOWCfs2yxw7DCrn2bUa58BrCoj
+         JjXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjlYLIcWjCXxsBrb3MfCGm26YKxTi7utXHWE9jsqZ65TN7NeZETTKNTSfYy2wJx20YRBffiynCvMrH@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/MQFr+yFwsBgCGIZNsN5sy0FKoBxiGyCQoBR8HfcD+kPhy9DX
+	+1PzJvVq5WvcRFW69CEcCyNFTFMJfBp2Tl6sfY2KzKkKLyvmzFvJSoFgkzsX1Gd3fFhgeqE1Wbc
+	WlHBQnwTN4wXxP2wXzXmCt3llmtJRx8I=
+X-Gm-Gg: AYBFou30kyY+TW5hh9B5o+fUHpGBhhBGbpgE6GHYZtG9DS24ZY86ExOf5TNTqovNnpy
+	BEuWC9vUiKMrXWV8iQ2zuthukYo/c/774tf7NbVzE3kggzxvd6yHQAIhxot9YRW/p1kObDmw/4z
+	C0kMsFaWgI5lmzHAECXMxWxutipP30tsPe80Wm8Ikh4HSdE0WjQLwCDho9k+zKQ8mcVxwgh0Kj3
+	e30WnYvbNAAIiHJbwLOJsPBtcbJqBRBTFDqlL2s9YNvlUGSIE4Kgy35J+/qPrP78GBEp/yHRGRc
+	NptaLsd/XO114ow3ZfcwAleUTwpl+uN9edbbIhf/H4tmb56iwgDIadflDUuDtJuoBp90iVOgRLx
+	EY6AX4Rw1TFiAkBXJmBU1sIEyu2+jfShqhr+hyrInQOBJ3hOd6mbJMzJIEmdyZ36ke1AhEVYjCb
+	sd3F2jIzV5l3q0jXq9TQ==
+X-Received: by 2002:a05:6512:2524:b0:5bf:d9b4:2481 with SMTP id
+ 2adb3069b0e04-5c003c16440mr312893e87.6.1793931424363; Thu, 05 Nov 2026
+ 18:17:04 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,62 +104,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261104-milkv-duo-eth-overlay-v2-0-e3d2d39cf229@baylibre.com> <20261104-milkv-duo-eth-overlay-v2-1-e3d2d39cf229@baylibre.com>
+In-Reply-To: <20261104-milkv-duo-eth-overlay-v2-1-e3d2d39cf229@baylibre.com>
+From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
+Date: Fri, 6 Nov 2026 10:16:53 +0800
+X-Gm-Features: AclHuK-dqaISPAtfDlMGbnSeryvn5bwnJRHt-qebg7Qbj88Q7XOH_5ONWOiQpyg
+Message-ID: <CAKspUhKv_6BLHVH_5oBsM8UhvCGHEsukRDmMozZEebHZtoJmcg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] riscv: dts: sophgo: make sg2002-milkv-duo256m-eth
+ overlay generic
+To: Hiago De Franco <hfranco@baylibre.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
+	Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	sophgo@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 05, 2026 at 06:40:30AM -0600, Rob Herring wrote:
-> I'd rather have my added device working than refusing to probe because
-> some arbitrary device index couldn't be used. There may be some user
-> that has a working system today and then this change would break them.
-> We can't really have that. I view aliases as a request, not a
-> requirement. It's perfectly valid for an OS to just ignore them
-> completely.
->
-> I have no issue if we make the failure to use an alias louder, but I
-> guess that's not your main issue.
+Tested on a Milk-V Duo 256M with the USB & Ethernet IO board, on top of
+v7.4-rc1. The composed sg2002-milkv-duo256m-eth.dtb is byte-identical
+before and after this patch. Booting it, eth0 links at 100Mbps/Full and
+pings the PC over a direct link, 5/5.
 
-OK. I'll drop that from overlay-notes.rst.
-
-Watchdog and rtc already treat an alias as a request: they try the
-aliased id and take a dynamic one if it is in use. The subsystems that
-fail are the ones that keep their dynamic range clear of boot-time aliases,
-which they cannot do for an overlay applied later: i2c, i3c, spi and
-mmc. On x86/ACPI and other systems booting without a base DT there are
-no boot-time aliases at all, so that range is empty and dynamic
-numbering starts at 0, right where overlay aliases would land.
-
-Would you like v9 to give those four the same fallback, with a warning,
-so the behaviour is consistent across subsystems? For i2c, the alias
-lookup would move into i2c_allocate_adapter_id(), so i2c_add_adapter()
-just sets nr = -1:
-
-	if (adap->nr == -1)
-		alias = of_alias_get_id(adap->dev.of_node, "i2c");
-	...
-	mutex_lock(&core_lock);
-	if (alias >= 0) {
-		id = idr_alloc(&i2c_adapter_idr, NULL, alias, alias + 1,
-			       GFP_KERNEL);
-		if (id != -ENOSPC)
-			goto unlock;
-		pr_warn("adapter '%s': alias i2c%d already in use, using a dynamic bus number\n",
-			adap->name, alias);
-	}
-	id = idr_alloc(&i2c_adapter_idr, NULL, start, end, GFP_KERNEL);
-unlock:
-	mutex_unlock(&core_lock);
-
-i3c, spi and mmc would get the same few lines in their id allocation.
-mtd and serial don't keep a range clear for aliases, so boot-time
-aliases can already collide there today; I'd leave them for a
-follow-up.
-
-That would extend the series beyond drivers/of into four subsystems,
-with acks needed from their maintainers, so I wanted to check you're
-OK with that scope before going ahead.
-
-Your two earlier suggestions, keeping alias and dynamic ranges apart
-or only honoring overlay aliases whose names are absent from the base
-DT, run into the same empty range: the first would reject every
-overlay alias, the second would accept every one.
-
-Thanks,
-Abdurrahman
+Tested-by: Chen-Yu Yeh <chenyou910331@gmail.com> # Milk-V Duo 256M
