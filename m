@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000727;
-	b=IymdpXlDGs47J0fyLmJpg3sI9lCFtrmRKJdlZtrMtlwO6WMWWgbPoXDkV6jjN65K4ec6
-	 WUokL1QZfb8F+9+tFhInyPb8iDzOwcokAcV3HjAT53rNAZI3mLPeu07Jb/0OSlPV+vti5
-	 ltZ1304NyQGZQOYmNJFKPzWqz2fnVuvfrqirfSG2JUYmxT7/UAlHPjGbWf6DPdI5L8432
-	 nME8NAMFGXS3NEcovEcoaMY8wsaGNiVCddORLqqS3lKBqqaem0keNJkMjpvJ54+bs4RQV
-	 1f+U0j16lXpHUlHl0cVgt0Pg/5p30j98hWMGHodp4twtHSQr1d7hp0YbnEYMwC3Q14A==
+	t=1794001064;
+	b=YZl1mU6RdYZnsxz324jAWS91zcLbMkuk4mqGDv5k+ux2G+5yV3Yx+sCBFo5BIWWchYzN
+	 VHWBEEpnN4AENq+ivJiY6r+Xp49FLRNpXjyjZYYz0p6tPLpluXTk1Ju1j7NIbJ2dYRK8s
+	 B6ldqXfOrBgwsI6WW4cdVJe4ra/+uo3MKBeZWk6xgc0kjU29/VtZX03Mhut10WFvUVuuD
+	 FpPvqY0P5Ter4mGwOBTIdN4YHOqs+xfMOVbPI2ZEqed959Yg9J6/sLxBGyOXws5WxgwD3
+	 niqdGmjE9v/dZlroeBLVBrZgvQ8cq8LUx4ZM+hlpxFUPZhaysvgpBqhBcASSJAGf9Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794001064;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=y/v6vHoZMsulYl+hiJykQ6oeqPe7EbafphMm7CRCkRg=;
-	b=2r1XTR8dMZ+L5Uud94tFTg6NCgYfFh2j6r98jMByQs8xmp0z79IGJVdsanv/JltsWIjj
-	 bDy9UGYYv5CMAUzt4N6DIwzBUhESgCnZPgPqcYZJfcMaw/G2IbHGlKJXa4uy7J/JsASbR
-	 sU7B6s5si6kSXyap0zdZn1xhMCItManLwY1lHt9TdgqTFXNIN/Sj118fJ+uRQoECzfJSh
-	 b0762WMFAX4pzurn6bCowgJveTsxkjmxQ5HgjmGz94DstP1CIhwPREQDQvHrYNWFHBZtH
-	 hYoiJ6wvfmwhTktJbjyDdkZvhc2RtvRBGBHs9diTCRMn1lo2a8GyO+IQ679MVzyaGaw==
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=R3WhphMQ/dC8k15O8g1wb7NUZP03SLqWHIRamdHyf2I=;
+	b=zIYSRoKGz6R6nXuAv8PQfX/B56tBwvZHOQdS7MX5M74+h3W9XRbQlVlmfeOovFF4kcSv
+	 TeeTEU1PcprX2RcrSHoYjTrmKB1Fmdlg1MTSPB/QQAHYrNtsy8cqd0ck/iqrkM2HjJgHo
+	 nH3NQRZolLbFPh+uVZPydqDXsTjozE2VmWtY5eX1plgzWyXpUKdCgmwEDGfLa2G/qzymJ
+	 9APUd/irv8GNMUZzJc2QkdRUyiseVd+n9dea/FGMYpumsKz1i5SrAbfYl1jc+9fmDtI4G
+	 T7LwEen+m99fbWs0r4CnEABwBUd/GlcJZcrrXicSqmUU1huu91/LHe22yjyyzTbso4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2d8VJQ7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Trjm9rFv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097CF606A329;
-	Fri,  6 Nov 2026 21:32:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6B5606A326;
+	Fri,  6 Nov 2026 21:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2d8VJQ7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605441F0089F;
-	Fri,  6 Nov 2026 21:32:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Trjm9rFv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BB91F0089F;
+	Fri,  6 Nov 2026 21:37:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794000726;
-	bh=y/v6vHoZMsulYl+hiJykQ6oeqPe7EbafphMm7CRCkRg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S2d8VJQ7SPc6KCEbjbUV9fbIj5gvca7bGsu5tKRltEl3ZDp/msq5ccwE4/xm3MA21
-	 rUDoBPzMhdeNjKBTrv38pyRAl983aQxlFrwVaVeQ9BF+Ajp8gt3ZiV2MlDbUrGlTMZ
-	 Ii39aE50lndMFePAUF4IetOVAFP0SIdVWSPm1tTo74jak8QK/YbXShB0g0I2bzRmO8
-	 aYejoqimq7GhRjjKqAQpapB3LaeoovBQyCf4iuOriGhMIMB7KxxFp7t4Lllz99q/kM
-	 FFceHEAKPuHxO3ct9Sm2FEtXG1VH1D+LPMYZ8I8dkEkbDc7Cz3TA0PntHI+CYjAjoR
-	 z6fClOG3FF3Ow==
-Date: Fri, 6 Nov 2026 15:32:03 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Saravana Kannan <saravanak@kernel.org>, llvm@lists.linux.dev,
-	devicetree@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH] of: reserved_mem: mark the early_memremap() array
- helpers __init
-Message-ID: <179400072224.1844309.11382493077872563963.robh@kernel.org>
-References: <20261102224528.2495168-1-sashal@kernel.org>
+	s=k20260515; t=1794001063;
+	bh=R3WhphMQ/dC8k15O8g1wb7NUZP03SLqWHIRamdHyf2I=;
+	h=Date:From:To:Cc:Subject;
+	b=Trjm9rFvQ9mnVOhIZ19ag6reTS7jqti2aDOR7rEaAiqxzwciRxXUK7ek6y++zIy24
+	 sl1NAH0CJpBMaBX5a/UQIUpzf6ygUhYorYOuCMjs485Rxt7ajbr1iyPals8S9HNnEq
+	 hlZpiBTPQKLKCTOd4MmBCNC32+ddVQMpxBi4TUN027noeTFtxVUulwzgbHWZYC8sjr
+	 /2gUHbCV8rRPTsgH6VJmsGc+57tkumTx+vBeYkXByq44LQw81MkJMC3VnrwEuQ+NHY
+	 ws9pW/kHPut8suHgTFToJfehBDiRE4HZR6FUCY6xoiYYhgX4JKWCj3qNMZNoj+JDLk
+	 Mo8VW67LbvIcA==
+Date: Fri, 6 Nov 2026 15:37:40 -0600
+From: Rob Herring <robh@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [GIT PULL] Devicetree fixes for v7.4
+Message-ID: <20261106213740.GA1851347-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,35 +59,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102224528.2495168-1-sashal@kernel.org>
+
+Linus,
+
+Please pull. Not fixes themselves, but all of these are patches that 
+didn't get picked up for the merge window. They all fix new warnings 
+because the corresponding .dts changes did get applied.
+
+Rob
 
 
-On Mon, 02 Nov 2026 17:45:28 -0500, Sasha Levin wrote:
-> early_array_map() and early_array_unmap() wrap early_memremap() and
-> early_memunmap(), which are __init, but the helpers themselves are only
-> static inline. If the compiler decides not to inline them, the out of
-> line copy ends up in .text and modpost complains. clang 21 does this for
-> a riscv allnoconfig build:
-> 
->   WARNING: modpost: vmlinux: section mismatch in reference: early_array_map+0x30 (section: .text) -> early_memremap (section: .init.text)
->   ERROR: modpost: Section mismatches detected.
-> 
-> Both helpers are only called from fdt_scan_reserved_mem(), which is
-> __init, so mark them __init too.
-> 
-> Fixes: aa05faf81583 ("of: reserved_mem: allocate and map the reserved_mem array early")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
-> KernelCI's clang-21 riscv builds fail on this once dt/for-next is
-> merged, so it will probably show up in tomorrow's linux-next as well.
-> 
-> Tested with a riscv LLVM=1 allnoconfig build (fails at modpost before,
-> links after), plus W=1 builds of of_reserved_mem.o for riscv and arm64
-> defconfig with clang, and arm64 defconfig with gcc.
-> 
->  drivers/of/of_reserved_mem.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
 
-Applied, thanks!
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
 
+are available in the Git repository at:
+
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.4-1
+
+for you to fetch changes up to 9c1075791172d936935ca20d7f0c1da601c4f408:
+
+  dt-bindings: usb: add Altera Agilex5 DWC3 controller (2026-11-02 13:25:21 -0600)
+
+----------------------------------------------------------------
+Devicetree fixes for v7.4, part 1:
+
+- Add Altera Agilex5 DWC3 controller and Raspberry Pi RP1 PWM controller
+  bindings
+
+- Make "peer-hub" property optional on cypress,hx3 USB hubs
+
+----------------------------------------------------------------
+Adrian Ng Ho Yin (1):
+      dt-bindings: usb: add Altera Agilex5 DWC3 controller
+
+Josua Mayer (1):
+      dt-bindings: usb: cypress,hx3: make peer-hub property optional
+
+Naushir Patuck (1):
+      dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml          |  66 ++++++++++++
+ .../devicetree/bindings/usb/altr,agilex5-dwc3.yaml | 112 +++++++++++++++++++++
+ .../devicetree/bindings/usb/cypress,hx3.yaml       |   1 -
+ 3 files changed, 178 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+ create mode 100644 Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
