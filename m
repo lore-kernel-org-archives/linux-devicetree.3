@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794004067;
-	b=oRSSa0muM4VkarVIGyS4GJyl9MaTYnzFUBHdrxN/eeC6zW29zaMrIytOmLZEFhxwexnG
-	 WRzU5b+FG1bpGP10gSjuL7ytSQEeS92MWe6QtStfMLc6gl+8gDOE/hZYJyA+aogDYUaJx
-	 JfZNHL0hSON7Tj3Iki7ipbwdwPpb1GmT2iqkRpTmnxtHes6Fx3glF3+yuQW6kNDnZDqT4
-	 xl4aO0y64es6uJylDauxkNF4FDhJ8IgdWL6HxgMqXJfDDeyuhDiYMH98/bILFFKsC8a5u
-	 kqNE0C/xO9sm/8//MrTyu16Ha2oJkimUJIITXAzI0s39gc8HwayTfr8GAsSshaQ3Tdg==
+	t=1794004188;
+	b=b63mhKcnnkXAWlfgTEbHV9n3YOxQWUm3bjZBa8qvNV+F1qYRDNOqapVg85GD+2P5xx9P
+	 Yrrb/cQyW5YBE8U/ve8lwNjCWc5eBJ7ec0IxIht/NNySR5ylO+cXWhXXV12vo92kcsAuE
+	 GIHYYGsEvxIip+IFaCbK5/kC6BSnDCw153ruLDgcrWYACiH+3U+IudsRU5wbIkzUdEiZg
+	 7KRHUbCypVeTHZlizPrMNCdUNNimULcs4FdSzNhdgt1dSGhtE4zIfmc0hRvzAqRRh+kp4
+	 i6qWoOhnTvH6jipp5VWIWsffaibphp4q0oN4P8ViEZFZG6fEUuYCWR02kfqa5N3axgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794004067;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Tm44yLE9zR/+xclgm4/iFVDEIIryMy4vkUArG8yur4M=;
-	b=yKkzEKBnUeTIuE+G76OIuIbtCYkdboMYLe9kwZ8teDr/NF5XKqf/wg+43GpAAb7Ah5Wm
-	 JWeZ9G4MMZinncV1Gxn2PFKKOHJFAlAFp1kzj5IHxvv0OunpG+Hm6zwHp6sDG9R66PdJd
-	 GgruQZSVMLIuNCm1nGFzu/Fkuu6UnRM3SdDFHGmWlrKFxFezKvzYhTVzor5R0msI5Zt2C
-	 AWwGb7sf3xchNifK9uPuz3ZADY84HhLH2Dg0wJY+BInYh6vhy+efK9Y4Zd/7IA3S9RQwE
-	 ULcGNGIY8VKPQbTRuRri0FnS1X9fxH90EPzTgMVOgIuoMA5T8IJ/F9Lz1HNAG6rUq1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794004188;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nMZpNIkcGTdYfdMzEc4nfMQokEv9/vL5W1VNPtjLnMY=;
+	b=YaixnVKtsQrR5lvVfmCe+geLxDq4IaacVlRSjMQucD+j+ZF/6KgyFvBSRsCqghhAUE2f
+	 XZv6ghsJQzeMwxrv85xKxgL8BiP79KG9osMzk+adwgeFE1kCwb00nzKPS7+OLvrWgzOZH
+	 R6A6P+eLAhUpVCFBuBbF32Cr0FQwcVbPuiWt2DXcxiar1bqE3gbrfqPpcBgKDIJjVBI0Q
+	 0ZCXifoZw/fOL1UbXt142gtBhEtWHbydx5CLxAAxWyJ/VjTsgq/l+Fwk/LZarHq2F6Sz3
+	 yyMse5NHCDN9vGhmlI/v5lcm2327KadZNef93bZei4DEF20ot/6F2dZNbQ9O2kMaFYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LrO6gz3q;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaS9er6z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88529606A32C
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 22:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88529606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B144606A326;
+	Fri,  6 Nov 2026 22:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=LrO6gz3q
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so658013f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 14:27:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794004065; x=1794608865; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Tm44yLE9zR/+xclgm4/iFVDEIIryMy4vkUArG8yur4M=;
-        b=LrO6gz3q3TY5UyCJOUBox/jjNcpxcJ2iAUHSQ0uClQVQf0wM2zRmqenKRj+0+YEWiW
-         yV2HOJRF3YA+WPieH13BkTkh7BEKnK040T6AxoBSU/NZTmP6uA2l5fW5B3zeTwH+n6wT
-         PBK0Fihz1HLsWmo0/C98BGnDAsRDCdtWZrWElYILBY2JcuYZKOBBVwLZEhNzZVRbtkxS
-         ug+KkGnyno3GobtlniguEXtAX/Y7ZSWcbFoKp5v+NeQi53SUrFn9GTu/o4mUslsT5GLs
-         0CQE0/7Yi5XJ0jYhQ6kvPCXZIIp6raSkr09c0B64iFEt5q+7wtbJkmvR6BWeM5uRL2Zk
-         +VhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794004065; x=1794608865;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tm44yLE9zR/+xclgm4/iFVDEIIryMy4vkUArG8yur4M=;
-        b=d6Kv678hSdXqvS7dV9zNmC+QLUWjVAqMfOXmFUZ0M4XeeASk7G0pU8A4OlOsrvm4Ya
-         iLmX/uBu5+1j0eQ90G7pmDqhgyAKqn3+7s6/bnzpVzK6GH1jg3/NwYF66e5O4nUk4lAD
-         MAoKgAqRTD4rzwcaJUmLW7HEPYnnog7FMzg5y7T47jge2FQNOInS9sBPCwhcFaJKIdQY
-         zOM2jz985JAT4TbPqv0rd0Fkoc7eAyQF6600XUsarWa8WHLFCCL4/NkPFl+nA52DUD/Z
-         XpywbTCnx4QKpE2B5lricdKKiueUGR5oNfS39UxJZzjhQV3chtV5x0lT7w+ufIiotP92
-         XcAQ==
-X-Forwarded-Encrypted: i=1; AL+hErHfRq0oQ9tYqv2Oduacd6AchD/rgtVFhRSRTz1devqc0CYI8q7Ffl673TjnAcpmf0MB1ecqXwCxV9Sz@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U1cxIRsqeInviy6+ud181BsrMVR+6/0v2GE+L4TFI+yWl/rXQ
-	+ATVa6qU2dF2PWvxeTUrMav7rruogeHAdbYC1MmNNO2lcop8SOJjlXPLdH+2MCtpGEA=
-X-Gm-Gg: AYBFou1zMmwyc4L9IQHPwJqZi9F9FO7HZhGzNB32YZurHJu8WtXNUm2iiTMkpbQ06LZ
-	Iy/9xRRg3Dz97rjaLF03dnNBM7QOd9TDcjyLe/pk4WyEFrGFzvpOmCiMS5v0is9jes2wKBpJdiA
-	uj0KhoPyf9EMvW2ZWN0zyi8erNwuIHayrQqDY6zEsH4nvNstLqHrqu7QWl8Ajv/YN9R9+qGhpD3
-	n0sck+QumXIf2CejulM7jSAkwV6bWNDQJPm0ivClC0Ksv1ueoW09g2G7aipjPaOHA98Gr6lYEtU
-	8TUUCz4uZjrzVtc5BFzW+II6PW/kypVdI9RNYIfAY4yz2damwv7zp1XDveHhBBM8fjaiDY9if5a
-	vVrzEBLvF1LinRvbn1cg1mWteAnkNx2N1/glJIjVOu5zM7f95yilOqABoJWxyZ1F9cMO4+TWmoX
-	Ip2aYf+3yco62Bhu3/IFN2BsJWtZnQ5fWdyHSoAXyhqi8SXE7s+gTwXRle+VV2altCLU0day/yk
-	xUqBJ9FvIE6Epgi1RTGDAvHtlPavrYwI5QekQJxIaA/L0VvxHwglsX1h98Pkb/3lszVVJDMgGo/
-	QoWo5da5voLDU0S5EYyvlIKa0hBrq/QAJ+SpX9XtHQPJLqDcY4p5f4HmYEnfkrEYI41x7gtWkCH
-	Zh/sCeILbw7o=
-X-Received: by 2002:a5d:5d13:0:b0:490:ef5a:bf39 with SMTP id ffacd0b85a97d-492733d12f2mr5925598f8f.6.1794004064618;
-        Fri, 06 Nov 2026 14:27:44 -0800 (PST)
-Received: from macbook (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d73286cdsm5497080f8f.28.2026.11.06.14.27.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 14:27:44 -0800 (PST)
-Date: Fri, 6 Nov 2026 23:27:38 +0100
-From: Carlo Caione <ccaione@baylibre.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
- controller
-Message-ID: <au5RoF6BooP14xhY@macbook>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
- <20261106-unwilling-preoccupy-156dbb310448@spud>
- <au4p0xYEFkgEU6T4@macbook>
- <20261106-headband-buckwheat-fecbd459ee85@spud>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaS9er6z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E664A1F0089F;
+	Fri,  6 Nov 2026 22:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794004187;
+	bh=nMZpNIkcGTdYfdMzEc4nfMQokEv9/vL5W1VNPtjLnMY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IaS9er6z0421dsbeQGunqP8h1lQkYqY3nFsMQZ/c2bg0F+VGMKzUQcwljNUkt6+7N
+	 oKBa+hFTL4Oqk4brtNbjd1jEMkgyD3OkPY0aVmjf+pIctiXp7bbdDnI9yo0QBwkC6J
+	 QwouoW1UaOhOp/bs2S+nhgjA2Cut9vUX/kzsxvH5mJbQ8y5WXDyLyd6cWFH/AKZGOb
+	 PnNPqWrAnCQSlG0aNSlsqoM7f7iePfWz8NIGH3K6Gw4Owjx/hF/xmxhzJfbaUObLib
+	 gr/wvlXZ55mQ3+TSRWtHU4tgMuOz3AIKnSY04Kd4jUTa3oudS9JJ/cHIN84oYu7xKL
+	 la2xK/yrecG1g==
+Message-ID: <88407f72-0c6e-4e46-b97b-7031c237dac7@kernel.org>
+Date: Fri, 6 Nov 2026 22:29:40 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,144 +51,294 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-headband-buckwheat-fecbd459ee85@spud>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/7] phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY support
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <C4VI5PNThYmwD0VGOO9DvvHRRydBUz2k5DOLjkianYgYaz4G3-El6cDpnQh2siR4mMwjeiL4_Yp2xEAYeJDJ2Q==@protonmail.internalid>
+ <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 20:48:01 +0100, Conor Dooley wrote:
-> On Fri, Nov 06, 2026 at 08:34:37PM +0100, Carlo Caione wrote:
-> > On Fri, Nov 06, 2026 at 17:34:14 +0100, Conor Dooley wrote:
-> > 
-> > > > +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-> > > > +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
-> > > > +
-> > > > +    soc {
-> > > > +        #address-cells = <2>;
-> > > > +        #size-cells = <2>;
-> > > > +
-> > > > +        clock-controller@0 {
-> > > > +            compatible = "amlogic,s7-peripherals-clkc";
-> > > > +            reg = <0x0 0x0 0x0 0x49c>;
-> > > 
-> > > What's with the weird numbers in this example?
-> > > 
-> > > Examples don't have to be real, but when it looks like this the
-> > > immediate thought is that the modelling of the device might be
-> > > incorrec.t
-> > 
-> > The numbers are actually real, but the example simply lost their context
-> > because I copied the node from the S7 dtsi (not yet submitted), where
-> > the controller sits under the APB bus node (bus@fe000000) and the bus
-> > ranges make the addresses relative to it.
-> > 
-> > 		apb: bus@fe000000 {
-> > 			compatible = "simple-bus";
-> > 			reg = <0x0 0xfe000000 0x0 0x480000>;
-> > 			#address-cells = <2>;
-> > 			#size-cells = <2>;
-> > 			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
-> > 
-> > 			clkc_periphs: clock-controller@0 {
-> > 				compatible = "amlogic,s7-peripherals-clkc";
-> > 				reg = <0x0 0x0 0x0 0x49c>;
-> > 				#clock-cells = <1>;
-> > 				...
-> > 
-> > In V2 I'll use an absolute address for the sake of clarity (PLL has the
-> > same issue).
+On 06/11/2026 18:35, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
 > 
-> Before you do that, can you please share with me the s7 dtsi? Cos surely
-> you've got it in some git repo online somewhere.
+> Add SM8150 platform data to the CSI2 DPHY driver so that SM8150 can use
+> the dedicated PHY driver instead of the CAMSS-integrated CSIPHY.
+> 
+> The SM8150 CSIPHY uses the SC8280XP lane register layout, as already
+> used by the CAMSS driver, so reuse that table, dropping the DNP entries,
+> which the new PHY driver does not program. The PHY is fed by the "core"
+> and "timer" clocks, the vdda-phy and vdda-pll supplies, and the Titan top
+> power domain, which is not scaled.
+> 
+> The timer clock is pinned to 300 MHz via a new timer_rate_hz soc field
+> (SM8150 timer only supports 19.2/300 MHz). SM8150 is ordered before
+> X1E80100 as it predates it (7 nm vs 4 nm). A detach of the
+> platform-attached single power domain is done before attaching by name,
+> so single-domain SoCs do not fail with -EEXIST.
+> 
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 97 ++++++++++++++++++++++
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 16 +++-
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  4 +
+>   3 files changed, 116 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> index 966d79c98f9b..b8b6589cee35 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> @@ -45,6 +45,73 @@
+>   #define CSIPHY_SETTLE_CNT_LOWER_BYTE			2
+>   #define CSIPHY_SKEW_CAL					7
+> 
+> +/* 7nm 2PH v 1.1 2p5Gbps 4 lane DPHY mode */
+> +static const struct
+> +mipi_csi2phy_lane_regs lane_regs_sm8150[] = {
+> +	{.reg_addr = 0x0004, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x002c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0034, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x001c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0014, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x003c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0000, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0008, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
+> +	{.reg_addr = 0x0010, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0038, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0060, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0064, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0704, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x072c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0734, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x071c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0714, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0728, .reg_data = 0x04, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x073c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0700, .reg_data = 0x80, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0708, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
+> +	{.reg_addr = 0x070c, .reg_data = 0xa5, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0710, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0738, .reg_data = 0x1f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0760, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0764, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0204, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x022c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0234, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x021c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0214, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x023c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0200, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0208, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
+> +	{.reg_addr = 0x0210, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0238, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0260, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0264, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0404, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x042c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0434, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x041c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0414, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x043c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0400, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0408, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
+> +	{.reg_addr = 0x0410, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0438, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0460, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0464, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0604, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x062c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0634, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x061c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0614, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x063c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0600, .reg_data = 0x90, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0608, .reg_data = 0x0e, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
+> +	{.reg_addr = 0x0610, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0638, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0660, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0664, .reg_data = 0x7f, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +};
+> +
+>   /* 4nm 2PH v 2.1.2 2p5Gbps 4 lane DPHY mode */
+>   static const struct
+>   mipi_csi2phy_lane_regs lane_regs_x1e80100[] = {
+> @@ -352,6 +419,36 @@ static const struct mipi_csi2phy_hw_ops phy_qcom_mipi_csi2_ops_3ph_1_0 = {
+>   	.lanes_disable = phy_qcom_mipi_csi2_lanes_disable,
+>   };
+> 
+> +static const char * const sm8150_clks[] = {
+> +	"core",
+> +	"timer"
+> +};
 
-The S7 dtsi is already upstream at [0], the peripheral clock controller
-and PLL will be enabled in that DTSI with a following series after the
-bindings and the drivers in this set are acked, following the diffs that
-will be submitted:
+Is there really no AHB clock to be listed here ? Seems again suspect.
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-index 2c204dcebbba..5f2a61f42cbd 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-@@ -7,6 +7,8 @@
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/pinctrl/amlogic,pinctrl.h>
-+#include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-+#include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
- #include <dt-bindings/power/amlogic,s7-pwrc.h>
+> +
+> +static const char * const sm8150_supplies[] = {
+> +	"vdda-phy",
+> +	"vdda-pll"
+> +};
 
- / {
-@@ -160,6 +162,22 @@ apb: bus@fe000000 {
-                        #size-cells = <2>;
-                        ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
+These are not the correct names
 
-+                       clkc_pll: clock-controller@8000 {
-+                               compatible = "amlogic,s7-pll-clkc";
-+                               reg = <0x0 0x8000 0x0 0x1e8>;
-+                               #clock-cells = <1>;
-+                               clocks = <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_TOP_PLL_OSC>,
-+                                        <&scmi_clk CLKID_HDMI_PLL_OSC>;
-+                               clock-names = "fix",
-+                                             "gp0",
-+                                             "hifi",
-+                                             "hifi1",
-+                                             "hdmi";
-+                       };
-+
-                        uart_b: serial@7a000 {
-                                compatible = "amlogic,s7-uart",
-                                             "amlogic,meson-s4-uart";
+> +
+> +static struct mipi_csi2_genpd sm8150_genpds[] = {
+> +	{ .name = "top", .scaled = false },
+> +};
+> +
+> +const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_sm8150 = {
+> +	.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
+> +	.reg_info = {
+> +		.init_seq = lane_regs_sm8150,
+> +		.lane_array_size = ARRAY_SIZE(lane_regs_sm8150),
+> +		.common_regs_offset = 0x800,
+> +	},
+> +	.supply_names = (const char **)sm8150_supplies,
+> +	.num_supplies = ARRAY_SIZE(sm8150_supplies),
+> +	.clk_names = (const char **)sm8150_clks,
+> +	.num_clk = ARRAY_SIZE(sm8150_clks),
+> +	.timer_rate_hz = 300000000,
+> +	.genpds = sm8150_genpds,
+> +	.num_genpds = ARRAY_SIZE(sm8150_genpds),
+> +};
+> +
+>   static const char * const x1e_clks[] = {
+>   	"core",
+>   	"timer",
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> index c0a4fa20eaf0..3a45b8766311 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> @@ -68,7 +68,11 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
+>   		goto unset_opp_rate;
+>   	}
+> 
+> -	timer_rate = clk_round_rate(csi2phy->timer_clk, link_freq / 4);
+> +	if (csi2phy->soc_cfg->timer_rate_hz)
+> +		timer_rate = clk_round_rate(csi2phy->timer_clk,
+> +					    csi2phy->soc_cfg->timer_rate_hz);
+> +	else
+> +		timer_rate = clk_round_rate(csi2phy->timer_clk, link_freq / 4);
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-index 5f2a61f42cbd..afc88abea301 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-@@ -162,6 +162,40 @@ apb: bus@fe000000 {
-                        #size-cells = <2>;
-                        ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
+But why ?
 
-+                       clkc_periphs: clock-controller@0 {
-+                               compatible = "amlogic,s7-peripherals-clkc";
-+                               reg = <0x0 0x0 0x0 0x49c>;
-+                               #clock-cells = <1>;
-+                               clocks = <&clkc_pll CLKID_FCLK_DIV2>,
-+                                        <&clkc_pll CLKID_FCLK_DIV2P5>,
-+                                        <&clkc_pll CLKID_FCLK_DIV3>,
-+                                        <&clkc_pll CLKID_FCLK_DIV4>,
-+                                        <&clkc_pll CLKID_FCLK_DIV5>,
-+                                        <&clkc_pll CLKID_FCLK_DIV7>,
-+                                        <&clkc_pll CLKID_HIFI_PLL>,
-+                                        <&clkc_pll CLKID_GP0_PLL>,
-+                                        <&clkc_pll CLKID_HIFI1_PLL>,
-+                                        <&scmi_clk CLKID_GP1_PLL>,
-+                                        <&clkc_pll CLKID_HDMI_PLL>,
-+                                        <&clkc_pll CLKID_HDMI_PLL_PIX>,
-+                                        <&xtal>,
-+                                        <&scmi_clk CLKID_ACLKM>;
-+                               clock-names = "fclk_div2",
-+                                             "fclk_div2p5",
-+                                             "fclk_div3",
-+                                             "fclk_div4",
-+                                             "fclk_div5",
-+                                             "fclk_div7",
-+                                             "hifi_pll",
-+                                             "gp0_pll",
-+                                             "hifi1_pll",
-+                                             "gp1_pll",
-+                                             "hdmi_pll",
-+                                             "vid_pix",
-+                                             "xtal",
-+                                             "axi_frcpu";
-+                       };
-+
-                        clkc_pll: clock-controller@8000 {
-                                compatible = "amlogic,s7-pll-clkc";
-                                reg = <0x0 0x8000 0x0 0x1e8>;
+>   	if (timer_rate <= 0) {
+>   		ret = -ENODEV;
+>   		goto unset_opp_rate;
+> @@ -233,6 +237,15 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
+>   	const char **pd_names;
+>   	int i;
+> 
+> +	/*
+> +	 * platform_probe() auto-attaches a single power domain during probe.
+> +	 * Detach it first so devm_pm_domain_attach_list() can attach all
+> +	 * domains by name (otherwise it returns -EEXIST for single-domain
+> +	 * SoCs such as SM8150).
+> +	 */
+> +	if (csi2phy->dev->pm_domain)
+> +		dev_pm_domain_detach(csi2phy->dev, false);
+> +
 
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
+No, there's something in the CPHY series for this already. You'll either 
+have to absorb that patch or apply those changes to your tree and base 
+your stuff off of that, and orchestrate landing this series on top of 
+that series.
 
---
-Carlo Caione
+>   	pd_names = devm_kzalloc(csi2phy->dev,
+>   				sizeof(char *) * csi2phy->soc_cfg->num_genpds,
+>   				GFP_KERNEL);
+> @@ -443,6 +456,7 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
+>   }
+> 
+>   static const struct of_device_id phy_qcom_mipi_csi2_of_match_table[] = {
+> +	{ .compatible	= "qcom,sm8150-csi2-phy", .data = &mipi_csi2_dphy_sm8150 },
+>   	{ .compatible	= "qcom,x1e80100-csi2-phy", .data = &mipi_csi2_dphy_4nm_x1e },
+>   	{ }
+>   };
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+> index 7e55ae007370..4da9f12d4f8d 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
+> @@ -68,6 +68,9 @@ struct mipi_csi2phy_soc_cfg {
+>   	const char ** const clk_names;
+>   	const unsigned int num_clk;
+> 
+> +	/* 0 = derive timer rate from link_freq/4; non-zero = fixed rate */
+> +	unsigned long timer_rate_hz;
+> +
+>   	const struct mipi_csi2_genpd *genpds;
+>   	const unsigned int num_genpds;
+>   };
+> @@ -92,6 +95,7 @@ struct mipi_csi2phy_device {
+>   	u32 hw_version;
+>   };
+> 
+> +extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_sm8150;
+>   extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
+> 
+>   #endif /* __PHY_QCOM_MIPI_CSI2_H__ */
+> 
+> --
+> 2.56.0
+
