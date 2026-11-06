@@ -1,88 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952240;
-	b=gt2V/AazqF1xpXjjj9t3jMpF7aEIHBMl2/YF5LEcdbw1QZjeFI4PF+wETxkdLHQ4+v4v
-	 HDDQ2a2+C7EOyeLJctLcVtdFplw2vNmnywiRQZ8M0N9z62YkHKYwzpa/5jbW0d4v707Ql
-	 GYMCc+Y0NpHSYtVre4ZUAZTepUPkzqnPLx3a9kgITzScVs8IKnmcS+/qnCqiFJAu9/XYj
-	 UJO7yrnOUs1SKQwVAYJLiHmPTxK8dphXv4fXVYxNPRL2Woq2ja+jR5GV0Z4I92C/Hs1Jh
-	 omn8qzJEJPUj33J4+u+nD96FEr7e57chCMPsFwZFQbcbqNJir6ps1fVuwLeGQLF/37g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=k3uHALvzjtptIMCjCni4Os1DaEQGVzPkp8ccI+3SeBQ=;
-	b=SZbizR9DfxtSRpZkAXirEW5KlaZLduxYJujD7O3RJnXAQErWxe1NvZR+RMdKGtvx3Pl7
-	 djnDAmV6mGPuWQniDuW6WeLQxOphGzJVasQe1QQdecvNBBqxDIjORdQ7YO0EkInTpH0VL
-	 xUclEUJN4C2c8ExZgrYiPGc5tNVyjFwofk8xvaFTrjKhXUUTWxg4jixybHI7+aAca2ysR
-	 reyqHUrPanVPafYM4QBMqppPRqXoP/ZY4WRYXpdmzT2cwMk/h4kuGUI2+YSZDuvoYqYjN
-	 vXV1lgvSL7Y7GQ0TRDDkhfOQNqDSC8uZZwrACTM6ZNwnIg5KCuRTSs5rmOoUUL0vjhA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tuxon.dev;
-	spf=pass smtp.mailfrom=tuxon.dev;
-	dkim=pass header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=k2vjgbNv;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793952373;
+	b=1CrxWsLM+IOpi1rZd4gXXTy0OmZ3OnyWsmVH+8owA8diRMsc6cGyjg5upIiaTYu0agzw
+	 1b3aiwk7OcmWWTGcRpbA19g2b2Qvqf1zpJYPO3z6K8aCN3UdrY/bORwVGg4BcZMRfg1rD
+	 rUPOYtH+WIjNeMlJTaAKGCSrYnni3+1vhJZoMXEFOEoa+KU/yeseeVxMWmK015bGaS7Nn
+	 InQ5I8uzmDb9WIs9sT063xsKfaW/H+Hm2pFWTbGq0uCjXYK9oOIy6Eik10V+GqUBIKwXh
+	 5/Dtg7OquFNp6IQfOV01fTdm+pD1nejwG35qo9hUQI0S/M8In86G0gpmHJ3o/7zSXoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952373;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+	b=Uf8T6fSeU+swZNFxdsesV5VKShhHR0CfEW7JuLXW0AHRLKV7QgC+QG2vwum0vRCb69Gu
+	 feq0dbOEBXbgYUS0Sw7h0ZzEKcPu8O4IZLnDxNvGsHbA90wohuczW4F0GwxmyBWn2/WmN
+	 NhcafGsXTpwiXbn1TbnXWa4Haq2uaNcY7CkT6MZKe0rrhAgNVP4MzphI59RcHjdIyU7oi
+	 CcEnEH1vcdfYjOjuCrIIMtWTT3F6VRi0oWQEqcvqCjlNC3ZfceyH3QPEiaNGsWbBJ0/Wf
+	 ABD4Jmfrq95ugrVjv2k72bq6JoINFg1alLJMiUBE5o9hYX44vMrdy5nzIqRTAMfZJbA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=sE2jP9xe;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=6cctkpTl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D459606A32C
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 08:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D459606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C202606A328;
+	Fri,  6 Nov 2026 08:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C202606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256 header.s=google header.b=k2vjgbNv
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-49318428d98so87289f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 00:03:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1793952238; x=1794557038; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k3uHALvzjtptIMCjCni4Os1DaEQGVzPkp8ccI+3SeBQ=;
-        b=k2vjgbNvN06sZzQr7ly4gExj48be0hhFCTg3HdoFnt22kAKYQVYTrUkmQsvYn9Igty
-         6zO08AkzRzRm+RaLIdOlx1oWUIt1Oa9vm5bNEDijfCN7oxuL9WmLbQ3zW0KPfuRSPBiW
-         8+7y3aBsvtdMOiWSpd5cLYpjZhmD3IJwoUqPeiQMT0+mkz+CDfR0zn/gph0K4DxFWN2c
-         joH+fvYKWIeyqoWyb7ZC+vLwJKNXFaffBrLL9cEkw9W7GtsP2VLrYKwCCv9EzAbyuLf9
-         fbNpEVG/tcWzEdqUCtUE32u6+FzwbgSjRRMxBLQ+aCGWu64H+wXSV47h1wM6MrRENrtn
-         a7qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793952238; x=1794557038;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k3uHALvzjtptIMCjCni4Os1DaEQGVzPkp8ccI+3SeBQ=;
-        b=S2fAqPbTnCxMixHqLY/wJpo6FwOHFKZpa2md0ZIyUGLFyKbfRpJU+Fi7W3wLP+xtb/
-         X5Vu/KoaDKOgDzwgJyUYrtKBI74hsZbnhkhsIeW1HWSEezuy0jC8wMB3DX/JDA6n9324
-         AscHH85woNh/tMJxaE7AKvDT2/ohKsPaytWCVzCNQ0yM4MRRsWmaddnqBHiCkxI1lr9o
-         ze6pfyTG01oItIq1YaBRWN8LdrwMC+FRc+FoZDHY4x/1rXLVmGx8YtxTvA6yProQaiYk
-         /s41vJCRRp/gPBagpRnRJiPx2KXES6hOM7ychLKpTkTNXIxO4Njteb8Z5j9mUHsbxyNb
-         DHOg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKe9/XoIhyQ2+VbmmV/Sp7lYISK12o4G/Bkb3g9kgg4u460Pitl4V6BZQRvCL0cJ/qPYd3aixXBGU4@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ngc+U8o/pDbhyjzQJ1YKqLf9oGJEYfqKpFz7Bp3GomYpsRkIE
-	K7YXbjFkwpxJVlYCVhl3fVShnsoLyi52Jtzn1Y7OoNuyKiTTF4VGXdw1TOg05xLuSYc=
-X-Gm-Gg: AYBFou0LWCHauCs6PyVSFAvSWJ8Db6RIr601aEP72zOVBOTyB0XQWMVDAnrB9vytliq
-	lKw5tPTOyc/YgD+LFdeAnozzzSgbsA0ZjnNfJm8QNTLI2mK8dP3PdxUXRuNjru2WRNug30Ux/qX
-	GzzyKgnH7Xfp5w+5Zp/++yI0l5IlatM6Gjo1SJdnSoUfRJ0PQj3CFqF2uALHRyBubd6Zxtifm6O
-	RiXI9Vx1x00vT0Zx3TLZqem0jIL7GGuXutrQp3eM0Y/f1hBp+1e22bpzXOTVdfcg/veAvNdL2PM
-	JZbUf7biDMvKDEqyfDY8j6+c4dE3KSbgR9pCLgW4FJI+bVkNwZMEKmduIn+ptQ07G9S0eiIr8v0
-	yy5wTTE4JLaiROD3oIYNSlHCS5FIdvgKyyMGdORmkBrt4NNRVwKoStEno8zDeR7Nmxq/jZOBBmO
-	haBBjT78KJXKnz6tuRu7SYfmcm/Wb4J1D6yzX0j7E65gbJ55RMuUik9W6gYJY5ctrNUhdW1PUNg
-	gIPXQW9air5xQErBDFh1jisGVRBjEVZXg5eeyW2yMSNp/FgJ4QCn6uPEwoeXWjvmzghGE7fth94
-	+Zj+BtCPd9SGCPzwOh7n4bs9OkrQMpBAItk=
-X-Received: by 2002:a05:600c:8b28:b0:4a1:a2c0:7b73 with SMTP id 5b1f17b1804b1-4b6dfba8628mr21279205e9.30.1793952237431;
-        Fri, 06 Nov 2026 00:03:57 -0800 (PST)
-Received: from [192.168.50.4] ([82.78.167.49])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6ed5b8159sm34920515e9.2.2026.11.06.00.03.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 00:03:56 -0800 (PST)
-Message-ID: <096754b1-6362-4f44-992a-989a1ccdec22@tuxon.dev>
-Date: Fri, 6 Nov 2026 10:03:55 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=sE2jP9xe;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=6cctkpTl
+ARC-Seal: i=1; a=rsa-sha256; t=1793952361; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=sYPicSz9K+OA/ttfGobpS0AoBgQttoWnSmhUl/ruaP30eeI3N33dgehgVdyz85lZCB
+    iSkooThFjI0f+t2X/9jfUs9QFg6kXmDt99qnGp/yKOFxlgNBSKPTJUdUXqTls/Z9fVRh
+    oO79YIljDJUOlcUwKDUhLpMgHaFR6aVlHyehyVIam4c9xnbL1AIEnu57/Tt2ll+W+g81
+    wza9ckIZQ7wErERSZeYR6ZTO0XbJvjpnO8tjDmtRvmuJso6LFdzjbcepb0OTqAe/ApuL
+    DKhXZR8bsxT4FyxZqN/Fip7Eo1OqXzH5zyrFsGRyIyXiBW6bG2IabPbtim6baBE2rFu9
+    jzGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793952361;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+    b=jL5N1kXaE+PfEwf6+uV+nDvYbvkBIUYAZtK8qMmmryIHSAnlXVr0sCJTGQDh/amV3k
+    GeKaNkMTel8RbUDaGoNeEOuRutPwQPTBDGZsu/nyzJAnGytC+K0Ibr78V5UlX7ltO9sG
+    gBsOXCS28egFtzp7OTCaRYBfoU1I3QbEbyq7ugFxfDPNy6kHKX2LuHWANOuFzjeAMSV/
+    zxTruoGYFxD8aiJLtpT0C/8lIjbx79T/uOMsY3aQoQUdIUPTOMASfHNm2bK+iRv8ScYL
+    Sn2uJJKKXtvHgqq8aXQjyFBtvj2LFN1JvPI6r+2O8GTaJa8lGbFHB3jxFJk49+kHLDq/
+    FyZw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793952361;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+    b=sE2jP9xeJsULXj9aKh0HwJnVmTcRgTnsndfxQziunyBKz4r+QheVv+ap0s53mKh2pi
+    UPTvxdDSYar2xNwx1nAeYkJaixJkKeLaKoYsHruUZGAUJERhsuv+kFyc9bVO+DFInf1h
+    Emo/MM/TUzRMCGuX1hODbKk+LXqYEQ2EZDwIqk65yaBTvPBSDLwwS2bXchUcmwd/4d/5
+    izc+GtWwXPswjrHakKRet5Y/43HjGf9S20U2o0XMub1I7qtN+uw3/rD9uXsiBlZCzKd9
+    SL8UOrKa7bBeANWe7ig1N6C6hMwXSAiFwA6C+hvm9Ri9FVaMNMuxTYkBoAgM8tTUEiDR
+    bHpA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793952361;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Q9BVJ84/wTutORsDRLBjhp7nynNi3hfQdIrA85jn/d8=;
+    b=6cctkpTlM25k1sncn87ujd1S8oyDryVRM6l9cdF+xw4pQ3PU7sZfAnBK/lNdOCf2wu
+    Z/OtxKu9hcNY0r/jgQDA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrVjZoMy8iN4frnsPsBQ4l+mfK4O7kvgww6TmAq"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22A6861lr0
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 6 Nov 2026 09:06:01 +0100 (CET)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -91,68 +93,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
- biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
- <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
- <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
- <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
- <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
- <69f0c77d-8c23-4949-bbb3-0a07da506b7a@tuxon.dev>
- <20261019-precise-auburn-bison-8b0d0a-mkl@pengutronix.de>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20261019-precise-auburn-bison-8b0d0a-mkl@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <49e69d9c-6cb1-453f-bbf5-e2202f97e4ef@kernel.org>
+Date: Fri, 6 Nov 2026 09:05:30 +0100
+Cc: Olivier Louvignes <olivier@mgcrea.io>,
+ Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Joshua Crofts <crofts@kernel.org>,
+ linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <30B040B3-D371-443C-A66D-11EF89FC7C63@goldelico.com>
+References: <20261105213210.87457-1-olivier@mgcrea.io>
+ <20261105213210.87457-2-olivier@mgcrea.io>
+ <49e69d9c-6cb1-453f-bbf5-e2202f97e4ef@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-Hi, Marc,
 
-On 10/19/26 13:42, Marc Kleine-Budde wrote:
-> On 19.10.2026 13:36:49, claudiu beznea wrote:
->>> Based on the comment on this code "If not available fallback to CANFD clock"
->>> I think the intention with IS_ERR() is to allow probing go forward,
->>> falling back to CANFD clock, in case of any error of devm_clk_get().
->>>
->>> The device trees that I've checked sets the can_clk to a fixed clock
->>> with rate = 0 or have the clock provided directly by the SoC clock
->>> provider. I think the intention with IS_ERR() was not only for -ENOENT
->>> but for any other kind of errors. We can return in case of
->>> -EPROBE_DEFER, to ensure the expected clock is used, when it's available
->>> and sane.
->>>
->>> I'll switch to something like:
->>>
->>>    gpriv->can_clk = devm_clk_get(&pdev->dev, "can_clk");
->>> +if (ERR_PTR(gpriv->can_clk) == -EPROBE_DEFER)
->>> +    return dev_err_ptr(dev, ...);
->>
->> On the other hand, returning -EPROBE_DEFER here means the driver may never
->> probe if the can_clk provider fails to probe, even though the fallback clock
->> is available. That would go against what I understand to be the intent of
->> the IS_ERR() check: letting the probe continue when can_clk can't be
->> obtained.
->>
->> Please let me know how you would like me to proceed.
-> 
-> If the clock continuously fails with the error -EPROBE_DEFER, your
-> .config/DT/system is broken. I don't think it's a good idea to ignore
-> these errors.
-I've addressed the concerns raised in this discussion at [1]. Could you please 
-let me know if there is anything else to address for this series and [1] to go 
-forward?
 
-Thank you,
-Claudiu
+> Am 06.11.2026 um 08:05 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On 05/11/2026 22:32, Olivier Louvignes wrote:
+>> The X1600's SAR ADC has four auxiliary channels and none of the
+>> touchscreen or battery engines of the JZ47xx ADCs in =
+ingenic,adc.yaml,
+>> so it gets a binding of its own.
+>>=20
+>> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+>> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - driver =
+only, no real world test
+>=20
+> Drop, did not happen. Even comment says it did not happen!
 
-[1] https://lore.kernel.org/all/20261019121356.2421761-1-claudiu.beznea@kernel.org
+What did not happen? Are you expecting a software test or a full =
+hardware test?
+
+>=20
+> Otherwise please explain me how this code was executed on a device.
+
+1. add decive tree entries, 2. compile, 3. install, 4. boot and load =
+module, 5. check sysfs
+
+root@letux-lx16v0-3:~# ls -l /sys/devices/platform/apb/10070000.sadc
+total 0
+lrwxrwxrwx 1 root root    0 Nov  6 08:00 driver -> =
+../../../../bus/platform/drivers/ingenic-x1600-adc
+-rw-r--r-- 1 root root 4096 Nov  6 08:00 driver_override
+drwxr-xr-x 3 root root    0 Nov  6 07:58 iio:device0
+-r--r--r-- 1 root root 4096 Nov  6 08:00 modalias
+lrwxrwxrwx 1 root root    0 Nov  6 08:00 of_node -> =
+../../../../firmware/devicetree/base/apb/sadc@10070000
+drwxr-xr-x 2 root root    0 Nov  6 08:00 power
+lrwxrwxrwx 1 root root    0 Nov  6 08:00 subsystem -> =
+../../../../bus/platform
+-rw-r--r-- 1 root root 4096 Nov  6 08:00 uevent
+root@letux-lx16v0-3:~# cat =
+/sys/devices/platform/apb/10070000.sadc/iio\:device0/in_voltage*
+1512
+1793
+1796
+1798
+0.805664062
+root@letux-lx16v0-3:~# cat =
+/sys/devices/platform/apb/10070000.sadc/iio\:device0/in_voltage*
+1512
+1760
+1766
+1773
+0.805664062
+root@letux-lx16v0-3:~# cat =
+/sys/devices/platform/apb/10070000.sadc/iio\:device0/in_voltage*
+1518
+1767
+1767
+1776
+0.805664062
+root@letux-lx16v0-3:~#=20
+
+You can see that the values look reasonable and fluctuate a little by =
+noise as you would
+expect from an ADC with floating inputs.
+
+But are you expecting a hardware test that the values are similar to the =
+real voltages?
+This is beyond my hardware capabilities.
+
+Maybe you are more happy with:
+
+Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - bindings =
+and driver function only, no real electrical performance test
+
+BR and have a good day,
+Nikolaus=
