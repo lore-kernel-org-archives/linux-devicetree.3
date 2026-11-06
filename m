@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997080;
-	b=qcZE/GXfiEZU+xia6fo2H9XkgQEPT+KAIA2tlnoBf2BHEEwoFjogsaNWixo2b/NgK7US
-	 kWrkWykxOIULYLE32a/CtZgKiKTWvnhmmG1+zNvm3mZAPDIvRaP+OtlpzSWXLsf0jiMSP
-	 gnte6lSLyLl1QP/28zQV6P47bASYX7yUdrUbQ3S9FRbTK5tXlL946mrSQJvZtIlrNn2lZ
-	 2e3jVlHzZmS0nm+eAtk/X9wzwuSalS+XPGXk5kGuDNl+kl2p3UA+Jg8GtvsZ0k/hAUJXY
-	 AuI5q6P+QpwHYYZTZyEcVG6+OLSRDW83QXyd5pGGRmZQ+98PHiG4Ni5s+UexUolz19A==
+	t=1793997594;
+	b=5eWMxyDICP798zEipuOLVrjPlTXiUZPwnYXdtKJcMb7rzv/n1aMM7u99l5L3X5vSknQG
+	 WE+SoRwhxi3lqgNalOCmG0APG5Hmd4DO9fhTWg9t9FAGbH0sTDYNTk5eeHZiZ9CoSKdUZ
+	 BwZcZ+mzTozEhLw1MJZREEY5yF6+4Hh8HPp6TMHXzt41qEC+8mWl6M58lLUsbyunsxH4T
+	 caxAjmD0Vs5V9Paqk49QdGdXd0nGZVsB8E4gMYbheo7CMSmZ9fe1tvG9IK/+a+lxXeNNm
+	 m3myggQmIpPcKWmuq6It/vvxhGljk6cAsfa5bVpZzE4HUb7EFdb2hzaMV9CHeu+QbRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997080;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=47GIJtHDikSRTr3Iz0oAp99S7+cqqZ+QBH3BmiF/M7s=;
-	b=bl0MTnSPM6jyxWg3x85WKyJgcuZlWts0QhwNDTt8ubAk105anflvOT63NhZXQu1zWq67
-	 2KcKcnYxMR9Z0bLv5ta/TOx18xM6jTWibEKQu2q1YzeUG7FDesXgTjYd3/R0apahrhdTA
-	 vAk70SrfGjlmmCMTUTPJvYMyuoeBourIhS9BLmKyfmbEQo6rGCx5SwWGOuQgoh1Q4NsU2
-	 I2SiQ52Ytpdq3RyeuWOQ810yUa5O7EEKqLjw4YgzXG9JXb/GDHTSlAPbMpWycCz1KYgpC
-	 UztA8VIMHshu7PhDG9kqCyDeoJGwymdZxplM4jV4p8zjy7yMprnyD5LFUxCLdQlZcaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997594;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=wJrOzcEQroAAuzq1S9zpcuWlXHd3ETBGQmhVYJ/5Neo=;
+	b=5eMWSrcjSrp+h5gRrGc/W6jcvUKGooGCv5ljbhfyNV+eqaSWC51TGbQAOK2cWUO7QOCd
+	 xcn/Nw4vF3uXBXi4dF4kakzwNPJz+sMTsiC2/7PyP4OFyTy1eSUDhqmSvltrjSrGV6mE+
+	 px1xsiN+rFWS//iiJZ+9LZniQ0aH4ZRzCn9pZb0HVjN+cYo8ZpWlcT4pUpesv4BPRqjsJ
+	 hFDJMQvv1VoVETn05RIKaVI9g9OOpxuL43UAQ1i+3Bm++fffLoYtz0KEqxVPaU5WMw9g3
+	 Vx5BMV0nMVo3mymjtpt10rbf+TItJfyk2sO5+/EmybbdnBQvnW/IJqEntRLcD9kqleA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fEICjyzH;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVgxCtXr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BFC606A326;
-	Fri,  6 Nov 2026 20:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BFC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8854606A326;
+	Fri,  6 Nov 2026 20:39:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=fEICjyzH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1793997054;
-	bh=47GIJtHDikSRTr3Iz0oAp99S7+cqqZ+QBH3BmiF/M7s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fEICjyzHIUjZle/Wj4mBt/1Dnor0jMi3VucYkcqE9N6vfrY4I8e26Cmns3jMqK2Ad
-	 mM4qBr41GoVx6WtGR2k9su/QzfHkK8n5R9QfHklkbn+9WhTRJ0w25f7HOkSYM6ZI61
-	 vZLc2eltSvTOV9sY3Iey1juaDaaq7ZWF27eAupuQzSZrl+d7t2ze76rw1DDQMVeMnI
-	 RNYi997oS6maEfaAeVqH6UmztDnflre9AXdNuh3hAFqQc+za4Tkjo+PZ8d9mcraXh0
-	 fLJQ4FgqbXm2blN65qNBCBv5BJ83ccHJLeWVb0REGUbsXF4E6c5yhhN7BEeX+Yg1zy
-	 s4MJ9aHn8WiMw==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id CB1E1B22094E;
-	Fri,  6 Nov 2026 21:30:51 +0100 (CET)
-Message-ID: <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
-Date: Fri, 6 Nov 2026 12:30:44 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aVgxCtXr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9FD1F0089F;
+	Fri,  6 Nov 2026 20:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793997593;
+	bh=wJrOzcEQroAAuzq1S9zpcuWlXHd3ETBGQmhVYJ/5Neo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aVgxCtXrKIKwV8BnPAbg6C+6la+unNBGjIKGvx+9KLlUBqQAXpkd/70UiPVgVgMuU
+	 3+QI+vakOCthsK8j83gsY1JRor1AzSMzzfxRHfZY52bAzZzu8QlY+zkyAbSfIGPEzb
+	 ZvUazqMRKyeGzrvpvPQtk/X8PKqxLi3z8vx5mHaEvWs3OA0I7Lcei1jwaaJ9nguRv8
+	 o3dAtHq9PWJknTdDCMYOi/Op6pED0XiqbzvowCqbc3nrQpsgQzAh/18lsd+tnJq5/C
+	 F6PwxZGfM5yCCQqFHUVvmaN/hKYILeFVYwVRQu5SX9LWK44IXvpNA2IaspTLIXBGx9
+	 CfzZWcUAPmMOw==
+Date: Fri, 6 Nov 2026 14:39:50 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+Cc: devicetree@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Dragos Bogdan <dragos.bogdan@analog.com>, linux@analog.com,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, jic23@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ad7405: Add
+ ADuM7801/7802/7811/7812 support
+Message-ID: <179399758998.1528830.11972412583872645520.robh@kernel.org>
+References: <20261105093531.7562-1-pop.ioan-daniel@analog.com>
+ <20261105093531.7562-2-pop.ioan-daniel@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,55 +65,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status
- power LED on
-To: Owen O'Hehir <oo.hehir@gmail.com>, Conor Dooley <conor@kernel.org>,
- Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261106184055.3891621-1-oo.hehir@gmail.com>
- <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
- <20261106195945.4157095-1-oo.hehir@gmail.com>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261106195945.4157095-1-oo.hehir@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105093531.7562-2-pop.ioan-daniel@analog.com>
 
-Hi Owen,
 
-On 11/6/26 11:59, Owen O'Hehir wrote:
-> Hi E,
+On Thu, 05 Nov 2026 11:35:30 +0200, Pop Ioan Daniel wrote:
+> Add compatible strings for the ADuM7801, ADuM7802, ADuM7811 and
+> ADuM7812 16-bit isolated sigma-delta modulators.
 > 
-> Thanks for checking. You're right about the commit message: I saw the
-> LED lit before Linux probes and assumed the firmware set it, without
-> checking where it comes from.
+> The ADuM7801 and ADuM7811 have the same ±320 mV full-scale input range
+> as the ADuM7701, and the ADuM7802 and ADuM7812 have the same ±64 mV
+> full-scale input range as the ADuM7702. Apart from that, software
+> handles them the same way. The ADuM780x support a master clock of up
+> to 25 MHz and the ADuM781x of up to 50 MHz, which needs no special
+> handling. Use the ADuM7701 and ADuM7702 as fallback compatibles.
 > 
-> On the Lite, the schematic (sheet 21) shows RGPIO3 driving the system
-> LED and also used for fastboot detection, through jumper J20 that pulls
-> it to 1.8 V via R257 (1k). Detection happens at reset, before Linux,
-
-No, the software is not any concern for a hardware description.
-
-> and R257 limits the current whichever level the pin is driven to
-> afterwards, so I don't think driving it high conflicts there.
+> Signed-off-by: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+> ---
+> changes in v2:
+>  - use adi,adum7701 as fallback compatible for ADuM7801/7811 and
+>    adi,adum7702 for ADuM7802/7812
 > 
-> Owen
+>  .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++++----
+>  1 file changed, 20 insertions(+), 5 deletions(-)
+> 
 
-It may or may not conflict in software operation but that has nothing to
-do with if it should be applied to device tree that describes hardware.
-Conor since applied, which is trusting you researched this correctly
-before sending to the list. I'm saying that all things being good in
-intention this is obviously not well researched, and not allowing for
-discussion to verify the fix before applying.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Anyways it is a user light not a power LED. Pine64 Star64 has a power
-LED and this user LED. If a board does not have power LED then co-opting
-the user LED is something that should be done in inittab not treating
-upstream device tree as a preferences config file for userland.
-
--E
