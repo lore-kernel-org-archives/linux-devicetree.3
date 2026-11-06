@@ -1,79 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987585;
-	b=btjiYHVI8f8LZb53npm4UZK3QJU3st7CK6huQY1rG13g7umbahEo1Eg1UtZT3PwOSJwi
-	 pJfgU/XPBNWv1AHMhj48CnL6Yl8Rd84XdduHfGItciG/6g0wgmwDBMhISdIypKkKAwCl8
-	 Q4wZdDW7BzVrtOfLk7dIlkSL/skTvsZ3JnbIYBDTxb05EKIU5ir8OglROwikK+Ge5Mo5k
-	 4GYllOALF6p4ThDw1bkJvbbMuapjyxIiZLI3STDQt0eceb3C13UIImsmJJvaRH52J3ck7
-	 peQ/gGLzY62awzTWlDK3RutPRNasPMoGVkxeHp4u3YVYH286wQs5i+lZrJI5EeM+c1w==
+	t=1793987716;
+	b=hHkN4UUgI4Ntt7u8pWYR3mTRXEG86zhHhjkZNNj6b8Ypgvcx0+grckRs3TPRSUXQ3QTT
+	 m/lzjrUKvqgLOM38VBrBLWVdkuy/6JMYs5i/yqxGnglf0vTuvhgR2tY9QmXY/+/M63xNP
+	 T3PAvUgAKBjpFMwiEx7vjBOMSMdfuW0kKqZzdRtPemEbFmdFRpMd1bgQ94Ju0jvSSf3Rz
+	 t/qwgMKNgEe93A8dT8suGYCbGZZf6wHatUi1kB8VXAooHJQfIofW0lcwrmC0sgO8PdZlF
+	 dCsfvKamOw9c0VPUyDesk1DO31hxcy/FulcUCTmLHrpkkB1uyeXIrUH9GfGuC3d9PDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987585;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=W4OAvocE0qlA1Amupm0niVySJp2DlanCzEnVSkIuQO4=;
-	b=A5E+8Z2IxSW43rohasXfezdB+2RzH9lMBLxIX+/ntHzUPm1IL1C2bKcRtAafFdcHgo4r
-	 N6jStde7Z7lB2IyRMDH4Er2LLsNY/MGG1T2k0jrx6DIUliUxXTOzbtOMIjAxJKvGluMif
-	 nsqtGkokk0Besd/uu36qqBZrO2zvrj8ZWJcKNHA0YEwAl8Z3Kq5iRtcjqQZLYvojt1nD2
-	 aYqljMGxhi7Qo8WzgwFKs5Il8egGprnMmora+SX1WQGm7VirDrxT9cpj97cEJWlXzYOot
-	 y5njYJiTH3oxxwhbDNzjZ13we7eUWvmj2BiY3PZVGgZ7S/DDzr6q73YXvoJ06LYLH8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987716;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Slw7IzCaqPRYPs5qP8w8RJF2WXLJYullyRST6UZQnck=;
+	b=fmDszjLN7kjwgGyGd3aAo1u/KUDEQwf6bt3mAFLCqKfaKkrujdpTfEmn8vvLids3ev5G
+	 7wjOwmlWu3xZcsatrBLvbRGDUs3uRnFRSWLItFZEBVB0M/kKPuNXrcIUUmTRM7hnSiYy3
+	 jX1pJx+RMUppqQYze/pOn2TxBPHs7KrD18uOADtP0sZQpYI9kSs2dums83RNl5/qNjO/W
+	 8jQ99DvG76KlXKM9ucNQexaXCylYGSLpbXOOGLVr7OxpR731Psx7/ILoI5tD5kGiQGmJB
+	 4OjqDXJ7BF/xMByI6+zEeZYDuJ/JxOB6oA2d9DKM8myAsSzYDtceO/poyvgzdNnEl7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XaNYbUWW;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d2haV1jf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F858606A330;
-	Fri,  6 Nov 2026 17:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F858606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0659606A326;
+	Fri,  6 Nov 2026 17:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XaNYbUWW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793987583; x=1825523583;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KnNMY4VUEpn1u3zJYQ28134e/qRwjrvFXhXZISGo0Ls=;
-  b=XaNYbUWWW2JDymefGDRUBAXe0jTS+hq+yPa3Zky10B8jenfCus6TgRtZ
-   5NMKIsi+WovvIzfYVz4ChSDsCINgfw2ixWTbQsFsqDT3Egi5V8EptOSBY
-   RSNepQBnXbxhn8WF+bfctTrMQ0bUICPOuyvKApcQLM9TxcDZQHA4l2tmZ
-   K/jwynG9xDkdTgoGyc/sTuBuGjrGe12Hzu+95AKuBnPJiCBsOtz+4Ll8E
-   9uSDy2RtA5TzWgka9W0QsEPFvEWZ7vSmAmV+VZz0BhrimGjHMNNZfA/me
-   kPhsL0oazOUCgvnNBeZ+kmi6mrNeuO7uhoXGxfYJ1dVFKLPgenQl0uOF4
-   w==;
-X-CSE-ConnectionGUID: K9BM+C8SQuWXydUtyNIUyw==
-X-CSE-MsgGUID: DTH/JOqfSECj9AZz5J0PBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2797061"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2797061"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 09:53:03 -0800
-X-CSE-ConnectionGUID: AwL697vRTeaX8tm3371aug==
-X-CSE-MsgGUID: pit4l2piQ7SuJujJJP8hog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="9098200"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa011.fm.intel.com with ESMTP; 06 Nov 2026 09:53:00 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 8D52299; Fri, 06 Nov 2026 18:52:58 +0100 (CET)
-Date: Fri, 6 Nov 2026 18:52:58 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Ajit Singh <blfizzyy@gmail.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	romain.gantois@bootlin.com, gregkh@linuxfoundation.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] usb: typec: mux: tusb1046: support HPD_IN override
-Message-ID: <au4T-tKDamfaTWuR@black.igk.intel.com>
-References: <20261104074202.76712-1-blfizzyy@gmail.com>
- <20261104074202.76712-3-blfizzyy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d2haV1jf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27191F0089F;
+	Fri,  6 Nov 2026 17:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793987715;
+	bh=Slw7IzCaqPRYPs5qP8w8RJF2WXLJYullyRST6UZQnck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d2haV1jfgqlnTB4aD+TrBInUFDaA6U7aLIycswQOy7Lb+8zKDUvBJoACRr2teqFoT
+	 q0WSvqwcD7aNLSd7Hr4T7k1ZCA+liji7NGYjfFCsu3bmh67LnpXiIe/++epPs9Eok7
+	 VPgvJn/Zri3XwYgI0quDILWRiyCkSaIgZH2HJ+qKmgoJHvFxiHRmCP9S6EVlgEETbD
+	 Z1bEFtMMXxeHJGezK6yNwIPvpPHbn7FmCvYu3uvZ9txCDCkKI0XhxHoh171kYtrFnk
+	 ZWgly+CyYxfVEiUNABjpm5DW6YrcU813UvNROm6VVH4Uily+CxJA4WG6/qGc0u9Ywi
+	 x72KsIaWH7+pQ==
+Date: Fri, 6 Nov 2026 17:55:05 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: gaohan@iscas.ac.cn, Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
+	linux-serial@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: [PATCH RFC v3 06/17] dt-bindings: pinctrl: add Zhihe A210 pin
+ controller
+Message-ID: <20261106-either-smudge-c1b21b4a81cb@spud>
+References: <20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn>
+ <20261103-a210-scmi-v3-6-ee6b31580808@iscas.ac.cn>
+ <CAD++jL=5SypKyjwb71hT2pzTZ3s9qi62JG_EevyjTjGgTZiE8w@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -83,94 +86,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3tpStlpzQjO9g692"
 Content-Disposition: inline
-In-Reply-To: <20261104074202.76712-3-blfizzyy@gmail.com>
+In-Reply-To: <CAD++jL=5SypKyjwb71hT2pzTZ3s9qi62JG_EevyjTjGgTZiE8w@mail.gmail.com>
 
-On Wed, Nov 04, 2026 at 01:12:02PM +0530, Ajit Singh wrote:
-> For boards where HPD_IN is not asserted by hardware, software can
-> force it high over I2C using the HPDIN_OVERRIDE bit in the General
-> register (0x0A).
-> 
-> Add support for the optional ti,hpd-in-override property to force
-> HPD_IN high when DisplayPort mode is selected. Clear the override
-> when switching to USB or Safe mode, and preserve the existing
-> bit value when the property is absent.
-> 
-> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+--3tpStlpzQjO9g692
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+On Wed, Nov 04, 2026 at 02:14:27PM +0100, Linus Walleij wrote:
+> On Mon, Nov 2, 2026 at 8:45=E2=80=AFPM Han Gao via B4 Relay
+> <devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
+>=20
+> > From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> >
+> > Add a binding for the AON, PERI1 and PERI2 pad controllers of the Zhihe
+> > A210. Every pad is muxed and configured on its own. Functions of the sa=
+me
+> > kind share one name unless a pad can select more than one instance of
+> > them, as with the UARTs.
+> >
+> > Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+>=20
+> This LGTM, just waiting for a non-RFC version and DT bindings review.
 
-> ---
->  drivers/usb/typec/mux/tusb1046.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/mux/tusb1046.c b/drivers/usb/typec/mux/tusb1046.c
-> index 34ef81f75693..c21b1f8b9786 100644
-> --- a/drivers/usb/typec/mux/tusb1046.c
-> +++ b/drivers/usb/typec/mux/tusb1046.c
-> @@ -21,6 +21,7 @@
->  /* General register bits */
->  #define TUSB1046_GENERAL_FLIPSEL BIT(2)
->  #define TUSB1046_GENERAL_CTLSEL  GENMASK(1, 0)
-> +#define TUSB1046_GENERAL_HPDIN_OVERRIDE BIT(3)
->  
->  /* Mux modes */
->  #define TUSB1046_CTLSEL_DISABLED          0x0
-> @@ -32,6 +33,7 @@ struct tusb1046_priv {
->  	struct i2c_client *client;
->  	struct typec_switch_dev *sw;
->  	struct typec_mux_dev *mux;
-> +	bool hpdin_override;
->  
->  	/* Lock General register during accesses */
->  	struct mutex general_reg_lock;
-> @@ -44,6 +46,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
->  	struct i2c_client *client = priv->client;
->  	struct device *dev = &client->dev;
->  	int mode, val, ret = 0;
-> +	bool dp_active = false;
->  
->  	if (state->mode >= TYPEC_STATE_MODAL &&
->  	    state->alt->svid != USB_TYPEC_DP_SID)
-> @@ -67,9 +70,11 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
->  	case TYPEC_DP_STATE_C:
->  	case TYPEC_DP_STATE_E:
->  		mode = TUSB1046_CTLSEL_4LANE_DP;
-> +		dp_active = true;
->  		break;
->  	case TYPEC_DP_STATE_D:
->  		mode = TUSB1046_CTLSEL_USB3_AND_2LANE_DP;
-> +		dp_active = true;
->  		break;
->  	case TYPEC_STATE_SAFE:
->  	default:
-> @@ -80,6 +85,13 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
->  	val &= ~TUSB1046_GENERAL_CTLSEL;
->  	val |= mode;
->  
-> +	if (priv->hpdin_override) {
-> +		if (dp_active)
-> +			val |= TUSB1046_GENERAL_HPDIN_OVERRIDE;
-> +		else
-> +			val &= ~TUSB1046_GENERAL_HPDIN_OVERRIDE;
-> +	}
-> +
->  	ret = i2c_smbus_write_byte_data(client, TUSB1046_REG_GENERAL, val);
->  
->  out_unlock:
-> @@ -131,6 +143,8 @@ static int tusb1046_i2c_probe(struct i2c_client *client)
->  		return -ENOMEM;
->  
->  	priv->client = client;
-> +	priv->hpdin_override =
-> +		device_property_read_bool(dev, "ti,hpd-in-override");
->  
->  	mutex_init(&priv->general_reg_lock);
->  
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
+This version seems okay, but I am also waiting for a non-RFC version to
+ack.
+I think stuff like pinctrl, that has no dependency on whether or not
+SCMI is used, should be split off into standalone series.
 
--- 
-heikki
+Cheers,
+Conor.
+
+--3tpStlpzQjO9g692
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4UeQAKCRB4tDGHoIJi
+0nGqAQD4uPonsKu1Nn5d2AXZzXklvHVCALSr5hp97wCKf60/IwD9FQ/JcPhJXo+G
+8lVmOiMQ/Gmo0P47KaBRYh3sfdQOqgY=
+=9UUN
+-----END PGP SIGNATURE-----
+
+--3tpStlpzQjO9g692--
