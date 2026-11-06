@@ -1,47 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952721;
-	b=o2Oa1XNJcBdGX+Ibb86sysHRAudYlhk/h6plUSTBBlBZVSPuK8sZLrQz2AorcbAaQXhm
-	 vl5NBUTY0Jv+W/TAlHb3nsPTBC8zEaL0yKmz8owsa8eBBNA3B9pCb3k5A+Njnk9YzI/+a
-	 UGDj2duG2LV4lTp3Ur2R0apM2As53EcDSdGa459xV+kv0qdfeYtnV9uAs0koSi0TgGED0
-	 oe6SxbJQDrM+JZD+xC+1WBe2sKfelNMwQZc+kho6xdZ6mUp0KnXwMbm4nHD7CwCj/Bt4m
-	 wNbRM7/IEuOS5zNYV62CX0OaDPT9FTmcPbGTVGM5Uqe6OsDcOzqTtJkFt2Sh5+Wp0oQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952721;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bngU0TAJdIHhGjLUX69NcYJp2YPnX3lHd5Xcv4+sk30=;
-	b=CU7ar3aNVr6WBBjOrZfkVUeIeH5v3cmmU2QR6ja87mDFS5DFCt88GaT2kOreUnXySEEQ
-	 UOPisEV1I/qXkdiG/ubiFT3LTRo/YvvnUhZTDxbLy9k7SQuS5idxEdX/m7iGW2RV4PlQp
-	 bFoUZ/+Bux7QO2dgVCnybPUEhSofTcy8qHtEs/oPWpKV7vaBPlrWqVKu4Mv3QoXOmmACS
-	 fB5kTv7So8eWnpdll8XKchUnkIGcGdlrmdbDIEYQwHeaT4fV57zVQ+Y9TFdf9Fjf6tZzg
-	 NHNeMNuLEqeYePUKQaMB0iFuK79f3aBZ3UhlfZpWu/fSGH+s5QiTatXpXpEEbYg/OYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0bi7yEU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.96
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793953039;
+	b=RGxiFWALrnJCfWlv29C2O34QswyC44cdJKa2amQskc86vDMCbgGBwgscrtrfskoV93Vn
+	 HNbKQONInXWdmbbr6+HRuAzcnUxsCWSmuPf7F8HEi//EKzuJocuoVWfE/OVFcUKm1zYWG
+	 LRa9J6bsi8yniQ4fkeXSJlaASZLBI15WIuPhyIPb9sVeeucnwVU9d+RKRQLqWdIvUhn7c
+	 lQW82iW+8fwb685mFpUYkSwcjQqQwc5UrjQEDzTXYKaKlKm8NKeDFICx3CjyVoluWUNuF
+	 WiCNG8RZGkxW+39qPAPY0dMwb0prB3LMrpXH/h5V3UI0grLa30xhemH0h+sMkJiD7DA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953039;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ni+CfVrV5EAINJXBPy7UDKr3UD6DUbF6aBcKCi8Dt2w=;
+	b=yfA9EMMe8xJvbMBhcOXf0eHVeNiM7ScAMpSJAhOkPUuPwT//b9NH4Z/TyY/5ZPD8+Fsk
+	 fF8bE2Fg5V74YO9Ei6Bf3VG/a7UosAZLx1NDgOKrD3+S9FopiLSsaK2HXTpNsmEeVFHcV
+	 m/IVJfrTsEEEuCAan3fkolz6i1b87pF1T8ZjjtIf2Vxkr9P+DFbS6j7sjqAG25Q8YaUBT
+	 9lGq8LL6ix2rzeoD9xQTnB7MzUt1Y35yl1UkfXHagESRRXGOoRr84XPYrpxQ36pPy9kzI
+	 rCxhtbmNmb1Gj2pHMZKozKWONABR+F0KnvuBhY7XsHuPI8TDoWfrzOfqwZtIJAGvieQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.96
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023096.outbound.protection.outlook.com [40.107.44.96])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFC8606A328;
-	Fri,  6 Nov 2026 08:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0bi7yEU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0101F008A1;
-	Fri,  6 Nov 2026 08:11:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793952721;
-	bh=bngU0TAJdIHhGjLUX69NcYJp2YPnX3lHd5Xcv4+sk30=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=d0bi7yEUfktCgqR0Cz3lbB4Nxxvfj6T7uZfM6PJr2rItUrQgtMBpI/26Ex9cJMGAS
-	 dp7UiTF9m6fYgivA+9DiBobsnT0rUvQPz4qCRVVYPljy+s8Gmul8WTqJsG6LYOreHa
-	 FyrMJfPXh2poS9kmn3SVsE5gmWTv9LZrxX/g6tF7ZGXcY/foRJZ9Y/XtSViw4fl6rA
-	 Q4vYfl6rGMidBOkmt5TNQcxM1yKvarGX8tLURc82tTQDgA5YlDKEFmDAulyhuInDcM
-	 nq/ot6hZT9EMSEy4+F0ghPIi2wO5jptTgKfLY4e9vIBXQ9nGGlJHJVOzOYgFr2fyMs
-	 SBx8yDK4OUssA==
-Message-ID: <f74bf2cc-c459-4b9c-ad94-c60afcaed3cf@kernel.org>
-Date: Fri, 6 Nov 2026 09:11:53 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B96606A32E;
+	Fri,  6 Nov 2026 08:17:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03B96606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mWuRAohTbzEjj+PgTKKJzHbSIdYqTi9A9IJaEEBE4PlsIHxMBC59AJLJUa9MIpMLfWgaBvi36g+UScR2Zpl0csLMVju8ub1AV1XwrY3xv3gYdcfFCYiS0Ep53D0QUIFrnNCwfNUXEmLayiHmArFUMzDBRWn1odJIvTGTbDnxXrD3FiKY3/TI14aUSyzs5rV++/Q7AReJYN97K+Nv7KVYXmnKVUtc7nRNa1jwtSwhXwyp3nYyuhVF3RZTAam0mwvfncgyUs/5nzbut3W5LNrovj9GJMb+JghAY4RxaEjfZK42CFGA3NXx3OK1a5482afAl+/IXnMwtDZnBhFpaD2rlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ni+CfVrV5EAINJXBPy7UDKr3UD6DUbF6aBcKCi8Dt2w=;
+ b=m73RiscCXQaBWPbN5Y8vB4+B89nMNvcb4bJFicN/SMqJDnT7+NPKFnAYJL8zu1CGtpb/ZFm7rmAmfQlld/eO+nhM3Id38H/RdJvA7AOFPt4xiUnE+iESO5vmZcjdzqphzh5ioO4U1Cri5aqtcssIpHP2oTacfYRed/p55STbQKMtr0bsvPGVuQDLjOf7tXFRR1SldJvxE+bYZIHK6YT/eQop7qxx+A+1xdRAl0cFCBUQvPjT1oOXDI9MbtDM9ieFjWTes+9y90zP/z4lUWKezLBvLkjBeO+gBnXewkvFz2NGxRHOTwh8si9HVfxhIdGOqChSCdTCvSlooZOq2S2Lhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR01CA0002.apcprd01.prod.exchangelabs.com
+ (2603:1096:990:56::11) by TY1PPF19F8E0514.apcprd06.prod.outlook.com
+ (2603:1096:408::908) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Fri, 6 Nov 2026
+ 08:17:13 +0000
+Received: from OSA0EPF000000C8.apcprd02.prod.outlook.com
+ (2603:1096:990:56:cafe::b) by JH0PR01CA0002.outlook.office365.com
+ (2603:1096:990:56::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 08:17:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C8.mail.protection.outlook.com (10.167.240.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 08:17:11 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id CCB8F4102E60;
+	Fri,  6 Nov 2026 16:17:09 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	Gary Yang <gary.yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Date: Fri,  6 Nov 2026 16:17:09 +0800
+Message-ID: <20261106081709.1004397-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <91d67c5d-d125-4834-b0c4-742951c59af8@kernel.org>
+References: <20261105011803.4058557-1-hongliang.yang@cixtech.com> <4d075b70-f2af-4aad-a1d7-cd8ea26387ca@kernel.org> <20261106055050.948470-1-hongliang.yang@cixtech.com> <8ffdf2f9-dd67-419f-83af-8dd4206d54de@kernel.org> <20261106072849.985274-1-hongliang.yang@cixtech.com> <91d67c5d-d125-4834-b0c4-742951c59af8@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -51,101 +110,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Olivier Louvignes <olivier@mgcrea.io>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- Joshua Crofts <crofts@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261105213210.87457-1-olivier@mgcrea.io>
- <20261105213210.87457-2-olivier@mgcrea.io>
- <49e69d9c-6cb1-453f-bbf5-e2202f97e4ef@kernel.org>
- <30B040B3-D371-443C-A66D-11EF89FC7C63@goldelico.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <30B040B3-D371-443C-A66D-11EF89FC7C63@goldelico.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C8:EE_|TY1PPF19F8E0514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 477cdb02-153e-4ffc-581e-08df3bde5bc3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|82310400026|36860700016|4143699003|56012099006|261026121527099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	q7J2hEVt8jxIhPcY4QeRyv2AZh/4yM0hpCM9BpmwIBX20ps4pxBJ5OjAeyYnz7XFJuB9FFz0dVhUVbrYk6wvSvxMExSTsH3Z+gbdgcDRC/VxpErckJZ/4oUUuGbbc++c0zMTuZjCewqn6NHcLYO3MjXE26EibH5ql3wg31HyQlr3Su6ZNjxyqt7VvOkDvLGgskZc0S7AtIYsX8hZF2vkPupwlSFCBl4cveAthu6U7oUCIEx3aOMdkc2JEZwdft9T24+dMgy2CQ6ASCJq/6aMu45lTtYExnE5PUzlKtm13cAPdqe5jPo3QtT56pfm3/2tFCZmgfzPGpzZiIPsP7nmoK/8v+Dx6Y3TK8f5QTmzN7bm59yQFLkCbKem5+BJd+nf7KLcKG7Ic1AZcI/cgH+5zEIcFSBzpQ3abz4N15Y+Iffv2fA4SWehmENEZRAXnKto63OUG6A27eEAbJdxo5M5oBXroOreETj6pCdS7ITbF6PsPSCwpPFF0+Q01BEj2zdzQEIPvnZ6E52UVzxgu4Cexw7uBJe90Xxk5h3vZcWvegR664YwjiuohbUpurKVA/A6NqTkCRUaXCZGxf6hvkKCMgcC2LNxaI57pQTXSHEtIkwdCXrM8pSSFieMj6U/TW2nh8jEZPVBhqxizPLpi/NGWR9RSDmvkYktbMbkTocfB9pTjuD5E+ktVa3WSCsqJAZK
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(82310400026)(36860700016)(4143699003)(56012099006)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	V3BHb0I6FZ+jDeF7iWZU26+pa848wmwjoHqkCPgLfMmE/ifAWb75q7DuDzjYet5ksyWiCIk7t8qsI8Icjw7M4RWKz75a+dKmiB38xsjnFIWbl8WUmg3CxF4DfxBa+LhEDcvKMPNyEVcmoW6fvDFbp/BHVoGpDieTagsAv2hYgAoxdi45tAwE5osLdz9CckPsCqTwgh9XlFqUuJz726AfulxTxsObi1rQpbEeVkgrHBSVcHx8+at8XAiIJlKIg8owMcjUVAWuQt/uFpLfIagswoHabczOPMmkLcDWfG909WUzdpjzRBE8EaK6dm2X44flFd2I6xyAxWOsrgvpHCALGZnv40JO6CvblH7aUmdA4dpXBTFEdGpCbmrPB4dYHryWji5LUQUk8/3Bdm/z4+VdrBlovxlHLgHeZIEibghXK2PiFzkCRSTM8CcBkwDzNT85
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 08:17:11.2555
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 477cdb02-153e-4ffc-581e-08df3bde5bc3
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C8.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PPF19F8E0514
 
-On 06/11/2026 09:05, H. Nikolaus Schaller wrote:
-> 
-> 
->> Am 06.11.2026 um 08:05 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
->>
->> On 05/11/2026 22:32, Olivier Louvignes wrote:
->>> The X1600's SAR ADC has four auxiliary channels and none of the
->>> touchscreen or battery engines of the JZ47xx ADCs in ingenic,adc.yaml,
->>> so it gets a binding of its own.
->>>
->>> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
->>> Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # LX16 - driver only, no real world test
->>
->> Drop, did not happen. Even comment says it did not happen!
-> 
-> What did not happen? Are you expecting a software test or a full hardware test?
+On 06/11/2026 08:39, Krzysztof Kozlowski wrote:
+> You still combine USB with other subsystem. Identify subsystems here,
+> please.
+> 1. USB
+> 2. SoC, no?
+> DTS cannot be placed here.
 
-Testing of this patch did not happen.
+Yes:
+1. USB - the binding and the glue driver.
+2. SoC - the arm64 device tree.
 
-> 
->>
->> Otherwise please explain me how this code was executed on a device.
-> 
-> 1. add decive tree entries, 2. compile, 3. install, 4. boot and load module, 5. check sysfs
+You are right, the dts does not belong in a USB series. v7 will be the
+two USB patches only:
 
-And none of above is in this patch, so you just confirmed this patch was
-not tested.
+  dt-bindings: usb: Add CIX Sky1 USBSSP controller
+  usb: cdns3: Add CIX Sky1 glue driver
 
-Again, please drop inaccurate tag from this patch.
+and the arm64 dts will be sent separately once the binding is accepted,
+so that it is not mixed into this series and does not hold it up.
 
-
-Best regards,
-Krzysztof
+Hongliang
