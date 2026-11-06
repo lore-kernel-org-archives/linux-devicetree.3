@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966801;
-	b=IgJhUlv6jBio+UzrFQ61Rb91Xj/SZgDKBlbJXJBLt+Lhpn+BYJl2y8pyk8p7/6nznjiU
-	 rJCIyOwQrp7peaFf3kcZAMjqUEoi93S41qg4FSKP6stMStMVrjiYsrbbF1Hve1WLkQzq8
-	 k5JhUOZYlOujWkXw8ugffoAncXprc/sHTpMRo3fRIEXUH0S7oHkxqTPaxI7gTqJgdmmwS
-	 3vxM9CsWybQE9nz84bp393NJlc8gbDLS9uUWiAq3qS7j7fPPjSQv4CpvgaWiRELaJkDsy
-	 UEPTpHOIm5jfaE6RY+PWKu94+toKpAr2/h0/N99cPDUI1WSUcz216QTB1IXMbPixGXA==
+	t=1793966829;
+	b=uL5IyGwx1/LiH5MZCaIAAYok5vgLs7qSNble13vorEa/B2HtNT/cSgC4UJ++eFHLI3M0
+	 ZWa3/Izt3MfVdqJpUgLFXQmyWgkx0mfXftLCgg7seusFGq8JUu279E5AIAy6fsQ0A4/P8
+	 lTj6VpeykJq4PU0ZHN/ZAypirIiGFX9TGi3V3UwoJViLSc4KLxigWPj9bBpSKtYsiUa1U
+	 SWn9ifw3xTWcznVwVMSAn4Q69b43vx6AwoCA2xp2CxZGGjUmF2a5Rpk+qH6KK4arZYkCe
+	 4jKgqNjWYlb057Z3cRtMiBBgASe0uMcdh6O1jgwwLaPo4etdpybtW8NzEbYmBK/vB+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966801;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=7o7dC8sVs5kYGVKxPwaOkMHtYtBpkn3eb4t+mLT8WC8=;
-	b=GxPShR1yJ208FLc65LBKZ4DHZXTVz+O85Dq9hbzIU6uiN3W8fkma7nDAr0xe9WMwuWAF
-	 EQ76ZhoH0iZieN+06geOm9kMuVlWb/IIKPw41CTfBDhZaFk2GpDsK46l2cn0IpMxa9NtI
-	 F/R2/UBPht/vwUon7fgw+NdF9DRhksv0x6JtETmbhxDuHfu0At9SWnmp+h+nsdN308hps
-	 sN0RR+fTbYKVb0ej1ILXhESzmSsgYkD6LX7IJcXRti3rsVpiTqcUf3IhBHLgcUGJNpjOc
-	 Gh69B8TvkVc+bgl5QezKDZD046dtQ/NK35UT/CmPeHYCyyMojpEvZr8dr1N3cQS7cxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966829;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hQArWZ2nJ4tUg9UwI0026s5MUwQ8Koaiyp0KnkcV9us=;
+	b=GPtItLs+8U5+hfjRY6dQOcxtKnN2/7wmfEEygZ+W3ZfILxeReAifs2XvNXcQ8NYI9FPp
+	 oc07lPCDiGvY0hLOOw6aoymgRRGAXVsg4vpg7Vw0E5MuPwpMxiG3N7TqnBBpJKQDgNwSU
+	 I6g1aEYFyAdaWdtUDPsugMXUTR0di7DFRFwaXr5muYyW91femwY/yglHE/2hONOB+W4iS
+	 SzDDijvvq9JeVFG1uFDSJTEdp+tMuD7RbPA/wPyNGHzxkfELp72UUZW1q39akCR2yAERc
+	 f8oj4HFDS74lDuV2ZUeOvy/5W6pR/LoFnB5a9wK7xNOueGnn1J6dQdnFBJt4bYL3K3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6Gm8IbS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTYH+pXW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D31606A33C;
-	Fri,  6 Nov 2026 12:06:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F4B606A32E;
+	Fri,  6 Nov 2026 12:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6Gm8IbS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22ABA1F008A1;
-	Fri,  6 Nov 2026 12:06:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTYH+pXW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEC01F008A1;
+	Fri,  6 Nov 2026 12:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793966801;
-	bh=7o7dC8sVs5kYGVKxPwaOkMHtYtBpkn3eb4t+mLT8WC8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=I6Gm8IbS6/1qLO4Zh9wcVI/eI1M6kpwcVNYs2Sq2aORbX3poX/r164MqZGBeCaDDM
-	 nAF1O4n92huDczai1PZwdZlxYbFIoPQpIoIGwIgED9Mx7r+C3/vSboSrQefw+oJWSi
-	 fBNRBEv32ATBqKwc25j6J5sQgIGsjaK/O4Xxi8M8bReT/Zo8RLSye3gBnDZR60QVn8
-	 OToffIsuUVbY2mA6BmiNQDYjY8S9xj+WyJR8k5qdMt0hEl4wtTyRH3PXZZ6+z5RgfK
-	 YJ6zA//QhK7pVFx6NXPetGc9qqlBCyMcTNsnkoz3xiAtU623FlQEo7F2uLzM07S8mJ
-	 OcSlnnJLOF0Xg==
-Message-ID: <sashiko-outbox-201378@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 1/5] dt-bindings: clock: airoha: Document support
- for AN7583 clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106115852.189098-2-ansuelsmth@gmail.com>
-References: <20261106115852.189098-1-ansuelsmth@gmail.com>
- <20261106115852.189098-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 12:06:40 +0000
+	s=k20260515; t=1793966828;
+	bh=hQArWZ2nJ4tUg9UwI0026s5MUwQ8Koaiyp0KnkcV9us=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iTYH+pXW1fl4l75IlJ9re65fWhO2CmdTJjgnolNlbsgkBxAoLyqOvzwbYnFJE1er6
+	 THq0En3x1ilSJNMYgQoiHktRFjrra2cUG7ZmZ+lV+H6vxlzTJFbATJkxQM6pUTLlqh
+	 L3Hg/7zSrUfSBtXNOCB2N1gFtmx2sCMpo7b/4wyZV6ZsFAHDe5H6oZwxZ9GyDjkotU
+	 CiufXBxvQFE7mQ4nRJDQI/C5j/aPUSH4UU0eoHQyxof2CS9BNACBE8fEQ1ItGGngVU
+	 AiphiqiVS2uLwiQcH6piOlvKDAiuWJPrBSJeQsgT9XjHlViHQHh8r+8a1rM2GYVx+F
+	 fHUKk2or9oFIw==
+Date: Fri, 6 Nov 2026 13:07:05 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, gjorgji.rosikopulos@oss.qualcomm.com, 
+	hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, jigarkumar.zala@oss.qualcomm.com, 
+	linux-phy@lists.infradead.org, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: phy: qcom: Add common qcom,csi2-phy
+Message-ID: <20261106-pompous-auburn-locust-e959bc@quoll>
+References: <20261105235137.2635442-1-anusha.nandi@oss.qualcomm.com>
+ <20261105235137.2635442-2-anusha.nandi@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,83 +61,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105235137.2635442-2-anusha.nandi@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Low] dt-bindings: clock: airoha: unwieldy per-compatible conditionals
-  in airoha,en7523-scu.yaml
-- [Low] dt-bindings: clock: airoha: inaccurate description of
-  airoha,chip-scu in airoha,en7523-scu.yaml
---
+On Thu, Nov 05, 2026 at 03:51:34PM -0800, Anusha Arun Nandi wrote:
+> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
+> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
+> clocks, single "top" power-domain, vdda-hs/vdda-lp supplies).
+> 
+> Describe all three with a single qcom,csi2-phy.yaml and a compatible
+> oneOf, rather than one standalone schema per SoC. QCS8300 is further
+> required to be paired with a qcom,sa8775p-csi2-phy fallback
+> compatible, the same way other Qualcomm bindings express full
+> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
+> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
+> match entry rather than carrying a duplicate one.
+> 
+> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
+> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
+> support) and is left untouched, but port@0's DPHY split-mode
+> definition (two endpoints, lane-count constraint) is cloned into this
+> schema rather than dropped, since this PHY supports the same split
+> mode.
+> 
+> The supply names are vdda-hs/vdda-lp rather than the hardware's own
+> power-rail names, since those names aren't guaranteed to stay
+> consistent across future platforms using this binding.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
 
-commit 94419d913db80e12747b18f5e97b56dbea634264
-Author: Christian Marangi <ansuelsmth@gmail.com>
+I do not see how you answered my questions.
 
-dt-bindings: clock: airoha: Document support for AN7583 clock
+Dropping from DT patchwork.
 
-This commit documents Device Tree bindings for the Airoha AN7583 clock and
-reset controller in airoha,en7523-scu.yaml, and adds clock and reset ID
-definitions for AN7583.
+Best regards,
+Krzysztof
 
-> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
-ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> index fc37786ac7ed8..05cd20ce3ab91 100644
-> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-
-[ ... ]
-
-> @@ -57,12 +58,36 @@ properties:
->        available serdes port.
->      const: 1
-> =20
-> +  airoha,chip-scu:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle to the Chip SCU providing the registers required
-> +      for configuring the PCIe related clocks and resets.
-
-[Severity: Low]
-As reported by Brian Masney on v9 [1], is the description of
-airoha,chip-scu accurate?  As noted in the commit message, the Chip SCU
-provides registers for clock gates, base clock rates, and dividers, whereas
-resets and PCIe clocks live in the main SCU register block.
-
-> +
->  required:
->    - compatible
->    - reg
->    - '#clock-cells'
-> =20
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: airoha,an7583-scu
-> +
-> +    then:
-> +      properties:
-> +        reg:
-> +          maxItems: 1
-> +
-> +      required:
-> +        - airoha,chip-scu
-> +        - '#reset-cells'
-> +        - '#phy-cells'
-> +
-> +    else:
-> +      properties:
-> +        airoha,chip-scu: false
-
-[Severity: Low]
-This isn't a bug, but adding airoha,an7583-scu gives every compatible in
-this binding its own if-then block under allOf, with differing rules for
-reg, #phy-cells, #reset-cells, and airoha,chip-scu.  Would it be cleaner to
-split the binding into separate schema documents rather than accumulating
-per-compatible conditionals here?
-
-[1] https://lore.kernel.org/r/179383990045.753844.10400171550739497565.b4-r=
-eview@b4
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106115852.1890=
-98-1-ansuelsmth@gmail.com?part=3D1
