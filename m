@@ -1,62 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973560;
-	b=U0196bZ+9WlUtN3wHeTRy0th5ligzAzOW00eTD7n3cpEBBTmavOqwk1u7IyxgIxJUsV5
-	 D9imOcQe43KE8o5bXwP51OP8n3/khe2XbqqP8RMeZaKoexRqbn4ySf77oq+YMyqk0NrYa
-	 29DXNKBZ2ZAxz3OGteiYLk5pAl3Hrr2BRBd/bryxRmyRUyn9lcQr2YJXg+7myGYsZ2ZX/
-	 Ns6mVKMQcP49uBpuPN9F36lJgM513cnPqR5fqF2RqK5OYL8uZsTqpb30ZWaCGe5T4xPVQ
-	 xR9oBKFVPNHrQhiW1Kz5oyDXpTgBcaGLUnU2m5jPd5I6YDPJfjUJ/6QOAynuuR1FnuA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973560;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=JAAf6ejIjSHAZUYPs2a+1oyrfP9h95zkrdlwUi8RBDk=;
-	b=wRxMO7OcFNaGO6BSmmSShf66dHAxfoJ7XHUnzqKE8JbUEjZOAPvcZos45YJb3FQtzANc
-	 p1OHE5MUnQzPeMSLeZffDH9qxDQe4MGxZVP71tQGaU89GWl95jhHLyCj7saIZM2cIBdyW
-	 ywcPGZAmYGDuvKjsFd6bfBPnjY4JpdzYRHp3xbaoEKKGznFIi9J/u+HRr7WMe17fveXQM
-	 iXRd3AwT2NzvBiVZ8xJjPZCpiOvlk+UfGOiNdv9v/uy78l+fMeujLlaMN6tzx5Pps40ai
-	 7PjS/zHn0z+4a/rnN9BG+gB7xUce2DjY6opybS1BbGlsObN5H+wdArtI4sybUT8suyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=d4iPC2Qk;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793973558;
+	b=owCxLOQSBnADnlGIoxc4lZJ1rOf55LORdUInPxLUhBCxdWf0vzugkipDij+++KT5CaHa
+	 QSMTuFS125E45VjV4cpZTk0IaP+FAeZMRI6MaP+F6lWfzlHuZ1ROK7Wahls576wz4pXKf
+	 yZEoNYqfTsjD5iLurcEx3OJ7c+CGxpwhZx/hcc94nBwzV727I+wb36z68fDIpnh4iYGH4
+	 Pzxm5V8L8KS5zawa/09RYaORNq2gy0wGqY15k+pBGTIYYA1nsdKxz3eQ92Z3N8tNbUf2h
+	 px67qBZHeQE2SkJ5KCp9ripascAIbRWcggDZHTGCAYgN0/wf0LWYK5hrZ5H4+/b1iBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973558;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ysjRF7+5KAzB2nN8K3/7fs9i+z/VoJBmooPC53OWZV0=;
+	b=wcLPzpwtcJB0qupmr9Xl7C9G3O57ozXD3E0DAN7fJz1NE2/O2AUzvgf02TsIq9lmW2X5
+	 vBC4aWfOLUeTO0lrs9NLVHvAsPA6TB7ctbnVpxrRRCsVM+JNhraXi3HQDHsebwwwAI4LQ
+	 xDcU5c905LoIkbFkGIQd/OHeJp6fGGVKxET1+7ciNXxEapnisqi/EGfY4//BsJbI0I54o
+	 O8n2OjrNcgDC7Awr9BgC7o5aj0nzZ5VAz9AA8UKnu1ynEv05YvA43wzjh9l6yLWJNW5TT
+	 G/CB9K1sVMrVXBBZJ+uPqzcVDm8vW3eONTJwNO7jV5bjglCaPFlj6WkzA8FySrry4YA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j+QYVG9r;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358B8606D807;
-	Fri,  6 Nov 2026 13:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 358B8606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD4E6082BD0
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:59:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD4E6082BD0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=d4iPC2Qk
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261106135918euoutp0212ad2b581631d7552963c3752f45ae15~leXJZoHn62692626926euoutp02E;
-	Fri,  6 Nov 2026 13:59:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261106135918euoutp0212ad2b581631d7552963c3752f45ae15~leXJZoHn62692626926euoutp02E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793973558;
-	bh=JAAf6ejIjSHAZUYPs2a+1oyrfP9h95zkrdlwUi8RBDk=;
-	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=d4iPC2QkRe7VbKJGfIQ/JfhHftILr4+lsYa+4n0OAUDc9iKf4A4xgLSrAxFdrZrgQ
-	 8TPLrsFSNhqpuTsZfl32DcpM8138D1irf5hjPThoFKv8/CHdeUTz/hgvOJT+txeBzJ
-	 AS+h+vmJG1rXSXELLFpMW0NVeTyH0Iq8KRDhow/E=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261106135917eucas1p260b4a7f05f2787a46d7282ede885401f~leXIZ5dB_1707617076eucas1p2M;
-	Fri,  6 Nov 2026 13:59:17 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106135915eusmtip1d9ea61d0fa14a43daae27ce64d083c52~leXGLujRY0678706787eusmtip1W;
-	Fri,  6 Nov 2026 13:59:15 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 06 Nov 2026 14:58:48 +0100
-Subject: [PATCH v7 14/19] drm/bridge: inno-hdmi: Make the supported HDMI
- version selectable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j+QYVG9r
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33fb4680717so1239005eec.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 05:59:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793973557; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GhEI+KFl65hsnOUJ6s5wKD16RLL5kYLH+0TXE3ipojsufKqtvIbRqJpp6okQOdFvLg
+         XF9IHEIBPcBnCsaDIMnrioaaLRcn3sJB/GsKI5YlmVIISQQUtPHJOvwrTflwO+FKTnFl
+         FehDVICb338FsuYc5pZ+XOyVj38bh3Yj1nS3V/BdyTuPY7hpwTxtlWCYCgWmmwCXu/T0
+         nUqP4k1bZZ8KUY/q2NEVHbFSkD4Kir4CUdSQ5Lqveog7fvLLolZsrGJQMaLI4Yx3oI/n
+         obLlXDKRZOB6U9CXDW80IdggZ2iUWm+7bAx4NvLb/rN+Io5RJO2n8fCFLddXuEyom0uM
+         mHlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ysjRF7+5KAzB2nN8K3/7fs9i+z/VoJBmooPC53OWZV0=;
+        fh=LC6hA8LIR+oxLVZNrVF5Qov9uvdCa0v2dS52QbzKPfA=;
+        b=ov/4r1c6rmjgyqbOj/EiSHHvpYkgREgf9LecDLUd4T8gNHgZtYGR0cVk1JNYApaGGG
+         SpOX4vZwKQGOtIBSIXbzALEWSTp4qEHWucW0X6VXTYSPcHYxhTl7r6B5+2kKceLJIMba
+         n2G1K27gIWXn1Q49A3A3ERsHHUvhsd0heggHAZmCdh15mNhbdGWMmKhgCzGrIDerQA8P
+         gAXN60MPHJ+iu8a80B+sMkdB3lcX9oK50HSATIDECYssfTpf5pY+Ef49Zc9+J/aLiISb
+         EPGNbf9/8W0ZC9T3063fXKsIzlQfxptHO2PS3kQfcsyYenFVcfjCPa5gReeVn2MYWuRS
+         JQKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793973557; x=1794578357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ysjRF7+5KAzB2nN8K3/7fs9i+z/VoJBmooPC53OWZV0=;
+        b=j+QYVG9rxlB9SEyj9nUeuS7h5AS2Km4bZWAburYtmvGchkPIuMmdD+23vuXJ4luImZ
+         xXfC0+LF7Wq6pIf9bB+0QOc1DQ9Gcg2EVnV+A0Qgl/4Ki8vu5E9MqcZ50WbZbNvWXNBc
+         v6q7VIxMcVYIF6kgUmr1baCFL0fswtAF/h/3rT2OC4ZZXOaJMs4ZOmV//xpCVIvMmQew
+         g9x+Wrw+zIGEhdUf1dmp2zOWA5oMbUOGRWeqyUxbmACCR7e4+O5c+lDWQptUXn5LadCj
+         L/iVYW2GpUUdM5s+RLiBSQelRxB65Uf0PsBgWnmeQz8/u5d8yN5TRJunR3Ev/pTGJUDz
+         /h9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793973557; x=1794578357;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ysjRF7+5KAzB2nN8K3/7fs9i+z/VoJBmooPC53OWZV0=;
+        b=PU5Nf4J3ITTxneJNAAGfpAfXxvrMGisAxE75e+rk4zYsUNHoNW99ONPTBJjcorFMY0
+         kGHwFnmoHJuu9/ATFjgdFierbweomVDtyCH1DRNMwy0CmUQ0Y20ogRopMLXAUNZKGUjT
+         GqCSQfrFu27boUemth/rUNeXr4U31MGSG02MA1LKoiYG8QyBpR7zJDhiEBTAjThblcze
+         DpuIjAO5i4RKgIdBWHl4qpBGwpmzm+D3AQTZbO9KUUa1RvHy9JSlmMoYh79cTNZNL2ay
+         nbfWj7DiCkZOARmV0rZEd4nfYd1GqNEwYmkkV0f2kTFS6gozKCAPVx7zCWB3rDo5DVRM
+         eb4w==
+X-Forwarded-Encrypted: i=1; AL+hErEj3Pu9p/PdRAFC0UDpNFaGyU2rqfNq9iw/L8kOAmzaA0ShYegQ9iALsNpiU6l3Je9hE/rebHvG57/5@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WrISj6uMo0/wHD0J8Bd+Irgk5iSVM/zVK1tYJg3cq/CFpX9Mj
+	zErpx1rcb++xDMajaSoLWObPdEsFFueMZx81FZb+Zf0ykPYTt9um6VCzvMjCATmfigXqam2jp7F
+	da8qDq181hHDtNQYTWDUZxpCDGJ8VPn4=
+X-Gm-Gg: AYBFou1xXd52WsrHDlYSjPq3ABKmXe89roDk0fCeqiTphycsf7Fe+acXzUxNRR/NjGA
+	wybKKo8Oq6YTOn/f8AcadTWm7ymli2uBGaUGf+q1g3EAYISRF2+rleALKh77SeEYXPqfwx2JmUT
+	FAQ7J7DiaGIfo0CNTIUP8XIJ8VCcGkLEA1XgB1z09iZqqMmvDuyzXro9FnLUYoNent3ZM7Beb2S
+	Jjjdebzjb/n/IjTezhY3ucXQMsuYNeZdXJ0b6bSO79vVNc874OV14rG4PvkOunCTp4xKhsl8udS
+	zwQzUQS8goqK1H2CR6+4cKf3LKHwWmNC2YIFl6pD8HQIkCVD6MmHJ3Y6ooOwosWH2uSKltpEEb7
+	9xUsTiQHS2Oy7FRDZOE3LidU14y23rG+jC5CWBUEjXE6OfZJuEwBBegDcKMYAJQuvE6IxU5XX3I
+	dUDk3A7Pkl2wcsfa/AKsDk6UxJ1BKAbg==
+X-Received: by 2002:a05:7300:8281:b0:369:f2f4:b227 with SMTP id
+ 5a478bee46e88-36f75b1ffd2mr2981710eec.18.1793973556636; Fri, 06 Nov 2026
+ 05:59:16 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -66,107 +105,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-jh7110-clean-send-v7-14-68f7ea9913db@samsung.com>
-In-Reply-To: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
-	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
-	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
-	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
-	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
-	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
-	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
-	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
-	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
-	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
-	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
-	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
-	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>,  Cristian Ciocaltea
-	<cristian.ciocaltea@collabora.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2233;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=+wO5gwdnHhvooMrBTcNjEt7hkWgh1Oq7kFJjB8SzSJo=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9vStu9O/oH8WZshcS2Z6KnM8UmRN1d1f9zA4tpsL5b
-	BEfHdt9OkpZGMQ4GGTFFFnObow2kvzH8LT8+ONfMHNYmUCGMHBxCsBEtoswMixVlrnN4vKb1yLr
-	TeVt92sbz0V4fWMW0Ji+ziI8Ytet8/sYGb7fWpN1wV80vr3u4ZxF0wrmu0g8rDkgknWppSLu//w
-	UQXYA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261106135917eucas1p260b4a7f05f2787a46d7282ede885401f
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261106135917eucas1p260b4a7f05f2787a46d7282ede885401f
-X-EPHeader: CA
-X-CMS-RootMailID: 20261106135917eucas1p260b4a7f05f2787a46d7282ede885401f
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-	<CGME20261106135917eucas1p260b4a7f05f2787a46d7282ede885401f@eucas1p2.samsung.com>
+References: <20261105140510.165165-1-clamor95@gmail.com> <20261105140510.165165-2-clamor95@gmail.com>
+ <au3NWsXz-hg2LNr_@orome>
+In-Reply-To: <au3NWsXz-hg2LNr_@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 6 Nov 2026 15:59:05 +0200
+X-Gm-Features: AclHuK-j0iaOa56-THlEL2TIjiQTJ3K-OFRxGt-N5L_ts2vcZPaUDw3mRDwDbl0
+Message-ID: <CAPVz0n3_oRz8aMr1W=8K7dnHhM=vuGpHjpq6+=80oXiFj5wfSg@mail.gmail.com>
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-inno_hdmi_probe() advertises HDMI 1.2 for every integration, which caps
-the TMDS character rate at 165 MHz. That matches the Rockchip variants,
-whose PHY configuration tables stop at 165 MHz, but not every SoC that
-uses this controller: the StarFive JH7110 supports HDMI 1.4b and drives
-pixel clocks up to 297 MHz for 3840x2160 and 4096x2160 at 30 Hz.
+=D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:14=
+ Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Nov 05, 2026 at 04:05:01PM +0200, Svyatoslav Ryhel wrote:
+> [...]
+> > diff --git a/drivers/gpu/drm/drm_mipi_dbi_bus.c b/drivers/gpu/drm/drm_m=
+ipi_dbi_bus.c
+> [...]
+> > +/**
+> > + * devm_mipi_dbi_device_register() - create a managed MIPI DBI device
+> > + * @dev: device to tie the MIPI-DBI device lifetime to
+> > + * @host: DBI host to which this device is connected
+> > + * @np: device tree node associated with the panel MIPI DBI device
+> > + *
+> > + * This function is called by DBI host driver to create panel device.
+> > + * It automatically calls mipi_dbi_device_unregister() when @dev is
+> > + * unbound. It does not automatically free passed device node pointer,
+> > + * it must be put manually.
+> > + *
+> > + * Returns:
+> > + * A pointer to the newly created MIPI DBI device, or, a pointer encod=
+ed
+> > + * with an error.
+> > + */
+> > +struct mipi_dbi_device *
+> > +devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_host=
+ *host,
+> > +                           struct device_node *np)
+> > +{
+> > +     struct mipi_dbi_device *dbidev;
+> > +     int ret;
+> > +
+> > +     if (!host || !host->dev || !host->dbi || !host->dbi->command ||
+> > +         !host->ops || !host->ops->attach || !host->ops->detach || !np=
+)
+> > +             return ERR_PTR(-EINVAL);
+>
+> Do we want dev->of_node to serve as a fallback for !np?
+>
 
-Add a plat_data field for the supported version and keep HDMI 1.2 when
-it is left unset, so the Rockchip integrations are unchanged.
+No we don't dev->of_node is hosts node, and np is panel node.
 
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- drivers/gpu/drm/bridge/inno-hdmi.c | 3 ++-
- include/drm/bridge/inno_hdmi.h     | 3 +++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+> > +
+> > +     if (!of_device_is_available(np))
+> > +             return ERR_PTR(-ENODEV);
+> > +
+> > +     dbidev =3D kzalloc_obj(*dbidev);
+> > +     if (!dbidev)
+> > +             return ERR_PTR(-ENOMEM);
+> > +
+> > +     if (of_node_test_and_set_flag(np, OF_POPULATED)) {
+> > +             kfree(dbidev);
+> > +             return ERR_PTR(-EBUSY);
+> > +     }
+> > +
+> > +     dbidev->host =3D host;
+> > +     dbidev->dbi =3D host->dbi;
+> > +     device_initialize(&dbidev->dev);
+> > +     dbidev->dev.parent =3D host->dev;
+> > +     dbidev->dev.bus =3D &mipi_dbi_bus_type;
+> > +     dbidev->dev.release =3D mipi_dbi_device_release;
+> > +     device_set_node(&dbidev->dev, of_fwnode_handle(of_node_get(np)));
+> > +
+> > +     ret =3D dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev), =
+np->full_name);
+> > +     if (ret)
+> > +             goto put_device;
+> > +
+> > +     ret =3D device_add(&dbidev->dev);
+> > +     if (ret)
+> > +             goto put_device;
+> > +
+> > +     ret =3D devm_add_action_or_reset(dev, mipi_dbi_device_unregister,
+> > +                                    &dbidev->dev);
+> > +     if (ret)
+> > +             return ERR_PTR(ret);
+> > +
+> > +     return dbidev;
+> > +
+> > +put_device:
+> > +     of_node_clear_flag(np, OF_POPULATED);
+> > +     put_device(&dbidev->dev);
+> > +     return ERR_PTR(ret);
+> > +}
+> > +EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
+>
+> Don't we need to of_node_put() here on failure? Otherwise we're leaking
+> the reference that we obtained inside the device_set_node() argument.
+>
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index 9aa005ff65a23bf55672f97aa1ea6688cf1b7ba3..ce036965a483e47d349df85db1ed7dad31f4e8f0 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -1177,7 +1177,8 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
- 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 	hdmi->bridge.vendor = "Inno";
- 	hdmi->bridge.product = "Inno HDMI";
--	hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
-+	hdmi->bridge.supported_hdmi_ver = plat_data->supported_hdmi_ver ?:
-+					  HDMI_VERSION_1_2;
- 
- 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
- 	if (IS_ERR(hdmi->bridge.ddc))
-diff --git a/include/drm/bridge/inno_hdmi.h b/include/drm/bridge/inno_hdmi.h
-index cc5099d05f641eef5de91ed5becde7337c04b013..89a38f26091eda1ef7818fea9d1d9c99e4ae019e 100644
---- a/include/drm/bridge/inno_hdmi.h
-+++ b/include/drm/bridge/inno_hdmi.h
-@@ -6,6 +6,7 @@
- #ifndef __INNO_HDMI__
- #define __INNO_HDMI__
- 
-+#include <linux/hdmi.h>
- #include <linux/types.h>
- 
- #include <drm/drm_modes.h>
-@@ -34,6 +35,8 @@ struct inno_hdmi_plat_data {
- 	struct inno_hdmi_phy_config *default_phy_config;
- 	/* Clock the register interface from the TMDS clock, not the system clock. */
- 	bool reg_clk_source_tmds;
-+	/* HDMI version the integration supports; HDMI 1.2 if left unset. */
-+	enum hdmi_version supported_hdmi_ver;
- };
- 
- struct inno_hdmi *inno_hdmi_bind(struct platform_device *pdev,
+This is fully repeats device_register logic of drm_mipi_dsi.c so
+unless DSI framework has leak, this should be correct
 
--- 
-2.34.1
+> > +static int mipi_dbi_drv_remove(struct device *dev)
+> > +{
+> > +     struct mipi_dbi_driver *drv =3D to_mipi_dbi_driver(dev->driver);
+> > +     struct mipi_dbi_device *dbidev =3D to_mipi_dbi_device(dev);
+> > +
+> > +     drv->remove(dbidev);
+> > +
+> > +     return 0;
+> > +}
+>
+> Might as well make drv->remove() return an error and propagate that
+> here.
+>
 
+Have you even checked the code? remove() callback is and should be void.
+
+> Thierry
