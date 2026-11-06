@@ -1,59 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975921;
-	b=j1r5UG8qCnELROVgXDrcI4RvZz0jxWKLqBJyWw/xVNNPVQNPoRY3pAqqNU2q5yZqzRtY
-	 vLyj3fPOS8aoBg2holDezLiJLae1ddimE2m6gQGEY5ROfrLmtzHbWQTkhcDAWA3mhunA5
-	 jTsEIv+8PfIlQH2cj3KSiX5V2MYfpoyrjVb+T7TTcDC1KcwiLnOuVj/bzeIrDF34ZZI+H
-	 BVimZRLQgnPIhGS+uaDtsc9vqoGOjRLm7pDR0H1DsXhrC0wWaWgDAmMaZc7giIAYJm0V/
-	 RlgyCCC+WSEoSOuT9AtGMAhT0dnQln6TX5G92PTEmEBOpJR1ueLlCLfTpS5W0SoXtUQ==
+	t=1793975988;
+	b=u+8AO0DMKhMHGLgN67+xM6/0NOJRQ0vKjId6Xl5ugpOHBBPUHeqTOZej6/YQV5hwcoWo
+	 apuSgr3fXof16HIeFPTRK/pWZOu40K6bD22y1+SAG0ZK+KaIzxOigWP3UxNbeltdzbY6s
+	 XsuualzuDyUn+QqSzyRPe1wHx42Fvb9dkKYAHpj7mZWZ6xrT5vzDkhtQFd0+fe0uOHFB5
+	 yMJS7TyIMQvZGeMiS3bVGvjLDCFlBSZZyecFlwK40EE2tJaP/JPSZtqhVT/cjeDRFpT+o
+	 eEJlCjtniGzyGPfAcBwHW6W5GCcCDMF1FtFMHHhmftXJBMvwNc0rR3ox1WzQOb2t8zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975921;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
-	b=4msg7Vs6FfmJAuz0Oh4VcifjRdYT8vHOGqhdgXFU+4O/jQQlbZ0YBdENnNQW87ysQdKr
-	 3wC/sItt4KPBG/lZ1ZljOD4IHi/ojTMluj9g5h8kbb/1QnQcbyEZoG8J13AYHJX79UD93
-	 ZaCEg78PJUvMgOJG1JIJQSWUXJtjC2OqRPM/Xth6htBfnSnfiAmE9vQ5UgX5hBwKj6ml5
-	 JPXs195Vn5MZuwnQhizWngwt7FI8GUSkufQwgobJLs3Uj9bdX4AWVOAsf4RJwgxT2Othe
-	 90bORsOiuYJJpjaCvJQ7ubp8NmyfKRYQuzGuz9OtanN/z4/SelOp9t1yYlTUygxyMXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975988;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ApDnH3pFxBWP98MgBtsP9HN4PO7e1RUuQTYY+krhQJU=;
+	b=if+VbTDbhKu1iRL1y4TORrZKUq25onhO7hg6sZTY4KxMGX208UUpAZbcFmVwsas09jhz
+	 nc6RNekfULarSkzkH00zfQ8SVl0GhwHI8q1A66xupfqDq0oL9oxZAQrw97DBgrkSjWdGy
+	 93pyTZLWDZ+4MHDKCJioX4zqorwQrvSK2KFc4tZsit5qdJkZ81rVwnNLVeuICnCNqxjcJ
+	 CQoECrWP6Xc2zxeum6221Q9C2IBcwEJC0bz73Ohk9sHvcEHWcZCyMBdZIHaPtjCAX0qsU
+	 LXYVva2IKiJWCTb++G/hJdEWnHXZEXhwTLNIQNtv5d4ckAChTI8cXJQFJjkPPHuUEKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HMuZsBwp;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE62606A326;
-	Fri,  6 Nov 2026 14:38:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682DA606A331
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 14:39:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 682DA606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqzkEA0V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40C71F0089F;
-	Fri,  6 Nov 2026 14:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793975920;
-	bh=nYqkxv6TcTaA/kjBkYOTDNrRK7O6kHO8JqG0CWPQfYc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TqzkEA0Vv6FiA/EyNHSGPazSRIxmze7NsRy2HS9UFnZLYngP5FU/k984j22IxxLSt
-	 G1mXSy3pJUZtcOX0uuCh0BGPfEtKxeqPMH7iMDq1BsZtJcBmY1BE0UVjD6CfBra6HG
-	 Ag+Be9z8npxA1OZxTFuN75Ezvh/jqeYPCyuiSOmri16kQEwfLaLejNUSC+x6slW0KF
-	 d5QZgMnG4JaXAkKum09Kqzk3Tq66QmT3NfSoU+yNr6XdAc6ce+jld5vFKHTk6MlHvd
-	 wjTgR+FYIcW4Gqo/TsLmp3ku1M5OmutAW9+ET0CKcI3MjvK/5ieNg8L0Aw5+JWl32a
-	 tAC9Z8tsKdIng==
-Date: Fri, 6 Nov 2026 15:38:37 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HMuZsBwp
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-491971ac844so630285f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 06:39:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793975985; x=1794580785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ApDnH3pFxBWP98MgBtsP9HN4PO7e1RUuQTYY+krhQJU=;
+        b=HMuZsBwpcfAivI2lXFwbYHDyA3Vw6WCNBWtFOSYGJZoCHxfz1OymiMRSlR/lKeaMFE
+         aluqYsF1IKKMjWhqmjXTz7ptCe7e8VnCClInCxGQDoYD6iJl4CgqWh+/Zu3LCi8Ded3U
+         oBYv7EuAjYNHWLeKwOx5QNNK5ZcVXBY9ijAvS7C5ca4YfusYRBQQ0V3iV7vEyBFGHEov
+         MhSaNTw6GLWepT/bzLxyu8n+Ub8DR/jwgAe79rSh39mDQ75t9uatpjkgSEsxRajw2V9A
+         sw3hssJwDR6o3RpVUdlTnejAC+7BirubMtZDytWchhQ7mRA7aZAQFP0h9UXHHTe2FWZU
+         IcJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793975985; x=1794580785;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ApDnH3pFxBWP98MgBtsP9HN4PO7e1RUuQTYY+krhQJU=;
+        b=iyAID6Q+m8NXmMg7QWHuKH83DvCD8LOEYD3h1L75tv6WTZBhPiW1VPD7oJIpIk2AMq
+         ED62uvh+cr2HmRQ+VwgUka5QIS+HZqro1+BJtE10vTsKtyTVNO4/mliqFYuUZ3H/6Vv0
+         tiFtAZnyi0mRSOBFFYw8JZldrPr7yEWKQdVIWhECiComrNUsNLBPm0XvjTS6jRg9lC3l
+         nKAgO9YRnXGRa8N6VDMWQYkB8dLS4ObKRP1YZlkzI/XQHVVql0amk+my7HrGA2AtNoIg
+         Zbbw72Mzky+qbqrcw/y/vWrLUhe/w8DUfUvbBa5O8jMxhRg1Pab1NcLjEYOlHizAmmUk
+         tg1w==
+X-Forwarded-Encrypted: i=1; AL+hErG7nz7UBr9ZW7gLzrUf/RvIaVIr2ACSE1qH0/R5Gtd32MLpgXlWfr0tww0g7A0zVOLdn9hzfAa5EKqH@vger.kernel.org
+X-Gm-Message-State: APuU4Z+K1Qo4MMxZq9b1xNEl/p8KlivqB0U57IQ+EH7HE/SAuOAD5Nr4
+	UpHuu9volKR0HMNplEXF90yDlr/ZQ2pXJixM0GwUICNGfhHGPu1Aw08TeU5vMC+KsOg=
+X-Gm-Gg: AYBFou3/LmVUwSWDc49hfvdv5k5VSxWrhzRcA3Ofwvk8Je09So3zUyZ/c+1GVrEBzx0
+	mVH+VNMLz+So2ty0iaf+C9I/MHohG3KUiqtq55OVI+sqkpr4OLt8pKK71Q4nYtdKrYDLmqScRpS
+	K6v8gKeMqtdfU25lFEsTTvGHo78ysR2ll//NT3JZHSUuV+BOPInvBMCMWzGLv3bJUYUfrVgaRZH
+	N3dNxgOvTt4FPNYh1tLub+eHpuSkCP6kupjbGt1d/tmt0EchT57H9DSjggVxcuedYHq5muWajUt
+	FBB8mriQF0FaUub622D/7vKI5ypCk1qMKQYhrPJuTDsVWjHiV6DUmj9sgyOpFb2nxOWB/Vzcg4g
+	4XR8vwbXV8Wq1PpRKB9p4DDnIb0Ln0PyAYbV8mR81jQb7XhGMjZowdg+phqkd9jcXEWHlF90XHR
+	4jwrudnTtsbR4840OpRjYYsIurNtSPKzXMz2bCJylnXsSRzEy5/Cb/Tpsjww8iakO3qfjHmL2jM
+	h/anaWLg4bsPPBOfgo5MPotpcRGiAH4pHSATwkQOVJF9nctyF89sG3LxqW3Gwr13/9l/TBtUI8A
+	nhXR3QIs61fS0A5i3/XcrP3ZfplQ7uQc2ixhN7Eo51pMeO7fiqccR67I2KeEIvY=
+X-Received: by 2002:a05:6000:1861:b0:493:803e:800f with SMTP id ffacd0b85a97d-493803e802cmr1981879f8f.29.1793975985393;
+        Fri, 06 Nov 2026 06:39:45 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:30ce:e69c:9ae:c94a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d6382dsm3633050f8f.19.2026.11.06.06.39.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 06:39:45 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Paul Cercueil <paul@crapouillou.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <au3fy-xiCqgSTB49@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-11-clamor95@gmail.com>
+Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display controller
+Date: Fri,  6 Nov 2026 15:38:27 +0100
+Message-ID: <20261106143827.15926-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
+References: <20261106112000.1612-4-olivier@mgcrea.io> <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -63,361 +111,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bfslmjupan46ngr7"
-Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-11-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+Hi Paul,
 
---bfslmjupan46ngr7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 10/10] drm/tegra: Add support for 8-bit CPU interface
-MIME-Version: 1.0
+On Fri, Nov 06, 2026 at 02:34:08PM +0100, Paul Cercueil wrote:
+> > +	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
+>
+> This bothers me a bit, shouldn't it be using 'crtc_state'?
 
-On Thu, Nov 05, 2026 at 04:05:10PM +0200, Svyatoslav Ryhel wrote:
-> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-> that closely resembles the MIPI DBI Type B protocol and is referred to as
-> '8-bit CPU'. Each display controller provides two such interfaces, which
-> can be used to send MIPI DCS commands to initialize and control the panel
-> while image data is transmitted via 16/18/24-line RGB.
->=20
-> The '8-bit CPU', although being the DC interface, is modeled using a
-> bridge framework for flexibility and convenience. This implementation does
-> not change the existing codebase besides registering the bus.
->=20
-> Suggested-by: Mikko Perttunen <mperttunen@nvidia.com> # DC command transf=
-er
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/gpu/drm/tegra/Kconfig  |   1 +
->  drivers/gpu/drm/tegra/Makefile |   1 +
->  drivers/gpu/drm/tegra/dbi.c    | 576 +++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/tegra/dc.c     |   4 +
->  drivers/gpu/drm/tegra/dc.h     |   3 +
->  5 files changed, 585 insertions(+)
->  create mode 100644 drivers/gpu/drm/tegra/dbi.c
->=20
-> diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
-> index 8a3b16aac5d68..6f57fd3985edc 100644
-> --- a/drivers/gpu/drm/tegra/Kconfig
-> +++ b/drivers/gpu/drm/tegra/Kconfig
-> @@ -12,6 +12,7 @@ config DRM_TEGRA
->  	select DRM_BRIDGE_CONNECTOR
->  	select DRM_DISPLAY_DP_AUX_BUS
->  	select DRM_KMS_HELPER
-> +	select DRM_MIPI_DBI
->  	select DRM_MIPI_DSI
->  	select DRM_PANEL
->  	select FB_DMAMEM_HELPERS if DRM_FBDEV_EMULATION
-> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
-ile
-> index e399b40d64a1d..ae7fccb3d6421 100644
-> --- a/drivers/gpu/drm/tegra/Makefile
-> +++ b/drivers/gpu/drm/tegra/Makefile
-> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
->  	hdmi.o \
->  	mipi-phy.o \
->  	dsi.o \
-> +	dbi.o \
->  	sor.o \
->  	dpaux.o \
->  	gr2d.o \
-> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
-> new file mode 100644
-> index 0000000000000..32d390f64ddbd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tegra/dbi.c
-> @@ -0,0 +1,576 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Nvidia Tegra20/30 MIPI-DBI Type B host driver
-> + *
-> + * Copyright (C) 2026 Svyatoslav Ryhel <clamor95@gmail.com>
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/kernel.h>
-> +#include <linux/media-bus-format.h>
-> +#include <linux/module.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/property.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/string.h>
-> +
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_bridge.h>
-> +#include <drm/drm_drv.h>
-> +#include <drm/drm_mipi_dbi.h>
-> +#include <drm/drm_mipi_dbi_bus.h>
-> +#include <drm/drm_of.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include "dc.h"
-> +
-> +enum tegra_dbi_dc_signal {
-> +	TEGRA_DBI_COMMAND,
-> +	TEGRA_DBI_DATA
-> +};
+Yes. v4 takes the mode from crtc_state.
 
-These look like register offsets for sending DBI commands, so maybe just
-use defines for them?
+> > +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
+> > X1600_LCD_CLR_ST);
+>
+> Not fond of the writel(readl()) nesting here.
 
-> +
-> +enum tegra_dbi_iface {
-> +	TEGRA_DBI_INTERFACE_PRIMARY,
-> +	TEGRA_DBI_INTERFACE_SECONDARY,
-> +	TEGRA_DBI_INTERFACE_MAX
-> +};
+OK, a local in v4, here and in probe.
 
-The only place where this seems to be used is in the definition of the
-two interfaces. But in those cases PRIMARY and SECONDARY match the index
-into the array and MAX is the size of the array, which can be determined
-dynamically. Drop this.
+> > +	writel(val, lcd->base + X1600_LCD_DISP_COM);
+>
+> This whole block above looks like out of place. Why not do it in
+> x1600_lcd_encoder_atomic_mode_set()?
+>
+> Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variables.
 
-> +
-> +#define TEGRA_DBI_DATA_PINS_MAX			8
-> +#define TEGRA_DBI_DEFAULT_BUS_WIDTH		24
-> +
-> +struct reg_entry {
-> +	u32 offset;
-> +	u32 value;
-> +};
-> +
-> +static const u32 tegra_dbi_pin_regs[] =3D {
-> +	DC_COM_PIN_OUTPUT_ENABLE(0),
-> +	DC_COM_PIN_OUTPUT_ENABLE(1),
-> +	DC_COM_PIN_OUTPUT_ENABLE(2),
-> +	DC_COM_PIN_OUTPUT_ENABLE(3),
-> +	DC_COM_PIN_OUTPUT_POLARITY(0),
-> +	DC_COM_PIN_OUTPUT_POLARITY(1),
-> +	DC_COM_PIN_OUTPUT_POLARITY(2),
-> +	DC_COM_PIN_OUTPUT_POLARITY(3),
-> +	DC_COM_PIN_OUTPUT_DATA(0),
-> +	DC_COM_PIN_OUTPUT_DATA(1),
-> +	DC_COM_PIN_OUTPUT_DATA(2),
-> +	DC_COM_PIN_OUTPUT_DATA(3),
-> +	DC_COM_PIN_OUTPUT_SELECT(0),
-> +	DC_COM_PIN_OUTPUT_SELECT(1),
-> +	DC_COM_PIN_OUTPUT_SELECT(2),
-> +	DC_COM_PIN_OUTPUT_SELECT(3),
-> +	DC_COM_PIN_OUTPUT_SELECT(4),
-> +	DC_COM_PIN_OUTPUT_SELECT(5),
-> +	DC_COM_PIN_OUTPUT_SELECT(6),
-> +};
-> +
-> +struct tegra_dbi_priv {
-> +	struct device *dev;
-> +	struct tegra_dc *dc;
-> +
-> +	struct mipi_dbi dbi;
-> +	struct mipi_dbi_host dbi_host;
-> +
-> +	struct drm_bridge bridge;
-> +	struct drm_bridge *next_bridge;
-> +
-> +	const struct tegra_dbi_interface *interface;
-> +	struct reg_entry com_pin_backup[ARRAY_SIZE(tegra_dbi_pin_regs)];
+The controller only takes register writes while its clock runs, and the
+clock is off when atomic_mode_set() is called: on a full modeset the
+CRTC's atomic_disable() has stopped it, and atomic_enable() starts it
+again afterwards. I checked it on the R1: with the clock gated (CLKGR0
+bit 23), every register reads 0x80, and a write to TFT_HSYNC is lost,
+the register still holds the old value once the clock is back.
 
-You can just make this a u32 array since you're always iterating over
-that tegra_dbi_pin_regs array anyway and can get the offset from there.
-No need to duplicate that data into another set of variables.
+So moving the block means starting the clock in atomic_mode_set() too,
+or leaving it running while the CRTC is off. I'd rather keep the writes
+in atomic_enable(), next to clk_prepare_enable(), and look the bus
+format up in the new connector state there, so the two fields go
+anyway. Would that work for you?
 
-[...]
-> +static void tegra_dbi_pin_set(struct tegra_dc *dc, const struct tegra_db=
-i_pin *pin, bool value)
-> +{
-> +	u32 val =3D BIT(pin->pos + 1); /* unmask is 1 bit above position */
-> +
-> +	if (value)
-> +		val |=3D BIT(pin->pos);
-> +
-> +	tegra_dc_writel(dc, val, pin->reg);
-> +}
+> > +	if (pixels > X1600_LCD_MAX_PIXELS)
+> > +		return MODE_MEM;
+>
+> The max resolution is 1280x720 so you should check mode->hdisplay / mode-
+> >vdisplay individually. Otherwise bogus resolutions like 1920x480 would be
+> accepted.
 
-So the PIN_UNMASK exists for all registers. In that case, the definition
-should probably not be intermixed like it was in that header "refactor
-and expand" patch.
+Right for 1920x480, but 720 per side would refuse the R1's own panel,
+which is 480x800 in portrait. The manual only says "frame size up to
+720p". v4 can bound each side by 1280 and keep the 1280x720 pixel count,
+would that do?
 
-> +
-> +static void tegra_dbi_write(struct tegra_dbi_priv *priv,
-> +			    enum tegra_dbi_dc_signal signal, u8 value)
-> +{
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	const struct tegra_dbi_interface *interface =3D priv->interface;
-> +
-> +	tegra_dbi_pin_set(dc, &interface->dc, signal);
-> +
-> +	tegra_dbi_pin_set(dc, &interface->cs, 0);
-> +	tegra_dbi_pin_set(dc, &interface->rw, 0);
-> +
-> +	for (int i =3D 0; i < TEGRA_DBI_DATA_PINS_MAX; i++)
-> +		tegra_dbi_pin_set(dc, &interface->data[i], field_get(BIT(i), value));
-> +
-> +	tegra_dbi_pin_set(dc, &interface->cs, 1);
-> +	tegra_dbi_pin_set(dc, &interface->rw, 1);
-> +
-> +	udelay(10);
+> > +		spin_lock(&lcd->drm.event_lock);
+>
+> spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IRQ
+> handler. I *think* you don't need to lock it here anyway, as the spinlock is
+> locked in other places using spin_lock_irq().
 
-Umpf... I guess we're effectively bit-banging here, but a udelay() here
-is potentially a lot of spinning time. If I recall correctly this can
-end up being called a lot, on the order of 100 or so times during panel
-initialization.
+On PREEMPT_RT the handler doesn't run in hard IRQ context:
+force_irqthreads() is always true there, and the IRQ is requested
+without IRQF_NO_THREAD, so the handler runs in a thread, where a
+spinlock_t is fine (Documentation/locking/locktypes.rst).
 
-> +
-> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	u32 value;
-> +
-> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-> +	value &=3D ~DISP_CTRL_MODE_MASK;
-> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-> +
-> +	/* Disable all options except cursor if enabled */
-> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
-> +	value &=3D CURSOR_ENABLE;
-> +	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
-> +
-> +	tegra_dc_commit(dc);
-> +
-> +	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
-> +	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
-> +
-> +	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
-> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
-> +	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
-> +
-> +	value =3D 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
-> +		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
-> +		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
-> +	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
-> +
-> +	/* Init cycle 1: WRITE_MEMORY_START, set LCD_PCLK and COMMAND */
-> +	tegra_dc_writel(dc, MIPI_DCS_WRITE_MEMORY_START, DC_DISP_SPI_INIT_SEQ_D=
-ATA_A);
-> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
-> +	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
-> +	tegra_dc_writel(dc, BIT(12) | BIT(14), DC_DISP_SPI_INIT_SEQ_DATA_D);
-> +
-> +	/* Set LDC pin to V Pulse 1 */
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-> +	value &=3D ~PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC);
-> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-> +
-> +	value =3D SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
-> +		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
-> +		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
-> +	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
-> +
-> +	value =3D tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
-> +	value &=3D ~BASE_COLOR_SIZE_MASK;
-> +
-> +	switch (priv->bus_width) {
-> +	case 16:
-> +		value |=3D BASE_COLOR_SIZE_565;
-> +		break;
-> +	case 18:
-> +		value |=3D BASE_COLOR_SIZE_666;
-> +		break;
-> +	case 24:
-> +		value |=3D BASE_COLOR_SIZE_888;
-> +		break;
-> +	default:
-> +		WARN(1, "%u bus width not supported\n", priv->bus_width);
-> +		value |=3D BASE_COLOR_SIZE_888;
-> +		break;
-> +	}
-> +
-> +	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
-> +
-> +	/*
-> +	 * Backup registers before unshadowing since actual register values
-> +	 * may differ and their state backed up now is the correct one.
-> +	 */
-> +	for (int i =3D 0; i < ARRAY_SIZE(tegra_dbi_pin_regs); i++)
-> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
-> +			priv->com_pin_backup[i].offset);
-> +
-> +	/* Unshadow to set up command and data pins */
-> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	if (priv->interface->interface)
-> +		tegra_dbi_init_secondary_interface(priv);
-> +	else
-> +		tegra_dbi_init_primary_interface(priv);
+And it needs the lock: drm_crtc_send_vblank_event() wants the caller to
+hold event_lock, and lcd->event is shared with queue_event() and
+atomic_disable(). Their spin_lock_irq() only keeps the handler off the
+CPU they run on. armada, omapdrm and malidp take event_lock the same way
+in their handlers. So I'd keep it.
 
-Maybe hook this into priv->interface directly using a .init() callback.
-That way you don't need to branch based on interface index here.
+> You enable it later in the probe, so you could just use devm_clk_get_enabled()
+> here.
 
-[...]
-> +int tegra_dc_dbi_probe(struct tegra_dc *dc)
-> +{
-> +	struct device *dev =3D dc->dev;
-> +	struct device_node *dbi_np __free(device_node) =3D
-> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
-> +	struct mipi_dbi_device *dbidev;
-> +	struct tegra_dbi_priv *priv;
-> +	struct device_node *np;
-> +	u32 reg;
-> +	int ret;
-> +
-> +	/* Missing node means that DBI is not used, continue DC probe */
-> +	if (!dbi_np)
-> +		return 0;
+Probe only enables it to stop what the boot loader left running, and
+disables it again before drm_dev_register(). From then on atomic_enable()
+and atomic_disable() gate it. devm_clk_get_enabled() would keep it
+running for as long as the driver is bound, display off included.
 
-Maybe this should have an extra check to see if dbi_np is available.
-That would help create this node in a DTSI file and just keep it
-disabled by default.
+> I saw a patch from Maxime replacing these - you should be calling
+> drm_mode_config_create_initial_state(drm) here (and handle the error).
 
-> +
-> +	priv =3D devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
-> +				     &tegra_dbi_funcs);
-> +	if (IS_ERR(priv))
-> +		return PTR_ERR(priv);
-> +
-> +	priv->dc =3D dc;
-> +	priv->dev =3D dev;
-> +
-> +	ret =3D of_property_read_u32(dbi_np, "reg", &reg);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get reg\n");
-> +
-> +	if (reg !=3D 0 && reg !=3D 1)
-> +		return dev_err_probe(dev, -EINVAL, "Wrong reg value: %d\n", reg);
+Will do, it's in drm-misc-next already.
 
-Maybe sort these before the call to devm_drm_bridge_alloc()?
+I'll leave v3 a few more days for the drm-misc side before sending v4.
 
-Thierry
-
---bfslmjupan46ngr7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt5msACgkQ3SOs138+
-s6HbVA/+Irze+1lgUBGNGoqgvX6eTzI5eAKi5CDyxwOvFOj2ceKp6ymnZ1d7jDvP
-FKC/P5Oy0uizKDGpl2KLQ1vt9VwPpNIj6MsUe1wLzSyQbRoFOULt/pcJArd+peZa
-N6pw+4kp91kyCVJ35aDl2BOntlDP7HltoDPkp2IkxINm43e167aQqDfOrqNycl46
-3TCaCum2+AidUfE2vIYqMkpPnLO8jJVDy6dExkgX9JYTFDrBQ418R6GGAb81HlSQ
-L+otESxpgz8INwiRHv0p121Bo4tCPI3N1qTgXBDQHPgLCB/SlkznF9MpHfg/7502
-v6UQo/Sto4n41S+lG/8NXv8GiRh/ydZyZ3TEBQZ9+u/HT9mGmM14dKFR36CPVGbr
-g9mKNrectQMVYs1Bdo6AT3U+z4NTr5u3yxQygDgSQSMotzFrp4K0B72ozq27aTw8
-1kZj8OpdJ5bVwZiiluwKpVhbfGtgbbIBAg8QS8Zej4P/q0x6nRidwflWplILvFKy
-eoArEGgOLnbiPHS1VNTpTrL54wou151WA2mlvvhN63V+Viqpfptk9FfyjiB89rhW
-jCrk7UQgnEwHL4h4j3LY3wRlquEAFyFE7CA65CSEhhaOiqSZaqFUIIVorkKsytRk
-4gsS8zUz9OslndEa0caVrPbd3rhDdMMZv9HB4fuJPOHcPpYEekM=
-=vBTH
------END PGP SIGNATURE-----
-
---bfslmjupan46ngr7--
+Thanks for the review,
+Olivier
