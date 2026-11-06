@@ -1,108 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978184;
-	b=ynwjUSz/H2ADIk+j6ao91GexXVlz48VlOUObSDQe025JF/qYc6EmVsDjVD6E3NqDpPxg
-	 wHWgxMsFuLUf5GkQ4uuQfF4lmCCpc40R+uu65BOGvOc7PPt4VmzsTnXS4E4IqwHVrJjfQ
-	 wSPfgWOqG7ZmqL5740S36DjAK/cZStzLDTQNsx1qdB65u8OqX3EnkCKyJhXhyplL3vrST
-	 ek+rJpAKgfnFNSIlWlY7Mip8cfXTFEI7OZFy/XavXgExV3hxjC+Loo0oPodUZLhko+iBe
-	 gNYLOLWlVhHfRvLHQ5TtfDvLdoj0qq1ZaLctMU9wwQqVWDhwuUhqTzN17i+7N+OcqxQ==
+	t=1793978187;
+	b=zSvp3KuIzqz8vdKLEsMtl9uThWQP6Q27xrXWxJq0oe1nu7GVkYxiUrQ3PX3tTyLHv7zu
+	 w99dVRvqBD6ILV/DZICaiIpix2KPrta/1drDfBJ9SYTEvmylx/6iYA3Rq7SppIcP+VVWJ
+	 Y/fssjPgqPX4STePpoWTYdseFoyqtEIpuvz/nvZ2XnVmoedNP11FWUq91BnaarZKDrDU7
+	 BXythFnuJ8Bj1yOiA4FRrvm1r+jpQtLiXbLCcOD7wGcRGFfxRUdd94DMk9+ciQ4XUiRdR
+	 8RO2kny3SQ7U0m0BHxr2CBFT4oeXUS351CZYejaYaJt57hKKz9lLtQDTr+7gg6Oyd6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978187;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZBDIYs4Y0It7dcl6v419n3JeAweftEEfsMmrD17e+80=;
-	b=FCkmANT1Dmh2UiL2mtlA3bQVjEHqGJq4FSMZLnMbX1KqXPEBafQLUU68u6eAxLNMxpGj
-	 hEvRADKbK4ZtkaRZXvXlc7q1DgoX5SBNYPe6Vgfts5x2K8c+IFW1oDMu4PKMh/BXAY0At
-	 WeTsYlVeSgz5c4+tzjtlRpi98js6XMdfZFoS6lGLnRbS5jKb22IKQiy4RFJaeNJX3TTNL
-	 8RCRgiqx7KMmyayQLbOlqlAho9CG/KIAIVqOSKO1kGQrFFOhlXZGNXzHluFUOhoU8EFKV
-	 sftUKrhIzgYTlKIvcZrTOU3CJp/6SNVpCnjXi2CYPPEQUOdLaFXGftSZdzXlqP5anpg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=p0+vg0aeGV4J5pNv27qoTyKZdEzm1Xuk0hKJMzjj9w4=;
+	b=R+LotVs6TUC5huvb27ZuT4ChqwQ9B5Ma0FSpHkJsca2+g0bji8vGHYuR8w9zxVrkEkvs
+	 LphHra8Vo36Rupvcp1s4OHRjUbaEFktVtj5hlPQSgdTQ/+/7C/U/7wxY/F9C8rRVneGmY
+	 8TZ7oXuzqTKDlUipIqLTAm7r2wnqnePO7JPztpCMrXZ5vUbqCYhCiOawccERy0huCk09p
+	 mf0ZZqqf4XbTwakszcH/tSdTAFEdXsaluK1xb/0QK6OkvSU0Zs2teeHaXzEvXieaVqfN7
+	 Ekv9nfMo9sC3wrehN8TDSvi+AWfyEX01Sp9m3qrqL3KBWbvt6BU/jT9Mns7HfbYYIqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kxo8erlB;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CFbDAQl5;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF88D606A32D
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 15:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF88D606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30278606D811
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 15:16:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30278606D811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kxo8erlB
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso3812685e9.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 07:16:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CFbDAQl5
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36f6295304dso749209eec.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 07:16:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793978182; x=1794582982; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZBDIYs4Y0It7dcl6v419n3JeAweftEEfsMmrD17e+80=;
-        b=kxo8erlBylITXb38m1wEtnfEDV3x/yMaJ29j0q0YIFU/H5cyQrsqLj5K598Wy9weJQ
-         A0DJbc4I/TN86jX1fGLlvJLWjkhURO4cOxuuAKH3apDJBtQTlXy2Qz4bO1avMzj8VPOf
-         uUL7kHWf2fTP9uFyfKLeCspQFLGH1ANd+tisjKG+IgGewKu52tBELtyTjX66BlA+4FBj
-         P4ys4PblaKABcVgEPv+IeHdWFIE/o3yZ0zqeQutuhpbbrCAV3N1kpXvFMBUL6v6aa0dT
-         P0STpQnsN0JpWBIWLbxZUipI6nyhf6kzfxKIr0c7XQ0L7LcBGKJ1P3t8gjHWzHgYrEm/
-         QYDw==
+        d=gmail.com; s=20260707; t=1793978186; x=1794582986; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p0+vg0aeGV4J5pNv27qoTyKZdEzm1Xuk0hKJMzjj9w4=;
+        b=CFbDAQl5Px6jJ4XZlFMEDPoI4ZftJaNbBTXENQXD397d5G0rLRfHNpO/GPvDacJHl4
+         ejdGEOzZBustPJ+tgfBCzCFWs0gesOcaefjBsRHSbrJsGlPAzsw3qxEqMQmcZamoM26b
+         ddDvxGSHByu02tUfR1WiQJrF/CGlz+Hyq5eZv9rvm+Dzh9r3PkzluFOq7M1XgKcG3smy
+         rGQ8Scb2cqvB/t4IxkX5SSueomHoKFOc9Pn8wa6h0AUTetKtfmXkoNjTQFUnM+7R+X0+
+         +eUvvp4EatjHX9EOyANLc7X05RI6D+VJ/jTz1UeTey4kv3ld5Ch8o1ewgqwyuLuz0AVa
+         77ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793978182; x=1794582982;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793978186; x=1794582986;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZBDIYs4Y0It7dcl6v419n3JeAweftEEfsMmrD17e+80=;
-        b=TRzmj+6wGHB3D64LGsyjSuXKb1ll62VDq2/UnX0RIs4B0WC+lPFvixI7ecoKFlw3nM
-         FHVHSt3/mDC//NGW32eYQ9s+4nlrEpCb4MsZbOMzyIb7JUuZMbpMNlTzK9aYt80DCB1p
-         EYVhAE2TcVJmTip2KkKNWwhHTX/zjeZeBip7qwCScv9/jH44FAo7P10aEGHzsgjbnoel
-         jhi8yFCKVCgEICFC8xrYgOUV6T6pmwhbFkLjyESgiLY5FuahgkdwdcSmDkLPU1iXtzuN
-         Op2b4nJgnmBiIDLM5z3GfZVD/+J3xWIbANdQHCcDH+haMwLryPCHrzhExmLIRgEa/Ghi
-         3tBQ==
-X-Forwarded-Encrypted: i=1; AKwUvByo1YyOChiwUN2kIjVfoFgEUR5IjWbyq50+bKgFx8+4nL7hCDlcHgF4Bj8J6y2Db9ig0Yw0pzljscpy@vger.kernel.org
-X-Gm-Message-State: APuU4Z87smNA79Md7fxk0V1ZfvIoh81ZEQZpdt1XU2sNC0qqr6PLiiIy
-	OpNEZAcTyxrV04nlh9YjzqDN1LMoxABDXOAs+bn2iN/ZCYkTmgtO1guY
-X-Gm-Gg: AYBFou1jjoVfDqqaqDSUXJUOyRbgcb0dX2YbngN53uZB9izXhdV5xcAwkUlX3KpNc5t
-	nbmDtol/AAacdgY5+JJAtV/InGe0HiQsbXSRbHkMGHTJO+zsb5kfB0G/fMQZMzvDyk6nKv2QZJR
-	NvbkYdTNBKdW4FJbes+RFiPvYmWVLWdeKjZTjRc/NJ1PPBd7P5dvJjZDagpJwUAiuvPBuTZCDb8
-	xHspBwcvjfBeN9horPfGhclOrs9RwTIUL2hcHPLfNF3Q+pgQUbPw7/ys31E56xXE0GMpy/ZwvlT
-	N2LqWr1G5Mnrx1A/26RH1yV33dckukGNHBTUvbaHtzyF5ZJc5/8LH/4D7vh9Yz87+jHbYjReqx2
-	48Of137NAfVc+X3V4pLMp4oHWRc7hrs6GNQ28D+IGCW7m8Hw9EbxIrmOTaUKKf01wbtZVjW7/1C
-	/Dv+VcoZa13HfIe/CE6yL0ZZ7cThugFTINQ7lbrln7/4OFbNxoaQvtRLE3w2f3U95Xzif4M4n46
-	mZT0DFaB7IXQWU/TfOKHHYXdE0gC+be0HC+S1YLmaS1n7wfumGHKwG6gqVfi21xIFioj/5FO9xv
-	BFzjaUitxb30JQF7JOm/1DoO/Xc2L3gTNC/e7fPC9QIfF6GDWTRiq1O56/G1oifpCs5bK1sBKaw
-	YJEx5GL/t7bzqaqlA5zq/yhIxaY/iOd5Yxf4ZYhWpLTUdNtoJXFV/yJ6PB/8F
-X-Received: by 2002:a05:600c:8509:b0:4a1:fa27:df7c with SMTP id 5b1f17b1804b1-4b6e091f195mr44253705e9.34.1793978182055;
-        Fri, 06 Nov 2026 07:16:22 -0800 (PST)
-Received: from Lord-Beerus.station ([93.146.104.162])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc6162sm4124688f8f.47.2026.11.06.07.16.20
+        bh=p0+vg0aeGV4J5pNv27qoTyKZdEzm1Xuk0hKJMzjj9w4=;
+        b=dL7/38jb9a7+4nC3XYm90EEUmkx/KJF2f8OIDa/e7HghcqZcoun6xgZ1bduiiGkt9S
+         P7C7eHK0HobvKIf4DfIauFWiSiIRvD1TTuYHV+O8KhWE84nbmLcGWD+Pd05u2dqWxZ2q
+         IuX3xVlLtPXTPWaUa6KQ3QrapdSsPnAki1FzKdWdvnEh7Z7jb0p3eHxpLigLPuCGsnfs
+         Xv2HzCtTEtk3YSLQ9RKteZIgY8mImfZfvSkCs8O5zJfODrePVFBHIkxNxkZWoNzuAi1q
+         wjutkdKd2bgK+DsHr/Ymrc+fh70dx/CNOWZO0V2YhsanhvCM/st+bDnKW2GqlH2/8vK+
+         BHsw==
+X-Forwarded-Encrypted: i=1; AL+hErGjcAcDos7KzXaLN50FfQGSEpg/tmHehhWFZZgcQrgZTUwLQ6E8fLVFu/wj3eet2768Cq7gGW2NM7jg@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Bh5V2At5qjSaAiObhW77qBQgsNK+MJcSsSvAuC16pp5Fa7IPp
+	2y2sgF1aH3ukbqCyopu88enEp5DUFu+5KrXlju8vqqp7rn7C2pqmx2Jt
+X-Gm-Gg: AYBFou1hyAy7PnjGopP5KBAvc+erRcRTmtw3H5EvvVkZcXDYfi8sw2AY2dtgA05YLh/
+	slSa6J3mOP6QvWXasZGUu+iKQQ4wJm8ha0MaQm9rnCv+tHzdzqZsDZpvqRhFAcuiULRfdg8DssJ
+	DhO+p4ch3mhsGK/1ulNR7uI6EkEokLEdUICD2ab0k3Q6CWIKK/z8pNG+THJeOtCsHXRGwkZ/L0g
+	Cya2pWWT27lQ5JR51KAe0PPpUmflxODYU45tNWUtMrlK4oCitfMwvOcVN84kLm/wXKSh7cYpMVn
+	PzoDObvfkEmgThqPR+JhsnAelUAeDZaIgN8cw43XYvB4wsYIGYAxItQru33Lyx9Of+35Ch5NVij
+	uwiFVdq3z2RKtRUw/EnLjS9OCogiV40R4X1XIMVqEPuMr+pHliii1et44rEUkV20WvFUEAbevh6
+	VUNn+F2JPbaTJ9qAXoe4PaDj7NnBo5ycUKlvPBcgNaSWUcfp1krPocZPPWe0cTJ1whLJFMfHGJk
+	t1oqW84P+AHfj2wvIMWoTaxjZDhsomy5Y9vgoms0cBlo8sDVMVGk42CKIvyuGN47J/rSZBJUH4b
+	mxnPCd5vNESIcWO+snlRqA6TNxQI/evCjNgp/MSIiVl3UO0yT7er+XHtzqTFVY+LOR9wK5TSV54
+	PKPd9PDj0rukMhp7VVd196MbFvQIi
+X-Received: by 2002:a05:7300:b0aa:b0:36f:4d62:2884 with SMTP id 5a478bee46e88-36f7691a412mr3600161eec.30.1793978185868;
+        Fri, 06 Nov 2026 07:16:25 -0800 (PST)
+Received: from Sobhana.localdomain ([157.51.221.122])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9ed126csm7581500eec.18.2026.11.06.07.16.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 07:16:21 -0800 (PST)
-Date: Fri, 6 Nov 2026 16:16:19 +0100
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-serial@vger.kernel.org,
-	luan.r@variscite.com, alifer.m@variscite.com,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Fugang Duan <fugang.duan@nxp.com>, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v1 0/3] serial: Support driver-selected TTY wakeup
- defaults
-Message-ID: <au3vQ7sSi6O3_hqv@Lord-Beerus.station>
-References: <cover.1793719239.git.stefano.r@variscite.com>
- <au3diCrF5jPYH4Tu@hovoldconsulting.com>
+        Fri, 06 Nov 2026 07:16:24 -0800 (PST)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Fri, 06 Nov 2026 15:15:38 +0000
+Subject: [PATCH v14 3/8] thermal/qcom/lmh: Switch to match data for SoC
+ CPU-to-node mappings
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,48 +94,176 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au3diCrF5jPYH4Tu@hovoldconsulting.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-sm7250-v14-3-7d167e993f9c@gmail.com>
+References: <20261106-sm7250-v14-0-7d167e993f9c@gmail.com>
+In-Reply-To: <20261106-sm7250-v14-0-7d167e993f9c@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Sreeshankar K <sreeshankar0910@gmail.com>, Amit Kucheria <amitk@kernel.org>, 
+ Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793978147; l=4409;
+ i=sreeshankar0910@gmail.com; s=20261029; h=from:subject:message-id;
+ bh=nwH0k71RDFHMH21LAx9GvawuLoxMvflAeMTqII5xMG4=;
+ b=9GEg6sCjo+Fw5z+URS3OWyPStxL54iUQB9zxVL+ED7z7plk4poxuPjsJg0fe2SUj1WrtGGXPB
+ evpAQlKueAoDYKBDSbEHFGkU8bbJI8v1oalpbyXhlQL0bxSilhSdRJS
+X-Developer-Key: i=sreeshankar0910@gmail.com; a=ed25519;
+ pk=CGSHduvtn2hwLCNRXRc9s/fh6X8PH/zNdp08zC8hOuQ=
 
-On Fri, Nov 06, 2026 at 03:00:40PM +0100, Johan Hovold wrote:
-> On Tue, Nov 03, 2026 at 04:51:24PM +0100, Stefano Radaelli wrote:
-> > The initial goal was to enable TTY wakeup by default on NXP LPUART ports
-> > marked with wakeup-source, without requiring a userspace write. Instead
-> > of keeping this entirely within fsl_lpuart, this series introduces a
-> > common serial core mechanism that other UART drivers can also adopt.
-> > 
-> > The new tty_wakeup_default field in struct uart_port lets a driver request
-> > wakeup to be enabled when its TTY device is registered. Each driver
-> > decides whether to use it. This series adds wakeup-source to the LPUART
-> > binding and makes fsl_lpuart the first user, setting the field from that
-> > property. Other drivers retain their existing behavior, userspace can
-> > still change power/wakeup, and serdev wakeup policy is unchanged.
-> 
-> This is a policy decision that should be left for userspace, not
-> individual drivers. As documented in
-> Documentation/driver-api/pm/devices.rst:
-> 
-> 	The initial value in the :file:`power/wakeup` file is "disabled"
-> 	for the majority of devices; the major exceptions are power
-> 	buttons, keyboards, and Ethernet adapters whose WoL
-> 	(wake-on-LAN) feature has been set up with ethtool.
-> 
-> So no, this doesn't look like something we want. You should continue
-> enabling wakeup from userspace on systems that need it instead.
-> 
-> Note that the "wakeup-source" devicetree attribute also describes
-> capability, not policy:
-> 
-> 	Documentation/devicetree/bindings/power/wakeup-source.txt
-> 
-Hi Johan,
+lmh_probe() hardcodes the mapping of logical CPU IDs to LMh
+hardware cluster node IDs: CPU 0 maps to LMH_CLUSTER0_NODE_ID, and CPU 4
+maps to LMH_CLUSTER1_NODE_ID.
 
-Understood, thanks for clarifying.
-I incorrectly treated wakeup-source as a request to enable wakeup by default,
-rather than as a capability description.
-I will drop this series and keep wakeup enablement in userspace.
+This assumption only holds true for 4+4 big.LITTLE architectures like
+SDM845 and SM8150. On platforms with asymmetric cluster layouts, such as
+the 6+2 topology on SM7250 where the big cluster starts at logical CPU 6,
+lmh_probe() fails with -EINVAL. Consequently, the second LMh node does
+not register its interrupt domain, which in turn causes dependent drivers
+like qcom-cpufreq-hw to fail or indefinitely defer probing via fw_devlink.
 
-Thank you,
-Best Regards,
-Stefano
+Address this by introducing a SoC descriptor structure (struct qcom_lmh_soc_data)
+and an explicit mapping table (struct qcom_lmh_node_map) associated with of_device_id
+match data. This encapsulates both the algorithm enable flags and the CPU-to-node
+mappings per compatible string.
+
+Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+---
+ drivers/thermal/qcom/lmh.c | 73 +++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 53 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/thermal/qcom/lmh.c b/drivers/thermal/qcom/lmh.c
+index 99396b93e..e160ac477 100644
+--- a/drivers/thermal/qcom/lmh.c
++++ b/drivers/thermal/qcom/lmh.c
+@@ -94,19 +94,61 @@ static const struct irq_domain_ops lmh_irq_ops = {
+ 	.xlate = irq_domain_xlate_onecell,
+ };
+ 
++struct lmh_soc_map {
++	int cpu_id;
++	u32 node_id;
++};
++
++struct lmh_soc_data {
++	uintptr_t flags;
++	const struct lmh_soc_map *map;
++	size_t num_nodes;
++};
++
++static const struct lmh_soc_map sdm845_map[] = {
++	{ .cpu_id = 0, .node_id = LMH_CLUSTER0_NODE_ID },
++	{ .cpu_id = 4, .node_id = LMH_CLUSTER1_NODE_ID },
++};
++
++static const struct lmh_soc_data sdm845_data = {
++	.map = sdm845_map,
++	.num_nodes = ARRAY_SIZE(sdm845_map),
++	.flags = LMH_ENABLE_ALGOS,
++};
++
++static const struct lmh_soc_data sm8150_data = {
++	.map = sdm845_map,
++	.num_nodes = ARRAY_SIZE(sdm845_map),
++};
++
++static const struct of_device_id lmh_table[] = {
++	{ .compatible = "qcom,sc8180x-lmh", .data = &sm8150_data },
++	{ .compatible = "qcom,sdm845-lmh", .data = &sdm845_data },
++	{ .compatible = "qcom,sm8150-lmh", .data = &sm8150_data },
++	{}
++};
++MODULE_DEVICE_TABLE(of, lmh_table);
++
+ static int lmh_probe(struct platform_device *pdev)
+ {
++	const struct lmh_soc_data *soc_data;
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *np = dev->of_node;
+ 	struct device_node *cpu_node;
+ 	struct lmh_hw_data *lmh_data;
+ 	int temp_low, temp_high, temp_arm, cpu_id, ret;
+ 	unsigned int enable_alg;
++	bool found = false;
+ 	u32 node_id;
++	int i;
+ 
+ 	if (!qcom_scm_is_available())
+ 		return -EPROBE_DEFER;
+ 
++	soc_data = of_device_get_match_data(dev);
++	if (!soc_data)
++		return -EINVAL;
++
+ 	lmh_data = devm_kzalloc(dev, sizeof(*lmh_data), GFP_KERNEL);
+ 	if (!lmh_data)
+ 		return -ENOMEM;
+@@ -139,24 +181,23 @@ static int lmh_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	/*
+-	 * Only sdm845 has lmh hardware currently enabled from hlos. If this is needed
+-	 * for other platforms, revisit this to check if the <cpu-id, node-id> should be part
+-	 * of a dt match table.
+-	 */
+-	if (cpu_id == 0) {
+-		node_id = LMH_CLUSTER0_NODE_ID;
+-	} else if (cpu_id == 4) {
+-		node_id = LMH_CLUSTER1_NODE_ID;
+-	} else {
+-		dev_err(dev, "Wrong CPU id associated with LMh node\n");
++	for (i = 0; i < soc_data->num_nodes; i++) {
++		if (cpu_id == soc_data->map[i].cpu_id) {
++			node_id = soc_data->map[i].node_id;
++			found = true;
++			break;
++		}
++	}
++
++	if (!found) {
++		dev_err(dev, "Wrong CPU id %d associated with LMh node\n", cpu_id);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (!qcom_scm_lmh_dcvsh_available())
+ 		return -EINVAL;
+ 
+-	enable_alg = (uintptr_t)of_device_get_match_data(dev);
++	enable_alg = soc_data->flags;
+ 
+ 	if (enable_alg) {
+ 		ret = qcom_scm_lmh_dcvsh(LMH_SUB_FN_CRNT, LMH_ALGO_MODE_ENABLE, 1,
+@@ -230,14 +271,6 @@ static int lmh_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static const struct of_device_id lmh_table[] = {
+-	{ .compatible = "qcom,sc8180x-lmh", },
+-	{ .compatible = "qcom,sdm845-lmh", .data = (void *)LMH_ENABLE_ALGOS},
+-	{ .compatible = "qcom,sm8150-lmh", },
+-	{}
+-};
+-MODULE_DEVICE_TABLE(of, lmh_table);
+-
+ static struct platform_driver lmh_driver = {
+ 	.probe = lmh_probe,
+ 	.driver = {
+
+-- 
+2.43.0
+
