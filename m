@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977705;
-	b=LQCOetkSvr0MwyB78s+8QHaYJ6oW8YoIflgXcRDdeG+Gy9s75FrgIBOfod9Lb+oE13J9
-	 ublbpWa/Ay1+ZwQRqeYWwb+1++WbjJmWGhctb82m3qhquV6THAE1eTskbAQ3r8tSTQens
-	 Qr3/CVOtiOJVyhtLbVruBMWqDshoGiSgXrlVW2p47sEEA1I6xRlvjgGgHWX1qPBCc7aBb
-	 k/AHFDMkP/IaH6V/9SXCCOrXqsauZPzRiHEpt9MvPr55V4XIKYxUjhM9A+rSFSXaCMBSl
-	 aHBGIT0YF653iiAFtY0LwOJumWY4D/qit4Z/p3+Cdvz8UZEY5J0oufS7vjCIOVpuIuQ==
+	t=1793977925;
+	b=U5Ugfx+F/TCVip1297Zrth41H7euUQmWVErA8x/kTW2mXNxWsCss4E3SriOh7/4FdSBl
+	 2LWJ+sw44joHqQ8v9SVTTcu78/ef6KQKfg/6NhJ13TKohjxTtrGsBpaRhBCWVRnJj5E4Z
+	 ZP3jL6wN6cj5lbPmhyskkeY5WiBWQVZTYAC2tMtv1EuyvYk9hROO3KToQ/QiGvsiiLCzb
+	 Wmlm/ccfaIYulbQIzLRbgybHHmVFtBVQPpapbIoOyUYdclCLybvtU/sNX42Q4QCwb+0Ce
+	 0A3ULgzjm/6w+knymqcSvhkZeLQaccI0c7WRBIOKhSGGPV3NU+CeUPAFxdi7/unsdXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977705;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Sykp4o/+jigFXiA4+ilYlXp+/rgV6/09mQP79j9S/us=;
-	b=Sd7xSOYi/dRfCsLuJs5bDJA7u45m4A0hKEy5I4w14NikzMnFJgAH09bqFdXYjmTxEjkl
-	 zrdAbPB1V6dLWkcO+DYlYhHB0ZMzCyYGnKNtSt2d+uMBbBLRleGLvdXyXNj3Ed5k8FWnN
-	 PeECP34fJ+SR8QWcMUYPSZySWc2/7Gpt818YBKC22UgUyz+KQtaQH3uV+ECmR+gHtNts+
-	 1EUgrXs+N04dhJEBwN6sTUOQS8RodFWSJGhXQgqnbVPSlFA0hdwXkFNOc41tO9p3YjuoE
-	 RqAlPBfPCrKarOuuOAalWSX/WwrZeOaTQJBJgNQ6RS2PFd/FHMgYDXvSb/XiBJ6ZkMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977925;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=IExecR95GL6CEgRTZc0PB/2m5kr3bovfeems4StM8/Y=;
+	b=hOnORXJ3UAjKYC4Q2F8IFej2tTwRmFxrNxUZkL5D8DkCbgUSZs6C8VHnn5a3Ga1ngz2z
+	 AJSh9SUhBeDui/IBprTSqzlFFbAkbaRtEXfBRbo0F1E3HRd4jjCReO9xqEV87Slp3cb9B
+	 Th5IY3QOl7j0HqPzsqi2RIIXb8L7ZwzNgi/F2uRYSLpMczdMKkqzhvZe+JA7ePlnQ/tG0
+	 4bHQpKPcg+fpjAXD//D3wMn+ONIfoJDVmbcAyjjcUd33gN7txQRnHDR/5RoOtxLh35cBj
+	 9G0LrYcnIDrN3Z893s2IyKn+9g5zcoT3jpJVDOAAeIarQmKt0gcGeZKC/9lPE9ZbuLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVwKxxUh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfggSSXA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E1E606A329;
-	Fri,  6 Nov 2026 15:08:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33212606A330;
+	Fri,  6 Nov 2026 15:12:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVwKxxUh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741CF1F0089F;
-	Fri,  6 Nov 2026 15:08:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfggSSXA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9421F008A4;
+	Fri,  6 Nov 2026 15:12:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793977704;
-	bh=Sykp4o/+jigFXiA4+ilYlXp+/rgV6/09mQP79j9S/us=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IVwKxxUhudP6RzHQOzDgbAjaH4xylq1CsAsHRSwnkeemBd9LrNTk96sTCoZ0OQFRG
-	 lCe0tZHupUyZ/DJCOM2Ce4zDcIQqqQm/4CavmxGdVTsEeSKqIwKAYU/Gqy/meCssCm
-	 PhJJGdUeKjGjgZGJTmlgzpPFVzTM63+ZhFnm72DIe9zV/x+zCRKdn9MiZXEPG5gXzg
-	 3naESWWBaOkM+TI7clfa7v9FbFReidls9Ow1vxOEjmBpWrAj/FO3kCAH667gyZHwdm
-	 oSC2FU9s5fM9V96o6A9wQnWQlXzFpy8bHTIguBZVPmJ/4lINSP1lZROuW1No/Az6eN
-	 HzN8jiNHe3vFw==
-Date: Fri, 6 Nov 2026 09:08:22 -0600
-From: Rob Herring <robh@kernel.org>
-To: Ping Li <leeonion.muyu@gmail.com>
-Cc: yin.li@oss.qualcomm.com, james.morse@arm.com, ben.horgan@arm.com,
-	sdonthineni@nvidia.com, andre.przywara@arm.com,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] arm-mpam: Add basic device tree support for
- resctrl
-Message-ID: <20261106150822.GA3193214-robh@kernel.org>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
- <20261104081302.304667-1-leeonion.muyu@gmail.com>
- <9d370f12-9e4c-4b80-9d28-ff8085ce3aee@oss.qualcomm.com>
- <20261105055347.947416-1-leeonion.muyu@gmail.com>
+	s=k20260515; t=1793977925;
+	bh=IExecR95GL6CEgRTZc0PB/2m5kr3bovfeems4StM8/Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PfggSSXAOW/Iug8fePy8ufly7jmdBG51rOiYr9dfaZldFG3XPhYx4U0QAPbNEBg/L
+	 wqJf3WA2eMKE77kQJ+mL0nT7cNPFo5jeFxke11IiKEBRb+ULECyqDgMa0dGPI8nWAM
+	 Uw3HURvMNnJH9S9T48mo2X+81vidWJ+WFvlyelrwD8n4CdRR0rX5qctx2aQE1mgh3T
+	 iu/BuDTcblkk7IOUcqlL3bu8dzs4nxYW4Fb4GGsfjNBBjtvQNw77jr+sHZImIXAdr8
+	 Qnn1XrzlnkxJ6EljgqcxNJtJkZjPUHhUE7CvGUr/ZScHYck6MA7kidwiCffeCqPzpF
+	 zADdFtwWQxujw==
+Message-ID: <sashiko-outbox-201650@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/6] dmaengine: qcom: gpi: Add QSPI protocol support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jyothi Kumar Seerapu" <jyothi.seerapu@oss.qualcomm.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261106-qspi_upstream_series-v1-5-21f43042dd60@oss.qualcomm.com>
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-5-21f43042dd60@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 15:12:04 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,53 +59,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105055347.947416-1-leeonion.muyu@gmail.com>
 
-On Thu, Nov 05, 2026 at 01:53:47PM +0800, Ping Li wrote:
-> Hi Yin,
-> 
-> Sure. Our memory controller MSC is described as a top-level node.
-> The MPAM register window is mapped independently in the SoC (the
-> component sits on the DDR egress path rather than being a sub-block
-> of a memory-controller DT node), so the node is a direct child of
-> the root:
-> 
-> 	ddr_msc: msc@2238000 {
-> 		compatible = "<vendor>,<soc>-ddr-qos",
-> 			     "arm,mpam-memory-controller-msc",
-> 			     "arm,mpam-msc";
-> 		reg = <0x0 0x02238000 0x0 0x1000>;
-> 		arm,not-ready-us = <10>;
-> 	};
-> 
-> The first compatible in the list is for our platform glue; I have
-> replaced it with a placeholder here since it is not relevant to the
-> binding discussion.
-> 
-> Notes on the properties, in case they matter for the binding:
-> 
-> - reg: the MPAM register window. Only a subset of the architectural
->   register space is implemented, so the size is the truncated window.
-> - single RIS: the component reports HAS_RIS=0, so there are no
->   ris@N child nodes.
-> - no interrupts: the component has no MPAM ESR block, so there is
->   no interrupts property.
-> - arm,not-ready-us: 10.
-> 
-> The verified probe path: the node matches via "arm,mpam-msc", and
-> patch 6/8 in v3 classifies it as MPAM_CLASS_MEMORY and treats it as
-> accessible from all CPUs, which is exactly the behavior we need.
-> 
-> One question in return: with the node being a direct child of the
-> root rather than a child of a memory-controller node, is that a
-> form the binding should cover? If the binding expects the MSC to
-> always be a sub-node of a memory controller, we would need the
-> top-level form to be allowed as well.
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [Critical] dmaengine: qcom: gpi: endianness bug in
+  gpi_create_i2c_tre() [1]
+--
 
-This would be why we're not upstreaming the binding without users. We 
-need actual h/w to validate the binding works.
+commit 9cdfe35f34d7a7a0d6e8622961798e1c9733ec6f
+Author: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
 
-Rob
+dmaengine: qcom: gpi: Add QSPI protocol support
+
+This commit adds QSPI protocol support to the Qualcomm GPI DMA driver,
+including QSPI transfer modes, dummy cycles, and sequential TX-then-RX
+transactions.
+
+> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
+> index a5055a6273af6..487e023287aa1 100644
+> --- a/drivers/dma/qcom/gpi.c
+> +++ b/drivers/dma/qcom/gpi.c
+[ ... ]
+> @@ -1736,7 +1742,12 @@ static int gpi_create_spi_tre(struct gchan *chan, =
+struct gpi_desc *desc,
+>  		tre =3D &desc->tre[tre_idx];
+>  		tre_idx++;
+> =20
+> -		tre->dword[0] =3D u32_encode_bits(spi->fragmentation, TRE_SPI_GO_FRAG);
+> +		if (chan->protocol =3D=3D QCOM_GPI_QSPI) {
+> +			tre->dword[0] =3D u32_encode_bits(spi->fragmentation, TRE_QSPI_GO_FRA=
+G);
+> +			tre->dword[0] |=3D u32_encode_bits(spi->qspi_mode, TRE_QSPI_GO_MODE);
+> +		} else {
+> +			tre->dword[0] =3D u32_encode_bits(spi->fragmentation, TRE_SPI_GO_FRAG=
+);
+> +		}
+>  		tre->dword[0] |=3D u32_encode_bits(spi->cs, TRE_SPI_GO_CS);
+>  		tre->dword[0] |=3D u32_encode_bits(spi->cmd, TRE_SPI_GO_CMD);
+
+[Severity: Critical]
+This problem wasn't introduced by this patch, but should tre->dword[] be
+written with cpu_to_le32() in gpi_create_spi_tre() and gpi_create_i2c_tre()
+[1]?
+
+Both functions populate tre->dword[] using host-endian values from
+u32_encode_bits(), lower_32_bits(), and upper_32_bits():
+
+drivers/dma/qcom/gpi.c:gpi_create_spi_tre() {
+    ...
+		tre->dword[0] =3D lower_32_bits(address);
+		tre->dword[1] =3D upper_32_bits(address);
+
+		tre->dword[2] =3D u32_encode_bits(len, TRE_DMA_LEN);
+		tre->dword[3] =3D u32_encode_bits(TRE_TYPE_DMA, TRE_FLAGS_TYPE);
+    ...
+}
+
+On big-endian hosts, the hardware receives byte-swapped descriptors, causing
+DMA transfers to use corrupted configuration fields and invalid physical
+addresses.
+
+[1] https://sashiko.dev/#/bug/linux-b28be1ac-c36c-4aa8-a76a-58a19eaef473
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-qspi_upstr=
+eam_series-v1-0-21f43042dd60@oss.qualcomm.com?part=3D5
