@@ -1,57 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793957377;
-	b=S0KzfZeBnSFsqJn/4Dm4buWzOq4y/eoqNOzL4HSf6bML98d5/bDzTxF3bnHeOnBlngwS
-	 y3EXW+rXsYbfNJ51PhUSvqwALjl41PG73nB7Z2LhosihzImac4oXlWo+w36y8C1QN+xH6
-	 iqtj+e9Ugji7MdvMifaqVVsmhOWEV+dlCbmbKtTP3lc3hXv+/iqcHKReHPZsrH+nq5jE7
-	 9ndrAN4ofvGaVgI0xhu+lACRygOLY+btLUJA8qqyeKr0kbC+e0Dyy4Mpc+zbebryo49Gd
-	 qViI2FeGdzYdMlvdzUfbSyamhhWcnHPye0N65i9EahQl//W2IeFApxFJi0YF3Ksx7pw==
+	b=kWs8vH5efFDBv4pRFtUIyYjXOLaysJYH0RtvVjgkt8831D0/ARo7haNXBx88ddp8pBMY
+	 ZPsh5CwIFqWNLue3ZjfqNj1bcSA56yw3mVxH3dqb4cyzFy8AQSHh9HMpvQRw2ipTf8mie
+	 4iO3CEP+8PC/cLKAetx9yY0nkS31KEf66chHxBdVJOVoTik6RiADjLjzgIYMjdFT9s1Q5
+	 W/CzVeth9VfiQ33MWaoamnWWhOArJvi9P/5vo9av0Tc5vOxDdOqN8rVyTiPw3TWA1WnOw
+	 dhCVqxJmWMD1P4JkVc7W+yeaP/qeKP4DkdZ9J3WjJkpaVPAvt9VXZQyX28cEg7wM5Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793957377;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=E0Mo22KUtdYNmnn6daUOAIrTnkHSja3umPLhoTZUivU=;
-	b=v2qoyr9pNMMge0bQp8hlXoIlcaVCdcixWNl2gcpjTPIZ/GrFPJphJ6gi574JavZwQqFu
-	 IMYfqYeWW6YgHn/h7hmBMBGi3kvGqQ1GQF+NsNedBYt1gWqolgReewCVcL5Qsx7qRkSlG
-	 Z6aVdTER2b/F3Wg48BgXD5PgMzz4pxqMGQBJoYKw5oLxpHLx/zTZoWuYg0t2aAjV4g8D2
-	 okmHRHwUmdSSprU15mYvtj7RXwwclcHnYbMLFOzRlxVyndr2qSyKQQgn6UwnIYnJQGBX3
-	 9wt+Nasy+zpWkra8EPalrBcoUl9sY2Xcb9a5jFEgQBTjVnDm/QMX7JJRbW0vvLNM8Mw==
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Z/K15dxirSI+QSh23nqxE7Vi19mIq7MmVTmrvXlPOvQ=;
+	b=eCZHd2Ua7bM/J3REzuX5l4ZBgFpYtIiMKxITEIaxWdkPmIwYx3WBDf2PkfAcHcMkwrLu
+	 VFgMH17PChFmaS5Rnp5iDhwo4r34R9+ZtQDkdyl45n6jLXdNY8Fi2gcXcRbOW3U+oLu/X
+	 DGTLI8k8opykVGHl482R9EiQebhxvfKdX32fYo2ulRSb/6a7J0Yk8pHelEm3AVc23odWy
+	 sinH5orsP6ztzpyrGoVEliGeN93ma6dLodZRpPbA8/yc/Gtza1R9v3PixYBUoYyG1vm6J
+	 P/S4hxlFHf4AOnql3XanuZWrA8Wmj6yWF+tnc4aK5qfIn0T3xkVOtq/mz3AA8URtAPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kVjcQI4o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijZNdrYA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46BD606D818
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:29:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CAD606A331;
+	Fri,  6 Nov 2026 09:29:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kVjcQI4o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D431F008BE;
-	Fri,  6 Nov 2026 09:29:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijZNdrYA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351801F008A1;
+	Fri,  6 Nov 2026 09:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793957376;
-	bh=E0Mo22KUtdYNmnn6daUOAIrTnkHSja3umPLhoTZUivU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kVjcQI4o+D6BJLj7ZEXhUTp7cejuNPaGxah8D6EQw6+Wuf5+l1MmJhCwy3WC3MFI2
-	 2gQV4lBW72IpnDtZY4x0cfpfOmThfa8k9q9g9cQ1MFlviDy6XRq4VRFHLyLyNBCqu7
-	 Hnk1t3t1xUnL3675+goLFZvQ0Ugh1ldxfn0QoOmkImtxqT93QpJITVioI2Nbft42hq
-	 yC4k+QUQzHM9c4cij3rQULdks/RDyZmkVb0SK2N9/rAHJ2A8y+nS9LRjmaYFSE8mIW
-	 0JM5p2SNjUNVbkszBAvfCEgMxoTuk5ncxN64GIhclnuq1wt2q7YA06dY3AD0Q72agd
-	 DzWugLgA/6hmA==
-Message-ID: <sashiko-outbox-201110@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] iio: light: ltr501: Switch to read_avail() op
- from manual attribute registration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106091943.35783-2-clamor95@gmail.com>
-References: <20261106091943.35783-1-clamor95@gmail.com>
- <20261106091943.35783-2-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 09:29:35 +0000
+	s=k20260515; t=1793957377;
+	bh=Z/K15dxirSI+QSh23nqxE7Vi19mIq7MmVTmrvXlPOvQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ijZNdrYAKTARTgh27GXxOE7gVus3vyqE5Qno8d4/jfF9WWLGYaXPl8kMb5ijorabs
+	 YjKQG/MDfnUmKCi13IJ04wSOX49VrTvXP8EJBvcr/XoYn/8ypQqbIEYVmn0Idhs9GZ
+	 ZrZgrRKHDb+6RbmN0a/mjvSZaqQWCiLXpBC5w1lTdlrpzpIKjAhg+VOYm6GGFuNnvs
+	 6Bq4H+r91xP4vIcWtyd0WhpP641LlwIxVCNOvg9BHpkU2ANhqfg1IoMF+YjQUoA3Fe
+	 1p97atIDP9tSOLldIcu3hXU8Z9WYR+U5gS7K5rTfwB/JvlGrrR5ChNyarLr73zF4ob
+	 uZv5zy3fsaMVA==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 06 Nov 2026 10:29:06 +0100
+Subject: [PATCH v3 5/8] dt-bindings: arm: qcom: Add Glymur SIP CRD
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,103 +51,60 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-topic-sip_cob-v3-5-52cd3826ab49@oss.qualcomm.com>
+References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
+In-Reply-To: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>, 
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+ Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>, 
+ Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+ Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957347; l=861;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=+sVTvh+aAbocnmo9shqG34Hljg4c2OnrCE/KMhmPXTs=;
+ b=WM+9p1L313k0iHOuJhcyeG3jsPDaaA8APEvytg3sxRMI6MMBRICBPkN5BFW9jXoWzjMX9F0+U
+ wWOkq2560aRCooxEwEchDZC/um0RTrHUhcS2p95xoEARyAPM+IQYj2P
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] iio: light: ltr501: wrong available masks break scale_available
-  sysfs ABI
-- [Medium] iio: light: ltr501: ltr501_read_avail() exposes reserved gain
-  entries
---
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-commit 62f3eb145ee7bea38108b1176e688878b094c714
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Document the compatible for the Glymur CRD variant which uses the
+System-in-Package variant of the chip (different package and power
+grid). The rest of the board is seemingly identical.
 
-iio: light: ltr501: Switch to read_avail() op from manual attribute registr=
-ation
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-This commit replaces manual *_available sysfs attribute registration with
-the IIO read_avail() callback and consolidates the per-chip iio_info
-structures.
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 933a2361b5d7..b5ebee87e668 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -92,6 +92,7 @@ properties:
+               - lenovo,yoga-slim7x-gen11
+               - qcom,glymur-crd
+               - qcom,glymur-qcb
++              - qcom,glymur-sip-crd
+           - const: qcom,glymur
+ 
+       - items:
 
-> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> index 302be2fc314c5..cc5d7af44d77c 100644
-> --- a/drivers/iio/light/ltr501.c
-> +++ b/drivers/iio/light/ltr501.c
-[ ... ]
-> @@ -590,6 +604,7 @@ static const struct iio_event_spec ltr501_pxs_event_s=
-pec[] =3D {
->  	.channel2 =3D (_mod), \
->  	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW), \
->  	.info_mask_shared_by_type =3D (_shared), \
-> +	.info_mask_shared_by_all_available =3D (_shared), \
->  	.scan_index =3D (_idx), \
->  	.scan_type =3D { \
->  		.sign =3D 'u', \
+-- 
+2.56.0
 
-[Severity: High]
-Does setting .info_mask_shared_by_all_available =3D (_shared) break the
-sysfs ABI for scale availability?
-
-_shared includes BIT(IIO_CHAN_INFO_SCALE), so placing it in
-info_mask_shared_by_all_available registers scale_available instead of
-in_intensity_scale_available (which requires
-info_mask_shared_by_type_available).
-
-In addition, the IIO_PROXIMITY channel in ltr501_channels sets
-BIT(IIO_CHAN_INFO_SCALE) in .info_mask_separate without a matching
-.info_mask_separate_available mask, so in_proximity_scale_available is
-no longer registered on ltr501 or ltr559 and the proximity scale branch in
-ltr501_read_avail() is unreachable.
-
-> @@ -1111,111 +1126,56 @@ static int ltr501_write_event_config(struct iio_=
-dev *indio_dev,
->  	return -EINVAL;
->  }
-> =20
-> -static ssize_t ltr501_show_proximity_scale_avail(struct device *dev,
-> -						 struct device_attribute *attr,
-> -						 char *buf)
-> +static int ltr501_read_avail(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     const int **vals, int *type, int *length, long mask)
->  {
-> -	struct ltr501_data *data =3D iio_priv(dev_to_iio_dev(dev));
-> +	struct ltr501_data *data =3D iio_priv(indio_dev);
->  	const struct ltr501_chip_info *info =3D data->chip_info;
-[ ... ]
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->type =3D=3D IIO_INTENSITY) {
-> +			*length =3D info->als_gain_tbl_size * 2;
-> +			*vals =3D (const int *)info->als_gain;
-> +		} else {
-> +			*length =3D info->ps_gain_tbl_size * 2;
-> +			*vals =3D (const int *)info->ps_gain;
-> +		}
-> +		*type =3D IIO_VAL_INT_PLUS_MICRO;
-> +		return IIO_AVAIL_LIST;
-
-[Severity: Medium]
-Does returning info->als_gain directly as IIO_AVAIL_LIST expose
-LTR501_RESERVED_GAIN sentinel entries to userspace?
-
-ltr559_als_gain_tbl (used by ltr303, ltr329, and ltr559) is indexed by
-hardware register value and has two reserved entries:
-
-drivers/iio/light/ltr501.c:
-static const struct ltr501_gain ltr559_als_gain_tbl[] =3D {
-    ...
-	{LTR501_RESERVED_GAIN, LTR501_RESERVED_GAIN},
-	{LTR501_RESERVED_GAIN, LTR501_RESERVED_GAIN},
-	{0, 20000},
-	{0, 10000},
-};
-
-ltr501_show_intensity_scale_avail() previously skipped entries equal to
-LTR501_RESERVED_GAIN (-1), whereas iio_format_avail_list() formats each
-{-1, -1} pair as "-1.000001" in sysfs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106091943.3578=
-3-1-clamor95@gmail.com?part=3D1
