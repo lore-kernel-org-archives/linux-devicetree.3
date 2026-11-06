@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988510;
-	b=BUGeEXnKi/nVkIUOzz9FDkb+Ta3pWDiQcNmLCkeOkWuFIkznzFbYPc6iPas1iYrRIXue
-	 I46DoQEYaZmfPTWeBhIjCQChAz7+DTxI/8Af3H6O+Er1/iZut67Ht/Z8jfwl7xYU98cyC
-	 otn8tttvgMowHm3eYRTw90EFQARFdu6SdsjARLsgQKjNb+PShuoXHTKR2qk7cwgfbpXnn
-	 EY0a/uBTAquo+87Hncn3Aky7FVvnf0QQpdJ8kj0hRQ8bx8kLlVc60WJJphnrfUR+Pblg7
-	 2lvCpu9qzJ3ir5+TJ2xP8Maal0u5jPoCC2fq1hjOd9LxRbX1V+B+TPoyPucfu0ArNJg==
+	t=1793988824;
+	b=DtrGanO9CqosXXoixSY8Kwgc1u1fx6Q3IPmPoOnSPiqBDcBo6tg21DHqvneXeaBt/sH8
+	 HkwYmONYYeqVEXhbBHPS/+elRQB5+zdbzkDX4L1wKzF7OMEgAL/tJwIofObAnHyZwj2DI
+	 AsL+hiJwCK4PpMT53BdO5e8V/OnQf7Vfus1IP8mKLPJxIUUqDXJpkzOq8fSYv8R9BJ9GS
+	 4ej59ZHFUKVj6dBf3CioZ0+y7P4BfKTDlOVnGh3EtyNDXKTxsK2A0CDF9DUgUo/xWXzXI
+	 4DiM0XWo3s/KiIhqKhl6vg+A0K0hyLivuDXdOzm85OasBmxdyZYOirutWc7oOL1c2SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988510;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=TlsbZRohfYY9Acfo1HZrz4sd0DFYcL5H6Bh8ImzlihE=;
-	b=4EWTR2TjnYYji88Ry68kHhO54KLNJVvN47MfymAjODCrWTG7d/se0w/oeeiJVyEeaSiU
-	 f2Y+kZsVANQSgTWsfP1PWFCiAo/hHoC6cIXRbfZ02jB2KINbMWXmijaCCN6LclFQsOMm2
-	 ly9Atja+avMvmU24CRklm3yb4erEy9o2vtKquOTVGF6nLPSIGlyswDve1sM9SOt59wbQI
-	 9ZDkF2W+qqokZKhjKKrwE5rZOrezlBwtr1S4owRrFVYgyZ1Ciq29AYJ+iZwhtpNckswhA
-	 O8OFNofYwIML8Tr4fBbNWWF+esa8OcbsJKDmx6a+4o8ChCzUcW/q37NbXZtVmX7hr8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988824;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=KMQDum6ro6+38J8GrwMjdFRm/rqOA0moDhFDYguzWLU=;
+	b=zKqBcv4MxrLcIiMWxiPzXyueg1P/hH0sMgjTkdGjE/Hcn83e02b72gY1PlwpjM7MMikP
+	 b1fRQIoE0F/nQxvGlnS1Rj/MyLW60UVA/eSRPjf0e+3Ng5l9UiSPtV7Y8svaK5tAEplrP
+	 73AMFJXNy+FO/IoQ9ni3C1STld+ehoZB60tHxDLuc1V5kzXfPTYDjWB2E2MkUXRu+8Zrc
+	 4UJJFtQS6dd18DiAMJZYRXR4dkyDKQHvhsxtxaPEUlri5rMQzm0DQ2WbUMC7w5MTFelPo
+	 6FGQRTL9pziOoaUVW03qHLzttkUlMQz86/X4T+06Lwt9FU0ONK2GhSuPQHTvRvKjQqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl9kRzom;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTB8Cbwt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96752606D803
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:08:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96752606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075EC606A326;
+	Fri,  6 Nov 2026 18:13:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rl9kRzom
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a3c08d6928so1679412c88.0
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 10:08:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793988510; x=1794593310; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TlsbZRohfYY9Acfo1HZrz4sd0DFYcL5H6Bh8ImzlihE=;
-        b=Rl9kRzomM0oOp7wdeUPW3WC/r3jSD7fJijNyagohm+2yzcSET8sgMWU/dj2Ag3f6hP
-         KP6il2thuDeIjuhEs2wc7Y3FblUJTxFjFihbjbVB1WYfkbBs1acdnMgRBWvQZWlEp6mx
-         YR/3oZ0EpGaML4VkCYH7EAgy6OEgLX0sDq6S58wBs8uCEVbkEft36UaTLTxDlJ6J3Gab
-         TsBmrqoY1HDT0miyy4um640FxLyIDCitna7S9zjGJqkevEittypG5FOPmBwZIR2kWJvn
-         Lw0lRxpM49RPewr2m9yZycwXZfJX/OyfhIJg84yXOsFeNmo4WfUUzFoVsTd5FLvYPF16
-         aMoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988510; x=1794593310;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TlsbZRohfYY9Acfo1HZrz4sd0DFYcL5H6Bh8ImzlihE=;
-        b=VQkIt8bB2rcDaOmY2BLBr1Ltu34yz7IXaNQCRk3zhl7iPoqJHnBnM9d9XvFF2zHEfk
-         xso+xMhYlG+FSpHypREmiyqHzpAJO7Va3KsLmpl0VGNpjX2mSLEeiDBwHIyr5SLdVmB4
-         mz/bASARBXM6TnU9G2zHCOosHDH3BVJ7JsuGIHSUU2mn5Z315dVEcIWzsih+9V64BDba
-         PMMJ+3bviH2aSIgwKQfSgJ3q3rsbppbP4aGwH6+YnVovLLqfYnovfNcUo7a9nZNwpWZr
-         hSpHPWW50ukkT1NxM9OcuaFWoblnbZl6J9Y/Z4ZnATvoK8OepT1pRDa/wXAmUNDOVLef
-         QlcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx4EMVutgEt0cCx1M51BFWY0WqvQjCLSFM2PI30e79VLkndj+wBNLcMmZfpG70GEiGbEOFE39L4xu9+@vger.kernel.org
-X-Gm-Message-State: APuU4Z81zBFhyxMBpnZToBNOWcJqnwLCklWZRi5o/AszoZLKoaKGo779
-	lD3xNEMqW4FjcaPschPjbwIWVvMffBbxgOwdmzqyldXE6D42RHc6Xaqn
-X-Gm-Gg: AYBFou0HAIl8Y6x9zEiPIeKjrRhZe5a+1eHTY7vqx+vvIjUuZ4aiDosQmcnWYbbKGkO
-	wc6X8JE6wnMBu8kxuQlX0vTJ2jNZqwgClB1Wcw+amItaHmn3MBlLdRw2Eps7esQ8r31wY8KsnvS
-	TKFvRkyFGldjDVFIQn5HEBUsOaVGUnOfJbxzJ7nN94pFX99kNmEUXq87CozGdjpN4Q+WRtE2J/I
-	xyeBrdGyWuZyoKuQgolBGvunDaXVPmJ1VAgLzSD+O702N2/0TrDWHBMr79rDYMNwy+RUge4o+/v
-	Jnon7YrFYOYWLvKdTCcvct/MHNeBUY3rTZSS9wtunZqCFmWi6FecwgzcZaF7Jhx2Z7plCW4LZQt
-	y0YFM3eX/Nd2RW12GR7gJ9KF0TplsMb9+c8qejJ7z3fCoTgnM3aEF6xrg8d3i+V48r9EFwzJmV0
-	19Tj9ocwM/WRzOdnLwWo6sGIsu17+l1MnPbtGKM3VtZG5lT8ob8UcBalmtSImr7UuLvJxDKKX5U
-	MHWqKUwscTN5nQrtfgsnSoZlsIgJHbAD7jOC5xeKmS3i2bzzi3Ch/V81OZ2bCSYMBUKAnyNA2xI
-	0J3D0jU6ITQceIzDA3r/M0sg7jghNMCMqJUj7VmxIvIqHzbjjRy/NyQyLY1Uh/QRgbzh
-X-Received: by 2002:a05:7022:5f07:b0:1af:16c4:d06b with SMTP id a92af1059eb24-1b25d31e658mr3453567c88.10.1793988509569;
-        Fri, 06 Nov 2026 10:08:29 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:64e:8358:c9cb:c17b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4fd2d6sm7443467c88.23.2026.11.06.10.08.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 10:08:29 -0800 (PST)
-Date: Fri, 6 Nov 2026 10:08:25 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: rva333@protonmail.com
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add mt6595
-Message-ID: <au4Xis7Ei2th7xFZ@google.com>
-References: <20261105-6595-dt-keypad-v1-1-f0911f40d3ad@protonmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTB8Cbwt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5CA1F0089F;
+	Fri,  6 Nov 2026 18:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793988823;
+	bh=KMQDum6ro6+38J8GrwMjdFRm/rqOA0moDhFDYguzWLU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WTB8CbwtC4uPmCt6p2VeAkonRR/+2WCGOCmXPSVjGk5MopoLe4purDz0Pa+ZWc3PU
+	 Z1a0z7d0FQ9Xlsxd18h9hR+qIngDahAeNAGphHfOqij4wXRenO5/Cv418BB5esX/Cx
+	 sqHEAvqMAyFWq95EBo/CCDv/9E88neFw54GCKXyAifHILHygqC5vNTFJqDuYr0D6NT
+	 qmNL2zmW87pCzg0Yb1sEB1I+j3knkCCdyFLtJbukp1gr4MtqIlifb3O4jrR+4DeJ9q
+	 5neAYdxKECSPgAgoXQ5E46vB78gCH6sW6ENazYShMNGKpSn4s8pyHN1RLQbCeZ8y+G
+	 3Zzc45Q0lNJDQ==
+Message-ID: <sashiko-outbox-201998@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/13] arm64: dts: st: add iwdg1 and iwdg2 support to
+ stm32mp231
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106163429.618392-12-antonio.borneo@foss.st.com>
+References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+ <20261106163429.618392-12-antonio.borneo@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 18:13:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -99,20 +60,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-6595-dt-keypad-v1-1-f0911f40d3ad@protonmail.com>
 
-On Thu, Nov 05, 2026 at 01:29:12PM +0200, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
-> 
-> Add a compatible string for the mt6595 keypad, that is compatible with
-> mt6779.
-> 
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] arm64: dts: st: undocumented access-controllers in st,stm32-iwdg
+  binding
+--
 
-Applied, thank you.
+commit 93c31545a492246bcc374e2c2022c94ad8a0467c
+Author: Antonio Borneo <antonio.borneo@foss.st.com>
 
--- 
-Dmitry
+arm64: dts: st: add iwdg1 and iwdg2 support to stm32mp231
+
+This commit adds the iwdg1 and iwdg2 watchdog device tree nodes to
+stm32mp231.dtsi.
+
+> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts=
+/st/stm32mp231.dtsi
+> index fefbf6f4f1537..db19429896eb3 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+> @@ -724,6 +724,26 @@ rng: rng@42020000 {
+>  				status =3D "disabled";
+>  			};
+> =20
+> +			iwdg1: watchdog@44010000 {
+> +				compatible =3D "st,stm32mp1-iwdg";
+> +				reg =3D <0x44010000 0x400>;
+> +				interrupts =3D <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks =3D <&rcc CK_BUS_IWDG1>, <&scmi_clk CK_SCMI_LSI>;
+> +				clock-names =3D "pclk", "lsi";
+> +				access-controllers =3D <&rifsc 98>;
+> +				status =3D "disabled";
+> +			};
+> +
+> +			iwdg2: watchdog@44020000 {
+> +				compatible =3D "st,stm32mp1-iwdg";
+> +				reg =3D <0x44020000 0x400>;
+> +				interrupts =3D <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks =3D <&rcc CK_BUS_IWDG2>, <&scmi_clk CK_SCMI_LSI>;
+> +				clock-names =3D "pclk", "lsi";
+> +				access-controllers =3D <&rifsc 99>;
+> +				status =3D "disabled";
+> +			};
+
+[Severity: Low]
+Does adding access-controllers to iwdg1 and iwdg2 cause dtbs_check to fail
+against Documentation/devicetree/bindings/watchdog/st,stm32-iwdg.yaml?
+That schema sets unevaluatedProperties: false and only references
+watchdog.yaml, neither of which documents access-controllers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
+92-1-antonio.borneo@foss.st.com?part=3D11
