@@ -1,94 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945199;
-	b=TGc/OzzSOPnuH0bSCGm8sbz0dBnnStD/3WvOsv4X8i64poJtHj7xtr47kcymQOSd2DWi
-	 OBET5DKIhLgQDuK9rWUobDtlaQLLexGjOQSzH5VCn+9YLWIj+svHCBLc3ZCdtx1H0jM3a
-	 QU0Ikhyaqo9HfnXMdqQaY9ESDgSJNJCs3n5v7/77ZNBaAV7dQIcavCf4aAOyDzsuBik26
-	 /A4MkafsH2CeRILB/8wNwFyP4n7CgF0DETaGI5aIDTAsb9El2wX/VgfZ2KMWz/mQK/px1
-	 kTJYraAAwbQWe4oOuh1oSUnpi2Jk6155E8/aCF9w53wx/zX6OpUk6cJ4+Z837h70KUw==
+	t=1793945218;
+	b=gGFmLfNTyCEgmzIKyCb94mpDalrtnTURK1pSceYnxuyR/TfMriifW68tOQPM+Kfq5E3J
+	 /M8cEPKNQe2M1Rd5lmaI4KEJDwlmfTl0SVLiCA2QBSkNr2kHI3QS0zsJ/sfIQNZ2OrWlc
+	 gVO33LaJbadA3DGsBZ5/dux4iFkSmKmHKQtd7pK9vcjP+axoSHqfDyxdUNU5KV2zCrxOw
+	 ckIs7Qea93YF12rpTgXPUWGrfzDFdStSi0s1UxFTBWNKimAxY+irXNeaI1t0g59hRfJcl
+	 CrAiCtxoAxQnPcKxujPMfx2jUGDuaP0eUpxsjqJzTXb3IAdVI0hIf0KjvKQz0xmktjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945218;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=pi8xQTHmN8oIR3u41XpUTeacQqSw+crTxhinHNCStKw=;
-	b=w8Bw3igHzS9yk4254lQLuuqrHr/uAVQ7JISguvXcTkaiDZ3bokMAL8imkcA3f5lxasOg
-	 SBMPmrX/c/FW8m7SMc/w1A0Np0bJP10agKKAbm4n4wdaDx1UnRkctyscaFXUuM9S9c3Tt
-	 rO4eM4A/G/wQwp6hPe6xl/th+HzIfAyeDqpQwV1XJSwdcy+FznjU9+Unm0X4ywtpfS+tk
-	 wPYqgFqR1oXp3rs6bNN7RwX6wPkhcKxJj6Frl0xvCZeDwpEuQLmWxv+RYag14r1Tyvggj
-	 rpjyXRh8HoebrnEbXu5IunfMz8v1ao75GdZr6BlXHPaZtfwmOBDFbB0ss+/LAc3Hgug==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oP3EQV3igCQFQrQhRO3kdFq4f6+qs4DCf/vNPMH0lsQ=;
+	b=YPtrs9zzwz58zwjvTnipMZsT5/cC0murIu2uHTXYypIe6JL4vwC1rR+hEg4CVOt4NQdh
+	 EK34Vwf8BiYWRl1DqE5nEJ+X8T3fMaQcEIOsMF0gfExFttHC2b7t+KpiltTm7s9mKRdOg
+	 ARnINO9+/lHETm3HDaGy2B4CTIjZiLHE7l3xq+pNgpAivFl65PgLP3kSwF2ITOJIZOYWh
+	 wJPblHhtYJaxftftiV/mPQjdkJST4cFJd+rt2Un2urMqEBDSbnmXT4aePOAGhWu4Wu3Cm
+	 jluprM45DkaWLwv/79wLopQkM2b/xz2o+nsJqEx0OQqLl/2y9dBPZ+11TNbxab2ot3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VX3ZTlIi;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Bj2/h1dV";
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5225B606A328
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:06:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5225B606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83445606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 06:06:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83445606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VX3ZTlIi
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so97605eec.0
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 22:06:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bj2/h1dV
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3514b90bb89so593598eec.1
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 22:06:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793945198; x=1794549998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pi8xQTHmN8oIR3u41XpUTeacQqSw+crTxhinHNCStKw=;
-        b=VX3ZTlIioNgt/mZ+/4GsXHAGBnZipBJkSnww4ORBKN13EorWo537X8ERCGsVkzToIr
-         z7WjG+l74ATpZTGzXG0vN1TRZf3+cSdhb+8VoathmbR4Bhltn3sRfB6VdqNjOuXTyNBd
-         xqpYlta3oM8kWL/O5XCf2zW1jglrV6lNiysgc=
+        d=gmail.com; s=20260707; t=1793945218; x=1794550018; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oP3EQV3igCQFQrQhRO3kdFq4f6+qs4DCf/vNPMH0lsQ=;
+        b=Bj2/h1dVRmdU/7BaQU8t24ntY2qLAVJegIr4KYzGnzzycUX27g3gX+C5Txj+DeC84x
+         qch6skHLZrHnw9ax5buB5oZcBA/E44nyPphxCeW2YWMJIdpRcdgiNkX0gUbJx0urdOfo
+         LoDyme3iGaTP9yh8qRWQBBr/HkLej98uOqn/Jw+xjoWH3TPl6xyw0SerdUEGLg0saKZe
+         7mIxd3thNUQ2Z3Q86kBGKSvZjeh72pOsVmUWIbhtLK/6S5aZAhduRhlmxo4lz6XaNY3p
+         UmyeTN4GQb36QvqkJRgzwrpHEqzrY6cGkuHQ/HdHg+Noi0ffPCmXu/7xJoXsA3JgnE3R
+         wusA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793945198; x=1794549998;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pi8xQTHmN8oIR3u41XpUTeacQqSw+crTxhinHNCStKw=;
-        b=BejFILoErzSCkfw7awykbBfC+YmaW67Z22vF7PtnlztxwUHNQ6eFCJZjpPP1+uKQgY
-         9UGeAFq9t88Mqyq2roaUzyMg17MqYVbhU1sGWbTIkstv9/jXBHdKQZGxt5LcB5fcVyLT
-         2SqHEzTSHHqa1+SGArfi8q3bvYZXnO4hoyl8ra4gAqLSt2ojFmwgxq2rYgTRoo81Yv7D
-         8g+UJCicubE6DHjl7vKjRKr7UW0FEe0XUKrJAtVUXJZOuCjiRwJ6nWx1gl49T5AlnR7u
-         Ch8E219U/43MSG1UJ079I6yoA0gpB0D5mVAx9O2VF75atq3n1/SGODSZ2EcFLIspwN5N
-         sQVA==
-X-Forwarded-Encrypted: i=1; AL+hErGX9l1AAOjfGhFjl5NSsb2EhzDch8dRZ2VK6UMY4y5vIgjpjkiqgXCIg3jLeHLyhHTJ0CmU34mjqQ4i@vger.kernel.org
-X-Gm-Message-State: APuU4Z+F2+7wX6F2X35+I9fOmHSdNqB9u0PNPEfxLI9LTES/RlBBH9Y7
-	lHjiotibs6smv/7qHEF/wduzmsu3tn+W83GB+kzfcZcXgCcwLgBIC6ibRqNpwI4WTg==
-X-Gm-Gg: AYBFou3K74C3zhuBCp15TLHxcjkKqLpPvrL60xdpoCHJgtMd9H/ssMO0dN90DpincXE
-	7ill5ZYchmdR8Rcl1607NnuiL5+ojt1HWdV/5i4oiB5SSFAFhoN/GGThAtxOSGHo/86n9d5l1D6
-	hixsxFR4fOq0oD+dCcRkxj3nmt86WonWqH8dbgKB/cJezUCWpGSElAgQhdMfW4blln2NdEBzRuR
-	3/VhNBgiKetQiGXqdKvURkuKb2nZM+lCexK9tGynX9lQ/oPqQ2CtcSXjU2khWAzJ/zQ0B17LN6U
-	WdL3t7ZJXAucY9MaCqI4hN5SvGZtPM+lxqciS+Z2MiVdGfn0Tvsc8TBVIRuwdptZ6ftKlHUuXDI
-	zmaK100VlwrB0xH6OUXvunr05ozWk1qGIcoD3HVjL35YRKe+Msklb2q/ZbxZvDbsr1GKe8/yTBP
-	5uO9gU5AsugeHCjuXIYINzc/KbNx/+Z5GbnJS81FDnuGakD2aVYCdFr6bMWlGBtstqv105CWS52
-	jSajuHB1S4Pe1G6RZyv2bdV6ehkCyXXML9pTaG1PfAUDkDLL1lagYDzvrTNqsxC4EqAGKFf1/n2
-	nO6DjX/9Xvr6T9TdGsY7OSQEqAi7Hm8FdIk9oaPqNiqe4P9SMpfpoBMy/xQ2FXdXokLbzb81Ax6
-	iwnISivBxgIST
-X-Received: by 2002:a05:7301:4249:b0:36a:22c8:ac57 with SMTP id 5a478bee46e88-36f776f1f8emr2009226eec.33.1793945198326;
-        Thu, 05 Nov 2026 22:06:38 -0800 (PST)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:f73e:d73b:c0da:5b05])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a47esm3821809eec.6.2026.11.05.22.06.36
+        d=1e100.net; s=20260707; t=1793945218; x=1794550018;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oP3EQV3igCQFQrQhRO3kdFq4f6+qs4DCf/vNPMH0lsQ=;
+        b=ui3QfI8fz/5a3Gak/Uyd4Mli0eYcr+nB/s4Kog2Zc3neumOMDm8IoY76hl8U1tMvnU
+         dy7eCxWI+A60twQH9vpVMZhwYV6HZHJENqj/MgcVdGikaavhUcQSjajlfpvKVtUEuXUN
+         IIB5htZ8vjYCqY9iLtja5/wYsFAItbkZl71ewi5kv10bgIDAb6BuKqn07X6cE2sUnUdi
+         R5oj2PKj/lgq1p+hs1xj0sHwFNmdRAolT3J5GWrxEODm+0VaPpin2+O79FeXY6Z/HWaa
+         hf2xTqnvkQ1firocj1taNZKyCEG/nxA8YsAxXzmytMFA6kylG5I5F/+S8Vm05UJAziop
+         ymqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZdvgu68AUk97UTkm6GF+qZQD7X5cvUdNBC58gfVw5udI7g33305W12XEyeDv2GyBqfcsMoMvdQptv@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7HjmmgGXp5z5utRAO/3Xv+Ub3cjc1zl5OVHiFERKN046QyuPC
+	xZ104J/LiOZDr2MEx24I+SuozoW2PRyQaS4+VcuMjF2ycqq5jGFP/ZELGSRGr76qTrYgqfnr
+X-Gm-Gg: AYBFou2272biMnn23TDVMuXAkhYl+AJhVTEJPXPA7DdXkua1oRybNblNlynAtGJV2Vy
+	aKBkDpvhW55D1SkCUGYWijNbtSn9n3rUk/qcuoO0/ZXNf54oWsGljH8wM9S3UcZbhmYxMqxsx0o
+	3LwnBuah9B4f6riM+ItK4gnrVsBFLF17G86nfyoGuy2bKbrc1zs+67DAqm4PXEZj6c92KRgTERj
+	17dgfOeYV8ZNQ6VxbMHFROmTJY27cwhhHGb7wDQ5EcD6SnymP9yWfz6tR3B3Vm9Ui7Fuvtzus9u
+	wlGQgaED5miS513qsZkfHkTqVBuXTxPZ2NGULqv1186lav4Y6UD3bSAVkdZLUCfq8QEK3UcJdsh
+	0x1kNpZuKU7K/6dB/9XRGTR5ed65kZSOXWosiad54UeOe8ZVT8mdQjdGiwAm2mzaaSNbC/GNvwB
+	oLf0o7Y2MYzKcwWVjtIC87hlcr3HB725d6Nsk3IxSER3nkNHyMAXb50iByvmta5kmFDMthN4yi5
+	IUPScAGF6ssrxtRcGSl80/3DdyC2pVcFw0Iaof4A2YMmZS2uG/EsDxJ10r2JAku3ysIkjjsJ530
+	N+0h4yFDPZgu0P05Va5EMTaAXHmloy4rhg37AxTEsuxxQFrBGR6Z
+X-Received: by 2002:a05:7022:3b83:b0:1b2:4cc7:7db2 with SMTP id a92af1059eb24-1b25d34ed54mr1914086c88.47.1793945217607;
+        Thu, 05 Nov 2026 22:06:57 -0800 (PST)
+Received: from duge-G3-3500.taila331c7.ts.net ([183.192.220.13])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4e079esm2780992c88.19.2026.11.05.22.06.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 22:06:37 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 3/3] arm64: dts: mediatek: mt8390-genio-common: Fix swapped USB hub labels
-Date: Fri,  6 Nov 2026 14:06:20 +0800
-Message-ID: <20261106060621.2706658-4-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-In-Reply-To: <20261106060621.2706658-1-wenst@chromium.org>
-References: <20261106060621.2706658-1-wenst@chromium.org>
+        Thu, 05 Nov 2026 22:06:57 -0800 (PST)
+From: Jiayu Du <duge1256@gmail.com>
+To: srini@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dlan@kernel.org,
+	troy.mitchell@linux.spacemit.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	p.zabel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jiayu Du <duge1256@gmail.com>
+Subject: [PATCH 0/3] Add read-only SpacemiT K3 eFuse support
+Date: Fri,  6 Nov 2026 14:05:22 +0800
+Message-ID: <20261106060525.346873-1-duge1256@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -100,65 +109,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TI TUSB8020B USB 3.0 hub on the Genio 510 / 700 EVKs presents
-itself as two USB hubs, a USB 3.0 hub with the default PID 0x8025 and
-a USB 2.0 hub with PID 0x8027 (the USB 3.0 PID XOR 0x2), as described
-in the datasheet.
+This series adds read-only NVMEM access to bank 0 and bank 7 of the
+SpacemiT K3 eFuse controller. These banks contain temperature calibration
+parameters and other configuration data.
 
-The hub nodes have the correct compatible strings, and are attached to
-the correct XHCI ports (port 1 being SuperSpeed and port 2 being
-HighSpeed), but the labels are swapped: the USB 3.0 hub (usb451,8025)
-is labeled "hub_2_0", and the USB 2.0 hub (usb451,8027) is labeled
-"hub_3_0".
+The driver reads the shadow registers of bank 0 and bank 7 once during
+initialization and keeps a copy in memory. Later NVMEM reads return data
+from this copy without accessing the registers again. Reads outside the
+two bank ranges return zeros.
 
-Swap the labels so they match the hubs they are attached to. This
-change has no functional impact.
+Tested on a SpacemiT K3 COM260 Kit by reading both banks through the
+NVMEM sysfs interface. The data was unchanged across a reset and a full
+power cycle. Reads crossing a bank boundary returned the expected bank
+bytes and zeros in the keepout region.
 
-Fixes: 20d959fa6fd0 ("arm64: dts: mediatek: mt8390-genio-700-evk: add keys and USB HUB")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v1:
-- New patch
+Jiayu Du (3):
+  dt-bindings: nvmem: Add SpacemiT K3 eFuse controller
+  nvmem: Add read-only SpacemiT K3 eFuse support
+  riscv: dts: spacemit: Add K3 eFuse and temperature trim cells
 
-Compile tested only.
+ .../bindings/nvmem/spacemit,k3-efuse.yaml     |  63 ++++++++
+ MAINTAINERS                                   |   6 +
+ arch/riscv/boot/dts/spacemit/k3.dtsi          |  25 +++
+ drivers/nvmem/Kconfig                         |  14 ++
+ drivers/nvmem/Makefile                        |   1 +
+ drivers/nvmem/spacemit-k3-efuse.c             | 151 ++++++++++++++++++
+ 6 files changed, 260 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/nvmem/spacemit,k3-efuse.yaml
+ create mode 100644 drivers/nvmem/spacemit-k3-efuse.c
 
-This patch, including the commit message, was written by an LLM coding
-assistant at my request, based on the PID scheme described in the TI
-USB8020B datasheet. The PIDs in the datasheet were checked by hand.
----
- arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
-index 63b4af476959..e5c7608dca6b 100644
---- a/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi
-@@ -1539,10 +1539,10 @@ &xhci1 {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 
--	hub_2_0: hub@1 {
-+	hub_3_0: hub@1 {
- 		compatible = "usb451,8025";
- 		reg = <1>;
--		peer-hub = <&hub_3_0>;
-+		peer-hub = <&hub_2_0>;
- 		reset-gpios = <&pio 7 GPIO_ACTIVE_HIGH>;
- 		vdd-supply = <&usb_hub_fixed_3v3>;
- 
-@@ -1560,10 +1560,10 @@ usb_3_0_p2: endpoint {
- 		};
- 	};
- 
--	hub_3_0: hub@2 {
-+	hub_2_0: hub@2 {
- 		compatible = "usb451,8027";
- 		reg = <2>;
--		peer-hub = <&hub_2_0>;
-+		peer-hub = <&hub_3_0>;
- 		reset-gpios = <&pio 7 GPIO_ACTIVE_HIGH>;
- 		vdd-supply = <&usb_hub_fixed_3v3>;
- 
+base-commit: d6bcfc94eb4da6e089c5473970cd96727292fd97
 -- 
-2.56.0.455.g6c5a503b38-goog
+2.43.0
 
