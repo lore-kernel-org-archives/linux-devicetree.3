@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975310;
-	b=ZXCIaztL8lA5xHc7mCJVSS/nQGcsKk8VgnJfNHHRh0iiit7/6Umf5nz86Xtj8gurhECB
-	 CN49E01xNqmPzxpOCe6iSYbjmSRuOqguEXFFJwA9sbtJVMnY0fv33orPDtERg1VpqdHuS
-	 BNu6A+mcHvoSqnByLbTPl41YsUDLtddd26FH6CKhz75IYmwwjWuYHAd2ada84gZRGwD+A
-	 bqrXIhXuud0aU2qAE/mbuIvz52QUJ8J/jShJx8lsMU6QgQKxtlQBytXBJAltDQm8jC7UC
-	 +azSh9rs5dLOQv/f0eJz0LvvFeNxDPIr2a9AOlUwtKxoej7UTid2qgIi3bt+oRuc/Ug==
+	t=1793975730;
+	b=jtPCkNQ/EsQR04hfadXKA44Vb4dUm/pFX3YfkrqwO8y5sX+X2Cf/EMs7xUhUEJomyYEW
+	 hYsaWRc/xhYfW+64tePAa8RFu2Iv7znB/b+2pyxoanB1ZjwAUpCy4yCQUbSsGdfZqiwL3
+	 0R1XIoT/hE/x3CkN/BRVjMHqrXF7ze+CO7oWk2wISJIU5zb5xHBp8yBPtsE8D3cMoYDCo
+	 vN2UUXmxH1Vayo4Z975Sqk3Jb1NhNVq5b3DUM5wKj8KukXfNLUPgTkBvMbOaTnzp9hJfR
+	 MMViluJ2u04nRroH0ehGu8Dhk6mJ60A8jdgLknmW91i3UNb1P6/34NiocSoOoRaACtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975730;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5gnVlI3t3VVUoodbzEk4zSr2iu3mmhJbSxzN4GsgLrU=;
-	b=vmSHHqv1NH7THRqJLgJfovCMW8432fZ983l0sb+hzDE7VpXNQLrhgAIAIULGX+mh5t/S
-	 E0pipCIeNZJNVEAn47TT+USElFN5NwRhtTgZidcY2AfXCQIda2R5hxIWAM1NUheq4+ceL
-	 d/E5mPqOZMqzRIN8b0gS+OpXqFDVgaBPx5uvo11HDFFyp6j3/4PX5GWJ5LV6G3WTRmPi6
-	 wGzFtzroUdF0+99imxHNmf5gPKj51aQ/jaGYjdLUkU595XbjoZp9ThaeG0cw+En/4aJlk
-	 lewY3Mmux8ltLjBFW4VqGxC3RyEjZkd1sAytiMj+gvRV96MFJQmcvtnX/kHBsSbqYrg==
+	bh=j9rl6cAtzkVeL7f251gRSUgdb2HJBPFNGDhwbgmwORA=;
+	b=R/BpVIOw61NvNUS6ctUlvdR4SmJrwS3FUN4UIn59TLlnaUyKhdEQT6TUPmLtDTL09gue
+	 YarlM2ZFQHRbleEgTud0KDD/3LRBvnMTAEufzEzgk4IXDEqKJdhecsmQ5Ot8j1PepckPV
+	 3mzyiQCZKDKtmeVmIJPEIM9EmFIF0NH/wVkKIl757dopOBcBvCMJ34slwncyJpmjgYjrF
+	 oPESLFss265ixgGEkvS4ml+jKGvpNphsj5UKhJ18GjFGirG2KC91LKnGb9UBfBwrEBY/2
+	 5KMspTqp9NcsJO+IQUpimMkV4aonRyEI0GPPh0KYO8GiDk84yiu0wpymelACq5CDv2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltGKwxRh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKRxpaRR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC66606A32C;
-	Fri,  6 Nov 2026 14:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F105A606A32D;
+	Fri,  6 Nov 2026 14:35:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltGKwxRh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73941F008A1;
-	Fri,  6 Nov 2026 14:28:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKRxpaRR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325AC1F0089F;
+	Fri,  6 Nov 2026 14:35:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793975310;
-	bh=5gnVlI3t3VVUoodbzEk4zSr2iu3mmhJbSxzN4GsgLrU=;
+	s=k20260515; t=1793975729;
+	bh=j9rl6cAtzkVeL7f251gRSUgdb2HJBPFNGDhwbgmwORA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ltGKwxRh7GFtJ1PdAlg+eVsMmET1NOOPCZZV1MdFc7xe2BCGDCDdRsMQcnwt4Q/0y
-	 Pdt7ZkCj9tdGzFH2zHXtycHf6IeyHc6k7pH/ozeW1uU0vgNNkzxR0icOKaSID7DKNC
-	 xahnNCtRKSsJENz3WWq/Heb7Lay/JYUmrVzL9e4Uk5uSNS6Xpu3P/D63SxNVo6AiFB
-	 qD8TxPxxouTOMaZZfBuuC7/RgZYU61D9X0TZbW4ONYfGwRwcSoporoBLCeV7Bdu0A8
-	 vJ4k3hpqD0t44ZczYPbVjHdDqfTqAQi+nRtqk5uE9cfSvIqdGwjH9nNvIMb/qpgSjH
-	 EJFR1Ln8vQJyg==
-Date: Fri, 6 Nov 2026 08:28:27 -0600
+	b=MKRxpaRRKHC7Yqg56ssx9977W/1UnuJOSCAZan8ZJTDdqutnCMvA+7Uwc+YMac2+i
+	 9DaDBab5Q0BnxM4X7bteN4fdT630TXZaTRII0SOkHIFLYaVe2XFWrLn5BM24vT/ps1
+	 A2kV/QjLXf9o5quG8hpIPSeGyvbuNW6YmxnKT1efJEc/44J3BpExU3wKj/SjkqnAeu
+	 /PGbzQDrHEsUDj0+AZjp9LWl5vSWv2o27H2MWRcQRclHQm5j021zZbOqulbYm7P7P8
+	 1b5Flm3cSCixeCb/TeoJhGDc7u9Esb7BzvhxacJRbI6W9pQYcI78VUmhVxnDdQIdFf
+	 A/7gPSETYnSFw==
+Date: Fri, 6 Nov 2026 08:35:25 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Golla Nagendra <nagendra.golla@amd.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, dmaengine@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Abin Joseph <abin.joseph@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Frank Li <Frank.Li@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Harini Katakam <harini.katakam@amd.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	git@amd.com, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: dma: xlnx,zynqmp-dma: Require resets
- for Versal Gen2
-Message-ID: <179397530668.3117263.5180945931257421774.robh@kernel.org>
-References: <20261106-adma_per_channel_reset_v5-v5-0-f9990669362f@amd.com>
- <20261106-adma_per_channel_reset_v5-v5-1-f9990669362f@amd.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+	mfd@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH v4 1/4] regulator: dt-bindings: maxim,max8907: Convert to
+ DT schema
+Message-ID: <179397572507.3191542.9647190975140317297.robh@kernel.org>
+References: <20261027114634.79706-1-clamor95@gmail.com>
+ <20261027114634.79706-2-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -68,30 +63,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-adma_per_channel_reset_v5-v5-1-f9990669362f@amd.com>
+In-Reply-To: <20261027114634.79706-2-clamor95@gmail.com>
 
 
-On Fri, 06 Nov 2026 15:40:23 +0530, Golla Nagendra wrote:
-> Require the per-channel resets property for Versal Gen2
-> DMA devices, which expose dedicated reset lines.
+On Tue, 27 Oct 2026 13:46:31 +0200, Svyatoslav Ryhel wrote:
+> Convert Maxim MAX8907 regulator binding from text to DT schema. Reference
+> to nvidia,tegra-regulators-coupling in child regulator nodes.
 > 
-> Making resets required for Versal Gen2 results in an ABI break, but this
-> is unavoidable. While the driver works in many scenarios when no other
-> firmware has used the DMA prior to Linux boot, there is no guarantee the
-> channel is left in a clean state. In observed error scenarios, a reset is
-> necessary before Linux can reconfigure the IP after previous use by other
-> firmware components. Due to configuration differences or the DMA being
-> left in a bad state, DMA functionality fails when sequential software
-> components use the channel (e.g., firmware before Linux boot). The channel
-> can only be cleanly re-configured after a per-channel reset, making it
-> essential. This ABI break is only applied to Versal Gen2 and where the
-> per-channel reset capability is available.
-> 
-> Fixes: 36545c6a68b8 ("dt-bindings: dmaengine: zynqmp_dma: Add a new compatible string")
-> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  .../bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.yaml    | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
+>  .../devicetree/bindings/regulator/max8907.txt |  69 -----
+>  .../bindings/regulator/maxim,max8907.yaml     | 283 ++++++++++++++++++
+>  2 files changed, 283 insertions(+), 69 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/regulator/max8907.txt
+>  create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
