@@ -1,85 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963715;
-	b=DXKuXHYovml+AS5p3bPLeC3IGs0n2NpUaV2qmS73kvOFDkG9/nEKKDSbXOmt9S6w+Y+q
-	 dvl5J14nTb28nshsOqIeBeztUWutnc+mKYNMoLS2Lbx76PBHCDun7w6z0qxlTDsoeSNds
-	 UmxVGRCkfNJNVS07Azf5HjcoTO4CmY7WAAVbb+etVwERzLsSgnBBwUKCZYTmtGijpE/im
-	 YUPXRlirC6YSUjstsviC8mLqhFzRj51VJ8FIb87yCaB3v01WVtX2ycPrzV4AeqeC6Ig6R
-	 V8cC9b+B+dum/qSnFuPRUKb0YP5YzlGNXa/78HcEP48ovNzUIKiCfXpl4CbQnhmj/vg==
+	t=1793963768;
+	b=0kPpOIiIh07HzZnTNpkWGL8hmkh9jL6v9BvS1NvXz7gNzy9uZpAPjG4frhqdpfUZtTL9
+	 C9Km53Rw9YXKXbDMFl/egP2EAhO7xO5qdrXcnnsFF20JdfrS1JGGbG+6J41+GDK4RAmeF
+	 2fIO/b/Bln0OK0a6JbMwQy5uOrH1gzj4/+Oh3lo4PO3Z6CfBH/0DHYsu9ib/IakA4JTli
+	 jVIAVMbjv8WjtDeaCbzNT+WkMcjIfSrzKE6HWj5wZDgx42WtLki7xkXp8+WlZ/Ms8K+09
+	 Vcr4LkG8YD8+rweVlTeCmIoXgE2iFebUxrc1A6Os9QhYjRP5i39JucfKFyznD9jM9FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963715;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=dVDv9rKtKm3uc/SRgdflJogWFO4h+MZZZBsSymmU5Cs=;
-	b=Z9Bg3jaZKN7ReRy2lWNutxrzQ9IICn7k6iZq1krlHqwduw8Z/03Hp/b8LFW+AQ6mq0XM
-	 VB+uoiDMHaW5AFnC16DAxF7Jqbbw0Uf+oeDSBRHERg0/MSCLdc52h5DV/fg5gyM/mo10l
-	 WubYqv4f05tvVIl5WUA6fGNbXuxSMA6Z5D2ezCfR9rK3BnSjsItzbP63/aAg0zkOAoLjJ
-	 ekMHl6QS0TUmQQuMgON1JG06K+fKZ14ewcaksiYe5fhPAu72idlhkaK8cY1h4iAan25ja
-	 AGym4ojspWwzrectOkDyEHJ7xtDbkHMX7L4UBztctvybqLqFTNFSwsLrX89+IsS0S0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963768;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wbqbZlCH7YXcVsufdxHlWbVJML/TMT3EJO6Q4weCv7o=;
+	b=l1oXmPo6riSBs/ysjHJxWGKWt8rUtae6/Q7YYxUpTOe68oX4NHEn5CdrhVIfu4ZoPBOw
+	 FpRZYRT9oS+WAkzIHm1vcEpYFG+BUDTBxUtS1vQHYvrcg/YKTum2CUcR41iVBYnaRopw7
+	 6uki6mPIxFpJNexJgYbOTBOosnzXzGJc91aFdnO+2w/5EUtdaVdxGVX0KfLd36wBWvA5M
+	 +AoVOtXSQ+qVp8WWnlEr9VuEOWsRaHfVVo+6KTF0K62oM4PLLbAQjGcvwNlPTflG50JO2
+	 u/Cikj22sRl50LFCXcXHTrlS1rG1xJWiZpmhbHLic5ZyHSE4ANFSnMW5jwGqJFjN5XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A02QhSiN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dO6W+C2v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7206606EEBC;
-	Fri,  6 Nov 2026 11:15:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAEE606A32C;
+	Fri,  6 Nov 2026 11:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A02QhSiN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399231F00901;
-	Fri,  6 Nov 2026 11:15:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dO6W+C2v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D331F0089F;
+	Fri,  6 Nov 2026 11:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793963714;
-	bh=dVDv9rKtKm3uc/SRgdflJogWFO4h+MZZZBsSymmU5Cs=;
+	s=k20260515; t=1793963767;
+	bh=wbqbZlCH7YXcVsufdxHlWbVJML/TMT3EJO6Q4weCv7o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A02QhSiNE4NGPTUQCuGzj1iVBhYgM6BX6b8C1BIi1P8xENfZS5qBw5xYcHmUU7yJP
-	 QFiY3BpNAKalSkeV6ypjfhFpcaz30JAR4nzP1PSqb9v8YLjXnULCpKqSXLMBgN0a6E
-	 +xX8B0Bl8zinzI1WnT5W9ohsnY7q6YagJ1Fy6yRVzgnbY7JmhZKsCg6PJFe2dsggRX
-	 9glf8NfRlxGp5aI9VRxmURiWvXy47HuWg9e86W8yQJgePIoPguxJNDYdFzi2rf4zTa
-	 CqYqM7X8GaDsWXsS4wG1R/+EufT/LXMzUPt4Rr+2fhTzNvRr12X0jGqRNusji+xoVT
-	 VbYMqHs96NyZg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id D1AA127E856E; Fri, 06 Nov 2026 11:15:09 +0000 (GMT)
-Date: Fri, 6 Nov 2026 11:15:09 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jun Chang <jun.chang@metanoia-comm.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sre@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Ben Zong-You Xie <ben717@andestech.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
-	CL Wang <cl634@andestech.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Randolph Sheng-Kai =?utf-8?B?TGluKOael+iBluWHsSk=?= <randolph@andestech.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 00/25] riscv: add support for the Metanoia MT2824 SoC and
- MT5824 EVB
-Message-ID: <f6bb6461-c9d0-4685-8c93-7e62691a93b8@sirena.org.uk>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+	b=dO6W+C2vZVjfBxkb094IePRjcbEh9989thGug6bb/G63BtQ6kCSRD200KjL+dc4sM
+	 1zYW2eJn7N3kQzs9bSCGopMIWJuNyL8oMaJfECNmoFgTAnTOtuqqPtdjVUsLTgJ1i7
+	 yMy6hZzEUH0PlfaMVV07FAC9gJE8v55hyZBngniY0c1lyza/uAb4G13FjHb0a+wfs4
+	 mtrMecqNiA+wJd9ZanP/ZzuIj/la8B0BxAgAClPTSKY7zUUDXJIHs4eZU6L6bAjS0c
+	 RDarZErMJYsXhzDjLPZ1JoU38IzG7v3XBBP1Qu8ajb2KS54rxPG+HR2jbGjOmoEjGs
+	 Y6l7rnGJU1OIA==
+Date: Fri, 6 Nov 2026 12:16:03 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
+	Conall O'Griofa <conall.ogriofa@amd.com>, Jonathan Cameron <jic23@kernel.org>, 
+	Salih Erim <salih.erim@amd.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, stable@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: xlnx,zynqmp-ams: limit
+ external channels to 30-50
+Message-ID: <20261106-funky-dainty-puma-c6bd43@quoll>
+References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+ <20261104164510.105359-2-kapoorarnav43@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -89,43 +64,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZXWeqLAvAJo/GorL"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
-X-Cookie: Whoever dies with the most toys wins.
+In-Reply-To: <20261104164510.105359-2-kapoorarnav43@gmail.com>
 
+On Wed, Nov 04, 2026 at 10:15:00PM +0530, Arnav Kapoor wrote:
+> Channels 20 to 29 of the PL-SYSMON block are its fixed channels (PL
+> temperature to VCCADC), which the driver always provides. Only channels
+> 30 to 50 (the differential input, VUser0-3 and VAux0-15) are external
+> channels that can be described as "channel@N" child nodes, yet the
+> binding accepts any N from 20 to 50. Listing one of the fixed channels
+> there only makes the driver add it a second time.
+> 
+> Limit the child nodes to channels 30 to 50.
+> 
+> Fixes: 39dd2d1e251d ("dt-bindings: iio: adc: Add Xilinx AMS binding documentation")
 
---ZXWeqLAvAJo/GorL
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Drop, no bug is fixed here. Driver should simply not register such
+channels second time, so it's a driver bug, not a binding.
 
-On Fri, Nov 06, 2026 at 10:29:57AM +0100, Beno=EEt Monin wrote:
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> The series is organised as:
+Best regards,
+Krzysztof
 
-> - patches 1-14 add the device tree bindings, the Metanoia vendor prefix,
->   the RISC-V board schema and the SoC block compatibles
-> - patch 15 adds ARCH_METANOIA and selects the AX45MP errata
-> - patches 16-23 add the reset, SPI, watchdog, MMC, PHY and USB changes
->   needed to build and probe on this SoC
-> - patch 24 adds the MT2824 SoC and MT5824 EVB device trees
-> - patch 25 adds the MAINTAINERS entry
-
-This sort of thing tends to work better if you submit the patches for
-subsystems as separate serieses, it avoids enormous CC lists and keeps
-the individual serieses a managable size.
-
---ZXWeqLAvAJo/GorL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau22vQAKCRAv73Ows9A4
-iSNTAP4rU2Xrvxi8fy+eP8UEYNGho+uarNFSdWt9hM96/9EozgEApzMYGgxBMFYZ
-W99aAqcYjlf4CTh09AToNdhaBlDyUwY=
-=kTKE
------END PGP SIGNATURE-----
-
---ZXWeqLAvAJo/GorL--
