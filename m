@@ -1,105 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985023;
-	b=5AMcA21bA41MG2Scwxn7xFgO3/6okY5YCIMvyYuMDy2+HRVGobCcl+4ya6LqO5SMR9kI
-	 0V4sycDee00MnlABXNTupJdd26dB/mKX5AuPQP2XKiNXAv+rO/h8TD45AyVb5oNp0j7Bs
-	 IZ03fX8bCc1x99ci3wbjX89SNoQp8JFM1O1eoQT1FWg3aCq9mvzhD/LxRQ4KCGQ0rLsFg
-	 JXVNkWcKhPnFJpEIFHWn0vds/oEb6f1FRBEb/Gz5cMchrpDJ5Q2fNjsl/5pkjCTsydDQP
-	 DC5UCGju3+JjcA5H9skdKzQ1lgDfNwazg2HyC82ms+l+edX0V2/mFQXWfqeX1tCzG+A==
+	t=1793985089;
+	b=AStBkP7CSGMoZITHWmRAZXZjsp+OLMpm+qPvNDL4bS7XNqQgjeoxQMRnfo6XY2foat38
+	 99kNui+vcC3bW7PDWB1PluWzHtDtuK2JRn2n3cgTlhEaD5NRWmQ5EZk5otXvYt75kPVDo
+	 IcO3cf87c0uxpa+/jVizMXpQn/blzpa/WZdpyvT2fV9jgnGudRz50wqC58KS0xcbRyggI
+	 CL/gsHMd/PNyAmpqofhjqNExN4iEXq4YzmnFR8LXPjIDYnt0YHuMK6C63bIK88bfQfASx
+	 8JeiQt0UAQzTub7mD8TvWB01bQI6koomkT7XLNKz+27AqiokDA8BMgjWLWB1fcecQjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985023;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-Mailer;
-	bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
-	b=2AHyw6eqkBzlgubBx4l66uhtp1IeOV4oO/bi06xX9E9McGhDx5JaMGwG/sY4TdGDAM8L
-	 uTVNWt74lBqGnbQsGhbSUQVY0Y9F9d56BdOp2zik+8R62LJxQfQ1bWMHmaJjsJ1X2I3/L
-	 6M3NmyMr6nSAEUdCs9C0mXkaAr8nRKHAl8VWa88AFfI/zh/YK2kf2jmHP7KMfvGqRSdIp
-	 M5qQx+p1kL/D7kzSfKOVHRSfYds8mFtvOPE9+Ne+GwLdiRWBe+PvfwkZaUnBeamO3HQW0
-	 0vqyFja6gCXJfMw6ByY6uBOGJ23ZD3AiP90u9idViURNBOLXo5p87sUOjttzPYLIrug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985089;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=GL67RXdQa36K78wuxyhKhUCWCZT+FTnpPKTTkNMtBsY=;
+	b=umOvAtsNc9lDUxj3LQ6/U5/muZDTuGHEkYQAusjyGm+E0DDXWHpoTUNquZsTtgfD/gjL
+	 AP2gxi5JjjKg8cVBH8YkdIsd6ymZUU/X2BEIsCRGpT3dxhBlKG7ARaASxjU7h5D1YJWM/
+	 BGCbmSNN/FGzxuCD7IeBmYw4UJbLqtzDgtDnjWj+NlOHJpan3LZ9r0KG0QdsxZoimAYdK
+	 f1R2jYsnOIl+0boQbJLTaMivmc2YzD5lIM96BwRc1a3942XadsV9rTrTgXoEfjMEEZRui
+	 bVDhXaX01Q8dDZrFhhjsrUHsd83PI2D8lQeeAs+JpNIWYx99/uUBxddp+jnaPZh9WLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmCY9+dU;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlcD7lM8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCBF606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 17:10:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCCBF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76303606A326;
+	Fri,  6 Nov 2026 17:11:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmCY9+dU
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so7788005e9.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 09:10:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793985021; x=1794589821; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
-        b=JmCY9+dUgxS5al2xR2i/XttbJnL8MfzEPMrncmnFAJnVL+gRl4itq+wpGv6Jzso3Yj
-         lsk9opNlfH1q6cogTLxcMOr/jZwaFd4QymTJydkFSRwHxhBqO5bObfC5so48hHssFmrq
-         sICMazWWuMHYi0vG8N6PXOEBpXAVQT9rLSS+ierixgnKOc2BfrhI3KS/yQhTLPPENp65
-         t4QE/4ntdP5IOo0BlYwugM8vilNwIsuvetXiqAeqJsnjdvK1Nk6hiXO3yzYG3Iy/6PeL
-         r1vVQNWfuH1vpSk1OE7ahsO4yut0wnGR1Np/teY+XPdds3Esv96rCGDLziZNRgq+sfZ3
-         SXmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793985021; x=1794589821;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V9n1CV17mWoyinWHCGFvDxtvvBlrLNzZtRYoJJeVLOM=;
-        b=PJZ01QACfxxuhbmrjvYAAzDwDw9j51tVUjZeNM2hWzNlNGwOiR/0lsnub96kHZZKgT
-         wHVkEn1w7rsl6DOCi7q+gSDS3EWP02egjUB4UAcrcf5zbBpKgHmrAJXOTn9ZVA7CMYRz
-         PmYyW6UWakUPHZt0zbdmWWyaNQVSLyAhA+bCMQTBSX63ogi/DXpAPMPU2+7dmQlsH6Am
-         BVjLbi/RzMczJ/AslGrOXTBUgFmKPAAcCrj8F2J1l8JpVQXfTt6G1lz9W8nKGWxID5De
-         gnNAtt3e4WpUUAnojwUR746DJOiIJF2mntVGZVuPGUvePS93YqJ+prwOp49IKWvjfKun
-         Kxaw==
-X-Forwarded-Encrypted: i=1; AKwUvBynwyWQekN5EfvyKb90jHuwsoQPfHBLJlW7vFF3Pfg55idpnPNBMgbgN6Too2fvk2F3QBSW604wzvTM@vger.kernel.org
-X-Gm-Message-State: APuU4Z9e7hNZWG3zoDcanbWZL+8d0lkleqwqWnbKGMUkS1nJ9AIeBnG0
-	s4qGTSeh0c9juLLTwykJEhFgdvYvef0JKOtmsOKQWM0PqV9oPrJROEUk
-X-Gm-Gg: AYBFou0WlMg7OYCai09EuFXsoZ54btYxK4B1eOa15XAj1gEneAywbXVPlBlJrIxxXPh
-	whGIrZpNU5vYO/lhLvrB7N80hyMPIKxB7bNuIoHf/z6E5aZG7IYpKeplY5x4rm14u2S2dZRvT4E
-	dL28VMGbsbwV3d0FBTwtUjCmKmBL5p+466MhjiI7gpjenNVnmjF33bE2PpbR804R6lJshpFzy3L
-	K83aarr1qoJXiVCsR2/MaS7xcKcncgXFBBRANC+Oo4dz5x/CFZGUxoRPYMWY9TEd3wfHBUcIzSP
-	cvTGLZYuAMTntCjJDwcfBHdRDVSXXiH6L/JH7YV2X7+Bg/g4jFVlRN6nOSN+N2Yk4Xmizy7J0vw
-	7P9m3mqD0M/GFjKEBQlgb2dvgtG1IcD92VaBaRs78yEtEi3e+k4HaDCOdeYxiyZ8Bqs3zQLnNKI
-	vKbLwJQ+UZDka7IrR+DbsSj0B45xw8E0MgiZd95dH+CGPu36hZ/5Bw9NkG7Xd7HdyFMObaD6NNE
-	C38xDdDGSMnijCtMk6AUJfiayezxh72QOjOgi8phjHgWs+L4q3N+sPLxESgbEB82cpK+EmwwtMx
-	7omEzMf5M/UqWH1AovbJU4/ttpPtpyE2
-X-Received: by 2002:a05:600c:64c5:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b6df4f1dfdmr55413875e9.25.1793985021160;
-        Fri, 06 Nov 2026 09:10:21 -0800 (PST)
-Received: from localhost ([82.77.126.113])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cae5sm238886225e9.12.2026.11.06.09.10.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:10:20 -0800 (PST)
-Date: Fri, 6 Nov 2026 19:10:19 +0200
-From: Daniel Matyas <matyasdaniel006@gmail.com>
-To: Nam Cao <namcao@linutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-staging@lists.linux.dev,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alex Lanzano <lanzano.alex@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Subject: Re: [RFC] staging: fbtft: Moving fb_ili9341 (and others) to DRM
-Message-ID: <au4J-0GOUuueHLZe@rabbit>
-References: <20261105201154.37294-2-matyasdaniel006@gmail.com>
- <874idv2bol.fsf@yellow.woof>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlcD7lM8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0811E1F0089F;
+	Fri,  6 Nov 2026 17:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793985089;
+	bh=GL67RXdQa36K78wuxyhKhUCWCZT+FTnpPKTTkNMtBsY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LlcD7lM8L0/3og4uqb/+Tm+XaRxte9vj/PeY7kN9QDFB4kFVCRyv9wibnMt7l/+dj
+	 F0758ub4k7wQdG+eETa0dDmrcIHS/9C/rViHoBjlOv1Xipx6QiaX9vd58wGqZVW7Ih
+	 pi1U0zsYOJyeinMpyBuGl5fqpSrWBvYVUKET+Os2PCCDYi9V+pnsx7pYImevGeUTqX
+	 stfWzcoTjnerwvPUlYvwu16aAQsMXLSpcGDgv6jcIe++yKczRidsgFtkFwE66fscYT
+	 eozr1orG+Xc7KyXKRbGLZcqVkOwmZ3qZ0SyJtuHiaerhT+mMpgRuxcQSHniY9B9SnV
+	 ovy6/7ZoiOQuw==
+Message-ID: <sashiko-outbox-201901@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 03/13] watchdog: stm32_iwdg: add pretimeout support
+ for iwdg v4.0
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antonio Borneo" <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106163429.618392-4-antonio.borneo@foss.st.com>
+References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+ <20261106163429.618392-4-antonio.borneo@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 17:11:28 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -108,33 +60,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <874idv2bol.fsf@yellow.woof>
-X-Mailer: mutt
 
-On Thu, Nov 05, 2026 at 10:47:06PM +0100, Nam Cao wrote:
-> Daniel Matyas <matyasdaniel006@gmail.com> writes:
-> > Questions:
-> >  a) Is removing fb_ili9341 acceptable, pointing users of other ILI9341
-> >     modules to panel-mipi-dbi? The KD233 node would then have no driver.
-> >  b) Or should KD233 panel support go into a DRM driver first? I don't have
-> >     its init sequence or physical size, or the board...
-> >  c) Is removal of all of fbtft already planned?
-> >  d) Several other fbtft drivers have drm counterparts. Should I inspect those
-> >  to see if removal is needed?
-> 
-> IIRC the main reason fbtft needs to stay is because it supports parallel
-> interface which is missing in the DRM drivers.
-> 
-> Nam
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] watchdog: stm32_iwdg: IRQ enabled before state init in
+  stm32_iwdg_probe()
+--
 
-Thank you for clarifying. However, the fb_ili9341 driver uses only the
-SPI interface. Is it alright then to move (or remove) those drivers that only use
-SPI interface and have DRM counterparts?
+commit f781715ad1087a5b9a86d2dd54ce3b998243a348
+Author: Antonio Borneo <antonio.borneo@foss.st.com>
 
-Furthermore, would there be a need to enable parallel interface support
-in the DRM subsystem?
+watchdog: stm32_iwdg: add pretimeout support for iwdg v4.0
 
-Daniel M
+This commit updates stm32_iwdg_isr() to clear pretimeout interrupts via
+IWDG_ICR on IWDG hardware version 4.0 and later, and adds a reg_set()
+helper.
+
+> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+> index ce3e1f96ef50a..6121c23889655 100644
+> --- a/drivers/watchdog/stm32_iwdg.c
+> +++ b/drivers/watchdog/stm32_iwdg.c
+[ ... ]
+> @@ -194,11 +207,11 @@ static irqreturn_t stm32_iwdg_isr(int irq, void *wd=
+og_arg)
+>  {
+>  	struct watchdog_device *wdd =3D wdog_arg;
+>  	struct stm32_iwdg *wdt =3D watchdog_get_drvdata(wdd);
+> -	u32 reg;
+> =20
+> -	reg =3D reg_read(wdt->regs, IWDG_EWCR);
+> -	reg |=3D EWCR_EWIC;
+> -	reg_write(wdt->regs, IWDG_EWCR, reg);
+> +	if (wdt->hw_version >=3D ICR_MIN_VER)
+> +		reg_write(wdt->regs, IWDG_ICR, ICR_EWIC);
+> +	else
+> +		reg_set(wdt->regs, IWDG_EWCR, EWCR_EWIC);
+> =20
+>  	watchdog_notify_pretimeout(wdd);
+
+[Severity: Medium]
+Can stm32_iwdg_isr() run before wdt->hw_version and wdd's driver data are
+initialized in stm32_iwdg_probe()?
+
+drivers/watchdog/stm32_iwdg.c:stm32_iwdg_probe() {
+    ...
+	ret =3D stm32_iwdg_irq_init(pdev, wdt);
+	if (ret)
+		return ret;
+
+	wdt->hw_version =3D reg_read(wdt->regs, IWDG_VERR) & VERR_MASK;
+
+	watchdog_set_drvdata(wdd, wdt);
+    ...
+}
+
+stm32_iwdg_irq_init() calls devm_request_irq() before wdt->hw_version is
+read from IWDG_VERR and before watchdog_set_drvdata() sets wdd's driver
+data.  If the watchdog was already started by the bootloader and a
+pretimeout interrupt is pending when the IRQ is requested, stm32_iwdg_isr()
+gets NULL from watchdog_get_drvdata(wdd) and dereferences a NULL pointer,
+and even with driver data set, wdt->hw_version would still be 0 so v4.0+
+hardware would write to IWDG_EWCR instead of IWDG_ICR and fail to clear
+the interrupt.
+
+Initializing wdt->hw_version and calling watchdog_set_drvdata(wdd, wdt)
+before stm32_iwdg_irq_init() would avoid this window.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106163429.6183=
+92-1-antonio.borneo@foss.st.com?part=3D3
