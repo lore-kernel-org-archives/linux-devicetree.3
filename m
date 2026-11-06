@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985524;
-	b=pz6+WQV+s09yJ0oKMejb4dnAom0Ug/OYq0AjmapA404fJCkkkkXD4bgVVq22iI7XhV/P
-	 3AlBrnmrB6OwYuRz04df/2cmEd+dMUpl5WI18KDhjZ40uJn+vuUOafS6+3ouFcEJr77gB
-	 iA7oh391of3ysaoTPIIcR3VDBhDBqotmF2pVtY2h/XnV9AisymLYEf7wMlgr6h8j8lRAr
-	 WtCteD/OKA1aKEVVLCcpyE1hExaYO1W+MU22RASVXarn52xgmIcSRlRd34U8y3LOkTnZY
-	 RLfwYUQqmqdtDKpCia6OMlkT8C7BAQ778O1ndE3CwW4vt4mGpZTIrDRY0aquf9IPmTg==
+	t=1793985584;
+	b=eCoE7S4wjftol26YHeUv783hGg3nvTpgx31vVFi51/dYLt2LrHE4u0fR55Q0ubo0BzBh
+	 2XOCR+nKIy9vWduL2H4Y/ai2eONtoAvIPChv1XbmRmdENvCHEch2dgbxHtqs46mvy83aX
+	 oisy4foqbTDoFkZurNmjlzILDUC7VMCw7f3jUcg7pBFvcri8/e+RnWQF5hRqQSNLuVJrE
+	 6ugIiT8ocuIG5FGV42iRrZ8Doa7Ex1GcaSZlB7lEfuqq4XSNd7LhJ8AnXR0qtFOO1MMN+
+	 B0CrL7YcV9doo0kkt8tGGzi+4uKFFGwHB9rhqqM7Vy6LtjLinLtS9ednsDzy+GKA1fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985524;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lurkkd2OGVOOshwXjRaBHIBZz8dwYG3EyAmFUfsINIo=;
-	b=rGz6y2Fx3VBcVHXBBkTCgR7CaEvGw550HmrPe92iJynH/4sHRvwodhwXVjuyewDSu960
-	 c5Ep8cJ167i0DJsRnnXbnxOj9bO4YJNYIhQvJy4WWB4C/ynxpwBM4/7LZedojx7KaprAe
-	 uktmpL4NSZ37RKCajZkZFSmCL580TfKVJP7BLwObmx8D7AjYQ+3GvTokvF0umnWuDaqMZ
-	 Gf3LzYj081GdtLJROr3s1FcOmTQUWAIcHHuSXiBoWg2tMf8RhzI5uHPA7u47FyscVpXKf
-	 t8SgU63z9y1H4GqXHiA9mXSBOxea/BTpdz66kIJ7Xn0YDMuSkKPH6snUGj6zc2M8glw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985584;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=2Ki9WbXI9WdqAjVBEc/hHwmzCYkFZHUJDhuGONhIyeE=;
+	b=ZeVLTuWJTgFF/2dc3x7oHO3gTvu/hEsOF8+D6T11sxi7q8idVc8yNs0ilbwodwNkm9/0
+	 m/Au7KQ7k5s5etP6Ud0AAV/MIK1YbSdkgJGl76ccLl7rYflMvocmtHsjYBxwM+ERveOHM
+	 wmVJBVsj6rkmXR2NFQFEvhjmfrQV+E0Tksq/tM+2K0I6lRU5pyjH0mhF1uD99Y15wCQcM
+	 WAvQO21hqL03tvBVIG3Of+WxObGqVDjtqA70Z0RE1ftWqwY8e7jjqVFUWDzQyMzh5JKod
+	 YgCqfWrl/1z5zSI4eJ2f/c/qB92ISPTjroTaYIL03jUqL2qHJYAQuZ3FslGwKMLX1Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+DHyfJP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HpGWkcjE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B649606D82E;
-	Fri,  6 Nov 2026 17:18:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E482B606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 17:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+DHyfJP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF351F008A1;
-	Fri,  6 Nov 2026 17:18:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HpGWkcjE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A201F008A1;
+	Fri,  6 Nov 2026 17:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985524;
-	bh=lurkkd2OGVOOshwXjRaBHIBZz8dwYG3EyAmFUfsINIo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d+DHyfJP1XVxmLeTu6Rs3GxgEHaD2aPS5mjiW59JTpG7mymkHHhJ+dkmw1Mzw3u1T
-	 NJ2gYwH/82VUGO+TjEoACHFp5kFJHWG24ZAgpLhF6zbZ1wuPl3NZLGhoVNaA2JrBnm
-	 syAveCYMogUSmIznSI+upvj26/06Cggp59BMKOWrdigXTOkzWfhH6GDxNlqlgrfaX1
-	 53KGMP9iAUU7wIn7x8KNO5aviB95ohxKG6gWP1JozS3lI5qpvz8OJkRtILsYB6XcPd
-	 ybdA0CQ5GLRyaR5IiLtcL5qVbJn/Aj7uaP+ptWDZ2yMHNA+pR9/hdHjBaBFV61HqvC
-	 xqi/Vo0Xg4y+Q==
-Date: Fri, 6 Nov 2026 17:18:39 +0000
-From: Conor Dooley <conor@kernel.org>
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, khilman@baylibre.com,
-	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
-Subject: Re: [PATCH 05/10] arm64: dts: amlogic: meson-s4: add the Mali GPU
-Message-ID: <20261106-tutor-multitude-5dc61fce86c7@spud>
-References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
- <20261106104659.54656-6-christian.koever-draxl@student.uibk.ac.at>
+	s=k20260515; t=1793985583;
+	bh=2Ki9WbXI9WdqAjVBEc/hHwmzCYkFZHUJDhuGONhIyeE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HpGWkcjE1Vi2fwVu4fIZZTOJd9eSiaR0YIwXMNDl3axmtonT/TqWGtR6ddQwlAYRb
+	 YF1CG4jPILViRurk7Gmm3vSrUoQoAQxI9/EeFJ/EHRGagpV9WRAnv+uImrJi4wbkEb
+	 fnTXbzEsuNUfJT9lm2m0Org4ZqKJwYEvmNV+XUp2X9jvQFjOaDY4QMiq+yEjQ5lvmo
+	 to4y1DN2g6JD4As3LUNocnHTq8GLhbl1M1zg4Ls3TNyO2sxt5TdPKmujw+rVzOH99D
+	 bKOagYGVsGxezzqssOvHsaPsVgfkdO4wnxPd6osnQihcAF9tHxbLe7tLtvE55TYU3f
+	 VDQb0ktRxF56g==
+Message-ID: <sashiko-outbox-201909@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] fbdev: xilinxfb: remove the driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Radhey Shyam Pandey" <radhey.shyam.pandey@amd.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106170902.3656809-2-radhey.shyam.pandey@amd.com>
+References: <20261106170902.3656809-1-radhey.shyam.pandey@amd.com>
+ <20261106170902.3656809-2-radhey.shyam.pandey@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 17:19:42 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,124 +59,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GX6UbGs9vRp5n+bb"
-Content-Disposition: inline
-In-Reply-To: <20261106104659.54656-6-christian.koever-draxl@student.uibk.ac.at>
 
---GX6UbGs9vRp5n+bb
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] fbdev: xilinxfb: stale CONFIG_FB_XILINX in microblaze
+  mmu_defconfig
+--
 
-On Fri, Nov 06, 2026 at 11:46:54AM +0100, christian.koever-draxl@student.ui=
-bk.ac.at wrote:
-> From: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
->=20
-> Add the Mali-G31 GPU with its operating points. The GPU rail is not
-> switchable, so it scales by frequency only, over the fixed fclk derived
-> rates the vendor DVFS table uses as well.
->=20
-> Signed-off-by: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
-> ---
->  arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 55 +++++++++++++++++++++++
->  1 file changed, 55 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
-dts/amlogic/meson-s4.dtsi
-> index 793c7bb9512e..69105c8abf12 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> @@ -126,6 +126,40 @@ vrtc: rtc@fe010288 {
->  		reg =3D <0x0 0xfe010288 0x0 0x4>;
->  	};
+commit dc9c5a7ca88a79ff63fa682655927a4c3e97e183
+Author: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+
+fbdev: xilinxfb: remove the driver
+
+This commit removes the obsolete xilinxfb framebuffer driver along with its
+Kconfig option and Makefile entry.
+
+> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+> index e8cd8cb76874b..50673b83cb857 100644
+> --- a/drivers/video/fbdev/Kconfig
+> +++ b/drivers/video/fbdev/Kconfig
+> @@ -1620,15 +1620,6 @@ config FB_PS3_DEFAULT_SIZE_M
+>  	  The default value can be overridden on the kernel command line
+>  	  using the "ps3fb" option (e.g. "ps3fb=3D9M");
 > =20
-> +	/*
-> +	 * The Mali rail is not switchable on this SoC, so the GPU scales by
-> +	 * frequency alone. Every rate here is one of the fixed fclk dividers,
-> +	 * optionally halved or quartered by the mali divider, which is what
-> +	 * the vendor DVFS table uses as well. Its 850 MHz point is left out
-> +	 * because it needs GP0 PLL, and the mali mux is not allowed to
-> +	 * reprogram its parents.
-> +	 */
-> +	gpu_opp_table: opp-table-gpu {
-> +		compatible =3D "operating-points-v2";
-> +
-> +		opp-124999998 {
-> +			opp-hz =3D /bits/ 64 <124999998>;
-> +		};
-> +		opp-249999996 {
-> +			opp-hz =3D /bits/ 64 <249999996>;
-> +		};
-> +		opp-285714281 {
-> +			opp-hz =3D /bits/ 64 <285714281>;
-> +		};
-> +		opp-399999994 {
-> +			opp-hz =3D /bits/ 64 <399999994>;
-> +		};
-> +		opp-499999992 {
-> +			opp-hz =3D /bits/ 64 <499999992>;
-> +		};
-> +		opp-666666656 {
-> +			opp-hz =3D /bits/ 64 <666666656>;
-> +		};
-> +		opp-799999988 {
-> +			opp-hz =3D /bits/ 64 <799999988>;
-> +		};
-> +	};
-> +
->  	xtal: xtal-clk {
->  		compatible =3D "fixed-clock";
->  		clock-frequency =3D <24000000>;
-> @@ -164,6 +198,27 @@ soc {
->  		#size-cells =3D <2>;
->  		ranges;
-> =20
-> +		gpu: gpu@fe400000 {
-> +			compatible =3D "amlogic,meson-g12a-mali", "arm,mali-bifrost";
+> -config FB_XILINX
+> -	tristate "Xilinx frame buffer support"
+> -	depends on FB && (MICROBLAZE || ARCH_ZYNQ || ARCH_ZYNQMP)
+> -	select FB_IOMEM_HELPERS
+> -	help
+> -	  Include support for the Xilinx ML300/ML403 reference design
+> -	  framebuffer. ML300 carries a 640*480 LCD display on the board,
+> -	  ML403 uses a standard DB15 VGA connector.
+> -
+>  config FB_GOLDFISH
+>  	tristate "Goldfish Framebuffer"
+>  	depends on FB
 
-This is an s4, not a g12a. You need to use a soc-specific comaptible.
-pw-bot: changes-requested
+[Severity: Low]
+Should CONFIG_FB_XILINX=3Dy also be removed from
+arch/microblaze/configs/mmu_defconfig?  Leaving it there triggers an
+unknown symbol warning when configuring mmu_defconfig with W=3Dc.
 
-Thanks,
-Conor.
-
-> +			reg =3D <0x0 0xfe400000 0x0 0x40000>;
-> +			interrupt-names =3D "job", "mmu", "gpu";
-> +			interrupts =3D <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-> +			/*
-> +			 * CLKID_MALI is only the system bus gate. The core is
-> +			 * fed by the glitch-free mali mux, which is the clock
-> +			 * the OPP table scales.
-> +			 */
-> +			clocks =3D <&clkc_periphs CLKID_MALI_SEL>,
-> +				 <&clkc_periphs CLKID_MALI>;
-> +			clock-names =3D "core", "bus";
-> +			resets =3D <&reset RESET_MALI_APB>, <&reset RESET_MALI>;
-> +			operating-points-v2 =3D <&gpu_opp_table>;
-> +			#cooling-cells =3D <2>;
-> +			status =3D "disabled";
-> +		};
-> +
->  		gic: interrupt-controller@fff01000 {
->  			compatible =3D "arm,gic-400";
->  			#interrupt-cells =3D <3>;
-> --=20
-> 2.56.0
->=20
-
---GX6UbGs9vRp5n+bb
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4L7wAKCRB4tDGHoIJi
-0rhKAQC9UqpC6wjI5ynGcGEMJuO//BWMDkIn+VQheuuflExlywD+NQNMGMKkUusQ
-U3ghrzNdErs/Lz+td+qO68K+yim7IQQ=
-=N+HD
------END PGP SIGNATURE-----
-
---GX6UbGs9vRp5n+bb--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106170902.3656=
+809-1-radhey.shyam.pandey@amd.com?part=3D1
