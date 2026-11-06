@@ -1,47 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964211;
-	b=q0HF6/r/lwRY3nXIFlvaVnYoVU7kg4fxuXFZld7EIrHFE4yKFYXOWzUzfEyyFHewF2b7
-	 IcITSkV5fq5e75v/Cc3qjsvevgwEYfM/w31gRrh7kHRmnyfGg5aclbtYLwFLbCcnDOIaP
-	 /0t02JXMwHML9CE6ZPpUMM5nY0E6HILMbyLPFWA7HibUn7lZ9s8b5bgvaTEhiwRnJUAOm
-	 jtXVYEeIZJeo8c6+mNg2n5/FVZElHNM9Tj4XiSqBKhC28dLlLTZOH+Jrx0oZ514kne8Dx
-	 zIshpEbSxAsf//9cqHRtVzE+zV2LhR4mQ8uGjnRGiA5A7T1MxFeK/xmyZdLdqdnrOlA==
+	t=1793964274;
+	b=tDrUQ7+k6y56XOj6MVu9PWT5+ugvNxpt0viPfSZ85erl7IVBq+aOfeHiaJcilbfoDTA1
+	 BIDYyb3woU6H2AWeOOjSG9ZNuTjh7IFsz4YAnY/re8m8AKP+iLvqJ1znQ+/hPnttLG00S
+	 GgrMArkK9FhaBGnqyP5zc3UnUxTgifLcrw5it1GxjnrM8WBjq59G1mgTHIFD75a9ILRFI
+	 3rP4FkyXQHHrV373gsKQwbo5s3+bbT+HCWQS2NENNMOylUaxBsrusN9kK4fb35PAlE4aI
+	 l53YGP9Ez3S6LclsgvYDY6R8sUgj6MydLIm1bJEfzzxgfBOshU24fHSBsfGjoIcRooQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964211;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZC97gP+71La8dh+fmuThPo+yYNGatDg8EP+Bb8cfY8M=;
-	b=ZdcNDnlrGpyxZrGDTjLbsvg94uSfyVmqwx97M0XnOkrD+jm7yz8gDfh3iYUa3xBEFUSf
-	 AlOYb6OnN28b8oSyxkh7TjNOONenNkY9k2Tuopm0SNA4g0AnlutqMygL6jnFBTkcF8v+8
-	 EznjB027DR9/T+2atRD02gdoY7A7yPlK6WcJnhea+ctVHS7VZuyeGqgpre+w+ReuOgU7Z
-	 ycP1dSAsN+/xn2Fgr51Zi2OoJSkCBkw968hv4c3BUueYmZ8d08L7ac/bR5oT+vfasWnv4
-	 UpVKCv118hbTRqtwZgE7Q+KCibm6I2vuN57lSrG1Gj6XvvufgkODXQcbtoOLt8HQgHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964274;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WwjQyPIcMFf7inP5N0uSPmx3oh6JUfGi06PvuPXoUmM=;
+	b=pKc3Y91KK/SIS3IwFWww5ofdQlNL5xGUUkFdjIfC1rmG0lMmZrdSBMuyOopCRTCS7dQI
+	 qEZCejvCtC+WdoquIrEhIS5eF0p2vhQLs+PIsaovzAVEzSubIOZdHmphFup/DDKIxhApQ
+	 0AS0jZds0VQU4qoMVHeZUat7ODsrOXHNW+z4tGIsAwR55bXlIBVtT/458wB49KEP1sKDG
+	 0LZvahFK2Pvu3/j+tlgn/GcmxDBjaeTcYg5A/+vQ8rSwafR+RJtJKUuyzvQymy76aX76K
+	 +kwj36C/bLZrxrwnE2PmoZXtlXSnhXMEc5FCTJ9i0OrawfwBxw9UFPc1k75J1EBs1og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EjRqTQ+K;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA51606A329;
-	Fri,  6 Nov 2026 11:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EjRqTQ+K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1B91F0089F;
-	Fri,  6 Nov 2026 11:23:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793964210;
-	bh=ZC97gP+71La8dh+fmuThPo+yYNGatDg8EP+Bb8cfY8M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EjRqTQ+KLTKlC2shUJFhzMID6RGCvBWjVIFK3LTzmmsPKi8XNgdkcVh+WfN9nE5m7
-	 RvD+WAwYVf4lTvn+ZHmawQwM5ZVufYo3k/l8oqGjHOaU8DMZ00dSjaTLA0EERA3MdL
-	 8Bh/O63iaoicA8TpBm1Odbb4VD46SQRFVCfi4ueU3PQjnOTQB9L5UrlEaZrDOCoR8q
-	 KuZY11d7p4yY76mF+0K3aNvUBPUO2gb3b7bHuw5sIF28Oc7sMUScUGglH8Ww0SAOkZ
-	 +UMSs//C2spHV7nSVtFpNixoij1uV51WC9MyRrIB5+VrzZlyZiP59EkmFF8XADfB03
-	 Megloye1s0hpA==
-Message-ID: <833cc1d5-7968-4d45-9b59-976a3eaea5a7@kernel.org>
-Date: Fri, 6 Nov 2026 12:23:18 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFC0606A32C
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 11:24:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BFC0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso3253085e9.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 03:24:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793964267; x=1794569067; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WwjQyPIcMFf7inP5N0uSPmx3oh6JUfGi06PvuPXoUmM=;
+        b=W7IAD3j7PaGIDf/91PYdduPoopl0Q9ouvdY8e0OR047v2ydGBma50bpSXkBEDgiY+F
+         5mQuqBExoEcIOhhqpi8MF/uGL1PVDtpHhPzeeI6iRe+aouiY5xYpVbqhyraynWZ9wdnK
+         4AX1q5fpb5JivZx6yqIXU7uJ7FG7Lzj6bdQwou6uHde8yxu7rxwOqf60SWh4R1tfjQFL
+         BTT4WF3Ab6pTw/xFW0rPqX5NGng2RDBa+uLSyavxZ7J5UFgnob1Dge//nFNmZCb6uBYW
+         yvu0krcLOcah4SZExnmyIBhpDNDH1mmz7cVcy+54rbY0P43O8Y4PZ5xT+SZiPyxzhTBN
+         GA4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793964267; x=1794569067;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WwjQyPIcMFf7inP5N0uSPmx3oh6JUfGi06PvuPXoUmM=;
+        b=Ihky1FrH4h8rn8inc6+3zy+uhLBfQcbD7DN/AMaiqOzPHmLsuYBdROE5LDCMiexIo4
+         A7rslZbRdmajqE6SKqXmd3J9X4bjdR7GNRika1NHBagirVUyBh23YVJb2u0SvfMpn0lO
+         Zb2UFaIxIwFRlWU0QpUIuKXTKxAt/WYgAQoHXTONYMvvVRSmMNBoxwfdpHUUlYBy6DpX
+         voridKb8ntbCZ4cNcR4RWwidT6PbeNagqo1b6M2uXZxM/ZlnG0mp6KuIQCwD5AHzdXuM
+         b3o3N2BdToOvY0lH0isptvblxdVgAFMcmXULOrT/EhQ2HXxB0pjo1gZZrrcWQjXKasXT
+         ZA4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwJoyq/K7ynOp11e7acD8q1NdRGdHMmfid/o2+1jubcUNHv8G8asRg9zwzmcrrKKzCYPsUfCu0Cqh+/@vger.kernel.org
+X-Gm-Message-State: APuU4Z+e4wvncHDojkCjrO0mcWVEvze1NKO90QYxEO4UPVoSpw6KcvUD
+	cONn77FzW9MaK5g2br8rxz7AwUgQLpM70ptX7VicTaoSVCQfHbmsx01MJH+wWw9RKbo=
+X-Gm-Gg: AYBFou2vKLCPSViwl/qI8IiFY6lMxHqg6lh/sV2tDO/m+IYyf3L44gGFrl9pdO50ksE
+	p0S0HDwYjjMHHS3CSP/CilVwF2uReUKEyUSBWE9sO9mUHp1FDqCZr0pY8zhRxJ2OGeWcT0O96UF
+	OpjRtM9pcmdMqoQxud7cH4y31KWDEjswT1myqqdfNiI9OOp5RIGBvMOM+B1zeo84gnQVu34DQyp
+	/FS2UoDh2yD7LB/+EnKvmV1ecvo/3VnIO6r2giB8xGl76vgZC/dLgA5P2PCuwD+JVGoefZC8RYq
+	iIZ6Q2zMMil/DpX0xnjEYzt4ID4tlVa9ySEwMKwrGNtzumbF70daGWrc41NUFH6tKd07gYS80cu
+	vq+vcrAg1cELHP04R6x8uHziwh7JLViarnKT4XMhP/hwz1tXjNOdadcOocymUXakuYQXBs6HTo/
+	AJ1RGopla8oR3L8RuhGFLw4DZYFK27+EWTvVz5yms7ymeszmpj408RWIE7iyeyz319HNczJ24Fl
+	6/hBGsf3D5DGLM4EhrkSmJZA8fRqdJEm6TyUSvxSY+EOzc05UqIxXcVk+K791qLTovaUj0JPSqe
+	L9ECqTmjtFXRh+KMXXxA0cfyGjifbbJbxflV8QeTyQ==
+X-Received: by 2002:a05:600c:4443:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4b6e091e588mr38640345e9.30.1793964266527;
+        Fri, 06 Nov 2026 03:24:26 -0800 (PST)
+Received: from [192.168.0.167] ([109.77.115.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b741cdd8d7sm27597265e9.1.2026.11.06.03.24.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 03:24:25 -0800 (PST)
+Message-ID: <1fd0e1a9-ef5a-4fb8-8c55-556b62b73ace@linaro.org>
+Date: Fri, 6 Nov 2026 11:24:24 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -52,141 +88,79 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/25] dt-bindings: power: reset: add Metanoia MT2824
- reboot
-To: =?UTF-8?Q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>,
+Subject: Re: [PATCH 2/4] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: Andrew Gigena <mail@andrewgigena.dev>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Samuel Holland <samuel.holland@sifive.com>,
- Ben Zong-You Xie <ben717@andestech.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>,
- Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>,
- Minas Harutyunyan <hminas@synopsys.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- =?UTF-8?B?UmFuZG9scGggU2hlbmctS2FpIExpbijmnpfogZblh7Ep?=
- <randolph@andestech.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-pm@vger.kernel.org, linux-phy@lists.infradead.org,
- Paul Walmsley <paul.walmsley@sifive.com>, linux-mmc@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <20261106-mt2824-v1-4-86087eaf5af4@bootlin.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-mt2824-v1-4-86087eaf5af4@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
+ <904675e8-701d-4fd6-b418-6c0dcc9288b9@linaro.org>
+ <5ba03b8e-1d51-4e66-a802-37e63814f5d5@linaro.org>
+ <CANn8UmccjAh7PiLpbGHrhDR4yn=w6uiDYU01aoZvBs-tGkgNsQ@mail.gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <CANn8UmccjAh7PiLpbGHrhDR4yn=w6uiDYU01aoZvBs-tGkgNsQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/11/2026 10:30, Benoît Monin wrote:
-> Document the Metanoia MT2824 reboot register, which the firmware writes
-> in machine mode to perform a warm system reboot. OpenSBI has a system
-> reset driver for it.
+On 06/11/2026 03:06, Andrew Gigena wrote:
+> Hi Vladimir, Bryan,
 > 
-> Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
-> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
-> ---
->  .../bindings/power/reset/metanoia,reboot.yaml      | 34 ++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
+> Thank you both for the review and for taking the time to explain the
+> direction.
 > 
-> diff --git a/Documentation/devicetree/bindings/power/reset/metanoia,reboot.yaml b/Documentation/devicetree/bindings/power/reset/metanoia,reboot.yaml
-> new file mode 100644
-> index 000000000000..2670fe7ab93f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/reset/metanoia,reboot.yaml
-> @@ -0,0 +1,34 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/power/reset/metanoia,reboot.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Metanoia MT2824 Reboot Controller
-> +
-> +maintainers:
-> +  - Jun Chang <jun.chang@metanoia-comm.com>
-> +
-> +description:
-> +  The Metanoia MT2824 reboot controller provides a system warm reboot through
-> +  a memory-mapped register. It is used by the firmware in machine mode.
-> +
-> +properties:
-> +  compatible:
-> +    const: metanoia,mt2824-reboot
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    reboot: reboot@10000004 {
-> +      compatible = "metanoia,mt2824-reboot";
-> +      reg = <0x10000004 0x8>;
+> Vladimir: I understand your point about the stand-alone CSI2 PHY model,
+> and I agree that is where CAMSS should go. I hope this series does not
+> give the impression of entrenching the legacy description; that is not
+> my intention. My concern is that I don't think I can do the PHY-API
+> conversion properly within this series: as far as I can see,
+> qcom-mipi-csi2 currently only carries the x1e80100/glymur
+> configuration and no upstream DTS uses the PHY-API path yet to take as
+> a reference point.
+> Converting SM8150 would also affect the other CAMSS SoCs that
+> still use the legacy description, so it looks like a separate and
+> larger piece of work.
+> 
+> If I'm missing something, or if there is an existing branch or series I
+> should base that work on, I would be grateful for a pointer. I would
+> also be glad to help with the conversion as a follow-up if that is the
+> preferred path.
+> 
+> Bryan: as the CAMSS maintainer, could you let me know what you would
+> like me to do for this series? I am happy to keep the legacy CSIPHY
+> description for now and follow up with the PHY-API conversion, or to
+> fold it into this series if you think that is the right thing. I will
+> follow your guidance.
+> 
+> This is my first submission, so I appreciate the patience.
+> 
+> In the meantime, I will send v2 with the review fixes so the series
+> does not stall.
+> 
+> Thanks,
 
-Two words is also not a device, especially that rest of your devices are
-at aligned to 0x10000.
+A) No top posting pretty please with sugar on top.
 
+B) Since we are reusing an existing PHY init sequence there is no need
+    to port all of that stuff into drivers/phy right now
 
-Best regards,
-Krzysztof
+There are several complexities involved in porting existing bindings a 
+new topology whilst supporting the old.
+
+TBH adding a single new enum to a switch is a much better immediate outcome.
+
+Happy to take a SoC enablement now and work-up the switch of older 
+binginds to new over time.
+
+---
+bod
