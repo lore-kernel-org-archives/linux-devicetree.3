@@ -1,77 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932926;
-	b=ISSf2eyoN5MoKNQnZMr/IuzaQy3UjTrxp2qvB3/MkuktxB7kEvGI43gTx3lwBBQHsOjd
-	 Q4SxJrJ9uuS8r0dvDp03V5N7wDCSCdKs7h6/bCx6Vde8EeSRJwSFj1ObHrPw8hZAo5tBf
-	 dLEJQlnImPqrjyhSofO8p4NYxGc2yC+KYDhXKdkQZjBnOwW/pV5i/ECT6c3BKus75HE2H
-	 6L1WE5Fx9oOT3CJBjLb7q+QLVGMw5yTQDtQmVjlZ6ygquDJvynB9ALX7CQ9E4E1FLwf8u
-	 m9u4OStmqarZ8zVe/VMWgK602LPRGZn9cQJZs9JAREBZUCtt9Dv/NgVAOlsI50yGxsg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932926;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6852XYg4nQB/at/PLi5oS751NBudRh/wjJbfpaCbjiE=;
-	b=bGYXSmKAaavcWC7UrJIgtLVdAWtb/OPUznajtoZo8vN8Xz9icLy9VhqK4h19d00g/X/p
-	 Z+nHPbpJ5AQouvvrCcR9qZjX7Dc6K3NdcQkiUuQumOz8qfMM1rDL2Bzp/2Q3f3S2ZDMnf
-	 vgwdc/W8N/zdGaFvK41IM0iLI1xhUlGai6DjU8gXSo2LLOu1UK2oR6ek7a1iu2T92JTvc
-	 Nli1JSpMeK1wthXHzCPPx2rKMPJCuwomD+mnTe337AEkYgV0fTucauSuXa535aVcSkTsT
-	 n8SW44FJkjBEL63mDznEwB5jRHLPvPSpys+j6dC1TQZNdZIExIfAUDfxLaUKS2bYonw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=andrewgigena.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.120
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793933877;
+	b=gN9gDWn2XGEHXQnVeg7w/3jarRVyi/sszO62LiKP/m8KRJ6F9qg0kC+nI3IxMZNbp+w9
+	 TzjxCspes3BkiGNvTJmiv9d+uTyAzUBZvd57L4yQJmWSK/JzHpLitrNLsQ0Xrc3bn5M9z
+	 6wK4Fe5D8zS0x9TNRsbap+WbEMjQKhe3Wdd9gF9HcQTf+EdChH1qOaDWJ6djfsQePw7E/
+	 8xZ6kkakvq1uwQHCo2sM4uUoqi66dCV33oVpqsdrsNWzvpCvEQWbO3aabQ3TvaJ9HWlPq
+	 bDjuamipOcRZR3hyVamME3EhXMCJHvtjA3Bq+Tmr4T38Xzv4IwORGvtf51BDdS/wYjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933877;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Sakc8iPOwBSEGraaTgtKYH2NnG0cfSLpR94nwwlrRwQ=;
+	b=r0fVL5lxccF6mUjCh1wmowv2V4r2XeayqyVsRQMBvXCq7yf7gAjbbjwUnUKnpS9RhBOM
+	 sAB+TfZqwFXRP/clF1zhZOBmCASPpy/AmzCMv+OugfqrbFXxsl58/zYCmcBAF5usmzz6U
+	 vryi4uxEsDw2gkMs2sgW2DEi1KBog7+P5FCwCFhVoQzaxz/fn3H5dCLVGBL9VIcgv/O8c
+	 Clndsox3y0HQNq9eX/5ue7eloMBRm+ISK4axNfnWwgZ6wvYk9MC4S8bgWV7+Tutt7vpFp
+	 XefqMlKCP9y9E8/Fsk7ukz8m6/uxsgT9f++MIgPuU194QvFjMH/rm6kwLtqmE//MtWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=reyW22q7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.120
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022120.outbound.protection.outlook.com [52.101.126.120])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD103606A32C
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 02:42:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD103606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab53a99771so224221fa.3
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 18:42:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793932924; x=1794537724;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6852XYg4nQB/at/PLi5oS751NBudRh/wjJbfpaCbjiE=;
-        b=nHLfSvmPbpXyHGlzxbH16A+EP09GeZZPETJ0gXtjG7CLjjN459/8jTKqEHOiDkt/gj
-         EMdjAulnnZAmD3jh2s1UCpUEKcgPxTlSJ1pwK7dtQoY48u09lF3MRfxPSYELo3Fdd3iE
-         0X/1j4bd+4dSk+TfGK8lMd1WJYWMPmmwjD3KAjNMlW1p+ucmj4cYqkvTjbcstWvygFDB
-         jHuFN4U7yCHIpHlWi0R9DUSqUgbnbfL0C4ZazGn8hRS6JBAQIIzQCVgmfBfcyKEYJJUf
-         qNgkELHXz+CPrbUYmvD3hZ6BlmX0uR7ISLKM09LSovwVt9vD13Z0ZG2wti0Z/DrApTeq
-         JCEw==
-X-Forwarded-Encrypted: i=1; AKwUvBwCJuHsN8QHO+MCr+Jze7j79ppkiYzo3Fx197egJjDnZJxtBBdc2cgffcTpH0XAkzFsIrxs/IOfVTYF@vger.kernel.org
-X-Gm-Message-State: APuU4Z9v+N6P5tJL0AmctRRTDb8PDA0WiGUMIIu7NNT5w29eTpDMbAhP
-	AMVHjpIXFXemIVa8J/9b2pK9lyt5XPfLO5ThAhd8utS03rXgLsrsKpyyj8F0ut0LEgasjA==
-X-Gm-Gg: AYBFou24n1PZaovXHtaF75DCVVdV7YbxZDFkMbM7FbPwIikgvR1JkSXaH0j6eqbIIob
-	oatgx0z5BdSEo/Xu2+MVhOwj9mftrFx1LlCKbhwL8p9l51VcijGdImjFNwiDPo2HYUmauHqATi/
-	pNoKiGqHMAI3CdrxZecAGT/bKxwlp3Pwar6J5RToLq2lwNVYhU/FEW9i6GlxSMzz1jLACuNNEFx
-	HNRKUGbGLv6DUs/gbfJqYwqiVYX4r21TDjlnYXuIWj6oss/K5hM4Nj0S7rsGOjE8s7Gn89E6EhT
-	FUu6DjD18gorb4UQ9ABJ7/Jyo3CfYzLw2zfhvr9HUBT6nUtONDck7b5KCJPqOJrXcaFr9O9i3xN
-	OW7n/MNYYEPBauN5SBiSgVNfjndHU7bcM4k+8OGWq7NUM/kAOkVVRVRqL/laTNO4kT9l1LvQQbC
-	HOoQ4wyeNsFgi922vZTwE9ihkVCwgm4ZzSUa1swNxwWkC35vcUSu7yIplwiM8JALWCi4h1dDEOi
-	Pj8iqATNB6jkJ748vPmOom5U15f5LwV2ikchRhpA8wcOdGqFw7yjMKvRZ8ovfAqUzVBRSXwKAWM
-	uXNIK0l3ClEl2kxHvanHlzPuU6lux8YR74+ySGxG/ib/+p7Jr0wDL+4SKHxaV6u5oEf6aJ0=
-X-Received: by 2002:a05:651c:a32e:b0:3a9:c840:10fb with SMTP id 38308e7fff4ca-3acf38960fdmr2273161fa.2.1793932924029;
-        Thu, 05 Nov 2026 18:42:04 -0800 (PST)
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com. [209.85.208.173])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acf5db587csm773421fa.19.2026.11.05.18.42.02
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 18:42:03 -0800 (PST)
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ace2e3a2acso959561fa.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 18:42:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByl2jZMmQjsRJ4T/NL0qUTHoDuEw/YrieK3Kqgb4mur35FS/GwRo3F+P2vEKctgIr6naZW4rF4jqgBc@vger.kernel.org
-X-Received: by 2002:a2e:a80b:0:b0:3a9:db75:823b with SMTP id
- 38308e7fff4ca-3acf3b2b509mr2161401fa.17.1793932922440; Thu, 05 Nov 2026
- 18:42:02 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B73606A31B;
+	Fri,  6 Nov 2026 02:57:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B73606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=reyW22q7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hujCSypiNleyRobcLlNgQPO3sfl9QvgEyPMWovADMQuN1Zf6qMGC6VGo7422q6FH+Gn1uY4fKqUiqnmB4i7+bh8J78ZhUblx4kkqJvbOzuPwkczMuHDuuqqYYYErTrxCoPJqddPWu9Z+ZoOi/fwJqGqsAJb67TdMgQre8LYDlnme88mgPNOCtDMkmooMkHrVvN+E3aTILPUVMDdz/xnXeb32RAg61QpaSzrx101XSgijSeZb20CpW73+eACiOFIQReLrROgzErwESr71gniZe4QoYEVPUV0weLcANUshChGa+96/uCIqLcUJHlirLP542HjKcJOtFnol506rZ5pYTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Sakc8iPOwBSEGraaTgtKYH2NnG0cfSLpR94nwwlrRwQ=;
+ b=Jo4hS60782O1YO/6bAxV3cLZSU2OlpcUrVroxOZmXLOhBx1vJcHlsSIiXnHsOU5m/Wrj0Cd1ZwilnW7MvIIF75c1BBwX5Qc/AOjTRq69ZsOYYuxfH5HKG9IVpeUA7u72RNwyFP1U3lqIP3pPz+QALi6kfMMVbFbS20/oeq5SHgMO1cLVVcOyoi55e5creptuN2sXksWkyqeW5icTESgZeuvoszlbFdNkUtoA24qLu+7ZkUoLKc8CCOX8+bS4VoWCXReSqQsBsZJFC6IsiQLpKHC64ROwt8X+PvVXPBBy+EgpeBmlyphzpqyItpMYXyXtaPU68WcIa9V9IEFv8Lxuug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Sakc8iPOwBSEGraaTgtKYH2NnG0cfSLpR94nwwlrRwQ=;
+ b=reyW22q7YTJNqRMbpaLWIUq9R5qirLLWlD9N7Vs4iJlKeQN//MWK7FdaujprQ3HNAv7V5jdUSEwwDFkWmTY3Pd1GfeoE7PYy0bjmA7byJp9ia2WV5DSGKgO8LpVSZmBmnSofCjBgtDNYypJGbHF8pdd20tzFHLUHMtibJRB3lWmHaF/x3NHyMpxKtx4DSBDlNEVLDzqNcqqSnzIFyMpOD7UaXJOsycGVfvAkPAd4j/u1K/RvDQHW8wJ5DsL+k06M1hAFP8JXwKSwjM2XaRoPJ+eE/tbioDJXNUvdWFeYTNbbZjSf362FMEBGfMQ9qBuXRUaAt8TQsWdoGSowL4lxZA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
+ by SE2PPF0DEAE0EC0.apcprd03.prod.outlook.com (2603:1096:108:1::488) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Fri, 6 Nov
+ 2026 02:57:52 +0000
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee]) by JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 02:57:52 +0000
+Message-ID: <7cafbdb9-1411-46ff-976b-7c7b8ab09bfe@amlogic.com>
+Date: Fri, 6 Nov 2026 10:57:47 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] Bluetooth: hci_aml: configure the RF for a shared
+ antenna
+To: christian.koever-draxl@student.uibk.ac.at, marcel@holtmann.org,
+ luiz.dentz@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192338.209574-8-christian.koever-draxl@student.uibk.ac.at>
+Content-Language: en-US
+From: Yang Li <yang.li@amlogic.com>
+In-Reply-To: <20261025192338.209574-8-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0040.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::14) To JH0PR03MB9035.apcprd03.prod.outlook.com
+ (2603:1096:990:7c::13)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -81,101 +102,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
- <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev> <a83a948e-3430-4133-ade6-b30045b8b186@linaro.org>
-In-Reply-To: <a83a948e-3430-4133-ade6-b30045b8b186@linaro.org>
-From: Andrew Gigena <mail@andrewgigena.dev>
-Date: Thu, 5 Nov 2026 23:41:35 -0300
-X-Gmail-Original-Message-ID: <CANn8Umedp8s=rupOkSdi5NBxOE8AUnWSvfyeQsMSohZG+Hce8A@mail.gmail.com>
-X-Gm-Features: AclHuK9yR1l3Ka6EneLFe1X-dNaa_gcGDfVBlZZtGQ6nC7Dgsgyzy5WyWv0PGgw
-Message-ID: <CANn8Umedp8s=rupOkSdi5NBxOE8AUnWSvfyeQsMSohZG+Hce8A@mail.gmail.com>
-Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Bryan O'Donoghue" <bod@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: JH0PR03MB9035:EE_|SE2PPF0DEAE0EC0:EE_
+X-MS-Office365-Filtering-Correlation-Id: bfc1e697-727d-4903-5e46-08df3bb1bf59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|18002099003|22082099003|56012099006|11063799006|4143699003|261102123227099003|261021123027099003|10067099003|261022075727099003|5023799004|261021121427099003|261009223027099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	TZFoGpg1nMRpexT0tMDGVoIDXFrdz9mAj/zyHBnw4UeUqlJLtnWPr37taJk2n9HiJZVXqSCKWmkgafdL4RFLmir8cVwtQWp2gZcnRgS4D5xxSGU2vf5sN3k9dA5TXgbP1/RYs/OHQZyFXXFU7hmWuNUGsG4Zjj17vVugIbV1HyQ+ZWMToIwtN9ghESCq6UKaF3sODdEtFZrSjfjhZp4ndKjMozveP7GDjzh1irGmCh6/4QZZ9bHGX6nXUqMjMYIXFep6pF5H2unUzdFCE2vyfLgAgG5c8cV48IA4Fa6BMZ9UlQrCxhaz88kurSovceF9IvY7N2J+Xu+PzrJKxmWfss2WIJGhaDx3hQpR6Wf4kwHpMBJMFcoh+r7+SGSvnMKRHnDElso0n6CexwX5Nnb9tZ3k7jNg32RKA1Ekwfc5sIVgVCQWF7w2zwxk+CT6aBQ2ClLnBoWtgqobLRXqYfh6QdcWkyenw6EZVgn95fjTKFdSALEsLANa9cHFKsjupisyqPNhXaopaq3zAH+3wFnEXGqN+rU2k8rNOI8C5B1GZsZT0+fnNDa2X9el3BaiYtMbvJ4M7vGKHPDQWPh63ByN5SqrBh1IkB6z7JhdXu6x0kzVQ0sRKrq5YlShwyBqbYw79nnEiiIIIMEr5d/4Je2VFWV+jQSp2oT45gMcLNqK67w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB9035.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(261102123227099003)(261021123027099003)(10067099003)(261022075727099003)(5023799004)(261021121427099003)(261009223027099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VVZJcFlIYUVjb1VMdklQZXd4dEwwNGpZeFNKLzV2UFFEVExHbnhwSWxWTDRN?=
+ =?utf-8?B?aE4zQ1NkdWRiaWk3cjNIOXR3eFo5alAyOUtzMUhLN0ZVc0EzbEsxYTVnRWJE?=
+ =?utf-8?B?eHVCeUQ2V0w0NVlDbTh5WDlOdjUxc1pGdG96aTcrOUY2Z3RUcnJqRWIvL3A2?=
+ =?utf-8?B?NmdTQStXWnBhTnZjSm4veEhyZThtNWNHRzJPTnRHbVhyVzVYR3o1SnNTd3cx?=
+ =?utf-8?B?TjlDSGc5ZEZUamZWcVJrUXZBYXRvblpGV2ltUXcwUzFIYU9hbVhCallWbEZB?=
+ =?utf-8?B?WC9yNHVhRVdFT0J5ODB0MGU4WEVCM3FQRjA1QTk2dXdNSmxyaTM4ZElzbXpR?=
+ =?utf-8?B?akZIeCtERk1jSVJjWEo0b1FJMzcxK1VNeE9VMGNHaDZGTzlJaHdsemRsZ2FD?=
+ =?utf-8?B?VzMwM00zTG1adXJtQVRHV0xYek9kRXg1VjRabmExOCtTYzBlRFVsWGVUbmhS?=
+ =?utf-8?B?a29jcEhHcVRzL25sKzZDbXA3Ri9PYU1vTFFkb3VybjRWSkdWcGkzbGI4Z2RL?=
+ =?utf-8?B?aGlLb0Izc1lhcG5PSCtYVFhBQXEvN0hvanB3NU5KOG9lbkdESWpiQXVoeVdF?=
+ =?utf-8?B?b1Q0VWhBdCtuUDZnVFYyNFRwN0MzWGpWcGhKb0ZGY3BCMWV3aXhVYzhOZHVy?=
+ =?utf-8?B?V3V1eFgrelJaUEIyT0d6bkVnRUVUMzNFSHU1V3B1T29TNDJCWlBaVlBnSkJz?=
+ =?utf-8?B?UDhMREsybGMzei9XTTlzbkpTdGN0SmN1TWVydi9WcXRFTUJxS2pRMFpRdkVJ?=
+ =?utf-8?B?NE5yQzBPYlhXSEVFTEZYVDVvMng3REF2cjNSY3orbDcyc3U1eUZCT2dKMDht?=
+ =?utf-8?B?TmFMZ0VhRVMyNExtMUhpaUpodnhVQVFIK20yTVlSWmVWc2p2dWJ0U0lpS0xM?=
+ =?utf-8?B?SWgzV0N5RzBpdGx3NkVwR2NFWWx3NmlsQ3VDSVN4aGFMWFhsUmVhbDdqQy9B?=
+ =?utf-8?B?cVNzTkxYZHJPclhtS3hUWHlYZmQrZlBkRzU5Q0gwaEJMRUw1V1BwMFVVRkJC?=
+ =?utf-8?B?WlQraGVLWmRUVng0Q0tSU2l1dnM0Y0pHV3UxMXZpaWViVytqMWEvMVhQQzRZ?=
+ =?utf-8?B?SERGdzhyazdGRjBUdy9BT09sb2l5RlFEM2dwZ2ZPb21lV1RPLzQxbWN4Q1Vu?=
+ =?utf-8?B?K3l4ZklNVmVpdkxteTRpS2kyL1ByejIvaGV3amJEWG1oT2RxR1JwWnI0K0JO?=
+ =?utf-8?B?VkxFSGJXZTBjV1BvcUxkZjFhU05PS3B1V1FlcGdCYkI5UVJFVUVHbFVuMXBC?=
+ =?utf-8?B?N1pMZTRPdm94ejlGb3FBcktBSENrRWJKdjdoYmRnVm1INUtOMW1ZM0psQnhN?=
+ =?utf-8?B?bmxtU2JDVEpUU0hQYmY4UU5ubUY4bG8vU20zZlNpVkRKUFp5cWRXaFNpbHlQ?=
+ =?utf-8?B?WmtoQW9zRmxFZlo3Qnc0VjJBa2s4WE1Sc2pmVkxxUm5MVFo1R2Q0VkZ5dzc3?=
+ =?utf-8?B?S3RMR0VueEVIN1JRL0s2ZU1XTmZsemZEUkhNMmJIWWRCQ1pyUUN6ZWhiaUdJ?=
+ =?utf-8?B?eUJiR2dBUTZHNklSejNyK3YxSWlPTzhPQU1lLzdUeUZ2WkR1WFRRdkFib29O?=
+ =?utf-8?B?UWVaYlpza2svbGFkUmxMZk15OG4wYWJsNzg2bHZ5cXU2U0FWdmMwTGJjR2Vw?=
+ =?utf-8?B?RGdzMDFOWG13WmduRllBeGFUM2RYM3JtU1BDK3V3UUdVeGpTOVZxT0R6SXZ3?=
+ =?utf-8?B?TGZVRTdjMUJDRDdmc0JEcS9rVHNyYmwrcGpLVFdEejh3OGlISzRxcUNhblFF?=
+ =?utf-8?B?b09PUUZiVVlhK2RrYmV1Nk0waWxzR0x1NHREQTF5RDdJUmUycWpRZlFQWmVD?=
+ =?utf-8?B?MXdZakllQjN2YzJ1d29ZSnBsZVlaQUVPV094M1E3QXd3Y2p1NnJpU2gvcnhu?=
+ =?utf-8?B?WnphdkRLalliRGNKczRtZUM1bzloRWtJVURSQTFieE90d3F4VGVud2Z0NjQ3?=
+ =?utf-8?B?ZlFMZ1Fnek9hYlRnZWJQN3FpWWdqUzdWaUwvck5pVHdIQjFRcVdPSFdHckVx?=
+ =?utf-8?B?dzRQZnU2ODhVMUdVY0RrTGF1ZlVWWWFwRFFFcUpTUTU5Ni9vUU0vR1N3ZitE?=
+ =?utf-8?B?NXRTOVIyb3JVajQ4eWZrZkNMRzQrNkN4a0s0VE9jRy9pekxzT3JIb0l2UEsx?=
+ =?utf-8?B?SVNmVEZoM2ZTdExEcXB1MjQyZlBGbWxFaU10TWZYL2k5SG0wMGE3VEIvSWRQ?=
+ =?utf-8?B?U0I0RGNNMDlOL1dOZDdVK3JId2FSbWNhdFJZUkJEWDBya2Npd2ZsUkxvRUgz?=
+ =?utf-8?B?RXpua3lqR21ldmdTSnErUTVjUEovV1JIVnV0QWpUR2NVSzdtS2dNM1VFaE0y?=
+ =?utf-8?B?MkgxNExlNWNkTEpkUGdGR3FOVkQwRUx2RTBQclR0N2ZlZHRCcTJUUT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfc1e697-727d-4903-5e46-08df3bb1bf59
+X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB9035.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 02:57:51.6921
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: durdtas3U/1Ut0y4o4VUHYNGBTKO6vZtqOC/aHGrBm9XYdGNmEtieDRyjTZEBxEsYqrEIuEXOvu3hFLDHoMu/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2PPF0DEAE0EC0
 
-Thanks for checking the 1.1 sequence and confirming that the upstream
-one is fine. I've fixed the ordering of CAMSS_8150 in the switch
-statements for v2
+Hi,
 
-Regarding Sashiko's note about the VFE-lite clocks: I confirmed it on
-hardware. Routing the IMX363 through CSIPHY3 and CSID-lite1 to
-VFE-lite1, the stream produces no frames and the clock stays at
-19.2 MHz without the extra match. With the match, the same path
-streams 10 frames and cam_cc_ife_lite_1_clk goes to 320 MHz. The normal
-VFE0 path is unaffected.
+Thank you for your patch!
 
-I fixed it by making the driver also match the vfe_lite0/vfe_lite1
-clock names. Since the same problem affects sc7280 and sc8280xp, should
-I create a new patchset exclusively for this fix or include it on v2?
-
-I can send the small media-ctl/v4l2-ctl script I used if it is useful.
-
-Thanks,
-Andrew
-
-El jue, 5 nov 2026 a la(s) 6:44=E2=80=AFa.m., Bryan O'Donoghue
-(bryan.odonoghue@linaro.org) escribi=C3=B3:
+> From: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
 >
-> On 04/11/2026 20:54, Andrew Gigena via B4 Relay wrote:
-> > The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
-> > VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
-> > layout. Add CAMSS_8150 to the version enum and to the shared code
-> > paths, then add the per-block clock, regulator, power domain,
-> > interrupt and interconnect resources.
+> The RF configuration selects the single antenna setting only for parts
+> flagged as coexistence capable. On an S905W2 TV box with a W155S2-class
+> W1 chip, Bluetooth and Wi-Fi share one antenna; with the default dual
+> antenna setting the received signal is about 15 dB weaker.
 >
-> That's odd. sm8150 and sm8250 are proximate both seven nanometers
-> sc8280xp is five nanometers.
+> Use the single antenna setting when the board sets
+> amlogic,shared-antenna.
 >
-> PHYs are about converting the analog to the digital domain and so
-> process geometery - ends up making a difference.
->
-> You can get the PHY init sequences here:
->
-> drivers/media/platform/msm/camera/cam_sensor_module/cam_csiphy/
-> =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_core.c
-> =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_soc.c
-> =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_dev.h
-> =E2=94=94=E2=94=80=E2=94=80 include/
->      =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_1_0_hwreg.h    sdm845
->      =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_1_1_hwreg.h    sm8150
->      =E2=94=9C=E2=94=80=E2=94=80 cam_csiphy_1_2_hwreg.h    sm7150
->      =E2=94=94=E2=94=80=E2=94=80 cam_csiphy_1_2_1_hwreg.h  kona/sm8250
->
-> https://git.codelinaro.org/clo/la/platform/vendor/opensource/camera-kerne=
-l/-/blob/LA.AU.1.3.7-02900-gen3_gvmgh.0/drivers/cam_sensor_module/cam_csiph=
-y/include/cam_csiphy_1_1_hwreg.h?ref_type=3Dtags
->
-> So yeah going by the name that's CSIPHY 1_1 same for sc8280xp and sm8150.
->
-> Hmm so much for my understanding of how dependant on process node these
-> sequences really are.. perhaps the PHYs area fully synthesizable in RTL,
-> probably.
->
-> Anyway.
->
-> The one thing to do here is to please _verify_ what's upstream now
-> against the tag provided there.
->
-> If there is a divergence then we need to upstream a 8150 compliant versio=
-n.
->
-> ...
->
-> Actually its fine, did the verification for you, the 1.1 init sequence
-> as is upstream is fine.
->
-> Just please tidy up the ordering of the 8150 switches.
->
+> Signed-off-by: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
 > ---
-> bod
->
+>   drivers/bluetooth/hci_aml.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+Reviewed-by: Yang Li <yang.li@amlogic.com>
+
+
+------
+
+Best regards,
+
+Yang Li
