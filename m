@@ -1,60 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793934138;
-	b=TV45uFuM0cvANxeC9Qa6EWagupvOHQX1/7VlsavXaxdX80ECmw+RqcFlrfuoibCQdemv
-	 COMXlhPxAiPLFlGeJTGu4+dI3X5N3ev9hgJZ/o0/e0HSDjF849OjEgnqrSI850a+IEjCB
-	 UwjHbyP63+Lt0fsEAGkTLu9AsrGITrqayYDEUgzeEL8L5Lx1fbzX1pYHmEHOFx89nMO7V
-	 cWdGMaNVNan+7tiWVR4wTta0FSCQdJJgC4l92b5qE/JlImftnlv0dsTh9+szY2R+4Zu9I
-	 mB7F07/mPAsIEpJuY8O1ozBnyo/kksGv7Qq+klEC9ge/FBkng2HFnRTRuCwGVUgVMDA==
+	b=b5vTL1n4yz16vfoQ19E419nC/wr1ZmBw6Gp1tZ2/1sF/ng3Zl1WWKPwcDxVuwBj5Qvu6
+	 elJLIJRQ4G0STKcIMnEQrwWkDHcoI4/moqQqyvSmVReXXuZlsMUAkjEAooW0PdIy3eLUX
+	 /JBOAPhZYa0d1XEfPqXYzJb/j/4UlXQTtsObaq+XTGCMCqnZi5RcWS/ZB9bOHZEsfiUJQ
+	 DvuSKrWktvVXcSBFXNG25hvg8rG0gYvcWx8/HjIL8dcUyd7LiW3+epF2km8l/MIZqXIOG
+	 izsdGmODqVyeH5bE7IFQtvU7AUzlz9g3L/rAON1ISr5ai0vaFUllMIxrR71T+G5nuiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793934138;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=noEq/oDfxdHv3ZN0zalPXPeXSKk0a1Plk07yiuVI0G4=;
-	b=zbIFYEpE6y7LEx6hOjMzlH1Zj6/HAiu45W+SbxsQLdJsaPt5VtvY2CbG224jYghbNNEf
-	 7uwcDrizUdv13n6qWh/fyYoXepnCb6oWylgyTm4UZsQHIcVDkaxtLQOlwiCnCoIY4JXVs
-	 RIGOhI4R5e4dEcIsqMWi7+CKutG+ZoKai3JXSzmXBU1EfkP1wlqLr3jyslFAZgxPtRIfW
-	 3lQLY8JfhXx/KakDg1C419YLSuvkhzPH1SjTo/jXe1d/o56aBXVRzSZ5TcK271fJsVkZD
-	 AvGLkqFK9O2ykYEykHqzG9nSSVJzbIC1Tqdbl81KrHozKrAQ5e2/WYVW6yv7iIsBEHQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=B+aZU5rer7hSNVXElTsxzUZLFCGRIQh/JmbY4gqYPCI=;
+	b=g34q65/Fga21SUVeMEQsARVU4Q+GUKuBeol4823o9nhRt03DniXBdjuxKjrvnv4gJtSm
+	 rBecDrGx8LoxtgrNAMim8WEwwcbXrZ1C+LKaMuLucmHRaGWVzr+d1VlyRQqWPd60oJDmO
+	 gSnhqP8R/mq9067ggHkXHMZJJRkX3J33PA3A2DezGbOpPQw/dy1MYF7clbhq1ObsJcg5S
+	 BuCXiDJWL29Eb0XlfEplTl7p4Yz33zWco7/RCTfkYuFRBBkcNfnj9earDVCV4ShguBEyx
+	 0h9VegjDZIRMZ1Pr0TR8k2dMY4UPERUjlwFMmdXmJacGMSlx2x2lev+IXqHSQNo+e3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 259CF606D803;
-	Fri,  6 Nov 2026 03:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 259CF606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8CxPNI3Q+1qJeocAA--.18400S3;
-	Fri, 06 Nov 2026 11:02:15 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJCxvM4tQ+1qprAyAA--.18991S4;
-	Fri, 06 Nov 2026 11:02:13 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Hongliang Wang <wanghongliang@loongson.cn>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	Xi Ruoyao <xry111@xry111.site>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v11 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
-Date: Fri,  6 Nov 2026 11:02:03 +0800
-Message-Id: <20261106030203.15709-3-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261106030203.15709-1-wanghongliang@loongson.cn>
-References: <20261106030203.15709-1-wanghongliang@loongson.cn>
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=End41XFB;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Eh0+kJG6;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3338606A32E
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 03:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3338606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=End41XFB;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Eh0+kJG6
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Ner5r2880974
+	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 03:02:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=B+aZU5rer7h
+	SNVXElTsxzUZLFCGRIQh/JmbY4gqYPCI=; b=End41XFBAz7Du18ldm4B83PCl7W
+	CKtzN0kqhAmMFZWbS0jZsh/KDptMS4MiUZwKNLgTZ7N7WPLsoR+OkUiKhXcibt8V
+	dejjdhCx2ivyQGSsL431QxNMnfdMlStjT0S0u2+BAL05lpfLkwiybSWBDiyDMZ/z
+	L40jbVfmwHAYi+06ONO+KhtqAJboIFLqbz41mXYnic5NqgUTvPhxnq0HCg46q2CN
+	DDFWkenTcbH6DsKVI8YDYhU93yShVT/SA0K1glae+auayCD642xgHq4vnrAFOjRN
+	ykFzk7UO6/z7RjCj/LcaSQMYdHqmNJEmW5m1XpBLgjGwhsZkJlkU24yiWrA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3parm9u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 03:02:16 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso356027eec.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 19:02:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793934136; x=1794538936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B+aZU5rer7hSNVXElTsxzUZLFCGRIQh/JmbY4gqYPCI=;
+        b=Eh0+kJG601QIIrmHxdH95/1+C3t3C5mypDAorhRJT4a4RFYxJTKiL3MaPLXptlcjKG
+         Ut0/n5adPpFcYNaJEsKseX2DpW4m+57nRC7EaFjNRERs1sQreyq2y3Cio0ISVuOEMJdI
+         W2uTepslZEPL83h2yK3cV3cdHiNOCDlmlJkQV6O0DA0CKkueGfp+rGVKgdPj0WO83OhW
+         zbLNq3qV4QD/8okh6hnG83gPnawox5iDPrQT8P+Wl40+VA9qu/SuvT7IF+MV9/5Jl+8f
+         YO449/to0BlQendH+QlBM3X3xXZ/48hsWCLrNuUBUFZd3Cjc16V5n1FhAWBPMMxysQq6
+         nlNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793934136; x=1794538936;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B+aZU5rer7hSNVXElTsxzUZLFCGRIQh/JmbY4gqYPCI=;
+        b=bqjkdogS3GzY5BQp1RvgoU2u7+V/pR4I8aBu3t995x8tyXGydg5nOHque3tTvVaQdS
+         3gByCpajmBVju5Jr7XqrRSxUE7ISehj26DAGAzPDzqBKDnzne8KZo+gP94QI1UEb15P8
+         auEtRUWFRpDjk4gqcUHqtMS6TAt0l7WX4LxW+cj0ihGgECYqhw9bR5f20o7DOsa+JQUF
+         sz2B4N2pQ0d/3F49x/+/VSO4ndR/PNmo/amzfR7iWC4ba2E2U350EL/bjoADYAMtJYxH
+         qGhXlnjacHe7Y20yTBN/0WxP3puSvvDVIUEMMOfKjs1B9hoTSrjq8Bmp2bji8jKCLqo6
+         DJcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBznBioehIzO4Xrs/10oTlye+bPr7ZkUgW0Sg9GjF/0FuPvWxh43KlbBtvBtwSXcVotpqP6Qs6vlxGFT@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ei1Ec5aO++q16rSnbdu9FrGOh/hSm9VWi1upLkXdxwg1baoCe
+	E8Cne85nKxpLGlPBh9m4H9Zr9v/EctJxIccrgNQ1CG8lVwCW9WzkI3HYrxoqS9Ls2H/GmV1MzjU
+	sGxc948pOpOgkmd1mcVSsUlsTvg0+SkyDZzSyiajHxH8Q/6HAOJq5mUHKfyywmyv3
+X-Gm-Gg: AYBFou3Iyhz3c304rVGBTcuYn5q0n4qdy3Lr0l/SrJaeXMCRaTwAJqj66+kRhQ/JytK
+	+Jon85McGlLXkjRej1EWnyFweyqoCJq4Al13+OUWyh9E1GU5Xu07sDkTqHG9ioU7D4VGu/OVY2E
+	HXH/8JOMBNfL392/xNjfUx6i99B0btS9krsgAiIxFKkiH0im5+9+K2zwaQm2dLjozRvVSjBvZI2
+	ayvGUCdwsJZ2aveVd9m+2XmV4T9JW6T3kPMyBs78accos0+69CoZWrAO4bTbmONjT86JuYpO5TP
+	yXabWoyQncEir+r4X4neZJsSHqcSEQzvtMHtlwDpaHV7gJeOssxwmg0Ir7covwj/IpMFYjcCaFi
+	7kGkkz/Rn6Ml19IKY/fVREnH8bg66CS7flnl1OVJKWStbJPsvji6hKYK6nLyO23WMiotylx0ln7
+	stUYyOxIxTufzgWWmw5FLJlfVZwmQ=
+X-Received: by 2002:a05:7301:18ac:b0:36c:a084:30a4 with SMTP id 5a478bee46e88-36f75b1f65dmr1645464eec.21.1793934135700;
+        Thu, 05 Nov 2026 19:02:15 -0800 (PST)
+X-Received: by 2002:a05:7301:18ac:b0:36c:a084:30a4 with SMTP id 5a478bee46e88-36f75b1f65dmr1645407eec.21.1793934134947;
+        Thu, 05 Nov 2026 19:02:14 -0800 (PST)
+Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9ed126csm1484905eec.18.2026.11.05.19.02.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 19:02:14 -0800 (PST)
+From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, gjorgji.rosikopulos@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        jigarkumar.zala@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] arm64: dts: qcom: lemans: add CSI2 D-PHY  common-phy providers
+Date: Thu,  5 Nov 2026 19:02:10 -0800
+Message-Id: <20261106030212.2811027-2-anusha.nandi@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
+References: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,164 +126,213 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxvM4tQ+1qprAyAA--.18991S4
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXryrXFWktr1kGr4kAFWDtrc_yoWrKFWxpa
-	yDC34rGr4qgF12grsxJw1UZFyayws5JayxuFy2y3Zru3Z3Arn8X3WftFnIvF4ruFyxWayD
-	ZayDWFsrCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8XTm3UUUUU==
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfX7WeYDHjq62Nr
+ +E0b2O862zYO+bxMasrY81KUNKrxU4OpUjvOX56J962yyLEzlOSfjbXEq3e3iN6IwTOpmcAu+ri
+ j5KVh8QGy1BB12smmVWU6iuAQK0dmZWnBRfviI9bYzyoub05QKgO9QBGTfJqbccDhskP27oKQld
+ /CcA1q5QSCRvvqVRQhxr6pyt2s1yfXAZdX+3PgJRZNKWkDbZWHrTKMeKYiJCNqmkQy62Dzovfwb
+ X+jEniovVVb7FjL/PvxI5GjXVGqJEDm4IpsoosZ1uTbi2KbEgpC7Kfuu5XxExA6HRJLZJWHrlD8
+ 7vkJhtnmK5xYpL39cKncAGWoJ5Eb+hPf0yDGWgJ0G8i+D3xgOPZIHYup7Y4DDvAXPlPrGYpxops
+ uRQKE1MabzCUaHrmaOglAyBHwrWIoa/l66GY5CupAm6zYalr3F9VR7jxjERvvjDdoJLktobjeIU
+ 2mt5BUKbGksYRaqyQ2g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfX0wwm+bOHa2hh
+ 402c5xW2LV6LuH/XojPQMDtD7W4PDfv6lTt9WIfdeAQqtDkBqGVlKkDS5izWdSXXEiF0mk5AJzZ
+ Cu/4n91wuw+TjI/yh9XdbGctxYzIlsA=
+X-Proofpoint-GUID: tFvFXQPypQy0nLS_LsKRmOtrSmYLgU1S
+X-Authority-Analysis: v=2.4 cv=P4ivFSAu c=1 sm=1 tr=0 ts=6aed4338 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=jASa4ECRWJhfWmzZHB0A:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: tFvFXQPypQy0nLS_LsKRmOtrSmYLgU1S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060011
 
-The original driver uses a fixed PCLK frequency(LS2X_I2C_PCLK_FREQ) and
-fixed div(5) for I2C bus speed calculation. As PCLK frequency and div
-vary on different SoCs and ACPI platforms, this leads to inaccurate I2C
-bus speed calculation and poor adaptability across platforms.
+Expose the four SA8775p CSIPHYs as standalone qcom,sa8775p-csi2-phy
+generic-PHY provider nodes (csiphy0..3) at their existing register
+addresses, each with its own OF graph (port@0 sensor-facing, port@1
+CAMSS-facing) so camss_detect_legacy_phy() picks the non-legacy path
+once a board wires a sensor through one of them. The camss node's own
+reg-names/clocks/interrupts for the CSIPHYs are unchanged, so boards
+that don't use a provider still get the legacy binding.
 
-Improve the accuracy of I2C bus speed calculation across different
-platforms by parsing the real I2C bus reference clock (PCLK) and div.
-Support both DTS and ACPI.
+csiphy0..3 are placed after camss (ac78000 < ac9c000..aca2000), so
+soc@0's children stay sorted by ascending unit address. Their shared
+OPP table lives at the root node, not inside soc@0 (a simple-bus),
+since it has no reg/ranges property of its own; it only lists
+400000000 Hz, the one rate SA8775P's camcc clock driver actually
+supports for this clock (ftbl_cam_cc_cphy_rx_clk_src has no 300 MHz
+entry).
 
-For DTS:
-- Retrieve I2C bus reference clock via the common clock framework
-- Fetch div from match data for LS2K/LS7A series
-- Fallback to default values if clock lookup fails or the obtained
-  pclk or div is zero
+The provider nodes are disabled by default; a board or camera overlay
+enables the one(s) it uses.
 
-For ACPI:
-- Parse "clocks" property to get I2C bus reference clock
-- Parse "clock-div" property to get div
-- Fallback to the default values if property parsing fails or the
-  obtained pclk or div is zero
-
-Calculate the I2C clock prescaler based on reference clock, div and
-target bus frequency with the formula:
-
-prescale = (pclk * 10) / (div * bus_freq_hz) - 1
-
-Dynamically acquiring PCLK and div per platform ensures accurate I2C bus
-speed calculation and reliable operation across different platforms.
-
-Reviewed-by: Binbin Zhou <zhoubinbin@loongson.cn>
-Tested-by: Xi Ruoyao <xry111@xry111.site>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 ---
- drivers/i2c/busses/i2c-ls2x.c | 44 ++++++++++++++++++++++++++++++++---
- 1 file changed, 41 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/qcom/lemans.dtsi | 136 +++++++++++++++++++++++++++
+ 1 file changed, 136 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index ef2e2a26981e..75d08cce6b8a 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -12,6 +12,7 @@
+diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+index 1fdb72fa5518..6909dfa06d86 100644
+--- a/arch/arm64/boot/dts/qcom/lemans.dtsi
++++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+@@ -545,6 +545,14 @@ opp-100000000 {
+ 		};
+ 	};
  
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/clk.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -63,11 +64,19 @@
- /* The default bus frequency, which is an empirical value */
- #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
++	csiphy_opp_table: opp-table-csiphy {
++		compatible = "operating-points-v2";
++
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++		};
++	};
++
+ 	pmu {
+ 		compatible = "arm,armv8-pmuv3";
+ 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH>;
+@@ -5348,6 +5356,134 @@ port@3 {
+ 			};
+ 		};
  
-+/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
-+#define LS2X_I2C_2K_CLOCK_DIV	40
++		csiphy0: phy@ac9c000 {
++			compatible = "qcom,sa8775p-csi2-phy";
++			reg = <0x0 0x0ac9c000 0x0 0x2000>;
 +
-+/* The div of i2c reference clock on LS7A1000/7A2000 */
-+#define LS2X_I2C_7A_CLOCK_DIV	50
++			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
 +
- struct ls2x_i2c_priv {
- 	struct i2c_adapter	adapter;
- 	void __iomem		*base;
- 	struct i2c_timings	i2c_t;
- 	struct completion	cmd_complete;
-+	unsigned int		div;
-+	unsigned int		pclk;
- };
- 
- /*
-@@ -107,12 +116,14 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- 	else
- 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
- 
-+	val = div64_u64((u64)priv->pclk * 10,
-+			(u64)priv->div * t->bus_freq_hz) - 1;
++			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
 +
- 	/*
- 	 * According to the chip manual, we can only access the registers as bytes,
- 	 * otherwise the high bits will be truncated.
- 	 * So set the I2C frequency with a sequential writeb() instead of writew().
- 	 */
--	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
- 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
- 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
- }
-@@ -287,6 +298,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
- static int ls2x_i2c_probe(struct platform_device *pdev)
- {
- 	int ret, irq;
-+	struct clk *clk;
- 	struct i2c_adapter *adap;
- 	struct ls2x_i2c_priv *priv;
- 	struct device *dev = &pdev->dev;
-@@ -304,6 +316,32 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	if (dev_of_node(dev)) {
-+		clk = devm_clk_get_optional_enabled(dev, NULL);
-+		if (IS_ERR(clk))
-+			return PTR_ERR(clk);
-+		if (clk) {
-+			priv->pclk = clk_get_rate(clk);
-+			if (!priv->pclk)
-+				priv->pclk = LS2X_I2C_PCLK_FREQ;
-+		} else {
-+			priv->pclk = LS2X_I2C_PCLK_FREQ;
-+		}
++			operating-points-v2 = <&csiphy_opp_table>;
 +
-+		priv->div = (unsigned long)device_get_match_data(dev);
-+		if (!priv->div)
-+			priv->div = LS2X_I2C_2K_CLOCK_DIV;
-+	} else {
-+		/* clocks and clock-div properties are used only in ACPI path. */
-+		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
-+		if (ret || !priv->pclk)
-+			priv->pclk = LS2X_I2C_PCLK_FREQ;
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
 +
-+		ret = device_property_read_u32(dev, "clock-div", &priv->div);
-+		if (ret || !priv->div)
-+			priv->div = LS2X_I2C_7A_CLOCK_DIV;
-+	}
++			status = "disabled";
 +
- 	/* Add the i2c adapter */
- 	adap = &priv->adapter;
- 	adap->retries = 5;
-@@ -349,8 +387,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
- 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
- 
- static const struct of_device_id ls2x_i2c_id_table[] = {
--	{ .compatible = "loongson,ls2k-i2c" },
--	{ .compatible = "loongson,ls7a-i2c" },
-+	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
-+	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		csiphy1: phy@ac9e000 {
++			compatible = "qcom,sa8775p-csi2-phy";
++			reg = <0x0 0x0ac9e000 0x0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
++
++			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		csiphy2: phy@aca0000 {
++			compatible = "qcom,sa8775p-csi2-phy";
++			reg = <0x0 0x0aca0000 0x0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
++				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
++
++			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		csiphy3: phy@aca2000 {
++			compatible = "qcom,sa8775p-csi2-phy";
++			reg = <0x0 0x0aca2000 0x0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY3_CLK>,
++				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
++
++			interrupts = <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>;
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		camcc: clock-controller@ade0000 {
+ 			compatible = "qcom,sa8775p-camcc";
+ 			reg = <0x0 0x0ade0000 0x0 0x20000>;
 -- 
-2.47.2
+2.34.1
 
