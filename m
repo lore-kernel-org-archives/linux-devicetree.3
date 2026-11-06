@@ -1,102 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995189;
-	b=ofO37Pu2tLpd9XbVRqEaUBcDWBtPDSBOv0n72xPoPewd3ZxD0gzsN9iXbTRDfY3Jb8Pj
-	 yjKnB+gPpyN13iE6tmRNbU9WuSEvOvTdAAx948JQsWN6ItrS0OZbYsmUJITXCzwm0krFV
-	 /q0yi1b7pB9hyyyhyoutwEKXFExiNrmz3+B1WZc+VPSPB2os/LMH3FxNaI65x4HG2G1jB
-	 XJUfCDPMwe1Ed5aym8SZtmqBjlMnFtEXC0dxnnANfGX7aDbZ0gwDBvJHEGHsqY1i0f3NT
-	 rdp1aL4uREPk8wieRlDqrHxGE+3e+KN9XfXch9xj1LghRIlHx1pKI1D4FDHS4WcZbHQ==
+	t=1793995659;
+	b=lLKoaW+3nSFGE901oAiIkOVaF5TyiieIj71fWcLVwhXoav7yC9iUbXKfABGO7Ahbes8T
+	 QIby64wStgS3f5nkWVvjo3/MYKerjGltk14b4ugf7lHd3tf1YaUikutC3uSiEOw2mP9mi
+	 mAuRvNWZHCK1K9Mxfb76hKK4K4r0S4Q2rA7lyevBK2qEHhG/moXRA72bUl5TEaLaoQdlo
+	 DgyAWmsz3WMoyYqrjyhjFc/v9caiEBqxMr/7+dF1ehSxEhygDws9M/HZQFmCpAPhBDLI+
+	 NOV8wG/9myOrL+QP9YVlieAFEBoNADO0pZamUJKL6c1SXVnvo6+n6nP/WZCbnnpMc8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995189;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yk3scaKWk/QUvYfp97Kf/l/OTmiicn4mPluBuDOW+S0=;
-	b=T6jJcx2OvHx3CcTz5XfHc1WB4tAN2v12jCK9byPlUKqE50ca23Fs1BDVX6aPXI74o8c2
-	 QV/h/XRS3FcYy4gD+bLNOZ5T7E1yFbMrckMCYj3APStLkfa/NQ/m3tYVHkZyMN4n/KsVh
-	 afMGmQaRpjlhVSnRdXf//TqkPfw+0Mc5bo4hdKXI/8r0U/wLGwTUNS2760nnNoISx14NZ
-	 PwzOcGMg+omjlOCbDOHpf35DUd3pqBXXC/gMGxLg9MinTWceW5KIanL9TpFljzw9aJVwD
-	 p8UNZBYT6UTcULgpdrMOzg5buzeZH2rQziyTBoGHIdcUIX9LRc/em54eNWK/fCNYSEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995659;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HBSrhZLBuL5ksZaPW5BKifL2afrXK2hzhDX1MeTPVeY=;
+	b=q6atDORPI4Z+Ip9lLPecfGCPBnFh4U1PbhPf8F40UzO6t0mUpEahRgnmOC56yLBuCxLA
+	 UxALWO+mq1mKMkN5etqml/gWOxDv+FOASbWVUZPvicLOQ+3b49nIE88v7oIKQsf64nMZv
+	 vGM/2vfTQLllLdnJgHOhCJ2zDaXE5g/3m76O9ERq4/VzsxnoMGKqXb3+8ltj+l/is+fho
+	 wJYBgiqhgPybTpni5o/s0Zyw2JXRUJ8vlhqFjsoHYL894Rliiy/VXl5/YhyNDrogzg52M
+	 L9iz8gFpzECk270JFKolVg2mQyPa7xrW44WosvLRbTjJ2s8v9ItCkWEO6JwJ4BTrKnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jnfvgDlR;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="atd1/6+T";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBF5606A332
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 19:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DBF5606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204DE606A326;
+	Fri,  6 Nov 2026 20:07:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jnfvgDlR
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso9892495e9.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 11:59:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793995187; x=1794599987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yk3scaKWk/QUvYfp97Kf/l/OTmiicn4mPluBuDOW+S0=;
-        b=jnfvgDlRBI+yxIh0kTBPlhMYJzE8Ir1UlsS0SxW1/czqfaMO+7NvdK68wIq6ghkziI
-         gKUgnEm+CMfUTo+wMw7944hB3nN/K4cuwuqUzB9uw4J8T1SsoHbV2OomgfEKN6tbRiaE
-         YvKGhAJzQFxkwDjm822TeEDbrFUSfLOXWSold/vj+045lGB7y4zWYbTiBrgd4M6OVAsk
-         koBOXJThh2DeklPjV49e/BWK0t7l/rBPQawLKX3oi0642VX5uHF2f24OOIKWd1e5oZOX
-         hH7ENv4q2enAwomT7b2170r09JoFGYqrC8qH19o3VlBIp+BAer3wuV0tKG5stFxhfrjU
-         3HKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995187; x=1794599987;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yk3scaKWk/QUvYfp97Kf/l/OTmiicn4mPluBuDOW+S0=;
-        b=OgAjr81ThFmxwjxUxhUd4r1kGeQLCsoOVLfkNgAEOlouXZS8tdHTeLIRslB69EkFR/
-         M5aj0iiHQsncHztUSmLIJJ4QRylem+pr8tNUnHcHtq1f2KCdQyUOafs6B5KyoHSu8ub8
-         lpqw034Sp/DsDgRgdxfBwG4BU+5y6mHcqAWheGU9D0ICMagrnmMXBxY7KYSVAaEUYmA1
-         pqYaSkDLavS5PRqN0Oim4GBm7Q3neBjsCAHpmh3dVmYRdMnvJ5rTkGCXoSH2Fs71mWYY
-         LBgmIQEIQ8hvEpbBwW3Bwufp+11lJ0aLwmJPbOlO6gnv4jJwlRNk+QqlxrrOxchKeK0q
-         wP5w==
-X-Forwarded-Encrypted: i=1; AKwUvBz87XAFInV33yQiCH4ztKgwoykzcXh+d57NRK07pIOmJ+8fl4AmrUe2XnX0xfCIaUm+aLKFSdjn08Fo@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iPwUyySMEJdPl3/bVOgBBlhnFfg73oAmhyEmvq911xF18pqV5
-	NUvRBYTVYHspEc3IWYIfVIrVcNtM2tggW2+1rL80hvn4Ry+I4Iqk+Qh5
-X-Gm-Gg: AYBFou0RjyfxAc0k80KLSuLZs3CUk8i1pW/v+vfW6AiYdNlZv/CIhRh0H5+xoq1Ofct
-	E5dBVF6FSq6oL8kOaJt3NSAtmqBh/T6+EuwTQ/GH2B7LTmwMcEdt6jKBTnHIguisC+iQA4NDg3u
-	L+XOWi8hxBOecrgp5FMxoE5YDPnCUk+9/oatSOCYQJpy3ha/Xm4VY5ek1yoQrKEwfmmjZXpecoU
-	9mxqs4jHm1rA85e54/8QY6S152bXyxJpGxP1qQ/x9DcIU+YNrB7IkjVSj3h/+rdUW1s7gxecjSR
-	t+cS5HgoZMg8O7ljhbFQ9jf4byHG4iyvQiq70/bOO7uBNZPzp5UHQWoTVVGzJ4JSQzGAZSqRiP1
-	g717OSh1il7BAVsK3gqsc9SSzrCVdfsd6VJk2wKE/rnfEd8iV45XBuOSbYrIQF0toWRauCpJfDh
-	sov1RjPZmBZqj+1sIZIVCWTB9uh2mS+VtPKbQpeEk7SmRSrQGhR3zopzz6pLsl7akgptyRGTl/M
-	Mjha+m6ZTGZBCq7rp8jd0aordr/126YrFj7jyg+2p3WxnJerLtlljzlX2AjHtdT3GWkzeeAbtJN
-	ZuLRbhn6PsrQ7NYdkn0Ek3ZC9NfHYCQ=
-X-Received: by 2002:a05:600c:6090:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4b6db0d0817mr56859775e9.4.1793995187215;
-        Fri, 06 Nov 2026 11:59:47 -0800 (PST)
-Received: from hp-z640.fritz.box ([64.43.161.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62ecc1sm4414165e9.2.2026.11.06.11.59.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:59:46 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: E Shattow <e@freeshell.de>,
-	Conor Dooley <conor@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atd1/6+T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7931F1F0089F;
+	Fri,  6 Nov 2026 20:07:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793995658;
+	bh=HBSrhZLBuL5ksZaPW5BKifL2afrXK2hzhDX1MeTPVeY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=atd1/6+TQFYXu9NqQyPVYqzNfp0yf1ut30x2evBUUBQJ9xLMVa7cbMisY0jv/geuL
+	 EovDVVhB/Bwp3LmRkm9cMvKDb7X30GuXI2LICRGsWx2zqCoLw0ktCFY/3uL9+JaS6s
+	 2AWHIWInlzNnw+v7VbKL7ukofT7W4gWuLs9Hh7G4og+elaBvtKCVcE26Y63RytqhBc
+	 EGlL/uq0A50SXdHM1ujr9bhUiSHgUywX1iJf+0lEZDyUsUqOPqYhVkI4sV3YLy9m5G
+	 4iGutn2iSJJRqIwDS3hok9Hq21zL1Pg8lBoCDDFgPOuU/TCPjpasyuH2mAtlpalkoD
+	 uTmgSOJlg40nQ==
+Date: Fri, 6 Nov 2026 14:07:35 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
-Date: Fri,  6 Nov 2026 19:59:45 +0000
-Message-ID: <20261106195945.4157095-1-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
-References: <20261106184055.3891621-1-oo.hehir@gmail.com> <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de>
+	Conor Dooley <conor+dt@kernel.org>,
+	"open list:THERMAL" <linux-pm@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: thermal: Use signed integers for
+ coefficients
+Message-ID: <20261106200735.GA1172491-robh@kernel.org>
+References: <20261103214357.2700244-1-daniel.lezcano@oss.qualcomm.com>
+ <20261106-portable-alluring-hedgehog-9e2aed@quoll>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,18 +65,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-portable-alluring-hedgehog-9e2aed@quoll>
 
-Hi E,
+On Fri, Nov 06, 2026 at 02:03:24PM +0100, Krzysztof Kozlowski wrote:
+> On Tue, Nov 03, 2026 at 10:43:57PM +0100, Daniel Lezcano wrote:
+> > The coefficients property describes the coefficients of a linear
+> > equation used to derive a thermal zone temperature. Both the slope
+> > and the constant offset can be negative, and the thermal core stores
+> > them as signed integers.
+> > 
+> > Existing Device Trees already rely on signed values. OMAP4460 uses
+> > an offset of -9301, while OMAP5 uses offsets of -1791 and -2992.
+> > Broadcom platforms also use negative slopes. Declaring the property
+> > as uint32-array does not represent these values correctly.
+> > 
+> > Change the property type to int32-array so schema validation decodes
+> > the cells as signed 32-bit integers, matching their intended meaning
+> > and the thermal implementation. The cell width and binary encoding
+> > remain unchanged, preserving compatibility with existing Device
+> > Trees.
+> > 
+> > Fixes: 1202a442a31f ("dt-bindings: thermal: Add yaml bindings for thermal zones")
+> > Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> > ---
+> >  Documentation/devicetree/bindings/thermal/thermal-zones.yaml | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> drivers/thermal/thermal_of.c still uses u32. Maybe we should have
+> of_property_read_s32_array() wrapper so the binding can match the ABI
+> code exactly?
+> 
+> Rob?
 
-Thanks for checking. You're right about the commit message: I saw the
-LED lit before Linux probes and assumed the firmware set it, without
-checking where it comes from.
+Yes, please. I did a pass fixing type mismatches so it would be good to 
+not add new ones.
 
-On the Lite, the schematic (sheet 21) shows RGPIO3 driving the system
-LED and also used for fastboot detection, through jumper J20 that pulls
-it to 1.8 V via R257 (1k). Detection happens at reset, before Linux,
-and R257 limits the current whichever level the pin is driven to
-afterwards, so I don't think driving it high conflicts there.
-
-Owen
+Rob
