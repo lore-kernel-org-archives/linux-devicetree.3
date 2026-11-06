@@ -1,105 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934137;
-	b=Qbk+k5uLduLVNHV21UJ81ZfHX+65CPFmmmZ3VhV0Z5Ga13ucM80OGBeZShKCv7O8hHuz
-	 B5EbQvp/vXJpK7rDibCCtwNdLVGDjaTg/IQ6X5yEKo5BiZT+UQWS6ZK38grMWQoW4MW8X
-	 w2OJUeQkbswmoBDZ//uHbu84Zm3PjhAa8HZ7uxIA/cjujPuCly9ZsZP5D4kKtJkrnB1wy
-	 pE9mBSiyg+uxAZj0eE8uLZYl9NmYS167CXMT/y2NTEqz3urs0Gy28BXBbILm9R3yvUOZ7
-	 UG/XHk3aWKUQdiCRgdiUpN7/aUB7SV2NGlAMY8Izalr/RyN2bJzgoBvkOG4WiGAU6IA==
+	t=1793934143;
+	b=ESlONXnPGPmSEg965d3+YcV4X6nw7ZX0G1+V69p68OeqSIOOaPdj1rKZQjDTCvd+kRlQ
+	 OTWteYB9wCHW4vy/k72UZoz3yOqWCCq+qY9cjdsOEGSbfEjNHs6e5AaCM7kQ+pkiQIaq1
+	 JS1VFyvvWsfecsUivVdCAjilOlKfwY8fGBP9EzVtlnYVf5qJgmRRNZ3P3Q+pm4DyTnXnA
+	 2rl9Fm73+xiz/2lb5HzaL+Uz8B2ITczwtYc0FVg4H4LeM3hNi/4ZrcvRLjSb3NEmHFUCt
+	 2Z8KykFpms+0VLZi4wRmDhDNwUXKEnMt6QBMq4Ed4KSqu/RoypBMO/L/BVHhYUMfd7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934143;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=8j3XvDGdW2LdaynxevrBPlpdLDG+c/bQ89+apeYiX/g=;
-	b=mDsiGr0VCz0ktzy8pnzkT+l/TGWWu0x71vb39629d+gpOdV+N7SHSw8JeszVJES0ilw9
-	 Z209uDRJa59GcJtF9qQVBeKx+3w5dQx7EbUhTQ4kpHBjzx9PFf1I5wdQN62VQn7kAp0iS
-	 SO0Cc4JzR7WzuE322zztknDv7Cgv68r/bZzpEJZvmpnvTYbLeMQxerUkUrsCHSlS1jRFc
-	 cZwqtEAoBBZ0oZSumzczlMIZ02c/ll4Z4W2i64A5/RwPb3yz1YCQTL9o2Q2A30e80hQGQ
-	 W9vY6tRrTlikk3i4CoUheHBNIpWSjM2RtCdIQU4Tr63psn1bTDRz4kT5peFCI7H+XIg==
+	bh=5UfA3BOUgK1alGio0S87cKIth7FxeOkstkWYSgowzaU=;
+	b=34aHw0q2fH2twHSc/SUa1SZpLnltKc/Non3hpGMGNSfzHsx4pLsdLapMpW65ZA1Yjic3
+	 aVFvNa+mLx6yZu0jav/+1mCmDtfbW6shwWOFm1eEKwEA+ROXxTZUuTcP8TdXQSyHqP3Wo
+	 h/zrw/IZyqGq1yUAGYYbhY9s+tSyMgyZvm3EH2Ths6QGy2qI7eif35QNyGRc45PhkqAZ7
+	 WG+3Rg7eUpNDlqVoCEmGk1UffwY3+Fgduhoq759SvoKYuY+w8Lv+Zn5QLb4ef9FBaHtO1
+	 aS6egx3tMNfRADhwltLJ7Z0ibYE3+6ljvTj0WUJTtf3N1nC7hEaeWPM7FudKd6PG85g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RHWtcteQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UZAcDcqX;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lQnhAmDZ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S0Izb9G3;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA5B606A33B
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 03:02:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA5B606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9532606A32E
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 03:02:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9532606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RHWtcteQ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UZAcDcqX
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5NeOvt1707471
-	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 03:02:16 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lQnhAmDZ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S0Izb9G3
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Nerqu2274553
+	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 03:02:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=8j3XvDGdW2LdaynxevrBPlpdLDG+c/bQ89+
-	apeYiX/g=; b=RHWtcteQGaMRU64YkRnqkmV191vilO66tfkPxdKF+xU5483fDKF
-	WZS9j5/FskroCvWXB1GiSvDywhNMVLx40cXNau6z3VpqIkfx4KroopaQ4Fdy9UOv
-	+vMJBscOU74HXOxilluzEp4OoPluQi6pc6n/mdrmY6O7/tV3dTGMChHd2yZ0qt16
-	7I1GCyA8+LSCBsoo13UoXipZeuIO+ADcWrAncMPpZ3XHdA3FB5T6VdJFqW36ZOYD
-	S+AG2ARJNu7+NIS3jE5hkzLxT8h5jpAT+5cbzLwaHVI1MCALqeHRIS1DxtxFBjUM
-	SoalYoUejOlhyOAZTZeoq5Y+FioN4sXf16w==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3p9gk6a-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=5UfA3BOUgK1
+	alGio0S87cKIth7FxeOkstkWYSgowzaU=; b=lQnhAmDZPR2roZQI0nbHuXYtDHI
+	xQ1THM1bvUCvie+0+B2k3ml0HVSIzB3GHmI0YunAzicoLiru/hmf4hPmZUMH6q4w
+	pZIRNBNOKYzKodlk0yZXkOM/FkYtfc/IEfexSoqGyfIB3HlSvZT4LyFVvqiSSKXy
+	AurN9odzGg8zZhqejoMxk6ntO+KoguEsd4P5K8mjHE4Qinp8lTAyhsgTKKiHx/6X
+	JxR4LK8PeU54nlob2b5q/YICNZt9VNACNn5vLHg1lO5Sg3dKKl+vEf+hJwsuV3a+
+	cZUxuRtrCYh+9GWcHf05EXtoc36jw+QzWmv1Vr/Q33v0k0+POIQz8DywwXQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pa0mtb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 03:02:15 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1ab289bb41eso211626c88.1
-        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 19:02:15 -0800 (PST)
+	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 03:02:17 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36cec75d8caso271158eec.0
+        for <devicetree@vger.kernel.org>; Thu, 05 Nov 2026 19:02:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793934135; x=1794538935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8j3XvDGdW2LdaynxevrBPlpdLDG+c/bQ89+apeYiX/g=;
-        b=UZAcDcqXVYesCM9ONw3xM6JzBcw438TjOAas4MGM/nsMj5SIhIbyCpYkfImxuTf5R1
-         x1vZpLM2qM/KvyaoXPUYbMV3CBzqDFBSBfVELCnygeSYY0aRCJsJFkL/H8MDbVO8gM9P
-         ztTRbQLOBsEo+wU1YwWUznQE6Y4QhbqkyDb/hAPI/YotAA2ttTQp/tyoKccZpCVc382p
-         HZWjEAknNn/hC7Fnsub3RHQZIHDB4jvFjwC0v6TQJuUP/X7RW/f2jbhTc3XvExjanvUD
-         FtRfbbe2rrz5YzyE1KMlq/sZ1RDXNX66KKJplvED51OZCKaQw7O2sI1sXbYEjIV9QuyD
-         hlYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793934135; x=1794538935;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1793934137; x=1794538937; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8j3XvDGdW2LdaynxevrBPlpdLDG+c/bQ89+apeYiX/g=;
-        b=fQJ+LlUZvPb+QZbzKehk+mYOtCPePnm7eCsKSpf+0tF5GqLzOmJjk+CGfeJ3qrYPLR
-         ky/P6nFxpr/9yUUdQRsZ2MAPgEQqQU5uLRLZ3XH4waGzDHxdQnu6bOzwaifHa4CRK3ac
-         6yA7Hu/pKSKXxPFOX0otT1DeBUhEMoGOE4+0aLVUIU4mOpyQ0gbjq0aIf7LOIhV3AeVB
-         rpii3FKIIln/N7FokWwsR+dWxlllqg1O1veg84TwnPLtuZRQFDRAEOGsWjCsi3eN3Bpa
-         Noxc4utSCA7vZ3+eUXFEY9w0+vLPmvKx+47qGh1crdEpVAFt0epP4IQ0865ySLY9tN3I
-         xUkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvYK3LfhcTmajUwHW3AMbT9KRXIQzM3fjyQ7ooY2ix2bR9KbSAHbZVevfBnRNMH/SPtt7QmN1bYTDE@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AKR8ngfF4lxs5mSWo2Uoq8k5D3VdGUNyGe7aJJTrlCeopJcTB
-	ym/uIIXxWkxFoeB/eNmUu2FWJ9YzWPpu8KD98prmlpLXE7vvvtx+u4hHehQLiesKT5piqlou3o6
-	wC33pnEYuQSTfaxkSqCHtEle8yAj1YxifAFijoWau9YKM2/aatv+7ar4auEPOtykU
-X-Gm-Gg: AYBFou2T79UgdYlBNqggXUYKmsLH/gwB9Y6U+Z4Z7CzM85JQGB78GV0sWsyEqulOb8e
-	Zkek7R37nBluMEWLmUSFPdaBM1xhS3zcPQRqnpxLH3oUMedocAveoDioeH96KnhIvmX8mpPDQoQ
-	SdfFT1VZcuKAG5GRtKRpu1UIooy0+Kg4/WgGc1oO55oAmUpfpBU3ZCEHr5tcuCBKULdLYF5NKQc
-	bKbeDLPyeDP/G3JYMyC6AqoYRrMGYuSwLTlSKNOlijFUpzzsx/a8xPMahXH0R0ld9D97Tg9Y6dE
-	9HDNMUiEXlef6rE/pvH1Eb5kfsp5NUIgz+Cr6rFhoG329+reutKO9cokHA2lxRN1a9YXEqAEpp6
-	ZD7OikzE1DFb5ty4H30bBz/viOziZyyLhZkgQyLTx+rS+92JKxyyoxle40YCD8je244AOFWEOmv
-	eapUBERCl7rwMPSPOwNr95A/i+lSY=
-X-Received: by 2002:a05:7022:1702:b0:184:40db:6bb9 with SMTP id a92af1059eb24-1b24f4aa5eemr6003002c88.8.1793934134742;
-        Thu, 05 Nov 2026 19:02:14 -0800 (PST)
-X-Received: by 2002:a05:7022:1702:b0:184:40db:6bb9 with SMTP id a92af1059eb24-1b24f4aa5eemr6002959c88.8.1793934134052;
-        Thu, 05 Nov 2026 19:02:14 -0800 (PST)
+        bh=5UfA3BOUgK1alGio0S87cKIth7FxeOkstkWYSgowzaU=;
+        b=S0Izb9G3O9Hs3YnAlYJp1rXEWxSwBKoXmC4ZR17EPMb6HxEO79KKuOalZTps+Ect5n
+         TJoZeofgew/XAtjudCpNS2sbYMvkqtECqPOalwYYDEe7KiT/17iATmMhdlIQll3C47eI
+         zvdEmUIYKbHamlJguYaTxFD0jIKgA/Aoq0gZ9qvTxVuoKcK1MJMP+9ZHf7NLntR/k97N
+         DpoH72vIKw++3sl/VxrT/vf/vb9MzYsZE3ZnWUwqMBhi9sWQzLn3vBbsEo2YmwXMXuSL
+         WMINQ4Mow6EkIpPRxzSFj6eJbrR28zNxB2WAc/SiUqfCXYbLLmza/8511+bsLi7GvaBo
+         vvog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793934137; x=1794538937;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5UfA3BOUgK1alGio0S87cKIth7FxeOkstkWYSgowzaU=;
+        b=P4fmK+PTyl8pYw6gc6QIBc9EDs3yUNGvYcA/gvg+Vl3VqbTFf2oJhza6FYQ6PEb5+4
+         PxkiSqAOYDl7DNgWwUbdMW9IwM7pAqWdjqlQi66WuGiMYMPXtJ7GWXB1mxLe8oeaknmm
+         EBYmmcJZkff1y7wjqaIWZdtgZ3mEq3kmJe+Z5ffYf4EAGdgipVHrbN7GWi01lEDtvHDE
+         5Qky3DwkH1iVVOSMpx38NeeC1w4R62nUOMPCujQtv1b/DB99eTgY4BNzWO8D23/XIveK
+         0LR2aAEx2I2sQAZRRGMYRgOni8cmfBp3NGrleCqVRv6IfP46NZJwd4HAzlfDFuA9ajbD
+         u2Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBy2uqPvGBMWXX4wImLC+kvc008dZohM4OnmWnBct0oOmF4hOHNWSbF7QXFwgWbUJFigtT5NF2Hg2p9M@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OLGyVvZ/k5OKyhJOpnWSZ3NIPJ2BNOHk1AEn5zxmYPIZK0Hgn
+	il9cGo7PoVodebWJwWGJjJiW310CNDXzoQmjG05jw+D7QE4MFEciuxZ+zx/MJ1jg/K6calNHVj2
+	m17oN+qGdhcfm5cIVwbumxEgw21sluhr6d+wh3b1aS4x1I7RYde3cVspsLV13EMkw
+X-Gm-Gg: AYBFou2+p+bvboiRa/kdpv0FVTj5TTK72ku3wevOuyiSYWcc0QMpPDSRq6Kt6mTL7Mo
+	IUAehMBhENkCtdvTa08XC7xiMCsLc6aM9t71dLoHdOjdbqFQRZMajPcSlYGbsUrwWHYsiEwhryA
+	kE8KsPNbKl0dLnkoaGG9dYtI8k1O5N5MXM13Tjqxn4XEkgYepnED0U/8REfPm/+DnfsDyUS33Qf
+	LhBKbeqPoK75fcGqYsRIl+polxFk9L5k8mMQXNAGgT1qPlcfVrZ7gJruvWNQ0MoqvKCqj4znS1W
+	+BDyqCoKUaU37Z8gVOIIOgpuuj1AULUAP2VeRYNVInL1zUGw1WDutd9QvjeY9eos1Ju9rU2G+aI
+	7gbWzCA0jI5pgwvzvT3JC6AFMpbzw4+qG3ON8Ib1EPMFIAzqMBH1MKEMUp7Bnx/0Q7Gd4TQjwTu
+	WFp3rrNY1yq1/ty3AA5N2DykOrKSQ=
+X-Received: by 2002:a05:693c:6205:b0:36a:79cd:12df with SMTP id 5a478bee46e88-36f77bee0c6mr1721583eec.9.1793934136567;
+        Thu, 05 Nov 2026 19:02:16 -0800 (PST)
+X-Received: by 2002:a05:693c:6205:b0:36a:79cd:12df with SMTP id 5a478bee46e88-36f77bee0c6mr1721532eec.9.1793934135921;
+        Thu, 05 Nov 2026 19:02:15 -0800 (PST)
 Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9ed126csm1484905eec.18.2026.11.05.19.02.13
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9ed126csm1484905eec.18.2026.11.05.19.02.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 19:02:13 -0800 (PST)
+        Thu, 05 Nov 2026 19:02:15 -0800 (PST)
 From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -109,10 +110,12 @@ Cc: Abel Vesa <abelvesa@kernel.org>, gjorgji.rosikopulos@oss.qualcomm.com,
         hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
         jigarkumar.zala@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] arm64: dts: qcom: Add CSI2 PHY common-phy providers for SA8775P, QCS8300 and SC7280
-Date: Thu,  5 Nov 2026 19:02:09 -0800
-Message-Id: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
+Subject: [PATCH v3 2/3] arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
+Date: Thu,  5 Nov 2026 19:02:11 -0800
+Message-Id: <20261106030212.2811027-3-anusha.nandi@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
+References: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -123,109 +126,182 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 55XqMRL_RxLPMbf6SEAZLk7T3Lb5fblz
-X-Proofpoint-GUID: 55XqMRL_RxLPMbf6SEAZLk7T3Lb5fblz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfX/jRMWc9MRfhJ
- 34chCKoBPdY0poEImSjpMt2tl4hJFCe9BTUZP9oRzmIV7QL2pexKIWxjbBCF0lvYlVzRp+8YdPY
- F/teK+Xh7LSkPCKA3bQ16qt3T7usLSY=
-X-Authority-Analysis: v=2.4 cv=XvNvqlF9 c=1 sm=1 tr=0 ts=6aed4337 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfXynycnNuCqmgf
+ bX21yFveJMgMea8LlQ/aAeb3XzXLAg9IxFOsLHqjxc6ySZ4YcDTmoR+wcwkiq0thkanGosH3C29
+ hBsgpFJCTTfUlc7aVvOOAObFpyI1bHXeu7P17ingBvmFHQSNDCQtho15hhlVMZliTwAsPRWkcfZ
+ WS6seWn3ik1OuI6ByxqYHQ0RrHRh9HNxh+N+pzCqQ5l/OO22e1Qaa+QQ/bD/UdEXs3dnxKbVqJH
+ IMX/hvu9GirYO1BPJhhP6aG/9QjMFokVRiLXBFqGY5FhIX2kVby9HJ54SH+3XRic2hnQGsKxPmt
+ RBhbYo3Vo/M8rOfr+uBfjBsGkt2BM3sN609AtqqG61gbQ52Gm60DC4v2t8iw/9YjiOp5ax6V/Ho
+ IsVjWfEn9IvJXut4Qz1SKlfiVCt0oCO6+rKgqdk+unMSQC9RZ/hLKyfJ/nZGVwta1sP9SjJW3YH
+ 05YOG6xuuQwDmGbMDQw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfXzF8nfVBqyaCK
+ mNgzE0Anu6aURp6lxEf3PXpPt2YCIL/A6IVmbWzVgp7/3dcU6cCynEFqtYngZmQePIVDtqfN27e
+ TY+IzhcJ4a0O0Lc1qhyZ1mIQzQ7xInk=
+X-Proofpoint-ORIG-GUID: sJGiA9FE5DphWrmMHYmIShfgIji_ZsIF
+X-Authority-Analysis: v=2.4 cv=GpzXaU1C c=1 sm=1 tr=0 ts=6aed4339 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=TtAy84kTgrs9sRaG4nIA:9 a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAxMSBTYWx0ZWRfX+fizl3xfUJ+6
- pKU4bG7wi6OJ8LgU6H8W+dIg2KSc+x+Z6cY57e/GF6oru1/7BceBzmmiNX7jUnyMFGVSIOiXq6g
- YZXhxzPkVqWYAID94gGifauSOUDLpjEQ4YrWukNaWGQCICponMnDB9KUC/xsVxOQH0qjMa/cc5j
- 2EfKTCSNhFycrEpQkmds/PtXtlPXOT9saiCaC4UO5Wv6WFVOEzS0wYgQIOi+/zuql6QFUyrwNnC
- sqvg6hRXrjRdiIUaZ/cU6nSCjjjPr8vBQI6ov9X/2QCm1z6vSEnlOhPLcsBUwPw/J6d/CX0adY2
- p+6KpczTUGM5U7eDLVr/k8iOIJaan/pAVYdc38u9SRhBlCIePUzEmvn46j8p26jjXJF0vYJwjvq
- 7ZaMLWcJN00tCZ+ReSOkbeiTkTIQpxb8qgHKqKb962JVdJS+KLiKIO60JhaaTSao/THDV7JfnRH
- RX6UH8puYoZznwyLeXA==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=n2D47ajo8674fvOcmZAA:9 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: sJGiA9FE5DphWrmMHYmIShfgIji_ZsIF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060011
 
-This series adds devicetree nodes for the generic Qualcomm MIPI CSI2
-PHY driver on the three platforms whose compatibles/soc_cfg were added
-by the companion "phy: qcom-mipi-csi2: Add D-PHY support for SA8775P,
-QCS8300 and SC7280".
+Expose the three QCS8300 CSIPHYs as standalone
+qcom,qcs8300-csi2-phy generic-PHY provider nodes (csiphy0..2) at their
+existing register addresses, each with its own OF graph (port@0
+sensor-facing, port@1 CAMSS-facing) so camss_detect_legacy_phy() picks
+the non-legacy path once a board wires a sensor through one of them.
+The camss node's own reg-names/clocks/interrupts for the CSIPHYs are
+unchanged, so boards that don't use a provider still get the legacy
+binding.
 
-Each CSIPHY is exposed as a standalone generic-PHY provider node at
-its existing register address, with its own OF graph (port@0
-sensor-facing, port@1 CAMSS-facing), so that camss_detect_legacy_phy()
-picks the non-legacy path once a board wires a sensor through one of
-them. The camss node's own reg-names/clocks/interrupts for the
-CSIPHYs are left unchanged, so boards that don't use a provider still
-fall back to the legacy in-driver CSIPHY handling. All provider nodes
-are added disabled by default; a board or camera overlay enables the
-one(s) it actually uses.
+csiphy0..2 drop the extra "csiphy_rx" clock: QCS8300 binds through the
+sa8775p soc_cfg (no dedicated QCS8300 camcc driver exists), which only
+declares two clocks ("core", "timer") for this PHY, not three.
 
-The three patches are otherwise independent and split one-per-SoC
-since each touches a different dtsi file:
+csiphy_opp_table moves to the root node, not inside soc@0 (a
+simple-bus), since it has no reg/ranges property of its own; its
+opp-300000000 entry is dropped too, since QCS8300 shares SA8775P's
+camcc, whose cam_cc_cphy_rx_clk_src only defines a 400 MHz rate.
 
- - Patch 1 adds the four SA8775P CSIPHYs (csiphy0-3) as
-   qcom,sa8775p-csi2-phy nodes.
+The provider nodes are disabled by default; a board or camera overlay
+enables the one(s) it uses.
 
- - Patch 2 adds the three QCS8300 CSIPHYs (csiphy0-2) as
-   qcom,qcs8300-csi2-phy nodes.
+Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/monaco.dtsi | 104 +++++++++++++++++++++++++++
+ 1 file changed, 104 insertions(+)
 
- - Patch 3 adds the five SC7280 CSIPHYs (csiphy0-4) as
-   qcom,sc7280-csi2-phy nodes.
-
-This series depends on the compatible strings and soc_cfg entries
-introduced by the driver series referenced below and should be applied
-on top of it.
-
-Depends-on: https://lore.kernel.org/all/20261105235137.2635442-1-anusha.nandi@oss.qualcomm.com/
-Depends-on: https://lore.kernel.org/all/20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com/
-
-Changes in v3:
-- Patch 1 (lemans): moved csiphy_opp_table out of the soc@0 simple-bus
-  to the root node (a simple-bus's direct children need reg/ranges,
-  which an OPP table has neither of), dropped the opp-300000000 entry
-  (SA8775P's camcc only defines a 400 MHz rate for this clock, so it
-  was unreachable), and reordered csiphy0..3 after camss so soc@0's
-  children stay sorted by ascending unit address.
-- Patch 2 (monaco): same csiphy_opp_table root-node move, and dropped
-  both the opp-300000000 entry and the extra "csiphy_rx" clock from
-  csiphy0..2 (QCS8300 binds through the sa8775p soc_cfg, which only
-  declares two clocks, "core"/"timer", for this PHY).
-- Patch 3 (kodiak): same csiphy_opp_table root-node move; its
-  opp-300000000 and opp-400000000 entries are both kept, since
-  SC7280's camcc genuinely supports both rates for this clock.
-
-Link: https://lore.kernel.org/all/20261103221026.3662383-1-anusha.nandi@oss.qualcomm.com/
-
-Changes in v2:
-- Patch 1 (lemans): dropped the extra "csiphy_rx" clock from
-  csiphy0..3 (3 clocks -> 2: "core", "timer"), matching the driver's
-  sa8775p soc_cfg, which only declares two clocks for this SoC family.
-- The "undocumented compatible" and "camss_detect_legacy_phy() does
-  not exist" comments on all three patches were resolved by the
-  companion phy-driver/binding series and CAMSS work landing, not by
-  a change to these dtsi patches themselves.
-- Patches 2 (monaco) and 3 (kodiak) are otherwise unchanged from v1.
-
-Link: https://lore.kernel.org/all/20261017001116.2318647-1-anusha.nandi@oss.qualcomm.com/
-
-Anusha Arun Nandi (3):
-  arm64: dts: qcom: lemans: add CSI2 D-PHY common-phy providers
-  arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
-  arm64: dts: qcom: kodiak: add CSI2 D-PHY common-phy providers
-
- arch/arm64/boot/dts/qcom/kodiak.dtsi | 172 +++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/lemans.dtsi | 136 +++++++++++++++++++++
- arch/arm64/boot/dts/qcom/monaco.dtsi | 104 ++++++++++++++++
- 3 files changed, 412 insertions(+)
-
-Best regards,
--- 
-Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+index 35fbee63d4c6..a66c04a1d306 100644
+--- a/arch/arm64/boot/dts/qcom/monaco.dtsi
++++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+@@ -644,6 +644,14 @@ opp-120000000 {
+ 		};
+ 	};
+ 
++	csiphy_opp_table: opp-table-csiphy {
++		compatible = "operating-points-v2";
++
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++		};
++	};
++
+ 	pmu-a55 {
+ 		compatible = "arm,cortex-a55-pmu";
+ 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW>;
+@@ -5577,6 +5585,102 @@ cci2_i2c1: i2c-bus@1 {
+ 			};
+ 		};
+ 
++		csiphy0: phy@ac9c000 {
++			compatible = "qcom,qcs8300-csi2-phy";
++			reg = <0x0 0x0ac9c000 0x0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
++
++			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		csiphy1: phy@ac9e000 {
++			compatible = "qcom,qcs8300-csi2-phy";
++			reg = <0x0 0x0ac9e000 0x0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
++
++			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		csiphy2: phy@aca0000 {
++			compatible = "qcom,qcs8300-csi2-phy";
++			reg = <0x0 0x0aca0000 0x0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
++				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>;
++			clock-names = "core",
++				      "timer";
++
++			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
++
++			operating-points-v2 = <&csiphy_opp_table>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		camss: isp@ac78000 {
+ 			compatible = "qcom,qcs8300-camss";
+ 
 -- 
 2.34.1
 
