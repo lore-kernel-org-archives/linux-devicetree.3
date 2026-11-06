@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962824;
-	b=dd9NuHtAws5IdU9FDGciT4uory1CAC4PyBVLNeIyb68XktHcCp3AocCy/7OE4G+hSYyh
-	 nWY/Eg/2+P52YOYrSJ+1g2/x58b6XdPEZR1dRe78NVl4PxG6HXvouPR1aq/CjUt1xgEKZ
-	 OjdDpcd2U58xYKzJEx3MbY2iT7moyTzqCzK0IkgXEq6UnDwigzgrTmAgxsEF19y7yF+eI
-	 8j4Eb7XnllkqtmGDNyUGUzULqoYE6Dl8GJVlkQzVy/qGrc6qqgzE7L+8UHGNEgpwUU1Tu
-	 iUA7qcKLGigwGN4Z/Bki1E89gESJ0cuxrwINPb5YsKs0ypBi9gaZ8o2dwJnWAHa2NBQ==
+	t=1793962833;
+	b=SwqJjhhAhZe81I6UteV3sCREsibyqfOZsPk8N8QE0bSl5Z3eesdsQINyrb5sSINbs8NH
+	 2y3OfEsoEy+aZYs5I+eMFLwNKW9HD3UBsriUJ66f6l1SsFlfXdER5MvIcoknBGq8pIG9m
+	 0hB5ZKpFUVgz+IOHIGsYif2LdaPRjTvjqGb0Q0ZUahyUwGpLl687+dvmP7GaiyPLMaihz
+	 1bL+RX0BfQk8g/vt1kq+wb4O4vTkf4OeUdpdeA6YcbvrPkLaDZQwPztrDKVHDeQJwebLj
+	 SoMmiuC5KW2IDSI8u+wHWR3dg3Nj84nQzCvY20N3p0CYwK4geVeOL9YuxKQ6Xc4ic/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962824;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=hwHd99ywMgYwfJC1nFZNiGjzvWRJKWtVA7N0uQzzsGY=;
-	b=Nvp3oUICLjIQov6F3wKtKAKy+zC1ZpcyqfKyHJyY5Snq714AAsH3sBdh7zcQTOBrgfCj
-	 SLkUgXmVR+vETXhTHam1tjy+JC6Qbd4tXCTyZCQ6xIHEsRvYWCRZFJodcMk/Jk/s5USvE
-	 dTLz/5pk2eCNUnl+2r2bB/I/O+x61rdqhwbbpVpjFHAcMNKkvb2Ncq8iquvRVLlXwqGwV
-	 9qo7bqbODnyY0B27gcVvEwJQgVD+AeR/zXM873sC7YxztyPZZ2OZ2hXoMBZDKLHoQ5yA5
-	 0lGkJEWKdu5xd9tlFRKLjP3e3hcyvc1CgLFSkInimGEYFWtOK8L/8Du4HGPsx33Xj0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962833;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=c6ZP+n4jTxODTuXEkRNjigB7pFafrPalf2+5uOxtheI=;
+	b=RgB6xcxFPj6RvzIpKTO3y8qaaSz1Zf24WnKrAx7gj4Lg/4mwrdXFRWsQeWr+NXIkb44B
+	 xpl+gKm7HP5aNDYImCRmemTMD0jy1jrVEy6kBxnAxm16Mh9Q9+nEhcKOaxF/2lOwFSxvU
+	 pgJ8PBP6YK9JzxUtCX/Wl8VqzEfo1BGcZdLB7ANAjz86RwPf5tSWGxd9ieO77UDF5N2HR
+	 M/Y/bpE9fZU73xrNV7avex0Si6Mc3cFsKCJIfjd5SfoKy0i+spXnX9c2Mjl/b87p0nm2m
+	 Px1O8Ui0LeJUpS6WjG85fH1WXCgehEuSX8Ol5vb5tX5w2/2XN6SNTaC5IUnYJKxwWkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkXh24YF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mv24GXNn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F35F606A32D
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 11:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1FF606A326;
+	Fri,  6 Nov 2026 11:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bkXh24YF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64B41F0089F;
-	Fri,  6 Nov 2026 11:00:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mv24GXNn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7077A1F008A5;
+	Fri,  6 Nov 2026 11:00:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793962824;
-	bh=hwHd99ywMgYwfJC1nFZNiGjzvWRJKWtVA7N0uQzzsGY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bkXh24YFsYWI3AYpdeunIZ8hrEcnswsYlNowlcu6cYloJVAk8w6aQMQ7GpRKor8yL
-	 btjxAIpK2k/khTYn7nImZzjzv9orRJHXhNAaxPg2JPmOjC7vrJKbd2nL6imlrd1yhF
-	 etbuWTm5zLTEMJaBHAjV8FRdYRblPtyH6nSHB8Ygml0bb8Hg1kCTaIW35YQuGdLDBc
-	 Mb+JOjZqFMOjqAcH44DjbyZnZCuwXbeg/etZS1rlOwcSgsSHU9u5hmjvoYiegsyDtO
-	 70nJOAsU5n1Enwc9hpZONtmgYVOcyA3YLrI7EJyyZy2NXSLpCpwGf5wfto2dtqUYb/
-	 DzriljvgI/pqA==
-Message-ID: <sashiko-outbox-201263@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/10] arm64: dts: amlogic: add the Amediatech X98Q
-Reply-To: sashiko-reviews@lists.linux.dev
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261106104659.54656-11-christian.koever-draxl@student.uibk.ac.at>
-References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
- <20261106104659.54656-11-christian.koever-draxl@student.uibk.ac.at>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 11:00:23 +0000
+	s=k20260515; t=1793962833;
+	bh=c6ZP+n4jTxODTuXEkRNjigB7pFafrPalf2+5uOxtheI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Mv24GXNnYV8YQMLVWD1oPUYuwmDlI8kaswjcHMtv1s385+Lo1+75ZfyeCy9x/wr6L
+	 NhcC5C0RKSB70s9tQvJ0Qr8aWOsLVxYjE+dlhDZtTH7TNuSOJA5CwXEmch+eii0euR
+	 iF+qDBf+WZdlvoyV57a8ckoOcr3Xfm4Dv3T/46nsG1/eHSXqeYtQnLmF5ufm1md7jm
+	 J5vOP+7sstc4jmNLD2Wr6VHx7OPd+BbdzW9bgTItU1ScB+1Fv025D2oU9QLGIqnv8t
+	 6A3Jtr4lFTUDWYpHnv4GHN613uAi9KnWTiOQ3CWM48o1YdF/JS1hmws2alFRFlZDMQ
+	 Smve/rQyxo+KA==
+Message-ID: <13a16c37-90f1-43e6-a50c-80c8ad8a2168@kernel.org>
+Date: Fri, 6 Nov 2026 12:00:26 +0100
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,166 +50,104 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: nvmem: add STM32MPX TAMP backup
+ registers
+To: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Simeon Marijon <simeon.marijon@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
+ <20261104-upstream_nvram_reworked-v4-1-144024496a44@foss.st.com>
+ <20261106-truthful-humorous-centipede-bc21ab@quoll>
+ <f8a1dacf-f701-4d04-b837-906504d6afa8@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <f8a1dacf-f701-4d04-b837-906504d6afa8@foss.st.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issues to consider:
-- [High] arm64: dts: amlogic: unimplemented amlogic,core-phase-degrees
-  in x98q sd node
-- [Medium] arm64: dts: amlogic: invalid rc-x98q map and wakeup-source on
-  x98q ir node
-- [Medium] arm64: dts: amlogic: unimplemented amlogic,shared-antenna on
-  x98q bluetooth
-- [Medium] arm64: dts: amlogic: x98q enables S4 usb, ge2d, and thermal
-  without drivers
-- [Low] arm64: dts: amlogic: unused sd_3v3 regulator claiming GPIOD_4 in
-  x98q dts
---
+On 06/11/2026 11:33, Patrice CHOTARD wrote:
+> 
+> 
+> On 11/6/26 11:16, Krzysztof Kozlowski wrote:
+>> On Wed, Nov 04, 2026 at 04:20:08PM +0100, Patrice Chotard wrote:
+>>> +      nvmem-layout {
+>>> +        compatible = "fixed-layout";
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <1>;
+>>> +
+>>> +        /* Data cells */
+>>> +        wakeup_sec: tamp-bkp@0 {
+>>> +            reg = <0x0 0x4>;
+>>> +        };
+>>> +        boot_mode: tamp-bkp@50 {
+>>> +            /*see boot mode selection feature*/
+>>> +            reg = <0x50 0x4>;
+>>
+>> Mixed up indentation. Please also run scripts/dtc/dt-check-style and fix
+>> obvious issues.
+> 
+> Hi Krzysztof
+> 
+> scripts/dtc/dt-check-style  doesn't return any errors.
 
-commit 3b50767a39ee59efef6457c4aa95bbf033834748
-Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+Yes, bindings should adhere to strict mode, see line ~40 in DT
+submitting patches doc. Srtict mode would complain:
 
-arm64: dts: amlogic: add the Amediatech X98Q
+Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml:50:
+example 0 [indent-consistent] indent mismatch (expected depth 3 * '  ')
 
-This commit adds the device tree for the Amediatech X98Q TV box based on
-the Amlogic S905W2 SoC.
 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts b/arch/=
-arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
-> new file mode 100644
-> index 0000000000000..388198756a3a2
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-x98q.dts
-
-[ ... ]
-
-> +	sd_3v3: regulator-sd-3v3 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "SD_3V3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&gpio GPIOD_4 GPIO_ACTIVE_LOW>;
-> +		regulator-always-on;
-> +	};
-
-[Severity: Low]
-Should &sd use &sd_3v3 for vmmc-supply, or is regulator-sd-3v3 unused on
-this board?
-
-regulator-sd-3v3 claims GPIOD_4 and drives it low at boot via
-regulator-always-on, but &sd below sets both vmmc-supply and vqmmc-supply
-to &vddao_3v3, leaving &sd_3v3 unreferenced.
-
-[ ... ]
-
-> +&ir {
-> +	pinctrl-0 =3D <&remote_pins>;
-> +	pinctrl-names =3D "default";
-> +	linux,rc-map-name =3D "rc-x98q";
-> +	wakeup-source;
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Are "rc-x98q" and wakeup-source supported on &ir?
-
-"rc-x98q" is not in Documentation/devicetree/bindings/media/rc.yaml or
-drivers/media/rc/keymaps/.  At probe, rc_prepare_rx_device() falls back to
-RC_MAP_EMPTY (RC_PROTO_UNKNOWN) and passes that to
-meson_ir_hw_decoder_init(), which returns early without setting
-IR_DEC_REG1_ENABLE when RC_PROTO_BIT_NEC is not set, leaving the hardware
-IR decoder disabled until reconfigured from userspace.
-
-In addition, Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-sets unevaluatedProperties: false and does not allow wakeup-source, and
-drivers/media/rc/meson-ir.c does not configure wakeup support and disables
-IR_DEC_REG1_ENABLE in meson_ir_suspend().
-
-[ ... ]
-
-> +&sd {
-> +	pinctrl-0 =3D <&sdcard_pins>;
-> +	pinctrl-1 =3D <&sdcard_clk_gate_pins>;
-> +	pinctrl-names =3D "default", "clk-gate";
-> +	bus-width =3D <4>;
-> +	cap-sd-highspeed;
-> +	/* Fails CRC at 50 MHz with the default 180 degree phase */
-> +	amlogic,core-phase-degrees =3D <270>;
-> +	max-frequency =3D <50000000>;
-
-[Severity: High]
-Does amlogic,core-phase-degrees have any effect in mainline?
-
-Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml sets
-unevaluatedProperties: false and does not define
-amlogic,core-phase-degrees, so dtbs_check fails.  At runtime,
-meson_mmc_clk_init() in drivers/mmc/host/meson-gx-mmc.c unconditionally
-programs CLK_PHASE_180 and never parses this property, leaving the SD
-controller at the 180-degree phase where 50 MHz high-speed transfers fail
-with CRC errors.
-
-[ ... ]
-
-> +&uart_a {
-> +	pinctrl-0 =3D <&uart_a_pins>, <&uart_a_cts_rts_pins>;
-> +	pinctrl-names =3D "default";
-> +	uart-has-rtscts;
-> +	status =3D "okay";
-> +
-> +	/* Bluetooth half of the Amlogic W1 combo chip */
-> +	bluetooth {
-> +		compatible =3D "amlogic,w155s2-bt";
-> +		clocks =3D <&sdio_32k>;
-> +		enable-gpios =3D <&gpio GPIOX_17 GPIO_ACTIVE_HIGH>;
-> +		vddio-supply =3D <&vddio_ao1v8>;
-> +		firmware-name =3D "amlogic/aml_w1_bt_uart.bin";
-> +		amlogic,shared-antenna;
-> +	};
-> +};
-
-[Severity: Medium]
-Is amlogic,shared-antenna supported by the binding or driver for
-amlogic,w155s2-bt?
-
-Documentation/devicetree/bindings/net/bluetooth/amlogic,w155s2-bt.yaml
-sets additionalProperties: false and does not define
-amlogic,shared-antenna.  In drivers/bluetooth/hci_aml.c, aml_parse_dt()
-does not read this property and aml_setup() passes
-amldev->aml_dev_data->is_coex (false for data_w155s2) to aml_config_rf(),
-configuring AML_RF_ANT_DOUBLE instead of AML_RF_ANT_SINGLE.
-
-[ ... ]
-
-> +&usb {
-> +	status =3D "okay";
-> +};
-> +
-> +&usb2_phy0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&usb2_phy1 {
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Can &usb, &ge2d, or GPU thermal throttling probe with the compatibles in
-meson-s4.dtsi?
-
-In arch/arm64/boot/dts/amlogic/meson-s4.dtsi, usb2_phy0 and usb2_phy1 use
-compatible =3D "amlogic,s4-usb2-phy" without an "amlogic,g12a-usb2-phy"
-fallback, while drivers/phy/amlogic/phy-meson-g12a-usb2.c only matches
-"amlogic,g12a-usb2-phy" and "amlogic,a1-usb2-phy", causing
-dwc3_meson_g12a_probe() to defer indefinitely in dwc3_meson_g12a_get_phys().
-Also, usb2_phy0 and usb2_phy1 are already enabled in meson-s4.dtsi, so the
-status overrides here are redundant.
-
-Similarly, &ge2d uses "amlogic,s4-ge2d" without an "amlogic,axg-ge2d"
-fallback (drivers/media/platform/amlogic/meson-ge2d/ge2d.c only matches
-"amlogic,axg-ge2d"), and cpu_temp uses "amlogic,s4-thermal" without an
-"amlogic,t7-thermal" fallback (drivers/thermal/amlogic_thermal.c only
-matches "amlogic,t7-thermal"), so neither GE2D nor GPU thermal throttling
-binds a driver despite being listed as supported in the commit message.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106104659.5465=
-6-1-christian.koever-draxl@student.uibk.ac.at?part=3D10
+Best regards,
+Krzysztof
