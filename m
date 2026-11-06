@@ -1,107 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.82
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793962063;
-	b=Wnc0zK6uk5g8DfgjtqYqi/KQh0SKeXoyCCtdq7vToAdOuwBCWYdU465nu//Y5912bn9f
-	 0nz9Mxzf/rs1Eg6xsKC8JywQxUHHONLQi7X+n2X+M9ojcdeJY3ae4VXhSBLBNNI/MVG1q
-	 CWEhLYRfurmXZyG00wLXjBaK+PxfbamKbzuGZjTkK0spiJGv2i9TtYNpVYZZsnDFggCqJ
-	 VgK3gHzWaUBAxMg5O1X2yJXSGFmnTaiuv4UCVrP72/dx3DK+eNdq7wXpAGAbyoZdIZLaa
-	 OUlK3sb6l+Q1dJoqoe5VaYBisoH26M31DjDARbVDnqlexoqab7Dmr/RfJdOVLBQCfJA==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.221.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793962279;
+	b=C6RRfKh7wTFEn2gJn1FAxgk7V+mwitqW0jeN9zIRmky17LC2uC1RvWcOtz7OJ9dv55KS
+	 tnRqvD5G58KvZVPi+eqmYaKqyJWJnBBip3Mbt9asKfpBOSvCroKXcgWtlW9Mes6RuZ0y6
+	 v69G0dqd+3F67SyOYgV943ImrB/gwlajwE2rRxsuI6qIgsrownQRmQcNoq656238M4cZE
+	 g4xpPS1T24akUnRtnwGp3Pa+/tzmUHogDskzI+ihFPX7BMjqMUIaeIaUAxzDupoxaFjPt
+	 DVd+rdpFonHLVpOousKp/Io6adEU91LaOyWZ2SaDBR6/5WX/jUqyVo+1z08NHiHAhCQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962063;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hy9gFYTveJgCHC3VkCJIkxsZGmNRezdUbbJ0LlXZWFc=;
-	b=B3FrJbujE3sK5RCTbT2Vwaa0DRJ58h7l2MexRPsTD1kydyfzNMoNN5rCcBYKg5oGUTeI
-	 lS7qgATzX60ZyLgSB94+WI2xvNcIpzo6VZ7zF1XnXqgrC24p8ZwCSpCb//wbgbyBPlNPv
-	 L2dKDt9x6AmhODc/6FkKBoU6fZQcQGbzolzD3rcRiLbRYS+iQpzYDqIwowQG0mRc8STY3
-	 2yjsGItrrht8zVOkG98up47x0Vuzeal5miuJBWmA7v8mE3eAABnaQBdoxgwkaTvGK2hme
-	 o9f6bXxybsYNE/562qSqJtJAFHcf1P5hR9WJ64p+L60FrpWBBiDiQQwScq04e92+Ghw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962279;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=F7cZJhjMigMK3SyfW4mjHv4UpuzgfCewD2MzacTp3SA=;
+	b=qeFQjVOiG3C0J63nihlzF22B7MQk3xn61C0CIaq4yKPoxS/snjKkeS79YtsdEPp7Lppw
+	 rG+lJx3d/fZgyytds6k7jEijibtq5TVfd7WahfFRjEUIzjY+WgtBipDjhFNra0/iZGWVF
+	 rI1PQcAh/EUVxYrR1slOYbNm2dJ3ai28vt42ngXWkl4HM+4I5pTMFlZf7Z8PdguzDABBR
+	 CKfHitJdejX4krOlnG4jQ/5qsoaiDv0fD5Nmkg1MMM3SBKE0JD61zFv8/vPovrGn9y7/b
+	 Ri4ffo3k5TbyeiizhkUATdlU7F8DlGHzbiCG4xxP+0y8IMqjMYXuCvRRhzu6WSEkZAQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.82
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022082.outbound.protection.outlook.com [52.101.126.82])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qavf9uQh;
+	arc=fail smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A06E606D83E;
-	Fri,  6 Nov 2026 10:47:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A06E606D83E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=anJpVoEJrufsgR4I+z6XUtvv7ROFEYQoG/bDAABz8/2FNnmZr1YozhFppmYK62N9sIHJ2rcvRxPZhUgY+Yk6fSjyZAu/alTdgJC6mjiuLIDyZG4aoBAsZ0/G9unC1C/9N00Q+1mvvbQpJFjKwL+Df27rVF7MCQDQYC4jl2SIykisbGzr86UqctpOiec2ogynJRllUOIgaBVvds5prpUYXMJljGdUB46xJ8hVF6mnmSH89RL88HZ0ZySxq54TbkpPao5czksa1GOIGwZ46cxXhEIgNeBRSgYAoYnRdfJK89pH4pyrQKC+t6rwVgjqvkgnyqmaAysNsq43jXDBfUgUQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hy9gFYTveJgCHC3VkCJIkxsZGmNRezdUbbJ0LlXZWFc=;
- b=AYUrg2jhOMo67IkrGBo3SAy72YLOYYApfNohJZjkZt2PpbPTedtoDyKNFZU/lcDTDXbxgiEHj/E/RStpSNhLQMCASfkyDS2XLQ/de9w6qDWfqU+JdWSJw+5Oaw031DEJvAtPCiLIOsmpRya/5WtS+AGCUxNOP27EVIRAaDMIcZ4rIwuzhGS28PBevSFCjtLYRvl7ojeDuVrGwN+Hhn24/Po75i92Jepd4K/PSSPSF9csYxA3fBo/IE43k0oOEJhPUxBo1M9sV4pqnWJtx90Hpx99CcYT9dSteWbPEzxlqPkKcrxWhvg3raCyBTgtrWDUR/grO2lvFP36vIq8E26n0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from OS7PR01CA0207.jpnprd01.prod.outlook.com (2603:1096:604:24a::10)
- by TYNPR06MB8782.apcprd06.prod.outlook.com (2603:1096:405:3c5::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
- 10:47:37 +0000
-Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
- (2603:1096:604:24a:cafe::a) by OS7PR01CA0207.outlook.office365.com
- (2603:1096:604:24a::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 10:47:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:47:36 +0000
-Received: from cix (unknown [172.16.64.42])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 93E134102E60;
-	Fri,  6 Nov 2026 18:47:35 +0800 (CST)
-From: Cunyuan Liu <cunyuan.liu@cixtech.com>
-To: boris.brezillon@collabora.com,
-	steven.price@arm.com,
-	liviu.dudau@arm.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gary.yang@cixtech.com,
-	fugang.duan@cixtech.com
-Cc: daniel.almeida@collabora.com,
-	aliceryhl@google.com,
-	p.zabel@pengutronix.de,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	robin.wang@cixtech.com,
-	cunyuan.liu@cixtech.com
-Subject: [PATCH 0/3] Add initial GPU support for CIX Sky1
-Date: Fri,  6 Nov 2026 18:47:32 +0800
-Message-ID: <20261106104735.1651267-1-cunyuan.liu@cixtech.com>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DDE606A32F
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19DDE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qavf9uQh
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso228287f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 02:51:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793962277; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b+GfrfyHTQubcwx4pSUNT+y3XE568Pday8wo9SS1LIyatp6l4+pi6eiFM9hUR5aHvw
+         NZna/NsDUsXHtSwhzQdwL4idAeS5HnBaxZgiEn9X7aihEiuRC2qYafmcGb+dqipcDhu9
+         VhX2rpGdMde2hNzjM3oFj35wdg/y7Jv0G2hLAuRTuikUUc1SSdQZ6Q+scOQvppYiZGSh
+         6Yi2RhJ/QvxYC02lqaTOMtAmte/TX9gsQD2zVhHuV3JJzAefdq/mJSlAP6N2fblkcGXj
+         TlKtJxXjQyH+swh5o2atBqpZwLFDGJH9RoHfIawhF3SisGN6nnaumFQ78dokVVW2+c0s
+         e+Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=F7cZJhjMigMK3SyfW4mjHv4UpuzgfCewD2MzacTp3SA=;
+        fh=wxLlhfVO+bWprUKXG06uLVz2tUDOt4+eBzUYGV1f1fU=;
+        b=O2C4ttOQa5v/nvJi33hJYKCDn+W9rE0eC8kapeAjuscvyuiqq5RBjuW5fyNbzXeaOk
+         q0gKzCDaUnwzyP3c3pVPELb+Ts2jubz7pdnN1rMZBOfWx7HlV2luSWDXQZtVEd3YbNbi
+         4q/OkCOozQhZLFQ88YGCZtdRqv1c6yIKKiUCkjFqNhw4hA2dBzNVSrmaoy6oM3Af75zp
+         DQZLJS23FCDuChBFsRGutvkddNs0Y1QUpeoKbCFHrtcSrThhs0b7a0zAmrvJ7B6yW0DU
+         cYV1yOYFgfpsIwVRIq6kQLjuNoZFc/D+p7dCcxpjmtiLNueFDRAx4XXqCp4/LVT6uCYU
+         l/hw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793962277; x=1794567077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F7cZJhjMigMK3SyfW4mjHv4UpuzgfCewD2MzacTp3SA=;
+        b=qavf9uQhhEstBSLlU5BG5brVMdHumR/aLgNXeFGpb5Jl771lB8oKGm/ZFzl/OJMN/T
+         Pj9PB5hRDpNq8Gb6Piw2Nw1MB7y0lwEzM/dF8BZdXzUaONxb3aCxzyue/+c81NEcrcmZ
+         jGMStvejbbmV7RBw8w6FDvMsB02ACYw2dM7zqBTZNMWR9tqm/lVkZl8ARqdT3GKrEA9A
+         gLYn/qBUwBBGeJ0MH85YGu6UnEzAZRblQlpZxDDhaGboJV7jpboX+w0oc61TKSPl0511
+         Ff+Lo2LyfE85TXniLxLMT5zDkPfTYzKnGjHLygB8R+9lLJJyx0MUQMfzBEG97vyD5QFP
+         dzdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793962277; x=1794567077;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F7cZJhjMigMK3SyfW4mjHv4UpuzgfCewD2MzacTp3SA=;
+        b=Z4APpLSXaGn2um8MqCXYKBE0udYOU2y9u7FNwVzjhIz3X3Fd0wkdYxTYS6JWeDH28O
+         dhL2bWjDmqHCJVeQa7o9cct+vjU4VYpaqXTDjuNrVc3eJNVecIyIBK9Xh+L0E7Tjj1F1
+         kuWziqmoW+imLdUQKGPfE6694TBuMs25N6CTATeq1pUYVJalxC8WqwsMCMUuqFNCAQrP
+         xlmwsF+ifov9qZ09B3tjTdndEoyCamM1jtznYM6IIwqbD8Mz5IF4IFGL2p59vz+JNrpa
+         4cCONtZ3vQbLgF3tmFWccrVJ7mWTQvME4sXFDP/NUQikNBal9ulWo10Udrx9tD+tPnZF
+         dnEg==
+X-Forwarded-Encrypted: i=1; AL+hErH29WeObo6M2Tmdf1qeWum5MxT9DO4ozidO/AnZrAVTOY0XuZLZqNwZNVTLQBExcphaYtX4Atosqerc@vger.kernel.org
+X-Gm-Message-State: APuU4Z/iEYAxzxdyu/NreJ2+BZ7iT90/ezNEQUpiEm8GFJZS8UIm0nbM
+	LTmC4XhdtCAPBpDleNIXoYDTk3VC56PH+1k4uOKvToG/Eve2evSk8yCQXW8q9Xiv9dD7fwIxyzE
+	n775U0wjyzGBN+IEVqbyUt3GSvxvRfOE=
+X-Gm-Gg: AYBFou2gZ6M0BI88gDMTVYMwz0oWKVqzwCUOfXmRFwyN5QeGyqmMr6y3vbGcbqrRJoE
+	hMXCCGS5E/YbPScf3LLYm1le4xdXCo+4w1hgiw0tfV6ul4oN2pL4lfsrXXvgeqNJmEzpfvB5Zbo
+	xj7txXfNmacZ3w9cMcoMe4ffyoyMn8dJIHCfzDgrBye+97k0hxXB3+An1TrGfGBAxMfGpEEepMN
+	g+SrcNNKu6tF2vmIS9mjKOi8xs6Yxl+50/eS8dZZI9S8DqokzBSplYjMdK2iPFN723gZlO55qCD
+	9xH4vSuHIv5MWNlExLmzhjZyQpsAbgxHol4yyQyaDvEzqpPKClPwBdSbHM8kPLiHKDDefWqTHrq
+	f8TOX91DsDesCAXhYjyy9hqVq0fG8nvOJLLV4HnUduEz/fD7qOhFHuqwuy9l4mAOFM0fycgOE56
+	jrYwX508LUHUlJOyLuWFtUGg==
+X-Received: by 2002:adf:e84c:0:b0:48d:e5c9:39a4 with SMTP id
+ ffacd0b85a97d-492775eef16mr3368306f8f.33.1793962277232; Fri, 06 Nov 2026
+ 02:51:17 -0800 (PST)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,89 +105,113 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|TYNPR06MB8782:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 88339c9e-e3bf-4202-0896-08df3bf35f43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|261009223027099003|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261022075727099003|56012099006|3023799007|261021123027099003|261026140227099003|261021121427099003|6133799003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XZAYsGl+v9Z9v0l+pl7qQVSILbPz7T6t5AwvfqZvzxXfTXRevxc/enOxuVBHsiH7KMnU/9WkKVPXso1IBRSSqlb/jiCNgaAj4Bt4NQ5+vaJC0kEazs0LOgiagHX8XNBmY7BElVwSfvBN0K407ojYAEvRg3LFuWzKf479/1SyjPFdPySFw75n9SMeg4ACt5zoaajoHGrYCz1DeS9PjBAsjW50jiTBcn15x1tj9iOpxCcgaJYrg1AoH2PupZojFE81fB6/MDiPwNOPSgtnZKv8ly4v68f7IGxhrqA1bge3gzGxVmX3MSuacJ3q+xorbzIKtuBhV566j835AA0J4g96Pe/Fg1EYRJLLQUXxtOvGiGmDSHLa7N8OK/O7dZ9/O7g8NWyZrj28yLMFBfhI6qlsXAfOgJzp6hPsQfnP5S73lWj4oMs0t1IaW7qWKzBiOEu1vXmVbPPRBDvsvz6MJ2okWynT5WqNqFs51gjQiJejAkm36uVnmakmwWuQDK71Ax4D7EpuRWeg8eiP+NMfq9+zXigmCOmUUbxHqDcGa7MU+P7IXM0S0c7XiDkXG4jntuFqNDiXqehK0AjWUA4um0lvoY6egWhItEeltmLMgpafEtJOQ4ofN+/5XuQ/2neUiIXPFG+yQsnAUwzmoJaQb7ovcxpPMdVe0+EVXss4vRjjjeRJZRyx/KteU4l8RQO+1YMk
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(261009223027099003)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261022075727099003)(56012099006)(3023799007)(261021123027099003)(261026140227099003)(261021121427099003)(6133799003)(10067099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	6HU+iO2agx8RonEIpQnK9YZdgd2t5ptWTBfrTU1uH8ssunP925RRSXYZv5aScBuAy4Al19v7NjQCiHHsdWfFHxK45YbmaBZCxb9Gp0QDuTDBvioprzQqe3D0cFS+0FI1gF9ADvA9CLry2m6fJXzQZdB+x+Yilqhq2cZ27AB0Gx2S4GvH9GZs70XBVTcL+0haxHL0rK0SIUTeXxt5h6jcx4JfqTY03ENSO3+CjYh68AgOLuZJfolLYWCfaWNiUO4/6jQgMTkEbt0jQkfasfLclPww6SbA3+6WrdVHrnFkao030Td8rvgRIKiC5RLvby9hhCdqmubOaEVy4CnlLmcxQL3OZrLOMGX0dbqyN3i05XbC3SqslU6uN+v8xaIXTWle7MTbMssR2KmT1RDG4ff0S+1jUcK+JCsViWTAK3I3TlHcD7DQiD1/i2A1imYMutND
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:47:36.5656
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88339c9e-e3bf-4202-0896-08df3bf35f43
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000CA.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8782
+References: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org> <20261105-mali-c55-renesas-dts-v6-4-7dff41bf7107@kernel.org>
+In-Reply-To: <20261105-mali-c55-renesas-dts-v6-4-7dff41bf7107@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 6 Nov 2026 10:50:51 +0000
+X-Gm-Features: AclHuK8e9Ukwsf61t80TfL34Hr9SEzBPVRwsLBuotfmtVU3xNlxjqp0s36ik-9E
+Message-ID: <CA+V-a8u8WS4Ut0f1ELWPciY1wvtWtBS7UwOSaDg-q5wVFt8bpg@mail.gmail.com>
+Subject: Re: [PATCH v6 4/6] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+To: Linus Walleij <linusw@kernel.org>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This series adds initial support for the Mali GPU on CIX Sky1 and
-enables it on the Radxa Orion O6 board.
+On Thu, Nov 5, 2026 at 1:17=E2=80=AFPM Linus Walleij <linusw@kernel.org> wr=
+ote:
+>
+> From: Daniel Scally <dan.scally@ideasonboard.com>
+>
+> Add the Input Video Control Block and Arm Mali-C55 ISP to the device
+> tree file for the RZ/V2H(P) SoC.
+>
+> [Rebase onto v7.4-rc1, place the nodes in address order, add the missing
+>  interrupts in binding order and name them. - Linus Walleij]
+>
+> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  arch/arm64/boot/dts/renesas/r9a09g057.dtsi | 47 ++++++++++++++++++++++++=
+++++++
+>  1 file changed, 47 insertions(+)
+>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-The GPU requires an external reset before the driver first accesses
-the hardware. Add SoC-specific data to Panthor to perform this reset
-during initialization.
+Cheers,
+Prabhakar
 
-This initial version keeps the PM firmware default clock settings and
-skips devfreq. It does not read OPPs or request a performance level.
-The firmware sets the default GPU frequency to 1 GHz. No devfreq
-governor or GPU cooling device is registered.
-
-Configure the system-level cache before L2 power-on using the settings
-from the working CIX Sky1 driver. On Sky1, devices on the MMHUB bus
-cannot access the system-level cache, so buffers shared between the GPU
-and MMHUB devices require a specific system-level cache policy. Without
-this configuration, the GPU display output is corrupted.
-
-The series contains three patches:
-[1/3] dt-bindings: gpu: Add CIX Sky1 Mali support
-[2/3] drm/panthor: Add initial support for CIX Sky1
-[3/3] arm64: dts: cix: Add GPU support for Sky1 Orion O6
-
-
-Tested on Radxa Orion O6:
-  - Offscreen rendering with pixel readback
-  - kmscube
-  - glmark2 at 1080p
-  - Runtime suspend and resume with a retained EGL context
-  - Reset-worker operations
-  - Module unload and reload
-
-
-Best regards,
-Cunyuan
-
-Cunyuan Liu (3):
-  dt-bindings: gpu: Add CIX Sky1 Mali support
-  drm/panthor: Add initial support for CIX Sky1
-  arm64: dts: cix: Add GPU support for Sky1 Orion O6
-
- .../bindings/gpu/arm,mali-valhall-csf.yaml    | 51 +++++++++++++++++++
- arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |  4 ++
- arch/arm64/boot/dts/cix/sky1.dtsi             | 16 ++++++
- drivers/gpu/drm/panthor/panthor_devfreq.c     | 11 +++-
- drivers/gpu/drm/panthor/panthor_device.c      | 15 ++++++
- drivers/gpu/drm/panthor/panthor_device.h      | 25 +++++++++
- drivers/gpu/drm/panthor/panthor_drv.c         | 15 ++++++
- drivers/gpu/drm/panthor/panthor_gpu.c         | 14 +++++
- drivers/gpu/drm/panthor/panthor_gpu_regs.h    |  2 +
- 9 files changed, 152 insertions(+), 1 deletion(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.53.0
-
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g057.dtsi
+> index bbaab75681c2..10e3434d0997 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> @@ -1849,6 +1849,53 @@ queue3 {
+>                         };
+>                 };
+>
+> +               ivc: isp-input@16040000 {
+> +                       compatible =3D "renesas,r9a09g057-ivc";
+> +                       reg =3D <0 0x16040000 0 0x10000>;
+> +                       clocks =3D <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe=
+4>,
+> +                                <&cpg CPG_MOD 0xe5>;
+> +                       clock-names =3D "reg", "axi", "isp";
+> +                       interrupts =3D <GIC_SPI 861 IRQ_TYPE_EDGE_RISING>=
+,
+> +                                    <GIC_SPI 860 IRQ_TYPE_EDGE_RISING>,
+> +                                    <GIC_SPI 864 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-names =3D "isp_vvalid_ifp", "isp_vvalid=
+_irp",
+> +                                         "isp_int_fstop";
+> +                       power-domains =3D <&cpg>;
+> +                       resets =3D <&cpg 0xd4>, <&cpg 0xd1>, <&cpg 0xd3>;
+> +                       reset-names =3D "reg", "axi", "isp";
+> +                       status =3D "disabled";
+> +
+> +                       port {
+> +                               ivc_out: endpoint {
+> +                                       remote-endpoint =3D <&isp_in>;
+> +                               };
+> +                       };
+> +               };
+> +
+> +               isp: isp@16080000 {
+> +                       compatible =3D "arm,mali-c55";
+> +                       reg =3D <0 0x16080000 0 0x80000>;
+> +                       clocks =3D <&cpg CPG_MOD 0xe5>, <&cpg CPG_MOD 0xe=
+4>,
+> +                                <&cpg CPG_MOD 0xe2>;
+> +                       clock-names =3D "vclk", "aclk", "hclk";
+> +                       interrupts =3D <GIC_SPI 859 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 865 IRQ_TYPE_EDGE_RISING>,
+> +                                    <GIC_SPI 866 IRQ_TYPE_EDGE_RISING>;
+> +                       interrupt-names =3D "combined_interrupt",
+> +                                         "fr_dma_writer_linetick_out",
+> +                                         "fr_uv_dma_writer_linetick_out"=
+;
+> +                       power-domains =3D <&cpg>;
+> +                       resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
+> +                       reset-names =3D "vresetn", "aresetn", "hresetn";
+> +                       status =3D "disabled";
+> +
+> +                       port {
+> +                               isp_in: endpoint {
+> +                                       remote-endpoint =3D <&ivc_out>;
+> +                               };
+> +                       };
+> +               };
+> +
+>                 dsi: dsi@16430000 {
+>                         compatible =3D "renesas,r9a09g057-mipi-dsi";
+>                         reg =3D <0 0x16430000 0 0x20000>;
+>
+> --
+> 2.56.0
+>
+>
