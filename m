@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978259;
-	b=MXPtfOHo/hk2DJR8cevB4M4njDNDerc4qtEDIYsHUBgzE+q+5duvBcXjx5Ux6x9Ai/OY
-	 r+E6MCGAQzU/gA/LZm0gJ4uCd/cZ48RuieiLS/BCB9TmEIZvqj91WWuI0YvTD1dchTeMf
-	 HOAouulPJwt9ktshtvsp8g2L6/ozUqFHlDI1DDgT3DmpRHnr+YNfPHCSY2NK9JayYMZ+X
-	 kIxUSfiet17zp2Vwudx117e7pG45MoA5zNoB2WhQGTJSb1JMgmTLsYTNdxWJNAnQc2d2q
-	 q7AdlCqRoDElGAd4Zz9kYQjyCXmNNRzUwJuoVcyCWqpfPwE1+BBRwppAEOba1n4/Ojg==
+	t=1793978380;
+	b=IwH1rPiUSAHxX8IDN2aTTLNyc2BzHXKGFr6J40JtnIaaBRFe94BaR5PPYi+etlFoxs5u
+	 /0PYfX7j/NIbRVX0hxI18wsFv7RsJF5UBAa4ABLGlEGBTaeREiZ2DfPyFIJkJL+9+GC3v
+	 PPpaJ+5zd7nHJYdxZgrJiNzJ+JT50PmqdGv9ZwI9QGGUDYYDPWglqd9iRPz9AlQhL8ysg
+	 EEO/Yn47pqeQtAXBcOPA3Cyx3dB0ZCTxzQhD9hNVAtMWP57sgfiA2zKpur5PBQDga/5Rg
+	 0RRdC/kZmvqpz+veIT2LhPXuP+m3dD9IYbSizQQCydzkiFMJfZrN9NDKp2SAC1k2XSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978259;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=p/nuiejwzbuNdqG1S7CYo8b06UygXGfd6lMUU+TvJvo=;
-	b=t0uOSkvbHwkhFQj0439e/JoIDEh6gaPVHVkZEDCobJ84eB9FSF/xoJzbiTcSzVS9oPog
-	 zJ73puRGNUijv8Rz1wGEbF4NR01WkW4NhYhv9QAnD83OeEeJGi8NlLd1oxarnjzQXjulO
-	 4zmo4y5GaB/OGIFMfDh7/FJcLGq9TtWQfQzL9frmV7QqV8ia30HLjFKc2TbS77044CrRU
-	 5zrBsEtBpv527Mg6oN+ZuproabmybPTXktHghZRjpbFTC92HFwMcfWkZdycxzWIhvJDer
-	 UggUjXM+MFcZ03VBtMMXpjWq/wEx3U6ow7RBIn90vMV1LvRnV6wh4pRB/T7WkHya7gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978380;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TjKm4iQuA3o4uEU1I1bQg4XGGc1wJZI3d+s7EI8o888=;
+	b=b4SdoGFY8Qj3fxd4dK2aWPnKFSPJA9cduRqTPEzhpawfOzVnzenAh41Y243P+384Uf1F
+	 vL/+Xif0DYZDuWYYg9dsTcXtcIx/pGVw6QLqS9gV3j3TsvkRP1G6BMzEDFBmQz+sbfXxp
+	 ak7xJnbYYpTnf/xLVNJigWZIK1VMdLGLcdg28Uu748Mg1ILZ12tr3JhiAB/KariNUun+A
+	 Mr5RVVp3d7GMZlJ3HAWd7WaR9p0+/wDNxP0too5kQAdlEsFQKx7r0XB7JbHo7/L+h0x5b
+	 nhsltT2oi+p4AcSElaTngygXrn6AcOkc73+XTVF1biLEObEFFrBATSmwRt5el1RAY3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6rg1+C7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxqvMYR8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7D6606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 15:17:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B74606A333;
+	Fri,  6 Nov 2026 15:19:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6rg1+C7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96AF1F0089F;
-	Fri,  6 Nov 2026 15:17:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxqvMYR8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758E01F008A1;
+	Fri,  6 Nov 2026 15:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978259;
-	bh=p/nuiejwzbuNdqG1S7CYo8b06UygXGfd6lMUU+TvJvo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g6rg1+C705WrADK4VZpmsTxg2hbdaMPKfU1OemL6+WzzquzZCMBlbCq8NvfO8CedX
-	 Ey19DQPEYK0F0AE7EL7mwUz13FW9/b3vqFnhOCk6khnDIBkqN2m3LTP1JjLGRnNhti
-	 vMaQ0wZlydG8wcR6QajoPGB2HHs1BjhkcR5ew8epf5jxJUlUOr3UJdLUnAflvq63/Y
-	 OT7FFaJgXd40b2pO2fusQUv9yYKfUNAce1Qc8vT0x5Byw34VvDFctrm/hRQlrcQC/b
-	 pNCroRqvrodiruvJRdOxmVlVjwAq+6kJYwA1Pk+xnheiTCMqsxaUKetjHI/A29xKKY
-	 P/r4idWynl9ow==
-Message-ID: <sashiko-outbox-201655@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/19] drm/bridge: inno-hdmi: Make the PHY
- configuration table optional
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106-jh7110-clean-send-v7-12-68f7ea9913db@samsung.com>
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
- <CGME20261106135912eucas1p182016acc39d162adfbb9cb598ed7ca1c@eucas1p1.samsung.com>
- <20261106-jh7110-clean-send-v7-12-68f7ea9913db@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 15:17:38 +0000
+	s=k20260515; t=1793978380;
+	bh=TjKm4iQuA3o4uEU1I1bQg4XGGc1wJZI3d+s7EI8o888=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UxqvMYR8jFBKse3vSX1JHfmDUefXKyKFoFWGXFTOAMUEL2M1V09XvQK47Y+GKGasA
+	 oEYKxEgGtmRdZWrNvhzd98d8S6UuwI+ng1VlP4LhIm5X9lOdc/vSP0eQ2b69og5RSq
+	 LTTc/H20DTYLsX+YWmkt4X4r/aMwxhBUCTKtraLbtlX5zSWtrQd0LeOdEXzrO8DGBO
+	 wZWDGniulef5AJIFJWeCgwzEPOMlxM+pK31IV62u2Pr8LXhzaf19HmPiDJHxVWrN3O
+	 9D7hNBkNFQRqnoQowocdiz/mKYYn7lRzApjQ4bvZSxVeIL6WLqX39v6Ykrna+zHfjN
+	 oJbjTjXclIc7A==
+Date: Fri, 6 Nov 2026 16:19:37 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+Message-ID: <au3telUE9A43PDWv@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-2-clamor95@gmail.com>
+ <au3NWsXz-hg2LNr_@orome>
+ <CAPVz0n3_oRz8aMr1W=8K7dnHhM=vuGpHjpq6+=80oXiFj5wfSg@mail.gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,53 +65,170 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n7zrqbgnjyyoeiad"
+Content-Disposition: inline
+In-Reply-To: <CAPVz0n3_oRz8aMr1W=8K7dnHhM=vuGpHjpq6+=80oXiFj5wfSg@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/bridge: inno-hdmi: unguarded integrated-PHY writes when
-  phy_configs is NULL
---
 
-commit f1f2bae7d85c6c615ff85796724277a1cd86c36d
-Author: Michal Wilczynski <m.wilczynski@samsung.com>
+--n7zrqbgnjyyoeiad
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 01/10] drm: Add MIPI DBI bus support for MIPI DBI Type
+ A and B
+MIME-Version: 1.0
 
-drm/bridge: inno-hdmi: Make the PHY configuration table optional
+On Fri, Nov 06, 2026 at 03:59:05PM +0200, Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 15:=
+14 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Thu, Nov 05, 2026 at 04:05:01PM +0200, Svyatoslav Ryhel wrote:
+> > [...]
+> > > diff --git a/drivers/gpu/drm/drm_mipi_dbi_bus.c b/drivers/gpu/drm/drm=
+_mipi_dbi_bus.c
+> > [...]
+> > > +/**
+> > > + * devm_mipi_dbi_device_register() - create a managed MIPI DBI device
+> > > + * @dev: device to tie the MIPI-DBI device lifetime to
+> > > + * @host: DBI host to which this device is connected
+> > > + * @np: device tree node associated with the panel MIPI DBI device
+> > > + *
+> > > + * This function is called by DBI host driver to create panel device.
+> > > + * It automatically calls mipi_dbi_device_unregister() when @dev is
+> > > + * unbound. It does not automatically free passed device node pointe=
+r,
+> > > + * it must be put manually.
+> > > + *
+> > > + * Returns:
+> > > + * A pointer to the newly created MIPI DBI device, or, a pointer enc=
+oded
+> > > + * with an error.
+> > > + */
+> > > +struct mipi_dbi_device *
+> > > +devm_mipi_dbi_device_register(struct device *dev, struct mipi_dbi_ho=
+st *host,
+> > > +                           struct device_node *np)
+> > > +{
+> > > +     struct mipi_dbi_device *dbidev;
+> > > +     int ret;
+> > > +
+> > > +     if (!host || !host->dev || !host->dbi || !host->dbi->command ||
+> > > +         !host->ops || !host->ops->attach || !host->ops->detach || !=
+np)
+> > > +             return ERR_PTR(-EINVAL);
+> >
+> > Do we want dev->of_node to serve as a fallback for !np?
+> >
+>=20
+> No we don't dev->of_node is hosts node, and np is panel node.
 
-This commit makes plat_data->phy_configs optional so platforms with a
-separate PHY device skip the integrated-PHY register writes in
-inno_hdmi_power_up() and the table lookup in inno_hdmi_bridge_mode_valid().
+Fair enough. The parameter name is a bit generic, but I guess if you
+read the documentation it becomes clearer what it means.
 
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
-inno-hdmi.c
-> index 3219558d6ef41..84d00ee52b732 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> @@ -534,8 +534,14 @@ static void inno_hdmi_power_up(struct inno_hdmi *hdm=
-i,
->  			       unsigned long mpixelclock)
->  {
->  	struct inno_hdmi_phy_config *phy_config;
-> -	int ret =3D inno_hdmi_find_phy_config(hdmi, mpixelclock);
-> +	int ret;
-> +
-> +	inno_hdmi_sys_power(hdmi, false);
-> +
-> +	if (!hdmi->plat_data->phy_configs)
-> +		goto out;
+> > > +
+> > > +     if (!of_device_is_available(np))
+> > > +             return ERR_PTR(-ENODEV);
+> > > +
+> > > +     dbidev =3D kzalloc_obj(*dbidev);
+> > > +     if (!dbidev)
+> > > +             return ERR_PTR(-ENOMEM);
+> > > +
+> > > +     if (of_node_test_and_set_flag(np, OF_POPULATED)) {
+> > > +             kfree(dbidev);
+> > > +             return ERR_PTR(-EBUSY);
+> > > +     }
+> > > +
+> > > +     dbidev->host =3D host;
+> > > +     dbidev->dbi =3D host->dbi;
+> > > +     device_initialize(&dbidev->dev);
+> > > +     dbidev->dev.parent =3D host->dev;
+> > > +     dbidev->dev.bus =3D &mipi_dbi_bus_type;
+> > > +     dbidev->dev.release =3D mipi_dbi_device_release;
+> > > +     device_set_node(&dbidev->dev, of_fwnode_handle(of_node_get(np))=
+);
+> > > +
+> > > +     ret =3D dev_set_name(&dbidev->dev, "%s:%s", dev_name(host->dev)=
+, np->full_name);
+> > > +     if (ret)
+> > > +             goto put_device;
+> > > +
+> > > +     ret =3D device_add(&dbidev->dev);
+> > > +     if (ret)
+> > > +             goto put_device;
+> > > +
+> > > +     ret =3D devm_add_action_or_reset(dev, mipi_dbi_device_unregiste=
+r,
+> > > +                                    &dbidev->dev);
+> > > +     if (ret)
+> > > +             return ERR_PTR(ret);
+> > > +
+> > > +     return dbidev;
+> > > +
+> > > +put_device:
+> > > +     of_node_clear_flag(np, OF_POPULATED);
+> > > +     put_device(&dbidev->dev);
+> > > +     return ERR_PTR(ret);
+> > > +}
+> > > +EXPORT_SYMBOL_GPL(devm_mipi_dbi_device_register);
+> >
+> > Don't we need to of_node_put() here on failure? Otherwise we're leaking
+> > the reference that we obtained inside the device_set_node() argument.
+> >
+>=20
+> This is fully repeats device_register logic of drm_mipi_dsi.c so
+> unless DSI framework has leak, this should be correct
 
-[Severity: Medium]
-Should inno_hdmi_standby() and inno_hdmi_config_video_timing() also skip
-the integrated-PHY register writes when hdmi->plat_data->phy_configs is
-NULL?
+Nobody said that drm_mipi_dsi.c is correct. I'm reviewing this patch and
+it seems like it's wrong. If drm_mipi_dsi.c does the same thing it
+probably is wrong, too.
 
-inno_hdmi_standby() (called from inno_hdmi_init_hw() at probe and
-inno_hdmi_bridge_atomic_disable() on disable) still unconditionally writes
-to the same HDMI_PHY_DRIVER, HDMI_PHY_PRE_EMPHASIS, HDMI_PHY_CHG_PWR, and
-HDMI_PHY_SYS_CTL registers that inno_hdmi_power_up() now skips restoring.
-inno_hdmi_config_video_timing() likewise still writes to
-HDMI_PHY_PRE_DIV_RATIO, HDMI_PHY_FEEDBACK_DIV_RATIO_LOW, and
-HDMI_PHY_FEEDBACK_DIV_RATIO_HIGH on modeset.
+> > > +static int mipi_dbi_drv_remove(struct device *dev)
+> > > +{
+> > > +     struct mipi_dbi_driver *drv =3D to_mipi_dbi_driver(dev->driver);
+> > > +     struct mipi_dbi_device *dbidev =3D to_mipi_dbi_device(dev);
+> > > +
+> > > +     drv->remove(dbidev);
+> > > +
+> > > +     return 0;
+> > > +}
+> >
+> > Might as well make drv->remove() return an error and propagate that
+> > here.
+> >
+>=20
+> Have you even checked the code? remove() callback is and should be void.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-cle=
-an-send-v7-0-68f7ea9913db@samsung.com?part=3D12
+I don't know what you're trying to say here. Yes I can see that the
+remove callback returns void. My point is that device_driver.remove does
+*not* return void and since this is merely a wrapper around it for DBI
+it could also just return int for symmetry.
+
+But there's also continuous work trying to convert all driver remove
+callbacks to return void, so that's eventually going to get "fixed" here
+anyway, so might as well leave it like this.
+
+Thierry
+
+--n7zrqbgnjyyoeiad
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt8AYACgkQ3SOs138+
+s6HVoQ/+POh4HlRUlHe6NSx8seh6DwhH+inL91RyV3iSKS4nB3C1m4iGWUjLyp2Q
+eg+OL5F6fMfhpRPwvlUvs9ADUz8dexvUm27i4kafzixOuGcTxQ9xzMqow2RkkzHC
+l95B/VeBEmbCFoHDmalyCiVxLtgoZY22q6WxrL3BANzv+mNlWVtRxjnr7UEqfU4L
+Y9T8afI+g36yKJNgVXQIy6/FjWupJAFnBll2fk0GC62p6r6G90TJ4MXFnCIBpl85
+5Q6Nh/G7Wmz22n6coyXZGb1mDxe6Bp3OmaBOZdeMUxGsNH5+HSaCzs1NRyfrHMZV
+57d0hFItwNR6XOMMtwgXCnEMIO6BmJTtt8/PwmrLkb9QKiRdSHmWsQ/q4cW5Ceqr
+rQoEVS14Khr9MFtdMUtSPrhjDuNBBD7Oa1DEhbBXzQuyGEbW0BlxFMSwqD7fdqM7
+X6MZ6tDkiv6ry06Qa86+i5toWK8Bon3b/vayH1YWWFhcweDahZm+EMMcc5jcFFfu
+f86BVqiDBUu0iQmr+SxXHYeCgDagwS/3Wbp7Q+An51oRi10Igf418Qjj4bBcBENP
+JMJJsIiRZKQz552SKSs+D7dYKQfnmwukVJRy1Nlg7VOa3tRph9Ysj/VRMmVcrd54
+iO+BpszR90V2KnC6pFdsKEDa5xTfToAGxTlEA4/KaX0ukjGqALQ=
+=IE6M
+-----END PGP SIGNATURE-----
+
+--n7zrqbgnjyyoeiad--
