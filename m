@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979247;
-	b=HTi3JoCWA9ViXhbGsCRID9xO9pxSWOEPTHlZHY8zOOK5xYbqWH/AxdgYtmwR4EeHdQKC
-	 wqVYDgWdmKOA5t6d0uR4byW/XVWSfZH8KcH4iV/4xrTag1hyl9BoLZot+myrLIT2fs1Mv
-	 JGQauDqQj16Sioww6p/GwilJSH9yBW0SPGep5NskJJKfYgxZVp8HYmVeP3E+VWdufNVj5
-	 CNo32rBjpUqER9ziacJpM72gpP+XfR6ojaeRlk9exrel6ikD3vvsQqE56tM/L2OvREiYd
-	 pVV3Ygc/kOllXW4w6pYUi0h+PkoEk/iXwQYWhQIUAf8jWiMsh2MTzCvKZB11dWE26ng==
+	t=1793979318;
+	b=hw88RaTNEcQnRglTnLZ2GoOlGcxBZaHxZiDDHbhWiW73OD7lLCBTAo2KeJbM5i/3YODQ
+	 E/aaWDYzLh9Kl6XjEz0BCo5YOgpbzSIzxcLhr/zcNMvOSntprfG2tZl3aW2xhIRKsxsp2
+	 tJ7B5EAOAyv8BFltwfWizV24oaDweUWStMue6UYBY3VquuoFVfV87b8cwFDyLc71m0t+l
+	 elq1CUlC0EJ5qHvlvlXLcTuMNJRKXRXHO/WRSNXc3c5C76aTtwazD1NNDsMyVDtIAtzl4
+	 /y12X51sM4mXfWWHAlLEZi5yGHE9Qw5GnC0ocwTnskt/BoHhz3pRTl2Y7OIMopLqvVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979247;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
-	b=VaJTQy5uaQELxEdb4nBbXOLKqRjPRV5GVQRQynca4GclIiDdt7J7S9mjvhpbh/EBCXG1
-	 e5RmfyDtDkzhL5L615YHzGZ/0NlC8PTsPEhUH3o+F9xviJ3cuvjb68vBEp2MGlaP07NQx
-	 s7J7b87er3uDaGwq3js6RJbJg8WZIitp+u0Ym5lsRwwTpdZzKuXPHgDCYrVjR1kOYdKgf
-	 qpbph5BxDSZ35O3Krvb6djO4l3Y5subWTIPjvAGGHDIJ7FiYhztFLXCTdsfQf+nk1kGUU
-	 g5C1UzgMQieDGy5e3vcFpzCnAJ0fBwxQwH6dlwActp3Dmid9mkTtmdCosGpDTq7bdrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979318;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=7kSE4MOI9Fld5eXbHThDBlwP7pJdSsCWudgi6MoSBCU=;
+	b=VAXKfwZ8joar9bVZVIxzM1QsMyGiLgd5Oi8rKVRx2YwNpU9mWELaDCzlw0+yBy40LkK/
+	 EHR3+ABnz3fqmx6GRVbNLUgvswrsXaLpaOxqKCuStWAECN6Vser5I5qBTH5MwLNX5hGdR
+	 QKroPXhD3vS3aDaHyX3TecO441vL1UDt1Jif3eMRywNfLj5ojPoWPVgITRNgjdwVw5Z+G
+	 7+wEQNyFPhotalfrWBSxOH7UqtHkfKrRU0cL3gDpNikcgWISKQULh2unNy+yF30IIwHiw
+	 mZoL6fRBG0hM8Tup91E2qZh/ed0tu8yurrkrziLR3mTwJRdTH8Eg8TmSVm9V2I6eC6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDHuQJjv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28F8606A326;
-	Fri,  6 Nov 2026 15:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55AF606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 15:35:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofnNNgjs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288121F0089F;
-	Fri,  6 Nov 2026 15:34:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDHuQJjv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABD61F0089F;
+	Fri,  6 Nov 2026 15:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979246;
-	bh=II+/X/AjHk0LYdYU8qce4WUbCQR7IugTOkyE8BsCIhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ofnNNgjskEICYvaBMQ5Hxz2bF9n4sLEzhep/feYz49X59zjApKsMY9OE9pz2qlqY8
-	 mAqOwsksfHjWbUMw0F7zZ20suWnYkKVpNrZ3IcJvWPoTDb+jjQZnejbYVXq0a5hroi
-	 t/bAdCups3F9fq2K/2vn9ARUPX5zG7sQrF94/+0pJcd9kPB1q6/IgESQu7dQGAvhVU
-	 D65A/Y9Ry8DICZsndZx0xUSMBL2ysSK9VLYzqjt1dJfpEZc9RESdrJHWV9KPH7n/XZ
-	 S0Jy+01bWKjj4NJjAEADzoeTpWedtFeBAf/CG6MdJ7pXiiRljY7yU4N/tAor/3n5Ak
-	 VEYK51K2qEKnw==
-Date: Fri, 6 Nov 2026 16:34:04 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
- tegra_output_probe() optional
-Message-ID: <au3yeJQPgRNiOM_R@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-7-clamor95@gmail.com>
- <au3dMlmsLEOUqan9@orome>
- <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
+	s=k20260515; t=1793979317;
+	bh=7kSE4MOI9Fld5eXbHThDBlwP7pJdSsCWudgi6MoSBCU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eDHuQJjvXDN++F4raGVvkAQpR3EHXV+K4gIZ9SV8SzDLgMt4AJHfgTRpXDFAk60Pl
+	 26Gtd5UMZlBr8dmSS3lXU0mODIq/rL/fWuAwM2c6YDd7Jxvty2Q11Pd6VpPDV5ClPD
+	 Oiy1rFytI9GsMkNC1VQSDFriebFQuJarIDuj2lwJHiTlx2AeDiY8Ph43EMhX+ZpT3d
+	 UlUSJ+Bnb6F+cH5AYV64sLWhwhbqY+Sz61GF3aaMx1/XuswsAi3VG92Pvo2swQQK6r
+	 MWsvz959xpimb4Qb+LiDySlHKfOC9LfWITtFDnRJc8JReJ40g/Tk8wHyv7uf6TuoKk
+	 YTNNRo3/hIA0Q==
+Message-ID: <sashiko-outbox-201701@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 15/19] soc: starfive: Add jh7110-hdmi-subsystem
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-jh7110-clean-send-v7-15-68f7ea9913db@samsung.com>
+References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+ <CGME20261106135918eucas1p1a3d7684adcefdc624b9748469d07e88c@eucas1p1.samsung.com>
+ <20261106-jh7110-clean-send-v7-15-68f7ea9913db@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 15:35:16 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,89 +61,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vsbcwdisnglh5dny"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n3=R1UhyTw1o-ZR2hMyXwKAomNkb5O-cQbG+TBFJi5=JQ@mail.gmail.com>
 
-
---vsbcwdisnglh5dny
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 06/10] drm/tegra: Make panel parsing by
- tegra_output_probe() optional
-MIME-Version: 1.0
-
-On Fri, Nov 06, 2026 at 04:09:36PM +0200, Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:=
-00 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Thu, Nov 05, 2026 at 04:05:06PM +0200, Svyatoslav Ryhel wrote:
-> > > The tegra_output_probe() performs panel parsing unconditionally, even=
- for
-> > > devices that do not require it (such as HDMI) or that handle panel pa=
-rsing
-> > > on their own (like DSI). Make panel parsing configurable.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/gpu/drm/tegra/drm.h    |  2 +-
-> > >  drivers/gpu/drm/tegra/dsi.c    |  2 +-
-> > >  drivers/gpu/drm/tegra/hdmi.c   |  2 +-
-> > >  drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++--------------=
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] soc: starfive: wrong regmap stride and val_bits in
+  jh7110-hdmi-subsystem
 --
-> > >  drivers/gpu/drm/tegra/rgb.c    |  2 +-
-> > >  drivers/gpu/drm/tegra/sor.c    |  2 +-
-> > >  6 files changed, 32 insertions(+), 30 deletions(-)
-> >
-> > Does it break anything to try and parse this even when it's not needed?
-> > In all cases we error out early, so there shouldn't be a whole lot of
-> > extra overhead either.
-> >
-> > Adding this extra parameter just adds extra complexity for seemingly no
-> > benefit.
-> >
->=20
-> Dual DSI panel fail for Xiaomi Mi Pad. Maybe you should check your
-> email a bit more often?
 
-What's with the passive aggressivity?
+commit 7b3e8ed6b5c2397fee05f3afbf224c172c611228
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-> https://lore.kernel.org/lkml/20260305161035.64548-1-clamor95@gmail.com/#t
+soc: starfive: Add jh7110-hdmi-subsystem driver
 
-That's a thread from over half a year ago. I don't usually keep track of
-email from that long ago.
+This commit adds a platform driver for the StarFive JH7110 HDMI subsystem
+that initializes a shared MMIO regmap and populates the child HDMI PHY and
+controller devices.
 
-Also, I asked previously if this broke anything. If it does, then the
-commit message should say so to make it obvious that this is an actual
-fix. And it should explain the problem so people can think about the
-problem and judge whether this is a proper solution or not.
+> diff --git a/drivers/soc/starfive/jh7110-hdmi-subsystem.c b/drivers/soc/s=
+tarfive/jh7110-hdmi-subsystem.c
+> new file mode 100644
+> index 0000000000000..b01dc66450f51
+> --- /dev/null
+> +++ b/drivers/soc/starfive/jh7110-hdmi-subsystem.c
+> @@ -0,0 +1,72 @@
+[ ... ]
+> +static const struct regmap_config starfive_hdmi_regmap_config =3D {
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 8,
+> +	.max_register =3D 0x3fff,
+> +};
 
-Your commit message doesn't mention any of this and makes it look like
-you're trying to micro-optimize for no reason.
+[Severity: Medium]
+Should starfive_hdmi_regmap_config set .val_bits =3D 32, .reg_stride =3D 4,=
+ and
+.max_register =3D 0x3ffc to match the 4-byte register layout expected by the
+child drivers?
 
-Thierry
+Both the HDMI controller and PHY drivers address this shared regmap at
+4-byte-strided offsets (offset * 4 and reg * 4), and the controller's own
+inno_hdmi_regmap_config uses 32-bit values with a 4-byte stride:
 
---vsbcwdisnglh5dny
-Content-Type: application/pgp-signature; name="signature.asc"
+drivers/gpu/drm/bridge/inno-hdmi.c:
+	static const struct regmap_config inno_hdmi_regmap_config =3D {
+		.reg_bits =3D 32,
+		.val_bits =3D 32,
+		.reg_stride =3D 4,
+	};
 
------BEGIN PGP SIGNATURE-----
+	static inline u8 hdmi_readb(struct inno_hdmi *hdmi, u16 offset)
+	{
+		u32 val;
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt82wACgkQ3SOs138+
-s6Ge9RAAs0gRNuV8ajPe0zMqQ7l0nh5k5pTb0yKxufq6QJJsYFvp/fivU8sBmS2L
-qq2gjLv/OnCZOmDdDWdfwUStRuTVzI7eQbFouVvGadxjxyWY0VfV7XSXcI6aCH2u
-s+hcgNEDaHy1YT+8tyUtOYm+3uVN+tJNnjIbFMxZ8q+s460Qh58+LRe8nyokwRVJ
-fjocfQUL7A2VSJWEakyoyD9KNasvaUZ9jTi4cJbxsSM+IfS4lohDFl2VoKZE4o+H
-j4QtGAdJu1fYPH8dDiY4160+zPqyQyDms6tw5ZuVA2BFZPRFrKcPgWnKuYNQbl1m
-DTMP2XzNO0+7c6m98CCcaBq4lo+jsmlyCkgaXkpLyRFpQP/0SfFD6DQUQHi6asUr
-NblJ95fJeYCS6+hlUJi4QJj1uSoqqa7lMeozkKCZGcBseJTnvIOi2d5pErL3dwmE
-BcsQk/yBd24kdmEAwN+v9Yz8L+5MfpOJ602GJWMrZ31Sj16CLbeBu6aTa8iE4hgb
-gKTG1omK/iF8FHZFzV5xeEHCa7U3LbscouO7o7hwHb6124QfNwBTNLJKC9CFMf6I
-yYgKCj2kMyAnEtl0fZCueYvRssTGVhUmHE8GuMBOv5UjCZWEotP2UMuHt6+w258f
-K9NmJpqT3ARg6tcamiSLKwUSoTR7yGdNNmGd02C7CPGsRoMWuoA=
-=t1Ik
------END PGP SIGNATURE-----
+		if (regmap_read(hdmi->regmap, offset * 4, &val))
+			return 0;
 
---vsbcwdisnglh5dny--
+		return val;
+	}
+
+With .val_bits =3D 8 and .reg_stride left at its default of 1, regmap_mmio
+uses readb()/writeb() instead of 32-bit MMIO accessors, does not check
+4-byte register alignment, and steps through 0x0000..0x3fff byte-by-byte in
+regmap debugfs, issuing unaligned byte reads to the upper three bytes of
+every 32-bit register word.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-cle=
+an-send-v7-0-68f7ea9913db@samsung.com?part=3D15
