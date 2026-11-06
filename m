@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936204;
-	b=MGaAeydiVX1td7nacsKRj6w06R9Gj2JocnX6U4h7iWvjMX/h5xKHor8LkrbUW9nioyfC
-	 Cdjd6T35/suhxN0mHSLs0YEXe3T1ZLttlkGyVvGDXqPeWA3jeT1MNHwr73dlOvTER9s10
-	 SYg4LGQgQpTj8HGct/1P2rXcXNw4QxIthMPx8QFEPqxj6gBCAF+MDvaicLxhoVlB2RF/9
-	 NzaMquWHj+YYfzZJAO4qJx7Z2vVHxv7ZvsLAado+bk4RwqFdqPjw7XFffJsFa6Etc8+tR
-	 2bu/AQ0U1dHP7ITO4djyxSC5Kat03jtndFRe0bhGiUE4TEjf+qK/MX25ldaNw+r2U7w==
+	t=1793936390;
+	b=bufPsgFadeiZwkt9KFUhC8vJUXBZPgiz9YPIz7ZUY8M7viP2xUW4YxcEDe7lvYpgy/p6
+	 w4hpq7cLg7XhODXMIyBVxYdwOcGO6zV+3LNIGxAMcbM1Ls6q5zK4+RMMAQT8Sx+YfIpSI
+	 sMxwgooIiU+nf1R9Z+BYlGTnWsJqIYD1YP4hz62GrEEvpELYDGckmo4jTw8JxIcd8iTm5
+	 /JOrkpiL0GIHR7/n6D62cv80TGgtQ9Fx9m6KKPBxTLTa2u1ioD7pdejEMqPg1IsrcMx7D
+	 OzxIkHGEL8gybvBXaoIuMY6Ze3FNrWtx1oPtJsDSy5OeS9HCoRTztcisCfFL7FtGTLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936204;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=q/YCVVDeaZr5cfQcysmKBFdeFAVQeDXUDkdjN4P/He4=;
-	b=ilEGqGsF279BKtmaK5VhZKofDiH7jFNTVqIayAxpB8uKJRItefY6154ekEbIM0+L9n5/
-	 htYDh0wbrQJhEYUvO90y9n6OcWR1lzs5UTNBx0LADlBUIqwCLJK04itvvw4X44dWW3ZJP
-	 kIkBCVJAGVjEE5dhzb9Ui1dWH5To7clh4Uyql93efbLfNbNEHwIf96nwJ1HKc5ky1vC99
-	 CkaNQF0FsFeAYULBGH7Zaak0zx7qEmQKMoAzSol2yXwhdhhOy364N0/gTyoAjs879K5To
-	 pahFXvyXtDvxEMWUibukJWda26ODcITDIHBKxc3mF3271vJBZ7zor6fd3HoFLtC8h6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936390;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
+	 References:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=YWjCVMH6QOR8U1HdP5g2Ap2iHKmTUMycrvWqvC+OZSg=;
+	b=u/fbSGJvRchLeJjeHBKH8KP3+t2ftVfKVZN75yWhXSSFnU3mx/wDcsHw//mf4C38UB8o
+	 tAu6ZnSu4swv+mr02zqUxesDJ9rq5K6s2zk/lL5uTqt4PfMbrU74A/7q2mDOX7ca2jRLB
+	 KvBOtfkmnLYu28/GHP0/aRKXUseD6r3skva7S7R2DCv37XAEILIKesCjcSblabdamx9Dk
+	 V8fQQv14hv8QxPXDX1dP1JbJpxcIYnZN+/8wOnK3jAi3XzvYqI2WSi0bKflMXd8ZwkTKb
+	 /oqetiyDRd2+e97hCCjaiRF711K0KCOoMYoAvPToqrhlU58YtlKaOr9wOvXxaWyXbSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEgkLoO+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=NdgnQtfW;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A81606A31B
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 03:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426EC606A31B;
+	Fri,  6 Nov 2026 03:39:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 426EC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iEgkLoO+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2036B1F0089F;
-	Fri,  6 Nov 2026 03:36:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793936203;
-	bh=q/YCVVDeaZr5cfQcysmKBFdeFAVQeDXUDkdjN4P/He4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iEgkLoO+0A7gQ7+3vrrRjmmtaaSvx21ijEXK1UfGc1MXSOJmRKjgUjpPcn0UzuJQ+
-	 /tCTzf+fOVVLpmS6WTK8z2GTtz30hSDw+eR18gqSCBytfuAZBeJRoRAyfhafx7IBGc
-	 4G8owHXA8cq09QMlpRfGFiB1j4ZmcUsxtx1RfMBNd81yPU1A1o8hZ3TxsS6DMKGem3
-	 QkF3J5LZMU7TdewtSj3ir4omKnzXxN3Pbo9YnK8jl5Dh6UOI4+W3PkGsrYr8ic+LAP
-	 BF5+Kan+xS/+4VYq0fXp4Dc+Qqc2aq87SyeMobd3ZHokFqWZoGGxRGnjp8AoHHuW7E
-	 kdUg34STrMZHQ==
-Message-ID: <sashiko-outbox-200653@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add
- SM8150 CAMSS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrew Gigena" <mail@andrewgigena.dev>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 03:36:42 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=NdgnQtfW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793936358;
+	bh=YWjCVMH6QOR8U1HdP5g2Ap2iHKmTUMycrvWqvC+OZSg=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=NdgnQtfWQTdDDLxkFVmyZenAyc2QFWutEtKY0BPTYdVsReEfuLs6n6HfLluLvXXlF
+	 2pJUBmMf1oyVBznkOa4Xwuld6C7+vfbTQBhDrNNOH2Gi5VxUUxExHJfcaEAfXXJree
+	 G95gYU4uFb6TEW6BRxQSSOpLKKGcnX5Vu0N4N6Ec=
+X-QQ-mid: esmtpgz13t1793936357t36e91489
+X-QQ-Originating-IP: C3yEeWDAIm4PyjGi5UJr3LByUX02//lzDscXXGL1zXk=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 06 Nov 2026 11:39:14 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9883087005053734820
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,207 +58,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 06 Nov 2026 03:39:13 +0000
+Message-Id: <DMNTD3S9CNW1.1H4CMNHDJM69D@linux.spacemit.com>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 BS01DCMA support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Emil Renner Berthing" <emil.renner.berthing@canonical.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Guodong
+ Xu" <docular.xu@gmail.com>, "Yangyu Chen" <cyy@cyyself.name>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <CAJM55Z9nuO3MneQqBm3K2V2SjOXqXsZcDx9pMzVhxMJJ73xc9Q@mail.gmail.com>
+References: <20261104-k3-bs01dcma-v1-0-794025247e4a@linux.spacemit.com>
+ <20261104-k3-bs01dcma-v1-2-794025247e4a@linux.spacemit.com>
+ <CAJM55Z9Yj87hqwMugqRsf_RL9np=KqzCj-J9RyutuWKd-w-n+g@mail.gmail.com>
+ <CAJM55Z9nuO3MneQqBm3K2V2SjOXqXsZcDx9pMzVhxMJJ73xc9Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NHLGb615Ee/ro7mEPxFyPT/euJjKyX5DrkSw9FAZqTBtDcM7sc8I3DMu
+	AE1/DV7bgQpR3g++m0bMtvu6v5lFl4fUFHssGtqnaRtVWEPfOJmIQIbc7y25gSDrSYE+VUf
+	Og9huuxlj/WC9a51hQaiowE6fqHYA6S/tVQxiZvDclUWoIDM9hO12Y/Q0P4G1Yz7/6tX6jf
+	a96E7bRck+x3YLEL+Cpz0s/RcI6uyqKR4sIS1T+2+9OHY5FSJG5nYZMfmYrmmIrkF1YROAS
+	JOsRH3kOt9/OUoYaGVtg+69G0xWCvfJ19ZN+gDELXlr/MIyawGe887xvX7u+Bu4y3BJN5Be
+	z07ST+UrPOm4mqMxc0PyQjJ9t+zcN4idxYDmm/BGRHInolOk4SECT5I9mfflhu7fKq5xzzp
+	IlIvkbBTFKCv42ZLKy26e0OHEAOaSpER5nV9JfrDIvaeCXbXecTmUHX73lFy70p7j2ve01h
+	lDahcqtREuEmqhPLR0CXfOOy3dETqG5c8M7IYl6tLo4ywobQJvdQoP+LylwFR6ib/P5urL6
+	LSJ2TNFTnXFeZ9dLKZBEJAENtoKCJZWQVFxdy6kycF4OZ4X7A6aECBH5xhUqnFSLq36lqMA
+	RQUKp0k+1MEyEFQcfoUKNrbtJXZQ36w645+5hjwVDFIMhmFfWaKRA3/BgNMKhbrOxm2fXuP
+	CDsF7BlSOOFGdBxwz/yWa8IViHeGa1OsfWtPeyOBQ5EZ7wJBeChJWDIjLjYgdQpg6KFX7lX
+	fwx2f1DfnRyY/eb3km4ujzEv7P5d83YdFW4NhTbfIdy3FfOcNfc76sPZdcZ+5uN9k3OtUM8
+	PcJ9Znd0RSgjp73sRw83Qz62e7IovqUzKxfa7iXlTSPFrhi8EesdakRXEqwLiYV5XYQN63I
+	JEIi1w24BKZaOnnRpC6u9N9V20VmJUDVA7WuTrbEGWHhIGADoyp5RhNXYsdVA+zA5Hs1iIb
+	fIVfbZTspW6BS+G85P8v/RQBxDABOK8hHlRWrJEjZ7V1Ok+2N01vxEZAqTEScO2E2jB0ZZ8
+	IO74eqMeF/EaGPt0Fh34frBhaVbAaZIVm7NRZRQzKWVVR24mwJTILTUXkYW8xexVbxcJ/Qf
+	rnO/VQhm4CGC0P5z/OL0yQEx/cGw/DyF+Jauoj9nWpd/b1bDFrjtd0=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dt-bindings: media: qcom,sm8150-camss: DTS example violates strict =
-coding style
-- [Low] dt-bindings: media: qcom,sm8150-camss: duplicate port schemas and p=
-roperty order
---
+--fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-commit f1e0cef5355c3cc841108a7c44175130434fd78c
-Author: Andrew Gigena <mail@andrewgigena.dev>
+On Wed, 4 Nov 2026 07:43:03 -0500, Emil Renner Berthing wrote:
+> > I just had a talk with Dong from Spacemit. He tells me the
+> > BS01DCMA is the name of a module similar to the com260, only it has
+> > a different form factor and each module consists of 2 separate K3
+> > nodes. Similar to how the com260 module can be used in a small
+> > carrier board (spacemit,k3-com260-ifx) and in a 10-node server
+> > (spacemit,k3-com260-tq), I'd expect to see a
+> > common arch/riscv/boot/dts/spacemit/k3-bs01dcma.dtsi describing the
+> > module itself, and then an
+> > arch/riscv/boot/dts/spacemit/k3-bs01dcma-<something>.dts that
+> > describes the extra peripherals that can be accessed when the module
+> > is plugged into the server.
+> >
+> > [...]
+>
+> Ah, it's called the Cluster Server RV2768
+> https://spacemit.com/community/development-kit/cluster-server-rv2768
 
-dt-bindings: media: qcom,sm8150-camss: Add SM8150 CAMSS
+Hi Emil,
 
-This commit adds a dedicated Devicetree binding schema for the Qualcomm
-SM8150 Camera Subsystem (CAMSS), describing its CSIPHY, CSID, VFE, and
-VFE-Lite instances along with its clocks, interrupts, IOMMU streams,
-interconnects, and power domains.
+I've checked with our hardware team. BS01DCMA is indeed a module, so
+the "board" wording in this series is wrong and I'll fix it in the next
+version.
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> new file mode 100644
-> index 0000000000000..26f8939001df2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> @@ -0,0 +1,412 @@
-[ ... ]
-> +properties:
-> +  compatible:
-> +    const: qcom,sm8150-camss
-> +
-> +  clocks:
-> +    minItems: 27
-> +    maxItems: 27
-[ ... ]
-> +  interrupts:
-> +    minItems: 12
-> +    maxItems: 12
-[ ... ]
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    description:
-> +      CSI input ports.
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input port for receiving CSI data from CSIPHY0.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - data-lanes
-> +
-> +      port@1:
-[ ... ]
-> +      port@2:
-[ ... ]
-> +      port@3:
-[ ... ]
-> +  reg:
-> +    minItems: 12
-> +    maxItems: 12
-> +
-> +  reg-names:
-> +    items:
-> +      - const: csiphy0
-> +      - const: csiphy1
-> +      - const: csiphy2
-> +      - const: csiphy3
-> +      - const: vfe0
-> +      - const: csid0
-> +      - const: vfe1
-> +      - const: csid1
-> +      - const: vfe_lite0
-> +      - const: csid_lite0
-> +      - const: vfe_lite1
-> +      - const: csid_lite1
-> +
-> +  vdda-phy-supply:
-> +    description:
-> +      0.88V supply to CSIPHY IP blocks.
-> +
-> +  vdda-pll-supply:
-> +    description:
-> +      1.2V supply to CSIPHY IP blocks.
-> +
-> +required:
-> +  - clock-names
-> +  - clocks
-> +  - compatible
+I'd still like to keep a single k3-bs01dcma.dts though. The module is
+only used in the RV2768, and that carrier is essentially just cabling
+to PCIe network cards. Those are found by enumeration and there's
+nothing else on it for the K3 to control, so a
+k3-bs01dcma-rv2768.dts would have nothing to describe.
 
-[Severity: Low]
-This isn't a bug, but in Documentation/devicetree/bindings/media/qcom,sm815=
-0-camss.yaml,
-port@0 through port@3 under properties.ports duplicate the exact same
-schema definition four times. Could this use patternProperties with
-^port@[0-3]$ instead, matching recent Qualcomm CAMSS schemas such as
-qcom,sm8650-camss.yaml, qcom,x1e80100-camss.yaml, and qcom,sm6350-camss.yam=
-l?
-
-Also, could reg and reg-names be placed immediately after compatible in
-both properties and required (and clocks placed before clock-names in
-required) to follow Documentation/devicetree/bindings/writing-schema.rst
-and Documentation/devicetree/bindings/dts-coding-style.rst, and could the
-redundant minItems entries on clocks, interrupts, and reg be dropped since
-maxItems is already set to the same value?
-
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/qcom,gcc-sm8150.h>
-> +    #include <dt-bindings/clock/qcom,sm8150-camcc.h>
-> +    #include <dt-bindings/interconnect/qcom,sm8150.h>
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    soc {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        camss: camss@ac65000 {
-> +            compatible =3D "qcom,sm8150-camss";
-> +
-> +            reg =3D <0 0xac65000 0 0x1000>,
-> +              <0 0xac66000 0 0x1000>,
-[ ... ]
-> +            iommus =3D <&apps_smmu 0x840 0x620>,
-> +              <&apps_smmu 0x860 0x620>,
-> +              <&apps_smmu 0xA40 0x620>,
-> +              <&apps_smmu 0xA60 0x620>,
-> +              <&apps_smmu 0xC40 0x620>,
-> +              <&apps_smmu 0xC60 0x620>,
-> +              <&apps_smmu 0xE40 0x620>,
-> +              <&apps_smmu 0xE60 0x620>;
-> +
-> +            interconnects =3D <&gem_noc MASTER_AMPSS_M0 0 &config_noc SL=
-AVE_CAMERA_CFG 0>,
-> +                <&mmss_noc MASTER_CAMNOC_HF0 0 &mc_virt SLAVE_EBI_CH0 0>,
-> +                <&mmss_noc MASTER_CAMNOC_HF1 0 &mc_virt SLAVE_EBI_CH0 0>,
-> +                <&mmss_noc MASTER_CAMNOC_SF 0 &mc_virt SLAVE_EBI_CH0 0>;
-> +
-> +            interconnect-names =3D "cam_ahb",
-> +              "cam_hf_0_mnoc",
-> +              "cam_hf_1_mnoc",
-> +              "cam_sf_0_mnoc";
-> +
-> +            vdda-phy-supply =3D <&vreg_l5a_0p88>;
-> +            vdda-pll-supply =3D <&vreg_l3c_1p2>;
-> +
-> +            ports {
-> +                #address-cells =3D <1>;
-> +                #size-cells =3D <0>;
-> +
-> +                port@0 {
-> +                    reg =3D <0>;
-> +
-> +                    csiphy_ep0: endpoint {
-> +                        data-lanes =3D <0 1 2 3>;
-> +                        remote-endpoint =3D <&sensor_ep>;
-> +                    };
-
-[Severity: Low]
-When running scripts/dtc/dt-check-style --mode=3Dstrict on
-Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml, the
-examples block triggers several style warnings:
-
-1. Continuation lines in reg, reg-names, interrupts, interrupt-names,
-power-domains, power-domain-names, clocks, clock-names, iommus,
-interconnects, and interconnect-names are indented by 2 or 4 spaces instead
-of aligning with the opening < or quote character on the first line.
-
-2. The iommus entries 0xA40, 0xA60, 0xC40, 0xC60, 0xE40, and 0xE60 use
-uppercase hex digits instead of lowercase.
-
-3. The first entry of interconnects exceeds 80 columns in the extracted
-example.
-
-4. The labels camss and csiphy_ep0 are defined but never referenced in the
-example.
-
-In addition, dt-bindings/power/qcom-rpmpd.h is not used in the example, and
-the node is named camss@ac65000 instead of the generic isp@ac65000 node
-name. Could these be cleaned up in the example?
+Does that work for you?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-sm8150-v7.=
-4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev?part=3D2
+Troy Mitchell
+
+--fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCau1L4SEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC8bHwEA/wJFXrKpYftH
+FB5kzcPBx6DamUD5F+4zMd1bZudAqVUBAKPNyObrwunkgozWj9HWqQMnkYJyk6XD
+Wmy765878T8H
+=dLV/
+-----END PGP SIGNATURE-----
+
+--fa641b20d767eb6dfceae802e81e79246e3b4039a9ed52a8760cf69df47f--
