@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936474;
-	b=rCMRSK9INn/bl3FFzHl47AqUluTh9wjUSCUfUDhX6lAuIqUSSvujZX973xNFmiJL44fA
-	 Ti4R77M7Y+qPQ1ZXrKzQPPLjhwE7nDNBlEuj0OL816aFvijj71Mq6xmWAW/oD+y0qJbCH
-	 U1/zBaskwoG5Zi5auWrM1YAMPvMxkn+NIwqZeh9UaMdjtOR5fxLNzfaPTNPDFZR/wHdSE
-	 Sv90Zz/0dj2U6m1RWWJ7iNz2m76WtYDTo8Pd+w+FX7/XoJSuTVa23pO0XPvjnfb7MjVtO
-	 RyA7SrOwYiptiR92yU+Zj+ylS5D/e6sJ2v29mDJZhehlUdGwGmH4QVQewx59AfhIKOw==
+	t=1793938295;
+	b=JLrvGdTjHyr+EqR945KHZJ34HhAjjyPmQ68TBVxH8Q4fdLf4ghR4Bx23JuZZ9GUr+IqZ
+	 fdnGzCxy0uQo/IdOXxikrDB/2ESvQPdtZA5ihJjl0cHpxTNXX5rHk00bgCK3ptq7JqSgs
+	 PVwjLQ3ltV7dKryf/J0o/2Gw5pBQP2jm/o62CNbH3bhxRM2GWrTuvn/vujtw6Cm1/V0py
+	 72h/v+BINeF0szJnXk9EQDzXbHEbzgjWpLA2t9Gkst1PlR1u/81IGujEu5reTYRro6mj0
+	 jaiVxdtoAbxFT5ROHVv77adncrdQ6D5I6nQJcskUillAW28a36p2VcveMPBTsAPyj5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936474;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8MABe69qeLx4KL+iHoLgp3OzXx5gauXqsbF5hTe3cdw=;
-	b=UtxJEYhBnvEAmPB2WLXDqe0AVIjr+w3MITkKj2/f0EjulKPYGfc0u17HpyQN9oZJvQMJ
-	 6CyerGMYXhRhsbayD3BVG6sniUXuVUag4ahyOdFQKYkYZkHbPMZrX47j9c3Dzbdo04YJ9
-	 /ZwgO+lnNg2f3WUn4Cok5kCxf06zDnZYLMkItF0sJTKznfmajBXsxnsZ4dTqh7LOwCg6i
-	 wrGKsipNPRaqVhVx97JvpezANx233r56htwB0u3gSbClkOF0vckldnSFVJxlC3J7Uj9WN
-	 q9PnF9bP1fl8JSKuQsijuXtAheL9IzvsN1S6RuIQQtCOL5v6PCkTNyEvIpyTkVrpEOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938295;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fbk6DkOtVNpfer0G5WmCzh3Nahh3tZmIvlpCq/JTH2g=;
+	b=Hz0ZRWA7pMGXxLU9OSKkReYWYyx6z/oeG1feEJwWJlHRZDvksMojUu60O3YtOH8Lhzea
+	 ZFCuzEc2cmwb4dVzvFuw/F8Pzb5dhXA3upzkGzJxWO9o9rxVi3sc5Ms4yyO1x7oZt3Itd
+	 TId0WWJ3joq3Ps2J6weYUB9jRZPy8F+guLW+nRG1SuXTFpnQjw2T8yeQIFhVyFr3BHGXd
+	 E4FDOSV23vqc7bMQ3we0m74EoQPEkxHog4R4DhA/Wn5cKdwI/YDKRiiITv1KAQqo3/3ju
+	 m5POEHH9z6CEwBawDwxxMMifWrNF+SQ3DkjypjSviKoc8/p2IuRR02MY2gN9Ac/JibA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RL6yj0Ik;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aX4taz+s;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFB9606A31B
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 03:41:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC46606A332;
+	Fri,  6 Nov 2026 04:11:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC46606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RL6yj0Ik
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37BF61F008A1;
-	Fri,  6 Nov 2026 03:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793936473;
-	bh=8MABe69qeLx4KL+iHoLgp3OzXx5gauXqsbF5hTe3cdw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RL6yj0IkGxf+eTimXbB+bQ8muOrLyR0CguV2pN1wEDJyI/N3bha5nPkZv3mum15ui
-	 szfIVTcz48IkaSqPLDfwbJzlS9HSv9ljykxQdJRRrPCCZT2IWFTWUcFjFnvMb6NeJW
-	 sw8x7iQw8r6b1zcG7FZ6wmyF2josRDw/lsaScx1sEY682Dk6uV7fZUdvBjqU6jsNWL
-	 c18r0S/z3P4V55ICQKnC4BnhXfumUiJnYom7or9G3XF71wgzVjbqoDKFXqcd1sApoY
-	 w6vHogSk+F1zTF3HNsysni0tOb03kgKHWUneoGijjvyKSOAGhJi6VJquuBGq09fC4K
-	 QGObxusawsz9g==
-Message-ID: <sashiko-outbox-200659@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: sm8150: Add CAMSS and CCI
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrew Gigena" <mail@andrewgigena.dev>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-5-39ee37787b00@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v2-5-39ee37787b00@andrewgigena.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 03:41:12 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aX4taz+s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793938291; x=1794197491;
+	bh=fbk6DkOtVNpfer0G5WmCzh3Nahh3tZmIvlpCq/JTH2g=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=aX4taz+sONttMq3YY12Pv7DNDVm+tCS0imydR+EWKGAgsy4ek9xQf2EfyOeY7CpHQ
+	 1+IIAq8pjzGWweiHiWx62WmCRLzUBqGXQJmlijof4rVhCGORTg1+dGw5AeWCdBDMAi
+	 MJz9CQ8LYd/vTC54j5cKZqKphgB0jGmGrmFZyPm1q8kanQmgX1Zv9EjFhIb2az2+RL
+	 Ohm80ZnJpTZt84dTNBDvcuRdS0VDx60zbhy2PKTTYjFliQaOLJC04N9rzb3+6NV+SB
+	 W5ewkOhMf64tpzd1b5AE1XZgjwI9ii3e29NRgXSLUHg1edrqgcFhO7iwoJfGICzctp
+	 GyNdS09EAeGeQ==
+Date: Fri, 06 Nov 2026 04:11:24 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v9 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20261106041116.78937-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: fdbb2db56b7eae1a3baa03bdf685700f05536a2e
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,137 +60,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] arm64: dts: qcom: sm8150: inverted CLK/DATA comments in CCI pinctrl=
- nodes
---
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11
+for Business (Intel Lunar Lake, IPU7), ACPI device SONY0681. Without a
+driver the camera does not appear at all.
 
-commit 338e8b9406e2ae8eb1e75907ca56f8da311da07c
-Author: Andrew Gigena <mail@andrewgigena.dev>
+  1/3  dt-bindings: media: Add Sony IMX681        (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver  (Andre's, co-developed)
+  3/3  media: ipu-bridge: Add Sony IMX681         (mine)
 
-arm64: dts: qcom: sm8150: Add CAMSS and CCI nodes
+The driver is Andre's, reverse-engineered from I2C traces taken under
+Windows.
 
-This commit adds the CAMSS and CCI controller nodes to the SM8150 SoC
-devicetree, along with the corresponding TLMM pinctrl states for the CCI0
-and CCI1 I2C buses.
+Changes in v9
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/q=
-com/sm8150.dtsi
-> index 293fcbacff346..a1fd3a4ed2e5e 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> @@ -2736,6 +2736,86 @@ wake-pins {
->  					bias-pull-up;
->  				};
->  			};
-> +
-> +			cci0_default: cci0-default-state {
-> +				cci0_i2c0_default: cci0-i2c0-default-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio17", "gpio18";
-> +					function =3D "cci_i2c";
-> +
-> +					bias-pull-up;
-> +					drive-strength =3D <2>; /* 2 mA */
-> +				};
-> +
-> +				cci0_i2c1_default: cci0-i2c1-default-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio19", "gpio20";
-> +					function =3D "cci_i2c";
-> +
-> +					bias-pull-up;
-> +					drive-strength =3D <2>; /* 2 mA */
-> +				};
-> +			};
-> +
-> +			cci0_sleep: cci0-sleep-state {
-> +				cci0_i2c0_sleep: cci0-i2c0-sleep-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio17", "gpio18";
-> +					function =3D "cci_i2c";
-> +
-> +					drive-strength =3D <2>; /* 2 mA */
-> +					bias-pull-down;
-> +				};
-> +
-> +				cci0_i2c1_sleep: cci0-i2c1-sleep-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio19", "gpio20";
-> +					function =3D "cci_i2c";
-> +
-> +					drive-strength =3D <2>; /* 2 mA */
-> +					bias-pull-down;
-> +				};
-> +			};
-> +
-> +			cci1_default: cci1-default-state {
-> +				cci1_i2c0_default: cci1-i2c0-default-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio31", "gpio32";
-> +					function =3D "cci_i2c";
-> +
-> +					bias-pull-up;
-> +					drive-strength =3D <2>; /* 2 mA */
-> +				};
-> +
-> +				cci1_i2c1_default: cci1-i2c1-default-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio33", "gpio34";
-> +					function =3D "cci_i2c";
-> +
-> +					bias-pull-up;
-> +					drive-strength =3D <2>; /* 2 mA */
-> +				};
-> +			};
-> +
-> +			cci1_sleep: cci1-sleep-state {
-> +				cci1_i2c0_sleep: cci1-i2c0-sleep-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio31", "gpio32";
-> +					function =3D "cci_i2c";
-> +
-> +					bias-pull-down;
-> +					drive-strength =3D <2>; /* 2 mA */
-> +				};
-> +
-> +				cci1_i2c1_sleep: cci1-i2c1-sleep-pins {
-> +					/* CLK, DATA */
-> +					pins =3D "gpio33", "gpio34";
-> +					function =3D "cci_i2c";
-> +
-> +					bias-pull-down;
-> +					drive-strength =3D <2>; /* 2 mA */
-> +				};
-> +			};
+Rebased on v7.4-rc1, where v8 no longer applied: imx576 went in next to
+2/3's Makefile line. No functional change; imx681.c is byte for byte v8's.
+- 2/3: the Makefile line follows imx678.
+- 3/3: the bridge entry follows the IMX471 ones, in the table's order
+  there. This also keeps it apart from the VD55G0 entry in [1], so the
+  two series apply in either order.
 
-[Severity: Low]
-Are the /* CLK, DATA */ comments inverted across the cci0_default,
-cci0_sleep, cci1_default, and cci1_sleep pinctrl subnodes?
+All tags are kept. On v7.4-rc1, 2/3 and 3/3 build with W=3D1 and sparse
+clean, alone and together with [1]; the tests below are v8's.
 
-Looking at the TLMM GPIO line names in
-arch/arm64/boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi:
+While this sensor streams, IPU7's CSI-2 receiver logs "Received packet is
+too long" once per frame, and the frames are complete. Andre sees the same
+with his downstream driver, so it does not come from this series.
 
-    &tlmm {
-        gpio-line-names =3D
-            ...
-            "CCI_I2C_SDA0",
-            "CCI_I2C_SCL0",
-            "CCI_I2C_SDA1",
-            "CCI_I2C_SCL1", /* GPIO_20 */
-            ...
-            "CCI_I2C_SDA2",
-            "CCI_I2C_SCL2",
-            "CCI_I2C_SDA3",
-            "CCI_I2C_SCL3",
-            ...
+Tested with v8 on the Surface Pro 11 for Business, on media next
+2dcdfb625c3 with KASAN and lockdep:
+- the clock is INT3472:02-clk at 19.2 MHz, with the sensor as consumer;
+- v4l2-compliance 46 of 46, no warnings;
+- 3844x2640 at 30.01 fps;
+- the four flip states give the four Bayer orders, and EBUSY while
+  streaming;
+- runtime suspend after streaming, and capture after unbind and bind;
+- no KASAN or lockdep report from the driver;
+- W=3D1 and sparse clean, dt_binding_check clean.
 
-gpio17, gpio19, gpio31, and gpio33 are the SDA (DATA) lines, while gpio18,
-gpio20, gpio32, and gpio34 are the SCL (CLK) lines. Should these comments
-say /* SDA, SCL */ or /* DATA, CLK */ instead?
+[1] https://lore.kernel.org/all/20261103103235.94397-1-lsa.uz@pm.me/
+v8: https://lore.kernel.org/all/20261002082537.74084-1-lsa.uz@pm.me/
 
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       |  108 ++
+ MAINTAINERS                                   |    8 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx681.c                    | 1032 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |    2 +
+ 6 files changed, 1161 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-sm8150-v7.=
-4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev?part=3D5
+2.54.0
+
+
