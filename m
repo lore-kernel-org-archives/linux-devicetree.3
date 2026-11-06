@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969151;
-	b=QfuCYkeLMc7qN68M4azdOepYw9kDKFiCsbtqv8Phhg4xUQByRcBpsOHJzB/Zi41vaO6b
-	 NN24zDiyjdpOvk7qJ4XZ0vh1ArLFcimBH/+q5/2UDEejFzc8Zt/nM8oLdgmfD7+m6rqfq
-	 HGawIzaPPTyLPLD596yKjkIE16QxHqodSlY3clAqrVPhkvraINCKzxHgz8frBMtQBQQ7K
-	 AA3tYet4c4Ee4l/HV187RfU4n0EDg+ICC/9zcUFmBUsK6uh20ZkspsxR4kEQxj3i29Wvg
-	 yGegEjklokWdmXpHhTrQ855uhzaOyW/lcSLJh46huj2H9D0fYnd9Ew5fnBstTB9kDgg==
+	t=1793969190;
+	b=2Kjx7iFzIWgUwcg0TweOajfpkumUW51v8eGt9CebKKZVxwV25vFOwUezdLNIY7Fo9zg5
+	 VrszUckspgVy69e6GUMidAOifIqtZbcLKMCymson3HHyjEI9uJrS/hQjm3Kr+zwF740Yb
+	 ggw0bnjgBCh0fS0qZG+soCyaQ4UPg3xh1lXQt6ROtf/W8a96gzhx60ywQMAFv2+RdPRjU
+	 PFJ0oqOIZr8W6QVHi5fXMTreL2+M0eo5QPsXlPkhuQNmD8MGcR1p7r9PDwCBKgR23OwxC
+	 wtiKfOD1VH7HoWDweM2WS9KSIePtO/XeSJ3d+kdrR2Ckc56VN6otHx1isipnPI610kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969151;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SvCOCf3YteA9iimmP/e0lnCKLJTugesY45Fw5285iVw=;
-	b=BJNhef7G9yRPJCuZUqtpizRB9lnmIMMtCLg4ib6G4U2ogBstPCqpMle6L/F8DhVbkH3j
-	 KMeZ73/s10SJI2Rdk8vUGoTYGX5VPTYfrHkbP3qT20OPJ3XQmiBZxv1w5oPjWLpa5lPM4
-	 9VlEkxn1s45l1zFih75E6iJgEVVqj8DYMPLkICGEqozUpN+yCdNT176wn//lum5tjTT3O
-	 6HdNPraW+N0C/Pg3GwueI5JMUXP8aZRO6e8KsnL4P8RufdHrraEjd5l/xaRGesSHNzJ3W
-	 8q+wfhUUrzz05aWC685m2Jh5MKW2ZkMnSfdJP8fSugb5qITUS6dqhz7ej4vSLny5McA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969190;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BPdc3G7jz54Uqtjn7AC8nrE7lGpl51rsY51aLrfVh0c=;
+	b=vK7CR8jj0FV152vNtnSxPTMAW5r7/jUbMCueEoo6g7tOe2uoCwIxz4Ctg4K0nQZff3Oa
+	 vMuik71cTsZ4NamTEZqoS4JeFkV3BZ44EG2bBCAKBUk6i7GDLdwu2XnTuHWJGhzDND7Xo
+	 a39UGU+VDjqAsldZIKKnNjhp/BZJZJK6BHtvMeAlP5tEV1AwNs3WZ6NloMznT1mrecyBZ
+	 YYl5ecZ27z3YCujcVEWf0U1pS/d7N/JhlV1SubIeVQusnpI3KkKfS48IvEtaqnA46QhUN
+	 Krbw0YVJDJ74eK+BFDQMs+Y92LdOV5jL4/gXmes+N/D0WB+MgInRE+CRAJqtVwz9+ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=QSZCZtXd;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfCNjwZv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3D9606A32C;
-	Fri,  6 Nov 2026 12:45:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE3D9606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3D9606A326;
+	Fri,  6 Nov 2026 12:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=QSZCZtXd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793969149; x=1794228349;
-	bh=SvCOCf3YteA9iimmP/e0lnCKLJTugesY45Fw5285iVw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QSZCZtXdqU+7S8oGK81m5dtWVyyK2pLUfp8XDB2j7lZTm7xXDVZDDRdB+JSUCJHHw
-	 RfuauBmStZCLCwBZXsu1md1ZMO73h0xEipezjF60ti5kmGV+67RhZlp29tWcMN8I4o
-	 xO351TK50c+kADkedAxJEUqu+N5oz86eOaTfbXw2ZtNzKzYG9JRo7kKdb+9u7WheIv
-	 iLxa39b/4C9OkB0AU21smxHGblE65tk6Cpvql1iqI4/WF6O9EohX/CfMPJrUDaI8gA
-	 3FLEVwB7tMq/ylovZUl2VXqjTEfZCTGJ6HviX9b+uxvXQQbasqGsRTLipbhuI9gDir
-	 9NuPKuULVnuQw==
-Date: Fri, 06 Nov 2026 12:45:44 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v10 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20261106124505.71429-4-lsa.uz@pm.me>
-In-Reply-To: <20261106124505.71429-1-lsa.uz@pm.me>
-References: <20261106124505.71429-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 83f751e65593d37a7ae0d24e615f62f4cf494344
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfCNjwZv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFF01F0089F;
+	Fri,  6 Nov 2026 12:46:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793969190;
+	bh=BPdc3G7jz54Uqtjn7AC8nrE7lGpl51rsY51aLrfVh0c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QfCNjwZvG+CC3xe0eQ7y6UM6w726zb7ufYTmtI0p1Ftuu85DVYYfmSTmHBnmcWuph
+	 Y9PK5Jvm8k3OS2FeKPm56HB66JXa4HaEHqwIdNZ3BmlSLCcMz0lJHOvDAlRZ2v3/ay
+	 sXV/z8qIDvgNYf1DhjV3M26yY2Mf+CriYIIcS2FvcvbuRyhDyWW7AxmG6Lm0CfXEoj
+	 Ld6aB6yq5Z3kl+NIjJ5NcA9Xvhmt5p3aoEhbqM7hfgE9kJ9D1f7gFhPUBlqh73y3gS
+	 D+xoy3ZafBK3VqN1noxIZaktAn2p7Fqx2TO3cmzRwwvErOWtsZFvoNCXBQyqgA6fVr
+	 hhG8crctKJ0Qg==
+Date: Fri, 6 Nov 2026 13:46:26 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Neal Gompa <neal@gompa.dev>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Hector Martin <marcan@marcan.st>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+	Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
+	Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [PATCH v2 6/9] dt-bindings: pinctrl: apple,pinctrl: Add t8142
+ compatible
+Message-ID: <20261106-undetectable-vicugna-of-advertising-6d048e@quoll>
+References: <20261104-apple-m5-initial-devicetrees-v2-0-fd727a82d380@cyberchaos.dev>
+ <20261104-apple-m5-initial-devicetrees-v2-6-fd727a82d380@cyberchaos.dev>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -65,37 +66,21 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261104-apple-m5-initial-devicetrees-v2-6-fd727a82d380@cyberchaos.dev>
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+On Wed, Nov 04, 2026 at 06:24:19PM +0100, Yureka Lilian wrote:
+> The pin controller on the Apple Silicon T8142 (M5) SoCs is compatible
+> with t8140. Add "apple,t8142-pinctrl" as SoC specific compatible under
+> "apple,t8140-pinctrl".
+> 
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>  Documentation/devicetree/bindings/pinctrl/apple,pinctrl.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 3739c4a2a8c..2759c776cfc 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -124,6 +124,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* STMicroelectronics VD55G1 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A1", 1, 402000000),
- =09/* Toshiba T4KA3 */
---=20
-2.54.0
-
+Best regards,
+Krzysztof
 
