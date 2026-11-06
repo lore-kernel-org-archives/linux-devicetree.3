@@ -1,75 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978960;
-	b=O3vGaNYPyb0bgTbshvc8Uldd3FbfTzEgciH8h5wgDvEI9iALXgr45oIUKyDnPK2GYOvZ
-	 lPTYyUdR8XlpKJNhFH+h6dKX4msNM/DfwKrytw1mNNndNbExkD2X/mls77Sk/52eBq0N6
-	 tzBMqqUO+8Qj2igwxK0JAWQsq6ptHbnsTiAcjiNtz2bGUXILHp58crwh3+Cre81kUVAQW
-	 HfsOqxeb3cuk35vth0vhcarIpsZ7jtVMU17YuGpsULLG7MksgRajOVUsTgPksyuWOrOY3
-	 r2/wUrM2bsuLIRoKl/MXiLMNaZggauR0Qj/E8VKGeB4KuIMxjnko6kG/T+GX9251GPg==
+	t=1793979155;
+	b=XTPrNOTkKOkj2VgFDRQMmOxNm/u+LEKJOGqmfWTYqCuIEP9VBEfYv/4X9U5M0VYrMpCC
+	 5YtDihhEilre2IBpDUEpfkK/oEhYJFHwkfzX+2c4L1sbiJjBeTA9Xx2YEG93fPMXyXO1Q
+	 LjFUCR0BEvp06rRuyDkeyD2mJBzHywkSVE2Mynn0S9aQoP/sE3AHwrwZnaXFZCWGi8Awr
+	 7rdg49r1LCt/SjohxIMG68WAwcDpVdfXfPYWhtlfCldNsvsPDqSDW8UY5ckHcdsJ9VNCj
+	 fZBi3dcemC/6/XI7l+eGXOsfSJ928st5iMMCIAwEZcKCUlvrnBgUxxs3K3dNZo0gOEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978960;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=48rljzKvoUg9v4zCJJmQB8ccTlJM08PmCKtx6YIOPJA=;
-	b=Efu9rfpPWHOJgRG3Mg5VBZQ9/41LpP+EyiLcf3syaXc3us873BAdGgTf1SlbKBigjrQk
-	 zAR1y8G21qLr7c93cNlpkEzRejW/kJxlSWm3ShnPObpkbxaW6v/lojgWCnKJXUdcGamsi
-	 vnBlyEAg+nIWUGgw+WSgdT32Bpm8tnUw/OueRmGioN97S8QIjIZEBXNJo2MWWmtCdTSMK
-	 lF7+2pZWz4dViHFvWcX7vVAoHccJwJQSg6q90gDdyFoI2Nbge6RqcYYh/Rh5aZT/CgjCA
-	 uZAF0zGUDrJZ3jMr+LBiHrE68p4q2kV0EoTbIFXpSZpR/7zqRH3YJpAAwuDt2U6rBQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979155;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=rMl1U7nW/90t6rAF9C09fPiFlgzHGi6pf3vP5zsdLEo=;
+	b=IjjIjq1D+6/RnYEHjdVL+cW9PxGQcu6XWGS4Nl44lecDk8KnKjjCVB2PXWOfu8/Ru3Xe
+	 ZCIkMegHiiIyj+cypbOHz2FNIdDkS3eJEmDoPLgJu5W9OBoyYqtWCDfsI9sKFKqCHoFpd
+	 agyNZg17vz75opv26pf/Z3ewgkJn9J8ebx/fb5GUrrJgtshADPNOeaIKACLOvOCjXajCg
+	 +6DCuu0m0U7UptUErTa6BBgwAOA8J3Kc4BPxNo6HKYiI0WveSf8ZvdKBBrj0ZfSZsQrUK
+	 Qp0as8zV6Ub7JoqEB3ywuoJuQWP4i8wgxoFCzWrJD//ImB7JkFdD6zOmaxDAlpWRPbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ZjbSwH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcLnXvYU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685E0606A326;
-	Fri,  6 Nov 2026 15:29:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFEA606A32E;
+	Fri,  6 Nov 2026 15:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ZjbSwH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2081F0089F;
-	Fri,  6 Nov 2026 15:29:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcLnXvYU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DDC41F0089F;
+	Fri,  6 Nov 2026 15:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978960;
-	bh=48rljzKvoUg9v4zCJJmQB8ccTlJM08PmCKtx6YIOPJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A8ZjbSwHU20MhVdWCWsRQ+KFXa54YccwjaujcZwWf33hDNUgV4Arp04bJGZXtVcoz
-	 etXQZtX2+GCWQmeJ8OGC/LEBOLsWftUfVIXKPUKIw9vZhMWl1i+DUCNVni8kio35pl
-	 NlX+mGPl+MloBvZj4CoMuGUPahCxH7sCrcE7YdiZ9Vs6nxOnX+mXtuVSyufdxHjx3V
-	 PIB5RlZU7/uXUot8EW8HI6ICST0+oPGA/ZupU54YiE6A94Nat8GHhbXxJxH7g1CISb
-	 zqUo4ETB4NsLXuDG+zSPSxPWr/jNc3l12jX+zb54sH+JdI2qq3FUa2vbf0nBsiQTuf
-	 Kh4dq4meZu8sw==
-Date: Fri, 6 Nov 2026 09:29:15 -0600
-From: Rob Herring <robh@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH v4 2/6] dt-bindings: phy: Add rockchip,rk3568-edp-phy
-Message-ID: <20261106152915.GA3406543-robh@kernel.org>
-References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
- <20261030064905.2248999-3-damon.ding@rock-chips.com>
- <20261103-lemon-guillemot-of-economy-eefbbd@quoll>
- <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
+	s=k20260515; t=1793979154;
+	bh=rMl1U7nW/90t6rAF9C09fPiFlgzHGi6pf3vP5zsdLEo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kcLnXvYUEWWrBvAo08yoYrjkW+c9s8Zh9CJVM+RvoTJvRoEApeQcSddXogm7N7eiT
+	 we8EtwvudiAJc48jRjw9QWvAp/6GqIidxZNkXNraMT8wmoIAX2WtnbzFEO7NF71RF4
+	 c6abvOo7BBPjyPUSW5N8UxC2MYa/ooHa65xbLs6aMT+w31c5arc8GJZDirAfN76KFi
+	 zamrxKxD1rsSB7Ph9h6lm6EFdsJUPLYG5EaMGHA0i6fE07hxAREvh8V8Oh7nXVTgLE
+	 NtE/77LSxdC6yiMKmHmaEGkvc7p7nzDDEHTZjLuom8wsJHBBnxWiSDGejf4ln4N8la
+	 x8hQ4wcO3H50A==
+Message-ID: <sashiko-outbox-201699@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/6] spi: spi-geni-qcom: Add QSPI support over GPI DMA
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jyothi Kumar Seerapu" <jyothi.seerapu@oss.qualcomm.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261106-qspi_upstream_series-v1-6-21f43042dd60@oss.qualcomm.com>
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-6-21f43042dd60@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 15:32:33 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -78,108 +59,250 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fd180b9c-de60-4718-b17f-319bf4339e13@rock-chips.com>
 
-On Wed, Nov 04, 2026 at 04:59:58PM +0800, Damon Ding wrote:
-> Hi Krzysztof,
-> 
-> On 11/3/2026 7:20 PM, Krzysztof Kozlowski wrote:
-> > On Fri, Oct 30, 2026 at 02:49:01PM +0800, Damon Ding wrote:
-> > > Document the eDP transmitter PHY with NaNeng IP block found on the
-> > > RK3568 SoC.  The PHY has its own register window inside the eDP PHY
-> > > GRF, so its node is modeled as a child of the eDP PHY GRF syscon with
-> > > a reg property describing that window.  Also add the
-> > > "rockchip,rk3568-edp-phy-grf" compatible and the phy node reference to
-> > > the Rockchip GRF schema.
-> > > 
-> > > Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> > > 
-> > > ---
-> > > 
-> > > Changes in v4:
-> > > - Add the reg entry for the PHY node and the ranges/#address-cells/
-> > >    #size-cells for the parent syscon node.
-> > > ---
-> > >   .../bindings/phy/rockchip,rk3568-edp-phy.yaml | 68 +++++++++++++++++++
-> > >   .../devicetree/bindings/soc/rockchip/grf.yaml | 20 ++++++
-> > >   2 files changed, 88 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-> > > new file mode 100644
-> > > index 000000000000..b78da00ffefd
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
-> > > @@ -0,0 +1,68 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/phy/rockchip,rk3568-edp-phy.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Rockchip eDP Transmitter PHY with NaNeng IP block
-> > > +
-> > > +maintainers:
-> > > +  - Damon Ding <damon.ding@rock-chips.com>
-> > > +  - Heiko Stuebner <heiko@sntech.de>
-> > > +
-> > > +description:
-> > > +  On the RK3568 SoC the eDP PHY is controlled through the eDP PHY GRF
-> > > +  registers, therefore the PHY node is expected to be a child of the
-> > > +  eDP PHY GRF syscon node.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: rockchip,rk3568-edp-phy
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +    description: PHY registers within the eDP PHY GRF.
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1
-> > > +
-> > > +  clock-names:
-> > > +    const: refclk
-> > 
-> > Just "ref"
-> 
-> Will fix in v5.
-> 
-> > 
-> > > +
-> > > +  "#phy-cells":
-> > > +    const: 0
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - clocks
-> > > +  - clock-names
-> > > +  - "#phy-cells"
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/clock/rk3568-cru.h>
-> > > +
-> > > +    soc {
-> > > +      #address-cells = <2>;
-> > > +      #size-cells = <2>;
-> > > +
-> > > +      edp_phy_grf: syscon@fdcb0000 {
-> > > +        compatible = "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
-> > 
-> > This is beyond the scope of this binding. Drop entire node.
-> 
-> Will Drop in v5. The example should only show the PHY node itself.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] spi: spi-geni-qcom: dummy_data len treated as cycles in
+  setup_gsi_xfer()
+- [Medium] spi: spi-geni-qcom: uncombined dummy_data sent as TX in
+  setup_gsi_xfer()
+- [Medium] spi: spi-geni-qcom: unreset started flag in
+  spi_geni_transfer_one_message()
+- [Medium] spi: geni-qcom: unvalidated tx_nbits and phase split in
+  setup_gsi_xfer()
+--
 
-Actually, drop the whole thing and put in GRF binding if you want an 
-example. MFD examples should be complete, not piecemeal with each 
-sub-device.
+commit d6c09f855544d5373d7663c53224613976d60d6e
+Author: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
 
-Rob
+spi: spi-geni-qcom: Add QSPI support over GPI DMA
+
+This commit adds QSPI controller support over GPI DMA for the
+qcom,geni-qspi compatible, combining TX, optional dummy, and RX transfers
+into a single SPI_TX_RX command.
+
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> index c2c3400b24c41..26dad85a590e3 100644
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
+[ ... ]
+> @@ -412,27 +421,50 @@ spi_gsi_callback_result(void *cb, const struct dmae=
+ngine_result *result)
+[ ... ]
+>  static int setup_gsi_xfer(struct spi_transfer *xfer, struct spi_geni_mas=
+ter *mas,
+> -			  struct spi_device *spi_slv, struct spi_controller *spi)
+> +			  struct spi_device *spi_slv, struct spi_controller *spi,
+> +			  struct spi_transfer *tx_rx_xfer)
+>  {
+>  	unsigned long flags =3D DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
+>  	struct dma_slave_config config =3D {};
+>  	struct gpi_spi_config peripheral =3D {};
+> -	struct dma_async_tx_descriptor *tx_desc, *rx_desc;
+> +	struct dma_async_tx_descriptor *tx_desc, *rx_desc =3D NULL;
+> +	struct spi_transfer *last =3D tx_rx_xfer ?: xfer;
+>  	int ret;
+> =20
+> +	/* QSPI receives data only as part of a combined TX-then-RX command. */
+> +	if (mas->dev_data->is_qspi && xfer->rx_buf && !tx_rx_xfer)
+> +		return -EOPNOTSUPP;
+> +
+>  	config.peripheral_config =3D &peripheral;
+>  	config.peripheral_size =3D sizeof(peripheral);
+>  	peripheral.set_config =3D true;
+> @@ -443,20 +475,21 @@ static int setup_gsi_xfer(struct spi_transfer *xfer=
+, struct spi_geni_master *mas
+>  		mas->cur_speed_hz =3D xfer->speed_hz;
+>  	}
+> =20
+> -	if (xfer->tx_buf && xfer->rx_buf) {
+> +	if (mas->dev_data->is_qspi && tx_rx_xfer) {
+> +		/* Combine the command and data phases into one hardware command. */
+> +		peripheral.cmd =3D SPI_TX_RX;
+> +		peripheral.rx_len =3D get_xfer_len_in_words(tx_rx_xfer, mas);
+> +	} else if (xfer->tx_buf && xfer->rx_buf) {
+>  		peripheral.cmd =3D SPI_DUPLEX;
+>  	} else if (xfer->tx_buf) {
+>  		peripheral.cmd =3D SPI_TX;
+>  		peripheral.rx_len =3D 0;
+>  	} else if (xfer->rx_buf) {
+>  		peripheral.cmd =3D SPI_RX;
+> -		if (!(mas->cur_bits_per_word % MIN_WORD_LEN)) {
+> -			peripheral.rx_len =3D ((xfer->len << 3) / mas->cur_bits_per_word);
+> -		} else {
+> -			int bytes_per_word =3D (mas->cur_bits_per_word / BITS_PER_BYTE) + 1;
+> -
+> -			peripheral.rx_len =3D (xfer->len / bytes_per_word);
+> -		}
+> +		peripheral.rx_len =3D get_xfer_len_in_words(xfer, mas);
+> +	} else {
+> +		dev_err(mas->dev, "Invalid transfer: no tx_buf or rx_buf\n");
+> +		return -EINVAL;
+>  	}
+
+[Severity: Medium]
+Can an uncombined dummy_data transfer or a bufferless transfer be sent on
+the bus as an active SPI_TX DMA transfer here?
+
+In GENI_GPI_DMA mode, spi->flags has SPI_CONTROLLER_MUST_TX set, so
+spi_map_msg() sets xfer->tx_buf =3D spi->dummy_tx on every non-empty
+transfer without a tx_buf (and callers such as spi_mem_exec_op() also
+populate tx_buf on dummy_data transfers).  If a dummy_data transfer is not
+merged into a [TX, dummy, RX] sequence in spi_geni_transfer_one_message(),
+or if a transfer has no caller-supplied tx_buf or rx_buf, xfer->tx_buf is
+still non-NULL.  It bypasses the bufferless check in
+spi_geni_transfer_one_message() and takes the SPI_TX branch in
+setup_gsi_xfer() with dummy_cycles =3D 0, driving dummy_tx bytes onto the
+data lines instead of tri-stating or returning an error.  Because
+xfer->tx_buf is always populated in GPI DMA mode, the SPI_RX and -EINVAL
+branches here are also unreachable.
+
+> @@ -466,6 +499,17 @@ static int setup_gsi_xfer(struct spi_transfer *xfer,=
+ struct spi_geni_master *mas
+>  	peripheral.pack_en =3D true;
+>  	peripheral.word_len =3D xfer->bits_per_word - MIN_WORD_LEN;
+> =20
+> +	/* TRE_SPI_C0_DUMMY_CYCLES in the CONFIG0 TRE is an 8-bit field */
+> +	if (mas->dummy_len > U8_MAX) {
+> +		dev_err(mas->dev, "Dummy cycles %u exceed hardware limit %u\n",
+> +			mas->dummy_len, (unsigned int)U8_MAX);
+> +		return -EINVAL;
+> +	}
+> +	peripheral.dummy_cycles =3D mas->dummy_len;
+> +
+> +	if (mas->dev_data->is_qspi)
+> +		peripheral.qspi_mode =3D spi_geni_qspi_mode(last);
+[ ... ]
+> @@ -1058,6 +1153,54 @@ static int spi_geni_transfer_one_message(struct sp=
+i_controller *spi,
+>  	spi_geni_set_cs(spi_slv, !xfer->cs_off);
+> =20
+>  	list_for_each_entry(xfer, &msg->transfers, transfer_list) {
+> +		mas->dummy_len =3D 0;
+> +		last_xfer =3D xfer;
+> +
+> +		/*
+> +		 * Combine a TX phase, optional dummy phase and RX phase into
+> +		 * one QSPI command.
+> +		 */
+> +		if (mas->dev_data->is_qspi && mas->cur_xfer_mode =3D=3D GENI_GPI_DMA &&
+> +		    xfer->len && xfer->tx_buf && xfer->tx_buf !=3D spi->dummy_tx &&
+> +		    !xfer->rx_buf && !xfer->dummy_data &&
+> +		    !list_is_last(&xfer->transfer_list, &msg->transfers)) {
+> +			next_xfer =3D list_next_entry(xfer, transfer_list);
+> +
+> +			if (next_xfer->dummy_data &&
+> +			    !list_is_last(&next_xfer->transfer_list, &msg->transfers)) {
+> +				/* The current client supplies the dummy length in cycles. */
+> +				mas->dummy_len =3D next_xfer->len;
+> +				next_xfer =3D list_next_entry(next_xfer, transfer_list);
+> +			}
+
+[Severity: High]
+Does assigning next_xfer->len directly to mas->dummy_len program the wrong
+number of dummy clock cycles for standard SPI clients?
+
+In struct spi_transfer, len is always in bytes: the SPI core validates
+word alignment, allocates dummy_tx, DMA-maps the buffer, and accounts
+msg->actual_length (below in this function) in bytes, and callers such as
+spi_mem_exec_op() set len =3D op->dummy.nbytes and tx_nbits =3D
+op->dummy.buswidth.  Passing next_xfer->len directly into
+peripheral.dummy_cycles without converting bytes to cycles via
+(next_xfer->len * BITS_PER_BYTE) / next_xfer->tx_nbits programs too few
+dummy cycles (for example, 8x too few in 1-bit mode), corrupting QSPI read
+data.
+
+> +
+> +			/* Ignore the TX buffer inserted by SPI_CONTROLLER_MUST_TX. */
+> +			if (next_xfer->len && next_xfer->rx_buf && !next_xfer->dummy_data &&
+> +			    (!next_xfer->tx_buf || next_xfer->tx_buf =3D=3D spi->dummy_tx)) {
+> +				last_xfer =3D next_xfer;
+> +			} else {
+> +				mas->dummy_len =3D 0;
+> +			}
+> +		}
+> +
+> +		if (last_xfer !=3D xfer) {
+> +			next_xfer =3D xfer;
+> +			for (;;) {
+> +				/* A combined command cannot change timing or CS between phases. */
+> +				if (next_xfer->speed_hz !=3D xfer->speed_hz ||
+> +				    next_xfer->bits_per_word !=3D xfer->bits_per_word ||
+> +				    next_xfer->cs_off || next_xfer->dtr_mode ||
+> +				    next_xfer->word_delay.value ||
+> +				    (next_xfer !=3D last_xfer &&
+> +				     (next_xfer->cs_change || next_xfer->delay.value))) {
+> +					ret =3D -EOPNOTSUPP;
+> +					goto out_err;
+> +				}
+> +				if (next_xfer =3D=3D last_xfer)
+> +					break;
+> +				next_xfer =3D list_next_entry(next_xfer, transfer_list);
+> +			}
+> +		}
+
+[Severity: Medium]
+Does combining transfers into SPI_TX_RX drop the bus width of the TX and
+dummy phases and fail to combine split command/address transfers?
+
+In setup_gsi_xfer(), peripheral.qspi_mode is derived only from
+spi_geni_qspi_mode(last), ignoring xfer->tx_nbits on the TX transfer and
+next_xfer->tx_nbits on the dummy transfer, and this validation loop does
+not check whether the phase bus widths are compatible with the single GO
+TRE mode.  In addition, because spi_geni_probe() sets SPI_TX_DUAL/QUAD and
+SPI_RX_DUAL/QUAD without implementing ctlr->mem_ops, spi_mem_exec_op()
+splits reads with an address into four transfers ([CMD TX, ADDR TX, DUMMY,
+DATA RX]); the combiner above only merges a single TX transfer before
+DUMMY and DATA RX, sending CMD TX as a separate SPI_TX command.
+
+> +
+>  		if ((xfer->tx_buf || xfer->rx_buf) && xfer->len) {
+>  			reinit_completion(&mas->xfer_done);
+> =20
+> @@ -1066,16 +1209,17 @@ static int spi_geni_transfer_one_message(struct s=
+pi_controller *spi,
+>  				     ((xfer->tx_sg.nents || xfer->rx_sg.nents) &&
+>  				      xfer->tx_sg.nents <=3D 1 && xfer->rx_sg.nents <=3D 1);
+>  			if (dma_synced)
+> -				spi_geni_dma_sync(spi, xfer, true);
+> +				spi_geni_dma_sync(spi, xfer, last_xfer, true);
+> =20
+> -			ret =3D spi_geni_transfer_one(spi, spi_slv, xfer);
+> +			ret =3D spi_geni_transfer_one(spi, spi_slv, xfer,
+> +						    last_xfer =3D=3D xfer ? NULL : last_xfer);
+>  			if (ret < 0) {
+>  				dev_err(mas->dev, "Transfer failed: %d\n", ret);
+>  				goto out_err;
+>  			}
+>  			started =3D true;
+> =20
+> -			ret =3D spi_geni_wait_for_xfer(spi, xfer);
+> +			ret =3D spi_geni_wait_for_xfer(spi, xfer, last_xfer);
+>  			if (ret)
+>  				goto out_err;
+> =20
+> @@ -1085,7 +1229,7 @@ static int spi_geni_transfer_one_message(struct spi=
+_controller *spi,
+>  				goto out_err;
+>  			}
+>  			if (dma_synced) {
+> -				spi_geni_dma_sync(spi, xfer, false);
+> +				spi_geni_dma_sync(spi, xfer, last_xfer, false);
+>  				dma_synced =3D false;
+>  			}
+>  		} else if (xfer->len) {
+
+[Severity: Medium]
+Should started be reset to false after a transfer completes, just like
+dma_synced?
+
+If one transfer in a message completes normally and a subsequent transfer
+fails validation before hardware submission (such as the combined-phase
+check above or the -EOPNOTSUPP / -EINVAL checks in setup_gsi_xfer()),
+out_err sees started =3D=3D true from the earlier transfer and calls
+spi_geni_handle_err() on an idle controller, resetting the GPI DMA
+channels or issuing cancel/abort commands that time out.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-qspi_upstr=
+eam_series-v1-0-21f43042dd60@oss.qualcomm.com?part=3D6
