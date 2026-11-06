@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993690;
-	b=sdjmRXkq/uF2MDnzEyramYgWaJ7gmZ6vMZBQymGHydZrFqdC1emCq3R7bjhLK9/S05IG
-	 yPRqMfC2IUJoHf4QyKxgZWkhZ8ACy43xN2GDFqP1Nf3QGkSMt2u5wi5MjD0h8Egt/86GT
-	 VJod8IW3IvDm0DxQkRpSpmGYpamTeqLjhO/6LHIGotKWf7r460nmwfY46/xdT00XQEMep
-	 pXjPEb8AQ/fK2m/cAwGGZmpxVFvhMSKO0ZupfgTDxKXo83CWpuu0vUfLNNO+9GUfoHp1Z
-	 AInWqzFeGqLAPVTqJci1qmcIlC74gGXrqnnXK5cBs2hhPc7hW1dp+Asg5dopv4OfCFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993690;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=veI1zjLMBadlIkwiy8gwMKz1++qI3Sdp/irDe+F5lH4=;
-	b=TzzkXpDu7/ZtEW610ZItUynB50p3cQqGuPd0BhgOkedna8xuMpP6mz3ChSofi7kKz6yx
-	 tIaU7YDrR2d8PlD1M5HZCShgl4kAuvMeip5ymFAOdcaWheMo6lNooqe9H47y1H+HZED/0
-	 pFDOIjvBJvvIW5VO7SzAMR8klak3RhaOT39S2z1PuXtHQKhEXsZDsPEYZOGlsS+zlRNw1
-	 2Qtra/LaHJFZJ1CuwWdjNHp6Gy/YI237GlndfwMy3LDsU5EjbnVFsQ2zFfzRNWQO/3Y9D
-	 MUypLqBUHIl4v7MLMVT8VihBRkbIS1HOcBfHhXVrLIsWU4k8nlZCkA3JKWPpapyH3VQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ooWyyopr;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793993787;
+	b=kyCXEzATLGfhDIGo6LNC8jzXgadIP//xRyE2M3lQoCcD3G1SHrGhzX5+jgShEep9oRgy
+	 G1I/nSYqRM/pQlAI0+3TuAkg+oL6pZ+IPO3vcarE8bQt1APCmlXkh61Tur5hSNPHGcrXQ
+	 jGM+Op5cKziafEhXFXgBApeDL7r65FRAQOmzWsta7wQ++bUddvukNGJccwMO5bvTW7Eh2
+	 4FMFQvzagTej35oAp5TEhxTpFvAUR9ZWkQZm9RYnfvX1vb2xk0M4QT5XWm3l07rtW3TKv
+	 vyUfiaVrPIHNK73XvUcDADvMjkTFd6zyH6N9zoyD64rojJSLXuSxlxjFfgp2PjSkznA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793993787;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=uILwUN7ocyhtvpLVjK3RPrXU79y5KIHNgrzUoSObyGQ=;
+	b=BQKlPlllZqguquKJNdxFt7UhvlX8f+MBVjcL09GHNa3QxuYAz3EXHRQ+kno9htwH0wzt
+	 Hait0IT5ItztgIysu3uxm/4U529RL2ZtgikhunAogaHNKWJq98MbayRrjOyyz/S14qDaI
+	 Ywe3dn6zQ+VSV6ykgR9w4VV8me+Ah2uPEHqJEy7tQs6dPrV6W44HW47BIQsxCthN+Zi1n
+	 RNcK2PxAbtHPZZSdhovUcqcQ0pC6I6hGAyIKKOA1dhwxtfEMPYDDC0+fQyEzIazGb2t6K
+	 FjJypkIbvNKGFBdOe+K7bLPLhGkAP2ewb5xskjWQa1lE2SlV4M3z/x+Cc66tXsnPDjA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtYsSB5o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702A6606A326;
+	Fri,  6 Nov 2026 19:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtYsSB5o
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793993787;
+	b=QiL/bB+YDzHllaK4Bf0wUpfY1NrB1bK29LnaEvKWOUMhimxdlOD2IuDdjXOxoVm7ttn6
+	 ne9WBcq3kiNrmML5dTeirQ7VsAzA4NAe8wT2ntOgGWetqjVNg4JdjkyfjzBUIGhngTorL
+	 bckRMXIVnPFDpGkQWGOkJNOM2+yYuhTtfDuiT5Fk6ejKfed3jBWRzeDS2K+PqhXOePqiz
+	 H4ZL+vyrtqzREEN03x6IEObhAiy4tDxXRX5Ug94zjIooXXFecTqCKjwIa2TC0vOSGZ/io
+	 6Eai/9WhdbvVuTxcfFGnzboPKcZfsVHQMIOVh6g13t6UGzRmLFEs91vR+YEN3XHjJQg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793993787;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=uILwUN7ocyhtvpLVjK3RPrXU79y5KIHNgrzUoSObyGQ=;
+	b=AJveb82Kbgj0P6y0bQ9qINwGRqTBn8vDqb0iayPHaT9+wuOSoz+lYwX+K2AiyahyR16A
+	 y2MBMVH6xarUqfK+OekWTro0NbSCU5jAch0PqyelkQNtzGdP9OG4RhETzThDkui7B1D7D
+	 gwKxAFvM4ZERkaoaI/ps/G/eurlIqBT15jVByLMcL7XrRtz3vePlr8njB2FiC1R5lh0Fm
+	 vPwvaBIqa2oSfL5BtTNWt2DeOyVX/sg+dtV8Di8GzZxJ8THYu0rmR0HO4JSbFn26dVg4F
+	 7/tqgm0eDJs9XMM9Bp3VY7DWfuWpqSQTtxr4IUMKTl0YqIvR492clU/gWP2Rb+YdK3g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F15606A33F
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 19:34:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F15606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ooWyyopr
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so10602275e9.2
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 11:34:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793993682; x=1794598482; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=veI1zjLMBadlIkwiy8gwMKz1++qI3Sdp/irDe+F5lH4=;
-        b=ooWyyoprmnZ0Lw9epK4C81tNr7WPHUvU2iRl9eKcOqcl48P3TtFkkBdYtzLhq4iif0
-         NoWKh0PN7dseQbETMek/S4C/5w7E0V0aDNcVP+gKSzrhF+c3EpL/uo9QQfvATmcqBc80
-         vxq9QCmQ8dKphdadliHiddTcq4DMOMXuNk/1GXrE6LgfB7UQt/C5Xt/yRQXYghgl7E4O
-         C3jqLvAZtqemGOlkrZXxMlhPDPI1/MYYHjBfDH0NoRWyxH4HYgzdDyfc+SEaSIPe7S9c
-         7A0w+UG3bpfmwiS6RJ+uFwMX3Yd+RyTNDnl8oNKvEzt5hBROpYYf3VmMJNhL+37s8tL6
-         kFcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793993682; x=1794598482;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=veI1zjLMBadlIkwiy8gwMKz1++qI3Sdp/irDe+F5lH4=;
-        b=ixkLWJzs+BS10FuNPV47xwnjieOWNyzxU0ECCk2ZGD7Fyo9C7leboqgBzbHLwhY/U3
-         uyKDCHamttqoSxoeiXqPv1Nm9IKGTB4VH5pp4Dg5aoE0NCp+ussRbaZdrAHsthZSBgUe
-         3asPnFIRzRcR7IAU9d8TMv1dlHNgdA/dfZYSTeFALSwsYxCR16GL/J6lmdf2xoZYsdH7
-         uGv/MnMlxBUuNQEeyVo7KVanqiIdeaFT8xjOxQmW4/WH+Rc8Mw201OP0zZbenMA8YPNk
-         OuAyIJgJq72B9GhJp22bICwxypEgNQUfJn9B+MTJHLGH14/afu8kqVSX/q0GxM8EIlTi
-         kwNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxDg78ot1sY3vUyixe5PV3nzJ70axebbN3C3MrzL9h9ZbOgdY9pf+KNjz/DzPb+NHe10eFMcy69r6TF@vger.kernel.org
-X-Gm-Message-State: APuU4Z89EQZ/jpArL7qOqEIVB35loCRyGO+CzLeh1IBl4GdWLlXZuoHR
-	3FR3UTLGOYYM8hnj7fS8pNy2MZmwY4uA4uL3aG/weNf3Alg8IimLwW7gIWtg1Vl3nfg=
-X-Gm-Gg: AYBFou3hHSZqABcn7ld15cSoaqW0BqSO4DWm43ndFTc9xjtuOwmVOvXtVNCgH1gZk+m
-	2/O/Yz4ZEna60t8i3/alZ0G4AwJ/hDtuj6r1G34Tm7k3i5xuJHTQo/UGG2V0AxmhR1yOLMtkqN1
-	q15uvNJHJFESZUcJGm/StSjqYubkZySALHNku3oZJqlRyYAw3hfcNIxckHxr4YT53K0enNWkmBq
-	Pz1PaHHVYVFF41JS3DlirPoJgT5byVwkTB8wAgrDFR00F4UnXp5We2LzPZ3wPYt7ZrjveZ81uIH
-	WG1YeK0VDsduqSj7qlv/4RnZjOKcR7Z8qK3kIzueTrTiCAPZmZWCJOGXaDHpGZ+et/2OXQAeY5T
-	i/j4XFOSu2DrpopB9chsOec7YSapnfOv6suc781bE4bV/rkSk1z9RC1aEd32V+9G8+m6Kg9kNEh
-	xjtV3ThUMWq6F4kfNs0x5xkOOAavANfX3NEUzyOTjZZlVxtSo/a0SJZdtiRSLfr2PwKizPCvbmx
-	Zpj3FvxsWjwYnL3HozOgxT9J/EZDYdM5v8oc8QZIgDwk8NmRutZ2E2Jgg5jOxdSty3VKi/9mgau
-	e8Lv+BimpcoPu3PhkZnSJXxWjkge4qMB+OjnHXc4AhL0EnUv6qzZCAo+zit6/gnGwP9JSk2iOv6
-	PCMhfPJHpVBoaHKzMse0w4MRyjclynN9NBw==
-X-Received: by 2002:a05:600c:3e0e:b0:4a2:cbe:bebc with SMTP id 5b1f17b1804b1-4b6dfba9199mr64477945e9.23.1793993682189;
-        Fri, 06 Nov 2026 11:34:42 -0800 (PST)
-Received: from macbook (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1547fsm3329295e9.11.2026.11.06.11.34.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:34:41 -0800 (PST)
-Date: Fri, 6 Nov 2026 20:34:37 +0100
-From: Carlo Caione <ccaione@baylibre.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Jian Hu <jian.hu@amlogic.com>, Chuan Liu <chuan.liu@amlogic.com>, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/7] dt-bindings: clock: Add Amlogic S7 peripherals clock
- controller
-Message-ID: <au4p0xYEFkgEU6T4@macbook>
-References: <20261106-upstream-s7-clk-v1-0-7d501d62621f@baylibre.com>
- <20261106-upstream-s7-clk-v1-6-7d501d62621f@baylibre.com>
- <20261106-unwilling-preoccupy-156dbb310448@spud>
+	by smtp.kernel.org (Postfix) with ESMTPS id 7B8D31F008A1;
+	Fri,  6 Nov 2026 19:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793993787;
+	bh=uILwUN7ocyhtvpLVjK3RPrXU79y5KIHNgrzUoSObyGQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=HtYsSB5oWaj7dwejWH6J8dMwCdJCOyGWsNlmGGx+WfgMYf4vJkjjT1+ro+gxn2RTu
+	 N9tBc2EszbM2RaH/YpNR/hD/QKYg6/K88JZPYGMOlvFD+tGxtLriry4R0siGizb4t/
+	 XriHRNlprepwITtrahXKwU3EP3u+fxcFuf/r9kfzBtTSBA66hp2WaDr6031WCMSkAm
+	 9rlNemUl/yBVOeDxS2dYxlmKYaImy6T8Ua6EHI7kNRG8gG+UE29DCG3osL4zdscXOy
+	 idU6JEh+E7K235RIWsOZbOM9k4tBVsXeleE1AQtUIFk9blhhjCd9GifZ0DY9kBSE7t
+	 BBRW6s1k5BIhg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C58B44784D;
+	Fri,  6 Nov 2026 19:36:25 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Subject: [PATCH 0/3] pinctrl: add Zhihe A210 pin controller support
+Date: Sat, 07 Nov 2026 03:36:06 +0800
+Message-Id: <20261107-a210-pinctrl-v1-0-6ddedfb0b76b@iscas.ac.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -106,51 +83,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-unwilling-preoccupy-156dbb310448@spud>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDXpVELjKmJBTRmRkhaRNO6uW
+ L7F/xECeaYAdRbB08mBV5eAeQZm6txIgodkUFKViLISnUIpNnZm94tQhZYV6sLaUkNKNk+Wr2/
+ XtL/D0c9k9vcB9/0ASGCkjXAAAAA=
+X-Change-ID: 20261107-a210-pinctrl-23807183ff68
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Han Gao <rabenda.cn@gmail.com>, 
+ Han Gao <gaohan@iscas.ac.cn>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793993783; l=1226;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=lI0jPaIXPZUKAJwf6sStoxzn6nqviOYKQAzrRSANV4Q=;
+ b=Yn+bD4PSpOp1/GW1CAi4yUtLp/rW1nacSB/RPLf7sk18TzrvqNG7Uohp3yHDbRkLFgavbYT44
+ eG8QIW5zlkjArpcNvk2zkv3F86hcN/n6+UzAFAuYfjZBpz8hdyDS4n0
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
 
-On Fri, Nov 06, 2026 at 17:34:14 +0100, Conor Dooley wrote:
+This adds the binding and driver for the Zhihe A210 pin controllers
+(AON, PERI1 and PERI2).
 
-> > +    #include <dt-bindings/clock/amlogic,s7-pll-clkc.h>
-> > +    #include <dt-bindings/clock/amlogic,s7-scmi-clkc.h>
-> > +
-> > +    soc {
-> > +        #address-cells = <2>;
-> > +        #size-cells = <2>;
-> > +
-> > +        clock-controller@0 {
-> > +            compatible = "amlogic,s7-peripherals-clkc";
-> > +            reg = <0x0 0x0 0x0 0x49c>;
-> 
-> What's with the weird numbers in this example?
-> 
-> Examples don't have to be real, but when it looks like this the
-> immediate thought is that the modelling of the device might be
-> incorrec.t
+As Conor suggested, the patches are split out of the A210 SoC series
+[1] and are unchanged from its v3, except that Han Gao is added as a
+maintainer of the binding and as a copyright holder of the driver. The
+vendor prefix patch is included so the series applies on its own.
+ARCH_ZHIHE comes with [1].
 
-The numbers are actually real, but the example simply lost their context
-because I copied the node from the S7 dtsi (not yet submitted), where
-the controller sits under the APB bus node (bus@fe000000) and the bus
-ranges make the addresses relative to it.
+[1] https://patch.msgid.link/20261103-a210-scmi-v3-0-ee6b31580808@iscas.ac.cn
 
-		apb: bus@fe000000 {
-			compatible = "simple-bus";
-			reg = <0x0 0xfe000000 0x0 0x480000>;
-			#address-cells = <2>;
-			#size-cells = <2>;
-			ranges = <0x0 0x0 0x0 0xfe000000 0x0 0x480000>;
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+Zhiguo Zhu (3):
+      dt-bindings: vendor-prefixes: add Zhihe
+      dt-bindings: pinctrl: add Zhihe A210 pin controller
+      pinctrl: zhihe: add A210 support
 
-			clkc_periphs: clock-controller@0 {
-				compatible = "amlogic,s7-peripherals-clkc";
-				reg = <0x0 0x0 0x0 0x49c>;
-				#clock-cells = <1>;
-				...
+ .../bindings/pinctrl/zhihe,a210-pinctrl.yaml       | 147 +++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ drivers/pinctrl/Kconfig                            |  13 +
+ drivers/pinctrl/Makefile                           |   1 +
+ drivers/pinctrl/pinctrl-zhihe-a210.c               | 997 +++++++++++++++++++++
+ 5 files changed, 1160 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-a210-pinctrl-23807183ff68
 
-In V2 I'll use an absolute address for the sake of clarity (PLL has the
-same issue).
+Best regards,
+--  
+Han Gao <gaohan@iscas.ac.cn>
 
-Thanks,
 
---
-Carlo Caione
