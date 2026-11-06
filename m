@@ -1,107 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973290;
-	b=t9GJXbU2Xx+hekgFFaEh/9tU5pctyG/dqatWRY04hsauYHq5EIlX3tAVKshTTNkNG6mU
-	 6wgJqL4Afdn/x0TmvfoN+4QEYpFPNGE8UzYNTiWkMil3tBvjVOF+rsaymKsL27m66Thwb
-	 U9IogDDR2dcznWvZC8zKp/ieRBDmatA+9wu+jgCDvtfPf2NEdu5nReuKJ7DhDtKiPS1qo
-	 4Scn+4e2W+6FHF6aWwM23asjUAduj+V9n8tRbSEDevG7ZQKRcha+lHhyerOjm1sE0hyL0
-	 xC2jcsbX/DGDt8z9dFke7OimbheF0P92kpJcVHfSIIPRtisvE5pw5xc6yy9kaBC+VpA==
+	t=1793973312;
+	b=CSQdzxQZnPjVv8lYMULi4yLfh5xa/eyFt/G0h2LuNESQDxnAHaqQrKsPZIIaOgaOEtNO
+	 vigGWu+oSu4pRmL94G0s6hBG70eoQqHUVqUSIn0v5XXLqrGXY+t4Touta2NHOLEWoH6ey
+	 x34n2dmISyU7gXSxnu4HxLlgrn5p2Y+oaf7FF111VyJYKbWCSTAAIKmMjuy/TMSaHCcwB
+	 eFBuig5b+Tfkca2XuHUZSd7v3w+oL9h1/J6XMYQU9e5ZDKOF8jyikqQG5rmOceV5jGOKx
+	 wTHmUYpxftRMAm6fh/pM/s//ttvU6PACEND2535xyEwhv3As3EQKXnWEyxOeK1pkqaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973290;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
-	b=Hu0k1o80WRNBNxgLdyoBSwHfKP8ppGemdFjHQX70DMBnQnobM0LV0RgU1+MoLEQTvryv
-	 pDtiALPMGbVGdHZZvCf7CqVctS1l0/Ze1x2lUK6kHiw4G0vlYWQbvyr4KuMuChsoXC7Qh
-	 moarRGjyFCrfmDu9e9ATQ2qs5IqFsrTjyetedR+tMQS+Fv3vZuZU5r/E+63Z5ZeScKYLR
-	 j34XFNcHt2yCU2emlppEYFgLhB1DQBm3v7wGpxQkF+b5jeChAK2Xijb6IS1bvJ5PgSVpr
-	 +I7/FqCrL61Xf5gCkGHp+XKJE9mSrZNXemNQ/8BxZUN1JQ8DzcNr3V9jkxba7TJ9F+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973312;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=cvOXSk4ZSAmZ1qSeP/uBo94WdHQ7wPfDNQM3BweOM/8=;
+	b=vnmo2bOhYC3Keu2Krnkdaelhmwn/6kvJHCfNePng2G6wnjjkwbRP75hFM8KhzDmXBaeS
+	 u0wj7OCMwRW/egb3Dwhc241bJSZsY3eNMTz1kdSDUUBZvSNMoVus4KOJEZ4EhV8RrOT2f
+	 5nzprpHz8jtZDZjNrdjMw/AiwXvl5Dxmh/vB/Z2sv3EfBHmG6lA2QQsO28vRABj8uVfTR
+	 nkovsKuCuj3fn498R/ZyIKpn2fMMlsM+YQqytmCNG1zyeKj+0FJtMb3Y+7WuvDGbkuxLV
+	 ySD5klNOBkTrqVgsgnzNVlFNfr3HHYTteNCStbkwQJ6w6WUkqs7BTA6QmYhys/kHgSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CsreXca5;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cnvKamII;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20894606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:54:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20894606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89C4606A339
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A89C4606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CsreXca5
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492f563d1c6so201441f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 05:54:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793973288; x=1794578088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
-        b=CsreXca5E1pMin31kHwPFSa+zHh0j4vm2eSTeZP4n4qoY2Nk1tQGNo7TH21ev508JH
-         +4h+HGmiNKVAQuTC+w4RPqkmarRK23BfNTVJcFWVyeOXf1QlBPNwWDvZc+Bpo0199vf/
-         MPmzv1CCIhaLnS0zkFdbhnExzCD7PYqRsu2tq6hgYGLm6mTJC3pMyhRhOO93HL9QX9PB
-         yYqQXrIgd+IINpUK2azxMfVC1X7HJeSzOe3Ly7ghTAXg3lhI281usQhIq61cKMysoJM/
-         0JjqCZdiinl5DOmM3fX04n8U51eA+hpSkBe6h99Y7zM+/+OzGs9Z3Q88EvnGFDgbttKY
-         Gfxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793973288; x=1794578088;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YhC969aoZeZO4EN87Pr8flhLc6MwVIFADHN+EJfduEI=;
-        b=cSUVS2UtSDwTBnU176MMVvYZVUDwGi07Mj4bAQDZSJC54KmAfdpNzdVK2vYS2kOYGZ
-         RYebVprLJkRK4yTUN1lIk61viXdXaprKn4NXDXHqnqSgtAFhX5vogkYz19Z8hQe0CN19
-         Q8fVD2Qep7nPkdalTH26GALISlWUB0x71eOQb+hauwk9SIBSfzDh8eVwJzIdWgp3gBg0
-         P4IAhpAGtrsSYRA5QXdsuiPuN8YHvt5BX/N5dw3sKb8ISuEIYa/YeTr09SYua0C5ogeo
-         jjaPFtg2jLXykXH7WYc5+eSqOQjZ5+NR1d5iaciSYi4FrEzydfXnx2bAeIn2AuFNxmzU
-         fVtw==
-X-Forwarded-Encrypted: i=1; AL+hErEM4g7W/JNTfTEo55vF5Vo6FTlJv6GMl03lJoRabuc+nhlpiRqQ5siS278nk4cZ57RoepoIK7DVTVcB@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8FH/bdk0u9c6YIjLwE9HmmDk1KMUw7kcxDnEjUDhZ46szEWXz
-	OznJj+rMdX4tzRT078+e08w9SCnex5VHpj4ZUbEKfPqgzbQ9WC6ECEfo
-X-Gm-Gg: AYBFou3BMDk4ebpaZfO+woH17drq2BL1z7a/rR1Yb9ey1HHfjj70fgVK3RU4F2VcAJS
-	FikQN3Icyvuw8799f2pOxoRGU1lJGyAY7haxJSvErRYncKWkjRtLjkth52liQ+4pomQANAgG7ad
-	4d08uDVFSEkTEF7KWXeouNWeKGqq3nFFpcX4ivS8+v1rlGNWEGMwAb7hvTOZ2/VNEYNJyQ9MunM
-	k9nSEGoLiGklCa+U5mE3k4rXzjesaOXnsfpfb49qENTIhgugz4lDb0EUnDcNioXDOLsf/euf1OD
-	4dW452AzFCroOL6550bpZqqv3euVvEVyv8j0m6pKqo7iVeYNwKXyHkKvCzkN1OtaPWvvA85tA0x
-	0J2iNg27jrfADjUZD7GIAWeGvNj72Ld/eQ89GUhRu6mloZTSqjz+sCX7/xxllielsfv+leFh0YE
-	y6jT2GY4NX2iyWCy2KNJtZPTgGPXFlpiOE8w+9Twpf++DLlghXtcAKt5yI7OwvLqdjVkvtRhZhz
-	v6WAKPuriW5vc8HuvvQOgwtQUscl1V9GTEiDtIngXiwlX47XGIxSSSFXtmXbjNgwS7oVPgcM9Xn
-	45hEMrKdIQwP2o30NZ7sPnH9qUuTXN/DxFd8RsIHo5n5yOelhfdGLAE9C7hIbzg8w5w9Tc44VZG
-	Ow/0op9SqsUK5m7TdadQUHE4+w84=
-X-Received: by 2002:a5d:6f0a:0:b0:48d:dfff:fe6b with SMTP id ffacd0b85a97d-492760da71cmr5896957f8f.34.1793973288307;
-        Fri, 06 Nov 2026 05:54:48 -0800 (PST)
-Received: from romain-ThinkPad-P14s-Gen-5-AMD.lan ([2001:861:39c2:e340:6118:66fe:a6e9:e648])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d087a3c5sm3393124f8f.0.2026.11.06.05.54.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:54:47 -0800 (PST)
-From: Romain TISSERAND <romain.tisserand@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: airlied@gmail.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	igor@reznichenko.net,
-	jesszhan0024@gmail.com,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH 1/4] dt-bindings: vendor-prefixes: add PocketGo
-Date: Fri,  6 Nov 2026 14:54:46 +0100
-Message-ID: <20261106135446.1334980-1-romain.tisserand@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
-References: <20261103110524.2812831-2-romain.tisserand@gmail.com> <20261106-gentle-shrimp-of-weather-dde4f4@quoll>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cnvKamII
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261106135510euoutp01870404d276ea66519113e89d6886a612~leTiFl7Ft0206502065euoutp01S
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:55:10 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261106135510euoutp01870404d276ea66519113e89d6886a612~leTiFl7Ft0206502065euoutp01S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793973310;
+	bh=cvOXSk4ZSAmZ1qSeP/uBo94WdHQ7wPfDNQM3BweOM/8=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=cnvKamIIbSl9tsxUe8y6gwRkXgcl4iQBYv9nrEE4FK6pdAD7kwaJl1oSAnuYNe1NM
+	 5cw5CiSwh9vI5OwCgLR7Hel6cL9rnpCV4fhvfaN9FU3fhAZ78X9yo3hMf6mmyweWpU
+	 yIiDiggCz8EEOmPskbu47QVbl44lYl8Xb2EJXzRQ=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261106135509eucas1p218615ae5c95c50b0f39bfb9cd86b266e~leThlgObN0962609626eucas1p2D;
+	Fri,  6 Nov 2026 13:55:09 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261106135508eusmtip2f32a765489883255f5a9ccb15cfcd996~leTgxvtM92416124161eusmtip2f;
+	Fri,  6 Nov 2026 13:55:08 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Fri, 06 Nov 2026 14:53:03 +0100
+Subject: [PATCH v7 5/5] MAINTAINERS: Add StarFive JH7110 HDMI PHY entry
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -111,22 +65,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-jh7110-inno-hdmi-phy-v7-5-d49368303800@samsung.com>
+In-Reply-To: <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
+To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
+	<neil.armstrong@linaro.org>,  Manivannan Sadhasivam <mani@kernel.org>, Rob
+	Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+	Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,  Emil Renner
+	Berthing <kernel@esmil.dk>,  Hal Feng <hal.feng@starfivetech.com>, Dominique
+	Belhachemi <db@domibel.de>,  Michal Wilczynski <m.wilczynski@samsung.com>,
+	Andy Yan <andyshrk@163.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Icenowy Zheng
+	<zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=916;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=1BpQ12qeO8tqDE0Ye1RozUCyoCBDy4gmigUQjixUNvE=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWS9vWNuJCrAc6lxg/fGGdr1Obud8rMm2yds3v1B+ALbx
+	TuH2Q2SO0pZGMQ4GGTFFFnObow2kvzH8LT8+ONfMHNYmUCGMHBxCsBEXlgzMkwW07aMz3PLVFwt
+	sOx6QT9LklNF0L+SMqMjuQsYXHY3XmH4HzfthqaSjffMA3ZvhHomyMYWdyz4PIH/xsbVz3wZPfc
+	+4QcA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261106135509eucas1p218615ae5c95c50b0f39bfb9cd86b266e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261106135509eucas1p218615ae5c95c50b0f39bfb9cd86b266e
+X-EPHeader: CA
+X-CMS-RootMailID: 20261106135509eucas1p218615ae5c95c50b0f39bfb9cd86b266e
+References: <20261106-jh7110-inno-hdmi-phy-v7-0-d49368303800@samsung.com>
+	<CGME20261106135509eucas1p218615ae5c95c50b0f39bfb9cd86b266e@eucas1p2.samsung.com>
 
-On Fri, Nov 06, 2026 at 01:58:02PM +0100, Krzysztof Kozlowski wrote:
-> On Tue, Nov 03, 2026 at 12:05:21PM +0100, Romain TISSERAND wrote:
-> > PocketGo is the brand of handheld game consoles such as the PocketGo S30
->
-> Vendor prefixes are for companies and I cannot find anything about
-> PocketGo, except it is a brand. What's the website?
+Add an entry for the StarFive JH7110 HDMI PHY binding and driver, next
+to the other JH7110 PHY drivers.
 
-You are right, PocketGo is not a company, it is a product line. The
-S30 is made by Bittboy, which is Miyoo, see e.g.:
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-https://www.retroshelf.org/devices/bittboy-miyoo-wolsen-pocket-go-s30
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065de00c29cc02de16c38eac58ac5a1..42b49ff71415f06f69f749d31e16938dad921833 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26731,6 +26731,12 @@ S:	Supported
+ F:	Documentation/devicetree/bindings/phy/starfive,jh7110-dphy-tx.yaml
+ F:	drivers/phy/starfive/phy-jh7110-dphy-tx.c
+ 
++STARFIVE JH7110 HDMI PHY DRIVER
++M:	Michal Wilczynski <m.wilczynski@samsung.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
++F:	drivers/phy/starfive/phy-jh7110-inno-hdmi.c
++
+ STARFIVE JH7110 MMC/SD/SDIO DRIVER
+ M:	William Qiu <william.qiu@starfivetech.com>
+ S:	Supported
 
-I will drop this patch in v2 and use the existing "miyoo" prefix
-instead ("miyoo,pocketgo-s30").
+-- 
+2.34.1
 
-Thanks,
-Romain
