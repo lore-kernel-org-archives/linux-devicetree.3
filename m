@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956812;
-	b=ua0d2T7y3fduwfsycKNfB3CEe0HGox6Fu7vlGWXKk+hzLCLy/rhkNxExuVBK4/1ijYiB
-	 rac2fijUgFMJ6IJ++1cVs+ZV5yUs9Vv2tdtcpTz7QZcjF95UuUjZEd+Ofi25dgxS8cKrQ
-	 k9Km4eC5SJBFLqDhFvdfzA82iOZ+htQaukr6nV6NzftPjtQ516k2IMV64EsR+cY/FVCgt
-	 4i2visVo4tEkBPVQ+vOxY5OmxGdaPRPaAJ/s9rbssRdlajshrtaQlSmQAU5hy3SPVZQoA
-	 g8LIj4/okV5ZffYVgHoVXt7YBmFurrW3IccOEdEagh9T6H+GjcBWdS+/e/uWNL8Nh6A==
+	t=1793956818;
+	b=3TI+tjUCGf7IABF55LzLOwbtO98kvZkGRNvdD25jQcKcb34ml8so5XflvtvIUdcQMDuL
+	 um08nkT9oJtEojGfjrU7uONsvfOI9OLNNploSsXqpgg4dY2E2CeQbzGJyfsmrgdStPEam
+	 iKCxh84bUhx1ePM+BxQVm0VOJBQW2YkxSVbXhk8acpJ8GX0KnJfA+9a23XHFpopktghJT
+	 FSG2bD6WBdz07rDqF+H5fBvZ4FPNrxg5sesnx0k7/ZI4vh7ycZot41KUABVupmyXlIsw7
+	 lEXyH48M41vqTnP71vthaS77QGDokSlbA6H0Tci9C0yJrl76ETJbrRnKhJC4p+qgeoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956812;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956818;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BKerVZtCZFwecLdtYHkc8Z2DgusctMkHx27dYOPZMso=;
-	b=jsPoQQRRdX0TPXd/0gyLQD21zmonupSllb8QQjp2C50evVm951j+02cPwZe+h2xlcJCA
-	 HW+x05uxIZJUz6TsPFa58AwHhU5ufwa7muAArxWHjwtHu233MwPqdsKOGGRHHPB9yKDar
-	 OvyEyLGVSSJ213eQH9zZy+JDkb+1eQ768idd36iz7vHJKoW2+ImlsjxIjfn1RWDePJNg6
-	 3bsG0N35HtyFwAQ0TUUaEZuFfdw9A83R7sb4KxEUaWeBk4frdP90N/cgRxmWmMw8h2Nn8
-	 DN09DU/075cTth0EuTjdi2NSvHOK+EL/Ep+qsDU7omAG6X8F7zDsbOKrpds0jWghk0g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
+	b=P4qtoEUfQDwbaEpiizciiapmtpL0aRZrZ6Of+vN7Eu0+86qa/iNKBUMy5vXRRDZUUcmE
+	 5D71RrrlP+ig8XT4JoodJXj2rmqX6Ulj5Fcg3yS7MP27Hj6ieqjqFEwpHq+AvE7NCCIga
+	 i4H9HTVzfaCirbHo+1Mw2IX1hgN4BiXc4gzGGP09c0VDr1akkzqsyoouzcEKtJ5oA2a8Z
+	 XjFQS8DSaSayiZQMAOcqX+3rNBiOOQ670i/3LeK0XbTwnssX7e3x1J4OvfNh3M/TPfqlF
+	 ykFWQ0hhVpBpFyz3OI28fxtg3ilkQ0CwGyBzGuNbTdsuG7FZGZku1hnTNQWg+NE/Xhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB9MA4lw;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oN93Xil6;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B922606EE8A
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:20:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B922606EE8A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F796082BC8
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F796082BC8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB9MA4lw
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso3092885e9.2
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:20:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oN93Xil6
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso4431425e9.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 01:20:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793956811; x=1794561611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BKerVZtCZFwecLdtYHkc8Z2DgusctMkHx27dYOPZMso=;
-        b=YB9MA4lwBxStiouVrtcdnPQGCzOVF1UehqAaZuv7DxdSERaz23YPJ6PkrQ6A7eVaP5
-         IwnwJxuVEDeupExS+TobQjHDN5w2HoGk3KMn3TLst1/zC81sx4oLVPclabeaX6OH8Mxy
-         X1a1QPiF1UXmmF9etMn+YLF3ZhhqCcYg8q3lCORpQy/uiZW950/aWuxPkGRPh2nGPo64
-         XGyU1NcfwR475BTyWg/SogOWWJ3jJamrMLz43TuzM0u4hLCPz/Knt4ok0UKT+ez/8VWB
-         5E4czxvdNEdggWuCLaeolQT1Kq6NvGaAL9OdKEdY0bMcgCoJmmlZseDtkgQeduWYjBIH
-         /ReA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956811; x=1794561611;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793956816; x=1794561616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BKerVZtCZFwecLdtYHkc8Z2DgusctMkHx27dYOPZMso=;
-        b=Xvc8aLauozmr1ryZBS07R6NW0ug8HTZi3iUUG4YgxODRerFtazzhjiUMnLAQuIfnjv
-         nuQyO4jjL2kcCZPk38NqpGwN8iJLR9Dj+VYPps/zNSAI99D2JUiEHdCZbFFiogaty0eq
-         XNTHLXxSOPTQe9dcVA0B4vcUJmI3zgr/k2b2+QD8Lpl2Uz7xTgRIMtJP0JeR8YDC7IAz
-         J6EJliHFFaVQS6Ljtynn2mw6NYLe5wmA24LdKrSxHV6E5DFaRSrS+FlDmd9ptQa4b5nW
-         f0Qofy3DZkQaaF5MzJb6Rl37yldFxdFZpf3WoC4G3dgDBnYEV5kZsP+l63VRYOJLuAct
-         3r5A==
-X-Forwarded-Encrypted: i=1; AKwUvBy3xB1GubVgaAsSGm1tGPPMn57nQ8+1cOnY7ngv1yCIsta2/YbyuD8mctOIo08i4yFQixnncQIl8eCp@vger.kernel.org
-X-Gm-Message-State: APuU4Z/09aoeCSSjAuovQdYmYMJiiEJNQRcOVtMXwnVfUTbOJcKVY1yL
-	O2os3U0i2nH42aGKfbzi9/UuNnwYlNmxL+rQEN/NRAC81AWB5zwP9VP4
-X-Gm-Gg: AYBFou1X603oXB5nCX1nvN4haXXCyVAe+dN/uLZ/G8MN1iDJHaql9YEF1H5ytbGH0Q9
-	+ToA9nwdpsg+x98b6KGeUZyl3rWkZibxyrIyEfqBEnZezD+ONVkMxFMtaReRjpxqmO38LISyilH
-	xaAhjXf9bAcujTaqvQGD/GfwXFy0ch1d1N7jDmakT61s+G8U1sVU1z2+bW2mbjMOgjmw6PSETH1
-	/j+Ys9T5BU/OvCEpICQo+KfYJIpmur1ZNxcNiatfYTeZWsFCcfWZR8Xz2P6Ny3RDqcdb7jpORRq
-	VWBAbi3+Yy52/T8JjmpFBwlN2JrMdCuf5Ew+O7xx5LEsJ4Q0poNtaXl/1Emv2qK2CZAstv1J7lH
-	3KVYdOC9ABb9HAXYzXjS1TKi5YELCyhqOgGDt5fjrkDWW1Yw0cuDpC0mR/jlJF+5AYdamXcjYmK
-	6n0oszM9oBBrKEtxdi3pKn5YeMrewFdvY6qMB368GYaWRRUjmi6Mzuy1SBenNpVILV3ilpnuvEx
-	TAIlI16BoZCyKFdvsI7sWhMXHbErA2TJRP9T6D34ariT3pUaL+eLSwSsSuI8lYC2u6bbQ8GQ/+U
-	4xw1KQ2Fdgx5ECzi6CF4FppmcXEmrBGVzLHEMzrxai9+jJcreLM1ob5vcG0hxN0jLdlglV9tgB/
-	HM1BUl7lY+w==
-X-Received: by 2002:a05:600c:4e8f:b0:4b6:540d:6317 with SMTP id 5b1f17b1804b1-4b6df3fd1cfmr29585725e9.12.1793956810406;
-        Fri, 06 Nov 2026 01:20:10 -0800 (PST)
+        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
+        b=oN93Xil6UfBn7yVRhg6frgSrSIimFgqT44JhM7qqaPimBhIWP5FBUZFJkH+KfzHsgZ
+         2SLQnmaAStlJcdtt00AdNoLKpHgC6fl5p7Ml7m7Q+2AkatDQYyPZJ8iwaRsZL9twxKR3
+         81tb4SRPMpBNziBbDUcidG0uKjjXEiGk+zoGZCh/gX0+Vx1abnP74JwqEAaXqdc5g1gS
+         zdFkhDe7CPMRRpxsKmzwYUXTTST3k/RzVaQL/Tj8+PQrvXCCrhIcyO0wiW9/BX8QbwkP
+         QQ0LD54NiFGhmcOnDdJlDKQXXao/roCWrl5WZrg0KzT8ydxhHdvmu88vvR+EMCE15xed
+         4maw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793956816; x=1794561616;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
+        b=qWcAp4QW7UX58ucWNXx3s2BlT99x0jMXSZFyYxbWxCC9xoMhWRdJsHJbvwEqGuAPQN
+         Vgce/zz8S7Ip3/PX9qodgDto5TOyDObTtBr3J2kKRfpH00kGoHLgt+JZYFAhonx0EqbF
+         0oAuREuBldj6fIBSVev9fhnIK8Jw8cndkgtJMKw2wCi4QMe8e1czeOYw231lgK7JvfVS
+         VIGG/i4KY4EWV75nS88s4vkquBo46bmge/MOcOX2ep4IOH0c/tayJDTbvZInOnCoU3ef
+         FZO7IvsS0RzxaYeJeuAr3WydL4LwJSKvtPmUScMRjEqsgTCAjHEslP9OyXbgsQXVyF8Y
+         Nb8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxM2VmdwiBicn5+pnpb0/eHNbiDexCDYr/Q6urt+HaeG6x4/XV1Ei4F01rErC6NI4CgM0h2Zoen5g5G@vger.kernel.org
+X-Gm-Message-State: APuU4Z8teUzfSpG4H0x/Ugr3naBHwa9pOUNWf7PKWY8FNhkURNY685HF
+	zMpdk1DgmUgXUGPM/4dhSMXnRD1voTw4eRoGsOLa8aknQiP90u+/qi2L
+X-Gm-Gg: AYBFou0Rqa7AZ9NA8NvzRSdxkZwFRkr57nvJgFk1chFP0Y2ttiRGHjgm7J1wQPT8l3L
+	unckJ698ggKYvak/8ElMXIddsExIK+y5v62qA6fVhmb/pelxnVlrlTzcLcKeVJDp8kxwhoh2oxP
+	s5Er+SGUDkfNY82BJ/Dnlm9yFmz86LIcl7SdImy36r+x1tB7HwLcFFuXTxsetU1vettfQqiPnRg
+	U50QsWWvEulN4rZedgdNM1rtOd9xL7vr3sL3nSHfzPGXwSX9gJEJ4EhfH3Y0P4AprNaErr0QIJI
+	qrykLGnvSI3F/M4NlN7vODy1M4PLpV5FrdFAlBWaKozzGmEONeNUy0hkk0NUT1p9HFiIROX2Nt1
+	TxmeY7JGzBCKPJTGS0omm25GNIfOWGbZsgWDNpihPpeW73SeiGzD8qGH1QZnkYSaF3g0E+rVNyL
+	HMOUjC89w8cHmz86ddIcTeSZQ+6VEMB2MFx529x8C73eLZ2wRJeZETC+cfqxJFUbVy/m6fgDljs
+	5exZVc7pG1OeGVQ7oHo3e58eEsFu6RR3fse6lugF6gip0x0VjCONbA1NnzasmiT/un8chUHlPB0
+	HF+LN7vOUkcxJrt5m+BLf63lYhr97Y6boMMF9/KgAc1J3uDFDyMKHNzqAbrBUb/99mpH6fxlvr7
+	f5lsMllDX1A==
+X-Received: by 2002:a05:600c:1d0c:b0:4b2:612d:908c with SMTP id 5b1f17b1804b1-4b6df9beb91mr29536225e9.34.1793956816082;
+        Fri, 06 Nov 2026 01:20:16 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57203a98fsm108358935e9.4.2026.11.06.01.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:20:09 -0800 (PST)
+        Fri, 06 Nov 2026 01:20:15 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -97,10 +98,12 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] iio: light: ltr501: Add LTR-659PS-01 prox sensor support
-Date: Fri,  6 Nov 2026 11:19:39 +0200
-Message-ID: <20261106091943.35783-1-clamor95@gmail.com>
+Subject: [PATCH v2 3/4] dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+Date: Fri,  6 Nov 2026 11:19:42 +0200
+Message-ID: <20261106091943.35783-4-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106091943.35783-1-clamor95@gmail.com>
+References: <20261106091943.35783-1-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -112,32 +115,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
-nearly identical to the LTR-559ALS-01, but omits all elements related to
-ambient light sensing.
+The LTR-659PS-01 is a proximity sensor similar to the LTR-559ALS-01, but
+without ambient light sensing support.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
+ Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-- set IIO_PROXIMITY channel to scan_index 2 since driver will not handle other
-  id properly
-- add IIO_CHAN_INFO_SAMP_FREQ for IIO_PROXIMITY channel
-- isolate missed ALS register calls
-- add commit to use read_avail operation
-- convert to use modern chip info match
----
-
-Svyatoslav Ryhel (4):
-  iio: light: ltr501: Switch to read_avail() op from manual attribute
-    registration
-  iio: light: ltr501: Switch to modern match mechanism
-  dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
-  iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
-
- .../bindings/iio/light/liteon,ltr501.yaml     |   1 +
- drivers/iio/light/ltr501.c                    | 383 +++++++++---------
- 2 files changed, 184 insertions(+), 200 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+index 20abd7da080d6..85ac3b540c206 100644
+--- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
++++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
+@@ -17,6 +17,7 @@ properties:
+       - liteon,ltr329
+       - liteon,ltr501
+       - liteon,ltr559
++      - liteon,ltr659
+ 
+   reg:
+     maxItems: 1
 -- 
 2.53.0
 
