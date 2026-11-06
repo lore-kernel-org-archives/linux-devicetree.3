@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.91
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793962345;
-	b=Io38Fg06ZQ2KkvauXvcbzYAucvQ9YU00GBTlexzP4oQsZkQd5N4Z3aT2+x3spylLHhu+
-	 r+FH7bxjbmEECcK9xRK2yxuPx7xSp4Bc4okIoL5q2qrEuk3TsmL/j35Q3ZaCbDmlLMRFF
-	 gXUV2fd/VZ+RstLbzhZUT6yzDBayR9Y9QvJu0lGtuGluqFVOmZVnNNjRxNHRxLrLqHfJW
-	 knkypATGV2eWBLQWEPerdfzTCcI1gyBjSL74YQoSc2sBlN5xLgQhCqialwX5LdARjUnx4
-	 kVcAccfoRi0o5zKl+AjLHfE8fUtBGJuOFBxcof5LMl9sDFT7Lt1Apz57NCTP+WSGGPg==
+	t=1793962341;
+	b=xLhwZhslXk+mEeFb3w1ZfIPyGG1NVKQSTHFWnq/sXJuk081jGoU5q2HUAAWgF2bi7JrJ
+	 wO+oSubcfF0EdIWDKHPGP2eYyWMQz/L8zXutO4CeU4SZSbbGzcTmAkZ4BIOFxogsrZAU7
+	 hobGaOj8FdNA8ICMhVJAbdNdGyWjR9DnTrrlypF6ul02w4JQUtEGeMEu1Sihv5PXFcloS
+	 +jI4RWvUh0L+FMRV/iRIJWwuSB959Gi+BYziQLE3Tddjo8IHL7q4Eds17pLgeKWWbD3ji
+	 ZzAC0HTe2Oqc1HcQn+2uLWIMXlnwMBV1+inf4nvk8xnbMAmubYqAeEiweX1fINv5QiA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962345;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-	b=ySp2UkgTmivkSaZznNURw5+Pk5dNeZcjA+6vjD9TPOf2O3RuKCVjIuB/KsLi8gDir9fa
-	 wzLryb91XQFN0GpcYqeZu9ZcCNifzdrvy30/+94QuwWtLl3sOgcS6CsWm2Vt9M84BZq2y
-	 ASuw70jt8xo8bb7Dz8MK5cGUkt8SVhQv+SLg8D3KBezE0XWGK3NJkRUThTb50vLUi5brE
-	 ZFwC26ihrrLP+MmAcv2x6KR6Ye6x+Z7XXAGSZp3FPyigJFiJ7aUNvEb9iNgO/Kery4R8L
-	 MULWE1FXIi29sle4D5+51vEJE5ipjPO6ycyYbUMzQYJemS8Zn/pzZhsmLzQ1isc2Frg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962341;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Bw3iYNs494OoZ2HUqf1eAnVbLeeNMMr6kGoN9P/R7gw=;
+	b=qlLeqDQ1KnxgG1986r8DchD8UqY/f5ZifexCN0C4nC47uEq4JBTmqnLm2dq2oNlqdFXe
+	 7J/2Vb3x6BjVKiTLg3h6Vg6RB5eWlKCfdBLWRDwsohiXVNdy/it6rQiDHV8eJq4S6RE/0
+	 iEosGJ3VK6jBqJKY++uw1WObCgU8k5bLy9W7+cHXY6iDLgsB8igzo+bb3r7ybjysKrKb+
+	 EqotYHUakXkMsDCZRm9N11fCTDfFjJ8O3Rk6miC53EKtdZtakRDKHm8I+mLEpgasvSZwX
+	 oby1L3sfoGAkHrBrf6Xqpsf9TEfycTzEXJ8ttFrV2p+5c+AeEy/q0nOQAl/62NHpQSQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lvN3tpWT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.91
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023091.outbound.protection.outlook.com [52.101.127.91])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A42606EE9B
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:52:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A42606EE9B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lvN3tpWT
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso3205525e9.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 02:52:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793962343; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pfqS771iDNUq1WP8dVi2sDU0K7sEp3KznAFeuLCWdKCA3zzsSWkHfX66Gv084AvhGC
-         JrOq2858B22hGqnC1QNdHQRZyqYFgFI86EKLu5c253+VxO4YcKNo3rW7wpM7dF3UbgP+
-         lU+pZgsEG+2OyUn4nRZKDyqkCNlrb3OdLdnCRh6G0aUd9u4paTLmMNdQgW39CULNhaJC
-         9r9WD5GovL61S5BjCAlrhVtEwByBO1Zg9edo86mvoktAF4yINuRVpfmrwUoC/UrFgiW9
-         WrBueqANUEOOK5Q12P4ai+2VSVYT43AOZANQmbpI2Y9xsdy7ZAeB1JSJ4Xq7YCM7IcwJ
-         cjcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-        fh=bDVPiSihGEqhP17Pa5hoBxeOqfXKmWDIVn+S8Q0q7hw=;
-        b=AIneIY5+vGzpQ49pptMZiLoIY418zUaWX9Vzm6/PLrCZqm0Fu3/EhaovPVFhNYmbn2
-         QOJ6va3OjEj+/lhEpV6j+fDCz0OnchsG2ebDJdo2QZWHTpwA6baOfAlGGunM9FAWu5Ti
-         3PoIvGaQk7eM/8WH9fFo5y6V1SZSnHwD/mEUAdJYMUXXI3wOYtzkP9oJ845DwBqyrepc
-         PkDWdizKsKs+zr07icGNO48G4x03QaAix2fC+9J/njWHZFggAFXzhC1sDbIalxeJ8xiB
-         2CXRiHX+tDizP8pmrL+IFS+57YWyIjn6yN1C4lFI2NgVXL2FuyqDQOlzpXccEskpkoPp
-         czyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793962343; x=1794567143; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-        b=lvN3tpWTeQpNWoDkbs3yHEwVfqoGP1Ll9s/HrfhG8tEDDv3PUO1hwT15EkduXS+rWm
-         aKWxHsXRIUr2QeleSRc+K0NgYrShBjliU8NjORCRwkrNoin3iunoivkUiQVSnOVPn3Rx
-         3bw9l9mkskwPFOKzC57OGkiAtMteSYznGOZSX7n89i8iGMDsWXZApoeXQWBtfBEuFZpy
-         KcN8x+453vC/bhc1y32uowH4Ej1eJXdn8Ad0zClYJTCUv5BGywALZQmlFJ5fvNLFRNKj
-         DMkqNrtPcHnNDWbKKAFD0WvieXZcGyKH6qqVqbR80niPzNimQRLquSkHFkxdOBQvYL9E
-         L88Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793962343; x=1794567143;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-        b=ZpvddExnhudHl84GEOhdJuO9oE3vX3kyLuOPZ2iZaDKti857L+MMjD680c5/Gmsix8
-         GH17EQTwYwMBGJ6PBLph65ssHh+VE/BPrk+MwGCPwqbGKzmoKzOWyN7TaD4g9K/XbKRM
-         y5gBWzk5aYFsQiKjYS41KiV3OZ4/v3w43L2mGoJpRd6YZuKqxeZmg5DfIQjgO3xo4Xq+
-         0zGKJALlncFaAHn5ioSYDI0B5lCiYJkPE/3t8ejK/0xEkDeRtSqn7ldbtryLBirn7LUa
-         CqWxyl6KELeq3NZ3/1XWnKkZsozeY6Hr4pP3Yl0YTHKEbhuaI93WWnCBpaM9MFskB/lw
-         7XMA==
-X-Forwarded-Encrypted: i=1; AKwUvByavkLDTxuvPBKKYdV3sq5/KhhPRwO50OAc+XHpc3hqLcSmx/oZxtIGL6XTdPBVeURULIe+L5vw0rVI@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0dwJ+v60/XVtM8zFG36ZYHu6Lh+K0Uk7FoitaiBNwNEZEzEjB
-	wNnzvL4Hc00+zIaJtlYZMJb/t8Uto7GgOprAkXibpdZzILWZS+f/dmGIWfJ4yqEdugmlrGdarNa
-	vjgLZyf9TD4v4JDxM5SpGgkiLpfQ37SQ=
-X-Gm-Gg: AYBFou3SBe4fM2+jeNE2Fzkpys8Tnk6AKZ03Q6uvej4ZKhBCCkc06y7TWxhv4JL167J
-	ZcLAa2Tc8/HNx2sq0a//OmUbsm2hDIpDbEUGSwV3kqTaKtfga6mSZXbWva33mF2NKfA5ynrc9Vl
-	lIBZuIFq1bpbco+BYXw7KwjK5R1nFlQiXX0rnjkz0P/BzDrCIST5fcxmcuQ8QzAvRzWE6v+ld3C
-	ZSHwywZOfZjfOuw1+G/eEjLffkPtadl01gLphuDbKKZhje+5CagJNyEfnbccxnu3H+HxHNmGKkX
-	HKZeTiIHnMuo0k+lX4a0lXbBt4uwsMge8btX56LQmLu8vT/uFLcirqHdoEuYB93rRSuOkLPePEt
-	53LlsvV9BWVrTtzYLqklsYareXIEKv8ieouQ9foc1RqP3sMTi2ZqJOE0L+zYEAJRfcMuu3WC51Q
-	ogN5sbVFkoM056aTwwetohDD3DPatqU0gy2Txj0oSvtFm9xVNMbZzVT0Aiug==
-X-Received: by 2002:a05:600c:4e43:b0:49f:f099:6fb1 with SMTP id
- 5b1f17b1804b1-4b6de0cd91dmr32855205e9.15.1793962343270; Fri, 06 Nov 2026
- 02:52:23 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3EA606D813;
+	Fri,  6 Nov 2026 10:52:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA3EA606D813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cunIVbDAMrwrAU3TwGeHzUugVvZcQQcMoIGh2WRSsG3EyRqqW0/yu60wuG95gn77EeVUfEImk79m5l7MHP7LNCQT3VLB31eC1QBZU+ThbKhHFZ0QqgBONEO6YM+FgkjpBYGZrnmGDByAXEBklc8vayof7Kt8dIrZkn5qBsk34Dl2D5zirwH+sv/mX1VbAxOuHpS+G6dvE9oSMLmWCHEzqtY7Hx/YlVIjN0DkEkbk4TCTMH0kw+8vLIgRuZFFcHoDKhhtjKZFOr3+Sn1J0KF3vjd3VwmNTrr42O2r10GXKfFoIllkb9Pf5DtLHMOHaLYhby7bwsqKLaofRONQ9KLbpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bw3iYNs494OoZ2HUqf1eAnVbLeeNMMr6kGoN9P/R7gw=;
+ b=E5OleblEKQjvacly/aw7tZazjoNz0geSDzM4VIVVCXtFV/WL0rIdytpExspbL6PlwvSwysAPLKU63N1IqQO1V0Zcxh2AVNpLVcSQlOUCfIC0ydCz5np03EvOnT2MM6E8HRpyCU48w37GuQF4y7cdDuXYPpS0cQoJJ+3TzEAboQen9HXHcprGjjzwaRmB2ovuUWCverkDUdi5o/FRRXqds0Zjf4imuoq6yGKDZsm0H9IH65kjqQ+/wW2GpwmmdKN2GpFa0veD5hwCD0+Ial3A3m/fdkK6jgOBcmI2NIpiNoDR9bn/FZvxT/D31VM7kOYZVtBWGG0grI+hgHKPmRRutg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SGAP274CA0013.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b6::25) by
+ TYZPR06MB7316.apcprd06.prod.outlook.com (2603:1096:405:a6::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4; Fri, 6 Nov 2026 10:52:14 +0000
+Received: from OSA0EPF000000CC.apcprd02.prod.outlook.com
+ (2603:1096:4:b6:cafe::d) by SGAP274CA0013.outlook.office365.com
+ (2603:1096:4:b6::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
+ Nov 2026 10:52:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CC.mail.protection.outlook.com (10.167.240.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 10:52:13 +0000
+Received: from cix (unknown [172.18.64.61])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 46F9A4102E6B;
+	Fri,  6 Nov 2026 18:52:11 +0800 (CST)
+From: joakim.zhang@cixtech.com
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	p.zabel@pengutronix.de
+Cc: cix-kernel-upstream@cixtech.com,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Joakim Zhang <joakim.zhang@cixtech.com>
+Subject: [PATCH v5 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
+Date: Fri,  6 Nov 2026 18:52:05 +0800
+Message-ID: <20261106105208.1246554-2-joakim.zhang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261106105208.1246554-1-joakim.zhang@cixtech.com>
+References: <20261106105208.1246554-1-joakim.zhang@cixtech.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,81 +107,144 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org> <20261105-mali-c55-renesas-dts-v6-6-7dff41bf7107@kernel.org>
-In-Reply-To: <20261105-mali-c55-renesas-dts-v6-6-7dff41bf7107@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 6 Nov 2026 10:51:57 +0000
-X-Gm-Features: AclHuK84X0AV3nOTm5UaYtDdNo8XHTBLk32hG-FVymrE-EyctstaEQaOUyISrDM
-Message-ID: <CA+V-a8t5BeTXN--GZUMWsoKkJ7PK8f-iFeFp+XXuKO9x2cc2fQ@mail.gmail.com>
-Subject: Re: [PATCH v6 6/6] media: mali-c55: Assert the ISP core reset last
-To: Linus Walleij <linusw@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CC:EE_|TYZPR06MB7316:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 6159cb23-3094-46ee-bd2e-08df3bf4041b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|7416014|22082099003|10067099003|18002099003|3023799007|56012099006|261026140227099003|261102123227099003|261026121527099003|261022105027099003|261028144727099003|261021121427099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	KhWd5FLsywLOIRiATnkZ+cGmwnu480MHKuviJrTVhz2k3Pv4DJRhesxDHPUMtGf7ZZJ0KNXQUF9inezxghgEEM9/fP9xSfODyX195kY6ABfXa1cRydw/+4Tqx7D/RBv6kXnte9zJtFkl5HmbuZMIzOXOg8VD52DsKGZmQyzRkHuIyb9K9Apawb1WKZNZPJaL60nLGndY5c3m/rZtej1vLiF3q0Jq2nTyE9AfmTWzGpwE0Mc1SVac/bmHhMm2hOzfPizVzI4lzGtejhiKEUwNDiAbFz4z8JB1oujbawQoW1em5offzLDNWqTyCIJu1xVWBaoWsuWLIdUhzyAPFNDhPE8kMiyuBEts4dbZUuAx9U8iRUma1vzbtvrhCPyHk6JxYFUAc47oTSHU/5N1sFoqSZlaa8m0U+E6edZjgthUBxJRP/UqbphXck1GCIEzYRY4PHGZpCLjiP7bOl1FFNZqJdfXqf88hci1Bf1WaeTF8YtjfV2JOVZwO+OclbdGa0tHRs1CmSveh4s1HLV6lcMJx1FU/VVMgE3xwFRmCziRNWzJxXyb3epCdIm1oq+DfC1IS8oxTFhyw+MBctQ5aekwQj6XttvVf0IwHS5/SLKEq+q7GcvT39ZjSxuY5NTPDQmF9/MD03+tFpeoZl4Eb1v39Q==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(7416014)(22082099003)(10067099003)(18002099003)(3023799007)(56012099006)(261026140227099003)(261102123227099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1wZ6K2cazbqSzBCamJ49FY3KfmjDwKoMbkMpxyNM0VtI6ilIo8ZJjo4WZXbJLMF8vVe6arKDSk/YQy+mXx9eVXw17PiPs/3LgdlJVJ4VA4aQJt84ajpdONRpsM9rSkYoFHq3lIWf5cd/LW2NZm9NQ++1evMjIZE5JZgmPOT/qZxmi6sAetfR7WF73TAs7CzIyMmSPS6NaAb9fD813AIA3KY2tJ7pllNCFP68c5KjKkHPqHNMkXFjirUc4pMfSfCLFJ1MaUdvRT+kVoLTv7cEaAWcerh27Sd74fGTv94ZTTQQMuPUlQryTWbA8DgCompLSb74Ooaf/1BDTZAHCaondGVe1W1AhuVFINku2QsBpMAUBoSJ+xhMCTcDFi/NdGwYZVC61CoLT7Yao/brBz+bzYMEDDIUe3BT4BbfalHCol/dF9hDQ4p9jXAzNijF1oTF
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:52:13.4421
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6159cb23-3094-46ee-bd2e-08df3bf4041b
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CC.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB7316
 
-On Thu, Nov 5, 2026 at 1:02=E2=80=AFPM Linus Walleij <linusw@kernel.org> wr=
-ote:
->
-> Asserting the ISP core reset before the register and AXI interface resets
-> can leave the RZ/V2H ISP in a state where the first register access after
-> the next power-on stalls the bus.
->
-> Keep the bulk reset API and reorder the reset names so that hresetn and
-> aresetn are asserted before vresetn. The bulk API asserts resets in array
-> order and deasserts them in reverse order, so this also releases vresetn,
-> aresetn and hresetn in that order.
->
-> Suggested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Joakim Zhang <joakim.zhang@cixtech.com>
 
-Cheers,
-Prabhakar
+Add the DT binding for the Cadence I2S-SC controller integrated in
+the CIX SKY1 audio subsystem. I2S-SC is a full-duplex stereo
+controller supporting standard I2S, left/right-justified and DSP
+formats, plus TDM operation with up to 16 slots.
 
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/driver=
-s/media/platform/arm/mali-c55/mali-c55-core.c
-> index 241a625f7284..e37f87e36eab 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -70,10 +70,17 @@ static const char * const mali_c55_clk_names[MALI_C55=
-_NUM_CLKS] =3D {
->         "hclk",
->  };
->
-> +/*
-> + * The reset bulk API asserts the resets in array order and deasserts th=
-em in
-> + * reverse order. The video core reset (vresetn) must be asserted last, =
-after
-> + * the register (hresetn) and AXI (aresetn) interface resets. Otherwise =
-the
-> + * ISP can be left in a state where the first register access after the =
-next
-> + * power-on stalls the bus.
-> + */
->  static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] =3D =
-{
-> -       "vresetn",
-> -       "aresetn",
->         "hresetn",
-> +       "aresetn",
-> +       "vresetn",
->  };
->
->  /*
->
-> --
-> 2.56.0
->
->
+Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../bindings/sound/cix,sky1-i2s-sc.yaml       | 89 +++++++++++++++++++
+ 1 file changed, 89 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml b/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+new file mode 100644
+index 000000000000..9ef11272d0fd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/cix,sky1-i2s-sc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cadence I2S-SC controller
++
++maintainers:
++  - Joakim Zhang <joakim.zhang@cixtech.com>
++
++description: |
++  The Cadence I2S-SC controller integrated in the CIX SKY1 audio subsystem.
++  It supports full-duplex stereo playback and capture in standard I2S,
++  left/right-justified and DSP modes, as well as TDM operation with up to
++  16 slots. The transmitter and receiver are started and stopped together
++  by the controller.
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: cix,sky1-i2s-sc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 4
++
++  clock-names:
++    items:
++      - const: hst
++      - const: i2s
++      - const: audio-clk0
++      - const: audio-clk2
++
++  resets:
++    maxItems: 1
++
++  dmas:
++    minItems: 1
++    maxItems: 2
++    description:
++      One DMA channel for instances wired for a single direction, either
++      "tx" or "rx", or two channels for both transmit and receive.
++
++  dma-names:
++    minItems: 1
++    items:
++      - enum: [ tx, rx ]
++      - const: rx
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - dmas
++  - dma-names
++  - "#sound-dai-cells"
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    i2s@7020000 {
++        compatible = "cix,sky1-i2s-sc";
++        reg = <0x7020000 0x10000>;
++        interrupts = <GIC_SPI 219 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&audss_cru 16>, <&audss_cru 26>,
++                 <&scmi_clk 100>, <&scmi_clk 101>;
++        clock-names = "hst", "i2s", "audio-clk0", "audio-clk2";
++        resets = <&audss_cru 0>;
++        dmas = <&audss_dmac 0>, <&audss_dmac 1>;
++        dma-names = "tx", "rx";
++        #sound-dai-cells = <0>;
++    };
+-- 
+2.50.1
+
