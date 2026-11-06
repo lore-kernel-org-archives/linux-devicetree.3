@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990993;
-	b=ZMN3QDLqBbIN80jjTlUEyNg4d8i/XWqhIAgSfT0wBQK+4ziYp3YWmKHnClUDwQpmWDIT
-	 n0SmSfY18D3kj5rj2V1CTHtQRXxJHe8RZWOEd0K85LKk16qB4m5yvelXLdhIDuZkjE88y
-	 DNEbHjxmfuyLjzFPYDZrgAguUkGq9g/HxJZ2dA1Ym/ReH7VLNPHRYN9WFf3wkfAzr9BJi
-	 uwQ/Cp0SEshS2UVzYPQmwfm/7315U78He5YDd2Wf7M+vBueitxgCYXFWAKLYsXzSoY8Y8
-	 Z+uXPAL4zT8K1+zU6XNv1wKZDlKZ8NJsUa4RJhzb0thvWLC9Khsh/1YYx6wGUUp5Y9A==
+	t=1793991019;
+	b=zw7n6q6Sjl1ji6va/VJABu9Bz5dCu4ub84yPdXwDW9htp5HieN+xwvnsOTmmqwdRPoIc
+	 7oZfQihT6cYP37+T4S6A17IDkv8XLp2LyEHA7m/d6uWTFrATc5RJE+ytUajUoCnJxMvOM
+	 UzGxcMwQs+eBcf6uiEtEbjiJKLuSbO2kESI2FN7tk94HHhlELM3wmIxkN1VHgTBmzeFUL
+	 AatJ7u5T7uJUNyjDgJpF8pxAxZPdDMSv5r/381s8NbSmFB8VCG8cRxwPttDcdua/u8y6Z
+	 AEQxHQiAp+Adh0z1FRsbAk/F51KWxkaIbELBsZ3Fv36K7Z1oSHPe3mbQyBRlwT27kHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990993;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991019;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=vV4vKNQIMcqzdAmCbyUaKDGDDzSxd9Nsc6ykZrOqeT4=;
-	b=bkVgz4QjGIBRe8AZM2/nyv/8GOUwJiRV15G3FzJDha3fyD6ZhjHfrxvap8mzTbFJD5Ad
-	 BxouXTLOCKV5NRL9OGK6KUmFDdIfD7Pxr52HzyyTBG4vOBlEHoiAXbUyYl33g4cd25Br5
-	 YLKrIleRMldopQ/pdSf9LgY0MT0m7zWIY6tYVz+HGDEgkSDEY4xpjXj267FD2jnbN/fcI
-	 KwCT/aGPwINU66Z8MS14uBF51de6RYYuj8NqAXE2qucsHiCzO5ECv4f+U7G/e2NEjqm2l
-	 NlCWBWgx8318PLreEKcltXlwAnfLygdXflovzGa/6uFze9LBUx9mUq73QGOsUgLzktw==
+	bh=XPLSi+DAAMgALOwx2pnSW/jNLcIadlw5dYi0ZDekG30=;
+	b=HdfnR43eK2l6JnT1+q1Mjjz+Sr5kRKEVuiaowPQe7oHv5/PiIHZ8jY/ZZ7dnZqwr+E+9
+	 mwiVWzAO5kBGTe3ZekMrdjVefHL6Cd0GMvUZ5puSzoxCggQGDjX1dEPeIf+tYxbkJnR9m
+	 0SJBrh0yV5i8ux3dPId1epkztHiWcFDO0l8b60OIyeT8VNiFPdaHqG31DOT3DJl7CXAtm
+	 5aFVCrvUeU/SbAtxh9eMkYi5goJMz8EIyuB/IHmv907wQ1Hd0nI2NgjJIWHpiXinwVoYB
+	 dVkMxb9CMpJd7tcEMKsq9t7BT8hCuXnFBNCvBUhD/6AeoJ3rxaJCQHLN2hbzfC/2Mog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHBvsLeo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCiTxJNN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A24606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:49:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B03606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 18:50:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHBvsLeo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF5B1F008A1;
-	Fri,  6 Nov 2026 18:49:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCiTxJNN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910491F0089F;
+	Fri,  6 Nov 2026 18:50:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793990993;
-	bh=vV4vKNQIMcqzdAmCbyUaKDGDDzSxd9Nsc6ykZrOqeT4=;
+	s=k20260515; t=1793991019;
+	bh=XPLSi+DAAMgALOwx2pnSW/jNLcIadlw5dYi0ZDekG30=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KHBvsLeogZWFkbbjcTRwnVQevb0YISl6+ioFX+lT1mHunF5IySh/6x9l99eXm1fSu
-	 H1xVWnFfTewtE46W/bpWWrRrAflGjR+yE1jALE1CPTXyAnHduVF4BaRI65RFRb2A4C
-	 eOPspfsBQVF9fanDg1jPmDXjVsFqgEauc8jO6HrCbPCTC++tHit91IhGuIVe3Q2fwd
-	 cHGe2yULhZ3VZfzpNc++u0DO0FcSJi6xxR4UQiPvcfjrmtEJD5sZlD63ZbPMHNSoXc
-	 cCbRLaYamHOu7gt0UcZfVSZw1/dLanNSITbfMdTLRINtEdjt3doHb3cgCaB1/yOV4N
-	 Gr+N2NV5/IraQ==
-Message-ID: <sashiko-outbox-202104@kernel.org>
+	b=DCiTxJNNWj8yScNmbKr2ZDp7CXOs0Ex5/GNRV3dpTrUPjUl5IhZ3iXrYFTsa6SnI+
+	 +t3H+w7scH9KYfWFSHyP4G1EuWZicT+Y0/Zu8Fe4Rb0ofcWR2vNa5LBvFm9rtpXdPj
+	 g/7KCrcv4HDDqOmLevkV9LKZ5Ltupl0LmVzZacWqWqtbq8ijzW/84qjkUR7+w303St
+	 C4RrWaqHjUK4gFPcmkLcSRDCHxQmkRs6OQdsxD0xDuxf7xj/ScKpsF21/uGKhhdZpx
+	 rnZcGnXQlJ3K+40ZzBUrYyW1+UArSmCtbZHY3WSSc/zrt/h+2/Ckm8UPyatNcpULU/
+	 by+88G53+BnUg==
+Message-ID: <sashiko-outbox-202106@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] media: qcom: camss: Match VFE lite clocks by
- name prefix
+Subject: Re: [PATCH v3 6/7] phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Andrew Gigena" <mail@andrewgigena.dev>
 Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-4-0103e8a0bbcd@andrewgigena.dev>
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
 References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-4-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-6-0103e8a0bbcd@andrewgigena.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 18:49:52 +0000
+Date: Fri, 06 Nov 2026 18:50:18 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,91 +61,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] media: qcom: camss: undeclared CAMSS_8150 in camss-vfe.c breaks
-  build
-- [Low] media: qcom: camss: missing Fixes trailer for
-  vfe_match_clock_names() bug
-- [Low] media: camss: unguarded lite clock checks in
-  vfe_match_clock_names()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] phy: qcom-mipi-csi2: wrong SM8150 lane polarity offsets in
+  lanes_enable()
 --
 
-commit 304a59495a7a3eb87dc5d254ba4381a9abf0957b
+commit 8f49680e61ed7e381ce9eb5db34d5783dd1ae930
 Author: Andrew Gigena <mail@andrewgigena.dev>
 
-> media: qcom: camss: Match VFE lite clocks by name prefix
->
-> vfe_match_clock_names() builds the expected lite clock name from
-> vfe->id, but vfe->id is the index of the VFE in the resources array.
-> On SoCs where the lite VFEs come after the full VFEs, the generated
-> name is vfe_lite2, vfe_lite3, ... and never matches the actual
-> vfe_lite0/vfe_lite1 clocks, so their rates are never programmed.
->
-> Restrict the new prefix match to numbered "vfe_liteN" clocks (digit
-> check) to avoid matching aux clocks, leaving the pre-existing
-> vfe_lite_name and bare "vfe_lite" matches unchanged.
->
-> This affects SM8150, SC7280 and SC8280XP. On a Pixel 4 (SM8150),
-> streaming through VFE-lite0 left cam_cc_ife_lite_0_clk at 19.2 MHz and
-> failed with "VFE reset timeout".
->
-> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+phy: qcom-mipi-csi2: Add SM8150 CSI2 DPHY support
 
-[Severity: Low]
-This fixes VFE lite clock matching on existing platforms such as SC7280 and
-SC8280XP.  Should this include:
+This commit adds SM8150 platform configuration and lane initialization tabl=
+es
+to the Qualcomm MIPI CSI2 DPHY driver, along with support for a fixed timer
+clock rate and single power domain attachment.
 
-  Fixes: bcd2adfef23a ("media: qcom: camss: Allow clocks vfeN vfe_liteN or =
-vfe_lite")
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers=
+/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> index 966d79c98f9b2..b8b6589cee35d 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
-a/platform/qcom/camss/camss-vfe.c
-> index 2680a9914765f..29e04d0971163 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
 [ ... ]
-> @@ -346,6 +347,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u3=
-2 sink_code,
->  	case CAMSS_6350:
->  	case CAMSS_7280:
->  	case CAMSS_8x96:
-> +	case CAMSS_8150:
->  	case CAMSS_8250:
->  	case CAMSS_8280XP:
->  	case CAMSS_8300:
 
-[Severity: High]
-Does adding case CAMSS_8150 here and in vfe_bpl_align_rdi() break the build=
- at
-this commit?  CAMSS_8150 is not declared in enum camss_version in
-drivers/media/platform/qcom/camss/camss.h until the following commit "media:
-qcom: camss: Add support for SM8150", where these two hunks belong.
+> @@ -352,6 +419,36 @@ static const struct mipi_csi2phy_hw_ops phy_qcom_mip=
+i_csi2_ops_3ph_1_0 =3D {
+>  	.lanes_disable =3D phy_qcom_mipi_csi2_lanes_disable,
+>  };
+> =20
+> +static const char * const sm8150_clks[] =3D {
+> +	"core",
+> +	"timer"
+> +};
+> +
+> +static const char * const sm8150_supplies[] =3D {
+> +	"vdda-phy",
+> +	"vdda-pll"
+> +};
+> +
+> +static struct mipi_csi2_genpd sm8150_genpds[] =3D {
+> +	{ .name =3D "top", .scaled =3D false },
+> +};
+> +
+> +const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_sm8150 =3D {
+> +	.ops =3D &phy_qcom_mipi_csi2_ops_3ph_1_0,
+> +	.reg_info =3D {
+> +		.init_seq =3D lane_regs_sm8150,
+> +		.lane_array_size =3D ARRAY_SIZE(lane_regs_sm8150),
+> +		.common_regs_offset =3D 0x800,
+> +	},
 
-> @@ -914,6 +916,9 @@ static int vfe_match_clock_names(struct vfe_device *v=
-fe,
->  	return (!strcmp(clock->name, vfe_name) ||
->  		!strcmp(clock->name, vfe_lite_name) ||
->  		!strcmp(clock->name, "vfe_lite") ||
-> +		(vfe->res->is_lite &&
-> +		 !strncmp(clock->name, "vfe_lite", 8) &&
-> +		 isdigit((unsigned char)clock->name[8])) ||
->  		!strcmp(clock->name, "camnoc_axi") ||
->  		!strcmp(clock->name, "camnoc_rt_axi"));
->  }
+[Severity: Medium]
+Does phy_qcom_mipi_csi2_lanes_enable() write lane polarity inversion to the
+wrong register offsets on SM8150?
 
-[Severity: Low]
-As reported by Bryan O'Donoghue on v2 [1], should all lite clock checks in
-vfe_match_clock_names() be gated on vfe->res->is_lite?  Only lite VFE resou=
-rce
-entries use vfe_lite or vfe_liteN clocks, and once gated on vfe->res->is_li=
-te,
-the vfe_lite_name buffer and its snprintf() call are already covered by the
-numbered "vfe_lite" prefix check and can be dropped.
+In lane_regs_sm8150[], the physical lane register blocks use a 0x100-byte
+stride (data lanes at 0x0000, 0x0200, 0x0400, 0x0600 and the clock lane at
+0x0700) with common registers starting at 0x0800.  However,
+phy_qcom_mipi_csi2_lanes_enable() programs CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(=
+),
+which hardcodes X1E80100's 0x200-byte per-lane stride:
 
-[1] https://lore.kernel.org/r/ac2e970b-1f3a-4aef-9a84-034d7e460c0f@linaro.o=
-rg
+drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c:
+    #define CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(n)		((0x200 * (n)) + 0x24)
+    ...
+    phy_qcom_mipi_csi2_lanes_enable() {
+        ...
+	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
+	for (i =3D 0; i < cfg->num_data_lanes; i++) {
+		if (lane_cfg->data[i].pol) {
+			u8 pos =3D lane_cfg->data[i].pos;
+
+			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos * 2));
+		}
+	}
+
+	if (lane_cfg->clk.pol)
+		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cfg->=
+clk.pos));
+
+When a board configures non-zero lane-polarities on SM8150, data lanes 1..3
+and the clock lane write to 0x0424, 0x0824, 0x0c24, and 0x0e24 instead of
+0x0224, 0x0424, 0x0624, and 0x0724, leaving those lanes uninverted and
+overwriting CSI_COMMON_CTRL9 at 0x0824 when data lane 2 is inverted.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-sm8150-v7.=
-4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev?part=3D4
+4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev?part=3D6
