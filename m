@@ -1,51 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999078;
-	b=zncgigVG6NsdLLzt0wkrJDZ/iu42L1Tz635Pm7JIdho19kfhAyy3iR43FyYLfRbEkRO1
-	 +gnFAnxP6DPTeC0aASAZoOMaAFsag94LBiR7AozCRugYQJ4YpnEMuG2OpZu3uCzQZ/8eF
-	 b+k3+61d+UXy60pVY/W2JRpOpGHPTBbyZIEKr8+x4jPHxg7Vbal4KwYyX6XjrU6B5FjSI
-	 TPINb3iwVXykIiTEOjaI/brsGk4kkhzNLqiqxNO/Gf/d2JMHoEkxzDhZmkJSuYPfP/ltO
-	 6xwPtzdSWX5UkjyBpwW21CwPLoSnfJME9udX+wdesb59XSkf3oRsqB2MlRJ2ocGPVOA==
+	t=1793999599;
+	b=wshasyaYmUe52+kje8rQ+4Yu2VJRJF1MU0i4ZZN9JbYNTePYBQfhvSre4rz1iY43RYYx
+	 93nUKnRc6XLzdbrfQTBUvfbdpaS+ShBHlKzGKzYiAuyf/SwV9LbhU/bu8iqy3tn7wg+E4
+	 HPrELvZ4JsL1HOLXWAdmrYBFVVMgAivO/mHPLFW0jr2MD1bsWdsMJL9q/qLMHI0UXrS48
+	 FcpZH0e6sBT+c5R4eYwvze6me2/JAi9t9Quhm+Ysxr0FAm/YJVLuFaSKdsXToG+4TMTf6
+	 LOtzNWa4shdxMQQ+cfBGw6z2TS7eCq4wUAR/4wncAeDN+fIUPLpN0/rzxuEQS6lpW5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999078;
-	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc;
-	bh=Q3gp6Avq1u4KULHEJJcxqqSSLUCUEG88RkHz8ESxDdk=;
-	b=vFzGsIx7JSvXXGWYmtibDChZeB7q8aBhMtPfr4W9c1uku2V/Skp+qrDZCEnMIQiPSXhD
-	 TBsXqpJN+dnOnyRJzK+XLleBGrI2LsRJ6nf32VLxJXQ9Yr32k+dGiR0n9Wu5d6wVZ9T23
-	 /CVhjMO31Gfcf9IYzzJ6Rm2Uu2DAVmH8QyOYtNzrH3mYJSFLnTtUW1nPyUenUGI6MTBxW
-	 J+r0hRk0rlyQPlnaHGuGdSGnOCXQbMD+0+NKRioMpGexyItQ2EgBaym6WqRBpFdjb5Iw8
-	 8CFxiYEj6DuDoQDb3+KUUWrFdPQjyCwc6fB9ooUE2Cgykso3/lgnhTWd5NQbqlU8SzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999599;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
+	b=ZwtjdhKDo46iJRnMPlEotHNnd/HhRYazo6MBgDU5xUZwrYTFnEntn+wtJRbS/XPME9H0
+	 OrNXFU2D2YQfxiPlnmO02f4raMBzpNE7woVdZforHnHGuDI8A+8EvXCBbyWhMzrxSvsXG
+	 kt4VcCbfxog1FNjyWQKpa8JeXQU4FL9yzWNCw1cOGV4/kHLCfcBH4bhlU9HjcEzHLMnW5
+	 RbVjFVAB8cqo0EyppImbC30Ov+HBMrUxCeo+h56Aweb7PL/sjun12cH1Gnjgy8sgp63Aj
+	 lBvr01rhVq8iNwqz+yLrG7hlF4PDySaDRSrrRUohdnl4W1F+5a8nUQebaeaEPYfU+Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cyberchaos.dev;
-	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b="bT/BQtXo";
-	arc=none smtp.remote-ip=195.39.247.168
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNssPANh;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3867D606EEAA;
-	Fri,  6 Nov 2026 21:04:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3867D606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC3D606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 21:13:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CC3D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=bT/BQtXo
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793999076;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q3gp6Avq1u4KULHEJJcxqqSSLUCUEG88RkHz8ESxDdk=;
-	b=bT/BQtXovkizs+c+VsP9NgTvpgd7VCTp/BXmluKo/a3SjIGkra4tSyd9sb4CDLdPLntq4S
-	ENQhbgfs2ar5+oWiulN8B9/KflmPMXMBwB89nnaRFrlo12W1NRF9Oy2h5xzJ6DPLEBr+lC
-	HVk3kB+9jxx/QKMP7f2cZERkCbXSeEs=
-Date: Fri, 06 Nov 2026 22:04:23 +0100
-Subject: [PATCH 14/15] arm64: dts: apple: t604x: Add NVMe nodes
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNssPANh
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so11327495e9.2
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 13:13:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793999597; x=1794604397; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
+        b=nNssPANhtZ3wzKp1c63u6YxR9nA9RLek2d5ZArlqR/5bmeQT7Q8Syuod0hALs9b9BK
+         NGyyci6Mqiu8Va+cquY4+qPrWRxTpJ2qg+/AOWHQgfEwf+O2tZChYBiCxQ1ek4SkLULZ
+         HKCnkbyLbNxBlb71sB05ArRhzSB9wGamoXLzIkvEEOR8ozKcAedKV7b3Jv0ibtu/KD/Q
+         Zm8Li/iWTpogD+j9W37+RWXVAzAXIp7/OKtLisQictcTPoTlE5HPvAmU++MUBLyvO2oT
+         4NQvWT40HbaG9WTiOOCO9Nh4GgJHsY2FxO+a83RIP4/XFHH9t8rRgihiwUy00eM+bv2z
+         9TpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793999597; x=1794604397;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KAgB2fssjvIHHivLsh4UbVD8IvzJBAHBr6xJYRkzEJE=;
+        b=j5zxvFb3ztgRDk/HjQna/tVaPRojslijYmQTyK0w6oEXdcJGtrQ5jpzR5++8logvWi
+         dwZZ7AdnaFRz4NpD6ppZBRAVOH3uSTJmKNHJm/LRLWOeWF6FplLe0Egpvq/V5MtTEcgq
+         rXF+wBkAvBq1jH0UY140j51HonaKaowG1OYVBqulfFANETt6q9/m3HvHmcrStj6BIq1e
+         EgeoSbaEWtmTETEG6SOClobReIKX4z9rdGLUv7gleWWahLG9pdSywlhCVljWW9lwY+Rc
+         awzpTbim0G4Pr614Fn6Zm3EOrjVZUvAj6j6wPQtImEdOotnto944yNXDtFOi8DuvsXfy
+         nSuA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+xUwhLKy/69+Gn0e5kzXz2A2U0sIvW1jEFt+lNsGreK+aHroFoN8VVwjyk7wrnvkm3No1jJKEYMbS@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xSSg4pQLehosz9/j/Unxl4HLWekiAZ0AuPV135jWHXKAnB7c3
+	Z0W9a08Gr1DWekynnsRVsVboYSx1gFpjR8HraKLETdMKGTskztIKrFyG
+X-Gm-Gg: AYBFou1EVa+cT2HQiT33y+Ap/DuA3NSQKx86eNBDwupSzLWZX5pwoMUTFIWiwbaqCUj
+	1nRdIIWpDNHod8APdaD/WBMU1HM1dDRpNsIHd9V5lIuKjbTiWQexiJJ+xMC+gzVOoM+glK0zKBC
+	jBBy3qKPAyKdRFFQcyv9R7RvnaX2dWLqt6l7F2ce0etNmOrm1UAX8xiNVBzNHq7dVOW87AkWVWE
+	8OXCfmTCR/gXA8/nqeSX7+k6MVgr9tBT0/AJ4EUnfUFTtvdbenQo7wELa1MUnPmyWrOhdHtVP4J
+	9gLJXluCP3M8bpzPc+mIzZjCdSq2Zcd7sQvIZ53qVestQ4GkXCiay/g+IwQWHOJ8RUPQNE5/RzL
+	cKbZ9raNPTEvoe3/qPPvEFCmXYXrGzDKd+6OTIcHaicKI/5T3Sgn/UzI+G3Ny69XzR4tboEYpQu
+	aDcWk8IoKJpJ3R63AjEbiRB9DOMTU0mgjSRvWbcGA2e0v35uJZ3a4geS1aBNfxbA1VwIVpDVCzu
+	9NNhaQRNcgJxneu9aBVNznW2l+sXzF0qH5RcJ51zFeTa8OnlGLS6MeRLll/eMPatLt0/QLltgzV
+	oggq5PZZ2HrGjV+P3FTvVnB/j64uPK0=
+X-Received: by 2002:a05:600c:a013:b0:4a1:f625:2108 with SMTP id 5b1f17b1804b1-4b6e054964cmr57690945e9.33.1793999597217;
+        Fri, 06 Nov 2026 13:13:17 -0800 (PST)
+Received: from hp-z640.fritz.box ([64.43.161.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7950206e3sm11271025e9.3.2026.11.06.13.12.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 13:12:57 -0800 (PST)
+From: Owen O'Hehir <oo.hehir@gmail.com>
+To: E Shattow <e@freeshell.de>,
+	Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: keep the status power LED on
+Date: Fri,  6 Nov 2026 21:12:49 +0000
+Message-ID: <20261106211249.73440-1-oo.hehir@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
+References: <20261106184055.3891621-1-oo.hehir@gmail.com> <179fe9e8-322b-4745-8734-d5de5f1e8487@freeshell.de> <20261106195945.4157095-1-oo.hehir@gmail.com> <d051c5f2-3df2-4eeb-b324-6e9ce39a6b27@freeshell.de>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -55,105 +106,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-m5-nvme-v1-14-22f4827b4ece@cyberchaos.dev>
-References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
-In-Reply-To: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- iommu@lists.linux.dev, Yureka Lilian <yureka@cyberchaos.dev>
+Content-Transfer-Encoding: 8bit
 
-Add the device nodes for the internal NVMe SSD on the Apple M4 Pro/Max
-(t6040/t6041) SoCs. Keep ps_apcie_phy_sw powered on matching t603x.
+Hi E,
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- arch/arm64/boot/dts/apple/t6041-pmgr.dtsi |  1 +
- arch/arm64/boot/dts/apple/t6041.dtsi      | 44 +++++++++++++++++++++++++++++++
- 2 files changed, 45 insertions(+)
+Ok, fair point.
 
-diff --git a/arch/arm64/boot/dts/apple/t6041-pmgr.dtsi b/arch/arm64/boot/dts/apple/t6041-pmgr.dtsi
-index 7da82f8a036b..029ecd3bda82 100644
---- a/arch/arm64/boot/dts/apple/t6041-pmgr.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6041-pmgr.dtsi
-@@ -824,6 +824,7 @@ ps_apcie_phy_sw: power-controller@398 {
- 		#power-domain-cells = <0>;
- 		power-domains = <&ps_apcie_sys_st0>, <&ps_apcie_sys_st1>;
- 		#reset-cells = <0>;
-+		apple,always-on;
- 	};
- 
- 	ps_jpg: power-controller@3a0 {
-diff --git a/arch/arm64/boot/dts/apple/t6041.dtsi b/arch/arm64/boot/dts/apple/t6041.dtsi
-index 9110d05c896d..e7c3e33f8f69 100644
---- a/arch/arm64/boot/dts/apple/t6041.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6041.dtsi
-@@ -329,6 +329,29 @@ pmgr_gfx: power-management@288e80000 {
- 			#size-cells = <1>;
- 		};
- 
-+		ans_mbox: mbox@409608000 {
-+			compatible = "apple,t6041-asc-mailbox",
-+				     "apple,asc-mailbox-v4";
-+			reg = <0x4 0x09608000 0x0 0x4000>;
-+
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 1530 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1531 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1532 IRQ_TYPE_LEVEL_HIGH>,
-+				     <AIC_IRQ 1533 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "send-empty", "send-not-empty",
-+					  "recv-empty", "recv-not-empty";
-+
-+			#mbox-cells = <0>;
-+			power-domains = <&ps_ans>;
-+		};
-+
-+		sart: sart@40dc50000 {
-+			compatible = "apple,t6041-sart", "apple,t6000-sart";
-+			reg = <0x4 0x0dc50000 0x0 0x10000>;
-+			power-domains = <&ps_ans>;
-+		};
-+
- 		i2c0: i2c@429010000 {
- 			compatible = "apple,t6041-i2c", "apple,t8103-i2c";
- 			reg = <0x4 0x29010000 0x0 0x4000>;
-@@ -501,6 +524,27 @@ serial0: serial@429200000 {
- 			status = "disabled";
- 		};
- 
-+		nvme: nvme@44dcc0000 {
-+			compatible = "apple,t6041-nvme-ans2",
-+				     "apple,t8132-nvme-ans2";
-+			reg = <0x4 0x4dcc0000 0x0 0x60000>,
-+			      <0x4 0x09600000 0x0 0x4000>;
-+			reg-names = "nvme", "ans";
-+
-+			interrupt-parent = <&aic>;
-+			interrupts = <AIC_IRQ 2583 IRQ_TYPE_LEVEL_HIGH>;
-+
-+			mboxes = <&ans_mbox>;
-+
-+			power-domains = <&ps_ans>,
-+					<&ps_apcie_sys_st0>,
-+					<&ps_apcie_sys_st1>;
-+			power-domain-names = "ans", "apcie0", "apcie1";
-+			resets = <&ps_ans>;
-+
-+			apple,sart = <&sart>;
-+		};
-+
- 		pmgr: power-management@502280000 {
- 			compatible = "apple,t6041-pmgr", "apple,t8103-pmgr",
- 			             "syscon", "simple-mfd";
+Conor, could you please drop this patch? Apologies for the hassle.
 
--- 
-2.56.0
-
+Owen
