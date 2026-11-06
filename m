@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954510;
-	b=jSzSvWdGJuztwn9Tm71VRXxWy2MCKOS3j8MrhviC/ZcPFJ4HrEfj5sUAD7fyorqJzFn7
-	 zmWVARKZT8lokjCJFl7O68FjjrlGIToreeerMocFUa2IbqmhsGorya67+zkU1wJS4mJMA
-	 3Nr6GcmiUbVNUgBmj4yxESyuJ0irMbgjWYPsLbmmCKCU0DndwQE5PsLnSm00XVyBG3elm
-	 pMYWwbbkvVfF1CaC6bBu3o1Z4rR6QWPygN613iaOs2oqjFZI3bkc6JyLLg5Feo3T+kKgI
-	 leThUTxNlaVllXSUnA1bF7pmuH08THvoGt5JOt2IZhsFrH9hVGPXUm4SOlhvN2VBIpA==
+	t=1793954626;
+	b=iO51ytfFT7DnVgieV8QOC3AsYZ2Hm00/eXZl3h4QBOSQ3lwsQ8bvptu55t+/t4Qik3qK
+	 R7Mog6gmyOY4ieZHi4inRmKl9y0iAh1POkVvzaQJlGdU5dmJUgiGVAMMT2unehVNpjGNj
+	 OuGFAuakfJ/CO5SA9kNWUBaj2vaNt55q7QVJec4FOjqQaabyqnsKnBmzP1Nny12yK+O1U
+	 SWVOUw1TobPUA50hKtBpTN5cDTFPl2Ytd/eHmCiT0BD/xPPUh7bK9y9/Vn6uvxAy158B2
+	 qhSXPLERq/4BnF2B1S9/AdzBvOe46TgS2lt+RCki2eRkmHVLH5j7WYK3QtR67JAY+Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954510;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=+Uplc5nnL/gjG62KmqsGkesQCwFHZzvrDygNx8tGsho=;
-	b=G/wt6SZdQpw+/M5H/VFuMRdPZC6iZ1by76V8J/IGkq1BS9krQ8bkyCy+KTT0sa42PX6+
-	 Mxpcu4C3aehez7B7l4C4Gabu5jOj9Fzu1IiWtChVnffTf33BZHSp6MBsNE5Et79rlVb9k
-	 KmCCYR2IAQY9bS46tygABdfM4MGeFqhHmJJ5k8FGY62Hw+86F7txOn3BnQFvLsU2bqjgZ
-	 Sa20IcOsgaVL1rYwOKsurKiIIEl8SxnipsGuwY9T1QaCZyz4jQVJqy3unHSM6Wml0hm33
-	 FfVRaREvbYWogbUd3vP2fm7YBpfXTqP67KHtSrnbiykBh+xI20pPXKJnJFwrTDitY3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954626;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=HyGKIigqdSLl423M+2chQYvAFa3Ss1JLLb2uMO2fNSc=;
+	b=XYRzy+kiVFpsmqAp1SgVG1tfxk2kC7E58AfzIXHAmPFMtT9H4ub2WRyji3SmMNvftieS
+	 MMfE34joOLQk54UIYu4r0u3TPEaicfomTJJHnQRFdxtCLG847Ibg8umaXUDEZw4BptRTK
+	 UgXssQVvNhYNmpIkKHzclA4pYOAVvAv+HyWrHlRr/BVCZxvu1QhuSgKM+BoHTimXty6BL
+	 IUh3+ruWMvEOC3ua5bIif/NWQqrPFFjUBX3TyDHuGr9/X0IzK2TIHL7cCYscIeQ6r+mNM
+	 PfMyAIvMXsYGsvIbMNIPckhXDzaQUswxstzOf8C1gCJW6NCbG6RaVYzaQ5jOEWp4vYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jonasjelonek.de;
-	spf=pass smtp.mailfrom=jonasjelonek.de;
-	dkim=pass header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=GQL+e3pm;
-	arc=none smtp.remote-ip=212.227.126.134
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkfUEY8i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EA4606A326;
-	Fri,  6 Nov 2026 08:41:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35EA4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4100606A326;
+	Fri,  6 Nov 2026 08:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.a=rsa-sha256 header.s=s1-ionos header.b=GQL+e3pm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
-	s=s1-ionos; t=1793954497; x=1794559297; i=jonas@jonasjelonek.de;
-	bh=+Uplc5nnL/gjG62KmqsGkesQCwFHZzvrDygNx8tGsho=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=GQL+e3pmXim64ctIBO8usLf0+Nznni76NoHowK3VA4bXPVmyGNzDlMf3a20An1r9
-	 zmeuD+KNSeLMDtK7SX2KMPuMmwadeo3MbYIUzC3GNpjgKPDfrY3PuAUppyr4c5Uua
-	 rEpV/bi90tsYoVnREwkhbFZWPPji5rbNl6Wp60S/2t2g97fDik4GhjQp84CJ0rsg5
-	 exVz73PgyY566meJSWc4Un/2987p6GC1zp/KdMrQUotb7Z3qxevtSrvdovy0pluzP
-	 hqyiY/RMI0YW2MOiOCKwxITWAMbVpQINAoKFBec5dGJv6Yi6rWmydfaQ1G4Lm5yv1
-	 qrq5G1mUXP4jtNJWkA==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
- [213.165.67.97]) with ESMTPSA (Nemesis) id 1N3Xvv-1wPtMw27Fr-013ksY; Fri, 06
- Nov 2026 09:41:37 +0100
-Message-ID: <041c7f3c-92bf-4036-b404-c7aad959ac99@jonasjelonek.de>
-Date: Fri, 6 Nov 2026 09:41:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkfUEY8i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F09E91F0089F;
+	Fri,  6 Nov 2026 08:43:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793954625;
+	bh=HyGKIigqdSLl423M+2chQYvAFa3Ss1JLLb2uMO2fNSc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dkfUEY8i/AScvuLID9+umPJImGqvKmczriKploG6xeK/XKneSrc9duIDZG2lHmDGu
+	 /tpvMGdXOQzyQcR8v65zS5AmEThOg4LJUjUJ+cz8oClMsqCRNWJMYVtOEew1U37Bp8
+	 /FEZlaS1is1q8t9gn06gaQuUB2bYlug/YbFMoEVTLSlWtgSNqSFvGpQBoCjwwh1ZIp
+	 RoR2qfDjvrIEIvT7Tbea+QDfQ03mF3mS6JIRyVCaGDb5VamzUnaNanO2WAA0ITMf6F
+	 umYWesoN4wL274VnViOR0AAukAqic7hNyN1cw9lqO83PXrmlgNEiJ5zekrXft42pDJ
+	 DU9MxLRaHB+fA==
+Message-ID: <sashiko-outbox-201085@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/7] dt-bindings: soc: Describe the BCM6846 Processor
+ Monitor Bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261106-xg6846b-bcmbca-xrdp-reset-v3-2-d6adeb71afc9@kernel.org>
+References: <20261106-xg6846b-bcmbca-xrdp-reset-v3-0-d6adeb71afc9@kernel.org>
+ <20261106-xg6846b-bcmbca-xrdp-reset-v3-2-d6adeb71afc9@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 08:43:44 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,242 +60,204 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/4] net: pse-pd: realtek-pse-mcu: configure
- global power budget
-To: Sander Vanheule <sander@svanheule.net>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Russell Senior <russell@personaltelco.net>
-References: <20261103220312.860629-1-jonas@jonasjelonek.de>
- <20261103220312.860629-4-jonas@jonasjelonek.de>
- <f67e328bcd20f405f2f15c62123bf3e0e740c14f.camel@svanheule.net>
-Content-Language: en-US
-From: Jonas Jelonek <jonas@jonasjelonek.de>
-In-Reply-To: <f67e328bcd20f405f2f15c62123bf3e0e740c14f.camel@svanheule.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:At4oAOzU+N3iLkKVyqh9i4zJZsrb+mRQOaxzwY464TvVxJXvAjj
- wqWxqbY4tCzWBMNSdZYgMRgmhGUPvGQ7rrnbj8Fb5u8Ga2Oz616QsAxjWrCjhSndICjSiB4
- yOtEm0bv+2Y2M0qbU2VK3rPyHRkyHPh1+prFBlyK/PKmPyx+04P6ZKSygXMyvax4bXQjQAT
- bWbljbbkcARB1bhTDqU4g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:/7AQAkSoAeI=;5TFn6nAGprR//UzAme5GwpHFuiC
- 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
- 8ykjPKQ8
 
-Hi Sander,
+Thank you for your contribution! Sashiko AI review found 5 potential
+issues to consider:
+- [Low] dt-bindings: hwmon: brcm,bcm6846-pmb-pvtmon uses
+  additionalProperties with $ref
+- [Low] dt-bindings: soc: brcm,bcm6846-pmb ordered after dependent
+  brcm,bcm6846-pmc
+- [Low] dt-bindings: soc: brcm,bcm6846-pmb examples violate
+  dt-check-style strict rules
+- [Low] dt-bindings: soc: bcm: driver-model child nodes in
+  brcm,bcm6846-pmb
+- [Low] dt-bindings: soc: bcm6846-pmb: expand PMB as Power Management
+  Bus
+--
 
-On 05.11.26 22:51, Sander Vanheule wrote:
-> ...
->> =C2=A0
->> +static int rtpse_mcu_get_global_budget_idx(struct rtpse_mcu_ctrl *pse,=
- u8
->> *budget_idx)
->> +{
->> +	struct rtpse_mcu_msg req, resp;
->> +	const struct rtpse_mcu_opcode *opc;
->> +	int ret;
->> +
->> +	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_GET_POWER_STATUS];
->> +	if (!opc->valid)
->> +		return -EOPNOTSUPP;
->> +
->> +	rtpse_mcu_msg_init(&req, opc->op);
->> +	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (resp.payload[4] > 0x7)
->> +		return -ERANGE;
->> +
->> +	*budget_idx =3D resp.payload[4];
->> +	return 0;
->> +}
->> +
->> +static int rtpse_mcu_set_global_budget(struct rtpse_mcu_ctrl *pse, u8
->> budget_idx,
->> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u16 budget_raw)
->> +{
->> +	const struct rtpse_mcu_opcode *opc;
->> +	struct rtpse_mcu_msg req, resp;
->> +	int ret;
->> +
->> +	opc =3D &pse->dialect->opcode[RTPSE_MCU_CMD_SET_GLOBAL_BUDGET];
->> +	if (!opc->valid)
->> +		return -EOPNOTSUPP;
->> +
->> +	rtpse_mcu_msg_init(&req, opc->op);
->> +	req.payload[0] =3D budget_idx;
->> +	put_unaligned_be16(budget_raw, &req.payload[1]);
->> +	put_unaligned_be16(0, &req.payload[3]);
-> You don't want to configure a guard band? Can this lead to flapping of d=
-evices,
-> where a port is rapidly switched off and on by the consumed power going =
-above
-> and below the power limit?
+commit 6ce40c3812dd052e5e8e3945888002592aa196c2
+Author: Linus Walleij <linusw@kernel.org>
 
-Maybe I got the idea of that guard band wrong, haven't found a good
-explanation of that setting either. I just wanted to avoid setting any
-guessed value here which reduces the global budget from e.g. 400W to
-380W without specific reason.
+dt-bindings: soc: Describe the BCM6846 Processor Monitor Bus
 
->> +
->> +	ret =3D rtpse_mcu_do_xfer(pse, &req, &resp);
->> +	if (ret)
->> +		return ret;
->> +	if (resp.payload[0] !=3D budget_idx || resp.payload[1] !=3D 0)
->> +		return -EIO;
->> +
->> +	return 0;
->> +}
->> +
->> +static int rtpse_mcu_apply_global_budget(struct rtpse_mcu_ctrl *pse,
->> +					 struct regulator *vmain)
->> +{
->> +	int budget, ret;
->> +	u16 budget_raw;
->> +	u8 budget_idx;
->> +
->> +	budget =3D regulator_get_unclaimed_power_budget(vmain);
->> +	if (budget =3D=3D INT_MAX)
->> +		return -ENODATA;
->> +	if (budget < 0 || budget > U16_MAX * RTPSE_MCU_GLOBAL_BUDGET_LSB_MW)
->> +		return -ERANGE;
->> +
->> +	budget =3D rounddown(budget, RTPSE_MCU_GLOBAL_BUDGET_LSB_MW);
->> +	if (!budget)
->> +		return -ERANGE;
->> +	budget_raw =3D budget / RTPSE_MCU_GLOBAL_BUDGET_LSB_MW;
->> +
->> +	ret =3D regulator_request_power_budget(vmain, budget);
->> +	if (ret)
->> +		return ret;
->> +	pse->requested_budget_mW =3D budget;
->> +
->> +	ret =3D rtpse_mcu_get_global_budget_idx(pse, &budget_idx);
->> +	if (ret)
->> +		return ret;
->> +
->> +	/* Retain the programmed MCU limit even if later probe steps fail. */
->> +	return rtpse_mcu_set_global_budget(pse, budget_idx, budget_raw);
-> This index is different from an earlier version of this patch, no?=C2=A0
->
-> My (old) documentation [1] describes the retrieved index as:
->     "Last updated PSE device ID. Also the PSE device the budget belongs =
-to."
->
-> I'm afraid I don't remember what I meant with the second part, but I sus=
-pect the
-> power budget needs to be configured on all PSE devices. Does this work
-> consistently on switches with multiple PSE chips? If "last updated" mean=
-s it
-> might sometimes return a lower index, I'm worried this might also lead t=
-o some
-> cases where you query the MCU in the middle of an update cycle.
+This commit adds Device Tree binding schemas and header constants for the
+Broadcom BCM6846 Processor Monitor Bus (PMB) and its clock, hwmon, power,
+and reset child controllers.
 
-It works on several devices though I haven't pushed done tests to push tho=
-se
-devices to a specific global limit. I should probably do that soon to have=
- more
-of an idea about this behavior.
+> diff --git a/Documentation/devicetree/bindings/hwmon/brcm,bcm6846-pmb-pvt=
+mon.yaml b/Documentation/devicetree/bindings/hwmon/brcm,bcm6846-pmb-pvtmon.=
+yaml
+> new file mode 100644
+> index 0000000000000..9bf52cf097a32
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/brcm,bcm6846-pmb-pvtmon.yaml
+> @@ -0,0 +1,42 @@
+[ ... ]
+> +allOf:
+> +  - $ref: /schemas/thermal/thermal-sensor.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: brcm,bcm6846-pmb-pvtmon
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: PVTMON acquisition clock
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: PVTMON analog-acquisition reset
+> +
+> +  '#thermal-sensor-cells':
+> +    const: 0
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - resets
+> +  - '#thermal-sensor-cells'
+> +
+> +additionalProperties: false
 
-On Gen2, this doesn't refer to PSE indices but to a bank ID, and the whole=
- system
-apparently only uses one bank. It seems the bank is not changeable too, an=
-d
-vendor firmware I've seen also just sets the power on a single bank.
+[Severity: Low]
+Should this schema use unevaluatedProperties: false instead of
+additionalProperties: false?  Because it references
+/schemas/thermal/thermal-sensor.yaml# via allOf, additionalProperties: false
+prevents properties defined only in the referenced schema from being
+evaluated cleanly.
 
-For Gen1, the assumptions are based on that part "the PSE device the budge=
-t
-belongs to" and on the userspace reference implementation [2] (grep for
-pse_id_set_budget_mask). It varies for different devices there but most se=
-em to
-work also with a single index used? Also setting this budget on multiple
-downstream managers sounds to me like we would grant each manager this
-budget, unless there is some weird inter-manager communication going on.
+> diff --git a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml =
+b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> index d4c927cabb3f4..77fbf92926ab3 100644
+> --- a/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/brcm,bcm6846-pmc.yaml
+> @@ -60,6 +60,11 @@ examples:
+>              compatible =3D "brcm,bcm6846-pmb";
+>              reg =3D <0x20100 0x200>;
+> =20
+> +            pmb_power: power-controller {
+> +                compatible =3D "brcm,bcm6846-pmb-power";
+> +                #power-domain-cells =3D <1>;
+> +            };
+> +
+>              pmb_clk: clock-controller {
+>                  compatible =3D "brcm,bcm6846-pmb-clock";
+>                  clocks =3D <&osc50m>;
 
-Users in the OpenWrt forum came up with that issue and ran some own analys=
-is
-on vendor firmware. At least on the devices tested there also the vendor
-justs sets the budget on a single index [3]. If some specific devices real=
-ly need
-this on multiple indices (like GS1900-24HPv1 in realtek-poe?) then I guess=
- the
-switch-specific compatibles need to be used for that purpose and a slightl=
-y
-adjusted implementation.
+[Severity: Low]
+Should this commit be ordered before commit "dt-bindings: mfd: Describe the
+BCM6846 PMC complex"?
 
-> Otherwise this looks okay to me. I'll try to test it over the weekend.
->
-> Best,
-> Sander
->
-> [1] https://svanheule.net/switches/software/broadcom_poe_control_protoco=
-l#get_power_statistics
+That earlier commit introduces brcm,bcm6846-pmc.yaml referencing
+/schemas/soc/bcm/brcm,bcm6846-pmb.yaml# and including
+dt-bindings/clock/brcm,bcm6846-pmb.h and
+dt-bindings/reset/brcm,bcm6846-pmb.h before this commit adds them, which
+breaks make dt_binding_check bisectability at the parent commit.  In
+addition, the commit message here still states that it describes the PMC and
+only mentions the power controller child, omitting the clock, reset, and
+PVTMON schemas and headers introduced in this patch.
 
-Best,
-Jonas
+> diff --git a/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.y=
+aml b/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
+> new file mode 100644
+> index 0000000000000..134a8a676dbd0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/bcm/brcm,bcm6846-pmb.yaml
+> @@ -0,0 +1,90 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/bcm/brcm,bcm6846-pmb.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Broadcom BCM6846 Processor Monitor Bus
+> +
+> +maintainers:
+> +  - Linus Walleij <linusw@kernel.org>
+> +
+> +description:
+> +  The Processor Monitor Bus (PMB) connects the third generation Power
+> +  Management Controller (PMC3) to the control registers of miscellaneous
+> +  independent hardware blocks.
 
-[2] https://github.com/Hurricos/realtek-poe/blob/realtek-poe/src/main.c
-[3] https://forum.openwrt.org/t/support-for-zyxel-gs1920-series-gs1920-24h=
-p/155683/170
+[Severity: Low]
+As reported by William Zhang on v2 [1], PMB stands for Power Management Bus
+rather than Processor Monitor Bus.  The commit subject, commit message, and
+all five new binding schemas in this patch still expand PMB as Processor
+Monitor Bus.
+
+[ ... ]
+
+> +  power-controller:
+> +    type: object
+> +    $ref: /schemas/power/brcm,bcm6846-pmb-power.yaml#
+> +
+> +  clock-controller:
+> +    type: object
+> +    $ref: /schemas/clock/brcm,bcm6846-pmb-clock.yaml#
+> +
+> +  reset-controller:
+> +    type: object
+> +    $ref: /schemas/reset/brcm,bcm6846-pmb-reset.yaml#
+> +
+> +  hwmon:
+> +    type: object
+> +    $ref: /schemas/hwmon/brcm,bcm6846-pmb-pvtmon.yaml#
+
+[Severity: Low]
+As reported by Philipp Zabel on RFC [2], should #power-domain-cells,
+#clock-cells, #reset-cells, #thermal-sensor-cells, and the reference clock
+live directly on the brcm,bcm6846-pmb node instead of using four addressless
+child nodes?
+
+Neither power-controller nor reset-controller has any DT resources of its
+own, and the power, clock, reset, and hwmon drivers all access shared 32-bit
+BPCM zone control and PVTMON_CONFIG registers over the parent PMB keyhole
+interface.  Folding the provider cells into the brcm,bcm6846-pmb node avoids
+encoding the Linux MFD sub-driver split into the Device Tree ABI while still
+allowing the MFD driver to instantiate child devices internally.
+
+[ ... ]
+
+> +        pmb_power: power-controller {
+> +            compatible =3D "brcm,bcm6846-pmb-power";
+> +            #power-domain-cells =3D <1>;
+> +        };
+> +
+> +        pmb_clk: clock-controller {
+> +            compatible =3D "brcm,bcm6846-pmb-clock";
+> +            clocks =3D <&osc50m>;
+> +            clock-names =3D "ref";
+> +            #clock-cells =3D <1>;
+> +        };
+> +
+> +        pmb_reset: reset-controller {
+> +            compatible =3D "brcm,bcm6846-pmb-reset";
+> +            #reset-cells =3D <1>;
+> +        };
+> +
+> +        hwmon {
+> +            compatible =3D "brcm,bcm6846-pmb-pvtmon";
+> +            clocks =3D <&pmb_clk BCM6846_CLK_PVTMON>;
+> +            resets =3D <&pmb_reset BCM6846_RESET_PVTMON>;
+> +            #thermal-sensor-cells =3D <0>;
+> +        };
+> +    };
+
+[Severity: Low]
+Does this example (and the matching example in brcm,bcm6846-pmc.yaml) trigg=
+er
+unused-labels and child-name-order warnings under scripts/dtc/dt-check-style
+--mode=3Dstrict?  The pmb_power label is never referenced in the example, a=
+nd
+the unaddressed child nodes under the PMB node are not in alphabetical order
+(clock-controller, hwmon, power-controller, reset-controller).
+
+[1] https://lore.kernel.org/r/CAHi4H7GOMM9K6XG15vPyFMLOza3QQ7QPxUkCi85jA_e9=
+D6YbKg@mail.gmail.com
+[2] https://lore.kernel.org/r/f1c24a603964302ec1462b1cea790a2a7079fb3d.came=
+l@pengutronix.de
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-xg6846b-bc=
+mbca-xrdp-reset-v3-0-d6adeb71afc9@kernel.org?part=3D2
