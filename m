@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980294;
-	b=DOrSGZV+9HtECs7HRDNNu+oqimha+stEJB38Rymb2RExl1e/r9+Y7Zlrj0J+hdA1PlgT
-	 q4liR/c6vfwBXXS/DDyWyo/lrjZ3U+mcy4DWqjDmKR8DaNYLeB7JTpsG0hfDyA+k1StFB
-	 0yTPi0sMINUJ3XzNXHtS/ZYHfUWWZGpx3W2qC9samDZp3rtYdGtkZHSaxTAw8f+NsuNcr
-	 Xlq/1v0OmqGhZvdn7zm70vcQrhRWUJPnrtaicsrD8DuPrK5xTR/65e4kXxdZUSkM2WOaz
-	 2EtM1tY740TZjv5Tg9xdKjJwNzXbvDhfzJxA4rHG4QM+xZP1tanG2UEXEK7BrOFmDTw==
+	t=1793980598;
+	b=kUP5KZdhmXgykWe06rgFBPgApc6Hgs5fLs1rQIZmn7x8fctz14k5MImdL+kvU2JBEEDv
+	 CpiktQY7Qvi0nB9MLbR2KcFQx6YWjDUESGUzy9tJ6ycS8F2D65LoXgUhqVsWC4+mYL3+K
+	 mEdVdfSrQ1V+HuU/mqrxo0GWuP+r79GcvO7dvhl0q4+G1DoP9ym22g4kDgxME8BGfsx7b
+	 Z54CqH70lkN42621SwKnuVfyQ2QdCvZVvIORMnpSm67BAY2Yp/VpMiAnz5wWWLQQ0KDtI
+	 H+EbbUZVeZZYIfN7Jvv7xSrm6fcYUWOi11Jj097xHYP9OMVAZwRO+haTFF/aND+Ef2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980294;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=badGVcjXYLu33rvUqhFwfV7h3p1+hHs0e3PjCdrYub4=;
-	b=FA6nL7MsWPDdgaL5yCwVzR2RA3REB0FLafQ3vrM3OWEqMNGftkl8V760mR/MLdWpAeNN
-	 65yU/VP+9RQG0GwLtqH/eRMdzPaGlZE1NGLdsKZExT9pWJitwL34lrNVG/qUf3y+MryUu
-	 kx5/wlPlJxjAmsr05z0P6fohu+HcstFdtat5FaMMN4No1wjg3zWA4I2/u7R5hUc6Yt7uE
-	 yhkOZzazxLtdYsDR5GIk747BPa9wRsDA/79I847qVbabd9Q3NbnZCJOswEO+2ge64qqWc
-	 aFM/x3JWbNtprjqedSNWOr3pbzLORxpS4yBPS1THyFx/RiQe+xm7dZQfyTGQcG0EFfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980598;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=t5zqAwf3Pyqk61M6Dmmqsm/P1aF5mCdna6EVJOjnLI8=;
+	b=DEjRgYyQFFg1jj/+b2Cx4L5dERfkQfazzZSaxypmbozOokYmeUQEzgeO4gR+ofR5pjVy
+	 ujzoJJqRInw4tXekLunfJjTIRlZvmRXu3lHLO3R5DMP02MltxYkFTcpICVk8sTDFR+vU/
+	 w/sVCzz+cPV9vgYL6rde+0H1aHUMH9UYDOsaFbi1LRz0xtWU2Dr5uO+bYj3+ZG4WiXBFl
+	 ANYwh5eI+0mABn6iw7OYJ6h6sXP0vaFf8a+2phprzSFyxbHd+Fw4dVAaXQXNCc6KK/Kvp
+	 M9v1AY7ST7fGBnkwh+wpD2ZH/sh7jI12cs/3cI07Q4LZwD4PQbJqIaxuLQTn7PgBDNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kO97JVYX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ku5UVAXc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25044606A331;
-	Fri,  6 Nov 2026 15:51:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B63606A329;
+	Fri,  6 Nov 2026 15:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kO97JVYX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268191F008A1;
-	Fri,  6 Nov 2026 15:51:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ku5UVAXc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D82F1F0089F;
+	Fri,  6 Nov 2026 15:56:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793980293;
-	bh=badGVcjXYLu33rvUqhFwfV7h3p1+hHs0e3PjCdrYub4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kO97JVYXV+WZdMxw3KD+/M1wnRgW06OdDxSfNtfjslKXN6rAxRn68s3RXrVWxRBnl
-	 Bx0yEVaHPK6Y6z6vI/DLUs0LfaoI4I44P+cmh7em2/CFobLMcTFzxeUKKORZmeN1d6
-	 X00MN3lr0cXcinXIY9WWI6wWXoNzTl17sXqiG2U+vMp8yhRHL+HJZQZtZtCa9y0VzK
-	 vvc6WXE7x8Cm/4edC5z0Yp7x52UccqzwswM8foO3l1wJKHh6VGDWPXu9hk7Nc1+FLn
-	 t8XNcry4KfnqBOgK11iMyj8QRaieEOZw518PtDV4mJaONNz0/WHdWGnS6rbSQ/fiCp
-	 DJ8nVwxQ17iUQ==
-Date: Fri, 6 Nov 2026 16:51:31 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-Message-ID: <au33NIR4bCAkokJH@orome>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-10-clamor95@gmail.com>
- <au3etybQlb5CtjBL@orome>
- <CAPVz0n3o5pc62eF6gv+PYmJh1KN1a5s=qmjxpNGJfxbCC4tqzQ@mail.gmail.com>
- <au3mloMMzQFPUept@orome>
- <CAPVz0n1j0M1Zjj90pEGCYiNqUQv00N89oPcAxZbA7upuxhoF9w@mail.gmail.com>
+	s=k20260515; t=1793980597;
+	bh=t5zqAwf3Pyqk61M6Dmmqsm/P1aF5mCdna6EVJOjnLI8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ku5UVAXc4Smf/Xa6szH9be/Nl1pcQqXbdm0cJ/qPDcXK4fI1ipiid9PD39TaZ0FJc
+	 6A1DmsiqgWcZ1qIKjJKfT1+H8kmlmprvVENJG3PHJiRpnKFwoMeAkVnGs6gs0uCeqv
+	 T45YgYp6qoeWsaf3d2Xinh5xcNq+FFF+1EEl1Z3b1tY/tP/gDp1vn7rAeEPy5HxlU3
+	 4azcN2Krm30nZNkVD3Rd4zxnaBO1R0U3dr3GitWz09nN+bZm8O7XbdfoNBTSJWDj1p
+	 GIpCdx24J8C1lSoMJx+4zwTJUxNZwxQeHJKWCRkgyWCwZ8wqdMqjJLrNUTn4DIf5Mt
+	 57Sb29KxFQEsA==
+Message-ID: <sashiko-outbox-201746@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/8] clk: stm32mp25: add clock for D3 peripherals
+ allocation for Cortex-CM0
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gabriel Fernandez" <gabriel.fernandez@foss.st.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-ups_mp25_clk_update-v3-5-4a32f68119ed@foss.st.com>
+References: <20261106-ups_mp25_clk_update-v3-0-4a32f68119ed@foss.st.com>
+ <20261106-ups_mp25_clk_update-v3-5-4a32f68119ed@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 15:56:37 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,109 +60,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4dphqbl3ubrnxlyn"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n1j0M1Zjj90pEGCYiNqUQv00N89oPcAxZbA7upuxhoF9w@mail.gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] clk: stm32mp25: mismatch between commit log and MSI_KER_ON
+  parent assignment
+--
 
---4dphqbl3ubrnxlyn
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 09/10] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-MIME-Version: 1.0
+commit aad9d612e6cd2adba430e970b7e94c3f5b129bc6
+Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-On Fri, Nov 06, 2026 at 04:48:17PM +0200, Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:=
-40 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Fri, Nov 06, 2026 at 04:11:12PM +0200, Svyatoslav Ryhel wrote:
-> > > =D0=BF=D1=82, 6 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE=
- 16:08 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Thu, Nov 05, 2026 at 04:05:09PM +0200, Svyatoslav Ryhel wrote:
-> > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > > > > Tegra20/30 SoCs display controller.
-> > > > >
-> > > > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > ---
-> > > > >  .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 ++++++++++++=
-++++++
-> > > > >  .../display/tegra/nvidia,tegra20-dc.yaml      |  22 ++++
-> > > > >  2 files changed, 135 insertions(+)
-> > > > >  create mode 100644 Documentation/devicetree/bindings/display/teg=
-ra/nvidia,tegra20-dbi.yaml
-> > > > >
-> > > > [...]
-> > > > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvid=
-ia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia=
-,tegra20-dc.yaml
-> > > > > index 69be95afd5627..ffeb124905dbf 100644
-> > > > > --- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegr=
-a20-dc.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegr=
-a20-dc.yaml
-> > > > > @@ -79,6 +79,16 @@ properties:
-> > > > >    rgb:
-> > > > >      type: object
-> > > > >
-> > > > > +  "#address-cells":
-> > > > > +    const: 1
-> > > > > +
-> > > > > +  "#size-cells":
-> > > > > +    const: 0
-> > > > > +
-> > > > > +patternProperties:
-> > > > > +  "^dbi@[0-1]$":
-> > > > > +    $ref: /schemas/display/tegra/nvidia,tegra20-dbi.yaml#
-> > > >
-> > > > I think it might be better to group these under a separate dbi node=
- at
-> > > > the top-level, making it a sibling to the "rgb" node. If you add
-> > > > #address-cells and #size-cells here, I think that means technically=
- the
-> > > > "rgb" is now in the same address space as those new dbi nodes and w=
-ould
-> > > > need its own "reg" property and such.
-> > > >
-> > >
-> > > Only 1 DBI node per DC is available. Adding address/size cells means
-> > > nothing for rgb.
-> >
-> > If only one node is available, then "reg" isn't the right property.
-> > "reg" indicates we're somehow addressing the child, which applies to all
-> > children, so I don't think that would work here. A separate property
-> > would make more sense in that case.
-> >
->=20
-> Check v5 and talk to Mikko
+clk: stm32mp25: add clock for D3 peripherals allocation for Cortex-CM0
 
-I checked v5. I disagree.
+This commit adds autonomous mode (GATE_<IP>AM) and CPU3 allocation
+(GATE_<IP>C3) clock gates for D3 peripherals on STM32MP25, along with new
+RCC input clock indices and the C3 reset.
 
-Thierry
+> diff --git a/drivers/clk/stm32/clk-stm32mp25.c b/drivers/clk/stm32/clk-st=
+m32mp25.c
+> index fa025a9f3f378..e3a2e5ea775c8 100644
+> --- a/drivers/clk/stm32/clk-stm32mp25.c
+> +++ b/drivers/clk/stm32/clk-stm32mp25.c
+[ ... ]
+> @@ -518,6 +564,77 @@ static struct clk_stm32_gate ck_ker_adf1 =3D {
+>  	.hw.init =3D CLK_HW_INIT_INDEX("ck_ker_adf1", FLEXGEN_42, &clk_stm32_ga=
+te_ops, 0),
+>  };
+> =20
+> +static struct clk_stm32_gate ck_ker_adf1_am =3D {
+> +	.gate_id =3D GATE_ADF1AM,
+> +	.hw.init =3D CLK_HW_INIT_HW("ck_ker_adf1_am", &ck_ker_adf1.hw, &clk_stm=
+32_gate_ops, 0),
+> +};
+> +
+> +/* C3 */
+> +static struct clk_stm32_gate ck_cpu3 =3D {
+> +	.gate_id =3D GATE_C3,
+> +	.hw.init =3D CLK_HW_INIT_INDEX("ck_cpu3", ICN_LS_MCU, &clk_stm32_gate_o=
+ps, 0),
+> +};
+> +
+> +static struct clk_stm32_gate ck_cpu3_am =3D {
+> +	.gate_id =3D GATE_C3AM,
+> +	.hw.init =3D CLK_HW_INIT_HW("ck_cpu3_am", &ck_cpu3.hw, &clk_stm32_gate_=
+ops, 0),
+> +};
+> +
+> +static struct clk_stm32_gate ck_c3_adf1 =3D {
+> +	.gate_id =3D GATE_ADF1C3,
+> +	.hw.init =3D CLK_HW_INIT_INDEX("ck_c3_adf1", MSI_KER_ON, &clk_stm32_gat=
+e_ops, 0),
+> +};
 
---4dphqbl3ubrnxlyn
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Low]
+Does the MSI_KER_ON parenting here match the commit message?
 
------BEGIN PGP SIGNATURE-----
+The commit message states that all the autonomous clocks (GATE_<IP>AM) have
+the MSI KER clock as their parent so that MSIKERON is set for Stop modes.
+In the code, however, the autonomous clocks (such as ck_ker_adf1_am and the
+other ck_ker_*_am / ck_cpu3_am clocks) are parented to their respective
+peripheral kernel clocks, while the CPU3 allocation clocks (ck_c3_*) are
+the ones parented to MSI_KER_ON.
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt94AACgkQ3SOs138+
-s6E5ChAAtfIO3/13Os0v4C8Bi+ASzT/z6pjirTsujn0WkYYLXCnMYPNDPQEXXAHp
-vIchNUxW5ZQ5ngVEYrIEAQikIcd+VXxgJNOKujiEcaN4BorI2fVDnvrpzi/oQvYm
-UN88vY7AskjjaX5++WhaXRu+PipGxZ3RmF3hEzOtB9UTHBn7HODhOF28UgUsq3Uj
-hyVWHeJmWa+Fl78CBjiZ3Kx9wKO2Bu2DM79ZueKRP2o8wvtk6acLOJjzJGVyyELi
-/M4UztX2cQW+MO8X74vVcSjjQ+OR95teYhERxenjiTnooM2Qf0SGf1kZbf89oY2t
-DNRhJ4WO7fTqG+gLPFXMNt9m6jGEsbRvK0/i4ODEdDc/p1eGzA5wSTWnt8ze2Ohb
-U2+sNN+l9scplO7svmQ0BjdqOlYpt4DDgTHSTekN1q8+ai5pODFN3l3zR/HC1eNm
-NarPdtHxhdXcsHmscsl1yTdX/KrH7cFlS6qgOAjVzIDT3WszlKG8E6/ETjdXhklp
-0of9eVwKeBsSZIYa5hkiAnoIf4KZSeG6FewFHA1VidSy5v8CzsOCSpxbAk6/Ylmv
-wYyBJL7GUEHc1OM2rE+4GuwFrSTAauvYGK1b1ypWOq4OsoEij8gI5Xkh82tndo0C
-vloQ8ZYKfmAtjv+3mjX4jTlTI8dYYxd2TZwTlbGbgv5ea+XRtl8=
-=z+S4
------END PGP SIGNATURE-----
-
---4dphqbl3ubrnxlyn--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-ups_mp25_c=
+lk_update-v3-0-4a32f68119ed@foss.st.com?part=3D5
