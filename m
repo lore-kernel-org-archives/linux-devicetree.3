@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971778;
-	b=KR4oyWkzLPwdQP+FFpkwxeBaTJTyHKR/7cGAAlXIufEK/OJ+Nmxa+aEJCqgYV/XmE7S1
-	 DaM9Vavhy2rFgVfM1SFkudXx9nbxykCSspCKNQrOwxnMut02fWOUhtXr0hD3R6hDBubG8
-	 itmh0j/0ua8ownG5UnOKqxhlOnuEcYpJ6CMVC5kR7uRtW7TqJX96MpU18p1YJC/P2xSs6
-	 7s1O5Zj2TyzRQ8sBt72effjqq/4MUMcZ4os9W+yH52yoD2syoxkt0rl3dSSdKVyVaisi3
-	 xEaQcle3Y449S9ccgspPGJgV2zT9SJhAvEBNPzfied22s4TQGtndnjUvxzJD9xUQQBQ==
+	t=1793971907;
+	b=Vxl5d4BTIRd+EgBmuAiQMZLtB1YeLXbH7uuvmKSrEUn5pyZkGf2C4v9zTw/jAHafJybx
+	 Q/IlMFM62RwXKjKAmL6gCQ9l29lCxgbReTLrLHNZ7KTbiUQ6llKGPC0zai7xvuL97oJwK
+	 sMz/q1tPS12E61o/7rNQVVBXTYVbIF7RcNooDg0LMvPqMTJye56Ie4cXvFDnxDnpofocD
+	 5zKC8gkbpxjX3K/0ijmb6A3ERxdDqTtLk2lGrB7JQeoy6O2EqbO0RtvgMZTZJcBEQ3f6O
+	 kZB8C78kh/RQPtrWbrL9bhsTTIQFZlaX5FTZk8jQbjIFgvvgmOFQCJwbu3qMeZhEOIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971778;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9VVN1Qt5s3G19mMDbxU/lzocOYANDZG3AchnpUi2eHw=;
-	b=NqKkL+yyvJXNhrpyQgMNxENBBkIV+h439AXA/Lx46G48XWQbc9TsalXhW381TiYQgF/4
-	 mdSd9S3KhjvsbGS/RJLxOYY4YNO191TaGDzT01vV1EB+gcw3i+T1BDNAmeYQoBu+GmJzF
-	 FfEWJMajsEKm/T9LYAYjnpJuPLBtPlWyvLGFigU+2UmUz/JGMHOeuJvO4i9jrJv8gKBU+
-	 8kw4iqN2PAzV+w0uqD7DshMKeNLdgQmjasTwnbLMNQoCLstfHMsEBWuZ/Bb/Oo6t9TprB
-	 kmPWvqaK8bWGC89ooFhjYn2bnnrDmx8g0Tc1SNlFGnvZSWeV/LAp6TvwMl3LKaaDijw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971907;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=R8rMwsrJHNL/+3u/N0G/CyMp16Ktaf0LF98kTeJKMTs=;
+	b=NWpdRr/BWVJlaeXS89d7FmLpwpl0nqZxwNSqsns71WF4Goby302t+au4QgIDkt3Ws+h/
+	 eb+4NUs7e9R38yaeWf+MCSINDTNsCz1Q7vaEzpjsFc4Eiay0/P+30qlgXnxzcEpBayzGx
+	 fpkGzp38j0tBRW3rJIOnIWqTEWHWycYTrLX8/jX2sj9mJ0gRZtdyVB/3pIqhykS4nzL0q
+	 FfWftvEu2uQMB6RzGz12DNEQFyiDXAr9K/mCQw8P6koO+7eQNDFSbShumZ2WSIIOokpgl
+	 XOA4bJv6YWFuWGwyzQfQE6bg7cgfcReRhCAdxKaZcqo2NbhP9zzpwOThb3tvPZ3O2gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpKVtSB0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKfWDmcH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA872606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C225606A326;
+	Fri,  6 Nov 2026 13:31:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpKVtSB0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86701F00901
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:29:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKfWDmcH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AE31F008A5;
+	Fri,  6 Nov 2026 13:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971777;
-	bh=9VVN1Qt5s3G19mMDbxU/lzocOYANDZG3AchnpUi2eHw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dpKVtSB0TJS9RXsqGV21BPeypigLT1MKlsDUFBdmKdYOxS3nCIOaxx/bNlEZNmBj4
-	 PFtHjkAXLFV2SgoG+LbAYg+BNQFlRjzDjH8XcSbfqnCYzEAN0JoH5p87NRZnspeBHq
-	 wSX1OgYJQAvyAcs5R+1RBrI6tczk3nVPKkQyoYXXJqBp7eQCtR/Z8rzEtQ9DiOHiN6
-	 t+lQ4XutQcMwA6hei8voK7esgQKt4sxaGuBLbyWz2FgeB+KnvjBU6JYO3B5+mNvZ7i
-	 1B4AzRD1jAs5DVh2ilB2K3zO04G1QthchK7KhnLjLGDApGBnPzfemx1GTeM3XRoBWv
-	 cul3uD7D31vVQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5ba36cc21cdso678824e87.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 05:29:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz0bSp4BlC5OjSWffgzZylJE69vZTV38icOcXMzfK9mCMRV3aG6YLTvhhv3NGcHQRx5qe3i1brlmrrF@vger.kernel.org
-X-Gm-Message-State: APuU4Z/so1x6MgDA5kuVT27OBvwXof3LxEXZeGt5neExls2KWSGsWZU/
-	vu20cHM61Hhl4kVz6WQHC6Dsx1NPfQsl1pIc7XdbOFKL0PyuU3DggA7wk5J4t+PnuPW++l0K0kU
-	kotaCCJT063/SkY2ezgL+IeobMq9SW18=
-X-Received: by 2002:a05:6512:33d1:b0:5bf:a12b:9ba8 with SMTP id
- 2adb3069b0e04-5c003aef4d1mr778706e87.65.1793971776504; Fri, 06 Nov 2026
- 05:29:36 -0800 (PST)
+	s=k20260515; t=1793971907;
+	bh=R8rMwsrJHNL/+3u/N0G/CyMp16Ktaf0LF98kTeJKMTs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LKfWDmcH/FkmPnZBAs7buzyQvLzjg0/OES9gHQJ4rOg4E/LdoSNY5QEl//FEJpwoh
+	 nZqqkwofPgcPz5E4kDPhothwP8DuYSuKIlYoPshRngScTSF/t+3QnqRgTVq62tHsRf
+	 1YdUup0QjQ6oJTmD0hHlR73faHcLUfxPqUFVTdcAIMi+FSJvmxoDv4G0L8JPnQ8GjT
+	 bpaq5RQGC9+BpuOWmbjABePfn7V1/TRUKT3XYls/xB4Fd2DYucM2SKcT/GgSwo3XXC
+	 OwlxhTDw66NbkJvhRBJpL4UCmTsVBza0vkuEKHzv2fMoHFF5fGfCFe+JWLmqvoj1Rf
+	 FK2KcFXVk/Smw==
+Date: Fri, 6 Nov 2026 07:31:43 -0600
+From: Rob Herring <robh@kernel.org>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+	konradybcio@kernel.org, loic.poulain@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/8] dt-bindings: media: qcom: Add JPEG encoder binding
+Message-ID: <20261106133143.GA2705755-robh@kernel.org>
+References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
+ <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -59,51 +61,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-gpio-vf610-fixes-v3-0-504e19de5ad5@nxp.com> <20261105-gpio-vf610-fixes-v3-3-504e19de5ad5@nxp.com>
-In-Reply-To: <20261105-gpio-vf610-fixes-v3-3-504e19de5ad5@nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 6 Nov 2026 14:29:24 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=qUShzXutAz568YepQgYvn0Sv4hU43kfxWm+ZL3D3-fg@mail.gmail.com>
-X-Gm-Features: AclHuK8gGR8RrYWVb4JB0yl9dd6W-8aSN-PytpvJXvTm5IBU_II2QIjGbup39dA
-Message-ID: <CAD++jL=qUShzXutAz568YepQgYvn0Sv4hU43kfxWm+ZL3D3-fg@mail.gmail.com>
-Subject: Re: [PATCH v3 03/11] gpio: vf610: use devm_clk_get_optional_enabled()
- for clock handling
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com>
 
-On Thu, Nov 5, 2026 at 4:56=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.com=
-> wrote:
+On Fri, Nov 06, 2026 at 10:25:15AM +0200, Atanas Filipov wrote:
+> Add device-tree binding for the Qualcomm JPEG encoder hardware block
+> present in SM8250 (Kona) and SC7280 (Kodiak) SoCs.
+> 
+> The JPEG encoder is a standalone hardware IP within the camera subsystem
+> that performs JPEG compression in memory-to-memory fashion.  It is
+> separate from the CAMSS ISP pipeline and has its own register space,
+> interrupt, clocks, power domains, IOMMU stream, and interconnect path.
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  .../bindings/media/qcom,sm8250-jpeg-enc.yaml  | 193 ++++++++++++++++++
+>  1 file changed, 193 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+> new file mode 100644
+> index 0000000000000..86b17575600c5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+> @@ -0,0 +1,193 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8250-jpeg-enc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm JPEG Encoder
+> +
+> +maintainers:
+> +  - Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> +
+> +description:
+> +  Qualcomm JPEG Encoder is the JPEG encode hardware present in Qualcomm SoCs.
+> +  The encoder is a standalone hardware IP within the camera subsystem that
+> +  performs JPEG compression in memory-to-memory fashion.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,sc7280-jpeg-enc
+> +      - qcom,sm8250-jpeg-enc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 6
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +      - const: config
+> +      - const: cpas
+> +      - const: camnoc_axi
+> +      - const: camnoc_axi_src
 
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Replace the manual clock acquisition, enable and cleanup sequences with
-> devm_clk_get_optional_enabled() for both the port and gpio clocks. The
-> helper treats a missing clock as NULL and automatically disables and
-> unprepares the clocks on driver unbind, so the vf610_gpio_disable_clk()
-> helper is no longer needed.
->
-> Unlike the previous code, propagate all errors from the helper,
-> including clk_prepare_enable() failures. The old code only tolerated
-> lookup errors and failed probe when enabling the clock failed; continuing
-> with a disabled clock could fault when accessing the PORT/GPIO registers.
-> The optional helper already covers the "clock not described" case, so
-> there is no need to silently ignore other errors.
->
-> The clock pointers are only needed during probe now that devm manages
-> their lifetime, so drop them from struct vf610_gpio_port and use a local
-> variable instead.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+These 2 don't sound like clocks that are part of this block. And 'src' 
+sounds like the parent clock? Use assigned-clocks for parent clocks (or 
+just retrieve the parent from the clk api).
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+> +      - const: core
 
-Yours,
-Linus Walleij
+I would expect the main clock for the block to come first in the list, 
+not last.
+
+Rob
