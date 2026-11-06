@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965346;
-	b=XYF3iA2o1VaaaE4KmLy4MqUml6GNeiOwB2EswGs3SU87BREgGn3JmvSPjXVmN4/7BDL7
-	 IwKAMikjbXMeA7itNJNuUf6QDysS7XIzGgboNshBRc1ZnU69i342ezuQR36ZxKhxI8YdK
-	 YI5XALJKyQD8fgiyXtnWNmGc8JRzSjOyN957ZdZsrQ1ueF+mRq7YkKWrygGAeE0KyZVkB
-	 PjYd9OPGGP0RZgDod4m6HDKz1ONl5Q62/hQ+DlC2eqasnRU88T3KdVpdKBF1bUz/xcNlD
-	 9jIbThS/keR0dW6Mz7bkUeBBAFQtKdMd3nKtq+Su6LMxAYpt6r6rstySVhzDcf//AMw==
+	t=1793965342;
+	b=WWDIfE/6BbpaJOWdd9UuTMawqbge2n91LDWiZr3+0xmzKAjDdMMCGGejQ7vnY/EOL7Nl
+	 RE8KNBCKObLdIj8G2Q0A16en+bsehzHCl3M8K5wzTTbu2lyFYzMyUSVigHkV4oLy5IGSG
+	 /vYVTP6Rpghl0KWdoplUZ0/4br+V/duYyxV4CleXnKC3hAoVwPUqgUfmaZIzkAAVGgVqE
+	 juAwlMeGK79hklWOTnG6L1ymi+mu/nwrR2dT/SrauI3YhnWUxn7wGq4QlMKUWFbZ7CPBQ
+	 T/qtY5TffVUnACnFZbVCuNClTst2wlZ/bOiehk4auRjNJ87pHGqaGF3daHOI7NiRdmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965342;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=EzmTMwr8yqruvj/vgnGIEkJVe6M9uLFP63MnhAvtE/A=;
-	b=06DASOeTyvdNU7yXNJpCSO3fVqbnqIyoUKHBGveSCmtLb6og4v9KldFSBItkwuT4h4Ta
-	 K3Ml9m4TiRQ/T+p3avsqxpg8tH+zXJsGChgg81yp5hvkgCOzCAk9ReYAq315UqmHdHBmf
-	 gj5Q1cnYDd91e0zKcfOHRPmiVgPKEf9Etx7r6C3azXQOf9ko7essyl+wBa+zn64A6f9k0
-	 gTRDEGwoX/Ox3FWKx2srGd2dSkkdO5QCz0v3UkfAk/VMhgdS6wkCbM1HK1iwIk4vI95qc
-	 uXIfy7O0A+DpIyCJBCtBL6sAM0ytcdm93rfMF1IQ2UC4NXtFwrOI8ObcRI3kURVokNg==
+	bh=ERoJU+YSkcdzSJp45/76zizxO7Q36Iy9/z1bkXjHy9E=;
+	b=uWulblgb+W4o8Y26Of/yKFx0twXc3AxTGj/DEglYmcMBGYNILHss7GG5AgxQER+t4OGq
+	 1UvX8ZFzXSr4y1H9Tx+W307YZu/NOzHtk0I/7U5lOtBQ2LswiWvB11IaKvvDdXi+fupXy
+	 YbuN4LExbiHYuz67gAiX9d5/goPq0AQg6yxBvNPeOXAzH0wYptimPevms2k7S4Py2eKVm
+	 I3HAtxtb/6i2vhhylfOUHLR9itNiVyP9LW1MVirjcL+Hem8Ca93S1ZKO0vZcuYkuaEQof
+	 +4fswR6HRjoOGYLfGii4JwXrhufTc37Mf7WYTEHzsFnxB4TXO4mUdYVaM7gWHvaZEdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=t5SdXL2J;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Cc3Ah1xy;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3714606C7CF;
-	Fri,  6 Nov 2026 11:42:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3714606C7CF
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B40D9606C7CA;
+	Fri,  6 Nov 2026 11:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40D9606C7CA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=t5SdXL2J
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Cc3Ah1xy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=EzmTMwr8yqruvj/vgnGIEkJVe6M9uLFP63
-	MnhAvtE/A=; b=t5SdXL2JGPAxooaugfA5EKWt56/UU1RYqlj8M0wZxy9Y2roAnu
-	gyLglA848pYTYJobK/D7z7FVRHxHo2iQ+ggbcmGlaUSn2yPkLgl7TEsP8SHnRVj2
-	0rNVN/G3lMGjLkPyKktOwNYzDG1JzsIwGR38ZTNkZySlTNdG1HeWJ68r0=
+	Content-Transfer-Encoding; bh=ERoJU+YSkcdzSJp45/76zizxO7Q36Iy9/z
+	1bkXjHy9E=; b=Cc3Ah1xyC5wUY+KjmQcDaPWIC7V7LnzkxLxnc7Il87Nn+l/Ylz
+	rkTqHT8vxSTgASJPxjRc98mOat7rn2d5Byg2c4Emz19PiMW18/x0+8AtchwBYtVQ
+	IUUJ2s3/XU1BtFs/9W39Qu6iLxzwAtX7BqJneVIX1yjvSOUrO1CCSt5Rc=
 Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.75])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2S0Qve1q3DyPAA--.869S4;
-	Fri, 06 Nov 2026 19:42:15 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2S0Qve1q3DyPAA--.869S3;
+	Fri, 06 Nov 2026 19:42:13 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: gregkh@linuxfoundation.org,
 	Thinh.Nguyen@synopsys.com,
@@ -51,9 +51,9 @@ Cc: linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 2/3] usb: roles: look up role switches attached to a graph endpoint
-Date: Fri,  6 Nov 2026 19:42:07 +0800
-Message-ID: <20261106114208.987284-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v8 1/3] dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS bus
+Date: Fri,  6 Nov 2026 19:42:06 +0800
+Message-ID: <20261106114208.987284-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106114208.987284-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261106114208.987284-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -67,13 +67,13 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBn2S0Qve1q3DyPAA--.869S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF4fZFy3ur1DCryDZr1kXwb_yoW5KF1xpr
-	yakF1Fvr4DJFya9w4fGa1DAFWrWr4fGFWUJF4xt3WfC3Zaq3yrJr48ta43Ar15CanIgw1Y
-	v348A3409a4DA3DanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBqb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:3pYKCgBn2S0Qve1q3DyPAA--.869S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3ArW8Jr4xCryfXr45KF1rWFg_yoW7Zw4kpF
+	Zxtan3JFWkKryfZ397A3W8uwn5Kws8JrnrJr18Ar1UAan8Gr1rXw43KwnIqayUCr97Za4Y
+	9rykW3WkXa17CaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
 	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
 	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
@@ -83,100 +83,188 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxJF4fZFy3ur1DCryDZr1kXwb_yoW5KF1xpr
 	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
 	IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI
 	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
-	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUnLYFJUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAA3sp
+	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYf-PUUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAA2so
 
-usb_role_switch_get() and fwnode_usb_role_switch_get() look for a switch
-on the caller's parent device node or through device_connection.  That does
-not work when one controller exposes a role switch per connector endpoint:
-the switch is registered against the remote graph endpoint and the
-consumer, the connector, has no phandle to it.
+Two connectors can share the High Speed D+/D- pair of one DWC3 controller,
+with a GPIO selecting which of them is connected, while their Super Speed
+lanes stay separate.
 
-Add usb_role_switch_at_endpoint(), which walks the caller's OF graph
-endpoints and matches a switch registered on the remote endpoint, and try
-it after the existing parent lookup.  A switch that is described by the
-graph but not registered yet comes back as -EPROBE_DEFER, as the rest of
-the role-switch API does, so the caller retries instead of concluding that
-the connector has no role switch at all.  There is no behaviour change for
-existing users: if nothing is registered against an endpoint the lookup
-falls through to the previous paths.
+Describe that in snps,dwc3-common.yaml:
 
-This is needed by DWC3 designs where two Type-C receptacles share one High
-Speed data bus.
+  - "port-select-gpios" selects which connector drives the shared bus;
+  - each connector is a port of the controller's "ports" node, "port@0"
+    and "port@2", with one endpoint per port, so that "ports" keeps
+    describing the controller's own buses as the graph bindings expect
+    (port@1 is the Super Speed lane of the PHY, described by
+    snps,dwc3.yaml);
+  - the endpoint of a connector carries "mux-state", the level of the
+    port-select GPIO that reaches it, and "usb-role-switch", declaring
+    that this connector has its own role-switch input.
+
+The controller node must carry "usb-role-switch" as well, and dr_mode is
+required to be "otg": dwc3_get_dr_mode() otherwise forces dr_mode back to
+peripheral, dwc3_get_extcon() skips the role-switch branch and
+dwc3_drd_init() never sets the mux up, so a device tree that passed the
+schema would not describe a device tree the driver can act on.
+
+The two connectors must claim opposite levels of the GPIO, which is
+expressed as one choice between the two assignments, and endpoint names
+use the pattern of graph.yaml so that an unnumbered or third endpoint is
+rejected instead of escaping "unevaluatedProperties: false".  When
+port-select-gpios is absent the endpoint properties are rejected, so
+existing single-connector descriptions are unaffected.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- drivers/usb/roles/class.c | 45 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ .../bindings/usb/snps,dwc3-common.yaml        | 116 +++++++++++++++++-
+ 1 file changed, 114 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/roles/class.c b/drivers/usb/roles/class.c
-index edec139b68..ee186d542a 100644
---- a/drivers/usb/roles/class.c
-+++ b/drivers/usb/roles/class.c
-@@ -157,6 +157,47 @@ usb_role_switch_is_parent(struct fwnode_handle *fwnode)
- 	return dev ? to_role_switch(dev) : ERR_PTR(-EPROBE_DEFER);
- }
+diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+index 6c0b8b6538..0be2a6e83e 100644
+--- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
++++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+@@ -13,6 +13,40 @@ description:
+   Defines the properties of the DWC3 core as being embedded in either an
+   vendor-specific implementation or as a standalone component.
  
-+/*
-+ * Look up a role switch registered against the remote endpoint of one of the
-+ * caller's OF graph endpoints.  This is how a connector endpoint that shares a
-+ * USB data bus with another connector (for example two Type-C receptacles on a
-+ * single DWC3 controller, selected by a GPIO mux) finds its own role switch.
-+ */
-+static struct usb_role_switch *
-+usb_role_switch_at_endpoint(struct fwnode_handle *fwnode)
-+{
-+	struct fwnode_handle *ep, *remote, *parent;
-+	struct usb_role_switch *sw;
-+	bool available;
++$defs:
++  hs-endpoint:
++    $ref: /schemas/graph.yaml#/$defs/endpoint-base
++    unevaluatedProperties: false
 +
-+	fwnode_graph_for_each_endpoint(fwnode, ep) {
-+		parent = fwnode_graph_get_remote_port_parent(ep);
-+		if (!parent)
-+			continue;
-+		available = fwnode_device_is_available(parent);
-+		fwnode_handle_put(parent);
-+		if (!available)
-+			continue;
++    properties:
++      usb-role-switch:
++        type: boolean
++        description:
++          This connector endpoint has its own USB role switch. The switch is
++          registered against this endpoint and looked up with
++          usb_role_switch_at_endpoint().
 +
-+		remote = fwnode_graph_get_remote_endpoint(ep);
-+		if (!remote)
-+			continue;
-+		sw = usb_role_switch_match(remote, "usb-role-switch", NULL);
-+		fwnode_handle_put(remote);
-+		/*
-+		 * ERR_PTR(-EPROBE_DEFER) means the switch is described by the graph
-+		 * but not registered yet: pass it up so the caller defers instead of
-+		 * concluding that this connector has no role switch at all.
-+		 */
-+		if (sw) {
-+			fwnode_handle_put(ep);
-+			return sw;
-+		}
-+	}
++      mux-state:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1]
++        description:
++          Logical level of the port-select GPIO which connects this
++          connector to the shared High Speed data bus.  The two connectors of
++          one controller must use different levels; the driver rejects a
++          device tree where two connectors claim the same one.
 +
-+	return NULL;
-+}
++    dependentRequired:
++      usb-role-switch: [mux-state]
++      mux-state: [usb-role-switch]
 +
- /**
-  * usb_role_switch_get - Find USB role switch linked with the caller
-  * @dev: The caller device
-@@ -169,6 +210,8 @@ struct usb_role_switch *usb_role_switch_get(struct device *dev)
- 	struct usb_role_switch *sw;
++  hs-port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    patternProperties:
++      '^endpoint(@[0-9a-f]+)?$':
++        $ref: '#/$defs/hs-endpoint'
++
+ allOf:
+   - $ref: usb-drd.yaml#
+   - if:
+@@ -26,8 +60,87 @@ allOf:
+       $ref: usb.yaml#
+     else:
+       $ref: usb-xhci.yaml#
++  - if:
++      required: [port-select-gpios]
++    then:
++      # The mux path is only taken when the controller itself carries
++      # "usb-role-switch": dwc3_get_dr_mode() forces dr_mode back to
++      # peripheral, dwc3_get_extcon() skips the role-switch branch and
++      # dwc3_drd_init() never calls dwc3_role_mux_init() without it.
++      required: [dr_mode, ports, usb-role-switch]
++      properties:
++        dr_mode:
++          const: otg
++        ports:
++          # Each connector is one port with a single endpoint: the mux-state
++          # property on that endpoint says which level of the port-select GPIO
++          # reaches it, so two connectors are two ports, not two endpoints of
++          # one port.  port@1 is the SuperSpeed lane of the PHY and is already
++          # described by snps,dwc3.yaml, so the second High Speed connector
++          # lands on port@2.
++          required: [port@0, port@2]
++          properties:
++            port@0:
++              $ref: '#/$defs/hs-port'
++            port@2:
++              $ref: '#/$defs/hs-port'
++
++          # The two connectors must claim opposite levels of the port-select
++          # GPIO; requiring both ports in every branch is what makes the two
++          # cases mutually exclusive for oneOf.
++          oneOf:
++            - required: [port@0, port@2]
++              properties:
++                port@0:
++                  $ref: '#/$defs/hs-port'
++                  properties:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 0
++                port@2:
++                  $ref: '#/$defs/hs-port'
++                  properties:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 1
++            - required: [port@0, port@2]
++              properties:
++                port@0:
++                  $ref: '#/$defs/hs-port'
++                  properties:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 1
++                port@2:
++                  $ref: '#/$defs/hs-port'
++                  properties:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 0
++    else:
++      properties:
++        ports:
++          properties:
++            port@0:
++              patternProperties:
++                '^endpoint(@[0-9a-f]+)?$':
++                  properties:
++                    usb-role-switch: false
++                    mux-state: false
  
- 	sw = usb_role_switch_is_parent(dev_fwnode(dev));
-+	if (!sw)
-+		sw = usb_role_switch_at_endpoint(dev_fwnode(dev));
- 	if (!sw)
- 		sw = device_connection_find_match(dev, "usb-role-switch", NULL,
- 						  usb_role_switch_match);
-@@ -192,6 +235,8 @@ struct usb_role_switch *fwnode_usb_role_switch_get(struct fwnode_handle *fwnode)
- 	struct usb_role_switch *sw;
+ properties:
++  port-select-gpios:
++    maxItems: 1
++    description:
++      Selects which of the two connectors drives the controller's shared High
++      Speed data bus.  Each connector is described by "port@0" or "port@2",
++      and the endpoint of that port carries the connector's own role-switch
++      input and the "mux-state" level selecting it.
++
+   extcon:
+     maxItems: 1
+     deprecated: true
+@@ -411,7 +524,7 @@ properties:
  
- 	sw = usb_role_switch_is_parent(fwnode);
-+	if (!sw)
-+		sw = usb_role_switch_at_endpoint(fwnode);
- 	if (!sw)
- 		sw = fwnode_connection_find_match(fwnode, "usb-role-switch",
- 						  NULL, usb_role_switch_match);
+     properties:
+       port@0:
+-        $ref: /schemas/graph.yaml#/properties/port
++        $ref: '#/$defs/hs-port'
+         description: High Speed (HS) data bus.
+ 
+       port@1:
+@@ -429,4 +542,3 @@ required:
+ 
+ additionalProperties: true
+ ...
+-
 
