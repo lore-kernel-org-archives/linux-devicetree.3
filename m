@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793957521;
-	b=fE5K4Gmw9YIvNAuK/q/xLWKBY85oI3Hsf0nNNhFAkKTkRYoDjK+aMrUBmLk622x5Tq1m
-	 +bwM2VZIwN+D2zqrB41Cd3nKKDLYreQr8ZwdbsIgrOYknGvdrBkBWN30lqP93aBHy2UKD
-	 VSWV9yd0szGZ4yhmvt3MpASol7oNpUcpJ2owxa6dyLI82Hj2IWtRnU+D6FB+9RAaV8lb/
-	 yzu2wNgmV4ANjZQ/O+fc46xsJGpxohGugcT8UA+69XNkgYBeRlJ01nL/ZqQBtN47G5R/h
-	 W1Ubt+k8xuMgKsLVL+z5a1ipwvEcs+ACF6L1yb2Iah/SjJvWrsJoFmvrdtgexaKz6wQ==
+	t=1793957524;
+	b=VWMpesNtKvYegYsaVmRluHoXqu7xv667mXl/mEvNQLwiDk+e+G2BWKJm03SzCjDJlUgT
+	 kATPEOgxxel197kLRJaP33cvFGHGivU5X/px7xIMntMk8xuzTymSKFGCpG6BD+XRZKh4J
+	 AxAVG2KD1B0TE/ym/SKippXi9aS53saCux3m2xE7NGjYZGxHkfTlX0nL9zqde1QvZA6Ga
+	 UNwOhsRoj9FRuqodRHisoAhEA0UVAfthR8Lc8ZzIoILiU9ydRthwPpPRoiHqdwURcI8TP
+	 /c1cXvFUl5vA1URv7q1NHWnWwH8yKg5eYDSjBmYJlAuRTOewBKkmH+q2rqcO9A/7Qtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957521;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=XVCiM/XmMmFs/c6zrvuFdZxMwAK3g2nr/jb2Qhyt9NI=;
-	b=4cT6MCbokKO3/1d1TmAVoxBYH1idrOixeG6PxYLDPORn0+8n48sv1JiG7tcFBRHlFbR1
-	 o5RsocpMrRGKecr87fDtnUs0LzklTAIr27u86MwL1O9nM/5UWfH5Y3nvrpWA6RHVgBp2h
-	 w1VkdDB5QymGJnERhrATA5WVrZN3VFjyLVYh3MZSPD5C/NcSLNtS0DlIlEeIJeB9oSV8k
-	 Ygy4afNB+mukhwAdC6XLmfnSSC+geXtIlEMdXYBV0g8nF3djY3zWqn5QUuPQ5FRYnLM7w
-	 R9w6OF1qihxwBpmdmdNOqJ8csyi0QsAA+6qQOOkqY+AEnQzrtIQrQnRoIqtrSyUr9cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957524;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=6dIjK3KQyPYo7BGeihqe5v2Q2WzvnIFuvucFmY8UZiM=;
+	b=Kaao1k/j4QQ0eQW36Ti0MkVWlfZzFwLCD4jZE0HwRz5MDDt7nOqKkkAplRMqM05TxBoH
+	 Q/vepGikP9JNhnIeVNh3dr77dADm15VFJ/eNASC0ugMJhendDZrv0DFd6gJ38rX7qss5u
+	 CXofq5SLB9uROHb68j3KyUUR742/w+U1c7A5y7+imtjG9qVjf5/I2YDwz2xndsv4ixEtt
+	 KyLRxrHkLfJtp2jrp+bKAv50yOxbUZxzRXku+PtndiZG4Vi7hZE7ubQP9hHqNOZmlYG9j
+	 SlPnT5BvI37hKp6dHmlFtxB0Rp34jMJggcl/BqhO/B+FNvfctc/1E9tOgQIDKSgXY9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqBkFKLS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wzk0AKUh;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B02606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 09:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D03B606A33B;
+	Fri,  6 Nov 2026 09:32:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D03B606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqBkFKLS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2056A1F008A3;
-	Fri,  6 Nov 2026 09:32:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793957520;
-	bh=XVCiM/XmMmFs/c6zrvuFdZxMwAK3g2nr/jb2Qhyt9NI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FqBkFKLS7FSIiASlOzzXtWAO5z0j3ObNLsTFfDEQfg2E43l3TOuKb9wg0zzEzXban
-	 WAcEEk0JaaHFt+Jzn+dyjTU+P+dYtEO7nI6xDs3kIhQspFcRLFKS3aqIhEy7Pg7xM1
-	 pLmSRoIzDvU5NG991mpCfmIlrBYsp/qL6N5okY3lqtL1NnPXUK6gE4ry7BQaGCJ5Y7
-	 4O80xtBLiaMbpC/es7/DZJGLTvJURFoADtiHOmirM7IfM9eXoG8Bv7L03wweXsrtQZ
-	 3zt30dcOR0CVT5dj7arUEsUhCQhNFAtUvHk5f7gEfbp/ZBTGLKGBzJGK10eMy+vApE
-	 3ex3jqXUFhwaQ==
-Message-ID: <sashiko-outbox-201111@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106091943.35783-5-clamor95@gmail.com>
-References: <20261106091943.35783-1-clamor95@gmail.com>
- <20261106091943.35783-5-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 09:31:59 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wzk0AKUh
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4D4101A1350;
+	Fri,  6 Nov 2026 09:32:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 207F95FFBC;
+	Fri,  6 Nov 2026 09:32:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC820103292DF;
+	Fri,  6 Nov 2026 10:31:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793957519; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=6dIjK3KQyPYo7BGeihqe5v2Q2WzvnIFuvucFmY8UZiM=;
+	b=wzk0AKUhHtXWvefoMAkphBOjTffVQzMnfddS4ZbG16AEUdu4SGMZCgxM1nEu40Kovb0ZbB
+	iiLRa03CunEJO+Gevda0SIEUaPwlx8z9towgjqw1NDpmIbPJZPdFIs6dpV/D0R2jjvZUsY
+	6sf+galb57+IV19d56T/C04vO/3WBIGf93TBBVoy1qHZAn57/yK8985rTav7wfm3pB4ew4
+	Tyb9hTHbz8Pgu8snCkrUXvWIhuir5xo/wPaNKJg9be66FdvG0Wc1+G9ltqQZ/YHxpb74Gr
+	8KVzL7vI6mKbgG14ahBCIhzqaxnuCA440p6LVcxQKW3fJ4nbA10u11XVAvcYlg==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Date: Fri, 06 Nov 2026 10:30:09 +0100
+Subject: [PATCH 12/25] dt-bindings: spi: andestech,ae350-spi: add Metanoia
+ MT2824
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,115 +63,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261106-mt2824-v1-12-86087eaf5af4@bootlin.com>
+References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+In-Reply-To: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jun Chang <jun.chang@metanoia-comm.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Sebastian Reichel <sre@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Conor Dooley <conor@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Ben Zong-You Xie <ben717@andestech.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Jisheng Zhang <jszhang@kernel.org>, CL Wang <cl634@andestech.com>, 
+ Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Minas Harutyunyan <hminas@synopsys.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Randolph_Sheng-Kai_Lin=28=E6=9E=97=E8=81=96=E5=87=B1=29?= <randolph@andestech.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-mmc@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] iio: light: ltr501: wrong channel lookup in
-  ltr501_trigger_handler()
-- [Medium] iio: light: ltr501: unguarded ALS register read in
-  ltr501_init()
---
+The Metanoia MT2824 integrates the Andes ATCSPI200 SPI controller. Add
+its compatible string, with andestech,ae350-spi as a fallback.
 
-commit ee234def6f10d9aedb1149ec4e47b6d46e491495
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Originally-by: Jun Chang <jun.chang@metanoia-comm.com>
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+---
+ Documentation/devicetree/bindings/spi/andestech,ae350-spi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
+diff --git a/Documentation/devicetree/bindings/spi/andestech,ae350-spi.yaml b/Documentation/devicetree/bindings/spi/andestech,ae350-spi.yaml
+index 91e04f5d354a..6e5dd8175aa9 100644
+--- a/Documentation/devicetree/bindings/spi/andestech,ae350-spi.yaml
++++ b/Documentation/devicetree/bindings/spi/andestech,ae350-spi.yaml
+@@ -15,6 +15,7 @@ properties:
+       - items:
+           - enum:
+               - andestech,qilai-spi
++              - metanoia,mt2824-spi
+           - const: andestech,ae350-spi
+       - const: andestech,ae350-spi
+ 
 
-This commit adds support for the Lite-On LTR-659PS-01 proximity sensor,
-gates ALS register accesses behind a no_als_support flag, and updates
-ltr501_trigger_handler() to check channel types instead of hardcoded scan
-indices.
+-- 
+2.56.0
 
-> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> index d5ce6468a229b..e7762115df913 100644
-> --- a/drivers/iio/light/ltr501.c
-> +++ b/drivers/iio/light/ltr501.c
-
-[ ... ]
-
-> @@ -1251,16 +1291,21 @@ static irqreturn_t ltr501_trigger_handler(int irq=
-, void *p)
->  		aligned_s64 ts;
->  	} scan =3D { };
->  	__le16 als_buf[2];
-> +	unsigned int i;
->  	u8 mask =3D 0;
->  	int j =3D 0;
->  	int ret, psdata;
-> =20
->  	/* figure out which data needs to be ready */
-> -	if (test_bit(0, indio_dev->active_scan_mask) ||
-> -	    test_bit(1, indio_dev->active_scan_mask))
-> -		mask |=3D LTR501_STATUS_ALS_RDY;
-> -	if (test_bit(2, indio_dev->active_scan_mask))
-> -		mask |=3D LTR501_STATUS_PS_RDY;
-> +	for_each_set_bit(i, indio_dev->active_scan_mask, indio_dev->num_channel=
-s) {
-> +		const struct iio_chan_spec *chan =3D &indio_dev->channels[i];
-> +
-> +		if (chan->type =3D=3D IIO_INTENSITY)
-> +			mask |=3D LTR501_STATUS_ALS_RDY;
-> +
-> +		if (chan->type =3D=3D IIO_PROXIMITY)
-> +			mask |=3D LTR501_STATUS_PS_RDY;
-> +	}
-
-[Severity: High]
-Does indexing indio_dev->channels[] with the bit position from
-active_scan_mask inspect the wrong channel on existing sensors?
-
-Bit positions in active_scan_mask correspond to chan->scan_index, not the
-array index in indio_dev->channels[].  In ltr501_channels and
-ltr301_channels, channels[0] is LTR501_LIGHT_CHANNEL() with scan_index -1,
-which shifts all buffered channels by one slot: channels[1] and
-channels[2] are IIO_INTENSITY (scan_index 0 and 1), and in ltr501_channels
-channels[3] is IIO_PROXIMITY (scan_index 2).
-
-As a regression on LTR-501 and LTR-559, enabling buffered proximity sets
-bit 2 in active_scan_mask, which inspects channels[2] (IIO_INTENSITY)
-instead of channels[3] (IIO_PROXIMITY).  LTR501_STATUS_PS_RDY is never set
-in mask, LTR501_PS_DATA is never read, and zeroed proximity values are
-pushed to the IIO buffer.  Similarly, enabling only scan_index 0 on any of
-the existing ALS sensors inspects channels[0] (IIO_LIGHT), leaving mask at
-0 and pushing zeroed ALS data.
-
-> @@ -1328,11 +1373,13 @@ static int ltr501_init(struct ltr501_data *data)
->  {
->  	int ret, status;
-> =20
-> -	ret =3D regmap_read(data->regmap, LTR501_ALS_CONTR, &status);
-> -	if (ret < 0)
-> -		return ret;
-> +	if (ltr501_has_als_support(data->chip_info)) {
-> +		ret =3D regmap_read(data->regmap, LTR501_ALS_CONTR, &status);
-> +		if (ret < 0)
-> +			return ret;
-> =20
-> -	data->als_contr =3D status | data->chip_info->als_mode_active;
-> +		data->als_contr =3D status | data->chip_info->als_mode_active;
-> +	}
-> =20
->  	ret =3D regmap_read(data->regmap, LTR501_PS_CONTR, &status);
->  	if (ret < 0)
-
-[Severity: Medium]
-Should the IIO_INTENSITY persistence read later in ltr501_init() also be
-guarded by ltr501_has_als_support()?
-
-drivers/iio/light/ltr501.c:ltr501_init() {
-    ...
-	if (ltr501_has_irq_support(data->chip_info)) {
-		ret =3D ltr501_read_intr_prst(data, IIO_INTENSITY, &data->als_period);
-		if (ret < 0)
-			return ret;
-    ...
-}
-
-Because ltr659_chip_info_tbl has irq support enabled, probing an
-LTR-659PS-01 calls ltr501_read_intr_prst() for IIO_INTENSITY, which reads
-reg_als_prst and calls ltr501_als_read_samp_period() to read the reserved
-LTR501_ALS_MEAS_RATE register.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106091943.3578=
-3-1-clamor95@gmail.com?part=3D4
