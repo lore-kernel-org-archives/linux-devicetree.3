@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962403;
-	b=wIGUK5lcvWrkN44qlY0sxPJ+vmvGdVa3Y/H1erezAzBcA6Z1UgzGdt3tK2OFE0h0Xwcw
-	 fcaFxGqr9n3Gue7nB3IduEJuLkG1pHjGawBGwnfzZ9/tAZPGc7SBEB87rmbIIkuVyqa/C
-	 8DfMY219GRAoFoXsdy9mlmljFjkDvQDPfV9Z+lb1/KZ95VJaAhkueAuhdeE7p2Il0Qerj
-	 pkWg1CAb4LB4z/V75C+BEOZWAVE3AXh2DR62RUBLkOdjiEizfJPIOC6Q3S0YHcLhpSix7
-	 gyitd/dyXnVq0fVF25mIxVxsIDCGs7gBE9N2ksiGdkZuVFmfPZH0lJxBmyXwvvx6RnQ==
+	t=1793962430;
+	b=fmCIzV1WP65fMnzmTQrgRXQQ4QtMEIxY5ICuJK5hBBodeyiYdyu2uVfGzjChxMtGgHph
+	 s/u7manmpOrbUTWDZDRqH79r8XAqu+SV8s7JesT3Zg+5vrJwo9HdY9OIsca1MwlM+laIr
+	 vNMmQ5yoxzEVFKfGme7f+qG/55Lh30JEBVcuaERbhWJ05VabG+Uit5NdTCelas8jX1pfT
+	 LMiHvdE6ALS3kijV43Ufxqb1pjDHiITMrTMgc8ubdRo5tnHlWIOrqD72zc/XMXt7rdAWF
+	 Hs8nESdd79QrORlMPM+CEpiB/dTWSy1Mnqhy4gzHVIjHTZ8MMayT2cmcqBQnx79/0WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962430;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=8uOm752qSbHewlwvTq64qs6Wrb1DhXsjIgUxAiKYfJI=;
-	b=iFMMtQrLkn+Rpv5QyqjUk93ouJjK+gLErt4K9FFxzHSExdcw4Yt/TpneeAF9OwHpcw4b
-	 LSWG8SZ3ty88X5h0BoUhS93Txkc4mPpkry/rqPVmgRN9Ml15P3VJlciaWbw+3TSzDL+k0
-	 ReHDI/aaLX9T3VKrx4XDLMw0eiDyjaUQ9MsOW1pGFNbQsOsIe2lwzZw4Njj1bQYtlgz/+
-	 ALG/Q3yKJCBKXYoc4QG+KALr0wEURf60ueVyz6B5xrwYEQXdGiH3JF8B9gcQMe63JgQpX
-	 9DKBR8CoMcm+Cy0tRwb/t1SPTk8UVnAkIPCbgId6YCWWUqV2OGkz6P4VSfix6fUjk6A==
+	bh=pVDfsMz8cMqWLcgS/M6OYiWrU0X+DS+oHS8BFIpnilE=;
+	b=RdczGM7s3dj/u+sLSM73eSYF53qKjmyrDYAjggVnv+1A65vwLEs8n87G8n6Ug9IVuIwB
+	 q90/0ZgPLRjKAtcG2Xm5Oi6oqwlVdh5ErI62XUmnJ+3vKQAZR0SPAxMlC/IbeG1pcyPWf
+	 0yoJW7CG03iiOLH++x66kHcpWaH5YuaQYva58CnZ8/pxfbjweTnuAksxnql6F14yJswrK
+	 xBNxcyCo2zkh8A/EpEFFIxYs38sDAmhlLWty9fg+MfFGUc54+a1wWAu58IQcSQf1s/RdJ
+	 3z66zfHvc9gnTodOuju96tWzSxqtDHnD1E66ovG+fNlqYuzzj52AcKn9jDfTnR7hxgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lb74MZKP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMwW649P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A532F606A33F
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:53:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8862606A329
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lb74MZKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6BE1F008A2;
-	Fri,  6 Nov 2026 10:53:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMwW649P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2391A1F0089F;
+	Fri,  6 Nov 2026 10:53:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793962403;
-	bh=8uOm752qSbHewlwvTq64qs6Wrb1DhXsjIgUxAiKYfJI=;
+	s=k20260515; t=1793962429;
+	bh=pVDfsMz8cMqWLcgS/M6OYiWrU0X+DS+oHS8BFIpnilE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Lb74MZKPJpgMAashAyeBJ3hqeVIsyKY3nxEyEE7IUrH0+9Iteovv0PfkkCdV7tyIY
-	 Jh34W4RQjNCcpPf92hs/CAEb9ni85zCqqyRhwUfYt9cc3aPMMVLyTtLLnUdq6jjAZA
-	 ioiNEcCY6PIQjGIHxj1nnKk5JCEv7JUdpS04YWFwkpriWLYTWcXU1hri0eODadgS/A
-	 D9J6yo1FJhLZrhQ8KQBqWzTfJf5c9XbFOH2vUqC5Hh9g2MFk4U7F9hcHHs2jNBlHTg
-	 e4+XIBhuqEtJBXWM9KnVGn2tg2aUDHZXX1m4ubzpMV5+f/PW7N5MLf+P8wG2gohl5J
-	 5XtT8iMOVLqBw==
-Message-ID: <sashiko-outbox-201239@kernel.org>
+	b=PMwW649PK50m55ay+OWngXKkAAbK2PbSO+12MZmKUhDoIKGca00ckLpWeN/umCTXW
+	 OVHUz7a6ErJpoCBXiVtheJ0mBL2ESJgtndbH4KyUMAzZ0WsyZ5pfG4POXIiG6/3pxu
+	 Uv470Y1E6anohDDu5XIPnJm4O80FSoY7z3NTpTePU/mYhD99a922pqaHC6UTig6EiB
+	 FDoZakiMHWmkngbs6Hynk0QAz4h5x3LAY/zu+w6FWKutrsogf/4DhUAwpyyIW9RRqc
+	 Q+fKvvfvdS1bQnP7RqxLwrBcIwBsaHJPe/OkWcQimdpudbNwd+jYmuZG2sUPAKRtWj
+	 TshGeya9XvjHg==
+Message-ID: <sashiko-outbox-201241@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/10] arm64: dts: amlogic: meson-s4: add the GE2D
+Subject: Re: [PATCH 06/10] arm64: dts: amlogic: meson-s4: add the CPU
+ thermal sensor and zone
 Reply-To: sashiko-reviews@lists.linux.dev
 To: christian.koever-draxl@student.uibk.ac.at
 Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261106104659.54656-8-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261106104659.54656-7-christian.koever-draxl@student.uibk.ac.at>
 References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
- <20261106104659.54656-8-christian.koever-draxl@student.uibk.ac.at>
+ <20261106104659.54656-7-christian.koever-draxl@student.uibk.ac.at>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 10:53:22 +0000
+Date: Fri, 06 Nov 2026 10:53:48 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,49 +63,52 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] arm64: dts: amlogic: meson-s4: ge2d node missing
-  amlogic,axg-ge2d fallback
+- [High] arm64: dts: amlogic: meson-s4: unmatched amlogic,s4-thermal
+  compatible
 --
 
-commit 0db40a28ab18ba3c72a34659bd708d3e86073c70
+commit a99d2d51a763291902046985186e9763a3fd5d38
 Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 
-arm64: dts: amlogic: meson-s4: add the GE2D
+arm64: dts: amlogic: meson-s4: add the CPU thermal sensor and zone
 
-This commit adds the GE2D 2D graphics accelerator node to the Amlogic S4 SoC
-devicetree.
+This commit adds the CPU temperature sensor node and the corresponding CPU
+thermal zone with trip points and GPU cooling map to meson-s4.dtsi.
 
 > diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
 dts/amlogic/meson-s4.dtsi
-> index 1e8b845b80c31..8bbd70e52a299 100644
+> index 69105c8abf122..1e8b845b80c31 100644
 > --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
 > +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> @@ -199,6 +199,16 @@ soc {
->  		#size-cells =3D <2>;
->  		ranges;
+[ ... ]
+> @@ -748,6 +749,17 @@ gpio_intc: interrupt-controller@4080 {
+>  					<10 11 12 13 14 15 16 17 18 19 20 21>;
+>  			};
 > =20
-> +		ge2d: ge2d@ff040000 {
-> +			compatible =3D "amlogic,s4-ge2d";
-> +			reg =3D <0x0 0xff040000 0x0 0x10000>;
-> +			interrupts =3D <GIC_SPI 217 IRQ_TYPE_EDGE_RISING>;
-> +			clocks =3D <&clkc_periphs CLKID_GE2D>;
-> +			resets =3D <&reset RESET_GE2D>;
-> +			power-domains =3D <&pwrc PWRC_S4_GE2D_ID>;
-> +			status =3D "disabled";
-> +		};
+> +			cpu_temp: temperature-sensor@20000 {
+> +				compatible =3D "amlogic,s4-thermal";
+> +				reg =3D <0x0 0x20000 0x0 0x50>;
+> +				interrupts =3D <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks =3D <&clkc_periphs CLKID_TS_PLL>,
+> +					 <&clkc_periphs CLKID_TS>;
+> +				clock-names =3D "bus", "core";
+> +				#thermal-sensor-cells =3D <0>;
+> +				amlogic,secure-monitor =3D <&sm 1>;
+> +			};
 
-[Severity: Medium]
-Should the ge2d node include "amlogic,axg-ge2d" as a fallback compatible st=
-ring?
+[Severity: High]
+Does cpu_temp fail to bind to a driver and fail dtbs_check because
+"amlogic,s4-thermal" is not matched or documented?
 
-meson_ge2d_match in drivers/media/platform/amlogic/meson-ge2d/ge2d.c only
-matches "amlogic,axg-ge2d", so without the fallback compatible the driver w=
-ill
-never bind when this node is enabled.  In addition,
-Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml sets
-additionalProperties: false and does not document "amlogic,s4-ge2d" or
-power-domains, which causes dtbs_check to fail.
+of_amlogic_thermal_match[] in drivers/thermal/amlogic_thermal.c only lists
+"amlogic,g12a-ddr-thermal", "amlogic,g12a-cpu-thermal",
+"amlogic,a1-cpu-thermal", and "amlogic,t7-thermal".  Without a matching
+entry or a fallback compatible such as "amlogic,t7-thermal" (which
+Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml also
+requires when two clocks and clock-names are present), amlogic_thermal_prob=
+e()
+never runs and the cpu-thermal zone remains inactive.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106104659.5465=
-6-1-christian.koever-draxl@student.uibk.ac.at?part=3D7
+6-1-christian.koever-draxl@student.uibk.ac.at?part=3D6
