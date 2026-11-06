@@ -1,80 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
 	t=1793951947;
-	b=c4JII6g3j6jO/Ola6ylTX9QXnDI6n5NWcsOIRJy85fDJzmFMUv+uvsTmo112G9vqhDOl
-	 JIJ/z5VBUlt2BrxQIGGBYoxBZ8+SXjDgTcqf5zCnKTeZBIh3phviY1PHV19v+mgjrFkUg
-	 tlbkhShDepqUBY46PsBoOcMbEVyqf/thz7hgmwhT3vrH0EgUVvDl2+sxPphtcI5Q8jJpG
-	 63WeP+TIam5xT3jz5XHumctpK4Rwn1K6yUKptX7oEWMSFcg6CkxN7aXIczR3xnlSswsKG
-	 vLBSDaI0abtOggGb5p2FU/Z5etj0fHif/mjezc7alpyIpMBekVAol+N2EQ83h+YjuOw==
+	b=q3IAUWRFBNSzMYKnh3KmnVAahaySimU6thcB4nO4wxDCI69PKvhg5Zpo79VyvX1+xc11
+	 uxWbMfqih9+IW98fVXJ9I3y/heNVoFw6WfIApTsTgxv5pwlO9YlpRP7Mo3IYIc4jAi4Dm
+	 1lf1siTKKz4tlpKLPcYksn5t8K3lvn9qh8B/aZsKMgfQFUJpT773wxiTEpqX0ZUswrVu7
+	 9vwWzw4ZiszPwiG9zaEdYadHkEY4M4p5Bz4N3RL10b2TI8zymiQrFsHl4qr6Gg/ra0ZR3
+	 +GnOThchk2G0cSgsipiEiEcgCo+5XhAy68F4PaEdvaVtasuJ1GJPTmO2mWJJcIj9RTA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793951947;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=jcrs75do3SplBoI37hg1MInUN49XcuGYOTz0cGN/Z2U=;
-	b=qgvVmk0RybEsXQ4krVOhAzt7SX1aQ9/6LCAEKFu+/SC1iU5Oelklfk/+wPwJZr0BBrtA
-	 qFNeC0DWKr3BsBq5p1ufWcau/tu5RJoyR9FGdeK5ZGG37k8YWprN9s32g9p1jYcUZSlqk
-	 tt9sYOMf+rYmkXAQFfRUtjE/lxNOKYun0UxtNYTXpWSYpdQWuinlZosAZ9cnUzxrhh4ml
-	 cJgSRjk2xURRnaufCD7eT014aHmZuYp/OxYSldr+Brtl8ySuGqsLx1QJcmDIwmqLHMIGw
-	 Qnkx1FM4EBJpS541+N3KVnYkfjrA8ABpQ/LoJaG/9cVPUJ38ZEW/oNcpesaOVKj27SA==
+	bh=ozS0HsIF2lssUIRaRndjvOgXBu43I7UaYAzMd09TIC8=;
+	b=W1pDe7ofjxVmcTMAMrI/2oIXI3BRzfQ1I9PBlDdBPG2LyzlM4ZopK0TFkZ5difRWCy0a
+	 NhnFcq471vxe3Ca8yF3INa9BBoHY/DcBrp194lzK6vRQGz64fx3CoLS2HdWmD4TMK40BB
+	 9n9PQ2L59mjvSjuSLT1mm12krSXc9Uh/Eo3B0DIlb81lD8FZUHS2tPER6gqf1lCwOH3y6
+	 27HkUDJsRshAXhpQRi3Nm5oKW3ag1PxLc0r12WdWFfvcYNOfAD+4EeVevHhKInYkQn3ZY
+	 8XAx0Ife1s58OLoYCefr+xJK9YVrXwC2oYtwnO2OzWSnbdZseWgYpspxe3Wg5pv1soA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="gaIfR7Z/";
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=cnECqWCX;
 	arc=fail smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93835606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C29606A326;
 	Fri,  6 Nov 2026 07:59:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93835606A32C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C29606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gaIfR7Z/
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=cnECqWCX
 Received: from ratatoskr.trumtrar.info (unknown [IPv6:2a00:1f:f805:2b01:a03:2f4:308a:7b52])
 	(Authenticated sender: str@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C3691201E0D;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0AF90200938;
 	Fri, 06 Nov 2026 08:59:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793951944;
+	s=20260414; t=1793951943;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jcrs75do3SplBoI37hg1MInUN49XcuGYOTz0cGN/Z2U=;
-	b=gaIfR7Z/rBK5v7/l5FOzbBZOTAeKLfInkphiV52Tw6o/Ll1d9W3wQqXEOehOJ/ePTA8nuZ
-	ZVQkPOYlPdfMWjzqUnjE6Ml+xxiNqWM7qNQp+lOIQ1NrEq8tZNG6KnKHryk+9DGbo7sRjw
-	x8isu4sjSTZUcA4XVk4aQyziJQNe3/j5rOzO9a1qO82gqKL5lP7nTUxo1Ju6bceuXeeTVg
-	tsQEYiR5WAaTCTHUCXnI7JhmAvc34JSgQlLtdYOx03xOgxrcDghpOLarXExBmm6hVvQg1n
-	qtJRI5qCpKXUBOTRW2JehP7sRJjrIuMtxUzv2a/TjfCU+Yje/pxfXHmqTkCqcQ==
+	bh=ozS0HsIF2lssUIRaRndjvOgXBu43I7UaYAzMd09TIC8=;
+	b=cnECqWCXPPLSRtRdhwHtTCt4rna/DoVZL78ejMab6/AWflEJC3jYaA3bQnN8fzXxFpcV5x
+	XLtfzEjc4SPUnYxOSuC736ZK8UwKArlKU7Tji72F/+V+cuNjNpR16zSNOvmTqi20RtjBJG
+	s+Saz9ST7jvVv4j+mBU7O9RnIUOplFaCfzgdvgnwu/oS+9ggL7gUpP8LX6PumW+YPu9oin
+	pZlL7bH8niQ2LcHKBlKHNiFGjzzKERn6jLD3hUnNsvls0gjeynbexs5v4OgVFJDGv4R3Ya
+	9yDpfPawr5YRQtj7Ze0kM0HjXdx99UNVs5k2b8p/+s4KxFCqQSo2ZDM648PcAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793951944;
+	s=20260414; t=1793951943;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jcrs75do3SplBoI37hg1MInUN49XcuGYOTz0cGN/Z2U=;
-	b=fCBxgE3viVsRpP+rjwaXGWHKARDheIlK204FI1x+iXJwI5I2jAqsZXRUYyXTBDYPTjFnzu
-	GBwRSZXs2LhJEBFfhHfkDowcimhYwEU7r0ng+HPl6i1urHJpDjHVTiaAx5+Y2DkMXTbFiH
-	Ca8Cnl7ZEtZEXP/1oLkIa4h1Gj1jFkiEcZvLExkjaJqRjCjycb2CBN79TQ1WjyPEJMF/GD
-	yC6sinPHbDLkAF2KY0uIbSkDqQ2yYHaOXWHtdAiRq3F9GHoaxLaPDJ7EU4pvui4fRLe0BD
-	5mXWX7v+cHqzBWCC5F1SzOTbmuzp0zl5AvtEQ7gSqkUzjiK9pzzAG5czIPeKMA==
+	bh=ozS0HsIF2lssUIRaRndjvOgXBu43I7UaYAzMd09TIC8=;
+	b=MgIvFRkxBAiAaygjCDoi6NV+DIPAA2KxozDd70f4gn336GocJTm2jPSYq7ji6TOiKdU2fF
+	enbtQCMKJmaFRfHyhe84Td6f+IDQi7RXAVkR07aCxC3/bk/gM92Akq/HiU1efMZT/HXARC
+	0Bu+V7ogk/YLQ0OZ9WyEqm1qL+I8etppuA9J2ckJu1Z73xkHmDICu5bb3PfR40rfVY9UCr
+	8yzM5jZtPySvOajuReCYEI0rMTR3cI4vFYdPcEcmjk0rjqkenpqpqFBbdcXJZ+c0D976CS
+	lDcfWgD6WWoD8kHVJZLSnvD3vobkhTc8ekCyqjLP3X0C0W9uWyM4i0bqBSh7og==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=str@pengutronix.de smtp.mailfrom=s.trumtrar@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793951944; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793951943; a=rsa-sha256;
 	cv=none;
-	b=WSyx0Jgb6GNVRPcN38i9ytAWGLn+XNeqVhMxqbCCuOmkY6pQfUKpyFcSUpHydv021O4dVO
-	4LOzThaEUhBy8jbBwsaoHzGnbHygE3fmPJT6zFMVFkM37eqWIW/22VgpdK5/U8OHQ1s8Yt
-	NjAuwsDgrEeWE6UDSzcFwKiCiqWeHONrbm9Rm090KCOkBucJcHC/Hn1yO0Bb9TVEkXUMb1
-	7mjaLuQi8O95aRj9E15WnyqqRWKF7CrEkuIvwnqrUcGmm0OKvyEqzsvxxRD3ScrSrbDo6j
-	j9ofV/qu+q/Wr5mDJk1hY5yhjYksEvBCFNjHCkSph3tQwd6JwBV3n8IlrYQTKA==
+	b=UqCmfhPTdKR/LEFltSDXEWquJCxrurbIfFWX8+byZvbzcaqzHUWhrfJQ4fJqAGxcf/EL5t
+	++1UuCybi49uhuMjoZrE4EILmJ5HU5S6fLMHgs8O27AARcY7dZVffZYAl3SkxEdvbAGsDh
+	dDvaR50pBefekMLgd1Lxr5enZuLeX56T8E91KTA4VV2MFRs59QiwBGrVToQQIS7Ce0yMmO
+	LfaCJMyW56lgf1PW0j08OlBFlKb8hO+RzoL3/rV9nZUgy49NzPWv7ETXQNatjD4Pf93LOY
+	InCicEj2qyY1AVKoW89z+1p+IBig6lETchhavWXIIN8XrGifRMAz5T36JpYd+w==
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Fri, 06 Nov 2026 08:47:27 +0100
-Subject: [PATCH net-next v3 3/5] dt-bindings: net: dp83867: make
- exclusivity explicit
+Date: Fri, 06 Nov 2026 08:47:25 +0100
+Subject: [PATCH net-next v3 1/5] arm64: dts: xilinx: drop unused #phy-cells
+ from the DP83867 nodes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -86,7 +86,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-v7-2-topic-dp83867-v3-3-45e1d3adf1bf@pengutronix.de>
+Message-Id: <20261106-v7-2-topic-dp83867-v3-1-45e1d3adf1bf@pengutronix.de>
 References: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
 In-Reply-To: <20261106-v7-2-topic-dp83867-v3-0-45e1d3adf1bf@pengutronix.de>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -101,74 +101,173 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Steffen Trumtrar <s.trumtrar@pengutronix.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2240;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6739;
  i=s.trumtrar@pengutronix.de; h=from:subject:message-id;
- bh=zOfh/nRl7qM9sGEpSyKo6sDagN6Ev7ZFJAk2eCa2Wwo=;
- b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bbjqOaF1p+5/yVfqW/plDsevLuc68/tH6YeDpjserpr
- NCaLumjHaUsDGJcDLJiiiwqCyv4RD0+eEZOE+GCmcPKBDKEgYtTACbCVMbI0Kng7ejBfPuk23Vn
- 5WcrfllOevC+6eMBf2NNjRuLVOSypzMyNLt5lvls3Vmj0fpEu6nT/WHk6/ZowfpYDt6/X9eGR2q
- yAgA=
+ bh=1VOsPRL3wJvr3e89gbBMUTN0fzKah8vOne4ypiJ5r14=;
+ b=owGbwMvMwCUmtVehiCsuTInxtFoSQ9bbjqMWnmfvim9QF3TtbV3/JmZhZe8LVfl7DvuSXlQsZ
+ z7yvXVFRykLgxgXg6yYIovKwgo+UY8PnpHTRLhg5rAygQxh4OIUgIk8NGNkWP/4m5FN6Eavm0vf
+ nBaOcbl3Kki8Z5NI5tNVB1hkfv47vZbhN/upL22nH/5X23BmasPMucXmPR6rLwflLE9bcNDV4i7
+ 3CiYA
 X-Developer-Key: i=s.trumtrar@pengutronix.de; a=openpgp;
  fpr=24A1780E1548F0495996140A1ABD20720A5E5622
 
-The io_impedance_ctrl nvmem cell and the properties
-ti,{min,max}-output-impedance are mutually exclusive, as noted in the
-ti,max-output-impedance description.
+The DP83867 ethernet PHY nodes have a #phy-cells property, but no node
+refers to them with a phys property; the MACs use phy-handle, which
+takes no arguments. #phy-cells belongs to generic PHY providers.
 
-As this is only stated in the description and not made explicit in the
-schema, the binding checker will not catch if this condition is ignored.
-
-Make it explicit in the schema that only one of them can be used. With
-that, drop the note, which also described a precedence for device trees
-that the schema now rejects.
+Drop it, so the nodes validate against the ti,dp83867 binding once it
+is applied to them.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- Documentation/devicetree/bindings/net/ti,dp83867.yaml | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso | 2 --
+ arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso | 2 --
+ arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts    | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts    | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts    | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts    | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts    | 1 -
+ arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts    | 1 -
+ 10 files changed, 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-index 2cd8311ece5e..833540743bdf 100644
---- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-+++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-@@ -7,9 +7,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
+index b82a056be2f9..930f0e54fdac 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revA.dtso
+@@ -254,7 +254,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@4 { /* u81 */
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <4>;
+ 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
+@@ -266,7 +265,6 @@ phy0: ethernet-phy@4 { /* u81 */
+ 			reset-gpios = <&slg7xl45106 5 GPIO_ACTIVE_LOW>;
+ 		};
+ 		phy1: ethernet-phy@8 { /* u36 */
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <8>;
+ 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
+index 4dcf92a2158f..e05667f6e946 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kr-g-revB.dtso
+@@ -255,7 +255,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@4 { /* u81 */
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <4>;
+ 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
+@@ -267,7 +266,6 @@ phy0: ethernet-phy@4 { /* u81 */
+ 			reset-gpios = <&slg7xl45106 5 GPIO_ACTIVE_LOW>;
+ 		};
+ 		phy1: ethernet-phy@8 { /* u36 */
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <8>;
+ 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
+index 52954761c9f3..af897c3cd168 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revA.dtso
+@@ -200,7 +200,6 @@ mdio: mdio {
+ 		#size-cells = <0>;
  
- title: TI DP83867 ethernet PHY
+ 		phy0: ethernet-phy@1 {
+-			#phy-cells = <1>;
+ 			reg = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
+index 49732de5fa4b..a1f0592e7958 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-sck-kv-g-revB.dtso
+@@ -191,7 +191,6 @@ mdio: mdio {
+ 		#size-cells = <0>;
  
--allOf:
--  - $ref: ethernet-phy.yaml#
--
- # only the PHY ID, not every PHY with the c22 fallback
- select:
-   properties:
-@@ -67,11 +64,6 @@ properties:
-     description: |
-       MAC Interface Impedance control to set the programmable output impedance
-       to a maximum value (70 ohms).
--      Note: Specifying an io_impedance_ctrl nvmem cell or one of the
--        ti,min-output-impedance, ti,max-output-impedance properties
--        are mutually exclusive. If more than one is present, an nvmem
--        cell takes precedence over ti,max-output-impedance, which in
--        turn takes precedence over ti,min-output-impedance.
- 
-   tx-fifo-depth:
-     $ref: /schemas/types.yaml#/definitions/uint32
-@@ -133,6 +125,15 @@ properties:
-       Transmitt FIFO depth- see dt-bindings/net/ti-dp83867.h for applicable
-       values.
- 
-+allOf:
-+  - $ref: ethernet-phy.yaml#
-+  - not:
-+      required: [nvmem-cells, "ti,min-output-impedance"]
-+  - not:
-+      required: [nvmem-cells, "ti,max-output-impedance"]
-+  - not:
-+      required: ["ti,min-output-impedance", "ti,max-output-impedance"]
-+
- required:
-   - reg
- 
+ 		phy0: ethernet-phy@1 {
+-			#phy-cells = <1>;
+ 			reg = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_25_NS>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
+index a5bc521ab679..42030547a32d 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revA.dts
+@@ -217,7 +217,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@21 {
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <21>;
+ 			ti,rx-internal-delay = <0x8>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts
+index 3c28130909bc..bad59d7b1d26 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu102-revB.dts
+@@ -19,7 +19,6 @@ &gem3 {
+ 	phy-handle = <&phyc>;
+ 	mdio: mdio {
+ 		phyc: ethernet-phy@c {
+-			#phy-cells = <0x1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <0xc>;
+ 			ti,rx-internal-delay = <0x8>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
+index 32509083e54f..898a9000daea 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revA.dts
+@@ -126,7 +126,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@c {
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <0xc>;
+ 			ti,rx-internal-delay = <0x8>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
+index 96699be8430f..b0a08cf1d03b 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu104-revC.dts
+@@ -131,7 +131,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@c {
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <0xc>;
+ 			ti,rx-internal-delay = <0x8>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
+index 52441e5c8739..58684af4b98c 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu106-revA.dts
+@@ -217,7 +217,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@c {
+-			#phy-cells = <1>;
+ 			reg = <0xc>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			ti,rx-internal-delay = <0x8>;
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts b/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
+index b34e4c93d249..30f97f67e8c8 100644
+--- a/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-zcu111-revA.dts
+@@ -189,7 +189,6 @@ mdio: mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		phy0: ethernet-phy@c {
+-			#phy-cells = <1>;
+ 			compatible = "ethernet-phy-id2000.a231";
+ 			reg = <0xc>;
+ 			ti,rx-internal-delay = <0x8>;
 
 -- 
 2.56.0
