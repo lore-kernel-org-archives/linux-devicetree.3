@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977617;
-	b=Y/UC9Xzyug02scilTNtMhGDA/2mpgbLtLDqLjM5ZqBRvqX/1Ss3LJJPE7HKkqogCosGw
-	 YHmKGOl76YrdKoqk2zDPyFlpgPKpQTwfPU/o3tyFPCieADSNsUtAoolxCw+m5c83zZ3L+
-	 x1G5hVcWskCqloPiO9FoZnIkCOQNAWjVn1Ey87qMz0tRzTsJXFMxCsiLZW80D8vKtqJ7/
-	 oqcwCObR+L/PQJmpkHy226hyJ/9kFeq8EqnzanW0TSXi4jpxXrStRt1bcAqeBfCyfzsi9
-	 mWSg8Y3gtF6jT5aeN62fxiqDqdE6dK9qeEUlo+YEpl1qXq/wY3tYX6XgZRO+U5S4EXw==
+	t=1793977705;
+	b=LQCOetkSvr0MwyB78s+8QHaYJ6oW8YoIflgXcRDdeG+Gy9s75FrgIBOfod9Lb+oE13J9
+	 ublbpWa/Ay1+ZwQRqeYWwb+1++WbjJmWGhctb82m3qhquV6THAE1eTskbAQ3r8tSTQens
+	 Qr3/CVOtiOJVyhtLbVruBMWqDshoGiSgXrlVW2p47sEEA1I6xRlvjgGgHWX1qPBCc7aBb
+	 k/AHFDMkP/IaH6V/9SXCCOrXqsauZPzRiHEpt9MvPr55V4XIKYxUjhM9A+rSFSXaCMBSl
+	 aHBGIT0YF653iiAFtY0LwOJumWY4D/qit4Z/p3+Cdvz8UZEY5J0oufS7vjCIOVpuIuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977617;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=gqJdpxgraavV9cayMwotUN97OO7P7jUb+2s38dDaeHo=;
-	b=33eMxmeW6/Guszm/7g4kxeiYd49H1vIP91d068658HvekUQbclzjxSJYEDUDgjkQX2z5
-	 3NfIvqMx535uZ8DhIrw7NHSYqu4DE1AATshUizfbTqmj5YLPCYrw3mjYHxE7yzK9yBRLH
-	 r3ZOXEQeyETwVPZGhmm8Y2n2w3lvHDZ5MloId8vuKg0FP5KsrNovwFcKwPBNtFNDLKWva
-	 OyuhdoARXmqF/WfmUn6O+AQvLPwc/ADsz7MUNvT0gTO7fiSj/mfeb89QSeKwsL+ptCeTH
-	 WUu3SGWOiqcN82XbxqlWuDh0YsKoVvj82WwQJe2L087AlojQSAAMRiM8pAhTXw/ENTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977705;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Sykp4o/+jigFXiA4+ilYlXp+/rgV6/09mQP79j9S/us=;
+	b=Sd7xSOYi/dRfCsLuJs5bDJA7u45m4A0hKEy5I4w14NikzMnFJgAH09bqFdXYjmTxEjkl
+	 zrdAbPB1V6dLWkcO+DYlYhHB0ZMzCyYGnKNtSt2d+uMBbBLRleGLvdXyXNj3Ed5k8FWnN
+	 PeECP34fJ+SR8QWcMUYPSZySWc2/7Gpt818YBKC22UgUyz+KQtaQH3uV+ECmR+gHtNts+
+	 1EUgrXs+N04dhJEBwN6sTUOQS8RodFWSJGhXQgqnbVPSlFA0hdwXkFNOc41tO9p3YjuoE
+	 RqAlPBfPCrKarOuuOAalWSX/WwrZeOaTQJBJgNQ6RS2PFd/FHMgYDXvSb/XiBJ6ZkMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVwKxxUh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC864606A32C;
-	Fri,  6 Nov 2026 15:06:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC864606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <71aa432f71144f446dba2037ab5664eea3569fdc.camel@crapouillou.net>
-Subject: Re: [PATCH v3 3/5] drm/ingenic: Add a driver for the X1600 display
- controller
-From: Paul Cercueil <paul@crapouillou.net>
-To: Olivier Louvignes <olivier@mgcrea.io>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>, Thomas
- Petazzoni	 <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- 	devicetree@vger.kernel.org, linux-mips@vger.kernel.org, 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E1E606A329;
+	Fri,  6 Nov 2026 15:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVwKxxUh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741CF1F0089F;
+	Fri,  6 Nov 2026 15:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793977704;
+	bh=Sykp4o/+jigFXiA4+ilYlXp+/rgV6/09mQP79j9S/us=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IVwKxxUhudP6RzHQOzDgbAjaH4xylq1CsAsHRSwnkeemBd9LrNTk96sTCoZ0OQFRG
+	 lCe0tZHupUyZ/DJCOM2Ce4zDcIQqqQm/4CavmxGdVTsEeSKqIwKAYU/Gqy/meCssCm
+	 PhJJGdUeKjGjgZGJTmlgzpPFVzTM63+ZhFnm72DIe9zV/x+zCRKdn9MiZXEPG5gXzg
+	 3naESWWBaOkM+TI7clfa7v9FbFReidls9Ow1vxOEjmBpWrAj/FO3kCAH667gyZHwdm
+	 oSC2FU9s5fM9V96o6A9wQnWQlXzFpy8bHTIguBZVPmJ/4lINSP1lZROuW1No/Az6eN
+	 HzN8jiNHe3vFw==
+Date: Fri, 6 Nov 2026 09:08:22 -0600
+From: Rob Herring <robh@kernel.org>
+To: Ping Li <leeonion.muyu@gmail.com>
+Cc: yin.li@oss.qualcomm.com, james.morse@arm.com, ben.horgan@arm.com,
+	sdonthineni@nvidia.com, andre.przywara@arm.com,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Fri, 06 Nov 2026 16:06:50 +0100
-In-Reply-To: <20261106143827.15926-1-olivier@mgcrea.io>
-References: <20261106112000.1612-4-olivier@mgcrea.io>
-	 <0a2e8ea782fa819a547e0a3075303bd74a7fde72.camel@crapouillou.net>
-	 <20261106143827.15926-1-olivier@mgcrea.io>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 0/6] arm-mpam: Add basic device tree support for
+ resctrl
+Message-ID: <20261106150822.GA3193214-robh@kernel.org>
+References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
+ <20261104081302.304667-1-leeonion.muyu@gmail.com>
+ <9d370f12-9e4c-4b80-9d28-ff8085ce3aee@oss.qualcomm.com>
+ <20261105055347.947416-1-leeonion.muyu@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,112 +62,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105055347.947416-1-leeonion.muyu@gmail.com>
 
-Le vendredi 06 novembre 2026 =C3=A0 15:38 +0100, Olivier Louvignes a =C3=A9=
-crit=C2=A0:
-> Hi Paul,
->=20
-> On Fri, Nov 06, 2026 at 02:34:08PM +0100, Paul Cercueil wrote:
-> > > +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
-> >=20
-> > This bothers me a bit, shouldn't it be using 'crtc_state'?
->=20
-> Yes. v4 takes the mode from crtc_state.
->=20
-> > > +	writel(readl(lcd->base + X1600_LCD_ST), lcd->base +
-> > > X1600_LCD_CLR_ST);
-> >=20
-> > Not fond of the writel(readl()) nesting here.
->=20
-> OK, a local in v4, here and in probe.
->=20
-> > > +	writel(val, lcd->base + X1600_LCD_DISP_COM);
-> >=20
-> > This whole block above looks like out of place. Why not do it in
-> > x1600_lcd_encoder_atomic_mode_set()?
-> >=20
-> > Bonus point, you wouldn't need the 'bus_flags' and 'color_order' variab=
-les.
->=20
-> The controller only takes register writes while its clock runs, and the
-> clock is off when atomic_mode_set() is called: on a full modeset the
-> CRTC's atomic_disable() has stopped it, and atomic_enable() starts it
-> again afterwards. I checked it on the R1: with the clock gated (CLKGR0
-> bit 23), every register reads 0x80, and a write to TFT_HSYNC is lost,
-> the register still holds the old value once the clock is back.
->=20
-> So moving the block means starting the clock in atomic_mode_set() too,
-> or leaving it running while the CRTC is off. I'd rather keep the writes
-> in atomic_enable(), next to clk_prepare_enable(), and look the bus
-> format up in the new connector state there, so the two fields go
-> anyway. Would that work for you?
+On Thu, Nov 05, 2026 at 01:53:47PM +0800, Ping Li wrote:
+> Hi Yin,
+> 
+> Sure. Our memory controller MSC is described as a top-level node.
+> The MPAM register window is mapped independently in the SoC (the
+> component sits on the DDR egress path rather than being a sub-block
+> of a memory-controller DT node), so the node is a direct child of
+> the root:
+> 
+> 	ddr_msc: msc@2238000 {
+> 		compatible = "<vendor>,<soc>-ddr-qos",
+> 			     "arm,mpam-memory-controller-msc",
+> 			     "arm,mpam-msc";
+> 		reg = <0x0 0x02238000 0x0 0x1000>;
+> 		arm,not-ready-us = <10>;
+> 	};
+> 
+> The first compatible in the list is for our platform glue; I have
+> replaced it with a placeholder here since it is not relevant to the
+> binding discussion.
+> 
+> Notes on the properties, in case they matter for the binding:
+> 
+> - reg: the MPAM register window. Only a subset of the architectural
+>   register space is implemented, so the size is the truncated window.
+> - single RIS: the component reports HAS_RIS=0, so there are no
+>   ris@N child nodes.
+> - no interrupts: the component has no MPAM ESR block, so there is
+>   no interrupts property.
+> - arm,not-ready-us: 10.
+> 
+> The verified probe path: the node matches via "arm,mpam-msc", and
+> patch 6/8 in v3 classifies it as MPAM_CLASS_MEMORY and treats it as
+> accessible from all CPUs, which is exactly the behavior we need.
+> 
+> One question in return: with the node being a direct child of the
+> root rather than a child of a memory-controller node, is that a
+> form the binding should cover? If the binding expects the MSC to
+> always be a sub-node of a memory controller, we would need the
+> top-level form to be allowed as well.
 
-Is there really a point in enabling the clock on-demand? Why not keep it en=
-abled
-always? It makes the driver more complex and I don't see a real benefit.
+This would be why we're not upstreaming the binding without users. We 
+need actual h/w to validate the binding works.
 
->=20
-> > > +	if (pixels > X1600_LCD_MAX_PIXELS)
-> > > +		return MODE_MEM;
-> >=20
-> > The max resolution is 1280x720 so you should check mode->hdisplay / mod=
-e-
-> > > vdisplay individually. Otherwise bogus resolutions like 1920x480 woul=
-d be
-> > accepted.
->=20
-> Right for 1920x480, but 720 per side would refuse the R1's own panel,
-> which is 480x800 in portrait. The manual only says "frame size up to
-> 720p". v4 can bound each side by 1280 and keep the 1280x720 pixel count,
-> would that do?
-
-Ok. Then I guess keep the current check.
-
-> > > +		spin_lock(&lcd->drm.event_lock);
-> >=20
-> > spin_lock() can sleep with CONFIG_PREEMPT_RT so it looks wrong in an IR=
-Q
-> > handler. I *think* you don't need to lock it here anyway, as the spinlo=
-ck is
-> > locked in other places using spin_lock_irq().
->=20
-> On PREEMPT_RT the handler doesn't run in hard IRQ context:
-> force_irqthreads() is always true there, and the IRQ is requested
-> without IRQF_NO_THREAD, so the handler runs in a thread, where a
-> spinlock_t is fine (Documentation/locking/locktypes.rst).
->=20
-> And it needs the lock: drm_crtc_send_vblank_event() wants the caller to
-> hold event_lock, and lcd->event is shared with queue_event() and
-> atomic_disable(). Their spin_lock_irq() only keeps the handler off the
-> CPU they run on. armada, omapdrm and malidp take event_lock the same way
-> in their handlers. So I'd keep it.
-
-Ok.
-
-> > You enable it later in the probe, so you could just use
-> > devm_clk_get_enabled()
-> > here.
->=20
-> Probe only enables it to stop what the boot loader left running, and
-> disables it again before drm_dev_register(). From then on atomic_enable()
-> and atomic_disable() gate it. devm_clk_get_enabled() would keep it
-> running for as long as the driver is bound, display off included.
-
-Yeah, I forgot that the devm action would cause a clk_disable_unprepare() t=
-o be
-called on unprobe, which wouldn't work here. So ignore that.
-
-As for the clock running for as long as the driver is bound, I don't think
-that's much of a problem.
-
-> > I saw a patch from Maxime replacing these - you should be calling
-> > drm_mode_config_create_initial_state(drm) here (and handle the error).
->=20
-> Will do, it's in drm-misc-next already.
->=20
-> I'll leave v3 a few more days for the drm-misc side before sending v4.
-
-Great.
-
-Cheers,
--Paul
+Rob
