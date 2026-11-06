@@ -1,62 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965342;
-	b=WWDIfE/6BbpaJOWdd9UuTMawqbge2n91LDWiZr3+0xmzKAjDdMMCGGejQ7vnY/EOL7Nl
-	 RE8KNBCKObLdIj8G2Q0A16en+bsehzHCl3M8K5wzTTbu2lyFYzMyUSVigHkV4oLy5IGSG
-	 /vYVTP6Rpghl0KWdoplUZ0/4br+V/duYyxV4CleXnKC3hAoVwPUqgUfmaZIzkAAVGgVqE
-	 juAwlMeGK79hklWOTnG6L1ymi+mu/nwrR2dT/SrauI3YhnWUxn7wGq4QlMKUWFbZ7CPBQ
-	 T/qtY5TffVUnACnFZbVCuNClTst2wlZ/bOiehk4auRjNJ87pHGqaGF3daHOI7NiRdmQ==
+	t=1793965385;
+	b=HzSYH8ybabmqtCIXfapMnP8fnvJMWcewL5lJWSBmznlbZgUOqCoupjrBujg30niJOaAM
+	 EGD9YDaN230YSVZ9v8eChPAjZboFXsmjLEIxWAXQvY/gAbCggChu8HKTZ0tWEB5rBYP+A
+	 Q6tAPLDKBQextm4TX+ps/aRDNB1r+VO65DVKp7+oyYCnmeYmFrtzzmTUO+LNV8ZOUmTsc
+	 V5soVWNQC28oDCgP6uecHNUg6K/pnAX27EO3r7zNIq4LhabTIgR1qQs+SMNuncEtcKubK
+	 2ItiAv8TVZ2MjWmca01Qub0huu3csSvk6SnseWxoLkU26ehsisEghP8xL8/XxNEVqaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965385;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=ERoJU+YSkcdzSJp45/76zizxO7Q36Iy9/z1bkXjHy9E=;
-	b=uWulblgb+W4o8Y26Of/yKFx0twXc3AxTGj/DEglYmcMBGYNILHss7GG5AgxQER+t4OGq
-	 1UvX8ZFzXSr4y1H9Tx+W307YZu/NOzHtk0I/7U5lOtBQ2LswiWvB11IaKvvDdXi+fupXy
-	 YbuN4LExbiHYuz67gAiX9d5/goPq0AQg6yxBvNPeOXAzH0wYptimPevms2k7S4Py2eKVm
-	 I3HAtxtb/6i2vhhylfOUHLR9itNiVyP9LW1MVirjcL+Hem8Ca93S1ZKO0vZcuYkuaEQof
-	 +4fswR6HRjoOGYLfGii4JwXrhufTc37Mf7WYTEHzsFnxB4TXO4mUdYVaM7gWHvaZEdA==
+	bh=9q3QyFQZwiKpfJPvHT/cCB0sso+MEjau6PRiMe61Luc=;
+	b=1try/8qaXl/GtIhyv5XSpWNf7A2yXc8t86oq73VFx4ot5wZfgLnEysUtvYQeP0eNvGje
+	 HUuXw2qtdtz7juizC3SOTsATZMycakM+vMnlp4QRI89Qn0unLSSG8AfMIIF1VNKDzk7/o
+	 a2SKMBKJnBmTxIxHJD3E9NAZOeFNGqVAe8jBpZ4gBhXUAvmOArWFqapZ/IUp/ekj9ydE/
+	 W4xRJ4Kx/MkfO6GFO9PKYUY3wMcoKsmeNVIQ8WvUG6ohJ4kBybuz0X32LtPomGX+FAorr
+	 61QUUtL+Tg1+S8K5ydNNWNWNBVudwfOzjLi/QPYRjDInDxpyruHuZAce2guGy+VYwdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Cc3Ah1xy;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=JcfmiEnL;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B40D9606C7CA;
-	Fri,  6 Nov 2026 11:42:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40D9606C7CA
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8FA7A606A907;
+	Fri,  6 Nov 2026 11:43:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FA7A606A907
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=Cc3Ah1xy
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=JcfmiEnL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=ERoJU+YSkcdzSJp45/76zizxO7Q36Iy9/z
-	1bkXjHy9E=; b=Cc3Ah1xyC5wUY+KjmQcDaPWIC7V7LnzkxLxnc7Il87Nn+l/Ylz
-	rkTqHT8vxSTgASJPxjRc98mOat7rn2d5Byg2c4Emz19PiMW18/x0+8AtchwBYtVQ
-	IUUJ2s3/XU1BtFs/9W39Qu6iLxzwAtX7BqJneVIX1yjvSOUrO1CCSt5Rc=
+	Content-Transfer-Encoding; bh=9q3QyFQZwiKpfJPvHT/cCB0sso+MEjau6P
+	RiMe61Luc=; b=JcfmiEnL4+6zk6//qQbk19P/vxyURTjQpII11GYlbmHgBEt73Y
+	HmBD5ufatsvNFRqtLUUnlWjfurRELpbeGy19DEmoitAGpHSa4e/cuvDehVzHQpFj
+	KLJ6GrqamtbhbnGHehps0ukcwrDW+5fUxHSZhNeMLUxmCliUAj2V1hh7k=
 Received: from xuqianhui.tail7a2807.ts.net (unknown [114.214.184.75])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn2S0Qve1q3DyPAA--.869S3;
-	Fri, 06 Nov 2026 19:42:13 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBn3DA8ve1qfj2PAA--.533S3;
+	Fri, 06 Nov 2026 19:42:57 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: gregkh@linuxfoundation.org,
-	Thinh.Nguyen@synopsys.com,
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org
-Cc: linux-usb@vger.kernel.org,
+Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v8 1/3] dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS bus
-Date: Fri,  6 Nov 2026 19:42:06 +0800
-Message-ID: <20261106114208.987284-2-xiaqinghuan@mail.ustc.edu.cn>
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH v8 1/2] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
+Date: Fri,  6 Nov 2026 19:42:51 +0800
+Message-ID: <20261106114252.988023-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106114208.987284-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261106114208.987284-1-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261106114252.988023-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -67,204 +66,172 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgBn2S0Qve1q3DyPAA--.869S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3ArW8Jr4xCryfXr45KF1rWFg_yoW7Zw4kpF
-	Zxtan3JFWkKryfZ397A3W8uwn5Kws8JrnrJr18Ar1UAan8Gr1rXw43KwnIqayUCr97Za4Y
-	9rykW3WkXa17CaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+X-CM-TRANSID:3pYKCgBn3DA8ve1qfj2PAA--.533S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrCw17pa
+	98GrsFkFsYkF1xG3yxK3Wfu3W3KF1rArn5Ar1UC34rGan0qFnaqwnIkw15Z3WFyrW8GFW2
+	yFyDZF47JF1rZrJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
 	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
 	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
 	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
 	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_GFv_Wryl42xK82
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82
 	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
 	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI
-	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
-	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYf-PUUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAA2so
+	IF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUghIDDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREDB2rs2VhhrAA6sk
 
-Two connectors can share the High Speed D+/D- pair of one DWC3 controller,
-with a GPIO selecting which of them is connected, while their Super Speed
-lanes stay separate.
+The WL2868C is an I2C-controlled camera power management IC from Will
+Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are fed
+from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and LDO4 share
+VIN34, and LDO5 to LDO7 each have their own input, covering 1.504 V to
+3.544 V. All outputs are programmable in 8 mV steps and are gated by
+per-output enable bits with a chip-wide SYS_EN master. The chip also
+exposes an optional active-low RST_N input.
 
-Describe that in snps,dwc3-common.yaml:
-
-  - "port-select-gpios" selects which connector drives the shared bus;
-  - each connector is a port of the controller's "ports" node, "port@0"
-    and "port@2", with one endpoint per port, so that "ports" keeps
-    describing the controller's own buses as the graph bindings expect
-    (port@1 is the Super Speed lane of the PHY, described by
-    snps,dwc3.yaml);
-  - the endpoint of a connector carries "mux-state", the level of the
-    port-select GPIO that reaches it, and "usb-role-switch", declaring
-    that this connector has its own role-switch input.
-
-The controller node must carry "usb-role-switch" as well, and dr_mode is
-required to be "otg": dwc3_get_dr_mode() otherwise forces dr_mode back to
-peripheral, dwc3_get_extcon() skips the role-switch branch and
-dwc3_drd_init() never sets the mux up, so a device tree that passed the
-schema would not describe a device tree the driver can act on.
-
-The two connectors must claim opposite levels of the GPIO, which is
-expressed as one choice between the two assignments, and endpoint names
-use the pattern of graph.yaml so that an unnumbered or third endpoint is
-rejected instead of escaping "unevaluatedProperties: false".  When
-port-select-gpios is absent the endpoint properties are rejected, so
-existing single-connector descriptions are unaffected.
+VIN7 and VSYS are both inputs of the internal control logic, which is
+powered from the higher of the two voltages, so a device tree has to
+describe at least one of them. The remaining inputs only feed LDOs, so
+they stay optional: an input can be left unconnected when the outputs it
+feeds are unused on a given board.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../bindings/usb/snps,dwc3-common.yaml        | 116 +++++++++++++++++-
- 1 file changed, 114 insertions(+), 2 deletions(-)
+ .../bindings/regulator/willsemi,wl2868c.yaml  | 104 ++++++++++++++++++
+ MAINTAINERS                                   |   7 ++
+ 2 files changed, 111 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
 
-diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-index 6c0b8b6538..0be2a6e83e 100644
---- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-+++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-@@ -13,6 +13,40 @@ description:
-   Defines the properties of the DWC3 core as being embedded in either an
-   vendor-specific implementation or as a standalone component.
- 
-+$defs:
-+  hs-endpoint:
-+    $ref: /schemas/graph.yaml#/$defs/endpoint-base
-+    unevaluatedProperties: false
+diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+new file mode 100644
+index 0000000000..df7990d0d8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+@@ -0,0 +1,104 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+    properties:
-+      usb-role-switch:
-+        type: boolean
-+        description:
-+          This connector endpoint has its own USB role switch. The switch is
-+          registered against this endpoint and looked up with
-+          usb_role_switch_at_endpoint().
++title: Will Semiconductor WL2868C camera power management IC
 +
-+      mux-state:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [0, 1]
-+        description:
-+          Logical level of the port-select GPIO which connects this
-+          connector to the shared High Speed data bus.  The two connectors of
-+          one controller must use different levels; the driver rejects a
-+          device tree where two connectors claim the same one.
++maintainers:
++  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 +
-+    dependentRequired:
-+      usb-role-switch: [mux-state]
-+      mux-state: [usb-role-switch]
++description:
++  The WL2868C is a camera power management IC with seven programmable LDOs.
++  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
++  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
++  3.544 V. All outputs are programmable in 8 mV steps.
 +
-+  hs-port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
++  VIN7 and VSYS feed the internal control logic, which is powered from the
++  higher of the two, so at least one of them has to be connected. The other
++  inputs only feed LDOs, so an input may be left unconnected on a board
++  that does not use the outputs it feeds, which is why they are not
++  mandatory.
++
++properties:
++  compatible:
++    const: willsemi,wl2868c
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: Active-low RST_N input.
++
++  vin12-supply:
++    description: Input supply for LDO1 and LDO2.
++
++  vin34-supply:
++    description: Input supply for LDO3 and LDO4.
++
++  vin5-supply:
++    description: Input supply for LDO5.
++
++  vin6-supply:
++    description: Input supply for LDO6.
++
++  vin7-supply:
++    description:
++      Input supply for LDO7 and one of the two supplies of the internal
++      control logic.
++
++  vsys-supply:
++    description:
++      System supply, the other supply of the internal control logic. The
++      control logic is powered from the higher of VIN7 and VSYS.
++
++  regulators:
++    type: object
++    additionalProperties: false
 +
 +    patternProperties:
-+      '^endpoint(@[0-9a-f]+)?$':
-+        $ref: '#/$defs/hs-endpoint'
++      "^ldo[1-7]$":
++        type: object
++        $ref: regulator.yaml#
++        unevaluatedProperties: false
 +
- allOf:
-   - $ref: usb-drd.yaml#
-   - if:
-@@ -26,8 +60,87 @@ allOf:
-       $ref: usb.yaml#
-     else:
-       $ref: usb-xhci.yaml#
-+  - if:
-+      required: [port-select-gpios]
-+    then:
-+      # The mux path is only taken when the controller itself carries
-+      # "usb-role-switch": dwc3_get_dr_mode() forces dr_mode back to
-+      # peripheral, dwc3_get_extcon() skips the role-switch branch and
-+      # dwc3_drd_init() never calls dwc3_role_mux_init() without it.
-+      required: [dr_mode, ports, usb-role-switch]
-+      properties:
-+        dr_mode:
-+          const: otg
-+        ports:
-+          # Each connector is one port with a single endpoint: the mux-state
-+          # property on that endpoint says which level of the port-select GPIO
-+          # reaches it, so two connectors are two ports, not two endpoints of
-+          # one port.  port@1 is the SuperSpeed lane of the PHY and is already
-+          # described by snps,dwc3.yaml, so the second High Speed connector
-+          # lands on port@2.
-+          required: [port@0, port@2]
-+          properties:
-+            port@0:
-+              $ref: '#/$defs/hs-port'
-+            port@2:
-+              $ref: '#/$defs/hs-port'
++required:
++  - compatible
++  - reg
++  - regulators
 +
-+          # The two connectors must claim opposite levels of the port-select
-+          # GPIO; requiring both ports in every branch is what makes the two
-+          # cases mutually exclusive for oneOf.
-+          oneOf:
-+            - required: [port@0, port@2]
-+              properties:
-+                port@0:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 0
-+                port@2:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 1
-+            - required: [port@0, port@2]
-+              properties:
-+                port@0:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 1
-+                port@2:
-+                  $ref: '#/$defs/hs-port'
-+                  properties:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 0
-+    else:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              patternProperties:
-+                '^endpoint(@[0-9a-f]+)?$':
-+                  properties:
-+                    usb-role-switch: false
-+                    mux-state: false
- 
- properties:
-+  port-select-gpios:
-+    maxItems: 1
-+    description:
-+      Selects which of the two connectors drives the controller's shared High
-+      Speed data bus.  Each connector is described by "port@0" or "port@2",
-+      and the endpoint of that port carries the connector's own role-switch
-+      input and the "mux-state" level selecting it.
++anyOf:
++  - required:
++      - vin7-supply
++  - required:
++      - vsys-supply
 +
-   extcon:
-     maxItems: 1
-     deprecated: true
-@@ -411,7 +524,7 @@ properties:
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@2f {
++            compatible = "willsemi,wl2868c";
++            reg = <0x2f>;
++            vsys-supply = <&vsys_reg>;
++
++            regulators {
++                ldo1 {
++                    regulator-max-microvolt = <1128000>;
++                    regulator-min-microvolt = <1128000>;
++                };
++            };
++        };
++    };
++
++    vsys_reg: regulator-vsys {
++        compatible = "regulator-fixed";
++        regulator-name = "vsys";
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fe23913b1e..08cfa3db0e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -30180,6 +30180,13 @@ L:	linux-input@vger.kernel.org
+ S:	Maintained
+ F:	drivers/hid/hid-wiimote*
  
-     properties:
-       port@0:
--        $ref: /schemas/graph.yaml#/properties/port
-+        $ref: '#/$defs/hs-port'
-         description: High Speed (HS) data bus.
- 
-       port@1:
-@@ -429,4 +542,3 @@ required:
- 
- additionalProperties: true
- ...
--
++WILLSEMI WL2868C CAMERA PMIC
++M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++L:	linux-kernel@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
++F:	drivers/regulator/wl2868c-regulator.c
++
+ WILOCITY WIL6210 WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+ S:	Orphan
 
