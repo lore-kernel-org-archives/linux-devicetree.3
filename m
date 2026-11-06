@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793940648;
-	b=zM2YPIJV6eyNrcSF5gf4mBtW+h3MzHDZ6l760v/p5CrP84p4i19BRnqD+g6N5Q6SeXFJ
-	 pltPcmUbqi6P/Jc2/gub8FOmyKPpbmi+bpu544b/QlPxrsG9aeXpCZu7Tspf4aBl9Aqnx
-	 K/2sjHFLLrs0GZbWnG8pv9ob5QkX9jHcaAgmN6Zr9JhTo/kWquVwdgYuQd7n+tx35IpsP
-	 bD6qX2G5PiAy0OS+oBoS1+zagimn9irfVZz1f9v7v7SyaBzKtkJqdwBaEAtxsyatdQnxw
-	 HeBmR4vmiztfRZsadQbvdrpLhjwBEV5HKDQiynn0cS/+zVOTzeh8efjWByNCbiqn1hA==
+	t=1793942221;
+	b=5n3eBsS6zRHNqLwZusJ048f1ODigzObbKD9JO3W31DrnGfoAHq7Utd/wttfvtyW+NvPQ
+	 nZZSywD0Ix17aF8/LYwp4ZKUGPTItLrsQwvY2fINFQ6TMqORkKezk6uYlXCSBszQe54Za
+	 V0xmI9i0vE5FKav34vM9pUYgQTYKaAvrRtlUSj0YRQYFlRqGt1eGsUiKflj4TFzgv9Zmv
+	 Y9/FfTIcavTYoYXy+ptwWt3EgwmJsttDMkw/Wi9Ijue3PUC6n0R5Vcud2/Z6x2WIkcks9
+	 D0RswZDe5lOpMn9Ye4jxwLDSyngTicZJUwVFKymmokoclqqys9SRFUxxh8XJBSNJ6lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793940648;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793942221;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
 	 User-Agent:MIME-Version;
-	bh=kxFpMtQbzKIRxEyj/jc+g0b9VDx9hp1+9az4E+nbn3U=;
-	b=KBLCCYrnuYa4Tl507KU92G0kbGtwg3UxwFGRrwGgU2ix5x5e69SzdKdd/ZKxCGpkk9YR
-	 YU32pMkeSaeY1LApRL+ZYamBnx/ndyta938bdMsbWvVTPsK+V7GlNNpNRs4xp+aF2HBgz
-	 WOBGJZQu5C/1950ioLGcT+69kH4R1J1ppiJC+Frzw0CGzzHEiP5C2XvL0jEUt9RxRuWOu
-	 s99YxhhaArt3kww81TMaRLfbaJVswaH8bnVQZjxEJek8bdXBy4HgUS2GoMCInr3AhNOlr
-	 mC6L5pymxhJAV0UCv+6aOAfnVZo+wWtQdujjScPE7NWYOnvL9977/gcgmtx6bAnQVSA==
+	bh=7nQnjeigU0D/Ve61Bm64NyUI5X1+1HOvlN3FLT7eQws=;
+	b=LUdsP8rKd1xP8oEpqWqXiXqBqT9aJaOM5bixpNF6VcwS8EMBV7Bafb5TQiO9BNC/J5m6
+	 ztzL2gVIm3wT+el5ZI6PxyzMcR+3caHKR/zgZwf++l1RkdM4R3Uli34Lrd/bhGZ4OkNie
+	 0em6eL0iPwA7RFDuvz8laeavVP3Htbqu/ypU/2IVFCSfMOAFXDerqB3GqREXBvtxrDTOw
+	 S6f89BBkL2xFmw5qgqVPWS6+iRRHmHODzD71/J7Hp++HepE1r8+U5ueYgPSKczr9hndPP
+	 n9kHbwAbCYyAeyhPbnbWF8Dln80aTMh6z8W9ICttNlg0P450/E4uKYMjUgZV7a6DHWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=codeconstruct.com.au;
 	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=VdVV4V5Y;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=G64l78gU;
 	arc=none smtp.remote-ip=203.29.241.158
 Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B91606A326;
-	Fri,  6 Nov 2026 04:50:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B91606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29DF606A31B;
+	Fri,  6 Nov 2026 05:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C29DF606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=VdVV4V5Y
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=G64l78gU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793940645;
-	bh=kxFpMtQbzKIRxEyj/jc+g0b9VDx9hp1+9az4E+nbn3U=;
+	d=codeconstruct.com.au; s=2022a; t=1793942218;
+	bh=7nQnjeigU0D/Ve61Bm64NyUI5X1+1HOvlN3FLT7eQws=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VdVV4V5YyBeklNYMLlTDcpWHCtmgoy7lcLNQr36qF84kCLsoNnb/nc/Hd9v1lTf/W
-	 o7qbp9x44oun7kbQvUe1AOhr/28CoD/9ZLPqBuhRng+BHIx/JHeb6ciGFQoJxTeeJ5
-	 6uIXhQua2Lqsdmq12APk08T5vkuCOZib9/0JV6nZ0DSnQMto9gc1Wu0T8aXW2IVjyD
-	 4vXyYoPEoBWLrCr9l6ecnygTl2IFeqaZfamMw5da2cGnJiDGnq7Jc5yqLvuq7W4oRs
-	 RsM0t4sks6ZqXJ8i6dPi0oTJP+hNR7qCT98HzKgUy21OVHfLmENgNSWZsQUDj3efHO
-	 AmDX4/IYAwGBw==
+	b=G64l78gUR0IAlLTqhtV55R1Lb0orlCMZJq0U09Smi0VvQzm6H0sg0MuO+0ZDbw0Bh
+	 68LLXZ6W9vlek5PSzEXG4YuQERv7CSRERiZnqQmyn5dAVrRVQeaefh9e4zYqJDzMgW
+	 Mopav8bnBAWo71A7hDm0/39v4Wmdp94SWcYIuCWpb78GyL2NXJ2lrSan0fl0D7GPBg
+	 l5bbr/nRNFN2gRPR2s58wf0Y7R9u0gr7kara2GOhoGRN0pRAh66T2Eo4LBsXnG/w2p
+	 7pLFDrkzQL5xbg4Z9urIbaGcaUwPSGFrQF12jZxjcCbOvOrUqsrXmxRCKZ53be2KMp
+	 6Hh5+nWNR8GnQ==
 Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 1C32964952;
-	Fri,  6 Nov 2026 12:50:45 +0800 (AWST)
-Message-ID: <7eda59ffde46142602c6d8e425fd4097872ee8c4.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v4 3/3] ARM: dts: aspeed: add Intel JNCRP BMC
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 773437127A;
+	Fri,  6 Nov 2026 13:16:57 +0800 (AWST)
+Message-ID: <4d149414902c2e7d2d8cbfb2cf741f6e6b21add0.camel@codeconstruct.com.au>
+Subject: Re: [PATCH] ARM: dts: aspeed: yosemite4: Remove Floating Falls
+ board nodes
 From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>
+To: eric.yang.wiwynn@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel
+ Stanley <joel@jms.id.au>,  Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>, patrick@stwcx.xyz
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	maciej.lawniczak@intel.com, Andrew Lunn <andrew@lunn.ch>
-Date: Fri, 06 Nov 2026 15:20:44 +1030
-In-Reply-To: <ffb7b028f317a3a2cd1a98b8f454b46a706cee42.1792749922.git.dawid.glazik@linux.intel.com>
-References: <cover.1792749922.git.dawid.glazik@linux.intel.com>
-	 <ffb7b028f317a3a2cd1a98b8f454b46a706cee42.1792749922.git.dawid.glazik@linux.intel.com>
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, Sean He
+	 <sean.he.wiwynn@gmail.com>
+Date: Fri, 06 Nov 2026 15:46:57 +1030
+In-Reply-To: <20261105-yv4-remove-ff-nodes-v1-1-aa707a9577b7@gmail.com>
+References: <20261105-yv4-remove-ff-nodes-v1-1-aa707a9577b7@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -72,76 +73,48 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Mon, 2026-10-26 at 17:40 +0100, Dawid Glazik wrote:
-> Add the initial AST2600 device tree for the Intel JNCRP BMC platform.
-
-Can you please provide more information about the platform design and
-its purpose?
+On Thu, 2026-11-05 at 09:49 +0000, Eric Yang via B4 Relay wrote:
+> From: Sean He <sean.he.wiwynn@gmail.com>
 >=20
-> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> ---
-> v4:
-> =C2=A0 - Rebased onto aspeed/arm/dt of bmc/linux.git, no other changes
-> v3:
-> =C2=A0 - Sorted nodes alphabetically
-> =C2=A0 - Sorted properties per dts-coding-style
-> =C2=A0 - Removed lpc-snoop label
-> =C2=A0 - Removed &i3c_global since it's enabled by default
-> =C2=A0 - Added &kcs3 and replaced flash layout with 128MB one
-> =C2=A0 - Restored Reviewed-by from Andrew Lunn, dropped by mistake in v2
-> v2:
-> =C2=A0 - Reviewed-by: Andrew Lunn for nodes: &mdio1, &mac1
-> =C2=A0 - Replace bootargs console=3DttyS4,115200n8 with stdout-path =3D &=
-uart5
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0.../dts/aspeed/aspeed-bmc-intel-jncrp.dts=C2=A0=C2=A0=C2=A0=C2=A0 |=
- 276 ++++++++++++++++++
-> =C2=A02 files changed, 277 insertions(+)
-> =C2=A0create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.=
-dts
+> The Floating Falls (FF) board carries a pca9537 GPIO expander at address
+> 0x49 and a FRU EEPROM at address 0x50 on each slot I2C bus.=C2=A0
 >=20
-> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed=
-/Makefile
-> index 1e4154f12228..5e685a625883 100644
-> --- a/arch/arm/boot/dts/aspeed/Makefile
-> +++ b/arch/arm/boot/dts/aspeed/Makefile
-> @@ -58,6 +58,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
-> =C2=A0	aspeed-bmc-ibm-sbp1.dtb \
-> =C2=A0	aspeed-bmc-ibm-system1.dtb \
-> =C2=A0	aspeed-bmc-intel-avcrp.dtb \
-> +	aspeed-bmc-intel-jncrp.dtb \
-> =C2=A0	aspeed-bmc-intel-s2600wf.dtb \
-> =C2=A0	aspeed-bmc-inspur-fp5280g2.dtb \
-> =C2=A0	aspeed-bmc-inspur-nf5280m6.dtb \
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts b/arch/a=
-rm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
-> new file mode 100644
-> index 000000000000..e66ea7f00fed
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
-> @@ -0,0 +1,276 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +// Copyright 2025 Intel Corporation
-> +
-> +/dts-v1/;
-> +
-> +#include "aspeed-g6.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +	compatible =3D "intel,jncrp-bmc", "aspeed,ast2600";
-> +	model =3D "Intel JNCRP BMC";
-> +
-> +	aliases {
-> +		serial4 =3D &uart5;
-> +	};
-> +
-> +	chosen {
-> +		bootargs =3D "earlycon";
 
-Please remove bootargs here, earlycon is for debugging.
+So the expander and EEPROM are on a pluggable board?
+
+> FF was
+> planned in the early Yosemite 4 design but has not been used since the
+> DVT stage,
+>=20
+
+That indicates they were used at some point, and the design has
+evolved. Which "stage" does the devicetree currently represent?
+
+Have you seen this discussion:
+
+https://lore.kernel.org/all/d7794f74b26bbc1ee0a70e39c5671acc018f80eb.camel@=
+codeconstruct.com.au/
+
+>  so these addresses never acknowledge. The pca953x driver
+> fails to probe all eight pca9537 nodes on every boot, and the at24
+> driver does not bind to the eight EEPROM nodes either. Remove the nodes
+> for both devices.
+>=20
+> Signed-off-by: Sean He <sean.he.wiwynn@gmail.com>
+> Signed-off-by: Eric Yang <eric.yang.wiwynn@gmail.com>
+> ---
+> The changelog was drafted with an AI assistant (Claude Code) and
+> reviewed by the submitter.
+>=20
+> Tested on two Yosemite 4 BMCs, baseline vs patched image: the eight
+> pca9537 nodes and the sixteen 0x49/0x50 slot-bus clients are gone, while
+> the 0x51/0x54 clients, gpio chips and FRU objects are unchanged.
+> CHECK_DTBS=3Dy W=3D1 shows no new warnings and the DTB diff is exactly th=
+e
+> sixteen removed nodes.
+
+This kind of verification isn't terribly useful? Are we trying to prove
+that dtc has correctly translated the dts? This reads like it's AI
+fluff and is better left out.
 
 Andrew
