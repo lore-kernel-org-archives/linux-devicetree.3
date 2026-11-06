@@ -1,112 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973359;
-	b=3f/jucQ1IzndzMNrFJhViVdpp+mP4SUeJ2YxDJSmy44a84wDGHegRcj17A4M4Lt829YC
-	 EJUjo5VqcBkJeQdqmLwsE7znGr8w3Tg+L3qbs+ZRTuFY7SJ35Cy8PQ40Q7DahOcOCSDMM
-	 Vyg7rKhLjOXdg5qS7n7E/AvnglbcrYQb9rN0BbNVk85CN2ZP3L4ox6WJ/hGCH+sDyVwEa
-	 ltVEgv69AZHVtyz1MYxTsQsXmyZwRd3kibsuKN4yZkFhnHuOWnDSDoMvH92IvSI8Ybz8l
-	 Xf999a/UuicGj3ya4ActVtz5GRKylSWZ1xaFHDkmcFfk8gLf/TuNjZekmBKg62HyUUg==
+	t=1793973382;
+	b=z0lN3seiw5n7ECIze/ISTYqXqIjNFxfFTmVbCk2OfS8Wkp0NPxYyVODDaqm8pr+KSVXU
+	 ucMw/hW83/FnTTZKwBky1qbGex1nK6sqrgAb7I3gFR3aUzyEnMVWUnh8omvAK0OuJ8Ou/
+	 VNd55lYf7dH1QOBCMM3xMA3azLnY8tkSSHvhSrWnxr1Xi91xcTb+qjier5i8fmV6brK2O
+	 unLA/eRRKHDItTNkqRTsRgXXzXKxjn3cCuBnGdpXOvD2Rq1rELcriayguuqQhhtSSUROV
+	 afZP8Wl25Zsfk59PtfKikLP5e9Dep4h3L8oaCURLBIhxF/vOad12Ucsg25F8hS+y3pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973359;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=zZrkiifivvXgKAhzIe+nSCf+/l9FZzZvEX7NTROoNwU=;
-	b=vTCupBwuZ8mzwcHc6InGWwKyZcNMCudl1/3eoM1hNvJuQ3zQ/Vr0+Um+cq6zL0+09AJO
-	 ETPnJN9fjhp8IU0NFhnNvoDMz7AndgoYqNyDXeGMv7/+bUWp36Yl/tbh8k6Pc7EKbFMU0
-	 cN/1K9HHnehm6weCMlio2CnRfKf8haiBIoz1cNOh9grp6HTH5yXAgq62tz6y1sxHieiZJ
-	 +k7rOcDTmchICJn0m2cKEyWYZmFwtinuJDKsPDbXiaXpSb2zKkEDdVOhaBhM3BbDoFZkP
-	 FVArJ6H/KRPRrMKtDVIA9c7dtUA0N62Yb7Xa5aDg/3tx9PZR9bMhbysQ0504oXg0vQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793973382;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0tuVHt6IugmTLSqrR8kmpMpjcLPQlDkTodDmg4T/FfU=;
+	b=dAFR17BuhTxoUpucVB7g969/NMBAgG5L4ICzwtSd1K/aC2aXV17GYJW6v/5lfE8wUT38
+	 CQYJbvewJg0YbDW4iq6v4ZrwLNna3gjoN1gOnnGGGMMwYzJ7HVy0EXLFFMbTJBUACRvvt
+	 joLaWWiPmLgai/V9o7lfrdEaHcB07viAjvqG16QYi540JazOP9mz/c/7SiScUUM3kdLnp
+	 kH2ySaEsMpI95zTuE7dSPoOlwY8Xe2EK8rNjpyR5WO9hUaBF2FNJZDtuDk4KFkkXe9fCS
+	 8ZjuZ595WIBtu0IgKVjRUmrhxgGTxrBVNkwL1mM8WjwPJHJ3mjoZP2MIALleiGIJ5ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=US2nmvah;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L8KV8Xf6;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAl0WPlB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C5A606D801
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 13:55:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C5A606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E06606D817;
+	Fri,  6 Nov 2026 13:56:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=US2nmvah;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L8KV8Xf6
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6DoX3e557995
-	for <devicetree@vger.kernel.org>; Fri, 6 Nov 2026 13:55:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zZrkiifivvXgKAhzIe+nSCf+/l9FZzZvEX7NTROoNwU=; b=US2nmvah1yJQhPOR
-	tKx9LUKcM/vHdZzQt0Phcfi/T3pbV+zRYzwXi0q5dvCA6MAKy3DETyd/S9viuPZk
-	idcXvg2enG5VSWdwNK22WeaSi28jLTvsDVjQZRt2v+A6MCAswGiBOkHqP6UH42Tk
-	+3eFXZxFY6mKE9lPUd9sn2e9h5kymEf2vpIq/H0H51rU1sStrMoWxaOHYVYDa+1D
-	PvmniTx2gfwR2m/ueGBBxGrs+kKWxSk37d6Z7rq7xkWcOrJLFZ4YjNJ7mceLaum0
-	qvoYnQaEETRqARToLchkLRUUtFrvQxRNQxkqQ/e2oSYK2pFbJUF813x0hcHRANpI
-	RqShGg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hs3pau11f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 13:55:57 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc694cb4adso102984137.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 05:55:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793973357; x=1794578157; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zZrkiifivvXgKAhzIe+nSCf+/l9FZzZvEX7NTROoNwU=;
-        b=L8KV8Xf6To1qNWXhKLDVWSBrHCkj02pnREegQV/Z3bNQAT3/bmWN2E5HtwogiE+2PK
-         cwNueCDlPrb+eFWTJiG0u9REle69greJajGEL0uTlg9sdEH05NnwRvMuXOK4WHc8iZC8
-         cpEHl/9da8Iq2miRu5XxmiilR6iviYKmtTokJOtk6OZ9JwOXBzKlOjn9KCOrV7oI41ae
-         tAU43Folq/FrhNbXlE/OGgnGIa6iuyS+CvDeJS4vMJD81L6lPVaFyYkRn1ILrJbgWkX0
-         svzBykZxOdDDKfC1Vm1OHmuZ5oN/z4zZPJhgK6qOaQHoNU3m5Ij6cIUvDWuIBWn3kq/N
-         ysfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793973357; x=1794578157;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zZrkiifivvXgKAhzIe+nSCf+/l9FZzZvEX7NTROoNwU=;
-        b=ELABKQPj2nO1tzi1dstjlBSHOsWdhq67vG5QcjwN2ABu/zxZlzp4+6liPhyR8rsP8Q
-         y2Cv/6ntEgpGFdsmrZSIQkNXNlyNfQIUnc1ybEyiLOyxOMA2m8DQgq/Us7iSF8QvFMWS
-         XdxH8tmHAQ/RqSD6JiZz2LpKFsaBesPe1lRX8V+jG+Ko7S5jkxof9OXfgzh2XAwufjSA
-         2TwN/IJn2ceHzMn9gqAjoIoozLzGodqM2zvOKKdlhO2TxSjoQFYUT4TqzJcGxu5djGsw
-         pF7YGZ0ZQngoSadCW2V7QId9q/7BwiDGHvkYQmV76wyRS0lqqrx43pvE8nkI6XqUz5nn
-         e9lQ==
-X-Forwarded-Encrypted: i=1; AKwUvByr2OV4aHICh10CJZ042hk1ub334o+tQzOWuJtH89WS6AtrSMkBhARO+8UA+ieA7N37FIM3DHhMUy6Z@vger.kernel.org
-X-Gm-Message-State: APuU4Z8J2MA852TFEmh+4PRluIKzgODTkINvFYjoo03UbKFvihDgigdN
-	oQ/tX1lEGbJ6DwYR0v4UQnekp8GLBiBRIJKonQy1ylYwbcN89IV2bWpH+QL+iESbu+ZdrDXbxZ9
-	/UbqwJnxNH/M/o87pxGfC0srkmmMzjMBWSGl0ufDRTGk1a1PkK/2ynYwGL2Is8HtX
-X-Gm-Gg: AYBFou0/szG3niG7Krm/H0sB1kh78nzBTj+HEnH9DaMXs5Kb4z/W988BEsnYHgcpPxo
-	7e7Am2SU3XKc97jIZriwe8nNX7+9yuTIjDgY89AC9W6Tn+lOu/3/kSoRN4Drgi/SxKwetmWyLg8
-	JJ75Dt4vNj95Jp7SV2mdXN6wA/5xNJj+UlAVbph/8Zygusb0+BHYPCOJIDGj892VRjHtLjUIBkT
-	6hJ5XrAPpm09KZtn5CqeBUWXSbbn2CkSbC21aYyaZKLG7XJswOp6pyVfFj9w42VG9p26IwnPC5j
-	V1S7rptQbo/rP+hdn1PhaTj3JhbCoh8MufuGRBUtZFrL+LVojrZih2g+6/YweZHhxvtYnI8rY6l
-	j+uAt5SRz1XdX5Rj+68s8g3/pc5jX6lQ6dkzmG32wHfOVGOU8Yegg4xnOJGK24i0+dg0T1xQ/yT
-	uFDSwawPmMNhXKDKteMvldXSzHJZCqu2so1IeezXzkpeVyndfXHQumnpWbj3MILBe8lPC/LNvDN
-	mCrT4HoEe1OIrj6bi8JmIophZ4v
-X-Received: by 2002:a05:6102:390e:b0:7a8:2a34:432e with SMTP id ada2fe7eead31-7d2a151678emr1297851137.9.1793973357099;
-        Fri, 06 Nov 2026 05:55:57 -0800 (PST)
-X-Received: by 2002:a05:6102:390e:b0:7a8:2a34:432e with SMTP id ada2fe7eead31-7d2a151678emr1297841137.9.1793973356609;
-        Fri, 06 Nov 2026 05:55:56 -0800 (PST)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:f048:3e89:c517:10cd])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809df2dsm3963256f8f.51.2026.11.06.05.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:55:53 -0800 (PST)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 06 Nov 2026 14:55:25 +0100
-Subject: [PATCH v14 9/9] arm64: defconfig: Enable Qualcomm CAMSS OPE driver
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAl0WPlB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B481F008A3;
+	Fri,  6 Nov 2026 13:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793973382;
+	bh=0tuVHt6IugmTLSqrR8kmpMpjcLPQlDkTodDmg4T/FfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KAl0WPlBy7cje0tmYGjsxbd12WOsqAnJXQOTdvqYgYKjh0KE85IvzLMK8INqKOOwQ
+	 0yywHJM421i0ZuS/kzPrI9ecYNnsnuH+jYeFsEZS8HDhCCybITn7MNStoNR+2COG1j
+	 ZdocQhxqSXK+jeVy4b0614NE18Zuu/ukFs5gBdATrrrFREGzfN7bJAgr4/d8VSXnN8
+	 cE8NxhXU2xY/C5Y4o0j8gTat9VfcvQ4WweXmrWbANNVXQ5mqawWiFThhj13qBmtkjQ
+	 w/0ipwuyGh5/LXNSJWPHq4FYMxY/hMrGK1q51sqqhm5RXgzGKYXzYJQia6Tg78yk6O
+	 Y+leCF1sfCpow==
+Date: Fri, 6 Nov 2026 14:56:19 +0100
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
+Message-ID: <au3X8tpU9KWas9ZM@orome>
+References: <20261105140510.165165-1-clamor95@gmail.com>
+ <20261105140510.165165-5-clamor95@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -116,83 +63,232 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-camss-isp-ope-v14-9-49c426cd2715@oss.qualcomm.com>
-References: <20261106-camss-isp-ope-v14-0-49c426cd2715@oss.qualcomm.com>
-In-Reply-To: <20261106-camss-isp-ope-v14-0-49c426cd2715@oss.qualcomm.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1NSBTYWx0ZWRfX1D9oLBHiGz1o
- kxJKw/1X3YpJ7Cf8IWDyGqQ9M0rXl1nKqSGP/4AQh6b6sGPGZHnUk/1a1lreW9cgmr3cbpCKzBX
- QiV77jpaq7CR8rePsiGitAno+XKqGsroGhx1SHtGo6g+RDyrUx3T2soXLuIyDf2WVBae0VDjMGm
- tHfrPE6XnmpYmHbZQegyoxphaEU1ge3zM94mlJtu6/95+sexmNZwK+jM2ntrGfmC3uNg2w9SBdb
- m7QaEy2IiRhs+Y871V2qIknr/zMB5YZILmrDc5mLcQZR0bVH3p6M+lL7ml08htS28fxiP2fbEJa
- uPHMjw5wsCE7uihvSC+gvJzpME59NodxNWC1yWTl3Zib7Buhp8ucE1ACX3jM09ymnPvECxzxxmh
- lFd308bGB9QqBFlnuWozIXd0flVjhOw2VsCO8R+h/rwsveM/qyebCp8W+jxV0Wy7xNPuf9MyCPp
- Ta2R9QxMXULMOQwLbzg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1NSBTYWx0ZWRfX4WPGRSRkW6PR
- GuRaWuiR+jFTLsaPQVttNd0n0ZR8Ez/OFmzSzV+JkJn42Rg+iYvzV0pkDgmpmIyfMZ3SFuUmwLU
- mLTYpdX6nI5Tn07uOYKTejHelV5VqXw=
-X-Proofpoint-GUID: 5ZfVwMcLagAji2gcpC3OhdhrI85MSJ0S
-X-Authority-Analysis: v=2.4 cv=P4ivFSAu c=1 sm=1 tr=0 ts=6aeddc6d cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=NEAV23lmAAAA:8
- a=EUspDBNiAAAA:8 a=MWvNLhr-pL88feDBzY0A:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: 5ZfVwMcLagAji2gcpC3OhdhrI85MSJ0S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 phishscore=0 suspectscore=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611060055
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rc2hc4wbfwun3tgx"
+Content-Disposition: inline
+In-Reply-To: <20261105140510.165165-5-clamor95@gmail.com>
 
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-Add CONFIG_VIDEO_QCOM_CAMSS_OPE=m to enable the Qualcomm Offline Processing
-Engine (OPE) driver, an image processing block available on Qualcomm Agatti
-and Shikra based platforms such as the Arduino UNO Q.
+--rc2hc4wbfwun3tgx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 04/10] drm/tegra: dc: Refactor and expand header
+MIME-Version: 1.0
 
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Link: https://github.com/jwrdegoede/libcamera/commits/camss_pipeline_v2.1/
-Link: https://github.com/loicpoulain/camss-isp-m2m-test
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+On Thu, Nov 05, 2026 at 04:05:04PM +0200, Svyatoslav Ryhel wrote:
+> Refactor and expand existing DC register definitions with additional
+> fields in preparation for adding the 8-bit CPU interface.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/dc.c  |  11 +-
+>  drivers/gpu/drm/tegra/dc.h  | 856 +++++++++++++++++++++---------------
+>  drivers/gpu/drm/tegra/rgb.c |   8 +-
+>  3 files changed, 514 insertions(+), 361 deletions(-)
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 7b4985b29b21c440c7912f0a24665bdb7010d9e4..6ce0907bfa8eedccd05c91dca45ad7c18fdb37cb 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -942,6 +942,7 @@ CONFIG_VIDEO_IMX8_ISI=m
- CONFIG_VIDEO_IMX8_ISI_M2M=y
- CONFIG_VIDEO_IMX8_JPEG=m
- CONFIG_VIDEO_QCOM_CAMSS=m
-+CONFIG_VIDEO_QCOM_CAMSS_OPE=m
- CONFIG_VIDEO_QCOM_IRIS=m
- CONFIG_VIDEO_QCOM_VENUS=m
- CONFIG_VIDEO_RCAR_CSI2=m
+This is impossible to review. Please split this up into refactor and
+expand patches. Each should be a separate change.
 
--- 
-2.34.1
+Also, a lot of the "refactor" is just pointless whitespace changes that
+are just not necessary. Please keep the changes to a minimum.
 
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+[...]
+> @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crt=
+c *crtc,
+> =20
+>  	if (dc->rgb) {
+>  		/* XXX: parameterize? */
+> -		value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> +		value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+
+This type of change seems entirely useless to me. It's neither more
+readable nor shorter.
+
+[...]
+> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> index 0cb0515968b35..2b87bb675d4cf 100644
+> --- a/drivers/gpu/drm/tegra/dc.h
+> +++ b/drivers/gpu/drm/tegra/dc.h
+> @@ -178,9 +178,11 @@ int tegra_dc_rgb_init(struct drm_device *drm, struct=
+ tegra_dc *dc);
+>  int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> =20
+>  #define DC_CMD_GENERAL_INCR_SYNCPT		0x000
+> +
+>  #define DC_CMD_GENERAL_INCR_SYNCPT_CNTRL	0x001
+> -#define  SYNCPT_CNTRL_NO_STALL   (1 << 8)
+> -#define  SYNCPT_CNTRL_SOFT_RESET (1 << 0)
+> +#define  SYNCPT_CNTRL_NO_STALL			BIT(8)
+> +#define  SYNCPT_CNTRL_SOFT_RESET		BIT(0)
+
+The whitespace changes here are completely arbitrary, it's changing one
+preference for another. You're actually changing the contents in this
+case, so it's not that bad. Still unnecessary, though.
+
+> -#define DISP_CTRL_MODE_STOP (0 << 5)
+> -#define DISP_CTRL_MODE_C_DISPLAY (1 << 5)
+> -#define DISP_CTRL_MODE_NC_DISPLAY (2 << 5)
+> -#define DISP_CTRL_MODE_MASK (3 << 5)
+> +#define  DISP_CTRL_MODE_STOP			(0 << 5)
+> +#define  DISP_CTRL_MODE_C_DISPLAY		(1 << 5)
+> +#define  DISP_CTRL_MODE_NC_DISPLAY		(2 << 5)
+> +#define  DISP_CTRL_MODE_MASK			(3 << 5)
+
+These are purely whitespace changes. Please don't do that.
+
+>  #define DC_COM_CRC_CONTROL			0x300
+> -#define  DC_COM_CRC_CONTROL_ALWAYS (1 << 3)
+> -#define  DC_COM_CRC_CONTROL_FULL_FRAME  (0 << 2)
+> -#define  DC_COM_CRC_CONTROL_ACTIVE_DATA (1 << 2)
+> -#define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+> -#define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+> +#define  DC_COM_CRC_CONTROL_ALWAYS		BIT(3)
+> +#define  DC_COM_CRC_CONTROL_FULL_FRAME		(0 << 2)
+> +#define  DC_COM_CRC_CONTROL_ACTIVE_DATA		BIT(2)
+> +#define  DC_COM_CRC_CONTROL_WAIT		BIT(1)
+> +#define  DC_COM_CRC_CONTROL_ENABLE		BIT(0)
+
+FULL_FRAME and ACTIVE_DATA were previously consistent, now it just looks
+weird. Either use proper GENMASK() definitions where applicable, along
+with modifications in the driver to use FIELD_PREP() and FIELD_GET(), or
+just don't change it at all.
+
+> +
+>  #define DC_COM_CRC_CHECKSUM			0x301
+> -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
+> +
+> +/* Defines in PIN_OUTPUT/INPUT_* describe pin position, not state */
+
+This comment is completely confusing to me. The registers themselves
+define the state and bit positions within them seem to indicate the pin
+positions.
+
+> +#define DC_COM_PIN_OUTPUT_ENABLE(x)		(0x302 + (x))
+> +#define DC_COM_PIN_OUTPUT_POLARITY(x)		(0x306 + (x))
+> +#define DC_COM_PIN_OUTPUT_DATA(x)		(0x30a + (x))
+> +#define  PIN_UNMASK(x)				BIT((x) + 1)
+
+Given that pin positions are in steps of two for all registers, does
+that PIN_UNMASK apply to all of them or just PIN_OUTPUT_DATA?
+
+> +#define DC_COM_PIN_INPUT_ENABLE(x)		(0x30e + (x))
+> +
+[...]
+> +/* DC_COM_PIN_OUTPUT/INPUT_*_3 */
+> +#define PIN_LSCK				0
+> +#define PIN_LSDA				2
+> +#define PIN_LCSN				4
+> +#define PIN_LDC					6
+> +#define PIN_LSPI				8
+> +#define PIN_LSDI				10
+> +
+> +#define DC_COM_PIN_INPUT_DATA(x)		(0x312 + (x))
+
+It's not clear that PIN_INPUT_DATA_* can take any of those PIN_*
+defines. Given that there are only two PIN_INPUT_DATA registers that's
+probably not true, so I think it'd be good to somehow specify how that
+works here.
+
+> +#define DC_COM_PIN_OUTPUT_SELECT(x)		(0x314 + (x))
+> +#define  PIN_OUTPUT_SELECT_MASK(x)		(0x7 << (x))
+> +#define  PIN_OUTPUT_SELECT_PRIM(x)		(0 << (x))
+> +#define  PIN_OUTPUT_SELECT_OUT(x)		(1 << (x))
+> +#define  PIN_OUTPUT_SELECT_F2(x)		(2 << (x))
+> +#define  PIN_OUTPUT_SELECT_F3(x)		(3 << (x))
+> +#define  PIN_OUTPUT_SELECT_F4(x)		(4 << (x))
+> +#define  PIN_OUTPUT_SELECT_F5(x)		(5 << (x))
+> +#define  PIN_OUTPUT_SELECT_F6(x)		(6 << (x))
+> +#define  PIN_OUTPUT_SELECT_F7(x)		(7 << (x))
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT0 */
+> +#define PIN_OUTPUT_SELECT_LD0			0
+> +#define PIN_OUTPUT_SELECT_LD1			4
+> +#define PIN_OUTPUT_SELECT_LD2			8
+> +#define PIN_OUTPUT_SELECT_LD3			12
+> +#define PIN_OUTPUT_SELECT_LD4			16
+> +#define PIN_OUTPUT_SELECT_LD5			20
+> +#define PIN_OUTPUT_SELECT_LD6			24
+> +#define PIN_OUTPUT_SELECT_LD7			28
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT1 */
+> +#define PIN_OUTPUT_SELECT_LD8			0
+> +#define PIN_OUTPUT_SELECT_LD9			4
+> +#define PIN_OUTPUT_SELECT_LD10			8
+> +#define PIN_OUTPUT_SELECT_LD11			12
+> +#define PIN_OUTPUT_SELECT_LD12			16
+> +#define PIN_OUTPUT_SELECT_LD13			20
+> +#define PIN_OUTPUT_SELECT_LD14			24
+> +#define PIN_OUTPUT_SELECT_LD15			28
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT2 */
+> +#define PIN_OUTPUT_SELECT_LD16			0
+> +#define PIN_OUTPUT_SELECT_LD17			4
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT3 */
+> +#define PIN_OUTPUT_SELECT_LPW0			0
+> +#define PIN_OUTPUT_SELECT_LPW1			4
+> +#define PIN_OUTPUT_SELECT_LPW2			8
+> +#define PIN_OUTPUT_SELECT_LSC0			16
+> +#define PIN_OUTPUT_SELECT_LSC1			20
+> +#define PIN_OUTPUT_SELECT_LVS			24
+> +#define PIN_OUTPUT_SELECT_LHS			28
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT4 */
+> +#define PIN_OUTPUT_SELECT_LHP0			0
+> +#define PIN_OUTPUT_SELECT_LHP1			4
+> +#define PIN_OUTPUT_SELECT_LHP2			8
+> +#define PIN_OUTPUT_SELECT_LVP0			16
+> +#define PIN_OUTPUT_SELECT_LVP1			20
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT5 */
+> +#define PIN_OUTPUT_SELECT_LM0			0
+> +#define PIN_OUTPUT_SELECT_LM1			4
+> +#define PIN_OUTPUT_SELECT_LDI			8
+> +#define PIN_OUTPUT_SELECT_LPP			12
+> +
+> +/* DC_COM_PIN_OUTPUT_SELECT6 */
+> +#define PIN_OUTPUT_SELECT_LSCK			0
+> +#define PIN_OUTPUT_SELECT_LSDA			4
+> +#define PIN_OUTPUT_SELECT_LCSN			8
+> +#define PIN_OUTPUT_SELECT_LDC			12
+> +#define PIN_OUTPUT_SELECT_LSPI			16
+> +#define PIN_OUTPUT_SELECT_LSDI			20
+> =20
+>  #define DC_COM_PIN_MISC_CONTROL			0x31b
+
+If there's only one PIN_MISC_CONTROL register, does that take these same
+PIN_* values as bit indices?
+
+Thierry
+
+--rc2hc4wbfwun3tgx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrt3H8ACgkQ3SOs138+
+s6Eawg//fb7MsJNQ3AzGo0VwehFF5urNwd+gNHtrrFdGXhYJuGdWiYytyrZ5W6qX
+GMLLJmAdrv+iez6rDoG6vAbxYDB8gRqx7miJ4aUW/JNAwk8ym5z/EXx25LH09vcm
+9UKu3rmSuY0UIw02b+dsMUYYIPNspLRmUzBp9XIOqaUWH5gTKTLVbdiaU+UHGOux
+w+xkrNwan+GiEYAats9zFPrElJUBDp4hYPCPsdQd++XKb4n0wQtYnEQl8hkB5NgA
+8FrPLufBvP5k2xQ/wxk8DJ+3hcSPj5V6Sx3WVoTGpL6S5pHGTwiR1KZQAvD51jzp
+TX5C96MiPqqDVOE0NIgn3p8mtpL9zFxHfGZVGDT6fyxbPAo829DJKS8PgyOeeu7n
+sV1432QC3/Hz/GwzKQKdcVfvZ0PQ62C8tw6tHBhEnNVqAjhw5SniTer6ptAgNBqo
+jVxiTinPOY7rCMYmYgfInL7eccaUv5F1cMcfrbXyWhpkJia5kLvXjvQKnjaCdx2g
+bkwJlZdYV8zeP4GjhOtL2F0h00EpSPBOIi4oFLgJU57Mlz+cqHx9KIE3gduXc4oK
+oMnbVnI65ej9s4BwLmzsSf5IRqFC3g1sFUAC1ZZIQYGxUKMEFMt0e9WkIN81VA01
+gRv+vUpafvirRbhUJ+oFFaK9JwwU1CjiGXs5CT8JkwKJUj5uq0c=
+=ogZo
+-----END PGP SIGNATURE-----
+
+--rc2hc4wbfwun3tgx--
