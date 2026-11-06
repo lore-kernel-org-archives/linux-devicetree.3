@@ -1,66 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793960411;
-	b=0t1alaSbUwD7ivfTIVDi7GS31BaK1+UHD/H6zeEMW1rVCZBbdshFOybuerwPkIh4lgfI
-	 4FZgT14HuORPce+ZrGB5tV1LXPrav3RcT/Q8rx5VWCoVpbEiaTOTiKF1/1kEFYz1v/drk
-	 EP74j/n+kM3/Y5zceyiWRGGF1bR57SOPjzzkEhSIuKCmjL9idzoXtI0UXRYn/Og72DK9a
-	 0GkLwpHXzfItynlW3b0jvfhCRuM71WdHVPz5TEUlaQztmZWhoUF1i8/ZSsAYIyz4YTFQD
-	 7YKbFTRf79uzRoPKGyM+HCBrOcqoMlSDtTFxNoLWT63NttrgUCLh8zoBkk9TVDfJ6rw==
+	t=1793960500;
+	b=wehyHfV+XeDoFlgD69lad/HlCqo3peJX7wIbVOnB5UxGLTyU0Y80roUrahqcDQhNRgCV
+	 dUqmPukJU6Yma3NIFJzZNb9TkDquae9ak2zbZ26tltbmIeQruV9yO9649s50WXVGW5FT2
+	 fBcbiWDSsDxaICm462LP5yfzzlAQHrquZSTtPb0LJTXCItmZ9xht3kiZBaBXtVZMYUCy8
+	 oGapgnb6acUpsjh2VIfYkI5adWhhIIGq+B6Z+YDeHfbrfn3Mgloqd0mmqbo7ZeYzOcZt5
+	 kgZso7MaIohcZdHqMlaZl1iR8Kb2rS2g2asFd5RUoo4BKKnnpr2Hi3Uucq2e4UvOaQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793960411;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=rcEulFZCueR/VtEX43ndFQ7UuS3voqVu9BUx+iVKLC8=;
-	b=qNojNRkPz7fqPUXHUciZ50Go/4oXo8bY7KYHAnK34V2xIxHlAYVQJiUGgH87IyK2gDsU
-	 UY4zB9yWfO79eFcybi3HuV/tv2OV9zGfZx48JvHtLSzmN2iaSXLWMzreZFKWKYWQcbjKP
-	 kPwXliY98S9qvTRvbroTh8rjRPhB5IxqBnEo3/gTiXT1H5fdF/pYJZXVxWYf0qWhDWYBM
-	 ncON3pWfZ2M+nm0iyCP4eFD/U4z/lXEGYIf575mg07xdmBOTXNyz7yLLdSBO3RxFR7Hoc
-	 78emCoHVBR9pCjToyXDPAZyBYKncIL1otxNYUlgdix4no1i79lSZYNWKjcK3scwW4eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960500;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oCiDdG9uKBtwL1j/tc0kENtt1MdhR46jXVdAFzVfJO8=;
+	b=ayu8T+feRX81SeeFKARbjOWnGDYw6RZv+YbhSx/+GGMY4mcUFaTu/wnZDkwtoxXNieXV
+	 PxoVwtzIMUWD976a9VbRIRco9RT916IQdnu45gvllhDXN9NqDbAK3NjjkjE1ukqVXCLRk
+	 8sznfAFw2/VUDxIvRYoNIHi/s4uz75dJrYyIGEIlpW6gxad9DzH6zmFLWVqEv3bt8xker
+	 ptu8oiRDqUMjEznXGoPUf8S3QvZbXyd1aH3UpCAP/5lUaRk7Q6bOIyyupMuu1cao7NFy/
+	 ZTv436L9Ky7HAHSW2Pc548U8XznUvGgw0vZXU8hkVuVFbdo3LdKRMy+ZRhXkmHZQ3ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=student.uibk.ac.at;
-	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b="QlPXC/8+";
-	arc=none smtp.remote-ip=138.232.1.140
-Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzRbqro9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C53C606A326;
-	Fri,  6 Nov 2026 10:20:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C53C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91109606D807;
+	Fri,  6 Nov 2026 10:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=QlPXC/8+
-Received: from surface-pro-5 (ydWLT-U1-95-184.uibk.ac.at [172.25.95.184])
-	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 6A6AJteW1864372
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 6 Nov 2026 11:19:59 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 6A6AJteW1864372
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1793960399;
-	bh=rcEulFZCueR/VtEX43ndFQ7UuS3voqVu9BUx+iVKLC8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QlPXC/8+dDJj3K5S0vS/N62vX44X+i/lrh3UbZbPtoiLzWpJ9KXFacJpm6HnDs9D8
-	 I6p8icqS9UPRewn0cEYMrZ7Jmt18dVO9tqM6/l+7UikELm0GbMfJrHXLgWklTlp/HI
-	 Glcw/5GoZUJ9BKp1mVws6M3XEP/+MaF6pBBRA/VI=
-From: christian.koever-draxl@student.uibk.ac.at
-To: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com,
-        jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
-        sean@mess.org
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-        =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH v2 1/2] dt-bindings: media: amlogic,meson6-ir: allow wakeup-source
-Date: Fri,  6 Nov 2026 11:19:53 +0100
-Message-ID: <20261106101954.46907-2-christian.koever-draxl@student.uibk.ac.at>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at>
-References: <20261106101954.46907-1-christian.koever-draxl@student.uibk.ac.at>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzRbqro9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FF91F008A5;
+	Fri,  6 Nov 2026 10:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793960500;
+	bh=oCiDdG9uKBtwL1j/tc0kENtt1MdhR46jXVdAFzVfJO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WzRbqro9+jgKZCOnxyV5Qf2FXBVqSRiUdrte9IIL+inQw1Asb9j9CaLguI3Q0K8y/
+	 Ps4Ef11TTWv9wmJkjrgZdyYBdXgrwh3FdgLXZF7EoT5g5ZYiPGk26tKrshMayt7jWa
+	 Oq9Nsj3tZDxojVnZriW71FFEGOBOa6ghfEhNgn+dlN5qWdjLDBRiNi5UKKsUu0F8Lj
+	 A7mTcOfayLNU0/TIYhQ7nh2+ldFWBZVPpG5p48rfVjHsG88Ezxd2YpvSKXfImwpg5U
+	 sZ5dJOir4gQVYIKs2/ymgFvIoXa8P5MPenH/eVBeevZ7L2CmFphhPmcTAZ1kp/0lx8
+	 Pu41zXcg4YKqA==
+Date: Fri, 6 Nov 2026 11:21:36 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla <srini@kernel.org>, 
+	Simeon Marijon <simeon.marijon@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: stm32: allow TAMP nvram child
+ node for syscon
+Message-ID: <20261106-tireless-cobra-of-passion-1fca1d@quoll>
+References: <20261104-upstream_nvram_reworked-v4-0-144024496a44@foss.st.com>
+ <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -70,35 +63,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: () -13.0 ALL_TRUSTED,RCV_SMTP_AUTH,RCV_SMTP_UIBK,U_H_APTO_LONG,U_RCPTS_11_PLUS
-X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104-upstream_nvram_reworked-v4-2-144024496a44@foss.st.com>
 
-From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+On Wed, Nov 04, 2026 at 04:20:09PM +0100, Patrice Chotard wrote:
+> The STM32 TAMP node (compatible "st,stm32-tamp", "syscon", "simple-mfd")
+> exposes its backup registers through an nvram child node described by
+> nvmem/st,stm32-tamp-nvram.yaml. That requires the TAMP node to carry
+> "#address-cells", "#size-cells", "ranges" and an "nvram@..." child.
+> 
+> st,stm32-syscon.yaml uses "additionalProperties: false" and only allowed
+> into the DTSI made "make dtbs_check" fail on every STM32MP TAMP node:
+> 
+>   tamp@5c00a000 (st,stm32-tamp): 'nvram@5c00a100', 'ranges' do not match
+>   any of the regexes: '^pinctrl-[0-9]+$'
+> 
+> Allow the addressing properties and the nvram child, gated on the
+> st,stm32-tamp compatible so the other syscon variants stay strict.
+> "#size-cells" may be 1 or 2: the STM32MP21 soc bus uses two size cells
+> (an empty "ranges" requires the node to match its parent) while the
+> other STM32MP SoCs use one.
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> ---
+>  .../bindings/arm/stm32/st,stm32-syscon.yaml        | 38 ++++++++++++++++++++--
+>  1 file changed, 35 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> index a559f8b03b84..51cb565e05ed 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
+> @@ -43,13 +43,19 @@ properties:
+>      const: 1
+>  
+>    "#size-cells":
+> -    const: 1
+> +    enum: [1, 2]
+> +
+> +  ranges: true
 
-The receiver can stay powered across suspend and wake the system when
-a remote control key is pressed. Allow boards to mark it as a wakeup
-source.
+Addition of ranges should be separate commit, because you are fixing
+existing device which can have phy child.
 
-Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
----
- Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+>  
+>  patternProperties:
+>    "^phy@2[48]00$":
+>      type: object
+>      $ref: /schemas/phy/st,stm32-usb2phy.yaml
+>  
+> +  "^nvram@[0-9a-f]+$":
+> +    type: object
+> +    $ref: /schemas/nvmem/st,stm32-tamp-nvram.yaml
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -84,11 +90,37 @@ allOf:
+>          - phy@2800
+>      else:
+>        properties:
+> -        '#address-cells': false
+>          '#clock-cells': false
+> -        '#size-cells': false
+>          phy@2400: false
+>          phy@2800: false
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32-tamp
+> +    then:
+> +      required:
+> +        - "#address-cells"
+> +        - "#size-cells"
+> +        - ranges
 
-diff --git a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-index 0f95fe8dd9ac..27c89f8f8c3d 100644
---- a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-+++ b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-@@ -30,6 +30,8 @@ properties:
-   interrupts:
-     maxItems: 1
- 
-+  wakeup-source: true
-+
- required:
-   - compatible
-   - reg
--- 
-2.56.0
+This has ABI impact and is not really necessary, as the child node is
+not required either. Drop these three.
+
+> +    else:
+> +      properties:
+> +        ranges: false
+> +      patternProperties:
+> +        "^nvram@[0-9a-f]+$": false
+
+Best regards,
+Krzysztof
 
