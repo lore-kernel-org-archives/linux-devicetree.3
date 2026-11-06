@@ -1,58 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981537;
-	b=4SRQtmYufBDKtKyMSYkl2WqRg47DxJuDQ4NkaYt/2Baso36IXy2eUoLq1WQ5hUb3TFrs
-	 k8MaQ4OTgptp66yhNW+zShsxmwViN21n7ZUDa0r7tD34es8KRr1Vyf0nIBArD2PA9zFTs
-	 JQTG/l/GyUAAY+VdW62GMq/B3MwnUHaF9xPuRksK0aB22QiXQ9HNaHWyOMibIqjPTThtU
-	 ktTVQVTt46NtUyLNpRUUyiwQJ0ZjRSPUB2kJ1rrUUMvVadZxiAH2FF+0lpGqaHkwiZshk
-	 AqOVTj/cxsyOt8FgI9vzyi3FheXHwW+XGmkWfzDzDHG5QxrK+kbxEs5dRQqoFsnSX3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981537;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=QtyI2+GW86z5aHl6ZfHYzAXAzVDLDy/TcEMNr+ncFIw=;
-	b=FPUOVnfx1+GB/bN9lsMQgoz9yGkew/HKTL+3uGEa1q50f5v2VxT9eChgXls30jA35UN8
-	 s+mfkS+Ol/urNa7tRxmFc0Lj62WGN5hL+G5W9Nz9rrDshDk0YHYDEZSW4H6a/wvqrqiOk
-	 AHqQgZAhRoxCzqN6Oym6jQ+oKaIUWmybHW2jU/yxKxlAmr4C/i3y8ukv1zqgW6aqEwTcf
-	 1iXk6U+GZ9QskmyyX0h7tdEr4foeKsVAMSWpQV0W79hF0rGsq2sNlBtgS66F+G2UUA6fj
-	 AxVTHixiQToNT4hF8wBuiK0s1YNEsS1M01wwkivU+wKVmEz7J5lFL/J4/TbEhGYB5YQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gNaw/3tS";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793981798;
+	b=u4bNfgjlCpo/t3y+ly37cXWeoeGeLfBC0Ti33cMXzkEF0y6Z7H+0f1Ai0J/5DbMlgYNU
+	 GlhtvB4ZmUkWJC9D92pHvFkorrsFRnaDGRwfHhr6+x2Z4UJCZVvrHaECcKJLUsZncRUUb
+	 MdW89qe66qe3/U60Lf3gBanpFb7u0kCD7mRP5893THU7iWQEn2Pj+MCtl3UPFGJkduFUV
+	 Af9pRMiVe+lpXrvCL4a0AtQDhrJ3H4nd4vrKFc5+gOqlCp4D8R+XCCdAJ6kbUhsQYeK/v
+	 jnSRd58GfmA13CnhAOlOC2uczqdvOigiJ10K6xmlzWYbpCnflrqV5W3b0HP9Y00ziTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981798;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UO2OqNWinLQoAPIlh9E38gj+Hy0J/lAlF+E9uSehgng=;
+	b=l3sTxyka8aXqvuiGEkBLV69UsMQWBYlyjkpJqg8SKnqcsDBUk+kbiP3RHoyCD/9uVN2b
+	 2R3bFLz7VFEHEOP3VHOqu60vairHavlQZZgI+uXtfjw9YPx7Br8fCOBcs/sSvLsdD1i3I
+	 IEk9pElOWHvT8yrHRNLr5exMjVt4S2BFfRzuP73CkSngXY2eXqnTmfuY5gq6fSDLhS3Fe
+	 /M7deLGWw534YiREYU6qMcqr+o1UawBq2vyo4vvvSzKE2LA3JWl7e4GMMKwdOhuzlnnnA
+	 MgUESnSRU5mtT0QHwRtkR1v0EJhfNKy/xJDJa4WqI8TFlMBtacOTl7dIX90IWuM29Zg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Xdev2NUd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.52
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013052.outbound.protection.outlook.com [52.101.72.52])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF40A606A334
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 16:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64992606A32C;
+	Fri,  6 Nov 2026 16:16:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64992606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNaw/3tS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F8E1F0089F;
-	Fri,  6 Nov 2026 16:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793981536;
-	bh=QtyI2+GW86z5aHl6ZfHYzAXAzVDLDy/TcEMNr+ncFIw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gNaw/3tSv8m4eZq5Rbm+KVy98y6k76OWln2MWVLAlfgfnlXZKHh3eNBfCo6Iebxmr
-	 jii8IAmpCtjqPzc8+Vv5dg2LH32pH6ncuOHZEpBed4Za/lkY7rMcrGerYxRZO29HgI
-	 LHFrPqFzaVhshSthR5g0+1LkkzOSuU3RygUbfZGY7B3LXkGrCB1+hJQ3SUOZQlDXre
-	 F0catWc6po8NKu5o8+L4mAda71pML/YrAxg16d6lHq4tra91mCP4Zvyyx4wrkVj7pc
-	 AhIldq5AiMuvlNRCbsx0WAlmpu7ZSmmtL1vpyBx69VeMI/oz8Ick51xWgzyiKVCQY9
-	 SmO+w75/qlDJA==
-Message-ID: <sashiko-outbox-201775@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 18/19] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106-jh7110-clean-send-v7-18-68f7ea9913db@samsung.com>
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
- <CGME20261106135924eucas1p17cd8d0880486f9e932fe1b81ba3eeaf6@eucas1p1.samsung.com>
- <20261106-jh7110-clean-send-v7-18-68f7ea9913db@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 16:12:15 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=Xdev2NUd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w5MGRgWGFBK5mtwgZltxkchdz0H4yxqLNvd7aoBmVEHqq5IX8piaGyF0W72fbdm9UUU4+Mmm90GUrzCcaIYex8dGjSfJWVgPH1cUqPC9CWDQq4aKBH1f8PquDDkQPRXJFprY2O/kUxDkp5BFaiKEXC9Jfjv/y0IYJWf0EAayTTjZU48oFm8aheiEYT7ATVc6ARQZQR9WCohwLybpGOZYrS7fbZcoC/UDdow+o5Qf5Lz5FVViaw5iJugBlpzacPDtQH7lZFIwaC34NzCXPIXv2usGjXYZkINQ9zDjZlkJ9Nwc+gerHJ3D/rwYrY1rT+lAmTdmL802GZpap9DISIcVIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UO2OqNWinLQoAPIlh9E38gj+Hy0J/lAlF+E9uSehgng=;
+ b=xEVechcHiLI2vnadDMu/ydgK4wPYThrAJ9N9k2/bW7tgwOHdv2jl2EjeUzfT5DfXJx6q9thETObS+wIsX78kQZX8hiGpfIuKwmxQcZGP2k7YcpGwnQgn1FrW2oGTMXzpev2iLYTLhvatPDwU9YdKCwsKeVHTR4yhqDqD53kwncFtgGE44LT34E1vE/Hst5PB8qSCpiAyOzoGvevIRHNgzyeF+I0nzeSCscbDsWVQBbCYVqMj8wU0xJgX/jTPVJwNx3Qt1+lUdukcShiL5L6JnKaHhpYMvxHM+yorWpOCjXgM9oZy3KAXx5sG2Km/mCDqZ3M6/4m1h+psjDErzWsVPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UO2OqNWinLQoAPIlh9E38gj+Hy0J/lAlF+E9uSehgng=;
+ b=Xdev2NUdw0z14fAP42r857UcJM9zJXORpHH+vVwZKyYOYMv5W2qZUcKqR/1SvT6qm2WZ1qLy8vMnjhnE4cw05kaAveikoRe8EXJlHAjc2MYKn8wozK8LJ3chEsDZLLb3QgDkQfUdSocqeBxnHlpb+IqFooXGcuBiCKOXSipfYmi756Busp+SEna6qGrpbdNIGR0AUoq3Qv/G9n4Gac5iNrsEFFBdmyNuWj3dO98KxZBZ6MUTSFy8mWZgBAFHyqWGuAGki30p+CRCwWUeYqHDtNBmILPXSTBd59hl14U6aXmfKCbIl/R8LeT/Q7kKqtOEpbQM/UVOdHhujOTqHcu5eQ==
+Received: from DU2PR04CA0029.eurprd04.prod.outlook.com (2603:10a6:10:3b::34)
+ by ZR6PR10MB992253.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:910:d3::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
+ 16:16:33 +0000
+Received: from MAD0EPF000008B4.eurprd04.prod.outlook.com
+ (2603:10a6:10:3b:cafe::74) by DU2PR04CA0029.outlook.office365.com
+ (2603:10a6:10:3b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Fri, 6
+ Nov 2026 16:16:33 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ MAD0EPF000008B4.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 16:16:32 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
+ 2026 17:17:02 +0100
+Received: from localhost (10.48.87.14) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 6 Nov
+ 2026 17:16:32 +0100
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Subject: [PATCH v4 0/8] clk: stm32mp25: add Cortex-M0 D3 clocks, ETR/STM
+ and USB2PHY1 STP
+Date: Fri, 6 Nov 2026 17:16:30 +0100
+Message-ID: <20261106-ups_mp25_clk_update-v4-0-9e32b817c38d@foss.st.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -61,188 +106,152 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF/97WoC/43N0QqCMBTG8VeJXTfZzrE5u+o9ImTOsxxlijMpx
+ HdvBhFUF13+Pzi/M7FAvafAtquJ9TT64NtLjHS9YrY2lyNxX8VmIEBJAcCvXSiaDjaFPZ+Ka1e
+ ZgXjmpBFYSqscsHjZ9eT87anuD7FrH4a2vz+fjHJZXx7+9EbJBadcKMoMalvizrUhJGFIbNuwR
+ RzhDwWigrmuMNVktKu+FXwrUqjfCkYlNQhOaSlz+lDmeX4AStgp60QBAAA=
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>
+CC: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Gabriel Fernandez <gabriel.fernandez@foss.st.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>, Gwenael Treuveur
+	<gwenael.treuveur@foss.st.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793981792; l=4535;
+ i=gabriel.fernandez@foss.st.com; s=20261013; h=from:subject:message-id;
+ bh=4sVlRhfRLqLgrJ+z1HrovNNhDZRufe89wHWGB61GijU=;
+ b=KMoUX8Tu2S7LVnItYxWlUNl0RdbWAD4ymDc+RWerG4etHIbfYoFyfS/FoTz3vzkfQPDb3nCVQ
+ sJh0KbbsBvFBB+YdHQkN7uybUvjjKB8djzl0ZcRNu7KmgfWTLkbhxq2
+X-Developer-Key: i=gabriel.fernandez@foss.st.com; a=ed25519;
+ pk=BVZE1QjIfcrviw9RyyOGQGGsg9CNbaxyjYn9pAlkNyQ=
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MAD0EPF000008B4:EE_|ZR6PR10MB992253:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65cec658-c920-4aae-e6b2-08df3c2152a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|23010399003|7416014|36860700016|1800799024|10067099003|18002099003|13003099007|11063799006|261026121527099003|261028144727099003|261021121427099003|261021123027099003|56012099006|261102123227099003|261022075727099003|261026140227099003|261009223027099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	lbBqmeWWJEVrpd/Khzs9b5FZ8HvbB9vfgr5rhETLF7mTiJLIvZyQh1xO+oq1Kvp643RzUk2eJLMHHIr5DmNk7bbkcFS3ZTrAPo0zdkvc4QXwdhG2xKyQlRXTgIAEzwVcocwoWdLbWahNhPbXwvwTwrKdhc8DJmQgkd2Y+MQRE3CaUWoe+BUkmkIuKbmrNqC4Wi2cBvXPTR3Zh48Hfy47HZdkxTHxoZzz19WX+RRGLw9/2xuvf2Gtzw6+i5Ql/HkQPfpvq+9zyGeI1j4DZApv3wm16VmuI8yr++cVDWzO/oqs7G9oZyNhFHOVGoEph2M1cMzHB7ze66zABrsaUYKyqRo0scK1ScxIu1wU6WmXD3bHOgaTe9Lm63wTaVJViD66WOJCOVj5vV6efHacUK3hsNXg8/eb++5OwujWmGM9t4aT+cXK9NrPCENgk9RQ4zG8bA62nWDXVRitLiZhAekODEgs9mDTXVWSZ741JwlgrK9kWCOxZkVaP2r96+Z7kWfnWykV1aTO+1BGWKz5d0xlbUzOBQWe0u+GTIjoeGejO2lLIQNF2kyMJpAIVJvdW6DDyyxOuFBeEGIOzncHbLqRjH8exYpIxW616/KUvHpWFcqDXGEd82OVZVHDe+mAgj/NVJG/SlFiTBWqRVRn4x3EAeMdgi1nKbNm7v+TqtrOGWs=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(7416014)(36860700016)(1800799024)(10067099003)(18002099003)(13003099007)(11063799006)(261026121527099003)(261028144727099003)(261021121427099003)(261021123027099003)(56012099006)(261102123227099003)(261022075727099003)(261026140227099003)(261009223027099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dWnlJ3eCOPmtVQr55R2deW9luB7rRl0sIgLNJVPcFdEkA3PdlZKKNEqu+BfsU8u1V/83NOi+Qinv8Y/Cu37wT8ORmuAFq7Ga0J5YoG6Yh08hAGwxTaxmGsaETRQ4xfVplnLv+/DwnwaLS8CJN+K9Yk5AtWMwx9AzhB31XRmgtc2bHcCITv97mXdTw+0JU0vD8LEvU4Mmw5p5hTaAAwDKioCauOIGHQvwt5yHiMGIVAptin6u+VJBNnuMk411Z6lCmgSs1uKcfQMzgUf6ReM+afAWm9GOTAJGAH2gElZsGw8di97FQMG1DEKeK079QD/v8LOEJuAUPz2eXEb+oCnvhv4wLW8C+g8fRYPmSDES6uWrssXhYSvIj0LL2lR8n31o+hl9x+HYe6VNnubmbeikXH8p2cyksoJb+1frc0tZJkMavbVs6Vj0UKA/IsrwxTDS
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 16:16:32.6842
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65cec658-c920-4aae-e6b2-08df3c2152a3
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MAD0EPF000008B4.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR10MB992253
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] riscv: dts: starfive: CMA alloc-ranges in jh7110-common.dtsi
-  breaks 1 GiB RAM
-- [Low] riscv: dts: starfive: missing status disabled on jh7110.dtsi
-  display nodes
-- [Low] riscv: dts: starfive: duplicate 24 MHz xin24m clock node in
-  jh7110.dtsi
---
+This series updates the STM32MP25 RCC bindings and clock driver:
 
-commit e4e97f0b932284258aa4795e30b6380ab560afa7
-Author: Michal Wilczynski <m.wilczynski@samsung.com>
+ - Patch 1 makes the driver define the number of clocks of its provider
+   (STM32MP25_LAST_CLK) instead of taking it from the binding header,
+   and drops it from that header. That value is not part of the binding
+   ABI and would have to change each time an ID is added. This is
+   already how the STM32MP21 clock driver does it. No functional
+   change. The driver and the header are changed by the same patch,
+   as the macro has the same name in both. The driver patches 5 and 7
+   then update the number of clocks.
 
-riscv: dts: starfive: jh7110: Update DT for display subsystem
+ - Patches 2-3 add the kernel clocks of the ETR and STM, and rename the
+   RCC_STMCFGR register (driver internal) to match the reference manual.
 
-This commit describes the JH7110 video output subsystem, DC8200 display
-controller, HDMI controller and PHY in the SoC device tree, and enables
-the display pipeline with a 512 MiB default CMA pool in the common board
-device tree.
+ - Patches 4-5 add the clocks to allocate the D3 peripherals to the
+   Cortex-M0 (CPU3) and to enable their autonomous mode. The binding
+   patch also adds the HSI, HSE and MSI kernel clocks as three new RCC
+   input clocks. They are optional (minItems), so that the existing
+   device trees remain valid.
 
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv=
-/boot/dts/starfive/jh7110-common.dtsi
-> index 64de468f2c317..bfc7ae1282234 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-> @@ -33,6 +33,27 @@ memory@40000000 {
->  		bootph-pre-ram;
->  	};
-> =20
-> +	reserved-memory {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		/*
-> +		 * The display controller allocates its framebuffers from CMA,
-> +		 * and the default pool is too small for them. Keep the pool
-> +		 * inside the range the controller can address; it fits in the
-> +		 * memory every VisionFive 2 variant has.
-> +		 */
-> +		linux,cma {
-> +			compatible =3D "shared-dma-pool";
-> +			reusable;
-> +			size =3D <0x0 0x20000000>;
-> +			alignment =3D <0x0 0x1000>;
-> +			alloc-ranges =3D <0x0 0x70000000 0x0 0x20000000>;
-> +			linux,cma-default;
-> +		};
-> +	};
+ - Patches 6-7 add the ck_ker_usb2phy1_stp clock needed by USB host
+   low power support, with the HSE kernel clock introduced by patch 5
+   as parent to keep it running in low power modes.
 
-[Severity: High]
-Does this alloc-ranges setting cause linux,cma reservation to fail on 1 GiB
-JH7110 boards, or whenever an earlier reservation overlaps 0x70000000..
-0x90000000?
+ - Patch 8 uses the reference manual names for the bus clocks of the ETR
+   and STM (CK_BUS_STM, CK_SCMI_BUS_ETR and CK_SCMI_BUS_STM), consistent
+   with their new kernel clocks and with the STM32MP21 binding. The
+   values are unchanged and the old names are kept as deprecated
+   aliases, so existing users are not affected. It is the last patch
+   so that it can be dropped independently.
 
-jh7110-common.dtsi is also included by 1 GiB boards such as Milk-V Mars and
-Mars CM, where physical RAM at 0x40000000..0x80000000 only covers 256 MiB of
-the 0x70000000..0x90000000 window, so __reserved_mem_alloc_size() fails with
--ENOMEM and leaves the system without a default CMA pool. Because the window
-size equals the 512 MiB allocation size with no slack, any bootloader or
-initrd reservation in 0x70000000..0x90000000 also causes CMA allocation to
-fail on larger boards even though DC8200 uses a 32-bit DMA mask and can
-address any RAM below 0x100000000.
+The patches are kept in one series because the binding identifiers are
+allocated sequentially in the same header, and patch 7 uses the HSE
+kernel clock parent added by patch 5.
 
-[ ... ]
+Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+---
+Changes in v4:
+- Patch 5: fix the commit message, the MSI KER clock is the parent of
+  the CPU3 allocation clocks (GATE_<IP>C3), not of the autonomous mode
+  clocks (GATE_<IP>AM). Reported by the Sashiko AI review. No code
+  change.
+- Link to v3: https://lore.kernel.org/r/20261106-ups_mp25_clk_update-v3-0-4a32f68119ed@foss.st.com
 
-> @@ -644,3 +757,7 @@ &U74_3 {
->  &U74_4 {
->  	cpu-supply =3D <&vdd_cpu>;
->  };
-> +
-> +&voutcrg {
-> +	status =3D "okay";
-> +};
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/d=
-ts/starfive/jh7110.dtsi
-> index 82ea63f715b0e..ac10d79770f24 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+Changes in v3:
+- Patch 2: only add the kernel clocks, do not rename the existing bus
+  clock identifiers anymore (Krzysztof).
+- New patch 8: use the reference manual names for the ETR and STM bus
+  clocks and keep the old names as deprecated aliases, so that
+  existing users are not affected (Krzysztof).
+- Patches 4 and 6: drop the redundant "binding" from the subject
+  (Krzysztof).
+- Patch 5: keep GATE_RTCC3 after GATE_RNG in stm32mp25_gates[], as in
+  enum_gate_cfg (Brian).
+- Patches 1 and 6: add Acked-by from Krzysztof.
+- Link to v2: https://lore.kernel.org/r/20261023-ups_mp25_clk_update-v2-0-398d348ea8fd@foss.st.com
 
-[ ... ]
+Changes in v2:
+- Patch 7: drop the custom clock ops and the recalc_rate reading
+  ck_ker_usb2phy1, and use clk_stm32_gate_ops directly. This fixes the
+  missing .disable_unused (gate counter underflow in
+  clk_disable_unused()) and the stale cached rate, as the rate is now
+  derived by the CCF from the real parent. Both reported by the Sashiko
+  AI review.
+- Patch 7: update the commit message accordingly.
+- Other patches are unchanged.
+- Link to v1: https://lore.kernel.org/r/20261023-ups_mp25_clk_update-v1-0-e906e7a38cb3@foss.st.com
 
-> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
->  		#clock-cells =3D <0>;
->  	};
-> =20
-> +	xin24m: xin24m-clock {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <24000000>;
-> +		clock-output-names =3D "xin24m";
-> +	};
+---
+Gabriel Fernandez (7):
+      clk: stm32mp25: define the number of clocks in the driver
+      dt-bindings: stm32: add kernel clocks for ETR and STM
+      clk: stm32mp25: update register with reference manual
+      clk: stm32mp25: add clock for D3 peripherals allocation for Cortex-CM0
+      dt-bindings: stm32: add usb2phy1stp clock on stm32mp25
+      clk: stm32mp25: add ck_ker_usb2phy1_stp clock
+      dt-bindings: stm32: use reference manual names for ETR and STM bus clocks
 
-[Severity: Low]
-Can hdmi_phy use the existing <&osc> node in jh7110.dtsi instead of adding a
-duplicate 24 MHz xin24m fixed-clock node?
+Gwenael Treuveur (1):
+      dt-bindings: stm32: add clocks for Cortex-CM0 on stm32mp25
 
-jh7110.dtsi already defines the 24 MHz reference crystal as osc: oscillator
-(with its frequency set in jh7110-common.dtsi), and neither the
-starfive,jh7110-inno-hdmi-phy binding nor starfive_hdmi_phy_probe() requires
-the clock to be named xin24m.
+ .../bindings/clock/st,stm32mp25-rcc.yaml           |   9 +-
+ drivers/clk/stm32/clk-stm32mp25.c                  | 187 +++++++++++++++++++++
+ drivers/clk/stm32/stm32mp25_rcc.h                  |   2 +-
+ include/dt-bindings/clock/st,stm32mp25-rcc.h       |  53 +++++-
+ 4 files changed, 244 insertions(+), 7 deletions(-)
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261022-ups_mp25_clk_update-7f1a03b1c6f2
 
-> @@ -1262,22 +1263,84 @@ csi_phy: phy@19820000 {
->  			#phy-cells =3D <0>;
->  		};
-> =20
-> -		voutcrg: clock-controller@295c0000 {
-> -			compatible =3D "starfive,jh7110-voutcrg";
-> -			reg =3D <0x0 0x295c0000 0x0 0x10000>;
-> -			clocks =3D <&syscrg JH7110_SYSCLK_VOUT_SRC>,
-> -				 <&syscrg JH7110_SYSCLK_VOUT_TOP_AHB>,
-> -				 <&syscrg JH7110_SYSCLK_VOUT_TOP_AXI>,
-> -				 <&syscrg JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
-> -				 <&syscrg JH7110_SYSCLK_I2STX0_BCLK>,
-> -				 <&hdmitx0_pixelclk>;
-> -			clock-names =3D "vout_src", "vout_top_ahb",
-> -				      "vout_top_axi", "vout_top_hdmitx0_mclk",
-> -				      "i2stx0_bclk", "hdmitx0_pixelclk";
-> -			resets =3D <&syscrg JH7110_SYSRST_VOUT_TOP_SRC>;
-> -			#clock-cells =3D <1>;
-> -			#reset-cells =3D <1>;
-> +		vout_subsystem: display-subsystem@29400000 {
-> +			compatible =3D "starfive,jh7110-vout-subsystem";
-> +			reg =3D <0x0 0x29400000 0x0 0x200000>;
-> +			ranges;
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			clocks =3D <&syscrg JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
-> +			dma-noncoherent;
->  			power-domains =3D <&pwrc JH7110_PD_VOUT>;
-> +			resets =3D <&syscrg JH7110_SYSRST_NOC_BUS_DISP_AXI>;
-> +
-> +			dc8200: display@29400000 {
-> +				compatible =3D "starfive,jh7110-dc8200", "verisilicon,dc";
-> +				reg =3D <0x0 0x29400000 0x0 0x2800>;
-> +				clocks =3D <&voutcrg JH7110_VOUTCLK_DC8200_CORE>,
-> +					 <&voutcrg JH7110_VOUTCLK_DC8200_AXI>,
-> +					 <&voutcrg JH7110_VOUTCLK_DC8200_AHB>,
-> +					 <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
-> +					 <&voutcrg JH7110_VOUTCLK_DC8200_PIX1>;
-> +				clock-names =3D "core", "axi", "ahb", "pix0", "pix1";
-> +				assigned-clocks =3D <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
-> +						  <&voutcrg JH7110_VOUTCLK_DC8200_PIX1>;
-> +				assigned-clock-parents =3D <&hdmi_phy>, <&hdmi_phy>;
-> +				interrupts =3D <95>;
-> +				resets =3D <&voutcrg JH7110_VOUTRST_DC8200_CORE>,
-> +					 <&voutcrg JH7110_VOUTRST_DC8200_AXI>,
-> +					 <&voutcrg JH7110_VOUTRST_DC8200_AHB>;
-> +				reset-names =3D "core", "axi", "ahb";
-> +			};
-> +
-> +			hdmi_subsystem: hdmi@29590000 {
-> +				compatible =3D "starfive,jh7110-hdmi-subsystem";
-> +				reg =3D <0x0 0x29590000 0x0 0x4000>;
-> +
-> +				hdmi_controller: controller {
-> +					compatible =3D
-> +						"starfive,jh7110-inno-hdmi-controller";
-> +					clocks =3D <&voutcrg JH7110_VOUTCLK_HDMI_TX_SYS>,
-> +						 <&voutcrg JH7110_VOUTCLK_HDMI_TX_MCLK>,
-> +						 <&voutcrg JH7110_VOUTCLK_HDMI_TX_BCLK>,
-> +						 <&hdmi_phy>;
-> +					clock-names =3D "pclk", "mclk", "bclk", "pixel";
-> +					interrupts =3D <99>;
-> +					phys =3D <&hdmi_phy>;
-> +					resets =3D <&voutcrg JH7110_VOUTRST_HDMI_TX_HDMI>;
-> +					starfive,vout-syscon =3D <&vout_syscon>;
-> +				};
+Best regards,
+-- 
+Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-[Severity: Low]
-Should dc8200 and hdmi_controller have status =3D "disabled" in jh7110.dtsi,
-and should the &voutcrg override in jh7110-common.dtsi be dropped?
-
-Both dc8200 and hdmi_controller require board-specific port graphs and
-pinctrl properties that are only populated in jh7110-common.dtsi (which
-explicitly sets status =3D "okay" on both nodes), so leaving them enabled by
-default in jh7110.dtsi leaves them incomplete for any board not using
-jh7110-common.dtsi. Conversely, voutcrg is never disabled in jh7110.dtsi, so
-the &voutcrg block setting status =3D "okay" in jh7110-common.dtsi has no
-effect.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-cle=
-an-send-v7-0-68f7ea9913db@samsung.com?part=3D18
