@@ -1,76 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003208;
-	b=1kUWuNQcDvU1c3AFBrm/igORfA4lazbb4IkRnamH8/nXzFfEQPgCUtCB9XSLRiJ2I/UK
-	 1bug4n1+RsVnAQxzeY5QS8Vc6Xx2aasUOFP8aTOjhKaklB1gf/RyUS9U+SyFj24ysSFO9
-	 RWTVWcAOGEprumb2Gkj4bWRETaFd9z7s9Uiv/ebLPWc2q/z3k3DaJkKWqVzmePZy/qcSn
-	 aXZIWpxfFq6W2WlwGCbuJuoSsV1cgbeU1LK0rX6v9IjH5nWje1hIKVwPlhy0ezkgumc1d
-	 6MKCi3hBqgFTQwPFsxttiLQ5EwyQehgtGrjD7H5E2LtAkkQ0u3YffqEL+fgPIcDJJow==
+	t=1794003527;
+	b=JIkUWbe0I7ZS8Jgs8C9rwKerMWCa09M4YR4yXWWjSGxXNxClYaRQTzrCKDlrclVvRuUk
+	 RZM+5y0TM4CB+VQIGpGDEwkooAFOe9i6LB0netJhEHAk2vxAQgD4qZeJ8i4sWjdQAY7AU
+	 fZPYNTvzcloOUUTWsyI5wtwPXRnW5fbkFSiw9exo0K/f96dBBc0UpO4WQGpdLweE+azU8
+	 4zU+JBwdSareqjIA+ABSaf8t9wZuZWvFZWTIhFml71Zq1f9INGZlvB+ZsVewO7ZmVdn8e
+	 VTchPsNhOS7iHhkMCpcqxrcCmy/8fYcd+iahShrg0WAEXZSW7ixXG4lISIoD2YJbJHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003208;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:User-Agent;
-	bh=JYRO1i26D9FG5gpovbYIFwDb5aLIXhRJ9ZsiS5nT6io=;
-	b=X0M5DMh6XjK9+jFlSLq50RQPP4sSLkR3Lgr9O1EMVQR4v+VF3tNCmyV/mdf1LE5wpLsP
-	 cn1XVHYw93mo8nHVBw9sk4bV4pXVQdJ6ye+D0FbcI3UklXY3kavwnjG9fWGin1v5Olvc6
-	 Iq6nyXutpAG8ZYkqooSG2gcsZuYiAQuNXVFfvVxOm46v8l7XvlMe+Z6Ehtm1zWz83hZvT
-	 wb9IMZyj1EWfUA6E8kgN64917Go+JwhvqOdMeoIMW8yn/R0DOfu+kyKcwf+x6Jlg+uAT3
-	 gS947+CyoyIHQG+hx/I+bnFDSGKnzYwweCRMRZIp2QGvNSbZEi5hcWKsHlhPjoPNvOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003527;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=tURUu78Mfm5tXaSKC+0omXpop8yxpZNIgR2c4OXKv84=;
+	b=qZGVtlMg9PYfDn+hgRWJxoUpsnz3kfxkEzxuLfdbO/6M+Ux+v/wbbYC+/OI1DqoQCa/S
+	 XLU1aqTGGh9MOfuKy++mbcJ32DzqMapl5SgM59bHy7U/DgBn+rQSDErV3cRgyExteLVVe
+	 5B1IIbQLw95PXgj726rHXwDOs6eqoui4wM7i8MpKkZV2/G6XiuaMrAyMxvhjI6sQMJGyX
+	 izrZ4gS2+IUWIW61oHF2NMQ5ngQa2456eKXNtFw1NG4LKOmvGmS60p3SjClxWGeCUmguC
+	 eBTD0fbxcrjZEgDK8ukebaI6Dsw5nn1FZZ3oQGbrH7TMMbMvy1vLW629GS4Ex6S68IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aurel32.net;
-	spf=pass smtp.mailfrom=aurel32.net;
-	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=rTlRXdcm;
-	arc=none smtp.remote-ip=195.154.119.183
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=aIVgxCDT;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA76606A326;
-	Fri,  6 Nov 2026 22:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA76606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B9A606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 22:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83B9A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=rTlRXdcm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=JYRO1i26D9FG5gpovbYIFwDb5aLIXhRJ9ZsiS5nT6io=; b=rTlRXdcmanV7C+Ntq1kn1DFl2o
-	2UJcvMtKcxlngJzYb8h0G3MdYh3Fk/JxVefw+/Qw5OUX8YN9mqwO6ZSNoD9kqEE+9ZXT7D2gQgP/H
-	GMyYi8Hn4q9c/SrPAFTu8HCS/8qRc9j87J953wFtn0WK21QKSPVvkOxx1VcJWyQ9jdgDlu1+2pf2h
-	Cr4kNrj/alh/Q4yD7hz/Bu1ihUTVB8XlkaD7CwrRlE1M4IsSHYftfZu7LtYKtL7XF+nfVs6kIlgmp
-	vRy2/dbtrRUFzDgSa0GvM0NFuiHHo/nSiKhaQz9d8i1o28CHfDmbr1XxqWQ03aerGBUQai0U4zRdn
-	kNaguWuQ==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xPSBL-00000000qEZ-05Ws;
-	Fri, 06 Nov 2026 23:13:11 +0100
-Date: Fri, 6 Nov 2026 23:13:10 +0100
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: Jiayu Du <duge1256@gmail.com>
-Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlan@kernel.org,
-	troy.mitchell@linux.spacemit.com, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: Add K3 eFuse and temperature
- trim cells
-Message-ID: <au5Q9lYTUegeEglv@aurel32.net>
-Mail-Followup-To: Jiayu Du <duge1256@gmail.com>, srini@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dlan@kernel.org, troy.mitchell@linux.spacemit.com, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	p.zabel@pengutronix.de, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-References: <20261106060525.346873-1-duge1256@gmail.com>
- <20261106060525.346873-4-duge1256@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=aIVgxCDT
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id PRnzxvymROOJnPSGjxo4os; Fri, 06 Nov 2026 22:18:45 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id PSGixHe4xxqjjPSGjxmcip; Fri, 06 Nov 2026 22:18:45 +0000
+X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6aee5245
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=8b9GpE9nAAAA:8 a=GMUnNgnwFuJ-T506CLsA:9 a=QEXdDO2ut3YA:10
+ a=T3LWEMljR5ZiDmsYVIUa:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=tURUu78Mfm5tXaSKC+0omXpop8yxpZNIgR2c4OXKv84=; b=aIVgxCDTOgBT
+	ZuRVJechWxxhECFc8mlmWQ5lJuxx4iodvszw03hVJvSZ4iTh626FT8rT6lvCBq66eO1Gbcginx5W/
+	HpPRxQy3y+xQVKJNZKQgcEnmpHXUhSdVMZNw8ZD8hJ7qFS64jkdg4gX4szdYARF9+mIKbcGIW42QD
+	dWkYfYA1mvL001BxzckioODzLxdCffshUsTMWQAkQFEjV5xrVP2Si2AlLGxgJL5dsVbskevd/7/vA
+	4GZr3rmYDXKs8rlIdPm+IjLchIt1MCm1bd1YfKPCQnAy1/cDO/VJ5mDGXbK48cqqrKgBZdvGWXPjP
+	xRRc2jv3wByqweiNXHYKrw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:50820)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xPSGi-00000003WZp-311T;
+	Sat, 07 Nov 2026 03:48:44 +0530
+Message-ID: <bf99b912-7a98-4d97-852b-45cb3c3c58be@roeck-us.net>
+Date: Fri, 6 Nov 2026 14:18:43 -0800
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -80,67 +76,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106060525.346873-4-duge1256@gmail.com>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/13] ARM: stm32: enable arm smc watchdog on
+ stm32mp1xx
+To: sashiko-reviews@lists.linux.dev,
+ Antonio Borneo <antonio.borneo@foss.st.com>, devicetree@vger.kernel.org
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20261106163429.618392-1-antonio.borneo@foss.st.com>
+ <20261106163429.618392-5-antonio.borneo@foss.st.com>
+ <sashiko-outbox-201910@kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <sashiko-outbox-201910@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xPSGi-00000003WZp-311T
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:50820
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 4
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfKzMb6ltewL4Csi/LRlt+duQCJTmbk1ZUPy+xTZrgjX0LwFH6iSACjlzBGnrlDu8fo2Chh93akXl208qzE3xx5v0baNELkSG0dEZaFzawfRsulouEbxk
+ x6HcqQ8JVurWUNiho5dKme5LWjwWzqRE420AfmiH8QHiaLvNT9IE02x5jZGGx74Kas8E3xkybmlwl95SJAsHxUj1f2NVcRuSx/y3PdxCwEfFnMqG6u+4IZJl
 
-Hi,
-
-On 2026-11-06 14:05, Jiayu Du wrote:
-> Add the K3 eFuse controller with its AES_WTM clock and reset. Describe
-> fixed-layout cells for the temperature calibration parameters stored in
-> bank 0 and bank 7, using controller-relative offsets.
+On 11/6/26 09:19, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Low] ARM: stm32: selecting WATCHDOG and ARM_SMC_WATCHDOG forces
+>    built-in config
+> --
 > 
-> Leave the controller disabled for board-level enablement.
-
-What is the reason for enabling it at the board-level? AFAIU, this is 
-part of the SoC and does not require any board level hardware. Therefore 
-I believe it should just be enabled by default.
-
-> Signed-off-by: Jiayu Du <duge1256@gmail.com>
-> ---
->  arch/riscv/boot/dts/spacemit/k3.dtsi | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
+> commit 4450302b23f46b760d6b23f33c853eaddb3d821b
+> Author: Antonio Borneo <antonio.borneo@foss.st.com>
 > 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> index e89d2cc5ca8c..51861fdc6a21 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> @@ -1439,6 +1439,31 @@ saplic: interrupt-controller@e0804000 {
->  
->  		/* sec_i2c3: 0xf0614000, not available from Linux */
->  
-> +		efuse: efuse@f0702800 {
-> +			compatible = "spacemit,k3-efuse";
-> +			reg = <0x0 0xf0702800 0x0 0x400>;
-> +			clocks = <&syscon_apmu CLK_APMU_AES_WTM>;
-> +			resets = <&syscon_apmu RESET_APMU_AES_WTM>;
-> +
-> +			status = "disabled";
-> +
-> +			nvmem-layout {
-> +				compatible = "fixed-layout";
-> +				#address-cells = <1>;
-> +				#size-cells = <1>;
-> +
-> +				soc_rtemp_trim1: temperature-trim@120 {
-> +					reg = <0x120 0x1>;
-> +					bits = <0 8>;
-> +				};
-> +
-> +				soc_rtemp_trim: temperature-trim@19a {
-> +					reg = <0x19a 0x2>;
-> +					bits = <4 8>;
-> +				};
+> ARM: stm32: enable arm smc watchdog on stm32mp1xx
+> 
+> This commit selects WATCHDOG and ARM_SMC_WATCHDOG from ARCH_STM32 when
+> ARCH_MULTI_V7 is enabled.
+> 
+>> diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
+>> index 4ac3384e397aa..de09b2afa0f2e 100644
+>> --- a/arch/arm/mach-stm32/Kconfig
+>> +++ b/arch/arm/mach-stm32/Kconfig
+>> @@ -13,6 +13,8 @@ menuconfig ARCH_STM32
+>>   	select RESET_CONTROLLER
+>>   	select STM32_EXTI if ARM_SINGLE_ARMV7M
+>>   	select STM32_FIREWALL
+>> +	select WATCHDOG if ARCH_MULTI_V7
+>> +	select ARM_SMC_WATCHDOG if ARCH_MULTI_V7
+>>   	help
+>>   	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
+>>   	  cores. Note that support for the earlier Cortex-M based variants
+> 
+> [Severity: Low]
+> Does selecting WATCHDOG and the tristate ARM_SMC_WATCHDOG from the boolean
+> ARCH_STM32 force both symbols to y whenever ARCH_MULTI_V7 is enabled?  That
+> prevents building arm_smc_wdt as a loadable module or disabling the driver
+> and watchdog subsystem on multi-platform ARMv7 kernels with ARCH_STM32
+> enabled.
+> 
+> Could ARM_SMC_WATCHDOG instead use a default in drivers/watchdog/Kconfig
+> (the way STM32_WATCHDOG uses default ARCH_STM32) or be enabled in the
+> relevant defconfig?
+> 
 
-I have tried this patchset, and while I can see non-zero data in the 
-/sys/bus/nvmem/devices/f0702800.efuse, both temperature calibration data 
-appear as 0. Is that expected?
+ARCH_ASPEED and ARCH_S3C64XX also use select, but those architectures depend
+on the watchdog driver's board reset capabilities. The smc watchdog does not
+support board resets, and select should not be used here. As far as I can
+see this patch is simply unnecessary: Both WATCHDOG and ARM_SMC_WATCHDOG
+can be enabled in the configuration file if needed/desired.
 
-Regards
-Aurelien
+Guenter
 
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
