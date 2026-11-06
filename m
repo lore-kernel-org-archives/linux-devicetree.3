@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793962382;
-	b=FFL9JNdzkP9QwHVZB4/n4HCMcQHlyUD1sJaBU0GlysJ6Gyab0w3n2R/jM5E/xkjTjA1r
-	 iWU8ClAM5kMy+zeEnZ5prTHZcazTH4pWiPOaeiKwwGJMlVdEdRZHiciJFYcxgRQCLpmgz
-	 gi1Cv3WXxMtC9rAiAjKrSvYF0pSqJYqc2LPpOBRROH57p+ElJjQtZlrbg9yCjO2pWWt2e
-	 clI+LocAYFmugGIJwGusDPIsI4iUAJoVZzfztdrl60VEKhemG8rOq9GYHKBPNRLFbQR0a
-	 6vVv+rcBQMP0VE4EBeqzhk/iyMTjGPe5q0RA0K1Hu+e+enVgLSS95+kwO8lVLphm/PQ==
+	t=1793962403;
+	b=wIGUK5lcvWrkN44qlY0sxPJ+vmvGdVa3Y/H1erezAzBcA6Z1UgzGdt3tK2OFE0h0Xwcw
+	 fcaFxGqr9n3Gue7nB3IduEJuLkG1pHjGawBGwnfzZ9/tAZPGc7SBEB87rmbIIkuVyqa/C
+	 8DfMY219GRAoFoXsdy9mlmljFjkDvQDPfV9Z+lb1/KZ95VJaAhkueAuhdeE7p2Il0Qerj
+	 pkWg1CAb4LB4z/V75C+BEOZWAVE3AXh2DR62RUBLkOdjiEizfJPIOC6Q3S0YHcLhpSix7
+	 gyitd/dyXnVq0fVF25mIxVxsIDCGs7gBE9N2ksiGdkZuVFmfPZH0lJxBmyXwvvx6RnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793962403;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=lMwDJ2OoGczv+U5ZV+MkbQUVDrRNwQ8FdLoAqir6sXU=;
-	b=0CEuqQ+Qjc3DjWbH1Sm46XGNu2f1/OTY47LV8+nPj3MBXnXfvxWB1tKNRiT8xCCUGqhg
-	 9csAdXj7XzTxyiYNI6gusGI0kqEA/1G5KompIy0oXyksRioLAqrX1QPDuLrVdvEoXrMWy
-	 LMSfdeZ7zye5jaPYM4j/WusAhhk+TJbF4bq/kVoAMXom5ofa8k4egzkg7SjvhtIweUXVa
-	 JELmuskGScU9HBr6vKqLvX3ewedWtQYDY9aYf7qEylJdHPb3FowgxoJSivtcOGQPClJ4/
-	 cSB0KlSXw/Kx3mAbTR5TJDjqYzmpmy82MzSaBdR4FSOth3krmSgl9aKMA00qIghVp7g==
+	bh=8uOm752qSbHewlwvTq64qs6Wrb1DhXsjIgUxAiKYfJI=;
+	b=iFMMtQrLkn+Rpv5QyqjUk93ouJjK+gLErt4K9FFxzHSExdcw4Yt/TpneeAF9OwHpcw4b
+	 LSWG8SZ3ty88X5h0BoUhS93Txkc4mPpkry/rqPVmgRN9Ml15P3VJlciaWbw+3TSzDL+k0
+	 ReHDI/aaLX9T3VKrx4XDLMw0eiDyjaUQ9MsOW1pGFNbQsOsIe2lwzZw4Njj1bQYtlgz/+
+	 ALG/Q3yKJCBKXYoc4QG+KALr0wEURf60ueVyz6B5xrwYEQXdGiH3JF8B9gcQMe63JgQpX
+	 9DKBR8CoMcm+Cy0tRwb/t1SPTk8UVnAkIPCbgId6YCWWUqV2OGkz6P4VSfix6fUjk6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0RNrruf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lb74MZKP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46509606A332
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:53:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A532F606A33F
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:53:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0RNrruf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3B61F0089F;
-	Fri,  6 Nov 2026 10:53:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lb74MZKP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6BE1F008A2;
+	Fri,  6 Nov 2026 10:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793962381;
-	bh=lMwDJ2OoGczv+U5ZV+MkbQUVDrRNwQ8FdLoAqir6sXU=;
+	s=k20260515; t=1793962403;
+	bh=8uOm752qSbHewlwvTq64qs6Wrb1DhXsjIgUxAiKYfJI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d0RNrrufx7ZBdlzamCDYDtOOrfW9GZO4ndagfMmF6CBsaBpf1KDW6BxbNMPCewPbx
-	 rmPuAyvIrx88Vhg3JtHqSbvzpIlQ6uQH1DdWpBrytzKcdTKxP2Ru0TTi11bmoeKBIj
-	 ewlm0Z2T+Nyba4T/6l4Udw5iv7IWgrhFsF93z2FLFN8MqKc7S5eSBmlLR5tdaLE7hI
-	 ripbb2Qdn2olFNz6d/TmE+zdQmhogCf47+xklvnTe0Mmeub+9Xdbj/REZDHZ91RhRD
-	 2wBbX5PjHyoopcjLKcHLJBkPhdpbP7S7NVp4R3JNwbIhNf8NNqENKPe4PdRgDruseK
-	 qfw5yIc9Bshiw==
-Message-ID: <sashiko-outbox-201237@kernel.org>
+	b=Lb74MZKPJpgMAashAyeBJ3hqeVIsyKY3nxEyEE7IUrH0+9Iteovv0PfkkCdV7tyIY
+	 Jh34W4RQjNCcpPf92hs/CAEb9ni85zCqqyRhwUfYt9cc3aPMMVLyTtLLnUdq6jjAZA
+	 ioiNEcCY6PIQjGIHxj1nnKk5JCEv7JUdpS04YWFwkpriWLYTWcXU1hri0eODadgS/A
+	 D9J6yo1FJhLZrhQ8KQBqWzTfJf5c9XbFOH2vUqC5Hh9g2MFk4U7F9hcHHs2jNBlHTg
+	 e4+XIBhuqEtJBXWM9KnVGn2tg2aUDHZXX1m4ubzpMV5+f/PW7N5MLf+P8wG2gohl5J
+	 5XtT8iMOVLqBw==
+Message-ID: <sashiko-outbox-201239@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 09/11] arm64: dts: qcom: ipq5210: Add I2C nodes
+Subject: Re: [PATCH 07/10] arm64: dts: amlogic: meson-s4: add the GE2D
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106-08-dts-v8-9-d91401955039@oss.qualcomm.com>
-References: <20261106-08-dts-v8-0-d91401955039@oss.qualcomm.com>
- <20261106-08-dts-v8-9-d91401955039@oss.qualcomm.com>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261106104659.54656-8-christian.koever-draxl@student.uibk.ac.at>
+References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261106104659.54656-8-christian.koever-draxl@student.uibk.ac.at>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 10:53:01 +0000
+Date: Fri, 06 Nov 2026 10:53:22 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,115 +62,49 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [High] arm64: dts: qcom: ipq5210: unconfigured 32 MHz SE clock in
-  geni_i2c_probe()
+- [Medium] arm64: dts: amlogic: meson-s4: ge2d node missing
+  amlogic,axg-ge2d fallback
 --
 
-commit 8371ffb1bf1c7c415a01c1f69c3fa2b781c1dc69
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+commit 0db40a28ab18ba3c72a34659bd708d3e86073c70
+Author: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 
-arm64: dts: qcom: ipq5210: Add I2C nodes
+arm64: dts: amlogic: meson-s4: add the GE2D
 
-This commit adds the QUPv3 I2C controller nodes for IPQ5210 and enables
-I2C0 on RDP504.
+This commit adds the GE2D 2D graphics accelerator node to the Amlogic S4 SoC
+devicetree.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> index e4a696a65e550..35cd558819691 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> @@ -160,6 +160,14 @@ opp-300000000 {
->  		};
->  	};
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
+dts/amlogic/meson-s4.dtsi
+> index 1e8b845b80c31..8bbd70e52a299 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> @@ -199,6 +199,16 @@ soc {
+>  		#size-cells =3D <2>;
+>  		ranges;
 > =20
-> +	i2c_opp_table_32mhz: opp-table-qup32mhz {
-> +		compatible =3D "operating-points-v2";
-> +
-> +		opp-32000000 {
-> +			opp-hz =3D /bits/ 64 <32000000>;
+> +		ge2d: ge2d@ff040000 {
+> +			compatible =3D "amlogic,s4-ge2d";
+> +			reg =3D <0x0 0xff040000 0x0 0x10000>;
+> +			interrupts =3D <GIC_SPI 217 IRQ_TYPE_EDGE_RISING>;
+> +			clocks =3D <&clkc_periphs CLKID_GE2D>;
+> +			resets =3D <&reset RESET_GE2D>;
+> +			power-domains =3D <&pwrc PWRC_S4_GE2D_ID>;
+> +			status =3D "disabled";
 > +		};
-> +	};
-> +
->  	pmu {
->  		compatible =3D "arm,cortex-a53-pmu";
->  		interrupts =3D <GIC_PPI 7 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIG=
-H)>;
-> @@ -435,6 +443,45 @@ uart1: serial@1a84000 {
-> =20
->  				status =3D "disabled";
->  			};
-> +
-> +			i2c0: i2c@1a88000 {
-> +				compatible =3D "qcom,geni-i2c";
-> +				reg =3D <0x0 0x01a88000 0x0 0x4000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE2_CLK>;
-> +				clock-names =3D "se";
-> +				clock-frequency =3D <400000>;
-> +				interrupts =3D <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
-> +				operating-points-v2 =3D <&i2c_opp_table_32mhz>;
-> +				status =3D "disabled";
-> +			};
-> +
-> +			i2c1: i2c@1a8c000 {
-> +				compatible =3D "qcom,geni-i2c";
-> +				reg =3D <0x0 0x01a8c000 0x0 0x4000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE3_CLK>;
-> +				clock-names =3D "se";
-> +				clock-frequency =3D <400000>;
-> +				interrupts =3D <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
-> +				operating-points-v2 =3D <&i2c_opp_table_32mhz>;
-> +				status =3D "disabled";
-> +			};
-> +
-> +			i2c2: i2c@1a94000 {
-> +				compatible =3D "qcom,geni-i2c";
-> +				reg =3D <0x0 0x01a94000 0x0 0x4000>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE5_CLK>;
-> +				clock-names =3D "se";
-> +				clock-frequency =3D <400000>;
-> +				interrupts =3D <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
-> +				operating-points-v2 =3D <&i2c_opp_table_32mhz>;
-> +				status =3D "disabled";
-> +			};
->  		};
 
-[Severity: High]
-Can i2c0, i2c1, and i2c2 fail to probe or lose their SE clock rate across
-runtime suspend when using operating-points-v2 instead of assigned-clocks
-and assigned-clock-rates?
+[Severity: Medium]
+Should the ge2d node include "amlogic,axg-ge2d" as a fallback compatible st=
+ring?
 
-geni_se_resources_init() registers the OPP table and sets se->has_opp,
-which causes geni_se_resources_deactivate() to call
-dev_pm_opp_set_rate(se->dev, 0) on runtime suspend, but the "qcom,geni-i2c"
-driver never calls dev_pm_opp_set_rate() or clk_set_rate() during probe or
-resume.   Instead, geni_i2c_clk_map_idx() only checks the existing clock
-rate:
-
-drivers/i2c/busses/i2c-qcom-geni.c:geni_i2c_clk_map_idx() {
-	if (clk_get_rate(gi2c->se.clk) =3D=3D GENI_SE_CLK_32MHZ) {
-		req_freq =3D GENI_SE_CLK_32MHZ;
-		itr =3D geni_i2c_clk_map_32mhz;
-	} else {
-		req_freq =3D GENI_SE_CLK_19P2MHZ;
-		itr =3D geni_i2c_clk_map_19p2mhz;
-	}
-
-	ret =3D geni_se_clk_freq_match(&gi2c->se, req_freq, &gi2c->clk_idx,
-				     &res_freq, true);
-
-Because ftbl_gcc_qupv3_wrap_se0_clk_src in drivers/clk/qcom/gcc-ipq5210.c
-has no 19.2 MHz entry, geni_i2c_probe() fails with -EINVAL unless the
-bootloader already set the SE clock to 32 MHz, and runtime suspend clears
-the clock rate to 0 without restoring it on resume.  Setting
-assigned-clocks and assigned-clock-rates =3D <32000000> on each I2C node and
-dropping operating-points-v2 avoids both issues.
+meson_ge2d_match in drivers/media/platform/amlogic/meson-ge2d/ge2d.c only
+matches "amlogic,axg-ge2d", so without the fallback compatible the driver w=
+ill
+never bind when this node is enabled.  In addition,
+Documentation/devicetree/bindings/media/amlogic,axg-ge2d.yaml sets
+additionalProperties: false and does not document "amlogic,s4-ge2d" or
+power-domains, which causes dtbs_check to fail.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-08-dts-v8-=
-0-d91401955039@oss.qualcomm.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106104659.5465=
+6-1-christian.koever-draxl@student.uibk.ac.at?part=3D7
