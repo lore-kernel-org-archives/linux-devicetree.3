@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999728;
-	b=aO1EKfKsNEwLPh/4CCu3q2jCXlgHg5Veb4FoNL055m8BeXQiYvLmCNgd6S0S8Ez5gwU7
-	 /R6jCWewXb1iLnAZa1VEQWOxtbzDYtTGFIz4OqV0SCQGJJXAQJjRUKbX3A2ubBv1Nk342
-	 TZ9MrwcgzhD9aj5NstLfwW+50btZcpL/kYLuLFzD6WRnStUGw+blU7ar90Dyw6itMrCZZ
-	 1nTXj4NkgjYOW9QttepsbLx1LViNGKKgkyUSar34+WbM8aexzpmHptNf1RlvEZzxNr6qd
-	 33rmfCxdxh3cxCUZsaOxPRdB4emxrIEwlrdrA0sryvB9OKpyYSNkSvErkFR8/pfZ5Vg==
+	t=1793999901;
+	b=1ZoTV+4w2yTLdU1NFVEWdnSKlE8AysflBN+iRT4HqB949f+UebqrdyTtE1/abHNaenN9
+	 pzx0wNMSin6N3mrYoL0IrDcJDbWTa/aHxcFj7r5VVSBNxFt0k4fay3Zdw+rNIg3FaKsEH
+	 vkUFH6wV9Z9ZGs1O7ijltiIqHk3rgDdKrpRGALNU6Y6aonY2AvbK2T/9C9wy9ByumaJ6O
+	 f8KHZ60jeHD0cJC/d76hXDqLzod3K/gZGWmHgrxIk0CHz8dTilrxYhpxJXczO7NzpMYfz
+	 9w623dpv+ZrjM3TaalLQJPIShKiFIs6+eosikAuL6MaXliCTYmWcrtzk4ffcOjr3ElA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999901;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lGevc54PDN7MmVEAeNdpITEvNybLOdJmT7pRAvwG7X8=;
-	b=ZpJ7Btw+9MuONPgxECiTI8WGCg870Cl0AULQwvA8kxJoHNXu/+OFiAfbI6oDOgKPBdWZ
-	 DKSiUNOW9o6yRYATQdhLUk7on+YOKTkPgSIkO8QYfyz54UI0Sm90F2xbat+lOHyjEoD3v
-	 BgAyyOUSNQrRwAfWdjjz+X5Qh17eaPGGA/+C4Q9+x1mtVCOmewADkBMWUlYiidM4Bduas
-	 sd3rQfxFY8ycfLJac/rjfb3iBPZ9l16h+9y3PyzgcjSnyr7btCrEKPDKQeO/Qqir8sjjI
-	 vJ17uBWovVDMnuLgX+fbUvM1a6jsAR24YAokz/mWDY7AaZvlkCPOqB9nG3yF+pKk2dw==
+	bh=toc3VIJtaDo7Q+DZvm/d/cwob9aXNkkAYYokvXPgfuM=;
+	b=IuGkfq5hsc8lQ3wvY4stcVZ2HvV9rkzgWcgsyhVfq45LH1VXcPD/CR4s26ZA59QXdkAm
+	 hE7mXm7Zm06QKpkxEfapIHXd6NpAA6Hib60AJ5+/xd+zzi1prjesRZU664hHjLFg3CjPg
+	 0gfbeFDL8OXlEOWqQ7AC6s2jpzrVnDd/aemSI/BizylsRN8685wICr4n63P5JpBmkIxge
+	 T2eWV4TnNITSIRVUZbR0BodoGl+FYrrow5qcnalAqmrKnnIkmrSVSawLZXX3tjNzPuqxN
+	 zXEOFp0MBi+q4kHPo9Xk1d3Fbga8e67x0po0Myx/XXFoqjl/gMNhl+zZ4aeWuWUzh/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYXvVgzP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqf27qKh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B957606A326;
-	Fri,  6 Nov 2026 21:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BCC606A326;
+	Fri,  6 Nov 2026 21:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYXvVgzP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B49CF1F0089F;
-	Fri,  6 Nov 2026 21:15:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqf27qKh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C7A1F008A1;
+	Fri,  6 Nov 2026 21:18:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793999728;
-	bh=lGevc54PDN7MmVEAeNdpITEvNybLOdJmT7pRAvwG7X8=;
+	s=k20260515; t=1793999900;
+	bh=toc3VIJtaDo7Q+DZvm/d/cwob9aXNkkAYYokvXPgfuM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JYXvVgzPJqpkfuhSWYPSEhIAcWilXosveDN3IT4UdY3cf5vwaYMxXvCWBoPT2Wf9C
-	 xhixXjodw37nbMmiq9aeu13POo8CRgpjRTP06+Bp5J7YJ5/SW7lEknjISBzC8CSwUA
-	 booF+VjPcjKi/8fGCM7D7SweiACKVrV07V5gkMEEObAUS5kyf9+UFWlfp/XyDny8tL
-	 MlpkqK97IuMhkhJ5fWI6U0Z/lbe66X+Eg6dRtrMcjV4cvWy6T+3hvrD7ZAz2md49cB
-	 g2TnQaeslQyL9j8hMUEH8Me1856nqGYl2cruhByCb3GklWdRXu40iZeNG3M/TIQ5ch
-	 cBoNOIwgLMS+Q==
-Date: Fri, 6 Nov 2026 15:15:24 -0600
+	b=fqf27qKh9kuiS1bdOgj+2GkXkpPZ3SdkT/+wvuXoy0ekj3K2nuRQNKTnq3cHKMnDW
+	 PFUebkFSpuv7V6Avcgv+EkFyYWy6BC6NhI0B0WY0zUul+y3RMJTws+UYWImFqY2kc/
+	 Dn6d3zXbpQVYhqOFyQfTntRPMuKHK4/GCUzaRC0sBYBTeR0MGGWt5NWT+eEFF0/r6f
+	 ledAefKk6vaLSKFLAn49wGOassovjoDJJkeipIV9ZQdyXqUNjFuDy5zIghWhDOvO+D
+	 ehF4UFWwC0JH/oNahgy/mfZDION/xUKWTw8xCLoVCHgClbY8/rlvo0CpFKuXNvHKVn
+	 TBbGjGrAQirjw==
+Date: Fri, 6 Nov 2026 15:18:15 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Ilia Lin <ilia.lin@kernel.org>,
-	devicetree@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Subject: Re: [PATCH] dt-bindings: cpufreq: qcom-cpufreq-nvmem: Simplify
- bindings
-Message-ID: <179399972393.1703387.748498468512223215.robh@kernel.org>
-References: <20261105194606.772346-2-krzysztof.kozlowski@oss.qualcomm.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>
+Subject: Re: [PATCH] of: reserved_mem: Drop node_fixup, CMA can handle it
+ internally again
+Message-ID: <179399989427.1724666.16449745308990999422.robh@kernel.org>
+References: <CGME20261105215426eucas1p1fb2de3113bd185a84e1d0925e14fc4fc@eucas1p1.samsung.com>
+ <20261105215413.1439745-1-m.szyprowski@samsung.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,32 +61,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105194606.772346-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261105215413.1439745-1-m.szyprowski@samsung.com>
 
 
-On Thu, 05 Nov 2026 20:46:07 +0100, Krzysztof Kozlowski wrote:
-> This binding selects a few top-level compatible machines, but since
-> commit 389de9c5a677 ("dt-bindings: cpufreq: qcom-cpufreq-nvmem: make cpr
-> bindings optional") only qcom,qcs404 is present in  "if:then:" clause
-> which enforces specific OPP properties.
+On Thu, 05 Nov 2026 22:54:11 +0100, Marek Szyprowski wrote:
+> The separate fixup step was needed because node initialization used to
+> run too late, after paging_init(). Since commit aa05faf81583 ("of:
+> reserved_mem: allocate and map the reserved_mem array early") node_init
+> runs early enough again, so dma_contiguous_early_fixup() can be called
+> directly from rmem_cma_setup() once the CMA region has been successfully
+> initialized, as it was before commit 2c223f7239f37 ("of: reserved_mem:
+> Restructure call site for dma_contiguous_early_fixup()").
 > 
-> For all other machines, this is a no-op, because there is no schema here
-> enforcing a specific compatible for OPP nodes or any of OPP table
-> properties: one can switch to standard OPP table (operating-points-v2)
-> and this binding will not complain.
+> Drop the now unused node_fixup callback and its helper. This also fixes
+> the premature call to fixup when region fails to initialize.
 > 
-> OTOH, this binding has complicated "if:then:" blocks so is not easy to
-> maintain and causes false positives when regular OPP table is
-> encountered in matched machines.
-> 
-> Drop all machines except QCS404 and move the subschema to top-level.
-> 
-> Cc: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Closes: https://sashiko.dev/#/bug/linux-61818eaa-5dc1-4457-bd21-3a9be2ed4d6d
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 > ---
->  .../bindings/cpufreq/qcom-cpufreq-nvmem.yaml  | 78 ++++++-------------
->  1 file changed, 24 insertions(+), 54 deletions(-)
+>  drivers/of/of_reserved_mem.c    | 34 ---------------------------------
+>  include/linux/of_reserved_mem.h |  2 --
+>  kernel/dma/contiguous.c         | 17 +++--------------
+>  3 files changed, 3 insertions(+), 50 deletions(-)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Applied, thanks!
 
