@@ -1,107 +1,107 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950810;
-	b=qkzg4mUHfuWmV2G1jrXFEp5QN/HZ9CjQagXo+OmXLvnRnK+7YWembGcrQC8a9Fivdu88
-	 ntakx9fdlq5OgzzluOGizIIbPeLC555QDo83sQkmxD0J3q8g/V154MDe0HvWN2uFTqFUz
-	 ulptpSknokJ9zi2iX1lJ7xMCwWf4YdYiY1BHfdZiwmbBBKX/wH2MunBv8AglK89sp6A0C
-	 /Kj8v8AZrG2HscBXVj8+HoOqfI6/xBNLyI38wOTYi6L1KsNrY1gcaKPjKSRihsOUEbxPf
-	 ti+HSZZksnMtCTNS7uLDo/upuJGcORTsvvSAde1Kqld46Sy2NzC9hx+bBmqTF5nATiQ==
+	t=1793950827;
+	b=eLwVlWbseoAXPNG9WbUebNzvHR+wVdYlurwxv5bKWSzLfvRhIIG1WMKvHMdVUiBSlMNJ
+	 zWjxBEDkzV/HP1f3cmGTDP+alQe96XIXwGYSj8M2OtOzYEkZHUUf1DztrCQN4pNK7sw6C
+	 hjukJvIrc5CZ6whiY5ajOWVBeeseSa0Izpy9XqWuxFXXsJacBu7zohq5G8JrL+l6krb7j
+	 mXph1BnpW3oQMsOt9yrrGCFnIFogmB9/VqpNaRsh7yEcHwFzMgxiEonUWWSLQqujM3O3y
+	 10WMQHjy1JZRRpT0VVuHHk3wl7eV8+bcuPfaVI/MwM+WJ/qujRbCUUekBSItCrld2Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793950827;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
 	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=9zKZss/Z2aszpq/pWEN2DKKlaIlBC4vciUdzc98+3to=;
-	b=04sKX9/b0Rh/cgI+Ln9CFt7JvITiBHsSK0k/8NEavMNoVLaObY1hQeFqvnNZWx7Rjj/J
-	 CrBEfd0LnZLfZ6uO/06X48vUb+VqVVX/hFfUei5OcD24LPHB8wDhRt7B+T+qbWzftg8y/
-	 EknH2QDYihtg68sjFOaBtHUV427k7OLki7hRMrdqaAHp63gnGWsgfm1jh3cF9HQtQ/vm7
-	 iOLsc81yM5URjTetnvU2w1QzW0f0VUKPsYxF+1/snvoUYk8l/+szBE+SEg5/lCltWzss6
-	 JRt5Eha1c3JY0jJgH9DkdBXBsix93EU1qUrz9KclnB97ASB+9fEgB49R09zbmKeXiqQ==
+	bh=u4oCT08njFkeGXfEt/T6Wc1zTH2R7y+7VZ4fKY1vwkw=;
+	b=s6bWyw8efyx873IncH/3+J2m4Syk1Q4ZlAgY+K6PVjwDAM9IfZBS3Xg9R2MG27lQxPIc
+	 cjnv3K9OlUOcRuh8f4lU7dI59gubVJBejZ7xxjNlFqr//DYALm5HBZsIqeoHF1jwue8V6
+	 iXq1eU6emPnvljFYkkuIN1bPnpBFgAdnuFWIt7tAHsoru+WFYxIcDpe0bzacTLI5RbQh6
+	 LZl8IRqdPYFFZs6gB6/TEF2+K7Via3VPYOtTXBS3AWm3o5sts3Rm6vQmPsSZ6Jsqk8XA7
+	 vW6fZ9wAE1zEPSBI1T6EaAt78nThxnuViX+K04vML37MY1KD42doPrrsLPV3scEJdbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=analog.com;
 	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=UuJd2jCn;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=k6aVm6hk;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=EgwnVfsS;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=d6LLBPMn;
 	arc=none smtp.remote-ip=148.163.135.77
 Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C767B606A328;
-	Fri,  6 Nov 2026 07:40:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C767B606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03471606A32F;
+	Fri,  6 Nov 2026 07:40:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03471606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=UuJd2jCn;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=k6aVm6hk
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=EgwnVfsS;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=d6LLBPMn
 Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67R1N03163839;
-	Fri, 6 Nov 2026 02:39:59 -0500
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A67R5dt3164176;
+	Fri, 6 Nov 2026 02:40:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=DKIM; bh=9zKZss/Z2aszpq/p
-	WEN2DKKlaIlBC4vciUdzc98+3to=; b=UuJd2jCnvJ/XxyAsrXY72D2ASyRwEpbX
-	Hfw4+Ntyk8W+ZJBxu2PMia/bqWkC+LVHuwHzi9JGlpc3lIZtxB43l8t+BLhxmFFs
-	R15ZKVQQnOMmcbMCFdlwSw8KCjYZcNfbqf06V8C+jpyU9Ii61TVnNnGPtZMKP/qQ
-	S1yLarADdd4Khm099o5lugAKLTyvJNaMC/8uyVXbbXbeovPDIkdySf7dZAQ5hIs9
-	ziUkbNkR01ES6IyuXLWgwOzu+Fg4NTG9j9LFkbWMx4oLjWVlTh5GKZTJMrbBwc6e
-	8NmHB4etyy3ow8e9Z/LvsSjMYjzQYWhjfTuinYvHeYDE0oMS7KtTsQ==
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=u4oCT08njFkeGXfEt/T6Wc1zTH2R7y+7VZ4fKY1vwkw=; b=EgwnVfs
+	SsVyHNwO9qv2pJMOsVlB4fI8AgAVyzevJ62zL4N7Lh6kOTG0CfSs9sMQk4YyZgMi
+	gb9gIqfHfxE3lfWyhY7Tr1oNrUqRZVtkle2FoSRzAFao6NdFPiCvl0RoVGXIm+60
+	plhanZJrR69LwiLFJeuaD7XWnUBKGXO3dTHRupKn7gLn1EBln/HcVif4XKOHVMqy
+	rhZ4hqzQfCSEP8bXwH1RBSNjUW0A5nO+Mjk3yQk8DuL8vq/vRNtTFLqfx2VZMO2D
+	+jPy0HyR2Q8IfGYPSLaFNMU0mXix7+dShKvkAPBlt5fO/rp/7RJXAPzom+Gy1+2A
+	ZdcMAf4OTeJNsPg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=9zKZss/Z2aszpq/pWEN2DKKlaIl
-	BC4vciUdzc98+3to=; b=k6aVm6hk4My5HV69/qI3TZ64+ZYt1hg1OH4KaiGmgFM
-	hrGOKF4Qsvq6wQ9FWJuPOdC4vwdH2JhryvjK6fYTdO+o1f+2AXkTDONTz7gQGXyy
-	9ijn3osdqfI3mwvOlCaFg67+amYg5l+UBE4Ub1kD4Xvks/hZ7ckXXe4WzWRze/mC
-	KMYZn0F2OcWg6wXt9lUGEbGViUH/hg2DhPhIRIcWA5PbvDUBplPPcXyqNlnPVT4X
-	y1KjjtVr/WDL2XU2837UhT9Hz9jTpvwuutmbhEfNr3XbbJI4LD4iIAvGIEEIT0Ft
-	C7LPq6kptsgAOOPBtE5gcMYol8QlW1F3gTjj5Lt0Eww==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hs3pytfpy-1
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=u4oCT
+	08njFkeGXfEt/T6Wc1zTH2R7y+7VZ4fKY1vwkw=; b=d6LLBPMn59Czhq1tUpAGa
+	wV46caOTS5J1ypk1pk+lFG4WlHLwR/Vj07ccbe5plyfRd9khPmobYs6Z35bPcjzN
+	lPdbBQQiJQ2+zxZYzakySZhPBjpsR7ZYs0AaZby7t8MTEsZ1Z4gmqW67PhZtfzZM
+	WS4ImN3AXZ1wwbmFjCeBPhRk7CMOMCbuM3k5X/JSY1hJq+5vTBTUJP6dgTlNtAzZ
+	m3iYZo1mJKtBvT8EyDhi6kWRalSNXr4Orpg8EWTpaKC56cKkVwq2oDy+AVik+k9r
+	bOw5qT6hf2e1ICRWHGNjt+5bIY0ilG6jcFuIPa6zNLRX6bD8F/qT6yBbdKmH62Wk
+	w==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hs3pytftb-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 02:39:59 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6A67dw1Q010319
+	Fri, 06 Nov 2026 02:40:23 -0500 (EST)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A67eMEK029374
 	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 6 Nov 2026 02:39:58 -0500
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 6 Nov 2026 02:39:58 -0500
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 6 Nov 2026 02:39:57 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 6 Nov 2026 02:39:57 -0500
+	Fri, 6 Nov 2026 02:40:22 -0500
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 6 Nov
+ 2026 02:40:22 -0500
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 6 Nov 2026 02:40:22 -0500
 Received: from HYB-0FPP35J6CsI ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A67dkI4028684;
-	Fri, 6 Nov 2026 02:39:48 -0500
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A67eBwB028733;
+	Fri, 6 Nov 2026 02:40:13 -0500
 From: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
 To: <jic23@kernel.org>
 CC: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
         Michael Hennerich
 	<Michael.Hennerich@analog.com>,
         David Lechner <dlechner@baylibre.com>,
-        "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
+        Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
-        "Dragos
- Bogdan" <dragos.bogdan@analog.com>,
+        Dragos
+ Bogdan <dragos.bogdan@analog.com>,
         Ioan Daniel <pop.ioan-daniel@analog.com>, <linux@analog.com>,
         <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 0/2] iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
-Date: Fri, 6 Nov 2026 09:39:35 +0200
-Message-ID: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
+Subject: [PATCH v3 2/2] iio: adc: ad7405: Add support for ADuM7801/7802/7811/7812
+Date: Fri, 6 Nov 2026 09:39:37 +0200
+Message-ID: <20261106073937.13927-3-pop.ioan-daniel@analog.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
+References: <20261106073937.13927-1-pop.ioan-daniel@analog.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -114,24 +114,24 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfX80L/p0XS9U/Y
- 5+ICUU6hlkwUnLicR4yQ3y3v2MHLudqdbDDl429zDRonyFnxA4OLSnEuFhsgfEUvrMnLU2GXzG7
- FDmJSjIBVe9DMx3tY/Kd9pEF26A+pmpu0ybxlDFDAdkvSyImoYZw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfX1ZWXIJKp2fM0
- upBocGzs3ZhvFTeo9Y/OodcBu2cW34k0xVsPOkYpMVLt1F0UG/z+LPa/KRYNaNMcvhVULUwRRIG
- iBoycyrVxRzxuzTSc6mjVdr3v3ST2uNGtaCusgacXo3l6qYHYAH1gsUoMKYeA2OkMEAbZ3MxEaX
- 0pXWpHi6NEeH4Dk1wxHBw2xNjUXs+w8Bp0wVNkuTtUxuMSlPuaaOCjNp1jAolFmSzKbCvIUhVVK
- A/tYaO/9itfsTwHSlcGwa7fdt0igw4me3kM3Upeu8Y4rrutXj5pFpQJ/sOnI/MH24NNH656CWho
- +8B0g3uokoBBgk6f9XNymXLDVDOwsjoVv56WUZi7P5n9JqKC9Gc6Hhzp4hbxalapK6lEAxsnVXG
- lZs8pPQd5ucduFa9tBuI0vRFezrZtFYLAEqguNYjhMa5apfodQ90yeeHJr7Csx3kX4LT8qy6v0X
- V/CsZ94WNT/b3TnRGnw==
-X-Proofpoint-ORIG-GUID: dJlV-IJ91d6o055izD0Zb2pdP1J6L5iL
-X-Authority-Analysis: v=2.4 cv=TYcDJhQh c=1 sm=1 tr=0 ts=6aed844f cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfXzPSfodF6K+vX
+ 6FOnqKkFjacuDOO/jCAq1jzX7WlxV4lQVwBcLXNf54ctNftoPNUXkgpUpXJHqYa+GrqY7wX+QkA
+ H0BX1LEF/7w9u/nKVdCx+SAnNNl4/TST+9TKgQLmbIihmQ9e0DqU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAzMCBTYWx0ZWRfX9oB4Hz2d2QZw
+ Y4A542BAeidcWQQXMLEd2lj29JbYP3Jvw4brauJ+pCMop6GSlT4k8CB8I4gifIMTUSSugCiI0f3
+ Zt14iUD0Hf964SkH8PHXi5BX18py6pkCylvc2kZPI1TBJIAqtXit4Y15Bkb32ttqy6X84lmU/hM
+ +iB2WDYnMLU0t8upOsJsRQxWWyApm+NX0Ikwcp+FtWHbL6d4P5ppDGV7UoDeLeVkudToFb/40//
+ wjmSc18Bzqhwru/VlXaIBy0fSoXTbizSZOeQrSdCyjEn+CTfN1twbo2IYz8o+8sPEwkok6UxyXI
+ /P5EGlg++ZtvTocqoUVKP/DhuyqpQ+IYsV9RMdvxm3vejw1M31LGbXJCc1FHpBvB3uEjO/+VE9n
+ GtkJkCNOh2deFk4W3HGFCWUmXkJYkfinvh6S9GgUAzKxqn3x+K3UdMkYqRo7f7lSKbGJw4xJXht
+ eZcTKH/tI2Q5lEgqGcQ==
+X-Proofpoint-ORIG-GUID: nFC14UrCnqcCzmzJ0jzGfTtdPer0ZB_S
+X-Authority-Analysis: v=2.4 cv=TYcDJhQh c=1 sm=1 tr=0 ts=6aed8467 cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=KHIhECFyK12KdMBMZhQA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: dJlV-IJ91d6o055izD0Zb2pdP1J6L5iL
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
+ a=x9WmffaYgfafupnZSc8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: nFC14UrCnqcCzmzJ0jzGfTtdPer0ZB_S
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-06_02,2026-11-04_01,2025-10-01_01
@@ -141,28 +141,116 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060030
 
-This series adds support for the ADuM7801, ADuM7802, ADuM7811 and
-ADuM7812 isolated second-order sigma-delta modulators to the ad7405
-driver.
+Add a chip information structure and a device tree match table entry
+for each of the ADuM7801, ADuM7802, ADuM7811 and ADuM7812. These parts
+are handled the same way as the existing ADuM770x devices and differ
+only in their full-scale input range: ±320 mV for the ADuM7801 and
+ADuM7811, and ±64 mV for the ADuM7802 and ADuM7812.
 
-The parts are compatible with the existing ADuM7701/7702 handling and
-differ in input full scale and maximum master clock frequency:
-  - ADuM7801/7811: +/-320 mV full scale
-  - ADuM7802/7812: +/-64 mV full scale
-  - ADuM7801/7802: master clock up to 25 MHz
-  - ADuM7811/7812: master clock up to 50 MHz
+The device tree binding lists the ADuM7701 and ADuM7702 as fallback
+compatibles, so the driver can handle these parts through the fallback
+alone. The dedicated entries are added so that the IIO device reports
+the real part name instead of the name of the fallback part.
 
-Pop Ioan Daniel (2):
-  dt-bindings: iio: adc: ad7405: Add ADuM7801/7802/7811/7812 support
-  iio: adc: ad7405: Add support for ADuM7801/7802/7811/7812
+Rework the Kconfig help text to list one supported part per line, so
+that new parts can be added without rewrapping the text, and make the
+prompt generic instead of naming only the AD7405.
 
- .../bindings/iio/adc/adi,ad7405.yaml          | 25 +++++++++++++----
- drivers/iio/adc/Kconfig                       | 14 ++++++++--
- drivers/iio/adc/ad7405.c                      | 28 +++++++++++++++++--
- 3 files changed, 57 insertions(+), 10 deletions(-)
+Signed-off-by: Pop Ioan Daniel <pop.ioan-daniel@analog.com>
+---
+changes in v3:
+ - use the same description in the Kconfig prompt, the top comment
+   and MODULE_DESCRIPTION()
 
+ drivers/iio/adc/Kconfig  | 14 +++++++++++---
+ drivers/iio/adc/ad7405.c | 28 ++++++++++++++++++++++++++--
+ 2 files changed, 37 insertions(+), 5 deletions(-)
 
-base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index f8456c8039883..bdcb1f5c9a218 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -355,11 +355,19 @@ config AD7380
+ 	  called ad7380.
+ 
+ config AD7405
+-	tristate "Analog Devices AD7405 ADC Driver"
++	tristate "Analog Devices AD7405 and similar isolated sigma-delta modulators driver"
+ 	depends on IIO_BACKEND
+ 	help
+-	  Say yes here to build support for Analog Devices AD7405, ADUM7701,
+-	  ADUM7702, ADUM7703 analog to digital converters (ADC).
++	  Say yes here to build support for Analog Devices isolated
++	  sigma-delta modulators:
++	  - AD7405
++	  - ADuM7701
++	  - ADuM7702
++	  - ADuM7703
++	  - ADuM7801
++	  - ADuM7802
++	  - ADuM7811
++	  - ADuM7812
+ 
+ 	  To compile this driver as a module, choose M here: the module will be
+ 	  called ad7405.
+diff --git a/drivers/iio/adc/ad7405.c b/drivers/iio/adc/ad7405.c
+index 0996f48d76f1e..4eaa272a48ae4 100644
+--- a/drivers/iio/adc/ad7405.c
++++ b/drivers/iio/adc/ad7405.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Analog Devices AD7405 driver
++ * Analog Devices AD7405 and similar isolated sigma-delta modulators driver
+  *
+  * Copyright 2025 Analog Devices Inc.
+  */
+@@ -158,6 +158,26 @@ static const struct ad7405_chip_info adum7703_chip_info = {
+ 	.full_scale_mv = 320,
+ };
+ 
++static const struct ad7405_chip_info adum7801_chip_info = {
++	.name = "adum7801",
++	.full_scale_mv = 320,
++};
++
++static const struct ad7405_chip_info adum7802_chip_info = {
++	.name = "adum7802",
++	.full_scale_mv = 64,
++};
++
++static const struct ad7405_chip_info adum7811_chip_info = {
++	.name = "adum7811",
++	.full_scale_mv = 320,
++};
++
++static const struct ad7405_chip_info adum7812_chip_info = {
++	.name = "adum7812",
++	.full_scale_mv = 64,
++};
++
+ static const char * const ad7405_power_supplies[] = {
+ 	"vdd1",	"vdd2",
+ };
+@@ -232,6 +252,10 @@ static const struct of_device_id ad7405_of_match[] = {
+ 	{ .compatible = "adi,adum7701", .data = &adum7701_chip_info, },
+ 	{ .compatible = "adi,adum7702", .data = &adum7702_chip_info, },
+ 	{ .compatible = "adi,adum7703", .data = &adum7703_chip_info, },
++	{ .compatible = "adi,adum7801", .data = &adum7801_chip_info, },
++	{ .compatible = "adi,adum7802", .data = &adum7802_chip_info, },
++	{ .compatible = "adi,adum7811", .data = &adum7811_chip_info, },
++	{ .compatible = "adi,adum7812", .data = &adum7812_chip_info, },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ad7405_of_match);
+@@ -247,6 +271,6 @@ module_platform_driver(ad7405_driver);
+ 
+ MODULE_AUTHOR("Dragos Bogdan <dragos.bogdan@analog.com>");
+ MODULE_AUTHOR("Pop Ioan Daniel <pop.ioan-daniel@analog.com>");
+-MODULE_DESCRIPTION("Analog Devices AD7405 driver");
++MODULE_DESCRIPTION("Analog Devices AD7405 and similar isolated sigma-delta modulators driver");
+ MODULE_LICENSE("GPL");
+ MODULE_IMPORT_NS("IIO_BACKEND");
 -- 
 2.34.1
 
