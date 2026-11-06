@@ -1,115 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981514;
-	b=op3ReM4sy/48LxrHTdmNgZt1IJr1k7D177R5MRL3baqh5f7hpuV0d3pp4/00IkDn2YGb
-	 8c12c1KiBshQ794n7v30J4xhePiw6DxjNptmiDjTDQwfAp/XBoWggPTgdcq60pm0NQJ1A
-	 U8QZZSi6HjpqOb0tMcaSQUcXlJWrjDQsodHmHBYmdf48rWNrqVWUYYFvmEgXgDC7+stxG
-	 SLNTxjDr5dvWoUx27x9jNUcqb3CMkv2Y2TioqHiiDw8ydXbGnlm8jzECiel3XAMKZmENw
-	 2nT1JHFs2S4/HuP4L/E2vntGtZ4DidCe3IkqLJYy2gHrcqWYZ4Ba6tHwrC0ceskk3ng==
+	t=1793981537;
+	b=4SRQtmYufBDKtKyMSYkl2WqRg47DxJuDQ4NkaYt/2Baso36IXy2eUoLq1WQ5hUb3TFrs
+	 k8MaQ4OTgptp66yhNW+zShsxmwViN21n7ZUDa0r7tD34es8KRr1Vyf0nIBArD2PA9zFTs
+	 JQTG/l/GyUAAY+VdW62GMq/B3MwnUHaF9xPuRksK0aB22QiXQ9HNaHWyOMibIqjPTThtU
+	 ktTVQVTt46NtUyLNpRUUyiwQJ0ZjRSPUB2kJ1rrUUMvVadZxiAH2FF+0lpGqaHkwiZshk
+	 AqOVTj/cxsyOt8FgI9vzyi3FheXHwW+XGmkWfzDzDHG5QxrK+kbxEs5dRQqoFsnSX3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981514;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=wja8uIoxJHQmdC0EKmiOw8xNORvki1GhVV0A1YI8oTU=;
-	b=YeimzwggqqbwV7w/Rc12rdFt0jGfQv/2PpCYxbAsGKUkbrwWKsMPPfuKLo+Bkmovm049
-	 Vj2uYKOovdMhK/1LjGeKngX30zsCBHjByFVkjw42xloPNeLioS/Em53gB9w0f/onFcBJn
-	 1Z5nvsIwUlDGd3VOmfMuOeBL8Fe06HwGR+FyjSZ5Wed0SSjvOa7Qt3zlF9Wd/VxdIe32L
-	 g2NTuyZnlokpj+SUf4ofka7ceU3jix701UMBFTlLyPYyXyXMwgZoNOskT4YtNpXCOpNpi
-	 fBcyAl1R2kwaCo0BlD35+HiYtwXDgOPODC5r80vK2kJEZaAH/Iob0EAis/VXvb8grxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981537;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=QtyI2+GW86z5aHl6ZfHYzAXAzVDLDy/TcEMNr+ncFIw=;
+	b=FPUOVnfx1+GB/bN9lsMQgoz9yGkew/HKTL+3uGEa1q50f5v2VxT9eChgXls30jA35UN8
+	 s+mfkS+Ol/urNa7tRxmFc0Lj62WGN5hL+G5W9Nz9rrDshDk0YHYDEZSW4H6a/wvqrqiOk
+	 AHqQgZAhRoxCzqN6Oym6jQ+oKaIUWmybHW2jU/yxKxlAmr4C/i3y8ukv1zqgW6aqEwTcf
+	 1iXk6U+GZ9QskmyyX0h7tdEr4foeKsVAMSWpQV0W79hF0rGsq2sNlBtgS66F+G2UUA6fj
+	 AxVTHixiQToNT4hF8wBuiK0s1YNEsS1M01wwkivU+wKVmEz7J5lFL/J4/TbEhGYB5YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=BUwrIq66;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=bR4ktAI3;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gNaw/3tS";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960FB606A99F;
-	Fri,  6 Nov 2026 16:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 960FB606A99F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF40A606A334
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 16:12:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=BUwrIq66;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=bR4ktAI3
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6F4DoB3366252;
-	Fri, 6 Nov 2026 11:11:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=wja8uIoxJHQmdC0EKmiOw8xNORvki1GhVV0A1YI8oTU=; b=BUwrIq6
-	6xC1zuGIRsRoNR34Ln/MkuRON+so2AJMG0AY9lovS6YTxNZxH1d6kAcRzpKXtlVt
-	vLpIpMEBJPPjnQADmjxqG0qUHzbS5QTwfGxnc4VCqgRLSEnm6209d3IGYzdJmj8W
-	kcHvs3W7fvuzaVoITTe/7isHTsxRn37tKUMA5YgEjq364QWdQPBc0PHD2snHFa1n
-	OGtga4OMA+o3rTav5I3qZYVdDZcu+isn4u5TJhiKitcBSVqDIXPBm4JaENEKxIxa
-	0BuEOqoREwlBnNCuHiolpLJMBg07uva9R0a4gbG/uXOqEGMaDSsFYNj8/jLy0iW2
-	GJVHIXvROS56bUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=wja8u
-	IoxJHQmdC0EKmiOw8xNORvki1GhVV0A1YI8oTU=; b=bR4ktAI3ThgtrvkHFV7L4
-	5TOOLle/O9j6qOsKAowWmENiUQTccTRAHomPsUtjJRbCOVM9ya+FPwpxCi/MKNpa
-	fAnNKKiYJGxzi9OMQUBaZe89qeSQgp+k6awsEP6/RpuFTamQNwE7We+OavYIJ1uT
-	CEMoEnX9+9Ge+aA1qOMeMeOdBtZpxubeB06VWPVsxiBbpkbove+3LdJr0cC/5a/Q
-	CuCw/BJzR3Ph8Rqhp2NozL59k7yG1FQ3ppiXnXWx2dldyNweaLlO2kJBm1QpFO/Q
-	+2lmRA5jA/rkvVjx2L3XI21ZoEwy3GklOzKABXb9D7d7TTSD+/4aF/eITZliGYj0
-	A==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4hs3qad16r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 11:11:50 -0500 (EST)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A6GBnAO052763
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 6 Nov 2026 11:11:49 -0500
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 6 Nov 2026 11:11:49 -0500
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Fri, 6 Nov 2026 11:11:48 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Fri, 6 Nov 2026 11:11:48 -0500
-Received: from arch ([10.135.2.92])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A6GBaHG016486;
-	Fri, 6 Nov 2026 11:11:39 -0500
-From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Jonathan Cameron <jic23@kernel.org>,
-        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
-	<ukleinek@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>, David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko
-	<andy@kernel.org>,
-        Michael Hennerich <michael.hennerich@analog.com>,
-        "Trevor
- Gamblin" <tgamblin@baylibre.com>,
-        Joshua Crofts <crofts@kernel.org>,
-        "Sergiu
- Cuciurean" <sergiu.cuciurean@analog.com>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-pwm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 4/5] dt-bindings: iio: adc: adi,ad7625: add LTC2387 and ADAQ2387x
-Date: Fri, 6 Nov 2026 18:11:34 +0200
-Message-ID: <20261106161134.879712-1-Nicolae-daniel.Deaconescu@analog.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105-domestic-seminar-a5899614d882@spud>
-References: <20261105-domestic-seminar-a5899614d882@spud>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNaw/3tS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F8E1F0089F;
+	Fri,  6 Nov 2026 16:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793981536;
+	bh=QtyI2+GW86z5aHl6ZfHYzAXAzVDLDy/TcEMNr+ncFIw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gNaw/3tSv8m4eZq5Rbm+KVy98y6k76OWln2MWVLAlfgfnlXZKHh3eNBfCo6Iebxmr
+	 jii8IAmpCtjqPzc8+Vv5dg2LH32pH6ncuOHZEpBed4Za/lkY7rMcrGerYxRZO29HgI
+	 LHFrPqFzaVhshSthR5g0+1LkkzOSuU3RygUbfZGY7B3LXkGrCB1+hJQ3SUOZQlDXre
+	 F0catWc6po8NKu5o8+L4mAda71pML/YrAxg16d6lHq4tra91mCP4Zvyyx4wrkVj7pc
+	 AhIldq5AiMuvlNRCbsx0WAlmpu7ZSmmtL1vpyBx69VeMI/oz8Ick51xWgzyiKVCQY9
+	 SmO+w75/qlDJA==
+Message-ID: <sashiko-outbox-201775@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 18/19] riscv: dts: starfive: jh7110: Update DT for
+ display subsystem
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261106-jh7110-clean-send-v7-18-68f7ea9913db@samsung.com>
+References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+ <CGME20261106135924eucas1p17cd8d0880486f9e932fe1b81ba3eeaf6@eucas1p1.samsung.com>
+ <20261106-jh7110-clean-send-v7-18-68f7ea9913db@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 16:12:15 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -118,59 +61,188 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2NCBTYWx0ZWRfX8pGv6IAYhqIz
- 3bsl8IhqjuPEJyw7O1elOYU/KZ//Xpz/tTzZZU189ndOcOHxoSRDbIj0gNrECla04tpIhBR4zwt
- zyYmVuGuoZpSXuhcoPgMrR2/Y4U/OyuzprphtxAdy16opo65Xd4F1OdwDGtFiPC2vTCVLEJSoJ+
- P3pJ+5Ex0O0IfVx6Bdxs12MRfPkkkHjkGr7eyl+PQHyKy9OoHwL5VmqXQwS66hPykIewyAY+NL5
- 1X8sNCB+3XdXDUxuUI8yajw0bHyFSDFxwuUTYr6txj0xVlhkQA2AR+LwYZ94ABDG0JJ/URfd+/M
- xyqyvhQi/zX8NyQoDxNfNy9rZ+S23nnU63X6Jy58UlsBycUAnRxbeBDjKjaWmIMeLKKoq3dF2t4
- jEhhmwiOp4HwyO6ocqNHX1srufa6BXytApqkLV+teaFrRqxlCwo4KzD4yaCRJPmW1JGmh8CbBgG
- jCrQAFYN/TiwvO26NPQ==
-X-Proofpoint-GUID: OYopBVnFLl1m0FyGeYP5DuYZ6SgQWY8I
-X-Authority-Analysis: v=2.4 cv=NbBzRGD4 c=1 sm=1 tr=0 ts=6aedfc46 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
- a=2ZpRO2HCM4gvZax1RTEA:9
-X-Proofpoint-ORIG-GUID: OYopBVnFLl1m0FyGeYP5DuYZ6SgQWY8I
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2NCBTYWx0ZWRfX/xiKCF0L716+
- pbBr7tqu8T4CN0/x1EpO62/sD29h1qHk2WfsNUzCMiMVReJ7rGc/4C9LnGMUYa7w+15qENuENQB
- w6bfoeV6L5TgGk/wlKSHGVg6ykqFP+NO7j9kl8mfp34omI9qNx3k
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060064
 
-Hi Conor,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issues to consider:
+- [High] riscv: dts: starfive: CMA alloc-ranges in jh7110-common.dtsi
+  breaks 1 GiB RAM
+- [Low] riscv: dts: starfive: missing status disabled on jh7110.dtsi
+  display nodes
+- [Low] riscv: dts: starfive: duplicate 24 MHz xin24m clock node in
+  jh7110.dtsi
+--
 
-Thanks for the review. v3 is out with the binding split:
-https://lore.kernel.org/all/20261106160529.876251-1-Nicolae-daniel.Deaconescu@analog.com/
+commit e4e97f0b932284258aa4795e30b6380ab560afa7
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
 
-On Thu, Nov 05, 2026 at 12:23:08AM +0000, Conor Dooley wrote:
-> On Wed, Nov 04, 2026 at 03:21:42PM +0200, Nicolae-Daniel Deaconescu wrote:
->
-> > +        adi,en1-always-on: false
-> > +        adi,en2-always-on: false
-> > +        adi,en3-always-on: false
-> > +        adi,no-dco: false
-> > +      required:
-> > +        - vdd-supply
->
-> Honestly, when the devices are this different, I don't think having a
-> shared binding is worth it. Shared driver perhaps, but when so many
-> properties don't apply the things should be kept in different binding
-> files I think, this is just confusingly different IMO.
+riscv: dts: starfive: jh7110: Update DT for display subsystem
 
-Done. The LTC2387 and ADAQ2387x parts have their own adi,ltc2387.yaml,
-and adi,ad7625.yaml is unchanged. The driver stays shared.
+This commit describes the JH7110 video output subsystem, DC8200 display
+controller, HDMI controller and PHY in the SoC device tree, and enables
+the display pipeline with a 512 MiB default CMA pool in the common board
+device tree.
 
-Thanks,
-Daniel
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv=
+/boot/dts/starfive/jh7110-common.dtsi
+> index 64de468f2c317..bfc7ae1282234 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
+> @@ -33,6 +33,27 @@ memory@40000000 {
+>  		bootph-pre-ram;
+>  	};
+> =20
+> +	reserved-memory {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		/*
+> +		 * The display controller allocates its framebuffers from CMA,
+> +		 * and the default pool is too small for them. Keep the pool
+> +		 * inside the range the controller can address; it fits in the
+> +		 * memory every VisionFive 2 variant has.
+> +		 */
+> +		linux,cma {
+> +			compatible =3D "shared-dma-pool";
+> +			reusable;
+> +			size =3D <0x0 0x20000000>;
+> +			alignment =3D <0x0 0x1000>;
+> +			alloc-ranges =3D <0x0 0x70000000 0x0 0x20000000>;
+> +			linux,cma-default;
+> +		};
+> +	};
+
+[Severity: High]
+Does this alloc-ranges setting cause linux,cma reservation to fail on 1 GiB
+JH7110 boards, or whenever an earlier reservation overlaps 0x70000000..
+0x90000000?
+
+jh7110-common.dtsi is also included by 1 GiB boards such as Milk-V Mars and
+Mars CM, where physical RAM at 0x40000000..0x80000000 only covers 256 MiB of
+the 0x70000000..0x90000000 window, so __reserved_mem_alloc_size() fails with
+-ENOMEM and leaves the system without a default CMA pool. Because the window
+size equals the 512 MiB allocation size with no slack, any bootloader or
+initrd reservation in 0x70000000..0x90000000 also causes CMA allocation to
+fail on larger boards even though DC8200 uses a 32-bit DMA mask and can
+address any RAM below 0x100000000.
+
+[ ... ]
+
+> @@ -644,3 +757,7 @@ &U74_3 {
+>  &U74_4 {
+>  	cpu-supply =3D <&vdd_cpu>;
+>  };
+> +
+> +&voutcrg {
+> +	status =3D "okay";
+> +};
+> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/d=
+ts/starfive/jh7110.dtsi
+> index 82ea63f715b0e..ac10d79770f24 100644
+> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
+> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
+
+[ ... ]
+
+> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
+>  		#clock-cells =3D <0>;
+>  	};
+> =20
+> +	xin24m: xin24m-clock {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <24000000>;
+> +		clock-output-names =3D "xin24m";
+> +	};
+
+[Severity: Low]
+Can hdmi_phy use the existing <&osc> node in jh7110.dtsi instead of adding a
+duplicate 24 MHz xin24m fixed-clock node?
+
+jh7110.dtsi already defines the 24 MHz reference crystal as osc: oscillator
+(with its frequency set in jh7110-common.dtsi), and neither the
+starfive,jh7110-inno-hdmi-phy binding nor starfive_hdmi_phy_probe() requires
+the clock to be named xin24m.
+
+> @@ -1262,22 +1263,84 @@ csi_phy: phy@19820000 {
+>  			#phy-cells =3D <0>;
+>  		};
+> =20
+> -		voutcrg: clock-controller@295c0000 {
+> -			compatible =3D "starfive,jh7110-voutcrg";
+> -			reg =3D <0x0 0x295c0000 0x0 0x10000>;
+> -			clocks =3D <&syscrg JH7110_SYSCLK_VOUT_SRC>,
+> -				 <&syscrg JH7110_SYSCLK_VOUT_TOP_AHB>,
+> -				 <&syscrg JH7110_SYSCLK_VOUT_TOP_AXI>,
+> -				 <&syscrg JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
+> -				 <&syscrg JH7110_SYSCLK_I2STX0_BCLK>,
+> -				 <&hdmitx0_pixelclk>;
+> -			clock-names =3D "vout_src", "vout_top_ahb",
+> -				      "vout_top_axi", "vout_top_hdmitx0_mclk",
+> -				      "i2stx0_bclk", "hdmitx0_pixelclk";
+> -			resets =3D <&syscrg JH7110_SYSRST_VOUT_TOP_SRC>;
+> -			#clock-cells =3D <1>;
+> -			#reset-cells =3D <1>;
+> +		vout_subsystem: display-subsystem@29400000 {
+> +			compatible =3D "starfive,jh7110-vout-subsystem";
+> +			reg =3D <0x0 0x29400000 0x0 0x200000>;
+> +			ranges;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			clocks =3D <&syscrg JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
+> +			dma-noncoherent;
+>  			power-domains =3D <&pwrc JH7110_PD_VOUT>;
+> +			resets =3D <&syscrg JH7110_SYSRST_NOC_BUS_DISP_AXI>;
+> +
+> +			dc8200: display@29400000 {
+> +				compatible =3D "starfive,jh7110-dc8200", "verisilicon,dc";
+> +				reg =3D <0x0 0x29400000 0x0 0x2800>;
+> +				clocks =3D <&voutcrg JH7110_VOUTCLK_DC8200_CORE>,
+> +					 <&voutcrg JH7110_VOUTCLK_DC8200_AXI>,
+> +					 <&voutcrg JH7110_VOUTCLK_DC8200_AHB>,
+> +					 <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
+> +					 <&voutcrg JH7110_VOUTCLK_DC8200_PIX1>;
+> +				clock-names =3D "core", "axi", "ahb", "pix0", "pix1";
+> +				assigned-clocks =3D <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
+> +						  <&voutcrg JH7110_VOUTCLK_DC8200_PIX1>;
+> +				assigned-clock-parents =3D <&hdmi_phy>, <&hdmi_phy>;
+> +				interrupts =3D <95>;
+> +				resets =3D <&voutcrg JH7110_VOUTRST_DC8200_CORE>,
+> +					 <&voutcrg JH7110_VOUTRST_DC8200_AXI>,
+> +					 <&voutcrg JH7110_VOUTRST_DC8200_AHB>;
+> +				reset-names =3D "core", "axi", "ahb";
+> +			};
+> +
+> +			hdmi_subsystem: hdmi@29590000 {
+> +				compatible =3D "starfive,jh7110-hdmi-subsystem";
+> +				reg =3D <0x0 0x29590000 0x0 0x4000>;
+> +
+> +				hdmi_controller: controller {
+> +					compatible =3D
+> +						"starfive,jh7110-inno-hdmi-controller";
+> +					clocks =3D <&voutcrg JH7110_VOUTCLK_HDMI_TX_SYS>,
+> +						 <&voutcrg JH7110_VOUTCLK_HDMI_TX_MCLK>,
+> +						 <&voutcrg JH7110_VOUTCLK_HDMI_TX_BCLK>,
+> +						 <&hdmi_phy>;
+> +					clock-names =3D "pclk", "mclk", "bclk", "pixel";
+> +					interrupts =3D <99>;
+> +					phys =3D <&hdmi_phy>;
+> +					resets =3D <&voutcrg JH7110_VOUTRST_HDMI_TX_HDMI>;
+> +					starfive,vout-syscon =3D <&vout_syscon>;
+> +				};
+
+[Severity: Low]
+Should dc8200 and hdmi_controller have status =3D "disabled" in jh7110.dtsi,
+and should the &voutcrg override in jh7110-common.dtsi be dropped?
+
+Both dc8200 and hdmi_controller require board-specific port graphs and
+pinctrl properties that are only populated in jh7110-common.dtsi (which
+explicitly sets status =3D "okay" on both nodes), so leaving them enabled by
+default in jh7110.dtsi leaves them incomplete for any board not using
+jh7110-common.dtsi. Conversely, voutcrg is never disabled in jh7110.dtsi, so
+the &voutcrg block setting status =3D "okay" in jh7110-common.dtsi has no
+effect.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-jh7110-cle=
+an-send-v7-0-68f7ea9913db@samsung.com?part=3D18
