@@ -1,89 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987562;
-	b=DO8E8iCD7+708seeiHnG9aj+8W/c37W767QeZXiROze4dFNmKg7ucut8/cz6zbwACJY5
-	 zCimwJre1QIS28W3IGlC0F6uoAMihzEtTq4TLQRz6VqDi9pPgEQi1ZuadSnNoCSpTz5jI
-	 8s0cFwhw/GlvKYVnesnj7dmfTuPF9/hES0kKrvHKEvNbsBj82qZUZ6yhynK4iCOTA2Weo
-	 JW14WllELRdrr8DhVwRVcm9oL6i5BxkuTN4uKAPkZmfjBVgc3K+m1xwyYsGTDbQ9xC99k
-	 GJqUMGhJNGxd2M9vuor8akgRn+LhgDbe7Zfazg2zaVOLIKT1pVvv+B9r6izrrxn6kYA==
+	t=1793987585;
+	b=btjiYHVI8f8LZb53npm4UZK3QJU3st7CK6huQY1rG13g7umbahEo1Eg1UtZT3PwOSJwi
+	 pJfgU/XPBNWv1AHMhj48CnL6Yl8Rd84XdduHfGItciG/6g0wgmwDBMhISdIypKkKAwCl8
+	 Q4wZdDW7BzVrtOfLk7dIlkSL/skTvsZ3JnbIYBDTxb05EKIU5ir8OglROwikK+Ge5Mo5k
+	 4GYllOALF6p4ThDw1bkJvbbMuapjyxIiZLI3STDQt0eceb3C13UIImsmJJvaRH52J3ck7
+	 peQ/gGLzY62awzTWlDK3RutPRNasPMoGVkxeHp4u3YVYH286wQs5i+lZrJI5EeM+c1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987562;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
-	b=B2XDot4tb93Vk/pO8uQ1YDl23pLwLEOCWO2k0AF2ajsWfWAgIy+uG2tuf5+QdE0l/T2E
-	 3Dfe+F4qw4aSUsGSC8ORdJMHjXsWijhNasU0iP43/MhXYBvJOqD6tFqfj6GxA1r9u4N2l
-	 hymEp+vT+SVuBfiSisBOJkVXwX3MkrCPXF4DFkKZCL6Pl1k3TT9xitTJHfCmdeC4nF6W2
-	 nxv363xJtNoGf1BadZH0GFB9HkmRdv94VPfBcyeZODqU4VBpBgdAIXDzhRBPimnnekOKH
-	 O0rZg7RupLic931F3fn0hAea0muB7VIA25UwRmM01DIpsG6F1/d7oyh1Cy/uFrb3E3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987585;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=W4OAvocE0qlA1Amupm0niVySJp2DlanCzEnVSkIuQO4=;
+	b=A5E+8Z2IxSW43rohasXfezdB+2RzH9lMBLxIX+/ntHzUPm1IL1C2bKcRtAafFdcHgo4r
+	 N6jStde7Z7lB2IyRMDH4Er2LLsNY/MGG1T2k0jrx6DIUliUxXTOzbtOMIjAxJKvGluMif
+	 nsqtGkokk0Besd/uu36qqBZrO2zvrj8ZWJcKNHA0YEwAl8Z3Kq5iRtcjqQZLYvojt1nD2
+	 aYqljMGxhi7Qo8WzgwFKs5Il8egGprnMmora+SX1WQGm7VirDrxT9cpj97cEJWlXzYOot
+	 y5njYJiTH3oxxwhbDNzjZ13we7eUWvmj2BiY3PZVGgZ7S/DDzr6q73YXvoJ06LYLH8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=dJnL6VCC;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XaNYbUWW;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC32606A326
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 17:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC32606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F858606A330;
+	Fri,  6 Nov 2026 17:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F858606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=dJnL6VCC
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-49376eb635fso340553f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 09:52:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793987560; x=1794592360; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
-        b=dJnL6VCCzjqn0HtRC+I0cQEvdVy8RK/ZpiYGX7AetqpS0imrsttLKo2pQBEoybw7e8
-         ENPuVT194VNF4IeFX/wZif1U51zIXWpNbWI00p5B/+PRnVir1l4rwzP68+oOvP+/SgbS
-         zVqufQTjDULfOG5tkwVwwFfWNRWAqcOjYMvpe8OlRKoeR2O1d7OEVzPc1Bu/oMKsvpTj
-         m/3TQPrSIf3uvY0fyaO32bnslN4hSxIXT1uho1hgilMPZR9BPPWi60TT0YBi6XFGmsP/
-         vnRD/QTwwe+n08dhenpHMbEuatW5H9thqPSYqxhgb7VdzJNU43hNzmxfH2kqdAE3b/iN
-         XkMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987560; x=1794592360;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=sHP2oF/bjdk4Sr2x8S+jhHLHTWdyktVHIEfvBs5hv5Y=;
-        b=Dp1b1PnhiMNgfodDc8ZIAambo6A3JpjYu6FzqTF9f5e2gMFEy98FFrna02HfMbQRx9
-         DmZeS4bevoXxDIt1opELiROElnphwR9hrDX1raXQvkpf7dX4MX2qximU99EVnnbfKrDU
-         YPzkZAMM3DDr3S5MHOPjMJZ7J5KY8MMtrzex/+w2FX+FJgsrk87k2Crt8+fiAe/8OH8C
-         YQyohWoI6jGFXdrWfAnzMwBDHqIPbpNSIgXyg10xrx98kfXmaRmiZ8f34JVVfL/MzcVG
-         CXnKKt5swnR98rQ/VOQNSAm6x1umccTJK8Lmg2GFLPzXhYophowEeOL+moDGYxGBrYps
-         icGQ==
-X-Gm-Message-State: APuU4Z+tz0wQ4LZIA4SPJ4zmatA1p7HuaO/dJNaRK82m+Kpa68s1yIDY
-	eFzZ0aQ9ggCCYkC6HIavGHPWIS2Wn56H8vBDBfWoDQiQVER+iJd5pXG3J4iYvPsTX3G16EMIDU7
-	d+57XVR0LTg==
-X-Gm-Gg: AYBFou1fE05ADfreYtpRsI3uqCRuxs0dk2qA6C8YkBpDg4TPnvtOFEjkRWI1n7CtSSC
-	JraoPpqzWRaNKoF9RslTbqGIZOG8Pr/POTS0XArC6KLebKKMpxQwRyXUz5biCtn7KFwIF2it/pd
-	tIO5L1Pa5PRUJi6q3brtjifGJRCFNh2I/a1mjmYipLfg7tgDQXRggOFTPdehB+oXjHRJpVxpRax
-	+/33OvBknHwZhXze8KgW6ISLVeJa75mzuQvmKdknlQWoPE20DOzBXctbj/9ZOfHM3kpvo3QjC8u
-	pUAme09j4jEXQI8CYYP0O28JgDOBSI1RtI77zGmvgWyy7fGG60THIJ6eaJAK13tTMbESuXsu1XZ
-	t7cZBXJDgU4hWwBvqdluKkKzgZCBbyCnMHTUyxN3KrqcbCA2mGTteazp7laTWETzVAbGlP34QSI
-	OHKb/lXp9xXSBB4NEn5e1qzNFIHarv0f27b5mYQQYfR9cVkZ9DppSn/2BPYXaVR3lyz4wGIO2a+
-	iCoNGV0oe/yiy2eh2BfTOgyut8W/98Nl6vdlDvbe+JqVfBAu62rCL0l1cxwlnEDSb5j0SsGA+uB
-	geJM5uUJ0aPaWLboWcOHvT2h5i5I9Iz9JBajfNiuvbJKfylTvECHy0EcAcLvuSM9VVcC3x7TfBo
-	kiv7BX2GEPg==
-X-Received: by 2002:a05:6000:4b17:b0:48e:4561:8a17 with SMTP id ffacd0b85a97d-49275fe4f50mr6153448f8f.16.1793987560021;
-        Fri, 06 Nov 2026 09:52:40 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d6d6382dsm4427671f8f.19.2026.11.06.09.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:52:39 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 06 Nov 2026 21:52:35 +0400
-Subject: [PATCH] arm64: dts: rockchip: Describe the Type-C port on RK3576
- EVB1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XaNYbUWW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793987583; x=1825523583;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KnNMY4VUEpn1u3zJYQ28134e/qRwjrvFXhXZISGo0Ls=;
+  b=XaNYbUWWW2JDymefGDRUBAXe0jTS+hq+yPa3Zky10B8jenfCus6TgRtZ
+   5NMKIsi+WovvIzfYVz4ChSDsCINgfw2ixWTbQsFsqDT3Egi5V8EptOSBY
+   RSNepQBnXbxhn8WF+bfctTrMQ0bUICPOuyvKApcQLM9TxcDZQHA4l2tmZ
+   K/jwynG9xDkdTgoGyc/sTuBuGjrGe12Hzu+95AKuBnPJiCBsOtz+4Ll8E
+   9uSDy2RtA5TzWgka9W0QsEPFvEWZ7vSmAmV+VZz0BhrimGjHMNNZfA/me
+   kPhsL0oazOUCgvnNBeZ+kmi6mrNeuO7uhoXGxfYJ1dVFKLPgenQl0uOF4
+   w==;
+X-CSE-ConnectionGUID: K9BM+C8SQuWXydUtyNIUyw==
+X-CSE-MsgGUID: DTH/JOqfSECj9AZz5J0PBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2797061"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2797061"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 09:53:03 -0800
+X-CSE-ConnectionGUID: AwL697vRTeaX8tm3371aug==
+X-CSE-MsgGUID: pit4l2piQ7SuJujJJP8hog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="9098200"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa011.fm.intel.com with ESMTP; 06 Nov 2026 09:53:00 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 8D52299; Fri, 06 Nov 2026 18:52:58 +0100 (CET)
+Date: Fri, 6 Nov 2026 18:52:58 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Ajit Singh <blfizzyy@gmail.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	romain.gantois@bootlin.com, gregkh@linuxfoundation.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] usb: typec: mux: tusb1046: support HPD_IN override
+Message-ID: <au4T-tKDamfaTWuR@black.igk.intel.com>
+References: <20261104074202.76712-1-blfizzyy@gmail.com>
+ <20261104074202.76712-3-blfizzyy@gmail.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -93,257 +83,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-rk3576-evb1-husb311-v1-1-99c2f57ea2a5@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm3S8jMQr2JcMGMHqgmaKRATw
- t0ZZfkt3tvAJKkYXIsNkqxq+p4y+FJAGPtpENRHNpRUOmZymF5V0zqU1TOOi/mKGYkkhhjrvqM
- OcvlJEvX7v97up23xTwnzbwX7fgDI0qS2dwAAAA==
-X-Change-ID: 20261106-rk3576-evb1-husb311-00efcff4a808
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5103; i=alchark@flipper.net;
- h=from:subject:message-id; bh=Bsdyugnk6OoKTZGf3182OVL5hFUwb7G3DqCpOh/DVH8=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWS9E356PT+1Oc+onVHtN5c/m+fkZfEfbN/o3K4unBac9
- spw9eeVHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
- oZGOsY4RAxenAEy1piHD/0jlzK8xASsOlqnsPih7Ujw6X1Byvvb29dkyOWdP9cVbqzMynN3n+Cw
- 3NoajdvvXrhNybAnxvYlB1670fhav3FKXwf+WBQA=
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104074202.76712-3-blfizzyy@gmail.com>
 
-RK3576 EVB1 has its USBDP PHY routed to a Type-C port with a HUSB311 CC
-controller and a fixed-voltage VBUS supply.
+On Wed, Nov 04, 2026 at 01:12:02PM +0530, Ajit Singh wrote:
+> For boards where HPD_IN is not asserted by hardware, software can
+> force it high over I2C using the HPDIN_OVERRIDE bit in the General
+> register (0x0A).
+> 
+> Add support for the optional ti,hpd-in-override property to force
+> HPD_IN high when DisplayPort mode is selected. Clear the override
+> when switching to USB or Safe mode, and preserve the existing
+> bit value when the property is absent.
+> 
+> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
 
-Describe it in the device tree, including the wiring for both the USB and
-the DP side.
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-This makes the data roles follow the Type-C port's negotiation, so the
-port stops being host only. It also leaves the VBUS regulator to be
-managed by TCPM instead of being hardwired via the tangentially related
-phy-supply on a USB controller. DP lanes are also muxed dynamically by
-the USBDP PHY based on the Type-C port's negotiation, so the hacky fixed
-lane muxing also goes away.
+> ---
+>  drivers/usb/typec/mux/tusb1046.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/mux/tusb1046.c b/drivers/usb/typec/mux/tusb1046.c
+> index 34ef81f75693..c21b1f8b9786 100644
+> --- a/drivers/usb/typec/mux/tusb1046.c
+> +++ b/drivers/usb/typec/mux/tusb1046.c
+> @@ -21,6 +21,7 @@
+>  /* General register bits */
+>  #define TUSB1046_GENERAL_FLIPSEL BIT(2)
+>  #define TUSB1046_GENERAL_CTLSEL  GENMASK(1, 0)
+> +#define TUSB1046_GENERAL_HPDIN_OVERRIDE BIT(3)
+>  
+>  /* Mux modes */
+>  #define TUSB1046_CTLSEL_DISABLED          0x0
+> @@ -32,6 +33,7 @@ struct tusb1046_priv {
+>  	struct i2c_client *client;
+>  	struct typec_switch_dev *sw;
+>  	struct typec_mux_dev *mux;
+> +	bool hpdin_override;
+>  
+>  	/* Lock General register during accesses */
+>  	struct mutex general_reg_lock;
+> @@ -44,6 +46,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	struct i2c_client *client = priv->client;
+>  	struct device *dev = &client->dev;
+>  	int mode, val, ret = 0;
+> +	bool dp_active = false;
+>  
+>  	if (state->mode >= TYPEC_STATE_MODAL &&
+>  	    state->alt->svid != USB_TYPEC_DP_SID)
+> @@ -67,9 +70,11 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	case TYPEC_DP_STATE_C:
+>  	case TYPEC_DP_STATE_E:
+>  		mode = TUSB1046_CTLSEL_4LANE_DP;
+> +		dp_active = true;
+>  		break;
+>  	case TYPEC_DP_STATE_D:
+>  		mode = TUSB1046_CTLSEL_USB3_AND_2LANE_DP;
+> +		dp_active = true;
+>  		break;
+>  	case TYPEC_STATE_SAFE:
+>  	default:
+> @@ -80,6 +85,13 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	val &= ~TUSB1046_GENERAL_CTLSEL;
+>  	val |= mode;
+>  
+> +	if (priv->hpdin_override) {
+> +		if (dp_active)
+> +			val |= TUSB1046_GENERAL_HPDIN_OVERRIDE;
+> +		else
+> +			val &= ~TUSB1046_GENERAL_HPDIN_OVERRIDE;
+> +	}
+> +
+>  	ret = i2c_smbus_write_byte_data(client, TUSB1046_REG_GENERAL, val);
+>  
+>  out_unlock:
+> @@ -131,6 +143,8 @@ static int tusb1046_i2c_probe(struct i2c_client *client)
+>  		return -ENOMEM;
+>  
+>  	priv->client = client;
+> +	priv->hpdin_override =
+> +		device_property_read_bool(dev, "ti,hpd-in-override");
+>  
+>  	mutex_init(&priv->general_reg_lock);
+>  
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 150 ++++++++++++++++++++++-
- 1 file changed, 147 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-index f83d129f96f1..a9b27cdb2dfa 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
-@@ -11,6 +11,7 @@
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/usb/pd.h>
- #include "rk3576.dtsi"
- 
- / {
-@@ -334,6 +335,22 @@ &combphy1_psu {
- 	status = "okay";
- };
- 
-+&dp {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy_dp_in>;
-+	};
-+};
-+
- &gmac0 {
- 	clock_in_out = "output";
- 	phy-mode = "rgmii-rxid";
-@@ -772,6 +789,58 @@ regulator-state-mem {
- &i2c2 {
- 	status = "okay";
- 
-+	usbc0: typec-portc@4e {
-+		compatible = "hynetek,husb311", "richtek,rt1711h";
-+		reg = <0x4e>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PA5 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus5v0_typec>;
-+
-+		connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			data-role = "dual";
-+			power-role = "source";
-+			source-pdos = <PDO_FIXED(5000, 2000,
-+						 PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>;
-+
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0x00001c46>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_drd0_hs_ep>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usbdp_phy_ss_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy_dp_out>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
- 	hym8563: rtc@51 {
- 		compatible = "haoyu,hym8563";
- 		reg = <0x51>;
-@@ -944,6 +1013,14 @@ usb_otg0_pwren: usb-otg0-pwren {
- 		usbc0_int: usbc0-int {
- 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
-+
-+		usbc0_sbu1: usbc0-sbu1 {
-+			rockchip,pins = <2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		usbc0_sbu2: usbc0-sbu2 {
-+			rockchip,pins = <2 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
- 	};
- 
- 	wifi {
-@@ -1008,7 +1085,6 @@ &u2phy0 {
- };
- 
- &u2phy0_otg {
--	phy-supply = <&vbus5v0_typec>;
- 	status = "okay";
- };
- 
-@@ -1051,13 +1127,74 @@ &ufshc {
- };
- 
- &usbdp_phy {
--	rockchip,dp-lane-mux = <2 3>;
-+	mode-switch;
-+	orientation-switch;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&usbc0_sbu1 &usbc0_sbu2>;
-+	sbu1-dc-gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			usbdp_phy_ss_out: endpoint {
-+				remote-endpoint = <&usbc0_ss>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			usbdp_phy_ss_in: endpoint {
-+				remote-endpoint = <&usb_drd0_ss_ep>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			usbdp_phy_dp_in: endpoint {
-+				remote-endpoint = <&dp0_out_con>;
-+			};
-+		};
-+
-+		port@3 {
-+			reg = <3>;
-+
-+			usbdp_phy_dp_out: endpoint {
-+				remote-endpoint = <&usbc0_sbu>;
-+			};
-+		};
-+	};
- };
- 
- &usb_drd0_dwc3 {
--	dr_mode = "host";
-+	usb-role-switch;
- 	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			usb_drd0_hs_ep: endpoint {
-+				remote-endpoint = <&usbc0_hs>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			usb_drd0_ss_ep: endpoint {
-+				remote-endpoint = <&usbdp_phy_ss_in>;
-+			};
-+		};
-+	};
- };
- 
- &usb_drd1_dwc3 {
-@@ -1079,3 +1216,10 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
- };
-+
-+&vp1 {
-+	vp1_out_dp: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261106-rk3576-evb1-husb311-00efcff4a808
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
-
+-- 
+heikki
