@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959990;
-	b=N+UU1Y1LL+9ew2SstNs4pJqjBjXfela11SjPfSvukn4giUd0OckpiJX7UU/qQAwumFkQ
-	 /rnembEmkeXgAKV075fO0YRGQ44Xp12ZJpToxSLJCNdmIgY2Vicnb24/u9MNGk1MUa+I4
-	 fM7bwGrNzHxjNoFkSVTYfG6XHVW6BfkqAYLYJ3t9Hg8ZlgP9EW8JFddyotwI57pWtFeW4
-	 oTlKUXfW7MxoI7Z1IdM4KZkJjM/dIaPnJjJnRUd5G68IBHGuH9ajakWlCA0kxg+Q5boZc
-	 qd7eeRczmBMVYAHf+S0zjU39orPpeLJkVkFPS40osIEOp0FvPKdtKX/G/ju4XfYuVEg==
+	t=1793960017;
+	b=kjLDTTDRFPG759ljerF+oOhkoHoopwM6Tj6y0lNlFJy6fUCPXr2hoKJ0K8GNAXkuQfDh
+	 F6Nt5ztWhfEZGKMTya+W6igU0FNgAYai/1x5H5DxZGSEcqdRCdUB/JZv9vMy70fAteysm
+	 d11ilGpAdx6k1ZKs+yrbiorjEuu/Z0PTMtmsiJ6g9nhMEV7AvurRUhOEw6M8V4TAPsnBK
+	 0+zRQoOyuXS3WJTVv89o1p3+HfbefuRDS2w4YWi2WIyzpnEIQrPSTC+U7KdEGG5vGfL4X
+	 nJ96jPzSgBeulGkmsws2I2V1bMX57T91S/nvxxLke6VWoqggAGJYM2Lfrmd8oMjxDtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aD8+I+UZp21WBX5+us8nW9tJ7k4pcmrSW1MwYtrq6n8=;
-	b=Qp4IXfQkUAxJ8FTsf5OBIMB40W5vYB6ToIP4iaHbse1yrjYXZwDWEfC1qxwmDibGp5GU
-	 ILBBH5z9xJHiFDwxhaynbWe+OuctiO58NTsxGyK6b8Yx6xw9rUROoDrjlgUB5QFJswO7o
-	 82nDXKvAptcPRYozgKVOuF8Ackppf2F155cbGRXa3z+2csu7Qo0Z1p3uw1I3rDcpGjR/e
-	 qreX3YNb6Fx8cjpdmg6Y/mVkUvxCNDC6buHY+8dJU5e+7UsozrlWgkJukHqtHbfo4qbGQ
-	 /nGgTGUbj9Xbn0NGZa4H6Ix1hSZPgoWQCfkgfqjXNqsgL5Wby2Xol1ON65zCElzLa1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793960017;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=jR4adbanq9pxBfm8SpO73RRgp4cW1UGRfUjC77+fqhg=;
+	b=U8ptK249AuFpjysFfG3FK9D4w4M2oKBql1Qu0hlr2daRvMo7x5fKsEylbPE13i8x6/45
+	 gi6s8AbieAgmSihSs1pMrtq8hOWCwperRCrhZGB1NSkrSarL4blKkUlkr3qhR7RbnUcoZ
+	 VzGsJpK/rMisMWoYmpvSm/hFUxi4Y8TCdQgPMHiy7Md4h07UabHMpJSkWHv3Ik8htZQrV
+	 CzEMMMDxGt6fbEoODj2e/SfXpAoCZVHKw2CXFBnsEJul7/eJjIJW/s4bNUK4Qz7NE6KwI
+	 DJf76AFX06t6okhliqNT19aeCN2vwg2J+u5EkjK7ELRr4nlrauDwBI9bD6pQ1x2yptQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OE8SYys1;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lMyIIOwk;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F63E606A334
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:13:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F63E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404A9606A32F
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:13:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 404A9606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OE8SYys1
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b001cd92bso237483f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 02:13:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793959989; x=1794564789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aD8+I+UZp21WBX5+us8nW9tJ7k4pcmrSW1MwYtrq6n8=;
-        b=OE8SYys14SGEQ18Gg9x8d+GY94o1JNwz946nf2Bj2Qk5qyrAszX8A174fQSdt8qxEf
-         s7EbG5bHr9mMoCJpYNHU+kAasRyUw26z341MyjTmBCGi5gCgJq5AqlHsQAfVRhdNa8aO
-         bi8giI8VJgMN1grQpRT2qOLfTUGKQ4/Pcxp9c+QW9H7Mtec8AG33C+S9W2CmySoseSlb
-         q4AS5y9Rkto39r++XzgPuGRY/5WdO3WLekcsYzoaxQ0Nk4yZX5U1VH80FiZSmfZacVeM
-         Eh5b+FK+A+z2fG4ua5+L6IaCyLYlBYOX/3XdJ6FaMdJ3187BG46uin8XovpsQLsIK0iv
-         yC1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793959989; x=1794564789;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aD8+I+UZp21WBX5+us8nW9tJ7k4pcmrSW1MwYtrq6n8=;
-        b=pdPW0xUfDpwknC338BQhOXxQ8bXvXXd0o6xxQGcPK4MUFGTfUKb7Fh3yYXcS8MCADf
-         2doISkEgce7OukL11yI8E3pR0USQyFBVFXhgjoWWzggCtk63af0TLCn4vMQ8LVt/mPw5
-         Of7mttwlatUuravIlww4RmriqHGOByoEx7o3rGh1cCUjWGKj4CYQDH7GlIqNAkByXKhT
-         /ZcNq8xeJFXS3scvMWoV7VsCP1txzGz/u0xzgQLKgarspHmwbdSAQun0ZxDOrU6QP1gC
-         I21q4oVh2qdK9fgvalPxck4YSCn9x4aI2/iN2MCNz7l5wAKq6iZuT1ITr5guViUbniHD
-         GX+w==
-X-Forwarded-Encrypted: i=1; AL+hErFH0vGS7TFyZEFwxDgBaSUIKYbLdPOc9PFbiE0+VZCyDx2kq4ecoAkXk8eX3adFSa7OCVjzazaPz8wX@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HyA8myp1l2eWIzFaqfd0WVADHgZQlq6sHDcXM82x7g/N+Z/pY
-	3GSik+KtDZ8GIPXSHmFhP1+m6nvH2kTz9dIzAw70OA0nuyGie2m7fttm
-X-Gm-Gg: AYBFou0dOT4cQeHqdMUR7Mg0kOkJSAtankWLnYr+BIluRk0biRyiNLCoJKP1A3FPlO4
-	G45z+JqrUjuHEDHBzLx9oXazRCEzw5GuD6hJigVGxV9EBCqRdOJC8NB6+uY03U2mpoO7YsWkzzx
-	Z+hmBdzb+bRHx9mRum3LAC6NrbBxBYUY8rCQxiIdYKU85/0SaSIAvWQic4gDPVKyvnukOWjZ5b4
-	dPGifanvUnT6YIauIr4h6HqzSBWfDIwiag76vme0qj/AOynCtGJK7zvVJmX6RifNK6Ii4mqxgrc
-	l6e4/VXotqUuCriKZpIi2Emu+FPTU1vkhROUcDBS+mVuHgdmYBstGyZuBtQOClVuw3FlFTFlwTl
-	sanMKcotR/tfE6KvbXx4U5g96Jaoghzfcf/Zls6Fh5NNw4asFvoBQAPw0N49vzAz5fTi94zfMw9
-	Dq9DXZoFqU/rHS9gKJsjGgur5hVN0bnjy47VNWACNU2zgPS+wkcuEuD5lWDgcpIwnJgf4XoUW2o
-	RrqSZOXCV/yqB7zR6DsGWF1VaVYmoFrOV+JMnwjeqK8TSD2Wt5OvYwXfqOCVKWmvrge34AC+YLh
-	l4OpGtR4/vcANMBqrEaWM1P9mZMz9YiclSkvdLc+ORl4J0UKHJ5IoltD
-X-Received: by 2002:a05:6000:27d0:b0:48c:67d6:a87a with SMTP id ffacd0b85a97d-49276d4d926mr3096819f8f.32.1793959988755;
-        Fri, 06 Nov 2026 02:13:08 -0800 (PST)
-Received: from dev.Default ([86.127.229.203])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723310fsm2934846f8f.32.2026.11.06.02.13.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 02:13:08 -0800 (PST)
-From: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	arnd@arndb.de,
-	stefandoesinger@gmail.com,
-	krzk@kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 24/24] ARM: dts: zte: Add ZTE ZXHN H3600 board
-Date: Fri,  6 Nov 2026 11:13:06 +0100
-Message-Id: <20261106101307.3936492-1-isasmendi.agus@gmail.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20261014072109.1759502-25-ghahramani.navid@gmail.com>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-25-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lMyIIOwk
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id CB0CB4E41401;
+	Fri,  6 Nov 2026 10:13:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F0F75FFBC;
+	Fri,  6 Nov 2026 10:13:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AECD110329280;
+	Fri,  6 Nov 2026 11:13:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793960013; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=jR4adbanq9pxBfm8SpO73RRgp4cW1UGRfUjC77+fqhg=;
+	b=lMyIIOwkOdpK7pcLvbipb84AkQnMBSKrJ1KCxDphEt9i5oFWNWH4C/mMoWqnR7hHP4GVn/
+	P/ohyOkZGg3L+46aT8SOJztWWjnpp9wDPVcoBMSTbsOW17hw8PH9JQoRrQw7+QAQgAPRTO
+	yklJowfsDWt74Dz5C4btorAcxn40kRnfm8SXraRUSYUNPh/SEI4Ffl3hCN9NMh8IguQc9/
+	D5+qD4TWvQycpuKQ1AQy8T5Fw/o7gRhvZCxKcTpKPSBeW8McJqazehxr/5BNyMOFwP2aIn
+	hBsdUNlZocMXF6uM1GB9VJK7Otl1JOBhncs+S507sg8QF0b6RY/z8p2R6mOjQg==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v5 0/3] Add TI LM51772 buck-boost voltage regulator
+Date: Fri, 06 Nov 2026 11:12:19 +0100
+Message-Id: <20261106-paul-lm51772-v5-0-0e83ac9711d9@bootlin.com>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -104,40 +63,141 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNwY7CIBDG8VcxnMXAQAE9+R5mD0AHxdRiSm12Y
+ /ruS/WgVj1+yfz+cyUZu4iZbBZX0uEQc0xtGdVyQfzBtnuksS6bAAPFGXB6tpeGNqeKaw3Ur5V
+ zHrUCa0gh5w5D/L3ldj/3nS/uiL6fGtPFIeY+dX+3fwOf7r6kB04ZhSqwEFwI1tRbl1LfxHbl0
+ 4lM8QGeuZ5xKNyB1UqjkBrgnYsnLtiMi8JZjQo8QBDyA5cPzpmccVm4XEu0zjBTGf7Kx3H8Bws
+ ydzB5AQAA
+X-Change-ID: 20261021-paul-lm51772-c96bbce762a8
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793960009; l=5058;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=Rt7/G+ZERiW4j9o8uf8XpxXIr5kaH+GWwTlxYpLdbcE=;
+ b=TsRiV3O3TYQd5zQE9AqGEPqEfLUgzpVnVWmtKbpXGmMVTNG0vyXrN0BUTiHVjk76jTrKiPBQn
+ 0TBHYvL/YDzDZv6jzoWUE6bMZA4IFuPg4NInaU1VRHl+Jwj6AwhSDp+
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Navid,
+Hi,
 
-On Wed, Oct 14, 2026 at 08:21:04AM +0100, Navid Ghahremani wrote:
-> +	memory@40000000 {
-> +		device_type = "memory";
-> +		reg = <0x40000000 0x20000000>;
-> +	};
+This series provides support for the LM51772, a buck-boost controller
+from TI with I2C control, designed for USB Power Delivery applications.
+The output voltage is software-configurable from 1 V to 48 V, and the
+peak current limit threshold is programmed through software. The
+LM51772 also provides an auxiliary fixed 5 V regulator output (VCC1).
 
-My unit has 256 MiB. It boots anyway because with
-CONFIG_ARM_ATAG_DTB_COMPAT the ATAG_MEM from U-Boot overrides this
-node, but without it the kernel takes 512 MiB at face value: the
-upper half aliases the lower one (0x50100000 reads back what is at
-0x40100000), CMA lands at 0x59800000, and it oopses in refill_objects
-once ~300 MB are in use. pp@5da00000 is then outside RAM as well; the
-vendor kernel reserves the top 64 MiB, i.e. 0x4c000000 on 256 MiB.
-Does your unit really have 512 MiB? If both sizes exist, maybe leave
-the size to the boot loader or use the smaller one.
+Core changes
+------------
 
-> +					macaddr_tag_1e: macaddr@1e {
-> +						compatible = "mac-base";
-> +						reg = <0x1e 0x6>;
-> +						#nvmem-cell-cells = <1>;
-> +					};
+Patch #2:
 
-As far as I can see nothing in mainline implements the cell index for
-"mac-base" here, so all five ports get the same address
-(f4:f6:47:0f:42:64 on mine, wan included). The tag partition also
-stores the WAN address as its own record at offset 0x36 (..:42:65 on
-my unit), so a plain second cell works without mac-base:
+The voltage selector helpers can now handle regulators that keep their
+selector in two consecutive 8-bit registers. The implementation
+preserves bits outside the selector field.
+Rejects the unsupported case where an oversized selector shares a
+register with the range selector.
 
-	macaddr_tag_36: macaddr@36 {
-		reg = <0x36 0x6>;
-	};
+Thanks,
 
-Agustin
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+Changes in v5:
+- Perform the checks for vsel_reg_oversize when rdev->regmap is resolved
+  in regulator_register().
+- Also check if the second register of the voltage selector does not
+  overlap with the voltage range selector.
+  Do this check only if the voltage range selector register is used (i.e when
+  vsel_range_mask != 0).
+- Add to the documentation the vsel_reg_oversize should be used with
+  8-bits registers.
+- Link to v4: https://patch.msgid.link/20261104-paul-lm51772-v4-0-494eab808581@bootlin.com
+
+Changes in v4:
+- Add STATUS_CLEAR_FAULTS to precious register to avoid debugfs
+  interfering.
+- Instead of checking vsel_reg_oversize configuration coherency at each
+  read/write, do it once when registering the regulator.
+- Use DISCHARGE_CONFIG{0,1} instead of FORCE_DISCH, to avoid extra power
+  drain for no reason when Vout regulator is enabled/disabled.
+- Nit fixes.
+- Remove dev_dbg() calls as they where only useful during testing.
+- Set EN_ACTIVE_DVS bit.
+- Link to v3: https://patch.msgid.link/20261030-paul-lm51772-v3-0-0de62c22f342@bootlin.com
+
+Changes in v3:
+- Dropped the fixed OVP core patch. The driver now sets the OVP threshold
+  before ramping up and after ramping down, so the core change is no
+  longer needed.
+- Fall back to the lowest OVP selector when the requested limit is below
+  the supported range, instead of failing the voltage change.
+- Reworked the current limit to use the standard regmap helpers and a
+  table computed from the shunt resistor value, avoiding custom helpers.
+- Moved ti,iset-pin and shunt-resistor-micro-ohms to the chip level in
+  the binding, and replaced ti,ivp and ti,ivr with ti,input-voltage-mode.
+- If the iset pin is used, do not provide .{set/get}_current_limit()
+  callback.
+- Fixed the regulator subnode schemas and removed the current limit
+  range from the binding description.
+- Write the nINT configuration before requesting the IRQ.
+- Enabled the IMON limiter, dropped the register defaults.
+- Link to v2: https://patch.msgid.link/20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com
+
+Changes in v2:
+- Dropped the regulator-boot-force-off binding and core patches.
+  After discussion, this property should not be in the binding because
+  it is Linux specific. Also, the situation described in the v1 cover
+  letter can be resolved by the driver getting exclusive ownership of
+  the regulator it uses.
+- Added the fixed OVP core change. The custom .set_voltage_sel callback
+  for the LM51772 is no longer needed since this case can be handled by
+  the core now.
+- Updated the LM51772 binding to the standard unit suffixes and
+  property names, and fixed the schema and example issues found.
+- Reworked the two-register selector helper so it preserves unrelated
+  bits. Make it atomic by using a bulk read and write instead of two
+  separate regmap_update_bits().
+- Cleaned up the driver around units, current-limit validation,
+  volatile fault status, IRQ fault reporting, voltage timing, and nINT
+  handling.
+  The .renable callback is not really needed when the nFLT/nINT pin is
+  used as nINT, as the device drives the pin low only when a change to
+  the status byte occurs.
+- Link to v1: https://patch.msgid.link/20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com
+
+---
+Paul Louvel (3):
+      regulator: dt-bindings: Add TI LM51772 support
+      regulator: core: Support regulators where the voltage selector spans two registers
+      regulator: Add TI LM51772 support
+
+ .../devicetree/bindings/regulator/ti,lm51772.yaml  | 230 ++++++
+ MAINTAINERS                                        |   6 +
+ drivers/regulator/Kconfig                          |  11 +
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/core.c                           |  14 +
+ drivers/regulator/helpers.c                        |  67 +-
+ drivers/regulator/lm51772-regulator.c              | 913 +++++++++++++++++++++
+ include/linux/regulator/driver.h                   |   2 +
+ 8 files changed, 1234 insertions(+), 10 deletions(-)
+---
+base-commit: 0785f7172040512cba759838b27286646773c735
+change-id: 20261021-paul-lm51772-c96bbce762a8
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
