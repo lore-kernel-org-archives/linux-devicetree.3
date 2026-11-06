@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968061;
-	b=ORLjIqYvN9fHLQOOYKAR7EGrr0AJZo7+2aCZlzxwAOX8RhkSBasvabMeuVNd10KsSKyz
-	 SPwzK+cZPevNkdUENk7g1ec9kRuKqY6P8GFnhcplI+iAJLJ89z637+I7V/xVQnaUqgDrr
-	 UEZBYcoYLrXKsM4mUT0QZOn7zJyl3rNnFuFGiWtozzc+VmuLDZoVlxEkOlNIUH0dD5jQ5
-	 We2ABMta+FAGnUPtnUBOFGj9RFouoOs2ggXaX5KHsTi/dTEmkmJFitFRfioa5URw9cqqH
-	 Ffp/UOMwEoPXfGoA/Y/DWsMyqi2d0V6Xxbctr+fCMs660oc1TSEJSvrdojxI2nuKLUQ==
+	t=1793968143;
+	b=icso61B3nw/TNO9v1GGXXdzzXpr2uPvGniMBu0IWd4a8DTNsNdTEL1xq0VyPNqcZXBD+
+	 ibvCBFCqFQSt7ebX5eJuzQzas9teZU6d4eCWNkXfZ/wFIP1FiZ1OnmOyIsdBuV1bGyNZs
+	 jv/8UIOMIvWUjxVv+b5Z7ncEphY0kIun6x3GVOl12YFMRqW5f4dh9fwOPkCTtYN8fd6Ug
+	 ypl8DZatyUWHssrGexgt1+D1Q5sNIU5sI5GApwfvQd3hPdYrYoAkNV1/1VHPzoBPLLLY0
+	 ZwI6H2C4UdVKnFpwHR6xeiIyyPS4/xmIeLAIo/EBuDku/socIEO7qAvEjbegd3cb4zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968061;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968143;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=iC1G3JxUI9CHkJmI4Q8KQjR5+g3muYzWduWPCxUVDN8=;
-	b=yuFKmRB4bhs7mNCdFVwO69oPCAn2SXKtuOJBwdfc5xsAp1oiTzP/uyK7O42Y9ttD7U8N
-	 KIeBPGbm+jnDl+2ivsMVzXItqUfZ04H3+98XJeMmryQyz9T5iz3yDjgCO/w3x7JdOyUe2
-	 GnfADrgBZiALTfs9+1mhjrOP/N7kjaZccfz4+tsTJy1gohdY47dc4Mebxb53l3DVGe521
-	 7yx/bdhfnrteeWLwTCXtib9k5goMXQvI1SoAQ4z7tzz6nUnLPU/5Yn003bWpCwWj2HUKO
-	 pQvvFxEEhOmOcVjlPJgmXXPRJDSDsSLcaamTqHMugmBS6gmTvIwZPt0dh9nuWXHV/PA==
+	bh=jVC/KGcJa8KGWOEH6o3QL+JqNyke1bKdIxAB7WhcXLM=;
+	b=BaKpOdvq2FG1fP30ygCRQadogSZRBfHQrc0hvOSaSXitYJhLwDGN2SUwgEFJ7R4VUYsy
+	 Mfkf+yWaBUe4amLUQyytatTUaNKj7rlE+gE1FhGtpZg1SFNO+tmue2p6gg1Fft8/JqReT
+	 A8CE3yS3Ib6O6Doyn6M5bIHmbNJH6VcylcVZSYSTDrSkMc7r/n4H6v8kShAkPHttu0FY8
+	 OIPVZFh+4TXPlF4pFjAx9lkTvcy7m110mmFTcbTT4c3rpL5/SHV4uW5+KgXqKJKfUqLkA
+	 jJwhf9ICZr7MJL4fhEgmDtK6LJHf5OxzX0NkwoGtet5CsjDD5aK+KtDYrlFGyToiPiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EsMB1AEs;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=MvZy8n9x;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E278606A32F;
-	Fri,  6 Nov 2026 12:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E278606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFA2606A326;
+	Fri,  6 Nov 2026 12:29:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFFA2606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=EsMB1AEs
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=MvZy8n9x
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=iC1G3JxUI9CHkJmI4Q8KQjR5+g3muYzWduWPCxUVDN8=; b=EsMB1AEsVbddRhEkNqtxR4Dku/
-	fCd8WF3c9UeC7SvcAmlG/+G5YdOXXAUvdsppn12hLTNUVaxiyhPP2elO38AJpkk28kZhJfjQzzgSs
-	AfwrA/Q3BBUQ8AQ9RK5Drp+P6yV/9tE3PIHdGJU0xdxFqcNoFHjbbPWqTpGrTrR8Z/ELyMnl0DlLd
-	Jua0m1uTJGsz3uIUAsrBVa4/u5Firs3XRnoyUiiKZdSluT2LLlf7NW3tLTANbAD6R/sAzqp+GbWmK
-	9oiEiVsHQ/IJWB41oycCsZX1vojJV6wZRy6RSeZdgNHokRv2kuk40u4H3se5kmXJ9grK4DAVSE8RA
-	QrUz+FuQ==;
+	bh=jVC/KGcJa8KGWOEH6o3QL+JqNyke1bKdIxAB7WhcXLM=; b=MvZy8n9xEqEqYJPTSiNa33GzYA
+	PRizDDcL7Eb6Xmc8IweGoWlaUFYeh01I+SXYW2j5tB+7YpQ7tM2IPjrICskL0KVL4ciytYsTehMEP
+	CvJtfT74M7ANKLOzW9s/oCLVCF3yvHMdPR4CmsEO5BGVPd9nQYW+JBtBNWyxYGfdDlT0O5znFAzKw
+	7LCD1LXSTFL449brmOdjKcNyrKaBOnaGOyVLFM1FnskypGfi0ibESYfyNSE1CUw3qeDTkpRh04uNd
+	0J4dsJYbI+lDOHWj9VCXFjlY42ExlibPxz81yvpNcgx96N/PT9orMHl10BHYbHjErvhDEUho2qPSM
+	wu/IeWlQ==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Sandy Huang <hjc@rock-chips.com>,
 	Andy Yan <andyshrk@163.com>,
@@ -78,8 +78,8 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	Igor Paunovic <royalnet026@gmail.com>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>
 Subject: Re: (subset) [PATCH v6 00/15] Support 10-bit YUV422 and 8/10-bit YUV420 color format on DW HDMI QP
-Date: Fri,  6 Nov 2026 13:27:00 +0100
-Message-ID: <179396799756.1259812.6287557543031614029.b4-ty@b4>
+Date: Fri,  6 Nov 2026 13:28:37 +0100
+Message-ID: <179396811444.1260748.9451141898652783370.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
 References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
@@ -109,34 +109,8 @@ On Thu, 05 Nov 2026 03:00:34 +0200, Cristian Ciocaltea wrote:
 
 Applied, thanks!
 
-[01/15] dt-bindings: display: vop2: Add missing reset properties
-        commit: be1734125b3e1c598c6ce35b4731d80e7acb7329
-[02/15] drm/rockchip: vop2: Fix resource leak on vop2_enable() error path
-        commit: b571f72ef923c31427f7058dd40a876023e75f32
-[03/15] drm/rockchip: vop2: Disable core clocks before dropping runtime PM reference
-        commit: ceb90f6ef6d5039189d4be7872eae33a8c635a0a
-[04/15] drm/rockchip: vop2: Balance state on atomic_enable() error paths
-        commit: b0e41d0609ce58e69ac43a2406bd3d6945454a8a
-[05/15] drm/rockchip: vop2: Avoid division by zero when computing max_dclk
-        commit: d0b0039a9a579dc4504a9af68e197c47187770dc
-[06/15] drm/rockchip: vop2: Fix VOP2_MAX_DCLK_RATE overflow on 32-bit
-        commit: 2cc46e2ca621923bd14fce6617000c218ea8b16f
-[07/15] drm/rockchip: vop2: Reset AXI and DCLK to improve robustness
-        commit: 67a391e50271e4e6cee833d31a7846de6a5717ab
-[08/15] drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
-        commit: 99bd1f8ae90101f25c65f544a3dfed2ad01824d3
-[09/15] drm/rockchip: vop2: Use TMDS character rate to select DCLK source
-        commit: ae98bc626336af920ecaee18c3b1d962b4e40d3e
-[10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
-        commit: 95642d0e806d2fb97a02daf6caa657009a76ca13
-[11/15] drm/bridge: dw-hdmi-qp: Log resolution and refresh rate in atomic_enable()
-        commit: c1681020b47bec265f8c5b06de7b321139f3f545
-[12/15] drm/rockchip: dw_hdmi_qp: Do not mask error code in atomic_check()
-        commit: a6cc582884f78f0fdd6345eba9bbad32ddb5734a
-[13/15] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output format
-        commit: 6352f4538ef03eda8346e79e4eb63bdead6c9a38
-[14/15] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
-        commit: 09b4318c0e8a3d27b1fe6a2765163c1c52e321fb
+[15/15] arm64: dts: rockchip: Add RK3588 VOP2 resets
+        commit: f245313cd545f58dbb777fcfc6aaf33376e25c0a
 
 Best regards,
 -- 
