@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934813;
-	b=3ArjamWdASQ/a85OsnGrkpEmhlnQnhQ4DSHaK6yow+6sO3zi5WTOfohXFsdzY1mqeuZm
-	 Um+lxjvaxv1owdQPN4QYLJW72EyQMkpHq6V0z2LwNoo+TU9DmGrjf2SrBSumWGDZwUlnh
-	 iAhJFBVTOp9uV0T8f9690eNVP9fWVKZZOno01a+5SSdZVi+Vb6rPcnen2VkJVBKkHTrga
-	 F2Vn+dBVvn7EakkqUsZpy0jvF5sr9ZM/8AkEQHoXJWlKEMXYHenlyz5owqHyXifEQ4eMa
-	 43vMXfwWqqwOq3HUsZo3VYJvotT4K2PP4epCUFSIIzWlkfI0JWvIUhG0jhD7+bCcuAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934813;
-	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=fK+YGxQi2g0kB3mY8O28uWorWjYWpJxaaOpfGo/4K+0=;
-	b=j7Tn77oFadOu0qxq02zx+y+nGrJzemIU4IzqCQPJDSEUJg5GbrY2nTDhmretBHXXDKob
-	 bSshVUAbkIm/TLWmUkc9j/sc6fjiuBdROzn3FSG9CU0FS7pP4uAM8eus7yjBr0FChSoEG
-	 KjkJcfQ8DUWxRMABfyXL385m2gtM+unu/L1uynsJ0RLZEwqiIzF2JtkuXm3mh6BZYPFh0
-	 WdCmkPO5XnalKbLJVlIT3jWWUDTGsyOibRWlgEzADVcetNJWjt3YZJPxnfsovgHtW0Uqq
-	 1IySS5B2gbahJFkLWTtMGmHj/0FLxeKA69bPm4Gkge0UQEFcJNycUAhVjRc9DFuugfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CwpnI1Rc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.106
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793934929;
+	b=fLmmFl4csiX6P4ljl6xf3ubeK9aV4AU2hZcuvJ/EPfCPWhGAQhnUO/FJoByEUsJONk8t
+	 yLVcX18bOC+KRYKOxPxUrML+4juS+nhT83WH1TLMFenNYZs7Apgov2S6sOThf4l0aqoFf
+	 tQohWDmG1DjttnrCfKDp3e5YlAdsiHCk/7LwKtrZPD1wmIXHVPo4+s7sYwiNuP3QMr8se
+	 R5yJJDSdQ/eCxlPSorqzLpAFZsl6UoG/tLqIOwK3DJeI47NAn5vM+jvjnofID9KY69ltv
+	 RxoAC/z1m0q0sPLCRLKeqZSJMyCiElK/ftgM8C20Jg54KnUR7VWs24wEu50sJFcks+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934929;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7rQdytvDsqHVy4X7k9Ar5sz//8F9PAiMyb4FMZqXv2E=;
+	b=O66pWntIr5eZASsmvUuqikwaOHkx1hDebHoi4eijhZrkN5QPLLM1Dh2+CLHdxjJ7l7vv
+	 gdcQssgT+dFQaKaoxkdndsirygfNzkc0aOdf2uSjMv3hGGQs3UYtj+fZFVW6u9XnafOxd
+	 oMprVoj7Kbr45fMOBprLfMc2aicUd/kobDFTYQ4nSp4M3/S4TuMho2K4VcUkFZImG1cmU
+	 MjASmqW7E7slfh/+PSZ0C6MYbTsqDCheXlIsawtkd4/rByT/UfAWm8cKYOL/HygQPHWmm
+	 MCKxlrviWqIqHquextKcPBungHsZc7XhFlP7Waqog4KZtwVUf/0VsGbdIFl44sR+Big==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=tn8SLTew;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.106
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023106.outbound.protection.outlook.com [40.107.44.106])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBA5606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 03:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB44E606A328;
+	Fri,  6 Nov 2026 03:15:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB44E606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CwpnI1Rc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7351F008A1;
-	Fri,  6 Nov 2026 03:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793934813;
-	bh=fK+YGxQi2g0kB3mY8O28uWorWjYWpJxaaOpfGo/4K+0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CwpnI1RcqoyqPU943rhej/cC6j/sZpqpV4x9KpKg6iacFcdjH8N02h3RnF2W5zJCi
-	 4Muxr+kkp0kzvwZKePtWoJTQvC1rH9Yxev+NcjcJarHpYxHRyWGGLf8R8nRVJ76on/
-	 OVD48mXvcxW3joYMGnqx4eyo7zbymk0Qlq+oABfGo3M/I4ax8UchHGzeqcxRhXybfc
-	 xu5qaWlwNo22zjqPPPxJqOqgPD/Gts72goGv54CMc44JArJUdgGzsq21F5qftRS1rw
-	 uxRbPeB/fk7jxhA/FFa5GYW1W9WhBcDdtvEmcmGq8wxSs4uJ3kRb/pcvyvmPtMMYDX
-	 YDDMqiJPkb/MA==
-Message-ID: <sashiko-outbox-200632@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: monaco: add CSI2 PHY
- common-phy providers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anusha Arun Nandi" <anusha.nandi@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261106030212.2811027-3-anusha.nandi@oss.qualcomm.com>
-References: <20261106030212.2811027-1-anusha.nandi@oss.qualcomm.com>
- <20261106030212.2811027-3-anusha.nandi@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 03:13:32 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=tn8SLTew
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oq+Mn6+lP0HlvRR+yjpCB0TewnEHloqc8JWnShTrkwrVhKwxm+a3857tNPnI1xSPHMuY9k2dyDF/+vK26f6OB/npZKsmN5gPnvIwXmmsq1IV410SwRm7HlJPQEo/1DgV8puFPm8lSN1BZrE1EhoFyswZgc6Xc8qxIEF1hOqIe2fkv7dhUIHUuRAb+p5YXbacR7qwrKAXthwVhvMzlI6pxjfr0RYxmaNy4dNdI8shqjOA1k610AG/Ets7iIY81VfNbVqUWFnaerguBL/xJ5FGkFdN9IhZfmTIijZme9dIgj37SJ3mVrcX8AIqmUjbVq/ooJUyIv+JwXij0zRA6aZdng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7rQdytvDsqHVy4X7k9Ar5sz//8F9PAiMyb4FMZqXv2E=;
+ b=Wn789CciqmRZnw9PNgNwJmZI6I9/oKQSM0Kk+0xLa1PqQI1Tb+oZpTPWa9JCJMIcNTsss/y2qFnbEtdn0OdLwkAmSTxmptHlW6uVGSVvdHs9x0ZE0GQedrys8oJUlX7+VF5rwusqBdFtrd2Lubh226wq3Q9sz0yM2Ez5TrvvRZhxikspgQcx7aygNlGCKUu4X2Dl9OwSmv3ykA6WYBGMBbNw/TjHsU1qjoMdpGsS5/HLXX0hujBRnQLI7cPkrWm/h8QeX5o9Pb3Y3+4mYWkgpiam35N7rrHYKCIPwzvBjyxfGAWaF2wnx74nwow6s6BPwrS6+SM0O6xTpFPCEVuVxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7rQdytvDsqHVy4X7k9Ar5sz//8F9PAiMyb4FMZqXv2E=;
+ b=tn8SLTew5EvfNm2gkRJQdtsaCS6CRF6kbaYHKIRidLDu+RxNKejp96peJQOPZIvwDQEq35FSFom3KSk+kZafSlfyGnnplb2VGTuBZ+fNTKmvq7bvQohg1BO681tAKouE0SPFa7AyeHBxJQN0gqMx3qPVbIDOn8jjK2E61qOU1e7PwDwvHU43e0hVVNivjFdYsbwyiphh0/LFxD4QWWoFC0h3g1bjCgXn+gGCfO6kvo3dxy70ejkvohag/MD5aC8TrUaWaG1EXcbne9fiJE/YKtmzqKLN/SqkQMUr5w3V/bIK1MTLhU593c6spvsmCQvPX2GHFiRrKtKwwkYNAHjFOg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
+ by TYSPR03MB7941.apcprd03.prod.outlook.com (2603:1096:400:481::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
+ 03:15:23 +0000
+Received: from JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee]) by JH0PR03MB9035.apcprd03.prod.outlook.com
+ ([fe80::77d4:2931:4c4e:1cee%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
+ 03:15:22 +0000
+Message-ID: <5ebaca7d-5295-4b0d-a6a2-0415d8db6f34@amlogic.com>
+Date: Fri, 6 Nov 2026 11:15:14 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] Bluetooth: hci_aml: take the address from the
+ firmware description
+To: christian.koever-draxl@student.uibk.ac.at, marcel@holtmann.org,
+ luiz.dentz@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+References: <20261025192338.209574-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192338.209574-6-christian.koever-draxl@student.uibk.ac.at>
+Content-Language: en-US
+From: Yang Li <yang.li@amlogic.com>
+In-Reply-To: <20261025192338.209574-6-christian.koever-draxl@student.uibk.ac.at>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TP0P295CA0053.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::8)
+ To JH0PR03MB9035.apcprd03.prod.outlook.com (2603:1096:990:7c::13)
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -60,201 +100,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: JH0PR03MB9035:EE_|TYSPR03MB7941:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53b87bb7-09cc-43b4-5027-08df3bb4316d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|261026121527099003|4143699003|11063799006|56012099006|261026140227099003|261021121427099003|261009223027099003|261022105027099003|261102123227099003|261028144727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XwIe7NbPojgnLg1aUXu9gv6Os28HJUz6wMMARApEJCgaT0qAjkmp0AzzpfpnNlLWK6/ONZOS8e1UDJfuJJT/qr8gJhOzMh4pLjFH67vyrMSQCZPEeuGSFvuj5Kt244jKBBIpsHetuJyDlMIRUZRpQ0Q3XqjLQluJXJBGgp1NgQSqORBeGtjMmo2eJU6X6dYHUcEGxQ6k5TJRRTb3LiCAgq++R7ch+yDSRDECuOqd2aAuwxtFt1G2m7PwSp1PdKgMvDJoNcagOetpJ3G3CtL93td5HLZ977Q7acL/FETbQFkWaWpjrJq6IM6OM0WaIVXRQCNdcW8G/Sy/7HikFoZZfATEIHfvkfp3tsKA8Z34R37ItLyVBmNW3A12H4pad2x9lsUPmhc9tJbWvkSJXKeVi0pXMCGg+ljp8Nuihscw0p+/CHHF0WTq4RdSbHGqqdnf/bLFu0pshuKXiZgh8WN3Ijcs+VHgdlxFMoexkSQhSg7Y3kIKQaq4zwHkqTp+sQKYvT0B/T6/XoK8L+iMDLdjlcccrQK7GSwYLCx6E6JhySlDaw/AyOn5htKFL3aT2ZSI78ww1354V66F/2g9ki0dWJ+iuIASzwPqkN4Nk2C55WMoMprZWp9iG1KQocc1kt8KVHe15bhpVDwR0Dz34dMcHlxWH/N8jpBlsX4vy7VvTv0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB9035.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(261026121527099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261021121427099003)(261009223027099003)(261022105027099003)(261102123227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WTdtRyt3cWdDWFo5RDdJbWpBRGNmQnNqTnFVcnNjTGUwUTZKVHNjVDN5WTRE?=
+ =?utf-8?B?d2lrRnpPbnJWZGltaHdlQmpxZTVqVWMyQk9ONUJJV0E0SWd0Zm5BTXJ2Y3M4?=
+ =?utf-8?B?akxpSXlUR2NFbWV0R0s2WkhrUDN3ZHlSeDZYcS96NWRzL2k4OENrb2lULzhO?=
+ =?utf-8?B?VDJTWGRCaXhSRnF3TEJqSkJ5dWRMQzVqYXVyeGVLUFZKcjNOVnFMbHAzMU9w?=
+ =?utf-8?B?RkVQS1NpcWl6NnhEdHBYV1g1RnpmRVFtbUk4UHZBRVR1RWpnMHNpZzdVSkJW?=
+ =?utf-8?B?MlV1dXQ1OFA5eWxvOXdjRFgyeEQwaS9hU2NKbWVIWmN3d3dKdkd2NnRJeTNp?=
+ =?utf-8?B?TE0vN1RNa0pWd1VxdG00UzVHMU9CQUx4Y1RmKzVJN1psb3B6c2t5R3I2VFdU?=
+ =?utf-8?B?N3IwSDIrZnhBYyt5Wm5VZ0JOL3pOaVZmOExJa1hDY21JYU92SDJ0MVdzTjZt?=
+ =?utf-8?B?cHZLdmJHRkFTeThWcmFndmk0TDVxYTBJaXVJQnkrWndPUHVKTWNnOWpOeUFD?=
+ =?utf-8?B?Lzhad0g1dkhhQlp6N1ZIN21IUnRqU25BbEtZMkNCR0t5NWlWdlB0RGdLcDE3?=
+ =?utf-8?B?UnRCVkZwYkxMVHFURTFNeElzdlhjRmxkS3RBa0JaVGtibEFzVFBUdTZ4NXZk?=
+ =?utf-8?B?bmhJYUlKWnNRMXZ6UzhITFJ3b3lUT1N0QVAwY0hyd2ZlTkNyK2cwMHlwdVBM?=
+ =?utf-8?B?emRwN2c4OGxDY21OOWpadGFKcEJOVHVOZzZLOFJZNFJaNXBOcW9ONHdOQTVh?=
+ =?utf-8?B?QUFZNUUwaVFwVC9ZLzIwQzBoZ1RXcHROTDJSQmpBdG05ZXY5c1ZISTNCdjZa?=
+ =?utf-8?B?U3JEU25pSW9ybWt1M0txdGJRYWpPTEh2VUZyUVNIQTF3eWpLMUM2US9na215?=
+ =?utf-8?B?cmhaVExpWEJ1TUw0NEl5NGxLVjh0cmI5d0NXYVdKbEFXQ285bktJeXB1N245?=
+ =?utf-8?B?czluR2VhaXJsV1JnRkdGaGtRUGdNYlBaVzg1Z05Uek1XSkVoWkppa3lKU0xt?=
+ =?utf-8?B?TjZrbWpoMjIvb0QwZWdlMnA3SzlPTHozY1JzZWhGQTdoMFJrMUNtdXFXUUtj?=
+ =?utf-8?B?TDJzZ2hMQ0VHeUVxUWw3SkNlb2trS0cyMitJZ0VQOEUxc0dzT1hJVHdxYnlj?=
+ =?utf-8?B?dlNUelZBVXVLV0xtSFJNQitQSkViYWZvOGVBMXlZWm1RWHJtL005T2dtdVov?=
+ =?utf-8?B?MUlnNFNVNkp6UTBRV09PcHMxY2V2TTdPT2ZQRkYxcFBnd0FpZk9GT2x5WXN0?=
+ =?utf-8?B?QlNaQlhJcjg5NVN4eWk0NndQcVZ0S280QVVIdVV2aFMyek9saFRrb2ZjWGhE?=
+ =?utf-8?B?VDFSaWlmSzRmRHR0MExjSUQxSlZQZkNpVm5mb3JuZWpwOUlhZ2oyak9vUXNk?=
+ =?utf-8?B?TmZkRzlMMWtiV1NsNUlKWGpSTnkwRkRScXVVc2d6NkpzalNNWUZpdUNzYW5B?=
+ =?utf-8?B?VThWeTFuMmZXU1hTN1hiOVpHZ3dSRGVpNGl0SEpGTjdIc1lYT29uNWQ1U3hN?=
+ =?utf-8?B?cW00RzBlL2w2TjEra3A2U3FQdnBrcFB3VnBsMDNKeHJBbXB1bUhiTGRzR2hr?=
+ =?utf-8?B?bVJsNVVTeGFMTUNoZGFQQ01rQlJYTjVDajNuVERTRXFhN1hFODNpWmhuUTJs?=
+ =?utf-8?B?clY5S0FZc3RzZk9LZG5SSWIvVmhmRExkZmxUL3YvMlE4aFpKVHhNdlBTeUJv?=
+ =?utf-8?B?N0MySGRucGU0S0xPazVSVzYxSDErNExhcThta1ZWUTJDZHphZ3dXUkJDN1lC?=
+ =?utf-8?B?VTVPYktIVG1Ma05JK2k0TmRmR1UzSGVZRzR0ak9ZN3d0WVp0VFptVnJZNHZy?=
+ =?utf-8?B?Um5BK1Q0cWJYY2tKU2kySVgycnlMVFRWbStoVUlLVlNHd0syQmFGUTV6TUll?=
+ =?utf-8?B?UjlmTmlmNllsMmJkcE4vNW9Na0NjVTlwcTlZM1RNNlBYNGkwK1NFMUxrZHlK?=
+ =?utf-8?B?WnJUaGk3a1kyT2x3aGhOcXNCNkw1TFRENWtxLzQvdE04SzB2RXByZFBMenli?=
+ =?utf-8?B?WUJnYWZ3SEU3WDg3M2ZEVzh5bFR5alFNQS9LTSt4c1ZTZGQ2T09NblNBRXVj?=
+ =?utf-8?B?TWUvN1dGNzlpSkEyRHFPdGEzQTNIaFpRdzFrTU1DSGt2YjB3T0tRcUVRU0R5?=
+ =?utf-8?B?eGRpUW9JQUV2d1pvRWh6cUlJOWNSUmU0azZJVTNnaG42bE1BdXlPdERqR01M?=
+ =?utf-8?B?U3BZWVhUMlcvN1ZaVW9WRzhwd1pMVzI4cUhWdW5PTkJHR2piclR1TlcrTWJm?=
+ =?utf-8?B?RDlVNnArRFI5cnJKN0N2RVdXRXBlbW0ySmxJdWV0M01Bb0xvVTE2blhhVlpV?=
+ =?utf-8?B?VmwzbVBGR0V4bUIwY1RJWGVEazBWb0pBdFdOZFRjZkhHbXJmS0k5QT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53b87bb7-09cc-43b4-5027-08df3bb4316d
+X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB9035.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 03:15:22.0865
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /JdKjd+C6TqA3HLPTfQRUt/q0xA3vMTXqOrZ67ciGiT3dSz1q8P5ZNoFVphjPwFlsy9Iz8NAZ+9FNUTjjhltDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7941
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: monaco: undocumented and unmatched qcom,qcs8300-=
-csi2-phy
-- [High] arm64: dts: qcom: monaco: single power-domain on csiphy0..2 causes=
- -EEXIST
-- [Low] arm64: dts: qcom: monaco: csiphy0..2 placed before camss out of add=
-ress order
-- [Low] arm64: dts: qcom: monaco: commit message describes inter-version de=
-ltas
---
+Hi,
 
-commit 73bdfe66a74e3ebe09640aa912bd64a757bca278
-Author: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Thank you for your patch!
 
-arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
+> [ EXTERNAL EMAIL ]
+>
+> From: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
+>
+> When the controller reports the Amlogic default address the driver
+> marks it invalid, which leaves userspace to configure one before the
+> adapter can be used. The controller does not keep an address across a
+> power cycle, so there is nowhere else a stable one can come from.
+>
+> Set HCI_QUIRK_USE_BDADDR_PROPERTY as well, so that a local-bd-address
+> property, typically filled in by the bootloader, is used when present.
+>
+> Signed-off-by: Christian Stefan Kövér-Draxl<ckoever@outlook.de>
+> ---
+>   drivers/bluetooth/hci_aml.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 
-This commit adds an OPP table and three disabled standalone CSI2 PHY
-provider nodes (csiphy0, csiphy1, and csiphy2) to the Qualcomm Monaco
-(QCS8300) devicetree.
 
->     arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
->    =20
->     Expose the three QCS8300 CSIPHYs as standalone
->     qcom,qcs8300-csi2-phy generic-PHY provider nodes (csiphy0..2) at their
->     existing register addresses, each with its own OF graph (port@0
->     sensor-facing, port@1 CAMSS-facing) so camss_detect_legacy_phy() picks
->     the non-legacy path once a board wires a sensor through one of them.
->     The camss node's own reg-names/clocks/interrupts for the CSIPHYs are
->     unchanged, so boards that don't use a provider still get the legacy
->     binding.
->    =20
->     csiphy0..2 drop the extra "csiphy_rx" clock: QCS8300 binds through the
->     sa8775p soc_cfg (no dedicated QCS8300 camcc driver exists), which only
->     declares two clocks ("core", "timer") for this PHY, not three.
->    =20
->     csiphy_opp_table moves to the root node, not inside soc@0 (a
->     simple-bus), since it has no reg/ranges property of its own; its
->     opp-300000000 entry is dropped too, since QCS8300 shares SA8775P's
->     camcc, whose cam_cc_cphy_rx_clk_src only defines a 400 MHz rate.
->    =20
->     The provider nodes are disabled by default; a board or camera overlay
->     enables the one(s) it uses.
->    =20
->     Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
->     Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Reviewed-by: Yang Li <yang.li@amlogic.com>
 
-[Severity: Low]
-This isn't a bug, but arch/arm64/boot/dts/qcom/monaco.dtsi did not previous=
-ly
-define csiphy0..2 or csiphy_opp_table. The second and third paragraphs
-describe changes between patch revisions (dropping the csiphy_rx clock,
-moving csiphy_opp_table to the root node, and dropping opp-300000000) as if
-modifying existing definitions in the tree, and also refer to the CSI2 PHY
-driver soc_cfg as a camcc driver.
 
-Should the inter-version changelog notes be moved below the --- tear line so
-the commit description only explains the final state being added?
+------
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> index 35fbee63d4c65..a66c04a1d3063 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+Best regards,
 
-[ ... ]
+Yang Li
 
-> @@ -5577,6 +5585,102 @@ cci2_i2c1: i2c-bus@1 {
->  			};
->  		};
-> =20
-> +		csiphy0: phy@ac9c000 {
-> +			compatible =3D "qcom,qcs8300-csi2-phy";
-> +			reg =3D <0x0 0x0ac9c000 0x0 0x2000>;
-> +
-> +			clocks =3D <&camcc CAM_CC_CSIPHY0_CLK>,
-> +				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
-> +			clock-names =3D "core",
-> +				      "timer";
-
-[Severity: High]
-As reported by Sashiko on v2 [1], csiphy0, csiphy1, and csiphy2 declare
-compatible =3D "qcom,qcs8300-csi2-phy" with two clocks and no fallback
-compatible string such as "qcom,sa8775p-csi2-phy".
-
-In Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml, only
-qcom,x1e80100-csi2-phy and qcom,glymur-csi2-phy are documented, and three
-clocks (core, timer, ahb) are required:
-
-  compatible:
-    oneOf:
-      - const: qcom,x1e80100-csi2-phy
-      - items:
-          - const: qcom,glymur-csi2-phy
-          - const: qcom,x1e80100-csi2-phy
-
-In drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c,
-phy_qcom_mipi_csi2_of_match_table only matches qcom,x1e80100-csi2-phy, and =
-no
-qcom,qcs8300-csi2-phy or sa8775p soc_cfg entry exists in the driver:
-
-  static const struct of_device_id phy_qcom_mipi_csi2_of_match_table[] =3D {
-  	{ .compatible	=3D "qcom,x1e80100-csi2-phy", .data =3D &mipi_csi2_dphy_4n=
-m_x1e },
-  	{ }
-  };
-
-When a board or overlay enables any of csiphy0..2 and wires a sensor endpoi=
-nt
-through it, camss_detect_legacy_phy() selects non-legacy PHY mode and
-msm_csiphy_subdev_init() in drivers/media/platform/qcom/camss/camss-csiphy.c
-calls devm_phy_get_by_of_node():
-
-  	csiphy->phy =3D devm_phy_get_by_of_node(dev, remote);
-  	of_node_put(remote);
-  	if (IS_ERR(csiphy->phy)) {
-  		ret =3D PTR_ERR(csiphy->phy);
-  		goto done;
-  	}
-
-Without a matching PHY driver and binding schema, will dtbs_check fail on t=
-he
-undocumented compatible string and camss_probe() defer indefinitely with
--EPROBE_DEFER whenever one of these PHY nodes is enabled?
-
-> +
-> +			interrupts =3D <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-> +
-> +			operating-points-v2 =3D <&csiphy_opp_table>;
-> +
-> +			power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +			power-domain-names =3D "top";
-
-[Severity: High]
-As reported by Sashiko on v2 [2], csiphy0, csiphy1, and csiphy2 each specify
-only a single power-domains entry.
-
-When a platform device has a single power-domains phandle, platform_probe()
-calls dev_pm_domain_attach() -> genpd_dev_pm_attach() in
-drivers/pmdomain/core.c, which attaches that domain to dev->pm_domain before
-the driver's probe callback runs:
-
-  	if (of_count_phandle_with_args(dev->of_node, "power-domains",
-  				       "#power-domain-cells") !=3D 1)
-  		return 0;
-
-  	return __genpd_dev_pm_attach(dev, dev, 0, 1, true);
-
-When phy_qcom_mipi_csi2_probe() in
-drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c subsequently calls
-phy_qcom_mipi_csi2_attach_pm_domains() -> devm_pm_domain_attach_list() ->
-dev_pm_domain_attach_list() in drivers/base/power/common.c, it checks
-dev->pm_domain and fails with -EEXIST:
-
-  	if (dev->pm_domain)
-  		return -EEXIST;
-
-Furthermore, Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.y=
-aml
-and drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c expect three power
-domains (top, mmcx, and mx). Will having a single power-domains entry cause
-phy_qcom_mipi_csi2_probe() to fail unconditionally with -EEXIST?
-
-[ ... ]
-
-> +		csiphy2: phy@aca0000 {
-> +			compatible =3D "qcom,qcs8300-csi2-phy";
-> +			reg =3D <0x0 0x0aca0000 0x0 0x2000>;
-
-[ ... ]
-
-> +		};
-> +
->  		camss: isp@ac78000 {
->  			compatible =3D "qcom,qcs8300-camss";
-
-[Severity: Low]
-As reported by Sashiko on v2 [3], this isn't a bug, but under soc@0 in
-arch/arm64/boot/dts/qcom/monaco.dtsi, MMIO child nodes are ordered by
-ascending unit address. Here csiphy0 (phy@ac9c000), csiphy1 (phy@ac9e000),
-and csiphy2 (phy@aca0000) are placed before camss (isp@ac78000) even though
-0xac9c000..0xaca0000 are higher than 0xac78000.
-
-Should csiphy0..2 be placed after camss: isp@ac78000 to maintain unit-addre=
-ss
-order?
-
-[1] https://lore.kernel.org/r/20261103221026.3662383-3-anusha.nandi@oss.qua=
-lcomm.com
-[2] https://lore.kernel.org/r/20261103221026.3662383-3-anusha.nandi@oss.qua=
-lcomm.com
-[3] https://lore.kernel.org/r/20261103221026.3662383-3-anusha.nandi@oss.qua=
-lcomm.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106030212.2811=
-027-1-anusha.nandi@oss.qualcomm.com?part=3D2
