@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793959448;
-	b=eCEZmIUMg9x1sib9KulG2Gl1PpXFDLPoj0EyPvXI1UVGK4Wllv54qbteZe6RXwhAcrqK
-	 fP35r1IGW9W9G42A3Avi4+E4ixzPGExv5v5QSUy5yyfi5iecsThhwmYNG3Z9NgQB3yR1s
-	 lVVmJTQU7YxfGG+LDRcPfYu80jd2jBzSQZ7IIFaYCco7rzQ8aS6CmsyOIeufzw8hkPyfG
-	 yYZWR5tfNCsfZigNFMKvXsgR/YUkmz8KZbcgxNJC5nNl+lc27zB+QKhdjhd6yVK7Zaevj
-	 yZlaH7wQ9Rgac+TxnWb147vayI8LZ3sU4ycQqrA+c39hGnURzrzFVs/vmVK/6H7tmzw==
+	t=1793959465;
+	b=lS420c8AmsJ4W+6qGCJlr4YZAhHH4da9a8nGt38BL84dqi7imXrwkuVcfRzxQwN2EBPX
+	 1rsHbZLEotv8aIObZJjBhJ4wjv1ieG+lci/4mdG18/au+zA3qSgYa3EvLfBp5CtDl59iX
+	 JWUl5n+Al9yOGzoSL+exvOhQSF8FuZHnUCydF/dciEmu45LxusuPRX5S+lzYPRcHpq+nu
+	 9+RuUYR6WlhfM7j63oW9mUGU+HsTNKNIpqH7rtoiceEEMAm25lFULO4L+MgEaR+l/LZ+U
+	 0Ib7G/+WVzgjJb8T+CtVMO+MhfIUj9OXm3nGlWwViVEkWUNL7UQi11VCFck7iAIgxqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959448;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959465;
 	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
 	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=dgrHCuDJnbtPR7u+3NWd60PWg1h/9OvoC3YLPNhdMoI=;
-	b=5NqiuZYc9rrGWEdBFHpevetvsKnTqBJNd/ldhPzQpThquj7s2dgB1nTC8u1Uzd2HyM2d
-	 4M+lOGsT3nUOUoEii2n6TwvTk1KUDVX0Nkd7Stj8zRiRAGRk4IW6vBgoouPLrl//oAlJb
-	 kBl3tuCg62mww1t6cuowXWD6eFY14bJxQ/gxiEPAj+hwxjdp7sP+PyPYwjJZKdItWSQKv
-	 vdEWaZbqAAeQG2fHYNMT7fYKkltHviUGTW+GNY+qCO+ZjCPebcCGLgPDalVpT0NwEHiUQ
-	 XnFG6p+oRjD8he5DqJyToZn966SEm+F+Q+sFH4wcOkIrdN7NO7NLJIyD4JWGKqMXIJQ==
+	bh=q/RLZlg/ZBO7YPpmSOQt/COnp0ZcO2IAWkQg2E90wJI=;
+	b=hQTupG3/T/ij8oZvg847gMmbUS+z00oOkC/6pSuN2q3/yIjQMrZeO/0Nhy8y83mIFf+L
+	 y7Gr9aN/CX2uJm9zEytO0ff6tajQvY13NCFOX0vuz75NzssAaJHXvb6GSgJW6sjhjgqIp
+	 vv/FwwuQfedbqbV94xyFsV/FKeMSmpmvfntSSfyuEkLNNEFZ5ybWU6/AkRwou/HgRarLA
+	 kDIuCkfo2qEbSVZK5HIDW/XH7RUOkwn8rE/KM9WpZu0Uu7TNupARkMWv3INpzExMVxlL2
+	 aLUGhjCHtnQdA9rLZxla6hrilzmyWpvz5QIr8j7a0xjzquWGLnPgHIjMtQmINkgYJ2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkxdlxQb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzXuHUTe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E54606A326;
-	Fri,  6 Nov 2026 10:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CA3606A326
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 10:04:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkxdlxQb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00A51F008A3;
-	Fri,  6 Nov 2026 10:04:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzXuHUTe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F391F0089F;
+	Fri,  6 Nov 2026 10:04:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793959447;
-	bh=dgrHCuDJnbtPR7u+3NWd60PWg1h/9OvoC3YLPNhdMoI=;
+	s=k20260515; t=1793959464;
+	bh=q/RLZlg/ZBO7YPpmSOQt/COnp0ZcO2IAWkQg2E90wJI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kkxdlxQbTEqcGLzcidDZF0+I7GkyRxa/iObrhwLPl+BTpsjPOyMapF4t5BghYMtuL
-	 qHL2tbL0UvrtovSKpLbLY+PfVWgC8MM5nM+jpx6X4A0XlRWVnEyq3Nmdy2rXBMvHc7
-	 0FMPFp1W6djUzyBkwPyPb5Q58WQqRK+2YgbBRpjs5y8pDyW5iE7WAJDI24VuDVS47j
-	 gseHJvRWOdfPbvu0tjOTuRRmHYsBd3+SNfFgJrzwWO9e1jDkB19UpgzUrkhCgoajm8
-	 jQu3SXEKYJgZAXPJTU/EoWbcqBMBMW3mqQaRyt9xH4wKhFDmoFv0QrM9uJbPta5Uxg
-	 fDqk2gU5mlA+w==
-Message-ID: <sashiko-outbox-201169@kernel.org>
+	b=CzXuHUTe6d0CwTKfg2mlzAV1YK2bmymhwT1923fPtWP5xKL8eqaKhU6u89fBv0hoG
+	 UzquI8ECDIJbPnCk2WFFhQODreFKX7edTy3wedbz04S29A16ja67oxEtutzvAaJ3NI
+	 LUdbIqpx72zAgMtzT4nxGKfQDlby0kYwMpNn+M2pIrjWI5LcYuSGSNMD3f3B+E6kVV
+	 TgnrYwea9r/K1N9U68klYh++KENGRaP43eXINawvmYd/m/gfqe41sXfnTGlOmQvJlV
+	 jREFH8f1DNMUFvZ78NneJl7+ImSH8csTp9hRsNJEwucM40mitIytYSDoNLc7+Q/Emr
+	 b/i74F2YCzKlg==
+Message-ID: <sashiko-outbox-201171@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 20/25] mmc: sdhci-of-dwcmshc: add MT2824 support
+Subject: Re: [PATCH v6 2/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmVub8OudCBNb25pbg==?= <benoit.monin@bootlin.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, linux-usb@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261106-mt2824-v1-20-86087eaf5af4@bootlin.com>
-References: <20261106-mt2824-v1-0-86087eaf5af4@bootlin.com>
- <20261106-mt2824-v1-20-86087eaf5af4@bootlin.com>
+To: "Lucas Tanure" <tanure@linux.com>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20261105100322.37816-3-tanure@linux.com>
+References: <20261105100322.37816-1-tanure@linux.com>
+ <20261105100322.37816-3-tanure@linux.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 06 Nov 2026 10:04:06 +0000
+Date: Fri, 06 Nov 2026 10:04:23 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -62,79 +63,128 @@ Precedence: list
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] mmc: sdhci-of-dwcmshc: missed reset in
-  mt2824_set_uhs_signaling()
+- [Low] dt-bindings: net: amlogic,meson-dwmac: unwieldy per-compatible
+  conditionals
 --
 
-commit f6f9a7802c2857e3d3e847c6a2b7339cbc357a08
-Author: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+commit bc12f1675c9788e6cacf4400aec8cfab4ff91981
+Author: Lucas Tanure <tanure@linux.com>
 
-mmc: sdhci-of-dwcmshc: add MT2824 support
+dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
 
-This commit adds support for the Synopsys DWC MSHC controller and PHY on
-the Metanoia MT2824 SoC, including card type probing, voltage switching,
-and workarounds for HOST_CONTROL2 writes and clock stabilization.
+This commit adds the amlogic,t7-dwmac compatible string and its associated
+clock and delay constraints to the Amlogic Meson DWMAC device tree binding
+schema.
 
-> diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci=
--of-dwcmshc.c
-> index 09702022e7087..cb248fc572e21 100644
-> --- a/drivers/mmc/host/sdhci-of-dwcmshc.c
-> +++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.ya=
+ml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index e769c9bb70d84..ff5e50f651144 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+
 [ ... ]
-> @@ -2108,6 +2122,470 @@ static const struct sdhci_ops sdhci_dwcmshc_k230_=
-ops =3D {
-[ ... ]
-> +/*
-> + * A timing change must write the new bus speed mode to HOST_CONTROL2.
-> + * Reset the CMD and DATA lines after the write, while the card clock is
-> + * off, so that the next command gets a good response.
-> + */
-> +static void mt2824_set_uhs_signaling(struct sdhci_host *host,
-> +				     unsigned int timing)
-> +{
-> +	struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
-> +	struct dwcmshc_priv *dwc_priv =3D sdhci_pltfm_priv(pltfm_host);
-> +	u32 reg =3D dwc_priv->vendor_specific_area1 + DWCMSHC_HOST_CTRL3;
-> +	u16 ctrl2 =3D sdhci_readw(host, SDHCI_HOST_CONTROL2);
-> +	u8 ctrl;
+
+> @@ -84,6 +85,49 @@ allOf:
+>          rx-internal-delay-ps:
+>            default: 0
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amlogic,t7-dwmac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GMAC main clock
+> +            - description: First parent clock of the internal mux
+> +            - description: Second parent clock of the internal mux
+> +            - description:
+> +                clock of the pipeline stage inserted in the bus path bet=
+ween
+> +                the controller and the DRAM. Without it, the controller =
+cannot
+> +                complete DMA transfers.
+> +            - description:
+> +                clock of the register block holding PRG_ETH0 and PRG_ETH=
+1.
+> +                Without it, the block reads as zero and ignores writes.
 > +
-> +	ctrl =3D sdhci_readb(host, reg);
-> +	ctrl &=3D ~MT2824_HOST_CTRL3_NEGEDGE_DATAOUT;
-> +	if (timing =3D=3D MMC_TIMING_MMC_DDR52 ||
-> +	    timing =3D=3D MMC_TIMING_UHS_DDR50)
-> +		ctrl |=3D MT2824_HOST_CTRL3_NEGEDGE_DATAOUT;
-> +	sdhci_writeb(host, ctrl, reg);
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: clkin0
+> +            - const: clkin1
+> +            - const: pipeline
+> +            - const: pclk
 > +
-> +	dwcmshc_set_uhs_signaling(host, timing);
-> +	if (sdhci_readw(host, SDHCI_HOST_CONTROL2) !=3D ctrl2)
-> +		dwcmshc_reset(host, SDHCI_RESET_CMD | SDHCI_RESET_DATA);
-> +}
+> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yam=
+l.
+> +        # The RX delay line of this glue is fine tuning in 200ps steps,
+> +        # added on top of what phy-mode describes. The TX side has no fi=
+ne
+> +        # tuning: its only step is a quarter of the clock period, the fu=
+ll
+> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+> +        rx-internal-delay-ps:
+> +          default: 0
+> +
+> +        tx-internal-delay-ps: false
+> +
+> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
+> +        # properties instead.
+> +        amlogic,tx-delay-ns: false
+> +        amlogic,rx-delay-ns: false
+> +
+>    - if:
+>        properties:
+>          compatible:
+> @@ -106,6 +150,7 @@ allOf:
+>            contains:
+>              enum:
+>                - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+>      then:
+>        properties:
+>          rx-internal-delay-ps:
+> @@ -142,6 +187,10 @@ properties:
+>        - items:
+>            - const: amlogic,meson6-dwmac
+>            - const: snps,dwmac
+> +      - items:
+> +          - const: amlogic,t7-dwmac
+> +          - const: snps,dwmac-5.10a
+> +          - const: snps,dwmac
 
-[Severity: Medium]
-Can a driver strength change write to the low byte of SDHCI_HOST_CONTROL2
-without triggering the CMD and DATA line reset here?
+[Severity: Low]
+This isn't a bug, but as reported by Sashiko on v5 [1], the amlogic,t7-dwmac
+variant differs substantially from the existing Meson6 and Meson8b-through-=
+G12A
+variants in Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml:=
+ it
+uses a different Synopsys core fallback (snps,dwmac-5.10a instead of
+snps,dwmac-3.70a or snps,dwmac), requires a different five-clock list
+(stmmaceth, clkin0, clkin1, pipeline, pclk without timing-adjustment), and
+disallows tx-internal-delay-ps as well as the legacy amlogic,tx-delay-ns and
+amlogic,rx-delay-ns properties.
 
-In sdhci_set_ios(), the updated driver type bits (SDHCI_CTRL_DRV_TYPE_MASK,
-in the low byte of SDHCI_HOST_CONTROL2) are written before
-set_uhs_signaling() is called:
+Rather than piling another large per-compatible if-then conditional block i=
+nto
+allOf and splitting the rx-internal-delay-ps constraints for amlogic,t7-dwm=
+ac
+across two separate if-then blocks in allOf (while also setting
+amlogic,tx-delay-ns and amlogic,rx-delay-ns to false even though those vend=
+or
+properties are only defined inside the mutually exclusive Meson8b-through-G=
+12A
+conditional branch and are already rejected by unevaluatedProperties: false=
+),
+would it be cleaner to split the divergent T7 binding into a separate schema
+document?
 
-drivers/mmc/host/sdhci.c:sdhci_set_ios() {
-    ...
-			sdhci_writew(host, ctrl_2, SDHCI_HOST_CONTROL2);
-			host->drv_type =3D ios->drv_type;
-		}
-
-		host->ops->set_uhs_signaling(host, ios->timing);
-    ...
-}
-
-Because mt2824_set_uhs_signaling() samples ctrl2 after that write has
-already happened, changing ios->drv_type via mmc_set_driver_type() while
-ios->timing is unchanged leaves SDHCI_HOST_CONTROL2 equal to ctrl2 across
-dwcmshc_set_uhs_signaling(). The reset is then skipped and the next
-command (such as CMD6 during HS200 or UHS-I initialization) gets a broken
-response.
+[1] https://lore.kernel.org/r/20261103163715.385394-3-tanure@linux.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261106-mt2824-v1-=
-0-86087eaf5af4@bootlin.com?part=3D20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105100322.3781=
+6-1-tanure@linux.com?part=3D2
