@@ -1,99 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793994506;
-	b=zGrlU8ZxSLdwyAtBdW3YVHAagEd7BnB2tz8ukc4wpTpEdGHIe8TLgo0YEYK6VYK8WJoK
-	 A6K1yUQbsoeAjUROjHUogMFKzg7h5HlIiTckrXPzsXwBGFnUoO0MFy+3s/UVTeprBJVCB
-	 0u1RzLoTv3f2Ih+CkuVDv4Y6IGARw9DmdxN0yC3gP6Lfwz4TovuSWUru7wNr3+6hld3g+
-	 +19vNekxr6Cq7GfVNLmqU1ncrGhCJ666tNcSqsPHWpty0EO20yMCUEO5b6d9S0NORWYAi
-	 rBfscwhTAxIxxhfNpz1pd36TyCXGPkaVBO0WUHHw9PWAYACTznQehB+avGxT6rlkNDw==
+	t=1793994715;
+	b=ydNBWLExSefOlqvG/DxLOCkcugdD5wK+u5+dtOotHCNyj+k6EIyfzWMzm/xzczzxB/Jf
+	 pyNnijWElnd3Jb94GewQRBGZ9hRCyHuFdkONcFUUgkrTvr+OcuPUJWBXJuswo2HcDpItY
+	 jeZbHKf5LQAy6ZcNm5mYax1IMSpC129pJk7Tb1TRSX36dT1Oaj4Uo2coyX5AKrQEJs1kR
+	 rIXR8nh87uqRg6xNi1prgjQLwQwTySrnm5e9bIqWa/srDSr6XSu+sZGYeEMZ7LUoc/6fI
+	 Arth0esMfW5ALihuaVv7tcPWacUFGk8e1eXQGOdTQgk08KlkPu6DDu8Ozh6eRqhM36w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994506;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994715;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=I/21Es773AUDvFmxDpw0bwxLoX1T07xfM8g2Md/BJQ4=;
-	b=XGl5zL/18kjZj2ZHNAOuPiqjr1wqQRZIV4x3P2sxolsDfHlilcHcaNHBnhF8GUKcy9eh
-	 g4nusP/0valRH50i+WYcd0NE80x0lE7m6QlSZmSxtxuuDRqmw23/BZP7AddPvAenUsloS
-	 D2ReoWsDHtDArJfu8fwiZyuxpl3Vhbyt6+kFUTscRgdNqP0R3xnlicb5aOo+ATXpoOtvH
-	 AdIzvP71oiOIgaZgo0dZFIEv8aHXtLxe23wuQAzpiXtZ1DVoXuLjcqP5MUqz2K21sPYFt
-	 f5mOqVGGNvxua6R3oS7YR5RzLkaHRg/5Xw7eg6LPDC8LkPVhPTTQJIfzMtT/CXHDg3A==
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=9uDqiU9m0I45FXevXHOe2/irro6MBqjLHqDakyWB+MM=;
+	b=wA94gZRPCdKSY6ZL5tzkYYU7yDGRab3A6ENKXoN8yLAXMux8OHafySE/DlziMusx6qlJ
+	 cnBcZfFEXx/T2Lj0HCIOmyXozCkQ7SXkqDs6WFzBN8jW1MrxlJfHNzBwZZLrtrJLFcCLm
+	 2/ht95ceUoW2UxZk6JD2h5n97HSWmPbwJ3vSBqKPhKywSqZQ2msshNjhUo+1/U44ioFQM
+	 Np7LICX5AhYzoQlcm71SXT36p0LXu7FUc5VKeXhS59WD/+Bjo24+3R1ZKC6H617jnW+vw
+	 BKdGcf7alqeK7Rbad5HEIfkAJLumsxny5jmtiuT5jaFWU058ZVYiGF4oL1l1437NsNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="rC/vlYBA";
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=N9Dh84hq;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2AB606A329
-	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 19:48:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB2AB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B10F606A329
+	for <devicetree@vger.kernel.org>; Fri,  6 Nov 2026 19:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B10F606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rC/vlYBA
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491846221ffso927472f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 11:48:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=N9Dh84hq
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-19305bcb72cso979684c88.1
+        for <devicetree@vger.kernel.org>; Fri, 06 Nov 2026 11:51:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793994504; x=1794599304; darn=vger.kernel.org;
+        d=nexthop.ai; s=google; t=1793994714; x=1794599514; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/21Es773AUDvFmxDpw0bwxLoX1T07xfM8g2Md/BJQ4=;
-        b=rC/vlYBAxEILAObsPB3tcl+bFuhtNG7RLstWYCnjjx2nBh4dndY5yFt6tE7obdPcC0
-         vcQ6/Bmt/U2uWAAAcznQhNK5v6huZqVaA1kskZIo9ZOaXtA4VA/tNufCk80J/2xOOMS0
-         cUFmzpOX/ZrAxPMGUxDMNDXnoPMtO9YtsDIi2FX5fo0fAGsib8Xu6pcdsWQjdeqh2J9P
-         zYRjiRPdNGs9yxI9xGUX91h5qgeXdqWM3xHJomG9oXkfnx+Ov5RgLrUkbmP+ApOwj5+x
-         C/Xp8K/e17UlhCuf7cq2Ga1VPW+6gIcc8OisRssgTgq+TpMI9gjZ1CWWFyJjw6AcpMPv
-         pL9Q==
+         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9uDqiU9m0I45FXevXHOe2/irro6MBqjLHqDakyWB+MM=;
+        b=N9Dh84hqvF7NaouHGTiQxo5yUnhRZPrGood/HRPGvI94n2FAymdyOkmuHs+cX2k00s
+         Ojg76cnlrLMwoKnLry57oy5CjHRZkKLOOHsanyhME8VE28XIru/MhtJPSFeiWnfMXgTt
+         RACGj77C8Jbmz/KIawDskDqaDpWRH/nFO9egOUoxfXIu0kbDXsogCKQTcojei5RvZPZ0
+         L1Zm+GDTyCFNXQsGnAay4rXtccS3bGGWHFdhyOAPRQojgYRPD9qUaXyd3GmFg0wQHpce
+         rp+Ikk1nPrrSK2FFQihUpTcexubikUGumIK1328V/t47KJ6lzTACITNb6Fs1McSMOKFO
+         k6Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793994504; x=1794599304;
+        d=1e100.net; s=20260707; t=1793994714; x=1794599514;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/21Es773AUDvFmxDpw0bwxLoX1T07xfM8g2Md/BJQ4=;
-        b=xdKi/S5E3HXVt3snrCMbLhcju1Xt/j/UhtOmm+c0R4zM9CZjQYT1ABiQjbG7EY3ytE
-         VQe8zux7FWO1l4i6shf8LuYoAAGak2Ntwdfpca4WOLkwuErV32kEblc8I90Dd4tqzuzq
-         r+AAZUVxDqe7XHKDdaeN4UO/OdQhlKdm9oSZRji/bKWXWPbUL9XR4p8KIB9VvqSTlJqC
-         Np5exZnSLGyTLVABwwOxyRYrfOu6WVQrJ163vi+0eUT+6iFMxeKhAA+Wuw7+zmdMvaH5
-         S6S4Z41P52QUUrz6Gq1R0w+9Jz5RJQZuPPrLkMopZzdsxgoOSGcnCh5DrHDOHGtTgnho
-         4GZw==
-X-Forwarded-Encrypted: i=1; AL+hErGKfZx9y6Kx8mcIP8p/Y3ELu5GfgjhMq3IZs3EgrD9u1/VuKN8SygHdwLOw8vzkjZijFb8X0ioy1UKy@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6TmieeT/bhrJc9URqMKW0KGdWBl2ZINAu9qez6kKZh7IHxg/C
-	cZmXX3mM1kbnjQU2In8vBnsfhyRqAm7F8ozgg7NpzBgxmPLmSPPKNkRF
-X-Gm-Gg: AYBFou3jdelpvAnD8grEZplifXxxdfgICA7uSpKKI1Q32enXf0et0sr7xa2OB8u2kNu
-	1g/B3qrOzttUkKBauXzGNEi+M0hGirN8WknLWsZqoP+720SqGBc4ilTXKde433fYOP04xL301Vl
-	SUmh1XmRNgvzhev+WtL99MnZXs+h7j+0pKdwnyEuyotZUVl7eNFIA41f/NqJl90nonBjZfP/9FQ
-	19dZWLCosbWjNeiXWLnE2Y4dodVrEzbuy1VSoTIWuM8ylBeJqKdxof0QkOKGXuTX4Me48PPEHmz
-	LHuIQXvPMy+KtThsqRDYzX8dwIPN59lbGEc+Z2orpRvmTJhjsZ3SXyWTqObnHi1nISslfsAqGTn
-	fgba/EL47Ces6YAqzJnZUiL8IQiyeHRwL9MGSjfNFhABfjOCV2ld7MRwKk5q8drKuALc6QeXQGh
-	XcCWRVxbaglUQ7N7lRY481QMx12T1rVfnJiZ7OEMYqfTGja/dikn7vOZvZvW/mB/kayQ1klD45x
-	Ih/fWTUbhmgrwC0eJLz7syDIhyodvsxN5bnHNrFNOCB0cbVkmW9x6/M53GIOVvgBvNWlZvIycA7
-	DC/Dm3ShLCawd4MLfwL7uf9Sl5ETTUM=
-X-Received: by 2002:a05:6000:1acd:b0:490:9fe2:6a39 with SMTP id ffacd0b85a97d-49275fe4e8fmr6979074f8f.20.1793994503735;
-        Fri, 06 Nov 2026 11:48:23 -0800 (PST)
-Received: from hp-z640.fritz.box ([64.43.161.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d73286cdsm4928130f8f.28.2026.11.06.11.48.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:48:23 -0800 (PST)
-From: Owen O'Hehir <oo.hehir@gmail.com>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v7 00/19] drm: starfive: jh7110: Enable display subsystem
-Date: Fri,  6 Nov 2026 19:48:22 +0000
-Message-ID: <20261106194822.4153919-1-oo.hehir@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
-References: <20261106-jh7110-clean-send-v7-0-68f7ea9913db@samsung.com>
+         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9uDqiU9m0I45FXevXHOe2/irro6MBqjLHqDakyWB+MM=;
+        b=MWkJzQ8HKrO7WE8KaBK1ZQ6Bc37z0qyKA7tmlaUKEnXq8326RkUOh5iZJZ5Y/vsvVR
+         9WyfU0ekTSP+FccdMK0QFvG9sJORTvaiVBzjWESTbV0AIt/1bkT6Ddrn9UZotxw6MprG
+         S1hly6ZtZNeNC69Pp5npMnhv8VdhHDFcGSGJMkgIrbMRvcCGEQd//L/uZD+2TaNF/Ci8
+         ssjvR9dat8TOmqt3p5ERf/Bnq9cB2LVoyRu2+H+GgZIJ/GNNEHWEQhwUcLLZzqq3nxXt
+         0oocxWkz9OuACHf+RyTXSvjhA/Cz8jH2Y+46jj++leyxihH4auLSCzizIBVCGgOcepUD
+         GH7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxFYeJH6I9CFq+i0myZP6TmFn1CDpoOg1gsEUljFgBdrhKVTonR4gDZ/t7OO1LNcWBAE3+o4XYwboXb@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EuCE2eDw4H5VJhYDj6t2JZ+pKPwDRl9cnzbCM/NgRcUy/TC+v
+	IkTsCNrcT4A0kdP7elaRnR7zXgMcSL7kFsIgTGnyFMYdgeyE3f6/HBOVFeiEFP81suM=
+X-Gm-Gg: AYBFou2d6SO1GUHVRidcNNsd3u67+Ti18Trx3m/US7FntVQP1I7NipTxcqJZaMboAKh
+	IjEyYUKPyJ0MHubMaa6eEHjkjbv7Rb/PIPyCp/ebD4EOshCJHRwGbGWqTxOAEOQsRyOeoIfKvXc
+	4KE+GXPwVSoIPa4JxIaSEZHa/L/+co65j4bk7Su29LEm5SgHbyaVIT4tA57mYdYZa+V4LxXf4w6
+	uvp+p+2QZlPAq6DlQjg5675Cwfq7ZLGoVKzMBpN3bobKnQmHPPh6X4yLuNmRSKvLg9giyVXcXpH
+	FJ6F+YGqUuHaEr87yxVD/8zNYKzj6BRTqUojKTRuYdDsbfkRRX6Q1FiszmCgOrkPNxANQpoKsqX
+	L4yZW6d/RA11onWDD7SXwjidkJzeoA8yosjo9OrG3/1zL+R12kea/+SV+KcdvSaSAL7NSBCCOuM
+	YffEPFGJ0rckR3kez6rqQ0PdKMc6q66dCWnKy0auIMUBbtSzICOsUk0yUuVI/03ORoz3Ryt1q+H
+	6VFOu6QeDk9px4D9fJ+wwmapO9ZcbJ/FJu5HNyNIBCaIDCEkjQeecT6xh9hWpxOFAQovHMZgppx
+	Ns2vH/3RG4HKj64z2rf7igiqkpT8PA==
+X-Received: by 2002:a05:7022:c82:b0:143:2968:564c with SMTP id a92af1059eb24-1b25d315d51mr4434155c88.26.1793994713996;
+        Fri, 06 Nov 2026 11:51:53 -0800 (PST)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e485ce2sm7568630c88.7.2026.11.06.11.51.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 11:51:53 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 06 Nov 2026 11:51:52 -0800
+Message-Id: <DMOE1TFEAB6G.EC2KYRBTZR9@nexthop.ai>
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
+ Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
+ "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
+ <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 0/6] of: teach overlay code to keep /aliases in sync
+In-Reply-To: <20261106132432.GA2551143-robh@kernel.org>
+References: <20261014-nh-of-alias-overlay-v8-0-0f74f05ac762@nexthop.ai>
+ <20261105124030.GA1449284-robh@kernel.org>
+ <DMNRHQBO1JLB.3IO0N8NYJML4G@nexthop.ai>
+ <20261106132432.GA2551143-robh@kernel.org>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -105,16 +109,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Tested on a VisionFive 2 v1.3B with this series and the v7 PHY series
-on next-20261105. All 24 modes the sink advertises set with modetest,
-from 1920x1080@60 down to 640x480, including the mixed sync polarity
-modes 1680x1050@59.88, 1280x800@59.91 and 720x400@70.08, with nothing
-in dmesg.
+On Fri, Nov 06, 2026 at 07:24:32AM -0600, Rob Herring wrote:
+> What I would like is aliases are not supported in overlays (applied
+> after boot).
+>
+> Don't we already have consistent naming on hotpluggable devices such as
+> network adapters? All that is solved in userspace. Why do we need DT to
+> solve this here?
 
-One thing outside this series: the modetest pattern showed small black
-bars until I wrote 200 MB of other data, which pushed the pattern out of
-the CPU cache into memory, after which it was clean. The U74 has no
-Svpbmt, so the dumb buffer mapping stays cached here. My v5 run had the
-SiFive uncached-alias errata patches applied and did not show it.
+Netdevs can be renamed, and that is why userspace can solve it for them.
+i2c adapters can't be renamed.
 
-Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
+I'm also not sure "after boot" is a clear boundary. Overlays applied by
+drivers such as lan966x_pci, or for an FPGA on an x86 host, are applied
+during probe. They describe fixed, soldered-down hardware in the same
+way a base DT would. The same /aliases node gives stable numbering when
+it is in the base DT and is silently ignored when it comes from an
+overlay, even though it is written to the live tree and visible in
+/proc/device-tree.
+
+If an alias is a request, as you said, then honoring it when possible
+and falling back with a warning when it isn't can't break a working
+system. Today such a request is simply never honored. That was the
+regression you were worried about, and the fallback covers it.
+
+If you still don't want overlays to set aliases, is there another way
+you'd accept to get stable bus numbers for hardware described by an
+overlay? I'm happy to rework the series in a different direction.
+
+Thanks,
+Abdurrahman
