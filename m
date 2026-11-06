@@ -1,66 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974617;
-	b=V84AR9uCrfyUqOlE3FHURf6u3UnFQJY/WwEWigJ4uSLmfGEEW7F5PbHxAEyPgu/CRKbJ
-	 IEfk60NJlIFclE8gCWeSROiEVeMDtliEYq3Un0Ctn/wPjbJjYqdmuyrUB8bd37P05Z+iZ
-	 dqtHGPGyw7WCPJskN3Wrhk+ge9jL55uRbkl/OIOly+osP2TD9SzB5qk0RJGsT3RJtBukY
-	 7bK2H1FsdjWYvaTCRb0hbI+XOmJeTaDkalJsGKSQdaEe8GHXV6w/5C4F4NDsijudJX9Wq
-	 J5A4mJal6fKT5zIalGwe+ft7Moby3elzC/N9qctmy5rd0bKcGX/6BGWyioDT1vHSOag==
+	t=1793974656;
+	b=zYM9AgeDcgo+/3ch1v+B6Y/CdKHrCboaHO4VeadmtbnpcQgKynCOVO/yPtMjCB49bvPE
+	 tyNgRZLuzjPT/2P1LfoWI9uzgQrSyuApd7xSt3kSZYQbm1nPsdxVuE/LZVBoUJGaXVH5z
+	 cSvTxtlGLg7EzaUO+PHoO7j4ERXjVzpk/IyqAwQsw/vBNpnVsmxZALe4BNhNqo7YdQkGO
+	 5kJQkGQFN4MtW/luuuU5mpdxGm/VkycUAYDWo+OfTOyaNWCrcrivWB5MDTHO5QON0RY+a
+	 oL48HyVg+e269Oo2Z0znrccIGRyfdDph6lYufANT8ZS3qr4a3qc6IwgwHEq1nXQO1Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974617;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dwXHHpm3CuU/WL5LiGP9uPvStnllZcs54IcKag8FfB8=;
-	b=vt8FyyX1KyQMGkWlqpX80iCPiu/HXXVcreC3ry7Xg5ckTLhg3Ns4XzUb87YFOY5AMUmZ
-	 Ssmyls7bejOcy2NUgOoTcXW6u9T+HKBc/DwukfXe9L+X31LKrlpbWz05yyWRypiGqQrAK
-	 xF+Pa9GiFI982bgWJQgpmHLrhEQ6H8hh3e35Uebj0N+UFS/+DgxHM6s9+fZkRFYTlkUqD
-	 NmI+W9sbiy2fu1haMokf+WQtvCnDJ7ZB4upI/VwRYKKAeeEo95mAv/ULfD+cmw5Qr9MyY
-	 dEosxCh3L9ZIRVcep6HQm/LIgUnZRxuuUciN0xGANjMxuHiiUJwJOUgWkew5Vlm9MSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974656;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Td15fB+eiBPCi28XCvVsez3qTzvKnOgbIC421Ms2QF8=;
+	b=x9beR068g1W7/lIHBU8AIyiR86K9Y/El/8Erc5w4ZQoD2yZPOei+Dk9xSo/ZAQ9yEE0d
+	 rmEOsLmeUHND6dMy01uSTXBiHRIKqg7uSZnSbN4SgK+r9ZE+apwlQGkJWEI9U6xvVTw8C
+	 A5SQySDgDFcEbJ8LGr0HfkQQJTtogiZCaYzY2mv/qH+8PakqXeY3vBHQh5PWXPWt5sp02
+	 U7HY5c2LX4SyxTCAGtMjk4sl2wqA4/a+86+/F9rqRnfn0zvgduVA3OG4PGfr0xVGPCHB1
+	 VvbzLqtDwfSvds9Y6uqE7VjHh9WCRl0iAuX8G6hjAj1kRC/PGPGfESmxpKFaJq/v/CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g11xEAwD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPrdcRxU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD48606A326;
-	Fri,  6 Nov 2026 14:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7350606D80C;
+	Fri,  6 Nov 2026 14:17:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g11xEAwD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587F31F008AB;
-	Fri,  6 Nov 2026 14:16:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPrdcRxU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323E11F0089F;
+	Fri,  6 Nov 2026 14:17:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974616;
-	bh=dwXHHpm3CuU/WL5LiGP9uPvStnllZcs54IcKag8FfB8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g11xEAwDI+0oChFkS4bRa3cXnLHKP4QCFHvBnsTlh4KVSDwQzEctFtGXMpnaImf9Y
-	 AJzcwR+ywpe5HuPPTZ5wt4C9CgTmoUGnp4RzJKIVvu/JPxrai5QE/uB+jO0mCbTIiy
-	 icM4FgM9zAlSTWojIfDWFrhGu7x5Wqp4V58/CEf3RE/FEC8yJRRnsuMaVwy8jpiGI+
-	 2nHCnEUkJah2+3zxo6hyycPaDPd+b5NyKvreqGpAzyLHjmd4hpF1Fx+PzfLd0CZIpc
-	 7IY8t3s2WaKJ0RGQA1t++NFqdUbKwLvwgTWgq1jwKrvnZ+YTqmNPUQ6wQTrMZpamw4
-	 XoRN48wjpCcfg==
-Date: Fri, 6 Nov 2026 08:16:53 -0600
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Simona Vetter <simona@ffwll.ch>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v6 05/10] dt-bindings: display: tegra: Document Tegra20
- DSI port
-Message-ID: <179397461264.2992702.17337813112926510440.robh@kernel.org>
-References: <20261105140510.165165-1-clamor95@gmail.com>
- <20261105140510.165165-6-clamor95@gmail.com>
+	s=k20260515; t=1793974655;
+	bh=Td15fB+eiBPCi28XCvVsez3qTzvKnOgbIC421Ms2QF8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nPrdcRxUCuqpDqiUpIU4RPGUb4TyIXtHjCMHTonbJ4xh10oBmHsitzRY4jeWszsWK
+	 IVx3yNgH3Vaui8ymmi6MRWjZAaJjhDpdCk8J65slsXHPV0O8zNpPyB452zVF0vQMPy
+	 bh8T2SroVSjT/AQ11WWrKZcK+GlkNAoHM+bChvUKZs1iCgpqlIDpj2dHVD/jRkD9Lx
+	 bXOxI0wVDjisFIyI4bEwgj7DPcrJK0zE+e+OBuPR42DzJJPXDhYSsP+sBWwS2QkiQv
+	 cB7in4ZEyjGiF+zUMfb/qc4oLi6rFkKl6Qn0E2D9eKAQ4McZDHrVCnQIu0GgSGZ/lj
+	 e/Jb8Ou4iMy7w==
+Message-ID: <sashiko-outbox-201559@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v4 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vasilij Strassheim" <v.strassheim@linutronix.de>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
+References: <20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+ <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 06 Nov 2026 14:17:34 +0000
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -69,21 +60,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105140510.165165-6-clamor95@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: net: dsa: soce,swip-switch: port@ nodes bypass port
+  constraints
+--
 
-On Thu, 05 Nov 2026 16:05:05 +0200, Svyatoslav Ryhel wrote:
-> Document the optional port node, which is required for correctly modeling
-> a dual-mode panel.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../bindings/display/tegra/nvidia,tegra20-dsi.yaml          | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
+commit 4683eac7073869a69dfbcd2a3c82b050378eb665
+Author: Vasilij Strassheim <v.strassheim@linutronix.de>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+dt-bindings: net: dsa: Add SoC-e SWIP switch function
 
+This commit adds a devicetree binding schema for the Ethernet switch
+function integrated into SoC-e SWIP FPGA cores.
+
+> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.y=
+aml b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> new file mode 100644
+> index 0000000000000..daac779c466d9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> @@ -0,0 +1,96 @@
+[ ... ]
+> +$ref: dsa.yaml#/$defs/ethernet-ports
+> +
+> +properties:
+> +  compatible:
+> +    const: soce,swip-switch-00-04-0c-10
+> +    description:
+> +      This compatible identifies the register layout; its suffix gives
+> +      the offsets of the core version and feature identification
+> +      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
+> +      features depend on the FPGA synthesis configuration and are
+> +      detected at runtime using this register layout.
+> +
+> +  reg: false
+> +
+> +  reg-names: false
+> +
+> +  ethernet-ports:
+> +    type: object
+> +    patternProperties:
+> +      '^ethernet-port@[0-9a-f]+$':
+> +        type: object
+> +
+> +        properties:
+> +          reg:
+> +            maximum: 30
+> +            description: Switch port index, from 0 through 30.
+> +
+> +          phy-mode:
+> +            enum:
+> +              - mii
+> +              - gmii
+> +              - rmii
+> +              - rgmii
+> +              - rgmii-id
+> +              - rgmii-rxid
+> +              - rgmii-txid
+> +
+> +        required:
+> +          - reg
+> +          - phy-mode
+
+[Severity: Low]
+Because this schema references dsa.yaml#/$defs/ethernet-ports, which
+matches both port@<n> and ethernet-port@<n> child nodes via
+^(ethernet-)?port@[0-9a-f]+$ and marks them as evaluated for
+unevaluatedProperties: false, any board devicetree using port@<n> child
+nodes under ethernet-ports will be accepted by dsa.yaml without triggering
+the patternProperties constraints here.
+
+Would it make sense to change the pattern under ethernet-ports to
+^(ethernet-)?port@[0-9a-f]+$ (or explicitly disallow port@<n> nodes) so
+that port@<n> nodes cannot bypass the reg maximum and required phy-mode
+checks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261105-devel-vstr=
+assheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de?part=3D3
