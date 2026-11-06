@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793985591;
-	b=huPgb3Y/FtuAiEY7LIyrmjorf5BN+Z1WCLfuQYts+HTZqpVRyYH2WRy01RD8ML7flWBH
-	 mPrq29gSlIHsajWVM/SaDm92WDxKGEuKuEY1GRDqqHBqFiXGc4moaKOgymLyj5RZ42crC
-	 IOLGjtaKxaHHQfoab2pP7e292dCifgEAEp62sirFBNAtr2I77cmmdW+BDRa9B3pkuZSzw
-	 gPSfOAJc28lG73nEMZWqc0sFnZTM681cLuh4667BR5cGRuV+xH3uhQO8+uE0Ct9BmrJTy
-	 FNjZWQs8GiR3vzJgzNMIRWDtHsQj1JHuGl1XwCEgDuteEzp5WRKANMKbo38aNNPbIgA==
+	t=1793985662;
+	b=bUUy92msSNfZEd7qgMmI3yV9B3izN/hjMatX3RyRbTtu9a3UJ4MxHCkz6ZeExl0leksA
+	 e4GLZ9FWzWjs4dbwhUbBHaXsMSM863DoOW8TLOvyrRbIo3GPtog3nWVrFh+I6tEee+gnq
+	 Ail65K7avoQH7JTPXkbXV2U00CzZ0UPldnGxSR0CPLwZrUzvugU6A2IkZ+51YBpCczHqc
+	 DJ/pLw1fU08RnsziNdtgKrToyECcWFMSklcKQpuWwjTCvgGEtAmHqVdzeXQE5TzgN+xF2
+	 TxwveCeWw+yK1voVgfCFVgVrKKVOjpnbE9+a2RavMkb1g53Mrt6bokINXqw4bvGq5UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793985591;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793985662;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0iFTCwthtb4KQWJ3KgZO/eQr21RNoCfrtaNGVHe64Us=;
-	b=x1V9hOgCVbosvU4iPrEW+LRtIQ3B029u1oxFp1g1YiAjUIQy5g0YwiFv47YqtxlWdvKv
-	 eb/mTAyTsnBCl9a70/HLT3vnrH5ozJoHDcKE8dN440Iso25dYNfxVULOkl6QfU1m2DHZK
-	 2clSjyDt/mvjuObyoytEl8gb3YItgk8svKnZf7RR9w9HteRI6HOj1VAIoJ0fQgenufAPu
-	 JObVdpUW51WqMcwEyvZ3EOfLT0actSE0pwO7waMMVlfeywg3+lvSACQXgSLRYkByRgfuw
-	 +mt4FNCdpAsy1Megoj++gEkBTqopgNIG/88zk3iMtQFGArpX4Ka7ptFwhL7TI766crQ==
+	bh=mlSihzr8pYdtWScxo62ogUk0KfJHGdqcjF1TEJEb7DY=;
+	b=pyx8l/t+V/k9B6RRxT+NXB+q+lHLmmUfzBUMWNGrDj7yPqSEDTTeNd6TGziRJeVj64GD
+	 OTWlzZeqKBRV0deDJK1SH4KK8dxM7Kyt/M7DfMVhQPJzDz2QnNxivT5ZixM0VC6G9CFHz
+	 lsn8gW5VPFk6IWSv84miunH3Vhq0TUpb+adzqHxl5aca2/8X48Ih7vA4sgah3AzXi4FeL
+	 SgZXev0I3T3Bon+hvSn5hXGWROW9rL1UvrUZtj9UXo7Z5KZjMHMEOXCmC3SrnEix+m7iA
+	 fgA9OyArXVDbW9peg9BErgSsymu0w/0uCyt9IvjOh8nbKBcz3j9yMHXUvQOcil4yo1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYSaZkGV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVAFAHzp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207D8606EEA5;
-	Fri,  6 Nov 2026 17:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA253606D814;
+	Fri,  6 Nov 2026 17:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nYSaZkGV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1E61F008A1;
-	Fri,  6 Nov 2026 17:19:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVAFAHzp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6A91F008A6;
+	Fri,  6 Nov 2026 17:20:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793985591;
-	bh=0iFTCwthtb4KQWJ3KgZO/eQr21RNoCfrtaNGVHe64Us=;
+	s=k20260515; t=1793985661;
+	bh=mlSihzr8pYdtWScxo62ogUk0KfJHGdqcjF1TEJEb7DY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nYSaZkGVHJuACXRFQhoLUAGx2gARxd2wREGPO2sCc1yXKN3RY46h7J5wDjOayccX6
-	 ++s4RgmjOlutg0e/O7i8kshnMl7BZ33JA2VknynORN5vKm54dpmRMwM0ZSTE7eXKis
-	 67cxNvgpIHRz0B4TKyHXXD/gjkI8DOldPxtIkBb2my9fuRqztQsV1wB7b0lGAdRwi0
-	 UmwMjlwomVzIsrh5D0Mouj6FFvLZQds7vivxE1bQcaxUmrsTC8Y85uRHieWDzZIzgV
-	 skz9Ek8c9DolL87XjnfHpm5A+8Cd1NfJSXWjiQiGrKsmnbP6c9jBXfnuT7Z171OmzB
-	 pYgt0jfrbH14w==
-Date: Fri, 6 Nov 2026 17:19:46 +0000
+	b=FVAFAHzpuPHwNet8qjtzgoQhyvQ+HIyuWRIzFwjxmR69yiVWDf4Bjk8dDAeod7FDh
+	 73BsDPXG/OHWFl5rJs3ZyxF1waQq6nVtAWDwblVgxXXHrKWFB6Y+pCIkpN7K+im3BH
+	 btzWs8U0+K74gk6xCgMIRlFKAIyWfiHO29S9elOyGv/ePdZFy5mrb7F2EbIxHwGUKv
+	 UkMr/O/8bMsQvnJukcVT35rIUcnvkoFbbHj43+3o4zOnGrSIURLnbdleZmKY8UKUqo
+	 YsPYUeASvPXYiX9bXT6kZCl1Ox/QR3NMuTCN0PlcNxfoJsZeTJALRp/bcro9kg0kJ3
+	 PP36r2lsRlS5Q==
+Date: Fri, 6 Nov 2026 17:20:56 +0000
 From: Conor Dooley <conor@kernel.org>
 To: christian.koever-draxl@student.uibk.ac.at
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, khilman@baylibre.com,
-	jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
+Cc: glaroque@baylibre.com, rafael@kernel.org, daniel.lezcano@kernel.org,
+	rui.zhang@intel.com, lukasz.luba@arm.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-pm@vger.kernel.org,
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Christian Stefan =?iso-8859-1?Q?K=F6v=E9r-Draxl?= <ckoever@outlook.de>
-Subject: Re: [PATCH 09/10] arm64: dts: amlogic: meson-s4: add the AO CEC
- controller
-Message-ID: <20261106-walk-overload-3ffa489c0af1@spud>
-References: <20261106104659.54656-1-christian.koever-draxl@student.uibk.ac.at>
- <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
+Subject: Re: [PATCH v2 1/3] dt-bindings: thermal: amlogic: add S4
+Message-ID: <20261106-surfacing-catcall-223c1c454b8e@spud>
+References: <20261106101913.46664-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261106101913.46664-2-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -64,89 +62,73 @@ List-Owner: <mailto:devicetree+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pNM4qVg2gRPOW9R5"
+	protocol="application/pgp-signature"; boundary="wFxvJZ9ZE23zKehY"
 Content-Disposition: inline
-In-Reply-To: <20261106104659.54656-10-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261106101913.46664-2-christian.koever-draxl@student.uibk.ac.at>
 
---pNM4qVg2gRPOW9R5
+--wFxvJZ9ZE23zKehY
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 11:46:58AM +0100, christian.koever-draxl@student.ui=
+On Fri, Nov 06, 2026 at 11:19:11AM +0100, christian.koever-draxl@student.ui=
 bk.ac.at wrote:
 > From: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
 >=20
-> Add the AO_CEC_A controller and its pin group.
+> The S4 temperature sensors are the G12A design, but like on T7 their
+> calibration value is only available through the secure monitor: the
+> ao-secure register used on G12A holds unrelated data on S4. Add a
+> compatible for them. As on T7 the sensor index is the argument of the
+> secure monitor phandle, so one compatible serves the CPU and the DDR
+> sensor. Each sensor has a bus clock gating register access (ts_pll /
+> ts_ddr in the S4 peripheral clock controller) besides the functional
+> clock, so it takes both, named.
+
+Why can this not use the t7 as a fallback? Driver suggest it can.
+
 >=20
 > Signed-off-by: Christian Stefan K=F6v=E9r-Draxl <ckoever@outlook.de>
 > ---
->  arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 24 +++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
+>  .../devicetree/bindings/thermal/amlogic,thermal.yaml         | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
-dts/amlogic/meson-s4.dtsi
-> index 155997649dc3..dd51e786d29d 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> @@ -747,6 +747,14 @@ mux {
->  					};
->  				};
+> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.ya=
+ml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> index e72cb39ac635..66dd572ff44b 100644
+> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> @@ -23,6 +23,7 @@ properties:
+>            - const: amlogic,g12a-thermal
+>        - enum:
+>            - amlogic,a1-cpu-thermal
+> +          - amlogic,s4-thermal
+>            - amlogic,t7-thermal
 > =20
-> +				ao_cec_a_pins: ao-cec-a {
-> +					mux {
-> +						groups =3D "ao_cec_a";
-> +						function =3D "ao_cec_a";
-> +						bias-disable;
-> +					};
-> +				};
-> +
->  			};
-> =20
->  			gpio_intc: interrupt-controller@4080 {
-> @@ -970,6 +978,22 @@ sec_ao: ao-secure@10220 {
->  				amlogic,has-chip-id;
->  			};
-> =20
-> +			cec_a: cec@44000 {
-> +				compatible =3D "amlogic,meson-gx-ao-cec";
-
-This is an s4, not a gx, so you need a specific compatible.
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +				reg =3D <0x0 0x44000 0x0 0x14>;
-> +				interrupts =3D <GIC_SPI 179 IRQ_TYPE_EDGE_RISING>;
-> +				clocks =3D <&clkc_periphs CLKID_CECA_32K_CLKOUT>;
-> +				clock-names =3D "core";
-> +				assigned-clocks =3D <&clkc_periphs CLKID_CECA_32K_DIV>,
-> +						  <&clkc_periphs CLKID_CECA_32K_SEL_PRE>,
-> +						  <&clkc_periphs CLKID_CECA_32K_SEL>;
-> +				assigned-clock-parents =3D <0>,
-> +							 <&clkc_periphs CLKID_CECA_32K_DIV>,
-> +							 <&clkc_periphs CLKID_CECA_32K_SEL_PRE>;
-> +				assigned-clock-rates =3D <32768>, <0>, <0>;
-> +				status =3D "disabled";
-> +			};
-> +
->  			ir: ir@84040 {
->  				compatible =3D "amlogic,meson-s4-ir";
->  				reg =3D <0x0 0x84040 0x0 0x30>;
+>    reg:
+> @@ -84,7 +85,9 @@ allOf:
+>        properties:
+>          compatible:
+>            contains:
+> -            const: amlogic,t7-thermal
+> +            enum:
+> +              - amlogic,s4-thermal
+> +              - amlogic,t7-thermal
+>      then:
+>        properties:
+>          clocks:
 > --=20
 > 2.56.0
 >=20
 
---pNM4qVg2gRPOW9R5
+--wFxvJZ9ZE23zKehY
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4MMgAKCRB4tDGHoIJi
-0ntYAQDW1EKWgmTLaW09unAisYzkptD8uRbVDs3X4Om7xA7jpwEAqLxY4Kmoizv1
-p3w9XKAyw3cich6+tLlpCcPJ8D0vgAQ=
-=1s4Y
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCau4MeAAKCRB4tDGHoIJi
+0qkxAQC/MXuDpuDromjVxEip2g7fLcdreRxIw+GpS5nss/+w8wD+Ig8l8mJmB0PP
+rERuia+XhvRrf4GiiJF+FhFho4j97QQ=
+=LKGV
 -----END PGP SIGNATURE-----
 
---pNM4qVg2gRPOW9R5--
+--wFxvJZ9ZE23zKehY--
