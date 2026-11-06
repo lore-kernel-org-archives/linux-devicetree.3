@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.39.247.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793999079;
-	b=gmywgc6S0yCoSXqypGaKcUwDsx6AlHMZuuD4Ouuk/yZBec9RnkNy9qxoAS8+dN+4K00m
-	 oKA+1pgmM9v7ln4nSTRGjVLeIHz3rFVGYebZH0OEJ/PBbWVSETZ8E8+/ok45eBw8YiEP8
-	 RFzVt+4Rg5or/8GroKZkZ9/f4rtiDs8SMOwLy/kDp0RjychzFl7FGUKyDHwzNzR97DK0V
-	 KsPw4bW+6/RT9zI+4Du9q36r1p6NW8B6sS4PndfYb58w7WYMY4qg0ZCLqgobc5Hpb4KP1
-	 4umG7CXw0lthzKPW/0s+qWY+B/+Flpf+TKENK5AIApk+Yq+Ytb0qfBBgsuZzs9DD0cQ==
+	t=1793999082;
+	b=jmZzH+oXQ/cBOxTFSKPlJHFOfeFMGMYqTm4b0y4XT+Wb8BAtrYWztTXfTPlot6JGwPPo
+	 4IizlBfoD8wFy2KIFWnMqiIJQNOgdAXCY2DF+Lm8FFtuY+DA8bNfNUD77hJhzYTL6uckj
+	 9VsBZrcrcUyF+GL+dTMmoBD8el8aPGcm63BtsiIErKYjmGfN3nnEyb1m3th4oAdnD1/c2
+	 DJNp757gNQxikr92Jgq6MGVLW7mM5G+cmU6+T7Xmgo8jdIKzpFnSxzUSYVfoa94LGXNxu
+	 qji6bYwW2nhkmR2WpwFp+agyg3XR+v7R287Nl0DFvTHSe668pIB9xWweGQAbeIBEvYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793999079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793999082;
 	h=DMARC-Filter:From:DKIM-Signature:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc;
-	bh=5triKr4rWQNxHPSUFjuxeCn4xvtnFfYzHmRmVnByAwk=;
-	b=ojk4EBdOPkbb0s2zIl6gbs1uzkNR//qmCr3OCEZr2UTlZD365q+O5pbJ43OBmzqt45SS
-	 GK9Adsuas0/ujwP4ia203f0P97VMiMne8a/cxo0xjsZ4/1owbgzO/VJaxAaB81G/9V+c6
-	 py2aTKSohT8bbAVkCcMnJT6t98u8Op5WhHbYi3HjFvFGnpfEBG9FbCFJhxgowUAPmEwMV
-	 6kP7geCXypZhDlclJke881wy3XCTCAxB3i+LmpDZzabQhS9J9sus+3d3mAFEpWVbhPgGy
-	 c/Q9pz8eh/WlpRmbLypZ3fB0FHNzdh6/1z9LZEJf70U4YoFpALJ47m+Ou10Ee7nQpgw==
+	bh=leZ0DMFlEYwLl56NU7dNF7zQDEc0KXwSFbg2dW83f/I=;
+	b=RAKu8oFLJqZ7X/ULrGtDcpiufTyWQBpxVfjMLZRMMi29M3/qeLt8OyEm2wlduFPNYwLp
+	 RCVOez+J4pSvFQ5Pw/uk0iwVOhRGwHBmRyNtUZ9KSJW+Pceh7mT1ot+hUIxtD9pDVZjcI
+	 oU4Va3vSSCuGV7MKt9msE7WQMUk4PiFBI8FIorXgF/1z2sVUHT2yaFFl6vWAKc8AzLWd9
+	 BgvzCSvVa6UP+u23XOgp+TeZn1GWKaET+VLlpa1maFkUPLmeLz86rRvVnRYbQEB+/jZwh
+	 i4QU0GgpjAMcwS0KA/+wAhohAW9LCWad8tZmexVI2AqMZFWUK7LIpxM8PaHHZObq3+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cyberchaos.dev;
 	spf=pass smtp.mailfrom=cyberchaos.dev;
-	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=vAzfAhT2;
+	dkim=pass header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=kHx7me7L;
 	arc=none smtp.remote-ip=195.39.247.168
 Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C431606D815;
-	Fri,  6 Nov 2026 21:04:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C431606D815
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E893606D825;
+	Fri,  6 Nov 2026 21:04:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E893606D825
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=vAzfAhT2
+	dkim=pass (1024-bit key, unprotected) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.a=rsa-sha256 header.s=mail header.b=kHx7me7L
 From: Yureka Lilian <yureka@cyberchaos.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1793999073;
+	s=mail; t=1793999075;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5triKr4rWQNxHPSUFjuxeCn4xvtnFfYzHmRmVnByAwk=;
-	b=vAzfAhT2ifQjmGW+amZ6BcB6Fz40QRShUJXE5+S9b6z+HcRyks+HCN7kZEsxwF57sri++p
-	wFm568xmArVEGbbPHZ0MGesOhISUJdqr9deTcTCCXldt4ig/zBQzndDwka73IYS01HlmGf
-	miqonh2HztGmhUOeiKdtipCN2Qzg0/8=
-Date: Fri, 06 Nov 2026 22:04:20 +0100
-Subject: [PATCH 11/15] dt-bindings: iommu: apple,sart: Add t8142
- compatibles
+	bh=leZ0DMFlEYwLl56NU7dNF7zQDEc0KXwSFbg2dW83f/I=;
+	b=kHx7me7LH4thttAK0jGglb50QEhk+PO/2xZR0ys8N4G87Wd//ubGjiim8fx5UOSJI7p1Pr
+	lPwxstiDznlWon1E20V01ewDEPZxwZc7XiBpWQ7FO3SQD+b+WN6rJDnPcFRhrsYdvsBRPs
+	2A+MvtNNs8w93MB2v6v/6s96Yq+ucnA=
+Date: Fri, 06 Nov 2026 22:04:22 +0100
+Subject: [PATCH 13/15] arm64: dts: apple: t8140: Add NVMe nodes
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Post: <mailto:devicetree@vger.kernel.org>
@@ -58,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-apple-dts-m4-m5-nvme-v1-11-22f4827b4ece@cyberchaos.dev>
+Message-Id: <20261106-apple-dts-m4-m5-nvme-v1-13-22f4827b4ece@cyberchaos.dev>
 References: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
 In-Reply-To: <20261106-apple-dts-m4-m5-nvme-v1-0-22f4827b4ece@cyberchaos.dev>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -71,25 +70,80 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  iommu@lists.linux.dev, Yureka Lilian <yureka@cyberchaos.dev>
 
-The SART IOMMU in the Apple M5 SoC is compatible to "apple,t6000-sart".
+Add the device nodes for the internal NVMe SSD on the Apple A18 Pro
+(t8140) SoC. Keep ps_apcie_phy_sw powered on matching t8122.
 
 Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 ---
- Documentation/devicetree/bindings/iommu/apple,sart.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/apple/t8140-pmgr.dtsi |  1 +
+ arch/arm64/boot/dts/apple/t8140.dtsi      | 42 +++++++++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iommu/apple,sart.yaml b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-index f79242f112df..e6482453d6da 100644
---- a/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-+++ b/Documentation/devicetree/bindings/iommu/apple,sart.yaml
-@@ -39,6 +39,7 @@ properties:
-               - apple,t8122-sart
-               - apple,t8132-sart
-               - apple,t8140-sart
-+              - apple,t8142-sart
-           - const: apple,t6000-sart
-       - enum:
-           - apple,t6000-sart
+diff --git a/arch/arm64/boot/dts/apple/t8140-pmgr.dtsi b/arch/arm64/boot/dts/apple/t8140-pmgr.dtsi
+index dd43520394ac..ac69e57cc140 100644
+--- a/arch/arm64/boot/dts/apple/t8140-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t8140-pmgr.dtsi
+@@ -556,6 +556,7 @@ ps_apcie_phy_sw: power-controller@3c0 {
+ 		#power-domain-cells = <0>;
+ 		power-domains = <&ps_apcie_sys_st>, <&ps_apcie_sys_gp>;
+ 		#reset-cells = <0>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_pmp: power-controller@3d0 {
+diff --git a/arch/arm64/boot/dts/apple/t8140.dtsi b/arch/arm64/boot/dts/apple/t8140.dtsi
+index 3b4f7695552b..4230af506fca 100644
+--- a/arch/arm64/boot/dts/apple/t8140.dtsi
++++ b/arch/arm64/boot/dts/apple/t8140.dtsi
+@@ -351,6 +351,48 @@ serial0: serial@385200000 {
+ 
+ 			status = "disabled";
+ 		};
++
++		ans_mbox: mbox@389608000 {
++			compatible = "apple,t8140-asc-mailbox",
++				     "apple,asc-mailbox-v4";
++			reg = <0x3 0x89608000 0x0 0x4000>;
++
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 1007 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 1008 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 1009 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 1010 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "send-empty", "send-not-empty",
++					  "recv-empty", "recv-not-empty";
++
++			#mbox-cells = <0>;
++			power-domains = <&ps_ans>;
++		};
++
++		sart: sart@38dc50000 {
++			compatible = "apple,t8140-sart", "apple,t6000-sart";
++			reg = <0x3 0x8dc50000 0x0 0x10000>;
++			power-domains = <&ps_ans>;
++		};
++
++		nvme: nvme@3cdcc0000 {
++			compatible = "apple,t8140-nvme-ans2",
++				     "apple,t8132-nvme-ans2";
++			reg = <0x3 0xcdcc0000 0x0 0x60000>,
++			      <0x3 0x89600000 0x0 0x4000>;
++			reg-names = "nvme", "ans";
++
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 1039 IRQ_TYPE_LEVEL_HIGH>;
++
++			mboxes = <&ans_mbox>;
++
++			power-domains = <&ps_ans>, <&ps_apcie_sys_st>;
++			power-domain-names = "ans", "apcie0";
++			resets = <&ps_ans>;
++
++			apple,sart = <&sart>;
++		};
+ 	};
+ 
+ 	timer {
 
 -- 
 2.56.0
